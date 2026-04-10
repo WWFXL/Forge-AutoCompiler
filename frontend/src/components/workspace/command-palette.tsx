@@ -6,7 +6,7 @@ import {
   SettingsIcon,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 
 import {
   CommandDialog,
@@ -35,7 +35,6 @@ export function CommandPalette() {
   const [open, setOpen] = useState(false);
   const [shortcutsOpen, setShortcutsOpen] = useState(false);
   const [settingsOpen, setSettingsOpen] = useState(false);
-  const [isMac, setIsMac] = useState(false);
 
   const handleNewChat = useCallback(() => {
     router.push("/workspace/chats/new");
@@ -64,11 +63,8 @@ export function CommandPalette() {
 
   useGlobalShortcuts(shortcuts);
 
-  useEffect(() => {
-    setIsMac(navigator.userAgent.includes("Mac"));
-  }, []);
-  const metaKey = isMac ? "⌘" : "Ctrl+";
-  const shiftKey = isMac ? "⇧" : "Shift+";
+  const metaKey = "Ctrl+";
+  const shiftKey = "Shift+";
 
   return (
     <>
