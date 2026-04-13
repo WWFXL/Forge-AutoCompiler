@@ -6,7 +6,7 @@ from deerflow.config import get_app_config
 from deerflow.reflection import resolve_variable
 from deerflow.sandbox.security import is_host_bash_allowed
 from deerflow.tools.builtins import ask_clarification_tool, present_file_tool, task_tool, view_image_tool
-from deerflow.tools.builtins.compile_tools import clone_repository, prepare_compile_session, run_compile_command
+from deerflow.tools.builtins.compile_tools import clone_repository, finalize_compile_session, inspect_build_system, prepare_compile_session, run_compile_command, verify_build_artifacts
 from deerflow.tools.builtins.tool_search import reset_deferred_registry
 
 logger = logging.getLogger(__name__)
@@ -19,7 +19,10 @@ BUILTIN_TOOLS = [
 COMPILE_TOOLS = [
     prepare_compile_session,
     clone_repository,
+    inspect_build_system,
     run_compile_command,
+    verify_build_artifacts,
+    finalize_compile_session,
 ]
 
 SUBAGENT_TOOLS = [

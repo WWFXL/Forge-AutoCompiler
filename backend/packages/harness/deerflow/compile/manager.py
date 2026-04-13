@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import shutil
 import uuid
 from pathlib import Path
 
@@ -84,3 +85,18 @@ class CompileSessionManager:
         self.save_session(session)
         return session
 
+    def relative_path(self, session: CompileSession, path: str | Path) -> str:
+        target = Path(path)
+        session_dir = Path(session.host_session_dir)
+        try:
+            relative = target.relative_to(session_dir.parent.parent)
+        except ValueError:
+            return str(target)
+        return relative.as_posix()
+
+    def copy_artifact_into_session(self, session: CompileSession, source_path: str | Path) -> str:
+        src = Path(source_path)
+        destination = Path(session.host_artifacts_dir) / src.name
+        if src.resolve() != destination.resolve():
+            shutil.copy2(src, destination)
+        return str(destination)

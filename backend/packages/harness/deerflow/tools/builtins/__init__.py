@@ -1,5 +1,5 @@
 from .clarification_tool import ask_clarification_tool
-from .compile_tools import clone_repository, prepare_compile_session, run_compile_command
+from .compile_tools import clone_repository, finalize_compile_session, inspect_build_system, prepare_compile_session, run_compile_command, verify_build_artifacts
 from .present_file_tool import present_file_tool
 from .setup_agent_tool import setup_agent
 from .task_tool import task_tool
@@ -13,5 +13,8 @@ __all__ = [
     "task_tool",
     "prepare_compile_session",
     "clone_repository",
+    "inspect_build_system",
     "run_compile_command",
+    "verify_build_artifacts",
+    "finalize_compile_session",
 ]
