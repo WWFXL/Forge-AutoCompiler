@@ -6,6 +6,7 @@ from deerflow.config import get_app_config
 from deerflow.reflection import resolve_variable
 from deerflow.sandbox.security import is_host_bash_allowed
 from deerflow.tools.builtins import ask_clarification_tool, present_file_tool, task_tool, view_image_tool
+from deerflow.tools.builtins.compile_tools import clone_repository, prepare_compile_session, run_compile_command
 from deerflow.tools.builtins.tool_search import reset_deferred_registry
 
 logger = logging.getLogger(__name__)
@@ -13,6 +14,12 @@ logger = logging.getLogger(__name__)
 BUILTIN_TOOLS = [
     present_file_tool,
     ask_clarification_tool,
+]
+
+COMPILE_TOOLS = [
+    prepare_compile_session,
+    clone_repository,
+    run_compile_command,
 ]
 
 SUBAGENT_TOOLS = [
@@ -133,5 +140,5 @@ def get_available_tools(
     except Exception as e:
         logger.warning(f"Failed to load ACP tool: {e}")
 
-    logger.info(f"Total tools loaded: {len(loaded_tools)}, built-in tools: {len(builtin_tools)}, MCP tools: {len(mcp_tools)}, ACP tools: {len(acp_tools)}")
-    return loaded_tools + builtin_tools + mcp_tools + acp_tools
+    logger.info(f"Total tools loaded: {len(loaded_tools)}, built-in tools: {len(builtin_tools)}, MCP tools: {len(mcp_tools)}, ACP tools: {len(acp_tools)}, compile tools: {len(COMPILE_TOOLS)}")
+    return loaded_tools + builtin_tools + COMPILE_TOOLS + mcp_tools + acp_tools
