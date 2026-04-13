@@ -49,6 +49,7 @@ class CompileSession:
     created_at: str = field(default_factory=utc_now_iso)
     completed_at: str | None = None
     task_id: str | None = None
+    owner_subagent_id: str | None = None
     commit_sha: str | None = None
     container_id: str | None = None
     container_name: str | None = None
@@ -82,4 +83,3 @@ class CompileSession:
     @property
     def metadata_file(self) -> Path:
         return Path(self.metadata_path)
-

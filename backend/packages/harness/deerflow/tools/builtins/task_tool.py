@@ -42,6 +42,7 @@ async def task_tool(
     - **bash**: Command execution specialist for running bash commands. This is only
       available when host bash is explicitly allowed or when using an isolated shell
       sandbox such as `AioSandboxProvider`.
+    - **compiler**: Isolated remote-repository compilation specialist using a dedicated compile container workflow.
 
     When to use this tool:
     - Complex tasks requiring multiple steps or tools
@@ -61,7 +62,6 @@ async def task_tool(
     """
     available_subagent_names = get_available_subagent_names()
 
-    # Get subagent configuration
     config = get_subagent_config(subagent_type)
     if config is None:
         available = ", ".join(available_subagent_names)
@@ -69,7 +69,6 @@ async def task_tool(
     if subagent_type == "bash" and not is_host_bash_allowed():
         return f"Error: {LOCAL_BASH_SUBAGENT_DISABLED_MESSAGE}"
 
-    # Build config overrides
     overrides: dict = {}
 
     skills_section = get_skills_prompt_section()
@@ -82,7 +81,6 @@ async def task_tool(
     if overrides:
         config = replace(config, **overrides)
 
-    # Extract parent context from runtime
     sandbox_state = None
     thread_data = None
     thread_id = None
@@ -96,21 +94,14 @@ async def task_tool(
         if thread_id is None:
             thread_id = runtime.config.get("configurable", {}).get("thread_id")
 
-        # Try to get parent model from configurable
         metadata = runtime.config.get("metadata", {})
         parent_model = metadata.get("model_name")
-
-        # Get or generate trace_id for distributed tracing
         trace_id = metadata.get("trace_id") or str(uuid.uuid4())[:8]
 
-    # Get available tools (excluding task tool to prevent nesting)
-    # Lazy import to avoid circular dependency
-    from deerflow.tools import get_available_tools
+    from deerflow.tools.tools import get_subagent_tools
 
-    # Subagents should not have subagent tools enabled (prevent recursive nesting)
-    tools = get_available_tools(model_name=parent_model, subagent_enabled=False)
+    tools = get_subagent_tools(subagent_type=subagent_type, model_name=parent_model)
 
-    # Create executor
     executor = SubagentExecutor(
         config=config,
         tools=tools,
@@ -121,21 +112,16 @@ async def task_tool(
         trace_id=trace_id,
     )
 
-    # Start background execution (always async to prevent blocking)
-    # Use tool_call_id as task_id for better traceability
     task_id = executor.execute_async(prompt, task_id=tool_call_id)
 
-    # Poll for task completion in backend (removes need for LLM to poll)
     poll_count = 0
     last_status = None
-    last_message_count = 0  # Track how many AI messages we've already sent
-    # Polling timeout: execution timeout + 60s buffer, checked every 5s
+    last_message_count = 0
     max_poll_count = (config.timeout_seconds + 60) // 5
 
     logger.info(f"[trace={trace_id}] Started background task {task_id} (subagent={subagent_type}, timeout={config.timeout_seconds}s, polling_limit={max_poll_count} polls)")
 
     writer = get_stream_writer()
-    # Send Task Started message'
     writer({"type": "task_started", "task_id": task_id, "description": description})
 
     try:
@@ -148,15 +134,12 @@ async def task_tool(
                 cleanup_background_task(task_id)
                 return f"Error: Task {task_id} disappeared from background tasks"
 
-            # Log status changes for debugging
             if result.status != last_status:
                 logger.info(f"[trace={trace_id}] Task {task_id} status: {result.status.value}")
                 last_status = result.status
 
-            # Check for new AI messages and send task_running events
             current_message_count = len(result.ai_messages)
             if current_message_count > last_message_count:
-                # Send task_running event for each new message
                 for i in range(last_message_count, current_message_count):
                     message = result.ai_messages[i]
                     writer(
@@ -164,14 +147,13 @@ async def task_tool(
                             "type": "task_running",
                             "task_id": task_id,
                             "message": message,
-                            "message_index": i + 1,  # 1-based index for display
+                            "message_index": i + 1,
                             "total_messages": current_message_count,
                         }
                     )
                     logger.info(f"[trace={trace_id}] Task {task_id} sent message #{i + 1}/{current_message_count}")
                 last_message_count = current_message_count
 
-            # Check if task completed, failed, or timed out
             if result.status == SubagentStatus.COMPLETED:
                 writer({"type": "task_completed", "task_id": task_id, "result": result.result})
                 logger.info(f"[trace={trace_id}] Task {task_id} completed after {poll_count} polls")
@@ -193,26 +175,15 @@ async def task_tool(
                 cleanup_background_task(task_id)
                 return f"Task timed out. Error: {result.error}"
 
-            # Still running, wait before next poll
             await asyncio.sleep(5)
             poll_count += 1
 
-            # Polling timeout as a safety net (in case thread pool timeout doesn't work)
-            # Set to execution timeout + 60s buffer, in 5s poll intervals
-            # This catches edge cases where the background task gets stuck
-            # Note: We don't call cleanup_background_task here because the task may
-            # still be running in the background. The cleanup will happen when the
-            # executor completes and sets a terminal status.
             if poll_count > max_poll_count:
                 timeout_minutes = config.timeout_seconds // 60
                 logger.error(f"[trace={trace_id}] Task {task_id} polling timed out after {poll_count} polls (should have been caught by thread pool timeout)")
                 writer({"type": "task_timed_out", "task_id": task_id})
                 return f"Task polling timed out after {timeout_minutes} minutes. This may indicate the background task is stuck. Status: {result.status.value}"
     except asyncio.CancelledError:
-        # Signal the background subagent thread to stop cooperatively.
-        # Without this, the thread (running in ThreadPoolExecutor with its
-        # own event loop via asyncio.run) would continue executing even
-        # after the parent task is cancelled.
         request_cancel_background_task(task_id)
 
         async def cleanup_when_done() -> None:

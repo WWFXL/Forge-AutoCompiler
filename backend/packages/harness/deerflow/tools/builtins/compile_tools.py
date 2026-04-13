@@ -39,6 +39,15 @@ def _get_thread_id(runtime: ToolRuntime[ContextT, ThreadState]) -> str:
     return thread_id or "default"
 
 
+def _get_subagent_owner_id(runtime: ToolRuntime[ContextT, ThreadState]) -> str | None:
+    metadata = runtime.config.get("metadata", {}) if runtime and runtime.config else {}
+    trace_id = metadata.get("trace_id")
+    agent_name = metadata.get("agent_name")
+    if agent_name == "compiler" and trace_id:
+        return f"compiler:{trace_id}"
+    return trace_id or agent_name
+
+
 def _get_bound_session_id(runtime: ToolRuntime[ContextT, ThreadState]) -> str | None:
     state = runtime.state or {}
     return state.get(COMPILE_SESSION_STATE_KEY)
@@ -48,7 +57,12 @@ def _load_bound_session(runtime: ToolRuntime[ContextT, ThreadState]):
     session_id = _get_bound_session_id(runtime)
     if not session_id:
         raise ValueError("No compile session is currently bound. Call prepare_compile_session first.")
-    return get_compile_services().manager.load_session(session_id, _get_thread_id(runtime))
+
+    session = get_compile_services().manager.load_session(session_id, _get_thread_id(runtime))
+    owner_id = _get_subagent_owner_id(runtime)
+    if session.owner_subagent_id and owner_id and session.owner_subagent_id != owner_id:
+        raise ValueError("The bound compile session belongs to another subagent execution.")
+    return session
 
 
 @tool("prepare_compile_session", parse_docstring=True)
@@ -68,7 +82,9 @@ def prepare_compile_session(
     """
     services = get_compile_services()
     thread_id = _get_thread_id(runtime)
+    owner_id = _get_subagent_owner_id(runtime)
     session = services.manager.create_session(thread_id=thread_id, repo_url=repo_url, branch=branch)
+    session.owner_subagent_id = owner_id
     if task_description:
         session.summary = task_description
     services.runtime.create_container(session)
