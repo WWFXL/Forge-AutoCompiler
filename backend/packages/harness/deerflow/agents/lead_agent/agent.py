@@ -17,6 +17,7 @@ from deerflow.agents.middlewares.view_image_middleware import ViewImageMiddlewar
 from deerflow.agents.thread_state import ThreadState
 from deerflow.config.agents_config import load_agent_config
 from deerflow.config.app_config import get_app_config
+from deerflow.config.subagents_config import get_subagents_app_config
 from deerflow.config.summarization_config import get_summarization_config
 from deerflow.models import create_chat_model
 
@@ -45,7 +46,6 @@ def _create_summarization_middleware() -> SummarizationMiddleware | None:
     if not config.enabled:
         return None
 
-    # Prepare trigger parameter
     trigger = None
     if config.trigger is not None:
         if isinstance(config.trigger, list):
@@ -53,18 +53,13 @@ def _create_summarization_middleware() -> SummarizationMiddleware | None:
         else:
             trigger = config.trigger.to_tuple()
 
-    # Prepare keep parameter
     keep = config.keep.to_tuple()
 
-    # Prepare model parameter
     if config.model_name:
         model = create_chat_model(name=config.model_name, thinking_enabled=False)
     else:
-        # Use a lightweight model for summarization to save costs
-        # Falls back to default model if not explicitly specified
         model = create_chat_model(thinking_enabled=False)
 
-    # Prepare kwargs
     kwargs = {
         "model": model,
         "trigger": trigger,
@@ -92,7 +87,6 @@ def _create_todo_list_middleware(is_plan_mode: bool) -> TodoMiddleware | None:
     if not is_plan_mode:
         return None
 
-    # Custom prompts matching DeerFlow's style
     system_prompt = """
 <todo_list_system>
 You have access to the `write_todos` tool to help you manage and track complex multi-step objectives.
@@ -195,102 +189,67 @@ Being proactive with task management demonstrates thoroughness and ensures all r
     return TodoMiddleware(system_prompt=system_prompt, tool_description=tool_description)
 
 
-# ThreadDataMiddleware must be before SandboxMiddleware to ensure thread_id is available
-# UploadsMiddleware should be after ThreadDataMiddleware to access thread_id
-# DanglingToolCallMiddleware patches missing ToolMessages before model sees the history
-# SummarizationMiddleware should be early to reduce context before other processing
-# TodoListMiddleware should be before ClarificationMiddleware to allow todo management
-# TitleMiddleware generates title after first exchange
-# MemoryMiddleware queues conversation for memory update (after TitleMiddleware)
-# ViewImageMiddleware should be before ClarificationMiddleware to inject image details before LLM
-# ToolErrorHandlingMiddleware should be before ClarificationMiddleware to convert tool exceptions to ToolMessages
-# ClarificationMiddleware should be last to intercept clarification requests after model calls
 def _build_middlewares(config: RunnableConfig, model_name: str | None, agent_name: str | None = None, custom_middlewares: list[AgentMiddleware] | None = None):
-    """Build middleware chain based on runtime configuration.
-
-    Args:
-        config: Runtime configuration containing configurable options like is_plan_mode.
-        agent_name: If provided, MemoryMiddleware will use per-agent memory storage.
-        custom_middlewares: Optional list of custom middlewares to inject into the chain.
-
-    Returns:
-        List of middleware instances.
-    """
+    """Build middleware chain based on runtime configuration."""
     middlewares = build_lead_runtime_middlewares(lazy_init=True)
 
-    # Add summarization middleware if enabled
     summarization_middleware = _create_summarization_middleware()
     if summarization_middleware is not None:
         middlewares.append(summarization_middleware)
 
-    # Add TodoList middleware if plan mode is enabled
     is_plan_mode = config.get("configurable", {}).get("is_plan_mode", False)
     todo_list_middleware = _create_todo_list_middleware(is_plan_mode)
     if todo_list_middleware is not None:
         middlewares.append(todo_list_middleware)
 
-    # Add TokenUsageMiddleware when token_usage tracking is enabled
     if get_app_config().token_usage.enabled:
         middlewares.append(TokenUsageMiddleware())
 
-    # Add TitleMiddleware
     middlewares.append(TitleMiddleware())
-
-    # Add MemoryMiddleware (after TitleMiddleware)
     middlewares.append(MemoryMiddleware(agent_name=agent_name))
 
-    # Add ViewImageMiddleware only if the current model supports vision.
-    # Use the resolved runtime model_name from make_lead_agent to avoid stale config values.
     app_config = get_app_config()
     model_config = app_config.get_model_config(model_name) if model_name else None
     if model_config is not None and model_config.supports_vision:
         middlewares.append(ViewImageMiddleware())
 
-    # Add DeferredToolFilterMiddleware to hide deferred tool schemas from model binding
     if app_config.tool_search.enabled:
         from deerflow.agents.middlewares.deferred_tool_filter_middleware import DeferredToolFilterMiddleware
 
         middlewares.append(DeferredToolFilterMiddleware())
 
-    # Add SubagentLimitMiddleware to truncate excess parallel task calls
     subagent_enabled = config.get("configurable", {}).get("subagent_enabled", False)
     if subagent_enabled:
         max_concurrent_subagents = config.get("configurable", {}).get("max_concurrent_subagents", 3)
         middlewares.append(SubagentLimitMiddleware(max_concurrent=max_concurrent_subagents))
 
-    # LoopDetectionMiddleware — detect and break repetitive tool call loops
     middlewares.append(LoopDetectionMiddleware())
 
-    # Inject custom middlewares before ClarificationMiddleware
     if custom_middlewares:
         middlewares.extend(custom_middlewares)
 
-    # ClarificationMiddleware should always be last
     middlewares.append(ClarificationMiddleware())
     return middlewares
 
 
 def make_lead_agent(config: RunnableConfig):
-    # Lazy import to avoid circular dependency
     from deerflow.tools import get_available_tools
     from deerflow.tools.builtins import setup_agent
 
     cfg = config.get("configurable", {})
+    subagents_app_config = get_subagents_app_config()
 
     thinking_enabled = cfg.get("thinking_enabled", True)
     reasoning_effort = cfg.get("reasoning_effort", None)
     requested_model_name: str | None = cfg.get("model_name") or cfg.get("model")
     is_plan_mode = cfg.get("is_plan_mode", False)
-    subagent_enabled = cfg.get("subagent_enabled", False)
-    max_concurrent_subagents = cfg.get("max_concurrent_subagents", 3)
+    subagent_enabled = cfg.get("subagent_enabled", subagents_app_config.enabled)
+    max_concurrent_subagents = cfg.get("max_concurrent_subagents", subagents_app_config.max_concurrent)
     is_bootstrap = cfg.get("is_bootstrap", False)
     agent_name = cfg.get("agent_name")
 
     agent_config = load_agent_config(agent_name) if not is_bootstrap else None
-    # Custom agent model or fallback to global/default model resolution
     agent_model_name = agent_config.model if agent_config and agent_config.model else _resolve_model_name()
-
-    # Final model name resolution with request override, then agent config, then global default
     model_name = requested_model_name or agent_model_name
 
     app_config = get_app_config()
@@ -313,7 +272,6 @@ def make_lead_agent(config: RunnableConfig):
         max_concurrent_subagents,
     )
 
-    # Inject run metadata for LangSmith trace tagging
     if "metadata" not in config:
         config["metadata"] = {}
 
@@ -329,7 +287,6 @@ def make_lead_agent(config: RunnableConfig):
     )
 
     if is_bootstrap:
-        # Special bootstrap agent with minimal prompt for initial custom agent creation flow
         return create_agent(
             model=create_chat_model(name=model_name, thinking_enabled=thinking_enabled),
             tools=get_available_tools(model_name=model_name, subagent_enabled=subagent_enabled) + [setup_agent],
@@ -338,13 +295,15 @@ def make_lead_agent(config: RunnableConfig):
             state_schema=ThreadState,
         )
 
-    # Default lead agent (unchanged behavior)
     return create_agent(
         model=create_chat_model(name=model_name, thinking_enabled=thinking_enabled, reasoning_effort=reasoning_effort),
         tools=get_available_tools(model_name=model_name, groups=agent_config.tool_groups if agent_config else None, subagent_enabled=subagent_enabled),
         middleware=_build_middlewares(config, model_name=model_name, agent_name=agent_name),
         system_prompt=apply_prompt_template(
-            subagent_enabled=subagent_enabled, max_concurrent_subagents=max_concurrent_subagents, agent_name=agent_name, available_skills=set(agent_config.skills) if agent_config and agent_config.skills is not None else None
+            subagent_enabled=subagent_enabled,
+            max_concurrent_subagents=max_concurrent_subagents,
+            agent_name=agent_name,
+            available_skills=set(agent_config.skills) if agent_config and agent_config.skills is not None else None,
         ),
         state_schema=ThreadState,
     )
