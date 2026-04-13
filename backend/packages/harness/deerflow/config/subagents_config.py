@@ -25,6 +25,15 @@ class SubagentOverrideConfig(BaseModel):
 class SubagentsAppConfig(BaseModel):
     """Configuration for the subagent system."""
 
+    enabled: bool = Field(
+        default=False,
+        description="Whether the lead agent should enable subagent delegation by default when the request does not explicitly override it.",
+    )
+    max_concurrent: int = Field(
+        default=3,
+        ge=1,
+        description="Default maximum number of concurrent subagent task calls allowed per lead-agent turn when subagents are enabled.",
+    )
     timeout_seconds: int = Field(
         default=900,
         ge=1,
@@ -89,14 +98,18 @@ def load_subagents_config_from_dict(config_dict: dict) -> None:
 
     if overrides_summary:
         logger.info(
-            "Subagents config loaded: default timeout=%ss, default max_turns=%s, per-agent overrides=%s",
+            "Subagents config loaded: enabled=%s, max_concurrent=%s, default timeout=%ss, default max_turns=%s, per-agent overrides=%s",
+            _subagents_config.enabled,
+            _subagents_config.max_concurrent,
             _subagents_config.timeout_seconds,
             _subagents_config.max_turns,
             overrides_summary,
         )
     else:
         logger.info(
-            "Subagents config loaded: default timeout=%ss, default max_turns=%s, no per-agent overrides",
+            "Subagents config loaded: enabled=%s, max_concurrent=%s, default timeout=%ss, default max_turns=%s, no per-agent overrides",
+            _subagents_config.enabled,
+            _subagents_config.max_concurrent,
             _subagents_config.timeout_seconds,
             _subagents_config.max_turns,
         )
