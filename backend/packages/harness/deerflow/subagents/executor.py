@@ -80,6 +80,44 @@ _execution_pool = ThreadPoolExecutor(max_workers=3, thread_name_prefix="subagent
 _isolated_loop_pool = ThreadPoolExecutor(max_workers=3, thread_name_prefix="subagent-isolated-")
 
 
+def _extract_text_content(content: Any) -> str:
+    """Extract readable text from message content blocks.
+
+    LangChain providers may return list content that mixes structured dict blocks
+    with raw string chunks. For raw strings we must keep the whole string intact
+    instead of joining every chunk with newlines, otherwise text may appear one
+    character per line in the UI when a provider emits a string as an iterable of
+    tiny chunks.
+    """
+    if isinstance(content, str):
+        return content
+
+    if isinstance(content, list):
+        text_parts: list[str] = []
+        pending_str_parts: list[str] = []
+
+        for block in content:
+            if isinstance(block, str):
+                pending_str_parts.append(block)
+                continue
+
+            if pending_str_parts:
+                text_parts.append("".join(pending_str_parts))
+                pending_str_parts.clear()
+
+            if isinstance(block, dict):
+                text_val = block.get("text")
+                if isinstance(text_val, str):
+                    text_parts.append(text_val)
+
+        if pending_str_parts:
+            text_parts.append("".join(pending_str_parts))
+
+        return "\n".join(part for part in text_parts if part).strip() or "No text content in response"
+
+    return str(content)
+
+
 def _filter_tools(
     all_tools: list[BaseTool],
     allowed: list[str] | None,
@@ -300,11 +338,9 @@ class SubagentExecutor:
                 logger.warning(f"[trace={self.trace_id}] Subagent {self.config.name} no final state")
                 result.result = "No response generated"
             else:
-                # Extract the final message - find the last AIMessage
                 messages = final_state.get("messages", [])
                 logger.info(f"[trace={self.trace_id}] Subagent {self.config.name} final messages count: {len(messages)}")
 
-                # Find the last AIMessage in the conversation
                 last_ai_message = None
                 for msg in reversed(messages):
                     if isinstance(msg, AIMessage):
@@ -312,56 +348,12 @@ class SubagentExecutor:
                         break
 
                 if last_ai_message is not None:
-                    content = last_ai_message.content
-                    # Handle both str and list content types for the final result
-                    if isinstance(content, str):
-                        result.result = content
-                    elif isinstance(content, list):
-                        # Extract text from list of content blocks for final result only.
-                        # Concatenate raw string chunks directly, but preserve separation
-                        # between full text blocks for readability.
-                        text_parts = []
-                        pending_str_parts = []
-                        for block in content:
-                            if isinstance(block, str):
-                                pending_str_parts.append(block)
-                            elif isinstance(block, dict):
-                                if pending_str_parts:
-                                    text_parts.append("".join(pending_str_parts))
-                                    pending_str_parts.clear()
-                                text_val = block.get("text")
-                                if isinstance(text_val, str):
-                                    text_parts.append(text_val)
-                        if pending_str_parts:
-                            text_parts.append("".join(pending_str_parts))
-                        result.result = "\n".join(text_parts) if text_parts else "No text content in response"
-                    else:
-                        result.result = str(content)
+                    result.result = _extract_text_content(last_ai_message.content)
                 elif messages:
-                    # Fallback: use the last message if no AIMessage found
                     last_message = messages[-1]
                     logger.warning(f"[trace={self.trace_id}] Subagent {self.config.name} no AIMessage found, using last message: {type(last_message)}")
                     raw_content = last_message.content if hasattr(last_message, "content") else str(last_message)
-                    if isinstance(raw_content, str):
-                        result.result = raw_content
-                    elif isinstance(raw_content, list):
-                        parts = []
-                        pending_str_parts = []
-                        for block in raw_content:
-                            if isinstance(block, str):
-                                pending_str_parts.append(block)
-                            elif isinstance(block, dict):
-                                if pending_str_parts:
-                                    parts.append("".join(pending_str_parts))
-                                    pending_str_parts.clear()
-                                text_val = block.get("text")
-                                if isinstance(text_val, str):
-                                    parts.append(text_val)
-                        if pending_str_parts:
-                            parts.append("".join(pending_str_parts))
-                        result.result = "\n".join(parts) if parts else "No text content in response"
-                    else:
-                        result.result = str(raw_content)
+                    result.result = _extract_text_content(raw_content)
                 else:
                     logger.warning(f"[trace={self.trace_id}] Subagent {self.config.name} no messages in final state")
                     result.result = "No response generated"
@@ -483,78 +475,50 @@ class SubagentExecutor:
             status=SubagentStatus.PENDING,
         )
 
-        logger.info(f"[trace={self.trace_id}] Subagent {self.config.name} starting async execution, task_id={task_id}, timeout={self.config.timeout_seconds}s")
-
         with _background_tasks_lock:
             _background_tasks[task_id] = result
 
-        # Submit to scheduler pool
-        def run_task():
-            with _background_tasks_lock:
-                _background_tasks[task_id].status = SubagentStatus.RUNNING
-                _background_tasks[task_id].started_at = datetime.now()
-                result_holder = _background_tasks[task_id]
-
+        def run_with_timeout():
+            """Run the task with timeout in a separate thread."""
             try:
-                # Submit execution to execution pool with timeout
-                # Pass result_holder so execute() can update it in real-time
-                execution_future: Future = _execution_pool.submit(self.execute, task, result_holder)
+                result.status = SubagentStatus.RUNNING
+                result.started_at = datetime.now()
+
+                # Submit actual execution to thread pool
+                future: Future = _execution_pool.submit(self.execute, task, result)
+
                 try:
-                    # Wait for execution with timeout
-                    exec_result = execution_future.result(timeout=self.config.timeout_seconds)
-                    with _background_tasks_lock:
-                        _background_tasks[task_id].status = exec_result.status
-                        _background_tasks[task_id].result = exec_result.result
-                        _background_tasks[task_id].error = exec_result.error
-                        _background_tasks[task_id].completed_at = datetime.now()
-                        _background_tasks[task_id].ai_messages = exec_result.ai_messages
+                    # Wait with timeout
+                    future.result(timeout=self.config.timeout_seconds)
                 except FuturesTimeoutError:
-                    logger.error(f"[trace={self.trace_id}] Subagent {self.config.name} execution timed out after {self.config.timeout_seconds}s")
-                    with _background_tasks_lock:
-                        if _background_tasks[task_id].status == SubagentStatus.RUNNING:
-                            _background_tasks[task_id].status = SubagentStatus.TIMED_OUT
-                            _background_tasks[task_id].error = f"Execution timed out after {self.config.timeout_seconds} seconds"
-                            _background_tasks[task_id].completed_at = datetime.now()
-                    # Signal cooperative cancellation and cancel the future
-                    result_holder.cancel_event.set()
-                    execution_future.cancel()
+                    logger.warning(f"[trace={self.trace_id}] Subagent {self.config.name} timed out after {self.config.timeout_seconds}s")
+                    result.status = SubagentStatus.TIMED_OUT
+                    result.error = f"Task timed out after {self.config.timeout_seconds} seconds"
+                    result.completed_at = datetime.now()
+                    # Note: cannot truly kill the thread, but mark as timed out
+                except Exception as e:
+                    logger.exception(f"[trace={self.trace_id}] Subagent {self.config.name} background execution failed")
+                    result.status = SubagentStatus.FAILED
+                    result.error = str(e)
+                    result.completed_at = datetime.now()
             except Exception as e:
-                logger.exception(f"[trace={self.trace_id}] Subagent {self.config.name} async execution failed")
-                with _background_tasks_lock:
-                    _background_tasks[task_id].status = SubagentStatus.FAILED
-                    _background_tasks[task_id].error = str(e)
-                    _background_tasks[task_id].completed_at = datetime.now()
+                logger.exception(f"[trace={self.trace_id}] Scheduler failed for subagent {self.config.name}")
+                result.status = SubagentStatus.FAILED
+                result.error = str(e)
+                result.completed_at = datetime.now()
 
-        _scheduler_pool.submit(run_task)
+        # Submit scheduler task
+        _scheduler_pool.submit(run_with_timeout)
+
+        logger.info(f"[trace={self.trace_id}] Started async subagent {self.config.name} with task_id={task_id}")
         return task_id
-
-
-MAX_CONCURRENT_SUBAGENTS = 3
-
-
-def request_cancel_background_task(task_id: str) -> None:
-    """Signal a running background task to stop.
-
-    Sets the cancel_event on the task, which is checked cooperatively
-    by ``_aexecute`` during ``agent.astream()`` iteration.  This allows
-    subagent threads — which cannot be force-killed via ``Future.cancel()``
-    — to stop at the next iteration boundary.
-
-    Args:
-        task_id: The task ID to cancel.
-    """
-    with _background_tasks_lock:
-        result = _background_tasks.get(task_id)
-        if result is not None:
-            result.cancel_event.set()
-            logger.info("Requested cancellation for background task %s", task_id)
 
 
 def get_background_task_result(task_id: str) -> SubagentResult | None:
     """Get the result of a background task.
 
     Args:
-        task_id: The task ID returned by execute_async.
+        task_id: The task ID.
 
     Returns:
         SubagentResult if found, None otherwise.
@@ -563,49 +527,33 @@ def get_background_task_result(task_id: str) -> SubagentResult | None:
         return _background_tasks.get(task_id)
 
 
-def list_background_tasks() -> list[SubagentResult]:
-    """List all background tasks.
-
-    Returns:
-        List of all SubagentResult instances.
-    """
-    with _background_tasks_lock:
-        return list(_background_tasks.values())
-
-
 def cleanup_background_task(task_id: str) -> None:
-    """Remove a completed task from background tasks.
-
-    Should be called by task_tool after it finishes polling and returns the result.
-    This prevents memory leaks from accumulated completed tasks.
-
-    Only removes tasks that are in a terminal state (COMPLETED/FAILED/TIMED_OUT)
-    to avoid race conditions with the background executor still updating the task entry.
+    """Remove a background task from storage.
 
     Args:
         task_id: The task ID to remove.
     """
     with _background_tasks_lock:
+        _background_tasks.pop(task_id, None)
+
+
+def request_cancel_background_task(task_id: str) -> bool:
+    """Request cooperative cancellation of a background task.
+
+    This sets a flag on the tracked task result that the executing subagent
+    checks periodically between streamed chunks. It does not forcibly kill any
+    running tool call, but allows the subagent to stop as soon as control
+    returns to the agent loop.
+
+    Args:
+        task_id: The task ID to cancel.
+
+    Returns:
+        True if the task existed and the cancel flag was set, False otherwise.
+    """
+    with _background_tasks_lock:
         result = _background_tasks.get(task_id)
         if result is None:
-            # Nothing to clean up; may have been removed already.
-            logger.debug("Requested cleanup for unknown background task %s", task_id)
-            return
-
-        # Only clean up tasks that are in a terminal state to avoid races with
-        # the background executor still updating the task entry.
-        is_terminal_status = result.status in {
-            SubagentStatus.COMPLETED,
-            SubagentStatus.FAILED,
-            SubagentStatus.CANCELLED,
-            SubagentStatus.TIMED_OUT,
-        }
-        if is_terminal_status or result.completed_at is not None:
-            del _background_tasks[task_id]
-            logger.debug("Cleaned up background task: %s", task_id)
-        else:
-            logger.debug(
-                "Skipping cleanup for non-terminal background task %s (status=%s)",
-                task_id,
-                result.status.value if hasattr(result.status, "value") else result.status,
-            )
+            return False
+        result.cancel_event.set()
+        return True
