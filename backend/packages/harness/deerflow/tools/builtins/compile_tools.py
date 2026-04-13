@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 from dataclasses import dataclass
 from pathlib import Path
+from shlex import quote
 from typing import Annotated
 
 from langchain.tools import InjectedToolCallId, ToolRuntime, tool
@@ -76,8 +77,19 @@ def _load_bound_session(runtime: ToolRuntime[ContextT, ThreadState]):
     return session
 
 
-def _relative_or_original(session, path: str) -> str:
+def _relative_or_original(session, path: str | Path) -> str:
     return get_compile_services().manager.relative_path(session, path)
+
+
+def _shell_quote(value: str) -> str:
+    return quote(value)
+
+
+def _container_repo_path(session, relative_path: str | None) -> str:
+    if not relative_path:
+        return session.container_repo_dir
+    normalized = relative_path.strip("/")
+    return f"{session.container_repo_dir}/{normalized}" if normalized else session.container_repo_dir
 
 
 def _append_command_record(session, stage: str, command: str, workdir: str, log_path: str, exit_code: int, started_at: str, completed_at: str) -> None:
@@ -150,8 +162,8 @@ def clone_repository(
 
     clone_parts = [f"git clone --depth {depth}"]
     if branch:
-        clone_parts.append(f"--branch {branch}")
-    clone_parts.append(f"{repo_url} {session.container_repo_dir}")
+        clone_parts.append(f"--branch {_shell_quote(branch)}")
+    clone_parts.append(f"{_shell_quote(repo_url)} {_shell_quote(session.container_repo_dir)}")
     clone_command = " ".join(clone_parts)
 
     log_path = f"{session.host_logs_dir}/001_clone.log"
@@ -184,7 +196,7 @@ def inspect_build_system(runtime: ToolRuntime[ContextT, ThreadState]) -> str:
 
     detected: list[tuple[str, str]] = []
     for build_system, marker in _BUILD_SYSTEM_MARKERS.items():
-        check_command = f"test -f {session.container_repo_dir}/{marker}"
+        check_command = f"test -f {_shell_quote(_container_repo_path(session, marker))}"
         result = services.runtime.exec(session, check_command, workdir=session.container_workspace_dir)
         if result.exit_code == 0:
             detected.append((build_system, marker))
@@ -234,7 +246,7 @@ def run_compile_command(
 
     effective_stage = stage or "build"
     current_index = len(session.commands) + 1
-    workdir_path = session.container_repo_dir if not workdir else f"{session.container_repo_dir}/{workdir.strip('/')}"
+    workdir_path = _container_repo_path(session, workdir)
     log_path = f"{session.host_logs_dir}/{current_index:03d}_{effective_stage}.log"
     started_at = utc_now_iso()
     result = services.runtime.exec(session, command, workdir=workdir_path, timeout_seconds=timeout_seconds, log_path=log_path)
@@ -267,8 +279,8 @@ def verify_build_artifacts(
     services = get_compile_services()
     session = _load_bound_session(runtime)
     search_root = search_path or session.container_repo_dir
-    pattern_clause = f" -name '{file_pattern}'" if file_pattern else ""
-    command = f"find {search_root} -type f{pattern_clause} | xargs -r file"
+    pattern_clause = f" -name {_shell_quote(file_pattern)}" if file_pattern else ""
+    command = f"find {_shell_quote(search_root)} -type f{pattern_clause} -exec file {{}} +"
 
     log_path = f"{session.host_logs_dir}/{len(session.commands) + 1:03d}_verify.log"
     started_at = utc_now_iso()
@@ -336,7 +348,8 @@ def finalize_compile_session(
             f"FROM {session.image}\n"
             "WORKDIR /workspace/repo\n"
             "COPY . /workspace/repo\n"
-            "RUN chmod +x /repro/build.sh || true\n"
+            "COPY repro/build.sh /repro/build.sh\n"
+            "RUN chmod +x /repro/build.sh\n"
             "CMD [\"bash\", \"/repro/build.sh\"]\n"
         )
         dockerfile_path.write_text(dockerfile_content, encoding="utf-8")
@@ -360,4 +373,3 @@ def finalize_compile_session(
         "session_root": services.manager.relative_path(session, session.host_session_dir),
     }
     return json.dumps(response, ensure_ascii=False, indent=2)
-
