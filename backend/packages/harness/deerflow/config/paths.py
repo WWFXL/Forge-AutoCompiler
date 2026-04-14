@@ -1,12 +1,19 @@
 import os
 import re
 import shutil
+from functools import lru_cache
 from pathlib import Path, PureWindowsPath
 
 # Virtual path prefix seen by agents inside the sandbox
 VIRTUAL_PATH_PREFIX = "/mnt/user-data"
 
 _SAFE_THREAD_ID_RE = re.compile(r"^[A-Za-z0-9_\-]+$")
+
+
+@lru_cache(maxsize=1)
+def get_paths() -> "Paths":
+    """Return the process-wide cached Paths instance."""
+    return Paths()
 
 
 def _default_local_base_dir() -> Path:
