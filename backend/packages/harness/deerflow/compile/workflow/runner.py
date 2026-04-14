@@ -3,10 +3,10 @@ from __future__ import annotations
 from deerflow.compile.operations import get_bound_session
 from deerflow.compile.workflow.schemas import CompileWorkflowInput, CompileWorkflowResult, CompileWorkflowState
 from deerflow.compile.workflow.stages import (
+    run_build_stage,
     run_clone_stage,
     run_finalize_stage,
     run_inspect_stage,
-    run_placeholder_build_stage,
     run_prepare_stage,
     run_verify_stage,
 )
@@ -21,7 +21,7 @@ class CompileWorkflowRunner:
             session = run_prepare_stage(state, workflow_input)
             run_clone_stage(state, workflow_input, session)
             run_inspect_stage(state, session)
-            run_placeholder_build_stage(state, session)
+            run_build_stage(state, session, workflow_input)
             run_verify_stage(state, session, workflow_input)
             state.status = "completed"
         except Exception as exc:
@@ -61,4 +61,3 @@ class CompileWorkflowRunner:
             repro_files=state.repro_files,
             error=state.error,
         )
-

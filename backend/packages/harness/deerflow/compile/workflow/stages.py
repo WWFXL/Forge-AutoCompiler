@@ -9,18 +9,8 @@ from deerflow.compile.operations import (
     run_compile_command_impl,
     verify_build_artifacts_impl,
 )
+from deerflow.compile.workflow.build_agent import BuildAgentInput, BuildDecisionAgent
 from deerflow.compile.workflow.schemas import BuildAttempt, CompileWorkflowInput, CompileWorkflowState
-
-
-_DEFAULT_BUILD_COMMANDS = {
-    "cmake": [("configure", "mkdir -p build && cd build && cmake .."), ("build", "cmake --build build -j")],
-    "make": [("build", "make -j")],
-    "cargo": [("build", "cargo build --release")],
-    "npm": [("install", "npm install"), ("build", "npm run build")],
-    "go": [("build", "go build ./...")],
-    "python": [("build", "python -m build")],
-    "python-legacy": [("build", "python setup.py build")],
-}
 
 
 def run_prepare_stage(state: CompileWorkflowState, workflow_input: CompileWorkflowInput):
@@ -59,28 +49,51 @@ def run_inspect_stage(state: CompileWorkflowState, session) -> list[str]:
 
 
 
-def run_placeholder_build_stage(state: CompileWorkflowState, session) -> None:
+def run_build_stage(state: CompileWorkflowState, session, workflow_input: CompileWorkflowInput) -> None:
     if not state.build_system:
         raise RuntimeError("Build system not detected before build stage")
 
-    commands = _DEFAULT_BUILD_COMMANDS.get(state.build_system)
-    if not commands:
-        raise RuntimeError(f"No default build commands available for build system: {state.build_system}")
-
+    agent = BuildDecisionAgent()
+    latest_failure_summary: str | None = None
     state.status = "building"
-    for stage_name, command in commands:
+
+    for _ in range(workflow_input.max_build_attempts):
+        decision = agent.next_decision(
+            BuildAgentInput(
+                repo_url=workflow_input.repo_url,
+                build_system=state.build_system,
+                task_description=workflow_input.task_description,
+                artifact_hint=workflow_input.artifact_hint,
+                build_goal=workflow_input.build_goal,
+                previous_attempts=[attempt.__dict__ for attempt in state.attempts],
+                latest_failure_summary=latest_failure_summary,
+                max_build_attempts=workflow_input.max_build_attempts,
+            )
+        )
+
+        if decision.should_stop:
+            raise RuntimeError(decision.rationale or "Build agent decided to stop")
+        if not decision.command:
+            raise RuntimeError("Build agent did not provide a command")
+
         result, record, message = run_compile_command_impl(
             session=session,
-            command=command,
-            stage=stage_name,
+            command=decision.command,
+            stage=decision.stage,
         )
-        state.attempts.append(BuildAttempt.from_command_record(record, summary=message))
+        attempt_summary = f"{decision.rationale} | {message}" if decision.rationale else message
+        state.attempts.append(BuildAttempt.from_command_record(record, summary=attempt_summary))
         if record.log_path:
             state.logs.append(relative_or_original(session, record.log_path))
-        if result.exit_code != 0:
-            raise RuntimeError(message)
 
-    state.build_done = True
+        if result.exit_code == 0:
+            state.build_done = True
+            state.summary = attempt_summary
+            return
+
+        latest_failure_summary = attempt_summary
+
+    raise RuntimeError(f"Build failed after {workflow_input.max_build_attempts} attempts")
 
 
 
@@ -107,4 +120,3 @@ def run_finalize_stage(state: CompileWorkflowState, session, workflow_input: Com
     state.finalized = True
     state.logs = response.get("logs", [])
     state.repro_files = response.get("repro_files", [])
-
