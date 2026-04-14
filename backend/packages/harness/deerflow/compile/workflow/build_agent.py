@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import json
-import uuid
 from dataclasses import dataclass
 from typing import Any
 
@@ -145,8 +144,3 @@ Rules:
             rationale=data.get("rationale", ""),
             should_stop=bool(data.get("should_stop", False)),
         )
-
-
-def build_trace_id() -> str:
-    return str(uuid.uuid4())[:8]
-
