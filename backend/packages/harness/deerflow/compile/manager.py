@@ -5,7 +5,19 @@ import shutil
 import uuid
 from pathlib import Path
 
-from deerflow.compile.paths import get_artifacts_dir, get_logs_dir, get_metadata_path, get_repro_dir, get_session_dir, get_workspace_dir
+from deerflow.compile.paths import (
+    get_artifacts_dir,
+    get_host_artifacts_dir,
+    get_host_logs_dir,
+    get_host_repro_dir,
+    get_host_session_dir,
+    get_host_workspace_dir,
+    get_logs_dir,
+    get_metadata_path,
+    get_repro_dir,
+    get_session_dir,
+    get_workspace_dir,
+)
 from deerflow.compile.schemas import BuildArtifact, BuildCommandRecord, CompileSession, utc_now_iso
 
 DEFAULT_COMPILE_IMAGE = "autocompiler:gcc13"
@@ -45,11 +57,11 @@ class CompileSessionManager:
             task_id=task_id,
             image=image or self.default_image,
             status="created",
-            host_session_dir=str(session_dir),
-            host_workspace_dir=str(workspace_dir),
-            host_artifacts_dir=str(artifacts_dir),
-            host_logs_dir=str(logs_dir),
-            host_repro_dir=str(repro_dir),
+            host_session_dir=get_host_session_dir(session_id, resolved_thread_id, self.paths),
+            host_workspace_dir=get_host_workspace_dir(session_id, resolved_thread_id, self.paths),
+            host_artifacts_dir=get_host_artifacts_dir(session_id, resolved_thread_id, self.paths),
+            host_logs_dir=get_host_logs_dir(session_id, resolved_thread_id, self.paths),
+            host_repro_dir=get_host_repro_dir(session_id, resolved_thread_id, self.paths),
             metadata_path=str(metadata_path),
         )
         self.save_session(session)
@@ -87,7 +99,7 @@ class CompileSessionManager:
 
     def relative_path(self, session: CompileSession, path: str | Path) -> str:
         target = Path(path)
-        session_dir = Path(session.host_session_dir)
+        session_dir = Path(session.metadata_path).parent
         try:
             relative = target.relative_to(session_dir.parent.parent)
         except ValueError:
@@ -96,7 +108,7 @@ class CompileSessionManager:
 
     def copy_artifact_into_session(self, session: CompileSession, source_path: str | Path) -> str:
         src = Path(source_path)
-        destination = Path(session.host_artifacts_dir) / src.name
+        destination = Path(session.metadata_path).parent / "artifacts" / src.name
         if src.resolve() != destination.resolve():
             shutil.copy2(src, destination)
         return str(destination)

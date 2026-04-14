@@ -12,11 +12,7 @@ from deerflow.compile.schemas import BuildArtifact, BuildCommandRecord, CommandR
 _BUILD_SYSTEM_MARKERS = {
     "cmake": "CMakeLists.txt",
     "make": "Makefile",
-    "cargo": "Cargo.toml",
-    "npm": "package.json",
-    "go": "go.mod",
-    "python": "pyproject.toml",
-    "python-legacy": "setup.py",
+    "autotools": "configure",
 }
 
 
@@ -157,12 +153,8 @@ def inspect_build_system_impl(*, session: CompileSession) -> tuple[str, list[tup
     suggested_commands = {
         "cmake": ["mkdir -p build && cd build && cmake ..", "cmake --build build -j"],
         "make": ["make -j"],
-        "cargo": ["cargo build --release"],
-        "npm": ["npm install", "npm run build"],
-        "go": ["go build ./..."],
-        "python": ["python -m build"],
-        "python-legacy": ["python setup.py build"],
-        "unknown": ["Inspect repository manually and run the appropriate build command"],
+        "autotools": ["chmod +x ./configure && ./configure", "make -j"],
+        "unknown": ["Inspect repository manually and run the appropriate C/C++ build command"],
     }
 
     services.manager.mark_session_status(session, "inspected")
@@ -261,7 +253,7 @@ def finalize_compile_session_impl(
     services = get_compile_services()
 
     if generate_repro_bundle:
-        repro_dir = Path(session.host_repro_dir)
+        repro_dir = Path(session.metadata_path).parent / "repro"
         repro_dir.mkdir(parents=True, exist_ok=True)
         build_script_path = repro_dir / "build.sh"
         command_lines = [record.command for record in session.commands if record.stage != "verify"]
@@ -290,12 +282,12 @@ def finalize_compile_session_impl(
         "artifacts": [artifact.path for artifact in session.artifacts],
         "logs": [services.manager.relative_path(session, record.log_path) for record in session.commands if record.log_path],
         "repro_files": [
-            services.manager.relative_path(session, Path(session.host_repro_dir) / "build.sh"),
-            services.manager.relative_path(session, Path(session.host_repro_dir) / "Dockerfile"),
+            services.manager.relative_path(session, Path(session.metadata_path).parent / "repro" / "build.sh"),
+            services.manager.relative_path(session, Path(session.metadata_path).parent / "repro" / "Dockerfile"),
         ]
         if generate_repro_bundle
         else [],
-        "session_root": services.manager.relative_path(session, session.host_session_dir),
+        "session_root": services.manager.relative_path(session, Path(session.metadata_path).parent),
     }
     return response
 
@@ -306,4 +298,3 @@ def finalize_compile_session_json(*, session: CompileSession, summary: str | Non
         ensure_ascii=False,
         indent=2,
     )
-

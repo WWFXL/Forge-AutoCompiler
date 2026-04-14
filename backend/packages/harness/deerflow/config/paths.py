@@ -100,6 +100,32 @@ class Paths:
             return env
         return str(self.base_dir)
 
+    def _workspace_root(self) -> Path:
+        """Project workspace root visible inside the service container."""
+        if env_workspace := os.getenv("DEER_FLOW_WORKSPACE_ROOT"):
+            return Path(env_workspace).resolve()
+        return Path.cwd().resolve()
+
+    def _host_workspace_root_str(self) -> str:
+        """Project workspace root visible to the host Docker daemon."""
+        if env_host_workspace := os.getenv("DEER_FLOW_HOST_WORKSPACE_ROOT"):
+            return env_host_workspace
+        return str(self._workspace_root())
+
+    @property
+    def compile_sessions_dir(self) -> Path:
+        """Service-container-visible compile sessions root."""
+        return self._workspace_root() / ".compile-sessions"
+
+    @property
+    def host_compile_sessions_dir(self) -> Path:
+        """Host-visible compile sessions root."""
+        return Path(self._host_workspace_root_str()) / ".compile-sessions"
+
+    def host_compile_sessions_dir_str(self) -> str:
+        """Host-visible compile sessions root as raw string for bind mounts."""
+        return _join_host_path(self._host_workspace_root_str(), ".compile-sessions")
+
     @property
     def base_dir(self) -> Path:
         """Root directory for all application data."""
@@ -258,49 +284,25 @@ class Paths:
             The resolved absolute host filesystem path.
 
         Raises:
-            ValueError: If the path does not start with the expected virtual
-                        prefix or a path-traversal attempt is detected.
+            ValueError: If the virtual path is outside the supported sandbox roots.
         """
-        stripped = virtual_path.lstrip("/")
+        vp = virtual_path.lstrip("/")
         prefix = VIRTUAL_PATH_PREFIX.lstrip("/")
 
-        # Require an exact segment-boundary match to avoid prefix confusion
-        # (e.g. reject paths like "mnt/user-dataX/...").
-        if stripped != prefix and not stripped.startswith(prefix + "/"):
-            raise ValueError(f"Path must start with /{prefix}")
+        if not vp.startswith(prefix):
+            raise ValueError(f"Unsupported virtual path: {virtual_path}")
 
-        relative = stripped[len(prefix) :].lstrip("/")
-        base = self.sandbox_user_data_dir(thread_id).resolve()
-        actual = (base / relative).resolve()
+        suffix = vp[len(prefix) :].lstrip("/")
+        parts = Path(suffix).parts
+        if not parts:
+            return self.sandbox_user_data_dir(thread_id)
 
-        try:
-            actual.relative_to(base)
-        except ValueError:
-            raise ValueError("Access denied: path traversal detected")
+        root, *rest = parts
+        if root == "workspace":
+            return self.sandbox_work_dir(thread_id).joinpath(*rest)
+        if root == "uploads":
+            return self.sandbox_uploads_dir(thread_id).joinpath(*rest)
+        if root == "outputs":
+            return self.sandbox_outputs_dir(thread_id).joinpath(*rest)
 
-        return actual
-
-
-# ── Singleton ────────────────────────────────────────────────────────────
-
-_paths: Paths | None = None
-
-
-def get_paths() -> Paths:
-    """Return the global Paths singleton (lazy-initialized)."""
-    global _paths
-    if _paths is None:
-        _paths = Paths()
-    return _paths
-
-
-def resolve_path(path: str) -> Path:
-    """Resolve *path* to an absolute ``Path``.
-
-    Relative paths are resolved relative to the application base directory.
-    Absolute paths are returned as-is (after normalisation).
-    """
-    p = Path(path)
-    if not p.is_absolute():
-        p = get_paths().base_dir / path
-    return p.resolve()
+        raise ValueError(f"Unsupported virtual path root: {virtual_path}")
