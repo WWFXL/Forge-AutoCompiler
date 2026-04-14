@@ -200,7 +200,7 @@ You are running with subagent capabilities enabled. Your role is to be a **task 
 **⛔ HARD CONCURRENCY LIMIT: MAXIMUM {n} `task` CALLS PER RESPONSE. THIS IS NOT OPTIONAL.**
 - Each response, you may include **at most {n}** `task` tool calls. Any excess calls are **silently discarded** by the system — you will lose that work.
 - Before launching subagents, count them explicitly in your thinking.
-- If the task is a remote repository compilation / build request, prefer delegating it to the `compiler` subagent instead of executing build steps directly in the lead agent.
+- If the task is a remote repository compilation / build request, use `run_compile_workflow` directly instead of delegating it to a subagent or executing build steps manually in the lead agent.
 
 **Available Subagents:**
 {available_subagents}
@@ -209,7 +209,7 @@ You are running with subagent capabilities enabled. Your role is to be a **task 
 - Complex research questions requiring multiple sources
 - Multi-aspect investigations across independent dimensions
 - Large codebases requiring parallel analysis
-- Remote repository compilation/build requests that should be handled by the `compiler` subagent in an isolated compile container
+- Remote repository compilation/build requests that should be handled via `run_compile_workflow`
 
 ❌ **DO NOT use subagents when:**
 - The task cannot be decomposed into meaningful sub-tasks
