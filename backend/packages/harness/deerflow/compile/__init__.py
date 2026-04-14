@@ -1,5 +1,21 @@
 from deerflow.compile.manager import CompileSessionManager
-from deerflow.compile.operations import get_compile_services
+from deerflow.compile.operations import (
+    clone_repository_impl,
+    clone_repository_json,
+    finalize_compile_session_impl,
+    finalize_compile_session_json,
+    get_bound_session,
+    get_compile_services,
+    inspect_build_system_impl,
+    inspect_build_system_json,
+    prepare_compile_session_impl,
+    prepare_compile_session_json,
+    relative_or_original,
+    run_compile_command_impl,
+    run_compile_command_json,
+    verify_build_artifacts_impl,
+    verify_build_artifacts_json,
+)
 from deerflow.compile.schemas import BuildArtifact, BuildCommandRecord, CommandResult, CompileSession
 
 __all__ = [
@@ -9,4 +25,18 @@ __all__ = [
     "CompileSession",
     "CompileSessionManager",
     "get_compile_services",
+    "get_bound_session",
+    "relative_or_original",
+    "prepare_compile_session_impl",
+    "prepare_compile_session_json",
+    "clone_repository_impl",
+    "clone_repository_json",
+    "inspect_build_system_impl",
+    "inspect_build_system_json",
+    "run_compile_command_impl",
+    "run_compile_command_json",
+    "verify_build_artifacts_impl",
+    "verify_build_artifacts_json",
+    "finalize_compile_session_impl",
+    "finalize_compile_session_json",
 ]

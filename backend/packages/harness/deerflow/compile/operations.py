@@ -113,6 +113,24 @@ def prepare_compile_session_impl(
     return session
 
 
+def prepare_compile_session_json(
+    *,
+    thread_id: str,
+    repo_url: str,
+    branch: str | None = None,
+    task_description: str | None = None,
+    owner_id: str | None = None,
+) -> str:
+    session = prepare_compile_session_impl(
+        thread_id=thread_id,
+        repo_url=repo_url,
+        branch=branch,
+        task_description=task_description,
+        owner_id=owner_id,
+    )
+    return json.dumps(session.to_dict(), ensure_ascii=False, indent=2)
+
+
 def clone_repository_impl(
     *,
     session: CompileSession,
@@ -170,6 +188,17 @@ def clone_repository_impl(
     return result, f"Repository cloned successfully to {session.container_repo_dir}. Commit: {session.commit_sha or 'unknown'}"
 
 
+def clone_repository_json(
+    *,
+    session: CompileSession,
+    repo_url: str,
+    branch: str | None = None,
+    depth: int = 1,
+) -> str:
+    result, message = clone_repository_impl(session=session, repo_url=repo_url, branch=branch, depth=depth)
+    return json.dumps({"exit_code": result.exit_code, "message": message, "log_path": result.log_path}, ensure_ascii=False, indent=2)
+
+
 def inspect_build_system_impl(*, session: CompileSession) -> tuple[str, list[tuple[str, str]], list[str]]:
     services = get_compile_services()
 
@@ -204,6 +233,19 @@ def inspect_build_system_impl(*, session: CompileSession) -> tuple[str, list[tup
     )
     services.manager.mark_session_status(session, "inspected")
     return primary_system, detected, suggested_commands.get(primary_system, suggested_commands["unknown"])
+
+
+def inspect_build_system_json(*, session: CompileSession) -> str:
+    primary_system, detected, suggested_commands = inspect_build_system_impl(session=session)
+    return json.dumps(
+        {
+            "build_system": primary_system,
+            "detected": detected,
+            "suggested_commands": suggested_commands,
+        },
+        ensure_ascii=False,
+        indent=2,
+    )
 
 
 def run_compile_command_impl(
@@ -265,6 +307,33 @@ def run_compile_command_impl(
     return result, record, (
         f"Command succeeded at stage '{effective_stage}'. "
         f"Log saved to {relative_or_original(session, log_path)}. Output:\n{result.combined_output}"
+    )
+
+
+def run_compile_command_json(
+    *,
+    session: CompileSession,
+    command: str,
+    workdir: str | None = None,
+    timeout_seconds: int = 1200,
+    stage: str | None = None,
+) -> str:
+    result, record, message = run_compile_command_impl(
+        session=session,
+        command=command,
+        workdir=workdir,
+        timeout_seconds=timeout_seconds,
+        stage=stage,
+    )
+    return json.dumps(
+        {
+            "exit_code": result.exit_code,
+            "stage": record.stage,
+            "log_path": record.log_path,
+            "message": message,
+        },
+        ensure_ascii=False,
+        indent=2,
     )
 
 
@@ -341,6 +410,30 @@ def verify_build_artifacts_impl(
     return result, artifacts, "Verified build artifacts:\n" + "\n".join(lines)
 
 
+def verify_build_artifacts_json(
+    *,
+    session: CompileSession,
+    search_path: str | None = None,
+    file_pattern: str | None = None,
+    copy_to_artifacts: bool = True,
+) -> str:
+    result, artifacts, message = verify_build_artifacts_impl(
+        session=session,
+        search_path=search_path,
+        file_pattern=file_pattern,
+        copy_to_artifacts=copy_to_artifacts,
+    )
+    return json.dumps(
+        {
+            "exit_code": result.exit_code,
+            "artifacts": [artifact.path for artifact in artifacts],
+            "message": message,
+        },
+        ensure_ascii=False,
+        indent=2,
+    )
+
+
 def finalize_compile_session_impl(
     *,
     session: CompileSession,
@@ -387,6 +480,20 @@ def finalize_compile_session_impl(
     }
     services.manager.log_event(session, "finalize.completed", response=response)
     return response
+
+
+def finalize_compile_session_json(
+    *,
+    session: CompileSession,
+    summary: str | None = None,
+    generate_repro_bundle: bool = True,
+) -> str:
+    response = finalize_compile_session_impl(
+        session=session,
+        summary=summary,
+        generate_repro_bundle=generate_repro_bundle,
+    )
+    return json.dumps(response, ensure_ascii=False, indent=2)
 
 
 def export_compile_session_context(session: CompileSession) -> str:
