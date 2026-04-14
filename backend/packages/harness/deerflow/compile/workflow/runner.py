@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from deerflow.compile.operations import get_bound_session
+from deerflow.compile.operations import get_bound_session, get_compile_services
 from deerflow.compile.workflow.schemas import CompileWorkflowInput, CompileWorkflowResult, CompileWorkflowState
 from deerflow.compile.workflow.stages import (
     run_build_stage,
@@ -16,23 +16,47 @@ class CompileWorkflowRunner:
     def run(self, workflow_input: CompileWorkflowInput) -> CompileWorkflowResult:
         state = self._init_state(workflow_input)
         session = None
+        services = get_compile_services()
 
         try:
             session = run_prepare_stage(state, workflow_input)
+            services.manager.log_event(session, "workflow.stage.started", stage="clone")
             run_clone_stage(state, workflow_input, session)
+            services.manager.log_event(session, "workflow.stage.completed", stage="clone", status=state.status)
+            services.manager.log_event(session, "workflow.stage.started", stage="inspect")
             run_inspect_stage(state, session)
+            services.manager.log_event(session, "workflow.stage.completed", stage="inspect", status=state.status, build_system=state.build_system)
+            services.manager.log_event(session, "workflow.stage.started", stage="build")
             run_build_stage(state, session, workflow_input)
+            services.manager.log_event(session, "workflow.stage.completed", stage="build", status=state.status, attempts=len(state.attempts))
+            services.manager.log_event(session, "workflow.stage.started", stage="verify")
             run_verify_stage(state, session, workflow_input)
+            services.manager.log_event(session, "workflow.stage.completed", stage="verify", status=state.status, artifact_count=len(state.artifacts))
             state.status = "completed"
         except Exception as exc:
             state.status = "failed"
             state.error = str(exc)
             if not state.summary:
                 state.summary = str(exc)
+            if session is not None:
+                services.manager.log_event(
+                    session,
+                    "workflow.failed",
+                    error=str(exc),
+                    summary=state.summary,
+                    status=state.status,
+                )
         finally:
             if session is None and state.session_id:
                 session = get_bound_session(state.session_id, state.thread_id, state.owner_id)
             if session is not None:
+                services.manager.log_event(
+                    session,
+                    "workflow.finalizing",
+                    status=state.status,
+                    summary=state.summary,
+                    error=state.error,
+                )
                 run_finalize_stage(state, session, workflow_input)
 
         return self._to_result(state)

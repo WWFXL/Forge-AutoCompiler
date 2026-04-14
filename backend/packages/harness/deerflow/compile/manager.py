@@ -21,6 +21,7 @@ from deerflow.compile.paths import (
 from deerflow.compile.schemas import BuildArtifact, BuildCommandRecord, CompileSession, utc_now_iso
 
 DEFAULT_COMPILE_IMAGE = "autocompiler:gcc13"
+WORKFLOW_LOG_NAME = "workflow.log"
 
 
 class CompileSessionManager:
@@ -65,6 +66,22 @@ class CompileSessionManager:
             metadata_path=str(metadata_path),
         )
         self.save_session(session)
+        self.log_event(
+            session,
+            "session.created",
+            repo_url=repo_url,
+            branch=branch,
+            host_session_dir=session.host_session_dir,
+            host_workspace_dir=session.host_workspace_dir,
+            host_artifacts_dir=session.host_artifacts_dir,
+            host_logs_dir=session.host_logs_dir,
+            host_repro_dir=session.host_repro_dir,
+            container_workspace_dir=session.container_workspace_dir,
+            container_repo_dir=session.container_repo_dir,
+            container_artifacts_dir=session.container_artifacts_dir,
+            container_logs_dir=session.container_logs_dir,
+            container_repro_dir=session.container_repro_dir,
+        )
         return session
 
     def load_session(self, session_id: str, thread_id: str | None = None) -> CompileSession:
@@ -78,6 +95,7 @@ class CompileSessionManager:
         metadata_file.write_text(json.dumps(session.to_dict(), ensure_ascii=False, indent=2), encoding="utf-8")
 
     def mark_session_status(self, session: CompileSession, status: str, error: str | None = None, summary: str | None = None) -> CompileSession:
+        previous_status = session.status
         session.status = status
         session.completed_at = utc_now_iso() if status in {"completed", "failed", "cancelled"} else session.completed_at
         if error is not None:
@@ -85,17 +103,61 @@ class CompileSessionManager:
         if summary is not None:
             session.summary = summary
         self.save_session(session)
+        self.log_event(
+            session,
+            "session.status_changed",
+            previous_status=previous_status,
+            status=status,
+            error=error,
+            summary=summary,
+            completed_at=session.completed_at,
+        )
         return session
 
     def record_command(self, session: CompileSession, command: BuildCommandRecord) -> CompileSession:
         session.commands.append(command)
         self.save_session(session)
+        self.log_event(
+            session,
+            "command.recorded",
+            stage=command.stage,
+            command=command.command,
+            workdir=command.workdir,
+            started_at=command.started_at,
+            completed_at=command.completed_at,
+            exit_code=command.exit_code,
+            log_path=command.log_path,
+        )
         return session
 
     def record_artifact(self, session: CompileSession, artifact: BuildArtifact) -> CompileSession:
         session.artifacts.append(artifact)
         self.save_session(session)
+        self.log_event(
+            session,
+            "artifact.recorded",
+            path=artifact.path,
+            artifact_type=artifact.artifact_type,
+            size_bytes=artifact.size_bytes,
+            source_path=artifact.source_path,
+        )
         return session
+
+    def workflow_log_path(self, session: CompileSession) -> Path:
+        return Path(session.host_logs_dir) / WORKFLOW_LOG_NAME
+
+    def log_event(self, session: CompileSession, event: str, **payload) -> None:
+        log_path = self.workflow_log_path(session)
+        log_path.parent.mkdir(parents=True, exist_ok=True)
+        entry = {
+            "ts": utc_now_iso(),
+            "event": event,
+            "session_id": session.session_id,
+            "thread_id": session.thread_id,
+            **payload,
+        }
+        with log_path.open("a", encoding="utf-8") as fp:
+            fp.write(json.dumps(entry, ensure_ascii=False) + "\n")
 
     def relative_path(self, session: CompileSession, path: str | Path) -> str:
         target = Path(path)
@@ -109,6 +171,14 @@ class CompileSessionManager:
     def copy_artifact_into_session(self, session: CompileSession, source_path: str | Path) -> str:
         src = Path(source_path)
         destination = Path(session.metadata_path).parent / "artifacts" / src.name
-        if src.resolve() != destination.resolve():
+        copied = src.resolve() != destination.resolve()
+        if copied:
             shutil.copy2(src, destination)
+        self.log_event(
+            session,
+            "artifact.copied",
+            source_path=str(src),
+            destination_path=str(destination),
+            copied=copied,
+        )
         return str(destination)

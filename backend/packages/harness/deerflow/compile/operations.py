@@ -22,9 +22,10 @@ class CompileOperationsServices:
     runtime: CompileDockerRuntime
 
 
+_manager = CompileSessionManager()
 _services = CompileOperationsServices(
-    manager=CompileSessionManager(),
-    runtime=CompileDockerRuntime(),
+    manager=_manager,
+    runtime=CompileDockerRuntime(manager=_manager),
 )
 
 
@@ -93,9 +94,22 @@ def prepare_compile_session_impl(
     session.owner_subagent_id = owner_id
     if task_description:
         session.summary = task_description
+    services.manager.save_session(session)
+    services.manager.log_event(
+        session,
+        "prepare.started",
+        owner_id=owner_id,
+        task_description=task_description,
+    )
     services.runtime.create_container(session)
     services.manager.save_session(session)
     services.manager.mark_session_status(session, "ready")
+    services.manager.log_event(
+        session,
+        "prepare.completed",
+        container_id=session.container_id,
+        container_name=session.container_name,
+    )
     return session
 
 
@@ -115,12 +129,28 @@ def clone_repository_impl(
     clone_command = " ".join(clone_parts)
 
     log_path = f"{session.host_logs_dir}/001_clone.log"
+    services.manager.log_event(
+        session,
+        "clone.started",
+        repo_url=repo_url,
+        branch=branch,
+        depth=depth,
+        log_path=log_path,
+        target_dir=session.container_repo_dir,
+    )
     started_at = utc_now_iso()
     result = services.runtime.exec(session, clone_command, workdir=session.container_workspace_dir, log_path=log_path)
     completed_at = utc_now_iso()
     append_command_record(session, "clone", clone_command, session.container_workspace_dir, log_path, result.exit_code, started_at, completed_at)
 
     if result.exit_code != 0:
+        services.manager.log_event(
+            session,
+            "clone.failed",
+            exit_code=result.exit_code,
+            log_path=log_path,
+            output=result.combined_output[:4000],
+        )
         services.manager.mark_session_status(session, "failed", error=result.combined_output[:4000])
         return result, f"Clone failed with exit code {result.exit_code}. Output:\n{result.combined_output}"
 
@@ -129,6 +159,13 @@ def clone_repository_impl(
         session.commit_sha = sha_result.stdout.strip()
         services.manager.save_session(session)
 
+    services.manager.log_event(
+        session,
+        "clone.completed",
+        exit_code=result.exit_code,
+        log_path=log_path,
+        commit_sha=session.commit_sha,
+    )
     services.manager.mark_session_status(session, "source_ready")
     return result, f"Repository cloned successfully to {session.container_repo_dir}. Commit: {session.commit_sha or 'unknown'}"
 
@@ -136,6 +173,7 @@ def clone_repository_impl(
 def inspect_build_system_impl(*, session: CompileSession) -> tuple[str, list[tuple[str, str]], list[str]]:
     services = get_compile_services()
 
+    services.manager.log_event(session, "inspect.started")
     detected: list[tuple[str, str]] = []
     for build_system, marker in _BUILD_SYSTEM_MARKERS.items():
         check_command = f"test -f {shell_quote(container_repo_path(session, marker))}"
@@ -157,6 +195,13 @@ def inspect_build_system_impl(*, session: CompileSession) -> tuple[str, list[tup
         "unknown": ["Inspect repository manually and run the appropriate C/C++ build command"],
     }
 
+    services.manager.log_event(
+        session,
+        "inspect.completed",
+        primary_system=primary_system,
+        detected=detected,
+        suggested_commands=suggested_commands.get(primary_system, suggested_commands["unknown"]),
+    )
     services.manager.mark_session_status(session, "inspected")
     return primary_system, detected, suggested_commands.get(primary_system, suggested_commands["unknown"])
 
@@ -175,6 +220,15 @@ def run_compile_command_impl(
     current_index = len(session.commands) + 1
     workdir_path = container_repo_path(session, workdir)
     log_path = f"{session.host_logs_dir}/{current_index:03d}_{effective_stage}.log"
+    services.manager.log_event(
+        session,
+        "build.command.started",
+        stage=effective_stage,
+        command=command,
+        workdir=workdir_path,
+        timeout_seconds=timeout_seconds,
+        log_path=log_path,
+    )
     started_at = utc_now_iso()
     result = services.runtime.exec(session, command, workdir=workdir_path, timeout_seconds=timeout_seconds, log_path=log_path)
     completed_at = utc_now_iso()
@@ -183,9 +237,30 @@ def run_compile_command_impl(
     record = session.commands[-1]
 
     if result.exit_code != 0:
+        services.manager.log_event(
+            session,
+            "build.command.failed",
+            stage=effective_stage,
+            command=command,
+            workdir=workdir_path,
+            timeout_seconds=timeout_seconds,
+            log_path=log_path,
+            exit_code=result.exit_code,
+            output=result.combined_output[:4000],
+        )
         services.manager.mark_session_status(session, "failed", error=result.combined_output[:4000])
         return result, record, f"Command failed at stage '{effective_stage}' with exit code {result.exit_code}. Output:\n{result.combined_output}"
 
+    services.manager.log_event(
+        session,
+        "build.command.completed",
+        stage=effective_stage,
+        command=command,
+        workdir=workdir_path,
+        timeout_seconds=timeout_seconds,
+        log_path=log_path,
+        exit_code=result.exit_code,
+    )
     services.manager.mark_session_status(session, "building")
     return result, record, (
         f"Command succeeded at stage '{effective_stage}'. "
@@ -206,12 +281,27 @@ def verify_build_artifacts_impl(
     command = f"find {shell_quote(search_root)} -type f{pattern_clause} -exec file {{}} +"
 
     log_path = f"{session.host_logs_dir}/{len(session.commands) + 1:03d}_verify.log"
+    services.manager.log_event(
+        session,
+        "verify.started",
+        search_root=search_root,
+        file_pattern=file_pattern,
+        copy_to_artifacts=copy_to_artifacts,
+        log_path=log_path,
+    )
     started_at = utc_now_iso()
     result = services.runtime.exec(session, command, workdir=session.container_workspace_dir, log_path=log_path)
     completed_at = utc_now_iso()
     append_command_record(session, "verify", command, session.container_workspace_dir, log_path, result.exit_code, started_at, completed_at)
 
     if result.exit_code != 0:
+        services.manager.log_event(
+            session,
+            "verify.failed",
+            exit_code=result.exit_code,
+            log_path=log_path,
+            output=result.combined_output[:4000],
+        )
         services.manager.mark_session_status(session, "failed", error=result.combined_output[:4000])
         return result, [], f"Artifact verification failed. Output:\n{result.combined_output}"
 
@@ -237,6 +327,13 @@ def verify_build_artifacts_impl(
         services.manager.record_artifact(session, artifact)
         artifacts.append(artifact)
 
+    services.manager.log_event(
+        session,
+        "verify.completed",
+        log_path=log_path,
+        artifact_count=len(artifacts),
+        artifacts=[artifact.path for artifact in artifacts],
+    )
     services.manager.mark_session_status(session, "artifacts_verified")
     if not artifacts:
         return result, artifacts, "No matching build artifacts were found."
@@ -252,6 +349,12 @@ def finalize_compile_session_impl(
 ) -> dict[str, object]:
     services = get_compile_services()
 
+    services.manager.log_event(
+        session,
+        "finalize.started",
+        summary=summary,
+        generate_repro_bundle=generate_repro_bundle,
+    )
     if generate_repro_bundle:
         repro_dir = Path(session.metadata_path).parent / "repro"
         repro_dir.mkdir(parents=True, exist_ok=True)
@@ -259,42 +362,50 @@ def finalize_compile_session_impl(
         command_lines = [record.command for record in session.commands if record.stage != "verify"]
         script_content = "#!/usr/bin/env bash\nset -euo pipefail\n\n" + "\n".join(command_lines) + "\n"
         build_script_path.write_text(script_content, encoding="utf-8")
-
-        dockerfile_path = repro_dir / "Dockerfile"
-        dockerfile_content = (
-            f"FROM {session.image}\n"
-            "WORKDIR /workspace/repo\n"
-            "COPY . /workspace/repo\n"
-            "COPY repro/build.sh /repro/build.sh\n"
-            "RUN chmod +x /repro/build.sh\n"
-            "CMD [\"bash\", \"/repro/build.sh\"]\n"
+        build_script_path.chmod(0o755)
+        services.manager.log_event(
+            session,
+            "finalize.repro_bundle_written",
+            build_script_path=str(build_script_path),
+            command_count=len(command_lines),
         )
-        dockerfile_path.write_text(dockerfile_content, encoding="utf-8")
 
-    final_status = "completed" if session.status != "failed" else "failed"
-    services.runtime.stop_and_remove_container(session)
-    services.manager.mark_session_status(session, final_status, summary=summary or session.summary)
+    final_status = session.status if session.status in {"failed", "cancelled"} else "completed"
+    services.manager.mark_session_status(session, final_status, summary=summary)
 
     response = {
         "session_id": session.session_id,
-        "status": final_status,
+        "status": session.status,
         "summary": session.summary,
         "artifacts": [artifact.path for artifact in session.artifacts],
-        "logs": [services.manager.relative_path(session, record.log_path) for record in session.commands if record.log_path],
-        "repro_files": [
-            services.manager.relative_path(session, Path(session.metadata_path).parent / "repro" / "build.sh"),
-            services.manager.relative_path(session, Path(session.metadata_path).parent / "repro" / "Dockerfile"),
-        ]
-        if generate_repro_bundle
-        else [],
-        "session_root": services.manager.relative_path(session, Path(session.metadata_path).parent),
+        "logs": [
+            services.manager.relative_path(session, Path(session.host_logs_dir) / "workflow.log"),
+            *[services.manager.relative_path(session, command.log_path) for command in session.commands if command.log_path],
+        ],
+        "repro_files": [services.manager.relative_path(session, session.host_repro_dir)],
+        "metadata": services.manager.relative_path(session, session.metadata_path),
     }
+    services.manager.log_event(session, "finalize.completed", response=response)
     return response
 
 
-def finalize_compile_session_json(*, session: CompileSession, summary: str | None = None, generate_repro_bundle: bool = True) -> str:
-    return json.dumps(
-        finalize_compile_session_impl(session=session, summary=summary, generate_repro_bundle=generate_repro_bundle),
-        ensure_ascii=False,
-        indent=2,
-    )
+def export_compile_session_context(session: CompileSession) -> str:
+    payload = {
+        "session": session.to_dict(),
+        "workspace_tree": _snapshot_tree(Path(session.metadata_path).parent),
+    }
+    return json.dumps(payload, ensure_ascii=False, indent=2)
+
+
+def _snapshot_tree(root: Path, max_depth: int = 3) -> list[str]:
+    if not root.exists():
+        return []
+
+    results: list[str] = []
+    for path in sorted(root.rglob("*")):
+        depth = len(path.relative_to(root).parts)
+        if depth > max_depth:
+            continue
+        suffix = "/" if path.is_dir() else ""
+        results.append(path.relative_to(root).as_posix() + suffix)
+    return results
