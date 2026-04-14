@@ -33,7 +33,7 @@ def _join_host_path(base: str, *parts: str) -> str:
     """Join host filesystem path segments while preserving native style.
 
     Docker Desktop on Windows expects bind mount sources to stay in Windows
-    path form (for example ``C:\\repo\\backend\\.deer-flow``).  Using
+    path form (for example ``C:\\repo\\backend\\.deer-flow``). Using
     ``Path(base) / ...`` on a POSIX host can accidentally rewrite those paths
     with mixed separators, so this helper preserves the original style.
     """
@@ -55,6 +55,20 @@ def _join_host_path(base: str, *parts: str) -> str:
 def join_host_path(base: str, *parts: str) -> str:
     """Join host filesystem path segments while preserving native style."""
     return _join_host_path(base, *parts)
+
+
+def resolve_path(path: str | Path, *, base_dir: str | Path | None = None) -> Path:
+    """Resolve a DeerFlow data path to an absolute filesystem path.
+
+    Relative paths are resolved against DeerFlow's configured base directory.
+    Absolute paths are returned unchanged.
+    """
+    candidate = Path(path).expanduser()
+    if candidate.is_absolute():
+        return candidate.resolve()
+
+    base = Path(base_dir).expanduser().resolve() if base_dir is not None else get_paths().base_dir
+    return (base / candidate).resolve()
 
 
 class Paths:
