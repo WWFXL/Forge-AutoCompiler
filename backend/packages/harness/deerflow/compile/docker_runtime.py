@@ -42,6 +42,8 @@ class CompileDockerRuntime:
             "-d",
             "--name",
             container_name,
+            "--network",
+            self.config.network,
             "-v",
             f"{session.host_workspace_dir}:{session.container_workspace_dir}",
             "-v",

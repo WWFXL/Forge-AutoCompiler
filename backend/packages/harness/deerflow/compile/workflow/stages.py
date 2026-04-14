@@ -9,6 +9,7 @@ from deerflow.compile.operations import (
     run_compile_command_impl,
     verify_build_artifacts_impl,
 )
+from deerflow.compile.schemas import CommandResult
 from deerflow.compile.workflow.build_agent import BuildAgentInput, BuildDecisionAgent
 from deerflow.compile.workflow.schemas import BuildAttempt, CompileWorkflowInput, CompileWorkflowState
 
@@ -29,14 +30,18 @@ def run_prepare_stage(state: CompileWorkflowState, workflow_input: CompileWorkfl
 
 
 def run_clone_stage(state: CompileWorkflowState, workflow_input: CompileWorkflowInput, session) -> None:
-    _, message = clone_repository_impl(
+    result, message = clone_repository_impl(
         session=session,
         repo_url=workflow_input.repo_url,
         branch=workflow_input.branch,
     )
     state.clone_done = True
-    state.status = "source_ready"
     state.summary = message
+    if result.exit_code != 0:
+        state.status = "failed"
+        state.error = result.combined_output[:4000] or message
+        raise RuntimeError(message)
+    state.status = "source_ready"
 
 
 
@@ -114,11 +119,21 @@ def run_verify_stage(state: CompileWorkflowState, session, workflow_input: Compi
 
 
 def run_finalize_stage(state: CompileWorkflowState, session, workflow_input: CompileWorkflowInput) -> None:
-    response = finalize_compile_session_impl(
+    updated_session = finalize_compile_session_impl(
         session=session,
         summary=state.summary,
+        status=state.status,
         generate_repro_bundle=workflow_input.generate_repro_bundle,
     )
     state.finalized = True
-    state.logs = response.get("logs", [])
-    state.repro_files = response.get("repro_files", [])
+    state.logs = [
+        relative_or_original(updated_session, command.log_path)
+        for command in updated_session.commands
+        if command.log_path
+    ]
+    workflow_log = relative_or_original(updated_session, updated_session.metadata_file.parent / "logs" / "workflow.log")
+    if workflow_log not in state.logs:
+        state.logs.append(workflow_log)
+    repro_dir = updated_session.metadata_file.parent / "repro"
+    build_script = repro_dir / "build.sh"
+    state.repro_files = [relative_or_original(updated_session, build_script)] if build_script.exists() else []

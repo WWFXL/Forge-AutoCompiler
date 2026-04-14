@@ -35,14 +35,14 @@ class CompileWorkflowRunner:
             state.status = "completed"
         except Exception as exc:
             state.status = "failed"
-            state.error = str(exc)
+            state.error = state.error or str(exc)
             if not state.summary:
                 state.summary = str(exc)
             if session is not None:
                 services.manager.log_event(
                     session,
                     "workflow.failed",
-                    error=str(exc),
+                    error=state.error,
                     summary=state.summary,
                     status=state.status,
                 )
