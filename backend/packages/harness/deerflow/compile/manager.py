@@ -144,8 +144,11 @@ class CompileSessionManager:
         )
         return session
 
+    def local_logs_dir(self, session: CompileSession) -> Path:
+        return Path(session.metadata_path).parent / "logs"
+
     def workflow_log_path(self, session: CompileSession) -> Path:
-        return Path(session.host_logs_dir) / WORKFLOW_LOG_NAME
+        return self.local_logs_dir(session) / WORKFLOW_LOG_NAME
 
     def log_event(self, session: CompileSession, event: str, **payload) -> None:
         log_path = self.workflow_log_path(session)

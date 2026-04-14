@@ -47,6 +47,10 @@ def relative_or_original(session: CompileSession, path: str | Path) -> str:
     return get_compile_services().manager.relative_path(session, path)
 
 
+def local_log_path(session: CompileSession, filename: str) -> str:
+    return str(get_compile_services().manager.local_logs_dir(session) / filename)
+
+
 def shell_quote(value: str) -> str:
     return quote(value)
 
@@ -146,7 +150,7 @@ def clone_repository_impl(
     clone_parts.append(f"{shell_quote(repo_url)} {shell_quote(session.container_repo_dir)}")
     clone_command = " ".join(clone_parts)
 
-    log_path = f"{session.host_logs_dir}/001_clone.log"
+    log_path = local_log_path(session, "001_clone.log")
     services.manager.log_event(
         session,
         "clone.started",
@@ -261,7 +265,7 @@ def run_compile_command_impl(
     effective_stage = stage or "build"
     current_index = len(session.commands) + 1
     workdir_path = container_repo_path(session, workdir)
-    log_path = f"{session.host_logs_dir}/{current_index:03d}_{effective_stage}.log"
+    log_path = local_log_path(session, f"{current_index:03d}_{effective_stage}.log")
     services.manager.log_event(
         session,
         "build.command.started",
@@ -349,7 +353,7 @@ def verify_build_artifacts_impl(
     pattern_clause = f" -name {shell_quote(file_pattern)}" if file_pattern else ""
     command = f"find {shell_quote(search_root)} -type f{pattern_clause} -exec file {{}} +"
 
-    log_path = f"{session.host_logs_dir}/{len(session.commands) + 1:03d}_verify.log"
+    log_path = local_log_path(session, f"{len(session.commands) + 1:03d}_verify.log")
     services.manager.log_event(
         session,
         "verify.started",
@@ -426,7 +430,8 @@ def verify_build_artifacts_json(
     return json.dumps(
         {
             "exit_code": result.exit_code,
-            "artifacts": [artifact.path for artifact in artifacts],
+            "artifact_count": len(artifacts),
+            "artifacts": [artifact.to_dict() if hasattr(artifact, "to_dict") else artifact.__dict__ for artifact in artifacts],
             "message": message,
         },
         ensure_ascii=False,
@@ -438,81 +443,39 @@ def finalize_compile_session_impl(
     *,
     session: CompileSession,
     summary: str | None = None,
+    status: str = "completed",
     generate_repro_bundle: bool = True,
-) -> dict[str, object]:
+) -> CompileSession:
     services = get_compile_services()
-
-    services.manager.log_event(
-        session,
-        "finalize.started",
-        summary=summary,
-        generate_repro_bundle=generate_repro_bundle,
-    )
     if generate_repro_bundle:
         repro_dir = Path(session.metadata_path).parent / "repro"
         repro_dir.mkdir(parents=True, exist_ok=True)
-        build_script_path = repro_dir / "build.sh"
-        command_lines = [record.command for record in session.commands if record.stage != "verify"]
-        script_content = "#!/usr/bin/env bash\nset -euo pipefail\n\n" + "\n".join(command_lines) + "\n"
-        build_script_path.write_text(script_content, encoding="utf-8")
-        build_script_path.chmod(0o755)
-        services.manager.log_event(
-            session,
-            "finalize.repro_bundle_written",
-            build_script_path=str(build_script_path),
-            command_count=len(command_lines),
-        )
-
-    final_status = session.status if session.status in {"failed", "cancelled"} else "completed"
-    services.manager.mark_session_status(session, final_status, summary=summary)
-
-    response = {
-        "session_id": session.session_id,
-        "status": session.status,
-        "summary": session.summary,
-        "artifacts": [artifact.path for artifact in session.artifacts],
-        "logs": [
-            services.manager.relative_path(session, Path(session.host_logs_dir) / "workflow.log"),
-            *[services.manager.relative_path(session, command.log_path) for command in session.commands if command.log_path],
-        ],
-        "repro_files": [services.manager.relative_path(session, session.host_repro_dir)],
-        "metadata": services.manager.relative_path(session, session.metadata_path),
-    }
-    services.manager.log_event(session, "finalize.completed", response=response)
-    return response
+        build_lines = ["#!/usr/bin/env bash", "set -euo pipefail", ""]
+        for command in session.commands:
+            build_lines.append(command.command)
+        (repro_dir / "build.sh").write_text("\n".join(build_lines) + "\n", encoding="utf-8")
+    services.manager.mark_session_status(session, status, summary=summary)
+    services.manager.log_event(
+        session,
+        "finalize.completed",
+        status=status,
+        summary=summary,
+        generate_repro_bundle=generate_repro_bundle,
+    )
+    return session
 
 
 def finalize_compile_session_json(
     *,
     session: CompileSession,
     summary: str | None = None,
+    status: str = "completed",
     generate_repro_bundle: bool = True,
 ) -> str:
-    response = finalize_compile_session_impl(
+    updated = finalize_compile_session_impl(
         session=session,
         summary=summary,
+        status=status,
         generate_repro_bundle=generate_repro_bundle,
     )
-    return json.dumps(response, ensure_ascii=False, indent=2)
-
-
-def export_compile_session_context(session: CompileSession) -> str:
-    payload = {
-        "session": session.to_dict(),
-        "workspace_tree": _snapshot_tree(Path(session.metadata_path).parent),
-    }
-    return json.dumps(payload, ensure_ascii=False, indent=2)
-
-
-def _snapshot_tree(root: Path, max_depth: int = 3) -> list[str]:
-    if not root.exists():
-        return []
-
-    results: list[str] = []
-    for path in sorted(root.rglob("*")):
-        depth = len(path.relative_to(root).parts)
-        if depth > max_depth:
-            continue
-        suffix = "/" if path.is_dir() else ""
-        results.append(path.relative_to(root).as_posix() + suffix)
-    return results
+    return json.dumps(updated.to_dict(), ensure_ascii=False, indent=2)
