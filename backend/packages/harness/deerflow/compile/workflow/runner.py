@@ -50,14 +50,22 @@ class CompileWorkflowRunner:
 
     def _to_result(self, state: CompileWorkflowState) -> CompileWorkflowResult:
         artifact_paths = [artifact.path for artifact in state.artifacts]
+        if state.status == "completed":
+            default_summary = "Compile workflow completed with verified artifacts"
+        elif state.build_done and not artifact_paths:
+            default_summary = "Build commands succeeded, but no matching artifacts were found"
+        else:
+            default_summary = "Compile workflow failed"
+
         return CompileWorkflowResult(
             status=state.status,
-            summary=state.summary or ("Compile workflow completed" if state.status == "completed" else "Compile workflow failed"),
+            summary=state.summary or default_summary,
             session_id=state.session_id,
             build_system=state.build_system,
             attempts=state.attempts,
             artifacts=artifact_paths,
             logs=state.logs,
             repro_files=state.repro_files,
+            verify_message=state.verify_message,
             error=state.error,
         )

@@ -103,8 +103,10 @@ def run_verify_stage(state: CompileWorkflowState, session, workflow_input: Compi
         file_pattern=workflow_input.artifact_hint,
     )
     state.verify_done = True
+    state.verify_message = message
     state.artifacts = artifacts
     if not artifacts:
+        state.summary = message
         raise RuntimeError(message)
     state.status = "artifacts_verified"
     state.summary = message

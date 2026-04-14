@@ -51,6 +51,7 @@ class CompileWorkflowState:
     status: str = "pending"
     error: str | None = None
     summary: str | None = None
+    verify_message: str | None = None
     prepare_done: bool = False
     clone_done: bool = False
     inspect_done: bool = False
@@ -73,5 +74,5 @@ class CompileWorkflowResult:
     artifacts: list[str]
     logs: list[str]
     repro_files: list[str]
+    verify_message: str | None = None
     error: str | None = None
-

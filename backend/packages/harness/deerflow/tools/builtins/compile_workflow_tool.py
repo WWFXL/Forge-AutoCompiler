@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
 from typing import Annotated
 
 from langchain.tools import InjectedToolCallId, ToolRuntime, tool
@@ -9,11 +8,6 @@ from langgraph.typing import ContextT
 from deerflow.agents.thread_state import ThreadState
 from deerflow.compile.workflow import CompileWorkflowInput, CompileWorkflowRunner
 from deerflow.tools.builtins.compile_tools import _get_subagent_owner_id, _get_thread_id
-
-
-@dataclass
-class RunCompileWorkflowResponse:
-    result: str
 
 
 @tool("run_compile_workflow", parse_docstring=True)
@@ -63,15 +57,17 @@ def run_compile_workflow(
     log_summary = "\n".join(f"- {path}" for path in result.logs) or "- none"
     repro_summary = "\n".join(f"- {path}" for path in result.repro_files) or "- none"
 
-    return (
-        f"Compile workflow {result.status}.\n"
-        f"Summary: {result.summary}\n"
-        f"Session: {result.session_id or 'unknown'}\n"
-        f"Build system: {result.build_system or 'unknown'}\n"
-        f"Attempts:\n{attempts_summary}\n"
-        f"Artifacts:\n{artifact_summary}\n"
-        f"Logs:\n{log_summary}\n"
-        f"Repro files:\n{repro_summary}\n"
-        f"Error: {result.error or 'none'}"
-    )
-
+    lines = [
+        f"Compile workflow {result.status}.",
+        f"Summary: {result.summary}",
+        f"Session: {result.session_id or 'unknown'}",
+        f"Build system: {result.build_system or 'unknown'}",
+        f"Attempts:\n{attempts_summary}",
+        f"Artifacts:\n{artifact_summary}",
+        f"Logs:\n{log_summary}",
+        f"Repro files:\n{repro_summary}",
+    ]
+    if result.verify_message:
+        lines.append(f"Verify: {result.verify_message}")
+    lines.append(f"Error: {result.error or 'none'}")
+    return "\n".join(lines)
