@@ -71,6 +71,7 @@ class CompileSessionManager:
             "session.created",
             repo_url=repo_url,
             branch=branch,
+            compile_sessions_root=str(Path(session.host_session_dir).parent.parent),
             host_session_dir=session.host_session_dir,
             host_workspace_dir=session.host_workspace_dir,
             host_artifacts_dir=session.host_artifacts_dir,
