@@ -1,9 +1,6 @@
 from __future__ import annotations
 
-import json
 from dataclasses import dataclass
-from pathlib import Path
-from shlex import quote
 from typing import Annotated
 
 from langchain.tools import InjectedToolCallId, ToolRuntime, tool
@@ -12,36 +9,25 @@ from langgraph.types import Command
 from langgraph.typing import ContextT
 
 from deerflow.agents.thread_state import ThreadState
-from deerflow.compile.docker_runtime import CompileDockerRuntime
-from deerflow.compile.manager import CompileSessionManager
-from deerflow.compile.schemas import BuildArtifact, BuildCommandRecord, utc_now_iso
+from deerflow.compile.operations import (
+    clone_repository_impl,
+    finalize_compile_session_json,
+    get_bound_session,
+    get_compile_services,
+    inspect_build_system_impl,
+    prepare_compile_session_impl,
+    run_compile_command_impl,
+    verify_build_artifacts_impl,
+)
 
 COMPILE_SESSION_STATE_KEY = "compile_session_id"
-_BUILD_SYSTEM_MARKERS = {
-    "cmake": "CMakeLists.txt",
-    "make": "Makefile",
-    "cargo": "Cargo.toml",
-    "npm": "package.json",
-    "go": "go.mod",
-    "python": "pyproject.toml",
-    "python-legacy": "setup.py",
-}
 
 
 @dataclass
 class CompileToolServices:
-    manager: CompileSessionManager
-    runtime: CompileDockerRuntime
+    manager: object
+    runtime: object
 
-
-_services = CompileToolServices(
-    manager=CompileSessionManager(),
-    runtime=CompileDockerRuntime(),
-)
-
-
-def get_compile_services() -> CompileToolServices:
-    return _services
 
 
 def _get_thread_id(runtime: ToolRuntime[ContextT, ThreadState]) -> str:
@@ -49,6 +35,7 @@ def _get_thread_id(runtime: ToolRuntime[ContextT, ThreadState]) -> str:
     if thread_id is None:
         thread_id = runtime.config.get("configurable", {}).get("thread_id")
     return thread_id or "default"
+
 
 
 def _get_subagent_owner_id(runtime: ToolRuntime[ContextT, ThreadState]) -> str | None:
@@ -60,49 +47,25 @@ def _get_subagent_owner_id(runtime: ToolRuntime[ContextT, ThreadState]) -> str |
     return trace_id or agent_name
 
 
+
 def _get_bound_session_id(runtime: ToolRuntime[ContextT, ThreadState]) -> str | None:
     state = runtime.state or {}
     return state.get(COMPILE_SESSION_STATE_KEY)
 
 
+
 def _load_bound_session(runtime: ToolRuntime[ContextT, ThreadState]):
-    session_id = _get_bound_session_id(runtime)
-    if not session_id:
-        raise ValueError("No compile session is currently bound. Call prepare_compile_session first.")
-
-    session = get_compile_services().manager.load_session(session_id, _get_thread_id(runtime))
-    owner_id = _get_subagent_owner_id(runtime)
-    if session.owner_subagent_id and owner_id and session.owner_subagent_id != owner_id:
-        raise ValueError("The bound compile session belongs to another subagent execution.")
-    return session
-
-
-def _relative_or_original(session, path: str | Path) -> str:
-    return get_compile_services().manager.relative_path(session, path)
-
-
-def _shell_quote(value: str) -> str:
-    return quote(value)
-
-
-def _container_repo_path(session, relative_path: str | None) -> str:
-    if not relative_path:
-        return session.container_repo_dir
-    normalized = relative_path.strip("/")
-    return f"{session.container_repo_dir}/{normalized}" if normalized else session.container_repo_dir
-
-
-def _append_command_record(session, stage: str, command: str, workdir: str, log_path: str, exit_code: int, started_at: str, completed_at: str) -> None:
-    record = BuildCommandRecord(
-        stage=stage,
-        command=command,
-        workdir=workdir,
-        started_at=started_at,
-        completed_at=completed_at,
-        exit_code=exit_code,
-        log_path=log_path,
+    return get_bound_session(
+        session_id=_get_bound_session_id(runtime),
+        thread_id=_get_thread_id(runtime),
+        owner_id=_get_subagent_owner_id(runtime),
     )
-    get_compile_services().manager.record_command(session, record)
+
+
+
+def get_compile_tool_services() -> CompileToolServices:
+    services = get_compile_services()
+    return CompileToolServices(manager=services.manager, runtime=services.runtime)
 
 
 @tool("prepare_compile_session", parse_docstring=True)
@@ -120,16 +83,13 @@ def prepare_compile_session(
         branch: Optional branch to clone.
         task_description: Optional short task summary for session metadata.
     """
-    services = get_compile_services()
-    thread_id = _get_thread_id(runtime)
-    owner_id = _get_subagent_owner_id(runtime)
-    session = services.manager.create_session(thread_id=thread_id, repo_url=repo_url, branch=branch)
-    session.owner_subagent_id = owner_id
-    if task_description:
-        session.summary = task_description
-    services.runtime.create_container(session)
-    services.manager.save_session(session)
-    services.manager.mark_session_status(session, "ready")
+    session = prepare_compile_session_impl(
+        thread_id=_get_thread_id(runtime),
+        repo_url=repo_url,
+        branch=branch,
+        task_description=task_description,
+        owner_id=_get_subagent_owner_id(runtime),
+    )
 
     message = (
         f"Compile session prepared. session_id={session.session_id}, "
@@ -157,32 +117,13 @@ def clone_repository(
         branch: Optional branch to checkout.
         depth: Clone depth. Defaults to 1.
     """
-    services = get_compile_services()
-    session = _load_bound_session(runtime)
-
-    clone_parts = [f"git clone --depth {depth}"]
-    if branch:
-        clone_parts.append(f"--branch {_shell_quote(branch)}")
-    clone_parts.append(f"{_shell_quote(repo_url)} {_shell_quote(session.container_repo_dir)}")
-    clone_command = " ".join(clone_parts)
-
-    log_path = f"{session.host_logs_dir}/001_clone.log"
-    started_at = utc_now_iso()
-    result = services.runtime.exec(session, clone_command, workdir=session.container_workspace_dir, log_path=log_path)
-    completed_at = utc_now_iso()
-    _append_command_record(session, "clone", clone_command, session.container_workspace_dir, log_path, result.exit_code, started_at, completed_at)
-
-    if result.exit_code != 0:
-        services.manager.mark_session_status(session, "failed", error=result.combined_output[:4000])
-        return f"Clone failed with exit code {result.exit_code}. Output:\n{result.combined_output}"
-
-    sha_result = services.runtime.exec(session, "git -C /workspace/repo rev-parse HEAD", workdir=session.container_workspace_dir)
-    if sha_result.exit_code == 0:
-        session.commit_sha = sha_result.stdout.strip()
-        services.manager.save_session(session)
-
-    services.manager.mark_session_status(session, "source_ready")
-    return f"Repository cloned successfully to {session.container_repo_dir}. Commit: {session.commit_sha or 'unknown'}"
+    _, message = clone_repository_impl(
+        session=_load_bound_session(runtime),
+        repo_url=repo_url,
+        branch=branch,
+        depth=depth,
+    )
+    return message
 
 
 @tool("inspect_build_system", parse_docstring=True)
@@ -191,37 +132,9 @@ def inspect_build_system(runtime: ToolRuntime[ContextT, ThreadState]) -> str:
 
     Returns a concise summary of detected marker files and suggested commands.
     """
-    services = get_compile_services()
-    session = _load_bound_session(runtime)
-
-    detected: list[tuple[str, str]] = []
-    for build_system, marker in _BUILD_SYSTEM_MARKERS.items():
-        check_command = f"test -f {_shell_quote(_container_repo_path(session, marker))}"
-        result = services.runtime.exec(session, check_command, workdir=session.container_workspace_dir)
-        if result.exit_code == 0:
-            detected.append((build_system, marker))
-
-    if detected:
-        primary_system = detected[0][0]
-        session.build_system = primary_system
-        services.manager.save_session(session)
-    else:
-        primary_system = "unknown"
-
-    suggested_commands = {
-        "cmake": ["mkdir -p build && cd build && cmake ..", "cmake --build build -j"],
-        "make": ["make -j"],
-        "cargo": ["cargo build --release"],
-        "npm": ["npm install", "npm run build"],
-        "go": ["go build ./..."],
-        "python": ["python -m build"],
-        "python-legacy": ["python setup.py build"],
-        "unknown": ["Inspect repository manually and run the appropriate build command"],
-    }
-
+    primary_system, detected, suggested_commands = inspect_build_system_impl(session=_load_bound_session(runtime))
     marker_summary = ", ".join(f"{name} ({marker})" for name, marker in detected) if detected else "none"
-    command_summary = "; ".join(suggested_commands.get(primary_system, suggested_commands["unknown"]))
-    services.manager.mark_session_status(session, "inspected")
+    command_summary = "; ".join(suggested_commands)
     return f"Detected build system: {primary_system}. Marker files: {marker_summary}. Suggested commands: {command_summary}"
 
 
@@ -241,25 +154,14 @@ def run_compile_command(
         timeout_seconds: Command timeout in seconds.
         stage: Optional logical stage label (e.g. configure/build/test).
     """
-    services = get_compile_services()
-    session = _load_bound_session(runtime)
-
-    effective_stage = stage or "build"
-    current_index = len(session.commands) + 1
-    workdir_path = _container_repo_path(session, workdir)
-    log_path = f"{session.host_logs_dir}/{current_index:03d}_{effective_stage}.log"
-    started_at = utc_now_iso()
-    result = services.runtime.exec(session, command, workdir=workdir_path, timeout_seconds=timeout_seconds, log_path=log_path)
-    completed_at = utc_now_iso()
-
-    _append_command_record(session, effective_stage, command, workdir_path, log_path, result.exit_code, started_at, completed_at)
-
-    if result.exit_code != 0:
-        services.manager.mark_session_status(session, "failed", error=result.combined_output[:4000])
-        return f"Command failed at stage '{effective_stage}' with exit code {result.exit_code}. Output:\n{result.combined_output}"
-
-    services.manager.mark_session_status(session, "building")
-    return f"Command succeeded at stage '{effective_stage}'. Log saved to {_relative_or_original(session, log_path)}. Output:\n{result.combined_output}"
+    _, _, message = run_compile_command_impl(
+        session=_load_bound_session(runtime),
+        command=command,
+        workdir=workdir,
+        timeout_seconds=timeout_seconds,
+        stage=stage,
+    )
+    return message
 
 
 @tool("verify_build_artifacts", parse_docstring=True)
@@ -276,48 +178,13 @@ def verify_build_artifacts(
         file_pattern: Optional filename pattern such as `ffmpeg` or `*.so`.
         copy_to_artifacts: Whether to copy discovered files into the session artifacts directory.
     """
-    services = get_compile_services()
-    session = _load_bound_session(runtime)
-    search_root = search_path or session.container_repo_dir
-    pattern_clause = f" -name {_shell_quote(file_pattern)}" if file_pattern else ""
-    command = f"find {_shell_quote(search_root)} -type f{pattern_clause} -exec file {{}} +"
-
-    log_path = f"{session.host_logs_dir}/{len(session.commands) + 1:03d}_verify.log"
-    started_at = utc_now_iso()
-    result = services.runtime.exec(session, command, workdir=session.container_workspace_dir, log_path=log_path)
-    completed_at = utc_now_iso()
-    _append_command_record(session, "verify", command, session.container_workspace_dir, log_path, result.exit_code, started_at, completed_at)
-
-    if result.exit_code != 0:
-        services.manager.mark_session_status(session, "failed", error=result.combined_output[:4000])
-        return f"Artifact verification failed. Output:\n{result.combined_output}"
-
-    artifacts: list[str] = []
-    for line in result.combined_output.splitlines():
-        if ":" not in line:
-            continue
-        source, description = line.split(":", 1)
-        description_lower = description.lower()
-        if not any(token in description_lower for token in ["elf", "executable", "shared object", "archive"]):
-            continue
-        source_path = source.strip()
-        recorded_path = source_path
-        if copy_to_artifacts:
-            copied_path = services.manager.copy_artifact_into_session(session, source_path)
-            recorded_path = copied_path
-        artifact = BuildArtifact(
-            path=services.manager.relative_path(session, recorded_path),
-            artifact_type=description.strip(),
-            size_bytes=Path(recorded_path).stat().st_size if Path(recorded_path).exists() else None,
-            source_path=source_path,
-        )
-        services.manager.record_artifact(session, artifact)
-        artifacts.append(f"- {artifact.path} ({artifact.artifact_type})")
-
-    services.manager.mark_session_status(session, "artifacts_verified")
-    if not artifacts:
-        return "No matching build artifacts were found."
-    return "Verified build artifacts:\n" + "\n".join(artifacts)
+    _, _, message = verify_build_artifacts_impl(
+        session=_load_bound_session(runtime),
+        search_path=search_path,
+        file_pattern=file_pattern,
+        copy_to_artifacts=copy_to_artifacts,
+    )
+    return message
 
 
 @tool("finalize_compile_session", parse_docstring=True)
@@ -332,44 +199,8 @@ def finalize_compile_session(
         summary: Optional final summary to persist into session metadata.
         generate_repro_bundle: Whether to generate a simple reproducible build script.
     """
-    services = get_compile_services()
-    session = _load_bound_session(runtime)
-
-    if generate_repro_bundle:
-        repro_dir = Path(session.host_repro_dir)
-        repro_dir.mkdir(parents=True, exist_ok=True)
-        build_script_path = repro_dir / "build.sh"
-        command_lines = [record.command for record in session.commands if record.stage != "verify"]
-        script_content = "#!/usr/bin/env bash\nset -euo pipefail\n\n" + "\n".join(command_lines) + "\n"
-        build_script_path.write_text(script_content, encoding="utf-8")
-
-        dockerfile_path = repro_dir / "Dockerfile"
-        dockerfile_content = (
-            f"FROM {session.image}\n"
-            "WORKDIR /workspace/repo\n"
-            "COPY . /workspace/repo\n"
-            "COPY repro/build.sh /repro/build.sh\n"
-            "RUN chmod +x /repro/build.sh\n"
-            "CMD [\"bash\", \"/repro/build.sh\"]\n"
-        )
-        dockerfile_path.write_text(dockerfile_content, encoding="utf-8")
-
-    final_status = "completed" if session.status != "failed" else "failed"
-    services.runtime.stop_and_remove_container(session)
-    services.manager.mark_session_status(session, final_status, summary=summary or session.summary)
-
-    response = {
-        "session_id": session.session_id,
-        "status": final_status,
-        "summary": session.summary,
-        "artifacts": [artifact.path for artifact in session.artifacts],
-        "logs": [services.manager.relative_path(session, record.log_path) for record in session.commands if record.log_path],
-        "repro_files": [
-            services.manager.relative_path(session, Path(session.host_repro_dir) / "build.sh"),
-            services.manager.relative_path(session, Path(session.host_repro_dir) / "Dockerfile"),
-        ]
-        if generate_repro_bundle
-        else [],
-        "session_root": services.manager.relative_path(session, session.host_session_dir),
-    }
-    return json.dumps(response, ensure_ascii=False, indent=2)
+    return finalize_compile_session_json(
+        session=_load_bound_session(runtime),
+        summary=summary,
+        generate_repro_bundle=generate_repro_bundle,
+    )
