@@ -6,7 +6,7 @@ from typing import Any
 
 from deerflow.models import create_chat_model
 from deerflow.subagents.config import SubagentConfig
-from deerflow.tools.tools import get_available_tools
+from deerflow.tools.builtins.compile_tools import run_compile_command
 
 
 @dataclass
@@ -92,11 +92,10 @@ Rules:
         from langchain.agents import create_agent
         from deerflow.agents.middlewares.tool_error_handling_middleware import build_subagent_runtime_middlewares
 
-        tools = get_available_tools(model_name=self.model_name, subagent_enabled=False)
         middlewares = build_subagent_runtime_middlewares(lazy_init=True)
         agent = create_agent(
             model=model,
-            tools=[tool for tool in tools if tool.name == "run_compile_command"],
+            tools=[run_compile_command],
             middleware=middlewares,
             system_prompt=self.config.system_prompt,
         )
