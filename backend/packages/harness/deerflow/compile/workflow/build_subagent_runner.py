@@ -11,6 +11,8 @@ from deerflow.subagents.executor import SubagentStatus
 
 logger = logging.getLogger(__name__)
 
+_COMPILE_SESSION_STATE_KEY = "compile_session_id"
+
 
 @dataclass
 class BuildSubagentExecutionResult:
@@ -91,8 +93,26 @@ def run_build_subagent_once(
         tools=tools,
         thread_id=workflow_input.thread_id,
         trace_id=workflow_input.owner_id or session.session_id,
-        initial_state={"compile_session_id": session.session_id},
+        initial_state={_COMPILE_SESSION_STATE_KEY: session.session_id},
     )
+
+    original_aexecute = executor._aexecute
+
+    async def _aexecute_with_session_context(task: str, result_holder=None):
+        original_build_initial_state = executor._build_initial_state
+
+        def _build_initial_state_with_session(current_task: str):
+            state = original_build_initial_state(current_task)
+            state[_COMPILE_SESSION_STATE_KEY] = session.session_id
+            return state
+
+        executor._build_initial_state = _build_initial_state_with_session
+        try:
+            return await original_aexecute(task, result_holder)
+        finally:
+            executor._build_initial_state = original_build_initial_state
+
+    executor._aexecute = _aexecute_with_session_context
 
     result = executor.execute(_build_prompt(workflow_input, build_system))
     raw_output = result.result or ""

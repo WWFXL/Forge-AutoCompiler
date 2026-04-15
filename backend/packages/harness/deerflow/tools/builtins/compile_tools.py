@@ -50,7 +50,26 @@ def _get_subagent_owner_id(runtime: ToolRuntime[ContextT, ThreadState]) -> str |
 
 def _get_bound_session_id(runtime: ToolRuntime[ContextT, ThreadState]) -> str | None:
     state = runtime.state or {}
-    return state.get(COMPILE_SESSION_STATE_KEY)
+    session_id = state.get(COMPILE_SESSION_STATE_KEY)
+    if session_id:
+        return session_id
+
+    context = runtime.context or {}
+    session_id = context.get(COMPILE_SESSION_STATE_KEY)
+    if session_id:
+        return session_id
+
+    configurable = runtime.config.get("configurable", {}) if runtime and runtime.config else {}
+    session_id = configurable.get(COMPILE_SESSION_STATE_KEY)
+    if session_id:
+        return session_id
+
+    metadata = runtime.config.get("metadata", {}) if runtime and runtime.config else {}
+    session_id = metadata.get(COMPILE_SESSION_STATE_KEY)
+    if session_id:
+        return session_id
+
+    return None
 
 
 
