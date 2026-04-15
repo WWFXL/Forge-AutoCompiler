@@ -4,17 +4,16 @@ from deerflow.compile.operations import (
     clone_repository_impl,
     finalize_compile_session_impl,
     inspect_build_system_impl,
-    prepare_compile_session_impl,
     relative_or_original,
-    run_compile_command_impl,
     verify_build_artifacts_impl,
 )
-from deerflow.compile.schemas import CommandResult
-from deerflow.compile.workflow.build_agent import BuildAgentInput, BuildDecisionAgent
+from deerflow.compile.workflow.build_subagent_runner import run_build_subagent_once
 from deerflow.compile.workflow.schemas import BuildAttempt, CompileWorkflowInput, CompileWorkflowState
 
 
 def run_prepare_stage(state: CompileWorkflowState, workflow_input: CompileWorkflowInput):
+    from deerflow.compile.operations import prepare_compile_session_impl
+
     session = prepare_compile_session_impl(
         thread_id=workflow_input.thread_id,
         repo_url=workflow_input.repo_url,
@@ -58,47 +57,37 @@ def run_build_stage(state: CompileWorkflowState, session, workflow_input: Compil
     if not state.build_system:
         raise RuntimeError("Build system not detected before build stage")
 
-    agent = BuildDecisionAgent()
-    latest_failure_summary: str | None = None
     state.status = "building"
+    previous_command_count = len(session.commands)
+    execution = run_build_subagent_once(
+        session=session,
+        workflow_input=workflow_input,
+        build_system=state.build_system,
+    )
 
-    for _ in range(workflow_input.max_build_attempts):
-        decision = agent.next_decision(
-            BuildAgentInput(
-                repo_url=workflow_input.repo_url,
-                build_system=state.build_system,
-                task_description=workflow_input.task_description,
-                artifact_hint=workflow_input.artifact_hint,
-                build_goal=workflow_input.build_goal,
-                previous_attempts=[attempt.__dict__ for attempt in state.attempts],
-                latest_failure_summary=latest_failure_summary,
-                max_build_attempts=workflow_input.max_build_attempts,
-            )
-        )
-
-        if decision.should_stop:
-            raise RuntimeError(decision.rationale or "Build agent decided to stop")
-        if not decision.command:
-            raise RuntimeError("Build agent did not provide a command")
-
-        result, record, message = run_compile_command_impl(
-            session=session,
-            command=decision.command,
-            stage=decision.stage,
-        )
-        attempt_summary = f"{decision.rationale} | {message}" if decision.rationale else message
-        state.attempts.append(BuildAttempt.from_command_record(record, summary=attempt_summary))
+    new_records = session.commands[previous_command_count:]
+    for record in new_records:
+        attempt = BuildAttempt.from_command_record(record)
+        state.attempts.append(attempt)
         if record.log_path:
             state.logs.append(relative_or_original(session, record.log_path))
 
-        if result.exit_code == 0:
-            state.build_done = True
-            state.summary = attempt_summary
-            return
+    if execution.subagent_status.value != "completed":
+        state.error = execution.error or execution.raw_output or "Build subagent failed"
+        raise RuntimeError(state.error)
 
-        latest_failure_summary = attempt_summary
+    if execution.parsed_result is None:
+        state.error = execution.error or execution.raw_output or "Build subagent result could not be parsed"
+        raise RuntimeError(state.error)
 
-    raise RuntimeError(f"Build failed after {workflow_input.max_build_attempts} attempts")
+    state.summary = execution.parsed_result.summary
+    if execution.parsed_result.build_status == "success" and execution.parsed_result.proceed_to_verify:
+        state.build_done = True
+        state.status = "build_completed"
+        return
+
+    state.error = execution.parsed_result.summary
+    raise RuntimeError(execution.parsed_result.summary)
 
 
 
