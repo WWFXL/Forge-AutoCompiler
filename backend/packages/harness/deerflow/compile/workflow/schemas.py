@@ -38,6 +38,14 @@ class BuildAttempt:
 
 
 @dataclass
+class BuildSubagentResult:
+    build_status: str
+    proceed_to_verify: bool
+    summary: str
+    raw_output: str = ""
+
+
+@dataclass
 class CompileWorkflowState:
     thread_id: str
     repo_url: str
