@@ -294,7 +294,7 @@ def run_compile_command_impl(
             exit_code=result.exit_code,
             output=result.combined_output[:4000],
         )
-        services.manager.mark_session_status(session, "failed", error=result.combined_output[:4000])
+        services.manager.mark_session_status(session, "build_failed", error=result.combined_output[:4000])
         return result, record, f"Command failed at stage '{effective_stage}' with exit code {result.exit_code}. Output:\n{result.combined_output}"
 
     services.manager.log_event(
@@ -375,7 +375,7 @@ def verify_build_artifacts_impl(
             log_path=log_path,
             output=result.combined_output[:4000],
         )
-        services.manager.mark_session_status(session, "failed", error=result.combined_output[:4000])
+        services.manager.mark_session_status(session, "verify_failed", error=result.combined_output[:4000])
         return result, [], f"Artifact verification failed. Output:\n{result.combined_output}"
 
     artifacts: list[BuildArtifact] = []

@@ -34,7 +34,8 @@ class CompileWorkflowRunner:
             services.manager.log_event(session, "workflow.stage.completed", stage="verify", status=state.status, artifact_count=len(state.artifacts))
             state.status = "completed"
         except Exception as exc:
-            state.status = "failed"
+            if state.status not in {"build_failed", "verify_failed"}:
+                state.status = "failed"
             state.error = state.error or str(exc)
             if not state.summary:
                 state.summary = str(exc)

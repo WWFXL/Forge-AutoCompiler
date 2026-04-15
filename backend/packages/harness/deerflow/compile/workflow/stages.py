@@ -26,7 +26,6 @@ def run_prepare_stage(state: CompileWorkflowState, workflow_input: CompileWorkfl
     return session
 
 
-
 def run_clone_stage(state: CompileWorkflowState, workflow_input: CompileWorkflowInput, session) -> None:
     result, message = clone_repository_impl(
         session=session,
@@ -42,14 +41,12 @@ def run_clone_stage(state: CompileWorkflowState, workflow_input: CompileWorkflow
     state.status = "source_ready"
 
 
-
 def run_inspect_stage(state: CompileWorkflowState, session) -> list[str]:
     primary_system, _, suggested_commands = inspect_build_system_impl(session=session)
     state.build_system = primary_system
     state.inspect_done = True
     state.status = "inspected"
     return suggested_commands
-
 
 
 def run_build_stage(state: CompileWorkflowState, session, workflow_input: CompileWorkflowInput) -> None:
@@ -109,7 +106,6 @@ def run_build_stage(state: CompileWorkflowState, session, workflow_input: Compil
     raise RuntimeError(execution.parsed_result.summary)
 
 
-
 def run_verify_stage(state: CompileWorkflowState, session, workflow_input: CompileWorkflowInput) -> None:
     _, artifacts, message = verify_build_artifacts_impl(
         session=session,
@@ -119,11 +115,11 @@ def run_verify_stage(state: CompileWorkflowState, session, workflow_input: Compi
     state.verify_message = message
     state.artifacts = artifacts
     if not artifacts:
+        state.status = "verify_failed"
         state.summary = message
         raise RuntimeError(message)
     state.status = "artifacts_verified"
     state.summary = message
-
 
 
 def run_finalize_stage(state: CompileWorkflowState, session, workflow_input: CompileWorkflowInput) -> None:
