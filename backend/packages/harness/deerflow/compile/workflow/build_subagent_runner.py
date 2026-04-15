@@ -8,7 +8,6 @@ from deerflow.compile.schemas import CompileSession
 from deerflow.compile.workflow.schemas import BuildSubagentResult, CompileWorkflowInput
 from deerflow.subagents import SubagentExecutor, get_subagent_config
 from deerflow.subagents.executor import SubagentStatus
-from deerflow.tools.tools import get_subagent_tools
 
 logger = logging.getLogger(__name__)
 
@@ -83,6 +82,8 @@ def run_build_subagent_once(
     config = get_subagent_config("compiler")
     if config is None:
         raise RuntimeError("Compiler subagent config not found")
+
+    from deerflow.tools.tools import get_subagent_tools
 
     tools = get_subagent_tools(subagent_type="compiler", model_name=None)
     executor = SubagentExecutor(
