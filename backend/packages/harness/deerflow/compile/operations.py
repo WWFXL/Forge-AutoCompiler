@@ -351,11 +351,13 @@ def record_build_artifact_impl(
     services = get_compile_services()
     recorded_path = artifact_path
     if copy_to_artifacts:
-        recorded_path = services.manager.copy_artifact_into_session(session, artifact_path)
+        destination_name = Path(artifact_path).name
+        recorded_path = services.runtime.copy_artifact_to_session(session, artifact_path, destination_name)
+    host_recorded_path = Path(session.host_artifacts_dir) / Path(recorded_path).name if copy_to_artifacts else Path(recorded_path)
     artifact = BuildArtifact(
-        path=services.manager.relative_path(session, recorded_path),
+        path=services.manager.relative_path(session, host_recorded_path),
         artifact_type=artifact_type,
-        size_bytes=Path(recorded_path).stat().st_size if Path(recorded_path).exists() else None,
+        size_bytes=host_recorded_path.stat().st_size if host_recorded_path.exists() else None,
         source_path=artifact_path,
     )
     services.manager.record_artifact(session, artifact)

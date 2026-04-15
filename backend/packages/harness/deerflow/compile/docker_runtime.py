@@ -142,6 +142,41 @@ class CompileDockerRuntime:
             log_path=log_path,
         )
 
+    def copy_artifact_to_session(self, session: CompileSession, source_path: str, destination_filename: str | None = None) -> str:
+        if not session.container_id:
+            raise ValueError("Compile session container has not been created")
+
+        source = Path(source_path)
+        target_name = destination_filename or source.name
+        destination_path = f"{session.container_artifacts_dir.rstrip('/')}/{target_name}"
+        command = f"cp {source_path!r} {destination_path!r}"
+        self._log(
+            session,
+            "artifact.copy.started",
+            source_path=source_path,
+            destination_path=destination_path,
+            command=command,
+        )
+        result = self.exec(session, command, workdir=session.container_workspace_dir)
+        if result.exit_code != 0:
+            self._log(
+                session,
+                "artifact.copy.failed",
+                source_path=source_path,
+                destination_path=destination_path,
+                exit_code=result.exit_code,
+                output=result.combined_output[:4000],
+            )
+            raise RuntimeError(f"Failed to copy artifact {source_path} into session artifacts: {result.combined_output}")
+        self._log(
+            session,
+            "artifact.copy.completed",
+            source_path=source_path,
+            destination_path=destination_path,
+            exit_code=result.exit_code,
+        )
+        return destination_path
+
     def stop_and_remove_container(self, session: CompileSession) -> None:
         if not session.container_id:
             return

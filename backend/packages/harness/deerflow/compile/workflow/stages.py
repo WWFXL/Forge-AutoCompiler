@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from pathlib import Path
+
 from deerflow.compile.operations import (
     clone_repository_impl,
     finalize_compile_session_impl,
@@ -11,6 +13,17 @@ from deerflow.compile.operations import (
 )
 from deerflow.compile.workflow.build_subagent_runner import run_build_subagent_once
 from deerflow.compile.workflow.schemas import BuildAttempt, CompileWorkflowInput, CompileWorkflowState
+
+
+def _normalize_artifact_path(session, artifact_path: str) -> str:
+    artifact = artifact_path.strip()
+    if not artifact:
+        raise ValueError("Build subagent returned an empty artifact path")
+    if artifact.startswith(session.container_repo_dir) or artifact.startswith(session.container_workspace_dir):
+        return artifact
+    if artifact.startswith("/"):
+        return artifact
+    return str(Path(session.container_repo_dir) / artifact.lstrip("./"))
 
 
 def run_prepare_stage(state: CompileWorkflowState, workflow_input: CompileWorkflowInput):
@@ -100,7 +113,14 @@ def run_build_stage(state: CompileWorkflowState, session, workflow_input: Compil
 
     state.summary = execution.parsed_result.summary
     if execution.parsed_result.build_status == "success" and execution.parsed_result.proceed_to_verify:
-        for artifact_path in execution.parsed_result.artifacts:
+        normalized_artifacts = [_normalize_artifact_path(session, artifact_path) for artifact_path in execution.parsed_result.artifacts]
+        services.manager.log_event(
+            session,
+            "build.artifacts.reported",
+            artifacts=normalized_artifacts,
+            raw_artifacts=execution.parsed_result.artifacts,
+        )
+        for artifact_path in normalized_artifacts:
             record_build_artifact_impl(session=session, artifact_path=artifact_path)
         session = services.manager.load_session(session.session_id, session.thread_id)
         state.artifacts = session.artifacts[previous_artifact_count:]
