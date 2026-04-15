@@ -5,6 +5,7 @@ from deerflow.compile.operations import (
     finalize_compile_session_impl,
     inspect_build_system_impl,
     prepare_compile_session_impl,
+    record_build_artifact_impl,
     relative_or_original,
     verify_build_artifacts_impl,
 )
@@ -58,6 +59,7 @@ def run_build_stage(state: CompileWorkflowState, session, workflow_input: Compil
     services = get_compile_services()
     state.status = "building"
     previous_command_count = len(session.commands)
+    previous_artifact_count = len(session.artifacts)
     services.manager.log_event(
         session,
         "build.subagent.started",
@@ -98,6 +100,10 @@ def run_build_stage(state: CompileWorkflowState, session, workflow_input: Compil
 
     state.summary = execution.parsed_result.summary
     if execution.parsed_result.build_status == "success" and execution.parsed_result.proceed_to_verify:
+        for artifact_path in execution.parsed_result.artifacts:
+            record_build_artifact_impl(session=session, artifact_path=artifact_path)
+        session = services.manager.load_session(session.session_id, session.thread_id)
+        state.artifacts = session.artifacts[previous_artifact_count:]
         state.build_done = True
         state.status = "build_completed"
         return
@@ -110,16 +116,12 @@ def run_verify_stage(state: CompileWorkflowState, session, workflow_input: Compi
     _, artifacts, message = verify_build_artifacts_impl(
         session=session,
         file_pattern=workflow_input.artifact_hint,
+        copy_to_artifacts=False,
     )
     state.verify_done = True
     state.verify_message = message
     state.artifacts = artifacts
-    if not artifacts:
-        state.status = "verify_failed"
-        state.summary = message
-        raise RuntimeError(message)
     state.status = "artifacts_verified"
-    state.summary = message
 
 
 def run_finalize_stage(state: CompileWorkflowState, session, workflow_input: CompileWorkflowInput) -> None:

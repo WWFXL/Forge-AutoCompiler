@@ -23,7 +23,7 @@ class BuildSubagentExecutionResult:
 
 _BUILD_RESULT_JSON_SCHEMA = {
     "type": "object",
-    "required": ["build_status", "proceed_to_verify", "summary"],
+    "required": ["build_status", "proceed_to_verify", "summary", "artifacts"],
 }
 
 
@@ -39,7 +39,10 @@ def _build_prompt(workflow_input: CompileWorkflowInput, build_system: str | None
     }
     return (
         "Complete the build stage for the already prepared compile session. "
-        "Use run_compile_command for all actions. Return only the required JSON contract at the end.\n\n"
+        "Use run_compile_command for all actions. "
+        "Return only the required JSON contract at the end. "
+        "The JSON must include 'artifacts', an array of absolute artifact paths inside the compile container, for example ['/workspace/repo/ffmpeg']."
+        "\n\n"
         + json.dumps(payload, ensure_ascii=False, indent=2)
     )
 
@@ -49,20 +52,28 @@ def _parse_build_result(raw_output: str) -> BuildSubagentResult:
     build_status = str(data.get("build_status", "")).strip()
     proceed_to_verify = bool(data.get("proceed_to_verify", False))
     summary = str(data.get("summary", "")).strip()
+    artifacts_raw = data.get("artifacts", [])
 
     if build_status not in {"success", "failed"}:
         raise ValueError(f"Invalid build_status: {build_status!r}")
     if not summary:
         raise ValueError("Missing summary in build subagent result")
+    if not isinstance(artifacts_raw, list) or any(not isinstance(item, str) for item in artifacts_raw):
+        raise ValueError("artifacts must be an array of strings")
     if build_status == "failed" and proceed_to_verify:
         raise ValueError("Failed build cannot proceed to verify")
     if build_status == "success" and not proceed_to_verify:
         raise ValueError("Successful build must proceed to verify")
 
+    artifacts = [item.strip() for item in artifacts_raw if item.strip()]
+    if build_status == "success" and not artifacts:
+        raise ValueError("Successful build must provide at least one artifact path")
+
     return BuildSubagentResult(
         build_status=build_status,
         proceed_to_verify=proceed_to_verify,
         summary=summary,
+        artifacts=artifacts,
         raw_output=raw_output,
     )
 

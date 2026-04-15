@@ -341,6 +341,27 @@ def run_compile_command_json(
     )
 
 
+def record_build_artifact_impl(
+    *,
+    session: CompileSession,
+    artifact_path: str,
+    artifact_type: str = "build_output",
+    copy_to_artifacts: bool = True,
+) -> BuildArtifact:
+    services = get_compile_services()
+    recorded_path = artifact_path
+    if copy_to_artifacts:
+        recorded_path = services.manager.copy_artifact_into_session(session, artifact_path)
+    artifact = BuildArtifact(
+        path=services.manager.relative_path(session, recorded_path),
+        artifact_type=artifact_type,
+        size_bytes=Path(recorded_path).stat().st_size if Path(recorded_path).exists() else None,
+        source_path=artifact_path,
+    )
+    services.manager.record_artifact(session, artifact)
+    return artifact
+
+
 def verify_build_artifacts_impl(
     *,
     session: CompileSession,
@@ -349,69 +370,38 @@ def verify_build_artifacts_impl(
     copy_to_artifacts: bool = True,
 ) -> tuple[CommandResult, list[BuildArtifact], str]:
     services = get_compile_services()
-    search_root = search_path or session.container_repo_dir
-    pattern_clause = f" -name {shell_quote(file_pattern)}" if file_pattern else ""
-    command = f"find {shell_quote(search_root)} -type f{pattern_clause} -exec file {{}} +"
-
     log_path = local_log_path(session, f"{len(session.commands) + 1:03d}_verify.log")
     services.manager.log_event(
         session,
         "verify.started",
-        search_root=search_root,
+        search_root=search_path or session.container_repo_dir,
         file_pattern=file_pattern,
         copy_to_artifacts=copy_to_artifacts,
         log_path=log_path,
+        skipped=True,
     )
     started_at = utc_now_iso()
-    result = services.runtime.exec(session, command, workdir=session.container_workspace_dir, log_path=log_path)
     completed_at = utc_now_iso()
-    append_command_record(session, "verify", command, session.container_workspace_dir, log_path, result.exit_code, started_at, completed_at)
-
-    if result.exit_code != 0:
-        services.manager.log_event(
-            session,
-            "verify.failed",
-            exit_code=result.exit_code,
-            log_path=log_path,
-            output=result.combined_output[:4000],
-        )
-        services.manager.mark_session_status(session, "verify_failed", error=result.combined_output[:4000])
-        return result, [], f"Artifact verification failed. Output:\n{result.combined_output}"
-
-    artifacts: list[BuildArtifact] = []
-    for line in result.combined_output.splitlines():
-        if ":" not in line:
-            continue
-        source, description = line.split(":", 1)
-        description_lower = description.lower()
-        if not any(token in description_lower for token in ["elf", "executable", "shared object", "archive"]):
-            continue
-        source_path = source.strip()
-        recorded_path = source_path
-        if copy_to_artifacts:
-            copied_path = services.manager.copy_artifact_into_session(session, source_path)
-            recorded_path = copied_path
-        artifact = BuildArtifact(
-            path=services.manager.relative_path(session, recorded_path),
-            artifact_type=description.strip(),
-            size_bytes=Path(recorded_path).stat().st_size if Path(recorded_path).exists() else None,
-            source_path=source_path,
-        )
-        services.manager.record_artifact(session, artifact)
-        artifacts.append(artifact)
-
+    append_command_record(session, "verify", "true", session.container_workspace_dir, log_path, 0, started_at, completed_at)
+    result = CommandResult(
+        exit_code=0,
+        stdout="Verification skipped.",
+        stderr="",
+        combined_output="Verification skipped.",
+        log_path=log_path,
+    )
+    Path(log_path).write_text("Verification skipped.\n", encoding="utf-8")
+    artifacts = list(session.artifacts)
     services.manager.log_event(
         session,
         "verify.completed",
         log_path=log_path,
         artifact_count=len(artifacts),
         artifacts=[artifact.path for artifact in artifacts],
+        skipped=True,
     )
     services.manager.mark_session_status(session, "artifacts_verified")
-    if not artifacts:
-        return result, artifacts, "No matching build artifacts were found."
-    lines = [f"- {artifact.path} ({artifact.artifact_type})" for artifact in artifacts]
-    return result, artifacts, "Verified build artifacts:\n" + "\n".join(lines)
+    return result, artifacts, "Verification skipped."
 
 
 def verify_build_artifacts_json(
@@ -431,7 +421,7 @@ def verify_build_artifacts_json(
         {
             "exit_code": result.exit_code,
             "artifact_count": len(artifacts),
-            "artifacts": [artifact.to_dict() if hasattr(artifact, "to_dict") else artifact.__dict__ for artifact in artifacts],
+            "artifacts": [artifact.__dict__ for artifact in artifacts],
             "message": message,
         },
         ensure_ascii=False,

@@ -42,6 +42,7 @@ class BuildSubagentResult:
     build_status: str
     proceed_to_verify: bool
     summary: str
+    artifacts: list[str] = field(default_factory=list)
     raw_output: str = ""
 
 
