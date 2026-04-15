@@ -126,6 +126,7 @@ class SubagentExecutor:
         thread_data: ThreadDataState | None = None,
         thread_id: str | None = None,
         trace_id: str | None = None,
+        initial_state: dict[str, Any] | None = None,
     ):
         self.config = config
         self.parent_model = parent_model
@@ -133,6 +134,7 @@ class SubagentExecutor:
         self.thread_data = thread_data
         self.thread_id = thread_id
         self.trace_id = trace_id or str(uuid.uuid4())[:8]
+        self.initial_state = initial_state or {}
         self.tools = _filter_tools(tools, config.tools, config.disallowed_tools)
 
         logger.info(
@@ -163,6 +165,7 @@ class SubagentExecutor:
     def _build_initial_state(self, task: str) -> dict[str, Any]:
         state: dict[str, Any] = {
             "messages": [HumanMessage(content=task)],
+            **self.initial_state,
         }
         if self.sandbox_state is not None:
             state["sandbox"] = self.sandbox_state

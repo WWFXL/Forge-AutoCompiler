@@ -91,6 +91,7 @@ def run_build_subagent_once(
         tools=tools,
         thread_id=workflow_input.thread_id,
         trace_id=workflow_input.owner_id or session.session_id,
+        initial_state={"compile_session_id": session.session_id},
     )
 
     result = executor.execute(_build_prompt(workflow_input, build_system))
