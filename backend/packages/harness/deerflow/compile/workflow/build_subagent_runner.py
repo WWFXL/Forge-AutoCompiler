@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import logging
 from dataclasses import dataclass
 
 from deerflow.compile.schemas import CompileSession
@@ -8,6 +9,8 @@ from deerflow.compile.workflow.schemas import BuildSubagentResult, CompileWorkfl
 from deerflow.subagents import SubagentExecutor, get_subagent_config
 from deerflow.subagents.executor import SubagentStatus
 from deerflow.tools.tools import get_subagent_tools
+
+logger = logging.getLogger(__name__)
 
 
 @dataclass
@@ -70,7 +73,12 @@ def run_build_subagent_once(
     workflow_input: CompileWorkflowInput,
     build_system: str | None,
 ) -> BuildSubagentExecutionResult:
-    del session
+    logger.info(
+        "Running build subagent once: session_id=%s thread_id=%s build_system=%s",
+        session.session_id,
+        workflow_input.thread_id,
+        build_system,
+    )
 
     config = get_subagent_config("compiler")
     if config is None:
@@ -81,7 +89,7 @@ def run_build_subagent_once(
         config=config,
         tools=tools,
         thread_id=workflow_input.thread_id,
-        trace_id=workflow_input.owner_id or "build-workflow",
+        trace_id=workflow_input.owner_id or session.session_id,
     )
 
     result = executor.execute(_build_prompt(workflow_input, build_system))
@@ -111,4 +119,3 @@ def run_build_subagent_once(
         raw_output=raw_output,
         error=None,
     )
-

@@ -26,6 +26,10 @@ COMPILE_TOOLS = [
     finalize_compile_session,
 ]
 
+BUILD_SUBAGENT_TOOLS = [
+    run_compile_command,
+]
+
 SUBAGENT_TOOLS = [
     task_tool,
     # task_status_tool is no longer exposed to LLM (backend handles polling internally)
@@ -133,8 +137,8 @@ def get_subagent_tools(subagent_type: str, model_name: str | None = None) -> lis
     loaded_tools, builtin_tools, mcp_tools, acp_tools = _load_configured_tools(groups=None, model_name=model_name)
 
     if subagent_type == "compiler":
-        tools = COMPILE_TOOLS.copy()
-        logger.info("Providing compiler-specific tool set to compiler subagent")
+        tools = BUILD_SUBAGENT_TOOLS.copy()
+        logger.info("Providing build-only tool set to compiler subagent")
         return tools
 
     return loaded_tools + builtin_tools + mcp_tools + acp_tools
