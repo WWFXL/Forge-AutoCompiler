@@ -5,14 +5,13 @@ from langchain.tools import BaseTool
 from deerflow.config import get_app_config
 from deerflow.reflection import resolve_variable
 from deerflow.sandbox.security import is_host_bash_allowed
-from deerflow.tools.builtins import ask_clarification_tool, present_file_tool, run_compile_workflow, task_tool, view_image_tool
+from deerflow.tools.builtins import ask_clarification_tool, run_compile_workflow, task_tool
 from deerflow.tools.builtins.compile_tools import clone_repository, finalize_compile_session, inspect_build_system, prepare_compile_session, run_compile_command, verify_build_artifacts
 from deerflow.tools.builtins.tool_search import reset_deferred_registry
 
 logger = logging.getLogger(__name__)
 
 BUILTIN_TOOLS = [
-    present_file_tool,
     ask_clarification_tool,
     run_compile_workflow,
 ]
@@ -65,11 +64,6 @@ def _load_configured_tools(groups: list[str] | None, model_name: str | None) -> 
 
     if model_name is None and config.models:
         model_name = config.models[0].name
-
-    model_config = config.get_model_config(model_name) if model_name else None
-    if model_config is not None and model_config.supports_vision:
-        builtin_tools.append(view_image_tool)
-        logger.info(f"Including view_image_tool for model '{model_name}' (supports_vision=True)")
 
     mcp_tools = []
     reset_deferred_registry()
