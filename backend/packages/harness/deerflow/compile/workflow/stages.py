@@ -145,8 +145,12 @@ def run_verify_stage(state: CompileWorkflowState, session, workflow_input: Compi
 
 
 def run_finalize_stage(state: CompileWorkflowState, session, workflow_input: CompileWorkflowInput) -> None:
+    from deerflow.compile.operations import get_compile_services
+
+    services = get_compile_services()
+    refreshed_session = services.manager.load_session(session.session_id, session.thread_id)
     updated_session = finalize_compile_session_impl(
-        session=session,
+        session=refreshed_session,
         summary=state.summary,
         status=state.status,
         generate_repro_bundle=workflow_input.generate_repro_bundle,
