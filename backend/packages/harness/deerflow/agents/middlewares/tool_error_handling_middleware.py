@@ -1,5 +1,6 @@
 """Tool error handling middleware and shared runtime middleware builders."""
 
+import asyncio
 import logging
 from collections.abc import Awaitable, Callable
 from typing import override
@@ -43,7 +44,6 @@ class ToolErrorHandlingMiddleware(AgentMiddleware[AgentState]):
         try:
             return handler(request)
         except GraphBubbleUp:
-            # Preserve LangGraph control-flow signals (interrupt/pause/resume).
             raise
         except Exception as exc:
             logger.exception("Tool execution failed (sync): name=%s id=%s", request.tool_call.get("name"), request.tool_call.get("id"))
@@ -58,7 +58,6 @@ class ToolErrorHandlingMiddleware(AgentMiddleware[AgentState]):
         try:
             return await handler(request)
         except GraphBubbleUp:
-            # Preserve LangGraph control-flow signals (interrupt/pause/resume).
             raise
         except Exception as exc:
             logger.exception("Tool execution failed (async): name=%s id=%s", request.tool_call.get("name"), request.tool_call.get("id"))
@@ -70,21 +69,28 @@ def _build_runtime_middlewares(
     include_uploads: bool,
     include_dangling_tool_call_patch: bool,
     lazy_init: bool = True,
+    include_thread_data: bool = True,
+    include_sandbox: bool = True,
 ) -> list[AgentMiddleware]:
     """Build shared base middlewares for agent execution."""
     from deerflow.agents.middlewares.llm_error_handling_middleware import LLMErrorHandlingMiddleware
-    from deerflow.agents.middlewares.thread_data_middleware import ThreadDataMiddleware
-    from deerflow.sandbox.middleware import SandboxMiddleware
 
-    middlewares: list[AgentMiddleware] = [
-        ThreadDataMiddleware(lazy_init=lazy_init),
-        SandboxMiddleware(lazy_init=lazy_init),
-    ]
+    middlewares: list[AgentMiddleware] = []
+
+    if include_thread_data:
+        from deerflow.agents.middlewares.thread_data_middleware import ThreadDataMiddleware
+
+        middlewares.append(ThreadDataMiddleware(lazy_init=lazy_init))
+
+    if include_sandbox:
+        from deerflow.sandbox.middleware import SandboxMiddleware
+
+        middlewares.append(SandboxMiddleware(lazy_init=lazy_init))
 
     if include_uploads:
         from deerflow.agents.middlewares.uploads_middleware import UploadsMiddleware
 
-        middlewares.insert(1, UploadsMiddleware())
+        middlewares.insert(1 if middlewares else 0, UploadsMiddleware())
 
     if include_dangling_tool_call_patch:
         from deerflow.agents.middlewares.dangling_tool_call_middleware import DanglingToolCallMiddleware
@@ -93,7 +99,6 @@ def _build_runtime_middlewares(
 
     middlewares.append(LLMErrorHandlingMiddleware())
 
-    # Guardrail middleware (if configured)
     from deerflow.config.guardrails_config import get_guardrails_config
 
     guardrails_config = get_guardrails_config()
@@ -105,9 +110,6 @@ def _build_runtime_middlewares(
 
         provider_cls = resolve_variable(guardrails_config.provider.use)
         provider_kwargs = dict(guardrails_config.provider.config) if guardrails_config.provider.config else {}
-        # Pass framework hint if the provider accepts it (e.g. for config discovery).
-        # Built-in providers like AllowlistProvider don't need it, so only inject
-        # when the constructor accepts 'framework' or '**kwargs'.
         if "framework" not in provider_kwargs:
             try:
                 sig = inspect.signature(provider_cls.__init__)
@@ -131,6 +133,8 @@ def build_lead_runtime_middlewares(*, lazy_init: bool = True) -> list[AgentMiddl
         include_uploads=True,
         include_dangling_tool_call_patch=True,
         lazy_init=lazy_init,
+        include_thread_data=True,
+        include_sandbox=True,
     )
 
 
@@ -140,4 +144,13 @@ def build_subagent_runtime_middlewares(*, lazy_init: bool = True) -> list[AgentM
         include_uploads=False,
         include_dangling_tool_call_patch=True,
         lazy_init=lazy_init,
+        include_thread_data=True,
+        include_sandbox=True,
     )
+
+
+async def load_bound_session_async(session_id: str | None, thread_id: str, owner_id: str | None = None):
+    """Load compile session off the event loop for async tool paths."""
+    from deerflow.compile.operations import get_bound_session
+
+    return await asyncio.to_thread(get_bound_session, session_id, thread_id, owner_id)

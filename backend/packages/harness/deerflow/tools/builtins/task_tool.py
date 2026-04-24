@@ -15,8 +15,28 @@ from deerflow.agents.thread_state import ThreadState
 from deerflow.sandbox.security import LOCAL_BASH_SUBAGENT_DISABLED_MESSAGE, is_host_bash_allowed
 from deerflow.subagents import SubagentExecutor, get_available_subagent_names, get_subagent_config
 from deerflow.subagents.executor import SubagentStatus, cleanup_background_task, get_background_task_result, request_cancel_background_task
+from deerflow.tools.builtins.agent_compile_tools import (
+    COMPILE_BUILD_SYSTEM_STATE_KEY,
+    COMPILE_CONTAINER_STATE_KEY,
+    COMPILE_SESSION_STATE_KEY,
+)
 
 logger = logging.getLogger(__name__)
+
+
+def _get_compile_state(runtime: ToolRuntime[ContextT, ThreadState]) -> dict[str, str]:
+    state = runtime.state or {}
+    context = runtime.context or {}
+    compile_state: dict[str, str] = {}
+    for key in (
+        COMPILE_SESSION_STATE_KEY,
+        COMPILE_CONTAINER_STATE_KEY,
+        COMPILE_BUILD_SYSTEM_STATE_KEY,
+    ):
+        value = state.get(key) or context.get(key)
+        if value:
+            compile_state[key] = value
+    return compile_state
 
 
 @tool("task", parse_docstring=True)
@@ -86,6 +106,7 @@ async def task_tool(
     thread_id = None
     parent_model = None
     trace_id = None
+    compile_state: dict[str, str] = {}
 
     if runtime is not None:
         sandbox_state = runtime.state.get("sandbox")
@@ -97,10 +118,24 @@ async def task_tool(
         metadata = runtime.config.get("metadata", {})
         parent_model = metadata.get("model_name")
         trace_id = metadata.get("trace_id") or str(uuid.uuid4())[:8]
+        compile_state = _get_compile_state(runtime)
 
     from deerflow.tools.tools import get_subagent_tools
 
-    tools = get_subagent_tools(subagent_type=subagent_type, model_name=parent_model)
+    if subagent_type == "compiler":
+        from deerflow.agents.middlewares.tool_error_handling_middleware import load_bound_session_async
+        from deerflow.tools.bound_compile_tools import get_bound_compile_tools
+
+        session_id = compile_state.get(COMPILE_SESSION_STATE_KEY)
+        if not session_id:
+            return "Error: No compile session is currently bound for compiler subagent. Call prepare_compile_session(), then clone_repository(), then identify_build_system(), then task(..., subagent_type=\"compiler\")."
+        if not thread_id:
+            return "Error: Missing thread_id for compiler subagent execution."
+
+        session = await load_bound_session_async(session_id=session_id, thread_id=thread_id)
+        tools = get_bound_compile_tools(session)
+    else:
+        tools = get_subagent_tools(subagent_type=subagent_type, model_name=parent_model)
 
     executor = SubagentExecutor(
         config=config,
@@ -110,6 +145,7 @@ async def task_tool(
         thread_data=thread_data,
         thread_id=thread_id,
         trace_id=trace_id,
+        initial_state=compile_state,
     )
 
     task_id = executor.execute_async(prompt, task_id=tool_call_id)

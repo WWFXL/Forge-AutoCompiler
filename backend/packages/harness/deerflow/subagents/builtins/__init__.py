@@ -10,7 +10,6 @@ __all__ = [
     "COMPILER_AGENT_CONFIG",
 ]
 
-# Registry of built-in subagents
 BUILTIN_SUBAGENTS = {
     "general-purpose": GENERAL_PURPOSE_CONFIG,
     "bash": BASH_AGENT_CONFIG,

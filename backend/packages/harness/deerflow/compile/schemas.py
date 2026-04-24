@@ -30,6 +30,26 @@ class BuildArtifact:
 
 
 @dataclass
+class VerificationCheck:
+    name: str
+    target: str
+    command: str
+    passed: bool
+    exit_code: int | None = None
+    log_path: str | None = None
+    summary: str | None = None
+
+
+@dataclass
+class VerificationResult:
+    status: str
+    checks: list[VerificationCheck] = field(default_factory=list)
+    artifact_count: int = 0
+    failed_checks: int = 0
+    notes: list[str] = field(default_factory=list)
+
+
+@dataclass
 class CommandResult:
     exit_code: int
     stdout: str
@@ -69,6 +89,7 @@ class CompileSession:
     container_repro_dir: str = "/repro"
     commands: list[BuildCommandRecord] = field(default_factory=list)
     artifacts: list[BuildArtifact] = field(default_factory=list)
+    verification: VerificationResult | None = None
 
     def to_dict(self) -> dict[str, Any]:
         return asdict(self)
@@ -77,8 +98,14 @@ class CompileSession:
     def from_dict(cls, data: dict[str, Any]) -> "CompileSession":
         commands = [BuildCommandRecord(**item) for item in data.get("commands", [])]
         artifacts = [BuildArtifact(**item) for item in data.get("artifacts", [])]
-        payload = {k: v for k, v in data.items() if k not in {"commands", "artifacts"}}
-        return cls(commands=commands, artifacts=artifacts, **payload)
+        verification_data = data.get("verification")
+        verification = None
+        if verification_data:
+            checks = [VerificationCheck(**item) for item in verification_data.get("checks", [])]
+            verification_payload = {k: v for k, v in verification_data.items() if k != "checks"}
+            verification = VerificationResult(checks=checks, **verification_payload)
+        payload = {k: v for k, v in data.items() if k not in {"commands", "artifacts", "verification"}}
+        return cls(commands=commands, artifacts=artifacts, verification=verification, **payload)
 
     @property
     def metadata_file(self) -> Path:

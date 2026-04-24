@@ -5,28 +5,34 @@ from langchain.tools import BaseTool
 from deerflow.config import get_app_config
 from deerflow.reflection import resolve_variable
 from deerflow.sandbox.security import is_host_bash_allowed
-from deerflow.tools.builtins import ask_clarification_tool, run_compile_workflow, task_tool
-from deerflow.tools.builtins.compile_tools import clone_repository, finalize_compile_session, inspect_build_system, prepare_compile_session, run_compile_command, verify_build_artifacts
+from deerflow.tools.bound_compile_tools import run_container_bash
+from deerflow.tools.builtins import (
+    ask_clarification_tool,
+    clone_repository,
+    finalize_session,
+    identify_build_system,
+    prepare_compile_session,
+    task_tool,
+    verify_build_artifacts,
+)
 from deerflow.tools.builtins.tool_search import reset_deferred_registry
 
 logger = logging.getLogger(__name__)
 
 BUILTIN_TOOLS = [
     ask_clarification_tool,
-    run_compile_workflow,
 ]
 
 COMPILE_TOOLS = [
     prepare_compile_session,
     clone_repository,
-    inspect_build_system,
-    run_compile_command,
-    verify_build_artifacts,
-    finalize_compile_session,
+    identify_build_system,
+    finalize_session,
 ]
 
 BUILD_SUBAGENT_TOOLS = [
-    run_compile_command,
+    run_container_bash,
+    verify_build_artifacts,
 ]
 
 SUBAGENT_TOOLS = [
@@ -55,6 +61,7 @@ def _load_configured_tools(groups: list[str] | None, model_name: str | None) -> 
 
     loaded_tools = [resolve_variable(tool.use, BaseTool) for tool in tool_configs]
     builtin_tools = BUILTIN_TOOLS.copy()
+    builtin_tools.extend(COMPILE_TOOLS)
 
     skill_evolution_config = getattr(config, "skill_evolution", None)
     if getattr(skill_evolution_config, "enabled", False):
@@ -132,7 +139,7 @@ def get_subagent_tools(subagent_type: str, model_name: str | None = None) -> lis
 
     if subagent_type == "compiler":
         tools = BUILD_SUBAGENT_TOOLS.copy()
-        logger.info("Providing build-only tool set to compiler subagent")
+        logger.info("Providing build-and-verify tool set to compiler subagent")
         return tools
 
     return loaded_tools + builtin_tools + mcp_tools + acp_tools

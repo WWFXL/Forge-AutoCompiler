@@ -1,3 +1,14 @@
+from deerflow.compile.compile_tools import (
+    FinalizeSessionInput,
+    FinalizeSessionResult,
+    FinalizeSessionTool,
+    IdentifyBuildSystemInput,
+    IdentifyBuildSystemResult,
+    IdentifyBuildSystemTool,
+    PrepareWorkspaceInput,
+    PrepareWorkspaceResult,
+    PrepareWorkspaceTool,
+)
 from deerflow.compile.manager import CompileSessionManager
 from deerflow.compile.operations import (
     clone_repository_impl,
@@ -24,6 +35,15 @@ __all__ = [
     "CommandResult",
     "CompileSession",
     "CompileSessionManager",
+    "PrepareWorkspaceInput",
+    "PrepareWorkspaceResult",
+    "PrepareWorkspaceTool",
+    "IdentifyBuildSystemInput",
+    "IdentifyBuildSystemResult",
+    "IdentifyBuildSystemTool",
+    "FinalizeSessionInput",
+    "FinalizeSessionResult",
+    "FinalizeSessionTool",
     "get_compile_services",
     "get_bound_session",
     "relative_or_original",

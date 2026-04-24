@@ -7,13 +7,26 @@ from shlex import quote
 
 from deerflow.compile.docker_runtime import CompileDockerRuntime
 from deerflow.compile.manager import CompileSessionManager
-from deerflow.compile.schemas import BuildArtifact, BuildCommandRecord, CommandResult, CompileSession, utc_now_iso
+from deerflow.compile.schemas import (
+    BuildArtifact,
+    BuildCommandRecord,
+    CommandResult,
+    CompileSession,
+    VerificationCheck,
+    VerificationResult,
+    utc_now_iso,
+)
 
 _BUILD_SYSTEM_MARKERS = {
     "cmake": "CMakeLists.txt",
     "make": "Makefile",
     "autotools": "configure",
 }
+
+_ARTIFACT_FILE_EXCLUDES = [
+    "*/.*",
+    "*/CMakeFiles/*",
+]
 
 
 @dataclass
@@ -141,6 +154,7 @@ def clone_repository_impl(
     repo_url: str,
     branch: str | None = None,
     depth: int = 1,
+    max_retries: int = 2,
 ) -> tuple[CommandResult, str]:
     services = get_compile_services()
 
@@ -150,46 +164,70 @@ def clone_repository_impl(
     clone_parts.append(f"{shell_quote(repo_url)} {shell_quote(session.container_repo_dir)}")
     clone_command = " ".join(clone_parts)
 
-    log_path = local_log_path(session, "001_clone.log")
-    services.manager.log_event(
-        session,
-        "clone.started",
-        repo_url=repo_url,
-        branch=branch,
-        depth=depth,
-        log_path=log_path,
-        target_dir=session.container_repo_dir,
-    )
-    started_at = utc_now_iso()
-    result = services.runtime.exec(session, clone_command, workdir=session.container_workspace_dir, log_path=log_path)
-    completed_at = utc_now_iso()
-    append_command_record(session, "clone", clone_command, session.container_workspace_dir, log_path, result.exit_code, started_at, completed_at)
+    retries = max(1, max_retries)
+    last_result: CommandResult | None = None
 
-    if result.exit_code != 0:
+    for attempt in range(1, retries + 1):
+        log_filename = f"001_clone_attempt_{attempt}.log" if retries > 1 else "001_clone.log"
+        log_path = local_log_path(session, log_filename)
         services.manager.log_event(
             session,
-            "clone.failed",
+            "clone.started",
+            repo_url=repo_url,
+            branch=branch,
+            depth=depth,
+            attempt=attempt,
+            max_retries=retries,
+            log_path=log_path,
+            target_dir=session.container_repo_dir,
+        )
+        started_at = utc_now_iso()
+        cleanup_command = f"rm -rf {shell_quote(session.container_repo_dir)}"
+        services.runtime.exec(session, cleanup_command, workdir=session.container_workspace_dir)
+        result = services.runtime.exec(session, clone_command, workdir=session.container_workspace_dir, log_path=log_path)
+        completed_at = utc_now_iso()
+        append_command_record(session, "clone", clone_command, session.container_workspace_dir, log_path, result.exit_code, started_at, completed_at)
+        last_result = result
+
+        if result.exit_code == 0:
+            sha_result = services.runtime.exec(session, "git -C /workspace/repo rev-parse HEAD", workdir=session.container_workspace_dir)
+            if sha_result.exit_code == 0:
+                session.commit_sha = sha_result.stdout.strip()
+                services.manager.save_session(session)
+
+            services.manager.log_event(
+                session,
+                "clone.completed",
+                attempt=attempt,
+                max_retries=retries,
+                exit_code=result.exit_code,
+                log_path=log_path,
+                commit_sha=session.commit_sha,
+            )
+            services.manager.mark_session_status(session, "source_ready")
+            return result, f"Repository cloned successfully to {session.container_repo_dir}. Commit: {session.commit_sha or 'unknown'}"
+
+        services.manager.log_event(
+            session,
+            "clone.failed_attempt",
+            attempt=attempt,
+            max_retries=retries,
             exit_code=result.exit_code,
             log_path=log_path,
             output=result.combined_output[:4000],
         )
-        services.manager.mark_session_status(session, "failed", error=result.combined_output[:4000])
-        return result, f"Clone failed with exit code {result.exit_code}. Output:\n{result.combined_output}"
 
-    sha_result = services.runtime.exec(session, "git -C /workspace/repo rev-parse HEAD", workdir=session.container_workspace_dir)
-    if sha_result.exit_code == 0:
-        session.commit_sha = sha_result.stdout.strip()
-        services.manager.save_session(session)
-
+    assert last_result is not None
     services.manager.log_event(
         session,
-        "clone.completed",
-        exit_code=result.exit_code,
-        log_path=log_path,
-        commit_sha=session.commit_sha,
+        "clone.failed",
+        attempts=retries,
+        exit_code=last_result.exit_code,
+        log_path=last_result.log_path,
+        output=last_result.combined_output[:4000],
     )
-    services.manager.mark_session_status(session, "source_ready")
-    return result, f"Repository cloned successfully to {session.container_repo_dir}. Commit: {session.commit_sha or 'unknown'}"
+    services.manager.mark_session_status(session, "failed", error=last_result.combined_output[:4000])
+    return last_result, f"Clone failed with exit code {last_result.exit_code} after {retries} attempt(s). Output:\n{last_result.combined_output}"
 
 
 def clone_repository_json(
@@ -364,6 +402,73 @@ def record_build_artifact_impl(
     return artifact
 
 
+def _detect_artifact_type(file_output: str) -> str | None:
+    normalized = file_output.lower()
+    if "elf" in normalized and "executable" in normalized:
+        return "executable"
+    if "shared object" in normalized:
+        return "shared_object"
+    if "current ar archive" in normalized:
+        return "static_library"
+    return None
+
+
+def _safe_check_name(target: str, suffix: str) -> str:
+    safe_target = Path(target).name.replace(" ", "_")
+    return f"{safe_target}_{suffix}"
+
+
+def _run_verification_check(
+    *,
+    session: CompileSession,
+    name: str,
+    target: str,
+    command: str,
+    workdir: str,
+    log_filename: str,
+    summary_on_success: str,
+) -> VerificationCheck:
+    services = get_compile_services()
+    log_path = local_log_path(session, log_filename)
+    result = services.runtime.exec(session, command, workdir=workdir, log_path=log_path)
+    passed = result.exit_code == 0
+    summary = summary_on_success if passed else (result.combined_output.strip()[:500] or f"Command failed with exit code {result.exit_code}")
+    services.manager.log_event(
+        session,
+        "verify.check.completed",
+        name=name,
+        target=target,
+        command=command,
+        log_path=log_path,
+        exit_code=result.exit_code,
+        passed=passed,
+        summary=summary,
+    )
+    return VerificationCheck(
+        name=name,
+        target=target,
+        command=command,
+        passed=passed,
+        exit_code=result.exit_code,
+        log_path=relative_or_original(session, log_path),
+        summary=summary,
+    )
+
+
+def _list_staged_artifact_paths(session: CompileSession) -> list[str]:
+    artifact_dir = shell_quote(session.container_artifacts_dir)
+    exclude_parts = " ".join(f"-not -path {shell_quote(pattern)}" for pattern in _ARTIFACT_FILE_EXCLUDES)
+    find_command = f"find {artifact_dir} -type f {exclude_parts}".strip()
+    result = get_compile_services().runtime.exec(
+        session,
+        find_command,
+        workdir=session.container_workspace_dir,
+    )
+    if result.exit_code != 0:
+        return []
+    return [line.strip() for line in result.stdout.splitlines() if line.strip()]
+
+
 def verify_build_artifacts_impl(
     *,
     session: CompileSession,
@@ -372,38 +477,148 @@ def verify_build_artifacts_impl(
     copy_to_artifacts: bool = True,
 ) -> tuple[CommandResult, list[BuildArtifact], str]:
     services = get_compile_services()
-    log_path = local_log_path(session, f"{len(session.commands) + 1:03d}_verify.log")
+    requested_search_root = search_path or session.container_artifacts_dir
+    verify_index = len(session.commands) + 1
+    summary_log_path = local_log_path(session, f"{verify_index:03d}_verify.log")
     services.manager.log_event(
         session,
         "verify.started",
-        search_root=search_path or session.container_repo_dir,
+        requested_search_root=requested_search_root,
+        effective_search_root=session.container_artifacts_dir,
         file_pattern=file_pattern,
         copy_to_artifacts=copy_to_artifacts,
-        log_path=log_path,
-        skipped=True,
+        log_path=summary_log_path,
+        skipped=False,
     )
     started_at = utc_now_iso()
+
+    discovered_paths = _list_staged_artifact_paths(session)
+    notes: list[str] = []
+    if requested_search_root != session.container_artifacts_dir:
+        notes.append(
+            f"Verification only inspects staged artifacts under {session.container_artifacts_dir}; requested search_path={requested_search_root!r} was ignored."
+        )
+    if file_pattern:
+        discovered_paths = [path for path in discovered_paths if Path(path).match(file_pattern) or Path(path).name == file_pattern]
+
+    checks: list[VerificationCheck] = []
+    artifacts: list[BuildArtifact] = []
+
+    for candidate in discovered_paths:
+        file_check = _run_verification_check(
+            session=session,
+            name=_safe_check_name(candidate, "file"),
+            target=candidate,
+            command=f"file {shell_quote(candidate)}",
+            workdir=session.container_workspace_dir,
+            log_filename=f"{verify_index:03d}_{Path(candidate).name}_file.log",
+            summary_on_success="Artifact type identified successfully.",
+        )
+        checks.append(file_check)
+        if not file_check.passed:
+            continue
+
+        file_log_path = Path(session.metadata_path).parent / file_check.log_path
+        file_output = file_log_path.read_text(encoding="utf-8") if file_log_path.exists() else ""
+        artifact_type = _detect_artifact_type(file_output)
+        if artifact_type is None:
+            continue
+
+        host_artifact_path = Path(session.host_artifacts_dir) / Path(candidate).name
+        artifact = BuildArtifact(
+            path=services.manager.relative_path(session, host_artifact_path),
+            artifact_type=artifact_type,
+            size_bytes=host_artifact_path.stat().st_size if host_artifact_path.exists() else None,
+            source_path=candidate,
+        )
+        artifacts.append(artifact)
+
+        if artifact_type == "executable":
+            version_check = _run_verification_check(
+                session=session,
+                name=_safe_check_name(candidate, "version"),
+                target=candidate,
+                command=f"{shell_quote(candidate)} -version",
+                workdir=session.container_workspace_dir,
+                log_filename=f"{verify_index:03d}_{Path(candidate).name}_version.log",
+                summary_on_success="Executable produced version output successfully.",
+            )
+            checks.append(version_check)
+            if not version_check.passed:
+                fallback_check = _run_verification_check(
+                    session=session,
+                    name=_safe_check_name(candidate, "version_fallback"),
+                    target=candidate,
+                    command=f"{shell_quote(candidate)} --version",
+                    workdir=session.container_workspace_dir,
+                    log_filename=f"{verify_index:03d}_{Path(candidate).name}_version_fallback.log",
+                    summary_on_success="Executable produced --version output successfully.",
+                )
+                checks.append(fallback_check)
+
+    session.artifacts = artifacts
+    services.manager.save_session(session)
+
     completed_at = utc_now_iso()
-    append_command_record(session, "verify", "true", session.container_workspace_dir, log_path, 0, started_at, completed_at)
-    result = CommandResult(
-        exit_code=0,
-        stdout="Verification skipped.",
-        stderr="",
-        combined_output="Verification skipped.",
-        log_path=log_path,
+    result_exit_code = 0 if discovered_paths else 1
+    append_command_record(session, "verify", f"verify staged artifacts in {session.container_artifacts_dir}", session.container_workspace_dir, summary_log_path, result_exit_code, started_at, completed_at)
+
+    if not discovered_paths:
+        notes.append(f"No staged files were found under {session.container_artifacts_dir}.")
+    elif not artifacts:
+        notes.append("No executable, shared library, or static archive artifacts were detected among the staged files in /artifacts.")
+
+    failed_checks = sum(1 for check in checks if not check.passed)
+    status = "passed" if artifacts and failed_checks == 0 else "failed"
+    verification = VerificationResult(
+        status=status,
+        checks=checks,
+        artifact_count=len(artifacts),
+        failed_checks=failed_checks,
+        notes=notes,
     )
-    Path(log_path).write_text("Verification skipped.\n", encoding="utf-8")
-    artifacts = list(session.artifacts)
+    session.verification = verification
+    services.manager.save_session(session)
+
+    summary_lines = [
+        "Verification completed.",
+        f"status={status}",
+        f"artifact_count={len(artifacts)}",
+        f"failed_checks={failed_checks}",
+    ]
+    if artifacts:
+        summary_lines.append("artifacts:")
+        summary_lines.extend(f"- {artifact.path}" for artifact in artifacts)
+    if checks:
+        summary_lines.append("checks:")
+        summary_lines.extend(
+            f"- {check.name}: {'passed' if check.passed else 'failed'}"
+            for check in checks
+        )
+    if notes:
+        summary_lines.append("notes:")
+        summary_lines.extend(f"- {note}" for note in notes)
+    Path(summary_log_path).write_text("\n".join(summary_lines) + "\n", encoding="utf-8")
+
+    result = CommandResult(
+        exit_code=0 if status == "passed" else 1,
+        stdout="\n".join(summary_lines),
+        stderr="",
+        combined_output="\n".join(summary_lines),
+        log_path=summary_log_path,
+    )
     services.manager.log_event(
         session,
         "verify.completed",
-        log_path=log_path,
+        log_path=summary_log_path,
         artifact_count=len(artifacts),
         artifacts=[artifact.path for artifact in artifacts],
-        skipped=True,
+        failed_checks=failed_checks,
+        status=status,
+        staged_files=discovered_paths,
     )
-    services.manager.mark_session_status(session, "artifacts_verified")
-    return result, artifacts, "Verification skipped."
+    services.manager.mark_session_status(session, "artifacts_verified" if status == "passed" else "verification_failed")
+    return result, artifacts, result.combined_output
 
 
 def verify_build_artifacts_json(
@@ -424,6 +639,7 @@ def verify_build_artifacts_json(
             "exit_code": result.exit_code,
             "artifact_count": len(artifacts),
             "artifacts": [artifact.__dict__ for artifact in artifacts],
+            "verification": session.verification.__dict__ if session.verification else None,
             "message": message,
         },
         ensure_ascii=False,

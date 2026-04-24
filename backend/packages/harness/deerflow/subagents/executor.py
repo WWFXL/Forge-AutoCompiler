@@ -148,9 +148,7 @@ class SubagentExecutor:
         model_name = _get_model_name(self.config, self.parent_model)
         model = create_chat_model(name=model_name, thinking_enabled=False)
 
-        from deerflow.agents.middlewares.tool_error_handling_middleware import (
-            build_subagent_runtime_middlewares,
-        )
+        from deerflow.agents.middlewares.tool_error_handling_middleware import build_subagent_runtime_middlewares
 
         middlewares = build_subagent_runtime_middlewares(lazy_init=True)
 
@@ -264,118 +262,59 @@ class SubagentExecutor:
 
         return result
 
-    def _execute_in_isolated_loop(
-        self,
-        task: str,
-        result_holder: SubagentResult | None = None,
-    ) -> SubagentResult:
+    def _run_with_isolated_loop(self, task: str, result_holder: SubagentResult) -> SubagentResult:
+        return asyncio.run(self._aexecute(task, result_holder))
+
+    def _execute_with_timeout(self, task: str, result_holder: SubagentResult) -> SubagentResult:
+        future = _isolated_loop_pool.submit(self._run_with_isolated_loop, task, result_holder)
         try:
-            previous_loop = asyncio.get_event_loop()
-        except RuntimeError:
-            previous_loop = None
-
-        loop = asyncio.new_event_loop()
-        try:
-            asyncio.set_event_loop(loop)
-            return loop.run_until_complete(self._aexecute(task, result_holder))
-        finally:
-            try:
-                pending = asyncio.all_tasks(loop)
-                if pending:
-                    for task_obj in pending:
-                        task_obj.cancel()
-                    loop.run_until_complete(asyncio.gather(*pending, return_exceptions=True))
-                loop.run_until_complete(loop.shutdown_asyncgens())
-                loop.run_until_complete(loop.shutdown_default_executor())
-            except Exception:
-                logger.debug(
-                    "[trace=%s] Failed cleaning isolated loop for subagent %s",
-                    self.trace_id,
-                    self.config.name,
-                    exc_info=True,
-                )
-            finally:
-                try:
-                    loop.close()
-                finally:
-                    asyncio.set_event_loop(previous_loop)
-
-    def execute(
-        self,
-        task: str,
-        result_holder: SubagentResult | None = None,
-    ) -> SubagentResult:
-        try:
-            try:
-                loop = asyncio.get_running_loop()
-            except RuntimeError:
-                loop = None
-
-            if loop is not None and loop.is_running():
-                future = _isolated_loop_pool.submit(
-                    self._execute_in_isolated_loop,
-                    task,
-                    result_holder,
-                )
-                return future.result()
-
-            return asyncio.run(self._aexecute(task, result_holder))
-        except Exception as e:
-            logger.exception("[trace=%s] Subagent %s execution failed", self.trace_id, self.config.name)
-            result = result_holder or SubagentResult(
-                task_id=str(uuid.uuid4())[:8],
-                trace_id=self.trace_id,
-                status=SubagentStatus.FAILED,
-            )
-            result.status = SubagentStatus.FAILED
-            result.error = str(e)
-            result.completed_at = datetime.now()
-            return result
+            return future.result(timeout=self.config.timeout_seconds)
+        except FuturesTimeoutError:
+            logger.warning("[trace=%s] Subagent %s timed out after %ss", self.trace_id, self.config.name, self.config.timeout_seconds)
+            result_holder.status = SubagentStatus.TIMED_OUT
+            result_holder.error = f"Subagent timed out after {self.config.timeout_seconds} seconds"
+            result_holder.completed_at = datetime.now()
+            future.cancel()
+            return result_holder
+        except Exception as exc:
+            logger.exception("[trace=%s] Subagent %s execution wrapper failed", self.trace_id, self.config.name)
+            result_holder.status = SubagentStatus.FAILED
+            result_holder.error = str(exc)
+            result_holder.completed_at = datetime.now()
+            return result_holder
 
     def execute_async(self, task: str, task_id: str | None = None) -> str:
-        if task_id is None:
-            task_id = str(uuid.uuid4())[:8]
+        task_id = task_id or str(uuid.uuid4())[:8]
 
-        result = SubagentResult(
+        result_holder = SubagentResult(
             task_id=task_id,
             trace_id=self.trace_id,
             status=SubagentStatus.PENDING,
+            started_at=datetime.now(),
         )
 
         with _background_tasks_lock:
-            _background_tasks[task_id] = result
+            _background_tasks[task_id] = result_holder
 
-        def run_with_timeout() -> None:
+        def submit_execution() -> SubagentResult:
+            result_holder.status = SubagentStatus.RUNNING
+            return self._execute_with_timeout(task, result_holder)
+
+        def on_done(future: Future[SubagentResult]) -> None:
             try:
-                result.status = SubagentStatus.RUNNING
-                result.started_at = datetime.now()
-                future: Future = _execution_pool.submit(self.execute, task, result)
-                try:
-                    future.result(timeout=self.config.timeout_seconds)
-                except FuturesTimeoutError:
-                    result.status = SubagentStatus.TIMED_OUT
-                    result.error = f"Task timed out after {self.config.timeout_seconds} seconds"
-                    result.completed_at = datetime.now()
-                except Exception as e:
-                    logger.exception(
-                        "[trace=%s] Subagent %s background execution failed",
-                        self.trace_id,
-                        self.config.name,
-                    )
-                    result.status = SubagentStatus.FAILED
-                    result.error = str(e)
-                    result.completed_at = datetime.now()
-            except Exception as e:
-                logger.exception(
-                    "[trace=%s] Scheduler failed for subagent %s",
-                    self.trace_id,
-                    self.config.name,
-                )
-                result.status = SubagentStatus.FAILED
-                result.error = str(e)
-                result.completed_at = datetime.now()
+                final_result = future.result()
+            except Exception as exc:
+                logger.exception("[trace=%s] Subagent execution future failed", self.trace_id)
+                result_holder.status = SubagentStatus.FAILED
+                result_holder.error = str(exc)
+                result_holder.completed_at = datetime.now()
+                return
 
-        _scheduler_pool.submit(run_with_timeout)
+            with _background_tasks_lock:
+                _background_tasks[task_id] = final_result
+
+        scheduler_future = _scheduler_pool.submit(lambda: _execution_pool.submit(submit_execution).result())
+        scheduler_future.add_done_callback(on_done)
         return task_id
 
 

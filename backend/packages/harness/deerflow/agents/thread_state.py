@@ -24,7 +24,6 @@ def merge_artifacts(existing: list[str] | None, new: list[str] | None) -> list[s
         return new or []
     if new is None:
         return existing
-    # Use dict.fromkeys to deduplicate while preserving order
     return list(dict.fromkeys(existing + new))
 
 
@@ -38,10 +37,8 @@ def merge_viewed_images(existing: dict[str, ViewedImageData] | None, new: dict[s
         return new or {}
     if new is None:
         return existing
-    # Special case: empty dict means clear all viewed images
     if len(new) == 0:
         return {}
-    # Merge dictionaries, new values override existing ones for same keys
     return {**existing, **new}
 
 
@@ -52,4 +49,7 @@ class ThreadState(AgentState):
     artifacts: Annotated[list[str], merge_artifacts]
     todos: NotRequired[list | None]
     uploaded_files: NotRequired[list[dict] | None]
-    viewed_images: Annotated[dict[str, ViewedImageData], merge_viewed_images]  # image_path -> {base64, mime_type}
+    viewed_images: Annotated[dict[str, ViewedImageData], merge_viewed_images]
+    compile_session_id: NotRequired[str | None]
+    compile_container_id: NotRequired[str | None]
+    compile_build_system: NotRequired[str | None]

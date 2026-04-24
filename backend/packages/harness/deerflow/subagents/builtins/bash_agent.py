@@ -40,7 +40,7 @@ You have access to the sandbox environment:
 - Deployment-configured custom mounts may also be available at other absolute container paths; use them directly when the task references those mounted directories
 </working_directory>
 """,
-    tools=["bash", "ls", "read_file", "write_file", "str_replace"],  # Sandbox tools only
+    tools=["bash", "ls", "read_file", "write_file", "str_replace"],
     disallowed_tools=["task", "ask_clarification", "present_files"],
     model="inherit",
     max_turns=60,

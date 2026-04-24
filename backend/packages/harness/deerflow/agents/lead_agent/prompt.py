@@ -175,15 +175,20 @@ def _build_subagent_section(max_concurrent: int) -> str:
     available_subagents = (
         "- **general-purpose**: For ANY non-trivial task - web research, code exploration, file operations, analysis, etc.\n"
         "- **bash**: For command execution (git, build, test, deploy operations)\n"
-        "- **compiler**: For remote repository compilation tasks using an isolated per-task compile container"
+        "- **compiler**: For isolated C/C++ build execution and post-build verification inside a prepared compile container"
         if bash_available
         else "- **general-purpose**: For ANY non-trivial task - web research, code exploration, file operations, analysis, etc.\n"
         "- **bash**: Not available in the current sandbox configuration. Use direct file/web tools or switch to AioSandboxProvider for isolated shell access.\n"
-        "- **compiler**: For remote repository compilation tasks using an isolated per-task compile container"
+        "- **compiler**: For isolated C/C++ build execution and post-build verification inside a prepared compile container"
     )
-    direct_tool_examples = "bash, ls, read_file, web_search, etc." if bash_available else "ls, read_file, web_search, etc."
+    direct_tool_examples = "prepare_workspace, identify_build_system, finalize_session, read_file, web_search, etc."
     direct_execution_example = (
-        '# User asks: "Build this repository"\n# Thinking: Standard repository compilation task\n# → Execute directly\n\nrun_compile_workflow(repo_url="https://example.com/repo.git")  # Direct execution, not task()'
+        '# User asks: "Build this repository"\n'
+        '# Thinking: I should treat the lead-agent compile task as living under /workspace/.compile-sessions/<thread_id>/<session_id>, use that path for my own inspection, then delegate build+verify execution to the compiler subagent.\n\n'
+        'prepare_workspace(repo_url="https://example.com/repo.git")\n'
+        'identify_build_system()\n'
+        'task(description="build and verify repository", prompt="build the project, run post-build verification, and report structured results; note that any subagent-mentioned project directory is informational only and does not replace the lead-agent working root /workspace/.compile-sessions/<thread_id>/<session_id>", subagent_type="compiler")\n'
+        'finalize_session()'
     )
     return f"""<subagent_system>
 **🚀 SUBAGENT MODE ACTIVE - DECOMPOSE, DELEGATE, SYNTHESIZE**
@@ -198,7 +203,11 @@ You are running with subagent capabilities enabled. Your role is to be a **task 
 **⛔ HARD CONCURRENCY LIMIT: MAXIMUM {n} `task` CALLS PER RESPONSE. THIS IS NOT OPTIONAL.**
 - Each response, you may include **at most {n}** `task` tool calls. Any excess calls are **silently discarded** by the system — you will lose that work.
 - Before launching subagents, count them explicitly in your thinking.
-- If the task is a remote repository compilation / build request, use `run_compile_workflow` directly instead of delegating it to a subagent or executing build steps manually in the lead agent.
+- For repository compilation tasks, you must orchestrate the flow yourself: `prepare_workspace` → `identify_build_system` → `task(subagent_type="compiler")` → `finalize_session`.
+- Lead-agent work for each compile task is anchored at `/workspace/.compile-sessions/<thread_id>/<session_id>`.
+- If a compiler subagent reports that the project is located in some other directory, treat that as subagent-side informational output only; it does not redefine the lead agent's working directory.
+- Do not reason about subagent working directories. Tool bindings already encapsulate the correct execution location.
+- Do not use `run_compile_workflow` as the primary path for new compilation tasks.
 
 **Available Subagents:**
 {available_subagents}
@@ -207,7 +216,7 @@ You are running with subagent capabilities enabled. Your role is to be a **task 
 - Complex research questions requiring multiple sources
 - Multi-aspect investigations across independent dimensions
 - Large codebases requiring parallel analysis
-- Remote repository compilation/build requests that should be handled via `run_compile_workflow`
+- Repository build execution after infrastructure setup is complete
 
 ❌ **DO NOT use subagents when:**
 - The task cannot be decomposed into meaningful sub-tasks
@@ -215,7 +224,7 @@ You are running with subagent capabilities enabled. Your role is to be a **task 
 - Clarification is required first
 - The task is purely meta-conversation
 
-**Counter-example - direct execution instead of subagent:**
+**Recommended repository compilation pattern:**
 ```python
 {direct_execution_example}
 ```
@@ -250,17 +259,19 @@ You are {agent_name}, an open-source compilation-focused agent.
 </clarification_system>
 
 <compile_task_model>
-- For remote repository compilation or build tasks, prefer `run_compile_workflow` as the primary execution path
-- The compile workflow manages session setup, clone, inspect, build, verify, and finalize stages
-- Use generic file exploration only when it is clearly necessary for analysis and not a substitute for the compile workflow
-- Do not assume DeerFlow user-data working directories for compilation tasks
+- For remote repository compilation or build tasks, do not rely on the legacy one-shot workflow as the primary path
+- Use the infrastructure-tool chain: `prepare_workspace`, `identify_build_system`, delegated `task(subagent_type="compiler")`, then `finalize_session`
+- `prepare_workspace`, `identify_build_system`, and `finalize_session` are deterministic infrastructure tools running in the DeerFlow service container
+- The DeerFlow service container is rooted at `/workspace`; each compile task should be treated as anchored at `/workspace/.compile-sessions/<thread_id>/<session_id>`
+- Lead-agent repository inspection should use the compile-session directory under `/workspace/.compile-sessions/<thread_id>/<session_id>` and must not be re-anchored by subagent-reported paths
+- The `compiler` subagent is responsible for build/dependency work and routine post-build verification; do not rely on the subagent's own directory descriptions for lead-agent reasoning
+- Use generic file exploration only when it is clearly necessary for analysis and not a substitute for the infrastructure-tool chain
 </compile_task_model>
 
 <compile_path_model>
-- A compilation task can involve multiple path views
-- Build commands run inside the compile container, where the repository root is typically `/workspace/repo`
-- Lead-agent analysis may use persisted compile-session paths visible from the DeerFlow service container
-- Treat tool-returned paths for logs, artifacts, and repro files as authoritative; do not guess paths when structured results are available
+- For lead-agent reasoning, there is one authoritative working root per compile task: `/workspace/.compile-sessions/<thread_id>/<session_id>`
+- Subagent output may mention other directories, but those do not redefine the lead-agent working root
+- Treat tool-returned paths for logs, artifacts, repro files, and verification outputs as authoritative; do not guess paths when structured results are available
 </compile_path_model>
 
 {skills_section}
@@ -270,17 +281,21 @@ You are {agent_name}, an open-source compilation-focused agent.
 {subagent_section}
 
 <compile_analysis_behavior>
-- After running compile tools, summarize the compile status, key attempts, artifacts, logs, and next actions clearly
-- When compile tools return log or artifact paths, use those returned paths to inspect relevant files as needed
+- For repository compilation tasks, first establish the compile workspace, then identify the build system, then delegate build execution to the `compiler` subagent, and always finalize the session afterward
+- After compile tools or subagents return log, artifact, or verification paths, use those returned paths to inspect relevant files as needed
 - Prefer targeted log reading over aimless directory traversal
+- If a compiler subagent reports a project path like `/workspace/repo`, treat it as execution-side context only; do not let it replace the lead-agent compile-session root
 - If compilation fails, inspect the most relevant returned logs before proposing fixes or retry strategies
-- If compilation succeeds, verify whether the returned artifacts satisfy the user's stated goal
+- If compilation succeeds, treat the compiler subagent's structured verification result as the primary source for routine post-build validation
+- Use returned verification summaries, artifact paths, and verification logs before considering any extra compiler-side execution
+- Do not launch another compiler subagent for ordinary artifact checks when verification has already completed successfully
+- Lead-agent verification is acceptance-oriented: decide whether the verified artifacts satisfy the user's stated goal
 </compile_analysis_behavior>
 
 <working_model>
-- There is no single universal working directory for all compilation tasks
-- Lead-agent analysis should follow the paths returned by compile tools and session metadata
-- Build execution paths inside the compile container may differ from persisted paths visible to the lead agent
+- Lead-agent filesystem work for compile tasks always happens under `/workspace/.compile-sessions/<thread_id>/<session_id>`
+- Subagent working directories do not matter for lead-agent reasoning because execution location is already encapsulated by the bound tools
+- When summarizing results after subagent execution, distinguish between lead-agent session paths and any informational subagent-reported execution paths
 {acp_section}
 </working_model>
 
@@ -288,6 +303,8 @@ You are {agent_name}, an open-source compilation-focused agent.
 - **Clarification First**: ALWAYS clarify unclear/missing/ambiguous requirements BEFORE starting work - never assume or guess
 {subagent_reminder}- Skill First: Always load the relevant skill before starting **complex** tasks.
 - Prefer compile-session tooling and compile-tool outputs over hard-coded directory assumptions
+- Prefer compiler-subagent verification outputs over ad-hoc repeated verification work
+- Never let a subagent-reported repository directory override the lead-agent compile-session root
 - Clarity: Be direct and helpful, avoid unnecessary meta-commentary
 - Language Consistency: Keep using the same language as user's
 - Always Respond: Your thinking is internal. You MUST always provide a visible response to the user after thinking.
@@ -424,62 +441,56 @@ def _build_acp_section() -> str:
 
 def _build_custom_mounts_section() -> str:
     try:
-        from deerflow.config import get_app_config
+        from deerflow.config.app_config import get_app_config
 
-        mounts = get_app_config().sandbox.mounts or []
+        mounts = get_app_config().custom_mounts
+        if not mounts:
+            return ""
     except Exception:
-        logger.exception("Failed to load configured sandbox mounts for the lead-agent prompt")
         return ""
 
-    if not mounts:
-        return ""
-
-    lines = []
+    mount_lines = []
     for mount in mounts:
-        access = "read-only" if mount.read_only else "read-write"
-        lines.append(f"- Custom mount: `{mount.container_path}` - Host directory mapped into the sandbox ({access})")
+        source = getattr(mount, "source", None) or getattr(mount, "host_path", None)
+        target = getattr(mount, "target", None) or getattr(mount, "container_path", None)
+        if source and target:
+            mount_lines.append(f"- `{target}` is mounted from `{source}`")
 
-    mounts_list = "\n".join(lines)
-    return f"\n**Custom Mounted Directories:**\n{mounts_list}\n- Use these absolute container paths directly when needed"
+    if not mount_lines:
+        return ""
+
+    return "\n<custom_mounts>\n" + "\n".join(mount_lines) + "\n</custom_mounts>\n"
 
 
-def apply_prompt_template(subagent_enabled: bool = False, max_concurrent_subagents: int = 3, *, agent_name: str | None = None, available_skills: set[str] | None = None) -> str:
+def apply_prompt_template(
+    subagent_enabled: bool = False,
+    max_concurrent_subagents: int = 1,
+    agent_name: str | None = None,
+    available_skills: set[str] | None = None,
+) -> str:
+    soul = get_agent_soul(agent_name)
     memory_context = _get_memory_context(agent_name)
-    n = max_concurrent_subagents
-    subagent_section = _build_subagent_section(n) if subagent_enabled else ""
-    subagent_reminder = (
-        "- **Orchestrator Mode**: You are a task orchestrator - decompose complex tasks into parallel sub-tasks. "
-        "**Remote repository compilation requests should usually be delegated to the `compiler` subagent, not executed directly.** "
-        f"**HARD LIMIT: max {n} `task` calls per response.** "
-        f"If >{n} sub-tasks, split into sequential batches of ≤{n}. Synthesize after ALL batches complete.\n"
-        if subagent_enabled
-        else ""
-    )
-    subagent_thinking = (
-        "- **DECOMPOSITION CHECK: Can this task be broken into 2+ parallel sub-tasks? If YES, COUNT them. "
-        f"If the task is remote repository compilation, prefer `run_compile_workflow` first and use the `compiler` subagent only when a delegated sub-task is truly needed. "
-        f"If count > {n}, you MUST plan batches of ≤{n} and only launch the FIRST batch now. "
-        f"NEVER launch more than {n} `task` calls in one response.**\n"
-        if subagent_enabled
-        else ""
-    )
-
     skills_section = get_skills_prompt_section(available_skills)
     deferred_tools_section = get_deferred_tools_prompt_section()
     acp_section = _build_acp_section()
     custom_mounts_section = _build_custom_mounts_section()
-    acp_and_mounts_section = "\n".join(section for section in (acp_section, custom_mounts_section) if section)
 
-    prompt = SYSTEM_PROMPT_TEMPLATE.format(
-        agent_name=agent_name or "DeerFlow 2.0",
-        soul=get_agent_soul(agent_name),
+    subagent_section = ""
+    subagent_thinking = ""
+    subagent_reminder = ""
+    if subagent_enabled:
+        subagent_section = _build_subagent_section(max_concurrent_subagents)
+        subagent_thinking = "- Consider whether any part of the task should be delegated to a subagent\n"
+        subagent_reminder = "- Use compiler subagents for compile-container build+verify execution, not for routine lead-agent reasoning\n"
+
+    return SYSTEM_PROMPT_TEMPLATE.format(
+        agent_name=agent_name or "lead-agent",
+        soul=soul,
+        memory_context=memory_context,
         skills_section=skills_section,
         deferred_tools_section=deferred_tools_section,
-        memory_context=memory_context,
         subagent_section=subagent_section,
-        subagent_reminder=subagent_reminder,
         subagent_thinking=subagent_thinking,
-        acp_section=acp_and_mounts_section,
+        subagent_reminder=subagent_reminder,
+        acp_section=acp_section + custom_mounts_section,
     )
-
-    return prompt + f"\n<current_date>{datetime.now().strftime('%Y-%m-%d, %A')}</current_date>"
