@@ -2,11 +2,10 @@ from __future__ import annotations
 
 import subprocess
 from collections import deque
-from typing import Any
 
 from langchain.tools import tool
 
-from deerflow.compile.operations import get_bound_session, get_compile_services, verify_build_artifacts_impl
+from deerflow.compile.operations import get_bound_session, get_compile_services, submit_build_result_impl
 from deerflow.compile.schemas import BuildCommandRecord, CommandResult, CompileSession, utc_now_iso
 
 _MAX_OUTPUT_LINES = 50
@@ -156,77 +155,19 @@ def run_container_bash(
     return message
 
 
-def _format_verification_summary(payload: Any) -> str:
-    if isinstance(payload, str):
-        return payload
-
-    if not isinstance(payload, dict):
-        return str(payload)
-
-    verification = payload.get("verification") or {}
-    artifacts = payload.get("artifacts") or []
-    lines = [
-        f"status={verification.get('status', 'unknown')}",
-        f"artifact_count={verification.get('artifact_count', len(artifacts))}",
-        f"failed_checks={verification.get('failed_checks', 0)}",
-    ]
-
-    if artifacts:
-        lines.append("artifacts:")
-        for artifact in artifacts:
-            path = artifact.get("path", "unknown") if isinstance(artifact, dict) else str(artifact)
-            artifact_type = artifact.get("artifact_type") if isinstance(artifact, dict) else None
-            lines.append(f"- {path}" + (f" ({artifact_type})" if artifact_type else ""))
-
-    notes = verification.get("notes") or []
-    if notes:
-        lines.append("notes:")
-        for note in notes:
-            lines.append(f"- {note}")
-
-    return "\n".join(lines)
-
-
-def _run_verify_build_artifacts_impl(
-    *,
-    session: CompileSession,
-    search_path: str | None = None,
-    file_pattern: str | None = None,
-    copy_to_artifacts: bool = True,
-) -> str:
-    _, payload, _ = verify_build_artifacts_impl(
-        session=session,
-        search_path=search_path,
-        file_pattern=file_pattern,
-        copy_to_artifacts=copy_to_artifacts,
-    )
-    return _format_verification_summary(payload)
-
-
-@tool("verify_build_artifacts", parse_docstring=True)
-def verify_build_artifacts(
+@tool("submit_build_result", parse_docstring=True)
+def submit_build_result(
     session_id: str,
     thread_id: str,
-    search_path: str | None = None,
-    file_pattern: str | None = None,
-    copy_to_artifacts: bool = True,
 ) -> str:
-    """Verify and collect build artifacts from a compile session container.
+    """Submit final build artifacts from `/artifacts` for deterministic acceptance.
 
     Args:
         session_id: Compile session identifier.
         thread_id: Parent workflow thread identifier.
-        search_path: Optional absolute search root. Defaults to `/workspace/repo`.
-        file_pattern: Optional filename pattern such as `ffmpeg` or `*.so`.
-        copy_to_artifacts: Whether to copy discovered files into the session artifacts directory.
     """
     session = get_bound_session(session_id=session_id, thread_id=thread_id)
-    return _run_verify_build_artifacts_impl(
-        session=session,
-        search_path=search_path,
-        file_pattern=file_pattern,
-        copy_to_artifacts=copy_to_artifacts,
-    )
+    return submit_build_result_impl(session=session)
 
 
 def get_bound_compile_tools(session: CompileSession):
@@ -251,24 +192,9 @@ def get_bound_compile_tools(session: CompileSession):
         )
         return message
 
-    @tool("verify_build_artifacts", parse_docstring=True)
-    def bound_verify_build_artifacts(
-        search_path: str | None = None,
-        file_pattern: str | None = None,
-        copy_to_artifacts: bool = True,
-    ) -> str:
-        """Verify and collect build artifacts from the bound compile session.
+    @tool("submit_build_result", parse_docstring=True)
+    def bound_submit_build_result() -> str:
+        """Submit final build artifacts from `/artifacts` for deterministic acceptance."""
+        return submit_build_result_impl(session=session)
 
-        Args:
-            search_path: Optional absolute search root. Defaults to `/workspace/repo`.
-            file_pattern: Optional filename pattern such as `ffmpeg` or `*.so`.
-            copy_to_artifacts: Whether to copy discovered files into the session artifacts directory.
-        """
-        return _run_verify_build_artifacts_impl(
-            session=session,
-            search_path=search_path,
-            file_pattern=file_pattern,
-            copy_to_artifacts=copy_to_artifacts,
-        )
-
-    return [bound_run_container_bash, bound_verify_build_artifacts]
+    return [bound_run_container_bash, bound_submit_build_result]
