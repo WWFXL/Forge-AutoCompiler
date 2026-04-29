@@ -3,7 +3,7 @@
 from pathlib import Path
 from typing import Annotated
 
-from langchain.agents import tool
+from langchain_core.tools import tool
 
 
 @tool("host_write", parse_docstring=True)
