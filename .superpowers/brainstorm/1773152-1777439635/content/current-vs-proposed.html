@@ -1,0 +1,57 @@
+<h2>New Conversation Interface — Current vs. Proposed Design</h2>
+<p class="subtitle">Left: current welcome component. Right: proposed "Forge" aesthetic with action cards</p>
+
+<div class="split">
+  <div class="mockup">
+    <div class="mockup-header">Current: Simple Welcome</div>
+    <div class="mockup-body" style="background:#0A0A0A; padding: 2rem; min-height: 300px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1rem;">
+      <div style="font-size: 1.5rem; display: flex; align-items: center; gap: 0.5rem;">
+        <span>👋</span>
+        <span style="font-weight: bold;">你好，欢迎回来！</span>
+      </div>
+      <p style="color: #6B7280; font-size: 0.875rem;">今天我能为你做些什么？</p>
+      <div style="margin-top: 1rem; width: 100%; max-width: 400px;">
+        <input style="width: 100%; padding: 0.75rem 1rem; background: #1F1F1F; border: 1px solid #2A2A2A; border-radius: 0.5rem; color: white;" placeholder="今天我能为你做些什么？" />
+      </div>
+    </div>
+  </div>
+  <div class="mockup">
+    <div class="mockup-header">Proposed: Forge Welcome</div>
+    <div class="mockup-body" style="background:#0A0A0A; padding: 2rem; min-height: 300px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1.5rem;">
+      <div style="display: flex; flex-direction: column; align-items: center; gap: 0.5rem;">
+        <div style="font-size: 2.5rem;">🔨</div>
+        <h1 style="color: #FFB800; font-size: 2rem; font-weight: 800; margin: 0; background: linear-gradient(135deg, #FFB800, #FF8C00); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Forge: Autopilot for C/C++ Builds</h1>
+        <p style="color: #6B7280; font-size: 0.8rem; max-width: 380px; text-align: center; line-height: 1.6;">基于 Docker 隔离的端到端自动化构建流水线。智能嗅探环境、自动解析构建系统并执行排错，彻底告别依赖地狱。</p>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; width: 100%; max-width: 500px;">
+        <div style="background: #141414; border: 1px solid #FFB80033; padding: 1rem; border-radius: 0.5rem; cursor: pointer; transition: all 0.2s; text-align: center;" onclick="this.style.borderColor='#FFB800';this.style.transform='translateY(-2px)';">
+          <div style="font-size: 1.5rem; margin-bottom: 0.25rem;">📦</div>
+          <div style="color: #E5E5E5; font-size: 0.75rem; font-weight: 600;">编译标准 CMake 项目</div>
+          <div style="color: #6B7280; font-size: 0.65rem; margin-top: 0.25rem;">例如: fmt</div>
+        </div>
+        <div style="background: #141414; border: 1px solid #FFB80033; padding: 1rem; border-radius: 0.5rem; cursor: pointer; transition: all 0.2s; text-align: center;" onclick="this.style.borderColor='#FFB800';this.style.transform='translateY(-2px)';">
+          <div style="font-size: 1.5rem; margin-bottom: 0.25rem;">🔗</div>
+          <div style="color: #E5E5E5; font-size: 0.75rem; font-weight: 600;">解析复杂子模块项目</div>
+          <div style="color: #6B7280; font-size: 0.65rem; margin-top: 0.25rem;">例如: gRPC</div>
+        </div>
+        <div style="background: #141414; border: 1px solid #FFB80033; padding: 1rem; border-radius: 0.5rem; cursor: pointer; transition: all 0.2s; text-align: center;" onclick="this.style.borderColor='#FFB800';this.style.transform='translateY(-2px)';">
+          <div style="font-size: 1.5rem; margin-bottom: 0.25rem;">🧹</div>
+          <div style="color: #E5E5E5; font-size: 0.75rem; font-weight: 600;">清理 CCache 缓存</div>
+          <div style="color: #6B7280; font-size: 0.65rem; margin-top: 0.25rem;">清理缓存释放空间</div>
+        </div>
+      </div>
+      <div style="width: 100%; max-width: 500px;">
+        <input style="width: 100%; padding: 0.75rem 1rem; background: #000; border: 2px solid #FFB800; border-radius: 0.5rem; color: white; font-family: monospace;" placeholder="输入 GitHub 仓库地址或编译指令... [Press Enter to Forge]" />
+      </div>
+    </div>
+  </div>
+</div>
+
+<p class="section" style="margin-top: 1.5rem;">Key changes:</p>
+<ul style="color: #A1A1AA; font-size: 0.875rem; line-height: 1.8; padding-left: 1.5rem;">
+  <li><strong>Icon:</strong> Replace 👋 with 🔨 pixel anvil (or 🔥 furnace) for "Forge" identity</li>
+  <li><strong>Title:</strong> "你好，欢迎回来！" → "Forge: Autopilot for C/C++ Builds"</li>
+  <li><strong>Subtitle:</strong> Technical description of Docker-based build automation</li>
+  <li><strong>Action Cards:</strong> 3 clickable cards that fill input and auto-submit</li>
+  <li><strong>Input Box:</strong> Darker background, gold border, monospace placeholder text</li>
+</ul>

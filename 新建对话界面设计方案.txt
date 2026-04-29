@@ -1,0 +1,79 @@
+新建对话界面设计方案：
+1. 核心视觉与文案替换 (Hero Section)
+
+替换图标：将现有的通用火箭图标 🚀 移除，替换为契合 Forge 理念的像素风铁砧 (Anvil) 🔨 或熔炉 (Furnace) 🔥 。
+
+
+更新主标题：将“你好，欢迎回来！”替换为硬核大标题：Forge: Autopilot for C/C++ Builds 。
+
+
+更新副标题：将原有的灰色小字替换为具有技术深度的文案：“基于 Docker 隔离的端到端自动化构建流水线。智能嗅探环境、自动解析构建系统并执行排错，彻底告别依赖地狱。” 。
+
+2. 添加快捷指令卡片 (Action Cards)
+为了避免视觉中心空洞并提供功能引导，不要只留一个空荡荡的输入框。建议在输入框的正上方，使用 CSS Grid 并排添加三个快捷操作卡片 ：
+
+
+卡片 1：📦 编译标准 CMake 项目 (例如: fmt) 。
+
+
+卡片 2：🔗 解析复杂子模块项目 (例如: gRPC) 。
+
+
+卡片 3：🧹 清理宿主机 CCache 缓存 。
+
+(建议：这些卡片可以设计为 hover 时有轻微的像素风上移或边框发光动画，增强极客感。)
+
+3. 极客化输入框 (Input Box)
+
+样式调整：将当前的输入框背景稍微调暗（例如设为纯黑或深灰色），并将边框加粗以体现控制台风格 。
+
+
+替换占位符：将现有的“今天我能为你做些什么？”更改为更符合工程师习惯的提示：输入 GitHub 仓库地址或编译指令... [Press Enter to Forge] 。
+
+4.注意：
+点击这些“快捷指令卡片（Action Cards）”，其核心逻辑就相当于“一键快捷输入并发送”。
+
+在 UI 交互和底层 Agent 调度上，点击卡片会触发以下一连串极其流畅的极客体验：
+
+4.1. 全局 UI 状态流转 (UI Transition)
+当你点击任意一张卡片后：
+
+卡片上的预设指令文本（或 GitHub 仓库地址）会瞬间填入底部的 InputBox。
+
+系统自动触发 Submit（相当于用户按下了 Enter 键）。
+
+界面无缝切换：当前的欢迎页（图一）会瞬间过渡到编译工作流界面（图二）。
+
+双轨消息流（Lead Agent 与 SubAgent）开始实时打印执行日志。
+4.2. 各个卡片对应的具体业务逻辑映射
+根据你底层强大的 ForgeAgent 架构，这三张卡片实际上向用户展示了系统的三种核心能力（Fast Build、Deep Analyze、System Utility）：
+
+📦 卡片 1：编译标准 CMake 项目 (例如: fmt)
+发送指令："克隆并编译标准现代 CMake 项目：https://github.com/fmtlib/fmt"
+
+
+底层效果：这是一个演示系统基础构建与原生机制的“ Fast Build”模式 。
+
+
+Agent 行为：Lead Agent 迅速调用 clone_repository ，因为 fmt 是极为规范的 CMake 标杆项目，Lead Agent 能够秒级识别其 CMakeLists.txt，生成指导手册并直接移交给 SubAgent 执行 run_container_bash 。用户会看到进度条迅速跑满，产物瞬间生成。
+
+🔗 卡片 2：解析复杂子模块项目 (例如: gRPC)
+发送指令："克隆并深度解析编译 gRPC 项目：https://github.com/grpc/grpc，请注意处理子模块。"
+
+
+底层效果：这是一个展示系统复杂依赖解析能力的“Deep Analyze”模式。因为 gRPC 是出了名的“Git 子模块噩梦” 。
+
+
+Agent 行为：这会刻意触发 Lead Agent 的“知识补全”阶段。你会看到 Lead Agent 在 UI 上调用 list_directory 和 read_project_file 去翻阅 gRPC 的文档 ，并在生成的“编译指导手册”中明确指出需要先执行 git submodule update --init --recursive，然后再交由 SubAgent 去战术执行 。这完美展示了 AI 相较于传统 CI/CD 的智能性。
+
+🧹 卡片 3：清理宿主机 CCache 缓存
+发送指令："执行系统维护：清理宿主机挂载的 CCache 缓存。"
+
+
+底层效果：展示系统对底层编译性能与缓存持久化的管理能力 。
+
+
+Agent 行为：这不需要拉取任何代码。系统会拉起一个极简的临时容器（挂载着宿主机的 /var/cache/ccache_pool） ，SubAgent 直接在里面执行 ccache -C -z 命令。UI 上会快速弹出一个状态徽章，提示“缓存已清空，释放空间: XX GB”。
+
+目前这些卡片点击后只涉及输入指令的填充，不要修改后端服务代码。
+

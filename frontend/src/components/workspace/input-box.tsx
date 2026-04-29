@@ -142,16 +142,6 @@ export function InputBox({
   const { textInput } = usePromptInputController();
   const promptRootRef = useRef<HTMLDivElement | null>(null);
 
-  // Expose input control to parent
-  useEffect(() => {
-    if (inputRef) {
-      inputRef.current = {
-        setInput: (text: string) => textInput.setInput(text),
-        submit: () => requestFormSubmit(),
-      };
-    }
-  }, [inputRef, textInput, requestFormSubmit]);
-
   const [followups, setFollowups] = useState<string[]>([]);
   const [followupsHidden, setFollowupsHidden] = useState(false);
   const [followupsLoading, setFollowupsLoading] = useState(false);
@@ -293,6 +283,16 @@ export function InputBox({
     const form = promptRootRef.current?.querySelector("form");
     form?.requestSubmit();
   }, []);
+
+  // Expose input control to parent
+  useEffect(() => {
+    if (inputRef) {
+      inputRef.current = {
+        setInput: (text: string) => textInput.setInput(text),
+        submit: () => requestFormSubmit(),
+      };
+    }
+  }, [inputRef, textInput, requestFormSubmit]);
 
   const handleFollowupClick = useCallback(
     (suggestion: string) => {
