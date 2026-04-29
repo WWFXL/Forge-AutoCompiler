@@ -1,6 +1,6 @@
 "use client";
 
-import { GitBranch, Package, Trash2 } from "lucide-react";
+import { Compass, GitBranch, Package } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useMemo } from "react";
 
@@ -40,6 +40,12 @@ export function Welcome({
 
   const cardData = [
     {
+      Icon: Compass,
+      title: "探索 Forge 工作流",
+      subtitle: "了解双轨 Agent 架构如何协同工作，以及系统核心自动化编译能力。",
+      text: "你好！请向我详细介绍 Forge 的核心架构（Lead 与 Sub Agent 是如何协同的），以及你能帮我自动化编译什么类型的 C/C++ 项目？",
+    },
+    {
       Icon: Package,
       title: t.welcome.actionCards.cmakeTitle,
       subtitle: t.welcome.actionCards.cmakeSubtitle,
@@ -50,12 +56,6 @@ export function Welcome({
       title: t.welcome.actionCards.grpcTitle,
       subtitle: t.welcome.actionCards.grpcSubtitle,
       text: "克隆并深度解析编译 gRPC 项目：https://github.com/grpc/grpc，请注意处理子模块。",
-    },
-    {
-      Icon: Trash2,
-      title: t.welcome.actionCards.ccacheTitle,
-      subtitle: t.welcome.actionCards.ccacheSubtitle,
-      text: "执行系统维护：清理宿主机挂载的 CCache 缓存。",
     },
   ];
 

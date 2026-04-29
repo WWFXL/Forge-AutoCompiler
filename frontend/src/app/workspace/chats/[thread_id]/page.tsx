@@ -146,7 +146,7 @@ export default function ChatPage() {
                     transition={{ duration: 0.4, ease: "easeOut" }}
                     className={cn(
                       "flex w-full justify-center",
-                      !hasStarted && "-translate-y-[calc(50vh-96px)]",
+                      !hasStarted && "-translate-y-[calc(50vh-160px)]",
                     )}
                   >
                     <Welcome
@@ -163,7 +163,7 @@ export default function ChatPage() {
                 transition={{ duration: 0.5, ease: "easeOut" }}
                 className={cn(
                   "relative w-full",
-                  !hasStarted && "-translate-y-[calc(50vh-96px)]",
+                  !hasStarted && "-translate-y-[calc(50vh-160px)]",
                   !hasStarted
                     ? "max-w-(--container-width-sm)"
                     : "max-w-(--container-width-md)",
