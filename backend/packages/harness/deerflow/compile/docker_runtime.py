@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import os
 import subprocess
 from dataclasses import dataclass
 from pathlib import Path
@@ -7,6 +8,12 @@ from pathlib import Path
 from deerflow.compile.schemas import CommandResult, CompileSession, utc_now_iso
 
 DEFAULT_NETWORK = "compile_network_wwf_v1"
+CONTAINER_WORKSPACE_DIR = "/workspace"
+CONTAINER_REPO_DIR = "/workspace/repo"
+CONTAINER_ARTIFACTS_DIR = "/artifacts"
+CONTAINER_LOGS_DIR = "/logs"
+CONTAINER_REPRO_DIR = "/repro"
+HOST_COMPILE_SESSIONS_DIRNAME = ".compile-sessions"
 
 
 @dataclass
@@ -20,6 +27,27 @@ class CompileDockerRuntime:
     def __init__(self, config: RuntimeConfig | None = None, manager=None):
         self.config = config or RuntimeConfig()
         self.manager = manager
+
+    def _host_project_root(self) -> Path:
+        host_project_root = os.environ.get("HOST_PROJECT_ROOT", "").strip()
+        if not host_project_root:
+            raise ValueError("HOST_PROJECT_ROOT is not configured")
+        return Path(host_project_root)
+
+    def _host_session_dir(self, session: CompileSession) -> Path:
+        return self._host_project_root() / HOST_COMPILE_SESSIONS_DIRNAME / session.thread_id / session.session_id
+
+    def _host_workspace_dir(self, session: CompileSession) -> Path:
+        return self._host_session_dir(session) / "workspace"
+
+    def _host_artifacts_dir(self, session: CompileSession) -> Path:
+        return self._host_session_dir(session) / "artifacts"
+
+    def _host_logs_dir(self, session: CompileSession) -> Path:
+        return self._host_session_dir(session) / "logs"
+
+    def _host_repro_dir(self, session: CompileSession) -> Path:
+        return self._host_session_dir(session) / "repro"
 
     def _log(self, session: CompileSession, event: str, **payload) -> None:
         if self.manager is not None:
@@ -35,6 +63,10 @@ class CompileDockerRuntime:
             )
             return session.container_id
 
+        host_workspace_dir = self._host_workspace_dir(session)
+        host_artifacts_dir = self._host_artifacts_dir(session)
+        host_logs_dir = self._host_logs_dir(session)
+        host_repro_dir = self._host_repro_dir(session)
         container_name = f"deerflow-compile-{session.thread_id[:8]}-{session.session_id[:8]}"
         command = [
             "docker",
@@ -45,15 +77,15 @@ class CompileDockerRuntime:
             "--network",
             self.config.network,
             "-v",
-            f"{session.host_workspace_dir}:{session.container_workspace_dir}",
+            f"{host_workspace_dir}:{CONTAINER_WORKSPACE_DIR}",
             "-v",
-            f"{session.host_artifacts_dir}:{session.container_artifacts_dir}",
+            f"{host_artifacts_dir}:{CONTAINER_ARTIFACTS_DIR}",
             "-v",
-            f"{session.host_logs_dir}:{session.container_logs_dir}",
+            f"{host_logs_dir}:{CONTAINER_LOGS_DIR}",
             "-v",
-            f"{session.host_repro_dir}:{session.container_repro_dir}",
+            f"{host_repro_dir}:{CONTAINER_REPRO_DIR}",
             "-w",
-            session.container_workspace_dir,
+            CONTAINER_WORKSPACE_DIR,
             session.image or self.config.image,
             "tail",
             "-f",
@@ -66,12 +98,12 @@ class CompileDockerRuntime:
             image=session.image or self.config.image,
             network=self.config.network,
             mounts={
-                session.host_workspace_dir: session.container_workspace_dir,
-                session.host_artifacts_dir: session.container_artifacts_dir,
-                session.host_logs_dir: session.container_logs_dir,
-                session.host_repro_dir: session.container_repro_dir,
+                str(host_workspace_dir): CONTAINER_WORKSPACE_DIR,
+                str(host_artifacts_dir): CONTAINER_ARTIFACTS_DIR,
+                str(host_logs_dir): CONTAINER_LOGS_DIR,
+                str(host_repro_dir): CONTAINER_REPRO_DIR,
             },
-            workdir=session.container_workspace_dir,
+            workdir=CONTAINER_WORKSPACE_DIR,
             docker_command=command,
         )
         started_at = utc_now_iso()
@@ -94,7 +126,7 @@ class CompileDockerRuntime:
         if not session.container_id:
             raise ValueError("Compile session container has not been created")
 
-        container_workdir = workdir or session.container_repo_dir
+        container_workdir = workdir or CONTAINER_REPO_DIR
         exec_command = [
             "docker",
             "exec",
@@ -148,7 +180,7 @@ class CompileDockerRuntime:
 
         source = Path(source_path)
         target_name = destination_filename or source.name
-        destination_path = f"{session.container_artifacts_dir.rstrip('/')}/{target_name}"
+        destination_path = f"{CONTAINER_ARTIFACTS_DIR.rstrip('/')}/{target_name}"
         command = f"cp {source_path!r} {destination_path!r}"
         self._log(
             session,
@@ -157,7 +189,7 @@ class CompileDockerRuntime:
             destination_path=destination_path,
             command=command,
         )
-        result = self.exec(session, command, workdir=session.container_workspace_dir)
+        result = self.exec(session, command, workdir=CONTAINER_WORKSPACE_DIR)
         if result.exit_code != 0:
             self._log(
                 session,

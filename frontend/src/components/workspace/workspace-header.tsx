@@ -1,6 +1,6 @@
 "use client";
 
-import { MessageSquarePlus } from "lucide-react";
+import { MessageSquarePlus, Sparkles } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -23,28 +23,25 @@ export function WorkspaceHeader({ className }: { className?: string }) {
     <>
       <div
         className={cn(
-          "group/workspace-header flex h-12 flex-col justify-center",
+          "group/workspace-header flex h-14 flex-col justify-center px-2",
           className,
         )}
       >
         {state === "collapsed" ? (
           <div className="group-has-data-[collapsible=icon]/sidebar-wrapper:-translate-y flex w-full cursor-pointer items-center justify-center">
-            <div className="text-primary block pt-1 font-serif group-hover/workspace-header:hidden">
-              DF
+            <div className="flex items-center justify-center w-8 h-8 bg-forge-gold/10 border border-forge-gold/30 rounded glow-gold">
+              <Sparkles className="w-4 h-4 text-forge-gold" />
             </div>
             <SidebarTrigger className="hidden pl-2 group-hover/workspace-header:block" />
           </div>
         ) : (
           <div className="flex items-center justify-between gap-2">
-            {env.NEXT_PUBLIC_STATIC_WEBSITE_ONLY === "true" ? (
-              <Link href="/" className="text-primary ml-2 font-serif">
-                DeerFlow
-              </Link>
-            ) : (
-              <div className="text-primary ml-2 cursor-default font-serif">
-                DeerFlow
+            <div className="flex items-center gap-2 ml-2">
+              <div className="w-8 h-8 bg-forge-gold/10 border border-forge-gold/30 rounded flex items-center justify-center glow-gold">
+                <Sparkles className="w-5 h-5 text-forge-gold" />
               </div>
-            )}
+              <span className="font-display font-bold text-white">Forge</span>
+            </div>
             <SidebarTrigger />
           </div>
         )}
@@ -54,8 +51,9 @@ export function WorkspaceHeader({ className }: { className?: string }) {
           <SidebarMenuButton
             isActive={pathname === "/workspace/chats/new"}
             asChild
+            className="bg-forge-gold/10 text-forge-gold hover:bg-forge-gold/20 hover:text-forge-gold border border-forge-gold/20"
           >
-            <Link className="text-muted-foreground" href="/workspace/chats/new">
+            <Link href="/workspace/chats/new">
               <MessageSquarePlus size={16} />
               <span>{t.sidebar.newChat}</span>
             </Link>

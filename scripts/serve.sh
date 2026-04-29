@@ -186,7 +186,7 @@ if ! $GATEWAY_MODE; then
 fi
 echo "    Gateway     → localhost:8001  (REST API$(if $GATEWAY_MODE; then echo " + agent runtime"; fi))"
 echo "    Frontend    → localhost:3000  (Next.js)"
-echo "    Nginx       → localhost:2026  (reverse proxy)"
+echo "    Nginx       → localhost:8000  (reverse proxy)"
 echo ""
 
 cleanup() {
@@ -246,14 +246,14 @@ run_service "Frontend" \
 
 run_service "Nginx" \
     "nginx -g 'daemon off;' -c '$REPO_ROOT/docker/nginx/nginx.local.conf' -p '$REPO_ROOT' > logs/nginx.log 2>&1" \
-    2026 10
+    8000 10
 
 echo ""
 echo "=========================================="
 echo "  ✓ DeerFlow is running!  [$MODE_LABEL]"
 echo "=========================================="
 echo ""
-echo "  🌐 http://localhost:2026"
+echo "  🌐 http://localhost:8000"
 echo ""
 if $GATEWAY_MODE; then
     echo "  Routing: Frontend → Nginx → Gateway (embedded runtime)"

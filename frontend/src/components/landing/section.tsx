@@ -14,11 +14,11 @@ export function Section({
   return (
     <section className={cn("mx-auto flex flex-col py-16", className)}>
       <header className="flex flex-col items-center justify-between">
-        <div className="mb-4 bg-linear-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-center text-5xl font-bold text-transparent">
+        <div className="mb-4 text-center text-5xl font-bold font-display text-white">
           {title}
         </div>
         {subtitle && (
-          <div className="text-muted-foreground text-center text-xl">
+          <div className="text-gray-400 text-center text-xl">
             {subtitle}
           </div>
         )}

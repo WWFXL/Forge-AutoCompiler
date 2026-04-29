@@ -40,7 +40,8 @@ export default async function DocLayout({ children, params }) {
         />
       }
       pageMap={formatPageRoute(`/${lang}/docs`, pages)}
-      docsRepositoryBase="https://github.com/bytedance/deerflow/tree/main/frontend/src/app/content"
+      docsRepositoryBase="https://github.com/your-org/forge/tree/main/frontend/src/app/content"
+      // docsRepositoryBase="/docs" // For local development without remote
       footer={footer}
       i18n={i18n}
       // ... Your additional layout options

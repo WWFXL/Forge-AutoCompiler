@@ -68,7 +68,6 @@ class CompileSession:
     status: str
     created_at: str = field(default_factory=utc_now_iso)
     completed_at: str | None = None
-    task_id: str | None = None
     owner_subagent_id: str | None = None
     commit_sha: str | None = None
     container_id: str | None = None
@@ -76,17 +75,11 @@ class CompileSession:
     build_system: str | None = None
     summary: str | None = None
     error: str | None = None
-    host_session_dir: str = ""
-    host_workspace_dir: str = ""
-    host_artifacts_dir: str = ""
-    host_logs_dir: str = ""
-    host_repro_dir: str = ""
     metadata_path: str = ""
-    container_workspace_dir: str = "/workspace"
-    container_repo_dir: str = "/workspace/repo"
-    container_artifacts_dir: str = "/artifacts"
-    container_logs_dir: str = "/logs"
-    container_repro_dir: str = "/repro"
+    leadagent_repo_dir: str = ""
+    leadagent_artifacts_dir: str = ""
+    leadagent_logs_dir: str = ""
+    leadagent_repro_dir: str = ""
     commands: list[BuildCommandRecord] = field(default_factory=list)
     artifacts: list[BuildArtifact] = field(default_factory=list)
     verification: VerificationResult | None = None

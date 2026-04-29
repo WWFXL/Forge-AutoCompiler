@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
 from typing import Annotated
 
 from langchain.tools import InjectedToolCallId, ToolRuntime, tool
@@ -9,26 +8,12 @@ from langgraph.types import Command
 from langgraph.typing import ContextT
 
 from deerflow.agents.thread_state import ThreadState
-from deerflow.compile.compile_tools import (
-    FinalizeSessionInput,
-    FinalizeSessionTool,
-    IdentifyBuildSystemInput,
-    IdentifyBuildSystemTool,
-    PrepareWorkspaceInput,
-    PrepareWorkspaceTool,
-)
-from deerflow.compile.operations import clone_repository_impl, get_bound_session, prepare_compile_session_impl
+from deerflow.compile.operations import clone_repository_impl, finalize_compile_session_impl, get_bound_session, get_compile_services, inspect_build_system_impl, prepare_compile_session_impl
 
 COMPILE_SESSION_STATE_KEY = "compile_session_id"
 COMPILE_CONTAINER_STATE_KEY = "compile_container_id"
 COMPILE_BUILD_SYSTEM_STATE_KEY = "compile_build_system"
 COMPILE_CONTAINER_REPO_PATH = "/workspace/repo"
-
-
-@dataclass
-class CompileToolServices:
-    manager: object
-    runtime: object
 
 
 def _get_thread_id(runtime: ToolRuntime[ContextT, ThreadState]) -> str:
@@ -58,44 +43,6 @@ def _build_compile_state_update(
     if build_system:
         update[COMPILE_BUILD_SYSTEM_STATE_KEY] = build_system
     return update
-
-
-@tool("prepare_workspace", parse_docstring=True)
-def prepare_workspace(
-    runtime: ToolRuntime[ContextT, ThreadState],
-    repo_url: str,
-    tool_call_id: Annotated[str, InjectedToolCallId],
-    branch: str | None = None,
-) -> Command:
-    """Prepare a compile workspace for a remote repository.
-
-    This legacy tool prepares a compile session, clones the repository, and binds
-    the resulting state. Prefer the split flow of `prepare_compile_session()`,
-    `clone_repository()`, then `identify_build_system()` for retry-friendly
-    autonomous orchestration.
-
-    Args:
-        repo_url: Git repository URL to compile.
-        branch: Optional branch to checkout.
-    """
-    result = PrepareWorkspaceTool().run(
-        PrepareWorkspaceInput(
-            thread_id=_get_thread_id(runtime),
-            repo_url=repo_url,
-            branch=branch,
-        )
-    )
-    message = (
-        "Workspace prepared and compile session bound. "
-        "Prefer the split flow next time: prepare_compile_session(), clone_repository(), identify_build_system(). "
-        f"container_repo_path={result.container_repo_path}"
-    )
-    update = _build_compile_state_update(
-        session_id=result.session_id,
-        container_id=result.container_id,
-    )
-    update["messages"] = [ToolMessage(message, tool_call_id=tool_call_id)]
-    return Command(update=update)
 
 
 @tool("prepare_compile_session", parse_docstring=True)
@@ -211,21 +158,17 @@ def identify_build_system(
             }
         )
 
-    result = IdentifyBuildSystemTool().run(
-        IdentifyBuildSystemInput(
-            thread_id=_get_thread_id(runtime),
-            session_id=effective_session_id,
-            workspace_path=COMPILE_CONTAINER_REPO_PATH,
-        )
-    )
+    session = get_bound_session(session_id=effective_session_id, thread_id=_get_thread_id(runtime))
+    primary_system, detected, suggested_commands = inspect_build_system_impl(session=session)
+    root_file = detected[0][1] if detected else None
     message = (
-        f"Build system identified: system={result.system}, root_file={result.root_file or 'none'}. "
+        f"Build system identified: system={primary_system}, root_file={root_file or 'none'}. "
         "Next call task(..., subagent_type=\"compiler\") directly."
     )
     update = _build_compile_state_update(
         session_id=effective_session_id,
-        container_id=result.details.get("container_id"),
-        build_system=result.system,
+        container_id=session.container_id,
+        build_system=primary_system,
     )
     update["messages"] = [ToolMessage(message, tool_call_id=tool_call_id)]
     return Command(update=update)
@@ -245,15 +188,15 @@ def finalize_session(
     if not effective_session_id:
         return "No compile session is currently bound. Call prepare_compile_session() first."
 
-    result = FinalizeSessionTool().run(
-        FinalizeSessionInput(
-            thread_id=_get_thread_id(runtime),
-            session_id=effective_session_id,
-        )
-    )
+    thread_id = _get_thread_id(runtime)
+    session = get_bound_session(session_id=effective_session_id, thread_id=thread_id)
+    updated = finalize_compile_session_impl(session=session)
+    services = get_compile_services()
+    services.runtime.stop_and_remove_container(session)
+
     return (
-        f"Session finalized. session_id={result.session_id}, status={result.status}, action={result.action}, "
-        f"lead_repro_bundle_path={result.lead_repro_bundle_path or 'none'}, "
-        f"host_repro_bundle_path={result.host_repro_bundle_path or 'none'}, "
-        f"artifact_count={len(result.artifact_paths)}"
+        f"Session finalized. session_id={updated.session_id}, status={updated.status}, action=destroy, "
+        f"lead_repro_bundle_path=none, "
+        f"host_repro_bundle_path=none, "
+        f"artifact_count={len(updated.artifacts)}"
     )

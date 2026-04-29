@@ -7,11 +7,6 @@ from pathlib import Path
 
 from deerflow.compile.paths import (
     get_artifacts_dir,
-    get_host_artifacts_dir,
-    get_host_logs_dir,
-    get_host_repro_dir,
-    get_host_session_dir,
-    get_host_workspace_dir,
     get_logs_dir,
     get_metadata_path,
     get_repro_dir,
@@ -34,7 +29,6 @@ class CompileSessionManager:
         thread_id: str | None,
         repo_url: str,
         branch: str | None = None,
-        task_id: str | None = None,
         image: str | None = None,
     ) -> CompileSession:
         session_id = uuid.uuid4().hex[:12]
@@ -55,33 +49,28 @@ class CompileSessionManager:
             thread_id=resolved_thread_id,
             repo_url=repo_url,
             branch=branch,
-            task_id=task_id,
             image=image or self.default_image,
             status="created",
-            host_session_dir=get_host_session_dir(session_id, resolved_thread_id, self.paths),
-            host_workspace_dir=get_host_workspace_dir(session_id, resolved_thread_id, self.paths),
-            host_artifacts_dir=get_host_artifacts_dir(session_id, resolved_thread_id, self.paths),
-            host_logs_dir=get_host_logs_dir(session_id, resolved_thread_id, self.paths),
-            host_repro_dir=get_host_repro_dir(session_id, resolved_thread_id, self.paths),
             metadata_path=str(metadata_path),
+            leadagent_repo_dir=str(workspace_dir / "repo"),
+            leadagent_artifacts_dir=str(artifacts_dir),
+            leadagent_logs_dir=str(logs_dir),
+            leadagent_repro_dir=str(repro_dir),
         )
+        
         self.save_session(session)
         self.log_event(
             session,
             "session.created",
             repo_url=repo_url,
             branch=branch,
-            compile_sessions_root=str(Path(session.host_session_dir).parent.parent),
-            host_session_dir=session.host_session_dir,
-            host_workspace_dir=session.host_workspace_dir,
-            host_artifacts_dir=session.host_artifacts_dir,
-            host_logs_dir=session.host_logs_dir,
-            host_repro_dir=session.host_repro_dir,
-            container_workspace_dir=session.container_workspace_dir,
-            container_repo_dir=session.container_repo_dir,
-            container_artifacts_dir=session.container_artifacts_dir,
-            container_logs_dir=session.container_logs_dir,
-            container_repro_dir=session.container_repro_dir,
+            compile_sessions_root=str(session_dir.parent.parent),
+            session_dir=str(session_dir),
+            workspace_dir=str(workspace_dir),
+            artifacts_dir=str(artifacts_dir),
+            logs_dir=str(logs_dir),
+            repro_dir=str(repro_dir),
+            metadata_path=str(metadata_path),
         )
         return session
 

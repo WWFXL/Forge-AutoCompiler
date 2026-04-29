@@ -15,7 +15,7 @@ export function SandboxSection({ className }: { className?: string }) {
       title="Agent Runtime Environment"
       subtitle={
         <p>
-          We give DeerFlow a &quot;computer&quot;, which can execute commands,
+          We give Forge a &quot;computer&quot;, which can execute commands,
           manage files, and run long tasks — all in a secure Docker-based
           sandbox
         </p>
@@ -103,19 +103,19 @@ export function SandboxSection({ className }: { className?: string }) {
 
           {/* Feature Tags */}
           <div className="flex flex-wrap gap-3 pt-4">
-            <span className="rounded-full border border-zinc-800 bg-zinc-900 px-4 py-2 text-sm text-zinc-300">
+            <span className="rounded-full border border-forge-border bg-forge-card px-4 py-2 text-sm text-gray-400">
               Isolated
             </span>
-            <span className="rounded-full border border-zinc-800 bg-zinc-900 px-4 py-2 text-sm text-zinc-300">
+            <span className="rounded-full border border-forge-border bg-forge-card px-4 py-2 text-sm text-gray-400">
               Safe
             </span>
-            <span className="rounded-full border border-zinc-800 bg-zinc-900 px-4 py-2 text-sm text-zinc-300">
+            <span className="rounded-full border border-forge-border bg-forge-card px-4 py-2 text-sm text-gray-400">
               Persistent
             </span>
-            <span className="rounded-full border border-zinc-800 bg-zinc-900 px-4 py-2 text-sm text-zinc-300">
+            <span className="rounded-full border border-forge-border bg-forge-card px-4 py-2 text-sm text-gray-400">
               Mountable FS
             </span>
-            <span className="rounded-full border border-zinc-800 bg-zinc-900 px-4 py-2 text-sm text-zinc-300">
+            <span className="rounded-full border border-forge-border bg-forge-card px-4 py-2 text-sm text-gray-400">
               Long-running
             </span>
           </div>

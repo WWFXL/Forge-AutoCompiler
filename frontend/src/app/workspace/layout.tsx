@@ -24,9 +24,9 @@ export default async function WorkspaceLayout({
 
   return (
     <QueryClientProvider>
-      <SidebarProvider className="h-screen" defaultOpen={initialSidebarOpen}>
+      <SidebarProvider className="h-screen dark" defaultOpen={initialSidebarOpen}>
         <WorkspaceSidebar />
-        <SidebarInset className="min-w-0">{children}</SidebarInset>
+        <SidebarInset className="min-w-0 dark">{children}</SidebarInset>
       </SidebarProvider>
       <CommandPalette />
       <Toaster position="top-center" />

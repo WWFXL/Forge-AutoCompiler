@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 
 import { Section } from "../section";
 
-const COLOR = "#0a0a0a";
+const COLOR = "#141414";
 const features: BentoCardProps[] = [
   {
     color: COLOR,
@@ -52,8 +52,8 @@ export function WhatsNewSection({ className }: { className?: string }) {
   return (
     <Section
       className={cn("", className)}
-      title="Whats New in DeerFlow 2.0"
-      subtitle="DeerFlow is now evolving from a Deep Research agent into a full-stack Super Agent"
+      title="Whats New in Forge"
+      subtitle="Forge is a Docker-based automated code compilation system for AI agents"
     >
       <div className="flex w-full items-center justify-center">
         <MagicBento data={features} />
