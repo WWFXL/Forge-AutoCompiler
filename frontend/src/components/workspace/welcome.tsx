@@ -1,6 +1,7 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
+import { GitBranch, Package, Trash2 } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 
@@ -42,19 +43,19 @@ export function Welcome({
 
   const cardData = [
     {
-      icon: "📦",
+      Icon: Package,
       title: t.welcome.actionCards.cmakeTitle,
       subtitle: t.welcome.actionCards.cmakeSubtitle,
       text: "克隆并编译标准现代 CMake 项目：https://github.com/fmtlib/fmt",
     },
     {
-      icon: "🔗",
+      Icon: GitBranch,
       title: t.welcome.actionCards.grpcTitle,
       subtitle: t.welcome.actionCards.grpcSubtitle,
       text: "克隆并深度解析编译 gRPC 项目：https://github.com/grpc/grpc，请注意处理子模块。",
     },
     {
-      icon: "🧹",
+      Icon: Trash2,
       title: t.welcome.actionCards.ccacheTitle,
       subtitle: t.welcome.actionCards.ccacheSubtitle,
       text: "执行系统维护：清理宿主机挂载的 CCache 缓存。",
@@ -128,7 +129,7 @@ export function Welcome({
                     }
                   }}
                 >
-                  <div className="forge-card-icon">{card.icon}</div>
+                  <card.Icon className="forge-card-icon" />
                   <div className="forge-card-title">{card.title}</div>
                   <div className="forge-card-subtitle">{card.subtitle}</div>
                 </div>

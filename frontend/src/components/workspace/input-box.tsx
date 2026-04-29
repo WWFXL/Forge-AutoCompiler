@@ -518,7 +518,7 @@ export function InputBox({
                 }
               >
                 <PromptInputActionMenuTrigger className="gap-1! px-2!">
-                  <div>
+                  <div className="text-gray-500 hover:text-gray-200 transition-colors">
                     {context.mode === "flash" && <ZapIcon className="size-3" />}
                     {context.mode === "thinking" && (
                       <LightbulbIcon className="size-3" />
@@ -527,13 +527,15 @@ export function InputBox({
                       <GraduationCapIcon className="size-3" />
                     )}
                     {context.mode === "ultra" && (
-                      <RocketIcon className="size-3 text-[#dabb5e]" />
+                      <RocketIcon className="size-3 text-orange-400" />
                     )}
                   </div>
                   <div
                     className={cn(
                       "text-xs font-normal",
-                      context.mode === "ultra" ? "golden-text" : "",
+                      context.mode === "ultra"
+                        ? "bg-orange-500/10 text-orange-400 px-2 py-0.5 rounded border border-orange-500/20"
+                        : "",
                     )}
                   >
                     {(context.mode === "flash" && t.inputBox.flashMode) ||
@@ -877,7 +879,7 @@ function AddAttachmentsButton({ className }: { className?: string }) {
   return (
     <Tooltip content={t.inputBox.addAttachments}>
       <PromptInputButton
-        className={cn("px-2!", className)}
+        className={cn("px-2! text-gray-500 hover:text-gray-200 transition-colors", className)}
         onClick={() => attachments.openFileDialog()}
       >
         <PaperclipIcon className="size-3" />
