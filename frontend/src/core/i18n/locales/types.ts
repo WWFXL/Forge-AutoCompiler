@@ -51,6 +51,14 @@ export interface Translations {
     description: string;
     createYourOwnSkill: string;
     createYourOwnSkillDescription: string;
+    actionCards: {
+      cmakeTitle: string;
+      cmakeSubtitle: string;
+      grpcTitle: string;
+      grpcSubtitle: string;
+      ccacheTitle: string;
+      ccacheSubtitle: string;
+    };
   };
 
   // Clipboard
