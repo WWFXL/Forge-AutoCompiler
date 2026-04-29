@@ -104,3 +104,50 @@ async def make_checkpointer() -> AsyncIterator[Checkpointer]:
 
     async with _async_checkpointer(config.checkpointer) as saver:
         yield saver
+
+
+# ---------------------------------------------------------------------------
+# Sync wrapper for LangGraph CLI compatibility
+# ---------------------------------------------------------------------------
+
+
+def create_sync_checkpointer() -> Checkpointer:
+    """Create a sync checkpointer instance for use by LangGraph CLI.
+
+    This wraps the async checkpointer in a synchronous interface.
+    Note: This creates a NEW checkpointer instance each time, not a singleton.
+    For production use, prefer the async make_checkpointer() context manager.
+    """
+    config = get_app_config()
+
+    if config.checkpointer is None:
+        from langgraph.checkpoint.memory import InMemorySaver
+        return InMemorySaver()
+
+    if config.checkpointer.type == "memory":
+        from langgraph.checkpoint.memory import InMemorySaver
+        return InMemorySaver()
+
+    if config.checkpointer.type == "sqlite":
+        try:
+            from langgraph.checkpoint.sqlite.aio import AsyncSqliteSaver
+        except ImportError as exc:
+            raise ImportError(SQLITE_INSTALL) from exc
+
+        conn_str = resolve_sqlite_conn_str(config.checkpointer.connection_string or "store.db")
+        import pathlib
+        pathlib.Path(conn_str).parent.mkdir(parents=True, exist_ok=True)
+        return AsyncSqliteSaver.from_conn_string(conn_str)
+
+    if config.checkpointer.type == "postgres":
+        try:
+            from langgraph.checkpoint.postgres import PostgresSaver
+        except ImportError as exc:
+            raise ImportError(POSTGRES_INSTALL) from exc
+
+        if not config.checkpointer.connection_string:
+            raise ValueError(POSTGRES_CONN_REQUIRED)
+
+        return PostgresSaver.from_conn_string(config.checkpointer.connection_string)
+
+    raise ValueError(f"Unknown checkpointer type: {config.checkpointer.type!r}")

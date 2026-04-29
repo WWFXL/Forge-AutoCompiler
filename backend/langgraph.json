@@ -9,6 +9,6 @@
     "lead_agent": "deerflow.agents:make_lead_agent"
   },
   "checkpointer": {
-    "path": "./packages/harness/deerflow/agents/checkpointer/async_provider.py:make_checkpointer"
+    "path": "./packages/harness/deerflow/agents/checkpointer/async_provider.py:create_sync_checkpointer"
   }
 }
