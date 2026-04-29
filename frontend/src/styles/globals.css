@@ -450,3 +450,100 @@
   --container-width-md: calc(var(--spacing) * 204);
   --container-width-lg: calc(var(--spacing) * 256);
 }
+
+/* Forge Hero Section */
+.forge-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.forge-hero-icon {
+  font-size: 2.5rem;
+  filter: drop-shadow(0 0 8px rgba(255, 107, 53, 0.4));
+  animation: forge-spark 2s ease-in-out infinite;
+}
+
+@keyframes forge-spark {
+  0%, 100% { filter: drop-shadow(0 0 6px rgba(255, 107, 53, 0.3)); }
+  50% { filter: drop-shadow(0 0 12px rgba(255, 107, 53, 0.6)); }
+}
+
+.forge-hero-title {
+  font-size: 1.75rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #FFB800, #FF8C00);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin: 0;
+}
+
+.forge-hero-subtitle {
+  color: #6B7280;
+  font-size: 0.875rem;
+  max-width: 400px;
+  text-align: center;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Forge Action Cards */
+.forge-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+  width: 100%;
+  max-width: 500px;
+  margin-bottom: 1rem;
+}
+
+.forge-card {
+  background: #0a0a0a;
+  border: 1px solid rgba(255, 107, 53, 0.3);
+  border-radius: 0.5rem;
+  padding: 1rem;
+  cursor: pointer;
+  transition: transform 0.2s ease-out, box-shadow 0.2s ease-out, border-color 0.2s ease-out;
+  text-align: center;
+}
+
+.forge-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255, 107, 53, 0.6);
+  box-shadow: 0 8px 32px rgba(255, 107, 53, 0.15), inset 0 0 0 1px rgba(255, 107, 53, 0.5);
+}
+
+.forge-card-icon {
+  font-size: 1.5rem;
+  margin-bottom: 0.25rem;
+}
+
+.forge-card-title {
+  color: #E5E5E5;
+  font-size: 0.75rem;
+  font-weight: 600;
+  margin: 0.25rem 0;
+}
+
+.forge-card-subtitle {
+  color: #6B7280;
+  font-size: 0.65rem;
+  margin-top: 0.25rem;
+  font-family: monospace;
+}
+
+/* Forge Input */
+.forge-input {
+  background: #000 !important;
+  border: 2px solid #FFB800 !important;
+  border-radius: 0.5rem;
+  font-family: monospace !important;
+}
+
+.forge-input::placeholder {
+  color: #6B7280;
+  font-family: monospace;
+}
