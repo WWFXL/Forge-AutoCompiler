@@ -134,16 +134,20 @@ export default function ChatPage() {
                 paddingBottom={messageListPaddingBottom}
               />
             </div>
-            <div className="absolute right-0 bottom-0 left-0 z-30 flex flex-col items-center justify-end px-4 gap-2">
+            <div className="absolute right-0 bottom-0 left-0 z-30 flex flex-col items-center px-4 gap-2">
               {/* Welcome section with AnimatePresence */}
-              <AnimatePresence>
+              <AnimatePresence mode="wait">
                 {!hasStarted && (
                   <motion.div
                     key="hero-section"
-                    initial={{ opacity: 1, y: 0 }}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -40, filter: "blur(4px)" }}
                     transition={{ duration: 0.4, ease: "easeOut" }}
-                    className="flex w-full justify-center"
+                    className={cn(
+                      "flex w-full justify-center",
+                      !hasStarted && "-translate-y-[calc(50vh-96px)]",
+                    )}
                   >
                     <Welcome
                       mode={settings.context.mode}
