@@ -1,5 +1,6 @@
 "use client";
 
+import { AnimatePresence, motion } from "framer-motion";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 import { type PromptInputMessage } from "@/components/ai-elements/prompt-input";
@@ -89,13 +90,14 @@ export default function ChatPage() {
   const handleCardClick = useCallback(
     (text: string) => {
       inputControlRef.current?.setInput(text);
-      // Small delay to let input populate before submit
       setTimeout(() => {
         inputControlRef.current?.submit();
       }, 50);
     },
     [],
   );
+
+  const hasStarted = thread.messages.length > 0;
 
   const messageListPaddingBottom = showFollowups
     ? MESSAGE_LIST_DEFAULT_PADDING_BOTTOM +
@@ -132,12 +134,33 @@ export default function ChatPage() {
                 paddingBottom={messageListPaddingBottom}
               />
             </div>
-            <div className="absolute right-0 bottom-0 left-0 z-30 flex justify-center px-4">
-              <div
+            <div className="absolute right-0 bottom-0 left-0 z-30 flex flex-col items-center justify-end px-4 gap-2">
+              {/* Welcome section with AnimatePresence */}
+              <AnimatePresence>
+                {!hasStarted && (
+                  <motion.div
+                    key="hero-section"
+                    initial={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -40, filter: "blur(4px)" }}
+                    transition={{ duration: 0.4, ease: "easeOut" }}
+                    className="flex w-full justify-center"
+                  >
+                    <Welcome
+                      mode={settings.context.mode}
+                      onCardClick={handleCardClick}
+                    />
+                  </motion.div>
+                )}
+              </AnimatePresence>
+
+              {/* InputBox with motion.layout for smooth transition */}
+              <motion.div
+                layout
+                transition={{ duration: 0.5, ease: "easeOut" }}
                 className={cn(
                   "relative w-full",
-                  isNewThread && "-translate-y-[calc(50vh-96px)]",
-                  isNewThread
+                  !hasStarted && "-translate-y-[calc(50vh-96px)]",
+                  !hasStarted
                     ? "max-w-(--container-width-sm)"
                     : "max-w-(--container-width-md)",
                 )}
@@ -167,9 +190,6 @@ export default function ChatPage() {
                           : "ready"
                     }
                     context={settings.context}
-                    extraHeader={
-                      isNewThread && <Welcome mode={settings.context.mode} onCardClick={handleCardClick} />
-                    }
                     disabled={
                       env.NEXT_PUBLIC_STATIC_WEBSITE_ONLY === "true" ||
                       isUploading
@@ -195,7 +215,7 @@ export default function ChatPage() {
                     {t.common.notAvailableInDemoMode}
                   </div>
                 )}
-              </div>
+              </motion.div>
             </div>
           </main>
         </div>

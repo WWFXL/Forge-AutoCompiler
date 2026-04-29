@@ -1,9 +1,8 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
 import { GitBranch, Package, Trash2 } from "lucide-react";
 import { useSearchParams } from "next/navigation";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo } from "react";
 
 import { useI18n } from "@/core/i18n/hooks";
 import { cn } from "@/lib/utils";
@@ -24,7 +23,6 @@ export function Welcome({
   const { t } = useI18n();
   const searchParams = useSearchParams();
   const isUltra = useMemo(() => mode === "ultra", [mode]);
-  const [dismissed, setDismissed] = useState(false);
   const colors = useMemo(() => {
     if (isUltra) {
       return ["#efefbb", "#e9c665", "#e3a812"];
@@ -37,7 +35,6 @@ export function Welcome({
   }, []);
 
   const handleCardClick = (text: string) => {
-    setDismissed(true);
     onCardClick?.(text);
   };
 
@@ -94,50 +91,38 @@ export function Welcome({
         className,
       )}
     >
-      <AnimatePresence mode="wait">
-        {!dismissed && (
-          <motion.div
-            key="forge-hero"
-            initial={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.3, ease: "easeOut" }}
-            className="flex w-full flex-col items-center"
-          >
-            {/* Hero Section */}
-            <div className="forge-hero">
-              <div className="forge-hero-icon">🔨</div>
-              <h1 className="forge-hero-title">
-                <AuroraText colors={["#FFB800", "#FF8C00"]}>
-                  {t.welcome.greeting}
-                </AuroraText>
-              </h1>
-              <p className="forge-hero-subtitle">{t.welcome.description}</p>
-            </div>
+      {/* Hero Section */}
+      <div className="forge-hero">
+        <div className="forge-hero-icon">🔨</div>
+        <h1 className="forge-hero-title">
+          <AuroraText colors={["#FFB800", "#FF8C00"]}>
+            {t.welcome.greeting}
+          </AuroraText>
+        </h1>
+        <p className="forge-hero-subtitle">{t.welcome.description}</p>
+      </div>
 
-            {/* Action Cards */}
-            <div className="forge-cards">
-              {cardData.map((card) => (
-                <div
-                  key={card.text}
-                  className="forge-card"
-                  onClick={() => handleCardClick(card.text)}
-                  role="button"
-                  tabIndex={0}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter" || e.key === " ") {
-                      handleCardClick(card.text);
-                    }
-                  }}
-                >
-                  <card.Icon className="forge-card-icon" />
-                  <div className="forge-card-title">{card.title}</div>
-                  <div className="forge-card-subtitle">{card.subtitle}</div>
-                </div>
-              ))}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {/* Action Cards */}
+      <div className="forge-cards">
+        {cardData.map((card) => (
+          <div
+            key={card.text}
+            className="forge-card"
+            onClick={() => handleCardClick(card.text)}
+            role="button"
+            tabIndex={0}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                handleCardClick(card.text);
+              }
+            }}
+          >
+            <card.Icon className="forge-card-icon" />
+            <div className="forge-card-title">{card.title}</div>
+            <div className="forge-card-subtitle">{card.subtitle}</div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
