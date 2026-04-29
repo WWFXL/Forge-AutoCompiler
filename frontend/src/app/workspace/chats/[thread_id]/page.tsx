@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 import { type PromptInputMessage } from "@/components/ai-elements/prompt-input";
 import { ArtifactTrigger } from "@/components/workspace/artifacts";
@@ -36,6 +36,10 @@ export default function ChatPage() {
     useThreadChat();
   const [settings, setSettings] = useThreadSettings(threadId);
   const [mounted, setMounted] = useState(false);
+  const inputControlRef = useRef<{
+    setInput: (text: string) => void;
+    submit: () => void;
+  } | null>(null);
   useSpecificChatMode();
 
   useEffect(() => {
@@ -81,6 +85,17 @@ export default function ChatPage() {
   const handleStop = useCallback(async () => {
     await thread.stop();
   }, [thread]);
+
+  const handleCardClick = useCallback(
+    (text: string) => {
+      inputControlRef.current?.setInput(text);
+      // Small delay to let input populate before submit
+      setTimeout(() => {
+        inputControlRef.current?.submit();
+      }, 50);
+    },
+    [],
+  );
 
   const messageListPaddingBottom = showFollowups
     ? MESSAGE_LIST_DEFAULT_PADDING_BOTTOM +
@@ -153,7 +168,7 @@ export default function ChatPage() {
                     }
                     context={settings.context}
                     extraHeader={
-                      isNewThread && <Welcome mode={settings.context.mode} />
+                      isNewThread && <Welcome mode={settings.context.mode} onCardClick={handleCardClick} />
                     }
                     disabled={
                       env.NEXT_PUBLIC_STATIC_WEBSITE_ONLY === "true" ||
@@ -165,6 +180,7 @@ export default function ChatPage() {
                     onFollowupsVisibilityChange={setShowFollowups}
                     onSubmit={handleSubmit}
                     onStop={handleStop}
+                    inputRef={inputControlRef}
                   />
                 ) : (
                   <div
