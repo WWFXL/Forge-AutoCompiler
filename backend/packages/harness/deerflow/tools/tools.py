@@ -4,8 +4,9 @@ from langchain.tools import BaseTool
 
 from deerflow.config import get_app_config
 from deerflow.reflection import resolve_variable
-from deerflow.sandbox.security import is_host_bash_allowed
 from deerflow.tools.bound_compile_tools import run_container_bash, submit_build_result
+from deerflow.tools.host_read import host_read_tool
+from deerflow.tools.host_write import host_write_tool
 from deerflow.tools.builtins import (
     ask_clarification_tool,
     clone_repository,
@@ -39,27 +40,19 @@ SUBAGENT_TOOLS = [
     # task_status_tool is no longer exposed to LLM (backend handles polling internally)
 ]
 
-
-def _is_host_bash_tool(tool: object) -> bool:
-    """Return True if the tool config represents a host-bash execution surface."""
-    group = getattr(tool, "group", None)
-    use = getattr(tool, "use", None)
-    if group == "bash":
-        return True
-    if use == "deerflow.sandbox.tools:bash_tool":
-        return True
-    return False
+HOST_TOOLS = [
+    host_read_tool,
+    host_write_tool,
+]
 
 
 def _load_configured_tools(groups: list[str] | None, model_name: str | None) -> tuple[list[BaseTool], list[BaseTool], list[BaseTool], list[BaseTool]]:
     config = get_app_config()
     tool_configs = [tool for tool in config.tools if groups is None or tool.group in groups]
 
-    if not is_host_bash_allowed(config):
-        tool_configs = [tool for tool in tool_configs if not _is_host_bash_tool(tool)]
-
     loaded_tools = [resolve_variable(tool.use, BaseTool) for tool in tool_configs]
     builtin_tools = BUILTIN_TOOLS.copy()
+    builtin_tools.extend(HOST_TOOLS)
     builtin_tools.extend(COMPILE_TOOLS)
 
     skill_evolution_config = getattr(config, "skill_evolution", None)

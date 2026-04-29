@@ -33,14 +33,14 @@ class ThreadDataMiddleware(AgentMiddleware[ThreadDataMiddlewareState]):
 
     state_schema = ThreadDataMiddlewareState
 
-    def __init__(self, base_dir: str | None = None, lazy_init: bool = True):
+    def __init__(self, base_dir: str | None = None, lazy_init: bool = False):
         """Initialize the middleware.
 
         Args:
             base_dir: Base directory for thread data. Defaults to Paths resolution.
             lazy_init: If True, defer directory creation until needed.
                       If False, create directories eagerly in before_agent().
-                      Default is True for optimal performance.
+                      Default is False for Forge integration.
         """
         super().__init__()
         self._paths = Paths(base_dir) if base_dir else get_paths()

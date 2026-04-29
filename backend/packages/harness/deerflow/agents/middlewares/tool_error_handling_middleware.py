@@ -68,9 +68,9 @@ def _build_runtime_middlewares(
     *,
     include_uploads: bool,
     include_dangling_tool_call_patch: bool,
-    lazy_init: bool = True,
+    lazy_init: bool = False,
     include_thread_data: bool = True,
-    include_sandbox: bool = True,
+    include_sandbox: bool = False,
 ) -> list[AgentMiddleware]:
     """Build shared base middlewares for agent execution."""
     from deerflow.agents.middlewares.llm_error_handling_middleware import LLMErrorHandlingMiddleware
@@ -81,11 +81,6 @@ def _build_runtime_middlewares(
         from deerflow.agents.middlewares.thread_data_middleware import ThreadDataMiddleware
 
         middlewares.append(ThreadDataMiddleware(lazy_init=lazy_init))
-
-    if include_sandbox:
-        from deerflow.sandbox.middleware import SandboxMiddleware
-
-        middlewares.append(SandboxMiddleware(lazy_init=lazy_init))
 
     if include_uploads:
         from deerflow.agents.middlewares.uploads_middleware import UploadsMiddleware

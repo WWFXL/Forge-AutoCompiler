@@ -31,12 +31,8 @@ def view_image_tool(
     Args:
         image_path: Absolute path to the image file. Common formats supported: jpg, jpeg, png, webp.
     """
-    from deerflow.sandbox.tools import get_thread_data, replace_virtual_path
-
-    # Replace virtual path with actual path
-    # /mnt/user-data/* paths are mapped to thread-specific directories
-    thread_data = get_thread_data(runtime)
-    actual_path = replace_virtual_path(image_path, thread_data)
+    # Use the path directly (no virtual path translation in Forge)
+    actual_path = image_path
 
     # Validate that the path is absolute
     path = Path(actual_path)

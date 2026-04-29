@@ -12,7 +12,6 @@ from langgraph.typing import ContextT
 
 from deerflow.agents.lead_agent.prompt import get_skills_prompt_section
 from deerflow.agents.thread_state import ThreadState
-from deerflow.sandbox.security import LOCAL_BASH_SUBAGENT_DISABLED_MESSAGE, is_host_bash_allowed
 from deerflow.subagents import SubagentExecutor, get_available_subagent_names, get_subagent_config
 from deerflow.subagents.executor import SubagentStatus, cleanup_background_task, get_background_task_result, request_cancel_background_task
 from deerflow.tools.builtins.agent_compile_tools import (
@@ -86,8 +85,6 @@ async def task_tool(
     if config is None:
         available = ", ".join(available_subagent_names)
         return f"Error: Unknown subagent type '{subagent_type}'. Available: {available}"
-    if subagent_type == "bash" and not is_host_bash_allowed():
-        return f"Error: {LOCAL_BASH_SUBAGENT_DISABLED_MESSAGE}"
 
     overrides: dict = {}
 

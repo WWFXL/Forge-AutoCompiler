@@ -161,10 +161,10 @@ def _assemble_from_features(
 ) -> tuple[list[AgentMiddleware], list[BaseTool]]:
     """Build an ordered middleware chain + extra tools from *feat*.
 
-    Middleware order matches ``make_lead_agent`` (12 middlewares):
+    Middleware order matches ``make_lead_agent`` (11 middlewares):
 
-      0-1. Sandbox infrastructure (ThreadData → Sandbox)
-      2.   DanglingToolCallMiddleware (always)
+      0.   ThreadDataMiddleware (always)
+      1.   DanglingToolCallMiddleware (always)
       3.   GuardrailMiddleware (guardrail feature)
       4.   ToolErrorHandlingMiddleware (always)
       5.   SummarizationMiddleware (summarization feature)
@@ -188,16 +188,10 @@ def _assemble_from_features(
     chain: list[AgentMiddleware] = []
     extra_tools: list[BaseTool] = []
 
-    # --- [0-1] Sandbox infrastructure ---
-    if feat.sandbox is not False:
-        if isinstance(feat.sandbox, AgentMiddleware):
-            chain.append(feat.sandbox)
-        else:
-            from deerflow.agents.middlewares.thread_data_middleware import ThreadDataMiddleware
-            from deerflow.sandbox.middleware import SandboxMiddleware
+    # --- [0-1] Thread infrastructure (always, no sandbox) ---
+    from deerflow.agents.middlewares.thread_data_middleware import ThreadDataMiddleware
 
-            chain.append(ThreadDataMiddleware(lazy_init=True))
-            chain.append(SandboxMiddleware(lazy_init=True))
+    chain.append(ThreadDataMiddleware(lazy_init=False))
 
     # --- [2] DanglingToolCall (always) ---
     chain.append(DanglingToolCallMiddleware())
