@@ -101,6 +101,7 @@ export function InputBox({
   onFollowupsVisibilityChange,
   onSubmit,
   onStop,
+  inputRef,
   ...props
 }: Omit<ComponentProps<typeof PromptInput>, "onSubmit"> & {
   assistantId?: string | null;
@@ -129,6 +130,10 @@ export function InputBox({
   onFollowupsVisibilityChange?: (visible: boolean) => void;
   onSubmit?: (message: PromptInputMessage) => void;
   onStop?: () => void;
+  inputRef?: React.MutableRefObject<{
+    setInput: (text: string) => void;
+    submit: () => void;
+  } | null>;
 }) {
   const { t } = useI18n();
   const [modelDialogOpen, setModelDialogOpen] = useState(false);
@@ -136,6 +141,16 @@ export function InputBox({
   const { thread, isMock } = useThread();
   const { textInput } = usePromptInputController();
   const promptRootRef = useRef<HTMLDivElement | null>(null);
+
+  // Expose input control to parent
+  useEffect(() => {
+    if (inputRef) {
+      inputRef.current = {
+        setInput: (text: string) => textInput.setInput(text),
+        submit: () => requestFormSubmit(),
+      };
+    }
+  }, [inputRef, textInput, requestFormSubmit]);
 
   const [followups, setFollowups] = useState<string[]>([]);
   const [followupsHidden, setFollowupsHidden] = useState(false);
@@ -472,7 +487,7 @@ export function InputBox({
         </PromptInputAttachments>
         <PromptInputBody className="absolute top-0 right-0 left-0 z-3">
           <PromptInputTextarea
-            className={cn("size-full text-gray-100 placeholder:text-gray-500")}
+            className={cn("size-full text-gray-100 placeholder:text-gray-500 forge-input")}
             disabled={disabled}
             placeholder={t.inputBox.placeholder}
             autoFocus={autoFocus}
