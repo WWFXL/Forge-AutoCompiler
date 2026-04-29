@@ -97,7 +97,7 @@ export default function ChatPage() {
     [],
   );
 
-  const hasStarted = thread.messages.length > 0;
+  const hasStarted = !isNewThread || thread.messages.length > 0;
 
   const messageListPaddingBottom = showFollowups
     ? MESSAGE_LIST_DEFAULT_PADDING_BOTTOM +
