@@ -59,13 +59,20 @@ export const enUS: Translations = {
 
   // Welcome
   welcome: {
-    greeting: "Hello, again!",
+    greeting: "Forge: Autopilot for C/C++ Builds",
     description:
-      "Welcome to Forge, an open source automated code compilation system. With built-in and custom skills, Forge helps you build, test, and compile code in isolated Docker containers.",
-
-    createYourOwnSkill: "Create Your Own Skill",
+      "End-to-end automated build pipeline via Docker isolation. Intelligently detects environment, parses build systems, and troubleshoots errors — no more dependency hell.",
+    createYourOwnSkill: "Create your own Agent Skill",
     createYourOwnSkillDescription:
-      "Create your own skill to extend Forge's capabilities. With customized skills,\nForge can help you automate builds, run tests, and compile code efficiently.",
+      "Create your Agent Skill to unlock Forge's full potential. Custom skills help you automate builds, run tests, and compile code efficiently.",
+    actionCards: {
+      cmakeTitle: "Compile Standard CMake Project",
+      cmakeSubtitle: "e.g. fmt",
+      grpcTitle: "Parse Complex Submodule Project",
+      grpcSubtitle: "e.g. gRPC",
+      ccacheTitle: "Clean Host CCache",
+      ccacheSubtitle: "Free up disk space",
+    },
   },
 
   // Clipboard
@@ -78,7 +85,7 @@ export const enUS: Translations = {
 
   // Input Box
   inputBox: {
-    placeholder: "How can I assist you today?",
+    placeholder: ">_ Enter GitHub repo or build command... [Press Enter to Forge]",
     createSkillPrompt:
       "We're going to build a new skill step by step with `skill-creator`. To start, what do you want this skill to do?",
     addAttachments: "Add attachments",
