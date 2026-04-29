@@ -59,13 +59,22 @@ export const zhCN: Translations = {
 
   // Welcome
   welcome: {
-    greeting: "你好，欢迎回来！",
+    greeting: "Forge: Autopilot for C/C++ Builds",
     description:
-      "欢迎使用 Forge，一个完全开源的自动化代码编译系统。通过内置和自定义的 Skills，\nForge 可以帮助你在隔离的 Docker 容器中构建、测试和编译代码。",
+      "基于 Docker 隔离的端到端自动化构建流水线。智能嗅探环境、自动解析构建系统并执行排错，彻底告别依赖地狱。",
 
     createYourOwnSkill: "创建你自己的 Agent Skill",
     createYourOwnSkillDescription:
       "创建你的 Agent Skill 来释放 Forge 的潜力。通过自定义技能，Forge\n可以帮助你自动化构建、运行测试和高效编译代码。",
+
+    actionCards: {
+      cmakeTitle: "编译标准 CMake 项目",
+      cmakeSubtitle: "例如: fmt",
+      grpcTitle: "解析复杂子模块项目",
+      grpcSubtitle: "例如: gRPC",
+      ccacheTitle: "清理宿主机 CCache 缓存",
+      ccacheSubtitle: "清理缓存释放空间",
+    },
   },
 
   // Clipboard
@@ -78,7 +87,7 @@ export const zhCN: Translations = {
 
   // Input Box
   inputBox: {
-    placeholder: "今天我能为你做些什么？",
+    placeholder: ">_ 输入 GitHub 仓库地址或编译指令... [Press Enter to Forge]",
     createSkillPrompt:
       "我们一起用 skill-creator 技能来创建一个技能吧。先问问我希望这个技能能做什么。",
     addAttachments: "添加附件",
