@@ -5,7 +5,7 @@ from langchain.tools import BaseTool
 from deerflow.config import get_app_config
 from deerflow.reflection import resolve_variable
 from deerflow.sandbox.security import is_host_bash_allowed
-from deerflow.tools.bound_compile_tools import run_container_bash
+from deerflow.tools.bound_compile_tools import run_container_bash, submit_build_result
 from deerflow.tools.builtins import (
     ask_clarification_tool,
     clone_repository,
@@ -13,7 +13,6 @@ from deerflow.tools.builtins import (
     identify_build_system,
     prepare_compile_session,
     task_tool,
-    verify_build_artifacts,
 )
 from deerflow.tools.builtins.tool_search import reset_deferred_registry
 
@@ -32,7 +31,7 @@ COMPILE_TOOLS = [
 
 BUILD_SUBAGENT_TOOLS = [
     run_container_bash,
-    verify_build_artifacts,
+    submit_build_result,
 ]
 
 SUBAGENT_TOOLS = [
@@ -98,19 +97,7 @@ def _load_configured_tools(groups: list[str] | None, model_name: str | None) -> 
     except Exception as e:
         logger.error(f"Failed to get cached MCP tools: {e}")
 
-    acp_tools: list[BaseTool] = []
-    try:
-        from deerflow.config.acp_config import get_acp_agents
-        from deerflow.tools.builtins.invoke_acp_agent_tool import build_invoke_acp_agent_tool
-
-        acp_agents = get_acp_agents()
-        if acp_agents:
-            acp_tools.append(build_invoke_acp_agent_tool(acp_agents))
-            logger.info(f"Including invoke_acp_agent tool ({len(acp_agents)} agent(s): {list(acp_agents.keys())})")
-    except Exception as e:
-        logger.warning(f"Failed to load ACP tool: {e}")
-
-    return loaded_tools, builtin_tools, mcp_tools, acp_tools
+    return loaded_tools, builtin_tools, mcp_tools
 
 
 def get_available_tools(
@@ -119,7 +106,7 @@ def get_available_tools(
     model_name: str | None = None,
     subagent_enabled: bool = False,
 ) -> list[BaseTool]:
-    loaded_tools, builtin_tools, mcp_tools, acp_tools = _load_configured_tools(groups, model_name)
+    loaded_tools, builtin_tools, mcp_tools = _load_configured_tools(groups, model_name)
 
     if subagent_enabled:
         builtin_tools = builtin_tools + SUBAGENT_TOOLS
@@ -129,17 +116,17 @@ def get_available_tools(
         mcp_tools = []
 
     logger.info(
-        f"Total tools loaded: {len(loaded_tools)}, built-in tools: {len(builtin_tools)}, MCP tools: {len(mcp_tools)}, ACP tools: {len(acp_tools)}"
+        f"Total tools loaded: {len(loaded_tools)}, built-in tools: {len(builtin_tools)}, MCP tools: {len(mcp_tools)}"
     )
-    return loaded_tools + builtin_tools + mcp_tools + acp_tools
+    return loaded_tools + builtin_tools + mcp_tools
 
 
 def get_subagent_tools(subagent_type: str, model_name: str | None = None) -> list[BaseTool]:
-    loaded_tools, builtin_tools, mcp_tools, acp_tools = _load_configured_tools(groups=None, model_name=model_name)
+    loaded_tools, builtin_tools, mcp_tools = _load_configured_tools(groups=None, model_name=model_name)
 
     if subagent_type == "compiler":
         tools = BUILD_SUBAGENT_TOOLS.copy()
-        logger.info("Providing build-and-verify tool set to compiler subagent")
+        logger.info("Providing build-and-submit tool set to compiler subagent")
         return tools
 
-    return loaded_tools + builtin_tools + mcp_tools + acp_tools
+    return loaded_tools + builtin_tools + mcp_tools

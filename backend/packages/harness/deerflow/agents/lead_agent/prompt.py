@@ -421,24 +421,6 @@ def get_deferred_tools_prompt_section() -> str:
     return f"<available-deferred-tools>\n{names}\n</available-deferred-tools>"
 
 
-def _build_acp_section() -> str:
-    try:
-        from deerflow.config.acp_config import get_acp_agents
-
-        agents = get_acp_agents()
-        if not agents:
-            return ""
-    except Exception:
-        return ""
-
-    return (
-        "\n**ACP Agent Tasks (invoke_acp_agent):**\n"
-        "- ACP agents run in their own independent workspace\n"
-        "- Do NOT assume compile-session paths exist inside ACP agent workspaces\n"
-        "- ACP agent results are accessible at `/mnt/acp-workspace/`\n"
-    )
-
-
 def _build_custom_mounts_section() -> str:
     try:
         from deerflow.config.app_config import get_app_config
@@ -472,7 +454,6 @@ def apply_prompt_template(
     memory_context = _get_memory_context(agent_name)
     skills_section = get_skills_prompt_section(available_skills)
     deferred_tools_section = get_deferred_tools_prompt_section()
-    acp_section = _build_acp_section()
     custom_mounts_section = _build_custom_mounts_section()
 
     subagent_section = ""
@@ -492,5 +473,5 @@ def apply_prompt_template(
         subagent_section=subagent_section,
         subagent_thinking=subagent_thinking,
         subagent_reminder=subagent_reminder,
-        acp_section=acp_section + custom_mounts_section,
+        acp_section=custom_mounts_section,
     )
