@@ -1,0 +1,37 @@
+#!/usr/bin/env python3
+import sys
+import json
+import urllib.request
+import webbrowser
+import uuid
+
+def main():
+    # 解析参数：forge compile [gateway_url]
+    gateway_url = "http://localhost:51115"
+
+    if len(sys.argv) >= 2 and sys.argv[1] == "compile":
+        # forge compile [url]
+        gateway_url = sys.argv[2] if len(sys.argv) > 2 else gateway_url
+    elif len(sys.argv) >= 2:
+        # forge [url] - 兼容直接传 url
+        gateway_url = sys.argv[1]
+
+    # 创建 thread
+    req = urllib.request.Request(
+        f"{gateway_url}/api/threads",
+        data=json.dumps({"thread_id": str(uuid.uuid4()), "metadata": {}}).encode(),
+        headers={"Content-Type": "application/json"},
+        method="POST"
+    )
+
+    with urllib.request.urlopen(req) as resp:
+        thread_data = json.loads(resp.read())
+        thread_id = thread_data["thread_id"]
+
+    # 打开浏览器
+    url = f"{gateway_url}/workspace/chats/{thread_id}"
+    webbrowser.open(url)
+    print(f"已打开浏览器: {url}")
+
+if __name__ == "__main__":
+    main()

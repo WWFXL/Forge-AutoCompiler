@@ -1,0 +1,37 @@
+services:
+  forge:
+    build:
+      context: /workspace
+      dockerfile: Dockerfile
+    container_name: forge
+    tty: true
+    ports:
+      - "51116:8000"
+    volumes:
+      # 挂载宿主机 docker.sock（用于 sandbox 的 DooD）
+      - /var/run/docker.sock:/var/run/docker.sock
+      # 挂载宿主机项目目录（用户需要填写实际路径）
+      - ${HOST_PROJECT_ROOT}:/workspace/host_project
+      # 项目数据持久化
+      - ./data:/workspace/data
+      # config 和 env（用户预先配置好）
+      - ${CONFIG_PATH}:/workspace/forge/config.yaml:ro
+      - ${ENV_PATH}:/workspace/forge/.env:ro
+      # 挂载 entrypoint 脚本
+      - ./entrypoint.sh:/usr/local/bin/entrypoint.sh:ro
+    entrypoint: ["/usr/local/bin/entrypoint.sh"]
+    environment:
+      - PUID=${UID:-1000}
+      - PGID=${GID:-1000}
+      - SANDBOX_NETWORK=forge-network
+      - IN_DOCKER_CONTAINER=true
+      - HOST_PROJECT_ROOT=/workspace/host_project
+      - DEER_FLOW_CONFIG_PATH=/workspace/forge/config.yaml
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    networks:
+      - forge-network
+
+networks:
+  forge-network:
+    driver: bridge
