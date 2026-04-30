@@ -181,10 +181,10 @@ export function RecentChatList() {
                       <div>
                         <Link
                           className={cn(
-                            "block w-full whitespace-nowrap group-hover/side-menu-item:overflow-hidden",
+                            "block w-full whitespace-nowrap border-l-2 py-1 pl-2 -ml-0.5 group-hover/side-menu-item:overflow-hidden",
                             isActive
-                              ? "text-forge-gold"
-                              : "text-gray-400 hover:text-gray-200"
+                              ? "border-orange-500 bg-orange-500/10 text-orange-500"
+                              : "border-transparent text-gray-400 hover:bg-white/5 hover:text-gray-300"
                           )}
                           href={pathOfThread(thread.thread_id)}
                         >

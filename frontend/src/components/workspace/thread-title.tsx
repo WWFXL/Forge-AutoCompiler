@@ -44,7 +44,7 @@ export function ThreadTitle({
   }
   return (
     <FlipDisplay uniqueKey={threadId} className="text-white">
-      <span>{thread.values.title ?? "Untitled"}</span>
+      <span className="text-white">{thread.values.title ?? "Untitled"}</span>
     </FlipDisplay>
   );
 }

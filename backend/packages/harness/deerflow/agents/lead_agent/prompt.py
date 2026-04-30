@@ -178,7 +178,7 @@ def _build_subagent_section(max_concurrent: int) -> str:
         "- **compiler**: For isolated C/C++ build execution and post-build verification inside a prepared compile container"
         if bash_available
         else "- **general-purpose**: For ANY non-trivial task - web research, code exploration, file operations, analysis, etc.\n"
-        "- **bash**: Not available in the current sandbox configuration. Use direct file/web tools or switch to AioSandboxProvider for isolated shell access.\n"
+        "- **bash**: Not available in the current configuration.\n"
         "- **compiler**: For isolated C/C++ build execution and post-build verification inside a prepared compile container"
     )
     direct_tool_examples = "prepare_workspace, identify_build_system, finalize_session, read_file, web_search, etc."
@@ -296,7 +296,6 @@ You are {agent_name}, an open-source compilation-focused agent.
 - Lead-agent filesystem work for compile tasks always happens under `/workspace/.compile-sessions/<thread_id>/<session_id>`
 - Subagent working directories do not matter for lead-agent reasoning because execution location is already encapsulated by the bound tools
 - When summarizing results after subagent execution, distinguish between lead-agent session paths and any informational subagent-reported execution paths
-{acp_section}
 </working_model>
 
 <critical_reminders>
@@ -454,8 +453,6 @@ def apply_prompt_template(
     memory_context = _get_memory_context(agent_name)
     skills_section = get_skills_prompt_section(available_skills)
     deferred_tools_section = get_deferred_tools_prompt_section()
-    custom_mounts_section = _build_custom_mounts_section()
-
     subagent_section = ""
     subagent_thinking = ""
     subagent_reminder = ""
@@ -473,5 +470,4 @@ def apply_prompt_template(
         subagent_section=subagent_section,
         subagent_thinking=subagent_thinking,
         subagent_reminder=subagent_reminder,
-        acp_section=custom_mounts_section,
     )

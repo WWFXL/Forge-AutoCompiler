@@ -113,6 +113,5 @@ Rules:
     max_turns=36,
     runtime_profile=SubagentRuntimeProfile(
         use_thread_data_middleware=False,
-        use_sandbox_middleware=False,
     ),
 )

@@ -23,7 +23,7 @@ export function AgentGallery() {
       {/* Page header */}
       <div className="flex items-center justify-between border-b px-6 py-4">
         <div>
-          <h1 className="text-xl font-semibold">{t.agents.title}</h1>
+          <h1 className="text-xl font-semibold text-white">{t.agents.title}</h1>
           <p className="text-muted-foreground mt-0.5 text-sm">
             {t.agents.description}
           </p>
@@ -46,7 +46,7 @@ export function AgentGallery() {
               <BotIcon className="text-muted-foreground h-7 w-7" />
             </div>
             <div>
-              <p className="font-medium">{t.agents.emptyTitle}</p>
+              <p className="font-medium text-white">{t.agents.emptyTitle}</p>
               <p className="text-muted-foreground mt-1 text-sm">
                 {t.agents.emptyDescription}
               </p>

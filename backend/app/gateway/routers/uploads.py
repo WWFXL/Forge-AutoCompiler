@@ -46,7 +46,7 @@ async def upload_files(
         uploads_dir = ensure_uploads_dir(thread_id)
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
-    sandbox_uploads = get_paths().sandbox_uploads_dir(thread_id)
+    thread_uploads = get_paths().thread_uploads_dir(thread_id)
     uploaded_files = []
 
     for file in files:
@@ -69,7 +69,7 @@ async def upload_files(
             file_info = {
                 "filename": safe_filename,
                 "size": str(len(content)),
-                "path": str(sandbox_uploads / safe_filename),
+                "path": str(thread_uploads / safe_filename),
                 "virtual_path": virtual_path,
                 "artifact_url": upload_artifact_url(thread_id, safe_filename),
             }
@@ -83,7 +83,7 @@ async def upload_files(
                     md_virtual_path = upload_virtual_path(md_path.name)
 
                     file_info["markdown_file"] = md_path.name
-                    file_info["markdown_path"] = str(sandbox_uploads / md_path.name)
+                    file_info["markdown_path"] = str(thread_uploads / md_path.name)
                     file_info["markdown_virtual_path"] = md_virtual_path
                     file_info["markdown_artifact_url"] = upload_artifact_url(thread_id, md_path.name)
 
@@ -110,10 +110,10 @@ async def list_uploaded_files(thread_id: str) -> dict:
     result = list_files_in_dir(uploads_dir)
     enrich_file_listing(result, thread_id)
 
-    # Gateway additionally includes the sandbox-relative path.
-    sandbox_uploads = get_paths().sandbox_uploads_dir(thread_id)
+    # Gateway additionally includes the thread-relative path.
+    thread_uploads = get_paths().thread_uploads_dir(thread_id)
     for f in result["files"]:
-        f["path"] = str(sandbox_uploads / f["filename"])
+        f["path"] = str(thread_uploads / f["filename"])
 
     return result
 

@@ -33,7 +33,7 @@ For each command or group of commands:
 </output_format>
 
 <working_directory>
-You have access to the sandbox environment:
+You have access to the following directories:
 - User uploads: `/mnt/user-data/uploads`
 - User workspace: `/mnt/user-data/workspace`
 - Output files: `/mnt/user-data/outputs`

@@ -1,4 +1,4 @@
-"""Host filesystem write tool - direct file access without sandbox."""
+"""Host filesystem write tool - direct file access."""
 
 from pathlib import Path
 from typing import Annotated

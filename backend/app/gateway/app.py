@@ -68,7 +68,7 @@ def create_app() -> FastAPI:
         description="""
 ## DeerFlow API Gateway
 
-API Gateway for DeerFlow - A LangGraph-based AI agent backend with sandbox execution capabilities.
+API Gateway for DeerFlow - A LangGraph-based AI agent backend.
 
 ### Features
 

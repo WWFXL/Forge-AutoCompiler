@@ -24,7 +24,6 @@ class RuntimeFeatures:
     accept ``False`` (disable) or an ``AgentMiddleware`` instance (custom).
     """
 
-    sandbox: bool | AgentMiddleware = True
     memory: bool | AgentMiddleware = False
     summarization: Literal[False] | AgentMiddleware = False
     subagent: bool | AgentMiddleware = False

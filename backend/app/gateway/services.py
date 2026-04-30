@@ -35,6 +35,17 @@ from deerflow.runtime import (
 logger = logging.getLogger(__name__)
 
 
+def _ensure_thread_dirs(thread_id: str) -> None:
+    """Create thread directories (runs in thread pool to avoid BlockingError)."""
+    from deerflow.config.paths import get_paths
+
+    try:
+        get_paths().ensure_thread_dirs(thread_id)
+        logger.debug("Created thread directories for thread %s", thread_id)
+    except Exception:
+        logger.debug("Failed to create thread directories for %s (non-fatal)", thread_id)
+
+
 def format_sse(event: str, data: Any, *, event_id: str | None = None) -> str:
     """Format a single SSE frame.
 
@@ -188,6 +199,9 @@ async def start_run(
     run_mgr = get_run_manager(request)
     checkpointer = get_checkpointer(request)
     store = get_store(request)
+
+    # Create thread directories in background thread to avoid BlockingError
+    asyncio.create_task(asyncio.to_thread(_ensure_thread_dirs, thread_id))
 
     disconnect = DisconnectMode.cancel if body.on_disconnect == "cancel" else DisconnectMode.continue_
 

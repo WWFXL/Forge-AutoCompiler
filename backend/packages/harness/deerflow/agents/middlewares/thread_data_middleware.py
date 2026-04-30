@@ -1,4 +1,5 @@
 import logging
+import threading
 from typing import NotRequired, override
 
 from langchain.agents import AgentState
@@ -56,9 +57,9 @@ class ThreadDataMiddleware(AgentMiddleware[ThreadDataMiddlewareState]):
             Dictionary with workspace_path, uploads_path, and outputs_path.
         """
         return {
-            "workspace_path": str(self._paths.sandbox_work_dir(thread_id)),
-            "uploads_path": str(self._paths.sandbox_uploads_dir(thread_id)),
-            "outputs_path": str(self._paths.sandbox_outputs_dir(thread_id)),
+            "workspace_path": str(self._paths.thread_work_dir(thread_id)),
+            "uploads_path": str(self._paths.thread_uploads_dir(thread_id)),
+            "outputs_path": str(self._paths.thread_outputs_dir(thread_id)),
         }
 
     def _create_thread_directories(self, thread_id: str) -> dict[str, str]:
@@ -88,9 +89,12 @@ class ThreadDataMiddleware(AgentMiddleware[ThreadDataMiddlewareState]):
             # Lazy initialization: only compute paths, don't create directories
             paths = self._get_thread_paths(thread_id)
         else:
-            # Eager initialization: create directories immediately
-            paths = self._create_thread_directories(thread_id)
-            logger.debug("Created thread data directories for thread %s", thread_id)
+            # Eager initialization: create directories in background thread
+            # to avoid BlockingError from blockbuster in async context
+            paths = self._get_thread_paths(thread_id)
+            t = threading.Thread(target=self._create_thread_directories, args=(thread_id,), daemon=True)
+            t.start()
+            logger.debug("Started thread to create thread data directories for thread %s", thread_id)
 
         return {
             "thread_data": {

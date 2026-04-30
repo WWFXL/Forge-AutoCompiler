@@ -70,7 +70,6 @@ def _build_runtime_middlewares(
     include_dangling_tool_call_patch: bool,
     lazy_init: bool = False,
     include_thread_data: bool = True,
-    include_sandbox: bool = False,
 ) -> list[AgentMiddleware]:
     """Build shared base middlewares for agent execution."""
     from deerflow.agents.middlewares.llm_error_handling_middleware import LLMErrorHandlingMiddleware
@@ -115,9 +114,6 @@ def _build_runtime_middlewares(
         provider = provider_cls(**provider_kwargs)
         middlewares.append(GuardrailMiddleware(provider, fail_closed=guardrails_config.fail_closed, passport=guardrails_config.passport))
 
-    from deerflow.agents.middlewares.sandbox_audit_middleware import SandboxAuditMiddleware
-
-    middlewares.append(SandboxAuditMiddleware())
     middlewares.append(ToolErrorHandlingMiddleware())
     return middlewares
 
@@ -129,7 +125,6 @@ def build_lead_runtime_middlewares(*, lazy_init: bool = True) -> list[AgentMiddl
         include_dangling_tool_call_patch=True,
         lazy_init=lazy_init,
         include_thread_data=True,
-        include_sandbox=True,
     )
 
 
@@ -140,7 +135,6 @@ def build_subagent_runtime_middlewares(*, lazy_init: bool = True) -> list[AgentM
         include_dangling_tool_call_patch=True,
         lazy_init=lazy_init,
         include_thread_data=True,
-        include_sandbox=True,
     )
 
 

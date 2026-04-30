@@ -57,7 +57,7 @@ export function WorkspaceHeader({
             {segments?.[0] && (
               <BreadcrumbItem className="hidden md:block">
                 <BreadcrumbLink asChild>
-                  <Link href={`/${segments[0]}`}>
+                  <Link className="text-white" href={`/${segments[0]}`}>
                     {nameOfSegment(segments[0], t)}
                   </Link>
                 </BreadcrumbLink>
@@ -69,12 +69,12 @@ export function WorkspaceHeader({
                 <BreadcrumbItem>
                   {segments.length >= 2 ? (
                     <BreadcrumbLink asChild>
-                      <Link href={`/${segments[0]}/${segments[1]}`}>
+                      <Link className="text-white" href={`/${segments[0]}/${segments[1]}`}>
                         {nameOfSegment(segments[1], t)}
                       </Link>
                     </BreadcrumbLink>
                   ) : (
-                    <BreadcrumbPage>
+                    <BreadcrumbPage className="text-white">
                       {nameOfSegment(segments[1], t)}
                     </BreadcrumbPage>
                   )}

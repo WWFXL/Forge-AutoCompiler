@@ -9,7 +9,6 @@ SubagentModel = str | Literal["inherit"]
 @dataclass(frozen=True)
 class SubagentRuntimeProfile:
     use_thread_data_middleware: bool = True
-    use_sandbox_middleware: bool = True
 
 
 @dataclass(frozen=True)

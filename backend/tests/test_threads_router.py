@@ -11,9 +11,9 @@ from deerflow.config.paths import Paths
 def test_delete_thread_data_removes_thread_directory(tmp_path):
     paths = Paths(tmp_path)
     thread_dir = paths.thread_dir("thread-cleanup")
-    workspace = paths.sandbox_work_dir("thread-cleanup")
-    uploads = paths.sandbox_uploads_dir("thread-cleanup")
-    outputs = paths.sandbox_outputs_dir("thread-cleanup")
+    workspace = paths.thread_work_dir("thread-cleanup")
+    uploads = paths.thread_uploads_dir("thread-cleanup")
+    outputs = paths.thread_outputs_dir("thread-cleanup")
 
     for directory in [workspace, uploads, outputs]:
         directory.mkdir(parents=True, exist_ok=True)
@@ -51,8 +51,8 @@ def test_delete_thread_data_rejects_invalid_thread_id(tmp_path):
 def test_delete_thread_route_cleans_thread_directory(tmp_path):
     paths = Paths(tmp_path)
     thread_dir = paths.thread_dir("thread-route")
-    paths.sandbox_work_dir("thread-route").mkdir(parents=True, exist_ok=True)
-    (paths.sandbox_work_dir("thread-route") / "notes.txt").write_text("hello", encoding="utf-8")
+    paths.thread_work_dir("thread-route").mkdir(parents=True, exist_ok=True)
+    (paths.thread_work_dir("thread-route") / "notes.txt").write_text("hello", encoding="utf-8")
 
     app = FastAPI()
     app.include_router(threads.router)

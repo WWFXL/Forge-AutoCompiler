@@ -138,45 +138,38 @@ class Paths:
     def thread_dir(self, thread_id: str) -> Path:
         return self.base_dir / "threads" / _validate_thread_id(thread_id)
 
-    def sandbox_work_dir(self, thread_id: str) -> Path:
+    def thread_work_dir(self, thread_id: str) -> Path:
         return self.thread_dir(thread_id) / "user-data" / "workspace"
 
-    def sandbox_uploads_dir(self, thread_id: str) -> Path:
+    def thread_uploads_dir(self, thread_id: str) -> Path:
         return self.thread_dir(thread_id) / "user-data" / "uploads"
 
-    def sandbox_outputs_dir(self, thread_id: str) -> Path:
+    def thread_outputs_dir(self, thread_id: str) -> Path:
         return self.thread_dir(thread_id) / "user-data" / "outputs"
 
-    def acp_workspace_dir(self, thread_id: str) -> Path:
-        return self.thread_dir(thread_id) / "acp-workspace"
-
-    def sandbox_user_data_dir(self, thread_id: str) -> Path:
+    def thread_user_data_dir(self, thread_id: str) -> Path:
         return self.thread_dir(thread_id) / "user-data"
 
     def host_thread_dir(self, thread_id: str) -> str:
         return _join_host_path(self._host_base_dir_str(), "threads", _validate_thread_id(thread_id))
 
-    def host_sandbox_user_data_dir(self, thread_id: str) -> str:
+    def host_thread_user_data_dir(self, thread_id: str) -> str:
         return _join_host_path(self.host_thread_dir(thread_id), "user-data")
 
-    def host_sandbox_work_dir(self, thread_id: str) -> str:
-        return _join_host_path(self.host_sandbox_user_data_dir(thread_id), "workspace")
+    def host_thread_work_dir(self, thread_id: str) -> str:
+        return _join_host_path(self.host_thread_user_data_dir(thread_id), "workspace")
 
-    def host_sandbox_uploads_dir(self, thread_id: str) -> str:
-        return _join_host_path(self.host_sandbox_user_data_dir(thread_id), "uploads")
+    def host_thread_uploads_dir(self, thread_id: str) -> str:
+        return _join_host_path(self.host_thread_user_data_dir(thread_id), "uploads")
 
-    def host_sandbox_outputs_dir(self, thread_id: str) -> str:
-        return _join_host_path(self.host_sandbox_user_data_dir(thread_id), "outputs")
-
-    def host_acp_workspace_dir(self, thread_id: str) -> str:
-        return _join_host_path(self.host_thread_dir(thread_id), "acp-workspace")
+    def host_thread_outputs_dir(self, thread_id: str) -> str:
+        return _join_host_path(self.host_thread_user_data_dir(thread_id), "outputs")
 
     def ensure_thread_dirs(self, thread_id: str) -> None:
         for d in [
-            self.sandbox_work_dir(thread_id),
-            self.sandbox_uploads_dir(thread_id),
-            self.sandbox_outputs_dir(thread_id),
-            self.acp_workspace_dir(thread_id),
+            self.thread_work_dir(thread_id),
+            self.thread_uploads_dir(thread_id),
+            self.thread_outputs_dir(thread_id),
         ]:
             d.mkdir(parents=True, exist_ok=True)
             d.chmod(0o777)
@@ -196,14 +189,14 @@ class Paths:
         suffix = vp[len(prefix) :].lstrip("/")
         parts = Path(suffix).parts
         if not parts:
-            return self.sandbox_user_data_dir(thread_id)
+            return self.thread_user_data_dir(thread_id)
 
         root, *rest = parts
         if root == "workspace":
-            return self.sandbox_work_dir(thread_id).joinpath(*rest)
+            return self.thread_work_dir(thread_id).joinpath(*rest)
         if root == "uploads":
-            return self.sandbox_uploads_dir(thread_id).joinpath(*rest)
+            return self.thread_uploads_dir(thread_id).joinpath(*rest)
         if root == "outputs":
-            return self.sandbox_outputs_dir(thread_id).joinpath(*rest)
+            return self.thread_outputs_dir(thread_id).joinpath(*rest)
 
         raise ValueError(f"Unsupported virtual path root: {virtual_path}")

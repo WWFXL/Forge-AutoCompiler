@@ -40,7 +40,6 @@ def test_apply_prompt_template_includes_custom_mounts(monkeypatch):
     monkeypatch.setattr("deerflow.config.get_app_config", lambda: config)
     monkeypatch.setattr(prompt_module, "_get_enabled_skills", lambda: [])
     monkeypatch.setattr(prompt_module, "get_deferred_tools_prompt_section", lambda: "")
-    monkeypatch.setattr(prompt_module, "_build_acp_section", lambda: "")
     monkeypatch.setattr(prompt_module, "_get_memory_context", lambda agent_name=None: "")
     monkeypatch.setattr(prompt_module, "get_agent_soul", lambda agent_name=None: "")
 

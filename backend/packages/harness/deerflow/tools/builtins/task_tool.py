@@ -54,13 +54,11 @@ async def task_tool(
     - Handle complex multi-step tasks autonomously
     - Execute commands or operations in isolated contexts
 
-    Available subagent types depend on the active sandbox configuration:
+    Available subagent types:
     - **general-purpose**: A capable agent for complex, multi-step tasks that require
       both exploration and action. Use when the task requires complex reasoning,
       multiple dependent steps, or would benefit from isolated context.
-    - **bash**: Command execution specialist for running bash commands. This is only
-      available when host bash is explicitly allowed or when using an isolated shell
-      sandbox such as `AioSandboxProvider`.
+    - **bash**: Command execution specialist for running bash commands.
     - **compiler**: Isolated remote-repository compilation specialist using a dedicated compile container workflow.
 
     When to use this tool:
@@ -98,7 +96,6 @@ async def task_tool(
     if overrides:
         config = replace(config, **overrides)
 
-    sandbox_state = None
     thread_data = None
     thread_id = None
     parent_model = None
@@ -106,7 +103,6 @@ async def task_tool(
     compile_state: dict[str, str] = {}
 
     if runtime is not None:
-        sandbox_state = runtime.state.get("sandbox")
         thread_data = runtime.state.get("thread_data")
         thread_id = runtime.context.get("thread_id") if runtime.context else None
         if thread_id is None:
@@ -138,7 +134,6 @@ async def task_tool(
         config=config,
         tools=tools,
         parent_model=parent_model,
-        sandbox_state=sandbox_state,
         thread_data=thread_data,
         thread_id=thread_id,
         trace_id=trace_id,

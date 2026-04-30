@@ -191,7 +191,7 @@ Being proactive with task management demonstrates thoroughness and ensures all r
 
 def _build_middlewares(config: RunnableConfig, model_name: str | None, agent_name: str | None = None, custom_middlewares: list[AgentMiddleware] | None = None):
     """Build middleware chain based on runtime configuration."""
-    middlewares = build_lead_runtime_middlewares(lazy_init=True)
+    middlewares = build_lead_runtime_middlewares(lazy_init=False)
 
     summarization_middleware = _create_summarization_middleware()
     if summarization_middleware is not None:

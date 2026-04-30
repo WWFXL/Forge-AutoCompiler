@@ -1,7 +1,6 @@
 import { Footer } from "@/components/landing/footer";
 import { Header } from "@/components/landing/header";
 import { Hero } from "@/components/landing/hero";
-import { SandboxSection } from "@/components/landing/sections/sandbox-section";
 import { SkillsSection } from "@/components/landing/sections/skills-section";
 import { WhatsNewSection } from "@/components/landing/sections/whats-new-section";
 
@@ -12,7 +11,6 @@ export default function LandingPage() {
       <main className="flex w-full flex-col">
         <Hero />
         <SkillsSection />
-        <SandboxSection />
         <WhatsNewSection />
       </main>
       <Footer />

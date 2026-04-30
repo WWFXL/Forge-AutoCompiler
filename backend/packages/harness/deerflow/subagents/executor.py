@@ -16,7 +16,7 @@ from langchain.tools import BaseTool
 from langchain_core.messages import AIMessage, HumanMessage
 from langchain_core.runnables import RunnableConfig
 
-from deerflow.agents.thread_state import SandboxState, ThreadDataState, ThreadState
+from deerflow.agents.thread_state import ThreadDataState, ThreadState
 from deerflow.models import create_chat_model
 from deerflow.subagents.config import SubagentConfig
 
@@ -122,7 +122,6 @@ class SubagentExecutor:
         config: SubagentConfig,
         tools: list[BaseTool],
         parent_model: str | None = None,
-        sandbox_state: SandboxState | None = None,
         thread_data: ThreadDataState | None = None,
         thread_id: str | None = None,
         trace_id: str | None = None,
@@ -130,7 +129,6 @@ class SubagentExecutor:
     ):
         self.config = config
         self.parent_model = parent_model
-        self.sandbox_state = sandbox_state
         self.thread_data = thread_data
         self.thread_id = thread_id
         self.trace_id = trace_id or str(uuid.uuid4())[:8]
@@ -165,8 +163,6 @@ class SubagentExecutor:
             "messages": [HumanMessage(content=task)],
             **self.initial_state,
         }
-        if self.sandbox_state is not None:
-            state["sandbox"] = self.sandbox_state
         if self.thread_data is not None:
             state["thread_data"] = self.thread_data
         return state

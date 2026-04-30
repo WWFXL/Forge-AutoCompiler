@@ -8,13 +8,11 @@ import yaml
 from dotenv import load_dotenv
 from pydantic import BaseModel, ConfigDict, Field
 
-from deerflow.config.acp_config import load_acp_config_from_dict
 from deerflow.config.checkpointer_config import CheckpointerConfig, load_checkpointer_config_from_dict
 from deerflow.config.extensions_config import ExtensionsConfig
 from deerflow.config.guardrails_config import GuardrailsConfig, load_guardrails_config_from_dict
 from deerflow.config.memory_config import MemoryConfig, load_memory_config_from_dict
 from deerflow.config.model_config import ModelConfig
-from deerflow.config.sandbox_config import SandboxConfig
 from deerflow.config.skill_evolution_config import SkillEvolutionConfig
 from deerflow.config.skills_config import SkillsConfig
 from deerflow.config.stream_bridge_config import StreamBridgeConfig, load_stream_bridge_config_from_dict
@@ -43,7 +41,6 @@ class AppConfig(BaseModel):
     log_level: str = Field(default="info", description="Logging level for deerflow modules (debug/info/warning/error)")
     token_usage: TokenUsageConfig = Field(default_factory=TokenUsageConfig, description="Token usage tracking configuration")
     models: list[ModelConfig] = Field(default_factory=list, description="Available models")
-    sandbox: SandboxConfig | None = Field(default=None, description="Sandbox configuration (null when sandbox is disabled)")
     tools: list[ToolConfig] = Field(default_factory=list, description="Available tools")
     tool_groups: list[ToolGroupConfig] = Field(default_factory=list, description="Available tool groups")
     skills: SkillsConfig = Field(default_factory=SkillsConfig, description="Skills configuration")
@@ -136,9 +133,6 @@ class AppConfig(BaseModel):
         # Load stream bridge config if present
         if "stream_bridge" in config_data:
             load_stream_bridge_config_from_dict(config_data["stream_bridge"])
-
-        # Always refresh ACP agent config so removed entries do not linger across reloads.
-        load_acp_config_from_dict(config_data.get("acp_agents", {}))
 
         # Load extensions config separately (it's in a different file)
         extensions_config = ExtensionsConfig.from_file()

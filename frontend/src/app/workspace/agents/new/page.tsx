@@ -269,7 +269,7 @@ export default function NewAgentPage() {
         >
           <ArrowLeftIcon className="h-4 w-4" />
         </Button>
-        <h1 className="text-sm font-semibold">{t.agents.createPageTitle}</h1>
+        <h1 className="text-sm font-semibold text-white">{t.agents.createPageTitle}</h1>
       </div>
 
       {step === "chat" ? (
@@ -308,7 +308,7 @@ export default function NewAgentPage() {
                 <BotIcon className="text-primary h-7 w-7" />
               </div>
               <div className="space-y-1">
-                <h2 className="text-xl font-semibold">
+                <h2 className="text-xl font-semibold text-white">
                   {t.agents.nameStepTitle}
                 </h2>
                 <p className="text-muted-foreground text-sm">

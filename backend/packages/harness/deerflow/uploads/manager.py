@@ -33,7 +33,7 @@ def validate_thread_id(thread_id: str) -> None:
 def get_uploads_dir(thread_id: str) -> Path:
     """Return the uploads directory path for a thread (no side effects)."""
     validate_thread_id(thread_id)
-    return get_paths().sandbox_uploads_dir(thread_id)
+    return get_paths().thread_uploads_dir(thread_id)
 
 
 def ensure_uploads_dir(thread_id: str) -> Path:
