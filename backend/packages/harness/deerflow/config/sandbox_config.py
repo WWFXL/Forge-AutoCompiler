@@ -27,8 +27,8 @@ class SandboxConfig(BaseModel):
         environment: Environment variables to inject into the container (values starting with $ are resolved from host env)
     """
 
-    use: str = Field(
-        ...,
+    use: str | None = Field(
+        default=None,
         description="Class path of the sandbox provider (e.g. deerflow.sandbox.local:LocalSandboxProvider)",
     )
     allow_host_bash: bool = Field(

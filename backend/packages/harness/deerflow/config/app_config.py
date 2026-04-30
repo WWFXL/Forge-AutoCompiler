@@ -43,7 +43,7 @@ class AppConfig(BaseModel):
     log_level: str = Field(default="info", description="Logging level for deerflow modules (debug/info/warning/error)")
     token_usage: TokenUsageConfig = Field(default_factory=TokenUsageConfig, description="Token usage tracking configuration")
     models: list[ModelConfig] = Field(default_factory=list, description="Available models")
-    sandbox: SandboxConfig = Field(description="Sandbox configuration")
+    sandbox: SandboxConfig | None = Field(default=None, description="Sandbox configuration (null when sandbox is disabled)")
     tools: list[ToolConfig] = Field(default_factory=list, description="Available tools")
     tool_groups: list[ToolGroupConfig] = Field(default_factory=list, description="Available tool groups")
     skills: SkillsConfig = Field(default_factory=SkillsConfig, description="Skills configuration")
