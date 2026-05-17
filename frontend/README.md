@@ -1,138 +1,75 @@
-# DeerFlow Frontend
+# Forge-AutoCompiler Frontend
 
-Like the original DeerFlow 1.0, we would love to give the community a minimalistic and easy-to-use web interface with a more modern and flexible architecture.
+Forge-AutoCompiler 的 Web 工作台。基于 Next.js 16 + React 19 + Tailwind CSS 4。
 
-## Tech Stack
+> 这只是简短入口指引。完整指南：
+> - **[../README_zh.md](../README_zh.md)** — 项目总览（中文）
+> - **[CLAUDE.md](CLAUDE.md)** — 前端架构与开发指南
+> - **[../CONTRIBUTING.md](../CONTRIBUTING.md)** — 贡献流程
 
-- **Framework**: [Next.js 16](https://nextjs.org/) with [App Router](https://nextjs.org/docs/app)
-- **UI**: [React 19](https://react.dev/), [Tailwind CSS 4](https://tailwindcss.com/), [Shadcn UI](https://ui.shadcn.com/), [MagicUI](https://magicui.design/) and [React Bits](https://reactbits.dev/)
-- **AI Integration**: [LangGraph SDK](https://www.npmjs.com/package/@langchain/langgraph-sdk) and [Vercel AI Elements](https://vercel.com/ai-sdk/ai-elements)
+## 技术栈
 
-## Quick Start
+- **Next.js 16** + App Router
+- **React 19** + **TypeScript 5.8**
+- **Tailwind CSS 4**（`@import` 语法 + CSS 变量）
+- **pnpm 10.26.2**（workspaces）
+- **LangGraph SDK**（`@langchain/langgraph-sdk`）+ **TanStack Query**
+- **Shadcn UI / MagicUI / React Bits / Vercel AI Elements**（注册表生成，`ui/`、`ai-elements/` 不要手改）
 
-### Prerequisites
+## 前置
 
 - Node.js 22+
 - pnpm 10.26.2+
 
-### Installation
+## 命令
 
 ```bash
-# Install dependencies
-pnpm install
-
-# Copy environment variables
-cp .env.example .env
-# Edit .env with your configuration
+pnpm dev          # Turbopack dev，http://localhost:3000
+pnpm build        # 生产构建（需要 BETTER_AUTH_SECRET）
+pnpm lint         # ESLint
+pnpm typecheck    # tsc --noEmit
+pnpm format:write # Prettier 写盘
+pnpm start        # 起生产 server
 ```
 
-### Development
+**注意**：
+- `pnpm check` 是坏的，不要用，分开跑 `pnpm lint && pnpm typecheck`
+- 没有测试框架，验证靠 lint + typecheck + 手动浏览器
+- `pnpm build` 必须 `BETTER_AUTH_SECRET=...`，否则被 env 校验拒绝
+
+## 路由
+
+```
+/                              # Forge Landing
+/workspace/chats               # 会话列表
+/workspace/chats/new           # 新会话
+/workspace/chats/[thread_id]   # 单会话页（核心交互）
+```
+
+## 关键环境变量
+
+`.env`（从 `.env.example` 复制）：
 
 ```bash
-# Start development server
-pnpm dev
-
-# The app will be available at http://localhost:3000
+BETTER_AUTH_SECRET=local-dev-secret             # 必须，生产构建用
+NEXT_PUBLIC_BACKEND_BASE_URL=                    # 可选，留空走 nginx :2026
+NEXT_PUBLIC_LANGGRAPH_BASE_URL=                  # 可选，同上
 ```
 
-### Build
+`make dev` 从根目录跑时，前端自动通过 nginx 接到后端，无需设置。
 
-```bash
-# Type check
-pnpm typecheck
+## 目录入口
 
-# Check formatting
-pnpm format
+| 路径 | 职责 |
+|---|---|
+| `src/app/` | Next.js App Router 页面 |
+| `src/components/workspace/welcome.tsx` | Forge Welcome / Hero / Action Cards |
+| `src/core/threads/` | 线程创建、流、状态管理 |
+| `src/core/api/` | LangGraph SDK 客户端单例 |
+| `src/env.js` | env 校验 schema |
 
-# Apply formatting
-pnpm format:write
+更多见 [CLAUDE.md](CLAUDE.md)。
 
-# Lint
-pnpm lint
+## 协议
 
-# Build for production
-pnpm build
-
-# Start production server
-pnpm start
-```
-
-## Site Map
-
-```
-├── /                    # Landing page
-├── /chats               # Chat list
-├── /chats/new           # New chat page
-└── /chats/[thread_id]   # A specific chat page
-```
-
-## Configuration
-
-### Environment Variables
-
-Key environment variables (see `.env.example` for full list):
-
-```bash
-# Backend API URLs (optional, uses nginx proxy by default)
-NEXT_PUBLIC_BACKEND_BASE_URL="http://localhost:8001"
-# LangGraph API URLs (optional, uses nginx proxy by default)
-NEXT_PUBLIC_LANGGRAPH_BASE_URL="http://localhost:2024"
-```
-
-## Project Structure
-
-```
-src/
-├── app/                    # Next.js App Router pages
-│   ├── api/                # API routes
-│   ├── workspace/          # Main workspace pages
-│   └── mock/               # Mock/demo pages
-├── components/             # React components
-│   ├── ui/                 # Reusable UI components
-│   ├── workspace/          # Workspace-specific components
-│   ├── landing/            # Landing page components
-│   └── ai-elements/        # AI-related UI elements
-├── core/                   # Core business logic
-│   ├── api/                # API client & data fetching
-│   ├── artifacts/          # Artifact management
-│   ├── config/              # App configuration
-│   ├── i18n/               # Internationalization
-│   ├── mcp/                # MCP integration
-│   ├── messages/           # Message handling
-│   ├── models/             # Data models & types
-│   ├── settings/           # User settings
-│   ├── skills/             # Skills system
-│   ├── threads/            # Thread management
-│   ├── todos/              # Todo system
-│   └── utils/              # Utility functions
-├── hooks/                  # Custom React hooks
-├── lib/                    # Shared libraries & utilities
-├── server/                 # Server-side code
-│   └── better-auth/        # Authentication setup and session helpers
-└── styles/                 # Global styles
-```
-
-## Scripts
-
-| Command             | Description                             |
-| ------------------- | --------------------------------------- |
-| `pnpm dev`          | Start development server with Turbopack |
-| `pnpm build`        | Build for production                    |
-| `pnpm start`        | Start production server                 |
-| `pnpm format`       | Check formatting with Prettier          |
-| `pnpm format:write` | Apply formatting with Prettier          |
-| `pnpm lint`         | Run ESLint                              |
-| `pnpm lint:fix`     | Fix ESLint issues                       |
-| `pnpm typecheck`    | Run TypeScript type checking            |
-| `pnpm check`        | Run both lint and typecheck             |
-
-## Development Notes
-
-- Uses pnpm workspaces (see `packageManager` in package.json)
-- Turbopack enabled by default in development for faster builds
-- Environment validation can be skipped with `SKIP_ENV_VALIDATION=1` (useful for Docker)
-- Backend API URLs are optional; nginx proxy is used by default in development
-
-## License
-
-MIT License. See [LICENSE](../LICENSE) for details.
+MIT License。详见 [LICENSE](../LICENSE)。

@@ -1,87 +1,115 @@
-# DeerFlow Install
+# 安装指南（面向编程 Agent）
 
-This file is for coding agents. If the DeerFlow repository is not already cloned and open, clone `https://github.com/bytedance/deer-flow.git` first, then continue from the repository root.
+本文档是给 coding agent（Claude Code / Codex / Cursor / Windsurf 等）看的引导式安装手册。让 agent 帮你把 Forge-AutoCompiler 本地开发环境拉起来。
 
-## Goal
+> 想自己手动装的请直接看 [README_zh.md](README_zh.md) 的「快速开始」。
 
-Bootstrap a DeerFlow local development workspace on the user's machine with the least risky path available.
+## 一句话指令
 
-Default preference:
+把下面这段发给 coding agent：
 
-1. Docker development environment
-2. Local development environment
+```
+如果还没 clone Forge-AutoCompiler，就先 clone，然后按照 Install.md 把它的本地开发环境初始化好
+```
 
-Do not assume API keys or model credentials exist. Set up everything that can be prepared safely, then stop with a concise summary of what the user still needs to provide.
+agent 会自动按下面的流程执行。
 
-## Operating Rules
+---
 
-- Be idempotent. Re-running this document should not damage an existing setup.
-- Prefer existing repo commands over ad hoc shell commands.
-- Do not use `sudo` or install system packages without explicit user approval.
-- Do not overwrite existing user config values unless the user asks.
-- If a step fails, stop, explain the blocker, and provide the smallest next action.
-- If multiple setup paths are possible, prefer Docker when Docker is already available.
+## 目标
 
-## Success Criteria
+在用户机器上以最低风险路径搭出 Forge-AutoCompiler 本地开发工作区。
 
-Consider the setup successful when all of the following are true:
+**默认优先级**：
 
-- The DeerFlow repository is cloned and the current working directory is the repo root.
-- `config.yaml` exists.
-- For Docker setup, `make docker-init` completed successfully and Docker prerequisites are prepared, but services are not assumed to be running yet.
-- For local setup, `make check` passed or reported no missing prerequisites, and `make install` completed successfully.
-- The user receives the exact next command to launch DeerFlow.
-- The user also receives any missing model configuration or referenced environment variable names from `config.yaml`, without inspecting secret-bearing files for actual values.
+1. Docker 开发环境（推荐）
+2. 本机原生开发环境
 
-## Steps
+**不要假设** API key / 模型凭据已经就位。能安全准备的都准备好，最后简洁汇报还缺什么。
 
-- If the current directory is not the DeerFlow repository root, clone `https://github.com/bytedance/deer-flow.git` if needed, then change into the repository root.
-- Confirm the current directory is the DeerFlow repository root by checking that `Makefile`, `backend/`, `frontend/`, and `config.example.yaml` exist.
-- Detect whether `config.yaml` already exists.
-- If `config.yaml` does not exist, run `make config`.
-- Detect whether Docker is available and the daemon is reachable with `docker info`.
-- If Docker is available:
-  - Run `make docker-init`.
-  - Treat this as Docker prerequisite preparation only. Do not claim that app services, compose validation, or image builds have already succeeded.
-  - Do not start long-running services unless the user explicitly asks or this setup request clearly includes launch verification.
-  - Tell the user the recommended next command is `make docker-start`.
-- If Docker is not available:
-  - Run `make check`.
-  - If `make check` reports missing system dependencies such as `node`, `pnpm`, `uv`, or `nginx`, stop and report the missing tools instead of attempting privileged installs.
-  - If prerequisites are satisfied, run `make install`.
-  - Tell the user the recommended next command is `make dev`.
-- Inspect `config.yaml` only for missing model entries or referenced environment variable placeholders. Do not read `.env`, `frontend/.env`, or other secret-bearing files.
-- If no model is configured, tell the user they must add at least one entry under `models` in `config.yaml`.
-- If `config.yaml` references variables such as `$OPENAI_API_KEY`, tell the user which variable names still need real values, but do not verify them by opening secret-bearing files.
-- If the repository already appears configured, avoid repeating expensive work unless it is necessary to verify the environment.
+## 操作准则
 
-## Verification
+- **幂等**：重复执行不应破坏已经搭好的环境
+- 优先用 repo 自带的 `make` 命令，避免临时 shell 命令
+- **不允许** `sudo` 或装系统包，除非用户明确同意
+- **不覆盖**用户已有的 `config.yaml` 等本地配置
+- 任一步失败立刻停下，解释卡点并给出最小修复指令
+- 多种安装路径可选时，**Docker 可用就用 Docker**
 
-Use the lightest verification that matches the chosen setup path.
+## 成功判据
 
-For Docker setup:
+满足以下全部条件视为安装成功：
 
-- Confirm `make docker-init` completed successfully.
-- Confirm `config.yaml` exists.
-- State explicitly that Docker services were not started and `make docker-start` is still the first real launch step.
-- Do not leave background services running unless the user asked for that.
+- 仓库已 clone 且当前工作目录是仓库根
+- `config.yaml` 存在
+- Docker 路径：`make docker-init` 完成（容器/镜像就绪，但**未启动服务**）
+- 本机路径：`make check` 通过、`make install` 完成
+- 已告知用户**下一条**启动命令
+- 已告知用户 `config.yaml` 中缺失的模型配置或 `$VAR` 占位符（不读 `.env` 等含敏感信息文件）
 
-For local setup:
+## 步骤
 
-- Confirm `make install` completed successfully.
-- Confirm `config.yaml` exists.
-- Do not leave background services running unless the user asked for that.
+1. 若当前不在 Forge-AutoCompiler 仓库根，先 clone 并 `cd` 进去。
+2. 检查仓库根存在 `Makefile`、`backend/`、`frontend/`、`config.example.yaml`。
+3. 判断 `config.yaml` 是否已存在。
+4. 不存在则跑 `make config`（注意：**`make config` 非幂等**，已存在会主动 abort，这是正常行为）。
+5. `docker info` 检查 Docker 是否可用。
+6. **若 Docker 可用**：
+   - 跑 `make docker-init`
+   - 这一步只算「Docker 准备就绪」，不要声称服务已启动、compose 已校验、镜像已构建完
+   - 除非用户明确要求或要做启动验证，**不要自动 `make docker-start`** 起后台服务
+   - 告知用户下一条命令是 `make docker-start`
+7. **若 Docker 不可用**：
+   - 跑 `make check`
+   - 若报缺 `node`/`pnpm`/`uv`/`nginx`，**停下并报告**，不要擅自 `sudo apt install`
+   - 前置满足则 `make install`
+   - 告知用户下一条命令是 `make dev`
+8. **检查 `config.yaml` 是否需要补**：只看模型条目和 `$VAR` 占位符的**变量名**。**不读** `.env` / `frontend/.env` 或任何可能含 secret 的文件。
+9. 若 `models[]` 为空，告知用户必须在 `config.yaml` 加至少一个模型条目。
+10. 若 `config.yaml` 引用 `$OPENAI_API_KEY` 等变量，告知用户**变量名**仍需 export 真值，但**不去验证**这些 secret 文件的内容。
+11. 若仓库看起来已配置完成，不做重复的耗时操作。
 
-## Final Response Format
+## 验证（轻量）
 
-Return a short status report with:
+**Docker 路径**：
+- 确认 `make docker-init` 完成
+- 确认 `config.yaml` 存在
+- **明确告知**「Docker 服务尚未启动，`make docker-start` 才是真正的启动步骤」
+- 不要留下后台服务在跑（除非用户要求）
 
-1. Setup path used: Docker or local
-2. Setup level reached: Docker prerequisites prepared or local dependencies installed
-3. Files created or detected: for example `config.yaml`
-4. Remaining user action: model config, env var values, auth files, or nothing
-5. Exact next command to start DeerFlow
+**本机路径**：
+- 确认 `make install` 完成
+- 确认 `config.yaml` 存在
+- 不要留下后台服务在跑
 
-## EXECUTE NOW
+## 最终回复格式
 
-Complete the steps above. When finished, stop after the setup boundary and report status instead of continuing into unrelated project work.
+简短状态报告，包括：
+
+1. **采用路径**：Docker / 本机
+2. **达到的安装级别**：「Docker 前置就绪」/「本机依赖装完」
+3. **创建或检测到的文件**：如 `config.yaml`
+4. **用户还需做什么**：模型配置 / 环境变量 / auth 文件，或「无」
+5. **下一条启动命令**：`make docker-start` / `make dev`
+
+## 执行
+
+按上述步骤执行。完成后停在「安装完成」边界，**不要**继续跑业务任务，把状态报告给用户即可。
+
+---
+
+## 关于编译镜像
+
+Forge-AutoCompiler 的编译能力依赖一个 GCC/Clang 工具链镜像，默认 `autocompiler:gcc13`。安装阶段**不要**自动拉这个镜像（它可能很大）；只要在汇报里提醒用户：
+
+> 第一次跑编译前请确保 `autocompiler:gcc13`（或你在 `config.yaml` 中指定的镜像）已 `docker pull` 到本机。
+
+## 环境变量提示
+
+启动时如果走本机模式（`make dev`），脚本会自动注入 `HOST_PROJECT_ROOT`。如果用户手动 `cd backend && make dev` / `make gateway`，必须自己 export：
+
+```bash
+export HOST_PROJECT_ROOT="$(pwd)"
+```
+
+否则 `CompileDockerRuntime` 在创建编译容器时会报 `HOST_PROJECT_ROOT is not configured`。

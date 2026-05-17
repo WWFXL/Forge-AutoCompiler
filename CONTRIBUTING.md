@@ -1,335 +1,207 @@
-# Contributing to DeerFlow
+# 贡献指南
 
-Thank you for your interest in contributing to DeerFlow! This guide will help you set up your development environment and understand our development workflow.
+感谢你愿意为 Forge-AutoCompiler 贡献代码！本文档说明开发环境搭建和工作流程。
 
-## Development Environment Setup
+## 开发环境
 
-We offer two development environments. **Docker is recommended** for the most consistent and hassle-free experience.
+我们提供两种开发环境，**推荐 Docker**——一致、隔离、不污染本机。
 
-### Option 1: Docker Development (Recommended)
+### 方案一：Docker 开发（推荐）
 
-Docker provides a consistent, isolated environment with all dependencies pre-configured. No need to install Node.js, Python, or nginx on your local machine.
+#### 前置
 
-#### Prerequisites
+- Docker Desktop 或 Docker Engine
+- pnpm（用于宿主机侧缓存共享，加速构建）
 
-- Docker Desktop or Docker Engine
-- pnpm (for caching optimization)
+#### 步骤
 
-#### Setup Steps
-
-1. **Configure the application**:
+1. **配置**：
    ```bash
-   # Copy example configuration
-   cp config.example.yaml config.yaml
-
-   # Set your API keys
-   export OPENAI_API_KEY="your-key-here"
-   # or edit config.yaml directly
+   make config         # 首次生成 config.yaml
+   # 编辑 config.yaml，至少配置一个 LLM 模型
+   export OPENAI_API_KEY="..."   # 或对应你模型的 key
    ```
 
-2. **Initialize Docker environment** (first time only):
+2. **初始化 Docker 环境**（首次）：
    ```bash
    make docker-init
    ```
-   This will:
-   - Build Docker images
-   - Install frontend dependencies (pnpm)
-   - Install backend dependencies (uv)
-   - Share pnpm cache with host for faster builds
+   会构建镜像、安装前后端依赖、共享 pnpm 缓存。
 
-3. **Start development services**:
+3. **启动**：
    ```bash
    make docker-start
    ```
-   `make docker-start` reads `config.yaml` and starts `provisioner` only for provisioner/Kubernetes sandbox mode.
+   `make docker-start` 会读 `config.yaml`，只在 sandbox mode 是 provisioner/Kubernetes 时才起 `provisioner` 容器。
 
-   All services will start with hot-reload enabled:
-   - Frontend changes are automatically reloaded
-   - Backend changes trigger automatic restart
-   - LangGraph server supports hot-reload
+   所有服务 hot-reload：
+   - 前端：自动刷新
+   - 后端：代码改动自动重启
+   - LangGraph：支持 hot-reload
 
-4. **Access the application**:
-   - Web Interface: http://localhost:2026
-   - API Gateway: http://localhost:2026/api/*
-   - LangGraph: http://localhost:2026/api/langgraph/*
+4. **访问**：
+   - Web 界面：http://localhost:2026
+   - Gateway API：http://localhost:2026/api/*
+   - LangGraph：http://localhost:2026/api/langgraph/*
 
-#### Docker Commands
+#### Docker 常用命令
 
 ```bash
-# Build the custom k3s image (with pre-cached sandbox image)
-make docker-init
-# Start Docker services (mode-aware, localhost:2026)
-make docker-start
-# Stop Docker development services
-make docker-stop
-# View Docker development logs
-make docker-logs
-# View Docker frontend logs
-make docker-logs-frontend
-# View Docker gateway logs
-make docker-logs-gateway
+make docker-init             # 构建/初始化（首次或镜像变更后）
+make docker-start            # 启动开发服务
+make docker-stop             # 停服务
+make docker-logs             # 查看全部日志
+make docker-logs-frontend    # 仅前端日志
+make docker-logs-gateway     # 仅 Gateway 日志
 ```
 
-If Docker builds are slow in your network, you can override the default package registries before running `make docker-init` or `make docker-start`:
+构建慢时可以预先设置包源：
 
 ```bash
 export UV_INDEX_URL=https://pypi.org/simple
 export NPM_REGISTRY=https://registry.npmjs.org
 ```
 
-#### Recommended host resources
+#### 推荐资源
 
-Use these as practical starting points for development and review environments:
+| 场景 | 起步 | 推荐 | 说明 |
+|---|---|---|---|
+| `make dev` 单机开发 | 4 vCPU / 8GB | 8 vCPU / 16GB | 使用托管 LLM API 时足够 |
+| `make docker-start` 评审环境 | 4 vCPU / 8GB | 8 vCPU / 16GB | Docker 镜像与编译容器需要余量 |
+| 共用 Linux 测试服 | 8 vCPU / 16GB | 16 vCPU / 32GB | 多并发编译/多评审人 |
 
-| Scenario | Starting point | Recommended | Notes |
-|---------|-----------|------------|-------|
-| `make dev` on one machine | 4 vCPU, 8 GB RAM | 8 vCPU, 16 GB RAM | Best when DeerFlow uses hosted model APIs. |
-| `make docker-start` review environment | 4 vCPU, 8 GB RAM | 8 vCPU, 16 GB RAM | Docker image builds and sandbox containers need extra headroom. |
-| Shared Linux test server | 8 vCPU, 16 GB RAM | 16 vCPU, 32 GB RAM | Prefer this for heavier multi-agent runs or multiple reviewers. |
+`2 vCPU / 4GB` 常常起不来或在正常负载下卡死，请避免。
 
-`2 vCPU / 4 GB` environments often fail to start reliably or become unresponsive under normal DeerFlow workloads.
+#### Linux：Docker daemon 权限被拒
 
-#### Linux: Docker daemon permission denied
+如果 `make docker-*` 报：
 
-If `make docker-init`, `make docker-start`, or `make docker-stop` fails on Linux with an error like below, your current user likely does not have permission to access the Docker daemon socket:
-
-```text
+```
 unable to get image 'deer-flow-dev-langgraph': permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock
 ```
 
-Recommended fix: add your current user to the `docker` group so Docker commands work without `sudo`.
-
-1. Confirm the `docker` group exists:
-   ```bash
-   getent group docker
-   ```
-2. Add your current user to the `docker` group:
-   ```bash
-   sudo usermod -aG docker $USER
-   ```
-3. Apply the new group membership. The most reliable option is to log out completely and then log back in. If you want to refresh the current shell session instead, run:
-   ```bash
-   newgrp docker
-   ```
-4. Verify Docker access:
-   ```bash
-   docker ps
-   ```
-5. Retry the DeerFlow command:
-   ```bash
-   make docker-stop
-   make docker-start
-   ```
-
-If `docker ps` still reports a permission error after `usermod`, fully log out and log back in before retrying.
-
-#### Docker Architecture
-
-```
-Host Machine
-  ↓
-Docker Compose (deer-flow-dev)
-  ├→ nginx (port 2026) ← Reverse proxy
-  ├→ web (port 3000) ← Frontend with hot-reload
-  ├→ api (port 8001) ← Gateway API with hot-reload
-   ├→ langgraph (port 2024) ← LangGraph server with hot-reload
-   └→ provisioner (optional, port 8002) ← Started only in provisioner/K8s sandbox mode
-```
-
-**Benefits of Docker Development**:
-- ✅ Consistent environment across different machines
-- ✅ No need to install Node.js, Python, or nginx locally
-- ✅ Isolated dependencies and services
-- ✅ Easy cleanup and reset
-- ✅ Hot-reload for all services
-- ✅ Production-like environment
-
-### Option 2: Local Development
-
-If you prefer to run services directly on your machine:
-
-#### Prerequisites
-
-Check that you have all required tools installed:
+把当前用户加进 `docker` 组：
 
 ```bash
-make check
+getent group docker
+sudo usermod -aG docker $USER
+newgrp docker         # 或者完整退登重登
+docker ps             # 验证
 ```
 
-Required tools:
+### 方案二：本机原生开发
+
+需要：
 - Node.js 22+
-- pnpm
-- uv (Python package manager)
+- pnpm 10.26.2+
+- Python 3.12+ 与 [`uv`](https://docs.astral.sh/uv/)
 - nginx
-
-#### Setup Steps
-
-1. **Configure the application** (same as Docker setup above)
-
-2. **Install dependencies**:
-   ```bash
-   make install
-   ```
-
-3. **Run development server** (starts all services with nginx):
-   ```bash
-   make dev
-   ```
-
-4. **Access the application**:
-   - Web Interface: http://localhost:2026
-   - All API requests are automatically proxied through nginx
-
-#### Manual Service Control
-
-If you need to start services individually:
-
-1. **Start backend services**:
-   ```bash
-   # Terminal 1: Start LangGraph Server (port 2024)
-   cd backend
-   make dev
-
-   # Terminal 2: Start Gateway API (port 8001)
-   cd backend
-   make gateway
-
-   # Terminal 3: Start Frontend (port 3000)
-   cd frontend
-   pnpm dev
-   ```
-
-2. **Start nginx**:
-   ```bash
-   make nginx
-   # or directly: nginx -c $(pwd)/docker/nginx/nginx.local.conf -g 'daemon off;'
-   ```
-
-3. **Access the application**:
-   - Web Interface: http://localhost:2026
-
-#### Nginx Configuration
-
-The nginx configuration provides:
-- Unified entry point on port 2026
-- Routes `/api/langgraph/*` to LangGraph Server (2024)
-- Routes other `/api/*` endpoints to Gateway API (8001)
-- Routes non-API requests to Frontend (3000)
-- Centralized CORS handling
-- SSE/streaming support for real-time agent responses
-- Optimized timeouts for long-running operations
-
-## Project Structure
-
-```
-deer-flow/
-├── config.example.yaml      # Configuration template
-├── extensions_config.example.json  # MCP and Skills configuration template
-├── Makefile                 # Build and development commands
-├── scripts/
-│   └── docker.sh           # Docker management script
-├── docker/
-│   ├── docker-compose-dev.yaml  # Docker Compose configuration
-│   └── nginx/
-│       ├── nginx.conf      # Nginx config for Docker
-│       └── nginx.local.conf # Nginx config for local dev
-├── backend/                 # Backend application
-│   ├── src/
-│   │   ├── gateway/        # Gateway API (port 8001)
-│   │   ├── agents/         # LangGraph agents (port 2024)
-│   │   ├── mcp/            # Model Context Protocol integration
-│   │   ├── skills/         # Skills system
-│   │   └── sandbox/        # Sandbox execution
-│   ├── docs/               # Backend documentation
-│   └── Makefile            # Backend commands
-├── frontend/               # Frontend application
-│   └── Makefile            # Frontend commands
-└── skills/                 # Agent skills
-    ├── public/             # Public skills
-    └── custom/             # Custom skills
-```
-
-## Architecture
-
-```
-Browser
-  ↓
-Nginx (port 2026) ← Unified entry point
-  ├→ Frontend (port 3000) ← / (non-API requests)
-  ├→ Gateway API (port 8001) ← /api/models, /api/mcp, /api/skills, /api/threads/*/artifacts
-  └→ LangGraph Server (port 2024) ← /api/langgraph/* (agent interactions)
-```
-
-## Development Workflow
-
-1. **Create a feature branch**:
-   ```bash
-   git checkout -b feature/your-feature-name
-   ```
-
-2. **Make your changes** with hot-reload enabled
-
-3. **Format and lint your code** (CI will reject unformatted code):
-   ```bash
-   # Backend
-   cd backend
-   make format   # ruff check --fix + ruff format
-
-   # Frontend
-   cd frontend
-   pnpm format:write   # Prettier
-   ```
-
-4. **Test your changes** thoroughly
-
-5. **Commit your changes**:
-   ```bash
-   git add .
-   git commit -m "feat: description of your changes"
-   ```
-
-6. **Push and create a Pull Request**:
-   ```bash
-   git push origin feature/your-feature-name
-   ```
-
-## Testing
+- Docker（编译容器需要）
 
 ```bash
-# Backend tests
-cd backend
-uv run pytest
-
-# Frontend checks
-cd frontend
-pnpm check
+make check        # 校验前置工具
+make install      # 装前后端依赖
+# 编辑 config.yaml，配置至少一个模型
+make dev          # 启动全部服务，访问 http://localhost:2026
 ```
 
-### PR Regression Checks
+需要分进程启动时：
 
-Every pull request runs the backend regression workflow at [.github/workflows/backend-unit-tests.yml](.github/workflows/backend-unit-tests.yml), including:
+```bash
+# Terminal 1：LangGraph
+cd backend && make dev
 
-- `tests/test_provisioner_kubeconfig.py`
-- `tests/test_docker_sandbox_mode_detection.py`
+# Terminal 2：Gateway
+cd backend && make gateway
 
-## Code Style
+# Terminal 3：Frontend
+cd frontend && pnpm dev
 
-- **Backend (Python)**: We use `ruff` for linting and formatting. Run `make format` before committing.
-- **Frontend (TypeScript)**: We use ESLint and Prettier. Run `pnpm format:write` before committing.
-- CI enforces formatting — PRs with unformatted code will fail the lint check.
+# Terminal 4：nginx
+make nginx
+# 或 nginx -c $(pwd)/docker/nginx/nginx.local.conf -g 'daemon off;'
+```
 
-## Documentation
+**手动跑 backend 时必须 export `HOST_PROJECT_ROOT`**，否则 `CompileDockerRuntime` 会拒绝创建编译容器。
 
-- [Configuration Guide](backend/docs/CONFIGURATION.md) - Setup and configuration
-- [Architecture Overview](backend/CLAUDE.md) - Technical architecture
-- [MCP Setup Guide](backend/docs/MCP_SERVER.md) - Model Context Protocol configuration
+## 开发流程
 
-## Need Help?
+1. **建分支**：
+   ```bash
+   git checkout -b feature/your-feature
+   ```
 
-- Check existing [Issues](https://github.com/bytedance/deer-flow/issues)
-- Read the [Documentation](backend/docs/)
-- Ask questions in [Discussions](https://github.com/bytedance/deer-flow/discussions)
+2. **改代码**，享受 hot-reload。
 
-## License
+3. **格式化与 lint**（CI 会拒绝未格式化代码）：
+   ```bash
+   # 后端
+   cd backend && make format
 
-By contributing to DeerFlow, you agree that your contributions will be licensed under the [MIT License](./LICENSE).
+   # 前端
+   cd frontend && pnpm format:write
+   ```
+
+4. **跑测试**：
+   ```bash
+   cd backend && make test
+   cd frontend && pnpm lint && pnpm typecheck
+   ```
+   涉及 UI/env/auth/路由变更时还要：
+   ```bash
+   cd frontend && BETTER_AUTH_SECRET=local-dev-secret pnpm build
+   ```
+
+5. **提交**：
+   ```bash
+   git add -p
+   git commit -m "feat: 描述你的改动"
+   ```
+
+6. **PR**：推上去开 Pull Request。CI 会自动跑 `.github/workflows/backend-unit-tests.yml`：`uv sync --group dev` → `make lint` → `make test`。
+
+### Commit 风格
+
+参考最近 commit 历史：
+
+- `feat(scope): ...` 新功能
+- `fix(scope): ...` Bug 修复
+- `refactor(scope): ...` 重构
+- `docs: ...` 文档
+- `test: ...` 测试
+
+## 编译核心改动须知
+
+如果你要动 `backend/packages/harness/deerflow/compile/` 下的代码或 compiler 子代理：
+
+- **`compiler_agent.py` 的 system prompt 是产品契约**，改它等同于改产品行为。务必同步改 `tests/test_compile_runtime.py`。
+- **路径常量双重维护**：宿主机路径在 `compile/paths.py`，容器路径在 `compile/docker_runtime.py` 顶部常量。改一边要改另一边。
+- **新增编译阶段**必须沿用 `append_command_record()`，否则 `repro/build.sh` 复现脚本会缺步骤。
+- **状态机变更**（`CompileSession.status`）要更新 `logs/workflow.log` 的事件命名约定。
+
+## 架构约束
+
+最关键不变量：
+
+**`backend/packages/harness/deerflow/` 不能 import `app.*`**。
+
+由 `backend/tests/test_harness_boundary.py` 在 CI 强制。越线提交会直接挂。详细规则见 [`backend/docs/HARNESS_APP_SPLIT.md`](backend/docs/HARNESS_APP_SPLIT.md)。
+
+## 代码风格
+
+| 子项目 | 工具 | 提交前命令 |
+|---|---|---|
+| 后端（Python） | `ruff` | `make format` |
+| 前端（TypeScript） | ESLint + Prettier | `pnpm format:write` |
+
+CI 强制校验格式，未格式化的 PR 直接挂在 lint 阶段。
+
+## 跟进与提问
+
+- 看现有 [Issues](../../issues)
+- 看现有 [Discussions](../../discussions)
+- 看 [`CLAUDE.md`](CLAUDE.md) 了解架构与工作流
+
+## 协议
+
+提交的贡献按 [MIT License](./LICENSE) 授权。
