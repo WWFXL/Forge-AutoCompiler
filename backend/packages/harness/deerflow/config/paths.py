@@ -7,7 +7,6 @@ from pathlib import Path, PureWindowsPath
 # Virtual path prefix seen by agents inside the sandbox
 VIRTUAL_PATH_PREFIX = "/mnt/user-data"
 DEFAULT_WORKSPACE_ROOT = Path("/workspace")
-DEFAULT_HOST_WORKSPACE_ROOT = "/mnt/usr/jyh_wwf/LLM-AutoCompiler-v2"
 
 _SAFE_THREAD_ID_RE = re.compile(r"^[A-Za-z0-9_\-]+$")
 
@@ -24,16 +23,28 @@ def _default_local_base_dir() -> Path:
     return backend_dir / ".deer-flow"
 
 
+def _default_repo_root() -> Path:
+    """Return the repository root for native development."""
+    return Path(__file__).resolve().parents[5]
+
+
 def _default_workspace_root() -> Path:
-    """Return the mounted workspace root inside the current container."""
-    return DEFAULT_WORKSPACE_ROOT
+    """Return the process-visible workspace root."""
+    if Path(DEFAULT_WORKSPACE_ROOT).is_dir():
+        return DEFAULT_WORKSPACE_ROOT
+    return _default_repo_root()
 
 
 def _default_host_workspace_root_str() -> str:
     """Return the host-visible workspace root corresponding to `/workspace`."""
     if env := os.getenv("DEER_FLOW_HOST_WORKSPACE_ROOT"):
         return env
-    return DEFAULT_HOST_WORKSPACE_ROOT
+    # Backward compatibility for the original compile runtime variable.
+    if legacy_env := os.getenv("HOST_PROJECT_ROOT"):
+        return legacy_env
+    if workspace_env := os.getenv("DEER_FLOW_WORKSPACE_ROOT"):
+        return workspace_env
+    return str(_default_workspace_root())
 
 
 def _validate_thread_id(thread_id: str) -> str:
@@ -76,8 +87,15 @@ def resolve_path(path: str | Path, *, base_dir: str | Path | None = None) -> Pat
 
 
 class Paths:
-    def __init__(self, base_dir: str | Path | None = None) -> None:
+    def __init__(
+        self,
+        base_dir: str | Path | None = None,
+        workspace_root: str | Path | None = None,
+        host_workspace_root: str | None = None,
+    ) -> None:
         self._base_dir = Path(base_dir).resolve() if base_dir is not None else None
+        self._workspace_root_override = Path(workspace_root).resolve() if workspace_root is not None else None
+        self._host_workspace_root_override = host_workspace_root
 
     @property
     def host_base_dir(self) -> Path:
@@ -91,12 +109,20 @@ class Paths:
         return str(self.base_dir)
 
     def _workspace_root(self) -> Path:
+        if self._workspace_root_override is not None:
+            return self._workspace_root_override
         if env_workspace := os.getenv("DEER_FLOW_WORKSPACE_ROOT"):
             return Path(env_workspace).resolve()
         return _default_workspace_root()
 
     def _host_workspace_root_str(self) -> str:
+        if self._host_workspace_root_override is not None:
+            return self._host_workspace_root_override
         return _default_host_workspace_root_str()
+
+    def host_workspace_root_str(self) -> str:
+        """Return the workspace root as seen by the host Docker daemon."""
+        return self._host_workspace_root_str()
 
     @property
     def compile_sessions_dir(self) -> Path:

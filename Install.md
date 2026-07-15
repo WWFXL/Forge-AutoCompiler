@@ -20,9 +20,55 @@ agent 会自动按下面的流程执行。
 
 在用户机器上以最低风险路径搭出 Forge-AutoCompiler 本地开发工作区。
 
+## Windows + WSL2（推荐路径）
+
+Windows 不走“原生 PowerShell + Git Bash 拼装全部依赖”的路径。推荐在 WSL2 Ubuntu 中运行仓库命令，由 Docker Desktop 提供 Linux 容器引擎。已有 WSL 原生 Docker Engine 也可以使用，但不要把它和 Docker Desktop daemon 混用：两边的镜像、网络和容器互不可见。
+
+1. 选择一套 Docker daemon。推荐安装并启动 Docker Desktop，在 **Settings > Resources > WSL Integration** 中启用 Ubuntu；若明确使用 WSL 原生 Docker Engine，则确认 Docker 服务和 Compose v2 插件已启动，不要同时混用两套 daemon。
+2. 进入 WSL：
+
+   ```powershell
+   wsl -d Ubuntu
+   ```
+
+3. 在 WSL 中安装最小宿主依赖。此命令需要用户明确执行，不会由脚本静默运行：
+
+   ```bash
+   sudo apt update && sudo apt install -y build-essential git python3
+   ```
+
+4. 在仓库根运行预检：
+
+   ```bash
+   ./scripts/wsl-check.sh
+   # 或 make wsl-check
+   ```
+
+5. 首次生成配置并启动 Docker 开发环境：
+
+   ```bash
+   make config
+   # 编辑 config.yaml，配置至少一个模型和对应环境变量
+   make compile-image
+   make docker-start
+   ```
+
+6. 访问 <http://localhost:8000>。停止服务使用 `make docker-stop`。
+
+仓库放在 `/mnt/c/...`、`/mnt/d/...` 等 Windows 挂载目录时可以运行，但文件监听和依赖安装通常慢于 WSL 自己的 `~/src`。编译 Session 会持久化在仓库根的 `.compile-sessions/`。
+
+常见故障：
+
+- `docker: command not found`：没有为当前发行版启用 Docker Desktop WSL Integration，也没有安装 WSL 原生 Docker Engine。
+- `Docker daemon is not reachable`：Docker Desktop 尚未启动完成，或 WSL 原生 Docker 服务没有启动。
+- `make: command not found`：安装 `build-essential`。
+- 构建镜像下载依赖超时：在根目录 `.env` 中按网络情况设置 `NPM_REGISTRY`、`UV_INDEX_URL` 或 `APT_MIRROR`；`UV_HTTP_TIMEOUT` 默认是 600 秒。
+- 编译镜像需要代理时使用 `COMPILE_HTTP_PROXY` / `COMPILE_HTTPS_PROXY`；不要填写容器内不可达的 WSL `127.0.0.1` 代理地址。
+- 不要在启用 Docker Desktop 集成后，再在 WSL 内同时启动第二套 Docker daemon。若明确使用 WSL 原生 Docker，请始终在同一个 WSL 发行版中运行 `make` 和 `docker`；保持该 WSL 会话运行，Windows 侧的 `docker.exe` 看不到这些容器。
+
 **默认优先级**：
 
-1. Docker 开发环境（推荐）
+1. Docker 开发环境（Windows 上通过 WSL2，推荐）
 2. 本机原生开发环境
 
 **不要假设** API key / 模型凭据已经就位。能安全准备的都准备好，最后简洁汇报还缺什么。
@@ -100,9 +146,13 @@ agent 会自动按下面的流程执行。
 
 ## 关于编译镜像
 
-Forge-AutoCompiler 的编译能力依赖一个 GCC/Clang 工具链镜像，默认 `autocompiler:gcc13`。安装阶段**不要**自动拉这个镜像（它可能很大）；只要在汇报里提醒用户：
+Forge-AutoCompiler 的编译能力依赖 GCC 工具链镜像，默认 `autocompiler:gcc13`。镜像定义已放在 `docker/compile/Dockerfile`，首次编译前运行：
 
-> 第一次跑编译前请确保 `autocompiler:gcc13`（或你在 `config.yaml` 中指定的镜像）已 `docker pull` 到本机。
+```bash
+make compile-image
+```
+
+镜像可能较大，安装 Agent 未获授权时不要自动构建；但不能把“服务已启动”等同于“编译链路已就绪”。
 
 ## 环境变量提示
 

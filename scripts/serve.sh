@@ -33,6 +33,13 @@ set -e
 REPO_ROOT="$(builtin cd "$(dirname "${BASH_SOURCE[0]}")/.." >/dev/null 2>&1 && pwd -P)"
 cd "$REPO_ROOT"
 
+# Native services and the host Docker daemon must agree on the compile-session
+# root. Docker Compose overrides the process-visible root with /workspace.
+export DEER_FLOW_WORKSPACE_ROOT="${DEER_FLOW_WORKSPACE_ROOT:-$REPO_ROOT}"
+export DEER_FLOW_HOST_WORKSPACE_ROOT="${DEER_FLOW_HOST_WORKSPACE_ROOT:-$DEER_FLOW_WORKSPACE_ROOT}"
+# Keep the legacy variable available for older extensions and local configs.
+export HOST_PROJECT_ROOT="${HOST_PROJECT_ROOT:-$DEER_FLOW_HOST_WORKSPACE_ROOT}"
+
 if [ -f "$REPO_ROOT/.env" ]; then
     set -a
     source "$REPO_ROOT/.env"

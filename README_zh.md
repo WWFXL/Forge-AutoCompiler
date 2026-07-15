@@ -42,6 +42,26 @@
 
 ## 快速开始
 
+### Windows + WSL2
+
+Windows 用户请在 WSL2 Ubuntu 中运行项目。推荐使用 Docker Desktop 的 WSL Integration；也支持有意安装在 WSL 内的 Docker Engine，但所有构建和启动命令必须始终使用同一个 daemon。不要从 PowerShell 直接运行 Linux `.sh` 启动链。
+
+```powershell
+wsl -d Ubuntu
+```
+
+进入 WSL 后，在仓库根执行：
+
+```bash
+./scripts/wsl-check.sh
+make config             # 仅首次
+# 编辑 config.yaml 和所需模型环境变量
+make compile-image      # 首次构建 C/C++ 编译环境
+make docker-start
+```
+
+访问 <http://localhost:8000>。完整安装和故障排查见 [Install.md](Install.md#windows--wsl2推荐路径)。
+
 ### 前置
 
 - Node.js 22+
@@ -65,21 +85,21 @@ make config
 #    config.yaml 中以 $ 开头的值会从环境变量取
 export OPENAI_API_KEY="..."   # 或你用的模型对应的 key
 
-# 4. 编辑 config.yaml 中的 sandbox 段并确保宿主机上有编译镜像
-docker pull autocompiler:gcc13   # 或在 config.yaml 中改成你自己的镜像
+# 4. 构建默认编译镜像（或在任务中指定你自己的镜像）
+make compile-image
 
 # 5. 装依赖
 make install
 
 # 6. 启动
-make dev      # 本机模式，访问 http://localhost:2026
+make dev      # 本机模式，访问 http://localhost:8000
 # 或
 make docker-start   # Docker 开发模式
 ```
 
 ### 第一次跑
 
-打开 http://localhost:2026 ，在欢迎页随便点一张 Action Card（已预填示例任务）：
+打开 http://localhost:8000 ，在欢迎页随便点一张 Action Card（已预填示例任务）：
 
 - "克隆并编译 https://github.com/fmtlib/fmt"（CMake 项目）
 - "克隆并深度解析编译 https://github.com/grpc/grpc"（含 submodule 的复杂项目）
@@ -104,7 +124,7 @@ make clean     # stop 并清理本地缓存（.deer-flow/、logs/）
 ```
 浏览器
   ↓
-nginx :2026 ── 统一反代入口
+nginx :8000 ── 统一反代入口
   ├→ frontend (Next.js) :3000      非 API 请求
   ├→ gateway (FastAPI)   :8001     /api/*（models / skills / memory / uploads / threads / artifacts）
   └→ langgraph server    :2024     /api/langgraph/*（agent 运行时）
