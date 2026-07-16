@@ -46,7 +46,7 @@ make dev            # 启动全部服务，访问 http://localhost:8000
 make dev-daemon     # 后台启动，日志写到 logs/*.log
 make stop           # 停所有本机服务
 make clean          # stop + 清空 backend/.deer-flow/、backend/.langgraph_api/、logs/
-make docker-start   # Docker 开发环境（按 config.yaml 的 sandbox.mode 动态启动）
+make docker-start   # Docker 开发环境（C/C++ 编译容器按会话创建）
 make up             # 生产 docker-compose
 ```
 
@@ -128,7 +128,7 @@ $HOST_PROJECT_ROOT/.compile-sessions/{thread_id}/{session_id}/
 
 这是从 DeerFlow 继承下来的、**至今仍生效**的最重要架构不变量。
 
-- **`backend/packages/harness/deerflow/`** 是可发布框架包（`deerflow-harness`，导入前缀 `deerflow.*`）。包含 agent 运行时、中间件、sandbox、tools、MCP、models、skills、config，以及**全部编译核心**。
+- **`backend/packages/harness/deerflow/`** 是可发布框架包（`deerflow-harness`，导入前缀 `deerflow.*`）。包含 agent 运行时、中间件、tools、MCP、models、skills、config，以及**全部编译核心**。
 - **`backend/app/`** 是不发布的应用层（导入前缀 `app.*`）。包含 FastAPI Gateway 路由和 IM 渠道桥接（Feishu/Slack/Telegram）。
 
 **依赖方向**：`app` 可以导 `deerflow`；`deerflow` **严禁**导 `app`。由 `backend/tests/test_harness_boundary.py` 在 CI 强制；越线提交会直接挂。
@@ -139,7 +139,7 @@ $HOST_PROJECT_ROOT/.compile-sessions/{thread_id}/{session_id}/
 
 两份文件都在项目根（gitignored，从 `*.example.*` 复制）：
 
-- **`config.yaml`** — 模型、工具、tool groups、sandbox、memory、summarization、subagents、channels 等。有 `config_version` 字段（当前 `5`），schema 改动时在 `config.example.yaml` 里 +1，并提示用户跑 `make config-upgrade`。
+- **`config.yaml`** — 模型、工具、tool groups、memory、summarization、subagents、channels 等。有 `config_version` 字段（当前 `6`），schema 改动时在 `config.example.yaml` 里 +1，并提示用户跑 `make config-upgrade`。
 - **`extensions_config.json`** — MCP 服务器和 skills 开关，可通过 Gateway API 运行时改。
 
 值若以 `$` 开头按环境变量解析（如 `api_key: $OPENAI_API_KEY`）。

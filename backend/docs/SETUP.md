@@ -49,21 +49,16 @@ The backend searches for `config.yaml` in this order:
 
 **Recommended**: Place `config.yaml` in project root (`deer-flow/config.yaml`).
 
-## Sandbox Setup (Optional but Recommended)
+## Compile Image Setup
 
-If you plan to use Docker/Container-based sandbox (configured in `config.yaml` under `sandbox.use: deerflow.community.aio_sandbox:AioSandboxProvider`), it's highly recommended to pre-pull the container image:
+Build the dedicated C/C++ compile-session image before the first agent compilation:
 
 ```bash
 # From project root
-make setup-sandbox
+make compile-image
 ```
 
-**Why pre-pull?**
-- The sandbox image (~500MB+) is pulled on first use, causing a long wait
-- Pre-pulling provides clear progress indication
-- Avoids confusion when first using the agent
-
-If you skip this step, the image will be automatically pulled on first agent execution, which may take several minutes depending on your network speed.
+The resulting `autocompiler:gcc13` image contains GCC, CMake, Make, Autotools, and Git. Compile sessions fail fast with an actionable message if the image is missing.
 
 ## Troubleshooting
 

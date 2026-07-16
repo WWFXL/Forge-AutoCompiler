@@ -134,12 +134,14 @@ services:
       # directory above would otherwise shadow it with the (empty) host directory.
       - gateway-venv:/app/backend/.venv
       - ../config.yaml:/app/config.yaml
+      - ../config.example.yaml:/app/config.example.yaml:ro
       - ../extensions_config.json:/app/extensions_config.json
+      - ../scripts:/app/scripts:ro
       - ../skills:/app/skills
       - ../logs:/app/logs
       # Mount uv cache for faster dependency installation
       - ~/.cache/uv:/root/.cache/uv
-      # DooD: same as gateway — AioSandboxProvider runs inside LangGraph process.
+      # Compile sessions launch sibling containers through the host Docker daemon.
       - /var/run/docker.sock:/var/run/docker.sock
       # CLI auth directories for auto-auth (Claude Code + Codex CLI)
       - type: bind
@@ -199,12 +201,14 @@ services:
       # directory above would otherwise shadow it with the (empty) host directory.
       - langgraph-venv:/app/backend/.venv
       - ../config.yaml:/app/config.yaml
+      - ../config.example.yaml:/app/config.example.yaml:ro
       - ../extensions_config.json:/app/extensions_config.json
+      - ../scripts:/app/scripts:ro
       - ../skills:/app/skills
       - ../logs:/app/logs
       # Mount uv cache for faster dependency installation
       - ~/.cache/uv:/root/.cache/uv
-      # DooD: same as gateway — AioSandboxProvider runs inside LangGraph process.
+      # Compile sessions launch sibling containers through the host Docker daemon.
       - /var/run/docker.sock:/var/run/docker.sock
       # CLI auth directories for auto-auth (Claude Code + Codex CLI)
       - type: bind

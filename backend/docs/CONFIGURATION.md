@@ -191,73 +191,26 @@ tools:
     # api_key: $TAVILY_API_KEY  # Optional
 ```
 
-**Built-in Tools**:
-- `web_search` - Search the web (Tavily)
-- `web_fetch` - Fetch web pages (Jina AI)
-- `ls` - List directory contents
-- `read_file` - Read file contents
-- `write_file` - Write file contents
-- `str_replace` - String replacement in files
-- `bash` - Execute bash commands
+**Built-in Forge tools**:
+- `host_read` - Read a UTF-8 file visible to the service process
+- `host_write` - Write a file visible to the service process
+- `prepare_compile_session` - Create a dedicated C/C++ compile session and container
+- `clone_repository` - Clone a repository into the currently bound compile session
+- `identify_build_system` - Detect CMake, Make, or Autotools metadata
+- `task` - Delegate build execution to the compiler subagent when subagents are enabled
+- `finalize_session` - Finalize logs, artifacts, and the reproduction bundle
 
-### Sandbox
+`host_read` and `host_write` operate directly on the service filesystem and are intended for trusted, single-user deployments. They are registered by the harness and do not need entries under `tools`.
 
-DeerFlow supports multiple sandbox execution modes. Configure your preferred mode in `config.yaml`:
+### Execution Isolation
 
-**Local Execution** (runs sandbox code directly on the host machine):
-```yaml
-sandbox:
-   use: deerflow.sandbox.local:LocalSandboxProvider # Local execution
-   allow_host_bash: false # default; host bash is disabled unless explicitly re-enabled
-```
-
-**Docker Execution** (runs sandbox code in isolated Docker containers):
-```yaml
-sandbox:
-   use: deerflow.community.aio_sandbox:AioSandboxProvider # Docker-based sandbox
-```
-
-**Docker Execution with Kubernetes** (runs sandbox code in Kubernetes pods via provisioner service):
-
-This mode runs each sandbox in an isolated Kubernetes Pod on your **host machine's cluster**. Requires Docker Desktop K8s, OrbStack, or similar local K8s setup.
+Forge no longer ships the legacy general-purpose `deerflow.sandbox` or `AioSandboxProvider` implementations. Keep the compatibility field disabled:
 
 ```yaml
-sandbox:
-   use: deerflow.community.aio_sandbox:AioSandboxProvider
-   provisioner_url: http://provisioner:8002
+sandbox: null
 ```
 
-When using Docker development (`make docker-start`), DeerFlow starts the `provisioner` service only if this provisioner mode is configured. In local or plain Docker sandbox modes, `provisioner` is skipped.
-
-See [Provisioner Setup Guide](../../docker/provisioner/README.md) for detailed configuration, prerequisites, and troubleshooting.
-
-Choose between local execution or Docker-based isolation:
-
-**Option 1: Local Sandbox** (default, simpler setup):
-```yaml
-sandbox:
-  use: deerflow.sandbox.local:LocalSandboxProvider
-  allow_host_bash: false
-```
-
-`allow_host_bash` is intentionally `false` by default. DeerFlow's local sandbox is a host-side convenience mode, not a secure shell isolation boundary. If you need `bash`, prefer `AioSandboxProvider`. Only set `allow_host_bash: true` for fully trusted single-user local workflows.
-
-**Option 2: Docker Sandbox** (isolated, more secure):
-```yaml
-sandbox:
-  use: deerflow.community.aio_sandbox:AioSandboxProvider
-  port: 8080
-  auto_start: true
-  container_prefix: deer-flow-sandbox
-
-  # Optional: Additional mounts
-  mounts:
-    - host_path: /path/on/host
-      container_path: /path/in/container
-      read_only: false
-```
-
-When you configure `sandbox.mounts`, DeerFlow exposes those `container_path` values in the agent prompt so the agent can discover and operate on mounted directories directly instead of assuming everything must live under `/mnt/user-data`.
+C/C++ repository commands do not run through these host file tools. The compile workflow creates a dedicated Docker container for each compile session, binds only its session directories, and exposes the restricted `run_container_bash` and `submit_build_result` tools to the compiler subagent.
 
 ### Skills
 

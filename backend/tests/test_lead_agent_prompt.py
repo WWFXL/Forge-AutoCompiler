@@ -5,6 +5,35 @@ import anyio
 
 from deerflow.agents.lead_agent import prompt as prompt_module
 from deerflow.skills.types import Skill
+from deerflow.tools.tools import COMPILE_TOOLS
+
+
+def test_compile_tools_register_split_session_flow():
+    assert [tool.name for tool in COMPILE_TOOLS] == [
+        "prepare_compile_session",
+        "clone_repository",
+        "identify_build_system",
+        "finalize_session",
+    ]
+
+
+def test_lead_prompt_uses_registered_compile_workflow(monkeypatch):
+    monkeypatch.setattr(prompt_module, "get_available_subagent_names", lambda: ["general-purpose", "compiler"])
+
+    subagent_section = prompt_module._build_subagent_section(3)
+    workflow = [
+        "prepare_compile_session",
+        "clone_repository",
+        "identify_build_system",
+        'task(subagent_type="compiler")',
+        "finalize_session",
+    ]
+
+    assert "prepare_workspace" not in subagent_section
+    assert "prepare_workspace" not in prompt_module.SYSTEM_PROMPT_TEMPLATE
+    for prompt_text in (subagent_section, prompt_module.SYSTEM_PROMPT_TEMPLATE):
+        positions = [prompt_text.index(tool_name) for tool_name in workflow]
+        assert positions == sorted(positions)
 
 
 def test_build_custom_mounts_section_returns_empty_when_no_mounts(monkeypatch):
@@ -17,7 +46,7 @@ def test_build_custom_mounts_section_returns_empty_when_no_mounts(monkeypatch):
 def test_build_custom_mounts_section_lists_configured_mounts(monkeypatch):
     mounts = [
         SimpleNamespace(source="/host/shared", target="/home/user/shared"),
-        SimpleNamespace(source="/host/reference", target="/mnt/reference"),
+        SimpleNamespace(host_path="/host/reference", container_path="/mnt/reference"),
     ]
     config = SimpleNamespace(custom_mounts=mounts)
     monkeypatch.setattr("deerflow.config.app_config.get_app_config", lambda: config)
@@ -31,12 +60,9 @@ def test_build_custom_mounts_section_lists_configured_mounts(monkeypatch):
 
 def test_apply_prompt_template_includes_custom_mounts(monkeypatch):
     mounts = [SimpleNamespace(source="/host/shared", target="/home/user/shared")]
-    config = SimpleNamespace(
-        custom_mounts=mounts,
-        skills=SimpleNamespace(container_path="/mnt/skills"),
-    )
+    config = SimpleNamespace(custom_mounts=mounts)
     monkeypatch.setattr("deerflow.config.app_config.get_app_config", lambda: config)
-    monkeypatch.setattr(prompt_module, "_get_enabled_skills", lambda: [])
+    monkeypatch.setattr(prompt_module, "get_skills_prompt_section", lambda available_skills=None: "")
     monkeypatch.setattr(prompt_module, "get_deferred_tools_prompt_section", lambda: "")
     monkeypatch.setattr(prompt_module, "_get_memory_context", lambda agent_name=None: "")
     monkeypatch.setattr(prompt_module, "get_agent_soul", lambda agent_name=None: "")

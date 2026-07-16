@@ -211,7 +211,7 @@ repro/build.sh            # 验证通过后生成的可执行构建脚本
 
 - `config.yaml` 在项目根，从 `config.example.yaml` 复制。schema 升级跑 `make config-upgrade`。
 - 至少需要一个可用的 LLM 模型条目（`models[]`）。
-- 编译镜像在 `config.yaml` 的 `sandbox` 段（或在 `compile/manager.py` 的 `DEFAULT_COMPILE_IMAGE` 兜底）。
+- C/C++ 编译会话使用独立的 `autocompiler:gcc13` 镜像；首次运行前执行 `make compile-image`。
 - 宿主机必须设 `HOST_PROJECT_ROOT` 环境变量（本机模式由启动脚本注入；自己手动跑后端时要自己 export）。
 
 ---
