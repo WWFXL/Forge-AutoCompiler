@@ -203,6 +203,12 @@ class MemoryMiddleware(AgentMiddleware[MemoryMiddlewareState]):
         Returns:
             None (no state changes needed from this middleware).
         """
+        # Compile-session memory is evaluated as a separate research treatment.
+        # The deterministic baseline must not enqueue another LLM call after finalize.
+        if state.get("compile_session_id"):
+            logger.debug("Compile session detected, skipping general conversation memory update")
+            return None
+
         config = get_memory_config()
         if not config.enabled:
             return None

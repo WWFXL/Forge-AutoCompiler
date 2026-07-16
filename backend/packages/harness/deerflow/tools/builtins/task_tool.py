@@ -1,6 +1,7 @@
 """Task tool for delegating work to subagents."""
 
 import asyncio
+import inspect
 import logging
 import uuid
 from dataclasses import replace
@@ -13,7 +14,13 @@ from langgraph.typing import ContextT
 from deerflow.agents.lead_agent.prompt import get_skills_prompt_section
 from deerflow.agents.thread_state import ThreadState
 from deerflow.subagents import SubagentExecutor, get_available_subagent_names, get_subagent_config
-from deerflow.subagents.executor import SubagentStatus, cleanup_background_task, get_background_task_result, request_cancel_background_task
+from deerflow.subagents.executor import (
+    SubagentStatus,
+    cleanup_background_task,
+    get_background_task_result,
+    request_cancel_background_task,
+    wait_for_background_task_shutdown,
+)
 from deerflow.tools.builtins.agent_compile_tools import (
     COMPILE_BUILD_SYSTEM_STATE_KEY,
     COMPILE_CONTAINER_STATE_KEY,
@@ -21,6 +28,12 @@ from deerflow.tools.builtins.agent_compile_tools import (
 )
 
 logger = logging.getLogger(__name__)
+
+
+def _apply_max_turns_override(config, *, subagent_type: str, requested_max_turns: int | None):
+    if requested_max_turns is None or subagent_type == "compiler":
+        return config
+    return replace(config, max_turns=requested_max_turns)
 
 
 def _get_compile_state(runtime: ToolRuntime[ContextT, ThreadState]) -> dict[str, str]:
@@ -36,6 +49,74 @@ def _get_compile_state(runtime: ToolRuntime[ContextT, ThreadState]) -> dict[str,
         if value:
             compile_state[key] = value
     return compile_state
+
+
+async def _cancel_and_reap_task(
+    *,
+    task_id: str,
+    subagent_type: str,
+    compile_state: dict[str, str],
+    thread_id: str | None,
+    terminal_status: str,
+    error: str,
+    shutdown_timeout_seconds: float,
+) -> bool:
+    request_cancel_background_task(task_id)
+    cleanup_result = None
+
+    if subagent_type == "compiler" and thread_id:
+        session_id = compile_state.get(COMPILE_SESSION_STATE_KEY)
+        if session_id:
+            from deerflow.agents.middlewares.tool_error_handling_middleware import load_bound_session_async
+            from deerflow.compile.operations import cleanup_compile_session_container_impl
+
+            try:
+                session = await load_bound_session_async(session_id=session_id, thread_id=thread_id)
+                _updated, cleanup_result = await asyncio.to_thread(
+                    cleanup_compile_session_container_impl,
+                    session=session,
+                )
+            except Exception:
+                logger.exception("Failed to stop compile container while terminating task %s", task_id)
+
+    shutdown_result = wait_for_background_task_shutdown(task_id, shutdown_timeout_seconds)
+    worker_stopped = await shutdown_result if inspect.isawaitable(shutdown_result) else bool(shutdown_result)
+    if not worker_stopped:
+        logger.error("Task %s did not stop within %.1fs after cancellation", task_id, shutdown_timeout_seconds)
+        return False
+
+    if subagent_type == "compiler" and thread_id:
+        session_id = compile_state.get(COMPILE_SESSION_STATE_KEY)
+        if session_id:
+            from deerflow.agents.middlewares.tool_error_handling_middleware import load_bound_session_async
+            from deerflow.compile.operations import finalize_compile_session_impl, get_compile_services
+
+            try:
+                session = await load_bound_session_async(session_id=session_id, thread_id=thread_id)
+                cleanup_succeeded = cleanup_result is not None and cleanup_result.succeeded
+                if cleanup_succeeded:
+                    await asyncio.to_thread(
+                        finalize_compile_session_impl,
+                        session=session,
+                        status=terminal_status,
+                        summary=error,
+                        error=error,
+                    )
+                else:
+                    services = get_compile_services()
+                    cleanup_error = f"{error} Compile container cleanup failed."
+                    await asyncio.to_thread(
+                        services.manager.mark_session_status,
+                        session,
+                        "failed",
+                        error=cleanup_error,
+                        summary=cleanup_error,
+                    )
+            except Exception:
+                logger.exception("Failed to finalize compile session while terminating task %s", task_id)
+
+    cleanup_background_task(task_id)
+    return True
 
 
 @tool("task", parse_docstring=True)
@@ -92,11 +173,13 @@ async def task_tool(
     if skills_section:
         overrides["system_prompt"] = config.system_prompt + "\n\n" + skills_section
 
-    if max_turns is not None:
-        overrides["max_turns"] = max_turns
-
     if overrides:
         config = replace(config, **overrides)
+    config = _apply_max_turns_override(
+        config,
+        subagent_type=subagent_type,
+        requested_max_turns=max_turns,
+    )
 
     sandbox_state = None
     thread_data = None
@@ -151,6 +234,7 @@ async def task_tool(
     last_status = None
     last_message_count = 0
     max_poll_count = (config.timeout_seconds + 60) // 5
+    shutdown_timeout_seconds = max(30.0, min(float(config.timeout_seconds), 180.0))
 
     logger.info(f"[trace={trace_id}] Started background task {task_id} (subagent={subagent_type}, timeout={config.timeout_seconds}s, polling_limit={max_poll_count} polls)")
 
@@ -164,7 +248,15 @@ async def task_tool(
             if result is None:
                 logger.error(f"[trace={trace_id}] Task {task_id} not found in background tasks")
                 writer({"type": "task_failed", "task_id": task_id, "error": "Task disappeared from background tasks"})
-                cleanup_background_task(task_id)
+                await _cancel_and_reap_task(
+                    task_id=task_id,
+                    subagent_type=subagent_type,
+                    compile_state=compile_state,
+                    thread_id=thread_id,
+                    terminal_status="failed",
+                    error="Compiler task disappeared from background task tracking.",
+                    shutdown_timeout_seconds=shutdown_timeout_seconds,
+                )
                 return f"Error: Task {task_id} disappeared from background tasks"
 
             if result.status != last_status:
@@ -195,17 +287,41 @@ async def task_tool(
             elif result.status == SubagentStatus.FAILED:
                 writer({"type": "task_failed", "task_id": task_id, "error": result.error})
                 logger.error(f"[trace={trace_id}] Task {task_id} failed: {result.error}")
-                cleanup_background_task(task_id)
+                await _cancel_and_reap_task(
+                    task_id=task_id,
+                    subagent_type=subagent_type,
+                    compile_state=compile_state,
+                    thread_id=thread_id,
+                    terminal_status="failed",
+                    error=result.error or "Compiler task failed.",
+                    shutdown_timeout_seconds=shutdown_timeout_seconds,
+                )
                 return f"Task failed. Error: {result.error}"
             elif result.status == SubagentStatus.CANCELLED:
                 writer({"type": "task_cancelled", "task_id": task_id, "error": result.error})
                 logger.info(f"[trace={trace_id}] Task {task_id} cancelled: {result.error}")
-                cleanup_background_task(task_id)
+                await _cancel_and_reap_task(
+                    task_id=task_id,
+                    subagent_type=subagent_type,
+                    compile_state=compile_state,
+                    thread_id=thread_id,
+                    terminal_status="cancelled",
+                    error=result.error or "Compiler task cancelled by user.",
+                    shutdown_timeout_seconds=shutdown_timeout_seconds,
+                )
                 return "Task cancelled by user."
             elif result.status == SubagentStatus.TIMED_OUT:
                 writer({"type": "task_timed_out", "task_id": task_id, "error": result.error})
                 logger.warning(f"[trace={trace_id}] Task {task_id} timed out: {result.error}")
-                cleanup_background_task(task_id)
+                await _cancel_and_reap_task(
+                    task_id=task_id,
+                    subagent_type=subagent_type,
+                    compile_state=compile_state,
+                    thread_id=thread_id,
+                    terminal_status="timed_out",
+                    error=result.error or "Compiler task timed out.",
+                    shutdown_timeout_seconds=shutdown_timeout_seconds,
+                )
                 return f"Task timed out. Error: {result.error}"
 
             await asyncio.sleep(5)
@@ -215,38 +331,24 @@ async def task_tool(
                 timeout_minutes = config.timeout_seconds // 60
                 logger.error(f"[trace={trace_id}] Task {task_id} polling timed out after {poll_count} polls (should have been caught by thread pool timeout)")
                 writer({"type": "task_timed_out", "task_id": task_id})
+                await _cancel_and_reap_task(
+                    task_id=task_id,
+                    subagent_type=subagent_type,
+                    compile_state=compile_state,
+                    thread_id=thread_id,
+                    terminal_status="timed_out",
+                    error=f"Compiler task polling timed out after {timeout_minutes} minutes.",
+                    shutdown_timeout_seconds=shutdown_timeout_seconds,
+                )
                 return f"Task polling timed out after {timeout_minutes} minutes. This may indicate the background task is stuck. Status: {result.status.value}"
     except asyncio.CancelledError:
-        request_cancel_background_task(task_id)
-
-        async def cleanup_when_done() -> None:
-            max_cleanup_polls = max_poll_count
-            cleanup_poll_count = 0
-
-            while True:
-                result = get_background_task_result(task_id)
-                if result is None:
-                    return
-
-                if result.status in {SubagentStatus.COMPLETED, SubagentStatus.FAILED, SubagentStatus.CANCELLED, SubagentStatus.TIMED_OUT} or getattr(result, "completed_at", None) is not None:
-                    cleanup_background_task(task_id)
-                    return
-
-                if cleanup_poll_count > max_cleanup_polls:
-                    logger.warning(f"[trace={trace_id}] Deferred cleanup for task {task_id} timed out after {cleanup_poll_count} polls")
-                    return
-
-                await asyncio.sleep(5)
-                cleanup_poll_count += 1
-
-        def log_cleanup_failure(cleanup_task: asyncio.Task[None]) -> None:
-            if cleanup_task.cancelled():
-                return
-
-            exc = cleanup_task.exception()
-            if exc is not None:
-                logger.error(f"[trace={trace_id}] Deferred cleanup failed for task {task_id}: {exc}")
-
-        logger.debug(f"[trace={trace_id}] Scheduling deferred cleanup for cancelled task {task_id}")
-        asyncio.create_task(cleanup_when_done()).add_done_callback(log_cleanup_failure)
+        await _cancel_and_reap_task(
+            task_id=task_id,
+            subagent_type=subagent_type,
+            compile_state=compile_state,
+            thread_id=thread_id,
+            terminal_status="cancelled",
+            error="Compiler task cancelled with its parent run.",
+            shutdown_timeout_seconds=shutdown_timeout_seconds,
+        )
         raise

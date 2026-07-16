@@ -24,6 +24,13 @@ class RuntimeConfig:
     remove_on_cleanup: bool = True
 
 
+@dataclass(frozen=True)
+class ContainerCleanupResult:
+    succeeded: bool
+    stopped: bool
+    removed: bool
+
+
 class CompileDockerRuntime:
     def __init__(self, config: RuntimeConfig | None = None, manager=None):
         self.config = config or RuntimeConfig(
@@ -287,9 +294,9 @@ class CompileDockerRuntime:
         )
         return destination_path
 
-    def stop_and_remove_container(self, session: CompileSession) -> None:
+    def stop_and_remove_container(self, session: CompileSession) -> ContainerCleanupResult:
         if not session.container_id:
-            return
+            return ContainerCleanupResult(succeeded=True, stopped=True, removed=True)
         self._log(
             session,
             "container.cleanup.started",
@@ -305,6 +312,7 @@ class CompileDockerRuntime:
             stdout=stop_result.stdout,
             stderr=stop_result.stderr,
         )
+        stop_succeeded = stop_result.returncode == 0 or "No such container" in (stop_result.stderr or "")
         if self.config.remove_on_cleanup:
             rm_result = subprocess.run(["docker", "rm", "-f", session.container_id], check=False, capture_output=True, text=True)
             self._log(
@@ -315,3 +323,14 @@ class CompileDockerRuntime:
                 stdout=rm_result.stdout,
                 stderr=rm_result.stderr,
             )
+            remove_succeeded = rm_result.returncode == 0 or "No such container" in (rm_result.stderr or "")
+            return ContainerCleanupResult(
+                succeeded=remove_succeeded,
+                stopped=stop_succeeded,
+                removed=remove_succeeded,
+            )
+        return ContainerCleanupResult(
+            succeeded=stop_succeeded,
+            stopped=stop_succeeded,
+            removed=False,
+        )

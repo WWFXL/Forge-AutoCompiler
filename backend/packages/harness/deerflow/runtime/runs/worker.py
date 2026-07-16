@@ -89,12 +89,13 @@ async def run_agent(
 
         # Inject runtime context so middlewares can access thread_id
         # (langgraph-cli does this automatically; we must do it manually)
-        runtime = Runtime(context={"thread_id": thread_id}, store=store)
+        runtime = Runtime(context={"thread_id": thread_id, "run_id": run_id}, store=store)
         # If the caller already set a ``context`` key (LangGraph >= 0.6.0
         # prefers it over ``configurable`` for thread-level data), make
         # sure ``thread_id`` is available there too.
         if "context" in config and isinstance(config["context"], dict):
             config["context"].setdefault("thread_id", thread_id)
+            config["context"].setdefault("run_id", run_id)
         config.setdefault("configurable", {})["__pregel_runtime"] = runtime
 
         runnable_config = RunnableConfig(**config)
@@ -211,6 +212,29 @@ async def run_agent(
         )
 
     finally:
+        try:
+            from deerflow.compile.operations import finalize_unfinished_thread_sessions_impl
+
+            interrupted_status = None
+            cleanup_error = None
+            if record.status == RunStatus.interrupted:
+                interrupted_status = "cancelled"
+                cleanup_error = "Parent run was cancelled."
+            elif record.status == RunStatus.timeout:
+                interrupted_status = "timed_out"
+                cleanup_error = "Parent run timed out."
+            elif record.status == RunStatus.error:
+                interrupted_status = "failed"
+                cleanup_error = record.error or "Parent run failed."
+            await asyncio.to_thread(
+                finalize_unfinished_thread_sessions_impl,
+                thread_id=thread_id,
+                run_id=run_id,
+                interrupted_status=interrupted_status,
+                error=cleanup_error,
+            )
+        except Exception:
+            logger.exception("Failed to clean unfinished compile sessions for run %s", run_id)
         await bridge.publish_end(run_id)
         asyncio.create_task(bridge.cleanup(run_id, delay=60))
 
