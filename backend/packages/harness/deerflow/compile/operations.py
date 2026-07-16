@@ -1,13 +1,11 @@
 from __future__ import annotations
 
 import json
-import shutil
-import subprocess
 from dataclasses import dataclass
 from pathlib import Path
 from shlex import quote
 
-from deerflow.compile.docker_runtime import CompileDockerRuntime
+from deerflow.compile.docker_runtime import CONTAINER_REPO_DIR, CONTAINER_WORKSPACE_DIR, CompileDockerRuntime
 from deerflow.compile.manager import CompileSessionManager
 from deerflow.compile.schemas import BuildArtifact, BuildCommandRecord, CommandResult, CompileSession, VerificationCheck, VerificationResult, utc_now_iso
 
@@ -146,18 +144,13 @@ def clone_repository_impl(
     services = get_compile_services()
 
     repo_dir = Path(session.leadagent_repo_dir)
-    workspace_dir = repo_dir.parent
 
-    clone_command_parts = ["git", "clone", "--depth", str(depth)]
+    clone_command_parts = ["git clone", f"--depth {depth}"]
     if branch:
-        clone_command_parts.extend(["--branch", branch])
-    clone_command_parts.extend([repo_url, str(repo_dir)])
-
-    clone_parts_for_record = [f"git clone --depth {depth}"]
-    if branch:
-        clone_parts_for_record.append(f"--branch {shell_quote(branch)}")
-    clone_parts_for_record.append(f"{shell_quote(repo_url)} {shell_quote(str(repo_dir))}")
-    clone_command_for_record = " ".join(clone_parts_for_record)
+        clone_command_parts.append(f"--branch {shell_quote(branch)}")
+    clone_command_parts.append(f"{shell_quote(repo_url)} {shell_quote(CONTAINER_REPO_DIR)}")
+    clone_command = " ".join(clone_command_parts)
+    attempt_command = f"rm -rf -- {shell_quote(CONTAINER_REPO_DIR)} && {clone_command}"
 
     retries = max(1, max_retries)
     last_result: CommandResult | None = None
@@ -178,34 +171,18 @@ def clone_repository_impl(
         )
         started_at = utc_now_iso()
 
-        if repo_dir.exists():
-            shutil.rmtree(repo_dir)
-
-        run_result = subprocess.run(
-            clone_command_parts,
-            cwd=str(workspace_dir),
-            capture_output=True,
-            text=True,
-            check=False,
-        )
-        completed_at = utc_now_iso()
-        stdout = run_result.stdout or ""
-        stderr = run_result.stderr or ""
-        combined_output = stdout + stderr
-        Path(log_path).write_text(combined_output, encoding="utf-8")
-
-        result = CommandResult(
-            exit_code=run_result.returncode,
-            stdout=stdout,
-            stderr=stderr,
-            combined_output=combined_output,
+        result = services.runtime.exec(
+            session,
+            attempt_command,
+            workdir=CONTAINER_WORKSPACE_DIR,
             log_path=log_path,
         )
+        completed_at = utc_now_iso()
         append_command_record(
             session,
             "clone",
-            clone_command_for_record,
-            str(workspace_dir),
+            attempt_command,
+            CONTAINER_WORKSPACE_DIR,
             log_path,
             result.exit_code,
             started_at,
@@ -214,13 +191,12 @@ def clone_repository_impl(
         last_result = result
 
         if result.exit_code == 0:
-            sha = subprocess.run(
-                ["git", "-C", str(repo_dir), "rev-parse", "HEAD"],
-                capture_output=True,
-                text=True,
-                check=False,
+            sha = services.runtime.exec(
+                session,
+                f"git config --global --replace-all safe.directory {shell_quote(CONTAINER_REPO_DIR)} && git -C {shell_quote(CONTAINER_REPO_DIR)} rev-parse HEAD",
+                workdir=CONTAINER_WORKSPACE_DIR,
             )
-            if sha.returncode == 0:
+            if sha.exit_code == 0:
                 session.commit_sha = (sha.stdout or "").strip()
                 services.manager.save_session(session)
 

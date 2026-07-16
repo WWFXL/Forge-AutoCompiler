@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import os
 import subprocess
 from dataclasses import dataclass
 from pathlib import Path
@@ -25,8 +26,28 @@ class RuntimeConfig:
 
 class CompileDockerRuntime:
     def __init__(self, config: RuntimeConfig | None = None, manager=None):
-        self.config = config or RuntimeConfig()
+        self.config = config or RuntimeConfig(
+            network=os.getenv("COMPILE_RUNTIME_NETWORK") or DEFAULT_NETWORK,
+        )
         self.manager = manager
+
+    @staticmethod
+    def _runtime_proxy_environment() -> tuple[list[str], dict[str, str]]:
+        environment = os.environ.copy()
+        docker_flags: list[str] = []
+        proxy_variables = (
+            ("COMPILE_RUNTIME_HTTP_PROXY", "HTTP_PROXY", "http_proxy"),
+            ("COMPILE_RUNTIME_HTTPS_PROXY", "HTTPS_PROXY", "https_proxy"),
+            ("COMPILE_RUNTIME_NO_PROXY", "NO_PROXY", "no_proxy"),
+        )
+        for source_name, upper_name, lower_name in proxy_variables:
+            value = os.getenv(source_name)
+            if not value:
+                continue
+            environment[upper_name] = value
+            environment[lower_name] = value
+            docker_flags.extend(["-e", upper_name, "-e", lower_name])
+        return docker_flags, environment
 
     def _paths(self) -> Paths:
         manager_paths = getattr(self.manager, "paths", None)
@@ -83,6 +104,7 @@ class CompileDockerRuntime:
         host_artifacts_dir = self._host_artifacts_dir(session)
         host_logs_dir = self._host_logs_dir(session)
         host_repro_dir = self._host_repro_dir(session)
+        proxy_flags, run_environment = self._runtime_proxy_environment()
         container_name = f"deerflow-compile-{session.thread_id[:8]}-{session.session_id[:8]}"
         command = [
             "docker",
@@ -92,6 +114,9 @@ class CompileDockerRuntime:
             container_name,
             "--network",
             self.config.network,
+            "--add-host",
+            "host.docker.internal:host-gateway",
+            *proxy_flags,
             "-v",
             f"{host_workspace_dir}:{CONTAINER_WORKSPACE_DIR}",
             "-v",
@@ -123,7 +148,7 @@ class CompileDockerRuntime:
             docker_command=command,
         )
         started_at = utc_now_iso()
-        result = subprocess.run(command, check=True, capture_output=True, text=True)
+        result = subprocess.run(command, check=True, capture_output=True, text=True, env=run_environment)
         session.container_name = container_name
         session.container_id = result.stdout.strip()
         self._log(
@@ -143,12 +168,17 @@ class CompileDockerRuntime:
             raise ValueError("Compile session container has not been created")
 
         container_workdir = workdir or CONTAINER_REPO_DIR
+        container_timeout = max(1, timeout_seconds)
         exec_command = [
             "docker",
             "exec",
             "-w",
             container_workdir,
             session.container_id,
+            "timeout",
+            "--signal=TERM",
+            "--kill-after=5s",
+            f"{container_timeout}s",
             "bash",
             "-lc",
             command,
@@ -158,13 +188,45 @@ class CompileDockerRuntime:
             "container.exec.started",
             container_id=session.container_id,
             workdir=container_workdir,
-            timeout_seconds=timeout_seconds,
+            timeout_seconds=container_timeout,
             log_path=log_path,
             command=command,
             docker_command=exec_command,
         )
         started_at = utc_now_iso()
-        result = subprocess.run(exec_command, capture_output=True, text=True, timeout=timeout_seconds)
+        try:
+            result = subprocess.run(exec_command, capture_output=True, text=True, timeout=container_timeout + 10)
+        except subprocess.TimeoutExpired as exc:
+            stdout = exc.stdout.decode(errors="replace") if isinstance(exc.stdout, bytes) else (exc.stdout or "")
+            stderr = exc.stderr.decode(errors="replace") if isinstance(exc.stderr, bytes) else (exc.stderr or "")
+            timeout_message = f"Docker exec did not return after the {container_timeout}-second container timeout."
+            combined_output = stdout + stderr
+            if combined_output and not combined_output.endswith("\n"):
+                combined_output += "\n"
+            combined_output += timeout_message + "\n"
+            if log_path:
+                Path(log_path).write_text(combined_output, encoding="utf-8")
+            self._log(
+                session,
+                "container.exec.timed_out",
+                container_id=session.container_id,
+                workdir=container_workdir,
+                timeout_seconds=container_timeout,
+                log_path=log_path,
+                command=command,
+                started_at=started_at,
+                completed_at=utc_now_iso(),
+                exit_code=124,
+                stdout=stdout,
+                stderr=stderr,
+            )
+            return CommandResult(
+                exit_code=124,
+                stdout=stdout,
+                stderr=stderr,
+                combined_output=combined_output,
+                log_path=log_path,
+            )
         combined_output = (result.stdout or "") + (result.stderr or "")
         if log_path:
             Path(log_path).write_text(combined_output, encoding="utf-8")
@@ -173,7 +235,7 @@ class CompileDockerRuntime:
             "container.exec.completed",
             container_id=session.container_id,
             workdir=container_workdir,
-            timeout_seconds=timeout_seconds,
+            timeout_seconds=container_timeout,
             log_path=log_path,
             command=command,
             started_at=started_at,
