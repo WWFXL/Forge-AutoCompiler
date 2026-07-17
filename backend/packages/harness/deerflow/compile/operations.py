@@ -1,18 +1,35 @@
 from __future__ import annotations
 
+import hashlib
 import json
+import math
 import re
+import shutil
 import struct
+import subprocess
+import time
 import uuid
 from dataclasses import dataclass
+from datetime import datetime
 from pathlib import Path, PurePosixPath
 from shlex import quote
 from typing import BinaryIO
 from urllib.parse import urlsplit
 
-from deerflow.compile.docker_runtime import CONTAINER_REPO_DIR, CONTAINER_WORKSPACE_DIR, CompileDockerRuntime, ContainerCleanupResult
+from deerflow.compile.docker_runtime import CONTAINER_REPO_DIR, CONTAINER_WORKSPACE_DIR, CompileDockerRuntime, ContainerCleanupResult, ReplayContainerHandle
 from deerflow.compile.manager import CompileSessionManager
-from deerflow.compile.schemas import BuildArtifact, BuildCommandRecord, CommandResult, CompileSession, VerificationCheck, VerificationResult, utc_now_iso
+from deerflow.compile.paths import get_replay_artifacts_dir, get_replay_logs_dir, get_replay_recipe_dir, get_replay_workspace_dir
+from deerflow.compile.schemas import (
+    BuildArtifact,
+    BuildCommandRecord,
+    CommandResult,
+    CompileSession,
+    ReplayArtifactComparison,
+    ReplayVerificationResult,
+    VerificationCheck,
+    VerificationResult,
+    utc_now_iso,
+)
 
 _BUILD_SYSTEM_MARKERS = {
     "cmake": "CMakeLists.txt",
@@ -53,6 +70,10 @@ _REPLAY_WORKDIR_ROOTS = (
 )
 _WINDOWS_ABSOLUTE_PATH_RE = re.compile(r"(?i)(?<![A-Za-z0-9_])(?:[A-Z]:[\\/]|\\\\)")
 _WSL_HOST_PATH_RE = re.compile(r"(?i)(?<![A-Za-z0-9_])/mnt/[A-Z](?:/|$)")
+_REPLAY_SMOKE_TIMEOUT_SECONDS = 30
+_REPLAY_CONTAINER_CREATE_TIMEOUT_SECONDS = 30
+_MAX_PERSISTED_SMOKE_OUTPUT = 4000
+_TERMINAL_SESSION_STATUSES = {"completed", "failed", "cancelled", "timed_out"}
 
 
 @dataclass
@@ -70,6 +91,49 @@ _services = CompileOperationsServices(
 
 def get_compile_services() -> CompileOperationsServices:
     return _services
+
+
+def _load_authoritative_session(session: CompileSession) -> CompileSession:
+    services = get_compile_services()
+    try:
+        return services.manager.load_session(session.session_id, session.thread_id)
+    except (OSError, TypeError, ValueError, json.JSONDecodeError):
+        return session
+
+
+def _session_lifecycle_fenced(session: CompileSession) -> bool:
+    return session.finalized_at is not None or session.termination_requested_at is not None or session.status in _TERMINAL_SESSION_STATUSES
+
+
+def _abort_submit_for_lifecycle(session: CompileSession, *, stage: str) -> str:
+    services = get_compile_services()
+    status = session.termination_status or session.status
+    if status not in _TERMINAL_SESSION_STATUSES:
+        status = "cancelled"
+    message = f"Compile session is terminating or finalized with status {status}; submit was ignored."
+    services.manager.log_event(
+        session,
+        "submit.aborted",
+        stage=stage,
+        status=status,
+        finalized_at=session.finalized_at,
+        termination_requested_at=session.termination_requested_at,
+    )
+    return json.dumps(
+        {
+            "exit_code": 1,
+            "status": status,
+            "candidate_status": "not_committed",
+            "replay_status": "not_run",
+            "replay_attempt_id": None,
+            "image_id": session.image_id,
+            "artifact_count": 0,
+            "artifacts": [],
+            "message": message,
+        },
+        ensure_ascii=False,
+        indent=2,
+    )
 
 
 def get_bound_session(session_id: str | None, thread_id: str, owner_id: str | None = None) -> CompileSession:
@@ -154,6 +218,7 @@ def prepare_compile_session_impl(
             "prepare.completed",
             container_id=session.container_id,
             container_name=session.container_name,
+            image_id=session.image_id,
         )
         return session
 
@@ -342,8 +407,13 @@ def inspect_build_system_json(*, session: CompileSession) -> str:
     )
 
 
-def _list_leadagent_artifact_files(session: CompileSession) -> list[Path]:
-    base = Path(session.leadagent_artifacts_dir)
+def _check_replay_deadline(deadline: float | None) -> None:
+    if deadline is not None and time.monotonic() >= deadline:
+        raise _ReplayVerificationFailure("timeout", "Clean replay exceeded its total timeout.")
+
+
+def _list_artifact_files(base: Path, *, deadline: float | None = None) -> list[Path]:
+    _check_replay_deadline(deadline)
     if not base.exists():
         return []
     try:
@@ -352,6 +422,7 @@ def _list_leadagent_artifact_files(session: CompileSession) -> list[Path]:
         return []
     files: list[Path] = []
     for p in base.rglob("*"):
+        _check_replay_deadline(deadline)
         if p.is_symlink():
             continue
         try:
@@ -369,6 +440,28 @@ def _list_leadagent_artifact_files(session: CompileSession) -> list[Path]:
     return files
 
 
+def _list_leadagent_artifact_files(session: CompileSession) -> list[Path]:
+    return _list_artifact_files(Path(session.leadagent_artifacts_dir))
+
+
+def _sha256_file(path: Path, *, deadline: float | None = None) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as stream:
+        for chunk in iter(lambda: stream.read(1024 * 1024), b""):
+            _check_replay_deadline(deadline)
+            digest.update(chunk)
+    _check_replay_deadline(deadline)
+    return digest.hexdigest()
+
+
+def _sha256_text(value: str) -> str:
+    return hashlib.sha256(value.encode("utf-8")).hexdigest()
+
+
+def _persisted_output(output: str) -> str:
+    return output[:_MAX_PERSISTED_SMOKE_OUTPUT]
+
+
 def _table_fits(*, offset: int, entry_size: int, entry_count: int, file_size: int, minimum_entry_size: int) -> bool:
     return offset > 0 and entry_size >= minimum_entry_size and 0 < entry_count <= _MAX_ELF_TABLE_ENTRIES and offset + entry_size * entry_count <= file_size
 
@@ -384,6 +477,7 @@ def _has_valid_object_sections(
     section_header_size: int,
     section_header_count: int,
     section_name_index: int,
+    deadline: float | None = None,
 ) -> bool:
     if section_header_count < 2 or not 0 < section_name_index < section_header_count:
         return False
@@ -391,6 +485,7 @@ def _has_valid_object_sections(
     meaningful_section_found = False
     valid_name_table = False
     for index in range(section_header_count):
+        _check_replay_deadline(deadline)
         stream.seek(base_offset + section_header_offset + index * section_header_size)
         raw = stream.read(_ELF32_SECTION_HEADER_SIZE if elf_class == 1 else _ELF64_SECTION_HEADER_SIZE)
         try:
@@ -422,7 +517,14 @@ def _has_valid_object_sections(
     return meaningful_section_found and valid_name_table
 
 
-def _classify_elf_stream(stream: BinaryIO, *, base_offset: int, file_size: int) -> str | None:
+def _classify_elf_stream(
+    stream: BinaryIO,
+    *,
+    base_offset: int,
+    file_size: int,
+    deadline: float | None = None,
+) -> str | None:
+    _check_replay_deadline(deadline)
     if file_size < _ELF32_HEADER_SIZE:
         return None
 
@@ -499,6 +601,7 @@ def _classify_elf_stream(stream: BinaryIO, *, base_offset: int, file_size: int) 
             section_header_size=section_header_size,
             section_header_count=section_header_count,
             section_name_index=section_name_index,
+            deadline=deadline,
         ):
             return None
         return "object"
@@ -518,6 +621,7 @@ def _classify_elf_stream(stream: BinaryIO, *, base_offset: int, file_size: int) 
     has_dynamic_segment = False
     has_interpreter = False
     for index in range(program_header_count):
+        _check_replay_deadline(deadline)
         offset = base_offset + program_header_offset + index * program_header_size
         stream.seek(offset)
         raw = stream.read(expected_program_header_size)
@@ -556,13 +660,19 @@ def _classify_elf_stream(stream: BinaryIO, *, base_offset: int, file_size: int) 
     return "shared_library" if has_dynamic_segment else None
 
 
-def _classify_archive_stream(stream: BinaryIO, *, file_size: int) -> str | None:
+def _classify_archive_stream(
+    stream: BinaryIO,
+    *,
+    file_size: int,
+    deadline: float | None = None,
+) -> str | None:
     if file_size < len(_AR_MAGIC) + _AR_MEMBER_HEADER_SIZE:
         return None
 
     offset = len(_AR_MAGIC)
     compiled_member_found = False
     while offset < file_size:
+        _check_replay_deadline(deadline)
         if offset + _AR_MEMBER_HEADER_SIZE > file_size:
             return None
         stream.seek(offset)
@@ -598,6 +708,7 @@ def _classify_archive_stream(stream: BinaryIO, *, file_size: int) -> str | None:
                 stream,
                 base_offset=payload_offset,
                 file_size=payload_size,
+                deadline=deadline,
             )
             compiled_member_found = compiled_member_found or member_type == "object"
 
@@ -608,17 +719,18 @@ def _classify_archive_stream(stream: BinaryIO, *, file_size: int) -> str | None:
     return "static_library" if compiled_member_found else None
 
 
-def _classify_compiled_artifact(path: Path) -> str | None:
+def _classify_compiled_artifact(path: Path, *, deadline: float | None = None) -> str | None:
     """Classify supported Linux C/C++ outputs from file contents."""
     try:
+        _check_replay_deadline(deadline)
         if path.is_symlink() or not path.is_file():
             return None
         file_size = path.stat().st_size
         with path.open("rb") as stream:
             magic = stream.read(len(_AR_MAGIC))
             if magic == _AR_MAGIC:
-                return _classify_archive_stream(stream, file_size=file_size)
-            return _classify_elf_stream(stream, base_offset=0, file_size=file_size)
+                return _classify_archive_stream(stream, file_size=file_size, deadline=deadline)
+            return _classify_elf_stream(stream, base_offset=0, file_size=file_size, deadline=deadline)
     except OSError:
         return None
 
@@ -630,6 +742,8 @@ def _record_submit_check(
     target: str,
     passed: bool,
     summary: str,
+    expected=None,
+    actual=None,
 ) -> None:
     checks.append(
         VerificationCheck(
@@ -640,12 +754,41 @@ def _record_submit_check(
             exit_code=0 if passed else 1,
             log_path=None,
             summary=summary,
+            expected=expected,
+            actual=actual,
         )
     )
 
 
+def _commit_submit_verification(
+    *,
+    session: CompileSession,
+    artifacts: list[BuildArtifact],
+    verification: VerificationResult,
+    status: str,
+    error: str | None,
+) -> bool:
+    services = get_compile_services()
+    with services.manager.session_lock(session.thread_id, session.session_id):
+        current = _load_authoritative_session(session)
+        if _session_lifecycle_fenced(current):
+            session.__dict__.update(current.__dict__)
+            return False
+        current.artifacts = list(artifacts)
+        current.verification = verification
+        services.manager.mark_session_status(current, status, error=error)
+        session.__dict__.update(current.__dict__)
+        return True
+
+
 def submit_build_result_impl(*, session: CompileSession) -> str:
     services = get_compile_services()
+    with services.manager.session_lock(session.thread_id, session.session_id):
+        current = _load_authoritative_session(session)
+        if _session_lifecycle_fenced(current):
+            session.__dict__.update(current.__dict__)
+            return _abort_submit_for_lifecycle(session, stage="entry")
+        session.__dict__.update(current.__dict__)
     submit_index = len(session.commands) + 1
     summary_log_path = local_log_path(session, f"{submit_index:03d}_submit.log")
     while Path(summary_log_path).exists():
@@ -700,6 +843,9 @@ def submit_build_result_impl(*, session: CompileSession) -> str:
             if not non_empty:
                 continue
 
+            artifact_sha256 = _sha256_file(candidate_path)
+            smoke_command_used: str | None = None
+            smoke_result_used: CommandResult | None = None
             if artifact_type == "executable":
                 smoke_passed = False
                 for smoke_command in (
@@ -714,6 +860,8 @@ def submit_build_result_impl(*, session: CompileSession) -> str:
                     )
                     if smoke_result.exit_code == 0:
                         smoke_passed = True
+                        smoke_command_used = smoke_command
+                        smoke_result_used = smoke_result
                         break
                 _record_submit_check(
                     checks=checks,
@@ -735,36 +883,86 @@ def submit_build_result_impl(*, session: CompileSession) -> str:
                     artifact_type=artifact_type,
                     size_bytes=size_bytes,
                     source_path=container_candidate,
+                    sha256=artifact_sha256,
+                    smoke_command=smoke_command_used,
+                    smoke_exit_code=smoke_result_used.exit_code if smoke_result_used else None,
+                    smoke_output=_persisted_output(smoke_result_used.combined_output) if smoke_result_used else None,
+                    smoke_output_sha256=_sha256_text(smoke_result_used.combined_output) if smoke_result_used else None,
                 )
             )
 
     if discovered_files and not artifacts:
         notes.append("Error: Verification failed. No recognized compiled artifacts were found in /artifacts.")
 
+    candidate_status = "failed"
+    replay_attempt: ReplayVerificationResult | None = None
+    candidate_lifecycle_fenced = False
     if artifacts and all(check.passed for check in checks):
-        try:
-            _write_repro_bundle(session)
-        except (OSError, ValueError) as exc:
-            message = f"Error: Verification failed. Could not generate a commit-pinned replay bundle: {exc}"
-            notes.append(message)
-            _record_submit_check(
-                checks=checks,
-                name="repro_bundle",
-                target="repro/build.sh",
-                passed=False,
-                summary=message,
-            )
-        else:
-            _record_submit_check(
-                checks=checks,
-                name="repro_bundle",
-                target="repro/build.sh",
-                passed=True,
-                summary="Generated a commit-pinned replay script from successful container commands.",
-            )
+        with services.manager.session_lock(session.thread_id, session.session_id):
+            current = _load_authoritative_session(session)
+            if _session_lifecycle_fenced(current):
+                session.__dict__.update(current.__dict__)
+                candidate_lifecycle_fenced = True
+            else:
+                session.__dict__.update(current.__dict__)
+                try:
+                    _write_repro_bundle(session)
+                except (OSError, ValueError) as exc:
+                    message = f"Error: Verification failed. Could not generate a commit-pinned replay bundle: {exc}"
+                    notes.append(message)
+                    _record_submit_check(
+                        checks=checks,
+                        name="repro_bundle",
+                        target="repro/build.sh",
+                        passed=False,
+                        summary=message,
+                    )
+                else:
+                    candidate_status = "passed"
+                    _record_submit_check(
+                        checks=checks,
+                        name="repro_bundle",
+                        target="repro/build.sh",
+                        passed=True,
+                        summary="Generated a commit-pinned replay script from successful container commands.",
+                    )
+                    current.artifacts = list(artifacts)
+                    current.verification = VerificationResult(
+                        status="candidate_ready",
+                        checks=list(checks),
+                        artifact_count=len(artifacts),
+                        failed_checks=0,
+                        notes=list(notes),
+                    )
+                    services.manager.save_session(current)
+                    session.__dict__.update(current.__dict__)
+
+    if candidate_lifecycle_fenced:
+        return _abort_submit_for_lifecycle(session, stage="candidate_checkpoint")
+
+    candidate_failed_checks = sum(1 for check in checks if not check.passed)
+    if candidate_status == "passed" and artifacts and candidate_failed_checks == 0:
+        replay_attempt = verify_clean_replay_impl(session=session)
+        replay_passed = replay_attempt.status == "passed" and replay_attempt.cleanup_succeeded is True
+        replay_summary = (
+            "Candidate recipe rebuilt matching artifacts in a clean container and cleanup succeeded."
+            if replay_passed
+            else f"Error: Verification failed. Clean replay did not pass ({replay_attempt.failure_classification or replay_attempt.status})."
+        )
+        _record_submit_check(
+            checks=checks,
+            name="clean_replay",
+            target=f"replay/{replay_attempt.attempt_id}",
+            passed=replay_passed,
+            summary=replay_summary,
+            expected="passed",
+            actual=replay_attempt.status,
+        )
+        if not replay_passed:
+            notes.append(replay_summary)
 
     failed_checks = sum(1 for check in checks if not check.passed)
-    status = "passed" if artifacts and failed_checks == 0 else "failed"
+    status = "passed" if artifacts and candidate_status == "passed" and replay_attempt is not None and replay_attempt.status == "passed" and replay_attempt.cleanup_succeeded is True and failed_checks == 0 else "failed"
     verification = VerificationResult(
         status=status,
         checks=checks,
@@ -772,17 +970,28 @@ def submit_build_result_impl(*, session: CompileSession) -> str:
         failed_checks=failed_checks,
         notes=notes,
     )
-    session.artifacts = artifacts
-    session.verification = verification
-    services.manager.save_session(session)
-
     failure_message = next(
         (note for note in notes if note.startswith("Error:")),
         "Error: Verification failed. The submitted artifacts in /artifacts did not pass validation.",
     )
+    target_status = "verified" if status == "passed" else "verification_failed"
+    target_error = None if status == "passed" else failure_message
+    if not _commit_submit_verification(
+        session=session,
+        artifacts=artifacts,
+        verification=verification,
+        status=target_status,
+        error=target_error,
+    ):
+        return _abort_submit_for_lifecycle(session, stage="final_checkpoint")
+
     payload = {
         "exit_code": 0 if status == "passed" else 1,
         "status": status,
+        "candidate_status": candidate_status,
+        "replay_status": replay_attempt.status if replay_attempt else "not_run",
+        "replay_attempt_id": replay_attempt.attempt_id if replay_attempt else None,
+        "image_id": session.image_id,
         "artifact_count": len(artifacts),
         "artifacts": [
             {
@@ -790,10 +999,11 @@ def submit_build_result_impl(*, session: CompileSession) -> str:
                 "source_path": artifact.source_path,
                 "artifact_type": artifact.artifact_type,
                 "size_bytes": artifact.size_bytes,
+                "sha256": artifact.sha256,
             }
             for artifact in artifacts
         ],
-        "message": "Build artifacts accepted from /artifacts." if status == "passed" else failure_message,
+        "message": "Build artifacts and clean replay accepted." if status == "passed" else failure_message,
     }
     Path(summary_log_path).write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     services.manager.log_event(
@@ -804,13 +1014,18 @@ def submit_build_result_impl(*, session: CompileSession) -> str:
         artifact_count=len(artifacts),
         artifacts=[artifact.path for artifact in artifacts],
         failed_checks=failed_checks,
+        candidate_status=candidate_status,
+        replay_status=replay_attempt.status if replay_attempt else "not_run",
+        replay_attempt_id=replay_attempt.attempt_id if replay_attempt else None,
     )
 
     if status == "passed":
-        services.manager.mark_session_status(session, "verified")
-        services.manager.log_event(session, "verification.accepted", artifact_count=len(artifacts))
-    else:
-        services.manager.mark_session_status(session, "verification_failed", error=payload["message"])
+        services.manager.log_event(
+            session,
+            "verification.accepted",
+            artifact_count=len(artifacts),
+            replay_attempt_id=replay_attempt.attempt_id if replay_attempt else None,
+        )
 
     return json.dumps(payload, ensure_ascii=False, indent=2)
 
@@ -936,6 +1151,662 @@ def _write_repro_bundle(session: CompileSession) -> Path:
     return build_path
 
 
+class _ReplayVerificationFailure(RuntimeError):
+    def __init__(self, classification: str, message: str):
+        super().__init__(message)
+        self.classification = classification
+
+
+def _record_replay_check(
+    attempt: ReplayVerificationResult,
+    *,
+    name: str,
+    target: str,
+    passed: bool,
+    summary: str,
+    expected=None,
+    actual=None,
+    exit_code: int | None = None,
+    log_path: str | None = None,
+) -> None:
+    attempt.checks.append(
+        VerificationCheck(
+            name=name,
+            target=target,
+            command="clean_replay",
+            passed=passed,
+            exit_code=exit_code if exit_code is not None else (0 if passed else 1),
+            log_path=log_path,
+            summary=summary,
+            expected=expected,
+            actual=actual,
+        )
+    )
+
+
+def _remaining_replay_timeout(deadline: float) -> int:
+    remaining = deadline - time.monotonic()
+    if remaining <= 0:
+        raise _ReplayVerificationFailure("timeout", "Clean replay exceeded its total timeout.")
+    return max(1, math.ceil(remaining))
+
+
+def _artifact_relative_path(artifact: BuildArtifact) -> str:
+    source_path = PurePosixPath(artifact.source_path or "")
+    artifacts_root = PurePosixPath("/artifacts")
+    if not source_path.is_absolute() or artifacts_root not in source_path.parents:
+        raise ValueError(f"Artifact {artifact.path!r} does not have a valid /artifacts source path.")
+    relative_path = source_path.relative_to(artifacts_root)
+    if not relative_path.parts or ".." in relative_path.parts:
+        raise ValueError(f"Artifact {artifact.path!r} does not have a safe relative path.")
+    return relative_path.as_posix()
+
+
+def _run_replay_smoke(
+    *,
+    session: CompileSession,
+    handle: ReplayContainerHandle,
+    relative_path: str,
+    expected: BuildArtifact | None,
+    deadline: float,
+    log_path: Path,
+) -> tuple[str | None, CommandResult | None]:
+    services = get_compile_services()
+    container_path = f"/artifacts/{relative_path}"
+    expected_command = expected.smoke_command if expected else None
+    smoke_commands = (
+        (expected_command,)
+        if expected_command
+        else (
+            f"{shell_quote(container_path)} -version",
+            f"{shell_quote(container_path)} --version",
+            f"{shell_quote(container_path)} --help",
+        )
+    )
+    last_command: str | None = None
+    last_result: CommandResult | None = None
+    for smoke_command in smoke_commands:
+        if smoke_command is None:
+            continue
+        timeout_seconds = min(_REPLAY_SMOKE_TIMEOUT_SECONDS, _remaining_replay_timeout(deadline))
+        last_command = smoke_command
+        last_result = services.runtime.exec_replay_container(
+            session,
+            handle,
+            command=smoke_command,
+            workdir=CONTAINER_WORKSPACE_DIR,
+            timeout_seconds=timeout_seconds,
+            log_path=str(log_path),
+        )
+        if last_result.exit_code == 0:
+            break
+        if last_result.exit_code == 124:
+            raise _ReplayVerificationFailure("timeout", f"Smoke test for {relative_path!r} timed out.")
+    return last_command, last_result
+
+
+def _compare_replay_artifacts(
+    *,
+    session: CompileSession,
+    attempt: ReplayVerificationResult,
+    handle: ReplayContainerHandle,
+    deadline: float,
+) -> str | None:
+    services = get_compile_services()
+    replay_artifacts_dir = get_replay_artifacts_dir(
+        session.session_id,
+        session.thread_id,
+        attempt.attempt_id,
+        services.manager.paths,
+    )
+    replay_logs_dir = get_replay_logs_dir(
+        session.session_id,
+        session.thread_id,
+        attempt.attempt_id,
+        services.manager.paths,
+    )
+    expected_artifacts = {_artifact_relative_path(artifact): artifact for artifact in session.artifacts}
+    actual_files: dict[str, Path] = {}
+    actual_types: dict[str, str] = {}
+    for path in _list_artifact_files(replay_artifacts_dir, deadline=deadline):
+        artifact_type = _classify_compiled_artifact(path, deadline=deadline)
+        if artifact_type is None:
+            continue
+        relative_path = path.relative_to(replay_artifacts_dir).as_posix()
+        actual_files[relative_path] = path
+        actual_types[relative_path] = artifact_type
+    expected_paths = sorted(expected_artifacts)
+    actual_paths = sorted(actual_files)
+    artifact_set_matches = expected_paths == actual_paths
+    _record_replay_check(
+        attempt,
+        name="artifact_set",
+        target="/artifacts",
+        passed=artifact_set_matches,
+        summary=("Replay produced the same relative artifact paths." if artifact_set_matches else "Replay artifact paths differ from the accepted build."),
+        expected=expected_paths,
+        actual=actual_paths,
+    )
+
+    first_failure = None if artifact_set_matches else "artifact_set_mismatch"
+    for artifact_index, relative_path in enumerate(sorted(set(expected_paths) | set(actual_paths)), start=1):
+        expected = expected_artifacts.get(relative_path)
+        actual_path = actual_files.get(relative_path)
+        actual_type = actual_types.get(relative_path)
+        _check_replay_deadline(deadline)
+        actual_size = actual_path.stat().st_size if actual_path else None
+        actual_sha256 = _sha256_file(actual_path, deadline=deadline) if actual_path else None
+        actual_smoke_command: str | None = None
+        actual_smoke_result: CommandResult | None = None
+        if actual_path is not None and actual_type == "executable":
+            smoke_log_path = replay_logs_dir / f"smoke_{artifact_index:03d}.log"
+            actual_smoke_command, actual_smoke_result = _run_replay_smoke(
+                session=session,
+                handle=handle,
+                relative_path=relative_path,
+                expected=expected,
+                deadline=deadline,
+                log_path=smoke_log_path,
+            )
+
+        type_matches = expected is not None and actual_path is not None and expected.artifact_type == actual_type
+        size_matches = expected is not None and actual_path is not None and expected.size_bytes == actual_size
+        sha256_matches = expected is not None and actual_path is not None and expected.sha256 == actual_sha256
+        expected_requires_smoke = expected is not None and expected.artifact_type == "executable"
+        if expected_requires_smoke:
+            actual_smoke_output = _persisted_output(actual_smoke_result.combined_output) if actual_smoke_result else None
+            actual_smoke_output_sha256 = _sha256_text(actual_smoke_result.combined_output) if actual_smoke_result else None
+            smoke_output_matches = expected.smoke_output_sha256 == actual_smoke_output_sha256 if expected.smoke_output_sha256 is not None else expected.smoke_output == actual_smoke_output
+            smoke_matches = actual_smoke_result is not None and expected.smoke_command == actual_smoke_command and expected.smoke_exit_code == actual_smoke_result.exit_code and smoke_output_matches
+        else:
+            actual_smoke_output = _persisted_output(actual_smoke_result.combined_output) if actual_smoke_result else None
+            actual_smoke_output_sha256 = _sha256_text(actual_smoke_result.combined_output) if actual_smoke_result else None
+            smoke_matches = actual_smoke_result is None
+
+        mismatches: list[str] = []
+        if expected is None:
+            mismatches.append("unexpected_artifact")
+        if actual_path is None:
+            mismatches.append("missing_artifact")
+        if not type_matches:
+            mismatches.append("type")
+        if not size_matches:
+            mismatches.append("size")
+        if not sha256_matches:
+            mismatches.append("sha256")
+        if not smoke_matches:
+            mismatches.append("smoke")
+        comparison_passed = not mismatches
+        comparison = ReplayArtifactComparison(
+            path=relative_path,
+            expected_type=expected.artifact_type if expected else None,
+            actual_type=actual_type,
+            expected_size_bytes=expected.size_bytes if expected else None,
+            actual_size_bytes=actual_size,
+            expected_sha256=expected.sha256 if expected else None,
+            actual_sha256=actual_sha256,
+            expected_smoke_command=expected.smoke_command if expected else None,
+            actual_smoke_command=actual_smoke_command,
+            expected_smoke_exit_code=expected.smoke_exit_code if expected else None,
+            actual_smoke_exit_code=actual_smoke_result.exit_code if actual_smoke_result else None,
+            expected_smoke_output=expected.smoke_output if expected else None,
+            actual_smoke_output=actual_smoke_output,
+            expected_smoke_output_sha256=expected.smoke_output_sha256 if expected else None,
+            actual_smoke_output_sha256=actual_smoke_output_sha256,
+            type_matches=type_matches,
+            size_matches=size_matches,
+            sha256_matches=sha256_matches,
+            smoke_matches=smoke_matches,
+            passed=comparison_passed,
+            mismatches=mismatches,
+        )
+        attempt.artifacts.append(comparison)
+        for check_name, expected_value, actual_value, passed in (
+            ("type", comparison.expected_type, comparison.actual_type, type_matches),
+            ("size", comparison.expected_size_bytes, comparison.actual_size_bytes, size_matches),
+            ("sha256", comparison.expected_sha256, comparison.actual_sha256, sha256_matches),
+            (
+                "smoke",
+                {
+                    "command": comparison.expected_smoke_command,
+                    "exit_code": comparison.expected_smoke_exit_code,
+                    "output": comparison.expected_smoke_output,
+                    "output_sha256": comparison.expected_smoke_output_sha256,
+                },
+                {
+                    "command": comparison.actual_smoke_command,
+                    "exit_code": comparison.actual_smoke_exit_code,
+                    "output": comparison.actual_smoke_output,
+                    "output_sha256": comparison.actual_smoke_output_sha256,
+                },
+                smoke_matches,
+            ),
+        ):
+            _record_replay_check(
+                attempt,
+                name=f"artifact_{artifact_index}_{check_name}",
+                target=relative_path,
+                passed=passed,
+                summary=f"Replay artifact {check_name} {'matches' if passed else 'does not match'} the accepted build.",
+                expected=expected_value,
+                actual=actual_value,
+                exit_code=comparison.actual_smoke_exit_code if check_name == "smoke" else None,
+            )
+
+        if first_failure is None and not type_matches:
+            first_failure = "type_mismatch"
+        if first_failure is None and not size_matches:
+            first_failure = "size_mismatch"
+        if first_failure is None and not sha256_matches:
+            first_failure = "sha256_mismatch"
+        if first_failure is None and not smoke_matches:
+            first_failure = "smoke_mismatch"
+    return first_failure
+
+
+def _merge_authoritative_replay_cancellation(
+    attempt: ReplayVerificationResult,
+    authoritative: ReplayVerificationResult,
+) -> None:
+    if authoritative.status != "cancelled":
+        return
+    attempt.container_id = attempt.container_id or authoritative.container_id
+    attempt.container_name = attempt.container_name or authoritative.container_name
+    attempt.completed_at = authoritative.completed_at or attempt.completed_at
+    attempt.duration_seconds = attempt.duration_seconds if attempt.duration_seconds is not None else authoritative.duration_seconds
+    if authoritative.cleanup_succeeded is True or attempt.cleanup_succeeded is True:
+        attempt.cleanup_succeeded = True
+    elif authoritative.cleanup_succeeded is False:
+        attempt.cleanup_succeeded = False
+    for check in authoritative.checks:
+        if check not in attempt.checks:
+            attempt.checks.append(check)
+    for note in authoritative.notes:
+        if note not in attempt.notes:
+            attempt.notes.append(note)
+    attempt.status = "cancelled"
+    attempt.failure_classification = authoritative.failure_classification or "cancelled"
+
+
+def _persist_replay_attempt(
+    *,
+    session: CompileSession,
+    attempt: ReplayVerificationResult,
+) -> ReplayVerificationResult:
+    services = get_compile_services()
+    with services.manager.session_lock(session.thread_id, session.session_id):
+        current = _load_authoritative_session(session)
+        existing_attempt: ReplayVerificationResult | None = None
+        for index, existing in enumerate(current.replay_attempts):
+            if existing.attempt_id != attempt.attempt_id:
+                continue
+            existing_attempt = existing
+            _merge_authoritative_replay_cancellation(attempt, existing)
+            current.replay_attempts[index] = attempt
+            break
+        else:
+            if _session_lifecycle_fenced(current):
+                attempt.status = "cancelled"
+                attempt.failure_classification = attempt.failure_classification or "session_terminated"
+                attempt.cleanup_succeeded = attempt.cleanup_succeeded if attempt.cleanup_succeeded is not None else True
+                session.__dict__.update(current.__dict__)
+                return attempt
+            current.replay_attempts.append(attempt)
+        if _session_lifecycle_fenced(current):
+            if existing_attempt is not None and existing_attempt.status != "cancelled":
+                attempt.status = "cancelled"
+                attempt.failure_classification = "session_terminated"
+            if current.finalized_at is not None:
+                session.__dict__.update(current.__dict__)
+                return attempt
+        services.manager.save_session(current, allow_lifecycle_fenced=True)
+        session.__dict__.update(current.__dict__)
+    return attempt
+
+
+def verify_clean_replay_impl(
+    *,
+    session: CompileSession,
+    timeout_seconds: int | None = None,
+) -> ReplayVerificationResult:
+    services = get_compile_services()
+    configured_timeout = getattr(getattr(services.runtime, "config", None), "replay_timeout_seconds", 1200)
+    effective_timeout = max(1, timeout_seconds or configured_timeout)
+    started_monotonic = time.monotonic()
+    deadline = started_monotonic + effective_timeout
+    attempt_id = uuid.uuid4().hex[:12]
+    with services.manager.session_lock(session.thread_id, session.session_id):
+        current = _load_authoritative_session(session)
+        session.__dict__.update(current.__dict__)
+        attempt = ReplayVerificationResult(
+            attempt_id=attempt_id,
+            status="pending",
+            image=session.image,
+            image_id=session.image_id or "",
+            commit_sha=session.commit_sha or "",
+            recipe_sha256="",
+            timeout_seconds=effective_timeout,
+        )
+        if _session_lifecycle_fenced(session):
+            attempt.status = "cancelled"
+            attempt.failure_classification = "session_terminated"
+            attempt.cleanup_succeeded = True
+            attempt.completed_at = utc_now_iso()
+            attempt.duration_seconds = round(time.monotonic() - started_monotonic, 6)
+            attempt.notes.append("Clean replay was not started because the compile session is terminating or finalized.")
+            return attempt
+        session.replay_attempts.append(attempt)
+        services.manager.save_session(session)
+    services.manager.log_event(
+        session,
+        "replay.started",
+        attempt_id=attempt_id,
+        image=session.image,
+        image_id=session.image_id,
+        commit_sha=session.commit_sha,
+        timeout_seconds=effective_timeout,
+    )
+
+    handle: ReplayContainerHandle | None = None
+    pending_base_exception: BaseException | None = None
+    try:
+        recipe_dir = get_replay_recipe_dir(
+            session.session_id,
+            session.thread_id,
+            attempt_id,
+            services.manager.paths,
+        )
+        workspace_dir = get_replay_workspace_dir(
+            session.session_id,
+            session.thread_id,
+            attempt_id,
+            services.manager.paths,
+        )
+        artifacts_dir = get_replay_artifacts_dir(
+            session.session_id,
+            session.thread_id,
+            attempt_id,
+            services.manager.paths,
+        )
+        logs_dir = get_replay_logs_dir(
+            session.session_id,
+            session.thread_id,
+            attempt_id,
+            services.manager.paths,
+        )
+        for directory in (recipe_dir, workspace_dir, artifacts_dir, logs_dir):
+            directory.mkdir(parents=True, exist_ok=True)
+        recipe_path = recipe_dir / "build.sh"
+        source_recipe_path = Path(session.leadagent_repro_dir) / "build.sh"
+        source_recipe_sha256 = _sha256_file(source_recipe_path, deadline=deadline)
+        _check_replay_deadline(deadline)
+        shutil.copy2(source_recipe_path, recipe_path)
+        attempt.recipe_sha256 = _sha256_file(recipe_path, deadline=deadline)
+        attempt.log_path = services.manager.relative_path(session, logs_dir / "build.log")
+        recipe_snapshot_matches = source_recipe_sha256 == attempt.recipe_sha256
+        _record_replay_check(
+            attempt,
+            name="recipe_snapshot",
+            target="recipe/build.sh",
+            passed=recipe_snapshot_matches,
+            summary="Snapshotted the generated candidate recipe for this replay attempt.",
+            expected=source_recipe_sha256,
+            actual=attempt.recipe_sha256,
+        )
+        if not recipe_snapshot_matches:
+            raise _ReplayVerificationFailure(
+                "recipe_snapshot_mismatch",
+                "Candidate recipe changed while the replay snapshot was being created.",
+            )
+        if not session.image_id:
+            raise _ReplayVerificationFailure(
+                "image_identity_unavailable",
+                "The original compile container did not record an immutable image ID.",
+            )
+        _record_replay_check(
+            attempt,
+            name="image_identity",
+            target=session.image,
+            passed=True,
+            summary="Replay will use the original container's immutable image ID.",
+            expected=session.image_id,
+            actual=session.image_id,
+        )
+        attempt.container_name = services.runtime.replay_container_name(session, attempt_id)
+        attempt.status = "running"
+        with services.manager.session_lock(session.thread_id, session.session_id):
+            current = _load_authoritative_session(session)
+            authoritative = next(
+                (item for item in current.replay_attempts if item.attempt_id == attempt.attempt_id),
+                None,
+            )
+            if _session_lifecycle_fenced(current) or (authoritative is not None and authoritative.status == "cancelled"):
+                if authoritative is not None:
+                    _merge_authoritative_replay_cancellation(attempt, authoritative)
+                if attempt.status != "cancelled":
+                    attempt.status = "cancelled"
+                    attempt.failure_classification = "session_terminated"
+                current.replay_attempts = [attempt if item.attempt_id == attempt.attempt_id else item for item in current.replay_attempts]
+                if current.finalized_at is None:
+                    services.manager.save_session(current, allow_lifecycle_fenced=True)
+                session.__dict__.update(current.__dict__)
+                raise _ReplayVerificationFailure(
+                    attempt.failure_classification or "cancelled",
+                    "Clean replay was cancelled before its container could be created because the compile session is terminating.",
+                )
+            current.replay_attempts = [attempt if item.attempt_id == attempt.attempt_id else item for item in current.replay_attempts]
+            services.manager.mark_session_status(current, "replay_verifying")
+            session.__dict__.update(current.__dict__)
+            handle = services.runtime.create_replay_container(
+                session,
+                attempt_id=attempt_id,
+                timeout_seconds=min(
+                    _REPLAY_CONTAINER_CREATE_TIMEOUT_SECONDS,
+                    _remaining_replay_timeout(deadline),
+                ),
+            )
+            attempt.container_id = handle.container_id
+            attempt.container_name = handle.container_name
+            current.replay_attempts = [attempt if item.attempt_id == attempt.attempt_id else item for item in current.replay_attempts]
+            services.manager.save_session(current)
+            session.__dict__.update(current.__dict__)
+        build_log_path = logs_dir / "build.log"
+        build_result = services.runtime.exec_replay_container(
+            session,
+            handle,
+            timeout_seconds=_remaining_replay_timeout(deadline),
+            log_path=str(build_log_path),
+        )
+        attempt.exit_code = build_result.exit_code
+        execution_passed = build_result.exit_code == 0
+        _record_replay_check(
+            attempt,
+            name="recipe_execution",
+            target="recipe/build.sh",
+            passed=execution_passed,
+            summary=("Candidate recipe completed successfully in the clean replay container." if execution_passed else "Candidate recipe failed in the clean replay container."),
+            expected=0,
+            actual=build_result.exit_code,
+            exit_code=build_result.exit_code,
+            log_path=attempt.log_path,
+        )
+        if build_result.exit_code == 124:
+            raise _ReplayVerificationFailure("timeout", "Clean replay recipe execution timed out.")
+        if build_result.exit_code != 0:
+            raise _ReplayVerificationFailure(
+                "recipe_execution_failed",
+                f"Clean replay recipe exited with code {build_result.exit_code}.",
+            )
+        failure_classification = _compare_replay_artifacts(
+            session=session,
+            attempt=attempt,
+            handle=handle,
+            deadline=deadline,
+        )
+        if failure_classification is not None:
+            raise _ReplayVerificationFailure(
+                failure_classification,
+                "Replay artifacts did not match the accepted build.",
+            )
+    except _ReplayVerificationFailure as exc:
+        attempt.failure_classification = exc.classification
+        attempt.notes.append(str(exc))
+    except subprocess.TimeoutExpired as exc:
+        attempt.failure_classification = "timeout"
+        attempt.notes.append(f"Docker replay operation timed out: {exc}")
+    except Exception as exc:
+        attempt.failure_classification = "internal_error"
+        attempt.notes.append(f"Clean replay verification failed: {exc}")
+    except BaseException as exc:
+        attempt.failure_classification = "cancelled"
+        attempt.notes.append(f"Clean replay was cancelled by {type(exc).__name__}.")
+        pending_base_exception = exc
+    finally:
+        if attempt.container_name:
+            try:
+                cleanup_result = services.runtime.stop_and_remove_replay_container(
+                    session,
+                    handle,
+                    container_id=attempt.container_id,
+                    container_name=attempt.container_name,
+                )
+            except Exception as exc:
+                cleanup_result = ContainerCleanupResult(succeeded=False, stopped=False, removed=False)
+                attempt.notes.append(f"Replay container cleanup raised an error: {exc}")
+        else:
+            cleanup_result = ContainerCleanupResult(succeeded=True, stopped=True, removed=True)
+        attempt.cleanup_succeeded = cleanup_result.succeeded and cleanup_result.removed
+        _record_replay_check(
+            attempt,
+            name="container_cleanup",
+            target=attempt.container_name or "replay-container",
+            passed=attempt.cleanup_succeeded,
+            summary=("Replay container was removed." if attempt.cleanup_succeeded else "Replay container cleanup did not complete successfully."),
+            expected={"stopped": True, "removed": True},
+            actual={"stopped": cleanup_result.stopped, "removed": cleanup_result.removed},
+        )
+        if not attempt.cleanup_succeeded:
+            attempt.failure_classification = "cleanup_failed"
+        if pending_base_exception is not None:
+            attempt.status = "cancelled"
+        elif attempt.failure_classification == "timeout":
+            attempt.status = "timed_out"
+        elif attempt.failure_classification == "cancelled":
+            attempt.status = "cancelled"
+        elif attempt.failure_classification is None and attempt.cleanup_succeeded:
+            attempt.status = "passed"
+        else:
+            attempt.status = "failed"
+        attempt.completed_at = utc_now_iso()
+        attempt.duration_seconds = round(time.monotonic() - started_monotonic, 6)
+        _persist_replay_attempt(session=session, attempt=attempt)
+        services.manager.log_event(
+            session,
+            "replay.completed",
+            attempt_id=attempt.attempt_id,
+            status=attempt.status,
+            failure_classification=attempt.failure_classification,
+            exit_code=attempt.exit_code,
+            cleanup_succeeded=attempt.cleanup_succeeded,
+            duration_seconds=attempt.duration_seconds,
+            timeout_seconds=attempt.timeout_seconds,
+            image_id=attempt.image_id,
+            recipe_sha256=attempt.recipe_sha256,
+            completed_by="replay_worker",
+        )
+    if pending_base_exception is not None:
+        raise pending_base_exception
+    return attempt
+
+
+def _latest_replay_passed(session: CompileSession) -> bool:
+    if not session.replay_attempts:
+        return False
+    latest = session.replay_attempts[-1]
+    build_path = Path(session.leadagent_repro_dir) / "build.sh"
+    try:
+        recipe_sha256 = _sha256_file(build_path)
+    except OSError:
+        return False
+    return latest.status == "passed" and latest.cleanup_succeeded is True and latest.image_id == session.image_id and latest.commit_sha == session.commit_sha and latest.recipe_sha256 == recipe_sha256
+
+
+def _accepted_artifacts_still_match(session: CompileSession) -> tuple[bool, dict]:
+    base = Path(session.leadagent_artifacts_dir)
+    try:
+        resolved_base = base.resolve(strict=True)
+    except OSError as exc:
+        return False, {"mismatches": [f"artifacts_root_unavailable: {exc}"]}
+
+    expected: dict[str, BuildArtifact] = {}
+    actual: dict[str, dict] = {}
+    mismatches: list[str] = []
+    for artifact in session.artifacts:
+        try:
+            relative_path = _artifact_relative_path(artifact)
+        except ValueError as exc:
+            mismatches.append(str(exc))
+            continue
+        if relative_path in expected:
+            mismatches.append(f"duplicate_recorded_path:{relative_path}")
+            continue
+        expected[relative_path] = artifact
+        candidate = base.joinpath(*PurePosixPath(relative_path).parts)
+        current_component = base
+        symlink_found = False
+        for part in PurePosixPath(relative_path).parts:
+            current_component /= part
+            if current_component.is_symlink():
+                symlink_found = True
+                break
+        if symlink_found:
+            mismatches.append(f"symlink:{relative_path}")
+            continue
+        try:
+            resolved_candidate = candidate.resolve(strict=True)
+        except OSError:
+            mismatches.append(f"missing:{relative_path}")
+            continue
+        if not resolved_candidate.is_relative_to(resolved_base) or not resolved_candidate.is_file():
+            mismatches.append(f"path_escape_or_not_file:{relative_path}")
+            continue
+        artifact_type = _classify_compiled_artifact(resolved_candidate)
+        size_bytes = resolved_candidate.stat().st_size
+        sha256 = _sha256_file(resolved_candidate)
+        actual[relative_path] = {
+            "artifact_type": artifact_type,
+            "size_bytes": size_bytes,
+            "sha256": sha256,
+        }
+        if artifact_type != artifact.artifact_type:
+            mismatches.append(f"type:{relative_path}")
+        if size_bytes != artifact.size_bytes:
+            mismatches.append(f"size:{relative_path}")
+        if sha256 != artifact.sha256:
+            mismatches.append(f"sha256:{relative_path}")
+
+    actual_compiled_paths: set[str] = set()
+    for candidate in _list_artifact_files(base):
+        artifact_type = _classify_compiled_artifact(candidate)
+        if artifact_type is not None:
+            actual_compiled_paths.add(candidate.relative_to(base).as_posix())
+    expected_paths = set(expected)
+    if actual_compiled_paths != expected_paths:
+        for missing_path in sorted(expected_paths - actual_compiled_paths):
+            mismatch = f"missing_compiled_artifact:{missing_path}"
+            if mismatch not in mismatches:
+                mismatches.append(mismatch)
+        for extra_path in sorted(actual_compiled_paths - expected_paths):
+            mismatches.append(f"unexpected_compiled_artifact:{extra_path}")
+
+    return not mismatches, {
+        "expected_paths": sorted(expected_paths),
+        "actual_paths": sorted(actual_compiled_paths),
+        "actual": actual,
+        "mismatches": mismatches,
+    }
+
+
 def finalize_compile_session_impl(
     *,
     session: CompileSession,
@@ -952,9 +1823,11 @@ def finalize_compile_session_impl(
             current = session
 
         if current.finalized_at is None:
-            should_generate_repro = generate_repro_bundle and current.verification is not None and current.verification.status == "passed"
-            if should_generate_repro:
-                _write_repro_bundle(current)
+            if current.termination_requested_at is not None:
+                status = current.termination_status or status
+                error = current.termination_error or error
+                summary = current.termination_error or summary
+            replay_verified = _latest_replay_passed(current)
             current.finalized_at = utc_now_iso()
             services.manager.mark_session_status(current, status, error=error, summary=summary)
             services.manager.log_event(
@@ -963,11 +1836,120 @@ def finalize_compile_session_impl(
                 status=status,
                 summary=summary,
                 finalized_at=current.finalized_at,
-                generate_repro_bundle=should_generate_repro,
+                generate_repro_bundle=False,
+                generate_repro_bundle_requested=generate_repro_bundle,
+                replay_verified=replay_verified,
             )
 
         session.__dict__.update(current.__dict__)
         return session
+
+
+def _cleanup_pending_replay_containers(session: CompileSession) -> ContainerCleanupResult:
+    services = get_compile_services()
+    pending_attempts = [attempt for attempt in session.replay_attempts if attempt.status in {"pending", "running"} or (attempt.cleanup_succeeded is not True and (attempt.container_id or attempt.container_name))]
+    if not pending_attempts:
+        return ContainerCleanupResult(succeeded=True, stopped=True, removed=True)
+
+    cleanup_results: list[ContainerCleanupResult] = []
+    completed_attempts: list[tuple[ReplayVerificationResult, str]] = []
+    for attempt in pending_attempts:
+        was_active = attempt.status in {"pending", "running"}
+        previous_cleanup_succeeded = attempt.cleanup_succeeded
+        if attempt.container_id or attempt.container_name:
+            try:
+                cleanup_result = services.runtime.stop_and_remove_replay_container(
+                    session,
+                    container_id=attempt.container_id,
+                    container_name=attempt.container_name,
+                )
+            except Exception as exc:
+                cleanup_result = ContainerCleanupResult(succeeded=False, stopped=False, removed=False)
+                attempt.notes.append(f"Parent replay cleanup raised an error: {exc}")
+        else:
+            cleanup_result = ContainerCleanupResult(succeeded=True, stopped=True, removed=True)
+        attempt.cleanup_succeeded = cleanup_result.succeeded and cleanup_result.removed
+        if was_active:
+            attempt.status = "cancelled"
+            attempt.failure_classification = attempt.failure_classification or "cancelled"
+            attempt.completed_at = attempt.completed_at or utc_now_iso()
+            if attempt.duration_seconds is None:
+                try:
+                    elapsed = datetime.fromisoformat(attempt.completed_at) - datetime.fromisoformat(attempt.started_at)
+                    attempt.duration_seconds = round(max(0.0, elapsed.total_seconds()), 6)
+                except ValueError:
+                    attempt.duration_seconds = None
+            attempt.notes.append("Replay was stopped by the parent compile-session cleanup path.")
+            completed_attempts.append((attempt, "parent_cleanup"))
+        elif previous_cleanup_succeeded is not True and attempt.cleanup_succeeded:
+            completed_attempts.append((attempt, "parent_cleanup_retry"))
+        _record_replay_check(
+            attempt,
+            name="parent_container_cleanup",
+            target=attempt.container_name or attempt.container_id or "replay-container",
+            passed=attempt.cleanup_succeeded,
+            summary=("Parent cleanup removed the replay container." if attempt.cleanup_succeeded else "Parent cleanup could not remove the replay container."),
+            expected={"stopped": True, "removed": True},
+            actual={"stopped": cleanup_result.stopped, "removed": cleanup_result.removed},
+        )
+        cleanup_results.append(cleanup_result)
+    services.manager.save_session(
+        session,
+        allow_lifecycle_fenced=True,
+        merge_finalized_replay_cleanup=True,
+    )
+    for attempt, completed_by in completed_attempts:
+        services.manager.log_event(
+            session,
+            "replay.completed",
+            attempt_id=attempt.attempt_id,
+            status=attempt.status,
+            failure_classification=attempt.failure_classification,
+            exit_code=attempt.exit_code,
+            cleanup_succeeded=attempt.cleanup_succeeded,
+            duration_seconds=attempt.duration_seconds,
+            timeout_seconds=attempt.timeout_seconds,
+            image_id=attempt.image_id,
+            recipe_sha256=attempt.recipe_sha256,
+            completed_by=completed_by,
+        )
+    return ContainerCleanupResult(
+        succeeded=all(result.succeeded for result in cleanup_results),
+        stopped=all(result.stopped for result in cleanup_results),
+        removed=all(result.removed for result in cleanup_results),
+    )
+
+
+def _combined_cleanup_result(
+    replay_cleanup: ContainerCleanupResult,
+    compile_cleanup: ContainerCleanupResult,
+) -> ContainerCleanupResult:
+    return ContainerCleanupResult(
+        succeeded=replay_cleanup.succeeded and compile_cleanup.succeeded,
+        stopped=replay_cleanup.stopped and compile_cleanup.stopped,
+        removed=replay_cleanup.removed and compile_cleanup.removed,
+    )
+
+
+def _request_session_termination(
+    session: CompileSession,
+    *,
+    status: str,
+    error: str | None = None,
+) -> None:
+    services = get_compile_services()
+    if session.termination_requested_at is not None:
+        return
+    session.termination_requested_at = utc_now_iso()
+    session.termination_status = status
+    session.termination_error = error
+    services.manager.save_session(session)
+    services.manager.log_event(
+        session,
+        "session.termination_requested",
+        status=status,
+        termination_requested_at=session.termination_requested_at,
+    )
 
 
 def cleanup_and_finalize_compile_session_impl(
@@ -985,10 +1967,16 @@ def cleanup_and_finalize_compile_session_impl(
             current = session
 
         if current.finalized_at is not None:
+            replay_cleanup_result = _cleanup_pending_replay_containers(current)
+            compile_cleanup_result = services.runtime.stop_and_remove_container(current)
             session.__dict__.update(current.__dict__)
-            return session, ContainerCleanupResult(succeeded=True, stopped=True, removed=True)
+            return session, _combined_cleanup_result(replay_cleanup_result, compile_cleanup_result)
+        if interrupted_status is not None:
+            _request_session_termination(current, status=interrupted_status, error=error)
 
-        cleanup_result = services.runtime.stop_and_remove_container(current)
+        replay_cleanup_result = _cleanup_pending_replay_containers(current)
+        compile_cleanup_result = services.runtime.stop_and_remove_container(current)
+        cleanup_result = _combined_cleanup_result(replay_cleanup_result, compile_cleanup_result)
         if not cleanup_result.succeeded:
             cleanup_error = error or "Compile container cleanup failed."
             if "cleanup failed" not in cleanup_error.lower():
@@ -1004,10 +1992,53 @@ def cleanup_and_finalize_compile_session_impl(
             session.__dict__.update(current.__dict__)
             return session, cleanup_result
 
-        verification_passed = current.status == "verified" and current.verification is not None and current.verification.status == "passed" and bool(current.artifacts)
-        if interrupted_status is not None:
-            final_status = interrupted_status
-            final_error = error or f"Parent run ended with status {interrupted_status}."
+        replay_and_verification_passed = current.status == "verified" and current.verification is not None and current.verification.status == "passed" and bool(current.artifacts) and _latest_replay_passed(current)
+        artifact_integrity_error: str | None = None
+        artifact_integrity_passed = False
+        if interrupted_status is None and current.termination_requested_at is None and replay_and_verification_passed:
+            artifact_integrity_passed, artifact_integrity_details = _accepted_artifacts_still_match(current)
+            current.verification.checks.append(
+                VerificationCheck(
+                    name="accepted_artifacts_unchanged_after_cleanup",
+                    target="/artifacts",
+                    command="finalize",
+                    passed=artifact_integrity_passed,
+                    exit_code=0 if artifact_integrity_passed else 1,
+                    summary=(
+                        "Accepted artifacts still match their verified type, size, and SHA-256 after compile-container cleanup."
+                        if artifact_integrity_passed
+                        else "Accepted artifacts changed after clean replay verification and before finalization."
+                    ),
+                    expected={
+                        artifact.source_path: {
+                            "artifact_type": artifact.artifact_type,
+                            "size_bytes": artifact.size_bytes,
+                            "sha256": artifact.sha256,
+                        }
+                        for artifact in current.artifacts
+                    },
+                    actual=artifact_integrity_details,
+                )
+            )
+            if not artifact_integrity_passed:
+                artifact_integrity_error = "Accepted artifacts changed after clean replay verification; finalization was rejected."
+                current.verification.status = "failed"
+                current.verification.failed_checks += 1
+                current.verification.notes.append(artifact_integrity_error)
+            services.manager.save_session(current)
+            services.manager.log_event(
+                current,
+                "artifact.finalization_recheck",
+                passed=artifact_integrity_passed,
+                details=artifact_integrity_details,
+            )
+        verification_passed = replay_and_verification_passed and artifact_integrity_passed
+        if current.termination_requested_at is not None:
+            final_status = current.termination_status or interrupted_status or "cancelled"
+            final_error = current.termination_error or error or f"Parent run ended with status {final_status}."
+        elif interrupted_status is not None:
+            final_status = current.termination_status or interrupted_status
+            final_error = current.termination_error or error or f"Parent run ended with status {final_status}."
         elif verification_passed:
             final_status = "completed"
             final_error = None
@@ -1016,7 +2047,7 @@ def cleanup_and_finalize_compile_session_impl(
             final_error = current.error or f"Compile session ended with status {current.status}."
         else:
             final_status = "failed"
-            final_error = current.error or "Compile session finalized before artifact verification passed."
+            final_error = artifact_integrity_error or current.error or "Compile session finalized before artifact verification passed."
 
         updated = finalize_compile_session_impl(
             session=current,
@@ -1031,6 +2062,8 @@ def cleanup_and_finalize_compile_session_impl(
 def cleanup_compile_session_container_impl(
     *,
     session: CompileSession,
+    interrupted_status: str | None = None,
+    error: str | None = None,
 ) -> tuple[CompileSession, ContainerCleanupResult]:
     """Reload and clean a session container under the session lifecycle lock."""
     services = get_compile_services()
@@ -1040,9 +2073,15 @@ def cleanup_compile_session_container_impl(
         except (OSError, TypeError, ValueError, json.JSONDecodeError):
             current = session
         if current.finalized_at is not None:
+            replay_cleanup_result = _cleanup_pending_replay_containers(current)
+            compile_cleanup_result = services.runtime.stop_and_remove_container(current)
             session.__dict__.update(current.__dict__)
-            return session, ContainerCleanupResult(succeeded=True, stopped=True, removed=True)
-        cleanup_result = services.runtime.stop_and_remove_container(current)
+            return session, _combined_cleanup_result(replay_cleanup_result, compile_cleanup_result)
+        if interrupted_status is not None:
+            _request_session_termination(current, status=interrupted_status, error=error)
+        replay_cleanup_result = _cleanup_pending_replay_containers(current)
+        compile_cleanup_result = services.runtime.stop_and_remove_container(current)
+        cleanup_result = _combined_cleanup_result(replay_cleanup_result, compile_cleanup_result)
         session.__dict__.update(current.__dict__)
         return session, cleanup_result
 

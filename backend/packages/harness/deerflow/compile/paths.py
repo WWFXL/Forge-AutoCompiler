@@ -74,5 +74,115 @@ def get_host_repro_dir(session_id: str, thread_id: str | None, paths: Paths | No
     return join_host_path(get_host_session_dir(session_id, thread_id, paths), "repro")
 
 
+def get_replay_root(session_id: str, thread_id: str | None, paths: Paths | None = None) -> Path:
+    return get_session_dir(session_id, thread_id, paths) / "replay"
+
+
+def get_host_replay_root(session_id: str, thread_id: str | None, paths: Paths | None = None) -> str:
+    return join_host_path(get_host_session_dir(session_id, thread_id, paths), "replay")
+
+
+def get_replay_attempt_dir(
+    session_id: str,
+    thread_id: str | None,
+    attempt_id: str,
+    paths: Paths | None = None,
+) -> Path:
+    return get_replay_root(session_id, thread_id, paths) / attempt_id
+
+
+def get_host_replay_attempt_dir(
+    session_id: str,
+    thread_id: str | None,
+    attempt_id: str,
+    paths: Paths | None = None,
+) -> str:
+    return join_host_path(get_host_replay_root(session_id, thread_id, paths), attempt_id)
+
+
+def get_replay_recipe_dir(
+    session_id: str,
+    thread_id: str | None,
+    attempt_id: str,
+    paths: Paths | None = None,
+) -> Path:
+    return get_replay_attempt_dir(session_id, thread_id, attempt_id, paths) / "recipe"
+
+
+def get_host_replay_recipe_dir(
+    session_id: str,
+    thread_id: str | None,
+    attempt_id: str,
+    paths: Paths | None = None,
+) -> str:
+    return join_host_path(
+        get_host_replay_attempt_dir(session_id, thread_id, attempt_id, paths),
+        "recipe",
+    )
+
+
+def get_replay_workspace_dir(
+    session_id: str,
+    thread_id: str | None,
+    attempt_id: str,
+    paths: Paths | None = None,
+) -> Path:
+    return get_replay_attempt_dir(session_id, thread_id, attempt_id, paths) / "workspace"
+
+
+def get_host_replay_workspace_dir(
+    session_id: str,
+    thread_id: str | None,
+    attempt_id: str,
+    paths: Paths | None = None,
+) -> str:
+    return join_host_path(
+        get_host_replay_attempt_dir(session_id, thread_id, attempt_id, paths),
+        "workspace",
+    )
+
+
+def get_replay_artifacts_dir(
+    session_id: str,
+    thread_id: str | None,
+    attempt_id: str,
+    paths: Paths | None = None,
+) -> Path:
+    return get_replay_attempt_dir(session_id, thread_id, attempt_id, paths) / "artifacts"
+
+
+def get_host_replay_artifacts_dir(
+    session_id: str,
+    thread_id: str | None,
+    attempt_id: str,
+    paths: Paths | None = None,
+) -> str:
+    return join_host_path(
+        get_host_replay_attempt_dir(session_id, thread_id, attempt_id, paths),
+        "artifacts",
+    )
+
+
+def get_replay_logs_dir(
+    session_id: str,
+    thread_id: str | None,
+    attempt_id: str,
+    paths: Paths | None = None,
+) -> Path:
+    return get_replay_attempt_dir(session_id, thread_id, attempt_id, paths) / "logs"
+
+
+def get_host_replay_logs_dir(
+    session_id: str,
+    thread_id: str | None,
+    attempt_id: str,
+    paths: Paths | None = None,
+) -> str:
+    return join_host_path(
+        get_host_replay_attempt_dir(session_id, thread_id, attempt_id, paths),
+        "logs",
+    )
+
+
 def get_metadata_path(session_id: str, thread_id: str | None, paths: Paths | None = None) -> Path:
     return get_session_dir(session_id, thread_id, paths) / "session.json"
