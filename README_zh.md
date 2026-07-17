@@ -21,8 +21,8 @@
 3. **识别构建系统**：按 `CMakeLists.txt` / `Makefile` / `configure` 顺序探测
 4. **委派 compiler 子代理**：子代理在容器内反复 `configure` / `build`，遇到依赖错误自动 `apt install`、清缓存重试
 5. **拷贝产物到 `/artifacts`**：只拷最终可执行物/库，不整目录倾倒
-6. **强制验证**：逐文件检查 exists / non-empty / smoke test（`--version` / `-version` / `--help` 任一过即可）
-7. **生成复现脚本**：验证通过后自动写出 `repro/build.sh`，回放整套命令
+6. **强制验证**：识别 ELF/`ar` 结构，并对 executable 做 smoke test（`-version` / `--version` / `--help` 任一过即可）
+7. **生成复现脚本**：提交验证同时写出 `repro/build.sh`；脚本检出记录的完整 commit SHA，并按原 workdir 回放成功的 `run_container_bash` 命令
 
 整个过程通过 Web 工作台（基于 Next.js）或后端 SDK 调用。
 
@@ -160,9 +160,9 @@ Compiler:  run_container_bash("cmake ...")  ← 反复迭代
            run_container_bash("make -j")
            ...                              ← 失败必改策略，禁止盲目重试
            run_container_bash("cp .../app /artifacts/")
-           submit_build_result()             ← 触发验证
+           submit_build_result()             ← 验证产物并生成 commit-pinned replay，状态置为 verified
        ↓
-Lead:  finalize_session()  ← 停容器、写复现脚本
+Lead:  finalize_session()  ← 停并删除容器；验证通过且有产物时状态置为 completed
 ```
 
 更详细的：
@@ -186,10 +186,34 @@ logs/
 ├── workflow.log          # JSONL 事件流（session.created、command.recorded、...）
 ├── 001_clone.log         # 每条命令的完整 stdout+stderr
 └── ...
-repro/build.sh            # 验证通过后生成的可执行构建脚本
+repro/build.sh            # submit 验证（含 replay bundle check）通过后生成
 ```
 
-**复现脚本是这套系统的核心交付物**——任何一次成功编译都能用 `repro/build.sh` 在同样的镜像里复现。
+**复现脚本是这套系统的核心交付物**。它从 `repo_url` 检出 session 记录的完整 `commit_sha`，只按原顺序和 workdir 回放成功的 `run_container_bash` 命令；失败尝试、clone/inspect 和 submit 审计事件不会进入脚本。它是一份可审计的重建配方，不承诺在镜像或外部依赖变化后仍得到字节级相同的产物。
+
+`submit_build_result` 的 `repro_bundle` check 验证候选脚本能够安全生成且包含成功构建步骤，但不会自动启动第二个容器执行它。失败命令可能留下未进入候选脚本的持久副作用，因此研究基线必须执行下面的全新容器验收；自动执行、超时清理和产物比较跟踪在 [Issue #7](https://github.com/WWFXL/Forge-AutoCompiler/issues/7)。
+
+### 在 WSL2 的全新容器中 replay
+
+请在 WSL shell 中运行。`build.sh` 启动时会清空挂载的 `/workspace` 和 `/artifacts`，因此必须使用专用临时目录，不能挂载包含其他数据的路径：
+
+```bash
+SESSION_DIR="$PWD/.compile-sessions/<thread_id>/<session_id>"
+REPLAY_RUN="$(mktemp -d)"
+IMAGE=autocompiler:gcc13  # 应与 session.json 中记录的 image 一致
+
+mkdir -p "$REPLAY_RUN/workspace" "$REPLAY_RUN/artifacts"
+docker run --rm \
+  --mount "type=bind,src=$(realpath "$SESSION_DIR/repro"),dst=/repro,readonly" \
+  --mount "type=bind,src=$(realpath "$REPLAY_RUN/workspace"),dst=/workspace" \
+  --mount "type=bind,src=$(realpath "$REPLAY_RUN/artifacts"),dst=/artifacts" \
+  "$IMAGE" bash /repro/build.sh
+
+file "$REPLAY_RUN"/artifacts/*
+sha256sum "$REPLAY_RUN"/artifacts/*
+```
+
+`--rm` 会在脚本退出后删除 replay 容器。若脚本、产物类型或预期输出检查失败，本次编译不能记为可独立复现。
 
 ---
 

@@ -11,8 +11,9 @@
 3. 自动识别构建系统（CMake / Make / Autotools）
 4. 由 **compiler 子代理**在容器内反复尝试 configure / build / 补依赖，直到产出可执行物
 5. 把最终产物 `cp` 到 `/artifacts`
-6. 系统对 `/artifacts` 做强制验证（exists / non-empty / smoke test `--version` 等）
-7. 验证通过后生成 `repro/build.sh` 复现脚本，session 标记 completed
+6. 系统对 `/artifacts` 做强制验证（ELF/`ar` 结构识别与 executable smoke test）
+7. 提交验证同时生成固定源码 commit 的 `repro/build.sh`；全部通过后 session 先标记 `verified`
+8. 容器清理与 finalize 成功后，session 才标记 `completed`
 
 项目 fork 自 DeerFlow 2.0（一个通用 LangGraph Agent Harness）。许多 DeerFlow 时代的能力（IM channels、20+ skills、memory、MCP）**仍在代码中**，但**与编译核心无关**，是历史遗留。文档中明确标注 “非编译核心”，今后可能裁剪。
 
@@ -82,7 +83,7 @@ Lead Agent
   ├─ task(subagent_type="compiler", prompt=...)
   │    → 委派给 compiler 子代理（迭代 build + submit_build_result）
   └─ finalize_session()
-       → 停并删容器，session 状态置为 completed/failed
+       → 停并删容器；仅已验证且有产物的 session 置为 completed，否则保留失败/中断终态
 ```
 
 **compiler 子代理**：只有 `run_container_bash` 和 `submit_build_result` 两个工具，被禁止使用 `task` / `ask_clarification` / `view_image` 等。它必须：
@@ -95,9 +96,11 @@ Lead Agent
 **验证（`submit_build_result_impl`）**：逐文件检查
 1. `exists`：文件存在
 2. `non_empty`：size > 0
-3. 若是可执行：smoke test 依次尝试 `--version` / `-version` / `--help`，任一退出 0 即通过
+3. 结构：只接受有效 ELF executable/shared library/object 或有效 `ar` static archive
+4. 若是可执行：smoke test 依次尝试 `-version` / `--version` / `--help`，任一退出 0 即通过
+5. `repro_bundle`：必须能从远端 `repo_url` 检出完整 `commit_sha`，并安全渲染成功构建步骤
 
-全部通过 → session 状态 `completed`，自动生成 `repro/build.sh`（按记录的命令序列回放）。
+全部通过 → session 状态 `verified`。`repro/build.sh` 只按记录顺序回放 `stage == "bash" && exit_code == 0` 的命令，并在各自容器 `workdir` 中独立执行；cleanup/finalize 成功后才进入 `completed`。
 
 ### 4.3 会话目录布局（宿主机）
 
@@ -110,7 +113,7 @@ $HOST_PROJECT_ROOT/.compile-sessions/{thread_id}/{session_id}/
 │   ├── workflow.log         # JSONL 事件流（session.created、command.recorded、…）
 │   ├── 001_clone.log        # 每条命令的 stdout+stderr 全量
 │   └── ...
-└── repro/build.sh           # 验证通过后生成的复现脚本
+└── repro/build.sh           # submit 验证（含 replay bundle check）通过后生成
 ```
 
 容器侧统一挂载到 `/workspace`、`/artifacts`、`/logs`、`/repro`。容器内仓库根永远是 `/workspace/repo`。
@@ -122,6 +125,11 @@ $HOST_PROJECT_ROOT/.compile-sessions/{thread_id}/{session_id}/
 - **`HOST_PROJECT_ROOT` 必须设置**：`CompileDockerRuntime._host_project_root()` 在缺失时会抛错
 - **容器 network 固定 `compile_network_wwf_v1`**：若改名需同步 `RuntimeConfig.network`
 - **smoke test 仅尝试 3 个旗标**：不要随便加，会污染验证语义
+- **replay 固定完整 commit**：只接受 40/64 位十六进制 SHA 与不含持久凭据的远端 URL
+- **replay 只消费成功 bash 记录**：失败尝试、clone/inspect 与 submit 审计记录不进入脚本
+- **replay workdir 只允许容器路径**：必须位于 `/workspace` 或 `/artifacts`；拒绝 Windows、WSL 宿主路径和 `.compile-sessions` 路径
+- **replay 会清空挂载目录**：脚本从空 `/workspace` 与 `/artifacts` 开始，验收时必须挂载专用临时目录
+- **生成不等于独立 replay 通过**：`repro_bundle` check 只验证候选脚本可安全生成且至少有一个成功 bash 步骤；研究基线必须再做 README 中的新容器验收，自动执行与产物比较跟踪在 Issue #7
 - **compiler 子代理的 system prompt 是产品契约**：改它等同于改产品行为，需要同时改 `compiler_agent.py` 和对应测试
 
 ## 5. 架构约束：Harness / App 分层
