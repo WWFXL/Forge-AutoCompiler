@@ -2,6 +2,7 @@
 
 import asyncio
 import inspect
+import json
 import logging
 import uuid
 from dataclasses import replace
@@ -13,6 +14,7 @@ from langgraph.typing import ContextT
 
 from deerflow.agents.lead_agent.prompt import get_skills_prompt_section
 from deerflow.agents.thread_state import ThreadState
+from deerflow.compile.evidence import ExperimentPolicy
 from deerflow.subagents import SubagentExecutor, get_available_subagent_names, get_subagent_config
 from deerflow.subagents.executor import (
     SubagentStatus,
@@ -34,6 +36,25 @@ def _apply_max_turns_override(config, *, subagent_type: str, requested_max_turns
     if requested_max_turns is None or subagent_type == "compiler":
         return config
     return replace(config, max_turns=requested_max_turns)
+
+
+def _with_benchmark_constraints(prompt: str, policy: ExperimentPolicy) -> str:
+    requirements = [
+        "Active C/C++ benchmark constraints:",
+        f"- Build exact commit {policy.expected_commit_sha} from {policy.expected_repo_url}.",
+        "- The runner already applies the declared system packages, container environment, and replay delay.",
+    ]
+    if policy.cmake_arguments:
+        requirements.append(f"- Every relevant CMake configure command must include these exact argument tokens in this order: {json.dumps(list(policy.cmake_arguments), ensure_ascii=True)}.")
+    if policy.configure_arguments:
+        requirements.append(f"- Every relevant Autotools configure command must include these exact argument tokens in this order: {json.dumps(list(policy.configure_arguments), ensure_ascii=True)}.")
+    requirements.extend(
+        [
+            "- Set command_role on every run_container_bash call; use configure for configuration and build for the successful command that supports final acceptance.",
+            "- Pass that successful build command's returned command_id as supporting_command_id to submit_build_result.",
+        ]
+    )
+    return f"{prompt.rstrip()}\n\n" + "\n".join(requirements)
 
 
 def _get_compile_state(runtime: ToolRuntime[ContextT, ThreadState]) -> dict[str, str]:
@@ -212,6 +233,7 @@ async def task_tool(
 
     if subagent_type == "compiler":
         from deerflow.agents.middlewares.tool_error_handling_middleware import load_bound_session_async
+        from deerflow.compile.evidence import get_active_experiment
         from deerflow.tools.bound_compile_tools import get_bound_compile_tools
 
         session_id = compile_state.get(COMPILE_SESSION_STATE_KEY)
@@ -222,6 +244,13 @@ async def task_tool(
 
         session = await load_bound_session_async(session_id=session_id, thread_id=thread_id)
         tools = get_bound_compile_tools(session)
+        active = get_active_experiment(thread_id)
+        if active is not None:
+            config = config.with_overrides(
+                max_turns=active.policy.compiler_max_turns,
+                timeout_seconds=active.policy.subagent_timeout_seconds,
+            )
+            prompt = _with_benchmark_constraints(prompt, active.policy)
     else:
         tools = get_subagent_tools(subagent_type=subagent_type, model_name=parent_model)
 

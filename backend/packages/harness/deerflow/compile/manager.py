@@ -10,6 +10,7 @@ from collections.abc import Iterator
 from contextlib import contextmanager
 from pathlib import Path
 
+from deerflow.compile.evidence import record_experiment_event
 from deerflow.compile.paths import (
     get_artifacts_dir,
     get_logs_dir,
@@ -242,6 +243,25 @@ class CompileSessionManager:
                 completed_at=command.completed_at,
                 exit_code=command.exit_code,
                 log_path=command.log_path,
+                command_id=command.command_id,
+                role=command.role,
+                timeout_seconds=command.timeout_seconds,
+                duration_seconds=command.duration_seconds,
+                timed_out=command.timed_out,
+                termination=command.termination,
+            )
+            record_experiment_event(
+                session.thread_id,
+                "command.completed",
+                command_id=command.command_id,
+                session_id=session.session_id,
+                role=command.role,
+                stage=command.stage,
+                exit_code=command.exit_code,
+                timeout_seconds=command.timeout_seconds,
+                duration_seconds=command.duration_seconds,
+                timed_out=command.timed_out,
+                termination=command.termination,
             )
         return session
 

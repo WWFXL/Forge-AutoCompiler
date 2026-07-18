@@ -288,7 +288,12 @@ def make_lead_agent(config: RunnableConfig):
 
     if is_bootstrap:
         return create_agent(
-            model=create_chat_model(name=model_name, thinking_enabled=thinking_enabled),
+            model=create_chat_model(
+                name=model_name,
+                thinking_enabled=thinking_enabled,
+                experiment_thread_id=cfg.get("thread_id"),
+                experiment_role="lead",
+            ),
             tools=get_available_tools(model_name=model_name, subagent_enabled=subagent_enabled) + [setup_agent],
             middleware=_build_middlewares(config, model_name=model_name),
             system_prompt=apply_prompt_template(subagent_enabled=subagent_enabled, max_concurrent_subagents=max_concurrent_subagents, available_skills=set(["bootstrap"])),
@@ -296,7 +301,13 @@ def make_lead_agent(config: RunnableConfig):
         )
 
     return create_agent(
-        model=create_chat_model(name=model_name, thinking_enabled=thinking_enabled, reasoning_effort=reasoning_effort),
+        model=create_chat_model(
+            name=model_name,
+            thinking_enabled=thinking_enabled,
+            reasoning_effort=reasoning_effort,
+            experiment_thread_id=cfg.get("thread_id"),
+            experiment_role="lead",
+        ),
         tools=get_available_tools(model_name=model_name, groups=agent_config.tool_groups if agent_config else None, subagent_enabled=subagent_enabled),
         middleware=_build_middlewares(config, model_name=model_name, agent_name=agent_name),
         system_prompt=apply_prompt_template(

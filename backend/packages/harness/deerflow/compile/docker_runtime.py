@@ -8,6 +8,7 @@ import time
 from dataclasses import dataclass, field
 from pathlib import Path
 
+from deerflow.compile.evidence import get_active_experiment
 from deerflow.compile.paths import (
     get_host_artifacts_dir,
     get_host_logs_dir,
@@ -114,6 +115,29 @@ class CompileDockerRuntime:
             environment[lower_name] = value
             docker_flags.extend(["-e", upper_name, "-e", lower_name])
         return docker_flags, environment
+
+    @staticmethod
+    def _experiment_environment_flags(session: CompileSession) -> list[str]:
+        active = get_active_experiment(session.thread_id)
+        if active is None:
+            return []
+        flags: list[str] = []
+        for name, value in active.policy.environment:
+            if value is not None:
+                flags.extend(["--env", f"{name}={value}"])
+        return flags
+
+    @staticmethod
+    def _experiment_label_flags(session: CompileSession) -> list[str]:
+        active = get_active_experiment(session.thread_id)
+        if active is None:
+            return []
+        return [
+            "--label",
+            f"deerflow.compile.experiment_id={active.experiment_id}",
+            "--label",
+            (f"deerflow.compile.physical_attempt_id={active.physical_attempt_id}"),
+        ]
 
     def _paths(self) -> Paths:
         manager_paths = getattr(self.manager, "paths", None)
@@ -323,6 +347,8 @@ class CompileDockerRuntime:
         host_logs_dir = self._host_logs_dir(session)
         host_repro_dir = self._host_repro_dir(session)
         proxy_flags, run_environment = self._runtime_proxy_environment()
+        experiment_environment_flags = self._experiment_environment_flags(session)
+        experiment_label_flags = self._experiment_label_flags(session)
         container_name = f"deerflow-compile-{session.thread_id[:8]}-{session.session_id[:8]}"
         command = [
             "docker",
@@ -330,11 +356,19 @@ class CompileDockerRuntime:
             "-d",
             "--name",
             container_name,
+            "--label",
+            "deerflow.compile.role=compile",
+            "--label",
+            f"deerflow.compile.session_id={session.session_id}",
+            "--label",
+            f"deerflow.compile.thread_id={session.thread_id}",
+            *experiment_label_flags,
             "--network",
             self.config.network,
             "--add-host",
             "host.docker.internal:host-gateway",
             *proxy_flags,
+            *experiment_environment_flags,
             "-v",
             f"{host_workspace_dir}:{CONTAINER_WORKSPACE_DIR}",
             "-v",
@@ -451,6 +485,8 @@ class CompileDockerRuntime:
         host_artifacts_dir = self._host_replay_artifacts_dir(session, attempt_id)
         host_logs_dir = self._host_replay_logs_dir(session, attempt_id)
         proxy_flags, run_environment = self._runtime_proxy_environment()
+        experiment_environment_flags = self._experiment_environment_flags(session)
+        experiment_label_flags = self._experiment_label_flags(session)
         container_name = self.replay_container_name(session, attempt_id)
         command = [
             "docker",
@@ -466,11 +502,13 @@ class CompileDockerRuntime:
             f"deerflow.compile.thread_id={session.thread_id}",
             "--label",
             f"deerflow.compile.attempt_id={attempt_id}",
+            *experiment_label_flags,
             "--network",
             self.config.network,
             "--add-host",
             "host.docker.internal:host-gateway",
             *proxy_flags,
+            *experiment_environment_flags,
             "-v",
             f"{host_recipe_dir}:{CONTAINER_REPRO_DIR}:ro",
             "-v",

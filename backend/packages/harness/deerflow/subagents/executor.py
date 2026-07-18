@@ -203,7 +203,12 @@ class SubagentExecutor:
         from deerflow.agents.thread_state import ThreadState
 
         model_name = _get_model_name(self.config, self.parent_model)
-        model = create_chat_model(name=model_name, thinking_enabled=False)
+        model = create_chat_model(
+            name=model_name,
+            thinking_enabled=False,
+            experiment_thread_id=self.thread_id,
+            experiment_role=self.config.name,
+        )
 
         from deerflow.agents.middlewares.tool_error_handling_middleware import build_subagent_runtime_middlewares
 
@@ -254,6 +259,7 @@ class SubagentExecutor:
             if self.thread_id:
                 run_config["configurable"] = {"thread_id": self.thread_id}
                 context["thread_id"] = self.thread_id
+            context["agent_name"] = self.config.name
 
             final_state = None
 

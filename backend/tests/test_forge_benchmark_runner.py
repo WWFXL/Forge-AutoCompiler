@@ -1,0 +1,271 @@
+from __future__ import annotations
+
+import importlib.util
+from pathlib import Path
+
+import pytest
+
+from deerflow.compile.evidence import ExperimentLedger
+from deerflow.tools.builtins.task_tool import _with_benchmark_constraints
+
+REPO_ROOT = Path(__file__).resolve().parents[2]
+SCRIPT_PATH = REPO_ROOT / "scripts" / "forge_benchmark_runner.py"
+SPEC = importlib.util.spec_from_file_location("forge_benchmark_runner", SCRIPT_PATH)
+assert SPEC is not None
+assert SPEC.loader is not None
+forge_benchmark_runner = importlib.util.module_from_spec(SPEC)
+SPEC.loader.exec_module(forge_benchmark_runner)
+
+
+def load_manifest() -> dict:
+    path = REPO_ROOT / "benchmarks" / "manifests" / "cpp-pilot-v1.json"
+    return forge_benchmark_runner._load_manifest(path)
+
+
+def ready_preflight(manifest: dict, *, ready: bool = True) -> dict:
+    return {
+        "ready": ready,
+        "manifest_sha256": forge_benchmark_runner.protocol.manifest_sha256(manifest),
+        "manifest_file_sha256": "1" * 64,
+        "forge": {
+            "revision": manifest["forge"]["commit_sha"],
+            "dirty": False,
+            "expected_revision": manifest["forge"]["commit_sha"],
+            "components": {},
+        },
+        "protocol": {},
+        "runtime": {
+            "image_id": manifest["runtime"]["image_id"],
+            "docker_server_version": manifest["runtime"]["host"]["docker_server_version"],
+            "platform_system": "Linux",
+            "platform_machine": "x86_64",
+        },
+        "checks": {"fixture_ready": ready},
+    }
+
+
+def test_build_policy_applies_frozen_case_and_model_constraints() -> None:
+    manifest = load_manifest()
+
+    policy = forge_benchmark_runner.build_policy(
+        manifest,
+        case_id="fmt",
+        condition_id="baseline",
+        repetition=1,
+    )
+
+    assert policy.model_name == "gpt-5.6-sol"
+    assert policy.model_max_retries == 0
+    assert policy.memory_enabled is False
+    assert policy.skills_enabled is False
+    assert policy.expected_commit_sha == manifest["cases"][0]["commit_sha"]
+    assert policy.process_environment == manifest["cases"][0]["constraints"]["environment"]
+
+
+def test_compiler_prompt_receives_ordered_manifest_constraints() -> None:
+    manifest = load_manifest()
+    policy = forge_benchmark_runner.build_policy(
+        manifest,
+        case_id="fmt",
+        condition_id="baseline",
+        repetition=1,
+    )
+
+    prompt = _with_benchmark_constraints("Compile this repository.", policy)
+
+    positions = [prompt.index(argument) for argument in policy.cmake_arguments]
+    assert positions == sorted(positions)
+    assert "command_role" in prompt
+    assert "supporting_command_id" in prompt
+    assert policy.credential_env not in prompt
+
+
+def test_create_attempt_rejects_duplicate_slot_and_links_explicit_replacement(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    manifest = load_manifest()
+    preflight = ready_preflight(manifest)
+    monkeypatch.setattr(
+        forge_benchmark_runner,
+        "collect_preflight",
+        lambda *args, **kwargs: preflight,
+    )
+
+    original, _ = forge_benchmark_runner.create_attempt(
+        manifest,
+        case_id="fmt",
+        condition_id="baseline",
+        repetition=1,
+        output_dir=tmp_path,
+    )
+    with pytest.raises(forge_benchmark_runner.RunnerError, match="already has physical evidence"):
+        forge_benchmark_runner.create_attempt(
+            manifest,
+            case_id="fmt",
+            condition_id="baseline",
+            repetition=1,
+            output_dir=tmp_path,
+        )
+
+    replacement, _ = forge_benchmark_runner.create_attempt(
+        manifest,
+        case_id="fmt",
+        condition_id="baseline",
+        repetition=1,
+        output_dir=tmp_path,
+        replacement_for=original.physical_attempt_id,
+    )
+
+    assert replacement.experiment_id == original.experiment_id
+    assert replacement.physical_attempt_id != original.physical_attempt_id
+    assert replacement.read()[0]["payload"]["replacement_for_physical_attempt_id"] == original.physical_attempt_id
+
+
+def test_run_refuses_failed_preflight_before_importing_model_client(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    manifest = load_manifest()
+    preflight = ready_preflight(manifest, ready=False)
+    monkeypatch.setattr(
+        forge_benchmark_runner,
+        "collect_preflight",
+        lambda *args, **kwargs: preflight,
+    )
+    ledger, _ = forge_benchmark_runner.create_attempt(
+        manifest,
+        case_id="fmt",
+        condition_id="baseline",
+        repetition=1,
+        output_dir=tmp_path,
+    )
+
+    with pytest.raises(forge_benchmark_runner.RunnerError, match="did not pass preflight"):
+        forge_benchmark_runner.run_attempt(manifest, ledger.path)
+
+    assert not any(event["event"].startswith("model.") for event in ledger.read())
+
+
+def test_keyboard_interrupt_keeps_attempt_recoverable_and_reconciles_orphans(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    manifest = load_manifest()
+    preflight = ready_preflight(manifest)
+    monkeypatch.setattr(
+        forge_benchmark_runner,
+        "collect_preflight",
+        lambda *args, **kwargs: preflight,
+    )
+    ledger, _ = forge_benchmark_runner.create_attempt(
+        manifest,
+        case_id="fmt",
+        condition_id="baseline",
+        repetition=1,
+        output_dir=tmp_path,
+    )
+
+    class InterruptingClient:
+        def __init__(self, **kwargs) -> None:
+            del kwargs
+
+        def stream(self, message: str, *, thread_id: str):
+            del message, thread_id
+            raise KeyboardInterrupt
+
+    import deerflow.client
+
+    monkeypatch.setattr(deerflow.client, "DeerFlowClient", InterruptingClient)
+    monkeypatch.setattr(
+        forge_benchmark_runner,
+        "reconcile_orphans",
+        lambda _attempt_id: {
+            "scan_succeeded": True,
+            "orphan_count": 0,
+            "removed_count": 0,
+            "cleanup_succeeded": True,
+        },
+    )
+
+    with pytest.raises(KeyboardInterrupt):
+        forge_benchmark_runner.run_attempt(manifest, ledger.path)
+
+    events = ExperimentLedger.verify_path(ledger.path)
+    assert "run.failed" in [event["event"] for event in events]
+    assert events[-1]["event"] == "orphan.reconciled"
+    assert not any(event["event"] == "experiment.completed" for event in events)
+    ExperimentLedger.open(ledger.path).append("recovery.recorded", {"status": "interrupted"})
+
+
+def test_gate_recomputation_detects_tampering_and_oracle_is_independent() -> None:
+    manifest = load_manifest()
+    case = next(case for case in manifest["cases"] if case["id"] == "fmt")
+    expected_artifact = case["oracle"]["required_artifacts"][0]
+    events = [
+        {"event": "experiment.started", "payload": {"policy": {"case_id": "fmt"}}},
+        {
+            "event": "command.completed",
+            "payload": {
+                "command_id": "command-1",
+                "role": "build",
+                "exit_code": 0,
+                "timed_out": False,
+            },
+        },
+        {
+            "event": "replay.completed",
+            "payload": {
+                "replay_attempt_id": "replay-1",
+                "status": "passed",
+                "cleanup_succeeded": True,
+                "primary_failure_classification": None,
+            },
+        },
+        {
+            "event": "submit.completed",
+            "payload": {
+                "submit_attempt_id": "submit-1",
+                "supporting_command_id": "command-1",
+                "candidate_status": "passed",
+                "artifacts": [
+                    {
+                        "path": expected_artifact["relative_path"],
+                        "artifact_type": expected_artifact["artifact_type"],
+                    }
+                ],
+                "checks": [{"passed": True}],
+                "recipe_sha256": "2" * 64,
+                "replay": {
+                    "replay_attempt_id": "replay-1",
+                    "status": "passed",
+                    "primary_failure_classification": None,
+                },
+                "gates": {
+                    "exit_code": True,
+                    "candidate_only": True,
+                    "replay_ready": True,
+                    "clean_replay": False,
+                    "delivered": None,
+                },
+            },
+        },
+        {
+            "event": "delivery.completed",
+            "payload": {"submit_attempt_id": "submit-1", "delivered": True},
+        },
+    ]
+
+    gates = forge_benchmark_runner.recompute_gates(events)
+    oracle = forge_benchmark_runner.run_oracle(manifest, events)
+
+    assert gates["valid"] is False
+    assert gates["mismatches"] == [
+        {
+            "submit_attempt_id": "submit-1",
+            "gate": "clean_replay",
+            "recorded": False,
+            "recomputed": True,
+        }
+    ]
+    assert oracle["passed"] is True

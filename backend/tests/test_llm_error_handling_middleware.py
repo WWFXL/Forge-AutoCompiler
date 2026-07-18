@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import asyncio
+from pathlib import Path
 from types import SimpleNamespace
 
 import pytest
@@ -9,6 +10,13 @@ from langgraph.errors import GraphBubbleUp
 
 from deerflow.agents.middlewares.llm_error_handling_middleware import (
     LLMErrorHandlingMiddleware,
+)
+from deerflow.compile.evidence import (
+    ExperimentLedger,
+    ExperimentPolicy,
+    activate_experiment,
+    deactivate_experiment,
+    new_evidence_id,
 )
 
 
@@ -134,3 +142,75 @@ def test_async_model_call_propagates_graph_bubble_up() -> None:
 
     with pytest.raises(GraphBubbleUp):
         asyncio.run(middleware.awrap_model_call(SimpleNamespace(), handler))
+
+
+def test_active_experiment_records_one_429_attempt_without_exception_text(
+    tmp_path: Path,
+) -> None:
+    thread_id = new_evidence_id("thread")
+    ledger = ExperimentLedger.create(
+        tmp_path / "attempt.jsonl",
+        experiment_id=new_evidence_id("experiment"),
+        physical_attempt_id=new_evidence_id("physical_attempt"),
+        context={"thread_id": thread_id},
+    )
+    policy = ExperimentPolicy(
+        benchmark_id="forge-cpp-pilot-v1",
+        manifest_sha256="1" * 64,
+        case_id="fmt",
+        condition="baseline",
+        repetition=1,
+        expected_repo_url="https://github.com/fmtlib/fmt.git",
+        expected_commit_sha="2" * 40,
+        compile_image="autocompiler:gcc13",
+        image_id=f"sha256:{'3' * 64}",
+        model_name="gpt-5.6-sol",
+        endpoint="https://example.invalid/v1",
+        credential_env="OpenAI_AK",
+        request_timeout_seconds=120,
+        model_max_retries=0,
+        compiler_max_turns=36,
+        subagent_timeout_seconds=180,
+        memory_enabled=False,
+        skills_enabled=False,
+        required_system_packages=(),
+        cmake_arguments=(),
+        configure_arguments=(),
+        environment=(),
+        minimum_replay_delay_seconds=0,
+    )
+    activate_experiment(
+        thread_id=thread_id,
+        experiment_id=ledger.experiment_id,
+        physical_attempt_id=ledger.physical_attempt_id,
+        ledger=ledger,
+        policy=policy,
+    )
+    request = SimpleNamespace(
+        runtime=SimpleNamespace(context={"thread_id": thread_id, "agent_name": "compiler"}),
+        model=SimpleNamespace(model_name=policy.model_name, base_url=policy.endpoint),
+    )
+    sentinel = "provider-secret-sentinel-that-must-not-be-persisted"
+
+    def handler(_request) -> AIMessage:
+        raise FakeError(f"rate limited: {sentinel}", status_code=429)
+
+    try:
+        result = LLMErrorHandlingMiddleware().wrap_model_call(request, handler)
+    finally:
+        deactivate_experiment(thread_id)
+
+    assert isinstance(result, AIMessage)
+    events = ledger.read()
+    assert [event["event"] for event in events] == [
+        "experiment.started",
+        "model.request_started",
+        "model.request_failed",
+        "failure.recorded",
+    ]
+    assert events[1]["payload"]["role"] == "compiler"
+    assert events[1]["payload"]["max_attempts"] == 1
+    assert events[2]["payload"]["classification"] == "rate_limited"
+    assert events[2]["payload"]["retry_exhausted"] is True
+    assert events[3]["payload"]["domain"] == "model_endpoint"
+    assert sentinel not in ledger.path.read_text(encoding="utf-8")

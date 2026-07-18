@@ -127,6 +127,7 @@ services:
     command: sh -c "{ cd backend && (uv sync --frozen || (echo '[startup] uv sync failed; recreating .venv and retrying once' && uv venv --allow-existing .venv && uv sync --frozen)) && PYTHONPATH=. uv run --frozen uvicorn app.gateway.app:app --host 0.0.0.0 --port 8001 --reload --reload-include='*.yaml .env'; } > /app/logs/gateway.log 2>&1"
     volumes:
       - ../backend/:/app/backend/
+      - ../:/repo:ro
       # CompileSessionManager writes through /workspace while compile containers
       # bind the same directory using the host-visible DEER_FLOW_ROOT path.
       - "${DEER_FLOW_ROOT}/.compile-sessions:/workspace/.compile-sessions"
@@ -160,6 +161,7 @@ services:
     environment:
       - CI=true
       - DEER_FLOW_HOME=/app/backend/.deer-flow
+      - FORGE_REPO_ROOT=/repo
       - DEER_FLOW_WORKSPACE_ROOT=/workspace
       - DEER_FLOW_HOST_WORKSPACE_ROOT=${DEER_FLOW_ROOT}
       - HOST_PROJECT_ROOT=${DEER_FLOW_ROOT}
@@ -195,6 +197,7 @@ services:
     command: sh -c "cd backend && { (uv sync --frozen || (echo '[startup] uv sync failed; recreating .venv and retrying once' && uv venv --allow-existing .venv && uv sync --frozen)) && allow_blocking='' && if [ \"$${LANGGRAPH_ALLOW_BLOCKING:-0}\" = '1' ]; then allow_blocking='--allow-blocking'; fi && uv run --frozen langgraph dev --no-browser $${allow_blocking} --host 0.0.0.0 --port 2024 --n-jobs-per-worker $${LANGGRAPH_JOBS_PER_WORKER:-10}; } > /app/logs/langgraph.log 2>&1"
     volumes:
       - ../backend/:/app/backend/
+      - ../:/repo:ro
       # Keep service-side session state and host Docker bind mounts aligned.
       - "${DEER_FLOW_ROOT}/.compile-sessions:/workspace/.compile-sessions"
       # Preserve the .venv built during Docker image build — mounting the full backend/
@@ -227,6 +230,7 @@ services:
     environment:
       - CI=true
       - DEER_FLOW_HOME=/app/backend/.deer-flow
+      - FORGE_REPO_ROOT=/repo
       - DEER_FLOW_WORKSPACE_ROOT=/workspace
       - DEER_FLOW_HOST_WORKSPACE_ROOT=${DEER_FLOW_ROOT}
       - HOST_PROJECT_ROOT=${DEER_FLOW_ROOT}
