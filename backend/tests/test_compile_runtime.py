@@ -78,6 +78,87 @@ def test_benchmark_arguments_must_be_observed_in_declared_order(
     assert operations._command_contains_arguments(command, expected) is matches
 
 
+def test_submit_gate_rejects_observed_build_system_mismatch(tmp_path: Path) -> None:
+    thread_id = "thread-build-system-submit-gate"
+    session = CompileSession(
+        session_id="session-build-system-submit-gate",
+        thread_id=thread_id,
+        repo_url="https://example.com/repo.git",
+        branch=None,
+        image="autocompiler:gcc13",
+        status="inspected",
+        build_system="make",
+        metadata_path="session.json",
+        leadagent_repo_dir="workspace/repo",
+        leadagent_artifacts_dir="artifacts",
+        leadagent_logs_dir="logs",
+        leadagent_repro_dir="repro",
+        commands=[
+            BuildCommandRecord(
+                stage="bash",
+                command="make -j2",
+                workdir="/workspace/repo",
+                command_id="command-build",
+                role="build",
+                exit_code=0,
+            )
+        ],
+    )
+    ledger = ExperimentLedger.create(
+        tmp_path / "build-system-submit-gate.jsonl",
+        experiment_id=new_evidence_id("experiment"),
+        physical_attempt_id=new_evidence_id("physical_attempt"),
+        context={"thread_id": thread_id},
+    )
+    policy = ExperimentPolicy(
+        benchmark_id="forge-cpp-pilot-v4",
+        manifest_sha256="1" * 64,
+        case_id="fixture",
+        condition="baseline",
+        repetition=1,
+        expected_repo_url=session.repo_url,
+        expected_commit_sha="2" * 40,
+        expected_build_system="cmake",
+        compile_image=session.image,
+        image_id=VALID_IMAGE_ID,
+        model_name="gpt-5.6-sol",
+        endpoint="https://example.invalid/v1",
+        credential_env="OpenAI_AK",
+        request_timeout_seconds=120,
+        model_max_retries=0,
+        compiler_max_turns=36,
+        subagent_timeout_seconds=180,
+        memory_enabled=False,
+        skills_enabled=False,
+        required_system_packages=(),
+        cmake_arguments=(),
+        configure_arguments=(),
+        environment=(),
+        minimum_replay_delay_seconds=0,
+    )
+    activate_experiment(
+        thread_id=thread_id,
+        experiment_id=ledger.experiment_id,
+        physical_attempt_id=ledger.physical_attempt_id,
+        ledger=ledger,
+        policy=policy,
+    )
+    try:
+        passed, failures = operations._experiment_submit_constraints(
+            session,
+            "command-build",
+        )
+    finally:
+        deactivate_experiment(thread_id)
+
+    assert passed is False
+    assert failures == ["build_system_mismatch"]
+    deviation = ledger.read()[-1]
+    assert deviation["event"] == "protocol.deviation"
+    assert deviation["payload"]["phase"] == "submit"
+    assert deviation["payload"]["submit_allowed"] is False
+
+
 def install_passed_replay_stub(monkeypatch) -> None:
     def fake_verify_clean_replay(*, session: CompileSession, timeout_seconds: int | None = None) -> ReplayVerificationResult:
         del timeout_seconds
@@ -969,6 +1050,7 @@ def test_docker_runtime_applies_experiment_labels_and_public_environment_only(tm
         repetition=1,
         expected_repo_url=session.repo_url,
         expected_commit_sha="2" * 40,
+        expected_build_system="cmake",
         compile_image=session.image,
         image_id=VALID_IMAGE_ID,
         model_name="gpt-5.6-sol",

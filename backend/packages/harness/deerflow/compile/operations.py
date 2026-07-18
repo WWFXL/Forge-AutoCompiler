@@ -995,6 +995,18 @@ def _experiment_submit_constraints(
     if active is None:
         return True, []
     failures: list[str] = []
+    if session.build_system != active.policy.expected_build_system:
+        failures.append("build_system_mismatch")
+        record_experiment_event(
+            session.thread_id,
+            "protocol.deviation",
+            phase="submit",
+            classification="build_system_mismatch",
+            session_id=session.session_id,
+            expected_build_system=active.policy.expected_build_system,
+            observed_build_system=session.build_system,
+            submit_allowed=False,
+        )
     supporting = next((command for command in session.commands if command.command_id == supporting_command_id), None)
     if supporting is None:
         failures.append("supporting_command_missing")

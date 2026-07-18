@@ -5,13 +5,19 @@
 ## 进行中 (In Progress)
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
-- 2026-07-20 — 将 Issue #24 / PR #27 的 async runner 增量重排到 `main@c4b817f3`
-  - 范围: 保留 `DeerFlowClient.stream()` 同步兼容 API，新增原生 `astream()` 并让 benchmark runner 通过异步路径执行 coroutine-only compiler 子代理；不调用模型，不重跑 pilot
-  - 历史边界: v3 current-tree gate 继续拒绝 client/runner 漂移；历史审计改从 PR #23 的冻结协议提交 `c4b817f3` 读取 protocol blobs，并要求 HEAD 后继于该提交；v1-v5 manifest、Schema、validator、runner hash 与 ledger 不改写
-  - 状态: 单提交重排已完成；聚焦 `157 passed, 3 skipped`、后端全量 `1523 passed, 25 skipped`、真实 Docker `4 passed`、v3 历史审计、Ruff/format、Compose、前端串行 format/lint/typecheck/build、冻结资产与 0 orphan 对账均通过，等待推送、PR CI 与合并
+- 2026-07-21 — 将 Issue #25 / PR #28 的 build-system identity 增量重排到 `main@6f8cab4f`
+  - 范围: 将 manifest `cases[].build_system` 写入 physical-attempt policy 和首条 ledger，约束 compiler 路径，并在 identify 与 submit 两处执行 expected/observed identity gate；不调用模型，不重跑 pilot
+  - 历史边界: 保留 PR #27 的异步 runner；v3 current-tree gate继续拒绝运行时漂移，history audit 继续从 `c4b817f3` 读取冻结 protocol blobs；v1-v5 manifest、Schema、validator、runner hash 与 ledger 不改写
+  - 状态: 单提交增量、实现审查和本地完整验证均已完成；聚焦组 `150 passed`，兼容/历史组 `242 passed, 6 skipped`，后端全量 `1532 passed, 26 skipped`，真实 Docker mismatch `1 passed in 16.83s`，等待推送、PR CI 与合并
 
 ## 最近变更 (Recent Changes)
 <!-- 倒序，最新在上。 -->
+
+- 2026-07-21 — 冻结并校验 benchmark case 的构建系统身份
+  - 文件: `backend/packages/harness/deerflow/compile/evidence.py`, `backend/packages/harness/deerflow/compile/operations.py`, `backend/packages/harness/deerflow/tools/builtins/agent_compile_tools.py`, `backend/packages/harness/deerflow/tools/builtins/task_tool.py`, `scripts/forge_benchmark_runner.py` 及对应测试
+  - 动机: Issue #25；把 manifest `cases[].build_system` 写入 `ExperimentPolicy` 和首条 ledger policy，compiler prompt 固定 CMake/Make/Autotools 路径，避免声明的实验条件与实际构建路径漂移
+  - 行为: `identify_build_system` 后记录 expected/observed identity；不匹配时在 compiler 子代理启动前失败终结并清理 Session，submit gate 再独立复核，不修改 v1/v2/v3 manifest、Schema 或既有 ledger
+  - 证据: policy/runner/prompt/terminalization/submit gate 聚焦组 `150 passed`，异步 client、v2/v3 历史 gate、取消与 task 兼容组 `242 passed, 6 skipped`，后端全量 `1532 passed, 26 skipped`；真实 Docker mismatch `1 passed in 16.83s`，确认 CMake fixture 在预期 Autotools 时不会进入 compiler 且无遗留 compile/replay 容器；Ruff、format、Compose、冻结资产、前端串行 format/lint/typecheck/build 与 `git diff --check` 通过
 
 - 2026-07-19 — 让 benchmark runner 通过原生异步事件流执行 compiler 子代理
   - 文件: `backend/packages/harness/deerflow/client.py`, `scripts/forge_benchmark_runner.py`, `backend/tests/test_client.py`, `backend/tests/test_forge_benchmark_runner.py`, `backend/tests/test_forge_benchmark_v3.py`, `backend/CLAUDE.md`
@@ -98,9 +104,9 @@
 ## 待办 (TODOs)
 <!-- 发现但未做的事。带 file:line 指针。 -->
 
-- 完成 Issue #24 / PR #27 的 async runner 重排、历史审计、完整 CI 与主干合并；保持 v1-v5 协议和 ledger 不变，不启动 v6 pilot。
-- PR #27 合并后继续处理 Issue #25 / PR #28；不得删除仍被上层 PR 引用的远端 head 分支。
-- Issue #25 build-system identity gate 与 Issue #26 有界 agent/tool failure evidence 完成并冻结新协议后，才能创建下一批 physical attempts。
+- 完成 Issue #25 / PR #28 的 build-system identity 重排、审查、完整 CI 与主干合并；保持 v1-v5 协议和 ledger 不变，不启动 v6 pilot。
+- PR #28 合并后继续处理 Issue #26 / PR #29；不得删除仍被上层 PR 引用的远端 head 分支。
+- Issue #26 有界 agent/tool failure evidence 完成并冻结新协议后，才能创建下一批 physical attempts。
 - 当前 `backend/packages/harness/deerflow/compile/manager.py` 的 lifecycle lock 是进程内锁；部署多个后端进程前，需要改为文件锁/数据库事务或带版本号的 CAS，并增加跨进程竞态测试。
 
 ## 已知问题 (Known Issues / Pitfalls)
@@ -136,5 +142,8 @@
 - JSON Schema 内部若使用 `#/$defs/...` 根引用，实例校验必须把完整 schema 交给 validator；直接抽出 `$defs.manifest` 会失去根定义并产生 `PointerToNowhere`，这属于校验命令错误，不是 schema 失效。
 - `DeerFlowClient.stream()` 仍是同步兼容 API；任何可能调用 coroutine-only 工具的 embedded consumer 必须使用 `DeerFlowClient.astream()`，不能用阻塞包装破坏取消/终止语义。
 - 冻结协议的 current-tree gate 与历史 provenance audit 目的不同；合法修改 runner 后，前者应继续拒绝漂移，后者必须从已审阅的协议提交读取冻结 blob，不能永久依赖当前工作树。
-- Physical-attempt policy 当前未冻结 `cases[].build_system`，且 ledger 不记录有界的 agent tool failure/no-action completion；修复前即使 exact clone 成功，也不能把 0 submit 解释为 compiler 能力结果。
+- Physical-attempt policy 已由 Issue #25 冻结 `cases[].build_system` 并校验 expected/observed identity；ledger 仍未记录有界的 agent tool failure/no-action completion，在 Issue #26 完成前仍不能把 0 submit 解释为 compiler 能力结果。
 - Codex/PowerShell 对 `wsl docker exec` 的外层命令超时不保证容器内 Python 已停止；本次真实委派在外层 10 秒超时后仍继续到 clean replay。必须先检查 `docker top`、Session 终态和 label 容器，再决定是否重跑或清理，避免重复任务。
+- Ledger 事件名的首段不允许下划线；`build_system.checked` 不符合 `^[a-z][a-z0-9]*(?:\.[a-z][a-z0-9_]*)+$`，应使用 `build.system_checked`。新增事件必须先用 recorder 的真实 append/verify 路径测试，不能只断言 mock 调用。
+- 开发容器的完整仓库位于只读 `/repo`，`/app/backend` 只是可写后端挂载；benchmark 测试会从工作目录推断仓库根，因此必须从 `/repo/backend` 启动并复用 `/app/backend/.venv`。从 `/app/backend` 运行会因缺少根目录 manifest、Schema 和 Dockerfile 产生大量伪失败。
+- Ruff 必须从 `/repo/backend` 启动以加载 `backend/pyproject.toml`；从 `/repo` 启动会退回默认格式规则，把原本符合仓库配置的 runner 误报为需要大范围格式化。只读挂载下同时使用 `--no-cache`。

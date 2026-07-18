@@ -162,6 +162,7 @@ def test_active_experiment_records_one_429_attempt_without_exception_text(
         repetition=1,
         expected_repo_url="https://github.com/fmtlib/fmt.git",
         expected_commit_sha="2" * 40,
+        expected_build_system="cmake",
         compile_image="autocompiler:gcc13",
         image_id=f"sha256:{'3' * 64}",
         model_name="gpt-5.6-sol",

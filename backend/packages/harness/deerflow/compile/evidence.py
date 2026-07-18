@@ -52,6 +52,7 @@ _FORBIDDEN_KEYS = {
     "stdout",
 }
 _ALLOWED_MODEL_ROLES = {"lead", "compiler", "system"}
+_ALLOWED_BUILD_SYSTEMS = {"cmake", "make", "autotools"}
 _ALLOWED_COMMAND_ROLES = {
     "clone",
     "inspect",
@@ -154,6 +155,7 @@ class ExperimentPolicy:
     repetition: int
     expected_repo_url: str
     expected_commit_sha: str
+    expected_build_system: str
     compile_image: str
     image_id: str
     model_name: str
@@ -181,6 +183,12 @@ class ExperimentPolicy:
             raise EvidenceError("The C/C++ baseline requires Memory and Skills to be disabled")
         if self.minimum_replay_delay_seconds < 0:
             raise EvidenceError("minimum replay delay cannot be negative")
+        if self.expected_build_system not in _ALLOWED_BUILD_SYSTEMS:
+            raise EvidenceError("expected_build_system must be cmake, make, or autotools")
+        if self.expected_build_system != "cmake" and self.cmake_arguments:
+            raise EvidenceError("cmake_arguments require expected_build_system=cmake")
+        if self.expected_build_system != "autotools" and self.configure_arguments:
+            raise EvidenceError("configure_arguments require expected_build_system=autotools")
         _validate_endpoint(self.endpoint)
         _validate_safe_value(self.to_payload())
 
@@ -197,6 +205,7 @@ class ExperimentPolicy:
             "repetition": self.repetition,
             "expected_repo_url": self.expected_repo_url,
             "expected_commit_sha": self.expected_commit_sha,
+            "expected_build_system": self.expected_build_system,
             "compile_image": self.compile_image,
             "image_id": self.image_id,
             "model_name": self.model_name,

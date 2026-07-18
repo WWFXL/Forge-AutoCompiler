@@ -211,6 +211,7 @@ def build_policy(
         repetition=repetition,
         expected_repo_url=case["repository_url"],
         expected_commit_sha=case["commit_sha"],
+        expected_build_system=case["build_system"],
         compile_image=runtime["compile_image"],
         image_id=runtime["image_id"],
         model_name=lead_model,

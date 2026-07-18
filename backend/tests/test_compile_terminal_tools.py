@@ -207,6 +207,63 @@ def test_finalize_cleans_container_then_ends_lead_with_deterministic_summary(mon
     assert jump == {"compile_terminal": False, "jump_to": "end"}
 
 
+def test_build_system_mismatch_cleans_session_and_stops_before_compiler(monkeypatch):
+    session = make_session()
+    session.status = "source_ready"
+    session.build_system = None
+    session.finalized_at = None
+    recorded_events: list[tuple[str, dict]] = []
+    cleanup_calls: list[str] = []
+
+    monkeypatch.setattr(agent_compile_tools, "get_bound_session", lambda session_id, thread_id: session)
+
+    def inspect_build_system(*, session: CompileSession):
+        session.build_system = "cmake"
+        return "cmake", [("cmake", "CMakeLists.txt")], ["cmake -S . -B build"]
+
+    def cleanup_and_finalize(*, session: CompileSession, interrupted_status: str, error: str):
+        cleanup_calls.append(session.session_id)
+        assert interrupted_status == "failed"
+        assert "expected build system autotools" in error
+        session.status = "failed"
+        session.finalized_at = "2026-07-19T00:00:00+00:00"
+        return session, ContainerCleanupResult(succeeded=True, stopped=True, removed=True)
+
+    monkeypatch.setattr(agent_compile_tools, "inspect_build_system_impl", inspect_build_system)
+    monkeypatch.setattr(agent_compile_tools, "cleanup_and_finalize_compile_session_impl", cleanup_and_finalize)
+    monkeypatch.setattr(
+        agent_compile_tools,
+        "get_active_experiment",
+        lambda _thread_id: SimpleNamespace(policy=SimpleNamespace(expected_build_system="autotools")),
+    )
+    monkeypatch.setattr(
+        agent_compile_tools,
+        "record_experiment_event",
+        lambda _thread_id, event, **payload: recorded_events.append((event, payload)),
+    )
+    runtime = SimpleNamespace(
+        state={agent_compile_tools.COMPILE_SESSION_STATE_KEY: session.session_id},
+        context={"thread_id": session.thread_id},
+        config={"configurable": {}},
+    )
+
+    result = agent_compile_tools.identify_build_system.func(
+        runtime=runtime,
+        tool_call_id="tool-build-system-mismatch",
+    )
+
+    assert cleanup_calls == [session.session_id]
+    assert result.update["compile_terminal"] is True
+    assert result.update[agent_compile_tools.COMPILE_BUILD_SYSTEM_STATE_KEY] == "cmake"
+    assert "expected build system autotools" in result.update["messages"][0].content
+    assert [event for event, _payload in recorded_events] == [
+        "build.system_checked",
+        "protocol.deviation",
+    ]
+    assert recorded_events[-1][1]["compiler_allowed"] is False
+    assert recorded_events[-1][1]["session_finalized"] is True
+
+
 def test_finalize_ends_lead_graph_after_one_model_call(monkeypatch):
     session = make_session()
     events: list[str] = []
