@@ -247,7 +247,8 @@ from deerflow.subagents import get_available_subagent_names
 `packages/harness/deerflow/client.py` 提供进程内 API，不依赖 LangGraph Server 和 FastAPI，可以在脚本、notebook、其他 Python 服务里直接调编译流程。返回类型与 Gateway API 的响应模型对齐（`TestGatewayConformance` 在 `tests/test_client.py` 强制校验）。
 
 主要方法：
-- `chat(message, thread_id)` / `stream(message, thread_id)` — agent 对话
+- `chat(message, thread_id)` / `stream(message, thread_id)` — 同步 agent 对话
+- `astream(message, thread_id)` — 原生异步事件流；包含 async-only 工具的 embedded runner 必须使用此路径
 - 编译相关：通过 chat 走完整 agent 流程（与 Gateway 一致）
 - 配置：`list_models()` / `get_model(name)` / `list_skills()` / `update_skill()` / `get_mcp_config()` / `update_mcp_config()`
 - 文件：`upload_files(thread_id, files)` / `list_uploads(thread_id)` / `delete_upload(thread_id, filename)` / `get_artifact(thread_id, path)`

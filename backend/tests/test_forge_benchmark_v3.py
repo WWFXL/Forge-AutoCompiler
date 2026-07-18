@@ -77,9 +77,13 @@ def test_v3_manifest_digest_is_canonical_and_current_runtime_drift_is_rejected()
     manifest = load_v3_manifest()
     digest = forge_benchmark_v3.manifest_sha256(manifest)
     reparsed = json.loads(json.dumps(manifest, ensure_ascii=False, indent=4))
+    runtime_drifted_paths = {relative_path for relative_path, expected_digest in manifest["forge"]["component_sha256"].items() if hashlib.sha256((REPO_ROOT / relative_path).read_bytes()).hexdigest() != expected_digest}
+    protocol_drifted_paths = {relative_path for relative_path, expected_digest in manifest["protocol_artifact_sha256"].items() if hashlib.sha256((REPO_ROOT / relative_path).read_bytes()).hexdigest() != expected_digest}
 
     assert forge_benchmark_v3.manifest_sha256(reparsed) == digest
     assert digest == "d67ab40eb75db7edd01dbf760ec3b01ca495c08a3bdb05f4f33f07ce90e1b92f"
+    assert "backend/packages/harness/deerflow/client.py" in runtime_drifted_paths
+    assert "scripts/forge_benchmark_runner.py" in protocol_drifted_paths
     with pytest.raises(
         forge_benchmark_v3.BenchmarkError,
         match=r"manifest\.forge\.component_sha256\..*: does not match the current repository file",
@@ -88,20 +92,22 @@ def test_v3_manifest_digest_is_canonical_and_current_runtime_drift_is_rejected()
 
 
 @pytest.mark.skipif(shutil.which("git") is None, reason="git is unavailable")
-def test_v3_history_accepts_the_reviewed_main_successor() -> None:
+def test_v3_history_accepts_a_descendant_of_the_frozen_protocol_commit() -> None:
     result = forge_benchmark_history.audit_v3_history(load_v3_manifest(), REPO_ROOT)
 
     assert result["lineage_mode"] == "audited_reviewed_successor"
     assert result["baseline_commit"] == "371f678e07acc6ae87f80d7544f573332d74fa88"
     assert result["baseline_tree_sha"] == "a7ab45a93ea763adadcad15cbce31f4c4c36849e"
     assert result["successor_commit"] == "17e09f5896ca8bf5739cec413c16402cb441209d"
+    assert result["protocol_commit"] == "c4b817f315515d8afcc26d572151276aef7bece4"
+    assert result["protocol_tree_sha"] == "06066746757c0a2ebda30a251a359b71eae7de70"
 
 
 @pytest.mark.skipif(shutil.which("git") is None, reason="git is unavailable")
 def test_v3_history_rejects_the_unreviewed_old_fork() -> None:
     with pytest.raises(
         forge_benchmark_history.HistoryAuditError,
-        match="does not descend from the v3 audited reviewed successor",
+        match="does not descend from the v3 audited protocol successor",
     ):
         forge_benchmark_history.audit_v3_history(
             load_v3_manifest(),

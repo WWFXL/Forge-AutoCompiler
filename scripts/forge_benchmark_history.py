@@ -38,6 +38,8 @@ class AuditedReviewedSuccessorLineage:
     baseline_tree_sha: str
     successor_commit: str
     successor_tree_sha: str
+    protocol_commit: str
+    protocol_tree_sha: str
 
 
 V2_LINEAGE = AuditedSquashLineage(
@@ -53,6 +55,8 @@ V3_LINEAGE = AuditedReviewedSuccessorLineage(
     baseline_tree_sha="a7ab45a93ea763adadcad15cbce31f4c4c36849e",
     successor_commit="17e09f5896ca8bf5739cec413c16402cb441209d",
     successor_tree_sha="64f0bbd6ee7d8ae5190da36eb560df121732794c",
+    protocol_commit="c4b817f315515d8afcc26d572151276aef7bece4",
+    protocol_tree_sha="06066746757c0a2ebda30a251a359b71eae7de70",
 )
 
 
@@ -162,7 +166,7 @@ def audit_v3_history(
     *,
     head_revision: str = "HEAD",
 ) -> dict[str, Any]:
-    """Verify v3 blobs and prove that HEAD follows the reviewed main successor."""
+    """Verify v3 blobs and prove that HEAD follows the frozen protocol successor."""
     protocol_v3.validate_manifest(manifest)
     baseline = manifest["forge"]["commit_sha"]
     if baseline != V3_LINEAGE.baseline_commit:
@@ -175,9 +179,13 @@ def audit_v3_history(
     if successor_tree != V3_LINEAGE.successor_tree_sha:
         raise HistoryAuditError("the v3 reviewed successor has an unexpected tree")
 
+    protocol_tree = _git_text(repo_root, ["rev-parse", f"{V3_LINEAGE.protocol_commit}^{{tree}}"])
+    if protocol_tree != V3_LINEAGE.protocol_tree_sha:
+        raise HistoryAuditError("the v3 frozen protocol commit has an unexpected tree")
+
     resolved_head = _git_text(repo_root, ["rev-parse", head_revision])
-    if not _is_ancestor(repo_root, V3_LINEAGE.successor_commit, resolved_head):
-        raise HistoryAuditError("HEAD does not descend from the v3 audited reviewed successor")
+    if not _is_ancestor(repo_root, V3_LINEAGE.protocol_commit, resolved_head):
+        raise HistoryAuditError("HEAD does not descend from the v3 audited protocol successor")
 
     for relative_path, expected_digest in manifest["forge"]["component_sha256"].items():
         blob = _git(repo_root, ["show", f"{baseline}:{relative_path}"])
@@ -185,8 +193,8 @@ def audit_v3_history(
             raise HistoryAuditError(f"frozen baseline blob mismatch: {relative_path}")
 
     for relative_path, expected_digest in manifest["protocol_artifact_sha256"].items():
-        artifact = _safe_repository_file(repo_root, relative_path)
-        if hashlib.sha256(artifact.read_bytes()).hexdigest() != expected_digest:
+        blob = _git(repo_root, ["show", f"{V3_LINEAGE.protocol_commit}:{relative_path}"])
+        if hashlib.sha256(blob).hexdigest() != expected_digest:
             raise HistoryAuditError(f"frozen protocol artifact mismatch: {relative_path}")
 
     return {
@@ -196,6 +204,8 @@ def audit_v3_history(
         "successor_commit": V3_LINEAGE.successor_commit,
         "baseline_tree_sha": V3_LINEAGE.baseline_tree_sha,
         "successor_tree_sha": V3_LINEAGE.successor_tree_sha,
+        "protocol_commit": V3_LINEAGE.protocol_commit,
+        "protocol_tree_sha": V3_LINEAGE.protocol_tree_sha,
     }
 
 

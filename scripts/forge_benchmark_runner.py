@@ -8,6 +8,7 @@ physical-attempt ledger must exist before ``run`` can issue a provider call.
 from __future__ import annotations
 
 import argparse
+import asyncio
 import hashlib
 import json
 import os
@@ -655,6 +656,11 @@ def _finalize_attempt_sessions(
     return all(session.finalized_at is not None for session in sessions)
 
 
+async def _consume_client_stream(client: Any, message: str, *, thread_id: str) -> None:
+    async for _event in client.astream(message, thread_id=thread_id):
+        pass
+
+
 def run_attempt(
     manifest: dict[str, Any],
     ledger_path: Path,
@@ -711,8 +717,7 @@ def run_attempt(
             available_skills=set(),
         )
         message = f"Compile the C/C++ repository at {policy.expected_repo_url} using exact commit {policy.expected_commit_sha}. Use the compiler subagent and finish only after deterministic artifact submission and session finalization."
-        for _event in client.stream(message, thread_id=thread_id):
-            pass
+        asyncio.run(_consume_client_stream(client, message, thread_id=thread_id))
         run_status = "completed"
     except BaseException as exc:
         ledger.append(
