@@ -13,6 +13,17 @@
 ## 最近变更 (Recent Changes)
 <!-- 倒序，最新在上。 -->
 
+- 2026-07-19 — 完成 pilot v3 五个 physical attempt 并审计三类新阻塞
+  - 文件: `.compile-sessions/benchmark-evidence-v3/`（本地 Git 忽略的 append-only ledger）, `.claude/memory/project.md`
+  - 结果: `fmt`、`hiredis`、`libcheck`、`libgit2`、`sysstat-nondeterministic` 五份 ledger 的 hash chain 与离线 gate 全部有效，全部为 `submit_missing`，0 submit、0 clean replay、0 replacement、0 遗留 compile/replay 容器；`fmt`/`hiredis` 首个 lead 请求超时，`libcheck`/`sysstat` 在 exact clone 后的后续 lead 请求超时，`libgit2` 模型成功返回但没有编译工具调用
+  - 修复证据: `libcheck` 与 `sysstat` exact commit 匹配，证明 Issue #16 clone ownership 修复生效；两个 session 都为 `failed`、已 finalized 且容器删除，证明 Issue #17 兜底生效；`libcheck`、`libgit2`、`sysstat` 的成功响应均记录 `actual_model=gpt-5.6-sol`，证明 Issue #18 提取生效
+  - 新发现: embedded runner 的同步 `DeerFlowClient.stream()` 不能调用 async-only `task_tool`；manifest `build_system` 未进入 `ExperimentPolicy`，`libcheck` 声明 Autotools 但 observed 为 CMake；tool failure 与模型成功但 0 编译动作都缺少有界 ledger 事件。已创建 Issue #24、#25、#26；v3 不做 replacement，修复后必须冻结新协议版本
+
+- 2026-07-18 — 冻结包含 Issue #16/#17/#18 修复的 C/C++ pilot v3 协议
+  - 文件: `scripts/forge_benchmark_v3.py`, `scripts/forge_benchmark_runner.py`, `benchmarks/manifests/cpp-pilot-v3.json`, `benchmarks/schemas/forge-cpp-benchmark-v3.schema.json`, `benchmarks/README.md`, `backend/tests/test_forge_benchmark_v2.py`, `backend/tests/test_forge_benchmark_v3.py`, `backend/tests/test_forge_benchmark_runner.py`
+  - 动机: 在不修改 v1/v2 协议和五份 v2 ledger 的前提下，以 `371f678e` 冻结 ownership、session terminalization 与 actual-model 提取修复；runner 默认路由 v3，同时继续接受历史 v1/v2，并保持 `compose-dood`、`gpt-5.6-sol`、120 秒、0 provider retries、无 fallback 和 Memory/Skills 关闭
+  - 证据: v3 canonical digest `d67ab40eb75db7edd01dbf760ec3b01ca495c08a3bdb05f4f33f07ce90e1b92f` 在 Windows/WSL 一致；Schema meta/instance validation、benchmark/runner/evidence `114 passed, 2 skipped`、compile `115 passed`、model/evidence `38 passed`、真实 Docker `4 passed in 90.68s`、定向 Ruff/format、`py_compile` 与 `git diff --check` 通过；提交前 preflight 除预期 `forge_clean=false` 外全部匹配
+
 - 2026-07-20 — 将 Issue #18 / PR #21 的 actual-model evidence 修复重排到 `main@796cf05a` 并完成本地验证
   - 文件: `backend/packages/harness/deerflow/compile/evidence.py`, `backend/tests/test_experiment_evidence.py`, `.claude/memory/project.md`
   - 动机: LangChain `ModelResponse.result` 是结构化 message 列表，旧 helper 把整个列表当成单个候选，因而漏读 `AIMessage.response_metadata`；新实现最多遍历 8 个 message，允许模型身份与 usage 来自不同 message
@@ -24,7 +35,6 @@
   - 动机: runner 在嵌入式 client 正常返回、异常或提前退出后，先同步终结该 physical attempt thread 的未完成 Compile Session，再清理 orphan；首次终结未闭合但 orphan 清理成功时幂等重试，endpoint failure、Session lifecycle 与 orphan cleanup 保持独立证据域
   - 证据: runner 单测 `12 passed`，benchmark/evidence `100 passed, 3 skipped`，带 Git 的 v2 历史测试 `10 passed`，compile runtime/terminal/cancellation `115 passed`，后端全量 `1503 passed, 22 skipped`，真实 Docker exact clone/session finalization/clean replay `4 passed in 94.88s`；改动文件 Ruff/format、Compose config、前端 lint/typecheck/build、冻结资产和 diff 检查通过且无遗留容器
   - 边界: 全量 Ruff 的 4 个错误均位于未改动且与 `origin/main` 相同的 `scripts/check.py`、`scripts/forge_benchmark.py`；Issue #22 计划中的 v2 current-tree drift 测试语义提前并入本 PR，继续要求旧 runner 漂移被明确拒绝；v1-v5 manifest、Schema、runner hash 与 ledger 未修改或重跑，未启动 v6 pilot；CI 与合并待完成
-
 - 2026-07-20 — 将 Issue #16 / PR #19 的 exact-commit clone ownership 修复重排到最新主干并完成本地验证
   - 文件: `backend/packages/harness/deerflow/compile/operations.py`, `backend/tests/test_compile_runtime.py`, `backend/tests/test_compile_replay_docker.py`, `.claude/memory/project.md`
   - 动机: 从旧堆叠基线提取单一修复，在 `git init` 后、首次 `git -C`/fetch 前配置容器内 `/workspace/repo` 为 `safe.directory`；保持 remote URL、完整 commit、普通 clone、clean replay、artifact gate、v1-v5 协议和 ledger 不变
@@ -84,6 +94,7 @@
 
 - 完成 Issue #22 / PR #23 的历史审计、回归、完整 CI 与主干合并；保持 v1-v5 协议和 ledger 不变，不启动 v6 pilot。
 - PR #23 合并后继续处理 Issue #24 / PR #27；不得删除仍被上层 PR 引用的远端 head 分支。
+- 优先修复 Issue #24 的 benchmark async runner，再实现 Issue #25 build-system identity gate 与 Issue #26 有界 agent/tool failure evidence；三项完成并冻结新协议后才能创建下一批 physical attempts。
 - 当前 `backend/packages/harness/deerflow/compile/manager.py` 的 lifecycle lock 是进程内锁；部署多个后端进程前，需要改为文件锁/数据库事务或带版本号的 CAS，并增加跨进程竞态测试。
 
 ## 已知问题 (Known Issues / Pitfalls)
@@ -116,3 +127,5 @@
 - 在仓库根直接启动 Compose 会改变 project name，并可能因网络网段重叠创建失败；开发服务必须继续使用既定 `deer-flow-dev` project/启动脚本。
 - Compose 开发容器只把完整仓库只读挂载到 `/repo`，而 `/app/backend` 仅是后端源码挂载；依赖仓库根资产的 pytest/Ruff 必须从 `/repo/backend` 运行，并使用 `/app/backend/.venv` 解释器、关闭仓库内缓存。
 - 从大型冻结协议文件派生新版本时，单次命令输出可能被工具上限静默截断；必须分块读取并在冻结哈希前校验 JSON 解析、行数和机械替换后的完整字节相等性。
+- `DeerFlowClient.stream()` 使用同步 LangGraph 执行路径，不能调用只有 coroutine 的 `task_tool`；benchmark runner 进入 compiler 子代理前必须改用 async streaming，不能用阻塞包装破坏取消/终止语义。
+- Physical-attempt policy 当前未冻结 `cases[].build_system`，且 ledger 不记录有界的 agent tool failure/no-action completion；修复前即使 exact clone 成功，也不能把 0 submit 解释为 compiler 能力结果。
