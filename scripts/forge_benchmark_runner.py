@@ -44,6 +44,26 @@ class RunnerError(ValueError):
     pass
 
 
+_COMPILE_ACTION_TOOL_NAMES = frozenset(
+    {
+        "prepare_compile_session",
+        "clone_repository",
+        "identify_build_system",
+        "task",
+        "run_container_bash",
+        "submit_build_result",
+        "finalize_session",
+    }
+)
+_FAILURE_DOMAIN_NAMES = (
+    "model_endpoint",
+    "agent_tool",
+    "build",
+    "submit_replay",
+    "completion",
+)
+
+
 def _sha256_file(path: Path) -> str | None:
     if not path.is_file():
         return None
@@ -520,6 +540,61 @@ def create_attempt(
     return ledger, preflight
 
 
+def recompute_failure_domains(events: list[dict[str, Any]]) -> dict[str, list[dict[str, Any]] | None]:
+    domains: dict[str, list[dict[str, Any]]] = {name: [] for name in _FAILURE_DOMAIN_NAMES}
+    recorded_domain_map = {
+        "model_endpoint": "model_endpoint",
+        "build": "build",
+        "verification": "submit_replay",
+        "submit": "submit_replay",
+        "replay": "submit_replay",
+    }
+    for event in events:
+        event_name = event["event"]
+        payload = event["payload"]
+        if event_name == "failure.recorded":
+            domain = recorded_domain_map.get(payload.get("domain"))
+            if domain is not None:
+                domains[domain].append(
+                    {
+                        "event": event_name,
+                        "classification": payload.get("classification"),
+                    }
+                )
+        elif event_name == "agent.tool_failed":
+            domains["agent_tool"].append(
+                {
+                    "event": event_name,
+                    "classification": payload.get("exception_class"),
+                    "tool_name": payload.get("tool_name"),
+                    "terminal": payload.get("terminal"),
+                }
+            )
+        elif event_name == "agent.no_compile_progress":
+            domains["agent_tool"].append(
+                {
+                    "event": event_name,
+                    "classification": payload.get("classification"),
+                    "terminal": payload.get("terminal"),
+                }
+            )
+        elif event_name == "run.failed":
+            domains["completion"].append(
+                {
+                    "event": event_name,
+                    "classification": payload.get("classification"),
+                }
+            )
+        elif event_name == "experiment.completed" and payload.get("status") != "passed":
+            domains["completion"].append(
+                {
+                    "event": event_name,
+                    "classification": "experiment_failed",
+                }
+            )
+    return {name: values or None for name, values in domains.items()}
+
+
 def recompute_gates(events: list[dict[str, Any]]) -> dict[str, Any]:
     commands: dict[str, dict[str, Any]] = {}
     replays: dict[str, dict[str, Any]] = {}
@@ -579,7 +654,12 @@ def recompute_gates(events: list[dict[str, Any]]) -> dict[str, Any]:
                 "gates": recomputed,
             }
         )
-    return {"valid": not mismatches, "submits": results, "mismatches": mismatches}
+    return {
+        "valid": not mismatches,
+        "submits": results,
+        "mismatches": mismatches,
+        "failure_domains": recompute_failure_domains(events),
+    }
 
 
 def run_oracle(
@@ -657,9 +737,40 @@ def _finalize_attempt_sessions(
     return all(session.finalized_at is not None for session in sessions)
 
 
-async def _consume_client_stream(client: Any, message: str, *, thread_id: str) -> None:
-    async for _event in client.astream(message, thread_id=thread_id):
-        pass
+async def _consume_client_stream(
+    client: Any,
+    message: str,
+    *,
+    thread_id: str,
+) -> dict[str, int | bool]:
+    tool_call_count = 0
+    compile_tool_call_count = 0
+    stream_completed = False
+    async for event in client.astream(message, thread_id=thread_id):
+        if event.type == "end":
+            stream_completed = True
+            continue
+        if event.type != "messages-tuple" or not isinstance(event.data, dict):
+            continue
+        if event.data.get("type") != "ai":
+            continue
+        tool_calls = event.data.get("tool_calls")
+        if not isinstance(tool_calls, list):
+            continue
+        for tool_call in tool_calls:
+            if not isinstance(tool_call, dict):
+                continue
+            tool_name = tool_call.get("name")
+            if not isinstance(tool_name, str):
+                continue
+            tool_call_count += 1
+            if tool_name in _COMPILE_ACTION_TOOL_NAMES:
+                compile_tool_call_count += 1
+    return {
+        "tool_call_count": tool_call_count,
+        "compile_tool_call_count": compile_tool_call_count,
+        "stream_completed": stream_completed,
+    }
 
 
 def run_attempt(
@@ -718,7 +829,25 @@ def run_attempt(
             available_skills=set(),
         )
         message = f"Compile the C/C++ repository at {policy.expected_repo_url} using exact commit {policy.expected_commit_sha}. Use the compiler subagent and finish only after deterministic artifact submission and session finalization."
-        asyncio.run(_consume_client_stream(client, message, thread_id=thread_id))
+        stream_summary = asyncio.run(_consume_client_stream(client, message, thread_id=thread_id))
+        completed_model_request_count = sum(event["event"] == "model.request_completed" for event in ledger.read())
+        if (
+            completed_model_request_count > 0
+            and stream_summary["stream_completed"]
+            and stream_summary["compile_tool_call_count"] == 0
+        ):
+            ledger.append(
+                "agent.no_compile_progress",
+                {
+                    "failure_id": new_evidence_id("failure"),
+                    "classification": "no_compile_tool_call",
+                    "completed_model_request_count": completed_model_request_count,
+                    "tool_call_count": stream_summary["tool_call_count"],
+                    "compile_tool_call_count": 0,
+                    "stream_completed": stream_summary["stream_completed"],
+                    "terminal": True,
+                },
+            )
         run_status = "completed"
     except BaseException as exc:
         ledger.append(

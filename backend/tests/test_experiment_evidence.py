@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import json
 from dataclasses import replace
 from pathlib import Path
@@ -12,10 +13,12 @@ from deerflow.compile.evidence import (
     ExperimentLedger,
     ExperimentPolicy,
     activate_experiment,
+    canonical_json_bytes,
     deactivate_experiment,
     get_active_experiment,
     model_response_metadata,
     new_evidence_id,
+    record_agent_tool_failure,
     record_experiment_event,
 )
 
@@ -127,6 +130,130 @@ def test_active_experiment_registry_routes_events_to_one_thread(tmp_path: Path) 
     events = ledger.read()
     assert [event["event"] for event in events] == ["experiment.started", "model.request_started"]
     assert get_active_experiment(thread_id) is None
+
+
+def test_agent_tool_failure_records_only_bounded_identity_and_exception_class(
+    tmp_path: Path,
+) -> None:
+    ledger = create_ledger(tmp_path)
+    thread_id = new_evidence_id("thread")
+    request = SimpleNamespace(
+        tool_call={"name": "task", "id": "call-safe-123"},
+        runtime=SimpleNamespace(
+            context={"thread_id": thread_id, "agent_name": "compiler"},
+            config={"configurable": {}},
+        ),
+    )
+    exception_detail = "sk-this-must-not-enter-ledger C:\\Users\\YiWei\\private"
+    activate_experiment(
+        thread_id=thread_id,
+        experiment_id=ledger.experiment_id,
+        physical_attempt_id=ledger.physical_attempt_id,
+        ledger=ledger,
+        policy=make_policy(),
+    )
+    try:
+        record_agent_tool_failure(
+            request,
+            RuntimeError(exception_detail),
+            execution_mode="async",
+        )
+    finally:
+        deactivate_experiment(thread_id)
+
+    payload = ledger.read()[-1]["payload"]
+    assert payload == {
+        "failure_id": payload["failure_id"],
+        "role": "compiler",
+        "tool_name": "task",
+        "tool_call_id": "call-safe-123",
+        "exception_class": "RuntimeError",
+        "execution_mode": "async",
+        "terminal": False,
+    }
+    assert exception_detail not in ledger.path.read_text(encoding="utf-8")
+
+
+def test_agent_event_schema_rejects_raw_or_inconsistent_payloads(
+    tmp_path: Path,
+) -> None:
+    ledger = create_ledger(tmp_path)
+    with pytest.raises(EvidenceError, match="agent.tool_failed schema"):
+        ledger.append(
+            "agent.tool_failed",
+            {
+                "failure_id": new_evidence_id("failure"),
+                "role": "lead",
+                "tool_name": "task",
+                "tool_call_id": "call-1",
+                "exception_class": "RuntimeError",
+                "execution_mode": "async",
+                "terminal": False,
+                "detail": "raw exception detail is forbidden by schema",
+            },
+        )
+    with pytest.raises(EvidenceError, match="compile_tool_call_count must be zero"):
+        ledger.append(
+            "agent.no_compile_progress",
+            {
+                "failure_id": new_evidence_id("failure"),
+                "classification": "no_compile_tool_call",
+                "completed_model_request_count": 1,
+                "tool_call_count": 1,
+                "compile_tool_call_count": 1,
+                "stream_completed": True,
+                "terminal": True,
+            },
+        )
+
+
+def test_agent_event_schema_rejects_digest_valid_tampering(tmp_path: Path) -> None:
+    ledger = create_ledger(tmp_path)
+    ledger.append(
+        "agent.no_compile_progress",
+        {
+            "failure_id": new_evidence_id("failure"),
+            "classification": "no_compile_tool_call",
+            "completed_model_request_count": 1,
+            "tool_call_count": 0,
+            "compile_tool_call_count": 0,
+            "stream_completed": True,
+            "terminal": True,
+        },
+    )
+    records = [json.loads(line) for line in ledger.path.read_text(encoding="utf-8").splitlines()]
+    records[-1]["payload"]["completed_model_request_count"] = -1
+    unsigned = {key: value for key, value in records[-1].items() if key != "event_sha256"}
+    records[-1]["event_sha256"] = hashlib.sha256(canonical_json_bytes(unsigned)).hexdigest()
+    ledger.path.write_text(
+        "\n".join(json.dumps(record, sort_keys=True, separators=(",", ":")) for record in records) + "\n",
+        encoding="utf-8",
+    )
+
+    with pytest.raises(
+        EvidenceError,
+        match="completed_model_request_count must be a non-negative integer",
+    ):
+        ExperimentLedger.verify_path(ledger.path)
+
+
+def test_completed_ledger_rejects_late_agent_evidence(tmp_path: Path) -> None:
+    ledger = create_ledger(tmp_path)
+    ledger.append("experiment.completed", {"status": "failed"})
+
+    with pytest.raises(EvidenceError, match="immutable"):
+        ledger.append(
+            "agent.no_compile_progress",
+            {
+                "failure_id": new_evidence_id("failure"),
+                "classification": "no_compile_tool_call",
+                "completed_model_request_count": 1,
+                "tool_call_count": 0,
+                "compile_tool_call_count": 0,
+                "stream_completed": True,
+                "terminal": True,
+            },
+        )
 
 
 @pytest.mark.parametrize("build_system", ["cmake", "make", "autotools"])

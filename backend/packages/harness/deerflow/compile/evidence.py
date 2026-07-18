@@ -23,6 +23,7 @@ LEDGER_CANONICALIZATION = "json-sort-keys-compact-utf8"
 _EVENT_TYPE_RE = re.compile(r"^[a-z][a-z0-9]*(?:\.[a-z][a-z0-9_]*)+$")
 _EVIDENCE_ID_RE = re.compile(r"^[a-z][a-z0-9_]*_[0-9a-f]{32}$")
 _SHA256_RE = re.compile(r"^[0-9a-f]{64}$")
+_BOUNDED_IDENTIFIER_RE = re.compile(r"^[A-Za-z0-9][A-Za-z0-9_.:-]{0,127}$")
 _WINDOWS_PATH_RE = re.compile(r"(?i)(?:^|[^A-Za-z0-9_])(?:[A-Z]:[\\/]|\\\\)")
 _WSL_PATH_RE = re.compile(r"(?i)(?:^|[^A-Za-z0-9_])/mnt/[a-z](?:/|$)")
 _HOME_PATH_RE = re.compile(r"(?:^|[^A-Za-z0-9_])/(?:home|Users)/[^/\s]+/")
@@ -53,6 +54,7 @@ _FORBIDDEN_KEYS = {
 }
 _ALLOWED_MODEL_ROLES = {"lead", "compiler", "system"}
 _ALLOWED_BUILD_SYSTEMS = {"cmake", "make", "autotools"}
+_ALLOWED_TOOL_EXECUTION_MODES = {"sync", "async"}
 _ALLOWED_COMMAND_ROLES = {
     "clone",
     "inspect",
@@ -137,6 +139,68 @@ def _validate_safe_value(value: Any, path: str = "payload") -> None:
             _validate_safe_value(item, f"{path}.{key}")
         return
     raise EvidenceError(f"{path} contains unsupported value type {type(value).__name__}")
+
+
+def _validate_agent_event_payload(event: str, payload: dict[str, Any], path: str = "payload") -> None:
+    if event == "agent.tool_failed":
+        required = {
+            "failure_id",
+            "role",
+            "tool_name",
+            "tool_call_id",
+            "exception_class",
+            "execution_mode",
+            "terminal",
+        }
+        if set(payload) != required:
+            raise EvidenceError(f"{path} has an invalid agent.tool_failed schema")
+        _validate_id(payload["failure_id"], f"{path}.failure_id")
+        if payload["role"] not in _ALLOWED_MODEL_ROLES:
+            raise EvidenceError(f"{path}.role is invalid")
+        for key in ("tool_name", "tool_call_id", "exception_class"):
+            if not isinstance(payload[key], str) or not _BOUNDED_IDENTIFIER_RE.fullmatch(payload[key]):
+                raise EvidenceError(f"{path}.{key} must be a bounded identifier")
+        if payload["execution_mode"] not in _ALLOWED_TOOL_EXECUTION_MODES:
+            raise EvidenceError(f"{path}.execution_mode is invalid")
+        if payload["terminal"] is not False:
+            raise EvidenceError(f"{path}.terminal must be false for a recoverable tool error")
+        return
+
+    if event == "agent.no_compile_progress":
+        required = {
+            "failure_id",
+            "classification",
+            "completed_model_request_count",
+            "tool_call_count",
+            "compile_tool_call_count",
+            "stream_completed",
+            "terminal",
+        }
+        if set(payload) != required:
+            raise EvidenceError(f"{path} has an invalid agent.no_compile_progress schema")
+        _validate_id(payload["failure_id"], f"{path}.failure_id")
+        if payload["classification"] != "no_compile_tool_call":
+            raise EvidenceError(f"{path}.classification is invalid")
+        for key in (
+            "completed_model_request_count",
+            "tool_call_count",
+            "compile_tool_call_count",
+        ):
+            if type(payload[key]) is not int or payload[key] < 0:
+                raise EvidenceError(f"{path}.{key} must be a non-negative integer")
+        if payload["completed_model_request_count"] < 1:
+            raise EvidenceError(f"{path}.completed_model_request_count must be positive")
+        if payload["compile_tool_call_count"] != 0:
+            raise EvidenceError(f"{path}.compile_tool_call_count must be zero")
+        if payload["stream_completed"] is not True or payload["terminal"] is not True:
+            raise EvidenceError(f"{path} must describe a completed terminal stream")
+
+
+def _bounded_identifier(value: Any, fallback: str) -> str:
+    candidate = str(value or "")
+    if _BOUNDED_IDENTIFIER_RE.fullmatch(candidate):
+        return candidate
+    return fallback
 
 
 def _validate_endpoint(value: str) -> str:
@@ -339,6 +403,11 @@ class ExperimentLedger:
             if not isinstance(event["payload"], dict):
                 raise EvidenceError(f"Ledger line {line_number}.payload must be an object")
             _validate_safe_value(event["payload"], f"line {line_number}.payload")
+            _validate_agent_event_payload(
+                event["event"],
+                event["payload"],
+                f"line {line_number}.payload",
+            )
             actual_digest = event["event_sha256"]
             _validate_sha256(actual_digest, f"line {line_number}.event_sha256")
             unsigned = {key: value for key, value in event.items() if key != "event_sha256"}
@@ -364,6 +433,7 @@ class ExperimentLedger:
         if not isinstance(payload, dict):
             raise EvidenceError("Evidence payload must be an object")
         _validate_safe_value(payload)
+        _validate_agent_event_payload(event, payload)
         self.path.parent.mkdir(parents=True, exist_ok=True)
         with _path_lock(self.path), _exclusive_sibling_lock(self.path):
             existing = self.verify_path(self.path) if self.path.exists() else []
@@ -484,6 +554,36 @@ def request_model_role(request: Any) -> str:
         if isinstance(role, str) and role in _ALLOWED_MODEL_ROLES:
             return role
     return "lead"
+
+
+def record_agent_tool_failure(
+    request: Any,
+    exc: Exception,
+    *,
+    execution_mode: str,
+) -> dict[str, Any] | None:
+    if execution_mode not in _ALLOWED_TOOL_EXECUTION_MODES:
+        raise EvidenceError("execution_mode must be sync or async")
+    tool_call = getattr(request, "tool_call", None)
+    if not isinstance(tool_call, dict):
+        tool_call = {}
+    return record_experiment_event(
+        request_thread_id(request),
+        "agent.tool_failed",
+        failure_id=new_evidence_id("failure"),
+        role=request_model_role(request),
+        tool_name=_bounded_identifier(tool_call.get("name"), "unknown_tool"),
+        tool_call_id=_bounded_identifier(
+            tool_call.get("id"),
+            "missing_tool_call_id",
+        ),
+        exception_class=_bounded_identifier(
+            type(exc).__name__,
+            "UnknownException",
+        ),
+        execution_mode=execution_mode,
+        terminal=False,
+    )
 
 
 def request_model_name(request: Any, fallback: str) -> str:
