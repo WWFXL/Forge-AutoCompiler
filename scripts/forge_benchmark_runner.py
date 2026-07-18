@@ -615,6 +615,25 @@ def reconcile_orphans(physical_attempt_id: str) -> dict[str, Any]:
     }
 
 
+def _finalize_attempt_sessions(
+    thread_id: str,
+    *,
+    interrupted_status: str | None,
+    error: str | None,
+) -> bool:
+    try:
+        from deerflow.compile.operations import finalize_unfinished_thread_sessions_impl
+
+        sessions = finalize_unfinished_thread_sessions_impl(
+            thread_id=thread_id,
+            interrupted_status=interrupted_status,
+            error=error,
+        )
+    except Exception:
+        return False
+    return all(session.finalized_at is not None for session in sessions)
+
+
 def run_attempt(
     manifest: dict[str, Any],
     ledger_path: Path,
@@ -656,6 +675,7 @@ def run_attempt(
         policy=policy,
     )
     run_status = "failed"
+    session_finalization_succeeded = False
     try:
         from deerflow.client import DeerFlowClient
 
@@ -681,15 +701,28 @@ def run_attempt(
         if isinstance(exc, (KeyboardInterrupt, SystemExit)):
             raise
     finally:
+        interrupted_status = "failed" if run_status == "failed" else None
+        termination_error = "Benchmark run ended before compile session finalization." if interrupted_status is not None else None
+        session_finalization_succeeded = _finalize_attempt_sessions(
+            thread_id,
+            interrupted_status=interrupted_status,
+            error=termination_error,
+        )
         deactivate_experiment(thread_id)
         reconciliation = reconcile_orphans(ledger.physical_attempt_id)
+        if not session_finalization_succeeded and reconciliation["cleanup_succeeded"]:
+            session_finalization_succeeded = _finalize_attempt_sessions(
+                thread_id,
+                interrupted_status=interrupted_status,
+                error=termination_error,
+            )
         ledger.append("orphan.reconciled", reconciliation)
 
     events = ledger.read()
     gates = recompute_gates(events)
     oracle = run_oracle(manifest, events)
     ledger.append("oracle.completed", oracle)
-    final_status = "passed" if run_status == "completed" and gates["valid"] and oracle["passed"] and reconciliation["cleanup_succeeded"] else "failed"
+    final_status = "passed" if run_status == "completed" and gates["valid"] and oracle["passed"] and reconciliation["cleanup_succeeded"] and session_finalization_succeeded else "failed"
     ledger.append(
         "experiment.completed",
         {
@@ -697,6 +730,7 @@ def run_attempt(
             "gate_recomputation_valid": gates["valid"],
             "oracle_passed": oracle["passed"],
             "orphan_cleanup_succeeded": reconciliation["cleanup_succeeded"],
+            "session_finalization_succeeded": session_finalization_succeeded,
         },
     )
     return {
@@ -704,6 +738,7 @@ def run_attempt(
         "gate_recomputation": gates,
         "oracle": oracle,
         "orphan_reconciliation": reconciliation,
+        "session_finalization_succeeded": session_finalization_succeeded,
     }
 
 
