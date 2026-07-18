@@ -1,6 +1,25 @@
 # Forge C/C++ benchmark protocols
 
-## Runnable pilot v2
+## Runnable pilot v3
+
+`cpp-pilot-v3.json` is the five-case calibration protocol for the runtime that includes the Issue #16 exact-clone ownership fix, Issue #17 runner/session terminalization fix, and Issue #18 provider-reported model identity extraction. It preserves every v1/v2 protocol artifact and existing physical-attempt ledger, keeps `control_plane_topology: "compose-dood"`, and creates a separate v3 evidence stratum.
+
+The runtime implementation baseline is `371f678e07acc6ae87f80d7544f573332d74fa88`. A clean runtime HEAD must contain that commit as an ancestor and its 20 frozen runtime components must match the baseline. The model and execution controls remain unchanged from v2: `gpt-5.6-sol` for both roles, the RichLab `/v1` endpoint, `OpenAI_AK`, a 120-second request timeout, zero provider retries, no fallback, one serial backend run, and disabled Memory/Skills.
+
+Validate the manifest on Windows and WSL, then run preflight in the frozen Compose/DooD environment:
+
+```powershell
+python scripts/forge_benchmark_v3.py validate-manifest benchmarks/manifests/cpp-pilot-v3.json
+```
+
+```bash
+python3 scripts/forge_benchmark_runner.py preflight \
+  --manifest benchmarks/manifests/cpp-pilot-v3.json
+```
+
+Only `ready: true` on a clean committed tree authorizes collection. Create and run one new v3 physical attempt for each of the five cases, strictly serially. Do not pass `--replacement-for`, edit or delete a v2 ledger, or pool v2 and v3 outcomes. Once the first v3 ledger is created, the v3 manifest and protocol artifacts are frozen for that collection stratum.
+
+## Historical pilot v2
 
 `cpp-pilot-v2.json` is the runnable five-case calibration protocol created after the Issue #11 evidence ledger landed. It keeps the v1 manifest, validator, and Schema byte-for-byte unchanged, freezes the expanded runtime/evidence component set, and records `control_plane_topology: "compose-dood"`. The v2 baseline uses `gpt-5.6-sol` for both roles, 120-second provider timeouts, zero provider retries, no fallback, and disabled Memory/Skills.
 
