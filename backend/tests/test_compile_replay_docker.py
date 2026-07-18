@@ -12,13 +12,14 @@ import shutil
 import subprocess
 import uuid
 from pathlib import Path
+from types import SimpleNamespace
 
 import pytest
 
 from deerflow.compile import operations
 from deerflow.compile.docker_runtime import CompileDockerRuntime
 from deerflow.compile.manager import CompileSessionManager
-from deerflow.compile.operations import CompileOperationsServices, _classify_compiled_artifact, _write_repro_bundle, verify_clean_replay_impl
+from deerflow.compile.operations import CompileOperationsServices, _classify_compiled_artifact, _write_repro_bundle, clone_repository_impl, verify_clean_replay_impl
 from deerflow.compile.schemas import BuildArtifact, BuildCommandRecord, CommandResult, CompileSession, VerificationResult
 from deerflow.config.paths import Paths
 
@@ -230,6 +231,39 @@ def _run_replay_scenario(monkeypatch, *, failed_configure_side_effect: bool):
         assert attempt.cleanup_succeeded is True
         _assert_no_replay_container(session)
         return attempt
+    finally:
+        compile_cleanup = runtime.stop_and_remove_container(session)
+        shutil.rmtree(Path(session.metadata_path).parent.parent, ignore_errors=True)
+        assert compile_cleanup.succeeded is True
+        assert compile_cleanup.removed is True
+
+
+def test_exact_commit_clone_accepts_bind_mounted_workspace_ownership(monkeypatch):
+    paths = Paths()
+    manager = CompileSessionManager(paths=paths, default_image=COMPILE_IMAGE)
+    thread_id = f"docker-clone-{uuid.uuid4().hex[:12]}"
+    session = manager.create_session(
+        thread_id=thread_id,
+        repo_url=REPO_URL,
+        image=COMPILE_IMAGE,
+    )
+    runtime = CompileDockerRuntime(manager=manager)
+    policy = SimpleNamespace(expected_repo_url=REPO_URL, expected_commit_sha=COMMIT_SHA)
+    monkeypatch.setattr(operations, "_services", CompileOperationsServices(manager=manager, runtime=runtime))
+    monkeypatch.setattr(operations, "get_active_experiment", lambda active_thread_id: SimpleNamespace(policy=policy) if active_thread_id == thread_id else None)
+    try:
+        runtime.create_container(session)
+        manager.save_session(session)
+
+        result, _message = clone_repository_impl(
+            session=session,
+            repo_url=REPO_URL,
+            max_retries=1,
+        )
+
+        assert result.exit_code == 0, result.combined_output
+        assert session.commit_sha == COMMIT_SHA
+        assert session.status == "source_ready"
     finally:
         compile_cleanup = runtime.stop_and_remove_container(session)
         shutil.rmtree(Path(session.metadata_path).parent.parent, ignore_errors=True)
