@@ -3,6 +3,7 @@
 Forge-AutoCompiler 的 Web 工作台。基于 Next.js 16 + React 19 + Tailwind CSS 4。
 
 > 这只是简短入口指引。完整指南：
+>
 > - **[../README_zh.md](../README_zh.md)** — 项目总览（中文）
 > - **[CLAUDE.md](CLAUDE.md)** — 前端架构与开发指南
 > - **[../CONTRIBUTING.md](../CONTRIBUTING.md)** — 贡献流程
@@ -33,6 +34,7 @@ pnpm start        # 起生产 server
 ```
 
 **注意**：
+
 - `pnpm check` 是坏的，不要用，分开跑 `pnpm lint && pnpm typecheck`
 - 没有测试框架，验证靠 lint + typecheck + 手动浏览器
 - `pnpm build` 必须 `BETTER_AUTH_SECRET=...`，否则被 env 校验拒绝
@@ -60,13 +62,13 @@ NEXT_PUBLIC_LANGGRAPH_BASE_URL=                  # 可选，同上
 
 ## 目录入口
 
-| 路径 | 职责 |
-|---|---|
-| `src/app/` | Next.js App Router 页面 |
+| 路径                                   | 职责                                |
+| -------------------------------------- | ----------------------------------- |
+| `src/app/`                             | Next.js App Router 页面             |
 | `src/components/workspace/welcome.tsx` | Forge Welcome / Hero / Action Cards |
-| `src/core/threads/` | 线程创建、流、状态管理 |
-| `src/core/api/` | LangGraph SDK 客户端单例 |
-| `src/env.js` | env 校验 schema |
+| `src/core/threads/`                    | 线程创建、流、状态管理              |
+| `src/core/api/`                        | LangGraph SDK 客户端单例            |
+| `src/env.js`                           | env 校验 schema                     |
 
 更多见 [CLAUDE.md](CLAUDE.md)。
 

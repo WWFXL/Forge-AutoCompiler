@@ -253,12 +253,13 @@ class TestRegistryGetSubagentConfig:
         assert get_subagent_config("bash") is not None
 
     def test_default_timeout_preserved_when_no_config(self):
+        from deerflow.subagents.builtins.general_purpose import GENERAL_PURPOSE_CONFIG
         from deerflow.subagents.registry import get_subagent_config
 
         _reset_subagents_config(timeout_seconds=900)
         config = get_subagent_config("general-purpose")
         assert config.timeout_seconds == 900
-        assert config.max_turns == 100
+        assert config.max_turns == GENERAL_PURPOSE_CONFIG.max_turns
 
     def test_global_timeout_override_applied(self):
         from deerflow.subagents.registry import get_subagent_config

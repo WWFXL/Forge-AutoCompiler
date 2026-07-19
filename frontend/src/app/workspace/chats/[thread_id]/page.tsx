@@ -87,15 +87,12 @@ export default function ChatPage() {
     await thread.stop();
   }, [thread]);
 
-  const handleCardClick = useCallback(
-    (text: string) => {
-      inputControlRef.current?.setInput(text);
-      setTimeout(() => {
-        inputControlRef.current?.submit();
-      }, 50);
-    },
-    [],
-  );
+  const handleCardClick = useCallback((text: string) => {
+    inputControlRef.current?.setInput(text);
+    setTimeout(() => {
+      inputControlRef.current?.submit();
+    }, 50);
+  }, []);
 
   const hasStarted = !isNewThread || thread.messages.length > 0;
 
@@ -110,10 +107,10 @@ export default function ChatPage() {
         <div className="relative flex size-full min-h-0 justify-between">
           <header
             className={cn(
-              "absolute top-0 right-0 left-0 z-30 flex h-14 shrink-0 items-center px-4 gap-4",
+              "absolute top-0 right-0 left-0 z-30 flex h-14 shrink-0 items-center gap-4 px-4",
               isNewThread
                 ? "bg-forge-bg/0 backdrop-blur-none"
-                : "bg-forge-bg/80 shadow-xs backdrop-blur-md border-b border-forge-border/50",
+                : "bg-forge-bg/80 border-forge-border/50 border-b shadow-xs backdrop-blur-md",
             )}
           >
             <div className="flex w-full items-center text-sm font-medium text-gray-200">
@@ -134,7 +131,7 @@ export default function ChatPage() {
                 paddingBottom={messageListPaddingBottom}
               />
             </div>
-            <div className="absolute right-0 bottom-0 left-0 z-30 flex flex-col items-center px-4 gap-2">
+            <div className="absolute right-0 bottom-0 left-0 z-30 flex flex-col items-center gap-2 px-4">
               {/* Welcome section with AnimatePresence */}
               <AnimatePresence mode="wait">
                 {!hasStarted && (

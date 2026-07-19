@@ -1002,7 +1002,7 @@ class TestArtifacts:
                     client.get_artifact("t1", "mnt/user-data/outputs/nope.txt")
 
     def test_get_artifact_bad_prefix(self, client):
-        with pytest.raises(ValueError, match="must start with"):
+        with pytest.raises(ValueError, match="Unsupported virtual path"):
             client.get_artifact("t1", "bad/path/file.txt")
 
     def test_get_artifact_path_traversal(self, client):
@@ -2479,7 +2479,7 @@ class TestBugArtifactPrefixMatchTooLoose:
 
     def test_non_canonical_prefix_rejected(self, client):
         """Paths that share a string prefix but differ at segment boundary are rejected."""
-        with pytest.raises(ValueError, match="must start with"):
+        with pytest.raises(ValueError, match="Unsupported virtual path"):
             client.get_artifact("t1", "mnt/user-data-evil/secret.txt")
 
     def test_exact_prefix_without_subpath_accepted(self, client):

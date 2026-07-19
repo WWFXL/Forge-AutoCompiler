@@ -14,7 +14,6 @@ import { useParams, usePathname, useRouter } from "next/navigation";
 import { useCallback, useState } from "react";
 import { toast } from "sonner";
 
-
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -184,7 +183,7 @@ export function RecentChatList() {
                             "block w-full whitespace-nowrap group-hover/side-menu-item:overflow-hidden",
                             isActive
                               ? "text-forge-gold"
-                              : "text-gray-400 hover:text-gray-200"
+                              : "text-gray-400 hover:text-gray-200",
                           )}
                           href={pathOfThread(thread.thread_id)}
                         >

@@ -5,8 +5,6 @@ from langchain.tools import BaseTool
 from deerflow.config import get_app_config
 from deerflow.reflection import resolve_variable
 from deerflow.tools.bound_compile_tools import run_container_bash, submit_build_result
-from deerflow.tools.host_read import host_read_tool
-from deerflow.tools.host_write import host_write_tool
 from deerflow.tools.builtins import (
     ask_clarification_tool,
     clone_repository,
@@ -16,6 +14,8 @@ from deerflow.tools.builtins import (
     task_tool,
 )
 from deerflow.tools.builtins.tool_search import reset_deferred_registry
+from deerflow.tools.host_read import host_read_tool
+from deerflow.tools.host_write import host_write_tool
 
 logger = logging.getLogger(__name__)
 
@@ -108,9 +108,7 @@ def get_available_tools(
     if not include_mcp:
         mcp_tools = []
 
-    logger.info(
-        f"Total tools loaded: {len(loaded_tools)}, built-in tools: {len(builtin_tools)}, MCP tools: {len(mcp_tools)}"
-    )
+    logger.info(f"Total tools loaded: {len(loaded_tools)}, built-in tools: {len(builtin_tools)}, MCP tools: {len(mcp_tools)}")
     return loaded_tools + builtin_tools + mcp_tools
 
 

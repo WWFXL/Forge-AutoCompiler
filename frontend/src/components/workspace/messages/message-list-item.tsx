@@ -350,7 +350,7 @@ function RichFileCard({
         href={fileUrl}
         target="_blank"
         rel="noopener noreferrer"
-        className="group border-border/40 relative block overflow-hidden rounded-lg border"
+        className="border-border/40 group relative block overflow-hidden rounded-lg border"
       >
         <img
           src={fileUrl}

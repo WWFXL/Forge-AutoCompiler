@@ -66,10 +66,7 @@ def prepare_compile_session(
         repo_url=repo_url,
         branch=branch,
     )
-    message = (
-        "Compile session prepared. Next call clone_repository() using the bound session. "
-        f"session_id={session.session_id}, container_id={session.container_id}, container_repo_path={COMPILE_CONTAINER_REPO_PATH}"
-    )
+    message = f"Compile session prepared. Next call clone_repository() using the bound session. session_id={session.session_id}, container_id={session.container_id}, container_repo_path={COMPILE_CONTAINER_REPO_PATH}"
     update = _build_compile_state_update(
         session_id=session.session_id,
         container_id=session.container_id,
@@ -161,10 +158,7 @@ def identify_build_system(
     session = get_bound_session(session_id=effective_session_id, thread_id=_get_thread_id(runtime))
     primary_system, detected, suggested_commands = inspect_build_system_impl(session=session)
     root_file = detected[0][1] if detected else None
-    message = (
-        f"Build system identified: system={primary_system}, root_file={root_file or 'none'}. "
-        "Next call task(..., subagent_type=\"compiler\") directly."
-    )
+    message = f'Build system identified: system={primary_system}, root_file={root_file or "none"}. Next call task(..., subagent_type="compiler") directly.'
     update = _build_compile_state_update(
         session_id=effective_session_id,
         container_id=session.container_id,
@@ -194,9 +188,4 @@ def finalize_session(
     services = get_compile_services()
     services.runtime.stop_and_remove_container(session)
 
-    return (
-        f"Session finalized. session_id={updated.session_id}, status={updated.status}, action=destroy, "
-        f"lead_repro_bundle_path=none, "
-        f"host_repro_bundle_path=none, "
-        f"artifact_count={len(updated.artifacts)}"
-    )
+    return f"Session finalized. session_id={updated.session_id}, status={updated.status}, action=destroy, lead_repro_bundle_path=none, host_repro_bundle_path=none, artifact_count={len(updated.artifacts)}"

@@ -96,13 +96,13 @@ def _run_container_bash_impl(
             timeout_seconds=timeout_seconds,
             log_path=log_path,
         )
-        
+
         # 直接返回给 Agent，而不是抛出异常
         message = (
             f"exit_code=124 (Timeout)\n"
             f"workdir={effective_workdir}\n"
             f"error: {timeout_message}\n"
-            f"output_tail:\n{_truncate_output_tail(result.combined_output)}" # 即使超时也尽可能返回已输出的内容
+            f"output_tail:\n{_truncate_output_tail(result.combined_output)}"  # 即使超时也尽可能返回已输出的内容
         )
         return result, message
 
@@ -127,12 +127,7 @@ def _run_container_bash_impl(
         exit_code=result.exit_code,
         truncated_output=truncated_output,
     )
-    message = (
-        f"exit_code={result.exit_code}\n"
-        f"workdir={effective_workdir}\n"
-        f"log_path={log_path}\n"
-        f"output_tail:\n{truncated_output}"
-    )
+    message = f"exit_code={result.exit_code}\nworkdir={effective_workdir}\nlog_path={log_path}\noutput_tail:\n{truncated_output}"
     return result, message
 
 
@@ -145,9 +140,9 @@ def run_container_bash(
     workdir: str | None = None,
 ) -> str:
     """Run a bash command inside a compile session container.
-    
-    CRITICAL NOTE FOR AGENT: Each call to this tool runs in a completely isolated, new shell session. 
-    State changes like `cd` or `export` will NOT persist across multiple calls. 
+
+    CRITICAL NOTE FOR AGENT: Each call to this tool runs in a completely isolated, new shell session.
+    State changes like `cd` or `export` will NOT persist across multiple calls.
     You must use the `workdir` parameter to set the directory, or chain commands using `&&`.
 
     Args:

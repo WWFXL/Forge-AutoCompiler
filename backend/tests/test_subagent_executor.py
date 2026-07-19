@@ -1,10 +1,9 @@
-"""Tests for subagent executor async/sync execution paths.
+"""Tests for subagent executor async and isolated-loop execution paths.
 
 Covers:
-- SubagentExecutor.execute() synchronous execution path
 - SubagentExecutor._aexecute() asynchronous execution path
-- asyncio.run() properly executes async workflow within thread pool context
-- Error handling in both sync and async paths
+- Isolated event-loop execution and timeout handling
+- Error handling in async and background paths
 - Async tool support (MCP tools)
 - Cooperative cancellation via cancel_event
 
@@ -360,16 +359,17 @@ class TestAsyncExecutionPath:
 
 
 # -----------------------------------------------------------------------------
-# Sync Execution Path Tests
+# Isolated Loop Execution Path Tests
 # -----------------------------------------------------------------------------
 
 
-class TestSyncExecutionPath:
-    """Test execute() synchronous execution path with asyncio.run()."""
+class TestIsolatedLoopExecutionPath:
+    """Test the isolated event-loop path used by background execution."""
 
-    def test_execute_runs_async_in_event_loop(self, classes, base_config, mock_agent, msg):
-        """Test that execute() runs _aexecute() in a new event loop via asyncio.run()."""
+    def test_run_with_isolated_loop_executes_async_agent(self, classes, base_config, mock_agent, msg):
+        """The isolated-loop wrapper runs the async agent to completion."""
         SubagentExecutor = classes["SubagentExecutor"]
+        SubagentResult = classes["SubagentResult"]
         SubagentStatus = classes["SubagentStatus"]
 
         final_message = msg.ai("Sync result", "msg-1")
@@ -386,22 +386,28 @@ class TestSyncExecutionPath:
             tools=[],
             thread_id="test-thread",
         )
+        result_holder = SubagentResult(
+            task_id="isolated-loop",
+            trace_id="test-trace",
+            status=SubagentStatus.RUNNING,
+            started_at=datetime.now(),
+        )
 
         with patch.object(executor, "_create_agent", return_value=mock_agent):
-            result = executor.execute("Task")
+            result = executor._run_with_isolated_loop("Task", result_holder)
 
         assert result.status == SubagentStatus.COMPLETED
         assert result.result == "Sync result"
 
-    def test_execute_in_thread_pool_context(self, classes, base_config, msg):
-        """Test that execute() works correctly when called from a thread pool.
+    def test_isolated_loop_in_thread_pool_context(self, classes, base_config, msg):
+        """The isolated-loop wrapper works when called from a thread pool.
 
-        This simulates the real-world usage where execute() is called from
-        _execution_pool in execute_async().
+        This simulates the scheduler and execution pools used by execute_async().
         """
         from concurrent.futures import ThreadPoolExecutor
 
         SubagentExecutor = classes["SubagentExecutor"]
+        SubagentResult = classes["SubagentResult"]
         SubagentStatus = classes["SubagentStatus"]
 
         final_message = msg.ai("Thread pool result", "msg-1")
@@ -421,9 +427,15 @@ class TestSyncExecutionPath:
                 tools=[],
                 thread_id="test-thread",
             )
+            result_holder = SubagentResult(
+                task_id="thread-pool",
+                trace_id="test-trace",
+                status=SubagentStatus.RUNNING,
+                started_at=datetime.now(),
+            )
 
             with patch.object(executor, "_create_agent", return_value=mock_agent):
-                return executor.execute("Task")
+                return executor._run_with_isolated_loop("Task", result_holder)
 
         # Execute in thread pool (simulating _execution_pool usage)
         with ThreadPoolExecutor(max_workers=1) as pool:
@@ -434,9 +446,10 @@ class TestSyncExecutionPath:
         assert result.result == "Thread pool result"
 
     @pytest.mark.anyio
-    async def test_execute_in_running_event_loop_uses_isolated_thread(self, classes, base_config, mock_agent, msg):
-        """Test that execute() uses the isolated-thread path inside a running loop."""
+    async def test_timeout_wrapper_uses_isolated_thread_from_running_loop(self, classes, base_config, mock_agent, msg):
+        """The timeout wrapper never runs asyncio.run() on the caller's loop thread."""
         SubagentExecutor = classes["SubagentExecutor"]
+        SubagentResult = classes["SubagentResult"]
         SubagentStatus = classes["SubagentStatus"]
 
         execution_threads = []
@@ -458,20 +471,25 @@ class TestSyncExecutionPath:
             tools=[],
             thread_id="test-thread",
         )
+        result_holder = SubagentResult(
+            task_id="running-loop",
+            trace_id="test-trace",
+            status=SubagentStatus.RUNNING,
+            started_at=datetime.now(),
+        )
 
         with patch.object(executor, "_create_agent", return_value=mock_agent):
-            with patch.object(executor, "_execute_in_isolated_loop", wraps=executor._execute_in_isolated_loop) as isolated:
-                result = executor.execute("Task")
+            result = executor._execute_with_timeout("Task", result_holder)
 
-        assert isolated.call_count == 1
         assert execution_threads
         assert all(name.startswith("subagent-isolated-") for name in execution_threads)
         assert result.status == SubagentStatus.COMPLETED
         assert result.result == "Async loop result"
 
-    def test_execute_handles_asyncio_run_failure(self, classes, base_config):
-        """Test handling when asyncio.run() itself fails."""
+    def test_timeout_wrapper_handles_isolated_loop_failure(self, classes, base_config):
+        """An isolated-loop failure becomes a failed result."""
         SubagentExecutor = classes["SubagentExecutor"]
+        SubagentResult = classes["SubagentResult"]
         SubagentStatus = classes["SubagentStatus"]
 
         executor = SubagentExecutor(
@@ -479,18 +497,22 @@ class TestSyncExecutionPath:
             tools=[],
             thread_id="test-thread",
         )
+        result_holder = SubagentResult(
+            task_id="isolated-error",
+            trace_id="test-trace",
+            status=SubagentStatus.RUNNING,
+            started_at=datetime.now(),
+        )
 
-        with patch.object(executor, "_aexecute") as mock_aexecute:
-            mock_aexecute.side_effect = Exception("Asyncio run error")
-
-            result = executor.execute("Task")
+        with patch.object(executor, "_run_with_isolated_loop", side_effect=Exception("Asyncio run error")):
+            result = executor._execute_with_timeout("Task", result_holder)
 
         assert result.status == SubagentStatus.FAILED
         assert "Asyncio run error" in result.error
         assert result.completed_at is not None
 
-    def test_execute_with_result_holder(self, classes, base_config, mock_agent, msg):
-        """Test execute() updates provided result_holder in real-time."""
+    def test_isolated_loop_updates_result_holder(self, classes, base_config, mock_agent, msg):
+        """The isolated-loop path updates the provided result holder in place."""
         SubagentExecutor = classes["SubagentExecutor"]
         SubagentResult = classes["SubagentResult"]
         SubagentStatus = classes["SubagentStatus"]
@@ -515,7 +537,7 @@ class TestSyncExecutionPath:
         )
 
         with patch.object(executor, "_create_agent", return_value=mock_agent):
-            result = executor.execute("Task", result_holder=result_holder)
+            result = executor._run_with_isolated_loop("Task", result_holder)
 
         # Should be the same object
         assert result is result_holder
@@ -574,9 +596,10 @@ class TestAsyncToolSupport:
         assert len(async_tool_calls) == 1
         assert result.status == SubagentStatus.COMPLETED
 
-    def test_sync_execute_with_async_tools(self, classes, base_config, msg):
-        """Test that sync execute() properly runs async tools via asyncio.run()."""
+    def test_isolated_loop_with_async_tools(self, classes, base_config, msg):
+        """The isolated event loop awaits async-only tools."""
         SubagentExecutor = classes["SubagentExecutor"]
+        SubagentResult = classes["SubagentResult"]
         SubagentStatus = classes["SubagentStatus"]
 
         async_tool_calls = []
@@ -604,9 +627,15 @@ class TestAsyncToolSupport:
             tools=[],
             thread_id="test-thread",
         )
+        result_holder = SubagentResult(
+            task_id="async-tools",
+            trace_id="test-trace",
+            status=SubagentStatus.RUNNING,
+            started_at=datetime.now(),
+        )
 
         with patch.object(executor, "_create_agent", return_value=mock_agent):
-            result = executor.execute("Task")
+            result = executor._run_with_isolated_loop("Task", result_holder)
 
         assert len(async_tool_calls) == 1
         assert result.status == SubagentStatus.COMPLETED
@@ -625,6 +654,7 @@ class TestThreadSafety:
         from concurrent.futures import ThreadPoolExecutor, as_completed
 
         SubagentExecutor = classes["SubagentExecutor"]
+        SubagentResult = classes["SubagentResult"]
         SubagentStatus = classes["SubagentStatus"]
 
         results = []
@@ -650,9 +680,15 @@ class TestThreadSafety:
                 tools=[],
                 thread_id=f"thread-{task_id}",
             )
+            result_holder = SubagentResult(
+                task_id=f"parallel-{task_id}",
+                trace_id="test-trace",
+                status=SubagentStatus.RUNNING,
+                started_at=datetime.now(),
+            )
 
             with patch.object(executor, "_create_agent", return_value=mock_agent):
-                return executor.execute(f"Task {task_id}")
+                return executor._run_with_isolated_loop(f"Task {task_id}", result_holder)
 
         # Execute multiple tasks in parallel
         with ThreadPoolExecutor(max_workers=3) as pool:
@@ -743,12 +779,8 @@ class TestCleanupBackgroundTask:
 
         assert task_id not in executor_module._background_tasks
 
-    def test_cleanup_skips_running_task(self, executor_module, classes):
-        """Test that cleanup does NOT remove a RUNNING task.
-
-        This prevents race conditions where task_tool calls cleanup
-        while the background executor is still updating the task.
-        """
+    def test_cleanup_removes_running_task(self, executor_module, classes):
+        """Explicit cleanup removes a RUNNING task from the result registry."""
         SubagentResult = classes["SubagentResult"]
         SubagentStatus = classes["SubagentStatus"]
 
@@ -763,11 +795,10 @@ class TestCleanupBackgroundTask:
 
         executor_module.cleanup_background_task(task_id)
 
-        # Should still be present because it's RUNNING
-        assert task_id in executor_module._background_tasks
+        assert task_id not in executor_module._background_tasks
 
-    def test_cleanup_skips_pending_task(self, executor_module, classes):
-        """Test that cleanup does NOT remove a PENDING task."""
+    def test_cleanup_removes_pending_task(self, executor_module, classes):
+        """Explicit cleanup removes a PENDING task from the result registry."""
         SubagentResult = classes["SubagentResult"]
         SubagentStatus = classes["SubagentStatus"]
 
@@ -781,7 +812,7 @@ class TestCleanupBackgroundTask:
 
         executor_module.cleanup_background_task(task_id)
 
-        assert task_id in executor_module._background_tasks
+        assert task_id not in executor_module._background_tasks
 
     def test_cleanup_handles_unknown_task_gracefully(self, executor_module):
         """Test that cleanup doesn't raise for unknown task IDs."""
@@ -924,25 +955,25 @@ class TestCooperativeCancellation:
 
         assert not result.cancel_event.is_set()
 
-        executor_module.request_cancel_background_task(task_id)
+        assert executor_module.request_cancel_background_task(task_id)
 
         assert result.cancel_event.is_set()
 
     def test_request_cancel_nonexistent_task_is_noop(self, executor_module):
         """Test that requesting cancellation on a nonexistent task does not raise."""
-        executor_module.request_cancel_background_task("nonexistent-task")
+        assert not executor_module.request_cancel_background_task("nonexistent-task")
 
-    def test_timeout_does_not_overwrite_cancelled(self, executor_module, classes, base_config, msg):
+    def test_timeout_does_not_overwrite_cancelled(self, executor_module, classes):
         """Test that the real timeout handler does not overwrite CANCELLED status.
 
-        This exercises the actual execute_async → run_task → FuturesTimeoutError
-        code path in executor.py.  We make execute() block so the timeout fires
-        deterministically, pre-set the task to CANCELLED, and verify the RUNNING
-        guard preserves it.  Uses threading.Event for synchronisation instead of
-        wall-clock sleeps.
+        This exercises execute_async -> _execute_with_timeout -> FuturesTimeoutError.
+        The isolated worker is blocked so cancellation can win deterministically.
         """
-        SubagentExecutor = classes["SubagentExecutor"]
-        SubagentStatus = classes["SubagentStatus"]
+        from concurrent.futures import ThreadPoolExecutor
+
+        SubagentExecutor = executor_module.SubagentExecutor
+        SubagentResult = executor_module.SubagentResult
+        SubagentStatus = executor_module.SubagentStatus
 
         short_config = classes["SubagentConfig"](
             name="test-agent",
@@ -952,26 +983,13 @@ class TestCooperativeCancellation:
             timeout_seconds=0.05,  # 50ms – just enough for the future to time out
         )
 
-        # Synchronisation primitives
-        execute_entered = threading.Event()  # signals that execute() has started
-        execute_release = threading.Event()  # lets execute() return
-        run_task_done = threading.Event()  # signals that run_task() has finished
+        worker_entered = threading.Event()
+        worker_release = threading.Event()
 
-        # A blocking execute() replacement so we control the timing exactly
-        def blocking_execute(task, result_holder=None):
-            # Cooperative cancellation: honour cancel_event like real _aexecute
-            if result_holder and result_holder.cancel_event.is_set():
-                result_holder.status = SubagentStatus.CANCELLED
-                result_holder.error = "Cancelled by user"
-                result_holder.completed_at = datetime.now()
-                execute_entered.set()
-                return result_holder
-            execute_entered.set()
-            execute_release.wait(timeout=5)
-            # Return a minimal completed result (will be ignored because timeout fires first)
-            from deerflow.subagents.executor import SubagentResult as _R
-
-            return _R(task_id="x", trace_id="t", status=SubagentStatus.COMPLETED, result="late")
+        def blocking_isolated_loop(task, result_holder):
+            worker_entered.set()
+            worker_release.wait(timeout=5)
+            return result_holder
 
         executor = SubagentExecutor(
             config=short_config,
@@ -979,48 +997,70 @@ class TestCooperativeCancellation:
             thread_id="test-thread",
             trace_id="test-trace",
         )
+        result_holder = SubagentResult(
+            task_id="cancel-wins",
+            trace_id="test-trace",
+            status=SubagentStatus.RUNNING,
+            started_at=datetime.now(),
+        )
 
-        # Wrap _scheduler_pool.submit so we know when run_task finishes
-        original_scheduler_submit = executor_module._scheduler_pool.submit
+        with patch.object(executor, "_run_with_isolated_loop", blocking_isolated_loop), ThreadPoolExecutor(max_workers=1) as pool:
+            timeout_future = pool.submit(executor._execute_with_timeout, "Task", result_holder)
+            assert worker_entered.wait(timeout=3), "isolated worker was never called"
 
-        def tracked_submit(fn, *args, **kwargs):
-            def wrapper():
-                try:
-                    fn(*args, **kwargs)
-                finally:
-                    run_task_done.set()
+            with result_holder._status_lock:
+                result_holder.status = SubagentStatus.CANCELLED
+                result_holder.error = "Cancelled by user"
+                result_holder.completed_at = datetime.now()
 
-            return original_scheduler_submit(wrapper)
+            result = timeout_future.result(timeout=5)
+            worker_release.set()
 
-        with patch.object(executor, "execute", blocking_execute), patch.object(executor_module._scheduler_pool, "submit", tracked_submit):
-            task_id = executor.execute_async("Task")
-
-            # Wait until execute() is entered (i.e. it's running in _execution_pool)
-            assert execute_entered.wait(timeout=3), "execute() was never called"
-
-            # Set CANCELLED on the result before the timeout handler runs.
-            # The 50ms timeout will fire while execute() is blocked.
-            with executor_module._background_tasks_lock:
-                executor_module._background_tasks[task_id].status = SubagentStatus.CANCELLED
-                executor_module._background_tasks[task_id].error = "Cancelled by user"
-                executor_module._background_tasks[task_id].completed_at = datetime.now()
-
-            # Wait for run_task to finish — the FuturesTimeoutError handler has
-            # now executed and (should have) left CANCELLED intact.
-            assert run_task_done.wait(timeout=5), "run_task() did not finish"
-
-            # Only NOW release the blocked execute() so the thread pool worker
-            # can be reclaimed.  This MUST come after run_task_done to avoid a
-            # race where execute() returns before the timeout fires.
-            execute_release.set()
-
-        result = executor_module._background_tasks.get(task_id)
-        assert result is not None
-        # The RUNNING guard in the FuturesTimeoutError handler must have
-        # preserved CANCELLED instead of overwriting with TIMED_OUT.
         assert result.status.value == SubagentStatus.CANCELLED.value
         assert result.error == "Cancelled by user"
         assert result.completed_at is not None
+
+    def test_timeout_cancels_worker_and_preserves_timed_out_status(self, executor_module, classes):
+        """A late worker completion cannot overwrite a timeout terminal state."""
+        SubagentExecutor = executor_module.SubagentExecutor
+        SubagentResult = executor_module.SubagentResult
+        SubagentStatus = executor_module.SubagentStatus
+
+        short_config = classes["SubagentConfig"](
+            name="test-agent",
+            description="Test agent",
+            system_prompt="You are a test agent.",
+            max_turns=10,
+            timeout_seconds=0.05,
+        )
+        worker_entered = threading.Event()
+        worker_release = threading.Event()
+        worker_done = threading.Event()
+        result_holder = SubagentResult(
+            task_id="timeout-terminal",
+            trace_id="test-trace",
+            status=SubagentStatus.RUNNING,
+            started_at=datetime.now(),
+        )
+        executor = SubagentExecutor(config=short_config, tools=[], trace_id="test-trace")
+
+        def late_completion(task, result):
+            worker_entered.set()
+            worker_release.wait(timeout=5)
+            executor_module._mark_execution_complete(result)
+            worker_done.set()
+            return result
+
+        with patch.object(executor, "_run_with_isolated_loop", late_completion):
+            result = executor._execute_with_timeout("Task", result_holder)
+
+        assert worker_entered.is_set()
+        assert result.status == SubagentStatus.TIMED_OUT
+        assert result.cancel_event.is_set()
+
+        worker_release.set()
+        assert worker_done.wait(timeout=3)
+        assert result.status == SubagentStatus.TIMED_OUT
 
     def test_cleanup_removes_cancelled_task(self, executor_module, classes):
         """Test that cleanup removes a CANCELLED task (terminal state)."""

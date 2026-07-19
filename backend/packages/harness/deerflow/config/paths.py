@@ -190,13 +190,15 @@ class Paths:
         vp = virtual_path.lstrip("/")
         prefix = VIRTUAL_PATH_PREFIX.lstrip("/")
 
-        if not vp.startswith(prefix):
+        if vp != prefix and not vp.startswith(f"{prefix}/"):
             raise ValueError(f"Unsupported virtual path: {virtual_path}")
 
         suffix = vp[len(prefix) :].lstrip("/")
         parts = Path(suffix).parts
         if not parts:
             return self.sandbox_user_data_dir(thread_id)
+        if ".." in parts:
+            raise ValueError(f"Path traversal is not allowed: {virtual_path}")
 
         root, *rest = parts
         if root == "workspace":

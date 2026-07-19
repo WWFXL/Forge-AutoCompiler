@@ -57,7 +57,7 @@ class CompileSessionManager:
             leadagent_logs_dir=str(logs_dir),
             leadagent_repro_dir=str(repro_dir),
         )
-        
+
         self.save_session(session)
         self.log_event(
             session,

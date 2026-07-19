@@ -1,9 +1,18 @@
 from pathlib import Path
 
+import pytest
+
 from deerflow.compile.manager import CompileSessionManager
 from deerflow.compile.paths import get_compile_sessions_root, get_metadata_path, get_session_dir
 from deerflow.compile.schemas import BuildArtifact, BuildCommandRecord, CompileSession
 from deerflow.config.paths import Paths
+
+
+@pytest.fixture(autouse=True)
+def isolate_compile_workspace(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    workspace_root = tmp_path / "workspace"
+    monkeypatch.setenv("DEER_FLOW_WORKSPACE_ROOT", str(workspace_root))
+    monkeypatch.setenv("DEER_FLOW_HOST_WORKSPACE_ROOT", str(workspace_root))
 
 
 def test_create_session_creates_expected_directory_layout(tmp_path: Path):
@@ -27,7 +36,8 @@ def test_create_session_under_compile_sessions_root(tmp_path: Path):
     session = manager.create_session(thread_id="abc", repo_url="https://example.com/repo.git")
 
     compile_root = get_compile_sessions_root(paths)
-    assert str(session.host_session_dir).startswith(str(compile_root))
+    session_dir = get_session_dir(session.session_id, session.thread_id, paths)
+    assert session_dir == compile_root / "abc" / session.session_id
 
 
 def test_save_and_load_session_roundtrip(tmp_path: Path):
@@ -59,4 +69,3 @@ def test_mark_status_sets_completed_at_for_terminal_state(tmp_path: Path):
 
     assert session.completed_at is not None
     assert session.summary == "ok"
-

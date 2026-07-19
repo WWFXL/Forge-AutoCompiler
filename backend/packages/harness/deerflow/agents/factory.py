@@ -161,7 +161,7 @@ def _assemble_from_features(
 ) -> tuple[list[AgentMiddleware], list[BaseTool]]:
     """Build an ordered middleware chain + extra tools from *feat*.
 
-    Middleware order matches ``make_lead_agent`` (11 middlewares):
+    Middleware order matches ``make_lead_agent`` (12 middlewares):
 
       0.   ThreadDataMiddleware (always)
       1.   DanglingToolCallMiddleware (always)
@@ -171,9 +171,10 @@ def _assemble_from_features(
       6.   TodoMiddleware (plan_mode parameter)
       7.   TitleMiddleware (auto_title feature)
       8.   MemoryMiddleware (memory feature)
-      9.   SubagentLimitMiddleware (subagent feature)
-      10.  LoopDetectionMiddleware (always)
-      11.  ClarificationMiddleware (always last)
+      9.   ViewImageMiddleware (vision feature)
+      10.  SubagentLimitMiddleware (subagent feature)
+      11.  LoopDetectionMiddleware (always)
+      12.  ClarificationMiddleware (always last)
 
     Two-phase ordering:
       1. Built-in chain — fixed sequential append.
@@ -237,7 +238,19 @@ def _assemble_from_features(
 
             chain.append(MemoryMiddleware(agent_name=name))
 
-    # --- [9] Subagent ---
+    # --- [9] Vision ---
+    if feat.vision is not False:
+        if isinstance(feat.vision, AgentMiddleware):
+            chain.append(feat.vision)
+        else:
+            from deerflow.agents.middlewares.view_image_middleware import ViewImageMiddleware
+
+            chain.append(ViewImageMiddleware())
+        from deerflow.tools.builtins import view_image_tool
+
+        extra_tools.append(view_image_tool)
+
+    # --- [10] Subagent ---
     if feat.subagent is not False:
         if isinstance(feat.subagent, AgentMiddleware):
             chain.append(feat.subagent)
@@ -249,64 +262,83 @@ def _assemble_from_features(
 
         extra_tools.append(task_tool)
 
-    # --- [10] LoopDetection (always) ---
+    # --- [11] LoopDetection (always) ---
     from deerflow.agents.middlewares.loop_detection_middleware import LoopDetectionMiddleware
 
     chain.append(LoopDetectionMiddleware())
 
-    # --- [11] Clarification (always last among built-ins) ---
+    # --- [12] Clarification (always last among built-ins) ---
     chain.append(ClarificationMiddleware())
     extra_tools.append(ask_clarification_tool)
 
-    # Insert extra middleware according to declared positions
+    # Insert extra middleware via @Next/@Prev.
     if extra_middleware:
-        chain = _insert_extra_middleware(chain, extra_middleware)
+        _insert_extra(chain, extra_middleware)
+        clar_idx = next(i for i, middleware in enumerate(chain) if isinstance(middleware, ClarificationMiddleware))
+        if clar_idx != len(chain) - 1:
+            chain.append(chain.pop(clar_idx))
 
     return chain, extra_tools
 
 
 # ---------------------------------------------------------------------------
-# Internal: middleware positioning helpers
+# Internal: extra middleware insertion with @Next/@Prev
 # ---------------------------------------------------------------------------
 
 
-def _middleware_name(mw: AgentMiddleware) -> str:
-    return mw.__class__.__name__
+def _insert_extra(chain: list[AgentMiddleware], extras: list[AgentMiddleware]) -> None:
+    """Insert extra middlewares while validating their declared anchors."""
+    next_targets: dict[type, type] = {}
+    prev_targets: dict[type, type] = {}
+    anchored: list[tuple[AgentMiddleware, str, type]] = []
+    unanchored: list[AgentMiddleware] = []
 
+    for middleware in extras:
+        next_anchor = getattr(type(middleware), "_next_anchor", None)
+        prev_anchor = getattr(type(middleware), "_prev_anchor", None)
 
-def _get_ref_name(extra: AgentMiddleware) -> tuple[str | None, str]:
-    """Return (position, ref_name) from ``extra.position`` if present."""
-    pos = getattr(extra, "position", None)
-    if pos is None:
-        return None, ""
-    if isinstance(pos, str):
-        # Accept "@Next(SomeMiddleware)" / "@Prev(SomeMiddleware)"
-        raw = pos.strip()
-        if raw.startswith("@Next(") and raw.endswith(")"):
-            return "next", raw[6:-1]
-        if raw.startswith("@Prev(") and raw.endswith(")"):
-            return "prev", raw[6:-1]
-        return None, ""
-    return None, ""
+        if next_anchor and prev_anchor:
+            raise ValueError(f"{type(middleware).__name__} cannot have both @Next and @Prev")
 
+        if next_anchor:
+            if next_anchor in next_targets:
+                raise ValueError(f"Conflict: {type(middleware).__name__} and {next_targets[next_anchor].__name__} both @Next({next_anchor.__name__})")
+            if next_anchor in prev_targets:
+                raise ValueError(f"Conflict: {type(middleware).__name__} @Next({next_anchor.__name__}) and {prev_targets[next_anchor].__name__} @Prev({next_anchor.__name__}); use cross-anchoring between extras instead")
+            next_targets[next_anchor] = type(middleware)
+            anchored.append((middleware, "next", next_anchor))
+        elif prev_anchor:
+            if prev_anchor in prev_targets:
+                raise ValueError(f"Conflict: {type(middleware).__name__} and {prev_targets[prev_anchor].__name__} both @Prev({prev_anchor.__name__})")
+            if prev_anchor in next_targets:
+                raise ValueError(f"Conflict: {type(middleware).__name__} @Prev({prev_anchor.__name__}) and {next_targets[prev_anchor].__name__} @Next({prev_anchor.__name__}); use cross-anchoring between extras instead")
+            prev_targets[prev_anchor] = type(middleware)
+            anchored.append((middleware, "prev", prev_anchor))
+        else:
+            unanchored.append(middleware)
 
-def _insert_extra_middleware(base: list[AgentMiddleware], extras: list[AgentMiddleware]) -> list[AgentMiddleware]:
-    chain = list(base)
+    clarification_idx = next(i for i, middleware in enumerate(chain) if isinstance(middleware, ClarificationMiddleware))
+    for middleware in unanchored:
+        chain.insert(clarification_idx, middleware)
+        clarification_idx += 1
 
-    for extra in extras:
-        position, ref_name = _get_ref_name(extra)
-        if position is None or not ref_name:
-            chain.append(extra)
-            continue
-
-        inserted = False
-        for idx, mw in enumerate(chain):
-            if _middleware_name(mw) == ref_name:
-                insert_idx = idx + 1 if position == "next" else idx
-                chain.insert(insert_idx, extra)
-                inserted = True
-                break
-        if not inserted:
-            chain.append(extra)
-
-    return chain
+    pending = list(anchored)
+    for _ in range(len(pending) + 1):
+        if not pending:
+            break
+        remaining = []
+        for middleware, direction, anchor in pending:
+            index = next((i for i, candidate in enumerate(chain) if isinstance(candidate, anchor)), None)
+            if index is None:
+                remaining.append((middleware, direction, anchor))
+                continue
+            chain.insert(index + 1 if direction == "next" else index, middleware)
+        if len(remaining) == len(pending):
+            names = [type(middleware).__name__ for middleware, _, _ in remaining]
+            anchor_types = {anchor for _, _, anchor in remaining}
+            remaining_types = {type(middleware) for middleware, _, _ in remaining}
+            circular = anchor_types & remaining_types
+            if circular:
+                raise ValueError("Circular dependency among extra middlewares: " + ", ".join(middleware_type.__name__ for middleware_type in circular))
+            raise ValueError(f"Cannot resolve positions for {', '.join(names)}; anchors {', '.join(anchor.__name__ for _, _, anchor in remaining)} not found in chain")
+        pending = remaining

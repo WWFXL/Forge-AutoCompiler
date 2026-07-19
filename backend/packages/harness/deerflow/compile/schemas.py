@@ -1,13 +1,13 @@
 from __future__ import annotations
 
 from dataclasses import asdict, dataclass, field
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
 
 def utc_now_iso() -> str:
-    return datetime.now(timezone.utc).isoformat()
+    return datetime.now(UTC).isoformat()
 
 
 @dataclass
@@ -88,7 +88,7 @@ class CompileSession:
         return asdict(self)
 
     @classmethod
-    def from_dict(cls, data: dict[str, Any]) -> "CompileSession":
+    def from_dict(cls, data: dict[str, Any]) -> CompileSession:
         commands = [BuildCommandRecord(**item) for item in data.get("commands", [])]
         artifacts = [BuildArtifact(**item) for item in data.get("artifacts", [])]
         verification_data = data.get("verification")

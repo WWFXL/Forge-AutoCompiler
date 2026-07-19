@@ -85,7 +85,8 @@ export const enUS: Translations = {
 
   // Input Box
   inputBox: {
-    placeholder: ">_ Enter GitHub repo or build command... [Press Enter to Forge]",
+    placeholder:
+      ">_ Enter GitHub repo or build command... [Press Enter to Forge]",
     createSkillPrompt:
       "We're going to build a new skill step by step with `skill-creator`. To start, what do you want this skill to do?",
     addAttachments: "Add attachments",
