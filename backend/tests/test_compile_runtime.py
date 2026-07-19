@@ -155,6 +155,12 @@ def test_inspect_build_system_detects_source_autotools_markers(
         ("cmake -S . -B build", "other", "configure", "configure"),
         ("autoreconf -fi && ./configure", "other", "configure", "configure"),
         ("cp build/libexample.a /artifacts/", "other", "artifact_stage", "artifact_stage"),
+        ("cmake --install build --prefix /artifacts", "other", "artifact_stage", "artifact_stage"),
+        ("make install DESTDIR=/artifacts", "other", "artifact_stage", "artifact_stage"),
+        ("apt-get install -y texinfo", "other", "dependency_setup", "dependency_setup"),
+        ("make -j2 && cp libexample.a /artifacts/", "other", "build", "build"),
+        ("bash -lc 'apt-get install -y texinfo && make -j2 && cp libexample.a /artifacts/'", "other", "build", "build"),
+        ("make clean && cp old.a /artifacts/", "other", "artifact_stage", "artifact_stage"),
         ("make clean", "other", "other", None),
         ("ninja -C build clean", "build", "other", None),
         ("cmake --build build --target clean", "build", "other", None),
@@ -170,6 +176,23 @@ def test_command_role_is_resolved_from_server_side_evidence(
     inferred: str | None,
 ) -> None:
     assert operations.resolve_command_role(command, declared) == (effective, inferred)
+
+
+def test_compound_command_analysis_retains_every_control_plane_role() -> None:
+    assert operations.infer_command_roles("apt-get install -y texinfo && make -j2 && cp lib.a /artifacts/") == {
+        "dependency_setup",
+        "build",
+        "artifact_stage",
+    }
+    assert operations.infer_command_roles("make clean && cp old.a /artifacts/") == {
+        "housekeeping",
+        "artifact_stage",
+    }
+    assert operations.infer_command_roles("bash -lc 'apt-get install -y texinfo && make -j2 && cp lib.a /artifacts/'") == {
+        "dependency_setup",
+        "build",
+        "artifact_stage",
+    }
 
 
 def test_successful_mislabelled_build_enters_persisted_post_build_fence(tmp_path: Path, monkeypatch) -> None:

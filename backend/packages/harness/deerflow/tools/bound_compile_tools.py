@@ -9,7 +9,7 @@ from pathlib import Path
 from langchain.tools import tool
 
 from deerflow.compile.evidence import allowed_command_role, new_evidence_id, record_experiment_event
-from deerflow.compile.operations import get_bound_session, get_compile_services, resolve_command_role, submit_build_result_impl
+from deerflow.compile.operations import get_bound_session, get_compile_services, infer_command_roles, resolve_command_role, submit_build_result_impl
 from deerflow.compile.schemas import BuildCommandRecord, CommandResult, CompileSession, utc_now_iso
 
 _MAX_OUTPUT_LINES = 50
@@ -21,6 +21,7 @@ _POST_BUILD_FORBIDDEN_ROLES = {
     "dependency_setup",
     "configure",
     "build",
+    "housekeeping",
     "replay_delay",
 }
 
@@ -130,8 +131,9 @@ def _post_build_rejection(session: CompileSession, *, command: str, command_role
     _reload_session(session)
     if session.post_build_supporting_command_id is None:
         return None
-    if command_role in _POST_BUILD_FORBIDDEN_ROLES:
-        return "A successful build already entered the post-build phase; configure, build, dependency, and replay commands are now blocked. Stage artifacts or submit the existing build."
+    command_roles = infer_command_roles(command) | {command_role}
+    if command_roles & _POST_BUILD_FORBIDDEN_ROLES:
+        return "A successful build already entered the post-build phase; configure, build, housekeeping, dependency, and replay commands are now blocked. Stage artifacts or submit the existing build."
     if command_role != "artifact_stage" and (session.post_build_commands_remaining or 0) <= 0:
         return "The bounded post-build inspection budget is exhausted. Stage final outputs into /artifacts or submit the existing build."
     return None
@@ -164,16 +166,24 @@ def _submit_with_post_build_phase(
 ) -> str:
     _reload_session(session)
     supporting_command_id = supporting_command_id or session.post_build_supporting_command_id
-    if supporting_command_id is None:
-        result = submit_build_result_impl(session=session)
-    else:
-        result = submit_build_result_impl(
-            session=session,
-            supporting_command_id=supporting_command_id,
-        )
+    had_post_build_phase = session.post_build_supporting_command_id is not None
+    try:
+        if supporting_command_id is None:
+            result = submit_build_result_impl(session=session)
+        else:
+            result = submit_build_result_impl(
+                session=session,
+                supporting_command_id=supporting_command_id,
+            )
+    except Exception:
+        if had_post_build_phase:
+            _clear_post_build_phase(session, reason="submit_error")
+        raise
     try:
         payload = json.loads(result)
     except (TypeError, json.JSONDecodeError):
+        if had_post_build_phase:
+            _clear_post_build_phase(session, reason="submit_invalid_response")
         return result
     if payload.get("status") != "passed" and session.post_build_supporting_command_id is not None:
         _clear_post_build_phase(session, reason="submit_failed")
@@ -187,7 +197,7 @@ def _maybe_submit_staged_artifacts(
     message: str,
     record: BuildCommandRecord,
 ) -> str:
-    if result.exit_code != 0 or record.role != "artifact_stage":
+    if result.exit_code != 0 or record.role not in {"artifact_stage", "build"}:
         return message
     _reload_session(session)
     supporting_command_id = session.post_build_supporting_command_id

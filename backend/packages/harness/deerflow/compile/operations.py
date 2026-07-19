@@ -102,6 +102,16 @@ _BUILD_TOOL_OPTIONS_WITH_VALUE = {
     "-l",
     "-O",
 }
+_DEPENDENCY_SETUP_EXECUTABLES = {
+    "apk",
+    "apt",
+    "apt-get",
+    "dnf",
+    "pacman",
+    "yum",
+    "zypper",
+}
+_SHELL_COMMAND_SEPARATORS = {"(", ")", ";", "&", "&&", "|", "||"}
 
 
 @dataclass
@@ -1047,64 +1057,144 @@ def _command_invokes(command: str, executable: str) -> bool:
     return False
 
 
-def _build_tool_invokes_real_target(tokens: list[str], executable: str) -> bool:
-    separators = {";", "&", "&&", "|", "||"}
-    for index, token in enumerate(tokens):
-        if PurePosixPath(token).name != executable:
+def _shell_command_segments(command: str) -> list[list[str]]:
+    try:
+        lexer = shlex(command.replace("\n", ";"), posix=True, punctuation_chars="();&|")
+        lexer.whitespace_split = True
+        lexer.commenters = ""
+        tokens = list(lexer)
+    except ValueError:
+        return []
+
+    segments: list[list[str]] = []
+    current: list[str] = []
+    for token in tokens:
+        if token in _SHELL_COMMAND_SEPARATORS:
+            if current:
+                segments.append(current)
+                current = []
             continue
-        targets: list[str] = []
-        skip_option_value = False
-        for argument in tokens[index + 1 :]:
-            if argument in separators:
-                break
-            if skip_option_value:
-                skip_option_value = False
-                continue
-            if argument in _BUILD_TOOL_OPTIONS_WITH_VALUE:
-                skip_option_value = True
-                continue
-            if argument.startswith("-") or re.fullmatch(r"[A-Za-z_][A-Za-z0-9_]*=.*", argument):
-                continue
-            targets.append(argument)
-        if not targets or any(target not in _HOUSEKEEPING_BUILD_TARGETS for target in targets):
-            return True
-    return False
+        current.append(token)
+    if current:
+        segments.append(current)
+    return segments
 
 
-def _cmake_invokes_real_build(tokens: list[str]) -> bool:
-    if "--build" not in tokens:
+def _command_invocation(segment: list[str]) -> tuple[str, list[str]] | None:
+    wrappers = {"command", "env", "sudo", "time"}
+    for index, token in enumerate(segment):
+        if token == "--" or token.startswith("-") or re.fullmatch(r"[A-Za-z_][A-Za-z0-9_]*=.*", token):
+            continue
+        executable = PurePosixPath(token).name
+        if executable in wrappers:
+            continue
+        return executable, segment[index + 1 :]
+    return None
+
+
+def _build_tool_invokes_real_target(arguments: list[str]) -> bool:
+    targets: list[str] = []
+    skip_option_value = False
+    for argument in arguments:
+        if skip_option_value:
+            skip_option_value = False
+            continue
+        if argument in _BUILD_TOOL_OPTIONS_WITH_VALUE:
+            skip_option_value = True
+            continue
+        if argument.startswith("-") or re.fullmatch(r"[A-Za-z_][A-Za-z0-9_]*=.*", argument):
+            continue
+        targets.append(argument)
+    return not targets or any(target not in _HOUSEKEEPING_BUILD_TARGETS for target in targets)
+
+
+def _cmake_invokes_real_build(arguments: list[str]) -> bool:
+    if "--build" not in arguments:
         return False
-    target_index = next((index for index, token in enumerate(tokens) if token in {"--target", "-t"}), None)
+    target_index = next((index for index, token in enumerate(arguments) if token in {"--target", "-t"}), None)
     if target_index is None:
         return True
     targets: list[str] = []
-    for argument in tokens[target_index + 1 :]:
+    for argument in arguments[target_index + 1 :]:
         if argument == "--" or argument.startswith("-"):
             break
         targets.append(argument)
     return not targets or any(target not in _HOUSEKEEPING_BUILD_TARGETS for target in targets)
 
 
+def _command_mentions_container_path(command: str, path: str) -> bool:
+    return re.search(rf"{re.escape(path)}(?:/|(?![A-Za-z0-9_.-]))", command) is not None
+
+
+def _infer_command_roles(command: str, *, depth: int) -> set[str]:
+    roles: set[str] = set()
+    stages_artifacts = _command_mentions_container_path(command, "/artifacts")
+    for segment in _shell_command_segments(command):
+        invocation = _command_invocation(segment)
+        if invocation is None:
+            continue
+        executable, arguments = invocation
+        segment_text = " ".join(segment)
+
+        if executable in _DEPENDENCY_SETUP_EXECUTABLES:
+            roles.add("dependency_setup")
+        if executable == "sleep":
+            roles.add("replay_delay")
+
+        if executable == "cmake":
+            if "--build" in arguments:
+                roles.add("build" if _cmake_invokes_real_build(arguments) else "housekeeping")
+            elif "--install" not in arguments and "-E" not in arguments and "--open" not in arguments:
+                roles.add("configure")
+            if stages_artifacts and ("--install" in arguments or ("-E" in arguments and any(argument in {"copy", "copy_if_different"} for argument in arguments))):
+                roles.add("artifact_stage")
+            continue
+
+        if executable in {"make", "gmake", "ninja"}:
+            installs_artifacts = stages_artifacts and "install" in arguments
+            if installs_artifacts:
+                roles.add("artifact_stage")
+            else:
+                roles.add("build" if _build_tool_invokes_real_target(arguments) else "housekeeping")
+            continue
+
+        if executable in {"configure", "autogen.sh", "autoreconf"}:
+            roles.add("configure")
+            continue
+
+        if stages_artifacts and executable in {"cp", "install"}:
+            roles.add("artifact_stage")
+            continue
+
+        if executable in {"bash", "sh"}:
+            if any(PurePosixPath(argument).name in {"configure", "autogen.sh"} for argument in arguments):
+                roles.add("configure")
+            inline_command = next(
+                (arguments[index + 1] for index, argument in enumerate(arguments[:-1]) if argument.startswith("-") and "c" in argument[1:]),
+                None,
+            )
+            if inline_command is not None and depth < 2:
+                roles.update(_infer_command_roles(inline_command, depth=depth + 1))
+
+        if stages_artifacts and re.search(r"(?:^|\s)(?:cp|install)\s", segment_text) is not None:
+            roles.add("artifact_stage")
+
+    return roles
+
+
+def infer_command_roles(command: str) -> set[str]:
+    """Infer every control-plane role present in a possibly compound shell command."""
+
+    return _infer_command_roles(command, depth=0)
+
+
 def infer_command_role(command: str) -> str | None:
-    """Infer control-plane roles for the supported C/C++ build systems."""
+    """Resolve the primary evidence role while retaining compound-role analysis."""
 
-    try:
-        tokens = split(command, posix=True)
-    except ValueError:
-        tokens = []
-
-    if "/artifacts" in command and (_command_invokes(command, "cp") or _command_invokes(command, "install") or re.search(r"(?:^|[;&|]\s*|\s)(?:cp|install)\s", command) is not None):
-        return "artifact_stage"
-
-    if _command_invokes(command, "cmake") and _cmake_invokes_real_build(tokens):
-        return "build"
-    if any(_command_invokes(command, executable) and _build_tool_invokes_real_target(tokens, executable) for executable in ("make", "gmake", "ninja")):
-        return "build"
-
-    if _command_invokes(command, "cmake") and "--build" not in tokens:
-        return "configure"
-    if any(_command_invokes(command, executable) for executable in ("configure", "autogen.sh", "autoreconf")):
-        return "configure"
+    roles = infer_command_roles(command)
+    for role in ("build", "configure", "dependency_setup", "replay_delay", "artifact_stage"):
+        if role in roles:
+            return role
     return None
 
 

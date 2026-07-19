@@ -627,6 +627,56 @@ def test_post_build_handoff_corrects_role_and_auto_submits_cmake_fixture(monkeyp
         shutil.rmtree(Path(session.metadata_path).parent.parent, ignore_errors=True)
 
 
+def test_post_build_handoff_auto_submits_compound_build_and_stage(monkeypatch):
+    paths = Paths()
+    manager = CompileSessionManager(paths=paths, default_image=COMPILE_IMAGE)
+    thread_id = f"docker-post-build-compound-{uuid.uuid4().hex[:12]}"
+    session = manager.create_session(
+        thread_id=thread_id,
+        repo_url=REPO_URL,
+        image=COMPILE_IMAGE,
+    )
+    runtime = CompileDockerRuntime(manager=manager)
+    monkeypatch.setattr(operations, "_services", CompileOperationsServices(manager=manager, runtime=runtime))
+    try:
+        runtime.create_container(session)
+        manager.save_session(session)
+        clone_result, _message = clone_repository_impl(
+            session=session,
+            repo_url=REPO_URL,
+            max_retries=1,
+        )
+        assert clone_result.exit_code == 0, clone_result.combined_output
+        primary, _detected, _suggested = inspect_build_system_impl(session=session)
+        assert primary == "cmake"
+
+        run_tool = next(tool for tool in bound_compile_tools.get_bound_compile_tools(session) if tool.name == "run_container_bash")
+        configured = run_tool.func(
+            command="cmake -S . -B build",
+            command_role="other",
+        )
+        assert "command_role=configure" in configured
+        submitted = json.loads(
+            run_tool.func(
+                command="cmake --build build --parallel && cp build/hello /artifacts/hello",
+                command_role="other",
+            )
+        )
+        assert submitted["command"]["command_role"] == "build"
+        assert submitted["automatic_submit"]["status"] == "passed"
+        assert submitted["automatic_submit"]["replay_status"] == "passed"
+
+        finalized, cleanup = cleanup_and_finalize_compile_session_impl(session=session)
+        assert cleanup.succeeded is True
+        assert cleanup.removed is True
+        assert finalized.status == "completed"
+        assert {Path(artifact.path).name for artifact in finalized.artifacts} == {"hello"}
+        _assert_no_replay_container(finalized)
+    finally:
+        runtime.stop_and_remove_container(session)
+        shutil.rmtree(Path(session.metadata_path).parent.parent, ignore_errors=True)
+
+
 def test_post_build_handoff_auto_submits_make_fixture(monkeypatch):
     _run_post_build_fixture(
         monkeypatch,

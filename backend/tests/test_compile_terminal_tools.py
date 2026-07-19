@@ -184,6 +184,27 @@ def test_staged_artifacts_submit_automatically_in_same_tool_call(monkeypatch):
     assert result["command"]["command_id"] == "command-stage"
     assert result["automatic_submit"] == submit_payload
 
+    record.role = "build"
+    combined_result = json.loads(run_tool.func(command="make -j2 && cp build/hello /artifacts/hello"))
+
+    assert submitted == ["command-build", "command-build"]
+    assert combined_result["command"]["command_role"] == "build"
+    assert combined_result["automatic_submit"] == submit_payload
+
+
+def test_invalid_submit_response_releases_post_build_fence(monkeypatch):
+    session = make_session()
+    session.post_build_supporting_command_id = "command-build"
+    released: list[str] = []
+    monkeypatch.setattr(bound_compile_tools, "_reload_session", lambda current: current)
+    monkeypatch.setattr(bound_compile_tools, "_clear_post_build_phase", lambda _session, *, reason: released.append(reason))
+    monkeypatch.setattr(bound_compile_tools, "submit_build_result_impl", lambda **_kwargs: "not-json")
+
+    result = bound_compile_tools._submit_with_post_build_phase(session)
+
+    assert result == "not-json"
+    assert released == ["submit_invalid_response"]
+
 
 def test_post_build_fence_blocks_reconfigure_rebuild_and_manual_replay(monkeypatch):
     session = make_session()
@@ -200,6 +221,34 @@ def test_post_build_fence_blocks_reconfigure_rebuild_and_manual_replay(monkeypat
         session,
         command="make -j2",
         command_role="build",
+    )
+    assert "successful build" in bound_compile_tools._post_build_rejection(
+        session,
+        command="make -j2 && cp build/hello /artifacts/hello",
+        command_role="artifact_stage",
+    )
+    assert "successful build" in bound_compile_tools._post_build_rejection(
+        session,
+        command="make clean && cp build/hello /artifacts/hello",
+        command_role="artifact_stage",
+    )
+    assert "successful build" in bound_compile_tools._post_build_rejection(
+        session,
+        command="apt-get install -y texinfo",
+        command_role="other",
+    )
+    assert "successful build" in bound_compile_tools._post_build_rejection(
+        session,
+        command="bash -lc 'apt-get install -y texinfo'",
+        command_role="other",
+    )
+    assert (
+        bound_compile_tools._post_build_rejection(
+            session,
+            command="make install DESTDIR=/artifacts",
+            command_role="artifact_stage",
+        )
+        is None
     )
     assert "/repro" in bound_compile_tools._post_build_rejection(
         session,
