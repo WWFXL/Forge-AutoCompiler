@@ -43,6 +43,11 @@ def load_v4_manifest() -> dict:
     return forge_benchmark_runner._load_manifest(path)
 
 
+def load_v5_manifest() -> dict:
+    path = REPO_ROOT / "benchmarks" / "manifests" / "cpp-pilot-v5.json"
+    return forge_benchmark_runner._load_manifest(path)
+
+
 def ready_preflight(manifest: dict, *, ready: bool = True) -> dict:
     return {
         "ready": ready,
@@ -106,6 +111,7 @@ def test_build_policy_freezes_each_supported_build_system(case_id: str) -> None:
         (load_v2_manifest, "cpp-pilot-v2.json"),
         (load_v3_manifest, "cpp-pilot-v3.json"),
         (load_v4_manifest, "cpp-pilot-v4.json"),
+        (load_v5_manifest, "cpp-pilot-v5.json"),
     ],
 )
 def test_runnable_preflight_accepts_clean_descendant_with_frozen_components(
@@ -169,7 +175,7 @@ def test_runnable_preflight_accepts_clean_descendant_with_frozen_components(
     assert preflight["runtime"]["control_plane_topology"] == "compose-dood"
 
 
-@pytest.mark.parametrize("manifest_loader", [load_v2_manifest, load_v3_manifest, load_v4_manifest])
+@pytest.mark.parametrize("manifest_loader", [load_v2_manifest, load_v3_manifest, load_v4_manifest, load_v5_manifest])
 def test_runnable_preflight_rejects_missing_baseline_or_compose_dood(
     monkeypatch: pytest.MonkeyPatch,
     manifest_loader,
@@ -283,7 +289,7 @@ def test_run_refuses_failed_preflight_before_importing_model_client(
     assert not any(event["event"].startswith("model.") for event in ledger.read())
 
 
-@pytest.mark.parametrize("manifest_loader", [load_v2_manifest, load_v3_manifest, load_v4_manifest])
+@pytest.mark.parametrize("manifest_loader", [load_v2_manifest, load_v3_manifest, load_v4_manifest, load_v5_manifest])
 def test_runnable_run_refuses_non_compose_process_before_model_request(
     tmp_path: Path,
     monkeypatch: pytest.MonkeyPatch,
@@ -317,10 +323,10 @@ def test_runnable_run_refuses_non_compose_process_before_model_request(
     assert not any(event["event"].startswith("model.") for event in events)
 
 
-def test_runner_defaults_to_v4_manifest() -> None:
+def test_runner_defaults_to_v5_manifest() -> None:
     args = forge_benchmark_runner._build_parser().parse_args(["preflight"])
 
-    assert args.manifest == REPO_ROOT / "benchmarks" / "manifests" / "cpp-pilot-v4.json"
+    assert args.manifest == REPO_ROOT / "benchmarks" / "manifests" / "cpp-pilot-v5.json"
 
 
 def test_keyboard_interrupt_keeps_attempt_recoverable_and_reconciles_orphans(
@@ -724,6 +730,81 @@ def test_offline_failure_domains_keep_missing_evidence_null() -> None:
         "submit_replay": None,
         "completion": None,
     }
+
+
+def test_v5_records_final_build_identity_from_authoritative_session(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    manager = CompileSessionManager(
+        paths=Paths(
+            base_dir=tmp_path / "state",
+            workspace_root=tmp_path / "workspace",
+            host_workspace_root=str(tmp_path / "workspace"),
+        )
+    )
+    session = manager.create_session(
+        thread_id="thread-v5-identity",
+        repo_url="https://github.com/redis/hiredis",
+    )
+    session.build_system_capabilities = ["cmake", "make"]
+    session.selected_build_system = "make"
+    session.executed_build_system = "make"
+    manager.save_session(session)
+    monkeypatch.setattr(
+        operations,
+        "_services",
+        CompileOperationsServices(manager=manager, runtime=SimpleNamespace()),
+    )
+    ledger = ExperimentLedger.create(
+        tmp_path / "identity.jsonl",
+        experiment_id=new_evidence_id("experiment"),
+        physical_attempt_id=new_evidence_id("physical_attempt"),
+        context={"thread_id": "thread-v5-identity"},
+    )
+
+    assert forge_benchmark_runner._record_attempt_build_identity("thread-v5-identity", ledger) is True
+    snapshot = ledger.read()[-1]
+    assert snapshot["event"] == "build.identity_snapshot"
+    assert snapshot["payload"] == {
+        "session_id": session.session_id,
+        "build_system_capabilities": ["cmake", "make"],
+        "selected_build_system": "make",
+        "executed_build_system": "make",
+    }
+
+
+def test_v5_offline_identity_gate_requires_snapshot_and_proven_submit_path() -> None:
+    started = {
+        "event": "experiment.started",
+        "payload": {
+            "policy": {
+                "benchmark_id": "forge-cpp-clean-replay-pilot-v5",
+                "expected_build_system": "make",
+            }
+        },
+    }
+    executed_without_snapshot = [started, {"event": "runtime.topology_verified", "payload": {}}]
+
+    assert forge_benchmark_runner.recompute_build_identity(executed_without_snapshot)["valid"] is False
+
+    with_snapshot = [
+        *executed_without_snapshot,
+        {
+            "event": "build.identity_snapshot",
+            "payload": {
+                "session_id": "abcdef123456",
+                "build_system_capabilities": ["cmake", "make"],
+                "selected_build_system": "make",
+                "executed_build_system": "make",
+            },
+        },
+        {"event": "submit.completed", "payload": {"session_id": "abcdef123456"}},
+    ]
+    identity = forge_benchmark_runner.recompute_build_identity(with_snapshot)
+
+    assert identity["valid"] is True
+    assert identity["submit_identity_proven"] is True
 
 
 def test_offline_failure_domains_separate_agent_and_runtime_failures() -> None:
