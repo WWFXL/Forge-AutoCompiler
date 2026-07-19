@@ -76,13 +76,19 @@ def test_v4_manifest_rejects_protocol_drift(mutation, message: str) -> None:
         forge_benchmark_v4.validate_manifest(manifest)
 
 
-def test_v4_manifest_digest_is_canonical_and_frozen_files_are_current() -> None:
+def test_v4_manifest_digest_is_canonical() -> None:
     manifest = load_v4_manifest()
     digest = forge_benchmark_v4.manifest_sha256(manifest)
     reparsed = json.loads(json.dumps(manifest, ensure_ascii=False, indent=4))
 
     assert forge_benchmark_v4.manifest_sha256(reparsed) == digest
-    forge_benchmark_v4.verify_frozen_components(manifest, REPO_ROOT)
+
+
+def test_v4_current_tree_gate_rejects_later_runtime_component_drift() -> None:
+    manifest = load_v4_manifest()
+
+    with pytest.raises(forge_benchmark_v4.BenchmarkError, match=r"subagents/executor\.py"):
+        forge_benchmark_v4.verify_frozen_components(manifest, REPO_ROOT)
 
 
 def test_v4_runtime_components_match_the_declared_baseline() -> None:

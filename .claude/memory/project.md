@@ -5,6 +5,12 @@
 ## 最近变更 (Recent Changes)
 <!-- 倒序，最新在上。 -->
 
+- 2026-07-25 — 重排并验证 Issue #32 的运行级异步 event-loop ownership 修复
+  - 范围: 将旧堆叠中的单提交增量重放到 `main@2cfbf795`；已有运行 loop 时直接创建 compiler 后台 task，无运行 loop 的同步兼容调用仍使用隔离线程。
+  - 兼容: v4 runtime current-tree gate 仍拒绝随后合法的 `executor.py` 漂移；历史 component blob 审计与冻结 manifest/Schema/validator/ledger 保持不变。executor 测试 fixture 不再 reload 模块，避免 enum class identity 伪失败。
+  - 证据: v4/executor 聚焦 `48 passed, 1 skipped`，后端全量 `1565 passed, 27 skipped`；Ruff、format、`py_compile`、Compose config 与 diff 检查通过。
+  - 边界: 仅实现与验证修复；不调用模型、不执行或替换任何 pilot，不改写 v1-v5 protocol/ledger。
+
 - 2026-07-25 — 记录有界的 agent 工具失败与无编译动作终态证据
   - 文件: `backend/packages/harness/deerflow/agents/middlewares/tool_error_handling_middleware.py`、`backend/packages/harness/deerflow/compile/evidence.py`、`scripts/forge_benchmark_runner.py` 及对应测试
   - 动机: Issue #26；区分 endpoint、agent/tool、build、submit/replay 与 completion 失败域，避免 tool exception 仅留在 stderr、模型完成却没有编译动作只表现为 `submit_missing`
@@ -112,8 +118,8 @@
 - 统一 `backend/tests/test_subagent_timeout_config.py:261` 对 `max_turns` 的期望值与当前实现默认值。
 - 评审 stacked Draft PR #9，并在 CI 与基线 manifest 冻结后再转为 ready。
 - 按堆叠顺序评审并合并 Issue #16/#17/#18 与 pilot v3 的 Draft PR；五个 v3 physical attempts 必须使用新 ledger，不能 replacement 或覆盖 v2 的五条原始 ledger。
-- 完成 Issue #26 / PR #29 的推送、完整 CI 与主干合并；保留旧 remote head 供 PR #31 引用，保持 v1-v5 协议和 ledger 不变，不启动 v6 pilot。
-- Issue #26 合并后，按堆叠顺序继续处理 Issue #30 / PR #31；只有全部 instrumentation 修复合入并冻结新协议后，才能创建下一批 physical attempts。
+- Issue #30 / PR #31 已完成协议重排、CI 与主干合并；保持 v1-v5 协议和 ledger 不变，不启动 v6 pilot。
+- 按堆叠顺序处理 Issue #32 / PR #35；完成 event-loop ownership 修复验证后，再进入上层 #36、#37、#39、#41。
 - 当前 `backend/packages/harness/deerflow/compile/manager.py` 的 lifecycle lock 是进程内锁；部署多个后端进程前，需要改为文件锁/数据库事务或带版本号的 CAS，并增加跨进程竞态测试。
 
 ## 已知问题 (Known Issues / Pitfalls)
@@ -158,3 +164,4 @@
 - `test_create_deerflow_agent.py` 仍有 17 个与当前 factory 不一致的既有 feature/sandbox/anchor 期望，例如要求已删除的 `SandboxMiddleware`；本次扩展执行得到 27 passed/17 failed，而与本次变更直接相关的 `test_always_on_error_handling` 单独通过。不要把这些旧测试失败归因于 agent evidence import，也不要在 #26 中顺手改动。
 - 真实 Docker 集成依赖 GitHub clone，偶发 `Recv failure: Connection reset by peer` 可能在进入待测逻辑前失败；先确认按 label 无遗留容器，再只重跑该场景。本次副作用拒绝场景首次网络失败，单独重跑后 `1 passed in 32.63s`。
 - 完整 `test_client.py` 当前有 3 个与 v4 无关的既有 artifact 路径期望不一致：测试期待 `must start with`/`PathTraversalError`，实际 `Paths.resolve_virtual_path()` 返回 `Unsupported virtual path` 的 `ValueError`；v4 扩大回归为 `431 passed, 3 skipped, 3 failed`，stream/chat 定向测试仍为 `19 passed`。不要在 benchmark 协议提交中顺手修改。
+- 原生 async stream 不自动保证模型 client 的 event-loop ownership。`task_tool` 已在 Lead 的 async loop 中时，不能再通过 `thread pool -> asyncio.run()` 为 compiler 创建第二个 loop；保留同步兼容调用的隔离线程路径，并用 loop-bound 回归保护该边界。

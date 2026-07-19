@@ -365,6 +365,75 @@ class SubagentExecutor:
             _mark_terminal(result_holder, SubagentStatus.FAILED, str(exc))
             return result_holder
 
+    def _execute_on_running_loop(
+        self,
+        task: str,
+        result_holder: SubagentResult,
+        loop: asyncio.AbstractEventLoop,
+    ) -> None:
+        """Start a background execution without crossing event-loop ownership."""
+
+        async def run() -> SubagentResult:
+            with result_holder._status_lock:
+                if result_holder.status == SubagentStatus.PENDING:
+                    result_holder.status = SubagentStatus.RUNNING
+            try:
+                async with asyncio.timeout(self.config.timeout_seconds):
+                    return await self._aexecute(task, result_holder)
+            except TimeoutError:
+                result_holder.cancel_event.set()
+                _mark_terminal(
+                    result_holder,
+                    SubagentStatus.TIMED_OUT,
+                    f"Subagent timed out after {self.config.timeout_seconds} seconds",
+                )
+                return result_holder
+            except asyncio.CancelledError:
+                _mark_terminal(
+                    result_holder,
+                    SubagentStatus.CANCELLED,
+                    result_holder.error or "Cancelled by user",
+                )
+                raise
+            except Exception as exc:
+                logger.exception(
+                    "[trace=%s] Subagent %s execution wrapper failed",
+                    self.trace_id,
+                    self.config.name,
+                )
+                _mark_terminal(result_holder, SubagentStatus.FAILED, str(exc))
+                return result_holder
+
+        execution_task = loop.create_task(run())
+        with result_holder._handle_lock:
+            result_holder._loop = loop
+            result_holder._asyncio_task = execution_task
+
+        def on_done(completed_task: asyncio.Task[SubagentResult]) -> None:
+            if completed_task.cancelled():
+                _mark_terminal(
+                    result_holder,
+                    SubagentStatus.CANCELLED,
+                    result_holder.error or "Cancelled by user",
+                )
+            else:
+                exception = completed_task.exception()
+                if exception is not None:
+                    logger.error(
+                        "[trace=%s] Subagent %s native async task failed",
+                        self.trace_id,
+                        self.config.name,
+                        exc_info=(type(exception), exception, exception.__traceback__),
+                    )
+                    _mark_terminal(result_holder, SubagentStatus.FAILED, str(exception))
+            with result_holder._handle_lock:
+                if result_holder._asyncio_task is completed_task:
+                    result_holder._asyncio_task = None
+                    result_holder._loop = None
+            result_holder.worker_done_event.set()
+
+        execution_task.add_done_callback(on_done)
+
     def execute_async(self, task: str, task_id: str | None = None) -> str:
         task_id = task_id or str(uuid.uuid4())[:8]
 
@@ -377,6 +446,15 @@ class SubagentExecutor:
 
         with _background_tasks_lock:
             _background_tasks[task_id] = result_holder
+
+        try:
+            running_loop = asyncio.get_running_loop()
+        except RuntimeError:
+            running_loop = None
+
+        if running_loop is not None:
+            self._execute_on_running_loop(task, result_holder, running_loop)
+            return task_id
 
         def submit_execution() -> SubagentResult:
             with result_holder._status_lock:

@@ -712,13 +712,11 @@ class TestCleanupBackgroundTask:
 
     @pytest.fixture
     def executor_module(self, _setup_executor_classes):
-        """Import the executor module with real classes."""
-        # Re-import to get the real module with cleanup_background_task
-        import importlib
+        """Return the session's real executor module without changing class identity."""
 
         from deerflow.subagents import executor
 
-        return importlib.reload(executor)
+        return executor
 
     def test_cleanup_removes_terminal_completed_task(self, executor_module, classes):
         """Test that cleanup removes a COMPLETED task."""
@@ -853,12 +851,11 @@ class TestCooperativeCancellation:
 
     @pytest.fixture
     def executor_module(self, _setup_executor_classes):
-        """Import the executor module with real classes."""
-        import importlib
+        """Return the session's real executor module without changing class identity."""
 
         from deerflow.subagents import executor
 
-        return importlib.reload(executor)
+        return executor
 
     @pytest.mark.anyio
     async def test_aexecute_cancelled_before_streaming(self, classes, base_config, mock_agent, msg):
@@ -1061,6 +1058,50 @@ class TestCooperativeCancellation:
         worker_release.set()
         assert worker_done.wait(timeout=3)
         assert result.status == SubagentStatus.TIMED_OUT
+
+    @pytest.mark.anyio
+    async def test_execute_async_keeps_loop_bound_agent_on_caller_loop(
+        self,
+        executor_module,
+        classes,
+        base_config,
+        msg,
+    ):
+        """Async background execution must not move model clients to another loop."""
+        SubagentExecutor = classes["SubagentExecutor"]
+        SubagentStatus = classes["SubagentStatus"]
+        owner_loop = asyncio.get_running_loop()
+        observed_loops = []
+
+        class LoopBoundAgent:
+            async def astream(self, *_args, **_kwargs):
+                current_loop = asyncio.get_running_loop()
+                if current_loop is not owner_loop:
+                    raise RuntimeError("async model client is bound to a different event loop")
+                observed_loops.append(current_loop)
+                yield {
+                    "messages": [
+                        msg.human("Task"),
+                        msg.ai("Same loop result", "msg-loop"),
+                    ]
+                }
+
+        executor = SubagentExecutor(
+            config=base_config,
+            tools=[],
+            thread_id="test-thread",
+        )
+
+        with patch.object(executor, "_create_agent", return_value=LoopBoundAgent()):
+            task_id = executor.execute_async("Task", task_id="loop-bound-task")
+            assert await executor_module.wait_for_background_task_shutdown(task_id, 3)
+
+        result = executor_module.get_background_task_result(task_id)
+        assert result is not None
+        assert result.status.value == SubagentStatus.COMPLETED.value
+        assert result.result == "Same loop result"
+        assert observed_loops == [owner_loop]
+        executor_module.cleanup_background_task(task_id)
 
     def test_cleanup_removes_cancelled_task(self, executor_module, classes):
         """Test that cleanup removes a CANCELLED task (terminal state)."""
