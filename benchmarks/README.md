@@ -1,5 +1,24 @@
 # Forge C/C++ benchmark protocols
 
+## Runnable pilot v4
+
+`cpp-pilot-v4.json` is the five-case calibration protocol for the runtime that includes the Issue #24 async-only compiler delegation fix, Issue #25 expected/observed build-system identity gate, and Issue #26 bounded agent tool-failure and no-compile-progress evidence. It preserves every v1/v2/v3 protocol artifact and existing physical-attempt ledger, keeps `control_plane_topology: "compose-dood"`, and creates a separate v4 evidence stratum.
+
+The runtime implementation baseline is the reviewed PR #29 squash commit `1e4bad22117ad01058310a8625925e7801a8eff2`. A clean runtime HEAD must contain that commit as an ancestor and its 21 frozen runtime components must match the baseline. The five cases and execution controls remain unchanged from v3: `gpt-5.6-sol` for both roles, the RichLab `/v1` endpoint, `OpenAI_AK`, a 120-second request timeout, zero provider retries, no fallback, one serial backend run, and disabled Memory/Skills.
+
+Validate the manifest on Windows and WSL, then run preflight in the frozen Compose/DooD environment:
+
+```powershell
+python scripts/forge_benchmark_v4.py validate-manifest benchmarks/manifests/cpp-pilot-v4.json
+```
+
+```bash
+python3 scripts/forge_benchmark_runner.py preflight \
+  --manifest benchmarks/manifests/cpp-pilot-v4.json
+```
+
+Only `ready: true` on a clean committed tree authorizes collection. Collection is a later, separately authorized step: create and run one new v4 physical attempt for each of the five cases, strictly serially. Do not pass `--replacement-for`, edit or delete a v1/v2/v3 ledger, or pool outcomes across protocol versions. Once the first v4 ledger is created, the v4 manifest and protocol artifacts are frozen for that collection stratum.
+
 ## Historical pilot v3
 
 `cpp-pilot-v3.json` is the completed five-case calibration protocol for the runtime that includes the Issue #16 exact-clone ownership fix, Issue #17 runner/session terminalization fix, and Issue #18 provider-reported model identity extraction. It preserves every v1/v2 protocol artifact and existing physical-attempt ledger, keeps `control_plane_topology: "compose-dood"`, and creates a separate v3 evidence stratum. Its five physical attempts are immutable historical evidence and must not be rerun, replaced, or pooled with another protocol version.
