@@ -556,6 +556,7 @@ def recompute_failure_domains(events: list[dict[str, Any]]) -> dict[str, list[di
     domains: dict[str, list[dict[str, Any]]] = {name: [] for name in _FAILURE_DOMAIN_NAMES}
     recorded_domain_map = {
         "model_endpoint": "model_endpoint",
+        "agent_tool": "agent_tool",
         "build": "build",
         "verification": "submit_replay",
         "submit": "submit_replay",

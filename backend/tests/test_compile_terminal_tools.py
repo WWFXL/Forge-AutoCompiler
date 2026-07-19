@@ -143,6 +143,114 @@ def test_failed_bound_submit_remains_repairable(monkeypatch):
     assert json.loads(result)["status"] == "failed"
 
 
+def test_staged_artifacts_submit_automatically_in_same_tool_call(monkeypatch):
+    session = make_session()
+    session.status = "inspected"
+    session.post_build_supporting_command_id = "command-build"
+    record = BuildCommandRecord(
+        stage="bash",
+        command="cp build/hello /artifacts/hello",
+        workdir="/workspace/repo",
+        command_id="command-stage",
+        role="artifact_stage",
+        exit_code=0,
+    )
+    command_result = SimpleNamespace(exit_code=0)
+    submitted: list[str | None] = []
+    submit_payload = {
+        "status": "passed",
+        "message": "Build artifacts and clean replay accepted.",
+        "artifacts": [{"path": "thread-123/session-123/artifacts/hello"}],
+    }
+    monkeypatch.setattr(
+        bound_compile_tools,
+        "_run_container_bash_impl",
+        lambda **_kwargs: (command_result, "command completed", record),
+    )
+    monkeypatch.setattr(bound_compile_tools, "_reload_session", lambda current: current)
+    monkeypatch.setattr(bound_compile_tools, "_has_staged_artifacts", lambda _session: True)
+
+    def submit(*, session, supporting_command_id):
+        del session
+        submitted.append(supporting_command_id)
+        return json.dumps(submit_payload)
+
+    monkeypatch.setattr(bound_compile_tools, "submit_build_result_impl", submit)
+    run_tool = next(tool for tool in bound_compile_tools.get_bound_compile_tools(session) if tool.name == "run_container_bash")
+
+    result = json.loads(run_tool.func(command="cp build/hello /artifacts/hello"))
+
+    assert submitted == ["command-build"]
+    assert result["command"]["command_id"] == "command-stage"
+    assert result["automatic_submit"] == submit_payload
+
+
+def test_post_build_fence_blocks_reconfigure_rebuild_and_manual_replay(monkeypatch):
+    session = make_session()
+    session.post_build_supporting_command_id = "command-build"
+    session.post_build_commands_remaining = 2
+    monkeypatch.setattr(bound_compile_tools, "_reload_session", lambda current: current)
+
+    assert "successful build" in bound_compile_tools._post_build_rejection(
+        session,
+        command="cmake -S . -B build-again",
+        command_role="configure",
+    )
+    assert "successful build" in bound_compile_tools._post_build_rejection(
+        session,
+        command="make -j2",
+        command_role="build",
+    )
+    assert "/repro" in bound_compile_tools._post_build_rejection(
+        session,
+        command="bash /repro/build.sh",
+        command_role="other",
+    )
+
+    session.post_build_commands_remaining = 0
+    assert "budget is exhausted" in bound_compile_tools._post_build_rejection(
+        session,
+        command="find build -type f",
+        command_role="other",
+    )
+    assert (
+        bound_compile_tools._post_build_rejection(
+            session,
+            command="cp build/hello /artifacts/hello",
+            command_role="artifact_stage",
+        )
+        is None
+    )
+
+
+def test_automatic_submit_ends_compiler_graph_without_another_model_call():
+    payload = {
+        "command": {
+            "command_id": "command-stage",
+            "command_role": "artifact_stage",
+            "exit_code": 0,
+            "message": "command completed",
+        },
+        "automatic_submit": {
+            "status": "passed",
+            "message": "Build artifacts and clean replay accepted.",
+            "artifacts": [{"path": "thread-123/session-123/artifacts/hello"}],
+        },
+    }
+    request = SimpleNamespace(tool_call={"name": "run_container_bash", "id": "tool-stage", "args": {}})
+    tool_message = ToolMessage(
+        content=json.dumps(payload),
+        tool_call_id="tool-stage",
+        name="run_container_bash",
+    )
+
+    terminal = CompileTerminationMiddleware().wrap_tool_call(request, lambda _request: tool_message)
+
+    assert isinstance(terminal, Command)
+    assert terminal.update["compile_terminal"] is True
+    assert json.loads(terminal.update["messages"][-1].content)["verification_status"] == "passed"
+
+
 def test_compile_session_skips_post_run_memory_model_work(monkeypatch):
     monkeypatch.setattr(
         "deerflow.agents.middlewares.memory_middleware.get_memory_queue",

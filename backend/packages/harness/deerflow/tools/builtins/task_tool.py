@@ -14,7 +14,7 @@ from langgraph.typing import ContextT
 
 from deerflow.agents.lead_agent.prompt import get_skills_prompt_section
 from deerflow.agents.thread_state import ThreadState
-from deerflow.compile.evidence import ExperimentPolicy
+from deerflow.compile.evidence import ExperimentPolicy, new_evidence_id, record_experiment_event
 from deerflow.subagents import SubagentExecutor, get_available_subagent_names, get_subagent_config
 from deerflow.subagents.executor import (
     SubagentStatus,
@@ -30,6 +30,39 @@ from deerflow.tools.builtins.agent_compile_tools import (
 )
 
 logger = logging.getLogger(__name__)
+
+
+def _record_subagent_terminal_evidence(
+    *,
+    thread_id: str | None,
+    task_id: str,
+    subagent_type: str,
+    status: str,
+    classification: str | None,
+    worker_stopped: bool,
+) -> None:
+    if subagent_type != "compiler":
+        return
+    record_experiment_event(
+        thread_id,
+        "agent.subagent_terminated",
+        task_id=task_id,
+        role="compiler",
+        status=status,
+        classification=classification,
+        worker_stopped=worker_stopped,
+    )
+    if status == "completed":
+        return
+    record_experiment_event(
+        thread_id,
+        "failure.recorded",
+        failure_id=new_evidence_id("failure"),
+        domain="agent_tool",
+        classification=classification or "subagent_failed",
+        primary=True,
+        secondary_classifications=([] if worker_stopped else ["worker_shutdown_incomplete"]),
+    )
 
 
 def _apply_max_turns_override(config, *, subagent_type: str, requested_max_turns: int | None):
@@ -53,6 +86,7 @@ def _with_benchmark_constraints(prompt: str, policy: ExperimentPolicy) -> str:
         [
             "- Set command_role on every run_container_bash call; use configure for configuration and build for the successful command that supports final acceptance.",
             "- Pass that successful build command's returned command_id as supporting_command_id to submit_build_result.",
+            "- Do not write /repro or run a manual replay. After the first successful build, use only bounded smoke/artifact staging work; staging into /artifacts may submit automatically in the same tool call.",
         ]
     )
     return f"{prompt.rstrip()}\n\n" + "\n".join(requirements)
@@ -286,7 +320,7 @@ async def task_tool(
             if result is None:
                 logger.error(f"[trace={trace_id}] Task {task_id} not found in background tasks")
                 writer({"type": "task_failed", "task_id": task_id, "error": "Task disappeared from background tasks"})
-                await _cancel_and_reap_task(
+                worker_stopped = await _cancel_and_reap_task(
                     task_id=task_id,
                     subagent_type=subagent_type,
                     compile_state=compile_state,
@@ -294,6 +328,14 @@ async def task_tool(
                     terminal_status="failed",
                     error="Compiler task disappeared from background task tracking.",
                     shutdown_timeout_seconds=shutdown_timeout_seconds,
+                )
+                _record_subagent_terminal_evidence(
+                    thread_id=thread_id,
+                    task_id=task_id,
+                    subagent_type=subagent_type,
+                    status="failed",
+                    classification="tracking_lost",
+                    worker_stopped=worker_stopped,
                 )
                 return f"Error: Task {task_id} disappeared from background tasks"
 
@@ -320,12 +362,22 @@ async def task_tool(
             if result.status == SubagentStatus.COMPLETED:
                 writer({"type": "task_completed", "task_id": task_id, "result": result.result})
                 logger.info(f"[trace={trace_id}] Task {task_id} completed after {poll_count} polls")
+                shutdown_result = wait_for_background_task_shutdown(task_id, shutdown_timeout_seconds)
+                worker_stopped = await shutdown_result if inspect.isawaitable(shutdown_result) else bool(shutdown_result)
+                _record_subagent_terminal_evidence(
+                    thread_id=thread_id,
+                    task_id=task_id,
+                    subagent_type=subagent_type,
+                    status="completed",
+                    classification=None,
+                    worker_stopped=worker_stopped,
+                )
                 cleanup_background_task(task_id)
                 return f"Task Succeeded. Result: {result.result}"
             elif result.status == SubagentStatus.FAILED:
                 writer({"type": "task_failed", "task_id": task_id, "error": result.error})
                 logger.error(f"[trace={trace_id}] Task {task_id} failed: {result.error}")
-                await _cancel_and_reap_task(
+                worker_stopped = await _cancel_and_reap_task(
                     task_id=task_id,
                     subagent_type=subagent_type,
                     compile_state=compile_state,
@@ -334,11 +386,19 @@ async def task_tool(
                     error=result.error or "Compiler task failed.",
                     shutdown_timeout_seconds=shutdown_timeout_seconds,
                 )
+                _record_subagent_terminal_evidence(
+                    thread_id=thread_id,
+                    task_id=task_id,
+                    subagent_type=subagent_type,
+                    status="failed",
+                    classification=getattr(result, "failure_classification", None) or "subagent_failed",
+                    worker_stopped=worker_stopped,
+                )
                 return f"Task failed. Error: {result.error}"
             elif result.status == SubagentStatus.CANCELLED:
                 writer({"type": "task_cancelled", "task_id": task_id, "error": result.error})
                 logger.info(f"[trace={trace_id}] Task {task_id} cancelled: {result.error}")
-                await _cancel_and_reap_task(
+                worker_stopped = await _cancel_and_reap_task(
                     task_id=task_id,
                     subagent_type=subagent_type,
                     compile_state=compile_state,
@@ -347,11 +407,19 @@ async def task_tool(
                     error=result.error or "Compiler task cancelled by user.",
                     shutdown_timeout_seconds=shutdown_timeout_seconds,
                 )
+                _record_subagent_terminal_evidence(
+                    thread_id=thread_id,
+                    task_id=task_id,
+                    subagent_type=subagent_type,
+                    status="cancelled",
+                    classification=getattr(result, "failure_classification", None) or "cancelled",
+                    worker_stopped=worker_stopped,
+                )
                 return "Task cancelled by user."
             elif result.status == SubagentStatus.TIMED_OUT:
                 writer({"type": "task_timed_out", "task_id": task_id, "error": result.error})
                 logger.warning(f"[trace={trace_id}] Task {task_id} timed out: {result.error}")
-                await _cancel_and_reap_task(
+                worker_stopped = await _cancel_and_reap_task(
                     task_id=task_id,
                     subagent_type=subagent_type,
                     compile_state=compile_state,
@@ -359,6 +427,14 @@ async def task_tool(
                     terminal_status="timed_out",
                     error=result.error or "Compiler task timed out.",
                     shutdown_timeout_seconds=shutdown_timeout_seconds,
+                )
+                _record_subagent_terminal_evidence(
+                    thread_id=thread_id,
+                    task_id=task_id,
+                    subagent_type=subagent_type,
+                    status="timed_out",
+                    classification=getattr(result, "failure_classification", None) or "subagent_timeout",
+                    worker_stopped=worker_stopped,
                 )
                 return f"Task timed out. Error: {result.error}"
 
@@ -369,7 +445,7 @@ async def task_tool(
                 timeout_minutes = config.timeout_seconds // 60
                 logger.error(f"[trace={trace_id}] Task {task_id} polling timed out after {poll_count} polls (should have been caught by thread pool timeout)")
                 writer({"type": "task_timed_out", "task_id": task_id})
-                await _cancel_and_reap_task(
+                worker_stopped = await _cancel_and_reap_task(
                     task_id=task_id,
                     subagent_type=subagent_type,
                     compile_state=compile_state,
@@ -378,9 +454,17 @@ async def task_tool(
                     error=f"Compiler task polling timed out after {timeout_minutes} minutes.",
                     shutdown_timeout_seconds=shutdown_timeout_seconds,
                 )
+                _record_subagent_terminal_evidence(
+                    thread_id=thread_id,
+                    task_id=task_id,
+                    subagent_type=subagent_type,
+                    status="timed_out",
+                    classification="polling_timeout",
+                    worker_stopped=worker_stopped,
+                )
                 return f"Task polling timed out after {timeout_minutes} minutes. This may indicate the background task is stuck. Status: {result.status.value}"
     except asyncio.CancelledError:
-        await _cancel_and_reap_task(
+        worker_stopped = await _cancel_and_reap_task(
             task_id=task_id,
             subagent_type=subagent_type,
             compile_state=compile_state,
@@ -388,5 +472,13 @@ async def task_tool(
             terminal_status="cancelled",
             error="Compiler task cancelled with its parent run.",
             shutdown_timeout_seconds=shutdown_timeout_seconds,
+        )
+        _record_subagent_terminal_evidence(
+            thread_id=thread_id,
+            task_id=task_id,
+            subagent_type=subagent_type,
+            status="cancelled",
+            classification="parent_cancelled",
+            worker_stopped=worker_stopped,
         )
         raise

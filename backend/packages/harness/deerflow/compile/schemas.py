@@ -147,6 +147,9 @@ class CompileSession:
     build_system_capabilities: list[str] = field(default_factory=list)
     selected_build_system: str | None = None
     executed_build_system: str | None = None
+    post_build_supporting_command_id: str | None = None
+    post_build_started_at: str | None = None
+    post_build_commands_remaining: int | None = None
     summary: str | None = None
     error: str | None = None
     metadata_path: str = ""
@@ -170,6 +173,9 @@ class CompileSession:
             "build_system_capabilities": [],
             "selected_build_system": None,
             "executed_build_system": None,
+            "post_build_supporting_command_id": None,
+            "post_build_started_at": None,
+            "post_build_commands_remaining": None,
             "replay_attempts": [],
             **data,
         }

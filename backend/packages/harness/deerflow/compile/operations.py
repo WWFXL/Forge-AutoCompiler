@@ -39,9 +39,9 @@ from deerflow.compile.schemas import (
 )
 
 _BUILD_SYSTEM_MARKERS = {
-    "cmake": "CMakeLists.txt",
-    "make": "Makefile",
-    "autotools": "configure",
+    "cmake": ("CMakeLists.txt",),
+    "make": ("Makefile", "GNUmakefile", "makefile"),
+    "autotools": ("configure", "configure.ac", "configure.in", "autogen.sh"),
 }
 
 _ARTIFACT_FILE_EXCLUDES = [
@@ -81,6 +81,27 @@ _REPLAY_SMOKE_TIMEOUT_SECONDS = 30
 _REPLAY_CONTAINER_CREATE_TIMEOUT_SECONDS = 30
 _MAX_PERSISTED_SMOKE_OUTPUT = 4000
 _TERMINAL_SESSION_STATUSES = {"completed", "failed", "cancelled", "timed_out"}
+_HOUSEKEEPING_BUILD_TARGETS = {
+    "clean",
+    "distclean",
+    "help",
+    "maintainer-clean",
+    "mostlyclean",
+}
+_BUILD_TOOL_OPTIONS_WITH_VALUE = {
+    "--directory",
+    "--file",
+    "--include-dir",
+    "--jobs",
+    "--load-average",
+    "--output-sync",
+    "-C",
+    "-f",
+    "-I",
+    "-j",
+    "-l",
+    "-O",
+}
 
 
 @dataclass
@@ -494,8 +515,9 @@ def inspect_build_system_impl(*, session: CompileSession) -> tuple[str, list[tup
     repo_dir = Path(session.leadagent_repo_dir)
     services.manager.log_event(session, "inspect.started", lead_repo_dir=str(repo_dir))
     detected: list[tuple[str, str]] = []
-    for build_system, marker in _BUILD_SYSTEM_MARKERS.items():
-        if (repo_dir / marker).is_file():
+    for build_system, markers in _BUILD_SYSTEM_MARKERS.items():
+        marker = next((candidate for candidate in markers if (repo_dir / candidate).is_file()), None)
+        if marker is not None:
             detected.append((build_system, marker))
 
     session.build_system_capabilities = [build_system for build_system, _marker in detected]
@@ -507,10 +529,17 @@ def inspect_build_system_impl(*, session: CompileSession) -> tuple[str, list[tup
         session.build_system = None
     services.manager.save_session(session)
 
+    autotools_marker = next((marker for build_system, marker in detected if build_system == "autotools"), None)
+    autotools_commands = {
+        "configure": ["chmod +x ./configure && ./configure", "make -j"],
+        "autogen.sh": ["chmod +x ./autogen.sh && ./autogen.sh", "make -j"],
+        "configure.ac": ["autoreconf -fi && ./configure", "make -j"],
+        "configure.in": ["autoreconf -fi && ./configure", "make -j"],
+    }
     suggested_commands = {
         "cmake": ["mkdir -p build && cd build && cmake ..", "cmake --build build -j"],
         "make": ["make -j"],
-        "autotools": ["chmod +x ./configure && ./configure", "make -j"],
+        "autotools": autotools_commands.get(autotools_marker, ["autoreconf -fi && ./configure", "make -j"]),
         "unknown": ["Inspect repository manually and run the appropriate C/C++ build command"],
     }
 
@@ -1018,10 +1047,83 @@ def _command_invokes(command: str, executable: str) -> bool:
     return False
 
 
+def _build_tool_invokes_real_target(tokens: list[str], executable: str) -> bool:
+    separators = {";", "&", "&&", "|", "||"}
+    for index, token in enumerate(tokens):
+        if PurePosixPath(token).name != executable:
+            continue
+        targets: list[str] = []
+        skip_option_value = False
+        for argument in tokens[index + 1 :]:
+            if argument in separators:
+                break
+            if skip_option_value:
+                skip_option_value = False
+                continue
+            if argument in _BUILD_TOOL_OPTIONS_WITH_VALUE:
+                skip_option_value = True
+                continue
+            if argument.startswith("-") or re.fullmatch(r"[A-Za-z_][A-Za-z0-9_]*=.*", argument):
+                continue
+            targets.append(argument)
+        if not targets or any(target not in _HOUSEKEEPING_BUILD_TARGETS for target in targets):
+            return True
+    return False
+
+
+def _cmake_invokes_real_build(tokens: list[str]) -> bool:
+    if "--build" not in tokens:
+        return False
+    target_index = next((index for index, token in enumerate(tokens) if token in {"--target", "-t"}), None)
+    if target_index is None:
+        return True
+    targets: list[str] = []
+    for argument in tokens[target_index + 1 :]:
+        if argument == "--" or argument.startswith("-"):
+            break
+        targets.append(argument)
+    return not targets or any(target not in _HOUSEKEEPING_BUILD_TARGETS for target in targets)
+
+
+def infer_command_role(command: str) -> str | None:
+    """Infer control-plane roles for the supported C/C++ build systems."""
+
+    try:
+        tokens = split(command, posix=True)
+    except ValueError:
+        tokens = []
+
+    if "/artifacts" in command and (_command_invokes(command, "cp") or _command_invokes(command, "install") or re.search(r"(?:^|[;&|]\s*|\s)(?:cp|install)\s", command) is not None):
+        return "artifact_stage"
+
+    if _command_invokes(command, "cmake") and _cmake_invokes_real_build(tokens):
+        return "build"
+    if any(_command_invokes(command, executable) and _build_tool_invokes_real_target(tokens, executable) for executable in ("make", "gmake", "ninja")):
+        return "build"
+
+    if _command_invokes(command, "cmake") and "--build" not in tokens:
+        return "configure"
+    if any(_command_invokes(command, executable) for executable in ("configure", "autogen.sh", "autoreconf")):
+        return "configure"
+    return None
+
+
+def resolve_command_role(command: str, declared_role: str | None) -> tuple[str, str | None]:
+    """Resolve a model-declared role against deterministic command evidence."""
+
+    declared = allowed_command_role(declared_role)
+    inferred = infer_command_role(command)
+    if inferred is not None:
+        return inferred, inferred
+    if declared in {"configure", "build", "artifact_stage"}:
+        return "other", None
+    return declared, None
+
+
 def _configure_command_build_system(command: str) -> str | None:
-    if _command_invokes(command, "cmake"):
+    if infer_command_role(command) == "configure" and _command_invokes(command, "cmake"):
         return "cmake"
-    if _command_invokes(command, "configure"):
+    if infer_command_role(command) == "configure" and any(_command_invokes(command, executable) for executable in ("configure", "autogen.sh", "autoreconf")):
         return "autotools"
     return None
 

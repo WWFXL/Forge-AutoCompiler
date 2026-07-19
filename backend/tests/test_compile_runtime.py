@@ -31,6 +31,7 @@ from deerflow.compile.paths import (
 )
 from deerflow.compile.schemas import BuildArtifact, BuildCommandRecord, CommandResult, CompileSession, ReplayArtifactComparison, ReplayVerificationResult, VerificationCheck, VerificationResult
 from deerflow.config.paths import Paths
+from deerflow.tools import bound_compile_tools
 
 VALID_IMAGE_ID = f"sha256:{'1' * 64}"
 
@@ -107,6 +108,114 @@ def test_inspect_build_system_persists_all_repository_capabilities(tmp_path: Pat
     assert reloaded.build_system_capabilities == ["cmake", "make", "autotools"]
     assert reloaded.selected_build_system is None
     assert reloaded.executed_build_system is None
+
+
+@pytest.mark.parametrize(
+    ("marker", "first_suggestion"),
+    [
+        ("configure.ac", "autoreconf -fi && ./configure"),
+        ("configure.in", "autoreconf -fi && ./configure"),
+        ("autogen.sh", "chmod +x ./autogen.sh && ./autogen.sh"),
+    ],
+)
+def test_inspect_build_system_detects_source_autotools_markers(
+    tmp_path: Path,
+    monkeypatch,
+    marker: str,
+    first_suggestion: str,
+) -> None:
+    manager = CompileSessionManager(paths=make_test_paths(tmp_path))
+    session = manager.create_session(
+        thread_id=f"thread-autotools-{marker.replace('.', '-')}",
+        repo_url="https://example.com/repo.git",
+    )
+    repo_dir = Path(session.leadagent_repo_dir)
+    repo_dir.mkdir(parents=True)
+    (repo_dir / marker).write_text("fixture\n", encoding="utf-8")
+    monkeypatch.setattr(
+        operations,
+        "_services",
+        CompileOperationsServices(manager=manager, runtime=SimpleNamespace()),
+    )
+
+    primary, detected, suggested = operations.inspect_build_system_impl(session=session)
+
+    assert primary == "autotools"
+    assert detected == [("autotools", marker)]
+    assert suggested[0] == first_suggestion
+    assert manager.load_session(session.session_id, session.thread_id).build_system_capabilities == ["autotools"]
+
+
+@pytest.mark.parametrize(
+    ("command", "declared", "effective", "inferred"),
+    [
+        ("cmake --build build -j2", "other", "build", "build"),
+        ("make -j2", "other", "build", "build"),
+        ("ninja -C build", "other", "build", "build"),
+        ("cmake -S . -B build", "other", "configure", "configure"),
+        ("autoreconf -fi && ./configure", "other", "configure", "configure"),
+        ("cp build/libexample.a /artifacts/", "other", "artifact_stage", "artifact_stage"),
+        ("make clean", "other", "other", None),
+        ("ninja -C build clean", "build", "other", None),
+        ("cmake --build build --target clean", "build", "other", None),
+        ("make clean all", "other", "build", "build"),
+        ("printf 'not a build'", "build", "other", None),
+        ("find build -type f", "smoke", "smoke", None),
+    ],
+)
+def test_command_role_is_resolved_from_server_side_evidence(
+    command: str,
+    declared: str,
+    effective: str,
+    inferred: str | None,
+) -> None:
+    assert operations.resolve_command_role(command, declared) == (effective, inferred)
+
+
+def test_successful_mislabelled_build_enters_persisted_post_build_fence(tmp_path: Path, monkeypatch) -> None:
+    manager = CompileSessionManager(paths=make_test_paths(tmp_path))
+    session = manager.create_session(
+        thread_id="thread-post-build-fence",
+        repo_url="https://example.com/repo.git",
+    )
+    runtime_calls: list[str] = []
+
+    def fake_exec(_session, command, **kwargs):
+        runtime_calls.append(command)
+        return CommandResult(
+            exit_code=0,
+            stdout="built\n",
+            stderr="",
+            combined_output="built\n",
+            log_path=kwargs.get("log_path"),
+        )
+
+    monkeypatch.setattr(
+        operations,
+        "_services",
+        CompileOperationsServices(manager=manager, runtime=SimpleNamespace(exec=fake_exec)),
+    )
+
+    build_result, _message, build_record = bound_compile_tools._run_container_bash_impl(
+        session=session,
+        command="cmake --build build -j2",
+        command_role="other",
+    )
+    rejected_result, _rejected_message, rejected_record = bound_compile_tools._run_container_bash_impl(
+        session=session,
+        command="cmake -S . -B build-again",
+        command_role="other",
+    )
+
+    reloaded = manager.load_session(session.session_id, session.thread_id)
+    assert build_result.exit_code == 0
+    assert build_record.role == "build"
+    assert reloaded.post_build_supporting_command_id == build_record.command_id
+    assert reloaded.post_build_commands_remaining == 2
+    assert rejected_result.exit_code == 126
+    assert rejected_record.role == "configure"
+    assert rejected_record.termination == "policy_rejected"
+    assert runtime_calls == ["cmake --build build -j2"]
 
 
 @pytest.mark.parametrize(

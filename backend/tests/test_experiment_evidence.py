@@ -22,6 +22,7 @@ from deerflow.compile.evidence import (
     record_agent_tool_failure,
     record_experiment_event,
 )
+from deerflow.tools.builtins.task_tool import _record_subagent_terminal_evidence
 
 
 def make_policy() -> ExperimentPolicy:
@@ -131,6 +132,51 @@ def test_active_experiment_registry_routes_events_to_one_thread(tmp_path: Path) 
     events = ledger.read()
     assert [event["event"] for event in events] == ["experiment.started", "model.request_started"]
     assert get_active_experiment(thread_id) is None
+
+
+@pytest.mark.parametrize(
+    ("status", "classification"),
+    [
+        ("timed_out", "subagent_timeout"),
+        ("failed", "recursion_limit"),
+    ],
+)
+def test_subagent_termination_builds_valid_hash_chained_failure_evidence(
+    tmp_path: Path,
+    status: str,
+    classification: str,
+) -> None:
+    ledger = create_ledger(tmp_path)
+    thread_id = ledger.read()[0]["payload"]["thread_id"]
+    active = activate_experiment(
+        thread_id=thread_id,
+        experiment_id=ledger.experiment_id,
+        physical_attempt_id=ledger.physical_attempt_id,
+        ledger=ledger,
+        policy=make_policy(),
+    )
+    try:
+        _record_subagent_terminal_evidence(
+            thread_id=thread_id,
+            task_id="compiler-task-1",
+            subagent_type="compiler",
+            status=status,
+            classification=classification,
+            worker_stopped=True,
+        )
+    finally:
+        assert deactivate_experiment(thread_id) is active
+
+    events = ExperimentLedger.verify_path(ledger.path)
+    assert [event["event"] for event in events] == [
+        "experiment.started",
+        "agent.subagent_terminated",
+        "failure.recorded",
+    ]
+    assert events[1]["payload"]["classification"] == classification
+    assert events[1]["payload"]["worker_stopped"] is True
+    assert events[2]["payload"]["domain"] == "agent_tool"
+    assert events[2]["payload"]["classification"] == classification
 
 
 def test_agent_tool_failure_records_only_bounded_identity_and_exception_class(
