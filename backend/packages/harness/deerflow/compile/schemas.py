@@ -144,6 +144,9 @@ class CompileSession:
     container_id: str | None = None
     container_name: str | None = None
     build_system: str | None = None
+    build_system_capabilities: list[str] = field(default_factory=list)
+    selected_build_system: str | None = None
+    executed_build_system: str | None = None
     summary: str | None = None
     error: str | None = None
     metadata_path: str = ""
@@ -161,7 +164,15 @@ class CompileSession:
 
     @classmethod
     def from_dict(cls, data: dict[str, Any]) -> CompileSession:
-        data = {"run_id": None, "image_id": None, "replay_attempts": [], **data}
+        data = {
+            "run_id": None,
+            "image_id": None,
+            "build_system_capabilities": [],
+            "selected_build_system": None,
+            "executed_build_system": None,
+            "replay_attempts": [],
+            **data,
+        }
         commands = [BuildCommandRecord(**item) for item in data.get("commands", [])]
         artifacts = [BuildArtifact(**item) for item in data.get("artifacts", [])]
         verification_data = data.get("verification")

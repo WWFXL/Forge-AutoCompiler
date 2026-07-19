@@ -12,7 +12,7 @@ import uuid
 from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path, PurePosixPath
-from shlex import quote, split
+from shlex import quote, shlex, split
 from typing import BinaryIO
 from urllib.parse import urlsplit
 
@@ -498,12 +498,14 @@ def inspect_build_system_impl(*, session: CompileSession) -> tuple[str, list[tup
         if (repo_dir / marker).is_file():
             detected.append((build_system, marker))
 
+    session.build_system_capabilities = [build_system for build_system, _marker in detected]
     if detected:
         primary_system = detected[0][0]
         session.build_system = primary_system
-        services.manager.save_session(session)
     else:
         primary_system = "unknown"
+        session.build_system = None
+    services.manager.save_session(session)
 
     suggested_commands = {
         "cmake": ["mkdir -p build && cd build && cmake ..", "cmake --build build -j"],
@@ -529,6 +531,7 @@ def inspect_build_system_json(*, session: CompileSession) -> str:
     return json.dumps(
         {
             "build_system": primary_system,
+            "build_system_capabilities": session.build_system_capabilities,
             "detected": detected,
             "suggested_commands": suggested_commands,
         },
@@ -987,24 +990,126 @@ def _command_contains_arguments(command: str, expected: tuple[str, ...]) -> bool
     return all(any(token == argument for token in token_iterator) for argument in expected)
 
 
+def _command_invokes(command: str, executable: str) -> bool:
+    try:
+        lexer = shlex(command.replace("\n", ";"), posix=True, punctuation_chars="();&|")
+        lexer.whitespace_split = True
+        lexer.commenters = ""
+        tokens = list(lexer)
+    except ValueError:
+        return False
+    expect_executable = True
+    wrappers = {"command", "env", "sudo", "time"}
+    separators = {"(", ")", ";", "&", "&&", "|", "||"}
+    for token in tokens:
+        if token in separators:
+            expect_executable = True
+            continue
+        if not expect_executable:
+            continue
+        if re.fullmatch(r"[A-Za-z_][A-Za-z0-9_]*=.*", token) or token.startswith("-"):
+            continue
+        candidate = PurePosixPath(token).name
+        if candidate in wrappers:
+            continue
+        if candidate == executable:
+            return True
+        expect_executable = False
+    return False
+
+
+def _configure_command_build_system(command: str) -> str | None:
+    if _command_invokes(command, "cmake"):
+        return "cmake"
+    if _command_invokes(command, "configure"):
+        return "autotools"
+    return None
+
+
+def _infer_executed_build_system(
+    commands: list[BuildCommandRecord],
+    supporting_command_id: str | None,
+) -> str | None:
+    supporting_index = next(
+        (index for index, command in enumerate(commands) if command.command_id == supporting_command_id),
+        None,
+    )
+    if supporting_index is None:
+        return None
+    supporting = commands[supporting_index]
+    if supporting.role != "build" or supporting.exit_code != 0 or supporting.timed_out:
+        return None
+
+    if _command_invokes(supporting.command, "cmake"):
+        return "cmake"
+    if _command_invokes(supporting.command, "configure"):
+        return "autotools"
+
+    successful_configures = [command for command in commands[:supporting_index] if command.role == "configure" and command.exit_code == 0 and not command.timed_out]
+    for configure in reversed(successful_configures):
+        configured_system = _configure_command_build_system(configure.command)
+        if configured_system is not None:
+            return configured_system
+
+    if _command_invokes(supporting.command, "make") or _command_invokes(supporting.command, "gmake"):
+        return "make"
+    return None
+
+
+def _persist_executed_build_system(session: CompileSession, executed_build_system: str | None) -> None:
+    services = get_compile_services()
+    with services.manager.session_lock(session.thread_id, session.session_id):
+        current = _load_authoritative_session(session)
+        current.executed_build_system = executed_build_system
+        if executed_build_system is not None:
+            current.build_system = executed_build_system
+        services.manager.save_session(current)
+        session.__dict__.update(current.__dict__)
+
+
 def _experiment_submit_constraints(
     session: CompileSession,
     supporting_command_id: str | None,
-) -> tuple[bool, list[str]]:
+) -> tuple[bool, list[str], str | None]:
     active = get_active_experiment(session.thread_id)
     if active is None:
-        return True, []
+        return True, [], None
     failures: list[str] = []
-    if session.build_system != active.policy.expected_build_system:
-        failures.append("build_system_mismatch")
+    selected_build_system = session.selected_build_system
+    expected_build_system = active.policy.selected_build_system
+    executed_build_system = _infer_executed_build_system(session.commands, supporting_command_id)
+    selection_matches = selected_build_system == expected_build_system
+    execution_matches = executed_build_system is not None and executed_build_system == selected_build_system
+    record_experiment_event(
+        session.thread_id,
+        "build.execution_checked",
+        session_id=session.session_id,
+        expected_build_system=expected_build_system,
+        selected_build_system=selected_build_system,
+        observed_build_system=executed_build_system,
+        detected_build_systems=list(session.build_system_capabilities),
+        matches=selection_matches and execution_matches,
+        submit_allowed=selection_matches and execution_matches,
+    )
+    identity_failure: str | None = None
+    if not selection_matches:
+        identity_failure = "build_system_selection_mismatch"
+    elif executed_build_system is None:
+        identity_failure = "build_system_unproven"
+    elif not execution_matches:
+        identity_failure = "build_system_mismatch"
+    if identity_failure is not None:
+        failures.append(identity_failure)
         record_experiment_event(
             session.thread_id,
             "protocol.deviation",
             phase="submit",
-            classification="build_system_mismatch",
+            classification=identity_failure,
             session_id=session.session_id,
-            expected_build_system=active.policy.expected_build_system,
-            observed_build_system=session.build_system,
+            expected_build_system=expected_build_system,
+            selected_build_system=selected_build_system,
+            observed_build_system=executed_build_system,
+            detected_build_systems=list(session.build_system_capabilities),
             submit_allowed=False,
         )
     supporting = next((command for command in session.commands if command.command_id == supporting_command_id), None)
@@ -1022,7 +1127,7 @@ def _experiment_submit_constraints(
         failures.append("cmake_arguments_not_observed")
     if active.policy.configure_arguments and not any(command.role == "configure" and _command_contains_arguments(command.command, active.policy.configure_arguments) for command in successful_commands):
         failures.append("configure_arguments_not_observed")
-    return not failures, failures
+    return not failures, failures, executed_build_system
 
 
 def _apply_experiment_replay_delay(session: CompileSession) -> None:
@@ -1079,7 +1184,9 @@ def submit_build_result_impl(
                 supporting_command_id=supporting_command_id,
             )
         session.__dict__.update(current.__dict__)
-    constraints_passed, constraint_failures = _experiment_submit_constraints(session, supporting_command_id)
+    constraints_passed, constraint_failures, executed_build_system = _experiment_submit_constraints(session, supporting_command_id)
+    if get_active_experiment(session.thread_id) is not None:
+        _persist_executed_build_system(session, executed_build_system)
     submit_index = len(session.commands) + 1
     summary_log_path = local_log_path(session, f"{submit_index:03d}_submit.log")
     while Path(summary_log_path).exists():

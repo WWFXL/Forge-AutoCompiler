@@ -224,7 +224,7 @@ def test_build_system_mismatch_cleans_session_and_stops_before_compiler(monkeypa
     def cleanup_and_finalize(*, session: CompileSession, interrupted_status: str, error: str):
         cleanup_calls.append(session.session_id)
         assert interrupted_status == "failed"
-        assert "expected build system autotools" in error
+        assert "selected build system autotools" in error
         session.status = "failed"
         session.finalized_at = "2026-07-19T00:00:00+00:00"
         return session, ContainerCleanupResult(succeeded=True, stopped=True, removed=True)
@@ -234,7 +234,7 @@ def test_build_system_mismatch_cleans_session_and_stops_before_compiler(monkeypa
     monkeypatch.setattr(
         agent_compile_tools,
         "get_active_experiment",
-        lambda _thread_id: SimpleNamespace(policy=SimpleNamespace(expected_build_system="autotools")),
+        lambda _thread_id: SimpleNamespace(policy=SimpleNamespace(selected_build_system="autotools")),
     )
     monkeypatch.setattr(
         agent_compile_tools,
@@ -254,14 +254,69 @@ def test_build_system_mismatch_cleans_session_and_stops_before_compiler(monkeypa
 
     assert cleanup_calls == [session.session_id]
     assert result.update["compile_terminal"] is True
-    assert result.update[agent_compile_tools.COMPILE_BUILD_SYSTEM_STATE_KEY] == "cmake"
-    assert "expected build system autotools" in result.update["messages"][0].content
+    assert agent_compile_tools.COMPILE_BUILD_SYSTEM_STATE_KEY not in result.update
+    assert "selected build system autotools" in result.update["messages"][0].content
     assert [event for event, _payload in recorded_events] == [
         "build.system_checked",
         "protocol.deviation",
     ]
     assert recorded_events[-1][1]["compiler_allowed"] is False
     assert recorded_events[-1][1]["session_finalized"] is True
+
+
+def test_multi_entry_repository_selects_manifest_build_path(monkeypatch):
+    session = make_session()
+    session.status = "source_ready"
+    session.build_system = None
+    session.selected_build_system = None
+    recorded_events: list[tuple[str, dict]] = []
+    saved_sessions: list[CompileSession] = []
+
+    monkeypatch.setattr(agent_compile_tools, "get_bound_session", lambda session_id, thread_id: session)
+
+    def inspect_build_system(*, session: CompileSession):
+        session.build_system = "cmake"
+        session.build_system_capabilities = ["cmake", "make"]
+        return "cmake", [("cmake", "CMakeLists.txt"), ("make", "Makefile")], ["cmake --build build"]
+
+    monkeypatch.setattr(agent_compile_tools, "inspect_build_system_impl", inspect_build_system)
+    monkeypatch.setattr(
+        agent_compile_tools,
+        "get_compile_services",
+        lambda: SimpleNamespace(manager=SimpleNamespace(save_session=lambda current: saved_sessions.append(current))),
+    )
+    monkeypatch.setattr(
+        agent_compile_tools,
+        "get_active_experiment",
+        lambda _thread_id: SimpleNamespace(policy=SimpleNamespace(selected_build_system="make")),
+    )
+    monkeypatch.setattr(
+        agent_compile_tools,
+        "record_experiment_event",
+        lambda _thread_id, event, **payload: recorded_events.append((event, payload)),
+    )
+    runtime = SimpleNamespace(
+        state={agent_compile_tools.COMPILE_SESSION_STATE_KEY: session.session_id},
+        context={"thread_id": session.thread_id},
+        config={"configurable": {}},
+    )
+
+    result = agent_compile_tools.identify_build_system.func(
+        runtime=runtime,
+        tool_call_id="tool-build-system-selection",
+    )
+
+    assert "compile_terminal" not in result.update
+    assert result.update[agent_compile_tools.COMPILE_BUILD_SYSTEM_STATE_KEY] == "make"
+    assert session.build_system == "cmake"
+    assert session.build_system_capabilities == ["cmake", "make"]
+    assert session.selected_build_system == "make"
+    assert saved_sessions == [session]
+    assert [event for event, _payload in recorded_events] == ["build.system_checked"]
+    assert recorded_events[0][1]["observed_build_system"] == "cmake"
+    assert recorded_events[0][1]["detected_build_systems"] == ["cmake", "make"]
+    assert recorded_events[0][1]["selected_build_system"] == "make"
+    assert recorded_events[0][1]["compiler_allowed"] is True
 
 
 def test_finalize_ends_lead_graph_after_one_model_call(monkeypatch):
