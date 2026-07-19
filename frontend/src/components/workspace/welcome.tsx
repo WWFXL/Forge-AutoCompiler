@@ -72,7 +72,9 @@ export function Welcome({
             <div className={cn("inline-block", !waved ? "animate-wave" : "")}>
               ✨
             </div>
-            <AuroraText colors={colors}>{t.welcome.createYourOwnSkill}</AuroraText>
+            <AuroraText colors={colors}>
+              {t.welcome.createYourOwnSkill}
+            </AuroraText>
           </div>
         </div>
         <div className="text-muted-foreground text-sm">

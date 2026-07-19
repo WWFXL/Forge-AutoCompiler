@@ -24,6 +24,7 @@ class RuntimeFeatures:
     accept ``False`` (disable) or an ``AgentMiddleware`` instance (custom).
     """
 
+    # Compatibility-only: the sandbox middleware was removed and this value is ignored.
     sandbox: bool | AgentMiddleware = True
     memory: bool | AgentMiddleware = False
     summarization: Literal[False] | AgentMiddleware = False

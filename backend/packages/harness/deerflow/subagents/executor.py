@@ -49,6 +49,7 @@ class SubagentResult:
     completed_at: datetime | None = None
     ai_messages: list[dict[str, Any]] | None = None
     cancel_event: threading.Event = field(default_factory=threading.Event, repr=False)
+    _status_lock: threading.Lock = field(default_factory=threading.Lock, repr=False)
 
     def __post_init__(self):
         if self.ai_messages is None:
@@ -60,6 +61,34 @@ _background_tasks_lock = threading.Lock()
 _scheduler_pool = ThreadPoolExecutor(max_workers=MAX_CONCURRENT_SUBAGENTS, thread_name_prefix="subagent-scheduler-")
 _execution_pool = ThreadPoolExecutor(max_workers=MAX_CONCURRENT_SUBAGENTS, thread_name_prefix="subagent-exec-")
 _isolated_loop_pool = ThreadPoolExecutor(max_workers=MAX_CONCURRENT_SUBAGENTS, thread_name_prefix="subagent-isolated-")
+_TERMINAL_STATUSES = {
+    SubagentStatus.COMPLETED,
+    SubagentStatus.FAILED,
+    SubagentStatus.CANCELLED,
+    SubagentStatus.TIMED_OUT,
+}
+
+
+def _mark_terminal(result: SubagentResult, status: SubagentStatus, error: str | None = None) -> bool:
+    with result._status_lock:
+        if result.status in _TERMINAL_STATUSES:
+            return False
+        result.status = status
+        result.error = error
+        result.completed_at = datetime.now()
+        return True
+
+
+def _mark_execution_complete(result: SubagentResult) -> None:
+    with result._status_lock:
+        if result.status in _TERMINAL_STATUSES:
+            return
+        if result.cancel_event.is_set():
+            result.status = SubagentStatus.CANCELLED
+            result.error = result.error or "Cancelled by user"
+        else:
+            result.status = SubagentStatus.COMPLETED
+        result.completed_at = datetime.now()
 
 
 def _extract_text_content(content: Any) -> str:
@@ -201,9 +230,7 @@ class SubagentExecutor:
             final_state = None
 
             if result.cancel_event.is_set():
-                result.status = SubagentStatus.CANCELLED
-                result.error = "Cancelled by user"
-                result.completed_at = datetime.now()
+                _mark_terminal(result, SubagentStatus.CANCELLED, "Cancelled by user")
                 return result
 
             async for chunk in agent.astream(
@@ -213,9 +240,7 @@ class SubagentExecutor:
                 stream_mode="values",
             ):
                 if result.cancel_event.is_set():
-                    result.status = SubagentStatus.CANCELLED
-                    result.error = "Cancelled by user"
-                    result.completed_at = datetime.now()
+                    _mark_terminal(result, SubagentStatus.CANCELLED, "Cancelled by user")
                     return result
 
                 final_state = chunk
@@ -252,13 +277,10 @@ class SubagentExecutor:
                 else:
                     result.result = "No response generated"
 
-            result.status = SubagentStatus.COMPLETED
-            result.completed_at = datetime.now()
+            _mark_execution_complete(result)
         except Exception as e:
             logger.exception("[trace=%s] Subagent %s async execution failed", self.trace_id, self.config.name)
-            result.status = SubagentStatus.FAILED
-            result.error = str(e)
-            result.completed_at = datetime.now()
+            _mark_terminal(result, SubagentStatus.FAILED, str(e))
 
         return result
 
@@ -271,16 +293,19 @@ class SubagentExecutor:
             return future.result(timeout=self.config.timeout_seconds)
         except FuturesTimeoutError:
             logger.warning("[trace=%s] Subagent %s timed out after %ss", self.trace_id, self.config.name, self.config.timeout_seconds)
-            result_holder.status = SubagentStatus.TIMED_OUT
-            result_holder.error = f"Subagent timed out after {self.config.timeout_seconds} seconds"
-            result_holder.completed_at = datetime.now()
+            timeout_error = f"Subagent timed out after {self.config.timeout_seconds} seconds"
+            with result_holder._status_lock:
+                if result_holder.status in _TERMINAL_STATUSES:
+                    return result_holder
+                result_holder.cancel_event.set()
+                result_holder.status = SubagentStatus.TIMED_OUT
+                result_holder.error = timeout_error
+                result_holder.completed_at = datetime.now()
             future.cancel()
             return result_holder
         except Exception as exc:
             logger.exception("[trace=%s] Subagent %s execution wrapper failed", self.trace_id, self.config.name)
-            result_holder.status = SubagentStatus.FAILED
-            result_holder.error = str(exc)
-            result_holder.completed_at = datetime.now()
+            _mark_terminal(result_holder, SubagentStatus.FAILED, str(exc))
             return result_holder
 
     def execute_async(self, task: str, task_id: str | None = None) -> str:
@@ -297,7 +322,9 @@ class SubagentExecutor:
             _background_tasks[task_id] = result_holder
 
         def submit_execution() -> SubagentResult:
-            result_holder.status = SubagentStatus.RUNNING
+            with result_holder._status_lock:
+                if result_holder.status == SubagentStatus.PENDING:
+                    result_holder.status = SubagentStatus.RUNNING
             return self._execute_with_timeout(task, result_holder)
 
         def on_done(future: Future[SubagentResult]) -> None:
@@ -305,13 +332,12 @@ class SubagentExecutor:
                 final_result = future.result()
             except Exception as exc:
                 logger.exception("[trace=%s] Subagent execution future failed", self.trace_id)
-                result_holder.status = SubagentStatus.FAILED
-                result_holder.error = str(exc)
-                result_holder.completed_at = datetime.now()
+                _mark_terminal(result_holder, SubagentStatus.FAILED, str(exc))
                 return
 
             with _background_tasks_lock:
-                _background_tasks[task_id] = final_result
+                if _background_tasks.get(task_id) is result_holder:
+                    _background_tasks[task_id] = final_result
 
         scheduler_future = _scheduler_pool.submit(lambda: _execution_pool.submit(submit_execution).result())
         scheduler_future.add_done_callback(on_done)

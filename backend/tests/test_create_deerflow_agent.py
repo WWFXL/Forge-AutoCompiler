@@ -83,7 +83,8 @@ def test_features_mode(mock_create_agent):
     assert len(middleware) > 0
     mw_types = [type(m).__name__ for m in middleware]
     assert "ThreadDataMiddleware" in mw_types
-    assert "SandboxMiddleware" in mw_types
+    assert "UploadsMiddleware" not in mw_types
+    assert "SandboxMiddleware" not in mw_types
     assert "TitleMiddleware" in mw_types
     assert "ClarificationMiddleware" in mw_types
 
@@ -201,10 +202,10 @@ def test_tool_deduplication(mock_create_agent):
 
 
 # ---------------------------------------------------------------------------
-# 12. Sandbox disabled — no ThreadData/Uploads/Sandbox middleware
+# 12. Thread data remains available after sandbox removal
 # ---------------------------------------------------------------------------
 @patch("deerflow.agents.factory.create_agent")
-def test_sandbox_disabled(mock_create_agent):
+def test_sandbox_disabled_keeps_thread_data(mock_create_agent):
     mock_create_agent.return_value = MagicMock()
     feat = RuntimeFeatures(sandbox=False)
 
@@ -212,7 +213,7 @@ def test_sandbox_disabled(mock_create_agent):
 
     call_kwargs = mock_create_agent.call_args[1]
     mw_types = [type(m).__name__ for m in call_kwargs["middleware"]]
-    assert "ThreadDataMiddleware" not in mw_types
+    assert "ThreadDataMiddleware" in mw_types
     assert "UploadsMiddleware" not in mw_types
     assert "SandboxMiddleware" not in mw_types
 
@@ -258,11 +259,11 @@ def test_custom_middleware_replaces_default(mock_create_agent):
 
 
 # ---------------------------------------------------------------------------
-# 15. Custom sandbox middleware replaces the 3-middleware group
+# 15. Legacy sandbox customization is ignored
 # ---------------------------------------------------------------------------
 @patch("deerflow.agents.factory.create_agent")
-def test_custom_sandbox_replaces_group(mock_create_agent):
-    """Passing an AgentMiddleware for sandbox replaces ThreadData+Uploads+Sandbox with one."""
+def test_custom_sandbox_is_ignored(mock_create_agent):
+    """The compatibility-only sandbox field cannot restore removed middleware."""
     from langchain.agents.middleware import AgentMiddleware
 
     mock_create_agent.return_value = MagicMock()
@@ -277,9 +278,9 @@ def test_custom_sandbox_replaces_group(mock_create_agent):
 
     call_kwargs = mock_create_agent.call_args[1]
     middleware = call_kwargs["middleware"]
-    assert custom_sb in middleware
+    assert custom_sb not in middleware
     mw_types = [type(m).__name__ for m in middleware]
-    assert "ThreadDataMiddleware" not in mw_types
+    assert "ThreadDataMiddleware" in mw_types
     assert "UploadsMiddleware" not in mw_types
     assert "SandboxMiddleware" not in mw_types
 
@@ -735,8 +736,6 @@ def test_full_chain_order(mock_create_agent):
 
     expected_order = [
         "ThreadDataMiddleware",
-        "UploadsMiddleware",
-        "SandboxMiddleware",
         "DanglingToolCallMiddleware",
         "MyGuardrail",
         "ToolErrorHandlingMiddleware",

@@ -12,7 +12,6 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 import { useI18n } from "@/core/i18n/hooks";
-import { env } from "@/env";
 import { cn } from "@/lib/utils";
 
 export function WorkspaceHeader({ className }: { className?: string }) {
@@ -29,16 +28,16 @@ export function WorkspaceHeader({ className }: { className?: string }) {
       >
         {state === "collapsed" ? (
           <div className="group-has-data-[collapsible=icon]/sidebar-wrapper:-translate-y flex w-full cursor-pointer items-center justify-center">
-            <div className="flex items-center justify-center w-8 h-8 bg-forge-gold/10 border border-forge-gold/30 rounded glow-gold">
-              <Sparkles className="w-4 h-4 text-forge-gold" />
+            <div className="bg-forge-gold/10 border-forge-gold/30 glow-gold flex h-8 w-8 items-center justify-center rounded border">
+              <Sparkles className="text-forge-gold h-4 w-4" />
             </div>
             <SidebarTrigger className="hidden pl-2 group-hover/workspace-header:block" />
           </div>
         ) : (
           <div className="flex items-center justify-between gap-2">
-            <div className="flex items-center gap-2 ml-2">
-              <div className="w-8 h-8 bg-forge-gold/10 border border-forge-gold/30 rounded flex items-center justify-center glow-gold">
-                <Sparkles className="w-5 h-5 text-forge-gold" />
+            <div className="ml-2 flex items-center gap-2">
+              <div className="bg-forge-gold/10 border-forge-gold/30 glow-gold flex h-8 w-8 items-center justify-center rounded border">
+                <Sparkles className="text-forge-gold h-5 w-5" />
               </div>
               <span className="font-display font-bold text-white">Forge</span>
             </div>
@@ -51,7 +50,7 @@ export function WorkspaceHeader({ className }: { className?: string }) {
           <SidebarMenuButton
             isActive={pathname === "/workspace/chats/new"}
             asChild
-            className="bg-forge-gold/10 text-forge-gold hover:bg-forge-gold/20 hover:text-forge-gold border border-forge-gold/20"
+            className="bg-forge-gold/10 text-forge-gold hover:bg-forge-gold/20 hover:text-forge-gold border-forge-gold/20 border"
           >
             <Link href="/workspace/chats/new">
               <MessageSquarePlus size={16} />

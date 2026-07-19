@@ -1,7 +1,7 @@
 from .app_config import get_app_config
 from .extensions_config import ExtensionsConfig, get_extensions_config
 from .memory_config import MemoryConfig, get_memory_config
-from .paths import Paths, VIRTUAL_PATH_PREFIX, get_paths, join_host_path, resolve_path
+from .paths import VIRTUAL_PATH_PREFIX, Paths, get_paths, join_host_path, resolve_path
 from .skill_evolution_config import SkillEvolutionConfig
 from .skills_config import SkillsConfig
 from .tracing_config import (

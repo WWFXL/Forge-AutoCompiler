@@ -24,5 +24,5 @@ class SubagentConfig:
     timeout_seconds: int = 900
     runtime_profile: SubagentRuntimeProfile = field(default_factory=SubagentRuntimeProfile)
 
-    def with_overrides(self, **kwargs) -> "SubagentConfig":
+    def with_overrides(self, **kwargs) -> SubagentConfig:
         return replace(self, **kwargs)

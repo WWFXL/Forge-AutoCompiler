@@ -6,14 +6,12 @@ They are skipped in CI and must be run explicitly:
     PYTHONPATH=. uv run pytest tests/test_client_live.py -v -s
 """
 
-import json
 import os
 from pathlib import Path
 
 import pytest
 
 from deerflow.client import DeerFlowClient, StreamEvent
-from deerflow.sandbox.security import is_host_bash_allowed
 from deerflow.uploads.manager import PathTraversalError
 
 # Skip entire module in CI or when no config.yaml exists
@@ -94,78 +92,7 @@ class TestLiveStreaming:
 
 
 # ===========================================================================
-# Scenario 3: Tool use — agent calls a tool and returns result
-# ===========================================================================
-
-
-class TestLiveToolUse:
-    def test_agent_uses_bash_tool(self, client):
-        """Agent uses bash tool when asked to run a command."""
-        if not is_host_bash_allowed():
-            pytest.skip("Host bash is disabled for LocalSandboxProvider in the active config")
-
-        events = list(client.stream("Use the bash tool to run: echo 'LIVE_TEST_OK'. Then tell me the output."))
-
-        types = [e.type for e in events]
-        print(f"  event types: {types}")
-        for e in events:
-            print(f"  [{e.type}] {e.data}")
-
-        # All message events are now messages-tuple
-        mt_events = [e for e in events if e.type == "messages-tuple"]
-        tc_events = [e for e in mt_events if e.data.get("type") == "ai" and "tool_calls" in e.data]
-        tr_events = [e for e in mt_events if e.data.get("type") == "tool"]
-        ai_events = [e for e in mt_events if e.data.get("type") == "ai" and e.data.get("content")]
-
-        assert len(tc_events) >= 1, f"Expected tool_call event, got types: {types}"
-        assert len(tr_events) >= 1, f"Expected tool result event, got types: {types}"
-        assert len(ai_events) >= 1
-
-        assert tc_events[0].data["tool_calls"][0]["name"] == "bash"
-        assert "LIVE_TEST_OK" in tr_events[0].data["content"]
-
-    def test_agent_uses_ls_tool(self, client):
-        """Agent uses ls tool to list a directory."""
-        events = list(client.stream("Use the ls tool to list the contents of /mnt/user-data/workspace. Just report what you see."))
-
-        types = [e.type for e in events]
-        print(f"  event types: {types}")
-
-        tc_events = [e for e in events if e.type == "messages-tuple" and e.data.get("type") == "ai" and "tool_calls" in e.data]
-        assert len(tc_events) >= 1
-        assert tc_events[0].data["tool_calls"][0]["name"] == "ls"
-
-
-# ===========================================================================
-# Scenario 4: Multi-tool chain — agent chains tools in sequence
-# ===========================================================================
-
-
-class TestLiveMultiToolChain:
-    def test_write_then_read(self, client):
-        """Agent writes a file, then reads it back."""
-        events = list(client.stream("Step 1: Use write_file to write 'integration_test_content' to /mnt/user-data/outputs/live_test.txt. Step 2: Use read_file to read that file back. Step 3: Tell me the content you read."))
-
-        types = [e.type for e in events]
-        print(f"  event types: {types}")
-        for e in events:
-            print(f"  [{e.type}] {e.data}")
-
-        tc_events = [e for e in events if e.type == "messages-tuple" and e.data.get("type") == "ai" and "tool_calls" in e.data]
-        tool_names = [tc.data["tool_calls"][0]["name"] for tc in tc_events]
-
-        assert "write_file" in tool_names, f"Expected write_file, got: {tool_names}"
-        assert "read_file" in tool_names, f"Expected read_file, got: {tool_names}"
-
-        # Final AI message or tool result should mention the content
-        ai_events = [e for e in events if e.type == "messages-tuple" and e.data.get("type") == "ai" and e.data.get("content")]
-        tr_events = [e for e in events if e.type == "messages-tuple" and e.data.get("type") == "tool"]
-        final_text = ai_events[-1].data["content"] if ai_events else ""
-        assert "integration_test_content" in final_text.lower() or any("integration_test_content" in e.data.get("content", "") for e in tr_events)
-
-
-# ===========================================================================
-# Scenario 5: File upload lifecycle with real filesystem
+# Scenario 3: File upload lifecycle with real filesystem
 # ===========================================================================
 
 
@@ -217,7 +144,7 @@ class TestLiveFileUpload:
 
 
 # ===========================================================================
-# Scenario 6: Configuration query — real config loading
+# Scenario 4: Configuration query — real config loading
 # ===========================================================================
 
 
@@ -259,44 +186,18 @@ class TestLiveConfigQueries:
 
 
 # ===========================================================================
-# Scenario 7: Artifact read after agent writes
+# Scenario 5: Artifact error handling
 # ===========================================================================
 
 
 class TestLiveArtifact:
-    def test_get_artifact_after_write(self, client):
-        """Agent writes a file → client reads it back via get_artifact()."""
-        import uuid
-
-        thread_id = f"live-artifact-{uuid.uuid4().hex[:8]}"
-
-        # Ask agent to write a file
-        events = list(
-            client.stream(
-                'Use write_file to create /mnt/user-data/outputs/artifact_test.json with content: {"status": "ok", "source": "live_test"}',
-                thread_id=thread_id,
-            )
-        )
-
-        # Verify write happened
-        tc_events = [e for e in events if e.type == "messages-tuple" and e.data.get("type") == "ai" and "tool_calls" in e.data]
-        assert any(any(tc["name"] == "write_file" for tc in e.data["tool_calls"]) for e in tc_events)
-
-        # Read artifact
-        content, mime = client.get_artifact(thread_id, "mnt/user-data/outputs/artifact_test.json")
-        data = json.loads(content)
-        assert data["status"] == "ok"
-        assert data["source"] == "live_test"
-        assert "json" in mime
-        print(f"  artifact: {data}, mime: {mime}")
-
     def test_get_artifact_not_found(self, client):
         with pytest.raises(FileNotFoundError):
             client.get_artifact("nonexistent-thread", "mnt/user-data/outputs/nope.txt")
 
 
 # ===========================================================================
-# Scenario 8: Per-call overrides
+# Scenario 6: Per-call overrides
 # ===========================================================================
 
 
@@ -312,7 +213,7 @@ class TestLiveOverrides:
 
 
 # ===========================================================================
-# Scenario 9: Error resilience
+# Scenario 7: Error resilience
 # ===========================================================================
 
 

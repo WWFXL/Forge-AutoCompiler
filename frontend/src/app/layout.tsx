@@ -9,7 +9,8 @@ import { detectLocaleServer } from "@/core/i18n/server";
 
 export const metadata: Metadata = {
   title: "Forge",
-  description: "An open-source automated code compilation system for AI agents.",
+  description:
+    "An open-source automated code compilation system for AI agents.",
 };
 
 export default async function RootLayout({

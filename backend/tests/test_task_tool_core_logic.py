@@ -40,13 +40,13 @@ def _make_runtime() -> SimpleNamespace:
     )
 
 
-def _make_subagent_config() -> SubagentConfig:
+def _make_subagent_config(*, timeout_seconds: int = 10) -> SubagentConfig:
     return SubagentConfig(
         name="general-purpose",
         description="General helper",
         system_prompt="Base system prompt",
         max_turns=50,
-        timeout_seconds=10,
+        timeout_seconds=timeout_seconds,
     )
 
 
@@ -97,27 +97,12 @@ def test_task_tool_returns_error_for_unknown_subagent(monkeypatch):
     assert result == "Error: Unknown subagent type 'general-purpose'. Available: general-purpose"
 
 
-def test_task_tool_rejects_bash_subagent_when_host_bash_disabled(monkeypatch):
-    monkeypatch.setattr(task_tool_module, "get_subagent_config", lambda _: _make_subagent_config())
-    monkeypatch.setattr(task_tool_module, "is_host_bash_allowed", lambda: False)
-
-    result = _run_task_tool(
-        runtime=_make_runtime(),
-        description="执行任务",
-        prompt="run commands",
-        subagent_type="bash",
-        tool_call_id="tc-bash",
-    )
-
-    assert result.startswith("Error: Bash subagent is disabled")
-
-
 def test_task_tool_emits_running_and_completed_events(monkeypatch):
     config = _make_subagent_config()
     runtime = _make_runtime()
     events = []
     captured = {}
-    get_available_tools = MagicMock(return_value=["tool-a", "tool-b"])
+    get_subagent_tools = MagicMock(return_value=["tool-a", "tool-b"])
 
     class DummyExecutor:
         def __init__(self, **kwargs):
@@ -148,7 +133,7 @@ def test_task_tool_emits_running_and_completed_events(monkeypatch):
     monkeypatch.setattr(task_tool_module, "get_stream_writer", lambda: events.append)
     monkeypatch.setattr(task_tool_module.asyncio, "sleep", _no_sleep)
     # task_tool lazily imports from deerflow.tools at call time, so patch that module-level function.
-    monkeypatch.setattr("deerflow.tools.get_available_tools", get_available_tools)
+    monkeypatch.setattr("deerflow.tools.tools.get_subagent_tools", get_subagent_tools)
 
     output = _run_task_tool(
         runtime=runtime,
@@ -167,7 +152,7 @@ def test_task_tool_emits_running_and_completed_events(monkeypatch):
     assert captured["executor_kwargs"]["config"].max_turns == 7
     assert "Skills Appendix" in captured["executor_kwargs"]["config"].system_prompt
 
-    get_available_tools.assert_called_once_with(model_name="ark-model", subagent_enabled=False)
+    get_subagent_tools.assert_called_once_with(subagent_type="general-purpose", model_name="ark-model")
 
     event_types = [e["type"] for e in events]
     assert event_types == ["task_started", "task_running", "task_running", "task_completed"]
@@ -193,7 +178,7 @@ def test_task_tool_returns_failed_message(monkeypatch):
     )
     monkeypatch.setattr(task_tool_module, "get_stream_writer", lambda: events.append)
     monkeypatch.setattr(task_tool_module.asyncio, "sleep", _no_sleep)
-    monkeypatch.setattr("deerflow.tools.get_available_tools", lambda **kwargs: [])
+    monkeypatch.setattr("deerflow.tools.tools.get_subagent_tools", lambda **kwargs: [])
 
     output = _run_task_tool(
         runtime=_make_runtime(),
@@ -227,7 +212,7 @@ def test_task_tool_returns_timed_out_message(monkeypatch):
     )
     monkeypatch.setattr(task_tool_module, "get_stream_writer", lambda: events.append)
     monkeypatch.setattr(task_tool_module.asyncio, "sleep", _no_sleep)
-    monkeypatch.setattr("deerflow.tools.get_available_tools", lambda **kwargs: [])
+    monkeypatch.setattr("deerflow.tools.tools.get_subagent_tools", lambda **kwargs: [])
 
     output = _run_task_tool(
         runtime=_make_runtime(),
@@ -243,9 +228,8 @@ def test_task_tool_returns_timed_out_message(monkeypatch):
 
 
 def test_task_tool_polling_safety_timeout(monkeypatch):
-    config = _make_subagent_config()
+    config = _make_subagent_config(timeout_seconds=1)
     # Keep max_poll_count small for test speed: (1 + 60) // 5 = 12
-    config.timeout_seconds = 1
     events = []
 
     monkeypatch.setattr(task_tool_module, "SubagentStatus", FakeSubagentStatus)
@@ -263,7 +247,7 @@ def test_task_tool_polling_safety_timeout(monkeypatch):
     )
     monkeypatch.setattr(task_tool_module, "get_stream_writer", lambda: events.append)
     monkeypatch.setattr(task_tool_module.asyncio, "sleep", _no_sleep)
-    monkeypatch.setattr("deerflow.tools.get_available_tools", lambda **kwargs: [])
+    monkeypatch.setattr("deerflow.tools.tools.get_subagent_tools", lambda **kwargs: [])
 
     output = _run_task_tool(
         runtime=_make_runtime(),
@@ -299,7 +283,7 @@ def test_cleanup_called_on_completed(monkeypatch):
     )
     monkeypatch.setattr(task_tool_module, "get_stream_writer", lambda: events.append)
     monkeypatch.setattr(task_tool_module.asyncio, "sleep", _no_sleep)
-    monkeypatch.setattr("deerflow.tools.get_available_tools", lambda **kwargs: [])
+    monkeypatch.setattr("deerflow.tools.tools.get_subagent_tools", lambda **kwargs: [])
     monkeypatch.setattr(
         task_tool_module,
         "cleanup_background_task",
@@ -339,7 +323,7 @@ def test_cleanup_called_on_failed(monkeypatch):
     )
     monkeypatch.setattr(task_tool_module, "get_stream_writer", lambda: events.append)
     monkeypatch.setattr(task_tool_module.asyncio, "sleep", _no_sleep)
-    monkeypatch.setattr("deerflow.tools.get_available_tools", lambda **kwargs: [])
+    monkeypatch.setattr("deerflow.tools.tools.get_subagent_tools", lambda **kwargs: [])
     monkeypatch.setattr(
         task_tool_module,
         "cleanup_background_task",
@@ -379,7 +363,7 @@ def test_cleanup_called_on_timed_out(monkeypatch):
     )
     monkeypatch.setattr(task_tool_module, "get_stream_writer", lambda: events.append)
     monkeypatch.setattr(task_tool_module.asyncio, "sleep", _no_sleep)
-    monkeypatch.setattr("deerflow.tools.get_available_tools", lambda **kwargs: [])
+    monkeypatch.setattr("deerflow.tools.tools.get_subagent_tools", lambda **kwargs: [])
     monkeypatch.setattr(
         task_tool_module,
         "cleanup_background_task",
@@ -405,9 +389,8 @@ def test_cleanup_not_called_on_polling_safety_timeout(monkeypatch):
     but the polling loop gives up. The cleanup should happen later when the
     executor completes and sets a terminal status.
     """
-    config = _make_subagent_config()
+    config = _make_subagent_config(timeout_seconds=1)
     # Keep max_poll_count small for test speed: (1 + 60) // 5 = 12
-    config.timeout_seconds = 1
     events = []
     cleanup_calls = []
 
@@ -426,7 +409,7 @@ def test_cleanup_not_called_on_polling_safety_timeout(monkeypatch):
     )
     monkeypatch.setattr(task_tool_module, "get_stream_writer", lambda: events.append)
     monkeypatch.setattr(task_tool_module.asyncio, "sleep", _no_sleep)
-    monkeypatch.setattr("deerflow.tools.get_available_tools", lambda **kwargs: [])
+    monkeypatch.setattr("deerflow.tools.tools.get_subagent_tools", lambda **kwargs: [])
     monkeypatch.setattr(
         task_tool_module,
         "cleanup_background_task",
@@ -480,7 +463,7 @@ def test_cleanup_scheduled_on_cancellation(monkeypatch):
         "create_task",
         lambda coro: scheduled_cleanup_coros.append(coro) or _DummyScheduledTask(),
     )
-    monkeypatch.setattr("deerflow.tools.get_available_tools", lambda **kwargs: [])
+    monkeypatch.setattr("deerflow.tools.tools.get_subagent_tools", lambda **kwargs: [])
     monkeypatch.setattr(
         task_tool_module,
         "cleanup_background_task",
@@ -506,8 +489,7 @@ def test_cleanup_scheduled_on_cancellation(monkeypatch):
 
 def test_cancelled_cleanup_stops_after_timeout(monkeypatch):
     """Verify deferred cleanup gives up after a bounded number of polls."""
-    config = _make_subagent_config()
-    config.timeout_seconds = 1
+    config = _make_subagent_config(timeout_seconds=1)
     events = []
     cleanup_calls = []
     scheduled_cleanup_coros = []
@@ -535,7 +517,7 @@ def test_cancelled_cleanup_stops_after_timeout(monkeypatch):
         "create_task",
         lambda coro: scheduled_cleanup_coros.append(coro) or _DummyScheduledTask(),
     )
-    monkeypatch.setattr("deerflow.tools.get_available_tools", lambda **kwargs: [])
+    monkeypatch.setattr("deerflow.tools.tools.get_subagent_tools", lambda **kwargs: [])
     monkeypatch.setattr(
         task_tool_module,
         "cleanup_background_task",
@@ -590,7 +572,7 @@ def test_cancellation_calls_request_cancel(monkeypatch):
         "create_task",
         lambda coro: (coro.close(), scheduled_cleanup_coros.append(None))[-1] or _DummyScheduledTask(),
     )
-    monkeypatch.setattr("deerflow.tools.get_available_tools", lambda **kwargs: [])
+    monkeypatch.setattr("deerflow.tools.tools.get_subagent_tools", lambda **kwargs: [])
     monkeypatch.setattr(
         task_tool_module,
         "request_cancel_background_task",
@@ -639,7 +621,7 @@ def test_task_tool_returns_cancelled_message(monkeypatch):
     monkeypatch.setattr(task_tool_module, "get_background_task_result", lambda _: next(responses))
     monkeypatch.setattr(task_tool_module, "get_stream_writer", lambda: events.append)
     monkeypatch.setattr(task_tool_module.asyncio, "sleep", _no_sleep)
-    monkeypatch.setattr("deerflow.tools.get_available_tools", lambda **kwargs: [])
+    monkeypatch.setattr("deerflow.tools.tools.get_subagent_tools", lambda **kwargs: [])
     monkeypatch.setattr(
         task_tool_module,
         "cleanup_background_task",

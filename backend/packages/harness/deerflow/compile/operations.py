@@ -390,11 +390,7 @@ def submit_build_result_impl(*, session: CompileSession) -> str:
                 name=f"{candidate_path.name}_exists",
                 target=rel_posix,
                 passed=exists,
-                summary=(
-                    "Artifact exists in artifacts directory."
-                    if exists
-                    else f"Error: Verification failed. File '{rel_posix}' does not exist. Copy the final output into /artifacts and submit again."
-                ),
+                summary=("Artifact exists in artifacts directory." if exists else f"Error: Verification failed. File '{rel_posix}' does not exist. Copy the final output into /artifacts and submit again."),
             )
             if not exists:
                 continue
@@ -406,11 +402,7 @@ def submit_build_result_impl(*, session: CompileSession) -> str:
                 name=f"{candidate_path.name}_non_empty",
                 target=rel_posix,
                 passed=non_empty,
-                summary=(
-                    f"Artifact size is {size_bytes} bytes."
-                    if non_empty
-                    else f"Error: Verification failed. File '{rel_posix}' is empty. Rebuild or copy the correct output into /artifacts and submit again."
-                ),
+                summary=(f"Artifact size is {size_bytes} bytes." if non_empty else f"Error: Verification failed. File '{rel_posix}' is empty. Rebuild or copy the correct output into /artifacts and submit again."),
             )
             if not non_empty:
                 continue
@@ -492,11 +484,7 @@ def submit_build_result_impl(*, session: CompileSession) -> str:
             }
             for artifact in artifacts
         ],
-        "message": (
-            "Build artifacts accepted from /artifacts."
-            if status == "passed"
-            else (notes[0] if notes else "Error: Verification failed. The submitted artifacts in /artifacts did not pass validation.")
-        ),
+        "message": ("Build artifacts accepted from /artifacts." if status == "passed" else (notes[0] if notes else "Error: Verification failed. The submitted artifacts in /artifacts did not pass validation.")),
     }
     Path(summary_log_path).write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     services.manager.log_event(

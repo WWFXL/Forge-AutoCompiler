@@ -487,7 +487,9 @@ export function InputBox({
         </PromptInputAttachments>
         <PromptInputBody className="absolute top-0 right-0 left-0 z-3">
           <PromptInputTextarea
-            className={cn("size-full text-gray-100 placeholder:text-gray-500 forge-input")}
+            className={cn(
+              "forge-input size-full text-gray-100 placeholder:text-gray-500",
+            )}
             disabled={disabled}
             placeholder={t.inputBox.placeholder}
             autoFocus={autoFocus}
@@ -518,7 +520,7 @@ export function InputBox({
                 }
               >
                 <PromptInputActionMenuTrigger className="gap-1! px-2!">
-                  <div className="text-gray-500 hover:text-gray-200 transition-colors">
+                  <div className="text-gray-500 transition-colors hover:text-gray-200">
                     {context.mode === "flash" && <ZapIcon className="size-3" />}
                     {context.mode === "thinking" && (
                       <LightbulbIcon className="size-3" />
@@ -534,7 +536,7 @@ export function InputBox({
                     className={cn(
                       "text-xs font-normal",
                       context.mode === "ultra"
-                        ? "bg-orange-500/10 text-orange-400 px-2 py-0.5 rounded border border-orange-500/20"
+                        ? "rounded border border-orange-500/20 bg-orange-500/10 px-2 py-0.5 text-orange-400"
                         : "",
                     )}
                   >
@@ -879,7 +881,10 @@ function AddAttachmentsButton({ className }: { className?: string }) {
   return (
     <Tooltip content={t.inputBox.addAttachments}>
       <PromptInputButton
-        className={cn("px-2! text-gray-500 hover:text-gray-200 transition-colors", className)}
+        className={cn(
+          "px-2! text-gray-500 transition-colors hover:text-gray-200",
+          className,
+        )}
         onClick={() => attachments.openFileDialog()}
       >
         <PaperclipIcon className="size-3" />

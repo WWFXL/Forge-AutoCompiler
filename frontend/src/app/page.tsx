@@ -7,7 +7,7 @@ import { WhatsNewSection } from "@/components/landing/sections/whats-new-section
 
 export default function LandingPage() {
   return (
-    <div className="min-h-screen w-full bg-forge-bg dark">
+    <div className="bg-forge-bg dark min-h-screen w-full">
       <Header />
       <main className="flex w-full flex-col">
         <Hero />

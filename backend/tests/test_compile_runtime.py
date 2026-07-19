@@ -27,7 +27,8 @@ def test_create_session_under_compile_sessions_root(tmp_path: Path):
     session = manager.create_session(thread_id="abc", repo_url="https://example.com/repo.git")
 
     compile_root = get_compile_sessions_root(paths)
-    assert str(session.host_session_dir).startswith(str(compile_root))
+    session_dir = get_session_dir(session.session_id, session.thread_id, paths)
+    assert session_dir == compile_root / "abc" / session.session_id
 
 
 def test_save_and_load_session_roundtrip(tmp_path: Path):
@@ -59,4 +60,3 @@ def test_mark_status_sets_completed_at_for_terminal_state(tmp_path: Path):
 
     assert session.completed_at is not None
     assert session.summary == "ok"
-

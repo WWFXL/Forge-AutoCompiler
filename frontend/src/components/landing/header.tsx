@@ -14,21 +14,20 @@ export type HeaderProps = {
 };
 
 export function Header({ className, homeURL, locale: _locale }: HeaderProps) {
-
   return (
     <header
       className={cn(
-        "fixed top-0 left-0 right-0 z-50 border-b border-forge-border bg-forge-bg/80 backdrop-blur-md",
+        "border-forge-border bg-forge-bg/80 fixed top-0 right-0 left-0 z-50 border-b backdrop-blur-md",
         className,
       )}
     >
-      <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
         {/* Logo */}
-        <div className="flex items-center gap-2 cursor-pointer">
-          <div className="w-8 h-8 bg-forge-gold/10 border border-forge-gold/30 rounded flex items-center justify-center glow-gold">
-            <Sparkles className="w-5 h-5 text-forge-gold" />
+        <div className="flex cursor-pointer items-center gap-2">
+          <div className="bg-forge-gold/10 border-forge-gold/30 glow-gold flex h-8 w-8 items-center justify-center rounded border">
+            <Sparkles className="text-forge-gold h-5 w-5" />
           </div>
-          <span className="font-display font-bold text-xl tracking-tight text-white">
+          <span className="font-display text-xl font-bold tracking-tight text-white">
             Forge
           </span>
         </div>
@@ -39,7 +38,7 @@ export function Header({ className, homeURL, locale: _locale }: HeaderProps) {
             variant="ghost"
             size="sm"
             asChild
-            className="text-gray-400 hover:text-white border border-forge-border hover:bg-forge-border/50"
+            className="border-forge-border hover:bg-forge-border/50 border text-gray-400 hover:text-white"
           >
             <a
               href="https://github.com/your-org/forge"
@@ -51,11 +50,11 @@ export function Header({ className, homeURL, locale: _locale }: HeaderProps) {
           </Button>
           <Button
             asChild
-            className="bg-orange-600 hover:bg-orange-500 text-white border border-orange-400/50 shadow-[0_0_20px_rgba(234,88,12,0.2)] transition-all active:scale-95 font-bold"
+            className="border border-orange-400/50 bg-orange-600 font-bold text-white shadow-[0_0_20px_rgba(234,88,12,0.2)] transition-all hover:bg-orange-500 active:scale-95"
           >
             <a href={homeURL ?? "/workspace"}>
               进入工作台
-              <ChevronRight className="w-4 h-4 ml-1" />
+              <ChevronRight className="ml-1 h-4 w-4" />
             </a>
           </Button>
         </div>

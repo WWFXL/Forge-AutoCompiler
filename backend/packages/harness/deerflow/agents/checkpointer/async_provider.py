@@ -122,10 +122,12 @@ def create_sync_checkpointer() -> Checkpointer:
 
     if config.checkpointer is None:
         from langgraph.checkpoint.memory import InMemorySaver
+
         return InMemorySaver()
 
     if config.checkpointer.type == "memory":
         from langgraph.checkpoint.memory import InMemorySaver
+
         return InMemorySaver()
 
     if config.checkpointer.type == "sqlite":
@@ -136,6 +138,7 @@ def create_sync_checkpointer() -> Checkpointer:
 
         conn_str = resolve_sqlite_conn_str(config.checkpointer.connection_string or "store.db")
         import pathlib
+
         pathlib.Path(conn_str).parent.mkdir(parents=True, exist_ok=True)
         return AsyncSqliteSaver.from_conn_string(conn_str)
 

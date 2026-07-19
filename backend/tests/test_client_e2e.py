@@ -92,8 +92,6 @@ def e2e_env(tmp_path, monkeypatch):
     """
     # 1. Filesystem isolation
     monkeypatch.setenv("DEER_FLOW_HOME", str(tmp_path))
-    monkeypatch.setattr("deerflow.config.paths._paths", None)
-    monkeypatch.setattr("deerflow.sandbox.sandbox_provider._default_sandbox_provider", None)
 
     # 2. Inject a clean AppConfig via the global singleton.
     config = _make_e2e_config()

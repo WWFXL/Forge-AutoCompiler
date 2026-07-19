@@ -8,15 +8,14 @@ import { Section } from "../section";
 export function SkillsSection({ className }: { className?: string }) {
   return (
     <Section
-      className={cn("h-[calc(100vh-64px)] w-full bg-forge-card/50", className)}
+      className={cn("bg-forge-card/50 h-[calc(100vh-64px)] w-full", className)}
       title="Agent Skills"
       subtitle={
         <div>
           Agent Skills are loaded progressively — only what&apos;s needed, when
           it&apos;s needed.
           <br />
-          Extend Forge with your own skill files, or use our built-in
-          library.
+          Extend Forge with your own skill files, or use our built-in library.
         </div>
       }
     >

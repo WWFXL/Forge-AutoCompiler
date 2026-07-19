@@ -74,6 +74,7 @@ src/
 ```
 
 关键约定：
+
 - **Thread hooks 是唯一的对外 API**（`useThreadStream`、`useSubmitThread`、`useThreads`）
 - **LangGraph 客户端是单例**（`getAPIClient()`，`core/api/`）
 - **Server Components 优先**；只在交互必需时 `"use client"`

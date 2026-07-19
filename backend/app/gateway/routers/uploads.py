@@ -1,7 +1,6 @@
 """Upload router for handling file uploads."""
 
 import logging
-import os
 
 from fastapi import APIRouter, File, HTTPException, UploadFile
 from pydantic import BaseModel

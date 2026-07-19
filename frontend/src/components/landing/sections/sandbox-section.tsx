@@ -103,19 +103,19 @@ export function SandboxSection({ className }: { className?: string }) {
 
           {/* Feature Tags */}
           <div className="flex flex-wrap gap-3 pt-4">
-            <span className="rounded-full border border-forge-border bg-forge-card px-4 py-2 text-sm text-gray-400">
+            <span className="border-forge-border bg-forge-card rounded-full border px-4 py-2 text-sm text-gray-400">
               Isolated
             </span>
-            <span className="rounded-full border border-forge-border bg-forge-card px-4 py-2 text-sm text-gray-400">
+            <span className="border-forge-border bg-forge-card rounded-full border px-4 py-2 text-sm text-gray-400">
               Safe
             </span>
-            <span className="rounded-full border border-forge-border bg-forge-card px-4 py-2 text-sm text-gray-400">
+            <span className="border-forge-border bg-forge-card rounded-full border px-4 py-2 text-sm text-gray-400">
               Persistent
             </span>
-            <span className="rounded-full border border-forge-border bg-forge-card px-4 py-2 text-sm text-gray-400">
+            <span className="border-forge-border bg-forge-card rounded-full border px-4 py-2 text-sm text-gray-400">
               Mountable FS
             </span>
-            <span className="rounded-full border border-forge-border bg-forge-card px-4 py-2 text-sm text-gray-400">
+            <span className="border-forge-border bg-forge-card rounded-full border px-4 py-2 text-sm text-gray-400">
               Long-running
             </span>
           </div>

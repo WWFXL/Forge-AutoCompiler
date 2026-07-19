@@ -8,46 +8,43 @@ from deerflow.skills.types import Skill
 
 
 def test_build_custom_mounts_section_returns_empty_when_no_mounts(monkeypatch):
-    config = SimpleNamespace(sandbox=SimpleNamespace(mounts=[]))
-    monkeypatch.setattr("deerflow.config.get_app_config", lambda: config)
+    config = SimpleNamespace(custom_mounts=[])
+    monkeypatch.setattr("deerflow.config.app_config.get_app_config", lambda: config)
 
     assert prompt_module._build_custom_mounts_section() == ""
 
 
 def test_build_custom_mounts_section_lists_configured_mounts(monkeypatch):
     mounts = [
-        SimpleNamespace(container_path="/home/user/shared", read_only=False),
-        SimpleNamespace(container_path="/mnt/reference", read_only=True),
+        SimpleNamespace(source="/host/shared", target="/home/user/shared"),
+        SimpleNamespace(source="/host/reference", target="/mnt/reference"),
     ]
-    config = SimpleNamespace(sandbox=SimpleNamespace(mounts=mounts))
-    monkeypatch.setattr("deerflow.config.get_app_config", lambda: config)
+    config = SimpleNamespace(custom_mounts=mounts)
+    monkeypatch.setattr("deerflow.config.app_config.get_app_config", lambda: config)
 
     section = prompt_module._build_custom_mounts_section()
 
-    assert "**Custom Mounted Directories:**" in section
-    assert "`/home/user/shared`" in section
-    assert "read-write" in section
-    assert "`/mnt/reference`" in section
-    assert "read-only" in section
+    assert "<custom_mounts>" in section
+    assert "`/home/user/shared` is mounted from `/host/shared`" in section
+    assert "`/mnt/reference` is mounted from `/host/reference`" in section
 
 
 def test_apply_prompt_template_includes_custom_mounts(monkeypatch):
-    mounts = [SimpleNamespace(container_path="/home/user/shared", read_only=False)]
+    mounts = [SimpleNamespace(source="/host/shared", target="/home/user/shared")]
     config = SimpleNamespace(
-        sandbox=SimpleNamespace(mounts=mounts),
+        custom_mounts=mounts,
         skills=SimpleNamespace(container_path="/mnt/skills"),
     )
-    monkeypatch.setattr("deerflow.config.get_app_config", lambda: config)
+    monkeypatch.setattr("deerflow.config.app_config.get_app_config", lambda: config)
     monkeypatch.setattr(prompt_module, "_get_enabled_skills", lambda: [])
     monkeypatch.setattr(prompt_module, "get_deferred_tools_prompt_section", lambda: "")
-    monkeypatch.setattr(prompt_module, "_build_acp_section", lambda: "")
     monkeypatch.setattr(prompt_module, "_get_memory_context", lambda agent_name=None: "")
     monkeypatch.setattr(prompt_module, "get_agent_soul", lambda agent_name=None: "")
 
     prompt = prompt_module.apply_prompt_template()
 
-    assert "`/home/user/shared`" in prompt
-    assert "Custom Mounted Directories" in prompt
+    assert "`/home/user/shared` is mounted from `/host/shared`" in prompt
+    assert "<custom_mounts>" in prompt
 
 
 def test_refresh_skills_system_prompt_cache_async_reloads_immediately(monkeypatch, tmp_path):

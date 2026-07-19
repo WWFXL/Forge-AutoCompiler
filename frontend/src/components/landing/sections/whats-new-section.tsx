@@ -16,20 +16,20 @@ function TerminalMockup() {
   ];
 
   return (
-    <div className="bg-[#0d0d0d] border border-forge-border rounded-xl overflow-hidden font-mono text-sm">
-      <div className="flex items-center gap-2 px-4 py-2 border-b border-forge-border bg-[#1a1a1a]">
-        <div className="w-3 h-3 rounded-full bg-rose-400/50" />
-        <div className="w-3 h-3 rounded-full bg-amber-400/50" />
-        <div className="w-3 h-3 rounded-full bg-emerald-400/50" />
+    <div className="border-forge-border overflow-hidden rounded-xl border bg-[#0d0d0d] font-mono text-sm">
+      <div className="border-forge-border flex items-center gap-2 border-b bg-[#1a1a1a] px-4 py-2">
+        <div className="h-3 w-3 rounded-full bg-rose-400/50" />
+        <div className="h-3 w-3 rounded-full bg-amber-400/50" />
+        <div className="h-3 w-3 rounded-full bg-emerald-400/50" />
         <span className="ml-2 text-xs text-gray-500">forge-agent-log</span>
       </div>
-      <div className="p-4 space-y-1.5">
+      <div className="space-y-1.5 p-4">
         {logs.map((log, i) => (
           <div key={i} className="flex gap-2 text-gray-400">
             <span className="text-orange-400">[{log.agent}]</span>
             <span>{log.text}</span>
             {log.status === "ok" && (
-              <span className="text-emerald-400 ml-2">[OK]</span>
+              <span className="ml-2 text-emerald-400">[OK]</span>
             )}
           </div>
         ))}
@@ -50,15 +50,15 @@ function FeatureCard({
   description: string;
 }) {
   return (
-    <div className="bg-forge-card border border-forge-border rounded-2xl p-8 transition-all hover:border-white/20 hover:translate-y-[-4px]">
-      <div className="inline-flex p-2 rounded-lg bg-white/5 mb-6 text-orange-400">
+    <div className="bg-forge-card border-forge-border rounded-2xl border p-8 transition-all hover:translate-y-[-4px] hover:border-white/20">
+      <div className="mb-6 inline-flex rounded-lg bg-white/5 p-2 text-orange-400">
         {icon}
       </div>
-      <div className="text-xs font-mono text-gray-500 uppercase tracking-widest mb-3">
+      <div className="mb-3 font-mono text-xs tracking-widest text-gray-500 uppercase">
         {label}
       </div>
-      <h4 className="text-xl font-bold text-white mb-3">{title}</h4>
-      <p className="text-gray-400 leading-relaxed text-sm">{description}</p>
+      <h4 className="mb-3 text-xl font-bold text-white">{title}</h4>
+      <p className="text-sm leading-relaxed text-gray-400">{description}</p>
     </div>
   );
 }
@@ -70,21 +70,22 @@ export function WhatsNewSection({ className }: { className?: string }) {
       title="Next-Gen C/C++ Build Pipeline"
       subtitle="基于 Docker 与双轨 Agent 协同的全自动编译引擎"
     >
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+      <div className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-3">
         {/* Card 1: Terminal Mockup */}
-        <div className="bg-forge-card border border-forge-border rounded-2xl p-6 transition-all hover:border-white/20 hover:translate-y-[-4px]">
-          <div className="text-xs font-mono text-orange-400 uppercase tracking-widest mb-4">
+        <div className="bg-forge-card border-forge-border rounded-2xl border p-6 transition-all hover:translate-y-[-4px] hover:border-white/20">
+          <div className="mb-4 font-mono text-xs tracking-widest text-orange-400 uppercase">
             Dual-Agent 协同架构
           </div>
           <TerminalMockup />
-          <p className="mt-4 text-gray-400 text-sm leading-relaxed">
-            架构师 Agent 负责解析 CMake 与依赖树，执行 Agent 在独立沙盒中完成排错与编译。
+          <p className="mt-4 text-sm leading-relaxed text-gray-400">
+            架构师 Agent 负责解析 CMake 与依赖树，执行 Agent
+            在独立沙盒中完成排错与编译。
           </p>
         </div>
 
         {/* Card 2: Docker Sandbox */}
         <FeatureCard
-          icon={<Container className="w-5 h-5" />}
+          icon={<Container className="h-5 w-5" />}
           label="纯净 Docker 沙盒"
           title="隔离环境 · 极致性能"
           description="每次任务在独立容器中执行，挂载宿主机持久化 CCache 释放极致编译性能。"
@@ -92,7 +93,7 @@ export function WhatsNewSection({ className }: { className?: string }) {
 
         {/* Card 3: Dependency Hell */}
         <FeatureCard
-          icon={<Package className="w-5 h-5" />}
+          icon={<Package className="h-5 w-5" />}
           label="终结依赖地狱"
           title="自动嗅探 · 原生集成"
           description="自动嗅探环境，原生处理复杂的 Git Submodules，深度集成 Conan / vcpkg。"

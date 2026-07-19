@@ -125,7 +125,7 @@ async def task_tool(
 
         session_id = compile_state.get(COMPILE_SESSION_STATE_KEY)
         if not session_id:
-            return "Error: No compile session is currently bound for compiler subagent. Call prepare_compile_session(), then clone_repository(), then identify_build_system(), then task(..., subagent_type=\"compiler\")."
+            return 'Error: No compile session is currently bound for compiler subagent. Call prepare_compile_session(), then clone_repository(), then identify_build_system(), then task(..., subagent_type="compiler").'
         if not thread_id:
             return "Error: Missing thread_id for compiler subagent execution."
 

@@ -1,11 +1,8 @@
 "use client";
 
 import {
-  BugIcon,
   ChevronsUpDown,
-  GlobeIcon,
   InfoIcon,
-  MailIcon,
   Settings2Icon,
   SettingsIcon,
 } from "lucide-react";
@@ -38,14 +35,14 @@ function NavMenuButtonContent({
   t: ReturnType<typeof useI18n>["t"];
 }) {
   return isSidebarOpen ? (
-    <div className="text-gray-400 flex w-full items-center gap-2 text-left text-sm hover:text-gray-200">
+    <div className="flex w-full items-center gap-2 text-left text-sm text-gray-400 hover:text-gray-200">
       <SettingsIcon className="size-4" />
       <span>{t.workspace.settingsAndMore}</span>
-      <ChevronsUpDown className="text-gray-500 ml-auto size-4" />
+      <ChevronsUpDown className="ml-auto size-4 text-gray-500" />
     </div>
   ) : (
     <div className="flex size-full items-center justify-center">
-      <SettingsIcon className="text-gray-400 size-4" />
+      <SettingsIcon className="size-4 text-gray-400" />
     </div>
   );
 }

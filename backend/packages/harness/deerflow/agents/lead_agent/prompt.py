@@ -9,7 +9,6 @@ large always-on build workflow description.
 import asyncio
 import logging
 import threading
-from datetime import datetime
 from functools import lru_cache
 
 from deerflow.config.agents_config import load_agent_soul
@@ -184,11 +183,14 @@ def _build_subagent_section(max_concurrent: int) -> str:
     direct_tool_examples = "prepare_workspace, identify_build_system, finalize_session, read_file, web_search, etc."
     direct_execution_example = (
         '# User asks: "Build this repository"\n'
-        '# Thinking: I should treat the lead-agent compile task as living under /workspace/.compile-sessions/<thread_id>/<session_id>, use that path for my own inspection, then delegate build+verify execution to the compiler subagent.\n\n'
+        "# Thinking: I should treat the lead-agent compile task as living under /workspace/.compile-sessions/<thread_id>/<session_id>, use that path for my own inspection, then delegate build+verify execution to the compiler subagent.\n\n"
         'prepare_workspace(repo_url="https://example.com/repo.git")\n'
-        'identify_build_system()\n'
-        'task(description="build and verify repository", prompt="build the project, run post-build verification, and report structured results; note that any subagent-mentioned project directory is informational only and does not replace the lead-agent working root /workspace/.compile-sessions/<thread_id>/<session_id>", subagent_type="compiler")\n'
-        'finalize_session()'
+        "identify_build_system()\n"
+        'task(description="build and verify repository", prompt="build the project, run post-build verification, '
+        "and report structured results; note that any subagent-mentioned project directory is informational only "
+        'and does not replace the lead-agent working root /workspace/.compile-sessions/<thread_id>/<session_id>", '
+        'subagent_type="compiler")\n'
+        "finalize_session()"
     )
     return f"""<subagent_system>
 **🚀 SUBAGENT MODE ACTIVE - DECOMPOSE, DELEGATE, SYNTHESIZE**
