@@ -11,7 +11,7 @@
 # Prerequisites:
 #   - Kubernetes cluster + kubeconfig are only required when using provisioner mode.
 #
-# Access: http://localhost:2026
+# Access: http://localhost:8000
 
 services:
   # ── Sandbox Provisioner ────────────────────────────────────────────────
@@ -122,10 +122,14 @@ services:
         APT_MIRROR: ${APT_MIRROR:-}
         UV_IMAGE: ${UV_IMAGE:-ghcr.io/astral-sh/uv:0.7.20}
         UV_INDEX_URL: ${UV_INDEX_URL:-https://pypi.org/simple}
+        UV_HTTP_TIMEOUT: ${UV_HTTP_TIMEOUT:-600}
     container_name: deer-flow-gateway
-    command: sh -c "{ cd backend && (uv sync || (echo '[startup] uv sync failed; recreating .venv and retrying once' && uv venv --allow-existing .venv && uv sync)) && PYTHONPATH=. uv run uvicorn app.gateway.app:app --host 0.0.0.0 --port 8001 --reload --reload-include='*.yaml .env'; } > /app/logs/gateway.log 2>&1"
+    command: sh -c "{ cd backend && (uv sync --frozen || (echo '[startup] uv sync failed; recreating .venv and retrying once' && uv venv --allow-existing .venv && uv sync --frozen)) && PYTHONPATH=. uv run --frozen uvicorn app.gateway.app:app --host 0.0.0.0 --port 8001 --reload --reload-include='*.yaml .env'; } > /app/logs/gateway.log 2>&1"
     volumes:
       - ../backend/:/app/backend/
+      # CompileSessionManager writes through /workspace while compile containers
+      # bind the same directory using the host-visible DEER_FLOW_ROOT path.
+      - "${DEER_FLOW_ROOT}/.compile-sessions:/workspace/.compile-sessions"
       # Preserve the .venv built during Docker image build — mounting the full backend/
       # directory above would otherwise shadow it with the (empty) host directory.
       - gateway-venv:/app/backend/.venv
@@ -154,6 +158,11 @@ services:
     environment:
       - CI=true
       - DEER_FLOW_HOME=/app/backend/.deer-flow
+      - DEER_FLOW_WORKSPACE_ROOT=/workspace
+      - DEER_FLOW_HOST_WORKSPACE_ROOT=${DEER_FLOW_ROOT}
+      - HOST_PROJECT_ROOT=${DEER_FLOW_ROOT}
+      - UV_INDEX_URL=${UV_INDEX_URL:-https://pypi.org/simple}
+      - UV_HTTP_TIMEOUT=${UV_HTTP_TIMEOUT:-600}
       - DEER_FLOW_CHANNELS_LANGGRAPH_URL=${DEER_FLOW_CHANNELS_LANGGRAPH_URL:-http://langgraph:2024}
       - DEER_FLOW_CHANNELS_GATEWAY_URL=${DEER_FLOW_CHANNELS_GATEWAY_URL:-http://gateway:8001}
       - DEER_FLOW_HOST_BASE_DIR=${DEER_FLOW_ROOT}/backend/.deer-flow
@@ -179,10 +188,13 @@ services:
         APT_MIRROR: ${APT_MIRROR:-}
         UV_IMAGE: ${UV_IMAGE:-ghcr.io/astral-sh/uv:0.7.20}
         UV_INDEX_URL: ${UV_INDEX_URL:-https://pypi.org/simple}
+        UV_HTTP_TIMEOUT: ${UV_HTTP_TIMEOUT:-600}
     container_name: deer-flow-langgraph
-    command: sh -c "cd backend && { (uv sync || (echo '[startup] uv sync failed; recreating .venv and retrying once' && uv venv --allow-existing .venv && uv sync)) && allow_blocking='' && if [ \"\${LANGGRAPH_ALLOW_BLOCKING:-0}\" = '1' ]; then allow_blocking='--allow-blocking'; fi && uv run langgraph dev --no-browser \${allow_blocking} --host 0.0.0.0 --port 2024 --n-jobs-per-worker \${LANGGRAPH_JOBS_PER_WORKER:-10}; } > /app/logs/langgraph.log 2>&1"
+    command: sh -c "cd backend && { (uv sync --frozen || (echo '[startup] uv sync failed; recreating .venv and retrying once' && uv venv --allow-existing .venv && uv sync --frozen)) && allow_blocking='' && if [ \"$${LANGGRAPH_ALLOW_BLOCKING:-0}\" = '1' ]; then allow_blocking='--allow-blocking'; fi && uv run --frozen langgraph dev --no-browser $${allow_blocking} --host 0.0.0.0 --port 2024 --n-jobs-per-worker $${LANGGRAPH_JOBS_PER_WORKER:-10}; } > /app/logs/langgraph.log 2>&1"
     volumes:
       - ../backend/:/app/backend/
+      # Keep service-side session state and host Docker bind mounts aligned.
+      - "${DEER_FLOW_ROOT}/.compile-sessions:/workspace/.compile-sessions"
       # Preserve the .venv built during Docker image build — mounting the full backend/
       # directory above would otherwise shadow it with the (empty) host directory.
       - langgraph-venv:/app/backend/.venv
@@ -211,6 +223,11 @@ services:
     environment:
       - CI=true
       - DEER_FLOW_HOME=/app/backend/.deer-flow
+      - DEER_FLOW_WORKSPACE_ROOT=/workspace
+      - DEER_FLOW_HOST_WORKSPACE_ROOT=${DEER_FLOW_ROOT}
+      - HOST_PROJECT_ROOT=${DEER_FLOW_ROOT}
+      - UV_INDEX_URL=${UV_INDEX_URL:-https://pypi.org/simple}
+      - UV_HTTP_TIMEOUT=${UV_HTTP_TIMEOUT:-600}
       - DEER_FLOW_HOST_BASE_DIR=${DEER_FLOW_ROOT}/backend/.deer-flow
       - DEER_FLOW_HOST_SKILLS_PATH=${DEER_FLOW_ROOT}/skills
       - DEER_FLOW_SANDBOX_HOST=host.docker.internal

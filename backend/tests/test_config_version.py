@@ -123,3 +123,12 @@ def test_newer_user_version_no_warning(caplog):
                 config_path,
             )
         assert "outdated" not in caplog.text
+
+
+def test_example_config_is_valid_app_config():
+    """The checked-in template must be loadable before users copy it."""
+    config_path = Path(__file__).resolve().parents[2] / "config.example.yaml"
+
+    config = AppConfig.from_file(str(config_path))
+
+    assert config.models == []

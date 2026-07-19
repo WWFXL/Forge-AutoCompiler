@@ -23,7 +23,7 @@
 `make dev` 拉起 4 个进程，通过 nginx 统一入口：
 
 ```
-浏览器 → nginx :2026 ┬→ frontend (Next.js)   :3000   非 API 请求
+浏览器 → nginx :8000 ┬→ frontend (Next.js)   :3000   非 API 请求
                     ├→ gateway (FastAPI)     :8001   /api/*（models / skills / memory / uploads / threads / artifacts）
                     └→ langgraph server      :2024   /api/langgraph/*（agent 运行时）
 ```
@@ -42,7 +42,7 @@ make check          # 检查 node/pnpm/uv/nginx 是否就位
 make config         # 首次生成 config.yaml（已存在则中止，非幂等）
 make config-upgrade # 把 config.example.yaml 新增字段合并进现有 config.yaml
 make install        # 安装前后端依赖（backend: uv sync，frontend: pnpm install）
-make dev            # 启动全部服务，访问 http://localhost:2026
+make dev            # 启动全部服务，访问 http://localhost:8000
 make dev-daemon     # 后台启动，日志写到 logs/*.log
 make stop           # 停所有本机服务
 make clean          # stop + 清空 backend/.deer-flow/、backend/.langgraph_api/、logs/

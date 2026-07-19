@@ -12,6 +12,19 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(dirname "$SCRIPT_DIR")"
 DOCKER_DIR="$PROJECT_ROOT/docker"
 
+# The Compose services and nested compile containers both need the same path as
+# seen by the host Docker daemon. In WSL2 this is the WSL path to the checkout.
+export DEER_FLOW_ROOT="${DEER_FLOW_ROOT:-$PROJECT_ROOT}"
+
+# Load optional mirror and timeout settings used by Compose build arguments.
+# The same file is also injected into services through compose env_file.
+if [ -f "$PROJECT_ROOT/.env" ]; then
+    set -a
+    # shellcheck disable=SC1091
+    source "$PROJECT_ROOT/.env"
+    set +a
+fi
+
 # Docker Compose command with project name
 COMPOSE_CMD="docker compose -p deer-flow-dev -f docker-compose-dev.yaml"
 
@@ -166,6 +179,15 @@ start() {
     echo "=========================================="
     echo ""
 
+    if ! docker_available; then
+        echo -e "${YELLOW}Docker is not reachable.${NC}"
+        echo "Start Docker Desktop with WSL integration, or start the native WSL Docker service."
+        echo "Then rerun: make docker-start"
+        exit 1
+    fi
+
+    mkdir -p "$PROJECT_ROOT/.compile-sessions"
+
     sandbox_mode="$(detect_sandbox_mode)"
 
     if $gateway_mode; then
@@ -191,12 +213,8 @@ start() {
     fi
     echo ""
     
-    # Set DEER_FLOW_ROOT for provisioner if not already set
-    if [ -z "$DEER_FLOW_ROOT" ]; then
-        export DEER_FLOW_ROOT="$PROJECT_ROOT"
-        echo -e "${BLUE}Setting DEER_FLOW_ROOT=$DEER_FLOW_ROOT${NC}"
-        echo ""
-    fi
+    echo -e "${BLUE}Host workspace root: $DEER_FLOW_ROOT${NC}"
+    echo ""
     
     # Ensure config.yaml exists before starting.
     if [ ! -f "$PROJECT_ROOT/config.yaml" ]; then
@@ -244,13 +262,13 @@ start() {
     echo "  DeerFlow Docker is starting!"
     echo "=========================================="
     echo ""
-    echo "  🌐 Application: http://localhost:2026"
-    echo "  📡 API Gateway: http://localhost:2026/api/*"
+    echo "  🌐 Application: http://localhost:8000"
+    echo "  📡 API Gateway: http://localhost:8000/api/*"
     if $gateway_mode; then
         echo "  🤖 Runtime:     Gateway embedded"
         echo "  API:            /api/langgraph/* → Gateway (compat)"
     else
-        echo "  🤖 LangGraph:   http://localhost:2026/api/langgraph/*"
+        echo "  🤖 LangGraph:   http://localhost:8000/api/langgraph/*"
     fi
     echo ""
     echo "  📋 View logs: make docker-logs"
@@ -317,7 +335,7 @@ restart() {
     echo ""
     echo -e "${GREEN}✓ Docker services restarted${NC}"
     echo ""
-    echo "  🌐 Application: http://localhost:2026"
+    echo "  🌐 Application: http://localhost:8000"
     echo "  📋 View logs: make docker-logs"
     echo ""
 }

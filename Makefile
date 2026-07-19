@@ -1,6 +1,6 @@
 # DeerFlow - Unified Development Environment
 
-.PHONY: help config config-upgrade check install dev dev-pro dev-daemon dev-daemon-pro start start-pro start-daemon start-daemon-pro stop up up-pro down clean docker-init docker-start docker-start-pro docker-stop docker-logs docker-logs-frontend docker-logs-gateway
+.PHONY: help config config-upgrade check wsl-check compile-image install dev dev-pro dev-daemon dev-daemon-pro start start-pro start-daemon start-daemon-pro stop up up-pro down clean docker-init docker-start docker-start-pro docker-stop docker-logs docker-logs-frontend docker-logs-gateway
 
 BASH ?= bash
 
@@ -17,6 +17,8 @@ help:
 	@echo "  make config          - Generate local config files (aborts if config already exists)"
 	@echo "  make config-upgrade  - Merge new fields from config.example.yaml into config.yaml"
 	@echo "  make check           - Check if all required tools are installed"
+	@echo "  make wsl-check       - Check WSL2 and Docker prerequisites"
+	@echo "  make compile-image   - Build the C/C++ compile runtime image"
 	@echo "  make install         - Install all dependencies (frontend + backend)"
 	@echo "  make setup-sandbox   - Pre-pull sandbox container image (recommended)"
 	@echo "  make dev             - Start all services in development mode (with hot-reloading)"
@@ -31,13 +33,13 @@ help:
 	@echo "  make clean           - Clean up processes and temporary files"
 	@echo ""
 	@echo "Docker Production Commands:"
-	@echo "  make up              - Build and start production Docker services (localhost:2026)"
+	@echo "  make up              - Build and start production Docker services (localhost:8000)"
 	@echo "  make up-pro          - Build and start production Docker in Gateway mode (experimental)"
 	@echo "  make down            - Stop and remove production Docker containers"
 	@echo ""
 	@echo "Docker Development Commands:"
 	@echo "  make docker-init     - Pull the sandbox image"
-	@echo "  make docker-start    - Start Docker services (mode-aware from config.yaml, localhost:2026)"
+	@echo "  make docker-start    - Start Docker services (mode-aware from config.yaml, localhost:8000)"
 	@echo "  make docker-start-pro - Start Docker in Gateway mode (experimental, no LangGraph container)"
 	@echo "  make docker-stop     - Stop Docker development services"
 	@echo "  make docker-logs     - View Docker development logs"
@@ -53,6 +55,17 @@ config-upgrade:
 # Check required tools
 check:
 	@$(PYTHON) ./scripts/check.py
+
+wsl-check:
+	@$(BASH) ./scripts/wsl-check.sh
+
+compile-image:
+	@set -a; [ ! -f .env ] || . ./.env; set +a; \
+		docker build \
+			--build-arg APT_MIRROR="$${APT_MIRROR:-}" \
+			--build-arg HTTP_PROXY="$${COMPILE_HTTP_PROXY:-}" \
+			--build-arg HTTPS_PROXY="$${COMPILE_HTTPS_PROXY:-}" \
+			-t "$${COMPILE_IMAGE:-autocompiler:gcc13}" docker/compile
 
 # Install all dependencies
 install:

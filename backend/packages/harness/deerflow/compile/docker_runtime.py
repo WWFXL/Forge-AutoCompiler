@@ -1,11 +1,12 @@
 from __future__ import annotations
 
-import os
 import subprocess
 from dataclasses import dataclass
 from pathlib import Path
 
+from deerflow.compile.paths import get_host_artifacts_dir, get_host_logs_dir, get_host_repro_dir, get_host_session_dir, get_host_workspace_dir
 from deerflow.compile.schemas import CommandResult, CompileSession, utc_now_iso
+from deerflow.config.paths import Paths
 
 DEFAULT_NETWORK = "compile_network_wwf_v1"
 CONTAINER_WORKSPACE_DIR = "/workspace"
@@ -13,7 +14,6 @@ CONTAINER_REPO_DIR = "/workspace/repo"
 CONTAINER_ARTIFACTS_DIR = "/artifacts"
 CONTAINER_LOGS_DIR = "/logs"
 CONTAINER_REPRO_DIR = "/repro"
-HOST_COMPILE_SESSIONS_DIRNAME = ".compile-sessions"
 
 
 @dataclass
@@ -28,30 +28,45 @@ class CompileDockerRuntime:
         self.config = config or RuntimeConfig()
         self.manager = manager
 
-    def _host_project_root(self) -> Path:
-        host_project_root = os.environ.get("HOST_PROJECT_ROOT", "").strip()
-        if not host_project_root:
-            raise ValueError("HOST_PROJECT_ROOT is not configured")
-        return Path(host_project_root)
+    def _paths(self) -> Paths:
+        manager_paths = getattr(self.manager, "paths", None)
+        return manager_paths or Paths()
 
-    def _host_session_dir(self, session: CompileSession) -> Path:
-        return self._host_project_root() / HOST_COMPILE_SESSIONS_DIRNAME / session.thread_id / session.session_id
+    def _host_session_dir(self, session: CompileSession) -> str:
+        return get_host_session_dir(session.session_id, session.thread_id, self._paths())
 
-    def _host_workspace_dir(self, session: CompileSession) -> Path:
-        return self._host_session_dir(session) / "workspace"
+    def _host_workspace_dir(self, session: CompileSession) -> str:
+        return get_host_workspace_dir(session.session_id, session.thread_id, self._paths())
 
-    def _host_artifacts_dir(self, session: CompileSession) -> Path:
-        return self._host_session_dir(session) / "artifacts"
+    def _host_artifacts_dir(self, session: CompileSession) -> str:
+        return get_host_artifacts_dir(session.session_id, session.thread_id, self._paths())
 
-    def _host_logs_dir(self, session: CompileSession) -> Path:
-        return self._host_session_dir(session) / "logs"
+    def _host_logs_dir(self, session: CompileSession) -> str:
+        return get_host_logs_dir(session.session_id, session.thread_id, self._paths())
 
-    def _host_repro_dir(self, session: CompileSession) -> Path:
-        return self._host_session_dir(session) / "repro"
+    def _host_repro_dir(self, session: CompileSession) -> str:
+        return get_host_repro_dir(session.session_id, session.thread_id, self._paths())
 
     def _log(self, session: CompileSession, event: str, **payload) -> None:
         if self.manager is not None:
             self.manager.log_event(session, event, **payload)
+
+    def _ensure_network(self) -> None:
+        inspect_command = ["docker", "network", "inspect", self.config.network]
+        inspected = subprocess.run(inspect_command, check=False, capture_output=True, text=True)
+        if inspected.returncode == 0:
+            return
+
+        create_command = ["docker", "network", "create", self.config.network]
+        created = subprocess.run(create_command, check=False, capture_output=True, text=True)
+        if created.returncode == 0:
+            return
+
+        # Another process may have created the network between inspect and create.
+        inspected = subprocess.run(inspect_command, check=False, capture_output=True, text=True)
+        if inspected.returncode != 0:
+            error = created.stderr.strip() or inspected.stderr.strip() or "unknown Docker error"
+            raise RuntimeError(f"Failed to create Docker network {self.config.network!r}: {error}")
 
     def create_container(self, session: CompileSession) -> str:
         if session.container_id:
@@ -63,6 +78,7 @@ class CompileDockerRuntime:
             )
             return session.container_id
 
+        self._ensure_network()
         host_workspace_dir = self._host_workspace_dir(session)
         host_artifacts_dir = self._host_artifacts_dir(session)
         host_logs_dir = self._host_logs_dir(session)

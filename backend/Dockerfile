@@ -12,7 +12,6 @@ FROM python:3.12-slim-bookworm AS builder
 
 ARG NODE_MAJOR=22
 ARG APT_MIRROR
-ARG UV_INDEX_URL
 
 # Optionally override apt mirror for restricted networks (e.g. APT_MIRROR=mirrors.aliyun.com)
 RUN if [ -n "${APT_MIRROR}" ]; then \
@@ -42,9 +41,12 @@ WORKDIR /app
 # Copy backend source code
 COPY backend ./backend
 
-# Install dependencies with cache mount
+# Install dependencies inside the image layer. This may resolve against a
+# configured mirror, but cannot rewrite the host checkout's lock file.
+ARG UV_INDEX_URL
+ARG UV_HTTP_TIMEOUT=600
 RUN --mount=type=cache,target=/root/.cache/uv \
-    sh -c "cd backend && UV_INDEX_URL=${UV_INDEX_URL:-https://pypi.org/simple} uv sync"
+    sh -c "cd backend && UV_INDEX_URL=${UV_INDEX_URL:-https://pypi.org/simple} UV_HTTP_TIMEOUT=${UV_HTTP_TIMEOUT} uv sync"
 
 # ── Stage 2: Dev ──────────────────────────────────────────────────────────────
 # Retains compiler toolchain from builder so startup-time `uv sync` can build
