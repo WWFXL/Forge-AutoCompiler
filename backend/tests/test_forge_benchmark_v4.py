@@ -87,7 +87,7 @@ def test_v4_manifest_digest_is_canonical() -> None:
 def test_v4_current_tree_gate_rejects_later_runtime_component_drift() -> None:
     manifest = load_v4_manifest()
 
-    with pytest.raises(forge_benchmark_v4.BenchmarkError, match=r"subagents/executor\.py"):
+    with pytest.raises(forge_benchmark_v4.BenchmarkError, match="does not match the current repository file"):
         forge_benchmark_v4.verify_frozen_components(manifest, REPO_ROOT)
 
 

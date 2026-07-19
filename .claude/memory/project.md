@@ -5,6 +5,10 @@
 ## 最近变更 (Recent Changes)
 <!-- 倒序，最新在上。 -->
 
+- 2026-07-26 — 重排 Issue #33 的非交互澄清修复
+  - 范围: 将旧堆叠的单提交重放到 `main@b0e9b0e5`；标准仓库 URL + exact commit 明确允许直接进入隔离编译，活跃实验只对 Lead 的首次澄清返回冻结 policy，并记录有界 `agent.clarification_auto_answered` 证据。
+  - 安全与兼容: 不记录问题、回答、prompt 或模型文本；第二次澄清与普通交互仍结束回合等待用户。v1-v5 manifest、Schema、validator 与既有 ledger 均不改写。
+
 - 2026-07-25 — 重排并验证 Issue #32 的运行级异步 event-loop ownership 修复
   - 范围: 将旧堆叠中的单提交增量重放到 `main@2cfbf795`；已有运行 loop 时直接创建 compiler 后台 task，无运行 loop 的同步兼容调用仍使用隔离线程。
   - 兼容: v4 runtime current-tree gate 仍拒绝随后合法的 `executor.py` 漂移；历史 component blob 审计与冻结 manifest/Schema/validator/ledger 保持不变。executor 测试 fixture 不再 reload 模块，避免 enum class identity 伪失败。
