@@ -1,0 +1,274 @@
+{
+  "schema_version": "1.0.0",
+  "document_type": "manifest",
+  "manifest_canonicalization": "json-sort-keys-compact-utf8",
+  "benchmark": {
+    "id": "forge-cpp-clean-replay-pilot-v1",
+    "name": "Forge C/C++ Clean Replay Pilot",
+    "purpose": "clean_replay_collection_calibration",
+    "dataset_provenance": "self_selected_calibration_set"
+  },
+  "scope": {
+    "languages": [
+      "C",
+      "C++"
+    ],
+    "phase": "pilot",
+    "formal_comparison_enabled": false,
+    "instrumentation_blocker": true
+  },
+  "forge": {
+    "repository_url": "https://github.com/WWFXL/Forge-AutoCompiler",
+    "commit_sha": "0a71ad3204afec9aa36de612265594c1144be4c9",
+    "component_sha256": {
+      "backend/packages/harness/deerflow/subagents/builtins/compiler_agent.py": "5d30e7231d2f254b3c504e455a6d1b445c9b854e65025142656479204fe1227f",
+      "backend/packages/harness/deerflow/agents/lead_agent/prompt.py": "532f674e7cd43c099a3b171421a01a44bf3c00c9494d86f65b5c9cf5672c63b8",
+      "backend/packages/harness/deerflow/tools/bound_compile_tools.py": "5ba0b32d54e68c07c6137f355001c5303c3578a0530352169a4c810e8147ad44",
+      "backend/packages/harness/deerflow/tools/builtins/agent_compile_tools.py": "a4b0f15d02afa3adce671755d898a20f4e08052f290c0c12952412f2186b392b",
+      "docker/compile/Dockerfile": "19c20e59fd8e98f44d08acdc0cce7c6c938df5a77d9f18176ba965d701b74628",
+      "config.example.yaml": "7f40b0a88a86a1344bff83e5e2f3ad9e4c20d88aa74e19a0ae11ae821dac6715",
+      "backend/uv.lock": "cd9271aa22af6ef37f1a81404b20cef2af0f3d302480e605f62e690f6cf8650d"
+    }
+  },
+  "protocol_artifact_sha256": {
+    "scripts/forge_benchmark.py": "d4c18b5e558a7b29812624ea9661aab47cba610b9bc12d0050c0528bbfaa0278",
+    "benchmarks/schemas/forge-cpp-benchmark-v1.schema.json": "ad4d39978cc06ee5c4d5641f4630908a53dc8c8898be49e98632c52f80b28adb"
+  },
+  "model": {
+    "endpoint": "https://richlab-api-x.choosefire.com/v1",
+    "credential_env": "OpenAI_AK",
+    "roles": {
+      "lead": "gpt-5.6-sol",
+      "compiler": "gpt-5.6-sol"
+    },
+    "fallback_policy": "forbidden",
+    "request_timeout_seconds": 120,
+    "max_retries": 0
+  },
+  "runtime": {
+    "compile_image": "autocompiler:gcc13",
+    "image_id": "sha256:900d7ce4b902b79df5c64ffab88631b251538f1bde578c4dd2bf91558e9d1554",
+    "replay_timeout_seconds": 1200,
+    "cleanup_timeout_seconds": 20,
+    "docker_control_timeout_seconds": 30,
+    "compiler_max_turns": 36,
+    "subagent_timeout_seconds": 180,
+    "max_parallel_runs": 1,
+    "backend_processes": 1,
+    "network_policy": {
+      "network_name": "compile_network_wwf_v1",
+      "egress": "enabled_for_clone_and_dependencies"
+    },
+    "host": {
+      "wsl_distribution": "Ubuntu",
+      "cpu_count": 32,
+      "memory_kib": 7723024,
+      "kernel": "6.6.114.1-microsoft-standard-WSL2",
+      "architecture": "x86_64",
+      "docker_server_version": "29.5.3"
+    }
+  },
+  "conditions": [
+    {
+      "id": "baseline",
+      "memory_enabled": false,
+      "skills_enabled": false,
+      "repetitions": 1,
+      "acceptance_gate": "clean_replay"
+    }
+  ],
+  "cases": [
+    {
+      "id": "fmt",
+      "repository_url": "https://github.com/fmtlib/fmt",
+      "commit_sha": "123913715afeb8a437e6388b4473fcc4753e1c9a",
+      "languages": [
+        "C++"
+      ],
+      "build_system": "cmake",
+      "license": "MIT",
+      "oracle": {
+        "expected_candidate_status": "pass",
+        "expected_clean_replay_status": "pass",
+        "required_artifacts": [
+          {
+            "relative_path": "libfmt.a",
+            "artifact_type": "static_library"
+          }
+        ]
+      },
+      "constraints": {
+        "required_system_packages": [
+          "build-essential",
+          "cmake"
+        ],
+        "build_arguments": {
+          "cmake": [
+            "-DFMT_TEST=OFF",
+            "-DFMT_DOC=OFF",
+            "-DFMT_INSTALL=OFF",
+            "-DBUILD_SHARED_LIBS=OFF"
+          ],
+          "configure": []
+        },
+        "environment": {},
+        "minimum_replay_delay_seconds": 0
+      }
+    },
+    {
+      "id": "hiredis",
+      "repository_url": "https://github.com/redis/hiredis",
+      "commit_sha": "60e5075d4ac77424809f855ba3e398df7aacefe8",
+      "languages": [
+        "C"
+      ],
+      "build_system": "make",
+      "license": "BSD-3-Clause",
+      "oracle": {
+        "expected_candidate_status": "pass",
+        "expected_clean_replay_status": "pass",
+        "required_artifacts": [
+          {
+            "relative_path": "libhiredis.a",
+            "artifact_type": "static_library"
+          },
+          {
+            "relative_path": "libhiredis.so",
+            "artifact_type": "shared_library"
+          }
+        ]
+      },
+      "constraints": {
+        "required_system_packages": [
+          "build-essential",
+          "make"
+        ],
+        "build_arguments": {
+          "cmake": [],
+          "configure": []
+        },
+        "environment": {},
+        "minimum_replay_delay_seconds": 0
+      }
+    },
+    {
+      "id": "libcheck",
+      "repository_url": "https://github.com/libcheck/check",
+      "commit_sha": "11970a7e112dfe243a2e68773f014687df2900e8",
+      "languages": [
+        "C"
+      ],
+      "build_system": "autotools",
+      "license": "LGPL-2.1-or-later",
+      "oracle": {
+        "expected_candidate_status": "pass",
+        "expected_clean_replay_status": "pass",
+        "required_artifacts": [
+          {
+            "relative_path": "libcheck.a",
+            "artifact_type": "static_library"
+          }
+        ]
+      },
+      "constraints": {
+        "required_system_packages": [
+          "build-essential",
+          "autoconf",
+          "automake",
+          "libtool",
+          "pkg-config",
+          "texinfo"
+        ],
+        "build_arguments": {
+          "cmake": [],
+          "configure": [
+            "--disable-subunit"
+          ]
+        },
+        "environment": {},
+        "minimum_replay_delay_seconds": 0
+      }
+    },
+    {
+      "id": "libgit2",
+      "repository_url": "https://github.com/libgit2/libgit2",
+      "commit_sha": "338e6fb681369ff0537719095e22ce9dc602dbf0",
+      "languages": [
+        "C"
+      ],
+      "build_system": "cmake",
+      "license": "GPL-2.0-only WITH libgit2-linking-exception",
+      "oracle": {
+        "expected_candidate_status": "pass",
+        "expected_clean_replay_status": "pass",
+        "required_artifacts": [
+          {
+            "relative_path": "libgit2.so.1.9.0",
+            "artifact_type": "shared_library"
+          }
+        ]
+      },
+      "constraints": {
+        "required_system_packages": [
+          "build-essential",
+          "cmake",
+          "pkg-config",
+          "libssl-dev",
+          "libhttp-parser-dev",
+          "zlib1g-dev"
+        ],
+        "build_arguments": {
+          "cmake": [
+            "-DBUILD_TESTS=OFF",
+            "-DBUILD_CLI=OFF",
+            "-DUSE_HTTPS=OpenSSL",
+            "-DUSE_HTTP_PARSER=system",
+            "-DREGEX_BACKEND=builtin",
+            "-DUSE_SSH=OFF"
+          ],
+          "configure": []
+        },
+        "environment": {},
+        "minimum_replay_delay_seconds": 0
+      }
+    },
+    {
+      "id": "sysstat-nondeterministic",
+      "repository_url": "https://github.com/sysstat/sysstat",
+      "commit_sha": "b8f987807e7c7ba5c1b2ca8b7b1e9d80e61bce6c",
+      "languages": [
+        "C"
+      ],
+      "build_system": "autotools",
+      "license": "GPL-2.0-or-later",
+      "oracle": {
+        "expected_candidate_status": "pass",
+        "expected_clean_replay_status": "reject",
+        "expected_replay_failure_classification": "sha256_mismatch",
+        "required_artifacts": [
+          {
+            "relative_path": "sar",
+            "artifact_type": "executable"
+          }
+        ]
+      },
+      "constraints": {
+        "required_system_packages": [
+          "build-essential",
+          "pkg-config"
+        ],
+        "build_arguments": {
+          "cmake": [],
+          "configure": [
+            "--disable-nls"
+          ]
+        },
+        "environment": {
+          "CFLAGS": "-O2 -DUSE_SCCSID",
+          "SOURCE_DATE_EPOCH": null
+        },
+        "minimum_replay_delay_seconds": 2
+      }
+    }
+  ]
+}
