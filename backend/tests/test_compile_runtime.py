@@ -1154,6 +1154,38 @@ def test_clone_repository_runs_git_inside_compile_container(tmp_path: Path, monk
     assert "Repository cloned successfully" in message
 
 
+def test_exact_commit_clone_marks_repository_safe_before_git_c_operations(tmp_path: Path, monkeypatch):
+    manager = CompileSessionManager(paths=make_test_paths(tmp_path))
+    repo_url = "https://example.com/repo.git"
+    commit_sha = "0123456789abcdef0123456789abcdef01234567"
+    session = manager.create_session(thread_id="thread-exact-clone", repo_url=repo_url)
+    session.container_id = "container-123"
+    calls: list[str] = []
+
+    def fake_exec(session_arg, command, **_kwargs):
+        assert session_arg is session
+        calls.append(command)
+        if command.endswith("rev-parse HEAD"):
+            return CommandResult(exit_code=0, stdout=f"{commit_sha}\n", stderr="", combined_output=f"{commit_sha}\n")
+        return CommandResult(exit_code=0, stdout="", stderr="", combined_output="")
+
+    active = SimpleNamespace(policy=SimpleNamespace(expected_repo_url=repo_url, expected_commit_sha=commit_sha))
+    monkeypatch.setattr(operations, "get_active_experiment", lambda _thread_id: active)
+    monkeypatch.setattr(operations, "_services", CompileOperationsServices(manager=manager, runtime=SimpleNamespace(exec=fake_exec)))
+
+    result, message = clone_repository_impl(session=session, repo_url=repo_url, max_retries=1)
+
+    assert result.exit_code == 0
+    exact_clone_command = calls[0]
+    safe_directory = "git config --global --replace-all safe.directory /workspace/repo"
+    first_git_c = "git -C /workspace/repo remote add origin"
+    assert safe_directory in exact_clone_command
+    assert exact_clone_command.index(safe_directory) < exact_clone_command.index(first_git_c)
+    assert session.commit_sha == commit_sha
+    assert session.status == "source_ready"
+    assert "Repository cloned successfully" in message
+
+
 def test_clone_repository_retries_with_container_side_cleanup(tmp_path: Path, monkeypatch):
     manager = CompileSessionManager(paths=make_test_paths(tmp_path))
     session = manager.create_session(thread_id="thread-clone-retry", repo_url="https://example.com/repo.git")

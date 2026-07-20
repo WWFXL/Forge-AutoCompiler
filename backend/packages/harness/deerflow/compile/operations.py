@@ -370,6 +370,7 @@ def clone_repository_impl(
             (
                 f"rm -rf -- {shell_quote(CONTAINER_REPO_DIR)}",
                 f"git init --object-format={object_format} {shell_quote(CONTAINER_REPO_DIR)}",
+                f"git config --global --replace-all safe.directory {shell_quote(CONTAINER_REPO_DIR)}",
                 f"git -C {shell_quote(CONTAINER_REPO_DIR)} remote add origin {shell_quote(repo_url)}",
                 f"git -C {shell_quote(CONTAINER_REPO_DIR)} fetch --depth {max(1, depth)} origin {shell_quote(expected_commit_sha)}",
                 f"git -C {shell_quote(CONTAINER_REPO_DIR)} checkout --detach FETCH_HEAD",

@@ -8,6 +8,11 @@
 ## 最近变更 (Recent Changes)
 <!-- 倒序，最新在上。 -->
 
+- 2026-07-20 — 将 Issue #16 / PR #19 的 exact-commit clone ownership 修复重排到最新主干并完成本地验证
+  - 文件: `backend/packages/harness/deerflow/compile/operations.py`, `backend/tests/test_compile_runtime.py`, `backend/tests/test_compile_replay_docker.py`, `.claude/memory/project.md`
+  - 动机: 从旧堆叠基线提取单一修复，在 `git init` 后、首次 `git -C`/fetch 前配置容器内 `/workspace/repo` 为 `safe.directory`；保持 remote URL、完整 commit、普通 clone、clean replay、artifact gate、v1-v5 协议和 ledger 不变
+  - 证据: compile runtime/terminal/cancellation `115 passed`，后端全量 `1500 passed, 21 skipped`，真实 Docker exact clone 与两条 clean replay `3 passed in 89.62s`；全量 Ruff、Compose、前端 lint/typecheck/build、diff 和无遗留 compile/replay 容器检查通过
+
 - 2026-07-20 — 将 v2 pilot 协议与既有五 case 审计重排到主干，并增加 squash provenance 校验
   - 文件: `scripts/forge_benchmark_history.py`, `backend/tests/test_forge_benchmark_v2.py`, `benchmarks/README.md`, `.claude/memory/project.md`
   - 动机: v2 历史实验绑定 `d845b735`，而 Issue #11 重排后 head `561b38ce` 被 squash 为 `9e002f45`，Git ancestry 不再连续；在不改写 v2 manifest、Schema、validator、runner、canonical digest 或 ledger 的前提下，显式验证 baseline blob、两端 tree 身份和 successor ancestry
@@ -61,14 +66,15 @@
 ## 待办 (TODOs)
 <!-- 发现但未做的事。带 file:line 指针。 -->
 
-- 完成 Issue #14 / PR #15 的重排、审阅、完整 CI 与主干合并；保持 v2 协议和五份历史 physical-attempt ledger 不变，不启动 v6 pilot。
-- PR #15 合并后继续自底向上处理剩余堆叠 PR；不得删除仍被上层 PR 引用的远端 base 分支。
+- 完成 Issue #16 / PR #19 的重排、审阅、完整 CI 与主干合并；保持 v1-v5 协议和 ledger 不变，不启动 v6 pilot。
+- PR #19 合并后按 #20 -> #21 -> #23 顺序继续处理堆叠 PR；不得删除仍被上层 PR 引用的远端 base 分支。
 - 当前 `backend/packages/harness/deerflow/compile/manager.py` 的 lifecycle lock 是进程内锁；部署多个后端进程前，需要改为文件锁/数据库事务或带版本号的 CAS，并增加跨进程竞态测试。
 
 ## 已知问题 (Known Issues / Pitfalls)
 <!-- 工作中踩过的坑、限制或意外行为。 -->
 
 - 协作语言约定：后续 GitHub Issue、Pull Request、评论、评审说明和提交说明默认使用中文；分支名、代码标识、命令和必要技术术语继续遵循仓库的 ASCII/既有命名规范。若外部协作明确要求英文，先向用户确认。
+- PowerShell -> WSL -> `bash -lc` 的多层命令可能提前展开临时 `$repo` 变量，使 Docker bind mount 退化为 `/frontend/...`；一次性容器优先传完整 WSL 绝对路径，启动失败后先按固定名称清理并确认无残留。
 - Docker Desktop 与 WSL 原生 Docker Engine 是两个独立 daemon，镜像、网络和容器不共享；Forge 命令必须始终在同一套 daemon 上执行。
 - WSL 的 `127.0.0.1` 代理不能直接传入 Docker build；编译镜像代理必须使用容器可达地址。
 - 后端全量 Ruff 当前有 9 个本次改动之外的既有错误；相关改动文件的定向 Ruff 已通过。
