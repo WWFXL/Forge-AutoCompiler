@@ -26,6 +26,7 @@ for import_root in (str(HARNESS_ROOT), str(Path(__file__).resolve().parent)):
         sys.path.insert(0, import_root)
 
 import forge_benchmark as protocol  # noqa: E402
+import forge_benchmark_v2 as protocol_v2  # noqa: E402
 
 from deerflow.compile.evidence import (  # noqa: E402
     EvidenceError,
@@ -81,6 +82,87 @@ def _git_state(repo_root: Path) -> dict[str, Any]:
     }
 
 
+def _manifest_protocol(manifest: dict[str, Any]):
+    schema_version = manifest.get("schema_version")
+    if schema_version == protocol.SCHEMA_VERSION:
+        return protocol
+    if schema_version == protocol_v2.SCHEMA_VERSION:
+        return protocol_v2
+    raise RunnerError(f"Unsupported benchmark schema version: {schema_version}")
+
+
+def _manifest_sha256(manifest: dict[str, Any]) -> str:
+    return _manifest_protocol(manifest).manifest_sha256(manifest)
+
+
+def _baseline_is_ancestor(repo_root: Path, baseline_revision: str) -> bool:
+    code, _ = _run_command(
+        ["git", "merge-base", "--is-ancestor", baseline_revision, "HEAD"],
+        cwd=repo_root,
+    )
+    return code == 0
+
+
+def _compose_dood_present(repo_root: Path) -> bool:
+    code, container_ids = _run_command(
+        [
+            "docker",
+            "ps",
+            "-q",
+            "--filter",
+            "label=com.docker.compose.project=deer-flow-dev",
+            "--filter",
+            "label=com.docker.compose.service=langgraph",
+        ],
+        cwd=repo_root,
+    )
+    if code != 0:
+        return False
+    for container_id in container_ids.splitlines():
+        inspect_code, mounts_json = _run_command(
+            ["docker", "inspect", "--format", "{{json .Mounts}}", container_id],
+            cwd=repo_root,
+        )
+        if inspect_code != 0:
+            continue
+        try:
+            mounts = json.loads(mounts_json)
+        except (TypeError, ValueError):
+            continue
+        if any(isinstance(mount, dict) and mount.get("Type") == "bind" and mount.get("Destination") == "/var/run/docker.sock" for mount in mounts):
+            return True
+    return False
+
+
+def _running_inside_compose_dood(repo_root: Path) -> bool:
+    if not Path("/.dockerenv").is_file():
+        return False
+    container_id = os.environ.get("HOSTNAME", "").strip()
+    if not container_id:
+        return False
+    labels_code, labels_json = _run_command(
+        ["docker", "inspect", "--format", "{{json .Config.Labels}}", container_id],
+        cwd=repo_root,
+    )
+    mounts_code, mounts_json = _run_command(
+        ["docker", "inspect", "--format", "{{json .Mounts}}", container_id],
+        cwd=repo_root,
+    )
+    if labels_code != 0 or mounts_code != 0:
+        return False
+    try:
+        labels = json.loads(labels_json)
+        mounts = json.loads(mounts_json)
+    except (TypeError, ValueError):
+        return False
+    return (
+        isinstance(labels, dict)
+        and labels.get("com.docker.compose.project") == "deer-flow-dev"
+        and labels.get("com.docker.compose.service") == "langgraph"
+        and any(isinstance(mount, dict) and mount.get("Destination") == "/var/run/docker.sock" and mount.get("RW") is True for mount in mounts)
+    )
+
+
 def _manifest_case(manifest: dict[str, Any], case_id: str) -> dict[str, Any]:
     for case in manifest["cases"]:
         if case["id"] == case_id:
@@ -114,12 +196,12 @@ def build_policy(
     lead_model = model["roles"]["lead"]
     compiler_model = model["roles"]["compiler"]
     if lead_model != compiler_model:
-        raise RunnerError("The v1 runner requires one frozen model for both roles")
+        raise RunnerError("The benchmark runner requires one frozen model for both roles")
     if repetition > condition["repetitions"]:
         raise RunnerError("Repetition exceeds the manifest condition")
     return ExperimentPolicy(
         benchmark_id=manifest["benchmark"]["id"],
-        manifest_sha256=protocol.manifest_sha256(manifest),
+        manifest_sha256=_manifest_sha256(manifest),
         case_id=case_id,
         condition=condition_id,
         repetition=repetition,
@@ -193,9 +275,14 @@ def collect_preflight(
     manifest: dict[str, Any],
     *,
     repo_root: Path = REPO_ROOT,
+    manifest_path: Path | None = None,
     check_endpoint: bool = True,
 ) -> dict[str, Any]:
     forge_state = _git_state(repo_root)
+    forge_baseline = manifest["forge"]["commit_sha"]
+    revision_policy = manifest["forge"].get("revision_policy", "exact")
+    baseline_is_ancestor = _baseline_is_ancestor(repo_root, forge_baseline)
+    baseline_satisfied = forge_state["revision"] == forge_baseline if revision_policy == "exact" else baseline_is_ancestor if revision_policy == protocol_v2.REVISION_POLICY else False
     component_results: dict[str, dict[str, Any]] = {}
     for relative_path, expected_digest in manifest["forge"]["component_sha256"].items():
         actual_digest = _sha256_file(repo_root / relative_path)
@@ -237,10 +324,16 @@ def collect_preflight(
     model = manifest["model"]
     condition_baseline = all(not condition["memory_enabled"] and not condition["skills_enabled"] for condition in manifest["conditions"])
     endpoint_reachable = _endpoint_reachable(model["endpoint"]) if check_endpoint else None
+    expected_topology = runtime.get("control_plane_topology")
+    compose_dood_present = _compose_dood_present(repo_root)
+    topology_matches = expected_topology is None or (expected_topology == protocol_v2.CONTROL_PLANE_TOPOLOGY and compose_dood_present)
     checks = {
         "credential_present": _credential_present(model["credential_env"]),
         "endpoint_reachable": endpoint_reachable,
-        "forge_revision_matches": forge_state["revision"] == manifest["forge"]["commit_sha"],
+        "forge_head_equals_baseline": forge_state["revision"] == manifest["forge"]["commit_sha"],
+        "forge_revision_matches": baseline_satisfied,
+        "forge_baseline_is_ancestor": baseline_is_ancestor,
+        "forge_baseline_satisfied": baseline_satisfied,
         "forge_clean": forge_state["dirty"] is False,
         "forge_components_match": all(result["matches"] for result in component_results.values()),
         "protocol_artifacts_match": all(result["matches"] for result in protocol_results.values()),
@@ -252,6 +345,7 @@ def collect_preflight(
         "fallback_forbidden": model["fallback_policy"] == "forbidden",
         "memory_skills_disabled": condition_baseline,
         "instrumentation_unblocked": not manifest["scope"]["instrumentation_blocker"],
+        "control_plane_topology_matches": topology_matches,
     }
     required_checks = [
         checks["credential_present"],
@@ -265,16 +359,18 @@ def collect_preflight(
         checks["fallback_forbidden"],
         checks["memory_skills_disabled"],
         checks["instrumentation_unblocked"],
+        checks["control_plane_topology_matches"],
     ]
     if check_endpoint:
         required_checks.append(checks["endpoint_reachable"] is True)
     return {
         "ready": all(required_checks),
-        "manifest_sha256": protocol.manifest_sha256(manifest),
-        "manifest_file_sha256": _sha256_file(repo_root / "benchmarks" / "manifests" / "cpp-pilot-v1.json"),
+        "manifest_sha256": _manifest_sha256(manifest),
+        "manifest_file_sha256": _sha256_file(manifest_path or repo_root / "benchmarks" / "manifests" / ("cpp-pilot-v2.json" if manifest["schema_version"] == protocol_v2.SCHEMA_VERSION else "cpp-pilot-v1.json")),
         "forge": {
             **forge_state,
             "expected_revision": manifest["forge"]["commit_sha"],
+            "revision_policy": revision_policy,
             "components": component_results,
         },
         "protocol": protocol_results,
@@ -283,13 +379,15 @@ def collect_preflight(
             "docker_server_version": (docker_version if docker_version_code == 0 else None),
             "platform_system": platform.system(),
             "platform_machine": platform.machine(),
+            "control_plane_topology": (protocol_v2.CONTROL_PLANE_TOPOLOGY if compose_dood_present else None),
         },
         "checks": checks,
     }
 
 
 def _load_manifest(path: Path) -> dict[str, Any]:
-    return protocol.validate_manifest(protocol.load_json_document(path))
+    document = protocol.load_json_document(path)
+    return _manifest_protocol(document).validate_manifest(document)
 
 
 def _slot_matches(
@@ -339,6 +437,7 @@ def create_attempt(
     replacement_for: str | None = None,
     check_endpoint: bool = True,
     repo_root: Path = REPO_ROOT,
+    manifest_path: Path | None = None,
 ) -> tuple[ExperimentLedger, dict[str, Any]]:
     policy = build_policy(
         manifest,
@@ -361,6 +460,7 @@ def create_attempt(
     preflight = collect_preflight(
         manifest,
         repo_root=repo_root,
+        manifest_path=manifest_path,
         check_endpoint=check_endpoint,
     )
     experiment_id = replacement_event["experiment_id"] if replacement_event is not None else new_evidence_id("experiment")
@@ -526,6 +626,18 @@ def run_attempt(
         raise RunnerError("The physical attempt did not pass preflight")
     if any(event["event"].startswith("model.") for event in events):
         raise RunnerError("A physical attempt cannot issue model calls twice")
+    expected_topology = manifest["runtime"].get("control_plane_topology")
+    if expected_topology == protocol_v2.CONTROL_PLANE_TOPOLOGY:
+        if not _running_inside_compose_dood(REPO_ROOT):
+            ledger.append(
+                "runtime.topology_rejected",
+                {"control_plane_topology": expected_topology},
+            )
+            raise RunnerError("The physical attempt must run inside the frozen Compose/DooD control plane")
+        ledger.append(
+            "runtime.topology_verified",
+            {"control_plane_topology": expected_topology},
+        )
     policy_data = context["policy"]
     policy = build_policy(
         manifest,
@@ -606,7 +718,7 @@ def _build_parser() -> argparse.ArgumentParser:
     common.add_argument(
         "--manifest",
         type=Path,
-        default=REPO_ROOT / "benchmarks" / "manifests" / "cpp-pilot-v1.json",
+        default=REPO_ROOT / "benchmarks" / "manifests" / "cpp-pilot-v2.json",
     )
     common.add_argument("--skip-endpoint-check", action="store_true")
 
@@ -636,6 +748,7 @@ def main(argv: list[str] | None = None) -> int:
         if args.command == "preflight":
             result = collect_preflight(
                 manifest,
+                manifest_path=args.manifest,
                 check_endpoint=not args.skip_endpoint_check,
             )
             _json_print(result)
@@ -648,6 +761,7 @@ def main(argv: list[str] | None = None) -> int:
                 repetition=args.repetition,
                 output_dir=args.output_dir,
                 replacement_for=args.replacement_for,
+                manifest_path=args.manifest,
                 check_endpoint=not args.skip_endpoint_check,
             )
             _json_print(

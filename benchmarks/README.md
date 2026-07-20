@@ -1,4 +1,33 @@
-# Forge C/C++ benchmark protocol v1
+# Forge C/C++ benchmark protocols
+
+## Runnable pilot v2
+
+`cpp-pilot-v2.json` is the runnable five-case calibration protocol created after the Issue #11 evidence ledger landed. It keeps the v1 manifest, validator, and Schema byte-for-byte unchanged, freezes the expanded runtime/evidence component set, and records `control_plane_topology: "compose-dood"`. The v2 baseline uses `gpt-5.6-sol` for both roles, 120-second provider timeouts, zero provider retries, no fallback, and disabled Memory/Skills.
+
+The Forge commit in v2 is an implementation baseline, not a self-referential protocol commit. At collection time, the clean runtime HEAD had to contain `d845b735576be706f79fcf0666f66c14929a52cc` as an ancestor while every frozen runtime component still matched that baseline. That launch rule permitted protocol-only commits without allowing runtime drift.
+
+Validate v2 from Windows and WSL before collection, then run preflight in the frozen Compose/DooD environment:
+
+```powershell
+python scripts/forge_benchmark_v2.py validate-manifest benchmarks/manifests/cpp-pilot-v2.json
+```
+
+```bash
+python3 scripts/forge_benchmark_runner.py preflight \
+  --manifest benchmarks/manifests/cpp-pilot-v2.json
+```
+
+Only `ready: true` authorizes `create-attempt` and a later explicit `run`. Evidence must exist before the first model request. The `run` command additionally verifies that its own process is the `deer-flow-dev` LangGraph Compose service with the host Docker socket mounted read/write; finding an unrelated Compose service from a WSL-native process is not sufficient. The five cases run serially; replacements preserve the original ledger and require `--replacement-for`. The v2 protocol remains pilot calibration, not a formal comparison.
+
+After Issue #11 was rebased and squash-merged, Git ancestry no longer connected the historical baseline to `main`. Audit the frozen v2 assets with the reviewed provenance mapping instead of editing the manifest or pretending the squash commit is the original baseline:
+
+```bash
+python3 scripts/forge_benchmark_history.py
+```
+
+The audit verifies baseline Git blobs, the reviewed rebased source tree, the exact squash-successor tree, and successor ancestry to the requested HEAD. A disconnected commit is rejected even if it has similar files. This command validates historical provenance only; it does not authorize a new v2 attempt, replacement, or replay.
+
+## Historical protocol v1
 
 This directory defines an auditable pilot protocol for Forge-AutoCompiler. The pilot is **only a clean-replay evidence collection and calibration run**. It is not a formal comparison of exit-code-only, candidate-only, and clean-replay acceptance, and it is not a claim about population-level build performance.
 
