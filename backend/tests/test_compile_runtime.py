@@ -1,6 +1,8 @@
+import hashlib
 import json
 import shutil
 import subprocess
+import threading
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 from types import SimpleNamespace
@@ -8,12 +10,28 @@ from types import SimpleNamespace
 import pytest
 
 from deerflow.compile import operations
-from deerflow.compile.docker_runtime import DEFAULT_NETWORK, CompileDockerRuntime, ContainerCleanupResult, RuntimeConfig
+from deerflow.compile.docker_runtime import DEFAULT_NETWORK, CompileDockerRuntime, ContainerCleanupResult, ReplayContainerHandle, RuntimeConfig
 from deerflow.compile.manager import CompileSessionManager
-from deerflow.compile.operations import CompileOperationsServices, _classify_compiled_artifact, _write_repro_bundle, clone_repository_impl, submit_build_result_impl
-from deerflow.compile.paths import get_compile_sessions_root, get_host_session_dir, get_host_workspace_dir, get_metadata_path, get_session_dir
-from deerflow.compile.schemas import BuildArtifact, BuildCommandRecord, CommandResult, CompileSession, VerificationResult
+from deerflow.compile.operations import CompileOperationsServices, _classify_compiled_artifact, _write_repro_bundle, clone_repository_impl, submit_build_result_impl, verify_clean_replay_impl
+from deerflow.compile.paths import (
+    get_compile_sessions_root,
+    get_host_replay_artifacts_dir,
+    get_host_replay_logs_dir,
+    get_host_replay_recipe_dir,
+    get_host_replay_workspace_dir,
+    get_host_session_dir,
+    get_host_workspace_dir,
+    get_metadata_path,
+    get_replay_artifacts_dir,
+    get_replay_logs_dir,
+    get_replay_recipe_dir,
+    get_replay_workspace_dir,
+    get_session_dir,
+)
+from deerflow.compile.schemas import BuildArtifact, BuildCommandRecord, CommandResult, CompileSession, ReplayArtifactComparison, ReplayVerificationResult, VerificationCheck, VerificationResult
 from deerflow.config.paths import Paths
+
+VALID_IMAGE_ID = f"sha256:{'1' * 64}"
 
 
 @pytest.fixture(autouse=True)
@@ -40,6 +58,145 @@ def add_replayable_build_command(session: CompileSession, command: str = "cmake 
             exit_code=0,
         )
     )
+
+
+def install_passed_replay_stub(monkeypatch) -> None:
+    def fake_verify_clean_replay(*, session: CompileSession, timeout_seconds: int | None = None) -> ReplayVerificationResult:
+        del timeout_seconds
+        session.image_id = session.image_id or VALID_IMAGE_ID
+        recipe_path = Path(session.leadagent_repro_dir) / "build.sh"
+        result = ReplayVerificationResult(
+            attempt_id="stubbed-pass",
+            status="passed",
+            image=session.image,
+            image_id=session.image_id,
+            commit_sha=session.commit_sha or "",
+            recipe_sha256=hashlib.sha256(recipe_path.read_bytes()).hexdigest(),
+            cleanup_succeeded=True,
+        )
+        session.replay_attempts.append(result)
+        return result
+
+    monkeypatch.setattr(operations, "verify_clean_replay_impl", fake_verify_clean_replay)
+
+
+class FakeReplayRuntime:
+    def __init__(
+        self,
+        manager: CompileSessionManager,
+        *,
+        build_exit_code: int = 0,
+        cleanup_result: ContainerCleanupResult | None = None,
+        build_exception: BaseException | None = None,
+        mutate_replay_artifact=None,
+        smoke_output: str = "Hello Matt!\n",
+    ):
+        self.manager = manager
+        self.config = SimpleNamespace(replay_timeout_seconds=30)
+        self.build_exit_code = build_exit_code
+        self.cleanup_result = cleanup_result or ContainerCleanupResult(succeeded=True, stopped=True, removed=True)
+        self.build_exception = build_exception
+        self.mutate_replay_artifact = mutate_replay_artifact
+        self.smoke_output = smoke_output
+        self.attempt_id: str | None = None
+        self.events: list[tuple] = []
+
+    def replay_container_name(self, session: CompileSession, attempt_id: str) -> str:
+        del session
+        return f"replay-{attempt_id}"
+
+    def create_replay_container(self, session: CompileSession, *, attempt_id: str, timeout_seconds: int) -> ReplayContainerHandle:
+        self.attempt_id = attempt_id
+        self.events.append(("create", attempt_id, timeout_seconds))
+        assert (get_replay_recipe_dir(session.session_id, session.thread_id, attempt_id, self.manager.paths) / "build.sh").is_file()
+        assert not any(get_replay_workspace_dir(session.session_id, session.thread_id, attempt_id, self.manager.paths).iterdir())
+        assert not any(get_replay_artifacts_dir(session.session_id, session.thread_id, attempt_id, self.manager.paths).iterdir())
+        assert not any(get_replay_logs_dir(session.session_id, session.thread_id, attempt_id, self.manager.paths).iterdir())
+        return ReplayContainerHandle(container_id="replay-container-id", container_name=f"replay-{attempt_id}", image_id=session.image_id or "")
+
+    def exec_replay_container(
+        self,
+        session: CompileSession,
+        handle: ReplayContainerHandle,
+        command: str = "bash /repro/build.sh",
+        workdir: str = "/workspace",
+        timeout_seconds: int | None = None,
+        log_path: str | None = None,
+    ) -> CommandResult:
+        del handle, workdir
+        self.events.append(("exec", command, timeout_seconds, log_path))
+        if command == "bash /repro/build.sh":
+            if self.build_exception is not None:
+                raise self.build_exception
+            if self.build_exit_code == 0:
+                assert self.attempt_id is not None
+                original_dir = Path(session.leadagent_artifacts_dir)
+                replay_dir = get_replay_artifacts_dir(session.session_id, session.thread_id, self.attempt_id, self.manager.paths)
+                for original_path in original_dir.rglob("*"):
+                    if not original_path.is_file():
+                        continue
+                    replay_path = replay_dir / original_path.relative_to(original_dir)
+                    replay_path.parent.mkdir(parents=True, exist_ok=True)
+                    shutil.copy2(original_path, replay_path)
+                if self.mutate_replay_artifact is not None:
+                    self.mutate_replay_artifact(replay_dir / "hello")
+            return CommandResult(
+                exit_code=self.build_exit_code,
+                stdout="",
+                stderr="recipe failed\n" if self.build_exit_code else "",
+                combined_output="recipe failed\n" if self.build_exit_code else "",
+                log_path=log_path,
+            )
+        return CommandResult(
+            exit_code=0,
+            stdout=self.smoke_output,
+            stderr="",
+            combined_output=self.smoke_output,
+            log_path=log_path,
+        )
+
+    def stop_and_remove_replay_container(
+        self,
+        session: CompileSession,
+        handle: ReplayContainerHandle | None = None,
+        *,
+        container_id: str | None = None,
+        container_name: str | None = None,
+    ) -> ContainerCleanupResult:
+        del session
+        self.events.append(("cleanup", handle.container_id if handle else container_id, handle.container_name if handle else container_name))
+        return self.cleanup_result
+
+
+def make_replay_ready_session(tmp_path: Path, *, commands: list[BuildCommandRecord] | None = None) -> tuple[CompileSessionManager, CompileSession]:
+    manager = CompileSessionManager(paths=make_test_paths(tmp_path))
+    session = manager.create_session(thread_id="thread-clean-replay", repo_url="https://example.com/repo.git")
+    session.commit_sha = "a" * 40
+    session.image_id = VALID_IMAGE_ID
+    if commands is None:
+        add_replayable_build_command(session, "cmake --build build && cp build/hello /artifacts/hello")
+    else:
+        session.commands = commands
+    _write_repro_bundle(session)
+    artifact_path = Path(session.leadagent_artifacts_dir) / "hello"
+    write_elf(artifact_path, 2)
+    artifact_bytes = artifact_path.read_bytes()
+    session.artifacts = [
+        BuildArtifact(
+            path=manager.relative_path(session, artifact_path),
+            artifact_type="executable",
+            size_bytes=len(artifact_bytes),
+            source_path="/artifacts/hello",
+            sha256=hashlib.sha256(artifact_bytes).hexdigest(),
+            smoke_command="/artifacts/hello -version",
+            smoke_exit_code=0,
+            smoke_output="Hello Matt!\n",
+            smoke_output_sha256=hashlib.sha256(b"Hello Matt!\n").hexdigest(),
+        )
+    ]
+    session.verification = VerificationResult(status="candidate_ready", artifact_count=1)
+    manager.save_session(session)
+    return manager, session
 
 
 def write_elf(path: Path, elf_type: int, *, has_interpreter: bool = False, has_entry_point: bool | None = None) -> None:
@@ -250,6 +407,71 @@ def test_finalize_is_idempotent_and_preserves_first_terminal_result(tmp_path: Pa
     assert sum(event["event"] == "session.status_changed" and event["status"] == "completed" for event in events) == 1
 
 
+def test_manager_rejects_stale_save_and_status_change_after_finalization(tmp_path: Path, monkeypatch):
+    manager = CompileSessionManager(paths=make_test_paths(tmp_path))
+    session = manager.create_session(thread_id="thread-finalized-write-fence", repo_url="https://example.com/repo.git")
+    stale = manager.load_session(session.session_id, session.thread_id)
+    monkeypatch.setattr(operations, "_services", CompileOperationsServices(manager=manager, runtime=SimpleNamespace()))
+    operations.finalize_compile_session_impl(session=session, status="cancelled", error="Parent run was cancelled.")
+    terminal_snapshot = session.to_dict()
+
+    stale.status = "verified"
+    stale.finalized_at = None
+    stale.error = None
+    stale.artifacts.append(BuildArtifact(path="artifacts/late", artifact_type="executable", size_bytes=1))
+
+    assert manager.save_session(stale) is False
+    manager.mark_session_status(stale, "verification_failed", error="late submit")
+
+    assert stale.to_dict() == terminal_snapshot
+    assert manager.load_session(session.session_id, session.thread_id).to_dict() == terminal_snapshot
+
+
+def test_stale_terminal_status_update_preserves_termination_fence(tmp_path: Path):
+    manager = CompileSessionManager(paths=make_test_paths(tmp_path))
+    session = manager.create_session(thread_id="thread-termination-write-fence", repo_url="https://example.com/repo.git")
+    stale = manager.load_session(session.session_id, session.thread_id)
+    session.termination_requested_at = operations.utc_now_iso()
+    session.termination_status = "cancelled"
+    manager.save_session(session)
+
+    manager.mark_session_status(stale, "failed", error="late worker failed")
+    authoritative = manager.load_session(session.session_id, session.thread_id)
+
+    assert authoritative.status == "failed"
+    assert authoritative.termination_requested_at == session.termination_requested_at
+    assert authoritative.termination_status == "cancelled"
+    manager.mark_session_status(stale, "verified")
+    assert manager.load_session(session.session_id, session.thread_id).status == "failed"
+
+
+def test_normal_finalize_cannot_override_persisted_termination_request(tmp_path: Path, monkeypatch):
+    manager = CompileSessionManager(paths=make_test_paths(tmp_path))
+    session = manager.create_session(thread_id="thread-termination-finalize", repo_url="https://example.com/repo.git")
+
+    def cleanup(_session: CompileSession) -> ContainerCleanupResult:
+        return ContainerCleanupResult(succeeded=True, stopped=True, removed=True)
+
+    monkeypatch.setattr(
+        operations,
+        "_services",
+        CompileOperationsServices(manager=manager, runtime=SimpleNamespace(stop_and_remove_container=cleanup)),
+    )
+    operations.cleanup_compile_session_container_impl(
+        session=session,
+        interrupted_status="timed_out",
+        error="Compiler timed out.",
+    )
+
+    operations.finalize_compile_session_impl(session=session, status="completed", summary="late success")
+
+    reloaded = manager.load_session(session.session_id, session.thread_id)
+    assert reloaded.status == "timed_out"
+    assert reloaded.error == "Compiler timed out."
+    assert reloaded.summary == "Compiler timed out."
+    assert reloaded.termination_status == "timed_out"
+
+
 def test_finalize_failed_session_does_not_generate_repro_bundle(tmp_path: Path, monkeypatch):
     manager = CompileSessionManager(paths=make_test_paths(tmp_path))
     session = manager.create_session(thread_id="thread-failed-finalize", repo_url="https://example.com/repo.git")
@@ -259,6 +481,201 @@ def test_finalize_failed_session_does_not_generate_repro_bundle(tmp_path: Path, 
 
     assert session.status == "failed"
     assert not (Path(session.metadata_path).parent / "repro" / "build.sh").exists()
+
+
+def test_cleanup_finalized_session_still_reconciles_known_container(tmp_path: Path, monkeypatch):
+    manager = CompileSessionManager(paths=make_test_paths(tmp_path))
+    session = manager.create_session(thread_id="thread-finalized-cleanup", repo_url="https://example.com/repo.git")
+    session.container_id = "late-container-id"
+    session.container_name = "late-container-name"
+    manager.save_session(session)
+    cleanup_calls: list[tuple[str | None, str | None]] = []
+
+    def cleanup(session_arg: CompileSession) -> ContainerCleanupResult:
+        cleanup_calls.append((session_arg.container_id, session_arg.container_name))
+        return ContainerCleanupResult(succeeded=True, stopped=True, removed=True)
+
+    monkeypatch.setattr(
+        operations,
+        "_services",
+        CompileOperationsServices(manager=manager, runtime=SimpleNamespace(stop_and_remove_container=cleanup)),
+    )
+    operations.finalize_compile_session_impl(session=session, status="cancelled", error="Parent run was cancelled.")
+
+    updated, cleanup_result = operations.cleanup_compile_session_container_impl(session=session)
+
+    assert updated.status == "cancelled"
+    assert cleanup_result.succeeded is True
+    assert cleanup_calls == [("late-container-id", "late-container-name")]
+
+
+def test_cleanup_finalized_session_persists_replay_cleanup_without_repeating_it(tmp_path: Path, monkeypatch):
+    manager = CompileSessionManager(paths=make_test_paths(tmp_path))
+    session = manager.create_session(thread_id="thread-finalized-replay-cleanup", repo_url="https://example.com/repo.git")
+    session.replay_attempts.append(
+        ReplayVerificationResult(
+            attempt_id="late-replay",
+            status="running",
+            image=session.image,
+            image_id=VALID_IMAGE_ID,
+            commit_sha="a" * 40,
+            recipe_sha256="b" * 64,
+            container_id="late-replay-id",
+            container_name="late-replay-name",
+        )
+    )
+    manager.save_session(session)
+    replay_cleanup_calls: list[tuple[str | None, str | None]] = []
+
+    def cleanup_compile(_session: CompileSession) -> ContainerCleanupResult:
+        return ContainerCleanupResult(succeeded=True, stopped=True, removed=True)
+
+    def cleanup_replay(
+        _session: CompileSession,
+        _handle=None,
+        *,
+        container_id: str | None = None,
+        container_name: str | None = None,
+    ) -> ContainerCleanupResult:
+        replay_cleanup_calls.append((container_id, container_name))
+        return ContainerCleanupResult(succeeded=True, stopped=True, removed=True)
+
+    monkeypatch.setattr(
+        operations,
+        "_services",
+        CompileOperationsServices(
+            manager=manager,
+            runtime=SimpleNamespace(
+                stop_and_remove_container=cleanup_compile,
+                stop_and_remove_replay_container=cleanup_replay,
+            ),
+        ),
+    )
+    operations.finalize_compile_session_impl(session=session, status="cancelled", error="Parent run was cancelled.")
+
+    operations.cleanup_compile_session_container_impl(session=session)
+    operations.cleanup_compile_session_container_impl(session=session)
+
+    reloaded = manager.load_session(session.session_id, session.thread_id)
+    attempt = reloaded.replay_attempts[-1]
+    assert attempt.status == "cancelled"
+    assert attempt.cleanup_succeeded is True
+    assert replay_cleanup_calls == [("late-replay-id", "late-replay-name")]
+    workflow_events = [json.loads(line) for line in manager.workflow_log_path(reloaded).read_text(encoding="utf-8").splitlines()]
+    assert sum(event["event"] == "replay.completed" and event.get("completed_by") == "parent_cleanup" for event in workflow_events) == 1
+
+
+def test_finalized_replay_cleanup_merge_ignores_tampered_immutable_evidence(tmp_path: Path, monkeypatch):
+    manager = CompileSessionManager(paths=make_test_paths(tmp_path))
+    session = manager.create_session(thread_id="thread-finalized-replay-merge", repo_url="https://example.com/repo.git")
+    session.replay_attempts.append(
+        ReplayVerificationResult(
+            attempt_id="authoritative-attempt",
+            status="running",
+            image=session.image,
+            image_id=VALID_IMAGE_ID,
+            commit_sha="a" * 40,
+            recipe_sha256="b" * 64,
+            container_id="authoritative-container",
+            container_name="authoritative-name",
+        )
+    )
+    manager.save_session(session)
+    monkeypatch.setattr(operations, "_services", CompileOperationsServices(manager=manager, runtime=SimpleNamespace()))
+    operations.finalize_compile_session_impl(session=session, status="cancelled", error="Parent run was cancelled.")
+    proposed = manager.load_session(session.session_id, session.thread_id)
+    proposed_attempt = proposed.replay_attempts[0]
+    proposed_attempt.status = "cancelled"
+    proposed_attempt.cleanup_succeeded = True
+    proposed_attempt.image_id = f"sha256:{'f' * 64}"
+    proposed_attempt.commit_sha = "c" * 40
+    proposed_attempt.recipe_sha256 = "d" * 64
+    proposed_attempt.container_id = "tampered-container"
+    proposed.replay_attempts.append(
+        ReplayVerificationResult(
+            attempt_id="injected-attempt",
+            status="passed",
+            image=session.image,
+            image_id=VALID_IMAGE_ID,
+            commit_sha="e" * 40,
+            recipe_sha256="f" * 64,
+        )
+    )
+
+    assert manager.save_session(
+        proposed,
+        allow_lifecycle_fenced=True,
+        merge_finalized_replay_cleanup=True,
+    )
+
+    reloaded = manager.load_session(session.session_id, session.thread_id)
+    assert len(reloaded.replay_attempts) == 1
+    attempt = reloaded.replay_attempts[0]
+    assert attempt.status == "cancelled"
+    assert attempt.cleanup_succeeded is True
+    assert attempt.image_id == VALID_IMAGE_ID
+    assert attempt.commit_sha == "a" * 40
+    assert attempt.recipe_sha256 == "b" * 64
+    assert attempt.container_id == "authoritative-container"
+
+
+def test_replay_cleanup_retry_persists_success_and_emits_retry_event(tmp_path: Path, monkeypatch):
+    manager = CompileSessionManager(paths=make_test_paths(tmp_path))
+    session = manager.create_session(thread_id="thread-replay-cleanup-retry", repo_url="https://example.com/repo.git")
+    session.replay_attempts.append(
+        ReplayVerificationResult(
+            attempt_id="retry-attempt",
+            status="running",
+            image=session.image,
+            image_id=VALID_IMAGE_ID,
+            commit_sha="a" * 40,
+            recipe_sha256="b" * 64,
+            container_id="retry-container",
+            container_name="retry-name",
+        )
+    )
+    manager.save_session(session)
+    replay_results = iter(
+        [
+            ContainerCleanupResult(succeeded=False, stopped=False, removed=False),
+            ContainerCleanupResult(succeeded=True, stopped=True, removed=True),
+        ]
+    )
+    replay_cleanup_calls = 0
+
+    def cleanup_compile(_session: CompileSession) -> ContainerCleanupResult:
+        return ContainerCleanupResult(succeeded=True, stopped=True, removed=True)
+
+    def cleanup_replay(*_args, **_kwargs) -> ContainerCleanupResult:
+        nonlocal replay_cleanup_calls
+        replay_cleanup_calls += 1
+        return next(replay_results)
+
+    monkeypatch.setattr(
+        operations,
+        "_services",
+        CompileOperationsServices(
+            manager=manager,
+            runtime=SimpleNamespace(
+                stop_and_remove_container=cleanup_compile,
+                stop_and_remove_replay_container=cleanup_replay,
+            ),
+        ),
+    )
+
+    operations.cleanup_compile_session_container_impl(
+        session=session,
+        interrupted_status="cancelled",
+        error="Parent run was cancelled.",
+    )
+    operations.cleanup_compile_session_container_impl(session=session)
+    operations.cleanup_compile_session_container_impl(session=session)
+
+    reloaded = manager.load_session(session.session_id, session.thread_id)
+    assert reloaded.replay_attempts[-1].cleanup_succeeded is True
+    assert replay_cleanup_calls == 2
+    workflow_events = [json.loads(line) for line in manager.workflow_log_path(reloaded).read_text(encoding="utf-8").splitlines()]
+    assert sum(event["event"] == "replay.completed" and event.get("completed_by") == "parent_cleanup_retry" for event in workflow_events) == 1
 
 
 def test_concurrent_finalize_with_stale_copies_commits_one_terminal_result(tmp_path: Path, monkeypatch):
@@ -401,12 +818,14 @@ def test_cleanup_failure_remains_retryable_until_container_is_removed(tmp_path: 
     operations.finalize_unfinished_thread_sessions_impl(
         thread_id=session.thread_id,
         run_id=session.run_id,
-        interrupted_status="cancelled",
-        error="Parent run was cancelled.",
+        interrupted_status="timed_out",
+        error="Compiler timed out.",
     )
     after_failure = manager.load_session(session.session_id, session.thread_id)
     assert after_failure.status == "failed"
     assert after_failure.finalized_at is None
+    assert after_failure.termination_status == "timed_out"
+    assert after_failure.termination_error == "Compiler timed out."
 
     operations.finalize_unfinished_thread_sessions_impl(
         thread_id=session.thread_id,
@@ -415,7 +834,9 @@ def test_cleanup_failure_remains_retryable_until_container_is_removed(tmp_path: 
         error="Parent run was cancelled.",
     )
     after_retry = manager.load_session(session.session_id, session.thread_id)
-    assert after_retry.status == "cancelled"
+    assert after_retry.status == "timed_out"
+    assert after_retry.error == "Compiler timed out."
+    assert after_retry.termination_status == "timed_out"
     assert after_retry.finalized_at is not None
     assert cleanup_calls == 2
 
@@ -498,6 +919,8 @@ def test_docker_runtime_uses_paths_host_workspace_root(tmp_path: Path, monkeypat
     def fake_run(command, **kwargs):
         del kwargs
         commands.append(command)
+        if command[:3] == ["docker", "inspect", "--format"]:
+            return type("Result", (), {"stdout": f"{VALID_IMAGE_ID}\n", "stderr": "", "returncode": 0})()
         return type("Result", (), {"stdout": "container-id\n", "stderr": "", "returncode": 0})()
 
     monkeypatch.setattr("deerflow.compile.docker_runtime.subprocess.run", fake_run)
@@ -519,6 +942,8 @@ def test_docker_runtime_creates_missing_network(tmp_path: Path, monkeypatch):
     def fake_run(command, **kwargs):
         del kwargs
         commands.append(command)
+        if command[:3] == ["docker", "inspect", "--format"]:
+            return type("Result", (), {"stdout": f"{VALID_IMAGE_ID}\n", "stderr": "", "returncode": 0})()
         if command[:3] == ["docker", "network", "inspect"]:
             return type("Result", (), {"stdout": "", "stderr": "not found", "returncode": 1})()
         return type("Result", (), {"stdout": "container-id\n", "stderr": "", "returncode": 0})()
@@ -542,6 +967,8 @@ def test_docker_runtime_passes_runtime_proxy_values_out_of_band(tmp_path: Path, 
 
     def fake_run(command, **kwargs):
         calls.append((command, kwargs))
+        if command[:3] == ["docker", "inspect", "--format"]:
+            return type("Result", (), {"stdout": f"{VALID_IMAGE_ID}\n", "stderr": "", "returncode": 0})()
         return type("Result", (), {"stdout": "container-id\n", "stderr": "", "returncode": 0})()
 
     monkeypatch.setattr("deerflow.compile.docker_runtime.subprocess.run", fake_run)
@@ -1100,6 +1527,7 @@ def test_submit_smokes_only_elf_executable_and_ignores_text(tmp_path: Path, monk
     session.commit_sha = "a" * 40
     add_replayable_build_command(session, "cmake --build build && cp build/hello /artifacts/hello")
     session.error = "stale verification failure"
+    manager.save_session(session)
     artifacts_dir = Path(session.leadagent_artifacts_dir)
     write_elf(artifacts_dir / "hello", 2)
     text_log = artifacts_dir / "verification.log"
@@ -1112,6 +1540,7 @@ def test_submit_smokes_only_elf_executable_and_ignores_text(tmp_path: Path, monk
         calls.append(command)
         return CommandResult(exit_code=0, stdout="Hello Matt!\n", stderr="", combined_output="Hello Matt!\n")
 
+    install_passed_replay_stub(monkeypatch)
     monkeypatch.setattr(operations, "_services", CompileOperationsServices(manager=manager, runtime=SimpleNamespace(exec=fake_exec)))
 
     payload = json.loads(submit_build_result_impl(session=session))
@@ -1140,6 +1569,7 @@ def test_submit_accepts_non_executable_compiled_outputs_without_smoke(tmp_path: 
     session = manager.create_session(thread_id=f"thread-{file_type}", repo_url="https://example.com/repo.git")
     session.commit_sha = "a" * 40
     add_replayable_build_command(session, f"cmake --build build && cp build/{filename} /artifacts/{filename}")
+    manager.save_session(session)
     artifact = Path(session.leadagent_artifacts_dir) / filename
     if file_type == "shared":
         write_elf(artifact, 3)
@@ -1151,6 +1581,7 @@ def test_submit_accepts_non_executable_compiled_outputs_without_smoke(tmp_path: 
     def fail_exec(*args, **kwargs):
         raise AssertionError("Non-executable compiled artifacts must not be smoke-tested")
 
+    install_passed_replay_stub(monkeypatch)
     monkeypatch.setattr(operations, "_services", CompileOperationsServices(manager=manager, runtime=SimpleNamespace(exec=fail_exec)))
 
     payload = json.loads(submit_build_result_impl(session=session))
@@ -1158,3 +1589,889 @@ def test_submit_accepts_non_executable_compiled_outputs_without_smoke(tmp_path: 
     assert payload["status"] == "passed"
     assert payload["artifacts"][0]["artifact_type"] == expected_type
     assert session.status == "verified"
+
+
+def test_submit_resuming_after_parent_finalization_cannot_create_replay_or_overwrite_cancelled_session(tmp_path: Path, monkeypatch):
+    manager = CompileSessionManager(paths=make_test_paths(tmp_path))
+    session = manager.create_session(thread_id="thread-late-submit", repo_url="https://example.com/repo.git")
+    session.status = "inspected"
+    session.commit_sha = "a" * 40
+    session.image_id = VALID_IMAGE_ID
+    add_replayable_build_command(session, "cmake --build build && cp build/hello /artifacts/hello")
+    manager.save_session(session)
+    write_elf(Path(session.leadagent_artifacts_dir) / "hello", 2)
+    entered = threading.Event()
+    release = threading.Event()
+
+    class GatedSubmitRuntime(FakeReplayRuntime):
+        def exec(self, _session: CompileSession, command: str, **_kwargs) -> CommandResult:
+            assert command == "/artifacts/hello -version"
+            entered.set()
+            assert release.wait(10)
+            return CommandResult(
+                exit_code=0,
+                stdout="Hello Matt!\n",
+                stderr="",
+                combined_output="Hello Matt!\n",
+            )
+
+        def stop_and_remove_container(self, _session: CompileSession) -> ContainerCleanupResult:
+            return ContainerCleanupResult(succeeded=True, stopped=True, removed=True)
+
+    runtime = GatedSubmitRuntime(manager)
+    monkeypatch.setattr(operations, "_services", CompileOperationsServices(manager=manager, runtime=runtime))
+
+    with ThreadPoolExecutor(max_workers=1) as pool:
+        future = pool.submit(submit_build_result_impl, session=session)
+        try:
+            assert entered.wait(5)
+            parent_session = manager.load_session(session.session_id, session.thread_id)
+            operations.cleanup_and_finalize_compile_session_impl(
+                session=parent_session,
+                interrupted_status="cancelled",
+                error="Parent run was cancelled.",
+            )
+            authoritative = manager.load_session(session.session_id, session.thread_id)
+            terminal_snapshot = (
+                authoritative.status,
+                authoritative.error,
+                authoritative.summary,
+                authoritative.completed_at,
+                authoritative.finalized_at,
+                authoritative.termination_requested_at,
+            )
+        finally:
+            release.set()
+        payload = json.loads(future.result(timeout=10))
+
+    reloaded = manager.load_session(session.session_id, session.thread_id)
+    assert payload["status"] == "cancelled"
+    assert terminal_snapshot[0] == "cancelled"
+    assert (
+        reloaded.status,
+        reloaded.error,
+        reloaded.summary,
+        reloaded.completed_at,
+        reloaded.finalized_at,
+        reloaded.termination_requested_at,
+    ) == terminal_snapshot
+    assert reloaded.artifacts == []
+    assert reloaded.verification is None
+    assert reloaded.replay_attempts == []
+    assert not any(event[0] == "create" for event in runtime.events)
+    workflow_events = [json.loads(line) for line in (Path(reloaded.leadagent_logs_dir) / "workflow.log").read_text(encoding="utf-8").splitlines()]
+    assert not any(event["event"] in {"replay.started", "verification.accepted"} for event in workflow_events)
+    assert sum(event["event"] == "finalize.completed" for event in workflow_events) == 1
+
+
+def test_clean_replay_matching_executable_persists_structured_checks_and_cleans_up(tmp_path: Path, monkeypatch):
+    manager, session = make_replay_ready_session(tmp_path)
+    original_artifact = Path(session.leadagent_artifacts_dir) / "hello"
+    original_sha256 = hashlib.sha256(original_artifact.read_bytes()).hexdigest()
+    workspace_sentinel = Path(session.leadagent_repo_dir) / "original-session-state"
+    workspace_sentinel.parent.mkdir(parents=True, exist_ok=True)
+    workspace_sentinel.write_text("must remain untouched\n", encoding="utf-8")
+    runtime = FakeReplayRuntime(manager)
+    monkeypatch.setattr(operations, "_services", CompileOperationsServices(manager=manager, runtime=runtime))
+
+    attempt = verify_clean_replay_impl(session=session, timeout_seconds=20)
+
+    assert attempt.status == "passed"
+    assert attempt.failure_classification is None
+    assert attempt.exit_code == 0
+    assert attempt.cleanup_succeeded is True
+    assert attempt.image_id == VALID_IMAGE_ID
+    assert attempt.commit_sha == "a" * 40
+    assert attempt.duration_seconds is not None
+    assert attempt.duration_seconds >= 0
+    checks = {check.name: check for check in attempt.checks}
+    expected_checks = {
+        "recipe_snapshot",
+        "image_identity",
+        "recipe_execution",
+        "artifact_set",
+        "artifact_1_type",
+        "artifact_1_size",
+        "artifact_1_sha256",
+        "artifact_1_smoke",
+        "container_cleanup",
+    }
+    assert expected_checks <= checks.keys()
+    assert all(checks[name].passed for name in expected_checks)
+    assert checks["artifact_set"].expected == ["hello"]
+    assert checks["artifact_set"].actual == ["hello"]
+    assert checks["artifact_1_sha256"].expected == original_sha256
+    assert checks["artifact_1_sha256"].actual == original_sha256
+    assert checks["artifact_1_smoke"].actual == {
+        "command": "/artifacts/hello -version",
+        "exit_code": 0,
+        "output": "Hello Matt!\n",
+        "output_sha256": hashlib.sha256(b"Hello Matt!\n").hexdigest(),
+    }
+    assert len(attempt.artifacts) == 1
+    comparison = attempt.artifacts[0]
+    assert comparison.path == "hello"
+    assert comparison.type_matches is True
+    assert comparison.size_matches is True
+    assert comparison.sha256_matches is True
+    assert comparison.smoke_matches is True
+    assert comparison.passed is True
+    assert runtime.events[-1] == ("cleanup", "replay-container-id", f"replay-{attempt.attempt_id}")
+    assert sum(event[0] == "cleanup" for event in runtime.events) == 1
+    assert hashlib.sha256(original_artifact.read_bytes()).hexdigest() == original_sha256
+    assert workspace_sentinel.read_text(encoding="utf-8") == "must remain untouched\n"
+    reloaded = manager.load_session(session.session_id, session.thread_id)
+    assert reloaded.status == "replay_verifying"
+    assert reloaded.replay_attempts[-1].status == "passed"
+
+
+def test_clean_replay_rejects_recipe_that_depends_on_failed_command_side_effect(tmp_path: Path, monkeypatch):
+    failed_configure = BuildCommandRecord(
+        stage="bash",
+        command="cmake -S . -B build && false",
+        workdir="/workspace/repo",
+        exit_code=1,
+    )
+    successful_build = BuildCommandRecord(
+        stage="bash",
+        command="cmake --build build && cp build/hello /artifacts/hello",
+        workdir="/workspace/repo",
+        exit_code=0,
+    )
+    manager, session = make_replay_ready_session(tmp_path, commands=[failed_configure, successful_build])
+    original_history = [record.__dict__.copy() for record in session.commands]
+    script = (Path(session.leadagent_repro_dir) / "build.sh").read_text(encoding="utf-8")
+    assert failed_configure.command not in script
+    assert successful_build.command in script
+    runtime = FakeReplayRuntime(manager, build_exit_code=2)
+    monkeypatch.setattr(operations, "_services", CompileOperationsServices(manager=manager, runtime=runtime))
+
+    attempt = verify_clean_replay_impl(session=session)
+
+    assert attempt.status == "failed"
+    assert attempt.failure_classification == "recipe_execution_failed"
+    assert attempt.exit_code == 2
+    assert attempt.cleanup_succeeded is True
+    assert next(check for check in attempt.checks if check.name == "recipe_execution").passed is False
+    assert not any(check.name == "artifact_set" for check in attempt.checks)
+    assert [record.__dict__.copy() for record in session.commands] == original_history
+    reloaded = manager.load_session(session.session_id, session.thread_id)
+    assert [record.__dict__.copy() for record in reloaded.commands] == original_history
+
+
+def test_clean_replay_same_type_and_size_sha_mismatch_is_not_verified(tmp_path: Path, monkeypatch):
+    manager, session = make_replay_ready_session(tmp_path)
+
+    def mutate_entry_point(path: Path) -> None:
+        payload = bytearray(path.read_bytes())
+        payload[24] ^= 1
+        path.write_bytes(payload)
+        assert _classify_compiled_artifact(path) == "executable"
+
+    runtime = FakeReplayRuntime(manager, mutate_replay_artifact=mutate_entry_point)
+    monkeypatch.setattr(operations, "_services", CompileOperationsServices(manager=manager, runtime=runtime))
+
+    attempt = verify_clean_replay_impl(session=session)
+
+    assert attempt.status == "failed"
+    assert attempt.failure_classification == "sha256_mismatch"
+    comparison = attempt.artifacts[0]
+    assert comparison.type_matches is True
+    assert comparison.size_matches is True
+    assert comparison.sha256_matches is False
+    assert comparison.smoke_matches is True
+    assert comparison.mismatches == ["sha256"]
+    assert comparison.expected_sha256 != comparison.actual_sha256
+    assert next(check for check in attempt.checks if check.name == "artifact_1_sha256").passed is False
+    assert attempt.cleanup_succeeded is True
+
+
+def test_clean_replay_artifact_set_mismatch_is_not_verified(tmp_path: Path, monkeypatch):
+    manager, session = make_replay_ready_session(tmp_path)
+
+    def replace_expected_artifact(path: Path) -> None:
+        path.unlink()
+        write_elf(path.with_name("unexpected"), 2)
+
+    runtime = FakeReplayRuntime(manager, mutate_replay_artifact=replace_expected_artifact)
+    monkeypatch.setattr(operations, "_services", CompileOperationsServices(manager=manager, runtime=runtime))
+
+    attempt = verify_clean_replay_impl(session=session)
+
+    assert attempt.status == "failed"
+    assert attempt.failure_classification == "artifact_set_mismatch"
+    artifact_set = next(check for check in attempt.checks if check.name == "artifact_set")
+    assert artifact_set.expected == ["hello"]
+    assert artifact_set.actual == ["unexpected"]
+    assert artifact_set.passed is False
+
+
+def test_clean_replay_artifact_type_mismatch_is_not_verified(tmp_path: Path, monkeypatch):
+    manager, session = make_replay_ready_session(tmp_path)
+    runtime = FakeReplayRuntime(manager, mutate_replay_artifact=lambda path: write_elf(path, 3))
+    monkeypatch.setattr(operations, "_services", CompileOperationsServices(manager=manager, runtime=runtime))
+
+    attempt = verify_clean_replay_impl(session=session)
+
+    assert attempt.status == "failed"
+    assert attempt.failure_classification == "type_mismatch"
+    comparison = attempt.artifacts[0]
+    assert comparison.expected_type == "executable"
+    assert comparison.actual_type == "shared_library"
+    assert comparison.type_matches is False
+
+
+def test_clean_replay_artifact_size_mismatch_is_not_verified(tmp_path: Path, monkeypatch):
+    manager, session = make_replay_ready_session(tmp_path)
+
+    def append_valid_trailing_bytes(path: Path) -> None:
+        path.write_bytes(path.read_bytes() + b"trailing-bytes")
+        assert _classify_compiled_artifact(path) == "executable"
+
+    runtime = FakeReplayRuntime(manager, mutate_replay_artifact=append_valid_trailing_bytes)
+    monkeypatch.setattr(operations, "_services", CompileOperationsServices(manager=manager, runtime=runtime))
+
+    attempt = verify_clean_replay_impl(session=session)
+
+    assert attempt.status == "failed"
+    assert attempt.failure_classification == "size_mismatch"
+    comparison = attempt.artifacts[0]
+    assert comparison.type_matches is True
+    assert comparison.size_matches is False
+    assert comparison.actual_size_bytes > comparison.expected_size_bytes
+
+
+@pytest.mark.parametrize("artifact_type", ["shared_library", "static_library"])
+def test_clean_replay_accepts_matching_non_executable_artifacts_without_smoke(tmp_path: Path, monkeypatch, artifact_type: str):
+    manager, session = make_replay_ready_session(tmp_path)
+    artifact_path = Path(session.leadagent_artifacts_dir) / "hello"
+    if artifact_type == "shared_library":
+        write_elf(artifact_path, 3)
+    else:
+        write_static_archive(artifact_path)
+    payload = artifact_path.read_bytes()
+    session.artifacts = [
+        BuildArtifact(
+            path=manager.relative_path(session, artifact_path),
+            artifact_type=artifact_type,
+            size_bytes=len(payload),
+            source_path="/artifacts/hello",
+            sha256=hashlib.sha256(payload).hexdigest(),
+        )
+    ]
+    manager.save_session(session)
+    runtime = FakeReplayRuntime(manager)
+    monkeypatch.setattr(operations, "_services", CompileOperationsServices(manager=manager, runtime=runtime))
+
+    attempt = verify_clean_replay_impl(session=session)
+
+    assert attempt.status == "passed"
+    comparison = attempt.artifacts[0]
+    assert comparison.actual_type == artifact_type
+    assert comparison.smoke_matches is True
+    assert comparison.actual_smoke_command is None
+    assert [event[1] for event in runtime.events if event[0] == "exec"] == ["bash /repro/build.sh"]
+
+
+def test_clean_replay_timeout_is_classified_and_always_cleaned_up(tmp_path: Path, monkeypatch):
+    manager, session = make_replay_ready_session(tmp_path)
+    runtime = FakeReplayRuntime(manager, build_exit_code=124)
+    monkeypatch.setattr(operations, "_services", CompileOperationsServices(manager=manager, runtime=runtime))
+
+    attempt = verify_clean_replay_impl(session=session, timeout_seconds=7)
+
+    assert attempt.status == "timed_out"
+    assert attempt.failure_classification == "timeout"
+    assert attempt.exit_code == 124
+    assert attempt.cleanup_succeeded is True
+    assert next(check for check in attempt.checks if check.name == "recipe_execution").actual == 124
+    assert not any(check.name == "artifact_set" for check in attempt.checks)
+    create_event = next(event for event in runtime.events if event[0] == "create")
+    build_event = next(event for event in runtime.events if event[:2] == ("exec", "bash /repro/build.sh"))
+    assert 1 <= create_event[2] <= 7
+    assert 1 <= build_event[2] <= 7
+    assert runtime.events[-1][0] == "cleanup"
+
+
+def test_clean_replay_base_exception_persists_cancellation_cleans_up_and_reraises(tmp_path: Path, monkeypatch):
+    manager, session = make_replay_ready_session(tmp_path)
+    runtime = FakeReplayRuntime(manager, build_exception=KeyboardInterrupt())
+    monkeypatch.setattr(operations, "_services", CompileOperationsServices(manager=manager, runtime=runtime))
+
+    with pytest.raises(KeyboardInterrupt):
+        verify_clean_replay_impl(session=session)
+
+    assert runtime.events[-1][0] == "cleanup"
+    assert sum(event[0] == "cleanup" for event in runtime.events) == 1
+    reloaded = manager.load_session(session.session_id, session.thread_id)
+    attempt = reloaded.replay_attempts[-1]
+    assert attempt.status == "cancelled"
+    assert attempt.failure_classification == "cancelled"
+    assert attempt.cleanup_succeeded is True
+    assert attempt.completed_at is not None
+    assert any("KeyboardInterrupt" in note for note in attempt.notes)
+
+
+def test_clean_replay_cleanup_failure_blocks_an_otherwise_matching_result(tmp_path: Path, monkeypatch):
+    manager, session = make_replay_ready_session(tmp_path)
+    runtime = FakeReplayRuntime(
+        manager,
+        cleanup_result=ContainerCleanupResult(succeeded=False, stopped=True, removed=False),
+    )
+    monkeypatch.setattr(operations, "_services", CompileOperationsServices(manager=manager, runtime=runtime))
+
+    attempt = verify_clean_replay_impl(session=session)
+
+    assert attempt.status == "failed"
+    assert attempt.failure_classification == "cleanup_failed"
+    assert attempt.exit_code == 0
+    assert attempt.cleanup_succeeded is False
+    assert attempt.artifacts[0].passed is True
+    cleanup_check = next(check for check in attempt.checks if check.name == "container_cleanup")
+    assert cleanup_check.passed is False
+    assert cleanup_check.actual == {"stopped": True, "removed": False}
+
+
+def test_replay_schema_roundtrip_preserves_structured_checks_and_artifacts(tmp_path: Path):
+    manager = CompileSessionManager(paths=make_test_paths(tmp_path))
+    session = manager.create_session(thread_id="thread-replay-schema", repo_url="https://example.com/repo.git")
+    session.image_id = VALID_IMAGE_ID
+    session.replay_attempts = [
+        ReplayVerificationResult(
+            attempt_id="attempt-schema",
+            status="failed",
+            image=session.image,
+            image_id=VALID_IMAGE_ID,
+            commit_sha="a" * 40,
+            recipe_sha256="b" * 64,
+            timeout_seconds=45,
+            cleanup_succeeded=True,
+            failure_classification="sha256_mismatch",
+            checks=[
+                VerificationCheck(
+                    name="artifact_1_sha256",
+                    target="hello",
+                    command="clean_replay",
+                    passed=False,
+                    expected="c" * 64,
+                    actual="d" * 64,
+                )
+            ],
+            artifacts=[
+                ReplayArtifactComparison(
+                    path="hello",
+                    expected_type="executable",
+                    actual_type="executable",
+                    expected_size_bytes=120,
+                    actual_size_bytes=120,
+                    expected_sha256="c" * 64,
+                    actual_sha256="d" * 64,
+                    expected_smoke_output_sha256="e" * 64,
+                    actual_smoke_output_sha256="f" * 64,
+                    type_matches=True,
+                    size_matches=True,
+                    smoke_matches=True,
+                    mismatches=["sha256"],
+                )
+            ],
+        )
+    ]
+    manager.save_session(session)
+
+    loaded = manager.load_session(session.session_id, session.thread_id)
+
+    assert isinstance(loaded.replay_attempts[0], ReplayVerificationResult)
+    assert isinstance(loaded.replay_attempts[0].checks[0], VerificationCheck)
+    assert isinstance(loaded.replay_attempts[0].artifacts[0], ReplayArtifactComparison)
+    assert loaded.replay_attempts[0].checks[0].expected == "c" * 64
+    assert loaded.replay_attempts[0].artifacts[0].mismatches == ["sha256"]
+    assert loaded.replay_attempts[0].timeout_seconds == 45
+    assert loaded.replay_attempts[0].artifacts[0].expected_smoke_output_sha256 == "e" * 64
+
+
+def test_compile_session_loads_legacy_metadata_without_replay_fields(tmp_path: Path):
+    manager = CompileSessionManager(paths=make_test_paths(tmp_path))
+    session = manager.create_session(thread_id="thread-legacy-schema", repo_url="https://example.com/repo.git")
+    payload = session.to_dict()
+    payload.pop("image_id")
+    payload.pop("replay_attempts")
+    Path(session.metadata_path).write_text(json.dumps(payload), encoding="utf-8")
+
+    loaded = manager.load_session(session.session_id, session.thread_id)
+
+    assert loaded.image_id is None
+    assert loaded.replay_attempts == []
+
+
+def test_replay_docker_command_uses_immutable_image_isolated_mounts_read_only_recipe_and_timeout(tmp_path: Path, monkeypatch):
+    paths = make_test_paths(tmp_path)
+    manager = CompileSessionManager(paths=paths)
+    session = manager.create_session(thread_id="thread-replay-runtime", repo_url="https://example.com/repo.git")
+    session.image_id = VALID_IMAGE_ID
+    attempt_id = "attempt123"
+    recipe_dir = get_replay_recipe_dir(session.session_id, session.thread_id, attempt_id, paths)
+    workspace_dir = get_replay_workspace_dir(session.session_id, session.thread_id, attempt_id, paths)
+    artifacts_dir = get_replay_artifacts_dir(session.session_id, session.thread_id, attempt_id, paths)
+    logs_dir = get_replay_logs_dir(session.session_id, session.thread_id, attempt_id, paths)
+    for directory in (recipe_dir, workspace_dir, artifacts_dir, logs_dir):
+        directory.mkdir(parents=True, exist_ok=True)
+    (recipe_dir / "build.sh").write_text("#!/usr/bin/env bash\nexit 0\n", encoding="utf-8")
+    calls: list[tuple[list[str], dict]] = []
+
+    def fake_run(command, **kwargs):
+        calls.append((command, kwargs))
+        if command[:3] == ["docker", "network", "inspect"]:
+            return SimpleNamespace(returncode=0, stdout="network\n", stderr="")
+        if command[:3] == ["docker", "inspect", "--format"]:
+            return SimpleNamespace(returncode=0, stdout=f"{VALID_IMAGE_ID}\n", stderr="")
+        if command[:2] == ["docker", "run"]:
+            return SimpleNamespace(returncode=0, stdout="replay-container-id\n", stderr="")
+        if command[:2] == ["docker", "exec"]:
+            return SimpleNamespace(returncode=0, stdout="ok\n", stderr="")
+        raise AssertionError(f"Unexpected Docker command: {command}")
+
+    monkeypatch.setattr("deerflow.compile.docker_runtime.subprocess.run", fake_run)
+    runtime = CompileDockerRuntime(config=RuntimeConfig(network=DEFAULT_NETWORK, replay_timeout_seconds=30), manager=manager)
+
+    handle = runtime.create_replay_container(session, attempt_id=attempt_id, timeout_seconds=17)
+    result = runtime.exec_replay_container(session, handle, timeout_seconds=11)
+
+    assert result.exit_code == 0
+    docker_run, run_kwargs = next((command, kwargs) for command, kwargs in calls if command[:2] == ["docker", "run"])
+    assert docker_run[-4:] == [VALID_IMAGE_ID, "tail", "-f", "/dev/null"]
+    assert session.image not in docker_run
+    assert f"{get_host_replay_recipe_dir(session.session_id, session.thread_id, attempt_id, paths)}:/repro:ro" in docker_run
+    assert f"{get_host_replay_workspace_dir(session.session_id, session.thread_id, attempt_id, paths)}:/workspace" in docker_run
+    assert f"{get_host_replay_artifacts_dir(session.session_id, session.thread_id, attempt_id, paths)}:/artifacts" in docker_run
+    assert f"{get_host_replay_logs_dir(session.session_id, session.thread_id, attempt_id, paths)}:/logs" in docker_run
+    assert all(f"{get_host_workspace_dir(session.session_id, session.thread_id, paths)}:" not in item for item in docker_run)
+    assert run_kwargs["timeout"] == 17
+    docker_exec, exec_kwargs = next((command, kwargs) for command, kwargs in calls if command[:2] == ["docker", "exec"])
+    assert docker_exec[-7:] == ["timeout", "--signal=TERM", "--kill-after=5s", "11s", "bash", "-lc", "bash /repro/build.sh"]
+    assert exec_kwargs["timeout"] == 21
+
+
+def test_clean_replay_create_timeout_is_persisted_as_timed_out(tmp_path: Path, monkeypatch):
+    manager, session = make_replay_ready_session(tmp_path)
+
+    class CreateTimeoutRuntime(FakeReplayRuntime):
+        def create_replay_container(self, session: CompileSession, *, attempt_id: str, timeout_seconds: int):
+            self.attempt_id = attempt_id
+            raise subprocess.TimeoutExpired(["docker", "network", "inspect"], timeout_seconds)
+
+    runtime = CreateTimeoutRuntime(manager)
+    monkeypatch.setattr(operations, "_services", CompileOperationsServices(manager=manager, runtime=runtime))
+
+    attempt = verify_clean_replay_impl(session=session, timeout_seconds=7)
+
+    assert attempt.status == "timed_out"
+    assert attempt.failure_classification == "timeout"
+    assert attempt.timeout_seconds == 7
+    assert attempt.completed_at is not None
+    assert attempt.duration_seconds is not None
+    reloaded = manager.load_session(session.session_id, session.thread_id).replay_attempts[-1]
+    assert reloaded.status == "timed_out"
+    assert reloaded.timeout_seconds == 7
+
+
+def test_parent_recorded_replay_cancellation_wins_over_worker_save(tmp_path: Path, monkeypatch):
+    manager, session = make_replay_ready_session(tmp_path)
+
+    class ParentCancellingRuntime(FakeReplayRuntime):
+        def exec_replay_container(self, session: CompileSession, handle: ReplayContainerHandle, **kwargs):
+            if kwargs.get("command", "bash /repro/build.sh") == "bash /repro/build.sh":
+                current = self.manager.load_session(session.session_id, session.thread_id)
+                authoritative = current.replay_attempts[-1]
+                authoritative.status = "cancelled"
+                authoritative.failure_classification = "cancelled"
+                authoritative.cleanup_succeeded = True
+                authoritative.completed_at = authoritative.completed_at or operations.utc_now_iso()
+                authoritative.notes.append("Parent cancellation is authoritative.")
+                self.manager.save_session(current)
+            return super().exec_replay_container(session, handle, **kwargs)
+
+    runtime = ParentCancellingRuntime(manager)
+    monkeypatch.setattr(operations, "_services", CompileOperationsServices(manager=manager, runtime=runtime))
+
+    attempt = verify_clean_replay_impl(session=session)
+
+    assert attempt.status == "cancelled"
+    assert attempt.failure_classification == "cancelled"
+    assert attempt.cleanup_succeeded is True
+    assert "Parent cancellation is authoritative." in attempt.notes
+    reloaded = manager.load_session(session.session_id, session.thread_id).replay_attempts[-1]
+    assert reloaded.status == "cancelled"
+    assert reloaded.failure_classification == "cancelled"
+
+
+def test_parent_cancellation_before_docker_run_prevents_replay_creation(tmp_path: Path, monkeypatch):
+    manager, session = make_replay_ready_session(tmp_path)
+
+    class CancelBeforeCreateRuntime(FakeReplayRuntime):
+        def replay_container_name(self, session: CompileSession, attempt_id: str) -> str:
+            current = self.manager.load_session(session.session_id, session.thread_id)
+            operations.cleanup_compile_session_container_impl(session=current)
+            return super().replay_container_name(session, attempt_id)
+
+        def stop_and_remove_container(self, _session: CompileSession):
+            return ContainerCleanupResult(succeeded=True, stopped=True, removed=True)
+
+        def create_replay_container(self, *args, **kwargs):
+            self.events.append(("create", args, kwargs))
+            raise AssertionError("Cancellation before docker run must prevent replay container creation")
+
+    runtime = CancelBeforeCreateRuntime(manager)
+    monkeypatch.setattr(operations, "_services", CompileOperationsServices(manager=manager, runtime=runtime))
+
+    attempt = verify_clean_replay_impl(session=session)
+
+    assert attempt.status == "cancelled"
+    assert attempt.failure_classification == "cancelled"
+    assert not any(event[0] == "create" for event in runtime.events)
+    assert attempt.cleanup_succeeded is True
+
+
+def test_parent_cleanup_waits_for_replay_create_checkpoint_and_removes_by_container_id(tmp_path: Path, monkeypatch):
+    manager, session = make_replay_ready_session(tmp_path)
+    create_entered = threading.Event()
+    release_create = threading.Event()
+    cleanup_started = threading.Event()
+    parent_removed_container = threading.Event()
+    cleanup_calls: list[tuple[bool, str | None]] = []
+
+    class GatedCreateRuntime(FakeReplayRuntime):
+        def create_replay_container(self, session: CompileSession, *, attempt_id: str, timeout_seconds: int) -> ReplayContainerHandle:
+            create_entered.set()
+            assert release_create.wait(10)
+            return super().create_replay_container(
+                session,
+                attempt_id=attempt_id,
+                timeout_seconds=timeout_seconds,
+            )
+
+        def exec_replay_container(self, session: CompileSession, handle: ReplayContainerHandle, **kwargs) -> CommandResult:
+            if kwargs.get("command", "bash /repro/build.sh") == "bash /repro/build.sh":
+                assert parent_removed_container.wait(10)
+            return super().exec_replay_container(session, handle, **kwargs)
+
+        def stop_and_remove_replay_container(
+            self,
+            session: CompileSession,
+            handle: ReplayContainerHandle | None = None,
+            *,
+            container_id: str | None = None,
+            container_name: str | None = None,
+        ) -> ContainerCleanupResult:
+            resolved_id = handle.container_id if handle is not None else container_id
+            cleanup_calls.append((handle is None, resolved_id))
+            if handle is None:
+                parent_removed_container.set()
+            return super().stop_and_remove_replay_container(
+                session,
+                handle,
+                container_id=container_id,
+                container_name=container_name,
+            )
+
+        def stop_and_remove_container(self, _session: CompileSession) -> ContainerCleanupResult:
+            return ContainerCleanupResult(succeeded=True, stopped=True, removed=True)
+
+    runtime = GatedCreateRuntime(manager)
+    monkeypatch.setattr(operations, "_services", CompileOperationsServices(manager=manager, runtime=runtime))
+
+    def parent_cleanup():
+        cleanup_started.set()
+        current = manager.load_session(session.session_id, session.thread_id)
+        return operations.cleanup_compile_session_container_impl(
+            session=current,
+            interrupted_status="cancelled",
+            error="Parent run was cancelled.",
+        )
+
+    with ThreadPoolExecutor(max_workers=2) as pool:
+        replay_future = pool.submit(verify_clean_replay_impl, session=session)
+        assert create_entered.wait(5)
+        cleanup_future = pool.submit(parent_cleanup)
+        assert cleanup_started.wait(5)
+        assert not parent_removed_container.is_set()
+        release_create.set()
+        _updated, cleanup_result = cleanup_future.result(timeout=10)
+        attempt = replay_future.result(timeout=10)
+
+    assert cleanup_result.succeeded is True
+    assert cleanup_calls[0] == (True, "replay-container-id")
+    assert attempt.status == "cancelled"
+    authoritative = manager.load_session(session.session_id, session.thread_id)
+    assert authoritative.termination_status == "cancelled"
+    assert authoritative.replay_attempts[-1].container_id == "replay-container-id"
+
+
+def test_clean_replay_compares_full_smoke_output_hash_beyond_preview(tmp_path: Path, monkeypatch):
+    manager, session = make_replay_ready_session(tmp_path)
+    shared_preview = "x" * 4000
+    expected_output = shared_preview + "expected suffix\n"
+    actual_output = shared_preview + "different suffix\n"
+    session.artifacts[0].smoke_output = shared_preview
+    session.artifacts[0].smoke_output_sha256 = hashlib.sha256(expected_output.encode()).hexdigest()
+    manager.save_session(session)
+    runtime = FakeReplayRuntime(manager, smoke_output=actual_output)
+    monkeypatch.setattr(operations, "_services", CompileOperationsServices(manager=manager, runtime=runtime))
+
+    attempt = verify_clean_replay_impl(session=session)
+
+    assert attempt.status == "failed"
+    assert attempt.failure_classification == "smoke_mismatch"
+    comparison = attempt.artifacts[0]
+    assert comparison.expected_smoke_output == comparison.actual_smoke_output == shared_preview
+    assert comparison.expected_smoke_output_sha256 != comparison.actual_smoke_output_sha256
+    assert comparison.smoke_matches is False
+
+
+def test_replay_network_inspect_timeout_is_bounded(tmp_path: Path, monkeypatch):
+    paths = make_test_paths(tmp_path)
+    manager = CompileSessionManager(paths=paths)
+    session = manager.create_session(thread_id="thread-network-timeout", repo_url="https://example.com/repo.git")
+    session.image_id = VALID_IMAGE_ID
+    attempt_id = "network-timeout"
+    recipe_dir = get_replay_recipe_dir(session.session_id, session.thread_id, attempt_id, paths)
+    for directory in (
+        recipe_dir,
+        get_replay_workspace_dir(session.session_id, session.thread_id, attempt_id, paths),
+        get_replay_artifacts_dir(session.session_id, session.thread_id, attempt_id, paths),
+        get_replay_logs_dir(session.session_id, session.thread_id, attempt_id, paths),
+    ):
+        directory.mkdir(parents=True, exist_ok=True)
+    (recipe_dir / "build.sh").write_text("#!/usr/bin/env bash\nexit 0\n", encoding="utf-8")
+
+    def fake_run(command, **kwargs):
+        assert command[:3] == ["docker", "network", "inspect"]
+        assert 1 <= kwargs["timeout"] <= 4
+        raise subprocess.TimeoutExpired(command, kwargs["timeout"])
+
+    monkeypatch.setattr("deerflow.compile.docker_runtime.subprocess.run", fake_run)
+    runtime = CompileDockerRuntime(config=RuntimeConfig(network=DEFAULT_NETWORK), manager=manager)
+
+    with pytest.raises(subprocess.TimeoutExpired):
+        runtime.create_replay_container(session, attempt_id=attempt_id, timeout_seconds=4)
+
+
+def test_replay_run_timeout_retries_cleanup_until_late_container_is_removed(tmp_path: Path, monkeypatch):
+    paths = make_test_paths(tmp_path)
+    manager = CompileSessionManager(paths=paths)
+    session = manager.create_session(thread_id="thread-run-timeout-late-create", repo_url="https://example.com/repo.git")
+    session.image_id = VALID_IMAGE_ID
+    attempt_id = "run-timeout-late-create"
+    recipe_dir = get_replay_recipe_dir(session.session_id, session.thread_id, attempt_id, paths)
+    for directory in (
+        recipe_dir,
+        get_replay_workspace_dir(session.session_id, session.thread_id, attempt_id, paths),
+        get_replay_artifacts_dir(session.session_id, session.thread_id, attempt_id, paths),
+        get_replay_logs_dir(session.session_id, session.thread_id, attempt_id, paths),
+    ):
+        directory.mkdir(parents=True, exist_ok=True)
+    (recipe_dir / "build.sh").write_text("#!/usr/bin/env bash\nexit 0\n", encoding="utf-8")
+    run_timeout = subprocess.TimeoutExpired(["docker", "run"], 5)
+    remove_calls: list[list[str]] = []
+
+    def fake_run(command, **_kwargs):
+        if command[:3] == ["docker", "network", "inspect"]:
+            return SimpleNamespace(returncode=0, stdout="network\n", stderr="")
+        if command[:2] == ["docker", "run"]:
+            raise run_timeout
+        if command[:3] == ["docker", "rm", "-f"]:
+            remove_calls.append(command)
+            if len(remove_calls) == 1:
+                return SimpleNamespace(returncode=1, stdout="", stderr="Error: No such container")
+            return SimpleNamespace(returncode=0, stdout=f"{command[-1]}\n", stderr="")
+        raise AssertionError(f"Unexpected Docker command: {command}")
+
+    monkeypatch.setattr("deerflow.compile.docker_runtime.subprocess.run", fake_run)
+    runtime = CompileDockerRuntime(
+        config=RuntimeConfig(network=DEFAULT_NETWORK, cleanup_timeout_seconds=3),
+        manager=manager,
+    )
+
+    with pytest.raises(subprocess.TimeoutExpired) as exc_info:
+        runtime.create_replay_container(session, attempt_id=attempt_id, timeout_seconds=5)
+
+    assert exc_info.value is run_timeout
+    assert len(remove_calls) == 2
+    assert all(command[-1] == runtime.replay_container_name(session, attempt_id) for command in remove_calls)
+
+
+def test_replay_run_timeout_reconciliation_is_bounded_when_container_never_appears(tmp_path: Path, monkeypatch):
+    paths = make_test_paths(tmp_path)
+    manager = CompileSessionManager(paths=paths)
+    session = manager.create_session(thread_id="thread-run-timeout-missing", repo_url="https://example.com/repo.git")
+    session.image_id = VALID_IMAGE_ID
+    attempt_id = "run-timeout-missing"
+    recipe_dir = get_replay_recipe_dir(session.session_id, session.thread_id, attempt_id, paths)
+    for directory in (
+        recipe_dir,
+        get_replay_workspace_dir(session.session_id, session.thread_id, attempt_id, paths),
+        get_replay_artifacts_dir(session.session_id, session.thread_id, attempt_id, paths),
+        get_replay_logs_dir(session.session_id, session.thread_id, attempt_id, paths),
+    ):
+        directory.mkdir(parents=True, exist_ok=True)
+    (recipe_dir / "build.sh").write_text("#!/usr/bin/env bash\nexit 0\n", encoding="utf-8")
+    clock = [0.0]
+    remove_timeouts: list[float] = []
+    run_timeout = subprocess.TimeoutExpired(["docker", "run"], 5)
+
+    def fake_monotonic() -> float:
+        return clock[0]
+
+    def fake_sleep(seconds: float) -> None:
+        clock[0] += seconds
+
+    def fake_run(command, **kwargs):
+        if command[:3] == ["docker", "network", "inspect"]:
+            return SimpleNamespace(returncode=0, stdout="network\n", stderr="")
+        if command[:2] == ["docker", "run"]:
+            raise run_timeout
+        if command[:3] == ["docker", "rm", "-f"]:
+            remove_timeouts.append(kwargs["timeout"])
+            return SimpleNamespace(returncode=1, stdout="", stderr="Error: No such container")
+        raise AssertionError(f"Unexpected Docker command: {command}")
+
+    monkeypatch.setattr("deerflow.compile.docker_runtime.time.monotonic", fake_monotonic)
+    monkeypatch.setattr("deerflow.compile.docker_runtime.time.sleep", fake_sleep)
+    monkeypatch.setattr("deerflow.compile.docker_runtime.subprocess.run", fake_run)
+    runtime = CompileDockerRuntime(
+        config=RuntimeConfig(network=DEFAULT_NETWORK, cleanup_timeout_seconds=2),
+        manager=manager,
+    )
+
+    with pytest.raises(subprocess.TimeoutExpired) as exc_info:
+        runtime.create_replay_container(session, attempt_id=attempt_id, timeout_seconds=5)
+
+    assert exc_info.value is run_timeout
+    assert clock[0] == 2.0
+    assert len(remove_timeouts) == 4
+    assert all(0 < timeout <= 2.0 for timeout in remove_timeouts)
+
+
+def test_replay_image_inspect_timeout_cleans_by_precomputed_name(tmp_path: Path, monkeypatch):
+    paths = make_test_paths(tmp_path)
+    manager = CompileSessionManager(paths=paths)
+    session = manager.create_session(thread_id="thread-image-timeout", repo_url="https://example.com/repo.git")
+    session.image_id = VALID_IMAGE_ID
+    attempt_id = "image-timeout"
+    recipe_dir = get_replay_recipe_dir(session.session_id, session.thread_id, attempt_id, paths)
+    for directory in (
+        recipe_dir,
+        get_replay_workspace_dir(session.session_id, session.thread_id, attempt_id, paths),
+        get_replay_artifacts_dir(session.session_id, session.thread_id, attempt_id, paths),
+        get_replay_logs_dir(session.session_id, session.thread_id, attempt_id, paths),
+    ):
+        directory.mkdir(parents=True, exist_ok=True)
+    (recipe_dir / "build.sh").write_text("#!/usr/bin/env bash\nexit 0\n", encoding="utf-8")
+    calls: list[list[str]] = []
+
+    def fake_run(command, **kwargs):
+        calls.append(command)
+        assert kwargs.get("timeout") is not None
+        if command[:3] == ["docker", "network", "inspect"]:
+            return SimpleNamespace(returncode=0, stdout="network\n", stderr="")
+        if command[:2] == ["docker", "run"]:
+            return SimpleNamespace(returncode=0, stdout="late-container-id\n", stderr="")
+        if command[:3] == ["docker", "inspect", "--format"]:
+            raise subprocess.TimeoutExpired(command, kwargs["timeout"])
+        if command[:2] == ["docker", "stop"] or command[:3] == ["docker", "rm", "-f"]:
+            return SimpleNamespace(returncode=1, stdout="", stderr="Error: No such container")
+        raise AssertionError(f"Unexpected Docker command: {command}")
+
+    monkeypatch.setattr("deerflow.compile.docker_runtime.subprocess.run", fake_run)
+    runtime = CompileDockerRuntime(config=RuntimeConfig(network=DEFAULT_NETWORK), manager=manager)
+
+    with pytest.raises(subprocess.TimeoutExpired):
+        runtime.create_replay_container(session, attempt_id=attempt_id, timeout_seconds=5)
+
+    assert any(command[:3] == ["docker", "rm", "-f"] for command in calls)
+
+
+def test_cleanup_stop_timeout_falls_back_to_bounded_force_remove(tmp_path: Path, monkeypatch):
+    manager = CompileSessionManager(paths=make_test_paths(tmp_path))
+    session = manager.create_session(thread_id="thread-cleanup-timeout", repo_url="https://example.com/repo.git")
+    session.container_id = "container-timeout"
+    calls: list[list[str]] = []
+
+    def fake_run(command, **kwargs):
+        calls.append(command)
+        assert kwargs["timeout"] <= 4
+        if command[:2] == ["docker", "stop"]:
+            raise subprocess.TimeoutExpired(command, kwargs["timeout"])
+        if command[:3] == ["docker", "rm", "-f"]:
+            return SimpleNamespace(returncode=0, stdout="container-timeout\n", stderr="")
+        raise AssertionError(f"Unexpected Docker command: {command}")
+
+    monkeypatch.setattr("deerflow.compile.docker_runtime.subprocess.run", fake_run)
+    runtime = CompileDockerRuntime(
+        config=RuntimeConfig(remove_on_cleanup=True, cleanup_timeout_seconds=4),
+        manager=manager,
+    )
+
+    result = runtime.stop_and_remove_container(session)
+
+    assert result.succeeded is True
+    assert result.stopped is False
+    assert result.removed is True
+    assert [command[:2] for command in calls] == [["docker", "stop"], ["docker", "rm"]]
+
+
+def test_cleanup_remove_timeout_is_reported_without_hanging(tmp_path: Path, monkeypatch):
+    manager = CompileSessionManager(paths=make_test_paths(tmp_path))
+    session = manager.create_session(thread_id="thread-remove-timeout", repo_url="https://example.com/repo.git")
+    session.container_id = "container-timeout"
+
+    def fake_run(command, **kwargs):
+        assert kwargs["timeout"] <= 4
+        if command[:2] == ["docker", "stop"]:
+            return SimpleNamespace(returncode=0, stdout="container-timeout\n", stderr="")
+        if command[:3] == ["docker", "rm", "-f"]:
+            raise subprocess.TimeoutExpired(command, kwargs["timeout"])
+        raise AssertionError(f"Unexpected Docker command: {command}")
+
+    monkeypatch.setattr("deerflow.compile.docker_runtime.subprocess.run", fake_run)
+    runtime = CompileDockerRuntime(
+        config=RuntimeConfig(remove_on_cleanup=True, cleanup_timeout_seconds=4),
+        manager=manager,
+    )
+
+    result = runtime.stop_and_remove_container(session)
+
+    assert result.succeeded is False
+    assert result.stopped is True
+    assert result.removed is False
+
+
+def test_finalize_rejects_original_artifact_mutated_after_replay(tmp_path: Path, monkeypatch):
+    manager, session = make_replay_ready_session(tmp_path)
+    replay_runtime = FakeReplayRuntime(manager)
+    monkeypatch.setattr(operations, "_services", CompileOperationsServices(manager=manager, runtime=replay_runtime))
+    attempt = verify_clean_replay_impl(session=session)
+    assert attempt.status == "passed"
+    session.verification = VerificationResult(status="passed", artifact_count=1)
+    manager.mark_session_status(session, "verified")
+
+    artifact_path = Path(session.leadagent_artifacts_dir) / "hello"
+    artifact_path.write_bytes(artifact_path.read_bytes() + b"changed-after-replay")
+
+    def cleanup(_session: CompileSession):
+        return ContainerCleanupResult(succeeded=True, stopped=True, removed=True)
+
+    monkeypatch.setattr(
+        operations,
+        "_services",
+        CompileOperationsServices(manager=manager, runtime=SimpleNamespace(stop_and_remove_container=cleanup)),
+    )
+
+    updated, cleanup_result = operations.cleanup_and_finalize_compile_session_impl(session=session)
+
+    assert cleanup_result.succeeded is True
+    assert updated.status == "failed"
+    assert updated.finalized_at is not None
+    assert "changed after clean replay" in (updated.error or "")
+    final_check = next(check for check in updated.verification.checks if check.name == "accepted_artifacts_unchanged_after_cleanup")
+    assert final_check.passed is False
+    assert "sha256:hello" in final_check.actual["mismatches"]

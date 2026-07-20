@@ -27,6 +27,11 @@ class BuildArtifact:
     artifact_type: str
     size_bytes: int | None = None
     source_path: str | None = None
+    sha256: str | None = None
+    smoke_command: str | None = None
+    smoke_exit_code: int | None = None
+    smoke_output: str | None = None
+    smoke_output_sha256: str | None = None
 
 
 @dataclass
@@ -38,6 +43,8 @@ class VerificationCheck:
     exit_code: int | None = None
     log_path: str | None = None
     summary: str | None = None
+    expected: Any | None = None
+    actual: Any | None = None
 
 
 @dataclass
@@ -46,6 +53,54 @@ class VerificationResult:
     checks: list[VerificationCheck] = field(default_factory=list)
     artifact_count: int = 0
     failed_checks: int = 0
+    notes: list[str] = field(default_factory=list)
+
+
+@dataclass
+class ReplayArtifactComparison:
+    path: str
+    expected_type: str | None = None
+    actual_type: str | None = None
+    expected_size_bytes: int | None = None
+    actual_size_bytes: int | None = None
+    expected_sha256: str | None = None
+    actual_sha256: str | None = None
+    expected_smoke_command: str | None = None
+    actual_smoke_command: str | None = None
+    expected_smoke_exit_code: int | None = None
+    actual_smoke_exit_code: int | None = None
+    expected_smoke_output: str | None = None
+    actual_smoke_output: str | None = None
+    expected_smoke_output_sha256: str | None = None
+    actual_smoke_output_sha256: str | None = None
+    type_matches: bool = False
+    size_matches: bool = False
+    sha256_matches: bool = False
+    smoke_matches: bool = False
+    passed: bool = False
+    mismatches: list[str] = field(default_factory=list)
+
+
+@dataclass
+class ReplayVerificationResult:
+    attempt_id: str
+    status: str
+    image: str
+    image_id: str
+    commit_sha: str
+    recipe_sha256: str
+    timeout_seconds: int | None = None
+    started_at: str = field(default_factory=utc_now_iso)
+    completed_at: str | None = None
+    duration_seconds: float | None = None
+    container_id: str | None = None
+    container_name: str | None = None
+    log_path: str | None = None
+    exit_code: int | None = None
+    cleanup_succeeded: bool | None = None
+    failure_classification: str | None = None
+    checks: list[VerificationCheck] = field(default_factory=list)
+    artifacts: list[ReplayArtifactComparison] = field(default_factory=list)
     notes: list[str] = field(default_factory=list)
 
 
@@ -67,9 +122,13 @@ class CompileSession:
     image: str
     status: str
     run_id: str | None = None
+    image_id: str | None = None
     created_at: str = field(default_factory=utc_now_iso)
     completed_at: str | None = None
     finalized_at: str | None = None
+    termination_requested_at: str | None = None
+    termination_status: str | None = None
+    termination_error: str | None = None
     owner_subagent_id: str | None = None
     commit_sha: str | None = None
     container_id: str | None = None
@@ -85,13 +144,14 @@ class CompileSession:
     commands: list[BuildCommandRecord] = field(default_factory=list)
     artifacts: list[BuildArtifact] = field(default_factory=list)
     verification: VerificationResult | None = None
+    replay_attempts: list[ReplayVerificationResult] = field(default_factory=list)
 
     def to_dict(self) -> dict[str, Any]:
         return asdict(self)
 
     @classmethod
     def from_dict(cls, data: dict[str, Any]) -> CompileSession:
-        data = {"run_id": None, **data}
+        data = {"run_id": None, "image_id": None, "replay_attempts": [], **data}
         commands = [BuildCommandRecord(**item) for item in data.get("commands", [])]
         artifacts = [BuildArtifact(**item) for item in data.get("artifacts", [])]
         verification_data = data.get("verification")
@@ -100,8 +160,26 @@ class CompileSession:
             checks = [VerificationCheck(**item) for item in verification_data.get("checks", [])]
             verification_payload = {k: v for k, v in verification_data.items() if k != "checks"}
             verification = VerificationResult(checks=checks, **verification_payload)
-        payload = {k: v for k, v in data.items() if k not in {"commands", "artifacts", "verification"}}
-        return cls(commands=commands, artifacts=artifacts, verification=verification, **payload)
+        replay_attempts = []
+        for replay_data in data.get("replay_attempts", []):
+            replay_checks = [VerificationCheck(**item) for item in replay_data.get("checks", [])]
+            replay_artifacts = [ReplayArtifactComparison(**item) for item in replay_data.get("artifacts", [])]
+            replay_payload = {k: v for k, v in replay_data.items() if k not in {"checks", "artifacts"}}
+            replay_attempts.append(
+                ReplayVerificationResult(
+                    checks=replay_checks,
+                    artifacts=replay_artifacts,
+                    **replay_payload,
+                )
+            )
+        payload = {k: v for k, v in data.items() if k not in {"commands", "artifacts", "verification", "replay_attempts"}}
+        return cls(
+            commands=commands,
+            artifacts=artifacts,
+            verification=verification,
+            replay_attempts=replay_attempts,
+            **payload,
+        )
 
     @property
     def metadata_file(self) -> Path:

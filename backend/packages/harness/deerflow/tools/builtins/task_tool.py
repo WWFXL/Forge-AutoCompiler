@@ -75,6 +75,8 @@ async def _cancel_and_reap_task(
                 _updated, cleanup_result = await asyncio.to_thread(
                     cleanup_compile_session_container_impl,
                     session=session,
+                    interrupted_status=terminal_status,
+                    error=error,
                 )
             except Exception:
                 logger.exception("Failed to stop compile container while terminating task %s", task_id)
@@ -89,10 +91,16 @@ async def _cancel_and_reap_task(
         session_id = compile_state.get(COMPILE_SESSION_STATE_KEY)
         if session_id:
             from deerflow.agents.middlewares.tool_error_handling_middleware import load_bound_session_async
-            from deerflow.compile.operations import finalize_compile_session_impl, get_compile_services
+            from deerflow.compile.operations import cleanup_compile_session_container_impl, finalize_compile_session_impl, get_compile_services
 
             try:
                 session = await load_bound_session_async(session_id=session_id, thread_id=thread_id)
+                session, cleanup_result = await asyncio.to_thread(
+                    cleanup_compile_session_container_impl,
+                    session=session,
+                    interrupted_status=terminal_status,
+                    error=error,
+                )
                 cleanup_succeeded = cleanup_result is not None and cleanup_result.succeeded
                 if cleanup_succeeded:
                     await asyncio.to_thread(

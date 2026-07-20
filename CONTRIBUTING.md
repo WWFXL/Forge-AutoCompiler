@@ -180,7 +180,11 @@ make nginx
 - **可 replay 步骤必须走 `run_container_bash`**：`workdir` 只能是 `/workspace` 或 `/artifacts` 下的绝对容器路径，不得写入宿主机、WSL `/mnt/<drive>` 或 `.compile-sessions` 路径。
 - **submit 不是 shell command**：`submit_build_result` 只写 `submit.*` 事件、summary log 和 verification checks，不得追加到 `session.commands`；replay 生成失败必须落为 `verification_failed`。
 - **修改 replay 契约必须补测试**：命令过滤、workdir、commit/URL 校验、shell quoting 与宿主路径隔离应同步覆盖 `tests/test_compile_runtime.py`。
-- **候选生成不等于 clean replay**：失败命令可能留下持久副作用；研究结果必须在新容器和空挂载中实际执行脚本，自动验证与产物比较见 Issue #7。
+- **候选生成与 clean replay 是两层检查**：`repro_bundle` 通过只说明候选脚本安全且非空；`submit_build_result` 还必须自动在新容器中执行并比较产物，只有 clean replay 通过才能进入 `verified`。
+- **replay 固定实际镜像身份**：创建原编译容器后必须持久化完整 `image_id`，replay 只能使用该 ID，不能重新解析可变 tag；这保证同一 Docker daemon 内的镜像一致性，不代表跨主机可拉取或复现。
+- **replay attempt 必须隔离**：每次使用唯一的 `replay/<attempt_id>/{recipe,workspace,artifacts,logs}`，workspace/artifacts 初始为空，严禁挂载或清空原 session 的目录。
+- **比较结果必须结构化**：至少持久化产物相对路径集合、类型、大小、SHA-256，以及 executable smoke 的命令、退出码、有限预览和完整输出 SHA-256；任一集合差异或字段不匹配均为验证失败。原 compile container 删除后、写入 `completed` 前必须再次核对最终产物。
+- **超时与取消必须清理**：执行/验证 deadline 由 `COMPILE_REPLAY_TIMEOUT_SECONDS` 控制（默认 `1200` 秒），所有 replay Docker control、产物遍历/分类/哈希和 smoke 都必须消费 remaining time；cleanup 使用独立短时限。内部 `finally` 和父任务等待 worker 前后的两次路径都必须重新加载 authoritative session，并按 replay container name/ID 幂等删除容器。
 - **状态机变更**（`CompileSession.status`）要更新 `logs/workflow.log` 的事件命名约定。
 
 ## 架构约束

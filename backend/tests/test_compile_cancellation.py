@@ -2,12 +2,18 @@ import asyncio
 import importlib
 import sys
 import threading
+from pathlib import Path
+from types import SimpleNamespace
 from unittest.mock import MagicMock
 
 import pytest
 
+from deerflow.compile import operations
 from deerflow.compile.docker_runtime import ContainerCleanupResult
-from deerflow.compile.schemas import CompileSession
+from deerflow.compile.manager import CompileSessionManager
+from deerflow.compile.operations import CompileOperationsServices
+from deerflow.compile.schemas import CompileSession, ReplayVerificationResult
+from deerflow.config.paths import Paths
 from deerflow.subagents.config import SubagentConfig
 
 task_tool_module = importlib.import_module("deerflow.tools.builtins.task_tool")
@@ -142,31 +148,63 @@ def test_timeout_terminal_transition_blocks_boundary_completion(real_executor_mo
     assert result.error == "deadline reached"
 
 
-def test_compiler_task_termination_stops_worker_before_finalizing_session(monkeypatch):
-    session = CompileSession(
+def test_compiler_task_termination_stops_worker_before_finalizing_session(tmp_path: Path, monkeypatch):
+    manager = CompileSessionManager(
+        paths=Paths(
+            base_dir=tmp_path / ".deer-flow",
+            workspace_root=tmp_path / "service-workspace",
+            host_workspace_root=str(tmp_path / "host-workspace"),
+        )
+    )
+    session = manager.create_session(
         session_id="session-123",
         thread_id="thread-123",
         repo_url="https://example.com/repo.git",
-        branch=None,
-        image="autocompiler:gcc13",
-        status="inspected",
-        container_id="container-123",
     )
+    session.status = "inspected"
+    session.container_id = "container-123"
+    session.container_name = "compile-container-123"
+    session.image_id = f"sha256:{'1' * 64}"
+    session.replay_attempts.append(
+        ReplayVerificationResult(
+            attempt_id="replay-attempt",
+            status="running",
+            image=session.image,
+            image_id=session.image_id,
+            commit_sha="a" * 40,
+            recipe_sha256="b" * 64,
+            timeout_seconds=30,
+            container_id="replay-container-123",
+            container_name="replay-name-123",
+        )
+    )
+    manager.save_session(session)
     events: list[str] = []
 
     async def load_session(*, session_id: str, thread_id: str):
         assert session_id == session.session_id
         assert thread_id == session.thread_id
         events.append("load")
-        return session
+        return manager.load_session(session_id, thread_id)
 
-    def stop_container(session_arg):
-        assert session_arg is session
+    def stop_container(session_arg: CompileSession):
+        assert session_arg.container_id == session.container_id
         events.append("stop")
         return ContainerCleanupResult(succeeded=True, stopped=True, removed=True)
 
-    def cleanup_container(*, session: CompileSession):
-        return session, stop_container(session)
+    def stop_replay_container(
+        session_arg: CompileSession,
+        handle=None,
+        *,
+        container_id: str | None = None,
+        container_name: str | None = None,
+    ):
+        assert handle is None
+        assert session_arg.session_id == session.session_id
+        assert container_id == "replay-container-123"
+        assert container_name == "replay-name-123"
+        events.append("stop_replay")
+        return ContainerCleanupResult(succeeded=True, stopped=True, removed=True)
 
     async def wait_for_shutdown(task_id: str, timeout_seconds: float):
         assert task_id == "task-123"
@@ -186,7 +224,17 @@ def test_compiler_task_termination_stops_worker_before_finalizing_session(monkey
         "deerflow.agents.middlewares.tool_error_handling_middleware.load_bound_session_async",
         load_session,
     )
-    monkeypatch.setattr("deerflow.compile.operations.cleanup_compile_session_container_impl", cleanup_container)
+    monkeypatch.setattr(
+        operations,
+        "_services",
+        CompileOperationsServices(
+            manager=manager,
+            runtime=SimpleNamespace(
+                stop_and_remove_container=stop_container,
+                stop_and_remove_replay_container=stop_replay_container,
+            ),
+        ),
+    )
     monkeypatch.setattr("deerflow.compile.operations.finalize_compile_session_impl", finalize)
     monkeypatch.setattr(task_tool_module, "request_cancel_background_task", lambda task_id: events.append("cancel") or True)
     monkeypatch.setattr(task_tool_module, "wait_for_background_task_shutdown", wait_for_shutdown)
@@ -205,7 +253,143 @@ def test_compiler_task_termination_stops_worker_before_finalizing_session(monkey
     )
 
     assert stopped is True
-    assert events == ["cancel", "load", "stop", "wait", "load", "finalize", "registry_cleanup"]
+    assert events == [
+        "cancel",
+        "load",
+        "stop_replay",
+        "stop",
+        "wait",
+        "load",
+        "stop",
+        "finalize",
+        "registry_cleanup",
+    ]
+    replay_attempt = manager.load_session(session.session_id, session.thread_id).replay_attempts[-1]
+    assert replay_attempt.status == "cancelled"
+    assert replay_attempt.failure_classification == "cancelled"
+    assert replay_attempt.cleanup_succeeded is True
+    assert replay_attempt.timeout_seconds == 30
+    assert replay_attempt.duration_seconds is not None
+    assert any(check.name == "parent_container_cleanup" and check.passed for check in replay_attempt.checks)
+    workflow_log = manager.workflow_log_path(manager.load_session(session.session_id, session.thread_id)).read_text(encoding="utf-8")
+    assert '"event": "replay.completed"' in workflow_log
+    assert '"completed_by": "parent_cleanup"' in workflow_log
+
+
+def test_compiler_cancellation_rejects_late_worker_metadata_without_repeating_successful_replay_cleanup(tmp_path: Path, monkeypatch):
+    manager = CompileSessionManager(
+        paths=Paths(
+            base_dir=tmp_path / ".deer-flow",
+            workspace_root=tmp_path / "service-workspace",
+            host_workspace_root=str(tmp_path / "host-workspace"),
+        )
+    )
+    session = manager.create_session(
+        session_id="session-race",
+        thread_id="thread-race",
+        repo_url="https://example.com/repo.git",
+    )
+    session.container_id = "compile-container-race"
+    session.container_name = "compile-name-race"
+    session.replay_attempts.append(
+        ReplayVerificationResult(
+            attempt_id="attempt-race",
+            status="running",
+            image=session.image,
+            image_id=f"sha256:{'1' * 64}",
+            commit_sha="a" * 40,
+            recipe_sha256="b" * 64,
+            container_name="replay-name-race",
+        )
+    )
+    manager.save_session(session)
+    replay_cleanup_ids: list[str | None] = []
+    events: list[str] = []
+
+    async def load_session(*, session_id: str, thread_id: str):
+        events.append("load")
+        return manager.load_session(session_id, thread_id)
+
+    def stop_compile(_session: CompileSession):
+        events.append("stop_compile")
+        return ContainerCleanupResult(succeeded=True, stopped=True, removed=True)
+
+    def stop_replay(
+        _session: CompileSession,
+        handle=None,
+        *,
+        container_id: str | None = None,
+        container_name: str | None = None,
+    ):
+        assert handle is None
+        assert container_name == "replay-name-race"
+        replay_cleanup_ids.append(container_id)
+        events.append("stop_replay")
+        return ContainerCleanupResult(succeeded=True, stopped=True, removed=True)
+
+    async def wait_for_shutdown(_task_id: str, _timeout_seconds: float):
+        events.append("wait")
+        stale_worker_state = manager.load_session(session.session_id, session.thread_id)
+        attempt = stale_worker_state.replay_attempts[-1]
+        attempt.status = "running"
+        attempt.failure_classification = None
+        attempt.cleanup_succeeded = None
+        attempt.container_id = "container-created-after-first-cleanup"
+        manager.save_session(stale_worker_state)
+        return True
+
+    def finalize(*, session: CompileSession, **_kwargs):
+        events.append("finalize")
+        return session
+
+    monkeypatch.setattr(
+        "deerflow.agents.middlewares.tool_error_handling_middleware.load_bound_session_async",
+        load_session,
+    )
+    monkeypatch.setattr(
+        operations,
+        "_services",
+        CompileOperationsServices(
+            manager=manager,
+            runtime=SimpleNamespace(
+                stop_and_remove_container=stop_compile,
+                stop_and_remove_replay_container=stop_replay,
+            ),
+        ),
+    )
+    monkeypatch.setattr("deerflow.compile.operations.finalize_compile_session_impl", finalize)
+    monkeypatch.setattr(task_tool_module, "request_cancel_background_task", lambda _task_id: True)
+    monkeypatch.setattr(task_tool_module, "wait_for_background_task_shutdown", wait_for_shutdown)
+    monkeypatch.setattr(task_tool_module, "cleanup_background_task", lambda _task_id: events.append("registry_cleanup"))
+
+    stopped = asyncio.run(
+        task_tool_module._cancel_and_reap_task(
+            task_id="task-race",
+            subagent_type="compiler",
+            compile_state={task_tool_module.COMPILE_SESSION_STATE_KEY: session.session_id},
+            thread_id=session.thread_id,
+            terminal_status="cancelled",
+            error="parent cancelled",
+            shutdown_timeout_seconds=30,
+        )
+    )
+
+    assert stopped is True
+    assert replay_cleanup_ids == [None]
+    assert events == [
+        "load",
+        "stop_replay",
+        "stop_compile",
+        "wait",
+        "load",
+        "stop_compile",
+        "finalize",
+        "registry_cleanup",
+    ]
+    replay_attempt = manager.load_session(session.session_id, session.thread_id).replay_attempts[-1]
+    assert replay_attempt.status == "cancelled"
+    assert replay_attempt.failure_classification == "cancelled"
+    assert replay_attempt.cleanup_succeeded is True
 
 
 def test_compiler_model_cannot_lower_server_owned_turn_limit():

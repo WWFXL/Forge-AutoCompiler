@@ -210,14 +210,19 @@ def finalize_session(
         "status": updated.status,
         "session_id": updated.session_id,
         "commit_sha": updated.commit_sha,
+        "image": updated.image,
+        "image_id": updated.image_id,
         "build_system": updated.build_system,
         "commands": [command.command for command in updated.commands],
         "verification": updated.verification.status if updated.verification else "not_run",
+        "replay_verification": updated.replay_attempts[-1].status if updated.replay_attempts else "not_run",
+        "replay_attempt_id": updated.replay_attempts[-1].attempt_id if updated.replay_attempts else None,
         "artifacts": [
             {
                 "path": artifact.path,
                 "artifact_type": artifact.artifact_type,
                 "size_bytes": artifact.size_bytes,
+                "sha256": artifact.sha256,
             }
             for artifact in updated.artifacts
         ],
