@@ -22,7 +22,7 @@ import mimetypes
 import shutil
 import tempfile
 import uuid
-from collections.abc import Generator, Sequence
+from collections.abc import AsyncGenerator, Generator, Sequence
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
@@ -81,7 +81,7 @@ class DeerFlowClient:
 
     Note:
         Multi-turn conversations require a ``checkpointer``. Without one,
-        each ``stream()`` / ``chat()`` call is stateless — ``thread_id``
+        each ``stream()`` / ``astream()`` / ``chat()`` call is stateless — ``thread_id``
         is only used for file isolation (uploads / artifacts).
 
         The system prompt (including date, memory, and skills context) is
@@ -324,6 +324,82 @@ class DeerFlowClient:
     # Public API — conversation
     # ------------------------------------------------------------------
 
+    def _events_from_stream_item(
+        self,
+        item: Any,
+        *,
+        seen_ids: set[str],
+        cumulative_usage: dict[str, int],
+    ) -> Generator[StreamEvent, None, None]:
+        if isinstance(item, tuple) and len(item) == 2:
+            mode, chunk = item
+            mode = str(mode)
+        else:
+            mode, chunk = "values", item
+
+        if mode == "custom":
+            yield StreamEvent(type="custom", data=chunk)
+            return
+
+        messages = chunk.get("messages", [])
+
+        for msg in messages:
+            msg_id = getattr(msg, "id", None)
+            if msg_id and msg_id in seen_ids:
+                continue
+            if msg_id:
+                seen_ids.add(msg_id)
+
+            if isinstance(msg, AIMessage):
+                usage = getattr(msg, "usage_metadata", None)
+                if usage:
+                    cumulative_usage["input_tokens"] += usage.get("input_tokens", 0) or 0
+                    cumulative_usage["output_tokens"] += usage.get("output_tokens", 0) or 0
+                    cumulative_usage["total_tokens"] += usage.get("total_tokens", 0) or 0
+
+                if msg.tool_calls:
+                    yield StreamEvent(
+                        type="messages-tuple",
+                        data={
+                            "type": "ai",
+                            "content": "",
+                            "id": msg_id,
+                            "tool_calls": [{"name": tc["name"], "args": tc["args"], "id": tc.get("id")} for tc in msg.tool_calls],
+                        },
+                    )
+
+                text = self._extract_text(msg.content)
+                if text:
+                    event_data: dict[str, Any] = {"type": "ai", "content": text, "id": msg_id}
+                    if usage:
+                        event_data["usage_metadata"] = {
+                            "input_tokens": usage.get("input_tokens", 0) or 0,
+                            "output_tokens": usage.get("output_tokens", 0) or 0,
+                            "total_tokens": usage.get("total_tokens", 0) or 0,
+                        }
+                    yield StreamEvent(type="messages-tuple", data=event_data)
+
+            elif isinstance(msg, ToolMessage):
+                yield StreamEvent(
+                    type="messages-tuple",
+                    data={
+                        "type": "tool",
+                        "content": self._extract_text(msg.content),
+                        "name": getattr(msg, "name", None),
+                        "tool_call_id": getattr(msg, "tool_call_id", None),
+                        "id": msg_id,
+                    },
+                )
+
+        yield StreamEvent(
+            type="values",
+            data={
+                "title": chunk.get("title"),
+                "messages": [self._serialize_message(m) for m in messages],
+                "artifacts": chunk.get("artifacts", []),
+            },
+        )
+
     def stream(
         self,
         message: str,
@@ -377,76 +453,52 @@ class DeerFlowClient:
             context=context,
             stream_mode=["values", "custom"],
         ):
-            if isinstance(item, tuple) and len(item) == 2:
-                mode, chunk = item
-                mode = str(mode)
-            else:
-                mode, chunk = "values", item
-
-            if mode == "custom":
-                yield StreamEvent(type="custom", data=chunk)
-                continue
-
-            messages = chunk.get("messages", [])
-
-            for msg in messages:
-                msg_id = getattr(msg, "id", None)
-                if msg_id and msg_id in seen_ids:
-                    continue
-                if msg_id:
-                    seen_ids.add(msg_id)
-
-                if isinstance(msg, AIMessage):
-                    # Track token usage from AI messages
-                    usage = getattr(msg, "usage_metadata", None)
-                    if usage:
-                        cumulative_usage["input_tokens"] += usage.get("input_tokens", 0) or 0
-                        cumulative_usage["output_tokens"] += usage.get("output_tokens", 0) or 0
-                        cumulative_usage["total_tokens"] += usage.get("total_tokens", 0) or 0
-
-                    if msg.tool_calls:
-                        yield StreamEvent(
-                            type="messages-tuple",
-                            data={
-                                "type": "ai",
-                                "content": "",
-                                "id": msg_id,
-                                "tool_calls": [{"name": tc["name"], "args": tc["args"], "id": tc.get("id")} for tc in msg.tool_calls],
-                            },
-                        )
-
-                    text = self._extract_text(msg.content)
-                    if text:
-                        event_data: dict[str, Any] = {"type": "ai", "content": text, "id": msg_id}
-                        if usage:
-                            event_data["usage_metadata"] = {
-                                "input_tokens": usage.get("input_tokens", 0) or 0,
-                                "output_tokens": usage.get("output_tokens", 0) or 0,
-                                "total_tokens": usage.get("total_tokens", 0) or 0,
-                            }
-                        yield StreamEvent(type="messages-tuple", data=event_data)
-
-                elif isinstance(msg, ToolMessage):
-                    yield StreamEvent(
-                        type="messages-tuple",
-                        data={
-                            "type": "tool",
-                            "content": self._extract_text(msg.content),
-                            "name": getattr(msg, "name", None),
-                            "tool_call_id": getattr(msg, "tool_call_id", None),
-                            "id": msg_id,
-                        },
-                    )
-
-            # Emit a values event for each state snapshot
-            yield StreamEvent(
-                type="values",
-                data={
-                    "title": chunk.get("title"),
-                    "messages": [self._serialize_message(m) for m in messages],
-                    "artifacts": chunk.get("artifacts", []),
-                },
+            yield from self._events_from_stream_item(
+                item,
+                seen_ids=seen_ids,
+                cumulative_usage=cumulative_usage,
             )
+
+        yield StreamEvent(type="end", data={"usage": cumulative_usage})
+
+    async def astream(
+        self,
+        message: str,
+        *,
+        thread_id: str | None = None,
+        **kwargs,
+    ) -> AsyncGenerator[StreamEvent, None]:
+        """Asynchronously stream a conversation turn.
+
+        This is the native execution path for agents that expose async-only
+        tools. Events are identical to :meth:`stream`.
+        """
+        if thread_id is None:
+            thread_id = str(uuid.uuid4())
+
+        config = self._get_runnable_config(thread_id, **kwargs)
+        self._ensure_agent(config)
+
+        state: dict[str, Any] = {"messages": [HumanMessage(content=message)]}
+        context = {"thread_id": thread_id}
+        if self._agent_name:
+            context["agent_name"] = self._agent_name
+
+        seen_ids: set[str] = set()
+        cumulative_usage: dict[str, int] = {"input_tokens": 0, "output_tokens": 0, "total_tokens": 0}
+
+        async for item in self._agent.astream(
+            state,
+            config=config,
+            context=context,
+            stream_mode=["values", "custom"],
+        ):
+            for event in self._events_from_stream_item(
+                item,
+                seen_ids=seen_ids,
+                cumulative_usage=cumulative_usage,
+            ):
+                yield event
 
         yield StreamEvent(type="end", data={"usage": cumulative_usage})
 

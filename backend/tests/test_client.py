@@ -11,6 +11,7 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 from langchain_core.messages import AIMessage, HumanMessage, SystemMessage, ToolMessage  # noqa: F401
+from langchain_core.tools import StructuredTool
 
 from app.gateway.routers.mcp import McpConfigResponse
 from app.gateway.routers.memory import MemoryConfigResponse, MemoryStatusResponse
@@ -205,6 +206,140 @@ class TestStream:
         assert types[-1] == "end"
         msg_events = _ai_events(events)
         assert msg_events[0].data["content"] == "Hello!"
+
+    def test_astream_executes_async_only_structured_tool_once(self, client):
+        """astream() uses the native async agent path for coroutine-only tools."""
+        calls: list[int] = []
+
+        async def async_probe(value: int) -> str:
+            calls.append(value)
+            return f"probe:{value}"
+
+        async_only_tool = StructuredTool.from_function(
+            coroutine=async_probe,
+            name="async_probe",
+            description="Exercise an async-only tool.",
+        )
+
+        class AsyncOnlyAgent:
+            def stream(self, *_args, **_kwargs):
+                raise AssertionError("The synchronous agent path must not run")
+
+            async def astream(self, _state, **kwargs):
+                assert kwargs["stream_mode"] == ["values", "custom"]
+                assert kwargs["context"]["thread_id"] == "t-async-tool"
+                result = await async_only_tool.ainvoke({"value": 7})
+                yield ("custom", {"type": "probe_completed"})
+                yield ("values", {"messages": [AIMessage(content=result, id="ai-async-tool")]})
+
+        async def collect_events():
+            return [event async for event in client.astream("run probe", thread_id="t-async-tool")]
+
+        with (
+            patch.object(client, "_ensure_agent"),
+            patch.object(client, "_agent", AsyncOnlyAgent()),
+        ):
+            events = asyncio.run(collect_events())
+
+        assert calls == [7]
+        assert events[0].type == "custom"
+        assert _ai_events(events)[0].data["content"] == "probe:7"
+        assert events[-1].type == "end"
+
+    def test_astream_matches_sync_event_serialization(self, client):
+        """Sync and async execution expose the same public event sequence."""
+        items = [
+            ("custom", {"type": "task_started", "task_id": "task-1"}),
+            (
+                "values",
+                {
+                    "title": "Compile",
+                    "messages": [
+                        AIMessage(
+                            content="done",
+                            id="ai-parity",
+                            usage_metadata={
+                                "input_tokens": 3,
+                                "output_tokens": 2,
+                                "total_tokens": 5,
+                            },
+                        )
+                    ],
+                    "artifacts": [{"path": "hello"}],
+                },
+            ),
+        ]
+
+        class ParityAgent:
+            def stream(self, *_args, **_kwargs):
+                yield from items
+
+            async def astream(self, *_args, **_kwargs):
+                for item in items:
+                    yield item
+
+        async def collect_async_events():
+            return [event async for event in client.astream("compile", thread_id="t-parity")]
+
+        with (
+            patch.object(client, "_ensure_agent"),
+            patch.object(client, "_agent", ParityAgent()),
+        ):
+            sync_events = list(client.stream("compile", thread_id="t-parity"))
+            async_events = asyncio.run(collect_async_events())
+
+        assert [(event.type, event.data) for event in async_events] == [(event.type, event.data) for event in sync_events]
+
+    def test_astream_propagates_errors_without_emitting_end(self, client):
+        """Agent failures stay visible to lifecycle-owning callers."""
+        observed_types: list[str] = []
+
+        class FailingAgent:
+            async def astream(self, *_args, **_kwargs):
+                yield ("custom", {"type": "started"})
+                raise RuntimeError("async stream failed")
+
+        async def consume() -> None:
+            async for event in client.astream("compile", thread_id="t-error"):
+                observed_types.append(event.type)
+
+        with (
+            patch.object(client, "_ensure_agent"),
+            patch.object(client, "_agent", FailingAgent()),
+            pytest.raises(RuntimeError, match="async stream failed"),
+        ):
+            asyncio.run(consume())
+
+        assert observed_types == ["custom"]
+
+    def test_astream_propagates_cancellation_to_agent(self, client):
+        """Cancelling a pending event read closes the underlying agent stream."""
+        finalized: list[bool] = []
+
+        class BlockingAgent:
+            async def astream(self, *_args, **_kwargs):
+                try:
+                    yield ("custom", {"type": "started"})
+                    await asyncio.Event().wait()
+                finally:
+                    finalized.append(True)
+
+        async def cancel_pending_read() -> None:
+            stream = client.astream("compile", thread_id="t-cancel")
+            assert (await anext(stream)).type == "custom"
+            pending = asyncio.create_task(anext(stream))
+            await asyncio.sleep(0)
+            pending.cancel()
+            with pytest.raises(asyncio.CancelledError):
+                await pending
+
+        with (
+            patch.object(client, "_ensure_agent"),
+            patch.object(client, "_agent", BlockingAgent()),
+        ):
+            asyncio.run(cancel_pending_read())
+
+        assert finalized == [True]
 
     def test_custom_events_are_forwarded(self, client):
         """stream() forwards custom stream events alongside normal values output."""

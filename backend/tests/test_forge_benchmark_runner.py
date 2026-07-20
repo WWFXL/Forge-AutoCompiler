@@ -320,9 +320,10 @@ def test_keyboard_interrupt_keeps_attempt_recoverable_and_reconciles_orphans(
         def __init__(self, **kwargs) -> None:
             del kwargs
 
-        def stream(self, message: str, *, thread_id: str):
+        async def astream(self, message: str, *, thread_id: str):
             del message, thread_id
             raise KeyboardInterrupt
+            yield  # pragma: no cover
 
     import deerflow.client
 
@@ -395,7 +396,7 @@ def test_run_terminalizes_unfinished_session_after_client_exit(
         def __init__(self, **kwargs) -> None:
             del kwargs
 
-        def stream(self, message: str, *, thread_id: str):
+        async def astream(self, message: str, *, thread_id: str):
             del message
             session = manager.create_session(thread_id=thread_id, repo_url="https://example.com/repo.git")
             session.container_id = "container-123"
@@ -403,7 +404,8 @@ def test_run_terminalizes_unfinished_session_after_client_exit(
             manager.mark_session_status(session, "ready")
             if raise_error:
                 raise TimeoutError
-            return iter(())
+            return
+            yield  # pragma: no cover
 
     import deerflow.client
 
@@ -459,9 +461,10 @@ def test_run_retries_session_finalization_after_orphan_cleanup(
         def __init__(self, **kwargs) -> None:
             del kwargs
 
-        def stream(self, message: str, *, thread_id: str):
+        async def astream(self, message: str, *, thread_id: str):
             del message, thread_id
-            return iter(())
+            return
+            yield  # pragma: no cover
 
     import deerflow.client
 
