@@ -32,7 +32,7 @@
    ```bash
    make docker-start
    ```
-   `make docker-start` 会读 `config.yaml`，只在 sandbox mode 是 provisioner/Kubernetes 时才起 `provisioner` 容器。
+   `make docker-start` 会启动前端、Gateway、LangGraph 和 nginx；C/C++ 编译容器只在任务执行期间按会话创建。
 
    所有服务 hot-reload：
    - 前端：自动刷新

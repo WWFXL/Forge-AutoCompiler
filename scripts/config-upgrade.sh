@@ -60,8 +60,27 @@ with open(config_path, encoding='utf-8') as f:
 with open(example_path, encoding='utf-8') as f:
     example = yaml.safe_load(f) or {}
 
-user_version = user.get('config_version', 0)
-example_version = example.get('config_version', 0)
+def parse_config_version(value, label):
+    if value is None:
+        return 0
+    if isinstance(value, bool):
+        value = str(value)
+    if isinstance(value, int):
+        version = value
+    elif isinstance(value, str):
+        try:
+            version = int(value.strip())
+        except ValueError:
+            version = -1
+    else:
+        version = -1
+    if version < 0:
+        print(f'ERROR: {label} config_version must be a non-negative integer; got {value!r}.', file=sys.stderr)
+        sys.exit(2)
+    return version
+
+user_version = parse_config_version(user.get('config_version', 0), 'config.yaml')
+example_version = parse_config_version(example.get('config_version', 0), 'config.example.yaml')
 
 if user_version >= example_version:
     print(f'OK config.yaml is already up to date (version {user_version}).')
@@ -85,6 +104,10 @@ MIGRATIONS = {
             ('src.tools.', 'deerflow.tools.'),
         ],
     },
+    6: {
+        'description': 'Remove legacy sandbox providers and tools',
+        'replacements': [],
+    },
     # Future migrations go here:
     # 2: {
     #     'description': '...',
@@ -106,6 +129,46 @@ for version in range(user_version + 1, example_version + 1):
 
 # Re-parse after text migrations
 user = yaml.safe_load(raw_text) or {}
+
+if user_version < 6 <= example_version:
+    obsolete_tool_prefix = 'deerflow.sandbox.tools:'
+    configured_tools = user.get('tools')
+    if isinstance(configured_tools, list):
+        retained_tools = []
+        for tool in configured_tools:
+            use = tool.get('use') if isinstance(tool, dict) else None
+            if isinstance(use, str) and use.startswith(obsolete_tool_prefix):
+                migrated.append(f'removed obsolete tool {use}')
+                continue
+            retained_tools.append(tool)
+        user['tools'] = retained_tools
+
+        retained_group_names = {
+            tool.get('group')
+            for tool in retained_tools
+            if isinstance(tool, dict) and isinstance(tool.get('group'), str)
+        }
+        obsolete_group_names = {'file:read', 'file:write', 'bash'}
+        configured_groups = user.get('tool_groups')
+        if isinstance(configured_groups, list):
+            retained_groups = []
+            for group in configured_groups:
+                name = group.get('name') if isinstance(group, dict) else None
+                if name in obsolete_group_names and name not in retained_group_names:
+                    migrated.append(f'removed orphaned tool group {name}')
+                    continue
+                retained_groups.append(group)
+            user['tool_groups'] = retained_groups
+
+    obsolete_sandbox_providers = {
+        'deerflow.sandbox.local:LocalSandboxProvider',
+        'deerflow.community.aio_sandbox:AioSandboxProvider',
+    }
+    sandbox = user.get('sandbox')
+    if isinstance(sandbox, dict) and sandbox.get('use') in obsolete_sandbox_providers:
+        provider = sandbox.get('use')
+        migrated.append(f'disabled obsolete sandbox provider {provider}')
+        user['sandbox'] = None
 
 if migrated:
     print(f'Applied {len(migrated)} migration(s):')

@@ -12,7 +12,7 @@
 # ============================================================================
 # Bump this number when the config schema changes.
 # Run `make config-upgrade` to merge new fields into your local config.yaml.
-config_version: 5
+config_version: 6
 
 # ============================================================================
 # Logging
@@ -210,9 +210,6 @@ models: []
 
 tool_groups:
   - name: web
-  - name: file:read
-  - name: file:write
-  - name: bash
 
 # ============================================================================
 # Tools Configuration
@@ -235,36 +232,6 @@ tools:
     use: deerflow.community.image_search.tools:image_search_tool
     max_results: 5
 
-  - name: ls
-    group: file:read
-    use: deerflow.sandbox.tools:ls_tool
-
-  - name: read_file
-    group: file:read
-    use: deerflow.sandbox.tools:read_file_tool
-
-  - name: glob
-    group: file:read
-    use: deerflow.sandbox.tools:glob_tool
-    max_results: 200
-
-  - name: grep
-    group: file:read
-    use: deerflow.sandbox.tools:grep_tool
-    max_results: 100
-
-  - name: write_file
-    group: file:write
-    use: deerflow.sandbox.tools:write_file_tool
-
-  - name: str_replace
-    group: file:write
-    use: deerflow.sandbox.tools:str_replace_tool
-
-  - name: bash
-    group: bash
-    use: deerflow.sandbox.tools:bash_tool
-
 # ============================================================================
 # Tool Search Configuration (Deferred Tool Loading)
 # ============================================================================
@@ -278,12 +245,9 @@ tool_search:
 uploads:
   pdf_converter: auto
 
-sandbox:
-  use: deerflow.sandbox.local:LocalSandboxProvider
-  allow_host_bash: false
-  bash_output_max_chars: 20000
-  read_file_output_max_chars: 50000
-  ls_output_max_chars: 20000
+# The legacy general-purpose sandbox was removed from Forge. Repository builds
+# remain isolated by the dedicated compile-session Docker runtime.
+sandbox: null
 
 # ============================================================================
 # Subagents Configuration

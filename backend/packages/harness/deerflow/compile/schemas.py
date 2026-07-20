@@ -66,8 +66,10 @@ class CompileSession:
     branch: str | None
     image: str
     status: str
+    run_id: str | None = None
     created_at: str = field(default_factory=utc_now_iso)
     completed_at: str | None = None
+    finalized_at: str | None = None
     owner_subagent_id: str | None = None
     commit_sha: str | None = None
     container_id: str | None = None
@@ -89,6 +91,7 @@ class CompileSession:
 
     @classmethod
     def from_dict(cls, data: dict[str, Any]) -> CompileSession:
+        data = {"run_id": None, **data}
         commands = [BuildCommandRecord(**item) for item in data.get("commands", [])]
         artifacts = [BuildArtifact(**item) for item in data.get("artifacts", [])]
         verification_data = data.get("verification")

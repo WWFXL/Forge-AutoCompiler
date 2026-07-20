@@ -1,8 +1,13 @@
 from __future__ import annotations
 
 import json
+import os
 import shutil
+import tempfile
+import threading
 import uuid
+from collections.abc import Iterator
+from contextlib import contextmanager
 from pathlib import Path
 
 from deerflow.compile.paths import (
@@ -11,6 +16,7 @@ from deerflow.compile.paths import (
     get_metadata_path,
     get_repro_dir,
     get_session_dir,
+    get_thread_compile_root,
     get_workspace_dir,
 )
 from deerflow.compile.schemas import BuildArtifact, BuildCommandRecord, CompileSession, utc_now_iso
@@ -23,6 +29,16 @@ class CompileSessionManager:
     def __init__(self, paths=None, default_image: str = DEFAULT_COMPILE_IMAGE):
         self.paths = paths
         self.default_image = default_image
+        self._session_locks: dict[tuple[str, str], threading.RLock] = {}
+        self._session_locks_guard = threading.Lock()
+
+    @contextmanager
+    def session_lock(self, thread_id: str, session_id: str) -> Iterator[None]:
+        key = (thread_id, session_id)
+        with self._session_locks_guard:
+            lock = self._session_locks.setdefault(key, threading.RLock())
+        with lock:
+            yield
 
     def create_session(
         self,
@@ -30,66 +46,104 @@ class CompileSessionManager:
         repo_url: str,
         branch: str | None = None,
         image: str | None = None,
+        run_id: str | None = None,
+        session_id: str | None = None,
     ) -> CompileSession:
-        session_id = uuid.uuid4().hex[:12]
+        session_id = session_id or uuid.uuid4().hex[:12]
         resolved_thread_id = thread_id or "default"
+        with self.session_lock(resolved_thread_id, session_id):
+            session_dir = get_session_dir(session_id, resolved_thread_id, self.paths)
+            workspace_dir = get_workspace_dir(session_id, resolved_thread_id, self.paths)
+            artifacts_dir = get_artifacts_dir(session_id, resolved_thread_id, self.paths)
+            logs_dir = get_logs_dir(session_id, resolved_thread_id, self.paths)
+            repro_dir = get_repro_dir(session_id, resolved_thread_id, self.paths)
+            metadata_path = get_metadata_path(session_id, resolved_thread_id, self.paths)
 
-        session_dir = get_session_dir(session_id, resolved_thread_id, self.paths)
-        workspace_dir = get_workspace_dir(session_id, resolved_thread_id, self.paths)
-        artifacts_dir = get_artifacts_dir(session_id, resolved_thread_id, self.paths)
-        logs_dir = get_logs_dir(session_id, resolved_thread_id, self.paths)
-        repro_dir = get_repro_dir(session_id, resolved_thread_id, self.paths)
-        metadata_path = get_metadata_path(session_id, resolved_thread_id, self.paths)
+            for directory in (session_dir, workspace_dir, artifacts_dir, logs_dir, repro_dir):
+                directory.mkdir(parents=True, exist_ok=True)
 
-        for directory in (session_dir, workspace_dir, artifacts_dir, logs_dir, repro_dir):
-            directory.mkdir(parents=True, exist_ok=True)
+            session = CompileSession(
+                session_id=session_id,
+                thread_id=resolved_thread_id,
+                run_id=run_id,
+                repo_url=repo_url,
+                branch=branch,
+                image=image or self.default_image,
+                status="created",
+                metadata_path=str(metadata_path),
+                leadagent_repo_dir=str(workspace_dir / "repo"),
+                leadagent_artifacts_dir=str(artifacts_dir),
+                leadagent_logs_dir=str(logs_dir),
+                leadagent_repro_dir=str(repro_dir),
+            )
 
-        session = CompileSession(
-            session_id=session_id,
-            thread_id=resolved_thread_id,
-            repo_url=repo_url,
-            branch=branch,
-            image=image or self.default_image,
-            status="created",
-            metadata_path=str(metadata_path),
-            leadagent_repo_dir=str(workspace_dir / "repo"),
-            leadagent_artifacts_dir=str(artifacts_dir),
-            leadagent_logs_dir=str(logs_dir),
-            leadagent_repro_dir=str(repro_dir),
-        )
-
-        self.save_session(session)
-        self.log_event(
-            session,
-            "session.created",
-            repo_url=repo_url,
-            branch=branch,
-            compile_sessions_root=str(session_dir.parent.parent),
-            session_dir=str(session_dir),
-            workspace_dir=str(workspace_dir),
-            artifacts_dir=str(artifacts_dir),
-            logs_dir=str(logs_dir),
-            repro_dir=str(repro_dir),
-            metadata_path=str(metadata_path),
-        )
-        return session
+            self.save_session(session)
+            self.log_event(
+                session,
+                "session.created",
+                run_id=run_id,
+                repo_url=repo_url,
+                branch=branch,
+                compile_sessions_root=str(session_dir.parent.parent),
+                session_dir=str(session_dir),
+                workspace_dir=str(workspace_dir),
+                artifacts_dir=str(artifacts_dir),
+                logs_dir=str(logs_dir),
+                repro_dir=str(repro_dir),
+                metadata_path=str(metadata_path),
+            )
+            return session
 
     def load_session(self, session_id: str, thread_id: str | None = None) -> CompileSession:
-        metadata_path = get_metadata_path(session_id, thread_id or "default", self.paths)
-        data = json.loads(metadata_path.read_text(encoding="utf-8"))
-        return CompileSession.from_dict(data)
+        resolved_thread_id = thread_id or "default"
+        with self.session_lock(resolved_thread_id, session_id):
+            metadata_path = get_metadata_path(session_id, resolved_thread_id, self.paths)
+            data = json.loads(metadata_path.read_text(encoding="utf-8"))
+            return CompileSession.from_dict(data)
+
+    def list_sessions(self, thread_id: str) -> list[CompileSession]:
+        thread_root = get_thread_compile_root(thread_id, self.paths)
+        sessions: list[CompileSession] = []
+        for metadata_path in sorted(thread_root.glob("*/session.json")):
+            try:
+                data = json.loads(metadata_path.read_text(encoding="utf-8"))
+                sessions.append(CompileSession.from_dict(data))
+            except (OSError, TypeError, ValueError, json.JSONDecodeError):
+                continue
+        return sessions
 
     def save_session(self, session: CompileSession) -> None:
-        metadata_file = Path(session.metadata_path)
-        metadata_file.parent.mkdir(parents=True, exist_ok=True)
-        metadata_file.write_text(json.dumps(session.to_dict(), ensure_ascii=False, indent=2), encoding="utf-8")
+        with self.session_lock(session.thread_id, session.session_id):
+            metadata_file = Path(session.metadata_path)
+            metadata_file.parent.mkdir(parents=True, exist_ok=True)
+            payload = json.dumps(session.to_dict(), ensure_ascii=False, indent=2)
+            temporary_path: str | None = None
+            try:
+                with tempfile.NamedTemporaryFile(
+                    mode="w",
+                    encoding="utf-8",
+                    dir=metadata_file.parent,
+                    prefix=f".{metadata_file.name}.",
+                    suffix=".tmp",
+                    delete=False,
+                ) as fp:
+                    temporary_path = fp.name
+                    fp.write(payload)
+                    fp.flush()
+                    os.fsync(fp.fileno())
+                os.replace(temporary_path, metadata_file)
+            finally:
+                if temporary_path and os.path.exists(temporary_path):
+                    os.unlink(temporary_path)
 
     def mark_session_status(self, session: CompileSession, status: str, error: str | None = None, summary: str | None = None) -> CompileSession:
         previous_status = session.status
         session.status = status
-        session.completed_at = utc_now_iso() if status in {"completed", "failed", "cancelled"} else session.completed_at
-        if error is not None:
-            session.error = error
+        if status in {"completed", "failed", "cancelled", "timed_out"}:
+            session.completed_at = session.completed_at or utc_now_iso()
+        else:
+            session.completed_at = None
+        session.error = error
         if summary is not None:
             session.summary = summary
         self.save_session(session)
@@ -140,17 +194,19 @@ class CompileSessionManager:
         return self.local_logs_dir(session) / WORKFLOW_LOG_NAME
 
     def log_event(self, session: CompileSession, event: str, **payload) -> None:
-        log_path = self.workflow_log_path(session)
-        log_path.parent.mkdir(parents=True, exist_ok=True)
-        entry = {
-            "ts": utc_now_iso(),
-            "event": event,
-            "session_id": session.session_id,
-            "thread_id": session.thread_id,
-            **payload,
-        }
-        with log_path.open("a", encoding="utf-8") as fp:
-            fp.write(json.dumps(entry, ensure_ascii=False) + "\n")
+        with self.session_lock(session.thread_id, session.session_id):
+            log_path = self.workflow_log_path(session)
+            log_path.parent.mkdir(parents=True, exist_ok=True)
+            entry = {
+                "ts": utc_now_iso(),
+                "event": event,
+                "session_id": session.session_id,
+                "thread_id": session.thread_id,
+                "run_id": session.run_id,
+                **payload,
+            }
+            with log_path.open("a", encoding="utf-8") as fp:
+                fp.write(json.dumps(entry, ensure_ascii=False) + "\n")
 
     def relative_path(self, session: CompileSession, path: str | Path) -> str:
         target = Path(path)

@@ -9,16 +9,20 @@ from concurrent.futures import TimeoutError as FuturesTimeoutError
 from dataclasses import dataclass, field
 from datetime import datetime
 from enum import Enum
-from typing import Any
+from typing import TYPE_CHECKING, Any
 
 from langchain.agents import create_agent
 from langchain.tools import BaseTool
 from langchain_core.messages import AIMessage, HumanMessage
 from langchain_core.runnables import RunnableConfig
 
-from deerflow.agents.thread_state import SandboxState, ThreadDataState, ThreadState
 from deerflow.models import create_chat_model
 from deerflow.subagents.config import SubagentConfig
+
+if TYPE_CHECKING:
+    from deerflow.agents.thread_state import SandboxState, ThreadDataState
+else:
+    SandboxState = ThreadDataState = Any
 
 logger = logging.getLogger(__name__)
 
@@ -49,7 +53,11 @@ class SubagentResult:
     completed_at: datetime | None = None
     ai_messages: list[dict[str, Any]] | None = None
     cancel_event: threading.Event = field(default_factory=threading.Event, repr=False)
+    worker_done_event: threading.Event = field(default_factory=threading.Event, repr=False)
     _status_lock: threading.Lock = field(default_factory=threading.Lock, repr=False)
+    _handle_lock: threading.Lock = field(default_factory=threading.Lock, repr=False)
+    _loop: asyncio.AbstractEventLoop | None = field(default=None, repr=False)
+    _asyncio_task: asyncio.Task[Any] | None = field(default=None, repr=False)
 
     def __post_init__(self):
         if self.ai_messages is None:
@@ -89,6 +97,24 @@ def _mark_execution_complete(result: SubagentResult) -> None:
         else:
             result.status = SubagentStatus.COMPLETED
         result.completed_at = datetime.now()
+
+
+def _cancel_running_coroutine(result: SubagentResult, *, force: bool = False) -> bool:
+    with result._status_lock:
+        if result.status in _TERMINAL_STATUSES and not force:
+            return False
+        result.cancel_event.set()
+    with result._handle_lock:
+        loop = result._loop
+        task = result._asyncio_task
+    if loop is None or task is None or task.done():
+        return True
+    try:
+        loop.call_soon_threadsafe(task.cancel)
+    except RuntimeError:
+        # The isolated event loop may have completed between the snapshot and call.
+        pass
+    return True
 
 
 def _extract_text_content(content: Any) -> str:
@@ -174,6 +200,8 @@ class SubagentExecutor:
         )
 
     def _create_agent(self):
+        from deerflow.agents.thread_state import ThreadState
+
         model_name = _get_model_name(self.config, self.parent_model)
         model = create_chat_model(name=model_name, thinking_enabled=False)
 
@@ -280,12 +308,34 @@ class SubagentExecutor:
             _mark_execution_complete(result)
         except Exception as e:
             logger.exception("[trace=%s] Subagent %s async execution failed", self.trace_id, self.config.name)
-            _mark_terminal(result, SubagentStatus.FAILED, str(e))
+            if result.cancel_event.is_set():
+                _mark_terminal(result, SubagentStatus.CANCELLED, result.error or "Cancelled by user")
+            else:
+                _mark_terminal(result, SubagentStatus.FAILED, str(e))
 
         return result
 
     def _run_with_isolated_loop(self, task: str, result_holder: SubagentResult) -> SubagentResult:
-        return asyncio.run(self._aexecute(task, result_holder))
+        async def run_isolated() -> SubagentResult:
+            loop = asyncio.get_running_loop()
+            execution_task = asyncio.create_task(self._aexecute(task, result_holder))
+            with result_holder._handle_lock:
+                result_holder._loop = loop
+                result_holder._asyncio_task = execution_task
+            if result_holder.cancel_event.is_set():
+                execution_task.cancel()
+            try:
+                return await execution_task
+            except asyncio.CancelledError:
+                _mark_terminal(result_holder, SubagentStatus.CANCELLED, result_holder.error or "Cancelled by user")
+                return result_holder
+            finally:
+                with result_holder._handle_lock:
+                    result_holder._asyncio_task = None
+                    result_holder._loop = None
+                result_holder.worker_done_event.set()
+
+        return asyncio.run(run_isolated())
 
     def _execute_with_timeout(self, task: str, result_holder: SubagentResult) -> SubagentResult:
         future = _isolated_loop_pool.submit(self._run_with_isolated_loop, task, result_holder)
@@ -301,6 +351,7 @@ class SubagentExecutor:
                 result_holder.status = SubagentStatus.TIMED_OUT
                 result_holder.error = timeout_error
                 result_holder.completed_at = datetime.now()
+            _cancel_running_coroutine(result_holder, force=True)
             future.cancel()
             return result_holder
         except Exception as exc:
@@ -359,5 +410,11 @@ def request_cancel_background_task(task_id: str) -> bool:
         result = _background_tasks.get(task_id)
         if result is None:
             return False
-        result.cancel_event.set()
+    return _cancel_running_coroutine(result)
+
+
+async def wait_for_background_task_shutdown(task_id: str, timeout_seconds: float) -> bool:
+    result = get_background_task_result(task_id)
+    if result is None:
         return True
+    return await asyncio.to_thread(result.worker_done_event.wait, timeout_seconds)

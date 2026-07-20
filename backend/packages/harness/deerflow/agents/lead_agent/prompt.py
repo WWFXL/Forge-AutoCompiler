@@ -177,19 +177,23 @@ def _build_subagent_section(max_concurrent: int) -> str:
         "- **compiler**: For isolated C/C++ build execution and post-build verification inside a prepared compile container"
         if bash_available
         else "- **general-purpose**: For ANY non-trivial task - web research, code exploration, file operations, analysis, etc.\n"
-        "- **bash**: Not available in the current sandbox configuration. Use direct file/web tools or switch to AioSandboxProvider for isolated shell access.\n"
+        "- **bash**: Not available in the current runtime. Use direct file/web tools, or the compiler subagent for repository build commands.\n"
         "- **compiler**: For isolated C/C++ build execution and post-build verification inside a prepared compile container"
     )
-    direct_tool_examples = "prepare_workspace, identify_build_system, finalize_session, read_file, web_search, etc."
+    direct_tool_examples = "prepare_compile_session, clone_repository, identify_build_system, finalize_session, host_read, web_search, etc."
     direct_execution_example = (
         '# User asks: "Build this repository"\n'
         "# Thinking: I should treat the lead-agent compile task as living under /workspace/.compile-sessions/<thread_id>/<session_id>, use that path for my own inspection, then delegate build+verify execution to the compiler subagent.\n\n"
-        'prepare_workspace(repo_url="https://example.com/repo.git")\n'
+        'prepare_compile_session(repo_url="https://example.com/repo.git")\n'
+        "clone_repository()\n"
         "identify_build_system()\n"
-        'task(description="build and verify repository", prompt="build the project, run post-build verification, '
-        "and report structured results; note that any subagent-mentioned project directory is informational only "
-        'and does not replace the lead-agent working root /workspace/.compile-sessions/<thread_id>/<session_id>", '
-        'subagent_type="compiler")\n'
+        "task(\n"
+        '    description="build and verify repository",\n'
+        '    prompt="build the project, run post-build verification, and report structured results; '
+        "note that any subagent-mentioned project directory is informational only and does not replace "
+        'the lead-agent working root /workspace/.compile-sessions/<thread_id>/<session_id>",\n'
+        '    subagent_type="compiler",\n'
+        ")\n"
         "finalize_session()"
     )
     return f"""<subagent_system>
@@ -205,7 +209,7 @@ You are running with subagent capabilities enabled. Your role is to be a **task 
 **⛔ HARD CONCURRENCY LIMIT: MAXIMUM {n} `task` CALLS PER RESPONSE. THIS IS NOT OPTIONAL.**
 - Each response, you may include **at most {n}** `task` tool calls. Any excess calls are **silently discarded** by the system — you will lose that work.
 - Before launching subagents, count them explicitly in your thinking.
-- For repository compilation tasks, you must orchestrate the flow yourself: `prepare_workspace` → `identify_build_system` → `task(subagent_type="compiler")` → `finalize_session`.
+- For repository compilation tasks, you must orchestrate the flow yourself: `prepare_compile_session` → `clone_repository` → `identify_build_system` → `task(subagent_type="compiler")` → `finalize_session`.
 - Lead-agent work for each compile task is anchored at `/workspace/.compile-sessions/<thread_id>/<session_id>`.
 - If a compiler subagent reports that the project is located in some other directory, treat that as subagent-side informational output only; it does not redefine the lead agent's working directory.
 - Do not reason about subagent working directories. Tool bindings already encapsulate the correct execution location.
@@ -262,8 +266,8 @@ You are {agent_name}, an open-source compilation-focused agent.
 
 <compile_task_model>
 - For remote repository compilation or build tasks, do not rely on the legacy one-shot workflow as the primary path
-- Use the infrastructure-tool chain: `prepare_workspace`, `identify_build_system`, delegated `task(subagent_type="compiler")`, then `finalize_session`
-- `prepare_workspace`, `identify_build_system`, and `finalize_session` are deterministic infrastructure tools running in the DeerFlow service container
+- Use the infrastructure-tool chain: `prepare_compile_session`, `clone_repository`, `identify_build_system`, delegated `task(subagent_type="compiler")`, then `finalize_session`
+- `prepare_compile_session`, `clone_repository`, `identify_build_system`, and `finalize_session` are deterministic infrastructure tools running in the DeerFlow service container
 - The DeerFlow service container is rooted at `/workspace`; each compile task should be treated as anchored at `/workspace/.compile-sessions/<thread_id>/<session_id>`
 - Lead-agent repository inspection should use the compile-session directory under `/workspace/.compile-sessions/<thread_id>/<session_id>` and must not be re-anchored by subagent-reported paths
 - The `compiler` subagent is responsible for build/dependency work and routine post-build verification; do not rely on the subagent's own directory descriptions for lead-agent reasoning
@@ -283,7 +287,7 @@ You are {agent_name}, an open-source compilation-focused agent.
 {subagent_section}
 
 <compile_analysis_behavior>
-- For repository compilation tasks, first establish the compile workspace, then identify the build system, then delegate build execution to the `compiler` subagent, and always finalize the session afterward
+- For repository compilation tasks, first prepare the compile session, clone the repository, identify the build system, then delegate build execution to the `compiler` subagent, and always finalize the session afterward
 - After compile tools or subagents return log, artifact, or verification paths, use those returned paths to inspect relevant files as needed
 - Prefer targeted log reading over aimless directory traversal
 - If a compiler subagent reports a project path like `/workspace/repo`, treat it as execution-side context only; do not let it replace the lead-agent compile-session root

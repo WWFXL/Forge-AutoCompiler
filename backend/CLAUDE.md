@@ -180,7 +180,7 @@ Lead Agent 的提示词刻意**不**把详细编译流程写进去，避免污�
 
 - 第一次启动后 `get_app_config()` 缓存
 - 文件路径变化或 mtime 变大时自动重载（无需重启）
-- `config_version` 当前 5；schema 改时在 `config.example.yaml` +1，用户跑 `make config-upgrade` 自动合并
+- `config_version` 当前 6；schema 改时在 `config.example.yaml` +1，用户跑 `make config-upgrade` 自动合并
 - `$VAR` 占位符在加载时被环境变量替换
 
 关键段落与其消费者：
@@ -189,7 +189,7 @@ Lead Agent 的提示词刻意**不**把详细编译流程写进去，避免污�
 |---|---|
 | `models[]` | `deerflow.models.factory.create_chat_model` |
 | `tools[]` / `tool_groups[]` | `deerflow.tools.builtins.tool_search`、Lead Agent `get_available_tools` |
-| `sandbox` | `deerflow.sandbox.middleware`、Docker 模式选择 |
+| `sandbox` | v6 兼容字段，应为 `null`；C/C++ 构建隔离由 `deerflow.compile` 管理 |
 | `memory` | `deerflow.agents.memory.*` |
 | `summarization` | Lead Agent 中的 `SummarizationMiddleware` |
 | `subagents` | `deerflow.subagents.config` |

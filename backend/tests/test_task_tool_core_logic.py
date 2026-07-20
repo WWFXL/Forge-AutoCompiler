@@ -383,15 +383,11 @@ def test_cleanup_called_on_timed_out(monkeypatch):
 
 
 def test_cleanup_not_called_on_polling_safety_timeout(monkeypatch):
-    """Verify cleanup_background_task is NOT called on polling safety timeout.
-
-    This prevents race conditions where the background task is still running
-    but the polling loop gives up. The cleanup should happen later when the
-    executor completes and sets a terminal status.
-    """
+    """Polling timeout keeps the registry entry when the worker cannot stop."""
     config = _make_subagent_config(timeout_seconds=1)
     # Keep max_poll_count small for test speed: (1 + 60) // 5 = 12
     events = []
+    cancel_requests = []
     cleanup_calls = []
 
     monkeypatch.setattr(task_tool_module, "SubagentStatus", FakeSubagentStatus)
@@ -415,6 +411,16 @@ def test_cleanup_not_called_on_polling_safety_timeout(monkeypatch):
         "cleanup_background_task",
         lambda task_id: cleanup_calls.append(task_id),
     )
+    monkeypatch.setattr(
+        task_tool_module,
+        "request_cancel_background_task",
+        lambda task_id: cancel_requests.append(task_id) or True,
+    )
+    monkeypatch.setattr(
+        task_tool_module,
+        "wait_for_background_task_shutdown",
+        lambda task_id, timeout_seconds: False,
+    )
 
     output = _run_task_tool(
         runtime=_make_runtime(),
@@ -425,27 +431,24 @@ def test_cleanup_not_called_on_polling_safety_timeout(monkeypatch):
     )
 
     assert output.startswith("Task polling timed out after 0 minutes")
-    # cleanup should NOT be called because the task is still RUNNING
+    assert cancel_requests == ["tc-no-cleanup-safety-timeout"]
     assert cleanup_calls == []
 
 
-def test_cleanup_scheduled_on_cancellation(monkeypatch):
-    """Verify cancellation schedules deferred cleanup for the background task."""
+def test_cancellation_waits_for_shutdown_before_cleanup(monkeypatch):
+    """Cancellation reaps the registry entry after the worker stops."""
     config = _make_subagent_config()
     events = []
+    cancel_requests = []
+    shutdown_waits = []
     cleanup_calls = []
-    scheduled_cleanup_coros = []
-    poll_count = 0
-
-    def get_result(_: str):
-        nonlocal poll_count
-        poll_count += 1
-        if poll_count == 1:
-            return _make_result(FakeSubagentStatus.RUNNING, ai_messages=[])
-        return _make_result(FakeSubagentStatus.COMPLETED, result="done")
 
     async def cancel_on_first_sleep(_: float) -> None:
         raise asyncio.CancelledError
+
+    async def wait_for_shutdown(task_id: str, timeout_seconds: float) -> bool:
+        shutdown_waits.append((task_id, timeout_seconds))
+        return True
 
     monkeypatch.setattr(task_tool_module, "SubagentStatus", FakeSubagentStatus)
     monkeypatch.setattr(
@@ -455,14 +458,19 @@ def test_cleanup_scheduled_on_cancellation(monkeypatch):
     )
     monkeypatch.setattr(task_tool_module, "get_subagent_config", lambda _: config)
     monkeypatch.setattr(task_tool_module, "get_skills_prompt_section", lambda: "")
-    monkeypatch.setattr(task_tool_module, "get_background_task_result", get_result)
+    monkeypatch.setattr(
+        task_tool_module,
+        "get_background_task_result",
+        lambda _: _make_result(FakeSubagentStatus.RUNNING, ai_messages=[]),
+    )
     monkeypatch.setattr(task_tool_module, "get_stream_writer", lambda: events.append)
     monkeypatch.setattr(task_tool_module.asyncio, "sleep", cancel_on_first_sleep)
     monkeypatch.setattr(
-        task_tool_module.asyncio,
-        "create_task",
-        lambda coro: scheduled_cleanup_coros.append(coro) or _DummyScheduledTask(),
+        task_tool_module,
+        "request_cancel_background_task",
+        lambda task_id: cancel_requests.append(task_id) or True,
     )
+    monkeypatch.setattr(task_tool_module, "wait_for_background_task_shutdown", wait_for_shutdown)
     monkeypatch.setattr("deerflow.tools.tools.get_subagent_tools", lambda **kwargs: [])
     monkeypatch.setattr(
         task_tool_module,
@@ -479,20 +487,17 @@ def test_cleanup_scheduled_on_cancellation(monkeypatch):
             tool_call_id="tc-cancelled-cleanup",
         )
 
-    assert cleanup_calls == []
-    assert len(scheduled_cleanup_coros) == 1
-
-    asyncio.run(scheduled_cleanup_coros.pop())
-
+    assert cancel_requests == ["tc-cancelled-cleanup"]
+    assert shutdown_waits == [("tc-cancelled-cleanup", 30.0)]
     assert cleanup_calls == ["tc-cancelled-cleanup"]
 
 
 def test_cancelled_cleanup_stops_after_timeout(monkeypatch):
-    """Verify deferred cleanup gives up after a bounded number of polls."""
+    """Cancellation preserves the registry entry when worker shutdown times out."""
     config = _make_subagent_config(timeout_seconds=1)
     events = []
+    cancel_requests = []
     cleanup_calls = []
-    scheduled_cleanup_coros = []
 
     async def cancel_on_first_sleep(_: float) -> None:
         raise asyncio.CancelledError
@@ -513,9 +518,14 @@ def test_cancelled_cleanup_stops_after_timeout(monkeypatch):
     monkeypatch.setattr(task_tool_module, "get_stream_writer", lambda: events.append)
     monkeypatch.setattr(task_tool_module.asyncio, "sleep", cancel_on_first_sleep)
     monkeypatch.setattr(
-        task_tool_module.asyncio,
-        "create_task",
-        lambda coro: scheduled_cleanup_coros.append(coro) or _DummyScheduledTask(),
+        task_tool_module,
+        "request_cancel_background_task",
+        lambda task_id: cancel_requests.append(task_id) or True,
+    )
+    monkeypatch.setattr(
+        task_tool_module,
+        "wait_for_background_task_shutdown",
+        lambda task_id, timeout_seconds: False,
     )
     monkeypatch.setattr("deerflow.tools.tools.get_subagent_tools", lambda **kwargs: [])
     monkeypatch.setattr(
@@ -533,12 +543,7 @@ def test_cancelled_cleanup_stops_after_timeout(monkeypatch):
             tool_call_id="tc-cancelled-timeout",
         )
 
-    async def bounded_sleep(_seconds: float) -> None:
-        return None
-
-    monkeypatch.setattr(task_tool_module.asyncio, "sleep", bounded_sleep)
-    asyncio.run(scheduled_cleanup_coros.pop())
-
+    assert cancel_requests == ["tc-cancelled-timeout"]
     assert cleanup_calls == []
 
 

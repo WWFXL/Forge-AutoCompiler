@@ -1,14 +1,19 @@
 from __future__ import annotations
 
-from typing import Annotated
+import json
+from typing import TYPE_CHECKING, Annotated, Any
 
 from langchain.tools import InjectedToolCallId, ToolRuntime, tool
 from langchain_core.messages import ToolMessage
 from langgraph.types import Command
 from langgraph.typing import ContextT
 
-from deerflow.agents.thread_state import ThreadState
-from deerflow.compile.operations import clone_repository_impl, finalize_compile_session_impl, get_bound_session, get_compile_services, inspect_build_system_impl, prepare_compile_session_impl
+from deerflow.compile.operations import cleanup_and_finalize_compile_session_impl, clone_repository_impl, get_bound_session, inspect_build_system_impl, prepare_compile_session_impl
+
+if TYPE_CHECKING:
+    from deerflow.agents.thread_state import ThreadState
+else:
+    ThreadState = Any
 
 COMPILE_SESSION_STATE_KEY = "compile_session_id"
 COMPILE_CONTAINER_STATE_KEY = "compile_container_id"
@@ -21,6 +26,13 @@ def _get_thread_id(runtime: ToolRuntime[ContextT, ThreadState]) -> str:
     if thread_id is None:
         thread_id = runtime.config.get("configurable", {}).get("thread_id")
     return thread_id or "default"
+
+
+def _get_run_id(runtime: ToolRuntime[ContextT, ThreadState]) -> str | None:
+    run_id = runtime.context.get("run_id") if runtime.context else None
+    if run_id is None:
+        run_id = runtime.config.get("configurable", {}).get("run_id")
+    return run_id
 
 
 def _get_state_value(runtime: ToolRuntime[ContextT, ThreadState], key: str) -> str | None:
@@ -65,6 +77,7 @@ def prepare_compile_session(
         thread_id=_get_thread_id(runtime),
         repo_url=repo_url,
         branch=branch,
+        run_id=_get_run_id(runtime),
     )
     message = f"Compile session prepared. Next call clone_repository() using the bound session. session_id={session.session_id}, container_id={session.container_id}, container_repo_path={COMPILE_CONTAINER_REPO_PATH}"
     update = _build_compile_state_update(
@@ -180,12 +193,39 @@ def finalize_session(
     """
     effective_session_id = session_id or _get_state_value(runtime, COMPILE_SESSION_STATE_KEY)
     if not effective_session_id:
-        return "No compile session is currently bound. Call prepare_compile_session() first."
+        return json.dumps(
+            {
+                "status": "error",
+                "message": "No compile session is currently bound. Call prepare_compile_session() first.",
+            }
+        )
 
     thread_id = _get_thread_id(runtime)
     session = get_bound_session(session_id=effective_session_id, thread_id=thread_id)
-    updated = finalize_compile_session_impl(session=session)
-    services = get_compile_services()
-    services.runtime.stop_and_remove_container(session)
+    updated, cleanup_result = cleanup_and_finalize_compile_session_impl(
+        session=session,
+    )
 
-    return f"Session finalized. session_id={updated.session_id}, status={updated.status}, action=destroy, lead_repro_bundle_path=none, host_repro_bundle_path=none, artifact_count={len(updated.artifacts)}"
+    final_payload = {
+        "status": updated.status,
+        "session_id": updated.session_id,
+        "commit_sha": updated.commit_sha,
+        "build_system": updated.build_system,
+        "commands": [command.command for command in updated.commands],
+        "verification": updated.verification.status if updated.verification else "not_run",
+        "artifacts": [
+            {
+                "path": artifact.path,
+                "artifact_type": artifact.artifact_type,
+                "size_bytes": artifact.size_bytes,
+            }
+            for artifact in updated.artifacts
+        ],
+        "repro_script": f"{updated.leadagent_repro_dir}/build.sh",
+        "container_stopped": cleanup_result.stopped,
+        "container_removed": cleanup_result.removed,
+        "error": updated.error,
+        "completed_at": updated.completed_at,
+        "finalized_at": updated.finalized_at,
+    }
+    return json.dumps(final_payload, ensure_ascii=False, indent=2)

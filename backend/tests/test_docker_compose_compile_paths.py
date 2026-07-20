@@ -35,3 +35,10 @@ def test_backend_build_and_runtime_receive_uv_timeout():
     assert compose.count("UV_HTTP_TIMEOUT=${UV_HTTP_TIMEOUT:-600}") == 2
     assert compose.count("uv sync --frozen") == 4
     assert compose.count("uv run --frozen") == 2
+
+
+def test_backend_services_mount_example_config_for_runtime_validation():
+    compose = COMPOSE_FILE.read_text(encoding="utf-8")
+
+    assert compose.count("../config.example.yaml:/app/config.example.yaml:ro") == 2
+    assert compose.count("../scripts:/app/scripts:ro") == 2

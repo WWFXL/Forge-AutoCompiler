@@ -76,7 +76,7 @@ def _run_container_bash_impl(
             timeout_seconds=timeout_seconds,
             log_path=log_path,
         )
-    except subprocess.TimeoutExpired:
+    except subprocess.TimeoutExpired as exc:
         completed_at = utc_now_iso()
         timeout_message = _build_timeout_message(command, timeout_seconds)
         _record_bash_command(
@@ -96,13 +96,17 @@ def _run_container_bash_impl(
             timeout_seconds=timeout_seconds,
             log_path=log_path,
         )
-
-        # 直接返回给 Agent，而不是抛出异常
-        message = (
-            f"exit_code=124 (Timeout)\n"
-            f"workdir={effective_workdir}\n"
-            f"error: {timeout_message}\n"
-            f"output_tail:\n{_truncate_output_tail(result.combined_output)}"  # 即使超时也尽可能返回已输出的内容
+        stdout = exc.stdout.decode(errors="replace") if isinstance(exc.stdout, bytes) else (exc.stdout or "")
+        stderr = exc.stderr.decode(errors="replace") if isinstance(exc.stderr, bytes) else (exc.stderr or "")
+        combined_output = stdout + stderr
+        # Return a structured timeout to the agent instead of raising.
+        message = f"exit_code=124 (Timeout)\nworkdir={effective_workdir}\nerror: {timeout_message}\noutput_tail:\n{_truncate_output_tail(combined_output)}"
+        result = CommandResult(
+            exit_code=124,
+            stdout=stdout,
+            stderr=stderr or timeout_message,
+            combined_output=combined_output or timeout_message,
+            log_path=log_path,
         )
         return result, message
 

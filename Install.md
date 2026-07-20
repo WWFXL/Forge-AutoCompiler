@@ -64,6 +64,9 @@ Windows 不走“原生 PowerShell + Git Bash 拼装全部依赖”的路径。�
 - `make: command not found`：安装 `build-essential`。
 - 构建镜像下载依赖超时：在根目录 `.env` 中按网络情况设置 `NPM_REGISTRY`、`UV_INDEX_URL` 或 `APT_MIRROR`；`UV_HTTP_TIMEOUT` 默认是 600 秒。
 - 编译镜像需要代理时使用 `COMPILE_HTTP_PROXY` / `COMPILE_HTTPS_PROXY`；不要填写容器内不可达的 WSL `127.0.0.1` 代理地址。
+- 会话编译容器需要代理时使用 `COMPILE_RUNTIME_HTTP_PROXY` / `COMPILE_RUNTIME_HTTPS_PROXY` / `COMPILE_RUNTIME_NO_PROXY`。代理值对容器内构建脚本及 `docker inspect` 可见，不要在编译不可信仓库时填入带凭据的代理。
+- Docker Desktop bridge 模式使用容器可达地址。`COMPILE_RUNTIME_NETWORK=host` 只用于可信仓库，因为构建脚本将能访问 WSL 的 loopback 服务；`127.0.0.1` 仅在代理运行于同一 WSL，或 WSL 启用 mirrored networking 时才能到达目标代理。
+- 当前容器内 clone 只验证了公开 HTTPS 仓库，不会继承宿主 Git credential helper、SSH agent 或 `known_hosts`。不要把 token 写进仓库 URL，因为 URL 会进入 session 日志。
 - 不要在启用 Docker Desktop 集成后，再在 WSL 内同时启动第二套 Docker daemon。若明确使用 WSL 原生 Docker，请始终在同一个 WSL 发行版中运行 `make` 和 `docker`；保持该 WSL 会话运行，Windows 侧的 `docker.exe` 看不到这些容器。
 
 **默认优先级**：
