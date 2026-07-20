@@ -33,6 +33,11 @@ def load_v2_manifest() -> dict:
     return forge_benchmark_runner._load_manifest(path)
 
 
+def load_v3_manifest() -> dict:
+    path = REPO_ROOT / "benchmarks" / "manifests" / "cpp-pilot-v3.json"
+    return forge_benchmark_runner._load_manifest(path)
+
+
 def ready_preflight(manifest: dict, *, ready: bool = True) -> dict:
     return {
         "ready": ready,
@@ -73,10 +78,19 @@ def test_build_policy_applies_frozen_case_and_model_constraints() -> None:
     assert policy.process_environment == manifest["cases"][0]["constraints"]["environment"]
 
 
-def test_v2_preflight_accepts_clean_descendant_with_frozen_components(
+@pytest.mark.parametrize(
+    ("manifest_loader", "manifest_name"),
+    [
+        (load_v2_manifest, "cpp-pilot-v2.json"),
+        (load_v3_manifest, "cpp-pilot-v3.json"),
+    ],
+)
+def test_runnable_preflight_accepts_clean_descendant_with_frozen_components(
     monkeypatch: pytest.MonkeyPatch,
+    manifest_loader,
+    manifest_name: str,
 ) -> None:
-    manifest = load_v2_manifest()
+    manifest = manifest_loader()
     expected_hashes = {
         **manifest["forge"]["component_sha256"],
         **manifest["protocol_artifact_sha256"],
@@ -120,7 +134,7 @@ def test_v2_preflight_accepts_clean_descendant_with_frozen_components(
     preflight = forge_benchmark_runner.collect_preflight(
         manifest,
         repo_root=REPO_ROOT,
-        manifest_path=REPO_ROOT / "benchmarks" / "manifests" / "cpp-pilot-v2.json",
+        manifest_path=REPO_ROOT / "benchmarks" / "manifests" / manifest_name,
     )
 
     assert preflight["ready"] is True
@@ -132,10 +146,12 @@ def test_v2_preflight_accepts_clean_descendant_with_frozen_components(
     assert preflight["runtime"]["control_plane_topology"] == "compose-dood"
 
 
-def test_v2_preflight_rejects_missing_baseline_or_compose_dood(
+@pytest.mark.parametrize("manifest_loader", [load_v2_manifest, load_v3_manifest])
+def test_runnable_preflight_rejects_missing_baseline_or_compose_dood(
     monkeypatch: pytest.MonkeyPatch,
+    manifest_loader,
 ) -> None:
-    manifest = load_v2_manifest()
+    manifest = manifest_loader()
     monkeypatch.setattr(
         forge_benchmark_runner,
         "_git_state",
@@ -241,11 +257,13 @@ def test_run_refuses_failed_preflight_before_importing_model_client(
     assert not any(event["event"].startswith("model.") for event in ledger.read())
 
 
-def test_v2_run_refuses_non_compose_process_before_model_request(
+@pytest.mark.parametrize("manifest_loader", [load_v2_manifest, load_v3_manifest])
+def test_runnable_run_refuses_non_compose_process_before_model_request(
     tmp_path: Path,
     monkeypatch: pytest.MonkeyPatch,
+    manifest_loader,
 ) -> None:
-    manifest = load_v2_manifest()
+    manifest = manifest_loader()
     preflight = ready_preflight(manifest)
     monkeypatch.setattr(
         forge_benchmark_runner,
@@ -271,6 +289,12 @@ def test_v2_run_refuses_non_compose_process_before_model_request(
     events = ledger.read()
     assert events[-1]["event"] == "runtime.topology_rejected"
     assert not any(event["event"].startswith("model.") for event in events)
+
+
+def test_runner_defaults_to_v3_manifest() -> None:
+    args = forge_benchmark_runner._build_parser().parse_args(["preflight"])
+
+    assert args.manifest == REPO_ROOT / "benchmarks" / "manifests" / "cpp-pilot-v3.json"
 
 
 def test_keyboard_interrupt_keeps_attempt_recoverable_and_reconciles_orphans(

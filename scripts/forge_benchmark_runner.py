@@ -27,6 +27,7 @@ for import_root in (str(HARNESS_ROOT), str(Path(__file__).resolve().parent)):
 
 import forge_benchmark as protocol  # noqa: E402
 import forge_benchmark_v2 as protocol_v2  # noqa: E402
+import forge_benchmark_v3 as protocol_v3  # noqa: E402
 
 from deerflow.compile.evidence import (  # noqa: E402
     EvidenceError,
@@ -88,6 +89,8 @@ def _manifest_protocol(manifest: dict[str, Any]):
         return protocol
     if schema_version == protocol_v2.SCHEMA_VERSION:
         return protocol_v2
+    if schema_version == protocol_v3.SCHEMA_VERSION:
+        return protocol_v3
     raise RunnerError(f"Unsupported benchmark schema version: {schema_version}")
 
 
@@ -282,7 +285,11 @@ def collect_preflight(
     forge_baseline = manifest["forge"]["commit_sha"]
     revision_policy = manifest["forge"].get("revision_policy", "exact")
     baseline_is_ancestor = _baseline_is_ancestor(repo_root, forge_baseline)
-    baseline_satisfied = forge_state["revision"] == forge_baseline if revision_policy == "exact" else baseline_is_ancestor if revision_policy == protocol_v2.REVISION_POLICY else False
+    runnable_revision_policies = {
+        protocol_v2.REVISION_POLICY,
+        protocol_v3.REVISION_POLICY,
+    }
+    baseline_satisfied = forge_state["revision"] == forge_baseline if revision_policy == "exact" else baseline_is_ancestor if revision_policy in runnable_revision_policies else False
     component_results: dict[str, dict[str, Any]] = {}
     for relative_path, expected_digest in manifest["forge"]["component_sha256"].items():
         actual_digest = _sha256_file(repo_root / relative_path)
@@ -326,7 +333,11 @@ def collect_preflight(
     endpoint_reachable = _endpoint_reachable(model["endpoint"]) if check_endpoint else None
     expected_topology = runtime.get("control_plane_topology")
     compose_dood_present = _compose_dood_present(repo_root)
-    topology_matches = expected_topology is None or (expected_topology == protocol_v2.CONTROL_PLANE_TOPOLOGY and compose_dood_present)
+    compose_dood_topologies = {
+        protocol_v2.CONTROL_PLANE_TOPOLOGY,
+        protocol_v3.CONTROL_PLANE_TOPOLOGY,
+    }
+    topology_matches = expected_topology is None or (expected_topology in compose_dood_topologies and compose_dood_present)
     checks = {
         "credential_present": _credential_present(model["credential_env"]),
         "endpoint_reachable": endpoint_reachable,
@@ -366,7 +377,17 @@ def collect_preflight(
     return {
         "ready": all(required_checks),
         "manifest_sha256": _manifest_sha256(manifest),
-        "manifest_file_sha256": _sha256_file(manifest_path or repo_root / "benchmarks" / "manifests" / ("cpp-pilot-v2.json" if manifest["schema_version"] == protocol_v2.SCHEMA_VERSION else "cpp-pilot-v1.json")),
+        "manifest_file_sha256": _sha256_file(
+            manifest_path
+            or repo_root
+            / "benchmarks"
+            / "manifests"
+            / {
+                protocol.SCHEMA_VERSION: "cpp-pilot-v1.json",
+                protocol_v2.SCHEMA_VERSION: "cpp-pilot-v2.json",
+                protocol_v3.SCHEMA_VERSION: "cpp-pilot-v3.json",
+            }[manifest["schema_version"]]
+        ),
         "forge": {
             **forge_state,
             "expected_revision": manifest["forge"]["commit_sha"],
@@ -379,7 +400,7 @@ def collect_preflight(
             "docker_server_version": (docker_version if docker_version_code == 0 else None),
             "platform_system": platform.system(),
             "platform_machine": platform.machine(),
-            "control_plane_topology": (protocol_v2.CONTROL_PLANE_TOPOLOGY if compose_dood_present else None),
+            "control_plane_topology": (protocol_v3.CONTROL_PLANE_TOPOLOGY if compose_dood_present else None),
         },
         "checks": checks,
     }
@@ -646,7 +667,10 @@ def run_attempt(
     if any(event["event"].startswith("model.") for event in events):
         raise RunnerError("A physical attempt cannot issue model calls twice")
     expected_topology = manifest["runtime"].get("control_plane_topology")
-    if expected_topology == protocol_v2.CONTROL_PLANE_TOPOLOGY:
+    if expected_topology in {
+        protocol_v2.CONTROL_PLANE_TOPOLOGY,
+        protocol_v3.CONTROL_PLANE_TOPOLOGY,
+    }:
         if not _running_inside_compose_dood(REPO_ROOT):
             ledger.append(
                 "runtime.topology_rejected",
@@ -753,7 +777,7 @@ def _build_parser() -> argparse.ArgumentParser:
     common.add_argument(
         "--manifest",
         type=Path,
-        default=REPO_ROOT / "benchmarks" / "manifests" / "cpp-pilot-v2.json",
+        default=REPO_ROOT / "benchmarks" / "manifests" / "cpp-pilot-v3.json",
     )
     common.add_argument("--skip-endpoint-check", action="store_true")
 

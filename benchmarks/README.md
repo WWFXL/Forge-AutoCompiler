@@ -1,6 +1,21 @@
 # Forge C/C++ benchmark protocols
 
-## Runnable pilot v2
+## Historical pilot v3
+
+`cpp-pilot-v3.json` is the completed five-case calibration protocol for the runtime that includes the Issue #16 exact-clone ownership fix, Issue #17 runner/session terminalization fix, and Issue #18 provider-reported model identity extraction. It preserves every v1/v2 protocol artifact and existing physical-attempt ledger, keeps `control_plane_topology: "compose-dood"`, and creates a separate v3 evidence stratum. Its five physical attempts are immutable historical evidence and must not be rerun, replaced, or pooled with another protocol version.
+
+The runtime implementation baseline is `371f678e07acc6ae87f80d7544f573332d74fa88`. The reviewed fixes were later restacked and squash-merged, so current main no longer has that old branch commit as an ancestor and is not tree-equivalent to it. Historical audit instead verifies every frozen runtime blob at the original baseline and requires the inspected HEAD to descend from reviewed main successor `17e09f5896ca8bf5739cec413c16402cb441209d`. The model and execution controls remain unchanged from v2: `gpt-5.6-sol` for both roles, the RichLab `/v1` endpoint, `OpenAI_AK`, a 120-second request timeout, zero provider retries, no fallback, one serial backend run, and disabled Memory/Skills.
+
+Validate the frozen manifest and audit its Git provenance with:
+
+```powershell
+python scripts/forge_benchmark_v3.py validate-manifest benchmarks/manifests/cpp-pilot-v3.json
+python scripts/forge_benchmark_history.py benchmarks/manifests/cpp-pilot-v3.json
+```
+
+The old v3 current-tree preflight is expected to reject later reviewed runtime drift. That rejection preserves the frozen collection boundary; it is not permission to rewrite the manifest or create replacement attempts.
+
+## Historical pilot v2
 
 `cpp-pilot-v2.json` is the runnable five-case calibration protocol created after the Issue #11 evidence ledger landed. It keeps the v1 manifest, validator, and Schema byte-for-byte unchanged, freezes the expanded runtime/evidence component set, and records `control_plane_topology: "compose-dood"`. The v2 baseline uses `gpt-5.6-sol` for both roles, 120-second provider timeouts, zero provider retries, no fallback, and disabled Memory/Skills.
 
