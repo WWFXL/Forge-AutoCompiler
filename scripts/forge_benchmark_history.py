@@ -14,6 +14,7 @@ from pathlib import Path, PurePosixPath
 from typing import Any
 
 import forge_benchmark_v2 as protocol_v2
+import forge_benchmark_v3 as protocol_v3
 
 REPOSITORY_ROOT = Path(__file__).resolve().parents[1]
 
@@ -31,12 +32,27 @@ class AuditedSquashLineage:
     successor_tree_sha: str
 
 
+@dataclass(frozen=True)
+class AuditedReviewedSuccessorLineage:
+    baseline_commit: str
+    baseline_tree_sha: str
+    successor_commit: str
+    successor_tree_sha: str
+
+
 V2_LINEAGE = AuditedSquashLineage(
     baseline_commit="d845b735576be706f79fcf0666f66c14929a52cc",
     baseline_tree_sha="67c604af71df09376f17a881828a465cdebe879a",
     source_head="561b38cee9f027b0dfb01ff765b44a28dbf2de8f",
     successor_commit="9e002f4568a77de07fdce65b49373afb7e5cc74e",
     successor_tree_sha="29aa07d5bb4bb5e9482b1f0e5146237757adf695",
+)
+
+V3_LINEAGE = AuditedReviewedSuccessorLineage(
+    baseline_commit="371f678e07acc6ae87f80d7544f573332d74fa88",
+    baseline_tree_sha="a7ab45a93ea763adadcad15cbce31f4c4c36849e",
+    successor_commit="17e09f5896ca8bf5739cec413c16402cb441209d",
+    successor_tree_sha="64f0bbd6ee7d8ae5190da36eb560df121732794c",
 )
 
 
@@ -140,6 +156,49 @@ def audit_v2_history(
     }
 
 
+def audit_v3_history(
+    manifest: dict[str, Any],
+    repo_root: Path = REPOSITORY_ROOT,
+    *,
+    head_revision: str = "HEAD",
+) -> dict[str, Any]:
+    """Verify v3 blobs and prove that HEAD follows the reviewed main successor."""
+    protocol_v3.validate_manifest(manifest)
+    baseline = manifest["forge"]["commit_sha"]
+    if baseline != V3_LINEAGE.baseline_commit:
+        raise HistoryAuditError("the v3 baseline is not covered by the audited lineage")
+
+    baseline_tree = _git_text(repo_root, ["rev-parse", f"{baseline}^{{tree}}"])
+    if baseline_tree != V3_LINEAGE.baseline_tree_sha:
+        raise HistoryAuditError("the v3 baseline has an unexpected tree")
+    successor_tree = _git_text(repo_root, ["rev-parse", f"{V3_LINEAGE.successor_commit}^{{tree}}"])
+    if successor_tree != V3_LINEAGE.successor_tree_sha:
+        raise HistoryAuditError("the v3 reviewed successor has an unexpected tree")
+
+    resolved_head = _git_text(repo_root, ["rev-parse", head_revision])
+    if not _is_ancestor(repo_root, V3_LINEAGE.successor_commit, resolved_head):
+        raise HistoryAuditError("HEAD does not descend from the v3 audited reviewed successor")
+
+    for relative_path, expected_digest in manifest["forge"]["component_sha256"].items():
+        blob = _git(repo_root, ["show", f"{baseline}:{relative_path}"])
+        if hashlib.sha256(blob).hexdigest() != expected_digest:
+            raise HistoryAuditError(f"frozen baseline blob mismatch: {relative_path}")
+
+    for relative_path, expected_digest in manifest["protocol_artifact_sha256"].items():
+        artifact = _safe_repository_file(repo_root, relative_path)
+        if hashlib.sha256(artifact.read_bytes()).hexdigest() != expected_digest:
+            raise HistoryAuditError(f"frozen protocol artifact mismatch: {relative_path}")
+
+    return {
+        "baseline_commit": baseline,
+        "head_revision": resolved_head,
+        "lineage_mode": "audited_reviewed_successor",
+        "successor_commit": V3_LINEAGE.successor_commit,
+        "baseline_tree_sha": V3_LINEAGE.baseline_tree_sha,
+        "successor_tree_sha": V3_LINEAGE.successor_tree_sha,
+    }
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
@@ -152,7 +211,13 @@ def main(argv: list[str] | None = None) -> int:
     args = parser.parse_args(argv)
     try:
         manifest = protocol_v2.load_json_document(args.manifest)
-        result = audit_v2_history(manifest, head_revision=args.head)
+        schema_version = manifest.get("schema_version") if isinstance(manifest, dict) else None
+        if schema_version == protocol_v2.SCHEMA_VERSION:
+            result = audit_v2_history(manifest, head_revision=args.head)
+        elif schema_version == protocol_v3.SCHEMA_VERSION:
+            result = audit_v3_history(manifest, head_revision=args.head)
+        else:
+            raise HistoryAuditError("only frozen benchmark v2 and v3 history can be audited")
     except (HistoryAuditError, protocol_v2.BenchmarkError, OSError, UnicodeError) as exc:
         print(f"error: {exc}", file=sys.stderr)
         return 2

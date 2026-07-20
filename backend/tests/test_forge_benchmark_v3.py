@@ -6,6 +6,7 @@ import importlib.util
 import json
 import shutil
 import subprocess
+import sys
 from pathlib import Path
 
 import pytest
@@ -17,12 +18,20 @@ V1_VALIDATOR_PATH = REPO_ROOT / "scripts" / "forge_benchmark.py"
 V3_MANIFEST_PATH = REPO_ROOT / "benchmarks" / "manifests" / "cpp-pilot-v3.json"
 V3_SCHEMA_PATH = REPO_ROOT / "benchmarks" / "schemas" / "forge-cpp-benchmark-v3.schema.json"
 V3_VALIDATOR_PATH = REPO_ROOT / "scripts" / "forge_benchmark_v3.py"
+HISTORY_AUDITOR_PATH = REPO_ROOT / "scripts" / "forge_benchmark_history.py"
 
 SPEC = importlib.util.spec_from_file_location("forge_benchmark_v3", V3_VALIDATOR_PATH)
 assert SPEC is not None
 assert SPEC.loader is not None
 forge_benchmark_v3 = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(forge_benchmark_v3)
+
+HISTORY_SPEC = importlib.util.spec_from_file_location("forge_benchmark_history_v3", HISTORY_AUDITOR_PATH)
+assert HISTORY_SPEC is not None
+assert HISTORY_SPEC.loader is not None
+forge_benchmark_history = importlib.util.module_from_spec(HISTORY_SPEC)
+sys.modules[HISTORY_SPEC.name] = forge_benchmark_history
+HISTORY_SPEC.loader.exec_module(forge_benchmark_history)
 
 
 def load_v3_manifest() -> dict:
@@ -64,13 +73,41 @@ def test_v3_manifest_rejects_protocol_drift(mutation, message: str) -> None:
         forge_benchmark_v3.validate_manifest(manifest)
 
 
-def test_v3_manifest_digest_is_canonical_and_frozen_files_match() -> None:
+def test_v3_manifest_digest_is_canonical_and_current_runtime_drift_is_rejected() -> None:
     manifest = load_v3_manifest()
     digest = forge_benchmark_v3.manifest_sha256(manifest)
     reparsed = json.loads(json.dumps(manifest, ensure_ascii=False, indent=4))
 
     assert forge_benchmark_v3.manifest_sha256(reparsed) == digest
-    forge_benchmark_v3.verify_frozen_components(manifest, REPO_ROOT)
+    assert digest == "d67ab40eb75db7edd01dbf760ec3b01ca495c08a3bdb05f4f33f07ce90e1b92f"
+    with pytest.raises(
+        forge_benchmark_v3.BenchmarkError,
+        match=r"manifest\.forge\.component_sha256\..*: does not match the current repository file",
+    ):
+        forge_benchmark_v3.verify_frozen_components(manifest, REPO_ROOT)
+
+
+@pytest.mark.skipif(shutil.which("git") is None, reason="git is unavailable")
+def test_v3_history_accepts_the_reviewed_main_successor() -> None:
+    result = forge_benchmark_history.audit_v3_history(load_v3_manifest(), REPO_ROOT)
+
+    assert result["lineage_mode"] == "audited_reviewed_successor"
+    assert result["baseline_commit"] == "371f678e07acc6ae87f80d7544f573332d74fa88"
+    assert result["baseline_tree_sha"] == "a7ab45a93ea763adadcad15cbce31f4c4c36849e"
+    assert result["successor_commit"] == "17e09f5896ca8bf5739cec413c16402cb441209d"
+
+
+@pytest.mark.skipif(shutil.which("git") is None, reason="git is unavailable")
+def test_v3_history_rejects_the_unreviewed_old_fork() -> None:
+    with pytest.raises(
+        forge_benchmark_history.HistoryAuditError,
+        match="does not descend from the v3 audited reviewed successor",
+    ):
+        forge_benchmark_history.audit_v3_history(
+            load_v3_manifest(),
+            REPO_ROOT,
+            head_revision="8828329896d92e8550eb1d0b3cf59bed58441987",
+        )
 
 
 def test_v3_runtime_components_match_the_declared_baseline() -> None:

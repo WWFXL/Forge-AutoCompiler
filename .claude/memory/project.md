@@ -8,7 +8,7 @@
 - 2026-07-20 — 将 Issue #22 / PR #23 的 pilot v3 协议与既有五 case 审计重排到 `main@17e09f58`
   - 范围: 保留 v3 manifest、Schema、validator、runner 与 digest 的冻结字节，移植 `73d28a16`/`88283298` 的真实增量，删除 PR #20 已提前落地的重复 v2 drift 测试
   - 历史边界: v3 五份 ledger 已绑定 `371f678e` 与 digest `d67ab40e...`，不得改写、replacement 或重跑；当前主干漂移必须被旧 v3 gate 拒绝，并另行验证历史 baseline blob 与审阅后继
-  - 状态: 已备份旧 head `88283298` 并开始冲突解析；等待历史审计、完整回归、PR CI 与合并
+  - 状态: 两笔真实增量已重排为中文提交，v3 历史审计已固定 baseline tree/blob 与审阅后主干 successor，并拒绝旧分叉；后端全量 `1519 passed, 25 skipped`，聚焦测试、Schema、Compose、改动文件 Ruff/format、前端串行 format/lint/typecheck/build、冻结哈希、diff 与无遗留容器检查通过，等待推送、PR 完整 CI 与合并
 
 ## 最近变更 (Recent Changes)
 <!-- 倒序，最新在上。 -->
@@ -120,12 +120,13 @@
 - 历史 manifest 的 Forge 组件哈希必须按其声明的 Git revision 读取 blob 校验；把它永久对照最新工作树，会在 stacked PR squash 合并或后续 instrumentation 后产生伪漂移。协议记录器与 Schema 仍应按当前字节校验；最小后端镜像没有 Git 时，由运行时 preflight 校验当前工作树。
 - Rebase 等价不能伪装成 Git ancestry：`d845b735` 不会因为其重排版本最终 squash 到主干就成为 `9e002f45` 的祖先。历史审计必须固定原 baseline tree、审阅后的 rebased head、squash successor 和相同 successor tree，并拒绝不在该 successor ancestry 上的 head。
 - 7.4 GiB WSL2 中不要并行启动前端 lint、typecheck 和 Next.js build；三个一次性 Node 容器会耗尽内存并让 WSL 服务超时。应串行执行，给每个容器设置内存/CPU 上限和独立匿名 `.next` 卷；无真实认证密钥的 CI build 使用仓库支持的 `SKIP_ENV_VALIDATION=1`。
-- 一次性前端测试容器的镜像内置源码可能落后于主干；应只读挂载当前 `frontend/src`、`public` 和 `next.config.js`，并让容器使用独立 `.next`，不能在运行 `next dev` 的容器内并发构建。
+- 一次性前端测试容器的镜像内置源码可能落后于主干；lint/typecheck/build 应只读挂载当前 `frontend/src`、`public` 和 `next.config.js`，format 还要挂载其扫描到的根级 Markdown/配置文件；使用独立 `.next`，不能在运行 `next dev` 的容器内并发构建。
 - Actions checkout 默认 `fetch-depth: 1`；需要读取 manifest 固定历史 revision 的 benchmark 测试必须显式获取完整 Git 历史，否则本地完整 clone 通过而 CI 会因找不到历史路径失败。
 - Compose 中只读挂载的 `/repo` 适合 runner/preflight，但 Ruff/pytest 必须关闭仓库内缓存；需要格式化时使用一次性可写 bind mount。WSL 宿主当前没有 `uv`，标准库 runner 可直接运行，依赖完整的回归测试继续在 LangGraph 开发容器中执行。
 - Manifest 的 CMake/configure 参数必须确定性注入 compiler prompt，并按有序 token 子序列验证；只检查参数集合会掩盖顺序敏感的配置偏差。
 - 在仓库根直接启动 Compose 会改变 project name，并可能因网络网段重叠创建失败；开发服务必须继续使用既定 `deer-flow-dev` project/启动脚本。
 - Compose 开发容器只把完整仓库只读挂载到 `/repo`，而 `/app/backend` 仅是后端源码挂载；依赖仓库根资产的 pytest/Ruff 必须从 `/repo/backend` 运行，并使用 `/app/backend/.venv` 解释器、关闭仓库内缓存。
 - 从大型冻结协议文件派生新版本时，单次命令输出可能被工具上限静默截断；必须分块读取并在冻结哈希前校验 JSON 解析、行数和机械替换后的完整字节相等性。
+- JSON Schema 内部若使用 `#/$defs/...` 根引用，实例校验必须把完整 schema 交给 validator；直接抽出 `$defs.manifest` 会失去根定义并产生 `PointerToNowhere`，这属于校验命令错误，不是 schema 失效。
 - `DeerFlowClient.stream()` 使用同步 LangGraph 执行路径，不能调用只有 coroutine 的 `task_tool`；benchmark runner 进入 compiler 子代理前必须改用 async streaming，不能用阻塞包装破坏取消/终止语义。
 - Physical-attempt policy 当前未冻结 `cases[].build_system`，且 ledger 不记录有界的 agent tool failure/no-action completion；修复前即使 exact clone 成功，也不能把 0 submit 解释为 compiler 能力结果。
