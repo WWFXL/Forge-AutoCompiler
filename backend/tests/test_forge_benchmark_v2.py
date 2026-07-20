@@ -6,6 +6,7 @@ import importlib.util
 import json
 import shutil
 import subprocess
+import sys
 from pathlib import Path
 
 import pytest
@@ -17,12 +18,20 @@ V1_VALIDATOR_PATH = REPO_ROOT / "scripts" / "forge_benchmark.py"
 V2_MANIFEST_PATH = REPO_ROOT / "benchmarks" / "manifests" / "cpp-pilot-v2.json"
 V2_SCHEMA_PATH = REPO_ROOT / "benchmarks" / "schemas" / "forge-cpp-benchmark-v2.schema.json"
 V2_VALIDATOR_PATH = REPO_ROOT / "scripts" / "forge_benchmark_v2.py"
+HISTORY_AUDITOR_PATH = REPO_ROOT / "scripts" / "forge_benchmark_history.py"
 
 SPEC = importlib.util.spec_from_file_location("forge_benchmark_v2", V2_VALIDATOR_PATH)
 assert SPEC is not None
 assert SPEC.loader is not None
 forge_benchmark_v2 = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(forge_benchmark_v2)
+
+HISTORY_SPEC = importlib.util.spec_from_file_location("forge_benchmark_history", HISTORY_AUDITOR_PATH)
+assert HISTORY_SPEC is not None
+assert HISTORY_SPEC.loader is not None
+forge_benchmark_history = importlib.util.module_from_spec(HISTORY_SPEC)
+sys.modules[HISTORY_SPEC.name] = forge_benchmark_history
+HISTORY_SPEC.loader.exec_module(forge_benchmark_history)
 
 
 def load_v2_manifest() -> dict:
@@ -64,13 +73,32 @@ def test_v2_manifest_rejects_protocol_drift(mutation, message: str) -> None:
         forge_benchmark_v2.validate_manifest(manifest)
 
 
-def test_v2_manifest_digest_is_canonical_and_frozen_files_match() -> None:
+@pytest.mark.skipif(shutil.which("git") is None, reason="git is unavailable")
+def test_v2_manifest_digest_is_canonical_and_historical_files_match() -> None:
     manifest = load_v2_manifest()
     digest = forge_benchmark_v2.manifest_sha256(manifest)
     reparsed = json.loads(json.dumps(manifest, ensure_ascii=False, indent=4))
 
     assert forge_benchmark_v2.manifest_sha256(reparsed) == digest
-    forge_benchmark_v2.verify_frozen_components(manifest, REPO_ROOT)
+    assert digest == "6f29c0f06b5c6e72f9cf0d38afb35be3a61d304ad2ed4f2556a29b5cd7a1422b"
+    audit = forge_benchmark_history.audit_v2_history(manifest, REPO_ROOT)
+    assert audit["lineage_mode"] == "audited_squash_successor"
+    assert audit["successor_commit"] == "9e002f4568a77de07fdce65b49373afb7e5cc74e"
+
+
+@pytest.mark.skipif(shutil.which("git") is None, reason="git is unavailable")
+def test_v2_history_rejects_an_unrelated_head() -> None:
+    manifest = load_v2_manifest()
+
+    with pytest.raises(
+        forge_benchmark_history.HistoryAuditError,
+        match="does not descend",
+    ):
+        forge_benchmark_history.audit_v2_history(
+            manifest,
+            REPO_ROOT,
+            head_revision="9ef57c50193ace14b6f8b761e09cced21e92f08e",
+        )
 
 
 def test_v2_runtime_components_match_the_declared_baseline() -> None:
