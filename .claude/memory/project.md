@@ -11,8 +11,8 @@
 - 2026-07-20 — 将 Issue #17 / PR #20 的 runner Session 终结修复重排到最新主干并完成本地验证
   - 文件: `scripts/forge_benchmark_runner.py`, `backend/tests/test_forge_benchmark_runner.py`, `backend/tests/test_compile_replay_docker.py`, `.claude/memory/project.md`
   - 动机: runner 在嵌入式 client 正常返回、异常或提前退出后，先同步终结该 physical attempt thread 的未完成 Compile Session，再清理 orphan；首次终结未闭合但 orphan 清理成功时幂等重试，endpoint failure、Session lifecycle 与 orphan cleanup 保持独立证据域
-  - 证据: runner 单测 `12 passed`，benchmark/evidence `100 passed, 3 skipped`，compile runtime/terminal/cancellation `115 passed`，后端全量 `1503 passed, 22 skipped`，真实 Docker exact clone/session finalization/clean replay `4 passed in 94.88s`；改动文件 Ruff/format、Compose config、前端 lint/typecheck/build、冻结资产和 diff 检查通过且无遗留容器
-  - 边界: 全量 Ruff 的 4 个错误均位于未改动且与 `origin/main` 相同的 `scripts/check.py`、`scripts/forge_benchmark.py`；v1-v5 manifest、Schema、runner hash 与 ledger 未修改或重跑，未启动 v6 pilot；PR retarget、CI 与合并待完成
+  - 证据: runner 单测 `12 passed`，benchmark/evidence `100 passed, 3 skipped`，带 Git 的 v2 历史测试 `10 passed`，compile runtime/terminal/cancellation `115 passed`，后端全量 `1503 passed, 22 skipped`，真实 Docker exact clone/session finalization/clean replay `4 passed in 94.88s`；改动文件 Ruff/format、Compose config、前端 lint/typecheck/build、冻结资产和 diff 检查通过且无遗留容器
+  - 边界: 全量 Ruff 的 4 个错误均位于未改动且与 `origin/main` 相同的 `scripts/check.py`、`scripts/forge_benchmark.py`；Issue #22 计划中的 v2 current-tree drift 测试语义提前并入本 PR，继续要求旧 runner 漂移被明确拒绝；v1-v5 manifest、Schema、runner hash 与 ledger 未修改或重跑，未启动 v6 pilot；CI 与合并待完成
 
 - 2026-07-20 — 将 Issue #16 / PR #19 的 exact-commit clone ownership 修复重排到最新主干并完成本地验证
   - 文件: `backend/packages/harness/deerflow/compile/operations.py`, `backend/tests/test_compile_runtime.py`, `backend/tests/test_compile_replay_docker.py`, `.claude/memory/project.md`

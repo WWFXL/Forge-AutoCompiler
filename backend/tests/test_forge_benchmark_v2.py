@@ -74,16 +74,18 @@ def test_v2_manifest_rejects_protocol_drift(mutation, message: str) -> None:
 
 
 @pytest.mark.skipif(shutil.which("git") is None, reason="git is unavailable")
-def test_v2_manifest_digest_is_canonical_and_historical_files_match() -> None:
+def test_v2_manifest_digest_is_canonical_and_current_runner_drift_is_rejected() -> None:
     manifest = load_v2_manifest()
     digest = forge_benchmark_v2.manifest_sha256(manifest)
     reparsed = json.loads(json.dumps(manifest, ensure_ascii=False, indent=4))
 
     assert forge_benchmark_v2.manifest_sha256(reparsed) == digest
     assert digest == "6f29c0f06b5c6e72f9cf0d38afb35be3a61d304ad2ed4f2556a29b5cd7a1422b"
-    audit = forge_benchmark_history.audit_v2_history(manifest, REPO_ROOT)
-    assert audit["lineage_mode"] == "audited_squash_successor"
-    assert audit["successor_commit"] == "9e002f4568a77de07fdce65b49373afb7e5cc74e"
+    with pytest.raises(
+        forge_benchmark_history.HistoryAuditError,
+        match=r"frozen protocol artifact mismatch: scripts/forge_benchmark_runner\.py",
+    ):
+        forge_benchmark_history.audit_v2_history(manifest, REPO_ROOT)
 
 
 @pytest.mark.skipif(shutil.which("git") is None, reason="git is unavailable")
