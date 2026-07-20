@@ -12,11 +12,18 @@ import uuid
 from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path, PurePosixPath
-from shlex import quote
+from shlex import quote, split
 from typing import BinaryIO
 from urllib.parse import urlsplit
 
 from deerflow.compile.docker_runtime import CONTAINER_REPO_DIR, CONTAINER_WORKSPACE_DIR, CompileDockerRuntime, ContainerCleanupResult, ReplayContainerHandle
+from deerflow.compile.evidence import (
+    EvidenceError,
+    allowed_command_role,
+    get_active_experiment,
+    new_evidence_id,
+    record_experiment_event,
+)
 from deerflow.compile.manager import CompileSessionManager
 from deerflow.compile.paths import get_replay_artifacts_dir, get_replay_logs_dir, get_replay_recipe_dir, get_replay_workspace_dir
 from deerflow.compile.schemas import (
@@ -105,7 +112,13 @@ def _session_lifecycle_fenced(session: CompileSession) -> bool:
     return session.finalized_at is not None or session.termination_requested_at is not None or session.status in _TERMINAL_SESSION_STATUSES
 
 
-def _abort_submit_for_lifecycle(session: CompileSession, *, stage: str) -> str:
+def _abort_submit_for_lifecycle(
+    session: CompileSession,
+    *,
+    stage: str,
+    submit_attempt_id: str | None = None,
+    supporting_command_id: str | None = None,
+) -> str:
     services = get_compile_services()
     status = session.termination_status or session.status
     if status not in _TERMINAL_SESSION_STATUSES:
@@ -118,6 +131,17 @@ def _abort_submit_for_lifecycle(session: CompileSession, *, stage: str) -> str:
         status=status,
         finalized_at=session.finalized_at,
         termination_requested_at=session.termination_requested_at,
+        submit_attempt_id=submit_attempt_id,
+        supporting_command_id=supporting_command_id,
+    )
+    record_experiment_event(
+        session.thread_id,
+        "submit.aborted",
+        submit_attempt_id=submit_attempt_id,
+        supporting_command_id=supporting_command_id,
+        session_id=session.session_id,
+        stage=stage,
+        status=status,
     )
     return json.dumps(
         {
@@ -126,6 +150,8 @@ def _abort_submit_for_lifecycle(session: CompileSession, *, stage: str) -> str:
             "candidate_status": "not_committed",
             "replay_status": "not_run",
             "replay_attempt_id": None,
+            "submit_attempt_id": submit_attempt_id,
+            "supporting_command_id": supporting_command_id,
             "image_id": session.image_id,
             "artifact_count": 0,
             "artifacts": [],
@@ -167,11 +193,24 @@ def append_command_record(
     exit_code: int,
     started_at: str,
     completed_at: str,
+    *,
+    role: str | None = None,
+    timeout_seconds: int | None = None,
+    duration_seconds: float | None = None,
+    timed_out: bool = False,
+    termination: str | None = None,
+    command_id: str | None = None,
 ) -> BuildCommandRecord:
     record = BuildCommandRecord(
         stage=stage,
         command=command,
         workdir=workdir,
+        command_id=command_id or new_evidence_id("command"),
+        role=allowed_command_role(role or stage if stage in {"clone", "inspect"} else role),
+        timeout_seconds=timeout_seconds,
+        duration_seconds=duration_seconds,
+        timed_out=timed_out,
+        termination=termination,
         started_at=started_at,
         completed_at=completed_at,
         exit_code=exit_code,
@@ -179,6 +218,53 @@ def append_command_record(
     )
     get_compile_services().manager.record_command(session, record)
     return record
+
+
+def _apply_experiment_dependencies(session: CompileSession) -> None:
+    active = get_active_experiment(session.thread_id)
+    if active is None or not active.policy.required_system_packages:
+        return
+    services = get_compile_services()
+    packages = " ".join(shell_quote(package) for package in active.policy.required_system_packages)
+    command = f"apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends {packages}"
+    timeout_seconds = 1200
+    started_at = utc_now_iso()
+    started_monotonic = time.monotonic()
+    result = services.runtime.exec(
+        session,
+        command,
+        workdir=CONTAINER_WORKSPACE_DIR,
+        timeout_seconds=timeout_seconds,
+        log_path=local_log_path(session, "000_benchmark_dependency_setup.log"),
+    )
+    completed_at = utc_now_iso()
+    append_command_record(
+        session,
+        "bash",
+        command,
+        CONTAINER_WORKSPACE_DIR,
+        result.log_path or local_log_path(session, "000_benchmark_dependency_setup.log"),
+        result.exit_code,
+        started_at,
+        completed_at,
+        role="dependency_setup",
+        timeout_seconds=timeout_seconds,
+        duration_seconds=round(time.monotonic() - started_monotonic, 6),
+        timed_out=result.exit_code == 124,
+        termination="timeout" if result.exit_code == 124 else ("failed" if result.exit_code != 0 else "completed"),
+    )
+    if result.exit_code != 0:
+        services.manager.mark_session_status(session, "failed", error="Benchmark dependency setup failed.")
+        record_experiment_event(
+            session.thread_id,
+            "failure.recorded",
+            failure_id=new_evidence_id("failure"),
+            session_id=session.session_id,
+            domain="build",
+            classification="dependency_setup_failed",
+            primary=True,
+        )
+        raise RuntimeError("Benchmark dependency setup failed before compilation")
 
 
 def prepare_compile_session_impl(
@@ -191,6 +277,10 @@ def prepare_compile_session_impl(
     run_id: str | None = None,
 ) -> CompileSession:
     services = get_compile_services()
+    active = get_active_experiment(thread_id)
+    if active is not None:
+        if repo_url.rstrip("/") != active.policy.expected_repo_url.rstrip("/"):
+            raise EvidenceError("Compile repository does not match the active benchmark case")
     session_id = uuid.uuid4().hex[:12]
     with services.manager.session_lock(thread_id, session_id):
         session = services.manager.create_session(
@@ -211,6 +301,19 @@ def prepare_compile_session_impl(
             task_description=task_description,
         )
         services.runtime.create_container(session)
+        if active is not None:
+            if session.image != active.policy.compile_image or session.image_id != active.policy.image_id:
+                services.runtime.stop_and_remove_container(session)
+                raise EvidenceError("Compile container identity does not match the active benchmark policy")
+            record_experiment_event(
+                thread_id,
+                "session.bound",
+                session_id=session.session_id,
+                repo_url=session.repo_url,
+                image=session.image,
+                image_id=session.image_id,
+            )
+            _apply_experiment_dependencies(session)
         services.manager.save_session(session)
         services.manager.mark_session_status(session, "ready")
         services.manager.log_event(
@@ -253,16 +356,33 @@ def clone_repository_impl(
 
     repo_dir = Path(session.leadagent_repo_dir)
     effective_branch = branch if branch is not None else session.branch
+    active = get_active_experiment(session.thread_id)
+    expected_commit_sha = active.policy.expected_commit_sha if active is not None else None
+    if active is not None and repo_url.rstrip("/") != active.policy.expected_repo_url.rstrip("/"):
+        raise EvidenceError("Clone repository does not match the active benchmark case")
     session.repo_url = repo_url
     session.branch = effective_branch
     services.manager.save_session(session)
 
-    clone_command_parts = ["git clone", f"--depth {depth}"]
-    if effective_branch:
-        clone_command_parts.append(f"--branch {shell_quote(effective_branch)}")
-    clone_command_parts.append(f"{shell_quote(repo_url)} {shell_quote(CONTAINER_REPO_DIR)}")
-    clone_command = " ".join(clone_command_parts)
-    attempt_command = f"rm -rf -- {shell_quote(CONTAINER_REPO_DIR)} && {clone_command}"
+    if expected_commit_sha:
+        object_format = "sha256" if len(expected_commit_sha) == 64 else "sha1"
+        attempt_command = " && ".join(
+            (
+                f"rm -rf -- {shell_quote(CONTAINER_REPO_DIR)}",
+                f"git init --object-format={object_format} {shell_quote(CONTAINER_REPO_DIR)}",
+                f"git -C {shell_quote(CONTAINER_REPO_DIR)} remote add origin {shell_quote(repo_url)}",
+                f"git -C {shell_quote(CONTAINER_REPO_DIR)} fetch --depth {max(1, depth)} origin {shell_quote(expected_commit_sha)}",
+                f"git -C {shell_quote(CONTAINER_REPO_DIR)} checkout --detach FETCH_HEAD",
+                f'test "$(git -C {shell_quote(CONTAINER_REPO_DIR)} rev-parse HEAD)" = {shell_quote(expected_commit_sha)}',
+            )
+        )
+    else:
+        clone_command_parts = ["git clone", f"--depth {depth}"]
+        if effective_branch:
+            clone_command_parts.append(f"--branch {shell_quote(effective_branch)}")
+        clone_command_parts.append(f"{shell_quote(repo_url)} {shell_quote(CONTAINER_REPO_DIR)}")
+        clone_command = " ".join(clone_command_parts)
+        attempt_command = f"rm -rf -- {shell_quote(CONTAINER_REPO_DIR)} && {clone_command}"
 
     retries = max(1, max_retries)
     last_result: CommandResult | None = None
@@ -282,6 +402,7 @@ def clone_repository_impl(
             target_dir=str(repo_dir),
         )
         started_at = utc_now_iso()
+        started_monotonic = time.monotonic()
 
         result = services.runtime.exec(
             session,
@@ -299,6 +420,11 @@ def clone_repository_impl(
             result.exit_code,
             started_at,
             completed_at,
+            role="clone",
+            timeout_seconds=600,
+            duration_seconds=round(time.monotonic() - started_monotonic, 6),
+            timed_out=result.exit_code == 124,
+            termination="timeout" if result.exit_code == 124 else ("failed" if result.exit_code != 0 else "completed"),
         )
         last_result = result
 
@@ -311,6 +437,9 @@ def clone_repository_impl(
             if sha.exit_code == 0:
                 session.commit_sha = (sha.stdout or "").strip()
                 services.manager.save_session(session)
+            if expected_commit_sha and session.commit_sha != expected_commit_sha:
+                services.manager.mark_session_status(session, "failed", error="Cloned commit does not match the benchmark case.")
+                raise EvidenceError("Cloned commit does not match the active benchmark policy")
 
             services.manager.log_event(
                 session,
@@ -760,6 +889,71 @@ def _record_submit_check(
     )
 
 
+def _artifact_evidence_snapshot(artifacts: list[BuildArtifact]) -> list[dict]:
+    snapshots: list[dict] = []
+    for artifact in artifacts:
+        try:
+            relative_path = _artifact_relative_path(artifact)
+        except ValueError:
+            relative_path = None
+        snapshots.append(
+            {
+                "path": relative_path,
+                "artifact_type": artifact.artifact_type,
+                "size_bytes": artifact.size_bytes,
+                "sha256": artifact.sha256,
+                "smoke_exit_code": artifact.smoke_exit_code,
+                "smoke_output_sha256": artifact.smoke_output_sha256,
+            }
+        )
+    return snapshots
+
+
+def _check_evidence_snapshot(checks: list[VerificationCheck]) -> list[dict]:
+    return [
+        {
+            "name": check.name,
+            "passed": check.passed,
+            "exit_code": check.exit_code,
+        }
+        for check in checks
+    ]
+
+
+def _replay_artifact_evidence_snapshot(
+    artifacts: list[ReplayArtifactComparison],
+) -> list[dict]:
+    return [
+        {
+            "path": artifact.path,
+            "expected_type": artifact.expected_type,
+            "actual_type": artifact.actual_type,
+            "expected_size_bytes": artifact.expected_size_bytes,
+            "actual_size_bytes": artifact.actual_size_bytes,
+            "expected_sha256": artifact.expected_sha256,
+            "actual_sha256": artifact.actual_sha256,
+            "expected_smoke_exit_code": artifact.expected_smoke_exit_code,
+            "actual_smoke_exit_code": artifact.actual_smoke_exit_code,
+            "expected_smoke_output_sha256": artifact.expected_smoke_output_sha256,
+            "actual_smoke_output_sha256": artifact.actual_smoke_output_sha256,
+            "passed": artifact.passed,
+            "mismatches": list(artifact.mismatches),
+        }
+        for artifact in artifacts
+    ]
+
+
+def _record_replay_failure(
+    attempt: ReplayVerificationResult,
+    classification: str,
+) -> None:
+    if attempt.primary_failure_classification is None:
+        attempt.primary_failure_classification = classification
+    elif classification != attempt.primary_failure_classification and classification not in attempt.secondary_failure_classifications:
+        attempt.secondary_failure_classifications.append(classification)
+    attempt.failure_classification = attempt.primary_failure_classification
+
+
 def _commit_submit_verification(
     *,
     session: CompileSession,
@@ -781,14 +975,98 @@ def _commit_submit_verification(
         return True
 
 
-def submit_build_result_impl(*, session: CompileSession) -> str:
+def _command_contains_arguments(command: str, expected: tuple[str, ...]) -> bool:
+    if not expected:
+        return True
+    try:
+        tokens = split(command, posix=True)
+    except ValueError:
+        return False
+    token_iterator = iter(tokens)
+    return all(any(token == argument for token in token_iterator) for argument in expected)
+
+
+def _experiment_submit_constraints(
+    session: CompileSession,
+    supporting_command_id: str | None,
+) -> tuple[bool, list[str]]:
+    active = get_active_experiment(session.thread_id)
+    if active is None:
+        return True, []
+    failures: list[str] = []
+    supporting = next((command for command in session.commands if command.command_id == supporting_command_id), None)
+    if supporting is None:
+        failures.append("supporting_command_missing")
+    elif supporting.role != "build":
+        failures.append("supporting_command_role_invalid")
+    elif supporting.exit_code != 0 or supporting.timed_out:
+        failures.append("supporting_command_not_successful")
+
+    successful_commands = [command for command in session.commands if command.exit_code == 0 and not command.timed_out]
+    if active.policy.required_system_packages and not any(command.role == "dependency_setup" for command in successful_commands):
+        failures.append("dependency_setup_not_observed")
+    if active.policy.cmake_arguments and not any(command.role == "configure" and _command_contains_arguments(command.command, active.policy.cmake_arguments) for command in successful_commands):
+        failures.append("cmake_arguments_not_observed")
+    if active.policy.configure_arguments and not any(command.role == "configure" and _command_contains_arguments(command.command, active.policy.configure_arguments) for command in successful_commands):
+        failures.append("configure_arguments_not_observed")
+    return not failures, failures
+
+
+def _apply_experiment_replay_delay(session: CompileSession) -> None:
+    active = get_active_experiment(session.thread_id)
+    if active is None or active.policy.minimum_replay_delay_seconds <= 0:
+        return
     services = get_compile_services()
+    seconds = active.policy.minimum_replay_delay_seconds
+    command = f"sleep {seconds}"
+    timeout_seconds = seconds + 10
+    started_at = utc_now_iso()
+    started_monotonic = time.monotonic()
+    result = services.runtime.exec(
+        session,
+        command,
+        workdir=CONTAINER_WORKSPACE_DIR,
+        timeout_seconds=timeout_seconds,
+        log_path=local_log_path(session, f"{len(session.commands) + 1:03d}_benchmark_replay_delay.log"),
+    )
+    append_command_record(
+        session,
+        "bash",
+        command,
+        CONTAINER_WORKSPACE_DIR,
+        result.log_path or local_log_path(session, f"{len(session.commands) + 1:03d}_benchmark_replay_delay.log"),
+        result.exit_code,
+        started_at,
+        utc_now_iso(),
+        role="replay_delay",
+        timeout_seconds=timeout_seconds,
+        duration_seconds=round(time.monotonic() - started_monotonic, 6),
+        timed_out=result.exit_code == 124,
+        termination="timeout" if result.exit_code == 124 else ("failed" if result.exit_code != 0 else "completed"),
+    )
+    if result.exit_code != 0:
+        raise RuntimeError("Benchmark replay delay could not be established")
+
+
+def submit_build_result_impl(
+    *,
+    session: CompileSession,
+    supporting_command_id: str | None = None,
+) -> str:
+    services = get_compile_services()
+    submit_attempt_id = new_evidence_id("submit")
     with services.manager.session_lock(session.thread_id, session.session_id):
         current = _load_authoritative_session(session)
         if _session_lifecycle_fenced(current):
             session.__dict__.update(current.__dict__)
-            return _abort_submit_for_lifecycle(session, stage="entry")
+            return _abort_submit_for_lifecycle(
+                session,
+                stage="entry",
+                submit_attempt_id=submit_attempt_id,
+                supporting_command_id=supporting_command_id,
+            )
         session.__dict__.update(current.__dict__)
+    constraints_passed, constraint_failures = _experiment_submit_constraints(session, supporting_command_id)
     submit_index = len(session.commands) + 1
     summary_log_path = local_log_path(session, f"{submit_index:03d}_submit.log")
     while Path(summary_log_path).exists():
@@ -800,11 +1078,39 @@ def submit_build_result_impl(*, session: CompileSession) -> str:
         leadagent_artifacts_dir=session.leadagent_artifacts_dir,
         container_artifacts_dir="/artifacts",
         log_path=summary_log_path,
+        submit_attempt_id=submit_attempt_id,
+        supporting_command_id=supporting_command_id,
     )
+    record_experiment_event(
+        session.thread_id,
+        "submit.started",
+        submit_attempt_id=submit_attempt_id,
+        supporting_command_id=supporting_command_id,
+        session_id=session.session_id,
+        command_cutoff_before_delay=len(session.commands),
+    )
+    try:
+        _apply_experiment_replay_delay(session)
+    except RuntimeError:
+        constraints_passed = False
+        constraint_failures.append("minimum_replay_delay_not_observed")
     discovered_files = sorted(_list_leadagent_artifact_files(session), key=lambda p: p.as_posix())
     checks: list[VerificationCheck] = []
     artifacts: list[BuildArtifact] = []
     notes: list[str] = []
+
+    if not constraints_passed:
+        message = "Error: Verification failed. Benchmark launch constraints were not completely observed."
+        notes.append(message)
+        _record_submit_check(
+            checks=checks,
+            name="benchmark_constraints",
+            target="experiment-policy",
+            passed=False,
+            summary=message,
+            expected="applied",
+            actual=list(constraint_failures),
+        )
 
     if not discovered_files:
         notes.append("Error: Verification failed. No files were found in /artifacts. Copy your final build outputs into /artifacts and submit again.")
@@ -938,11 +1244,22 @@ def submit_build_result_impl(*, session: CompileSession) -> str:
                     session.__dict__.update(current.__dict__)
 
     if candidate_lifecycle_fenced:
-        return _abort_submit_for_lifecycle(session, stage="candidate_checkpoint")
+        return _abort_submit_for_lifecycle(
+            session,
+            stage="candidate_checkpoint",
+            submit_attempt_id=submit_attempt_id,
+            supporting_command_id=supporting_command_id,
+        )
 
     candidate_failed_checks = sum(1 for check in checks if not check.passed)
     if candidate_status == "passed" and artifacts and candidate_failed_checks == 0:
-        replay_attempt = verify_clean_replay_impl(session=session)
+        if get_active_experiment(session.thread_id) is None:
+            replay_attempt = verify_clean_replay_impl(session=session)
+        else:
+            replay_attempt = verify_clean_replay_impl(
+                session=session,
+                submit_attempt_id=submit_attempt_id,
+            )
         replay_passed = replay_attempt.status == "passed" and replay_attempt.cleanup_succeeded is True
         replay_summary = (
             "Candidate recipe rebuilt matching artifacts in a clean container and cleanup succeeded."
@@ -983,7 +1300,12 @@ def submit_build_result_impl(*, session: CompileSession) -> str:
         status=target_status,
         error=target_error,
     ):
-        return _abort_submit_for_lifecycle(session, stage="final_checkpoint")
+        return _abort_submit_for_lifecycle(
+            session,
+            stage="final_checkpoint",
+            submit_attempt_id=submit_attempt_id,
+            supporting_command_id=supporting_command_id,
+        )
 
     payload = {
         "exit_code": 0 if status == "passed" else 1,
@@ -991,6 +1313,8 @@ def submit_build_result_impl(*, session: CompileSession) -> str:
         "candidate_status": candidate_status,
         "replay_status": replay_attempt.status if replay_attempt else "not_run",
         "replay_attempt_id": replay_attempt.attempt_id if replay_attempt else None,
+        "submit_attempt_id": submit_attempt_id,
+        "supporting_command_id": supporting_command_id,
         "image_id": session.image_id,
         "artifact_count": len(artifacts),
         "artifacts": [
@@ -1017,7 +1341,61 @@ def submit_build_result_impl(*, session: CompileSession) -> str:
         candidate_status=candidate_status,
         replay_status=replay_attempt.status if replay_attempt else "not_run",
         replay_attempt_id=replay_attempt.attempt_id if replay_attempt else None,
+        submit_attempt_id=submit_attempt_id,
+        supporting_command_id=supporting_command_id,
     )
+    supporting_command = next(
+        (command for command in session.commands if command.command_id == supporting_command_id),
+        None,
+    )
+    supporting_command_passed = supporting_command is not None and supporting_command.role == "build" and supporting_command.exit_code == 0 and not supporting_command.timed_out
+    replay_passed = replay_attempt is not None and replay_attempt.status == "passed" and replay_attempt.cleanup_succeeded is True
+    record_experiment_event(
+        session.thread_id,
+        "submit.completed",
+        submit_attempt_id=submit_attempt_id,
+        supporting_command_id=supporting_command_id,
+        session_id=session.session_id,
+        status=status,
+        candidate_status=candidate_status,
+        command_cutoff=len(session.commands),
+        command_ids=[command.command_id for command in session.commands],
+        artifacts=_artifact_evidence_snapshot(artifacts),
+        checks=_check_evidence_snapshot(checks),
+        recipe_sha256=(replay_attempt.recipe_sha256 if replay_attempt else None),
+        replay=(
+            {
+                "replay_attempt_id": replay_attempt.attempt_id,
+                "status": replay_attempt.status,
+                "primary_failure_classification": replay_attempt.primary_failure_classification,
+                "secondary_failure_classifications": list(replay_attempt.secondary_failure_classifications),
+                "cleanup_succeeded": replay_attempt.cleanup_succeeded,
+            }
+            if replay_attempt
+            else None
+        ),
+        gates={
+            "exit_code": supporting_command_passed,
+            "candidate_only": candidate_status == "passed",
+            "replay_ready": replay_attempt is not None and bool(replay_attempt.recipe_sha256),
+            "clean_replay": replay_passed,
+            "delivered": None,
+        },
+    )
+    if status != "passed":
+        primary_classification = replay_attempt.primary_failure_classification if replay_attempt is not None else (constraint_failures[0] if constraint_failures else "candidate_verification_failed")
+        record_experiment_event(
+            session.thread_id,
+            "failure.recorded",
+            failure_id=new_evidence_id("failure"),
+            submit_attempt_id=submit_attempt_id,
+            replay_attempt_id=(replay_attempt.attempt_id if replay_attempt else None),
+            session_id=session.session_id,
+            domain="verification",
+            classification=primary_classification,
+            primary=True,
+            secondary_classifications=(list(replay_attempt.secondary_failure_classifications) if replay_attempt else []),
+        )
 
     if status == "passed":
         services.manager.log_event(
@@ -1425,7 +1803,10 @@ def _merge_authoritative_replay_cancellation(
         if note not in attempt.notes:
             attempt.notes.append(note)
     attempt.status = "cancelled"
-    attempt.failure_classification = authoritative.failure_classification or "cancelled"
+    authoritative_primary = authoritative.primary_failure_classification or authoritative.failure_classification or "cancelled"
+    _record_replay_failure(attempt, authoritative_primary)
+    for classification in authoritative.secondary_failure_classifications:
+        _record_replay_failure(attempt, classification)
 
 
 def _persist_replay_attempt(
@@ -1447,7 +1828,7 @@ def _persist_replay_attempt(
         else:
             if _session_lifecycle_fenced(current):
                 attempt.status = "cancelled"
-                attempt.failure_classification = attempt.failure_classification or "session_terminated"
+                _record_replay_failure(attempt, "session_terminated")
                 attempt.cleanup_succeeded = attempt.cleanup_succeeded if attempt.cleanup_succeeded is not None else True
                 session.__dict__.update(current.__dict__)
                 return attempt
@@ -1455,7 +1836,7 @@ def _persist_replay_attempt(
         if _session_lifecycle_fenced(current):
             if existing_attempt is not None and existing_attempt.status != "cancelled":
                 attempt.status = "cancelled"
-                attempt.failure_classification = "session_terminated"
+                _record_replay_failure(attempt, "session_terminated")
             if current.finalized_at is not None:
                 session.__dict__.update(current.__dict__)
                 return attempt
@@ -1467,6 +1848,7 @@ def _persist_replay_attempt(
 def verify_clean_replay_impl(
     *,
     session: CompileSession,
+    submit_attempt_id: str | None = None,
     timeout_seconds: int | None = None,
 ) -> ReplayVerificationResult:
     services = get_compile_services()
@@ -1474,7 +1856,7 @@ def verify_clean_replay_impl(
     effective_timeout = max(1, timeout_seconds or configured_timeout)
     started_monotonic = time.monotonic()
     deadline = started_monotonic + effective_timeout
-    attempt_id = uuid.uuid4().hex[:12]
+    attempt_id = new_evidence_id("replay")
     with services.manager.session_lock(session.thread_id, session.session_id):
         current = _load_authoritative_session(session)
         session.__dict__.update(current.__dict__)
@@ -1485,11 +1867,12 @@ def verify_clean_replay_impl(
             image_id=session.image_id or "",
             commit_sha=session.commit_sha or "",
             recipe_sha256="",
+            submit_attempt_id=submit_attempt_id,
             timeout_seconds=effective_timeout,
         )
         if _session_lifecycle_fenced(session):
             attempt.status = "cancelled"
-            attempt.failure_classification = "session_terminated"
+            _record_replay_failure(attempt, "session_terminated")
             attempt.cleanup_succeeded = True
             attempt.completed_at = utc_now_iso()
             attempt.duration_seconds = round(time.monotonic() - started_monotonic, 6)
@@ -1502,6 +1885,17 @@ def verify_clean_replay_impl(
         "replay.started",
         attempt_id=attempt_id,
         image=session.image,
+        image_id=session.image_id,
+        commit_sha=session.commit_sha,
+        timeout_seconds=effective_timeout,
+        submit_attempt_id=submit_attempt_id,
+    )
+    record_experiment_event(
+        session.thread_id,
+        "replay.started",
+        replay_attempt_id=attempt_id,
+        submit_attempt_id=submit_attempt_id,
+        session_id=session.session_id,
         image_id=session.image_id,
         commit_sha=session.commit_sha,
         timeout_seconds=effective_timeout,
@@ -1585,7 +1979,7 @@ def verify_clean_replay_impl(
                     _merge_authoritative_replay_cancellation(attempt, authoritative)
                 if attempt.status != "cancelled":
                     attempt.status = "cancelled"
-                    attempt.failure_classification = "session_terminated"
+                    _record_replay_failure(attempt, "session_terminated")
                 current.replay_attempts = [attempt if item.attempt_id == attempt.attempt_id else item for item in current.replay_attempts]
                 if current.finalized_at is None:
                     services.manager.save_session(current, allow_lifecycle_fenced=True)
@@ -1649,16 +2043,16 @@ def verify_clean_replay_impl(
                 "Replay artifacts did not match the accepted build.",
             )
     except _ReplayVerificationFailure as exc:
-        attempt.failure_classification = exc.classification
+        _record_replay_failure(attempt, exc.classification)
         attempt.notes.append(str(exc))
     except subprocess.TimeoutExpired as exc:
-        attempt.failure_classification = "timeout"
+        _record_replay_failure(attempt, "timeout")
         attempt.notes.append(f"Docker replay operation timed out: {exc}")
     except Exception as exc:
-        attempt.failure_classification = "internal_error"
+        _record_replay_failure(attempt, "internal_error")
         attempt.notes.append(f"Clean replay verification failed: {exc}")
     except BaseException as exc:
-        attempt.failure_classification = "cancelled"
+        _record_replay_failure(attempt, "cancelled")
         attempt.notes.append(f"Clean replay was cancelled by {type(exc).__name__}.")
         pending_base_exception = exc
     finally:
@@ -1686,14 +2080,14 @@ def verify_clean_replay_impl(
             actual={"stopped": cleanup_result.stopped, "removed": cleanup_result.removed},
         )
         if not attempt.cleanup_succeeded:
-            attempt.failure_classification = "cleanup_failed"
+            _record_replay_failure(attempt, "cleanup_failed")
         if pending_base_exception is not None:
             attempt.status = "cancelled"
-        elif attempt.failure_classification == "timeout":
+        elif attempt.primary_failure_classification == "timeout":
             attempt.status = "timed_out"
-        elif attempt.failure_classification == "cancelled":
+        elif attempt.primary_failure_classification == "cancelled":
             attempt.status = "cancelled"
-        elif attempt.failure_classification is None and attempt.cleanup_succeeded:
+        elif attempt.primary_failure_classification is None and attempt.cleanup_succeeded:
             attempt.status = "passed"
         else:
             attempt.status = "failed"
@@ -1713,6 +2107,28 @@ def verify_clean_replay_impl(
             image_id=attempt.image_id,
             recipe_sha256=attempt.recipe_sha256,
             completed_by="replay_worker",
+            submit_attempt_id=submit_attempt_id,
+            primary_failure_classification=attempt.primary_failure_classification,
+            secondary_failure_classifications=attempt.secondary_failure_classifications,
+        )
+        record_experiment_event(
+            session.thread_id,
+            "replay.completed",
+            replay_attempt_id=attempt.attempt_id,
+            submit_attempt_id=submit_attempt_id,
+            session_id=session.session_id,
+            status=attempt.status,
+            exit_code=attempt.exit_code,
+            cleanup_succeeded=attempt.cleanup_succeeded,
+            duration_seconds=attempt.duration_seconds,
+            timeout_seconds=attempt.timeout_seconds,
+            image_id=attempt.image_id,
+            commit_sha=attempt.commit_sha,
+            recipe_sha256=attempt.recipe_sha256 or None,
+            primary_failure_classification=attempt.primary_failure_classification,
+            secondary_failure_classifications=list(attempt.secondary_failure_classifications),
+            checks=_check_evidence_snapshot(attempt.checks),
+            artifacts=_replay_artifact_evidence_snapshot(attempt.artifacts),
         )
     if pending_base_exception is not None:
         raise pending_base_exception
@@ -1840,6 +2256,22 @@ def finalize_compile_session_impl(
                 generate_repro_bundle_requested=generate_repro_bundle,
                 replay_verified=replay_verified,
             )
+            latest_replay = current.replay_attempts[-1] if current.replay_attempts else None
+            delivered = status == "completed" and replay_verified
+            record_experiment_event(
+                current.thread_id,
+                "delivery.completed",
+                session_id=current.session_id,
+                submit_attempt_id=(latest_replay.submit_attempt_id if latest_replay else None),
+                replay_attempt_id=(latest_replay.attempt_id if latest_replay else None),
+                status=status,
+                delivered=delivered,
+                replay_verified=replay_verified,
+                artifact_count=len(current.artifacts),
+                artifacts=_artifact_evidence_snapshot(current.artifacts),
+                primary_failure_classification=(latest_replay.primary_failure_classification if latest_replay else (None if delivered else "delivery_rejected")),
+                secondary_failure_classifications=(list(latest_replay.secondary_failure_classifications) if latest_replay else []),
+            )
 
         session.__dict__.update(current.__dict__)
         return session
@@ -1871,7 +2303,7 @@ def _cleanup_pending_replay_containers(session: CompileSession) -> ContainerClea
         attempt.cleanup_succeeded = cleanup_result.succeeded and cleanup_result.removed
         if was_active:
             attempt.status = "cancelled"
-            attempt.failure_classification = attempt.failure_classification or "cancelled"
+            _record_replay_failure(attempt, "cancelled")
             attempt.completed_at = attempt.completed_at or utc_now_iso()
             if attempt.duration_seconds is None:
                 try:
@@ -1883,6 +2315,8 @@ def _cleanup_pending_replay_containers(session: CompileSession) -> ContainerClea
             completed_attempts.append((attempt, "parent_cleanup"))
         elif previous_cleanup_succeeded is not True and attempt.cleanup_succeeded:
             completed_attempts.append((attempt, "parent_cleanup_retry"))
+        if not attempt.cleanup_succeeded:
+            _record_replay_failure(attempt, "cleanup_failed")
         _record_replay_check(
             attempt,
             name="parent_container_cleanup",
@@ -1912,6 +2346,21 @@ def _cleanup_pending_replay_containers(session: CompileSession) -> ContainerClea
             image_id=attempt.image_id,
             recipe_sha256=attempt.recipe_sha256,
             completed_by=completed_by,
+            submit_attempt_id=attempt.submit_attempt_id,
+            primary_failure_classification=attempt.primary_failure_classification,
+            secondary_failure_classifications=attempt.secondary_failure_classifications,
+        )
+        record_experiment_event(
+            session.thread_id,
+            "replay.reconciled",
+            replay_attempt_id=attempt.attempt_id,
+            submit_attempt_id=attempt.submit_attempt_id,
+            session_id=session.session_id,
+            status=attempt.status,
+            cleanup_succeeded=attempt.cleanup_succeeded,
+            completed_by=completed_by,
+            primary_failure_classification=attempt.primary_failure_classification,
+            secondary_failure_classifications=list(attempt.secondary_failure_classifications),
         )
     return ContainerCleanupResult(
         succeeded=all(result.succeeded for result in cleanup_results),

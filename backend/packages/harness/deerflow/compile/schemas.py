@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import uuid
 from dataclasses import asdict, dataclass, field
 from datetime import UTC, datetime
 from pathlib import Path
@@ -15,6 +16,12 @@ class BuildCommandRecord:
     stage: str
     command: str
     workdir: str
+    command_id: str = field(default_factory=lambda: f"command_{uuid.uuid4().hex}")
+    role: str = "other"
+    timeout_seconds: int | None = None
+    duration_seconds: float | None = None
+    timed_out: bool = False
+    termination: str | None = None
     started_at: str = field(default_factory=utc_now_iso)
     completed_at: str | None = None
     exit_code: int | None = None
@@ -89,6 +96,9 @@ class ReplayVerificationResult:
     image_id: str
     commit_sha: str
     recipe_sha256: str
+    submit_attempt_id: str | None = None
+    primary_failure_classification: str | None = None
+    secondary_failure_classifications: list[str] = field(default_factory=list)
     timeout_seconds: int | None = None
     started_at: str = field(default_factory=utc_now_iso)
     completed_at: str | None = None

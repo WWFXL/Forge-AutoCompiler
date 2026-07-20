@@ -11,6 +11,7 @@ import pytest
 
 from deerflow.compile import operations
 from deerflow.compile.docker_runtime import DEFAULT_NETWORK, CompileDockerRuntime, ContainerCleanupResult, ReplayContainerHandle, RuntimeConfig
+from deerflow.compile.evidence import ExperimentLedger, ExperimentPolicy, activate_experiment, deactivate_experiment, new_evidence_id
 from deerflow.compile.manager import CompileSessionManager
 from deerflow.compile.operations import CompileOperationsServices, _classify_compiled_artifact, _write_repro_bundle, clone_repository_impl, submit_build_result_impl, verify_clean_replay_impl
 from deerflow.compile.paths import (
@@ -58,6 +59,23 @@ def add_replayable_build_command(session: CompileSession, command: str = "cmake 
             exit_code=0,
         )
     )
+
+
+@pytest.mark.parametrize(
+    ("command", "expected", "matches"),
+    [
+        ("cmake -S . -B build -DA=1 -DB=2", ("-DA=1", "-DB=2"), True),
+        ("cmake -S . -B build -DB=2 -DA=1", ("-DA=1", "-DB=2"), False),
+        ("./configure --prefix=/usr --disable-shared", ("--prefix=/usr",), True),
+        ("cmake -S . -B build", ("-DA=1",), False),
+    ],
+)
+def test_benchmark_arguments_must_be_observed_in_declared_order(
+    command: str,
+    expected: tuple[str, ...],
+    matches: bool,
+) -> None:
+    assert operations._command_contains_arguments(command, expected) is matches
 
 
 def install_passed_replay_stub(monkeypatch) -> None:
@@ -931,6 +949,71 @@ def test_docker_runtime_uses_paths_host_workspace_root(tmp_path: Path, monkeypat
     assert ["docker", "network", "inspect", DEFAULT_NETWORK] in commands
     assert f"{host_root / '.compile-sessions' / session.thread_id / session.session_id / 'workspace'}:/workspace" in docker_command
     assert "HOST_PROJECT_ROOT" not in docker_command
+
+
+def test_docker_runtime_applies_experiment_labels_and_public_environment_only(tmp_path: Path, monkeypatch):
+    manager = CompileSessionManager(paths=make_test_paths(tmp_path))
+    thread_id = "thread-experiment-runtime"
+    session = manager.create_session(thread_id=thread_id, repo_url="https://example.com/repo.git")
+    ledger = ExperimentLedger.create(
+        tmp_path / "evidence.jsonl",
+        experiment_id=new_evidence_id("experiment"),
+        physical_attempt_id=new_evidence_id("physical_attempt"),
+        context={"thread_id": thread_id},
+    )
+    policy = ExperimentPolicy(
+        benchmark_id="forge-cpp-pilot-v1",
+        manifest_sha256="1" * 64,
+        case_id="fixture",
+        condition="baseline",
+        repetition=1,
+        expected_repo_url=session.repo_url,
+        expected_commit_sha="2" * 40,
+        compile_image=session.image,
+        image_id=VALID_IMAGE_ID,
+        model_name="gpt-5.6-sol",
+        endpoint="https://example.invalid/v1",
+        credential_env="OpenAI_AK",
+        request_timeout_seconds=120,
+        model_max_retries=0,
+        compiler_max_turns=36,
+        subagent_timeout_seconds=180,
+        memory_enabled=False,
+        skills_enabled=False,
+        required_system_packages=(),
+        cmake_arguments=(),
+        configure_arguments=(),
+        environment=(("CFLAGS", "-O2"), ("SOURCE_DATE_EPOCH", None)),
+        minimum_replay_delay_seconds=0,
+    )
+    active = activate_experiment(
+        thread_id=thread_id,
+        experiment_id=ledger.experiment_id,
+        physical_attempt_id=ledger.physical_attempt_id,
+        ledger=ledger,
+        policy=policy,
+    )
+    commands: list[list[str]] = []
+
+    def fake_run(command, **kwargs):
+        del kwargs
+        commands.append(command)
+        if command[:3] == ["docker", "inspect", "--format"]:
+            return SimpleNamespace(stdout=f"{VALID_IMAGE_ID}\n", stderr="", returncode=0)
+        return SimpleNamespace(stdout="container-id\n", stderr="", returncode=0)
+
+    monkeypatch.setattr("deerflow.compile.docker_runtime.subprocess.run", fake_run)
+    try:
+        CompileDockerRuntime(manager=manager).create_container(session)
+    finally:
+        deactivate_experiment(thread_id)
+
+    docker_command = next(command for command in commands if command[:2] == ["docker", "run"])
+    assert f"deerflow.compile.experiment_id={active.experiment_id}" in docker_command
+    assert f"deerflow.compile.physical_attempt_id={active.physical_attempt_id}" in docker_command
+    assert "CFLAGS=-O2" in docker_command
+    assert not any(argument.startswith("SOURCE_DATE_EPOCH=") for argument in docker_command)
+    assert policy.credential_env not in docker_command
 
 
 def test_docker_runtime_creates_missing_network(tmp_path: Path, monkeypatch):
@@ -1930,6 +2013,24 @@ def test_clean_replay_cleanup_failure_blocks_an_otherwise_matching_result(tmp_pa
     cleanup_check = next(check for check in attempt.checks if check.name == "container_cleanup")
     assert cleanup_check.passed is False
     assert cleanup_check.actual == {"stopped": True, "removed": False}
+
+
+def test_clean_replay_preserves_execution_failure_as_primary_when_cleanup_also_fails(tmp_path: Path, monkeypatch):
+    manager, session = make_replay_ready_session(tmp_path)
+    runtime = FakeReplayRuntime(
+        manager,
+        build_exit_code=2,
+        cleanup_result=ContainerCleanupResult(succeeded=False, stopped=True, removed=False),
+    )
+    monkeypatch.setattr(operations, "_services", CompileOperationsServices(manager=manager, runtime=runtime))
+
+    attempt = verify_clean_replay_impl(session=session)
+
+    assert attempt.status == "failed"
+    assert attempt.failure_classification == "recipe_execution_failed"
+    assert attempt.primary_failure_classification == "recipe_execution_failed"
+    assert attempt.secondary_failure_classifications == ["cleanup_failed"]
+    assert attempt.cleanup_succeeded is False
 
 
 def test_replay_schema_roundtrip_preserves_structured_checks_and_artifacts(tmp_path: Path):

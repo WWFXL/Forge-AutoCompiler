@@ -2,6 +2,7 @@ import logging
 
 from langchain.chat_models import BaseChatModel
 
+from deerflow.compile.evidence import EvidenceError, get_active_experiment
 from deerflow.config import get_app_config
 from deerflow.reflection import resolve_class
 from deerflow.tracing import build_tracing_callbacks
@@ -39,9 +40,14 @@ def create_chat_model(name: str | None = None, thinking_enabled: bool = False, *
     Returns:
         A chat model instance.
     """
+    experiment_thread_id = kwargs.pop("experiment_thread_id", None)
+    experiment_role = kwargs.pop("experiment_role", None)
+    active = get_active_experiment(experiment_thread_id)
     config = get_app_config()
     if name is None:
         name = config.models[0].name
+    if active is not None and name != active.policy.model_name:
+        raise EvidenceError("Model fallback is forbidden while a benchmark experiment is active")
     model_config = config.get_model_config(name)
     if model_config is None:
         raise ValueError(f"Model {name} not found in config") from None
@@ -60,6 +66,25 @@ def create_chat_model(name: str | None = None, thinking_enabled: bool = False, *
             "supports_vision",
         },
     )
+    if active is not None:
+        configured_model = model_settings_from_config.get("model")
+        configured_endpoint = model_settings_from_config.get(
+            "base_url",
+            model_settings_from_config.get("openai_api_base"),
+        )
+        if configured_model != active.policy.model_name:
+            raise EvidenceError("Configured provider model does not match the benchmark policy")
+        if configured_endpoint is None or str(configured_endpoint).rstrip("/") != active.policy.endpoint:
+            raise EvidenceError("Configured provider endpoint does not match the benchmark policy")
+        model_settings_from_config["request_timeout"] = float(active.policy.request_timeout_seconds)
+        # Provider retries are opaque. The evidence middleware owns all
+        # physical retry attempts for an active experiment.
+        model_settings_from_config["max_retries"] = 0
+        logger.info(
+            "Applied frozen benchmark model policy: role=%s timeout=%ss retries=0",
+            experiment_role or "unknown",
+            active.policy.request_timeout_seconds,
+        )
     # Compute effective when_thinking_enabled by merging in the `thinking` shortcut field.
     # The `thinking` shortcut is equivalent to setting when_thinking_enabled["thinking"].
     has_thinking_settings = (model_config.when_thinking_enabled is not None) or (model_config.thinking is not None)

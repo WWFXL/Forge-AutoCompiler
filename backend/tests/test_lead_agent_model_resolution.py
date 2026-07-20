@@ -87,10 +87,19 @@ def test_make_lead_agent_disables_thinking_when_model_does_not_support_it(monkey
 
     captured: dict[str, object] = {}
 
-    def _fake_create_chat_model(*, name, thinking_enabled, reasoning_effort=None):
+    def _fake_create_chat_model(
+        *,
+        name,
+        thinking_enabled,
+        reasoning_effort=None,
+        experiment_thread_id=None,
+        experiment_role=None,
+    ):
         captured["name"] = name
         captured["thinking_enabled"] = thinking_enabled
         captured["reasoning_effort"] = reasoning_effort
+        captured["experiment_thread_id"] = experiment_thread_id
+        captured["experiment_role"] = experiment_role
         return object()
 
     monkeypatch.setattr(lead_agent_module, "create_chat_model", _fake_create_chat_model)
@@ -109,6 +118,8 @@ def test_make_lead_agent_disables_thinking_when_model_does_not_support_it(monkey
 
     assert captured["name"] == "safe-model"
     assert captured["thinking_enabled"] is False
+    assert captured["experiment_thread_id"] is None
+    assert captured["experiment_role"] == "lead"
     assert result["model"] is not None
 
 

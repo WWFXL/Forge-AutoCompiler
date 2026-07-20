@@ -19,6 +19,17 @@ from langchain.agents.middleware.types import (
 from langchain_core.messages import AIMessage
 from langgraph.errors import GraphBubbleUp
 
+from deerflow.compile.evidence import (
+    get_active_experiment,
+    model_response_metadata,
+    new_evidence_id,
+    record_experiment_event,
+    request_model_endpoint,
+    request_model_name,
+    request_model_role,
+    request_thread_id,
+)
+
 logger = logging.getLogger(__name__)
 
 _RETRIABLE_STATUS_CODES = {408, 409, 425, 429, 500, 502, 503, 504}
@@ -114,6 +125,132 @@ class LLMErrorHandlingMiddleware(AgentMiddleware[AgentState]):
             return "The configured LLM provider is temporarily unavailable after multiple retries. Please wait a moment and continue the conversation."
         return f"LLM request failed: {detail}"
 
+    def _effective_max_attempts(self, request: ModelRequest) -> int:
+        active = get_active_experiment(request_thread_id(request))
+        if active is not None:
+            return active.policy.model_max_retries + 1
+        return self.retry_max_attempts
+
+    def _failure_classification(
+        self,
+        exc: BaseException,
+        reason: str,
+    ) -> str:
+        status_code = _extract_status_code(exc)
+        exception_name = type(exc).__name__.lower()
+        if reason == "quota":
+            return "quota"
+        if reason == "auth":
+            return "authentication"
+        if status_code == 429:
+            return "rate_limited"
+        if "timeout" in exception_name:
+            return "timeout"
+        if "connection" in exception_name:
+            return "connection_error"
+        if status_code is not None:
+            return f"http_{status_code}"
+        if reason == "busy":
+            return "provider_busy"
+        if reason == "transient":
+            return "transient_provider_error"
+        return "provider_error"
+
+    def _request_started(
+        self,
+        request: ModelRequest,
+        *,
+        model_call_id: str,
+        model_request_id: str,
+        attempt: int,
+        max_attempts: int,
+    ) -> str | None:
+        thread_id = request_thread_id(request)
+        active = get_active_experiment(thread_id)
+        configured_model = request_model_name(
+            request,
+            active.policy.model_name if active is not None else "unknown",
+        )
+        record_experiment_event(
+            thread_id,
+            "model.request_started",
+            model_call_id=model_call_id,
+            model_request_id=model_request_id,
+            role=request_model_role(request),
+            attempt=attempt,
+            max_attempts=max_attempts,
+            configured_model=configured_model,
+            observed_endpoint=request_model_endpoint(request),
+            request_timeout_seconds=(active.policy.request_timeout_seconds if active is not None else None),
+            provider_max_retries=0 if active is not None else None,
+        )
+        return thread_id
+
+    def _request_completed(
+        self,
+        thread_id: str | None,
+        response: ModelCallResult,
+        *,
+        model_call_id: str,
+        model_request_id: str,
+        attempt: int,
+        latency_seconds: float,
+    ) -> None:
+        actual_model, token_usage = model_response_metadata(response)
+        record_experiment_event(
+            thread_id,
+            "model.request_completed",
+            model_call_id=model_call_id,
+            model_request_id=model_request_id,
+            attempt=attempt,
+            latency_seconds=round(latency_seconds, 6),
+            status_code=None,
+            actual_model=actual_model,
+            token_usage=token_usage,
+        )
+
+    def _request_failed(
+        self,
+        thread_id: str | None,
+        exc: BaseException,
+        reason: str,
+        *,
+        model_call_id: str,
+        model_request_id: str,
+        attempt: int,
+        max_attempts: int,
+        latency_seconds: float,
+        retriable: bool,
+    ) -> str:
+        classification = self._failure_classification(exc, reason)
+        exhausted = retriable and attempt >= max_attempts
+        record_experiment_event(
+            thread_id,
+            "model.request_failed",
+            model_call_id=model_call_id,
+            model_request_id=model_request_id,
+            attempt=attempt,
+            max_attempts=max_attempts,
+            latency_seconds=round(latency_seconds, 6),
+            status_code=_extract_status_code(exc),
+            classification=classification,
+            retriable=retriable,
+            retry_exhausted=exhausted,
+        )
+        if not retriable or exhausted:
+            record_experiment_event(
+                thread_id,
+                "failure.recorded",
+                failure_id=new_evidence_id("failure"),
+                model_call_id=model_call_id,
+                model_request_id=model_request_id,
+                domain="model_endpoint",
+                classification=classification,
+                primary=True,
+                secondary_classifications=(["retry_exhausted"] if exhausted else []),
+            )
+        return classification
+
     def _emit_retry_event(self, attempt: int, wait_ms: int, reason: str) -> None:
         try:
             from langgraph.config import get_stream_writer
@@ -138,16 +275,59 @@ class LLMErrorHandlingMiddleware(AgentMiddleware[AgentState]):
         request: ModelRequest,
         handler: Callable[[ModelRequest], ModelResponse],
     ) -> ModelCallResult:
+        model_call_id = new_evidence_id("model_call")
+        max_attempts = self._effective_max_attempts(request)
         attempt = 1
         while True:
+            model_request_id = new_evidence_id("model_request")
+            thread_id = self._request_started(
+                request,
+                model_call_id=model_call_id,
+                model_request_id=model_request_id,
+                attempt=attempt,
+                max_attempts=max_attempts,
+            )
+            started_monotonic = time.monotonic()
             try:
-                return handler(request)
+                response = handler(request)
+                self._request_completed(
+                    thread_id,
+                    response,
+                    model_call_id=model_call_id,
+                    model_request_id=model_request_id,
+                    attempt=attempt,
+                    latency_seconds=time.monotonic() - started_monotonic,
+                )
+                return response
             except GraphBubbleUp:
+                record_experiment_event(
+                    thread_id,
+                    "model.request_cancelled",
+                    model_call_id=model_call_id,
+                    model_request_id=model_request_id,
+                    attempt=attempt,
+                    classification="graph_control_flow",
+                    latency_seconds=round(
+                        time.monotonic() - started_monotonic,
+                        6,
+                    ),
+                )
                 # Preserve LangGraph control-flow signals (interrupt/pause/resume).
                 raise
             except Exception as exc:
                 retriable, reason = self._classify_error(exc)
-                if retriable and attempt < self.retry_max_attempts:
+                self._request_failed(
+                    thread_id,
+                    exc,
+                    reason,
+                    model_call_id=model_call_id,
+                    model_request_id=model_request_id,
+                    attempt=attempt,
+                    max_attempts=max_attempts,
+                    latency_seconds=time.monotonic() - started_monotonic,
+                    retriable=retriable,
+                )
+                if retriable and attempt < max_attempts:
                     wait_ms = self._build_retry_delay_ms(attempt, exc)
                     logger.warning(
                         "Transient LLM error on attempt %d/%d; retrying in %dms: %s",
@@ -157,6 +337,16 @@ class LLMErrorHandlingMiddleware(AgentMiddleware[AgentState]):
                         _extract_error_detail(exc),
                     )
                     self._emit_retry_event(attempt, wait_ms, reason)
+                    record_experiment_event(
+                        thread_id,
+                        "model.retry_scheduled",
+                        model_call_id=model_call_id,
+                        failed_model_request_id=model_request_id,
+                        attempt=attempt,
+                        next_attempt=attempt + 1,
+                        wait_ms=wait_ms,
+                        classification=self._failure_classification(exc, reason),
+                    )
                     time.sleep(wait_ms / 1000)
                     attempt += 1
                     continue
@@ -174,16 +364,73 @@ class LLMErrorHandlingMiddleware(AgentMiddleware[AgentState]):
         request: ModelRequest,
         handler: Callable[[ModelRequest], Awaitable[ModelResponse]],
     ) -> ModelCallResult:
+        model_call_id = new_evidence_id("model_call")
+        max_attempts = self._effective_max_attempts(request)
         attempt = 1
         while True:
+            model_request_id = new_evidence_id("model_request")
+            thread_id = self._request_started(
+                request,
+                model_call_id=model_call_id,
+                model_request_id=model_request_id,
+                attempt=attempt,
+                max_attempts=max_attempts,
+            )
+            started_monotonic = time.monotonic()
             try:
-                return await handler(request)
+                response = await handler(request)
+                self._request_completed(
+                    thread_id,
+                    response,
+                    model_call_id=model_call_id,
+                    model_request_id=model_request_id,
+                    attempt=attempt,
+                    latency_seconds=time.monotonic() - started_monotonic,
+                )
+                return response
             except GraphBubbleUp:
+                record_experiment_event(
+                    thread_id,
+                    "model.request_cancelled",
+                    model_call_id=model_call_id,
+                    model_request_id=model_request_id,
+                    attempt=attempt,
+                    classification="graph_control_flow",
+                    latency_seconds=round(
+                        time.monotonic() - started_monotonic,
+                        6,
+                    ),
+                )
                 # Preserve LangGraph control-flow signals (interrupt/pause/resume).
+                raise
+            except asyncio.CancelledError:
+                record_experiment_event(
+                    thread_id,
+                    "model.request_cancelled",
+                    model_call_id=model_call_id,
+                    model_request_id=model_request_id,
+                    attempt=attempt,
+                    classification="cancelled",
+                    latency_seconds=round(
+                        time.monotonic() - started_monotonic,
+                        6,
+                    ),
+                )
                 raise
             except Exception as exc:
                 retriable, reason = self._classify_error(exc)
-                if retriable and attempt < self.retry_max_attempts:
+                self._request_failed(
+                    thread_id,
+                    exc,
+                    reason,
+                    model_call_id=model_call_id,
+                    model_request_id=model_request_id,
+                    attempt=attempt,
+                    max_attempts=max_attempts,
+                    latency_seconds=time.monotonic() - started_monotonic,
+                    retriable=retriable,
+                )
+                if retriable and attempt < max_attempts:
                     wait_ms = self._build_retry_delay_ms(attempt, exc)
                     logger.warning(
                         "Transient LLM error on attempt %d/%d; retrying in %dms: %s",
@@ -193,6 +440,16 @@ class LLMErrorHandlingMiddleware(AgentMiddleware[AgentState]):
                         _extract_error_detail(exc),
                     )
                     self._emit_retry_event(attempt, wait_ms, reason)
+                    record_experiment_event(
+                        thread_id,
+                        "model.retry_scheduled",
+                        model_call_id=model_call_id,
+                        failed_model_request_id=model_request_id,
+                        attempt=attempt,
+                        next_attempt=attempt + 1,
+                        wait_ms=wait_ms,
+                        classification=self._failure_classification(exc, reason),
+                    )
                     await asyncio.sleep(wait_ms / 1000)
                     attempt += 1
                     continue
