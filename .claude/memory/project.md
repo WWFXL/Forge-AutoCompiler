@@ -17,6 +17,12 @@
   - 文件: `scripts/forge_benchmark.py`, `backend/tests/test_forge_benchmark.py`, `benchmarks/README.md`, `benchmarks/manifests/cpp-pilot-v1.json`, `benchmarks/schemas/forge-cpp-benchmark-v1.schema.json`, `.github/workflows/backend-unit-tests.yml`
   - 动机: 在不改写 v1-v5 冻结 manifest、Schema、记录器或账本的前提下，把 Issue #10 的协议增量从旧 clean-replay 分支重放到 `main`；Forge 组件按 manifest 声明的历史 Git revision 校验，当前 recorder 与 Schema 仍按工作树字节校验，CI checkout 获取完整历史以执行同一严格检查
   - 证据: 聚焦回归 `183 passed`，后端全量 `1470 passed, 17 skipped`，后端 Ruff、前端 lint/typecheck/build、Draft 2020-12 meta-schema、冻结资产、diff 与敏感信息检查通过
+- 2026-07-18 — 完成 v2 五 case 首次 physical pilot 并保留失败证据
+  - 文件: `.compile-sessions/benchmark-evidence/`（本地 Git 忽略的 append-only ledger），`.claude/memory/project.md`
+  - 动机: 在 clean-tree preflight `ready=true` 后，以 `gpt-5.6-sol`、0 provider retries、无 fallback、Memory/Skills 关闭和 `compose-dood` 严格串行执行 `fmt`、`hiredis`、`libcheck`、`libgit2`、`sysstat-nondeterministic`；每个 slot 在首个模型请求前已有独立 ledger，未 replacement
+  - 结果: 5/5 ledger hash chain 与离线 gate recomputation 有效且无 mismatch，但 5/5 oracle 均为 `submit_missing`，0 submit、0 clean replay；`fmt` 未创建 session，`hiredis`/`sysstat` 因 WSL bind mount Git ownership 导致 clone 128，`libcheck`/`libgit2` 出现冻结 120 秒 endpoint timeout；所有 reconciliation 成功且最终无残留容器
+  - GitHub: Draft PR #15；Issue #14 已回帖；新增 #16（clone safe.directory）、#17（异常后 session 终态）、#18（actual model 证据）
+
 - 2026-07-18 — 冻结可执行的 C/C++ pilot v2 协议与 Compose/DooD preflight
   - 文件: `scripts/forge_benchmark_v2.py`, `scripts/forge_benchmark_runner.py`, `benchmarks/manifests/cpp-pilot-v2.json`, `benchmarks/schemas/forge-cpp-benchmark-v2.schema.json`, `benchmarks/README.md`, `.gitignore`, `backend/tests/test_forge_benchmark_v2.py`, `backend/tests/test_forge_benchmark_runner.py`
   - 动机: 保持 v1 字节不变，以 `d845b735` 作为必须被 clean HEAD 包含且组件无漂移的运行实现基线，冻结 Issue #11 的 20 个 runtime/evidence 组件与 4 个协议文件，显式校验 `compose-dood` 并解除新版 instrumentation blocker；`run` 在首个模型请求前还会核验自身确实位于带 Docker socket 的 `deer-flow-dev/langgraph` 容器；本地 evidence/results 已忽略，避免首个 ledger 使后续 case preflight 误报脏工作树
@@ -68,6 +74,9 @@
 - Manifest 中声明的模型、端点、镜像和运行参数只是实验意图，不是实际运行证明；observed 字段必须由 runner 从真实请求、Forge 状态和 Docker 结果写入。
 - Benchmark run record 必须固定 recorder 与 Schema 的 SHA-256；只固定 manifest 不足以证明不同批次使用了相同采集语义。
 - 默认 physical-attempt ledger 写入 `benchmarks/evidence/`；该目录必须保持 Git 忽略，否则第一个 case 创建 evidence 后会让后续 clean-tree preflight 全部失败。忽略只影响版本控制，不得覆盖或删除本地 append-only ledger。
+- Windows/WSL bind mount 的 initial exact-commit clone 在 `git init` 后也必须配置容器内 `/workspace/repo` 为 `safe.directory`；只在 clean replay 配置不够，pilot 已观察到 clone 退出 128。
+- runner 的 orphan reconciliation 删除容器不等于 Compile Session 已终结；endpoint timeout 后必须同步 authoritative session 终态，否则 session 可能停在 `ready`。
+- compatible endpoint 的成功 response 可能不提供实际模型字段；`configured_model` 与请求 endpoint 不能事后回填为 `actual_model`，缺失必须保持 `null` 并单独决定是否阻塞正式实验。
 - 没有观测到的实际模型、镜像 ID、submit/replay 结果等字段必须保持 `null`，不能用 manifest 声明值、预期结果或事后推断补齐证据。
 - 历史 manifest 的 Forge 组件哈希必须按其声明的 Git revision 读取 blob 校验；把它永久对照最新工作树，会在 stacked PR squash 合并或后续 instrumentation 后产生伪漂移。协议记录器与 Schema 仍应按当前字节校验；最小后端镜像没有 Git 时，由运行时 preflight 校验当前工作树。
 - 一次性前端测试容器的镜像内置源码可能落后于主干；应只读挂载当前 `frontend/src`、`public` 和 `next.config.js`，并让容器使用独立 `.next`，不能在运行 `next dev` 的容器内并发构建。
