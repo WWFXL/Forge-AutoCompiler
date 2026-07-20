@@ -22,10 +22,15 @@ def load_manifest() -> dict:
     return forge_benchmark_runner._load_manifest(path)
 
 
+def load_v2_manifest() -> dict:
+    path = REPO_ROOT / "benchmarks" / "manifests" / "cpp-pilot-v2.json"
+    return forge_benchmark_runner._load_manifest(path)
+
+
 def ready_preflight(manifest: dict, *, ready: bool = True) -> dict:
     return {
         "ready": ready,
-        "manifest_sha256": forge_benchmark_runner.protocol.manifest_sha256(manifest),
+        "manifest_sha256": forge_benchmark_runner._manifest_sha256(manifest),
         "manifest_file_sha256": "1" * 64,
         "forge": {
             "revision": manifest["forge"]["commit_sha"],
@@ -60,6 +65,89 @@ def test_build_policy_applies_frozen_case_and_model_constraints() -> None:
     assert policy.skills_enabled is False
     assert policy.expected_commit_sha == manifest["cases"][0]["commit_sha"]
     assert policy.process_environment == manifest["cases"][0]["constraints"]["environment"]
+
+
+def test_v2_preflight_accepts_clean_descendant_with_frozen_components(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    manifest = load_v2_manifest()
+    expected_hashes = {
+        **manifest["forge"]["component_sha256"],
+        **manifest["protocol_artifact_sha256"],
+    }
+
+    monkeypatch.setattr(
+        forge_benchmark_runner,
+        "_git_state",
+        lambda _repo_root: {"revision": "f" * 40, "dirty": False},
+    )
+    monkeypatch.setattr(
+        forge_benchmark_runner,
+        "_baseline_is_ancestor",
+        lambda _repo_root, _baseline: True,
+    )
+
+    def frozen_sha(path: Path) -> str:
+        normalized = path.as_posix()
+        return next(
+            (digest for relative_path, digest in expected_hashes.items() if normalized.endswith(relative_path)),
+            "a" * 64,
+        )
+
+    monkeypatch.setattr(forge_benchmark_runner, "_sha256_file", frozen_sha)
+    monkeypatch.setattr(forge_benchmark_runner, "_credential_present", lambda _name: True)
+    monkeypatch.setattr(forge_benchmark_runner, "_endpoint_reachable", lambda _endpoint: True)
+    monkeypatch.setattr(forge_benchmark_runner, "_compose_dood_present", lambda _repo_root: True)
+
+    def docker_state(arguments: list[str], *, cwd: Path = REPO_ROOT) -> tuple[int, str]:
+        del cwd
+        if arguments[:3] == ["docker", "image", "inspect"]:
+            return 0, manifest["runtime"]["image_id"]
+        if arguments[:3] == ["docker", "network", "inspect"]:
+            return 0, ""
+        if arguments[:2] == ["docker", "version"]:
+            return 0, manifest["runtime"]["host"]["docker_server_version"]
+        raise AssertionError(arguments)
+
+    monkeypatch.setattr(forge_benchmark_runner, "_run_command", docker_state)
+
+    preflight = forge_benchmark_runner.collect_preflight(
+        manifest,
+        repo_root=REPO_ROOT,
+        manifest_path=REPO_ROOT / "benchmarks" / "manifests" / "cpp-pilot-v2.json",
+    )
+
+    assert preflight["ready"] is True
+    assert preflight["checks"]["forge_head_equals_baseline"] is False
+    assert preflight["checks"]["forge_revision_matches"] is True
+    assert preflight["checks"]["forge_baseline_is_ancestor"] is True
+    assert preflight["checks"]["forge_baseline_satisfied"] is True
+    assert preflight["checks"]["control_plane_topology_matches"] is True
+    assert preflight["runtime"]["control_plane_topology"] == "compose-dood"
+
+
+def test_v2_preflight_rejects_missing_baseline_or_compose_dood(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    manifest = load_v2_manifest()
+    monkeypatch.setattr(
+        forge_benchmark_runner,
+        "_git_state",
+        lambda _repo_root: {"revision": "f" * 40, "dirty": False},
+    )
+    monkeypatch.setattr(forge_benchmark_runner, "_baseline_is_ancestor", lambda *_args: False)
+    monkeypatch.setattr(forge_benchmark_runner, "_compose_dood_present", lambda _repo_root: False)
+    monkeypatch.setattr(forge_benchmark_runner, "_sha256_file", lambda _path: None)
+    monkeypatch.setattr(forge_benchmark_runner, "_credential_present", lambda _name: True)
+    monkeypatch.setattr(forge_benchmark_runner, "_endpoint_reachable", lambda _endpoint: True)
+    monkeypatch.setattr(forge_benchmark_runner, "_run_command", lambda *_args, **_kwargs: (1, ""))
+
+    preflight = forge_benchmark_runner.collect_preflight(manifest)
+
+    assert preflight["ready"] is False
+    assert preflight["checks"]["forge_revision_matches"] is False
+    assert preflight["checks"]["forge_baseline_satisfied"] is False
+    assert preflight["checks"]["control_plane_topology_matches"] is False
 
 
 def test_compiler_prompt_receives_ordered_manifest_constraints() -> None:
@@ -145,6 +233,38 @@ def test_run_refuses_failed_preflight_before_importing_model_client(
         forge_benchmark_runner.run_attempt(manifest, ledger.path)
 
     assert not any(event["event"].startswith("model.") for event in ledger.read())
+
+
+def test_v2_run_refuses_non_compose_process_before_model_request(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    manifest = load_v2_manifest()
+    preflight = ready_preflight(manifest)
+    monkeypatch.setattr(
+        forge_benchmark_runner,
+        "collect_preflight",
+        lambda *args, **kwargs: preflight,
+    )
+    ledger, _ = forge_benchmark_runner.create_attempt(
+        manifest,
+        case_id="fmt",
+        condition_id="baseline",
+        repetition=1,
+        output_dir=tmp_path,
+    )
+    monkeypatch.setattr(
+        forge_benchmark_runner,
+        "_running_inside_compose_dood",
+        lambda _repo_root: False,
+    )
+
+    with pytest.raises(forge_benchmark_runner.RunnerError, match="frozen Compose/DooD"):
+        forge_benchmark_runner.run_attempt(manifest, ledger.path)
+
+    events = ledger.read()
+    assert events[-1]["event"] == "runtime.topology_rejected"
+    assert not any(event["event"].startswith("model.") for event in events)
 
 
 def test_keyboard_interrupt_keeps_attempt_recoverable_and_reconciles_orphans(

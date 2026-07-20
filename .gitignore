@@ -37,6 +37,8 @@ coverage.xml
 coverage/
 .deer-flow/
 .compile-sessions/
+benchmarks/evidence/
+benchmarks/results/*.local.jsonl
 .claude/
 skills/custom/*
 logs/
