@@ -8,6 +8,13 @@
 ## 最近变更 (Recent Changes)
 <!-- 倒序，最新在上。 -->
 
+- 2026-07-20 — 将 Issue #18 / PR #21 的 actual-model evidence 修复重排到 `main@796cf05a` 并完成本地验证
+  - 文件: `backend/packages/harness/deerflow/compile/evidence.py`, `backend/tests/test_experiment_evidence.py`, `.claude/memory/project.md`
+  - 动机: LangChain `ModelResponse.result` 是结构化 message 列表，旧 helper 把整个列表当成单个候选，因而漏读 `AIMessage.response_metadata`；新实现最多遍历 8 个 message，允许模型身份与 usage 来自不同 message
+  - 安全边界: 只读取 `response_metadata.model_name/model` 和三项非负整数 token usage；unsafe model 与布尔 token 被拒绝但不改变模型调用结果；不读取或保存 content、prompt、response body、headers、异常文本、密钥或宿主路径，provider 未提供身份时保持 `actual_model=null`
+  - 证据: 模型/evidence `46 passed`，benchmark/runner/evidence `104 passed, 3 skipped`，带 Git 的 v2 历史测试 `10 passed`，后端全量 `1507 passed, 22 skipped`；后端 Ruff/format、Compose config、前端串行 format/lint/typecheck/build、diff 和无遗留容器检查通过
+  - 边界: v1-v5 manifest、Schema、validator、协议哈希和 ledger 未修改或重跑；本阶段没有模型请求，等待 PR 完整 CI 与合并
+
 - 2026-07-20 — 将 Issue #17 / PR #20 的 runner Session 终结修复重排到最新主干并完成本地验证
   - 文件: `scripts/forge_benchmark_runner.py`, `backend/tests/test_forge_benchmark_runner.py`, `backend/tests/test_compile_replay_docker.py`, `.claude/memory/project.md`
   - 动机: runner 在嵌入式 client 正常返回、异常或提前退出后，先同步终结该 physical attempt thread 的未完成 Compile Session，再清理 orphan；首次终结未闭合但 orphan 清理成功时幂等重试，endpoint failure、Session lifecycle 与 orphan cleanup 保持独立证据域
@@ -71,8 +78,8 @@
 ## 待办 (TODOs)
 <!-- 发现但未做的事。带 file:line 指针。 -->
 
-- 完成 Issue #17 / PR #20 的审阅、完整验证、CI 与主干合并；保持 v1-v5 协议和 ledger 不变，不启动 v6 pilot。
-- PR #20 合并后继续处理 Issue #18 / PR #21；不得删除仍被上层 PR 引用的远端 base 分支。
+- 完成 Issue #18 / PR #21 的回归、完整 CI 与主干合并；保持 v1-v5 协议和 ledger 不变，不启动 v6 pilot。
+- PR #21 合并后继续处理 Issue #22 / PR #23；不得删除仍被上层 PR 引用的远端 head 分支。
 - 当前 `backend/packages/harness/deerflow/compile/manager.py` 的 lifecycle lock 是进程内锁；部署多个后端进程前，需要改为文件锁/数据库事务或带版本号的 CAS，并增加跨进程竞态测试。
 
 ## 已知问题 (Known Issues / Pitfalls)

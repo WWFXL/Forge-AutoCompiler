@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
+from types import SimpleNamespace
 
 import pytest
 
@@ -12,6 +13,7 @@ from deerflow.compile.evidence import (
     activate_experiment,
     deactivate_experiment,
     get_active_experiment,
+    model_response_metadata,
     new_evidence_id,
     record_experiment_event,
 )
@@ -123,3 +125,71 @@ def test_active_experiment_registry_routes_events_to_one_thread(tmp_path: Path) 
     events = ledger.read()
     assert [event["event"] for event in events] == ["experiment.started", "model.request_started"]
     assert get_active_experiment(thread_id) is None
+
+
+def test_model_response_metadata_reads_bounded_model_response_messages() -> None:
+    response = SimpleNamespace(
+        result=[
+            SimpleNamespace(
+                response_metadata={},
+                usage_metadata={"input_tokens": 11, "output_tokens": 7, "total_tokens": 18},
+            ),
+            SimpleNamespace(
+                response_metadata={"model_name": "provider-confirmed-model"},
+                usage_metadata=None,
+            ),
+        ]
+    )
+
+    actual_model, usage = model_response_metadata(response)
+
+    assert actual_model == "provider-confirmed-model"
+    assert usage == {"input_tokens": 11, "output_tokens": 7, "total_tokens": 18}
+
+
+def test_model_response_metadata_keeps_unobserved_model_null() -> None:
+    response = SimpleNamespace(
+        result=[
+            SimpleNamespace(
+                response_metadata={"finish_reason": "stop"},
+                usage_metadata=None,
+                content="must not be inspected",
+            )
+        ]
+    )
+
+    actual_model, usage = model_response_metadata(response)
+
+    assert actual_model is None
+    assert usage == {"input_tokens": None, "output_tokens": None, "total_tokens": None}
+
+
+def test_model_response_metadata_rejects_unsafe_model_and_boolean_usage() -> None:
+    response = SimpleNamespace(
+        result=[
+            SimpleNamespace(
+                response_metadata={"model_name": "unsafe\nmodel"},
+                usage_metadata={"input_tokens": True},
+            )
+        ]
+    )
+
+    actual_model, usage = model_response_metadata(response)
+
+    assert actual_model is None
+    assert usage == {"input_tokens": None, "output_tokens": None, "total_tokens": None}
+
+
+def test_model_response_metadata_reads_at_most_eight_messages() -> None:
+    messages = [SimpleNamespace(response_metadata={}, usage_metadata=None) for _ in range(8)]
+    messages.append(
+        SimpleNamespace(
+            response_metadata={"model_name": "out-of-bounds-model"},
+            usage_metadata={"total_tokens": 99},
+        )
+    )
+
+    actual_model, usage = model_response_metadata(SimpleNamespace(result=messages))
+
+    assert actual_model is None
+    assert usage == {"input_tokens": None, "output_tokens": None, "total_tokens": None}

@@ -510,7 +510,11 @@ def request_model_endpoint(request: Any) -> str | None:
 def model_response_metadata(response: Any) -> tuple[str | None, dict[str, int | None]]:
     candidates: list[Any] = []
     if hasattr(response, "result"):
-        candidates.append(getattr(response, "result"))
+        result = getattr(response, "result")
+        if isinstance(result, (list, tuple)):
+            candidates.extend(result[:8])
+        else:
+            candidates.append(result)
     candidates.append(response)
     actual_model: str | None = None
     usage = {"input_tokens": None, "output_tokens": None, "total_tokens": None}
@@ -520,15 +524,19 @@ def model_response_metadata(response: Any) -> tuple[str | None, dict[str, int | 
             for key in ("model_name", "model"):
                 value = metadata.get(key)
                 if isinstance(value, str) and value and len(value) <= 128:
+                    try:
+                        _validate_safe_value(value, "actual_model")
+                    except EvidenceError:
+                        continue
                     actual_model = value
                     break
         usage_metadata = getattr(candidate, "usage_metadata", None)
         if isinstance(usage_metadata, dict):
             for key in usage:
                 value = usage_metadata.get(key)
-                if isinstance(value, int) and value >= 0:
+                if isinstance(value, int) and not isinstance(value, bool) and value >= 0:
                     usage[key] = value
-        if actual_model is not None or any(value is not None for value in usage.values()):
+        if actual_model is not None and any(value is not None for value in usage.values()):
             break
     return actual_model, usage
 
