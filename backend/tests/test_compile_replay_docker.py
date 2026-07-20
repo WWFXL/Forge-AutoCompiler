@@ -19,7 +19,7 @@ import pytest
 from deerflow.compile import operations
 from deerflow.compile.docker_runtime import CompileDockerRuntime
 from deerflow.compile.manager import CompileSessionManager
-from deerflow.compile.operations import CompileOperationsServices, _classify_compiled_artifact, _write_repro_bundle, clone_repository_impl, verify_clean_replay_impl
+from deerflow.compile.operations import CompileOperationsServices, _classify_compiled_artifact, _write_repro_bundle, clone_repository_impl, finalize_unfinished_thread_sessions_impl, verify_clean_replay_impl
 from deerflow.compile.schemas import BuildArtifact, BuildCommandRecord, CommandResult, CompileSession, VerificationResult
 from deerflow.config.paths import Paths
 
@@ -269,6 +269,41 @@ def test_exact_commit_clone_accepts_bind_mounted_workspace_ownership(monkeypatch
         shutil.rmtree(Path(session.metadata_path).parent.parent, ignore_errors=True)
         assert compile_cleanup.succeeded is True
         assert compile_cleanup.removed is True
+
+
+def test_unfinished_session_finalization_removes_real_compile_container(monkeypatch):
+    paths = Paths()
+    manager = CompileSessionManager(paths=paths, default_image=COMPILE_IMAGE)
+    thread_id = f"docker-finalize-{uuid.uuid4().hex[:12]}"
+    session = manager.create_session(
+        thread_id=thread_id,
+        repo_url=REPO_URL,
+        image=COMPILE_IMAGE,
+    )
+    runtime = CompileDockerRuntime(manager=manager)
+    monkeypatch.setattr(operations, "_services", CompileOperationsServices(manager=manager, runtime=runtime))
+    try:
+        runtime.create_container(session)
+        manager.save_session(session)
+        manager.mark_session_status(session, "ready")
+
+        finalized = finalize_unfinished_thread_sessions_impl(thread_id=thread_id)
+
+        assert len(finalized) == 1
+        reloaded = manager.load_session(session.session_id, thread_id)
+        assert reloaded.status == "failed"
+        assert reloaded.finalized_at is not None
+        inspect = subprocess.run(
+            ["docker", "inspect", session.container_name],
+            check=False,
+            capture_output=True,
+            text=True,
+            timeout=30,
+        )
+        assert inspect.returncode != 0
+    finally:
+        runtime.stop_and_remove_container(session)
+        shutil.rmtree(Path(session.metadata_path).parent.parent, ignore_errors=True)
 
 
 def test_clean_replay_rebuilds_pinned_cmake_fixture_in_fresh_container(monkeypatch):

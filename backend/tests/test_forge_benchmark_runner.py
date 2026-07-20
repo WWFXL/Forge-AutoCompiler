@@ -2,10 +2,16 @@ from __future__ import annotations
 
 import importlib.util
 from pathlib import Path
+from types import SimpleNamespace
 
 import pytest
 
+from deerflow.compile import operations
+from deerflow.compile.docker_runtime import ContainerCleanupResult
 from deerflow.compile.evidence import ExperimentLedger
+from deerflow.compile.manager import CompileSessionManager
+from deerflow.compile.operations import CompileOperationsServices
+from deerflow.config.paths import Paths
 from deerflow.tools.builtins.task_tool import _with_benchmark_constraints
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
@@ -316,6 +322,162 @@ def test_keyboard_interrupt_keeps_attempt_recoverable_and_reconciles_orphans(
     assert events[-1]["event"] == "orphan.reconciled"
     assert not any(event["event"] == "experiment.completed" for event in events)
     ExperimentLedger.open(ledger.path).append("recovery.recorded", {"status": "interrupted"})
+
+
+@pytest.mark.parametrize("raise_error", [False, True])
+def test_run_terminalizes_unfinished_session_after_client_exit(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    raise_error: bool,
+) -> None:
+    manifest = load_manifest()
+    preflight = ready_preflight(manifest)
+    monkeypatch.setattr(
+        forge_benchmark_runner,
+        "collect_preflight",
+        lambda *args, **kwargs: preflight,
+    )
+    ledger, _ = forge_benchmark_runner.create_attempt(
+        manifest,
+        case_id="fmt",
+        condition_id="baseline",
+        repetition=1,
+        output_dir=tmp_path / "evidence",
+    )
+    thread_id = ledger.read()[0]["payload"]["thread_id"]
+    manager = CompileSessionManager(
+        paths=Paths(
+            base_dir=tmp_path / "state",
+            workspace_root=tmp_path / "workspace",
+            host_workspace_root=str(tmp_path / "workspace"),
+        )
+    )
+    cleanup_calls: list[str] = []
+
+    def stop_and_remove_container(session):
+        cleanup_calls.append(session.session_id)
+        return ContainerCleanupResult(succeeded=True, stopped=True, removed=True)
+
+    monkeypatch.setattr(
+        operations,
+        "_services",
+        CompileOperationsServices(
+            manager=manager,
+            runtime=SimpleNamespace(stop_and_remove_container=stop_and_remove_container),
+        ),
+    )
+
+    class ReturningClient:
+        def __init__(self, **kwargs) -> None:
+            del kwargs
+
+        def stream(self, message: str, *, thread_id: str):
+            del message
+            session = manager.create_session(thread_id=thread_id, repo_url="https://example.com/repo.git")
+            session.container_id = "container-123"
+            manager.save_session(session)
+            manager.mark_session_status(session, "ready")
+            if raise_error:
+                raise TimeoutError
+            return iter(())
+
+    import deerflow.client
+
+    monkeypatch.setattr(deerflow.client, "DeerFlowClient", ReturningClient)
+    monkeypatch.setattr(
+        forge_benchmark_runner,
+        "reconcile_orphans",
+        lambda _attempt_id: {
+            "scan_succeeded": True,
+            "orphan_count": 0,
+            "removed_count": 0,
+            "cleanup_succeeded": True,
+        },
+    )
+
+    result = forge_benchmark_runner.run_attempt(manifest, ledger.path)
+
+    sessions = manager.list_sessions(thread_id)
+    assert len(sessions) == 1
+    finalized = manager.load_session(sessions[0].session_id, thread_id)
+    assert finalized.status == "failed"
+    assert finalized.finalized_at is not None
+    assert (finalized.termination_status == "failed") is raise_error
+    assert cleanup_calls == [finalized.session_id]
+    assert result["session_finalization_succeeded"] is True
+    completed = ledger.read()[-1]
+    assert completed["event"] == "experiment.completed"
+    assert completed["payload"]["session_finalization_succeeded"] is True
+
+
+def test_run_retries_session_finalization_after_orphan_cleanup(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    manifest = load_manifest()
+    preflight = ready_preflight(manifest)
+    monkeypatch.setattr(
+        forge_benchmark_runner,
+        "collect_preflight",
+        lambda *args, **kwargs: preflight,
+    )
+    ledger, _ = forge_benchmark_runner.create_attempt(
+        manifest,
+        case_id="fmt",
+        condition_id="baseline",
+        repetition=1,
+        output_dir=tmp_path / "evidence",
+    )
+    call_order: list[str] = []
+    finalization_results = iter([False, True])
+
+    class ReturningClient:
+        def __init__(self, **kwargs) -> None:
+            del kwargs
+
+        def stream(self, message: str, *, thread_id: str):
+            del message, thread_id
+            return iter(())
+
+    import deerflow.client
+
+    monkeypatch.setattr(deerflow.client, "DeerFlowClient", ReturningClient)
+
+    def finalize_sessions(
+        thread_id: str,
+        *,
+        interrupted_status: str | None,
+        error: str | None,
+    ) -> bool:
+        del thread_id
+        assert interrupted_status is None
+        assert error is None
+        call_order.append("finalize")
+        return next(finalization_results)
+
+    def reconcile(_attempt_id: str) -> dict[str, object]:
+        call_order.append("reconcile")
+        return {
+            "scan_succeeded": True,
+            "orphan_count": 1,
+            "removed_count": 1,
+            "cleanup_succeeded": True,
+        }
+
+    monkeypatch.setattr(
+        forge_benchmark_runner,
+        "_finalize_attempt_sessions",
+        finalize_sessions,
+    )
+    monkeypatch.setattr(forge_benchmark_runner, "reconcile_orphans", reconcile)
+
+    result = forge_benchmark_runner.run_attempt(manifest, ledger.path)
+
+    assert call_order == ["finalize", "reconcile", "finalize"]
+    assert result["session_finalization_succeeded"] is True
+    completed = ledger.read()[-1]
+    assert completed["event"] == "experiment.completed"
+    assert completed["payload"]["session_finalization_succeeded"] is True
 
 
 def test_gate_recomputation_detects_tampering_and_oracle_is_independent() -> None:
