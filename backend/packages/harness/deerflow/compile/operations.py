@@ -1,12 +1,14 @@
 from __future__ import annotations
 
 import json
+import re
 import struct
 import uuid
 from dataclasses import dataclass
-from pathlib import Path
+from pathlib import Path, PurePosixPath
 from shlex import quote
 from typing import BinaryIO
+from urllib.parse import urlsplit
 
 from deerflow.compile.docker_runtime import CONTAINER_REPO_DIR, CONTAINER_WORKSPACE_DIR, CompileDockerRuntime, ContainerCleanupResult
 from deerflow.compile.manager import CompileSessionManager
@@ -45,6 +47,12 @@ _MAX_ELF_TABLE_ENTRIES = 4096
 _AR_MEMBER_HEADER_SIZE = 60
 _AR_MEMBER_TRAILER = b"`\n"
 _AR_METADATA_MEMBERS = {"/", "//", "/SYM64/"}
+_REPLAY_WORKDIR_ROOTS = (
+    PurePosixPath(CONTAINER_WORKSPACE_DIR),
+    PurePosixPath("/artifacts"),
+)
+_WINDOWS_ABSOLUTE_PATH_RE = re.compile(r"(?i)(?<![A-Za-z0-9_])(?:[A-Z]:[\\/]|\\\\)")
+_WSL_HOST_PATH_RE = re.compile(r"(?i)(?<![A-Za-z0-9_])/mnt/[A-Z](?:/|$)")
 
 
 @dataclass
@@ -179,10 +187,14 @@ def clone_repository_impl(
     services = get_compile_services()
 
     repo_dir = Path(session.leadagent_repo_dir)
+    effective_branch = branch if branch is not None else session.branch
+    session.repo_url = repo_url
+    session.branch = effective_branch
+    services.manager.save_session(session)
 
     clone_command_parts = ["git clone", f"--depth {depth}"]
-    if branch:
-        clone_command_parts.append(f"--branch {shell_quote(branch)}")
+    if effective_branch:
+        clone_command_parts.append(f"--branch {shell_quote(effective_branch)}")
     clone_command_parts.append(f"{shell_quote(repo_url)} {shell_quote(CONTAINER_REPO_DIR)}")
     clone_command = " ".join(clone_command_parts)
     attempt_command = f"rm -rf -- {shell_quote(CONTAINER_REPO_DIR)} && {clone_command}"
@@ -197,7 +209,7 @@ def clone_repository_impl(
             session,
             "clone.started",
             repo_url=repo_url,
-            branch=branch,
+            branch=effective_branch,
             depth=depth,
             attempt=attempt,
             max_retries=retries,
@@ -636,6 +648,9 @@ def submit_build_result_impl(*, session: CompileSession) -> str:
     services = get_compile_services()
     submit_index = len(session.commands) + 1
     summary_log_path = local_log_path(session, f"{submit_index:03d}_submit.log")
+    while Path(summary_log_path).exists():
+        submit_index += 1
+        summary_log_path = local_log_path(session, f"{submit_index:03d}_submit.log")
     services.manager.log_event(
         session,
         "submit.started",
@@ -643,8 +658,6 @@ def submit_build_result_impl(*, session: CompileSession) -> str:
         container_artifacts_dir="/artifacts",
         log_path=summary_log_path,
     )
-    started_at = utc_now_iso()
-
     discovered_files = sorted(_list_leadagent_artifact_files(session), key=lambda p: p.as_posix())
     checks: list[VerificationCheck] = []
     artifacts: list[BuildArtifact] = []
@@ -728,6 +741,28 @@ def submit_build_result_impl(*, session: CompileSession) -> str:
     if discovered_files and not artifacts:
         notes.append("Error: Verification failed. No recognized compiled artifacts were found in /artifacts.")
 
+    if artifacts and all(check.passed for check in checks):
+        try:
+            _write_repro_bundle(session)
+        except (OSError, ValueError) as exc:
+            message = f"Error: Verification failed. Could not generate a commit-pinned replay bundle: {exc}"
+            notes.append(message)
+            _record_submit_check(
+                checks=checks,
+                name="repro_bundle",
+                target="repro/build.sh",
+                passed=False,
+                summary=message,
+            )
+        else:
+            _record_submit_check(
+                checks=checks,
+                name="repro_bundle",
+                target="repro/build.sh",
+                passed=True,
+                summary="Generated a commit-pinned replay script from successful container commands.",
+            )
+
     failed_checks = sum(1 for check in checks if not check.passed)
     status = "passed" if artifacts and failed_checks == 0 else "failed"
     verification = VerificationResult(
@@ -740,18 +775,6 @@ def submit_build_result_impl(*, session: CompileSession) -> str:
     session.artifacts = artifacts
     session.verification = verification
     services.manager.save_session(session)
-
-    completed_at = utc_now_iso()
-    append_command_record(
-        session,
-        "submit",
-        "submit build result from /artifacts",
-        str(Path(session.metadata_path).parent),
-        summary_log_path,
-        0 if status == "passed" else 1,
-        started_at,
-        completed_at,
-    )
 
     failure_message = next(
         (note for note in notes if note.startswith("Error:")),
@@ -784,7 +807,6 @@ def submit_build_result_impl(*, session: CompileSession) -> str:
     )
 
     if status == "passed":
-        _write_repro_bundle(session)
         services.manager.mark_session_status(session, "verified")
         services.manager.log_event(session, "verification.accepted", artifact_count=len(artifacts))
     else:
@@ -793,14 +815,124 @@ def submit_build_result_impl(*, session: CompileSession) -> str:
     return json.dumps(payload, ensure_ascii=False, indent=2)
 
 
+def _validate_replay_workdir(workdir: str) -> str:
+    if not workdir or any(character in workdir for character in ("\0", "\r", "\n")):
+        raise ValueError("Invalid replay workdir.")
+
+    path = PurePosixPath(workdir)
+    if not path.is_absolute() or ".." in path.parts or ".compile-sessions" in path.parts:
+        raise ValueError(f"Invalid replay workdir: {workdir!r}.")
+    if not any(path == root or root in path.parents for root in _REPLAY_WORKDIR_ROOTS):
+        raise ValueError(f"Unsupported replay workdir outside compile-container roots: {workdir!r}.")
+    return path.as_posix()
+
+
+def _validate_replay_command(session: CompileSession, command: str) -> None:
+    if not command.strip() or "\0" in command or "\r" in command:
+        raise ValueError("Invalid replay command.")
+
+    forbidden_fragments = {
+        ".compile-sessions",
+        str(Path(session.metadata_path).parent),
+        session.leadagent_repo_dir,
+        session.leadagent_artifacts_dir,
+        session.leadagent_logs_dir,
+        session.leadagent_repro_dir,
+    }
+    if len(session.session_id) >= 8:
+        forbidden_fragments.add(session.session_id)
+    if len(session.thread_id) >= 8:
+        forbidden_fragments.add(session.thread_id)
+
+    if any(fragment and fragment in command for fragment in forbidden_fragments):
+        raise ValueError("Invalid replay command containing a host or session path.")
+    if _WINDOWS_ABSOLUTE_PATH_RE.search(command) or _WSL_HOST_PATH_RE.search(command):
+        raise ValueError("Invalid replay command containing a host path.")
+
+
+def _validate_replay_repo_url(repo_url: str) -> None:
+    if not repo_url or repo_url != repo_url.strip() or any(character in repo_url for character in ("\0", "\r", "\n")):
+        raise ValueError("A valid repo_url is required to generate a replay bundle.")
+    if "?" in repo_url or "#" in repo_url:
+        raise ValueError("Query parameters and fragments must not be embedded in repo_url for a persistent replay bundle.")
+    if _WINDOWS_ABSOLUTE_PATH_RE.search(repo_url) or _WSL_HOST_PATH_RE.search(repo_url) or repo_url.startswith(("/", "./", "../", "~")):
+        raise ValueError("A remote repo_url is required to generate a replay bundle.")
+
+    parsed = urlsplit(repo_url)
+    scheme = parsed.scheme.lower()
+    if scheme:
+        if scheme not in {"git", "git+ssh", "http", "https", "ssh"} or not parsed.hostname:
+            raise ValueError("An HTTP(S), SSH, or Git repo_url is required to generate a replay bundle.")
+        if parsed.password is not None or (scheme in {"http", "https"} and parsed.username is not None):
+            raise ValueError("Credentials must not be embedded in repo_url for a persistent replay bundle.")
+        return
+
+    if not re.fullmatch(r"[^@\s/:]+@[^:\s/]+:.+", repo_url):
+        raise ValueError("A remote repo_url is required to generate a replay bundle.")
+
+
 def _write_repro_bundle(session: CompileSession) -> Path:
     repro_dir = Path(session.metadata_path).parent / "repro"
-    repro_dir.mkdir(parents=True, exist_ok=True)
-    build_lines = ["#!/usr/bin/env bash", "set -euo pipefail", ""]
-    for command in session.commands:
-        build_lines.append(command.command)
     build_path = repro_dir / "build.sh"
-    build_path.write_text("\n".join(build_lines) + "\n", encoding="utf-8")
+    build_path.unlink(missing_ok=True)
+
+    commit_sha = (session.commit_sha or "").strip().lower()
+    if not re.fullmatch(r"[0-9A-Fa-f]{40}|[0-9A-Fa-f]{64}", commit_sha):
+        raise ValueError("A full commit_sha is required to generate a replay bundle.")
+    _validate_replay_repo_url(session.repo_url)
+
+    git_init_command = 'git init --quiet "$REPO_DIR"' if len(commit_sha) == 40 else 'git init --object-format=sha256 --quiet "$REPO_DIR"'
+    build_lines = [
+        "#!/usr/bin/env bash",
+        "set -euo pipefail",
+        "",
+        f"REPO_URL={shell_quote(session.repo_url)}",
+        f"COMMIT_SHA={shell_quote(commit_sha)}",
+        f"WORKSPACE_DIR={shell_quote(CONTAINER_WORKSPACE_DIR)}",
+        f"REPO_DIR={shell_quote(CONTAINER_REPO_DIR)}",
+        "ARTIFACTS_DIR=/artifacts",
+        "",
+        'mkdir -p -- "$WORKSPACE_DIR" "$ARTIFACTS_DIR"',
+        'find "$WORKSPACE_DIR" -mindepth 1 -maxdepth 1 -exec rm -rf -- {} +',
+        'find "$ARTIFACTS_DIR" -mindepth 1 -maxdepth 1 -exec rm -rf -- {} +',
+        git_init_command,
+        'git config --global --add safe.directory "$REPO_DIR"',
+        "(",
+        'cd -- "$REPO_DIR"',
+        'git remote add origin "$REPO_URL"',
+        'git fetch --depth 1 origin "$COMMIT_SHA"',
+        'git checkout --detach "$COMMIT_SHA"',
+        'test "$(git rev-parse HEAD)" = "$COMMIT_SHA"',
+        ")",
+        "",
+    ]
+    replay_index = 0
+    for command in session.commands:
+        if command.stage != "bash" or command.exit_code != 0:
+            continue
+        workdir = _validate_replay_workdir(command.workdir)
+        _validate_replay_command(session, command.command)
+        replay_index += 1
+        build_lines.extend(
+            [
+                f"# Successful build command {replay_index}",
+                "(",
+                f"cd -- {shell_quote(workdir)}",
+                f"bash -lc {shell_quote(command.command)}",
+                ")",
+                "",
+            ]
+        )
+    if replay_index == 0:
+        raise ValueError("At least one successful bash command is required to generate a replay bundle.")
+
+    repro_dir.mkdir(parents=True, exist_ok=True)
+    temporary_path = repro_dir / f".build.sh.{uuid.uuid4().hex}.tmp"
+    try:
+        temporary_path.write_text("\n".join(build_lines) + "\n", encoding="utf-8")
+        temporary_path.replace(build_path)
+    finally:
+        temporary_path.unlink(missing_ok=True)
     return build_path
 
 
@@ -820,7 +952,8 @@ def finalize_compile_session_impl(
             current = session
 
         if current.finalized_at is None:
-            if generate_repro_bundle:
+            should_generate_repro = generate_repro_bundle and current.verification is not None and current.verification.status == "passed"
+            if should_generate_repro:
                 _write_repro_bundle(current)
             current.finalized_at = utc_now_iso()
             services.manager.mark_session_status(current, status, error=error, summary=summary)
@@ -830,7 +963,7 @@ def finalize_compile_session_impl(
                 status=status,
                 summary=summary,
                 finalized_at=current.finalized_at,
-                generate_repro_bundle=generate_repro_bundle,
+                generate_repro_bundle=should_generate_repro,
             )
 
         session.__dict__.update(current.__dict__)

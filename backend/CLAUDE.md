@@ -59,31 +59,37 @@ backend/
 `CompileSession.status` 取值：
 
 ```
-created → ready → source_ready → inspected → (compiler 子代理执行) → completed
-                                                                    ↓
-                                                       verification_failed / failed / cancelled
+created → ready → source_ready → inspected → (compiler 子代理执行) → verified → completed
+                                                                    ↘ verification_failed
+任意非终态 ────────────────────────────────────────────────────────→ failed / cancelled / timed_out
 ```
 
 - `created`：`prepare_compile_session_impl` 创建 session 但未起容器
 - `ready`：容器起来了
 - `source_ready`：clone 成功
 - `inspected`：识别完构建系统
-- `completed`：`submit_build_result` 验证通过、`finalize_compile_session_impl` 完成
-- `verification_failed`：`submit_build_result` 验证失败（产物不存在/空/smoke 失败）
+- `verified`：`submit_build_result` 的产物检查与 commit-pinned replay bundle 检查均通过；此时 `completed_at` 仍为空
+- `completed`：已验证 session 的编译容器清理成功，并由 finalize 写入终态
+- `verification_failed`：`submit_build_result` 验证失败（产物无效、smoke 失败或 replay bundle 无法安全生成）
 - `failed`：clone 失败或其他不可恢复错误
 
 每次状态切换都会写一条 `session.status_changed` 事件进 `logs/workflow.log`，**改状态机时务必同步事件日志的语义**。
 
 ### 2.2 命令记录
 
-每条在容器内执行的命令会经 `append_command_record()`：
+`session.commands` 是完整的命令审计轨迹。clone、inspect 和 `run_container_bash` 等阶段会记录：
 
 - 记录到 `session.commands`（持久化到 `session.json`）
 - 写一份完整 stdout+stderr 到独立 log（命名 `{index:03d}_{stage}.log`）
 - `workflow.log` 写一条 `command.recorded` JSONL 事件
-- finalize 时按 `session.commands` 的顺序生成 `repro/build.sh`
 
-**如果你新增编译阶段**：必须沿用 `append_command_record()`，否则复现脚本会缺失对应步骤。
+`submit_build_result` 是验证/审计事件：它写 `submit.*` 事件、summary log 和 verification checks，但不伪装成 shell command 写入 `session.commands`。
+
+成功 submit 时生成 `repro/build.sh`。生成器只消费 `stage == "bash" && exit_code == 0` 的记录，保持顺序与各自容器 `workdir`，并用独立 `bash -lc` 执行。clone/inspect、失败或超时尝试以及 submit 审计均不进入 replay。
+
+需要进入 replay 的构建步骤必须通过 `run_container_bash` 执行；`workdir` 必须是 `/workspace` 或 `/artifacts` 下的绝对容器路径。生成器还要求完整 40/64 位 commit SHA、无持久凭据的远端 URL，并拒绝 Windows/WSL 宿主路径、`.compile-sessions` 路径和 session 标识。修改过滤或安全规则时必须同步 `tests/test_compile_runtime.py`。
+
+`repro_bundle` verification check 只证明候选脚本可安全生成且非空，不证明任意探索历史都能从空目录重放。失败命令可能留下未进入候选脚本的持久副作用，因此研究基线必须按 README 在新容器中执行脚本并检查产物；自动 clean replay verifier 跟踪在 Issue #7。
 
 ### 2.3 路径双重映射
 

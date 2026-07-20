@@ -176,7 +176,11 @@ make nginx
 
 - **`compiler_agent.py` 的 system prompt 是产品契约**，改它等同于改产品行为。务必同步改 `tests/test_compile_runtime.py`。
 - **路径常量双重维护**：宿主机路径在 `compile/paths.py`，容器路径在 `compile/docker_runtime.py` 顶部常量。改一边要改另一边。
-- **新增编译阶段**必须沿用 `append_command_record()`，否则 `repro/build.sh` 复现脚本会缺步骤。
+- **命令记录是审计轨迹**：`repro/build.sh` 只消费 `stage == "bash" && exit_code == 0` 的记录，并保留记录顺序与容器 `workdir`。
+- **可 replay 步骤必须走 `run_container_bash`**：`workdir` 只能是 `/workspace` 或 `/artifacts` 下的绝对容器路径，不得写入宿主机、WSL `/mnt/<drive>` 或 `.compile-sessions` 路径。
+- **submit 不是 shell command**：`submit_build_result` 只写 `submit.*` 事件、summary log 和 verification checks，不得追加到 `session.commands`；replay 生成失败必须落为 `verification_failed`。
+- **修改 replay 契约必须补测试**：命令过滤、workdir、commit/URL 校验、shell quoting 与宿主路径隔离应同步覆盖 `tests/test_compile_runtime.py`。
+- **候选生成不等于 clean replay**：失败命令可能留下持久副作用；研究结果必须在新容器和空挂载中实际执行脚本，自动验证与产物比较见 Issue #7。
 - **状态机变更**（`CompileSession.status`）要更新 `logs/workflow.log` 的事件命名约定。
 
 ## 架构约束
