@@ -42,6 +42,7 @@ def _with_benchmark_constraints(prompt: str, policy: ExperimentPolicy) -> str:
     requirements = [
         "Active C/C++ benchmark constraints:",
         f"- Build exact commit {policy.expected_commit_sha} from {policy.expected_repo_url}.",
+        f"- Use the frozen {policy.expected_build_system} build-system path; do not switch to another detected build system.",
         "- The runner already applies the declared system packages, container environment, and replay delay.",
     ]
     if policy.cmake_arguments:

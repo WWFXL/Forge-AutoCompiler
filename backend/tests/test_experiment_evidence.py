@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+from dataclasses import replace
 from pathlib import Path
 from types import SimpleNamespace
 
@@ -28,6 +29,7 @@ def make_policy() -> ExperimentPolicy:
         repetition=1,
         expected_repo_url="https://github.com/fmtlib/fmt.git",
         expected_commit_sha="2" * 40,
+        expected_build_system="cmake",
         compile_image="autocompiler:gcc13",
         image_id=f"sha256:{'3' * 64}",
         model_name="gpt-5.6-sol",
@@ -125,6 +127,25 @@ def test_active_experiment_registry_routes_events_to_one_thread(tmp_path: Path) 
     events = ledger.read()
     assert [event["event"] for event in events] == ["experiment.started", "model.request_started"]
     assert get_active_experiment(thread_id) is None
+
+
+@pytest.mark.parametrize("build_system", ["cmake", "make", "autotools"])
+def test_experiment_policy_persists_supported_build_system_identity(build_system: str) -> None:
+    policy = replace(
+        make_policy(),
+        expected_build_system=build_system,
+        cmake_arguments=() if build_system != "cmake" else ("-DBUILD_TESTING=OFF",),
+        configure_arguments=("--disable-subunit",) if build_system == "autotools" else (),
+    )
+
+    assert policy.to_payload()["expected_build_system"] == build_system
+
+
+def test_experiment_policy_rejects_build_system_argument_drift() -> None:
+    with pytest.raises(EvidenceError, match="expected_build_system"):
+        replace(make_policy(), expected_build_system="meson")
+    with pytest.raises(EvidenceError, match="cmake_arguments"):
+        replace(make_policy(), expected_build_system="make")
 
 
 def test_model_response_metadata_reads_bounded_model_response_messages() -> None:

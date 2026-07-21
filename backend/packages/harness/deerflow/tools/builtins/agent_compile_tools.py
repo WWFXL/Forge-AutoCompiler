@@ -8,7 +8,9 @@ from langchain_core.messages import ToolMessage
 from langgraph.types import Command
 from langgraph.typing import ContextT
 
+from deerflow.compile.evidence import get_active_experiment, record_experiment_event
 from deerflow.compile.operations import cleanup_and_finalize_compile_session_impl, clone_repository_impl, get_bound_session, inspect_build_system_impl, prepare_compile_session_impl
+from deerflow.compile.schemas import CompileSession
 
 if TYPE_CHECKING:
     from deerflow.agents.thread_state import ThreadState
@@ -55,6 +57,50 @@ def _build_compile_state_update(
     if build_system:
         update[COMPILE_BUILD_SYSTEM_STATE_KEY] = build_system
     return update
+
+
+def _enforce_experiment_build_system(
+    *,
+    session: CompileSession,
+    observed_build_system: str,
+) -> tuple[bool, str | None]:
+    active = get_active_experiment(session.thread_id)
+    if active is None:
+        return True, None
+
+    expected_build_system = active.policy.expected_build_system
+    matches = observed_build_system == expected_build_system
+    record_experiment_event(
+        session.thread_id,
+        "build.system_checked",
+        session_id=session.session_id,
+        expected_build_system=expected_build_system,
+        observed_build_system=observed_build_system,
+        matches=matches,
+        compiler_allowed=matches,
+    )
+    if matches:
+        return True, None
+
+    error = f"Benchmark protocol deviation: expected build system {expected_build_system}, observed {observed_build_system}."
+    updated, cleanup_result = cleanup_and_finalize_compile_session_impl(
+        session=session,
+        interrupted_status="failed",
+        error=error,
+    )
+    record_experiment_event(
+        session.thread_id,
+        "protocol.deviation",
+        phase="identify_build_system",
+        classification="build_system_mismatch",
+        session_id=session.session_id,
+        expected_build_system=expected_build_system,
+        observed_build_system=observed_build_system,
+        compiler_allowed=False,
+        cleanup_succeeded=cleanup_result.succeeded and cleanup_result.removed,
+        session_finalized=updated.finalized_at is not None,
+    )
+    return False, error
 
 
 @tool("prepare_compile_session", parse_docstring=True)
@@ -171,12 +217,20 @@ def identify_build_system(
     session = get_bound_session(session_id=effective_session_id, thread_id=_get_thread_id(runtime))
     primary_system, detected, suggested_commands = inspect_build_system_impl(session=session)
     root_file = detected[0][1] if detected else None
+    build_system_matches, deviation_error = _enforce_experiment_build_system(
+        session=session,
+        observed_build_system=primary_system,
+    )
     message = f'Build system identified: system={primary_system}, root_file={root_file or "none"}. Next call task(..., subagent_type="compiler") directly.'
     update = _build_compile_state_update(
         session_id=effective_session_id,
         container_id=session.container_id,
         build_system=primary_system,
     )
+    if not build_system_matches:
+        update["compile_terminal"] = True
+        update["messages"] = [ToolMessage(deviation_error or "Benchmark build-system identity mismatch.", tool_call_id=tool_call_id)]
+        return Command(update=update)
     update["messages"] = [ToolMessage(message, tool_call_id=tool_call_id)]
     return Command(update=update)
 

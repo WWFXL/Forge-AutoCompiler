@@ -18,10 +18,12 @@ import pytest
 
 from deerflow.compile import operations
 from deerflow.compile.docker_runtime import CompileDockerRuntime
+from deerflow.compile.evidence import ExperimentLedger, ExperimentPolicy, activate_experiment, deactivate_experiment, new_evidence_id
 from deerflow.compile.manager import CompileSessionManager
 from deerflow.compile.operations import CompileOperationsServices, _classify_compiled_artifact, _write_repro_bundle, clone_repository_impl, finalize_unfinished_thread_sessions_impl, verify_clean_replay_impl
 from deerflow.compile.schemas import BuildArtifact, BuildCommandRecord, CommandResult, CompileSession, VerificationResult
 from deerflow.config.paths import Paths
+from deerflow.tools.builtins import agent_compile_tools
 
 REPO_URL = "https://github.com/MattClarkson/CMakeHelloWorld.git"
 COMMIT_SHA = "6fda0b169299b1241ed883c8d4af8519da30ce52"
@@ -302,6 +304,106 @@ def test_unfinished_session_finalization_removes_real_compile_container(monkeypa
         )
         assert inspect.returncode != 0
     finally:
+        runtime.stop_and_remove_container(session)
+        shutil.rmtree(Path(session.metadata_path).parent.parent, ignore_errors=True)
+
+
+def test_build_system_mismatch_stops_before_real_compiler_delegation(monkeypatch):
+    paths = Paths()
+    manager = CompileSessionManager(paths=paths, default_image=COMPILE_IMAGE)
+    thread_id = f"docker-build-system-gate-{uuid.uuid4().hex[:12]}"
+    session = manager.create_session(
+        thread_id=thread_id,
+        repo_url=REPO_URL,
+        image=COMPILE_IMAGE,
+    )
+    runtime = CompileDockerRuntime(manager=manager)
+    ledger = ExperimentLedger.create(
+        Path(session.metadata_path).parent / "build-system-gate.jsonl",
+        experiment_id=new_evidence_id("experiment"),
+        physical_attempt_id=new_evidence_id("physical_attempt"),
+        context={"thread_id": thread_id},
+    )
+    policy = ExperimentPolicy(
+        benchmark_id="forge-cpp-pilot-v4",
+        manifest_sha256="1" * 64,
+        case_id="cmake-mismatch-fixture",
+        condition="baseline",
+        repetition=1,
+        expected_repo_url=REPO_URL,
+        expected_commit_sha=COMMIT_SHA,
+        expected_build_system="autotools",
+        compile_image=COMPILE_IMAGE,
+        image_id="sha256:" + "1" * 64,
+        model_name="gpt-5.6-sol",
+        endpoint="https://example.invalid/v1",
+        credential_env="OpenAI_AK",
+        request_timeout_seconds=120,
+        model_max_retries=0,
+        compiler_max_turns=36,
+        subagent_timeout_seconds=180,
+        memory_enabled=False,
+        skills_enabled=False,
+        required_system_packages=(),
+        cmake_arguments=(),
+        configure_arguments=("--disable-subunit",),
+        environment=(),
+        minimum_replay_delay_seconds=0,
+    )
+    monkeypatch.setattr(operations, "_services", CompileOperationsServices(manager=manager, runtime=runtime))
+    activate_experiment(
+        thread_id=thread_id,
+        experiment_id=ledger.experiment_id,
+        physical_attempt_id=ledger.physical_attempt_id,
+        ledger=ledger,
+        policy=policy,
+    )
+    try:
+        runtime.create_container(session)
+        manager.save_session(session)
+        clone_result, _message = clone_repository_impl(
+            session=session,
+            repo_url=REPO_URL,
+            max_retries=1,
+        )
+        assert clone_result.exit_code == 0, clone_result.combined_output
+
+        result = agent_compile_tools.identify_build_system.func(
+            runtime=SimpleNamespace(
+                state={agent_compile_tools.COMPILE_SESSION_STATE_KEY: session.session_id},
+                context={"thread_id": thread_id},
+                config={"configurable": {}},
+            ),
+            tool_call_id="tool-real-build-system-mismatch",
+        )
+
+        reloaded = manager.load_session(session.session_id, thread_id)
+        assert result.update["compile_terminal"] is True
+        assert reloaded.build_system == "cmake"
+        assert reloaded.status == "failed"
+        assert reloaded.finalized_at is not None
+        assert not reloaded.commands or all(command.role != "build" for command in reloaded.commands)
+        inspect = subprocess.run(
+            ["docker", "inspect", session.container_name],
+            check=False,
+            capture_output=True,
+            text=True,
+            timeout=30,
+        )
+        assert inspect.returncode != 0
+        events = ledger.read()
+        assert [event["event"] for event in events if event["event"] in {"build.system_checked", "protocol.deviation"}] == [
+            "build.system_checked",
+            "protocol.deviation",
+        ]
+        deviation = next(event for event in events if event["event"] == "protocol.deviation")
+        assert deviation["payload"]["expected_build_system"] == "autotools"
+        assert deviation["payload"]["observed_build_system"] == "cmake"
+        assert deviation["payload"]["compiler_allowed"] is False
+        assert deviation["payload"]["cleanup_succeeded"] is True
+        assert deviation["payload"]["session_finalized"] is True
+    finally:
+        deactivate_experiment(thread_id)
         runtime.stop_and_remove_container(session)
         shutil.rmtree(Path(session.metadata_path).parent.parent, ignore_errors=True)
 

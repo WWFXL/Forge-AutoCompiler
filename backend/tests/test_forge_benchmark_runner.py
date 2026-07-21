@@ -75,7 +75,24 @@ def test_build_policy_applies_frozen_case_and_model_constraints() -> None:
     assert policy.memory_enabled is False
     assert policy.skills_enabled is False
     assert policy.expected_commit_sha == manifest["cases"][0]["commit_sha"]
+    assert policy.expected_build_system == manifest["cases"][0]["build_system"]
     assert policy.process_environment == manifest["cases"][0]["constraints"]["environment"]
+
+
+@pytest.mark.parametrize("case_id", ["fmt", "hiredis", "libcheck"])
+def test_build_policy_freezes_each_supported_build_system(case_id: str) -> None:
+    manifest = load_v3_manifest()
+    case = next(case for case in manifest["cases"] if case["id"] == case_id)
+
+    policy = forge_benchmark_runner.build_policy(
+        manifest,
+        case_id=case_id,
+        condition_id="baseline",
+        repetition=1,
+    )
+
+    assert policy.expected_build_system == case["build_system"]
+    assert policy.to_payload()["expected_build_system"] == case["build_system"]
 
 
 @pytest.mark.parametrize(
@@ -187,6 +204,7 @@ def test_compiler_prompt_receives_ordered_manifest_constraints() -> None:
     assert positions == sorted(positions)
     assert "command_role" in prompt
     assert "supporting_command_id" in prompt
+    assert policy.expected_build_system in prompt
     assert policy.credential_env not in prompt
 
 
@@ -209,6 +227,7 @@ def test_create_attempt_rejects_duplicate_slot_and_links_explicit_replacement(
         repetition=1,
         output_dir=tmp_path,
     )
+    assert original.read()[0]["payload"]["policy"]["expected_build_system"] == "cmake"
     with pytest.raises(forge_benchmark_runner.RunnerError, match="already has physical evidence"):
         forge_benchmark_runner.create_attempt(
             manifest,
