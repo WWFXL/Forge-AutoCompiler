@@ -8,7 +8,7 @@ import pytest
 
 from deerflow.compile import operations
 from deerflow.compile.docker_runtime import ContainerCleanupResult
-from deerflow.compile.evidence import ExperimentLedger
+from deerflow.compile.evidence import ExperimentLedger, new_evidence_id, record_experiment_event
 from deerflow.compile.manager import CompileSessionManager
 from deerflow.compile.operations import CompileOperationsServices
 from deerflow.config.paths import Paths
@@ -524,6 +524,274 @@ def test_run_retries_session_finalization_after_orphan_cleanup(
     completed = ledger.read()[-1]
     assert completed["event"] == "experiment.completed"
     assert completed["payload"]["session_finalization_succeeded"] is True
+
+
+def test_run_records_no_compile_progress_without_raw_stream_content(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    manifest = load_manifest()
+    monkeypatch.setattr(
+        forge_benchmark_runner,
+        "collect_preflight",
+        lambda *args, **kwargs: ready_preflight(manifest),
+    )
+    ledger, _ = forge_benchmark_runner.create_attempt(
+        manifest,
+        case_id="fmt",
+        condition_id="baseline",
+        repetition=1,
+        output_dir=tmp_path,
+    )
+    raw_content = "sk-stream-content-must-not-enter-ledger C:\\Users\\private"
+
+    class NoActionClient:
+        def __init__(self, **kwargs) -> None:
+            del kwargs
+
+        async def astream(self, message: str, *, thread_id: str):
+            del message
+            record_experiment_event(
+                thread_id,
+                "model.request_completed",
+                model_request_id=new_evidence_id("model_request"),
+                actual_model="provider-confirmed-model",
+            )
+            yield SimpleNamespace(
+                type="messages-tuple",
+                data={"type": "ai", "content": raw_content},
+            )
+            yield SimpleNamespace(type="end", data={"usage": {}})
+
+    import deerflow.client
+
+    monkeypatch.setattr(deerflow.client, "DeerFlowClient", NoActionClient)
+    monkeypatch.setattr(
+        forge_benchmark_runner,
+        "reconcile_orphans",
+        lambda _attempt_id: {
+            "scan_succeeded": True,
+            "orphan_count": 0,
+            "removed_count": 0,
+            "cleanup_succeeded": True,
+        },
+    )
+
+    result = forge_benchmark_runner.run_attempt(manifest, ledger.path)
+
+    assert result["status"] == "failed"
+    events = ledger.read()
+    no_progress = next(event for event in events if event["event"] == "agent.no_compile_progress")
+    assert no_progress["payload"]["completed_model_request_count"] == 1
+    assert no_progress["payload"]["tool_call_count"] == 0
+    assert no_progress["payload"]["compile_tool_call_count"] == 0
+    assert no_progress["payload"]["stream_completed"] is True
+    assert no_progress["payload"]["terminal"] is True
+    assert raw_content not in ledger.path.read_text(encoding="utf-8")
+
+
+def test_run_does_not_mark_progress_missing_after_compile_tool_call(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    manifest = load_manifest()
+    monkeypatch.setattr(
+        forge_benchmark_runner,
+        "collect_preflight",
+        lambda *args, **kwargs: ready_preflight(manifest),
+    )
+    ledger, _ = forge_benchmark_runner.create_attempt(
+        manifest,
+        case_id="fmt",
+        condition_id="baseline",
+        repetition=1,
+        output_dir=tmp_path,
+    )
+    raw_arguments = {"prompt": "must not enter evidence"}
+
+    class CompileActionClient:
+        def __init__(self, **kwargs) -> None:
+            del kwargs
+
+        async def astream(self, message: str, *, thread_id: str):
+            del message
+            record_experiment_event(
+                thread_id,
+                "model.request_completed",
+                model_request_id=new_evidence_id("model_request"),
+                actual_model="provider-confirmed-model",
+            )
+            yield SimpleNamespace(
+                type="messages-tuple",
+                data={
+                    "type": "ai",
+                    "content": "",
+                    "tool_calls": [
+                        {
+                            "name": "task",
+                            "id": "call-compile",
+                            "args": raw_arguments,
+                        }
+                    ],
+                },
+            )
+            yield SimpleNamespace(type="end", data={"usage": {}})
+
+    import deerflow.client
+
+    monkeypatch.setattr(deerflow.client, "DeerFlowClient", CompileActionClient)
+    monkeypatch.setattr(
+        forge_benchmark_runner,
+        "reconcile_orphans",
+        lambda _attempt_id: {
+            "scan_succeeded": True,
+            "orphan_count": 0,
+            "removed_count": 0,
+            "cleanup_succeeded": True,
+        },
+    )
+
+    forge_benchmark_runner.run_attempt(manifest, ledger.path)
+
+    events = ledger.read()
+    assert not any(event["event"] == "agent.no_compile_progress" for event in events)
+    assert "must not enter evidence" not in ledger.path.read_text(encoding="utf-8")
+
+
+def test_run_does_not_mark_progress_missing_when_stream_does_not_end(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    manifest = load_manifest()
+    monkeypatch.setattr(
+        forge_benchmark_runner,
+        "collect_preflight",
+        lambda *args, **kwargs: ready_preflight(manifest),
+    )
+    ledger, _ = forge_benchmark_runner.create_attempt(
+        manifest,
+        case_id="fmt",
+        condition_id="baseline",
+        repetition=1,
+        output_dir=tmp_path,
+    )
+
+    class IncompleteStreamClient:
+        def __init__(self, **kwargs) -> None:
+            del kwargs
+
+        async def astream(self, message: str, *, thread_id: str):
+            del message
+            record_experiment_event(
+                thread_id,
+                "model.request_completed",
+                model_request_id=new_evidence_id("model_request"),
+                actual_model="provider-confirmed-model",
+            )
+            yield SimpleNamespace(type="messages-tuple", data={"type": "ai"})
+
+    import deerflow.client
+
+    monkeypatch.setattr(deerflow.client, "DeerFlowClient", IncompleteStreamClient)
+    monkeypatch.setattr(
+        forge_benchmark_runner,
+        "reconcile_orphans",
+        lambda _attempt_id: {
+            "scan_succeeded": True,
+            "orphan_count": 0,
+            "removed_count": 0,
+            "cleanup_succeeded": True,
+        },
+    )
+
+    forge_benchmark_runner.run_attempt(manifest, ledger.path)
+
+    assert not any(event["event"] == "agent.no_compile_progress" for event in ledger.read())
+
+
+def test_offline_failure_domains_keep_missing_evidence_null() -> None:
+    assert forge_benchmark_runner.recompute_failure_domains([]) == {
+        "model_endpoint": None,
+        "agent_tool": None,
+        "build": None,
+        "submit_replay": None,
+        "completion": None,
+    }
+
+
+def test_offline_failure_domains_separate_agent_and_runtime_failures() -> None:
+    events = [
+        {
+            "event": "failure.recorded",
+            "payload": {
+                "domain": "model_endpoint",
+                "classification": "timeout",
+            },
+        },
+        {
+            "event": "agent.tool_failed",
+            "payload": {
+                "exception_class": "RuntimeError",
+                "tool_name": "task",
+                "terminal": False,
+            },
+        },
+        {
+            "event": "agent.no_compile_progress",
+            "payload": {
+                "classification": "no_compile_tool_call",
+                "terminal": True,
+            },
+        },
+        {
+            "event": "failure.recorded",
+            "payload": {
+                "domain": "build",
+                "classification": "dependency_setup_failed",
+            },
+        },
+        {
+            "event": "failure.recorded",
+            "payload": {
+                "domain": "verification",
+                "classification": "artifact_hash_mismatch",
+            },
+        },
+        {
+            "event": "run.failed",
+            "payload": {"classification": "KeyboardInterrupt"},
+        },
+    ]
+
+    domains = forge_benchmark_runner.recompute_failure_domains(events)
+
+    assert domains["model_endpoint"] == [{"event": "failure.recorded", "classification": "timeout"}]
+    assert domains["agent_tool"] == [
+        {
+            "event": "agent.tool_failed",
+            "classification": "RuntimeError",
+            "tool_name": "task",
+            "terminal": False,
+        },
+        {
+            "event": "agent.no_compile_progress",
+            "classification": "no_compile_tool_call",
+            "terminal": True,
+        },
+    ]
+    assert domains["build"] == [
+        {
+            "event": "failure.recorded",
+            "classification": "dependency_setup_failed",
+        }
+    ]
+    assert domains["submit_replay"] == [
+        {
+            "event": "failure.recorded",
+            "classification": "artifact_hash_mismatch",
+        }
+    ]
+    assert domains["completion"] == [{"event": "run.failed", "classification": "KeyboardInterrupt"}]
 
 
 def test_gate_recomputation_detects_tampering_and_oracle_is_independent() -> None:

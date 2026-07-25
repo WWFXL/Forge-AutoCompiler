@@ -2,16 +2,15 @@
 
 跨 Claude Code session 的项目状态流水。按 CLAUDE.md §7 维护。
 
-## 进行中 (In Progress)
-<!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
-
-- 2026-07-21 — 将 Issue #25 / PR #28 的 build-system identity 增量重排到 `main@6f8cab4f`
-  - 范围: 将 manifest `cases[].build_system` 写入 physical-attempt policy 和首条 ledger，约束 compiler 路径，并在 identify 与 submit 两处执行 expected/observed identity gate；不调用模型，不重跑 pilot
-  - 历史边界: 保留 PR #27 的异步 runner；v3 current-tree gate继续拒绝运行时漂移，history audit 继续从 `c4b817f3` 读取冻结 protocol blobs；v1-v5 manifest、Schema、validator、runner hash 与 ledger 不改写
-  - 状态: 单提交增量、实现审查和本地完整验证均已完成；聚焦组 `150 passed`，兼容/历史组 `242 passed, 6 skipped`，后端全量 `1532 passed, 26 skipped`，真实 Docker mismatch `1 passed in 16.83s`，等待推送、PR CI 与合并
-
 ## 最近变更 (Recent Changes)
 <!-- 倒序，最新在上。 -->
+
+- 2026-07-25 — 记录有界的 agent 工具失败与无编译动作终态证据
+  - 文件: `backend/packages/harness/deerflow/agents/middlewares/tool_error_handling_middleware.py`、`backend/packages/harness/deerflow/compile/evidence.py`、`scripts/forge_benchmark_runner.py` 及对应测试
+  - 动机: Issue #26；区分 endpoint、agent/tool、build、submit/replay 与 completion 失败域，避免 tool exception 仅留在 stderr、模型完成却没有编译动作只表现为 `submit_missing`
+  - 安全与语义: `agent.tool_failed` 仅白名单记录角色、工具名、tool-call ID、异常类、sync/async 与 `terminal=false`；仅在模型请求已完成、流显式结束、零编译工具调用时记录终态 `agent.no_compile_progress`。不读取或写入 prompt、模型内容、工具参数、stdout/stderr、异常文本、headers、密钥或宿主路径。
+  - 边界: 专用 Schema 同时保护 append/verify 并覆盖 digest-valid 篡改、终态后拒写和敏感内容；保留 PR #27 异步 runner、PR #28 identity gate、v3 history/current-tree 审计；v1-v5 manifest、Schema、validator、runner hash 与 ledger 未改写，也没有模型调用或 pilot replacement。
+  - 证据: 聚焦 `50 passed`，兼容/历史/异步/compile lifecycle `261 passed, 6 skipped`，后端全量 `1543 passed, 26 skipped`，真实 Docker mismatch `1 passed in 17.82s`；Ruff check、`py_compile`、Compose config、`git diff --check`、冻结资产与无遗留 compile/replay 容器通过。前端没有差异；lint 为 7 个既有 warning，format、typecheck/build 分别被既有格式与 i18n 类型问题阻塞。
 
 - 2026-07-21 — 冻结并校验 benchmark case 的构建系统身份
   - 文件: `backend/packages/harness/deerflow/compile/evidence.py`, `backend/packages/harness/deerflow/compile/operations.py`, `backend/packages/harness/deerflow/tools/builtins/agent_compile_tools.py`, `backend/packages/harness/deerflow/tools/builtins/task_tool.py`, `scripts/forge_benchmark_runner.py` 及对应测试
@@ -104,9 +103,12 @@
 ## 待办 (TODOs)
 <!-- 发现但未做的事。带 file:line 指针。 -->
 
-- 完成 Issue #25 / PR #28 的 build-system identity 重排、审查、完整 CI 与主干合并；保持 v1-v5 协议和 ledger 不变，不启动 v6 pilot。
-- PR #28 合并后继续处理 Issue #26 / PR #29；不得删除仍被上层 PR 引用的远端 head 分支。
-- Issue #26 有界 agent/tool failure evidence 完成并冻结新协议后，才能创建下一批 physical attempts。
+- 清理与当前源码不一致的后端测试模块引用，例如 `backend/tests/test_aio_sandbox_local_backend.py:1` 和 `backend/tests/test_channels.py:14`。
+- 统一 `backend/tests/test_subagent_timeout_config.py:261` 对 `max_turns` 的期望值与当前实现默认值。
+- 评审 stacked Draft PR #9，并在 CI 与基线 manifest 冻结后再转为 ready。
+- 按堆叠顺序评审并合并 Issue #16/#17/#18 与 pilot v3 的 Draft PR；五个 v3 physical attempts 必须使用新 ledger，不能 replacement 或覆盖 v2 的五条原始 ledger。
+- 完成 Issue #26 / PR #29 的推送、完整 CI 与主干合并；保留旧 remote head 供 PR #31 引用，保持 v1-v5 协议和 ledger 不变，不启动 v6 pilot。
+- Issue #26 合并后，按堆叠顺序继续处理 Issue #30 / PR #31；只有全部 instrumentation 修复合入并冻结新协议后，才能创建下一批 physical attempts。
 - 当前 `backend/packages/harness/deerflow/compile/manager.py` 的 lifecycle lock 是进程内锁；部署多个后端进程前，需要改为文件锁/数据库事务或带版本号的 CAS，并增加跨进程竞态测试。
 
 ## 已知问题 (Known Issues / Pitfalls)
@@ -147,3 +149,5 @@
 - Ledger 事件名的首段不允许下划线；`build_system.checked` 不符合 `^[a-z][a-z0-9]*(?:\.[a-z][a-z0-9_]*)+$`，应使用 `build.system_checked`。新增事件必须先用 recorder 的真实 append/verify 路径测试，不能只断言 mock 调用。
 - 开发容器的完整仓库位于只读 `/repo`，`/app/backend` 只是可写后端挂载；benchmark 测试会从工作目录推断仓库根，因此必须从 `/repo/backend` 启动并复用 `/app/backend/.venv`。从 `/app/backend` 运行会因缺少根目录 manifest、Schema 和 Dockerfile 产生大量伪失败。
 - Ruff 必须从 `/repo/backend` 启动以加载 `backend/pyproject.toml`；从 `/repo` 启动会退回默认格式规则，把原本符合仓库配置的 runner 误报为需要大范围格式化。只读挂载下同时使用 `--no-cache`。
+- Tool error middleware 为继续 Agent 推理会生成包含异常详情的 `ToolMessage`，但该内容只能面向当前模型，绝不能进入实验账本。`agent.tool_failed` 必须在异常捕获点从原始异常对象提取类型名，并用专用白名单 Schema 拒绝详情、prompt、参数、stdout/stderr、secret 和宿主路径。
+- `test_create_deerflow_agent.py` 仍有 17 个与当前 factory 不一致的既有 feature/sandbox/anchor 期望，例如要求已删除的 `SandboxMiddleware`；本次扩展执行得到 27 passed/17 failed，而与本次变更直接相关的 `test_always_on_error_handling` 单独通过。不要把这些旧测试失败归因于 agent evidence import，也不要在 #26 中顺手改动。

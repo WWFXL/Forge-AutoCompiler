@@ -4,6 +4,7 @@ import pytest
 from langchain_core.messages import ToolMessage
 from langgraph.errors import GraphInterrupt
 
+from deerflow.agents.middlewares import tool_error_handling_middleware
 from deerflow.agents.middlewares.tool_error_handling_middleware import ToolErrorHandlingMiddleware
 
 
@@ -39,6 +40,28 @@ def test_wrap_tool_call_returns_error_tool_message_on_exception():
     assert result.status == "error"
     assert "Tool 'web_search' failed" in result.text
     assert "network down" in result.text
+
+
+def test_wrap_tool_call_records_bounded_failure_identity(monkeypatch):
+    middleware = ToolErrorHandlingMiddleware()
+    req = _request(name="task", tool_call_id="tc-evidence")
+    recorded: list[tuple[object, Exception, str]] = []
+
+    monkeypatch.setattr(
+        tool_error_handling_middleware,
+        "record_agent_tool_failure",
+        lambda request, exc, *, execution_mode: recorded.append((request, exc, execution_mode)),
+    )
+
+    def _boom(_req):
+        raise RuntimeError("must not be passed as evidence payload")
+
+    middleware.wrap_tool_call(req, _boom)
+
+    assert len(recorded) == 1
+    assert recorded[0][0] is req
+    assert type(recorded[0][1]) is RuntimeError
+    assert recorded[0][2] == "sync"
 
 
 def test_wrap_tool_call_uses_fallback_tool_call_id_when_missing():
@@ -82,6 +105,29 @@ async def test_awrap_tool_call_returns_error_tool_message_on_exception():
     assert result.name == "mcp_tool"
     assert result.status == "error"
     assert "request timed out" in result.text
+
+
+@pytest.mark.anyio
+async def test_awrap_tool_call_records_async_failure_identity(monkeypatch):
+    middleware = ToolErrorHandlingMiddleware()
+    req = _request(name="task", tool_call_id="tc-async-evidence")
+    recorded: list[tuple[object, Exception, str]] = []
+
+    monkeypatch.setattr(
+        tool_error_handling_middleware,
+        "record_agent_tool_failure",
+        lambda request, exc, *, execution_mode: recorded.append((request, exc, execution_mode)),
+    )
+
+    async def _boom(_req):
+        raise TimeoutError("must not be passed as evidence payload")
+
+    await middleware.awrap_tool_call(req, _boom)
+
+    assert len(recorded) == 1
+    assert recorded[0][0] is req
+    assert type(recorded[0][1]) is TimeoutError
+    assert recorded[0][2] == "async"
 
 
 @pytest.mark.anyio

@@ -12,6 +12,8 @@ from langgraph.errors import GraphBubbleUp
 from langgraph.prebuilt.tool_node import ToolCallRequest
 from langgraph.types import Command
 
+from deerflow.compile.evidence import record_agent_tool_failure
+
 logger = logging.getLogger(__name__)
 
 _MISSING_TOOL_CALL_ID = "missing_tool_call_id"
@@ -47,6 +49,7 @@ class ToolErrorHandlingMiddleware(AgentMiddleware[AgentState]):
             raise
         except Exception as exc:
             logger.exception("Tool execution failed (sync): name=%s id=%s", request.tool_call.get("name"), request.tool_call.get("id"))
+            record_agent_tool_failure(request, exc, execution_mode="sync")
             return self._build_error_message(request, exc)
 
     @override
@@ -61,6 +64,7 @@ class ToolErrorHandlingMiddleware(AgentMiddleware[AgentState]):
             raise
         except Exception as exc:
             logger.exception("Tool execution failed (async): name=%s id=%s", request.tool_call.get("name"), request.tool_call.get("id"))
+            record_agent_tool_failure(request, exc, execution_mode="async")
             return self._build_error_message(request, exc)
 
 
