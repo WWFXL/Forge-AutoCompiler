@@ -29,6 +29,7 @@ for import_root in (str(HARNESS_ROOT), str(Path(__file__).resolve().parent)):
 import forge_benchmark as protocol  # noqa: E402
 import forge_benchmark_v2 as protocol_v2  # noqa: E402
 import forge_benchmark_v3 as protocol_v3  # noqa: E402
+import forge_benchmark_v4 as protocol_v4  # noqa: E402
 
 from deerflow.compile.evidence import (  # noqa: E402
     EvidenceError,
@@ -112,6 +113,8 @@ def _manifest_protocol(manifest: dict[str, Any]):
         return protocol_v2
     if schema_version == protocol_v3.SCHEMA_VERSION:
         return protocol_v3
+    if schema_version == protocol_v4.SCHEMA_VERSION:
+        return protocol_v4
     raise RunnerError(f"Unsupported benchmark schema version: {schema_version}")
 
 
@@ -310,6 +313,7 @@ def collect_preflight(
     runnable_revision_policies = {
         protocol_v2.REVISION_POLICY,
         protocol_v3.REVISION_POLICY,
+        protocol_v4.REVISION_POLICY,
     }
     baseline_satisfied = forge_state["revision"] == forge_baseline if revision_policy == "exact" else baseline_is_ancestor if revision_policy in runnable_revision_policies else False
     component_results: dict[str, dict[str, Any]] = {}
@@ -358,6 +362,7 @@ def collect_preflight(
     compose_dood_topologies = {
         protocol_v2.CONTROL_PLANE_TOPOLOGY,
         protocol_v3.CONTROL_PLANE_TOPOLOGY,
+        protocol_v4.CONTROL_PLANE_TOPOLOGY,
     }
     topology_matches = expected_topology is None or (expected_topology in compose_dood_topologies and compose_dood_present)
     checks = {
@@ -408,6 +413,7 @@ def collect_preflight(
                 protocol.SCHEMA_VERSION: "cpp-pilot-v1.json",
                 protocol_v2.SCHEMA_VERSION: "cpp-pilot-v2.json",
                 protocol_v3.SCHEMA_VERSION: "cpp-pilot-v3.json",
+                protocol_v4.SCHEMA_VERSION: "cpp-pilot-v4.json",
             }[manifest["schema_version"]]
         ),
         "forge": {
@@ -422,7 +428,7 @@ def collect_preflight(
             "docker_server_version": (docker_version if docker_version_code == 0 else None),
             "platform_system": platform.system(),
             "platform_machine": platform.machine(),
-            "control_plane_topology": (protocol_v3.CONTROL_PLANE_TOPOLOGY if compose_dood_present else None),
+            "control_plane_topology": (protocol_v4.CONTROL_PLANE_TOPOLOGY if compose_dood_present else None),
         },
         "checks": checks,
     }
@@ -788,6 +794,7 @@ def run_attempt(
     if expected_topology in {
         protocol_v2.CONTROL_PLANE_TOPOLOGY,
         protocol_v3.CONTROL_PLANE_TOPOLOGY,
+        protocol_v4.CONTROL_PLANE_TOPOLOGY,
     }:
         if not _running_inside_compose_dood(REPO_ROOT):
             ledger.append(
@@ -831,11 +838,7 @@ def run_attempt(
         message = f"Compile the C/C++ repository at {policy.expected_repo_url} using exact commit {policy.expected_commit_sha}. Use the compiler subagent and finish only after deterministic artifact submission and session finalization."
         stream_summary = asyncio.run(_consume_client_stream(client, message, thread_id=thread_id))
         completed_model_request_count = sum(event["event"] == "model.request_completed" for event in ledger.read())
-        if (
-            completed_model_request_count > 0
-            and stream_summary["stream_completed"]
-            and stream_summary["compile_tool_call_count"] == 0
-        ):
+        if completed_model_request_count > 0 and stream_summary["stream_completed"] and stream_summary["compile_tool_call_count"] == 0:
             ledger.append(
                 "agent.no_compile_progress",
                 {
@@ -912,7 +915,7 @@ def _build_parser() -> argparse.ArgumentParser:
     common.add_argument(
         "--manifest",
         type=Path,
-        default=REPO_ROOT / "benchmarks" / "manifests" / "cpp-pilot-v3.json",
+        default=REPO_ROOT / "benchmarks" / "manifests" / "cpp-pilot-v4.json",
     )
     common.add_argument("--skip-endpoint-check", action="store_true")
 

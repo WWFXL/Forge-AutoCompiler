@@ -12,6 +12,11 @@
   - 边界: 专用 Schema 同时保护 append/verify 并覆盖 digest-valid 篡改、终态后拒写和敏感内容；保留 PR #27 异步 runner、PR #28 identity gate、v3 history/current-tree 审计；v1-v5 manifest、Schema、validator、runner hash 与 ledger 未改写，也没有模型调用或 pilot replacement。
   - 证据: 聚焦 `50 passed`，兼容/历史/异步/compile lifecycle `261 passed, 6 skipped`，后端全量 `1543 passed, 26 skipped`，真实 Docker mismatch `1 passed in 17.82s`；Ruff check、`py_compile`、Compose config、`git diff --check`、冻结资产与无遗留 compile/replay 容器通过。前端没有差异；lint 为 7 个既有 warning，format、typecheck/build 分别被既有格式与 i18n 类型问题阻塞。
 
+- 2026-07-25 — 重排并验证 Issue #30 的 C/C++ pilot v4 协议
+  - 范围: 将旧堆叠提交重放到当前 `main`；基线改为已审阅的 PR #29 squash 提交 `1e4bad22117ad01058310a8625925e7801a8eff2`，保留 v1-v3 历史协议和既有 ledger 字节不变。
+  - 证据: manifest validator、v1-v4 benchmark/runner `134 passed, 7 skipped`、后端全量 `1563 passed, 27 skipped`、真实 Docker build-system mismatch `1 passed in 17.95s`、Ruff、format、`py_compile`、Compose config 与 `git diff --check` 通过。
+  - 边界: 仅实现、复核和冻结协议；不调用模型、不创建或替换 pilot physical attempt，也不启动 v6。
+
 - 2026-07-21 — 冻结并校验 benchmark case 的构建系统身份
   - 文件: `backend/packages/harness/deerflow/compile/evidence.py`, `backend/packages/harness/deerflow/compile/operations.py`, `backend/packages/harness/deerflow/tools/builtins/agent_compile_tools.py`, `backend/packages/harness/deerflow/tools/builtins/task_tool.py`, `scripts/forge_benchmark_runner.py` 及对应测试
   - 动机: Issue #25；把 manifest `cases[].build_system` 写入 `ExperimentPolicy` 和首条 ledger policy，compiler prompt 固定 CMake/Make/Autotools 路径，避免声明的实验条件与实际构建路径漂移
@@ -151,3 +156,5 @@
 - Ruff 必须从 `/repo/backend` 启动以加载 `backend/pyproject.toml`；从 `/repo` 启动会退回默认格式规则，把原本符合仓库配置的 runner 误报为需要大范围格式化。只读挂载下同时使用 `--no-cache`。
 - Tool error middleware 为继续 Agent 推理会生成包含异常详情的 `ToolMessage`，但该内容只能面向当前模型，绝不能进入实验账本。`agent.tool_failed` 必须在异常捕获点从原始异常对象提取类型名，并用专用白名单 Schema 拒绝详情、prompt、参数、stdout/stderr、secret 和宿主路径。
 - `test_create_deerflow_agent.py` 仍有 17 个与当前 factory 不一致的既有 feature/sandbox/anchor 期望，例如要求已删除的 `SandboxMiddleware`；本次扩展执行得到 27 passed/17 failed，而与本次变更直接相关的 `test_always_on_error_handling` 单独通过。不要把这些旧测试失败归因于 agent evidence import，也不要在 #26 中顺手改动。
+- 真实 Docker 集成依赖 GitHub clone，偶发 `Recv failure: Connection reset by peer` 可能在进入待测逻辑前失败；先确认按 label 无遗留容器，再只重跑该场景。本次副作用拒绝场景首次网络失败，单独重跑后 `1 passed in 32.63s`。
+- 完整 `test_client.py` 当前有 3 个与 v4 无关的既有 artifact 路径期望不一致：测试期待 `must start with`/`PathTraversalError`，实际 `Paths.resolve_virtual_path()` 返回 `Unsupported virtual path` 的 `ValueError`；v4 扩大回归为 `431 passed, 3 skipped, 3 failed`，stream/chat 定向测试仍为 `19 passed`。不要在 benchmark 协议提交中顺手修改。

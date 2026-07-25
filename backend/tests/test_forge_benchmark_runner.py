@@ -38,6 +38,11 @@ def load_v3_manifest() -> dict:
     return forge_benchmark_runner._load_manifest(path)
 
 
+def load_v4_manifest() -> dict:
+    path = REPO_ROOT / "benchmarks" / "manifests" / "cpp-pilot-v4.json"
+    return forge_benchmark_runner._load_manifest(path)
+
+
 def ready_preflight(manifest: dict, *, ready: bool = True) -> dict:
     return {
         "ready": ready,
@@ -100,6 +105,7 @@ def test_build_policy_freezes_each_supported_build_system(case_id: str) -> None:
     [
         (load_v2_manifest, "cpp-pilot-v2.json"),
         (load_v3_manifest, "cpp-pilot-v3.json"),
+        (load_v4_manifest, "cpp-pilot-v4.json"),
     ],
 )
 def test_runnable_preflight_accepts_clean_descendant_with_frozen_components(
@@ -163,7 +169,7 @@ def test_runnable_preflight_accepts_clean_descendant_with_frozen_components(
     assert preflight["runtime"]["control_plane_topology"] == "compose-dood"
 
 
-@pytest.mark.parametrize("manifest_loader", [load_v2_manifest, load_v3_manifest])
+@pytest.mark.parametrize("manifest_loader", [load_v2_manifest, load_v3_manifest, load_v4_manifest])
 def test_runnable_preflight_rejects_missing_baseline_or_compose_dood(
     monkeypatch: pytest.MonkeyPatch,
     manifest_loader,
@@ -276,7 +282,7 @@ def test_run_refuses_failed_preflight_before_importing_model_client(
     assert not any(event["event"].startswith("model.") for event in ledger.read())
 
 
-@pytest.mark.parametrize("manifest_loader", [load_v2_manifest, load_v3_manifest])
+@pytest.mark.parametrize("manifest_loader", [load_v2_manifest, load_v3_manifest, load_v4_manifest])
 def test_runnable_run_refuses_non_compose_process_before_model_request(
     tmp_path: Path,
     monkeypatch: pytest.MonkeyPatch,
@@ -310,10 +316,10 @@ def test_runnable_run_refuses_non_compose_process_before_model_request(
     assert not any(event["event"].startswith("model.") for event in events)
 
 
-def test_runner_defaults_to_v3_manifest() -> None:
+def test_runner_defaults_to_v4_manifest() -> None:
     args = forge_benchmark_runner._build_parser().parse_args(["preflight"])
 
-    assert args.manifest == REPO_ROOT / "benchmarks" / "manifests" / "cpp-pilot-v3.json"
+    assert args.manifest == REPO_ROOT / "benchmarks" / "manifests" / "cpp-pilot-v4.json"
 
 
 def test_keyboard_interrupt_keeps_attempt_recoverable_and_reconciles_orphans(
