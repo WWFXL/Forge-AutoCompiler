@@ -158,6 +158,7 @@ from deerflow.agents.lead_agent.agent import make_lead_agent
 from deerflow.models import create_chat_model
 from deerflow.config import get_app_config
 
+
 async def create_chat_session(thread_id: str, model_name: str):
     config = get_app_config()
     model = create_chat_model(name=model_name)
@@ -171,6 +172,7 @@ async def create_chat_session(thread_id: str, model_name: str):
 # app/channels/manager.py
 from deerflow.skills import load_skills
 from deerflow.agents.memory.updater import get_memory_data
+
 
 def handle_status_command():
     skills = load_skills(enabled_only=True)
