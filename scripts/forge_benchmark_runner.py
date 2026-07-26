@@ -30,6 +30,7 @@ import forge_benchmark as protocol  # noqa: E402
 import forge_benchmark_v2 as protocol_v2  # noqa: E402
 import forge_benchmark_v3 as protocol_v3  # noqa: E402
 import forge_benchmark_v4 as protocol_v4  # noqa: E402
+import forge_benchmark_v5 as protocol_v5  # noqa: E402
 
 from deerflow.compile.evidence import (  # noqa: E402
     EvidenceError,
@@ -115,6 +116,8 @@ def _manifest_protocol(manifest: dict[str, Any]):
         return protocol_v3
     if schema_version == protocol_v4.SCHEMA_VERSION:
         return protocol_v4
+    if schema_version == protocol_v5.SCHEMA_VERSION:
+        return protocol_v5
     raise RunnerError(f"Unsupported benchmark schema version: {schema_version}")
 
 
@@ -314,6 +317,7 @@ def collect_preflight(
         protocol_v2.REVISION_POLICY,
         protocol_v3.REVISION_POLICY,
         protocol_v4.REVISION_POLICY,
+        protocol_v5.REVISION_POLICY,
     }
     baseline_satisfied = forge_state["revision"] == forge_baseline if revision_policy == "exact" else baseline_is_ancestor if revision_policy in runnable_revision_policies else False
     component_results: dict[str, dict[str, Any]] = {}
@@ -363,6 +367,7 @@ def collect_preflight(
         protocol_v2.CONTROL_PLANE_TOPOLOGY,
         protocol_v3.CONTROL_PLANE_TOPOLOGY,
         protocol_v4.CONTROL_PLANE_TOPOLOGY,
+        protocol_v5.CONTROL_PLANE_TOPOLOGY,
     }
     topology_matches = expected_topology is None or (expected_topology in compose_dood_topologies and compose_dood_present)
     checks = {
@@ -414,6 +419,7 @@ def collect_preflight(
                 protocol_v2.SCHEMA_VERSION: "cpp-pilot-v2.json",
                 protocol_v3.SCHEMA_VERSION: "cpp-pilot-v3.json",
                 protocol_v4.SCHEMA_VERSION: "cpp-pilot-v4.json",
+                protocol_v5.SCHEMA_VERSION: "cpp-pilot-v5.json",
             }[manifest["schema_version"]]
         ),
         "forge": {
@@ -428,7 +434,7 @@ def collect_preflight(
             "docker_server_version": (docker_version if docker_version_code == 0 else None),
             "platform_system": platform.system(),
             "platform_machine": platform.machine(),
-            "control_plane_topology": (protocol_v4.CONTROL_PLANE_TOPOLOGY if compose_dood_present else None),
+            "control_plane_topology": (expected_topology if compose_dood_present else None),
         },
         "checks": checks,
     }
@@ -601,6 +607,32 @@ def recompute_failure_domains(events: list[dict[str, Any]]) -> dict[str, list[di
     return {name: values or None for name, values in domains.items()}
 
 
+def recompute_build_identity(events: list[dict[str, Any]]) -> dict[str, Any]:
+    started = next((event for event in events if event["event"] == "experiment.started"), None)
+    policy = started["payload"].get("policy", {}) if started is not None else {}
+    expected = policy.get("expected_build_system")
+    benchmark_id = policy.get("benchmark_id")
+    snapshots = [event["payload"] for event in events if event["event"] == "build.identity_snapshot"]
+    attempt_executed = any(event["event"].startswith("model.") or event["event"] in {"runtime.topology_verified", "run.failed", "orphan.reconciled"} for event in events)
+    v5_identity_contract = benchmark_id == "forge-cpp-clean-replay-pilot-v5"
+    snapshot_required = v5_identity_contract and attempt_executed
+    submits = [event for event in events if event["event"] == "submit.completed"]
+    snapshots_by_session = {snapshot["session_id"]: snapshot for snapshot in snapshots if snapshot.get("session_id") is not None}
+    submit_identity_proven = not v5_identity_contract or all(
+        (snapshot := snapshots_by_session.get(submit["payload"].get("session_id"))) is not None and snapshot.get("selected_build_system") == expected and snapshot.get("executed_build_system") == expected for submit in submits
+    )
+    snapshot_present = bool(snapshots)
+    return {
+        "valid": (not snapshot_required or snapshot_present) and submit_identity_proven,
+        "snapshot_required": snapshot_required,
+        "snapshot_present": snapshot_present,
+        "expected_build_system": expected,
+        "session_count": sum(snapshot.get("session_id") is not None for snapshot in snapshots),
+        "submit_identity_proven": submit_identity_proven,
+        "snapshots": snapshots,
+    }
+
+
 def recompute_gates(events: list[dict[str, Any]]) -> dict[str, Any]:
     commands: dict[str, dict[str, Any]] = {}
     replays: dict[str, dict[str, Any]] = {}
@@ -660,10 +692,20 @@ def recompute_gates(events: list[dict[str, Any]]) -> dict[str, Any]:
                 "gates": recomputed,
             }
         )
+    build_identity = recompute_build_identity(events)
+    if not build_identity["valid"]:
+        mismatches.append(
+            {
+                "gate": "build_identity",
+                "recorded": build_identity["snapshot_present"],
+                "recomputed": False,
+            }
+        )
     return {
         "valid": not mismatches,
         "submits": results,
         "mismatches": mismatches,
+        "build_identity": build_identity,
         "failure_domains": recompute_failure_domains(events),
     }
 
@@ -743,6 +785,52 @@ def _finalize_attempt_sessions(
     return all(session.finalized_at is not None for session in sessions)
 
 
+def _record_attempt_build_identity(thread_id: str, ledger: ExperimentLedger) -> bool:
+    try:
+        from deerflow.compile.operations import get_compile_services
+
+        sessions = sorted(
+            get_compile_services().manager.list_sessions(thread_id),
+            key=lambda session: session.session_id,
+        )
+    except Exception:
+        ledger.append(
+            "failure.recorded",
+            {
+                "failure_id": new_evidence_id("failure"),
+                "domain": "build",
+                "classification": "identity_snapshot_unavailable",
+                "primary": True,
+            },
+        )
+        return False
+
+    snapshots = sessions or [None]
+    try:
+        for session in snapshots:
+            ledger.append(
+                "build.identity_snapshot",
+                {
+                    "session_id": session.session_id if session is not None else None,
+                    "build_system_capabilities": list(session.build_system_capabilities) if session is not None else [],
+                    "selected_build_system": session.selected_build_system if session is not None else None,
+                    "executed_build_system": session.executed_build_system if session is not None else None,
+                },
+            )
+    except EvidenceError:
+        ledger.append(
+            "failure.recorded",
+            {
+                "failure_id": new_evidence_id("failure"),
+                "domain": "build",
+                "classification": "identity_snapshot_invalid",
+                "primary": True,
+            },
+        )
+        return False
+    return True
+
+
 async def _consume_client_stream(
     client: Any,
     message: str,
@@ -795,6 +883,7 @@ def run_attempt(
         protocol_v2.CONTROL_PLANE_TOPOLOGY,
         protocol_v3.CONTROL_PLANE_TOPOLOGY,
         protocol_v4.CONTROL_PLANE_TOPOLOGY,
+        protocol_v5.CONTROL_PLANE_TOPOLOGY,
     }:
         if not _running_inside_compose_dood(REPO_ROOT):
             ledger.append(
@@ -825,6 +914,7 @@ def run_attempt(
     )
     run_status = "failed"
     session_finalization_succeeded = False
+    build_identity_snapshot_recorded = manifest["schema_version"] != protocol_v5.SCHEMA_VERSION
     try:
         from deerflow.client import DeerFlowClient
 
@@ -878,13 +968,15 @@ def run_attempt(
                 interrupted_status=interrupted_status,
                 error=termination_error,
             )
+        if manifest["schema_version"] == protocol_v5.SCHEMA_VERSION:
+            build_identity_snapshot_recorded = _record_attempt_build_identity(thread_id, ledger)
         ledger.append("orphan.reconciled", reconciliation)
 
     events = ledger.read()
     gates = recompute_gates(events)
     oracle = run_oracle(manifest, events)
     ledger.append("oracle.completed", oracle)
-    final_status = "passed" if run_status == "completed" and gates["valid"] and oracle["passed"] and reconciliation["cleanup_succeeded"] and session_finalization_succeeded else "failed"
+    final_status = "passed" if run_status == "completed" and gates["valid"] and oracle["passed"] and reconciliation["cleanup_succeeded"] and session_finalization_succeeded and build_identity_snapshot_recorded else "failed"
     ledger.append(
         "experiment.completed",
         {
@@ -893,6 +985,7 @@ def run_attempt(
             "oracle_passed": oracle["passed"],
             "orphan_cleanup_succeeded": reconciliation["cleanup_succeeded"],
             "session_finalization_succeeded": session_finalization_succeeded,
+            "build_identity_snapshot_recorded": build_identity_snapshot_recorded,
         },
     )
     return {
@@ -901,6 +994,7 @@ def run_attempt(
         "oracle": oracle,
         "orphan_reconciliation": reconciliation,
         "session_finalization_succeeded": session_finalization_succeeded,
+        "build_identity_snapshot_recorded": build_identity_snapshot_recorded,
     }
 
 
@@ -915,7 +1009,7 @@ def _build_parser() -> argparse.ArgumentParser:
     common.add_argument(
         "--manifest",
         type=Path,
-        default=REPO_ROOT / "benchmarks" / "manifests" / "cpp-pilot-v4.json",
+        default=REPO_ROOT / "benchmarks" / "manifests" / "cpp-pilot-v5.json",
     )
     common.add_argument("--skip-endpoint-check", action="store_true")
 

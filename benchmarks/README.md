@@ -1,6 +1,27 @@
 # Forge C/C++ benchmark protocols
 
-## Runnable pilot v4
+## Runnable pilot v5
+
+`cpp-pilot-v5.json` is the five-case calibration protocol for the runtime that includes the Issue #32 event-loop ownership fix, Issue #33 non-interactive progress repair, and Issue #34 capability/selection/execution identity contract. It preserves every v1-v4 protocol artifact and physical-attempt ledger, keeps `control_plane_topology: "compose-dood"`, and creates a separate v5 evidence stratum.
+
+The runtime implementation baseline is `afe57d60632b6e49cc951185df0f525f6bb1f294`. A clean runtime HEAD must contain that commit as an ancestor and its 22 frozen runtime components must match the baseline. The model and execution controls remain unchanged: `gpt-5.6-sol` for both roles, the RichLab `/v1` endpoint, `OpenAI_AK`, a 120-second request timeout, zero provider retries, no fallback, one serial backend run, and disabled Memory/Skills.
+
+Every executed v5 attempt records a bounded `build.identity_snapshot`. The snapshot keeps repository build-system capabilities, the manifest-selected path, and the path proven by the supporting build command as separate facts. A switched path is retained as observed evidence and rejected by the offline identity gate; a missing observation remains `null` and is never backfilled from the manifest. The v5 run-record source carries the same three explicit fields.
+
+Validate the manifest on Windows and WSL, then run preflight in the frozen Compose/DooD environment:
+
+```powershell
+python scripts/forge_benchmark_v5.py validate-manifest benchmarks/manifests/cpp-pilot-v5.json
+```
+
+```bash
+python3 scripts/forge_benchmark_runner.py preflight \
+  --manifest benchmarks/manifests/cpp-pilot-v5.json
+```
+
+Only `ready: true` on a clean committed tree authorizes collection. Create and run one new v5 physical attempt for each of the five cases, strictly serially. Do not pass `--replacement-for`, edit or delete any v1-v4 ledger, or pool outcomes across protocol versions. Once the first v5 ledger is created, the v5 manifest and protocol artifacts are frozen for that collection stratum.
+
+## Historical pilot v4
 
 `cpp-pilot-v4.json` is the five-case calibration protocol for the runtime that includes the Issue #24 async-only compiler delegation fix, Issue #25 expected/observed build-system identity gate, and Issue #26 bounded agent tool-failure and no-compile-progress evidence. It preserves every v1/v2/v3 protocol artifact and existing physical-attempt ledger, keeps `control_plane_topology: "compose-dood"`, and creates a separate v4 evidence stratum.
 

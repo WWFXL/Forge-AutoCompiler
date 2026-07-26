@@ -5,6 +5,10 @@
 ## 最近变更 (Recent Changes)
 <!-- 倒序，最新在上。 -->
 
+- 2026-07-26 — 重排 Issue #38 的 C/C++ pilot v5 冻结协议
+  - 范围: 从当前主干冻结独立 v5 manifest、Schema、validator 与 runner 路由，记录 capability、selected 与 executed identity；v1-v4 与既有 ledger 保持字节不变。
+  - 边界: 只重排与审计协议，不调用模型、不创建、执行、覆盖或 replacement 任一 physical-attempt slot，也不启动 v6。
+
 - 2026-07-26 — 重排 Issue #34 的多构建系统 identity policy
   - 范围: 将旧堆叠单提交重放到 `main@1bcf0caa`；分离仓库 capability set、实验 selected path 与 submit 时由成功命令证明的 executed path，保留 `expected_build_system` 的证据兼容性。
   - 边界: identify 只校验 selected 属于 capability set；submit 仍要求 executed 等于 selected，缺少证明或换路均拒绝。v1-v5 manifest、Schema、validator 和既有 ledger 均不改写。

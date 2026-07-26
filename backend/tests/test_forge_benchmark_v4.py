@@ -14,6 +14,12 @@ REPO_ROOT = Path(__file__).resolve().parents[2]
 V4_MANIFEST_PATH = REPO_ROOT / "benchmarks" / "manifests" / "cpp-pilot-v4.json"
 V4_SCHEMA_PATH = REPO_ROOT / "benchmarks" / "schemas" / "forge-cpp-benchmark-v4.schema.json"
 V4_VALIDATOR_PATH = REPO_ROOT / "scripts" / "forge_benchmark_v4.py"
+V4_PROTOCOL_ARTIFACT_COMMITS = {
+    "scripts/forge_benchmark.py": "ec30fac8ada1e00b2863c031999ea7acf5c1a676",
+    "scripts/forge_benchmark_v4.py": "2cfbf79552ba437c67602b6c23bdd1d8d9d231a9",
+    "scripts/forge_benchmark_runner.py": "2cfbf79552ba437c67602b6c23bdd1d8d9d231a9",
+    "benchmarks/schemas/forge-cpp-benchmark-v4.schema.json": "2cfbf79552ba437c67602b6c23bdd1d8d9d231a9",
+}
 
 FROZEN_HISTORICAL_PROTOCOL_FILES = {
     "benchmarks/manifests/cpp-pilot-v1.json": "6d73afaa476eef172fc810a63daf7ad22f0f84434bdb6300de7eb4c34269bbee",
@@ -107,11 +113,19 @@ def test_v4_runtime_components_match_the_declared_baseline() -> None:
         assert hashlib.sha256(result.stdout).hexdigest() == expected_digest
 
 
-def test_v4_protocol_artifacts_match_the_current_tree() -> None:
+def test_v4_protocol_artifacts_match_the_frozen_protocol_commit() -> None:
     manifest = load_v4_manifest()
+    if shutil.which("git") is None:
+        pytest.skip("git is unavailable in the minimal backend image")
 
     for relative_path, expected_digest in manifest["protocol_artifact_sha256"].items():
-        assert hashlib.sha256((REPO_ROOT / relative_path).read_bytes()).hexdigest() == expected_digest
+        result = subprocess.run(
+            ["git", "show", f"{V4_PROTOCOL_ARTIFACT_COMMITS[relative_path]}:{relative_path}"],
+            cwd=REPO_ROOT,
+            capture_output=True,
+            check=True,
+        )
+        assert hashlib.sha256(result.stdout).hexdigest() == expected_digest
 
 
 def test_v4_schema_tracks_the_validator_topology_and_identity_contract() -> None:
