@@ -9,7 +9,14 @@ from pathlib import Path
 from langchain.tools import tool
 
 from deerflow.compile.evidence import allowed_command_role, new_evidence_id, record_experiment_event
-from deerflow.compile.operations import get_bound_session, get_compile_services, infer_command_roles, resolve_command_role, submit_build_result_impl
+from deerflow.compile.operations import (
+    get_bound_session,
+    get_compile_services,
+    infer_command_roles,
+    resolve_command_role,
+    submit_build_result_impl,
+    validate_experiment_build_arguments,
+)
 from deerflow.compile.schemas import BuildCommandRecord, CommandResult, CompileSession, utc_now_iso
 
 _MAX_OUTPUT_LINES = 50
@@ -298,6 +305,69 @@ def _run_container_bash_impl(
             log_path=log_path,
         )
         return result, f"command_id={command_id}\ncommand_role={effective_role}\nexit_code={_POLICY_REJECTED_EXIT_CODE} (Policy rejected)\nworkdir={effective_workdir}\nerror: {rejection}", record
+
+    arguments_match, argument_failure, required_argument_count = validate_experiment_build_arguments(
+        session,
+        command,
+    )
+    if required_argument_count:
+        record_experiment_event(
+            session.thread_id,
+            "build.arguments_checked",
+            phase="pre_build",
+            session_id=session.session_id,
+            command_id=command_id,
+            build_system=session.selected_build_system,
+            required_argument_count=required_argument_count,
+            matches=arguments_match,
+            command_executed=arguments_match,
+        )
+    if argument_failure is not None:
+        rejection = "The build command was not executed because no successful configure command observed every frozen build argument in order. Correct the configure command with the experiment policy arguments, then retry the build."
+        now = utc_now_iso()
+        record = _record_bash_command(
+            session=session,
+            command=command,
+            workdir=effective_workdir,
+            started_at=now,
+            completed_at=now,
+            exit_code=_POLICY_REJECTED_EXIT_CODE,
+            log_path=log_path,
+            command_id=command_id,
+            command_role=effective_role,
+            timeout_seconds=timeout_seconds,
+            duration_seconds=0.0,
+            timed_out=False,
+            termination="policy_rejected",
+        )
+        services.manager.log_event(
+            session,
+            "build.arguments_rejected",
+            command_id=command_id,
+            command_role=effective_role,
+            classification=argument_failure,
+        )
+        record_experiment_event(
+            session.thread_id,
+            "protocol.deviation",
+            phase="pre_build",
+            classification=argument_failure,
+            session_id=session.session_id,
+            command_id=command_id,
+            build_system=session.selected_build_system,
+            required_argument_count=required_argument_count,
+            submit_allowed=False,
+            command_executed=False,
+        )
+        result = CommandResult(
+            exit_code=_POLICY_REJECTED_EXIT_CODE,
+            stdout="",
+            stderr=rejection,
+            combined_output=rejection,
+            log_path=log_path,
+        )
+        message = f"command_id={command_id}\ncommand_role={effective_role}\nexit_code={_POLICY_REJECTED_EXIT_CODE} (Policy rejected)\nworkdir={effective_workdir}\nclassification={argument_failure}\nerror: {rejection}"
+        return result, message, record
 
     _consume_post_build_budget(session, command_role=effective_role)
 
