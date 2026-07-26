@@ -30,11 +30,18 @@ jobs:
       # audited objects before running byte-level provenance checks.
       - name: Fetch historical benchmark protocol commits
         run: |
-          git fetch --no-tags --depth=1 origin 0a71ad3204afec9aa36de612265594c1144be4c9
-          git fetch --no-tags --depth=1 origin d845b735576be706f79fcf0666f66c14929a52cc
-          git fetch --no-tags --depth=1 origin 371f678e07acc6ae87f80d7544f573332d74fa88
-          git fetch --no-tags --depth=1 origin 01460235668dcd187809059030ff5d3ec0851b17
-          git fetch --no-tags --depth=1 origin 7836219b3212c017bfa1adf319aeada903962da3
+          git fetch --no-tags origin 0a71ad3204afec9aa36de612265594c1144be4c9
+          git fetch --no-tags origin d845b735576be706f79fcf0666f66c14929a52cc
+          git fetch --no-tags origin 561b38cee9f027b0dfb01ff765b44a28dbf2de8f
+          git fetch --no-tags origin 9e002f4568a77de07fdce65b49373afb7e5cc74e
+          git fetch --no-tags origin 9ef57c50193ace14b6f8b761e09cced21e92f08e
+          git fetch --no-tags origin 371f678e07acc6ae87f80d7544f573332d74fa88
+          git fetch --no-tags origin 17e09f5896ca8bf5739cec413c16402cb441209d
+          git fetch --no-tags origin c4b817f315515d8afcc26d572151276aef7bece4
+          git fetch --no-tags origin 8828329896d92e8550eb1d0b3cf59bed58441987
+          git fetch --no-tags origin 01460235668dcd187809059030ff5d3ec0851b17
+          git fetch --no-tags origin 7836219b3212c017bfa1adf319aeada903962da3
+          git fetch --no-tags origin 83e807d8a441811920ceb8c9ac6ee6afe6584720
 
       - name: Set up Python
         uses: actions/setup-python@v6
