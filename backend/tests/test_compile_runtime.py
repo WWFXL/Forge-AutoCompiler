@@ -51,6 +51,41 @@ def make_test_paths(tmp_path: Path, *, host_workspace_root: str | None = None) -
     )
 
 
+def make_experiment_policy(
+    session: CompileSession,
+    *,
+    build_system: str,
+    cmake_arguments: tuple[str, ...] = (),
+    configure_arguments: tuple[str, ...] = (),
+) -> ExperimentPolicy:
+    return ExperimentPolicy(
+        benchmark_id="forge-cpp-pilot-v6",
+        manifest_sha256="1" * 64,
+        case_id="fixture",
+        condition="baseline",
+        repetition=1,
+        expected_repo_url=session.repo_url,
+        expected_commit_sha="2" * 40,
+        expected_build_system=build_system,
+        compile_image=session.image,
+        image_id=VALID_IMAGE_ID,
+        model_name="gpt-5.6-sol",
+        endpoint="https://example.invalid/v1",
+        credential_env="OpenAI_AK",
+        request_timeout_seconds=120,
+        model_max_retries=0,
+        compiler_max_turns=36,
+        subagent_timeout_seconds=180,
+        memory_enabled=False,
+        skills_enabled=False,
+        required_system_packages=(),
+        cmake_arguments=cmake_arguments,
+        configure_arguments=configure_arguments,
+        environment=(),
+        minimum_replay_delay_seconds=0,
+    )
+
+
 def add_replayable_build_command(session: CompileSession, command: str = "cmake --build build") -> None:
     session.commands.append(
         BuildCommandRecord(
@@ -239,6 +274,180 @@ def test_successful_mislabelled_build_enters_persisted_post_build_fence(tmp_path
     assert rejected_record.role == "configure"
     assert rejected_record.termination == "policy_rejected"
     assert runtime_calls == ["cmake --build build -j2"]
+
+
+@pytest.mark.parametrize(
+    ("build_system", "arguments", "configure_command", "build_command", "classification"),
+    [
+        (
+            "cmake",
+            ("-DBUILD_TESTING=OFF", "-DCMAKE_BUILD_TYPE=Release"),
+            "cmake -S . -B build -DBUILD_TESTING=OFF",
+            "cmake --build build -j2",
+            "cmake_arguments_not_observed",
+        ),
+        (
+            "autotools",
+            ("--disable-shared", "--enable-static"),
+            "./configure --disable-shared",
+            "make -j2",
+            "configure_arguments_not_observed",
+        ),
+    ],
+)
+def test_experiment_build_is_rejected_before_runtime_when_frozen_arguments_are_missing(
+    tmp_path: Path,
+    monkeypatch,
+    build_system: str,
+    arguments: tuple[str, ...],
+    configure_command: str,
+    build_command: str,
+    classification: str,
+) -> None:
+    thread_id = f"thread-pre-build-arguments-rejected-{build_system}"
+    manager = CompileSessionManager(paths=make_test_paths(tmp_path))
+    session = manager.create_session(
+        thread_id=thread_id,
+        repo_url="https://example.com/repo.git",
+    )
+    session.selected_build_system = build_system
+    manager.save_session(session)
+    runtime_calls: list[str] = []
+
+    def fake_exec(_session, command, **kwargs):
+        runtime_calls.append(command)
+        return CommandResult(
+            exit_code=0,
+            stdout="ok\n",
+            stderr="",
+            combined_output="ok\n",
+            log_path=kwargs.get("log_path"),
+        )
+
+    monkeypatch.setattr(
+        operations,
+        "_services",
+        CompileOperationsServices(manager=manager, runtime=SimpleNamespace(exec=fake_exec)),
+    )
+    ledger = ExperimentLedger.create(
+        tmp_path / "pre-build-arguments-rejected.jsonl",
+        experiment_id=new_evidence_id("experiment"),
+        physical_attempt_id=new_evidence_id("physical_attempt"),
+        context={"thread_id": thread_id},
+    )
+    policy = make_experiment_policy(
+        session,
+        build_system=build_system,
+        cmake_arguments=arguments if build_system == "cmake" else (),
+        configure_arguments=arguments if build_system == "autotools" else (),
+    )
+    activate_experiment(
+        thread_id=thread_id,
+        experiment_id=ledger.experiment_id,
+        physical_attempt_id=ledger.physical_attempt_id,
+        ledger=ledger,
+        policy=policy,
+    )
+    try:
+        configure_result, _configure_message, _configure_record = bound_compile_tools._run_container_bash_impl(
+            session=session,
+            command=configure_command,
+        )
+        build_result, build_message, build_record = bound_compile_tools._run_container_bash_impl(
+            session=session,
+            command=build_command,
+        )
+    finally:
+        deactivate_experiment(thread_id)
+
+    assert configure_result.exit_code == 0
+    assert build_result.exit_code == 126
+    assert build_record.role == "build"
+    assert build_record.termination == "policy_rejected"
+    assert f"classification={classification}" in build_message
+    assert runtime_calls == [configure_command]
+    events = ledger.read()
+    argument_check = next(event for event in events if event["event"] == "build.arguments_checked")
+    deviation = next(event for event in events if event["event"] == "protocol.deviation")
+    assert argument_check["payload"]["matches"] is False
+    assert argument_check["payload"]["command_executed"] is False
+    assert deviation["payload"]["phase"] == "pre_build"
+    assert deviation["payload"]["classification"] == classification
+
+
+@pytest.mark.parametrize(
+    ("build_system", "arguments", "commands", "build_command"),
+    [
+        (
+            "cmake",
+            ("-DBUILD_TESTING=OFF", "-DCMAKE_BUILD_TYPE=Release"),
+            [
+                BuildCommandRecord(
+                    stage="bash",
+                    command="cmake -S . -B build -DBUILD_TESTING=OFF -DCMAKE_BUILD_TYPE=Release",
+                    workdir="/workspace/repo",
+                    role="configure",
+                    exit_code=0,
+                )
+            ],
+            "cmake --build build -j2",
+        ),
+        (
+            "autotools",
+            ("--disable-shared", "--enable-static"),
+            [],
+            "./configure --disable-shared --enable-static && make -j2",
+        ),
+    ],
+)
+def test_experiment_build_arguments_accept_prior_or_compound_configure_evidence(
+    tmp_path: Path,
+    build_system: str,
+    arguments: tuple[str, ...],
+    commands: list[BuildCommandRecord],
+    build_command: str,
+) -> None:
+    thread_id = f"thread-pre-build-arguments-{build_system}"
+    session = CompileSession(
+        session_id=f"session-pre-build-arguments-{build_system}",
+        thread_id=thread_id,
+        repo_url="https://example.com/repo.git",
+        branch=None,
+        image="autocompiler:gcc13",
+        status="inspected",
+        selected_build_system=build_system,
+        commands=commands,
+    )
+    ledger = ExperimentLedger.create(
+        tmp_path / f"pre-build-arguments-{build_system}.jsonl",
+        experiment_id=new_evidence_id("experiment"),
+        physical_attempt_id=new_evidence_id("physical_attempt"),
+        context={"thread_id": thread_id},
+    )
+    policy = make_experiment_policy(
+        session,
+        build_system=build_system,
+        cmake_arguments=arguments if build_system == "cmake" else (),
+        configure_arguments=arguments if build_system == "autotools" else (),
+    )
+    activate_experiment(
+        thread_id=thread_id,
+        experiment_id=ledger.experiment_id,
+        physical_attempt_id=ledger.physical_attempt_id,
+        ledger=ledger,
+        policy=policy,
+    )
+    try:
+        matches, failure, required_argument_count = operations.validate_experiment_build_arguments(
+            session,
+            build_command,
+        )
+    finally:
+        deactivate_experiment(thread_id)
+
+    assert matches is True
+    assert failure is None
+    assert required_argument_count == 2
 
 
 @pytest.mark.parametrize(

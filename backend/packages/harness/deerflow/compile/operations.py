@@ -1029,6 +1029,13 @@ def _command_contains_arguments(command: str, expected: tuple[str, ...]) -> bool
     return all(any(token == argument for token in token_iterator) for argument in expected)
 
 
+def _successful_configure_arguments_observed(
+    commands: list[BuildCommandRecord],
+    expected: tuple[str, ...],
+) -> bool:
+    return any(command.exit_code == 0 and not command.timed_out and "configure" in infer_command_roles(command.command) and _command_contains_arguments(command.command, expected) for command in commands)
+
+
 def _command_invokes(command: str, executable: str) -> bool:
     try:
         lexer = shlex(command.replace("\n", ";"), posix=True, punctuation_chars="();&|")
@@ -1210,6 +1217,40 @@ def resolve_command_role(command: str, declared_role: str | None) -> tuple[str, 
     return declared, None
 
 
+def validate_experiment_build_arguments(
+    session: CompileSession,
+    command: str,
+) -> tuple[bool, str | None, int]:
+    """Validate frozen configure arguments before an experiment build executes."""
+
+    active = get_active_experiment(session.thread_id)
+    command_roles = infer_command_roles(command)
+    if active is None or "build" not in command_roles:
+        return True, None, 0
+
+    expected_arguments: tuple[str, ...]
+    failure: str
+    if active.policy.selected_build_system == "cmake":
+        expected_arguments = active.policy.cmake_arguments
+        failure = "cmake_arguments_not_observed"
+    elif active.policy.selected_build_system == "autotools":
+        expected_arguments = active.policy.configure_arguments
+        failure = "configure_arguments_not_observed"
+    else:
+        return True, None, 0
+
+    if not expected_arguments:
+        return True, None, 0
+
+    observed = _successful_configure_arguments_observed(
+        session.commands,
+        expected_arguments,
+    )
+    if "configure" in command_roles:
+        observed = observed or _command_contains_arguments(command, expected_arguments)
+    return observed, None if observed else failure, len(expected_arguments)
+
+
 def _configure_command_build_system(command: str) -> str | None:
     if infer_command_role(command) == "configure" and _command_invokes(command, "cmake"):
         return "cmake"
@@ -1315,9 +1356,15 @@ def _experiment_submit_constraints(
     successful_commands = [command for command in session.commands if command.exit_code == 0 and not command.timed_out]
     if active.policy.required_system_packages and not any(command.role == "dependency_setup" for command in successful_commands):
         failures.append("dependency_setup_not_observed")
-    if active.policy.cmake_arguments and not any(command.role == "configure" and _command_contains_arguments(command.command, active.policy.cmake_arguments) for command in successful_commands):
+    if active.policy.cmake_arguments and not _successful_configure_arguments_observed(
+        successful_commands,
+        active.policy.cmake_arguments,
+    ):
         failures.append("cmake_arguments_not_observed")
-    if active.policy.configure_arguments and not any(command.role == "configure" and _command_contains_arguments(command.command, active.policy.configure_arguments) for command in successful_commands):
+    if active.policy.configure_arguments and not _successful_configure_arguments_observed(
+        successful_commands,
+        active.policy.configure_arguments,
+    ):
         failures.append("configure_arguments_not_observed")
     return not failures, failures, executed_build_system
 

@@ -561,6 +561,115 @@ def test_build_system_mismatch_stops_before_real_compiler_delegation(monkeypatch
         shutil.rmtree(Path(session.metadata_path).parent.parent, ignore_errors=True)
 
 
+def test_missing_frozen_arguments_stop_before_real_build_and_replay(monkeypatch):
+    paths = Paths()
+    manager = CompileSessionManager(paths=paths, default_image=COMPILE_IMAGE)
+    thread_id = f"docker-build-argument-gate-{uuid.uuid4().hex[:12]}"
+    session = manager.create_session(
+        thread_id=thread_id,
+        repo_url=REPO_URL,
+        image=COMPILE_IMAGE,
+    )
+    runtime = CompileDockerRuntime(manager=manager)
+    ledger = ExperimentLedger.create(
+        Path(session.metadata_path).parent / "build-argument-gate.jsonl",
+        experiment_id=new_evidence_id("experiment"),
+        physical_attempt_id=new_evidence_id("physical_attempt"),
+        context={"thread_id": thread_id},
+    )
+    policy = ExperimentPolicy(
+        benchmark_id="forge-cpp-post-v6-argument-gate",
+        manifest_sha256="5" * 64,
+        case_id="cmake-argument-fixture",
+        condition="non-pilot-integration",
+        repetition=1,
+        expected_repo_url=REPO_URL,
+        expected_commit_sha=COMMIT_SHA,
+        expected_build_system="cmake",
+        compile_image=COMPILE_IMAGE,
+        image_id=COMPILE_IMAGE_ID,
+        model_name="deterministic-tools",
+        endpoint="https://example.invalid/v1",
+        credential_env="OpenAI_AK",
+        request_timeout_seconds=120,
+        model_max_retries=0,
+        compiler_max_turns=36,
+        subagent_timeout_seconds=300,
+        memory_enabled=False,
+        skills_enabled=False,
+        required_system_packages=(),
+        cmake_arguments=("-DBUILD_TESTING=OFF",),
+        configure_arguments=(),
+        environment=(),
+        minimum_replay_delay_seconds=0,
+    )
+    monkeypatch.setattr(operations, "_services", CompileOperationsServices(manager=manager, runtime=runtime))
+    activate_experiment(
+        thread_id=thread_id,
+        experiment_id=ledger.experiment_id,
+        physical_attempt_id=ledger.physical_attempt_id,
+        ledger=ledger,
+        policy=policy,
+    )
+    try:
+        runtime.create_container(session)
+        manager.save_session(session)
+        clone_result, _message = clone_repository_impl(
+            session=session,
+            repo_url=REPO_URL,
+            max_retries=1,
+        )
+        assert clone_result.exit_code == 0, clone_result.combined_output
+
+        identify_result = agent_compile_tools.identify_build_system.func(
+            runtime=SimpleNamespace(
+                state={agent_compile_tools.COMPILE_SESSION_STATE_KEY: session.session_id},
+                context={"thread_id": thread_id},
+                config={"configurable": {}},
+            ),
+            tool_call_id="tool-real-build-argument-gate",
+        )
+        assert identify_result.update.get("compile_terminal") is not True
+
+        run_tool = next(tool for tool in bound_compile_tools.get_bound_compile_tools(session) if tool.name == "run_container_bash")
+        configured = run_tool.func(
+            command="cmake -S . -B build",
+            command_role="other",
+        )
+        rejected = run_tool.func(
+            command="cmake --build build -j2",
+            command_role="other",
+        )
+
+        assert "command_role=configure" in configured
+        assert "exit_code=0\n" in configured, configured
+        assert "exit_code=126 (Policy rejected)" in rejected
+        assert "classification=cmake_arguments_not_observed" in rejected
+        reloaded = manager.load_session(session.session_id, thread_id)
+        assert reloaded.post_build_supporting_command_id is None
+        assert reloaded.replay_attempts == []
+        assert (
+            runtime.exec(
+                reloaded,
+                "test ! -e build/hello",
+                workdir="/workspace/repo",
+                timeout_seconds=30,
+            ).exit_code
+            == 0
+        )
+        _assert_no_replay_container(reloaded)
+
+        events = ledger.read()
+        deviation = next(event for event in events if event["event"] == "protocol.deviation")
+        assert deviation["payload"]["phase"] == "pre_build"
+        assert deviation["payload"]["classification"] == "cmake_arguments_not_observed"
+        assert deviation["payload"]["command_executed"] is False
+    finally:
+        deactivate_experiment(thread_id)
+        runtime.stop_and_remove_container(session)
+        shutil.rmtree(Path(session.metadata_path).parent.parent, ignore_errors=True)
+
+
 def test_post_build_handoff_corrects_role_and_auto_submits_cmake_fixture(monkeypatch):
     paths = Paths()
     manager = CompileSessionManager(paths=paths, default_image=COMPILE_IMAGE)

@@ -1,9 +1,13 @@
 from __future__ import annotations
 
+import hashlib
 import importlib.util
 import json
+import shutil
+import subprocess
 from pathlib import Path
 
+import pytest
 from jsonschema import Draft202012Validator
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
@@ -26,7 +30,32 @@ def test_v6_manifest_freezes_post_build_handoff_baseline() -> None:
     assert manifest["model"]["request_timeout_seconds"] == 120
     assert manifest["model"]["max_retries"] == 0
     assert forge_benchmark_v6.validate_manifest(manifest) is manifest
-    forge_benchmark_v6.verify_frozen_components(manifest, REPO_ROOT)
+
+
+def test_v6_current_tree_gate_rejects_later_runtime_component_drift() -> None:
+    manifest = json.loads(MANIFEST_PATH.read_text(encoding="utf-8"))
+
+    with pytest.raises(
+        forge_benchmark_v6.BenchmarkError,
+        match="does not match the current repository file",
+    ):
+        forge_benchmark_v6.verify_frozen_components(manifest, REPO_ROOT)
+
+
+def test_v6_runtime_components_match_the_declared_baseline() -> None:
+    manifest = json.loads(MANIFEST_PATH.read_text(encoding="utf-8"))
+    git = shutil.which("git")
+    if git is None:
+        pytest.skip("git is unavailable in the minimal backend image")
+
+    for relative_path, expected_digest in manifest["forge"]["component_sha256"].items():
+        result = subprocess.run(
+            [git, "show", f"{manifest['forge']['commit_sha']}:{relative_path}"],
+            cwd=REPO_ROOT,
+            capture_output=True,
+            check=True,
+        )
+        assert hashlib.sha256(result.stdout).hexdigest() == expected_digest
 
 
 def test_v6_schema_validates_the_frozen_manifest() -> None:
