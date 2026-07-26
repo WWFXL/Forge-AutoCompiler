@@ -211,6 +211,7 @@ def test_compiler_prompt_receives_ordered_manifest_constraints() -> None:
     assert "command_role" in prompt
     assert "supporting_command_id" in prompt
     assert policy.expected_build_system in prompt
+    assert f"selected {policy.selected_build_system}" in prompt
     assert policy.credential_env not in prompt
 
 

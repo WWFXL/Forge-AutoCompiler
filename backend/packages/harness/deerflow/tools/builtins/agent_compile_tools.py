@@ -9,7 +9,7 @@ from langgraph.types import Command
 from langgraph.typing import ContextT
 
 from deerflow.compile.evidence import get_active_experiment, record_experiment_event
-from deerflow.compile.operations import cleanup_and_finalize_compile_session_impl, clone_repository_impl, get_bound_session, inspect_build_system_impl, prepare_compile_session_impl
+from deerflow.compile.operations import cleanup_and_finalize_compile_session_impl, clone_repository_impl, get_bound_session, get_compile_services, inspect_build_system_impl, prepare_compile_session_impl
 from deerflow.compile.schemas import CompileSession
 
 if TYPE_CHECKING:
@@ -63,26 +63,35 @@ def _enforce_experiment_build_system(
     *,
     session: CompileSession,
     observed_build_system: str,
-) -> tuple[bool, str | None]:
+    detected_build_systems: list[str],
+) -> tuple[bool, str | None, str | None]:
     active = get_active_experiment(session.thread_id)
     if active is None:
-        return True, None
+        selected_build_system = observed_build_system if observed_build_system != "unknown" else None
+        session.selected_build_system = selected_build_system
+        get_compile_services().manager.save_session(session)
+        return True, selected_build_system, None
 
-    expected_build_system = active.policy.expected_build_system
-    matches = observed_build_system == expected_build_system
+    expected_build_system = active.policy.selected_build_system
+    matches = expected_build_system in detected_build_systems
     record_experiment_event(
         session.thread_id,
         "build.system_checked",
         session_id=session.session_id,
         expected_build_system=expected_build_system,
+        selected_build_system=expected_build_system if matches else None,
         observed_build_system=observed_build_system,
+        detected_build_systems=detected_build_systems,
         matches=matches,
         compiler_allowed=matches,
     )
     if matches:
-        return True, None
+        session.selected_build_system = expected_build_system
+        get_compile_services().manager.save_session(session)
+        return True, expected_build_system, None
 
-    error = f"Benchmark protocol deviation: expected build system {expected_build_system}, observed {observed_build_system}."
+    detected_summary = ", ".join(detected_build_systems) or "none"
+    error = f"Benchmark protocol deviation: selected build system {expected_build_system} is not supported by detected repository capabilities ({detected_summary})."
     updated, cleanup_result = cleanup_and_finalize_compile_session_impl(
         session=session,
         interrupted_status="failed",
@@ -95,12 +104,14 @@ def _enforce_experiment_build_system(
         classification="build_system_mismatch",
         session_id=session.session_id,
         expected_build_system=expected_build_system,
+        selected_build_system=None,
         observed_build_system=observed_build_system,
+        detected_build_systems=detected_build_systems,
         compiler_allowed=False,
         cleanup_succeeded=cleanup_result.succeeded and cleanup_result.removed,
         session_finalized=updated.finalized_at is not None,
     )
-    return False, error
+    return False, None, error
 
 
 @tool("prepare_compile_session", parse_docstring=True)
@@ -216,16 +227,18 @@ def identify_build_system(
 
     session = get_bound_session(session_id=effective_session_id, thread_id=_get_thread_id(runtime))
     primary_system, detected, suggested_commands = inspect_build_system_impl(session=session)
-    root_file = detected[0][1] if detected else None
-    build_system_matches, deviation_error = _enforce_experiment_build_system(
+    detected_build_systems = [build_system for build_system, _marker in detected]
+    build_system_matches, selected_build_system, deviation_error = _enforce_experiment_build_system(
         session=session,
         observed_build_system=primary_system,
+        detected_build_systems=detected_build_systems,
     )
-    message = f'Build system identified: system={primary_system}, root_file={root_file or "none"}. Next call task(..., subagent_type="compiler") directly.'
+    selected_marker = next((marker for build_system, marker in detected if build_system == selected_build_system), None)
+    message = f'Build systems identified: capabilities={detected_build_systems or ["unknown"]}, selected={selected_build_system or "none"}, root_file={selected_marker or "none"}. Next call task(..., subagent_type="compiler") directly.'
     update = _build_compile_state_update(
         session_id=effective_session_id,
         container_id=session.container_id,
-        build_system=primary_system,
+        build_system=selected_build_system,
     )
     if not build_system_matches:
         update["compile_terminal"] = True
@@ -267,6 +280,9 @@ def finalize_session(
         "image": updated.image,
         "image_id": updated.image_id,
         "build_system": updated.build_system,
+        "build_system_capabilities": updated.build_system_capabilities,
+        "selected_build_system": updated.selected_build_system,
+        "executed_build_system": updated.executed_build_system,
         "commands": [command.command for command in updated.commands],
         "verification": updated.verification.status if updated.verification else "not_run",
         "replay_verification": updated.replay_attempts[-1].status if updated.replay_attempts else "not_run",

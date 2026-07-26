@@ -78,6 +78,88 @@ def test_benchmark_arguments_must_be_observed_in_declared_order(
     assert operations._command_contains_arguments(command, expected) is matches
 
 
+def test_inspect_build_system_persists_all_repository_capabilities(tmp_path: Path, monkeypatch) -> None:
+    manager = CompileSessionManager(paths=make_test_paths(tmp_path))
+    session = manager.create_session(
+        thread_id="thread-multi-build-system",
+        repo_url="https://example.com/repo.git",
+    )
+    repo_dir = Path(session.leadagent_repo_dir)
+    repo_dir.mkdir(parents=True)
+    for marker in ("CMakeLists.txt", "Makefile", "configure"):
+        (repo_dir / marker).write_text("fixture\n", encoding="utf-8")
+    monkeypatch.setattr(
+        operations,
+        "_services",
+        CompileOperationsServices(manager=manager, runtime=SimpleNamespace()),
+    )
+
+    primary, detected, _suggested = operations.inspect_build_system_impl(session=session)
+
+    reloaded = manager.load_session(session.session_id, session.thread_id)
+    assert primary == "cmake"
+    assert detected == [
+        ("cmake", "CMakeLists.txt"),
+        ("make", "Makefile"),
+        ("autotools", "configure"),
+    ]
+    assert reloaded.build_system == "cmake"
+    assert reloaded.build_system_capabilities == ["cmake", "make", "autotools"]
+    assert reloaded.selected_build_system is None
+    assert reloaded.executed_build_system is None
+
+
+@pytest.mark.parametrize(
+    ("commands", "supporting_command_id", "expected"),
+    [
+        (
+            [BuildCommandRecord(stage="bash", command="cmake --build build -j2", workdir="/workspace/repo", command_id="build", role="build", exit_code=0)],
+            "build",
+            "cmake",
+        ),
+        (
+            [BuildCommandRecord(stage="bash", command="cmake -S . -B build && make -C build -j2", workdir="/workspace/repo", command_id="build", role="build", exit_code=0)],
+            "build",
+            "cmake",
+        ),
+        (
+            [BuildCommandRecord(stage="bash", command="make -j2", workdir="/workspace/repo", command_id="build", role="build", exit_code=0)],
+            "build",
+            "make",
+        ),
+        (
+            [
+                BuildCommandRecord(stage="bash", command="./configure --disable-shared", workdir="/workspace/repo", command_id="configure", role="configure", exit_code=0),
+                BuildCommandRecord(stage="bash", command="make -j2", workdir="/workspace/repo", command_id="build", role="build", exit_code=0),
+            ],
+            "build",
+            "autotools",
+        ),
+    ],
+)
+def test_submit_gate_infers_executed_build_system_from_successful_commands(
+    commands: list[BuildCommandRecord],
+    supporting_command_id: str,
+    expected: str,
+) -> None:
+    assert operations._infer_executed_build_system(commands, supporting_command_id) == expected
+
+
+def test_submit_gate_does_not_treat_build_system_name_as_command_evidence() -> None:
+    commands = [
+        BuildCommandRecord(
+            stage="bash",
+            command="printf 'make build finished'",
+            workdir="/workspace/repo",
+            command_id="build",
+            role="build",
+            exit_code=0,
+        )
+    ]
+
+    assert operations._infer_executed_build_system(commands, "build") is None
+
+
 def test_submit_gate_rejects_observed_build_system_mismatch(tmp_path: Path) -> None:
     thread_id = "thread-build-system-submit-gate"
     session = CompileSession(
@@ -87,7 +169,9 @@ def test_submit_gate_rejects_observed_build_system_mismatch(tmp_path: Path) -> N
         branch=None,
         image="autocompiler:gcc13",
         status="inspected",
-        build_system="make",
+        build_system="cmake",
+        build_system_capabilities=["cmake", "make"],
+        selected_build_system="cmake",
         metadata_path="session.json",
         leadagent_repo_dir="workspace/repo",
         leadagent_artifacts_dir="artifacts",
@@ -144,7 +228,7 @@ def test_submit_gate_rejects_observed_build_system_mismatch(tmp_path: Path) -> N
         policy=policy,
     )
     try:
-        passed, failures = operations._experiment_submit_constraints(
+        passed, failures, executed_build_system = operations._experiment_submit_constraints(
             session,
             "command-build",
         )
@@ -153,10 +237,77 @@ def test_submit_gate_rejects_observed_build_system_mismatch(tmp_path: Path) -> N
 
     assert passed is False
     assert failures == ["build_system_mismatch"]
+    assert executed_build_system == "make"
     deviation = ledger.read()[-1]
     assert deviation["event"] == "protocol.deviation"
     assert deviation["payload"]["phase"] == "submit"
+    assert deviation["payload"]["selected_build_system"] == "cmake"
+    assert deviation["payload"]["observed_build_system"] == "make"
     assert deviation["payload"]["submit_allowed"] is False
+
+
+def test_submit_gate_rejects_unproven_build_system(tmp_path: Path) -> None:
+    thread_id = "thread-build-system-unproven"
+    session = CompileSession(
+        session_id="session-build-system-unproven",
+        thread_id=thread_id,
+        repo_url="https://example.com/repo.git",
+        branch=None,
+        image="autocompiler:gcc13",
+        status="inspected",
+        build_system="cmake",
+        build_system_capabilities=["cmake"],
+        selected_build_system="cmake",
+        commands=[BuildCommandRecord(stage="bash", command="ninja -C build", workdir="/workspace/repo", command_id="command-build", role="build", exit_code=0)],
+    )
+    ledger = ExperimentLedger.create(
+        tmp_path / "build-system-unproven.jsonl",
+        experiment_id=new_evidence_id("experiment"),
+        physical_attempt_id=new_evidence_id("physical_attempt"),
+        context={"thread_id": thread_id},
+    )
+    policy = ExperimentPolicy(
+        benchmark_id="forge-cpp-pilot-v4",
+        manifest_sha256="1" * 64,
+        case_id="fixture",
+        condition="baseline",
+        repetition=1,
+        expected_repo_url=session.repo_url,
+        expected_commit_sha="2" * 40,
+        expected_build_system="cmake",
+        compile_image=session.image,
+        image_id=VALID_IMAGE_ID,
+        model_name="gpt-5.6-sol",
+        endpoint="https://example.invalid/v1",
+        credential_env="OpenAI_AK",
+        request_timeout_seconds=120,
+        model_max_retries=0,
+        compiler_max_turns=36,
+        subagent_timeout_seconds=180,
+        memory_enabled=False,
+        skills_enabled=False,
+        required_system_packages=(),
+        cmake_arguments=(),
+        configure_arguments=(),
+        environment=(),
+        minimum_replay_delay_seconds=0,
+    )
+    activate_experiment(
+        thread_id=thread_id,
+        experiment_id=ledger.experiment_id,
+        physical_attempt_id=ledger.physical_attempt_id,
+        ledger=ledger,
+        policy=policy,
+    )
+    try:
+        passed, failures, executed_build_system = operations._experiment_submit_constraints(session, "command-build")
+    finally:
+        deactivate_experiment(thread_id)
+
+    assert passed is False
+    assert failures == ["build_system_unproven"]
+    assert executed_build_system is None
+    assert ledger.read()[-1]["payload"]["classification"] == "build_system_unproven"
 
 
 def install_passed_replay_stub(monkeypatch) -> None:
@@ -435,6 +586,9 @@ def test_save_and_load_session_roundtrip(tmp_path: Path):
     session.container_id = "container-123"
     session.container_name = "demo-container"
     session.build_system = "make"
+    session.build_system_capabilities = ["cmake", "make"]
+    session.selected_build_system = "make"
+    session.executed_build_system = "make"
     session.summary = "done"
     session.commands.append(BuildCommandRecord(stage="clone", command="git clone ...", workdir="/workspace"))
     session.artifacts.append(BuildArtifact(path="artifacts/app", artifact_type="binary", size_bytes=123))
@@ -445,6 +599,9 @@ def test_save_and_load_session_roundtrip(tmp_path: Path):
     assert isinstance(loaded, CompileSession)
     assert loaded.container_id == "container-123"
     assert loaded.build_system == "make"
+    assert loaded.build_system_capabilities == ["cmake", "make"]
+    assert loaded.selected_build_system == "make"
+    assert loaded.executed_build_system == "make"
     assert loaded.summary == "done"
     assert len(loaded.commands) == 1
     assert len(loaded.artifacts) == 1

@@ -282,6 +282,10 @@ class ExperimentPolicy:
     def process_environment(self) -> dict[str, str | None]:
         return dict(self.environment)
 
+    @property
+    def selected_build_system(self) -> str:
+        return self.expected_build_system
+
     def to_payload(self) -> dict[str, Any]:
         return {
             "benchmark_id": self.benchmark_id,

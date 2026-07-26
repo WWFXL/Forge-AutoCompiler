@@ -5,6 +5,10 @@
 ## 最近变更 (Recent Changes)
 <!-- 倒序，最新在上。 -->
 
+- 2026-07-26 — 重排 Issue #34 的多构建系统 identity policy
+  - 范围: 将旧堆叠单提交重放到 `main@1bcf0caa`；分离仓库 capability set、实验 selected path 与 submit 时由成功命令证明的 executed path，保留 `expected_build_system` 的证据兼容性。
+  - 边界: identify 只校验 selected 属于 capability set；submit 仍要求 executed 等于 selected，缺少证明或换路均拒绝。v1-v5 manifest、Schema、validator 和既有 ledger 均不改写。
+
 - 2026-07-26 — 重排 Issue #33 的非交互澄清修复
   - 范围: 将旧堆叠的单提交重放到 `main@b0e9b0e5`；标准仓库 URL + exact commit 明确允许直接进入隔离编译，活跃实验只对 Lead 的首次澄清返回冻结 policy，并记录有界 `agent.clarification_auto_answered` 证据。
   - 安全与兼容: 不记录问题、回答、prompt 或模型文本；第二次澄清与普通交互仍结束回合等待用户。v1-v5 manifest、Schema、validator 与既有 ledger 均不改写。

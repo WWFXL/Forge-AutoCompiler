@@ -309,6 +309,7 @@ def test_experiment_policy_persists_supported_build_system_identity(build_system
     )
 
     assert policy.to_payload()["expected_build_system"] == build_system
+    assert policy.selected_build_system == build_system
 
 
 def test_experiment_policy_rejects_build_system_argument_drift() -> None:
