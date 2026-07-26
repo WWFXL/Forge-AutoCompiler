@@ -25,6 +25,12 @@ jobs:
         with:
           fetch-depth: 0
 
+      # Historical pilot protocols were intentionally preserved on their
+      # original topic branches after the mainline squash merges.  Fetch them
+      # before running the byte-level provenance audits.
+      - name: Fetch historical benchmark protocol refs
+        run: git fetch --no-tags origin '+refs/heads/*:refs/remotes/origin/*'
+
       - name: Set up Python
         uses: actions/setup-python@v6
         with:
