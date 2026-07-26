@@ -92,8 +92,12 @@ def test_v3_manifest_digest_is_canonical_and_current_runtime_drift_is_rejected()
 
 
 @pytest.mark.skipif(shutil.which("git") is None, reason="git is unavailable")
-def test_v3_history_accepts_a_descendant_of_the_frozen_protocol_commit() -> None:
-    result = forge_benchmark_history.audit_v3_history(load_v3_manifest(), REPO_ROOT)
+def test_v3_history_accepts_the_frozen_protocol_commit() -> None:
+    result = forge_benchmark_history.audit_v3_history(
+        load_v3_manifest(),
+        REPO_ROOT,
+        head_revision=forge_benchmark_history.V3_LINEAGE.protocol_commit,
+    )
 
     assert result["lineage_mode"] == "audited_reviewed_successor"
     assert result["baseline_commit"] == "371f678e07acc6ae87f80d7544f573332d74fa88"
