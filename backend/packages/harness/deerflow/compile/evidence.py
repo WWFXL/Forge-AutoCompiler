@@ -754,14 +754,17 @@ def model_response_metadata(response: Any) -> tuple[str | None, dict[str, int | 
             for key in ("model_name", "model"):
                 value = metadata.get(key)
                 if isinstance(value, str) and value and len(value) <= 128:
-                    _validate_safe_value(value, "actual_model")
+                    try:
+                        _validate_safe_value(value, "actual_model")
+                    except EvidenceError:
+                        continue
                     actual_model = value
                     break
         usage_metadata = getattr(candidate, "usage_metadata", None)
         if isinstance(usage_metadata, dict):
             for key in usage:
                 value = usage_metadata.get(key)
-                if isinstance(value, int) and value >= 0:
+                if isinstance(value, int) and not isinstance(value, bool) and value >= 0:
                     usage[key] = value
         if actual_model is not None and any(value is not None for value in usage.values()):
             break
