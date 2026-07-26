@@ -31,6 +31,7 @@ import forge_benchmark_v2 as protocol_v2  # noqa: E402
 import forge_benchmark_v3 as protocol_v3  # noqa: E402
 import forge_benchmark_v4 as protocol_v4  # noqa: E402
 import forge_benchmark_v5 as protocol_v5  # noqa: E402
+import forge_benchmark_v6 as protocol_v6  # noqa: E402
 
 from deerflow.compile.evidence import (  # noqa: E402
     EvidenceError,
@@ -118,6 +119,8 @@ def _manifest_protocol(manifest: dict[str, Any]):
         return protocol_v4
     if schema_version == protocol_v5.SCHEMA_VERSION:
         return protocol_v5
+    if schema_version == protocol_v6.SCHEMA_VERSION:
+        return protocol_v6
     raise RunnerError(f"Unsupported benchmark schema version: {schema_version}")
 
 
@@ -318,6 +321,7 @@ def collect_preflight(
         protocol_v3.REVISION_POLICY,
         protocol_v4.REVISION_POLICY,
         protocol_v5.REVISION_POLICY,
+        protocol_v6.REVISION_POLICY,
     }
     baseline_satisfied = forge_state["revision"] == forge_baseline if revision_policy == "exact" else baseline_is_ancestor if revision_policy in runnable_revision_policies else False
     component_results: dict[str, dict[str, Any]] = {}
@@ -368,6 +372,7 @@ def collect_preflight(
         protocol_v3.CONTROL_PLANE_TOPOLOGY,
         protocol_v4.CONTROL_PLANE_TOPOLOGY,
         protocol_v5.CONTROL_PLANE_TOPOLOGY,
+        protocol_v6.CONTROL_PLANE_TOPOLOGY,
     }
     topology_matches = expected_topology is None or (expected_topology in compose_dood_topologies and compose_dood_present)
     checks = {
@@ -420,6 +425,7 @@ def collect_preflight(
                 protocol_v3.SCHEMA_VERSION: "cpp-pilot-v3.json",
                 protocol_v4.SCHEMA_VERSION: "cpp-pilot-v4.json",
                 protocol_v5.SCHEMA_VERSION: "cpp-pilot-v5.json",
+                protocol_v6.SCHEMA_VERSION: "cpp-pilot-v6.json",
             }[manifest["schema_version"]]
         ),
         "forge": {
@@ -615,11 +621,11 @@ def recompute_build_identity(events: list[dict[str, Any]]) -> dict[str, Any]:
     benchmark_id = policy.get("benchmark_id")
     snapshots = [event["payload"] for event in events if event["event"] == "build.identity_snapshot"]
     attempt_executed = any(event["event"].startswith("model.") or event["event"] in {"runtime.topology_verified", "run.failed", "orphan.reconciled"} for event in events)
-    v5_identity_contract = benchmark_id == "forge-cpp-clean-replay-pilot-v5"
-    snapshot_required = v5_identity_contract and attempt_executed
+    identity_contract = benchmark_id in {"forge-cpp-clean-replay-pilot-v5", "forge-cpp-clean-replay-pilot-v6"}
+    snapshot_required = identity_contract and attempt_executed
     submits = [event for event in events if event["event"] == "submit.completed"]
     snapshots_by_session = {snapshot["session_id"]: snapshot for snapshot in snapshots if snapshot.get("session_id") is not None}
-    submit_identity_proven = not v5_identity_contract or all(
+    submit_identity_proven = not identity_contract or all(
         (snapshot := snapshots_by_session.get(submit["payload"].get("session_id"))) is not None and snapshot.get("selected_build_system") == expected and snapshot.get("executed_build_system") == expected for submit in submits
     )
     snapshot_present = bool(snapshots)
@@ -885,6 +891,7 @@ def run_attempt(
         protocol_v3.CONTROL_PLANE_TOPOLOGY,
         protocol_v4.CONTROL_PLANE_TOPOLOGY,
         protocol_v5.CONTROL_PLANE_TOPOLOGY,
+        protocol_v6.CONTROL_PLANE_TOPOLOGY,
     }:
         if not _running_inside_compose_dood(REPO_ROOT):
             ledger.append(
@@ -915,7 +922,7 @@ def run_attempt(
     )
     run_status = "failed"
     session_finalization_succeeded = False
-    build_identity_snapshot_recorded = manifest["schema_version"] != protocol_v5.SCHEMA_VERSION
+    build_identity_snapshot_recorded = manifest["schema_version"] not in {protocol_v5.SCHEMA_VERSION, protocol_v6.SCHEMA_VERSION}
     try:
         from deerflow.client import DeerFlowClient
 
@@ -969,7 +976,7 @@ def run_attempt(
                 interrupted_status=interrupted_status,
                 error=termination_error,
             )
-        if manifest["schema_version"] == protocol_v5.SCHEMA_VERSION:
+        if manifest["schema_version"] in {protocol_v5.SCHEMA_VERSION, protocol_v6.SCHEMA_VERSION}:
             build_identity_snapshot_recorded = _record_attempt_build_identity(thread_id, ledger)
         ledger.append("orphan.reconciled", reconciliation)
 
@@ -1010,7 +1017,7 @@ def _build_parser() -> argparse.ArgumentParser:
     common.add_argument(
         "--manifest",
         type=Path,
-        default=REPO_ROOT / "benchmarks" / "manifests" / "cpp-pilot-v5.json",
+        default=REPO_ROOT / "benchmarks" / "manifests" / "cpp-pilot-v6.json",
     )
     common.add_argument("--skip-endpoint-check", action="store_true")
 
