@@ -48,7 +48,7 @@ class CompileTerminationMiddleware(AgentMiddleware[CompileTerminationState]):
             return result
 
         tool_name = request.tool_call.get("name")
-        if tool_name not in {"submit_build_result", "finalize_session"}:
+        if tool_name not in {"run_container_bash", "submit_build_result", "finalize_session"}:
             return result
 
         try:
@@ -56,15 +56,16 @@ class CompileTerminationMiddleware(AgentMiddleware[CompileTerminationState]):
         except (TypeError, json.JSONDecodeError):
             return result
 
-        if tool_name == "submit_build_result":
-            if payload.get("status") != "passed":
+        if tool_name in {"run_container_bash", "submit_build_result"}:
+            submit_payload = payload.get("automatic_submit") if tool_name == "run_container_bash" else payload
+            if not isinstance(submit_payload, dict) or submit_payload.get("status") != "passed":
                 return result
             terminal_payload = {
                 "build_status": "success",
                 "proceed_to_verify": False,
                 "verification_status": "passed",
-                "summary": payload["message"],
-                "artifacts": [artifact["path"] for artifact in payload.get("artifacts", [])],
+                "summary": submit_payload["message"],
+                "artifacts": [artifact["path"] for artifact in submit_payload.get("artifacts", [])],
             }
         else:
             if payload.get("status") not in {"completed", "failed", "cancelled", "timed_out"}:

@@ -85,7 +85,11 @@ def test_v2_manifest_digest_is_canonical_and_current_runner_drift_is_rejected() 
         forge_benchmark_history.HistoryAuditError,
         match=r"frozen protocol artifact mismatch: scripts/forge_benchmark_runner\.py",
     ):
-        forge_benchmark_history.audit_v2_history(manifest, REPO_ROOT)
+        forge_benchmark_history.audit_v2_history(
+            manifest,
+            REPO_ROOT,
+            head_revision=forge_benchmark_history.V2_LINEAGE.successor_commit,
+        )
 
 
 @pytest.mark.skipif(shutil.which("git") is None, reason="git is unavailable")

@@ -66,6 +66,21 @@ _ALLOWED_COMMAND_ROLES = {
     "replay_delay",
     "other",
 }
+_ALLOWED_SUBAGENT_TERMINAL_STATUSES = {
+    "completed",
+    "failed",
+    "cancelled",
+    "timed_out",
+}
+_ALLOWED_SUBAGENT_FAILURE_CLASSIFICATIONS = {
+    "cancelled",
+    "parent_cancelled",
+    "polling_timeout",
+    "recursion_limit",
+    "subagent_failed",
+    "subagent_timeout",
+    "tracking_lost",
+}
 
 
 class EvidenceError(ValueError):
@@ -142,6 +157,59 @@ def _validate_safe_value(value: Any, path: str = "payload") -> None:
 
 
 def _validate_agent_event_payload(event: str, payload: dict[str, Any], path: str = "payload") -> None:
+    if event == "build.identity_snapshot":
+        required = {
+            "session_id",
+            "build_system_capabilities",
+            "selected_build_system",
+            "executed_build_system",
+        }
+        if set(payload) != required:
+            raise EvidenceError(f"{path} has an invalid build.identity_snapshot schema")
+        session_id = payload["session_id"]
+        if session_id is not None and (not isinstance(session_id, str) or not re.fullmatch(r"[0-9a-f]{12}", session_id)):
+            raise EvidenceError(f"{path}.session_id must be null or a compile-session ID")
+        capabilities = payload["build_system_capabilities"]
+        if not isinstance(capabilities, list) or len(capabilities) > len(_ALLOWED_BUILD_SYSTEMS) or len(set(capabilities)) != len(capabilities) or any(value not in _ALLOWED_BUILD_SYSTEMS for value in capabilities):
+            raise EvidenceError(f"{path}.build_system_capabilities must be a unique supported build-system list")
+        selected = payload["selected_build_system"]
+        executed = payload["executed_build_system"]
+        for key, value in (("selected_build_system", selected), ("executed_build_system", executed)):
+            if value is not None and value not in _ALLOWED_BUILD_SYSTEMS:
+                raise EvidenceError(f"{path}.{key} must be null or a supported build system")
+        if selected is not None and selected not in capabilities:
+            raise EvidenceError(f"{path}.selected_build_system must belong to build_system_capabilities")
+        if session_id is None and (capabilities or selected is not None or executed is not None):
+            raise EvidenceError(f"{path} cannot claim build identity without a session")
+        return
+
+    if event == "agent.subagent_terminated":
+        required = {
+            "task_id",
+            "role",
+            "status",
+            "classification",
+            "worker_stopped",
+        }
+        if set(payload) != required:
+            raise EvidenceError(f"{path} has an invalid agent.subagent_terminated schema")
+        if not isinstance(payload["task_id"], str) or not _BOUNDED_IDENTIFIER_RE.fullmatch(payload["task_id"]):
+            raise EvidenceError(f"{path}.task_id must be a bounded identifier")
+        if payload["role"] != "compiler":
+            raise EvidenceError(f"{path}.role must be compiler")
+        status = payload["status"]
+        classification = payload["classification"]
+        if status not in _ALLOWED_SUBAGENT_TERMINAL_STATUSES:
+            raise EvidenceError(f"{path}.status is invalid")
+        if status == "completed":
+            if classification is not None:
+                raise EvidenceError(f"{path}.classification must be null for completed tasks")
+        elif classification not in _ALLOWED_SUBAGENT_FAILURE_CLASSIFICATIONS:
+            raise EvidenceError(f"{path}.classification is invalid")
+        if type(payload["worker_stopped"]) is not bool:
+            raise EvidenceError(f"{path}.worker_stopped must be boolean")
+        return
+
     if event == "agent.tool_failed":
         required = {
             "failure_id",

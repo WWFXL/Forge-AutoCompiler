@@ -834,6 +834,13 @@ def test_offline_failure_domains_separate_agent_and_runtime_failures() -> None:
         {
             "event": "failure.recorded",
             "payload": {
+                "domain": "agent_tool",
+                "classification": "subagent_timeout",
+            },
+        },
+        {
+            "event": "failure.recorded",
+            "payload": {
                 "domain": "build",
                 "classification": "dependency_setup_failed",
             },
@@ -865,6 +872,10 @@ def test_offline_failure_domains_separate_agent_and_runtime_failures() -> None:
             "event": "agent.no_compile_progress",
             "classification": "no_compile_tool_call",
             "terminal": True,
+        },
+        {
+            "event": "failure.recorded",
+            "classification": "subagent_timeout",
         },
     ]
     assert domains["build"] == [

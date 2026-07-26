@@ -63,6 +63,16 @@ class BlockingAgent:
             self.stopped.set()
 
 
+class RecursionLimitAgent:
+    async def astream(self, *args, **kwargs):
+        del args, kwargs
+        if False:
+            yield {}
+        from langgraph.errors import GraphRecursionError
+
+        raise GraphRecursionError("recursion limit reached")
+
+
 def make_executor(executor_module, *, timeout_seconds: int, started: threading.Event, stopped: threading.Event):
     executor = executor_module.SubagentExecutor(
         config=SubagentConfig(
@@ -121,6 +131,7 @@ def test_background_subagent_timeout_cannot_be_overwritten_by_late_completion(re
 
         assert result is not None
         assert result.status == real_executor_module.SubagentStatus.TIMED_OUT
+        assert result.failure_classification == "subagent_timeout"
         assert await real_executor_module.wait_for_background_task_shutdown(task_id, 3)
         await asyncio.sleep(0.05)
         assert result.status == real_executor_module.SubagentStatus.TIMED_OUT
@@ -128,6 +139,52 @@ def test_background_subagent_timeout_cannot_be_overwritten_by_late_completion(re
         real_executor_module.cleanup_background_task(task_id)
 
     asyncio.run(scenario())
+
+
+def test_subagent_recursion_limit_has_a_stable_failure_classification(real_executor_module):
+    started = threading.Event()
+    stopped = threading.Event()
+    executor = make_executor(real_executor_module, timeout_seconds=30, started=started, stopped=stopped)
+    executor._create_agent = lambda: RecursionLimitAgent()
+
+    result = asyncio.run(executor._aexecute("reach the graph limit"))
+
+    assert result.status == real_executor_module.SubagentStatus.FAILED
+    assert result.failure_classification == "recursion_limit"
+
+
+def test_compiler_terminal_evidence_records_bounded_failure_domain(monkeypatch):
+    events: list[tuple[str, dict]] = []
+    monkeypatch.setattr(
+        task_tool_module,
+        "record_experiment_event",
+        lambda _thread_id, event, **payload: events.append((event, payload)),
+    )
+    monkeypatch.setattr(task_tool_module, "new_evidence_id", lambda _prefix: "failure_" + "a" * 32)
+
+    task_tool_module._record_subagent_terminal_evidence(
+        thread_id="thread-123",
+        task_id="task-123",
+        subagent_type="compiler",
+        status="timed_out",
+        classification="subagent_timeout",
+        worker_stopped=True,
+    )
+
+    assert [event for event, _payload in events] == [
+        "agent.subagent_terminated",
+        "failure.recorded",
+    ]
+    assert events[0][1] == {
+        "task_id": "task-123",
+        "role": "compiler",
+        "status": "timed_out",
+        "classification": "subagent_timeout",
+        "worker_stopped": True,
+    }
+    assert events[1][1]["domain"] == "agent_tool"
+    assert events[1][1]["classification"] == "subagent_timeout"
+    assert events[1][1]["secondary_classifications"] == []
 
 
 def test_timeout_terminal_transition_blocks_boundary_completion(real_executor_module):

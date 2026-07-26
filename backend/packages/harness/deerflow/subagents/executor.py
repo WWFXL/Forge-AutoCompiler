@@ -15,6 +15,7 @@ from langchain.agents import create_agent
 from langchain.tools import BaseTool
 from langchain_core.messages import AIMessage, HumanMessage
 from langchain_core.runnables import RunnableConfig
+from langgraph.errors import GraphRecursionError
 
 from deerflow.models import create_chat_model
 from deerflow.subagents.config import SubagentConfig
@@ -49,6 +50,7 @@ class SubagentResult:
     status: SubagentStatus
     result: str | None = None
     error: str | None = None
+    failure_classification: str | None = None
     started_at: datetime | None = None
     completed_at: datetime | None = None
     ai_messages: list[dict[str, Any]] | None = None
@@ -77,12 +79,18 @@ _TERMINAL_STATUSES = {
 }
 
 
-def _mark_terminal(result: SubagentResult, status: SubagentStatus, error: str | None = None) -> bool:
+def _mark_terminal(
+    result: SubagentResult,
+    status: SubagentStatus,
+    error: str | None = None,
+    failure_classification: str | None = None,
+) -> bool:
     with result._status_lock:
         if result.status in _TERMINAL_STATUSES:
             return False
         result.status = status
         result.error = error
+        result.failure_classification = failure_classification
         result.completed_at = datetime.now()
         return True
 
@@ -94,6 +102,7 @@ def _mark_execution_complete(result: SubagentResult) -> None:
         if result.cancel_event.is_set():
             result.status = SubagentStatus.CANCELLED
             result.error = result.error or "Cancelled by user"
+            result.failure_classification = "cancelled"
         else:
             result.status = SubagentStatus.COMPLETED
         result.completed_at = datetime.now()
@@ -264,7 +273,7 @@ class SubagentExecutor:
             final_state = None
 
             if result.cancel_event.is_set():
-                _mark_terminal(result, SubagentStatus.CANCELLED, "Cancelled by user")
+                _mark_terminal(result, SubagentStatus.CANCELLED, "Cancelled by user", "cancelled")
                 return result
 
             async for chunk in agent.astream(
@@ -274,7 +283,7 @@ class SubagentExecutor:
                 stream_mode="values",
             ):
                 if result.cancel_event.is_set():
-                    _mark_terminal(result, SubagentStatus.CANCELLED, "Cancelled by user")
+                    _mark_terminal(result, SubagentStatus.CANCELLED, "Cancelled by user", "cancelled")
                     return result
 
                 final_state = chunk
@@ -312,12 +321,25 @@ class SubagentExecutor:
                     result.result = "No response generated"
 
             _mark_execution_complete(result)
+        except GraphRecursionError as exc:
+            logger.warning("[trace=%s] Subagent %s reached its recursion limit", self.trace_id, self.config.name)
+            _mark_terminal(
+                result,
+                SubagentStatus.FAILED,
+                str(exc),
+                "recursion_limit",
+            )
         except Exception as e:
             logger.exception("[trace=%s] Subagent %s async execution failed", self.trace_id, self.config.name)
             if result.cancel_event.is_set():
-                _mark_terminal(result, SubagentStatus.CANCELLED, result.error or "Cancelled by user")
+                _mark_terminal(
+                    result,
+                    SubagentStatus.CANCELLED,
+                    result.error or "Cancelled by user",
+                    "cancelled",
+                )
             else:
-                _mark_terminal(result, SubagentStatus.FAILED, str(e))
+                _mark_terminal(result, SubagentStatus.FAILED, str(e), "subagent_failed")
 
         return result
 
@@ -333,7 +355,12 @@ class SubagentExecutor:
             try:
                 return await execution_task
             except asyncio.CancelledError:
-                _mark_terminal(result_holder, SubagentStatus.CANCELLED, result_holder.error or "Cancelled by user")
+                _mark_terminal(
+                    result_holder,
+                    SubagentStatus.CANCELLED,
+                    result_holder.error or "Cancelled by user",
+                    "cancelled",
+                )
                 return result_holder
             finally:
                 with result_holder._handle_lock:
@@ -356,13 +383,14 @@ class SubagentExecutor:
                 result_holder.cancel_event.set()
                 result_holder.status = SubagentStatus.TIMED_OUT
                 result_holder.error = timeout_error
+                result_holder.failure_classification = "subagent_timeout"
                 result_holder.completed_at = datetime.now()
             _cancel_running_coroutine(result_holder, force=True)
             future.cancel()
             return result_holder
         except Exception as exc:
             logger.exception("[trace=%s] Subagent %s execution wrapper failed", self.trace_id, self.config.name)
-            _mark_terminal(result_holder, SubagentStatus.FAILED, str(exc))
+            _mark_terminal(result_holder, SubagentStatus.FAILED, str(exc), "subagent_failed")
             return result_holder
 
     def _execute_on_running_loop(
@@ -386,6 +414,7 @@ class SubagentExecutor:
                     result_holder,
                     SubagentStatus.TIMED_OUT,
                     f"Subagent timed out after {self.config.timeout_seconds} seconds",
+                    "subagent_timeout",
                 )
                 return result_holder
             except asyncio.CancelledError:
@@ -393,6 +422,7 @@ class SubagentExecutor:
                     result_holder,
                     SubagentStatus.CANCELLED,
                     result_holder.error or "Cancelled by user",
+                    "cancelled",
                 )
                 raise
             except Exception as exc:
@@ -401,7 +431,7 @@ class SubagentExecutor:
                     self.trace_id,
                     self.config.name,
                 )
-                _mark_terminal(result_holder, SubagentStatus.FAILED, str(exc))
+                _mark_terminal(result_holder, SubagentStatus.FAILED, str(exc), "subagent_failed")
                 return result_holder
 
         execution_task = loop.create_task(run())
@@ -415,6 +445,7 @@ class SubagentExecutor:
                     result_holder,
                     SubagentStatus.CANCELLED,
                     result_holder.error or "Cancelled by user",
+                    "cancelled",
                 )
             else:
                 exception = completed_task.exception()
@@ -425,7 +456,7 @@ class SubagentExecutor:
                         self.config.name,
                         exc_info=(type(exception), exception, exception.__traceback__),
                     )
-                    _mark_terminal(result_holder, SubagentStatus.FAILED, str(exception))
+                    _mark_terminal(result_holder, SubagentStatus.FAILED, str(exception), "subagent_failed")
             with result_holder._handle_lock:
                 if result_holder._asyncio_task is completed_task:
                     result_holder._asyncio_task = None
@@ -467,7 +498,7 @@ class SubagentExecutor:
                 final_result = future.result()
             except Exception as exc:
                 logger.exception("[trace=%s] Subagent execution future failed", self.trace_id)
-                _mark_terminal(result_holder, SubagentStatus.FAILED, str(exc))
+                _mark_terminal(result_holder, SubagentStatus.FAILED, str(exc), "subagent_failed")
                 return
 
             with _background_tasks_lock:
