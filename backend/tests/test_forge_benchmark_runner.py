@@ -323,10 +323,10 @@ def test_runnable_run_refuses_non_compose_process_before_model_request(
     assert not any(event["event"].startswith("model.") for event in events)
 
 
-def test_runner_defaults_to_v5_manifest() -> None:
+def test_runner_defaults_to_v6_manifest() -> None:
     args = forge_benchmark_runner._build_parser().parse_args(["preflight"])
 
-    assert args.manifest == REPO_ROOT / "benchmarks" / "manifests" / "cpp-pilot-v5.json"
+    assert args.manifest == REPO_ROOT / "benchmarks" / "manifests" / "cpp-pilot-v6.json"
 
 
 def test_keyboard_interrupt_keeps_attempt_recoverable_and_reconciles_orphans(
