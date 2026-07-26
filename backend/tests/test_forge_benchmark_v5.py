@@ -15,6 +15,7 @@ REPO_ROOT = Path(__file__).resolve().parents[2]
 V5_MANIFEST_PATH = REPO_ROOT / "benchmarks" / "manifests" / "cpp-pilot-v5.json"
 V5_SCHEMA_PATH = REPO_ROOT / "benchmarks" / "schemas" / "forge-cpp-benchmark-v5.schema.json"
 V5_VALIDATOR_PATH = REPO_ROOT / "scripts" / "forge_benchmark_v5.py"
+V5_PROTOCOL_COMMIT = "83e807d8a441811920ceb8c9ac6ee6afe6584720"
 
 HISTORICAL_PROTOCOL_COMMIT = "2cfbf79552ba437c67602b6c23bdd1d8d9d231a9"
 V4_ORIGINAL_PROTOCOL_COMMIT = "01460235668dcd187809059030ff5d3ec0851b17"
@@ -111,12 +112,11 @@ def test_v5_runtime_components_match_the_declared_baseline() -> None:
         assert hashlib.sha256(git_blob(baseline, relative_path)).hexdigest() == expected_digest
 
 
-def test_v5_protocol_artifacts_match_the_declared_baseline() -> None:
+def test_v5_protocol_artifacts_match_the_frozen_protocol_commit() -> None:
     manifest = load_v5_manifest()
-    baseline = manifest["forge"]["commit_sha"]
 
     for relative_path, expected_digest in manifest["protocol_artifact_sha256"].items():
-        assert hashlib.sha256(git_blob(baseline, relative_path)).hexdigest() == expected_digest
+        assert hashlib.sha256(git_blob(V5_PROTOCOL_COMMIT, relative_path)).hexdigest() == expected_digest
 
 
 def test_v5_schema_tracks_the_validator_topology_and_identity_contract() -> None:
