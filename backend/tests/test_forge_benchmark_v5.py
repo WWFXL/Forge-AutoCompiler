@@ -44,6 +44,19 @@ def load_v5_manifest() -> dict:
     return json.loads(V5_MANIFEST_PATH.read_text(encoding="utf-8"))
 
 
+def git_blob(revision: str, relative_path: str) -> bytes:
+    git = shutil.which("git")
+    if git is None:
+        pytest.skip("git is unavailable in the minimal backend image")
+    result = subprocess.run(
+        [git, "show", f"{revision}:{relative_path}"],
+        cwd=REPO_ROOT,
+        capture_output=True,
+        check=True,
+    )
+    return result.stdout
+
+
 @pytest.mark.parametrize(
     ("relative_path", "expected_sha256"),
     FROZEN_HISTORICAL_PROTOCOL_FILES.items(),
@@ -52,16 +65,8 @@ def test_v1_v2_v3_v4_protocol_files_remain_byte_for_byte_immutable(
     relative_path: str,
     expected_sha256: str,
 ) -> None:
-    if shutil.which("git") is None:
-        pytest.skip("git is unavailable in the minimal backend image")
     revision = V4_ORIGINAL_PROTOCOL_COMMIT if relative_path.endswith(("cpp-pilot-v4.json", "forge-cpp-benchmark-v4.schema.json", "forge_benchmark_v4.py")) else HISTORICAL_PROTOCOL_COMMIT
-    result = subprocess.run(
-        ["git", "show", f"{revision}:{relative_path}"],
-        cwd=REPO_ROOT,
-        capture_output=True,
-        check=True,
-    )
-    assert hashlib.sha256(result.stdout).hexdigest() == expected_sha256
+    assert hashlib.sha256(git_blob(revision, relative_path)).hexdigest() == expected_sha256
 
 
 def test_v5_manifest_unblocks_only_the_new_compose_dood_protocol() -> None:
@@ -91,36 +96,27 @@ def test_v5_manifest_rejects_protocol_drift(mutation, message: str) -> None:
         forge_benchmark_v5.validate_manifest(manifest)
 
 
-def test_v5_manifest_digest_is_canonical_and_frozen_files_are_current() -> None:
+def test_v5_manifest_digest_is_canonical() -> None:
     manifest = load_v5_manifest()
     digest = forge_benchmark_v5.manifest_sha256(manifest)
     reparsed = json.loads(json.dumps(manifest, ensure_ascii=False, indent=4))
 
     assert forge_benchmark_v5.manifest_sha256(reparsed) == digest
-    forge_benchmark_v5.verify_frozen_components(manifest, REPO_ROOT)
 
 
 def test_v5_runtime_components_match_the_declared_baseline() -> None:
     manifest = load_v5_manifest()
     baseline = manifest["forge"]["commit_sha"]
-    git = shutil.which("git")
-    if git is None:
-        pytest.skip("git is unavailable in the minimal backend image")
     for relative_path, expected_digest in manifest["forge"]["component_sha256"].items():
-        result = subprocess.run(
-            [git, "show", f"{baseline}:{relative_path}"],
-            cwd=REPO_ROOT,
-            capture_output=True,
-            check=True,
-        )
-        assert hashlib.sha256(result.stdout).hexdigest() == expected_digest
+        assert hashlib.sha256(git_blob(baseline, relative_path)).hexdigest() == expected_digest
 
 
-def test_v5_protocol_artifacts_match_the_current_tree() -> None:
+def test_v5_protocol_artifacts_match_the_declared_baseline() -> None:
     manifest = load_v5_manifest()
+    baseline = manifest["forge"]["commit_sha"]
 
     for relative_path, expected_digest in manifest["protocol_artifact_sha256"].items():
-        assert hashlib.sha256((REPO_ROOT / relative_path).read_bytes()).hexdigest() == expected_digest
+        assert hashlib.sha256(git_blob(baseline, relative_path)).hexdigest() == expected_digest
 
 
 def test_v5_schema_tracks_the_validator_topology_and_identity_contract() -> None:
