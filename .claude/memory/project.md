@@ -5,6 +5,15 @@
 ## 最近变更 (Recent Changes)
 <!-- 倒序，最新在上。 -->
 
+- 2026-07-26 — 实现 Issue #50 的冻结构建参数前置契约
+  - 范围: 在实验真实 build 执行前，从此前成功 configure 或当前复合 configure+build 命令中按有序 token 子序列验证 CMake/Autotools 冻结参数；缺参返回 `126 policy_rejected`，不执行 build、不进入 post-build、不启动 replay。submit gate 继续作为第二道防线。
+  - 证据: CMake/Autotools 正反例及复合命令 `8 passed`，相关回归 `173 passed, 1 skipped`，后端全量 `1626 passed, 48 skipped`；Ruff、Compose config、v6 五条 ledger 和 22 个 baseline component 审计通过；真实 Docker 非模型场景确认 build 未执行且无 replay。
+  - GitHub: 中文提交 `3c18eb98`，Draft PR #53；Draft backend/frontend lint 已通过，Unit Tests 在 Draft 状态下 skipped。v1-v6 manifest、Schema、validator 与 ledger 未改写，没有模型调用或 v7 运行。
+
+- 2026-07-26 — 完成 C/C++ pilot v6 五个不可替换 physical attempt
+  - 结果: 五条 ledger 的 hash chain、离线 gate、终结与 orphan reconciliation 有效，0 orphan、0/5 oracle pass。`hiredis` 到达 submit/clean replay/delivery 后被 artifact oracle 拒绝；`libcheck`/`libgit2` 暴露 subagent timeout，`sysstat` 暴露 recursion limit，`libgit2`/`sysstat` 同时暴露参数契约过晚。
+  - 边界: v6 证据冻结，不 retry、replacement、fallback 或回填；后续修复只能进入新协议。
+
 - 2026-07-26 — 重排 Issue #38 的 C/C++ pilot v5 冻结协议
   - 范围: 从当前主干冻结独立 v5 manifest、Schema、validator 与 runner 路由，记录 capability、selected 与 executed identity；v1-v4 与既有 ledger 保持字节不变。
   - 边界: 只重排与审计协议，不调用模型、不创建、执行、覆盖或 replacement 任一 physical-attempt slot，也不启动 v6。
@@ -128,10 +137,8 @@
 
 - 清理与当前源码不一致的后端测试模块引用，例如 `backend/tests/test_aio_sandbox_local_backend.py:1` 和 `backend/tests/test_channels.py:14`。
 - 统一 `backend/tests/test_subagent_timeout_config.py:261` 对 `max_turns` 的期望值与当前实现默认值。
-- 评审 stacked Draft PR #9，并在 CI 与基线 manifest 冻结后再转为 ready。
-- 按堆叠顺序评审并合并 Issue #16/#17/#18 与 pilot v3 的 Draft PR；五个 v3 physical attempts 必须使用新 ledger，不能 replacement 或覆盖 v2 的五条原始 ledger。
-- Issue #30 / PR #31 已完成协议重排、CI 与主干合并；保持 v1-v5 协议和 ledger 不变，不启动 v6 pilot。
-- 按堆叠顺序处理 Issue #32 / PR #35；完成 event-loop ownership 修复验证后，再进入上层 #36、#37、#39、#41。
+- 先完成 Issue #50 / Draft PR #53 的 Ready CI、审阅、squash merge、Issue 自动关闭和主干复验；head 必须保持 `3c18eb98`。
+- #50 完成后依次处理 Issue #51（provider/subagent/recursion/收口预算与配对终止 evidence）和 Issue #52（artifact oracle 结构化差异）；三项合入前不创建 v7、不调用模型、不重跑 v6。
 - 当前 `backend/packages/harness/deerflow/compile/manager.py` 的 lifecycle lock 是进程内锁；部署多个后端进程前，需要改为文件锁/数据库事务或带版本号的 CAS，并增加跨进程竞态测试。
 
 ## 已知问题 (Known Issues / Pitfalls)
@@ -177,3 +184,4 @@
 - 真实 Docker 集成依赖 GitHub clone，偶发 `Recv failure: Connection reset by peer` 可能在进入待测逻辑前失败；先确认按 label 无遗留容器，再只重跑该场景。本次副作用拒绝场景首次网络失败，单独重跑后 `1 passed in 32.63s`。
 - 完整 `test_client.py` 当前有 3 个与 v4 无关的既有 artifact 路径期望不一致：测试期待 `must start with`/`PathTraversalError`，实际 `Paths.resolve_virtual_path()` 返回 `Unsupported virtual path` 的 `ValueError`；v4 扩大回归为 `431 passed, 3 skipped, 3 failed`，stream/chat 定向测试仍为 `19 passed`。不要在 benchmark 协议提交中顺手修改。
 - 原生 async stream 不自动保证模型 client 的 event-loop ownership。`task_tool` 已在 Lead 的 async loop 中时，不能再通过 `thread pool -> asyncio.run()` 为 compiler 创建第二个 loop；保留同步兼容调用的隔离线程路径，并用 loop-bound 回归保护该边界。
+- Windows Git 的 HTTPS push/ls-remote 可能无输出挂起，而 `gh api` 正常。回退到 Git Data API 时要以 base tree 和 changed blobs 创建单提交，比较本地/远端 tree SHA，并把本地分支 ref 对齐远端 commit；不能只验证 PR 页面可见。
