@@ -35,6 +35,9 @@ def test_lead_prompt_uses_registered_compile_workflow(monkeypatch):
         positions = [prompt_text.index(tool_name) for tool_name in workflow]
         assert positions == sorted(positions)
 
+    assert "repository URL and exact commit is sufficiently specified" in prompt_module.SYSTEM_PROMPT_TEMPLATE
+    assert "routine build-system, dependency, or artifact-discovery choices" in prompt_module.SYSTEM_PROMPT_TEMPLATE
+
 
 def test_build_custom_mounts_section_returns_empty_when_no_mounts(monkeypatch):
     config = SimpleNamespace(custom_mounts=[])

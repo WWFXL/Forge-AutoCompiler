@@ -11,6 +11,8 @@ from langgraph.graph import END
 from langgraph.prebuilt.tool_node import ToolCallRequest
 from langgraph.types import Command
 
+from deerflow.compile.evidence import claim_experiment_clarification_auto_answer
+
 logger = logging.getLogger(__name__)
 
 
@@ -91,15 +93,48 @@ class ClarificationMiddleware(AgentMiddleware[ClarificationMiddlewareState]):
 
         return "\n".join(message_parts)
 
-    def _handle_clarification(self, request: ToolCallRequest) -> Command:
-        """Handle clarification request and return command to interrupt execution.
+    def _policy_clarification_message(self, policy) -> str:
+        packages = ", ".join(policy.required_system_packages) or "none"
+        if policy.expected_build_system == "cmake":
+            build_arguments = " ".join(policy.cmake_arguments) or "none"
+            argument_label = "ordered CMake arguments"
+        elif policy.expected_build_system == "autotools":
+            build_arguments = " ".join(policy.configure_arguments) or "none"
+            argument_label = "ordered configure arguments"
+        else:
+            build_arguments = "none"
+            argument_label = "additional build arguments"
+        return (
+            "This is a non-interactive compilation experiment with a frozen policy. "
+            "Proceed without requesting more user input. "
+            f"Use repository {policy.expected_repo_url} at exact commit "
+            f"{policy.expected_commit_sha}, expected build system "
+            f"{policy.expected_build_system}, required system packages {packages}, "
+            f"and {argument_label}: {build_arguments}. "
+            "Use the standard compile-session workflow; deterministic submission and "
+            "clean replay decide success."
+        )
+
+    def _handle_clarification(self, request: ToolCallRequest) -> ToolMessage | Command:
+        """Handle a clarification request or resolve it from frozen experiment policy.
 
         Args:
             request: Tool call request
 
         Returns:
-            Command that interrupts execution with the formatted clarification message
+            A policy-backed ToolMessage for the first experiment clarification, or a
+            Command that interrupts execution for interactive and repeated requests.
         """
+        policy = claim_experiment_clarification_auto_answer(request)
+        tool_call_id = request.tool_call.get("id", "")
+        if policy is not None:
+            logger.info("Resolved one non-interactive clarification from frozen policy")
+            return ToolMessage(
+                content=self._policy_clarification_message(policy),
+                tool_call_id=tool_call_id,
+                name="ask_clarification",
+            )
+
         # Extract clarification arguments
         args = request.tool_call.get("args", {})
         question = args.get("question", "")
@@ -109,9 +144,6 @@ class ClarificationMiddleware(AgentMiddleware[ClarificationMiddlewareState]):
 
         # Format the clarification message
         formatted_message = self._format_clarification_message(args)
-
-        # Get the tool call ID
-        tool_call_id = request.tool_call.get("id", "")
 
         # Create a ToolMessage with the formatted question
         # This will be added to the message history

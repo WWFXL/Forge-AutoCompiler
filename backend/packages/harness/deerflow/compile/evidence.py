@@ -166,6 +166,28 @@ def _validate_agent_event_payload(event: str, payload: dict[str, Any], path: str
             raise EvidenceError(f"{path}.terminal must be false for a recoverable tool error")
         return
 
+    if event == "agent.clarification_auto_answered":
+        required = {
+            "repair_id",
+            "role",
+            "reason",
+            "auto_answer_count",
+            "max_auto_answers",
+            "terminal",
+        }
+        if set(payload) != required:
+            raise EvidenceError(f"{path} has an invalid agent.clarification_auto_answered schema")
+        _validate_id(payload["repair_id"], f"{path}.repair_id")
+        if payload["role"] != "lead":
+            raise EvidenceError(f"{path}.role must be lead")
+        if payload["reason"] != "non_interactive_frozen_policy":
+            raise EvidenceError(f"{path}.reason is invalid")
+        if payload["auto_answer_count"] != 1 or payload["max_auto_answers"] != 1:
+            raise EvidenceError(f"{path} must describe the single allowed auto-answer")
+        if payload["terminal"] is not False:
+            raise EvidenceError(f"{path}.terminal must be false")
+        return
+
     if event == "agent.no_compile_progress":
         required = {
             "failure_id",
@@ -554,6 +576,33 @@ def request_model_role(request: Any) -> str:
         if isinstance(role, str) and role in _ALLOWED_MODEL_ROLES:
             return role
     return "lead"
+
+
+def claim_experiment_clarification_auto_answer(
+    request: Any,
+) -> ExperimentPolicy | None:
+    """Claim the one policy-backed clarification response allowed per experiment."""
+    thread_id = request_thread_id(request)
+    if request_model_role(request) != "lead":
+        return None
+    with _ACTIVE_EXPERIMENTS_GUARD:
+        active = _ACTIVE_EXPERIMENTS.get(thread_id or "")
+        if active is None:
+            return None
+        if any(event["event"] == "agent.clarification_auto_answered" for event in active.ledger.read()):
+            return None
+        active.ledger.append(
+            "agent.clarification_auto_answered",
+            {
+                "repair_id": new_evidence_id("repair"),
+                "role": "lead",
+                "reason": "non_interactive_frozen_policy",
+                "auto_answer_count": 1,
+                "max_auto_answers": 1,
+                "terminal": False,
+            },
+        )
+        return active.policy
 
 
 def record_agent_tool_failure(

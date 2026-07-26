@@ -14,6 +14,7 @@ from deerflow.compile.evidence import (
     ExperimentPolicy,
     activate_experiment,
     canonical_json_bytes,
+    claim_experiment_clarification_auto_answer,
     deactivate_experiment,
     get_active_experiment,
     model_response_metadata,
@@ -205,6 +206,48 @@ def test_agent_event_schema_rejects_raw_or_inconsistent_payloads(
                 "terminal": True,
             },
         )
+
+
+def test_experiment_clarification_auto_answer_is_claimed_once(tmp_path: Path) -> None:
+    ledger = create_ledger(tmp_path)
+    thread_id = new_evidence_id("thread")
+    request = SimpleNamespace(
+        runtime=SimpleNamespace(
+            context={"thread_id": thread_id},
+            config={"configurable": {}},
+        )
+    )
+    policy = make_policy()
+    compiler_request = SimpleNamespace(
+        runtime=SimpleNamespace(
+            context={"thread_id": thread_id, "agent_name": "compiler"},
+            config={"configurable": {}},
+        )
+    )
+    activate_experiment(
+        thread_id=thread_id,
+        experiment_id=ledger.experiment_id,
+        physical_attempt_id=ledger.physical_attempt_id,
+        ledger=ledger,
+        policy=policy,
+    )
+    try:
+        assert claim_experiment_clarification_auto_answer(compiler_request) is None
+        assert claim_experiment_clarification_auto_answer(request) is policy
+        assert claim_experiment_clarification_auto_answer(request) is None
+    finally:
+        deactivate_experiment(thread_id)
+
+    repair_events = [event for event in ledger.read() if event["event"] == "agent.clarification_auto_answered"]
+    assert len(repair_events) == 1
+    assert repair_events[0]["payload"] == {
+        "repair_id": repair_events[0]["payload"]["repair_id"],
+        "role": "lead",
+        "reason": "non_interactive_frozen_policy",
+        "auto_answer_count": 1,
+        "max_auto_answers": 1,
+        "terminal": False,
+    }
 
 
 def test_agent_event_schema_rejects_digest_valid_tampering(tmp_path: Path) -> None:
