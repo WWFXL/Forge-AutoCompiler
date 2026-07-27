@@ -74,8 +74,12 @@ _ALLOWED_SUBAGENT_TERMINAL_STATUSES = {
 }
 _ALLOWED_SUBAGENT_FAILURE_CLASSIFICATIONS = {
     "cancelled",
+    "compiler_wall_clock_timeout",
+    "graph_recursion_limit",
+    "model_turn_limit",
     "parent_cancelled",
     "polling_timeout",
+    "post_build_reserve_exhausted",
     "recursion_limit",
     "subagent_failed",
     "subagent_timeout",
@@ -191,7 +195,7 @@ def _validate_agent_event_payload(event: str, payload: dict[str, Any], path: str
             "classification",
             "worker_stopped",
         }
-        if set(payload) != required:
+        if set(payload) not in (required, required | {"budget_snapshot"}):
             raise EvidenceError(f"{path} has an invalid agent.subagent_terminated schema")
         if not isinstance(payload["task_id"], str) or not _BOUNDED_IDENTIFIER_RE.fullmatch(payload["task_id"]):
             raise EvidenceError(f"{path}.task_id must be a bounded identifier")
@@ -208,6 +212,36 @@ def _validate_agent_event_payload(event: str, payload: dict[str, Any], path: str
             raise EvidenceError(f"{path}.classification is invalid")
         if type(payload["worker_stopped"]) is not bool:
             raise EvidenceError(f"{path}.worker_stopped must be boolean")
+        if "budget_snapshot" in payload:
+            budget_snapshot = payload["budget_snapshot"]
+            budget_keys = {
+                "model_turn_limit",
+                "model_turn_count",
+                "graph_recursion_limit",
+                "wall_clock_limit_seconds",
+                "elapsed_seconds",
+                "post_build_reserve_seconds",
+                "post_build_started",
+            }
+            if not isinstance(budget_snapshot, dict) or set(budget_snapshot) != budget_keys:
+                raise EvidenceError(f"{path}.budget_snapshot has an invalid schema")
+            for key in (
+                "model_turn_limit",
+                "graph_recursion_limit",
+                "wall_clock_limit_seconds",
+            ):
+                value = budget_snapshot[key]
+                if value is not None and (type(value) is not int or value < 1):
+                    raise EvidenceError(f"{path}.budget_snapshot.{key} must be null or positive")
+            for key in ("model_turn_count", "post_build_reserve_seconds"):
+                value = budget_snapshot[key]
+                if type(value) is not int or value < 0:
+                    raise EvidenceError(f"{path}.budget_snapshot.{key} must be non-negative")
+            elapsed_seconds = budget_snapshot["elapsed_seconds"]
+            if type(elapsed_seconds) not in (int, float) or not math.isfinite(elapsed_seconds) or elapsed_seconds < 0:
+                raise EvidenceError(f"{path}.budget_snapshot.elapsed_seconds must be finite and non-negative")
+            if type(budget_snapshot["post_build_started"]) is not bool:
+                raise EvidenceError(f"{path}.budget_snapshot.post_build_started must be boolean")
         return
 
     if event == "agent.tool_failed":
@@ -326,6 +360,10 @@ class ExperimentPolicy:
     configure_arguments: tuple[str, ...]
     environment: tuple[tuple[str, str | None], ...]
     minimum_replay_delay_seconds: int
+    compiler_model_turn_limit: int | None = None
+    compiler_graph_recursion_limit: int | None = None
+    compiler_wall_clock_seconds: int | None = None
+    compiler_post_build_reserve_seconds: int = 0
 
     def __post_init__(self) -> None:
         _validate_sha256(self.manifest_sha256, "manifest_sha256")
@@ -337,6 +375,17 @@ class ExperimentPolicy:
             raise EvidenceError("The C/C++ baseline requires Memory and Skills to be disabled")
         if self.minimum_replay_delay_seconds < 0:
             raise EvidenceError("minimum replay delay cannot be negative")
+        for name, value in (
+            ("compiler_model_turn_limit", self.compiler_model_turn_limit),
+            ("compiler_graph_recursion_limit", self.compiler_graph_recursion_limit),
+            ("compiler_wall_clock_seconds", self.compiler_wall_clock_seconds),
+        ):
+            if value is not None and value < 1:
+                raise EvidenceError(f"{name} must be positive when configured")
+        if self.compiler_post_build_reserve_seconds < 0:
+            raise EvidenceError("compiler_post_build_reserve_seconds cannot be negative")
+        if self.compiler_wall_clock_seconds is not None and self.compiler_post_build_reserve_seconds >= self.compiler_wall_clock_seconds:
+            raise EvidenceError("compiler_post_build_reserve_seconds must be smaller than compiler_wall_clock_seconds")
         if self.expected_build_system not in _ALLOWED_BUILD_SYSTEMS:
             raise EvidenceError("expected_build_system must be cmake, make, or autotools")
         if self.expected_build_system != "cmake" and self.cmake_arguments:
@@ -355,7 +404,7 @@ class ExperimentPolicy:
         return self.expected_build_system
 
     def to_payload(self) -> dict[str, Any]:
-        return {
+        payload = {
             "benchmark_id": self.benchmark_id,
             "manifest_sha256": self.manifest_sha256,
             "case_id": self.case_id,
@@ -381,6 +430,23 @@ class ExperimentPolicy:
             "environment": dict(self.environment),
             "minimum_replay_delay_seconds": self.minimum_replay_delay_seconds,
         }
+        if any(
+            (
+                self.compiler_model_turn_limit is not None,
+                self.compiler_graph_recursion_limit is not None,
+                self.compiler_wall_clock_seconds is not None,
+                self.compiler_post_build_reserve_seconds > 0,
+            )
+        ):
+            payload.update(
+                {
+                    "compiler_model_turn_limit": self.compiler_model_turn_limit,
+                    "compiler_graph_recursion_limit": self.compiler_graph_recursion_limit,
+                    "compiler_wall_clock_seconds": self.compiler_wall_clock_seconds,
+                    "compiler_post_build_reserve_seconds": self.compiler_post_build_reserve_seconds,
+                }
+            )
+        return payload
 
 
 @dataclass(frozen=True)

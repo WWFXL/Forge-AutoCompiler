@@ -262,7 +262,7 @@ class SubagentExecutor:
             state = self._build_initial_state(task)
 
             run_config: RunnableConfig = {
-                "recursion_limit": self.config.max_turns,
+                "recursion_limit": self.config.effective_graph_recursion_limit,
             }
             context: dict[str, Any] = {}
             if self.thread_id:
@@ -300,6 +300,14 @@ class SubagentExecutor:
                             is_duplicate = message_dict in result.ai_messages
                         if not is_duplicate:
                             result.ai_messages.append(message_dict)
+                            if self.config.model_turn_limit is not None and len(result.ai_messages) >= self.config.model_turn_limit and last_message.tool_calls:
+                                _mark_terminal(
+                                    result,
+                                    SubagentStatus.FAILED,
+                                    f"Subagent reached its model turn limit of {self.config.model_turn_limit}",
+                                    "model_turn_limit",
+                                )
+                                return result
 
             if final_state is None:
                 result.result = "No response generated"
@@ -327,7 +335,7 @@ class SubagentExecutor:
                 result,
                 SubagentStatus.FAILED,
                 str(exc),
-                "recursion_limit",
+                "graph_recursion_limit" if self.config.graph_recursion_limit is not None else "recursion_limit",
             )
         except Exception as e:
             logger.exception("[trace=%s] Subagent %s async execution failed", self.trace_id, self.config.name)
@@ -373,17 +381,19 @@ class SubagentExecutor:
     def _execute_with_timeout(self, task: str, result_holder: SubagentResult) -> SubagentResult:
         future = _isolated_loop_pool.submit(self._run_with_isolated_loop, task, result_holder)
         try:
-            return future.result(timeout=self.config.timeout_seconds)
+            timeout_seconds = self.config.effective_wall_clock_timeout_seconds
+            return future.result(timeout=timeout_seconds)
         except FuturesTimeoutError:
-            logger.warning("[trace=%s] Subagent %s timed out after %ss", self.trace_id, self.config.name, self.config.timeout_seconds)
-            timeout_error = f"Subagent timed out after {self.config.timeout_seconds} seconds"
+            timeout_seconds = self.config.effective_wall_clock_timeout_seconds
+            logger.warning("[trace=%s] Subagent %s timed out after %ss", self.trace_id, self.config.name, timeout_seconds)
+            timeout_error = f"Subagent timed out after {timeout_seconds} seconds"
             with result_holder._status_lock:
                 if result_holder.status in _TERMINAL_STATUSES:
                     return result_holder
                 result_holder.cancel_event.set()
                 result_holder.status = SubagentStatus.TIMED_OUT
                 result_holder.error = timeout_error
-                result_holder.failure_classification = "subagent_timeout"
+                result_holder.failure_classification = "compiler_wall_clock_timeout" if self.config.wall_clock_timeout_seconds is not None else "subagent_timeout"
                 result_holder.completed_at = datetime.now()
             _cancel_running_coroutine(result_holder, force=True)
             future.cancel()
@@ -406,15 +416,16 @@ class SubagentExecutor:
                 if result_holder.status == SubagentStatus.PENDING:
                     result_holder.status = SubagentStatus.RUNNING
             try:
-                async with asyncio.timeout(self.config.timeout_seconds):
+                timeout_seconds = self.config.effective_wall_clock_timeout_seconds
+                async with asyncio.timeout(timeout_seconds):
                     return await self._aexecute(task, result_holder)
             except TimeoutError:
                 result_holder.cancel_event.set()
                 _mark_terminal(
                     result_holder,
                     SubagentStatus.TIMED_OUT,
-                    f"Subagent timed out after {self.config.timeout_seconds} seconds",
-                    "subagent_timeout",
+                    f"Subagent timed out after {timeout_seconds} seconds",
+                    ("compiler_wall_clock_timeout" if self.config.wall_clock_timeout_seconds is not None else "subagent_timeout"),
                 )
                 return result_holder
             except asyncio.CancelledError:

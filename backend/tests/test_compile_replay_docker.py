@@ -6,7 +6,9 @@ the autocompiler:gcc13 image. The default backend test suite skips this file.
 
 from __future__ import annotations
 
+import asyncio
 import hashlib
+import importlib
 import json
 import os
 import shutil
@@ -35,6 +37,8 @@ from deerflow.compile.schemas import BuildArtifact, BuildCommandRecord, CommandR
 from deerflow.config.paths import Paths
 from deerflow.tools import bound_compile_tools
 from deerflow.tools.builtins import agent_compile_tools
+
+task_tool_module = importlib.import_module("deerflow.tools.builtins.task_tool")
 
 REPO_URL = "https://github.com/MattClarkson/CMakeHelloWorld.git"
 COMMIT_SHA = "6fda0b169299b1241ed883c8d4af8519da30ce52"
@@ -555,6 +559,133 @@ def test_build_system_mismatch_stops_before_real_compiler_delegation(monkeypatch
         assert deviation["payload"]["compiler_allowed"] is False
         assert deviation["payload"]["cleanup_succeeded"] is True
         assert deviation["payload"]["session_finalized"] is True
+    finally:
+        deactivate_experiment(thread_id)
+        runtime.stop_and_remove_container(session)
+        shutil.rmtree(Path(session.metadata_path).parent.parent, ignore_errors=True)
+
+
+@pytest.mark.parametrize(
+    ("classification", "terminal_status"),
+    [
+        ("model_turn_limit", "failed"),
+        ("graph_recursion_limit", "failed"),
+        ("compiler_wall_clock_timeout", "timed_out"),
+        ("post_build_reserve_exhausted", "timed_out"),
+    ],
+)
+def test_compiler_budget_termination_cleans_real_container_and_records_bounded_evidence(
+    monkeypatch,
+    classification: str,
+    terminal_status: str,
+):
+    paths = Paths()
+    manager = CompileSessionManager(paths=paths, default_image=COMPILE_IMAGE)
+    thread_id = f"docker-budget-{classification}-{uuid.uuid4().hex[:8]}"
+    session = manager.create_session(
+        thread_id=thread_id,
+        repo_url=REPO_URL,
+        image=COMPILE_IMAGE,
+    )
+    runtime = CompileDockerRuntime(manager=manager)
+    ledger = ExperimentLedger.create(
+        Path(session.metadata_path).parent / "compiler-budget.jsonl",
+        experiment_id=new_evidence_id("experiment"),
+        physical_attempt_id=new_evidence_id("physical_attempt"),
+        context={"thread_id": thread_id},
+    )
+    policy = ExperimentPolicy(
+        benchmark_id="forge-cpp-post-v6-budget-fixture",
+        manifest_sha256="6" * 64,
+        case_id="compiler-budget-fixture",
+        condition="non-pilot-integration",
+        repetition=1,
+        expected_repo_url=REPO_URL,
+        expected_commit_sha=COMMIT_SHA,
+        expected_build_system="cmake",
+        compile_image=COMPILE_IMAGE,
+        image_id=COMPILE_IMAGE_ID,
+        model_name="deterministic-tools",
+        endpoint="https://example.invalid/v1",
+        credential_env="OpenAI_AK",
+        request_timeout_seconds=120,
+        model_max_retries=0,
+        compiler_max_turns=36,
+        subagent_timeout_seconds=300,
+        memory_enabled=False,
+        skills_enabled=False,
+        required_system_packages=(),
+        cmake_arguments=(),
+        configure_arguments=(),
+        environment=(),
+        minimum_replay_delay_seconds=0,
+        compiler_model_turn_limit=12,
+        compiler_graph_recursion_limit=48,
+        compiler_wall_clock_seconds=300,
+        compiler_post_build_reserve_seconds=60,
+    )
+    monkeypatch.setattr(operations, "_services", CompileOperationsServices(manager=manager, runtime=runtime))
+    monkeypatch.setattr(task_tool_module, "request_cancel_background_task", lambda _task_id: True)
+    monkeypatch.setattr(task_tool_module, "wait_for_background_task_shutdown", lambda _task_id, _timeout: True)
+    monkeypatch.setattr(task_tool_module, "cleanup_background_task", lambda _task_id: None)
+    activate_experiment(
+        thread_id=thread_id,
+        experiment_id=ledger.experiment_id,
+        physical_attempt_id=ledger.physical_attempt_id,
+        ledger=ledger,
+        policy=policy,
+    )
+    try:
+        runtime.create_container(session)
+        manager.save_session(session)
+        manager.mark_session_status(session, "ready")
+
+        worker_stopped = asyncio.run(
+            task_tool_module._cancel_and_reap_task(
+                task_id=f"task-{classification}",
+                subagent_type="compiler",
+                compile_state={agent_compile_tools.COMPILE_SESSION_STATE_KEY: session.session_id},
+                thread_id=thread_id,
+                terminal_status=terminal_status,
+                error=f"deterministic {classification} fixture",
+                shutdown_timeout_seconds=30,
+            )
+        )
+        budget_snapshot = {
+            "model_turn_limit": 12,
+            "model_turn_count": 4,
+            "graph_recursion_limit": 48,
+            "wall_clock_limit_seconds": 300,
+            "elapsed_seconds": 45.0,
+            "post_build_reserve_seconds": 60,
+            "post_build_started": False,
+        }
+        task_tool_module._record_subagent_terminal_evidence(
+            thread_id=thread_id,
+            task_id=f"task-{classification}",
+            subagent_type="compiler",
+            status=terminal_status,
+            classification=classification,
+            worker_stopped=worker_stopped,
+            budget_snapshot=budget_snapshot,
+        )
+
+        assert worker_stopped is True
+        reloaded = manager.load_session(session.session_id, thread_id)
+        assert reloaded.status == terminal_status
+        assert reloaded.finalized_at is not None
+        inspect = subprocess.run(
+            ["docker", "inspect", session.container_name],
+            check=False,
+            capture_output=True,
+            text=True,
+            timeout=30,
+        )
+        assert inspect.returncode != 0
+        terminal_events = [event for event in ledger.read() if event["event"] == "agent.subagent_terminated"]
+        assert len(terminal_events) == 1
+        assert terminal_events[0]["payload"]["classification"] == classification
+        assert terminal_events[0]["payload"]["budget_snapshot"] == budget_snapshot
     finally:
         deactivate_experiment(thread_id)
         runtime.stop_and_remove_container(session)

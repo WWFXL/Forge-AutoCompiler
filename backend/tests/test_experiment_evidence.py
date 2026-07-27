@@ -63,6 +63,36 @@ def create_ledger(tmp_path: Path) -> ExperimentLedger:
     )
 
 
+def test_legacy_policy_payload_is_unchanged_and_future_budgets_are_explicit() -> None:
+    legacy_payload = make_policy().to_payload()
+
+    assert "compiler_model_turn_limit" not in legacy_payload
+    assert "compiler_graph_recursion_limit" not in legacy_payload
+    assert "compiler_wall_clock_seconds" not in legacy_payload
+    assert "compiler_post_build_reserve_seconds" not in legacy_payload
+
+    future_payload = replace(
+        make_policy(),
+        compiler_model_turn_limit=12,
+        compiler_graph_recursion_limit=48,
+        compiler_wall_clock_seconds=300,
+        compiler_post_build_reserve_seconds=60,
+    ).to_payload()
+    assert future_payload["compiler_model_turn_limit"] == 12
+    assert future_payload["compiler_graph_recursion_limit"] == 48
+    assert future_payload["compiler_wall_clock_seconds"] == 300
+    assert future_payload["compiler_post_build_reserve_seconds"] == 60
+
+
+def test_future_budget_policy_rejects_reserve_without_execution_window() -> None:
+    with pytest.raises(EvidenceError, match="must be smaller"):
+        replace(
+            make_policy(),
+            compiler_wall_clock_seconds=60,
+            compiler_post_build_reserve_seconds=60,
+        )
+
+
 def test_ledger_builds_contiguous_hash_chain_and_becomes_immutable(tmp_path: Path) -> None:
     ledger = create_ledger(tmp_path)
     ledger.append("preflight.completed", {"ready": True})
@@ -177,6 +207,46 @@ def test_subagent_termination_builds_valid_hash_chained_failure_evidence(
     assert events[1]["payload"]["worker_stopped"] is True
     assert events[2]["payload"]["domain"] == "agent_tool"
     assert events[2]["payload"]["classification"] == classification
+
+
+def test_subagent_termination_accepts_only_bounded_budget_snapshot(tmp_path: Path) -> None:
+    ledger = create_ledger(tmp_path)
+    snapshot = {
+        "model_turn_limit": 12,
+        "model_turn_count": 4,
+        "graph_recursion_limit": 48,
+        "wall_clock_limit_seconds": 300,
+        "elapsed_seconds": 45.125,
+        "post_build_reserve_seconds": 60,
+        "post_build_started": False,
+    }
+
+    ledger.append(
+        "agent.subagent_terminated",
+        {
+            "task_id": "compiler-task-1",
+            "role": "compiler",
+            "status": "failed",
+            "classification": "model_turn_limit",
+            "worker_stopped": True,
+            "budget_snapshot": snapshot,
+        },
+    )
+
+    assert ExperimentLedger.verify_path(ledger.path)[-1]["payload"]["budget_snapshot"] == snapshot
+
+    with pytest.raises(EvidenceError, match="budget_snapshot has an invalid schema"):
+        ledger.append(
+            "agent.subagent_terminated",
+            {
+                "task_id": "compiler-task-2",
+                "role": "compiler",
+                "status": "failed",
+                "classification": "model_turn_limit",
+                "worker_stopped": True,
+                "budget_snapshot": {**snapshot, "detail": "must not be recorded"},
+            },
+        )
 
 
 def test_agent_tool_failure_records_only_bounded_identity_and_exception_class(

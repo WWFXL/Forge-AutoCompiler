@@ -153,6 +153,54 @@ def test_subagent_recursion_limit_has_a_stable_failure_classification(real_execu
     assert result.failure_classification == "recursion_limit"
 
 
+def test_explicit_compiler_recursion_limit_has_distinct_failure_classification(real_executor_module):
+    config = SubagentConfig(
+        name="compiler",
+        description="test compiler",
+        system_prompt="test",
+        max_turns=36,
+        timeout_seconds=30,
+        model_turn_limit=12,
+        graph_recursion_limit=48,
+    )
+    executor = real_executor_module.SubagentExecutor(config=config, tools=[])
+    executor._create_agent = lambda: RecursionLimitAgent()
+
+    result = asyncio.run(executor._aexecute("reach the explicit graph limit"))
+
+    assert result.status == real_executor_module.SubagentStatus.FAILED
+    assert result.failure_classification == "graph_recursion_limit"
+
+
+def test_explicit_compiler_wall_clock_has_distinct_failure_classification(real_executor_module):
+    started = threading.Event()
+    stopped = threading.Event()
+    config = SubagentConfig(
+        name="compiler",
+        description="test compiler",
+        system_prompt="test",
+        max_turns=36,
+        timeout_seconds=30,
+        wall_clock_timeout_seconds=0.05,
+    )
+    executor = real_executor_module.SubagentExecutor(config=config, tools=[])
+    executor._create_agent = lambda: BlockingAgent(started, stopped)
+    result = real_executor_module.SubagentResult(
+        task_id="wall-clock-task",
+        trace_id="test-trace",
+        status=real_executor_module.SubagentStatus.RUNNING,
+    )
+
+    terminal = executor._execute_with_timeout("block", result)
+
+    assert started.is_set()
+    assert terminal.status == real_executor_module.SubagentStatus.TIMED_OUT
+    assert terminal.failure_classification == "compiler_wall_clock_timeout"
+    assert terminal.cancel_event.is_set()
+    assert terminal.worker_done_event.wait(timeout=3)
+    assert stopped.is_set()
+
+
 def test_compiler_terminal_evidence_records_bounded_failure_domain(monkeypatch):
     events: list[tuple[str, dict]] = []
     monkeypatch.setattr(
@@ -470,3 +518,85 @@ def test_compiler_model_cannot_lower_server_owned_turn_limit():
 
     assert compiler.max_turns == 36
     assert general.max_turns == 10
+
+
+def test_post_build_reserve_only_expires_before_successful_build():
+    config = SubagentConfig(
+        name="compiler",
+        description="compiler",
+        system_prompt="test",
+        timeout_seconds=300,
+        wall_clock_timeout_seconds=120,
+        post_build_reserve_seconds=30,
+    )
+    session = SimpleNamespace(post_build_supporting_command_id=None)
+
+    assert not task_tool_module._post_build_reserve_exhausted(
+        config,
+        session,
+        elapsed_seconds=89.9,
+    )
+    assert task_tool_module._post_build_reserve_exhausted(
+        config,
+        session,
+        elapsed_seconds=90,
+    )
+
+    session.post_build_supporting_command_id = "command-123"
+    assert not task_tool_module._post_build_reserve_exhausted(
+        config,
+        session,
+        elapsed_seconds=119,
+    )
+
+
+def test_budget_snapshot_is_bounded_and_legacy_config_emits_none(real_executor_module):
+    explicit = SubagentConfig(
+        name="compiler",
+        description="compiler",
+        system_prompt="test",
+        max_turns=36,
+        timeout_seconds=300,
+        model_turn_limit=12,
+        graph_recursion_limit=48,
+        wall_clock_timeout_seconds=120,
+        post_build_reserve_seconds=30,
+    )
+    result = real_executor_module.SubagentResult(
+        task_id="budget-task",
+        trace_id="trace",
+        status=real_executor_module.SubagentStatus.RUNNING,
+        ai_messages=[{"id": "one"}, {"id": "two"}],
+    )
+    session = SimpleNamespace(post_build_supporting_command_id="command-123")
+
+    assert task_tool_module._compiler_budget_snapshot(
+        explicit,
+        result,
+        session,
+        elapsed_seconds=4.56789,
+    ) == {
+        "model_turn_limit": 12,
+        "model_turn_count": 2,
+        "graph_recursion_limit": 48,
+        "wall_clock_limit_seconds": 120,
+        "elapsed_seconds": 4.568,
+        "post_build_reserve_seconds": 30,
+        "post_build_started": True,
+    }
+
+    legacy = explicit.with_overrides(
+        model_turn_limit=None,
+        graph_recursion_limit=None,
+        wall_clock_timeout_seconds=None,
+        post_build_reserve_seconds=0,
+    )
+    assert (
+        task_tool_module._compiler_budget_snapshot(
+            legacy,
+            result,
+            session,
+            elapsed_seconds=4.5,
+        )
+        is None
+    )
