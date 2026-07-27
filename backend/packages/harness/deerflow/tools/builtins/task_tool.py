@@ -6,7 +6,8 @@ import json
 import logging
 import uuid
 from dataclasses import replace
-from typing import Annotated
+from time import monotonic
+from typing import Annotated, Any
 
 from langchain.tools import InjectedToolCallId, ToolRuntime, tool
 from langgraph.config import get_stream_writer
@@ -40,18 +41,20 @@ def _record_subagent_terminal_evidence(
     status: str,
     classification: str | None,
     worker_stopped: bool,
+    budget_snapshot: dict[str, Any] | None = None,
 ) -> None:
     if subagent_type != "compiler":
         return
-    record_experiment_event(
-        thread_id,
-        "agent.subagent_terminated",
-        task_id=task_id,
-        role="compiler",
-        status=status,
-        classification=classification,
-        worker_stopped=worker_stopped,
-    )
+    payload = {
+        "task_id": task_id,
+        "role": "compiler",
+        "status": status,
+        "classification": classification,
+        "worker_stopped": worker_stopped,
+    }
+    if budget_snapshot is not None:
+        payload["budget_snapshot"] = budget_snapshot
+    record_experiment_event(thread_id, "agent.subagent_terminated", **payload)
     if status == "completed":
         return
     record_experiment_event(
@@ -69,6 +72,41 @@ def _apply_max_turns_override(config, *, subagent_type: str, requested_max_turns
     if requested_max_turns is None or subagent_type == "compiler":
         return config
     return replace(config, max_turns=requested_max_turns)
+
+
+def _compiler_budget_snapshot(
+    config,
+    result,
+    session,
+    *,
+    elapsed_seconds: float,
+) -> dict[str, Any] | None:
+    if not config.has_explicit_compiler_budgets:
+        return None
+    return {
+        "model_turn_limit": config.model_turn_limit,
+        "model_turn_count": len(result.ai_messages) if result is not None else 0,
+        "graph_recursion_limit": config.effective_graph_recursion_limit,
+        "wall_clock_limit_seconds": config.effective_wall_clock_timeout_seconds,
+        "elapsed_seconds": round(max(0.0, elapsed_seconds), 3),
+        "post_build_reserve_seconds": config.post_build_reserve_seconds,
+        "post_build_started": bool(session is not None and getattr(session, "post_build_supporting_command_id", None)),
+    }
+
+
+def _post_build_reserve_exhausted(
+    config,
+    session,
+    *,
+    elapsed_seconds: float,
+) -> bool:
+    reserve_seconds = config.post_build_reserve_seconds
+    if reserve_seconds <= 0 or session is None:
+        return False
+    if getattr(session, "post_build_supporting_command_id", None):
+        return False
+    exploration_seconds = config.effective_wall_clock_timeout_seconds - reserve_seconds
+    return elapsed_seconds >= exploration_seconds
 
 
 def _with_benchmark_constraints(prompt: str, policy: ExperimentPolicy) -> str:
@@ -251,6 +289,7 @@ async def task_tool(
     parent_model = None
     trace_id = None
     compile_state: dict[str, str] = {}
+    session = None
 
     if runtime is not None:
         sandbox_state = runtime.state.get("sandbox")
@@ -284,6 +323,10 @@ async def task_tool(
             config = config.with_overrides(
                 max_turns=active.policy.compiler_max_turns,
                 timeout_seconds=active.policy.subagent_timeout_seconds,
+                model_turn_limit=active.policy.compiler_model_turn_limit,
+                graph_recursion_limit=active.policy.compiler_graph_recursion_limit,
+                wall_clock_timeout_seconds=active.policy.compiler_wall_clock_seconds,
+                post_build_reserve_seconds=active.policy.compiler_post_build_reserve_seconds,
             )
             prompt = _with_benchmark_constraints(prompt, active.policy)
     else:
@@ -300,22 +343,26 @@ async def task_tool(
         initial_state=compile_state,
     )
 
+    task_started_at = monotonic()
     task_id = executor.execute_async(prompt, task_id=tool_call_id)
 
     poll_count = 0
     last_status = None
     last_message_count = 0
-    max_poll_count = (config.timeout_seconds + 60) // 5
-    shutdown_timeout_seconds = max(30.0, min(float(config.timeout_seconds), 180.0))
+    wall_clock_timeout_seconds = config.effective_wall_clock_timeout_seconds
+    max_poll_count = (wall_clock_timeout_seconds + 60) // 5
+    shutdown_timeout_seconds = max(30.0, min(float(wall_clock_timeout_seconds), 180.0))
 
-    logger.info(f"[trace={trace_id}] Started background task {task_id} (subagent={subagent_type}, timeout={config.timeout_seconds}s, polling_limit={max_poll_count} polls)")
+    logger.info(f"[trace={trace_id}] Started background task {task_id} (subagent={subagent_type}, timeout={wall_clock_timeout_seconds}s, polling_limit={max_poll_count} polls)")
 
     writer = get_stream_writer()
     writer({"type": "task_started", "task_id": task_id, "description": description})
 
+    result = None
     try:
         while True:
             result = get_background_task_result(task_id)
+            elapsed_seconds = monotonic() - task_started_at
 
             if result is None:
                 logger.error(f"[trace={trace_id}] Task {task_id} not found in background tasks")
@@ -336,6 +383,12 @@ async def task_tool(
                     status="failed",
                     classification="tracking_lost",
                     worker_stopped=worker_stopped,
+                    budget_snapshot=_compiler_budget_snapshot(
+                        config,
+                        result,
+                        session,
+                        elapsed_seconds=elapsed_seconds,
+                    ),
                 )
                 return f"Error: Task {task_id} disappeared from background tasks"
 
@@ -371,6 +424,12 @@ async def task_tool(
                     status="completed",
                     classification=None,
                     worker_stopped=worker_stopped,
+                    budget_snapshot=_compiler_budget_snapshot(
+                        config,
+                        result,
+                        session,
+                        elapsed_seconds=elapsed_seconds,
+                    ),
                 )
                 cleanup_background_task(task_id)
                 return f"Task Succeeded. Result: {result.result}"
@@ -393,6 +452,12 @@ async def task_tool(
                     status="failed",
                     classification=getattr(result, "failure_classification", None) or "subagent_failed",
                     worker_stopped=worker_stopped,
+                    budget_snapshot=_compiler_budget_snapshot(
+                        config,
+                        result,
+                        session,
+                        elapsed_seconds=elapsed_seconds,
+                    ),
                 )
                 return f"Task failed. Error: {result.error}"
             elif result.status == SubagentStatus.CANCELLED:
@@ -414,6 +479,12 @@ async def task_tool(
                     status="cancelled",
                     classification=getattr(result, "failure_classification", None) or "cancelled",
                     worker_stopped=worker_stopped,
+                    budget_snapshot=_compiler_budget_snapshot(
+                        config,
+                        result,
+                        session,
+                        elapsed_seconds=elapsed_seconds,
+                    ),
                 )
                 return "Task cancelled by user."
             elif result.status == SubagentStatus.TIMED_OUT:
@@ -435,14 +506,52 @@ async def task_tool(
                     status="timed_out",
                     classification=getattr(result, "failure_classification", None) or "subagent_timeout",
                     worker_stopped=worker_stopped,
+                    budget_snapshot=_compiler_budget_snapshot(
+                        config,
+                        result,
+                        session,
+                        elapsed_seconds=elapsed_seconds,
+                    ),
                 )
                 return f"Task timed out. Error: {result.error}"
+
+            if subagent_type == "compiler" and _post_build_reserve_exhausted(
+                config,
+                session,
+                elapsed_seconds=elapsed_seconds,
+            ):
+                error = "Compiler exploration exhausted its wall-clock allowance before the reserved post-build phase began."
+                writer({"type": "task_timed_out", "task_id": task_id, "error": error})
+                worker_stopped = await _cancel_and_reap_task(
+                    task_id=task_id,
+                    subagent_type=subagent_type,
+                    compile_state=compile_state,
+                    thread_id=thread_id,
+                    terminal_status="timed_out",
+                    error=error,
+                    shutdown_timeout_seconds=shutdown_timeout_seconds,
+                )
+                _record_subagent_terminal_evidence(
+                    thread_id=thread_id,
+                    task_id=task_id,
+                    subagent_type=subagent_type,
+                    status="timed_out",
+                    classification="post_build_reserve_exhausted",
+                    worker_stopped=worker_stopped,
+                    budget_snapshot=_compiler_budget_snapshot(
+                        config,
+                        result,
+                        session,
+                        elapsed_seconds=elapsed_seconds,
+                    ),
+                )
+                return f"Task timed out. Error: {error}"
 
             await asyncio.sleep(5)
             poll_count += 1
 
             if poll_count > max_poll_count:
-                timeout_minutes = config.timeout_seconds // 60
+                timeout_minutes = wall_clock_timeout_seconds // 60
                 logger.error(f"[trace={trace_id}] Task {task_id} polling timed out after {poll_count} polls (should have been caught by thread pool timeout)")
                 writer({"type": "task_timed_out", "task_id": task_id})
                 worker_stopped = await _cancel_and_reap_task(
@@ -461,6 +570,12 @@ async def task_tool(
                     status="timed_out",
                     classification="polling_timeout",
                     worker_stopped=worker_stopped,
+                    budget_snapshot=_compiler_budget_snapshot(
+                        config,
+                        result,
+                        session,
+                        elapsed_seconds=monotonic() - task_started_at,
+                    ),
                 )
                 return f"Task polling timed out after {timeout_minutes} minutes. This may indicate the background task is stuck. Status: {result.status.value}"
     except asyncio.CancelledError:
@@ -480,5 +595,11 @@ async def task_tool(
             status="cancelled",
             classification="parent_cancelled",
             worker_stopped=worker_stopped,
+            budget_snapshot=_compiler_budget_snapshot(
+                config,
+                result,
+                session,
+                elapsed_seconds=monotonic() - task_started_at,
+            ),
         )
         raise

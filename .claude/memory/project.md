@@ -2,8 +2,16 @@
 
 跨 Claude Code session 的项目状态流水。按 CLAUDE.md §7 维护。
 
+## 进行中 (In Progress)
+<!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
+
 ## 最近变更 (Recent Changes)
 <!-- 倒序，最新在上。 -->
+
+- 2026-07-27 — 分离 compiler 四类预算并闭合终结证据
+  - 范围: 为未来协议显式分离模型轮次、LangGraph 递归、compiler 总墙钟与 post-build 预留；旧 `compiler_max_turns` / `subagent_timeout_seconds` 继续作为兼容回退，v1-v6 policy payload、manifest、Schema、validator、runner 与 ledger 保持不变。
+  - 终结: 新增 `model_turn_limit`、`graph_recursion_limit`、`compiler_wall_clock_timeout`、`post_build_reserve_exhausted` 单一分类；终结事件只记录有界数字/布尔预算快照，所有失败路径继续先停 worker、清理真实编译容器再 finalize。
+  - 证据: 聚焦 `68 passed`，后端全量 `1674 passed, 28 skipped`，Ruff 与 Compose config 通过；真实 Docker 四预算分支 `4 passed`，前端 lint/typecheck 通过，冻结实验资产无差异。未调用模型、未重跑或替换 v6，也未创建 v7。
 
 - 2026-07-26 — 实现 Issue #50 的冻结构建参数前置契约
   - 范围: 在实验真实 build 执行前，从此前成功 configure 或当前复合 configure+build 命令中按有序 token 子序列验证 CMake/Autotools 冻结参数；缺参返回 `126 policy_rejected`，不执行 build、不进入 post-build、不启动 replay。submit gate 继续作为第二道防线。
@@ -137,13 +145,14 @@
 
 - 清理与当前源码不一致的后端测试模块引用，例如 `backend/tests/test_aio_sandbox_local_backend.py:1` 和 `backend/tests/test_channels.py:14`。
 - 统一 `backend/tests/test_subagent_timeout_config.py:261` 对 `max_turns` 的期望值与当前实现默认值。
-- 先完成 Issue #50 / Draft PR #53 的 Ready CI、审阅、squash merge、Issue 自动关闭和主干复验；head 必须保持 `3c18eb98`。
-- #50 完成后依次处理 Issue #51（provider/subagent/recursion/收口预算与配对终止 evidence）和 Issue #52（artifact oracle 结构化差异）；三项合入前不创建 v7、不调用模型、不重跑 v6。
+- 完成 Issue #51 的 Draft PR、Ready CI、squash merge、Issue 自动关闭和主干复验；随后处理 Issue #52（artifact oracle 结构化差异）。Issue #52 合入前不创建 v7、不调用模型、不重跑 v6。
 - 当前 `backend/packages/harness/deerflow/compile/manager.py` 的 lifecycle lock 是进程内锁；部署多个后端进程前，需要改为文件锁/数据库事务或带版本号的 CAS，并增加跨进程竞态测试。
 
 ## 已知问题 (Known Issues / Pitfalls)
 <!-- 工作中踩过的坑、限制或意外行为。 -->
 
+- WSL 用户目录中的 `.local` / `.cache/uv` 可能由旧容器以 root 创建，原生 WSL 执行 `uv` 会报 `Permission denied`；不要改写权限掩盖来源，测试可把 `UV_CACHE_DIR`、`UV_PYTHON_INSTALL_DIR` 与 `UV_PROJECT_ENVIRONMENT` 指向用户可写的独立目录。
+- Docker Hub 匿名 token 与 Ubuntu archive 在当前网络下可能分别超时或返回 502；本机可从 Canonical 官方 Amazon ECR 拉取同源 Ubuntu 基础镜像并改回本地 `ubuntu:24.04` 标签，apt 构建可显式传可信镜像站，但不得把临时镜像源写进冻结实验协议或伪装成既有 image ID。
 - 协作语言约定：后续 GitHub Issue、Pull Request、评论、评审说明和提交说明默认使用中文；分支名、代码标识、命令和必要技术术语继续遵循仓库的 ASCII/既有命名规范。若外部协作明确要求英文，先向用户确认。
 - PowerShell -> WSL -> `bash -lc` 的多层命令可能提前展开临时 `$repo` 变量，使 Docker bind mount 退化为 `/frontend/...`；一次性容器优先传完整 WSL 绝对路径，启动失败后先按固定名称清理并确认无残留。
 - Docker Desktop 与 WSL 原生 Docker Engine 是两个独立 daemon，镜像、网络和容器不共享；Forge 命令必须始终在同一套 daemon 上执行。

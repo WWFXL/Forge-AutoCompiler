@@ -215,6 +215,71 @@ class TestAsyncExecutionPath:
         assert result.completed_at is not None
 
     @pytest.mark.anyio
+    async def test_explicit_graph_budget_is_independent_from_model_turn_budget(
+        self,
+        classes,
+        base_config,
+        msg,
+    ):
+        observed_config = {}
+
+        class CapturingAgent:
+            async def astream(self, _state, *, config, **_kwargs):
+                observed_config.update(config)
+                yield {"messages": [msg.human("Task"), msg.ai("Done", "msg-1")]}
+
+        config = base_config.with_overrides(
+            model_turn_limit=2,
+            graph_recursion_limit=17,
+        )
+        executor = classes["SubagentExecutor"](config=config, tools=[])
+
+        with patch.object(executor, "_create_agent", return_value=CapturingAgent()):
+            result = await executor._aexecute("Task")
+
+        assert result.status == classes["SubagentStatus"].COMPLETED
+        assert observed_config["recursion_limit"] == 17
+        assert len(result.ai_messages) == 1
+
+    @pytest.mark.anyio
+    async def test_model_turn_limit_stops_before_another_model_request(
+        self,
+        classes,
+        base_config,
+        msg,
+    ):
+        ai_message = classes["AIMessage"](
+            content="",
+            id="msg-tool",
+            tool_calls=[
+                {
+                    "name": "run_container_bash",
+                    "args": {},
+                    "id": "call-1",
+                    "type": "tool_call",
+                }
+            ],
+        )
+
+        class ToolCallingAgent:
+            async def astream(self, *_args, **_kwargs):
+                yield {"messages": [msg.human("Task"), ai_message]}
+                raise AssertionError("the stream must close before another model turn")
+
+        config = base_config.with_overrides(
+            model_turn_limit=1,
+            graph_recursion_limit=17,
+        )
+        executor = classes["SubagentExecutor"](config=config, tools=[])
+
+        with patch.object(executor, "_create_agent", return_value=ToolCallingAgent()):
+            result = await executor._aexecute("Task")
+
+        assert result.status == classes["SubagentStatus"].FAILED
+        assert result.failure_classification == "model_turn_limit"
+        assert len(result.ai_messages) == 1
+
+    @pytest.mark.anyio
     async def test_aexecute_collects_ai_messages(self, classes, base_config, mock_agent, msg):
         """Test that AI messages are collected during streaming."""
         SubagentExecutor = classes["SubagentExecutor"]
