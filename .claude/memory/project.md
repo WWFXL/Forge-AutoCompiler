@@ -5,6 +5,12 @@
 ## 进行中 (In Progress)
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
+- 2026-07-27 — Issue #52 artifact oracle 结构化差异
+  - 分支: `feat/issue-52-artifact-oracle-diff`，基于 `main@82a29a9e`。`run_oracle()` 在不改变既有 pass 判定公式的前提下，输出排序且最多 64 项的 expected-only、observed-only、type mismatch 与 matched identity；clean replay 比较另输出 type/size/SHA-256/smoke exit+output hash 差异。
+  - 安全: 只保留 `/artifacts` 相对路径、三类 artifact type、非负大小、SHA-256、smoke 退出码和输出哈希；不复制 smoke command/output、模型文本、宿主路径或凭据。旧 replay 没有逐产物比较时明确 `available=false`，不伪造诊断。
+  - 当前证据: runner/protocol/evidence `204 passed`，后端全量 `1665 passed, 29 skipped`，真实 Docker CMake executable、Make static/shared、Autotools static 三组 `3 passed`；22 条本地历史 ledger hash chain 通过，后端 Ruff/format、Compose、前端串行 lint/typecheck 与容器对账通过。未调用模型、未重跑/替换 v6、未创建 v7。
+  - 待完成: 复核 diff、中文提交并推送，创建 Draft PR，等待 Ready CI 后 squash merge；随后更新 Obsidian 并冻结 v7 设计入口。
+
 ## 最近变更 (Recent Changes)
 <!-- 倒序，最新在上。 -->
 
@@ -145,7 +151,7 @@
 
 - 清理与当前源码不一致的后端测试模块引用，例如 `backend/tests/test_aio_sandbox_local_backend.py:1` 和 `backend/tests/test_channels.py:14`。
 - 统一 `backend/tests/test_subagent_timeout_config.py:261` 对 `max_turns` 的期望值与当前实现默认值。
-- 完成 Issue #51 的 Draft PR、Ready CI、squash merge、Issue 自动关闭和主干复验；随后处理 Issue #52（artifact oracle 结构化差异）。Issue #52 合入前不创建 v7、不调用模型、不重跑 v6。
+- 完成 Issue #52 的 Draft PR、Ready CI、squash merge、Issue 自动关闭和主干复验；Issue #52 合入前不创建 v7、不调用模型、不重跑 v6。
 - 当前 `backend/packages/harness/deerflow/compile/manager.py` 的 lifecycle lock 是进程内锁；部署多个后端进程前，需要改为文件锁/数据库事务或带版本号的 CAS，并增加跨进程竞态测试。
 
 ## 已知问题 (Known Issues / Pitfalls)
