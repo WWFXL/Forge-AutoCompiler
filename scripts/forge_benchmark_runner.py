@@ -17,7 +17,7 @@ import subprocess
 import sys
 import urllib.error
 import urllib.request
-from pathlib import Path
+from pathlib import Path, PurePosixPath
 from typing import Any
 
 REPO_ROOT = Path(os.environ.get("FORGE_REPO_ROOT", Path(__file__).resolve().parents[1])).resolve()
@@ -64,6 +64,15 @@ _FAILURE_DOMAIN_NAMES = (
     "build",
     "submit_replay",
     "completion",
+)
+_MAX_ARTIFACT_DIFF_ENTRIES = 64
+_REPLAY_ARTIFACT_MISMATCH_ORDER = (
+    "unexpected_artifact",
+    "missing_artifact",
+    "type",
+    "size",
+    "sha256",
+    "smoke",
 )
 
 
@@ -717,6 +726,174 @@ def recompute_gates(events: list[dict[str, Any]]) -> dict[str, Any]:
     }
 
 
+def _safe_artifact_path(value: Any) -> str | None:
+    if not isinstance(value, str) or not value or len(value) > 512 or ".compile-sessions" in value or any(character in value for character in ("\\", ":", "\0", "\r", "\n")):
+        return None
+    path = PurePosixPath(value)
+    if path.is_absolute() or ".." in path.parts:
+        return None
+    return value
+
+
+def _safe_artifact_type(value: Any) -> str | None:
+    if isinstance(value, str) and value in {
+        "static_library",
+        "shared_library",
+        "executable",
+    }:
+        return value
+    return None
+
+
+def _safe_nonnegative_int(value: Any) -> int | None:
+    if type(value) is int and value >= 0:
+        return value
+    return None
+
+
+def _safe_int(value: Any) -> int | None:
+    if type(value) is int:
+        return value
+    return None
+
+
+def _safe_sha256(value: Any) -> str | None:
+    if isinstance(value, str) and len(value) == 64 and all(character in "0123456789abcdef" for character in value):
+        return value
+    return None
+
+
+def _bounded_artifact_observation(artifact: dict[str, Any]) -> dict[str, Any]:
+    """Return only stable, non-sensitive artifact identity evidence."""
+    return {
+        "path": _safe_artifact_path(artifact.get("path")),
+        "artifact_type": _safe_artifact_type(artifact.get("artifact_type")),
+        "size_bytes": _safe_nonnegative_int(artifact.get("size_bytes")),
+        "sha256": _safe_sha256(artifact.get("sha256")),
+        "smoke_exit_code": _safe_int(artifact.get("smoke_exit_code")),
+        "smoke_output_sha256": _safe_sha256(artifact.get("smoke_output_sha256")),
+    }
+
+
+def _artifact_identity_diff(
+    expected_artifacts: set[tuple[str, str]],
+    actual_artifacts: list[dict[str, Any]],
+) -> dict[str, Any]:
+    observations_by_identity: dict[tuple[str | None, str | None], dict[str, Any]] = {}
+    for artifact in actual_artifacts:
+        if not isinstance(artifact, dict):
+            continue
+        observation = _bounded_artifact_observation(artifact)
+        identity = (observation["path"], observation["artifact_type"])
+        observations_by_identity.setdefault(identity, observation)
+
+    observed_identities = set(observations_by_identity)
+    expected_only_identities = sorted(
+        expected_artifacts - observed_identities,
+        key=lambda value: (value[0], value[1]),
+    )
+    observed_only_identities = sorted(
+        observed_identities - expected_artifacts,
+        key=lambda value: (value[0] or "", value[1] or ""),
+    )
+    matched_identities = sorted(
+        expected_artifacts & observed_identities,
+        key=lambda value: (value[0], value[1]),
+    )
+
+    expected_types_by_path: dict[str, set[str]] = {}
+    for path, artifact_type in expected_only_identities:
+        expected_types_by_path.setdefault(path, set()).add(artifact_type)
+    observed_types_by_path: dict[str, list[dict[str, Any]]] = {}
+    for identity in observed_only_identities:
+        path = identity[0]
+        if path is not None:
+            observed_types_by_path.setdefault(path, []).append(observations_by_identity[identity])
+    type_mismatches = [
+        {
+            "path": path,
+            "expected_artifact_types": sorted(expected_types),
+            "observed_artifact_types": sorted({value["artifact_type"] for value in observed_types_by_path[path] if value["artifact_type"] is not None}),
+        }
+        for path, expected_types in sorted(expected_types_by_path.items())
+        if path in observed_types_by_path
+    ]
+
+    expected_only = [{"path": path, "artifact_type": artifact_type} for path, artifact_type in expected_only_identities]
+    observed_only = [observations_by_identity[identity] for identity in observed_only_identities]
+    return {
+        "expected_count": len(expected_artifacts),
+        "observed_count": len(observed_identities),
+        "matched_count": len(matched_identities),
+        "expected_only_count": len(expected_only),
+        "observed_only_count": len(observed_only),
+        "type_mismatch_count": len(type_mismatches),
+        "expected_only": expected_only[:_MAX_ARTIFACT_DIFF_ENTRIES],
+        "observed_only": observed_only[:_MAX_ARTIFACT_DIFF_ENTRIES],
+        "type_mismatches": type_mismatches[:_MAX_ARTIFACT_DIFF_ENTRIES],
+        "truncated": any(len(values) > _MAX_ARTIFACT_DIFF_ENTRIES for values in (expected_only, observed_only, type_mismatches)),
+    }
+
+
+def _replay_artifact_diff(
+    events: list[dict[str, Any]],
+    replay_attempt_id: str | None,
+) -> dict[str, Any]:
+    replay = next(
+        (event["payload"] for event in reversed(events) if event["event"] == "replay.completed" and event["payload"].get("replay_attempt_id") == replay_attempt_id),
+        None,
+    )
+    if replay is None or not isinstance(replay.get("artifacts"), list):
+        return {
+            "available": False,
+            "mismatch_count": 0,
+            "mismatches": [],
+            "truncated": False,
+        }
+
+    differences: list[dict[str, Any]] = []
+    mismatch_rank = {value: index for index, value in enumerate(_REPLAY_ARTIFACT_MISMATCH_ORDER)}
+    for artifact in replay["artifacts"]:
+        if not isinstance(artifact, dict):
+            continue
+        raw_mismatches = artifact.get("mismatches") or []
+        mismatches = sorted(
+            {value for value in raw_mismatches if value in _REPLAY_ARTIFACT_MISMATCH_ORDER},
+            key=mismatch_rank.__getitem__,
+        )
+        if artifact.get("passed") is True and not mismatches:
+            continue
+        differences.append(
+            {
+                "path": _safe_artifact_path(artifact.get("path")),
+                "expected_artifact_type": _safe_artifact_type(artifact.get("expected_type")),
+                "observed_artifact_type": _safe_artifact_type(artifact.get("actual_type")),
+                "expected_size_bytes": _safe_nonnegative_int(artifact.get("expected_size_bytes")),
+                "observed_size_bytes": _safe_nonnegative_int(artifact.get("actual_size_bytes")),
+                "expected_sha256": _safe_sha256(artifact.get("expected_sha256")),
+                "observed_sha256": _safe_sha256(artifact.get("actual_sha256")),
+                "expected_smoke_exit_code": _safe_int(artifact.get("expected_smoke_exit_code")),
+                "observed_smoke_exit_code": _safe_int(artifact.get("actual_smoke_exit_code")),
+                "expected_smoke_output_sha256": _safe_sha256(artifact.get("expected_smoke_output_sha256")),
+                "observed_smoke_output_sha256": _safe_sha256(artifact.get("actual_smoke_output_sha256")),
+                "mismatches": mismatches,
+            }
+        )
+    differences.sort(
+        key=lambda value: (
+            value["path"] or "",
+            value["expected_artifact_type"] or "",
+            value["observed_artifact_type"] or "",
+        )
+    )
+    return {
+        "available": True,
+        "mismatch_count": len(differences),
+        "mismatches": differences[:_MAX_ARTIFACT_DIFF_ENTRIES],
+        "truncated": len(differences) > _MAX_ARTIFACT_DIFF_ENTRIES,
+    }
+
+
 def run_oracle(
     manifest: dict[str, Any],
     events: list[dict[str, Any]],
@@ -728,7 +905,12 @@ def run_oracle(
         return {"passed": False, "classification": "submit_missing"}
     submit = submits[-1]
     expected_artifacts = {(artifact["relative_path"], artifact["artifact_type"]) for artifact in case["oracle"]["required_artifacts"]}
-    actual_artifacts = {(artifact.get("path"), artifact.get("artifact_type")) for artifact in submit.get("artifacts", [])}
+    submitted_artifacts = submit.get("artifacts", [])
+    actual_artifacts = {(artifact.get("path"), artifact.get("artifact_type")) for artifact in submitted_artifacts if isinstance(artifact, dict)}
+    artifact_identity_diff = _artifact_identity_diff(
+        expected_artifacts,
+        submitted_artifacts,
+    )
     replay = submit.get("replay") or {}
     expected_candidate_pass = case["oracle"]["expected_candidate_status"] == "pass"
     expected_replay_pass = case["oracle"]["expected_clean_replay_status"] == "pass"
@@ -743,6 +925,11 @@ def run_oracle(
         "classification": None if passed else "oracle_mismatch",
         "submit_attempt_id": submit["submit_attempt_id"],
         "artifact_oracle_passed": expected_artifacts.issubset(actual_artifacts),
+        "artifact_identity_diff": artifact_identity_diff,
+        "replay_artifact_diff": _replay_artifact_diff(
+            events,
+            replay.get("replay_attempt_id"),
+        ),
         "candidate_expectation_passed": candidate_pass == expected_candidate_pass,
         "replay_expectation_passed": replay_pass == expected_replay_pass,
         "failure_classification_expectation_passed": failure_matches,

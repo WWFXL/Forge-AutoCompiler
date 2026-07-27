@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import importlib.util
+import json
 from pathlib import Path
 from types import SimpleNamespace
 
@@ -964,3 +965,252 @@ def test_gate_recomputation_detects_tampering_and_oracle_is_independent() -> Non
         }
     ]
     assert oracle["passed"] is True
+    assert oracle["replay_artifact_diff"]["available"] is False
+
+
+def _oracle_events(
+    *,
+    artifacts: list[dict],
+    replay_artifacts: list[dict] | None = None,
+    replay_status: str = "passed",
+) -> list[dict]:
+    return [
+        {"event": "experiment.started", "payload": {"policy": {"case_id": "fmt"}}},
+        {
+            "event": "replay.completed",
+            "payload": {
+                "replay_attempt_id": "replay-1",
+                "status": replay_status,
+                "cleanup_succeeded": True,
+                "primary_failure_classification": (None if replay_status == "passed" else "artifact_mismatch"),
+                "artifacts": replay_artifacts or [],
+            },
+        },
+        {
+            "event": "submit.completed",
+            "payload": {
+                "submit_attempt_id": "submit-1",
+                "candidate_status": "passed",
+                "artifacts": artifacts,
+                "replay": {
+                    "replay_attempt_id": "replay-1",
+                    "status": replay_status,
+                    "primary_failure_classification": (None if replay_status == "passed" else "artifact_mismatch"),
+                },
+            },
+        },
+    ]
+
+
+@pytest.mark.parametrize(
+    ("artifact_type", "path"),
+    [
+        ("static_library", "libsample.a"),
+        ("shared_library", "libsample.so"),
+        ("executable", "sample"),
+    ],
+)
+def test_oracle_records_empty_identity_diff_for_matching_artifact_types(
+    artifact_type: str,
+    path: str,
+) -> None:
+    manifest = load_manifest()
+    case = next(case for case in manifest["cases"] if case["id"] == "fmt")
+    case["oracle"]["required_artifacts"] = [{"relative_path": path, "artifact_type": artifact_type}]
+    events = _oracle_events(
+        artifacts=[
+            {
+                "path": path,
+                "artifact_type": artifact_type,
+                "size_bytes": 123,
+                "sha256": "1" * 64,
+                "smoke_exit_code": 0 if artifact_type == "executable" else None,
+                "smoke_output_sha256": ("2" * 64 if artifact_type == "executable" else None),
+            }
+        ],
+    )
+
+    oracle = forge_benchmark_runner.run_oracle(manifest, events)
+
+    assert oracle["passed"] is True
+    assert oracle["artifact_oracle_passed"] is True
+    assert oracle["artifact_identity_diff"] == {
+        "expected_count": 1,
+        "observed_count": 1,
+        "matched_count": 1,
+        "expected_only_count": 0,
+        "observed_only_count": 0,
+        "type_mismatch_count": 0,
+        "expected_only": [],
+        "observed_only": [],
+        "type_mismatches": [],
+        "truncated": False,
+    }
+    assert oracle["replay_artifact_diff"] == {
+        "available": True,
+        "mismatch_count": 0,
+        "mismatches": [],
+        "truncated": False,
+    }
+
+
+def test_oracle_records_expected_observed_type_diff_with_bounded_identity(
+    tmp_path: Path,
+) -> None:
+    manifest = load_manifest()
+    case = next(case for case in manifest["cases"] if case["id"] == "fmt")
+    case["oracle"]["required_artifacts"] = [{"relative_path": "libsample.a", "artifact_type": "static_library"}]
+    events = _oracle_events(
+        artifacts=[
+            {
+                "path": "libsample.a",
+                "artifact_type": "shared_library",
+                "size_bytes": 456,
+                "sha256": "3" * 64,
+                "smoke_exit_code": None,
+                "smoke_output_sha256": None,
+            }
+        ],
+        replay_artifacts=[
+            {
+                "path": "libsample.a",
+                "expected_type": "static_library",
+                "actual_type": "shared_library",
+                "expected_size_bytes": 123,
+                "actual_size_bytes": 456,
+                "expected_sha256": "1" * 64,
+                "actual_sha256": "3" * 64,
+                "expected_smoke_exit_code": None,
+                "actual_smoke_exit_code": None,
+                "expected_smoke_output_sha256": None,
+                "actual_smoke_output_sha256": None,
+                "actual_smoke_command": "C:\\Users\\person\\secret.exe --help",
+                "actual_smoke_output": "sensitive model output",
+                "passed": False,
+                "mismatches": ["sha256", "size", "type"],
+            }
+        ],
+    )
+
+    oracle = forge_benchmark_runner.run_oracle(manifest, events)
+
+    assert oracle["passed"] is False
+    assert oracle["artifact_oracle_passed"] is False
+    identity_diff = oracle["artifact_identity_diff"]
+    assert identity_diff["expected_only"] == [{"path": "libsample.a", "artifact_type": "static_library"}]
+    assert identity_diff["observed_only"] == [
+        {
+            "path": "libsample.a",
+            "artifact_type": "shared_library",
+            "size_bytes": 456,
+            "sha256": "3" * 64,
+            "smoke_exit_code": None,
+            "smoke_output_sha256": None,
+        }
+    ]
+    assert identity_diff["type_mismatches"] == [
+        {
+            "path": "libsample.a",
+            "expected_artifact_types": ["static_library"],
+            "observed_artifact_types": ["shared_library"],
+        }
+    ]
+    replay_diff = oracle["replay_artifact_diff"]
+    assert replay_diff["mismatch_count"] == 1
+    assert replay_diff["mismatches"][0]["mismatches"] == ["type", "size", "sha256"]
+    serialized = json.dumps(oracle)
+    assert "C:\\\\Users" not in serialized
+    assert "actual_smoke_command" not in serialized
+    assert "actual_smoke_output" not in serialized
+    assert "sensitive model output" not in serialized
+    ledger = ExperimentLedger.create(
+        tmp_path / "artifact-diff.jsonl",
+        experiment_id=new_evidence_id("experiment"),
+        physical_attempt_id=new_evidence_id("physical_attempt"),
+        context={"case_id": "fmt"},
+    )
+    ledger.append("oracle.completed", oracle)
+    assert ExperimentLedger.verify_path(ledger.path)[-1]["payload"] == oracle
+
+
+def test_oracle_records_executable_smoke_hash_diff_without_output() -> None:
+    manifest = load_manifest()
+    case = next(case for case in manifest["cases"] if case["id"] == "fmt")
+    case["oracle"]["required_artifacts"] = [{"relative_path": "sample", "artifact_type": "executable"}]
+    events = _oracle_events(
+        artifacts=[
+            {
+                "path": "sample",
+                "artifact_type": "executable",
+                "size_bytes": 10,
+                "sha256": "4" * 64,
+                "smoke_exit_code": 0,
+                "smoke_output_sha256": "5" * 64,
+            }
+        ],
+        replay_status="failed",
+        replay_artifacts=[
+            {
+                "path": "sample",
+                "expected_type": "executable",
+                "actual_type": "executable",
+                "expected_size_bytes": 10,
+                "actual_size_bytes": 10,
+                "expected_sha256": "4" * 64,
+                "actual_sha256": "4" * 64,
+                "expected_smoke_exit_code": 0,
+                "actual_smoke_exit_code": 1,
+                "expected_smoke_output_sha256": "5" * 64,
+                "actual_smoke_output_sha256": "6" * 64,
+                "actual_smoke_output": "private output",
+                "passed": False,
+                "mismatches": ["smoke"],
+            }
+        ],
+    )
+
+    oracle = forge_benchmark_runner.run_oracle(manifest, events)
+
+    assert oracle["artifact_oracle_passed"] is True
+    assert oracle["passed"] is False
+    mismatch = oracle["replay_artifact_diff"]["mismatches"][0]
+    assert mismatch["mismatches"] == ["smoke"]
+    assert mismatch["expected_smoke_exit_code"] == 0
+    assert mismatch["observed_smoke_exit_code"] == 1
+    assert mismatch["expected_smoke_output_sha256"] == "5" * 64
+    assert mismatch["observed_smoke_output_sha256"] == "6" * 64
+    assert "private output" not in json.dumps(oracle)
+
+
+def test_oracle_artifact_diff_is_sorted_and_bounded() -> None:
+    manifest = load_manifest()
+    case = next(case for case in manifest["cases"] if case["id"] == "fmt")
+    case["oracle"]["required_artifacts"] = [{"relative_path": "required.a", "artifact_type": "static_library"}]
+    artifacts = [
+        {
+            "path": "required.a",
+            "artifact_type": "static_library",
+        },
+        *[
+            {
+                "path": f"extra-{index:03d}.so",
+                "artifact_type": "shared_library",
+                "size_bytes": index,
+                "sha256": f"{index:064x}",
+            }
+            for index in reversed(range(65))
+        ],
+    ]
+
+    oracle = forge_benchmark_runner.run_oracle(
+        manifest,
+        _oracle_events(artifacts=artifacts),
+    )
+
+    artifact_diff = oracle["artifact_identity_diff"]
+    assert oracle["passed"] is True
+    assert artifact_diff["observed_only_count"] == 65
+    assert len(artifact_diff["observed_only"]) == 64
+    assert artifact_diff["observed_only"][0]["path"] == "extra-000.so"
+    assert artifact_diff["observed_only"][-1]["path"] == "extra-063.so"
+    assert artifact_diff["truncated"] is True
