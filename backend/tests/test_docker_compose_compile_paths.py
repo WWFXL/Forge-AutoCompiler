@@ -2,6 +2,7 @@ from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 COMPOSE_FILE = REPO_ROOT / "docker" / "docker-compose-dev.yaml"
+MODEL_PROXY_COMPOSE_FILE = REPO_ROOT / "docker" / "docker-compose-model-proxy.yaml"
 
 
 def test_compile_session_mount_and_path_contract_are_applied_to_both_runtimes():
@@ -42,3 +43,19 @@ def test_backend_services_mount_example_config_for_runtime_validation():
 
     assert compose.count("../config.example.yaml:/app/config.example.yaml:ro") == 2
     assert compose.count("../scripts:/app/scripts:ro") == 2
+
+
+def test_backend_services_receive_explicit_model_runtime_proxy_without_credentials():
+    compose = MODEL_PROXY_COMPOSE_FILE.read_text(encoding="utf-8")
+
+    assert compose.count("MODEL_RUNTIME_HTTP_PROXY=${MODEL_RUNTIME_HTTP_PROXY:-}") == 2
+    assert compose.count("MODEL_RUNTIME_HTTPS_PROXY=${MODEL_RUNTIME_HTTPS_PROXY:-}") == 2
+    assert compose.count("MODEL_RUNTIME_NO_PROXY=${MODEL_RUNTIME_NO_PROXY:-") == 2
+    assert compose.count('export HTTP_PROXY=\\"$${MODEL_RUNTIME_HTTP_PROXY:-}\\"') == 2
+    assert "FORGE_MODEL_PROXY_UPSTREAM" not in compose
+
+
+def test_frozen_base_compose_does_not_embed_model_proxy_override():
+    compose = COMPOSE_FILE.read_text(encoding="utf-8")
+
+    assert "MODEL_RUNTIME_HTTP_PROXY" not in compose

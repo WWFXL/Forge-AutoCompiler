@@ -27,6 +27,29 @@ fi
 
 # Docker Compose command with project name
 COMPOSE_CMD="docker compose -p deer-flow-dev -f docker-compose-dev.yaml"
+if [ -n "${FORGE_MODEL_PROXY_UPSTREAM:-}" ]; then
+    COMPOSE_CMD="$COMPOSE_CMD -f docker-compose-model-proxy.yaml"
+fi
+MODEL_PROXY_BRIDGE_SCRIPT="$SCRIPT_DIR/model_proxy_bridge.py"
+MODEL_PROXY_BRIDGE_ACTIVE=false
+
+start_model_proxy_bridge() {
+    if [ -z "${FORGE_MODEL_PROXY_UPSTREAM:-}" ]; then
+        return 0
+    fi
+    local bridge_port="${FORGE_MODEL_PROXY_BRIDGE_PORT:-17897}"
+    python3 "$MODEL_PROXY_BRIDGE_SCRIPT" start \
+        --upstream "$FORGE_MODEL_PROXY_UPSTREAM" \
+        --listen-port "$bridge_port"
+    export MODEL_RUNTIME_HTTP_PROXY="http://host.docker.internal:${bridge_port}"
+    export MODEL_RUNTIME_HTTPS_PROXY="http://host.docker.internal:${bridge_port}"
+    export MODEL_RUNTIME_NO_PROXY="${MODEL_RUNTIME_NO_PROXY:-localhost,127.0.0.1,gateway,langgraph,nginx,frontend,host.docker.internal}"
+    MODEL_PROXY_BRIDGE_ACTIVE=true
+}
+
+stop_model_proxy_bridge() {
+    python3 "$MODEL_PROXY_BRIDGE_SCRIPT" stop >/dev/null
+}
 
 detect_sandbox_mode() {
     local config_file="$PROJECT_ROOT/config.yaml"
@@ -77,6 +100,9 @@ detect_sandbox_mode() {
 cleanup() {
     echo ""
     echo -e "${YELLOW}Operation interrupted by user${NC}"
+    if $MODEL_PROXY_BRIDGE_ACTIVE; then
+        stop_model_proxy_bridge
+    fi
     exit 130
 }
 
@@ -187,6 +213,7 @@ start() {
     fi
 
     mkdir -p "$PROJECT_ROOT/.compile-sessions"
+    start_model_proxy_bridge
 
     sandbox_mode="$(detect_sandbox_mode)"
 
@@ -256,7 +283,12 @@ start() {
     fi
 
     echo "Building and starting containers..."
-    cd "$DOCKER_DIR" && $COMPOSE_CMD up --build -d --remove-orphans $services
+    if ! (cd "$DOCKER_DIR" && $COMPOSE_CMD up --build -d --remove-orphans $services); then
+        if $MODEL_PROXY_BRIDGE_ACTIVE; then
+            stop_model_proxy_bridge
+        fi
+        exit 1
+    fi
     echo ""
     echo "=========================================="
     echo "  DeerFlow Docker is starting!"
@@ -321,6 +353,7 @@ stop() {
     cd "$DOCKER_DIR" && $COMPOSE_CMD down
     echo "Cleaning up sandbox containers..."
     "$SCRIPT_DIR/cleanup-containers.sh" deer-flow-sandbox 2>/dev/null || true
+    stop_model_proxy_bridge
     echo -e "${GREEN}✓ Docker services stopped${NC}"
 }
 
@@ -330,6 +363,7 @@ restart() {
     echo "  Restarting DeerFlow Docker Services"
     echo "========================================"
     echo ""
+    start_model_proxy_bridge
     echo -e "${BLUE}Restarting containers...${NC}"
     cd "$DOCKER_DIR" && $COMPOSE_CMD restart
     echo ""
@@ -338,6 +372,28 @@ restart() {
     echo "  🌐 Application: http://localhost:8000"
     echo "  📋 View logs: make docker-logs"
     echo ""
+}
+
+model_preflight() {
+    local provider="${1:-richlab}"
+    local runtime_container="deer-flow-langgraph"
+    local proxy_args=()
+    if ! docker inspect "$runtime_container" >/dev/null 2>&1; then
+        runtime_container="deer-flow-gateway"
+    fi
+    if ! docker inspect "$runtime_container" >/dev/null 2>&1; then
+        echo -e "${YELLOW}No Forge runtime container is available. Run make docker-start first.${NC}"
+        exit 1
+    fi
+    start_model_proxy_bridge
+    if [ -n "${MODEL_RUNTIME_HTTP_PROXY:-}" ]; then
+        proxy_args+=("-e" "HTTP_PROXY=$MODEL_RUNTIME_HTTP_PROXY")
+        proxy_args+=("-e" "HTTPS_PROXY=$MODEL_RUNTIME_HTTPS_PROXY")
+        proxy_args+=("-e" "NO_PROXY=$MODEL_RUNTIME_NO_PROXY")
+    fi
+    docker exec "${proxy_args[@]}" "$runtime_container" \
+        /app/backend/.venv/bin/python /app/scripts/model_provider_preflight.py \
+        --provider "$provider"
 }
 
 # Show help
@@ -351,6 +407,7 @@ help() {
     echo "  start             - Start Docker services (auto-detects sandbox mode from config.yaml)"
     echo "  start --gateway   - Start without LangGraph container (Gateway mode, experimental)"
     echo "  restart           - Restart all running Docker services"
+    echo "  model-preflight [richlab|deepseek] - Run bounded provider connectivity checks"
     echo "  logs [option] - View Docker development logs"
     echo "                  --frontend   View frontend logs only"
     echo "                  --gateway    View gateway logs only"
@@ -373,6 +430,9 @@ main() {
             ;;
         restart)
             restart
+            ;;
+        model-preflight)
+            model_preflight "$2"
             ;;
         logs)
             logs "$2"
