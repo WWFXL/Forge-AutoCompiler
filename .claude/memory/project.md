@@ -5,14 +5,18 @@
 ## 进行中 (In Progress)
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
-- 2026-07-27 — Issue #52 artifact oracle 结构化差异
-  - 分支: `feat/issue-52-artifact-oracle-diff`，基于 `main@82a29a9e`。`run_oracle()` 在不改变既有 pass 判定公式的前提下，输出排序且最多 64 项的 expected-only、observed-only、type mismatch 与 matched identity；clean replay 比较另输出 type/size/SHA-256/smoke exit+output hash 差异。
-  - 安全: 只保留 `/artifacts` 相对路径、三类 artifact type、非负大小、SHA-256、smoke 退出码和输出哈希；不复制 smoke command/output、模型文本、宿主路径或凭据。旧 replay 没有逐产物比较时明确 `available=false`，不伪造诊断。
-  - 当前证据: runner/protocol/evidence `204 passed`，后端全量 `1665 passed, 29 skipped`，真实 Docker CMake executable、Make static/shared、Autotools static 三组 `3 passed`；22 条本地历史 ledger hash chain 通过，后端 Ruff/format、Compose、前端串行 lint/typecheck 与容器对账通过。未调用模型、未重跑/替换 v6、未创建 v7。
-  - 待完成: 复核 diff、中文提交并推送，创建 Draft PR，等待 Ready CI 后 squash merge；随后更新 Obsidian 并冻结 v7 设计入口。
+- 2026-07-27 — Issue #56 冻结 C/C++ pilot v7 协议
+  - 分支: `feat/issue-56-pilot-v7-protocol`，基于 `main@c48a0008`。新增独立 v7 manifest、Schema、validator 和 runner 路由，冻结 Issue #50 参数前置 gate、Issue #51 四类 compiler 预算与 Issue #52 artifact oracle 差异语义。
+  - 预算: model turn 36、graph recursion 96、compiler wall clock 900 秒、post-build reserve 120 秒；继续固定五个 exact-commit C/C++ case、CMake/Make/Autotools、Compose/DooD、Compile Session、clean replay、0 retries、no fallback、Memory/Skills 关闭。
+  - 当前证据: v1-v7 protocol/runner/evidence `189 passed, 24 skipped`；后端全量除只读挂载下 4 个 UV 环境失败外为 `1646 passed, 53 skipped`，四项改用独立可写 UV 环境后 `4 passed`；真实 Docker 四类预算、参数前置 gate 与三种构建路径 `8 passed in 260.27s`。Ruff/format、Compose config、前端串行 format/lint/typecheck、冻结 hash 与 0 orphan 对账通过。
+  - 边界: 协议 PR 合并并通过 preflight 前不创建 v7 physical-attempt slot、不调用模型；v1-v6 冻结资产和 ledger 不改写。
 
 ## 最近变更 (Recent Changes)
 <!-- 倒序，最新在上。 -->
+
+- 2026-07-27 — artifact oracle 结构化差异进入主干
+  - Issue #52 / PR #55 已 squash 合并为 `main@c48a0008`。`run_oracle()` 在不改变既有 pass 判定公式的前提下，输出有界的 artifact identity 与 clean replay type/size/SHA-256/smoke 差异；旧证据缺少逐产物列表时明确 `available=false`。
+  - 证据: runner/protocol/evidence `204 passed`、后端全量 `1665 passed, 29 skipped`、真实 Docker 三组 `3 passed`，Ready CI 与主干 Unit/Lint 全绿。没有模型调用、v6 retry/replacement 或 v7 attempt。
 
 - 2026-07-27 — 分离 compiler 四类预算并闭合终结证据
   - 范围: 为未来协议显式分离模型轮次、LangGraph 递归、compiler 总墙钟与 post-build 预留；旧 `compiler_max_turns` / `subagent_timeout_seconds` 继续作为兼容回退，v1-v6 policy payload、manifest、Schema、validator、runner 与 ledger 保持不变。
@@ -151,7 +155,7 @@
 
 - 清理与当前源码不一致的后端测试模块引用，例如 `backend/tests/test_aio_sandbox_local_backend.py:1` 和 `backend/tests/test_channels.py:14`。
 - 统一 `backend/tests/test_subagent_timeout_config.py:261` 对 `max_turns` 的期望值与当前实现默认值。
-- 完成 Issue #52 的 Draft PR、Ready CI、squash merge、Issue 自动关闭和主干复验；Issue #52 合入前不创建 v7、不调用模型、不重跑 v6。
+- 完成 Issue #56 的 v7 协议实现、历史冻结校验、Compose/DooD preflight、中文 PR 与主干复验；协议合入前不创建 v7 slot、不调用模型。
 - 当前 `backend/packages/harness/deerflow/compile/manager.py` 的 lifecycle lock 是进程内锁；部署多个后端进程前，需要改为文件锁/数据库事务或带版本号的 CAS，并增加跨进程竞态测试。
 
 ## 已知问题 (Known Issues / Pitfalls)

@@ -49,6 +49,16 @@ def load_v5_manifest() -> dict:
     return forge_benchmark_runner._load_manifest(path)
 
 
+def load_v6_manifest() -> dict:
+    path = REPO_ROOT / "benchmarks" / "manifests" / "cpp-pilot-v6.json"
+    return forge_benchmark_runner._load_manifest(path)
+
+
+def load_v7_manifest() -> dict:
+    path = REPO_ROOT / "benchmarks" / "manifests" / "cpp-pilot-v7.json"
+    return forge_benchmark_runner._load_manifest(path)
+
+
 def ready_preflight(manifest: dict, *, ready: bool = True) -> dict:
     return {
         "ready": ready,
@@ -104,6 +114,46 @@ def test_build_policy_freezes_each_supported_build_system(case_id: str) -> None:
 
     assert policy.expected_build_system == case["build_system"]
     assert policy.to_payload()["expected_build_system"] == case["build_system"]
+
+
+def test_v7_build_policy_records_separate_compiler_budgets() -> None:
+    manifest = load_v7_manifest()
+
+    policy = forge_benchmark_runner.build_policy(
+        manifest,
+        case_id="fmt",
+        condition_id="baseline",
+        repetition=1,
+    )
+
+    assert policy.compiler_max_turns == 36
+    assert policy.subagent_timeout_seconds == 900
+    assert policy.compiler_model_turn_limit == 36
+    assert policy.compiler_graph_recursion_limit == 96
+    assert policy.compiler_wall_clock_seconds == 900
+    assert policy.compiler_post_build_reserve_seconds == 120
+    assert policy.to_payload()["compiler_model_turn_limit"] == 36
+    assert policy.to_payload()["compiler_graph_recursion_limit"] == 96
+    assert policy.to_payload()["compiler_wall_clock_seconds"] == 900
+    assert policy.to_payload()["compiler_post_build_reserve_seconds"] == 120
+
+
+def test_v6_build_policy_payload_keeps_legacy_budget_shape() -> None:
+    manifest = load_v6_manifest()
+
+    payload = forge_benchmark_runner.build_policy(
+        manifest,
+        case_id="fmt",
+        condition_id="baseline",
+        repetition=1,
+    ).to_payload()
+
+    assert payload["compiler_max_turns"] == 36
+    assert payload["subagent_timeout_seconds"] == 300
+    assert "compiler_model_turn_limit" not in payload
+    assert "compiler_graph_recursion_limit" not in payload
+    assert "compiler_wall_clock_seconds" not in payload
+    assert "compiler_post_build_reserve_seconds" not in payload
 
 
 @pytest.mark.parametrize(
@@ -324,10 +374,10 @@ def test_runnable_run_refuses_non_compose_process_before_model_request(
     assert not any(event["event"].startswith("model.") for event in events)
 
 
-def test_runner_defaults_to_v6_manifest() -> None:
+def test_runner_defaults_to_v7_manifest() -> None:
     args = forge_benchmark_runner._build_parser().parse_args(["preflight"])
 
-    assert args.manifest == REPO_ROOT / "benchmarks" / "manifests" / "cpp-pilot-v6.json"
+    assert args.manifest == REPO_ROOT / "benchmarks" / "manifests" / "cpp-pilot-v7.json"
 
 
 def test_keyboard_interrupt_keeps_attempt_recoverable_and_reconciles_orphans(

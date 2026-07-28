@@ -1,5 +1,31 @@
 # Forge C/C++ benchmark protocols
 
+## Runnable pilot v7 protocol
+
+`cpp-pilot-v7.json` is the five-case protocol frozen after the v6 calibration exposed three instrumentation gaps. Its runtime baseline includes the Issue #50 pre-build argument gate, Issue #51 separate compiler budgets, and Issue #52 structured artifact-oracle diagnostics. It preserves every v1-v6 manifest, schema, validator, and ledger as historical evidence.
+
+The runtime implementation baseline is `c48a0008d788e0cee05de70df5ff3cefe483f40e`. The v7 protocol keeps the same exact-commit C/C++ cases, CMake/Make/Autotools paths, `compose-dood` control plane, immutable compile image, Compile Session, clean replay, `gpt-5.6-sol` for both roles, RichLab `/v1` endpoint, 120-second provider timeout, zero retries, forbidden fallback, and disabled Memory/Skills.
+
+Compiler limits are no longer overloaded:
+
+- `model_turn_limit: 36` preserves the v6 model-search allowance.
+- `graph_recursion_limit: 96` independently covers up to 36 model nodes plus bounded tool and routing nodes.
+- `wall_clock_timeout_seconds: 900` gives dependency and native compilation a bounded 15-minute window.
+- `post_build_reserve_seconds: 120` reserves deterministic time for submit, clean replay initiation, delivery, and finalization after a successful build.
+
+Validate the protocol from a clean committed Windows or WSL2 checkout, then run preflight inside the frozen Compose/DooD control plane:
+
+```powershell
+python scripts/forge_benchmark_v7.py validate-manifest benchmarks/manifests/cpp-pilot-v7.json
+```
+
+```bash
+python3 scripts/forge_benchmark_runner.py preflight \
+  --manifest benchmarks/manifests/cpp-pilot-v7.json
+```
+
+Protocol validation and `ready: true` do not themselves authorize collection. Do not create a v7 physical-attempt ledger or issue a model request until the protocol PR is merged and collection is approved as a separate step. Once collection starts, keep the five cases serial, do not retry or replace a consumed slot, and do not pool v7 outcomes with v1-v6.
+
 ## Runnable pilot v5
 
 `cpp-pilot-v5.json` is the five-case calibration protocol for the runtime that includes the Issue #32 event-loop ownership fix, Issue #33 non-interactive progress repair, and Issue #34 capability/selection/execution identity contract. It preserves every v1-v4 protocol artifact and physical-attempt ledger, keeps `control_plane_topology: "compose-dood"`, and creates a separate v5 evidence stratum.
