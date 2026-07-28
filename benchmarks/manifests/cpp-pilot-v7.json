@@ -1,0 +1,295 @@
+{
+  "schema_version": "7.0.0",
+  "document_type": "manifest",
+  "manifest_canonicalization": "json-sort-keys-compact-utf8",
+  "benchmark": {
+    "id": "forge-cpp-clean-replay-pilot-v7",
+    "name": "Forge C/C++ Clean Replay Pilot v7",
+    "purpose": "clean_replay_collection_calibration",
+    "dataset_provenance": "self_selected_calibration_set"
+  },
+  "scope": {
+    "languages": [
+      "C",
+      "C++"
+    ],
+    "phase": "pilot",
+    "formal_comparison_enabled": false,
+    "instrumentation_blocker": false
+  },
+  "forge": {
+    "repository_url": "https://github.com/WWFXL/Forge-AutoCompiler",
+    "commit_sha": "c48a0008d788e0cee05de70df5ff3cefe483f40e",
+    "revision_policy": "baseline_ancestor_with_frozen_components",
+    "component_sha256": {
+      "backend/packages/harness/deerflow/agents/lead_agent/agent.py": "ce3ee4d371d98982edfb054824ee9fa002e064d641e256b34c3ea281e93fb320",
+      "backend/packages/harness/deerflow/agents/lead_agent/prompt.py": "179b65b6cd386b56d2dbd8ae69003f1a708715b28681197d5f063b1a4c2f4b26",
+      "backend/packages/harness/deerflow/agents/middlewares/clarification_middleware.py": "6555b8921b7cbde9372d3025d5050ab7096fff8ac679d59395d844bc2db0cd77",
+      "backend/packages/harness/deerflow/agents/middlewares/llm_error_handling_middleware.py": "b42750116bf36e872cf9515cbd3d3828c52447db290d8fc212101fc8bd1b54ef",
+      "backend/packages/harness/deerflow/agents/middlewares/tool_error_handling_middleware.py": "017679304d7c9ad456d6a3050c87a0646d55641ae0d0e3a6ec6860535b0e9b79",
+      "backend/packages/harness/deerflow/client.py": "5b0e187027367a3adcd223403fb154f1f51d28f729e865026b224eb7f03d07f9",
+      "backend/packages/harness/deerflow/compile/__init__.py": "db4ca1b560d0b97d4a46574e29f1d44eaafb899b7473140aa1b3a8d640d81819",
+      "backend/packages/harness/deerflow/compile/docker_runtime.py": "55a25331969c231c32f36096f7a49a81ceac196e805514e041bd9a7ea1879ea9",
+      "backend/packages/harness/deerflow/compile/evidence.py": "bda0432271c98aedbc7646915e5204b201459d4df9580f60f482636e9d8045dc",
+      "backend/packages/harness/deerflow/compile/manager.py": "2413cf71e3cda47906f19121cdaea7edbb5352083a7ca15f98b8d882172d545d",
+      "backend/packages/harness/deerflow/compile/operations.py": "41832b10c93a13a0955d0342f4fbed45cca729769f86e521628db4f04faf417b",
+      "backend/packages/harness/deerflow/compile/schemas.py": "fb68ae2d4a3ed5d6c5879b26f8d584f5604555a7ff2d14987a63c5418a07f563",
+      "backend/packages/harness/deerflow/models/factory.py": "804da24b5a3929df57251a0274dd690dcfa469c9c5c59024b100ae928dc0f5fc",
+      "backend/packages/harness/deerflow/subagents/builtins/compiler_agent.py": "163024555882bbe7f106b77b78743bc05f4ddf6ae7e3994c471603db3aad975e",
+      "backend/packages/harness/deerflow/subagents/executor.py": "6d1c8cd8395c6e849f51ebd9171ee06b0d5c8a4c9b6941628441792e0df402dd",
+      "backend/packages/harness/deerflow/tools/bound_compile_tools.py": "d06003920c9d4d9794237a165f5a743421647c0f03ef6aed49ea0156407f2140",
+      "backend/packages/harness/deerflow/tools/builtins/agent_compile_tools.py": "1e8d6216ce2aa070a8ec1a2e3b6a042b4ca1be76edc66632597bc7ac4eb6ee2d",
+      "backend/packages/harness/deerflow/tools/builtins/task_tool.py": "1a64d00c8b6f3c2755c1ab98e750f598eeed85c6aab0bcabbb1f27dd3d8bad9d",
+      "backend/uv.lock": "cd9271aa22af6ef37f1a81404b20cef2af0f3d302480e605f62e690f6cf8650d",
+      "config.example.yaml": "7f40b0a88a86a1344bff83e5e2f3ad9e4c20d88aa74e19a0ae11ae821dac6715",
+      "docker/compile/Dockerfile": "19c20e59fd8e98f44d08acdc0cce7c6c938df5a77d9f18176ba965d701b74628",
+      "docker/docker-compose-dev.yaml": "c1d7bbd83e5fc5b4616c9758eee4e3b9ff00eef69935787d13a52b5277c81af5"
+    }
+  },
+  "protocol_artifact_sha256": {
+    "scripts/forge_benchmark.py": "d4c18b5e558a7b29812624ea9661aab47cba610b9bc12d0050c0528bbfaa0278",
+    "scripts/forge_benchmark_v7.py": "f986c9974de0f8630622ee6fc1c86ae85bd4ac447a60d96571a8b1e9badcc7e7",
+    "scripts/forge_benchmark_runner.py": "b4bda4220734af6950c08bc615747f8cb01d47ae8b7552898559afd8569f88d2",
+    "benchmarks/schemas/forge-cpp-benchmark-v7.schema.json": "d404b6bb12eef407e32ccbd1cd2191717057b0743aa0c74be83ea4a269a43c84"
+  },
+  "model": {
+    "endpoint": "https://richlab-api-x.choosefire.com/v1",
+    "credential_env": "OpenAI_AK",
+    "roles": {
+      "lead": "gpt-5.6-sol",
+      "compiler": "gpt-5.6-sol"
+    },
+    "fallback_policy": "forbidden",
+    "request_timeout_seconds": 120,
+    "max_retries": 0
+  },
+  "runtime": {
+    "compile_image": "autocompiler:gcc13",
+    "image_id": "sha256:900d7ce4b902b79df5c64ffab88631b251538f1bde578c4dd2bf91558e9d1554",
+    "control_plane_topology": "compose-dood",
+    "replay_timeout_seconds": 1200,
+    "cleanup_timeout_seconds": 20,
+    "docker_control_timeout_seconds": 30,
+    "model_turn_limit": 36,
+    "graph_recursion_limit": 96,
+    "wall_clock_timeout_seconds": 900,
+    "post_build_reserve_seconds": 120,
+    "max_parallel_runs": 1,
+    "backend_processes": 1,
+    "network_policy": {
+      "network_name": "compile_network_wwf_v1",
+      "egress": "enabled_for_clone_and_dependencies"
+    },
+    "host": {
+      "wsl_distribution": "Ubuntu",
+      "cpu_count": 32,
+      "memory_kib": 7723024,
+      "kernel": "6.6.114.1-microsoft-standard-WSL2",
+      "architecture": "x86_64",
+      "docker_server_version": "29.5.3"
+    }
+  },
+  "conditions": [
+    {
+      "id": "baseline",
+      "memory_enabled": false,
+      "skills_enabled": false,
+      "repetitions": 1,
+      "acceptance_gate": "clean_replay"
+    }
+  ],
+  "cases": [
+    {
+      "id": "fmt",
+      "repository_url": "https://github.com/fmtlib/fmt",
+      "commit_sha": "123913715afeb8a437e6388b4473fcc4753e1c9a",
+      "languages": [
+        "C++"
+      ],
+      "build_system": "cmake",
+      "license": "MIT",
+      "oracle": {
+        "expected_candidate_status": "pass",
+        "expected_clean_replay_status": "pass",
+        "required_artifacts": [
+          {
+            "relative_path": "libfmt.a",
+            "artifact_type": "static_library"
+          }
+        ]
+      },
+      "constraints": {
+        "required_system_packages": [
+          "build-essential",
+          "cmake"
+        ],
+        "build_arguments": {
+          "cmake": [
+            "-DFMT_TEST=OFF",
+            "-DFMT_DOC=OFF",
+            "-DFMT_INSTALL=OFF",
+            "-DBUILD_SHARED_LIBS=OFF"
+          ],
+          "configure": []
+        },
+        "environment": {},
+        "minimum_replay_delay_seconds": 0
+      }
+    },
+    {
+      "id": "hiredis",
+      "repository_url": "https://github.com/redis/hiredis",
+      "commit_sha": "60e5075d4ac77424809f855ba3e398df7aacefe8",
+      "languages": [
+        "C"
+      ],
+      "build_system": "make",
+      "license": "BSD-3-Clause",
+      "oracle": {
+        "expected_candidate_status": "pass",
+        "expected_clean_replay_status": "pass",
+        "required_artifacts": [
+          {
+            "relative_path": "libhiredis.a",
+            "artifact_type": "static_library"
+          },
+          {
+            "relative_path": "libhiredis.so",
+            "artifact_type": "shared_library"
+          }
+        ]
+      },
+      "constraints": {
+        "required_system_packages": [
+          "build-essential",
+          "make"
+        ],
+        "build_arguments": {
+          "cmake": [],
+          "configure": []
+        },
+        "environment": {},
+        "minimum_replay_delay_seconds": 0
+      }
+    },
+    {
+      "id": "libcheck",
+      "repository_url": "https://github.com/libcheck/check",
+      "commit_sha": "11970a7e112dfe243a2e68773f014687df2900e8",
+      "languages": [
+        "C"
+      ],
+      "build_system": "autotools",
+      "license": "LGPL-2.1-or-later",
+      "oracle": {
+        "expected_candidate_status": "pass",
+        "expected_clean_replay_status": "pass",
+        "required_artifacts": [
+          {
+            "relative_path": "libcheck.a",
+            "artifact_type": "static_library"
+          }
+        ]
+      },
+      "constraints": {
+        "required_system_packages": [
+          "build-essential",
+          "autoconf",
+          "automake",
+          "libtool",
+          "pkg-config",
+          "texinfo"
+        ],
+        "build_arguments": {
+          "cmake": [],
+          "configure": [
+            "--disable-subunit"
+          ]
+        },
+        "environment": {},
+        "minimum_replay_delay_seconds": 0
+      }
+    },
+    {
+      "id": "libgit2",
+      "repository_url": "https://github.com/libgit2/libgit2",
+      "commit_sha": "338e6fb681369ff0537719095e22ce9dc602dbf0",
+      "languages": [
+        "C"
+      ],
+      "build_system": "cmake",
+      "license": "GPL-2.0-only WITH libgit2-linking-exception",
+      "oracle": {
+        "expected_candidate_status": "pass",
+        "expected_clean_replay_status": "pass",
+        "required_artifacts": [
+          {
+            "relative_path": "libgit2.so.1.9.0",
+            "artifact_type": "shared_library"
+          }
+        ]
+      },
+      "constraints": {
+        "required_system_packages": [
+          "build-essential",
+          "cmake",
+          "pkg-config",
+          "libssl-dev",
+          "libhttp-parser-dev",
+          "zlib1g-dev"
+        ],
+        "build_arguments": {
+          "cmake": [
+            "-DBUILD_TESTS=OFF",
+            "-DBUILD_CLI=OFF",
+            "-DUSE_HTTPS=OpenSSL",
+            "-DUSE_HTTP_PARSER=system",
+            "-DREGEX_BACKEND=builtin",
+            "-DUSE_SSH=OFF"
+          ],
+          "configure": []
+        },
+        "environment": {},
+        "minimum_replay_delay_seconds": 0
+      }
+    },
+    {
+      "id": "sysstat-nondeterministic",
+      "repository_url": "https://github.com/sysstat/sysstat",
+      "commit_sha": "b8f987807e7c7ba5c1b2ca8b7b1e9d80e61bce6c",
+      "languages": [
+        "C"
+      ],
+      "build_system": "autotools",
+      "license": "GPL-2.0-or-later",
+      "oracle": {
+        "expected_candidate_status": "pass",
+        "expected_clean_replay_status": "reject",
+        "expected_replay_failure_classification": "sha256_mismatch",
+        "required_artifacts": [
+          {
+            "relative_path": "sar",
+            "artifact_type": "executable"
+          }
+        ]
+      },
+      "constraints": {
+        "required_system_packages": [
+          "build-essential",
+          "pkg-config"
+        ],
+        "build_arguments": {
+          "cmake": [],
+          "configure": [
+            "--disable-nls"
+          ]
+        },
+        "environment": {
+          "CFLAGS": "-O2 -DUSE_SCCSID",
+          "SOURCE_DATE_EPOCH": null
+        },
+        "minimum_replay_delay_seconds": 2
+      }
+    }
+  ]
+}
