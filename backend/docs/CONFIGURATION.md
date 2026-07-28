@@ -128,13 +128,45 @@ Some models support "thinking" mode for complex reasoning:
 
 ```yaml
 models:
-  - name: deepseek-v3
+  - name: deepseek-v4-flash
+    use: langchain_openai:ChatOpenAI
+    model: deepseek-v4-flash
+    base_url: https://api.deepseek.com
+    api_key: $DEEPSEEK_API_KEY
     supports_thinking: true
     when_thinking_enabled:
       extra_body:
         thinking:
           type: enabled
 ```
+
+For a higher-capability DeepSeek condition, use a separate profile with
+`name` and `model` set to `deepseek-v4-pro`. Do not silently switch profiles
+inside one benchmark attempt.
+
+**WSL2 Compose model connectivity preflight**:
+
+When the Windows proxy only listens on loopback, WSL2 Docker containers cannot
+reach it directly. Configure the optional, Docker-bridge-only relay in the local
+Git-ignored `.env`:
+
+```dotenv
+FORGE_MODEL_PROXY_UPSTREAM=http://127.0.0.1:7897
+```
+
+Start the development stack normally, then run a bounded preflight before
+creating an experimental physical-attempt slot:
+
+```bash
+make model-preflight
+make model-preflight PROVIDER=deepseek
+```
+
+The checks cover the provider model list, a minimal chat request, and a forced
+tool call. Output is limited to status, latency, requested/actual model identity,
+and bounded booleans; credentials, response content, and tool arguments are not
+printed. The relay binds only the private Docker bridge gateway and is stopped by
+`make docker-stop`.
 
 **Gemini with thinking via OpenAI-compatible gateway**:
 

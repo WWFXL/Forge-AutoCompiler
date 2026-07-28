@@ -1,0 +1,14 @@
+services:
+  gateway:
+    command: sh -c "{ cd backend && (uv sync --frozen || (echo '[startup] uv sync failed; recreating .venv and retrying once' && uv venv --allow-existing .venv && uv sync --frozen)) && export HTTP_PROXY=\"$${MODEL_RUNTIME_HTTP_PROXY:-}\" HTTPS_PROXY=\"$${MODEL_RUNTIME_HTTPS_PROXY:-}\" NO_PROXY=\"$${MODEL_RUNTIME_NO_PROXY:-}\" http_proxy=\"$${MODEL_RUNTIME_HTTP_PROXY:-}\" https_proxy=\"$${MODEL_RUNTIME_HTTPS_PROXY:-}\" no_proxy=\"$${MODEL_RUNTIME_NO_PROXY:-}\" && PYTHONPATH=. uv run --frozen uvicorn app.gateway.app:app --host 0.0.0.0 --port 8001 --reload --reload-include='*.yaml .env'; } > /app/logs/gateway.log 2>&1"
+    environment:
+      - MODEL_RUNTIME_HTTP_PROXY=${MODEL_RUNTIME_HTTP_PROXY:-}
+      - MODEL_RUNTIME_HTTPS_PROXY=${MODEL_RUNTIME_HTTPS_PROXY:-}
+      - MODEL_RUNTIME_NO_PROXY=${MODEL_RUNTIME_NO_PROXY:-localhost,127.0.0.1,gateway,langgraph,nginx,frontend,host.docker.internal}
+
+  langgraph:
+    command: sh -c "cd backend && { (uv sync --frozen || (echo '[startup] uv sync failed; recreating .venv and retrying once' && uv venv --allow-existing .venv && uv sync --frozen)) && export HTTP_PROXY=\"$${MODEL_RUNTIME_HTTP_PROXY:-}\" HTTPS_PROXY=\"$${MODEL_RUNTIME_HTTPS_PROXY:-}\" NO_PROXY=\"$${MODEL_RUNTIME_NO_PROXY:-}\" http_proxy=\"$${MODEL_RUNTIME_HTTP_PROXY:-}\" https_proxy=\"$${MODEL_RUNTIME_HTTPS_PROXY:-}\" no_proxy=\"$${MODEL_RUNTIME_NO_PROXY:-}\" && allow_blocking='' && if [ \"$${LANGGRAPH_ALLOW_BLOCKING:-0}\" = '1' ]; then allow_blocking='--allow-blocking'; fi && uv run --frozen langgraph dev --no-browser $${allow_blocking} --host 0.0.0.0 --port 2024 --n-jobs-per-worker $${LANGGRAPH_JOBS_PER_WORKER:-10}; } > /app/logs/langgraph.log 2>&1"
+    environment:
+      - MODEL_RUNTIME_HTTP_PROXY=${MODEL_RUNTIME_HTTP_PROXY:-}
+      - MODEL_RUNTIME_HTTPS_PROXY=${MODEL_RUNTIME_HTTPS_PROXY:-}
+      - MODEL_RUNTIME_NO_PROXY=${MODEL_RUNTIME_NO_PROXY:-localhost,127.0.0.1,gateway,langgraph,nginx,frontend,host.docker.internal}

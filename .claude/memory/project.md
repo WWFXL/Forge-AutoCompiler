@@ -5,14 +5,18 @@
 ## 进行中 (In Progress)
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
-- 2026-07-27 — Issue #56 冻结 C/C++ pilot v7 协议
-  - 分支: `feat/issue-56-pilot-v7-protocol`，基于 `main@c48a0008`。新增独立 v7 manifest、Schema、validator 和 runner 路由，冻结 Issue #50 参数前置 gate、Issue #51 四类 compiler 预算与 Issue #52 artifact oracle 差异语义。
-  - 预算: model turn 36、graph recursion 96、compiler wall clock 900 秒、post-build reserve 120 秒；继续固定五个 exact-commit C/C++ case、CMake/Make/Autotools、Compose/DooD、Compile Session、clean replay、0 retries、no fallback、Memory/Skills 关闭。
-  - 当前证据: v1-v7 protocol/runner/evidence `189 passed, 24 skipped`；后端全量除只读挂载下 4 个 UV 环境失败外为 `1646 passed, 53 skipped`，四项改用独立可写 UV 环境后 `4 passed`；真实 Docker 四类预算、参数前置 gate 与三种构建路径 `8 passed in 260.27s`。Ruff/format、Compose config、前端串行 format/lint/typecheck、冻结 hash 与 0 orphan 对账通过。
-  - 边界: 协议 PR 合并并通过 preflight 前不创建 v7 physical-attempt slot、不调用模型；v1-v6 冻结资产和 ledger 不改写。
+- 2026-07-28 — Issue #59 修复 WSL2 Compose 模型出口并增加多提供商预检
+  - 分支: `fix/issue-59-model-connectivity`，基于 `main@957fb9e3`。根因是 Windows 代理只监听 loopback，WSL2 Docker 容器直连 RichLab 超时，且 `host.docker.internal` 不会自动转发到 Windows loopback。
+  - 实现: 新增仅绑定私有 Docker bridge gateway 的受限 TCP relay、独立 Compose override、RichLab/DeepSeek 模型列表 + 最小对话 + 强制工具调用预检，以及原子写入 Git 忽略 `.env` 的本地凭据工具。基础 `docker-compose-dev.yaml`、`config.example.yaml` 与 v1-v7 冻结资产保持字节不变。
+  - 当前证据: RichLab `gpt-5.5`/`gpt-5.4` 与 DeepSeek `deepseek-v4-flash`/`deepseek-v4-pro` 均从 LangGraph 容器通过模型列表、最小对话和工具调用；聚焦 `32 passed`，后端除只读挂载专用组外 `1673 passed, 53 skipped`，配置升级组在可写挂载中 `4 passed`；Ruff/format、Compose config、v7 current-tree gate、bridge 启停、敏感信息与 0 compile/replay orphan 检查通过。
+  - 边界: 只做非 pilot 连通性预检，不创建、重跑、替换或回填任一 v7 slot；DeepSeek 与较低负载 GPT 只能作为未来独立实验条件，不能在冻结 attempt 内 fallback。
 
 ## 最近变更 (Recent Changes)
 <!-- 倒序，最新在上。 -->
+
+- 2026-07-28 — C/C++ pilot v7 冻结协议进入主干
+  - Issue #56 / PR #57 已 squash 合并为 `main@957fb9e3`。独立 v7 manifest、Schema、validator 和 runner 路由冻结参数前置 gate、四类 compiler 预算与 artifact oracle 差异语义。
+  - 预算继续固定为 model turn 36、graph recursion 96、compiler wall clock 900 秒、post-build reserve 120 秒；五个 exact-commit C/C++ case、Compose/DooD、Compile Session、clean replay、0 retries、no fallback 和 Memory/Skills 关闭保持不变。
 
 - 2026-07-27 — artifact oracle 结构化差异进入主干
   - Issue #52 / PR #55 已 squash 合并为 `main@c48a0008`。`run_oracle()` 在不改变既有 pass 判定公式的前提下，输出有界的 artifact identity 与 clean replay type/size/SHA-256/smoke 差异；旧证据缺少逐产物列表时明确 `available=false`。
@@ -155,7 +159,7 @@
 
 - 清理与当前源码不一致的后端测试模块引用，例如 `backend/tests/test_aio_sandbox_local_backend.py:1` 和 `backend/tests/test_channels.py:14`。
 - 统一 `backend/tests/test_subagent_timeout_config.py:261` 对 `max_turns` 的期望值与当前实现默认值。
-- 完成 Issue #56 的 v7 协议实现、历史冻结校验、Compose/DooD preflight、中文 PR 与主干复验；协议合入前不创建 v7 slot、不调用模型。
+- 完成 Issue #59 的中文 Draft PR 与 CI；合并前不启动新 pilot。下一协议应把 RichLab 与 DeepSeek 设计为可比较的独立 provider condition，并继续禁止 frozen attempt 内 fallback。
 - 当前 `backend/packages/harness/deerflow/compile/manager.py` 的 lifecycle lock 是进程内锁；部署多个后端进程前，需要改为文件锁/数据库事务或带版本号的 CAS，并增加跨进程竞态测试。
 
 ## 已知问题 (Known Issues / Pitfalls)
@@ -167,6 +171,7 @@
 - PowerShell -> WSL -> `bash -lc` 的多层命令可能提前展开临时 `$repo` 变量，使 Docker bind mount 退化为 `/frontend/...`；一次性容器优先传完整 WSL 绝对路径，启动失败后先按固定名称清理并确认无残留。
 - Docker Desktop 与 WSL 原生 Docker Engine 是两个独立 daemon，镜像、网络和容器不共享；Forge 命令必须始终在同一套 daemon 上执行。
 - WSL 的 `127.0.0.1` 代理不能直接传入 Docker build；编译镜像代理必须使用容器可达地址。
+- Windows 代理只监听 loopback 时，WSL2 Docker 的 `host.docker.internal` 只到 Docker/WSL 网关，并不会自动进入 Windows loopback。模型请求必须通过仅绑定 Docker bridge 的受限 relay；不要让代理软件监听 `0.0.0.0` 或局域网地址。模型运行时代理使用独立 Compose override，不能改写 v7 冻结的基础 Compose 文件。
 - 后端全量 Ruff 当前有 4 个本次改动之外且与 `origin/main` 相同的既有错误：`scripts/check.py` 的 3 个 UP045 与 `scripts/forge_benchmark.py` 的 1 个 I001；本次改动文件的 Ruff check/format 已通过。
 - 成功 bash 记录只是候选 recipe；失败命令可能留下持久副作用。进入研究基线前必须在新容器与空 `/workspace`、`/artifacts` 中实际 replay，不能把 `repro_bundle` 生成成功等同于独立复现成功。
 - Windows 挂载目录在编译镜像中可能触发 Git `dubious ownership`；replay 初始化仓库后必须把 `/workspace/repo` 加入 `safe.directory`。
