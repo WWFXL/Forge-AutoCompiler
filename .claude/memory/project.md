@@ -5,6 +5,12 @@
 ## 进行中 (In Progress)
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
+- 2026-07-29 — Issue #78 正在冻结正式实验逐项目构建路径与 artifact oracle
+  - 文件: `benchmarks/preregistrations/cpp-formal-v1-cases.json`, `benchmarks/preregistrations/cpp-formal-v1-cases.md`, `scripts/forge_formal_case_protocol.py`, `backend/tests/test_forge_formal_case_protocol.py`
+  - 当前结果: 30/30 case 与 Issue #76 预注册 identity/分层一致，冻结 30 个精确 artifact oracle 与 77 条 exact-commit/OSS-Fuzz 证据；validator 与 18 个回归、协议/evidence 261 个回归、后端全量 `1798 passed, 28 skipped`，前端 lint/typecheck/build、Compose 与 0 orphan 通过。
+  - 审计修正: `jpegoptim` 固定提交使用 `configure.in + Makefile.in`；FreeRADIUS archive 位于 `build/lib/.libs`；uWebSockets 的 Linux 入口是 `GNUmakefile` 且 `capi` 为空操作，现固定 `examples -> HelloWorld`；`cppitertools` 固定独立 `examples/CMakeLists.txt -> accumulate_examples`。
+  - 边界: 0 模型请求、0 formal ledger，v1-v8 冻结资产不变；下一步为中文提交/PR、CI/合并和知识库同步，仍不授权 180-slot 采集。
+
 ## 最近变更 (Recent Changes)
 <!-- 倒序，最新在上。 -->
 
@@ -205,12 +211,15 @@
 
 - 清理与当前源码不一致的后端测试模块引用，例如 `backend/tests/test_aio_sandbox_local_backend.py:1` 和 `backend/tests/test_channels.py:14`。
 - 统一 `backend/tests/test_subagent_timeout_config.py:261` 对 `max_turns` 的期望值与当前实现默认值。
-- 正式实验预注册资产已由 Issue #76 / PR #77 提交；下一步是 30 个项目的文档级构建路径审计、case-specific 参数/artifact oracle 与新 manifest/Schema/runner/image/prompt 冻结。任何采集仍须单独 Issue 和用户预算确认。
+- Issue #78 的 30 项目文档级构建路径与 artifact oracle 已实现并通过本地验证；待中文 PR/CI/合并后，再冻结 formal manifest/Schema/runner/image/prompt。任何采集仍须单独 Issue 和用户预算确认。
 - 当前 `backend/packages/harness/deerflow/compile/manager.py` 的 lifecycle lock 是进程内锁；部署多个后端进程前，需要改为文件锁/数据库事务或带版本号的 CAS，并增加跨进程竞态测试。
 
 ## 已知问题 (Known Issues / Pitfalls)
 <!-- 工作中踩过的坑、限制或意外行为。 -->
 
+- 手机热点下 `github.com` 网页/Git 通道可能在 8 路并发时 76/76 请求均连接超时，而 `api.github.com` 串行请求仍可稳定核验 77 条证据；网络诊断必须区分主机、通道和并发度，证据 000/timeout 不能直接当作文件 404。
+- 后端全量测试从只读 `/repo` 运行时，`config-upgrade` 需要单独挂载有效 `/repo/backend/.venv`，live upload 需要 tmpfs `/repo/backend/.deer-flow`；否则会在业务断言前产生只读文件系统伪失败。
+- uWebSockets 同时存在 Windows NMake `Makefile` 和 Linux/macOS `GNUmakefile`；Linux C/C++ 协议不能只凭文件名优先级选择 `Makefile`，且该提交的 `capi`/`all` 分支明确为空操作，必须使用有实际产物的 GNU Make `examples` 路径。
 - OSS-Fuzz `project.yaml language` 与根 Makefile 只能建立候选样本框，不能单独证明上游 primary build path；例如 `esp-v2` 声明 C++ 且有 Makefile，但主 build target 编译 Go 服务。正式 protocolization 必须在结果盲态下做文档级 C/C++ 构建路径审计，静态排除/替换要在任何模型请求前公开冻结。
 - GitHub GraphQL 同时查询 40 个大型仓库的 root tree 会返回查询复杂度/参数拒绝；降为每批 20 个后 452 个仓库稳定完成。不要把该服务端查询限制误判为本机热点超时。
 - 临时 `/tmp` 文件不会自动继承仓库格式器上下文；本仓库实际 formatter 使用 120 字符行宽。格式化拷贝文件时应显式传 `--line-length 120`，再从真实 `/repo` 路径执行 `ruff format --check`。

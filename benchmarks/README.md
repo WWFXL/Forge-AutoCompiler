@@ -1,5 +1,26 @@
 # Forge C/C++ benchmark protocols
 
+## Formal per-case build protocol
+
+Issue #78 turns the 30-project preregistration into a result-blind,
+case-specific build contract without authorizing collection. Each case freezes
+its exact repository identity, source subdirectory, bootstrap/configure inputs,
+build targets, required system packages, staged artifact identity, and
+exact-commit upstream or OSS-Fuzz evidence:
+
+```bash
+python scripts/forge_formal_case_protocol.py validate
+python scripts/forge_formal_case_protocol.py render
+```
+
+The machine-readable source and deterministically generated Chinese review are
+`benchmarks/preregistrations/cpp-formal-v1-cases.json` and
+`benchmarks/preregistrations/cpp-formal-v1-cases.md`. The validator rejects
+project identity drift, unsafe or broad artifact paths, missing evidence,
+unpinned URLs, placeholders, result-informed review, and collection
+authorization. A later formal manifest, runtime preflight, and separately
+approved collection Issue remain required before any model request or ledger.
+
 ## Formal experiment preregistration
 
 Issue #76 preregisters a 30-project, dual-provider C/C++ formal experiment
