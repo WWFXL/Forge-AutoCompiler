@@ -10,11 +10,13 @@ from __future__ import annotations
 import argparse
 import asyncio
 import hashlib
+import importlib
 import json
 import os
 import platform
 import subprocess
 import sys
+import tempfile
 import urllib.error
 import urllib.request
 from pathlib import Path, PurePosixPath
@@ -75,6 +77,10 @@ _REPLAY_ARTIFACT_MISMATCH_ORDER = (
     "sha256",
     "smoke",
 )
+_BACKEND_VENV_ROOT = Path("/app/backend/.venv")
+_EVIDENCE_MOUNT_ROOT = Path("/workspace/.compile-sessions")
+_DEFAULT_EVIDENCE_DIR = _EVIDENCE_MOUNT_ROOT / "benchmark-evidence"
+_REQUIRED_RUNTIME_IMPORTS = ("deerflow.client",)
 
 
 def _sha256_file(path: Path) -> str | None:
@@ -179,12 +185,12 @@ def _compose_dood_present(repo_root: Path) -> bool:
     return False
 
 
-def _running_inside_compose_dood(repo_root: Path) -> bool:
+def _current_container_metadata(repo_root: Path) -> tuple[dict[str, Any] | None, list[dict[str, Any]] | None]:
     if not Path("/.dockerenv").is_file():
-        return False
+        return None, None
     container_id = os.environ.get("HOSTNAME", "").strip()
     if not container_id:
-        return False
+        return None, None
     labels_code, labels_json = _run_command(
         ["docker", "inspect", "--format", "{{json .Config.Labels}}", container_id],
         cwd=repo_root,
@@ -194,18 +200,114 @@ def _running_inside_compose_dood(repo_root: Path) -> bool:
         cwd=repo_root,
     )
     if labels_code != 0 or mounts_code != 0:
-        return False
+        return None, None
     try:
         labels = json.loads(labels_json)
         mounts = json.loads(mounts_json)
     except (TypeError, ValueError):
-        return False
+        return None, None
+    return (
+        labels if isinstance(labels, dict) else None,
+        mounts if isinstance(mounts, list) and all(isinstance(mount, dict) for mount in mounts) else None,
+    )
+
+
+def _running_inside_compose_dood(repo_root: Path) -> bool:
+    labels, mounts = _current_container_metadata(repo_root)
     return (
         isinstance(labels, dict)
+        and isinstance(mounts, list)
         and labels.get("com.docker.compose.project") == "deer-flow-dev"
         and labels.get("com.docker.compose.service") == "langgraph"
         and any(isinstance(mount, dict) and mount.get("Destination") == "/var/run/docker.sock" and mount.get("RW") is True for mount in mounts)
     )
+
+
+def _runner_interpreter_matches() -> bool:
+    return sys.prefix != sys.base_prefix and Path(sys.prefix) == _BACKEND_VENV_ROOT and Path(sys.executable).parent == _BACKEND_VENV_ROOT / "bin"
+
+
+def _runtime_imports_available() -> bool:
+    try:
+        for module_name in _REQUIRED_RUNTIME_IMPORTS:
+            importlib.import_module(module_name)
+    except Exception:
+        return False
+    return True
+
+
+def _evidence_mount_is_bind_rw(mounts: list[dict[str, Any]] | None) -> bool:
+    return bool(mounts and any(mount.get("Type") == "bind" and mount.get("Destination") == _EVIDENCE_MOUNT_ROOT.as_posix() and mount.get("RW") is True for mount in mounts))
+
+
+def _docker_socket_is_bind_rw(mounts: list[dict[str, Any]] | None) -> bool:
+    return bool(mounts and any(mount.get("Type") == "bind" and mount.get("Destination") == "/var/run/docker.sock" and mount.get("RW") is True for mount in mounts))
+
+
+def _evidence_output_checks(
+    output_dir: Path,
+    *,
+    mount_root: Path = _EVIDENCE_MOUNT_ROOT,
+) -> tuple[bool, bool]:
+    if not output_dir.is_absolute():
+        return False, False
+    try:
+        resolved_mount = mount_root.resolve(strict=True)
+        if resolved_mount != mount_root or mount_root.is_symlink():
+            return False, False
+        resolved_output = output_dir.resolve(strict=False)
+        relative_output = resolved_output.relative_to(resolved_mount)
+    except (OSError, ValueError):
+        return False, False
+    if not relative_output.parts:
+        return False, False
+
+    candidate = resolved_mount
+    for part in relative_output.parts:
+        candidate /= part
+        if candidate.is_symlink():
+            return False, False
+
+    temporary_path: Path | None = None
+    try:
+        resolved_output.mkdir(parents=True, exist_ok=True)
+        descriptor, temporary_name = tempfile.mkstemp(
+            prefix=".forge-runtime-preflight-",
+            dir=resolved_output,
+        )
+        temporary_path = Path(temporary_name)
+        with os.fdopen(descriptor, "wb") as stream:
+            stream.write(b"forge-runtime-preflight\n")
+            stream.flush()
+            os.fsync(stream.fileno())
+        temporary_path.unlink()
+    except OSError:
+        return True, False
+    finally:
+        if temporary_path is not None:
+            temporary_path.unlink(missing_ok=True)
+    return True, True
+
+
+def collect_runtime_launch_preflight(
+    output_dir: Path,
+    *,
+    repo_root: Path = REPO_ROOT,
+) -> dict[str, Any]:
+    labels, mounts = _current_container_metadata(repo_root)
+    compose_process = bool(labels and labels.get("com.docker.compose.project") == "deer-flow-dev" and labels.get("com.docker.compose.service") == "langgraph")
+    evidence_mount = _evidence_mount_is_bind_rw(mounts)
+    output_within_mount, output_writable = _evidence_output_checks(output_dir) if evidence_mount else (False, False)
+    checks = {
+        "runtime_process_is_langgraph_compose": compose_process,
+        "docker_socket_is_bind_rw": _docker_socket_is_bind_rw(mounts),
+        "runner_interpreter_matches": _runner_interpreter_matches(),
+        "runtime_imports_available": _runtime_imports_available(),
+        "evidence_mount_is_bind_rw": evidence_mount,
+        "evidence_output_within_mount": output_within_mount,
+        "evidence_output_writable": output_writable,
+    }
+    return {"ready": all(checks.values()), "checks": checks}
 
 
 def _manifest_case(manifest: dict[str, Any], case_id: str) -> dict[str, Any]:
@@ -329,6 +431,8 @@ def collect_preflight(
     *,
     repo_root: Path = REPO_ROOT,
     manifest_path: Path | None = None,
+    output_dir: Path = _DEFAULT_EVIDENCE_DIR,
+    runtime_launch: dict[str, Any] | None = None,
     check_endpoint: bool = True,
 ) -> dict[str, Any]:
     forge_state = _git_state(repo_root)
@@ -396,6 +500,11 @@ def collect_preflight(
         protocol_v7.CONTROL_PLANE_TOPOLOGY,
     }
     topology_matches = expected_topology is None or (expected_topology in compose_dood_topologies and compose_dood_present)
+    if runtime_launch is None:
+        runtime_launch = collect_runtime_launch_preflight(
+            output_dir,
+            repo_root=repo_root,
+        )
     checks = {
         "credential_present": _credential_present(model["credential_env"]),
         "endpoint_reachable": endpoint_reachable,
@@ -415,6 +524,7 @@ def collect_preflight(
         "memory_skills_disabled": condition_baseline,
         "instrumentation_unblocked": not manifest["scope"]["instrumentation_blocker"],
         "control_plane_topology_matches": topology_matches,
+        **runtime_launch["checks"],
     }
     required_checks = [
         checks["credential_present"],
@@ -429,11 +539,13 @@ def collect_preflight(
         checks["memory_skills_disabled"],
         checks["instrumentation_unblocked"],
         checks["control_plane_topology_matches"],
+        runtime_launch["ready"],
     ]
     if check_endpoint:
         required_checks.append(checks["endpoint_reachable"] is True)
     return {
         "ready": all(required_checks),
+        "launch_ready": runtime_launch["ready"],
         "manifest_sha256": _manifest_sha256(manifest),
         "manifest_file_sha256": _sha256_file(
             manifest_path
@@ -528,6 +640,12 @@ def create_attempt(
         condition_id=condition_id,
         repetition=repetition,
     )
+    runtime_launch = collect_runtime_launch_preflight(
+        output_dir,
+        repo_root=repo_root,
+    )
+    if runtime_launch["ready"] is not True:
+        raise RunnerError("Runtime launch preflight failed before physical-attempt ledger creation")
     existing = find_slot_ledgers(output_dir, policy)
     if existing and replacement_for is None:
         raise RunnerError("This benchmark slot already has physical evidence; create an explicit replacement attempt")
@@ -544,6 +662,8 @@ def create_attempt(
         manifest,
         repo_root=repo_root,
         manifest_path=manifest_path,
+        output_dir=output_dir,
+        runtime_launch=runtime_launch,
         check_endpoint=check_endpoint,
     )
     experiment_id = replacement_event["experiment_id"] if replacement_event is not None else new_evidence_id("experiment")
@@ -1234,7 +1354,10 @@ def _build_parser() -> argparse.ArgumentParser:
     )
     common.add_argument("--skip-endpoint-check", action="store_true")
 
-    subparsers.add_parser("preflight", parents=[common])
+    runtime_preflight = subparsers.add_parser("runtime-preflight")
+    runtime_preflight.add_argument("--output-dir", type=Path, required=True)
+    preflight = subparsers.add_parser("preflight", parents=[common])
+    preflight.add_argument("--output-dir", type=Path, required=True)
     create = subparsers.add_parser("create-attempt", parents=[common])
     create.add_argument("--case", required=True)
     create.add_argument("--condition", default="baseline")
@@ -1242,7 +1365,7 @@ def _build_parser() -> argparse.ArgumentParser:
     create.add_argument(
         "--output-dir",
         type=Path,
-        default=REPO_ROOT / "benchmarks" / "evidence",
+        required=True,
     )
     create.add_argument("--replacement-for")
 
@@ -1256,11 +1379,16 @@ def _build_parser() -> argparse.ArgumentParser:
 def main(argv: list[str] | None = None) -> int:
     args = _build_parser().parse_args(argv)
     try:
+        if args.command == "runtime-preflight":
+            result = collect_runtime_launch_preflight(args.output_dir)
+            _json_print(result)
+            return 0 if result["ready"] else 2
         manifest = _load_manifest(args.manifest)
         if args.command == "preflight":
             result = collect_preflight(
                 manifest,
                 manifest_path=args.manifest,
+                output_dir=args.output_dir,
                 check_endpoint=not args.skip_endpoint_check,
             )
             _json_print(result)

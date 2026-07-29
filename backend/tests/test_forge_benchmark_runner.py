@@ -62,6 +62,7 @@ def load_v7_manifest() -> dict:
 def ready_preflight(manifest: dict, *, ready: bool = True) -> dict:
     return {
         "ready": ready,
+        "launch_ready": True,
         "manifest_sha256": forge_benchmark_runner._manifest_sha256(manifest),
         "manifest_file_sha256": "1" * 64,
         "forge": {
@@ -79,6 +80,28 @@ def ready_preflight(manifest: dict, *, ready: bool = True) -> dict:
         },
         "checks": {"fixture_ready": ready},
     }
+
+
+def ready_runtime_launch() -> dict:
+    checks = {
+        "runtime_process_is_langgraph_compose": True,
+        "docker_socket_is_bind_rw": True,
+        "runner_interpreter_matches": True,
+        "runtime_imports_available": True,
+        "evidence_mount_is_bind_rw": True,
+        "evidence_output_within_mount": True,
+        "evidence_output_writable": True,
+    }
+    return {"ready": True, "checks": checks}
+
+
+@pytest.fixture(autouse=True)
+def _runtime_launch_ready(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setattr(
+        forge_benchmark_runner,
+        "collect_runtime_launch_preflight",
+        lambda *_args, **_kwargs: ready_runtime_launch(),
+    )
 
 
 def test_build_policy_applies_frozen_case_and_model_constraints() -> None:
@@ -198,6 +221,11 @@ def test_runnable_preflight_accepts_clean_descendant_with_frozen_components(
     monkeypatch.setattr(forge_benchmark_runner, "_credential_present", lambda _name: True)
     monkeypatch.setattr(forge_benchmark_runner, "_endpoint_reachable", lambda _endpoint: True)
     monkeypatch.setattr(forge_benchmark_runner, "_compose_dood_present", lambda _repo_root: True)
+    monkeypatch.setattr(
+        forge_benchmark_runner,
+        "collect_runtime_launch_preflight",
+        lambda *_args, **_kwargs: ready_runtime_launch(),
+    )
 
     def docker_state(arguments: list[str], *, cwd: Path = REPO_ROOT) -> tuple[int, str]:
         del cwd
@@ -239,6 +267,14 @@ def test_runnable_preflight_rejects_missing_baseline_or_compose_dood(
     )
     monkeypatch.setattr(forge_benchmark_runner, "_baseline_is_ancestor", lambda *_args: False)
     monkeypatch.setattr(forge_benchmark_runner, "_compose_dood_present", lambda _repo_root: False)
+    monkeypatch.setattr(
+        forge_benchmark_runner,
+        "collect_runtime_launch_preflight",
+        lambda *_args, **_kwargs: {
+            "ready": False,
+            "checks": {key: False for key in ready_runtime_launch()["checks"]},
+        },
+    )
     monkeypatch.setattr(forge_benchmark_runner, "_sha256_file", lambda _path: None)
     monkeypatch.setattr(forge_benchmark_runner, "_credential_present", lambda _name: True)
     monkeypatch.setattr(forge_benchmark_runner, "_endpoint_reachable", lambda _endpoint: True)
@@ -315,6 +351,39 @@ def test_create_attempt_rejects_duplicate_slot_and_links_explicit_replacement(
     assert replacement.read()[0]["payload"]["replacement_for_physical_attempt_id"] == original.physical_attempt_id
 
 
+def test_create_attempt_rejects_runtime_launch_failure_before_creating_ledger(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    manifest = load_manifest()
+    monkeypatch.setattr(
+        forge_benchmark_runner,
+        "collect_runtime_launch_preflight",
+        lambda *args, **kwargs: {
+            "ready": False,
+            "checks": {"runner_interpreter_matches": False},
+        },
+    )
+    monkeypatch.setattr(
+        forge_benchmark_runner,
+        "collect_preflight",
+        lambda *args, **kwargs: (_ for _ in ()).throw(
+            AssertionError("full preflight must not run"),
+        ),
+    )
+
+    with pytest.raises(forge_benchmark_runner.RunnerError, match="before physical-attempt ledger"):
+        forge_benchmark_runner.create_attempt(
+            manifest,
+            case_id="fmt",
+            condition_id="baseline",
+            repetition=1,
+            output_dir=tmp_path,
+        )
+
+    assert not list(tmp_path.rglob("*.jsonl"))
+
+
 def test_run_refuses_failed_preflight_before_importing_model_client(
     tmp_path: Path,
     monkeypatch: pytest.MonkeyPatch,
@@ -375,9 +444,132 @@ def test_runnable_run_refuses_non_compose_process_before_model_request(
 
 
 def test_runner_defaults_to_v7_manifest() -> None:
-    args = forge_benchmark_runner._build_parser().parse_args(["preflight"])
+    args = forge_benchmark_runner._build_parser().parse_args(
+        [
+            "preflight",
+            "--output-dir",
+            "/workspace/.compile-sessions/benchmark-evidence-v8",
+        ]
+    )
 
     assert args.manifest == REPO_ROOT / "benchmarks" / "manifests" / "cpp-pilot-v7.json"
+
+
+def test_runtime_preflight_requires_explicit_output_directory() -> None:
+    with pytest.raises(SystemExit):
+        forge_benchmark_runner._build_parser().parse_args(["runtime-preflight"])
+
+
+def test_runner_interpreter_requires_backend_virtual_environment(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.setattr(forge_benchmark_runner.sys, "prefix", "/usr/local")
+    monkeypatch.setattr(forge_benchmark_runner.sys, "base_prefix", "/usr/local")
+    monkeypatch.setattr(forge_benchmark_runner.sys, "executable", "/usr/local/bin/python3")
+
+    assert forge_benchmark_runner._runner_interpreter_matches() is False
+
+    monkeypatch.setattr(forge_benchmark_runner.sys, "prefix", "/app/backend/.venv")
+    monkeypatch.setattr(forge_benchmark_runner.sys, "base_prefix", "/usr/local")
+    monkeypatch.setattr(forge_benchmark_runner.sys, "executable", "/app/backend/.venv/bin/python")
+
+    assert forge_benchmark_runner._runner_interpreter_matches() is True
+
+
+def test_runtime_import_failure_is_bounded(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.setattr(
+        forge_benchmark_runner.importlib,
+        "import_module",
+        lambda _name: (_ for _ in ()).throw(ModuleNotFoundError("private details")),
+    )
+
+    assert forge_benchmark_runner._runtime_imports_available() is False
+
+
+def test_evidence_output_checks_require_mount_containment_and_writability(
+    tmp_path: Path,
+) -> None:
+    mount_root = tmp_path / "compile-sessions"
+    mount_root.mkdir()
+    output_dir = mount_root / "benchmark-evidence-v8"
+
+    assert forge_benchmark_runner._evidence_output_checks(
+        output_dir,
+        mount_root=mount_root,
+    ) == (True, True)
+    assert not list(output_dir.glob(".forge-runtime-preflight-*"))
+    assert forge_benchmark_runner._evidence_output_checks(
+        tmp_path / "outside",
+        mount_root=mount_root,
+    ) == (False, False)
+    assert forge_benchmark_runner._evidence_output_checks(
+        mount_root,
+        mount_root=mount_root,
+    ) == (False, False)
+
+
+def test_evidence_output_checks_report_unwritable_without_error_details(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    mount_root = tmp_path / "compile-sessions"
+    mount_root.mkdir()
+    output_dir = mount_root / "benchmark-evidence-v8"
+    monkeypatch.setattr(
+        forge_benchmark_runner.tempfile,
+        "mkstemp",
+        lambda **_kwargs: (_ for _ in ()).throw(PermissionError("private path details")),
+    )
+
+    assert forge_benchmark_runner._evidence_output_checks(
+        output_dir,
+        mount_root=mount_root,
+    ) == (True, False)
+
+
+@pytest.mark.parametrize(
+    "mount",
+    [
+        {
+            "Type": "volume",
+            "Destination": "/workspace/.compile-sessions",
+            "RW": True,
+        },
+        {
+            "Type": "bind",
+            "Destination": "/workspace/.compile-sessions",
+            "RW": False,
+        },
+        {
+            "Type": "bind",
+            "Destination": "/workspace/other",
+            "RW": True,
+        },
+    ],
+)
+def test_evidence_mount_requires_exact_writable_bind(mount: dict) -> None:
+    assert forge_benchmark_runner._evidence_mount_is_bind_rw([mount]) is False
+
+
+def test_evidence_output_checks_reject_symlink_escape(
+    tmp_path: Path,
+) -> None:
+    mount_root = tmp_path / "compile-sessions"
+    outside = tmp_path / "outside"
+    mount_root.mkdir()
+    outside.mkdir()
+    link = mount_root / "linked"
+    try:
+        link.symlink_to(outside, target_is_directory=True)
+    except OSError:
+        pytest.skip("directory symlinks are unavailable")
+
+    assert forge_benchmark_runner._evidence_output_checks(
+        link / "evidence",
+        mount_root=mount_root,
+    ) == (False, False)
 
 
 def test_keyboard_interrupt_keeps_attempt_recoverable_and_reconciles_orphans(
