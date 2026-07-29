@@ -1,0 +1,593 @@
+{
+  "schema_version": "1.0.0",
+  "document_type": "preregistration",
+  "preregistration": {
+    "id": "forge-cpp-formal-v1",
+    "title": "Forge C/C++ dual-provider stratified formal experiment",
+    "date": "2026-07-29",
+    "status": "frozen_before_collection",
+    "github_issue": "https://github.com/WWFXL/Forge-AutoCompiler/issues/76",
+    "collection_authorized": false,
+    "formal_comparison_enabled": true,
+    "languages": [
+      "C",
+      "C++"
+    ],
+    "supported_build_systems": [
+      "cmake",
+      "make",
+      "autotools"
+    ]
+  },
+  "source_frame": {
+    "name": "OSS-Fuzz accepted-project metadata",
+    "snapshot_repository": "https://github.com/google/oss-fuzz",
+    "snapshot_commit": "08682bfc14e31d12fcc94b52b4805d7994fb70fd",
+    "snapshot_commit_date": "2026-07-29T13:25:33Z",
+    "project_yaml_count": 1369,
+    "c_cpp_project_count": 577,
+    "github_repository_count": 473,
+    "deduplicated_static_candidate_count": 452,
+    "eligible_candidate_count": 182,
+    "eligible_strata": {
+      "autotools": {
+        "small": 18,
+        "medium": 27,
+        "large": 12
+      },
+      "cmake": {
+        "small": 25,
+        "medium": 62,
+        "large": 25
+      },
+      "make": {
+        "small": 5,
+        "medium": 5,
+        "large": 3
+      }
+    },
+    "eligibility_rules": [
+      "OSS-Fuzz project.yaml language is c or c++",
+      "main_repo is a canonical public GitHub HTTPS repository URL",
+      "repository is not archived and is not a fork",
+      "GitHub exposes an SPDX license other than NOASSERTION or OTHER",
+      "repository disk usage is between 100 and 200000 KiB inclusive",
+      "the exact default-branch commit has a root configure.ac/configure.in, CMakeLists.txt, Makefile, or GNUmakefile",
+      "OSS-Fuzz project and repository names do not identify a fuzz, example, or test-only project"
+    ],
+    "build_system_priority": [
+      "autotools",
+      "cmake",
+      "make"
+    ],
+    "size_strata_kib": {
+      "small": {
+        "minimum": 100,
+        "maximum": 5000
+      },
+      "medium": {
+        "minimum": 5001,
+        "maximum": 50000
+      },
+      "large": {
+        "minimum": 50001,
+        "maximum": 200000
+      }
+    },
+    "target_per_build_system": {
+      "small": 3,
+      "medium": 4,
+      "large": 3
+    },
+    "selection_seed": "issue76-v1",
+    "selection_key": "sha256(seed|lowercase_owner_repo|exact_commit|build_system|size_stratum)",
+    "pre_collection_exclusions": [
+      {
+        "source_project_id": "esp-v2",
+        "repository_url": "https://github.com/GoogleCloudPlatform/esp-v2",
+        "commit": "f619c528031334123d800bd2a5a8bac878776283",
+        "stratum": "make-medium",
+        "selection_rank": 3,
+        "reason": "root Makefile build target compiles Go services, so it is not a native C/C++ Make case",
+        "replacement_case_id": "fio",
+        "timing": "before any formal model request"
+      }
+    ],
+    "replacement_policy": "After this preregistration is merged, no case may be replaced silently. A static incompatibility discovered before collection requires a public amendment, the next selection-hash candidate in the same stratum, and a new frozen protocol. Once any formal ledger exists, replacement and backfill are forbidden."
+  },
+  "conditions": [
+    {
+      "id": "richlab-gpt-5.5",
+      "endpoint": "https://richlab-api-x.choosefire.com/v1",
+      "credential_env": "OpenAI_AK",
+      "lead_model": "gpt-5.5",
+      "compiler_model": "gpt-5.5",
+      "fallback_policy": "forbidden",
+      "provider_retries": 0
+    },
+    {
+      "id": "deepseek-v4-flash",
+      "endpoint": "https://api.deepseek.com",
+      "credential_env": "DEEPSEEK_API_KEY",
+      "lead_model": "deepseek-v4-flash",
+      "compiler_model": "deepseek-v4-flash",
+      "fallback_policy": "forbidden",
+      "provider_retries": 0
+    }
+  ],
+  "design": {
+    "unit_of_generalization": "project",
+    "blocking_unit": "project",
+    "repetitions_per_project_condition": 3,
+    "rounds": 3,
+    "project_count": 30,
+    "condition_count": 2,
+    "planned_attempt_count": 180,
+    "sample_size_rationale": "Thirty projects provide ten projects per supported build system and balanced 3/4/3 size cells. Three repetitions per project-condition expose stochastic run variance. The count is a resource-constrained stratified design, not a power estimate derived from the 5x1 v8 pilot.",
+    "max_parallel_runs": 1,
+    "schedule_seed": "forge-cpp-formal-v1-schedule",
+    "schedule_algorithm": "For each repetition round, sort projects by sha256(seed|round|case_id); within each project-round pair, sort conditions by sha256(seed|round|case_id|condition_id).",
+    "schedule_sha256": "9cfca53bb8c7ab8f07eb5c9a852383eb1877dc377cf56bb834b8eee3587fa469",
+    "attempt_policy": "Every scheduled tuple is unique and consumed at most once. No retry, fallback, replacement, backfill, or condition pooling is allowed after its ledger is created.",
+    "pre_ledger_pause_policy": "If runtime, credential, network, endpoint-canary, writable-evidence, Docker, Git, or frozen-component preflight fails before ledger creation, pause without consuming or reordering the next slot.",
+    "post_ledger_failure_policy": "After ledger creation, every terminal failure remains an observed attempt and the schedule advances only after finalize and orphan reconciliation."
+  },
+  "outcomes": {
+    "primary": {
+      "name": "end_to_end_oracle_pass",
+      "type": "binary",
+      "definition": "The frozen artifact oracle passes after submit and independent clean replay.",
+      "estimand": "Equal-project average difference in three-run success proportions, DeepSeek condition minus RichLab condition.",
+      "interpretation": "A deployed condition effect including its provider path; it is not a model-only capability effect."
+    },
+    "secondary": [
+      "clean_replay_pass",
+      "false_acceptance_prevented",
+      "model_requests_started_completed_failed",
+      "total_tokens",
+      "physical_attempt_wall_clock_seconds",
+      "compiler_commands",
+      "submit_attempts",
+      "failure_domain",
+      "finalization_success",
+      "orphan_container_count"
+    ],
+    "failure_domains": [
+      "model_endpoint",
+      "agent_tool",
+      "build",
+      "submit_replay",
+      "completion"
+    ]
+  },
+  "analysis": {
+    "project_score": "For each project and condition, divide oracle-passed attempts by 3. Subtract RichLab from DeepSeek, then average the 30 project differences with equal project weight.",
+    "confirmatory_test": "Two-sided exact project-block sign-flip permutation test over the 30 integer success-count differences; enumerate the distribution by dynamic programming rather than Monte Carlo.",
+    "confidence_interval": "Two-sided 95% percentile cluster bootstrap over projects with 100000 resamples and seed forge-cpp-formal-v1-bootstrap.",
+    "alpha": 0.05,
+    "stratified_results": "Report build-system and size-stratum estimates with descriptive confidence intervals; they are not separately confirmatory.",
+    "endpoint_failures": "Remain failures in the primary end-to-end estimand and are also reported separately as reliability outcomes. Any endpoint-free subset is exploratory and cannot support a model-capability claim.",
+    "missing_data": "A created ledger cannot be discarded. Corrupt, missing, or unterminated evidence blocks confirmatory analysis until resolved as an evidence-integrity incident without rewriting the original ledger.",
+    "multiplicity": "Only the primary condition contrast is confirmatory. Secondary and subgroup results are descriptive.",
+    "allowed_claim": "Difference between the two frozen deployed conditions on this stratified sample under the frozen Forge runtime.",
+    "forbidden_claims": [
+      "one foundation model is universally better than the other",
+      "endpoint timeout proves model incapability",
+      "results generalize to languages or build systems outside the frozen scope",
+      "conditional endpoint-free analysis is a causal model comparison"
+    ]
+  },
+  "network_metadata": {
+    "required_before_each_attempt": [
+      "access_medium",
+      "restricted_relay_enabled",
+      "endpoint_canary_latency_ms",
+      "network_present",
+      "endpoint_reachable",
+      "control_plane_topology"
+    ],
+    "access_medium_values": [
+      "wired",
+      "wifi",
+      "mobile_hotspot",
+      "unknown"
+    ],
+    "forbidden_fields": [
+      "ssid",
+      "ip_address",
+      "carrier_account",
+      "proxy_credential",
+      "api_key",
+      "authorization_header"
+    ],
+    "interpretation": "Access metadata describes the end-to-end request path and supports reliability stratification. It must not be retroactively inferred or used for post-outcome exclusion."
+  },
+  "resource_projection_from_v8": {
+    "reference_attempts": 10,
+    "reference_total_tokens": 1306532,
+    "reference_total_wall_clock_seconds": 5008.122,
+    "reference_model_requests_started": 191,
+    "planned_attempts": 180,
+    "linear_projected_tokens": 23517576,
+    "linear_projected_wall_clock_seconds": 90146.196,
+    "linear_projected_serial_hours": 25.041,
+    "linear_projected_model_requests": 3438,
+    "planning_contingency_multiplier": 1.25,
+    "contingency_tokens": 29396970,
+    "contingency_serial_hours": 31.301,
+    "interpretation": "This is a planning extrapolation from a 5x1 calibration, not a cost guarantee or power calculation.",
+    "human_confirmation_required_before_collection": true
+  },
+  "protocolization_gate": [
+    "all 30 exact commits remain fetchable without credentials",
+    "the selected CMake/Make/Autotools path is documented and compatible with native Linux x86_64 GCC13",
+    "case-specific configure/build arguments and expected artifact identities are reviewed",
+    "the formal manifest, Schema, validator, runner components, image ID, timeouts, budgets, prompts, and topology are frozen",
+    "both provider canaries pass from the actual LangGraph container",
+    "the 180-slot schedule digest is reviewed",
+    "the repository and writable evidence mount are clean and preflight-ready",
+    "the user explicitly authorizes the projected model usage and collection Issue"
+  ],
+  "cases": [
+    {
+      "id": "powerdns",
+      "source_project_id": "powerdns",
+      "repository_url": "https://github.com/PowerDNS/pdns",
+      "commit": "211f7ec30208100b44010e71cac4712878821243",
+      "language": "C++",
+      "build_system": "autotools",
+      "size_stratum": "large",
+      "repository_size_kib": 112293,
+      "license_spdx": "GPL-2.0",
+      "selection_hash": "06c4a70f1602dbb3101fb7f174f6d7c9f581425686c360a6ce3863910db731cc"
+    },
+    {
+      "id": "liblouis",
+      "source_project_id": "liblouis",
+      "repository_url": "https://github.com/liblouis/liblouis",
+      "commit": "b52ab11ade4cf0917315991b54a8558a2589cf55",
+      "language": "C",
+      "build_system": "autotools",
+      "size_stratum": "large",
+      "repository_size_kib": 113037,
+      "license_spdx": "LGPL-2.1",
+      "selection_hash": "252995471fb2c9731468a8a2b896f17c41c921de2730f43cfbd7f2a08480e08c"
+    },
+    {
+      "id": "freeradius",
+      "source_project_id": "freeradius",
+      "repository_url": "https://github.com/FreeRADIUS/freeradius-server",
+      "commit": "0b778ffcd109b4590b056c48822beff77a46927b",
+      "language": "C++",
+      "build_system": "autotools",
+      "size_stratum": "large",
+      "repository_size_kib": 176201,
+      "license_spdx": "GPL-2.0",
+      "selection_hash": "2e672a67a2b1c419472765f563b9be7bf54e7566d155389fcf2e89a0477b5ca3"
+    },
+    {
+      "id": "c-ares",
+      "source_project_id": "c-ares",
+      "repository_url": "https://github.com/c-ares/c-ares",
+      "commit": "589b5887d47736e5b70a1fddaf9bf90297adde65",
+      "language": "C++",
+      "build_system": "autotools",
+      "size_stratum": "medium",
+      "repository_size_kib": 9902,
+      "license_spdx": "MIT",
+      "selection_hash": "051b2af9e840bff491244a0969ce057dce9809dc29d8baf659685d59c884111f"
+    },
+    {
+      "id": "fftw3",
+      "source_project_id": "fftw3",
+      "repository_url": "https://github.com/fftw/fftw3",
+      "commit": "93ed4c786934aec9946f8dda4b4e3eb08f8be41c",
+      "language": "C++",
+      "build_system": "autotools",
+      "size_stratum": "medium",
+      "repository_size_kib": 11782,
+      "license_spdx": "GPL-2.0",
+      "selection_hash": "0b69e6774a1da72c612985f64fd9423195c913b085baed066db3d83b97478ec6"
+    },
+    {
+      "id": "libusb",
+      "source_project_id": "libusb",
+      "repository_url": "https://github.com/libusb/libusb",
+      "commit": "6bb97402df0ec0c09defcbd4f5146447c7f7cc53",
+      "language": "C++",
+      "build_system": "autotools",
+      "size_stratum": "medium",
+      "repository_size_kib": 5979,
+      "license_spdx": "LGPL-2.1",
+      "selection_hash": "0d6d18cce958bba01edb62d561ab49c70dd21bae6fa0b8b63cacbafbc220d7b2"
+    },
+    {
+      "id": "janus-gateway",
+      "source_project_id": "janus-gateway",
+      "repository_url": "https://github.com/meetecho/janus-gateway",
+      "commit": "4602fcc5315b77dce2a5d8363a4286ac672183b1",
+      "language": "C++",
+      "build_system": "autotools",
+      "size_stratum": "medium",
+      "repository_size_kib": 46368,
+      "license_spdx": "GPL-3.0",
+      "selection_hash": "386362c67fb833728a2a7bbc643d3cd6a6654b5d2f4d7c4da75de0e4f14c3fee"
+    },
+    {
+      "id": "numactl",
+      "source_project_id": "numactl",
+      "repository_url": "https://github.com/numactl/numactl",
+      "commit": "93c1fe5fabf38502ca315598bf74699c41300df9",
+      "language": "C",
+      "build_system": "autotools",
+      "size_stratum": "small",
+      "repository_size_kib": 1909,
+      "license_spdx": "GPL-2.0",
+      "selection_hash": "0f3016191c42ced61c01e12699b3683c504ef7de021742effa343d02e891b0ba"
+    },
+    {
+      "id": "libass",
+      "source_project_id": "libass",
+      "repository_url": "https://github.com/libass/libass",
+      "commit": "f9fd3d20dff1cd84b7c74c8ae7f79711ad7736fa",
+      "language": "C++",
+      "build_system": "autotools",
+      "size_stratum": "small",
+      "repository_size_kib": 3639,
+      "license_spdx": "ISC",
+      "selection_hash": "2bdf823833bcec468c3f75e8acd1927e336b1bf1800982487f080eb1f053fd2a"
+    },
+    {
+      "id": "jpegoptim",
+      "source_project_id": "jpegoptim",
+      "repository_url": "https://github.com/tjko/jpegoptim",
+      "commit": "14a3155acccdcbbfa4ea0d1d2fa11ffb9a373191",
+      "language": "C",
+      "build_system": "autotools",
+      "size_stratum": "small",
+      "repository_size_kib": 926,
+      "license_spdx": "GPL-3.0",
+      "selection_hash": "483e84305009a63dffda08a348dbf3d045c0ebcd5104dc53e65ddc3acd0d57bb"
+    },
+    {
+      "id": "open62541",
+      "source_project_id": "open62541",
+      "repository_url": "https://github.com/open62541/open62541",
+      "commit": "712aec6e8ca5f85d35b8f070077c20528fcbf18f",
+      "language": "C++",
+      "build_system": "cmake",
+      "size_stratum": "large",
+      "repository_size_kib": 55326,
+      "license_spdx": "MPL-2.0",
+      "selection_hash": "04350f174f433c1d3bb5c7adcfabf9cd2b6e65bd9e68818303b0b327084ea75f"
+    },
+    {
+      "id": "openthread",
+      "source_project_id": "openthread",
+      "repository_url": "https://github.com/openthread/openthread",
+      "commit": "044aa98f1b5255731e0a6f2816e267b282299684",
+      "language": "C++",
+      "build_system": "cmake",
+      "size_stratum": "large",
+      "repository_size_kib": 127894,
+      "license_spdx": "BSD-3-Clause",
+      "selection_hash": "20720096bb89ccb63e31ac6c33aafb4be71ba5a362613b2e16c7e02cab5a723a"
+    },
+    {
+      "id": "firestore",
+      "source_project_id": "firestore",
+      "repository_url": "https://github.com/firebase/firebase-ios-sdk",
+      "commit": "1111d6715d897e4af0b33eef1832721612fbfedb",
+      "language": "C++",
+      "build_system": "cmake",
+      "size_stratum": "large",
+      "repository_size_kib": 81202,
+      "license_spdx": "Apache-2.0",
+      "selection_hash": "22e61470a24feee83713fa3dd1b981091341dc629382c3a618dd2f685d7d2b05"
+    },
+    {
+      "id": "pupnp",
+      "source_project_id": "pupnp",
+      "repository_url": "https://github.com/pupnp/pupnp",
+      "commit": "4c4285d6af69774b7ec6a9a93dc967dc9e9e6d8e",
+      "language": "C",
+      "build_system": "cmake",
+      "size_stratum": "medium",
+      "repository_size_kib": 9439,
+      "license_spdx": "BSD-3-Clause",
+      "selection_hash": "08a5da8850b57c1db61cad1e8f0841981837a97ec2421638b1486fa9e073ca7a"
+    },
+    {
+      "id": "ada-url",
+      "source_project_id": "ada-url",
+      "repository_url": "https://github.com/ada-url/ada",
+      "commit": "30f3f3020c5a979b62f90dc9c37fd45de3cc84d7",
+      "language": "C++",
+      "build_system": "cmake",
+      "size_stratum": "medium",
+      "repository_size_kib": 29736,
+      "license_spdx": "Apache-2.0",
+      "selection_hash": "0de55e1f020e812aed3b0fd73990e254104061da3564d323ebae0993ca6b5fba"
+    },
+    {
+      "id": "libspdm",
+      "source_project_id": "libspdm",
+      "repository_url": "https://github.com/DMTF/libspdm",
+      "commit": "1cc1f1f51696f1cb657e59ed4c58a6064c8b948f",
+      "language": "C",
+      "build_system": "cmake",
+      "size_stratum": "medium",
+      "repository_size_kib": 41416,
+      "license_spdx": "BSD-3-Clause",
+      "selection_hash": "0df69115feb7f8d9cb4866133ac0ad9f0eaa399e23a6ef112cb1216464e3698a"
+    },
+    {
+      "id": "sentencepiece",
+      "source_project_id": "sentencepiece",
+      "repository_url": "https://github.com/google/sentencepiece",
+      "commit": "1192370fbb50ee8cde9056bdd1055073917e59dc",
+      "language": "C++",
+      "build_system": "cmake",
+      "size_stratum": "medium",
+      "repository_size_kib": 30048,
+      "license_spdx": "Apache-2.0",
+      "selection_hash": "0fa564784389002ba740ac5eb7df3b9493cc331c76975e7fcb3307bcc366e6e8"
+    },
+    {
+      "id": "args",
+      "source_project_id": "args",
+      "repository_url": "https://github.com/Taywee/args",
+      "commit": "fe4450bd9549e4e02bc2047b2a2800b09f1bb878",
+      "language": "C++",
+      "build_system": "cmake",
+      "size_stratum": "small",
+      "repository_size_kib": 3077,
+      "license_spdx": "MIT",
+      "selection_hash": "27ca8f8e5e8e4a7deed6dbe15f0b1b8ea1f72826503982dec8d58cd37c8cd829"
+    },
+    {
+      "id": "yyjson",
+      "source_project_id": "yyjson",
+      "repository_url": "https://github.com/ibireme/yyjson",
+      "commit": "9365ddc7061033df656578bf86040048b5b5531a",
+      "language": "C",
+      "build_system": "cmake",
+      "size_stratum": "small",
+      "repository_size_kib": 4571,
+      "license_spdx": "MIT",
+      "selection_hash": "2f619f2ed078bed748fbd7ffabb7bbbe41ecab446020a33c6ab999f95778b1f3"
+    },
+    {
+      "id": "cppitertools",
+      "source_project_id": "cppitertools",
+      "repository_url": "https://github.com/ryanhaining/cppitertools",
+      "commit": "531b3d753d2bbfe3b0ababe61c2e95e965c54a66",
+      "language": "C++",
+      "build_system": "cmake",
+      "size_stratum": "small",
+      "repository_size_kib": 1765,
+      "license_spdx": "BSD-2-Clause",
+      "selection_hash": "413fcc6925d3c22bb3864c17e77910d68fc82a58220da52f11497bee0f6a51f0"
+    },
+    {
+      "id": "mupdf",
+      "source_project_id": "mupdf",
+      "repository_url": "https://github.com/ArtifexSoftware/mupdf",
+      "commit": "b29caae1ab8c602187d4fc36d7b540bac493635d",
+      "language": "C++",
+      "build_system": "make",
+      "size_stratum": "large",
+      "repository_size_kib": 130000,
+      "license_spdx": "AGPL-3.0",
+      "selection_hash": "a17ba5d7b9f030d64d019c93ccb59c00e735fc0e3e3d742b122c01c130106583"
+    },
+    {
+      "id": "openh264",
+      "source_project_id": "openh264",
+      "repository_url": "https://github.com/cisco/openh264",
+      "commit": "4a2615fac570c6ca1ed4f157b9fdab9466edfd80",
+      "language": "C++",
+      "build_system": "make",
+      "size_stratum": "large",
+      "repository_size_kib": 128356,
+      "license_spdx": "BSD-2-Clause",
+      "selection_hash": "ea888badc2e9cfdd1303520d0ad4063cde637cb15a1333a455bf8a581459ad0f"
+    },
+    {
+      "id": "gpac",
+      "source_project_id": "gpac",
+      "repository_url": "https://github.com/gpac/gpac",
+      "commit": "2aa431eaf732c1a7e9a966ea12049fc001d91e04",
+      "language": "C",
+      "build_system": "make",
+      "size_stratum": "large",
+      "repository_size_kib": 151744,
+      "license_spdx": "LGPL-2.1",
+      "selection_hash": "f28da06a1b45d35f3ab64b99c72fbc32b100d28e39c69a71b688e009f0df6712"
+    },
+    {
+      "id": "janet",
+      "source_project_id": "janet",
+      "repository_url": "https://github.com/janet-lang/janet",
+      "commit": "c0b32d4e3798d0ceaf4131e642e59602a31ce151",
+      "language": "C++",
+      "build_system": "make",
+      "size_stratum": "medium",
+      "repository_size_kib": 14816,
+      "license_spdx": "MIT",
+      "selection_hash": "43ee535bab40f727f50fb8ac2267466c45383aeabf3e90156164a3e0e416f2b4"
+    },
+    {
+      "id": "uwebsockets",
+      "source_project_id": "uwebsockets",
+      "repository_url": "https://github.com/uNetworking/uWebSockets",
+      "commit": "fe7c01a477b688a7743f754fee33bdd78d52ad91",
+      "language": "C++",
+      "build_system": "make",
+      "size_stratum": "medium",
+      "repository_size_kib": 5760,
+      "license_spdx": "Apache-2.0",
+      "selection_hash": "4658b986221eee4269c2df4f87faa0658089334ce1a15b86326809badd39001f"
+    },
+    {
+      "id": "mruby",
+      "source_project_id": "mruby",
+      "repository_url": "https://github.com/mruby/mruby",
+      "commit": "33b228bdbed842efc88a62e5b139dd2c358f08d5",
+      "language": "C++",
+      "build_system": "make",
+      "size_stratum": "medium",
+      "repository_size_kib": 31427,
+      "license_spdx": "MIT",
+      "selection_hash": "b6f7bc447de1fa543aa993730f210ceb526322b11370b8f605958e192e64ef71"
+    },
+    {
+      "id": "fio",
+      "source_project_id": "fio",
+      "repository_url": "https://github.com/axboe/fio",
+      "commit": "c76c61b0fbe1b90a7886b8790805cf9903285074",
+      "language": "C++",
+      "build_system": "make",
+      "size_stratum": "medium",
+      "repository_size_kib": 31792,
+      "license_spdx": "GPL-2.0",
+      "selection_hash": "cb25f95805087c013cffcd15c2d9ba32e9ce0bd38cadd59ab5722db54f9864f8"
+    },
+    {
+      "id": "sql-parser",
+      "source_project_id": "sql-parser",
+      "repository_url": "https://github.com/hyrise/sql-parser",
+      "commit": "ccd3f68b50bb2b96ce69afa7b956b3bd826643cc",
+      "language": "C++",
+      "build_system": "make",
+      "size_stratum": "small",
+      "repository_size_kib": 3047,
+      "license_spdx": "MIT",
+      "selection_hash": "2a4fa75c3a7598aea553ffc0288a53e259190ff8658b331676f9084182a2b11e"
+    },
+    {
+      "id": "lodepng",
+      "source_project_id": "lodepng",
+      "repository_url": "https://github.com/lvandeve/lodepng",
+      "commit": "ed6fe5825c6a4fbb7f58ab35a4231c7543cd452a",
+      "language": "C++",
+      "build_system": "make",
+      "size_stratum": "small",
+      "repository_size_kib": 1620,
+      "license_spdx": "Zlib",
+      "selection_hash": "301cd229d4a99d79c831dd6e0c26e5b1136e60976131d6de0f4c1f0a460d7d10"
+    },
+    {
+      "id": "hoextdown",
+      "source_project_id": "hoextdown",
+      "repository_url": "https://github.com/kjdev/hoextdown",
+      "commit": "1ef9a71957570c2a65b7daa1b2f693ad87daf385",
+      "language": "C++",
+      "build_system": "make",
+      "size_stratum": "small",
+      "repository_size_kib": 949,
+      "license_spdx": "MIT",
+      "selection_hash": "4f03eb6c177f26e43321270456024629909e23138629349dc009685e2b03c57b"
+    }
+  ]
+}
