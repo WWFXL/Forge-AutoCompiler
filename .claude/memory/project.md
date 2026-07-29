@@ -5,18 +5,22 @@
 ## 进行中 (In Progress)
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
-- 2026-07-29 — Issue #63 双提供商非 pilot 端到端 canary
-  - 分支: `experiment/issue-63-provider-canary`，基于 `main@70fe40d6`。固定 `CMakeHelloWorld@6fda0b1`、`autocompiler:gcc13`，RichLab 使用 `gpt-5.5`，DeepSeek 使用 `deepseek-v4-flash`，两条件严格串行且各 1 次。
-  - 已实现: 独立 `forge-provider-canary-v1` 入口；每个条件在模型请求前创建独立 append-only ledger 并激活 exact repo/commit/CMake/image/model/endpoint policy，关闭 Memory/Skills、provider retries 与 fallback；输出只含布尔门禁、计数、usage、身份和哈希，不含模型文本、tool args、命令输出、异常文本、凭据或宿主路径。
-  - 接受门禁: 完整 stream、模型请求闭合、恰好 1 个 terminal compiler task、唯一 Compile Session、repo/commit/build-system identity、产物、submit verification、clean replay/cleanup、finalize 与 0 remaining orphan 必须同时成立。
-  - 当前证据: 聚焦 `11 passed`，runner/evidence/compile 回归 `232 passed`，后端主体（排除只读挂载配置升级组）通过，配置升级组 `4 passed`；Ruff/format、Compose config、前端串行 lint/typecheck/format、冻结资产与敏感模式扫描通过；真实 runtime launch gate 为 `ready=true`。尚未调用 canary 模型，也未创建 v8 slot。
+- 2026-07-29 — Issue #65 冻结双提供商 C/C++ pilot v8 协议
+  - 分支: `research/issue-65-v8-protocol`，基于 `main@54fdf418`。v8 计划保留 v7 的 5 个 exact-commit C/C++ case、镜像、Compose/DooD、Compile Session、clean replay 与 compiler 预算。
+  - 条件: RichLab `gpt-5.5` 与 DeepSeek `deepseek-v4-flash` 是两个独立 condition；每个 case × provider 1 个不可替换 slot，共 10 个，严格串行并在 manifest 冻结交错顺序。禁止 retry、fallback、replacement、补跑、跨 provider 池化和非 C/C++ 扩展。
+  - 阶段边界: 当前只设计独立 v8 manifest/Schema/validator、condition→provider/model policy 与 preflight；协议 PR 合并前后都不得创建或执行 v8 physical slot，采集需作为后续单独阶段明确启动。
 
 ## 最近变更 (Recent Changes)
 <!-- 倒序，最新在上。 -->
 
+- 2026-07-29 — 双提供商非 pilot 端到端 canary 完成
+  - Issue #63 已关闭；入口 PR #64 squash 合并为 `main@54fdf418`。两条件严格各执行 1 次，无 retry/replacement/fallback，两个本地 append-only ledger 的 hash chain 均有效且最终 0 compile/replay orphan。
+  - RichLab `gpt-5.5`：95 秒，9/9 模型请求闭合，23,642 tokens，5 个编译链工具调用；唯一 Session 为 completed，固定 commit/CMake、1 个 executable、submit、clean replay、finalize 全部通过。
+  - DeepSeek `deepseek-v4-flash`：60 秒，11/11 模型请求闭合，36,503 tokens，7 个工具调用（5 个编译链）；唯一 Session 同样通过完整门禁。单 case 只能证明可行性，不能据此宣称 DeepSeek 更优；v8 将两者分层校准。
+
 - 2026-07-29 — 修复未来 attempt 的 runner 解释器与 evidence 挂载门禁
   - Issue #61 / PR #62 已 squash 合并为 `main@70fe40d6`。新增独立 `runtime-preflight`，验证 LangGraph Compose 身份、可写 Docker socket、后端 venv、必要 runtime import、可写 bind evidence mount 与 output directory 的真实 sentinel 写入/删除；`preflight`/`create-attempt` 要求显式 output directory，launch failure 在 evidence ID 和 ledger 创建前终止。
-  - system Python 负例、后端 venv 正例和 mount 外目录负例均按预期返回且 0 ledger/0 sentinel；v1-v7 manifest、Schema、validator、协议哈希和 ledger 未改写，v7 current-tree gate继续拒绝 post-collection runner 漂移。
+  - system Python 负例、后端 venv 正例和 mount 外目录负例均按预期返回且 0 ledger/0 sentinel；v1-v7 manifest、Schema、validator、协议哈希和 ledger 未改写，v7 current-tree gate 继续拒绝 post-collection runner 漂移。
 
 - 2026-07-29 — WSL2 Compose 模型出口与多提供商预检进入主干
   - Issue #59 / PR #60 已 squash 合并为 `main@aa200d55`。受限 relay 只绑定私有 Docker bridge，独立 Compose override 保持 v7 冻结基础 Compose 字节不变；本地凭据只进入 Git 忽略 `.env`。
@@ -167,7 +171,7 @@
 
 - 清理与当前源码不一致的后端测试模块引用，例如 `backend/tests/test_aio_sandbox_local_backend.py:1` 和 `backend/tests/test_channels.py:14`。
 - 统一 `backend/tests/test_subagent_timeout_config.py:261` 对 `max_turns` 的期望值与当前实现默认值。
-- 完成 Issue #63 的中文 Draft PR、CI 与主干复验；合并后严格串行执行 RichLab/DeepSeek 两个非 pilot canary，保留每个条件的首次结果，再据此冻结 v8。两个提供商必须是可比较的独立 condition，禁止 frozen attempt 内 fallback。
+- 完成 Issue #65 的 v8 manifest、Schema、validator、runner 路由、10-slot 交错采集顺序及历史兼容测试；协议 PR 只做冻结与验证，不调用模型或创建 physical slot。
 - 当前 `backend/packages/harness/deerflow/compile/manager.py` 的 lifecycle lock 是进程内锁；部署多个后端进程前，需要改为文件锁/数据库事务或带版本号的 CAS，并增加跨进程竞态测试。
 
 ## 已知问题 (Known Issues / Pitfalls)
