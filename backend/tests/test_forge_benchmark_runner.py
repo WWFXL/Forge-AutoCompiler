@@ -1419,6 +1419,107 @@ def test_gate_recomputation_detects_tampering_and_oracle_is_independent() -> Non
     assert oracle["replay_artifact_diff"]["available"] is False
 
 
+def test_gate_recomputation_keeps_candidate_independent_from_failed_clean_replay() -> None:
+    events = [
+        {"event": "experiment.started", "payload": {"policy": {"case_id": "sysstat-nondeterministic"}}},
+        {
+            "event": "command.completed",
+            "payload": {
+                "command_id": "command-1",
+                "role": "build",
+                "exit_code": 0,
+                "timed_out": False,
+            },
+        },
+        {
+            "event": "replay.completed",
+            "payload": {
+                "replay_attempt_id": "replay-1",
+                "status": "failed",
+                "cleanup_succeeded": True,
+                "primary_failure_classification": "sha256_mismatch",
+            },
+        },
+        {
+            "event": "submit.completed",
+            "payload": {
+                "submit_attempt_id": "submit-1",
+                "supporting_command_id": "command-1",
+                "candidate_status": "passed",
+                "artifacts": [{"path": "sar", "artifact_type": "executable"}],
+                "checks": [
+                    {"name": "sar_exists", "passed": True},
+                    {"name": "repro_bundle", "passed": True},
+                    {"name": "clean_replay", "passed": False},
+                ],
+                "recipe_sha256": "2" * 64,
+                "replay": {
+                    "replay_attempt_id": "replay-1",
+                    "status": "failed",
+                    "primary_failure_classification": "sha256_mismatch",
+                },
+                "gates": {
+                    "exit_code": True,
+                    "candidate_only": True,
+                    "replay_ready": True,
+                    "clean_replay": False,
+                    "delivered": None,
+                },
+            },
+        },
+    ]
+
+    gates = forge_benchmark_runner.recompute_gates(events)
+
+    assert gates["valid"] is True
+    assert gates["mismatches"] == []
+    assert gates["submits"][0]["gates"]["candidate_only"] is True
+    assert gates["submits"][0]["gates"]["clean_replay"] is False
+
+
+def test_gate_recomputation_rejects_failed_candidate_check() -> None:
+    events = [
+        {"event": "experiment.started", "payload": {"policy": {"case_id": "fmt"}}},
+        {
+            "event": "command.completed",
+            "payload": {
+                "command_id": "command-1",
+                "role": "build",
+                "exit_code": 0,
+                "timed_out": False,
+            },
+        },
+        {
+            "event": "submit.completed",
+            "payload": {
+                "submit_attempt_id": "submit-1",
+                "supporting_command_id": "command-1",
+                "candidate_status": "passed",
+                "artifacts": [{"path": "libfmt.a", "artifact_type": "static_library"}],
+                "checks": [
+                    {"name": "libfmt.a_exists", "passed": False},
+                    {"name": "repro_bundle", "passed": True},
+                ],
+                "recipe_sha256": None,
+                "replay": None,
+                "gates": {
+                    "exit_code": True,
+                    "candidate_only": False,
+                    "replay_ready": False,
+                    "clean_replay": False,
+                    "delivered": None,
+                },
+            },
+        },
+    ]
+
+    gates = forge_benchmark_runner.recompute_gates(events)
+
+    assert gates["valid"] is True
+    assert gates["mismatches"] == []
+    assert gates["submits"][0]["gates"]["candidate_only"] is False
+
+
 def _oracle_events(
     *,
     artifacts: list[dict],

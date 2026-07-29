@@ -15,6 +15,7 @@ REPO_ROOT = Path(__file__).resolve().parents[2]
 MANIFEST_PATH = REPO_ROOT / "benchmarks" / "manifests" / "cpp-pilot-v8.json"
 SCHEMA_PATH = REPO_ROOT / "benchmarks" / "schemas" / "forge-cpp-benchmark-v8.schema.json"
 VALIDATOR_PATH = REPO_ROOT / "scripts" / "forge_benchmark_v8.py"
+V8_PROTOCOL_COMMIT = "c7977ab7d72f5060d14bfd22754363052a687b0f"
 
 SPEC = importlib.util.spec_from_file_location("forge_benchmark_v8", VALIDATOR_PATH)
 assert SPEC is not None and SPEC.loader is not None
@@ -99,17 +100,14 @@ def test_v8_validator_rejects_budget_drift(
         forge_benchmark_v8.validate_manifest(drifted)
 
 
-def test_v8_current_tree_gate_accepts_frozen_assets_and_rejects_drift() -> None:
+def test_v8_current_tree_gate_rejects_post_collection_runner_drift() -> None:
     manifest = load_manifest()
-    forge_benchmark_v8.verify_frozen_components(manifest, REPO_ROOT)
 
-    drifted = copy.deepcopy(manifest)
-    drifted["protocol_artifact_sha256"]["scripts/forge_benchmark_runner.py"] = "0" * 64
     with pytest.raises(
         forge_benchmark_v8.BenchmarkError,
         match="scripts/forge_benchmark_runner.py",
     ):
-        forge_benchmark_v8.verify_frozen_components(drifted, REPO_ROOT)
+        forge_benchmark_v8.verify_frozen_components(manifest, REPO_ROOT)
 
 
 def test_v8_runtime_components_match_the_declared_baseline() -> None:
@@ -121,6 +119,22 @@ def test_v8_runtime_components_match_the_declared_baseline() -> None:
     for relative_path, expected_digest in manifest["forge"]["component_sha256"].items():
         result = subprocess.run(
             [git, "show", f"{manifest['forge']['commit_sha']}:{relative_path}"],
+            cwd=REPO_ROOT,
+            capture_output=True,
+            check=True,
+        )
+        assert hashlib.sha256(result.stdout).hexdigest() == expected_digest
+
+
+def test_v8_protocol_artifacts_match_the_frozen_protocol_commit() -> None:
+    manifest = load_manifest()
+    git = shutil.which("git")
+    if git is None:
+        pytest.skip("git is unavailable in the minimal backend image")
+
+    for relative_path, expected_digest in manifest["protocol_artifact_sha256"].items():
+        result = subprocess.run(
+            [git, "show", f"{V8_PROTOCOL_COMMIT}:{relative_path}"],
             cwd=REPO_ROOT,
             capture_output=True,
             check=True,
