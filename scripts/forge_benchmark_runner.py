@@ -36,6 +36,7 @@ import forge_benchmark_v5 as protocol_v5  # noqa: E402
 import forge_benchmark_v6 as protocol_v6  # noqa: E402
 import forge_benchmark_v7 as protocol_v7  # noqa: E402
 import forge_benchmark_v8 as protocol_v8  # noqa: E402
+import forge_formal_runtime_protocol as protocol_formal  # noqa: E402
 
 from deerflow.compile.evidence import (  # noqa: E402
     EvidenceError,
@@ -150,6 +151,8 @@ def _manifest_protocol(manifest: dict[str, Any]):
         return protocol_v7
     if schema_version == protocol_v8.SCHEMA_VERSION:
         return protocol_v8
+    if schema_version == protocol_formal.SCHEMA_VERSION:
+        return protocol_formal
     raise RunnerError(f"Unsupported benchmark schema version: {schema_version}")
 
 
@@ -350,7 +353,7 @@ def _condition_model(
     manifest: dict[str, Any],
     condition: dict[str, Any],
 ) -> dict[str, Any]:
-    if manifest.get("schema_version") == protocol_v8.SCHEMA_VERSION:
+    if "model_profiles" in manifest:
         profile_name = condition["model_profile"]
         try:
             return manifest["model_profiles"][profile_name]
@@ -360,7 +363,7 @@ def _condition_model(
 
 
 def _manifest_models(manifest: dict[str, Any]) -> dict[str, dict[str, Any]]:
-    if manifest.get("schema_version") == protocol_v8.SCHEMA_VERSION:
+    if "model_profiles" in manifest:
         return manifest["model_profiles"]
     return {"default": manifest["model"]}
 
@@ -392,6 +395,8 @@ def build_policy(
     model = _condition_model(manifest, condition)
     runtime = manifest["runtime"]
     constraints = case["constraints"]
+    case_protocol = case.get("protocol", {})
+    oracle_artifacts = case["oracle"]["required_artifacts"]
     build_arguments = constraints["build_arguments"]
     lead_model = model["roles"]["lead"]
     compiler_model = model["roles"]["compiler"]
@@ -431,6 +436,19 @@ def build_policy(
             "post_build_reserve_seconds",
             0,
         ),
+        source_subdir=case_protocol.get("source_subdir", "."),
+        bootstrap_commands=tuple(case_protocol.get("bootstrap_commands", [])),
+        build_targets=tuple(case_protocol.get("build_targets", [])),
+        artifact_instructions=tuple(
+            (
+                artifact["relative_path"],
+                artifact.get("build_output_path", artifact["relative_path"]),
+                artifact["artifact_type"],
+            )
+            for artifact in oracle_artifacts
+        )
+        if manifest.get("schema_version") == protocol_formal.SCHEMA_VERSION
+        else (),
     )
 
 
@@ -500,6 +518,7 @@ def collect_preflight(
         protocol_v6.REVISION_POLICY,
         protocol_v7.REVISION_POLICY,
         protocol_v8.REVISION_POLICY,
+        protocol_formal.REVISION_POLICY,
     }
     baseline_satisfied = forge_state["revision"] == forge_baseline if revision_policy == "exact" else baseline_is_ancestor if revision_policy in runnable_revision_policies else False
     component_results: dict[str, dict[str, Any]] = {}
@@ -546,7 +565,7 @@ def collect_preflight(
         profile_name: {
             "credential_present": _credential_present(model["credential_env"]),
             "endpoint_reachable": (_endpoint_reachable(model["endpoint"]) if check_endpoint else None),
-            "configuration_matches": (_model_config_matches(model) if manifest["schema_version"] == protocol_v8.SCHEMA_VERSION else True),
+            "configuration_matches": (_model_config_matches(model) if "model_profiles" in manifest else True),
         }
         for profile_name, model in models.items()
     }
@@ -563,6 +582,7 @@ def collect_preflight(
         protocol_v6.CONTROL_PLANE_TOPOLOGY,
         protocol_v7.CONTROL_PLANE_TOPOLOGY,
         protocol_v8.CONTROL_PLANE_TOPOLOGY,
+        protocol_formal.CONTROL_PLANE_TOPOLOGY,
     }
     topology_matches = expected_topology is None or (expected_topology in compose_dood_topologies and compose_dood_present)
     if runtime_launch is None:
@@ -628,6 +648,7 @@ def collect_preflight(
                 protocol_v6.SCHEMA_VERSION: "cpp-pilot-v6.json",
                 protocol_v7.SCHEMA_VERSION: "cpp-pilot-v7.json",
                 protocol_v8.SCHEMA_VERSION: "cpp-pilot-v8.json",
+                protocol_formal.SCHEMA_VERSION: "cpp-formal-v1.json",
             }[manifest["schema_version"]]
         ),
         "forge": {
@@ -756,6 +777,8 @@ def create_attempt(
     repo_root: Path = REPO_ROOT,
     manifest_path: Path | None = None,
 ) -> tuple[ExperimentLedger, dict[str, Any]]:
+    if manifest.get("scope", {}).get("collection_authorized") is False:
+        raise RunnerError("Formal collection is not authorized; preflight may run but no ledger may be created")
     if manifest.get("schema_version") == protocol_v8.SCHEMA_VERSION:
         if replacement_for is not None:
             raise RunnerError("v8 forbids replacement physical attempts")
@@ -1336,6 +1359,8 @@ def run_attempt(
     manifest: dict[str, Any],
     ledger_path: Path,
 ) -> dict[str, Any]:
+    if manifest.get("scope", {}).get("collection_authorized") is False:
+        raise RunnerError("Formal collection is not authorized; model execution is forbidden")
     ledger = ExperimentLedger.open(ledger_path)
     events = ledger.read()
     context = events[0]["payload"]
@@ -1352,6 +1377,7 @@ def run_attempt(
         protocol_v6.CONTROL_PLANE_TOPOLOGY,
         protocol_v7.CONTROL_PLANE_TOPOLOGY,
         protocol_v8.CONTROL_PLANE_TOPOLOGY,
+        protocol_formal.CONTROL_PLANE_TOPOLOGY,
     }:
         if not _running_inside_compose_dood(REPO_ROOT):
             ledger.append(

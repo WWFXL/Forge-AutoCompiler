@@ -120,6 +120,22 @@ def _with_benchmark_constraints(prompt: str, policy: ExperimentPolicy) -> str:
         requirements.append(f"- Every relevant CMake configure command must include these exact argument tokens in this order: {json.dumps(list(policy.cmake_arguments), ensure_ascii=True)}.")
     if policy.configure_arguments:
         requirements.append(f"- Every relevant Autotools configure command must include these exact argument tokens in this order: {json.dumps(list(policy.configure_arguments), ensure_ascii=True)}.")
+    if policy.source_subdir != ".":
+        requirements.append(f"- Run the frozen build path from repository-relative source directory {json.dumps(policy.source_subdir, ensure_ascii=True)}.")
+    if policy.bootstrap_commands:
+        requirements.append(f"- Run these bootstrap commands in order before configure/build: {json.dumps(list(policy.bootstrap_commands), ensure_ascii=True)}.")
+    if policy.build_targets:
+        requirements.append(f"- Build only the reviewed target path needed for acceptance: {json.dumps(list(policy.build_targets), ensure_ascii=True)}.")
+    if policy.artifact_instructions:
+        artifacts = [
+            {
+                "build_output_path": build_path,
+                "staged_relative_path": staged_path,
+                "artifact_type": artifact_type,
+            }
+            for staged_path, build_path, artifact_type in policy.artifact_instructions
+        ]
+        requirements.append(f"- Stage exactly these reviewed outputs into /artifacts using the declared relative names: {json.dumps(artifacts, ensure_ascii=True)}.")
     requirements.extend(
         [
             "- Set command_role on every run_container_bash call; use configure for configuration and build for the successful command that supports final acceptance.",

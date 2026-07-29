@@ -418,3 +418,24 @@ python scripts/forge_benchmark.py record `
 ```
 
 `record` prints the same canonical normalized object to stdout and appends it once. Treat a validation, identity, secret-scan, missing-evidence, or duplicate-slot error as a stopped run; do not hand-edit JSONL around the failure.
+
+## Formal runtime protocol v1
+
+`benchmarks/manifests/cpp-formal-v1.json` is generated from the frozen
+preregistration and case protocol. It binds all 30 exact commits, the 180-slot
+schedule, case-specific source/bootstrap/configure/build/artifact instructions,
+runtime components, prompt files, immutable compile image, and the reviewed
+budget projection. Regenerate and validate it with:
+
+```bash
+python scripts/forge_formal_runtime_protocol.py generate
+python scripts/forge_formal_runtime_protocol.py validate-manifest \
+  benchmarks/manifests/cpp-formal-v1.json
+```
+
+The authoritative validator checks cross-document identity and deterministic
+derivation in addition to the Draft 2020-12 Schema. The committed protocol has
+`collection_authorized=false`: runner `preflight` is allowed, but
+`create-attempt` and `run` fail before ledger creation or model execution.
+Collection requires a separate reviewed protocol identity and explicit human
+budget authorization; never toggle the frozen manifest in place.
