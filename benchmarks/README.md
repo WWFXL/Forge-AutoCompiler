@@ -1,5 +1,37 @@
 # Forge C/C++ benchmark protocols
 
+## Dual-provider pilot v8 protocol
+
+`cpp-pilot-v8.json` freezes a ten-slot calibration design over the same five
+exact-commit C/C++ cases as v7. RichLab `gpt-5.5` and DeepSeek
+`deepseek-v4-flash` are independent conditions with separate endpoints and
+credential environment variable names. Each condition uses the same model for
+Lead and Compiler, a 120-second provider timeout, zero retries, forbidden
+fallback, and disabled Memory/Skills.
+
+The manifest freezes the serial interleaved order as RichLab then DeepSeek for
+each case (`fmt`, `hiredis`, `libcheck`, `libgit2`, and the controlled
+`sysstat-nondeterministic` negative). The runner rejects an out-of-order slot,
+creation of the next slot before the previous slot completes, and every
+replacement attempt. Results remain provider-stratified calibration evidence;
+v8 does not authorize pooling, a superiority claim, or a formal significance
+claim.
+
+Validate the protocol and inspect the non-model preflight with:
+
+```powershell
+python scripts/forge_benchmark_v8.py validate-manifest benchmarks/manifests/cpp-pilot-v8.json
+python scripts/forge_benchmark_runner.py preflight `
+  --manifest benchmarks/manifests/cpp-pilot-v8.json `
+  --output-dir /workspace/.compile-sessions/benchmark-evidence-v8 `
+  --skip-endpoint-check
+```
+
+Validation does not authorize collection. Do not create a v8 physical-attempt
+ledger or issue a model request until the protocol PR is merged and collection
+is explicitly started as a separate stage. Never place either credential value
+in the manifest, evidence, logs, commits, or review text.
+
 ## Post-v7 runtime launch gate
 
 The five v7 physical attempts are complete and immutable. Later runner changes

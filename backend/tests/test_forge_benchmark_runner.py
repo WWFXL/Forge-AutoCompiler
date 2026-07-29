@@ -59,6 +59,11 @@ def load_v7_manifest() -> dict:
     return forge_benchmark_runner._load_manifest(path)
 
 
+def load_v8_manifest() -> dict:
+    path = REPO_ROOT / "benchmarks" / "manifests" / "cpp-pilot-v8.json"
+    return forge_benchmark_runner._load_manifest(path)
+
+
 def ready_preflight(manifest: dict, *, ready: bool = True) -> dict:
     return {
         "ready": ready,
@@ -159,6 +164,46 @@ def test_v7_build_policy_records_separate_compiler_budgets() -> None:
     assert policy.to_payload()["compiler_graph_recursion_limit"] == 96
     assert policy.to_payload()["compiler_wall_clock_seconds"] == 900
     assert policy.to_payload()["compiler_post_build_reserve_seconds"] == 120
+
+
+@pytest.mark.parametrize(
+    ("condition_id", "model_name", "endpoint", "credential_env"),
+    [
+        (
+            "richlab-gpt-5.5",
+            "gpt-5.5",
+            "https://richlab-api-x.choosefire.com/v1",
+            "OpenAI_AK",
+        ),
+        (
+            "deepseek-v4-flash",
+            "deepseek-v4-flash",
+            "https://api.deepseek.com",
+            "DEEPSEEK_API_KEY",
+        ),
+    ],
+)
+def test_v8_build_policy_routes_each_condition_to_one_provider(
+    condition_id: str,
+    model_name: str,
+    endpoint: str,
+    credential_env: str,
+) -> None:
+    manifest = load_v8_manifest()
+
+    policy = forge_benchmark_runner.build_policy(
+        manifest,
+        case_id="fmt",
+        condition_id=condition_id,
+        repetition=1,
+    )
+
+    assert policy.model_name == model_name
+    assert policy.endpoint == endpoint
+    assert policy.credential_env == credential_env
+    assert policy.model_max_retries == 0
+    assert policy.memory_enabled is False
+    assert policy.skills_enabled is False
 
 
 def test_v6_build_policy_payload_keeps_legacy_budget_shape() -> None:
@@ -288,6 +333,101 @@ def test_runnable_preflight_rejects_missing_baseline_or_compose_dood(
     assert preflight["checks"]["control_plane_topology_matches"] is False
 
 
+def test_v8_preflight_checks_both_providers_without_exposing_credentials(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    manifest = load_v8_manifest()
+    expected_hashes = {
+        **manifest["forge"]["component_sha256"],
+        **manifest["protocol_artifact_sha256"],
+    }
+    checked_endpoints: list[str] = []
+
+    monkeypatch.setattr(
+        forge_benchmark_runner,
+        "_git_state",
+        lambda _repo_root: {"revision": "f" * 40, "dirty": False},
+    )
+    monkeypatch.setattr(
+        forge_benchmark_runner,
+        "_baseline_is_ancestor",
+        lambda _repo_root, _baseline: True,
+    )
+    monkeypatch.setattr(
+        forge_benchmark_runner,
+        "_sha256_file",
+        lambda path: next(
+            (digest for relative_path, digest in expected_hashes.items() if path.as_posix().endswith(relative_path)),
+            "a" * 64,
+        ),
+    )
+    monkeypatch.setattr(
+        forge_benchmark_runner,
+        "_credential_present",
+        lambda name: name == "OpenAI_AK",
+    )
+    monkeypatch.setattr(
+        forge_benchmark_runner,
+        "_model_config_matches",
+        lambda _model: True,
+    )
+
+    def endpoint_reachable(endpoint: str) -> bool:
+        checked_endpoints.append(endpoint)
+        return True
+
+    monkeypatch.setattr(
+        forge_benchmark_runner,
+        "_endpoint_reachable",
+        endpoint_reachable,
+    )
+    monkeypatch.setattr(
+        forge_benchmark_runner,
+        "_compose_dood_present",
+        lambda _repo_root: True,
+    )
+
+    def docker_state(arguments: list[str], *, cwd: Path = REPO_ROOT) -> tuple[int, str]:
+        del cwd
+        if arguments[:3] == ["docker", "image", "inspect"]:
+            return 0, manifest["runtime"]["image_id"]
+        if arguments[:3] == ["docker", "network", "inspect"]:
+            return 0, ""
+        if arguments[:2] == ["docker", "version"]:
+            return 0, manifest["runtime"]["host"]["docker_server_version"]
+        raise AssertionError(arguments)
+
+    monkeypatch.setattr(forge_benchmark_runner, "_run_command", docker_state)
+
+    preflight = forge_benchmark_runner.collect_preflight(
+        manifest,
+        repo_root=REPO_ROOT,
+        runtime_launch=ready_runtime_launch(),
+    )
+
+    assert preflight["ready"] is False
+    assert preflight["checks"]["credential_present"] is False
+    assert set(checked_endpoints) == {
+        "https://richlab-api-x.choosefire.com/v1",
+        "https://api.deepseek.com",
+    }
+    assert preflight["models"] == {
+        "richlab-gpt-5.5": {
+            "credential_present": True,
+            "endpoint_reachable": True,
+            "configuration_matches": True,
+        },
+        "deepseek-v4-flash": {
+            "credential_present": False,
+            "endpoint_reachable": True,
+            "configuration_matches": True,
+        },
+    }
+    serialized = json.dumps(preflight, sort_keys=True)
+    assert "OpenAI_AK" not in serialized
+    assert "DEEPSEEK_API_KEY" not in serialized
+
+
 def test_compiler_prompt_receives_ordered_manifest_constraints() -> None:
     manifest = load_manifest()
     policy = forge_benchmark_runner.build_policy(
@@ -349,6 +489,75 @@ def test_create_attempt_rejects_duplicate_slot_and_links_explicit_replacement(
     assert replacement.experiment_id == original.experiment_id
     assert replacement.physical_attempt_id != original.physical_attempt_id
     assert replacement.read()[0]["payload"]["replacement_for_physical_attempt_id"] == original.physical_attempt_id
+
+
+def test_v8_create_attempt_enforces_first_slot_seriality_and_no_replacement(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    manifest = load_v8_manifest()
+    monkeypatch.setattr(
+        forge_benchmark_runner,
+        "collect_preflight",
+        lambda *args, **kwargs: ready_preflight(manifest),
+    )
+
+    with pytest.raises(forge_benchmark_runner.RunnerError, match="not next"):
+        forge_benchmark_runner.create_attempt(
+            manifest,
+            case_id="fmt",
+            condition_id="deepseek-v4-flash",
+            repetition=1,
+            output_dir=tmp_path,
+        )
+    assert not list(tmp_path.rglob("*.jsonl"))
+
+    first, _ = forge_benchmark_runner.create_attempt(
+        manifest,
+        case_id="fmt",
+        condition_id="richlab-gpt-5.5",
+        repetition=1,
+        output_dir=tmp_path,
+    )
+    assert first.read()[0]["payload"]["policy"]["model_name"] == "gpt-5.5"
+
+    with pytest.raises(forge_benchmark_runner.RunnerError, match="previous v8 slot"):
+        forge_benchmark_runner.create_attempt(
+            manifest,
+            case_id="fmt",
+            condition_id="deepseek-v4-flash",
+            repetition=1,
+            output_dir=tmp_path,
+        )
+    with pytest.raises(forge_benchmark_runner.RunnerError, match="forbids replacement"):
+        forge_benchmark_runner.create_attempt(
+            manifest,
+            case_id="fmt",
+            condition_id="richlab-gpt-5.5",
+            repetition=1,
+            output_dir=tmp_path,
+            replacement_for=first.physical_attempt_id,
+        )
+    assert len(list(tmp_path.rglob("*.jsonl"))) == 1
+
+
+def test_v8_create_attempt_blocks_on_invalid_existing_evidence(
+    tmp_path: Path,
+) -> None:
+    manifest = load_v8_manifest()
+    broken = tmp_path / "broken.jsonl"
+    broken.write_text('{"not":"a valid ledger"}\n', encoding="utf-8")
+
+    with pytest.raises(forge_benchmark_runner.RunnerError, match="invalid ledger"):
+        forge_benchmark_runner.create_attempt(
+            manifest,
+            case_id="fmt",
+            condition_id="richlab-gpt-5.5",
+            repetition=1,
+            output_dir=tmp_path,
+        )
+
+    assert list(tmp_path.rglob("*.jsonl")) == [broken]
 
 
 def test_create_attempt_rejects_runtime_launch_failure_before_creating_ledger(
@@ -443,7 +652,7 @@ def test_runnable_run_refuses_non_compose_process_before_model_request(
     assert not any(event["event"].startswith("model.") for event in events)
 
 
-def test_runner_defaults_to_v7_manifest() -> None:
+def test_runner_defaults_to_v8_manifest() -> None:
     args = forge_benchmark_runner._build_parser().parse_args(
         [
             "preflight",
@@ -452,7 +661,7 @@ def test_runner_defaults_to_v7_manifest() -> None:
         ]
     )
 
-    assert args.manifest == REPO_ROOT / "benchmarks" / "manifests" / "cpp-pilot-v7.json"
+    assert args.manifest == REPO_ROOT / "benchmarks" / "manifests" / "cpp-pilot-v8.json"
 
 
 def test_runtime_preflight_requires_explicit_output_directory() -> None:
