@@ -1,5 +1,25 @@
 # Forge C/C++ benchmark protocols
 
+## Formal experiment preregistration
+
+Issue #76 preregisters a 30-project, dual-provider C/C++ formal experiment
+without authorizing collection. The project sample is stratified equally across
+CMake, Make, and Autotools and across three repository-size bands; every project
+and provider condition has three planned repetitions, producing a deterministic
+180-slot serial schedule.
+
+```bash
+python scripts/forge_formal_preregistration.py validate
+python scripts/forge_formal_preregistration.py schedule
+```
+
+The machine-readable source is
+`benchmarks/preregistrations/cpp-formal-v1.json`; the research rationale,
+statistical estimand, endpoint-failure interpretation, network metadata,
+resource projection, and collection authorization gate are documented in the
+adjacent Markdown file. Merging these assets does not call a model, create a
+formal ledger, or authorize collection.
+
 ## Pilot v8 descriptive report
 
 Issue #74 adds a deterministic, read-only report over the ten frozen v8
