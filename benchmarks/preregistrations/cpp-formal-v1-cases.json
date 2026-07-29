@@ -1,0 +1,754 @@
+{
+  "schema_version": "1.0.0",
+  "document_type": "formal-case-protocol",
+  "protocolization": {
+    "id": "forge-cpp-formal-v1-cases",
+    "issue": 78,
+    "audit_mode": "result-blind-static-document-review",
+    "reviewed_at": "2026-07-29",
+    "collection_authorized": false,
+    "base_preregistration_id": "forge-cpp-formal-v1",
+    "base_preregistration_sha256": "9385fc04fa2b0bfd365b1496d5ff6cd32f42ac8179325f71e78aa8d99a540d22",
+    "oss_fuzz_snapshot_commit": "08682bfc14e31d12fcc94b52b4805d7994fb70fd",
+    "case_protocol_sha256": "3adb51f7c4cee22219c6ef4035fa0bc1e1dc6764e6246ad0dc4f612a03bb31ca"
+  },
+  "cases": [
+    {
+      "id": "powerdns",
+      "repository_url": "https://github.com/PowerDNS/pdns",
+      "commit": "211f7ec30208100b44010e71cac4712878821243",
+      "build_system": "autotools",
+      "review_state": "reviewed",
+      "result_data_consulted": false,
+      "recipe": {
+        "source_subdir": ".",
+        "bootstrap_commands": ["autoreconf -vi"],
+        "configure_arguments": ["--without-dynmodules", "--disable-lua-records", "--without-systemd"],
+        "build_targets": ["all"],
+        "required_system_packages": ["autoconf", "automake", "build-essential", "libboost-dev", "libtool", "pkg-config"]
+      },
+      "artifact_oracle": {
+        "required_artifacts": [
+          {"staged_relative_path": "pdns_server", "build_output_path": "pdns/pdns_server", "artifact_type": "executable", "producing_target": "all"}
+        ]
+      },
+      "evidence": [
+        {"kind": "upstream_exact_commit", "path": "configure.ac", "url": "https://github.com/PowerDNS/pdns/blob/211f7ec30208100b44010e71cac4712878821243/configure.ac", "supports": ["build_path"]},
+        {"kind": "upstream_exact_commit", "path": "pdns/Makefile.am", "url": "https://github.com/PowerDNS/pdns/blob/211f7ec30208100b44010e71cac4712878821243/pdns/Makefile.am", "supports": ["artifact_identity"]},
+        {"kind": "oss_fuzz_snapshot", "path": "powerdns/build.sh", "url": "https://github.com/google/oss-fuzz/blob/08682bfc14e31d12fcc94b52b4805d7994fb70fd/projects/powerdns/build.sh", "supports": ["build_path"]}
+      ]
+    },
+    {
+      "id": "liblouis",
+      "repository_url": "https://github.com/liblouis/liblouis",
+      "commit": "b52ab11ade4cf0917315991b54a8558a2589cf55",
+      "build_system": "autotools",
+      "review_state": "reviewed",
+      "result_data_consulted": false,
+      "recipe": {
+        "source_subdir": ".",
+        "bootstrap_commands": ["autoreconf -fi"],
+        "configure_arguments": ["--disable-shared", "--enable-static"],
+        "build_targets": ["all"],
+        "required_system_packages": ["autoconf", "automake", "build-essential", "libtool", "pkg-config"]
+      },
+      "artifact_oracle": {
+        "required_artifacts": [
+          {"staged_relative_path": "liblouis.a", "build_output_path": "liblouis/.libs/liblouis.a", "artifact_type": "static_library", "producing_target": "all"}
+        ]
+      },
+      "evidence": [
+        {"kind": "upstream_exact_commit", "path": "configure.ac", "url": "https://github.com/liblouis/liblouis/blob/b52ab11ade4cf0917315991b54a8558a2589cf55/configure.ac", "supports": ["build_path"]},
+        {"kind": "upstream_exact_commit", "path": "liblouis/Makefile.am", "url": "https://github.com/liblouis/liblouis/blob/b52ab11ade4cf0917315991b54a8558a2589cf55/liblouis/Makefile.am", "supports": ["artifact_identity"]},
+        {"kind": "oss_fuzz_snapshot", "path": "liblouis/build.sh", "url": "https://github.com/google/oss-fuzz/blob/08682bfc14e31d12fcc94b52b4805d7994fb70fd/projects/liblouis/build.sh", "supports": ["build_path"]}
+      ]
+    },
+    {
+      "id": "freeradius",
+      "repository_url": "https://github.com/FreeRADIUS/freeradius-server",
+      "commit": "0b778ffcd109b4590b056c48822beff77a46927b",
+      "build_system": "autotools",
+      "review_state": "reviewed",
+      "result_data_consulted": false,
+      "recipe": {
+        "source_subdir": ".",
+        "bootstrap_commands": [],
+        "configure_arguments": ["--disable-developer", "--without-openssl"],
+        "build_targets": ["all"],
+        "required_system_packages": ["autoconf", "automake", "build-essential", "libtool", "pkg-config"]
+      },
+      "artifact_oracle": {
+        "required_artifacts": [
+          {"staged_relative_path": "libfreeradius-util.a", "build_output_path": "build/lib/.libs/libfreeradius-util.a", "artifact_type": "static_library", "producing_target": "all"}
+        ]
+      },
+      "evidence": [
+        {"kind": "upstream_exact_commit", "path": "configure", "url": "https://github.com/FreeRADIUS/freeradius-server/blob/0b778ffcd109b4590b056c48822beff77a46927b/configure", "supports": ["build_path"]},
+        {"kind": "upstream_exact_commit", "path": "src/lib/util/all.mk", "url": "https://github.com/FreeRADIUS/freeradius-server/blob/0b778ffcd109b4590b056c48822beff77a46927b/src/lib/util/all.mk", "supports": ["artifact_identity"]},
+        {"kind": "oss_fuzz_snapshot", "path": "freeradius/build.sh", "url": "https://github.com/google/oss-fuzz/blob/08682bfc14e31d12fcc94b52b4805d7994fb70fd/projects/freeradius/build.sh", "supports": ["build_path"]}
+      ]
+    },
+    {
+      "id": "c-ares",
+      "repository_url": "https://github.com/c-ares/c-ares",
+      "commit": "589b5887d47736e5b70a1fddaf9bf90297adde65",
+      "build_system": "autotools",
+      "review_state": "reviewed",
+      "result_data_consulted": false,
+      "recipe": {
+        "source_subdir": ".",
+        "bootstrap_commands": ["autoreconf -fi"],
+        "configure_arguments": ["--disable-shared", "--enable-static", "--disable-tests"],
+        "build_targets": ["all"],
+        "required_system_packages": ["autoconf", "automake", "build-essential", "libtool", "pkg-config"]
+      },
+      "artifact_oracle": {
+        "required_artifacts": [
+          {"staged_relative_path": "libcares.a", "build_output_path": "src/lib/.libs/libcares.a", "artifact_type": "static_library", "producing_target": "all"}
+        ]
+      },
+      "evidence": [
+        {"kind": "upstream_exact_commit", "path": "configure.ac", "url": "https://github.com/c-ares/c-ares/blob/589b5887d47736e5b70a1fddaf9bf90297adde65/configure.ac", "supports": ["build_path"]},
+        {"kind": "upstream_exact_commit", "path": "src/lib/Makefile.inc", "url": "https://github.com/c-ares/c-ares/blob/589b5887d47736e5b70a1fddaf9bf90297adde65/src/lib/Makefile.inc", "supports": ["artifact_identity"]},
+        {"kind": "oss_fuzz_snapshot", "path": "c-ares/build.sh", "url": "https://github.com/google/oss-fuzz/blob/08682bfc14e31d12fcc94b52b4805d7994fb70fd/projects/c-ares/build.sh", "supports": ["build_path"]}
+      ]
+    },
+    {
+      "id": "fftw3",
+      "repository_url": "https://github.com/fftw/fftw3",
+      "commit": "93ed4c786934aec9946f8dda4b4e3eb08f8be41c",
+      "build_system": "autotools",
+      "review_state": "reviewed",
+      "result_data_consulted": false,
+      "recipe": {
+        "source_subdir": ".",
+        "bootstrap_commands": ["autoreconf -fi"],
+        "configure_arguments": ["--disable-shared", "--enable-static", "--disable-fortran"],
+        "build_targets": ["all"],
+        "required_system_packages": ["autoconf", "automake", "build-essential", "libtool", "pkg-config"]
+      },
+      "artifact_oracle": {
+        "required_artifacts": [
+          {"staged_relative_path": "libfftw3.a", "build_output_path": ".libs/libfftw3.a", "artifact_type": "static_library", "producing_target": "all"}
+        ]
+      },
+      "evidence": [
+        {"kind": "upstream_exact_commit", "path": "configure.ac", "url": "https://github.com/fftw/fftw3/blob/93ed4c786934aec9946f8dda4b4e3eb08f8be41c/configure.ac", "supports": ["build_path"]},
+        {"kind": "upstream_exact_commit", "path": "Makefile.am", "url": "https://github.com/fftw/fftw3/blob/93ed4c786934aec9946f8dda4b4e3eb08f8be41c/Makefile.am", "supports": ["artifact_identity"]},
+        {"kind": "oss_fuzz_snapshot", "path": "fftw3/build.sh", "url": "https://github.com/google/oss-fuzz/blob/08682bfc14e31d12fcc94b52b4805d7994fb70fd/projects/fftw3/build.sh", "supports": ["build_path"]}
+      ]
+    },
+    {
+      "id": "libusb",
+      "repository_url": "https://github.com/libusb/libusb",
+      "commit": "6bb97402df0ec0c09defcbd4f5146447c7f7cc53",
+      "build_system": "autotools",
+      "review_state": "reviewed",
+      "result_data_consulted": false,
+      "recipe": {
+        "source_subdir": ".",
+        "bootstrap_commands": ["./autogen.sh"],
+        "configure_arguments": ["--disable-shared", "--enable-static", "--disable-udev"],
+        "build_targets": ["all"],
+        "required_system_packages": ["autoconf", "automake", "build-essential", "libtool", "pkg-config"]
+      },
+      "artifact_oracle": {
+        "required_artifacts": [
+          {"staged_relative_path": "libusb-1.0.a", "build_output_path": "libusb/.libs/libusb-1.0.a", "artifact_type": "static_library", "producing_target": "all"}
+        ]
+      },
+      "evidence": [
+        {"kind": "upstream_exact_commit", "path": "autogen.sh", "url": "https://github.com/libusb/libusb/blob/6bb97402df0ec0c09defcbd4f5146447c7f7cc53/autogen.sh", "supports": ["build_path"]},
+        {"kind": "upstream_exact_commit", "path": "libusb/Makefile.am", "url": "https://github.com/libusb/libusb/blob/6bb97402df0ec0c09defcbd4f5146447c7f7cc53/libusb/Makefile.am", "supports": ["artifact_identity"]},
+        {"kind": "oss_fuzz_snapshot", "path": "libusb/build.sh", "url": "https://github.com/google/oss-fuzz/blob/08682bfc14e31d12fcc94b52b4805d7994fb70fd/projects/libusb/build.sh", "supports": ["build_path"]}
+      ]
+    },
+    {
+      "id": "janus-gateway",
+      "repository_url": "https://github.com/meetecho/janus-gateway",
+      "commit": "4602fcc5315b77dce2a5d8363a4286ac672183b1",
+      "build_system": "autotools",
+      "review_state": "reviewed",
+      "result_data_consulted": false,
+      "recipe": {
+        "source_subdir": ".",
+        "bootstrap_commands": ["sh autogen.sh"],
+        "configure_arguments": ["--disable-docs", "--disable-data-channels", "--disable-websockets", "--disable-rabbitmq", "--disable-mqtt"],
+        "build_targets": ["all"],
+        "required_system_packages": ["autoconf", "automake", "build-essential", "libglib2.0-dev", "libjansson-dev", "libssl-dev", "libtool", "pkg-config"]
+      },
+      "artifact_oracle": {
+        "required_artifacts": [
+          {"staged_relative_path": "janus", "build_output_path": "janus", "artifact_type": "executable", "producing_target": "all"}
+        ]
+      },
+      "evidence": [
+        {"kind": "upstream_exact_commit", "path": "autogen.sh", "url": "https://github.com/meetecho/janus-gateway/blob/4602fcc5315b77dce2a5d8363a4286ac672183b1/autogen.sh", "supports": ["build_path"]},
+        {"kind": "upstream_exact_commit", "path": "Makefile.am", "url": "https://github.com/meetecho/janus-gateway/blob/4602fcc5315b77dce2a5d8363a4286ac672183b1/Makefile.am", "supports": ["artifact_identity"]},
+        {"kind": "oss_fuzz_snapshot", "path": "janus-gateway/build.sh", "url": "https://github.com/google/oss-fuzz/blob/08682bfc14e31d12fcc94b52b4805d7994fb70fd/projects/janus-gateway/build.sh", "supports": ["build_path"]}
+      ]
+    },
+    {
+      "id": "numactl",
+      "repository_url": "https://github.com/numactl/numactl",
+      "commit": "93c1fe5fabf38502ca315598bf74699c41300df9",
+      "build_system": "autotools",
+      "review_state": "reviewed",
+      "result_data_consulted": false,
+      "recipe": {
+        "source_subdir": ".",
+        "bootstrap_commands": ["./autogen.sh"],
+        "configure_arguments": ["--disable-shared", "--enable-static"],
+        "build_targets": ["libnuma.la"],
+        "required_system_packages": ["autoconf", "automake", "build-essential", "libtool", "pkg-config"]
+      },
+      "artifact_oracle": {
+        "required_artifacts": [
+          {"staged_relative_path": "libnuma.a", "build_output_path": ".libs/libnuma.a", "artifact_type": "static_library", "producing_target": "libnuma.la"}
+        ]
+      },
+      "evidence": [
+        {"kind": "upstream_exact_commit", "path": "autogen.sh", "url": "https://github.com/numactl/numactl/blob/93c1fe5fabf38502ca315598bf74699c41300df9/autogen.sh", "supports": ["build_path"]},
+        {"kind": "upstream_exact_commit", "path": "Makefile.am", "url": "https://github.com/numactl/numactl/blob/93c1fe5fabf38502ca315598bf74699c41300df9/Makefile.am", "supports": ["artifact_identity"]},
+        {"kind": "oss_fuzz_snapshot", "path": "numactl/build.sh", "url": "https://github.com/google/oss-fuzz/blob/08682bfc14e31d12fcc94b52b4805d7994fb70fd/projects/numactl/build.sh", "supports": ["build_path"]}
+      ]
+    },
+    {
+      "id": "libass",
+      "repository_url": "https://github.com/libass/libass",
+      "commit": "f9fd3d20dff1cd84b7c74c8ae7f79711ad7736fa",
+      "build_system": "autotools",
+      "review_state": "reviewed",
+      "result_data_consulted": false,
+      "recipe": {
+        "source_subdir": ".",
+        "bootstrap_commands": ["./autogen.sh"],
+        "configure_arguments": ["--disable-shared", "--enable-static", "--disable-require-system-font-provider"],
+        "build_targets": ["all"],
+        "required_system_packages": ["autoconf", "automake", "build-essential", "libfreetype6-dev", "libfribidi-dev", "libtool", "pkg-config"]
+      },
+      "artifact_oracle": {
+        "required_artifacts": [
+          {"staged_relative_path": "libass.a", "build_output_path": "libass/.libs/libass.a", "artifact_type": "static_library", "producing_target": "all"}
+        ]
+      },
+      "evidence": [
+        {"kind": "upstream_exact_commit", "path": "configure.ac", "url": "https://github.com/libass/libass/blob/f9fd3d20dff1cd84b7c74c8ae7f79711ad7736fa/configure.ac", "supports": ["build_path"]},
+        {"kind": "upstream_exact_commit", "path": "Makefile.am", "url": "https://github.com/libass/libass/blob/f9fd3d20dff1cd84b7c74c8ae7f79711ad7736fa/Makefile.am", "supports": ["artifact_identity"]},
+        {"kind": "oss_fuzz_snapshot", "path": "libass/build.sh", "url": "https://github.com/google/oss-fuzz/blob/08682bfc14e31d12fcc94b52b4805d7994fb70fd/projects/libass/build.sh", "supports": ["build_path"]}
+      ]
+    },
+    {
+      "id": "jpegoptim",
+      "repository_url": "https://github.com/tjko/jpegoptim",
+      "commit": "14a3155acccdcbbfa4ea0d1d2fa11ffb9a373191",
+      "build_system": "autotools",
+      "review_state": "reviewed",
+      "result_data_consulted": false,
+      "recipe": {
+        "source_subdir": ".",
+        "bootstrap_commands": [],
+        "configure_arguments": [],
+        "build_targets": ["jpegoptim"],
+        "required_system_packages": ["autoconf", "automake", "build-essential", "libjpeg-dev", "libtool", "pkg-config"]
+      },
+      "artifact_oracle": {
+        "required_artifacts": [
+          {"staged_relative_path": "jpegoptim", "build_output_path": "jpegoptim", "artifact_type": "executable", "producing_target": "jpegoptim"}
+        ]
+      },
+      "evidence": [
+        {"kind": "upstream_exact_commit", "path": "configure.in", "url": "https://github.com/tjko/jpegoptim/blob/14a3155acccdcbbfa4ea0d1d2fa11ffb9a373191/configure.in", "supports": ["build_path"]},
+        {"kind": "upstream_exact_commit", "path": "Makefile.in", "url": "https://github.com/tjko/jpegoptim/blob/14a3155acccdcbbfa4ea0d1d2fa11ffb9a373191/Makefile.in", "supports": ["artifact_identity"]}
+      ]
+    },
+    {
+      "id": "open62541",
+      "repository_url": "https://github.com/open62541/open62541",
+      "commit": "712aec6e8ca5f85d35b8f070077c20528fcbf18f",
+      "build_system": "cmake",
+      "review_state": "reviewed",
+      "result_data_consulted": false,
+      "recipe": {
+        "source_subdir": ".",
+        "bootstrap_commands": [],
+        "configure_arguments": ["-DCMAKE_BUILD_TYPE=Release", "-DBUILD_SHARED_LIBS=OFF", "-DUA_BUILD_EXAMPLES=OFF", "-DUA_BUILD_UNIT_TESTS=OFF"],
+        "build_targets": ["open62541"],
+        "required_system_packages": ["build-essential", "cmake", "python3"]
+      },
+      "artifact_oracle": {
+        "required_artifacts": [
+          {"staged_relative_path": "libopen62541.a", "build_output_path": "build/bin/libopen62541.a", "artifact_type": "static_library", "producing_target": "open62541"}
+        ]
+      },
+      "evidence": [
+        {"kind": "upstream_exact_commit", "path": "CMakeLists.txt", "url": "https://github.com/open62541/open62541/blob/712aec6e8ca5f85d35b8f070077c20528fcbf18f/CMakeLists.txt", "supports": ["build_path", "artifact_identity"]},
+        {"kind": "oss_fuzz_snapshot", "path": "open62541/build.sh", "url": "https://github.com/google/oss-fuzz/blob/08682bfc14e31d12fcc94b52b4805d7994fb70fd/projects/open62541/build.sh", "supports": ["build_path"]}
+      ]
+    },
+    {
+      "id": "openthread",
+      "repository_url": "https://github.com/openthread/openthread",
+      "commit": "044aa98f1b5255731e0a6f2816e267b282299684",
+      "build_system": "cmake",
+      "review_state": "reviewed",
+      "result_data_consulted": false,
+      "recipe": {
+        "source_subdir": ".",
+        "bootstrap_commands": [],
+        "configure_arguments": ["-DCMAKE_BUILD_TYPE=Release", "-DOT_BUILD_EXECUTABLES=OFF", "-DOT_COMPILE_WARNING_AS_ERROR=OFF"],
+        "build_targets": ["openthread-ftd"],
+        "required_system_packages": ["build-essential", "cmake", "python3"]
+      },
+      "artifact_oracle": {
+        "required_artifacts": [
+          {"staged_relative_path": "libopenthread-ftd.a", "build_output_path": "build/src/core/libopenthread-ftd.a", "artifact_type": "static_library", "producing_target": "openthread-ftd"}
+        ]
+      },
+      "evidence": [
+        {"kind": "upstream_exact_commit", "path": "CMakeLists.txt", "url": "https://github.com/openthread/openthread/blob/044aa98f1b5255731e0a6f2816e267b282299684/CMakeLists.txt", "supports": ["build_path"]},
+        {"kind": "upstream_exact_commit", "path": "src/core/CMakeLists.txt", "url": "https://github.com/openthread/openthread/blob/044aa98f1b5255731e0a6f2816e267b282299684/src/core/CMakeLists.txt", "supports": ["artifact_identity"]},
+        {"kind": "oss_fuzz_snapshot", "path": "openthread/build.sh", "url": "https://github.com/google/oss-fuzz/blob/08682bfc14e31d12fcc94b52b4805d7994fb70fd/projects/openthread/build.sh", "supports": ["build_path"]}
+      ]
+    },
+    {
+      "id": "firestore",
+      "repository_url": "https://github.com/firebase/firebase-ios-sdk",
+      "commit": "1111d6715d897e4af0b33eef1832721612fbfedb",
+      "build_system": "cmake",
+      "review_state": "reviewed",
+      "result_data_consulted": false,
+      "recipe": {
+        "source_subdir": ".",
+        "bootstrap_commands": [],
+        "configure_arguments": ["-DFIREBASE_IOS_BUILD_TESTS=OFF", "-DFIREBASE_IOS_BUILD_BENCHMARKS=OFF", "-DFIRESTORE_INCLUDE_OBJC=OFF"],
+        "build_targets": ["firestore_core"],
+        "required_system_packages": ["build-essential", "cmake", "libssl-dev", "python3"]
+      },
+      "artifact_oracle": {
+        "required_artifacts": [
+          {"staged_relative_path": "libfirestore_core.a", "build_output_path": "build/Firestore/core/libfirestore_core.a", "artifact_type": "static_library", "producing_target": "firestore_core"}
+        ]
+      },
+      "evidence": [
+        {"kind": "upstream_exact_commit", "path": "CMakeLists.txt", "url": "https://github.com/firebase/firebase-ios-sdk/blob/1111d6715d897e4af0b33eef1832721612fbfedb/CMakeLists.txt", "supports": ["build_path"]},
+        {"kind": "upstream_exact_commit", "path": "Firestore/core/CMakeLists.txt", "url": "https://github.com/firebase/firebase-ios-sdk/blob/1111d6715d897e4af0b33eef1832721612fbfedb/Firestore/core/CMakeLists.txt", "supports": ["artifact_identity"]},
+        {"kind": "oss_fuzz_snapshot", "path": "firestore/build.sh", "url": "https://github.com/google/oss-fuzz/blob/08682bfc14e31d12fcc94b52b4805d7994fb70fd/projects/firestore/build.sh", "supports": ["build_path"]}
+      ]
+    },
+    {
+      "id": "pupnp",
+      "repository_url": "https://github.com/pupnp/pupnp",
+      "commit": "4c4285d6af69774b7ec6a9a93dc967dc9e9e6d8e",
+      "build_system": "cmake",
+      "review_state": "reviewed",
+      "result_data_consulted": false,
+      "recipe": {
+        "source_subdir": ".",
+        "bootstrap_commands": [],
+        "configure_arguments": ["-DCMAKE_BUILD_TYPE=Release", "-DUPNP_ENABLE_TESTING=OFF"],
+        "build_targets": ["upnp_static"],
+        "required_system_packages": ["build-essential", "cmake"]
+      },
+      "artifact_oracle": {
+        "required_artifacts": [
+          {"staged_relative_path": "libupnp.a", "build_output_path": "build/upnp/libupnp.a", "artifact_type": "static_library", "producing_target": "upnp_static"}
+        ]
+      },
+      "evidence": [
+        {"kind": "upstream_exact_commit", "path": "CMakeLists.txt", "url": "https://github.com/pupnp/pupnp/blob/4c4285d6af69774b7ec6a9a93dc967dc9e9e6d8e/CMakeLists.txt", "supports": ["build_path"]},
+        {"kind": "upstream_exact_commit", "path": "upnp/CMakeLists.txt", "url": "https://github.com/pupnp/pupnp/blob/4c4285d6af69774b7ec6a9a93dc967dc9e9e6d8e/upnp/CMakeLists.txt", "supports": ["artifact_identity"]},
+        {"kind": "oss_fuzz_snapshot", "path": "pupnp/build.sh", "url": "https://github.com/google/oss-fuzz/blob/08682bfc14e31d12fcc94b52b4805d7994fb70fd/projects/pupnp/build.sh", "supports": ["build_path"]}
+      ]
+    },
+    {
+      "id": "ada-url",
+      "repository_url": "https://github.com/ada-url/ada",
+      "commit": "30f3f3020c5a979b62f90dc9c37fd45de3cc84d7",
+      "build_system": "cmake",
+      "review_state": "reviewed",
+      "result_data_consulted": false,
+      "recipe": {
+        "source_subdir": ".",
+        "bootstrap_commands": [],
+        "configure_arguments": ["-DCMAKE_BUILD_TYPE=Release", "-DBUILD_SHARED_LIBS=OFF", "-DADA_TESTING=OFF", "-DADA_BENCHMARKS=OFF", "-DADA_TOOLS=OFF"],
+        "build_targets": ["ada"],
+        "required_system_packages": ["build-essential", "cmake"]
+      },
+      "artifact_oracle": {
+        "required_artifacts": [
+          {"staged_relative_path": "libada.a", "build_output_path": "build/src/libada.a", "artifact_type": "static_library", "producing_target": "ada"}
+        ]
+      },
+      "evidence": [
+        {"kind": "upstream_exact_commit", "path": "CMakeLists.txt", "url": "https://github.com/ada-url/ada/blob/30f3f3020c5a979b62f90dc9c37fd45de3cc84d7/CMakeLists.txt", "supports": ["build_path"]},
+        {"kind": "upstream_exact_commit", "path": "src/CMakeLists.txt", "url": "https://github.com/ada-url/ada/blob/30f3f3020c5a979b62f90dc9c37fd45de3cc84d7/src/CMakeLists.txt", "supports": ["artifact_identity"]}
+      ]
+    },
+    {
+      "id": "libspdm",
+      "repository_url": "https://github.com/DMTF/libspdm",
+      "commit": "1cc1f1f51696f1cb657e59ed4c58a6064c8b948f",
+      "build_system": "cmake",
+      "review_state": "reviewed",
+      "result_data_consulted": false,
+      "recipe": {
+        "source_subdir": ".",
+        "bootstrap_commands": [],
+        "configure_arguments": ["-DARCH=x64", "-DTOOLCHAIN=GCC", "-DTARGET=Release", "-DCRYPTO=mbedtls"],
+        "build_targets": ["all"],
+        "required_system_packages": ["build-essential", "cmake", "nasm"]
+      },
+      "artifact_oracle": {
+        "required_artifacts": [
+          {"staged_relative_path": "libspdm_common_lib.a", "build_output_path": "build/lib/libspdm_common_lib.a", "artifact_type": "static_library", "producing_target": "all"}
+        ]
+      },
+      "evidence": [
+        {"kind": "upstream_exact_commit", "path": "CMakeLists.txt", "url": "https://github.com/DMTF/libspdm/blob/1cc1f1f51696f1cb657e59ed4c58a6064c8b948f/CMakeLists.txt", "supports": ["build_path", "artifact_identity"]},
+        {"kind": "oss_fuzz_snapshot", "path": "libspdm/build.sh", "url": "https://github.com/google/oss-fuzz/blob/08682bfc14e31d12fcc94b52b4805d7994fb70fd/projects/libspdm/build.sh", "supports": ["build_path"]}
+      ]
+    },
+    {
+      "id": "sentencepiece",
+      "repository_url": "https://github.com/google/sentencepiece",
+      "commit": "1192370fbb50ee8cde9056bdd1055073917e59dc",
+      "build_system": "cmake",
+      "review_state": "reviewed",
+      "result_data_consulted": false,
+      "recipe": {
+        "source_subdir": ".",
+        "bootstrap_commands": [],
+        "configure_arguments": ["-DCMAKE_BUILD_TYPE=Release", "-DSPM_ENABLE_SHARED=OFF", "-DSPM_BUILD_TEST=OFF", "-DSPM_ENABLE_TCMALLOC=OFF"],
+        "build_targets": ["sentencepiece-static"],
+        "required_system_packages": ["build-essential", "cmake"]
+      },
+      "artifact_oracle": {
+        "required_artifacts": [
+          {"staged_relative_path": "libsentencepiece.a", "build_output_path": "build/src/libsentencepiece.a", "artifact_type": "static_library", "producing_target": "sentencepiece-static"}
+        ]
+      },
+      "evidence": [
+        {"kind": "upstream_exact_commit", "path": "CMakeLists.txt", "url": "https://github.com/google/sentencepiece/blob/1192370fbb50ee8cde9056bdd1055073917e59dc/CMakeLists.txt", "supports": ["build_path"]},
+        {"kind": "upstream_exact_commit", "path": "src/CMakeLists.txt", "url": "https://github.com/google/sentencepiece/blob/1192370fbb50ee8cde9056bdd1055073917e59dc/src/CMakeLists.txt", "supports": ["artifact_identity"]},
+        {"kind": "oss_fuzz_snapshot", "path": "sentencepiece/build.sh", "url": "https://github.com/google/oss-fuzz/blob/08682bfc14e31d12fcc94b52b4805d7994fb70fd/projects/sentencepiece/build.sh", "supports": ["build_path"]}
+      ]
+    },
+    {
+      "id": "args",
+      "repository_url": "https://github.com/Taywee/args",
+      "commit": "fe4450bd9549e4e02bc2047b2a2800b09f1bb878",
+      "build_system": "cmake",
+      "review_state": "reviewed",
+      "result_data_consulted": false,
+      "recipe": {
+        "source_subdir": ".",
+        "bootstrap_commands": [],
+        "configure_arguments": ["-DCMAKE_BUILD_TYPE=Release", "-DARGS_BUILD_EXAMPLE=ON", "-DARGS_BUILD_UNITTESTS=OFF", "-DBUILD_FUZZERS=OFF"],
+        "build_targets": ["gitlike"],
+        "required_system_packages": ["build-essential", "cmake"]
+      },
+      "artifact_oracle": {
+        "required_artifacts": [
+          {"staged_relative_path": "gitlike", "build_output_path": "build/gitlike", "artifact_type": "executable", "producing_target": "gitlike"}
+        ]
+      },
+      "evidence": [
+        {"kind": "upstream_exact_commit", "path": "CMakeLists.txt", "url": "https://github.com/Taywee/args/blob/fe4450bd9549e4e02bc2047b2a2800b09f1bb878/CMakeLists.txt", "supports": ["build_path", "artifact_identity"]},
+        {"kind": "oss_fuzz_snapshot", "path": "args/build.sh", "url": "https://github.com/google/oss-fuzz/blob/08682bfc14e31d12fcc94b52b4805d7994fb70fd/projects/args/build.sh", "supports": ["build_path"]}
+      ]
+    },
+    {
+      "id": "yyjson",
+      "repository_url": "https://github.com/ibireme/yyjson",
+      "commit": "9365ddc7061033df656578bf86040048b5b5531a",
+      "build_system": "cmake",
+      "review_state": "reviewed",
+      "result_data_consulted": false,
+      "recipe": {
+        "source_subdir": ".",
+        "bootstrap_commands": [],
+        "configure_arguments": ["-DCMAKE_BUILD_TYPE=Release", "-DBUILD_SHARED_LIBS=OFF", "-DYYJSON_BUILD_TESTS=OFF", "-DYYJSON_BUILD_FUZZER=OFF"],
+        "build_targets": ["yyjson"],
+        "required_system_packages": ["build-essential", "cmake"]
+      },
+      "artifact_oracle": {
+        "required_artifacts": [
+          {"staged_relative_path": "libyyjson.a", "build_output_path": "build/libyyjson.a", "artifact_type": "static_library", "producing_target": "yyjson"}
+        ]
+      },
+      "evidence": [
+        {"kind": "upstream_exact_commit", "path": "CMakeLists.txt", "url": "https://github.com/ibireme/yyjson/blob/9365ddc7061033df656578bf86040048b5b5531a/CMakeLists.txt", "supports": ["build_path", "artifact_identity"]},
+        {"kind": "oss_fuzz_snapshot", "path": "yyjson/build.sh", "url": "https://github.com/google/oss-fuzz/blob/08682bfc14e31d12fcc94b52b4805d7994fb70fd/projects/yyjson/build.sh", "supports": ["build_path"]}
+      ]
+    },
+    {
+      "id": "cppitertools",
+      "repository_url": "https://github.com/ryanhaining/cppitertools",
+      "commit": "531b3d753d2bbfe3b0ababe61c2e95e965c54a66",
+      "build_system": "cmake",
+      "review_state": "reviewed",
+      "result_data_consulted": false,
+      "recipe": {
+        "source_subdir": "examples",
+        "bootstrap_commands": [],
+        "configure_arguments": ["-DCMAKE_BUILD_TYPE=Release"],
+        "build_targets": ["accumulate_examples"],
+        "required_system_packages": ["build-essential", "cmake"]
+      },
+      "artifact_oracle": {
+        "required_artifacts": [
+          {"staged_relative_path": "accumulate_examples", "build_output_path": "build/accumulate_examples", "artifact_type": "executable", "producing_target": "accumulate_examples"}
+        ]
+      },
+      "evidence": [
+        {"kind": "upstream_exact_commit", "path": "CMakeLists.txt", "url": "https://github.com/ryanhaining/cppitertools/blob/531b3d753d2bbfe3b0ababe61c2e95e965c54a66/CMakeLists.txt", "supports": ["build_path"]},
+        {"kind": "upstream_exact_commit", "path": "examples/CMakeLists.txt", "url": "https://github.com/ryanhaining/cppitertools/blob/531b3d753d2bbfe3b0ababe61c2e95e965c54a66/examples/CMakeLists.txt", "supports": ["build_path", "artifact_identity"]}
+      ]
+    },
+    {
+      "id": "mupdf",
+      "repository_url": "https://github.com/ArtifexSoftware/mupdf",
+      "commit": "b29caae1ab8c602187d4fc36d7b540bac493635d",
+      "build_system": "make",
+      "review_state": "reviewed",
+      "result_data_consulted": false,
+      "recipe": {
+        "source_subdir": ".",
+        "bootstrap_commands": [],
+        "configure_arguments": [],
+        "build_targets": ["libs"],
+        "required_system_packages": ["build-essential", "libfreetype6-dev", "libjpeg-dev", "zlib1g-dev"]
+      },
+      "artifact_oracle": {
+        "required_artifacts": [
+          {"staged_relative_path": "libmupdf.a", "build_output_path": "build/release/libmupdf.a", "artifact_type": "static_library", "producing_target": "libs"}
+        ]
+      },
+      "evidence": [
+        {"kind": "upstream_exact_commit", "path": "Makefile", "url": "https://github.com/ArtifexSoftware/mupdf/blob/b29caae1ab8c602187d4fc36d7b540bac493635d/Makefile", "supports": ["build_path", "artifact_identity"]},
+        {"kind": "oss_fuzz_snapshot", "path": "mupdf/build.sh", "url": "https://github.com/google/oss-fuzz/blob/08682bfc14e31d12fcc94b52b4805d7994fb70fd/projects/mupdf/build.sh", "supports": ["build_path"]}
+      ]
+    },
+    {
+      "id": "openh264",
+      "repository_url": "https://github.com/cisco/openh264",
+      "commit": "4a2615fac570c6ca1ed4f157b9fdab9466edfd80",
+      "build_system": "make",
+      "review_state": "reviewed",
+      "result_data_consulted": false,
+      "recipe": {
+        "source_subdir": ".",
+        "bootstrap_commands": [],
+        "configure_arguments": [],
+        "build_targets": ["libopenh264.a"],
+        "required_system_packages": ["build-essential", "nasm"]
+      },
+      "artifact_oracle": {
+        "required_artifacts": [
+          {"staged_relative_path": "libopenh264.a", "build_output_path": "libopenh264.a", "artifact_type": "static_library", "producing_target": "libopenh264.a"}
+        ]
+      },
+      "evidence": [
+        {"kind": "upstream_exact_commit", "path": "Makefile", "url": "https://github.com/cisco/openh264/blob/4a2615fac570c6ca1ed4f157b9fdab9466edfd80/Makefile", "supports": ["build_path", "artifact_identity"]},
+        {"kind": "oss_fuzz_snapshot", "path": "openh264/build.sh", "url": "https://github.com/google/oss-fuzz/blob/08682bfc14e31d12fcc94b52b4805d7994fb70fd/projects/openh264/build.sh", "supports": ["build_path"]}
+      ]
+    },
+    {
+      "id": "gpac",
+      "repository_url": "https://github.com/gpac/gpac",
+      "commit": "2aa431eaf732c1a7e9a966ea12049fc001d91e04",
+      "build_system": "make",
+      "review_state": "reviewed",
+      "result_data_consulted": false,
+      "recipe": {
+        "source_subdir": ".",
+        "bootstrap_commands": ["./configure --static-bin"],
+        "configure_arguments": [],
+        "build_targets": ["lib"],
+        "required_system_packages": ["build-essential", "pkg-config", "zlib1g-dev"]
+      },
+      "artifact_oracle": {
+        "required_artifacts": [
+          {"staged_relative_path": "libgpac_static.a", "build_output_path": "bin/gcc/libgpac_static.a", "artifact_type": "static_library", "producing_target": "lib"}
+        ]
+      },
+      "evidence": [
+        {"kind": "upstream_exact_commit", "path": "Makefile", "url": "https://github.com/gpac/gpac/blob/2aa431eaf732c1a7e9a966ea12049fc001d91e04/Makefile", "supports": ["build_path", "artifact_identity"]},
+        {"kind": "upstream_exact_commit", "path": "configure", "url": "https://github.com/gpac/gpac/blob/2aa431eaf732c1a7e9a966ea12049fc001d91e04/configure", "supports": ["build_path"]},
+        {"kind": "oss_fuzz_snapshot", "path": "gpac/build.sh", "url": "https://github.com/google/oss-fuzz/blob/08682bfc14e31d12fcc94b52b4805d7994fb70fd/projects/gpac/build.sh", "supports": ["build_path"]}
+      ]
+    },
+    {
+      "id": "janet",
+      "repository_url": "https://github.com/janet-lang/janet",
+      "commit": "c0b32d4e3798d0ceaf4131e642e59602a31ce151",
+      "build_system": "make",
+      "review_state": "reviewed",
+      "result_data_consulted": false,
+      "recipe": {
+        "source_subdir": ".",
+        "bootstrap_commands": [],
+        "configure_arguments": [],
+        "build_targets": ["all"],
+        "required_system_packages": ["build-essential"]
+      },
+      "artifact_oracle": {
+        "required_artifacts": [
+          {"staged_relative_path": "libjanet.a", "build_output_path": "build/libjanet.a", "artifact_type": "static_library", "producing_target": "all"}
+        ]
+      },
+      "evidence": [
+        {"kind": "upstream_exact_commit", "path": "Makefile", "url": "https://github.com/janet-lang/janet/blob/c0b32d4e3798d0ceaf4131e642e59602a31ce151/Makefile", "supports": ["build_path", "artifact_identity"]},
+        {"kind": "oss_fuzz_snapshot", "path": "janet/build.sh", "url": "https://github.com/google/oss-fuzz/blob/08682bfc14e31d12fcc94b52b4805d7994fb70fd/projects/janet/build.sh", "supports": ["build_path"]}
+      ]
+    },
+    {
+      "id": "uwebsockets",
+      "repository_url": "https://github.com/uNetworking/uWebSockets",
+      "commit": "fe7c01a477b688a7743f754fee33bdd78d52ad91",
+      "build_system": "make",
+      "review_state": "reviewed",
+      "result_data_consulted": false,
+      "recipe": {
+        "source_subdir": ".",
+        "bootstrap_commands": ["git submodule update --init --recursive"],
+        "configure_arguments": [],
+        "build_targets": ["examples"],
+        "required_system_packages": ["build-essential", "libssl-dev", "zlib1g-dev"]
+      },
+      "artifact_oracle": {
+        "required_artifacts": [
+          {"staged_relative_path": "HelloWorld", "build_output_path": "HelloWorld", "artifact_type": "executable", "producing_target": "examples"}
+        ]
+      },
+      "evidence": [
+        {"kind": "upstream_exact_commit", "path": "GNUmakefile", "url": "https://github.com/uNetworking/uWebSockets/blob/fe7c01a477b688a7743f754fee33bdd78d52ad91/GNUmakefile", "supports": ["build_path"]},
+        {"kind": "upstream_exact_commit", "path": "build.c", "url": "https://github.com/uNetworking/uWebSockets/blob/fe7c01a477b688a7743f754fee33bdd78d52ad91/build.c", "supports": ["artifact_identity"]},
+        {"kind": "oss_fuzz_snapshot", "path": "uwebsockets/build.sh", "url": "https://github.com/google/oss-fuzz/blob/08682bfc14e31d12fcc94b52b4805d7994fb70fd/projects/uwebsockets/build.sh", "supports": ["build_path"]}
+      ]
+    },
+    {
+      "id": "mruby",
+      "repository_url": "https://github.com/mruby/mruby",
+      "commit": "33b228bdbed842efc88a62e5b139dd2c358f08d5",
+      "build_system": "make",
+      "review_state": "reviewed",
+      "result_data_consulted": false,
+      "recipe": {
+        "source_subdir": ".",
+        "bootstrap_commands": [],
+        "configure_arguments": [],
+        "build_targets": ["all"],
+        "required_system_packages": ["build-essential", "ruby"]
+      },
+      "artifact_oracle": {
+        "required_artifacts": [
+          {"staged_relative_path": "libmruby.a", "build_output_path": "build/host/lib/libmruby.a", "artifact_type": "static_library", "producing_target": "all"}
+        ]
+      },
+      "evidence": [
+        {"kind": "upstream_exact_commit", "path": "Makefile", "url": "https://github.com/mruby/mruby/blob/33b228bdbed842efc88a62e5b139dd2c358f08d5/Makefile", "supports": ["build_path"]},
+        {"kind": "upstream_exact_commit", "path": "Rakefile", "url": "https://github.com/mruby/mruby/blob/33b228bdbed842efc88a62e5b139dd2c358f08d5/Rakefile", "supports": ["artifact_identity"]},
+        {"kind": "oss_fuzz_snapshot", "path": "mruby/build.sh", "url": "https://github.com/google/oss-fuzz/blob/08682bfc14e31d12fcc94b52b4805d7994fb70fd/projects/mruby/build.sh", "supports": ["build_path"]}
+      ]
+    },
+    {
+      "id": "fio",
+      "repository_url": "https://github.com/axboe/fio",
+      "commit": "c76c61b0fbe1b90a7886b8790805cf9903285074",
+      "build_system": "make",
+      "review_state": "reviewed",
+      "result_data_consulted": false,
+      "recipe": {
+        "source_subdir": ".",
+        "bootstrap_commands": ["./configure --disable-native"],
+        "configure_arguments": [],
+        "build_targets": ["fio"],
+        "required_system_packages": ["build-essential", "zlib1g-dev"]
+      },
+      "artifact_oracle": {
+        "required_artifacts": [
+          {"staged_relative_path": "fio", "build_output_path": "fio", "artifact_type": "executable", "producing_target": "fio"}
+        ]
+      },
+      "evidence": [
+        {"kind": "upstream_exact_commit", "path": "Makefile", "url": "https://github.com/axboe/fio/blob/c76c61b0fbe1b90a7886b8790805cf9903285074/Makefile", "supports": ["build_path", "artifact_identity"]},
+        {"kind": "upstream_exact_commit", "path": "configure", "url": "https://github.com/axboe/fio/blob/c76c61b0fbe1b90a7886b8790805cf9903285074/configure", "supports": ["build_path"]},
+        {"kind": "oss_fuzz_snapshot", "path": "fio/build.sh", "url": "https://github.com/google/oss-fuzz/blob/08682bfc14e31d12fcc94b52b4805d7994fb70fd/projects/fio/build.sh", "supports": ["build_path"]}
+      ]
+    },
+    {
+      "id": "sql-parser",
+      "repository_url": "https://github.com/hyrise/sql-parser",
+      "commit": "ccd3f68b50bb2b96ce69afa7b956b3bd826643cc",
+      "build_system": "make",
+      "review_state": "reviewed",
+      "result_data_consulted": false,
+      "recipe": {
+        "source_subdir": ".",
+        "bootstrap_commands": [],
+        "configure_arguments": [],
+        "build_targets": ["library"],
+        "required_system_packages": ["bison", "build-essential", "flex"]
+      },
+      "artifact_oracle": {
+        "required_artifacts": [
+          {"staged_relative_path": "libsqlparser.a", "build_output_path": "libsqlparser.a", "artifact_type": "static_library", "producing_target": "library"}
+        ]
+      },
+      "evidence": [
+        {"kind": "upstream_exact_commit", "path": "Makefile", "url": "https://github.com/hyrise/sql-parser/blob/ccd3f68b50bb2b96ce69afa7b956b3bd826643cc/Makefile", "supports": ["build_path", "artifact_identity"]},
+        {"kind": "oss_fuzz_snapshot", "path": "sql-parser/build.sh", "url": "https://github.com/google/oss-fuzz/blob/08682bfc14e31d12fcc94b52b4805d7994fb70fd/projects/sql-parser/build.sh", "supports": ["build_path"]}
+      ]
+    },
+    {
+      "id": "lodepng",
+      "repository_url": "https://github.com/lvandeve/lodepng",
+      "commit": "ed6fe5825c6a4fbb7f58ab35a4231c7543cd452a",
+      "build_system": "make",
+      "review_state": "reviewed",
+      "result_data_consulted": false,
+      "recipe": {
+        "source_subdir": ".",
+        "bootstrap_commands": [],
+        "configure_arguments": [],
+        "build_targets": ["unittest"],
+        "required_system_packages": ["build-essential"]
+      },
+      "artifact_oracle": {
+        "required_artifacts": [
+          {"staged_relative_path": "unittest", "build_output_path": "unittest", "artifact_type": "executable", "producing_target": "unittest"}
+        ]
+      },
+      "evidence": [
+        {"kind": "upstream_exact_commit", "path": "Makefile", "url": "https://github.com/lvandeve/lodepng/blob/ed6fe5825c6a4fbb7f58ab35a4231c7543cd452a/Makefile", "supports": ["build_path", "artifact_identity"]},
+        {"kind": "oss_fuzz_snapshot", "path": "lodepng/build.sh", "url": "https://github.com/google/oss-fuzz/blob/08682bfc14e31d12fcc94b52b4805d7994fb70fd/projects/lodepng/build.sh", "supports": ["build_path"]}
+      ]
+    },
+    {
+      "id": "hoextdown",
+      "repository_url": "https://github.com/kjdev/hoextdown",
+      "commit": "1ef9a71957570c2a65b7daa1b2f693ad87daf385",
+      "build_system": "make",
+      "review_state": "reviewed",
+      "result_data_consulted": false,
+      "recipe": {
+        "source_subdir": ".",
+        "bootstrap_commands": [],
+        "configure_arguments": [],
+        "build_targets": ["libhoedown.a"],
+        "required_system_packages": ["build-essential"]
+      },
+      "artifact_oracle": {
+        "required_artifacts": [
+          {"staged_relative_path": "libhoedown.a", "build_output_path": "libhoedown.a", "artifact_type": "static_library", "producing_target": "libhoedown.a"}
+        ]
+      },
+      "evidence": [
+        {"kind": "upstream_exact_commit", "path": "Makefile", "url": "https://github.com/kjdev/hoextdown/blob/1ef9a71957570c2a65b7daa1b2f693ad87daf385/Makefile", "supports": ["build_path", "artifact_identity"]},
+        {"kind": "oss_fuzz_snapshot", "path": "hoextdown/build.sh", "url": "https://github.com/google/oss-fuzz/blob/08682bfc14e31d12fcc94b52b4805d7994fb70fd/projects/hoextdown/build.sh", "supports": ["build_path"]}
+      ]
+    }
+  ]
+}
