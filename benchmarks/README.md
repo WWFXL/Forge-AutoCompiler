@@ -1,5 +1,25 @@
 # Forge C/C++ benchmark protocols
 
+## Pilot v8 descriptive report
+
+Issue #74 adds a deterministic, read-only report over the ten frozen v8
+collection ledgers. The analyzer verifies ledger hash chains, collection-plan
+identity, terminal evidence, offline gates, and the recorded oracle before
+aggregating requests, tokens, wall-clock duration, commands, submits, clean
+replays, failure domains, and cleanup:
+
+```bash
+PYTHONPATH=backend/packages/harness python scripts/forge_benchmark_v8_report.py \
+  --evidence-dir /workspace/.compile-sessions/benchmark-evidence
+```
+
+The five historical `baseline` ledgers colocated in that directory are audited
+and reported separately; they never enter the v8 outcome denominator. Historical
+v8 evidence did not record whether the host used Wi-Fi, a mobile hotspot, wired
+networking, or another access medium. Endpoint timeouts therefore remain
+end-to-end path failures with indeterminate attribution, not direct evidence of
+model capability.
+
 ## Dual-provider pilot v8 protocol
 
 `cpp-pilot-v8.json` freezes a ten-slot calibration design over the same five

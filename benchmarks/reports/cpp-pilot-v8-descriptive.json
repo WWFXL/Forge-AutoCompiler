@@ -1,0 +1,871 @@
+{
+  "attempts": [
+    {
+      "actual_model_match": true,
+      "actual_models": [
+        "gpt-5.5"
+      ],
+      "artifact_identity_diff": {
+        "expected_only_count": 0,
+        "observed_only_count": 0,
+        "type_mismatch_count": 0
+      },
+      "attempt_duration_seconds": 201.725,
+      "case_id": "fmt",
+      "clean_replays": {
+        "completed": 1,
+        "failed": 0,
+        "passed": 1,
+        "reconciled": 0,
+        "started": 1
+      },
+      "commands": {
+        "completed": 9,
+        "successful": 7,
+        "timed_out": 0
+      },
+      "condition_id": "richlab-gpt-5.5",
+      "configured_model": "gpt-5.5",
+      "deliveries_succeeded": 1,
+      "failure_domains": {
+        "agent_tool": [],
+        "build": [],
+        "completion": [],
+        "model_endpoint": [],
+        "submit_replay": []
+      },
+      "model_requests": {
+        "completed": 12,
+        "failed": 0,
+        "failure_classifications": {},
+        "latency_seconds": 84.601,
+        "started": 12
+      },
+      "network_preflight": {
+        "access_medium_recorded": false,
+        "endpoint_reachable": true,
+        "network_present": true
+      },
+      "offline_gate_recomputation_valid": true,
+      "oracle_classification": null,
+      "oracle_passed": true,
+      "order": 1,
+      "orphan_cleanup_succeeded": true,
+      "orphan_count": 0,
+      "recorded_gate_recomputation_valid": true,
+      "repetition": 1,
+      "replay_artifact_diff": {
+        "available": true,
+        "mismatch_count": 0
+      },
+      "session_finalization_succeeded": true,
+      "submits": {
+        "aborted": 0,
+        "completed": 1,
+        "started": 1
+      },
+      "terminal_status": "passed",
+      "token_usage": {
+        "input_tokens": 61617,
+        "output_tokens": 2558,
+        "total_tokens": 64175
+      }
+    },
+    {
+      "actual_model_match": true,
+      "actual_models": [
+        "deepseek-v4-flash"
+      ],
+      "artifact_identity_diff": {
+        "expected_only_count": 0,
+        "observed_only_count": 0,
+        "type_mismatch_count": 0
+      },
+      "attempt_duration_seconds": 122.667,
+      "case_id": "fmt",
+      "clean_replays": {
+        "completed": 1,
+        "failed": 0,
+        "passed": 1,
+        "reconciled": 0,
+        "started": 1
+      },
+      "commands": {
+        "completed": 8,
+        "successful": 8,
+        "timed_out": 0
+      },
+      "condition_id": "deepseek-v4-flash",
+      "configured_model": "deepseek-v4-flash",
+      "deliveries_succeeded": 1,
+      "failure_domains": {
+        "agent_tool": [],
+        "build": [],
+        "completion": [],
+        "model_endpoint": [],
+        "submit_replay": []
+      },
+      "model_requests": {
+        "completed": 10,
+        "failed": 0,
+        "failure_classifications": {},
+        "latency_seconds": 17.659,
+        "started": 10
+      },
+      "network_preflight": {
+        "access_medium_recorded": false,
+        "endpoint_reachable": true,
+        "network_present": true
+      },
+      "offline_gate_recomputation_valid": true,
+      "oracle_classification": null,
+      "oracle_passed": true,
+      "order": 2,
+      "orphan_cleanup_succeeded": true,
+      "orphan_count": 0,
+      "recorded_gate_recomputation_valid": true,
+      "repetition": 1,
+      "replay_artifact_diff": {
+        "available": true,
+        "mismatch_count": 0
+      },
+      "session_finalization_succeeded": true,
+      "submits": {
+        "aborted": 0,
+        "completed": 1,
+        "started": 1
+      },
+      "terminal_status": "passed",
+      "token_usage": {
+        "input_tokens": 55534,
+        "output_tokens": 1241,
+        "total_tokens": 56775
+      }
+    },
+    {
+      "actual_model_match": true,
+      "actual_models": [
+        "gpt-5.5"
+      ],
+      "artifact_identity_diff": {
+        "expected_only_count": 2,
+        "observed_only_count": 2,
+        "type_mismatch_count": 0
+      },
+      "attempt_duration_seconds": 414.691,
+      "case_id": "hiredis",
+      "clean_replays": {
+        "completed": 3,
+        "failed": 0,
+        "passed": 3,
+        "reconciled": 0,
+        "started": 3
+      },
+      "commands": {
+        "completed": 14,
+        "successful": 7,
+        "timed_out": 0
+      },
+      "condition_id": "richlab-gpt-5.5",
+      "configured_model": "gpt-5.5",
+      "deliveries_succeeded": 1,
+      "failure_domains": {
+        "agent_tool": [],
+        "build": [],
+        "completion": [
+          "experiment_failed"
+        ],
+        "model_endpoint": [],
+        "submit_replay": []
+      },
+      "model_requests": {
+        "completed": 26,
+        "failed": 0,
+        "failure_classifications": {},
+        "latency_seconds": 197.759,
+        "started": 26
+      },
+      "network_preflight": {
+        "access_medium_recorded": false,
+        "endpoint_reachable": true,
+        "network_present": true
+      },
+      "offline_gate_recomputation_valid": true,
+      "oracle_classification": "oracle_mismatch",
+      "oracle_passed": false,
+      "order": 3,
+      "orphan_cleanup_succeeded": true,
+      "orphan_count": 0,
+      "recorded_gate_recomputation_valid": true,
+      "repetition": 1,
+      "replay_artifact_diff": {
+        "available": true,
+        "mismatch_count": 0
+      },
+      "session_finalization_succeeded": true,
+      "submits": {
+        "aborted": 0,
+        "completed": 3,
+        "started": 3
+      },
+      "terminal_status": "failed",
+      "token_usage": {
+        "input_tokens": 140463,
+        "output_tokens": 6188,
+        "total_tokens": 146651
+      }
+    },
+    {
+      "actual_model_match": true,
+      "actual_models": [
+        "deepseek-v4-flash"
+      ],
+      "artifact_identity_diff": {
+        "expected_only_count": 0,
+        "observed_only_count": 0,
+        "type_mismatch_count": 0
+      },
+      "attempt_duration_seconds": 198.958,
+      "case_id": "hiredis",
+      "clean_replays": {
+        "completed": 1,
+        "failed": 0,
+        "passed": 1,
+        "reconciled": 0,
+        "started": 1
+      },
+      "commands": {
+        "completed": 13,
+        "successful": 11,
+        "timed_out": 0
+      },
+      "condition_id": "deepseek-v4-flash",
+      "configured_model": "deepseek-v4-flash",
+      "deliveries_succeeded": 1,
+      "failure_domains": {
+        "agent_tool": [],
+        "build": [],
+        "completion": [],
+        "model_endpoint": [],
+        "submit_replay": [
+          "candidate_verification_failed"
+        ]
+      },
+      "model_requests": {
+        "completed": 23,
+        "failed": 0,
+        "failure_classifications": {},
+        "latency_seconds": 53.181,
+        "started": 23
+      },
+      "network_preflight": {
+        "access_medium_recorded": false,
+        "endpoint_reachable": true,
+        "network_present": true
+      },
+      "offline_gate_recomputation_valid": true,
+      "oracle_classification": null,
+      "oracle_passed": true,
+      "order": 4,
+      "orphan_cleanup_succeeded": true,
+      "orphan_count": 0,
+      "recorded_gate_recomputation_valid": true,
+      "repetition": 1,
+      "replay_artifact_diff": {
+        "available": true,
+        "mismatch_count": 0
+      },
+      "session_finalization_succeeded": true,
+      "submits": {
+        "aborted": 0,
+        "completed": 2,
+        "started": 2
+      },
+      "terminal_status": "passed",
+      "token_usage": {
+        "input_tokens": 158667,
+        "output_tokens": 4647,
+        "total_tokens": 163314
+      }
+    },
+    {
+      "actual_model_match": true,
+      "actual_models": [
+        "gpt-5.5"
+      ],
+      "artifact_identity_diff": {
+        "expected_only_count": 1,
+        "observed_only_count": 4,
+        "type_mismatch_count": 0
+      },
+      "attempt_duration_seconds": 1058.648,
+      "case_id": "libcheck",
+      "clean_replays": {
+        "completed": 1,
+        "failed": 1,
+        "passed": 0,
+        "reconciled": 1,
+        "started": 1
+      },
+      "commands": {
+        "completed": 13,
+        "successful": 10,
+        "timed_out": 0
+      },
+      "condition_id": "richlab-gpt-5.5",
+      "configured_model": "gpt-5.5",
+      "deliveries_succeeded": 0,
+      "failure_domains": {
+        "agent_tool": [
+          "post_build_reserve_exhausted"
+        ],
+        "build": [],
+        "completion": [
+          "experiment_failed"
+        ],
+        "model_endpoint": [],
+        "submit_replay": [
+          "candidate_verification_failed",
+          "candidate_verification_failed",
+          "build_system_mismatch"
+        ]
+      },
+      "model_requests": {
+        "completed": 22,
+        "failed": 0,
+        "failure_classifications": {},
+        "latency_seconds": 208.158,
+        "started": 22
+      },
+      "network_preflight": {
+        "access_medium_recorded": false,
+        "endpoint_reachable": true,
+        "network_present": true
+      },
+      "offline_gate_recomputation_valid": true,
+      "oracle_classification": "oracle_mismatch",
+      "oracle_passed": false,
+      "order": 5,
+      "orphan_cleanup_succeeded": true,
+      "orphan_count": 0,
+      "recorded_gate_recomputation_valid": true,
+      "repetition": 1,
+      "replay_artifact_diff": {
+        "available": false,
+        "mismatch_count": 0
+      },
+      "session_finalization_succeeded": true,
+      "submits": {
+        "aborted": 1,
+        "completed": 3,
+        "started": 4
+      },
+      "terminal_status": "failed",
+      "token_usage": {
+        "input_tokens": 127859,
+        "output_tokens": 6675,
+        "total_tokens": 134534
+      }
+    },
+    {
+      "actual_model_match": true,
+      "actual_models": [
+        "deepseek-v4-flash"
+      ],
+      "artifact_identity_diff": {
+        "expected_only_count": 0,
+        "observed_only_count": 3,
+        "type_mismatch_count": 0
+      },
+      "attempt_duration_seconds": 192.644,
+      "case_id": "libcheck",
+      "clean_replays": {
+        "completed": 1,
+        "failed": 0,
+        "passed": 1,
+        "reconciled": 0,
+        "started": 1
+      },
+      "commands": {
+        "completed": 12,
+        "successful": 10,
+        "timed_out": 0
+      },
+      "condition_id": "deepseek-v4-flash",
+      "configured_model": "deepseek-v4-flash",
+      "deliveries_succeeded": 1,
+      "failure_domains": {
+        "agent_tool": [],
+        "build": [],
+        "completion": [],
+        "model_endpoint": [],
+        "submit_replay": []
+      },
+      "model_requests": {
+        "completed": 15,
+        "failed": 0,
+        "failure_classifications": {},
+        "latency_seconds": 22.113,
+        "started": 15
+      },
+      "network_preflight": {
+        "access_medium_recorded": false,
+        "endpoint_reachable": true,
+        "network_present": true
+      },
+      "offline_gate_recomputation_valid": true,
+      "oracle_classification": null,
+      "oracle_passed": true,
+      "order": 6,
+      "orphan_cleanup_succeeded": true,
+      "orphan_count": 0,
+      "recorded_gate_recomputation_valid": true,
+      "repetition": 1,
+      "replay_artifact_diff": {
+        "available": true,
+        "mismatch_count": 0
+      },
+      "session_finalization_succeeded": true,
+      "submits": {
+        "aborted": 0,
+        "completed": 1,
+        "started": 1
+      },
+      "terminal_status": "passed",
+      "token_usage": {
+        "input_tokens": 107523,
+        "output_tokens": 1805,
+        "total_tokens": 109328
+      }
+    },
+    {
+      "actual_model_match": true,
+      "actual_models": [
+        "gpt-5.5"
+      ],
+      "artifact_identity_diff": {
+        "expected_only_count": 0,
+        "observed_only_count": 0,
+        "type_mismatch_count": 0
+      },
+      "attempt_duration_seconds": 1096.853,
+      "case_id": "libgit2",
+      "clean_replays": {
+        "completed": 2,
+        "failed": 0,
+        "passed": 2,
+        "reconciled": 0,
+        "started": 2
+      },
+      "commands": {
+        "completed": 14,
+        "successful": 6,
+        "timed_out": 0
+      },
+      "condition_id": "richlab-gpt-5.5",
+      "configured_model": "gpt-5.5",
+      "deliveries_succeeded": 1,
+      "failure_domains": {
+        "agent_tool": [],
+        "build": [],
+        "completion": [],
+        "model_endpoint": [],
+        "submit_replay": []
+      },
+      "model_requests": {
+        "completed": 24,
+        "failed": 0,
+        "failure_classifications": {},
+        "latency_seconds": 231.627,
+        "started": 24
+      },
+      "network_preflight": {
+        "access_medium_recorded": false,
+        "endpoint_reachable": true,
+        "network_present": true
+      },
+      "offline_gate_recomputation_valid": true,
+      "oracle_classification": null,
+      "oracle_passed": true,
+      "order": 7,
+      "orphan_cleanup_succeeded": true,
+      "orphan_count": 0,
+      "recorded_gate_recomputation_valid": true,
+      "repetition": 1,
+      "replay_artifact_diff": {
+        "available": true,
+        "mismatch_count": 0
+      },
+      "session_finalization_succeeded": true,
+      "submits": {
+        "aborted": 0,
+        "completed": 2,
+        "started": 2
+      },
+      "terminal_status": "passed",
+      "token_usage": {
+        "input_tokens": 131337,
+        "output_tokens": 7705,
+        "total_tokens": 139042
+      }
+    },
+    {
+      "actual_model_match": true,
+      "actual_models": [
+        "deepseek-v4-flash"
+      ],
+      "artifact_identity_diff": {
+        "expected_only_count": 0,
+        "observed_only_count": 0,
+        "type_mismatch_count": 0
+      },
+      "attempt_duration_seconds": 615.538,
+      "case_id": "libgit2",
+      "clean_replays": {
+        "completed": 1,
+        "failed": 0,
+        "passed": 1,
+        "reconciled": 0,
+        "started": 1
+      },
+      "commands": {
+        "completed": 12,
+        "successful": 11,
+        "timed_out": 0
+      },
+      "condition_id": "deepseek-v4-flash",
+      "configured_model": "deepseek-v4-flash",
+      "deliveries_succeeded": 1,
+      "failure_domains": {
+        "agent_tool": [],
+        "build": [],
+        "completion": [],
+        "model_endpoint": [],
+        "submit_replay": []
+      },
+      "model_requests": {
+        "completed": 23,
+        "failed": 0,
+        "failure_classifications": {},
+        "latency_seconds": 47.383,
+        "started": 23
+      },
+      "network_preflight": {
+        "access_medium_recorded": false,
+        "endpoint_reachable": true,
+        "network_present": true
+      },
+      "offline_gate_recomputation_valid": true,
+      "oracle_classification": null,
+      "oracle_passed": true,
+      "order": 8,
+      "orphan_cleanup_succeeded": true,
+      "orphan_count": 0,
+      "recorded_gate_recomputation_valid": true,
+      "repetition": 1,
+      "replay_artifact_diff": {
+        "available": true,
+        "mismatch_count": 0
+      },
+      "session_finalization_succeeded": true,
+      "submits": {
+        "aborted": 0,
+        "completed": 1,
+        "started": 1
+      },
+      "terminal_status": "passed",
+      "token_usage": {
+        "input_tokens": 149182,
+        "output_tokens": 4723,
+        "total_tokens": 153905
+      }
+    },
+    {
+      "actual_model_match": true,
+      "actual_models": [
+        "gpt-5.5"
+      ],
+      "artifact_identity_diff": {
+        "expected_only_count": 0,
+        "observed_only_count": 0,
+        "type_mismatch_count": 0
+      },
+      "attempt_duration_seconds": 870.474,
+      "case_id": "sysstat-nondeterministic",
+      "clean_replays": {
+        "completed": 3,
+        "failed": 2,
+        "passed": 1,
+        "reconciled": 0,
+        "started": 3
+      },
+      "commands": {
+        "completed": 31,
+        "successful": 25,
+        "timed_out": 0
+      },
+      "condition_id": "richlab-gpt-5.5",
+      "configured_model": "gpt-5.5",
+      "deliveries_succeeded": 1,
+      "failure_domains": {
+        "agent_tool": [],
+        "build": [],
+        "completion": [
+          "experiment_failed"
+        ],
+        "model_endpoint": [],
+        "submit_replay": [
+          "candidate_verification_failed",
+          "candidate_verification_failed",
+          "candidate_verification_failed",
+          "candidate_verification_failed",
+          "candidate_verification_failed",
+          "candidate_verification_failed",
+          "sha256_mismatch",
+          "sha256_mismatch"
+        ]
+      },
+      "model_requests": {
+        "completed": 32,
+        "failed": 0,
+        "failure_classifications": {},
+        "latency_seconds": 277.579,
+        "started": 32
+      },
+      "network_preflight": {
+        "access_medium_recorded": false,
+        "endpoint_reachable": true,
+        "network_present": true
+      },
+      "offline_gate_recomputation_valid": true,
+      "oracle_classification": "oracle_mismatch",
+      "oracle_passed": false,
+      "order": 9,
+      "orphan_cleanup_succeeded": true,
+      "orphan_count": 0,
+      "recorded_gate_recomputation_valid": false,
+      "repetition": 1,
+      "replay_artifact_diff": {
+        "available": true,
+        "mismatch_count": 0
+      },
+      "session_finalization_succeeded": true,
+      "submits": {
+        "aborted": 0,
+        "completed": 9,
+        "started": 9
+      },
+      "terminal_status": "failed",
+      "token_usage": {
+        "input_tokens": 314627,
+        "output_tokens": 7653,
+        "total_tokens": 322280
+      }
+    },
+    {
+      "actual_model_match": true,
+      "actual_models": [
+        "deepseek-v4-flash"
+      ],
+      "artifact_identity_diff": {
+        "expected_only_count": 0,
+        "observed_only_count": 0,
+        "type_mismatch_count": 0
+      },
+      "attempt_duration_seconds": 235.924,
+      "case_id": "sysstat-nondeterministic",
+      "clean_replays": {
+        "completed": 0,
+        "failed": 0,
+        "passed": 0,
+        "reconciled": 0,
+        "started": 0
+      },
+      "commands": {
+        "completed": 2,
+        "successful": 2,
+        "timed_out": 0
+      },
+      "condition_id": "deepseek-v4-flash",
+      "configured_model": "deepseek-v4-flash",
+      "deliveries_succeeded": 0,
+      "failure_domains": {
+        "agent_tool": [],
+        "build": [],
+        "completion": [
+          "experiment_failed"
+        ],
+        "model_endpoint": [
+          "timeout"
+        ],
+        "submit_replay": []
+      },
+      "model_requests": {
+        "completed": 3,
+        "failed": 1,
+        "failure_classifications": {
+          "timeout": 1
+        },
+        "latency_seconds": 122.895,
+        "started": 4
+      },
+      "network_preflight": {
+        "access_medium_recorded": false,
+        "endpoint_reachable": true,
+        "network_present": true
+      },
+      "offline_gate_recomputation_valid": true,
+      "oracle_classification": "submit_missing",
+      "oracle_passed": false,
+      "order": 10,
+      "orphan_cleanup_succeeded": true,
+      "orphan_count": 0,
+      "recorded_gate_recomputation_valid": true,
+      "repetition": 1,
+      "replay_artifact_diff": {
+        "available": false,
+        "mismatch_count": 0
+      },
+      "session_finalization_succeeded": true,
+      "submits": {
+        "aborted": 0,
+        "completed": 0,
+        "started": 0
+      },
+      "terminal_status": "failed",
+      "token_usage": {
+        "input_tokens": 16350,
+        "output_tokens": 178,
+        "total_tokens": 16528
+      }
+    }
+  ],
+  "benchmark_id": "forge-cpp-clean-replay-pilot-v8",
+  "collection": {
+    "actual_model_matches": 10,
+    "analyzed_slots": 10,
+    "gate_recomputation_valid": 10,
+    "ledger_hash_chain_valid": 10,
+    "oracle_failed": 4,
+    "oracle_passed": 6,
+    "orphan_cleanup_succeeded": 10,
+    "orphan_count": 0,
+    "planned_slots": 10,
+    "recorded_terminal_gate_recomputation_valid": 9,
+    "session_finalization_succeeded": 10,
+    "terminal_completed": 10
+  },
+  "conditions": [
+    {
+      "attempt_duration_seconds": {
+        "maximum": 1096.853,
+        "median": 870.474,
+        "minimum": 201.725,
+        "total": 3642.391
+      },
+      "attempts": 5,
+      "clean_replays": {
+        "completed": 10,
+        "failed": 3,
+        "passed": 7
+      },
+      "commands_completed": 81,
+      "condition_id": "richlab-gpt-5.5",
+      "configured_model": "gpt-5.5",
+      "failure_event_counts": {
+        "agent_tool:post_build_reserve_exhausted": 1,
+        "completion:experiment_failed": 3,
+        "submit_replay:build_system_mismatch": 1,
+        "submit_replay:candidate_verification_failed": 8,
+        "submit_replay:sha256_mismatch": 2
+      },
+      "model_requests": {
+        "completed": 116,
+        "failed": 0,
+        "started": 116
+      },
+      "oracle_failed": 3,
+      "oracle_passed": 2,
+      "submits_completed": 18,
+      "token_usage": {
+        "input_tokens": 775903,
+        "output_tokens": 30779,
+        "total_tokens": 806682
+      }
+    },
+    {
+      "attempt_duration_seconds": {
+        "maximum": 615.538,
+        "median": 198.958,
+        "minimum": 122.667,
+        "total": 1365.731
+      },
+      "attempts": 5,
+      "clean_replays": {
+        "completed": 4,
+        "failed": 0,
+        "passed": 4
+      },
+      "commands_completed": 47,
+      "condition_id": "deepseek-v4-flash",
+      "configured_model": "deepseek-v4-flash",
+      "failure_event_counts": {
+        "completion:experiment_failed": 1,
+        "model_endpoint:timeout": 1,
+        "submit_replay:candidate_verification_failed": 1
+      },
+      "model_requests": {
+        "completed": 74,
+        "failed": 1,
+        "started": 75
+      },
+      "oracle_failed": 1,
+      "oracle_passed": 4,
+      "submits_completed": 5,
+      "token_usage": {
+        "input_tokens": 487256,
+        "output_tokens": 12594,
+        "total_tokens": 499850
+      }
+    }
+  ],
+  "historical_baseline_ledgers": {
+    "discovered": 5,
+    "hash_chain_valid": 5,
+    "included_in_v8_outcome_denominator": false,
+    "orphan_cleanup_succeeded": 5,
+    "terminal_completed": 5
+  },
+  "limitations": [
+    "Five purposively selected cases with one repetition per condition cannot estimate a population-level model effect.",
+    "formal_comparison_enabled is false; no significance test or model-ranking claim is supported.",
+    "Historical ledgers did not record Wi-Fi, mobile-hotspot, wired, or other local access-medium identity.",
+    "A provider timeout is an observed endpoint-path failure, not proof of a model-capability failure."
+  ],
+  "manifest_sha256": "72e635c53c1316ed1a7afb352fa8935945f084bba94ca0d00d3cb18a6c0b09c2",
+  "network_interpretation": {
+    "access_medium_recorded": false,
+    "attribution": "indeterminate",
+    "endpoint_reachable_preflight": 10,
+    "endpoint_timeout_attempts": 1,
+    "network_present_preflight": 10,
+    "potential_layers": [
+      "local_access_medium",
+      "windows_network_stack",
+      "wsl_docker_forwarding",
+      "restricted_proxy_relay",
+      "internet_route",
+      "provider_endpoint"
+    ]
+  },
+  "report_version": "1.0.0",
+  "scope": {
+    "descriptive_only": true,
+    "formal_comparison_enabled": false,
+    "languages": [
+      "C",
+      "C++"
+    ],
+    "phase": "pilot"
+  }
+}
