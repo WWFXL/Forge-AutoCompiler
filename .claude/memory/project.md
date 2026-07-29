@@ -5,10 +5,10 @@
 ## 进行中 (In Progress)
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
-- 2026-07-30 — Issue #80 正在冻结正式实验运行协议与非模型 preflight
-  - 文件: `benchmarks/manifests/cpp-formal-v1.json`, `benchmarks/schemas/forge-cpp-formal-v1.schema.json`, `scripts/forge_formal_runtime_protocol.py`, `scripts/forge_benchmark_runner.py`, `backend/packages/harness/deerflow/compile/evidence.py`
-  - 当前结果: 已从 Issue #76/#78 冻结资产机械生成 30-case、180-slot manifest，并绑定 component/prompt/image/budget/source-protocol 摘要；逐项目 source/bootstrap/target/artifact 指令进入 runtime policy 与 compiler prompt，未授权 create/run 在 ledger 前硬拒绝。manifest SHA-256 为 `50ee3b447648d3149789a4b72bdab7a58c067b68f9cbca2a993e7843cd3889b1`；真实 Compose/DooD 非模型 preflight `ready=true`，实际未授权 create-attempt 后 ledger 数保持 `17 -> 17`。聚焦回归 `123 passed`，后端全量除隔离容器首次依赖下载超时外为 `1806 passed, 28 skipped`，该配置升级组在缓存环境单独 `4 passed`；Ruff、前端 lint/typecheck/隔离生产 build 通过。
-  - 边界: `collection_authorized=false`，本阶段只允许静态与 Compose/DooD 非模型 preflight，不调用模型、不创建 formal ledger、不修改 v1-v8。
+- 2026-07-30 — Issue #82 正在授权正式实验并准备首批 10 个 slot
+  - 文件: `benchmarks/manifests/cpp-formal-v1-collection.json`, `benchmarks/schemas/forge-cpp-formal-collection-v1.schema.json`, `scripts/forge_formal_collection_protocol.py`, `scripts/forge_formal_collection_runner.py`, `backend/tests/test_forge_formal_collection_protocol.py`
+  - 当前结果: 已新增独立 `formal-collection-1.0.0` identity，绑定父 manifest canonical SHA、Issue #82、2,939.7 万 token / 31.301 小时上限、双 provider canary 和 10-slot 批次边界；旧 `cpp-formal-v1`、原 runner 与 v1-v8 证据保持逐字不变。授权 manifest SHA-256 为 `8cfd909724a540a87fee9d68f7dafc0095964dd61150083a76f2ffdadc533aeb`。协议/evidence `305 passed`；后端全量主体 `1814 passed, 28 skipped`，配置升级冷缓存组在 `UV_NO_SYNC=1` 下单独 `4 passed`；Ruff、Schema、Compose、前端 lint/typecheck 通过。
+  - 边界: 尚未提交/合并，尚未执行 provider canary 或创建 formal ledger；本机 7.7 GiB WSL 下隔离 Next.js production build 两次被 OOM 终止，等待 GitHub CI 独立环境复核。
 
 ## 最近变更 (Recent Changes)
 <!-- 倒序，最新在上。 -->
@@ -221,6 +221,8 @@
 ## 已知问题 (Known Issues / Pitfalls)
 <!-- 工作中踩过的坑、限制或意外行为。 -->
 
+- `config-upgrade` 集成测试会在每个 case 内调用 `uv run`；仅迁移 `UV_CACHE_DIR` 仍可能因冷同步超过固定 60 秒，复用已同步 `.venv` 时还需设置 `UV_NO_SYNC=1`。本次由权限错误转为冷下载超时后，以该变量单独复核为 `4 passed`。
+- 当前 WSL2 仅约 7.7 GiB 内存时，Next.js 16/Turbopack 的无缓存 production build 即使停止全部开发服务、给 Node 4 GiB 上限，仍可能把 WSL 推到约 7 GiB 后被 OOM kill；不要把无错误栈的 `ELIFECYCLE` 直接归因于前端代码，优先用 GitHub CI 或提高 WSL 内存后复核。
 - 只读一次性后端测试容器必须把 `PYTHONPATH` 指向 `/repo/backend/packages/harness`，否则会导入镜像内旧源码；`config-upgrade` 还要把 `UV_CACHE_DIR`/`UV_PROJECT_ENVIRONMENT` 指向可写路径。冷缓存首次同步依赖可能超过该测试固定的 60 秒，应在缓存环境单独复核，不能误判为业务回归。
 - 手机热点下 `github.com` 网页/Git 通道可能在 8 路并发时 76/76 请求均连接超时，而 `api.github.com` 串行请求仍可稳定核验 77 条证据；网络诊断必须区分主机、通道和并发度，证据 000/timeout 不能直接当作文件 404。
 - 后端全量测试从只读 `/repo` 运行时，`config-upgrade` 需要单独挂载有效 `/repo/backend/.venv`，live upload 需要 tmpfs `/repo/backend/.deer-flow`；否则会在业务断言前产生只读文件系统伪失败。
