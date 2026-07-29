@@ -7,7 +7,7 @@
 
 - 2026-07-30 — Issue #80 正在冻结正式实验运行协议与非模型 preflight
   - 文件: `benchmarks/manifests/cpp-formal-v1.json`, `benchmarks/schemas/forge-cpp-formal-v1.schema.json`, `scripts/forge_formal_runtime_protocol.py`, `scripts/forge_benchmark_runner.py`, `backend/packages/harness/deerflow/compile/evidence.py`
-  - 当前结果: 已从 Issue #76/#78 冻结资产机械生成 30-case、180-slot manifest，并绑定 component/prompt/image/budget/source-protocol 摘要；逐项目 source/bootstrap/target/artifact 指令进入 runtime policy 与 compiler prompt，未授权 create/run 在 ledger 前硬拒绝。聚焦回归 `123 passed`，后端全量除隔离容器首次依赖下载超时外为 `1806 passed, 28 skipped`，该配置升级组在缓存环境单独 `4 passed`；Ruff、前端 lint/typecheck/隔离生产 build 通过。
+  - 当前结果: 已从 Issue #76/#78 冻结资产机械生成 30-case、180-slot manifest，并绑定 component/prompt/image/budget/source-protocol 摘要；逐项目 source/bootstrap/target/artifact 指令进入 runtime policy 与 compiler prompt，未授权 create/run 在 ledger 前硬拒绝。manifest SHA-256 为 `50ee3b447648d3149789a4b72bdab7a58c067b68f9cbca2a993e7843cd3889b1`；真实 Compose/DooD 非模型 preflight `ready=true`，实际未授权 create-attempt 后 ledger 数保持 `17 -> 17`。聚焦回归 `123 passed`，后端全量除隔离容器首次依赖下载超时外为 `1806 passed, 28 skipped`，该配置升级组在缓存环境单独 `4 passed`；Ruff、前端 lint/typecheck/隔离生产 build 通过。
   - 边界: `collection_authorized=false`，本阶段只允许静态与 Compose/DooD 非模型 preflight，不调用模型、不创建 formal ledger、不修改 v1-v8。
 
 ## 最近变更 (Recent Changes)
