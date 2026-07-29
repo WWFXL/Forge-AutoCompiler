@@ -5,14 +5,18 @@
 ## 进行中 (In Progress)
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
-- 2026-07-29 — Issue #78 正在冻结正式实验逐项目构建路径与 artifact oracle
-  - 文件: `benchmarks/preregistrations/cpp-formal-v1-cases.json`, `benchmarks/preregistrations/cpp-formal-v1-cases.md`, `scripts/forge_formal_case_protocol.py`, `backend/tests/test_forge_formal_case_protocol.py`
-  - 当前结果: 30/30 case 与 Issue #76 预注册 identity/分层一致，冻结 30 个精确 artifact oracle 与 77 条 exact-commit/OSS-Fuzz 证据；validator 与 18 个回归、协议/evidence 261 个回归、后端全量 `1798 passed, 28 skipped`，前端 lint/typecheck/build、Compose 与 0 orphan 通过。
-  - 审计修正: `jpegoptim` 固定提交使用 `configure.in + Makefile.in`；FreeRADIUS archive 位于 `build/lib/.libs`；uWebSockets 的 Linux 入口是 `GNUmakefile` 且 `capi` 为空操作，现固定 `examples -> HelloWorld`；`cppitertools` 固定独立 `examples/CMakeLists.txt -> accumulate_examples`。
-  - 边界: 0 模型请求、0 formal ledger，v1-v8 冻结资产不变；下一步为中文提交/PR、CI/合并和知识库同步，仍不授权 180-slot 采集。
+- 2026-07-30 — Issue #80 正在冻结正式实验运行协议与非模型 preflight
+  - 文件: `benchmarks/manifests/cpp-formal-v1.json`, `benchmarks/schemas/forge-cpp-formal-v1.schema.json`, `scripts/forge_formal_runtime_protocol.py`, `scripts/forge_benchmark_runner.py`, `backend/packages/harness/deerflow/compile/evidence.py`
+  - 当前结果: 已从 Issue #76/#78 冻结资产机械生成 30-case、180-slot manifest，并绑定 component/prompt/image/budget/source-protocol 摘要；逐项目 source/bootstrap/target/artifact 指令进入 runtime policy 与 compiler prompt，未授权 create/run 在 ledger 前硬拒绝。聚焦回归 `123 passed`，后端全量除隔离容器首次依赖下载超时外为 `1806 passed, 28 skipped`，该配置升级组在缓存环境单独 `4 passed`；Ruff、前端 lint/typecheck/隔离生产 build 通过。
+  - 边界: `collection_authorized=false`，本阶段只允许静态与 Compose/DooD 非模型 preflight，不调用模型、不创建 formal ledger、不修改 v1-v8。
 
 ## 最近变更 (Recent Changes)
 <!-- 倒序，最新在上。 -->
+
+- 2026-07-29 — 冻结正式实验逐项目构建路径与 artifact oracle
+  - GitHub: Issue #78 / PR #79 已 squash 合并为 `main@09012ff6`。
+  - 结果: 30/30 case 与预注册 identity/分层一致，冻结 30 个精确 artifact oracle 与 77 条 exact-commit/OSS-Fuzz 证据；本地新增 `18 passed`、协议/evidence `261 passed`、后端全量 `1798 passed, 28 skipped`，前端与主干 CI 全绿。
+  - 边界: 没有模型请求、formal ledger、replacement、backfill 或 v1-v8 改写。
 
 - 2026-07-29 — 预注册 C/C++ 正式分层实验 v1
   - GitHub: Issue #76 / PR #77；本阶段只冻结研究设计，不调用模型、不创建 formal ledger，也不授权 v9/正式采集。
@@ -217,6 +221,7 @@
 ## 已知问题 (Known Issues / Pitfalls)
 <!-- 工作中踩过的坑、限制或意外行为。 -->
 
+- 只读一次性后端测试容器必须把 `PYTHONPATH` 指向 `/repo/backend/packages/harness`，否则会导入镜像内旧源码；`config-upgrade` 还要把 `UV_CACHE_DIR`/`UV_PROJECT_ENVIRONMENT` 指向可写路径。冷缓存首次同步依赖可能超过该测试固定的 60 秒，应在缓存环境单独复核，不能误判为业务回归。
 - 手机热点下 `github.com` 网页/Git 通道可能在 8 路并发时 76/76 请求均连接超时，而 `api.github.com` 串行请求仍可稳定核验 77 条证据；网络诊断必须区分主机、通道和并发度，证据 000/timeout 不能直接当作文件 404。
 - 后端全量测试从只读 `/repo` 运行时，`config-upgrade` 需要单独挂载有效 `/repo/backend/.venv`，live upload 需要 tmpfs `/repo/backend/.deer-flow`；否则会在业务断言前产生只读文件系统伪失败。
 - uWebSockets 同时存在 Windows NMake `Makefile` 和 Linux/macOS `GNUmakefile`；Linux C/C++ 协议不能只凭文件名优先级选择 `Makefile`，且该提交的 `capi`/`all` 分支明确为空操作，必须使用有实际产物的 GNU Make `examples` 路径。

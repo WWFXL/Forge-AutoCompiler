@@ -61,7 +61,7 @@ def test_v7_current_tree_gate_rejects_post_collection_runner_drift() -> None:
 
     with pytest.raises(
         forge_benchmark_v7.BenchmarkError,
-        match="scripts/forge_benchmark_runner.py",
+        match="does not match the current repository file",
     ):
         forge_benchmark_v7.verify_frozen_components(manifest, REPO_ROOT)
 

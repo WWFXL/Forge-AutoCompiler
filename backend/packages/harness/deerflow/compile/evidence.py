@@ -11,7 +11,7 @@ import uuid
 from collections.abc import Iterator
 from contextlib import contextmanager
 from dataclasses import dataclass
-from pathlib import Path
+from pathlib import Path, PurePosixPath
 from typing import Any
 from urllib.parse import urlsplit
 
@@ -364,6 +364,10 @@ class ExperimentPolicy:
     compiler_graph_recursion_limit: int | None = None
     compiler_wall_clock_seconds: int | None = None
     compiler_post_build_reserve_seconds: int = 0
+    source_subdir: str = "."
+    bootstrap_commands: tuple[str, ...] = ()
+    build_targets: tuple[str, ...] = ()
+    artifact_instructions: tuple[tuple[str, str, str], ...] = ()
 
     def __post_init__(self) -> None:
         _validate_sha256(self.manifest_sha256, "manifest_sha256")
@@ -392,6 +396,25 @@ class ExperimentPolicy:
             raise EvidenceError("cmake_arguments require expected_build_system=cmake")
         if self.expected_build_system != "autotools" and self.configure_arguments:
             raise EvidenceError("configure_arguments require expected_build_system=autotools")
+        source_path = PurePosixPath(self.source_subdir)
+        if source_path.is_absolute() or ".." in source_path.parts or "\\" in self.source_subdir:
+            raise EvidenceError("source_subdir must be a safe repository-relative path")
+        for label, values in (
+            ("bootstrap_commands", self.bootstrap_commands),
+            ("build_targets", self.build_targets),
+        ):
+            if len(values) > 32 or any(not value or len(value) > 512 or any(character in value for character in ("\0", "\r", "\n")) for value in values):
+                raise EvidenceError(f"{label} must contain bounded single-line values")
+        for staged_path, build_path, artifact_type in self.artifact_instructions:
+            for label, value in (
+                ("staged artifact path", staged_path),
+                ("build output path", build_path),
+            ):
+                path = PurePosixPath(value)
+                if not value or path.is_absolute() or ".." in path.parts or "\\" in value:
+                    raise EvidenceError(f"{label} must be a safe relative path")
+            if artifact_type not in {"executable", "shared_library", "static_library", "object"}:
+                raise EvidenceError("artifact instruction type is unsupported")
         _validate_endpoint(self.endpoint)
         _validate_safe_value(self.to_payload())
 
@@ -444,6 +467,22 @@ class ExperimentPolicy:
                     "compiler_graph_recursion_limit": self.compiler_graph_recursion_limit,
                     "compiler_wall_clock_seconds": self.compiler_wall_clock_seconds,
                     "compiler_post_build_reserve_seconds": self.compiler_post_build_reserve_seconds,
+                }
+            )
+        if self.source_subdir != "." or self.bootstrap_commands or self.build_targets or self.artifact_instructions:
+            payload.update(
+                {
+                    "source_subdir": self.source_subdir,
+                    "bootstrap_commands": list(self.bootstrap_commands),
+                    "build_targets": list(self.build_targets),
+                    "artifact_instructions": [
+                        {
+                            "staged_relative_path": staged_path,
+                            "build_output_path": build_path,
+                            "artifact_type": artifact_type,
+                        }
+                        for staged_path, build_path, artifact_type in self.artifact_instructions
+                    ],
                 }
             )
         return payload
