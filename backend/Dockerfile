@@ -23,6 +23,7 @@ RUN if [ -n "${APT_MIRROR}" ]; then \
 RUN apt-get update && apt-get install -y \
     curl \
     build-essential \
+    git \
     gnupg \
     ca-certificates \
     && mkdir -p /etc/apt/keyrings \
@@ -52,6 +53,10 @@ RUN --mount=type=cache,target=/root/.cache/uv \
 # Retains compiler toolchain from builder so startup-time `uv sync` can build
 # source distributions in development containers.
 FROM builder AS dev
+
+# The reviewed Compose topology mounts the repository read-only at /repo.
+# Trust only that fixed path so Git-backed protocol audits can run on WSL binds.
+RUN git config --system --add safe.directory /repo
 
 # Install Docker CLI (for DooD: allows starting sandbox containers via host Docker socket)
 COPY --from=docker:cli /usr/local/bin/docker /usr/local/bin/docker

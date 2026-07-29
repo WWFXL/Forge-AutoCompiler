@@ -35,6 +35,7 @@ import forge_benchmark_v4 as protocol_v4  # noqa: E402
 import forge_benchmark_v5 as protocol_v5  # noqa: E402
 import forge_benchmark_v6 as protocol_v6  # noqa: E402
 import forge_benchmark_v7 as protocol_v7  # noqa: E402
+import forge_benchmark_v8 as protocol_v8  # noqa: E402
 
 from deerflow.compile.evidence import (  # noqa: E402
     EvidenceError,
@@ -109,12 +110,20 @@ def _run_command(arguments: list[str], *, cwd: Path = REPO_ROOT) -> tuple[int, s
 
 
 def _git_state(repo_root: Path) -> dict[str, Any]:
+    safe_directory = f"safe.directory={repo_root}"
     revision_code, revision = _run_command(
-        ["git", "rev-parse", "HEAD"],
+        ["git", "-c", safe_directory, "rev-parse", "HEAD"],
         cwd=repo_root,
     )
     dirty_code, dirty_output = _run_command(
-        ["git", "status", "--porcelain", "--untracked-files=normal"],
+        [
+            "git",
+            "-c",
+            safe_directory,
+            "status",
+            "--porcelain",
+            "--untracked-files=normal",
+        ],
         cwd=repo_root,
     )
     return {
@@ -139,6 +148,8 @@ def _manifest_protocol(manifest: dict[str, Any]):
         return protocol_v6
     if schema_version == protocol_v7.SCHEMA_VERSION:
         return protocol_v7
+    if schema_version == protocol_v8.SCHEMA_VERSION:
+        return protocol_v8
     raise RunnerError(f"Unsupported benchmark schema version: {schema_version}")
 
 
@@ -148,7 +159,15 @@ def _manifest_sha256(manifest: dict[str, Any]) -> str:
 
 def _baseline_is_ancestor(repo_root: Path, baseline_revision: str) -> bool:
     code, _ = _run_command(
-        ["git", "merge-base", "--is-ancestor", baseline_revision, "HEAD"],
+        [
+            "git",
+            "-c",
+            f"safe.directory={repo_root}",
+            "merge-base",
+            "--is-ancestor",
+            baseline_revision,
+            "HEAD",
+        ],
         cwd=repo_root,
     )
     return code == 0
@@ -327,6 +346,40 @@ def _manifest_condition(
     raise RunnerError(f"Unknown benchmark condition: {condition_id}")
 
 
+def _condition_model(
+    manifest: dict[str, Any],
+    condition: dict[str, Any],
+) -> dict[str, Any]:
+    if manifest.get("schema_version") == protocol_v8.SCHEMA_VERSION:
+        profile_name = condition["model_profile"]
+        try:
+            return manifest["model_profiles"][profile_name]
+        except KeyError as exc:
+            raise RunnerError(f"Unknown model profile for condition {condition['id']}: {profile_name}") from exc
+    return manifest["model"]
+
+
+def _manifest_models(manifest: dict[str, Any]) -> dict[str, dict[str, Any]]:
+    if manifest.get("schema_version") == protocol_v8.SCHEMA_VERSION:
+        return manifest["model_profiles"]
+    return {"default": manifest["model"]}
+
+
+def _model_config_matches(model: dict[str, Any]) -> bool:
+    try:
+        from deerflow.config import get_app_config
+
+        model_name = model["roles"]["lead"]
+        configured = get_app_config().get_model_config(model_name)
+        if configured is None or configured.model != model_name:
+            return False
+        settings = configured.model_dump(exclude_none=True)
+        endpoint = settings.get("base_url", settings.get("openai_api_base"))
+        return endpoint is not None and str(endpoint).rstrip("/") == model["endpoint"].rstrip("/")
+    except (AttributeError, KeyError, TypeError, ValueError):
+        return False
+
+
 def build_policy(
     manifest: dict[str, Any],
     *,
@@ -336,7 +389,7 @@ def build_policy(
 ) -> ExperimentPolicy:
     case = _manifest_case(manifest, case_id)
     condition = _manifest_condition(manifest, condition_id)
-    model = manifest["model"]
+    model = _condition_model(manifest, condition)
     runtime = manifest["runtime"]
     constraints = case["constraints"]
     build_arguments = constraints["build_arguments"]
@@ -446,6 +499,7 @@ def collect_preflight(
         protocol_v5.REVISION_POLICY,
         protocol_v6.REVISION_POLICY,
         protocol_v7.REVISION_POLICY,
+        protocol_v8.REVISION_POLICY,
     }
     baseline_satisfied = forge_state["revision"] == forge_baseline if revision_policy == "exact" else baseline_is_ancestor if revision_policy in runnable_revision_policies else False
     component_results: dict[str, dict[str, Any]] = {}
@@ -486,9 +540,19 @@ def collect_preflight(
         ["docker", "version", "--format", "{{.Server.Version}}"],
         cwd=repo_root,
     )
-    model = manifest["model"]
+    models = _manifest_models(manifest)
     condition_baseline = all(not condition["memory_enabled"] and not condition["skills_enabled"] for condition in manifest["conditions"])
-    endpoint_reachable = _endpoint_reachable(model["endpoint"]) if check_endpoint else None
+    model_checks = {
+        profile_name: {
+            "credential_present": _credential_present(model["credential_env"]),
+            "endpoint_reachable": (_endpoint_reachable(model["endpoint"]) if check_endpoint else None),
+            "configuration_matches": (_model_config_matches(model) if manifest["schema_version"] == protocol_v8.SCHEMA_VERSION else True),
+        }
+        for profile_name, model in models.items()
+    }
+    credential_present = all(result["credential_present"] for result in model_checks.values())
+    model_configuration_matches = all(result["configuration_matches"] for result in model_checks.values())
+    endpoint_reachable = all(result["endpoint_reachable"] is True for result in model_checks.values()) if check_endpoint else None
     expected_topology = runtime.get("control_plane_topology")
     compose_dood_present = _compose_dood_present(repo_root)
     compose_dood_topologies = {
@@ -498,6 +562,7 @@ def collect_preflight(
         protocol_v5.CONTROL_PLANE_TOPOLOGY,
         protocol_v6.CONTROL_PLANE_TOPOLOGY,
         protocol_v7.CONTROL_PLANE_TOPOLOGY,
+        protocol_v8.CONTROL_PLANE_TOPOLOGY,
     }
     topology_matches = expected_topology is None or (expected_topology in compose_dood_topologies and compose_dood_present)
     if runtime_launch is None:
@@ -506,7 +571,8 @@ def collect_preflight(
             repo_root=repo_root,
         )
     checks = {
-        "credential_present": _credential_present(model["credential_env"]),
+        "credential_present": credential_present,
+        "model_configuration_matches": model_configuration_matches,
         "endpoint_reachable": endpoint_reachable,
         "forge_head_equals_baseline": forge_state["revision"] == manifest["forge"]["commit_sha"],
         "forge_revision_matches": baseline_satisfied,
@@ -520,7 +586,7 @@ def collect_preflight(
         "network_present": network_code == 0,
         "docker_server_matches": (docker_version_code == 0 and docker_version == runtime["host"]["docker_server_version"]),
         "single_process_serial": runtime["backend_processes"] == 1 and runtime["max_parallel_runs"] == 1,
-        "fallback_forbidden": model["fallback_policy"] == "forbidden",
+        "fallback_forbidden": all(model["fallback_policy"] == "forbidden" for model in models.values()),
         "memory_skills_disabled": condition_baseline,
         "instrumentation_unblocked": not manifest["scope"]["instrumentation_blocker"],
         "control_plane_topology_matches": topology_matches,
@@ -528,6 +594,7 @@ def collect_preflight(
     }
     required_checks = [
         checks["credential_present"],
+        checks["model_configuration_matches"],
         checks["forge_revision_matches"],
         checks["forge_clean"],
         checks["forge_components_match"],
@@ -560,6 +627,7 @@ def collect_preflight(
                 protocol_v5.SCHEMA_VERSION: "cpp-pilot-v5.json",
                 protocol_v6.SCHEMA_VERSION: "cpp-pilot-v6.json",
                 protocol_v7.SCHEMA_VERSION: "cpp-pilot-v7.json",
+                protocol_v8.SCHEMA_VERSION: "cpp-pilot-v8.json",
             }[manifest["schema_version"]]
         ),
         "forge": {
@@ -569,6 +637,7 @@ def collect_preflight(
             "components": component_results,
         },
         "protocol": protocol_results,
+        "models": model_checks,
         "runtime": {
             "image_id": image_id if image_code == 0 else None,
             "docker_server_version": (docker_version if docker_version_code == 0 else None),
@@ -622,6 +691,59 @@ def find_slot_ledgers(
     return matches
 
 
+def _enforce_v8_collection_order(
+    manifest: dict[str, Any],
+    *,
+    case_id: str,
+    condition_id: str,
+    repetition: int,
+    output_dir: Path,
+) -> None:
+    requested = {
+        "case_id": case_id,
+        "condition_id": condition_id,
+        "repetition": repetition,
+    }
+    plan = manifest["collection_plan"]
+    observed: list[tuple[dict[str, Any], list[dict[str, Any]]]] = []
+    if output_dir.exists():
+        for ledger_path in output_dir.rglob("*.jsonl"):
+            try:
+                events = ExperimentLedger.verify_path(ledger_path)
+            except EvidenceError as exc:
+                raise RunnerError("Existing evidence contains an invalid ledger; v8 collection is blocked") from exc
+            if not events:
+                continue
+            policy = events[0]["payload"].get("policy")
+            if not isinstance(policy, dict) or policy.get("benchmark_id") != manifest["benchmark"]["id"] or policy.get("manifest_sha256") != _manifest_sha256(manifest):
+                continue
+            observed.append(
+                (
+                    {
+                        "case_id": policy.get("case_id"),
+                        "condition_id": policy.get("condition"),
+                        "repetition": policy.get("repetition"),
+                    },
+                    events,
+                )
+            )
+    observed.sort(
+        key=lambda item: (
+            item[1][0].get("occurred_at", ""),
+            item[1][0].get("physical_attempt_id", ""),
+        )
+    )
+    observed_slots = [slot for slot, _events in observed]
+    if observed_slots != plan[: len(observed_slots)]:
+        raise RunnerError("Existing v8 physical evidence does not match the frozen collection prefix")
+    if observed and observed[-1][1][-1]["event"] != "experiment.completed":
+        raise RunnerError("The previous v8 slot must complete before the next slot is created")
+    if len(observed_slots) >= len(plan):
+        raise RunnerError("All frozen v8 collection slots already have physical evidence")
+    if requested != plan[len(observed_slots)]:
+        raise RunnerError("The requested v8 slot is not next in the frozen collection order")
+
+
 def create_attempt(
     manifest: dict[str, Any],
     *,
@@ -634,6 +756,16 @@ def create_attempt(
     repo_root: Path = REPO_ROOT,
     manifest_path: Path | None = None,
 ) -> tuple[ExperimentLedger, dict[str, Any]]:
+    if manifest.get("schema_version") == protocol_v8.SCHEMA_VERSION:
+        if replacement_for is not None:
+            raise RunnerError("v8 forbids replacement physical attempts")
+        _enforce_v8_collection_order(
+            manifest,
+            case_id=case_id,
+            condition_id=condition_id,
+            repetition=repetition,
+            output_dir=output_dir,
+        )
     policy = build_policy(
         manifest,
         case_id=case_id,
@@ -767,6 +899,7 @@ def recompute_build_identity(events: list[dict[str, Any]]) -> dict[str, Any]:
         "forge-cpp-clean-replay-pilot-v5",
         "forge-cpp-clean-replay-pilot-v6",
         "forge-cpp-clean-replay-pilot-v7",
+        "forge-cpp-clean-replay-pilot-v8",
     }
     snapshot_required = identity_contract and attempt_executed
     submits = [event for event in events if event["event"] == "submit.completed"]
@@ -1217,6 +1350,7 @@ def run_attempt(
         protocol_v5.CONTROL_PLANE_TOPOLOGY,
         protocol_v6.CONTROL_PLANE_TOPOLOGY,
         protocol_v7.CONTROL_PLANE_TOPOLOGY,
+        protocol_v8.CONTROL_PLANE_TOPOLOGY,
     }:
         if not _running_inside_compose_dood(REPO_ROOT):
             ledger.append(
@@ -1251,6 +1385,7 @@ def run_attempt(
         protocol_v5.SCHEMA_VERSION,
         protocol_v6.SCHEMA_VERSION,
         protocol_v7.SCHEMA_VERSION,
+        protocol_v8.SCHEMA_VERSION,
     }
     try:
         from deerflow.client import DeerFlowClient
@@ -1309,6 +1444,7 @@ def run_attempt(
             protocol_v5.SCHEMA_VERSION,
             protocol_v6.SCHEMA_VERSION,
             protocol_v7.SCHEMA_VERSION,
+            protocol_v8.SCHEMA_VERSION,
         }:
             build_identity_snapshot_recorded = _record_attempt_build_identity(thread_id, ledger)
         ledger.append("orphan.reconciled", reconciliation)
@@ -1350,7 +1486,7 @@ def _build_parser() -> argparse.ArgumentParser:
     common.add_argument(
         "--manifest",
         type=Path,
-        default=REPO_ROOT / "benchmarks" / "manifests" / "cpp-pilot-v7.json",
+        default=REPO_ROOT / "benchmarks" / "manifests" / "cpp-pilot-v8.json",
     )
     common.add_argument("--skip-endpoint-check", action="store_true")
 

@@ -8,6 +8,8 @@
 - 2026-07-29 — Issue #65 冻结双提供商 C/C++ pilot v8 协议
   - 分支: `research/issue-65-v8-protocol`，基于 `main@54fdf418`。v8 计划保留 v7 的 5 个 exact-commit C/C++ case、镜像、Compose/DooD、Compile Session、clean replay 与 compiler 预算。
   - 条件: RichLab `gpt-5.5` 与 DeepSeek `deepseek-v4-flash` 是两个独立 condition；每个 case × provider 1 个不可替换 slot，共 10 个，严格串行并在 manifest 冻结交错顺序。禁止 retry、fallback、replacement、补跑、跨 provider 池化和非 C/C++ 扩展。
+  - 实现: 新增独立 v8 manifest/Schema/validator，runner 按 condition 解析 provider profile，同时预检两套 credential-env、endpoint 和实际 model config；乱序、未完成前推进、replacement 与损坏 ledger 均在新 ledger 前拒绝。Compose backend dev 镜像补齐 Git，并只信任固定只读 `/repo`，Dockerfile 本身进入 v8 协议哈希。
+  - 验证: v1-v8/evidence 聚焦 `215 passed, 25 skipped`，最终后端全量 `1739 passed, 29 skipped`；Ruff、Schema、Compose、前端 lint/typecheck/build 与真实 WSL2 Compose runtime gate 通过。真实乱序负例保持 0 v8 ledger，最终 0 compile/replay/physical-attempt 容器；未调用模型。
   - 阶段边界: 当前只设计独立 v8 manifest/Schema/validator、condition→provider/model policy 与 preflight；协议 PR 合并前后都不得创建或执行 v8 physical slot，采集需作为后续单独阶段明确启动。
 
 ## 最近变更 (Recent Changes)
