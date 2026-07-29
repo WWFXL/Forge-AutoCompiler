@@ -5,13 +5,19 @@
 ## 进行中 (In Progress)
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
-- 2026-07-30 — Issue #82 正在授权正式实验并准备首批 10 个 slot
-  - 文件: `benchmarks/manifests/cpp-formal-v1-collection.json`, `benchmarks/schemas/forge-cpp-formal-collection-v1.schema.json`, `scripts/forge_formal_collection_protocol.py`, `scripts/forge_formal_collection_runner.py`, `backend/tests/test_forge_formal_collection_protocol.py`
-  - 当前结果: 已新增独立 `formal-collection-1.0.0` identity，绑定父 manifest canonical SHA、Issue #82、2,939.7 万 token / 31.301 小时上限、双 provider canary 和 10-slot 批次边界；旧 `cpp-formal-v1`、原 runner 与 v1-v8 证据保持逐字不变。授权 manifest SHA-256 为 `8cfd909724a540a87fee9d68f7dafc0095964dd61150083a76f2ffdadc533aeb`。协议/evidence `305 passed`；后端全量主体 `1814 passed, 28 skipped`，配置升级冷缓存组在 `UV_NO_SYNC=1` 下单独 `4 passed`；Ruff、Schema、Compose、前端 lint/typecheck 通过。
-  - 边界: 尚未提交/合并，尚未执行 provider canary 或创建 formal ledger；本机 7.7 GiB WSL 下隔离 Next.js production build 两次被 OOM 终止，等待 GitHub CI 独立环境复核。
+- 2026-07-30 — Issue #84 正在修复首批正式采集暴露的运行时生命周期问题
+  - 文件: `benchmarks/manifests/cpp-formal-v2-collection.json`, `benchmarks/schemas/forge-cpp-formal-collection-v2.schema.json`, `scripts/forge_formal_collection_v2_protocol.py`, `scripts/forge_formal_collection_v2_runner.py`, `backend/tests/test_forge_formal_collection_v2_protocol.py`
+  - 当前结果: 已定位批处理逐 slot `asyncio.run()` 导致跨关闭事件循环复用 provider HTTP 资源；v2 候选改为整批共享一个 `asyncio.Runner`，并在 runner 内冻结 `prepare → clone → identify → compiler → finalize` 顺序、运行期间关闭并恢复全局 memory。候选绑定 #82 的 10 条失败 ledger SHA-256、81,152 token 与剩余 29,315,818 token ceiling；manifest canonical SHA-256 为 `843cc7386d05af0bb0285852fc128a0693302253aabe2a300bad3efcf41330d3`。
+  - 验证: v1-v8/正式协议/编译生命周期 `477 passed`；后端全量主体 `1825 passed, 28 skipped`，只读 venv 位置导致的 config-upgrade 组在正确嵌套 volume 下单独 `4 passed`；Ruff、format、Schema、py_compile、Compose、敏感样式扫描和 0-ledger 拒绝通过。
+  - 边界: `collection_authorized=false`、预算确认 false；真实容器 canary/create-attempt 均在账本前返回 2，v2 ledger 保持 0。当前只允许合并候选修复，不得执行模型或重新采集，下一批必须取得实验所有者明确授权。
 
 ## 最近变更 (Recent Changes)
 <!-- 倒序，最新在上。 -->
+
+- 2026-07-30 — 完成正式采集 v1 授权、canary 与首批 10-slot
+  - GitHub: Issue #82 / PR #83 已 squash 合并为 `main@4afd63a1`；Issue #82 已按完成关闭，失败根因转 Issue #84。
+  - 结果: runtime preflight 7/7 与 RichLab `gpt-5.5`、DeepSeek `deepseek-v4-flash` 双 provider canary 通过；首批 10 个冻结 slot 按边界执行后 0/10 成功，其中 6 个首次模型请求 `connection_error`、4 个 `build_system_mismatch`，总记录 81,152 token、219.662 秒。
+  - 证据: 10/10 ledger hash chain、当前 gate 重算、终态、session finalization 与 orphan cleanup 有效；replacement 全空，孤儿编译容器为 0。失败记录不重试、不替换、不回填，并从候选 v2 主分析中排除。
 
 - 2026-07-29 — 冻结正式实验逐项目构建路径与 artifact oracle
   - GitHub: Issue #78 / PR #79 已 squash 合并为 `main@09012ff6`。
@@ -221,6 +227,9 @@
 ## 已知问题 (Known Issues / Pitfalls)
 <!-- 工作中踩过的坑、限制或意外行为。 -->
 
+- 在同一 Python 进程中为每个 slot 单独调用 `asyncio.run()` 会关闭事件循环，但 provider 的异步 HTTP 资源可能延迟到下一 slot 才清理；典型现象是首个调用成功、第二个在 3–18 ms 内 `APIConnectionError`。正式串行 batch 必须用一个 `asyncio.Runner` 复用同一事件循环，不能把这种立即失败归因于普通跨境网络超时。
+- 正式 policy 即使声明 `memory_enabled=false`，首次模型连接失败时 state 尚无 `compile_session_id`，通用 MemoryMiddleware 仍可能排队并调用默认模型。冻结组件不能原地修改；新版本 runner 应在整个 agent stream 期间显式关闭并最终恢复全局 memory 配置，避免实验外 token 与日志污染。
+- 冻结 manifest 的 generator 会对当前 runtime component 重新取 hash；直接修改 v1 绑定的 `operations.py` 等共享文件会让旧 manifest 机械再生成测试失败。跨阶段修复必须放进新的版本化 runner/protocol，旧 runner、manifest、Schema 和 ledger 保持逐字不变。
 - `config-upgrade` 集成测试会在每个 case 内调用 `uv run`；仅迁移 `UV_CACHE_DIR` 仍可能因冷同步超过固定 60 秒，复用已同步 `.venv` 时还需设置 `UV_NO_SYNC=1`。本次由权限错误转为冷下载超时后，以该变量单独复核为 `4 passed`。
 - 当前 WSL2 仅约 7.7 GiB 内存时，Next.js 16/Turbopack 的无缓存 production build 即使停止全部开发服务、给 Node 4 GiB 上限，仍可能把 WSL 推到约 7 GiB 后被 OOM kill；不要把无错误栈的 `ELIFECYCLE` 直接归因于前端代码，优先用 GitHub CI 或提高 WSL 内存后复核。
 - 只读一次性后端测试容器必须把 `PYTHONPATH` 指向 `/repo/backend/packages/harness`，否则会导入镜像内旧源码；`config-upgrade` 还要把 `UV_CACHE_DIR`/`UV_PROJECT_ENVIRONMENT` 指向可写路径。冷缓存首次同步依赖可能超过该测试固定的 60 秒，应在缓存环境单独复核，不能误判为业务回归。
