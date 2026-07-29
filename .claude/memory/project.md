@@ -8,6 +8,14 @@
 ## 最近变更 (Recent Changes)
 <!-- 倒序，最新在上。 -->
 
+- 2026-07-29 — 生成 C/C++ pilot v8 描述性分析报告
+  - 实现: 新增确定性只读分析器、8 个证据拒绝/历史兼容/确定性回归，以及机器可读 JSON 和中文 Markdown 报告；10 条 v8 collection ledger 与 5 条历史 baseline ledger 分开审计，未调用模型、未改写或补跑冻结证据。
+  - 结果: v8 仍为 6/10 oracle passed；10/10 hash chain、当前离线 gate 与 cleanup 有效，0 orphan。冻结终态原始 gate 为 9/10，Issue #69 修复后当前重算为 10/10，两种 provenance 同时保留。
+  - 描述性口径: RichLab `gpt-5.5` 为 2/5、806,682 tokens、3,642.391 秒；DeepSeek `deepseek-v4-flash` 为 4/5、499,850 tokens、1,365.731 秒。五个自选 case 每 condition 一次且 `formal_comparison_enabled=false`，不得宣称总体模型优劣或显著性。
+  - 网络边界: v8 启动前 `network_present`/`endpoint_reachable` 均为 10/10，但 1 个 attempt 出现 endpoint timeout；历史 ledger 没有接入介质元数据，无法区分 Wi-Fi/手机热点、Windows/WSL/Docker、relay、互联网路由与提供商端，归因必须保持 `indeterminate`。
+  - 证据: 报告独立复算 JSON/Markdown SHA-256 分别逐字一致；协议/evidence `263 passed`，后端全量 `1750 passed, 29 skipped`，Ruff、format、内存语法编译、diff 和敏感信息检查通过。
+  - 下一入口: 预注册约 30 个分层 C/C++ 项目、每 condition 至少 3 次的正式实验，并前置固定删失/重试规则、失败层级、统计方法和不含敏感标识的网络分类元数据。
+
 - 2026-07-29 — 修复 candidate-only 与 clean-replay 离线 gate 重算
   - 根因: `recompute_gates()` 把 submit checks 中的 `clean_replay` 也计入 `candidate_only`，使候选构建已通过但干净重放 SHA-256 mismatch 的 submit 被离线错误重算为 candidate failure。
   - 修复: candidate-only 只聚合候选产物检查，clean replay 继续由独立 replay 事件与 gate 复核；新增 candidate-pass/replay-fail 与真实 candidate-check-fail 两个回归。
@@ -187,12 +195,14 @@
 
 - 清理与当前源码不一致的后端测试模块引用，例如 `backend/tests/test_aio_sandbox_local_backend.py:1` 和 `backend/tests/test_channels.py:14`。
 - 统一 `backend/tests/test_subagent_timeout_config.py:261` 对 `max_turns` 的期望值与当前实现默认值。
-- 基于冻结 v8 形成描述性报告，再预注册约 30 个分层 C/C++ 项目、每 condition 至少 3 次的正式实验。
+- 预注册约 30 个分层 C/C++ 项目、每 condition 至少 3 次的正式实验；先固定 primary metric、删失/重试规则、失败层级、统计方法和网络分类元数据，再冻结新协议。
 - 当前 `backend/packages/harness/deerflow/compile/manager.py` 的 lifecycle lock 是进程内锁；部署多个后端进程前，需要改为文件锁/数据库事务或带版本号的 CAS，并增加跨进程竞态测试。
 
 ## 已知问题 (Known Issues / Pitfalls)
 <!-- 工作中踩过的坑、限制或意外行为。 -->
 
+- 确定性报告不能依赖 Python 字典插入顺序：JSON 使用 `sort_keys=True` 后重新载入会改变嵌套 failure-domain 顺序；Markdown renderer 必须按显式固定域顺序遍历，并用“直接生成 vs JSON 重载复算”的哈希相等回归保护。
+- 历史实验没有记录本机接入介质时，当前改用手机热点不能反推旧 timeout 的原因；只能将其归为端到端 endpoint-path failure、归因 `indeterminate`。新协议可记录 `wired/wifi/mobile_hotspot/unknown`、relay 开关、canary 延迟和网络拓扑分类，但不得记录 SSID、IP、运营商账户或凭据，也不得回填冻结 ledger。
 - WSL 用户目录中的 `.local` / `.cache/uv` 可能由旧容器以 root 创建，原生 WSL 执行 `uv` 会报 `Permission denied`；不要改写权限掩盖来源，测试可把 `UV_CACHE_DIR`、`UV_PYTHON_INSTALL_DIR` 与 `UV_PROJECT_ENVIRONMENT` 指向用户可写的独立目录。
 - Docker Hub 匿名 token 与 Ubuntu archive 在当前网络下可能分别超时或返回 502；本机可从 Canonical 官方 Amazon ECR 拉取同源 Ubuntu 基础镜像并改回本地 `ubuntu:24.04` 标签，apt 构建可显式传可信镜像站，但不得把临时镜像源写进冻结实验协议或伪装成既有 image ID。
 - 协作语言约定：后续 GitHub Issue、Pull Request、评论、评审说明和提交说明默认使用中文；分支名、代码标识、命令和必要技术术语继续遵循仓库的 ASCII/既有命名规范。若外部协作明确要求英文，先向用户确认。
