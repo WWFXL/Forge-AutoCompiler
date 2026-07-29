@@ -8,6 +8,16 @@
 ## 最近变更 (Recent Changes)
 <!-- 倒序，最新在上。 -->
 
+- 2026-07-29 — 预注册 C/C++ 正式分层实验 v1
+  - GitHub: Issue #76 / PR #77；本阶段只冻结研究设计，不调用模型、不创建 formal ledger，也不授权 v9/正式采集。
+  - 样本框: 从 OSS-Fuzz `08682bfc` 的 1,369 份 metadata 中得到 577 个 C/C++、473 个 GitHub 上游和 182 个静态合格候选；固定 seed 为 CMake/Make/Autotools 各选 10 个，每种 3 small + 4 medium + 3 large，30/30 exact commit 均由 GitHub Git object API 核验可达。
+  - 设计: RichLab `gpt-5.5` 与 DeepSeek `deepseek-v4-flash` 各 3 次重复，共 180 个唯一串行 slot；schedule SHA-256 为 `9cfca53bb8c7ab8f07eb5c9a852383eb1877dc377cf56bb834b8eee3587fa469`，JSON 明确 `collection_authorized=false`。
+  - 统计: primary 为项目等权的 end-to-end oracle-pass 比例差，使用 30 个 project block 的 exact sign-flip 动态规划与项目 cluster bootstrap；endpoint failure 保留在端到端 estimand 并单列可靠性，不能把 endpoint-free 子集解释为纯模型能力。
+  - 网络与预算: 新协议只允许无敏感标识的 access-medium/relay/canary/topology 元数据。按 v8 外推约 2,351.8 万 tokens、25.0 串行小时；1.25 contingency 约 2,939.7 万 tokens、31.3 小时，正式采集必须另建 Issue 并取得用户明确授权。
+  - 静态排除: `esp-v2` 的根 Makefile 主 target 实际编译 Go 服务，在任何模型请求前按预注册规则由同层下一哈希候选 `fio` 替换；合并后若再发现静态不兼容必须公开 amendment，正式 ledger 创建后禁止 replacement/backfill。
+  - 证据: 预注册/报告 `23 passed`、协议/evidence `278 passed`、后端全量 `1765 passed, 29 skipped`；Ruff、format、内存语法编译、敏感信息扫描、diff 与 0 orphan 通过。
+  - 下一入口: 完成 30 个项目的文档级构建路径审计、case-specific 参数/artifact oracle 与正式 manifest/Schema/runner/image/prompt 版本冻结；仍不采集，直到预算与运行 Issue 再获明确确认。
+
 - 2026-07-29 — 生成 C/C++ pilot v8 描述性分析报告
   - 实现: 新增确定性只读分析器、8 个证据拒绝/历史兼容/确定性回归，以及机器可读 JSON 和中文 Markdown 报告；10 条 v8 collection ledger 与 5 条历史 baseline ledger 分开审计，未调用模型、未改写或补跑冻结证据。
   - 结果: v8 仍为 6/10 oracle passed；10/10 hash chain、当前离线 gate 与 cleanup 有效，0 orphan。冻结终态原始 gate 为 9/10，Issue #69 修复后当前重算为 10/10，两种 provenance 同时保留。
@@ -195,12 +205,15 @@
 
 - 清理与当前源码不一致的后端测试模块引用，例如 `backend/tests/test_aio_sandbox_local_backend.py:1` 和 `backend/tests/test_channels.py:14`。
 - 统一 `backend/tests/test_subagent_timeout_config.py:261` 对 `max_turns` 的期望值与当前实现默认值。
-- 预注册约 30 个分层 C/C++ 项目、每 condition 至少 3 次的正式实验；先固定 primary metric、删失/重试规则、失败层级、统计方法和网络分类元数据，再冻结新协议。
+- 正式实验预注册资产已由 Issue #76 / PR #77 提交；下一步是 30 个项目的文档级构建路径审计、case-specific 参数/artifact oracle 与新 manifest/Schema/runner/image/prompt 冻结。任何采集仍须单独 Issue 和用户预算确认。
 - 当前 `backend/packages/harness/deerflow/compile/manager.py` 的 lifecycle lock 是进程内锁；部署多个后端进程前，需要改为文件锁/数据库事务或带版本号的 CAS，并增加跨进程竞态测试。
 
 ## 已知问题 (Known Issues / Pitfalls)
 <!-- 工作中踩过的坑、限制或意外行为。 -->
 
+- OSS-Fuzz `project.yaml language` 与根 Makefile 只能建立候选样本框，不能单独证明上游 primary build path；例如 `esp-v2` 声明 C++ 且有 Makefile，但主 build target 编译 Go 服务。正式 protocolization 必须在结果盲态下做文档级 C/C++ 构建路径审计，静态排除/替换要在任何模型请求前公开冻结。
+- GitHub GraphQL 同时查询 40 个大型仓库的 root tree 会返回查询复杂度/参数拒绝；降为每批 20 个后 452 个仓库稳定完成。不要把该服务端查询限制误判为本机热点超时。
+- 临时 `/tmp` 文件不会自动继承仓库格式器上下文；本仓库实际 formatter 使用 120 字符行宽。格式化拷贝文件时应显式传 `--line-length 120`，再从真实 `/repo` 路径执行 `ruff format --check`。
 - 确定性报告不能依赖 Python 字典插入顺序：JSON 使用 `sort_keys=True` 后重新载入会改变嵌套 failure-domain 顺序；Markdown renderer 必须按显式固定域顺序遍历，并用“直接生成 vs JSON 重载复算”的哈希相等回归保护。
 - 历史实验没有记录本机接入介质时，当前改用手机热点不能反推旧 timeout 的原因；只能将其归为端到端 endpoint-path failure、归因 `indeterminate`。新协议可记录 `wired/wifi/mobile_hotspot/unknown`、relay 开关、canary 延迟和网络拓扑分类，但不得记录 SSID、IP、运营商账户或凭据，也不得回填冻结 ledger。
 - WSL 用户目录中的 `.local` / `.cache/uv` 可能由旧容器以 root 创建，原生 WSL 执行 `uv` 会报 `Permission denied`；不要改写权限掩盖来源，测试可把 `UV_CACHE_DIR`、`UV_PYTHON_INSTALL_DIR` 与 `UV_PROJECT_ENVIRONMENT` 指向用户可写的独立目录。
