@@ -5,14 +5,18 @@
 ## 进行中 (In Progress)
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
-- 2026-07-29 — Issue #61 为未来 attempt 增加 runner runtime launch gate
-  - 分支: `fix/issue-61-runtime-preflight`，基于 `main@aa200d55`。v7 `fmt` 暴露正式 runner 使用容器 system Python、权威 evidence 必须位于 `/workspace/.compile-sessions` 的启动入口风险。
-  - 实现: 新增独立 `runtime-preflight`，验证 LangGraph Compose 身份、可写 Docker socket、后端 venv、必要 runtime import、可写 bind evidence mount 与 output directory 的真实 sentinel 写入/删除；`preflight`/`create-attempt` 要求显式 output directory，launch failure 在 evidence ID 和 ledger 创建前终止。
-  - 当前证据: system Python 负例、后端 venv 正例和 mount 外目录负例均按预期返回且 0 ledger/0 sentinel；协议/runner/evidence 聚焦 `199 passed, 24 skipped`，后端主体 `1683 passed, 53 skipped`，可写配置升级组 `4 passed`；Ruff/format 与 Compose config 通过。
-  - 边界: v1-v7 manifest、Schema、validator、协议哈希和 ledger 不改写；共享 runner 的合法 post-v7 漂移由 v7 current-tree gate 明确拒绝，冻结 Git blob 继续可审计。本阶段不运行双 provider canary，也不创建 v8 slot。
+- 2026-07-29 — Issue #63 双提供商非 pilot 端到端 canary
+  - 分支: `experiment/issue-63-provider-canary`，基于 `main@70fe40d6`。固定 `CMakeHelloWorld@6fda0b1`、`autocompiler:gcc13`，RichLab 使用 `gpt-5.5`，DeepSeek 使用 `deepseek-v4-flash`，两条件严格串行且各 1 次。
+  - 已实现: 独立 `forge-provider-canary-v1` 入口；每个条件在模型请求前创建独立 append-only ledger 并激活 exact repo/commit/CMake/image/model/endpoint policy，关闭 Memory/Skills、provider retries 与 fallback；输出只含布尔门禁、计数、usage、身份和哈希，不含模型文本、tool args、命令输出、异常文本、凭据或宿主路径。
+  - 接受门禁: 完整 stream、模型请求闭合、恰好 1 个 terminal compiler task、唯一 Compile Session、repo/commit/build-system identity、产物、submit verification、clean replay/cleanup、finalize 与 0 remaining orphan 必须同时成立。
+  - 当前证据: 聚焦 `11 passed`，runner/evidence/compile 回归 `232 passed`，后端主体（排除只读挂载配置升级组）通过，配置升级组 `4 passed`；Ruff/format、Compose config、前端串行 lint/typecheck/format、冻结资产与敏感模式扫描通过；真实 runtime launch gate 为 `ready=true`。尚未调用 canary 模型，也未创建 v8 slot。
 
 ## 最近变更 (Recent Changes)
 <!-- 倒序，最新在上。 -->
+
+- 2026-07-29 — 修复未来 attempt 的 runner 解释器与 evidence 挂载门禁
+  - Issue #61 / PR #62 已 squash 合并为 `main@70fe40d6`。新增独立 `runtime-preflight`，验证 LangGraph Compose 身份、可写 Docker socket、后端 venv、必要 runtime import、可写 bind evidence mount 与 output directory 的真实 sentinel 写入/删除；`preflight`/`create-attempt` 要求显式 output directory，launch failure 在 evidence ID 和 ledger 创建前终止。
+  - system Python 负例、后端 venv 正例和 mount 外目录负例均按预期返回且 0 ledger/0 sentinel；v1-v7 manifest、Schema、validator、协议哈希和 ledger 未改写，v7 current-tree gate继续拒绝 post-collection runner 漂移。
 
 - 2026-07-29 — WSL2 Compose 模型出口与多提供商预检进入主干
   - Issue #59 / PR #60 已 squash 合并为 `main@aa200d55`。受限 relay 只绑定私有 Docker bridge，独立 Compose override 保持 v7 冻结基础 Compose 字节不变；本地凭据只进入 Git 忽略 `.env`。
@@ -163,7 +167,7 @@
 
 - 清理与当前源码不一致的后端测试模块引用，例如 `backend/tests/test_aio_sandbox_local_backend.py:1` 和 `backend/tests/test_channels.py:14`。
 - 统一 `backend/tests/test_subagent_timeout_config.py:261` 对 `max_turns` 的期望值与当前实现默认值。
-- 完成 Issue #61 的中文 Draft PR、CI 与主干复验；合并后先做不计入正式样本的双 provider 端到端 canary，再冻结 v8。RichLab 与 DeepSeek 必须是可比较的独立 condition，禁止 frozen attempt 内 fallback。
+- 完成 Issue #63 的中文 Draft PR、CI 与主干复验；合并后严格串行执行 RichLab/DeepSeek 两个非 pilot canary，保留每个条件的首次结果，再据此冻结 v8。两个提供商必须是可比较的独立 condition，禁止 frozen attempt 内 fallback。
 - 当前 `backend/packages/harness/deerflow/compile/manager.py` 的 lifecycle lock 是进程内锁；部署多个后端进程前，需要改为文件锁/数据库事务或带版本号的 CAS，并增加跨进程竞态测试。
 
 ## 已知问题 (Known Issues / Pitfalls)

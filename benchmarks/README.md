@@ -27,6 +27,32 @@ The current shared runner intentionally no longer passes the v7 current-tree
 collection gate; v7 Git blobs and existing ledgers remain the historical source
 of truth.
 
+## Provider canary after v7
+
+Issue #63 defines a non-pilot, single-attempt canary for comparing the RichLab
+and DeepSeek provider paths before designing v8. Both conditions use the same
+commit-pinned CMake repository and the complete Compile Session plus clean
+replay lifecycle. They run serially, never fall back to another model, and
+write separate evidence outside the frozen v1-v7 ledgers.
+
+Run each condition from the `deer-flow-dev` LangGraph container with the
+backend virtual-environment interpreter:
+
+```bash
+/app/backend/.venv/bin/python /app/scripts/forge_provider_canary.py \
+  --model gpt-5.5 \
+  --output-dir /workspace/.compile-sessions/provider-canary-evidence/richlab
+
+/app/backend/.venv/bin/python /app/scripts/forge_provider_canary.py \
+  --model deepseek-v4-flash \
+  --output-dir /workspace/.compile-sessions/provider-canary-evidence/deepseek
+```
+
+The runner emits only bounded status, counts, timings, identities, and boolean
+acceptance gates. It does not emit model text, tool arguments, command output,
+credentials, or host paths. A failed condition is preserved as-is and is not
+retried or replaced.
+
 ## Runnable pilot v7 protocol
 
 `cpp-pilot-v7.json` is the five-case protocol frozen after the v6 calibration exposed three instrumentation gaps. Its runtime baseline includes the Issue #50 pre-build argument gate, Issue #51 separate compiler budgets, and Issue #52 structured artifact-oracle diagnostics. It preserves every v1-v6 manifest, schema, validator, and ledger as historical evidence.
