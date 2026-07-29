@@ -12,7 +12,7 @@
   - 根因: `recompute_gates()` 把 submit checks 中的 `clean_replay` 也计入 `candidate_only`，使候选构建已通过但干净重放 SHA-256 mismatch 的 submit 被离线错误重算为 candidate failure。
   - 修复: candidate-only 只聚合候选产物检查，clean replay 继续由独立 replay 事件与 gate 复核；新增 candidate-pass/replay-fail 与真实 candidate-check-fail 两个回归。
   - 冻结边界: 不改写、回填、retry 或 replacement 任一 v8 ledger，也不创建实验 slot；旧 v8 current-tree gate 继续拒绝合法 runner 漂移，并从 `c7977ab7` 读取历史协议 blob 复核原 SHA-256。
-  - 证据: 聚焦协议/evidence `255 passed`，后端全量 `1742 passed, 29 skipped`，Ruff/format/内存语法编译通过；15 条现存 v8 ledger 均为 hash chain、gate 重算、终态和清理 15/15 有效，0 遗留编译容器，原 oracle 仍为 6/15 passed。
+  - 证据: 聚焦协议/evidence `255 passed`，后端全量 `1742 passed, 29 skipped`，Ruff/format/内存语法编译通过；10 条 v8 collection ledger 的 hash chain、gate 重算、终态和清理均为 10/10 有效，同目录 5 条历史 baseline ledger 也通过当前只读审计，0 遗留编译容器；v8 冻结 oracle 结果仍为 6/10 passed。
   - 下一入口: 基于冻结 v8 形成描述性研究报告，明确小样本边界与失败分层，再预注册扩大后的正式分层实验。
 
 - 2026-07-29 — 完成双提供商 C/C++ pilot v8 十槽采集
