@@ -5,12 +5,15 @@
 ## 进行中 (In Progress)
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
-- Issue #69 — 分离 `candidate_only` 与 `clean_replay` 的离线 gate 重算语义
-  - 来源: v8 `sysstat-nondeterministic / richlab-gpt-5.5` 的两个 SHA-256 mismatch submit；ledger hash chain 有效，但在线 `candidate_only=true` 被离线错误重算为 `false`。
-  - 边界: 只修未来离线审计并增加 candidate-pass + replay-mismatch 回归；不得改写、回填或 replacement 任一 v8 ledger，也不创建新实验 slot。
-
 ## 最近变更 (Recent Changes)
 <!-- 倒序，最新在上。 -->
+
+- 2026-07-29 — 修复 candidate-only 与 clean-replay 离线 gate 重算
+  - 根因: `recompute_gates()` 把 submit checks 中的 `clean_replay` 也计入 `candidate_only`，使候选构建已通过但干净重放 SHA-256 mismatch 的 submit 被离线错误重算为 candidate failure。
+  - 修复: candidate-only 只聚合候选产物检查，clean replay 继续由独立 replay 事件与 gate 复核；新增 candidate-pass/replay-fail 与真实 candidate-check-fail 两个回归。
+  - 冻结边界: 不改写、回填、retry 或 replacement 任一 v8 ledger，也不创建实验 slot；旧 v8 current-tree gate 继续拒绝合法 runner 漂移，并从 `c7977ab7` 读取历史协议 blob 复核原 SHA-256。
+  - 证据: 聚焦协议/evidence `255 passed`，后端全量 `1742 passed, 29 skipped`，Ruff/format/内存语法编译通过；15 条现存 v8 ledger 均为 hash chain、gate 重算、终态和清理 15/15 有效，0 遗留编译容器，原 oracle 仍为 6/15 passed。
+  - 下一入口: 基于冻结 v8 形成描述性研究报告，明确小样本边界与失败分层，再预注册扩大后的正式分层实验。
 
 - 2026-07-29 — 完成双提供商 C/C++ pilot v8 十槽采集
   - GitHub: Issue #68 已完成审计并关闭；10 个 slot 严格按 manifest 交错顺序串行执行，无 retry、fallback、replacement 或 backfill。离线 gate 缺陷转入 Issue #69。
@@ -184,7 +187,7 @@
 
 - 清理与当前源码不一致的后端测试模块引用，例如 `backend/tests/test_aio_sandbox_local_backend.py:1` 和 `backend/tests/test_channels.py:14`。
 - 统一 `backend/tests/test_subagent_timeout_config.py:261` 对 `max_turns` 的期望值与当前实现默认值。
-- 完成 Issue #69 的 candidate-only/clean-replay 离线重算修复；修复后形成 v8 描述性报告，再预注册约 30 个分层 C/C++ 项目、每 condition 至少 3 次的正式实验。
+- 基于冻结 v8 形成描述性报告，再预注册约 30 个分层 C/C++ 项目、每 condition 至少 3 次的正式实验。
 - 当前 `backend/packages/harness/deerflow/compile/manager.py` 的 lifecycle lock 是进程内锁；部署多个后端进程前，需要改为文件锁/数据库事务或带版本号的 CAS，并增加跨进程竞态测试。
 
 ## 已知问题 (Known Issues / Pitfalls)

@@ -944,9 +944,10 @@ def recompute_gates(events: list[dict[str, Any]]) -> dict[str, Any]:
         replay_snapshot = submit.get("replay") or {}
         replay = replays.get(replay_snapshot.get("replay_attempt_id"))
         checks = submit.get("checks") or []
+        candidate_checks = [check for check in checks if check.get("name") != "clean_replay"]
         recomputed = {
             "exit_code": supporting is not None and supporting.get("role") == "build" and supporting.get("exit_code") == 0 and supporting.get("timed_out") is False,
-            "candidate_only": submit.get("candidate_status") == "passed" and bool(submit.get("artifacts")) and all(check.get("passed") is True for check in checks),
+            "candidate_only": submit.get("candidate_status") == "passed" and bool(submit.get("artifacts")) and all(check.get("passed") is True for check in candidate_checks),
             "replay_ready": bool(submit.get("recipe_sha256")) and bool(replay_snapshot.get("replay_attempt_id")),
             "clean_replay": replay is not None and replay.get("status") == "passed" and replay.get("cleanup_succeeded") is True and replay.get("primary_failure_classification") is None,
             "delivered": bool(deliveries.get(submit["submit_attempt_id"], {}).get("delivered")),
