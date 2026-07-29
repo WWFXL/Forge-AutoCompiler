@@ -5,8 +5,19 @@
 ## 进行中 (In Progress)
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
+- Issue #69 — 分离 `candidate_only` 与 `clean_replay` 的离线 gate 重算语义
+  - 来源: v8 `sysstat-nondeterministic / richlab-gpt-5.5` 的两个 SHA-256 mismatch submit；ledger hash chain 有效，但在线 `candidate_only=true` 被离线错误重算为 `false`。
+  - 边界: 只修未来离线审计并增加 candidate-pass + replay-mismatch 回归；不得改写、回填或 replacement 任一 v8 ledger，也不创建新实验 slot。
+
 ## 最近变更 (Recent Changes)
 <!-- 倒序，最新在上。 -->
+
+- 2026-07-29 — 完成双提供商 C/C++ pilot v8 十槽采集
+  - GitHub: Issue #68 已完成审计并关闭；10 个 slot 严格按 manifest 交错顺序串行执行，无 retry、fallback、replacement 或 backfill。离线 gate 缺陷转入 Issue #69。
+  - 证据: 10/10 ledger hash chain、顺序与终态有效，10/10 session finalize/orphan reconciliation 成功，0 orphan、0 compile/replay 残留容器；191 次模型请求启动、190 次闭合，总计 1,306,532 tokens，实际模型身份始终匹配 condition。
+  - 结果: 总体 6/10 passed。RichLab `gpt-5.5` 为 2/5、806,682 tokens；DeepSeek `deepseek-v4-flash` 为 4/5、499,850 tokens。最后一个 DeepSeek slot 的唯一未闭合请求为 timeout，按 `max_retries=0` 原样终结。
+  - 失败分层: RichLab `hiredis` 为产物路径 mismatch，`libcheck` 为 post-build reserve/oracle mismatch，`sysstat` 没有满足冻结的 SHA mismatch 负向预期且暴露两处 gate mismatch；DeepSeek 仅 `sysstat` 在 submit 前 endpoint timeout。
+  - 解释边界: 这是 5 个自选 calibration case、每 condition 一次，且 `formal_comparison_enabled=false`；不得据 2/5 与 4/5 宣称模型总体优劣或统计显著性。
 
 - 2026-07-29 — 双提供商 C/C++ pilot v8 协议进入主干
   - GitHub: Issue #65 已关闭，PR #66 已 squash 合并为 `main@c7977ab7`；协议分支已删除，主干 Unit Tests 与 Lint Check 全绿。
@@ -173,7 +184,7 @@
 
 - 清理与当前源码不一致的后端测试模块引用，例如 `backend/tests/test_aio_sandbox_local_backend.py:1` 和 `backend/tests/test_channels.py:14`。
 - 统一 `backend/tests/test_subagent_timeout_config.py:261` 对 `max_turns` 的期望值与当前实现默认值。
-- 等待用户明确授权后，为 v8 十槽采集新建独立 Issue；开始前再次要求主干 clean preflight `ready=true`，采集严格按 manifest 顺序且不得 retry、fallback、replacement 或补跑。
+- 完成 Issue #69 的 candidate-only/clean-replay 离线重算修复；修复后形成 v8 描述性报告，再预注册约 30 个分层 C/C++ 项目、每 condition 至少 3 次的正式实验。
 - 当前 `backend/packages/harness/deerflow/compile/manager.py` 的 lifecycle lock 是进程内锁；部署多个后端进程前，需要改为文件锁/数据库事务或带版本号的 CAS，并增加跨进程竞态测试。
 
 ## 已知问题 (Known Issues / Pitfalls)
@@ -187,6 +198,9 @@
 - WSL 的 `127.0.0.1` 代理不能直接传入 Docker build；编译镜像代理必须使用容器可达地址。
 - Windows 代理只监听 loopback 时，WSL2 Docker 的 `host.docker.internal` 只到 Docker/WSL 网关，并不会自动进入 Windows loopback。模型请求必须通过仅绑定 Docker bridge 的受限 relay；不要让代理软件监听 `0.0.0.0` 或局域网地址。模型运行时代理使用独立 Compose override，不能改写 v7 冻结的基础 Compose 文件。
 - Compose 内运行正式 benchmark runner 必须显式使用 `/app/backend/.venv/bin/python`；容器 system Python 可能足以导入最小 evidence 模块，却缺少完整 `deerflow.client` 运行时。权威 output directory 必须显式位于 `/workspace/.compile-sessions` 的可写 bind mount，不能使用只读 `/repo` 或仅凭目录可写性推断宿主可见。
+- Runtime preflight 的 output directory 必须是 `/workspace/.compile-sessions` 的子目录，不能直接使用 mount 根；当前正式 evidence 目录为 `/workspace/.compile-sessions/benchmark-evidence`。
+- `candidate_only` 与 `clean_replay` 是正交 gate；离线重算不能对 candidate-only 使用包含 `clean_replay` 的全部 checks。v8 sysstat 已由 Issue #69 固化为回归入口。
+- Compiler 的 900 秒 wall-clock 与 ledger 首尾总时长不是同一口径；模型编排、submit/replay、finalize 和 cleanup 可使 physical-attempt 总历时超过 900 秒，报告时必须分开。
 - 后端全量 Ruff 当前有 4 个本次改动之外且与 `origin/main` 相同的既有错误：`scripts/check.py` 的 3 个 UP045 与 `scripts/forge_benchmark.py` 的 1 个 I001；本次改动文件的 Ruff check/format 已通过。
 - 成功 bash 记录只是候选 recipe；失败命令可能留下持久副作用。进入研究基线前必须在新容器与空 `/workspace`、`/artifacts` 中实际 replay，不能把 `repro_bundle` 生成成功等同于独立复现成功。
 - Windows 挂载目录在编译镜像中可能触发 Git `dubious ownership`；replay 初始化仓库后必须把 `/workspace/repo` 加入 `safe.directory`。
