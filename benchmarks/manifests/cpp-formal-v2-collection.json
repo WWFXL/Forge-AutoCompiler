@@ -1,0 +1,2778 @@
+{
+  "$schema": "../schemas/forge-cpp-formal-collection-v2.schema.json",
+  "schema_version": "formal-collection-2.0.0",
+  "document_type": "manifest",
+  "manifest_canonicalization": "UTF-8 JSON, sorted object keys, compact separators, no NaN",
+  "benchmark": {
+    "id": "forge-cpp-formal-v2-collection",
+    "name": "Forge C/C++ repaired formal collection candidate",
+    "purpose": "unapproved candidate; model execution remains disabled",
+    "dataset_provenance": "OSS-Fuzz metadata snapshot 08682bfc"
+  },
+  "scope": {
+    "languages": [
+      "C",
+      "C++"
+    ],
+    "phase": "formal_collection_v2_candidate",
+    "formal_comparison_enabled": false,
+    "collection_authorized": false,
+    "instrumentation_blocker": false
+  },
+  "source_protocols": {
+    "preregistration": {
+      "id": "forge-cpp-formal-v1",
+      "path": "benchmarks/preregistrations/cpp-formal-v1.json",
+      "sha256": "9385fc04fa2b0bfd365b1496d5ff6cd32f42ac8179325f71e78aa8d99a540d22"
+    },
+    "case_protocol": {
+      "id": "forge-cpp-formal-v1-cases",
+      "path": "benchmarks/preregistrations/cpp-formal-v1-cases.json",
+      "sha256": "ce9cc50f9ade201d20a65f057ba6763732c4190259d71980edf155c92a5b8210"
+    }
+  },
+  "forge": {
+    "repository_url": "https://github.com/WWFXL/Forge-AutoCompiler",
+    "commit_sha": "4afd63a1d9c909fabee2f9055bf940a76ef40350",
+    "revision_policy": "baseline_ancestor_with_frozen_components",
+    "component_sha256": {
+      "backend/packages/harness/deerflow/agents/lead_agent/agent.py": "ce3ee4d371d98982edfb054824ee9fa002e064d641e256b34c3ea281e93fb320",
+      "backend/packages/harness/deerflow/agents/lead_agent/prompt.py": "179b65b6cd386b56d2dbd8ae69003f1a708715b28681197d5f063b1a4c2f4b26",
+      "backend/packages/harness/deerflow/agents/middlewares/clarification_middleware.py": "6555b8921b7cbde9372d3025d5050ab7096fff8ac679d59395d844bc2db0cd77",
+      "backend/packages/harness/deerflow/agents/middlewares/llm_error_handling_middleware.py": "b42750116bf36e872cf9515cbd3d3828c52447db290d8fc212101fc8bd1b54ef",
+      "backend/packages/harness/deerflow/agents/middlewares/memory_middleware.py": "6e7896fa9472086457cc69a5ea2a4a593485d4c9d6d324f8029b5ff70a113022",
+      "backend/packages/harness/deerflow/agents/middlewares/tool_error_handling_middleware.py": "017679304d7c9ad456d6a3050c87a0646d55641ae0d0e3a6ec6860535b0e9b79",
+      "backend/packages/harness/deerflow/client.py": "5b0e187027367a3adcd223403fb154f1f51d28f729e865026b224eb7f03d07f9",
+      "backend/packages/harness/deerflow/compile/__init__.py": "db4ca1b560d0b97d4a46574e29f1d44eaafb899b7473140aa1b3a8d640d81819",
+      "backend/packages/harness/deerflow/compile/docker_runtime.py": "55a25331969c231c32f36096f7a49a81ceac196e805514e041bd9a7ea1879ea9",
+      "backend/packages/harness/deerflow/compile/evidence.py": "d574d26b001473b7a95b4e4258b912d133789baf1908fa76a1ef33a448d7dfcd",
+      "backend/packages/harness/deerflow/compile/manager.py": "2413cf71e3cda47906f19121cdaea7edbb5352083a7ca15f98b8d882172d545d",
+      "backend/packages/harness/deerflow/compile/operations.py": "41832b10c93a13a0955d0342f4fbed45cca729769f86e521628db4f04faf417b",
+      "backend/packages/harness/deerflow/compile/schemas.py": "fb68ae2d4a3ed5d6c5879b26f8d584f5604555a7ff2d14987a63c5418a07f563",
+      "backend/packages/harness/deerflow/models/factory.py": "804da24b5a3929df57251a0274dd690dcfa469c9c5c59024b100ae928dc0f5fc",
+      "backend/packages/harness/deerflow/subagents/builtins/compiler_agent.py": "163024555882bbe7f106b77b78743bc05f4ddf6ae7e3994c471603db3aad975e",
+      "backend/packages/harness/deerflow/subagents/executor.py": "6d1c8cd8395c6e849f51ebd9171ee06b0d5c8a4c9b6941628441792e0df402dd",
+      "backend/packages/harness/deerflow/tools/bound_compile_tools.py": "d06003920c9d4d9794237a165f5a743421647c0f03ef6aed49ea0156407f2140",
+      "backend/packages/harness/deerflow/tools/builtins/agent_compile_tools.py": "1e8d6216ce2aa070a8ec1a2e3b6a042b4ca1be76edc66632597bc7ac4eb6ee2d",
+      "backend/packages/harness/deerflow/tools/builtins/task_tool.py": "2096af2033194bcb4b65b490ad45267c17f1dd87d67665d888cad86452a5ee2c",
+      "backend/uv.lock": "cd9271aa22af6ef37f1a81404b20cef2af0f3d302480e605f62e690f6cf8650d",
+      "config.example.yaml": "7f40b0a88a86a1344bff83e5e2f3ad9e4c20d88aa74e19a0ae11ae821dac6715",
+      "docker/compile/Dockerfile": "19c20e59fd8e98f44d08acdc0cce7c6c938df5a77d9f18176ba965d701b74628",
+      "docker/docker-compose-dev.yaml": "c1d7bbd83e5fc5b4616c9758eee4e3b9ff00eef69935787d13a52b5277c81af5"
+    }
+  },
+  "protocol_artifact_sha256": {
+    "backend/Dockerfile": "c62dc1a6b47a8f76d63d99f7aa3b431a487947236e907565cf9c3f5098c4c2a8",
+    "benchmarks/schemas/forge-cpp-formal-collection-v2.schema.json": "aebe5e227419a47d248f3bbdc7b1cb4edae680acdd852ca1d29538be358f0f30",
+    "benchmarks/schemas/forge-cpp-formal-v1.schema.json": "6a357d88dfa8351001efb1223e59d60c8b8574744e3037e45d55eedaef60949e",
+    "scripts/forge_benchmark.py": "d4c18b5e558a7b29812624ea9661aab47cba610b9bc12d0050c0528bbfaa0278",
+    "scripts/forge_benchmark_runner.py": "1d07eff64607d8d2d6437a971f67fa4de5874f82efd3a9344cf2eb30361c599a",
+    "scripts/forge_formal_case_protocol.py": "2aa66dd3ded88d8e95c68a1fa75d67ddf8834c2d2e811a70e2ce25fcd86ffdb0",
+    "scripts/forge_formal_collection_v2_protocol.py": "f35be9b66801defb5cf924089b00be801c12e121b1d7f33c565493bb08608499",
+    "scripts/forge_formal_collection_v2_runner.py": "35f6b23ebbbb1e7bc5b540a0b9bfd627d23b75957095922aa79c2db396b64c4b",
+    "scripts/forge_formal_preregistration.py": "efd6a34aada18e137a226d91ab52736a6308acb0040ca0d9019e0af8763c79ae",
+    "scripts/forge_formal_runtime_protocol.py": "30de86dca5c2ac4bc63d3ed1ea1b16523b00e7404e2f5f635ff14716fe3fe0f6"
+  },
+  "prompt_sha256": {
+    "backend/packages/harness/deerflow/agents/lead_agent/prompt.py": "179b65b6cd386b56d2dbd8ae69003f1a708715b28681197d5f063b1a4c2f4b26",
+    "backend/packages/harness/deerflow/subagents/builtins/compiler_agent.py": "163024555882bbe7f106b77b78743bc05f4ddf6ae7e3994c471603db3aad975e",
+    "backend/packages/harness/deerflow/tools/builtins/task_tool.py": "2096af2033194bcb4b65b490ad45267c17f1dd87d67665d888cad86452a5ee2c"
+  },
+  "model_profiles": {
+    "richlab-gpt-5.5": {
+      "endpoint": "https://richlab-api-x.choosefire.com/v1",
+      "credential_env": "OpenAI_AK",
+      "roles": {
+        "lead": "gpt-5.5",
+        "compiler": "gpt-5.5"
+      },
+      "fallback_policy": "forbidden",
+      "request_timeout_seconds": 120,
+      "max_retries": 0
+    },
+    "deepseek-v4-flash": {
+      "endpoint": "https://api.deepseek.com",
+      "credential_env": "DEEPSEEK_API_KEY",
+      "roles": {
+        "lead": "deepseek-v4-flash",
+        "compiler": "deepseek-v4-flash"
+      },
+      "fallback_policy": "forbidden",
+      "request_timeout_seconds": 120,
+      "max_retries": 0
+    }
+  },
+  "runtime": {
+    "compile_image": "autocompiler:gcc13",
+    "image_id": "sha256:900d7ce4b902b79df5c64ffab88631b251538f1bde578c4dd2bf91558e9d1554",
+    "control_plane_topology": "compose-dood",
+    "replay_timeout_seconds": 1200,
+    "cleanup_timeout_seconds": 20,
+    "docker_control_timeout_seconds": 30,
+    "model_turn_limit": 36,
+    "graph_recursion_limit": 96,
+    "wall_clock_timeout_seconds": 900,
+    "post_build_reserve_seconds": 120,
+    "max_parallel_runs": 1,
+    "backend_processes": 1,
+    "network_policy": {
+      "network_name": "compile_network_wwf_v1",
+      "egress": "enabled_for_clone_and_dependencies"
+    },
+    "host": {
+      "wsl_distribution": "Ubuntu",
+      "cpu_count": 32,
+      "memory_kib": 7723024,
+      "kernel": "6.6.114.1-microsoft-standard-WSL2",
+      "architecture": "x86_64",
+      "docker_server_version": "29.5.3"
+    }
+  },
+  "budget": {
+    "policy": {
+      "planned_attempts": 180,
+      "linear_projected_tokens": 23517576,
+      "linear_projected_serial_hours": 25.041,
+      "planning_contingency_multiplier": 1.25,
+      "contingency_tokens": 29396970,
+      "contingency_serial_hours": 31.301,
+      "human_confirmation_required_before_collection": true
+    },
+    "budget_sha256": "1a790642a7709df6834ada84725bd9d713af160f273220e323565a5ae5018636"
+  },
+  "conditions": [
+    {
+      "id": "richlab-gpt-5.5",
+      "model_profile": "richlab-gpt-5.5",
+      "memory_enabled": false,
+      "skills_enabled": false,
+      "repetitions": 3,
+      "acceptance_gate": "clean_replay"
+    },
+    {
+      "id": "deepseek-v4-flash",
+      "model_profile": "deepseek-v4-flash",
+      "memory_enabled": false,
+      "skills_enabled": false,
+      "repetitions": 3,
+      "acceptance_gate": "clean_replay"
+    }
+  ],
+  "collection_plan": [
+    {
+      "order": 1,
+      "case_id": "cppitertools",
+      "condition_id": "richlab-gpt-5.5",
+      "repetition": 1
+    },
+    {
+      "order": 2,
+      "case_id": "cppitertools",
+      "condition_id": "deepseek-v4-flash",
+      "repetition": 1
+    },
+    {
+      "order": 3,
+      "case_id": "janet",
+      "condition_id": "deepseek-v4-flash",
+      "repetition": 1
+    },
+    {
+      "order": 4,
+      "case_id": "janet",
+      "condition_id": "richlab-gpt-5.5",
+      "repetition": 1
+    },
+    {
+      "order": 5,
+      "case_id": "open62541",
+      "condition_id": "richlab-gpt-5.5",
+      "repetition": 1
+    },
+    {
+      "order": 6,
+      "case_id": "open62541",
+      "condition_id": "deepseek-v4-flash",
+      "repetition": 1
+    },
+    {
+      "order": 7,
+      "case_id": "powerdns",
+      "condition_id": "deepseek-v4-flash",
+      "repetition": 1
+    },
+    {
+      "order": 8,
+      "case_id": "powerdns",
+      "condition_id": "richlab-gpt-5.5",
+      "repetition": 1
+    },
+    {
+      "order": 9,
+      "case_id": "lodepng",
+      "condition_id": "richlab-gpt-5.5",
+      "repetition": 1
+    },
+    {
+      "order": 10,
+      "case_id": "lodepng",
+      "condition_id": "deepseek-v4-flash",
+      "repetition": 1
+    },
+    {
+      "order": 11,
+      "case_id": "hoextdown",
+      "condition_id": "deepseek-v4-flash",
+      "repetition": 1
+    },
+    {
+      "order": 12,
+      "case_id": "hoextdown",
+      "condition_id": "richlab-gpt-5.5",
+      "repetition": 1
+    },
+    {
+      "order": 13,
+      "case_id": "libspdm",
+      "condition_id": "richlab-gpt-5.5",
+      "repetition": 1
+    },
+    {
+      "order": 14,
+      "case_id": "libspdm",
+      "condition_id": "deepseek-v4-flash",
+      "repetition": 1
+    },
+    {
+      "order": 15,
+      "case_id": "numactl",
+      "condition_id": "deepseek-v4-flash",
+      "repetition": 1
+    },
+    {
+      "order": 16,
+      "case_id": "numactl",
+      "condition_id": "richlab-gpt-5.5",
+      "repetition": 1
+    },
+    {
+      "order": 17,
+      "case_id": "fio",
+      "condition_id": "deepseek-v4-flash",
+      "repetition": 1
+    },
+    {
+      "order": 18,
+      "case_id": "fio",
+      "condition_id": "richlab-gpt-5.5",
+      "repetition": 1
+    },
+    {
+      "order": 19,
+      "case_id": "c-ares",
+      "condition_id": "deepseek-v4-flash",
+      "repetition": 1
+    },
+    {
+      "order": 20,
+      "case_id": "c-ares",
+      "condition_id": "richlab-gpt-5.5",
+      "repetition": 1
+    },
+    {
+      "order": 21,
+      "case_id": "yyjson",
+      "condition_id": "deepseek-v4-flash",
+      "repetition": 1
+    },
+    {
+      "order": 22,
+      "case_id": "yyjson",
+      "condition_id": "richlab-gpt-5.5",
+      "repetition": 1
+    },
+    {
+      "order": 23,
+      "case_id": "sentencepiece",
+      "condition_id": "deepseek-v4-flash",
+      "repetition": 1
+    },
+    {
+      "order": 24,
+      "case_id": "sentencepiece",
+      "condition_id": "richlab-gpt-5.5",
+      "repetition": 1
+    },
+    {
+      "order": 25,
+      "case_id": "freeradius",
+      "condition_id": "richlab-gpt-5.5",
+      "repetition": 1
+    },
+    {
+      "order": 26,
+      "case_id": "freeradius",
+      "condition_id": "deepseek-v4-flash",
+      "repetition": 1
+    },
+    {
+      "order": 27,
+      "case_id": "janus-gateway",
+      "condition_id": "richlab-gpt-5.5",
+      "repetition": 1
+    },
+    {
+      "order": 28,
+      "case_id": "janus-gateway",
+      "condition_id": "deepseek-v4-flash",
+      "repetition": 1
+    },
+    {
+      "order": 29,
+      "case_id": "fftw3",
+      "condition_id": "deepseek-v4-flash",
+      "repetition": 1
+    },
+    {
+      "order": 30,
+      "case_id": "fftw3",
+      "condition_id": "richlab-gpt-5.5",
+      "repetition": 1
+    },
+    {
+      "order": 31,
+      "case_id": "uwebsockets",
+      "condition_id": "richlab-gpt-5.5",
+      "repetition": 1
+    },
+    {
+      "order": 32,
+      "case_id": "uwebsockets",
+      "condition_id": "deepseek-v4-flash",
+      "repetition": 1
+    },
+    {
+      "order": 33,
+      "case_id": "libass",
+      "condition_id": "deepseek-v4-flash",
+      "repetition": 1
+    },
+    {
+      "order": 34,
+      "case_id": "libass",
+      "condition_id": "richlab-gpt-5.5",
+      "repetition": 1
+    },
+    {
+      "order": 35,
+      "case_id": "ada-url",
+      "condition_id": "richlab-gpt-5.5",
+      "repetition": 1
+    },
+    {
+      "order": 36,
+      "case_id": "ada-url",
+      "condition_id": "deepseek-v4-flash",
+      "repetition": 1
+    },
+    {
+      "order": 37,
+      "case_id": "args",
+      "condition_id": "richlab-gpt-5.5",
+      "repetition": 1
+    },
+    {
+      "order": 38,
+      "case_id": "args",
+      "condition_id": "deepseek-v4-flash",
+      "repetition": 1
+    },
+    {
+      "order": 39,
+      "case_id": "libusb",
+      "condition_id": "richlab-gpt-5.5",
+      "repetition": 1
+    },
+    {
+      "order": 40,
+      "case_id": "libusb",
+      "condition_id": "deepseek-v4-flash",
+      "repetition": 1
+    },
+    {
+      "order": 41,
+      "case_id": "openh264",
+      "condition_id": "richlab-gpt-5.5",
+      "repetition": 1
+    },
+    {
+      "order": 42,
+      "case_id": "openh264",
+      "condition_id": "deepseek-v4-flash",
+      "repetition": 1
+    },
+    {
+      "order": 43,
+      "case_id": "mruby",
+      "condition_id": "richlab-gpt-5.5",
+      "repetition": 1
+    },
+    {
+      "order": 44,
+      "case_id": "mruby",
+      "condition_id": "deepseek-v4-flash",
+      "repetition": 1
+    },
+    {
+      "order": 45,
+      "case_id": "pupnp",
+      "condition_id": "deepseek-v4-flash",
+      "repetition": 1
+    },
+    {
+      "order": 46,
+      "case_id": "pupnp",
+      "condition_id": "richlab-gpt-5.5",
+      "repetition": 1
+    },
+    {
+      "order": 47,
+      "case_id": "firestore",
+      "condition_id": "richlab-gpt-5.5",
+      "repetition": 1
+    },
+    {
+      "order": 48,
+      "case_id": "firestore",
+      "condition_id": "deepseek-v4-flash",
+      "repetition": 1
+    },
+    {
+      "order": 49,
+      "case_id": "mupdf",
+      "condition_id": "deepseek-v4-flash",
+      "repetition": 1
+    },
+    {
+      "order": 50,
+      "case_id": "mupdf",
+      "condition_id": "richlab-gpt-5.5",
+      "repetition": 1
+    },
+    {
+      "order": 51,
+      "case_id": "liblouis",
+      "condition_id": "richlab-gpt-5.5",
+      "repetition": 1
+    },
+    {
+      "order": 52,
+      "case_id": "liblouis",
+      "condition_id": "deepseek-v4-flash",
+      "repetition": 1
+    },
+    {
+      "order": 53,
+      "case_id": "openthread",
+      "condition_id": "deepseek-v4-flash",
+      "repetition": 1
+    },
+    {
+      "order": 54,
+      "case_id": "openthread",
+      "condition_id": "richlab-gpt-5.5",
+      "repetition": 1
+    },
+    {
+      "order": 55,
+      "case_id": "sql-parser",
+      "condition_id": "deepseek-v4-flash",
+      "repetition": 1
+    },
+    {
+      "order": 56,
+      "case_id": "sql-parser",
+      "condition_id": "richlab-gpt-5.5",
+      "repetition": 1
+    },
+    {
+      "order": 57,
+      "case_id": "gpac",
+      "condition_id": "richlab-gpt-5.5",
+      "repetition": 1
+    },
+    {
+      "order": 58,
+      "case_id": "gpac",
+      "condition_id": "deepseek-v4-flash",
+      "repetition": 1
+    },
+    {
+      "order": 59,
+      "case_id": "jpegoptim",
+      "condition_id": "deepseek-v4-flash",
+      "repetition": 1
+    },
+    {
+      "order": 60,
+      "case_id": "jpegoptim",
+      "condition_id": "richlab-gpt-5.5",
+      "repetition": 1
+    },
+    {
+      "order": 61,
+      "case_id": "mruby",
+      "condition_id": "deepseek-v4-flash",
+      "repetition": 2
+    },
+    {
+      "order": 62,
+      "case_id": "mruby",
+      "condition_id": "richlab-gpt-5.5",
+      "repetition": 2
+    },
+    {
+      "order": 63,
+      "case_id": "mupdf",
+      "condition_id": "deepseek-v4-flash",
+      "repetition": 2
+    },
+    {
+      "order": 64,
+      "case_id": "mupdf",
+      "condition_id": "richlab-gpt-5.5",
+      "repetition": 2
+    },
+    {
+      "order": 65,
+      "case_id": "sql-parser",
+      "condition_id": "deepseek-v4-flash",
+      "repetition": 2
+    },
+    {
+      "order": 66,
+      "case_id": "sql-parser",
+      "condition_id": "richlab-gpt-5.5",
+      "repetition": 2
+    },
+    {
+      "order": 67,
+      "case_id": "ada-url",
+      "condition_id": "richlab-gpt-5.5",
+      "repetition": 2
+    },
+    {
+      "order": 68,
+      "case_id": "ada-url",
+      "condition_id": "deepseek-v4-flash",
+      "repetition": 2
+    },
+    {
+      "order": 69,
+      "case_id": "lodepng",
+      "condition_id": "deepseek-v4-flash",
+      "repetition": 2
+    },
+    {
+      "order": 70,
+      "case_id": "lodepng",
+      "condition_id": "richlab-gpt-5.5",
+      "repetition": 2
+    },
+    {
+      "order": 71,
+      "case_id": "open62541",
+      "condition_id": "deepseek-v4-flash",
+      "repetition": 2
+    },
+    {
+      "order": 72,
+      "case_id": "open62541",
+      "condition_id": "richlab-gpt-5.5",
+      "repetition": 2
+    },
+    {
+      "order": 73,
+      "case_id": "cppitertools",
+      "condition_id": "deepseek-v4-flash",
+      "repetition": 2
+    },
+    {
+      "order": 74,
+      "case_id": "cppitertools",
+      "condition_id": "richlab-gpt-5.5",
+      "repetition": 2
+    },
+    {
+      "order": 75,
+      "case_id": "numactl",
+      "condition_id": "deepseek-v4-flash",
+      "repetition": 2
+    },
+    {
+      "order": 76,
+      "case_id": "numactl",
+      "condition_id": "richlab-gpt-5.5",
+      "repetition": 2
+    },
+    {
+      "order": 77,
+      "case_id": "powerdns",
+      "condition_id": "deepseek-v4-flash",
+      "repetition": 2
+    },
+    {
+      "order": 78,
+      "case_id": "powerdns",
+      "condition_id": "richlab-gpt-5.5",
+      "repetition": 2
+    },
+    {
+      "order": 79,
+      "case_id": "firestore",
+      "condition_id": "richlab-gpt-5.5",
+      "repetition": 2
+    },
+    {
+      "order": 80,
+      "case_id": "firestore",
+      "condition_id": "deepseek-v4-flash",
+      "repetition": 2
+    },
+    {
+      "order": 81,
+      "case_id": "openthread",
+      "condition_id": "deepseek-v4-flash",
+      "repetition": 2
+    },
+    {
+      "order": 82,
+      "case_id": "openthread",
+      "condition_id": "richlab-gpt-5.5",
+      "repetition": 2
+    },
+    {
+      "order": 83,
+      "case_id": "yyjson",
+      "condition_id": "richlab-gpt-5.5",
+      "repetition": 2
+    },
+    {
+      "order": 84,
+      "case_id": "yyjson",
+      "condition_id": "deepseek-v4-flash",
+      "repetition": 2
+    },
+    {
+      "order": 85,
+      "case_id": "args",
+      "condition_id": "richlab-gpt-5.5",
+      "repetition": 2
+    },
+    {
+      "order": 86,
+      "case_id": "args",
+      "condition_id": "deepseek-v4-flash",
+      "repetition": 2
+    },
+    {
+      "order": 87,
+      "case_id": "c-ares",
+      "condition_id": "richlab-gpt-5.5",
+      "repetition": 2
+    },
+    {
+      "order": 88,
+      "case_id": "c-ares",
+      "condition_id": "deepseek-v4-flash",
+      "repetition": 2
+    },
+    {
+      "order": 89,
+      "case_id": "openh264",
+      "condition_id": "richlab-gpt-5.5",
+      "repetition": 2
+    },
+    {
+      "order": 90,
+      "case_id": "openh264",
+      "condition_id": "deepseek-v4-flash",
+      "repetition": 2
+    },
+    {
+      "order": 91,
+      "case_id": "uwebsockets",
+      "condition_id": "deepseek-v4-flash",
+      "repetition": 2
+    },
+    {
+      "order": 92,
+      "case_id": "uwebsockets",
+      "condition_id": "richlab-gpt-5.5",
+      "repetition": 2
+    },
+    {
+      "order": 93,
+      "case_id": "freeradius",
+      "condition_id": "deepseek-v4-flash",
+      "repetition": 2
+    },
+    {
+      "order": 94,
+      "case_id": "freeradius",
+      "condition_id": "richlab-gpt-5.5",
+      "repetition": 2
+    },
+    {
+      "order": 95,
+      "case_id": "libass",
+      "condition_id": "deepseek-v4-flash",
+      "repetition": 2
+    },
+    {
+      "order": 96,
+      "case_id": "libass",
+      "condition_id": "richlab-gpt-5.5",
+      "repetition": 2
+    },
+    {
+      "order": 97,
+      "case_id": "janet",
+      "condition_id": "richlab-gpt-5.5",
+      "repetition": 2
+    },
+    {
+      "order": 98,
+      "case_id": "janet",
+      "condition_id": "deepseek-v4-flash",
+      "repetition": 2
+    },
+    {
+      "order": 99,
+      "case_id": "janus-gateway",
+      "condition_id": "richlab-gpt-5.5",
+      "repetition": 2
+    },
+    {
+      "order": 100,
+      "case_id": "janus-gateway",
+      "condition_id": "deepseek-v4-flash",
+      "repetition": 2
+    },
+    {
+      "order": 101,
+      "case_id": "pupnp",
+      "condition_id": "deepseek-v4-flash",
+      "repetition": 2
+    },
+    {
+      "order": 102,
+      "case_id": "pupnp",
+      "condition_id": "richlab-gpt-5.5",
+      "repetition": 2
+    },
+    {
+      "order": 103,
+      "case_id": "fio",
+      "condition_id": "deepseek-v4-flash",
+      "repetition": 2
+    },
+    {
+      "order": 104,
+      "case_id": "fio",
+      "condition_id": "richlab-gpt-5.5",
+      "repetition": 2
+    },
+    {
+      "order": 105,
+      "case_id": "jpegoptim",
+      "condition_id": "richlab-gpt-5.5",
+      "repetition": 2
+    },
+    {
+      "order": 106,
+      "case_id": "jpegoptim",
+      "condition_id": "deepseek-v4-flash",
+      "repetition": 2
+    },
+    {
+      "order": 107,
+      "case_id": "libusb",
+      "condition_id": "deepseek-v4-flash",
+      "repetition": 2
+    },
+    {
+      "order": 108,
+      "case_id": "libusb",
+      "condition_id": "richlab-gpt-5.5",
+      "repetition": 2
+    },
+    {
+      "order": 109,
+      "case_id": "fftw3",
+      "condition_id": "deepseek-v4-flash",
+      "repetition": 2
+    },
+    {
+      "order": 110,
+      "case_id": "fftw3",
+      "condition_id": "richlab-gpt-5.5",
+      "repetition": 2
+    },
+    {
+      "order": 111,
+      "case_id": "gpac",
+      "condition_id": "richlab-gpt-5.5",
+      "repetition": 2
+    },
+    {
+      "order": 112,
+      "case_id": "gpac",
+      "condition_id": "deepseek-v4-flash",
+      "repetition": 2
+    },
+    {
+      "order": 113,
+      "case_id": "libspdm",
+      "condition_id": "richlab-gpt-5.5",
+      "repetition": 2
+    },
+    {
+      "order": 114,
+      "case_id": "libspdm",
+      "condition_id": "deepseek-v4-flash",
+      "repetition": 2
+    },
+    {
+      "order": 115,
+      "case_id": "sentencepiece",
+      "condition_id": "richlab-gpt-5.5",
+      "repetition": 2
+    },
+    {
+      "order": 116,
+      "case_id": "sentencepiece",
+      "condition_id": "deepseek-v4-flash",
+      "repetition": 2
+    },
+    {
+      "order": 117,
+      "case_id": "liblouis",
+      "condition_id": "richlab-gpt-5.5",
+      "repetition": 2
+    },
+    {
+      "order": 118,
+      "case_id": "liblouis",
+      "condition_id": "deepseek-v4-flash",
+      "repetition": 2
+    },
+    {
+      "order": 119,
+      "case_id": "hoextdown",
+      "condition_id": "deepseek-v4-flash",
+      "repetition": 2
+    },
+    {
+      "order": 120,
+      "case_id": "hoextdown",
+      "condition_id": "richlab-gpt-5.5",
+      "repetition": 2
+    },
+    {
+      "order": 121,
+      "case_id": "fftw3",
+      "condition_id": "deepseek-v4-flash",
+      "repetition": 3
+    },
+    {
+      "order": 122,
+      "case_id": "fftw3",
+      "condition_id": "richlab-gpt-5.5",
+      "repetition": 3
+    },
+    {
+      "order": 123,
+      "case_id": "mruby",
+      "condition_id": "deepseek-v4-flash",
+      "repetition": 3
+    },
+    {
+      "order": 124,
+      "case_id": "mruby",
+      "condition_id": "richlab-gpt-5.5",
+      "repetition": 3
+    },
+    {
+      "order": 125,
+      "case_id": "libass",
+      "condition_id": "deepseek-v4-flash",
+      "repetition": 3
+    },
+    {
+      "order": 126,
+      "case_id": "libass",
+      "condition_id": "richlab-gpt-5.5",
+      "repetition": 3
+    },
+    {
+      "order": 127,
+      "case_id": "ada-url",
+      "condition_id": "deepseek-v4-flash",
+      "repetition": 3
+    },
+    {
+      "order": 128,
+      "case_id": "ada-url",
+      "condition_id": "richlab-gpt-5.5",
+      "repetition": 3
+    },
+    {
+      "order": 129,
+      "case_id": "pupnp",
+      "condition_id": "deepseek-v4-flash",
+      "repetition": 3
+    },
+    {
+      "order": 130,
+      "case_id": "pupnp",
+      "condition_id": "richlab-gpt-5.5",
+      "repetition": 3
+    },
+    {
+      "order": 131,
+      "case_id": "openthread",
+      "condition_id": "richlab-gpt-5.5",
+      "repetition": 3
+    },
+    {
+      "order": 132,
+      "case_id": "openthread",
+      "condition_id": "deepseek-v4-flash",
+      "repetition": 3
+    },
+    {
+      "order": 133,
+      "case_id": "janus-gateway",
+      "condition_id": "richlab-gpt-5.5",
+      "repetition": 3
+    },
+    {
+      "order": 134,
+      "case_id": "janus-gateway",
+      "condition_id": "deepseek-v4-flash",
+      "repetition": 3
+    },
+    {
+      "order": 135,
+      "case_id": "fio",
+      "condition_id": "richlab-gpt-5.5",
+      "repetition": 3
+    },
+    {
+      "order": 136,
+      "case_id": "fio",
+      "condition_id": "deepseek-v4-flash",
+      "repetition": 3
+    },
+    {
+      "order": 137,
+      "case_id": "lodepng",
+      "condition_id": "deepseek-v4-flash",
+      "repetition": 3
+    },
+    {
+      "order": 138,
+      "case_id": "lodepng",
+      "condition_id": "richlab-gpt-5.5",
+      "repetition": 3
+    },
+    {
+      "order": 139,
+      "case_id": "liblouis",
+      "condition_id": "deepseek-v4-flash",
+      "repetition": 3
+    },
+    {
+      "order": 140,
+      "case_id": "liblouis",
+      "condition_id": "richlab-gpt-5.5",
+      "repetition": 3
+    },
+    {
+      "order": 141,
+      "case_id": "uwebsockets",
+      "condition_id": "richlab-gpt-5.5",
+      "repetition": 3
+    },
+    {
+      "order": 142,
+      "case_id": "uwebsockets",
+      "condition_id": "deepseek-v4-flash",
+      "repetition": 3
+    },
+    {
+      "order": 143,
+      "case_id": "gpac",
+      "condition_id": "deepseek-v4-flash",
+      "repetition": 3
+    },
+    {
+      "order": 144,
+      "case_id": "gpac",
+      "condition_id": "richlab-gpt-5.5",
+      "repetition": 3
+    },
+    {
+      "order": 145,
+      "case_id": "yyjson",
+      "condition_id": "richlab-gpt-5.5",
+      "repetition": 3
+    },
+    {
+      "order": 146,
+      "case_id": "yyjson",
+      "condition_id": "deepseek-v4-flash",
+      "repetition": 3
+    },
+    {
+      "order": 147,
+      "case_id": "args",
+      "condition_id": "deepseek-v4-flash",
+      "repetition": 3
+    },
+    {
+      "order": 148,
+      "case_id": "args",
+      "condition_id": "richlab-gpt-5.5",
+      "repetition": 3
+    },
+    {
+      "order": 149,
+      "case_id": "freeradius",
+      "condition_id": "deepseek-v4-flash",
+      "repetition": 3
+    },
+    {
+      "order": 150,
+      "case_id": "freeradius",
+      "condition_id": "richlab-gpt-5.5",
+      "repetition": 3
+    },
+    {
+      "order": 151,
+      "case_id": "sql-parser",
+      "condition_id": "richlab-gpt-5.5",
+      "repetition": 3
+    },
+    {
+      "order": 152,
+      "case_id": "sql-parser",
+      "condition_id": "deepseek-v4-flash",
+      "repetition": 3
+    },
+    {
+      "order": 153,
+      "case_id": "cppitertools",
+      "condition_id": "deepseek-v4-flash",
+      "repetition": 3
+    },
+    {
+      "order": 154,
+      "case_id": "cppitertools",
+      "condition_id": "richlab-gpt-5.5",
+      "repetition": 3
+    },
+    {
+      "order": 155,
+      "case_id": "jpegoptim",
+      "condition_id": "deepseek-v4-flash",
+      "repetition": 3
+    },
+    {
+      "order": 156,
+      "case_id": "jpegoptim",
+      "condition_id": "richlab-gpt-5.5",
+      "repetition": 3
+    },
+    {
+      "order": 157,
+      "case_id": "sentencepiece",
+      "condition_id": "richlab-gpt-5.5",
+      "repetition": 3
+    },
+    {
+      "order": 158,
+      "case_id": "sentencepiece",
+      "condition_id": "deepseek-v4-flash",
+      "repetition": 3
+    },
+    {
+      "order": 159,
+      "case_id": "hoextdown",
+      "condition_id": "deepseek-v4-flash",
+      "repetition": 3
+    },
+    {
+      "order": 160,
+      "case_id": "hoextdown",
+      "condition_id": "richlab-gpt-5.5",
+      "repetition": 3
+    },
+    {
+      "order": 161,
+      "case_id": "powerdns",
+      "condition_id": "richlab-gpt-5.5",
+      "repetition": 3
+    },
+    {
+      "order": 162,
+      "case_id": "powerdns",
+      "condition_id": "deepseek-v4-flash",
+      "repetition": 3
+    },
+    {
+      "order": 163,
+      "case_id": "libusb",
+      "condition_id": "richlab-gpt-5.5",
+      "repetition": 3
+    },
+    {
+      "order": 164,
+      "case_id": "libusb",
+      "condition_id": "deepseek-v4-flash",
+      "repetition": 3
+    },
+    {
+      "order": 165,
+      "case_id": "c-ares",
+      "condition_id": "richlab-gpt-5.5",
+      "repetition": 3
+    },
+    {
+      "order": 166,
+      "case_id": "c-ares",
+      "condition_id": "deepseek-v4-flash",
+      "repetition": 3
+    },
+    {
+      "order": 167,
+      "case_id": "libspdm",
+      "condition_id": "richlab-gpt-5.5",
+      "repetition": 3
+    },
+    {
+      "order": 168,
+      "case_id": "libspdm",
+      "condition_id": "deepseek-v4-flash",
+      "repetition": 3
+    },
+    {
+      "order": 169,
+      "case_id": "firestore",
+      "condition_id": "deepseek-v4-flash",
+      "repetition": 3
+    },
+    {
+      "order": 170,
+      "case_id": "firestore",
+      "condition_id": "richlab-gpt-5.5",
+      "repetition": 3
+    },
+    {
+      "order": 171,
+      "case_id": "janet",
+      "condition_id": "richlab-gpt-5.5",
+      "repetition": 3
+    },
+    {
+      "order": 172,
+      "case_id": "janet",
+      "condition_id": "deepseek-v4-flash",
+      "repetition": 3
+    },
+    {
+      "order": 173,
+      "case_id": "mupdf",
+      "condition_id": "richlab-gpt-5.5",
+      "repetition": 3
+    },
+    {
+      "order": 174,
+      "case_id": "mupdf",
+      "condition_id": "deepseek-v4-flash",
+      "repetition": 3
+    },
+    {
+      "order": 175,
+      "case_id": "numactl",
+      "condition_id": "richlab-gpt-5.5",
+      "repetition": 3
+    },
+    {
+      "order": 176,
+      "case_id": "numactl",
+      "condition_id": "deepseek-v4-flash",
+      "repetition": 3
+    },
+    {
+      "order": 177,
+      "case_id": "openh264",
+      "condition_id": "richlab-gpt-5.5",
+      "repetition": 3
+    },
+    {
+      "order": 178,
+      "case_id": "openh264",
+      "condition_id": "deepseek-v4-flash",
+      "repetition": 3
+    },
+    {
+      "order": 179,
+      "case_id": "open62541",
+      "condition_id": "deepseek-v4-flash",
+      "repetition": 3
+    },
+    {
+      "order": 180,
+      "case_id": "open62541",
+      "condition_id": "richlab-gpt-5.5",
+      "repetition": 3
+    }
+  ],
+  "schedule_sha256": "9cfca53bb8c7ab8f07eb5c9a852383eb1877dc377cf56bb834b8eee3587fa469",
+  "cases": [
+    {
+      "id": "powerdns",
+      "repository_url": "https://github.com/PowerDNS/pdns",
+      "commit_sha": "211f7ec30208100b44010e71cac4712878821243",
+      "languages": [
+        "C++"
+      ],
+      "build_system": "autotools",
+      "license": "GPL-2.0",
+      "protocol": {
+        "source_subdir": ".",
+        "bootstrap_commands": [
+          "autoreconf -vi"
+        ],
+        "configure_arguments": [
+          "--without-dynmodules",
+          "--disable-lua-records",
+          "--without-systemd"
+        ],
+        "build_targets": [
+          "all"
+        ]
+      },
+      "oracle": {
+        "expected_candidate_status": "pass",
+        "expected_clean_replay_status": "pass",
+        "required_artifacts": [
+          {
+            "relative_path": "pdns_server",
+            "build_output_path": "pdns/pdns_server",
+            "artifact_type": "executable",
+            "producing_target": "all"
+          }
+        ]
+      },
+      "constraints": {
+        "required_system_packages": [
+          "autoconf",
+          "automake",
+          "build-essential",
+          "libboost-dev",
+          "libtool",
+          "pkg-config"
+        ],
+        "build_arguments": {
+          "cmake": [],
+          "configure": [
+            "--without-dynmodules",
+            "--disable-lua-records",
+            "--without-systemd"
+          ]
+        },
+        "environment": {},
+        "minimum_replay_delay_seconds": 0
+      }
+    },
+    {
+      "id": "liblouis",
+      "repository_url": "https://github.com/liblouis/liblouis",
+      "commit_sha": "b52ab11ade4cf0917315991b54a8558a2589cf55",
+      "languages": [
+        "C"
+      ],
+      "build_system": "autotools",
+      "license": "LGPL-2.1",
+      "protocol": {
+        "source_subdir": ".",
+        "bootstrap_commands": [
+          "autoreconf -fi"
+        ],
+        "configure_arguments": [
+          "--disable-shared",
+          "--enable-static"
+        ],
+        "build_targets": [
+          "all"
+        ]
+      },
+      "oracle": {
+        "expected_candidate_status": "pass",
+        "expected_clean_replay_status": "pass",
+        "required_artifacts": [
+          {
+            "relative_path": "liblouis.a",
+            "build_output_path": "liblouis/.libs/liblouis.a",
+            "artifact_type": "static_library",
+            "producing_target": "all"
+          }
+        ]
+      },
+      "constraints": {
+        "required_system_packages": [
+          "autoconf",
+          "automake",
+          "build-essential",
+          "libtool",
+          "pkg-config"
+        ],
+        "build_arguments": {
+          "cmake": [],
+          "configure": [
+            "--disable-shared",
+            "--enable-static"
+          ]
+        },
+        "environment": {},
+        "minimum_replay_delay_seconds": 0
+      }
+    },
+    {
+      "id": "freeradius",
+      "repository_url": "https://github.com/FreeRADIUS/freeradius-server",
+      "commit_sha": "0b778ffcd109b4590b056c48822beff77a46927b",
+      "languages": [
+        "C++"
+      ],
+      "build_system": "autotools",
+      "license": "GPL-2.0",
+      "protocol": {
+        "source_subdir": ".",
+        "bootstrap_commands": [],
+        "configure_arguments": [
+          "--disable-developer",
+          "--without-openssl"
+        ],
+        "build_targets": [
+          "all"
+        ]
+      },
+      "oracle": {
+        "expected_candidate_status": "pass",
+        "expected_clean_replay_status": "pass",
+        "required_artifacts": [
+          {
+            "relative_path": "libfreeradius-util.a",
+            "build_output_path": "build/lib/.libs/libfreeradius-util.a",
+            "artifact_type": "static_library",
+            "producing_target": "all"
+          }
+        ]
+      },
+      "constraints": {
+        "required_system_packages": [
+          "autoconf",
+          "automake",
+          "build-essential",
+          "libtool",
+          "pkg-config"
+        ],
+        "build_arguments": {
+          "cmake": [],
+          "configure": [
+            "--disable-developer",
+            "--without-openssl"
+          ]
+        },
+        "environment": {},
+        "minimum_replay_delay_seconds": 0
+      }
+    },
+    {
+      "id": "c-ares",
+      "repository_url": "https://github.com/c-ares/c-ares",
+      "commit_sha": "589b5887d47736e5b70a1fddaf9bf90297adde65",
+      "languages": [
+        "C++"
+      ],
+      "build_system": "autotools",
+      "license": "MIT",
+      "protocol": {
+        "source_subdir": ".",
+        "bootstrap_commands": [
+          "autoreconf -fi"
+        ],
+        "configure_arguments": [
+          "--disable-shared",
+          "--enable-static",
+          "--disable-tests"
+        ],
+        "build_targets": [
+          "all"
+        ]
+      },
+      "oracle": {
+        "expected_candidate_status": "pass",
+        "expected_clean_replay_status": "pass",
+        "required_artifacts": [
+          {
+            "relative_path": "libcares.a",
+            "build_output_path": "src/lib/.libs/libcares.a",
+            "artifact_type": "static_library",
+            "producing_target": "all"
+          }
+        ]
+      },
+      "constraints": {
+        "required_system_packages": [
+          "autoconf",
+          "automake",
+          "build-essential",
+          "libtool",
+          "pkg-config"
+        ],
+        "build_arguments": {
+          "cmake": [],
+          "configure": [
+            "--disable-shared",
+            "--enable-static",
+            "--disable-tests"
+          ]
+        },
+        "environment": {},
+        "minimum_replay_delay_seconds": 0
+      }
+    },
+    {
+      "id": "fftw3",
+      "repository_url": "https://github.com/fftw/fftw3",
+      "commit_sha": "93ed4c786934aec9946f8dda4b4e3eb08f8be41c",
+      "languages": [
+        "C++"
+      ],
+      "build_system": "autotools",
+      "license": "GPL-2.0",
+      "protocol": {
+        "source_subdir": ".",
+        "bootstrap_commands": [
+          "autoreconf -fi"
+        ],
+        "configure_arguments": [
+          "--disable-shared",
+          "--enable-static",
+          "--disable-fortran"
+        ],
+        "build_targets": [
+          "all"
+        ]
+      },
+      "oracle": {
+        "expected_candidate_status": "pass",
+        "expected_clean_replay_status": "pass",
+        "required_artifacts": [
+          {
+            "relative_path": "libfftw3.a",
+            "build_output_path": ".libs/libfftw3.a",
+            "artifact_type": "static_library",
+            "producing_target": "all"
+          }
+        ]
+      },
+      "constraints": {
+        "required_system_packages": [
+          "autoconf",
+          "automake",
+          "build-essential",
+          "libtool",
+          "pkg-config"
+        ],
+        "build_arguments": {
+          "cmake": [],
+          "configure": [
+            "--disable-shared",
+            "--enable-static",
+            "--disable-fortran"
+          ]
+        },
+        "environment": {},
+        "minimum_replay_delay_seconds": 0
+      }
+    },
+    {
+      "id": "libusb",
+      "repository_url": "https://github.com/libusb/libusb",
+      "commit_sha": "6bb97402df0ec0c09defcbd4f5146447c7f7cc53",
+      "languages": [
+        "C++"
+      ],
+      "build_system": "autotools",
+      "license": "LGPL-2.1",
+      "protocol": {
+        "source_subdir": ".",
+        "bootstrap_commands": [
+          "./autogen.sh"
+        ],
+        "configure_arguments": [
+          "--disable-shared",
+          "--enable-static",
+          "--disable-udev"
+        ],
+        "build_targets": [
+          "all"
+        ]
+      },
+      "oracle": {
+        "expected_candidate_status": "pass",
+        "expected_clean_replay_status": "pass",
+        "required_artifacts": [
+          {
+            "relative_path": "libusb-1.0.a",
+            "build_output_path": "libusb/.libs/libusb-1.0.a",
+            "artifact_type": "static_library",
+            "producing_target": "all"
+          }
+        ]
+      },
+      "constraints": {
+        "required_system_packages": [
+          "autoconf",
+          "automake",
+          "build-essential",
+          "libtool",
+          "pkg-config"
+        ],
+        "build_arguments": {
+          "cmake": [],
+          "configure": [
+            "--disable-shared",
+            "--enable-static",
+            "--disable-udev"
+          ]
+        },
+        "environment": {},
+        "minimum_replay_delay_seconds": 0
+      }
+    },
+    {
+      "id": "janus-gateway",
+      "repository_url": "https://github.com/meetecho/janus-gateway",
+      "commit_sha": "4602fcc5315b77dce2a5d8363a4286ac672183b1",
+      "languages": [
+        "C++"
+      ],
+      "build_system": "autotools",
+      "license": "GPL-3.0",
+      "protocol": {
+        "source_subdir": ".",
+        "bootstrap_commands": [
+          "sh autogen.sh"
+        ],
+        "configure_arguments": [
+          "--disable-docs",
+          "--disable-data-channels",
+          "--disable-websockets",
+          "--disable-rabbitmq",
+          "--disable-mqtt"
+        ],
+        "build_targets": [
+          "all"
+        ]
+      },
+      "oracle": {
+        "expected_candidate_status": "pass",
+        "expected_clean_replay_status": "pass",
+        "required_artifacts": [
+          {
+            "relative_path": "janus",
+            "build_output_path": "janus",
+            "artifact_type": "executable",
+            "producing_target": "all"
+          }
+        ]
+      },
+      "constraints": {
+        "required_system_packages": [
+          "autoconf",
+          "automake",
+          "build-essential",
+          "libglib2.0-dev",
+          "libjansson-dev",
+          "libssl-dev",
+          "libtool",
+          "pkg-config"
+        ],
+        "build_arguments": {
+          "cmake": [],
+          "configure": [
+            "--disable-docs",
+            "--disable-data-channels",
+            "--disable-websockets",
+            "--disable-rabbitmq",
+            "--disable-mqtt"
+          ]
+        },
+        "environment": {},
+        "minimum_replay_delay_seconds": 0
+      }
+    },
+    {
+      "id": "numactl",
+      "repository_url": "https://github.com/numactl/numactl",
+      "commit_sha": "93c1fe5fabf38502ca315598bf74699c41300df9",
+      "languages": [
+        "C"
+      ],
+      "build_system": "autotools",
+      "license": "GPL-2.0",
+      "protocol": {
+        "source_subdir": ".",
+        "bootstrap_commands": [
+          "./autogen.sh"
+        ],
+        "configure_arguments": [
+          "--disable-shared",
+          "--enable-static"
+        ],
+        "build_targets": [
+          "libnuma.la"
+        ]
+      },
+      "oracle": {
+        "expected_candidate_status": "pass",
+        "expected_clean_replay_status": "pass",
+        "required_artifacts": [
+          {
+            "relative_path": "libnuma.a",
+            "build_output_path": ".libs/libnuma.a",
+            "artifact_type": "static_library",
+            "producing_target": "libnuma.la"
+          }
+        ]
+      },
+      "constraints": {
+        "required_system_packages": [
+          "autoconf",
+          "automake",
+          "build-essential",
+          "libtool",
+          "pkg-config"
+        ],
+        "build_arguments": {
+          "cmake": [],
+          "configure": [
+            "--disable-shared",
+            "--enable-static"
+          ]
+        },
+        "environment": {},
+        "minimum_replay_delay_seconds": 0
+      }
+    },
+    {
+      "id": "libass",
+      "repository_url": "https://github.com/libass/libass",
+      "commit_sha": "f9fd3d20dff1cd84b7c74c8ae7f79711ad7736fa",
+      "languages": [
+        "C++"
+      ],
+      "build_system": "autotools",
+      "license": "ISC",
+      "protocol": {
+        "source_subdir": ".",
+        "bootstrap_commands": [
+          "./autogen.sh"
+        ],
+        "configure_arguments": [
+          "--disable-shared",
+          "--enable-static",
+          "--disable-require-system-font-provider"
+        ],
+        "build_targets": [
+          "all"
+        ]
+      },
+      "oracle": {
+        "expected_candidate_status": "pass",
+        "expected_clean_replay_status": "pass",
+        "required_artifacts": [
+          {
+            "relative_path": "libass.a",
+            "build_output_path": "libass/.libs/libass.a",
+            "artifact_type": "static_library",
+            "producing_target": "all"
+          }
+        ]
+      },
+      "constraints": {
+        "required_system_packages": [
+          "autoconf",
+          "automake",
+          "build-essential",
+          "libfreetype6-dev",
+          "libfribidi-dev",
+          "libtool",
+          "pkg-config"
+        ],
+        "build_arguments": {
+          "cmake": [],
+          "configure": [
+            "--disable-shared",
+            "--enable-static",
+            "--disable-require-system-font-provider"
+          ]
+        },
+        "environment": {},
+        "minimum_replay_delay_seconds": 0
+      }
+    },
+    {
+      "id": "jpegoptim",
+      "repository_url": "https://github.com/tjko/jpegoptim",
+      "commit_sha": "14a3155acccdcbbfa4ea0d1d2fa11ffb9a373191",
+      "languages": [
+        "C"
+      ],
+      "build_system": "autotools",
+      "license": "GPL-3.0",
+      "protocol": {
+        "source_subdir": ".",
+        "bootstrap_commands": [],
+        "configure_arguments": [],
+        "build_targets": [
+          "jpegoptim"
+        ]
+      },
+      "oracle": {
+        "expected_candidate_status": "pass",
+        "expected_clean_replay_status": "pass",
+        "required_artifacts": [
+          {
+            "relative_path": "jpegoptim",
+            "build_output_path": "jpegoptim",
+            "artifact_type": "executable",
+            "producing_target": "jpegoptim"
+          }
+        ]
+      },
+      "constraints": {
+        "required_system_packages": [
+          "autoconf",
+          "automake",
+          "build-essential",
+          "libjpeg-dev",
+          "libtool",
+          "pkg-config"
+        ],
+        "build_arguments": {
+          "cmake": [],
+          "configure": []
+        },
+        "environment": {},
+        "minimum_replay_delay_seconds": 0
+      }
+    },
+    {
+      "id": "open62541",
+      "repository_url": "https://github.com/open62541/open62541",
+      "commit_sha": "712aec6e8ca5f85d35b8f070077c20528fcbf18f",
+      "languages": [
+        "C++"
+      ],
+      "build_system": "cmake",
+      "license": "MPL-2.0",
+      "protocol": {
+        "source_subdir": ".",
+        "bootstrap_commands": [],
+        "configure_arguments": [
+          "-DCMAKE_BUILD_TYPE=Release",
+          "-DBUILD_SHARED_LIBS=OFF",
+          "-DUA_BUILD_EXAMPLES=OFF",
+          "-DUA_BUILD_UNIT_TESTS=OFF"
+        ],
+        "build_targets": [
+          "open62541"
+        ]
+      },
+      "oracle": {
+        "expected_candidate_status": "pass",
+        "expected_clean_replay_status": "pass",
+        "required_artifacts": [
+          {
+            "relative_path": "libopen62541.a",
+            "build_output_path": "build/bin/libopen62541.a",
+            "artifact_type": "static_library",
+            "producing_target": "open62541"
+          }
+        ]
+      },
+      "constraints": {
+        "required_system_packages": [
+          "build-essential",
+          "cmake",
+          "python3"
+        ],
+        "build_arguments": {
+          "cmake": [
+            "-DCMAKE_BUILD_TYPE=Release",
+            "-DBUILD_SHARED_LIBS=OFF",
+            "-DUA_BUILD_EXAMPLES=OFF",
+            "-DUA_BUILD_UNIT_TESTS=OFF"
+          ],
+          "configure": []
+        },
+        "environment": {},
+        "minimum_replay_delay_seconds": 0
+      }
+    },
+    {
+      "id": "openthread",
+      "repository_url": "https://github.com/openthread/openthread",
+      "commit_sha": "044aa98f1b5255731e0a6f2816e267b282299684",
+      "languages": [
+        "C++"
+      ],
+      "build_system": "cmake",
+      "license": "BSD-3-Clause",
+      "protocol": {
+        "source_subdir": ".",
+        "bootstrap_commands": [],
+        "configure_arguments": [
+          "-DCMAKE_BUILD_TYPE=Release",
+          "-DOT_BUILD_EXECUTABLES=OFF",
+          "-DOT_COMPILE_WARNING_AS_ERROR=OFF"
+        ],
+        "build_targets": [
+          "openthread-ftd"
+        ]
+      },
+      "oracle": {
+        "expected_candidate_status": "pass",
+        "expected_clean_replay_status": "pass",
+        "required_artifacts": [
+          {
+            "relative_path": "libopenthread-ftd.a",
+            "build_output_path": "build/src/core/libopenthread-ftd.a",
+            "artifact_type": "static_library",
+            "producing_target": "openthread-ftd"
+          }
+        ]
+      },
+      "constraints": {
+        "required_system_packages": [
+          "build-essential",
+          "cmake",
+          "python3"
+        ],
+        "build_arguments": {
+          "cmake": [
+            "-DCMAKE_BUILD_TYPE=Release",
+            "-DOT_BUILD_EXECUTABLES=OFF",
+            "-DOT_COMPILE_WARNING_AS_ERROR=OFF"
+          ],
+          "configure": []
+        },
+        "environment": {},
+        "minimum_replay_delay_seconds": 0
+      }
+    },
+    {
+      "id": "firestore",
+      "repository_url": "https://github.com/firebase/firebase-ios-sdk",
+      "commit_sha": "1111d6715d897e4af0b33eef1832721612fbfedb",
+      "languages": [
+        "C++"
+      ],
+      "build_system": "cmake",
+      "license": "Apache-2.0",
+      "protocol": {
+        "source_subdir": ".",
+        "bootstrap_commands": [],
+        "configure_arguments": [
+          "-DFIREBASE_IOS_BUILD_TESTS=OFF",
+          "-DFIREBASE_IOS_BUILD_BENCHMARKS=OFF",
+          "-DFIRESTORE_INCLUDE_OBJC=OFF"
+        ],
+        "build_targets": [
+          "firestore_core"
+        ]
+      },
+      "oracle": {
+        "expected_candidate_status": "pass",
+        "expected_clean_replay_status": "pass",
+        "required_artifacts": [
+          {
+            "relative_path": "libfirestore_core.a",
+            "build_output_path": "build/Firestore/core/libfirestore_core.a",
+            "artifact_type": "static_library",
+            "producing_target": "firestore_core"
+          }
+        ]
+      },
+      "constraints": {
+        "required_system_packages": [
+          "build-essential",
+          "cmake",
+          "libssl-dev",
+          "python3"
+        ],
+        "build_arguments": {
+          "cmake": [
+            "-DFIREBASE_IOS_BUILD_TESTS=OFF",
+            "-DFIREBASE_IOS_BUILD_BENCHMARKS=OFF",
+            "-DFIRESTORE_INCLUDE_OBJC=OFF"
+          ],
+          "configure": []
+        },
+        "environment": {},
+        "minimum_replay_delay_seconds": 0
+      }
+    },
+    {
+      "id": "pupnp",
+      "repository_url": "https://github.com/pupnp/pupnp",
+      "commit_sha": "4c4285d6af69774b7ec6a9a93dc967dc9e9e6d8e",
+      "languages": [
+        "C"
+      ],
+      "build_system": "cmake",
+      "license": "BSD-3-Clause",
+      "protocol": {
+        "source_subdir": ".",
+        "bootstrap_commands": [],
+        "configure_arguments": [
+          "-DCMAKE_BUILD_TYPE=Release",
+          "-DUPNP_ENABLE_TESTING=OFF"
+        ],
+        "build_targets": [
+          "upnp_static"
+        ]
+      },
+      "oracle": {
+        "expected_candidate_status": "pass",
+        "expected_clean_replay_status": "pass",
+        "required_artifacts": [
+          {
+            "relative_path": "libupnp.a",
+            "build_output_path": "build/upnp/libupnp.a",
+            "artifact_type": "static_library",
+            "producing_target": "upnp_static"
+          }
+        ]
+      },
+      "constraints": {
+        "required_system_packages": [
+          "build-essential",
+          "cmake"
+        ],
+        "build_arguments": {
+          "cmake": [
+            "-DCMAKE_BUILD_TYPE=Release",
+            "-DUPNP_ENABLE_TESTING=OFF"
+          ],
+          "configure": []
+        },
+        "environment": {},
+        "minimum_replay_delay_seconds": 0
+      }
+    },
+    {
+      "id": "ada-url",
+      "repository_url": "https://github.com/ada-url/ada",
+      "commit_sha": "30f3f3020c5a979b62f90dc9c37fd45de3cc84d7",
+      "languages": [
+        "C++"
+      ],
+      "build_system": "cmake",
+      "license": "Apache-2.0",
+      "protocol": {
+        "source_subdir": ".",
+        "bootstrap_commands": [],
+        "configure_arguments": [
+          "-DCMAKE_BUILD_TYPE=Release",
+          "-DBUILD_SHARED_LIBS=OFF",
+          "-DADA_TESTING=OFF",
+          "-DADA_BENCHMARKS=OFF",
+          "-DADA_TOOLS=OFF"
+        ],
+        "build_targets": [
+          "ada"
+        ]
+      },
+      "oracle": {
+        "expected_candidate_status": "pass",
+        "expected_clean_replay_status": "pass",
+        "required_artifacts": [
+          {
+            "relative_path": "libada.a",
+            "build_output_path": "build/src/libada.a",
+            "artifact_type": "static_library",
+            "producing_target": "ada"
+          }
+        ]
+      },
+      "constraints": {
+        "required_system_packages": [
+          "build-essential",
+          "cmake"
+        ],
+        "build_arguments": {
+          "cmake": [
+            "-DCMAKE_BUILD_TYPE=Release",
+            "-DBUILD_SHARED_LIBS=OFF",
+            "-DADA_TESTING=OFF",
+            "-DADA_BENCHMARKS=OFF",
+            "-DADA_TOOLS=OFF"
+          ],
+          "configure": []
+        },
+        "environment": {},
+        "minimum_replay_delay_seconds": 0
+      }
+    },
+    {
+      "id": "libspdm",
+      "repository_url": "https://github.com/DMTF/libspdm",
+      "commit_sha": "1cc1f1f51696f1cb657e59ed4c58a6064c8b948f",
+      "languages": [
+        "C"
+      ],
+      "build_system": "cmake",
+      "license": "BSD-3-Clause",
+      "protocol": {
+        "source_subdir": ".",
+        "bootstrap_commands": [],
+        "configure_arguments": [
+          "-DARCH=x64",
+          "-DTOOLCHAIN=GCC",
+          "-DTARGET=Release",
+          "-DCRYPTO=mbedtls"
+        ],
+        "build_targets": [
+          "all"
+        ]
+      },
+      "oracle": {
+        "expected_candidate_status": "pass",
+        "expected_clean_replay_status": "pass",
+        "required_artifacts": [
+          {
+            "relative_path": "libspdm_common_lib.a",
+            "build_output_path": "build/lib/libspdm_common_lib.a",
+            "artifact_type": "static_library",
+            "producing_target": "all"
+          }
+        ]
+      },
+      "constraints": {
+        "required_system_packages": [
+          "build-essential",
+          "cmake",
+          "nasm"
+        ],
+        "build_arguments": {
+          "cmake": [
+            "-DARCH=x64",
+            "-DTOOLCHAIN=GCC",
+            "-DTARGET=Release",
+            "-DCRYPTO=mbedtls"
+          ],
+          "configure": []
+        },
+        "environment": {},
+        "minimum_replay_delay_seconds": 0
+      }
+    },
+    {
+      "id": "sentencepiece",
+      "repository_url": "https://github.com/google/sentencepiece",
+      "commit_sha": "1192370fbb50ee8cde9056bdd1055073917e59dc",
+      "languages": [
+        "C++"
+      ],
+      "build_system": "cmake",
+      "license": "Apache-2.0",
+      "protocol": {
+        "source_subdir": ".",
+        "bootstrap_commands": [],
+        "configure_arguments": [
+          "-DCMAKE_BUILD_TYPE=Release",
+          "-DSPM_ENABLE_SHARED=OFF",
+          "-DSPM_BUILD_TEST=OFF",
+          "-DSPM_ENABLE_TCMALLOC=OFF"
+        ],
+        "build_targets": [
+          "sentencepiece-static"
+        ]
+      },
+      "oracle": {
+        "expected_candidate_status": "pass",
+        "expected_clean_replay_status": "pass",
+        "required_artifacts": [
+          {
+            "relative_path": "libsentencepiece.a",
+            "build_output_path": "build/src/libsentencepiece.a",
+            "artifact_type": "static_library",
+            "producing_target": "sentencepiece-static"
+          }
+        ]
+      },
+      "constraints": {
+        "required_system_packages": [
+          "build-essential",
+          "cmake"
+        ],
+        "build_arguments": {
+          "cmake": [
+            "-DCMAKE_BUILD_TYPE=Release",
+            "-DSPM_ENABLE_SHARED=OFF",
+            "-DSPM_BUILD_TEST=OFF",
+            "-DSPM_ENABLE_TCMALLOC=OFF"
+          ],
+          "configure": []
+        },
+        "environment": {},
+        "minimum_replay_delay_seconds": 0
+      }
+    },
+    {
+      "id": "args",
+      "repository_url": "https://github.com/Taywee/args",
+      "commit_sha": "fe4450bd9549e4e02bc2047b2a2800b09f1bb878",
+      "languages": [
+        "C++"
+      ],
+      "build_system": "cmake",
+      "license": "MIT",
+      "protocol": {
+        "source_subdir": ".",
+        "bootstrap_commands": [],
+        "configure_arguments": [
+          "-DCMAKE_BUILD_TYPE=Release",
+          "-DARGS_BUILD_EXAMPLE=ON",
+          "-DARGS_BUILD_UNITTESTS=OFF",
+          "-DBUILD_FUZZERS=OFF"
+        ],
+        "build_targets": [
+          "gitlike"
+        ]
+      },
+      "oracle": {
+        "expected_candidate_status": "pass",
+        "expected_clean_replay_status": "pass",
+        "required_artifacts": [
+          {
+            "relative_path": "gitlike",
+            "build_output_path": "build/gitlike",
+            "artifact_type": "executable",
+            "producing_target": "gitlike"
+          }
+        ]
+      },
+      "constraints": {
+        "required_system_packages": [
+          "build-essential",
+          "cmake"
+        ],
+        "build_arguments": {
+          "cmake": [
+            "-DCMAKE_BUILD_TYPE=Release",
+            "-DARGS_BUILD_EXAMPLE=ON",
+            "-DARGS_BUILD_UNITTESTS=OFF",
+            "-DBUILD_FUZZERS=OFF"
+          ],
+          "configure": []
+        },
+        "environment": {},
+        "minimum_replay_delay_seconds": 0
+      }
+    },
+    {
+      "id": "yyjson",
+      "repository_url": "https://github.com/ibireme/yyjson",
+      "commit_sha": "9365ddc7061033df656578bf86040048b5b5531a",
+      "languages": [
+        "C"
+      ],
+      "build_system": "cmake",
+      "license": "MIT",
+      "protocol": {
+        "source_subdir": ".",
+        "bootstrap_commands": [],
+        "configure_arguments": [
+          "-DCMAKE_BUILD_TYPE=Release",
+          "-DBUILD_SHARED_LIBS=OFF",
+          "-DYYJSON_BUILD_TESTS=OFF",
+          "-DYYJSON_BUILD_FUZZER=OFF"
+        ],
+        "build_targets": [
+          "yyjson"
+        ]
+      },
+      "oracle": {
+        "expected_candidate_status": "pass",
+        "expected_clean_replay_status": "pass",
+        "required_artifacts": [
+          {
+            "relative_path": "libyyjson.a",
+            "build_output_path": "build/libyyjson.a",
+            "artifact_type": "static_library",
+            "producing_target": "yyjson"
+          }
+        ]
+      },
+      "constraints": {
+        "required_system_packages": [
+          "build-essential",
+          "cmake"
+        ],
+        "build_arguments": {
+          "cmake": [
+            "-DCMAKE_BUILD_TYPE=Release",
+            "-DBUILD_SHARED_LIBS=OFF",
+            "-DYYJSON_BUILD_TESTS=OFF",
+            "-DYYJSON_BUILD_FUZZER=OFF"
+          ],
+          "configure": []
+        },
+        "environment": {},
+        "minimum_replay_delay_seconds": 0
+      }
+    },
+    {
+      "id": "cppitertools",
+      "repository_url": "https://github.com/ryanhaining/cppitertools",
+      "commit_sha": "531b3d753d2bbfe3b0ababe61c2e95e965c54a66",
+      "languages": [
+        "C++"
+      ],
+      "build_system": "cmake",
+      "license": "BSD-2-Clause",
+      "protocol": {
+        "source_subdir": "examples",
+        "bootstrap_commands": [],
+        "configure_arguments": [
+          "-DCMAKE_BUILD_TYPE=Release"
+        ],
+        "build_targets": [
+          "accumulate_examples"
+        ]
+      },
+      "oracle": {
+        "expected_candidate_status": "pass",
+        "expected_clean_replay_status": "pass",
+        "required_artifacts": [
+          {
+            "relative_path": "accumulate_examples",
+            "build_output_path": "build/accumulate_examples",
+            "artifact_type": "executable",
+            "producing_target": "accumulate_examples"
+          }
+        ]
+      },
+      "constraints": {
+        "required_system_packages": [
+          "build-essential",
+          "cmake"
+        ],
+        "build_arguments": {
+          "cmake": [
+            "-DCMAKE_BUILD_TYPE=Release"
+          ],
+          "configure": []
+        },
+        "environment": {},
+        "minimum_replay_delay_seconds": 0
+      }
+    },
+    {
+      "id": "mupdf",
+      "repository_url": "https://github.com/ArtifexSoftware/mupdf",
+      "commit_sha": "b29caae1ab8c602187d4fc36d7b540bac493635d",
+      "languages": [
+        "C++"
+      ],
+      "build_system": "make",
+      "license": "AGPL-3.0",
+      "protocol": {
+        "source_subdir": ".",
+        "bootstrap_commands": [],
+        "configure_arguments": [],
+        "build_targets": [
+          "libs"
+        ]
+      },
+      "oracle": {
+        "expected_candidate_status": "pass",
+        "expected_clean_replay_status": "pass",
+        "required_artifacts": [
+          {
+            "relative_path": "libmupdf.a",
+            "build_output_path": "build/release/libmupdf.a",
+            "artifact_type": "static_library",
+            "producing_target": "libs"
+          }
+        ]
+      },
+      "constraints": {
+        "required_system_packages": [
+          "build-essential",
+          "libfreetype6-dev",
+          "libjpeg-dev",
+          "zlib1g-dev"
+        ],
+        "build_arguments": {
+          "cmake": [],
+          "configure": []
+        },
+        "environment": {},
+        "minimum_replay_delay_seconds": 0
+      }
+    },
+    {
+      "id": "openh264",
+      "repository_url": "https://github.com/cisco/openh264",
+      "commit_sha": "4a2615fac570c6ca1ed4f157b9fdab9466edfd80",
+      "languages": [
+        "C++"
+      ],
+      "build_system": "make",
+      "license": "BSD-2-Clause",
+      "protocol": {
+        "source_subdir": ".",
+        "bootstrap_commands": [],
+        "configure_arguments": [],
+        "build_targets": [
+          "libopenh264.a"
+        ]
+      },
+      "oracle": {
+        "expected_candidate_status": "pass",
+        "expected_clean_replay_status": "pass",
+        "required_artifacts": [
+          {
+            "relative_path": "libopenh264.a",
+            "build_output_path": "libopenh264.a",
+            "artifact_type": "static_library",
+            "producing_target": "libopenh264.a"
+          }
+        ]
+      },
+      "constraints": {
+        "required_system_packages": [
+          "build-essential",
+          "nasm"
+        ],
+        "build_arguments": {
+          "cmake": [],
+          "configure": []
+        },
+        "environment": {},
+        "minimum_replay_delay_seconds": 0
+      }
+    },
+    {
+      "id": "gpac",
+      "repository_url": "https://github.com/gpac/gpac",
+      "commit_sha": "2aa431eaf732c1a7e9a966ea12049fc001d91e04",
+      "languages": [
+        "C"
+      ],
+      "build_system": "make",
+      "license": "LGPL-2.1",
+      "protocol": {
+        "source_subdir": ".",
+        "bootstrap_commands": [
+          "./configure --static-bin"
+        ],
+        "configure_arguments": [],
+        "build_targets": [
+          "lib"
+        ]
+      },
+      "oracle": {
+        "expected_candidate_status": "pass",
+        "expected_clean_replay_status": "pass",
+        "required_artifacts": [
+          {
+            "relative_path": "libgpac_static.a",
+            "build_output_path": "bin/gcc/libgpac_static.a",
+            "artifact_type": "static_library",
+            "producing_target": "lib"
+          }
+        ]
+      },
+      "constraints": {
+        "required_system_packages": [
+          "build-essential",
+          "pkg-config",
+          "zlib1g-dev"
+        ],
+        "build_arguments": {
+          "cmake": [],
+          "configure": []
+        },
+        "environment": {},
+        "minimum_replay_delay_seconds": 0
+      }
+    },
+    {
+      "id": "janet",
+      "repository_url": "https://github.com/janet-lang/janet",
+      "commit_sha": "c0b32d4e3798d0ceaf4131e642e59602a31ce151",
+      "languages": [
+        "C++"
+      ],
+      "build_system": "make",
+      "license": "MIT",
+      "protocol": {
+        "source_subdir": ".",
+        "bootstrap_commands": [],
+        "configure_arguments": [],
+        "build_targets": [
+          "all"
+        ]
+      },
+      "oracle": {
+        "expected_candidate_status": "pass",
+        "expected_clean_replay_status": "pass",
+        "required_artifacts": [
+          {
+            "relative_path": "libjanet.a",
+            "build_output_path": "build/libjanet.a",
+            "artifact_type": "static_library",
+            "producing_target": "all"
+          }
+        ]
+      },
+      "constraints": {
+        "required_system_packages": [
+          "build-essential"
+        ],
+        "build_arguments": {
+          "cmake": [],
+          "configure": []
+        },
+        "environment": {},
+        "minimum_replay_delay_seconds": 0
+      }
+    },
+    {
+      "id": "uwebsockets",
+      "repository_url": "https://github.com/uNetworking/uWebSockets",
+      "commit_sha": "fe7c01a477b688a7743f754fee33bdd78d52ad91",
+      "languages": [
+        "C++"
+      ],
+      "build_system": "make",
+      "license": "Apache-2.0",
+      "protocol": {
+        "source_subdir": ".",
+        "bootstrap_commands": [
+          "git submodule update --init --recursive"
+        ],
+        "configure_arguments": [],
+        "build_targets": [
+          "examples"
+        ]
+      },
+      "oracle": {
+        "expected_candidate_status": "pass",
+        "expected_clean_replay_status": "pass",
+        "required_artifacts": [
+          {
+            "relative_path": "HelloWorld",
+            "build_output_path": "HelloWorld",
+            "artifact_type": "executable",
+            "producing_target": "examples"
+          }
+        ]
+      },
+      "constraints": {
+        "required_system_packages": [
+          "build-essential",
+          "libssl-dev",
+          "zlib1g-dev"
+        ],
+        "build_arguments": {
+          "cmake": [],
+          "configure": []
+        },
+        "environment": {},
+        "minimum_replay_delay_seconds": 0
+      }
+    },
+    {
+      "id": "mruby",
+      "repository_url": "https://github.com/mruby/mruby",
+      "commit_sha": "33b228bdbed842efc88a62e5b139dd2c358f08d5",
+      "languages": [
+        "C++"
+      ],
+      "build_system": "make",
+      "license": "MIT",
+      "protocol": {
+        "source_subdir": ".",
+        "bootstrap_commands": [],
+        "configure_arguments": [],
+        "build_targets": [
+          "all"
+        ]
+      },
+      "oracle": {
+        "expected_candidate_status": "pass",
+        "expected_clean_replay_status": "pass",
+        "required_artifacts": [
+          {
+            "relative_path": "libmruby.a",
+            "build_output_path": "build/host/lib/libmruby.a",
+            "artifact_type": "static_library",
+            "producing_target": "all"
+          }
+        ]
+      },
+      "constraints": {
+        "required_system_packages": [
+          "build-essential",
+          "ruby"
+        ],
+        "build_arguments": {
+          "cmake": [],
+          "configure": []
+        },
+        "environment": {},
+        "minimum_replay_delay_seconds": 0
+      }
+    },
+    {
+      "id": "fio",
+      "repository_url": "https://github.com/axboe/fio",
+      "commit_sha": "c76c61b0fbe1b90a7886b8790805cf9903285074",
+      "languages": [
+        "C++"
+      ],
+      "build_system": "make",
+      "license": "GPL-2.0",
+      "protocol": {
+        "source_subdir": ".",
+        "bootstrap_commands": [
+          "./configure --disable-native"
+        ],
+        "configure_arguments": [],
+        "build_targets": [
+          "fio"
+        ]
+      },
+      "oracle": {
+        "expected_candidate_status": "pass",
+        "expected_clean_replay_status": "pass",
+        "required_artifacts": [
+          {
+            "relative_path": "fio",
+            "build_output_path": "fio",
+            "artifact_type": "executable",
+            "producing_target": "fio"
+          }
+        ]
+      },
+      "constraints": {
+        "required_system_packages": [
+          "build-essential",
+          "zlib1g-dev"
+        ],
+        "build_arguments": {
+          "cmake": [],
+          "configure": []
+        },
+        "environment": {},
+        "minimum_replay_delay_seconds": 0
+      }
+    },
+    {
+      "id": "sql-parser",
+      "repository_url": "https://github.com/hyrise/sql-parser",
+      "commit_sha": "ccd3f68b50bb2b96ce69afa7b956b3bd826643cc",
+      "languages": [
+        "C++"
+      ],
+      "build_system": "make",
+      "license": "MIT",
+      "protocol": {
+        "source_subdir": ".",
+        "bootstrap_commands": [],
+        "configure_arguments": [],
+        "build_targets": [
+          "library"
+        ]
+      },
+      "oracle": {
+        "expected_candidate_status": "pass",
+        "expected_clean_replay_status": "pass",
+        "required_artifacts": [
+          {
+            "relative_path": "libsqlparser.a",
+            "build_output_path": "libsqlparser.a",
+            "artifact_type": "static_library",
+            "producing_target": "library"
+          }
+        ]
+      },
+      "constraints": {
+        "required_system_packages": [
+          "bison",
+          "build-essential",
+          "flex"
+        ],
+        "build_arguments": {
+          "cmake": [],
+          "configure": []
+        },
+        "environment": {},
+        "minimum_replay_delay_seconds": 0
+      }
+    },
+    {
+      "id": "lodepng",
+      "repository_url": "https://github.com/lvandeve/lodepng",
+      "commit_sha": "ed6fe5825c6a4fbb7f58ab35a4231c7543cd452a",
+      "languages": [
+        "C++"
+      ],
+      "build_system": "make",
+      "license": "Zlib",
+      "protocol": {
+        "source_subdir": ".",
+        "bootstrap_commands": [],
+        "configure_arguments": [],
+        "build_targets": [
+          "unittest"
+        ]
+      },
+      "oracle": {
+        "expected_candidate_status": "pass",
+        "expected_clean_replay_status": "pass",
+        "required_artifacts": [
+          {
+            "relative_path": "unittest",
+            "build_output_path": "unittest",
+            "artifact_type": "executable",
+            "producing_target": "unittest"
+          }
+        ]
+      },
+      "constraints": {
+        "required_system_packages": [
+          "build-essential"
+        ],
+        "build_arguments": {
+          "cmake": [],
+          "configure": []
+        },
+        "environment": {},
+        "minimum_replay_delay_seconds": 0
+      }
+    },
+    {
+      "id": "hoextdown",
+      "repository_url": "https://github.com/kjdev/hoextdown",
+      "commit_sha": "1ef9a71957570c2a65b7daa1b2f693ad87daf385",
+      "languages": [
+        "C++"
+      ],
+      "build_system": "make",
+      "license": "MIT",
+      "protocol": {
+        "source_subdir": ".",
+        "bootstrap_commands": [],
+        "configure_arguments": [],
+        "build_targets": [
+          "libhoedown.a"
+        ]
+      },
+      "oracle": {
+        "expected_candidate_status": "pass",
+        "expected_clean_replay_status": "pass",
+        "required_artifacts": [
+          {
+            "relative_path": "libhoedown.a",
+            "build_output_path": "libhoedown.a",
+            "artifact_type": "static_library",
+            "producing_target": "libhoedown.a"
+          }
+        ]
+      },
+      "constraints": {
+        "required_system_packages": [
+          "build-essential"
+        ],
+        "build_arguments": {
+          "cmake": [],
+          "configure": []
+        },
+        "environment": {},
+        "minimum_replay_delay_seconds": 0
+      }
+    }
+  ],
+  "authorization": {
+    "id": "forge-cpp-formal-v2-collection-authorization-request",
+    "status": "pending_experiment_owner_confirmation",
+    "requested_on": "2026-07-30",
+    "issue_url": "https://github.com/WWFXL/Forge-AutoCompiler/issues/84",
+    "budget_request": {
+      "confirmed": false,
+      "maximum_tokens": 29396970,
+      "maximum_serial_hours": 31.301,
+      "tokens_observed_in_superseded_launch": 81152,
+      "remaining_tokens_ceiling": 29315818
+    },
+    "collection_constraints": {
+      "planned_attempts": 180,
+      "initial_batch_size": 10,
+      "provider_canary_required_before_first_ledger": true,
+      "replacement_forbidden": true,
+      "fallback_forbidden": true,
+      "backfill_forbidden": true,
+      "superseded_launch_is_not_part_of_v2_analysis": true
+    },
+    "superseded_launch": {
+      "benchmark_id": "forge-cpp-formal-v1-collection",
+      "status": "excluded_infrastructure_launch",
+      "canary_sha256": "5b3a71bb3c56acc8f6071da19e3535980abd0adec296f11e49bc1061274c3cb0",
+      "ledger_sha256": {
+        "slot-000": "4ce139f362e1aefc3b7ee43872388d672c1ada68f2e88110567626248328fad5",
+        "slot-001": "a136fe850d159098626372bb0a0c3d0872dcabc23200ad4a81951011794fff8f",
+        "slot-002": "a638853d0ecc660c1d62a222e3f01814df615f8a8224ea49b7f654b0b38359ba",
+        "slot-003": "3ff0e4a6ccc2e183076ff3f1bf4e5723120b38686f8997b92c68c90c83facdfa",
+        "slot-004": "91870eb024ba3f7ddf002f58340844e62c4dd68e57858439438c6db5f4279d65",
+        "slot-005": "59c036109ce390cdd5bcd9bf974c7b1f7c4fe0a8fee10ce124c5d54ed963c300",
+        "slot-006": "637ecd31cbcb47f8f48a21354c1df457aa95d64a328cd660486e084495b29593",
+        "slot-007": "c91365fc485e5ec212395ec1a9cfe3c99c93be3c71c57d6a874e5d5dc11a85d9",
+        "slot-008": "efc4c76a471e9910d26992cd6955ea26c07bd317b3d47e7c8d898d1cb63567cd",
+        "slot-009": "4597ac932cb2b81a6597ebb7129d9799c3a698b4da571584848f07a6576c5426"
+      },
+      "attempts": 10,
+      "connection_error_attempts": 6,
+      "build_system_mismatch_attempts": 4,
+      "recorded_tokens": 81152
+    },
+    "parent_manifest": {
+      "id": "forge-cpp-formal-v1-collection",
+      "path": "benchmarks/manifests/cpp-formal-v1-collection.json",
+      "canonical_sha256": "8cfd909724a540a87fee9d68f7dafc0095964dd61150083a76f2ffdadc533aeb"
+    }
+  }
+}
