@@ -56,10 +56,14 @@ def test_v7_validator_rejects_budget_drift(
         forge_benchmark_v7.validate_manifest(drifted)
 
 
-def test_v7_current_tree_gate_accepts_frozen_runtime_and_protocol() -> None:
+def test_v7_current_tree_gate_rejects_post_collection_runner_drift() -> None:
     manifest = json.loads(MANIFEST_PATH.read_text(encoding="utf-8"))
 
-    forge_benchmark_v7.verify_frozen_components(manifest, REPO_ROOT)
+    with pytest.raises(
+        forge_benchmark_v7.BenchmarkError,
+        match="scripts/forge_benchmark_runner.py",
+    ):
+        forge_benchmark_v7.verify_frozen_components(manifest, REPO_ROOT)
 
 
 def test_v7_runtime_components_match_the_declared_baseline() -> None:

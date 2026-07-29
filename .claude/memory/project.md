@@ -5,14 +5,18 @@
 ## 进行中 (In Progress)
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
-- 2026-07-28 — Issue #59 修复 WSL2 Compose 模型出口并增加多提供商预检
-  - 分支: `fix/issue-59-model-connectivity`，基于 `main@957fb9e3`。根因是 Windows 代理只监听 loopback，WSL2 Docker 容器直连 RichLab 超时，且 `host.docker.internal` 不会自动转发到 Windows loopback。
-  - 实现: 新增仅绑定私有 Docker bridge gateway 的受限 TCP relay、独立 Compose override、RichLab/DeepSeek 模型列表 + 最小对话 + 强制工具调用预检，以及原子写入 Git 忽略 `.env` 的本地凭据工具。基础 `docker-compose-dev.yaml`、`config.example.yaml` 与 v1-v7 冻结资产保持字节不变。
-  - 当前证据: RichLab `gpt-5.5`/`gpt-5.4` 与 DeepSeek `deepseek-v4-flash`/`deepseek-v4-pro` 均从 LangGraph 容器通过模型列表、最小对话和工具调用；聚焦 `32 passed`，后端除只读挂载专用组外 `1673 passed, 53 skipped`，配置升级组在可写挂载中 `4 passed`；Ruff/format、Compose config、v7 current-tree gate、bridge 启停、敏感信息与 0 compile/replay orphan 检查通过。
-  - 边界: 只做非 pilot 连通性预检，不创建、重跑、替换或回填任一 v7 slot；DeepSeek 与较低负载 GPT 只能作为未来独立实验条件，不能在冻结 attempt 内 fallback。
+- 2026-07-29 — Issue #61 为未来 attempt 增加 runner runtime launch gate
+  - 分支: `fix/issue-61-runtime-preflight`，基于 `main@aa200d55`。v7 `fmt` 暴露正式 runner 使用容器 system Python、权威 evidence 必须位于 `/workspace/.compile-sessions` 的启动入口风险。
+  - 实现: 新增独立 `runtime-preflight`，验证 LangGraph Compose 身份、可写 Docker socket、后端 venv、必要 runtime import、可写 bind evidence mount 与 output directory 的真实 sentinel 写入/删除；`preflight`/`create-attempt` 要求显式 output directory，launch failure 在 evidence ID 和 ledger 创建前终止。
+  - 当前证据: system Python 负例、后端 venv 正例和 mount 外目录负例均按预期返回且 0 ledger/0 sentinel；协议/runner/evidence 聚焦 `199 passed, 24 skipped`，后端主体 `1683 passed, 53 skipped`，可写配置升级组 `4 passed`；Ruff/format 与 Compose config 通过。
+  - 边界: v1-v7 manifest、Schema、validator、协议哈希和 ledger 不改写；共享 runner 的合法 post-v7 漂移由 v7 current-tree gate 明确拒绝，冻结 Git blob 继续可审计。本阶段不运行双 provider canary，也不创建 v8 slot。
 
 ## 最近变更 (Recent Changes)
 <!-- 倒序，最新在上。 -->
+
+- 2026-07-29 — WSL2 Compose 模型出口与多提供商预检进入主干
+  - Issue #59 / PR #60 已 squash 合并为 `main@aa200d55`。受限 relay 只绑定私有 Docker bridge，独立 Compose override 保持 v7 冻结基础 Compose 字节不变；本地凭据只进入 Git 忽略 `.env`。
+  - RichLab `gpt-5.5`/`gpt-5.4` 与 DeepSeek `deepseek-v4-flash`/`deepseek-v4-pro` 均从 LangGraph 容器通过模型列表、最小对话和强制工具调用；Ready Unit Tests、后端 lint 与前端 lint 全绿。没有重跑、替换或回填 v7。
 
 - 2026-07-28 — C/C++ pilot v7 冻结协议进入主干
   - Issue #56 / PR #57 已 squash 合并为 `main@957fb9e3`。独立 v7 manifest、Schema、validator 和 runner 路由冻结参数前置 gate、四类 compiler 预算与 artifact oracle 差异语义。
@@ -159,7 +163,7 @@
 
 - 清理与当前源码不一致的后端测试模块引用，例如 `backend/tests/test_aio_sandbox_local_backend.py:1` 和 `backend/tests/test_channels.py:14`。
 - 统一 `backend/tests/test_subagent_timeout_config.py:261` 对 `max_turns` 的期望值与当前实现默认值。
-- 完成 Issue #59 的中文 Draft PR 与 CI；合并前不启动新 pilot。下一协议应把 RichLab 与 DeepSeek 设计为可比较的独立 provider condition，并继续禁止 frozen attempt 内 fallback。
+- 完成 Issue #61 的中文 Draft PR、CI 与主干复验；合并后先做不计入正式样本的双 provider 端到端 canary，再冻结 v8。RichLab 与 DeepSeek 必须是可比较的独立 condition，禁止 frozen attempt 内 fallback。
 - 当前 `backend/packages/harness/deerflow/compile/manager.py` 的 lifecycle lock 是进程内锁；部署多个后端进程前，需要改为文件锁/数据库事务或带版本号的 CAS，并增加跨进程竞态测试。
 
 ## 已知问题 (Known Issues / Pitfalls)
@@ -172,6 +176,7 @@
 - Docker Desktop 与 WSL 原生 Docker Engine 是两个独立 daemon，镜像、网络和容器不共享；Forge 命令必须始终在同一套 daemon 上执行。
 - WSL 的 `127.0.0.1` 代理不能直接传入 Docker build；编译镜像代理必须使用容器可达地址。
 - Windows 代理只监听 loopback 时，WSL2 Docker 的 `host.docker.internal` 只到 Docker/WSL 网关，并不会自动进入 Windows loopback。模型请求必须通过仅绑定 Docker bridge 的受限 relay；不要让代理软件监听 `0.0.0.0` 或局域网地址。模型运行时代理使用独立 Compose override，不能改写 v7 冻结的基础 Compose 文件。
+- Compose 内运行正式 benchmark runner 必须显式使用 `/app/backend/.venv/bin/python`；容器 system Python 可能足以导入最小 evidence 模块，却缺少完整 `deerflow.client` 运行时。权威 output directory 必须显式位于 `/workspace/.compile-sessions` 的可写 bind mount，不能使用只读 `/repo` 或仅凭目录可写性推断宿主可见。
 - 后端全量 Ruff 当前有 4 个本次改动之外且与 `origin/main` 相同的既有错误：`scripts/check.py` 的 3 个 UP045 与 `scripts/forge_benchmark.py` 的 1 个 I001；本次改动文件的 Ruff check/format 已通过。
 - 成功 bash 记录只是候选 recipe；失败命令可能留下持久副作用。进入研究基线前必须在新容器与空 `/workspace`、`/artifacts` 中实际 replay，不能把 `repro_bundle` 生成成功等同于独立复现成功。
 - Windows 挂载目录在编译镜像中可能触发 Git `dubious ownership`；replay 初始化仓库后必须把 `/workspace/repo` 加入 `safe.directory`。

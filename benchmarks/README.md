@@ -1,5 +1,32 @@
 # Forge C/C++ benchmark protocols
 
+## Post-v7 runtime launch gate
+
+The five v7 physical attempts are complete and immutable. Later runner changes
+must not be used to retry, replace, or backfill a v7 slot.
+
+Before freezing a future protocol, verify the runner process and evidence mount
+from inside the LangGraph Compose container:
+
+```bash
+/app/backend/.venv/bin/python /app/scripts/forge_benchmark_runner.py \
+  runtime-preflight \
+  --output-dir /workspace/.compile-sessions/benchmark-evidence-v8
+```
+
+The gate requires the backend virtual environment, required runtime imports, the
+`deer-flow-dev` LangGraph service, a writable Docker socket, and a writable bind
+mount at `/workspace/.compile-sessions`. It also writes and removes a temporary
+sentinel in the specified output directory. Only bounded booleans are printed;
+container source paths, credentials, exception text, and environment values are
+not emitted.
+
+Both `preflight` and `create-attempt` now require an explicit `--output-dir`.
+Launch-gate failure occurs before a physical-attempt ID or ledger is created.
+The current shared runner intentionally no longer passes the v7 current-tree
+collection gate; v7 Git blobs and existing ledgers remain the historical source
+of truth.
+
 ## Runnable pilot v7 protocol
 
 `cpp-pilot-v7.json` is the five-case protocol frozen after the v6 calibration exposed three instrumentation gaps. Its runtime baseline includes the Issue #50 pre-build argument gate, Issue #51 separate compiler budgets, and Issue #52 structured artifact-oracle diagnostics. It preserves every v1-v6 manifest, schema, validator, and ledger as historical evidence.
