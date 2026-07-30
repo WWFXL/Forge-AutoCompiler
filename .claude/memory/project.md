@@ -8,6 +8,12 @@
 ## 最近变更 (Recent Changes)
 <!-- 倒序，最新在上。 -->
 
+- 2026-07-30 — 固定 GitHub 写入与 WSL Git 网络通道
+  - 文件: `AGENTS.md`, `scripts/push-via-wsl.ps1`, `.claude/memory/project.md`
+  - 动机: GitHub App 对仓库写操作稳定返回 403；Windows Git 未使用当前可用代理，直连 `github.com:443` 超时，而 `api.github.com` 与带代理环境的 WSL Git 正常。
+  - 实现: GitHub Issue/PR/评论等写操作直接使用已认证 Windows `gh`；push 统一通过 WSL Git 与 Windows `gh auth git-credential`，包含 URL/分支/remote 校验、有界超时和重试，不输出 token、代理值或认证头。
+  - 验证: Issue #93 已用 Windows `gh` 创建并回读；PowerShell 语法、WSL dry-run、三类错误参数拒绝和真实测试分支 push 均通过。
+
 - 2026-07-30 — 冻结未授权 formal v3 与 DooD evidence source 门禁
   - GitHub: Issue #90 / PR #91 已 squash 合并为 `main@96445f68`，Issue 自动关闭；PR 与主干 Unit Tests、后端 lint、前端 format/lint/typecheck/build 全绿。
   - 协议: v3 继承 v2 authorized 的双 provider、30 个 C/C++ exact-commit case、180-slot schedule、三次重复、Compose/DooD、Compile Session、clean replay 与零 fallback；canonical SHA-256 为 `9777816f157078ae555969c6c77ca8734ca4e1417235f57c98a628c384031b5d`。
@@ -239,6 +245,7 @@
 ## 已知问题 (Known Issues / Pitfalls)
 <!-- 工作中踩过的坑、限制或意外行为。 -->
 
+- GitHub 的 API 与 Git HTTPS 是独立网络通道：`api.github.com` 正常不代表 Windows Git 能访问 `github.com:443`。本机 Windows Git 未使用 WSL 的代理环境，push/ls-remote 会超时或连接重置；仓库 push 应直接运行 `pwsh -NoProfile -File scripts/push-via-wsl.ps1`，不要先重复 Windows `git push`。GitHub App 写权限 403 也属于独立权限边界，Issue/PR/评论等写入直接使用已认证 Windows `gh`。
 - DooD preflight 只验证 mount destination、bind 类型和可写性仍不够；错误启动可能把 `/.compile-sessions` 挂到正确的容器 destination。必须同时验证 mount `Source == DEER_FLOW_HOST_WORKSPACE_ROOT/.compile-sessions`，并拒绝缺失、相对路径、根目录和重复 evidence mount。
 - 多版本 runner adapter 在同一 Python 进程中共享底层模块；直接覆写 `protocol_formal_collection` 会让测试收集顺序改变旧 schema 的可识别性。新版本应增加 schema dispatch，并只适配新增 policy 字段，不能替换冻结版本的全局协议身份。
 - PowerShell 调用 `gh` 时，正文中的 `\n` 不会自动变成换行，可能把字面反斜杠写进 squash/PR body。所有 GitHub 多行正文使用 PowerShell here-string 或 `--body-file`，提交后再读取远端正文确认。
