@@ -5,15 +5,14 @@
 ## 进行中 (In Progress)
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
-- 2026-07-30 — Issue #90 正在冻结未授权 formal v3 候选
-  - 文件: `benchmarks/manifests/cpp-formal-v3-collection.json`, `benchmarks/schemas/forge-cpp-formal-collection-v3.schema.json`, `scripts/forge_formal_collection_v3_protocol.py`, `scripts/forge_formal_collection_v3_runner.py`, `backend/tests/test_forge_formal_collection_v3_protocol.py`
-  - 当前结果: v3 继承 v2 authorized 的双 provider、30 个 C/C++ exact-commit case、180-slot schedule、三次重复、Compose/DooD、Compile Session、clean replay 与零 fallback，绑定修复后 `main@45787399`；canonical SHA-256 为 `9777816f157078ae555969c6c77ca8734ca4e1417235f57c98a628c384031b5d`。
-  - 硬边界: `collection_authorized=false`、`formal_comparison_enabled=false`；provider canary、create-attempt、run、run-batch 均在任何 provider/ledger 操作前拒绝。v2 十槽记录为 `excluded_infrastructure_launch`，剩余 token ceiling 为 29,172,532。
-  - 新 gate: 当前容器 `/workspace/.compile-sessions` 的唯一可写 bind source 必须等于 `DEER_FLOW_HOST_WORKSPACE_ROOT/.compile-sessions`；真实 LangGraph Compose/DooD runtime preflight 已 `ready=true`。
-  - 验证: formal v1/v2/v3 兼容组 `66 passed`、后端全量 `1843 passed, 29 skipped`、Ruff/format、Schema、Compose、敏感信息扫描与 v2 十 ledger 只读审计通过；当前 v3 ledger/canary 为 0，尚待提交、PR、CI 与合并。
-
 ## 最近变更 (Recent Changes)
 <!-- 倒序，最新在上。 -->
+
+- 2026-07-30 — 冻结未授权 formal v3 与 DooD evidence source 门禁
+  - GitHub: Issue #90 / PR #91 已 squash 合并为 `main@96445f68`，Issue 自动关闭；PR 与主干 Unit Tests、后端 lint、前端 format/lint/typecheck/build 全绿。
+  - 协议: v3 继承 v2 authorized 的双 provider、30 个 C/C++ exact-commit case、180-slot schedule、三次重复、Compose/DooD、Compile Session、clean replay 与零 fallback；canonical SHA-256 为 `9777816f157078ae555969c6c77ca8734ca4e1417235f57c98a628c384031b5d`。
+  - 边界: v2 十槽登记为 `excluded_infrastructure_launch`，剩余 token ceiling 为 29,172,532；v3 保持 `collection_authorized=false`、`formal_comparison_enabled=false`，四类外部动作在 provider/ledger 前拒绝，当前 ledger/canary 为 0。
+  - 门禁与验证: `/workspace/.compile-sessions` 的唯一可写 bind source 必须等于 `DEER_FLOW_HOST_WORKSPACE_ROOT/.compile-sessions`；真实 runtime/formal preflight 均 `ready=true`，formal 兼容组 `66 passed`、后端全量 `1843 passed, 29 skipped`、Ruff/Schema/Compose/v2 十 ledger 只读审计通过。
 
 - 2026-07-30 — 修复 v2 十槽的 DooD evidence 路径分离并冻结失败证据
   - GitHub: Issue #86 / PR #87 已授权并执行 v2 前十槽；Issue #88 / PR #89 已将路径修复 squash 合并为 `main@45787399`，两项 Issue 均关闭。
