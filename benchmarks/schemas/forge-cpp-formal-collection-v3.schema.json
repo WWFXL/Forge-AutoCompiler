@@ -1,0 +1,209 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/WWFXL/Forge-AutoCompiler/benchmarks/schemas/forge-cpp-formal-collection-v3.schema.json",
+  "title": "Forge C/C++ unapproved formal collection v3",
+  "type": "object",
+  "required": [
+    "$schema",
+    "schema_version",
+    "document_type",
+    "scope",
+    "source_protocols",
+    "forge",
+    "protocol_artifact_sha256",
+    "prompt_sha256",
+    "runtime",
+    "budget",
+    "conditions",
+    "collection_plan",
+    "schedule_sha256",
+    "cases",
+    "authorization"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "formal-collection-3.0.0"
+    },
+    "document_type": {
+      "const": "manifest"
+    },
+    "scope": {
+      "type": "object",
+      "required": [
+        "collection_authorized",
+        "formal_comparison_enabled"
+      ],
+      "properties": {
+        "collection_authorized": {
+          "const": false
+        },
+        "formal_comparison_enabled": {
+          "const": false
+        }
+      }
+    },
+    "source_protocols": {
+      "type": "object"
+    },
+    "forge": {
+      "type": "object",
+      "required": [
+        "commit_sha",
+        "component_sha256"
+      ],
+      "properties": {
+        "commit_sha": {
+          "const": "4578739983f5d23cb3e21ff619b1e33aba702859"
+        },
+        "component_sha256": {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          }
+        }
+      }
+    },
+    "protocol_artifact_sha256": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "type": "string",
+        "pattern": "^[0-9a-f]{64}$"
+      }
+    },
+    "prompt_sha256": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "type": "string",
+        "pattern": "^[0-9a-f]{64}$"
+      }
+    },
+    "runtime": {
+      "type": "object",
+      "required": [
+        "image_id",
+        "control_plane_topology",
+        "max_parallel_runs"
+      ],
+      "properties": {
+        "image_id": {
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        },
+        "control_plane_topology": {
+          "const": "compose-dood"
+        },
+        "max_parallel_runs": {
+          "const": 1
+        }
+      }
+    },
+    "budget": {
+      "type": "object"
+    },
+    "conditions": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2
+    },
+    "collection_plan": {
+      "type": "array",
+      "minItems": 180,
+      "maxItems": 180
+    },
+    "schedule_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "cases": {
+      "type": "array",
+      "minItems": 30,
+      "maxItems": 30
+    },
+    "authorization": {
+      "type": "object",
+      "required": [
+        "id",
+        "status",
+        "requested_on",
+        "issue_url",
+        "budget_request",
+        "collection_constraints",
+        "excluded_v2_launch",
+        "parent_manifest"
+      ],
+      "properties": {
+        "status": {
+          "const": "pending_experiment_owner_confirmation"
+        },
+        "budget_request": {
+          "type": "object",
+          "required": [
+            "confirmed",
+            "maximum_tokens",
+            "tokens_observed_in_excluded_v2",
+            "remaining_tokens_ceiling"
+          ],
+          "properties": {
+            "confirmed": {
+              "const": false
+            },
+            "maximum_tokens": {
+              "const": 29315818
+            },
+            "tokens_observed_in_excluded_v2": {
+              "const": 143286
+            },
+            "remaining_tokens_ceiling": {
+              "const": 29172532
+            }
+          }
+        },
+        "excluded_v2_launch": {
+          "type": "object",
+          "required": [
+            "status",
+            "canary_sha256",
+            "ledger_sha256",
+            "attempts",
+            "model_requests_started",
+            "model_requests_completed",
+            "recorded_tokens",
+            "oracle_passes",
+            "build_system_mismatch_attempts",
+            "residual_containers"
+          ],
+          "properties": {
+            "status": {
+              "const": "excluded_infrastructure_launch"
+            },
+            "attempts": {
+              "const": 10
+            },
+            "model_requests_started": {
+              "const": 32
+            },
+            "model_requests_completed": {
+              "const": 32
+            },
+            "recorded_tokens": {
+              "const": 143286
+            },
+            "oracle_passes": {
+              "const": 0
+            },
+            "build_system_mismatch_attempts": {
+              "const": 10
+            },
+            "residual_containers": {
+              "const": 0
+            }
+          }
+        }
+      }
+    }
+  },
+  "additionalProperties": true
+}
