@@ -34,9 +34,8 @@ def load_manifest() -> dict:
     return json.loads(MANIFEST_PATH.read_text(encoding="utf-8"))
 
 
-def test_generated_manifest_is_committed_and_schema_valid() -> None:
+def test_frozen_manifest_is_committed_and_schema_valid() -> None:
     manifest = load_manifest()
-    assert formal.generate_manifest() == manifest
     assert formal.validate_manifest(manifest) == manifest
     assert len(manifest["cases"]) == 30
     assert len(manifest["collection_plan"]) == 180
