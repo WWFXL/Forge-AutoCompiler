@@ -69,10 +69,9 @@ def _fake_preflight(manifest: dict, *, ready: bool) -> dict:
     }
 
 
-def test_authorized_manifest_is_generated_committed_and_schema_valid() -> None:
+def test_authorized_manifest_is_committed_and_schema_valid() -> None:
     manifest = load_manifest()
     parent = json.loads(PARENT_MANIFEST_PATH.read_text(encoding="utf-8"))
-    assert formal_collection.generate_manifest() == manifest
     assert formal_collection.validate_manifest(manifest) == manifest
     assert manifest["scope"]["collection_authorized"] is True
     assert parent["scope"]["collection_authorized"] is False

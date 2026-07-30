@@ -34,8 +34,8 @@ services:
       # On Docker Desktop/OrbStack, use your actual host paths like /Users/username/...
       # Set these in your shell before running docker-compose:
       #   export DEER_FLOW_ROOT=/absolute/path/to/deer-flow
-      - SKILLS_HOST_PATH=${DEER_FLOW_ROOT}/skills
-      - THREADS_HOST_PATH=${DEER_FLOW_ROOT}/backend/.deer-flow/threads
+      - SKILLS_HOST_PATH=${DEER_FLOW_ROOT:?set DEER_FLOW_ROOT via scripts/docker.sh}/skills
+      - THREADS_HOST_PATH=${DEER_FLOW_ROOT:?set DEER_FLOW_ROOT via scripts/docker.sh}/backend/.deer-flow/threads
       - KUBECONFIG_PATH=/root/.kube/config
       - NODE_HOST=host.docker.internal
       # Override K8S API server URL since kubeconfig uses 127.0.0.1
@@ -130,7 +130,7 @@ services:
       - ../:/repo:ro
       # CompileSessionManager writes through /workspace while compile containers
       # bind the same directory using the host-visible DEER_FLOW_ROOT path.
-      - "${DEER_FLOW_ROOT}/.compile-sessions:/workspace/.compile-sessions"
+      - "${DEER_FLOW_ROOT:?set DEER_FLOW_ROOT via scripts/docker.sh}/.compile-sessions:/workspace/.compile-sessions"
       # Preserve the .venv built during Docker image build — mounting the full backend/
       # directory above would otherwise shadow it with the (empty) host directory.
       - gateway-venv:/app/backend/.venv
@@ -163,14 +163,14 @@ services:
       - DEER_FLOW_HOME=/app/backend/.deer-flow
       - FORGE_REPO_ROOT=/repo
       - DEER_FLOW_WORKSPACE_ROOT=/workspace
-      - DEER_FLOW_HOST_WORKSPACE_ROOT=${DEER_FLOW_ROOT}
-      - HOST_PROJECT_ROOT=${DEER_FLOW_ROOT}
+      - DEER_FLOW_HOST_WORKSPACE_ROOT=${DEER_FLOW_ROOT:?set DEER_FLOW_ROOT via scripts/docker.sh}
+      - HOST_PROJECT_ROOT=${DEER_FLOW_ROOT:?set DEER_FLOW_ROOT via scripts/docker.sh}
       - UV_INDEX_URL=${UV_INDEX_URL:-https://pypi.org/simple}
       - UV_HTTP_TIMEOUT=${UV_HTTP_TIMEOUT:-600}
       - DEER_FLOW_CHANNELS_LANGGRAPH_URL=${DEER_FLOW_CHANNELS_LANGGRAPH_URL:-http://langgraph:2024}
       - DEER_FLOW_CHANNELS_GATEWAY_URL=${DEER_FLOW_CHANNELS_GATEWAY_URL:-http://gateway:8001}
-      - DEER_FLOW_HOST_BASE_DIR=${DEER_FLOW_ROOT}/backend/.deer-flow
-      - DEER_FLOW_HOST_SKILLS_PATH=${DEER_FLOW_ROOT}/skills
+      - DEER_FLOW_HOST_BASE_DIR=${DEER_FLOW_ROOT:?set DEER_FLOW_ROOT via scripts/docker.sh}/backend/.deer-flow
+      - DEER_FLOW_HOST_SKILLS_PATH=${DEER_FLOW_ROOT:?set DEER_FLOW_ROOT via scripts/docker.sh}/skills
       - DEER_FLOW_SANDBOX_HOST=host.docker.internal
     env_file:
       - ../.env
@@ -199,7 +199,7 @@ services:
       - ../backend/:/app/backend/
       - ../:/repo:ro
       # Keep service-side session state and host Docker bind mounts aligned.
-      - "${DEER_FLOW_ROOT}/.compile-sessions:/workspace/.compile-sessions"
+      - "${DEER_FLOW_ROOT:?set DEER_FLOW_ROOT via scripts/docker.sh}/.compile-sessions:/workspace/.compile-sessions"
       # Preserve the .venv built during Docker image build — mounting the full backend/
       # directory above would otherwise shadow it with the (empty) host directory.
       - langgraph-venv:/app/backend/.venv
@@ -232,12 +232,12 @@ services:
       - DEER_FLOW_HOME=/app/backend/.deer-flow
       - FORGE_REPO_ROOT=/repo
       - DEER_FLOW_WORKSPACE_ROOT=/workspace
-      - DEER_FLOW_HOST_WORKSPACE_ROOT=${DEER_FLOW_ROOT}
-      - HOST_PROJECT_ROOT=${DEER_FLOW_ROOT}
+      - DEER_FLOW_HOST_WORKSPACE_ROOT=${DEER_FLOW_ROOT:?set DEER_FLOW_ROOT via scripts/docker.sh}
+      - HOST_PROJECT_ROOT=${DEER_FLOW_ROOT:?set DEER_FLOW_ROOT via scripts/docker.sh}
       - UV_INDEX_URL=${UV_INDEX_URL:-https://pypi.org/simple}
       - UV_HTTP_TIMEOUT=${UV_HTTP_TIMEOUT:-600}
-      - DEER_FLOW_HOST_BASE_DIR=${DEER_FLOW_ROOT}/backend/.deer-flow
-      - DEER_FLOW_HOST_SKILLS_PATH=${DEER_FLOW_ROOT}/skills
+      - DEER_FLOW_HOST_BASE_DIR=${DEER_FLOW_ROOT:?set DEER_FLOW_ROOT via scripts/docker.sh}/backend/.deer-flow
+      - DEER_FLOW_HOST_SKILLS_PATH=${DEER_FLOW_ROOT:?set DEER_FLOW_ROOT via scripts/docker.sh}/skills
       - DEER_FLOW_SANDBOX_HOST=host.docker.internal
     env_file:
       - ../.env

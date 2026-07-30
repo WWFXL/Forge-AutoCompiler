@@ -302,7 +302,15 @@ def _run_post_build_fixture(
         selected = manager.load_session(session.session_id, thread_id)
         assert selected.selected_build_system == build_system
         assert build_system in selected.build_system_capabilities
-        assert (Path(selected.leadagent_repo_dir) / expected_marker).is_file()
+        assert (
+            runtime.exec(
+                selected,
+                f"test -f /workspace/repo/{expected_marker}",
+                workdir="/workspace",
+                timeout_seconds=30,
+            ).exit_code
+            == 0
+        )
 
         run_tool = next(tool for tool in bound_compile_tools.get_bound_compile_tools(session) if tool.name == "run_container_bash")
         if dependency_command is not None:

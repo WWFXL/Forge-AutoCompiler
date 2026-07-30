@@ -120,18 +120,27 @@ def test_inspect_build_system_persists_all_repository_capabilities(tmp_path: Pat
         thread_id="thread-multi-build-system",
         repo_url="https://example.com/repo.git",
     )
-    repo_dir = Path(session.leadagent_repo_dir)
-    repo_dir.mkdir(parents=True)
-    for marker in ("CMakeLists.txt", "Makefile", "configure"):
-        (repo_dir / marker).write_text("fixture\n", encoding="utf-8")
+    calls: list[tuple[str, str | None, int]] = []
+
+    def fake_exec(_session, command, workdir=None, timeout_seconds=600, **_kwargs):
+        calls.append((command, workdir, timeout_seconds))
+        return CommandResult(
+            exit_code=0,
+            stdout="cmake\tCMakeLists.txt\nmake\tMakefile\nautotools\tconfigure\n",
+            stderr="",
+            combined_output="cmake\tCMakeLists.txt\nmake\tMakefile\nautotools\tconfigure\n",
+        )
+
     monkeypatch.setattr(
         operations,
         "_services",
-        CompileOperationsServices(manager=manager, runtime=SimpleNamespace()),
+        CompileOperationsServices(manager=manager, runtime=SimpleNamespace(exec=fake_exec)),
     )
 
     primary, detected, _suggested = operations.inspect_build_system_impl(session=session)
 
+    assert not Path(session.leadagent_repo_dir).exists()
+    assert calls == [(operations._build_system_marker_probe_command(), "/workspace", 30)]
     reloaded = manager.load_session(session.session_id, session.thread_id)
     assert primary == "cmake"
     assert detected == [
@@ -164,13 +173,15 @@ def test_inspect_build_system_detects_source_autotools_markers(
         thread_id=f"thread-autotools-{marker.replace('.', '-')}",
         repo_url="https://example.com/repo.git",
     )
-    repo_dir = Path(session.leadagent_repo_dir)
-    repo_dir.mkdir(parents=True)
-    (repo_dir / marker).write_text("fixture\n", encoding="utf-8")
+
+    def fake_exec(_session, _command, **_kwargs):
+        output = f"autotools\t{marker}\n"
+        return CommandResult(exit_code=0, stdout=output, stderr="", combined_output=output)
+
     monkeypatch.setattr(
         operations,
         "_services",
-        CompileOperationsServices(manager=manager, runtime=SimpleNamespace()),
+        CompileOperationsServices(manager=manager, runtime=SimpleNamespace(exec=fake_exec)),
     )
 
     primary, detected, suggested = operations.inspect_build_system_impl(session=session)
@@ -179,6 +190,30 @@ def test_inspect_build_system_detects_source_autotools_markers(
     assert detected == [("autotools", marker)]
     assert suggested[0] == first_suggestion
     assert manager.load_session(session.session_id, session.thread_id).build_system_capabilities == ["autotools"]
+
+
+def test_inspect_build_system_rejects_failed_container_probe(tmp_path: Path, monkeypatch) -> None:
+    manager = CompileSessionManager(paths=make_test_paths(tmp_path))
+    session = manager.create_session(
+        thread_id="thread-missing-container-repo",
+        repo_url="https://example.com/repo.git",
+    )
+
+    def fake_exec(_session, _command, **_kwargs):
+        return CommandResult(exit_code=66, stdout="", stderr="", combined_output="")
+
+    monkeypatch.setattr(
+        operations,
+        "_services",
+        CompileOperationsServices(manager=manager, runtime=SimpleNamespace(exec=fake_exec)),
+    )
+
+    with pytest.raises(RuntimeError, match="inside the compile container"):
+        operations.inspect_build_system_impl(session=session)
+
+    events = [json.loads(line) for line in manager.workflow_log_path(session).read_text(encoding="utf-8").splitlines()]
+    assert events[-1]["event"] == "inspect.failed"
+    assert events[-1]["exit_code"] == 66
 
 
 @pytest.mark.parametrize(

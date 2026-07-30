@@ -519,16 +519,58 @@ def clone_repository_json(
     return json.dumps({"exit_code": result.exit_code, "message": message, "log_path": result.log_path}, ensure_ascii=False, indent=2)
 
 
+def _build_system_marker_probe_command() -> str:
+    statements = [f"test -d {shell_quote(CONTAINER_REPO_DIR)} || exit 66"]
+    for build_system, markers in _BUILD_SYSTEM_MARKERS.items():
+        branches = []
+        for index, marker in enumerate(markers):
+            keyword = "if" if index == 0 else "elif"
+            marker_path = f"{CONTAINER_REPO_DIR}/{marker}"
+            branches.append(f"{keyword} test -f {shell_quote(marker_path)}; then printf '%s\\t%s\\n' {shell_quote(build_system)} {shell_quote(marker)}")
+        statements.append("; ".join(branches) + "; fi")
+    return "\n".join(statements)
+
+
+def _detected_build_system_markers(stdout: str) -> list[tuple[str, str]]:
+    observed = [line for line in stdout.splitlines() if line]
+    allowed = {f"{build_system}\t{marker}" for build_system, markers in _BUILD_SYSTEM_MARKERS.items() for marker in markers}
+    if len(observed) != len(set(observed)) or any(line not in allowed for line in observed):
+        raise RuntimeError("Compile container returned invalid build-system marker evidence")
+
+    observed_set = set(observed)
+    detected: list[tuple[str, str]] = []
+    for build_system, markers in _BUILD_SYSTEM_MARKERS.items():
+        marker = next((candidate for candidate in markers if f"{build_system}\t{candidate}" in observed_set), None)
+        if marker is not None:
+            detected.append((build_system, marker))
+    return detected
+
+
 def inspect_build_system_impl(*, session: CompileSession) -> tuple[str, list[tuple[str, str]], list[str]]:
     services = get_compile_services()
 
     repo_dir = Path(session.leadagent_repo_dir)
-    services.manager.log_event(session, "inspect.started", lead_repo_dir=str(repo_dir))
-    detected: list[tuple[str, str]] = []
-    for build_system, markers in _BUILD_SYSTEM_MARKERS.items():
-        marker = next((candidate for candidate in markers if (repo_dir / candidate).is_file()), None)
-        if marker is not None:
-            detected.append((build_system, marker))
+    services.manager.log_event(
+        session,
+        "inspect.started",
+        lead_repo_dir=str(repo_dir),
+        container_repo_dir=CONTAINER_REPO_DIR,
+    )
+    probe = services.runtime.exec(
+        session,
+        _build_system_marker_probe_command(),
+        workdir=CONTAINER_WORKSPACE_DIR,
+        timeout_seconds=30,
+    )
+    if probe.exit_code != 0:
+        services.manager.log_event(
+            session,
+            "inspect.failed",
+            container_repo_dir=CONTAINER_REPO_DIR,
+            exit_code=probe.exit_code,
+        )
+        raise RuntimeError("Failed to inspect build-system markers inside the compile container")
+    detected = _detected_build_system_markers(probe.stdout)
 
     session.build_system_capabilities = [build_system for build_system, _marker in detected]
     if detected:

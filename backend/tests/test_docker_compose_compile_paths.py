@@ -8,10 +8,18 @@ MODEL_PROXY_COMPOSE_FILE = REPO_ROOT / "docker" / "docker-compose-model-proxy.ya
 def test_compile_session_mount_and_path_contract_are_applied_to_both_runtimes():
     compose = COMPOSE_FILE.read_text(encoding="utf-8")
 
-    assert compose.count("${DEER_FLOW_ROOT}/.compile-sessions:/workspace/.compile-sessions") == 2
+    required_root = "${DEER_FLOW_ROOT:?set DEER_FLOW_ROOT via scripts/docker.sh}"
+    assert compose.count(f"{required_root}/.compile-sessions:/workspace/.compile-sessions") == 2
     assert compose.count("DEER_FLOW_WORKSPACE_ROOT=/workspace") == 2
-    assert compose.count("DEER_FLOW_HOST_WORKSPACE_ROOT=${DEER_FLOW_ROOT}") == 2
-    assert compose.count("HOST_PROJECT_ROOT=${DEER_FLOW_ROOT}") == 2
+    assert compose.count(f"DEER_FLOW_HOST_WORKSPACE_ROOT={required_root}") == 2
+    assert compose.count(f"HOST_PROJECT_ROOT={required_root}") == 2
+
+
+def test_compose_rejects_an_unset_host_workspace_root():
+    compose = COMPOSE_FILE.read_text(encoding="utf-8")
+
+    assert "${DEER_FLOW_ROOT}/" not in compose
+    assert compose.count("${DEER_FLOW_ROOT:?set DEER_FLOW_ROOT via scripts/docker.sh}") == 12
 
 
 def test_documented_docker_port_matches_compose_mapping():
