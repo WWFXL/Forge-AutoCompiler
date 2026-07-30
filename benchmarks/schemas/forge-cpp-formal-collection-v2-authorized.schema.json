@@ -1,0 +1,180 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/WWFXL/Forge-AutoCompiler/benchmarks/schemas/forge-cpp-formal-collection-v2-authorized.schema.json",
+  "title": "Forge C/C++ authorized formal collection v2",
+  "type": "object",
+  "required": [
+    "$schema",
+    "schema_version",
+    "document_type",
+    "scope",
+    "source_protocols",
+    "forge",
+    "protocol_artifact_sha256",
+    "prompt_sha256",
+    "runtime",
+    "budget",
+    "conditions",
+    "collection_plan",
+    "schedule_sha256",
+    "cases",
+    "authorization"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "formal-collection-2.1.0"
+    },
+    "document_type": {
+      "const": "manifest"
+    },
+    "scope": {
+      "type": "object",
+      "required": [
+        "collection_authorized",
+        "formal_comparison_enabled"
+      ],
+      "properties": {
+        "collection_authorized": {
+          "const": true
+        },
+        "formal_comparison_enabled": {
+          "const": true
+        }
+      }
+    },
+    "source_protocols": {
+      "type": "object"
+    },
+    "forge": {
+      "type": "object",
+      "required": [
+        "commit_sha",
+        "component_sha256"
+      ],
+      "properties": {
+        "commit_sha": {
+          "const": "85ae003d3195107381ac354c53e8d2793513ff18"
+        },
+        "component_sha256": {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          }
+        }
+      }
+    },
+    "protocol_artifact_sha256": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "type": "string",
+        "pattern": "^[0-9a-f]{64}$"
+      }
+    },
+    "prompt_sha256": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "type": "string",
+        "pattern": "^[0-9a-f]{64}$"
+      }
+    },
+    "runtime": {
+      "type": "object",
+      "required": [
+        "image_id",
+        "control_plane_topology",
+        "max_parallel_runs"
+      ],
+      "properties": {
+        "image_id": {
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        },
+        "control_plane_topology": {
+          "const": "compose-dood"
+        },
+        "max_parallel_runs": {
+          "const": 1
+        }
+      }
+    },
+    "budget": {
+      "type": "object"
+    },
+    "conditions": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2
+    },
+    "collection_plan": {
+      "type": "array",
+      "minItems": 180,
+      "maxItems": 180
+    },
+    "schedule_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "cases": {
+      "type": "array",
+      "minItems": 30,
+      "maxItems": 30
+    },
+    "authorization": {
+      "type": "object",
+      "required": [
+        "id",
+        "status",
+        "authorized_by",
+        "authorized_on",
+        "issue_url",
+        "budget_confirmation",
+        "collection_constraints",
+        "superseded_launch",
+        "parent_manifest"
+      ],
+      "properties": {
+        "status": {
+          "const": "authorized_initial_batch"
+        },
+        "budget_confirmation": {
+          "type": "object",
+          "required": [
+            "confirmed",
+            "maximum_tokens"
+          ],
+          "properties": {
+            "confirmed": {
+              "const": true
+            },
+            "maximum_tokens": {
+              "const": 29315818
+            }
+          }
+        },
+        "collection_constraints": {
+          "type": "object",
+          "required": [
+            "initial_batch_size",
+            "authorized_slot_count",
+            "remaining_slots_require_additional_confirmation"
+          ],
+          "properties": {
+            "initial_batch_size": {
+              "const": 10
+            },
+            "authorized_slot_count": {
+              "const": 10
+            },
+            "remaining_slots_require_additional_confirmation": {
+              "const": true
+            }
+          }
+        }
+      }
+    }
+  },
+  "additionalProperties": true
+}
