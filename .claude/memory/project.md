@@ -5,14 +5,20 @@
 ## 进行中 (In Progress)
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
-- 2026-07-30 — Issue #84 正在修复首批正式采集暴露的运行时生命周期问题
-  - 文件: `benchmarks/manifests/cpp-formal-v2-collection.json`, `benchmarks/schemas/forge-cpp-formal-collection-v2.schema.json`, `scripts/forge_formal_collection_v2_protocol.py`, `scripts/forge_formal_collection_v2_runner.py`, `backend/tests/test_forge_formal_collection_v2_protocol.py`
-  - 当前结果: 已定位批处理逐 slot `asyncio.run()` 导致跨关闭事件循环复用 provider HTTP 资源；v2 候选改为整批共享一个 `asyncio.Runner`，并在 runner 内冻结 `prepare → clone → identify → compiler → finalize` 顺序、运行期间关闭并恢复全局 memory。候选绑定 #82 的 10 条失败 ledger SHA-256、81,152 token 与剩余 29,315,818 token ceiling；manifest canonical SHA-256 为 `843cc7386d05af0bb0285852fc128a0693302253aabe2a300bad3efcf41330d3`。
-  - 验证: v1-v8/正式协议/编译生命周期 `477 passed`；后端全量主体 `1825 passed, 28 skipped`，只读 venv 位置导致的 config-upgrade 组在正确嵌套 volume 下单独 `4 passed`；Ruff、format、Schema、py_compile、Compose、敏感样式扫描和 0-ledger 拒绝通过。
-  - 边界: `collection_authorized=false`、预算确认 false；真实容器 canary/create-attempt 均在账本前返回 2，v2 ledger 保持 0。当前只允许合并候选修复，不得执行模型或重新采集，下一批必须取得实验所有者明确授权。
+- 2026-07-30 — Issue #86 正在授权 v2 新首批十槽
+  - 文件: `benchmarks/manifests/cpp-formal-v2-authorized-collection.json`, `benchmarks/schemas/forge-cpp-formal-collection-v2-authorized.schema.json`, `scripts/forge_formal_collection_v2_authorized_protocol.py`, `scripts/forge_formal_collection_v2_authorized_runner.py`, `backend/tests/test_forge_formal_collection_v2_authorized_protocol.py`
+  - 当前结果: 已从未授权 v2 候选派生独立 `formal-collection-2.1.0` identity，绑定 Issue #86、候选 canonical SHA-256、v1 十份排除 ledger 和剩余 29,315,818 token ceiling；授权 manifest canonical SHA-256 为 `f7888bbbf1d5f2b404d5769f73442308a7234559bb5c6bcec3533f39fc69e923`。
+  - 硬边界: 只授权新 schedule 前 10 个 slot；runner 在总计十槽后拒绝第 11 槽，剩余 170 槽需要再次确认。仍要求首条 ledger 前双 provider canary，禁止 retry、fallback、replacement 和 backfill。
+  - 验证: 新旧正式协议聚焦 `33 passed`，全部 Forge 测试 `314 passed`；后端全量主体 `1821 passed, 29 skipped`，只读嵌套 venv 的 config-upgrade 组在正确独立 volume 下 `4 passed`；Ruff、format、Schema 和候选文件字节哈希通过。
+  - 当前边界: 尚未提交、合并、运行 canary 或创建 v2 ledger。模型调用必须等待授权 PR 合入干净主干并通过真实 Compose/DooD preflight。
 
 ## 最近变更 (Recent Changes)
 <!-- 倒序，最新在上。 -->
+
+- 2026-07-30 — 修复正式采集批处理生命周期并冻结未授权 v2 候选
+  - GitHub: Issue #84 / PR #85 已 squash 合并为 `main@85ae003d`。
+  - 修复: v2 批次共享一个 `asyncio.Runner`，冻结 `prepare → clone → identify → compiler → finalize` 顺序，并在 runner 局部关闭和恢复全局 Memory；共享 v1 运行时与既有 ledger 未修改。
+  - 证据: v2 候选 canonical SHA-256 为 `843cc7386d05af0bb0285852fc128a0693302253aabe2a300bad3efcf41330d3`；合并后真实 Compose/DooD preflight 为 `launch_ready=true`、`ready=true`，候选保持 `collection_authorized=false` 且 ledger 为 0。
 
 - 2026-07-30 — 完成正式采集 v1 授权、canary 与首批 10-slot
   - GitHub: Issue #82 / PR #83 已 squash 合并为 `main@4afd63a1`；Issue #82 已按完成关闭，失败根因转 Issue #84。
