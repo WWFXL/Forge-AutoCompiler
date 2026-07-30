@@ -5,15 +5,22 @@
 ## 进行中 (In Progress)
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
-- 2026-07-30 — Issue #86 正在授权 v2 新首批十槽
-  - 文件: `benchmarks/manifests/cpp-formal-v2-authorized-collection.json`, `benchmarks/schemas/forge-cpp-formal-collection-v2-authorized.schema.json`, `scripts/forge_formal_collection_v2_authorized_protocol.py`, `scripts/forge_formal_collection_v2_authorized_runner.py`, `backend/tests/test_forge_formal_collection_v2_authorized_protocol.py`
-  - 当前结果: 已从未授权 v2 候选派生独立 `formal-collection-2.1.0` identity，绑定 Issue #86、候选 canonical SHA-256、v1 十份排除 ledger 和剩余 29,315,818 token ceiling；授权 manifest canonical SHA-256 为 `f7888bbbf1d5f2b404d5769f73442308a7234559bb5c6bcec3533f39fc69e923`。
-  - 硬边界: 只授权新 schedule 前 10 个 slot；runner 在总计十槽后拒绝第 11 槽，剩余 170 槽需要再次确认。仍要求首条 ledger 前双 provider canary，禁止 retry、fallback、replacement 和 backfill。
-  - 验证: 新旧正式协议聚焦 `33 passed`，全部 Forge 测试 `314 passed`；后端全量主体 `1821 passed, 29 skipped`，只读嵌套 venv 的 config-upgrade 组在正确独立 volume 下 `4 passed`；Ruff、format、Schema 和候选文件字节哈希通过。
-  - 当前边界: 尚未提交、合并、运行 canary 或创建 v2 ledger。模型调用必须等待授权 PR 合入干净主干并通过真实 Compose/DooD preflight。
+- 2026-07-30 — Issue #90 正在冻结未授权 formal v3 候选
+  - 文件: `benchmarks/manifests/cpp-formal-v3-collection.json`, `benchmarks/schemas/forge-cpp-formal-collection-v3.schema.json`, `scripts/forge_formal_collection_v3_protocol.py`, `scripts/forge_formal_collection_v3_runner.py`, `backend/tests/test_forge_formal_collection_v3_protocol.py`
+  - 当前结果: v3 继承 v2 authorized 的双 provider、30 个 C/C++ exact-commit case、180-slot schedule、三次重复、Compose/DooD、Compile Session、clean replay 与零 fallback，绑定修复后 `main@45787399`；canonical SHA-256 为 `9777816f157078ae555969c6c77ca8734ca4e1417235f57c98a628c384031b5d`。
+  - 硬边界: `collection_authorized=false`、`formal_comparison_enabled=false`；provider canary、create-attempt、run、run-batch 均在任何 provider/ledger 操作前拒绝。v2 十槽记录为 `excluded_infrastructure_launch`，剩余 token ceiling 为 29,172,532。
+  - 新 gate: 当前容器 `/workspace/.compile-sessions` 的唯一可写 bind source 必须等于 `DEER_FLOW_HOST_WORKSPACE_ROOT/.compile-sessions`；真实 LangGraph Compose/DooD runtime preflight 已 `ready=true`。
+  - 验证: formal v1/v2/v3 兼容组 `66 passed`、后端全量 `1843 passed, 29 skipped`、Ruff/format、Schema、Compose、敏感信息扫描与 v2 十 ledger 只读审计通过；当前 v3 ledger/canary 为 0，尚待提交、PR、CI 与合并。
 
 ## 最近变更 (Recent Changes)
 <!-- 倒序，最新在上。 -->
+
+- 2026-07-30 — 修复 v2 十槽的 DooD evidence 路径分离并冻结失败证据
+  - GitHub: Issue #86 / PR #87 已授权并执行 v2 前十槽；Issue #88 / PR #89 已将路径修复 squash 合并为 `main@45787399`，两项 Issue 均关闭。
+  - 根因: 错误启动的 LangGraph 将宿主 `/.compile-sessions` 挂到 `/workspace/.compile-sessions`，Compile Session 子容器却使用宿主仓库下的 `.compile-sessions`；构建 marker 因扫描错误目录而十槽全部得到空 capability。
+  - 修复: 构建系统 marker 改为在 Compile Session 容器的 `/workspace/repo` 内探测；marker probe 失败/非法结果显式报错；Compose 缺失或空 `DEER_FLOW_ROOT` 时拒绝解析，冻结历史 component 改从声明的 Git baseline blob 审计。
+  - 审计: v2 canonical SHA-256 为 `f7888bbbf1d5f2b404d5769f73442308a7234559bb5c6bcec3533f39fc69e923`；10/10 ledger hash chain、finalization 与 cleanup 有效，32/32 模型请求闭合、143,286 tokens、697.972 秒、0/10 oracle pass、0 residual container。十槽均排除为 infrastructure launch，不 retry、replacement、backfill 或第 11 槽。
+  - 验证: Forge `314 passed`、后端主体 `1823 passed, 29 skipped`、config-upgrade `4 passed`、聚焦回归 `159 passed`、真实 CMake exact-commit + submit + clean replay `1 passed in 37.77s`，PR/主干 Unit Tests 与 Lint Check 全绿。
 
 - 2026-07-30 — 修复正式采集批处理生命周期并冻结未授权 v2 候选
   - GitHub: Issue #84 / PR #85 已 squash 合并为 `main@85ae003d`。
@@ -233,6 +240,9 @@
 ## 已知问题 (Known Issues / Pitfalls)
 <!-- 工作中踩过的坑、限制或意外行为。 -->
 
+- DooD preflight 只验证 mount destination、bind 类型和可写性仍不够；错误启动可能把 `/.compile-sessions` 挂到正确的容器 destination。必须同时验证 mount `Source == DEER_FLOW_HOST_WORKSPACE_ROOT/.compile-sessions`，并拒绝缺失、相对路径、根目录和重复 evidence mount。
+- 多版本 runner adapter 在同一 Python 进程中共享底层模块；直接覆写 `protocol_formal_collection` 会让测试收集顺序改变旧 schema 的可识别性。新版本应增加 schema dispatch，并只适配新增 policy 字段，不能替换冻结版本的全局协议身份。
+- PowerShell 调用 `gh` 时，正文中的 `\n` 不会自动变成换行，可能把字面反斜杠写进 squash/PR body。所有 GitHub 多行正文使用 PowerShell here-string 或 `--body-file`，提交后再读取远端正文确认。
 - 在同一 Python 进程中为每个 slot 单独调用 `asyncio.run()` 会关闭事件循环，但 provider 的异步 HTTP 资源可能延迟到下一 slot 才清理；典型现象是首个调用成功、第二个在 3–18 ms 内 `APIConnectionError`。正式串行 batch 必须用一个 `asyncio.Runner` 复用同一事件循环，不能把这种立即失败归因于普通跨境网络超时。
 - 正式 policy 即使声明 `memory_enabled=false`，首次模型连接失败时 state 尚无 `compile_session_id`，通用 MemoryMiddleware 仍可能排队并调用默认模型。冻结组件不能原地修改；新版本 runner 应在整个 agent stream 期间显式关闭并最终恢复全局 memory 配置，避免实验外 token 与日志污染。
 - 冻结 manifest 的 generator 会对当前 runtime component 重新取 hash；直接修改 v1 绑定的 `operations.py` 等共享文件会让旧 manifest 机械再生成测试失败。跨阶段修复必须放进新的版本化 runner/protocol，旧 runner、manifest、Schema 和 ledger 保持逐字不变。
