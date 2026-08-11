@@ -8,6 +8,15 @@
 ## 最近变更 (Recent Changes)
 <!-- 倒序，最新在上。 -->
 
+- 2026-08-11 — 冻结未授权 formal v4 attempt 级预算与宿主资源门禁
+  - GitHub: Issue #103 / PR #104 记录 formal v3 长尾根因、v4 设计目标和禁止模型采集边界；候选协议 canonical SHA-256 为 `bb151473b276c48b9faf287a9dcbdddd96145abf3acc605f952275cf3d3f6720`。
+  - 协议: v4 保持 C/C++、180-slot schedule、双 provider、Compose/DooD、Compile Session、clean replay 与 artifact oracle 不变，并重新锁定 `collection_authorized=false`；v1-v3 manifest、Schema、runner、报告和历史 evidence 未修改。
+  - 预算: 每个 physical attempt 总墙钟 1,800 秒，其中 120 秒保留给收口；最多 2 次 Compiler 调用和 48 次模型请求。provider、Compiler 与 submit/replay 在达到工作/调用边界后硬拒绝新工作，finalize/cleanup 即使超限仍必须执行并记录 overrun。
+  - 资源: 新 attempt 前要求 WSL2 Linux 可见 `MemAvailable >= 2 GiB`，`docker info` 在 10 秒内成功且 daemon 延迟不高于 5 秒；preflight 不记录 IP、SSID、代理、凭据、server version 或其他宿主标识。
+  - 分析: v3 的 7 个 slot 保留为独立描述性 protocol stratum，不与 v4 primary estimand 池化；v4 primary 只纳入同协议完整 project block，不完整 block 从 paired primary estimate 排除但保留在端到端描述性失败分母。
+  - 文件: `scripts/forge_formal_collection_v4_protocol.py`, `scripts/forge_formal_collection_v4_runner.py`, `benchmarks/manifests/cpp-formal-v4-collection.json`, `benchmarks/schemas/forge-cpp-formal-collection-v4.schema.json`, `benchmarks/preregistrations/cpp-formal-v4-amendment.md`, `backend/tests/test_forge_formal_collection_v4_protocol.py`, `benchmarks/README.md`
+  - 验证: 聚焦 v4 `18 passed`，v3/v4 扩大回归 `54 passed`；真实 Compose/DooD 非模型 preflight 11/11 checks 通过，可用内存约 5.64 GB、daemon 响应约 0.032 秒；真实 `provider-canary` 入口以退出码 2 拒绝且 0 evidence 文件。Ruff、格式、Schema、确定性再生成、`py_compile`、diff 和敏感信息扫描通过。
+
 - 2026-08-11 — 审计 formal v3 首批预算边界结果并停止后续 slot
   - GitHub: Issue #97 的双 provider canary 阻塞已在成功 canary 后解除并关闭；Issue #99 / PR #100 已完成描述性报告并 squash 合并为 `main@3ee28e8d`，三项 CI 全绿。
   - 采集: authorized preflight 为 `ready=true`，RichLab `gpt-5.5` 与 DeepSeek `deepseek-v4-flash` canary 分别约 4.404 秒和 1.034 秒通过；7/10 个授权 slot 执行后以 `recorded_token_boundary_reached` 停止，slot 8-10 未创建。
@@ -253,7 +262,7 @@
 ## 待办 (TODOs)
 <!-- 发现但未做的事。带 file:line 指针。 -->
 
-- 基于 `scripts/forge_formal_collection_v3_authorized_runner.py:309` 设计下一版协议：增加 physical-attempt 总墙钟、总模型请求或 Compiler 调用上限，以及宿主内存、WSL/Docker daemon 响应资源门禁；同时预注册 token 停止造成不平衡样本时的分析处理。新协议、token 预算和采集范围重新确认前，只允许设计、测试和非模型 preflight。
+- 若后续授权 formal v4，必须把 `scripts/forge_formal_collection_v4_runner.py:244` 的 attempt checkpoint 接入真实 provider、Compiler、submit/replay、finalize 和 cleanup 路径，并增加总墙钟取消、Session finalization、orphan reconciliation 的真实 Docker 回归；不能只把 manifest 的授权位改为 `true`。
 - 清理与当前源码不一致的后端测试模块引用，例如 `backend/tests/test_aio_sandbox_local_backend.py:1` 和 `backend/tests/test_channels.py:14`。
 - 统一 `backend/tests/test_subagent_timeout_config.py:261` 对 `max_turns` 的期望值与当前实现默认值。
 - Issue #78 的 30 项目文档级构建路径与 artifact oracle 已实现并通过本地验证；待中文 PR/CI/合并后，再冻结 formal manifest/Schema/runner/image/prompt。任何采集仍须单独 Issue 和用户预算确认。
@@ -262,6 +271,7 @@
 ## 已知问题 (Known Issues / Pitfalls)
 <!-- 工作中踩过的坑、限制或意外行为。 -->
 
+- 后端 CI 从 `backend/` 运行 `uvx ruff` 并加载 `backend/ruff.toml`（当前行宽 240）。对 `backend/tests/` 显式传 `backend/pyproject.toml` 会使用不同格式规则，可能出现本地 format check 通过但 CI 要求反向格式化；本地复核必须使用 `backend/ruff.toml` 或从 `backend/` 工作目录运行与 CI 相同的命令。
 - 修改 `.env` 后仅 `docker compose restart` 不会重新加载环境，必须 recreate Gateway/LangGraph。直接调用开发 Compose 还必须显式提供 `DEER_FLOW_ROOT`；否则在配置插值阶段退出。优先使用 `scripts/docker.sh`，定向 recreate 时传完整 WSL 绝对路径，避免 PowerShell 提前展开 `$repo`。
 - formal canary 的 endpoint preflight 失败发生在模型调用和报告创建之前；真实 provider 请求超时则会留下不可变 canary 报告。恢复前必须分别核对 report 数、formal JSONL 数和 orphan 数，不能把“没有报告”误写成模型失败。
 - 单次成功或超时不能证明某个 RichLab 模型稳定可用。本次同一路径中 `gpt-5.5` 可在 3.8–5.4 秒完成原始文本/工具请求，也可在 LangChain canary 中 121 秒超时；`gpt-5.4` 同样出现一次 120 秒文本超时后 3 秒工具成功。保持模型身份冻结并按请求级 endpoint failure 记录。
