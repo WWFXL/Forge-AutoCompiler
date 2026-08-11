@@ -1,5 +1,23 @@
 # Forge C/C++ benchmark protocols
 
+## Formal v3 initial-batch descriptive audit
+
+Issue #99 adds a deterministic, read-only audit over the authorized formal v3
+schedule prefix. It requires the successful dual-provider canary to precede the
+first ledger, verifies every ledger hash chain and offline gate, rejects a
+non-contiguous or unauthorized slot, and proves that a short prefix stopped at
+the frozen recorded-token boundary:
+
+```bash
+/app/backend/.venv/bin/python /repo/scripts/forge_formal_collection_v3_report.py \
+  --evidence-dir /workspace/.compile-sessions/benchmark-evidence-formal-v3-authorized
+```
+
+The generated JSON and Chinese Markdown reports contain only bounded aggregate
+evidence. They do not include credentials, model text, tool arguments, command
+output, or host-private paths. Generating the report does not authorize another
+slot, retry, replacement, or backfill.
+
 ## Authorized formal collection v3 initial batch
 
 Issue #95 authorizes only the first ten slots of

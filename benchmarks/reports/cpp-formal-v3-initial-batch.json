@@ -1,0 +1,845 @@
+{
+  "attempts": [
+    {
+      "actual_model_match": true,
+      "actual_models": [
+        "gpt-5.5"
+      ],
+      "artifact_identity_diff": {
+        "expected_only_count": 0,
+        "observed_only_count": 0,
+        "type_mismatch_count": 0
+      },
+      "attempt_duration_seconds": 250.26,
+      "case_id": "cppitertools",
+      "clean_replays": {
+        "completed": 1,
+        "failed": 0,
+        "passed": 1,
+        "reconciled": 0,
+        "started": 1
+      },
+      "commands": {
+        "completed": 6,
+        "successful": 6,
+        "timed_out": 0
+      },
+      "compiler_subagents": {
+        "elapsed_seconds": {
+          "maximum": 135.121,
+          "total": 135.121
+        },
+        "failure_classifications": {},
+        "invocations": 1,
+        "statuses": {
+          "completed": 1
+        },
+        "wall_clock_limits_seconds": [
+          900
+        ],
+        "worker_stopped": 1
+      },
+      "condition_id": "richlab-gpt-5.5",
+      "configured_model": "gpt-5.5",
+      "deliveries_succeeded": 1,
+      "failure_domains": {
+        "agent_tool": [],
+        "build": [],
+        "completion": [],
+        "model_endpoint": [],
+        "submit_replay": []
+      },
+      "ledger_terminal_sha256": "2e8ecb9b984dc81630ad9ed118c70dabeb75dccdd39be452d34782bab9186511",
+      "model_requests": {
+        "cancelled": 0,
+        "closed": 9,
+        "completed": 9,
+        "failed": 0,
+        "failure_classifications": {},
+        "latency_seconds": 43.416,
+        "started": 9
+      },
+      "network_preflight": {
+        "access_medium_recorded": false,
+        "endpoint_reachable": true,
+        "network_present": true
+      },
+      "offline_gate_recomputation_valid": true,
+      "oracle_classification": null,
+      "oracle_passed": true,
+      "order": 1,
+      "orphan_cleanup_succeeded": true,
+      "orphan_count": 0,
+      "physical_attempt_id": "physical_attempt_eb1d4146bdf048089bdad29d1b042a6a",
+      "recorded_gate_recomputation_valid": true,
+      "repetition": 1,
+      "replay_artifact_diff": {
+        "available": true,
+        "mismatch_count": 0
+      },
+      "session_finalization_succeeded": true,
+      "submits": {
+        "aborted": 0,
+        "completed": 1,
+        "started": 1
+      },
+      "terminal_status": "passed",
+      "token_usage": {
+        "input_tokens": 39420,
+        "output_tokens": 1110,
+        "total_tokens": 40530
+      }
+    },
+    {
+      "actual_model_match": true,
+      "actual_models": [
+        "deepseek-v4-flash"
+      ],
+      "artifact_identity_diff": {
+        "expected_only_count": 0,
+        "observed_only_count": 0,
+        "type_mismatch_count": 0
+      },
+      "attempt_duration_seconds": 149.418,
+      "case_id": "cppitertools",
+      "clean_replays": {
+        "completed": 1,
+        "failed": 0,
+        "passed": 1,
+        "reconciled": 0,
+        "started": 1
+      },
+      "commands": {
+        "completed": 8,
+        "successful": 8,
+        "timed_out": 0
+      },
+      "compiler_subagents": {
+        "elapsed_seconds": {
+          "maximum": 70.136,
+          "total": 70.136
+        },
+        "failure_classifications": {},
+        "invocations": 1,
+        "statuses": {
+          "completed": 1
+        },
+        "wall_clock_limits_seconds": [
+          900
+        ],
+        "worker_stopped": 1
+      },
+      "condition_id": "deepseek-v4-flash",
+      "configured_model": "deepseek-v4-flash",
+      "deliveries_succeeded": 1,
+      "failure_domains": {
+        "agent_tool": [],
+        "build": [],
+        "completion": [],
+        "model_endpoint": [],
+        "submit_replay": []
+      },
+      "ledger_terminal_sha256": "2b3d962831597bf0c3d2676d8d24960a88721f13a7eded5175e1922cb0a57697",
+      "model_requests": {
+        "cancelled": 0,
+        "closed": 11,
+        "completed": 11,
+        "failed": 0,
+        "failure_classifications": {},
+        "latency_seconds": 17.801,
+        "started": 11
+      },
+      "network_preflight": {
+        "access_medium_recorded": false,
+        "endpoint_reachable": true,
+        "network_present": true
+      },
+      "offline_gate_recomputation_valid": true,
+      "oracle_classification": null,
+      "oracle_passed": true,
+      "order": 2,
+      "orphan_cleanup_succeeded": true,
+      "orphan_count": 0,
+      "physical_attempt_id": "physical_attempt_2f404c8227ba48dfbc60c0de5955e5e8",
+      "recorded_gate_recomputation_valid": true,
+      "repetition": 1,
+      "replay_artifact_diff": {
+        "available": true,
+        "mismatch_count": 0
+      },
+      "session_finalization_succeeded": true,
+      "submits": {
+        "aborted": 0,
+        "completed": 1,
+        "started": 1
+      },
+      "terminal_status": "passed",
+      "token_usage": {
+        "input_tokens": 60211,
+        "output_tokens": 1370,
+        "total_tokens": 61581
+      }
+    },
+    {
+      "actual_model_match": true,
+      "actual_models": [
+        "deepseek-v4-flash"
+      ],
+      "artifact_identity_diff": {
+        "expected_only_count": 0,
+        "observed_only_count": 0,
+        "type_mismatch_count": 0
+      },
+      "attempt_duration_seconds": 178.666,
+      "case_id": "janet",
+      "clean_replays": {
+        "completed": 1,
+        "failed": 0,
+        "passed": 1,
+        "reconciled": 0,
+        "started": 1
+      },
+      "commands": {
+        "completed": 6,
+        "successful": 5,
+        "timed_out": 0
+      },
+      "compiler_subagents": {
+        "elapsed_seconds": {
+          "maximum": 105.091,
+          "total": 105.091
+        },
+        "failure_classifications": {},
+        "invocations": 1,
+        "statuses": {
+          "completed": 1
+        },
+        "wall_clock_limits_seconds": [
+          900
+        ],
+        "worker_stopped": 1
+      },
+      "condition_id": "deepseek-v4-flash",
+      "configured_model": "deepseek-v4-flash",
+      "deliveries_succeeded": 1,
+      "failure_domains": {
+        "agent_tool": [],
+        "build": [],
+        "completion": [],
+        "model_endpoint": [],
+        "submit_replay": []
+      },
+      "ledger_terminal_sha256": "9e20b06aa46f7282c9fa4806ed94461f82851478e40680041fb193c4c50c660a",
+      "model_requests": {
+        "cancelled": 0,
+        "closed": 9,
+        "completed": 9,
+        "failed": 0,
+        "failure_classifications": {},
+        "latency_seconds": 17.801,
+        "started": 9
+      },
+      "network_preflight": {
+        "access_medium_recorded": false,
+        "endpoint_reachable": true,
+        "network_present": true
+      },
+      "offline_gate_recomputation_valid": true,
+      "oracle_classification": null,
+      "oracle_passed": true,
+      "order": 3,
+      "orphan_cleanup_succeeded": true,
+      "orphan_count": 0,
+      "physical_attempt_id": "physical_attempt_4af5bab1b56e4366982003802b2434b7",
+      "recorded_gate_recomputation_valid": true,
+      "repetition": 1,
+      "replay_artifact_diff": {
+        "available": true,
+        "mismatch_count": 0
+      },
+      "session_finalization_succeeded": true,
+      "submits": {
+        "aborted": 0,
+        "completed": 1,
+        "started": 1
+      },
+      "terminal_status": "passed",
+      "token_usage": {
+        "input_tokens": 55235,
+        "output_tokens": 1199,
+        "total_tokens": 56434
+      }
+    },
+    {
+      "actual_model_match": true,
+      "actual_models": [
+        "gpt-5.5"
+      ],
+      "artifact_identity_diff": {
+        "expected_only_count": 0,
+        "observed_only_count": 0,
+        "type_mismatch_count": 0
+      },
+      "attempt_duration_seconds": 217.886,
+      "case_id": "janet",
+      "clean_replays": {
+        "completed": 1,
+        "failed": 0,
+        "passed": 1,
+        "reconciled": 0,
+        "started": 1
+      },
+      "commands": {
+        "completed": 5,
+        "successful": 5,
+        "timed_out": 0
+      },
+      "compiler_subagents": {
+        "elapsed_seconds": {
+          "maximum": 110.099,
+          "total": 110.099
+        },
+        "failure_classifications": {},
+        "invocations": 1,
+        "statuses": {
+          "completed": 1
+        },
+        "wall_clock_limits_seconds": [
+          900
+        ],
+        "worker_stopped": 1
+      },
+      "condition_id": "richlab-gpt-5.5",
+      "configured_model": "gpt-5.5",
+      "deliveries_succeeded": 1,
+      "failure_domains": {
+        "agent_tool": [],
+        "build": [],
+        "completion": [],
+        "model_endpoint": [],
+        "submit_replay": []
+      },
+      "ledger_terminal_sha256": "7783c79b6a93afb4726367ea227418c3da930fd8b3d60fd855dfaf1609809445",
+      "model_requests": {
+        "cancelled": 0,
+        "closed": 8,
+        "completed": 8,
+        "failed": 0,
+        "failure_classifications": {},
+        "latency_seconds": 55.25,
+        "started": 8
+      },
+      "network_preflight": {
+        "access_medium_recorded": false,
+        "endpoint_reachable": true,
+        "network_present": true
+      },
+      "offline_gate_recomputation_valid": true,
+      "oracle_classification": null,
+      "oracle_passed": true,
+      "order": 4,
+      "orphan_cleanup_succeeded": true,
+      "orphan_count": 0,
+      "physical_attempt_id": "physical_attempt_f039dab2d083489b92ad91567baaac3c",
+      "recorded_gate_recomputation_valid": true,
+      "repetition": 1,
+      "replay_artifact_diff": {
+        "available": true,
+        "mismatch_count": 0
+      },
+      "session_finalization_succeeded": true,
+      "submits": {
+        "aborted": 0,
+        "completed": 1,
+        "started": 1
+      },
+      "terminal_status": "passed",
+      "token_usage": {
+        "input_tokens": 36318,
+        "output_tokens": 917,
+        "total_tokens": 37235
+      }
+    },
+    {
+      "actual_model_match": true,
+      "actual_models": [
+        "gpt-5.5"
+      ],
+      "artifact_identity_diff": {
+        "expected_only_count": 0,
+        "observed_only_count": 0,
+        "type_mismatch_count": 0
+      },
+      "attempt_duration_seconds": 1037.118,
+      "case_id": "open62541",
+      "clean_replays": {
+        "completed": 4,
+        "failed": 4,
+        "passed": 0,
+        "reconciled": 1,
+        "started": 4
+      },
+      "commands": {
+        "completed": 12,
+        "successful": 11,
+        "timed_out": 0
+      },
+      "compiler_subagents": {
+        "elapsed_seconds": {
+          "maximum": 900.818,
+          "total": 915.828
+        },
+        "failure_classifications": {
+          "compiler_wall_clock_timeout": 1
+        },
+        "invocations": 2,
+        "statuses": {
+          "completed": 1,
+          "timed_out": 1
+        },
+        "wall_clock_limits_seconds": [
+          900
+        ],
+        "worker_stopped": 2
+      },
+      "condition_id": "richlab-gpt-5.5",
+      "configured_model": "gpt-5.5",
+      "deliveries_succeeded": 0,
+      "failure_domains": {
+        "agent_tool": [
+          "compiler_wall_clock_timeout"
+        ],
+        "build": [],
+        "completion": [
+          "experiment_failed"
+        ],
+        "model_endpoint": [],
+        "submit_replay": [
+          "size_mismatch",
+          "size_mismatch",
+          "size_mismatch"
+        ]
+      },
+      "ledger_terminal_sha256": "ebc6cb16b07008a02b5cc735970f75f6be6105725ed37bb5f142abe0fcbe8941",
+      "model_requests": {
+        "cancelled": 0,
+        "closed": 19,
+        "completed": 19,
+        "failed": 0,
+        "failure_classifications": {},
+        "latency_seconds": 126.962,
+        "started": 19
+      },
+      "network_preflight": {
+        "access_medium_recorded": false,
+        "endpoint_reachable": true,
+        "network_present": true
+      },
+      "offline_gate_recomputation_valid": true,
+      "oracle_classification": "oracle_mismatch",
+      "oracle_passed": false,
+      "order": 5,
+      "orphan_cleanup_succeeded": true,
+      "orphan_count": 0,
+      "physical_attempt_id": "physical_attempt_9601af7a07554f1c9c77d50d7067c911",
+      "recorded_gate_recomputation_valid": true,
+      "repetition": 1,
+      "replay_artifact_diff": {
+        "available": true,
+        "mismatch_count": 1
+      },
+      "session_finalization_succeeded": true,
+      "submits": {
+        "aborted": 1,
+        "completed": 3,
+        "started": 4
+      },
+      "terminal_status": "failed",
+      "token_usage": {
+        "input_tokens": 124633,
+        "output_tokens": 3386,
+        "total_tokens": 128019
+      }
+    },
+    {
+      "actual_model_match": true,
+      "actual_models": [
+        "deepseek-v4-flash"
+      ],
+      "artifact_identity_diff": {
+        "expected_only_count": 0,
+        "observed_only_count": 0,
+        "type_mismatch_count": 0
+      },
+      "attempt_duration_seconds": 1387.455,
+      "case_id": "open62541",
+      "clean_replays": {
+        "completed": 4,
+        "failed": 4,
+        "passed": 0,
+        "reconciled": 0,
+        "started": 4
+      },
+      "commands": {
+        "completed": 45,
+        "successful": 42,
+        "timed_out": 0
+      },
+      "compiler_subagents": {
+        "elapsed_seconds": {
+          "maximum": 780.724,
+          "total": 1201.239
+        },
+        "failure_classifications": {
+          "graph_recursion_limit": 1,
+          "post_build_reserve_exhausted": 1
+        },
+        "invocations": 4,
+        "statuses": {
+          "completed": 2,
+          "failed": 1,
+          "timed_out": 1
+        },
+        "wall_clock_limits_seconds": [
+          900
+        ],
+        "worker_stopped": 4
+      },
+      "condition_id": "deepseek-v4-flash",
+      "configured_model": "deepseek-v4-flash",
+      "deliveries_succeeded": 0,
+      "failure_domains": {
+        "agent_tool": [
+          "graph_recursion_limit",
+          "post_build_reserve_exhausted"
+        ],
+        "build": [],
+        "completion": [
+          "GraphRecursionError",
+          "experiment_failed"
+        ],
+        "model_endpoint": [],
+        "submit_replay": [
+          "size_mismatch",
+          "candidate_verification_failed",
+          "candidate_verification_failed",
+          "candidate_verification_failed",
+          "candidate_verification_failed",
+          "size_mismatch",
+          "size_mismatch",
+          "size_mismatch"
+        ]
+      },
+      "ledger_terminal_sha256": "cc0f4fbea4a1651c6df3b3c7447786250ff5764c858e57e037dd646527fa46f1",
+      "model_requests": {
+        "cancelled": 1,
+        "closed": 67,
+        "completed": 66,
+        "failed": 0,
+        "failure_classifications": {},
+        "latency_seconds": 215.665,
+        "started": 67
+      },
+      "network_preflight": {
+        "access_medium_recorded": false,
+        "endpoint_reachable": true,
+        "network_present": true
+      },
+      "offline_gate_recomputation_valid": true,
+      "oracle_classification": "oracle_mismatch",
+      "oracle_passed": false,
+      "order": 6,
+      "orphan_cleanup_succeeded": true,
+      "orphan_count": 0,
+      "physical_attempt_id": "physical_attempt_9c66a7a06e894e9b92803641a12e3de9",
+      "recorded_gate_recomputation_valid": true,
+      "repetition": 1,
+      "replay_artifact_diff": {
+        "available": true,
+        "mismatch_count": 1
+      },
+      "session_finalization_succeeded": true,
+      "submits": {
+        "aborted": 1,
+        "completed": 8,
+        "started": 8
+      },
+      "terminal_status": "failed",
+      "token_usage": {
+        "input_tokens": 741218,
+        "output_tokens": 22830,
+        "total_tokens": 764048
+      }
+    },
+    {
+      "actual_model_match": true,
+      "actual_models": [
+        "deepseek-v4-flash"
+      ],
+      "artifact_identity_diff": {
+        "expected_only_count": 0,
+        "observed_only_count": 0,
+        "type_mismatch_count": 0
+      },
+      "attempt_duration_seconds": 3240.758,
+      "case_id": "powerdns",
+      "clean_replays": {
+        "completed": 0,
+        "failed": 0,
+        "passed": 0,
+        "reconciled": 0,
+        "started": 0
+      },
+      "commands": {
+        "completed": 38,
+        "successful": 35,
+        "timed_out": 0
+      },
+      "compiler_subagents": {
+        "elapsed_seconds": {
+          "maximum": 820.859,
+          "total": 1684.413
+        },
+        "failure_classifications": {
+          "post_build_reserve_exhausted": 2
+        },
+        "invocations": 4,
+        "statuses": {
+          "completed": 2,
+          "timed_out": 2
+        },
+        "wall_clock_limits_seconds": [
+          900
+        ],
+        "worker_stopped": 4
+      },
+      "condition_id": "deepseek-v4-flash",
+      "configured_model": "deepseek-v4-flash",
+      "deliveries_succeeded": 0,
+      "failure_domains": {
+        "agent_tool": [
+          "post_build_reserve_exhausted",
+          "post_build_reserve_exhausted"
+        ],
+        "build": [],
+        "completion": [
+          "GraphRecursionError",
+          "experiment_failed"
+        ],
+        "model_endpoint": [],
+        "submit_replay": []
+      },
+      "ledger_terminal_sha256": "f36392088e6061d65165a6bc6e0fc5476084d9c61b0143b0b6488f8d772c4422",
+      "model_requests": {
+        "cancelled": 0,
+        "closed": 72,
+        "completed": 72,
+        "failed": 0,
+        "failure_classifications": {},
+        "latency_seconds": 182.947,
+        "started": 72
+      },
+      "network_preflight": {
+        "access_medium_recorded": false,
+        "endpoint_reachable": true,
+        "network_present": true
+      },
+      "offline_gate_recomputation_valid": true,
+      "oracle_classification": "submit_missing",
+      "oracle_passed": false,
+      "order": 7,
+      "orphan_cleanup_succeeded": true,
+      "orphan_count": 0,
+      "physical_attempt_id": "physical_attempt_82ec086dfef74164801672d1742e32f4",
+      "recorded_gate_recomputation_valid": true,
+      "repetition": 1,
+      "replay_artifact_diff": {
+        "available": false,
+        "mismatch_count": 0
+      },
+      "session_finalization_succeeded": true,
+      "submits": {
+        "aborted": 0,
+        "completed": 0,
+        "started": 0
+      },
+      "terminal_status": "failed",
+      "token_usage": {
+        "input_tokens": 597147,
+        "output_tokens": 15583,
+        "total_tokens": 612730
+      }
+    }
+  ],
+  "authorization": {
+    "access_medium": "mobile_hotspot",
+    "authorized_slots": 10,
+    "budget_enforcement": "stop_before_next_slot_when_recorded_total_reaches_limit",
+    "maximum_recorded_tokens": 1633165,
+    "remaining_slots_require_confirmation": true
+  },
+  "benchmark_id": "forge-cpp-formal-v3-authorized-collection",
+  "canary": {
+    "conditions": [
+      {
+        "duration_ms": 4404,
+        "id": "richlab-gpt-5.5",
+        "model": "gpt-5.5",
+        "passed": true
+      },
+      {
+        "duration_ms": 1034,
+        "id": "deepseek-v4-flash",
+        "model": "deepseek-v4-flash",
+        "passed": true
+      }
+    ],
+    "failed_reports": 1,
+    "reports_discovered": 2,
+    "selected_canary_id": "provider_canary_8599bcf904ce4ccb8a6c113f19701ec4",
+    "selected_completed_at": "2026-08-11T07:58:36.955472+00:00",
+    "selected_report_sha256": "e9825db6d36e18f3bd833b74f455b3a1ca9f9e3247b4cf72c57b2041929d07ff",
+    "successful_reports": 1
+  },
+  "collection": {
+    "actual_model_matches": 7,
+    "analyzed_slots": 7,
+    "attempt_duration_seconds": 6461.561,
+    "authorized_slots": 10,
+    "compiler_subagent_invocations": 14,
+    "gate_recomputation_valid": 7,
+    "ledger_hash_chain_valid": 7,
+    "model_requests": {
+      "cancelled": 1,
+      "closed": 195,
+      "completed": 194,
+      "failed": 0,
+      "started": 195
+    },
+    "next_slot_index": 7,
+    "oracle_failed": 3,
+    "oracle_passed": 4,
+    "orphan_cleanup_succeeded": 7,
+    "orphan_count": 0,
+    "recorded_token_limit": 1633165,
+    "recorded_tokens_over_boundary": 67412,
+    "recorded_total_tokens": 1700577,
+    "session_finalization_succeeded": 7,
+    "stop_reason": "recorded_token_boundary_reached",
+    "terminal_completed": 7
+  },
+  "conditions": [
+    {
+      "attempt_duration_seconds": {
+        "maximum": 1037.118,
+        "median": 250.26,
+        "minimum": 217.886,
+        "total": 1505.264
+      },
+      "attempts": 3,
+      "clean_replays": {
+        "completed": 6,
+        "failed": 4,
+        "passed": 2
+      },
+      "commands_completed": 23,
+      "condition_id": "richlab-gpt-5.5",
+      "configured_model": "gpt-5.5",
+      "failure_event_counts": {
+        "agent_tool:compiler_wall_clock_timeout": 1,
+        "completion:experiment_failed": 1,
+        "submit_replay:size_mismatch": 3
+      },
+      "model_requests": {
+        "cancelled": 0,
+        "closed": 36,
+        "completed": 36,
+        "failed": 0,
+        "started": 36
+      },
+      "oracle_failed": 1,
+      "oracle_passed": 2,
+      "submits_completed": 5,
+      "token_usage": {
+        "input_tokens": 200371,
+        "output_tokens": 5413,
+        "total_tokens": 205784
+      }
+    },
+    {
+      "attempt_duration_seconds": {
+        "maximum": 3240.758,
+        "median": 783.06,
+        "minimum": 149.418,
+        "total": 4956.297
+      },
+      "attempts": 4,
+      "clean_replays": {
+        "completed": 6,
+        "failed": 4,
+        "passed": 2
+      },
+      "commands_completed": 97,
+      "condition_id": "deepseek-v4-flash",
+      "configured_model": "deepseek-v4-flash",
+      "failure_event_counts": {
+        "agent_tool:graph_recursion_limit": 1,
+        "agent_tool:post_build_reserve_exhausted": 3,
+        "completion:GraphRecursionError": 2,
+        "completion:experiment_failed": 2,
+        "submit_replay:candidate_verification_failed": 4,
+        "submit_replay:size_mismatch": 4
+      },
+      "model_requests": {
+        "cancelled": 1,
+        "closed": 159,
+        "completed": 158,
+        "failed": 0,
+        "started": 159
+      },
+      "oracle_failed": 2,
+      "oracle_passed": 2,
+      "submits_completed": 10,
+      "token_usage": {
+        "input_tokens": 1453811,
+        "output_tokens": 40982,
+        "total_tokens": 1494793
+      }
+    }
+  ],
+  "failure_event_counts": {
+    "agent_tool:compiler_wall_clock_timeout": 1,
+    "agent_tool:graph_recursion_limit": 1,
+    "agent_tool:post_build_reserve_exhausted": 3,
+    "completion:GraphRecursionError": 2,
+    "completion:experiment_failed": 3,
+    "submit_replay:candidate_verification_failed": 4,
+    "submit_replay:size_mismatch": 7
+  },
+  "interpretation": {
+    "attempt_level_wall_clock_budget_present": false,
+    "compiler_wall_clock_budget_is_per_invocation": true,
+    "historical_ledgers_modified": false,
+    "provider_timeout_observed": false,
+    "retry_replacement_backfill_performed": false,
+    "slots_8_to_10_not_created": true,
+    "valid_outcome_denominator": 7
+  },
+  "limitations": [
+    "The recorded-token boundary stopped collection after seven of ten authorized slots, so provider and case counts are unbalanced.",
+    "Seven one-repetition slots cannot support a population-level model ranking or significance claim.",
+    "The 900-second compiler wall-clock budget applies per compiler invocation, not to the whole physical attempt.",
+    "The mobile-hotspot label records access medium but does not identify the cause of historical endpoint timeouts."
+  ],
+  "manifest_sha256": "87968a3a1dc858c5eb2881e32711da0e2912b90a50437d9534babc37bef67cb5",
+  "report_version": "formal-v3-initial-batch-report-1.0.0",
+  "scope": {
+    "descriptive_only": true,
+    "formal_comparison_enabled": true,
+    "languages": [
+      "C",
+      "C++"
+    ],
+    "phase": "formal_collection_v3"
+  }
+}
