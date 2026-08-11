@@ -1,5 +1,43 @@
 # Forge C/C++ benchmark protocols
 
+## Authorized formal collection v3 initial batch
+
+Issue #95 authorizes only the first ten slots of
+`cpp-formal-v3-authorized-collection.json`. The authorized identity preserves
+the reviewed 180-slot C/C++ schedule, changes only the RichLab endpoint to
+`https://rich-api.choosefire.com/v1`, records `mobile_hotspot` as the access
+medium, and keeps RichLab `gpt-5.5` and DeepSeek `deepseek-v4-flash` as separate
+conditions. Memory and Skills remain disabled; retries, fallback, replacement,
+and backfill remain forbidden.
+
+Run the adapter from the `deer-flow-dev` LangGraph container with the backend
+virtual-environment interpreter. Its CLI defaults to the authorized v3
+manifest, so omitting `--manifest` cannot select an older pilot manifest:
+
+```bash
+output=/workspace/.compile-sessions/benchmark-evidence-formal-v3-authorized
+
+/app/backend/.venv/bin/python \
+  /repo/scripts/forge_formal_collection_v3_authorized_runner.py preflight \
+  --output-dir "$output" --skip-endpoint-check
+
+/app/backend/.venv/bin/python \
+  /repo/scripts/forge_formal_collection_v3_authorized_runner.py \
+  provider-canary --output-dir "$output"
+
+/app/backend/.venv/bin/python \
+  /repo/scripts/forge_formal_collection_v3_authorized_runner.py run-batch \
+  --output-dir "$output" --max-attempts 10
+```
+
+The runner rejects every other evidence directory, requires the Compose/DooD
+host bind source to match `DEER_FLOW_HOST_WORKSPACE_ROOT`, and requires a
+successful dual-provider canary before the first ledger. It stops before slot
+11 and before any next slot once completed provider responses record at least
+1,633,165 total tokens. The remaining 170 slots require a separate owner
+confirmation. Historical pilot-v3 evidence in other directories is immutable
+and must not be moved into this collection.
+
 ## Formal per-case build protocol
 
 Issue #78 turns the 30-project preregistration into a result-blind,

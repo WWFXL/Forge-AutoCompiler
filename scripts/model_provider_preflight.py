@@ -24,7 +24,7 @@ class Provider:
 
 PROVIDERS = {
     "richlab": Provider(
-        endpoint="https://richlab-api-x.choosefire.com/v1",
+        endpoint="https://rich-api.choosefire.com/v1",
         credential_env="OpenAI_AK",
         models=("gpt-5.5", "gpt-5.4"),
     ),
