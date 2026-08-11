@@ -5,15 +5,17 @@
 ## 进行中 (In Progress)
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
-- 2026-08-11 — formal v3 首批十槽被双 provider canary 阻塞
-  - 当前主干: `main@4a9771c8`；Issue #95 / PR #96 已完成 RichLab 端点迁移和 formal v3 授权，Issue #97 记录当前 canary 阻塞。
-  - 已授权边界: 仅前 10 slot，maximum recorded tokens 为 1,633,165；剩余 170 slot 仍需再次确认。唯一 evidence 目录为 `/workspace/.compile-sessions/benchmark-evidence-formal-v3-authorized`。
-  - 当前证据: 主干非模型 preflight 为 `ready=true`；0 formal JSONL、1 份失败 canary 报告、0 orphan。报告中 DeepSeek `deepseek-v4-flash` 约 0.97 秒通过，RichLab `gpt-5.5` 约 121 秒 `APITimeoutError`。
-  - 诊断: 同一手机热点下，RichLab `/models`、`gpt-5.5` 最小文本和工具调用随后均在约 3.8–5.4 秒通过；`gpt-5.4` 的最小文本反而单次超时 120 秒。当前只支持请求级/路径级随机超时，不能归因于模型能力或确定归因于热点。
-  - 恢复顺序: 网络稳定时先运行带 endpoint 检查的 authorized v3 preflight；通过后只启动一次双 provider canary。若双 canary 成功，再串行运行 10 slot；若 `gpt-5.5` 再次超时，停止并经 Issue #97 审查协议修订，不换模型、不绕过 gate。
-
 ## 最近变更 (Recent Changes)
 <!-- 倒序，最新在上。 -->
+
+- 2026-08-11 — 审计 formal v3 首批预算边界结果并停止后续 slot
+  - GitHub: Issue #97 的双 provider canary 阻塞已在成功 canary 后解除并关闭；Issue #99 / PR #100 已完成描述性报告并 squash 合并为 `main@3ee28e8d`，三项 CI 全绿。
+  - 采集: authorized preflight 为 `ready=true`，RichLab `gpt-5.5` 与 DeepSeek `deepseek-v4-flash` canary 分别约 4.404 秒和 1.034 秒通过；7/10 个授权 slot 执行后以 `recorded_token_boundary_reached` 停止，slot 8-10 未创建。
+  - 结果: 记录 1,700,577 / 1,633,165 tokens，越界 67,412；4/7 oracle passed，195/195 请求闭合（194 completed、0 failed、1 cancelled），7/7 ledger、finalization 与 cleanup 有效，0 compile/replay orphan。
+  - 边界: token 检查发生在完成当前 slot 后、创建下一 slot 前；当前授权已经耗尽，不得 retry、replacement、backfill 或继续 slot 8-10。7 个单次且 provider/case 不平衡的 slot 只支持描述性结论，不支持总体模型排名或显著性结论。
+  - 新发现: 900 秒是每次 Compiler 调用的 wall-clock 预算，不是整个 physical attempt 的预算；7 个 slot 共调用 Compiler 14 次，PowerDNS 单槽 4 次调用并持续约 3,240.758 秒。
+  - 文件: `scripts/forge_formal_collection_v3_report.py`, `backend/tests/test_forge_formal_collection_v3_report.py`, `benchmarks/reports/cpp-formal-v3-initial-batch.json`, `benchmarks/reports/cpp-formal-v3-initial-batch.md`, `benchmarks/README.md`
+  - 验证: 报告聚焦测试 `28 passed`，Ruff、`py_compile`、敏感信息扫描及 7 份 ledger 独立复算通过；没有修改历史 ledger，也没有发起额外模型请求。
 
 - 2026-08-11 — 授权 formal v3 首批十槽并迁移 RichLab 端点
   - GitHub: Issue #95 / PR #96 已 squash 合并为 `main@4a9771c8`，Issue 自动关闭；后端单测、后端 lint 和前端 lint 全绿。
@@ -251,6 +253,7 @@
 ## 待办 (TODOs)
 <!-- 发现但未做的事。带 file:line 指针。 -->
 
+- 基于 `scripts/forge_formal_collection_v3_authorized_runner.py:309` 设计下一版协议：增加 physical-attempt 总墙钟、总模型请求或 Compiler 调用上限，以及宿主内存、WSL/Docker daemon 响应资源门禁；同时预注册 token 停止造成不平衡样本时的分析处理。新协议、token 预算和采集范围重新确认前，只允许设计、测试和非模型 preflight。
 - 清理与当前源码不一致的后端测试模块引用，例如 `backend/tests/test_aio_sandbox_local_backend.py:1` 和 `backend/tests/test_channels.py:14`。
 - 统一 `backend/tests/test_subagent_timeout_config.py:261` 对 `max_turns` 的期望值与当前实现默认值。
 - Issue #78 的 30 项目文档级构建路径与 artifact oracle 已实现并通过本地验证；待中文 PR/CI/合并后，再冻结 formal manifest/Schema/runner/image/prompt。任何采集仍须单独 Issue 和用户预算确认。
