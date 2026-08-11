@@ -271,6 +271,7 @@
 ## 已知问题 (Known Issues / Pitfalls)
 <!-- 工作中踩过的坑、限制或意外行为。 -->
 
+- 后端 CI 从 `backend/` 运行 `uvx ruff` 并加载 `backend/ruff.toml`（当前行宽 240）。对 `backend/tests/` 显式传 `backend/pyproject.toml` 会使用不同格式规则，可能出现本地 format check 通过但 CI 要求反向格式化；本地复核必须使用 `backend/ruff.toml` 或从 `backend/` 工作目录运行与 CI 相同的命令。
 - 修改 `.env` 后仅 `docker compose restart` 不会重新加载环境，必须 recreate Gateway/LangGraph。直接调用开发 Compose 还必须显式提供 `DEER_FLOW_ROOT`；否则在配置插值阶段退出。优先使用 `scripts/docker.sh`，定向 recreate 时传完整 WSL 绝对路径，避免 PowerShell 提前展开 `$repo`。
 - formal canary 的 endpoint preflight 失败发生在模型调用和报告创建之前；真实 provider 请求超时则会留下不可变 canary 报告。恢复前必须分别核对 report 数、formal JSONL 数和 orphan 数，不能把“没有报告”误写成模型失败。
 - 单次成功或超时不能证明某个 RichLab 模型稳定可用。本次同一路径中 `gpt-5.5` 可在 3.8–5.4 秒完成原始文本/工具请求，也可在 LangChain canary 中 121 秒超时；`gpt-5.4` 同样出现一次 120 秒文本超时后 3 秒工具成功。保持模型身份冻结并按请求级 endpoint failure 记录。

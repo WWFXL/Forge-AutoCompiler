@@ -12,35 +12,17 @@ import pytest
 REPO_ROOT = Path(__file__).resolve().parents[2]
 PROTOCOL_PATH = REPO_ROOT / "scripts" / "forge_formal_collection_v4_protocol.py"
 RUNNER_PATH = REPO_ROOT / "scripts" / "forge_formal_collection_v4_runner.py"
-PARENT_MANIFEST_PATH = (
-    REPO_ROOT / "benchmarks" / "manifests" / "cpp-formal-v3-authorized-collection.json"
-)
+PARENT_MANIFEST_PATH = REPO_ROOT / "benchmarks" / "manifests" / "cpp-formal-v3-authorized-collection.json"
 MANIFEST_PATH = REPO_ROOT / "benchmarks" / "manifests" / "cpp-formal-v4-collection.json"
-SCHEMA_PATH = (
-    REPO_ROOT / "benchmarks" / "schemas" / "forge-cpp-formal-collection-v4.schema.json"
-)
-PARENT_CANONICAL_SHA256 = (
-    "87968a3a1dc858c5eb2881e32711da0e2912b90a50437d9534babc37bef67cb5"
-)
+SCHEMA_PATH = REPO_ROOT / "benchmarks" / "schemas" / "forge-cpp-formal-collection-v4.schema.json"
+PARENT_CANONICAL_SHA256 = "87968a3a1dc858c5eb2881e32711da0e2912b90a50437d9534babc37bef67cb5"
 PARENT_FILE_SHA256 = {
-    "benchmarks/manifests/cpp-formal-v3-authorized-collection.json": (
-        "3c88c86fc2bba43fcbde1706e500a8cd41547d6481ae02dfa493b55c55c90045"
-    ),
-    "benchmarks/schemas/forge-cpp-formal-collection-v3-authorized.schema.json": (
-        "30e6506a25090548bc29b650c74c5b9205008aeb8222af8393a6da9549a4284d"
-    ),
-    "scripts/forge_formal_collection_v3_authorized_protocol.py": (
-        "148ee83f732973f4e3dca0c8386683a4e8135eade4eede76702896f1222b5868"
-    ),
-    "scripts/forge_formal_collection_v3_authorized_runner.py": (
-        "88a16306fcda5df0ea0128b545db80ea76c9405cb48eab57eeca6d7b2a357158"
-    ),
-    "benchmarks/reports/cpp-formal-v3-initial-batch.json": (
-        "1140637ae8ba519aedc9185099e27ddb652f2ee0a31ab2586705d505c312381f"
-    ),
-    "benchmarks/reports/cpp-formal-v3-initial-batch.md": (
-        "c7e5ff42ae26871d18032e9efa6a919b0a46d334c97a0487eb7e716e393d74c9"
-    ),
+    "benchmarks/manifests/cpp-formal-v3-authorized-collection.json": ("3c88c86fc2bba43fcbde1706e500a8cd41547d6481ae02dfa493b55c55c90045"),
+    "benchmarks/schemas/forge-cpp-formal-collection-v3-authorized.schema.json": ("30e6506a25090548bc29b650c74c5b9205008aeb8222af8393a6da9549a4284d"),
+    "scripts/forge_formal_collection_v3_authorized_protocol.py": ("148ee83f732973f4e3dca0c8386683a4e8135eade4eede76702896f1222b5868"),
+    "scripts/forge_formal_collection_v3_authorized_runner.py": ("88a16306fcda5df0ea0128b545db80ea76c9405cb48eab57eeca6d7b2a357158"),
+    "benchmarks/reports/cpp-formal-v3-initial-batch.json": ("1140637ae8ba519aedc9185099e27ddb652f2ee0a31ab2586705d505c312381f"),
+    "benchmarks/reports/cpp-formal-v3-initial-batch.md": ("c7e5ff42ae26871d18032e9efa6a919b0a46d334c97a0487eb7e716e393d74c9"),
 }
 
 
@@ -53,9 +35,7 @@ def _load_module(name: str, path: Path):
     return module
 
 
-formal_collection = _load_module(
-    "forge_formal_collection_v4_protocol_test", PROTOCOL_PATH
-)
+formal_collection = _load_module("forge_formal_collection_v4_protocol_test", PROTOCOL_PATH)
 runner = _load_module("forge_formal_collection_v4_runner_test", RUNNER_PATH)
 
 
@@ -99,18 +79,13 @@ def test_v4_binds_attempt_resource_and_analysis_boundaries() -> None:
     assert manifest["resource_preflight"] == formal_collection.RESOURCE_PREFLIGHT
     assert manifest["analysis_plan"] == formal_collection.ANALYSIS_PLAN
     assert manifest["authorization"]["issue_url"].endswith("/issues/103")
-    assert (
-        manifest["authorization"]["parent_manifest"]["canonical_sha256"]
-        == PARENT_CANONICAL_SHA256
-    )
+    assert manifest["authorization"]["parent_manifest"]["canonical_sha256"] == PARENT_CANONICAL_SHA256
     assert manifest["authorization"]["v3_initial_batch"]["analyzed_slots"] == 7
     assert manifest["attempt_budget"]["total_wall_clock_seconds"] == 1800
     assert manifest["attempt_budget"]["cleanup_reserve_seconds"] == 120
     assert manifest["attempt_budget"]["max_compiler_invocations"] == 2
     assert manifest["attempt_budget"]["max_model_requests"] == 48
-    assert (
-        manifest["resource_preflight"]["minimum_available_memory_bytes"] == 2 * 1024**3
-    )
+    assert manifest["resource_preflight"]["minimum_available_memory_bytes"] == 2 * 1024**3
 
 
 @pytest.mark.parametrize(
@@ -119,13 +94,9 @@ def test_v4_binds_attempt_resource_and_analysis_boundaries() -> None:
         lambda value: value["scope"].update(collection_authorized=True),
         lambda value: value["attempt_budget"].update(total_wall_clock_seconds=1801),
         lambda value: value["attempt_budget"].update(max_compiler_invocations=3),
-        lambda value: value["resource_preflight"].update(
-            minimum_available_memory_bytes=1
-        ),
+        lambda value: value["resource_preflight"].update(minimum_available_memory_bytes=1),
         lambda value: value["analysis_plan"].update(protocol_version_pooling="allowed"),
-        lambda value: value["authorization"]["collection_constraints"].update(
-            model_execution_forbidden=False
-        ),
+        lambda value: value["authorization"]["collection_constraints"].update(model_execution_forbidden=False),
         lambda value: value["collection_plan"].reverse(),
     ],
 )
@@ -139,10 +110,7 @@ def test_v4_rejects_authorization_budget_resource_or_analysis_drift(mutation) ->
 
 def test_v3_parent_and_report_files_remain_byte_identical() -> None:
     for relative_path, expected in PARENT_FILE_SHA256.items():
-        assert (
-            hashlib.sha256((REPO_ROOT / relative_path).read_bytes()).hexdigest()
-            == expected
-        )
+        assert hashlib.sha256((REPO_ROOT / relative_path).read_bytes()).hexdigest() == expected
 
 
 def test_v4_runner_loads_policy_without_authorizing_collection() -> None:
@@ -165,9 +133,7 @@ def test_runtime_preflight_requires_memory_daemon_and_mount_source(
     tmp_path: Path,
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
-    monkeypatch.setenv(
-        "DEER_FLOW_HOST_WORKSPACE_ROOT", "/mnt/c/work/Forge-AutoCompiler"
-    )
+    monkeypatch.setenv("DEER_FLOW_HOST_WORKSPACE_ROOT", "/mnt/c/work/Forge-AutoCompiler")
     monkeypatch.setattr(
         runner,
         "_original_collect_runtime_launch_preflight",
@@ -223,9 +189,7 @@ def test_runtime_preflight_rejects_each_resource_failure(
     daemon: dict,
     failed_check: str,
 ) -> None:
-    monkeypatch.setenv(
-        "DEER_FLOW_HOST_WORKSPACE_ROOT", "/mnt/c/work/Forge-AutoCompiler"
-    )
+    monkeypatch.setenv("DEER_FLOW_HOST_WORKSPACE_ROOT", "/mnt/c/work/Forge-AutoCompiler")
     monkeypatch.setattr(
         runner,
         "_original_collect_runtime_launch_preflight",
@@ -251,14 +215,8 @@ def test_runtime_preflight_rejects_each_resource_failure(
 def test_attempt_budget_state_blocks_new_work_at_each_boundary() -> None:
     manifest = load_manifest()
     events = [
-        *[
-            {"event": "model.request_started", "payload": {}}
-            for _ in range(manifest["attempt_budget"]["max_model_requests"])
-        ],
-        *[
-            {"event": "agent.subagent_terminated", "payload": {"role": "compiler"}}
-            for _ in range(manifest["attempt_budget"]["max_compiler_invocations"])
-        ],
+        *[{"event": "model.request_started", "payload": {}} for _ in range(manifest["attempt_budget"]["max_model_requests"])],
+        *[{"event": "agent.subagent_terminated", "payload": {"role": "compiler"}} for _ in range(manifest["attempt_budget"]["max_compiler_invocations"])],
     ]
 
     state = runner.attempt_budget_state(manifest, events, elapsed_seconds=100)
@@ -277,10 +235,7 @@ def test_attempt_budget_state_blocks_new_work_at_each_boundary() -> None:
 
 def test_attempt_budget_checkpoints_reject_new_work_but_allow_cleanup() -> None:
     manifest = load_manifest()
-    events = [
-        {"event": "model.request_started", "payload": {}}
-        for _ in range(manifest["attempt_budget"]["max_model_requests"])
-    ]
+    events = [{"event": "model.request_started", "payload": {}} for _ in range(manifest["attempt_budget"]["max_model_requests"])]
 
     with pytest.raises(runner.RunnerError, match="model-request budget"):
         runner.require_attempt_budget_checkpoint(
