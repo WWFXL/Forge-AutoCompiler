@@ -5,15 +5,17 @@
 ## 进行中 (In Progress)
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
-- 2026-08-11 — Issue #105 正在接通 formal v4 physical-attempt 生命周期预算
-  - 已实现: experiment evidence 保存单调时钟与原子 claim；provider、Compiler、submit/replay、finalize、cleanup 使用同一预算上下文，基础 runner 在工作 deadline 主动取消 async agent stream，并在强制收口后记录 overrun 快照。
-  - 已验证: 聚焦/扩大单元回归 `227 passed`；真实 WSL/DooD Docker Session 在 submit 被截止拒绝后仍完成 `timed_out` finalization、容器删除和 0 orphan。
-  - 协议候选: 实现基线已提交为 `3ac49b92eedecf4932a829e75465dd7ddd16b97e`；未授权 `formal-collection-4.1.0-runtime-candidate` 已派生，canonical SHA-256 为 `d1c211e638ee2fd71c5c2f9e70f250306a131f9ae8759c9bd064e48a96252473`，旧 v4 父文件保持逐字不变。
-  - 已验证: 最终候选聚焦测试 `12 passed`，扩大回归 `227 passed`，真实 Docker 生命周期 `1 passed`；Compose/DooD preflight 11/11 通过，未授权 provider canary 明确拒绝且 0 evidence。Ruff、Schema、冻结父文件、diff 与敏感信息检查通过。
-  - 待完成: 提交并推送容器路径修复，创建 PR、等待 CI/合并并同步知识库。任何真实 provider canary、模型执行、v4 ledger 与正式采集仍禁止。
-
 ## 最近变更 (Recent Changes)
 <!-- 倒序，最新在上。 -->
+
+- 2026-08-12 — 接通并合并 formal v4 physical-attempt 生命周期预算
+  - GitHub: Issue #105 / PR #106 已 squash 合并为 `main@484f6999`，Issue 自动关闭；backend unit tests、backend lint 与 frontend lint 三项 CI 全绿。
+  - 实现: experiment evidence 保存单调时钟与原子 claim；provider、Compiler、submit/clean replay、finalize、cleanup 使用同一预算上下文，runner 在 1,680 秒工作 deadline 主动取消 agent stream，并在强制收口后记录最终 overrun 快照。
+  - 协议: 未授权 `formal-collection-4.1.0-runtime-candidate` canonical SHA-256 为 `d1c211e638ee2fd71c5c2f9e70f250306a131f9ae8759c9bd064e48a96252473`；冻结的 v4 父协议保持不变，v3 7-slot 继续作为独立描述性 stratum。
+  - 容器修复: runtime adapter 在 Compose 的 `/app/scripts` 与 `/repo` 分离布局中先从 `/repo/scripts` 建立协议链，再导入父 runner；未授权 provider canary 现在明确拒绝，不再被父 manifest 的 `/app` 错误根路径掩盖。
+  - 验证: 最终候选 `12 passed`、扩大回归 `227 passed`、真实 Docker 生命周期 `1 passed`；Compose/DooD preflight 11/11 通过，可用内存约 4.57 GiB、daemon 延迟约 0.031 秒，canary 退出码 2 且 0 evidence。Ruff、Schema、冻结父文件、diff 与敏感信息检查通过。
+  - 边界: 本阶段没有调用模型、消耗 AK、创建 v4 ledger 或启动正式采集。下一阶段须另行确认完整 project block、slot 数、recorded-token 上限和停止条件，再派生 authorized v4 identity。
+  - 文件: `backend/packages/harness/deerflow/compile/evidence.py`, `backend/packages/harness/deerflow/compile/operations.py`, `backend/packages/harness/deerflow/tools/builtins/task_tool.py`, `backend/packages/harness/deerflow/agents/middlewares/llm_error_handling_middleware.py`, `scripts/forge_formal_collection_v2_runner.py`, `scripts/forge_formal_collection_v4_runtime_protocol.py`, `scripts/forge_formal_collection_v4_runtime_runner.py`, `benchmarks/manifests/cpp-formal-v4-runtime-candidate.json`
 
 - 2026-08-11 — 冻结未授权 formal v4 attempt 级预算与宿主资源门禁
   - GitHub: Issue #103 / PR #104 记录 formal v3 长尾根因、v4 设计目标和禁止模型采集边界；候选协议 canonical SHA-256 为 `bb151473b276c48b9faf287a9dcbdddd96145abf3acc605f952275cf3d3f6720`。
