@@ -9,7 +9,7 @@
 <!-- 倒序，最新在上。 -->
 
 - 2026-08-11 — 冻结未授权 formal v4 attempt 级预算与宿主资源门禁
-  - GitHub: Issue #103 记录 formal v3 长尾根因、v4 设计目标和禁止模型采集边界；候选协议 canonical SHA-256 为 `bb151473b276c48b9faf287a9dcbdddd96145abf3acc605f952275cf3d3f6720`。
+  - GitHub: Issue #103 / PR #104 记录 formal v3 长尾根因、v4 设计目标和禁止模型采集边界；候选协议 canonical SHA-256 为 `bb151473b276c48b9faf287a9dcbdddd96145abf3acc605f952275cf3d3f6720`。
   - 协议: v4 保持 C/C++、180-slot schedule、双 provider、Compose/DooD、Compile Session、clean replay 与 artifact oracle 不变，并重新锁定 `collection_authorized=false`；v1-v3 manifest、Schema、runner、报告和历史 evidence 未修改。
   - 预算: 每个 physical attempt 总墙钟 1,800 秒，其中 120 秒保留给收口；最多 2 次 Compiler 调用和 48 次模型请求。provider、Compiler 与 submit/replay 在达到工作/调用边界后硬拒绝新工作，finalize/cleanup 即使超限仍必须执行并记录 overrun。
   - 资源: 新 attempt 前要求 WSL2 Linux 可见 `MemAvailable >= 2 GiB`，`docker info` 在 10 秒内成功且 daemon 延迟不高于 5 秒；preflight 不记录 IP、SSID、代理、凭据、server version 或其他宿主标识。
