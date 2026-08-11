@@ -5,8 +5,22 @@
 ## 进行中 (In Progress)
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
+- 2026-08-11 — formal v3 首批十槽被双 provider canary 阻塞
+  - 当前主干: `main@4a9771c8`；Issue #95 / PR #96 已完成 RichLab 端点迁移和 formal v3 授权，Issue #97 记录当前 canary 阻塞。
+  - 已授权边界: 仅前 10 slot，maximum recorded tokens 为 1,633,165；剩余 170 slot 仍需再次确认。唯一 evidence 目录为 `/workspace/.compile-sessions/benchmark-evidence-formal-v3-authorized`。
+  - 当前证据: 主干非模型 preflight 为 `ready=true`；0 formal JSONL、1 份失败 canary 报告、0 orphan。报告中 DeepSeek `deepseek-v4-flash` 约 0.97 秒通过，RichLab `gpt-5.5` 约 121 秒 `APITimeoutError`。
+  - 诊断: 同一手机热点下，RichLab `/models`、`gpt-5.5` 最小文本和工具调用随后均在约 3.8–5.4 秒通过；`gpt-5.4` 的最小文本反而单次超时 120 秒。当前只支持请求级/路径级随机超时，不能归因于模型能力或确定归因于热点。
+  - 恢复顺序: 网络稳定时先运行带 endpoint 检查的 authorized v3 preflight；通过后只启动一次双 provider canary。若双 canary 成功，再串行运行 10 slot；若 `gpt-5.5` 再次超时，停止并经 Issue #97 审查协议修订，不换模型、不绕过 gate。
+
 ## 最近变更 (Recent Changes)
 <!-- 倒序，最新在上。 -->
+
+- 2026-08-11 — 授权 formal v3 首批十槽并迁移 RichLab 端点
+  - GitHub: Issue #95 / PR #96 已 squash 合并为 `main@4a9771c8`，Issue 自动关闭；后端单测、后端 lint 和前端 lint 全绿。
+  - 协议: 新增 `formal-collection-3.1.0` 独立 manifest/Schema/protocol/runner，canonical SHA-256 为 `87968a3a1dc858c5eb2881e32711da0e2912b90a50437d9534babc37bef67cb5`；未授权 v3 与历史 evidence 保持不变。
+  - 门禁: CLI 默认 authorized manifest，固定 `mobile_hotspot`、首批 10 slot、1,633,165 recorded-token 停止边界、唯一 evidence 目录、首条 ledger 前双 canary、DooD mount-source gate，以及禁止 retry/fallback/replacement/backfill。
+  - 本地接入: `.env` 中的 `OpenAI_AK` 已通过安全脚本替换；Gateway/LangGraph 强制重建后仅验证凭据存在性和 3 个 RichLab model 配置指向新地址，未输出或提交密钥。
+  - 验证: 聚焦回归 `66 passed`，敏感信息扫描通过；分支和合并后 LangGraph Compose/DooD preflight 均 `ready=true`，`evidence_mount_source_matches_host_workspace=true`。
 
 - 2026-07-30 — 固定 GitHub 写入与 WSL Git 网络通道
   - 文件: `AGENTS.md`, `scripts/push-via-wsl.ps1`, `.claude/memory/project.md`
@@ -244,6 +258,11 @@
 
 ## 已知问题 (Known Issues / Pitfalls)
 <!-- 工作中踩过的坑、限制或意外行为。 -->
+
+- 修改 `.env` 后仅 `docker compose restart` 不会重新加载环境，必须 recreate Gateway/LangGraph。直接调用开发 Compose 还必须显式提供 `DEER_FLOW_ROOT`；否则在配置插值阶段退出。优先使用 `scripts/docker.sh`，定向 recreate 时传完整 WSL 绝对路径，避免 PowerShell 提前展开 `$repo`。
+- formal canary 的 endpoint preflight 失败发生在模型调用和报告创建之前；真实 provider 请求超时则会留下不可变 canary 报告。恢复前必须分别核对 report 数、formal JSONL 数和 orphan 数，不能把“没有报告”误写成模型失败。
+- 单次成功或超时不能证明某个 RichLab 模型稳定可用。本次同一路径中 `gpt-5.5` 可在 3.8–5.4 秒完成原始文本/工具请求，也可在 LangChain canary 中 121 秒超时；`gpt-5.4` 同样出现一次 120 秒文本超时后 3 秒工具成功。保持模型身份冻结并按请求级 endpoint failure 记录。
+- 新版本 runner adapter 不应修改共享历史 runner 模块。authorized v3 使用私有加载的基础 runner，避免 v2/v3 adapter 在同一 pytest 进程中因导入顺序互相覆盖；历史 adapter 的逆序组合仍可能暴露旧污染，但正常 CI 顺序和 authorized v3 隔离回归已通过。
 
 - GitHub 的 API 与 Git HTTPS 是独立网络通道：`api.github.com` 正常不代表 Windows Git 能访问 `github.com:443`。本机 Windows Git 未使用 WSL 的代理环境，push/ls-remote 会超时或连接重置；仓库 push 应直接运行 `pwsh -NoProfile -File scripts/push-via-wsl.ps1`，不要先重复 Windows `git push`。GitHub App 写权限 403 也属于独立权限边界，Issue/PR/评论等写入直接使用已认证 Windows `gh`。
 - DooD preflight 只验证 mount destination、bind 类型和可写性仍不够；错误启动可能把 `/.compile-sessions` 挂到正确的容器 destination。必须同时验证 mount `Source == DEER_FLOW_HOST_WORKSPACE_ROOT/.compile-sessions`，并拒绝缺失、相对路径、根目录和重复 evidence mount。
