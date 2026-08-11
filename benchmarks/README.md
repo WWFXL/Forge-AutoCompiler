@@ -1,5 +1,28 @@
 # Forge C/C++ benchmark protocols
 
+## Formal v4 unapproved protocol amendment
+
+Issue #103 freezes an unapproved v4 candidate after the formal v3 initial batch
+showed that the 900-second compiler budget applies to each Compiler invocation,
+not to the whole physical attempt. The candidate adds a 1,800-second attempt
+budget with a 120-second cleanup reserve, at most two Compiler invocations, at
+most 48 model requests, a 2 GiB host-memory gate, and bounded Docker daemon
+health checks. The rationale and incomplete-block analysis rules are
+preregistered in `preregistrations/cpp-formal-v4-amendment.md`.
+
+Only this non-model runtime preflight is allowed:
+
+```bash
+/app/backend/.venv/bin/python /repo/scripts/forge_formal_collection_v4_runner.py \
+  runtime-preflight \
+  --output-dir /workspace/.compile-sessions/benchmark-evidence-formal-v4-preflight
+```
+
+The v4 manifest keeps `collection_authorized=false`. Provider canary, ledger
+creation, model execution, retry, replacement, fallback, and backfill are all
+forbidden until a separate Issue records a new collection and token-budget
+authorization.
+
 ## Formal v3 initial-batch descriptive audit
 
 Issue #99 adds a deterministic, read-only audit over the authorized formal v3

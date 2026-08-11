@@ -1,0 +1,258 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/WWFXL/Forge-AutoCompiler/benchmarks/schemas/forge-cpp-formal-collection-v4.schema.json",
+  "title": "Forge C/C++ unapproved formal collection v4",
+  "type": "object",
+  "required": [
+    "$schema",
+    "schema_version",
+    "document_type",
+    "manifest_canonicalization",
+    "benchmark",
+    "scope",
+    "source_protocols",
+    "forge",
+    "protocol_artifact_sha256",
+    "prompt_sha256",
+    "model_profiles",
+    "runtime",
+    "budget",
+    "conditions",
+    "collection_plan",
+    "schedule_sha256",
+    "cases",
+    "attempt_budget",
+    "resource_preflight",
+    "analysis_plan",
+    "authorization"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "formal-collection-4.0.0"
+    },
+    "document_type": {
+      "const": "manifest"
+    },
+    "scope": {
+      "type": "object",
+      "required": [
+        "collection_authorized",
+        "formal_comparison_enabled"
+      ],
+      "properties": {
+        "collection_authorized": {
+          "const": false
+        },
+        "formal_comparison_enabled": {
+          "const": false
+        }
+      }
+    },
+    "source_protocols": {
+      "type": "object"
+    },
+    "forge": {
+      "type": "object",
+      "required": [
+        "commit_sha",
+        "component_sha256"
+      ],
+      "properties": {
+        "commit_sha": {
+          "const": "7d5ad0d294e1cc28a29f92a71264e79df1121ef2"
+        },
+        "component_sha256": {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          }
+        }
+      }
+    },
+    "protocol_artifact_sha256": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "type": "string",
+        "pattern": "^[0-9a-f]{64}$"
+      }
+    },
+    "prompt_sha256": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "type": "string",
+        "pattern": "^[0-9a-f]{64}$"
+      }
+    },
+    "runtime": {
+      "type": "object",
+      "required": [
+        "image_id",
+        "control_plane_topology",
+        "max_parallel_runs"
+      ],
+      "properties": {
+        "image_id": {
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        },
+        "control_plane_topology": {
+          "const": "compose-dood"
+        },
+        "max_parallel_runs": {
+          "const": 1
+        }
+      }
+    },
+    "budget": {
+      "type": "object"
+    },
+    "conditions": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2
+    },
+    "collection_plan": {
+      "type": "array",
+      "minItems": 180,
+      "maxItems": 180
+    },
+    "schedule_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "cases": {
+      "type": "array",
+      "minItems": 30,
+      "maxItems": 30
+    },
+    "authorization": {
+      "const": {
+        "id": "forge-cpp-formal-v4-collection-authorization-request",
+        "status": "pending_experiment_owner_confirmation",
+        "requested_on": "2026-08-11",
+        "issue_url": "https://github.com/WWFXL/Forge-AutoCompiler/issues/103",
+        "collection_constraints": {
+          "planned_attempts": 180,
+          "collection_authorized": false,
+          "provider_canary_forbidden": true,
+          "physical_attempt_creation_forbidden": true,
+          "model_execution_forbidden": true,
+          "replacement_forbidden": true,
+          "fallback_forbidden": true,
+          "retry_forbidden": true,
+          "backfill_forbidden": true,
+          "new_collection_budget_requires_confirmation": true,
+          "required_runtime_launch_checks": [
+            "evidence_mount_source_matches_host_workspace",
+            "host_available_memory_at_least_minimum",
+            "docker_daemon_responded",
+            "docker_daemon_latency_within_limit"
+          ]
+        },
+        "v3_initial_batch": {
+          "report_path": "benchmarks/reports/cpp-formal-v3-initial-batch.json",
+          "report_sha256": "1140637ae8ba519aedc9185099e27ddb652f2ee0a31ab2586705d505c312381f",
+          "analyzed_slots": 7,
+          "authorized_slots": 10,
+          "recorded_usage_units": 1700577,
+          "recorded_budget_units": 1633165,
+          "recorded_overage_units": 67412,
+          "oracle_passed": 4,
+          "stop_reason": "recorded_token_boundary_reached",
+          "slots_8_to_10_not_created": true
+        },
+        "parent_manifest": {
+          "id": "forge-cpp-formal-v3-authorized-collection",
+          "path": "benchmarks/manifests/cpp-formal-v3-authorized-collection.json",
+          "canonical_sha256": "87968a3a1dc858c5eb2881e32711da0e2912b90a50437d9534babc37bef67cb5"
+        }
+      }
+    },
+    "$schema": {
+      "const": "../schemas/forge-cpp-formal-collection-v4.schema.json"
+    },
+    "manifest_canonicalization": {
+      "const": "UTF-8 JSON, sorted object keys, compact separators, no NaN"
+    },
+    "benchmark": {
+      "const": {
+        "id": "forge-cpp-formal-v4-collection",
+        "name": "Forge C/C++ attempt-bounded formal collection v4 candidate",
+        "purpose": "unapproved protocol amendment with attempt-level and host-resource gates",
+        "dataset_provenance": "OSS-Fuzz metadata snapshot 08682bfc"
+      }
+    },
+    "model_profiles": {
+      "const": {
+        "richlab-gpt-5.5": {
+          "endpoint": "https://rich-api.choosefire.com/v1",
+          "credential_env": "OpenAI_AK",
+          "roles": {
+            "lead": "gpt-5.5",
+            "compiler": "gpt-5.5"
+          },
+          "fallback_policy": "forbidden",
+          "request_timeout_seconds": 120,
+          "max_retries": 0
+        },
+        "deepseek-v4-flash": {
+          "endpoint": "https://api.deepseek.com",
+          "credential_env": "DEEPSEEK_API_KEY",
+          "roles": {
+            "lead": "deepseek-v4-flash",
+            "compiler": "deepseek-v4-flash"
+          },
+          "fallback_policy": "forbidden",
+          "request_timeout_seconds": 120,
+          "max_retries": 0
+        }
+      }
+    },
+    "attempt_budget": {
+      "const": {
+        "total_wall_clock_seconds": 1800,
+        "cleanup_reserve_seconds": 120,
+        "max_compiler_invocations": 2,
+        "max_model_requests": 48,
+        "enforcement_checkpoints": [
+          "before_provider_request",
+          "before_compiler_invocation",
+          "before_submit_or_replay",
+          "before_finalize",
+          "before_cleanup"
+        ],
+        "new_work_forbidden_after_limit": true,
+        "cleanup_mandatory_after_limit": true,
+        "terminal_classification": "attempt_budget_exhausted"
+      }
+    },
+    "resource_preflight": {
+      "const": {
+        "minimum_available_memory_bytes": 2147483648,
+        "docker_daemon_timeout_seconds": 10,
+        "maximum_docker_daemon_latency_seconds": 5,
+        "required_checks": [
+          "host_available_memory_at_least_minimum",
+          "docker_daemon_responded",
+          "docker_daemon_latency_within_limit"
+        ],
+        "sensitive_host_identifiers_forbidden": true
+      }
+    },
+    "analysis_plan": {
+      "const": {
+        "protocol_version_pooling": "forbidden",
+        "v3_initial_batch_role": "separate_descriptive_protocol_stratum",
+        "v4_primary_estimand": "complete_project_blocks_collected_under_v4_only",
+        "incomplete_block_primary_handling": "exclude_from_paired_primary_estimate",
+        "incomplete_block_secondary_handling": "retain_in_end_to_end_descriptive_denominator",
+        "provider_and_case_imbalance_must_be_reported": true,
+        "retry_replacement_backfill_forbidden": true
+      }
+    }
+  },
+  "additionalProperties": false
+}
