@@ -518,3 +518,26 @@ derivation in addition to the Draft 2020-12 Schema. The committed protocol has
 `create-attempt` and `run` fail before ledger creation or model execution.
 Collection requires a separate reviewed protocol identity and explicit human
 budget authorization; never toggle the frozen manifest in place.
+
+## Formal v4 lifecycle runtime candidate
+
+`benchmarks/manifests/cpp-formal-v4-runtime-candidate.json` binds the Issue
+#105 lifecycle implementation to baseline commit
+`3ac49b92eedecf4932a829e75465dd7ddd16b97e`. It preserves the formal-v4
+attempt limits and analysis plan while connecting one runtime budget to the
+provider, Compiler, submit/clean replay, finalization, cleanup, and runner
+cancellation paths.
+
+Generate and validate the candidate with:
+
+```bash
+python scripts/forge_formal_collection_v4_runtime_protocol.py generate
+python scripts/forge_formal_collection_v4_runtime_protocol.py validate-manifest \
+  benchmarks/manifests/cpp-formal-v4-runtime-candidate.json
+```
+
+The candidate remains `collection_authorized=false`. Its CLI rejects provider
+canary, attempt creation, model execution, and batch execution before evidence
+creation. Complete project blocks, slot count, recorded-token ceiling, evidence
+directory, and network observation require a later experiment-owner decision
+and a new authorized child identity.

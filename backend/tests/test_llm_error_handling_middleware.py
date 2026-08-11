@@ -12,6 +12,8 @@ from deerflow.agents.middlewares.llm_error_handling_middleware import (
     LLMErrorHandlingMiddleware,
 )
 from deerflow.compile.evidence import (
+    AttemptBudgetExceeded,
+    ExperimentAttemptBudget,
     ExperimentLedger,
     ExperimentPolicy,
     activate_experiment,
@@ -215,3 +217,76 @@ def test_active_experiment_records_one_429_attempt_without_exception_text(
     assert events[2]["payload"]["retry_exhausted"] is True
     assert events[3]["payload"]["domain"] == "model_endpoint"
     assert sentinel not in ledger.path.read_text(encoding="utf-8")
+
+
+def test_attempt_budget_rejects_provider_before_handler(
+    tmp_path: Path,
+) -> None:
+    thread_id = new_evidence_id("thread")
+    ledger = ExperimentLedger.create(
+        tmp_path / "attempt-budget.jsonl",
+        experiment_id=new_evidence_id("experiment"),
+        physical_attempt_id=new_evidence_id("physical_attempt"),
+        context={"thread_id": thread_id},
+    )
+    policy = ExperimentPolicy(
+        benchmark_id="forge-cpp-pilot-v1",
+        manifest_sha256="1" * 64,
+        case_id="fmt",
+        condition="baseline",
+        repetition=1,
+        expected_repo_url="https://github.com/fmtlib/fmt.git",
+        expected_commit_sha="2" * 40,
+        expected_build_system="cmake",
+        compile_image="autocompiler:gcc13",
+        image_id=f"sha256:{'3' * 64}",
+        model_name="gpt-5.6-sol",
+        endpoint="https://example.invalid/v1",
+        credential_env="OpenAI_AK",
+        request_timeout_seconds=120,
+        model_max_retries=0,
+        compiler_max_turns=36,
+        subagent_timeout_seconds=180,
+        memory_enabled=False,
+        skills_enabled=False,
+        required_system_packages=(),
+        cmake_arguments=(),
+        configure_arguments=(),
+        environment=(),
+        minimum_replay_delay_seconds=0,
+    )
+    activate_experiment(
+        thread_id=thread_id,
+        experiment_id=ledger.experiment_id,
+        physical_attempt_id=ledger.physical_attempt_id,
+        ledger=ledger,
+        policy=policy,
+        attempt_budget=ExperimentAttemptBudget(
+            total_wall_clock_seconds=60,
+            cleanup_reserve_seconds=10,
+            max_compiler_invocations=2,
+            max_model_requests=1,
+        ),
+    )
+    request = SimpleNamespace(
+        runtime=SimpleNamespace(context={"thread_id": thread_id, "agent_name": "lead"}),
+        model=SimpleNamespace(model_name=policy.model_name, base_url=policy.endpoint),
+    )
+    handler_calls = 0
+
+    def handler(_request) -> AIMessage:
+        nonlocal handler_calls
+        handler_calls += 1
+        return AIMessage(content="ok")
+
+    middleware = LLMErrorHandlingMiddleware()
+    try:
+        assert middleware.wrap_model_call(request, handler).content == "ok"
+        with pytest.raises(AttemptBudgetExceeded):
+            middleware.wrap_model_call(request, handler)
+    finally:
+        deactivate_experiment(thread_id)
+
+    assert handler_calls == 1
+    checkpoints = [event["payload"] for event in ledger.read() if event["event"] == "attempt.budget_checkpoint"]
+    assert [payload["allowed"] for payload in checkpoints] == [True, False]

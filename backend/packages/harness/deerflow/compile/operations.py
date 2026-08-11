@@ -20,6 +20,7 @@ from deerflow.compile.docker_runtime import CONTAINER_REPO_DIR, CONTAINER_WORKSP
 from deerflow.compile.evidence import (
     EvidenceError,
     allowed_command_role,
+    enforce_experiment_attempt_budget,
     get_active_experiment,
     new_evidence_id,
     record_experiment_event,
@@ -1452,6 +1453,10 @@ def submit_build_result_impl(
     session: CompileSession,
     supporting_command_id: str | None = None,
 ) -> str:
+    enforce_experiment_attempt_budget(
+        session.thread_id,
+        "before_submit_or_replay",
+    )
     services = get_compile_services()
     submit_attempt_id = new_evidence_id("submit")
     with services.manager.session_lock(session.thread_id, session.session_id):
@@ -2252,6 +2257,10 @@ def verify_clean_replay_impl(
     submit_attempt_id: str | None = None,
     timeout_seconds: int | None = None,
 ) -> ReplayVerificationResult:
+    enforce_experiment_attempt_budget(
+        session.thread_id,
+        "before_submit_or_replay",
+    )
     services = get_compile_services()
     configured_timeout = getattr(getattr(services.runtime, "config", None), "replay_timeout_seconds", 1200)
     effective_timeout = max(1, timeout_seconds or configured_timeout)
@@ -2632,6 +2641,7 @@ def finalize_compile_session_impl(
     error: str | None = None,
     generate_repro_bundle: bool = True,
 ) -> CompileSession:
+    enforce_experiment_attempt_budget(session.thread_id, "before_finalize")
     services = get_compile_services()
     with services.manager.session_lock(session.thread_id, session.session_id):
         try:
@@ -2809,6 +2819,7 @@ def cleanup_and_finalize_compile_session_impl(
     error: str | None = None,
 ) -> tuple[CompileSession, ContainerCleanupResult]:
     """Clean a session container and persist a terminal result only after cleanup succeeds."""
+    enforce_experiment_attempt_budget(session.thread_id, "before_cleanup")
     services = get_compile_services()
     with services.manager.session_lock(session.thread_id, session.session_id):
         try:
@@ -2916,6 +2927,7 @@ def cleanup_compile_session_container_impl(
     error: str | None = None,
 ) -> tuple[CompileSession, ContainerCleanupResult]:
     """Reload and clean a session container under the session lifecycle lock."""
+    enforce_experiment_attempt_budget(session.thread_id, "before_cleanup")
     services = get_compile_services()
     with services.manager.session_lock(session.thread_id, session.session_id):
         try:

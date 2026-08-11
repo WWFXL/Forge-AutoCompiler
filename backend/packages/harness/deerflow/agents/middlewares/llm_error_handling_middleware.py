@@ -20,6 +20,7 @@ from langchain_core.messages import AIMessage
 from langgraph.errors import GraphBubbleUp
 
 from deerflow.compile.evidence import (
+    enforce_experiment_attempt_budget,
     get_active_experiment,
     model_response_metadata,
     new_evidence_id,
@@ -171,6 +172,7 @@ class LLMErrorHandlingMiddleware(AgentMiddleware[AgentState]):
             request,
             active.policy.model_name if active is not None else "unknown",
         )
+        enforce_experiment_attempt_budget(thread_id, "before_provider_request")
         record_experiment_event(
             thread_id,
             "model.request_started",

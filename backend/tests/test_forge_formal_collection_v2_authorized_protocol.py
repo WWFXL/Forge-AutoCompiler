@@ -20,8 +20,8 @@ CANDIDATE_FILE_SHA256 = {
     "benchmarks/manifests/cpp-formal-v2-collection.json": ("e2537295a33ab52c136121ad02dc1034040bc95d52253944433884f10f629002"),
     "benchmarks/schemas/forge-cpp-formal-collection-v2.schema.json": ("aebe5e227419a47d248f3bbdc7b1cb4edae680acdd852ca1d29538be358f0f30"),
     "scripts/forge_formal_collection_v2_protocol.py": ("f35be9b66801defb5cf924089b00be801c12e121b1d7f33c565493bb08608499"),
-    "scripts/forge_formal_collection_v2_runner.py": ("35f6b23ebbbb1e7bc5b540a0b9bfd627d23b75957095922aa79c2db396b64c4b"),
 }
+FROZEN_CANDIDATE_RUNNER_SHA256 = "35f6b23ebbbb1e7bc5b540a0b9bfd627d23b75957095922aa79c2db396b64c4b"
 
 
 def _load_module(name: str, path: Path):
@@ -98,6 +98,12 @@ def test_candidate_protocol_files_remain_byte_identical() -> None:
     for relative_path, expected in CANDIDATE_FILE_SHA256.items():
         actual = hashlib.sha256((REPO_ROOT / relative_path).read_bytes()).hexdigest()
         assert actual == expected
+
+
+def test_historical_manifests_keep_the_frozen_candidate_runner_identity() -> None:
+    for manifest_path in (PARENT_MANIFEST_PATH, MANIFEST_PATH):
+        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+        assert manifest["protocol_artifact_sha256"]["scripts/forge_formal_collection_v2_runner.py"] == FROZEN_CANDIDATE_RUNNER_SHA256
 
 
 def test_runner_loads_authorized_policy_and_shared_v2_runtime() -> None:

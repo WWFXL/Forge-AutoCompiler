@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+from concurrent.futures import ThreadPoolExecutor
 from dataclasses import replace
 from pathlib import Path
 from types import SimpleNamespace
@@ -9,17 +10,22 @@ from types import SimpleNamespace
 import pytest
 
 from deerflow.compile.evidence import (
+    AttemptBudgetExceeded,
     EvidenceError,
+    ExperimentAttemptBudget,
     ExperimentLedger,
     ExperimentPolicy,
     activate_experiment,
     canonical_json_bytes,
     claim_experiment_clarification_auto_answer,
     deactivate_experiment,
+    enforce_experiment_attempt_budget,
+    experiment_attempt_budget_snapshot,
     get_active_experiment,
     model_response_metadata,
     new_evidence_id,
     record_agent_tool_failure,
+    record_experiment_attempt_budget_completion,
     record_experiment_event,
 )
 from deerflow.tools.builtins.task_tool import _record_subagent_terminal_evidence
@@ -162,6 +168,167 @@ def test_active_experiment_registry_routes_events_to_one_thread(tmp_path: Path) 
     events = ledger.read()
     assert [event["event"] for event in events] == ["experiment.started", "model.request_started"]
     assert get_active_experiment(thread_id) is None
+
+
+def test_attempt_budget_claims_are_atomic_and_hash_chained(tmp_path: Path) -> None:
+    ledger = create_ledger(tmp_path)
+    thread_id = ledger.read()[0]["payload"]["thread_id"]
+    budget = ExperimentAttemptBudget(
+        total_wall_clock_seconds=60,
+        cleanup_reserve_seconds=10,
+        max_compiler_invocations=2,
+        max_model_requests=2,
+    )
+    active = activate_experiment(
+        thread_id=thread_id,
+        experiment_id=ledger.experiment_id,
+        physical_attempt_id=ledger.physical_attempt_id,
+        ledger=ledger,
+        policy=make_policy(),
+        attempt_budget=budget,
+    )
+
+    def claim_provider() -> bool:
+        try:
+            enforce_experiment_attempt_budget(
+                thread_id,
+                "before_provider_request",
+            )
+        except AttemptBudgetExceeded:
+            return False
+        return True
+
+    try:
+        with ThreadPoolExecutor(max_workers=8) as pool:
+            allowed = list(pool.map(lambda _index: claim_provider(), range(8)))
+        snapshot = experiment_attempt_budget_snapshot(thread_id)
+        assert snapshot is not None
+        assert sum(allowed) == 2
+        assert snapshot["model_requests_claimed"] == 2
+        assert snapshot["model_request_limit_reached"] is True
+        completion = record_experiment_attempt_budget_completion(thread_id)
+        assert completion is not None
+        assert completion["model_requests_claimed"] == 2
+    finally:
+        assert deactivate_experiment(thread_id) is active
+
+    events = ExperimentLedger.verify_path(ledger.path)
+    checkpoints = [event for event in events if event["event"] == "attempt.budget_checkpoint"]
+    assert len(checkpoints) == 8
+    assert sum(event["payload"]["allowed"] for event in checkpoints) == 2
+    assert events[-1]["event"] == "attempt.budget_completed"
+
+
+def test_attempt_budget_rejects_third_compiler_claim_atomically(
+    tmp_path: Path,
+) -> None:
+    ledger = create_ledger(tmp_path)
+    thread_id = ledger.read()[0]["payload"]["thread_id"]
+    active = activate_experiment(
+        thread_id=thread_id,
+        experiment_id=ledger.experiment_id,
+        physical_attempt_id=ledger.physical_attempt_id,
+        ledger=ledger,
+        policy=make_policy(),
+        attempt_budget=ExperimentAttemptBudget(
+            total_wall_clock_seconds=60,
+            cleanup_reserve_seconds=10,
+            max_compiler_invocations=2,
+            max_model_requests=48,
+        ),
+    )
+
+    def claim_compiler() -> bool:
+        try:
+            enforce_experiment_attempt_budget(
+                thread_id,
+                "before_compiler_invocation",
+            )
+        except AttemptBudgetExceeded:
+            return False
+        return True
+
+    try:
+        with ThreadPoolExecutor(max_workers=6) as pool:
+            allowed = list(pool.map(lambda _index: claim_compiler(), range(6)))
+        snapshot = experiment_attempt_budget_snapshot(thread_id)
+        assert snapshot is not None
+        assert sum(allowed) == 2
+        assert snapshot["compiler_invocations_claimed"] == 2
+        assert snapshot["compiler_invocations_completed"] == 0
+    finally:
+        assert deactivate_experiment(thread_id) is active
+
+
+def test_attempt_budget_rejects_new_work_but_never_cleanup(tmp_path: Path) -> None:
+    ledger = create_ledger(tmp_path)
+    thread_id = ledger.read()[0]["payload"]["thread_id"]
+    now = [100.0]
+    active = activate_experiment(
+        thread_id=thread_id,
+        experiment_id=ledger.experiment_id,
+        physical_attempt_id=ledger.physical_attempt_id,
+        ledger=ledger,
+        policy=make_policy(),
+        attempt_budget=ExperimentAttemptBudget(
+            total_wall_clock_seconds=20,
+            cleanup_reserve_seconds=5,
+            max_compiler_invocations=2,
+            max_model_requests=48,
+        ),
+        monotonic_clock=lambda: now[0],
+    )
+    try:
+        now[0] = 115.0
+        with pytest.raises(AttemptBudgetExceeded) as rejected:
+            enforce_experiment_attempt_budget(
+                thread_id,
+                "before_submit_or_replay",
+            )
+        assert rejected.value.classification == "attempt_budget_exhausted"
+
+        now[0] = 121.0
+        finalize = enforce_experiment_attempt_budget(
+            thread_id,
+            "before_finalize",
+        )
+        cleanup = enforce_experiment_attempt_budget(
+            thread_id,
+            "before_cleanup",
+        )
+        assert finalize is not None
+        assert cleanup is not None
+        assert finalize["within_total_wall_clock"] is False
+        assert cleanup["cleanup_required"] is True
+    finally:
+        assert deactivate_experiment(thread_id) is active
+
+
+def test_experiment_without_attempt_budget_preserves_legacy_behavior(
+    tmp_path: Path,
+) -> None:
+    ledger = create_ledger(tmp_path)
+    thread_id = ledger.read()[0]["payload"]["thread_id"]
+    active = activate_experiment(
+        thread_id=thread_id,
+        experiment_id=ledger.experiment_id,
+        physical_attempt_id=ledger.physical_attempt_id,
+        ledger=ledger,
+        policy=make_policy(),
+    )
+    try:
+        assert (
+            enforce_experiment_attempt_budget(
+                thread_id,
+                "before_provider_request",
+            )
+            is None
+        )
+        assert experiment_attempt_budget_snapshot(thread_id) is None
+    finally:
+        assert deactivate_experiment(thread_id) is active
+
+    assert [event["event"] for event in ledger.read()] == ["experiment.started"]
 
 
 @pytest.mark.parametrize(
