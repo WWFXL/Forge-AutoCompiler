@@ -45,7 +45,7 @@ COMPILE_IMAGE = "autocompiler:gcc13"
 ALLOWED_MODELS = {
     "gpt-5.5": {
         "provider": "richlab",
-        "endpoint": "https://richlab-api-x.choosefire.com/v1",
+        "endpoint": "https://rich-api.choosefire.com/v1",
         "credential_env": "OpenAI_AK",
     },
     "deepseek-v4-flash": {

@@ -1,0 +1,204 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/WWFXL/Forge-AutoCompiler/benchmarks/schemas/forge-cpp-formal-collection-v3-authorized.schema.json",
+  "title": "Forge C/C++ authorized formal collection v3",
+  "type": "object",
+  "required": [
+    "$schema",
+    "schema_version",
+    "document_type",
+    "scope",
+    "source_protocols",
+    "forge",
+    "protocol_artifact_sha256",
+    "prompt_sha256",
+    "runtime",
+    "budget",
+    "conditions",
+    "collection_plan",
+    "schedule_sha256",
+    "cases",
+    "authorization"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "formal-collection-3.1.0"
+    },
+    "document_type": {
+      "const": "manifest"
+    },
+    "scope": {
+      "type": "object",
+      "required": [
+        "collection_authorized",
+        "formal_comparison_enabled"
+      ],
+      "properties": {
+        "collection_authorized": {
+          "const": true
+        },
+        "formal_comparison_enabled": {
+          "const": true
+        }
+      }
+    },
+    "source_protocols": {
+      "type": "object"
+    },
+    "forge": {
+      "type": "object",
+      "required": [
+        "commit_sha",
+        "component_sha256"
+      ],
+      "properties": {
+        "commit_sha": {
+          "const": "0b3f0b209afa7e59dd409d383db87ab6ed393c80"
+        },
+        "component_sha256": {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          }
+        }
+      }
+    },
+    "protocol_artifact_sha256": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "type": "string",
+        "pattern": "^[0-9a-f]{64}$"
+      }
+    },
+    "prompt_sha256": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "type": "string",
+        "pattern": "^[0-9a-f]{64}$"
+      }
+    },
+    "runtime": {
+      "type": "object",
+      "required": [
+        "image_id",
+        "control_plane_topology",
+        "max_parallel_runs"
+      ],
+      "properties": {
+        "image_id": {
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        },
+        "control_plane_topology": {
+          "const": "compose-dood"
+        },
+        "max_parallel_runs": {
+          "const": 1
+        }
+      }
+    },
+    "budget": {
+      "type": "object"
+    },
+    "conditions": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2
+    },
+    "collection_plan": {
+      "type": "array",
+      "minItems": 180,
+      "maxItems": 180
+    },
+    "schedule_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "cases": {
+      "type": "array",
+      "minItems": 30,
+      "maxItems": 30
+    },
+    "authorization": {
+      "type": "object",
+      "required": [
+        "id",
+        "status",
+        "authorized_by",
+        "authorized_on",
+        "issue_url",
+        "network_observation",
+        "budget_confirmation",
+        "collection_constraints",
+        "excluded_v2_launch",
+        "parent_manifest"
+      ],
+      "properties": {
+        "status": {
+          "const": "authorized_initial_batch"
+        },
+        "network_observation": {
+          "type": "object",
+          "required": [
+            "access_medium",
+            "browser_ui_required"
+          ],
+          "properties": {
+            "access_medium": {
+              "const": "mobile_hotspot"
+            },
+            "browser_ui_required": {
+              "const": false
+            }
+          }
+        },
+        "budget_confirmation": {
+          "type": "object",
+          "required": [
+            "confirmed",
+            "maximum_recorded_tokens",
+            "enforcement"
+          ],
+          "properties": {
+            "confirmed": {
+              "const": true
+            },
+            "maximum_recorded_tokens": {
+              "const": 1633165
+            },
+            "enforcement": {
+              "const": "stop_before_next_slot_when_recorded_total_reaches_limit"
+            }
+          }
+        },
+        "collection_constraints": {
+          "type": "object",
+          "required": [
+            "initial_batch_size",
+            "authorized_slot_count",
+            "remaining_slots_require_additional_confirmation",
+            "evidence_directory"
+          ],
+          "properties": {
+            "initial_batch_size": {
+              "const": 10
+            },
+            "authorized_slot_count": {
+              "const": 10
+            },
+            "remaining_slots_require_additional_confirmation": {
+              "const": true
+            },
+            "evidence_directory": {
+              "const": "/workspace/.compile-sessions/benchmark-evidence-formal-v3-authorized"
+            }
+          }
+        }
+      }
+    }
+  },
+  "additionalProperties": true
+}
