@@ -279,6 +279,7 @@
 <!-- 工作中踩过的坑、限制或意外行为。 -->
 
 - Compose 同时把脚本挂到 `/app/scripts`、完整仓库挂到 `/repo`；仅设置 `FORGE_REPO_ROOT=/repo` 不足以修复版本化协议链，因为先导入的父 runner 会把 `/app` 根协议放入 `sys.modules`。runtime adapter 必须先从 `/repo/scripts` 导入协议链，再导入父 runner；preflight 还必须使用 `/app/backend/.venv/bin/python` 和 `/workspace/.compile-sessions` 子目录，否则解释器、runtime import 与 evidence 持久化 gate 会按设计拒绝。
+- 历史 formal manifest 应冻结当时的 runner SHA，但共享基础 runner 会由后续版本继续演进；回归测试应直接断言历史 manifest 中的旧 identity 保持不变，并由新版本 manifest 绑定当前 runtime，不能要求工作树中的共享 runner 永远等于最早候选字节。旧协议遇到 current-tree runtime 漂移时拒绝执行是预期 gate。
 - 后端 CI 从 `backend/` 运行 `uvx ruff` 并加载 `backend/ruff.toml`（当前行宽 240）。对 `backend/tests/` 显式传 `backend/pyproject.toml` 会使用不同格式规则，可能出现本地 format check 通过但 CI 要求反向格式化；本地复核必须使用 `backend/ruff.toml` 或从 `backend/` 工作目录运行与 CI 相同的命令。
 - 修改 `.env` 后仅 `docker compose restart` 不会重新加载环境，必须 recreate Gateway/LangGraph。直接调用开发 Compose 还必须显式提供 `DEER_FLOW_ROOT`；否则在配置插值阶段退出。优先使用 `scripts/docker.sh`，定向 recreate 时传完整 WSL 绝对路径，避免 PowerShell 提前展开 `$repo`。
 - formal canary 的 endpoint preflight 失败发生在模型调用和报告创建之前；真实 provider 请求超时则会留下不可变 canary 报告。恢复前必须分别核对 report 数、formal JSONL 数和 orphan 数，不能把“没有报告”误写成模型失败。
