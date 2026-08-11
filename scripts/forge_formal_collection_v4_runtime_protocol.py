@@ -7,13 +7,16 @@ import argparse
 import copy
 import hashlib
 import json
+import os
 import sys
 from pathlib import Path
 from typing import Any
 
 SCRIPT_ROOT = Path(__file__).resolve().parent
-if str(SCRIPT_ROOT) not in sys.path:
-    sys.path.insert(0, str(SCRIPT_ROOT))
+REPOSITORY_ROOT = Path(os.environ.get("FORGE_REPO_ROOT", SCRIPT_ROOT.parent)).resolve()
+REPOSITORY_SCRIPT_ROOT = REPOSITORY_ROOT / "scripts"
+if str(REPOSITORY_SCRIPT_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPOSITORY_SCRIPT_ROOT))
 
 import forge_benchmark as v1  # noqa: E402
 import forge_formal_collection_v4_protocol as parent_protocol  # noqa: E402
@@ -23,7 +26,6 @@ SCHEMA_VERSION = "formal-collection-4.1.0-runtime-candidate"
 BASELINE_COMMIT = "3ac49b92eedecf4932a829e75465dd7ddd16b97e"
 REVISION_POLICY = parent_protocol.REVISION_POLICY
 CONTROL_PLANE_TOPOLOGY = parent_protocol.CONTROL_PLANE_TOPOLOGY
-REPOSITORY_ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_PARENT_MANIFEST = REPOSITORY_ROOT / "benchmarks" / "manifests" / "cpp-formal-v4-collection.json"
 DEFAULT_MANIFEST = REPOSITORY_ROOT / "benchmarks" / "manifests" / "cpp-formal-v4-runtime-candidate.json"
 DEFAULT_SCHEMA = REPOSITORY_ROOT / "benchmarks" / "schemas" / "forge-cpp-formal-collection-v4-runtime-candidate.schema.json"

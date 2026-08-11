@@ -8,8 +8,9 @@
 - 2026-08-11 — Issue #105 正在接通 formal v4 physical-attempt 生命周期预算
   - 已实现: experiment evidence 保存单调时钟与原子 claim；provider、Compiler、submit/replay、finalize、cleanup 使用同一预算上下文，基础 runner 在工作 deadline 主动取消 async agent stream，并在强制收口后记录 overrun 快照。
   - 已验证: 聚焦/扩大单元回归 `227 passed`；真实 WSL/DooD Docker Session 在 submit 被截止拒绝后仍完成 `timed_out` finalization、容器删除和 0 orphan。
-  - 协议候选: 实现基线已提交为 `3ac49b92eedecf4932a829e75465dd7ddd16b97e`；未授权 `formal-collection-4.1.0-runtime-candidate` 已派生，canonical SHA-256 为 `5e3675f2c07c665d672bd1eb07c328c27d8fead922754f96b9189384b71ee9f4`，旧 v4 父文件保持逐字不变。
-  - 待完成: 提交 runtime candidate；完成扩大回归、真实 Compose preflight、PR/CI 和知识库同步。任何 provider canary、模型执行、v4 ledger 与正式采集仍禁止。
+  - 协议候选: 实现基线已提交为 `3ac49b92eedecf4932a829e75465dd7ddd16b97e`；未授权 `formal-collection-4.1.0-runtime-candidate` 已派生，canonical SHA-256 为 `d1c211e638ee2fd71c5c2f9e70f250306a131f9ae8759c9bd064e48a96252473`，旧 v4 父文件保持逐字不变。
+  - 已验证: 最终候选聚焦测试 `12 passed`，扩大回归 `227 passed`，真实 Docker 生命周期 `1 passed`；Compose/DooD preflight 11/11 通过，未授权 provider canary 明确拒绝且 0 evidence。Ruff、Schema、冻结父文件、diff 与敏感信息检查通过。
+  - 待完成: 提交并推送容器路径修复，创建 PR、等待 CI/合并并同步知识库。任何真实 provider canary、模型执行、v4 ledger 与正式采集仍禁止。
 
 ## 最近变更 (Recent Changes)
 <!-- 倒序，最新在上。 -->
@@ -277,6 +278,7 @@
 ## 已知问题 (Known Issues / Pitfalls)
 <!-- 工作中踩过的坑、限制或意外行为。 -->
 
+- Compose 同时把脚本挂到 `/app/scripts`、完整仓库挂到 `/repo`；仅设置 `FORGE_REPO_ROOT=/repo` 不足以修复版本化协议链，因为先导入的父 runner 会把 `/app` 根协议放入 `sys.modules`。runtime adapter 必须先从 `/repo/scripts` 导入协议链，再导入父 runner；preflight 还必须使用 `/app/backend/.venv/bin/python` 和 `/workspace/.compile-sessions` 子目录，否则解释器、runtime import 与 evidence 持久化 gate 会按设计拒绝。
 - 后端 CI 从 `backend/` 运行 `uvx ruff` 并加载 `backend/ruff.toml`（当前行宽 240）。对 `backend/tests/` 显式传 `backend/pyproject.toml` 会使用不同格式规则，可能出现本地 format check 通过但 CI 要求反向格式化；本地复核必须使用 `backend/ruff.toml` 或从 `backend/` 工作目录运行与 CI 相同的命令。
 - 修改 `.env` 后仅 `docker compose restart` 不会重新加载环境，必须 recreate Gateway/LangGraph。直接调用开发 Compose 还必须显式提供 `DEER_FLOW_ROOT`；否则在配置插值阶段退出。优先使用 `scripts/docker.sh`，定向 recreate 时传完整 WSL 绝对路径，避免 PowerShell 提前展开 `$repo`。
 - formal canary 的 endpoint preflight 失败发生在模型调用和报告创建之前；真实 provider 请求超时则会留下不可变 canary 报告。恢复前必须分别核对 report 数、formal JSONL 数和 orphan 数，不能把“没有报告”误写成模型失败。

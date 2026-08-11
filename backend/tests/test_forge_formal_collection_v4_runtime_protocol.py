@@ -4,6 +4,10 @@ import copy
 import hashlib
 import importlib.util
 import json
+import os
+import shutil
+import subprocess
+import sys
 from pathlib import Path
 
 import jsonschema
@@ -68,6 +72,66 @@ def test_runtime_candidate_is_schema_valid_deterministic_and_unapproved() -> Non
     schema = json.loads(SCHEMA_PATH.read_text(encoding="utf-8"))
     jsonschema.Draft202012Validator.check_schema(schema)
     jsonschema.validate(manifest, schema)
+
+
+def test_runtime_protocol_resolves_parent_modules_from_repository_root(
+    tmp_path: Path,
+) -> None:
+    relocated_script_root = tmp_path / "app" / "scripts"
+    relocated_script_root.mkdir(parents=True)
+    relocated_protocol = relocated_script_root / PROTOCOL_PATH.name
+    shutil.copyfile(PROTOCOL_PATH, relocated_protocol)
+    env = {**os.environ, "FORGE_REPO_ROOT": str(REPO_ROOT)}
+
+    result = subprocess.run(
+        [
+            sys.executable,
+            str(relocated_protocol),
+            "validate-manifest",
+            str(MANIFEST_PATH),
+        ],
+        cwd=tmp_path,
+        env=env,
+        capture_output=True,
+        text=True,
+        timeout=30,
+        check=False,
+    )
+
+    assert result.returncode == 0, result.stderr
+    assert '"status": "valid"' in result.stdout
+
+
+def test_runtime_runner_resolves_parent_modules_before_rejecting_action(
+    tmp_path: Path,
+) -> None:
+    relocated_script_root = tmp_path / "app" / "scripts"
+    relocated_script_root.mkdir(parents=True)
+    relocated_runner = relocated_script_root / RUNNER_PATH.name
+    shutil.copyfile(PROTOCOL_PATH, relocated_script_root / PROTOCOL_PATH.name)
+    shutil.copyfile(RUNNER_PATH, relocated_runner)
+    output_dir = tmp_path / "evidence"
+    env = {**os.environ, "FORGE_REPO_ROOT": str(REPO_ROOT)}
+
+    result = subprocess.run(
+        [
+            sys.executable,
+            str(relocated_runner),
+            "provider-canary",
+            "--output-dir",
+            str(output_dir),
+        ],
+        cwd=tmp_path,
+        env=env,
+        capture_output=True,
+        text=True,
+        timeout=30,
+        check=False,
+    )
+
+    assert result.returncode == 2
+    assert "runtime candidate is not authorized" in result.stderr
+    assert not output_dir.exists()
 
 
 def test_runtime_candidate_preserves_v4_design_and_parent_bytes() -> None:

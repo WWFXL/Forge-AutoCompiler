@@ -14,8 +14,11 @@ SCRIPT_ROOT = Path(__file__).resolve().parent
 if str(SCRIPT_ROOT) not in sys.path:
     sys.path.insert(0, str(SCRIPT_ROOT))
 
-import forge_formal_collection_v4_runner as parent_runner  # noqa: E402
 import forge_formal_collection_v4_runtime_protocol as protocol  # noqa: E402
+
+# The protocol establishes the repository import root before the parent loads.
+# isort: split
+import forge_formal_collection_v4_runner as parent_runner  # noqa: E402
 
 _runner = parent_runner._load_private_base_runner()
 _original_manifest_protocol = _runner._manifest_protocol
