@@ -45,12 +45,17 @@ import forge_formal_collection_v2_protocol as protocol_formal_collection  # noqa
 import forge_formal_runtime_protocol as protocol_formal  # noqa: E402
 
 from deerflow.compile.evidence import (  # noqa: E402
+    AttemptBudgetExceeded,
     EvidenceError,
+    ExperimentAttemptBudget,
     ExperimentLedger,
     ExperimentPolicy,
     activate_experiment,
     deactivate_experiment,
+    enforce_experiment_attempt_budget,
     new_evidence_id,
+    record_experiment_attempt_budget_completion,
+    remaining_experiment_work_seconds,
 )
 
 
@@ -1526,6 +1531,28 @@ async def _consume_client_stream(
     }
 
 
+async def _consume_client_stream_with_attempt_budget(
+    client: Any,
+    message: str,
+    *,
+    thread_id: str,
+) -> dict[str, int | bool]:
+    remaining_seconds = remaining_experiment_work_seconds(thread_id)
+    if remaining_seconds is None:
+        return await _consume_client_stream(client, message, thread_id=thread_id)
+    if remaining_seconds <= 0:
+        enforce_experiment_attempt_budget(thread_id, "before_submit_or_replay")
+        raise AssertionError("attempt-budget enforcement did not reject an expired run")
+    try:
+        return await asyncio.wait_for(
+            _consume_client_stream(client, message, thread_id=thread_id),
+            timeout=remaining_seconds,
+        )
+    except TimeoutError:
+        enforce_experiment_attempt_budget(thread_id, "before_submit_or_replay")
+        raise AssertionError("attempt-budget enforcement did not classify the timeout")
+
+
 @contextmanager
 def _benchmark_memory_scope(policy: ExperimentPolicy):
     from deerflow.config.memory_config import (
@@ -1569,6 +1596,7 @@ def run_attempt(
     ledger_path: Path,
     *,
     async_runner: asyncio.Runner | None = None,
+    attempt_budget: ExperimentAttemptBudget | None = None,
 ) -> dict[str, Any]:
     if manifest.get("scope", {}).get("collection_authorized") is False:
         raise RunnerError("Formal collection is not authorized; model execution is forbidden")
@@ -1617,8 +1645,17 @@ def run_attempt(
         physical_attempt_id=ledger.physical_attempt_id,
         ledger=ledger,
         policy=policy,
+        attempt_budget=attempt_budget,
     )
     run_status = "failed"
+    attempt_budget_exhausted = False
+    attempt_budget_completion = None
+    reconciliation = {
+        "scan_succeeded": False,
+        "orphan_count": 0,
+        "removed_count": 0,
+        "cleanup_succeeded": False,
+    }
     session_finalization_succeeded = False
     build_identity_snapshot_recorded = manifest["schema_version"] not in {
         protocol_v5.SCHEMA_VERSION,
@@ -1638,7 +1675,7 @@ def run_attempt(
                 plan_mode=False,
                 available_skills=set(),
             )
-            stream_coro = _consume_client_stream(
+            stream_coro = _consume_client_stream_with_attempt_budget(
                 client,
                 _attempt_message(policy),
                 thread_id=thread_id,
@@ -1660,57 +1697,63 @@ def run_attempt(
             )
         run_status = "completed"
     except BaseException as exc:
+        attempt_budget_exhausted = isinstance(exc, AttemptBudgetExceeded)
         ledger.append(
             "run.failed",
             {
                 "failure_id": new_evidence_id("failure"),
-                "classification": type(exc).__name__,
+                "classification": (exc.classification if attempt_budget_exhausted else type(exc).__name__),
             },
         )
         if isinstance(exc, (KeyboardInterrupt, SystemExit)):
             raise
     finally:
-        interrupted_status = "failed" if run_status == "failed" else None
-        termination_error = "Benchmark run ended before compile session finalization." if interrupted_status is not None else None
-        session_finalization_succeeded = _finalize_attempt_sessions(
-            thread_id,
-            interrupted_status=interrupted_status,
-            error=termination_error,
-        )
-        deactivate_experiment(thread_id)
-        reconciliation = reconcile_orphans(ledger.physical_attempt_id)
-        if not session_finalization_succeeded and reconciliation["cleanup_succeeded"]:
+        try:
+            interrupted_status = "timed_out" if attempt_budget_exhausted else ("failed" if run_status == "failed" else None)
+            termination_error = (
+                "Physical-attempt budget was exhausted before compile session finalization." if attempt_budget_exhausted else ("Benchmark run ended before compile session finalization." if interrupted_status is not None else None)
+            )
             session_finalization_succeeded = _finalize_attempt_sessions(
                 thread_id,
                 interrupted_status=interrupted_status,
                 error=termination_error,
             )
-        if manifest["schema_version"] in {
-            protocol_v5.SCHEMA_VERSION,
-            protocol_v6.SCHEMA_VERSION,
-            protocol_v7.SCHEMA_VERSION,
-            protocol_v8.SCHEMA_VERSION,
-            protocol_formal_collection.SCHEMA_VERSION,
-        }:
-            build_identity_snapshot_recorded = _record_attempt_build_identity(thread_id, ledger)
-        ledger.append("orphan.reconciled", reconciliation)
+            reconciliation = reconcile_orphans(ledger.physical_attempt_id)
+            if not session_finalization_succeeded and reconciliation["cleanup_succeeded"]:
+                session_finalization_succeeded = _finalize_attempt_sessions(
+                    thread_id,
+                    interrupted_status=interrupted_status,
+                    error=termination_error,
+                )
+            if manifest["schema_version"] in {
+                protocol_v5.SCHEMA_VERSION,
+                protocol_v6.SCHEMA_VERSION,
+                protocol_v7.SCHEMA_VERSION,
+                protocol_v8.SCHEMA_VERSION,
+                protocol_formal_collection.SCHEMA_VERSION,
+            }:
+                build_identity_snapshot_recorded = _record_attempt_build_identity(thread_id, ledger)
+            ledger.append("orphan.reconciled", reconciliation)
+            attempt_budget_completion = record_experiment_attempt_budget_completion(thread_id)
+        finally:
+            deactivate_experiment(thread_id)
 
     events = ledger.read()
     gates = recompute_gates(events)
     oracle = run_oracle(manifest, events)
     ledger.append("oracle.completed", oracle)
     final_status = "passed" if run_status == "completed" and gates["valid"] and oracle["passed"] and reconciliation["cleanup_succeeded"] and session_finalization_succeeded and build_identity_snapshot_recorded else "failed"
-    ledger.append(
-        "experiment.completed",
-        {
-            "status": final_status,
-            "gate_recomputation_valid": gates["valid"],
-            "oracle_passed": oracle["passed"],
-            "orphan_cleanup_succeeded": reconciliation["cleanup_succeeded"],
-            "session_finalization_succeeded": session_finalization_succeeded,
-            "build_identity_snapshot_recorded": build_identity_snapshot_recorded,
-        },
-    )
+    completion_payload = {
+        "status": final_status,
+        "gate_recomputation_valid": gates["valid"],
+        "oracle_passed": oracle["passed"],
+        "orphan_cleanup_succeeded": reconciliation["cleanup_succeeded"],
+        "session_finalization_succeeded": session_finalization_succeeded,
+        "build_identity_snapshot_recorded": build_identity_snapshot_recorded,
+    }
+    if attempt_budget_completion is not None:
+        completion_payload["attempt_budget"] = attempt_budget_completion
+    ledger.append("experiment.completed", completion_payload)
     return {
         "status": final_status,
         "gate_recomputation": gates,
@@ -1718,6 +1761,7 @@ def run_attempt(
         "orphan_reconciliation": reconciliation,
         "session_finalization_succeeded": session_finalization_succeeded,
         "build_identity_snapshot_recorded": build_identity_snapshot_recorded,
+        "attempt_budget": attempt_budget_completion,
     }
 
 

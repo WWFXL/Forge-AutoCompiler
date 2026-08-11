@@ -5,6 +5,11 @@
 ## 进行中 (In Progress)
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
+- 2026-08-11 — Issue #105 正在接通 formal v4 physical-attempt 生命周期预算
+  - 已实现: experiment evidence 保存单调时钟与原子 claim；provider、Compiler、submit/replay、finalize、cleanup 使用同一预算上下文，基础 runner 在工作 deadline 主动取消 async agent stream，并在强制收口后记录 overrun 快照。
+  - 已验证: 聚焦/扩大单元回归 `227 passed`；真实 WSL/DooD Docker Session 在 submit 被截止拒绝后仍完成 `timed_out` finalization、容器删除和 0 orphan。
+  - 待完成: 提交实现基线；以该 SHA 派生未授权 `formal-collection-4.1.0` runtime candidate；完成扩大回归、PR/CI 和知识库同步。任何 provider canary、模型执行、v4 ledger 与正式采集仍禁止。
+
 ## 最近变更 (Recent Changes)
 <!-- 倒序，最新在上。 -->
 

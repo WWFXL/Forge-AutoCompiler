@@ -7,10 +7,11 @@ import os
 import re
 import tempfile
 import threading
+import time
 import uuid
-from collections.abc import Iterator
+from collections.abc import Callable, Iterator
 from contextlib import contextmanager
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path, PurePosixPath
 from typing import Any
 from urllib.parse import urlsplit
@@ -85,10 +86,72 @@ _ALLOWED_SUBAGENT_FAILURE_CLASSIFICATIONS = {
     "subagent_timeout",
     "tracking_lost",
 }
+_ATTEMPT_BUDGET_CHECKPOINTS = {
+    "before_provider_request",
+    "before_compiler_invocation",
+    "before_submit_or_replay",
+    "before_finalize",
+    "before_cleanup",
+}
 
 
 class EvidenceError(ValueError):
     pass
+
+
+class AttemptBudgetExceeded(RuntimeError):
+    """Raised before new experiment work would exceed its frozen attempt budget."""
+
+    def __init__(self, checkpoint: str, classification: str):
+        self.checkpoint = checkpoint
+        self.classification = classification
+        super().__init__(f"Physical-attempt budget rejected {checkpoint}: {classification}")
+
+
+@dataclass(frozen=True)
+class ExperimentAttemptBudget:
+    total_wall_clock_seconds: int
+    cleanup_reserve_seconds: int
+    max_compiler_invocations: int
+    max_model_requests: int
+    terminal_classification: str = "attempt_budget_exhausted"
+
+    def __post_init__(self) -> None:
+        for name in (
+            "total_wall_clock_seconds",
+            "max_compiler_invocations",
+            "max_model_requests",
+        ):
+            if type(getattr(self, name)) is not int or getattr(self, name) < 1:
+                raise EvidenceError(f"{name} must be a positive integer")
+        if type(self.cleanup_reserve_seconds) is not int or self.cleanup_reserve_seconds < 0 or self.cleanup_reserve_seconds >= self.total_wall_clock_seconds:
+            raise EvidenceError("cleanup_reserve_seconds must be non-negative and smaller than the total wall clock")
+        if not isinstance(self.terminal_classification, str) or not _BOUNDED_IDENTIFIER_RE.fullmatch(self.terminal_classification):
+            raise EvidenceError("terminal_classification must be a bounded identifier")
+
+    @classmethod
+    def from_mapping(cls, value: dict[str, Any]) -> ExperimentAttemptBudget:
+        return cls(
+            total_wall_clock_seconds=value["total_wall_clock_seconds"],
+            cleanup_reserve_seconds=value["cleanup_reserve_seconds"],
+            max_compiler_invocations=value["max_compiler_invocations"],
+            max_model_requests=value["max_model_requests"],
+            terminal_classification=value.get("terminal_classification", "attempt_budget_exhausted"),
+        )
+
+    @property
+    def work_deadline_seconds(self) -> int:
+        return self.total_wall_clock_seconds - self.cleanup_reserve_seconds
+
+
+@dataclass
+class _ExperimentAttemptBudgetRuntime:
+    policy: ExperimentAttemptBudget
+    clock: Callable[[], float]
+    started_monotonic: float
+    model_requests_claimed: int = 0
+    compiler_invocations_claimed: int = 0
+    lock: threading.RLock = field(default_factory=threading.RLock)
 
 
 def new_evidence_id(prefix: str) -> str:
@@ -160,7 +223,88 @@ def _validate_safe_value(value: Any, path: str = "payload") -> None:
     raise EvidenceError(f"{path} contains unsupported value type {type(value).__name__}")
 
 
+def _validate_attempt_budget_snapshot(value: Any, path: str) -> None:
+    required = {
+        "elapsed_seconds",
+        "work_deadline_seconds",
+        "total_wall_clock_seconds",
+        "cleanup_reserve_seconds",
+        "model_requests_claimed",
+        "maximum_model_requests",
+        "compiler_invocations_claimed",
+        "compiler_invocations_completed",
+        "maximum_compiler_invocations",
+        "work_deadline_reached",
+        "model_request_limit_reached",
+        "compiler_invocation_limit_reached",
+        "within_total_wall_clock",
+        "cleanup_required",
+        "terminal_classification",
+    }
+    if not isinstance(value, dict) or set(value) != required:
+        raise EvidenceError(f"{path} has an invalid attempt-budget snapshot schema")
+    elapsed = value["elapsed_seconds"]
+    if type(elapsed) not in (int, float) or not math.isfinite(elapsed) or elapsed < 0:
+        raise EvidenceError(f"{path}.elapsed_seconds must be finite and non-negative")
+    for key in (
+        "work_deadline_seconds",
+        "total_wall_clock_seconds",
+        "maximum_model_requests",
+        "maximum_compiler_invocations",
+    ):
+        if type(value[key]) is not int or value[key] < 1:
+            raise EvidenceError(f"{path}.{key} must be positive")
+    for key in (
+        "cleanup_reserve_seconds",
+        "model_requests_claimed",
+        "compiler_invocations_claimed",
+        "compiler_invocations_completed",
+    ):
+        if type(value[key]) is not int or value[key] < 0:
+            raise EvidenceError(f"{path}.{key} must be non-negative")
+    for key in (
+        "work_deadline_reached",
+        "model_request_limit_reached",
+        "compiler_invocation_limit_reached",
+        "within_total_wall_clock",
+        "cleanup_required",
+    ):
+        if type(value[key]) is not bool:
+            raise EvidenceError(f"{path}.{key} must be boolean")
+    if not isinstance(value["terminal_classification"], str) or not _BOUNDED_IDENTIFIER_RE.fullmatch(value["terminal_classification"]):
+        raise EvidenceError(f"{path}.terminal_classification is invalid")
+
+
 def _validate_agent_event_payload(event: str, payload: dict[str, Any], path: str = "payload") -> None:
+    if event == "attempt.budget_checkpoint":
+        if set(payload) != {
+            "checkpoint",
+            "allowed",
+            "rejection_classification",
+            "snapshot",
+        }:
+            raise EvidenceError(f"{path} has an invalid attempt.budget_checkpoint schema")
+        if payload["checkpoint"] not in _ATTEMPT_BUDGET_CHECKPOINTS:
+            raise EvidenceError(f"{path}.checkpoint is invalid")
+        if type(payload["allowed"]) is not bool:
+            raise EvidenceError(f"{path}.allowed must be boolean")
+        classification = payload["rejection_classification"]
+        if payload["allowed"]:
+            if classification is not None:
+                raise EvidenceError(f"{path}.rejection_classification must be null when allowed")
+        elif classification not in {
+            "work_deadline_reached",
+            "model_request_limit_reached",
+            "compiler_invocation_limit_reached",
+        }:
+            raise EvidenceError(f"{path}.rejection_classification is invalid")
+        _validate_attempt_budget_snapshot(payload["snapshot"], f"{path}.snapshot")
+        return
+
+    if event == "attempt.budget_completed":
+        _validate_attempt_budget_snapshot(payload, path)
+        return
+
     if event == "build.identity_snapshot":
         required = {
             "session_id",
@@ -495,6 +639,7 @@ class ActiveExperiment:
     physical_attempt_id: str
     ledger: ExperimentLedger
     policy: ExperimentPolicy
+    attempt_budget: _ExperimentAttemptBudgetRuntime | None = None
 
 
 _PATH_LOCKS: dict[Path, threading.RLock] = {}
@@ -692,6 +837,8 @@ def activate_experiment(
     physical_attempt_id: str,
     ledger: ExperimentLedger,
     policy: ExperimentPolicy,
+    attempt_budget: ExperimentAttemptBudget | None = None,
+    monotonic_clock: Callable[[], float] = time.monotonic,
 ) -> ActiveExperiment:
     if not thread_id or any(character in thread_id for character in ("\0", "\r", "\n")):
         raise EvidenceError("A safe thread_id is required to activate experiment evidence")
@@ -701,6 +848,15 @@ def activate_experiment(
         physical_attempt_id=_validate_id(physical_attempt_id, "physical_attempt_id"),
         ledger=ledger,
         policy=policy,
+        attempt_budget=(
+            _ExperimentAttemptBudgetRuntime(
+                policy=attempt_budget,
+                clock=monotonic_clock,
+                started_monotonic=monotonic_clock(),
+            )
+            if attempt_budget is not None
+            else None
+        ),
     )
     if ledger.experiment_id != active.experiment_id or ledger.physical_attempt_id != active.physical_attempt_id:
         raise EvidenceError("Active experiment identity does not match its ledger")
@@ -721,6 +877,118 @@ def get_active_experiment(thread_id: str | None) -> ActiveExperiment | None:
         return None
     with _ACTIVE_EXPERIMENTS_GUARD:
         return _ACTIVE_EXPERIMENTS.get(thread_id)
+
+
+def _attempt_budget_snapshot_locked(active: ActiveExperiment) -> dict[str, Any]:
+    runtime = active.attempt_budget
+    if runtime is None:
+        raise EvidenceError("The active experiment has no attempt budget")
+    elapsed_seconds = max(0.0, runtime.clock() - runtime.started_monotonic)
+    events = active.ledger.read()
+    compiler_invocations_completed = sum(event["event"] == "agent.subagent_terminated" and event["payload"].get("role") == "compiler" for event in events)
+    policy = runtime.policy
+    work_deadline_reached = elapsed_seconds >= policy.work_deadline_seconds
+    model_request_limit_reached = runtime.model_requests_claimed >= policy.max_model_requests
+    compiler_invocation_limit_reached = compiler_invocations_completed >= policy.max_compiler_invocations
+    return {
+        "elapsed_seconds": round(elapsed_seconds, 6),
+        "work_deadline_seconds": policy.work_deadline_seconds,
+        "total_wall_clock_seconds": policy.total_wall_clock_seconds,
+        "cleanup_reserve_seconds": policy.cleanup_reserve_seconds,
+        "model_requests_claimed": runtime.model_requests_claimed,
+        "maximum_model_requests": policy.max_model_requests,
+        "compiler_invocations_claimed": runtime.compiler_invocations_claimed,
+        "compiler_invocations_completed": compiler_invocations_completed,
+        "maximum_compiler_invocations": policy.max_compiler_invocations,
+        "work_deadline_reached": work_deadline_reached,
+        "model_request_limit_reached": model_request_limit_reached,
+        "compiler_invocation_limit_reached": compiler_invocation_limit_reached,
+        "within_total_wall_clock": (elapsed_seconds <= policy.total_wall_clock_seconds),
+        "cleanup_required": (work_deadline_reached or model_request_limit_reached or compiler_invocation_limit_reached),
+        "terminal_classification": policy.terminal_classification,
+    }
+
+
+def experiment_attempt_budget_snapshot(
+    thread_id: str | None,
+) -> dict[str, Any] | None:
+    active = get_active_experiment(thread_id)
+    if active is None or active.attempt_budget is None:
+        return None
+    with active.attempt_budget.lock:
+        return _attempt_budget_snapshot_locked(active)
+
+
+def remaining_experiment_work_seconds(thread_id: str | None) -> float | None:
+    snapshot = experiment_attempt_budget_snapshot(thread_id)
+    if snapshot is None:
+        return None
+    return max(
+        0.0,
+        snapshot["work_deadline_seconds"] - snapshot["elapsed_seconds"],
+    )
+
+
+def enforce_experiment_attempt_budget(
+    thread_id: str | None,
+    checkpoint: str,
+) -> dict[str, Any] | None:
+    if checkpoint not in _ATTEMPT_BUDGET_CHECKPOINTS:
+        raise EvidenceError(f"Unknown attempt-budget checkpoint: {checkpoint}")
+    active = get_active_experiment(thread_id)
+    if active is None or active.attempt_budget is None:
+        return None
+    runtime = active.attempt_budget
+    with runtime.lock:
+        before = _attempt_budget_snapshot_locked(active)
+        cleanup_checkpoint = checkpoint in {"before_finalize", "before_cleanup"}
+        allowed = cleanup_checkpoint
+        classification: str | None = None
+        if not cleanup_checkpoint:
+            if before["work_deadline_reached"]:
+                classification = "work_deadline_reached"
+            elif before["model_request_limit_reached"]:
+                classification = "model_request_limit_reached"
+            elif before["compiler_invocation_limit_reached"]:
+                classification = "compiler_invocation_limit_reached"
+            elif checkpoint == "before_compiler_invocation" and runtime.compiler_invocations_claimed >= runtime.policy.max_compiler_invocations:
+                classification = "compiler_invocation_limit_reached"
+            else:
+                allowed = True
+
+        if allowed and checkpoint == "before_provider_request":
+            runtime.model_requests_claimed += 1
+        elif allowed and checkpoint == "before_compiler_invocation":
+            runtime.compiler_invocations_claimed += 1
+
+        snapshot = _attempt_budget_snapshot_locked(active)
+        active.ledger.append(
+            "attempt.budget_checkpoint",
+            {
+                "checkpoint": checkpoint,
+                "allowed": allowed,
+                "rejection_classification": classification,
+                "snapshot": snapshot,
+            },
+        )
+        if not allowed:
+            raise AttemptBudgetExceeded(
+                checkpoint,
+                runtime.policy.terminal_classification,
+            )
+        return snapshot
+
+
+def record_experiment_attempt_budget_completion(
+    thread_id: str | None,
+) -> dict[str, Any] | None:
+    active = get_active_experiment(thread_id)
+    if active is None or active.attempt_budget is None:
+        return None
+    with active.attempt_budget.lock:
+        snapshot = _attempt_budget_snapshot_locked(active)
+        active.ledger.append("attempt.budget_completed", snapshot)
+        return snapshot
 
 
 def record_experiment_event(thread_id: str | None, event: str, **payload: Any) -> dict[str, Any] | None:

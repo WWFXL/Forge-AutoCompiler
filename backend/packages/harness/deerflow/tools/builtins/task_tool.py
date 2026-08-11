@@ -15,7 +15,12 @@ from langgraph.typing import ContextT
 
 from deerflow.agents.lead_agent.prompt import get_skills_prompt_section
 from deerflow.agents.thread_state import ThreadState
-from deerflow.compile.evidence import ExperimentPolicy, new_evidence_id, record_experiment_event
+from deerflow.compile.evidence import (
+    ExperimentPolicy,
+    enforce_experiment_attempt_budget,
+    new_evidence_id,
+    record_experiment_event,
+)
 from deerflow.subagents import SubagentExecutor, get_available_subagent_names, get_subagent_config
 from deerflow.subagents.executor import (
     SubagentStatus,
@@ -358,6 +363,12 @@ async def task_tool(
         trace_id=trace_id,
         initial_state=compile_state,
     )
+
+    if subagent_type == "compiler":
+        enforce_experiment_attempt_budget(
+            thread_id,
+            "before_compiler_invocation",
+        )
 
     task_started_at = monotonic()
     task_id = executor.execute_async(prompt, task_id=tool_call_id)

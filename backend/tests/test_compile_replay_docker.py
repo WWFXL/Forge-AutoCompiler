@@ -21,7 +21,16 @@ import pytest
 
 from deerflow.compile import operations
 from deerflow.compile.docker_runtime import CompileDockerRuntime
-from deerflow.compile.evidence import ExperimentLedger, ExperimentPolicy, activate_experiment, deactivate_experiment, new_evidence_id
+from deerflow.compile.evidence import (
+    AttemptBudgetExceeded,
+    ExperimentAttemptBudget,
+    ExperimentLedger,
+    ExperimentPolicy,
+    activate_experiment,
+    deactivate_experiment,
+    new_evidence_id,
+    record_experiment_attempt_budget_completion,
+)
 from deerflow.compile.manager import CompileSessionManager
 from deerflow.compile.operations import (
     CompileOperationsServices,
@@ -31,6 +40,7 @@ from deerflow.compile.operations import (
     clone_repository_impl,
     finalize_unfinished_thread_sessions_impl,
     inspect_build_system_impl,
+    submit_build_result_impl,
     verify_clean_replay_impl,
 )
 from deerflow.compile.schemas import BuildArtifact, BuildCommandRecord, CommandResult, CompileSession, VerificationResult
@@ -990,3 +1000,116 @@ def test_clean_replay_rejects_success_recipe_dependent_on_failed_configure_side_
     assert attempt.failure_classification == "recipe_execution_failed"
     assert attempt.exit_code not in {None, 0}
     assert not any(check.name == "artifact_set" for check in attempt.checks)
+
+
+def test_attempt_budget_rejects_submit_but_finalizes_and_leaves_no_orphan(
+    monkeypatch,
+):
+    paths = Paths()
+    manager = CompileSessionManager(paths=paths, default_image=COMPILE_IMAGE)
+    thread_id = f"docker-attempt-budget-{uuid.uuid4().hex[:12]}"
+    session = manager.create_session(
+        thread_id=thread_id,
+        repo_url=REPO_URL,
+        image=COMPILE_IMAGE,
+    )
+    runtime = CompileDockerRuntime(manager=manager)
+    ledger = ExperimentLedger.create(
+        Path(session.metadata_path).parent / "attempt-budget.jsonl",
+        experiment_id=new_evidence_id("experiment"),
+        physical_attempt_id=new_evidence_id("physical_attempt"),
+        context={"thread_id": thread_id},
+    )
+    policy = ExperimentPolicy(
+        benchmark_id="forge-cpp-attempt-budget-integration",
+        manifest_sha256="5" * 64,
+        case_id="cmake-hello-world",
+        condition="non-model-integration",
+        repetition=1,
+        expected_repo_url=REPO_URL,
+        expected_commit_sha=COMMIT_SHA,
+        expected_build_system="cmake",
+        compile_image=COMPILE_IMAGE,
+        image_id=COMPILE_IMAGE_ID,
+        model_name="deterministic-tools",
+        endpoint="https://example.invalid/v1",
+        credential_env="OpenAI_AK",
+        request_timeout_seconds=120,
+        model_max_retries=0,
+        compiler_max_turns=36,
+        subagent_timeout_seconds=300,
+        memory_enabled=False,
+        skills_enabled=False,
+        required_system_packages=(),
+        cmake_arguments=(),
+        configure_arguments=(),
+        environment=(),
+        minimum_replay_delay_seconds=0,
+    )
+    now = [100.0]
+    monkeypatch.setattr(
+        operations,
+        "_services",
+        CompileOperationsServices(manager=manager, runtime=runtime),
+    )
+    active = activate_experiment(
+        thread_id=thread_id,
+        experiment_id=ledger.experiment_id,
+        physical_attempt_id=ledger.physical_attempt_id,
+        ledger=ledger,
+        policy=policy,
+        attempt_budget=ExperimentAttemptBudget(
+            total_wall_clock_seconds=20,
+            cleanup_reserve_seconds=5,
+            max_compiler_invocations=2,
+            max_model_requests=48,
+        ),
+        monotonic_clock=lambda: now[0],
+    )
+    try:
+        runtime.create_container(session)
+        manager.save_session(session)
+
+        now[0] = 115.0
+        with pytest.raises(AttemptBudgetExceeded):
+            submit_build_result_impl(session=session)
+
+        now[0] = 121.0
+        finalized, cleanup = cleanup_and_finalize_compile_session_impl(
+            session=session,
+            interrupted_status="timed_out",
+            error="Physical-attempt budget exhausted.",
+        )
+        completion = record_experiment_attempt_budget_completion(thread_id)
+
+        assert cleanup.succeeded is True
+        assert cleanup.removed is True
+        assert finalized.status == "timed_out"
+        assert finalized.finalized_at is not None
+        assert completion is not None
+        assert completion["within_total_wall_clock"] is False
+
+        orphans = subprocess.run(
+            [
+                "docker",
+                "ps",
+                "-aq",
+                "--filter",
+                (f"label=deerflow.compile.physical_attempt_id={ledger.physical_attempt_id}"),
+            ],
+            check=False,
+            capture_output=True,
+            text=True,
+            timeout=30,
+        )
+        assert orphans.returncode == 0, orphans.stderr
+        assert orphans.stdout.strip() == ""
+
+        checkpoints = [event["payload"] for event in ledger.read() if event["event"] == "attempt.budget_checkpoint"]
+        assert any(payload["checkpoint"] == "before_submit_or_replay" and payload["allowed"] is False for payload in checkpoints)
+        assert any(payload["checkpoint"] == "before_cleanup" and payload["allowed"] is True for payload in checkpoints)
+        assert any(payload["checkpoint"] == "before_finalize" and payload["allowed"] is True for payload in checkpoints)
+    finally:
+        assert deactivate_experiment(thread_id) is active
+        runtime.stop_and_remove_container(session)
+        shutil.rmtree(Path(session.metadata_path).parent.parent, ignore_errors=True)
