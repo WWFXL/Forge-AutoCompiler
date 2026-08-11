@@ -54,12 +54,22 @@ def _evidence_mount(source: str) -> list[dict]:
     ]
 
 
-def test_v4_manifest_is_committed_schema_valid_and_deterministic() -> None:
+def test_v4_manifest_remains_valid_after_reviewed_runtime_successor() -> None:
     manifest = load_manifest()
     parent = json.loads(PARENT_MANIFEST_PATH.read_text(encoding="utf-8"))
 
     assert formal_collection.validate_manifest(manifest) == manifest
-    assert formal_collection.generate_manifest() == manifest
+    assert formal_collection.manifest_sha256(manifest) == "bb151473b276c48b9faf287a9dcbdddd96145abf3acc605f952275cf3d3f6720"
+    regenerated = formal_collection.generate_manifest()
+    assert regenerated != manifest
+    for field in set(manifest) - {
+        "forge",
+        "protocol_artifact_sha256",
+        "prompt_sha256",
+    }:
+        assert regenerated[field] == manifest[field]
+    assert regenerated["forge"]["commit_sha"] == manifest["forge"]["commit_sha"]
+    assert regenerated["forge"]["component_sha256"] != manifest["forge"]["component_sha256"]
     assert manifest["collection_plan"] == parent["collection_plan"]
     assert manifest["cases"] == parent["cases"]
     assert manifest["conditions"] == parent["conditions"]
