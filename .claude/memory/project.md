@@ -6,11 +6,12 @@
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
 - 2026-08-12 — 执行 formal v4 首批完整 `cppitertools` project block
-  - GitHub: 中文 Issue #111 已创建并回读；实现分支为 `research/formal-v4-authorized-initial-block`，PR 与真实采集尚未开始。
+  - GitHub: Issue #111 / PR #112 已 squash 合并为 `main@05e9fdbd`，Issue 自动关闭；PR 与主干的 backend unit tests、backend lint、frontend lint 全绿。
   - 授权: 原 schedule order `1, 2, 73, 74, 153, 154`，双 condition 各三次，共 6 attempts；maximum recorded tokens 为 980,000，禁止 retry、fallback、replacement、backfill 和 v3 slot 8-10。
   - 实现: 新 authorized manifest/Schema/protocol/runner/report 保留完整 180-slot identity，只投影六槽执行；一次性 canary marker 在成功或失败后都消耗机会，首条 ledger 前要求空目录和 0 formal 残留容器。
-  - 当前验证: canonical SHA-256 为 `8f05820d97054d16cc0cf1ee5646089ccf8f5c9c56108f2781ec45a70c7ccf03`；聚焦 `26 passed`、formal v1-v4 扩大回归 `221 passed`，Ruff、确定性再生成和父候选哈希通过，当前 0 JSON/JSONL evidence。
-  - 下一步: 完成文档与冻结审计后中文提交、WSL helper 推送、中文 PR 和三项 CI；合并后才重新执行 Ubuntu gate、非模型 preflight 和唯一双 provider canary，成功后严格串行执行六槽。
+  - 当前验证: canonical SHA-256 为 `8f05820d97054d16cc0cf1ee5646089ccf8f5c9c56108f2781ec45a70c7ccf03`；聚焦 `26 passed`、formal v1-v4 扩大回归 `221 passed`，Ruff、确定性再生成、父候选哈希、Ubuntu gate、主干 CI 和非模型 preflight 通过。
+  - 当前阻塞: 唯一双 provider canary 在模型调用前被 endpoint preflight 拒绝，marker 已以 `RunnerError` 失败终结；0 provider report、0 formal ledger、0 residual container，六槽采集没有开始且不得直接重试。
+  - 下一步: 等待实验负责人确认当前网络接入介质，并决定是否授权只读 endpoint 诊断和新的 canary amendment；获得确认后必须另建中文 Issue/PR 和协议 identity，保留当前失败 marker。
 
 ## 最近变更 (Recent Changes)
 <!-- 倒序，最新在上。 -->
