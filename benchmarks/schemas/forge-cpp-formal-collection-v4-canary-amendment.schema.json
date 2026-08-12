@@ -1,0 +1,727 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/WWFXL/Forge-AutoCompiler/benchmarks/schemas/forge-cpp-formal-collection-v4-canary-amendment.schema.json",
+  "title": "Forge C/C++ formal v4 bounded diagnostics and canary amendment",
+  "type": "object",
+  "required": [
+    "$schema",
+    "schema_version",
+    "document_type",
+    "manifest_canonicalization",
+    "benchmark",
+    "scope",
+    "source_protocols",
+    "forge",
+    "protocol_artifact_sha256",
+    "prompt_sha256",
+    "model_profiles",
+    "runtime",
+    "budget",
+    "conditions",
+    "collection_plan",
+    "schedule_sha256",
+    "cases",
+    "attempt_budget",
+    "resource_preflight",
+    "analysis_plan",
+    "authorization",
+    "initial_batch_decision"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "formal-collection-4.4.0-canary-amendment"
+    },
+    "document_type": {
+      "const": "manifest"
+    },
+    "scope": {
+      "const": {
+        "languages": [
+          "C",
+          "C++"
+        ],
+        "phase": "formal_collection_v4_canary_amendment",
+        "formal_comparison_enabled": true,
+        "collection_authorized": true,
+        "instrumentation_blocker": false
+      }
+    },
+    "source_protocols": {
+      "type": "object"
+    },
+    "forge": {
+      "type": "object",
+      "required": [
+        "commit_sha",
+        "component_sha256"
+      ],
+      "properties": {
+        "commit_sha": {
+          "const": "efc640fedbc4da2e00d553fd37adaa693e8abaa2"
+        },
+        "component_sha256": {
+          "type": "object",
+          "required": [
+            "backend/packages/harness/deerflow/agents/lead_agent/agent.py",
+            "backend/packages/harness/deerflow/agents/lead_agent/prompt.py",
+            "backend/packages/harness/deerflow/agents/middlewares/clarification_middleware.py",
+            "backend/packages/harness/deerflow/agents/middlewares/llm_error_handling_middleware.py",
+            "backend/packages/harness/deerflow/agents/middlewares/memory_middleware.py",
+            "backend/packages/harness/deerflow/agents/middlewares/tool_error_handling_middleware.py",
+            "backend/packages/harness/deerflow/client.py",
+            "backend/packages/harness/deerflow/compile/__init__.py",
+            "backend/packages/harness/deerflow/compile/docker_runtime.py",
+            "backend/packages/harness/deerflow/compile/evidence.py",
+            "backend/packages/harness/deerflow/compile/manager.py",
+            "backend/packages/harness/deerflow/compile/operations.py",
+            "backend/packages/harness/deerflow/compile/schemas.py",
+            "backend/packages/harness/deerflow/models/factory.py",
+            "backend/packages/harness/deerflow/subagents/builtins/compiler_agent.py",
+            "backend/packages/harness/deerflow/subagents/executor.py",
+            "backend/packages/harness/deerflow/tools/bound_compile_tools.py",
+            "backend/packages/harness/deerflow/tools/builtins/agent_compile_tools.py",
+            "backend/packages/harness/deerflow/tools/builtins/task_tool.py",
+            "backend/uv.lock",
+            "config.example.yaml",
+            "docker/compile/Dockerfile",
+            "docker/docker-compose-dev.yaml"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "backend/packages/harness/deerflow/agents/lead_agent/agent.py": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "backend/packages/harness/deerflow/agents/lead_agent/prompt.py": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "backend/packages/harness/deerflow/agents/middlewares/clarification_middleware.py": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "backend/packages/harness/deerflow/agents/middlewares/llm_error_handling_middleware.py": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "backend/packages/harness/deerflow/agents/middlewares/memory_middleware.py": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "backend/packages/harness/deerflow/agents/middlewares/tool_error_handling_middleware.py": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "backend/packages/harness/deerflow/client.py": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "backend/packages/harness/deerflow/compile/__init__.py": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "backend/packages/harness/deerflow/compile/docker_runtime.py": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "backend/packages/harness/deerflow/compile/evidence.py": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "backend/packages/harness/deerflow/compile/manager.py": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "backend/packages/harness/deerflow/compile/operations.py": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "backend/packages/harness/deerflow/compile/schemas.py": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "backend/packages/harness/deerflow/models/factory.py": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "backend/packages/harness/deerflow/subagents/builtins/compiler_agent.py": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "backend/packages/harness/deerflow/subagents/executor.py": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "backend/packages/harness/deerflow/tools/bound_compile_tools.py": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "backend/packages/harness/deerflow/tools/builtins/agent_compile_tools.py": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "backend/packages/harness/deerflow/tools/builtins/task_tool.py": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "backend/uv.lock": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "config.example.yaml": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "docker/compile/Dockerfile": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "docker/docker-compose-dev.yaml": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            }
+          }
+        }
+      }
+    },
+    "protocol_artifact_sha256": {
+      "type": "object",
+      "required": [
+        "backend/Dockerfile",
+        "benchmarks/preregistrations/cpp-formal-v4-amendment.md",
+        "benchmarks/preregistrations/cpp-formal-v4-authorized-initial-block.md",
+        "benchmarks/preregistrations/cpp-formal-v4-canary-amendment.md",
+        "benchmarks/preregistrations/cpp-formal-v4-runtime-amendment.md",
+        "benchmarks/preregistrations/cpp-formal-v4-ubuntu-gate-and-initial-block.md",
+        "benchmarks/schemas/forge-cpp-formal-collection-v2-authorized.schema.json",
+        "benchmarks/schemas/forge-cpp-formal-collection-v2.schema.json",
+        "benchmarks/schemas/forge-cpp-formal-collection-v3-authorized.schema.json",
+        "benchmarks/schemas/forge-cpp-formal-collection-v3.schema.json",
+        "benchmarks/schemas/forge-cpp-formal-collection-v4-authorized.schema.json",
+        "benchmarks/schemas/forge-cpp-formal-collection-v4-canary-amendment.schema.json",
+        "benchmarks/schemas/forge-cpp-formal-collection-v4-runtime-candidate.schema.json",
+        "benchmarks/schemas/forge-cpp-formal-collection-v4-ubuntu-candidate.schema.json",
+        "benchmarks/schemas/forge-cpp-formal-collection-v4.schema.json",
+        "benchmarks/schemas/forge-cpp-formal-v1.schema.json",
+        "scripts/docker.sh",
+        "scripts/forge_benchmark.py",
+        "scripts/forge_benchmark_runner.py",
+        "scripts/forge_formal_case_protocol.py",
+        "scripts/forge_formal_collection_v2_authorized_protocol.py",
+        "scripts/forge_formal_collection_v2_authorized_runner.py",
+        "scripts/forge_formal_collection_v2_protocol.py",
+        "scripts/forge_formal_collection_v2_runner.py",
+        "scripts/forge_formal_collection_v3_authorized_protocol.py",
+        "scripts/forge_formal_collection_v3_authorized_runner.py",
+        "scripts/forge_formal_collection_v3_protocol.py",
+        "scripts/forge_formal_collection_v3_runner.py",
+        "scripts/forge_formal_collection_v4_authorized_protocol.py",
+        "scripts/forge_formal_collection_v4_authorized_report.py",
+        "scripts/forge_formal_collection_v4_authorized_runner.py",
+        "scripts/forge_formal_collection_v4_canary_amendment_protocol.py",
+        "scripts/forge_formal_collection_v4_canary_amendment_report.py",
+        "scripts/forge_formal_collection_v4_canary_amendment_runner.py",
+        "scripts/forge_formal_collection_v4_protocol.py",
+        "scripts/forge_formal_collection_v4_runner.py",
+        "scripts/forge_formal_collection_v4_runtime_protocol.py",
+        "scripts/forge_formal_collection_v4_runtime_runner.py",
+        "scripts/forge_formal_collection_v4_ubuntu_protocol.py",
+        "scripts/forge_formal_collection_v4_ubuntu_runner.py",
+        "scripts/forge_formal_preregistration.py",
+        "scripts/forge_formal_runtime_protocol.py",
+        "scripts/require-ubuntu-native-docker.sh",
+        "scripts/wsl-check.sh"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "backend/Dockerfile": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "benchmarks/preregistrations/cpp-formal-v4-amendment.md": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "benchmarks/preregistrations/cpp-formal-v4-authorized-initial-block.md": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "benchmarks/preregistrations/cpp-formal-v4-canary-amendment.md": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "benchmarks/preregistrations/cpp-formal-v4-runtime-amendment.md": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "benchmarks/preregistrations/cpp-formal-v4-ubuntu-gate-and-initial-block.md": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "benchmarks/schemas/forge-cpp-formal-collection-v2-authorized.schema.json": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "benchmarks/schemas/forge-cpp-formal-collection-v2.schema.json": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "benchmarks/schemas/forge-cpp-formal-collection-v3-authorized.schema.json": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "benchmarks/schemas/forge-cpp-formal-collection-v3.schema.json": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "benchmarks/schemas/forge-cpp-formal-collection-v4-authorized.schema.json": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "benchmarks/schemas/forge-cpp-formal-collection-v4-canary-amendment.schema.json": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "benchmarks/schemas/forge-cpp-formal-collection-v4-runtime-candidate.schema.json": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "benchmarks/schemas/forge-cpp-formal-collection-v4-ubuntu-candidate.schema.json": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "benchmarks/schemas/forge-cpp-formal-collection-v4.schema.json": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "benchmarks/schemas/forge-cpp-formal-v1.schema.json": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "scripts/docker.sh": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "scripts/forge_benchmark.py": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "scripts/forge_benchmark_runner.py": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "scripts/forge_formal_case_protocol.py": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "scripts/forge_formal_collection_v2_authorized_protocol.py": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "scripts/forge_formal_collection_v2_authorized_runner.py": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "scripts/forge_formal_collection_v2_protocol.py": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "scripts/forge_formal_collection_v2_runner.py": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "scripts/forge_formal_collection_v3_authorized_protocol.py": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "scripts/forge_formal_collection_v3_authorized_runner.py": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "scripts/forge_formal_collection_v3_protocol.py": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "scripts/forge_formal_collection_v3_runner.py": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "scripts/forge_formal_collection_v4_authorized_protocol.py": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "scripts/forge_formal_collection_v4_authorized_report.py": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "scripts/forge_formal_collection_v4_authorized_runner.py": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "scripts/forge_formal_collection_v4_canary_amendment_protocol.py": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "scripts/forge_formal_collection_v4_canary_amendment_report.py": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "scripts/forge_formal_collection_v4_canary_amendment_runner.py": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "scripts/forge_formal_collection_v4_protocol.py": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "scripts/forge_formal_collection_v4_runner.py": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "scripts/forge_formal_collection_v4_runtime_protocol.py": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "scripts/forge_formal_collection_v4_runtime_runner.py": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "scripts/forge_formal_collection_v4_ubuntu_protocol.py": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "scripts/forge_formal_collection_v4_ubuntu_runner.py": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "scripts/forge_formal_preregistration.py": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "scripts/forge_formal_runtime_protocol.py": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "scripts/require-ubuntu-native-docker.sh": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "scripts/wsl-check.sh": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      }
+    },
+    "prompt_sha256": {
+      "type": "object",
+      "required": [
+        "backend/packages/harness/deerflow/agents/lead_agent/prompt.py",
+        "backend/packages/harness/deerflow/subagents/builtins/compiler_agent.py",
+        "backend/packages/harness/deerflow/tools/builtins/task_tool.py"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "backend/packages/harness/deerflow/agents/lead_agent/prompt.py": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "backend/packages/harness/deerflow/subagents/builtins/compiler_agent.py": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "backend/packages/harness/deerflow/tools/builtins/task_tool.py": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      }
+    },
+    "runtime": {
+      "type": "object",
+      "required": [
+        "image_id",
+        "control_plane_topology",
+        "max_parallel_runs",
+        "docker_daemon_provider",
+        "docker_socket_path"
+      ],
+      "properties": {
+        "image_id": {
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        },
+        "control_plane_topology": {
+          "const": "compose-dood"
+        },
+        "max_parallel_runs": {
+          "const": 1
+        },
+        "docker_daemon_provider": {
+          "const": "ubuntu-native"
+        },
+        "docker_socket_path": {
+          "const": "/var/run/docker.sock"
+        }
+      }
+    },
+    "budget": {
+      "type": "object"
+    },
+    "conditions": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2
+    },
+    "collection_plan": {
+      "type": "array",
+      "minItems": 180,
+      "maxItems": 180
+    },
+    "schedule_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "cases": {
+      "type": "array",
+      "minItems": 30,
+      "maxItems": 30
+    },
+    "authorization": {
+      "const": {
+        "id": "forge-cpp-formal-v4-canary-amendment",
+        "status": "authorized_limited_diagnostics_and_single_canary",
+        "authorized_by": "experiment_owner",
+        "authorized_on": "2026-08-13",
+        "issue_url": "https://github.com/WWFXL/Forge-AutoCompiler/issues/115",
+        "implementation_baseline_commit": "efc640fedbc4da2e00d553fd37adaa693e8abaa2",
+        "network_observation": {
+          "access_medium": "mobile_hotspot",
+          "browser_ui_required": false
+        },
+        "budget_confirmation": {
+          "confirmed": true,
+          "maximum_recorded_tokens": 980000,
+          "enforcement": "stop_before_next_slot_when_recorded_total_reaches_limit",
+          "terminalization_cleanup_precedes_token_boundary_check": true
+        },
+        "collection_constraints": {
+          "planned_attempts": 180,
+          "authorized_slot_count": 6,
+          "authorized_schedule_orders": [
+            1,
+            2,
+            73,
+            74,
+            153,
+            154
+          ],
+          "remaining_slot_count": 174,
+          "remaining_slots_require_additional_confirmation": true,
+          "complete_project_blocks": 1,
+          "provider_canary_required_before_first_ledger": true,
+          "provider_canary_max_attempts": 1,
+          "empty_ledger_required_before_canary": true,
+          "zero_residual_formal_containers_required_before_canary": true,
+          "replacement_forbidden": true,
+          "fallback_forbidden": true,
+          "retry_forbidden": true,
+          "backfill_forbidden": true,
+          "v3_slots_8_to_10_forbidden": true,
+          "required_runtime_launch_checks": [
+            "host_available_memory_at_least_minimum",
+            "docker_daemon_responded",
+            "docker_daemon_latency_within_limit",
+            "docker_daemon_provider_matches",
+            "docker_socket_source_matches_native_path"
+          ],
+          "evidence_directory": "/workspace/.compile-sessions/benchmark-evidence-formal-v4-canary-amendment",
+          "endpoint_readiness_source": "bounded_authenticated_diagnostics_then_single_provider_canary"
+        },
+        "diagnostics": {
+          "directory": "/workspace/.compile-sessions/benchmark-diagnostics-formal-v4-canary-amendment",
+          "provider_order": [
+            "richlab-gpt-5.5",
+            "deepseek-v4-flash"
+          ],
+          "providers": [
+            {
+              "condition_id": "richlab-gpt-5.5",
+              "provider": "richlab",
+              "model": "gpt-5.5"
+            },
+            {
+              "condition_id": "deepseek-v4-flash",
+              "provider": "deepseek",
+              "model": "deepseek-v4-flash"
+            }
+          ],
+          "maximum_attempts_per_provider": 2,
+          "request_timeout_seconds": 120,
+          "max_output_tokens": 32,
+          "prompt": "Reply with exactly DIAGNOSTIC_OK and nothing else.",
+          "success_criterion": "request_completed_and_response_nonempty",
+          "stop_after_first_success_per_provider": true,
+          "all_providers_must_pass_before_canary": true,
+          "stop_conditions": [
+            "first_success_for_current_provider",
+            "two_attempts_consumed_for_current_provider",
+            "all_providers_terminal",
+            "user_interrupted"
+          ],
+          "interruption_policy": "started_attempt_remains_consumed_and_only_unconsumed_attempts_may_run",
+          "formal_evidence_separation_required": true,
+          "response_body_storage_forbidden": true,
+          "request_headers_storage_forbidden": true,
+          "credential_material_storage_forbidden": true,
+          "network_identifier_storage_forbidden": true
+        },
+        "superseded_canary_terminal": {
+          "evidence_directory": "/workspace/.compile-sessions/benchmark-evidence-formal-v4-authorized-initial-block",
+          "marker_relative_path": "provider-canaries/formal-v4-provider-canary-attempt.json",
+          "marker_sha256": "9ab297d091967c15fae4f90caf18657b25214903b849fa3a695cd749fc19f724",
+          "benchmark_id": "forge-cpp-formal-v4-authorized-initial-block",
+          "manifest_sha256": "8f05820d97054d16cc0cf1ee5646089ccf8f5c9c56108f2781ec45a70c7ccf03",
+          "status": "failed",
+          "error_class": "RunnerError",
+          "provider_report_count": 0,
+          "formal_ledger_count": 0,
+          "immutable": true
+        },
+        "new_canary": {
+          "maximum_attempts": 1,
+          "attempt_marker": "formal-v4-canary-amendment-provider-canary-attempt.json",
+          "anonymous_models_endpoint_preflight": "forbidden",
+          "successful_diagnostics_required": true,
+          "success_required_before_formal_ledger": true
+        },
+        "parent_manifest": {
+          "id": "forge-cpp-formal-v4-authorized-initial-block",
+          "path": "benchmarks/manifests/cpp-formal-v4-authorized-initial-block.json",
+          "canonical_sha256": "8f05820d97054d16cc0cf1ee5646089ccf8f5c9c56108f2781ec45a70c7ccf03"
+        }
+      }
+    },
+    "$schema": {
+      "const": "../schemas/forge-cpp-formal-collection-v4-canary-amendment.schema.json"
+    },
+    "manifest_canonicalization": {
+      "const": "UTF-8 JSON, sorted object keys, compact separators, no NaN"
+    },
+    "benchmark": {
+      "const": {
+        "id": "forge-cpp-formal-v4-canary-amendment",
+        "name": "Forge C/C++ formal v4 bounded diagnostics and canary amendment",
+        "purpose": "preserve the consumed canary while authorizing bounded endpoint diagnosis and one new canary",
+        "dataset_provenance": "OSS-Fuzz metadata snapshot 08682bfc"
+      }
+    },
+    "model_profiles": {
+      "const": {
+        "richlab-gpt-5.5": {
+          "endpoint": "https://rich-api.choosefire.com/v1",
+          "credential_env": "OpenAI_AK",
+          "roles": {
+            "lead": "gpt-5.5",
+            "compiler": "gpt-5.5"
+          },
+          "fallback_policy": "forbidden",
+          "request_timeout_seconds": 120,
+          "max_retries": 0
+        },
+        "deepseek-v4-flash": {
+          "endpoint": "https://api.deepseek.com",
+          "credential_env": "DEEPSEEK_API_KEY",
+          "roles": {
+            "lead": "deepseek-v4-flash",
+            "compiler": "deepseek-v4-flash"
+          },
+          "fallback_policy": "forbidden",
+          "request_timeout_seconds": 120,
+          "max_retries": 0
+        }
+      }
+    },
+    "attempt_budget": {
+      "const": {
+        "total_wall_clock_seconds": 1800,
+        "cleanup_reserve_seconds": 120,
+        "max_compiler_invocations": 2,
+        "max_model_requests": 48,
+        "enforcement_checkpoints": [
+          "before_provider_request",
+          "before_compiler_invocation",
+          "before_submit_or_replay",
+          "before_finalize",
+          "before_cleanup"
+        ],
+        "new_work_forbidden_after_limit": true,
+        "cleanup_mandatory_after_limit": true,
+        "terminal_classification": "attempt_budget_exhausted"
+      }
+    },
+    "resource_preflight": {
+      "const": {
+        "minimum_available_memory_bytes": 2147483648,
+        "docker_daemon_timeout_seconds": 10,
+        "maximum_docker_daemon_latency_seconds": 5,
+        "required_checks": [
+          "host_available_memory_at_least_minimum",
+          "docker_daemon_responded",
+          "docker_daemon_latency_within_limit",
+          "docker_daemon_provider_matches",
+          "docker_socket_source_matches_native_path"
+        ],
+        "sensitive_host_identifiers_forbidden": true,
+        "docker_daemon_provider": "ubuntu-native",
+        "docker_socket_path": "/var/run/docker.sock"
+      }
+    },
+    "analysis_plan": {
+      "const": {
+        "protocol_version_pooling": "forbidden",
+        "v3_initial_batch_role": "separate_descriptive_protocol_stratum",
+        "v4_primary_estimand": "complete_project_blocks_collected_under_v4_only",
+        "incomplete_block_primary_handling": "exclude_from_paired_primary_estimate",
+        "incomplete_block_secondary_handling": "retain_in_end_to_end_descriptive_denominator",
+        "provider_and_case_imbalance_must_be_reported": true,
+        "retry_replacement_backfill_forbidden": true
+      }
+    },
+    "initial_batch_decision": {
+      "const": {
+        "status": "authorized_by_experiment_owner",
+        "selection_rule": "first_project_in_frozen_schedule",
+        "project_ids": [
+          "cppitertools"
+        ],
+        "complete_project_blocks": 1,
+        "conditions_per_project": 2,
+        "repetitions_per_condition": 3,
+        "planned_attempts": 6,
+        "selected_schedule_orders": [
+          1,
+          2,
+          73,
+          74,
+          153,
+          154
+        ],
+        "maximum_recorded_tokens": 980000,
+        "token_budget_basis": "preregistered_full_budget_linear_share_times_1.25_rounded_up",
+        "token_boundary_check": "after_attempt_terminalization_before_next_attempt",
+        "maximum_attempt_wall_clock_seconds": 1800,
+        "maximum_batch_attempt_wall_clock_seconds": 10800,
+        "stop_conditions": [
+          "six_selected_attempts_terminalized",
+          "recorded_token_boundary_reached",
+          "runtime_preflight_failed",
+          "provider_canary_failed",
+          "daemon_provider_drift",
+          "ledger_or_cleanup_invariant_failed",
+          "user_interrupted"
+        ],
+        "incomplete_block_handling": "descriptive_only_not_primary_paired_estimate",
+        "retry_replacement_backfill_forbidden": true
+      }
+    }
+  },
+  "additionalProperties": false
+}
