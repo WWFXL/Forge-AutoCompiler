@@ -541,3 +541,29 @@ canary, attempt creation, model execution, and batch execution before evidence
 creation. Complete project blocks, slot count, recorded-token ceiling, evidence
 directory, and network observation require a later experiment-owner decision
 and a new authorized child identity.
+
+## Formal v4 Ubuntu-daemon candidate
+
+`benchmarks/manifests/cpp-formal-v4-ubuntu-candidate.json` derives an
+unapproved successor from the frozen lifecycle runtime candidate. It fixes the
+Docker provider to the native Engine managed by `docker.service` inside the
+WSL2 `Ubuntu` distribution and rejects Docker Desktop daemon drift during
+runtime preflight. Host commands must first pass
+`scripts/require-ubuntu-native-docker.sh`; the gate never starts Docker or a
+desktop application.
+
+Generate and validate the candidate with:
+
+```bash
+python scripts/forge_formal_collection_v4_ubuntu_protocol.py generate
+python scripts/forge_formal_collection_v4_ubuntu_protocol.py validate-manifest \
+  benchmarks/manifests/cpp-formal-v4-ubuntu-candidate.json
+```
+
+The decision package proposes one complete, result-independent project block:
+the six original `cppitertools` schedule identities covering two conditions
+and three repetitions, with a 980,000 recorded-token ceiling checked only
+after an attempt has finalized and cleaned up. This is still a proposal, not
+collection authorization. Provider canary, ledger creation, model execution,
+and batch execution remain forbidden until the experiment owner confirms the
+block, budget, and stop conditions in a separate authorized identity.

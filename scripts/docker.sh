@@ -12,6 +12,9 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(dirname "$SCRIPT_DIR")"
 DOCKER_DIR="$PROJECT_ROOT/docker"
 
+# shellcheck source=require-ubuntu-native-docker.sh
+source "$SCRIPT_DIR/require-ubuntu-native-docker.sh"
+
 # The Compose services and nested compile containers both need the same path as
 # seen by the host Docker daemon. In WSL2 this is the WSL path to the checkout.
 export DEER_FLOW_ROOT="${DEER_FLOW_ROOT:-$PROJECT_ROOT}"
@@ -110,17 +113,7 @@ cleanup() {
 trap cleanup INT TERM
 
 docker_available() {
-    # Check that the docker CLI exists
-    if ! command -v docker >/dev/null 2>&1; then
-        return 1
-    fi
-
-    # Check that the Docker daemon is reachable
-    if ! docker info >/dev/null 2>&1; then
-        return 1
-    fi
-
-    return 0
+    require_ubuntu_native_docker --quiet
 }
 
 # Initialize: pre-pull the sandbox image so first Pod startup is fast
@@ -206,9 +199,8 @@ start() {
     echo ""
 
     if ! docker_available; then
-        echo -e "${YELLOW}Docker is not reachable.${NC}"
-        echo "Start Docker Desktop with WSL integration, or start the native WSL Docker service."
-        echo "Then rerun: make docker-start"
+        echo -e "${YELLOW}The required Ubuntu native Docker Engine is not ready.${NC}"
+        echo "Ask the user to restore Ubuntu docker.service, then rerun: make docker-start"
         exit 1
     fi
 
@@ -419,6 +411,12 @@ help() {
 }
 
 main() {
+    case "${1:-}" in
+        init|start|restart|model-preflight|logs|stop)
+            require_ubuntu_native_docker
+            ;;
+    esac
+
     # Main command dispatcher
     case "$1" in
         init)
