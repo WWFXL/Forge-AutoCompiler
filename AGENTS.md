@@ -35,3 +35,15 @@ Read and follow `CLAUDE.md` before changing this repository. Files below
   remain healthy.
 - If the WSL helper exhausts its bounded retries, report the failure. Git Data
   API publication is an explicit fallback, not an automatic side effect.
+
+## Forge Docker Runtime
+
+- Forge development, Compose/DooD, Compile Session, clean replay, and formal
+  experiments use only the native Docker Engine managed by `docker.service`
+  inside the `Ubuntu` WSL2 distribution.
+- Run Forge Docker commands through `wsl.exe -d Ubuntu -- ...` from Windows or
+  directly inside that Ubuntu distribution. Do not use the Windows `docker`
+  CLI, Docker Desktop contexts, or Docker Desktop as a fallback.
+- Before Docker work, run `scripts/require-ubuntu-native-docker.sh` or an entry
+  point that invokes it. If the gate fails, stop and ask the user to restore
+  the Ubuntu service; do not start desktop applications or switch daemons.

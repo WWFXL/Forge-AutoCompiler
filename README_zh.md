@@ -45,7 +45,7 @@
 
 ### Windows + WSL2
 
-Windows 用户请在 WSL2 Ubuntu 中运行项目。推荐使用 Docker Desktop 的 WSL Integration；也支持有意安装在 WSL 内的 Docker Engine，但所有构建和启动命令必须始终使用同一个 daemon。不要从 PowerShell 直接运行 Linux `.sh` 启动链。
+Windows 用户请在 WSL2 Ubuntu 中运行项目。Forge 固定使用该 Ubuntu 发行版内由 `docker.service` 管理的原生 Docker Engine；Docker Desktop 是另一套不共享镜像、网络和容器的 daemon，不是本项目的启动或故障回退路径。不要从 PowerShell 直接运行 Linux `.sh` 启动链，也不要使用 Windows `docker.exe` 操作 Forge。
 
 ```powershell
 wsl -d Ubuntu
@@ -60,6 +60,8 @@ make config             # 仅首次
 make compile-image      # 首次构建 C/C++ 编译环境
 make docker-start
 ```
+
+`wsl-check.sh` 会验证 Ubuntu、systemd `dockerd`、`default` context 和 `/var/run/docker.sock`。检查失败时先停止并由用户恢复 Ubuntu Docker 服务；脚本不会自动启动 Docker Desktop 或切换 daemon。
 
 访问 <http://localhost:8000>。完整安装和故障排查见 [Install.md](Install.md#windows--wsl2推荐路径)。
 

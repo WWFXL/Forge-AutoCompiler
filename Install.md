@@ -22,9 +22,9 @@ agent 会自动按下面的流程执行。
 
 ## Windows + WSL2（推荐路径）
 
-Windows 不走“原生 PowerShell + Git Bash 拼装全部依赖”的路径。推荐在 WSL2 Ubuntu 中运行仓库命令，由 Docker Desktop 提供 Linux 容器引擎。已有 WSL 原生 Docker Engine 也可以使用，但不要把它和 Docker Desktop daemon 混用：两边的镜像、网络和容器互不可见。
+Windows 不走“原生 PowerShell + Git Bash 拼装全部依赖”的路径。Forge 固定在 WSL2 Ubuntu 中运行仓库命令，并使用该发行版内由 `docker.service` 管理的原生 Docker Engine。Docker Desktop 是另一套 daemon，两边的镜像、网络和容器互不可见，不作为 Forge 的启动或故障回退路径。
 
-1. 选择一套 Docker daemon。推荐安装并启动 Docker Desktop，在 **Settings > Resources > WSL Integration** 中启用 Ubuntu；若明确使用 WSL 原生 Docker Engine，则确认 Docker 服务和 Compose v2 插件已启动，不要同时混用两套 daemon。
+1. 在 Ubuntu 内安装 Docker Engine 和 Compose v2 插件，并由用户确认 `docker.service` 已启动。助手和仓库脚本不会自动启动服务或桌面应用。
 2. 进入 WSL：
 
    ```powershell
@@ -59,15 +59,16 @@ Windows 不走“原生 PowerShell + Git Bash 拼装全部依赖”的路径。�
 
 常见故障：
 
-- `docker: command not found`：没有为当前发行版启用 Docker Desktop WSL Integration，也没有安装 WSL 原生 Docker Engine。
-- `Docker daemon is not reachable`：Docker Desktop 尚未启动完成，或 WSL 原生 Docker 服务没有启动。
+- `docker: command not found`：Ubuntu 内没有安装原生 Docker Engine。
+- `Ubuntu docker.service is not active`：停止自动重试并请求用户恢复 Ubuntu Docker 服务；不要启动 Docker Desktop。
+- `Docker context must be default` 或 daemon provider 不匹配：当前命令可能连接了另一套 daemon，清除显式 `DOCKER_HOST` / `DOCKER_CONTEXT` 后重新运行门禁；不要迁移或复制容器来绕过检查。
 - `make: command not found`：安装 `build-essential`。
 - 构建镜像下载依赖超时：在根目录 `.env` 中按网络情况设置 `NPM_REGISTRY`、`UV_INDEX_URL` 或 `APT_MIRROR`；`UV_HTTP_TIMEOUT` 默认是 600 秒。
 - 编译镜像需要代理时使用 `COMPILE_HTTP_PROXY` / `COMPILE_HTTPS_PROXY`；不要填写容器内不可达的 WSL `127.0.0.1` 代理地址。
 - 会话编译容器需要代理时使用 `COMPILE_RUNTIME_HTTP_PROXY` / `COMPILE_RUNTIME_HTTPS_PROXY` / `COMPILE_RUNTIME_NO_PROXY`。代理值对容器内构建脚本及 `docker inspect` 可见，不要在编译不可信仓库时填入带凭据的代理。
-- Docker Desktop bridge 模式使用容器可达地址。`COMPILE_RUNTIME_NETWORK=host` 只用于可信仓库，因为构建脚本将能访问 WSL 的 loopback 服务；`127.0.0.1` 仅在代理运行于同一 WSL，或 WSL 启用 mirrored networking 时才能到达目标代理。
+- 容器代理必须使用 Ubuntu Docker bridge 可达的地址。`COMPILE_RUNTIME_NETWORK=host` 只用于可信仓库，因为构建脚本将能访问 WSL 的 loopback 服务；`127.0.0.1` 仅在代理运行于同一 WSL，或 WSL 启用 mirrored networking 时才能到达目标代理。
 - 当前容器内 clone 只验证了公开 HTTPS 仓库，不会继承宿主 Git credential helper、SSH agent 或 `known_hosts`。不要把 token 写进仓库 URL，因为 URL 会进入 session 日志。
-- 不要在启用 Docker Desktop 集成后，再在 WSL 内同时启动第二套 Docker daemon。若明确使用 WSL 原生 Docker，请始终在同一个 WSL 发行版中运行 `make` 和 `docker`；保持该 WSL 会话运行，Windows 侧的 `docker.exe` 看不到这些容器。
+- 始终在 Ubuntu 内运行 `make` 和 `docker`。Windows 侧的 `docker.exe` 与 Docker Desktop 看不到 Ubuntu 原生 daemon 中的 Forge 容器，不得用于项目状态判断。
 
 **默认优先级**：
 
@@ -102,14 +103,15 @@ Windows 不走“原生 PowerShell + Git Bash 拼装全部依赖”的路径。�
 2. 检查仓库根存在 `Makefile`、`backend/`、`frontend/`、`config.example.yaml`。
 3. 判断 `config.yaml` 是否已存在。
 4. 不存在则跑 `make config`（注意：**`make config` 非幂等**，已存在会主动 abort，这是正常行为）。
-5. `docker info` 检查 Docker 是否可用。
+5. 运行 `./scripts/require-ubuntu-native-docker.sh`，确认 Ubuntu 原生 Docker 门禁通过。
 6. **若 Docker 可用**：
    - 跑 `make docker-init`
    - 这一步只算「Docker 准备就绪」，不要声称服务已启动、compose 已校验、镜像已构建完
    - 除非用户明确要求或要做启动验证，**不要自动 `make docker-start`** 起后台服务
    - 告知用户下一条命令是 `make docker-start`
 7. **若 Docker 不可用**：
-   - 跑 `make check`
+   - 停止 Docker 路径并明确报告失败的门禁项；若 `docker.service` 未启动或需要权限，由用户介入恢复，不要启动 Docker Desktop
+   - 仅当用户选择本机非 Docker 开发路径时再跑 `make check`
    - 若报缺 `node`/`pnpm`/`uv`/`nginx`，**停下并报告**，不要擅自 `sudo apt install`
    - 前置满足则 `make install`
    - 告知用户下一条命令是 `make dev`

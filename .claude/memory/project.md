@@ -8,6 +8,14 @@
 ## 最近变更 (Recent Changes)
 <!-- 倒序，最新在上。 -->
 
+- 2026-08-12 — 固定 Ubuntu 原生 Docker 门禁并形成 formal v4 首批授权决策包
+  - GitHub: Issue #109 记录双 daemon 混淆风险、门禁目标和 0 模型/0 ledger 边界；实现分支为 `research/formal-v4-ubuntu-daemon-gate`。
+  - 环境门禁: 新增 `scripts/require-ubuntu-native-docker.sh`，要求 WSL2 `Ubuntu`、active `docker.service`、`dockerd` MainPID、`default` context、`/var/run/docker.sock` 和 Ubuntu daemon OS；失败时停止并请求用户介入，不启动 Docker Desktop 或切换 daemon。`docker.sh`、`wsl-check.sh` 与 `AGENTS.md` 已统一调用该门禁。
+  - 协议: 新增未授权 `formal-collection-4.2.0-ubuntu-candidate`，canonical SHA-256 为 `77e80eb39b01eeba73d1fdd07e2b8da658032fcc124cacbf45ae2d06f6831601`；冻结 `daemon_provider=ubuntu-native` 和 socket source gate，父级 v4 runtime candidate 保持逐字不变。
+  - 决策包: 结果盲态选择冻结 schedule 的第一个项目 `cppitertools`，完整 block 使用原 slot identity `1, 2, 73, 74, 153, 154`，覆盖双 condition × 三次重复；建议 980,000 recorded-token 上限，但 `collection_authorized=false`，provider canary、ledger、模型与 batch 仍全部禁止。
+  - 验证: 门禁/新协议聚焦 `23 passed`，formal v1-v4 与 Docker 扩大回归 `138 passed`；Ruff、shell 语法、Schema、确定性再生成和父协议校验通过。真实 Ubuntu 宿主门禁通过，Compose/DooD preflight 13/13 通过，0 JSON/JSONL、0 compile/replay orphan。
+  - 文件: `scripts/require-ubuntu-native-docker.sh`, `scripts/docker.sh`, `scripts/wsl-check.sh`, `scripts/forge_formal_collection_v4_ubuntu_protocol.py`, `scripts/forge_formal_collection_v4_ubuntu_runner.py`, `benchmarks/manifests/cpp-formal-v4-ubuntu-candidate.json`, `benchmarks/preregistrations/cpp-formal-v4-ubuntu-gate-and-initial-block.md`
+
 - 2026-08-12 — 接通并合并 formal v4 physical-attempt 生命周期预算
   - GitHub: Issue #105 / PR #106 已 squash 合并为 `main@484f6999`，Issue 自动关闭；backend unit tests、backend lint 与 frontend lint 三项 CI 全绿。
   - 实现: experiment evidence 保存单调时钟与原子 claim；provider、Compiler、submit/clean replay、finalize、cleanup 使用同一预算上下文，runner 在 1,680 秒工作 deadline 主动取消 agent stream，并在强制收口后记录最终 overrun 快照。
@@ -279,6 +287,9 @@
 
 ## 已知问题 (Known Issues / Pitfalls)
 <!-- 工作中踩过的坑、限制或意外行为。 -->
+
+- Windows `docker` CLI 的 `desktop-linux` context 只反映 Docker Desktop daemon，不能据此判断 Forge 状态。Forge 容器实际属于 WSL2 Ubuntu 原生 `dockerd`；所有项目 Docker 命令必须先通过 `scripts/require-ubuntu-native-docker.sh`，并从 `wsl.exe -d Ubuntu` 或该发行版内执行。门禁失败时请求用户恢复服务，不得启动 Docker Desktop 作为回退。
+- LangGraph 容器内 `/repo` 是只读挂载。可在容器中使用 Ruff `--check --no-cache`，但不能直接格式化文件；写入格式化必须在可写工作树中使用相同 `backend/ruff.toml`，不要修改挂载权限或重建服务来绕过只读边界。
 
 - Compose 同时把脚本挂到 `/app/scripts`、完整仓库挂到 `/repo`；仅设置 `FORGE_REPO_ROOT=/repo` 不足以修复版本化协议链，因为先导入的父 runner 会把 `/app` 根协议放入 `sys.modules`。runtime adapter 必须先从 `/repo/scripts` 导入协议链，再导入父 runner；preflight 还必须使用 `/app/backend/.venv/bin/python` 和 `/workspace/.compile-sessions` 子目录，否则解释器、runtime import 与 evidence 持久化 gate 会按设计拒绝。
 - 历史 formal manifest 应冻结当时的 runner SHA，但共享基础 runner 会由后续版本继续演进；回归测试应直接断言历史 manifest 中的旧 identity 保持不变，并由新版本 manifest 绑定当前 runtime，不能要求工作树中的共享 runner 永远等于最早候选字节。旧协议遇到 current-tree runtime 漂移时拒绝执行是预期 gate。
