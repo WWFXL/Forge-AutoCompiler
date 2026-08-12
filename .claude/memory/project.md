@@ -5,6 +5,13 @@
 ## 进行中 (In Progress)
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
+- 2026-08-12 — 执行 formal v4 首批完整 `cppitertools` project block
+  - GitHub: 中文 Issue #111 已创建并回读；实现分支为 `research/formal-v4-authorized-initial-block`，PR 与真实采集尚未开始。
+  - 授权: 原 schedule order `1, 2, 73, 74, 153, 154`，双 condition 各三次，共 6 attempts；maximum recorded tokens 为 980,000，禁止 retry、fallback、replacement、backfill 和 v3 slot 8-10。
+  - 实现: 新 authorized manifest/Schema/protocol/runner/report 保留完整 180-slot identity，只投影六槽执行；一次性 canary marker 在成功或失败后都消耗机会，首条 ledger 前要求空目录和 0 formal 残留容器。
+  - 当前验证: canonical SHA-256 为 `8f05820d97054d16cc0cf1ee5646089ccf8f5c9c56108f2781ec45a70c7ccf03`；聚焦 `26 passed`、formal v1-v4 扩大回归 `221 passed`，Ruff、确定性再生成和父候选哈希通过，当前 0 JSON/JSONL evidence。
+  - 下一步: 完成文档与冻结审计后中文提交、WSL helper 推送、中文 PR 和三项 CI；合并后才重新执行 Ubuntu gate、非模型 preflight 和唯一双 provider canary，成功后严格串行执行六槽。
+
 ## 最近变更 (Recent Changes)
 <!-- 倒序，最新在上。 -->
 
