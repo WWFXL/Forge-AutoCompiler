@@ -1,5 +1,63 @@
 # Forge C/C++ benchmark protocols
 
+## Formal v4 bounded diagnostics and canary amendment
+
+Issue #115 preserves the consumed formal v4 canary failure and authorizes a
+separate amendment identity. The old evidence directory and failed marker are
+immutable. The amendment permits at most two low-cost authenticated requests
+per provider, with the second request allowed only after the first fails. The
+diagnostics run RichLab `gpt-5.5` before DeepSeek `deepseek-v4-flash`, use a
+120-second request timeout, zero provider retries, and a 32-token output limit.
+Diagnostic records are append-only and exclude response text, headers,
+credentials, network identifiers, and formal ledgers.
+
+Generate and validate the amendment identity with:
+
+```bash
+python scripts/forge_formal_collection_v4_canary_amendment_protocol.py generate
+python scripts/forge_formal_collection_v4_canary_amendment_protocol.py validate-manifest \
+  benchmarks/manifests/cpp-formal-v4-canary-amendment.json
+```
+
+After the implementation is merged and the Ubuntu native Docker gate passes,
+run the bounded diagnostics inside the `deer-flow-dev` LangGraph container:
+
+```bash
+/app/backend/.venv/bin/python \
+  /repo/scripts/forge_formal_collection_v4_canary_amendment_runner.py \
+  endpoint-diagnostics \
+  --output-dir /workspace/.compile-sessions/benchmark-diagnostics-formal-v4-canary-amendment
+```
+
+Only a successful two-provider diagnostic summary permits the one new
+dual-provider canary. This canary no longer uses the anonymous `/models`
+endpoint preflight. Its opportunity is consumed on start, whether it passes,
+fails, or is interrupted:
+
+```bash
+/app/backend/.venv/bin/python \
+  /repo/scripts/forge_formal_collection_v4_canary_amendment_runner.py \
+  provider-canary \
+  --output-dir /workspace/.compile-sessions/benchmark-evidence-formal-v4-canary-amendment
+```
+
+Stop immediately if the canary fails. Only a successful canary report and
+attempt marker permit the original six slots, still ordered as
+`1, 2, 73, 74, 153, 154` with the unchanged 980,000 recorded-token ceiling:
+
+```bash
+/app/backend/.venv/bin/python \
+  /repo/scripts/forge_formal_collection_v4_canary_amendment_runner.py \
+  run-batch \
+  --output-dir /workspace/.compile-sessions/benchmark-evidence-formal-v4-canary-amendment \
+  --max-attempts 6
+```
+
+Retries, fallback, replacement, backfill, and formal v3 slots 8-10 remain
+forbidden. The deterministic audit uses
+`scripts/forge_formal_collection_v4_canary_amendment_report.py` and reports the
+diagnostics separately from formal compilation outcomes.
+
 ## Formal v4 authorized initial project block
 
 Issue #111 authorizes exactly one complete `cppitertools` project block from

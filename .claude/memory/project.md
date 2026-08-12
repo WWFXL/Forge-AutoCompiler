@@ -5,6 +5,14 @@
 ## 进行中 (In Progress)
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
+- 2026-08-13 — 完成 formal v4 有限诊断与新 canary amendment
+  - GitHub: 中文 Issue #115 已创建并回读；实现分支为 `research/formal-v4-canary-amendment`，PR 尚未创建。
+  - 授权: RichLab `gpt-5.5` 与 DeepSeek `deepseek-v4-flash` 各最多 2 次低成本诊断，首次成功即停止；之后最多 1 次新的双 provider canary，成功才执行原六槽，token 上限仍为 980,000。
+  - 实现: 新 manifest/Schema/protocol/runner/report 使用独立诊断和 formal evidence 目录；诊断以 append-only started/terminal 文件计次，不保存响应正文、请求头、凭据或网络标识；新路径禁止匿名 `/models` preflight。
+  - 历史边界: 旧 authorized manifest canonical SHA-256、失败 marker SHA-256、`failed` / `RunnerError`、0 provider report 与 0 formal ledger 均在每个后续门禁重新校验，旧文件不修改。
+  - 当前验证: canonical SHA-256 为 `e296138d6464adc6e7c12d4ee29d1f22c178d53a463b3467e2d2442e5fd66587`；聚焦测试 `22 passed`、formal v1-v4 扩大回归 `205 passed`，Ruff、format、`py_compile`、Schema、确定性再生成、父文件/旧 marker、敏感信息、Ubuntu 原生 daemon 与 0 formal 残留容器审计通过。
+  - 下一步: 完成本地验证和文档审计后中文提交、WSL helper 推送、中文 PR；主干合并后运行真实诊断，新 canary 失败立即停止，成功才执行六槽。
+
 - 2026-08-12 — 执行 formal v4 首批完整 `cppitertools` project block
   - GitHub: Issue #111 / PR #112 已 squash 合并为 `main@05e9fdbd`，Issue 自动关闭；PR 与主干的 backend unit tests、backend lint、frontend lint 全绿。
   - 授权: 原 schedule order `1, 2, 73, 74, 153, 154`，双 condition 各三次，共 6 attempts；maximum recorded tokens 为 980,000，禁止 retry、fallback、replacement、backfill 和 v3 slot 8-10。
