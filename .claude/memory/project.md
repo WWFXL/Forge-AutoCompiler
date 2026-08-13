@@ -5,6 +5,14 @@
 ## 进行中 (In Progress)
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
+- 2026-08-14 — 完成 formal 模型请求 300 秒超时校准实现，等待 PR/CI 后真实执行
+  - GitHub: 中文 Issue #117 已创建并回读；实现分支为 `research/issue-117-timeout-calibration`。
+  - 协议: 从 formal v4 canary amendment 派生独立 `formal-collection-4.5.0-timeout-calibration` identity；只授权 `cppitertools` 原 schedule order `1, 2`，RichLab `gpt-5.5` 与 DeepSeek `deepseek-v4-flash` 各一次。
+  - 单变量: Lead/Compiler 请求超时统一从 120 秒改为 300 秒，`max_retries=0`；模型、endpoint、attempt budget、Compiler invocation、Memory/Skill、Docker daemon 与 Compose/DooD 均不变。
+  - 研究边界: 独立 append-only evidence 目录，maximum recorded tokens 为 500,000；`formal_comparison_enabled=false` 且禁止 primary pooling，不补跑或替换既有六槽。
+  - 当前验证: canonical SHA-256 为 `aeb1e66b85da53dbbe91c33059825d092143a4c0fa0b3045c327524767c9b10b`；聚焦测试 `12 passed`、历史 v4 扩大回归 `51 passed`，Ruff、format、Schema、确定性再生成、父文件和敏感信息检查通过。
+  - 下一步: 中文提交并通过 WSL helper 推送，创建中文 PR；PR/主干 CI 全绿后才运行 Ubuntu daemon gate、非模型 preflight、一次双 provider canary 和两次真实校准 attempt。
+
 - 2026-08-13 — 完成 formal v4 有限诊断与新 canary amendment
   - GitHub: 中文 Issue #115 已创建并回读；实现分支为 `research/formal-v4-canary-amendment`，PR 尚未创建。
   - 授权: RichLab `gpt-5.5` 与 DeepSeek `deepseek-v4-flash` 各最多 2 次低成本诊断，首次成功即停止；之后最多 1 次新的双 provider canary，成功才执行原六槽，token 上限仍为 980,000。
