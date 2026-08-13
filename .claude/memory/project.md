@@ -5,13 +5,13 @@
 ## 进行中 (In Progress)
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
-- 2026-08-14 — 完成 formal 模型请求 300 秒超时校准实现，等待 PR/CI 后真实执行
-  - GitHub: 中文 Issue #117 已创建并回读；实现分支为 `research/issue-117-timeout-calibration`。
-  - 协议: 从 formal v4 canary amendment 派生独立 `formal-collection-4.5.0-timeout-calibration` identity；只授权 `cppitertools` 原 schedule order `1, 2`，RichLab `gpt-5.5` 与 DeepSeek `deepseek-v4-flash` 各一次。
-  - 单变量: Lead/Compiler 请求超时统一从 120 秒改为 300 秒，`max_retries=0`；模型、endpoint、attempt budget、Compiler invocation、Memory/Skill、Docker daemon 与 Compose/DooD 均不变。
-  - 研究边界: 独立 append-only evidence 目录，maximum recorded tokens 为 500,000；`formal_comparison_enabled=false` 且禁止 primary pooling，不补跑或替换既有六槽。
-  - 当前验证: canonical SHA-256 为 `aeb1e66b85da53dbbe91c33059825d092143a4c0fa0b3045c327524767c9b10b`；聚焦测试 `12 passed`、历史 v4 扩大回归 `51 passed`，Ruff、format、Schema、确定性再生成、父文件和敏感信息检查通过。
-  - 下一步: 中文提交并通过 WSL helper 推送，创建中文 PR；PR/主干 CI 全绿后才运行 Ubuntu daemon gate、非模型 preflight、一次双 provider canary 和两次真实校准 attempt。
+- 2026-08-14 — 修复 formal 300 秒校准 canary 的匿名端点预检接线，等待 PR/CI 后真实执行
+  - GitHub: Issue #117 / PR #118 已将 `formal-collection-4.5.0-timeout-calibration` 合并为 `main@170d0c05`；中文 Issue #119 已创建并回读，修订分支为 `research/issue-119-timeout-canary-amendment`。
+  - 失败证据: 首次唯一 canary 在 0 模型请求时被父 runner 的匿名 endpoint preflight 拒绝；原目录只含 SHA-256 `cf4793d0...dc435` 的 `failed / RunnerError` marker，0 provider report、0 JSONL、0 formal/compile orphan，不得原地重试或删除。
+  - 修订: 新 `formal-collection-4.6.0-timeout-canary-amendment` identity 固定旧终态、新 evidence 目录和唯一 canary；只在实际 canary 调用期间强制 `check_endpoint=false` 并在 `finally` 恢复，后续建账本也禁止匿名 endpoint preflight。
+  - 不变量: 仍只授权 `cppitertools` schedule order `1, 2`，RichLab `gpt-5.5` / DeepSeek `deepseek-v4-flash` 各一次，300 秒、0 retry、500,000 recorded-token ceiling、Ubuntu daemon、Compose/DooD、Compile Session、clean replay 和禁止 primary pooling 均不变。
+  - 当前验证: canonical SHA-256 为 `4ae50bcde9ceb530491d91e214278566f7770a9432af91e3bf04a61c1a30b65a`；新增测试 `10 passed`、扩大回归 `61 passed`，Ruff、format、Schema、确定性生成、父文件、旧 marker 与敏感信息检查通过。
+  - 下一步: 中文提交、WSL helper 推送、中文 PR 和 CI；合并后运行 Ubuntu daemon gate、非模型 preflight、唯一新 canary，成功才执行两个校准槽，失败则审计终态后停止。
 
 - 2026-08-13 — 完成 formal v4 有限诊断与新 canary amendment
   - GitHub: 中文 Issue #115 已创建并回读；实现分支为 `research/formal-v4-canary-amendment`，PR 尚未创建。
