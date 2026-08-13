@@ -5,14 +5,6 @@
 ## 进行中 (In Progress)
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
-- 2026-08-14 — 修复 formal 300 秒校准 canary 的匿名端点预检接线，等待 PR/CI 后真实执行
-  - GitHub: Issue #117 / PR #118 已将 `formal-collection-4.5.0-timeout-calibration` 合并为 `main@170d0c05`；中文 Issue #119 已创建并回读，修订分支为 `research/issue-119-timeout-canary-amendment`。
-  - 失败证据: 首次唯一 canary 在 0 模型请求时被父 runner 的匿名 endpoint preflight 拒绝；原目录只含 SHA-256 `cf4793d0...dc435` 的 `failed / RunnerError` marker，0 provider report、0 JSONL、0 formal/compile orphan，不得原地重试或删除。
-  - 修订: 新 `formal-collection-4.6.0-timeout-canary-amendment` identity 固定旧终态、新 evidence 目录和唯一 canary；只在实际 canary 调用期间强制 `check_endpoint=false` 并在 `finally` 恢复，后续建账本也禁止匿名 endpoint preflight。
-  - 不变量: 仍只授权 `cppitertools` schedule order `1, 2`，RichLab `gpt-5.5` / DeepSeek `deepseek-v4-flash` 各一次，300 秒、0 retry、500,000 recorded-token ceiling、Ubuntu daemon、Compose/DooD、Compile Session、clean replay 和禁止 primary pooling 均不变。
-  - 当前验证: canonical SHA-256 为 `4ae50bcde9ceb530491d91e214278566f7770a9432af91e3bf04a61c1a30b65a`；新增测试 `10 passed`、扩大回归 `61 passed`，Ruff、format、Schema、确定性生成、父文件、旧 marker 与敏感信息检查通过。
-  - 下一步: 中文提交、WSL helper 推送、中文 PR 和 CI；合并后运行 Ubuntu daemon gate、非模型 preflight、唯一新 canary，成功才执行两个校准槽，失败则审计终态后停止。
-
 - 2026-08-13 — 完成 formal v4 有限诊断与新 canary amendment
   - GitHub: 中文 Issue #115 已创建并回读；实现分支为 `research/formal-v4-canary-amendment`，PR 尚未创建。
   - 授权: RichLab `gpt-5.5` 与 DeepSeek `deepseek-v4-flash` 各最多 2 次低成本诊断，首次成功即停止；之后最多 1 次新的双 provider canary，成功才执行原六槽，token 上限仍为 980,000。
@@ -31,6 +23,13 @@
 
 ## 最近变更 (Recent Changes)
 <!-- 倒序，最新在上。 -->
+
+- 2026-08-14 — 完成 formal 300 秒模型请求超时校准并固化确定性结果
+  - GitHub: Issue #119 / PR #120 已将 `formal-collection-4.6.0-timeout-canary-amendment` squash 合并为 `main@2c4981e4`，三项 CI 全绿；Issue #121 跟踪本结果报告并由当前提交收口。
+  - 采集: Ubuntu 原生 Docker gate、runtime preflight 13/13 和 formal non-model preflight 通过；唯一新 canary 中 RichLab `gpt-5.5` 为 17.874 秒，DeepSeek `deepseek-v4-flash` 为 0.685 秒。
+  - 结果: `cppitertools` 两个授权槽均 passed，2/2 Oracle、clean replay、finalization 和 cleanup 成功；23/23 模型请求闭合，记录 142,502/500,000 tokens，0 failed、0 cancelled、0 orphan。
+  - 解释: RichLab 9 次请求最大 33.8912 秒，DeepSeek 14 次请求最大 5.896452 秒，超过 120 秒和 300 秒均为 0。该批证明 300 秒配置路径可完整运行，但没有观测到延长截止点挽救慢请求，不能据此宣称 300 秒优于 120 秒，也不能凭单项目各一次 attempt 排名模型。
+  - 文件: `scripts/forge_formal_timeout_calibration_result.py`, `backend/tests/test_forge_formal_timeout_calibration_result.py`, `benchmarks/reports/cpp-formal-timeout-canary-amendment.json`, `benchmarks/reports/cpp-formal-timeout-canary-amendment.md`
 
 - 2026-08-12 — 固定 Ubuntu 原生 Docker 门禁并形成 formal v4 首批授权决策包
   - GitHub: Issue #109 记录双 daemon 混淆风险、门禁目标和 0 模型/0 ledger 边界；实现分支为 `research/formal-v4-ubuntu-daemon-gate`。

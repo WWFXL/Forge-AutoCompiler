@@ -1,0 +1,372 @@
+{
+  "attempts": [
+    {
+      "actual_model_match": true,
+      "actual_models": [
+        "gpt-5.5"
+      ],
+      "artifact_identity_diff": {
+        "expected_only_count": 0,
+        "observed_only_count": 0,
+        "type_mismatch_count": 0
+      },
+      "attempt_duration_seconds": 245.157,
+      "authorized_index": 0,
+      "case_id": "cppitertools",
+      "clean_replays": {
+        "completed": 1,
+        "failed": 0,
+        "passed": 1,
+        "reconciled": 0,
+        "started": 1
+      },
+      "commands": {
+        "completed": 6,
+        "successful": 6,
+        "timed_out": 0
+      },
+      "compiler_subagents": {
+        "elapsed_seconds": {
+          "maximum": 100.079,
+          "total": 100.079
+        },
+        "failure_classifications": {},
+        "invocations": 1,
+        "statuses": {
+          "completed": 1
+        },
+        "wall_clock_limits_seconds": [
+          900
+        ],
+        "worker_stopped": 1
+      },
+      "condition_id": "richlab-gpt-5.5",
+      "configured_model": "gpt-5.5",
+      "deliveries_succeeded": 1,
+      "failure_domains": {
+        "agent_tool": [],
+        "build": [],
+        "completion": [],
+        "model_endpoint": [],
+        "submit_replay": []
+      },
+      "ledger_terminal_sha256": "fefa79e80ec6beaa6881bc5d3f82e7cd827f1a1fc75dbe7a5ea04869b7aa6ffb",
+      "model_request_latency": {
+        "completed_with_latency": 9,
+        "maximum_seconds": 33.8912,
+        "over_120_seconds": 0,
+        "over_300_seconds": 0
+      },
+      "model_requests": {
+        "cancelled": 0,
+        "closed": 9,
+        "completed": 9,
+        "failed": 0,
+        "failure_classifications": {},
+        "latency_seconds": 109.173,
+        "started": 9
+      },
+      "network_preflight": {
+        "access_medium_recorded": false,
+        "endpoint_reachable": null,
+        "network_present": true
+      },
+      "offline_gate_recomputation_valid": true,
+      "oracle_classification": null,
+      "oracle_passed": true,
+      "order": 1,
+      "orphan_cleanup_succeeded": true,
+      "orphan_count": 0,
+      "physical_attempt_id": "physical_attempt_37110067b4ce4fcdaecd80d207b5f291",
+      "recorded_gate_recomputation_valid": true,
+      "repetition": 1,
+      "replay_artifact_diff": {
+        "available": true,
+        "mismatch_count": 0
+      },
+      "schedule_order": 1,
+      "session_finalization_succeeded": true,
+      "submits": {
+        "aborted": 0,
+        "completed": 1,
+        "started": 1
+      },
+      "terminal_status": "passed",
+      "token_usage": {
+        "input_tokens": 41325,
+        "output_tokens": 738,
+        "total_tokens": 42063
+      }
+    },
+    {
+      "actual_model_match": true,
+      "actual_models": [
+        "deepseek-v4-flash"
+      ],
+      "artifact_identity_diff": {
+        "expected_only_count": 0,
+        "observed_only_count": 0,
+        "type_mismatch_count": 0
+      },
+      "attempt_duration_seconds": 150.388,
+      "authorized_index": 1,
+      "case_id": "cppitertools",
+      "clean_replays": {
+        "completed": 1,
+        "failed": 0,
+        "passed": 1,
+        "reconciled": 0,
+        "started": 1
+      },
+      "commands": {
+        "completed": 11,
+        "successful": 10,
+        "timed_out": 0
+      },
+      "compiler_subagents": {
+        "elapsed_seconds": {
+          "maximum": 85.159,
+          "total": 85.159
+        },
+        "failure_classifications": {},
+        "invocations": 1,
+        "statuses": {
+          "completed": 1
+        },
+        "wall_clock_limits_seconds": [
+          900
+        ],
+        "worker_stopped": 1
+      },
+      "condition_id": "deepseek-v4-flash",
+      "configured_model": "deepseek-v4-flash",
+      "deliveries_succeeded": 1,
+      "failure_domains": {
+        "agent_tool": [],
+        "build": [],
+        "completion": [],
+        "model_endpoint": [],
+        "submit_replay": []
+      },
+      "ledger_terminal_sha256": "61fc2afd27ca4e23d07b908b9d8c32dcf98b3348c908f7258e43d07ccba12b55",
+      "model_request_latency": {
+        "completed_with_latency": 14,
+        "maximum_seconds": 5.896452,
+        "over_120_seconds": 0,
+        "over_300_seconds": 0
+      },
+      "model_requests": {
+        "cancelled": 0,
+        "closed": 14,
+        "completed": 14,
+        "failed": 0,
+        "failure_classifications": {},
+        "latency_seconds": 28.842,
+        "started": 14
+      },
+      "network_preflight": {
+        "access_medium_recorded": false,
+        "endpoint_reachable": null,
+        "network_present": true
+      },
+      "offline_gate_recomputation_valid": true,
+      "oracle_classification": null,
+      "oracle_passed": true,
+      "order": 2,
+      "orphan_cleanup_succeeded": true,
+      "orphan_count": 0,
+      "physical_attempt_id": "physical_attempt_4aff146d10f24a5dbd98797b0f232a11",
+      "recorded_gate_recomputation_valid": true,
+      "repetition": 1,
+      "replay_artifact_diff": {
+        "available": true,
+        "mismatch_count": 0
+      },
+      "schedule_order": 2,
+      "session_finalization_succeeded": true,
+      "submits": {
+        "aborted": 0,
+        "completed": 1,
+        "started": 1
+      },
+      "terminal_status": "passed",
+      "token_usage": {
+        "input_tokens": 97294,
+        "output_tokens": 3145,
+        "total_tokens": 100439
+      }
+    }
+  ],
+  "authorization": {
+    "access_medium": "mobile_hotspot",
+    "authorized_schedule_orders": [
+      1,
+      2
+    ],
+    "budget_enforcement": "stop_before_next_slot_when_recorded_total_reaches_limit",
+    "maximum_recorded_tokens": 500000,
+    "remaining_slots_require_confirmation": true
+  },
+  "benchmark_id": "forge-cpp-formal-timeout-canary-amendment",
+  "canary": {
+    "attempt_marker": {
+      "error_class": null,
+      "status": "passed",
+      "updated_at": "2026-08-13T17:23:24.785577+00:00"
+    },
+    "conditions": [
+      {
+        "duration_ms": 17874,
+        "id": "richlab-gpt-5.5",
+        "model": "gpt-5.5",
+        "passed": true
+      },
+      {
+        "duration_ms": 685,
+        "id": "deepseek-v4-flash",
+        "model": "deepseek-v4-flash",
+        "passed": true
+      }
+    ],
+    "failed_reports": 0,
+    "reports_discovered": 1,
+    "selected_canary_id": "provider_canary_e3aece3ed74e476096d46448078bc58c",
+    "selected_completed_at": "2026-08-13T17:23:24.741714+00:00",
+    "selected_report_sha256": "fdf8f37cd7973b2053aa68d60e39ac14c5800d008277afa4fed3040b0fa8d3ad",
+    "successful_reports": 1
+  },
+  "collection": {
+    "actual_model_matches": 2,
+    "analyzed_slots": 2,
+    "attempt_duration_seconds": 395.545,
+    "authorized_slots": 2,
+    "compiler_subagent_invocations": 2,
+    "complete_project_block": true,
+    "gate_recomputation_valid": 2,
+    "ledger_hash_chain_valid": 2,
+    "model_request_latency": {
+      "completed_with_latency": 23,
+      "maximum_seconds": 33.8912,
+      "over_120_seconds": 0,
+      "over_300_seconds": 0
+    },
+    "model_requests": {
+      "cancelled": 0,
+      "closed": 23,
+      "completed": 23,
+      "failed": 0,
+      "started": 23
+    },
+    "next_authorized_index": 2,
+    "oracle_failed": 0,
+    "oracle_passed": 2,
+    "orphan_cleanup_succeeded": 2,
+    "orphan_count": 0,
+    "recorded_token_limit": 500000,
+    "recorded_tokens_over_boundary": 0,
+    "recorded_total_tokens": 142502,
+    "session_finalization_succeeded": 2,
+    "stop_reason": "timeout_calibration_complete",
+    "terminal_completed": 2
+  },
+  "conditions": [
+    {
+      "attempt_duration_seconds": {
+        "maximum": 245.157,
+        "median": 245.157,
+        "minimum": 245.157,
+        "total": 245.157
+      },
+      "attempts": 1,
+      "clean_replays": {
+        "completed": 1,
+        "failed": 0,
+        "passed": 1
+      },
+      "commands_completed": 6,
+      "condition_id": "richlab-gpt-5.5",
+      "configured_model": "gpt-5.5",
+      "failure_event_counts": {},
+      "model_requests": {
+        "cancelled": 0,
+        "closed": 9,
+        "completed": 9,
+        "failed": 0,
+        "started": 9
+      },
+      "oracle_failed": 0,
+      "oracle_passed": 1,
+      "submits_completed": 1,
+      "token_usage": {
+        "input_tokens": 41325,
+        "output_tokens": 738,
+        "total_tokens": 42063
+      }
+    },
+    {
+      "attempt_duration_seconds": {
+        "maximum": 150.388,
+        "median": 150.388,
+        "minimum": 150.388,
+        "total": 150.388
+      },
+      "attempts": 1,
+      "clean_replays": {
+        "completed": 1,
+        "failed": 0,
+        "passed": 1
+      },
+      "commands_completed": 11,
+      "condition_id": "deepseek-v4-flash",
+      "configured_model": "deepseek-v4-flash",
+      "failure_event_counts": {},
+      "model_requests": {
+        "cancelled": 0,
+        "closed": 14,
+        "completed": 14,
+        "failed": 0,
+        "started": 14
+      },
+      "oracle_failed": 0,
+      "oracle_passed": 1,
+      "submits_completed": 1,
+      "token_usage": {
+        "input_tokens": 97294,
+        "output_tokens": 3145,
+        "total_tokens": 100439
+      }
+    }
+  ],
+  "failure_event_counts": {},
+  "interpretation": {
+    "anonymous_models_endpoint_preflight": "forbidden",
+    "complete_block_required_for_paired_primary": true,
+    "formal_primary_pooling_forbidden": true,
+    "historical_ledgers_modified": false,
+    "provider_retries": 0,
+    "request_timeout_seconds": 300,
+    "retry_replacement_backfill_performed": false,
+    "timeout_extension_rescue_observed": false,
+    "ubuntu_native_daemon_required": true,
+    "v3_slots_8_to_10_created": false
+  },
+  "limitations": [
+    "本校准只检验 300 秒客户端截止点下的请求闭合情况，不进入模型能力主比较。",
+    "若没有请求超过 120 秒，不能据此证明延长截止点能够挽救历史超时。",
+    "单一项目、每个 provider 一次 attempt 不能支持稳定性或模型优劣结论。",
+    "旧 canary 失败与本修订层分开保留，不能合并解释为一次成功重试。",
+    "本批没有超过 120 秒的请求时，只能证明 300 秒配置路径可运行，不能证明延长截止点产生了挽救效果。"
+  ],
+  "manifest_sha256": "4ae50bcde9ceb530491d91e214278566f7770a9432af91e3bf04a61c1a30b65a",
+  "report_version": "formal-timeout-calibration-result-1.0.0",
+  "scope": {
+    "descriptive_only": true,
+    "formal_comparison_enabled": false,
+    "languages": [
+      "C",
+      "C++"
+    ],
+    "paired_primary_eligible": false,
+    "phase": "formal_timeout_canary_amendment"
+  }
+}
