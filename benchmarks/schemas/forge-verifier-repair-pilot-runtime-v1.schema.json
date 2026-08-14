@@ -1,0 +1,463 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/WWFXL/Forge-AutoCompiler/benchmarks/schemas/forge-verifier-repair-pilot-runtime-v1.schema.json",
+  "title": "Forge verifier-driven repair pilot runtime candidate",
+  "const": {
+    "$schema": "../schemas/forge-verifier-repair-pilot-runtime-v1.schema.json",
+    "schema_version": "verifier-driven-repair-pilot-runtime-1.0.0",
+    "benchmark": {
+      "id": "forge-cpp-verifier-driven-repair-pilot-runtime-candidate",
+      "purpose": "freeze a baseline-versus-structured-verifier-feedback paired pilot runtime without authorizing collection",
+      "languages": [
+        "C",
+        "C++"
+      ]
+    },
+    "protocolization": {
+      "issue": 125,
+      "base_commit": "97f252b414a6f2acbac694b116ed75acef6ac988",
+      "design_parent": {
+        "path": "benchmarks/preregistrations/cpp-verifier-driven-repair-pilot-v1.json",
+        "sha256": "c20d767253dd2a5f0fbba7e6aebfccd5b6ac0f94c3f417dddccd3b498439b420"
+      },
+      "model_source": {
+        "path": "benchmarks/manifests/cpp-formal-timeout-calibration.json",
+        "sha256": "31e48e14e32113a556d44f6fa62cd98235acc884baf8a98240410e513a093f1e"
+      },
+      "runtime_implementation_authorized": true,
+      "collection_authorized": false,
+      "provider_canary_forbidden": true,
+      "physical_attempt_creation_forbidden": true,
+      "model_execution_forbidden": true,
+      "batch_execution_forbidden": true
+    },
+    "runtime": {
+      "adapter": "scripts/forge_verifier_repair_runtime.py",
+      "packet_schema_version": "forge-verifier-repair-packet-1.0.0",
+      "sidecar_schema_version": "forge-verifier-repair-sidecar-1.0.0",
+      "baseline_byte_identity_required": true,
+      "shared_compile_components_modified": false,
+      "compile_image": "autocompiler:gcc13",
+      "image_id": "sha256:900d7ce4b902b79df5c64ffab88631b251538f1bde578c4dd2bf91558e9d1554",
+      "control_plane_topology": "compose-dood",
+      "docker_daemon_provider": "ubuntu-native"
+    },
+    "repair_packet": {
+      "schema_path": "benchmarks/schemas/forge-verifier-repair-packet-v1.schema.json",
+      "schema_sha256": "81d51743e40e4c8e7d81328e598088524417615c2cdc99124e4aa3c44e9f2068",
+      "actionable_classifications": [
+        "artifact_set_mismatch",
+        "artifact_type_mismatch",
+        "build_system_mismatch",
+        "build_system_selection_mismatch",
+        "build_system_unproven",
+        "candidate_verification_failed",
+        "recipe_execution_failed",
+        "sha256_mismatch",
+        "size_mismatch",
+        "smoke_mismatch"
+      ],
+      "repair_goals": {
+        "artifact_set_mismatch": "Stage exactly the frozen artifact set and remove unexpected outputs before resubmitting.",
+        "artifact_type_mismatch": "Stage artifacts with the frozen compiled artifact types before resubmitting.",
+        "build_system_mismatch": "Use the frozen expected build system and rebuild before resubmitting.",
+        "build_system_selection_mismatch": "Use the frozen expected build system and rebuild before resubmitting.",
+        "build_system_unproven": "Run a successful non-housekeeping build command with the frozen build system before resubmitting.",
+        "candidate_verification_failed": "Stage recognized compiled artifacts in /artifacts and submit the corrected candidate.",
+        "recipe_execution_failed": "Make the recorded successful build and staging commands replayable from a clean workspace.",
+        "sha256_mismatch": "Remove nondeterminism so staged artifacts reproduce with identical SHA-256 values.",
+        "size_mismatch": "Rebuild and stage artifacts whose sizes reproduce in clean replay.",
+        "smoke_mismatch": "Repair runtime behavior so executable smoke output reproduces in clean replay."
+      },
+      "forbidden_content": [
+        "stdout",
+        "stderr",
+        "prompt",
+        "model_body",
+        "credential",
+        "host_path",
+        "generated_repair_command"
+      ]
+    },
+    "cases": [
+      {
+        "id": "liblouis",
+        "repository_url": "https://github.com/liblouis/liblouis",
+        "commit": "b52ab11ade4cf0917315991b54a8558a2589cf55",
+        "build_system": "autotools",
+        "review_state": "reviewed",
+        "result_data_consulted": false,
+        "recipe": {
+          "source_subdir": ".",
+          "bootstrap_commands": [
+            "autoreconf -fi"
+          ],
+          "configure_arguments": [
+            "--disable-shared",
+            "--enable-static"
+          ],
+          "build_targets": [
+            "all"
+          ],
+          "required_system_packages": [
+            "autoconf",
+            "automake",
+            "build-essential",
+            "libtool",
+            "pkg-config"
+          ]
+        },
+        "artifact_oracle": {
+          "required_artifacts": [
+            {
+              "staged_relative_path": "liblouis.a",
+              "build_output_path": "liblouis/.libs/liblouis.a",
+              "artifact_type": "static_library",
+              "producing_target": "all"
+            }
+          ]
+        },
+        "evidence": [
+          {
+            "kind": "upstream_exact_commit",
+            "path": "configure.ac",
+            "url": "https://github.com/liblouis/liblouis/blob/b52ab11ade4cf0917315991b54a8558a2589cf55/configure.ac",
+            "supports": [
+              "build_path"
+            ]
+          },
+          {
+            "kind": "upstream_exact_commit",
+            "path": "liblouis/Makefile.am",
+            "url": "https://github.com/liblouis/liblouis/blob/b52ab11ade4cf0917315991b54a8558a2589cf55/liblouis/Makefile.am",
+            "supports": [
+              "artifact_identity"
+            ]
+          },
+          {
+            "kind": "oss_fuzz_snapshot",
+            "path": "liblouis/build.sh",
+            "url": "https://github.com/google/oss-fuzz/blob/08682bfc14e31d12fcc94b52b4805d7994fb70fd/projects/liblouis/build.sh",
+            "supports": [
+              "build_path"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "openthread",
+        "repository_url": "https://github.com/openthread/openthread",
+        "commit": "044aa98f1b5255731e0a6f2816e267b282299684",
+        "build_system": "cmake",
+        "review_state": "reviewed",
+        "result_data_consulted": false,
+        "recipe": {
+          "source_subdir": ".",
+          "bootstrap_commands": [],
+          "configure_arguments": [
+            "-DCMAKE_BUILD_TYPE=Release",
+            "-DOT_BUILD_EXECUTABLES=OFF",
+            "-DOT_COMPILE_WARNING_AS_ERROR=OFF"
+          ],
+          "build_targets": [
+            "openthread-ftd"
+          ],
+          "required_system_packages": [
+            "build-essential",
+            "cmake",
+            "python3"
+          ]
+        },
+        "artifact_oracle": {
+          "required_artifacts": [
+            {
+              "staged_relative_path": "libopenthread-ftd.a",
+              "build_output_path": "build/src/core/libopenthread-ftd.a",
+              "artifact_type": "static_library",
+              "producing_target": "openthread-ftd"
+            }
+          ]
+        },
+        "evidence": [
+          {
+            "kind": "upstream_exact_commit",
+            "path": "CMakeLists.txt",
+            "url": "https://github.com/openthread/openthread/blob/044aa98f1b5255731e0a6f2816e267b282299684/CMakeLists.txt",
+            "supports": [
+              "build_path"
+            ]
+          },
+          {
+            "kind": "upstream_exact_commit",
+            "path": "src/core/CMakeLists.txt",
+            "url": "https://github.com/openthread/openthread/blob/044aa98f1b5255731e0a6f2816e267b282299684/src/core/CMakeLists.txt",
+            "supports": [
+              "artifact_identity"
+            ]
+          },
+          {
+            "kind": "oss_fuzz_snapshot",
+            "path": "openthread/build.sh",
+            "url": "https://github.com/google/oss-fuzz/blob/08682bfc14e31d12fcc94b52b4805d7994fb70fd/projects/openthread/build.sh",
+            "supports": [
+              "build_path"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "mupdf",
+        "repository_url": "https://github.com/ArtifexSoftware/mupdf",
+        "commit": "b29caae1ab8c602187d4fc36d7b540bac493635d",
+        "build_system": "make",
+        "review_state": "reviewed",
+        "result_data_consulted": false,
+        "recipe": {
+          "source_subdir": ".",
+          "bootstrap_commands": [],
+          "configure_arguments": [],
+          "build_targets": [
+            "libs"
+          ],
+          "required_system_packages": [
+            "build-essential",
+            "libfreetype6-dev",
+            "libjpeg-dev",
+            "zlib1g-dev"
+          ]
+        },
+        "artifact_oracle": {
+          "required_artifacts": [
+            {
+              "staged_relative_path": "libmupdf.a",
+              "build_output_path": "build/release/libmupdf.a",
+              "artifact_type": "static_library",
+              "producing_target": "libs"
+            }
+          ]
+        },
+        "evidence": [
+          {
+            "kind": "upstream_exact_commit",
+            "path": "Makefile",
+            "url": "https://github.com/ArtifexSoftware/mupdf/blob/b29caae1ab8c602187d4fc36d7b540bac493635d/Makefile",
+            "supports": [
+              "build_path",
+              "artifact_identity"
+            ]
+          },
+          {
+            "kind": "oss_fuzz_snapshot",
+            "path": "mupdf/build.sh",
+            "url": "https://github.com/google/oss-fuzz/blob/08682bfc14e31d12fcc94b52b4805d7994fb70fd/projects/mupdf/build.sh",
+            "supports": [
+              "build_path"
+            ]
+          }
+        ]
+      }
+    ],
+    "model_profiles": {
+      "richlab-gpt-5.5": {
+        "endpoint": "https://rich-api.choosefire.com/v1",
+        "credential_env": "OpenAI_AK",
+        "roles": {
+          "lead": "gpt-5.5",
+          "compiler": "gpt-5.5"
+        },
+        "fallback_policy": "forbidden",
+        "request_timeout_seconds": 300,
+        "max_retries": 0
+      },
+      "deepseek-v4-flash": {
+        "endpoint": "https://api.deepseek.com",
+        "credential_env": "DEEPSEEK_API_KEY",
+        "roles": {
+          "lead": "deepseek-v4-flash",
+          "compiler": "deepseek-v4-flash"
+        },
+        "fallback_policy": "forbidden",
+        "request_timeout_seconds": 300,
+        "max_retries": 0
+      }
+    },
+    "treatments": [
+      {
+        "id": "baseline-current-verifier-output",
+        "repair_packet_enabled": false,
+        "definition": "保持 main@6eb69e64 的 submit_build_result 失败返回和 Compiler prompt 不变。"
+      },
+      {
+        "id": "structured-verifier-repair-packet",
+        "repair_packet_enabled": true,
+        "definition": "只在可修复的 verification-domain submit 失败后，在同一工具返回中增加确定性的 repair_packet；不增加模型调用、Compiler invocation、turn、timeout 或 token 预算。",
+        "packet_fields": [
+          "schema_version",
+          "failure_domain",
+          "primary_classification",
+          "failed_checks",
+          "build_system_identity",
+          "artifact_identity_diff",
+          "replay_status",
+          "repair_goal",
+          "supporting_command_id",
+          "submit_attempt_id",
+          "replay_attempt_id"
+        ],
+        "packet_constraints": [
+          "只包含 verifier 已持久化的白名单结构化字段。",
+          "不包含 stdout、stderr、prompt、模型正文、密钥、宿主路径或生成式修复命令。",
+          "repair_goal 由固定 classification 映射生成，不调用模型。",
+          "acceptance gate、artifact Oracle、clean replay 与 delivery 语义保持不变。"
+        ]
+      }
+    ],
+    "pilot_schedule": [
+      {
+        "order": 1,
+        "pair_id": "liblouis-richlab-r1",
+        "case_id": "liblouis",
+        "provider_condition": "richlab-gpt-5.5",
+        "treatment": "baseline-current-verifier-output",
+        "repetition": 1
+      },
+      {
+        "order": 2,
+        "pair_id": "liblouis-richlab-r1",
+        "case_id": "liblouis",
+        "provider_condition": "richlab-gpt-5.5",
+        "treatment": "structured-verifier-repair-packet",
+        "repetition": 1
+      },
+      {
+        "order": 3,
+        "pair_id": "liblouis-deepseek-r1",
+        "case_id": "liblouis",
+        "provider_condition": "deepseek-v4-flash",
+        "treatment": "structured-verifier-repair-packet",
+        "repetition": 1
+      },
+      {
+        "order": 4,
+        "pair_id": "liblouis-deepseek-r1",
+        "case_id": "liblouis",
+        "provider_condition": "deepseek-v4-flash",
+        "treatment": "baseline-current-verifier-output",
+        "repetition": 1
+      },
+      {
+        "order": 5,
+        "pair_id": "openthread-richlab-r1",
+        "case_id": "openthread",
+        "provider_condition": "richlab-gpt-5.5",
+        "treatment": "structured-verifier-repair-packet",
+        "repetition": 1
+      },
+      {
+        "order": 6,
+        "pair_id": "openthread-richlab-r1",
+        "case_id": "openthread",
+        "provider_condition": "richlab-gpt-5.5",
+        "treatment": "baseline-current-verifier-output",
+        "repetition": 1
+      },
+      {
+        "order": 7,
+        "pair_id": "openthread-deepseek-r1",
+        "case_id": "openthread",
+        "provider_condition": "deepseek-v4-flash",
+        "treatment": "baseline-current-verifier-output",
+        "repetition": 1
+      },
+      {
+        "order": 8,
+        "pair_id": "openthread-deepseek-r1",
+        "case_id": "openthread",
+        "provider_condition": "deepseek-v4-flash",
+        "treatment": "structured-verifier-repair-packet",
+        "repetition": 1
+      },
+      {
+        "order": 9,
+        "pair_id": "mupdf-richlab-r1",
+        "case_id": "mupdf",
+        "provider_condition": "richlab-gpt-5.5",
+        "treatment": "baseline-current-verifier-output",
+        "repetition": 1
+      },
+      {
+        "order": 10,
+        "pair_id": "mupdf-richlab-r1",
+        "case_id": "mupdf",
+        "provider_condition": "richlab-gpt-5.5",
+        "treatment": "structured-verifier-repair-packet",
+        "repetition": 1
+      },
+      {
+        "order": 11,
+        "pair_id": "mupdf-deepseek-r1",
+        "case_id": "mupdf",
+        "provider_condition": "deepseek-v4-flash",
+        "treatment": "structured-verifier-repair-packet",
+        "repetition": 1
+      },
+      {
+        "order": 12,
+        "pair_id": "mupdf-deepseek-r1",
+        "case_id": "mupdf",
+        "provider_condition": "deepseek-v4-flash",
+        "treatment": "baseline-current-verifier-output",
+        "repetition": 1
+      }
+    ],
+    "budget": {
+      "authorized": false,
+      "request_timeout_seconds": 300,
+      "provider_retries": 0,
+      "attempt_total_wall_clock_seconds": 1800,
+      "cleanup_reserve_seconds": 120,
+      "max_compiler_invocations": 2,
+      "max_model_requests": 48,
+      "model_turn_limit": 36,
+      "maximum_recorded_tokens": 2400000,
+      "expected_recorded_tokens": 800000,
+      "budget_check_boundary": "before_each_complete_pair",
+      "remaining_pairs_require_confirmation": true
+    },
+    "outcomes": {
+      "primary": "oracle_passed",
+      "secondary": [
+        "terminal_passed",
+        "repair_conversion_after_actionable_verifier_failure",
+        "false_acceptance_count",
+        "submit_attempts",
+        "clean_replay_attempts",
+        "model_requests",
+        "recorded_tokens",
+        "attempt_wall_clock_seconds",
+        "failure_classification_transition"
+      ],
+      "pilot_analysis": "按 pair 描述 discordant outcome、成本与 treatment fidelity；不做 p-value 或模型排名。",
+      "formal_follow_up": "只有 pilot 证明 treatment 接线、预算和证据完整后，才预注册至少 3 次重复的正式配对实验。"
+    },
+    "fidelity_gate": {
+      "statuses": [
+        "passed",
+        "not_exposed",
+        "failed"
+      ],
+      "baseline_packet_count": 0,
+      "treatment_requires_packet_for_each_actionable_submit": true,
+      "paired_analysis_requires_both_arms": true,
+      "p_value_forbidden": true,
+      "model_ranking_forbidden": true
+    },
+    "implementation_sha256": {
+      "benchmarks/schemas/forge-verifier-repair-packet-v1.schema.json": "81d51743e40e4c8e7d81328e598088524417615c2cdc99124e4aa3c44e9f2068",
+      "scripts/forge_verifier_repair_pilot_analyzer.py": "24818232cee5220995a048916752ee1d231d8017ce305fe5673fcd2479a5626b",
+      "scripts/forge_verifier_repair_pilot_protocol.py": "dd2d2dcd20cffdaee37b3c1376b3f35d7535a2328aa54bdfe992a1d6f4e879c2",
+      "scripts/forge_verifier_repair_pilot_runner.py": "83a7aa055316d8491223a264e844151586f6c88c8eb28a0ecb879d7d4fe11a59",
+      "scripts/forge_verifier_repair_runtime.py": "1d5f4eee3388f10c3f6a1f7f405b530263d5a84019c1bae53cd7d2ae047b2637"
+    }
+  }
+}

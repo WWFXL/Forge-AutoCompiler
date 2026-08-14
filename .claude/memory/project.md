@@ -24,6 +24,15 @@
 ## 最近变更 (Recent Changes)
 <!-- 倒序，最新在上。 -->
 
+- 2026-08-14 — 完成 verifier-driven repair 运行时与未授权证据门禁
+  - GitHub: 中文 Issue #125 已创建并回读；实现分支为 `research/issue-125-verifier-repair-runtime`，基线为 `main@97f252b4`。
+  - 实现: 新增版本化 submit feedback adapter、严格白名单 `repair_packet`、独立 hash-chain sidecar、treatment fidelity gate、硬拒绝 canary/attempt/batch 的未授权 runner，以及只做配对描述性统计的 analyzer。
+  - 修复: 失败 submit 缺少对应 `submit.completed` 时明确记为 `failed/evidence_missing`；baseline 原始/返回 SHA-256 不一致时拒绝；sidecar 事件 payload 严格校验；动态 failed-check 名称只保留安全标识，合法 artifact 名不再被宽泛敏感词扫描误拒绝。
+  - 指标: analyzer 已覆盖 actionable verifier failures、repair conversions、false acceptance、submit/replay 次数、failure transitions、token、请求数和墙钟差值；仍禁止 p-value 和模型排名。
+  - 验证: 聚焦测试 `17 passed`，Ruff check/format、`py_compile`、Schema、protocol/runner validate、确定性再生成、共享 compile blob、diff 与敏感信息扫描通过；canonical manifest SHA-256 为 `880af0175795e474d470fd483544296fc68cdb0e5e968cebd32d73ef183ab045`。
+  - 边界: 未启动 Docker、未调用模型、未创建实验 evidence；12 slots、provider canary、physical attempt、batch 和 maximum 2,400,000 recorded tokens 仍未授权。
+  - 文件: `scripts/forge_verifier_repair_runtime.py`, `scripts/forge_verifier_repair_pilot_protocol.py`, `scripts/forge_verifier_repair_pilot_runner.py`, `scripts/forge_verifier_repair_pilot_analyzer.py`, `backend/tests/test_forge_verifier_repair_pilot.py`, `benchmarks/manifests/cpp-verifier-repair-pilot-runtime-candidate.json`, `benchmarks/schemas/forge-verifier-repair-packet-v1.schema.json`, `benchmarks/schemas/forge-verifier-repair-pilot-runtime-v1.schema.json`
+
 - 2026-08-14 — 完成 verifier-driven repair 配对 pilot 未授权决策包
   - GitHub: Issue #123 与 PR #124 使用中文创建并回读；核心设计提交为 `f5798c5e`。
   - 证据: formal v4 中一个槽在 `candidate_verification_failed -> build_system_unproven` 后自然修复并通过，另一个 `recipe_execution_failed` 槽被后续 endpoint timeout 混杂；这些轨迹只支持 treatment 设计，不能估计效果。
@@ -363,6 +372,7 @@
 - 成功 bash 记录只是候选 recipe；失败命令可能留下持久副作用。进入研究基线前必须在新容器与空 `/workspace`、`/artifacts` 中实际 replay，不能把 `repro_bundle` 生成成功等同于独立复现成功。
 - Windows 挂载目录在编译镜像中可能触发 Git `dubious ownership`；replay 初始化仓库后必须把 `/workspace/repo` 加入 `safe.directory`。
 - 不要把含 `$()`、重定向和多层引号的后验校验直接嵌进 PowerShell → WSL → `docker run ... bash -lc`；参数可能被中间层重解释。应先单独运行 `bash /repro/build.sh` 获取退出码，再用独立命令检查类型、输出与哈希。
+- PowerShell → WSL 的审计命令也不要嵌套 `python -c` 与多层单双引号；即使前置生成已成功，末尾展示命令仍可能因引号截断让整段汇总失败。应把 manifest 校验、哈希显示和 PowerShell 文件审计拆成固定参数的独立命令。
 - `docker run` 客户端超时不证明 daemon 没有稍后创建容器；replay 必须使用确定性名称，在超时后反复对账并幂等删除，且 create/checkpoint/parent cleanup 必须由同一 session lock 串行化。
 - 取消、超时与同步 submit 可能持有不同的 stale session 副本；第一条持久化 termination reason 必须胜出，终态后的 cleanup 只能按 `attempt_id` 白名单合并可变清理字段，不能覆盖镜像、commit、recipe、产物或检查证据。
 - Manifest 中声明的模型、端点、镜像和运行参数只是实验意图，不是实际运行证明；observed 字段必须由 runner 从真实请求、Forge 状态和 Docker 结果写入。
