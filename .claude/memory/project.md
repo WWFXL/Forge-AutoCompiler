@@ -5,6 +5,15 @@
 ## 进行中 (In Progress)
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
+- 2026-08-14 — 执行 verifier-driven repair 六对授权 pilot
+  - GitHub: 中文 Issue #127 已创建并回读；实现分支为 `research/issue-127-verifier-repair-authorized`，基线为 `main@fb24fa2b`。
+  - 授权: RichLab `gpt-5.5`、DeepSeek `deepseek-v4-flash`，3 cases × 2 providers × 2 arms × 1 repetition，共 12 slots / 6 complete pairs；expected 800,000、maximum 2,400,000 recorded tokens，禁止 retry、fallback、replacement 和 backfill。
+  - 实现: 新 authorized manifest/Schema 把 provider×arm 展开为四个唯一 condition，同时保持 canary 每个 provider 只请求一次；真实 attempt 在 `submit_feedback_scope` 内运行，独立 sidecar 不使用 `.jsonl` 后缀，避免被主 ledger 扫描器误识别；只读报告器按冻结 order 合并主 ledger 与 sidecar。
+  - 门禁: 合并前禁止模型与 evidence；合并后依次要求 Ubuntu 原生 Docker、非模型 preflight、空 evidence、0 orphan、已确认的 `FORGE_NETWORK_ACCESS_MEDIUM` 与唯一双 provider canary。batch 只能在完整 pair 边界停止，token 在新 pair 前检查。
+  - 验证: 聚焦 repair runtime/authorized 回归 `26 passed`；Ruff check/format、`py_compile`、Schema 实例校验、protocol validate、确定性再生成、父 runtime/共享 compile 与敏感值扫描通过。authorized manifest canonical SHA-256 为 `ad54858ad8cc938e823170bece020b21a7ab221788d5c36ac45c5213d78b56d0`。
+  - 边界与下一步: 当前 0 Docker、0 provider request、0 model token、0 physical attempt。下一步中文提交、WSL helper 推送、中文 PR/CI/合并；canary 前需实验负责人确认当前网络介质。
+  - 文件: `scripts/forge_verifier_repair_authorized_protocol.py`, `scripts/forge_verifier_repair_authorized_runner.py`, `scripts/forge_verifier_repair_authorized_report.py`, `backend/tests/test_forge_verifier_repair_authorized.py`, `benchmarks/manifests/cpp-verifier-repair-pilot-authorized.json`, `benchmarks/schemas/forge-verifier-repair-pilot-authorized-v1.schema.json`
+
 - 2026-08-13 — 完成 formal v4 有限诊断与新 canary amendment
   - GitHub: 中文 Issue #115 已创建并回读；实现分支为 `research/formal-v4-canary-amendment`，PR 尚未创建。
   - 授权: RichLab `gpt-5.5` 与 DeepSeek `deepseek-v4-flash` 各最多 2 次低成本诊断，首次成功即停止；之后最多 1 次新的双 provider canary，成功才执行原六槽，token 上限仍为 980,000。

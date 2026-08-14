@@ -1,0 +1,679 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/WWFXL/Forge-AutoCompiler/benchmarks/schemas/forge-verifier-repair-pilot-authorized-v1.schema.json",
+  "title": "Forge verifier-driven repair pilot authorization",
+  "const": {
+    "$schema": "../schemas/forge-verifier-repair-pilot-authorized-v1.schema.json",
+    "schema_version": "verifier-driven-repair-pilot-authorized-1.0.0",
+    "document_type": "forge_verifier_repair_pilot_authorization",
+    "benchmark": {
+      "id": "forge-verifier-driven-repair-pilot-authorized",
+      "name": "Forge C/C++ verifier-driven repair paired pilot",
+      "purpose": "execute six bounded baseline-versus-repair pairs"
+    },
+    "scope": {
+      "languages": [
+        "C",
+        "C++"
+      ],
+      "phase": "verifier_driven_repair_pilot",
+      "formal_comparison_enabled": false,
+      "collection_authorized": true,
+      "instrumentation_blocker": false
+    },
+    "authorization": {
+      "id": "forge-verifier-driven-repair-pilot-authorized",
+      "status": "authorized_six_complete_pairs",
+      "authorized_by": "experiment_owner",
+      "authorized_on": "2026-08-14",
+      "issue_url": "https://github.com/WWFXL/Forge-AutoCompiler/issues/127",
+      "implementation_baseline_commit": "fb24fa2b7acd0b39826d3440b8221a00a4d1a136",
+      "parent_runtime": {
+        "id": "forge-cpp-verifier-driven-repair-pilot-runtime-candidate",
+        "path": "benchmarks/manifests/cpp-verifier-repair-pilot-runtime-candidate.json",
+        "canonical_sha256": "880af0175795e474d470fd483544296fc68cdb0e5e968cebd32d73ef183ab045"
+      },
+      "network_observation": {
+        "access_medium_reconfirmation_required_before_canary": true,
+        "browser_ui_required": false
+      },
+      "budget_confirmation": {
+        "confirmed": true,
+        "expected_recorded_tokens": 800000,
+        "maximum_recorded_tokens": 2400000,
+        "enforcement": "check_before_each_complete_pair",
+        "complete_started_pair_before_next_boundary_check": true
+      },
+      "collection_constraints": {
+        "authorized_slot_count": 12,
+        "authorized_complete_pairs": 6,
+        "provider_canary_required_before_first_ledger": true,
+        "provider_canary_max_attempts": 1,
+        "provider_canary_requests_per_provider": 1,
+        "empty_evidence_required_before_canary": true,
+        "zero_residual_formal_containers_required_before_canary": true,
+        "replacement_forbidden": true,
+        "fallback_forbidden": true,
+        "retry_forbidden": true,
+        "backfill_forbidden": true,
+        "p_value_forbidden": true,
+        "model_ranking_forbidden": true,
+        "evidence_directory": "/workspace/.compile-sessions/benchmark-evidence-verifier-repair-authorized"
+      }
+    },
+    "forge": {
+      "repository_url": "https://github.com/WWFXL/Forge-AutoCompiler",
+      "commit_sha": "fb24fa2b7acd0b39826d3440b8221a00a4d1a136",
+      "revision_policy": "descendant-compatible",
+      "component_sha256": {
+        "backend/packages/harness/deerflow/agents/lead_agent/agent.py": "ce3ee4d371d98982edfb054824ee9fa002e064d641e256b34c3ea281e93fb320",
+        "backend/packages/harness/deerflow/agents/lead_agent/prompt.py": "179b65b6cd386b56d2dbd8ae69003f1a708715b28681197d5f063b1a4c2f4b26",
+        "backend/packages/harness/deerflow/agents/middlewares/clarification_middleware.py": "6555b8921b7cbde9372d3025d5050ab7096fff8ac679d59395d844bc2db0cd77",
+        "backend/packages/harness/deerflow/agents/middlewares/llm_error_handling_middleware.py": "3a4da4a44e338fbe404e9e619635f49ef0bd4d12979090a984ea14aa157b9dcc",
+        "backend/packages/harness/deerflow/agents/middlewares/memory_middleware.py": "6e7896fa9472086457cc69a5ea2a4a593485d4c9d6d324f8029b5ff70a113022",
+        "backend/packages/harness/deerflow/agents/middlewares/tool_error_handling_middleware.py": "017679304d7c9ad456d6a3050c87a0646d55641ae0d0e3a6ec6860535b0e9b79",
+        "backend/packages/harness/deerflow/client.py": "5b0e187027367a3adcd223403fb154f1f51d28f729e865026b224eb7f03d07f9",
+        "backend/packages/harness/deerflow/compile/__init__.py": "db4ca1b560d0b97d4a46574e29f1d44eaafb899b7473140aa1b3a8d640d81819",
+        "backend/packages/harness/deerflow/compile/docker_runtime.py": "55a25331969c231c32f36096f7a49a81ceac196e805514e041bd9a7ea1879ea9",
+        "backend/packages/harness/deerflow/compile/evidence.py": "7f43ac42464ba8a0bef22198e119c80572b2eb90c3c82451d75252751c273b58",
+        "backend/packages/harness/deerflow/compile/manager.py": "2413cf71e3cda47906f19121cdaea7edbb5352083a7ca15f98b8d882172d545d",
+        "backend/packages/harness/deerflow/compile/operations.py": "7689b8738a1c0e4981a0c72bf3b5632e6d5e339e38542c6875f0c163c8f4a361",
+        "backend/packages/harness/deerflow/compile/schemas.py": "fb68ae2d4a3ed5d6c5879b26f8d584f5604555a7ff2d14987a63c5418a07f563",
+        "backend/packages/harness/deerflow/models/factory.py": "804da24b5a3929df57251a0274dd690dcfa469c9c5c59024b100ae928dc0f5fc",
+        "backend/packages/harness/deerflow/subagents/builtins/compiler_agent.py": "163024555882bbe7f106b77b78743bc05f4ddf6ae7e3994c471603db3aad975e",
+        "backend/packages/harness/deerflow/subagents/executor.py": "6d1c8cd8395c6e849f51ebd9171ee06b0d5c8a4c9b6941628441792e0df402dd",
+        "backend/packages/harness/deerflow/tools/bound_compile_tools.py": "d06003920c9d4d9794237a165f5a743421647c0f03ef6aed49ea0156407f2140",
+        "backend/packages/harness/deerflow/tools/builtins/agent_compile_tools.py": "1e8d6216ce2aa070a8ec1a2e3b6a042b4ca1be76edc66632597bc7ac4eb6ee2d",
+        "backend/packages/harness/deerflow/tools/builtins/task_tool.py": "5e8880181da032ade720b437a351c68f3d6e35e117e72fcee2f5f01acbc4f2ec",
+        "backend/uv.lock": "cd9271aa22af6ef37f1a81404b20cef2af0f3d302480e605f62e690f6cf8650d",
+        "config.example.yaml": "7f40b0a88a86a1344bff83e5e2f3ad9e4c20d88aa74e19a0ae11ae821dac6715",
+        "docker/compile/Dockerfile": "19c20e59fd8e98f44d08acdc0cce7c6c938df5a77d9f18176ba965d701b74628",
+        "docker/docker-compose-dev.yaml": "b41ba1165eee5975692f5636e39e0f0416d449cf33119d83e324d95c35b34752"
+      }
+    },
+    "protocol_artifact_sha256": {
+      "scripts/forge_verifier_repair_authorized_protocol.py": "48f2e91a2ac97c143e9233e966cae5506d7a3cea30cbd8d03719764fc421f0e6",
+      "scripts/forge_verifier_repair_authorized_report.py": "17b08d96838d364c192dcf27ac21a62af7b1217807d4377f46ef27d32a006ae6",
+      "scripts/forge_verifier_repair_authorized_runner.py": "b1651cbd7b7413a7d5234662c826238e0fdf8b39980bec9025b8609f87dbb2d8"
+    },
+    "prompt_sha256": {
+      "backend/packages/harness/deerflow/agents/lead_agent/prompt.py": "179b65b6cd386b56d2dbd8ae69003f1a708715b28681197d5f063b1a4c2f4b26",
+      "backend/packages/harness/deerflow/subagents/builtins/compiler_agent.py": "163024555882bbe7f106b77b78743bc05f4ddf6ae7e3994c471603db3aad975e",
+      "backend/packages/harness/deerflow/tools/builtins/task_tool.py": "5e8880181da032ade720b437a351c68f3d6e35e117e72fcee2f5f01acbc4f2ec"
+    },
+    "model_profiles": {
+      "richlab-gpt-5.5": {
+        "endpoint": "https://rich-api.choosefire.com/v1",
+        "credential_env": "OpenAI_AK",
+        "roles": {
+          "lead": "gpt-5.5",
+          "compiler": "gpt-5.5"
+        },
+        "fallback_policy": "forbidden",
+        "request_timeout_seconds": 300,
+        "max_retries": 0
+      },
+      "deepseek-v4-flash": {
+        "endpoint": "https://api.deepseek.com",
+        "credential_env": "DEEPSEEK_API_KEY",
+        "roles": {
+          "lead": "deepseek-v4-flash",
+          "compiler": "deepseek-v4-flash"
+        },
+        "fallback_policy": "forbidden",
+        "request_timeout_seconds": 300,
+        "max_retries": 0
+      }
+    },
+    "runtime": {
+      "compile_image": "autocompiler:gcc13",
+      "image_id": "sha256:900d7ce4b902b79df5c64ffab88631b251538f1bde578c4dd2bf91558e9d1554",
+      "control_plane_topology": "compose-dood",
+      "replay_timeout_seconds": 1200,
+      "cleanup_timeout_seconds": 20,
+      "docker_control_timeout_seconds": 30,
+      "model_turn_limit": 36,
+      "graph_recursion_limit": 96,
+      "wall_clock_timeout_seconds": 900,
+      "post_build_reserve_seconds": 120,
+      "max_parallel_runs": 1,
+      "backend_processes": 1,
+      "network_policy": {
+        "network_name": "compile_network_wwf_v1",
+        "egress": "enabled_for_clone_and_dependencies"
+      },
+      "host": {
+        "wsl_distribution": "Ubuntu",
+        "cpu_count": 32,
+        "memory_kib": 7723024,
+        "kernel": "6.6.114.1-microsoft-standard-WSL2",
+        "architecture": "x86_64",
+        "docker_server_version": "29.5.3"
+      },
+      "docker_daemon_provider": "ubuntu-native",
+      "docker_socket_path": "/var/run/docker.sock"
+    },
+    "attempt_budget": {
+      "total_wall_clock_seconds": 1800,
+      "cleanup_reserve_seconds": 120,
+      "max_compiler_invocations": 2,
+      "max_model_requests": 48,
+      "enforcement_checkpoints": [
+        "before_provider_request",
+        "before_compiler_invocation",
+        "before_submit_or_replay",
+        "before_finalize",
+        "before_cleanup"
+      ],
+      "new_work_forbidden_after_limit": true,
+      "cleanup_mandatory_after_limit": true,
+      "terminal_classification": "attempt_budget_exhausted"
+    },
+    "resource_preflight": {
+      "minimum_available_memory_bytes": 2147483648,
+      "docker_daemon_timeout_seconds": 10,
+      "maximum_docker_daemon_latency_seconds": 5,
+      "required_checks": [
+        "host_available_memory_at_least_minimum",
+        "docker_daemon_responded",
+        "docker_daemon_latency_within_limit",
+        "docker_daemon_provider_matches",
+        "docker_socket_source_matches_native_path"
+      ],
+      "sensitive_host_identifiers_forbidden": true,
+      "docker_daemon_provider": "ubuntu-native",
+      "docker_socket_path": "/var/run/docker.sock"
+    },
+    "budget": {
+      "authorized": true,
+      "request_timeout_seconds": 300,
+      "provider_retries": 0,
+      "attempt_total_wall_clock_seconds": 1800,
+      "cleanup_reserve_seconds": 120,
+      "max_compiler_invocations": 2,
+      "max_model_requests": 48,
+      "model_turn_limit": 36,
+      "maximum_recorded_tokens": 2400000,
+      "expected_recorded_tokens": 800000,
+      "budget_check_boundary": "before_each_complete_pair",
+      "remaining_pairs_require_confirmation": true
+    },
+    "conditions": [
+      {
+        "id": "richlab-gpt-5.5-baseline",
+        "model_profile": "richlab-gpt-5.5",
+        "provider_condition": "richlab-gpt-5.5",
+        "treatment": "baseline-current-verifier-output",
+        "memory_enabled": false,
+        "skills_enabled": false,
+        "repetitions": 1,
+        "acceptance_gate": "clean_replay"
+      },
+      {
+        "id": "richlab-gpt-5.5-repair",
+        "model_profile": "richlab-gpt-5.5",
+        "provider_condition": "richlab-gpt-5.5",
+        "treatment": "structured-verifier-repair-packet",
+        "memory_enabled": false,
+        "skills_enabled": false,
+        "repetitions": 1,
+        "acceptance_gate": "clean_replay"
+      },
+      {
+        "id": "deepseek-v4-flash-baseline",
+        "model_profile": "deepseek-v4-flash",
+        "provider_condition": "deepseek-v4-flash",
+        "treatment": "baseline-current-verifier-output",
+        "memory_enabled": false,
+        "skills_enabled": false,
+        "repetitions": 1,
+        "acceptance_gate": "clean_replay"
+      },
+      {
+        "id": "deepseek-v4-flash-repair",
+        "model_profile": "deepseek-v4-flash",
+        "provider_condition": "deepseek-v4-flash",
+        "treatment": "structured-verifier-repair-packet",
+        "memory_enabled": false,
+        "skills_enabled": false,
+        "repetitions": 1,
+        "acceptance_gate": "clean_replay"
+      }
+    ],
+    "collection_plan": [
+      {
+        "order": 1,
+        "pair_id": "liblouis-richlab-r1",
+        "case_id": "liblouis",
+        "provider_condition": "richlab-gpt-5.5",
+        "treatment": "baseline-current-verifier-output",
+        "repetition": 1,
+        "condition_id": "richlab-gpt-5.5-baseline"
+      },
+      {
+        "order": 2,
+        "pair_id": "liblouis-richlab-r1",
+        "case_id": "liblouis",
+        "provider_condition": "richlab-gpt-5.5",
+        "treatment": "structured-verifier-repair-packet",
+        "repetition": 1,
+        "condition_id": "richlab-gpt-5.5-repair"
+      },
+      {
+        "order": 3,
+        "pair_id": "liblouis-deepseek-r1",
+        "case_id": "liblouis",
+        "provider_condition": "deepseek-v4-flash",
+        "treatment": "structured-verifier-repair-packet",
+        "repetition": 1,
+        "condition_id": "deepseek-v4-flash-repair"
+      },
+      {
+        "order": 4,
+        "pair_id": "liblouis-deepseek-r1",
+        "case_id": "liblouis",
+        "provider_condition": "deepseek-v4-flash",
+        "treatment": "baseline-current-verifier-output",
+        "repetition": 1,
+        "condition_id": "deepseek-v4-flash-baseline"
+      },
+      {
+        "order": 5,
+        "pair_id": "openthread-richlab-r1",
+        "case_id": "openthread",
+        "provider_condition": "richlab-gpt-5.5",
+        "treatment": "structured-verifier-repair-packet",
+        "repetition": 1,
+        "condition_id": "richlab-gpt-5.5-repair"
+      },
+      {
+        "order": 6,
+        "pair_id": "openthread-richlab-r1",
+        "case_id": "openthread",
+        "provider_condition": "richlab-gpt-5.5",
+        "treatment": "baseline-current-verifier-output",
+        "repetition": 1,
+        "condition_id": "richlab-gpt-5.5-baseline"
+      },
+      {
+        "order": 7,
+        "pair_id": "openthread-deepseek-r1",
+        "case_id": "openthread",
+        "provider_condition": "deepseek-v4-flash",
+        "treatment": "baseline-current-verifier-output",
+        "repetition": 1,
+        "condition_id": "deepseek-v4-flash-baseline"
+      },
+      {
+        "order": 8,
+        "pair_id": "openthread-deepseek-r1",
+        "case_id": "openthread",
+        "provider_condition": "deepseek-v4-flash",
+        "treatment": "structured-verifier-repair-packet",
+        "repetition": 1,
+        "condition_id": "deepseek-v4-flash-repair"
+      },
+      {
+        "order": 9,
+        "pair_id": "mupdf-richlab-r1",
+        "case_id": "mupdf",
+        "provider_condition": "richlab-gpt-5.5",
+        "treatment": "baseline-current-verifier-output",
+        "repetition": 1,
+        "condition_id": "richlab-gpt-5.5-baseline"
+      },
+      {
+        "order": 10,
+        "pair_id": "mupdf-richlab-r1",
+        "case_id": "mupdf",
+        "provider_condition": "richlab-gpt-5.5",
+        "treatment": "structured-verifier-repair-packet",
+        "repetition": 1,
+        "condition_id": "richlab-gpt-5.5-repair"
+      },
+      {
+        "order": 11,
+        "pair_id": "mupdf-deepseek-r1",
+        "case_id": "mupdf",
+        "provider_condition": "deepseek-v4-flash",
+        "treatment": "structured-verifier-repair-packet",
+        "repetition": 1,
+        "condition_id": "deepseek-v4-flash-repair"
+      },
+      {
+        "order": 12,
+        "pair_id": "mupdf-deepseek-r1",
+        "case_id": "mupdf",
+        "provider_condition": "deepseek-v4-flash",
+        "treatment": "baseline-current-verifier-output",
+        "repetition": 1,
+        "condition_id": "deepseek-v4-flash-baseline"
+      }
+    ],
+    "schedule_sha256": "588cfae514f827d8ff436285dee80bd2d2dd782cbab4dfd4992c0f99cd8c51b2",
+    "cases": [
+      {
+        "id": "liblouis",
+        "repository_url": "https://github.com/liblouis/liblouis",
+        "commit_sha": "b52ab11ade4cf0917315991b54a8558a2589cf55",
+        "languages": [
+          "C"
+        ],
+        "build_system": "autotools",
+        "license": "LGPL-2.1",
+        "protocol": {
+          "source_subdir": ".",
+          "bootstrap_commands": [
+            "autoreconf -fi"
+          ],
+          "configure_arguments": [
+            "--disable-shared",
+            "--enable-static"
+          ],
+          "build_targets": [
+            "all"
+          ]
+        },
+        "oracle": {
+          "expected_candidate_status": "pass",
+          "expected_clean_replay_status": "pass",
+          "required_artifacts": [
+            {
+              "relative_path": "liblouis.a",
+              "build_output_path": "liblouis/.libs/liblouis.a",
+              "artifact_type": "static_library",
+              "producing_target": "all"
+            }
+          ]
+        },
+        "constraints": {
+          "required_system_packages": [
+            "autoconf",
+            "automake",
+            "build-essential",
+            "libtool",
+            "pkg-config"
+          ],
+          "build_arguments": {
+            "cmake": [],
+            "configure": [
+              "--disable-shared",
+              "--enable-static"
+            ]
+          },
+          "environment": {},
+          "minimum_replay_delay_seconds": 0
+        }
+      },
+      {
+        "id": "openthread",
+        "repository_url": "https://github.com/openthread/openthread",
+        "commit_sha": "044aa98f1b5255731e0a6f2816e267b282299684",
+        "languages": [
+          "C++"
+        ],
+        "build_system": "cmake",
+        "license": "BSD-3-Clause",
+        "protocol": {
+          "source_subdir": ".",
+          "bootstrap_commands": [],
+          "configure_arguments": [
+            "-DCMAKE_BUILD_TYPE=Release",
+            "-DOT_BUILD_EXECUTABLES=OFF",
+            "-DOT_COMPILE_WARNING_AS_ERROR=OFF"
+          ],
+          "build_targets": [
+            "openthread-ftd"
+          ]
+        },
+        "oracle": {
+          "expected_candidate_status": "pass",
+          "expected_clean_replay_status": "pass",
+          "required_artifacts": [
+            {
+              "relative_path": "libopenthread-ftd.a",
+              "build_output_path": "build/src/core/libopenthread-ftd.a",
+              "artifact_type": "static_library",
+              "producing_target": "openthread-ftd"
+            }
+          ]
+        },
+        "constraints": {
+          "required_system_packages": [
+            "build-essential",
+            "cmake",
+            "python3"
+          ],
+          "build_arguments": {
+            "cmake": [
+              "-DCMAKE_BUILD_TYPE=Release",
+              "-DOT_BUILD_EXECUTABLES=OFF",
+              "-DOT_COMPILE_WARNING_AS_ERROR=OFF"
+            ],
+            "configure": []
+          },
+          "environment": {},
+          "minimum_replay_delay_seconds": 0
+        }
+      },
+      {
+        "id": "mupdf",
+        "repository_url": "https://github.com/ArtifexSoftware/mupdf",
+        "commit_sha": "b29caae1ab8c602187d4fc36d7b540bac493635d",
+        "languages": [
+          "C++"
+        ],
+        "build_system": "make",
+        "license": "AGPL-3.0",
+        "protocol": {
+          "source_subdir": ".",
+          "bootstrap_commands": [],
+          "configure_arguments": [],
+          "build_targets": [
+            "libs"
+          ]
+        },
+        "oracle": {
+          "expected_candidate_status": "pass",
+          "expected_clean_replay_status": "pass",
+          "required_artifacts": [
+            {
+              "relative_path": "libmupdf.a",
+              "build_output_path": "build/release/libmupdf.a",
+              "artifact_type": "static_library",
+              "producing_target": "libs"
+            }
+          ]
+        },
+        "constraints": {
+          "required_system_packages": [
+            "build-essential",
+            "libfreetype6-dev",
+            "libjpeg-dev",
+            "zlib1g-dev"
+          ],
+          "build_arguments": {
+            "cmake": [],
+            "configure": []
+          },
+          "environment": {},
+          "minimum_replay_delay_seconds": 0
+        }
+      }
+    ],
+    "pilot_schedule": [
+      {
+        "order": 1,
+        "pair_id": "liblouis-richlab-r1",
+        "case_id": "liblouis",
+        "provider_condition": "richlab-gpt-5.5",
+        "treatment": "baseline-current-verifier-output",
+        "repetition": 1
+      },
+      {
+        "order": 2,
+        "pair_id": "liblouis-richlab-r1",
+        "case_id": "liblouis",
+        "provider_condition": "richlab-gpt-5.5",
+        "treatment": "structured-verifier-repair-packet",
+        "repetition": 1
+      },
+      {
+        "order": 3,
+        "pair_id": "liblouis-deepseek-r1",
+        "case_id": "liblouis",
+        "provider_condition": "deepseek-v4-flash",
+        "treatment": "structured-verifier-repair-packet",
+        "repetition": 1
+      },
+      {
+        "order": 4,
+        "pair_id": "liblouis-deepseek-r1",
+        "case_id": "liblouis",
+        "provider_condition": "deepseek-v4-flash",
+        "treatment": "baseline-current-verifier-output",
+        "repetition": 1
+      },
+      {
+        "order": 5,
+        "pair_id": "openthread-richlab-r1",
+        "case_id": "openthread",
+        "provider_condition": "richlab-gpt-5.5",
+        "treatment": "structured-verifier-repair-packet",
+        "repetition": 1
+      },
+      {
+        "order": 6,
+        "pair_id": "openthread-richlab-r1",
+        "case_id": "openthread",
+        "provider_condition": "richlab-gpt-5.5",
+        "treatment": "baseline-current-verifier-output",
+        "repetition": 1
+      },
+      {
+        "order": 7,
+        "pair_id": "openthread-deepseek-r1",
+        "case_id": "openthread",
+        "provider_condition": "deepseek-v4-flash",
+        "treatment": "baseline-current-verifier-output",
+        "repetition": 1
+      },
+      {
+        "order": 8,
+        "pair_id": "openthread-deepseek-r1",
+        "case_id": "openthread",
+        "provider_condition": "deepseek-v4-flash",
+        "treatment": "structured-verifier-repair-packet",
+        "repetition": 1
+      },
+      {
+        "order": 9,
+        "pair_id": "mupdf-richlab-r1",
+        "case_id": "mupdf",
+        "provider_condition": "richlab-gpt-5.5",
+        "treatment": "baseline-current-verifier-output",
+        "repetition": 1
+      },
+      {
+        "order": 10,
+        "pair_id": "mupdf-richlab-r1",
+        "case_id": "mupdf",
+        "provider_condition": "richlab-gpt-5.5",
+        "treatment": "structured-verifier-repair-packet",
+        "repetition": 1
+      },
+      {
+        "order": 11,
+        "pair_id": "mupdf-deepseek-r1",
+        "case_id": "mupdf",
+        "provider_condition": "deepseek-v4-flash",
+        "treatment": "structured-verifier-repair-packet",
+        "repetition": 1
+      },
+      {
+        "order": 12,
+        "pair_id": "mupdf-deepseek-r1",
+        "case_id": "mupdf",
+        "provider_condition": "deepseek-v4-flash",
+        "treatment": "baseline-current-verifier-output",
+        "repetition": 1
+      }
+    ],
+    "repair_packet": {
+      "schema_path": "benchmarks/schemas/forge-verifier-repair-packet-v1.schema.json",
+      "schema_sha256": "81d51743e40e4c8e7d81328e598088524417615c2cdc99124e4aa3c44e9f2068",
+      "actionable_classifications": [
+        "artifact_set_mismatch",
+        "artifact_type_mismatch",
+        "build_system_mismatch",
+        "build_system_selection_mismatch",
+        "build_system_unproven",
+        "candidate_verification_failed",
+        "recipe_execution_failed",
+        "sha256_mismatch",
+        "size_mismatch",
+        "smoke_mismatch"
+      ],
+      "repair_goals": {
+        "artifact_set_mismatch": "Stage exactly the frozen artifact set and remove unexpected outputs before resubmitting.",
+        "artifact_type_mismatch": "Stage artifacts with the frozen compiled artifact types before resubmitting.",
+        "build_system_mismatch": "Use the frozen expected build system and rebuild before resubmitting.",
+        "build_system_selection_mismatch": "Use the frozen expected build system and rebuild before resubmitting.",
+        "build_system_unproven": "Run a successful non-housekeeping build command with the frozen build system before resubmitting.",
+        "candidate_verification_failed": "Stage recognized compiled artifacts in /artifacts and submit the corrected candidate.",
+        "recipe_execution_failed": "Make the recorded successful build and staging commands replayable from a clean workspace.",
+        "sha256_mismatch": "Remove nondeterminism so staged artifacts reproduce with identical SHA-256 values.",
+        "size_mismatch": "Rebuild and stage artifacts whose sizes reproduce in clean replay.",
+        "smoke_mismatch": "Repair runtime behavior so executable smoke output reproduces in clean replay."
+      },
+      "forbidden_content": [
+        "stdout",
+        "stderr",
+        "prompt",
+        "model_body",
+        "credential",
+        "host_path",
+        "generated_repair_command"
+      ]
+    },
+    "fidelity_gate": {
+      "statuses": [
+        "passed",
+        "not_exposed",
+        "failed"
+      ],
+      "baseline_packet_count": 0,
+      "treatment_requires_packet_for_each_actionable_submit": true,
+      "paired_analysis_requires_both_arms": true,
+      "p_value_forbidden": true,
+      "model_ranking_forbidden": true
+    },
+    "outcomes": {
+      "primary": "oracle_passed",
+      "secondary": [
+        "terminal_passed",
+        "repair_conversion_after_actionable_verifier_failure",
+        "false_acceptance_count",
+        "submit_attempts",
+        "clean_replay_attempts",
+        "model_requests",
+        "recorded_tokens",
+        "attempt_wall_clock_seconds",
+        "failure_classification_transition"
+      ],
+      "pilot_analysis": "按 pair 描述 discordant outcome、成本与 treatment fidelity；不做 p-value 或模型排名。",
+      "formal_follow_up": "只有 pilot 证明 treatment 接线、预算和证据完整后，才预注册至少 3 次重复的正式配对实验。"
+    },
+    "analysis_plan": {
+      "descriptive_only": true,
+      "complete_pairs_required": 6,
+      "repair_conversion_definition": "adjacent_actionable_classification_to_passed_feedback",
+      "model_request_count_event": "model.request_started",
+      "submit_attempt_count_event": "submit.started",
+      "clean_replay_attempt_count_event": "replay.started",
+      "wall_clock_definition": "experiment_started_to_experiment_completed_ledger_time",
+      "p_value_computed": false,
+      "model_ranking_performed": false
+    }
+  }
+}
