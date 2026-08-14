@@ -1,0 +1,234 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/WWFXL/Forge-AutoCompiler/benchmarks/schemas/forge-verifier-repair-packet-v1.schema.json",
+  "title": "Forge verifier-driven repair packet",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "failure_domain",
+    "primary_classification",
+    "failed_checks",
+    "build_system_identity",
+    "artifact_identity_diff",
+    "replay_status",
+    "repair_goal",
+    "supporting_command_id",
+    "submit_attempt_id",
+    "replay_attempt_id"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "forge-verifier-repair-packet-1.0.0"
+    },
+    "failure_domain": {
+      "const": "submit_replay"
+    },
+    "primary_classification": {
+      "enum": [
+        "artifact_set_mismatch",
+        "artifact_type_mismatch",
+        "build_system_mismatch",
+        "build_system_selection_mismatch",
+        "build_system_unproven",
+        "candidate_verification_failed",
+        "recipe_execution_failed",
+        "sha256_mismatch",
+        "size_mismatch",
+        "smoke_mismatch"
+      ]
+    },
+    "failed_checks": {
+      "type": "array",
+      "maxItems": 64,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "name",
+          "exit_code"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 160,
+            "pattern": "^[A-Za-z0-9_.-]+$"
+          },
+          "exit_code": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          }
+        }
+      }
+    },
+    "build_system_identity": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "additionalProperties": false,
+      "required": [
+        "expected",
+        "observed",
+        "selected",
+        "matches"
+      ],
+      "properties": {
+        "expected": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "cmake",
+            "make",
+            "autotools",
+            null
+          ]
+        },
+        "observed": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "cmake",
+            "make",
+            "autotools",
+            null
+          ]
+        },
+        "selected": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "cmake",
+            "make",
+            "autotools",
+            null
+          ]
+        },
+        "matches": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        }
+      }
+    },
+    "artifact_identity_diff": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "expected_only",
+        "observed_only",
+        "mismatches",
+        "truncated"
+      ],
+      "properties": {
+        "expected_only": {
+          "type": "array",
+          "maxItems": 64,
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 512,
+            "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))(?!.*\\\\).+$"
+          }
+        },
+        "observed_only": {
+          "type": "array",
+          "maxItems": 64,
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 512,
+            "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))(?!.*\\\\).+$"
+          }
+        },
+        "mismatches": {
+          "type": "array",
+          "maxItems": 64,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "path",
+              "kinds"
+            ],
+            "properties": {
+              "path": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 512,
+                "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))(?!.*\\\\).+$"
+              },
+              "kinds": {
+                "type": "array",
+                "minItems": 1,
+                "uniqueItems": true,
+                "items": {
+                  "enum": [
+                    "sha256",
+                    "size",
+                    "smoke",
+                    "type"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "truncated": {
+          "type": "boolean"
+        }
+      }
+    },
+    "replay_status": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64,
+      "pattern": "^[a-z0-9_-]+$"
+    },
+    "repair_goal": {
+      "enum": [
+        "Make the recorded successful build and staging commands replayable from a clean workspace.",
+        "Rebuild and stage artifacts whose sizes reproduce in clean replay.",
+        "Remove nondeterminism so staged artifacts reproduce with identical SHA-256 values.",
+        "Repair runtime behavior so executable smoke output reproduces in clean replay.",
+        "Run a successful non-housekeeping build command with the frozen build system before resubmitting.",
+        "Stage artifacts with the frozen compiled artifact types before resubmitting.",
+        "Stage exactly the frozen artifact set and remove unexpected outputs before resubmitting.",
+        "Stage recognized compiled artifacts in /artifacts and submit the corrected candidate.",
+        "Use the frozen expected build system and rebuild before resubmitting.",
+        "Use the frozen expected build system and rebuild before resubmitting."
+      ]
+    },
+    "supporting_command_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^[A-Za-z0-9_.-]{1,160}$"
+    },
+    "submit_attempt_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^[A-Za-z0-9_.-]{1,160}$"
+    },
+    "replay_attempt_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^[A-Za-z0-9_.-]{1,160}$"
+    }
+  }
+}
