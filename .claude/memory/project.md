@@ -24,6 +24,14 @@
 ## 最近变更 (Recent Changes)
 <!-- 倒序，最新在上。 -->
 
+- 2026-08-14 — 完成 verifier-driven repair 配对 pilot 未授权决策包
+  - GitHub: Issue #123 与 PR #124 使用中文创建并回读；核心设计提交为 `f5798c5e`。
+  - 证据: formal v4 中一个槽在 `candidate_verification_failed -> build_system_unproven` 后自然修复并通过，另一个 `recipe_execution_failed` 槽被后续 endpoint timeout 混杂；这些轨迹只支持 treatment 设计，不能估计效果。
+  - Treatment: baseline 已返回状态、追踪 ID、候选 artifact 元数据与首条错误 message，但没有标准化 failure classification、failed checks、build-system identity 或 artifact diff；treatment 只增加确定性结构化 `repair_packet`，不增加模型请求、Compiler invocation、turn、timeout 或 token 预算，也不改变 Oracle/clean replay/delivery。
+  - Pilot: 从冻结 case protocol 按 prior-exposure 规则选择 `liblouis`、`openthread`、`mupdf`，覆盖 Autotools/CMake/Make；双 provider、双 arm、一次重复，共 12 槽/6 pair，expected 800,000、maximum 2,400,000 recorded tokens。
+  - 边界与验证: `collection_authorized=false`、`runtime_implementation_authorized=false`；12 个唯一槽、6 个完整 pair、3/3 顺序平衡、case 来源、四份冻结 SHA-256、diff 与敏感信息检查通过。未启动 Docker、未调用模型、未修改 Forge 核心或历史 evidence。
+  - 文件: `benchmarks/preregistrations/cpp-verifier-driven-repair-pilot-v1.json`, `benchmarks/preregistrations/cpp-verifier-driven-repair-pilot-v1.md`
+
 - 2026-08-14 — 完成 formal 300 秒模型请求超时校准并固化确定性结果
   - GitHub: Issue #119 / PR #120 已将 `formal-collection-4.6.0-timeout-canary-amendment` squash 合并为 `main@2c4981e4`，三项 CI 全绿；Issue #121 跟踪本结果报告并由当前提交收口。
   - 采集: Ubuntu 原生 Docker gate、runtime preflight 13/13 和 formal non-model preflight 通过；唯一新 canary 中 RichLab `gpt-5.5` 为 17.874 秒，DeepSeek `deepseek-v4-flash` 为 0.685 秒。

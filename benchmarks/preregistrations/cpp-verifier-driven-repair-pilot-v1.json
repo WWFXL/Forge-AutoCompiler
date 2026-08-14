@@ -1,0 +1,251 @@
+{
+  "schema_version": "verifier-driven-repair-pilot-design-1.0.0",
+  "document_type": "preregistration_decision_package",
+  "protocolization": {
+    "id": "forge-cpp-verifier-driven-repair-pilot-v1-candidate",
+    "issue": 123,
+    "designed_at": "2026-08-14",
+    "base_commit": "6eb69e64d6b14df958814e25c917dff801569ab0",
+    "design_only": true,
+    "runtime_implementation_authorized": false,
+    "collection_authorized": false
+  },
+  "research_question": "在相同模型、项目、容器和总预算下，向 Compiler 返回确定性的结构化 verifier repair packet，能否提高 C/C++ 自动编译的 Oracle 与端到端成功率？",
+  "hypotheses": {
+    "primary": "repair_packet treatment 的 Oracle 成功概率高于当前 baseline。",
+    "secondary": [
+      "repair_packet treatment 提高首次 verifier 拒绝后的修复转化率。",
+      "repair_packet treatment 不增加 false acceptance。",
+      "repair_packet treatment 的成功增益不能以更高的请求、token 或墙钟预算换取。"
+    ],
+    "pilot_claim_boundary": "首批 12 槽只验证 treatment fidelity、成本与可行性，不进行显著性检验或总体效果声明。"
+  },
+  "historical_evidence": {
+    "case_protocol": {
+      "path": "benchmarks/preregistrations/cpp-formal-v1-cases.json",
+      "sha256": "55fc4ea1cc634376b5016fa3421736a66c284b293b9b8f10185e837e12db3fee"
+    },
+    "formal_v4_report": {
+      "local_path": ".compile-sessions/benchmark-evidence-formal-v4-canary-amendment/formal-v4-canary-amendment-report.json",
+      "sha256": "59525c3945714282dbedf53474aa25530b82b119aacf6ca5c72a5c462c4484d9",
+      "summary": {
+        "attempts": 6,
+        "oracle_passed": 2,
+        "terminal_passed": 1,
+        "model_requests_closed": 63,
+        "model_request_timeouts": 8,
+        "orphan_count": 0
+      },
+      "repair_episodes": [
+        {
+          "physical_attempt_id": "physical_attempt_51d6a182c32c4a938a4f65ab948c8a9d",
+          "condition_id": "deepseek-v4-flash",
+          "observed_sequence": [
+            "candidate_verification_failed",
+            "build_system_unproven",
+            "submit_passed",
+            "clean_replay_passed",
+            "experiment_passed"
+          ],
+          "interpretation": "现有通用工具返回下也可能自然修复，证明 repair 可行，但不能证明结构化 packet 的增益。"
+        },
+        {
+          "physical_attempt_id": "physical_attempt_ff3bbf0545054903aa3ef05966dc0ed6",
+          "condition_id": "richlab-gpt-5.5",
+          "observed_sequence": [
+            "recipe_execution_failed",
+            "model_endpoint_timeout",
+            "model_endpoint_timeout",
+            "experiment_failed"
+          ],
+          "interpretation": "verifier 拒绝后的失败与 endpoint timeout 混杂，不能作为 treatment 负例。"
+        }
+      ]
+    },
+    "formal_v3_report": {
+      "path": "benchmarks/reports/cpp-formal-v3-initial-batch.json",
+      "sha256": "1140637ae8ba519aedc9185099e27ddb652f2ee0a31ab2586705d505c312381f"
+    },
+    "pilot_v8_report": {
+      "path": "benchmarks/reports/cpp-pilot-v8-descriptive.json",
+      "sha256": "e3b60b44977af0f5783f156e90b03023b17c3b8dc2a84a7a44ec865a1642b87f"
+    }
+  },
+  "current_baseline": {
+    "submit_failure_payload_fields": [
+      "exit_code",
+      "status",
+      "candidate_status",
+      "replay_status",
+      "replay_attempt_id",
+      "submit_attempt_id",
+      "supporting_command_id",
+      "image_id",
+      "artifact_count",
+      "artifacts",
+      "message"
+    ],
+    "failure_diagnostics_returned_to_compiler": "通用 message、状态、追踪 ID 与候选 artifact 元数据；message 只返回首条 Error note。",
+    "normalized_failure_classification_returned_to_compiler": false,
+    "failed_checks_and_structured_diffs_returned_to_compiler": false,
+    "compiler_already_instructed_to_continue_after_submit_failure": true,
+    "natural_multiple_submit_attempts_allowed_within_existing_limits": true
+  },
+  "treatments": [
+    {
+      "id": "baseline-current-verifier-output",
+      "repair_packet_enabled": false,
+      "definition": "保持 main@6eb69e64 的 submit_build_result 失败返回和 Compiler prompt 不变。"
+    },
+    {
+      "id": "structured-verifier-repair-packet",
+      "repair_packet_enabled": true,
+      "definition": "只在可修复的 verification-domain submit 失败后，在同一工具返回中增加确定性的 repair_packet；不增加模型调用、Compiler invocation、turn、timeout 或 token 预算。",
+      "packet_fields": [
+        "schema_version",
+        "failure_domain",
+        "primary_classification",
+        "failed_checks",
+        "build_system_identity",
+        "artifact_identity_diff",
+        "replay_status",
+        "repair_goal",
+        "supporting_command_id",
+        "submit_attempt_id",
+        "replay_attempt_id"
+      ],
+      "packet_constraints": [
+        "只包含 verifier 已持久化的白名单结构化字段。",
+        "不包含 stdout、stderr、prompt、模型正文、密钥、宿主路径或生成式修复命令。",
+        "repair_goal 由固定 classification 映射生成，不调用模型。",
+        "acceptance gate、artifact Oracle、clean replay 与 delivery 语义保持不变。"
+      ]
+    }
+  ],
+  "activation_policy": {
+    "actionable_classifications": [
+      "candidate_verification_failed",
+      "build_system_selection_mismatch",
+      "build_system_unproven",
+      "build_system_mismatch",
+      "recipe_execution_failed",
+      "artifact_set_mismatch",
+      "artifact_type_mismatch",
+      "size_mismatch",
+      "sha256_mismatch",
+      "smoke_mismatch"
+    ],
+    "non_actionable_for_treatment_attribution": [
+      "model_endpoint_timeout",
+      "provider_connection_failure",
+      "attempt_budget_exhausted",
+      "compiler_wall_clock_timeout",
+      "daemon_or_preflight_failure",
+      "cleanup_or_finalization_failure"
+    ],
+    "maximum_packets_per_submit": 1,
+    "maximum_additional_model_requests": 0,
+    "maximum_additional_compiler_invocations": 0
+  },
+  "case_selection": {
+    "rule": "按冻结 formal-v1 case protocol 的原始顺序，在每个 build-system stratum 中选择第一个从未进入 formal v3/v4 physical attempt 的 case；只看 prior exposure，不看成功或失败结果。",
+    "excluded_prior_exposure": [
+      "powerdns",
+      "open62541",
+      "cppitertools",
+      "janet"
+    ],
+    "cases": [
+      {
+        "id": "liblouis",
+        "build_system": "autotools",
+        "repository_url": "https://github.com/liblouis/liblouis",
+        "commit": "b52ab11ade4cf0917315991b54a8558a2589cf55",
+        "required_artifact": "liblouis.a"
+      },
+      {
+        "id": "openthread",
+        "build_system": "cmake",
+        "repository_url": "https://github.com/openthread/openthread",
+        "commit": "044aa98f1b5255731e0a6f2816e267b282299684",
+        "required_artifact": "libopenthread-ftd.a"
+      },
+      {
+        "id": "mupdf",
+        "build_system": "make",
+        "repository_url": "https://github.com/ArtifexSoftware/mupdf",
+        "commit": "b29caae1ab8c602187d4fc36d7b540bac493635d",
+        "required_artifact": "libmupdf.a"
+      }
+    ]
+  },
+  "provider_conditions": [
+    {
+      "id": "richlab-gpt-5.5",
+      "model": "gpt-5.5"
+    },
+    {
+      "id": "deepseek-v4-flash",
+      "model": "deepseek-v4-flash"
+    }
+  ],
+  "pilot_schedule": [
+    {"order": 1, "pair_id": "liblouis-richlab-r1", "case_id": "liblouis", "provider_condition": "richlab-gpt-5.5", "treatment": "baseline-current-verifier-output", "repetition": 1},
+    {"order": 2, "pair_id": "liblouis-richlab-r1", "case_id": "liblouis", "provider_condition": "richlab-gpt-5.5", "treatment": "structured-verifier-repair-packet", "repetition": 1},
+    {"order": 3, "pair_id": "liblouis-deepseek-r1", "case_id": "liblouis", "provider_condition": "deepseek-v4-flash", "treatment": "structured-verifier-repair-packet", "repetition": 1},
+    {"order": 4, "pair_id": "liblouis-deepseek-r1", "case_id": "liblouis", "provider_condition": "deepseek-v4-flash", "treatment": "baseline-current-verifier-output", "repetition": 1},
+    {"order": 5, "pair_id": "openthread-richlab-r1", "case_id": "openthread", "provider_condition": "richlab-gpt-5.5", "treatment": "structured-verifier-repair-packet", "repetition": 1},
+    {"order": 6, "pair_id": "openthread-richlab-r1", "case_id": "openthread", "provider_condition": "richlab-gpt-5.5", "treatment": "baseline-current-verifier-output", "repetition": 1},
+    {"order": 7, "pair_id": "openthread-deepseek-r1", "case_id": "openthread", "provider_condition": "deepseek-v4-flash", "treatment": "baseline-current-verifier-output", "repetition": 1},
+    {"order": 8, "pair_id": "openthread-deepseek-r1", "case_id": "openthread", "provider_condition": "deepseek-v4-flash", "treatment": "structured-verifier-repair-packet", "repetition": 1},
+    {"order": 9, "pair_id": "mupdf-richlab-r1", "case_id": "mupdf", "provider_condition": "richlab-gpt-5.5", "treatment": "baseline-current-verifier-output", "repetition": 1},
+    {"order": 10, "pair_id": "mupdf-richlab-r1", "case_id": "mupdf", "provider_condition": "richlab-gpt-5.5", "treatment": "structured-verifier-repair-packet", "repetition": 1},
+    {"order": 11, "pair_id": "mupdf-deepseek-r1", "case_id": "mupdf", "provider_condition": "deepseek-v4-flash", "treatment": "structured-verifier-repair-packet", "repetition": 1},
+    {"order": 12, "pair_id": "mupdf-deepseek-r1", "case_id": "mupdf", "provider_condition": "deepseek-v4-flash", "treatment": "baseline-current-verifier-output", "repetition": 1}
+  ],
+  "budget_proposal": {
+    "authorized": false,
+    "request_timeout_seconds": 300,
+    "provider_retries": 0,
+    "attempt_total_wall_clock_seconds": 1800,
+    "cleanup_reserve_seconds": 120,
+    "max_compiler_invocations": 2,
+    "max_model_requests": 48,
+    "model_turn_limit": 36,
+    "maximum_recorded_tokens": 2400000,
+    "expected_recorded_tokens": 800000,
+    "budget_check_boundary": "before_each_complete_pair",
+    "remaining_pairs_require_confirmation": true
+  },
+  "invariants": [
+    "两个 treatment 使用相同 model、prompt、case、commit、image ID、网络、预算和 acceptance gate。",
+    "每个 physical attempt 使用全新 Compile Session 和 clean replay；不共享 workspace、artifacts、Memory 或 Skill。",
+    "同一 pair 必须完整执行两个 arm 才进入 paired pilot 分析；不做 replacement 或 backfill。",
+    "provider timeout 与基础设施失败单独报告，不归因于 repair treatment。",
+    "分析器、失败层级和 treatment fidelity gate 必须在首个模型请求前冻结。",
+    "运行时实现、canary、attempt 和 batch 必须由后续独立中文 Issue/PR 与用户预算授权放行。"
+  ],
+  "outcomes": {
+    "primary": "oracle_passed",
+    "secondary": [
+      "terminal_passed",
+      "repair_conversion_after_actionable_verifier_failure",
+      "false_acceptance_count",
+      "submit_attempts",
+      "clean_replay_attempts",
+      "model_requests",
+      "recorded_tokens",
+      "attempt_wall_clock_seconds",
+      "failure_classification_transition"
+    ],
+    "pilot_analysis": "按 pair 描述 discordant outcome、成本与 treatment fidelity；不做 p-value 或模型排名。",
+    "formal_follow_up": "只有 pilot 证明 treatment 接线、预算和证据完整后，才预注册至少 3 次重复的正式配对实验。"
+  },
+  "external_method_references": [
+    {"name": "CXXCrafter", "url": "https://github.com/seclab-fudan/CXXCrafter-Community-Edition", "relevance": "C/C++ 构建脚本生成与执行-反馈-修复闭环。"},
+    {"name": "Self-Refine", "url": "https://arxiv.org/abs/2303.17651", "relevance": "反馈与迭代改进的通用范式。"},
+    {"name": "CRITIC", "url": "https://arxiv.org/abs/2305.11738", "relevance": "外部工具反馈驱动的自我校正。"},
+    {"name": "SWE-agent", "url": "https://arxiv.org/abs/2405.15793", "relevance": "真实软件环境中的 Agent-Computer Interface。"},
+    {"name": "RepairAgent", "url": "https://arxiv.org/abs/2403.17134", "relevance": "测试失败驱动的自主修复循环。"}
+  ]
+}
