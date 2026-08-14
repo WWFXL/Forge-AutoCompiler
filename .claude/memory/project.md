@@ -5,14 +5,13 @@
 ## 进行中 (In Progress)
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
-- 2026-08-14 — 执行 verifier-driven repair 六对授权 pilot
-  - GitHub: 中文 Issue #127 已创建并回读；实现分支为 `research/issue-127-verifier-repair-authorized`，基线为 `main@fb24fa2b`。
-  - 授权: RichLab `gpt-5.5`、DeepSeek `deepseek-v4-flash`，3 cases × 2 providers × 2 arms × 1 repetition，共 12 slots / 6 complete pairs；expected 800,000、maximum 2,400,000 recorded tokens，禁止 retry、fallback、replacement 和 backfill。
-  - 实现: 新 authorized manifest/Schema 把 provider×arm 展开为四个唯一 condition，同时保持 canary 每个 provider 只请求一次；真实 attempt 在 `submit_feedback_scope` 内运行，独立 sidecar 不使用 `.jsonl` 后缀，避免被主 ledger 扫描器误识别；只读报告器按冻结 order 合并主 ledger 与 sidecar。
-  - 门禁: 合并前禁止模型与 evidence；合并后依次要求 Ubuntu 原生 Docker、非模型 preflight、空 evidence、0 orphan、已确认的 `FORGE_NETWORK_ACCESS_MEDIUM` 与唯一双 provider canary。batch 只能在完整 pair 边界停止，token 在新 pair 前检查。
-  - 验证: 聚焦 repair runtime/authorized 回归 `26 passed`；Ruff check/format、`py_compile`、Schema 实例校验、protocol validate、确定性再生成、父 runtime/共享 compile 与敏感值扫描通过。authorized manifest canonical SHA-256 为 `ad54858ad8cc938e823170bece020b21a7ab221788d5c36ac45c5213d78b56d0`。
-  - 边界与下一步: 当前 0 Docker、0 provider request、0 model token、0 physical attempt。下一步中文提交、WSL helper 推送、中文 PR/CI/合并；canary 前需实验负责人确认当前网络介质。
-  - 文件: `scripts/forge_verifier_repair_authorized_protocol.py`, `scripts/forge_verifier_repair_authorized_runner.py`, `scripts/forge_verifier_repair_authorized_report.py`, `backend/tests/test_forge_verifier_repair_authorized.py`, `benchmarks/manifests/cpp-verifier-repair-pilot-authorized.json`, `benchmarks/schemas/forge-verifier-repair-pilot-authorized-v1.schema.json`
+- 2026-08-14 — 修复 verifier-driven repair canary 冻结超时接线
+  - GitHub: Issue #127 / PR #128 已完成 12-slot 授权实现；新中文 Issue #129 跟踪 canary 未应用 300 秒冻结超时，修复分支为 `fix/issue-129-canary-timeout`。
+  - 真实证据: 经授权的完整 canary 中 RichLab `gpt-5.5` 4.767 秒通过，DeepSeek `deepseek-v4-flash` 在 120.246 秒以 `APITimeoutError` 失败；0 formal JSONL、0 physical attempt，12-slot batch 未启动。失败 marker/report 与此前两次操作事故 marker 均保留，未经新授权不得再次 canary。
+  - 根因与修复: authorized runner 的 canary 未进入 `ExperimentPolicy`，沿用本地 120 秒配置。新 helper 在独立串行 runner 进程的模型构造临界区应用 profile 的 300 秒/0 retry，验证模型对象的有效策略后在 `finally` 恢复原配置；报告新增有效 timeout/retry 字段，不修改共享 factory、Oracle、clean replay 或历史 evidence。
+  - 验证: repair 相关回归 `27 passed`，Ruff 与测试格式通过；真实无请求模型对象探针确认 RichLab/DeepSeek 的模型和 OpenAI client 均为 300 秒、0 retry，构造后本地配置恢复为 120 秒。协议组件验证通过，新 canonical manifest SHA-256 为 `ff30e38d643c211c3f2f6d33a6f9424d9410168d81ecb2c4f47ffb79e4a61875`。
+  - 下一步: 完成中文提交、WSL helper 推送、中文 PR 与 CI；修复合并后只运行非模型门禁。新的 provider canary 与 12-slot batch 仍需实验负责人重新明确授权。
+  - 文件: `scripts/forge_verifier_repair_authorized_runner.py`, `backend/tests/test_forge_verifier_repair_authorized.py`, `benchmarks/manifests/cpp-verifier-repair-pilot-authorized.json`, `benchmarks/schemas/forge-verifier-repair-pilot-authorized-v1.schema.json`
 
 - 2026-08-13 — 完成 formal v4 有限诊断与新 canary amendment
   - GitHub: 中文 Issue #115 已创建并回读；实现分支为 `research/formal-v4-canary-amendment`，PR 尚未创建。
@@ -337,6 +336,7 @@
 ## 已知问题 (Known Issues / Pitfalls)
 <!-- 工作中踩过的坑、限制或意外行为。 -->
 
+- 一次性正式入口必须先用最终完全相同的 `/app/backend/.venv/bin/python` 完成零请求 import、runner `--help` 与挂载内 preflight；双 provider canary 外层等待不得短于 700 秒。manifest 声明 300 秒不等于模型对象已生效，必须在请求前验证模型及底层 client 的有效 timeout/retry；调试级短超时、系统 `python` 和仅核对 endpoint 的 preflight 都不能作为放行依据。
 - Windows `docker` CLI 的 `desktop-linux` context 只反映 Docker Desktop daemon，不能据此判断 Forge 状态。Forge 容器实际属于 WSL2 Ubuntu 原生 `dockerd`；所有项目 Docker 命令必须先通过 `scripts/require-ubuntu-native-docker.sh`，并从 `wsl.exe -d Ubuntu` 或该发行版内执行。门禁失败时请求用户恢复服务，不得启动 Docker Desktop 作为回退。
 - LangGraph 容器内 `/repo` 是只读挂载。可在容器中使用 Ruff `--check --no-cache`，但不能直接格式化文件；写入格式化必须在可写工作树中使用相同 `backend/ruff.toml`，不要修改挂载权限或重建服务来绕过只读边界。
 

@@ -55,6 +55,7 @@ DEFAULT_MANIFEST = protocol.DEFAULT_MANIFEST
 _CANARY_ATTEMPT_MARKER = "verifier-repair-provider-canary-attempt.json"
 _SIDECAR_SUFFIX = ".repair-sidecar.json"
 _NETWORK_ACCESS_MEDIA = {"mobile_hotspot", "wifi", "ethernet", "other"}
+_MISSING = object()
 
 
 def _manifest_protocol(manifest: dict[str, Any]):
@@ -222,17 +223,62 @@ def _model_response_text(response: Any) -> str:
     return "".join(item if isinstance(item, str) else item.get("text", "") for item in content if isinstance(item, (str, dict)))
 
 
-def _invoke_provider_canary(profile: dict[str, Any]) -> dict[str, Any]:
+def _restore_model_config_value(configured: Any, name: str, value: Any) -> None:
+    if value is _MISSING:
+        try:
+            delattr(configured, name)
+        except AttributeError:
+            pass
+        return
+    setattr(configured, name, value)
+
+
+def _create_provider_canary_model(profile: dict[str, Any]):
+    from deerflow.config import get_app_config
     from deerflow.models.factory import create_chat_model
 
+    model_name = profile["roles"]["lead"]
+    configured = get_app_config().get_model_config(model_name)
+    if configured is None or configured.model != model_name:
+        raise RunnerError(
+            "Provider canary model configuration does not match the frozen profile"
+        )
+    settings = configured.model_dump(exclude_none=True)
+    endpoint = settings.get("base_url", settings.get("openai_api_base"))
+    if endpoint is None or str(endpoint).rstrip("/") != profile["endpoint"].rstrip("/"):
+        raise RunnerError("Provider canary endpoint does not match the frozen profile")
+
+    expected_timeout = float(profile["request_timeout_seconds"])
+    original_timeout = getattr(configured, "request_timeout", _MISSING)
+    original_retries = getattr(configured, "max_retries", _MISSING)
+    try:
+        configured.request_timeout = expected_timeout
+        configured.max_retries = 0
+        model = create_chat_model(name=model_name, thinking_enabled=False)
+    finally:
+        _restore_model_config_value(configured, "request_timeout", original_timeout)
+        _restore_model_config_value(configured, "max_retries", original_retries)
+
+    try:
+        effective_timeout = float(model.request_timeout)
+        effective_retries = int(model.max_retries)
+    except (AttributeError, TypeError, ValueError) as exc:
+        raise RunnerError(
+            "Provider canary model does not expose its effective request policy"
+        ) from exc
+    if effective_timeout != expected_timeout or effective_retries != 0:
+        raise RunnerError(
+            "Provider canary model did not apply the frozen request policy"
+        )
+    return model
+
+
+def _invoke_provider_canary(profile: dict[str, Any]) -> dict[str, Any]:
     started = time.perf_counter()
     error_class: str | None = None
     response_text = ""
     try:
-        model = create_chat_model(
-            name=profile["roles"]["lead"],
-            thinking_enabled=False,
-        )
+        model = _create_provider_canary_model(profile)
         response = model.invoke("Reply with exactly CANARY_OK and nothing else.")
         response_text = _model_response_text(response)
     except Exception as exc:
@@ -241,6 +287,8 @@ def _invoke_provider_canary(profile: dict[str, Any]) -> dict[str, Any]:
         "model": profile["roles"]["lead"],
         "endpoint": profile["endpoint"].rstrip("/"),
         "credential_env": profile["credential_env"],
+        "request_timeout_seconds": profile["request_timeout_seconds"],
+        "max_retries": 0,
         "duration_ms": round((time.perf_counter() - started) * 1000),
         "response_nonempty": bool(response_text.strip()),
         "response_sha256": (hashlib.sha256(response_text.encode("utf-8")).hexdigest() if response_text else None),
