@@ -4,6 +4,7 @@ import importlib.util
 import json
 import sys
 from pathlib import Path
+from types import SimpleNamespace
 
 import pytest
 
@@ -92,6 +93,77 @@ def test_canary_invokes_each_provider_once_and_projects_four_conditions(tmp_path
     assert len(result["conditions"]) == 4
     assert result["network_access_medium"] == "mobile_hotspot"
     assert result["passed"] is True
+
+
+def test_canary_applies_frozen_request_policy_and_restores_config(monkeypatch: pytest.MonkeyPatch) -> None:
+    from deerflow import config as config_module
+    from deerflow.models import factory as factory_module
+
+    profile = _manifest()["model_profiles"]["deepseek-v4-flash"]
+
+    class FakeModelConfig:
+        model = "deepseek-v4-flash"
+        base_url = "https://api.deepseek.com"
+        request_timeout = 120.0
+        max_retries = 4
+
+        def model_dump(self, *, exclude_none: bool) -> dict:
+            assert exclude_none is True
+            return {
+                "model": self.model,
+                "base_url": self.base_url,
+                "request_timeout": self.request_timeout,
+                "max_retries": self.max_retries,
+            }
+
+    configured = FakeModelConfig()
+    observed: list[tuple[float, int]] = []
+
+    class FakeModel:
+        request_timeout = configured.request_timeout
+        max_retries = configured.max_retries
+
+        def invoke(self, prompt: str):
+            assert prompt == "Reply with exactly CANARY_OK and nothing else."
+            return SimpleNamespace(content="CANARY_OK")
+
+    def fake_create_chat_model(*, name: str, thinking_enabled: bool):
+        assert name == "deepseek-v4-flash"
+        assert thinking_enabled is False
+        observed.append((configured.request_timeout, configured.max_retries))
+        model = FakeModel()
+        model.request_timeout = configured.request_timeout
+        model.max_retries = configured.max_retries
+        return model
+
+    monkeypatch.setattr(
+        config_module,
+        "get_app_config",
+        lambda: SimpleNamespace(get_model_config=lambda name: configured if name == configured.model else None),
+    )
+    monkeypatch.setattr(factory_module, "create_chat_model", fake_create_chat_model)
+
+    result = runner._invoke_provider_canary(profile)
+
+    assert result["passed"] is True
+    assert result["request_timeout_seconds"] == 300
+    assert result["max_retries"] == 0
+    assert observed == [(300.0, 0)]
+    assert configured.request_timeout == 120.0
+    assert configured.max_retries == 4
+
+    def failing_create_chat_model(*, name: str, thinking_enabled: bool):
+        assert name == "deepseek-v4-flash"
+        assert thinking_enabled is False
+        observed.append((configured.request_timeout, configured.max_retries))
+        raise RuntimeError("model construction failed")
+
+    monkeypatch.setattr(factory_module, "create_chat_model", failing_create_chat_model)
+    with pytest.raises(RuntimeError, match="model construction failed"):
+        runner._create_provider_canary_model(profile)
+    assert observed[-1] == (300.0, 0)
+    assert configured.request_timeout == 120.0
+    assert configured.max_retries == 4
 
 
 def test_canary_rejects_unconfirmed_network_before_consuming_marker(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
