@@ -5,6 +5,14 @@
 ## 进行中 (In Progress)
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
+- 2026-08-14 — 派生 verifier-driven repair 单次 canary amendment
+  - GitHub: 中文 Issue #131 已创建并回读；分支为 `research/issue-131-verifier-repair-canary-amendment`，基线为 `main@9a63bc0a`。
+  - 边界: 原失败 canary report/marker 与 authorized identity 保持不变；新 identity 使用独立 evidence 目录，只新增一次双 provider canary，成功才允许原 12 slots/6 complete pairs/2,400,000 recorded-token ceiling。
+  - 实现: 新 protocol/runner/report 在 canary、attempt 和 batch 前核对旧 marker/report 的完整 SHA-256 与 0 formal ledger；模型、300 秒/0 retry、treatment、Oracle、clean replay、顺序和分析规则均继承 parent。
+  - 当前验证: parent + amendment 聚焦回归 `15 passed`，Ruff check/format 与语法检查通过；canonical manifest SHA-256 为 `4ac87955e85bd7a0ed8465268ae42c2b0d2ce598bf7119c129364cba3fc87915`。
+  - 下一步: 完成最终审计、中文提交/推送/PR/CI；合并后通过 Ubuntu/Compose 非模型门禁并执行唯一新 canary，双通过才运行 batch。
+  - 文件: `scripts/forge_verifier_repair_canary_amendment_protocol.py`, `scripts/forge_verifier_repair_canary_amendment_runner.py`, `scripts/forge_verifier_repair_canary_amendment_report.py`, `backend/tests/test_forge_verifier_repair_canary_amendment.py`, `benchmarks/manifests/cpp-verifier-repair-pilot-canary-amendment.json`, `benchmarks/schemas/forge-verifier-repair-pilot-canary-amendment-v1.schema.json`
+
 - 2026-08-14 — 修复 verifier-driven repair canary 冻结超时接线
   - GitHub: Issue #127 / PR #128 已完成 12-slot 授权实现；新中文 Issue #129 跟踪 canary 未应用 300 秒冻结超时，修复分支为 `fix/issue-129-canary-timeout`。
   - 真实证据: 经授权的完整 canary 中 RichLab `gpt-5.5` 4.767 秒通过，DeepSeek `deepseek-v4-flash` 在 120.246 秒以 `APITimeoutError` 失败；0 formal JSONL、0 physical attempt，12-slot batch 未启动。失败 marker/report 与此前两次操作事故 marker 均保留，未经新授权不得再次 canary。
