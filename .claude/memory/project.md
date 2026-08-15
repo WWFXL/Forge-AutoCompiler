@@ -5,6 +5,15 @@
 ## 进行中 (In Progress)
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
+- 2026-08-15 — 验证 failure checkpoint 三层组合恢复
+  - GitHub: 中文 Issue #141 已创建并回读；分支为 `research/141-combined-checkpoint-prototype`，基线为 `main@cd31d8df`。
+  - 实现: 新增实验专用 `forge-combined-checkpoint-1.0.0` manifest，把 message、environment、budget 绑定到同一 `capture_id` 与 message state SHA-256；三层全部校验后才发布父 manifest。
+  - 当前验证: 两臂同步切换 message thread/session、environment identity 与独立 budget runtime；SQLite 冷恢复不重新 capture。固定组合 manifest SHA-256 为 `bb1f6f4da5868e2e33ef1caf8c34a4645fc06641b5577669edf94f75f8449738`。
+  - 证据: 聚焦测试 `10 passed`；消息/环境/预算相邻非 Docker 回归 `37 passed, 1 skipped`；Ruff check/format、`py_compile` 与 `git diff --check` 通过。
+  - 边界: 0 provider、0 Docker、0 formal physical attempt、0 model token；不修改生产 Compiler、Compile Session、`_ACTIVE_EXPERIMENTS`、Oracle、clean replay 或自然任务 ITT runner。
+  - 下一步: 中文提交、通过 WSL helper 推送、创建中文 PR 并等待 CI；未经新授权不合并，也不进入 provider canary 或真实实验。
+  - 文件: `scripts/forge_combined_checkpoint_prototype.py`, `backend/tests/test_forge_combined_checkpoint_prototype.py`, `benchmarks/preregistrations/cpp-verifier-combined-checkpoint-prototype.md`
+
 - 2026-08-15 — 验证 failure checkpoint 预算重建与双臂隔离
   - GitHub: 中文 Issue #139 已创建并回读；分支为 `research/139-budget-checkpoint-prototype`，基线为 `main@ffb3475c`。
   - 实现: 新增实验专用 `forge-budget-checkpoint-1.0.0` manifest、deterministic fake clock/counters 与预注册；不修改生产 `_ACTIVE_EXPERIMENTS` 或历史 evidence。
