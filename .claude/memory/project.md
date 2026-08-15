@@ -5,6 +5,13 @@
 ## 进行中 (In Progress)
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
+- 2026-08-15 — 验证 verifier failure checkpoint 的非模型分支可行性
+  - GitHub: 中文 Issue #135 已创建并回读；分支为 `research/135-failure-checkpoint-prototype`，基线为 `main@1f944c8c`。
+  - 实现: 从冻结 pilot Slot 7/10 派生两份脱敏只读 fixture，固定 Schema/canonical SHA-256；实验专用 fake compiler graph 使用 SQLite checkpointer，在 actionable submit 后、下一模型节点前暂停并派生 baseline/treatment。
+  - 当前验证: 两臂仅 feedback ToolMessage content 与 arm/session identity 不同；SQLite 关闭重开后从 `continue_model` 恢复，capture 前 fake submit 不重复；相邻回归 `40 passed`，完整 backend Ruff check/format 通过，全程 0 provider、0 Docker、0 physical attempt。
+  - 下一步: 完成中文提交、WSL helper 推送、中文 PR 与 CI；本原型不授权或实现 container rootfs/workspace 恢复。
+  - 文件: `scripts/forge_failure_checkpoint_prototype.py`, `backend/tests/test_forge_failure_checkpoint_prototype.py`, `benchmarks/fixtures/failure-checkpoints/`, `benchmarks/schemas/forge-failure-checkpoint-fixture-v1.schema.json`, `benchmarks/preregistrations/cpp-verifier-failure-checkpoint-prototype.md`
+
 - 2026-08-14 — 派生 verifier-driven repair 单次 canary amendment
   - GitHub: 中文 Issue #131 已创建并回读；分支为 `research/issue-131-verifier-repair-canary-amendment`，基线为 `main@9a63bc0a`。
   - 边界: 原失败 canary report/marker 与 authorized identity 保持不变；新 identity 使用独立 evidence 目录，只新增一次双 provider canary，成功才允许原 12 slots/6 complete pairs/2,400,000 recorded-token ceiling。

@@ -1,0 +1,145 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/WWFXL/Forge-AutoCompiler/benchmarks/schemas/forge-failure-checkpoint-fixture-v1.schema.json",
+  "title": "Forge verifier failure checkpoint sanitized fixture",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "fixture_id",
+    "fixture_sha256",
+    "read_only",
+    "instruction",
+    "source",
+    "session",
+    "neutral_feedback",
+    "repair_packet"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "forge-failure-checkpoint-fixture-1.0.0"
+    },
+    "fixture_id": {
+      "type": "string",
+      "pattern": "^slot-[0-9]{3}-[a-z0-9-]+$"
+    },
+    "fixture_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "read_only": {
+      "const": true
+    },
+    "instruction": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 500
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "benchmark_id",
+        "manifest_sha256",
+        "slot_order",
+        "case_id",
+        "source_event_sequence",
+        "source_feedback_sha256",
+        "evidence_scope",
+        "model_transcript_available"
+      ],
+      "properties": {
+        "benchmark_id": {
+          "const": "forge-verifier-driven-repair-pilot-canary-amendment"
+        },
+        "manifest_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "slot_order": {
+          "enum": [7, 10]
+        },
+        "case_id": {
+          "enum": ["openthread", "mupdf"]
+        },
+        "source_event_sequence": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "source_feedback_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "evidence_scope": {
+          "const": "sanitized_contract_only"
+        },
+        "model_transcript_available": {
+          "const": false
+        }
+      }
+    },
+    "session": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["session_alias", "build_system", "command_cutoff", "artifacts"],
+      "properties": {
+        "session_alias": {
+          "type": "string",
+          "pattern": "^fixture-[a-z0-9-]+$"
+        },
+        "build_system": {
+          "enum": ["cmake", "make"]
+        },
+        "command_cutoff": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "artifacts": {
+          "type": "array",
+          "maxItems": 16,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["path", "artifact_type", "size_bytes", "sha256"],
+            "properties": {
+              "path": {"type": "string", "minLength": 1, "maxLength": 512},
+              "artifact_type": {
+                "enum": ["executable", "shared_library", "static_library", "object"]
+              },
+              "size_bytes": {"type": "integer", "minimum": 0},
+              "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+            }
+          }
+        }
+      }
+    },
+    "neutral_feedback": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "actionable",
+        "evidence_complete",
+        "primary_classification",
+        "submit_attempt_alias",
+        "supporting_command_alias"
+      ],
+      "properties": {
+        "status": {"const": "failed"},
+        "actionable": {"const": true},
+        "evidence_complete": {"const": true},
+        "primary_classification": {
+          "enum": ["build_system_unproven", "candidate_verification_failed"]
+        },
+        "submit_attempt_alias": {"const": "fixture-submit-attempt"},
+        "supporting_command_alias": {
+          "type": ["string", "null"],
+          "pattern": "^fixture-[a-z0-9-]+$"
+        }
+      }
+    },
+    "repair_packet": {
+      "type": "object"
+    }
+  }
+}

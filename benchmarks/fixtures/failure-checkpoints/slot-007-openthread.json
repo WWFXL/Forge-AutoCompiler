@@ -1,0 +1,66 @@
+{
+  "schema_version": "forge-failure-checkpoint-fixture-1.0.0",
+  "fixture_id": "slot-007-openthread",
+  "fixture_sha256": "9a4a73173cf41d7cfd457133e23184f1685dcb9b2efe9ca64883e73e085bef27",
+  "read_only": true,
+  "instruction": "Continue the frozen C/C++ build from the actionable submit failure.",
+  "source": {
+    "benchmark_id": "forge-verifier-driven-repair-pilot-canary-amendment",
+    "manifest_sha256": "4ac87955e85bd7a0ed8465268ae42c2b0d2ce598bf7119c129364cba3fc87915",
+    "slot_order": 7,
+    "case_id": "openthread",
+    "source_event_sequence": 105,
+    "source_feedback_sha256": "a8db6363e815ff3727a76db7b5d2f4a483f76a1a55e3c2d78b1170a9e38eb2d3",
+    "evidence_scope": "sanitized_contract_only",
+    "model_transcript_available": false
+  },
+  "session": {
+    "session_alias": "fixture-parent-session",
+    "build_system": "cmake",
+    "command_cutoff": 17,
+    "artifacts": [
+      {
+        "path": "libopenthread-ftd.a",
+        "artifact_type": "static_library",
+        "size_bytes": 1902972,
+        "sha256": "d9f25840f9f36f1c50900cf01bc9e6b5ab74279943a213b0a4c91aea7ffd5e5b"
+      }
+    ]
+  },
+  "neutral_feedback": {
+    "status": "failed",
+    "actionable": true,
+    "evidence_complete": true,
+    "primary_classification": "build_system_unproven",
+    "submit_attempt_alias": "fixture-submit-attempt",
+    "supporting_command_alias": "fixture-supporting-command"
+  },
+  "repair_packet": {
+    "schema_version": "forge-verifier-repair-packet-1.0.0",
+    "failure_domain": "submit_replay",
+    "primary_classification": "build_system_unproven",
+    "failed_checks": [
+      {
+        "name": "benchmark_constraints",
+        "exit_code": 1
+      }
+    ],
+    "build_system_identity": {
+      "expected": "cmake",
+      "observed": "cmake",
+      "selected": "cmake",
+      "matches": true
+    },
+    "artifact_identity_diff": {
+      "expected_only": [],
+      "observed_only": [],
+      "mismatches": [],
+      "truncated": false
+    },
+    "replay_status": "not_run",
+    "repair_goal": "Run a successful non-housekeeping build command with the frozen build system before resubmitting.",
+    "supporting_command_id": "fixture-supporting-command",
+    "submit_attempt_id": "fixture-submit-attempt",
+    "replay_attempt_id": null
+  }
+}
