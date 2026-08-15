@@ -1,0 +1,56 @@
+{
+  "schema_version": "forge-failure-checkpoint-fixture-1.0.0",
+  "fixture_id": "slot-010-mupdf",
+  "fixture_sha256": "b7dc968fa484320250a985ee094fdc4660b7778ca1320281100b3a334a3d7fa1",
+  "read_only": true,
+  "instruction": "Continue the frozen C/C++ build from the actionable submit failure.",
+  "source": {
+    "benchmark_id": "forge-verifier-driven-repair-pilot-canary-amendment",
+    "manifest_sha256": "4ac87955e85bd7a0ed8465268ae42c2b0d2ce598bf7119c129364cba3fc87915",
+    "slot_order": 10,
+    "case_id": "mupdf",
+    "source_event_sequence": 78,
+    "source_feedback_sha256": "1c862cc379fd7dac0b5b152a4599273efcfef1e10f2a3da9bc7bcb0eadf02bf5",
+    "evidence_scope": "sanitized_contract_only",
+    "model_transcript_available": false
+  },
+  "session": {
+    "session_alias": "fixture-parent-session",
+    "build_system": "make",
+    "command_cutoff": 11,
+    "artifacts": []
+  },
+  "neutral_feedback": {
+    "status": "failed",
+    "actionable": true,
+    "evidence_complete": true,
+    "primary_classification": "candidate_verification_failed",
+    "submit_attempt_alias": "fixture-submit-attempt",
+    "supporting_command_alias": "fixture-supporting-command"
+  },
+  "repair_packet": {
+    "schema_version": "forge-verifier-repair-packet-1.0.0",
+    "failure_domain": "submit_replay",
+    "primary_classification": "candidate_verification_failed",
+    "failed_checks": [],
+    "build_system_identity": {
+      "expected": "make",
+      "observed": "make",
+      "selected": "make",
+      "matches": true
+    },
+    "artifact_identity_diff": {
+      "expected_only": [
+        "libmupdf.a"
+      ],
+      "observed_only": [],
+      "mismatches": [],
+      "truncated": false
+    },
+    "replay_status": "not_run",
+    "repair_goal": "Stage recognized compiled artifacts in /artifacts and submit the corrected candidate.",
+    "supporting_command_id": "fixture-supporting-command",
+    "submit_attempt_id": "fixture-submit-attempt",
+    "replay_attempt_id": null
+  }
+}
