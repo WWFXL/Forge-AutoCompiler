@@ -5,6 +5,16 @@
 ## 进行中 (In Progress)
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
+- 2026-08-15 — 完成 Issue #143 真实 checkpoint 生命周期本地门禁，等待发布评审
+  - GitHub: 中文 Issue #143 已创建并回读；分支为 `research/143-real-lifecycle-checkpoint-gate`，基线为 `main@83031cd2`。
+  - 实现: 新增实验专用 SQLite coordinator、compiler message checkpoint、真实 Compile Session/Docker environment adapter、arm-local budget、预注册与 crash/reconcile/cleanup 测试。
+  - 修复: 补齐 combined manifest 写入后、coordinator 提交前的 crash 窗口；拒绝 CompileDockerRuntime 前 8 字符截断导致的两臂容器名碰撞；Docker 测试异常按唯一 capture identity 精确清理。
+  - 证据: 单元 `14 passed`，checkpoint/lifecycle 相邻回归 `90 passed, 1 skipped`、compile runtime `136 passed`、lifecycle/replay `29 passed, 16 skipped`；Ubuntu 原生 Docker `1 passed in 61.13s`，最终 0 checkpoint container/image、0 paused container。
+  - 边界: 0 provider、0 formal physical attempt、0 model token；仅覆盖 pre-replay actionable failure，synthetic ledger 不进入模型能力或 repair effect 分母。
+  - 提交: 中文本地提交已创建，尚未推送。
+  - 下一步: 经用户确认后使用 `scripts/push-via-wsl.ps1` 推送并创建含 `Closes #143` 的中文 PR，等待 CI。未授权 merge、provider canary 或 mechanism slot。
+  - 文件: `scripts/forge_real_lifecycle_checkpoint_gate.py`, `backend/tests/test_forge_real_lifecycle_checkpoint_gate.py`, `backend/tests/test_forge_real_lifecycle_checkpoint_docker.py`, `benchmarks/preregistrations/cpp-verifier-real-lifecycle-checkpoint-gate.md`
+
 - 2026-08-15 — 验证 failure checkpoint 三层组合恢复
   - GitHub: 中文 Issue #141 已创建并回读；分支为 `research/141-combined-checkpoint-prototype`，基线为 `main@cd31d8df`。
   - 实现: 新增实验专用 `forge-combined-checkpoint-1.0.0` manifest，把 message、environment、budget 绑定到同一 `capture_id` 与 message state SHA-256；三层全部校验后才发布父 manifest。
