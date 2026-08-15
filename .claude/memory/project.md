@@ -47,6 +47,13 @@
 ## 最近变更 (Recent Changes)
 <!-- 倒序，最新在上。 -->
 
+- 2026-08-15 — 证明 failure checkpoint 的 rootfs 与 bind-mount 同源双臂恢复
+  - 文件: `scripts/forge_environment_checkpoint_prototype.py`, `backend/tests/test_forge_environment_checkpoint_prototype.py`, `benchmarks/preregistrations/cpp-verifier-environment-checkpoint-prototype.md`
+  - 动机: 消息 checkpoint 已通过，但真实 mechanism arm 还必须从同一 rootfs 与 bind snapshot 恢复，且不能共享可写状态。
+  - 结果: Issue #137 原型在同一显式 pause 窗口完成 rootfs commit 与只读 bind tar；两臂初始 canonical state 相同，rootfs/workspace/artifacts 交叉污染为 0，父 snapshot 不变。
+  - 证据: checkpoint manifest SHA-256 为 `e5c5a8c024339775f469fa889c441f028f099561fe3638ae54da5d02d9bf2375`，initial state SHA-256 为 `5c05c6ca919a0d39f23945ad4b72293153901733cc010a9720f54316b9700a47`；真实 Docker `1 passed in 28.38s`，相邻回归 `18 passed, 1 skipped`，Ruff 通过，cleanup 后 0 prototype container/image/temp。
+  - 边界: 0 provider、0 formal physical attempt、0 model token；budget reconstruction 继续作为下一独立 gate。
+
 - 2026-08-14 — 完成 verifier-driven repair 运行时与未授权证据门禁
   - GitHub: 中文 Issue #125 已创建并回读；实现分支为 `research/issue-125-verifier-repair-runtime`，基线为 `main@97f252b4`。
   - 实现: 新增版本化 submit feedback adapter、严格白名单 `repair_packet`、独立 hash-chain sidecar、treatment fidelity gate、硬拒绝 canary/attempt/batch 的未授权 runner，以及只做配对描述性统计的 analyzer。
@@ -351,6 +358,8 @@
 ## 已知问题 (Known Issues / Pitfalls)
 <!-- 工作中踩过的坑、限制或意外行为。 -->
 
+- WSL 冷启动或手动启动 `docker.service` 后，daemon 恢复已有容器可能需要 5-10 秒；启动命令返回后应等待 `systemctl is-active docker.service` 为 `active` 再运行正式 gate，不能把 `activating` 窗口误判为永久失败，也不能切换 Docker Desktop。
+- Docker 29 使用 `docker commit --no-pause`，旧的 `--pause=false` 会输出弃用提示并污染严格 SHA 解析。恢复后的 `0640 root:root` 文件由只读 helper tar 观测，不能为了测试方便 `chmod/chown` 被测目录。
 - 一次性正式入口必须先用最终完全相同的 `/app/backend/.venv/bin/python` 完成零请求 import、runner `--help` 与挂载内 preflight；双 provider canary 外层等待不得短于 700 秒。manifest 声明 300 秒不等于模型对象已生效，必须在请求前验证模型及底层 client 的有效 timeout/retry；调试级短超时、系统 `python` 和仅核对 endpoint 的 preflight 都不能作为放行依据。
 - Windows `docker` CLI 的 `desktop-linux` context 只反映 Docker Desktop daemon，不能据此判断 Forge 状态。Forge 容器实际属于 WSL2 Ubuntu 原生 `dockerd`；所有项目 Docker 命令必须先通过 `scripts/require-ubuntu-native-docker.sh`，并从 `wsl.exe -d Ubuntu` 或该发行版内执行。门禁失败时请求用户恢复服务，不得启动 Docker Desktop 作为回退。
 - LangGraph 容器内 `/repo` 是只读挂载。可在容器中使用 Ruff `--check --no-cache`，但不能直接格式化文件；写入格式化必须在可写工作树中使用相同 `backend/ruff.toml`，不要修改挂载权限或重建服务来绕过只读边界。
