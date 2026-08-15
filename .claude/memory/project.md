@@ -5,6 +5,14 @@
 ## 进行中 (In Progress)
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
+- 2026-08-15 — 验证 failure checkpoint 预算重建与双臂隔离
+  - GitHub: 中文 Issue #139 已创建并回读；分支为 `research/139-budget-checkpoint-prototype`，基线为 `main@ffb3475c`。
+  - 实现: 新增实验专用 `forge-budget-checkpoint-1.0.0` manifest、deterministic fake clock/counters 与预注册；不修改生产 `_ACTIVE_EXPERIMENTS` 或历史 evidence。
+  - 当前验证: 父 manifest 固定 limits、capture 前累计成本、remaining、attempt/compiler work/total deadline 与 post-build；两臂初始 canonical budget 相同，后续五类 claim 独立，预算耗尽不阻塞 finalize/cleanup。
+  - 证据: fixture manifest SHA-256 为 `7a19ec82b058587656dd3c93d7f935e274f9560cb4e0beac863f6acd88043730`；聚焦与相邻消息/环境 checkpoint 回归 `27 passed, 1 skipped`，Ruff check/format 与 `py_compile` 通过。
+  - 边界: 0 provider、0 Docker、0 formal physical attempt、0 model token；下一步是中文提交、WSL helper 推送、中文 PR 与 CI，不授权组合 runner 或 mechanism slots。
+  - 文件: `scripts/forge_budget_checkpoint_prototype.py`, `backend/tests/test_forge_budget_checkpoint_prototype.py`, `benchmarks/preregistrations/cpp-verifier-budget-checkpoint-prototype.md`
+
 - 2026-08-15 — 验证 verifier failure checkpoint 的非模型分支可行性
   - GitHub: 中文 Issue #135 已创建并回读；分支为 `research/135-failure-checkpoint-prototype`，基线为 `main@1f944c8c`。
   - 实现: 从冻结 pilot Slot 7/10 派生两份脱敏只读 fixture，固定 Schema/canonical SHA-256；实验专用 fake compiler graph 使用 SQLite checkpointer，在 actionable submit 后、下一模型节点前暂停并派生 baseline/treatment。
