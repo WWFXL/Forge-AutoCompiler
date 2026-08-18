@@ -5,14 +5,12 @@
 ## 进行中 (In Progress)
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
-- 2026-08-19 — 授权 failure checkpoint primary canary amendment
-  - GitHub: 中文 Issue #155 已在修改前创建并回读；当前分支为 `research/155-checkpoint-primary-canary-authorized`，授权 baseline 为 `main@9feb832d`。
-  - 授权: 1 次 DeepSeek `deepseek-v4-flash` reachability、1 个 controlled pair，以及合计最多 245,000 recorded tokens；不授权 6-pair pilot、secondary/natural、retry、replacement、fallback 或 backfill。
-  - 实现: 新 authorized adapter 私有加载冻结 parent runner，先核验 Issue #149 四份旧 evidence，再使用独立 evidence 目录和 marker；controlled pair 期间临时启用 `.forge-cmake-build` 布局，退出后恢复 parent module。
-  - 证据: authorized manifest canonical SHA-256 为 `f87dc3e0af2ec8c841191c70195808ac5e686656d15f00c479f6d030abebf356`；真实旧 evidence 4/4 通过，primary/checkpoint 相邻回归 `23 passed`，Ruff check/format、`py_compile`、diff 与敏感信息检查通过。
-  - 边界: 当前仍为 0 provider、0 token、0 formal physical attempt、0 Docker，未读取 AK或创建新 marker/ledger/report。
-  - 下一步: 已获 WSL helper 推送授权；远端 SHA 核验后停在 PR 创建边界，PR、合并与真实 provider 执行仍分别确认。
-  - 文件: `scripts/forge_checkpoint_primary_canary_amendment_authorized.py`, `backend/tests/test_forge_checkpoint_primary_canary_amendment_authorized.py`, `benchmarks/manifests/cpp-verifier-checkpoint-primary-canary-amendment-authorized.json`, `benchmarks/preregistrations/cpp-verifier-checkpoint-primary-canary-amendment-authorized.md`
+- 2026-08-19 — 评审 checkpoint primary canary 超时终态与下一 amendment
+  - GitHub: 中文 Issue #157 已创建并回读；Issue #155 的唯一 controlled pair 已失败关闭，6-pair pilot 未启动。
+  - 终态: reachability 在 0.992 秒内通过并记录 17 tokens；baseline 第 1 次 compiler 请求在 300.165 秒 `ReadTimeout`，treatment 未调用模型，三个 Session 均已终结且 0 orphan。
+  - 审计: DeepSeek 300 秒历史请求为 85/94 completed、9/94 timeout；成功最大约 7.4 秒，没有 `120-300s` rescue 证据。
+  - 建议: 保持 300 秒、0 retry 和无 replacement/backfill，下一候选改为 endpoint timeout 不关闭后续预注册 pair、arm order 交叉平衡，并分离 ITT/attrition 与 conditional mechanism estimand。
+  - 边界: Issue #155 runner 终结时的 7 个核心 evidence 保持 append-only；后验只读审计产生 32 KiB SQLite `-shm` 与空 `-wal`，核心哈希未变，当前等待是否删除 sidecar 的确认。Issue #157 不授权新 provider、physical attempt 或 6-pair pilot。
 
 - 2026-08-15 — 验证 failure checkpoint 三层组合恢复
   - GitHub: 中文 Issue #141 已创建并回读；分支为 `research/141-combined-checkpoint-prototype`，基线为 `main@cd31d8df`。
@@ -72,6 +70,11 @@
 
 ## 最近变更 (Recent Changes)
 <!-- 倒序，最新在上。 -->
+
+- 2026-08-19 — 终结 checkpoint primary canary amendment
+  - 文件: `.compile-sessions/benchmark-evidence-checkpoint-primary-canary-amendment/`（Git 忽略的 append-only 本地 evidence）
+  - 动机: 按 Issue #155 冻结授权执行唯一 reachability 与 controlled pair，并在失败后保留终态、审计 cleanup 和历史 endpoint timeout。
+  - 结果: reachability 通过；baseline 首请求 300.165 秒 timeout，pair marker 失败，treatment/6-pair pilot 未启动，recorded tokens 为 17，最终 0 orphan；中文 Issue #157 已建立下一决策入口并公开更正后验 SQLite sidecar。
 
 - 2026-08-19 — 合并 checkpoint primary canary amendment 候选
   - 文件: `scripts/forge_checkpoint_primary_canary_amendment.py`, `backend/tests/test_forge_checkpoint_primary_canary_amendment.py`, `benchmarks/manifests/cpp-verifier-checkpoint-primary-canary-amendment-candidate.json`, `benchmarks/preregistrations/cpp-verifier-checkpoint-primary-canary-amendment.md`
