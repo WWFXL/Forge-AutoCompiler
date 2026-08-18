@@ -5,15 +5,13 @@
 ## 进行中 (In Progress)
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
-- 2026-08-18 — 完成 Issue #149 primary mechanism canary 的本地实现与零 provider 门禁
-  - GitHub: PR #148 已 squash 合并为 `main@fd89d1e6`，Issue #147 自动关闭；中文 Issue #149 已创建并回读，当前分支为 `research/149-checkpoint-primary-canary`。
-  - 实现: 新增授权 manifest、预注册和实验专用 runner；一次性 reachability marker 通过后才允许一个 baseline/treatment controlled checkpoint pair，真实 provider 又受 clean `main == origin/main`、Compose/DooD、冻结 evidence 目录和 protocol artifact hash 门禁。
-  - 预算: DeepSeek `deepseek-v4-flash`、`https://api.deepseek.com`、`DEEPSEEK_API_KEY`、300 秒 timeout、0 retry；每臂 8 requests/8 turns/24 graph steps、600 秒 work + 120 秒 cleanup、120,000 tokens，阶段总上限 245,000 tokens；禁止 fallback/replacement/backfill。
-  - 机制: treatment 只比 baseline 多 schema-valid repair packet；两个 arm 从同一 message/environment/budget checkpoint 派生，使用独立 Session/container/ledger 和内存 checkpointer。runner 强制 actual-model、endpoint、timeout/retry、token、pair completeness 和 cleanup 终态。
-  - 证据: 聚焦 `9 passed, 1 skipped`、相邻回归 `48 passed`、Ruff 通过；Ubuntu 原生 Docker fake-model pair 最终代码复验通过，结果为 `1 passed in 93.18s`，checkpoint container/image/paused 均为 0。manifest SHA-256 为 `2771e72eee45ca6eac7bc1e7d5040cf5633bb3bf7e24a186a44071d9a98ce579`。
-  - 边界: 实际 0 provider calls、0 model tokens、0 formal physical attempts，未读取 AK；本地分支不能通过 release identity 门禁。后续 6-pair pilot、RichLab、natural stratum 均未授权。
-  - 下一步: 中文本地提交已完成，等待实验负责人单独确认推送；创建 PR 和后续合并仍分别确认。只有授权内容进入干净主干后才执行唯一 reachability，失败立即停止，通过才执行唯一 pair。
-  - 文件: `scripts/forge_checkpoint_primary_canary.py`, `backend/tests/test_forge_checkpoint_primary_canary.py`, `backend/tests/test_forge_checkpoint_primary_canary_docker.py`, `benchmarks/manifests/cpp-verifier-checkpoint-primary-canary-authorized.json`, `benchmarks/preregistrations/cpp-verifier-checkpoint-primary-canary.md`
+- 2026-08-19 — 修复 checkpoint canary 在 Windows bind 上的 CMake 构建目录冲突
+  - GitHub: 中文 Issue #151 已在修改前创建并回读；当前分支为 `fix/151-checkpoint-windows-build-dir`，基线为 `main@1ae32b50`。
+  - 实现: 新增版本化 build-layout adapter，只在私有加载的 v1 runner 上把三条已审计 parent 命令和 `BUILD_OUTPUT` 切换到 `.forge-cmake-build`，退出上下文后恢复；Issue #149 冻结 runner、测试、manifest 与 evidence 逐字不变。
+  - 证据: 新单元与相邻回归 `31 passed`，Ruff check/format 通过；真实 Compose + Windows bind gate 先确认 `BUILD`/`build` 冲突，再以 fake model 完成 parent build、checkpoint、两臂恢复、candidate verification、clean replay 和 cleanup，结果为 `1 passed in 126.91s`。
+  - 资源: 结束后 compile/checkpoint/prototype/paused container 与 checkpoint/prototype image 均为 0，测试目录已精确清理；实际 0 provider calls、0 model tokens、0 formal physical attempts，未读取 AK。
+  - 下一步: 中文本地提交已完成，等待实验负责人单独确认推送；PR 与合并仍分别确认。工程修复合并后另开中文 Issue 预注册 amendment，不能复用 Issue #149 已消费的 reachability/pair marker。
+  - 文件: `scripts/forge_checkpoint_windows_build_layout.py`, `backend/tests/test_forge_checkpoint_windows_build_layout.py`, `backend/tests/test_forge_checkpoint_windows_bind_parity_docker.py`
 
 - 2026-08-15 — 验证 failure checkpoint 三层组合恢复
   - GitHub: 中文 Issue #141 已创建并回读；分支为 `research/141-combined-checkpoint-prototype`，基线为 `main@cd31d8df`。
@@ -73,6 +71,10 @@
 
 ## 最近变更 (Recent Changes)
 <!-- 倒序，最新在上。 -->
+
+- 2026-08-19 — 终结 Issue #149 primary mechanism canary
+  - 文件: `scripts/forge_checkpoint_primary_canary.py`, `benchmarks/manifests/cpp-verifier-checkpoint-primary-canary-authorized.json`
+  - 动机: 唯一 reachability 已通过；唯一 controlled pair 在 parent configure、任何 arm/provider 请求之前因 Windows bind 上 `BUILD`/`build` 冲突失败关闭。原 marker、ledger、report 与 workflow evidence 保持不变，不重试、replacement 或 backfill。
 
 - 2026-08-18 — 冻结并合并 controlled fault v1 零 provider gate
   - 文件: `scripts/forge_controlled_fault_v1_gate.py`, `backend/tests/test_forge_controlled_fault_v1_gate.py`, `backend/tests/test_forge_controlled_fault_v1_docker.py`, `benchmarks/manifests/cpp-verifier-checkpoint-primary-canary-candidate.json`
@@ -390,6 +392,8 @@
 ## 已知问题 (Known Issues / Pitfalls)
 <!-- 工作中踩过的坑、限制或意外行为。 -->
 
+- Windows bind/DrvFS 目录大小写不敏感；上游若跟踪 `BUILD`，CMake `-B build` 会解析到同一普通文件。checkpoint canary 使用 `.forge-cmake-build`，并必须在真实 Compose `/workspace/.compile-sessions` 挂载上做 parity gate，不能再用 WSL ext4 `tmp_path` 代替。
+- Issue #149 runner 和测试的 SHA-256 已冻结在授权 manifest。跨阶段修复必须新增版本化 adapter/test，不能原地修改冻结文件或更新旧 manifest hash；后续 provider 运行还需要独立 amendment identity 与新授权。
 - Windows 工作树中的 `backend/.venv` 是 Linux 虚拟环境布局，没有 `Scripts/python.exe`；不要直接把它当 Windows venv，也不要省略 PowerShell 相对可执行路径所需的 `./`。先用 `Get-Command`/`Test-Path` 确认，再固定通过 WSL 调用 `./backend/.venv/bin/python` 和 `ruff`。
 - Compose/DooD checkpoint 同时存在服务容器路径 `/workspace/.compile-sessions/...` 与 Docker daemon 可见的 WSL 宿主路径 `$HOST_PROJECT_ROOT/.compile-sessions/...`；snapshot bind 必须显式做相对路径转换，不能把容器路径原样交给 daemon。
 - controlled parent 通过脚手架直接执行 build 时不会自动进入 bound tool 的 post-build phase；派生 arm 前必须持久化成功 build 的 `supporting_command_id`、开始时间和剩余命令预算，否则模型恢复 artifact 后无法自动触发 submit/clean replay。
