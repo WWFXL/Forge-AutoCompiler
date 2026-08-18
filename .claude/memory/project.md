@@ -5,14 +5,15 @@
 ## 进行中 (In Progress)
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
-- 2026-08-18 — 制定 Issue #145 failure checkpoint 机制实验决策包
-  - GitHub: PR #144 已 squash 合并为 `main@eb643c4d`，Issue #143 自动关闭；中文 Issue #145 已创建并回读，当前分支为 `research/145-checkpoint-mechanism-decision-package`。
-  - 决策: natural 与 controlled stratum 分开；推荐 primary 单 provider 6-pair controlled pilot，之后再用第二 provider 做 3-pair 独立复制，不做模型排名。
-  - 预算: 每 arm 最多 8 requests、8 turns、24 graph steps、600 秒 work、120 秒 cleanup、120,000 tokens；primary reachability + mechanism canary + pilot 的 expected/maximum ceiling 为 845,000/1,685,000 tokens。
-  - 边界: 当前 `collection_authorized=false`、`provider_canary_authorized=false`，实际 0 provider、0 formal attempt、0 model token、0 Docker；clean-replay mismatch 不纳入。
-  - 发布: 本地提交 `3d9fa5d5` 已由 WSL helper 一次推送；中文 PR #146 已创建并回读，`Closes #145`、base/head 与提交身份正确，backend unit tests、backend lint、frontend lint 三项 CI 全部通过。
-  - 下一步: 等待实验负责人单独确认合并 PR #146；合并后另开中文 Issue，先实现 controlled fault v1 的 0-provider 非模型 gate，任何 canary 仍需单独授权。
-  - 文件: `benchmarks/preregistrations/cpp-verifier-checkpoint-mechanism-decision-package.md`
+- 2026-08-18 — 完成 Issue #147 controlled fault v1 的零 provider 本地门禁
+  - GitHub: PR #146 已 squash 合并为 `main@b10a3857`，Issue #145 自动关闭；中文 Issue #147 已创建并回读，当前分支为 `research/147-controlled-fault-v1-gate`。
+  - 实现: 新增薄 controlled-fault adapter、非 Docker 契约测试、opt-in Ubuntu Docker gate、预注册和未授权 primary canary manifest；复用 #143 的真实 lifecycle checkpoint、真实 verifier、Compile Session 和 clean replay，不修改生产 Compiler、Oracle、自然任务 ITT runner、历史 evidence 或 `_ACTIVE_EXPERIMENTS`。
+  - 真实门禁: `cppitertools@531b3d7` 先生成并暂存 required artifact，再确定性删除 `/artifacts` 中唯一文件；真实 submit 产生 pre-replay `candidate_verification_failed`，同一 committed checkpoint 派生的 baseline/treatment 独立恢复后均通过 candidate verification 与 clean replay。
+  - 证据: Ubuntu 原生 daemon gate 为 `provider=ubuntu-native`、`/var/run/docker.sock`；真实 Docker 用例 `1 passed in 90.23s`，相邻回归 `19 passed, 1 skipped`，Ruff check/format 通过，最终无 compile/checkpoint container、continuation image 或 snapshot 残留。
+  - 边界: `provider_canary_authorized=false`、`collection_authorized=false`；实际 0 provider calls、0 formal physical attempts、0 model tokens，未读取或输出 AK。候选只描述最多 1 次 reachability request、1 个 controlled pair 和 245,000 tokens，不构成授权。
+  - 发布: 中文提交 `139f8de4` 已由 WSL helper 第一次推送成功；中文 PR #148 已创建并回读，`Closes #147`、base/head、提交 identity 和正文均正确，三项 CI 已启动。
+  - 下一步: 等待 PR #148 CI；CI 通过后请求实验负责人单独确认合并。合并后才单独申请最小 provider canary，canary 通过也不自动授权 6-pair pilot。
+  - 文件: `scripts/forge_controlled_fault_v1_gate.py`, `backend/tests/test_forge_controlled_fault_v1_gate.py`, `backend/tests/test_forge_controlled_fault_v1_docker.py`, `benchmarks/preregistrations/cpp-verifier-controlled-fault-v1-gate.md`, `benchmarks/manifests/cpp-verifier-checkpoint-primary-canary-candidate.json`
 
 - 2026-08-15 — 验证 failure checkpoint 三层组合恢复
   - GitHub: 中文 Issue #141 已创建并回读；分支为 `research/141-combined-checkpoint-prototype`，基线为 `main@cd31d8df`。
@@ -384,6 +385,7 @@
 ## 已知问题 (Known Issues / Pitfalls)
 <!-- 工作中踩过的坑、限制或意外行为。 -->
 
+- `CompileDockerRuntime.create_container()` 的 bind source 不会代替测试创建 `session.leadagent_repo_dir`；若目录缺失，容器能创建但首次以 `/workspace/repo` 为 cwd 的 exec 会在 OCI 层失败。真实 Docker fixture 必须在 create 前执行 `Path(session.leadagent_repo_dir).mkdir(parents=True, exist_ok=True)`；这种失败发生在 fault、submit、checkpoint 和 replay 前，不能计入机制门禁结果。
 - WSL 冷启动或手动启动 `docker.service` 后，daemon 恢复已有容器可能需要 5-10 秒；启动命令返回后应等待 `systemctl is-active docker.service` 为 `active` 再运行正式 gate，不能把 `activating` 窗口误判为永久失败，也不能切换 Docker Desktop。
 - Docker 29 使用 `docker commit --no-pause`，旧的 `--pause=false` 会输出弃用提示并污染严格 SHA 解析。恢复后的 `0640 root:root` 文件由只读 helper tar 观测，不能为了测试方便 `chmod/chown` 被测目录。
 - 一次性正式入口必须先用最终完全相同的 `/app/backend/.venv/bin/python` 完成零请求 import、runner `--help` 与挂载内 preflight；双 provider canary 外层等待不得短于 700 秒。manifest 声明 300 秒不等于模型对象已生效，必须在请求前验证模型及底层 client 的有效 timeout/retry；调试级短超时、系统 `python` 和仅核对 endpoint 的 preflight 都不能作为放行依据。
