@@ -5,15 +5,15 @@
 ## 进行中 (In Progress)
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
-- 2026-08-18 — 完成 Issue #147 controlled fault v1 的零 provider 本地门禁
-  - GitHub: PR #146 已 squash 合并为 `main@b10a3857`，Issue #145 自动关闭；中文 Issue #147 已创建并回读，当前分支为 `research/147-controlled-fault-v1-gate`。
-  - 实现: 新增薄 controlled-fault adapter、非 Docker 契约测试、opt-in Ubuntu Docker gate、预注册和未授权 primary canary manifest；复用 #143 的真实 lifecycle checkpoint、真实 verifier、Compile Session 和 clean replay，不修改生产 Compiler、Oracle、自然任务 ITT runner、历史 evidence 或 `_ACTIVE_EXPERIMENTS`。
-  - 真实门禁: `cppitertools@531b3d7` 先生成并暂存 required artifact，再确定性删除 `/artifacts` 中唯一文件；真实 submit 产生 pre-replay `candidate_verification_failed`，同一 committed checkpoint 派生的 baseline/treatment 独立恢复后均通过 candidate verification 与 clean replay。
-  - 证据: Ubuntu 原生 daemon gate 为 `provider=ubuntu-native`、`/var/run/docker.sock`；真实 Docker 用例 `1 passed in 90.23s`，相邻回归 `19 passed, 1 skipped`，Ruff check/format 通过，最终无 compile/checkpoint container、continuation image 或 snapshot 残留。
-  - 边界: `provider_canary_authorized=false`、`collection_authorized=false`；实际 0 provider calls、0 formal physical attempts、0 model tokens，未读取或输出 AK。候选只描述最多 1 次 reachability request、1 个 controlled pair 和 245,000 tokens，不构成授权。
-  - 发布: 中文提交 `139f8de4` 已由 WSL helper 第一次推送成功；中文 PR #148 已创建并回读，`Closes #147`、base/head、提交 identity 和正文均正确，三项 CI 已启动。
-  - 下一步: 等待 PR #148 CI；CI 通过后请求实验负责人单独确认合并。合并后才单独申请最小 provider canary，canary 通过也不自动授权 6-pair pilot。
-  - 文件: `scripts/forge_controlled_fault_v1_gate.py`, `backend/tests/test_forge_controlled_fault_v1_gate.py`, `backend/tests/test_forge_controlled_fault_v1_docker.py`, `benchmarks/preregistrations/cpp-verifier-controlled-fault-v1-gate.md`, `benchmarks/manifests/cpp-verifier-checkpoint-primary-canary-candidate.json`
+- 2026-08-18 — 完成 Issue #149 primary mechanism canary 的本地实现与零 provider 门禁
+  - GitHub: PR #148 已 squash 合并为 `main@fd89d1e6`，Issue #147 自动关闭；中文 Issue #149 已创建并回读，当前分支为 `research/149-checkpoint-primary-canary`。
+  - 实现: 新增授权 manifest、预注册和实验专用 runner；一次性 reachability marker 通过后才允许一个 baseline/treatment controlled checkpoint pair，真实 provider 又受 clean `main == origin/main`、Compose/DooD、冻结 evidence 目录和 protocol artifact hash 门禁。
+  - 预算: DeepSeek `deepseek-v4-flash`、`https://api.deepseek.com`、`DEEPSEEK_API_KEY`、300 秒 timeout、0 retry；每臂 8 requests/8 turns/24 graph steps、600 秒 work + 120 秒 cleanup、120,000 tokens，阶段总上限 245,000 tokens；禁止 fallback/replacement/backfill。
+  - 机制: treatment 只比 baseline 多 schema-valid repair packet；两个 arm 从同一 message/environment/budget checkpoint 派生，使用独立 Session/container/ledger 和内存 checkpointer。runner 强制 actual-model、endpoint、timeout/retry、token、pair completeness 和 cleanup 终态。
+  - 证据: 聚焦 `9 passed, 1 skipped`、相邻回归 `48 passed`、Ruff 通过；Ubuntu 原生 Docker fake-model pair 最终代码复验通过，结果为 `1 passed in 93.18s`，checkpoint container/image/paused 均为 0。manifest SHA-256 为 `2771e72eee45ca6eac7bc1e7d5040cf5633bb3bf7e24a186a44071d9a98ce579`。
+  - 边界: 实际 0 provider calls、0 model tokens、0 formal physical attempts，未读取 AK；本地分支不能通过 release identity 门禁。后续 6-pair pilot、RichLab、natural stratum 均未授权。
+  - 下一步: 中文本地提交已完成，等待实验负责人单独确认推送；创建 PR 和后续合并仍分别确认。只有授权内容进入干净主干后才执行唯一 reachability，失败立即停止，通过才执行唯一 pair。
+  - 文件: `scripts/forge_checkpoint_primary_canary.py`, `backend/tests/test_forge_checkpoint_primary_canary.py`, `backend/tests/test_forge_checkpoint_primary_canary_docker.py`, `benchmarks/manifests/cpp-verifier-checkpoint-primary-canary-authorized.json`, `benchmarks/preregistrations/cpp-verifier-checkpoint-primary-canary.md`
 
 - 2026-08-15 — 验证 failure checkpoint 三层组合恢复
   - GitHub: 中文 Issue #141 已创建并回读；分支为 `research/141-combined-checkpoint-prototype`，基线为 `main@cd31d8df`。
@@ -73,6 +73,11 @@
 
 ## 最近变更 (Recent Changes)
 <!-- 倒序，最新在上。 -->
+
+- 2026-08-18 — 冻结并合并 controlled fault v1 零 provider gate
+  - 文件: `scripts/forge_controlled_fault_v1_gate.py`, `backend/tests/test_forge_controlled_fault_v1_gate.py`, `backend/tests/test_forge_controlled_fault_v1_docker.py`, `benchmarks/manifests/cpp-verifier-checkpoint-primary-canary-candidate.json`
+  - 动机: 在任何 provider canary 前证明真实 verifier failure 可重复、checkpoint 两臂同源、恢复后 candidate/clean replay 可通过且 cleanup 无 orphan。
+  - 结果: PR #148 squash 合并为 `main@fd89d1e6`，三项 CI 通过；Issue #147 自动关闭。
 
 - 2026-08-15 — 证明 failure checkpoint 的 rootfs 与 bind-mount 同源双臂恢复
   - 文件: `scripts/forge_environment_checkpoint_prototype.py`, `backend/tests/test_forge_environment_checkpoint_prototype.py`, `benchmarks/preregistrations/cpp-verifier-environment-checkpoint-prototype.md`
@@ -384,6 +389,10 @@
 
 ## 已知问题 (Known Issues / Pitfalls)
 <!-- 工作中踩过的坑、限制或意外行为。 -->
+
+- Windows 工作树中的 `backend/.venv` 是 Linux 虚拟环境布局，没有 `Scripts/python.exe`；不要直接把它当 Windows venv，也不要省略 PowerShell 相对可执行路径所需的 `./`。先用 `Get-Command`/`Test-Path` 确认，再固定通过 WSL 调用 `./backend/.venv/bin/python` 和 `ruff`。
+- Compose/DooD checkpoint 同时存在服务容器路径 `/workspace/.compile-sessions/...` 与 Docker daemon 可见的 WSL 宿主路径 `$HOST_PROJECT_ROOT/.compile-sessions/...`；snapshot bind 必须显式做相对路径转换，不能把容器路径原样交给 daemon。
+- controlled parent 通过脚手架直接执行 build 时不会自动进入 bound tool 的 post-build phase；派生 arm 前必须持久化成功 build 的 `supporting_command_id`、开始时间和剩余命令预算，否则模型恢复 artifact 后无法自动触发 submit/clean replay。
 
 - `CompileDockerRuntime.create_container()` 的 bind source 不会代替测试创建 `session.leadagent_repo_dir`；若目录缺失，容器能创建但首次以 `/workspace/repo` 为 cwd 的 exec 会在 OCI 层失败。真实 Docker fixture 必须在 create 前执行 `Path(session.leadagent_repo_dir).mkdir(parents=True, exist_ok=True)`；这种失败发生在 fault、submit、checkpoint 和 replay 前，不能计入机制门禁结果。
 - WSL 冷启动或手动启动 `docker.service` 后，daemon 恢复已有容器可能需要 5-10 秒；启动命令返回后应等待 `systemctl is-active docker.service` 为 `active` 再运行正式 gate，不能把 `activating` 窗口误判为永久失败，也不能切换 Docker Desktop。
