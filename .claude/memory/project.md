@@ -11,7 +11,8 @@
   - 真实门禁: `cppitertools@531b3d7` 先生成并暂存 required artifact，再确定性删除 `/artifacts` 中唯一文件；真实 submit 产生 pre-replay `candidate_verification_failed`，同一 committed checkpoint 派生的 baseline/treatment 独立恢复后均通过 candidate verification 与 clean replay。
   - 证据: Ubuntu 原生 daemon gate 为 `provider=ubuntu-native`、`/var/run/docker.sock`；真实 Docker 用例 `1 passed in 90.23s`，相邻回归 `19 passed, 1 skipped`，Ruff check/format 通过，最终无 compile/checkpoint container、continuation image 或 snapshot 残留。
   - 边界: `provider_canary_authorized=false`、`collection_authorized=false`；实际 0 provider calls、0 formal physical attempts、0 model tokens，未读取或输出 AK。候选只描述最多 1 次 reachability request、1 个 controlled pair 和 245,000 tokens，不构成授权。
-  - 下一步: 完成中文本地提交；推送和创建中文 PR 前再次取得实验负责人授权。PR 合并后才单独申请最小 provider canary，canary 通过也不自动授权 6-pair pilot。
+  - 发布: 中文提交 `139f8de4` 已由 WSL helper 第一次推送成功；中文 PR #148 已创建并回读，`Closes #147`、base/head、提交 identity 和正文均正确，三项 CI 已启动。
+  - 下一步: 等待 PR #148 CI；CI 通过后请求实验负责人单独确认合并。合并后才单独申请最小 provider canary，canary 通过也不自动授权 6-pair pilot。
   - 文件: `scripts/forge_controlled_fault_v1_gate.py`, `backend/tests/test_forge_controlled_fault_v1_gate.py`, `backend/tests/test_forge_controlled_fault_v1_docker.py`, `benchmarks/preregistrations/cpp-verifier-controlled-fault-v1-gate.md`, `benchmarks/manifests/cpp-verifier-checkpoint-primary-canary-candidate.json`
 
 - 2026-08-15 — 验证 failure checkpoint 三层组合恢复
