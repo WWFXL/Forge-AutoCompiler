@@ -10,7 +10,8 @@
   - 实现: 新增版本化 build-layout adapter，只在私有加载的 v1 runner 上把三条已审计 parent 命令和 `BUILD_OUTPUT` 切换到 `.forge-cmake-build`，退出上下文后恢复；Issue #149 冻结 runner、测试、manifest 与 evidence 逐字不变。
   - 证据: 新单元与相邻回归 `31 passed`，Ruff check/format 通过；真实 Compose + Windows bind gate 先确认 `BUILD`/`build` 冲突，再以 fake model 完成 parent build、checkpoint、两臂恢复、candidate verification、clean replay 和 cleanup，结果为 `1 passed in 126.91s`。
   - 资源: 结束后 compile/checkpoint/prototype/paused container 与 checkpoint/prototype image 均为 0，测试目录已精确清理；实际 0 provider calls、0 model tokens、0 formal physical attempts，未读取 AK。
-  - 下一步: 中文本地提交已完成，等待实验负责人单独确认推送；PR 与合并仍分别确认。工程修复合并后另开中文 Issue 预注册 amendment，不能复用 Issue #149 已消费的 reachability/pair marker。
+  - 发布: 中文修复提交 `c0dd7b28` 已通过 `scripts/push-via-wsl.ps1` 第一次推送成功；本地 HEAD、远端跟踪分支与 GitHub ref 已核验一致。
+  - 下一步: 等待实验负责人单独授权创建中文 PR；合并仍需另行确认。工程修复合并后另开中文 Issue 预注册 amendment，不能复用 Issue #149 已消费的 reachability/pair marker。
   - 文件: `scripts/forge_checkpoint_windows_build_layout.py`, `backend/tests/test_forge_checkpoint_windows_build_layout.py`, `backend/tests/test_forge_checkpoint_windows_bind_parity_docker.py`
 
 - 2026-08-15 — 验证 failure checkpoint 三层组合恢复
