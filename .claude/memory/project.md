@@ -10,7 +10,8 @@
   - 决策: natural 与 controlled stratum 分开；推荐 primary 单 provider 6-pair controlled pilot，之后再用第二 provider 做 3-pair 独立复制，不做模型排名。
   - 预算: 每 arm 最多 8 requests、8 turns、24 graph steps、600 秒 work、120 秒 cleanup、120,000 tokens；primary reachability + mechanism canary + pilot 的 expected/maximum ceiling 为 845,000/1,685,000 tokens。
   - 边界: 当前 `collection_authorized=false`、`provider_canary_authorized=false`，实际 0 provider、0 formal attempt、0 model token、0 Docker；clean-replay mismatch 不纳入。
-  - 下一步: 完成文档/敏感信息检查并提交；合并后另开中文 Issue，先实现 controlled fault v1 的 0-provider 非模型 gate，任何 canary 仍需单独授权。
+  - 发布: 本地提交 `3d9fa5d5` 已由 WSL helper 一次推送；中文 PR #146 已创建并回读，`Closes #145`、base/head 与提交身份正确，backend unit tests、backend lint、frontend lint 三项 CI 全部通过。
+  - 下一步: 等待实验负责人单独确认合并 PR #146；合并后另开中文 Issue，先实现 controlled fault v1 的 0-provider 非模型 gate，任何 canary 仍需单独授权。
   - 文件: `benchmarks/preregistrations/cpp-verifier-checkpoint-mechanism-decision-package.md`
 
 - 2026-08-15 — 验证 failure checkpoint 三层组合恢复
