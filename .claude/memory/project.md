@@ -5,14 +5,14 @@
 ## 进行中 (In Progress)
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
-- 2026-08-19 — 修复 checkpoint canary 在 Windows bind 上的 CMake 构建目录冲突
-  - GitHub: 中文 Issue #151 已在修改前创建并回读；当前分支为 `fix/151-checkpoint-windows-build-dir`，基线为 `main@1ae32b50`。
-  - 实现: 新增版本化 build-layout adapter，只在私有加载的 v1 runner 上把三条已审计 parent 命令和 `BUILD_OUTPUT` 切换到 `.forge-cmake-build`，退出上下文后恢复；Issue #149 冻结 runner、测试、manifest 与 evidence 逐字不变。
-  - 证据: 新单元与相邻回归 `31 passed`，Ruff check/format 通过；真实 Compose + Windows bind gate 先确认 `BUILD`/`build` 冲突，再以 fake model 完成 parent build、checkpoint、两臂恢复、candidate verification、clean replay 和 cleanup，结果为 `1 passed in 126.91s`。
-  - 资源: 结束后 compile/checkpoint/prototype/paused container 与 checkpoint/prototype image 均为 0，测试目录已精确清理；实际 0 provider calls、0 model tokens、0 formal physical attempts，未读取 AK。
-  - 发布: 中文修复提交 `c0dd7b28` 已通过 `scripts/push-via-wsl.ps1` 第一次推送成功；本地 HEAD、远端跟踪分支与 GitHub ref 已核验一致。
-  - 下一步: 等待实验负责人单独授权创建中文 PR；合并仍需另行确认。工程修复合并后另开中文 Issue 预注册 amendment，不能复用 Issue #149 已消费的 reachability/pair marker。
-  - 文件: `scripts/forge_checkpoint_windows_build_layout.py`, `backend/tests/test_forge_checkpoint_windows_build_layout.py`, `backend/tests/test_forge_checkpoint_windows_bind_parity_docker.py`
+- 2026-08-19 — 预注册 failure checkpoint primary canary amendment 候选
+  - GitHub: 中文 Issue #153 已在修改前创建并回读；当前分支为 `research/153-checkpoint-primary-canary-amendment`，基线为 `main@c7217e20`。
+  - 决策: Issue #149 的 reachability 绑定旧 manifest 与 `main@1ae32b50`，不在新 amendment 中复用。候选提出独立的一次 reachability、一个 controlled pair 和 245,000 recorded-token maximum，但全部授权位保持 `false`。
+  - 实现: 新 candidate manifest、预注册与只读 validator 固定旧四文件 evidence identity、新目录/marker、PR #152 build-layout adapter 和父协议；CLI 只有 `generate`、`validate`、`validate-evidence`，没有 provider 执行入口。
+  - 证据: candidate canonical SHA-256 为 `d0598b549301a2efbe431e2bfa7f6f21c4ba32e2c3eae1b078935630f1ffb704`；真实旧 evidence 只读核验 4/4 通过，相邻回归 `17 passed`，Ruff check/format、diff 与敏感信息检查通过。
+  - 边界: 0 provider calls、0 model tokens、0 formal physical attempts、0 Docker，未读取 AK；不创建新 marker/ledger/report，不授权 6-pair pilot。
+  - 下一步: 中文本地提交已完成，等待实验负责人单独授权推送；PR、合并与后续 245,000-token provider canary 仍分别确认。
+  - 文件: `scripts/forge_checkpoint_primary_canary_amendment.py`, `backend/tests/test_forge_checkpoint_primary_canary_amendment.py`, `benchmarks/manifests/cpp-verifier-checkpoint-primary-canary-amendment-candidate.json`, `benchmarks/preregistrations/cpp-verifier-checkpoint-primary-canary-amendment.md`
 
 - 2026-08-15 — 验证 failure checkpoint 三层组合恢复
   - GitHub: 中文 Issue #141 已创建并回读；分支为 `research/141-combined-checkpoint-prototype`，基线为 `main@cd31d8df`。
@@ -72,6 +72,11 @@
 
 ## 最近变更 (Recent Changes)
 <!-- 倒序，最新在上。 -->
+
+- 2026-08-19 — 合并 Windows bind checkpoint 构建目录修复
+  - 文件: `scripts/forge_checkpoint_windows_build_layout.py`, `backend/tests/test_forge_checkpoint_windows_build_layout.py`, `backend/tests/test_forge_checkpoint_windows_bind_parity_docker.py`
+  - 动机: tracked `BUILD` 与 CMake 小写 `build` 在 Windows bind 上冲突，使 Issue #149 pair 在 arm/provider 前环境删失。
+  - 结果: 中文 PR #152 三项 CI 全绿后 squash 合并为 `main@c7217e20`，Issue #151 自动关闭；本地主干与 `origin/main` 同步一致。
 
 - 2026-08-19 — 终结 Issue #149 primary mechanism canary
   - 文件: `scripts/forge_checkpoint_primary_canary.py`, `benchmarks/manifests/cpp-verifier-checkpoint-primary-canary-authorized.json`
