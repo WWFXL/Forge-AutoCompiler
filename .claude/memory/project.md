@@ -5,14 +5,14 @@
 ## 进行中 (In Progress)
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
-- 2026-08-19 — 预注册 failure checkpoint primary canary amendment 候选
-  - GitHub: 中文 Issue #153 已在修改前创建并回读；当前分支为 `research/153-checkpoint-primary-canary-amendment`，基线为 `main@c7217e20`。
-  - 决策: Issue #149 的 reachability 绑定旧 manifest 与 `main@1ae32b50`，不在新 amendment 中复用。候选提出独立的一次 reachability、一个 controlled pair 和 245,000 recorded-token maximum，但全部授权位保持 `false`。
-  - 实现: 新 candidate manifest、预注册与只读 validator 固定旧四文件 evidence identity、新目录/marker、PR #152 build-layout adapter 和父协议；CLI 只有 `generate`、`validate`、`validate-evidence`，没有 provider 执行入口。
-  - 证据: candidate canonical SHA-256 为 `d0598b549301a2efbe431e2bfa7f6f21c4ba32e2c3eae1b078935630f1ffb704`；真实旧 evidence 只读核验 4/4 通过，相邻回归 `17 passed`，Ruff check/format、diff 与敏感信息检查通过。
-  - 边界: 0 provider calls、0 model tokens、0 formal physical attempts、0 Docker，未读取 AK；不创建新 marker/ledger/report，不授权 6-pair pilot。
-  - 下一步: 中文本地提交已完成，等待实验负责人单独授权推送；PR、合并与后续 245,000-token provider canary 仍分别确认。
-  - 文件: `scripts/forge_checkpoint_primary_canary_amendment.py`, `backend/tests/test_forge_checkpoint_primary_canary_amendment.py`, `benchmarks/manifests/cpp-verifier-checkpoint-primary-canary-amendment-candidate.json`, `benchmarks/preregistrations/cpp-verifier-checkpoint-primary-canary-amendment.md`
+- 2026-08-19 — 授权 failure checkpoint primary canary amendment
+  - GitHub: 中文 Issue #155 已在修改前创建并回读；当前分支为 `research/155-checkpoint-primary-canary-authorized`，授权 baseline 为 `main@9feb832d`。
+  - 授权: 1 次 DeepSeek `deepseek-v4-flash` reachability、1 个 controlled pair，以及合计最多 245,000 recorded tokens；不授权 6-pair pilot、secondary/natural、retry、replacement、fallback 或 backfill。
+  - 实现: 新 authorized adapter 私有加载冻结 parent runner，先核验 Issue #149 四份旧 evidence，再使用独立 evidence 目录和 marker；controlled pair 期间临时启用 `.forge-cmake-build` 布局，退出后恢复 parent module。
+  - 证据: authorized manifest canonical SHA-256 为 `f87dc3e0af2ec8c841191c70195808ac5e686656d15f00c479f6d030abebf356`；真实旧 evidence 4/4 通过，primary/checkpoint 相邻回归 `23 passed`，Ruff check/format、`py_compile`、diff 与敏感信息检查通过。
+  - 边界: 当前仍为 0 provider、0 token、0 formal physical attempt、0 Docker，未读取 AK或创建新 marker/ledger/report。
+  - 下一步: 已获 WSL helper 推送授权；远端 SHA 核验后停在 PR 创建边界，PR、合并与真实 provider 执行仍分别确认。
+  - 文件: `scripts/forge_checkpoint_primary_canary_amendment_authorized.py`, `backend/tests/test_forge_checkpoint_primary_canary_amendment_authorized.py`, `benchmarks/manifests/cpp-verifier-checkpoint-primary-canary-amendment-authorized.json`, `benchmarks/preregistrations/cpp-verifier-checkpoint-primary-canary-amendment-authorized.md`
 
 - 2026-08-15 — 验证 failure checkpoint 三层组合恢复
   - GitHub: 中文 Issue #141 已创建并回读；分支为 `research/141-combined-checkpoint-prototype`，基线为 `main@cd31d8df`。
@@ -72,6 +72,11 @@
 
 ## 最近变更 (Recent Changes)
 <!-- 倒序，最新在上。 -->
+
+- 2026-08-19 — 合并 checkpoint primary canary amendment 候选
+  - 文件: `scripts/forge_checkpoint_primary_canary_amendment.py`, `backend/tests/test_forge_checkpoint_primary_canary_amendment.py`, `benchmarks/manifests/cpp-verifier-checkpoint-primary-canary-amendment-candidate.json`, `benchmarks/preregistrations/cpp-verifier-checkpoint-primary-canary-amendment.md`
+  - 动机: 旧 reachability 绑定旧 manifest/revision，Windows bind parity 修复后必须用独立 identity、目录和 marker 再申请一次受控机制 canary。
+  - 结果: 中文 PR #154 三项 CI 全绿后 squash 合并为 `main@9feb832d`，Issue #153 自动关闭；本地 `main` 与 `origin/main` 同步一致，远端研究分支保留。
 
 - 2026-08-19 — 合并 Windows bind checkpoint 构建目录修复
   - 文件: `scripts/forge_checkpoint_windows_build_layout.py`, `backend/tests/test_forge_checkpoint_windows_build_layout.py`, `backend/tests/test_forge_checkpoint_windows_bind_parity_docker.py`
