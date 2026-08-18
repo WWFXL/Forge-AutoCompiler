@@ -5,15 +5,14 @@
 ## 进行中 (In Progress)
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
-- 2026-08-15 — 完成 Issue #143 真实 checkpoint 生命周期本地门禁，等待发布评审
-  - GitHub: 中文 Issue #143 与 PR #144 已创建并回读；分支为 `research/143-real-lifecycle-checkpoint-gate`，基线为 `main@83031cd2`，`Closes #143` 关联正确。
-  - 实现: 新增实验专用 SQLite coordinator、compiler message checkpoint、真实 Compile Session/Docker environment adapter、arm-local budget、预注册与 crash/reconcile/cleanup 测试。
-  - 修复: 补齐 combined manifest 写入后、coordinator 提交前的 crash 窗口；拒绝 CompileDockerRuntime 前 8 字符截断导致的两臂容器名碰撞；Docker 测试异常按唯一 capture identity 精确清理。
-  - 证据: 单元 `14 passed`，checkpoint/lifecycle 相邻回归 `90 passed, 1 skipped`、compile runtime `136 passed`、lifecycle/replay `29 passed, 16 skipped`；Ubuntu 原生 Docker `1 passed in 61.13s`，最终 0 checkpoint container/image、0 paused container。
-  - 边界: 0 provider、0 formal physical attempt、0 model token；仅覆盖 pre-replay actionable failure，synthetic ledger 不进入模型能力或 repair effect 分母。
-  - 提交: `7292bd10` 已由 `scripts/push-via-wsl.ps1` 一次推送成功；backend unit tests、backend lint、frontend lint 三项 CI 全部通过。
-  - 下一步: 等待用户单独确认合并 PR #144。未授权 merge、provider canary 或 mechanism slot。
-  - 文件: `scripts/forge_real_lifecycle_checkpoint_gate.py`, `backend/tests/test_forge_real_lifecycle_checkpoint_gate.py`, `backend/tests/test_forge_real_lifecycle_checkpoint_docker.py`, `benchmarks/preregistrations/cpp-verifier-real-lifecycle-checkpoint-gate.md`
+- 2026-08-18 — 制定 Issue #145 failure checkpoint 机制实验决策包
+  - GitHub: PR #144 已 squash 合并为 `main@eb643c4d`，Issue #143 自动关闭；中文 Issue #145 已创建并回读，当前分支为 `research/145-checkpoint-mechanism-decision-package`。
+  - 决策: natural 与 controlled stratum 分开；推荐 primary 单 provider 6-pair controlled pilot，之后再用第二 provider 做 3-pair 独立复制，不做模型排名。
+  - 预算: 每 arm 最多 8 requests、8 turns、24 graph steps、600 秒 work、120 秒 cleanup、120,000 tokens；primary reachability + mechanism canary + pilot 的 expected/maximum ceiling 为 845,000/1,685,000 tokens。
+  - 边界: 当前 `collection_authorized=false`、`provider_canary_authorized=false`，实际 0 provider、0 formal attempt、0 model token、0 Docker；clean-replay mismatch 不纳入。
+  - 发布: 本地提交 `3d9fa5d5` 已由 WSL helper 一次推送；中文 PR #146 已创建并回读，`Closes #145`、base/head 与提交身份正确，backend unit tests、backend lint、frontend lint 三项 CI 全部通过。
+  - 下一步: 等待实验负责人单独确认合并 PR #146；合并后另开中文 Issue，先实现 controlled fault v1 的 0-provider 非模型 gate，任何 canary 仍需单独授权。
+  - 文件: `benchmarks/preregistrations/cpp-verifier-checkpoint-mechanism-decision-package.md`
 
 - 2026-08-15 — 验证 failure checkpoint 三层组合恢复
   - GitHub: 中文 Issue #141 已创建并回读；分支为 `research/141-combined-checkpoint-prototype`，基线为 `main@cd31d8df`。
