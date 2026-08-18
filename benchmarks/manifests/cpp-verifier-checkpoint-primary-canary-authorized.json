@@ -1,0 +1,105 @@
+{
+  "schema_version": "forge-checkpoint-primary-canary-authorized-1.0.0",
+  "document_type": "forge_checkpoint_primary_canary_authorized",
+  "scope": {
+    "provider_canary_authorized": true,
+    "mechanism_canary_authorized": true,
+    "pilot_collection_authorized": false,
+    "natural_collection_authorized": false,
+    "secondary_provider_authorized": false
+  },
+  "provider": {
+    "id": "deepseek-v4-flash",
+    "endpoint": "https://api.deepseek.com",
+    "credential_env": "DEEPSEEK_API_KEY",
+    "model": "deepseek-v4-flash",
+    "request_timeout_seconds": 300,
+    "max_retries": 0,
+    "fallback": "forbidden"
+  },
+  "fault": {
+    "version": "controlled-fault-v1",
+    "family": "artifact_staging_missing",
+    "expected_classification": "candidate_verification_failed",
+    "capture_point": "after-neutral-tool-message-before-continuation",
+    "replay_attempts_required": 0
+  },
+  "continuation": {
+    "checkpoint_pairs": 1,
+    "arms_per_pair": 2,
+    "arm_order": [
+      "baseline",
+      "treatment"
+    ],
+    "maximum_requests_per_arm": 8,
+    "maximum_model_turns_per_arm": 8,
+    "maximum_graph_steps_per_arm": 24,
+    "work_wall_clock_seconds_per_arm": 600,
+    "cleanup_reserve_seconds_per_arm": 120,
+    "maximum_recorded_tokens_per_arm": 120000
+  },
+  "budget": {
+    "reachability_requests": 1,
+    "reachability_expected_tokens": 5000,
+    "reachability_maximum_tokens": 5000,
+    "mechanism_canary_expected_tokens": 120000,
+    "mechanism_canary_maximum_tokens": 240000,
+    "stage_expected_tokens": 125000,
+    "stage_maximum_tokens": 245000
+  },
+  "stopping": {
+    "provider_timeout_stops_canary": true,
+    "incomplete_pair_stops_canary": true,
+    "cleanup_or_identity_failure_stops_canary": true,
+    "retry_forbidden": true,
+    "replacement_forbidden": true,
+    "backfill_forbidden": true,
+    "canary_pass_does_not_authorize_pilot": true
+  },
+  "execution": {
+    "control_plane": "compose-dood-on-ubuntu-native-docker",
+    "network_access_medium_env": "FORGE_NETWORK_ACCESS_MEDIUM",
+    "evidence_directory": "/workspace/.compile-sessions/benchmark-evidence-checkpoint-primary-canary",
+    "release_branch": "main",
+    "require_clean_worktree": true,
+    "require_origin_main_identity": true
+  },
+  "parent_candidate": {
+    "path": "benchmarks/manifests/cpp-verifier-checkpoint-primary-canary-candidate.json",
+    "sha256": "763b960d3ea70e0852009846acfa2dcc963f9db983db18a2410fdae817b4124a"
+  },
+  "protocol_artifacts": [
+    {
+      "path": "scripts/forge_checkpoint_primary_canary.py",
+      "sha256": "031bac753459a060e134df765a27eaa1c8fca0ac784f239d46e243f89c8b3282"
+    },
+    {
+      "path": "backend/tests/test_forge_checkpoint_primary_canary.py",
+      "sha256": "b3a0f1e1925384f70b6cde5e0dd9190f5f79e6c6c763c252bf3b4048faca1c47"
+    },
+    {
+      "path": "backend/tests/test_forge_checkpoint_primary_canary_docker.py",
+      "sha256": "4c74337ecaee8044668d1e4b94b54bff98c7755ae9b96165dfbd87107f5ccb33"
+    },
+    {
+      "path": "benchmarks/preregistrations/cpp-verifier-checkpoint-primary-canary.md",
+      "sha256": "28863458a288bf6f9a92596fc2b8fced02b13211d9dcd3bb6f5956bb8e38c39b"
+    },
+    {
+      "path": "scripts/forge_controlled_fault_v1_gate.py",
+      "sha256": "3dd4b2495cb21594f9348aaf8416dc17c57f6aa850f14b739049b030bc4d9f2d"
+    },
+    {
+      "path": "scripts/forge_real_lifecycle_checkpoint_gate.py",
+      "sha256": "db6155a05af4b159a0a7d7e5d706b30d76ebf24ac048e12a31d1a7ed750dbbb9"
+    },
+    {
+      "path": "scripts/forge_verifier_repair_runtime.py",
+      "sha256": "1d5f4eee3388f10c3f6a1f7f405b530263d5a84019c1bae53cd7d2ae047b2637"
+    },
+    {
+      "path": "backend/tests/test_forge_controlled_fault_v1_docker.py",
+      "sha256": "e0d9b686e920ec4005c6300d2bbf068a1ca36b76831a6028a1f9b4540ca9665e"
+    }
+  ]
+}
