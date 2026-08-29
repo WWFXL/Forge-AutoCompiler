@@ -64,6 +64,13 @@
 ## 最近变更 (Recent Changes)
 <!-- 倒序，最新在上。 -->
 
+- 2026-08-30 — 建立 opaque provenance 最小 canary 授权候选与零 provider 接线门禁
+  - 文件: `scripts/forge_opaque_provenance_minimal_canary_authorized_protocol.py`, `scripts/forge_opaque_provenance_minimal_canary_authorized_runner.py`, `benchmarks/manifests/cpp-opaque-provenance-minimal-canary-authorized.json`, `benchmarks/schemas/forge-opaque-provenance-minimal-canary-authorized.schema.json`, `benchmarks/preregistrations/cpp-opaque-provenance-minimal-canary-authorized.md`, `backend/tests/test_forge_opaque_provenance_minimal_canary_authorized.py`
+  - 范围: Issue #182 从 #180 parent identity 派生独立授权候选，冻结 evidence 目录、preflight/marker/ledger/report 路径、单次 reachability/pair 顺序和 runtime adapter 文件哈希；只允许 validate、plan 与只读 preflight。
+  - 边界: reachability/provider/formal/canary/token 授权均关闭，`execute_reachability` / `execute_canary` 机械拒绝；无 credential 读取、model 创建或 evidence 写入，不修改 production Compiler/Oracle、`operations.py` 或历史 evidence。
+  - 验证: manifest canonical SHA-256 为 `00ce7eaadda3e89b63d093f4e360473fe372850dd39290d69e1a4a7e675e7771`，evidence identity SHA-256 为 `f83fb4a3d228c82839df68905ee603c79095c919fe0cc8ab0c52ce4debaeb538`；聚焦与路线 P 相邻静态回归 `69 passed`，Ruff check/format、Python 语法、Schema、CLI 和 `git diff --check` 通过。
+  - 下一步: 合并后从干净主干运行真实 0-provider preflight；通过后只形成一次真实 reachability + 单 pair canary 的授权决策包，不自动调用 provider或扩大 pilot。
+
 - 2026-08-30 — 冻结 opaque build provenance 最小 provider canary 候选协议
   - 文件: `scripts/forge_opaque_provenance_minimal_canary_protocol.py`, `benchmarks/manifests/cpp-opaque-provenance-minimal-canary.json`, `benchmarks/schemas/forge-opaque-provenance-minimal-canary.schema.json`, `benchmarks/preregistrations/cpp-opaque-provenance-minimal-canary.md`, `backend/tests/test_forge_opaque_provenance_minimal_canary.py`
   - 范围: Issue #180 固定单个 `cppitertools` checkpoint、一个 `baseline -> treatment` pair，以及 DeepSeek `deepseek-v4-flash`、300 秒 timeout、0 retry、禁止 fallback 的未来运行身份；每臂 8 requests / 8 turns / 24 graph steps / 120,000 recorded tokens，阶段机械上限 245,000。
