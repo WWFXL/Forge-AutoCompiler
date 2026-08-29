@@ -5,14 +5,15 @@
 ## 进行中 (In Progress)
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
-- 2026-08-29 — 决策 checkpoint 机制实验 v2 estimand
-  - 已完成: 路线 B v1 通过中文 Issue #159 / PR #160 合并为 `95dafbe7`；WAL recovery 通过 Issue #161 / PR #162 合并为 `main@0bbd50e7`。两轮 CI 的 backend tests、backend lint、frontend lint 全绿。
-  - pair-01: baseline/treatment 均通过 candidate verification 与 clean replay，分别为 4 requests/11,996 tokens 和 4 requests/11,815 tokens。
-  - pair-02: treatment 为 4/4 requests、13,895 tokens、verification/replay passed；baseline 为 8/8 requests、29,415 tokens、2 次非法 `command_role`、0 submit/replay，最终触发 24-step `GraphRecursionError`。无 endpoint timeout。
-  - 完整性: 两个 batch 均按各自预注册规则失败关闭；pair-03 至 pair-06 未启动。累计 67,121 recorded tokens；coordinator 均经副本 WAL 审计确认 `cleaned`，所有 Session 已终结，0 orphan。
-  - 发现: 当前 runner 把 `GraphRecursionError`、max turns、无 submit 等模型行为 outcome 当作采集异常，导致成功者条件化；pair-02 的 treatment 成功/baseline 失败正是潜在机制差异。
-  - 决策门禁: 中文 Issue #163 已创建。推荐停止当前 pilot，将 pair-01/02 作为 exploratory feasibility evidence，重新预注册 v2；当前不授权 provider、pair-03 至 pair-06、replacement、backfill 或修改冻结 evidence。
-  - v2 候选: 每个 pair 尽量执行双臂；终态拆为 infrastructure、model behavior、verification outcome；endpoint timeout 进入 attrition/censoring，模型预算内失败进入 outcome；只有 identity/evidence、cleanup/orphan、预算越界等基础设施错误关闭批次。
+- 2026-08-29 — 实现 checkpoint 行为终态 v2 六配对实验
+  - 决策: 实验负责人确认 Issue #163 选择 A；旧 v1/recovery 保持失败关闭，pair-01/02 只作 exploratory feasibility evidence，旧 pair-03 至 pair-06 永不续跑。中文 Issue #165 已创建并回读。
+  - 协议: 全新 6 pair/12 arms、3:3 交叉 arm order、DeepSeek `deepseek-v4-flash`、300 秒/0 retry、每臂 120,000 tokens、总上限 1,440,000；禁止 replacement/backfill/旧 pair 池化。
+  - estimand: arm 终态拆为 infrastructure、model behavior、verification outcome；`GraphRecursionError`、work wall-clock、无 submit、verification failed 留在模型行为 outcome，endpoint timeout 进入 attrition。第一臂形成上述可分类终态后仍执行第二臂。
+  - hard stop: release/manifest/evidence identity、ledger 哈希链、预算、cleanup/orphan 或无法分类的基础设施错误关闭 batch；repair conversion 是 primary mechanism outcome，效率指标只做条件描述。
+  - 验证: 新增与 v1/recovery 相邻回归 `17 passed`，Ruff check/format、确定性 manifest/Schema、旧 evidence 17 文件哈希通过；真实 Compose/DooD fake-model gate `1 passed in 129.12s`，双臂 candidate verification + clean replay 通过，最终 0 container/image/temp。
+  - identity: 当前 manifest canonical SHA-256 为 `1df45a6e0b72f67a914098fc7336eee3bcc8f7b517b132407b88244da10882a3`；实际仍为 0 provider calls、0 model tokens，未读取或输出 AK。
+  - 下一步: 完成扩大回归、敏感信息检查与中文提交；使用 WSL helper 推送并创建中文 PR，CI 合并后在干净主干执行非模型门禁，再启动已授权 v2 真实六配对。
+  - 文件: `scripts/forge_checkpoint_behavioral_pilot_v2_protocol.py`, `scripts/forge_checkpoint_behavioral_pilot_v2_runner.py`, `backend/tests/test_forge_checkpoint_behavioral_pilot_v2.py`, `backend/tests/test_forge_checkpoint_behavioral_pilot_v2_docker.py`, `benchmarks/manifests/cpp-verifier-checkpoint-behavioral-pilot-v2.json`, `benchmarks/preregistrations/cpp-verifier-checkpoint-behavioral-pilot-v2.md`
 
 - 2026-08-15 — 验证 failure checkpoint 三层组合恢复
   - GitHub: 中文 Issue #141 已创建并回读；分支为 `research/141-combined-checkpoint-prototype`，基线为 `main@cd31d8df`。
