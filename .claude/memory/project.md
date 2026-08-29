@@ -5,6 +5,14 @@
 ## 进行中 (In Progress)
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
+- 2026-08-30 — 执行 opaque provenance 最小 provider canary
+  - GitHub: 中文 Issue #184 已创建并回读；分支为 `research/issue-184-opaque-provenance-execution`，基线为 `main@323430f1`。
+  - 实现: 新增一次性 execution amendment、const Schema、runner、预注册和聚焦测试；冻结 DeepSeek `deepseek-v4-flash`、300 秒/0 retry、单次 reachability、成功后唯一 `baseline -> treatment` pair 与 245,000 recorded-token 总上限。
+  - 机制: Parent 使用 #178 opaque wrapper，只允许 production `build_system_unproven` 与 P2 `unproven/opaque_wrapper`；双臂同源，treatment 唯一额外 exposure 是白名单 repair packet，arm outcome 同时核对 production candidate/clean replay 与动态 P2 conversion。
+  - 当前验证: manifest canonical SHA-256 为 `bbb50851419ec8c1e1efb4bc5612cb13e4ab0154df574dc7359009e2fb90529a`；路线 P 相邻静态回归 `77 passed`，Ruff check/format、Schema、CLI 和 `git diff --check` 通过；尚未调用 provider 或 Docker。
+  - 下一步: 中文提交、WSL helper 推送、中文 PR/CI/合并；从干净主干执行 0-provider preflight，随后只运行唯一 reachability，成功才运行单 pair，最后审计 token、ledger、P2、candidate/replay、cleanup 与 orphan。
+  - 文件: `scripts/forge_opaque_provenance_minimal_canary_execution_protocol.py`, `scripts/forge_opaque_provenance_minimal_canary_execution_runner.py`, `backend/tests/test_forge_opaque_provenance_minimal_canary_execution.py`, `benchmarks/manifests/cpp-opaque-provenance-minimal-canary-execution.json`, `benchmarks/schemas/forge-opaque-provenance-minimal-canary-execution.schema.json`, `benchmarks/preregistrations/cpp-opaque-provenance-minimal-canary-execution.md`
+
 - 2026-08-15 — 验证 failure checkpoint 三层组合恢复
   - GitHub: 中文 Issue #141 已创建并回读；分支为 `research/141-combined-checkpoint-prototype`，基线为 `main@cd31d8df`。
   - 实现: 新增实验专用 `forge-combined-checkpoint-1.0.0` manifest，把 message、environment、budget 绑定到同一 `capture_id` 与 message state SHA-256；三层全部校验后才发布父 manifest。
