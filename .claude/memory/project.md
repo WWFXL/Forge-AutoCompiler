@@ -5,6 +5,15 @@
 ## 进行中 (In Progress)
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
+- 2026-08-29 — 实现 endpoint 删失容忍 checkpoint 六配对 pilot
+  - GitHub: 中文 Issue #159 已创建并回读；分支为 `research/159-checkpoint-censored-pilot`，基线为 `main@fe9fb519`。
+  - 协议: 路线 B 固定 DeepSeek `deepseek-v4-flash`、300 秒 timeout、0 retry、6 pair/12 arms、每臂 120,000 recorded tokens 和总计 1,440,000 上限；arm order 以 3:3 交叉平衡，禁止 fallback、replacement、backfill 和扩样。
+  - 实现: 新版本化 runner 复用冻结 controlled-pair 生命周期，只允许具备完整哈希链、唯一 `model_endpoint/timeout/retry_exhausted`、`cleanup.succeeded=true`、coordinator `cleaned` 与 0 orphan 的 pair 作为 endpoint 删失后继续；其余失败关闭。单一 `asyncio.Runner` 跨 12 个 arm 复用。
+  - Evidence: Issue #155 的 7 个核心文件与 2 个后验 SQLite sidecar 均固定集合和 SHA-256，sidecar 保留；coordinator 后验审计使用 `immutable=1`。
+  - 验证: 新增与相邻 checkpoint 回归 `38 passed`，Ruff check/format、manifest/Schema 确定性生成、Compose/DooD 零 provider 门禁和旧 9 文件 evidence 核验通过；canonical manifest SHA-256 为 `d5edd9683def7c8842ad1eb0471cce877b47b52b2939f1b45d9c2a51f2362391`。
+  - 下一步: 中文提交、WSL helper 推送、中文 PR/CI/合并；随后在干净 `main == origin/main` 上执行已授权 6-pair pilot，并形成 ITT/attrition 与 conditional mechanism 描述性报告。
+  - 文件: `scripts/forge_checkpoint_censored_pilot_protocol.py`, `scripts/forge_checkpoint_censored_pilot_runner.py`, `backend/tests/test_forge_checkpoint_censored_pilot.py`, `benchmarks/manifests/cpp-verifier-checkpoint-censored-pilot-v1.json`, `benchmarks/schemas/forge-checkpoint-censored-pilot-v1.schema.json`, `benchmarks/preregistrations/cpp-verifier-checkpoint-censored-pilot-v1.md`
+
 - 2026-08-19 — 评审 checkpoint primary canary 超时终态与下一 amendment
   - GitHub: 中文 Issue #157 已创建并回读；Issue #155 的唯一 controlled pair 已失败关闭，6-pair pilot 未启动。
   - 终态: reachability 在 0.992 秒内通过并记录 17 tokens；baseline 第 1 次 compiler 请求在 300.165 秒 `ReadTimeout`，treatment 未调用模型，三个 Session 均已终结且 0 orphan。

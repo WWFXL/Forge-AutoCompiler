@@ -1,0 +1,166 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/WWFXL/Forge-AutoCompiler/benchmarks/schemas/forge-checkpoint-censored-pilot-v1.schema.json",
+  "title": "Forge endpoint-censored checkpoint pilot",
+  "const": {
+    "$schema": "../schemas/forge-checkpoint-censored-pilot-v1.schema.json",
+    "schema_version": "forge-checkpoint-censored-pilot-1.0.0",
+    "document_type": "forge_checkpoint_censored_pilot",
+    "authorization": {
+      "issue_url": "https://github.com/WWFXL/Forge-AutoCompiler/issues/159",
+      "authorized_by": "experiment_owner",
+      "route": "B",
+      "pilot_collection_authorized": true,
+      "authorized_pairs": 6,
+      "maximum_recorded_tokens": 1440000
+    },
+    "scope": {
+      "languages": [
+        "C",
+        "C++"
+      ],
+      "mechanism": "failure_checkpoint",
+      "controlled_fault": "artifact_staging_missing",
+      "natural_collection_authorized": false,
+      "secondary_provider_authorized": false
+    },
+    "provider": {
+      "id": "deepseek-v4-flash",
+      "endpoint": "https://api.deepseek.com",
+      "credential_env": "DEEPSEEK_API_KEY",
+      "model": "deepseek-v4-flash",
+      "request_timeout_seconds": 300,
+      "max_retries": 0,
+      "fallback": "forbidden",
+      "streaming": false
+    },
+    "continuation": {
+      "maximum_requests_per_arm": 8,
+      "maximum_model_turns_per_arm": 8,
+      "maximum_graph_steps_per_arm": 24,
+      "work_wall_clock_seconds_per_arm": 600,
+      "cleanup_reserve_seconds_per_arm": 120,
+      "maximum_recorded_tokens_per_arm": 120000
+    },
+    "schedule": [
+      {
+        "pair_id": "pair-01",
+        "order": 1,
+        "arm_order": [
+          "baseline",
+          "treatment"
+        ]
+      },
+      {
+        "pair_id": "pair-02",
+        "order": 2,
+        "arm_order": [
+          "treatment",
+          "baseline"
+        ]
+      },
+      {
+        "pair_id": "pair-03",
+        "order": 3,
+        "arm_order": [
+          "baseline",
+          "treatment"
+        ]
+      },
+      {
+        "pair_id": "pair-04",
+        "order": 4,
+        "arm_order": [
+          "treatment",
+          "baseline"
+        ]
+      },
+      {
+        "pair_id": "pair-05",
+        "order": 5,
+        "arm_order": [
+          "baseline",
+          "treatment"
+        ]
+      },
+      {
+        "pair_id": "pair-06",
+        "order": 6,
+        "arm_order": [
+          "treatment",
+          "baseline"
+        ]
+      }
+    ],
+    "schedule_sha256": "274eb4ffd9c769301a5553f23f39ee26537a781d7e351a934908af8cebb982dd",
+    "budget": {
+      "recorded_tokens_per_arm": 120000,
+      "recorded_tokens_per_pair": 240000,
+      "stage_maximum_recorded_tokens": 1440000,
+      "reachability_requests": 0,
+      "enforcement": "after_each_pair_before_next_pair"
+    },
+    "stopping": {
+      "endpoint_timeout_censors_pair_and_continues": true,
+      "cleanup_or_identity_failure_stops_batch": true,
+      "non_endpoint_failure_stops_batch": true,
+      "retry_forbidden": true,
+      "replacement_forbidden": true,
+      "backfill_forbidden": true,
+      "schedule_extension_forbidden": true
+    },
+    "analysis": {
+      "itt_attrition_includes_all_scheduled_pairs": true,
+      "conditional_mechanism_requires_complete_pair": true,
+      "descriptive_only": true,
+      "p_value_computed": false,
+      "model_ranking_performed": false
+    },
+    "execution": {
+      "control_plane": "compose-dood-on-ubuntu-native-docker",
+      "network_access_medium_env": "FORGE_NETWORK_ACCESS_MEDIUM",
+      "network_access_medium": "wifi",
+      "evidence_directory": "/workspace/.compile-sessions/benchmark-evidence-checkpoint-censored-pilot-v1",
+      "pair_directory_pattern": "pairs/pair-NN",
+      "batch_marker": "markers/pilot-attempt.json",
+      "pair_marker": "markers/pair-attempt.json",
+      "release_branch": "main",
+      "authorization_baseline_commit": "fe9fb519eb831e0795ef31f93cec0fb971a80fdf",
+      "release_revision_policy": "descendant-compatible",
+      "require_clean_worktree": true,
+      "require_origin_main_identity": true,
+      "require_zero_managed_containers_between_pairs": true
+    },
+    "parent": {
+      "authorized_manifest_canonical_sha256": "f87dc3e0af2ec8c841191c70195808ac5e686656d15f00c479f6d030abebf356",
+      "components": {
+        "benchmarks/manifests/cpp-verifier-checkpoint-primary-canary-amendment-authorized.json": "fb483a55542adf4be1d213a2130d87b11e783df9d6e5270ed7aa1573d88c7776",
+        "scripts/forge_checkpoint_primary_canary.py": "031bac753459a060e134df765a27eaa1c8fca0ac784f239d46e243f89c8b3282",
+        "scripts/forge_checkpoint_primary_canary_amendment_authorized.py": "89cce741bf56c234b9e31560a5662cd701cc6fab4f948858ca187ed64141f5ba",
+        "scripts/forge_checkpoint_windows_build_layout.py": "df757d63ad493393957b1fb167dd5b01d5e9c1ae1d76796cca26d616b77355e5"
+      },
+      "terminal_evidence": {
+        "directory": "/workspace/.compile-sessions/benchmark-evidence-checkpoint-primary-canary-amendment",
+        "expected_file_count": 9,
+        "files": {
+          "checkpoint/coordinator.sqlite": "dc2b426ceff514683ccec719fb064158b7bc58b3f5f01d1fc620571d6fb13956",
+          "checkpoint/messages.sqlite": "3091ebbe147af151ed9ad37aff3a5d14979bc187a0d69a685a72e8de3b6e14bb",
+          "checkpoint/messages.sqlite-shm": "fd4c9fda9cd3f9ae7c962b0ddf37232294d55580e1aa165aa06129b8549389eb",
+          "checkpoint/messages.sqlite-wal": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "ledgers/baseline.jsonl": "01137d096b55c447655946373afe517135f01306aaf54797aad700dfb69aece2",
+          "ledgers/parent.jsonl": "683c68dc1f2626915c9a7a722db11701dbef667a8fac3d187acf22c269644891",
+          "markers/amendment-controlled-pair-attempt.json": "0d7526bcd7c9af3d3d3349964d2df4cdf15c1503f53fd705c2fcbda16fe00cc0",
+          "markers/amendment-reachability-attempt.json": "51212cbfc00b887f2540343bef156d0e3b1bd680f760a65debcf2eddeee5fa23",
+          "reports/reachability.json": "ff664651aacea073cb8541594c1d443cd92654fe2c9d9767227788dd10adeb48"
+        },
+        "sqlite_sidecars_retained": true
+      }
+    },
+    "protocol_artifacts": {
+      "backend/tests/test_forge_checkpoint_censored_pilot.py": "68db510500f56dc778dd98fae063832f16b7fef52d1ec02a40da5693b55c8570",
+      "benchmarks/preregistrations/cpp-verifier-checkpoint-censored-pilot-v1.md": "5e0b00ea13cb2446a4d65b7ae45dfdb587d3593409623eac0867e36760416989",
+      "scripts/forge_checkpoint_censored_pilot_protocol.py": "b48b43568d0a1f4c1c548e56aeb7e31a94ef6bb40c515fdcedf0edda5e650758",
+      "scripts/forge_checkpoint_censored_pilot_runner.py": "819a8d25d65d1e6019c1d994515ee5534533513e3dcc299ca75a043480c3d768"
+    }
+  }
+}
