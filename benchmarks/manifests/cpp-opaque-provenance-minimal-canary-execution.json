@@ -1,0 +1,172 @@
+{
+  "$schema": "../schemas/forge-opaque-provenance-minimal-canary-execution.schema.json",
+  "schema_version": "forge-opaque-provenance-minimal-canary-execution-1.0.0",
+  "document_type": "forge_opaque_provenance_minimal_canary_execution_amendment",
+  "authorization": {
+    "issue_url": "https://github.com/WWFXL/Forge-AutoCompiler/issues/184",
+    "reachability_request_authorized": true,
+    "provider_calls_authorized": true,
+    "formal_attempts_authorized": true,
+    "canary_collection_authorized": true,
+    "model_tokens_authorized": 245000
+  },
+  "parent": {
+    "manifest_path": "benchmarks/manifests/cpp-opaque-provenance-minimal-canary-authorized.json",
+    "schema_version": "forge-opaque-provenance-minimal-canary-authorized-1.0.0",
+    "canonical_sha256": "00ce7eaadda3e89b63d093f4e360473fe372850dd39290d69e1a4a7e675e7771",
+    "file_sha256": "98f2d5d23b576285a9adcacfcd0e9d315df65bdf86389ef1400807a57922a303",
+    "evidence_identity_sha256": "f83fb4a3d228c82839df68905ee603c79095c919fe0cc8ab0c52ce4debaeb538",
+    "authorization_baseline_commit": "323430f1fb3f3fb7ac09c6ea1aefa801298e5619",
+    "release_revision_policy": "descendant-compatible"
+  },
+  "case": {
+    "case_id": "cppitertools-opaque-provenance-real-docker",
+    "repository_url": "https://github.com/ryanhaining/cppitertools",
+    "commit_sha": "531b3d753d2bbfe3b0ababe61c2e95e965c54a66",
+    "compile_image": "autocompiler:gcc13",
+    "build_system": "cmake",
+    "build_directory": "/workspace/repo/build",
+    "target": "accumulate_examples",
+    "staged_artifact": "accumulate_examples",
+    "checkpoint_source": "issue-178-real-docker-lifecycle",
+    "parent_proof_status": "opaque_wrapper",
+    "parent_expected_failure": "build_system_unproven"
+  },
+  "provider": {
+    "status": "active_authorized",
+    "id": "deepseek-v4-flash",
+    "endpoint": "https://api.deepseek.com",
+    "credential_env": "DEEPSEEK_API_KEY",
+    "model": "deepseek-v4-flash",
+    "request_timeout_seconds": 300,
+    "max_retries": 0,
+    "fallback": "forbidden",
+    "streaming": false
+  },
+  "continuation": {
+    "maximum_requests_per_arm": 8,
+    "maximum_model_turns_per_arm": 8,
+    "maximum_graph_steps_per_arm": 24,
+    "work_wall_clock_seconds_per_arm": 600,
+    "cleanup_reserve_seconds_per_arm": 120,
+    "maximum_recorded_tokens_per_arm": 120000
+  },
+  "schedule": [
+    {
+      "pair_id": "opaque-provenance-cppitertools-pair-01",
+      "order": 1,
+      "case_id": "cppitertools-opaque-provenance-real-docker",
+      "arm_order": [
+        "baseline",
+        "treatment"
+      ],
+      "treatment_exposure_only": "repair_packet"
+    }
+  ],
+  "schedule_sha256": "d26e8e31aa1830973be89a8337dbff6a24852333968c55a649df359de567b375",
+  "budget": {
+    "maximum_reachability_requests": 1,
+    "reachability_maximum_recorded_tokens": 5000,
+    "recorded_tokens_per_arm": 120000,
+    "recorded_tokens_per_pair": 240000,
+    "stage_maximum_recorded_tokens": 245000,
+    "enforcement": "after_reachability_and_each_arm_before_continuation"
+  },
+  "stopping": {
+    "reachability_failure_stops_before_pair": true,
+    "identity_evidence_budget_cleanup_or_unclassified_failure_stops": true,
+    "classified_arm_outcome_continues_other_arm": true,
+    "endpoint_timeout_censors_arm_and_continues": true,
+    "retry_forbidden": true,
+    "replacement_forbidden": true,
+    "backfill_forbidden": true,
+    "schedule_extension_forbidden": true
+  },
+  "analysis": {
+    "purpose": "mechanism_wiring_canary_only",
+    "unit_of_analysis": "single_failure_checkpoint_pair",
+    "descriptive_only": true,
+    "treatment_effect_estimated": false,
+    "p_value_computed": false,
+    "model_ranking_performed": false,
+    "historical_pairs_pooled": false
+  },
+  "evidence": {
+    "schema_version": "forge-opaque-provenance-minimal-canary-evidence-1.0.0",
+    "directory": "/workspace/.compile-sessions/benchmark-evidence-opaque-provenance-minimal-canary-authorized-v1",
+    "preflight_snapshot": "preflight/preflight.json",
+    "reachability_marker": "markers/reachability.json",
+    "pair_ledger": "pairs/opaque-provenance-cppitertools-pair-01/events.jsonl",
+    "canary_report": "reports/canary.json",
+    "append_only": true,
+    "marker_consumed_on_start": true,
+    "zero_provider_preflight_writes_evidence": false,
+    "identity_sha256": "f83fb4a3d228c82839df68905ee603c79095c919fe0cc8ab0c52ce4debaeb538"
+  },
+  "opportunities": {
+    "maximum_reachability_requests": 1,
+    "maximum_canary_pairs": 1,
+    "required_order": [
+      "reachability",
+      "opaque-provenance-cppitertools-pair-01"
+    ],
+    "retry_replacement_backfill_forbidden": true
+  },
+  "preflight": {
+    "release_branch": "main",
+    "require_clean_worktree": true,
+    "require_head_equals_origin_main": true,
+    "require_authorization_baseline_ancestor": true,
+    "docker_provider": "ubuntu-native",
+    "docker_context": "default",
+    "docker_endpoint": "/var/run/docker.sock",
+    "allowed_network_media": [
+      "wired",
+      "wifi",
+      "mobile_hotspot"
+    ],
+    "require_empty_evidence_directory": true,
+    "managed_container_prefixes": [
+      "deerflow-compile-",
+      "deerflow-replay-"
+    ],
+    "require_zero_managed_orphans": true
+  },
+  "execution": {
+    "release_branch": "main",
+    "network_access_medium_env": "FORGE_NETWORK_ACCESS_MEDIUM",
+    "reachability_prompt": "Reply with exactly CANARY_OK and nothing else.",
+    "reachability_expected_response": "CANARY_OK",
+    "reachability_report": "reports/reachability.json",
+    "pair_marker": "markers/pair.json",
+    "parent_ledger": "pairs/opaque-provenance-cppitertools-pair-01/events.jsonl",
+    "arm_ledger_directory": "pairs/opaque-provenance-cppitertools-pair-01/arms"
+  },
+  "preregistration": {
+    "path": "benchmarks/preregistrations/cpp-opaque-provenance-minimal-canary-execution.md",
+    "file_sha256": "6220846cea0596586ffda30a379a2e54f7b4f3b5a467db09dc4baad28d9e5027"
+  },
+  "runtime_adapter": {
+    "path": "scripts/forge_opaque_provenance_minimal_canary_execution_runner.py",
+    "file_sha256": "9f3cdd0ad3faa210b0ee5adcda9c18f37047b7fa6c3e264cd3b280b02b4ccca0",
+    "commands": [
+      "validate",
+      "preflight",
+      "reachability",
+      "pair"
+    ],
+    "credential_read_supported": true,
+    "provider_model_creation_supported": true,
+    "reachability_execute_supported": true,
+    "canary_execute_supported": true
+  },
+  "frozen_parent_components": {
+    "benchmarks/manifests/cpp-opaque-provenance-minimal-canary-authorized.json": "98f2d5d23b576285a9adcacfcd0e9d315df65bdf86389ef1400807a57922a303",
+    "benchmarks/preregistrations/cpp-opaque-provenance-minimal-canary-authorized.md": "00d18e71f18cb7d52d000a1dd6de17231bddf9be7358985a76f53192e8953aa4",
+    "benchmarks/schemas/forge-opaque-provenance-minimal-canary-authorized.schema.json": "addfc949482f2fd7a7d325db78e838d774cd25239602f0a3976ba25ca87c04be",
+    "scripts/forge_multi_checkpoint_behavioral_pilot_v3_authorized_runner.py": "31d62705ff4b86fd51eee3c8d1a44697e6a629b609f05eb85e4c14ddbc96dd91",
+    "scripts/forge_opaque_build_provenance_real_docker_gate.py": "cfaac00042a623083f351e5e1b82c7b0b497bb923aea6f02b35174a40cf949e4",
+    "scripts/forge_opaque_provenance_minimal_canary_authorized_protocol.py": "10fbd2fbe909cde30f0d538ed25f96d9de8cfad69d33c527b2a8af9e31207390",
+    "scripts/forge_opaque_provenance_minimal_canary_authorized_runner.py": "2f5729e4793f523830cfd0da713fdf65e84485ca73c7940563933e3de0d02f32"
+  }
+}
