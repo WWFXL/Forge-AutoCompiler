@@ -64,6 +64,13 @@
 ## 最近变更 (Recent Changes)
 <!-- 倒序，最新在上。 -->
 
+- 2026-08-29 — 冻结多 checkpoint behavioral pilot v3 未授权协议
+  - 文件: `scripts/forge_multi_checkpoint_behavioral_pilot_v3_protocol.py`, `scripts/forge_multi_checkpoint_behavioral_pilot_v3_runner.py`, `backend/tests/test_forge_multi_checkpoint_behavioral_pilot_v3.py`, `benchmarks/manifests/cpp-verifier-multi-checkpoint-behavioral-pilot-v3.json`, `benchmarks/schemas/forge-multi-checkpoint-behavioral-pilot-v3.schema.json`, `benchmarks/preregistrations/cpp-verifier-multi-checkpoint-behavioral-pilot-v3.md`
+  - 动机: Issue #170 把 #168 已通过零 provider 门禁的 CMake `cppitertools`、Make `janet`、Autotools `libcheck` 冻结为新的跨构建系统描述性 pilot；不修改 behavioral v2、生产 Compiler/Oracle 或历史 evidence。
+  - 结果: 固定 `3 cases x 2 pairs = 6 pairs / 12 arms`，每个 case 各一个 baseline-first 与 treatment-first；单臂/单对/阶段 recorded-token 上限为 120,000 / 240,000 / 1,440,000，逐 case 报四格、请求、tokens、失败迁移并以 case 等权 macro-average 汇总。canonical manifest SHA-256 为 `7efa555cb95ace497833c5fb9e9106778d5f856214f9d07a3511bd04298cae5b`。
+  - 验证: 定向 pytest `6 passed`；Ruff check/format、协议生成一致性、runner plan、冻结组件和敏感信息扫描通过。
+  - 边界: runner 为 `protocol_plan_only` 并机械拒绝 collection；0 provider、0 formal physical attempt、0 model token、未读取 AK、未创建实验 evidence。下一步是中文提交、WSL helper 推送、中文 PR 与 CI；真实采集必须另建授权 identity。
+
 - 2026-08-29 — 完成跨构建系统多 checkpoint 零 provider 门禁
   - 文件: `scripts/forge_multi_checkpoint_zero_provider_gate.py`, `backend/tests/test_forge_multi_checkpoint_zero_provider_gate.py`, `backend/tests/test_forge_multi_checkpoint_zero_provider_docker.py`, `benchmarks/manifests/cpp-verifier-multi-checkpoint-zero-provider-gate.json`, `benchmarks/schemas/forge-multi-checkpoint-zero-provider-gate.schema.json`, `benchmarks/preregistrations/cpp-verifier-multi-checkpoint-zero-provider-gate.md`
   - 动机: behavioral pilot v2 的 6 对全部来自同一 CMake checkpoint；Issue #168 在不修改冻结 runner/evidence 的前提下，补 Make `janet` 与 Autotools `libcheck` 的真实 checkpoint 可恢复性证据。
