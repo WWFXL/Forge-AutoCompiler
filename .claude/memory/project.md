@@ -5,30 +5,14 @@
 ## 进行中 (In Progress)
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
-- 2026-08-29 — 修复 coordinator WAL 审计误判并恢复六配对 pilot
-  - GitHub: 中文 Issue #161 已创建并回读；分支为 `fix/161-coordinator-wal-recovery`，基线为 `main@95dafbe7`。
-  - v1 终态: `pair-01` 双臂均通过 candidate + clean replay，baseline/treatment 分别为 4 requests/11,996 tokens 与 4 requests/11,815 tokens；pair marker/report、三个 Session 终态、coordinator `cleaned` 和 0 orphan 均闭合，但 batch 因 `immutable=1` 未读取尚在 WAL 的最新 phase 而 false negative，pair-02 未启动。
-  - Recovery: 冻结 v1 的 8 个批次文件与 3 个 Session JSON 哈希，导入唯一 `pair-01` 且禁止重跑；新批次只执行原 schedule 的 `pair-02` 至 `pair-06`，新增上限 1,200,000 recorded tokens，总上限仍为 1,440,000。
-  - 修复: coordinator 审计复制 source main/WAL/SHM 到临时目录，只在副本恢复 WAL，并在读取前后核对源文件集合与 SHA-256 未变。
-  - 验证: WAL-only `cleaned` 回归、导入/剩余调度与相邻 checkpoint 共 `39 passed`；Ruff、实际 v1 8 文件/3 Session 哈希、copy-based 导入和零 provider 门禁通过；recovery manifest SHA-256 为 `4e26976373bd02937a55703081794bcb45c4e9d07f6eec27931a368a32174d89`。
-  - 下一步: 中文提交、WSL helper 推送、PR/CI/合并；随后执行剩余五 pair，不修改 v1 失败 marker 或 evidence。
-  - 文件: `scripts/forge_checkpoint_censored_pilot_recovery_protocol.py`, `scripts/forge_checkpoint_censored_pilot_recovery_runner.py`, `backend/tests/test_forge_checkpoint_censored_pilot_recovery.py`, `benchmarks/manifests/cpp-verifier-checkpoint-censored-pilot-recovery-v1.json`, `benchmarks/schemas/forge-checkpoint-censored-pilot-recovery-v1.schema.json`, `benchmarks/preregistrations/cpp-verifier-checkpoint-censored-pilot-recovery-v1.md`
-
-- 2026-08-29 — 实现 endpoint 删失容忍 checkpoint 六配对 pilot
-  - GitHub: 中文 Issue #159 已创建并回读；分支为 `research/159-checkpoint-censored-pilot`，基线为 `main@fe9fb519`。
-  - 协议: 路线 B 固定 DeepSeek `deepseek-v4-flash`、300 秒 timeout、0 retry、6 pair/12 arms、每臂 120,000 recorded tokens 和总计 1,440,000 上限；arm order 以 3:3 交叉平衡，禁止 fallback、replacement、backfill 和扩样。
-  - 实现: 新版本化 runner 复用冻结 controlled-pair 生命周期，只允许具备完整哈希链、唯一 `model_endpoint/timeout/retry_exhausted`、`cleanup.succeeded=true`、coordinator `cleaned` 与 0 orphan 的 pair 作为 endpoint 删失后继续；其余失败关闭。单一 `asyncio.Runner` 跨 12 个 arm 复用。
-  - Evidence: Issue #155 的 7 个核心文件与 2 个后验 SQLite sidecar 均固定集合和 SHA-256，sidecar 保留；coordinator 后验审计使用 `immutable=1`。
-  - 验证: 新增与相邻 checkpoint 回归 `38 passed`，Ruff check/format、manifest/Schema 确定性生成、Compose/DooD 零 provider 门禁和旧 9 文件 evidence 核验通过；canonical manifest SHA-256 为 `d5edd9683def7c8842ad1eb0471cce877b47b52b2939f1b45d9c2a51f2362391`。
-  - 下一步: 中文提交、WSL helper 推送、中文 PR/CI/合并；随后在干净 `main == origin/main` 上执行已授权 6-pair pilot，并形成 ITT/attrition 与 conditional mechanism 描述性报告。
-  - 文件: `scripts/forge_checkpoint_censored_pilot_protocol.py`, `scripts/forge_checkpoint_censored_pilot_runner.py`, `backend/tests/test_forge_checkpoint_censored_pilot.py`, `benchmarks/manifests/cpp-verifier-checkpoint-censored-pilot-v1.json`, `benchmarks/schemas/forge-checkpoint-censored-pilot-v1.schema.json`, `benchmarks/preregistrations/cpp-verifier-checkpoint-censored-pilot-v1.md`
-
-- 2026-08-19 — 评审 checkpoint primary canary 超时终态与下一 amendment
-  - GitHub: 中文 Issue #157 已创建并回读；Issue #155 的唯一 controlled pair 已失败关闭，6-pair pilot 未启动。
-  - 终态: reachability 在 0.992 秒内通过并记录 17 tokens；baseline 第 1 次 compiler 请求在 300.165 秒 `ReadTimeout`，treatment 未调用模型，三个 Session 均已终结且 0 orphan。
-  - 审计: DeepSeek 300 秒历史请求为 85/94 completed、9/94 timeout；成功最大约 7.4 秒，没有 `120-300s` rescue 证据。
-  - 建议: 保持 300 秒、0 retry 和无 replacement/backfill，下一候选改为 endpoint timeout 不关闭后续预注册 pair、arm order 交叉平衡，并分离 ITT/attrition 与 conditional mechanism estimand。
-  - 边界: Issue #155 runner 终结时的 7 个核心 evidence 保持 append-only；后验只读审计产生 32 KiB SQLite `-shm` 与空 `-wal`，核心哈希未变，当前等待是否删除 sidecar 的确认。Issue #157 不授权新 provider、physical attempt 或 6-pair pilot。
+- 2026-08-29 — 决策 checkpoint 机制实验 v2 estimand
+  - 已完成: 路线 B v1 通过中文 Issue #159 / PR #160 合并为 `95dafbe7`；WAL recovery 通过 Issue #161 / PR #162 合并为 `main@0bbd50e7`。两轮 CI 的 backend tests、backend lint、frontend lint 全绿。
+  - pair-01: baseline/treatment 均通过 candidate verification 与 clean replay，分别为 4 requests/11,996 tokens 和 4 requests/11,815 tokens。
+  - pair-02: treatment 为 4/4 requests、13,895 tokens、verification/replay passed；baseline 为 8/8 requests、29,415 tokens、2 次非法 `command_role`、0 submit/replay，最终触发 24-step `GraphRecursionError`。无 endpoint timeout。
+  - 完整性: 两个 batch 均按各自预注册规则失败关闭；pair-03 至 pair-06 未启动。累计 67,121 recorded tokens；coordinator 均经副本 WAL 审计确认 `cleaned`，所有 Session 已终结，0 orphan。
+  - 发现: 当前 runner 把 `GraphRecursionError`、max turns、无 submit 等模型行为 outcome 当作采集异常，导致成功者条件化；pair-02 的 treatment 成功/baseline 失败正是潜在机制差异。
+  - 决策门禁: 中文 Issue #163 已创建。推荐停止当前 pilot，将 pair-01/02 作为 exploratory feasibility evidence，重新预注册 v2；当前不授权 provider、pair-03 至 pair-06、replacement、backfill 或修改冻结 evidence。
+  - v2 候选: 每个 pair 尽量执行双臂；终态拆为 infrastructure、model behavior、verification outcome；endpoint timeout 进入 attrition/censoring，模型预算内失败进入 outcome；只有 identity/evidence、cleanup/orphan、预算越界等基础设施错误关闭批次。
 
 - 2026-08-15 — 验证 failure checkpoint 三层组合恢复
   - GitHub: 中文 Issue #141 已创建并回读；分支为 `research/141-combined-checkpoint-prototype`，基线为 `main@cd31d8df`。
