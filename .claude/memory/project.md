@@ -64,6 +64,12 @@
 ## 最近变更 (Recent Changes)
 <!-- 倒序，最新在上。 -->
 
+- 2026-08-29 — 完成跨构建系统多 checkpoint 零 provider 门禁
+  - 文件: `scripts/forge_multi_checkpoint_zero_provider_gate.py`, `backend/tests/test_forge_multi_checkpoint_zero_provider_gate.py`, `backend/tests/test_forge_multi_checkpoint_zero_provider_docker.py`, `benchmarks/manifests/cpp-verifier-multi-checkpoint-zero-provider-gate.json`, `benchmarks/schemas/forge-multi-checkpoint-zero-provider-gate.schema.json`, `benchmarks/preregistrations/cpp-verifier-multi-checkpoint-zero-provider-gate.md`
+  - 动机: behavioral pilot v2 的 6 对全部来自同一 CMake checkpoint；Issue #168 在不修改冻结 runner/evidence 的前提下，补 Make `janet` 与 Autotools `libcheck` 的真实 checkpoint 可恢复性证据。
+  - 结果: 静态协议 `7 passed`；Make 新 case 完整通过；Autotools 新 case `1 passed in 249.93s`；既有 CMake Windows-bind anchor `1 passed in 125.98s`。三个构建系统均闭合 parent build、受控缺产物故障、checkpoint、双臂恢复、candidate verifier、clean replay 与 cleanup，最终 0 container/image orphan。
+  - 边界: canonical manifest SHA-256 为 `6d953ae758056dca00b9013979e0f03d1c5877b386fc803feaea1131fd17339c`；0 provider、0 formal physical attempt、0 model token，不证明跨 fault-family 泛化或 repair treatment 效应。下一步是完成中文提交/推送/PR/CI，再另行冻结 3 cases x 2 pairs 的描述性 pilot。
+
 - 2026-08-29 — 完成 checkpoint 行为终态 v2 六配对实验
   - 文件: `benchmarks/reports/cpp-verifier-checkpoint-behavioral-pilot-v2.md`, `.compile-sessions/benchmark-evidence-checkpoint-behavioral-pilot-v2/`
   - 动机: 按 Issue #163 选择 A 和 Issue #165 冻结协议，把模型预算内失败保留为 outcome，并避免已观察旧 pair 进入新估计。
@@ -404,6 +410,9 @@
 
 ## 已知问题 (Known Issues / Pitfalls)
 <!-- 工作中踩过的坑、限制或意外行为。 -->
+
+- `ExperimentPolicy.required_system_packages` 非空时，成功命令必须以生产契约角色 `dependency_setup` 记录；自定义 manifest 写成 `dependency` 会让 submit 正确归类为 `dependency_setup_not_observed`，掩盖预期的 verifier failure。环境查询也不能代替缺失依赖安装：`libcheck` 必须实际安装 `texinfo`，否则 parent build 在 `makeinfo` 处退出 127。
+- 2026-08-29 门禁期间 Ubuntu `docker.service` 曾收到一次 systemd 正常停止信号并自动恢复，来源未能从 Docker journal 归因；每个重型 Docker gate 前仍应重新执行 `scripts/require-ubuntu-native-docker.sh`，但不得自行重启 daemon 或切换 Docker Desktop。
 
 - Windows bind/DrvFS 目录大小写不敏感；上游若跟踪 `BUILD`，CMake `-B build` 会解析到同一普通文件。checkpoint canary 使用 `.forge-cmake-build`，并必须在真实 Compose `/workspace/.compile-sessions` 挂载上做 parity gate，不能再用 WSL ext4 `tmp_path` 代替。
 - Issue #149 runner 和测试的 SHA-256 已冻结在授权 manifest。跨阶段修复必须新增版本化 adapter/test，不能原地修改冻结文件或更新旧 manifest hash；后续 provider 运行还需要独立 amendment identity 与新授权。
