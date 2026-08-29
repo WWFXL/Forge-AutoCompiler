@@ -5,6 +5,15 @@
 ## 进行中 (In Progress)
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
+- 2026-08-29 — 修复 coordinator WAL 审计误判并恢复六配对 pilot
+  - GitHub: 中文 Issue #161 已创建并回读；分支为 `fix/161-coordinator-wal-recovery`，基线为 `main@95dafbe7`。
+  - v1 终态: `pair-01` 双臂均通过 candidate + clean replay，baseline/treatment 分别为 4 requests/11,996 tokens 与 4 requests/11,815 tokens；pair marker/report、三个 Session 终态、coordinator `cleaned` 和 0 orphan 均闭合，但 batch 因 `immutable=1` 未读取尚在 WAL 的最新 phase 而 false negative，pair-02 未启动。
+  - Recovery: 冻结 v1 的 8 个批次文件与 3 个 Session JSON 哈希，导入唯一 `pair-01` 且禁止重跑；新批次只执行原 schedule 的 `pair-02` 至 `pair-06`，新增上限 1,200,000 recorded tokens，总上限仍为 1,440,000。
+  - 修复: coordinator 审计复制 source main/WAL/SHM 到临时目录，只在副本恢复 WAL，并在读取前后核对源文件集合与 SHA-256 未变。
+  - 验证: WAL-only `cleaned` 回归、导入/剩余调度与相邻 checkpoint 共 `39 passed`；Ruff、实际 v1 8 文件/3 Session 哈希、copy-based 导入和零 provider 门禁通过；recovery manifest SHA-256 为 `4e26976373bd02937a55703081794bcb45c4e9d07f6eec27931a368a32174d89`。
+  - 下一步: 中文提交、WSL helper 推送、PR/CI/合并；随后执行剩余五 pair，不修改 v1 失败 marker 或 evidence。
+  - 文件: `scripts/forge_checkpoint_censored_pilot_recovery_protocol.py`, `scripts/forge_checkpoint_censored_pilot_recovery_runner.py`, `backend/tests/test_forge_checkpoint_censored_pilot_recovery.py`, `benchmarks/manifests/cpp-verifier-checkpoint-censored-pilot-recovery-v1.json`, `benchmarks/schemas/forge-checkpoint-censored-pilot-recovery-v1.schema.json`, `benchmarks/preregistrations/cpp-verifier-checkpoint-censored-pilot-recovery-v1.md`
+
 - 2026-08-29 — 实现 endpoint 删失容忍 checkpoint 六配对 pilot
   - GitHub: 中文 Issue #159 已创建并回读；分支为 `research/159-checkpoint-censored-pilot`，基线为 `main@fe9fb519`。
   - 协议: 路线 B 固定 DeepSeek `deepseek-v4-flash`、300 秒 timeout、0 retry、6 pair/12 arms、每臂 120,000 recorded tokens 和总计 1,440,000 上限；arm order 以 3:3 交叉平衡，禁止 fallback、replacement、backfill 和扩样。

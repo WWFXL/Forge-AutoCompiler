@@ -1,0 +1,207 @@
+{
+  "$schema": "../schemas/forge-checkpoint-censored-pilot-recovery-v1.schema.json",
+  "schema_version": "forge-checkpoint-censored-pilot-recovery-1.0.0",
+  "document_type": "forge_checkpoint_censored_pilot_recovery",
+  "authorization": {
+    "issue_url": "https://github.com/WWFXL/Forge-AutoCompiler/issues/161",
+    "authorized_by": "experiment_owner",
+    "route": "B-recovery",
+    "pilot_collection_authorized": true,
+    "authorized_additional_pairs": 5,
+    "maximum_additional_recorded_tokens": 1200000,
+    "maximum_total_recorded_tokens": 1440000
+  },
+  "scope": {
+    "languages": [
+      "C",
+      "C++"
+    ],
+    "mechanism": "failure_checkpoint",
+    "controlled_fault": "artifact_staging_missing",
+    "natural_collection_authorized": false,
+    "secondary_provider_authorized": false
+  },
+  "provider": {
+    "id": "deepseek-v4-flash",
+    "endpoint": "https://api.deepseek.com",
+    "credential_env": "DEEPSEEK_API_KEY",
+    "model": "deepseek-v4-flash",
+    "request_timeout_seconds": 300,
+    "max_retries": 0,
+    "fallback": "forbidden",
+    "streaming": false
+  },
+  "continuation": {
+    "maximum_requests_per_arm": 8,
+    "maximum_model_turns_per_arm": 8,
+    "maximum_graph_steps_per_arm": 24,
+    "work_wall_clock_seconds_per_arm": 600,
+    "cleanup_reserve_seconds_per_arm": 120,
+    "maximum_recorded_tokens_per_arm": 120000
+  },
+  "schedule": [
+    {
+      "pair_id": "pair-01",
+      "order": 1,
+      "arm_order": [
+        "baseline",
+        "treatment"
+      ]
+    },
+    {
+      "pair_id": "pair-02",
+      "order": 2,
+      "arm_order": [
+        "treatment",
+        "baseline"
+      ]
+    },
+    {
+      "pair_id": "pair-03",
+      "order": 3,
+      "arm_order": [
+        "baseline",
+        "treatment"
+      ]
+    },
+    {
+      "pair_id": "pair-04",
+      "order": 4,
+      "arm_order": [
+        "treatment",
+        "baseline"
+      ]
+    },
+    {
+      "pair_id": "pair-05",
+      "order": 5,
+      "arm_order": [
+        "baseline",
+        "treatment"
+      ]
+    },
+    {
+      "pair_id": "pair-06",
+      "order": 6,
+      "arm_order": [
+        "treatment",
+        "baseline"
+      ]
+    }
+  ],
+  "schedule_sha256": "274eb4ffd9c769301a5553f23f39ee26537a781d7e351a934908af8cebb982dd",
+  "budget": {
+    "recorded_tokens_per_arm": 120000,
+    "recorded_tokens_per_pair": 240000,
+    "stage_maximum_recorded_tokens": 1440000,
+    "reachability_requests": 0,
+    "enforcement": "after_each_pair_before_next_pair",
+    "imported_recorded_tokens": 23811,
+    "additional_recorded_token_limit": 1200000
+  },
+  "stopping": {
+    "endpoint_timeout_censors_pair_and_continues": true,
+    "cleanup_or_identity_failure_stops_batch": true,
+    "non_endpoint_failure_stops_batch": true,
+    "retry_forbidden": true,
+    "replacement_forbidden": true,
+    "backfill_forbidden": true,
+    "schedule_extension_forbidden": true
+  },
+  "analysis": {
+    "itt_attrition_includes_all_scheduled_pairs": true,
+    "conditional_mechanism_requires_complete_pair": true,
+    "descriptive_only": true,
+    "p_value_computed": false,
+    "model_ranking_performed": false
+  },
+  "execution": {
+    "control_plane": "compose-dood-on-ubuntu-native-docker",
+    "network_access_medium_env": "FORGE_NETWORK_ACCESS_MEDIUM",
+    "network_access_medium": "wifi",
+    "evidence_directory": "/workspace/.compile-sessions/benchmark-evidence-checkpoint-censored-pilot-recovery-v1",
+    "pair_directory_pattern": "pairs/pair-NN",
+    "batch_marker": "markers/pilot-attempt.json",
+    "pair_marker": "markers/pair-attempt.json",
+    "release_branch": "main",
+    "authorization_baseline_commit": "95dafbe7ca2f69c2beb2b5a4c9779b8619c70736",
+    "release_revision_policy": "descendant-compatible",
+    "require_clean_worktree": true,
+    "require_origin_main_identity": true,
+    "require_zero_managed_containers_between_pairs": true,
+    "recovery_import": "pair-01",
+    "recovery_execution_pairs": [
+      "pair-02",
+      "pair-03",
+      "pair-04",
+      "pair-05",
+      "pair-06"
+    ],
+    "coordinator_audit": "copy-main-wal-shm-then-read-copy"
+  },
+  "parent": {
+    "authorized_manifest_canonical_sha256": "f87dc3e0af2ec8c841191c70195808ac5e686656d15f00c479f6d030abebf356",
+    "components": {
+      "benchmarks/manifests/cpp-verifier-checkpoint-primary-canary-amendment-authorized.json": "fb483a55542adf4be1d213a2130d87b11e783df9d6e5270ed7aa1573d88c7776",
+      "scripts/forge_checkpoint_primary_canary.py": "031bac753459a060e134df765a27eaa1c8fca0ac784f239d46e243f89c8b3282",
+      "scripts/forge_checkpoint_primary_canary_amendment_authorized.py": "89cce741bf56c234b9e31560a5662cd701cc6fab4f948858ca187ed64141f5ba",
+      "scripts/forge_checkpoint_windows_build_layout.py": "df757d63ad493393957b1fb167dd5b01d5e9c1ae1d76796cca26d616b77355e5"
+    },
+    "terminal_evidence": {
+      "directory": "/workspace/.compile-sessions/benchmark-evidence-checkpoint-primary-canary-amendment",
+      "expected_file_count": 9,
+      "files": {
+        "checkpoint/coordinator.sqlite": "dc2b426ceff514683ccec719fb064158b7bc58b3f5f01d1fc620571d6fb13956",
+        "checkpoint/messages.sqlite": "3091ebbe147af151ed9ad37aff3a5d14979bc187a0d69a685a72e8de3b6e14bb",
+        "checkpoint/messages.sqlite-shm": "fd4c9fda9cd3f9ae7c962b0ddf37232294d55580e1aa165aa06129b8549389eb",
+        "checkpoint/messages.sqlite-wal": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "ledgers/baseline.jsonl": "01137d096b55c447655946373afe517135f01306aaf54797aad700dfb69aece2",
+        "ledgers/parent.jsonl": "683c68dc1f2626915c9a7a722db11701dbef667a8fac3d187acf22c269644891",
+        "markers/amendment-controlled-pair-attempt.json": "0d7526bcd7c9af3d3d3349964d2df4cdf15c1503f53fd705c2fcbda16fe00cc0",
+        "markers/amendment-reachability-attempt.json": "51212cbfc00b887f2540343bef156d0e3b1bd680f760a65debcf2eddeee5fa23",
+        "reports/reachability.json": "ff664651aacea073cb8541594c1d443cd92654fe2c9d9767227788dd10adeb48"
+      },
+      "sqlite_sidecars_retained": true
+    }
+  },
+  "protocol_artifacts": {
+    "backend/tests/test_forge_checkpoint_censored_pilot_recovery.py": "0857c83fc14df4e49a4c73db0de5de41970e8bbf941d37307add82a0c6acba7d",
+    "benchmarks/preregistrations/cpp-verifier-checkpoint-censored-pilot-recovery-v1.md": "401d58798235ce7905da15a8089f8bbfb8a2a1fbad6a12e40a768e1eb99e2b88",
+    "scripts/forge_checkpoint_censored_pilot_recovery_protocol.py": "be431981451b072c039bf9357b89cc7b4ea5031eb1b24073bde189dcb45446d4",
+    "scripts/forge_checkpoint_censored_pilot_recovery_runner.py": "336d9217c83ee60ebb479615200a0eddbcfb82233140bfaca6711baa0d79d786"
+  },
+  "recovery": {
+    "parent_manifest_canonical_sha256": "d5edd9683def7c8842ad1eb0471cce877b47b52b2939f1b45d9c2a51f2362391",
+    "parent_components": {
+      "benchmarks/manifests/cpp-verifier-checkpoint-censored-pilot-v1.json": "640c463331ab2eaded74417a1311fc841c6561fc98153dbed88a9754619a67ee",
+      "scripts/forge_checkpoint_censored_pilot_protocol.py": "b48b43568d0a1f4c1c548e56aeb7e31a94ef6bb40c515fdcedf0edda5e650758",
+      "scripts/forge_checkpoint_censored_pilot_runner.py": "819a8d25d65d1e6019c1d994515ee5534533513e3dcc299ca75a043480c3d768"
+    },
+    "imported_pair": {
+      "pair_id": "pair-01",
+      "status": "complete",
+      "recorded_tokens": 23811,
+      "source_directory": "/workspace/.compile-sessions/benchmark-evidence-checkpoint-censored-pilot-v1",
+      "expected_file_count": 8,
+      "files": {
+        "markers/pilot-attempt.json": "90637cef19d2859c3067c6b1b982d8b91c180a94b20d999a5349948c68023575",
+        "pairs/pair-01/checkpoint/coordinator.sqlite": "304288805942f5b210c82e06d421a6264edc344b7ff15066ddb6a91456c89a7c",
+        "pairs/pair-01/checkpoint/messages.sqlite": "7a16adf27013d6e6f76a4c11c43f179ea63436f8dfec253359a4644feca633e9",
+        "pairs/pair-01/ledgers/baseline.jsonl": "717755fa47d5f585282a76b4767454b8fe446c39f453375dc8f6bb6d38375aea",
+        "pairs/pair-01/ledgers/parent.jsonl": "858097dfa4ce93815e304f14974a799e35d15d5286293470e22c8686bebf738d",
+        "pairs/pair-01/ledgers/treatment.jsonl": "c504c61b3a492d00740d3abbf3cb19a457a6599a5212602b4d1f1f0c612ab840",
+        "pairs/pair-01/markers/pair-attempt.json": "8178d32c61f4ed4425aa5dfa0ad155ba86fcf9626ef1b31bfe0eee1492f5de5d",
+        "pairs/pair-01/reports/controlled-pair.json": "afad25b4c41ae3098b7feb4711d8f4f746f856a9e9773052c13b05a6054471f4"
+      },
+      "session_terminals": {
+        ".compile-sessions/baseline-primary-canary-a8d91e3243a3-thread/baseline-primary-canary-a8d91e3243a3-session/session.json": "39cc1947501b01b63afa25479d35e9e4531193a33b4923701f326d9dbf1f6847",
+        ".compile-sessions/parent-0f56a49c49ea/parent-7f16996f020f/session.json": "281308e574ce629a01026c3611397c7ceca47fc8a780cd71a140b5285d82337d",
+        ".compile-sessions/treatment-primary-canary-a8d91e3243a3-thread/treatment-primary-canary-a8d91e3243a3-session/session.json": "b0b94326e284456f5c0c8cc7272efc95a465d8c43680e6c49759f11e0fdc1bbf"
+      },
+      "rerun_forbidden": true
+    },
+    "failure_classification": "post_pair_coordinator_wal_visibility_race",
+    "replacement": false,
+    "backfill": false
+  }
+}
