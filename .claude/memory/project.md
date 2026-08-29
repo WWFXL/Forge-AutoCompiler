@@ -64,6 +64,13 @@
 ## 最近变更 (Recent Changes)
 <!-- 倒序，最新在上。 -->
 
+- 2026-08-29 — 实现多 checkpoint behavioral pilot v3 授权采集 runner
+  - 文件: `scripts/forge_multi_checkpoint_behavioral_pilot_v3_authorized_protocol.py`, `scripts/forge_multi_checkpoint_behavioral_pilot_v3_authorized_runner.py`, `backend/tests/test_forge_multi_checkpoint_behavioral_pilot_v3_authorized.py`, `backend/tests/test_forge_multi_checkpoint_behavioral_pilot_v3_authorized_docker.py`, `benchmarks/manifests/cpp-verifier-multi-checkpoint-behavioral-pilot-v3-authorized.json`, `benchmarks/schemas/forge-multi-checkpoint-behavioral-pilot-v3-authorized.schema.json`, `benchmarks/preregistrations/cpp-verifier-multi-checkpoint-behavioral-pilot-v3-authorized.md`
+  - 动机: Issue #172 在实验负责人确认 `wifi` 与 Ubuntu `docker.service` active 后，授权一次 DeepSeek canary 和 #170 冻结的 6 pair / 12 arm，maximum 1,440,000 recorded tokens。
+  - 实现: 新 identity 冻结一次性 canary、空 evidence/clean main/Compose-DooD/0 orphan preflight 和 fail-closed batch；通用 case runtime 复用 #168 parent/checkpoint 生命周期与 behavioral v2 三层终态、candidate verifier、clean replay 和单事件循环语义；报告逐 case 四格、请求、tokens、failure transitions 与 case 等权 macro-average。
+  - 验证: canonical manifest SHA-256 为 `933891035aa6cf4ddaa842bdb60ff97343099484a1cb1b448b511d1d16081a8e`；未授权/授权相邻回归 `14 passed`，Ruff check/format 通过；Janet/Make fake-model 真实 Docker gate `1 passed in 171.56s`，结束后 0 managed container / 0 checkpoint image。
+  - 边界: 当前仍为 0 provider、0 formal physical attempt、0 model token，未读取 AK；下一步完成中文提交、WSL 推送、PR/CI/合并后，才在干净主干执行零请求 preflight 与唯一 canary。
+
 - 2026-08-29 — 冻结多 checkpoint behavioral pilot v3 未授权协议
   - 文件: `scripts/forge_multi_checkpoint_behavioral_pilot_v3_protocol.py`, `scripts/forge_multi_checkpoint_behavioral_pilot_v3_runner.py`, `backend/tests/test_forge_multi_checkpoint_behavioral_pilot_v3.py`, `benchmarks/manifests/cpp-verifier-multi-checkpoint-behavioral-pilot-v3.json`, `benchmarks/schemas/forge-multi-checkpoint-behavioral-pilot-v3.schema.json`, `benchmarks/preregistrations/cpp-verifier-multi-checkpoint-behavioral-pilot-v3.md`
   - 动机: Issue #170 把 #168 已通过零 provider 门禁的 CMake `cppitertools`、Make `janet`、Autotools `libcheck` 冻结为新的跨构建系统描述性 pilot；不修改 behavioral v2、生产 Compiler/Oracle 或历史 evidence。
@@ -417,6 +424,9 @@
 
 ## 已知问题 (Known Issues / Pitfalls)
 <!-- 工作中踩过的坑、限制或意外行为。 -->
+
+- 冻结 manifest 中的容器路径不能用宿主 `Path` 再 `str()` 序列化；Windows 会生成反斜杠而 WSL/Linux 重算为正斜杠，导致跨环境 identity 漂移。协议使用固定 POSIX 字符串，`Path` 只用于运行时访问。
+- PowerShell 调 WSL 的 `docker info --format` 时，含 `|` 的 Go template 可能失去参数引号并被 Bash 当作管道。daemon 摘要统一使用无特殊字符的 `docker info --format json`，再在 PowerShell 侧解析；不要继续调试多层模板引号。
 
 - `ExperimentPolicy.required_system_packages` 非空时，成功命令必须以生产契约角色 `dependency_setup` 记录；自定义 manifest 写成 `dependency` 会让 submit 正确归类为 `dependency_setup_not_observed`，掩盖预期的 verifier failure。环境查询也不能代替缺失依赖安装：`libcheck` 必须实际安装 `texinfo`，否则 parent build 在 `makeinfo` 处退出 127。
 - 2026-08-29 门禁期间 Ubuntu `docker.service` 曾收到一次 systemd 正常停止信号并自动恢复，来源未能从 Docker journal 归因；每个重型 Docker gate 前仍应重新执行 `scripts/require-ubuntu-native-docker.sh`，但不得自行重启 daemon 或切换 Docker Desktop。

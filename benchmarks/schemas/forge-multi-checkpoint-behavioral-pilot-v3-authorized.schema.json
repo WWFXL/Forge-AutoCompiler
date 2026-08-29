@@ -1,0 +1,223 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/WWFXL/Forge-AutoCompiler/benchmarks/schemas/forge-multi-checkpoint-behavioral-pilot-v3-authorized.schema.json",
+  "title": "Forge authorized multi-checkpoint behavioral pilot v3",
+  "const": {
+    "$schema": "../schemas/forge-multi-checkpoint-behavioral-pilot-v3-authorized.schema.json",
+    "schema_version": "forge-multi-checkpoint-behavioral-pilot-3.1.0-authorized",
+    "document_type": "forge_multi_checkpoint_behavioral_pilot_authorized",
+    "authorization": {
+      "issue_url": "https://github.com/WWFXL/Forge-AutoCompiler/issues/172",
+      "authorized_by": "experiment_owner",
+      "provider_calls_authorized": true,
+      "formal_attempts_authorized": true,
+      "model_tokens_authorized": 1440000,
+      "pilot_collection_authorized": true,
+      "authorized_provider_canaries": 1,
+      "authorized_pairs": 6
+    },
+    "scope": {
+      "languages": [
+        "C",
+        "C++"
+      ],
+      "mechanism": "failure_checkpoint",
+      "controlled_fault": "artifact_staging_missing",
+      "build_systems": [
+        "cmake",
+        "make",
+        "autotools"
+      ],
+      "natural_collection_authorized": false,
+      "secondary_provider_authorized": false
+    },
+    "case_source": {
+      "manifest_path": "benchmarks/manifests/cpp-verifier-multi-checkpoint-zero-provider-gate.json",
+      "schema_version": "forge-multi-checkpoint-zero-provider-gate-1.0.0",
+      "canonical_sha256": "6d953ae758056dca00b9013979e0f03d1c5877b386fc803feaea1131fd17339c",
+      "file_sha256": "081250beafa7d0d5a55a0541eecce2ed3196e132ecdc3f3d5ef99595335e1ab1",
+      "case_ids": [
+        "cppitertools",
+        "janet",
+        "libcheck"
+      ]
+    },
+    "provider": {
+      "id": "deepseek-v4-flash",
+      "endpoint": "https://api.deepseek.com",
+      "credential_env": "DEEPSEEK_API_KEY",
+      "model": "deepseek-v4-flash",
+      "request_timeout_seconds": 300,
+      "max_retries": 0,
+      "fallback": "forbidden",
+      "streaming": false
+    },
+    "continuation": {
+      "maximum_requests_per_arm": 8,
+      "maximum_model_turns_per_arm": 8,
+      "maximum_graph_steps_per_arm": 24,
+      "work_wall_clock_seconds_per_arm": 600,
+      "cleanup_reserve_seconds_per_arm": 120,
+      "maximum_recorded_tokens_per_arm": 120000
+    },
+    "schedule": [
+      {
+        "pair_id": "v3-cppitertools-pair-01",
+        "order": 1,
+        "case_id": "cppitertools",
+        "case_pair_index": 1,
+        "arm_order": [
+          "baseline",
+          "treatment"
+        ]
+      },
+      {
+        "pair_id": "v3-cppitertools-pair-02",
+        "order": 2,
+        "case_id": "cppitertools",
+        "case_pair_index": 2,
+        "arm_order": [
+          "treatment",
+          "baseline"
+        ]
+      },
+      {
+        "pair_id": "v3-janet-pair-01",
+        "order": 3,
+        "case_id": "janet",
+        "case_pair_index": 1,
+        "arm_order": [
+          "baseline",
+          "treatment"
+        ]
+      },
+      {
+        "pair_id": "v3-janet-pair-02",
+        "order": 4,
+        "case_id": "janet",
+        "case_pair_index": 2,
+        "arm_order": [
+          "treatment",
+          "baseline"
+        ]
+      },
+      {
+        "pair_id": "v3-libcheck-pair-01",
+        "order": 5,
+        "case_id": "libcheck",
+        "case_pair_index": 1,
+        "arm_order": [
+          "baseline",
+          "treatment"
+        ]
+      },
+      {
+        "pair_id": "v3-libcheck-pair-02",
+        "order": 6,
+        "case_id": "libcheck",
+        "case_pair_index": 2,
+        "arm_order": [
+          "treatment",
+          "baseline"
+        ]
+      }
+    ],
+    "schedule_sha256": "91b57bc91ad16e7154c2e9b8a36ce93e65d0b2c0b29930ea4ed2cb2289f369d8",
+    "budget": {
+      "recorded_tokens_per_arm": 120000,
+      "recorded_tokens_per_pair": 240000,
+      "stage_maximum_recorded_tokens": 1440000,
+      "expected_recorded_tokens_planning_only": 231944,
+      "reachability_requests": 0,
+      "enforcement": "after_each_arm_and_pair_before_next_pair"
+    },
+    "terminal_taxonomy": {
+      "infrastructure": [
+        "valid",
+        "endpoint_censored",
+        "invalid"
+      ],
+      "model_behavior": [
+        "completed",
+        "graph_step_limit",
+        "work_wall_clock_limit",
+        "no_submit",
+        "verification_failed",
+        "not_observed"
+      ],
+      "verification_outcome": [
+        "passed",
+        "failed",
+        "not_attempted"
+      ]
+    },
+    "stopping": {
+      "classified_arm_outcome_continues_other_arm": true,
+      "endpoint_timeout_censors_arm_and_continues": true,
+      "model_behavior_failure_is_outcome": true,
+      "identity_evidence_budget_cleanup_or_unclassified_failure_stops_batch": true,
+      "retry_forbidden": true,
+      "replacement_forbidden": true,
+      "backfill_forbidden": true,
+      "schedule_extension_forbidden": true
+    },
+    "analysis": {
+      "descriptive_only": true,
+      "unit_of_analysis": "failure_checkpoint_case",
+      "per_case_outputs": [
+        "paired_four_cell",
+        "requests",
+        "recorded_tokens",
+        "failure_transitions"
+      ],
+      "cross_case_summary": "equal_weight_macro_average",
+      "case_weights": {
+        "cppitertools": "1/3",
+        "janet": "1/3",
+        "libcheck": "1/3"
+      },
+      "pairs_pooled_as_independent_contexts": false,
+      "providers_pooled": false,
+      "p_value_computed": false,
+      "model_ranking_performed": false,
+      "historical_pairs_pooled": false
+    },
+    "execution": {
+      "mode": "authorized_collection",
+      "control_plane": "compose-dood-on-ubuntu-native-docker",
+      "evidence_directory": "/workspace/.compile-sessions/benchmark-evidence-multi-checkpoint-behavioral-pilot-v3-authorized",
+      "pair_directory_pattern": "pairs/v3-CASE-pair-NN",
+      "release_branch": "main",
+      "authorization_baseline_commit": "4cd3b900bf23facd71c1e1905ff8de040ac598b6",
+      "release_revision_policy": "descendant-compatible",
+      "require_clean_worktree": true,
+      "require_origin_main_identity": true,
+      "require_zero_managed_containers_between_pairs": true,
+      "network_access_medium_env": "FORGE_NETWORK_ACCESS_MEDIUM",
+      "network_access_medium": "wifi",
+      "canary_marker": "markers/provider-canary-attempt.json",
+      "batch_marker": "markers/pilot-attempt.json",
+      "pair_marker": "markers/pair-attempt.json"
+    },
+    "canary": {
+      "prompt": "Reply with exactly CANARY_OK and nothing else.",
+      "expected_response": "CANARY_OK",
+      "maximum_requests": 1,
+      "maximum_recorded_tokens": 5000,
+      "success_required_before_first_pair": true,
+      "retry_forbidden": true
+    },
+    "parent_protocol": {
+      "manifest_path": "benchmarks/manifests/cpp-verifier-multi-checkpoint-behavioral-pilot-v3.json",
+      "schema_version": "forge-multi-checkpoint-behavioral-pilot-3.0.0",
+      "canonical_sha256": "7efa555cb95ace497833c5fb9e9106778d5f856214f9d07a3511bd04298cae5b",
+      "file_sha256": "bbee3bcb8f0f8fc2f908a968b7b7b0080acffe7386d06c2b69bbeedef5ec3161",
+      "components": {
+        "benchmarks/manifests/cpp-verifier-multi-checkpoint-behavioral-pilot-v3.json": "bbee3bcb8f0f8fc2f908a968b7b7b0080acffe7386d06c2b69bbeedef5ec3161",
+        "benchmarks/schemas/forge-multi-checkpoint-behavioral-pilot-v3.schema.json": "e9fa109589ca444069a57dcf438aff4c96b94a37573a7497821c7c959386df7a",
+        "scripts/forge_multi_checkpoint_behavioral_pilot_v3_protocol.py": "e0ee1ab642980aaade1e9e2d270b248ff4a91ed0b019dd410e80601f8627e669",
+        "scripts/forge_multi_checkpoint_behavioral_pilot_v3_runner.py": "246ce10c12cf8e3441370b94f0876e649f531b9499b07f4de68cee6b2f2f0b07"
+      }
+    }
+  }
+}
