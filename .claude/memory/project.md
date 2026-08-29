@@ -64,6 +64,13 @@
 ## 最近变更 (Recent Changes)
 <!-- 倒序，最新在上。 -->
 
+- 2026-08-30 — 冻结 opaque build provenance 最小 provider canary 候选协议
+  - 文件: `scripts/forge_opaque_provenance_minimal_canary_protocol.py`, `benchmarks/manifests/cpp-opaque-provenance-minimal-canary.json`, `benchmarks/schemas/forge-opaque-provenance-minimal-canary.schema.json`, `benchmarks/preregistrations/cpp-opaque-provenance-minimal-canary.md`, `backend/tests/test_forge_opaque_provenance_minimal_canary.py`
+  - 范围: Issue #180 固定单个 `cppitertools` checkpoint、一个 `baseline -> treatment` pair，以及 DeepSeek `deepseek-v4-flash`、300 秒 timeout、0 retry、禁止 fallback 的未来运行身份；每臂 8 requests / 8 turns / 24 graph steps / 120,000 recorded tokens，阶段机械上限 245,000。
+  - 边界: 当前只支持 `generate`、`validate`、`show-plan`，所有 reachability/provider/formal/canary 授权均为 false；无 model 创建、credential 读取或 execute path。单 pair 只验证机制接线，不估计 treatment effect、不计算 p 值、不排名模型。
+  - 验证: manifest canonical SHA-256 为 `ad5a1ac989c4072ec097a3b0949d5e4393475d6df0896e108dbc313690dd3ee7`；本阶段聚焦与前三层相邻静态回归 `53 passed`，Ruff check/format、Python 语法、协议 CLI 和 `git diff --check` 通过。固定 0 provider、0 formal attempt、0 model token，未读取 AK、未启动 Docker。
+  - 下一步: 合并后从干净主干执行 0-provider preflight，核对 `main == origin/main`、Ubuntu-native Docker、网络介质、候选 evidence 空目录与 0 managed orphan；真实 reachability 和 canary 仍需独立授权。
+
 - 2026-08-30 — 闭合 opaque build provenance 真实 Docker 生命周期门禁
   - 文件: `scripts/forge_opaque_build_provenance_real_docker_gate.py`, `backend/tests/test_forge_opaque_build_provenance_real_docker_gate.py`, `backend/tests/test_forge_opaque_build_provenance_real_docker_gate_docker.py`, `benchmarks/preregistrations/cpp-opaque-build-provenance-real-docker-zero-provider-gate.md`
   - 动机: Issue #178 为 #174 P2 reference criterion 与 #176 合成 lifecycle adapter 补充真实 production candidate verifier、独立 clean replay 和 cleanup 证据；不修改 production Compiler/Oracle、`operations.py` 或历史 evidence。

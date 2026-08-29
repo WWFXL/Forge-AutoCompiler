@@ -1,0 +1,134 @@
+{
+  "$schema": "../schemas/forge-opaque-provenance-minimal-canary.schema.json",
+  "schema_version": "forge-opaque-provenance-minimal-canary-1.0.0",
+  "document_type": "forge_opaque_provenance_minimal_canary_protocol",
+  "authorization": {
+    "issue_url": "https://github.com/WWFXL/Forge-AutoCompiler/issues/180",
+    "protocol_freeze_authorized": true,
+    "reachability_request_authorized": false,
+    "provider_calls_authorized": false,
+    "formal_attempts_authorized": false,
+    "canary_collection_authorized": false,
+    "model_tokens_authorized": 0
+  },
+  "scope": {
+    "languages": [
+      "C++"
+    ],
+    "mechanism": "provenance_compliance_repair",
+    "fault_family": "opaque_build_provenance",
+    "production_classification": "build_system_unproven",
+    "reference_criterion": "P2",
+    "behavioral_pilot_expansion_authorized": false
+  },
+  "case": {
+    "case_id": "cppitertools-opaque-provenance-real-docker",
+    "repository_url": "https://github.com/ryanhaining/cppitertools",
+    "commit_sha": "531b3d753d2bbfe3b0ababe61c2e95e965c54a66",
+    "compile_image": "autocompiler:gcc13",
+    "build_system": "cmake",
+    "build_directory": "/workspace/repo/build",
+    "target": "accumulate_examples",
+    "staged_artifact": "accumulate_examples",
+    "checkpoint_source": "issue-178-real-docker-lifecycle",
+    "parent_proof_status": "opaque_wrapper",
+    "parent_expected_failure": "build_system_unproven"
+  },
+  "reference_chain": [
+    {
+      "issue": 174,
+      "purpose": "P2_reference_contract",
+      "main_commit": "869686b3"
+    },
+    {
+      "issue": 176,
+      "purpose": "synthetic_lifecycle_contract",
+      "main_commit": "5b5d867d"
+    },
+    {
+      "issue": 178,
+      "purpose": "real_docker_lifecycle",
+      "main_commit": "aa1768dd"
+    }
+  ],
+  "provider": {
+    "status": "future_identity_only",
+    "id": "deepseek-v4-flash",
+    "endpoint": "https://api.deepseek.com",
+    "credential_env": "DEEPSEEK_API_KEY",
+    "model": "deepseek-v4-flash",
+    "request_timeout_seconds": 300,
+    "max_retries": 0,
+    "fallback": "forbidden",
+    "streaming": false
+  },
+  "continuation": {
+    "maximum_requests_per_arm": 8,
+    "maximum_model_turns_per_arm": 8,
+    "maximum_graph_steps_per_arm": 24,
+    "work_wall_clock_seconds_per_arm": 600,
+    "cleanup_reserve_seconds_per_arm": 120,
+    "maximum_recorded_tokens_per_arm": 120000
+  },
+  "schedule": [
+    {
+      "pair_id": "opaque-provenance-cppitertools-pair-01",
+      "order": 1,
+      "case_id": "cppitertools-opaque-provenance-real-docker",
+      "arm_order": [
+        "baseline",
+        "treatment"
+      ],
+      "treatment_exposure_only": "repair_packet"
+    }
+  ],
+  "schedule_sha256": "d26e8e31aa1830973be89a8337dbff6a24852333968c55a649df359de567b375",
+  "budget": {
+    "maximum_reachability_requests": 1,
+    "reachability_maximum_recorded_tokens": 5000,
+    "recorded_tokens_per_arm": 120000,
+    "recorded_tokens_per_pair": 240000,
+    "stage_maximum_recorded_tokens": 245000,
+    "enforcement": "after_reachability_and_each_arm_before_continuation"
+  },
+  "stopping": {
+    "reachability_failure_stops_before_pair": true,
+    "identity_evidence_budget_cleanup_or_unclassified_failure_stops": true,
+    "classified_arm_outcome_continues_other_arm": true,
+    "endpoint_timeout_censors_arm_and_continues": true,
+    "retry_forbidden": true,
+    "replacement_forbidden": true,
+    "backfill_forbidden": true,
+    "schedule_extension_forbidden": true
+  },
+  "analysis": {
+    "purpose": "mechanism_wiring_canary_only",
+    "unit_of_analysis": "single_failure_checkpoint_pair",
+    "descriptive_only": true,
+    "treatment_effect_estimated": false,
+    "p_value_computed": false,
+    "model_ranking_performed": false,
+    "historical_pairs_pooled": false
+  },
+  "execution": {
+    "mode": "protocol_plan_only",
+    "control_plane": "compose-dood-on-ubuntu-native-docker",
+    "release_branch": "main",
+    "require_clean_worktree": true,
+    "require_origin_main_identity": true,
+    "require_network_medium_record": true,
+    "require_empty_evidence_directory": true,
+    "require_zero_managed_orphans": true,
+    "provider_model_creation_supported": false,
+    "credential_read_supported": false,
+    "execute_path_supported": false
+  },
+  "frozen_components": {
+    "benchmarks/preregistrations/cpp-opaque-build-provenance-lifecycle-zero-provider-gate.md": "a2636bf2f2c2364d287444d30bfba6ab4a764f4b2653be05845609acc5a1e014",
+    "benchmarks/preregistrations/cpp-opaque-build-provenance-real-docker-zero-provider-gate.md": "971e67fdf51ad19b58222928b9330edfb37a4eca0eb7c453bb7bd8df4175f2d3",
+    "benchmarks/preregistrations/cpp-opaque-build-provenance-zero-provider-gate.md": "37f433010577f53ecaf43ff29c349c93489b1b94131b7a9840af746bd91a1a6b",
+    "scripts/forge_opaque_build_provenance_gate.py": "0f21ece5f3419a477925515f5312a009b0d447c1fa982f9e7fb626bf0f30e07a",
+    "scripts/forge_opaque_build_provenance_lifecycle_gate.py": "a7197fb03dbb48fa99ec70cd1007153bd8a625c311b4068bc69dfbac608e8ff3",
+    "scripts/forge_opaque_build_provenance_real_docker_gate.py": "cfaac00042a623083f351e5e1b82c7b0b497bb923aea6f02b35174a40cf949e4"
+  }
+}
