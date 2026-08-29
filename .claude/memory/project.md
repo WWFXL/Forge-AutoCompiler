@@ -64,6 +64,12 @@
 ## 最近变更 (Recent Changes)
 <!-- 倒序，最新在上。 -->
 
+- 2026-08-29 — 接入 opaque build provenance 零 provider 生命周期契约
+  - 文件: `scripts/forge_opaque_build_provenance_lifecycle_gate.py`, `backend/tests/test_forge_opaque_build_provenance_lifecycle_gate.py`, `benchmarks/preregistrations/cpp-opaque-build-provenance-lifecycle-zero-provider-gate.md`
+  - 动机: Issue #176 把 #174 的 P2 reference criterion 接到同源 failure checkpoint 双臂边界，先验证 treatment exposure、post-checkpoint conversion 与终态观察顺序，不直接进入 provider 或 Docker 实验。
+  - 结果: baseline/treatment 共用 checkpoint `892cecacebba9410d1fa64dcf24d338efcf7e87b12005db85353946b943b8a40` 和 parent history `ed9c0bad711097c6d28d3b534b78604da92e1b6fcdec6dbfd3383508d7ec016f`；baseline 保持 unproven，treatment 只在 parent ledger 尾部追加 trusted direct-CMake invocation 后转为 P2 proven。Candidate/replay/cleanup observer 按顺序 fail closed，并绑定同一 observation subject SHA-256。
+  - 验证: 本阶段聚焦测试 `17 passed`，连同 #174 P2 gate 的相邻回归为 `38 passed`；Ruff check/format、Python 语法与 CLI validate 通过。固定 0 provider、0 formal attempt、0 model token、`docker_executed=false`；observer 为 deterministic contract callback，不构成真实 candidate/clean replay 证据。
+
 - 2026-08-29 — 建立 opaque build provenance P2 零 provider 契约门禁
   - 文件: `scripts/forge_opaque_build_provenance_gate.py`, `backend/tests/test_forge_opaque_build_provenance_gate.py`, `benchmarks/preregistrations/cpp-opaque-build-provenance-zero-provider-gate.md`
   - 动机: Issue #174 按路线 P 把 `build_system_unproven` 收敛为独立 provenance compliance stratum，避免把合法 native build 的 parser 假阴性表述为普通编译失败。
