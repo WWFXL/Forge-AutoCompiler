@@ -64,6 +64,12 @@
 ## 最近变更 (Recent Changes)
 <!-- 倒序，最新在上。 -->
 
+- 2026-08-30 — 闭合 opaque build provenance 真实 Docker 生命周期门禁
+  - 文件: `scripts/forge_opaque_build_provenance_real_docker_gate.py`, `backend/tests/test_forge_opaque_build_provenance_real_docker_gate.py`, `backend/tests/test_forge_opaque_build_provenance_real_docker_gate_docker.py`, `benchmarks/preregistrations/cpp-opaque-build-provenance-real-docker-zero-provider-gate.md`
+  - 动机: Issue #178 为 #174 P2 reference criterion 与 #176 合成 lifecycle adapter 补充真实 production candidate verifier、独立 clean replay 和 cleanup 证据；不修改 production Compiler/Oracle、`operations.py` 或历史 evidence。
+  - 结果: 自包含 opaque `sh -c` parent 在真实 CMake/Ninja 项目中只触发 `build_system_unproven`，P2 为 `unproven/opaque_wrapper`；同源 baseline 保持 unproven、0 replay，treatment 仅接收白名单 packet并 append direct `cmake --build` 后转为 P2 `proven/direct_cmake`，production candidate 与 clean replay 均 passed，最终 container/image 0 orphan。
+  - 验证: Ubuntu-native provider gate 确认为 `/var/run/docker.sock`；真实 opt-in gate `1 passed in 74.34s`，相邻静态回归 `47 passed`，Ruff check/format、Python 语法和 `git diff --check` 通过。固定 0 provider call、0 formal physical attempt、0 model token，未读取 AK。
+
 - 2026-08-29 — 接入 opaque build provenance 零 provider 生命周期契约
   - 文件: `scripts/forge_opaque_build_provenance_lifecycle_gate.py`, `backend/tests/test_forge_opaque_build_provenance_lifecycle_gate.py`, `benchmarks/preregistrations/cpp-opaque-build-provenance-lifecycle-zero-provider-gate.md`
   - 动机: Issue #176 把 #174 的 P2 reference criterion 接到同源 failure checkpoint 双臂边界，先验证 treatment exposure、post-checkpoint conversion 与终态观察顺序，不直接进入 provider 或 Docker 实验。
@@ -436,6 +442,10 @@
 
 ## 已知问题 (Known Issues / Pitfalls)
 <!-- 工作中踩过的坑、限制或意外行为。 -->
+
+- 真实 lifecycle capture 的 evidence Schema 强制要求 `submit_attempt_id`；只记录 classification/failure ID 会在 environment freeze 前 fail closed。新 gate 应直接从同一 `failure.recorded` payload 复制该 ID，并先做 Schema 级静态断言。
+- Budget checkpoint 中“请求容量”与“实际请求数”是两个概念：原型要求 `limits.provider_requests >= 1`，零 provider gate 应保持正容量但让 consumed/external counts 为 0，不能把容量 0 误写成零调用证明。
+- `sh -c` wrapper 的 role parser 能递归看到 configure/build，但 `_command_contains_arguments` 只看到整段 inner command token；若 policy 冻结非空 CMake 参数，会额外产生 `cmake_arguments_not_observed`。研究 opaque provenance 时应把非 estimand 参数约束显式冻结为空，并从 authoritative `session.verification.checks` 核对 failure 列表，而不能只看 primary classification。
 
 - 冻结 manifest 中的容器路径不能用宿主 `Path` 再 `str()` 序列化；Windows 会生成反斜杠而 WSL/Linux 重算为正斜杠，导致跨环境 identity 漂移。协议使用固定 POSIX 字符串，`Path` 只用于运行时访问。
 - PowerShell 调 WSL 的 `docker info --format` 时，含 `|` 的 Go template 可能失去参数引号并被 Bash 当作管道。daemon 摘要统一使用无特殊字符的 `docker info --format json`，再在 PowerShell 侧解析；不要继续调试多层模板引号。
