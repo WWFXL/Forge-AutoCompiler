@@ -64,6 +64,12 @@
 ## 最近变更 (Recent Changes)
 <!-- 倒序，最新在上。 -->
 
+- 2026-08-29 — 建立 opaque build provenance P2 零 provider 契约门禁
+  - 文件: `scripts/forge_opaque_build_provenance_gate.py`, `backend/tests/test_forge_opaque_build_provenance_gate.py`, `benchmarks/preregistrations/cpp-opaque-build-provenance-zero-provider-gate.md`
+  - 动机: Issue #174 按路线 P 把 `build_system_unproven` 收敛为独立 provenance compliance stratum，避免把合法 native build 的 parser 假阴性表述为普通编译失败。
+  - 结果: 版本化 P2 evaluator 接受 direct CMake、可信 configure + native Ninja 与透明 wrapper；缺 generator link、opaque wrapper 和 build-dir 不一致保持 unproven，source/image/attempt/artifact/ledger 漂移 fail closed。受控 fault 前后 command-history SHA-256 相同且 `replay_attempts=0`。
+  - 验证: 聚焦测试 `21 passed`，Ruff check/format、Python 语法与 CLI validate 通过；固定输出 0 provider call、0 formal physical attempt、0 model token，不启动 Docker且不修改 production Compiler/Oracle/历史 evidence。
+
 - 2026-08-29 — 实现多 checkpoint behavioral pilot v3 授权采集 runner
   - 文件: `scripts/forge_multi_checkpoint_behavioral_pilot_v3_authorized_protocol.py`, `scripts/forge_multi_checkpoint_behavioral_pilot_v3_authorized_runner.py`, `backend/tests/test_forge_multi_checkpoint_behavioral_pilot_v3_authorized.py`, `backend/tests/test_forge_multi_checkpoint_behavioral_pilot_v3_authorized_docker.py`, `benchmarks/manifests/cpp-verifier-multi-checkpoint-behavioral-pilot-v3-authorized.json`, `benchmarks/schemas/forge-multi-checkpoint-behavioral-pilot-v3-authorized.schema.json`, `benchmarks/preregistrations/cpp-verifier-multi-checkpoint-behavioral-pilot-v3-authorized.md`
   - 动机: Issue #172 在实验负责人确认 `wifi` 与 Ubuntu `docker.service` active 后，授权一次 DeepSeek canary 和 #170 冻结的 6 pair / 12 arm，maximum 1,440,000 recorded tokens。
