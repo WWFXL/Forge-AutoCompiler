@@ -5,16 +5,6 @@
 ## 进行中 (In Progress)
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
-- 2026-08-29 — 实现 checkpoint 行为终态 v2 六配对实验
-  - 决策: 实验负责人确认 Issue #163 选择 A；旧 v1/recovery 保持失败关闭，pair-01/02 只作 exploratory feasibility evidence，旧 pair-03 至 pair-06 永不续跑。中文 Issue #165 已创建并回读。
-  - 协议: 全新 6 pair/12 arms、3:3 交叉 arm order、DeepSeek `deepseek-v4-flash`、300 秒/0 retry、每臂 120,000 tokens、总上限 1,440,000；禁止 replacement/backfill/旧 pair 池化。
-  - estimand: arm 终态拆为 infrastructure、model behavior、verification outcome；`GraphRecursionError`、work wall-clock、无 submit、verification failed 留在模型行为 outcome，endpoint timeout 进入 attrition。第一臂形成上述可分类终态后仍执行第二臂。
-  - hard stop: release/manifest/evidence identity、ledger 哈希链、预算、cleanup/orphan 或无法分类的基础设施错误关闭 batch；repair conversion 是 primary mechanism outcome，效率指标只做条件描述。
-  - 验证: 新增与 v1/recovery 相邻回归 `17 passed`，Ruff check/format、确定性 manifest/Schema、旧 evidence 17 文件哈希通过；真实 Compose/DooD fake-model gate `1 passed in 129.12s`，双臂 candidate verification + clean replay 通过，最终 0 container/image/temp。
-  - identity: 当前 manifest canonical SHA-256 为 `1df45a6e0b72f67a914098fc7336eee3bcc8f7b517b132407b88244da10882a3`；实际仍为 0 provider calls、0 model tokens，未读取或输出 AK。
-  - 下一步: 完成扩大回归、敏感信息检查与中文提交；使用 WSL helper 推送并创建中文 PR，CI 合并后在干净主干执行非模型门禁，再启动已授权 v2 真实六配对。
-  - 文件: `scripts/forge_checkpoint_behavioral_pilot_v2_protocol.py`, `scripts/forge_checkpoint_behavioral_pilot_v2_runner.py`, `backend/tests/test_forge_checkpoint_behavioral_pilot_v2.py`, `backend/tests/test_forge_checkpoint_behavioral_pilot_v2_docker.py`, `benchmarks/manifests/cpp-verifier-checkpoint-behavioral-pilot-v2.json`, `benchmarks/preregistrations/cpp-verifier-checkpoint-behavioral-pilot-v2.md`
-
 - 2026-08-15 — 验证 failure checkpoint 三层组合恢复
   - GitHub: 中文 Issue #141 已创建并回读；分支为 `research/141-combined-checkpoint-prototype`，基线为 `main@cd31d8df`。
   - 实现: 新增实验专用 `forge-combined-checkpoint-1.0.0` manifest，把 message、environment、budget 绑定到同一 `capture_id` 与 message state SHA-256；三层全部校验后才发布父 manifest。
@@ -73,6 +63,12 @@
 
 ## 最近变更 (Recent Changes)
 <!-- 倒序，最新在上。 -->
+
+- 2026-08-29 — 完成 checkpoint 行为终态 v2 六配对实验
+  - 文件: `benchmarks/reports/cpp-verifier-checkpoint-behavioral-pilot-v2.md`, `.compile-sessions/benchmark-evidence-checkpoint-behavioral-pilot-v2/`
+  - 动机: 按 Issue #163 选择 A 和 Issue #165 冻结协议，把模型预算内失败保留为 outcome，并避免已观察旧 pair 进入新估计。
+  - 结果: PR #166 三项 CI 全绿并合并为 `main@38165724`；真实 6/6 pair、12/12 arms 全部尝试，0 endpoint censoring、6/6 primary-mechanism eligible、231,944 tokens。Baseline 3/6 repair success，treatment 5/6；配对 delta 为 `[0, 1, 0, -1, 1, 1]`，只做描述性机制结论。
+  - 完整性: 50 个 evidence 文件、18/18 Session 终态、0 container/image orphan；pilot report SHA-256 为 `932d47bb9a3ce30f68f86aee660c4ae2ca36b343333f4a77d6dab0a60a8049bd`，inventory SHA-256 为 `95014c1169fe6950c14726a16f43fd45454c10604f3b9f38494bff0b106f88d8`。
 
 - 2026-08-19 — 终结 checkpoint primary canary amendment
   - 文件: `.compile-sessions/benchmark-evidence-checkpoint-primary-canary-amendment/`（Git 忽略的 append-only 本地 evidence）
