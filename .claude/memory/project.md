@@ -5,13 +5,14 @@
 ## 进行中 (In Progress)
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
-- 2026-08-30 — 发布 Issue #206 R2 Make 单配对未执行候选
-  - GitHub: 中文 Issue #206 已创建并回读；分支为 `research/206-make-pair-candidate`，基线为 `main@b8092e6f`。
-  - 实现: 新增紧凑 protocol/generator、read-only runner、manifest、Draft 2020-12 const Schema、预注册与测试；逐字段继承 `hoextdown`，冻结 #202 reference、#204 lifecycle 和 R0 observability 组件哈希。
-  - 候选身份: `opaque-provenance-r2-hoextdown-pair-01`、新 evidence identity `c88f74282424de834be1523c9fd93fa18171c262a05b93f09aebca9359a424a4`；DeepSeek `deepseek-v4-flash`、300 秒/0 retry、单 pair token ceiling 245,000，保持 4/2/2/2 action limits 与 R0 companion。
-  - 授权边界: 只开放 `validate/plan/preflight`；checkpoint、reachability、provider、formal attempt、pair、credential、model、Docker、evidence write 全部机械关闭，model token 授权为 0。Manifest canonical SHA-256 为 `b5b44ed5bd27250932854e0a13beffbbc665f284164147d16521d9bc7766b514`。
-  - 验证: 聚焦 `17 passed`，Make lifecycle/R0/CMake/R1 相邻回归 `99 passed, 1 skipped`；Ruff、format、`py_compile`、CLI、diff 与敏感信息审计通过。下一步为中文提交、WSL helper 推送、中文 PR/CI/合并，合并后只运行纯快照 preflight。
-  - 文件: `scripts/forge_opaque_provenance_make_candidate_protocol.py`, `scripts/forge_opaque_provenance_make_candidate_runner.py`, `backend/tests/test_forge_opaque_provenance_make_candidate.py`, `benchmarks/manifests/cpp-opaque-provenance-r2-make-candidate.json`, `benchmarks/schemas/forge-opaque-provenance-r2-make-candidate.schema.json`, `benchmarks/preregistrations/cpp-opaque-provenance-r2-make-candidate.md`
+- 2026-08-30 — 发布并执行 Issue #208 R2 Make runtime-parity 一次性修订
+  - GitHub: 中文 Issue #208 已创建并回读；分支为 `research/208-make-runtime-amendment`，授权基线为 `main@6f1118db`。
+  - 实现: 新增 Make direct-action validator、#194 R0 observable 版本层、execution protocol/runner、manifest、Draft 2020-12 const Schema、中文预注册与测试；旧 CMake `_run_pair`、production Compiler/Oracle、#202/#204/#206 与历史 evidence 均未修改。
+  - 身份: `hoextdown@1ef9a719`、target/artifact `libhoedown.a`；direct `make/gmake` 必须绑定 effective directory `/workspace/repo`、唯一 target 与 jobs `2`。Manifest canonical SHA-256 为 `113192d509b3c15762f8055cb32fc9364a4a4be6bede1eeed838e540a025224e`。
+  - 授权边界: execution amendment 只允许一次 reachability 与一个 `baseline -> treatment` pair，阶段上限 245,000 recorded tokens；当前尚未调用 provider、未启动 Docker、未创建 evidence 或 marker。
+  - 验证: 聚焦 `19 passed`，Make reference/lifecycle/candidate、CMake runtime-parity、R0 与 R1 execution 相邻回归 `95 passed`；Ruff、format、compileall、CLI validate 与 diff 检查通过。全程 0 provider、0 Docker、0 formal attempt、0 model token、0 evidence write。
+  - 下一步: 完成敏感信息审计、中文提交、WSL helper 推送、中文 PR/CI/合并；合并后从干净主干记录实际网络介质并运行唯一 reachability 与唯一 pair，禁止 retry/replacement/backfill。
+  - 文件: `scripts/forge_opaque_provenance_make_runtime_parity_gate.py`, `scripts/forge_opaque_provenance_make_rejection_observability_gate.py`, `scripts/forge_opaque_provenance_r2_make_execution_protocol.py`, `scripts/forge_opaque_provenance_r2_make_execution_runner.py`, `backend/tests/test_forge_opaque_provenance_make_runtime_parity_gate.py`, `backend/tests/test_forge_opaque_provenance_r2_make_execution.py`, `benchmarks/manifests/cpp-opaque-provenance-r2-make-execution.json`, `benchmarks/schemas/forge-opaque-provenance-r2-make-execution.schema.json`, `benchmarks/preregistrations/cpp-opaque-provenance-r2-make-execution.md`
 
 - 2026-08-15 — 验证 failure checkpoint 三层组合恢复
   - GitHub: 中文 Issue #141 已创建并回读；分支为 `research/141-combined-checkpoint-prototype`，基线为 `main@cd31d8df`。
