@@ -1,0 +1,307 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/WWFXL/Forge-AutoCompiler/benchmarks/schemas/forge-opaque-provenance-openh264-execution.schema.json",
+  "title": "Forge opaque provenance OpenH264 execution amendment",
+  "const": {
+    "$schema": "../schemas/forge-opaque-provenance-openh264-execution.schema.json",
+    "schema_version": "forge-opaque-provenance-openh264-execution-1.0.0",
+    "document_type": "forge_opaque_provenance_openh264_execution_amendment",
+    "authorization": {
+      "issue_url": "https://github.com/WWFXL/Forge-AutoCompiler/issues/226",
+      "checkpoint_creation_authorized": true,
+      "reachability_request_authorized": true,
+      "provider_calls_authorized": true,
+      "formal_attempts_authorized": true,
+      "pair_collection_authorized": true,
+      "credential_read_authorized": true,
+      "model_creation_authorized": true,
+      "docker_execution_authorized": true,
+      "evidence_write_authorized": true,
+      "model_tokens_authorized": 245000
+    },
+    "parent": {
+      "manifest_path": "benchmarks/manifests/cpp-opaque-provenance-openh264-candidate.json",
+      "schema_version": "forge-opaque-provenance-openh264-candidate-1.0.0",
+      "canonical_sha256": "ab29737969549ddf3d309fb2868a0254b8a346842cc1e168d7e475d123f4e0d6",
+      "file_sha256": "ecdf5ad13996c1f7592f421ede5deb6fea00d42f40c7aabb82e0959f6405bb08",
+      "evidence_identity_sha256": "dd777763ab03ec6853c7e36299b78acff3e0383ca8b808f0c59b51744669b683",
+      "authorization_baseline_commit": "185fcbed4e7ad01f6eae6cb247304601f480f83f",
+      "release_revision_policy": "descendant-compatible"
+    },
+    "case": {
+      "case_id": "openh264-opaque-provenance-r4-make",
+      "repository_url": "https://github.com/cisco/openh264",
+      "commit_sha": "4a2615fac570c6ca1ed4f157b9fdab9466edfd80",
+      "build_system": "make",
+      "build_directory": "/workspace/repo",
+      "target": "libopenh264.a",
+      "build_output": "libopenh264.a",
+      "staged_artifact": "libopenh264.a",
+      "artifact_type": "static_library",
+      "required_system_packages": [
+        "build-essential",
+        "nasm"
+      ],
+      "bootstrap_commands": [],
+      "configure_arguments": [],
+      "compile_image": "forge-openh264-execution:issue226-v1",
+      "source_subdir": ".",
+      "reference_case_id": "openh264-opaque-provenance-r4-make"
+    },
+    "provider": {
+      "status": "active_authorized",
+      "id": "deepseek-v4-flash",
+      "endpoint": "https://api.deepseek.com",
+      "credential_env": "DEEPSEEK_API_KEY",
+      "model": "deepseek-v4-flash",
+      "request_timeout_seconds": 300,
+      "max_retries": 0,
+      "fallback": "forbidden",
+      "streaming": false
+    },
+    "checkpoint": {
+      "source_gate": "issue-224-openh264-lifecycle-zero-provider",
+      "creation_timing": "after_reachability_before_arm_continuation",
+      "capture_point": "after-neutral-tool-message-before-continuation",
+      "identity_materialized_during_pair": true,
+      "arm_state_matching": [
+        "message",
+        "environment",
+        "budget"
+      ],
+      "preexisting_checkpoint_reuse_forbidden": true
+    },
+    "continuation": {
+      "maximum_requests_per_arm": 8,
+      "maximum_model_turns_per_arm": 8,
+      "maximum_graph_steps_per_arm": 24,
+      "work_wall_clock_seconds_per_arm": 600,
+      "cleanup_reserve_seconds_per_arm": 120,
+      "maximum_recorded_tokens_per_arm": 120000
+    },
+    "schedule": [
+      {
+        "pair_id": "opaque-provenance-openh264-pair-01",
+        "order": 1,
+        "case_id": "openh264-opaque-provenance-r4-make",
+        "arm_order": [
+          "baseline",
+          "treatment"
+        ],
+        "state_matched": true,
+        "treatment_exposure_only": "repair_packet",
+        "shared_measurement_policy": "openh264_bounded_make_with_r0_observability_v1"
+      }
+    ],
+    "schedule_sha256": "7662f3c45d9d6c73c70b1673577eb3c70ad02a09b41858819f07f879dfc2d01d",
+    "repair_packet": {
+      "schema_version": "forge-opaque-provenance-repair-packet-1.0.0",
+      "primary_classification": "build_system_unproven",
+      "mechanism_classification": "opaque_build_provenance",
+      "expected_build_system": "make",
+      "selected_build_system": "make",
+      "build_directory": "/workspace/repo",
+      "target": "libopenh264.a",
+      "proof_status": "opaque_wrapper",
+      "repair_goal": "Execute and record a trusted build-system invocation bound to the frozen directory and target, then submit again."
+    },
+    "budget": {
+      "maximum_reachability_requests": 1,
+      "reachability_maximum_recorded_tokens": 5000,
+      "recorded_tokens_per_arm": 120000,
+      "recorded_tokens_per_pair": 240000,
+      "stage_maximum_recorded_tokens": 245000,
+      "enforcement": "after_reachability_and_each_arm_before_continuation"
+    },
+    "runtime_parity": {
+      "action_limits": {
+        "inspection": 4,
+        "repair_build": 2,
+        "artifact_stage": 2,
+        "submit": 2
+      },
+      "atomic_budget_claim": true,
+      "parallel_tool_calls": false,
+      "shared_tool_contract_identical": true,
+      "treatment_exposure_only": "repair_packet",
+      "action_surface": {
+        "direct_executables": [
+          "make",
+          "gmake"
+        ],
+        "build_directory": "/workspace/repo",
+        "target": "libopenh264.a",
+        "jobs": {
+          "omitted_allowed": true,
+          "minimum": 1,
+          "maximum": 2
+        },
+        "artifact_stage": {
+          "source": "/workspace/repo/libopenh264.a",
+          "destination": "/artifacts/libopenh264.a",
+          "separate_from_build": true
+        }
+      },
+      "candidate_verification_required": true,
+      "clean_replay_required": true,
+      "cleanup_required": true,
+      "forbidden_actions": [
+        "clone",
+        "configure",
+        "dependency",
+        "housekeeping",
+        "manual_replay",
+        "compound_build_stage"
+      ]
+    },
+    "r0_observability": {
+      "schema_version": "forge-opaque-provenance-rejection-observability-gate-1.0.0",
+      "legacy_failure_event": "agent.tool_failed",
+      "legacy_failure_schema_preserved": true,
+      "companion_event": "agent.tool_rejection_observed",
+      "companion_required_for_classified_rejection": true,
+      "failure_link_field": "failure_id",
+      "atomic_fields": [
+        "rejection_classification",
+        "action_kind",
+        "model_request_id",
+        "tool_ordinal",
+        "command_sha256"
+      ],
+      "raw_command_error_model_text_and_credentials_forbidden": true,
+      "frozen_components": {
+        "scripts/forge_opaque_provenance_rejection_observability_gate.py": "695c6188acf92f4e34dcbaf4c6f049ca4b024e9bdd1eb91085c0c8d5d0ace158",
+        "backend/tests/test_forge_opaque_provenance_rejection_observability_gate.py": "436099e045138ac05d8c53e81d2a8b2a821f1e44213bbcd540e39d1d6e531f2c"
+      }
+    },
+    "dependency_fixture": {
+      "base_image": "autocompiler:gcc13",
+      "derived_image_persisted": false,
+      "nasm_package": {
+        "version": "2.16.01-1build1",
+        "architecture": "amd64",
+        "url": "https://mirrors.ustc.edu.cn/ubuntu/pool/universe/n/nasm/nasm_2.16.01-1build1_amd64.deb",
+        "sha256": "22eede0f2dd62343b0298182f62f7485704fe02f166395b02c92a8883377e0b3",
+        "download_timeout_seconds": 60
+      },
+      "apt_index_download_forbidden": true,
+      "compile_image": "forge-openh264-execution:issue226-v1",
+      "preparation_container_name": "forge-openh264-issue226-image-prep",
+      "docker_label": "forge.opaque_provenance.issue226",
+      "prepare_once": true,
+      "cleanup_required": true
+    },
+    "evidence": {
+      "schema_version": "forge-opaque-provenance-openh264-execution-evidence-1.0.0",
+      "directory": "/workspace/.compile-sessions/benchmark-evidence-opaque-provenance-openh264-execution-v1",
+      "checkpoint_manifest": "checkpoints/opaque-provenance-openh264-pair-01/checkpoint.json",
+      "parent_ledger": "checkpoints/opaque-provenance-openh264-pair-01/parent/events.jsonl",
+      "pair_ledger": "pairs/opaque-provenance-openh264-pair-01/events.jsonl",
+      "arm_ledger_directory": "pairs/opaque-provenance-openh264-pair-01/arms",
+      "reachability_marker": "markers/reachability.json",
+      "dependency_fixture_marker": "markers/dependency-fixture.json",
+      "pair_marker": "markers/pair.json",
+      "reachability_report": "reports/reachability.json",
+      "dependency_fixture_report": "reports/dependency-fixture.json",
+      "dependency_fixture_cleanup_report": "reports/dependency-fixture-cleanup.json",
+      "canary_report": "reports/canary.json",
+      "append_only": true,
+      "status": "authorized_not_created",
+      "zero_provider_preflight_writes_evidence": false,
+      "identity_sha256": "035d45828ebd112e4f0bd44678e654a8cddcf2c69f92d4d18f358103c1142243"
+    },
+    "execution": {
+      "release_branch": "main",
+      "network_access_medium_env": "FORGE_NETWORK_ACCESS_MEDIUM",
+      "reachability_prompt": "Reply with exactly CANARY_OK and nothing else.",
+      "reachability_expected_response": "CANARY_OK",
+      "reachability_report": "reports/reachability.json",
+      "pair_marker": "markers/pair.json",
+      "parent_ledger": "checkpoints/opaque-provenance-openh264-pair-01/parent/events.jsonl",
+      "arm_ledger_directory": "pairs/opaque-provenance-openh264-pair-01/arms",
+      "report_schema_version": "forge-opaque-provenance-openh264-report-1.0.0",
+      "report_document_type": "forge_opaque_provenance_openh264_report"
+    },
+    "stopping": {
+      "reachability_failure_stops_before_pair": true,
+      "identity_evidence_budget_cleanup_or_unclassified_failure_stops": true,
+      "retry_replacement_backfill_or_extension_forbidden": true,
+      "classified_arm_outcome_continues_other_arm": true,
+      "endpoint_timeout_censors_arm_and_continues": true
+    },
+    "opportunities": {
+      "maximum_reachability_requests": 1,
+      "maximum_pairs": 1,
+      "required_order": [
+        "reachability",
+        "opaque-provenance-openh264-pair-01"
+      ],
+      "marker_consumed_on_start": true,
+      "retry_replacement_backfill_forbidden": true,
+      "schedule_extension_forbidden": true
+    },
+    "analysis": {
+      "unit_of_analysis": "single_state_matched_make_pair",
+      "primary_outcome": "paired_post_checkpoint_p2_conversion_with_candidate_and_clean_replay",
+      "descriptive_only": true,
+      "treatment_effect_estimated": false,
+      "historical_pairs_pooled": false,
+      "model_ranking_performed": false,
+      "purpose": "independent_openh264_make_conversion_replication",
+      "p_value_computed": false
+    },
+    "preflight": {
+      "release_branch": "main",
+      "require_clean_worktree": true,
+      "require_head_equals_origin_main": true,
+      "require_authorization_baseline_ancestor": true,
+      "docker_provider": "ubuntu-native",
+      "docker_context": "default",
+      "docker_endpoint": "/var/run/docker.sock",
+      "control_plane": "compose-dood-on-ubuntu-native-engine",
+      "allowed_network_media": [
+        "wired",
+        "wifi",
+        "mobile_hotspot"
+      ],
+      "require_empty_evidence_directory": true,
+      "managed_container_prefixes": [
+        "deerflow-compile-",
+        "deerflow-replay-"
+      ],
+      "require_zero_managed_orphans": true,
+      "authorization_baseline_commit": "185fcbed4e7ad01f6eae6cb247304601f480f83f",
+      "require_empty_dependency_fixture": true,
+      "require_full_agent_construction_gate": true
+    },
+    "preregistration": {
+      "path": "benchmarks/preregistrations/cpp-opaque-provenance-openh264-execution.md",
+      "file_sha256": "2ef7d9a84868f7cb2eccf01eefeda35e4b0b87140168649f245e4d9947daced6"
+    },
+    "runtime_adapter": {
+      "path": "scripts/forge_opaque_provenance_openh264_execution_runner.py",
+      "file_sha256": "bce38c6ce0302a910bd5b0c1518d77b38d4a091e14fb58c975796c1d0a4223e3",
+      "derived_from_path": "scripts/forge_opaque_provenance_r3_make_execution_runner.py",
+      "derived_from_sha256": "5e955e79a15b00cd97726d1254d9716f5f8f18225c2149078f51a2adba420955",
+      "commands": [
+        "validate",
+        "preflight",
+        "reachability",
+        "pair"
+      ],
+      "corrected_runtime_bindings_required": true,
+      "dependency_fixture_cleanup_required": true
+    },
+    "frozen_parent_components": {
+      "benchmarks/manifests/cpp-opaque-provenance-openh264-candidate.json": "ecdf5ad13996c1f7592f421ede5deb6fea00d42f40c7aabb82e0959f6405bb08",
+      "benchmarks/schemas/forge-opaque-provenance-openh264-candidate.schema.json": "65a685aa330d45df7c78dffe7fe4797dcce6c0803e34ad206fea56468208ad14",
+      "benchmarks/preregistrations/cpp-opaque-provenance-openh264-candidate.md": "51c1f34f7e6a194ca8e60d95ee9f70233b9a9ddf0dbe5ff3cfa9b26511b95255",
+      "scripts/forge_opaque_provenance_openh264_candidate_gate.py": "5963e3af5b4630022720a889956e63af65f29f325498e99bfb2036d97f3b379c",
+      "backend/tests/test_forge_opaque_provenance_openh264_candidate.py": "6deba2741b1b3e7dba4aeb5c5694af9807734ce6674a05090d09928aad808a7f",
+      "backend/tests/test_forge_opaque_provenance_openh264_candidate_docker.py": "2afe2aa3a49c94ecb16a6ee42aeb4a49a2b87f0f3d01096d300e84f023a48f75",
+      "scripts/forge_opaque_provenance_r3_make_execution_runner.py": "5e955e79a15b00cd97726d1254d9716f5f8f18225c2149078f51a2adba420955",
+      "scripts/forge_opaque_provenance_r3_make_execution_failure_gate.py": "cd36955c5256fa4376d0b5a4b60c139352ec2f8beb59c9b88741ad681b5bdb06",
+      "benchmarks/manifests/cpp-opaque-provenance-r3-make-execution.json": "2a435b7846d510776d4364deb92846f4e6a142fb0e8a822d0634c9fc0a3de76f"
+    }
+  }
+}

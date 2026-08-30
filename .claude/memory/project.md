@@ -5,6 +5,14 @@
 ## 进行中 (In Progress)
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
+- 2026-08-31 — 发布并执行 Issue #226 OpenH264 provenance 单配对 amendment
+  - GitHub: 中文 Issue #226 已创建并回读；分支为 `research/issue-226-openh264-execution`，基线为 `main@185fcbed4e7ad01f6eae6cb247304601f480f83f`。
+  - 实现: 新 execution protocol/manifest/const Schema 与 528 行薄 wrapper 注入 #224 OpenH264 lifecycle、#220 正确 parity/observability bindings、pre-model fail-closed classifier 和独立 evidence identity，不复制冻结 #218 `_run_pair` 控制流。Manifest canonical SHA-256 为 `536f6688f8c6289e2e4bd3a46ebd95fab7dc7dbdedf728e88d937cb171bb0cfc`。
+  - Fixture: 固定 `nasm 2.16.01-1build1 amd64` URL/SHA-256，以精确命名 prep container 执行 `docker cp`、`dpkg --install` 和 Docker 29 `commit --no-pause`；禁止 apt index 与 `docker build`，pair 结束或失败后删除 container、tag 和真实 image ID，并独立记录 cleanup report。
+  - 验证: 聚焦 `9 passed`、Make/R3/OpenH264 相邻回归 `107 passed`，全量 Ruff/format、pycompile、CLI、Schema、diff 和敏感信息扫描通过。后端全量为 `2453 passed, 50 skipped, 1 failed`；唯一失败是已知 #182 空 evidence 旧断言，真实 #184 evidence 已存在，不得删除冻结 evidence 规避。
+  - 边界: 当前仍为 0 provider、0 credential read、0 Docker、0 formal evidence write、0 model token。下一步是中文提交、WSL helper 推送、中文 PR/CI/合并；合并后在干净主干执行唯一 preflight、reachability 和一个 `baseline -> treatment` pair，禁止 retry/replacement/backfill、历史池化、p 值和模型排名。
+  - 文件: `scripts/forge_opaque_provenance_openh264_execution_protocol.py`, `scripts/forge_opaque_provenance_openh264_execution_runner.py`, `backend/tests/test_forge_opaque_provenance_openh264_execution.py`, `benchmarks/manifests/cpp-opaque-provenance-openh264-execution.json`, `benchmarks/schemas/forge-opaque-provenance-openh264-execution.schema.json`, `benchmarks/preregistrations/cpp-opaque-provenance-openh264-execution.md`
+
 - 2026-08-15 — 验证 failure checkpoint 三层组合恢复
   - GitHub: 中文 Issue #141 已创建并回读；分支为 `research/141-combined-checkpoint-prototype`，基线为 `main@cd31d8df`。
   - 实现: 新增实验专用 `forge-combined-checkpoint-1.0.0` manifest，把 message、environment、budget 绑定到同一 `capture_id` 与 message state SHA-256；三层全部校验后才发布父 manifest。
