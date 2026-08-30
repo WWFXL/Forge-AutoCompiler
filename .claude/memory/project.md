@@ -64,6 +64,15 @@
 ## 最近变更 (Recent Changes)
 <!-- 倒序，最新在上。 -->
 
+- 2026-08-30 — 完成 Issue #198 R1 yyjson 独立 checkpoint 真实 Docker 零 provider 门禁
+  - 文件: `scripts/forge_opaque_provenance_r1_checkpoint_gate.py`, `backend/tests/test_forge_opaque_provenance_r1_checkpoint_gate.py`, `backend/tests/test_forge_opaque_provenance_r1_checkpoint_gate_docker.py`, `benchmarks/preregistrations/cpp-opaque-provenance-r1-checkpoint-zero-provider-gate.md`
+  - 实现: 新 adapter 逐字段继承 #196 yyjson identity，使用可 replay 但不证明 CMake identity 的 opaque `sh -c` parent；静态合同同时冻结 repair packet、P2 append-only future treatment 和 #194 R0 companion observability。
+  - 真实门禁: Ubuntu-native Docker gate `1 passed in 64.56s`；真实 `libyyjson.a` static archive 只因 `build_system_unproven / opaque_wrapper` 失败，bound submit 后 post-build fence 三字段释放，candidate failed、replay not_run；message/environment/budget 双臂 canonical 同源，repair packet 是唯一 treatment exposure。
+  - Cleanup: parent/双臂 Compile Session、checkpoint helper、continuation image 和 snapshot 全部清理；capture label、`deerflow-compile-*`、`deerflow-replay-*` 与 continuation image 均为 0 orphan，#196 candidate evidence 目录仍不存在。
+  - 验证: 静态聚焦 `11 passed`，R1/R0/runtime-parity/real-lifecycle 相邻回归 `70 passed`；Ruff、format、语法和 diff 通过。固定 0 provider、0 formal attempt、0 model token、0 credential read、0 candidate evidence write。
+  - 踩坑: 首次 gate 的 parent policy 同时要求依赖与 CMake 参数可观察，opaque wrapper 因而额外产生 `dependency_setup_not_observed` 和 configuration 次级分类；cleanup 正常闭合。修复将 ExperimentPolicy 收敛为只隔离 provenance fault，source 参数仍由 candidate 与真实 parent command 冻结，replacement gate 通过。
+  - 下一步: 中文提交、WSL helper 推送、中文 PR/CI/合并；合并后从干净主干重跑静态 gate，不重复真实 Docker gate。随后才能设计一次 reachability + 单 pair execution amendment。
+
 - 2026-08-30 — 冻结 Issue #196 opaque provenance R1 独立 checkpoint 未授权候选
   - 文件: `scripts/forge_opaque_provenance_r1_candidate_protocol.py`, `scripts/forge_opaque_provenance_r1_candidate_runner.py`, `backend/tests/test_forge_opaque_provenance_r1_candidate.py`, `benchmarks/manifests/cpp-opaque-provenance-r1-checkpoint-candidate.json`, `benchmarks/schemas/forge-opaque-provenance-r1-checkpoint-candidate.schema.json`, `benchmarks/preregistrations/cpp-opaque-provenance-r1-checkpoint-candidate.md`
   - Case: 从 result-blind `cpp-formal-v1-cases.json` 逐字段冻结 `yyjson@9365ddc7`、CMake target `yyjson` 与 `libyyjson.a` static-library oracle；repository、commit、target 和 staged artifact 均不同于 #190 `cppitertools` exploratory pair。
