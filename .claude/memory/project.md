@@ -64,12 +64,19 @@
 ## 最近变更 (Recent Changes)
 <!-- 倒序，最新在上。 -->
 
+- 2026-08-30 — 完成 Issue #218 R3 Make 单配对 execution amendment 本地门禁
+  - 文件: `scripts/forge_opaque_provenance_r3_make_execution_protocol.py`, `scripts/forge_opaque_provenance_r3_make_execution_runner.py`, `backend/tests/test_forge_opaque_provenance_r3_make_execution.py`, `benchmarks/manifests/cpp-opaque-provenance-r3-make-execution.json`, `benchmarks/schemas/forge-opaque-provenance-r3-make-execution.schema.json`, `benchmarks/preregistrations/cpp-opaque-provenance-r3-make-execution.md`
+  - 协议: 授权 DeepSeek `deepseek-v4-flash` 一次 reachability 与成功后的一个 baseline→treatment pair；300 秒、0 retry、每臂最多 8 requests/8 turns/24 graph steps/120,000 recorded tokens，阶段上限 245,000，禁止 replacement/backfill/extension。
+  - Runner: 从冻结 #208 runner 做版本化机械派生，只替换 protocol、R3 action/R0 adapter、输出目录、marker/ledger/checkpoint/report identity，并同时记录 R3 experiment case ID 与底层 P2 reference case ID；差异归一化后与父 runner 字节相等。
+  - 验证: canonical manifest SHA-256 为 `e2335b9e180ff539752dbb6b9d049da561980b0af7a64a193b49ab423913e86f`；聚焦 `8 passed`、Make/R0/R3 相邻 `117 passed, 3 skipped`，Ruff check/format、pycompile、CLI、Schema、diff、冻结哈希与敏感信息扫描通过。
+  - 边界: 当前仍为 0 provider、0 formal attempt、0 model token、0 evidence write，正式与 candidate evidence 目录均不存在；中文 Issue #218 已创建并回读。待提交/PR/CI/合并后运行零 provider preflight，再按 marker 顺序执行唯一 reachability 与 pair。
+
 - 2026-08-30 — 完成 Issue #216 R3 Make 单配对未执行候选与零 provider runtime 门禁
   - 文件: `scripts/forge_opaque_provenance_r3_make_candidate_protocol.py`, `scripts/forge_opaque_provenance_r3_make_candidate_runner.py`, `backend/tests/test_forge_opaque_provenance_r3_make_candidate.py`, `benchmarks/manifests/cpp-opaque-provenance-r3-make-candidate.json`, `benchmarks/schemas/forge-opaque-provenance-r3-make-candidate.schema.json`, `benchmarks/preregistrations/cpp-opaque-provenance-r3-make-candidate.md`
   - 实现: 从冻结 #208 R2 identity 派生全新 R3 candidate，保持 hoextdown case、九字段 repair packet、baseline→treatment、state matching 与 245,000 token ceiling，但关闭 checkpoint/provider/credential/Docker/pair/evidence 等全部执行授权；repair packet 仍是唯一 treatment exposure。
   - Runtime: 同一 adapter 接受 jobs 省略、`-j1` 与 `--jobs=2`，拒绝无界、0 和超过 2 并保留独立 R0 分类；只提供 validate/plan/只读 Git preflight，三个 execute 入口均 fail-closed。
   - 验证: canonical manifest SHA-256 为 `e45c9a5cfbba70d30ee2c82a68631a3430ea3e66748d808888660cae5c105d7b`，evidence identity 为 `17bf1a758d953f4e0c579039c97c8a3e669caf92ca720f93b3edfe29116c9890`；聚焦 `6 passed`、Make/R0/R3 相邻 `109 passed, 3 skipped`，Ruff check/format、py_compile、CLI 与敏感信息扫描通过。
-  - 边界: 0 provider、0 credential read、0 Docker、0 checkpoint、0 formal attempt、0 model token、0 evidence write；中文 Issue #216 已创建并回读，待提交、PR/CI 与合并。合并后才运行 release preflight，另建 amendment 前仍不授权模型。
+  - 边界: 0 provider、0 credential read、0 Docker、0 checkpoint、0 formal attempt、0 model token、0 evidence write；中文 Issue #216 / PR #217 已合并为 `main@4190ad433bf015e93b68fdefc4eb8de8b11c25a2`。合并后 release preflight 通过：工作区干净、9 个父组件哈希一致、evidence 0 条且 checkpoint 为 `not_created`。
 
 - 2026-08-30 — 完成 Issue #214 R3 Make jobs 真实 lifecycle 本地门禁
   - 文件: `scripts/forge_opaque_provenance_r3_make_lifecycle_gate.py`, `backend/tests/test_forge_opaque_provenance_r3_make_lifecycle_gate.py`, `backend/tests/test_forge_opaque_provenance_r3_make_lifecycle_gate_docker.py`, `benchmarks/preregistrations/cpp-opaque-provenance-r3-make-lifecycle-zero-provider-gate.md`
