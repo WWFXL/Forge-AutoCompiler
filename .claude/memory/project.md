@@ -64,6 +64,16 @@
 ## 最近变更 (Recent Changes)
 <!-- 倒序，最新在上。 -->
 
+- 2026-08-30 — 实现 Issue #190 runtime-parity 一次性 execution amendment
+  - GitHub: 中文 Issue #190 已创建并回读；分支为 `research/190-opaque-provenance-runtime-parity-execution`，基线为 `main@1ba74646`。
+  - 授权: 唯一 DeepSeek reachability 通过后才执行一个新 `baseline -> treatment` pair；阶段机械上限 245,000 recorded tokens，禁止 retry、replacement、backfill 和追加 pair。
+  - 实现: 新 execution manifest/Schema/preregistration/runner 复用 #184 生命周期；独立进程内把 controlled-parent submit 接到 production `_submit_with_post_build_phase`，把 continuation 接到 #186 `RuntimeParityToolAdapter + SerialToolCallMiddleware`，退出时恢复全部模块引用。
+  - 边界: #188 候选和 #184 evidence 不修改；新报告记录每臂 4/2/2/2 原子动作预算、P2、candidate/replay、cleanup 与 `historical_pair_replacement=false`，AK 仅允许从既有 env 读取且不得落盘。
+  - 验证: final manifest canonical SHA-256 为 `3710bd3ace9fdc57d52b3018542c01871703c9965e48ede0be436d178ae784aa`；聚焦 `8 passed`，路线 P 相邻 `63 passed, 1 deselected`，Ubuntu-native Docker gate `1 passed in 35.73s`，Ruff、format、语法、CLI 与 diff 检查通过；固定 0 provider/attempt/token。
+  - 踩坑: 首次 Docker 调用误用通用 `FORGE_RUN_DOCKER_TESTS`，测试仅 skip、未执行容器；读取文件后改用唯一声明的 `FORGE_RUN_OPAQUE_RUNTIME_PARITY_DOCKER=1`，不再调试包装命令。
+  - 下一步: 中文提交、WSL helper 推送、PR/CI/合并；合并后重新做 0-provider preflight，再按 marker 顺序执行唯一 reachability 与 pair并冻结终态。
+  - 文件: `scripts/forge_opaque_provenance_runtime_parity_execution_protocol.py`, `scripts/forge_opaque_provenance_runtime_parity_execution_runner.py`, `backend/tests/test_forge_opaque_provenance_runtime_parity_execution.py`, `benchmarks/manifests/cpp-opaque-provenance-runtime-parity-execution.json`, `benchmarks/schemas/forge-opaque-provenance-runtime-parity-execution.schema.json`, `benchmarks/preregistrations/cpp-opaque-provenance-runtime-parity-execution.md`
+
 - 2026-08-30 — 冻结 Issue #188 runtime-parity provider amendment 候选
   - GitHub: 中文 Issue #188 已创建并回读；分支为 `research/188-opaque-provenance-provider-amendment-candidate`，基线为 `main@ad6e7c11`。
   - 实现: 从 #184 execution identity 派生独立的新 pair/evidence identity；两臂共享 #186 的 4/2/2/2 原子分项预算、冻结 build directory/target 与 `parallel_tool_calls=False`，treatment 唯一 exposure 仍为 repair packet。
