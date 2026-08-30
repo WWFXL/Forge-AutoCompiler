@@ -5,14 +5,14 @@
 ## 进行中 (In Progress)
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
-- 2026-08-30 — 发布并执行 Issue #208 R2 Make runtime-parity 一次性修订
-  - GitHub: 中文 Issue #208 已创建并回读；分支为 `research/208-make-runtime-amendment`，授权基线为 `main@6f1118db`。
-  - 实现: 新增 Make direct-action validator、#194 R0 observable 版本层、execution protocol/runner、manifest、Draft 2020-12 const Schema、中文预注册与测试；旧 CMake `_run_pair`、production Compiler/Oracle、#202/#204/#206 与历史 evidence 均未修改。
-  - 身份: `hoextdown@1ef9a719`、target/artifact `libhoedown.a`；direct `make/gmake` 必须绑定 effective directory `/workspace/repo`、唯一 target 与 jobs `2`。Manifest canonical SHA-256 为 `113192d509b3c15762f8055cb32fc9364a4a4be6bede1eeed838e540a025224e`。
-  - 授权边界: execution amendment 只允许一次 reachability 与一个 `baseline -> treatment` pair，阶段上限 245,000 recorded tokens；当前尚未调用 provider、未启动 Docker、未创建 evidence 或 marker。
-  - 验证: 聚焦 `19 passed`，Make reference/lifecycle/candidate、CMake runtime-parity、R0 与 R1 execution 相邻回归 `95 passed`；Ruff、format、compileall、CLI validate 与 diff 检查通过。全程 0 provider、0 Docker、0 formal attempt、0 model token、0 evidence write。
-  - 下一步: 完成敏感信息审计、中文提交、WSL helper 推送、中文 PR/CI/合并；合并后从干净主干记录实际网络介质并运行唯一 reachability 与唯一 pair，禁止 retry/replacement/backfill。
-  - 文件: `scripts/forge_opaque_provenance_make_runtime_parity_gate.py`, `scripts/forge_opaque_provenance_make_rejection_observability_gate.py`, `scripts/forge_opaque_provenance_r2_make_execution_protocol.py`, `scripts/forge_opaque_provenance_r2_make_execution_runner.py`, `backend/tests/test_forge_opaque_provenance_make_runtime_parity_gate.py`, `backend/tests/test_forge_opaque_provenance_r2_make_execution.py`, `benchmarks/manifests/cpp-opaque-provenance-r2-make-execution.json`, `benchmarks/schemas/forge-opaque-provenance-r2-make-execution.schema.json`, `benchmarks/preregistrations/cpp-opaque-provenance-r2-make-execution.md`
+- 2026-08-30 — 发布 Issue #210 R2 Make 结果审计 sidecar
+  - GitHub: 中文 Issue #210 已创建并回读；分支为 `research/210-r2-make-result-audit`，基线为 `main@00726aef`。
+  - 缺口: #208 原 canary report 在 endpoint timeout / graph-step limit 终态丢失 action-budget 与 R0 汇总，但 parent/baseline/treatment ledger hash chain 完整且原文件不可修改。
+  - 实现: 新增 result-specific 只读 audit，冻结 canary、marker 和三条 ledger SHA-256；恢复 baseline action 全 0、treatment inspection=4 及 R0 5/5 companion，并用 create-once 写入独立 `reports/audit-v1.json`。
+  - 结论: paired primary estimand 固定为 `not_estimable / baseline_endpoint_censored`；treatment 只描述为 `observed_no_conversion`，禁止池化、p 值、模型排名或重跑。
+  - 验证: 聚焦 `5 passed`，#208/#210/R0 相邻回归 `33 passed`；真实 evidence 的只读 audit、Ruff、format 和 compileall 通过，0 provider、0 Docker、0 formal attempt、0 model token。
+  - 下一步: 中文提交、WSL helper 推送、中文 PR/CI/合并；合并后只执行一次 `write-sidecar` 并回读哈希，不修改原 canary/marker/ledger。
+  - 文件: `scripts/forge_opaque_provenance_r2_make_result_audit.py`, `backend/tests/test_forge_opaque_provenance_r2_make_result_audit.py`
 
 - 2026-08-15 — 验证 failure checkpoint 三层组合恢复
   - GitHub: 中文 Issue #141 已创建并回读；分支为 `research/141-combined-checkpoint-prototype`，基线为 `main@cd31d8df`。
@@ -72,6 +72,14 @@
 
 ## 最近变更 (Recent Changes)
 <!-- 倒序，最新在上。 -->
+
+- 2026-08-30 — 完成 Issue #208 R2 Make runtime-parity 一次性执行
+  - 文件: `scripts/forge_opaque_provenance_make_runtime_parity_gate.py`, `scripts/forge_opaque_provenance_make_rejection_observability_gate.py`, `scripts/forge_opaque_provenance_r2_make_execution_protocol.py`, `scripts/forge_opaque_provenance_r2_make_execution_runner.py`, `benchmarks/manifests/cpp-opaque-provenance-r2-make-execution.json`
+  - 发布: 中文 Issue #208 / PR #209 已完成，三项 CI 全绿后 squash 合并为 `main@00726aef99e331a1d2719cb26986fa15e90fe547`；manifest canonical SHA-256 为 `113192d509b3c15762f8055cb32fc9364a4a4be6bede1eeed838e540a025224e`。
+  - Reachability: Wi-Fi、DeepSeek `deepseek-v4-flash`，1 request / 17 tokens / 1.481 秒通过，实际模型匹配，0 retry、无 fallback。
+  - Pair: baseline 首次请求在 300 秒后 endpoint-censored，0 tokens/submit/replay、P2 unproven；treatment 8 requests / 38,780 tokens 后达到 graph-step limit，0 submit/replay、P2 仍 `unproven/opaque_wrapper`。总计 38,797 tokens。
+  - 完整性: pair marker passed、结构上双臂完整、cleanup 成功，0 compile/replay orphan；parent/baseline/treatment ledger 为 7/7/44 events 且 hash chain 通过。Treatment 有 5 个 classified rejection 与 5 个 R0 companion。
+  - 边界: baseline censoring 使 paired primary estimand 不可估计；treatment 是有效的 no-conversion 描述结果。禁止 retry、replacement、backfill、历史池化、p 值或模型排名。原 report 汇总 null 缺口由 Issue #210 只读 sidecar 跟踪。
 
 - 2026-08-30 — 完成 Issue #204 R2 Make provenance 真实 lifecycle 零 provider 门禁
   - 文件: `scripts/forge_opaque_provenance_make_lifecycle_gate.py`, `backend/tests/test_forge_opaque_provenance_make_lifecycle_gate.py`, `backend/tests/test_forge_opaque_provenance_make_lifecycle_gate_docker.py`, `benchmarks/preregistrations/cpp-opaque-provenance-make-lifecycle-zero-provider-gate.md`
