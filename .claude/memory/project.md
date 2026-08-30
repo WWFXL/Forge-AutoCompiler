@@ -64,6 +64,13 @@
 ## 最近变更 (Recent Changes)
 <!-- 倒序，最新在上。 -->
 
+- 2026-08-31 — 完成 Issue #224 OpenH264 独立 Make candidate 与真实 lifecycle 门禁
+  - 文件: `scripts/forge_opaque_provenance_openh264_candidate_gate.py`, `backend/tests/test_forge_opaque_provenance_openh264_candidate.py`, `backend/tests/test_forge_opaque_provenance_openh264_candidate_docker.py`, `benchmarks/manifests/cpp-opaque-provenance-openh264-candidate.json`, `benchmarks/schemas/forge-opaque-provenance-openh264-candidate.schema.json`, `benchmarks/preregistrations/cpp-opaque-provenance-openh264-candidate.md`
+  - 选择: result-blind 审计从冻结 source protocol 选定 `openh264@4a2615fac570c6ca1ed4f157b9fdab9466edfd80`；历史真实 ledger/report 匹配均为 0，固定提交无 submodule，根 `Makefile` 与 OSS-Fuzz 都直接构建 `libopenh264.a`。`sql-parser` 因 `.a` 还需 `static=yes`、`lodepng` 因 OSS-Fuzz 绕过 Make 暂不使用。
+  - 实现: 新 candidate 复用 R3 action parser、#220 组合 bindings 与 #222 完整 agent construction；OpenH264 policy 精确允许 direct Make、jobs 省略或 `1..2`、独立 stage，并拒绝无界/超限/target drift。Manifest canonical SHA-256 为 `ab29737969549ddf3d309fb2868a0254b8a346842cc1e168d7e475d123f4e0d6`，全部 provider/checkpoint/pair/evidence write 授权关闭。
+  - lifecycle: 基础 `autocompiler:gcc13` 缺少 `nasm`，opt-in gate 以固定 URL/SHA-256 的 `nasm 2.16.01-1build1` 小包临时派生 image；parent `unproven/opaque_wrapper`、baseline 同源失败、treatment `proven/direct_make`、candidate verification 与 clean replay 全部通过，真实 Docker 为 `1 passed in 412.14s`，后置 compile/replay/continuation/Issue #224 image orphan 均为 0。
+  - 验证: 聚焦 `6 passed`、Make/R3/#220/#222 相邻回归 `88 passed`，Ruff check/format、pycompile、CLI、Schema、diff 与敏感信息扫描通过。全阶段 0 provider、0 credential read、0 formal evidence write、0 model token；未创建 checkpoint 或 behavioral pair。
+
 - 2026-08-30 — 完成 Issue #222 R3 Make 完整 agent construction 零 provider 门禁
   - 文件: `scripts/forge_opaque_provenance_r3_make_agent_construction_gate.py`, `backend/tests/test_forge_opaque_provenance_r3_make_agent_construction_gate.py`
   - 实现: 直接消费 #220 组合 bindings，用项目既有 `BaseChatModel.bind_tools()` fake model 真实构造 `create_agent + ThreadState + InMemorySaver`，接入 R3 adapter、R0 registry、`SerialToolCallMiddleware` 与真实 LLM/tool-error middleware；checkpoint 状态固定为 Human/AI submit/Tool failure 三消息。
@@ -618,6 +625,8 @@
 
 ## 已知问题 (Known Issues / Pitfalls)
 <!-- 工作中踩过的坑、限制或意外行为。 -->
+
+- 真实 Docker gate 不应在测试体内用 `apt-get update` 临时准备单个依赖：本次 OpenH264 gate 在 `mirrors.aliyun.com` 下载完整 index 时耗尽 600 秒，但尚未 clone、build 或进入 lifecycle，不能记为 case 失败。若依赖是单一、架构固定的小包，应在预注册中冻结版本、URL 与 SHA-256，以短 timeout 下载并校验后派生临时 image；parent/arms/replay 共用该 image ID，结束后按 label 和精确 identity 删除。DooD 测试还必须把仓库挂载到与 WSL 宿主相同的 `/mnt/c/...` 绝对路径，并把 `tmp_path` 放在该路径下，不能把测试容器内部 `/tmp` 交给 daemon 当 bind source。
 
 - 版本化 runner 不能把一个候选 runtime 模块同时伪装成 R1 的 `parity` 与 `observability` 接口；静态 adapter 有 `R3ActionPolicy/ObservableRuntimeParityToolAdapter` 不代表它也导出 `FrozenActionPolicy/SerialToolCallMiddleware/RejectionObservationRegistry`。真实执行前必须以零 provider contract test 构造完整 agent 骨架，并把 registry 等可能失败的初始化放入能解除 active experiment 的 `try/finally`；0 model request 的异常必须分类为 mechanism invalid，不能归为 `no_submit`。
 - PowerShell 可能误解析传给 WSL Docker CLI 的 Go template（例如 `{{.Server.Version}}`）或混合单双引号的复杂正则，导致只读 gate 在业务逻辑前被拒绝。跨 PowerShell/WSL gate 使用固定 argv 且不传 template；版本检查直接运行 `docker version`，列表检查使用不需要 format 的 `docker ps -aq` / `docker images -q`；敏感扫描拆成简单单引号模式。
