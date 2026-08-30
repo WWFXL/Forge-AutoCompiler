@@ -5,14 +5,6 @@
 ## 进行中 (In Progress)
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
-- 2026-08-30 — 执行 opaque provenance 最小 provider canary
-  - GitHub: 中文 Issue #184 已创建并回读；分支为 `research/issue-184-opaque-provenance-execution`，基线为 `main@323430f1`。
-  - 实现: 新增一次性 execution amendment、const Schema、runner、预注册和聚焦测试；冻结 DeepSeek `deepseek-v4-flash`、300 秒/0 retry、单次 reachability、成功后唯一 `baseline -> treatment` pair 与 245,000 recorded-token 总上限。
-  - 机制: Parent 使用 #178 opaque wrapper，只允许 production `build_system_unproven` 与 P2 `unproven/opaque_wrapper`；双臂同源，treatment 唯一额外 exposure 是白名单 repair packet，arm outcome 同时核对 production candidate/clean replay 与动态 P2 conversion。
-  - 当前验证: manifest canonical SHA-256 为 `bbb50851419ec8c1e1efb4bc5612cb13e4ab0154df574dc7359009e2fb90529a`；路线 P 相邻静态回归 `77 passed`，Ruff check/format、Schema、CLI 和 `git diff --check` 通过；尚未调用 provider 或 Docker。
-  - 下一步: 中文提交、WSL helper 推送、中文 PR/CI/合并；从干净主干执行 0-provider preflight，随后只运行唯一 reachability，成功才运行单 pair，最后审计 token、ledger、P2、candidate/replay、cleanup 与 orphan。
-  - 文件: `scripts/forge_opaque_provenance_minimal_canary_execution_protocol.py`, `scripts/forge_opaque_provenance_minimal_canary_execution_runner.py`, `backend/tests/test_forge_opaque_provenance_minimal_canary_execution.py`, `benchmarks/manifests/cpp-opaque-provenance-minimal-canary-execution.json`, `benchmarks/schemas/forge-opaque-provenance-minimal-canary-execution.schema.json`, `benchmarks/preregistrations/cpp-opaque-provenance-minimal-canary-execution.md`
-
 - 2026-08-15 — 验证 failure checkpoint 三层组合恢复
   - GitHub: 中文 Issue #141 已创建并回读；分支为 `research/141-combined-checkpoint-prototype`，基线为 `main@cd31d8df`。
   - 实现: 新增实验专用 `forge-combined-checkpoint-1.0.0` manifest，把 message、environment、budget 绑定到同一 `capture_id` 与 message state SHA-256；三层全部校验后才发布父 manifest。
@@ -71,6 +63,32 @@
 
 ## 最近变更 (Recent Changes)
 <!-- 倒序，最新在上。 -->
+
+- 2026-08-30 — 完成 Issue #186 opaque provenance runtime-parity 零 provider 门禁
+  - GitHub: 中文 Issue #186 已创建并回读；分支为 `research/186-opaque-provenance-runtime-parity`，基线为 `main@6440838a`。
+  - 实现: 新增 experiment-only 原子分项预算、冻结 CMake repair/stage 白名单和 `SerialToolCallMiddleware`；inspection/build/stage/submit 上限为 4/2/2/2，已有 staged artifact 的 repair build 会在执行前同时预留 automatic submit。
+  - 真实证据: Ubuntu-native Docker gate `1 passed in 36.80s`；真实 bound submit 失败后 fence 三字段释放，bound repair build 自动 submit，candidate/clean replay passed，dynamic P2 转为 `proven/direct_cmake`，0 provider/attempt/token，0 residual container。
+  - 验证: 静态 `8 passed`，编译核心相邻 `159 passed`，路线 P `84 passed, 1 deselected`；Ruff、format、语法、CLI、diff 与敏感信息检查通过。旧 #182 preflight 测试因真实 #184 evidence 已非空而失效，不删除 evidence规避。
+  - 踩坑: 首次 Docker 测试自身使用 `&&` 被预注册 compound-shell 门禁正确拒绝；第二次仅误读不存在的 `VerificationResult.passed`。均只修测试，最终真实 gate 通过。
+  - 下一步: 更新 Obsidian 后完成本地审计和中文提交；推送前按全局约定向用户确认。新的 provider amendment 必须独立设计和授权，不重跑或追加 #184 pair。
+  - 文件: `scripts/forge_opaque_provenance_runtime_parity_gate.py`, `backend/tests/test_forge_opaque_provenance_runtime_parity_gate.py`, `backend/tests/test_forge_opaque_provenance_runtime_parity_gate_docker.py`, `benchmarks/preregistrations/cpp-opaque-provenance-runtime-parity-zero-provider-gate.md`
+
+- 2026-08-30 — 完成 #184 post-build command budget 充分性只读审计
+  - 范围: 只读核对 `bound_compile_tools.py`、#178 真实 Docker gate、#184 runner/ledger 与相邻测试；0 provider、0 Docker、0 formal attempt、0 model token，未读取 credential，未改 production、协议、manifest 或冻结 evidence。
+  - 根因: 正常 `submit_build_result` 失败会经 `_submit_with_post_build_phase` 释放 post-build fence；#178/#184 controlled parent 却直接调用 `submit_build_result_impl`，把仍保留 `post_build_supporting_command_id` 与 `post_build_commands_remaining=2` 的非正常 compiler-facing 状态复制给双臂。Fence 又无条件禁止 `build`，所以 treatment 的 direct CMake repair 从 checkpoint 起即不可执行；单纯把 2 调大不能修复。
+  - 门禁缺口: #178 treatment 通过 `_record_command` 直接调用 runtime，绕过真实 `run_container_bash` policy，因此只证明 Docker candidate/replay lifecycle 可闭合，未证明 Agent repair action 可达。#184 同一模型回合的并行 tool calls 还暴露 admission check 与 budget consume 分离的竞态风险。
+  - 解释: baseline 保持 `endpoint_censored`；treatment 应记为 measurement-policy censoring / intervention-delivery failure，不能记作 repair packet 无效或严格资源约束下的模型失败。本 pair 不提供 treatment-effect 证据。
+  - 下一步: 先做独立 0-provider runtime-parity amendment 候选：失败 submit 后 fence 必须与真实 wrapper 一致地释放；按 inspection/build/stage/submit 分项计量，允许冻结 build-dir/target 上的 bounded repair build，并关闭并行 tool calls。候选通过确定性正负例前不调用 provider、不追加 pair。
+  - 验证: 当前语义聚焦测试 `3 passed`；现有 `langchain-deepseek` 已原生支持 `parallel_tool_calls=False`，无需自实现 provider 协议。
+
+- 2026-08-30 — 完成 opaque provenance 最小 provider canary 并冻结负结果
+  - GitHub: Issue #184 / PR #185 已以 `main@6440838a` 完成，三项 CI 全绿；真实执行结果已用中文回帖 #184。
+  - 执行: DeepSeek `deepseek-v4-flash` reachability 以 1.882 秒、17 tokens 通过；唯一 `baseline -> treatment` pair 使用 37,225 tokens，完整双臂与 cleanup 终态通过。
+  - 结果: Baseline 第 2 次请求 300 秒超时并归为 endpoint censor；treatment 8 次请求后达到 graph-step limit。两臂均 0 submit、0 replay、P2 `unproven/opaque_wrapper`，不估计 treatment effect。
+  - 新发现: Treatment 前两条环境检查耗尽 `post_build_commands=2`；后续诊断与两次 direct CMake build 均为 exit 126、`policy_rejected`。当前应先审计恢复预算充分性，不能把未 conversion 直接解释为 repair packet 无效。
+  - Evidence: 三条 JSONL hash chain 有效，packet 是唯一 exposure，coordinator 为 `cleaned`，managed/checkpoint container/image 为 0；`reports/canary.json` SHA-256 为 `e6ee3e2db68c191e7c4e278071ea14a32e6ef362d82194d07697b0ea24034da0`。
+  - 下一步: 只读、0-provider 审计 post-build command budget 与 graph/request/tool 预算关系；冻结 evidence，禁止 retry、replacement、backfill 或追加 pair。
+  - 文件: `scripts/forge_opaque_provenance_minimal_canary_execution_protocol.py`, `scripts/forge_opaque_provenance_minimal_canary_execution_runner.py`, `backend/tests/test_forge_opaque_provenance_minimal_canary_execution.py`, `benchmarks/manifests/cpp-opaque-provenance-minimal-canary-execution.json`, `benchmarks/schemas/forge-opaque-provenance-minimal-canary-execution.schema.json`, `benchmarks/preregistrations/cpp-opaque-provenance-minimal-canary-execution.md`
 
 - 2026-08-30 — 建立 opaque provenance 最小 canary 授权候选与零 provider 接线门禁
   - 文件: `scripts/forge_opaque_provenance_minimal_canary_authorized_protocol.py`, `scripts/forge_opaque_provenance_minimal_canary_authorized_runner.py`, `benchmarks/manifests/cpp-opaque-provenance-minimal-canary-authorized.json`, `benchmarks/schemas/forge-opaque-provenance-minimal-canary-authorized.schema.json`, `benchmarks/preregistrations/cpp-opaque-provenance-minimal-canary-authorized.md`, `backend/tests/test_forge_opaque_provenance_minimal_canary_authorized.py`
