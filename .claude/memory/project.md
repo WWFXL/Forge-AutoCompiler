@@ -5,6 +5,14 @@
 ## 进行中 (In Progress)
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
+- 2026-08-30 — 执行 R1 yyjson 独立 checkpoint 单配对实验
+  - GitHub: 中文 Issue #200 已创建并回读；分支为 `research/200-r1-yyjson-execution`，基线为 `main@6e0abe14`。
+  - 实现: 新增版本化 execution protocol/runner/manifest/Schema/预注册与测试，冻结一次 DeepSeek reachability、一个 `baseline -> treatment` pair、300 秒/0 retry、245,000 recorded-token ceiling 和 fail-closed marker；不修改 #196/#198 冻结文件或历史 evidence。
+  - R0 接线: continuation 使用 `ObservableRuntimeParityToolAdapter + RejectionObservationRegistry`，从真实 model request identity 关联 tool-call origin；classified runtime-parity rejection 必须产生 `agent.tool_rejection_observed` companion evidence，报告不保存原始命令或模型正文。
+  - 当前验证: canonical manifest SHA-256 为 `bc4149b8f14c5f29ec56d7d70568200d72cfe8a40a56dd49c80ef9ca092dc079`；聚焦 `9 passed`、R1/R0/runtime-parity 相邻回归 `72 passed`，Ruff、format、`py_compile`、Schema、确定性再生成和 diff 通过。
+  - 边界: 当前仍为 0 provider、0 Docker、0 formal attempt、0 model token、0 R1 evidence write；下一步是中文提交、WSL helper 推送、中文 PR/CI/合并，之后才能在干净主干执行 preflight、唯一 reachability 和唯一 pair。
+  - 文件: `scripts/forge_opaque_provenance_r1_execution_protocol.py`, `scripts/forge_opaque_provenance_r1_execution_runner.py`, `backend/tests/test_forge_opaque_provenance_r1_execution.py`, `benchmarks/manifests/cpp-opaque-provenance-r1-execution.json`, `benchmarks/schemas/forge-opaque-provenance-r1-execution.schema.json`, `benchmarks/preregistrations/cpp-opaque-provenance-r1-execution.md`
+
 - 2026-08-15 — 验证 failure checkpoint 三层组合恢复
   - GitHub: 中文 Issue #141 已创建并回读；分支为 `research/141-combined-checkpoint-prototype`，基线为 `main@cd31d8df`。
   - 实现: 新增实验专用 `forge-combined-checkpoint-1.0.0` manifest，把 message、environment、budget 绑定到同一 `capture_id` 与 message state SHA-256；三层全部校验后才发布父 manifest。
