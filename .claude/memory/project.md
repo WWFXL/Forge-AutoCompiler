@@ -5,13 +5,12 @@
 ## 进行中 (In Progress)
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
-- 2026-08-30 — 执行 R1 yyjson 独立 checkpoint 单配对实验
-  - GitHub: 中文 Issue #200 已创建并回读；分支为 `research/200-r1-yyjson-execution`，基线为 `main@6e0abe14`。
-  - 实现: 新增版本化 execution protocol/runner/manifest/Schema/预注册与测试，冻结一次 DeepSeek reachability、一个 `baseline -> treatment` pair、300 秒/0 retry、245,000 recorded-token ceiling 和 fail-closed marker；不修改 #196/#198 冻结文件或历史 evidence。
-  - R0 接线: continuation 使用 `ObservableRuntimeParityToolAdapter + RejectionObservationRegistry`，从真实 model request identity 关联 tool-call origin；classified runtime-parity rejection 必须产生 `agent.tool_rejection_observed` companion evidence，报告不保存原始命令或模型正文。
-  - 当前验证: canonical manifest SHA-256 为 `bc4149b8f14c5f29ec56d7d70568200d72cfe8a40a56dd49c80ef9ca092dc079`；聚焦 `9 passed`、R1/R0/runtime-parity 相邻回归 `72 passed`，Ruff、format、`py_compile`、Schema、确定性再生成和 diff 通过。
-  - 边界: 当前仍为 0 provider、0 Docker、0 formal attempt、0 model token、0 R1 evidence write；下一步是中文提交、WSL helper 推送、中文 PR/CI/合并，之后才能在干净主干执行 preflight、唯一 reachability 和唯一 pair。
-  - 文件: `scripts/forge_opaque_provenance_r1_execution_protocol.py`, `scripts/forge_opaque_provenance_r1_execution_runner.py`, `backend/tests/test_forge_opaque_provenance_r1_execution.py`, `benchmarks/manifests/cpp-opaque-provenance-r1-execution.json`, `benchmarks/schemas/forge-opaque-provenance-r1-execution.schema.json`, `benchmarks/preregistrations/cpp-opaque-provenance-r1-execution.md`
+- 2026-08-30 — 发布 Issue #202 R2 Make provenance reference gate
+  - GitHub: 中文 Issue #202 已创建并回读；分支为 `research/202-make-provenance-reference`，基线为 `main@201b0078`。
+  - 实现: 从 result-blind formal v1 source protocol 冻结 `hoextdown@1ef9a719`、Make target/artifact `libhoedown.a`，新增 experiment-only Make P2 evaluator、聚焦测试和预注册；冻结 CMake evaluator保持逐字不变。
+  - 当前验证: direct `make/gmake` 只在 effective directory、单 target、允许的 jobs 参数和 artifact producer identity 全部一致时转为 `proven/direct_make`；opaque wrapper、变量赋值、额外 target、未知选项、失败 producer 和 identity drift 均 fail closed。聚焦与相邻 CMake lifecycle 静态回归 `69 passed`，Ruff、format、`py_compile`、CLI、diff 与敏感信息审计通过。
+  - 边界: 固定 0 provider、0 credential read、0 Docker、0 checkpoint、0 formal attempt、0 model token、0 evidence write；下一步为中文提交、WSL helper 推送、中文 PR/CI/合并，合并后只运行静态 gate，再设计真实 Make lifecycle 零 provider 门禁。
+  - 文件: `scripts/forge_opaque_provenance_make_reference_gate.py`, `backend/tests/test_forge_opaque_provenance_make_reference_gate.py`, `benchmarks/preregistrations/cpp-opaque-provenance-make-reference-gate.md`
 
 - 2026-08-15 — 验证 failure checkpoint 三层组合恢复
   - GitHub: 中文 Issue #141 已创建并回读；分支为 `research/141-combined-checkpoint-prototype`，基线为 `main@cd31d8df`。
@@ -71,6 +70,13 @@
 
 ## 最近变更 (Recent Changes)
 <!-- 倒序，最新在上。 -->
+
+- 2026-08-30 — 完成 Issue #200 R1 yyjson 独立 checkpoint 单配对实验
+  - 文件: `scripts/forge_opaque_provenance_r1_execution_protocol.py`, `scripts/forge_opaque_provenance_r1_execution_runner.py`, `backend/tests/test_forge_opaque_provenance_r1_execution.py`, `benchmarks/manifests/cpp-opaque-provenance-r1-execution.json`, `benchmarks/schemas/forge-opaque-provenance-r1-execution.schema.json`, `benchmarks/preregistrations/cpp-opaque-provenance-r1-execution.md`
+  - 发布: 中文 Issue #200 / PR #201 已完成，三项 CI 全绿后 squash 合并为 `main@201b00780b2c85751bacc477c6ca1c31a2dec809`；manifest canonical SHA-256 为 `bc4149b8f14c5f29ec56d7d70568200d72cfe8a40a56dd49c80ef9ca092dc079`。
+  - 结果: 唯一 DeepSeek reachability 以 17 tokens、1.582 秒通过；baseline 为 8 requests / 30,753 tokens / 0 submit / P2 unproven，treatment 为 6 requests / 19,555 tokens / 1 submit，candidate 与 clean replay 通过并转为 `proven/direct_cmake`。
+  - 完整性: 总计 50,325 recorded tokens；R0 companion baseline 7/7、treatment 3/3，cleanup 成功，0 container/image orphan，evidence hash chain 和敏感值扫描通过；结果已回帖 Issue #200。
+  - 解释边界: 与 #190 CMake pair 方向一致但不能池化、估计 treatment effect 或排名模型；下一步优先验证跨构建系统的 Make provenance reference criterion。
 
 - 2026-08-30 — 完成 Issue #198 R1 yyjson 独立 checkpoint 真实 Docker 零 provider 门禁
   - 文件: `scripts/forge_opaque_provenance_r1_checkpoint_gate.py`, `backend/tests/test_forge_opaque_provenance_r1_checkpoint_gate.py`, `backend/tests/test_forge_opaque_provenance_r1_checkpoint_gate_docker.py`, `benchmarks/preregistrations/cpp-opaque-provenance-r1-checkpoint-zero-provider-gate.md`
