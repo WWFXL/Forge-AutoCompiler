@@ -64,13 +64,22 @@
 ## 最近变更 (Recent Changes)
 <!-- 倒序，最新在上。 -->
 
+- 2026-08-30 — 冻结 Issue #188 runtime-parity provider amendment 候选
+  - GitHub: 中文 Issue #188 已创建并回读；分支为 `research/188-opaque-provenance-provider-amendment-candidate`，基线为 `main@ad6e7c11`。
+  - 实现: 从 #184 execution identity 派生独立的新 pair/evidence identity；两臂共享 #186 的 4/2/2/2 原子分项预算、冻结 build directory/target 与 `parallel_tool_calls=False`，treatment 唯一 exposure 仍为 repair packet。
+  - 历史边界: #184 canary report SHA-256 固定为 `e6ee3e2d...34034da0` 且只读；新 pair 明确不是 retry、replacement、backfill 或 schedule extension，不与 #184 或其他 fault family 池化。
+  - 授权边界: 当前仅开放 `validate/plan/preflight`；reachability、provider call、formal attempt、credential 读取、model creation 与 pair execute 均机械关闭，固定 0 provider/attempt/token/evidence write。
+  - 验证: canonical manifest SHA-256 为 `27b161720d3ab1208d6792e59df4509a611c3967645787a083b0fb9bdc6bdcb2`，新 evidence identity 为 `ce7e4277bcedab8b203ebe51863877b2d3f958e838ed7dcc960a47f23981c25a`；聚焦 `18 passed`，路线 P 相邻静态回归 `55 passed, 1 deselected`，Ruff、format、语法、CLI 与 diff 检查通过。
+  - 下一步: 完成中文提交、WSL helper 推送、中文 PR 与 CI；合并后的干净主干只做一次真实 0-provider preflight。新的 provider amendment 必须另行派生执行 identity，不能在本候选中开放 execute。
+  - 文件: `scripts/forge_opaque_provenance_provider_amendment_candidate_protocol.py`, `scripts/forge_opaque_provenance_provider_amendment_candidate_runner.py`, `backend/tests/test_forge_opaque_provenance_provider_amendment_candidate.py`, `benchmarks/manifests/cpp-opaque-provenance-runtime-parity-provider-amendment-candidate.json`, `benchmarks/schemas/forge-opaque-provenance-runtime-parity-provider-amendment-candidate.schema.json`, `benchmarks/preregistrations/cpp-opaque-provenance-runtime-parity-provider-amendment-candidate.md`
+
 - 2026-08-30 — 完成 Issue #186 opaque provenance runtime-parity 零 provider 门禁
-  - GitHub: 中文 Issue #186 已创建并回读；分支为 `research/186-opaque-provenance-runtime-parity`，基线为 `main@6440838a`。
+  - GitHub: 中文 Issue #186 / PR #187 已完成；backend unit tests、backend lint、frontend lint 三项 CI 全绿后 squash 合并为 `main@ad6e7c11`，Issue 自动关闭，本地主干与 `origin/main` 已同步。
   - 实现: 新增 experiment-only 原子分项预算、冻结 CMake repair/stage 白名单和 `SerialToolCallMiddleware`；inspection/build/stage/submit 上限为 4/2/2/2，已有 staged artifact 的 repair build 会在执行前同时预留 automatic submit。
   - 真实证据: Ubuntu-native Docker gate `1 passed in 36.80s`；真实 bound submit 失败后 fence 三字段释放，bound repair build 自动 submit，candidate/clean replay passed，dynamic P2 转为 `proven/direct_cmake`，0 provider/attempt/token，0 residual container。
   - 验证: 静态 `8 passed`，编译核心相邻 `159 passed`，路线 P `84 passed, 1 deselected`；Ruff、format、语法、CLI、diff 与敏感信息检查通过。旧 #182 preflight 测试因真实 #184 evidence 已非空而失效，不删除 evidence规避。
   - 踩坑: 首次 Docker 测试自身使用 `&&` 被预注册 compound-shell 门禁正确拒绝；第二次仅误读不存在的 `VerificationResult.passed`。均只修测试，最终真实 gate 通过。
-  - 下一步: 更新 Obsidian 后完成本地审计和中文提交；推送前按全局约定向用户确认。新的 provider amendment 必须独立设计和授权，不重跑或追加 #184 pair。
+  - 下一步: 只设计独立的一次性 provider amendment 候选，复用 #186 已验证的 runtime-parity 机制并冻结新的 evidence identity、执行上限和停止规则；候选审阅前不调用 provider，不重跑、replacement、backfill 或追加 #184 pair。
   - 文件: `scripts/forge_opaque_provenance_runtime_parity_gate.py`, `backend/tests/test_forge_opaque_provenance_runtime_parity_gate.py`, `backend/tests/test_forge_opaque_provenance_runtime_parity_gate_docker.py`, `benchmarks/preregistrations/cpp-opaque-provenance-runtime-parity-zero-provider-gate.md`
 
 - 2026-08-30 — 完成 #184 post-build command budget 充分性只读审计
