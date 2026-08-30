@@ -64,6 +64,13 @@
 ## 最近变更 (Recent Changes)
 <!-- 倒序，最新在上。 -->
 
+- 2026-08-30 — 完成 Issue #214 R3 Make jobs 真实 lifecycle 本地门禁
+  - 文件: `scripts/forge_opaque_provenance_r3_make_lifecycle_gate.py`, `backend/tests/test_forge_opaque_provenance_r3_make_lifecycle_gate.py`, `backend/tests/test_forge_opaque_provenance_r3_make_lifecycle_gate_docker.py`, `benchmarks/preregistrations/cpp-opaque-provenance-r3-make-lifecycle-zero-provider-gate.md`
+  - 实现: 新版本 adapter 复用并固定 #204 Docker orchestration 哈希，分别暴露 `make libhoedown.a` 与 `make -j1 libhoedown.a`；不修改 #202/#204/#208/#210/#212 或冻结 evidence。
+  - 结论: 两个 profile 均在 Ubuntu WSL2 原生 Docker production Compile Session 中把 Make P2 从 `unproven/opaque_wrapper` 转为 `proven/direct_make`，且 candidate verification、唯一 clean replay、R0 分类与 cleanup 全部通过；后置 compile/replay/capture orphan 均为 0。
+  - 验证: 真实 Docker `2 passed in 156.30s`，相邻回归 `86 passed`，静态聚焦 `4 passed`，Ruff check/format、`py_compile`、`git diff --check` 与敏感信息扫描通过。
+  - 边界: 0 provider、0 credential read、0 formal physical attempt、0 model token、0正式 evidence write；本地 SQLite checkpointer 仅用于 #204 双臂同源恢复。中文 Issue #214 已创建并回读，待提交、PR/CI 与合并。
+
 - 2026-08-30 — 完成 Issue #212 R3 Make 构造对齐零 provider 门禁
   - 文件: `scripts/forge_opaque_provenance_r3_make_construct_alignment_gate.py`, `backend/tests/test_forge_opaque_provenance_r3_make_construct_alignment_gate.py`, `benchmarks/preregistrations/cpp-opaque-provenance-r3-make-construct-alignment-gate.md`
   - 发布: 中文 Issue #212 / PR #213 已创建并回读；提交 `6e0ff544`，CI backend tests（3 分 58 秒）、backend lint（14 秒）与 frontend lint（1 分 37 秒）全绿。
@@ -582,6 +589,8 @@
 
 ## 已知问题 (Known Issues / Pitfalls)
 <!-- 工作中踩过的坑、限制或意外行为。 -->
+
+- PowerShell 可能误解析传给 WSL Docker CLI 的 Go template（例如 `{{.Server.Version}}`），导致只读 gate 在接触 daemon 后被错误参数拒绝。跨 PowerShell/WSL gate 使用固定 argv 且不传 template；版本检查直接运行 `docker version`，列表检查使用不需要 format 的 `docker ps -aq` / `docker images -q`。
 
 - 历史 manifest 会按字节冻结 `scripts/forge_opaque_provenance_runtime_parity_gate.py`、共享 `evidence.py` 和 LLM/tool-error middleware 等父组件；即使行为兼容，原地增加异常元数据、Schema 或仅运行 Ruff 格式化也会让旧协议 current-tree gate 报 runtime drift。新增 instrumentation 必须放入新的版本化 adapter/companion event，并用完整 backend CI 确认所有冻结文件零差异。
 - 真实 lifecycle capture 的 evidence Schema 强制要求 `submit_attempt_id`；只记录 classification/failure ID 会在 environment freeze 前 fail closed。新 gate 应直接从同一 `failure.recorded` payload 复制该 ID，并先做 Schema 级静态断言。
