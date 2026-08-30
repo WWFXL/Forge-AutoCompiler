@@ -5,13 +5,13 @@
 ## 进行中 (In Progress)
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
-- 2026-08-30 — 发布 Issue #204 R2 Make provenance 真实 lifecycle 零 provider 门禁
-  - GitHub: 中文 Issue #204 已创建并回读；分支为 `research/204-make-provenance-lifecycle`，基线为 `main@9b5448ed`。
-  - 实现: 新增 experiment-only Make lifecycle adapter、静态合同、opt-in Ubuntu-native Docker gate 和预注册；逐字段继承 #202 `hoextdown` identity 并冻结其 evaluator SHA-256，不修改 production、CMake evaluator 或历史 evidence。
-  - 真实门禁: `1 passed in 77.16s`。Parent opaque `sh -c` wrapper 生成真实 `libhoedown.a`，production submit 只因 `build_system_unproven` 失败且 post-build fence 释放；baseline 保持 0 replay，treatment append direct Make + stage 后转为 `proven/direct_make`，candidate 与 clean replay 通过。
-  - 完整性: 双臂 continuation image、workspace/artifact、parent history 与 budget canonical 同源，repair packet 是唯一 exposure；cleanup 删除 parent、双臂、replay、checkpoint helper 和 continuation image，独立容器清单无 compile/replay orphan。
-  - 验证与边界: 扩展静态回归 `105 passed, 1 skipped`，Ruff、format、`py_compile`、CLI、diff 与敏感信息审计通过；固定 0 provider、0 credential read、0 formal attempt、0 model token、0正式 evidence write。下一步为中文提交、WSL helper 推送、中文 PR/CI/合并。
-  - 文件: `scripts/forge_opaque_provenance_make_lifecycle_gate.py`, `backend/tests/test_forge_opaque_provenance_make_lifecycle_gate.py`, `backend/tests/test_forge_opaque_provenance_make_lifecycle_gate_docker.py`, `benchmarks/preregistrations/cpp-opaque-provenance-make-lifecycle-zero-provider-gate.md`
+- 2026-08-30 — 发布 Issue #206 R2 Make 单配对未执行候选
+  - GitHub: 中文 Issue #206 已创建并回读；分支为 `research/206-make-pair-candidate`，基线为 `main@b8092e6f`。
+  - 实现: 新增紧凑 protocol/generator、read-only runner、manifest、Draft 2020-12 const Schema、预注册与测试；逐字段继承 `hoextdown`，冻结 #202 reference、#204 lifecycle 和 R0 observability 组件哈希。
+  - 候选身份: `opaque-provenance-r2-hoextdown-pair-01`、新 evidence identity `c88f74282424de834be1523c9fd93fa18171c262a05b93f09aebca9359a424a4`；DeepSeek `deepseek-v4-flash`、300 秒/0 retry、单 pair token ceiling 245,000，保持 4/2/2/2 action limits 与 R0 companion。
+  - 授权边界: 只开放 `validate/plan/preflight`；checkpoint、reachability、provider、formal attempt、pair、credential、model、Docker、evidence write 全部机械关闭，model token 授权为 0。Manifest canonical SHA-256 为 `b5b44ed5bd27250932854e0a13beffbbc665f284164147d16521d9bc7766b514`。
+  - 验证: 聚焦 `17 passed`，Make lifecycle/R0/CMake/R1 相邻回归 `99 passed, 1 skipped`；Ruff、format、`py_compile`、CLI、diff 与敏感信息审计通过。下一步为中文提交、WSL helper 推送、中文 PR/CI/合并，合并后只运行纯快照 preflight。
+  - 文件: `scripts/forge_opaque_provenance_make_candidate_protocol.py`, `scripts/forge_opaque_provenance_make_candidate_runner.py`, `backend/tests/test_forge_opaque_provenance_make_candidate.py`, `benchmarks/manifests/cpp-opaque-provenance-r2-make-candidate.json`, `benchmarks/schemas/forge-opaque-provenance-r2-make-candidate.schema.json`, `benchmarks/preregistrations/cpp-opaque-provenance-r2-make-candidate.md`
 
 - 2026-08-15 — 验证 failure checkpoint 三层组合恢复
   - GitHub: 中文 Issue #141 已创建并回读；分支为 `research/141-combined-checkpoint-prototype`，基线为 `main@cd31d8df`。
@@ -71,6 +71,13 @@
 
 ## 最近变更 (Recent Changes)
 <!-- 倒序，最新在上。 -->
+
+- 2026-08-30 — 完成 Issue #204 R2 Make provenance 真实 lifecycle 零 provider 门禁
+  - 文件: `scripts/forge_opaque_provenance_make_lifecycle_gate.py`, `backend/tests/test_forge_opaque_provenance_make_lifecycle_gate.py`, `backend/tests/test_forge_opaque_provenance_make_lifecycle_gate_docker.py`, `benchmarks/preregistrations/cpp-opaque-provenance-make-lifecycle-zero-provider-gate.md`
+  - 发布: 中文 Issue #204 / PR #205 已完成，三项 CI 全绿后 squash 合并为 `main@b8092e6f58830690359b137b32031d3cc96361dc`；合并后静态 gate 通过，未重复真实 Docker gate。
+  - 真实门禁: Ubuntu-native Docker `1 passed in 77.16s`。Parent 真实生成 `libhoedown.a` 且只触发 `build_system_unproven`，post-build fence 释放；baseline 保持 0 replay，treatment append direct Make + stage 后转为 `proven/direct_make`，candidate 与 clean replay 通过。
+  - 完整性: 双臂 continuation image、workspace/artifact、parent history 与 budget canonical 同源，repair packet 是唯一 exposure；cleanup 后 parent/双臂/replay/checkpoint 为 0 orphan。固定 0 provider、0 credential read、0 formal attempt、0 model token、0正式 evidence write。
+  - 下一步: 先冻结单 pair 未执行候选，不直接调用 provider；真实 reachability/pair 必须使用独立 execution amendment。
 
 - 2026-08-30 — 完成 Issue #202 R2 Make provenance reference gate
   - 文件: `scripts/forge_opaque_provenance_make_reference_gate.py`, `backend/tests/test_forge_opaque_provenance_make_reference_gate.py`, `benchmarks/preregistrations/cpp-opaque-provenance-make-reference-gate.md`
