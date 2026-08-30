@@ -1,0 +1,201 @@
+{
+  "$schema": "../schemas/forge-opaque-provenance-openh264-candidate.schema.json",
+  "schema_version": "forge-opaque-provenance-openh264-candidate-1.0.0",
+  "document_type": "forge_opaque_provenance_openh264_candidate",
+  "authorization": {
+    "checkpoint_creation_authorized": false,
+    "reachability_request_authorized": false,
+    "provider_calls_authorized": false,
+    "formal_attempts_authorized": false,
+    "pair_collection_authorized": false,
+    "credential_read_authorized": false,
+    "model_creation_authorized": false,
+    "evidence_write_authorized": false,
+    "model_tokens_authorized": 0
+  },
+  "selection": {
+    "issue_url": "https://github.com/WWFXL/Forge-AutoCompiler/issues/224",
+    "mode": "result_blind_source_and_evidence_audit",
+    "source_protocol": "benchmarks/preregistrations/cpp-formal-v1-cases.json",
+    "source_protocol_sha256": "55fc4ea1cc634376b5016fa3421736a66c284b293b9b8f10185e837e12db3fee",
+    "source_case": {
+      "id": "openh264",
+      "repository_url": "https://github.com/cisco/openh264",
+      "commit": "4a2615fac570c6ca1ed4f157b9fdab9466edfd80",
+      "build_system": "make",
+      "review_state": "reviewed",
+      "result_data_consulted": false,
+      "recipe": {
+        "source_subdir": ".",
+        "bootstrap_commands": [],
+        "configure_arguments": [],
+        "build_targets": [
+          "libopenh264.a"
+        ],
+        "required_system_packages": [
+          "build-essential",
+          "nasm"
+        ]
+      },
+      "artifact_oracle": {
+        "required_artifacts": [
+          {
+            "staged_relative_path": "libopenh264.a",
+            "build_output_path": "libopenh264.a",
+            "artifact_type": "static_library",
+            "producing_target": "libopenh264.a"
+          }
+        ]
+      },
+      "evidence": [
+        {
+          "kind": "upstream_exact_commit",
+          "path": "Makefile",
+          "url": "https://github.com/cisco/openh264/blob/4a2615fac570c6ca1ed4f157b9fdab9466edfd80/Makefile",
+          "supports": [
+            "build_path",
+            "artifact_identity"
+          ]
+        },
+        {
+          "kind": "oss_fuzz_snapshot",
+          "path": "openh264/build.sh",
+          "url": "https://github.com/google/oss-fuzz/blob/08682bfc14e31d12fcc94b52b4805d7994fb70fd/projects/openh264/build.sh",
+          "supports": [
+            "build_path"
+          ]
+        }
+      ]
+    },
+    "historical_manifest_mentions": true,
+    "historical_physical_evidence_matches": 0,
+    "published_report_matches": 0,
+    "alternatives_rejected": {
+      "sql-parser": "static=yes is required to align target and static-library oracle",
+      "lodepng": "OSS-Fuzz bypasses Make and executable smoke adds semantics"
+    }
+  },
+  "case": {
+    "case_id": "openh264-opaque-provenance-r4-make",
+    "repository_url": "https://github.com/cisco/openh264",
+    "commit_sha": "4a2615fac570c6ca1ed4f157b9fdab9466edfd80",
+    "build_system": "make",
+    "build_directory": "/workspace/repo",
+    "target": "libopenh264.a",
+    "build_output": "libopenh264.a",
+    "staged_artifact": "libopenh264.a",
+    "artifact_type": "static_library",
+    "required_system_packages": [
+      "build-essential",
+      "nasm"
+    ],
+    "bootstrap_commands": [],
+    "configure_arguments": []
+  },
+  "reference_sources": {
+    "upstream_makefile": {
+      "url": "https://github.com/cisco/openh264/blob/4a2615fac570c6ca1ed4f157b9fdab9466edfd80/Makefile",
+      "sha256": "202daf149e44d1fd34017ce68e1ea8020187f1be50e869946446b3592456291b",
+      "direct_target": "libopenh264.a"
+    },
+    "oss_fuzz_recipe": {
+      "url": "https://github.com/google/oss-fuzz/blob/08682bfc14e31d12fcc94b52b4805d7994fb70fd/projects/openh264/build.sh",
+      "sha256": "4f53629516eb904cdd65a13ac427b99bf5d298daa4b7001327f6018f6a8a3ab4",
+      "direct_target": "libopenh264.a"
+    },
+    "submodules_at_exact_commit": []
+  },
+  "lifecycle_fixture": {
+    "base_image": "autocompiler:gcc13",
+    "derived_image_persisted": false,
+    "nasm_package": {
+      "version": "2.16.01-1build1",
+      "architecture": "amd64",
+      "url": "https://mirrors.ustc.edu.cn/ubuntu/pool/universe/n/nasm/nasm_2.16.01-1build1_amd64.deb",
+      "sha256": "22eede0f2dd62343b0298182f62f7485704fe02f166395b02c92a8883377e0b3",
+      "download_timeout_seconds": 60
+    },
+    "apt_index_download_forbidden": true
+  },
+  "checkpoint": {
+    "status": "not_created",
+    "checkpoint_id": null,
+    "arm_state_matching": [
+      "message",
+      "environment",
+      "budget"
+    ],
+    "creation_requires_execution_amendment": true
+  },
+  "runtime_parity": {
+    "direct_executables": [
+      "make",
+      "gmake"
+    ],
+    "jobs": {
+      "omitted_allowed": true,
+      "minimum": 1,
+      "maximum": 2
+    },
+    "parallel_tool_calls": false,
+    "shared_tool_contract_identical": true,
+    "treatment_exposure_only": "repair_packet",
+    "artifact_stage": {
+      "source": "/workspace/repo/libopenh264.a",
+      "destination": "/artifacts/libopenh264.a",
+      "separate_from_build": true
+    },
+    "candidate_verification_required": true,
+    "clean_replay_required": true,
+    "cleanup_required": true
+  },
+  "repair_packet": {
+    "schema_version": "forge-opaque-provenance-repair-packet-1.0.0",
+    "primary_classification": "build_system_unproven",
+    "mechanism_classification": "opaque_build_provenance",
+    "expected_build_system": "make",
+    "selected_build_system": "make",
+    "build_directory": "/workspace/repo",
+    "target": "libopenh264.a",
+    "proof_status": "opaque_wrapper",
+    "repair_goal": "Execute and record a trusted build-system invocation bound to the frozen directory and target, then submit again."
+  },
+  "agent_construction": {
+    "source_issue": 222,
+    "full_create_agent_gate_required": true,
+    "candidate_policy_injected_into_published_bindings": true,
+    "expected_model_requests": 1,
+    "provider_calls": 0,
+    "model_tokens": 0
+  },
+  "evidence": {
+    "schema_version": "forge-opaque-provenance-openh264-evidence-1.0.0",
+    "directory": "/workspace/.compile-sessions/benchmark-evidence-opaque-provenance-r4-openh264-candidate-v1",
+    "status": "not_created",
+    "append_only": true,
+    "zero_provider_gate_writes_evidence": false,
+    "identity_sha256": "dd777763ab03ec6853c7e36299b78acff3e0383ca8b808f0c59b51744669b683"
+  },
+  "analysis": {
+    "unit_of_analysis": "future_single_state_matched_make_pair",
+    "primary_outcome": "paired_post_checkpoint_p2_conversion_with_candidate_and_clean_replay",
+    "descriptive_only": true,
+    "treatment_effect_estimated": false,
+    "historical_pairs_pooled": false,
+    "model_ranking_performed": false
+  },
+  "preregistration": {
+    "path": "benchmarks/preregistrations/cpp-opaque-provenance-openh264-candidate.md",
+    "file_sha256": "51c1f34f7e6a194ca8e60d95ee9f70233b9a9ddf0dbe5ff3cfa9b26511b95255"
+  },
+  "frozen_components": {
+    "benchmarks/preregistrations/cpp-formal-v1-cases.json": "55fc4ea1cc634376b5016fa3421736a66c284b293b9b8f10185e837e12db3fee",
+    "scripts/forge_opaque_provenance_make_reference_gate.py": "5df722d6115aa879a9dbe43fb5f98278ff72df6958ae99f22fe4cb2f6d16c14a",
+    "scripts/forge_opaque_provenance_make_lifecycle_gate.py": "bb9fc467df0476cc1e7fdcca06bf64d020cb39f0efd48502289d814b3152230b",
+    "scripts/forge_opaque_provenance_r3_make_candidate_runner.py": "b8ec84f3835ecbbc462232b676c5ebf72e15a7f021be2a148d1b85d8138e9be0",
+    "scripts/forge_opaque_provenance_r3_make_execution_failure_gate.py": "cd36955c5256fa4376d0b5a4b60c139352ec2f8beb59c9b88741ad681b5bdb06",
+    "scripts/forge_opaque_provenance_r3_make_agent_construction_gate.py": "f5a0af19e2ff1cc7dd90f096132d537ec3db4867649571640c29d8262f890e5a",
+    "benchmarks/manifests/cpp-opaque-provenance-r3-make-execution.json": "2a435b7846d510776d4364deb92846f4e6a142fb0e8a822d0634c9fc0a3de76f",
+    "backend/tests/test_forge_opaque_provenance_make_lifecycle_gate_docker.py": "5d4dead7f121433e6b82dca150ba7375e79c76b569c1172f36532f30c51ad652"
+  }
+}
