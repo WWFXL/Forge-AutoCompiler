@@ -64,14 +64,27 @@
 ## 最近变更 (Recent Changes)
 <!-- 倒序，最新在上。 -->
 
+- 2026-08-30 — 完成 Issue #192 runtime-parity 单 pair trajectory 只读分析
+  - 范围: 只读核对 #190 冻结 ledger、双臂 Compile Session、message checkpoint 与 canary report；0 provider、0 Docker、0 evidence write，未读取 credential，也未修改 production、gate、runner 或 manifest。
+  - 同源性: 双臂共享同一 neutral checkpoint、HumanMessage 与失败 submit payload；treatment 唯一额外 exposure 是白名单 repair packet，给出 CMake/build-dir/target/proof status 和抽象 repair goal，不提供完整命令。
+  - Trajectory: baseline 8 requests、4 个成功 inspection、8 个 tool failure，最终 graph-step limit；treatment 首次 tool call 被拒后，用 1 inspection + 1 direct CMake build 触发 automatic submit，candidate/replay/P2 conversion 通过。
+  - 效率: baseline 输入/输出/总 tokens 为 36,826/1,776/38,602，模型请求累计延迟 16.743293 秒；treatment 为 6,926/313/7,239 和 3.246708 秒，相当于 baseline 的 18.75% tokens、37.5% 请求和 19.39% 模型延迟。
+  - 可识别边界: baseline ledger 精确记录 7 个 `RuntimeParityGateError` 和 1 个 `EvidenceError`，但失败事件没有保存 bounded rejection classification、命令摘要或模型请求内 tool ordinal；因此不能从冻结 evidence 把每次拒绝可靠拆成 inspection budget exhausted、compound shell 与非法 command role，也不能事后猜测。
+  - 额外发现: 虽然 model binding 固定 `parallel_tool_calls=false`，baseline 的单次模型响应仍出现多个 tool attempts；现有 ledger 只能证明响应多调用，不能证明实际并发。原子 action claim 阻止了预算超额，但下一轮必须显式记录 request/tool ordinal。
+  - 决策: 有条件进入 replication。先做 0-provider observability gate；通过后只执行 1 个新 independent-checkpoint canary，再预注册最多 6 个独立 CMake checkpoint pair。#190 不重跑、不进入 confirmatory pool；主要 outcome 仍是 paired P2 conversion + candidate/replay，tokens/actions 仅为次要指标。
+  - GitHub: 中文 Issue #192 已创建并回读。
+  - 文件: `.claude/memory/project.md`
+
 - 2026-08-30 — 实现 Issue #190 runtime-parity 一次性 execution amendment
-  - GitHub: 中文 Issue #190 已创建并回读；分支为 `research/190-opaque-provenance-runtime-parity-execution`，基线为 `main@1ba74646`。
+  - GitHub: 中文 Issue #190 / PR #191 已完成；三项 CI 全绿后 squash 合并为 `main@b0f57c06`，Issue 自动关闭，终态已用中文回帖。
   - 授权: 唯一 DeepSeek reachability 通过后才执行一个新 `baseline -> treatment` pair；阶段机械上限 245,000 recorded tokens，禁止 retry、replacement、backfill 和追加 pair。
   - 实现: 新 execution manifest/Schema/preregistration/runner 复用 #184 生命周期；独立进程内把 controlled-parent submit 接到 production `_submit_with_post_build_phase`，把 continuation 接到 #186 `RuntimeParityToolAdapter + SerialToolCallMiddleware`，退出时恢复全部模块引用。
   - 边界: #188 候选和 #184 evidence 不修改；新报告记录每臂 4/2/2/2 原子动作预算、P2、candidate/replay、cleanup 与 `historical_pair_replacement=false`，AK 仅允许从既有 env 读取且不得落盘。
   - 验证: final manifest canonical SHA-256 为 `3710bd3ace9fdc57d52b3018542c01871703c9965e48ede0be436d178ae784aa`；聚焦 `8 passed`，路线 P 相邻 `63 passed, 1 deselected`，Ubuntu-native Docker gate `1 passed in 35.73s`，Ruff、format、语法、CLI 与 diff 检查通过；固定 0 provider/attempt/token。
   - 踩坑: 首次 Docker 调用误用通用 `FORGE_RUN_DOCKER_TESTS`，测试仅 skip、未执行容器；读取文件后改用唯一声明的 `FORGE_RUN_OPAQUE_RUNTIME_PARITY_DOCKER=1`，不再调试包装命令。
-  - 下一步: 中文提交、WSL helper 推送、PR/CI/合并；合并后重新做 0-provider preflight，再按 marker 顺序执行唯一 reachability 与 pair并冻结终态。
+  - 真实终态: reachability 1.423 秒、17 tokens 通过；pair 总计 45,858 tokens。Baseline 8 requests/38,602 tokens，消耗 4 inspection 后 graph-step limit，0 submit/replay、P2 unproven；treatment 3 requests/7,239 tokens，以 1 inspection + 1 repair build + 1 automatic submit 完成 candidate/replay，P2 转为 `proven/direct_cmake`。
+  - Evidence: complete pair 与 cleanup 均通过，0 managed orphan；三条 ledger hash chain 为 42/25/7 events；canary report SHA-256 为 `767349a7c939c8088218fc2b08e95277b1564cc9c17ee3d15ef9fd33b985457b`。禁止重跑或追加。
+  - 下一步: 只读分析 baseline/treatment 行为路径、repair packet 的 intervention delivery 与复制价值；单 pair 不估计 treatment effect、不计算 p 值、不排名模型，也不自动扩多 pair。
   - 文件: `scripts/forge_opaque_provenance_runtime_parity_execution_protocol.py`, `scripts/forge_opaque_provenance_runtime_parity_execution_runner.py`, `backend/tests/test_forge_opaque_provenance_runtime_parity_execution.py`, `benchmarks/manifests/cpp-opaque-provenance-runtime-parity-execution.json`, `benchmarks/schemas/forge-opaque-provenance-runtime-parity-execution.schema.json`, `benchmarks/preregistrations/cpp-opaque-provenance-runtime-parity-execution.md`
 
 - 2026-08-30 — 冻结 Issue #188 runtime-parity provider amendment 候选
