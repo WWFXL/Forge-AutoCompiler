@@ -1,0 +1,460 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/WWFXL/Forge-AutoCompiler/benchmarks/schemas/forge-opaque-provenance-confirmatory-candidate.schema.json",
+  "title": "Forge opaque provenance confirmatory candidate",
+  "const": {
+    "$schema": "../schemas/forge-opaque-provenance-confirmatory-candidate.schema.json",
+    "schema_version": "forge-opaque-provenance-confirmatory-candidate-1.0.0",
+    "document_type": "forge_opaque_provenance_confirmatory_candidate",
+    "authorization": {
+      "provider_calls_authorized": false,
+      "credential_read_authorized": false,
+      "model_creation_authorized": false,
+      "reachability_request_authorized": false,
+      "checkpoint_creation_authorized": false,
+      "pair_collection_authorized": false,
+      "formal_attempts_authorized": false,
+      "docker_execution_authorized": false,
+      "evidence_write_authorized": false,
+      "model_tokens_authorized": 0
+    },
+    "selection": {
+      "issue_url": "https://github.com/WWFXL/Forge-AutoCompiler/issues/230",
+      "mode": "result_blind_exact_commit_source_audit",
+      "frozen_sources": {
+        "benchmarks/preregistrations/cpp-formal-v1-cases.json": "55fc4ea1cc634376b5016fa3421736a66c284b293b9b8f10185e837e12db3fee",
+        "benchmarks/preregistrations/cpp-formal-v1.json": "3b7f1134637385f7236ea344c8b9816c04bc837143cb7ac4f8af1e007e7f08dc",
+        "benchmarks/manifests/cpp-formal-v1.json": "cb9ad04c3d5452ab6ae3e12d1ef8658b8cf52876c6aecc3b251b2dd930e6944a"
+      },
+      "case_count": 6,
+      "build_system_counts": {
+        "cmake": 3,
+        "make": 3
+      },
+      "artifact_type_counts": {
+        "executable": 2,
+        "static_library": 3,
+        "shared_library": 1
+      },
+      "exclusions": {
+        "mruby": "make all delegates to Rake and implicitly initializes the Prism submodule",
+        "janet": "local model-result evidence already exists, so the case is not result-blind",
+        "lodepng": "the unittest executable catches test failures and still returns exit code zero",
+        "sql-parser-static": "the frozen static oracle contradicts the default make library output"
+      }
+    },
+    "cases": [
+      {
+        "case_id": "pupnp",
+        "source_case_id": "pupnp",
+        "repository_url": "https://github.com/pupnp/pupnp",
+        "commit_sha": "4c4285d6af69774b7ec6a9a93dc967dc9e9e6d8e",
+        "language": "C",
+        "build_system": "cmake",
+        "size_stratum": "medium",
+        "build_directory": "/workspace/repo",
+        "bootstrap_commands": [],
+        "configure_arguments": [
+          "-DCMAKE_BUILD_TYPE=Release",
+          "-DUPNP_ENABLE_TESTING=OFF"
+        ],
+        "required_system_packages": [
+          "build-essential",
+          "cmake"
+        ],
+        "direct_target": "upnp_static",
+        "artifact": {
+          "build_output_path": "build/upnp/libupnp.a",
+          "staged_relative_path": "libupnp.a",
+          "artifact_type": "static_library",
+          "stage_source": "/workspace/repo/build/upnp/libupnp.a",
+          "stage_destination": "/artifacts/libupnp.a"
+        },
+        "oracle_correction": null,
+        "source_audit": {
+          "submodules": [],
+          "direct_target_verified": true,
+          "external_fetch_on_frozen_path": false,
+          "smoke": null
+        },
+        "historical_result_evidence_case_id_matches": 0
+      },
+      {
+        "case_id": "ada-url",
+        "source_case_id": "ada-url",
+        "repository_url": "https://github.com/ada-url/ada",
+        "commit_sha": "30f3f3020c5a979b62f90dc9c37fd45de3cc84d7",
+        "language": "C++",
+        "build_system": "cmake",
+        "size_stratum": "medium",
+        "build_directory": "/workspace/repo",
+        "bootstrap_commands": [],
+        "configure_arguments": [
+          "-DCMAKE_BUILD_TYPE=Release",
+          "-DBUILD_SHARED_LIBS=OFF",
+          "-DADA_TESTING=OFF",
+          "-DADA_BENCHMARKS=OFF",
+          "-DADA_TOOLS=OFF"
+        ],
+        "required_system_packages": [
+          "build-essential",
+          "cmake"
+        ],
+        "direct_target": "ada",
+        "artifact": {
+          "build_output_path": "build/src/libada.a",
+          "staged_relative_path": "libada.a",
+          "artifact_type": "static_library",
+          "stage_source": "/workspace/repo/build/src/libada.a",
+          "stage_destination": "/artifacts/libada.a"
+        },
+        "oracle_correction": null,
+        "source_audit": {
+          "submodules": [],
+          "direct_target_verified": true,
+          "external_fetch_on_frozen_path": false,
+          "smoke": null
+        },
+        "historical_result_evidence_case_id_matches": 0
+      },
+      {
+        "case_id": "args",
+        "source_case_id": "args",
+        "repository_url": "https://github.com/Taywee/args",
+        "commit_sha": "fe4450bd9549e4e02bc2047b2a2800b09f1bb878",
+        "language": "C++",
+        "build_system": "cmake",
+        "size_stratum": "small",
+        "build_directory": "/workspace/repo",
+        "bootstrap_commands": [],
+        "configure_arguments": [
+          "-DCMAKE_BUILD_TYPE=Release",
+          "-DARGS_BUILD_EXAMPLE=ON",
+          "-DARGS_BUILD_UNITTESTS=OFF",
+          "-DBUILD_FUZZERS=OFF"
+        ],
+        "required_system_packages": [
+          "build-essential",
+          "cmake"
+        ],
+        "direct_target": "gitlike",
+        "artifact": {
+          "build_output_path": "build/gitlike",
+          "staged_relative_path": "gitlike",
+          "artifact_type": "executable",
+          "stage_source": "/workspace/repo/build/gitlike",
+          "stage_destination": "/artifacts/gitlike"
+        },
+        "oracle_correction": null,
+        "source_audit": {
+          "submodules": [],
+          "direct_target_verified": true,
+          "external_fetch_on_frozen_path": false,
+          "smoke": {
+            "flag": "--help",
+            "expected_exit_code": 0
+          }
+        },
+        "historical_result_evidence_case_id_matches": 0
+      },
+      {
+        "case_id": "gpac",
+        "source_case_id": "gpac",
+        "repository_url": "https://github.com/gpac/gpac",
+        "commit_sha": "2aa431eaf732c1a7e9a966ea12049fc001d91e04",
+        "language": "C",
+        "build_system": "make",
+        "size_stratum": "large",
+        "build_directory": "/workspace/repo",
+        "bootstrap_commands": [
+          "./configure --static-bin"
+        ],
+        "configure_arguments": [],
+        "required_system_packages": [
+          "build-essential",
+          "pkg-config",
+          "zlib1g-dev"
+        ],
+        "direct_target": "lib",
+        "artifact": {
+          "build_output_path": "bin/gcc/libgpac_static.a",
+          "staged_relative_path": "libgpac_static.a",
+          "artifact_type": "static_library",
+          "stage_source": "/workspace/repo/bin/gcc/libgpac_static.a",
+          "stage_destination": "/artifacts/libgpac_static.a"
+        },
+        "oracle_correction": null,
+        "source_audit": {
+          "submodules": [
+            "testsuite"
+          ],
+          "submodules_on_target_dependency_path": [],
+          "direct_target_verified": true,
+          "external_fetch_on_frozen_path": false,
+          "smoke": null
+        },
+        "historical_result_evidence_case_id_matches": 0
+      },
+      {
+        "case_id": "fio",
+        "source_case_id": "fio",
+        "repository_url": "https://github.com/axboe/fio",
+        "commit_sha": "c76c61b0fbe1b90a7886b8790805cf9903285074",
+        "language": "C++",
+        "build_system": "make",
+        "size_stratum": "medium",
+        "build_directory": "/workspace/repo",
+        "bootstrap_commands": [
+          "./configure --disable-native"
+        ],
+        "configure_arguments": [],
+        "required_system_packages": [
+          "build-essential",
+          "zlib1g-dev"
+        ],
+        "direct_target": "fio",
+        "artifact": {
+          "build_output_path": "fio",
+          "staged_relative_path": "fio",
+          "artifact_type": "executable",
+          "stage_source": "/workspace/repo/fio",
+          "stage_destination": "/artifacts/fio"
+        },
+        "oracle_correction": null,
+        "source_audit": {
+          "submodules": [],
+          "direct_target_verified": true,
+          "external_fetch_on_frozen_path": false,
+          "smoke": {
+            "flag": "--help",
+            "expected_exit_code": 0
+          }
+        },
+        "historical_result_evidence_case_id_matches": 0
+      },
+      {
+        "case_id": "sql-parser-shared",
+        "source_case_id": "sql-parser",
+        "repository_url": "https://github.com/hyrise/sql-parser",
+        "commit_sha": "ccd3f68b50bb2b96ce69afa7b956b3bd826643cc",
+        "language": "C++",
+        "build_system": "make",
+        "size_stratum": "small",
+        "build_directory": "/workspace/repo",
+        "bootstrap_commands": [],
+        "configure_arguments": [],
+        "required_system_packages": [
+          "bison",
+          "build-essential",
+          "flex"
+        ],
+        "direct_target": "library",
+        "artifact": {
+          "build_output_path": "libsqlparser.so",
+          "staged_relative_path": "libsqlparser.so",
+          "artifact_type": "shared_library",
+          "stage_source": "/workspace/repo/libsqlparser.so",
+          "stage_destination": "/artifacts/libsqlparser.so"
+        },
+        "oracle_correction": {
+          "mode": "pre_result_exact_commit_source_correction",
+          "old_artifact": {
+            "staged_relative_path": "libsqlparser.a",
+            "build_output_path": "libsqlparser.a",
+            "artifact_type": "static_library",
+            "producing_target": "library"
+          },
+          "reason": "Makefile defines static ?= no, so direct make library produces libsqlparser.so",
+          "source_protocol_modified": false
+        },
+        "source_audit": {
+          "submodules": [],
+          "generated_parser_sources_tracked": true,
+          "direct_target_verified": true,
+          "external_fetch_on_frozen_path": false,
+          "smoke": null
+        },
+        "historical_result_evidence_case_id_matches": 0
+      }
+    ],
+    "schedule": {
+      "pair_count": 12,
+      "arm_count": 24,
+      "replicates_per_case": 2,
+      "project_internal_order_reversal_required": true,
+      "baseline_first_pairs": 6,
+      "treatment_first_pairs": 6,
+      "pairs": [
+        {
+          "pair_id": "pupnp-rep-01",
+          "case_id": "pupnp",
+          "replicate": 1,
+          "arm_order": [
+            "baseline",
+            "treatment"
+          ]
+        },
+        {
+          "pair_id": "ada-url-rep-01",
+          "case_id": "ada-url",
+          "replicate": 1,
+          "arm_order": [
+            "treatment",
+            "baseline"
+          ]
+        },
+        {
+          "pair_id": "args-rep-01",
+          "case_id": "args",
+          "replicate": 1,
+          "arm_order": [
+            "baseline",
+            "treatment"
+          ]
+        },
+        {
+          "pair_id": "gpac-rep-01",
+          "case_id": "gpac",
+          "replicate": 1,
+          "arm_order": [
+            "treatment",
+            "baseline"
+          ]
+        },
+        {
+          "pair_id": "fio-rep-01",
+          "case_id": "fio",
+          "replicate": 1,
+          "arm_order": [
+            "baseline",
+            "treatment"
+          ]
+        },
+        {
+          "pair_id": "sql-parser-shared-rep-01",
+          "case_id": "sql-parser-shared",
+          "replicate": 1,
+          "arm_order": [
+            "treatment",
+            "baseline"
+          ]
+        },
+        {
+          "pair_id": "sql-parser-shared-rep-02",
+          "case_id": "sql-parser-shared",
+          "replicate": 2,
+          "arm_order": [
+            "baseline",
+            "treatment"
+          ]
+        },
+        {
+          "pair_id": "fio-rep-02",
+          "case_id": "fio",
+          "replicate": 2,
+          "arm_order": [
+            "treatment",
+            "baseline"
+          ]
+        },
+        {
+          "pair_id": "gpac-rep-02",
+          "case_id": "gpac",
+          "replicate": 2,
+          "arm_order": [
+            "baseline",
+            "treatment"
+          ]
+        },
+        {
+          "pair_id": "args-rep-02",
+          "case_id": "args",
+          "replicate": 2,
+          "arm_order": [
+            "treatment",
+            "baseline"
+          ]
+        },
+        {
+          "pair_id": "ada-url-rep-02",
+          "case_id": "ada-url",
+          "replicate": 2,
+          "arm_order": [
+            "baseline",
+            "treatment"
+          ]
+        },
+        {
+          "pair_id": "pupnp-rep-02",
+          "case_id": "pupnp",
+          "replicate": 2,
+          "arm_order": [
+            "treatment",
+            "baseline"
+          ]
+        }
+      ],
+      "identity_sha256": "3f35dd8c245cb7e9db6069f63cf133c98fbfdf6813a11e3fa2306a5eb34c2134"
+    },
+    "runtime_contract": {
+      "provider_and_model_single_for_batch": true,
+      "provider_identity_status": "pending_execution_amendment",
+      "request_timeout_seconds": 300,
+      "request_retries": 0,
+      "fallback_forbidden": true,
+      "parallel_tool_calls": false,
+      "action_limits": {
+        "inspection": 4,
+        "repair_build": 2,
+        "artifact_stage": 2,
+        "submit": 2
+      },
+      "request_limit_per_arm": 8,
+      "turn_limit_per_arm": 8,
+      "graph_step_limit_per_arm": 24,
+      "work_timeout_seconds_per_arm": 600,
+      "cleanup_timeout_seconds_per_arm": 120,
+      "per_arm_recorded_token_ceiling": 120000,
+      "batch_recorded_token_ceiling": 2940000,
+      "shared_tool_contract_identical_between_arms": true,
+      "treatment_exposure_only": "repair_packet"
+    },
+    "measurement_contract": {
+      "parent_fault": "opaque_build_provenance",
+      "parent_proof_status": "unproven/opaque_wrapper",
+      "treatment_required_proof_modes": {
+        "cmake": "direct_cmake",
+        "make": "direct_make"
+      },
+      "r0_companion_required": true,
+      "candidate_verification_required": true,
+      "clean_replay_required": true,
+      "cleanup_and_zero_orphan_required": true,
+      "replacement_forbidden": true,
+      "backfill_forbidden": true,
+      "batch_protocol_mutation_after_start_forbidden": true
+    },
+    "analysis": {
+      "independent_unit": "project_block",
+      "project_block_count": 6,
+      "project_score": "mean of two replicate paired conversion differences",
+      "primary_test": "two_sided_exact_sign_flip_over_six_project_scores",
+      "primary_test_requires_all_project_blocks_estimable": true,
+      "infrastructure_censoring_reported_separately": true,
+      "mechanism_invalid_reported_separately": true,
+      "intervention_delivery_invalid_reported_separately": true,
+      "historical_exploratory_pairs_pooled": false,
+      "model_ranking_performed": false
+    },
+    "future_state": {
+      "checkpoint_status": "not_created",
+      "evidence_status": "not_created",
+      "execution_runner_status": "not_implemented",
+      "execution_requires_new_amendment": true
+    },
+    "preregistration": {
+      "path": "benchmarks/preregistrations/cpp-opaque-provenance-confirmatory-candidate.md",
+      "file_sha256": "ba360ddf5061cd6d01677ed00ce257fe00221d972ffdf83c1d1b052aa507f14b"
+    }
+  }
+}

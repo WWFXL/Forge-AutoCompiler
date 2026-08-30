@@ -64,10 +64,16 @@
 ## 最近变更 (Recent Changes)
 <!-- 倒序，最新在上。 -->
 
+- 2026-08-31 — 冻结 Issue #230 opaque provenance 六 case 确认性 pilot 候选协议
+  - 文件: `scripts/forge_opaque_provenance_confirmatory_candidate_protocol.py`, `backend/tests/test_forge_opaque_provenance_confirmatory_candidate.py`, `benchmarks/manifests/cpp-opaque-provenance-confirmatory-candidate.json`, `benchmarks/schemas/forge-opaque-provenance-confirmatory-candidate.schema.json`, `benchmarks/preregistrations/cpp-opaque-provenance-confirmatory-candidate.md`
+  - 实现: result-blind 冻结 CMake `pupnp/ada-url/args` 与 Make `gpac/fio/sql-parser-shared`，每 case 两个 replicate 且项目内对调 arm order；`sql-parser` 使用独立 shared-library oracle，不修改旧 formal protocol。
+  - 排除: `mruby` 的 Rake/submodule 混杂、已有模型 evidence 的 `janet`、smoke 无判别力的 `lodepng` 与错误的 `sql-parser-static` identity 均由静态合同拒绝。
+  - 验证: schedule identity 为 `3f35dd8c245cb7e9db6069f63cf133c98fbfdf6813a11e3fa2306a5eb34c2134`；聚焦与相邻回归 `60 passed`，Ruff check/format、pycompile、确定性再生成、diff 与敏感信息扫描通过。全阶段 0 provider、0 credential read、0 Docker、0 formal attempt、0 model token、0 evidence write。
+
 - 2026-08-31 — 实现 Issue #228 OpenH264 单配对只读结果审计
   - 文件: `scripts/forge_opaque_provenance_openh264_result_audit.py`, `backend/tests/test_forge_opaque_provenance_openh264_result_audit.py`
   - 实现: 固定现有 12 个 source evidence SHA-256，验证 reachability、dependency fixture、pair marker 与 parent/baseline/treatment 三条 ledger hash chain；从 ledger 恢复两臂 request/token、R0 companion 和动作预算，并区分 treatment report-time head 与 terminal head。
-  - 验证: 真实 evidence 只读 audit 通过，恢复 baseline `4/0/0/0` 与 7 个 R0、treatment `4/1/0/1` 与 3 个 R0；聚焦及 #210/#220/#226 相邻回归 `28 passed`，Ruff、format 和 pycompile 通过。全阶段 0 provider、0 credential read、0 Docker、0 formal attempt、0 model token，原 evidence 尚未写 sidecar。
+  - 验证: 真实 evidence 只读 audit 通过，恢复 baseline `4/0/0/0` 与 7 个 R0、treatment `4/1/0/1` 与 3 个 R0；聚焦及 #210/#220/#226 相邻回归 `28 passed`，Ruff、format 和 pycompile 通过。合并后 create-once 写入 `reports/audit-v1.json`，SHA-256 为 `0671efefbea9744e44ee8bd64dc02b2feb827d6eee1696f78e527cb46638c7e2`，原 12 个 source evidence 哈希不变；审计阶段 0 provider、0 credential read、0 Docker、0 formal attempt、0 model token。
 
 - 2026-08-31 — 发布并执行 Issue #226 OpenH264 provenance 单配对 amendment
   - 文件: `scripts/forge_opaque_provenance_openh264_execution_protocol.py`, `scripts/forge_opaque_provenance_openh264_execution_runner.py`, `backend/tests/test_forge_opaque_provenance_openh264_execution.py`, `benchmarks/manifests/cpp-opaque-provenance-openh264-execution.json`, `benchmarks/schemas/forge-opaque-provenance-openh264-execution.schema.json`, `benchmarks/preregistrations/cpp-opaque-provenance-openh264-execution.md`
