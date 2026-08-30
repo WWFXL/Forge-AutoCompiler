@@ -5,15 +5,6 @@
 ## 进行中 (In Progress)
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
-- 2026-08-30 — 建立 Issue #212 R3 Make 构造对齐零 provider 门禁
-  - GitHub: 中文 Issue #212 已创建并回读；分支为 `research/212-r3-make-construct-alignment`，基线为 `main@62a76d2f`。
-  - 缺口: #202 P2 不要求固定 jobs，#208 runtime 却只接受 jobs=`2`，且双臂共享工具描述未公开 jobs 与精确 stage 约束；R2 treatment no-conversion 对冻结 runtime 有效，但不足以排除 intervention under-specification。
-  - 实现: 新建 experiment-only validator，把 jobs 归为公开的有界资源策略，允许省略或 `1..2`；双臂共享 direct Make、directory、target、jobs 与 stage source/destination 契约，repair packet 保持 #208 九字段内容不变且仍是唯一 treatment exposure。
-  - 验证: 聚焦 `16 passed`，#202/#204/#208/#210 相邻回归 `73 passed`，完整有效集合 `2408 passed, 47 skipped, 1 deselected`；完整 Ruff/format、CLI、py_compile、敏感信息扫描和 #210 真实 evidence 只读 audit 通过，8 个冻结组件哈希不变。唯一 deselect 是 #184 正式采集后永久失效的 #182 空 evidence 旧断言，不删除冻结 evidence 修绿。
-  - 边界: 0 provider、0 credential read、0 Docker、0 checkpoint、0 formal attempt、0 model token、0 evidence write；不修改或重跑 #208/#210。
-  - 下一步: 中文提交、WSL helper 推送、中文 PR/CI/合并；门禁发布后才另建真实 Docker lifecycle identity 候选，本 Issue 不授权模型实验。
-  - 文件: `scripts/forge_opaque_provenance_r3_make_construct_alignment_gate.py`, `backend/tests/test_forge_opaque_provenance_r3_make_construct_alignment_gate.py`, `benchmarks/preregistrations/cpp-opaque-provenance-r3-make-construct-alignment-gate.md`
-
 - 2026-08-15 — 验证 failure checkpoint 三层组合恢复
   - GitHub: 中文 Issue #141 已创建并回读；分支为 `research/141-combined-checkpoint-prototype`，基线为 `main@cd31d8df`。
   - 实现: 新增实验专用 `forge-combined-checkpoint-1.0.0` manifest，把 message、environment、budget 绑定到同一 `capture_id` 与 message state SHA-256；三层全部校验后才发布父 manifest。
@@ -72,6 +63,13 @@
 
 ## 最近变更 (Recent Changes)
 <!-- 倒序，最新在上。 -->
+
+- 2026-08-30 — 完成 Issue #212 R3 Make 构造对齐零 provider 门禁
+  - 文件: `scripts/forge_opaque_provenance_r3_make_construct_alignment_gate.py`, `backend/tests/test_forge_opaque_provenance_r3_make_construct_alignment_gate.py`, `benchmarks/preregistrations/cpp-opaque-provenance-r3-make-construct-alignment-gate.md`
+  - 发布: 中文 Issue #212 / PR #213 已创建并回读；提交 `6e0ff544`，CI backend tests（3 分 58 秒）、backend lint（14 秒）与 frontend lint（1 分 37 秒）全绿。
+  - 结论: #202 P2 不要求固定 jobs；#208 runtime 的 jobs=`2` 与未公开 stage 约束构成 intervention under-specification 风险。新 experiment-only gate 把 jobs 归为公开的有界资源策略，允许省略或 `1..2`，并让双臂共享 direct Make、directory、target、jobs 与 stage source/destination 契约。
+  - 完整性: Repair packet 保持 #208 九字段内容不变且仍是唯一 treatment exposure；8 个冻结组件与 #210 真实 evidence 只读 audit 均无漂移。聚焦 `16 passed`、相邻 `73 passed`、完整有效集合 `2408 passed, 47 skipped, 1 deselected`。
+  - 边界: 0 provider、0 credential read、0 Docker、0 checkpoint、0 formal attempt、0 model token、0 evidence write；不修改或重跑 #208/#210。下一阶段才另建真实 Docker lifecycle identity 候选，本 Issue 不授权模型实验。
 
 - 2026-08-30 — 完成 Issue #210 R2 Make 结果审计 sidecar
   - 文件: `scripts/forge_opaque_provenance_r2_make_result_audit.py`, `backend/tests/test_forge_opaque_provenance_r2_make_result_audit.py`
