@@ -64,6 +64,12 @@
 ## 最近变更 (Recent Changes)
 <!-- 倒序，最新在上。 -->
 
+- 2026-08-31 — 冻结 Issue #235 六 case confirmatory execution 未授权候选
+  - 文件: `scripts/forge_opaque_provenance_confirmatory_execution_candidate_protocol.py`, `scripts/forge_opaque_provenance_confirmatory_execution_composition_gate.py`, `backend/tests/test_forge_opaque_provenance_confirmatory_execution_candidate.py`, `benchmarks/manifests/cpp-opaque-provenance-confirmatory-execution-candidate.json`, `benchmarks/schemas/forge-opaque-provenance-confirmatory-execution-candidate.schema.json`, `benchmarks/preregistrations/cpp-opaque-provenance-confirmatory-execution-candidate.md`
+  - 设计: 继承 Issue #233 六 case/12-pair identity，选择但不授权 DeepSeek `deepseek-v4-flash`；冻结独立 evidence、三层 terminal taxonomy、endpoint censoring 继续、mechanism/identity/cleanup 失败停止和 2,940,000-token 批次门禁。
+  - 复用: CMake/Make 分别复用既有 runtime-parity/R0 action policy，完整 agent construction 使用本地 fake model，批次只实现纯状态转换合同；不复制 checkpoint capture/restore 或真实 pair 主循环。
+  - 边界: 真实 pair runner 仍未实现；0 provider、0 credential read、0 Docker、0 checkpoint、0 formal attempt、0 model token、0 正式 evidence write，未来真实采集必须新增 authorized amendment。
+
 - 2026-08-31 — 完成 Issue #232/#233 六 case 确认性 lifecycle 零 provider 门禁
   - 文件: `scripts/forge_opaque_provenance_confirmatory_lifecycle_gate.py`, `scripts/forge_opaque_provenance_confirmatory_candidate_v2_protocol.py`, `backend/tests/test_forge_opaque_provenance_confirmatory_lifecycle_gate.py`, `backend/tests/test_forge_opaque_provenance_confirmatory_lifecycle_gate_docker.py`, `backend/tests/test_forge_opaque_provenance_confirmatory_candidate_v2.py`, `benchmarks/manifests/cpp-opaque-provenance-confirmatory-candidate-v2.json`, `benchmarks/schemas/forge-opaque-provenance-confirmatory-candidate-v2.schema.json`, `benchmarks/preregistrations/cpp-opaque-provenance-confirmatory-candidate-v2.md`, `benchmarks/preregistrations/cpp-opaque-provenance-confirmatory-lifecycle-zero-provider-gate.md`
   - 根因: `sql-parser-shared` 的 v1 空 bootstrap 会因 checkout 文件 mtime 决定 `make library` 是消费已跟踪生成文件还是重新运行 Bison；四次 lifecycle 为 2 次通过、2 次 `sha256_mismatch`，路径、类型和大小一致但 SHA-256/build-id 不同。
