@@ -5,14 +5,6 @@
 ## 进行中 (In Progress)
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
-- 2026-08-31 — 发布并执行 Issue #226 OpenH264 provenance 单配对 amendment
-  - GitHub: 中文 Issue #226 已创建并回读；分支为 `research/issue-226-openh264-execution`，基线为 `main@185fcbed4e7ad01f6eae6cb247304601f480f83f`。
-  - 实现: 新 execution protocol/manifest/const Schema 与 528 行薄 wrapper 注入 #224 OpenH264 lifecycle、#220 正确 parity/observability bindings、pre-model fail-closed classifier 和独立 evidence identity，不复制冻结 #218 `_run_pair` 控制流。Manifest canonical SHA-256 为 `536f6688f8c6289e2e4bd3a46ebd95fab7dc7dbdedf728e88d937cb171bb0cfc`。
-  - Fixture: 固定 `nasm 2.16.01-1build1 amd64` URL/SHA-256，以精确命名 prep container 执行 `docker cp`、`dpkg --install` 和 Docker 29 `commit --no-pause`；禁止 apt index 与 `docker build`，pair 结束或失败后删除 container、tag 和真实 image ID，并独立记录 cleanup report。
-  - 验证: 聚焦 `9 passed`、Make/R3/OpenH264 相邻回归 `107 passed`，全量 Ruff/format、pycompile、CLI、Schema、diff 和敏感信息扫描通过。后端全量为 `2453 passed, 50 skipped, 1 failed`；唯一失败是已知 #182 空 evidence 旧断言，真实 #184 evidence 已存在，不得删除冻结 evidence 规避。
-  - 边界: 当前仍为 0 provider、0 credential read、0 Docker、0 formal evidence write、0 model token。下一步是中文提交、WSL helper 推送、中文 PR/CI/合并；合并后在干净主干执行唯一 preflight、reachability 和一个 `baseline -> treatment` pair，禁止 retry/replacement/backfill、历史池化、p 值和模型排名。
-  - 文件: `scripts/forge_opaque_provenance_openh264_execution_protocol.py`, `scripts/forge_opaque_provenance_openh264_execution_runner.py`, `backend/tests/test_forge_opaque_provenance_openh264_execution.py`, `benchmarks/manifests/cpp-opaque-provenance-openh264-execution.json`, `benchmarks/schemas/forge-opaque-provenance-openh264-execution.schema.json`, `benchmarks/preregistrations/cpp-opaque-provenance-openh264-execution.md`
-
 - 2026-08-15 — 验证 failure checkpoint 三层组合恢复
   - GitHub: 中文 Issue #141 已创建并回读；分支为 `research/141-combined-checkpoint-prototype`，基线为 `main@cd31d8df`。
   - 实现: 新增实验专用 `forge-combined-checkpoint-1.0.0` manifest，把 message、environment、budget 绑定到同一 `capture_id` 与 message state SHA-256；三层全部校验后才发布父 manifest。
@@ -71,6 +63,17 @@
 
 ## 最近变更 (Recent Changes)
 <!-- 倒序，最新在上。 -->
+
+- 2026-08-31 — 实现 Issue #228 OpenH264 单配对只读结果审计
+  - 文件: `scripts/forge_opaque_provenance_openh264_result_audit.py`, `backend/tests/test_forge_opaque_provenance_openh264_result_audit.py`
+  - 实现: 固定现有 12 个 source evidence SHA-256，验证 reachability、dependency fixture、pair marker 与 parent/baseline/treatment 三条 ledger hash chain；从 ledger 恢复两臂 request/token、R0 companion 和动作预算，并区分 treatment report-time head 与 terminal head。
+  - 验证: 真实 evidence 只读 audit 通过，恢复 baseline `4/0/0/0` 与 7 个 R0、treatment `4/1/0/1` 与 3 个 R0；聚焦及 #210/#220/#226 相邻回归 `28 passed`，Ruff、format 和 pycompile 通过。全阶段 0 provider、0 credential read、0 Docker、0 formal attempt、0 model token，原 evidence 尚未写 sidecar。
+
+- 2026-08-31 — 发布并执行 Issue #226 OpenH264 provenance 单配对 amendment
+  - 文件: `scripts/forge_opaque_provenance_openh264_execution_protocol.py`, `scripts/forge_opaque_provenance_openh264_execution_runner.py`, `backend/tests/test_forge_opaque_provenance_openh264_execution.py`, `benchmarks/manifests/cpp-opaque-provenance-openh264-execution.json`, `benchmarks/schemas/forge-opaque-provenance-openh264-execution.schema.json`, `benchmarks/preregistrations/cpp-opaque-provenance-openh264-execution.md`
+  - 发布: PR #227 已 squash 合并为 `main@9873e7a8548a698e03fc4d9f3cf19123ffeb8070`，Issue #226 自动关闭，三项 CI 全绿。
+  - 结果: `deepseek-v4-flash` reachability 以 1 request / 17 tokens / 1.369 秒通过；唯一 pair 中 baseline 为 8 requests / 37,271 tokens / 0 submit / `unproven/opaque_wrapper`，treatment 为 6 requests / 20,584 tokens / 1 submit / 1 clean replay / `proven/direct_make`，总计 57,872 tokens。
+  - 清理: production 与 dependency fixture cleanup 均通过，compile/replay/prep container、fixture tag 与真实 image ID 后置均为 0；禁止重跑、replacement、backfill、追加 pair、历史池化、p 值和模型排名。
 
 - 2026-08-31 — 完成 Issue #224 OpenH264 独立 Make candidate 与真实 lifecycle 门禁
   - 文件: `scripts/forge_opaque_provenance_openh264_candidate_gate.py`, `backend/tests/test_forge_opaque_provenance_openh264_candidate.py`, `backend/tests/test_forge_opaque_provenance_openh264_candidate_docker.py`, `benchmarks/manifests/cpp-opaque-provenance-openh264-candidate.json`, `benchmarks/schemas/forge-opaque-provenance-openh264-candidate.schema.json`, `benchmarks/preregistrations/cpp-opaque-provenance-openh264-candidate.md`
