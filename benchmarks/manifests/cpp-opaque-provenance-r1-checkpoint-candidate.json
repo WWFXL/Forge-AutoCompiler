@@ -1,0 +1,311 @@
+{
+  "$schema": "../schemas/forge-opaque-provenance-r1-checkpoint-candidate.schema.json",
+  "schema_version": "forge-opaque-provenance-r1-checkpoint-candidate-1.0.0",
+  "document_type": "forge_opaque_provenance_r1_checkpoint_candidate",
+  "authorization": {
+    "issue_url": "https://github.com/WWFXL/Forge-AutoCompiler/issues/196",
+    "candidate_generation_authorized": true,
+    "zero_provider_preflight_authorized": true,
+    "checkpoint_creation_authorized": false,
+    "reachability_request_authorized": false,
+    "provider_calls_authorized": false,
+    "formal_attempts_authorized": false,
+    "pair_collection_authorized": false,
+    "credential_read_authorized": false,
+    "model_creation_authorized": false,
+    "docker_execution_authorized": false,
+    "evidence_write_authorized": false,
+    "model_tokens_authorized": 0
+  },
+  "source_protocol": {
+    "path": "benchmarks/preregistrations/cpp-formal-v1-cases.json",
+    "file_sha256": "55fc4ea1cc634376b5016fa3421736a66c284b293b9b8f10185e837e12db3fee",
+    "case_protocol_sha256": "3adb51f7c4cee22219c6ef4035fa0bc1e1dc6764e6246ad0dc4f612a03bb31ca",
+    "audit_mode": "result-blind-static-document-review",
+    "source_case": {
+      "id": "yyjson",
+      "repository_url": "https://github.com/ibireme/yyjson",
+      "commit": "9365ddc7061033df656578bf86040048b5b5531a",
+      "build_system": "cmake",
+      "review_state": "reviewed",
+      "result_data_consulted": false,
+      "recipe": {
+        "source_subdir": ".",
+        "bootstrap_commands": [],
+        "configure_arguments": [
+          "-DCMAKE_BUILD_TYPE=Release",
+          "-DBUILD_SHARED_LIBS=OFF",
+          "-DYYJSON_BUILD_TESTS=OFF",
+          "-DYYJSON_BUILD_FUZZER=OFF"
+        ],
+        "build_targets": [
+          "yyjson"
+        ],
+        "required_system_packages": [
+          "build-essential",
+          "cmake"
+        ]
+      },
+      "artifact_oracle": {
+        "required_artifacts": [
+          {
+            "staged_relative_path": "libyyjson.a",
+            "build_output_path": "build/libyyjson.a",
+            "artifact_type": "static_library",
+            "producing_target": "yyjson"
+          }
+        ]
+      },
+      "evidence": [
+        {
+          "kind": "upstream_exact_commit",
+          "path": "CMakeLists.txt",
+          "url": "https://github.com/ibireme/yyjson/blob/9365ddc7061033df656578bf86040048b5b5531a/CMakeLists.txt",
+          "supports": [
+            "build_path",
+            "artifact_identity"
+          ]
+        },
+        {
+          "kind": "oss_fuzz_snapshot",
+          "path": "yyjson/build.sh",
+          "url": "https://github.com/google/oss-fuzz/blob/08682bfc14e31d12fcc94b52b4805d7994fb70fd/projects/yyjson/build.sh",
+          "supports": [
+            "build_path"
+          ]
+        }
+      ]
+    }
+  },
+  "case": {
+    "case_id": "yyjson-opaque-provenance-r1",
+    "repository_url": "https://github.com/ibireme/yyjson",
+    "commit_sha": "9365ddc7061033df656578bf86040048b5b5531a",
+    "compile_image": "autocompiler:gcc13",
+    "build_system": "cmake",
+    "source_subdir": ".",
+    "build_directory": "/workspace/repo/build",
+    "configure_arguments": [
+      "-DCMAKE_BUILD_TYPE=Release",
+      "-DBUILD_SHARED_LIBS=OFF",
+      "-DYYJSON_BUILD_TESTS=OFF",
+      "-DYYJSON_BUILD_FUZZER=OFF"
+    ],
+    "target": "yyjson",
+    "build_output": "build/libyyjson.a",
+    "staged_artifact": "libyyjson.a",
+    "artifact_type": "static_library",
+    "required_system_packages": [
+      "build-essential",
+      "cmake"
+    ],
+    "parent_proof_status": "opaque_wrapper",
+    "parent_expected_failure": "build_system_unproven"
+  },
+  "independence": {
+    "historical_pair": "opaque-provenance-cppitertools-runtime-parity-pair-01",
+    "historical_repository_url": "https://github.com/ryanhaining/cppitertools",
+    "historical_commit_sha": "531b3d753d2bbfe3b0ababe61c2e95e965c54a66",
+    "historical_target": "accumulate_examples",
+    "historical_staged_artifact": "accumulate_examples",
+    "repository_commit_target_and_artifact_all_distinct": true,
+    "historical_pair_pooled": false,
+    "retry_replacement_backfill_or_extension": false
+  },
+  "checkpoint": {
+    "status": "not_created",
+    "checkpoint_id": null,
+    "parent_ledger_sha256": null,
+    "message_state_sha256": null,
+    "environment_identity_sha256": null,
+    "budget_identity_sha256": null,
+    "arm_state_matching": [
+      "message",
+      "environment",
+      "budget"
+    ],
+    "creation_requires_separate_authorization": true
+  },
+  "provider": {
+    "status": "candidate_not_authorized",
+    "id": "deepseek-v4-flash",
+    "endpoint": "https://api.deepseek.com",
+    "credential_env": "DEEPSEEK_API_KEY",
+    "model": "deepseek-v4-flash",
+    "request_timeout_seconds": 300,
+    "max_retries": 0,
+    "fallback": "forbidden",
+    "streaming": false
+  },
+  "continuation": {
+    "maximum_requests_per_arm": 8,
+    "maximum_model_turns_per_arm": 8,
+    "maximum_graph_steps_per_arm": 24,
+    "work_wall_clock_seconds_per_arm": 600,
+    "cleanup_reserve_seconds_per_arm": 120,
+    "maximum_recorded_tokens_per_arm": 120000
+  },
+  "schedule": [
+    {
+      "pair_id": "opaque-provenance-r1-yyjson-pair-01",
+      "order": 1,
+      "case_id": "yyjson-opaque-provenance-r1",
+      "arm_order": [
+        "baseline",
+        "treatment"
+      ],
+      "state_matched": true,
+      "treatment_exposure_only": "repair_packet",
+      "shared_measurement_policy": "runtime_parity_with_r0_observability_v1"
+    }
+  ],
+  "schedule_sha256": "420e0f129086aff5eec604444733301420ea504a474965776ec4ca945f5a13ef",
+  "repair_packet": {
+    "schema_version": "forge-opaque-provenance-repair-packet-1.0.0",
+    "fields": [
+      "schema_version",
+      "primary_classification",
+      "mechanism_classification",
+      "expected_build_system",
+      "selected_build_system",
+      "build_directory",
+      "target",
+      "proof_status",
+      "repair_goal"
+    ],
+    "template": {
+      "schema_version": "forge-opaque-provenance-repair-packet-1.0.0",
+      "primary_classification": "build_system_unproven",
+      "mechanism_classification": "opaque_build_provenance",
+      "expected_build_system": "cmake",
+      "selected_build_system": "cmake",
+      "build_directory": "/workspace/repo/build",
+      "target": "yyjson",
+      "proof_status": "opaque_wrapper",
+      "repair_goal": "Execute and record a trusted build-system invocation bound to the frozen build directory and target, then submit again."
+    },
+    "origin_path": "scripts/forge_opaque_build_provenance_real_docker_gate.py",
+    "origin_file_sha256": "cfaac00042a623083f351e5e1b82c7b0b497bb923aea6f02b35174a40cf949e4",
+    "forbidden_solution_fields": [
+      "command",
+      "argv",
+      "command_line",
+      "shell",
+      "credential",
+      "secret"
+    ]
+  },
+  "runtime_parity": {
+    "action_limits": {
+      "inspection": 4,
+      "repair_build": 2,
+      "artifact_stage": 2,
+      "submit": 2
+    },
+    "atomic_budget_claim": true,
+    "parallel_tool_calls": false,
+    "repair_build_directory": "/workspace/repo/build",
+    "repair_build_target": "yyjson",
+    "build_output": "build/libyyjson.a",
+    "staged_artifact": "libyyjson.a",
+    "forbidden_actions": [
+      "clone",
+      "configure",
+      "dependency",
+      "housekeeping",
+      "manual_replay",
+      "compound_build_stage"
+    ],
+    "candidate_verification_required": true,
+    "clean_replay_required": true,
+    "cleanup_required": true
+  },
+  "r0_observability": {
+    "schema_version": "forge-opaque-provenance-rejection-observability-gate-1.0.0",
+    "legacy_failure_event": "agent.tool_failed",
+    "legacy_failure_schema_preserved": true,
+    "companion_event": "agent.tool_rejection_observed",
+    "companion_required_for_classified_rejection": true,
+    "failure_link_field": "failure_id",
+    "atomic_fields": [
+      "rejection_classification",
+      "action_kind",
+      "model_request_id",
+      "tool_ordinal",
+      "command_sha256"
+    ],
+    "raw_command_error_model_text_and_credentials_forbidden": true,
+    "unknown_or_ambiguous_tool_call_keeps_legacy_event_only": true,
+    "frozen_components": {
+      "backend/tests/test_forge_opaque_provenance_rejection_observability_gate.py": "436099e045138ac05d8c53e81d2a8b2a821f1e44213bbcd540e39d1d6e531f2c",
+      "benchmarks/preregistrations/cpp-opaque-provenance-rejection-observability-gate.md": "650670b29c2c7d4858e4403c544febb424b81eba18afafea0f851d362a2f689e",
+      "scripts/forge_opaque_provenance_rejection_observability_gate.py": "695c6188acf92f4e34dcbaf4c6f049ca4b024e9bdd1eb91085c0c8d5d0ace158"
+    }
+  },
+  "evidence": {
+    "schema_version": "forge-opaque-provenance-r1-evidence-1.0.0",
+    "directory": "/workspace/.compile-sessions/benchmark-evidence-opaque-provenance-r1-yyjson-v1",
+    "checkpoint_manifest": "checkpoints/opaque-provenance-r1-yyjson-pair-01/checkpoint.json",
+    "parent_ledger": "checkpoints/opaque-provenance-r1-yyjson-pair-01/parent/events.jsonl",
+    "pair_ledger": "pairs/opaque-provenance-r1-yyjson-pair-01/events.jsonl",
+    "arm_ledger_directory": "pairs/opaque-provenance-r1-yyjson-pair-01/arms",
+    "reachability_marker": "markers/reachability.json",
+    "pair_marker": "markers/pair.json",
+    "canary_report": "reports/canary.json",
+    "append_only": true,
+    "status": "not_created",
+    "zero_provider_preflight_writes_evidence": false,
+    "identity_sha256": "d4b5f051bde5c66e5a1b4c67da72c91443d15c614b209941f71d7a02c4f57077"
+  },
+  "stopping": {
+    "checkpoint_creation_failure_stops": true,
+    "reachability_failure_stops_before_pair": true,
+    "identity_evidence_budget_cleanup_or_unclassified_failure_stops": true,
+    "retry_forbidden": true,
+    "replacement_forbidden": true,
+    "backfill_forbidden": true,
+    "schedule_extension_forbidden": true
+  },
+  "analysis": {
+    "purpose": "independent_checkpoint_intervention_delivery_and_p2_conversion_canary",
+    "unit_of_analysis": "single_independent_state_matched_pair",
+    "primary_outcome": "paired_post_checkpoint_p2_conversion_with_candidate_and_clean_replay",
+    "descriptive_only": true,
+    "treatment_effect_estimated": false,
+    "p_value_computed": false,
+    "model_ranking_performed": false,
+    "historical_pairs_pooled": false
+  },
+  "preflight": {
+    "release_branch": "main",
+    "require_clean_worktree": true,
+    "require_head_equals_origin_main": true,
+    "authorization_baseline_commit": "7fe33b2bde6cbed5d42110eb74434b029a754fa7",
+    "require_authorization_baseline_ancestor": true,
+    "require_source_protocol_hash": true,
+    "require_r0_component_hashes": true,
+    "require_empty_candidate_evidence_directory": true,
+    "require_checkpoint_not_created": true,
+    "docker_check_forbidden": true
+  },
+  "preregistration": {
+    "path": "benchmarks/preregistrations/cpp-opaque-provenance-r1-checkpoint-candidate.md",
+    "file_sha256": "984794477d7a5e6271960a36e9f513a2aa049d950bfe9f6966fb5de5642772ba"
+  },
+  "runtime_adapter": {
+    "path": "scripts/forge_opaque_provenance_r1_candidate_runner.py",
+    "file_sha256": "51a9a03214bc7afeb4c4c6187b76b323119ba214e1d4e4024c9d8b3689b65cf5",
+    "commands": [
+      "validate",
+      "plan",
+      "preflight"
+    ],
+    "credential_read_supported": false,
+    "provider_model_creation_supported": false,
+    "checkpoint_execute_supported": false,
+    "reachability_execute_supported": false,
+    "pair_execute_supported": false,
+    "docker_execute_supported": false,
+    "evidence_write_supported": false
+  }
+}
