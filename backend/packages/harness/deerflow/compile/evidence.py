@@ -56,6 +56,36 @@ _FORBIDDEN_KEYS = {
 _ALLOWED_MODEL_ROLES = {"lead", "compiler", "system"}
 _ALLOWED_BUILD_SYSTEMS = {"cmake", "make", "autotools"}
 _ALLOWED_TOOL_EXECUTION_MODES = {"sync", "async"}
+_ALLOWED_TOOL_REJECTION_CLASSIFICATIONS = {
+    "action_claim_empty",
+    "action_role_invalid",
+    "action_unknown",
+    "artifact_stage_budget_exhausted",
+    "artifact_stage_identity_drift",
+    "artifact_stage_shape_invalid",
+    "compound_build_stage_forbidden",
+    "compound_shell_forbidden",
+    "container_path_invalid",
+    "forbidden_action_role",
+    "inspection_budget_exhausted",
+    "invalid_command_role",
+    "repair_build_arguments_invalid",
+    "repair_build_budget_exhausted",
+    "repair_build_directory_drift",
+    "repair_build_invocation_invalid",
+    "repair_build_target_drift",
+    "runtime_parity_policy_drift",
+    "shell_token_invalid",
+    "submit_budget_exhausted",
+}
+_ALLOWED_TOOL_ACTION_KINDS = {
+    "artifact_stage",
+    "command",
+    "inspection",
+    "repair_build",
+    "submit",
+    "unknown",
+}
 _ALLOWED_COMMAND_ROLES = {
     "clone",
     "inspect",
@@ -96,7 +126,16 @@ _ATTEMPT_BUDGET_CHECKPOINTS = {
 
 
 class EvidenceError(ValueError):
-    pass
+    def __init__(
+        self,
+        message: str,
+        *,
+        rejection_classification: str | None = None,
+        action_kind: str | None = None,
+    ) -> None:
+        super().__init__(message)
+        self.evidence_rejection_classification = rejection_classification
+        self.evidence_action_kind = action_kind
 
 
 class AttemptBudgetExceeded(RuntimeError):
@@ -398,7 +437,14 @@ def _validate_agent_event_payload(event: str, payload: dict[str, Any], path: str
             "execution_mode",
             "terminal",
         }
-        if set(payload) != required:
+        observability = {
+            "rejection_classification",
+            "action_kind",
+            "model_request_id",
+            "tool_ordinal",
+            "command_sha256",
+        }
+        if set(payload) not in (required, required | observability):
             raise EvidenceError(f"{path} has an invalid agent.tool_failed schema")
         _validate_id(payload["failure_id"], f"{path}.failure_id")
         if payload["role"] not in _ALLOWED_MODEL_ROLES:
@@ -410,6 +456,16 @@ def _validate_agent_event_payload(event: str, payload: dict[str, Any], path: str
             raise EvidenceError(f"{path}.execution_mode is invalid")
         if payload["terminal"] is not False:
             raise EvidenceError(f"{path}.terminal must be false for a recoverable tool error")
+        if observability <= set(payload):
+            if payload["rejection_classification"] not in _ALLOWED_TOOL_REJECTION_CLASSIFICATIONS:
+                raise EvidenceError(f"{path}.rejection_classification is invalid")
+            if payload["action_kind"] not in _ALLOWED_TOOL_ACTION_KINDS:
+                raise EvidenceError(f"{path}.action_kind is invalid")
+            _validate_id(payload["model_request_id"], f"{path}.model_request_id")
+            if type(payload["tool_ordinal"]) is not int or payload["tool_ordinal"] < 1:
+                raise EvidenceError(f"{path}.tool_ordinal must be a positive integer")
+            if payload["command_sha256"] is not None:
+                _validate_sha256(payload["command_sha256"], f"{path}.command_sha256")
         return
 
     if event == "agent.clarification_auto_answered":
@@ -640,6 +696,8 @@ class ActiveExperiment:
     ledger: ExperimentLedger
     policy: ExperimentPolicy
     attempt_budget: _ExperimentAttemptBudgetRuntime | None = None
+    tool_call_origins: dict[str, tuple[str, int]] = field(default_factory=dict, compare=False, repr=False)
+    ambiguous_tool_call_ids: set[str] = field(default_factory=set, compare=False, repr=False)
 
 
 _PATH_LOCKS: dict[Path, threading.RLock] = {}
@@ -998,6 +1056,78 @@ def record_experiment_event(thread_id: str | None, event: str, **payload: Any) -
     return active.ledger.append(event, payload)
 
 
+def record_model_tool_call_origins(
+    thread_id: str | None,
+    response: Any,
+    *,
+    model_request_id: str,
+) -> int:
+    """Associate provider tool-call IDs with one request without persisting arguments."""
+    active = get_active_experiment(thread_id)
+    if active is None:
+        return 0
+    _validate_id(model_request_id, "model_request_id")
+    candidates: list[Any] = []
+    result = getattr(response, "result", None)
+    if isinstance(result, (list, tuple)):
+        candidates.extend(result[:8])
+    elif result is not None:
+        candidates.append(result)
+    candidates.append(response)
+    tool_calls: list[dict[str, Any]] = []
+    for candidate in candidates:
+        value = getattr(candidate, "tool_calls", None)
+        if isinstance(value, list):
+            tool_calls.extend(item for item in value if isinstance(item, dict))
+    seen_in_response: set[str] = set()
+    registered = 0
+    with _ACTIVE_EXPERIMENTS_GUARD:
+        current = _ACTIVE_EXPERIMENTS.get(thread_id or "")
+        if current is not active:
+            return 0
+        for ordinal, tool_call in enumerate(tool_calls, start=1):
+            tool_call_id = tool_call.get("id")
+            if not isinstance(tool_call_id, str) or not _BOUNDED_IDENTIFIER_RE.fullmatch(tool_call_id):
+                continue
+            duplicate = tool_call_id in seen_in_response or tool_call_id in active.tool_call_origins or tool_call_id in active.ambiguous_tool_call_ids
+            seen_in_response.add(tool_call_id)
+            if duplicate:
+                removed = active.tool_call_origins.pop(tool_call_id, None)
+                if removed is not None and removed[0] == model_request_id:
+                    registered -= 1
+                active.ambiguous_tool_call_ids.add(tool_call_id)
+                continue
+            active.tool_call_origins[tool_call_id] = (model_request_id, ordinal)
+            registered += 1
+    return registered
+
+
+def _tool_rejection_metadata(exc: Exception) -> tuple[str, str] | None:
+    classification = getattr(exc, "evidence_rejection_classification", None)
+    action_kind = getattr(exc, "evidence_action_kind", None)
+    if classification not in _ALLOWED_TOOL_REJECTION_CLASSIFICATIONS or action_kind not in _ALLOWED_TOOL_ACTION_KINDS:
+        return None
+    return classification, action_kind
+
+
+def _tool_call_origin(thread_id: str | None, tool_call_id: str) -> tuple[str, int] | None:
+    with _ACTIVE_EXPERIMENTS_GUARD:
+        active = _ACTIVE_EXPERIMENTS.get(thread_id or "")
+        if active is None or tool_call_id in active.ambiguous_tool_call_ids:
+            return None
+        return active.tool_call_origins.get(tool_call_id)
+
+
+def _tool_command_sha256(tool_call: dict[str, Any]) -> str | None:
+    arguments = tool_call.get("args")
+    if not isinstance(arguments, dict):
+        return None
+    command = arguments.get("command")
+    if not isinstance(command, str):
+        return None
+    return hashlib.sha256(command.encode("utf-8")).hexdigest()
+
+
 def request_thread_id(request: Any) -> str | None:
     runtime = getattr(request, "runtime", None)
     context = getattr(runtime, "context", None)
@@ -1061,23 +1191,34 @@ def record_agent_tool_failure(
     tool_call = getattr(request, "tool_call", None)
     if not isinstance(tool_call, dict):
         tool_call = {}
-    return record_experiment_event(
-        request_thread_id(request),
-        "agent.tool_failed",
-        failure_id=new_evidence_id("failure"),
-        role=request_model_role(request),
-        tool_name=_bounded_identifier(tool_call.get("name"), "unknown_tool"),
-        tool_call_id=_bounded_identifier(
-            tool_call.get("id"),
-            "missing_tool_call_id",
-        ),
-        exception_class=_bounded_identifier(
+    thread_id = request_thread_id(request)
+    tool_call_id = _bounded_identifier(
+        tool_call.get("id"),
+        "missing_tool_call_id",
+    )
+    payload: dict[str, Any] = {
+        "failure_id": new_evidence_id("failure"),
+        "role": request_model_role(request),
+        "tool_name": _bounded_identifier(tool_call.get("name"), "unknown_tool"),
+        "tool_call_id": tool_call_id,
+        "exception_class": _bounded_identifier(
             type(exc).__name__,
             "UnknownException",
         ),
-        execution_mode=execution_mode,
-        terminal=False,
-    )
+        "execution_mode": execution_mode,
+        "terminal": False,
+    }
+    rejection = _tool_rejection_metadata(exc)
+    origin = _tool_call_origin(thread_id, tool_call_id)
+    if rejection is not None and origin is not None:
+        payload.update(
+            rejection_classification=rejection[0],
+            action_kind=rejection[1],
+            model_request_id=origin[0],
+            tool_ordinal=origin[1],
+            command_sha256=_tool_command_sha256(tool_call),
+        )
+    return record_experiment_event(thread_id, "agent.tool_failed", **payload)
 
 
 def request_model_name(request: Any, fallback: str) -> str:
@@ -1148,5 +1289,9 @@ def allowed_command_role(role: str | None) -> str:
     if role is None:
         return "other"
     if role not in _ALLOWED_COMMAND_ROLES:
-        raise EvidenceError(f"Unsupported compile command role: {role!r}")
+        raise EvidenceError(
+            f"Unsupported compile command role: {role!r}",
+            rejection_classification="invalid_command_role",
+            action_kind="command",
+        )
     return role

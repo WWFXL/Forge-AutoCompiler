@@ -27,6 +27,7 @@ from deerflow.compile.evidence import (
     record_agent_tool_failure,
     record_experiment_attempt_budget_completion,
     record_experiment_event,
+    record_model_tool_call_origins,
 )
 from deerflow.tools.builtins.task_tool import _record_subagent_terminal_evidence
 
@@ -458,6 +459,112 @@ def test_agent_tool_failure_records_only_bounded_identity_and_exception_class(
     assert exception_detail not in ledger.path.read_text(encoding="utf-8")
 
 
+def test_classified_tool_failure_records_atomic_observability_without_raw_command(
+    tmp_path: Path,
+) -> None:
+    ledger = create_ledger(tmp_path)
+    thread_id = new_evidence_id("thread")
+    model_request_id = new_evidence_id("model_request")
+    command = "ls -la /workspace/repo && echo sensitive-value-must-not-enter-ledger"
+    tool_call = {
+        "name": "run_container_bash",
+        "id": "call-observed-2",
+        "args": {"command": command, "command_role": "other"},
+    }
+    request = SimpleNamespace(
+        tool_call=tool_call,
+        runtime=SimpleNamespace(
+            context={"thread_id": thread_id, "agent_name": "compiler"},
+            config={"configurable": {}},
+        ),
+    )
+    activate_experiment(
+        thread_id=thread_id,
+        experiment_id=ledger.experiment_id,
+        physical_attempt_id=ledger.physical_attempt_id,
+        ledger=ledger,
+        policy=make_policy(),
+    )
+    try:
+        response = SimpleNamespace(
+            result=[
+                SimpleNamespace(
+                    tool_calls=[
+                        {"name": "run_container_bash", "id": "call-observed-1", "args": {}},
+                        tool_call,
+                    ]
+                )
+            ]
+        )
+        assert record_model_tool_call_origins(thread_id, response, model_request_id=model_request_id) == 2
+        record_agent_tool_failure(
+            request,
+            EvidenceError(
+                "raw error must not enter ledger",
+                rejection_classification="compound_shell_forbidden",
+                action_kind="inspection",
+            ),
+            execution_mode="async",
+        )
+    finally:
+        deactivate_experiment(thread_id)
+
+    payload = ledger.read()[-1]["payload"]
+    assert payload["rejection_classification"] == "compound_shell_forbidden"
+    assert payload["action_kind"] == "inspection"
+    assert payload["model_request_id"] == model_request_id
+    assert payload["tool_ordinal"] == 2
+    assert payload["command_sha256"] == hashlib.sha256(command.encode()).hexdigest()
+    persisted = ledger.path.read_text(encoding="utf-8")
+    assert command not in persisted
+    assert "raw error must not enter ledger" not in persisted
+
+
+def test_ambiguous_or_unknown_tool_call_origin_keeps_legacy_failure_schema(
+    tmp_path: Path,
+) -> None:
+    ledger = create_ledger(tmp_path)
+    thread_id = new_evidence_id("thread")
+    model_request_id = new_evidence_id("model_request")
+    duplicate = {"name": "run_container_bash", "id": "call-duplicate", "args": {"command": "pwd"}}
+    request = SimpleNamespace(
+        tool_call=duplicate,
+        runtime=SimpleNamespace(context={"thread_id": thread_id, "agent_name": "compiler"}),
+    )
+    activate_experiment(
+        thread_id=thread_id,
+        experiment_id=ledger.experiment_id,
+        physical_attempt_id=ledger.physical_attempt_id,
+        ledger=ledger,
+        policy=make_policy(),
+    )
+    try:
+        response = SimpleNamespace(result=[SimpleNamespace(tool_calls=[duplicate, duplicate])])
+        assert record_model_tool_call_origins(thread_id, response, model_request_id=model_request_id) == 0
+        record_agent_tool_failure(
+            request,
+            EvidenceError(
+                "ambiguous",
+                rejection_classification="inspection_budget_exhausted",
+                action_kind="inspection",
+            ),
+            execution_mode="sync",
+        )
+    finally:
+        deactivate_experiment(thread_id)
+
+    payload = ledger.read()[-1]["payload"]
+    assert set(payload) == {
+        "failure_id",
+        "role",
+        "tool_name",
+        "tool_call_id",
+        "exception_class",
+        "execution_mode",
+        "terminal",
+    }
+
+
 def test_agent_event_schema_rejects_raw_or_inconsistent_payloads(
     tmp_path: Path,
 ) -> None:
@@ -489,6 +596,42 @@ def test_agent_event_schema_rejects_raw_or_inconsistent_payloads(
                 "terminal": True,
             },
         )
+
+
+@pytest.mark.parametrize(
+    ("field", "value", "message"),
+    [
+        ("rejection_classification", "not_preregistered", "rejection_classification is invalid"),
+        ("action_kind", "filesystem", "action_kind is invalid"),
+        ("model_request_id", "request-1", "model_request_id must be a stable evidence ID"),
+        ("tool_ordinal", 0, "tool_ordinal must be a positive integer"),
+        ("command_sha256", "bad", "command_sha256 must be a lowercase SHA-256 digest"),
+    ],
+)
+def test_agent_tool_failure_observability_schema_rejects_invalid_values(
+    tmp_path: Path,
+    field: str,
+    value: object,
+    message: str,
+) -> None:
+    ledger = create_ledger(tmp_path)
+    payload = {
+        "failure_id": new_evidence_id("failure"),
+        "role": "compiler",
+        "tool_name": "run_container_bash",
+        "tool_call_id": "call-1",
+        "exception_class": "RuntimeParityGateError",
+        "execution_mode": "async",
+        "terminal": False,
+        "rejection_classification": "compound_shell_forbidden",
+        "action_kind": "inspection",
+        "model_request_id": new_evidence_id("model_request"),
+        "tool_ordinal": 1,
+        "command_sha256": "a" * 64,
+    }
+    payload[field] = value
+    with pytest.raises(EvidenceError, match=message):
+        ledger.append("agent.tool_failed", payload)
 
 
 def test_experiment_clarification_auto_answer_is_claimed_once(tmp_path: Path) -> None:

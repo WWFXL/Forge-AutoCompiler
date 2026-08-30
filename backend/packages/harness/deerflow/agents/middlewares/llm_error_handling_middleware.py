@@ -25,6 +25,7 @@ from deerflow.compile.evidence import (
     model_response_metadata,
     new_evidence_id,
     record_experiment_event,
+    record_model_tool_call_origins,
     request_model_endpoint,
     request_model_name,
     request_model_role,
@@ -198,6 +199,11 @@ class LLMErrorHandlingMiddleware(AgentMiddleware[AgentState]):
         attempt: int,
         latency_seconds: float,
     ) -> None:
+        record_model_tool_call_origins(
+            thread_id,
+            response,
+            model_request_id=model_request_id,
+        )
         actual_model, token_usage = model_response_metadata(response)
         record_experiment_event(
             thread_id,

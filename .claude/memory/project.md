@@ -64,6 +64,14 @@
 ## 最近变更 (Recent Changes)
 <!-- 倒序，最新在上。 -->
 
+- 2026-08-30 — 实现 Issue #194 runtime-parity 拒绝原因零 provider 可观测性门禁
+  - 文件: `backend/packages/harness/deerflow/compile/evidence.py`, `backend/packages/harness/deerflow/agents/middlewares/llm_error_handling_middleware.py`, `scripts/forge_opaque_provenance_rejection_observability_gate.py`, `backend/tests/test_experiment_evidence.py`, `backend/tests/test_llm_error_handling_middleware.py`, `backend/tests/test_forge_opaque_provenance_rejection_observability_gate.py`, `benchmarks/preregistrations/cpp-opaque-provenance-rejection-observability-gate.md`
+  - 动机: #192 只能观察 exception class，无法从 #190 冻结 evidence 逐条区分 runtime-parity 拒绝；R0 在不记录原始命令、错误文本或模型正文的前提下补齐下一轮 trajectory 所需的有界字段。
+  - 实现: `agent.tool_failed` 保持历史七字段 Schema，并只在稳定拒绝分类与唯一 tool-call origin 同时存在时原子增加 `rejection_classification`、`action_kind`、`model_request_id`、`tool_ordinal`、`command_sha256` 五字段；未知或重复 tool-call ID 降级为旧 Schema。模型成功响应只在 active experiment 内存中登记调用来源，不持久化参数。
+  - 版本边界: #186 runtime-parity gate 已被 #188/#190 manifest 按字节冻结，不能原地增加异常属性；#194 改为独立 `ObservableRuntimeParityToolAdapter` 精确翻译冻结 gate 的拒绝，并确认旧 gate 工作树零差异、历史 manifest 回归恢复。
+  - 验证: 聚焦与路线 P 相邻非 Docker 回归 `122 passed, 1 deselected`；父/baseline/treatment 历史 ledger 分别 7/42/25 events，均通过当前 `ExperimentLedger.open()` 且读取前后 SHA-256 不变。Ruff check/format、`py_compile`、CLI 和 `git diff --check` 通过；CLI 固定 0 provider、0 formal attempt、0 model token、0 Docker、0 credential read、0 frozen evidence write。
+  - 下一步: 完成中文提交、WSL helper 推送、中文 PR/CI/合并；合并后从干净主干重跑 R0，再进入独立 R1 checkpoint 的未授权候选协议，不直接调用 provider。
+
 - 2026-08-30 — 完成 Issue #192 runtime-parity 单 pair trajectory 只读分析
   - 范围: 只读核对 #190 冻结 ledger、双臂 Compile Session、message checkpoint 与 canary report；0 provider、0 Docker、0 evidence write，未读取 credential，也未修改 production、gate、runner 或 manifest。
   - 同源性: 双臂共享同一 neutral checkpoint、HumanMessage 与失败 submit payload；treatment 唯一额外 exposure 是白名单 repair packet，给出 CMake/build-dir/target/proof status 和抽象 repair goal，不提供完整命令。
@@ -515,6 +523,7 @@
 ## 已知问题 (Known Issues / Pitfalls)
 <!-- 工作中踩过的坑、限制或意外行为。 -->
 
+- 历史 manifest 会按字节冻结 `scripts/forge_opaque_provenance_runtime_parity_gate.py` 等父组件；即使行为兼容，原地增加异常元数据或仅运行 Ruff 格式化也会让 #188/#190 的 current-tree gate 报 runtime drift。新增 instrumentation 必须放入新的版本化 adapter，并用父协议回归确认冻结文件零差异。
 - 真实 lifecycle capture 的 evidence Schema 强制要求 `submit_attempt_id`；只记录 classification/failure ID 会在 environment freeze 前 fail closed。新 gate 应直接从同一 `failure.recorded` payload 复制该 ID，并先做 Schema 级静态断言。
 - Budget checkpoint 中“请求容量”与“实际请求数”是两个概念：原型要求 `limits.provider_requests >= 1`，零 provider gate 应保持正容量但让 consumed/external counts 为 0，不能把容量 0 误写成零调用证明。
 - `sh -c` wrapper 的 role parser 能递归看到 configure/build，但 `_command_contains_arguments` 只看到整段 inner command token；若 policy 冻结非空 CMake 参数，会额外产生 `cmake_arguments_not_observed`。研究 opaque provenance 时应把非 estimand 参数约束显式冻结为空，并从 authoritative `session.verification.checks` 核对 failure 列表，而不能只看 primary classification。

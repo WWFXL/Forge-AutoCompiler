@@ -46,6 +46,32 @@ def _build_middleware(**attrs: int) -> LLMErrorHandlingMiddleware:
     return middleware
 
 
+def test_successful_model_call_registers_tool_origins_before_return(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    captured: list[tuple[str | None, object, str]] = []
+
+    def register(thread_id, response, *, model_request_id):
+        captured.append((thread_id, response, model_request_id))
+        return 1
+
+    monkeypatch.setattr(
+        "deerflow.agents.middlewares.llm_error_handling_middleware.record_model_tool_call_origins",
+        register,
+    )
+    request = SimpleNamespace(runtime=SimpleNamespace(context={"thread_id": "thread-observability", "agent_name": "compiler"}))
+    response = AIMessage(
+        content="",
+        tool_calls=[{"name": "run_container_bash", "id": "call-1", "args": {"command": "pwd"}}],
+    )
+
+    assert LLMErrorHandlingMiddleware().wrap_model_call(request, lambda _request: response) is response
+    assert len(captured) == 1
+    assert captured[0][0] == "thread-observability"
+    assert captured[0][1] is response
+    assert captured[0][2].startswith("model_request_")
+
+
 def test_async_model_call_retries_busy_provider_then_succeeds(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
