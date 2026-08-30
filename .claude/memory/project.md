@@ -64,6 +64,13 @@
 ## 最近变更 (Recent Changes)
 <!-- 倒序，最新在上。 -->
 
+- 2026-08-30 — 完成 Issue #222 R3 Make 完整 agent construction 零 provider 门禁
+  - 文件: `scripts/forge_opaque_provenance_r3_make_agent_construction_gate.py`, `backend/tests/test_forge_opaque_provenance_r3_make_agent_construction_gate.py`
+  - 实现: 直接消费 #220 组合 bindings，用项目既有 `BaseChatModel.bind_tools()` fake model 真实构造 `create_agent + ThreadState + InMemorySaver`，接入 R3 adapter、R0 registry、`SerialToolCallMiddleware` 与真实 LLM/tool-error middleware；checkpoint 状态固定为 Human/AI submit/Tool failure 三消息。
+  - 结果: 恢复后恰好 1 次 fake model request，ledger 为 1 started / 1 completed / 0 failed / 0 cancelled，2 个工具绑定且 `parallel_tool_calls=false`，最终四消息；动作预算全 0，active experiment 已释放。注入的 pre-model `AttributeError` 正确归为 `pre_model_execution_error/mechanism_invalid`，fake cleanup 证明 parent/baseline/treatment 全部先 deactivate 再 cleanup。
+  - 验证: 聚焦 `6 passed`、R1/R3/R0/runtime-parity/LLM middleware 相邻回归 `59 passed`；CLI validate、Ruff check/format、pycompile、diff 与敏感信息扫描通过。临时 ledger 自动删除，全程 0 provider、0 credential read、0 Docker、0 formal evidence write、0 model token、0 checkpoint/pair。
+  - 边界: 中文 Issue #222 已创建并回读；本 gate 只关闭真实 agent construction 与首请求可达性，不重跑 #218，也不授权新的 Make checkpoint、replacement、backfill 或模型实验。
+
 - 2026-08-30 — 审计 R3 Make 机制无效终态并实现 Issue #220 执行安全门禁
   - 文件: `scripts/forge_opaque_provenance_r3_make_execution_failure_gate.py`, `backend/tests/test_forge_opaque_provenance_r3_make_execution_failure_gate.py`
   - 终态: #218 唯一 reachability 以 1 request / 17 recorded tokens / 1.475 秒通过；唯一 pair 在模型请求前因 R3 runtime binding 缺少 `RejectionObservationRegistry`、`FrozenActionPolicy` 与 `SerialToolCallMiddleware` 失败，两臂均为 0 request / 0 submit / 0 replay，pair marker 为 `failed/EvidenceError`，不能形成 paired estimand。
