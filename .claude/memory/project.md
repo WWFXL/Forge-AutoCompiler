@@ -64,6 +64,14 @@
 ## 最近变更 (Recent Changes)
 <!-- 倒序，最新在上。 -->
 
+- 2026-08-30 — 冻结 Issue #196 opaque provenance R1 独立 checkpoint 未授权候选
+  - 文件: `scripts/forge_opaque_provenance_r1_candidate_protocol.py`, `scripts/forge_opaque_provenance_r1_candidate_runner.py`, `backend/tests/test_forge_opaque_provenance_r1_candidate.py`, `benchmarks/manifests/cpp-opaque-provenance-r1-checkpoint-candidate.json`, `benchmarks/schemas/forge-opaque-provenance-r1-checkpoint-candidate.schema.json`, `benchmarks/preregistrations/cpp-opaque-provenance-r1-checkpoint-candidate.md`
+  - Case: 从 result-blind `cpp-formal-v1-cases.json` 逐字段冻结 `yyjson@9365ddc7`、CMake target `yyjson` 与 `libyyjson.a` static-library oracle；repository、commit、target 和 staged artifact 均不同于 #190 `cppitertools` exploratory pair。
+  - 机制: 保持原 repair packet Schema、4/2/2/2 原子动作预算、300 秒/0 retry、state-matched 双臂以及 candidate/replay/cleanup；未来 classified rejection 必须记录 #194 `agent.tool_rejection_observed` companion event。
+  - 边界: checkpoint/evidence 固定为 `not_created`，只开放 `validate/plan/preflight`；provider、credential、model、Docker、checkpoint/pair execute 与 evidence write 机械关闭，新增 evidence 目录未创建。
+  - 验证: manifest canonical SHA-256 为 `b89e63c4362befcdc409c60fe0334c1e9e4f62a26e369d55b676f23c1ffd202b`，evidence identity 为 `d4b5f051bde5c66e5a1b4c67da72c91443d15c614b209941f71d7a02c4f57077`；聚焦 `19 passed`，路线 P/R0/formal source 相邻回归 `156 passed, 1 deselected`，Ruff、format、语法、确定性再生成、diff 与敏感信息审计通过。
+  - 下一步: 中文提交并通过 WSL helper 推送，创建中文 PR、等待三项 CI 后合并；合并后只运行一次干净主干的纯快照 preflight，真实 checkpoint 或 provider 请求必须另建 execution amendment。
+
 - 2026-08-30 — 实现 Issue #194 runtime-parity 拒绝原因零 provider 可观测性门禁
   - 文件: `backend/packages/harness/deerflow/compile/evidence.py`, `backend/packages/harness/deerflow/agents/middlewares/llm_error_handling_middleware.py`, `scripts/forge_opaque_provenance_rejection_observability_gate.py`, `backend/tests/test_experiment_evidence.py`, `backend/tests/test_llm_error_handling_middleware.py`, `backend/tests/test_forge_opaque_provenance_rejection_observability_gate.py`, `benchmarks/preregistrations/cpp-opaque-provenance-rejection-observability-gate.md`
   - 动机: #192 只能观察 exception class，无法从 #190 冻结 evidence 逐条区分 runtime-parity 拒绝；R0 在不记录原始命令、错误文本或模型正文的前提下补齐下一轮 trajectory 所需的有界字段。
