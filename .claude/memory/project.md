@@ -5,15 +5,6 @@
 ## 进行中 (In Progress)
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
-- 2026-08-30 — 发布 Issue #210 R2 Make 结果审计 sidecar
-  - GitHub: 中文 Issue #210 已创建并回读；分支为 `research/210-r2-make-result-audit`，基线为 `main@00726aef`。
-  - 缺口: #208 原 canary report 在 endpoint timeout / graph-step limit 终态丢失 action-budget 与 R0 汇总，但 parent/baseline/treatment ledger hash chain 完整且原文件不可修改。
-  - 实现: 新增 result-specific 只读 audit，冻结 canary、marker 和三条 ledger SHA-256；恢复 baseline action 全 0、treatment inspection=4 及 R0 5/5 companion，并用 create-once 写入独立 `reports/audit-v1.json`。
-  - 结论: paired primary estimand 固定为 `not_estimable / baseline_endpoint_censored`；treatment 只描述为 `observed_no_conversion`，禁止池化、p 值、模型排名或重跑。
-  - 验证: 聚焦 `5 passed`，#208/#210/R0 相邻回归 `33 passed`；真实 evidence 的只读 audit、Ruff、format 和 compileall 通过，0 provider、0 Docker、0 formal attempt、0 model token。
-  - 下一步: 中文提交、WSL helper 推送、中文 PR/CI/合并；合并后只执行一次 `write-sidecar` 并回读哈希，不修改原 canary/marker/ledger。
-  - 文件: `scripts/forge_opaque_provenance_r2_make_result_audit.py`, `backend/tests/test_forge_opaque_provenance_r2_make_result_audit.py`
-
 - 2026-08-15 — 验证 failure checkpoint 三层组合恢复
   - GitHub: 中文 Issue #141 已创建并回读；分支为 `research/141-combined-checkpoint-prototype`，基线为 `main@cd31d8df`。
   - 实现: 新增实验专用 `forge-combined-checkpoint-1.0.0` manifest，把 message、environment、budget 绑定到同一 `capture_id` 与 message state SHA-256；三层全部校验后才发布父 manifest。
@@ -72,6 +63,20 @@
 
 ## 最近变更 (Recent Changes)
 <!-- 倒序，最新在上。 -->
+
+- 2026-08-30 — 完成 Issue #212 R3 Make 构造对齐零 provider 门禁
+  - 文件: `scripts/forge_opaque_provenance_r3_make_construct_alignment_gate.py`, `backend/tests/test_forge_opaque_provenance_r3_make_construct_alignment_gate.py`, `benchmarks/preregistrations/cpp-opaque-provenance-r3-make-construct-alignment-gate.md`
+  - 发布: 中文 Issue #212 / PR #213 已创建并回读；提交 `6e0ff544`，CI backend tests（3 分 58 秒）、backend lint（14 秒）与 frontend lint（1 分 37 秒）全绿。
+  - 结论: #202 P2 不要求固定 jobs；#208 runtime 的 jobs=`2` 与未公开 stage 约束构成 intervention under-specification 风险。新 experiment-only gate 把 jobs 归为公开的有界资源策略，允许省略或 `1..2`，并让双臂共享 direct Make、directory、target、jobs 与 stage source/destination 契约。
+  - 完整性: Repair packet 保持 #208 九字段内容不变且仍是唯一 treatment exposure；8 个冻结组件与 #210 真实 evidence 只读 audit 均无漂移。聚焦 `16 passed`、相邻 `73 passed`、完整有效集合 `2408 passed, 47 skipped, 1 deselected`。
+  - 边界: 0 provider、0 credential read、0 Docker、0 checkpoint、0 formal attempt、0 model token、0 evidence write；不修改或重跑 #208/#210。下一阶段才另建真实 Docker lifecycle identity 候选，本 Issue 不授权模型实验。
+
+- 2026-08-30 — 完成 Issue #210 R2 Make 结果审计 sidecar
+  - 文件: `scripts/forge_opaque_provenance_r2_make_result_audit.py`, `backend/tests/test_forge_opaque_provenance_r2_make_result_audit.py`
+  - 发布: 中文 Issue #210 / PR #211 三项 CI 全绿后 squash 合并为 `main@62a76d2f4f293730652f4722530390c026c19516`。
+  - 审计: 从 hash-chain 完整的 parent/baseline/treatment ledger 恢复 baseline action 全 0、treatment inspection=4 与 R0 5/5 companion；paired primary estimand 固定为 `not_estimable / baseline_endpoint_censored`，treatment 为 `observed_no_conversion`。
+  - Sidecar: 只 create-once 写入 `reports/audit-v1.json`，SHA-256 为 `35fb5c0c045dcd4fa61913e5089066f1ce1716ef2de50797908b6bad12824cf0`；evidence 从 9 个文件增为恰好 10 个，原 canary、marker 和 ledger 哈希全部不变。
+  - 边界: 禁止池化、p 值、模型排名、重跑、replacement 或 backfill；后续审计只读，不再修改 #208 evidence。
 
 - 2026-08-30 — 完成 Issue #208 R2 Make runtime-parity 一次性执行
   - 文件: `scripts/forge_opaque_provenance_make_runtime_parity_gate.py`, `scripts/forge_opaque_provenance_make_rejection_observability_gate.py`, `scripts/forge_opaque_provenance_r2_make_execution_protocol.py`, `scripts/forge_opaque_provenance_r2_make_execution_runner.py`, `benchmarks/manifests/cpp-opaque-provenance-r2-make-execution.json`
