@@ -64,12 +64,20 @@
 ## 最近变更 (Recent Changes)
 <!-- 倒序，最新在上。 -->
 
-- 2026-08-30 — 完成 Issue #218 R3 Make 单配对 execution amendment 本地门禁
+- 2026-08-30 — 审计 R3 Make 机制无效终态并实现 Issue #220 执行安全门禁
+  - 文件: `scripts/forge_opaque_provenance_r3_make_execution_failure_gate.py`, `backend/tests/test_forge_opaque_provenance_r3_make_execution_failure_gate.py`
+  - 终态: #218 唯一 reachability 以 1 request / 17 recorded tokens / 1.475 秒通过；唯一 pair 在模型请求前因 R3 runtime binding 缺少 `RejectionObservationRegistry`、`FrozenActionPolicy` 与 `SerialToolCallMiddleware` 失败，两臂均为 0 request / 0 submit / 0 replay，pair marker 为 `failed/EvidenceError`，不能形成 paired estimand。
+  - 根因链: registry 在受保护 `try/finally` 前构造，`AttributeError` 泄漏 active experiment；旧 classifier 把零请求异常误记为 `no_submit`；cleanup 随后向 completed ledger 追加 `before_cleanup` event，被 immutability gate 阻断。三个退出容器与本 capture continuation image 已按精确 identity 人工删除，0 compile/replay orphan。
+  - 修复: 新版本化门禁正确组合 R3 action adapter 与 R0 registry/middleware，零请求异常 fail-closed 为 `pre_model_execution_error / mechanism_invalid` 并持久化 error class，cleanup 前机械解除 parent/baseline/treatment experiment context；不修改 #216/#218 冻结组件或 evidence。
+  - Evidence: `reports/failure-audit-v1.json` create-once sidecar SHA-256 为 `2cf698346b0a1a319c274e220fca6c2fd798a78cdcf1dbbdb5393298af681010`；8 个输入哈希、3 个冻结组件哈希和三条 ledger hash chain 通过。聚焦/相邻回归 `25 passed`，Ruff check/format 与敏感信息扫描通过。
+  - 边界: 中文 Issue #220 已创建并回读；禁止重跑、retry、replacement、backfill、历史池化或模型排名。本修复阶段 0 provider、0 credential read、0 Docker execution、0 model token。
+
+- 2026-08-30 — 发布并执行 Issue #218 R3 Make 单配对 execution amendment
   - 文件: `scripts/forge_opaque_provenance_r3_make_execution_protocol.py`, `scripts/forge_opaque_provenance_r3_make_execution_runner.py`, `backend/tests/test_forge_opaque_provenance_r3_make_execution.py`, `benchmarks/manifests/cpp-opaque-provenance-r3-make-execution.json`, `benchmarks/schemas/forge-opaque-provenance-r3-make-execution.schema.json`, `benchmarks/preregistrations/cpp-opaque-provenance-r3-make-execution.md`
   - 协议: 授权 DeepSeek `deepseek-v4-flash` 一次 reachability 与成功后的一个 baseline→treatment pair；300 秒、0 retry、每臂最多 8 requests/8 turns/24 graph steps/120,000 recorded tokens，阶段上限 245,000，禁止 replacement/backfill/extension。
   - Runner: 从冻结 #208 runner 做版本化机械派生，只替换 protocol、R3 action/R0 adapter、输出目录、marker/ledger/checkpoint/report identity，并同时记录 R3 experiment case ID 与底层 P2 reference case ID；差异归一化后与父 runner 字节相等。
   - 验证: canonical manifest SHA-256 为 `e2335b9e180ff539752dbb6b9d049da561980b0af7a64a193b49ab423913e86f`；聚焦 `8 passed`、Make/R0/R3 相邻 `117 passed, 3 skipped`，Ruff check/format、pycompile、CLI、Schema、diff、冻结哈希与敏感信息扫描通过。
-  - 边界: 当前仍为 0 provider、0 formal attempt、0 model token、0 evidence write，正式与 candidate evidence 目录均不存在；中文 Issue #218 已创建并回读。待提交/PR/CI/合并后运行零 provider preflight，再按 marker 顺序执行唯一 reachability 与 pair。
+  - 发布: 中文 PR #219 三项 CI 全绿后 squash 合并为 `main@7ab7791f1445070e455cded76c080ccf2b972cd6`。真实 preflight 确认 Ubuntu-native Docker、Wi-Fi、发布身份、空 evidence、0 orphan 与凭据仅存在性后运行唯一 reachability/pair；pair 的机制无效终态由 Issue #220 跟踪，禁止直接重跑。
 
 - 2026-08-30 — 完成 Issue #216 R3 Make 单配对未执行候选与零 provider runtime 门禁
   - 文件: `scripts/forge_opaque_provenance_r3_make_candidate_protocol.py`, `scripts/forge_opaque_provenance_r3_make_candidate_runner.py`, `backend/tests/test_forge_opaque_provenance_r3_make_candidate.py`, `benchmarks/manifests/cpp-opaque-provenance-r3-make-candidate.json`, `benchmarks/schemas/forge-opaque-provenance-r3-make-candidate.schema.json`, `benchmarks/preregistrations/cpp-opaque-provenance-r3-make-candidate.md`
@@ -604,6 +612,7 @@
 ## 已知问题 (Known Issues / Pitfalls)
 <!-- 工作中踩过的坑、限制或意外行为。 -->
 
+- 版本化 runner 不能把一个候选 runtime 模块同时伪装成 R1 的 `parity` 与 `observability` 接口；静态 adapter 有 `R3ActionPolicy/ObservableRuntimeParityToolAdapter` 不代表它也导出 `FrozenActionPolicy/SerialToolCallMiddleware/RejectionObservationRegistry`。真实执行前必须以零 provider contract test 构造完整 agent 骨架，并把 registry 等可能失败的初始化放入能解除 active experiment 的 `try/finally`；0 model request 的异常必须分类为 mechanism invalid，不能归为 `no_submit`。
 - PowerShell 可能误解析传给 WSL Docker CLI 的 Go template（例如 `{{.Server.Version}}`）或混合单双引号的复杂正则，导致只读 gate 在业务逻辑前被拒绝。跨 PowerShell/WSL gate 使用固定 argv 且不传 template；版本检查直接运行 `docker version`，列表检查使用不需要 format 的 `docker ps -aq` / `docker images -q`；敏感扫描拆成简单单引号模式。
 
 - 历史 manifest 会按字节冻结 `scripts/forge_opaque_provenance_runtime_parity_gate.py`、共享 `evidence.py` 和 LLM/tool-error middleware 等父组件；即使行为兼容，原地增加异常元数据、Schema 或仅运行 Ruff 格式化也会让旧协议 current-tree gate 报 runtime drift。新增 instrumentation 必须放入新的版本化 adapter/companion event，并用完整 backend CI 确认所有冻结文件零差异。
