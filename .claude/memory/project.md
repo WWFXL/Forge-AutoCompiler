@@ -64,6 +64,13 @@
 ## 最近变更 (Recent Changes)
 <!-- 倒序，最新在上。 -->
 
+- 2026-08-31 — 完成 Issue #232/#233 六 case 确认性 lifecycle 零 provider 门禁
+  - 文件: `scripts/forge_opaque_provenance_confirmatory_lifecycle_gate.py`, `scripts/forge_opaque_provenance_confirmatory_candidate_v2_protocol.py`, `backend/tests/test_forge_opaque_provenance_confirmatory_lifecycle_gate.py`, `backend/tests/test_forge_opaque_provenance_confirmatory_lifecycle_gate_docker.py`, `backend/tests/test_forge_opaque_provenance_confirmatory_candidate_v2.py`, `benchmarks/manifests/cpp-opaque-provenance-confirmatory-candidate-v2.json`, `benchmarks/schemas/forge-opaque-provenance-confirmatory-candidate-v2.schema.json`, `benchmarks/preregistrations/cpp-opaque-provenance-confirmatory-candidate-v2.md`, `benchmarks/preregistrations/cpp-opaque-provenance-confirmatory-lifecycle-zero-provider-gate.md`
+  - 根因: `sql-parser-shared` 的 v1 空 bootstrap 会因 checkout 文件 mtime 决定 `make library` 是消费已跟踪生成文件还是重新运行 Bison；四次 lifecycle 为 2 次通过、2 次 `sha256_mismatch`，路径、类型和大小一致但 SHA-256/build-id 不同。
+  - 修复: v2 只显式冻结 `cd src/parser && bison bison_parser.y --output=bison_parser.cpp --defines=bison_parser.h --verbose`；parent 在独立 subshell 执行 bootstrap，避免改变后续 Make 工作目录。v1 protocol 保持逐字不变，12-pair schedule identity 保持 `3f35dd8c245cb7e9db6069f63cf133c98fbfdf6813a11e3fa2306a5eb34c2134`。
+  - 验证: 固定镜像 `sha256:900d7ce4b902b79df5c64ffab88631b251538f1bde578c4dd2bf91558e9d1554`；`sql-parser-shared` 稳定性门禁连续两次通过，最终六 case lifecycle `6 passed in 453.74s`，相邻回归 `115 passed, 6 skipped`，最终聚焦 `25 passed, 6 skipped`；Ruff、pycompile、确定性再生成、diff 与后置 0 orphan 均通过。
+  - 边界: 0 provider、0 credential read、0 checkpoint、0 formal attempt、0 model token、0 正式 evidence write；Issue #232 已记录 v1 失败和停止决策，Issue #233 跟踪唯一修正，尚未授权 provider runner 或 12-pair 采集。
+
 - 2026-08-31 — 冻结 Issue #230 opaque provenance 六 case 确认性 pilot 候选协议
   - 文件: `scripts/forge_opaque_provenance_confirmatory_candidate_protocol.py`, `backend/tests/test_forge_opaque_provenance_confirmatory_candidate.py`, `benchmarks/manifests/cpp-opaque-provenance-confirmatory-candidate.json`, `benchmarks/schemas/forge-opaque-provenance-confirmatory-candidate.schema.json`, `benchmarks/preregistrations/cpp-opaque-provenance-confirmatory-candidate.md`
   - 实现: result-blind 冻结 CMake `pupnp/ada-url/args` 与 Make `gpac/fio/sql-parser-shared`，每 case 两个 replicate 且项目内对调 arm order；`sql-parser` 使用独立 shared-library oracle，不修改旧 formal protocol。
@@ -643,6 +650,8 @@
 ## 已知问题 (Known Issues / Pitfalls)
 <!-- 工作中踩过的坑、限制或意外行为。 -->
 
+- 上游仓库已跟踪 parser generator 产物时，空 bootstrap 不保证重放确定性：Git checkout 的 mtime 可能让 Make 在“复用生成文件”和“重新运行 Bison/Flex”之间切换，最终 artifact 路径、类型、大小相同但 build-id/SHA-256 不同。冻结协议应显式运行已审计的 generator 命令，并在 parent wrapper 中用 subshell 隔离 `cd`；不得通过放宽 clean replay SHA-256 verifier 掩盖非确定性。
+- 一次性诊断容器若在容器内执行 GitHub fetch，当前网络可能长期阻塞；诊断必须有独立短时限和精确 container ID，超时后按 ID 终止并删除，再核对 compile/replay orphan 为 0。不能把 fetch 阻塞记为 case lifecycle 失败，也不能因此启动 Docker Desktop。
 - 真实 Docker gate 不应在测试体内用 `apt-get update` 临时准备单个依赖：本次 OpenH264 gate 在 `mirrors.aliyun.com` 下载完整 index 时耗尽 600 秒，但尚未 clone、build 或进入 lifecycle，不能记为 case 失败。若依赖是单一、架构固定的小包，应在预注册中冻结版本、URL 与 SHA-256，以短 timeout 下载并校验后派生临时 image；parent/arms/replay 共用该 image ID，结束后按 label 和精确 identity 删除。DooD 测试还必须把仓库挂载到与 WSL 宿主相同的 `/mnt/c/...` 绝对路径，并把 `tmp_path` 放在该路径下，不能把测试容器内部 `/tmp` 交给 daemon 当 bind source。
 
 - 版本化 runner 不能把一个候选 runtime 模块同时伪装成 R1 的 `parity` 与 `observability` 接口；静态 adapter 有 `R3ActionPolicy/ObservableRuntimeParityToolAdapter` 不代表它也导出 `FrozenActionPolicy/SerialToolCallMiddleware/RejectionObservationRegistry`。真实执行前必须以零 provider contract test 构造完整 agent 骨架，并把 registry 等可能失败的初始化放入能解除 active experiment 的 `try/finally`；0 model request 的异常必须分类为 mechanism invalid，不能归为 `no_submit`。
