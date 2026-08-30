@@ -1,0 +1,207 @@
+{
+  "$schema": "../schemas/forge-opaque-provenance-runtime-parity-provider-amendment-candidate.schema.json",
+  "schema_version": "forge-opaque-provenance-runtime-parity-provider-amendment-candidate-1.0.0",
+  "document_type": "forge_opaque_provenance_runtime_parity_provider_amendment_candidate",
+  "authorization": {
+    "issue_url": "https://github.com/WWFXL/Forge-AutoCompiler/issues/188",
+    "candidate_generation_authorized": true,
+    "zero_provider_preflight_authorized": true,
+    "reachability_request_authorized": false,
+    "provider_calls_authorized": false,
+    "formal_attempts_authorized": false,
+    "canary_collection_authorized": false,
+    "credential_read_authorized": false,
+    "model_tokens_authorized": 0
+  },
+  "parent": {
+    "manifest_path": "benchmarks/manifests/cpp-opaque-provenance-minimal-canary-execution.json",
+    "schema_version": "forge-opaque-provenance-minimal-canary-execution-1.0.0",
+    "canonical_sha256": "bbb50851419ec8c1e1efb4bc5612cb13e4ab0154df574dc7359009e2fb90529a",
+    "file_sha256": "85b0134555dcac73cfdf170c950529a3ee46579ee2fd736238dd7533f236ea59",
+    "evidence_identity_sha256": "f83fb4a3d228c82839df68905ee603c79095c919fe0cc8ab0c52ce4debaeb538",
+    "authorization_baseline_commit": "ad6e7c1143d23eeca0cd8f98dcb76023e6b81626",
+    "release_revision_policy": "descendant-compatible"
+  },
+  "historical_evidence": {
+    "directory": "/workspace/.compile-sessions/benchmark-evidence-opaque-provenance-minimal-canary-authorized-v1",
+    "canary_report": "reports/canary.json",
+    "canary_report_sha256": "e6ee3e2db68c191e7c4e278071ea14a32e6ef362d82194d07697b0ea24034da0",
+    "immutable": true,
+    "reuse_forbidden": true
+  },
+  "case": {
+    "case_id": "cppitertools-opaque-provenance-real-docker",
+    "repository_url": "https://github.com/ryanhaining/cppitertools",
+    "commit_sha": "531b3d753d2bbfe3b0ababe61c2e95e965c54a66",
+    "compile_image": "autocompiler:gcc13",
+    "build_system": "cmake",
+    "build_directory": "/workspace/repo/build",
+    "target": "accumulate_examples",
+    "staged_artifact": "accumulate_examples",
+    "checkpoint_source": "issue-178-real-docker-lifecycle",
+    "parent_proof_status": "opaque_wrapper",
+    "parent_expected_failure": "build_system_unproven"
+  },
+  "provider": {
+    "status": "candidate_not_authorized",
+    "id": "deepseek-v4-flash",
+    "endpoint": "https://api.deepseek.com",
+    "credential_env": "DEEPSEEK_API_KEY",
+    "model": "deepseek-v4-flash",
+    "request_timeout_seconds": 300,
+    "max_retries": 0,
+    "fallback": "forbidden",
+    "streaming": false
+  },
+  "continuation": {
+    "maximum_requests_per_arm": 8,
+    "maximum_model_turns_per_arm": 8,
+    "maximum_graph_steps_per_arm": 24,
+    "work_wall_clock_seconds_per_arm": 600,
+    "cleanup_reserve_seconds_per_arm": 120,
+    "maximum_recorded_tokens_per_arm": 120000
+  },
+  "schedule": [
+    {
+      "pair_id": "opaque-provenance-cppitertools-runtime-parity-pair-01",
+      "order": 1,
+      "case_id": "cppitertools-opaque-provenance-real-docker",
+      "arm_order": [
+        "baseline",
+        "treatment"
+      ],
+      "treatment_exposure_only": "repair_packet",
+      "shared_measurement_policy": "runtime_parity_v1",
+      "historical_pair_relationship": "independent_amendment_not_retry_replacement_backfill_or_extension"
+    }
+  ],
+  "schedule_sha256": "d77171e8c3a4382d681fb5c0c01fb9f34cd4f5a3f74077ffa0372ec8660a5a49",
+  "budget": {
+    "maximum_reachability_requests": 1,
+    "reachability_maximum_recorded_tokens": 5000,
+    "recorded_tokens_per_arm": 120000,
+    "recorded_tokens_per_pair": 240000,
+    "stage_maximum_recorded_tokens": 245000,
+    "enforcement": "after_reachability_and_each_arm_before_continuation"
+  },
+  "stopping": {
+    "reachability_failure_stops_before_pair": true,
+    "identity_evidence_budget_cleanup_or_unclassified_failure_stops": true,
+    "classified_arm_outcome_continues_other_arm": true,
+    "endpoint_timeout_censors_arm_and_continues": true,
+    "retry_forbidden": true,
+    "replacement_forbidden": true,
+    "backfill_forbidden": true,
+    "schedule_extension_forbidden": true
+  },
+  "analysis": {
+    "purpose": "intervention_delivery_and_conversion_canary_only",
+    "unit_of_analysis": "single_independent_runtime_parity_checkpoint_pair",
+    "descriptive_only": true,
+    "treatment_effect_estimated": false,
+    "p_value_computed": false,
+    "model_ranking_performed": false,
+    "historical_pairs_pooled": false,
+    "historical_pair_replacement": false
+  },
+  "runtime_parity": {
+    "measurement_classification": "measurement_policy_censored",
+    "intervention_classification": "intervention_delivery_failure",
+    "parent_submit_uses_bound_wrapper": true,
+    "fence_released_before_capture": true,
+    "action_limits": {
+      "inspection": 4,
+      "repair_build": 2,
+      "artifact_stage": 2,
+      "submit": 2
+    },
+    "atomic_budget_claim": true,
+    "parallel_tool_calls": false,
+    "repair_build_directory": "/workspace/repo/build",
+    "repair_build_target": "accumulate_examples",
+    "staged_artifact": "accumulate_examples",
+    "forbidden_actions": [
+      "clone",
+      "configure",
+      "dependency",
+      "housekeeping",
+      "manual_replay",
+      "compound_build_stage"
+    ],
+    "candidate_verification_required": true,
+    "clean_replay_required": true,
+    "cleanup_required": true
+  },
+  "evidence": {
+    "schema_version": "forge-opaque-provenance-runtime-parity-amendment-evidence-1.0.0",
+    "directory": "/workspace/.compile-sessions/benchmark-evidence-opaque-provenance-runtime-parity-amendment-v1",
+    "preflight_snapshot": "preflight/preflight.json",
+    "reachability_marker": "markers/reachability.json",
+    "pair_marker": "markers/pair.json",
+    "pair_ledger": "pairs/opaque-provenance-cppitertools-runtime-parity-pair-01/events.jsonl",
+    "arm_ledger_directory": "pairs/opaque-provenance-cppitertools-runtime-parity-pair-01/arms",
+    "reachability_report": "reports/reachability.json",
+    "canary_report": "reports/canary.json",
+    "append_only": true,
+    "marker_consumed_on_start": true,
+    "zero_provider_preflight_writes_evidence": false,
+    "identity_sha256": "ce7e4277bcedab8b203ebe51863877b2d3f958e838ed7dcc960a47f23981c25a"
+  },
+  "opportunities": {
+    "maximum_reachability_requests": 1,
+    "maximum_canary_pairs": 1,
+    "required_order": [
+      "reachability",
+      "opaque-provenance-cppitertools-runtime-parity-pair-01"
+    ],
+    "retry_replacement_backfill_forbidden": true,
+    "schedule_extension_forbidden": true
+  },
+  "preflight": {
+    "release_branch": "main",
+    "require_clean_worktree": true,
+    "require_head_equals_origin_main": true,
+    "require_authorization_baseline_ancestor": true,
+    "docker_provider": "ubuntu-native",
+    "docker_context": "default",
+    "docker_endpoint": "/var/run/docker.sock",
+    "allowed_network_media": [
+      "wired",
+      "wifi",
+      "mobile_hotspot"
+    ],
+    "require_empty_candidate_evidence_directory": true,
+    "require_historical_canary_report_hash": true,
+    "managed_container_prefixes": [
+      "deerflow-compile-",
+      "deerflow-replay-"
+    ],
+    "require_zero_managed_orphans": true
+  },
+  "preregistration": {
+    "path": "benchmarks/preregistrations/cpp-opaque-provenance-runtime-parity-provider-amendment-candidate.md",
+    "file_sha256": "0f6c9b84f562e7b9f6f37c1a0db5d97412c89ea4b841e8820a017d4d6a29864f"
+  },
+  "runtime_adapter": {
+    "path": "scripts/forge_opaque_provenance_provider_amendment_candidate_runner.py",
+    "file_sha256": "349352621460ff1c2abf133dbe2fae2f3b12e6e5748053e5d28da1482de796e0",
+    "commands": [
+      "validate",
+      "plan",
+      "preflight"
+    ],
+    "credential_read_supported": false,
+    "provider_model_creation_supported": false,
+    "reachability_execute_supported": false,
+    "pair_execute_supported": false
+  },
+  "frozen_parent_components": {
+    "benchmarks/manifests/cpp-opaque-provenance-minimal-canary-execution.json": "85b0134555dcac73cfdf170c950529a3ee46579ee2fd736238dd7533f236ea59",
+    "benchmarks/preregistrations/cpp-opaque-provenance-minimal-canary-execution.md": "6220846cea0596586ffda30a379a2e54f7b4f3b5a467db09dc4baad28d9e5027",
+    "benchmarks/preregistrations/cpp-opaque-provenance-runtime-parity-zero-provider-gate.md": "a680cbac7f7b74b9ea36e213dadddade41202c11707acdc2fa6fe879d1da3810",
+    "benchmarks/schemas/forge-opaque-provenance-minimal-canary-execution.schema.json": "2dc9124d7bbd628ec2519688368286b476a4bbbbeb4ecedb757b6bd727f6a972",
+    "scripts/forge_opaque_provenance_minimal_canary_execution_protocol.py": "0618fac9669fd49bce84af27aebe79ebfb73eaf078be401236beff593cdb6905",
+    "scripts/forge_opaque_provenance_minimal_canary_execution_runner.py": "9f3cdd0ad3faa210b0ee5adcda9c18f37047b7fa6c3e264cd3b280b02b4ccca0",
+    "scripts/forge_opaque_provenance_runtime_parity_gate.py": "251cc446cc508552d85cdf82238192b702bbb2e51ee428c42d47188d0f12b40b"
+  }
+}
