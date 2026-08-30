@@ -6,8 +6,10 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import re
 import sys
 import tempfile
+from dataclasses import dataclass, field
 from pathlib import Path
 from types import SimpleNamespace
 from typing import Any
@@ -19,16 +21,62 @@ if str(SCRIPT_ROOT) not in sys.path:
 import forge_opaque_provenance_runtime_parity_gate as parity  # noqa: E402
 
 from deerflow.compile.evidence import (  # noqa: E402
+    EvidenceError,
     ExperimentLedger,
     ExperimentPolicy,
     activate_experiment,
     deactivate_experiment,
+    get_active_experiment,
     new_evidence_id,
     record_agent_tool_failure,
-    record_model_tool_call_origins,
+    record_experiment_event,
+    request_thread_id,
 )
 
 SCHEMA_VERSION = "forge-opaque-provenance-rejection-observability-gate-1.0.0"
+OBSERVATION_EVENT = "agent.tool_rejection_observed"
+
+_BOUNDED_IDENTIFIER_RE = re.compile(r"^[A-Za-z0-9][A-Za-z0-9_.:-]{0,127}$")
+_MODEL_REQUEST_ID_RE = re.compile(r"^model_request_[0-9a-f]{32}$")
+_ALLOWED_REJECTION_CLASSIFICATIONS = {
+    "action_claim_empty",
+    "action_role_invalid",
+    "action_unknown",
+    "artifact_stage_budget_exhausted",
+    "artifact_stage_identity_drift",
+    "artifact_stage_shape_invalid",
+    "compound_build_stage_forbidden",
+    "compound_shell_forbidden",
+    "container_path_invalid",
+    "forbidden_action_role",
+    "inspection_budget_exhausted",
+    "invalid_command_role",
+    "repair_build_arguments_invalid",
+    "repair_build_budget_exhausted",
+    "repair_build_directory_drift",
+    "repair_build_invocation_invalid",
+    "repair_build_target_drift",
+    "runtime_parity_policy_drift",
+    "shell_token_invalid",
+    "submit_budget_exhausted",
+}
+_ALLOWED_ACTION_KINDS = {
+    "artifact_stage",
+    "command",
+    "inspection",
+    "repair_build",
+    "submit",
+    "unknown",
+}
+_LEGACY_FAILURE_FIELDS = {
+    "failure_id",
+    "role",
+    "tool_name",
+    "tool_call_id",
+    "exception_class",
+    "execution_mode",
+    "terminal",
+}
 
 _GATE_REJECTIONS = {
     "action limits drifted from the preregistered gate": ("runtime_parity_policy_drift", "unknown"),
@@ -107,12 +155,119 @@ class ObservableRuntimeParityToolAdapter(parity.RuntimeParityToolAdapter):
             )
         except parity.RuntimeParityGateError as exc:
             raise _observable_gate_error(exc, action_hint=_action_hint(command_role)) from exc
+        except EvidenceError as exc:
+            if str(exc).startswith("Unsupported compile command role:"):
+                raise ObservableRuntimeParityGateError(
+                    "unsupported compile command role",
+                    classification="invalid_command_role",
+                    action_kind="command",
+                ) from exc
+            raise
 
     def submit(self, supporting_command_id: str | None = None) -> Any:
         try:
             return super().submit(supporting_command_id)
         except parity.RuntimeParityGateError as exc:
             raise _observable_gate_error(exc, action_hint="submit") from exc
+
+
+@dataclass
+class RejectionObservationRegistry:
+    """为单次实验关联 model response 与后续 recoverable tool failure。"""
+
+    origins: dict[tuple[str, str], tuple[str, int]] = field(default_factory=dict)
+    ambiguous: set[tuple[str, str]] = field(default_factory=set)
+
+    def register_model_tool_calls(
+        self,
+        thread_id: str | None,
+        response: Any,
+        *,
+        model_request_id: str,
+    ) -> int:
+        if get_active_experiment(thread_id) is None:
+            return 0
+        if not _MODEL_REQUEST_ID_RE.fullmatch(model_request_id):
+            raise ValueError("model_request_id is invalid")
+        candidates: list[Any] = []
+        result = getattr(response, "result", None)
+        if isinstance(result, (list, tuple)):
+            candidates.extend(result[:8])
+        elif result is not None:
+            candidates.append(result)
+        candidates.append(response)
+        tool_calls: list[dict[str, Any]] = []
+        for candidate in candidates:
+            value = getattr(candidate, "tool_calls", None)
+            if isinstance(value, list):
+                tool_calls.extend(item for item in value if isinstance(item, dict))
+        registered = 0
+        seen: set[tuple[str, str]] = set()
+        for ordinal, tool_call in enumerate(tool_calls, start=1):
+            tool_call_id = tool_call.get("id")
+            if not isinstance(tool_call_id, str) or not _BOUNDED_IDENTIFIER_RE.fullmatch(tool_call_id):
+                continue
+            key = (thread_id or "", tool_call_id)
+            duplicate = key in seen or key in self.origins or key in self.ambiguous
+            seen.add(key)
+            if duplicate:
+                removed = self.origins.pop(key, None)
+                if removed is not None and removed[0] == model_request_id:
+                    registered -= 1
+                self.ambiguous.add(key)
+                continue
+            self.origins[key] = (model_request_id, ordinal)
+            registered += 1
+        return registered
+
+    def _consume_origin(self, thread_id: str | None, tool_call_id: str) -> tuple[str, int] | None:
+        key = (thread_id or "", tool_call_id)
+        if key in self.ambiguous:
+            return None
+        return self.origins.pop(key, None)
+
+    def record_tool_failure(
+        self,
+        request: Any,
+        exc: Exception,
+        *,
+        execution_mode: str,
+    ) -> tuple[dict[str, Any] | None, dict[str, Any] | None]:
+        failure_event = record_agent_tool_failure(
+            request,
+            exc,
+            execution_mode=execution_mode,
+        )
+        if failure_event is None:
+            return None, None
+        classification = getattr(exc, "evidence_rejection_classification", None)
+        action_kind = getattr(exc, "evidence_action_kind", None)
+        if classification not in _ALLOWED_REJECTION_CLASSIFICATIONS or action_kind not in _ALLOWED_ACTION_KINDS:
+            return failure_event, None
+        tool_call = getattr(request, "tool_call", None)
+        if not isinstance(tool_call, dict):
+            return failure_event, None
+        tool_call_id = tool_call.get("id")
+        if not isinstance(tool_call_id, str) or not _BOUNDED_IDENTIFIER_RE.fullmatch(tool_call_id):
+            return failure_event, None
+        thread_id = request_thread_id(request)
+        origin = self._consume_origin(thread_id, tool_call_id)
+        if origin is None:
+            return failure_event, None
+        arguments = tool_call.get("args")
+        command = arguments.get("command") if isinstance(arguments, dict) else None
+        command_sha256 = hashlib.sha256(command.encode("utf-8")).hexdigest() if isinstance(command, str) else None
+        observation = record_experiment_event(
+            thread_id,
+            OBSERVATION_EVENT,
+            failure_id=failure_event["payload"]["failure_id"],
+            rejection_classification=classification,
+            action_kind=action_kind,
+            model_request_id=origin[0],
+            tool_ordinal=origin[1],
+            command_sha256=command_sha256,
+        )
+        return failure_event, observation
 
 
 class _FakeTool:
@@ -164,7 +319,7 @@ def _capture_rejection(adapter: ObservableRuntimeParityToolAdapter, tool_call: d
             workdir=arguments.get("workdir"),
             command_role=arguments.get("command_role", "other"),
         )
-    except (ObservableRuntimeParityGateError, ValueError) as exc:
+    except ObservableRuntimeParityGateError as exc:
         return exc
     raise RuntimeError("observability fixture did not trigger a rejection")
 
@@ -229,14 +384,19 @@ def validate_gate() -> dict[str, Any]:
         )
         try:
             response = SimpleNamespace(result=[SimpleNamespace(tool_calls=tool_calls)])
-            registered = record_model_tool_call_origins(thread_id, response, model_request_id=model_request_id)
+            registry = RejectionObservationRegistry()
+            registered = registry.register_model_tool_calls(
+                thread_id,
+                response,
+                model_request_id=model_request_id,
+            )
             if registered != len(tool_calls):
                 raise RuntimeError("tool-call origin registration was incomplete")
             adapter = ObservableRuntimeParityToolAdapter(run_tool=_FakeTool(), submit_tool=_FakeTool())
             for _ in range(parity.ACTION_LIMITS["inspection"]):
                 adapter.run("pwd", command_role="other")
             for tool_call in tool_calls:
-                record_agent_tool_failure(
+                registry.record_tool_failure(
                     _request(thread_id, tool_call),
                     _capture_rejection(adapter, tool_call),
                     execution_mode="sync",
@@ -246,14 +406,19 @@ def validate_gate() -> dict[str, Any]:
 
         events = ledger.read()
         failures = [event["payload"] for event in events if event["event"] == "agent.tool_failed"]
-        observed = [(payload["rejection_classification"], payload["action_kind"]) for payload in failures]
+        observations = [event["payload"] for event in events if event["event"] == OBSERVATION_EVENT]
+        if len(failures) != len(expected) or any(set(payload) != _LEGACY_FAILURE_FIELDS for payload in failures):
+            raise RuntimeError("historical agent.tool_failed schema drifted")
+        if [item["failure_id"] for item in observations] != [item["failure_id"] for item in failures]:
+            raise RuntimeError("companion observation linkage drifted")
+        observed = [(payload["rejection_classification"], payload["action_kind"]) for payload in observations]
         if observed != expected:
             raise RuntimeError("bounded rejection classifications drifted")
-        if [payload["tool_ordinal"] for payload in failures] != list(range(1, len(tool_calls) + 1)):
+        if [payload["tool_ordinal"] for payload in observations] != list(range(1, len(tool_calls) + 1)):
             raise RuntimeError("tool ordinals drifted")
-        if any(payload["model_request_id"] != model_request_id for payload in failures):
+        if any(payload["model_request_id"] != model_request_id for payload in observations):
             raise RuntimeError("model request correlation drifted")
-        for payload, tool_call in zip(failures, tool_calls, strict=True):
+        for payload, tool_call in zip(observations, tool_calls, strict=True):
             expected_sha256 = hashlib.sha256(tool_call["args"]["command"].encode("utf-8")).hexdigest()
             if payload["command_sha256"] != expected_sha256:
                 raise RuntimeError("command digest drifted")
@@ -264,6 +429,8 @@ def validate_gate() -> dict[str, Any]:
     return {
         "schema_version": SCHEMA_VERSION,
         "issue": 194,
+        "observation_event": OBSERVATION_EVENT,
+        "legacy_tool_failed_schema_preserved": True,
         "classifications": [
             {
                 "rejection_classification": classification,

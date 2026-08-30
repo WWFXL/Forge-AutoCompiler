@@ -10,8 +10,6 @@ from pathlib import Path
 
 import pytest
 
-from deerflow.compile.evidence import EvidenceError
-
 REPO_ROOT = Path(__file__).resolve().parents[2]
 SCRIPTS_DIR = REPO_ROOT / "scripts"
 SCRIPT_PATH = SCRIPTS_DIR / "forge_opaque_provenance_rejection_observability_gate.py"
@@ -62,7 +60,7 @@ def test_versioned_adapter_exposes_bounded_rejection_metadata(
         run_tool=lambda **_kwargs: "unused",
         submit_tool=lambda **_kwargs: "unused",
     )
-    with pytest.raises((gate.ObservableRuntimeParityGateError, EvidenceError)) as captured:
+    with pytest.raises(gate.ObservableRuntimeParityGateError) as captured:
         adapter.run(command, command_role=command_role)
 
     assert getattr(captured.value, "evidence_rejection_classification") == classification
@@ -94,7 +92,59 @@ def test_gate_distinguishes_preregistered_rejection_classes() -> None:
         ("inspection_budget_exhausted", "inspection"),
     ]
     assert [item["tool_ordinal"] for item in report["classifications"]] == [1, 2, 3, 4, 5]
+    assert report["observation_event"] == "agent.tool_rejection_observed"
+    assert report["legacy_tool_failed_schema_preserved"] is True
     assert report["raw_command_persisted"] is False
+
+
+def test_duplicate_tool_call_origin_emits_only_legacy_failure(tmp_path: Path) -> None:
+    ledger = gate.ExperimentLedger.create(
+        tmp_path / "duplicate.jsonl",
+        experiment_id=gate.new_evidence_id("experiment"),
+        physical_attempt_id=gate.new_evidence_id("physical_attempt"),
+        context={"scope": "duplicate-origin"},
+    )
+    thread_id = gate.new_evidence_id("thread")
+    gate.activate_experiment(
+        thread_id=thread_id,
+        experiment_id=ledger.experiment_id,
+        physical_attempt_id=ledger.physical_attempt_id,
+        ledger=ledger,
+        policy=gate._policy(),
+    )
+    tool_call = {
+        "name": "run_container_bash",
+        "id": "call-duplicate",
+        "args": {"command": "pwd", "command_role": "other"},
+    }
+    registry = gate.RejectionObservationRegistry()
+    try:
+        response = gate.SimpleNamespace(result=[gate.SimpleNamespace(tool_calls=[tool_call, tool_call])])
+        assert (
+            registry.register_model_tool_calls(
+                thread_id,
+                response,
+                model_request_id=gate.new_evidence_id("model_request"),
+            )
+            == 0
+        )
+        adapter = gate.ObservableRuntimeParityToolAdapter(
+            run_tool=lambda **_kwargs: "unused",
+            submit_tool=lambda **_kwargs: "unused",
+        )
+        for _ in range(gate.parity.ACTION_LIMITS["inspection"]):
+            adapter.run("pwd")
+        failure, observation = registry.record_tool_failure(
+            gate._request(thread_id, tool_call),
+            gate._capture_rejection(adapter, tool_call),
+            execution_mode="sync",
+        )
+    finally:
+        gate.deactivate_experiment(thread_id)
+
+    assert failure is not None
+    assert observation is None
+    assert [event["event"] for event in ledger.read()][-1:] == ["agent.tool_failed"]
 
 
 def test_cli_is_zero_provider_and_ephemeral() -> None:

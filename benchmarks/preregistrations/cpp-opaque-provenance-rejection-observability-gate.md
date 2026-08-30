@@ -2,7 +2,7 @@
 
 - Issue: #194
 - Schema: `forge-opaque-provenance-rejection-observability-gate-1.0.0`
-- Scope: experiment-active `agent.tool_failed` evidence only
+- Scope: experiment-active legacy `agent.tool_failed` plus versioned companion observation
 - Provider calls: 0
 - Formal physical attempts: 0
 - Model tokens: 0
@@ -12,7 +12,7 @@
 
 ## Atomic observation
 
-Enriched rejection evidence must contain all or none of:
+Historical `agent.tool_failed` remains byte- and Schema-compatible with its seven fields. A linked `agent.tool_rejection_observed` companion event contains `failure_id` plus all or none of:
 
 1. `rejection_classification`
 2. `action_kind`
@@ -20,7 +20,7 @@ Enriched rejection evidence must contain all or none of:
 4. `tool_ordinal`
 5. `command_sha256`
 
-The raw command, tool arguments, error message, prompt, response, credential, and secret hash remain forbidden. Unknown or ambiguous tool-call origins must use the historical seven-field `agent.tool_failed` payload rather than emit a partial observation.
+The raw command, tool arguments, error message, prompt, response, credential, and secret hash remain forbidden. Unknown or ambiguous tool-call origins emit only the historical seven-field `agent.tool_failed` event rather than a partial companion observation. The R0 adapter and registry are versioned experiment components; shared historical evidence and model/tool-error middleware files remain byte-identical.
 
 ## Deterministic gate cases
 
@@ -38,4 +38,4 @@ All five failures share one synthetic model request and must preserve request-lo
 
 ## Stop rules
 
-Stop before any R1 checkpoint candidate if a classification is ambiguous, the atomic field group can be partially accepted, a tool origin is correlated incorrectly, a raw value is persisted, historical seven-field events no longer validate, or the gate accesses provider, Docker, credentials, or frozen evidence.
+Stop before any R1 checkpoint candidate if a classification is ambiguous, the companion field group can be partially emitted, a failure link or tool origin is correlated incorrectly, a raw value is persisted, historical seven-field events or frozen shared component hashes drift, or the gate accesses provider, Docker, credentials, or frozen evidence.
