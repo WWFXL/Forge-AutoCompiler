@@ -64,6 +64,15 @@
 ## 最近变更 (Recent Changes)
 <!-- 倒序，最新在上。 -->
 
+- 2026-08-31 — 完成 opaque provenance independent replication 正式批次并冻结删失结论
+  - Evidence: `.compile-sessions/benchmark-evidence-opaque-provenance-confirmatory-replication-v1/`；绑定 `main@6b0d84394e20aa74d4cafe71f22628b62b43b4ae`、manifest canonical SHA-256 `784f33442a13df571f93acb97ba987950e11fffa97511fe5bf3f74c9bb75a3d1` 与 evidence identity `b136cc5669384176853f00b878dae207d89b7bce593cc8e5f1ff9ab06505b9bc`。
+  - 执行: Wi-Fi、Ubuntu WSL2 原生 Docker Engine、DeepSeek `deepseek-v4-flash`、300 秒、0 retry、禁止 fallback。唯一 reachability 为 1 request / 17 tokens / 1.481 秒；批次 12/12 pairs 完成，marker=`passed`，report=`completed_with_attrition`。
+  - 预算与完整性: 507,962 pair tokens，加 reachability 共 507,979 recorded tokens，低于 2,940,000 ceiling；正式 evidence 为 100 files / 1,667,512 bytes，batch report SHA-256 `a8f5fb077529e8b44fd0de55b8ee1ec3752188d74b4576a158213a950a43c0f9`。12 个 pair cleanup 全成功，后置 0 managed compile/replay container，真实 evidence 未提交 Git。
+  - 删失: 7/12 pairs endpoint-censored；145 次记录请求中按 0-retry 终态出现 7 次 timeout，约 4.8% 的请求级失败放大为 58.3% pair attrition 和 4/6 project blocks 不可估计。删失 arm 为 treatment 4、baseline 3；6/7 位于该 pair 的首个 arm order，只能作为时序风险线索，不能作因果解释。
+  - 机制结果: baseline 0/12 provenance conversion、0 submit、0 replay；treatment 6/12 conversion、6 submit、6 clean replay 全通过。合格 pair 只有 5 个：`args-rep-01/02=+1/+1`、`fio-rep-02=+1`、`sql-parser-shared-rep-01/02=0/0`。完整 project block 只有 `args=+1` 与 `sql-parser-shared=0`；`fio` 因另一 replicate 删失不可估计。
+  - 结论边界: `all_project_blocks_estimable=false`、`primary_test=null`、`model_ranking_performed=false`。不能把 treatment 的 6 次成功 conversion 表述为确认性总体效应，也不能补跑、replacement、backfill 或池化历史 exploratory pair。
+  - 下一步: 暂停 provider 与代码修改，先形成 endpoint attrition 的只读审计和新实验决策包。重点比较“保持 DeepSeek 身份、增加独立 availability qualification/固定重试策略的新 replication”与“切换更稳定 provider/model 的泛化实验”；任何方案都必须使用新 identity，并把网络可靠性策略作为预注册设计而非事后补跑。
+
 - 2026-08-31 — 冻结 Issue #247 independent replication authorized amendment
   - 文件: `scripts/forge_opaque_provenance_confirmatory_replication_authorized_protocol.py`, `scripts/forge_opaque_provenance_confirmatory_replication_authorized_runner.py`, `backend/tests/test_forge_opaque_provenance_confirmatory_replication_authorized.py`, `benchmarks/manifests/cpp-opaque-provenance-confirmatory-replication-authorized.json`, `benchmarks/schemas/forge-opaque-provenance-confirmatory-replication-authorized.schema.json`, `benchmarks/preregistrations/cpp-opaque-provenance-confirmatory-replication-authorized.md`, `.claude/memory/project.md`
   - 授权: 基线为 `main@d3b25da4`；固定 DeepSeek `deepseek-v4-flash`、300 秒/0 retry/禁止 fallback、唯一 reachability、完整六 case/12 pairs/24 arms 与 2,940,000 recorded-token ceiling。Credential 只引用 `DEEPSEEK_API_KEY` 环境变量名。
