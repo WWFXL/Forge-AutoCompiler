@@ -64,6 +64,14 @@
 ## 最近变更 (Recent Changes)
 <!-- 倒序，最新在上。 -->
 
+- 2026-08-31 — 冻结 Issue #241 confirmatory v1 recovery 决策并补 capture-before-commit 清理门禁
+  - 文件: `benchmarks/fixtures/opaque-provenance-confirmatory-v1-evidence-inventory.json`, `benchmarks/preregistrations/cpp-opaque-provenance-confirmatory-v1-recovery-decision.md`, `scripts/forge_opaque_provenance_confirmatory_execution_repair_adapter.py`, `backend/tests/test_forge_opaque_provenance_confirmatory_execution_repair_adapter.py`, `backend/tests/test_forge_opaque_provenance_confirmatory_execution_repair_adapter_docker.py`, `.claude/memory/project.md`
+  - 决策: 保留 confirmatory v1 为机制失败的确认性尝试，选择全新 independent replication；前三个冻结 outcome 不导入新 primary test，`gpac-rep-01` 即使 0 provider/0 token 也不续跑。透明 recovery 会混合两个 release/runtime/采集时段，并与 v1 禁止 replacement/backfill/extension 的边界冲突。
+  - Inventory: 逐项复核 v1 为 28 files / 332,783 bytes；按 `<path>\t<bytes>\t<sha256>\n` 排序编码的 digest 为 `dc7e53020af27929ea334376628c37f02236ae5510166c07109a1ddde7f5f431`，历史 evidence 未修改。
+  - 修复: 版本化 repair adapter 仅跟踪本 pair 新建的 Compile Session；底层 capture evidence callback 在 coordinator commit 前失败时反向幂等清理，不扫描或删除其他任务资源，不修改冻结 v1/R3 runner。
+  - 验证: 聚焦与相邻回归 `36 passed`；真实 capture-before-commit 零 provider failure gate `1 passed in 25.87s`，真实 Make checkpoint/P2/submit/clean replay 成功 gate `1 passed in 103.47s`；Ruff check/format 和 inventory 对账通过。全阶段 0 provider、0 credential read、0 model token、0 formal evidence write。
+  - 环境: 两条真实门禁完成后 Ubuntu `docker.service` 变为 inactive；未启动 Docker Desktop、未自行切换 daemon。下一次 Docker/provider 阶段前由用户恢复 Ubuntu 原生服务。
+
 - 2026-08-31 — 保全 confirmatory v1 失败证据并完成 Issue #239 Make runtime 版本化修复门禁
   - 文件: `scripts/forge_opaque_provenance_confirmatory_execution_repair_adapter.py`, `backend/tests/test_forge_opaque_provenance_confirmatory_execution_repair_adapter.py`, `backend/tests/test_forge_opaque_provenance_confirmatory_execution_repair_adapter_docker.py`, `.claude/memory/project.md`
   - 终态: `main@b2218e4b` 的唯一 batch 完成 `pupnp/ada-url/args` 三个 rep-01 outcome 后，在首个 Make pair `gpac-rep-01` 的任何 provider 请求与容器创建前因 pair manifest 缺少 `case.reference_case_id` 触发 `KeyError`；batch marker 为 `failed/KeyError`，原批次不重跑、不 replacement、不 backfill。
