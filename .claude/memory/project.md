@@ -64,6 +64,14 @@
 ## 最近变更 (Recent Changes)
 <!-- 倒序，最新在上。 -->
 
+- 2026-08-31 — 冻结 Issue #243 opaque provenance independent replication 未授权候选
+  - 文件: `scripts/forge_opaque_provenance_confirmatory_replication_candidate_protocol.py`, `backend/tests/test_forge_opaque_provenance_confirmatory_replication_candidate.py`, `benchmarks/manifests/cpp-opaque-provenance-confirmatory-replication-candidate.json`, `benchmarks/schemas/forge-opaque-provenance-confirmatory-replication-candidate.schema.json`, `benchmarks/preregistrations/cpp-opaque-provenance-confirmatory-replication-candidate.md`, `.claude/memory/project.md`
+  - Identity: 候选基线为 `main@c38f7381`，manifest canonical SHA-256 为 `7b1817becba4ec57eb9726be0e1faaa5427af309dca7552634e3f6a3a1b5d938`，独立 evidence identity 为 `b136cc5669384176853f00b878dae207d89b7bce593cc8e5f1ff9ab06505b9bc`。
+  - 边界: 完整继承六 case / 12 pairs 与项目内 arm order 对调；新目录为 `benchmark-evidence-opaque-provenance-confirmatory-replication-v1`，固定 `historical_outcomes_imported=false`、`v1_attempt_extended=false`、0 replacement/backfill、`gpac-rep-01` 不续跑。
+  - Runtime: 候选只绑定 Issue #241 的版本化 repair adapter，不复制或授权真实 pair/batch 主循环；DeepSeek、300 秒/0 retry 和 2,940,000-token ceiling 仅为后续授权候选，当前所有外部授权为 false、token 授权为 0。
+  - 验证: 纯协议/Schema 聚焦测试 `5 passed`，确定性再生成、Ruff check/format、JSON 解析、diff 和敏感信息扫描通过；0 provider、0 credential read、0 Docker、0 checkpoint、0 formal attempt、0 model token、0 evidence write。
+  - 环境: Ubuntu `docker.service` 仍为 inactive，因此未运行 lifecycle gate；下一阶段在用户恢复 Ubuntu 原生 daemon 后执行零 provider replication lifecycle 门禁，不能用 Docker Desktop 回退。
+
 - 2026-08-31 — 冻结 Issue #241 confirmatory v1 recovery 决策并补 capture-before-commit 清理门禁
   - 文件: `benchmarks/fixtures/opaque-provenance-confirmatory-v1-evidence-inventory.json`, `benchmarks/preregistrations/cpp-opaque-provenance-confirmatory-v1-recovery-decision.md`, `scripts/forge_opaque_provenance_confirmatory_execution_repair_adapter.py`, `backend/tests/test_forge_opaque_provenance_confirmatory_execution_repair_adapter.py`, `backend/tests/test_forge_opaque_provenance_confirmatory_execution_repair_adapter_docker.py`, `.claude/memory/project.md`
   - 决策: 保留 confirmatory v1 为机制失败的确认性尝试，选择全新 independent replication；前三个冻结 outcome 不导入新 primary test，`gpac-rep-01` 即使 0 provider/0 token 也不续跑。透明 recovery 会混合两个 release/runtime/采集时段，并与 v1 禁止 replacement/backfill/extension 的边界冲突。
