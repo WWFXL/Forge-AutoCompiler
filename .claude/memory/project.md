@@ -64,6 +64,13 @@
 ## 最近变更 (Recent Changes)
 <!-- 倒序，最新在上。 -->
 
+- 2026-08-31 — 实现 Issue #237 六 case confirmatory authorized runner 并通过真实 fake-model 门禁
+  - 文件: `scripts/forge_opaque_provenance_confirmatory_execution_authorized_protocol.py`, `scripts/forge_opaque_provenance_confirmatory_execution_authorized_runner.py`, `backend/tests/test_forge_opaque_provenance_confirmatory_execution_authorized.py`, `backend/tests/test_forge_opaque_provenance_confirmatory_execution_authorized_docker.py`, `benchmarks/manifests/cpp-opaque-provenance-confirmatory-execution-authorized.json`, `benchmarks/schemas/forge-opaque-provenance-confirmatory-execution-authorized.schema.json`, `benchmarks/preregistrations/cpp-opaque-provenance-confirmatory-execution-authorized.md`
+  - 实现: 复用现有 lifecycle checkpoint、CMake/Make pair runner、R1 continuation、R0 observability 和 behavioral v2 batch marker；修复组合层重复传入 runtime manifest 导致双臂在首个模型请求前 `TypeError` 的问题，不修改生产 Compiler 或历史 runner。
+  - 协议: 冻结 DeepSeek `deepseek-v4-flash`、300 秒/0 retry、12 pairs/24 arms、2,940,000 recorded-token ceiling，以及禁止 fallback/replacement/backfill；canonical manifest SHA-256 为 `5354c419317418a2df8af43ebbeedae1e9ebb6d77e0f09bfee1f047ce148f01a`。
+  - 验证: 聚焦非 Docker `8 passed, 2 skipped`，相邻复用链 `118 passed`，真实 `args` fake-model Docker 门禁 `1 passed in 103.16s`；Ruff check/format、确定性再生成、Schema、diff、敏感信息和后置 0 compile/replay orphan 均通过。
+  - 边界: 门禁为 0 provider、0 credential read、0 正式 evidence、0 model token；旧 minimal-canary 的一个空 evidence 假设测试因本机已存在 append-only 历史证据而失败，未删除或改写历史 evidence。
+
 - 2026-08-31 — 冻结 Issue #235 六 case confirmatory execution 未授权候选
   - 文件: `scripts/forge_opaque_provenance_confirmatory_execution_candidate_protocol.py`, `scripts/forge_opaque_provenance_confirmatory_execution_composition_gate.py`, `backend/tests/test_forge_opaque_provenance_confirmatory_execution_candidate.py`, `benchmarks/manifests/cpp-opaque-provenance-confirmatory-execution-candidate.json`, `benchmarks/schemas/forge-opaque-provenance-confirmatory-execution-candidate.schema.json`, `benchmarks/preregistrations/cpp-opaque-provenance-confirmatory-execution-candidate.md`
   - 设计: 继承 Issue #233 六 case/12-pair identity，选择但不授权 DeepSeek `deepseek-v4-flash`；冻结独立 evidence、三层 terminal taxonomy、endpoint censoring 继续、mechanism/identity/cleanup 失败停止和 2,940,000-token 批次门禁。
@@ -655,6 +662,9 @@
 
 ## 已知问题 (Known Issues / Pitfalls)
 <!-- 工作中踩过的坑、限制或意外行为。 -->
+
+- PowerShell → WSL 命令不得嵌入 Bash `$变量`、`$()`、正则括号或多层引号；即使目的是只读 Docker 审计，也必须拆成 `wsl.exe -d Ubuntu -- docker ...` 固定参数命令。零 orphan 查询使用独立的 `docker ps -aq --filter=name=deerflow-compile-` 和 `--filter=name=deerflow-replay-`，不要再写包装 shell。
+- `test_forge_opaque_provenance_minimal_canary_authorized.py::test_collector_uses_read_only_git_docker_and_evidence_checks` 直接绑定冻结 evidence 目录并断言为空；该 append-only 目录在真实 canary 后合法非空，因此相邻回归会产生环境性失败。不得为测试全绿删除、移动或改写历史 evidence，应单独报告并依赖其余合同测试验证回归。
 
 - 上游仓库已跟踪 parser generator 产物时，空 bootstrap 不保证重放确定性：Git checkout 的 mtime 可能让 Make 在“复用生成文件”和“重新运行 Bison/Flex”之间切换，最终 artifact 路径、类型、大小相同但 build-id/SHA-256 不同。冻结协议应显式运行已审计的 generator 命令，并在 parent wrapper 中用 subshell 隔离 `cd`；不得通过放宽 clean replay SHA-256 verifier 掩盖非确定性。
 - 一次性诊断容器若在容器内执行 GitHub fetch，当前网络可能长期阻塞；诊断必须有独立短时限和精确 container ID，超时后按 ID 终止并删除，再核对 compile/replay orphan 为 0。不能把 fetch 阻塞记为 case lifecycle 失败，也不能因此启动 Docker Desktop。
