@@ -64,6 +64,13 @@
 ## 最近变更 (Recent Changes)
 <!-- 倒序，最新在上。 -->
 
+- 2026-08-31 — 完成 Issue #245 independent replication lifecycle 零 provider 门禁
+  - 文件: `scripts/forge_opaque_provenance_confirmatory_replication_lifecycle_gate.py`, `backend/tests/test_forge_opaque_provenance_confirmatory_replication_lifecycle_gate.py`, `backend/tests/test_forge_opaque_provenance_confirmatory_replication_lifecycle_gate_docker.py`, `benchmarks/preregistrations/cpp-opaque-provenance-confirmatory-replication-lifecycle-zero-provider-gate.md`, `.claude/memory/project.md`
+  - Identity: 严格绑定 Issue #243 candidate canonical SHA-256 `7b1817becba4ec57eb9726be0e1faaa5427af309dca7552634e3f6a3a1b5d938`、evidence identity `b136cc5669384176853f00b878dae207d89b7bce593cc8e5f1ff9ab06505b9bc`、schedule identity `3f35dd8c245cb7e9db6069f63cf133c98fbfdf6813a11e3fa2306a5eb34c2134` 与 repair adapter byte SHA-256 `c8a13388f6c53d308b34f013bf4a9f449190a10e779667cdf73b0e8ef1da2544`。
+  - 门禁: 临时 v1-shaped runtime 强制 `example.invalid`、不存在的 credential 占位名和显式 deterministic fake model factory；临时输出不得等于或位于正式 replication evidence 目录内。CMake capture-before-commit 异常精确清理本 pair Session，Make pair 完成 checkpoint、双臂、treatment P2 conversion、candidate verification、唯一 clean replay、finalize 与 cleanup。
+  - 验证: 静态及相邻回归 `27 passed`；真实 Ubuntu-native Docker 组合门禁 `2 passed in 131.88s`；Ruff check/format、静态协议命令与 diff 检查通过，前后 0 compile/replay orphan、正式 replication evidence 为空。全阶段 0 provider、0 credential read、0 formal attempt、0 model token、0 正式 evidence write。
+  - 环境: Compose 的 `/repo` 是完整但只读的宿主 checkout，`/app` 镜像层不是完整 benchmark 仓库；静态回归从 `/repo` 读取时 pytest cache warning 可忽略。下一阶段在本门禁合并后另建 authorized amendment，未经版本化授权不得执行 reachability 或 12-pair batch。
+
 - 2026-08-31 — 冻结 Issue #243 opaque provenance independent replication 未授权候选
   - 文件: `scripts/forge_opaque_provenance_confirmatory_replication_candidate_protocol.py`, `backend/tests/test_forge_opaque_provenance_confirmatory_replication_candidate.py`, `benchmarks/manifests/cpp-opaque-provenance-confirmatory-replication-candidate.json`, `benchmarks/schemas/forge-opaque-provenance-confirmatory-replication-candidate.schema.json`, `benchmarks/preregistrations/cpp-opaque-provenance-confirmatory-replication-candidate.md`, `.claude/memory/project.md`
   - Identity: 候选基线为 `main@c38f7381`，manifest canonical SHA-256 为 `7b1817becba4ec57eb9726be0e1faaa5427af309dca7552634e3f6a3a1b5d938`，独立 evidence identity 为 `b136cc5669384176853f00b878dae207d89b7bce593cc8e5f1ff9ab06505b9bc`。
