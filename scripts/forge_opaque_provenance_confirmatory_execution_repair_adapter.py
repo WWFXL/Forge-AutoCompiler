@@ -7,7 +7,8 @@ import argparse
 import asyncio
 import json
 import sys
-from collections.abc import Callable
+from collections.abc import Callable, Iterator
+from contextlib import contextmanager
 from pathlib import Path
 from typing import Any
 
@@ -24,6 +25,45 @@ DEFAULT_MANIFEST = v1.DEFAULT_MANIFEST
 
 class ConfirmatoryRepairError(RuntimeError):
     """修复后的 pair runtime identity 或静态合同无效。"""
+
+
+def _compile_services() -> Any:
+    from deerflow.compile import operations
+
+    return operations.get_compile_services()
+
+
+@contextmanager
+def _cleanup_created_sessions_on_failure() -> Iterator[None]:
+    services = _compile_services()
+    manager = services.manager
+    runtime = services.runtime
+    created_sessions: list[Any] = []
+    original_create_session = manager.create_session
+
+    def create_session(*args: Any, **kwargs: Any) -> Any:
+        session = original_create_session(*args, **kwargs)
+        created_sessions.append(session)
+        return session
+
+    manager.create_session = create_session
+    try:
+        yield
+    except BaseException as exc:
+        failures: list[str] = []
+        for session in reversed(created_sessions):
+            try:
+                result = runtime.stop_and_remove_container(session)
+            except Exception as cleanup_exc:
+                failures.append(type(cleanup_exc).__name__)
+            else:
+                if not result.succeeded:
+                    failures.append(session.session_id)
+        if failures:
+            raise ConfirmatoryRepairError("pair 异常后的 Compile Session 容器清理未闭合") from exc
+        raise
+    finally:
+        manager.create_session = original_create_session
 
 
 def _pair_manifest(
@@ -89,23 +129,24 @@ def execute_real_pair(
 ) -> dict[str, Any]:
     adapter = lifecycle.build_case_adapter(pair["case_id"], REPO_ROOT)
     pair_manifest = _pair_manifest(manifest, pair, pair_dir)
-    with v1._pair_bindings(
-        manifest,
-        pair_manifest,
-        adapter,
-        pair_dir,
-        release,
-        reachability,
-        async_runner,
-    ) as base:
-        if adapter.build_system == "make":
-            base.make_lifecycle.provenance = lifecycle.make_reference.provenance
-        report = base._run_pair(
+    with _cleanup_created_sessions_on_failure():
+        with v1._pair_bindings(
+            manifest,
             pair_manifest,
-            output_dir=pair_dir,
-            repo_root=REPO_ROOT,
-            model_factory=model_factory,
-        )
+            adapter,
+            pair_dir,
+            release,
+            reachability,
+            async_runner,
+        ) as base:
+            if adapter.build_system == "make":
+                base.make_lifecycle.provenance = lifecycle.make_reference.provenance
+            report = base._run_pair(
+                pair_manifest,
+                output_dir=pair_dir,
+                repo_root=REPO_ROOT,
+                model_factory=model_factory,
+            )
     return v1._pair_outcome(manifest, pair, pair_manifest, report)
 
 

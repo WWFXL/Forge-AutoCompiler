@@ -184,3 +184,66 @@ def test_repair_adapter_executes_make_checkpoint_p2_replay_and_cleanup(
             except OSError:
                 pass
         shutil.rmtree(output_dir, ignore_errors=True)
+
+
+def test_capture_evidence_failure_cleans_parent_before_commit(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    adapter.v1.primary.require_compose_dood()
+    adapter.v1.require_zero_managed_containers()
+    paths = Paths()
+    output_dir = paths.compile_sessions_dir / f"issue-241-capture-cleanup-docker-{uuid.uuid4().hex[:12]}"
+    created_sessions: list[Any] = []
+    manager = CompileSessionManager(paths=paths, default_image=adapter.v1.COMPILE_IMAGE)
+    original_create_session = manager.create_session
+
+    def create_session(*args: Any, **kwargs: Any):
+        session = original_create_session(*args, **kwargs)
+        created_sessions.append(session)
+        return session
+
+    manager.create_session = create_session  # type: ignore[method-assign]
+    runtime = CompileDockerRuntime(manager=manager)
+    monkeypatch.setattr(
+        operations,
+        "_services",
+        CompileOperationsServices(manager=manager, runtime=runtime),
+    )
+    monkeypatch.setenv("FORGE_NETWORK_ACCESS_MEDIUM", "wifi")
+    manifest = adapter.v1.protocol.load_manifest(MANIFEST_PATH, REPO_ROOT)
+    pair = next(item for item in manifest["schedule"]["pairs"] if item["case_id"] == "sql-parser-shared" and item["replicate"] == 1)
+    release = {"branch": "main", "revision": "e" * 40, "origin_main": "e" * 40}
+
+    def fail_before_commit(_history: Any) -> str:
+        raise RuntimeError("capture evidence failed before commit")
+
+    monkeypatch.setattr(
+        adapter.lifecycle.make_reference.provenance,
+        "command_history_sha256",
+        fail_before_commit,
+    )
+
+    try:
+        with asyncio.Runner() as async_runner:
+            with pytest.raises(RuntimeError, match="before commit"):
+                adapter.execute_real_pair(
+                    manifest,
+                    pair,
+                    output_dir,
+                    async_runner,
+                    {"recorded_tokens": 17},
+                    release,
+                    model_factory=lambda *_args: pytest.fail("capture-before-commit failure must not call the model"),
+                )
+        assert created_sessions
+        adapter.v1.require_zero_managed_containers()
+    finally:
+        for session in reversed(created_sessions):
+            runtime.stop_and_remove_container(session)
+            session_dir = Path(session.metadata_path).parent
+            shutil.rmtree(session_dir, ignore_errors=True)
+            try:
+                session_dir.parent.rmdir()
+            except OSError:
+                pass
+        shutil.rmtree(output_dir, ignore_errors=True)
