@@ -64,6 +64,14 @@
 ## 最近变更 (Recent Changes)
 <!-- 倒序，最新在上。 -->
 
+- 2026-08-31 — 冻结 Issue #247 independent replication authorized amendment
+  - 文件: `scripts/forge_opaque_provenance_confirmatory_replication_authorized_protocol.py`, `scripts/forge_opaque_provenance_confirmatory_replication_authorized_runner.py`, `backend/tests/test_forge_opaque_provenance_confirmatory_replication_authorized.py`, `benchmarks/manifests/cpp-opaque-provenance-confirmatory-replication-authorized.json`, `benchmarks/schemas/forge-opaque-provenance-confirmatory-replication-authorized.schema.json`, `benchmarks/preregistrations/cpp-opaque-provenance-confirmatory-replication-authorized.md`, `.claude/memory/project.md`
+  - 授权: 基线为 `main@d3b25da4`；固定 DeepSeek `deepseek-v4-flash`、300 秒/0 retry/禁止 fallback、唯一 reachability、完整六 case/12 pairs/24 arms 与 2,940,000 recorded-token ceiling。Credential 只引用 `DEEPSEEK_API_KEY` 环境变量名。
+  - Identity: manifest canonical SHA-256 为 `784f33442a13df571f93acb97ba987950e11fffa97511fe5bf3f74c9bb75a3d1`；继续使用 #243 独立 evidence identity `b136cc5669384176853f00b878dae207d89b7bce593cc8e5f1ff9ab06505b9bc` 与原 schedule identity，不导入 v1 outcome、不续跑 `gpac-rep-01`、不 replacement/backfill。
+  - Runtime: 薄 runner 在受控上下文中把旧 authorized runner 的协议绑定切换到新 amendment，并强制 `pair_executor=repair.execute_real_pair`；退出或异常后恢复旧绑定，不复制 checkpoint/batch 主循环，也不修改冻结 v1 runner/evidence。
+  - 验证: 聚焦 `8 passed`，candidate/lifecycle/repair/旧 authorized 相邻回归合计 `32 passed`；protocol generate/validate、runner validate、const Schema、Ruff check/format 与 diff 检查通过。阶段内 0 provider、0 credential read、0 Docker、0 formal attempt、0 model token、0 evidence write。
+  - 下一步: 中文提交、WSL helper 推送、中文 PR 与 CI；合并到干净主干后先执行零 provider preflight，只有通过才创建唯一 reachability marker/request，reachability 通过后才进入完整 12-pair batch。
+
 - 2026-08-31 — 完成 Issue #245 independent replication lifecycle 零 provider 门禁
   - 文件: `scripts/forge_opaque_provenance_confirmatory_replication_lifecycle_gate.py`, `backend/tests/test_forge_opaque_provenance_confirmatory_replication_lifecycle_gate.py`, `backend/tests/test_forge_opaque_provenance_confirmatory_replication_lifecycle_gate_docker.py`, `benchmarks/preregistrations/cpp-opaque-provenance-confirmatory-replication-lifecycle-zero-provider-gate.md`, `.claude/memory/project.md`
   - Identity: 严格绑定 Issue #243 candidate canonical SHA-256 `7b1817becba4ec57eb9726be0e1faaa5427af309dca7552634e3f6a3a1b5d938`、evidence identity `b136cc5669384176853f00b878dae207d89b7bce593cc8e5f1ff9ab06505b9bc`、schedule identity `3f35dd8c245cb7e9db6069f63cf133c98fbfdf6813a11e3fa2306a5eb34c2134` 与 repair adapter byte SHA-256 `c8a13388f6c53d308b34f013bf4a9f449190a10e779667cdf73b0e8ef1da2544`。
