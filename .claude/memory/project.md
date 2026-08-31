@@ -64,6 +64,13 @@
 ## 最近变更 (Recent Changes)
 <!-- 倒序，最新在上。 -->
 
+- 2026-08-31 — 保全 confirmatory v1 失败证据并完成 Issue #239 Make runtime 版本化修复门禁
+  - 文件: `scripts/forge_opaque_provenance_confirmatory_execution_repair_adapter.py`, `backend/tests/test_forge_opaque_provenance_confirmatory_execution_repair_adapter.py`, `backend/tests/test_forge_opaque_provenance_confirmatory_execution_repair_adapter_docker.py`, `.claude/memory/project.md`
+  - 终态: `main@b2218e4b` 的唯一 batch 完成 `pupnp/ada-url/args` 三个 rep-01 outcome 后，在首个 Make pair `gpac-rep-01` 的任何 provider 请求与容器创建前因 pair manifest 缺少 `case.reference_case_id` 触发 `KeyError`；batch marker 为 `failed/KeyError`，原批次不重跑、不 replacement、不 backfill。
+  - 证据: 三个 outcome 共 82,199 recorded tokens；`pupnp` 与 `ada-url` 为 endpoint-censored，`args` 双臂均在 8 requests 后达到 graph-step limit、0 submit/0 replay/P2 均 unproven，paired delta 为 0。只完成 3/12 pairs，不能形成六个 project block 或 primary test，也不做模型排名。
+  - 修复: v1 runner/manifest/schema/evidence 保持逐字不变；新 adapter 从冻结 `source_case_id` 派生 `reference_case_id`，并把 Make proxy 绑定到通用 provenance history evaluator。静态合同覆盖 12 pairs、6 cases 与 CMake/Make 两类 runtime。
+  - 验证: v1 + repair 聚焦 `12 passed, 1 skipped`，相邻 confirmatory/R3 Make `31 passed`，全后端 Ruff 与 358 个文件 format 检查通过；真实 `sql-parser-shared` fake-model Make gate `1 passed in 90.98s`，完成 checkpoint、双臂、treatment P2 conversion、submit/clean replay 与 cleanup，后置 compile/replay orphan 为 0。全修复阶段 0 真实 provider、0 credential read、0 model token、0 formal evidence write。
+
 - 2026-08-31 — 实现 Issue #237 六 case confirmatory authorized runner 并通过真实 fake-model 门禁
   - 文件: `scripts/forge_opaque_provenance_confirmatory_execution_authorized_protocol.py`, `scripts/forge_opaque_provenance_confirmatory_execution_authorized_runner.py`, `backend/tests/test_forge_opaque_provenance_confirmatory_execution_authorized.py`, `backend/tests/test_forge_opaque_provenance_confirmatory_execution_authorized_docker.py`, `benchmarks/manifests/cpp-opaque-provenance-confirmatory-execution-authorized.json`, `benchmarks/schemas/forge-opaque-provenance-confirmatory-execution-authorized.schema.json`, `benchmarks/preregistrations/cpp-opaque-provenance-confirmatory-execution-authorized.md`
   - 实现: 复用现有 lifecycle checkpoint、CMake/Make pair runner、R1 continuation、R0 observability 和 behavioral v2 batch marker；修复组合层重复传入 runtime manifest 导致双臂在首个模型请求前 `TypeError` 的问题，不修改生产 Compiler 或历史 runner。
@@ -663,6 +670,8 @@
 ## 已知问题 (Known Issues / Pitfalls)
 <!-- 工作中踩过的坑、限制或意外行为。 -->
 
+- Confirmatory v1 的真实 fake-model Docker gate 只覆盖 CMake `args`，因此没有触达 R3 Make 对 `case.reference_case_id` 与 `make_lifecycle.provenance.command_history_sha256` 的隐含依赖。跨 build-system 复用 runner 时，至少各选一个 CMake/Make case 做真实零 provider 门禁；发现冻结 runtime 缺口后必须新增版本化 adapter/test，不能原地修改 v1 或重生成旧 manifest 掩盖失败。
+- R3 Make runner 在 `gate.capture()` 的 evidence callback 抛错时，`gate` 已创建但 coordinator record 可能尚未提交；现有异常清理会跳过直接 parent container removal，留下已退出的 compile 容器。opt-in 测试必须跟踪自身创建的 Session 并在 `finally` 按精确 identity 清理；未来若授权 recovery，应先在新版本 runner 中补齐 capture-before-commit 的生产 cleanup 门禁。
 - PowerShell → WSL 命令不得嵌入 Bash `$变量`、`$()`、正则括号或多层引号；即使目的是只读 Docker 审计，也必须拆成 `wsl.exe -d Ubuntu -- docker ...` 固定参数命令。零 orphan 查询使用独立的 `docker ps -aq --filter=name=deerflow-compile-` 和 `--filter=name=deerflow-replay-`，不要再写包装 shell。
 - `test_forge_opaque_provenance_minimal_canary_authorized.py::test_collector_uses_read_only_git_docker_and_evidence_checks` 直接绑定冻结 evidence 目录并断言为空；该 append-only 目录在真实 canary 后合法非空，因此相邻回归会产生环境性失败。不得为测试全绿删除、移动或改写历史 evidence，应单独报告并依赖其余合同测试验证回归。
 - Authorized manifest 若冻结预注册文档或 runtime 的文件 SHA-256，任何末尾空行、格式或注释变更后都必须重新生成 manifest/schema，并在最终字节上再次执行确定性生成和聚焦测试；不能把文档清理视为不影响协议 identity 的提交前操作。
