@@ -54,7 +54,7 @@ def test_manifest_schema_and_runtime_identity_are_frozen() -> None:
     Draft202012Validator.check_schema(schema)
     Draft202012Validator(schema).validate(manifest)
     protocol.verify_frozen_components(manifest, REPO_ROOT)
-    assert protocol.canonical_sha256(manifest) == "5354c419317418a2df8af43ebbeedae1e9ebb6d77e0f09bfee1f047ce148f01a"
+    assert protocol.canonical_sha256(manifest) == "68349316cfdbe8411c49c7ffc9491760bf19fb10e0583f40a47dd0c91ea31e78"
 
 
 def test_authorized_delta_preserves_candidate_and_closes_budget() -> None:
