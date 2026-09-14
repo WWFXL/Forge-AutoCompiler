@@ -10,6 +10,7 @@ REPO_ROOT = Path(__file__).resolve().parents[2]
 SCRIPT_PATH = REPO_ROOT / "scripts" / "require-ubuntu-native-docker.sh"
 RUNTIME_SCRIPT_PATH = REPO_ROOT / "scripts" / "require-docker-runtime.sh"
 DOCKER_SCRIPT_PATH = REPO_ROOT / "scripts" / "docker.sh"
+DOCKER_RUNTIME_SCRIPT_PATH = REPO_ROOT / "scripts" / "docker-runtime.sh"
 WSL_CHECK_PATH = REPO_ROOT / "scripts" / "wsl-check.sh"
 BASH_CANDIDATES = [
     Path(r"C:\Program Files\Git\bin\bash.exe"),
@@ -58,14 +59,24 @@ def test_gate_accepts_only_the_reviewed_ubuntu_native_daemon() -> None:
 
 def test_general_and_wsl_entrypoints_use_their_respective_gates() -> None:
     docker_script = DOCKER_SCRIPT_PATH.read_text(encoding="utf-8")
+    docker_runtime_script = DOCKER_RUNTIME_SCRIPT_PATH.read_text(encoding="utf-8")
     wsl_check = WSL_CHECK_PATH.read_text(encoding="utf-8")
 
-    assert 'source "$SCRIPT_DIR/require-docker-runtime.sh"' in docker_script
+    assert 'source "$SCRIPT_DIR/require-docker-runtime.sh"' in docker_runtime_script
+    assert 'source "$SCRIPT_DIR/docker.sh"' in docker_runtime_script
+    assert "require_docker_runtime" in docker_runtime_script
+    assert 'source "$SCRIPT_DIR/require-ubuntu-native-docker.sh"' in docker_script
     assert 'source "$SCRIPT_DIR/require-ubuntu-native-docker.sh"' in wsl_check
-    assert "require_docker_runtime --quiet" in docker_script
-    assert "require_ubuntu_native_docker" not in docker_script
+    assert "require_ubuntu_native_docker --quiet" in docker_script
     assert "require_ubuntu_native_docker" in wsl_check
     assert "init|start|restart|model-preflight|logs|stop)" in docker_script
+
+
+def test_make_docker_targets_use_the_general_runtime_entrypoint() -> None:
+    makefile = (REPO_ROOT / "Makefile").read_text(encoding="utf-8")
+
+    assert "./scripts/docker.sh" not in makefile
+    assert makefile.count("./scripts/docker-runtime.sh") == 8
 
 
 def _run_runtime_gate(*, overrides: str = ""):

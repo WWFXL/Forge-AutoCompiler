@@ -43,7 +43,8 @@ Read and follow `CLAUDE.md` before changing this repository. Files below
 - Before general Docker work, run `scripts/require-docker-runtime.sh` or an
   entry point that invokes it. If the check fails, report the missing
   capability; do not start desktop applications or switch daemons.
-- `scripts/wsl-check.sh` and `scripts/require-ubuntu-native-docker.sh` are the
-  WSL2-specific local preflight and the frozen gate used by historical
-  experiment identities. Do not use them as the portability contract for new
-  Linux hosts, and do not rewrite frozen manifests or evidence.
+- The `make docker-*` targets use `scripts/docker-runtime.sh`. The legacy
+  `scripts/docker.sh`, `scripts/wsl-check.sh`, and
+  `scripts/require-ubuntu-native-docker.sh` are frozen by historical experiment
+  identities. Do not use them as the portability contract for new Linux hosts,
+  and do not rewrite frozen manifests or evidence.
