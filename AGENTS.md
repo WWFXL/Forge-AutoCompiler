@@ -38,12 +38,12 @@ Read and follow `CLAUDE.md` before changing this repository. Files below
 
 ## Forge Docker Runtime
 
-- Forge development, Compose/DooD, Compile Session, clean replay, and formal
-  experiments use only the native Docker Engine managed by `docker.service`
-  inside the `Ubuntu` WSL2 distribution.
-- Run Forge Docker commands through `wsl.exe -d Ubuntu -- ...` from Windows or
-  directly inside that Ubuntu distribution. Do not use the Windows `docker`
-  CLI, Docker Desktop contexts, or Docker Desktop as a fallback.
-- Before Docker work, run `scripts/require-ubuntu-native-docker.sh` or an entry
-  point that invokes it. If the gate fails, stop and ask the user to restore
-  the Ubuntu service; do not start desktop applications or switch daemons.
+- Forge development, Compose/DooD, Compile Session, and clean replay require a
+  reachable Linux Docker daemon, Docker Compose, and `/var/run/docker.sock`.
+- Before general Docker work, run `scripts/require-docker-runtime.sh` or an
+  entry point that invokes it. If the check fails, report the missing
+  capability; do not start desktop applications or switch daemons.
+- `scripts/wsl-check.sh` and `scripts/require-ubuntu-native-docker.sh` are the
+  WSL2-specific local preflight and the frozen gate used by historical
+  experiment identities. Do not use them as the portability contract for new
+  Linux hosts, and do not rewrite frozen manifests or evidence.

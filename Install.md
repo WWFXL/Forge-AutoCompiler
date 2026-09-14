@@ -20,9 +20,14 @@ agent 会自动按下面的流程执行。
 
 在用户机器上以最低风险路径搭出 Forge-AutoCompiler 本地开发工作区。
 
-## Windows + WSL2（推荐路径）
+## Linux Docker 环境
 
-Windows 不走“原生 PowerShell + Git Bash 拼装全部依赖”的路径。Forge 固定在 WSL2 Ubuntu 中运行仓库命令，并使用该发行版内由 `docker.service` 管理的原生 Docker Engine。Docker Desktop 是另一套 daemon，两边的镜像、网络和容器互不可见，不作为 Forge 的启动或故障回退路径。
+Forge 在 Linux 环境中运行仓库命令，并使用可访问的 Docker Engine、Compose 和
+`/var/run/docker.sock`。原生 Linux 可以直接运行；Windows 推荐进入 WSL2 后运行。
+
+### Windows + WSL2
+
+Windows 不走“原生 PowerShell + Git Bash 拼装全部依赖”的路径。进入 WSL2 Ubuntu 后，使用其中已经配置好的 Docker runtime；助手和仓库脚本不会自动启动 Docker 服务或桌面应用，也不会自行切换 daemon。
 
 1. 在 Ubuntu 内安装 Docker Engine 和 Compose v2 插件，并由用户确认 `docker.service` 已启动。助手和仓库脚本不会自动启动服务或桌面应用。
 2. 进入 WSL：
@@ -103,14 +108,14 @@ Windows 不走“原生 PowerShell + Git Bash 拼装全部依赖”的路径。F
 2. 检查仓库根存在 `Makefile`、`backend/`、`frontend/`、`config.example.yaml`。
 3. 判断 `config.yaml` 是否已存在。
 4. 不存在则跑 `make config`（注意：**`make config` 非幂等**，已存在会主动 abort，这是正常行为）。
-5. 运行 `./scripts/require-ubuntu-native-docker.sh`，确认 Ubuntu 原生 Docker 门禁通过。
+5. 运行 `./scripts/require-docker-runtime.sh`，确认 Docker daemon、Compose 和 DooD socket 可用。
 6. **若 Docker 可用**：
    - 跑 `make docker-init`
    - 这一步只算「Docker 准备就绪」，不要声称服务已启动、compose 已校验、镜像已构建完
    - 除非用户明确要求或要做启动验证，**不要自动 `make docker-start`** 起后台服务
    - 告知用户下一条命令是 `make docker-start`
 7. **若 Docker 不可用**：
-   - 停止 Docker 路径并明确报告失败的门禁项；若 `docker.service` 未启动或需要权限，由用户介入恢复，不要启动 Docker Desktop
+   - 停止 Docker 路径并明确报告缺失能力；若 daemon 未启动或需要权限，由用户介入恢复，不要自行启动桌面应用或切换 daemon
    - 仅当用户选择本机非 Docker 开发路径时再跑 `make check`
    - 若报缺 `node`/`pnpm`/`uv`/`nginx`，**停下并报告**，不要擅自 `sudo apt install`
    - 前置满足则 `make install`

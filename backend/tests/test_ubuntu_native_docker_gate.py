@@ -8,6 +8,7 @@ import pytest
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 SCRIPT_PATH = REPO_ROOT / "scripts" / "require-ubuntu-native-docker.sh"
+RUNTIME_SCRIPT_PATH = REPO_ROOT / "scripts" / "require-docker-runtime.sh"
 DOCKER_SCRIPT_PATH = REPO_ROOT / "scripts" / "docker.sh"
 WSL_CHECK_PATH = REPO_ROOT / "scripts" / "wsl-check.sh"
 BASH_CANDIDATES = [
@@ -55,16 +56,57 @@ def test_gate_accepts_only_the_reviewed_ubuntu_native_daemon() -> None:
     assert "Docker Desktop" not in result.stdout
 
 
-def test_forge_docker_entrypoints_require_the_gate() -> None:
+def test_general_and_wsl_entrypoints_use_their_respective_gates() -> None:
     docker_script = DOCKER_SCRIPT_PATH.read_text(encoding="utf-8")
     wsl_check = WSL_CHECK_PATH.read_text(encoding="utf-8")
 
-    source_line = 'source "$SCRIPT_DIR/require-ubuntu-native-docker.sh"'
-    assert source_line in docker_script
-    assert source_line in wsl_check
-    assert "require_ubuntu_native_docker --quiet" in docker_script
+    assert 'source "$SCRIPT_DIR/require-docker-runtime.sh"' in docker_script
+    assert 'source "$SCRIPT_DIR/require-ubuntu-native-docker.sh"' in wsl_check
+    assert "require_docker_runtime --quiet" in docker_script
+    assert "require_ubuntu_native_docker" not in docker_script
     assert "require_ubuntu_native_docker" in wsl_check
     assert "init|start|restart|model-preflight|logs|stop)" in docker_script
+
+
+def _run_runtime_gate(*, overrides: str = ""):
+    helpers = """
+_forge_command_exists() { return 0; }
+_forge_docker_daemon_ready() { return 0; }
+_forge_docker_socket_ready() { return 0; }
+_forge_docker_compose_ready() { return 0; }
+"""
+    command = f"source '{RUNTIME_SCRIPT_PATH}'\n{helpers}\n{overrides}\nrequire_docker_runtime"
+    return subprocess.run(
+        [BASH_EXECUTABLE, "-lc", command],
+        env={"PATH": ""},
+        capture_output=True,
+        text=True,
+        encoding="utf-8",
+        check=False,
+    )
+
+
+def test_runtime_gate_accepts_available_docker_capabilities() -> None:
+    result = _run_runtime_gate()
+
+    assert result.returncode == 0, result.stderr
+    assert "Docker runtime is ready" in result.stdout
+
+
+@pytest.mark.parametrize(
+    ("overrides", "message"),
+    [
+        ("_forge_command_exists() { return 1; }", "docker command is unavailable"),
+        ("_forge_docker_daemon_ready() { return 1; }", "Docker daemon is unreachable"),
+        ("_forge_docker_socket_ready() { return 1; }", "/var/run/docker.sock is unavailable"),
+        ("_forge_docker_compose_ready() { return 1; }", "Docker Compose is unavailable"),
+    ],
+)
+def test_runtime_gate_reports_missing_capability(overrides: str, message: str) -> None:
+    result = _run_runtime_gate(overrides=overrides)
+
+    assert result.returncode == 1
+    assert message in result.stderr
 
 
 @pytest.mark.parametrize(
