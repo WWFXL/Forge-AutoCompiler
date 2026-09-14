@@ -6,11 +6,11 @@
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
 - 2026-09-15 — 解除通用 Docker 启动流程对 WSL2 的硬编码
-  - GitHub: 中文 Issue #251 已创建并回读；分支为 `fix/linux-docker-runtime`，基线为 `main@d6d37b96`。
+  - GitHub: 中文 Issue #251 / PR #252 已创建并回读，`Closes #251` 关联正确；分支为 `fix/linux-docker-runtime`，实现提交为 `9bbe256a`，基线为 `main@d6d37b96`。
   - 实现: 新增只检查 Docker daemon、Compose 与 DooD socket 的通用能力入口；`scripts/docker.sh` 改用该入口，旧 WSL 专用门禁及冻结实验资产保持不变。
   - 文档: `AGENTS.md`、`Install.md`、`CONTRIBUTING.md` 已区分通用 Linux Docker 环境与 WSL2 本机辅助流程。
   - 验证: Bash 语法检查、Ruff check/format、聚焦测试 `15 passed`、`git diff --check` 通过；0 Docker、0 provider、0 model token、0 evidence write。
-  - 下一步: 生成本地中文提交；获得推送授权后发布分支并创建中文 PR。实验室服务器真实验证等待恢复直连。
+  - 下一步: 等待 PR CI；合并需要单独确认。实验室服务器真实验证等待恢复直连。
   - 文件: `scripts/require-docker-runtime.sh`, `scripts/docker.sh`, `backend/tests/test_ubuntu_native_docker_gate.py`, `AGENTS.md`, `Install.md`, `CONTRIBUTING.md`
 
 - 2026-08-15 — 验证 failure checkpoint 三层组合恢复
