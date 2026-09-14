@@ -10,10 +10,10 @@
 
 #### 前置
 
-- WSL2 Ubuntu 内由 `docker.service` 管理的原生 Docker Engine 与 Compose v2
+- Linux 环境中可访问的 Docker Engine、Compose 和 `/var/run/docker.sock`
 - pnpm（用于宿主机侧缓存共享，加速构建）
 
-在 Windows 宿主机上，先进入 `wsl -d Ubuntu` 并运行 `./scripts/wsl-check.sh`。Forge 不使用 Windows `docker.exe` 或 Docker Desktop daemon；门禁失败时停止并请求用户恢复 Ubuntu 服务，不要自动切换 daemon。
+原生 Linux 运行 `./scripts/require-docker-runtime.sh`。在 Windows 宿主机上，先进入 `wsl -d Ubuntu` 并运行 `./scripts/wsl-check.sh`；检查失败时报告缺失能力，不要自动启动桌面应用或切换 daemon。
 
 #### 步骤
 

@@ -69,7 +69,7 @@ compile-image:
 			-t "$${COMPILE_IMAGE:-autocompiler:gcc13}" docker/compile
 
 model-preflight:
-	@./scripts/docker.sh model-preflight "$(or $(PROVIDER),richlab)"
+	@./scripts/docker-runtime.sh model-preflight "$(or $(PROVIDER),richlab)"
 
 # Install all dependencies
 install:
@@ -210,29 +210,29 @@ clean: stop
 
 # Initialize Docker containers and install dependencies
 docker-init:
-	@./scripts/docker.sh init
+	@./scripts/docker-runtime.sh init
 
 # Start Docker development environment
 docker-start:
-	@./scripts/docker.sh start
+	@./scripts/docker-runtime.sh start
 
 # Start Docker in Gateway mode (experimental)
 docker-start-pro:
-	@./scripts/docker.sh start --gateway
+	@./scripts/docker-runtime.sh start --gateway
 
 # Stop Docker development environment
 docker-stop:
-	@./scripts/docker.sh stop
+	@./scripts/docker-runtime.sh stop
 
 # View Docker development logs
 docker-logs:
-	@./scripts/docker.sh logs
+	@./scripts/docker-runtime.sh logs
 
 # View Docker development logs
 docker-logs-frontend:
-	@./scripts/docker.sh logs --frontend
+	@./scripts/docker-runtime.sh logs --frontend
 docker-logs-gateway:
-	@./scripts/docker.sh logs --gateway
+	@./scripts/docker-runtime.sh logs --gateway
 
 # ==========================================
 # Production Docker Commands
