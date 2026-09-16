@@ -462,6 +462,7 @@ def test_active_experiment_accepts_deepseek_api_base(monkeypatch):
     )
 
     assert FakeChatModel.captured_kwargs["api_base"] == endpoint
+    assert FakeChatModel.captured_kwargs["base_url"] == endpoint
     assert FakeChatModel.captured_kwargs["request_timeout"] == 120.0
     assert FakeChatModel.captured_kwargs["max_retries"] == 0
 
