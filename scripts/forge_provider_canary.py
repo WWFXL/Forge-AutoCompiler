@@ -378,15 +378,22 @@ async def _run_agent(model_name: str, thread_id: str) -> dict[str, Any]:
         plan_mode=False,
         available_skills=set(),
     )
-    message = (
+    message = _canary_message()
+    return await _consume_stream(client, message, thread_id=thread_id)
+
+
+def _canary_message() -> str:
+    return (
         f"Compile the C/C++ repository at {TARGET_REPOSITORY} using exact commit "
         f"{TARGET_COMMIT}. The required build system is CMake. Follow the full "
         "Compile Session workflow, delegate exactly one compiler task, submit "
         "deterministically verified artifacts, require clean replay, and finalize "
         "the session. Do not substitute another repository, commit, build system, "
-        "model, or provider."
+        "model, or provider. Inside the compile container use only /workspace/repo "
+        "and /artifacts paths. Never inspect, read, write, or mention .compile-sessions, "
+        "the session/thread root, or any host, Windows, or WSL path in run_container_bash "
+        "commands; do not run path-diagnostic commands against those locations."
     )
-    return await _consume_stream(client, message, thread_id=thread_id)
 
 
 def run_canary(

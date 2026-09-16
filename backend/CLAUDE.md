@@ -91,6 +91,8 @@ created → ready → source_ready → inspected → (compiler 子代理执行) 
 
 `repro_bundle` verification check 只证明候选脚本可安全生成且非空。随后 `submit_build_result` 自动用 session 保存的完整 `image_id` 创建唯一 `replay/<attempt_id>/`，把候选脚本复制到只读 recipe mount，并从空 workspace/artifacts 执行。原容器的 tag 仅作说明，replay 不得重新解析它；`image_id` 只保证同一 Docker daemon 内的精确镜像身份。
 
+provider canary 的任务提示要求编译子代理只使用 `/workspace/repo`、`/artifacts` 等容器路径，并禁止检查 `.compile-sessions`、session/线程根目录或宿主机路径，避免诊断命令污染 replay recipe。
+
 每个 replay attempt 独立持久化实际 timeout、执行日志、duration、image identity、failure classification，以及原始/replay 产物的相对路径集合、类型、大小、SHA-256、smoke 命令、退出码、有限预览和完整输出 SHA-256。只有执行、全部比较和容器清理均成功才能把 session 标为 `verified`；删除原 compile container 后还要重新核对最终产物集合、类型、大小和 SHA-256，才能标为 `completed`。执行/验证 deadline 来自 `COMPILE_REPLAY_TIMEOUT_SECONDS`（默认 `1200` 秒），覆盖 Docker control 与本地 artifact 工作；cleanup 使用独立短时限。创建握手必须在 session lock 内完成，父任务取消在 worker 停止前后都要重新加载并按 name/ID 幂等清理，worker 不得用 stale session 覆盖 `cancelled`。Replay 目录不得与原 workspace/artifacts 重合，容器不得继承模型凭据。
 
 ### 2.3 路径双重映射
