@@ -1,8 +1,20 @@
-from pydantic import BaseModel, ConfigDict, Field
+from typing import Any
+
+from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 
 class ModelConfig(BaseModel):
     """Config section for a model"""
+
+    @model_validator(mode="before")
+    @classmethod
+    def normalize_api_base(cls, value: Any) -> Any:
+        if not isinstance(value, dict) or "base_url" in value:
+            return value
+        api_base = value.get("api_base")
+        if api_base is None:
+            return value
+        return {**value, "base_url": api_base}
 
     name: str = Field(..., description="Unique name for the model")
     display_name: str | None = Field(..., default_factory=lambda: None, description="Display name for the model")

@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from types import SimpleNamespace
+
 import pytest
 from langchain.chat_models import BaseChatModel
 
@@ -424,6 +426,76 @@ def test_thinking_shortcut_not_leaked_into_model_when_disabled(monkeypatch):
 
     # The disable path should have set thinking to disabled (not the raw enabled shortcut)
     assert captured.get("thinking") == {"type": "disabled"}
+
+
+# ---------------------------------------------------------------------------
+# Active experiment policy
+# ---------------------------------------------------------------------------
+
+
+def test_active_experiment_accepts_deepseek_api_base(monkeypatch):
+    endpoint = "https://api.deepseek.com"
+    model = ModelConfig(
+        name="deepseek-flash",
+        display_name="DeepSeek Flash",
+        description=None,
+        use="deerflow.models.patched_deepseek:PatchedChatDeepSeek",
+        model="deepseek-flash",
+        api_key="test-key",
+        api_base=endpoint,
+    )
+    cfg = _make_app_config([model])
+    _patch_factory(monkeypatch, cfg)
+    active = SimpleNamespace(
+        policy=SimpleNamespace(
+            model_name="deepseek-flash",
+            endpoint=endpoint,
+            request_timeout_seconds=120,
+        )
+    )
+    monkeypatch.setattr(factory_module, "get_active_experiment", lambda _thread_id: active)
+
+    FakeChatModel.captured_kwargs = {}
+    factory_module.create_chat_model(
+        name="deepseek-flash",
+        experiment_thread_id="provider-canary-deepseek-test",
+    )
+
+    assert FakeChatModel.captured_kwargs["api_base"] == endpoint
+    assert FakeChatModel.captured_kwargs["base_url"] == endpoint
+    assert FakeChatModel.captured_kwargs["request_timeout"] == 120.0
+    assert FakeChatModel.captured_kwargs["max_retries"] == 0
+
+
+def test_active_experiment_rejects_mismatched_deepseek_api_base(monkeypatch):
+    model = ModelConfig(
+        name="deepseek-flash",
+        display_name="DeepSeek Flash",
+        description=None,
+        use="deerflow.models.patched_deepseek:PatchedChatDeepSeek",
+        model="deepseek-flash",
+        api_key="test-key",
+        api_base="https://wrong.example.com",
+    )
+    cfg = _make_app_config([model])
+    _patch_factory(monkeypatch, cfg)
+    active = SimpleNamespace(
+        policy=SimpleNamespace(
+            model_name="deepseek-flash",
+            endpoint="https://api.deepseek.com",
+            request_timeout_seconds=120,
+        )
+    )
+    monkeypatch.setattr(factory_module, "get_active_experiment", lambda _thread_id: active)
+
+    with pytest.raises(
+        factory_module.EvidenceError,
+        match="Configured provider endpoint does not match the benchmark policy",
+    ):
+        factory_module.create_chat_model(
+            name="deepseek-flash",
+            experiment_thread_id="provider-canary-deepseek-test",
+        )
 
 
 # ---------------------------------------------------------------------------
