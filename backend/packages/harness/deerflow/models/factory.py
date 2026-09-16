@@ -70,7 +70,10 @@ def create_chat_model(name: str | None = None, thinking_enabled: bool = False, *
         configured_model = model_settings_from_config.get("model")
         configured_endpoint = model_settings_from_config.get(
             "base_url",
-            model_settings_from_config.get("openai_api_base"),
+            model_settings_from_config.get(
+                "openai_api_base",
+                model_settings_from_config.get("api_base"),
+            ),
         )
         if configured_model != active.policy.model_name:
             raise EvidenceError("Configured provider model does not match the benchmark policy")

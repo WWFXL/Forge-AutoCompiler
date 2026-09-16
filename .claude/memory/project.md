@@ -5,6 +5,13 @@
 ## 进行中 (In Progress)
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
+- 2026-09-16 — 修复 Issue #257 DeepSeek `api_base` 冻结实验 endpoint 误判
+  - GitHub: 中文 Issue #257 已创建并回读；实现分支为 `fix/issue-257-deepseek-api-base`，基线为 `main@a2742559`。
+  - 根因: 服务器 `deepseek-flash` 配置仅暴露 `api_base=https://api.deepseek.com`，共享模型工厂的冻结 policy 校验只读取 `base_url`/`openai_api_base`，因此在首条模型请求 evidence 前抛出 `EvidenceError`；临时改写为 `base_url` 后真实 canary 10/10 请求、产物验证与 clean replay 全部通过。
+  - 实现: endpoint 读取保留原字段优先级并新增 `api_base` 兜底；单元测试覆盖匹配放行、错误 endpoint 拒绝、冻结 120 秒/0 retry 策略继续生效。不修改模型配置、实验协议或历史冻结 runner。
+  - 验证: 模型工厂与 provider canary 相邻回归 `37 passed`，Ruff check/format 与 `git diff --check` 通过；全程 0 provider、0 Docker、0 model token、0 experiment evidence write。
+  - 文件: `backend/packages/harness/deerflow/models/factory.py`, `backend/tests/test_model_factory.py`
+
 - 2026-09-16 — 为 Issue #253 对齐服务器 provider canary 的 DeepSeek 模型
   - GitHub: Issue #253 已创建并回读；中文 PR #254 已创建并回读，分支为 `research/issue-253-server-provider-canary`，当前基线为 `main@8d9161be`。
   - 实现: `scripts/forge_provider_canary.py` 将非正式单 case canary 的 DeepSeek 白名单从历史 `deepseek-v4-flash` 切换为服务器当前确认可用的 `deepseek-flash`；同步更新 `backend/tests/test_forge_provider_canary.py`，不修改冻结 v8/正式 replication 协议。
