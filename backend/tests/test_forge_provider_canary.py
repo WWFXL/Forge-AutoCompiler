@@ -72,6 +72,18 @@ def test_policy_pins_exact_target_and_build_system():
     assert policy.skills_enabled is False
 
 
+def test_canary_prompt_forbids_session_and_host_paths():
+    message = forge_provider_canary._canary_message()
+
+    assert forge_provider_canary.TARGET_REPOSITORY in message
+    assert forge_provider_canary.TARGET_COMMIT in message
+    assert ".compile-sessions" in message
+    assert "/workspace/repo" in message
+    assert "/artifacts" in message
+    assert "Windows" in message
+    assert "WSL" in message
+
+
 def test_safe_session_summary_excludes_paths_commands_and_model_content():
     summary = forge_provider_canary._safe_session_summary(_successful_session())
 

@@ -203,6 +203,8 @@ replay/<attempt_id>/       # 每次自动 clean replay 的独立证据目录
 
 Replay 容器不需要 Forge 后端或模型密钥，也不会挂载原 session 的 workspace/artifacts。容器创建握手在 session lifecycle lock 内完成并使用短时限；正常返回走 `finally` 清理，父任务取消会在 worker 停止前后各重新加载一次并按名称/ID 幂等清理。清理由独立的 `COMPILE_DOCKER_CLEANUP_TIMEOUT_SECONDS` 控制，默认 `20` 秒，stop 卡住时仍会尝试 bounded `rm -f`。原编译容器删除后、session 进入 `completed` 前，系统还会重新核对最终 `/artifacts` 的路径集合、类型、大小和 SHA-256，拒绝 replay 通过后的后台改写。`image_id` 只保证同一 Docker daemon 上的精确镜像身份：镜像被清理、换 daemon、换架构或外部依赖变化后，不承诺跨主机复现。
 
+provider canary 的任务提示要求编译子代理只使用 `/workspace/repo`、`/artifacts` 等容器路径，并禁止检查 `.compile-sessions`、session/线程根目录或宿主机路径，避免诊断命令污染候选 recipe。
+
 ### 在 WSL2 中手动诊断 replay
 
 自动验证失败时，可以用下面的命令诊断。它不会替代或改写 `session.json` 中的自动 replay 结果。必须进入运行 Forge 的同一个 WSL 发行版，并连接同一个 Docker daemon；不要在 PowerShell 的另一套 Docker context 中执行。`build.sh` 会清空挂载的 `/workspace` 和 `/artifacts`，因此只能使用新建的专用临时目录：
