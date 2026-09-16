@@ -45,13 +45,14 @@ def test_protocol_separates_provider_credentials_and_endpoints():
         "sha256:" + "1" * 64,
     )
     deepseek = forge_provider_canary._protocol_payload(
-        "deepseek-v4-flash",
+        "deepseek-flash",
         "sha256:" + "1" * 64,
     )
 
     assert richlab["provider"] == "richlab"
     assert richlab["credential_env"] == "OpenAI_AK"
     assert deepseek["provider"] == "deepseek"
+    assert deepseek["model_name"] == "deepseek-flash"
     assert deepseek["credential_env"] == "DEEPSEEK_API_KEY"
     assert richlab["endpoint"] != deepseek["endpoint"]
     assert richlab["model_max_retries"] == 0
@@ -218,7 +219,7 @@ def test_missing_credential_issues_no_model_call(tmp_path, monkeypatch):
     monkeypatch.delenv("DEEPSEEK_API_KEY", raising=False)
 
     result = forge_provider_canary.run_canary(
-        model_name="deepseek-v4-flash",
+        model_name="deepseek-flash",
         output_dir=tmp_path,
         wall_clock_timeout_seconds=1000,
     )
@@ -382,7 +383,7 @@ def test_model_exception_text_is_not_emitted_or_persisted(
     )
 
     result = forge_provider_canary.run_canary(
-        model_name="deepseek-v4-flash",
+        model_name="deepseek-flash",
         output_dir=tmp_path,
         wall_clock_timeout_seconds=1000,
     )

@@ -48,7 +48,7 @@ ALLOWED_MODELS = {
         "endpoint": "https://rich-api.choosefire.com/v1",
         "credential_env": "OpenAI_AK",
     },
-    "deepseek-v4-flash": {
+    "deepseek-flash": {
         "provider": "deepseek",
         "endpoint": "https://api.deepseek.com",
         "credential_env": "DEEPSEEK_API_KEY",
