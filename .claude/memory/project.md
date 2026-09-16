@@ -6,10 +6,10 @@
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
 - 2026-09-16 — 为 Issue #253 对齐服务器 provider canary 的 DeepSeek 模型
-  - GitHub: Issue #253 已创建并回读；分支为 `research/issue-253-server-provider-canary`，基线为 `fix/linux-docker-runtime@fea3bc6f`。
+  - GitHub: Issue #253 已创建并回读；中文 PR #254 已创建并回读，分支为 `research/issue-253-server-provider-canary`，当前基线为 `main@8d9161be`。
   - 实现: `scripts/forge_provider_canary.py` 将非正式单 case canary 的 DeepSeek 白名单从历史 `deepseek-v4-flash` 切换为服务器当前确认可用的 `deepseek-flash`；同步更新 `backend/tests/test_forge_provider_canary.py`，不修改冻结 v8/正式 replication 协议。
   - 验证: 使用 WSL Ubuntu 原生 Docker Engine 的 `deer-flow-dev-langgraph` 镜像只读挂载当前仓库，聚焦测试 `11 passed`；测试容器未创建编译 session、未调用 provider、未写正式 evidence。宿主 Windows 系统 Python 缺少 pytest/ruff，未将其安装到全局环境。
-  - 下一步: 完成提交前审计，提交中文 commit，通过 `scripts/push-via-wsl.ps1` 推送并创建中文 PR；合并需单独确认，之后才在服务器 LangGraph 容器内串行执行两个 provider canary。
+  - 下一步: 等待 PR #254 的 backend/frontend CI；合并需单独确认，之后才在服务器 LangGraph 容器内串行执行两个 provider canary。
   - 文件: `scripts/forge_provider_canary.py`, `backend/tests/test_forge_provider_canary.py`
 
 - 2026-09-15 — 解除通用 Docker 启动流程对 WSL2 的硬编码
