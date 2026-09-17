@@ -61,5 +61,15 @@ export function ModeHoverGuide({
   const description = t.inputBox[getModeDescriptionKey(mode)];
   const content = showTitle ? `${label}: ${description}` : description;
 
-  return <Tooltip content={content}>{children}</Tooltip>;
+  return (
+    <Tooltip
+      content={
+        <span className="block max-w-[calc(100vw-2rem)] whitespace-normal">
+          {content}
+        </span>
+      }
+    >
+      {children}
+    </Tooltip>
+  );
 }
