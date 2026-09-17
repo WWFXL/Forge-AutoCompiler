@@ -6,8 +6,8 @@ arguments indefinitely until the recursion limit kills the run.
 Detection strategy:
   1. After each model response, hash the tool calls (name + args).
   2. Track recent hashes in a sliding window.
-  3. If the same hash appears >= warn_threshold times, inject a
-     "you are repeating yourself — wrap up" system message (once per hash).
+  3. If the same hash appears >= warn_threshold times, defer a warning
+     until all tool results arrive, before the next model request (once per hash).
   4. If it appears >= hard_limit times, strip all tool_calls from the
      response so the agent is forced to produce a final text answer.
 """
@@ -158,6 +158,7 @@ class LoopDetectionMiddleware(AgentMiddleware[AgentState]):
         # Per-thread tracking using OrderedDict for LRU eviction
         self._history: OrderedDict[str, list[str]] = OrderedDict()
         self._warned: dict[str, set[str]] = defaultdict(set)
+        self._pending_warnings: dict[str, tuple[str, str | None, set[str]]] = {}
 
     def _get_thread_id(self, runtime: Runtime) -> str:
         """Extract thread_id from runtime context for per-thread tracking."""
@@ -174,6 +175,7 @@ class LoopDetectionMiddleware(AgentMiddleware[AgentState]):
         while len(self._history) > self.max_tracked_threads:
             evicted_id, _ = self._history.popitem(last=False)
             self._warned.pop(evicted_id, None)
+            self._pending_warnings.pop(evicted_id, None)
             logger.debug("Evicted loop tracking for thread %s (LRU)", evicted_id)
 
     def _track_and_check(self, state: AgentState, runtime: Runtime) -> tuple[str | None, bool]:
@@ -214,6 +216,7 @@ class LoopDetectionMiddleware(AgentMiddleware[AgentState]):
             tool_names = [tc.get("name", "?") for tc in tool_calls]
 
             if count >= self.hard_limit:
+                self._pending_warnings.pop(thread_id, None)
                 logger.error(
                     "Loop hard limit reached — forcing stop",
                     extra={
@@ -229,6 +232,7 @@ class LoopDetectionMiddleware(AgentMiddleware[AgentState]):
                 warned = self._warned[thread_id]
                 if call_hash not in warned:
                     warned.add(call_hash)
+                    self._pending_warnings[thread_id] = (_WARNING_MSG, last_msg.id, {tc["id"] for tc in tool_calls})
                     logger.warning(
                         "Repetitive tool calls detected — injecting warning",
                         extra={
@@ -262,7 +266,7 @@ class LoopDetectionMiddleware(AgentMiddleware[AgentState]):
         return str(content) + f"\n\n{text}"
 
     def _apply(self, state: AgentState, runtime: Runtime) -> dict | None:
-        warning, hard_stop = self._track_and_check(state, runtime)
+        _, hard_stop = self._track_and_check(state, runtime)
 
         if hard_stop:
             # Strip tool_calls from the last AIMessage to force text output
@@ -276,16 +280,40 @@ class LoopDetectionMiddleware(AgentMiddleware[AgentState]):
             )
             return {"messages": [stripped_msg]}
 
-        if warning:
-            # Inject as HumanMessage instead of SystemMessage to avoid
-            # Anthropic's "multiple non-consecutive system messages" error.
-            # Anthropic models require system messages only at the start of
-            # the conversation; injecting one mid-conversation crashes
-            # langchain_anthropic's _format_messages(). HumanMessage works
-            # with all providers. See #1299.
-            return {"messages": [HumanMessage(content=warning)]}
-
         return None
+
+    def _consume_warning(self, state: AgentState, runtime: Runtime) -> dict | None:
+        thread_id = self._get_thread_id(runtime)
+        with self._lock:
+            pending = self._pending_warnings.get(thread_id)
+            if pending is None:
+                return None
+            warning, message_id, call_ids = pending
+            messages = state.get("messages", [])
+            # 只核对最近一轮 assistant，不能用历史工具结果补齐当前调用。
+            for index in range(len(messages) - 1, -1, -1):
+                message = messages[index]
+                if getattr(message, "type", None) != "ai":
+                    continue
+                current_ids = {tc["id"] for tc in getattr(message, "tool_calls", [])}
+                if message.id != message_id or current_ids != call_ids:
+                    self._pending_warnings.pop(thread_id, None)
+                    return None
+                returned_ids = {msg.tool_call_id for msg in messages[index + 1 :] if getattr(msg, "type", None) == "tool"}
+                if not call_ids.issubset(returned_ids):
+                    return None
+                self._pending_warnings.pop(thread_id, None)
+                # HumanMessage 避免在 Anthropic 对话中途插入 SystemMessage。
+                return {"messages": [HumanMessage(content=warning)]}
+        return None
+
+    @override
+    def before_model(self, state: AgentState, runtime: Runtime) -> dict | None:
+        return self._consume_warning(state, runtime)
+
+    @override
+    async def abefore_model(self, state: AgentState, runtime: Runtime) -> dict | None:
+        return self._consume_warning(state, runtime)
 
     @override
     def after_model(self, state: AgentState, runtime: Runtime) -> dict | None:
@@ -301,6 +329,8 @@ class LoopDetectionMiddleware(AgentMiddleware[AgentState]):
             if thread_id:
                 self._history.pop(thread_id, None)
                 self._warned.pop(thread_id, None)
+                self._pending_warnings.pop(thread_id, None)
             else:
                 self._history.clear()
                 self._warned.clear()
+                self._pending_warnings.clear()
