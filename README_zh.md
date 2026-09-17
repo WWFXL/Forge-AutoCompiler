@@ -27,6 +27,8 @@
 
 整个过程通过 Web 工作台（基于 Next.js）或后端 SDK 调用。
 
+Web 工作台完整编译请选择 **Ultra**，以允许 Lead Agent 委派 compiler 子代理。Pro/Ultra 的规划与委派不要求模型支持 thinking；模型不支持的思考参数不会发送。详见[页面模式与工具消息协议](docs/forge_web_modes_and_tool_protocol.md)。
+
 ## 适用范围
 
 ✅ **目前支持**：

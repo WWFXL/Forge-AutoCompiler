@@ -98,7 +98,7 @@ export const enUS: Translations = {
       "Reasoning before action, balance between time and accuracy",
     proMode: "Pro",
     proModeDescription:
-      "Reasoning, planning and executing, get more accurate results, may take more time",
+      "Plan then execute, with reasoning when supported; may take more time",
     ultraMode: "Ultra",
     ultraModeDescription:
       "Pro mode with subagents to divide work; best for complex multi-step tasks",

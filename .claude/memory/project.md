@@ -87,6 +87,13 @@
 ## 最近变更 (Recent Changes)
 <!-- 倒序，最新在上。 -->
 
+- 2026-09-18 — 解耦页面模式与模型思考能力，延迟防循环警告到工具返回之后
+  - Issue: #259 / #260；页面 Pro/Ultra 保留规划/委派，只有不支持的 Thinking 降级；请求过滤不支持的 thinking/reasoning effort，包括历史残留。
+  - 实现: 输入框与线程提交共用纯函数，模式提示在窄屏换行；循环检测在 after_model 暂存警告，before_model/abefore_model 等最近一轮全部工具结果返回后消费，reset/LRU/hard-stop 清理暂存。
+  - 验证: 前端参数与流协议测试 7 项、lint、typecheck、生产 build 通过；Playwright 桌面 1280px/移动 390px 页面选择及真实提交参数通过（模拟接口，0 provider）。后端相邻回归 396 项、完整 Ruff check/format 通过，包括同步/异步真实 create_agent、多工具顺序、线程隔离、仅一次警告与原阈值强制停止。本地全量首轮受 WSL uv cache 权限与绝对 worktree 路径影响未完成；采用 Git 相对路径 repair 解决跨系统元数据后，完整后端回归交由 PR #261 的干净 CI 核验。
+  - 边界: 不改编译核心、预算、镜像、挂载、clean replay、冻结协议和历史 evidence；共享中间件改变重复调用失败路径，未来实验需记录新 revision。当前 GitHub 网络恢复，不新增 DNS/代理配置；未调用真实 provider、未运行正式实验。
+  - 文件: `frontend/src/core/threads/run-context.ts`, `frontend/src/core/threads/hooks.ts`, `frontend/src/components/workspace/input-box.tsx`, `backend/packages/harness/deerflow/agents/middlewares/loop_detection_middleware.py`, `docs/forge_web_modes_and_tool_protocol.md`
+
 - 2026-08-31 — 完成 opaque provenance independent replication 正式批次并冻结删失结论
   - Evidence: `.compile-sessions/benchmark-evidence-opaque-provenance-confirmatory-replication-v1/`；绑定 `main@6b0d84394e20aa74d4cafe71f22628b62b43b4ae`、manifest canonical SHA-256 `784f33442a13df571f93acb97ba987950e11fffa97511fe5bf3f74c9bb75a3d1` 与 evidence identity `b136cc5669384176853f00b878dae207d89b7bce593cc8e5f1ff9ab06505b9bc`。
   - 执行: Wi-Fi、Ubuntu WSL2 原生 Docker Engine、DeepSeek `deepseek-v4-flash`、300 秒、0 retry、禁止 fallback。唯一 reachability 为 1 request / 17 tokens / 1.481 秒；批次 12/12 pairs 完成，marker=`passed`，report=`completed_with_attrition`。

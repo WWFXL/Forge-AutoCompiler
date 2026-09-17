@@ -1,9 +1,15 @@
 """Tests for LoopDetectionMiddleware."""
 
+import asyncio
 import copy
 from unittest.mock import MagicMock
 
-from langchain_core.messages import AIMessage, HumanMessage, SystemMessage
+import pytest
+from langchain.agents import create_agent
+from langchain_core.language_models.fake_chat_models import GenericFakeChatModel
+from langchain_core.messages import AIMessage, HumanMessage, SystemMessage, ToolMessage
+from langchain_core.tools import tool
+from pydantic import Field
 
 from deerflow.agents.middlewares.loop_detection_middleware import (
     _HARD_STOP_MSG,
@@ -32,6 +38,10 @@ def _make_state(tool_calls=None, content=""):
 
 def _bash_call(cmd="ls"):
     return {"name": "bash", "id": f"call_{cmd}", "args": {"command": cmd}}
+
+
+def _with_results(state):
+    return {"messages": [*state["messages"], *(ToolMessage(content="ok", tool_call_id=tc["id"]) for tc in state["messages"][-1].tool_calls)]}
 
 
 class TestHashToolCalls:
@@ -147,7 +157,10 @@ class TestLoopDetection:
             mw._apply(_make_state(tool_calls=call), runtime)
 
         # Third identical call triggers warning
-        result = mw._apply(_make_state(tool_calls=call), runtime)
+        state = _make_state(tool_calls=call)
+        assert mw.after_model(state, runtime) is None
+        assert mw.before_model(state, runtime) is None
+        result = mw.before_model(_with_results(state), runtime)
         assert result is not None
         msgs = result["messages"]
         assert len(msgs) == 1
@@ -165,13 +178,16 @@ class TestLoopDetection:
             mw._apply(_make_state(tool_calls=call), runtime)
 
         # Third — warning injected
-        result = mw._apply(_make_state(tool_calls=call), runtime)
+        state = _make_state(tool_calls=call)
+        assert mw.after_model(state, runtime) is None
+        result = mw.before_model(_with_results(state), runtime)
         assert result is not None
         assert "LOOP DETECTED" in result["messages"][0].content
 
         # Fourth — warning already injected, should return None
         result = mw._apply(_make_state(tool_calls=call), runtime)
         assert result is None
+        assert mw.before_model(_with_results(_make_state(tool_calls=call)), runtime) is None
 
     def test_hard_stop_at_limit(self):
         mw = LoopDetectionMiddleware(warn_threshold=2, hard_limit=4)
@@ -256,12 +272,17 @@ class TestLoopDetection:
         mw._apply(_make_state(tool_calls=call), runtime_b)
 
         # Second call on thread A — triggers warning (2 >= warn_threshold)
-        result = mw._apply(_make_state(tool_calls=call), runtime_a)
+        state_a = _make_state(tool_calls=call)
+        assert mw.after_model(state_a, runtime_a) is None
+        assert mw.before_model(_with_results(state_a), _make_runtime("unrelated")) is None
+        result = mw.before_model(_with_results(state_a), runtime_a)
         assert result is not None
         assert "LOOP DETECTED" in result["messages"][0].content
 
         # Second call on thread B — also triggers (independent tracking)
-        result = mw._apply(_make_state(tool_calls=call), runtime_b)
+        state_b = _make_state(tool_calls=call)
+        assert mw.after_model(state_b, runtime_b) is None
+        result = mw.before_model(_with_results(state_b), runtime_b)
         assert result is not None
         assert "LOOP DETECTED" in result["messages"][0].content
 
@@ -299,6 +320,118 @@ class TestLoopDetection:
 
         mw._apply(_make_state(tool_calls=call), runtime)
         assert "default" in mw._history
+
+
+@pytest.mark.parametrize("asynchronous", [False, True])
+def test_warning_waits_for_all_current_tool_results(asynchronous):
+    mw = LoopDetectionMiddleware(warn_threshold=1)
+    runtime = _make_runtime()
+    state = _make_state(tool_calls=[_bash_call("ls"), _bash_call("pwd")])
+
+    def after(state):
+        return asyncio.run(mw.aafter_model(state, runtime)) if asynchronous else mw.after_model(state, runtime)
+
+    def before(state):
+        return asyncio.run(mw.abefore_model(state, runtime)) if asynchronous else mw.before_model(state, runtime)
+
+    assert after(state) is None
+    assert before(state) is None
+    partial = {"messages": [*state["messages"], ToolMessage(content="ok", tool_call_id="call_ls")]}
+    assert before(partial) is None
+    # 历史同名工具结果不能补齐当前轮缺失的返回。
+    historical = {"messages": [ToolMessage(content="old", tool_call_id="call_pwd"), *partial["messages"]]}
+    assert before(historical) is None
+    complete = _with_results(state)
+    result = before(complete)
+    assert isinstance(result["messages"][0], HumanMessage)
+    assert "LOOP DETECTED" in result["messages"][0].content
+    assert before(complete) is None
+
+
+@pytest.mark.parametrize("reset_thread", [None, "test-thread"])
+def test_reset_discards_pending_warning(reset_thread):
+    mw = LoopDetectionMiddleware(warn_threshold=1)
+    state = _make_state(tool_calls=[_bash_call()])
+    runtime = _make_runtime()
+    mw.after_model(state, runtime)
+    mw.reset(reset_thread)
+    assert mw.before_model(_with_results(state), runtime) is None
+    assert not mw._pending_warnings
+
+
+def test_eviction_discards_pending_warning():
+    mw = LoopDetectionMiddleware(warn_threshold=1, max_tracked_threads=1)
+    state = _make_state(tool_calls=[_bash_call()])
+    mw.after_model(state, _make_runtime("old"))
+    mw.after_model(state, _make_runtime("new"))
+    assert "old" not in mw._pending_warnings
+    assert mw.before_model(_with_results(state), _make_runtime("old")) is None
+
+
+def test_stale_warning_not_applied_to_new_response():
+    mw = LoopDetectionMiddleware(warn_threshold=1)
+    runtime = _make_runtime()
+    mw.after_model(_make_state(tool_calls=[_bash_call("ls")]), runtime)
+    assert mw.before_model(_with_results(_make_state(tool_calls=[_bash_call("pwd")])), runtime) is None
+    assert not mw._pending_warnings
+
+
+def _assert_tool_result_order(messages):
+    pending = set()
+    for message in messages:
+        if isinstance(message, ToolMessage):
+            assert message.tool_call_id in pending
+            pending.remove(message.tool_call_id)
+        else:
+            assert not pending, "非工具消息打断了 tool_calls 与返回"
+            if isinstance(message, AIMessage):
+                pending = {tc["id"] for tc in message.tool_calls}
+    assert not pending
+
+
+class _ProtocolCheckingModel(GenericFakeChatModel):
+    requests: list = Field(default_factory=list)
+
+    def bind_tools(self, tools, **kwargs):
+        return self
+
+    def _generate(self, messages, stop=None, run_manager=None, **kwargs):
+        _assert_tool_result_order(messages)
+        self.requests.append(list(messages))
+        return super()._generate(messages, stop=stop, run_manager=run_manager, **kwargs)
+
+
+@pytest.mark.parametrize("asynchronous", [False, True])
+def test_real_agent_loop_preserves_protocol_and_hard_stop(asynchronous):
+    executed = []
+
+    @tool
+    def repeat_a() -> str:
+        """返回测试结果 A。"""
+        executed.append("a")
+        return "a"
+
+    @tool
+    def repeat_b() -> str:
+        """返回测试结果 B。"""
+        executed.append("b")
+        return "b"
+
+    responses = [AIMessage(content="", tool_calls=[{"name": name, "args": {}, "id": f"call_{index}_{name}"} for name in ("repeat_a", "repeat_b")]) for index in range(5)]
+    model = _ProtocolCheckingModel(messages=iter(responses))
+    mw = LoopDetectionMiddleware()
+    agent = create_agent(model, tools=[repeat_a, repeat_b], middleware=[mw], context_schema=dict)
+    state = {"messages": [HumanMessage(content="test")]}
+    context = {"thread_id": "integration"}
+    result = asyncio.run(agent.ainvoke(state, context=context)) if asynchronous else agent.invoke(state, context=context)
+
+    assert len(model.requests) == 5
+    assert len(executed) == 8
+    warnings = [msg for msg in result["messages"] if isinstance(msg, HumanMessage) and "LOOP DETECTED" in msg.content]
+    assert len(warnings) == 1
+    assert _HARD_STOP_MSG in result["messages"][-1].content
+    assert not mw._pending_warnings
+    _assert_tool_result_order(result["messages"])
 
 
 class TestAppendText:
