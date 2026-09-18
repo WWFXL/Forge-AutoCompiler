@@ -97,6 +97,11 @@
 
 <!-- 倒序，最新在上。 -->
 
+- 2026-09-19 — 恢复服务重建前历史会话的消息展示
+  - Issue: #267；LangGraph 当前使用 `InMemorySaver`，重建前 checkpoint history 为空，但 thread snapshot 仍保留完整 `values.messages`。前端现在按 thread ID 读取 snapshot，并作为 SDK `initialValues`；官方 history/live state 始终优先，不写回历史、不触发模型 run。
+  - 验证: 新纯函数测试与相邻前端测试共 `12 passed`；Prettier、ESLint、TypeScript、Next.js 16 webpack production build 通过；离线 Playwright 验证直接 URL、空 history 回退、history 优先和 0 model run。未调用 provider、未创建 Compile Session、未修改编译/实验协议。
+  - 文件: `frontend/src/core/threads/hooks.ts`, `frontend/src/core/threads/snapshot.ts`, `frontend/src/core/threads/snapshot.test.ts`, `frontend/scripts/test-history-thread-snapshot.cjs`, `frontend/CLAUDE.md`
+
 - 2026-09-18 — 展示持久化编译证据并消除 Todo/输入区遮挡
   - 文件: `backend/app/gateway/routers/compile_sessions.py`, `frontend/src/core/compile/`, `frontend/src/components/workspace/messages/compile-session-trace.tsx`, `frontend/src/app/workspace/chats/[thread_id]/page.tsx`, `frontend/src/components/workspace/todo-list.tsx`, `docs/forge_web_modes_and_tool_protocol.md`
   - 动机: Issue #265 要求在不改变模型调用与编译协议的前提下展示 Leader 工具结果、Compiler 命令/verification/replay/日志，并让底部控件正常占位。只读 Gateway 限定记录路径、截断并脱敏日志；多 session 按历史 prepare 结果绑定。离线验证为后端 `2558 passed, 59 skipped`、前端 Node `16 passed`、lint/typecheck/format/webpack build 与三视口 Playwright 通过；0 provider、0 Docker、0 科研 evidence 写入。

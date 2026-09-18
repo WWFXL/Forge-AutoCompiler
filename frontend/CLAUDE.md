@@ -73,6 +73,8 @@ src/
         → 组件订阅渲染
 ```
 
+打开已有线程时，`useThreadStream` 会并行读取 `GET /threads/{thread_id}` 的持久化 thread snapshot，并作为 LangGraph SDK 的 `initialValues`。官方 checkpoint history 或实时 stream state 一旦存在会保持优先；因此服务重建后即使内存 history 为空，仍可只读展示 snapshot 中的历史消息，且不会伪造 checkpoint、写回历史或触发模型请求。
+
 关键约定：
 
 - **Thread hooks 是唯一的对外 API**（`useThreadStream`、`useSubmitThread`、`useThreads`）
@@ -103,7 +105,7 @@ pnpm format:write # Prettier 写盘
 pnpm start       # 起生产 server
 ```
 
-前端纯逻辑使用 Node 原生测试（`node --experimental-strip-types --test`）；编译证据与底部布局另有 `scripts/test-compile-trace-layout.cjs` 离线 Playwright 回归，复用外部已有测试环境，不新增运行依赖。验证仍须跑 `pnpm lint && pnpm typecheck` 与生产构建。
+前端纯逻辑使用 Node 原生测试（`node --experimental-strip-types --test`）；编译证据与底部布局另有 `scripts/test-compile-trace-layout.cjs` 离线 Playwright 回归，历史 snapshot 回退使用 `scripts/test-history-thread-snapshot.cjs`，二者都复用外部已有测试环境，不新增运行依赖。验证仍须跑 `pnpm lint && pnpm typecheck` 与生产构建。
 
 ## 7. 已知坑
 
