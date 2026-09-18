@@ -97,6 +97,10 @@
 
 <!-- 倒序，最新在上。 -->
 
+- 2026-09-18 — 展示持久化编译证据并消除 Todo/输入区遮挡
+  - 文件: `backend/app/gateway/routers/compile_sessions.py`, `frontend/src/core/compile/`, `frontend/src/components/workspace/messages/compile-session-trace.tsx`, `frontend/src/app/workspace/chats/[thread_id]/page.tsx`, `frontend/src/components/workspace/todo-list.tsx`, `docs/forge_web_modes_and_tool_protocol.md`
+  - 动机: Issue #265 要求在不改变模型调用与编译协议的前提下展示 Leader 工具结果、Compiler 命令/verification/replay/日志，并让底部控件正常占位。只读 Gateway 限定记录路径、截断并脱敏日志；多 session 按历史 prepare 结果绑定。离线验证为后端 `2558 passed, 59 skipped`、前端 Node `16 passed`、lint/typecheck/format/webpack build 与三视口 Playwright 通过；0 provider、0 Docker、0 科研 evidence 写入。
+
 - 2026-09-18 — 解耦页面模式与模型思考能力，延迟防循环警告到工具返回之后
   - Issue: #259 / #260；页面 Pro/Ultra 保留规划/委派，只有不支持的 Thinking 降级；请求过滤不支持的 thinking/reasoning effort，包括历史残留。
   - 实现: 输入框与线程提交共用纯函数，模式提示在窄屏换行；循环检测在 after_model 暂存警告，before_model/abefore_model 等最近一轮全部工具结果返回后消费，reset/LRU/hard-stop 清理暂存。

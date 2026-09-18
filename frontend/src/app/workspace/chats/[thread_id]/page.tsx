@@ -12,11 +12,7 @@ import {
 } from "@/components/workspace/chats";
 import { ExportTrigger } from "@/components/workspace/export-trigger";
 import { InputBox } from "@/components/workspace/input-box";
-import {
-  MessageList,
-  MESSAGE_LIST_DEFAULT_PADDING_BOTTOM,
-  MESSAGE_LIST_FOLLOWUPS_EXTRA_PADDING_BOTTOM,
-} from "@/components/workspace/messages";
+import { MessageList } from "@/components/workspace/messages";
 import { ThreadContext } from "@/components/workspace/messages/context";
 import { ThreadTitle } from "@/components/workspace/thread-title";
 import { TodoList } from "@/components/workspace/todo-list";
@@ -32,7 +28,6 @@ import { cn } from "@/lib/utils";
 
 export default function ChatPage() {
   const { t } = useI18n();
-  const [showFollowups, setShowFollowups] = useState(false);
   const { threadId, setThreadId, isNewThread, setIsNewThread, isMock } =
     useThreadChat();
   const [settings, setSettings] = useThreadSettings(threadId);
@@ -96,18 +91,13 @@ export default function ChatPage() {
 
   const hasStarted = !isNewThread || thread.messages.length > 0;
 
-  const messageListPaddingBottom = showFollowups
-    ? MESSAGE_LIST_DEFAULT_PADDING_BOTTOM +
-      MESSAGE_LIST_FOLLOWUPS_EXTRA_PADDING_BOTTOM
-    : undefined;
-
   return (
     <ThreadContext.Provider value={{ thread, isMock }}>
       <ChatBox threadId={threadId}>
-        <div className="relative flex size-full min-h-0 justify-between">
+        <div className="relative flex size-full min-h-0 flex-col">
           <header
             className={cn(
-              "absolute top-0 right-0 left-0 z-30 flex h-14 shrink-0 items-center gap-4 px-4",
+              "z-30 flex h-14 shrink-0 items-center gap-4 px-4",
               isNewThread
                 ? "bg-forge-bg/0 backdrop-blur-none"
                 : "bg-forge-bg/80 border-forge-border/50 border-b shadow-xs backdrop-blur-md",
@@ -122,16 +112,26 @@ export default function ChatPage() {
               <ArtifactTrigger />
             </div>
           </header>
-          <main className="flex min-h-0 max-w-full grow flex-col">
-            <div className="flex size-full justify-center">
+          <main className="relative flex min-h-0 max-w-full grow flex-col">
+            <div
+              className="flex min-h-0 flex-1 justify-center"
+              data-testid="chat-messages"
+            >
               <MessageList
-                className={cn("size-full", !isNewThread && "pt-10")}
+                className="size-full min-h-0"
                 threadId={threadId}
                 thread={thread}
-                paddingBottom={messageListPaddingBottom}
               />
             </div>
-            <div className="absolute right-0 bottom-0 left-0 z-30 flex flex-col items-center gap-2 px-4">
+            <div
+              className={cn(
+                "flex flex-col items-center gap-2 px-4 pb-4",
+                hasStarted
+                  ? "max-h-[55%] shrink-0 overflow-y-auto"
+                  : "absolute right-0 bottom-0 left-0",
+              )}
+              data-testid="chat-composer"
+            >
               {/* Welcome section with AnimatePresence */}
               <AnimatePresence mode="wait">
                 {!hasStarted && (
@@ -166,20 +166,16 @@ export default function ChatPage() {
                     : "max-w-(--container-width-md)",
                 )}
               >
-                <div className="absolute -top-4 right-0 left-0 z-0">
-                  <div className="absolute right-0 bottom-0 left-0">
-                    <TodoList
-                      className="bg-background/5"
-                      todos={thread.values.todos ?? []}
-                      hidden={
-                        !thread.values.todos || thread.values.todos.length === 0
-                      }
-                    />
-                  </div>
-                </div>
+                <TodoList
+                  className="mb-2"
+                  todos={thread.values.todos ?? []}
+                  hidden={
+                    !thread.values.todos || thread.values.todos.length === 0
+                  }
+                />
                 {mounted ? (
                   <InputBox
-                    className={cn("bg-background/5 w-full -translate-y-4")}
+                    className="bg-background/5 w-full"
                     isNewThread={isNewThread}
                     threadId={threadId}
                     autoFocus={isNewThread}
@@ -198,7 +194,6 @@ export default function ChatPage() {
                     onContextChange={(context) =>
                       setSettings("context", context)
                     }
-                    onFollowupsVisibilityChange={setShowFollowups}
                     onSubmit={handleSubmit}
                     onStop={handleStop}
                     inputRef={inputControlRef}
@@ -207,12 +202,12 @@ export default function ChatPage() {
                   <div
                     aria-hidden="true"
                     className={cn(
-                      "bg-background/5 h-32 w-full -translate-y-4 rounded-2xl border",
+                      "bg-background/5 h-32 w-full rounded-2xl border",
                     )}
                   />
                 )}
                 {env.NEXT_PUBLIC_STATIC_WEBSITE_ONLY === "true" && (
-                  <div className="text-muted-foreground/67 w-full translate-y-12 text-center text-xs">
+                  <div className="text-muted-foreground/67 mt-2 w-full text-center text-xs">
                     {t.common.notAvailableInDemoMode}
                   </div>
                 )}

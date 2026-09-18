@@ -17,7 +17,7 @@ import { Shimmer } from "@/components/ai-elements/shimmer";
 import { Button } from "@/components/ui/button";
 import { ShineBorder } from "@/components/ui/shine-border";
 import { useI18n } from "@/core/i18n/hooks";
-import { hasToolCalls } from "@/core/messages/utils";
+import { extractTextFromMessage, hasToolCalls } from "@/core/messages/utils";
 import { useRehypeSplitWordsIntoSpans } from "@/core/rehype";
 import { streamdownPluginsWithWordAnimation } from "@/core/streamdown";
 import { useSubtask } from "@/core/tasks/context";
@@ -27,21 +27,26 @@ import { cn } from "@/lib/utils";
 import { CitationLink } from "../citations/citation-link";
 import { FlipDisplay } from "../flip-display";
 
+import { CompileSessionTrace } from "./compile-session-trace";
 import { MarkdownContent } from "./markdown-content";
 
 export function SubtaskCard({
   className,
   taskId,
   isLoading,
+  threadId,
+  sessionId,
 }: {
   className?: string;
   taskId: string;
   isLoading: boolean;
+  threadId: string;
+  sessionId?: string;
 }) {
   const { t } = useI18n();
-  const [collapsed, setCollapsed] = useState(true);
   const rehypePlugins = useRehypeSplitWordsIntoSpans(isLoading);
   const task = useSubtask(taskId)!;
+  const [collapsed, setCollapsed] = useState(task.subagent_type !== "compiler");
   const icon = useMemo(() => {
     if (task.status === "completed") {
       return <CheckCircleIcon className="size-3" />;
@@ -70,16 +75,16 @@ export function SubtaskCard({
           />
         </>
       )}
-      <div className="bg-background/95 flex w-full flex-col rounded-lg">
+      <div className="bg-background/95 flex w-full min-w-0 flex-col rounded-lg">
         <div className="flex w-full items-center justify-between p-0.5">
           <Button
             className="w-full items-start justify-start text-left"
             variant="ghost"
             onClick={() => setCollapsed(!collapsed)}
           >
-            <div className="flex w-full items-center justify-between">
+            <div className="flex w-full min-w-0 items-center justify-between gap-2">
               <ChainOfThoughtStep
-                className="font-normal"
+                className="min-w-0 flex-1 font-normal break-words whitespace-normal"
                 label={
                   task.status === "in_progress" ? (
                     <Shimmer duration={3} spread={3}>
@@ -91,7 +96,7 @@ export function SubtaskCard({
                 }
                 icon={<ClipboardListIcon />}
               ></ChainOfThoughtStep>
-              <div className="flex items-center gap-1">
+              <div className="flex shrink-0 items-center gap-1">
                 {collapsed && (
                   <div
                     className={cn(
@@ -101,7 +106,7 @@ export function SubtaskCard({
                   >
                     {icon}
                     <FlipDisplay
-                      className="max-w-[420px] truncate pb-1"
+                      className="max-w-28 truncate pb-1 sm:max-w-[420px]"
                       uniqueKey={task.latestMessage?.id ?? ""}
                     >
                       {task.status === "in_progress" &&
@@ -123,7 +128,7 @@ export function SubtaskCard({
           </Button>
         </div>
         <ChainOfThoughtContent className="px-4 pb-4">
-          {task.prompt && (
+          {task.prompt && task.subagent_type !== "compiler" && (
             <ChainOfThoughtStep
               label={
                 <Streamdown
@@ -145,6 +150,22 @@ export function SubtaskCard({
                 {explainLastToolCall(task.latestMessage, t)}
               </ChainOfThoughtStep>
             )}
+          {task.status === "in_progress" &&
+            task.latestMessage &&
+            extractTextFromMessage(task.latestMessage) && (
+              <MarkdownContent
+                content={extractTextFromMessage(task.latestMessage)}
+                isLoading={false}
+                rehypePlugins={rehypePlugins}
+              />
+            )}
+          {task.subagent_type === "compiler" && (
+            <CompileSessionTrace
+              threadId={threadId}
+              sessionId={sessionId}
+              active={task.status === "in_progress"}
+            />
+          )}
           {task.status === "completed" && (
             <>
               <ChainOfThoughtStep

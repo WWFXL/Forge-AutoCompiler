@@ -39,6 +39,26 @@ assistant(tool_calls) -> tool(result)... -> human(loop warning) -> 下一次模�
 
 前端消息组不依赖 ToolMessage 紧邻其 AIMessage，而是按 `tool_call_id` 关联 processing/subagent 分组。这样 LangGraph 流式状态即使暂时呈现 `AI(tool call) -> final AI -> ToolMessage`，也不会把正常的晚到工具返回误报为页面错误。没有匹配调用的 ToolMessage 不附加到其他分组，也不在 React render 路径输出错误。
 
+## 编译过程证据与底部布局
+
+Compiler 卡片默认展开，显示持久化会话中的执行命令、角色、容器工作目录、退出码、耗时和超时状态；命令与日志可以逐条展开。候选验证检查与每一次 clean replay 的结果、失败原因、清理状态同时保留，不以最终成功覆盖中间失败。卡片按目标 `task` 之前对应 `prepare_compile_session` 的工具返回绑定 session，而非读取线程最新的 session ID，因此历史刷新和同线程多次编译不会串记录。
+
+Leader 的 `prepare_compile_session`、`clone_repository`、`identify_build_system` 和 `finalize_session` 提供「步骤结果」展开区，显示已有返回。Compiler 的公开最新说明可以显示，但本功能不生成不存在的模型内部思考，也不增加任何模型请求；最终确定性 Markdown 与原始工具协议不变。
+
+Gateway 新增三个只读端点：
+
+- `GET /api/threads/{thread_id}/compile-sessions/{session_id}`：状态、命令、verification 与 replay 白名单快照。
+- `GET .../commands/{command_id}/log`：记录引用的命令日志。
+- `GET .../replays/{attempt_id}/log`：记录引用的独立 replay 日志。
+
+运行中的会话约每 2 秒读取快照，结束时刷新；日志只在展开后读取，运行时刷新展开的日志。每条仅返回最后 16 KiB，截断会明确提示，完整文件仍保留于宿主 `.compile-sessions/<thread>/<session>/`。读接口不创建目录、不保存 session、不执行 shell。路径限定于对应日志目录，拒绝跨 session、跨线程及符号链接越界；常见凭据和当前敏感环境变量值脱敏。不承诺识别任意自定义 secret，也没有新增多用户鉴权：服务仍应限制于可信 Tailscale 网络，不能作为公网安全隔离方案。
+
+文件缺失、无权限或记录损坏会显示「证据不可用」，并不代表编译一定失败。日志以文本渲染；编译产物仍应在宿主 `artifacts/` 或通过 SCP 查看，通用文件预览 API 不会自动变为编译产物下载接口。
+
+已开始的普通聊天与自定义 Agent 聊天页采用独立消息滚动区和正常占位的 Todo/followups/输入区，取消绝对定位、平移及固定底部空白补偿。完成 Todo 仍可展开，长清单和短屏底部区域各自有界滚动，不覆盖正文。
+
+离线浏览器回归：启动本地生产服务后，使用已有 Playwright 环境运行 `node scripts/test-compile-trace-layout.cjs`。可设置 `FORGE_TEST_BASE_URL`（只允许 localhost）、`FORGE_PLAYWRIGHT_PATH`、`FORGE_CHROME_PATH` 和 `FORGE_TEST_OUTPUT`。测试会拦截全部业务 API，用固定多 session/双 replay/长日志和事件流 fixture 验证展示，不连接真实模型或 Docker。
+
 ## 实验与网络边界
 
 页面模式修复不修改独立实验客户端的参数。循环检测和编译终态处理是页面与实验共享的中间件，因此重复工具调用的失败路径和最终展示会变化；后续实验应记录新代码 revision，不能覆盖旧 evidence 或将不同版本当作同一基线。编译终态修复保留原始 ToolMessage、模型调用次数和 compiler 子代理协议，但 Todo 状态与合成 AIMessage 文本属于可观察状态变化。

@@ -418,7 +418,28 @@ function ToolCall({
         key={id}
         label={description ?? t.toolCalls.useTool(name)}
         icon={WrenchIcon}
-      ></ChainOfThoughtStep>
+      >
+        {[
+          "prepare_compile_session",
+          "clone_repository",
+          "identify_build_system",
+          "finalize_session",
+        ].includes(name) &&
+          result !== undefined && (
+            <details className="min-w-0">
+              <summary className="cursor-pointer text-xs">
+                {t.compileTrace.toolResult}
+              </summary>
+              <pre className="bg-muted text-foreground mt-2 max-h-64 max-w-full overflow-auto rounded-md p-2 text-xs break-all whitespace-pre-wrap">
+                <code>
+                  {typeof result === "string"
+                    ? result
+                    : JSON.stringify(result, null, 2)}
+                </code>
+              </pre>
+            </details>
+          )}
+      </ChainOfThoughtStep>
     );
   }
 }

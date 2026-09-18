@@ -103,7 +103,7 @@ pnpm format:write # Prettier 写盘
 pnpm start       # 起生产 server
 ```
 
-**没有测试框架**。前端验证靠 `pnpm lint && pnpm typecheck` + 手动浏览器测。
+前端纯逻辑使用 Node 原生测试（`node --experimental-strip-types --test`）；编译证据与底部布局另有 `scripts/test-compile-trace-layout.cjs` 离线 Playwright 回归，复用外部已有测试环境，不新增运行依赖。验证仍须跑 `pnpm lint && pnpm typecheck` 与生产构建。
 
 ## 7. 已知坑
 

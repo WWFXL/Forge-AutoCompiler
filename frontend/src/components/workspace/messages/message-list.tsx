@@ -4,6 +4,7 @@ import {
   Conversation,
   ConversationContent,
 } from "@/components/ai-elements/conversation";
+import { findCompileSessionForTask } from "@/core/compile/utils";
 import { useI18n } from "@/core/i18n/hooks";
 import {
   extractContentFromMessage,
@@ -29,19 +30,14 @@ import { MessageListItem } from "./message-list-item";
 import { MessageListSkeleton } from "./skeleton";
 import { SubtaskCard } from "./subtask-card";
 
-export const MESSAGE_LIST_DEFAULT_PADDING_BOTTOM = 160;
-export const MESSAGE_LIST_FOLLOWUPS_EXTRA_PADDING_BOTTOM = 80;
-
 export function MessageList({
   className,
   threadId,
   thread,
-  paddingBottom = MESSAGE_LIST_DEFAULT_PADDING_BOTTOM,
 }: {
   className?: string;
   threadId: string;
   thread: BaseStream<AgentThreadState>;
-  paddingBottom?: number;
 }) {
   const { t } = useI18n();
   const rehypePlugins = useRehypeSplitWordsIntoSpans(thread.isLoading);
@@ -54,7 +50,7 @@ export function MessageList({
     <Conversation
       className={cn("flex size-full flex-col justify-center", className)}
     >
-      <ConversationContent className="mx-auto w-full max-w-(--container-width-md) gap-8 pt-12">
+      <ConversationContent className="mx-auto w-full max-w-(--container-width-md) gap-8 px-4 pt-12 pb-6">
         {groupMessages(messages, (group) => {
           if (group.type === "human" || group.type === "assistant") {
             return group.messages.map((msg) => {
@@ -182,6 +178,8 @@ export function MessageList({
                     key={"task-group-" + taskId}
                     taskId={taskId!}
                     isLoading={thread.isLoading}
+                    threadId={threadId}
+                    sessionId={findCompileSessionForTask(messages, taskId!)}
                   />,
                 );
               }
@@ -204,7 +202,6 @@ export function MessageList({
           );
         })}
         {thread.isLoading && <StreamingIndicator className="my-4" />}
-        <div style={{ height: `${paddingBottom}px` }} />
       </ConversationContent>
     </Conversation>
   );
