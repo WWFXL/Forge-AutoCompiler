@@ -301,6 +301,31 @@ export const enUS: Translations = {
   },
 
   // Token Usage
+  compileTrace: {
+    title: "Execution evidence",
+    session: "Session",
+    status: "Status",
+    buildSystem: "Build system",
+    commands: "Commands",
+    noCommands: "No recorded commands yet",
+    exitCode: "Exit",
+    timedOut: "Timed out",
+    verification: "Verification",
+    replays: "Clean replay attempts",
+    cleanup: "Container cleanup",
+    passed: "Passed",
+    failed: "Failed",
+    log: "Output log",
+    loading: "Loading evidence…",
+    unavailable: "Evidence is unavailable or not readable",
+    refreshFailed: "Refresh failed; showing the last available snapshot",
+    noSession: "No bound compile session in this task's history",
+    truncated:
+      "Showing only the last 16 KiB; the full log is retained on the server",
+    emptyLog: "No output",
+    toolResult: "Step result",
+  },
+
   tokenUsage: {
     title: "Token Usage",
     input: "Input",

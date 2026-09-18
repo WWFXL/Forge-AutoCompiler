@@ -84,7 +84,6 @@ export function InputBox({
   threadId,
   initialValue,
   onContextChange,
-  onFollowupsVisibilityChange,
   onSubmit,
   onStop,
   inputRef,
@@ -113,7 +112,6 @@ export function InputBox({
       reasoning_effort?: "minimal" | "low" | "medium" | "high";
     },
   ) => void;
-  onFollowupsVisibilityChange?: (visible: boolean) => void;
   onSubmit?: (message: PromptInputMessage) => void;
   onStop?: () => void;
   inputRef?: React.MutableRefObject<{
@@ -332,20 +330,6 @@ export function InputBox({
     !followupsHidden &&
     (followupsLoading || followups.length > 0);
 
-  const followupsVisibilityChangeRef = useRef(onFollowupsVisibilityChange);
-
-  useEffect(() => {
-    followupsVisibilityChangeRef.current = onFollowupsVisibilityChange;
-  }, [onFollowupsVisibilityChange]);
-
-  useEffect(() => {
-    followupsVisibilityChangeRef.current?.(showFollowups);
-  }, [showFollowups]);
-
-  useEffect(() => {
-    return () => followupsVisibilityChangeRef.current?.(false);
-  }, []);
-
   useEffect(() => {
     const streaming = status === "streaming";
     const wasStreaming = wasStreamingRef.current;
@@ -471,10 +455,10 @@ export function InputBox({
         <PromptInputAttachments>
           {(attachment) => <PromptInputAttachment data={attachment} />}
         </PromptInputAttachments>
-        <PromptInputBody className="absolute top-0 right-0 left-0 z-3">
+        <PromptInputBody>
           <PromptInputTextarea
             className={cn(
-              "forge-input size-full text-gray-100 placeholder:text-gray-500",
+              "forge-input w-full text-gray-100 placeholder:text-gray-500",
             )}
             disabled={disabled}
             placeholder={t.inputBox.placeholder}
@@ -831,9 +815,6 @@ export function InputBox({
             />
           </PromptInputTools>
         </PromptInputFooter>
-        {!isNewThread && (
-          <div className="bg-background absolute right-0 -bottom-[17px] left-0 z-0 h-4"></div>
-        )}
       </PromptInput>
 
       <Dialog open={confirmOpen} onOpenChange={setConfirmOpen}>

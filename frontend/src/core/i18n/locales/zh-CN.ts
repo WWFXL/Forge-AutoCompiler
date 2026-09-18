@@ -288,6 +288,30 @@ export const zhCN: Translations = {
   },
 
   // Token Usage
+  compileTrace: {
+    title: "执行证据",
+    session: "会话",
+    status: "状态",
+    buildSystem: "构建系统",
+    commands: "执行命令",
+    noCommands: "暂未记录命令",
+    exitCode: "退出码",
+    timedOut: "超时",
+    verification: "产物验证",
+    replays: "独立重放记录",
+    cleanup: "容器清理",
+    passed: "通过",
+    failed: "失败",
+    log: "输出日志",
+    loading: "正在读取证据…",
+    unavailable: "证据不可用或无读取权限",
+    refreshFailed: "刷新失败，当前显示上次读取的记录",
+    noSession: "该任务的历史消息中没有绑定的编译会话",
+    truncated: "仅显示最后 16 KiB，完整日志仍保留在服务端",
+    emptyLog: "暂无输出",
+    toolResult: "步骤结果",
+  },
+
   tokenUsage: {
     title: "Token 用量",
     input: "输入",

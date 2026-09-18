@@ -36,15 +36,18 @@ export function TodoList({
     }
   };
 
+  if (hidden || todos.length === 0) return null;
+
   return (
     <div
       className={cn(
-        "flex h-fit w-full origin-bottom translate-y-4 flex-col overflow-hidden rounded-t-xl border border-b-0 bg-white backdrop-blur-sm transition-all duration-200 ease-out",
-        hidden ? "pointer-events-none translate-y-8 opacity-0" : "",
+        "bg-background text-foreground flex w-full flex-col overflow-hidden rounded-lg border",
         className,
       )}
     >
-      <header
+      <button
+        type="button"
+        aria-expanded={!collapsed}
         className={cn(
           "bg-accent flex min-h-8 shrink-0 cursor-pointer items-center justify-between px-4 text-sm transition-all duration-300 ease-out",
         )}
@@ -64,36 +67,36 @@ export function TodoList({
             )}
           />
         </div>
-      </header>
-      <main
-        className={cn(
-          "bg-accent flex grow px-2 transition-all duration-300 ease-out",
-          collapsed ? "h-0 pb-3" : "h-28 pb-4",
-        )}
-      >
-        <QueueList className="bg-background mt-0 w-full rounded-t-xl">
-          {todos.map((todo, i) => (
-            <QueueItem key={i + (todo.content ?? "")}>
-              <div className="flex items-center gap-2">
-                <QueueItemIndicator
-                  className={
-                    todo.status === "in_progress" ? "bg-primary/70" : ""
-                  }
-                  completed={todo.status === "completed"}
-                />
-                <QueueItemContent
-                  className={
-                    todo.status === "in_progress" ? "text-primary/70" : ""
-                  }
-                  completed={todo.status === "completed"}
-                >
-                  {todo.content}
-                </QueueItemContent>
-              </div>
-            </QueueItem>
-          ))}
-        </QueueList>
-      </main>
+      </button>
+      {!collapsed && (
+        <div
+          className={cn("bg-accent flex max-h-28 overflow-y-auto px-2 pb-2")}
+        >
+          <QueueList className="bg-background mt-0 w-full rounded-md">
+            {todos.map((todo, i) => (
+              <QueueItem key={i + (todo.content ?? "")}>
+                <div className="flex items-center gap-2">
+                  <QueueItemIndicator
+                    className={
+                      todo.status === "in_progress" ? "bg-primary/70" : ""
+                    }
+                    completed={todo.status === "completed"}
+                  />
+                  <QueueItemContent
+                    className={cn(
+                      "line-clamp-none min-w-0 break-words whitespace-normal",
+                      todo.status === "in_progress" && "text-primary/70",
+                    )}
+                    completed={todo.status === "completed"}
+                  >
+                    {todo.content}
+                  </QueueItemContent>
+                </div>
+              </QueueItem>
+            ))}
+          </QueueList>
+        </div>
+      )}
     </div>
   );
 }

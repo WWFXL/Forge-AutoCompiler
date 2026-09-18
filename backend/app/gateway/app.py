@@ -10,6 +10,7 @@ from app.gateway.routers import (
     agents,
     artifacts,
     assistants_compat,
+    compile_sessions,
     mcp,
     memory,
     models,
@@ -158,6 +159,8 @@ This gateway provides custom endpoints for models, MCP configuration, skills, an
 
     # Artifacts API is mounted at /api/threads/{thread_id}/artifacts
     app.include_router(artifacts.router)
+
+    app.include_router(compile_sessions.router)
 
     # Uploads API is mounted at /api/threads/{thread_id}/uploads
     app.include_router(uploads.router)

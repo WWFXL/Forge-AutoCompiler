@@ -232,6 +232,30 @@ export interface Translations {
   };
 
   // Token Usage
+  compileTrace: {
+    title: string;
+    session: string;
+    status: string;
+    buildSystem: string;
+    commands: string;
+    noCommands: string;
+    exitCode: string;
+    timedOut: string;
+    verification: string;
+    replays: string;
+    cleanup: string;
+    passed: string;
+    failed: string;
+    log: string;
+    loading: string;
+    unavailable: string;
+    refreshFailed: string;
+    noSession: string;
+    truncated: string;
+    emptyLog: string;
+    toolResult: string;
+  };
+
   tokenUsage: {
     title: string;
     input: string;

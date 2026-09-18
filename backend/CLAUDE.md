@@ -180,11 +180,12 @@ Lead Agent 的提示词刻意**不**把详细编译流程写进去，避免污�
 | `/api/threads/{id}/uploads` | `POST /`、`GET /list`、`DELETE /{filename}` |
 | `/api/threads/{id}` | `DELETE /` |
 | `/api/threads/{id}/artifacts/{path}` | `GET /` |
+| `/api/threads/{id}/compile-sessions/{session_id}` | `GET /` 只读证据快照；`GET /commands/{command_id}/log`、`GET /replays/{attempt_id}/log` 有界日志 |
 | `/api/threads/{id}/suggestions` | `POST /` |
 | `/api/agents` | 暴露子代理元数据 |
 | `/api/channels` | IM 渠道状态（非编译核心） |
 
-**注意**：Gateway 当前**没有专门的编译路由**。编译流程通过 LangGraph 的 thread/run/messages 协议触发——前端把 `compile <repo_url>` 类指令发给 agent，agent 自己决定调 `prepare_compile_session` 等工具。如果将来要加 `POST /api/compile`，需要在 Gateway 起一个新 router。
+**注意**：Gateway 的编译证据路由只读已有 `session.json` 和对应日志，不创建或运行任务。编译仍通过 LangGraph 的 thread/run/messages 协议触发——前端把 `compile <repo_url>` 类指令发给 agent，agent 自己决定调 `prepare_compile_session` 等工具；没有 `POST /api/compile`。
 
 ## 5. 配置加载
 
