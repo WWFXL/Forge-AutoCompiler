@@ -349,13 +349,35 @@ def test_finalize_cleans_container_then_ends_lead_with_deterministic_summary(mon
     assert final_payload["container_removed"] is True
     assert final_payload["error"] is None
 
-    request = SimpleNamespace(tool_call={"name": "finalize_session", "id": "tool-call-3", "args": {}})
+    todos = [
+        {"status": "completed", "content": "Clone repository"},
+        {"status": "in_progress", "content": "Clean up the compile session and summarize results"},
+        {"status": "pending", "content": "Optional follow-up"},
+    ]
+    request = SimpleNamespace(
+        tool_call={"name": "finalize_session", "id": "tool-call-3", "args": {}},
+        state={"todos": todos},
+    )
     tool_message = ToolMessage(content=result, tool_call_id="tool-call-3", name="finalize_session")
     terminal = CompileTerminationMiddleware().wrap_tool_call(request, lambda _: tool_message)
     assert isinstance(terminal, Command)
     assert terminal.update["compile_terminal"] is True
+    assert terminal.update["messages"][0] is tool_message
+    assert json.loads(terminal.update["messages"][0].content) == final_payload
     assert isinstance(terminal.update["messages"][-1], AIMessage)
-    assert json.loads(terminal.update["messages"][-1].content) == final_payload
+    summary = terminal.update["messages"][-1].content
+    assert summary.startswith("## 编译会话已完成")
+    assert "`session-123`" in summary
+    assert "`abc123`" in summary
+    assert "候选验证：通过" in summary
+    assert "干净重放：未运行" in summary
+    assert "`thread-123/session-123/artifacts/hello`" in summary
+    assert terminal.update["todos"] == [
+        {"status": "completed", "content": "Clone repository"},
+        {"status": "completed", "content": "Clean up the compile session and summarize results"},
+        {"status": "pending", "content": "Optional follow-up"},
+    ]
+    assert terminal.update["todos"] is not todos
 
     jump = CompileTerminationMiddleware().before_model(
         {"messages": terminal.update["messages"], "compile_terminal": True},
@@ -501,6 +523,7 @@ def test_finalize_ends_lead_graph_after_one_model_call(monkeypatch):
             "messages": [HumanMessage(content="Finalize the verified compile session.")],
             "compile_session_id": session.session_id,
             "artifacts": [],
+            "todos": [{"status": "in_progress", "content": "Finalize compile session"}],
             "viewed_images": {},
         },
         config={"configurable": {"thread_id": session.thread_id}},
@@ -508,7 +531,42 @@ def test_finalize_ends_lead_graph_after_one_model_call(monkeypatch):
 
     assert model.calls == 1
     assert events == ["cleanup", "finalize"]
-    assert json.loads(final_state["messages"][-1].content)["container_removed"] is True
+    assert final_state["messages"][-1].content.startswith("## 编译会话已完成")
+    assert final_state["todos"] == [{"status": "completed", "content": "Finalize compile session"}]
+
+
+def test_failed_finalize_summary_preserves_in_progress_todos():
+    payload = {
+        "status": "failed",
+        "session_id": "session-failed",
+        "commit_sha": "def456",
+        "build_system": "cmake",
+        "verification": "failed",
+        "replay_verification": "not_run",
+        "artifacts": [],
+        "container_stopped": True,
+        "container_removed": True,
+        "error": "No recognized compiled artifacts were found.",
+    }
+    todos = [{"status": "in_progress", "content": "Repair failed verification"}]
+    request = SimpleNamespace(
+        tool_call={"name": "finalize_session", "id": "tool-call-failed", "args": {}},
+        state={"todos": todos},
+    )
+    tool_message = ToolMessage(
+        content=json.dumps(payload),
+        tool_call_id="tool-call-failed",
+        name="finalize_session",
+    )
+
+    terminal = CompileTerminationMiddleware().wrap_tool_call(request, lambda _: tool_message)
+
+    assert isinstance(terminal, Command)
+    assert terminal.update["messages"][0] is tool_message
+    assert terminal.update["messages"][-1].content.startswith("## 编译会话失败")
+    assert "No recognized compiled artifacts were found." in terminal.update["messages"][-1].content
+    assert "todos" not in terminal.update
+    assert todos == [{"status": "in_progress", "content": "Repair failed verification"}]
 
 
 def test_finalize_cleans_container_but_fails_unverified_session(monkeypatch):
