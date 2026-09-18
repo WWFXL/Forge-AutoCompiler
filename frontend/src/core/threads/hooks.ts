@@ -18,6 +18,7 @@ import type { UploadedFileInfo } from "../uploads";
 import { promptInputFilePartToFile, uploadFiles } from "../uploads";
 
 import { buildRunContext } from "./run-context";
+import { selectThreadSnapshotValues } from "./snapshot";
 import type { AgentThread, AgentThreadState } from "./types";
 
 export type ToolEndEvent = {
@@ -136,6 +137,26 @@ function getStreamErrorMessage(error: unknown): string {
   return "Request failed.";
 }
 
+function useThreadSnapshotValues(
+  threadId: string | null | undefined,
+  isMock: boolean | undefined,
+) {
+  const snapshot = useQuery<AgentThread>({
+    queryKey: ["threads", "get", threadId],
+    queryFn: async ({ signal }) => {
+      if (!threadId) {
+        throw new Error("A thread ID is required to load its snapshot.");
+      }
+      return getAPIClient().threads.get<AgentThreadState>(threadId, { signal });
+    },
+    enabled: Boolean(threadId) && !isMock,
+    retry: false,
+    refetchOnWindowFocus: false,
+  });
+
+  return selectThreadSnapshotValues(threadId, snapshot.data);
+}
+
 export function useThreadStream({
   threadId,
   context,
@@ -204,6 +225,8 @@ export function useThreadStream({
     runMetadataStorageRef.current = getRunMetadataStorage();
   }
 
+  const initialValues = useThreadSnapshotValues(threadId, isMock);
+
   const thread = useStream<AgentThreadState>({
     client: getAPIClient(isMock),
     assistantId: "lead_agent",
@@ -211,6 +234,7 @@ export function useThreadStream({
     reconnectOnMount: runMetadataStorageRef.current
       ? () => runMetadataStorageRef.current!
       : false,
+    initialValues,
     fetchStateHistory: { limit: 1 },
     onCreated(meta) {
       handleStreamStart(meta.thread_id);
