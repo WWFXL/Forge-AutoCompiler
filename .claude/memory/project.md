@@ -98,7 +98,7 @@
 <!-- 倒序，最新在上。 -->
 
 - 2026-09-19 — 恢复服务重建前历史会话的消息展示
-  - Issue: #267；LangGraph 当前使用 `InMemorySaver`，重建前 checkpoint history 为空，但 thread snapshot 仍保留完整 `values.messages`。前端现在按 thread ID 读取 snapshot，并作为 SDK `initialValues`；官方 history/live state 始终优先，不写回历史、不触发模型 run。
+  - 交付: Issue #267 / PR #268；LangGraph 当前使用 `InMemorySaver`，重建前 checkpoint history 为空，但 thread snapshot 仍保留完整 `values.messages`。前端现在按 thread ID 读取 snapshot，并作为 SDK `initialValues`；官方 history/live state 始终优先，不写回历史、不触发模型 run。
   - 验证: 新纯函数测试与相邻前端测试共 `12 passed`；Prettier、ESLint、TypeScript、Next.js 16 webpack production build 通过；离线 Playwright 验证直接 URL、空 history 回退、history 优先和 0 model run。未调用 provider、未创建 Compile Session、未修改编译/实验协议。
   - 文件: `frontend/src/core/threads/hooks.ts`, `frontend/src/core/threads/snapshot.ts`, `frontend/src/core/threads/snapshot.test.ts`, `frontend/scripts/test-history-thread-snapshot.cjs`, `frontend/CLAUDE.md`
 
