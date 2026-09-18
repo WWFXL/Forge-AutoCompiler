@@ -73,6 +73,7 @@ export function MessageList({
               return (
                 <MarkdownContent
                   key={group.id}
+                  className="text-foreground"
                   content={extractContentFromMessage(message)}
                   isLoading={thread.isLoading}
                   rehypePlugins={rehypePlugins}

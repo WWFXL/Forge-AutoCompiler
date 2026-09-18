@@ -35,6 +35,7 @@ export function groupMessages<T>(
   }
 
   const groups: MessageGroup[] = [];
+  const toolCallGroups = new Map<string, MessageGroup>();
 
   // Returns the last group if it can still accept tool messages
   // (i.e. it's an in-flight processing group, not a terminal human/assistant group).
@@ -49,6 +50,24 @@ export function groupMessages<T>(
       return last;
     }
     return null;
+  }
+
+  function registerToolCalls(message: AIMessage, group: MessageGroup) {
+    for (const toolCall of message.tool_calls ?? []) {
+      if (toolCall.id) {
+        toolCallGroups.set(toolCall.id, group);
+      }
+    }
+  }
+
+  function matchingToolCallGroup(message: Message) {
+    if (message.type !== "tool") {
+      return null;
+    }
+    if (message.tool_call_id) {
+      return toolCallGroups.get(message.tool_call_id) ?? null;
+    }
+    return lastOpenGroup();
   }
 
   for (const message of messages) {
@@ -69,51 +88,51 @@ export function groupMessages<T>(
       if (isClarificationToolMessage(message)) {
         // Add to the preceding processing group to preserve tool-call association,
         // then also open a standalone clarification group for prominent display.
-        lastOpenGroup()?.messages.push(message);
+        matchingToolCallGroup(message)?.messages.push(message);
         groups.push({
           id: message.id,
           type: "assistant:clarification",
           messages: [message],
         });
       } else {
-        const open = lastOpenGroup();
-        if (open) {
-          open.messages.push(message);
-        } else {
-          console.error(
-            "Unexpected tool message outside a processing group",
-            message,
-          );
-        }
+        matchingToolCallGroup(message)?.messages.push(message);
       }
       continue;
     }
 
     if (message.type === "ai") {
+      let toolCallGroup: MessageGroup | undefined;
       if (hasPresentFiles(message)) {
-        groups.push({
+        toolCallGroup = {
           id: message.id,
           type: "assistant:present-files",
           messages: [message],
-        });
+        };
+        groups.push(toolCallGroup);
       } else if (hasSubagent(message)) {
-        groups.push({
+        toolCallGroup = {
           id: message.id,
           type: "assistant:subagent",
           messages: [message],
-        });
+        };
+        groups.push(toolCallGroup);
       } else if (hasReasoning(message) || hasToolCalls(message)) {
         const lastGroup = groups[groups.length - 1];
         // Accumulate consecutive intermediate AI messages into one processing group.
         if (lastGroup?.type !== "assistant:processing") {
-          groups.push({
+          toolCallGroup = {
             id: message.id,
             type: "assistant:processing",
             messages: [message],
-          });
+          };
+          groups.push(toolCallGroup);
         } else {
           lastGroup.messages.push(message);
+          toolCallGroup = lastGroup;
         }
+      }
+      if (toolCallGroup) {
+        registerToolCalls(message, toolCallGroup);
       }
 
       // Not an else-if: a message with reasoning + content (but no tool calls) goes

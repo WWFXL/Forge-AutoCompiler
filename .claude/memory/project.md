@@ -3,7 +3,16 @@
 跨 Claude Code session 的项目状态流水。按 CLAUDE.md §7 维护。
 
 ## 进行中 (In Progress)
+
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
+
+- 2026-09-18 — 修复 Issue #263 编译终态展示、消息分组与 Todo 收尾
+  - GitHub: 中文 Issue #263 已创建并回读；分支为 `fix/issue-263-compile-terminal-ui`，基线为 `main@b3224a33`。Spec/Plan 位于 `docs/superpowers/`。
+  - 根因: `CompileTerminationMiddleware` 为避免 `finalize_session` 后再次调用模型，把完整 JSON直接复制成 AIMessage 并跳转 graph end，导致结构化字段直出且最后一个 Todo 无机会通过 `write_todos` 收尾；前端 `groupMessages()` 只接受最后一个开放分组，LangGraph 流式中 `final AI` 先于 ToolMessage 出现时会在 render 路径触发 `console.error`；clarification 裸 Markdown 未明确使用主题前景色。
+  - 实现: `finalize_session` 保留原始 ToolMessage JSON，另行生成确定性中文 Markdown；成功终态在同一个 `Command.update` 中复制并完成 `in_progress` Todo，失败/取消/超时不完成；compiler 子代理的 `run_container_bash`/`submit_build_result` 机器终态不变。前端建立 `tool_call_id -> MessageGroup` 映射，支持晚到 ToolMessage 精确回填并静默忽略无匹配中间态；clarification 添加 `text-foreground`。
+  - 验证: 新测试先复现后端 3 项与前端 3 项失败；实现后后端目标测试 `16 passed`，完整测试首轮 `2507 passed, 59 skipped, 32 failed`，其中 28 项仅因 Windows worktree 的绝对 gitdir 不被 WSL Git 识别、4 项仅因 uv 缓存/managed-Python 目录权限；修复相对 gitdir 并指定已有 uv 环境后精确重跑 32 项全过，因此完整集合为 `2539 passed, 59 skipped`。Ruff 通过；前端纯逻辑 `7 passed`、全量 ESLint、TypeScript 与 Prettier 通过；Next.js 16 webpack production build 成功生成 44 个页面。Turbopack 仅因本地 worktree 复用的 `node_modules` junction 指向项目根外而拒绝，非源码失败。
+  - 交付与实验边界: 提交 `9be5167c` 已通过规定的 WSL Git 通道推送，中文 PR #264 已创建并回读，backend unit、backend lint、frontend lint 三项 CI 全绿。0 provider、0 model token、0 Compile Session、0 evidence write；模型调用次数仍由 graph 测试固定为 1，原始 ToolMessage 与 compiler subagent 协议未变。服务器真实编译验收单独进行。
+  - 文件: `backend/packages/harness/deerflow/agents/middlewares/compile_termination_middleware.py`, `backend/tests/test_compile_terminal_tools.py`, `frontend/src/core/messages/utils.ts`, `frontend/src/core/messages/utils.test.ts`, `frontend/src/components/workspace/messages/message-list.tsx`, `docs/forge_web_modes_and_tool_protocol.md`
 
 - 2026-09-16 — 修复 Issue #257 DeepSeek `api_base` 冻结实验 endpoint 误判
   - GitHub: 中文 Issue #257 已创建并回读；实现分支为 `fix/issue-257-deepseek-api-base`，基线为 `main@a2742559`。
@@ -85,6 +94,7 @@
   - 下一步: 等待实验负责人确认当前网络接入介质，并决定是否授权只读 endpoint 诊断和新的 canary amendment；获得确认后必须另建中文 Issue/PR 和协议 identity，保留当前失败 marker。
 
 ## 最近变更 (Recent Changes)
+
 <!-- 倒序，最新在上。 -->
 
 - 2026-09-18 — 解耦页面模式与模型思考能力，延迟防循环警告到工具返回之后
@@ -729,6 +739,7 @@
   - 动机: 统一服务可见路径与宿主 Docker 可见路径，补齐编译镜像、网络、配置模板和可复现的 WSL 启动流程
 
 ## 待办 (TODOs)
+
 <!-- 发现但未做的事。带 file:line 指针。 -->
 
 - 若后续授权 formal v4，必须把 `scripts/forge_formal_collection_v4_runner.py:244` 的 attempt checkpoint 接入真实 provider、Compiler、submit/replay、finalize 和 cleanup 路径，并增加总墙钟取消、Session finalization、orphan reconciliation 的真实 Docker 回归；不能只把 manifest 的授权位改为 `true`。
@@ -738,6 +749,7 @@
 - 当前 `backend/packages/harness/deerflow/compile/manager.py` 的 lifecycle lock 是进程内锁；部署多个后端进程前，需要改为文件锁/数据库事务或带版本号的 CAS，并增加跨进程竞态测试。
 
 ## 已知问题 (Known Issues / Pitfalls)
+
 <!-- 工作中踩过的坑、限制或意外行为。 -->
 
 - Confirmatory v1 的真实 fake-model Docker gate 只覆盖 CMake `args`，因此没有触达 R3 Make 对 `case.reference_case_id` 与 `make_lifecycle.provenance.command_history_sha256` 的隐含依赖。跨 build-system 复用 runner 时，至少各选一个 CMake/Make case 做真实零 provider 门禁；发现冻结 runtime 缺口后必须新增版本化 adapter/test，不能原地修改 v1 或重生成旧 manifest 掩盖失败。
