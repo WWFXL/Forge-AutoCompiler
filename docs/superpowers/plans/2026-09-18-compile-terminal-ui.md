@@ -58,9 +58,9 @@
 
 **修改：** `.claude/memory/project.md`
 
-- [ ] 记录 Issue、根因、实验不变量、测试和部署步骤。
-- [ ] 中文提交，通过 `scripts/push-via-wsl.ps1` 推送。
-- [ ] 创建中文 PR，正文包含 `Closes #263` 和测试证据。
+- [x] 记录 Issue、根因、实验不变量、测试和部署步骤。
+- [x] 中文提交，通过 `scripts/push-via-wsl.ps1` 推送。
+- [x] 创建中文 PR，正文包含 `Closes #263` 和测试证据。
 - [ ] 读回 PR，检查 diff/CI 后合并。
 
 ## Task 8：服务器验收
