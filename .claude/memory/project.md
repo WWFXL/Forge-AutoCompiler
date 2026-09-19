@@ -7,10 +7,10 @@
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
 - 2026-09-19 — 完成 Compile Runtime v2 工程实现，等待 PR、Ubuntu CI 与合并
-  - GitHub: 中文 Issue #269 已创建并回读；实现分支 `fix/issue-269-compile-runtime-reliability` 基于 `main@fa558d3a`，尚未推送或创建 PR。
+  - GitHub: 中文 Issue #269 已创建并回读；实现分支 `fix/issue-269-compile-runtime-reliability` 基于 `main@fa558d3a`，中文 PR #270 已创建，等待测试修复后的 CI 与合并。
   - 实现: `run_container_bash` 使用必填六值 role、严格 Shell 和 command-id 日志；同 run 重复 prepare 幂等复用 session/container；compile/replay 容器使用完整 ownership labels 并接入 task/Lead/Gateway 清理及 prepare 前 reconciliation；submit 使用显式最小 recipe、结构化拒绝与确定性 replay 去重。
   - 身份: 新增 `forge-compile-runtime-v2`，状态为 `engineering_validation`，只授权前端产品验证；provider 实验与正式采集均为 false，历史 manifest/evidence 保持冻结并在 predecessor revision 独立审计。
-  - 验证: 当前产品后端最终回归 `1565 passed, 41 skipped`，Runtime v2 identity `3 passed`，全量 Ruff check/format、workflow YAML、diff whitespace 与敏感信息扫描通过；冻结 predecessor 在 Windows 为 `982 passed, 30 skipped, 11 failed`，失败均来自 POSIX 路径或 Windows SQLite 锁，最终以 PR Ubuntu job 为门禁；0 provider、0 Compile Session、0 experiment evidence write。
+  - 验证: 当前产品后端最终回归 `1565 passed, 41 skipped`，Runtime v2 identity `3 passed`，全量 Ruff check/format、workflow YAML、diff whitespace 与敏感信息扫描通过；PR 首轮暴露两条测试隐式依赖本机 `pytest-asyncio`，已改用项目既有的 `asyncio.run(...)` 并在禁用该插件时验证 `2 passed`；冻结 predecessor 在 Windows 为 `982 passed, 30 skipped, 11 failed`，失败均来自 POSIX 路径或 Windows SQLite 锁，最终以 PR Ubuntu job 为门禁；0 provider、0 Compile Session、0 experiment evidence write。
   - 边界: 暂不实施非零退出码容忍、P2 复杂仓库优化、独立 artifact consumer gate、正式 provider 实验或服务器遗留容器清理；标准 LangGraph 进程强杀后仍活动且无法证明 orphan 的容器不会自动误删。
   - 文件: `docs/compile_runtime_v2.md`, `docs/superpowers/specs/2026-09-18-compile-runtime-reliability-design.md`, `docs/superpowers/plans/2026-09-18-compile-runtime-reliability.md`, `backend/packages/harness/deerflow/compile/`, `backend/packages/harness/deerflow/tools/bound_compile_tools.py`, `benchmarks/runtime-identities/compile-runtime-v2.json`
 

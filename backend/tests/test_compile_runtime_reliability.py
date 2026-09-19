@@ -1,3 +1,4 @@
+import asyncio
 import json
 import subprocess
 import threading
@@ -183,8 +184,7 @@ def test_prepare_tool_refuses_to_create_an_unowned_session() -> None:
         )
 
 
-@pytest.mark.asyncio
-async def test_lead_cleanup_does_not_expand_to_the_whole_thread_without_run_id(
+def test_lead_cleanup_does_not_expand_to_the_whole_thread_without_run_id(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
     calls: list[dict] = []
@@ -199,7 +199,7 @@ async def test_lead_cleanup_does_not_expand_to_the_whole_thread_without_run_id(
         config={"configurable": {}},
     )
 
-    assert await middleware.aafter_agent({}, runtime) is None
+    assert asyncio.run(middleware.aafter_agent({}, runtime)) is None
     assert calls == []
 
 
@@ -712,8 +712,7 @@ def test_changed_replay_recipe_creates_a_new_attempt(tmp_path: Path, monkeypatch
     assert runtime.create_calls == 1
 
 
-@pytest.mark.asyncio
-async def test_lead_after_agent_finalizes_unfinished_run_sessions(monkeypatch: pytest.MonkeyPatch) -> None:
+def test_lead_after_agent_finalizes_unfinished_run_sessions(monkeypatch: pytest.MonkeyPatch) -> None:
     calls: list[dict] = []
 
     def finalize(**kwargs):
@@ -727,7 +726,7 @@ async def test_lead_after_agent_finalizes_unfinished_run_sessions(monkeypatch: p
         config={"configurable": {}},
     )
 
-    assert await middleware.aafter_agent({}, runtime) is None
+    assert asyncio.run(middleware.aafter_agent({}, runtime)) is None
     assert calls == [
         {
             "thread_id": "thread-after-agent",
