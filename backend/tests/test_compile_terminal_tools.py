@@ -320,6 +320,39 @@ def test_compile_session_skips_post_run_memory_model_work(monkeypatch):
 
 def test_finalize_cleans_container_then_ends_lead_with_deterministic_summary(monkeypatch):
     session = make_session()
+    session.artifacts = [
+        BuildArtifact(
+            path="thread-123/session-123/artifacts/lib/libfmt.a",
+            source_path="/artifacts/lib/libfmt.a",
+            artifact_type="static_library",
+            size_bytes=253264,
+            sha256="a" * 64,
+        ),
+        BuildArtifact(
+            path="thread-123/session-123/artifacts/lib/libfmt-c.a",
+            source_path="/artifacts/lib/libfmt-c.a",
+            artifact_type="static_library",
+            size_bytes=5642,
+            sha256="b" * 64,
+        ),
+        *[
+            BuildArtifact(
+                path=f"thread-123/session-123/artifacts/include/fmt/header-{index}.h",
+                source_path=f"/artifacts/include/fmt/header-{index}.h",
+                artifact_type="support_file",
+                size_bytes=index,
+                sha256=f"{index:064x}",
+            )
+            for index in range(16)
+        ],
+        BuildArtifact(
+            path="thread-123/session-123/artifacts/LICENSE",
+            source_path="/artifacts/LICENSE",
+            artifact_type="support_file",
+            size_bytes=1100,
+            sha256="c" * 64,
+        ),
+    ]
     events: list[str] = []
 
     def cleanup_and_finalize(*, session: CompileSession):
@@ -372,7 +405,13 @@ def test_finalize_cleans_container_then_ends_lead_with_deterministic_summary(mon
     assert "`abc123`" in summary
     assert "候选验证：通过" in summary
     assert "干净重放：未运行" in summary
-    assert "`thread-123/session-123/artifacts/hello`" in summary
+    assert "编译产物：2" in summary
+    assert "`lib/libfmt.a`" in summary
+    assert "`lib/libfmt-c.a`" in summary
+    assert "辅助文件：17" in summary
+    assert "`include/fmt/`：16 个文件" in summary
+    assert "`LICENSE`：1 个文件" in summary
+    assert "thread-123/session-123" not in summary
     assert terminal.update["todos"] == [
         {"status": "completed", "content": "Clone repository"},
         {"status": "completed", "content": "Clean up the compile session and summarize results"},

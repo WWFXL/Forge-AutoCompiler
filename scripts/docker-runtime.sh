@@ -10,6 +10,14 @@ source "$SCRIPT_DIR/require-docker-runtime.sh"
 # shellcheck source=docker.sh
 source "$SCRIPT_DIR/docker.sh"
 
+if [ -z "${FORGE_HOST_UID:-}" ] && [ -z "${FORGE_HOST_GID:-}" ]; then
+    export FORGE_HOST_UID="$(id -u)"
+    export FORGE_HOST_GID="$(id -g)"
+elif [ -z "${FORGE_HOST_UID:-}" ] || [ -z "${FORGE_HOST_GID:-}" ]; then
+    echo "ERROR: FORGE_HOST_UID and FORGE_HOST_GID must be configured together." >&2
+    exit 1
+fi
+
 require_ubuntu_native_docker() {
     require_docker_runtime "$@"
 }

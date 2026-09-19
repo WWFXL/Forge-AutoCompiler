@@ -3267,6 +3267,21 @@ def finalize_compile_session_impl(
                 status = current.termination_status or status
                 error = current.termination_error or error
                 summary = current.termination_error or summary
+            try:
+                normalize_session_tree = getattr(services.manager, "normalize_session_tree", None)
+                normalized = normalize_session_tree(current) if normalize_session_tree is not None else False
+            except (OSError, ValueError) as exc:
+                status = "failed"
+                error = f"Host session ownership normalization failed: {exc}"
+                summary = error
+                normalized = False
+            if normalized:
+                services.manager.log_event(
+                    current,
+                    "session.host_identity_normalized",
+                    uid=services.manager.host_identity[0],
+                    gid=services.manager.host_identity[1],
+                )
             replay_verified = _latest_replay_passed(current)
             current.finalized_at = utc_now_iso()
             services.manager.mark_session_status(current, status, error=error, summary=summary)

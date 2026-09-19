@@ -8,6 +8,7 @@ from langchain_core.messages import ToolMessage
 from langgraph.types import Command
 from langgraph.typing import ContextT
 
+from deerflow.compile.artifact_display import artifact_display_path
 from deerflow.compile.evidence import get_active_experiment, record_experiment_event
 from deerflow.compile.operations import cleanup_and_finalize_compile_session_impl, clone_repository_impl, get_bound_session, get_compile_services, inspect_build_system_impl, prepare_compile_session_impl
 from deerflow.compile.schemas import CompileSession
@@ -295,6 +296,7 @@ def finalize_session(
         "artifacts": [
             {
                 "path": artifact.path,
+                "display_path": artifact_display_path(artifact.path, artifact.source_path),
                 "artifact_type": artifact.artifact_type,
                 "size_bytes": artifact.size_bytes,
                 "sha256": artifact.sha256,

@@ -948,7 +948,7 @@ class CompileDockerRuntime:
         stop_command = [
             "docker",
             "stop",
-            "--time",
+            "--timeout",
             str(stop_grace_seconds),
             container_reference,
         ]

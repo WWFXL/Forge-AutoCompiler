@@ -3,6 +3,8 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parents[2]
 COMPOSE_FILE = REPO_ROOT / "docker" / "docker-compose-dev.yaml"
 MODEL_PROXY_COMPOSE_FILE = REPO_ROOT / "docker" / "docker-compose-model-proxy.yaml"
+DOCKER_RUNTIME_SCRIPT = REPO_ROOT / "scripts" / "docker-runtime.sh"
+ENV_EXAMPLE = REPO_ROOT / ".env.example"
 
 
 def test_compile_session_mount_and_path_contract_are_applied_to_both_runtimes():
@@ -13,6 +15,19 @@ def test_compile_session_mount_and_path_contract_are_applied_to_both_runtimes():
     assert compose.count("DEER_FLOW_WORKSPACE_ROOT=/workspace") == 2
     assert compose.count(f"DEER_FLOW_HOST_WORKSPACE_ROOT={required_root}") == 2
     assert compose.count(f"HOST_PROJECT_ROOT={required_root}") == 2
+
+
+def test_backend_services_receive_the_host_uid_gid_pair():
+    compose = COMPOSE_FILE.read_text(encoding="utf-8")
+    runtime_script = DOCKER_RUNTIME_SCRIPT.read_text(encoding="utf-8")
+    env_example = ENV_EXAMPLE.read_text(encoding="utf-8")
+
+    assert compose.count("FORGE_HOST_UID=${FORGE_HOST_UID:-}") == 2
+    assert compose.count("FORGE_HOST_GID=${FORGE_HOST_GID:-}") == 2
+    assert "id -u" in runtime_script
+    assert "id -g" in runtime_script
+    assert "FORGE_HOST_UID" in env_example
+    assert "FORGE_HOST_GID" in env_example
 
 
 def test_compose_rejects_an_unset_host_workspace_root():

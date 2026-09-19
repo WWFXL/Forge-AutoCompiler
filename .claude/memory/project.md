@@ -97,6 +97,10 @@
 
 <!-- 倒序，最新在上。 -->
 
+- 2026-09-19 — 完成编译 Session 宿主权限、产物交付和终态证据改进
+  - 文件: `backend/packages/harness/deerflow/compile/manager.py`, `backend/packages/harness/deerflow/compile/artifact_display.py`, `backend/packages/harness/deerflow/subagents/builtins/compiler_agent.py`, `frontend/src/components/workspace/messages/compile-session-trace.tsx`, `docs/compile_runtime_v4.md`
+  - 动机: Docker root 写入的 bind mount 使宿主用户难以管理 Session；FMT 构建后存在脆弱/重复诊断，终态铺开 support files 且策略拒绝容易被误读。Issue #273 以受限 UID/GID 规范化、CMake install 优先、完整折叠证据和 `docker stop --timeout` 修复这些问题，并保持 Runtime v2/v3 与历史 evidence 冻结。
+
 - 2026-09-19 — 完成 Issue #271 编译终态、资源上限、重放证据与子任务布局修复
   - 实现: 修复 LangGraph `Runtime.config` 接口误用；session 冻结 compile/replay 并行策略并施加 Docker CPU quota；完整记录 `support_file`；把成功 smoke/test 分离为 `repro/verify.sh` 并保存独立 replay 日志；显式设置 Docker stop grace；产品路径持久化实际构建系统。前端不再为空 reasoning 创建消息组，并展示 replay verification 日志。
   - 身份: 新增 `forge-compile-runtime-v3` 工程验证身份；Runtime v2、历史 benchmark、manifest 和 evidence 保持不变。未调用 provider，未创建真实 Compile Session，也未写正式实验 evidence。

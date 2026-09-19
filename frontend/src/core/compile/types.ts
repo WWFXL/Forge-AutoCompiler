@@ -14,7 +14,16 @@ export interface CompileCommand {
   exit_code: number | null;
   duration_seconds: number | null;
   timed_out: boolean;
+  termination: string | null;
   has_log: boolean;
+}
+
+export interface CompileArtifact {
+  path: string;
+  display_path: string;
+  artifact_type: string;
+  size_bytes: number | null;
+  sha256: string | null;
 }
 
 export interface CompileReplay {
@@ -38,6 +47,7 @@ export interface CompileSessionSnapshot {
   executed_build_system: string | null;
   parallel_jobs: number;
   commands: CompileCommand[];
+  artifacts: CompileArtifact[];
   verification: { status: string; checks: CompileCheck[] } | null;
   replay_attempts: CompileReplay[];
 }

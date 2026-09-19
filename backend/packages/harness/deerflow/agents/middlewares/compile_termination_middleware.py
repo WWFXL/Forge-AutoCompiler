@@ -2,7 +2,9 @@
 
 import asyncio
 import json
+from collections import Counter
 from collections.abc import Awaitable, Callable, Mapping
+from pathlib import PurePosixPath
 from typing import NotRequired, override
 
 from langchain.agents import AgentState
@@ -69,17 +71,34 @@ def _format_finalize_summary(payload: Mapping[str, object]) -> str:
 
     artifacts = payload.get("artifacts")
     if isinstance(artifacts, list) and artifacts:
-        lines.extend(["", "### 构建产物"])
+        compiled: list[Mapping[str, object]] = []
+        support: list[Mapping[str, object]] = []
         for artifact in artifacts:
-            if isinstance(artifact, Mapping):
-                path = artifact.get("path")
-                if not path:
-                    continue
-                metadata = [str(value) for key in ("artifact_type", "size_bytes") if (value := artifact.get(key))]
-                suffix = f"（{', '.join(metadata)}）" if metadata else ""
-                lines.append(f"- {_inline_code(path)}{suffix}")
-            elif artifact:
-                lines.append(f"- {_inline_code(artifact)}")
+            if not isinstance(artifact, Mapping):
+                continue
+            if artifact.get("artifact_type") == "support_file":
+                support.append(artifact)
+            else:
+                compiled.append(artifact)
+        lines.extend(["", "### 构建产物"])
+        lines.append(f"- 编译产物：{len(compiled)}")
+        for artifact in sorted(compiled, key=lambda item: str(item.get("display_path") or item.get("path") or "")):
+            path = artifact.get("display_path") or artifact.get("path")
+            if not path:
+                continue
+            metadata = [str(value) for key in ("artifact_type", "size_bytes") if (value := artifact.get(key)) is not None]
+            suffix = f"（{', '.join(metadata)}）" if metadata else ""
+            lines.append(f"  - {_inline_code(path)}{suffix}")
+        lines.append(f"- 辅助文件：{len(support)}")
+        support_groups: Counter[str] = Counter()
+        for artifact in support:
+            path = str(artifact.get("display_path") or artifact.get("path") or "")
+            if not path:
+                continue
+            parent = PurePosixPath(path).parent.as_posix()
+            support_groups[f"{parent}/" if parent != "." else path] += 1
+        for group, count in sorted(support_groups.items()):
+            lines.append(f"  - {_inline_code(group)}：{count} 个文件")
 
     error = payload.get("error")
     if error:

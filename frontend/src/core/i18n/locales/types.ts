@@ -241,6 +241,12 @@ export interface Translations {
     noCommands: string;
     exitCode: string;
     timedOut: string;
+    policyRejected: string;
+    artifacts: string;
+    compiledArtifacts: string;
+    supportFiles: string;
+    files: string;
+    sha256: string;
     verification: string;
     replays: string;
     cleanup: string;

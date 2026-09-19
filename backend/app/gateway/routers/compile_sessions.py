@@ -7,6 +7,7 @@ from pathlib import Path
 
 from fastapi import APIRouter, HTTPException
 
+from deerflow.compile.artifact_display import artifact_display_path
 from deerflow.compile.schemas import DEFAULT_COMPILE_PARALLEL_JOBS
 from deerflow.config.paths import get_paths
 
@@ -69,7 +70,7 @@ def _read_session(thread_id: str, session_id: str) -> tuple[Path, Path, dict]:
         raise HTTPException(503, "Compile evidence is temporarily unavailable") from exc
     if not isinstance(data, dict) or data.get("thread_id") != thread_id or data.get("session_id") != session_id:
         raise HTTPException(404, "Compile session not found")
-    if not isinstance(data.get("commands", []), list) or not isinstance(data.get("replay_attempts", []), list):
+    if not isinstance(data.get("commands", []), list) or not isinstance(data.get("artifacts", []), list) or not isinstance(data.get("replay_attempts", []), list):
         raise HTTPException(503, "Compile evidence is temporarily unavailable")
     return root, directory, data
 
@@ -82,11 +83,19 @@ def get_compile_session(thread_id: str, session_id: str) -> dict:
     result["parallel_jobs"] = parallel_jobs if isinstance(parallel_jobs, int) and not isinstance(parallel_jobs, bool) and parallel_jobs > 0 else DEFAULT_COMPILE_PARALLEL_JOBS
     result["commands"] = [
         {
-            **_fields(command, ("command_id", "stage", "role", "command", "workdir", "exit_code", "duration_seconds", "timed_out")),
+            **_fields(command, ("command_id", "stage", "role", "command", "workdir", "exit_code", "duration_seconds", "timed_out", "termination")),
             "has_log": bool(command.get("log_path")),
         }
         for command in data.get("commands", [])
         if isinstance(command, dict)
+    ]
+    result["artifacts"] = [
+        {
+            **_fields(artifact, ("path", "artifact_type", "size_bytes", "sha256")),
+            "display_path": artifact_display_path(artifact.get("path"), artifact.get("source_path")),
+        }
+        for artifact in data.get("artifacts", [])
+        if isinstance(artifact, dict)
     ]
     verification = data.get("verification")
     result["verification"] = {"status": verification.get("status"), "checks": _checks(verification)} if isinstance(verification, dict) else None

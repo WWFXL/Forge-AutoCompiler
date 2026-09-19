@@ -30,7 +30,31 @@ def evidence(tmp_path, monkeypatch):
         "session_id": "session-1",
         "status": "completed",
         "parallel_jobs": 4,
-        "commands": [{"command_id": "command-1", "command": "cmake --build build", "exit_code": 0, "log_path": str(log)}],
+        "commands": [
+            {
+                "command_id": "command-1",
+                "command": "cmake --build build",
+                "exit_code": 126,
+                "termination": "policy_rejected",
+                "log_path": str(log),
+            }
+        ],
+        "artifacts": [
+            {
+                "path": "thread-1/session-1/artifacts/lib/libfmt.a",
+                "source_path": "/artifacts/lib/libfmt.a",
+                "artifact_type": "static_library",
+                "size_bytes": 253264,
+                "sha256": "a" * 64,
+            },
+            {
+                "path": "thread-1/session-1/artifacts/include/fmt/format.h",
+                "source_path": "/artifacts/include/fmt/format.h",
+                "artifact_type": "support_file",
+                "size_bytes": 1234,
+                "sha256": "b" * 64,
+            },
+        ],
         "verification": {"status": "passed", "checks": [{"name": "archive", "passed": True, "summary": "accepted"}]},
         "replay_attempts": [
             {
@@ -68,6 +92,23 @@ def test_snapshot_preserves_failed_and_successful_attempts_without_writes(eviden
     assert [a["status"] for a in data["replay_attempts"]] == ["failed", "passed"]
     assert data["parallel_jobs"] == 4
     assert data["commands"][0]["command"] == "cmake --build build"
+    assert data["commands"][0]["termination"] == "policy_rejected"
+    assert data["artifacts"] == [
+        {
+            "path": "thread-1/session-1/artifacts/lib/libfmt.a",
+            "display_path": "lib/libfmt.a",
+            "artifact_type": "static_library",
+            "size_bytes": 253264,
+            "sha256": "a" * 64,
+        },
+        {
+            "path": "thread-1/session-1/artifacts/include/fmt/format.h",
+            "display_path": "include/fmt/format.h",
+            "artifact_type": "support_file",
+            "size_bytes": 1234,
+            "sha256": "b" * 64,
+        },
+    ]
     assert "private" not in data
     assert "log_path" not in data["commands"][0]
     assert client.get(BASE + "/commands/command-1/log").json() == {

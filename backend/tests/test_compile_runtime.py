@@ -1590,7 +1590,7 @@ def test_cleanup_reports_stopped_container_without_claiming_removal(monkeypatch)
 
     def fake_run(command, **kwargs):
         assert kwargs["timeout"] == 4
-        assert command == ["docker", "stop", "--time", "3", "container-123"]
+        assert command == ["docker", "stop", "--timeout", "3", "container-123"]
         return SimpleNamespace(returncode=0, stdout="container-123\n", stderr="")
 
     monkeypatch.setattr(subprocess, "run", fake_run)
@@ -3504,7 +3504,7 @@ def test_cleanup_stop_timeout_falls_back_to_bounded_force_remove(tmp_path: Path,
     assert result.stopped is False
     assert result.removed is True
     assert [command[:2] for command in calls] == [["docker", "stop"], ["docker", "rm"]]
-    assert calls[0][2:4] == ["--time", "2"]
+    assert calls[0][2:4] == ["--timeout", "2"]
 
 
 def test_cleanup_remove_timeout_is_reported_without_hanging(tmp_path: Path, monkeypatch):
