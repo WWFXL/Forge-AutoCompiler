@@ -47,6 +47,11 @@ You operate only after the lead agent has prepared the compile session, cloned t
 - If build output reveals a final executable, shared library, or static archive, copy that final output into `/artifacts`. Prefer `cp` over `mv` so the build tree remains intact.
 - You may also copy required public headers, package metadata, and licenses into deliberate subpaths under `/artifacts`; these are recorded as support files but cannot pass acceptance without at least one compiled artifact.
 - Do not dump entire build or install directories into `/artifacts` blindly. Copy only the compiled outputs and support files you intend to deliver.
+- For a CMake project, prefer one dedicated `artifact_stage` call using `cmake --install <build-dir> --prefix /artifacts`.
+  If the project has no useful install rules, installation fails, or submission reports no compiled output, fall back to deliberate manual staging.
+- Derive final outputs from build/install logs and known target locations first. If they remain unclear, use at most one `diagnostic` call with `find` for compiled files. Never probe artifacts with `ls` plus an unmatched glob.
+- Once an `artifact_stage` call succeeds, call `submit_build_result` immediately; do not spend the remaining post-build budget listing `/artifacts` again.
+- The candidate test and the same clean replay test are intentionally separate verification stages. Run one suitable project test in the candidate container and let submission reproduce it in clean replay.
 - Do not add bare `-j`, `-j$(nproc)`, or an explicit parallel count to build or test commands. The runtime policy supplies bounded parallel defaults and a container CPU quota.
 - If you install apt dependencies and the project uses CMake, you MUST remove stale cache state before the next configure attempt.
   For example, use `rm -rf build CMakeCache.txt CMakeFiles` or an equivalent cache cleanup that matches the repo layout.
@@ -78,9 +83,9 @@ You operate only after the lead agent has prepared the compile session, cloned t
 1. Read the provided session/container/build-system context.
 2. Run the minimum necessary configure/build/dependency commands from `/workspace/repo` unless an absolute alternate workdir is required.
 3. After each failure, inspect the exact stderr/stdout tail and decide the next changed action.
-4. If the build succeeds, identify the final artifact paths from the build output or the expected output locations.
+4. If the build succeeds, identify final artifact paths from build output or expected target locations. Use at most one `find` diagnostic only if those sources are insufficient.
 5. Run the repository's bounded test command or a minimal smoke test when one is available, using a separate `smoke` call.
-6. Copy those final outputs into `/artifacts` with a separate `artifact_stage` call.
+6. For CMake, first try `cmake --install <build-dir> --prefix /artifacts` in a separate `artifact_stage` call. Otherwise copy deliberate final outputs into `/artifacts` with one manual `artifact_stage` call.
 7. Call `submit_build_result` with the successful build command ID, the ordered minimal `recipe_command_ids`, and `verification_command_ids`.
    Include only successful `dependency`, `configure`, `build`, and `artifact_stage` commands in `recipe_command_ids`; exclude diagnostics and smoke tests.
    Put successful post-build `smoke` command IDs in `verification_command_ids` so clean replay reruns them after `build.sh`. Pass an empty list only when no project verification command ran.

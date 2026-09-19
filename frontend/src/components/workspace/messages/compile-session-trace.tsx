@@ -117,6 +117,12 @@ export function CompileSessionTrace({
       </p>
     );
   const session = query.data;
+  const compiledArtifacts = session.artifacts.filter(
+    (artifact) => artifact.artifact_type !== "support_file",
+  );
+  const supportFiles = session.artifacts.filter(
+    (artifact) => artifact.artifact_type === "support_file",
+  );
   return (
     <section
       className="text-foreground min-w-0 space-y-3"
@@ -165,7 +171,12 @@ export function CompileSessionTrace({
             <details>
               <summary className="cursor-pointer text-xs break-words">
                 {index + 1}. {command.role || command.stage} ·{" "}
-                {t.compileTrace.exitCode}: {command.exit_code ?? "—"}
+                {command.termination === "policy_rejected"
+                  ? t.compileTrace.policyRejected
+                  : `${t.compileTrace.exitCode}: ${command.exit_code ?? "—"}`}
+                {command.termination === "policy_rejected" &&
+                  command.exit_code != null &&
+                  ` (${t.compileTrace.exitCode}: ${command.exit_code})`}
                 {command.duration_seconds != null &&
                   ` · ${command.duration_seconds.toFixed(2)}s`}
                 {command.timed_out && ` · ${t.compileTrace.timedOut}`}
@@ -189,6 +200,65 @@ export function CompileSessionTrace({
           </li>
         ))}
       </ol>
+      {session.artifacts.length > 0 && (
+        <div className="min-w-0 space-y-2" data-testid="compile-artifacts">
+          <h4 className="text-xs font-semibold">
+            {t.compileTrace.artifacts} ({session.artifacts.length})
+          </h4>
+          <div className="space-y-1 text-xs">
+            <p className="font-medium">
+              {t.compileTrace.compiledArtifacts}: {compiledArtifacts.length}
+            </p>
+            <ul className="space-y-1 pl-3">
+              {compiledArtifacts.map((artifact) => (
+                <li
+                  key={`${artifact.display_path}-${artifact.sha256}`}
+                  className="min-w-0 break-words"
+                >
+                  <code>{artifact.display_path}</code>
+                  <span className="text-muted-foreground">
+                    {` · ${artifact.artifact_type}`}
+                    {artifact.size_bytes != null &&
+                      ` · ${artifact.size_bytes} B`}
+                  </span>
+                  {artifact.sha256 && (
+                    <span className="text-muted-foreground block break-all">
+                      {t.compileTrace.sha256}: {artifact.sha256}
+                    </span>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </div>
+          {supportFiles.length > 0 && (
+            <details className="min-w-0" data-testid="compile-support-files">
+              <summary className="cursor-pointer text-xs font-medium break-words">
+                {t.compileTrace.supportFiles}: {supportFiles.length}{" "}
+                {t.compileTrace.files}
+              </summary>
+              <ul className="mt-2 space-y-2 pl-3 text-xs">
+                {supportFiles.map((artifact) => (
+                  <li
+                    key={`${artifact.display_path}-${artifact.sha256}`}
+                    className="min-w-0 break-words"
+                  >
+                    <code>{artifact.display_path}</code>
+                    <span className="text-muted-foreground">
+                      {artifact.size_bytes != null &&
+                        ` · ${artifact.size_bytes} B`}
+                    </span>
+                    {artifact.sha256 && (
+                      <span className="text-muted-foreground block break-all">
+                        {t.compileTrace.sha256}: {artifact.sha256}
+                      </span>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </details>
+          )}
+        </div>
+      )}
       {session.verification && (
         <div className="space-y-2">
           <h4 className="text-xs font-semibold">

@@ -2,7 +2,9 @@ from __future__ import annotations
 
 import json
 import os
+import re
 import shutil
+import stat
 import tempfile
 import threading
 import uuid
@@ -24,6 +26,34 @@ from deerflow.compile.schemas import DEFAULT_COMPILE_PARALLEL_JOBS, TERMINAL_COM
 
 DEFAULT_COMPILE_IMAGE = "autocompiler:gcc13"
 WORKFLOW_LOG_NAME = "workflow.log"
+_MAX_HOST_ID = 2**32 - 2
+_SESSION_COMPONENT = re.compile(r"[A-Za-z0-9][A-Za-z0-9_-]{0,127}\Z")
+
+
+def _configured_host_identity() -> tuple[int, int] | None:
+    uid_value = os.getenv("FORGE_HOST_UID") or None
+    gid_value = os.getenv("FORGE_HOST_GID") or None
+    if uid_value is None and gid_value is None:
+        return None
+    if uid_value is None or gid_value is None:
+        raise ValueError("FORGE_HOST_UID and FORGE_HOST_GID must be configured together")
+    try:
+        uid = int(uid_value)
+        gid = int(gid_value)
+    except ValueError as exc:
+        raise ValueError("FORGE_HOST_UID and FORGE_HOST_GID must be non-negative integers") from exc
+    if not (0 <= uid <= _MAX_HOST_ID and 0 <= gid <= _MAX_HOST_ID):
+        raise ValueError(f"FORGE_HOST_UID and FORGE_HOST_GID must be between 0 and {_MAX_HOST_ID}")
+    return uid, gid
+
+
+def _change_owner(path: Path, uid: int, gid: int, *, follow_symlinks: bool) -> None:
+    if follow_symlinks:
+        os.chown(path, uid, gid)
+    elif hasattr(os, "lchown"):
+        os.lchown(path, uid, gid)
+    else:
+        os.chown(path, uid, gid, follow_symlinks=False)
 
 
 def _configured_parallel_jobs() -> int:
@@ -39,6 +69,7 @@ class CompileSessionManager:
         self.paths = paths
         self.default_image = default_image
         self.parallel_jobs = parallel_jobs if parallel_jobs is not None and parallel_jobs > 0 else _configured_parallel_jobs()
+        self.host_identity = _configured_host_identity()
         self._session_locks: dict[tuple[str, str], threading.RLock] = {}
         self._session_locks_guard = threading.Lock()
         self._run_locks: dict[tuple[str, str], threading.RLock] = {}
@@ -71,6 +102,7 @@ class CompileSessionManager:
     ) -> CompileSession:
         session_id = session_id or uuid.uuid4().hex[:12]
         resolved_thread_id = thread_id or "default"
+        self._validate_session_components(resolved_thread_id, session_id)
         with self.session_lock(resolved_thread_id, session_id):
             session_dir = get_session_dir(session_id, resolved_thread_id, self.paths)
             workspace_dir = get_workspace_dir(session_id, resolved_thread_id, self.paths)
@@ -116,6 +148,89 @@ class CompileSessionManager:
                 metadata_path=str(metadata_path),
             )
             return session
+
+    @staticmethod
+    def _validate_session_components(thread_id: str, session_id: str) -> None:
+        if not _SESSION_COMPONENT.fullmatch(thread_id) or not _SESSION_COMPONENT.fullmatch(session_id):
+            raise ValueError("Compile thread and session identifiers must be safe path components")
+
+    def _validated_session_dir(self, session: CompileSession) -> Path:
+        self._validate_session_components(session.thread_id, session.session_id)
+        root = get_thread_compile_root(session.thread_id, self.paths).parent
+        expected = get_session_dir(session.session_id, session.thread_id, self.paths)
+        metadata_directory = Path(session.metadata_path).parent
+        if root.is_symlink() or (root / session.thread_id).is_symlink() or expected.is_symlink():
+            raise ValueError("Compile session root must not contain symbolic-link boundaries")
+        root_resolved = root.resolve(strict=True)
+        expected_absolute = expected.absolute()
+        if metadata_directory.absolute() != expected_absolute:
+            raise ValueError("Compile session root does not match the session metadata path")
+        try:
+            relative = expected_absolute.relative_to(root.absolute())
+        except ValueError as exc:
+            raise ValueError("Compile session root is outside the configured compile sessions root") from exc
+        if relative.parts != (session.thread_id, session.session_id):
+            raise ValueError("Compile session root must have exactly <thread>/<session> components")
+        resolved = expected.resolve(strict=True)
+        if not resolved.is_relative_to(root_resolved) or resolved == root_resolved:
+            raise ValueError("Compile session root is outside the configured compile sessions root")
+        return resolved
+
+    def _normalize_owned_path(self, path: Path) -> None:
+        if self.host_identity is None:
+            return
+        uid, gid = self.host_identity
+        metadata = path.lstat()
+        if stat.S_ISLNK(metadata.st_mode):
+            _change_owner(path, uid, gid, follow_symlinks=False)
+            return
+        _change_owner(path, uid, gid, follow_symlinks=True)
+        current_mode = stat.S_IMODE(metadata.st_mode)
+        if stat.S_ISDIR(metadata.st_mode):
+            path.chmod((current_mode | 0o700) & ~0o007)
+        elif stat.S_ISREG(metadata.st_mode):
+            path.chmod((current_mode | 0o600) & ~0o007)
+
+    def normalize_metadata(self, session: CompileSession) -> bool:
+        if self.host_identity is None:
+            return False
+        session_dir = self._validated_session_dir(session)
+        metadata_path = Path(session.metadata_path)
+        if metadata_path.absolute() != (session_dir / "session.json").absolute():
+            raise ValueError("Compile metadata path is outside the compile session root")
+        self._normalize_owned_path(metadata_path)
+        return True
+
+    def normalize_event_log(self, session: CompileSession) -> bool:
+        if self.host_identity is None:
+            return False
+        session_dir = self._validated_session_dir(session)
+        log_path = self.workflow_log_path(session)
+        if log_path.absolute() != (session_dir / "logs" / WORKFLOW_LOG_NAME).absolute():
+            raise ValueError("Compile workflow log is outside the compile session root")
+        self._normalize_owned_path(log_path)
+        return True
+
+    def normalize_session_tree(self, session: CompileSession) -> bool:
+        if self.host_identity is None:
+            return False
+        session_dir = self._validated_session_dir(session)
+
+        def normalize_directory(directory: Path) -> None:
+            with os.scandir(directory) as entries:
+                children = [Path(entry.path) for entry in entries]
+            for child in children:
+                metadata = child.lstat()
+                if stat.S_ISLNK(metadata.st_mode):
+                    self._normalize_owned_path(child)
+                elif stat.S_ISDIR(metadata.st_mode):
+                    normalize_directory(child)
+                else:
+                    self._normalize_owned_path(child)
+            self._normalize_owned_path(directory)
+
+        normalize_directory(session_dir)
+        return True
 
     def load_session(self, session_id: str, thread_id: str | None = None) -> CompileSession:
         resolved_thread_id = thread_id or "default"
@@ -210,6 +325,7 @@ class CompileSessionManager:
             finally:
                 if temporary_path and os.path.exists(temporary_path):
                     os.unlink(temporary_path)
+            self.normalize_metadata(session)
             return True
 
     def mark_session_status(self, session: CompileSession, status: str, error: str | None = None, summary: str | None = None) -> CompileSession:
@@ -321,6 +437,7 @@ class CompileSessionManager:
             }
             with log_path.open("a", encoding="utf-8") as fp:
                 fp.write(json.dumps(entry, ensure_ascii=False) + "\n")
+            self.normalize_event_log(session)
 
     def relative_path(self, session: CompileSession, path: str | Path) -> str:
         target = Path(path)

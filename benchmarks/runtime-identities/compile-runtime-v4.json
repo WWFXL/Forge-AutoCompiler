@@ -1,0 +1,49 @@
+{
+  "schema_version": "forge-compile-runtime-identity-v1",
+  "identity": "forge-compile-runtime-v4",
+  "status": "engineering_validation",
+  "issued_on": "2026-09-19",
+  "issue_url": "https://github.com/WWFXL/Forge-AutoCompiler/issues/273",
+  "predecessor": {
+    "commit_sha": "fc50a3c7e3bd1a6755c1a8db71694582596a34c6",
+    "historical_manifests_immutable": true,
+    "historical_evidence_immutable": true
+  },
+  "authorization": {
+    "interactive_product_validation": true,
+    "provider_experiment_execution": false,
+    "formal_collection": false
+  },
+  "contracts": {
+    "langgraph_runtime_identity": true,
+    "frozen_parallel_policy": true,
+    "complete_artifact_manifest": true,
+    "separate_verification_recipe": true,
+    "host_identity_normalization": true,
+    "bounded_session_path": true,
+    "cmake_install_first_staging": true,
+    "complete_artifact_evidence": true,
+    "policy_rejection_ui": true,
+    "docker_timeout_flag": true,
+    "nonempty_reasoning_layout": true
+  },
+  "component_sha256": {
+    "backend/app/gateway/routers/compile_sessions.py": "f8db656a2c2d56a972ea184ba1f62abf2fe0a19bfb4950e968253cff9d8a3541",
+    "backend/packages/harness/deerflow/agents/middlewares/compile_termination_middleware.py": "6bfa17ca5c93b4e9614252a0f78c43ed73231a72b5cc50c431894f606b1f9c84",
+    "backend/packages/harness/deerflow/compile/artifact_display.py": "b6ae85f2b3c5dead9d631933714f318e29cfd562a6127f17003120218cb660e8",
+    "backend/packages/harness/deerflow/compile/docker_runtime.py": "e82999ab0a262ddd8e60241b70994cc99b495d5d7bb34f4b5247f3fe69c864da",
+    "backend/packages/harness/deerflow/compile/manager.py": "1f9726ff9375cb5fb271bc17b29310e17db6db274474b02112aaf61cead4536e",
+    "backend/packages/harness/deerflow/compile/operations.py": "608306929617153b8d6a40fede112bda9fb58147bc3f84f37eff32c7afd9efe3",
+    "backend/packages/harness/deerflow/compile/schemas.py": "4ae3ccc9100bc66e463be3ef683f8766df7fccbda82a5a4833687a4a6e0bfd13",
+    "backend/packages/harness/deerflow/subagents/builtins/compiler_agent.py": "aa37706b1b12198a5a56fea1aeb04022a0a8749aaf1e2eef06d1a297b80331b7",
+    "backend/packages/harness/deerflow/tools/bound_compile_tools.py": "19bdf63a6f9c1538321ec4385d6baba8a5a1ae30a57f5246b5898dd07f6f2e11",
+    "backend/packages/harness/deerflow/tools/builtins/agent_compile_tools.py": "e44f8c5bc82d2c5831473c9bfac494de5e506c53c4a45ba350bc09116dfcd9c0",
+    "docker/docker-compose-dev.yaml": "8db4b8a965b46ddc578636a51f689040fd94be659c4f193f182cba2ffca3fee7",
+    "scripts/docker-runtime.sh": "dcde6e804f018442cdda3d1900515e8f3b398ea4dbaef22f323e4570072f84d1",
+    "frontend/src/components/workspace/messages/compile-session-trace.tsx": "acb04604f9ec41293b9ca48ce5c4ea882417ab07ad0d051bd25fbd183a4edadc",
+    "frontend/src/components/workspace/messages/message-list.tsx": "0faecf91011e5bd7b66618767fcdfb1af51aaafb7a7fb49f693de630c6710823",
+    "frontend/src/core/compile/hooks.ts": "4f7ca50ca9c8ef03c9c2f73e91c03532ec52ec490661bb42b0cd7e060ef6808d",
+    "frontend/src/core/compile/types.ts": "06d788530cb0b348295e46bfcbb0d1a43dd922daa195b66bf7999b01dcd18832",
+    "frontend/src/core/messages/utils.ts": "31ad311e7acdcebb704a44e82949d1272b3a937c039ba32aaec99696cf3f11e2"
+  }
+}

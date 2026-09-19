@@ -164,7 +164,7 @@ Lead:  prepare_compile_session(repo_url)
 Compiler:  run_container_bash("cmake ...")  ← 反复迭代
            run_container_bash("make")       ← 并行度由 session/runtime 限制
            ...                              ← 失败必改策略，禁止盲目重试
-           run_container_bash("cp .../app /artifacts/")
+           run_container_bash("cmake --install build --prefix /artifacts")  ← CMake 优先；无有效 install 规则时精确 cp
            submit_build_result()             ← 验证原产物、生成候选脚本并自动 clean replay；全部通过才置为 verified
        ↓
 Lead:  finalize_session()  ← 停并删除容器；验证通过且有产物时状态置为 completed
@@ -174,6 +174,7 @@ Lead:  finalize_session()  ← 停并删除容器；验证通过且有产物时�
 - [`CLAUDE.md`](CLAUDE.md) — 给 AI 编程助手用的总指南
 - [`backend/CLAUDE.md`](backend/CLAUDE.md) — 后端实现细节
 - [`frontend/CLAUDE.md`](frontend/CLAUDE.md) — 前端实现细节
+- [`docs/compile_runtime_v4.md`](docs/compile_runtime_v4.md) — 当前编译运行时工程契约与授权边界
 - [`docs/run_compile_workflow_workflow_mechanism.md`](docs/run_compile_workflow_workflow_mechanism.md) — 工作流机制说明
 - [`docs/current_compile_project_implementation.md`](docs/current_compile_project_implementation.md) — 当前实现自审
 
@@ -200,6 +201,10 @@ replay/<attempt_id>/       # 每次自动 clean replay 的独立证据目录
 ├── artifacts/            # replay 产生的产物，不覆盖原始 artifacts
 └── logs/                 # replay 执行日志
 ```
+
+Docker 启动入口会把当前用户的 `id -u` / `id -g` 成对传入 Gateway 与 LangGraph。Session 终态时系统只在当前 `.compile-sessions/<thread>/<session>` 边界内规范化 owner 和 mode：保留可执行位、清除 other 权限且不跟随符号链接，因此启动 Forge 的用户可以直接管理源码、产物、日志和 replay 证据。绕过 `scripts/docker-runtime.sh` 手工启动 Compose 时，必须同时配置 `FORGE_HOST_UID` 与 `FORGE_HOST_GID`。
+
+前端 Compile Session 证据卡展示完整产物 manifest：compiled artifacts 默认展开，support files 默认折叠，均保留短相对路径、类型、大小和 SHA-256；命令被运行时策略拒绝时单独显示“策略拒绝”。
 
 **复现脚本和 clean replay 证据是这套系统的核心交付物**。`repro/build.sh` 从 `repo_url` 检出 session 记录的完整 `commit_sha`，只按原顺序和 workdir 回放成功的 `run_container_bash` 命令；失败尝试、clone/inspect 和 submit 审计事件不会进入脚本。脚本生成只是候选配方，不单独证明构建可从空环境复现。
 

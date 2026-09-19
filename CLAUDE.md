@@ -93,6 +93,8 @@ Lead Agent
 - 失败时改策略，不允许盲目重试同一条命令
 - 把最终产物 `cp`（而非 `mv`）到 `/artifacts`，不能整目录倾倒
 - 允许把公共头文件、package metadata 和许可证作为 `support_file` 精确暂存，但至少仍需一个真实编译产物
+- CMake 项目优先用 `cmake --install <build-dir> --prefix /artifacts` 暂存；install 不适用时才手工精确复制
+- 构建日志和 target 路径仍不足以定位产物时最多做一次 `find` 诊断；staging 成功后立即 submit，不重复 `ls`
 - 不自行指定裸 `-j`、`-j$(nproc)` 或超大并行值；session 冻结的 CPU quota 与构建工具环境控制 compile/replay 并行度
 - 跑 CMake 项目时若装了新 apt 包必须清掉 `build/`、`CMakeCache.txt`、`CMakeFiles/` 再 reconfigure
 - 不允许自行宣告成功，必须以 `submit_build_result` 的返回为准
@@ -107,7 +109,7 @@ Lead Agent
 5. `repro_bundle`：必须能从远端 `repo_url` 检出完整 `commit_sha`，并只安全渲染 Compiler 显式选择的 recipe 步骤
 6. `clean_replay`：使用原容器记录的完整 `image_id`，在唯一 attempt 的空 workspace/artifacts 中执行候选脚本，并比较产物集合、类型、大小、SHA-256 和 smoke 结果
 
-两层检查全部通过 → session 状态 `verified`。`repro/build.sh` 只回放显式 recipe 中通过校验的 `dependency/configure/build/artifact_stage` 命令；可选 `repro/verify.sh` 只回放显式选择的成功 `smoke` 命令。完整命令审计与 replay 配方彼此分离。cleanup/finalize 成功后才进入 `completed`。当前工程契约见 [`docs/compile_runtime_v3.md`](docs/compile_runtime_v3.md)；Runtime v2 是历史只读身份。
+两层检查全部通过 → session 状态 `verified`。`repro/build.sh` 只回放显式 recipe 中通过校验的 `dependency/configure/build/artifact_stage` 命令；可选 `repro/verify.sh` 只回放显式选择的成功 `smoke` 命令。完整命令审计与 replay 配方彼此分离。cleanup/finalize 成功后才进入 `completed`。当前工程契约见 [`docs/compile_runtime_v4.md`](docs/compile_runtime_v4.md)；Runtime v2/v3 是历史只读身份。
 
 ### 4.3 会话目录布局（宿主机）
 
@@ -136,6 +138,7 @@ $HOST_PROJECT_ROOT/.compile-sessions/{thread_id}/{session_id}/
 - **容器内仓库根永远是 `/workspace/repo`**：compiler 子代理、识别构建系统逻辑都强依赖这条
 - **交付只看 `/artifacts`**：compiled artifacts 与 support files 都必须精确暂存到这里；系统不会去 build/ 找
 - **`HOST_PROJECT_ROOT` 必须设置**：`CompileDockerRuntime._host_project_root()` 在缺失时会抛错
+- **Docker 模式必须传递成对的宿主 UID/GID**：`scripts/docker-runtime.sh` 默认用 `id -u`/`id -g` 设置 `FORGE_HOST_UID`/`FORGE_HOST_GID`；终态只规范化当前 Session 树，不跟随符号链接，并清除 other 权限
 - **容器 network 固定 `compile_network_wwf_v1`**：若改名需同步 `RuntimeConfig.network`
 - **smoke test 仅尝试 3 个旗标**：不要随便加，会污染验证语义
 - **replay 固定完整 commit**：只接受 40/64 位十六进制 SHA 与不含持久凭据的远端 URL

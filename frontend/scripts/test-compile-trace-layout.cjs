@@ -101,12 +101,36 @@ function snapshot(sessionId) {
             ? `cmake -S . -B build -D${"LONG_OPTION".repeat(32)}=ON`
             : `echo ${role}; cmake --build build`,
         workdir: "/workspace/repo",
-        exit_code: 0,
+        exit_code: index === 4 ? 126 : 0,
         duration_seconds: 1.25,
         timed_out: false,
+        termination: index === 4 ? "policy_rejected" : null,
         has_log: true,
       }),
     ),
+    artifacts: [
+      {
+        path: `${sessionId}/artifacts/lib/libfmt.a`,
+        display_path: "lib/libfmt.a",
+        artifact_type: "static_library",
+        size_bytes: 253264,
+        sha256: "a".repeat(64),
+      },
+      {
+        path: `${sessionId}/artifacts/lib/libfmt-c.a`,
+        display_path: "lib/libfmt-c.a",
+        artifact_type: "static_library",
+        size_bytes: 5642,
+        sha256: "b".repeat(64),
+      },
+      ...["format.h", "core.h", "LICENSE"].map((name, index) => ({
+        path: `${sessionId}/artifacts/${name}`,
+        display_path: name === "LICENSE" ? name : `include/fmt/${name}`,
+        artifact_type: "support_file",
+        size_bytes: 100 + index,
+        sha256: String(index + 1).repeat(64),
+      })),
+    ],
     verification: {
       status: "passed",
       checks: [
@@ -252,6 +276,16 @@ function snapshot(sessionId) {
       assert.ok((await traces.nth(1).innerText()).includes("session-new"));
       assert.ok((await traces.nth(1).innerText()).includes("smoke_mismatch"));
       assert.ok((await traces.nth(1).innerText()).includes("2. passed"));
+      assert.ok((await traces.nth(1).innerText()).includes("策略拒绝"));
+      const artifacts = traces.nth(1).getByTestId("compile-artifacts");
+      assert.ok((await artifacts.innerText()).includes("编译产物: 2"));
+      assert.ok((await artifacts.innerText()).includes("lib/libfmt.a"));
+      assert.ok((await artifacts.innerText()).includes("a".repeat(64)));
+      const support = artifacts.getByTestId("compile-support-files");
+      assert.equal(await support.getAttribute("open"), null);
+      await support.locator("summary").click();
+      assert.ok((await support.innerText()).includes("include/fmt/format.h"));
+      assert.ok((await support.innerText()).includes("SHA-256"));
       const subtaskGroups = page.getByTestId("subtask-group");
       assert.equal(await subtaskGroups.count(), 2);
       for (let index = 0; index < (await subtaskGroups.count()); index++) {
