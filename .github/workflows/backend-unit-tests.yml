@@ -25,9 +25,34 @@ jobs:
         with:
           fetch-depth: 0
 
-      # Historical pilot protocols were intentionally preserved as immutable
-      # commit snapshots before the mainline squash merges.  Fetch the exact
-      # audited objects before running byte-level provenance checks.
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
+
+      - name: Install backend dependencies
+        working-directory: backend
+        run: uv sync --group dev
+
+      - name: Run unit tests of backend
+        working-directory: backend
+        run: make test-product
+
+  frozen-benchmark-tests:
+    if: github.event.pull_request.draft == false
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout frozen pre-v2 runtime
+        uses: actions/checkout@v6
+        with:
+          ref: fa558d3ab1f3498a8e751d141319cda6c1fea939
+          fetch-depth: 0
+
       - name: Fetch historical benchmark protocol commits
         run: |
           git fetch --no-tags origin 0a71ad3204afec9aa36de612265594c1144be4c9
@@ -51,10 +76,10 @@ jobs:
       - name: Install uv
         uses: astral-sh/setup-uv@v7
 
-      - name: Install backend dependencies
+      - name: Install frozen backend dependencies
         working-directory: backend
         run: uv sync --group dev
 
-      - name: Run unit tests of backend
+      - name: Validate frozen benchmark protocols
         working-directory: backend
-        run: make test
+        run: PYTHONPATH=. uv run pytest tests/test_forge_*.py -v

@@ -16,7 +16,7 @@ from shlex import quote, shlex, split
 from typing import BinaryIO
 from urllib.parse import urlsplit
 
-from deerflow.compile.docker_runtime import CONTAINER_REPO_DIR, CONTAINER_WORKSPACE_DIR, CompileDockerRuntime, ContainerCleanupResult, ReplayContainerHandle
+from deerflow.compile.docker_runtime import CONTAINER_REPO_DIR, CONTAINER_WORKSPACE_DIR, CompileDockerRuntime, ContainerCleanupResult, ManagedCompileContainer, ReplayContainerHandle
 from deerflow.compile.evidence import (
     EvidenceError,
     allowed_command_role,
@@ -28,11 +28,14 @@ from deerflow.compile.evidence import (
 from deerflow.compile.manager import CompileSessionManager
 from deerflow.compile.paths import get_replay_artifacts_dir, get_replay_logs_dir, get_replay_recipe_dir, get_replay_workspace_dir
 from deerflow.compile.schemas import (
+    TERMINAL_COMPILE_SESSION_STATUSES,
     BuildArtifact,
     BuildCommandRecord,
     CommandResult,
     CompileSession,
     ReplayArtifactComparison,
+    ReplayRecipe,
+    ReplayRecipeStep,
     ReplayVerificationResult,
     VerificationCheck,
     VerificationResult,
@@ -81,7 +84,14 @@ _WSL_HOST_PATH_RE = re.compile(r"(?i)(?<![A-Za-z0-9_])/mnt/[A-Z](?:/|$)")
 _REPLAY_SMOKE_TIMEOUT_SECONDS = 30
 _REPLAY_CONTAINER_CREATE_TIMEOUT_SECONDS = 30
 _MAX_PERSISTED_SMOKE_OUTPUT = 4000
-_TERMINAL_SESSION_STATUSES = {"completed", "failed", "cancelled", "timed_out"}
+_DETERMINISTIC_REPLAY_FAILURES = {
+    "artifact_set_mismatch",
+    "recipe_execution_failed",
+    "sha256_mismatch",
+    "size_mismatch",
+    "smoke_mismatch",
+    "type_mismatch",
+}
 _HOUSEKEEPING_BUILD_TARGETS = {
     "clean",
     "distclean",
@@ -121,6 +131,19 @@ class CompileOperationsServices:
     runtime: CompileDockerRuntime
 
 
+class CompileSessionConflictError(RuntimeError):
+    def __init__(self, classification: str, message: str):
+        super().__init__(message)
+        self.classification = classification
+
+
+class ReplayRecipeError(ValueError):
+    def __init__(self, classification: str, message: str, *, offending_command_id: str | None = None):
+        super().__init__(message)
+        self.classification = classification
+        self.offending_command_id = offending_command_id
+
+
 _manager = CompileSessionManager()
 _services = CompileOperationsServices(
     manager=_manager,
@@ -141,7 +164,7 @@ def _load_authoritative_session(session: CompileSession) -> CompileSession:
 
 
 def _session_lifecycle_fenced(session: CompileSession) -> bool:
-    return session.finalized_at is not None or session.termination_requested_at is not None or session.status in _TERMINAL_SESSION_STATUSES
+    return session.finalized_at is not None or session.termination_requested_at is not None or session.status in TERMINAL_COMPILE_SESSION_STATUSES
 
 
 def _abort_submit_for_lifecycle(
@@ -153,7 +176,7 @@ def _abort_submit_for_lifecycle(
 ) -> str:
     services = get_compile_services()
     status = session.termination_status or session.status
-    if status not in _TERMINAL_SESSION_STATUSES:
+    if status not in TERMINAL_COMPILE_SESSION_STATUSES:
         status = "cancelled"
     message = f"Compile session is terminating or finalized with status {status}; submit was ignored."
     services.manager.log_event(
@@ -299,6 +322,128 @@ def _apply_experiment_dependencies(session: CompileSession) -> None:
         raise RuntimeError("Benchmark dependency setup failed before compilation")
 
 
+_REQUIRED_CONTAINER_OWNERSHIP_LABELS = {
+    "deerflow.compile.managed",
+    "deerflow.compile.role",
+    "deerflow.compile.run_id",
+    "deerflow.compile.session_id",
+    "deerflow.compile.thread_id",
+}
+
+
+def _managed_container_matches_session(
+    container: ManagedCompileContainer,
+    session: CompileSession,
+) -> bool:
+    labels = container.labels
+    role = labels["deerflow.compile.role"]
+    if role == "compile":
+        return container.container_id == session.container_id or container.container_name == session.container_name
+    attempt_id = labels.get("deerflow.compile.attempt_id")
+    if role != "replay" or not attempt_id:
+        return False
+    attempt = next((item for item in session.replay_attempts if item.attempt_id == attempt_id), None)
+    if attempt is None:
+        return False
+    return container.container_id == attempt.container_id or container.container_name == attempt.container_name
+
+
+def reconcile_orphaned_compile_containers_impl() -> dict[str, object]:
+    """Remove only terminal-session containers with complete Forge ownership labels."""
+
+    services = get_compile_services()
+    result: dict[str, object] = {
+        "scan_succeeded": False,
+        "observed_count": 0,
+        "removed_count": 0,
+        "remaining_count": 0,
+        "skipped_count": 0,
+    }
+    try:
+        containers = services.runtime.list_managed_containers()
+    except Exception as exc:
+        result["error"] = type(exc).__name__
+        return result
+
+    result["scan_succeeded"] = True
+    result["observed_count"] = len(containers)
+    remaining: list[str] = []
+    for container in containers:
+        labels = container.labels
+        if labels.get("deerflow.compile.managed") != "true" or not _REQUIRED_CONTAINER_OWNERSHIP_LABELS.issubset(labels):
+            result["skipped_count"] = int(result["skipped_count"]) + 1
+            remaining.append(container.container_id)
+            continue
+        role = labels["deerflow.compile.role"]
+        if role not in {"compile", "replay"} or not all(
+            labels[name]
+            for name in (
+                "deerflow.compile.run_id",
+                "deerflow.compile.session_id",
+                "deerflow.compile.thread_id",
+            )
+        ):
+            result["skipped_count"] = int(result["skipped_count"]) + 1
+            remaining.append(container.container_id)
+            continue
+        if role == "replay" and not labels.get("deerflow.compile.attempt_id"):
+            result["skipped_count"] = int(result["skipped_count"]) + 1
+            remaining.append(container.container_id)
+            continue
+
+        thread_id = labels["deerflow.compile.thread_id"]
+        session_id = labels["deerflow.compile.session_id"]
+        try:
+            session = services.manager.load_session(session_id, thread_id)
+        except (OSError, TypeError, ValueError, json.JSONDecodeError):
+            result["skipped_count"] = int(result["skipped_count"]) + 1
+            remaining.append(container.container_id)
+            continue
+        session_is_terminal = session.finalized_at is not None or session.status in TERMINAL_COMPILE_SESSION_STATUSES
+        identity_matches = labels["deerflow.compile.run_id"] == session.run_id and _managed_container_matches_session(container, session)
+        if not session_is_terminal or not identity_matches:
+            result["skipped_count"] = int(result["skipped_count"]) + 1
+            remaining.append(container.container_id)
+            continue
+
+        try:
+            cleanup = services.runtime.stop_and_remove_container_reference(
+                session,
+                container_id=container.container_id,
+                container_name=container.container_name,
+                role=role,
+                force_remove=True,
+            )
+        except Exception as exc:
+            services.manager.log_event(
+                session,
+                "container.orphan_reconciliation_failed",
+                container_id=container.container_id,
+                container_name=container.container_name,
+                role=role,
+                classification=type(exc).__name__,
+            )
+            remaining.append(container.container_id)
+            continue
+        services.manager.log_event(
+            session,
+            "container.orphan_reconciled",
+            container_id=container.container_id,
+            container_name=container.container_name,
+            role=role,
+            removed=cleanup.removed,
+        )
+        if cleanup.succeeded and cleanup.removed:
+            result["removed_count"] = int(result["removed_count"]) + 1
+        else:
+            remaining.append(container.container_id)
+
+    result["remaining_count"] = len(remaining)
+    if remaining:
+        result["remaining_container_ids"] = remaining
+    return result
+
+
 def prepare_compile_session_impl(
     *,
     thread_id: str,
@@ -309,17 +454,56 @@ def prepare_compile_session_impl(
     run_id: str | None = None,
 ) -> CompileSession:
     services = get_compile_services()
+    orphan_reconciliation = reconcile_orphaned_compile_containers_impl()
     active = get_active_experiment(thread_id)
     if active is not None:
         if repo_url.rstrip("/") != active.policy.expected_repo_url.rstrip("/"):
             raise EvidenceError("Compile repository does not match the active benchmark case")
-    session_id = uuid.uuid4().hex[:12]
-    with services.manager.session_lock(thread_id, session_id):
+    resolved_run_id = run_id or f"unscoped-{uuid.uuid4().hex}"
+    normalized_repo_url = repo_url.rstrip("/")
+    normalized_branch = branch or None
+    resolved_image = services.manager.default_image
+    with services.manager.run_lock(thread_id, resolved_run_id):
+        active_sessions = services.manager.list_active_run_sessions(thread_id, resolved_run_id)
+        if len(active_sessions) > 1:
+            raise CompileSessionConflictError(
+                "multiple_active_sessions",
+                "Multiple active compile sessions already exist for this run.",
+            )
+        if active_sessions:
+            active_session = active_sessions[0]
+            active_identity = (
+                active_session.repo_url.rstrip("/"),
+                active_session.branch or None,
+                active_session.image,
+            )
+            requested_identity = (normalized_repo_url, normalized_branch, resolved_image)
+            if active_identity != requested_identity:
+                raise CompileSessionConflictError(
+                    "active_session_conflict",
+                    "This run already owns an active compile session for a different repository, branch, or image.",
+                )
+            if owner_id is not None and active_session.owner_subagent_id is None:
+                active_session.owner_subagent_id = owner_id
+            if task_description and not active_session.summary:
+                active_session.summary = task_description
+            services.manager.save_session(active_session)
+            services.manager.log_event(
+                active_session,
+                "session.resumed",
+                run_id=resolved_run_id,
+                container_id=active_session.container_id,
+                container_name=active_session.container_name,
+                orphan_reconciliation=orphan_reconciliation,
+            )
+            return active_session
+
+        session_id = uuid.uuid4().hex[:12]
         session = services.manager.create_session(
             thread_id=thread_id,
             repo_url=repo_url,
             branch=branch,
-            run_id=run_id,
+            run_id=resolved_run_id,
             session_id=session_id,
         )
         session.owner_subagent_id = owner_id
@@ -331,31 +515,40 @@ def prepare_compile_session_impl(
             "prepare.started",
             owner_id=owner_id,
             task_description=task_description,
+            orphan_reconciliation=orphan_reconciliation,
         )
-        services.runtime.create_container(session)
-        if active is not None:
-            if session.image != active.policy.compile_image or session.image_id != active.policy.image_id:
-                services.runtime.stop_and_remove_container(session)
-                raise EvidenceError("Compile container identity does not match the active benchmark policy")
-            record_experiment_event(
-                thread_id,
-                "session.bound",
-                session_id=session.session_id,
-                repo_url=session.repo_url,
-                image=session.image,
+        try:
+            services.runtime.create_container(session)
+            if active is not None:
+                if session.image != active.policy.compile_image or session.image_id != active.policy.image_id:
+                    services.runtime.stop_and_remove_container(session)
+                    raise EvidenceError("Compile container identity does not match the active benchmark policy")
+                record_experiment_event(
+                    thread_id,
+                    "session.bound",
+                    session_id=session.session_id,
+                    repo_url=session.repo_url,
+                    image=session.image,
+                    image_id=session.image_id,
+                )
+                _apply_experiment_dependencies(session)
+            services.manager.save_session(session)
+            services.manager.mark_session_status(session, "ready")
+            services.manager.log_event(
+                session,
+                "prepare.completed",
+                container_id=session.container_id,
+                container_name=session.container_name,
                 image_id=session.image_id,
             )
-            _apply_experiment_dependencies(session)
-        services.manager.save_session(session)
-        services.manager.mark_session_status(session, "ready")
-        services.manager.log_event(
-            session,
-            "prepare.completed",
-            container_id=session.container_id,
-            container_name=session.container_name,
-            image_id=session.image_id,
-        )
-        return session
+            return session
+        except BaseException as exc:
+            try:
+                services.runtime.stop_and_remove_container(session)
+            except Exception:
+                pass
+            services.manager.mark_session_status(session, "failed", error=str(exc))
+            raise
 
 
 def prepare_compile_session_json(
@@ -1248,18 +1441,6 @@ def infer_command_role(command: str) -> str | None:
     return None
 
 
-def resolve_command_role(command: str, declared_role: str | None) -> tuple[str, str | None]:
-    """Resolve a model-declared role against deterministic command evidence."""
-
-    declared = allowed_command_role(declared_role)
-    inferred = infer_command_role(command)
-    if inferred is not None:
-        return inferred, inferred
-    if declared in {"configure", "build", "artifact_stage"}:
-        return "other", None
-    return declared, None
-
-
 def validate_experiment_build_arguments(
     session: CompileSession,
     command: str,
@@ -1451,7 +1632,8 @@ def _apply_experiment_replay_delay(session: CompileSession) -> None:
 def submit_build_result_impl(
     *,
     session: CompileSession,
-    supporting_command_id: str | None = None,
+    supporting_command_id: str,
+    recipe_command_ids: list[str],
 ) -> str:
     enforce_experiment_attempt_budget(
         session.thread_id,
@@ -1486,12 +1668,14 @@ def submit_build_result_impl(
         log_path=summary_log_path,
         submit_attempt_id=submit_attempt_id,
         supporting_command_id=supporting_command_id,
+        recipe_command_ids=recipe_command_ids,
     )
     record_experiment_event(
         session.thread_id,
         "submit.started",
         submit_attempt_id=submit_attempt_id,
         supporting_command_id=supporting_command_id,
+        recipe_command_ids=recipe_command_ids,
         session_id=session.session_id,
         command_cutoff_before_delay=len(session.commands),
     )
@@ -1608,6 +1792,7 @@ def submit_build_result_impl(
 
     candidate_status = "failed"
     replay_attempt: ReplayVerificationResult | None = None
+    recipe_error: ReplayRecipeError | None = None
     candidate_lifecycle_fenced = False
     if artifacts and all(check.passed for check in checks):
         with services.manager.session_lock(session.thread_id, session.session_id):
@@ -1618,7 +1803,25 @@ def submit_build_result_impl(
             else:
                 session.__dict__.update(current.__dict__)
                 try:
-                    _write_repro_bundle(session)
+                    session.artifacts = list(artifacts)
+                    recipe = build_replay_recipe(
+                        session,
+                        supporting_command_id=supporting_command_id,
+                        recipe_command_ids=recipe_command_ids,
+                    )
+                    _write_repro_bundle(session, recipe)
+                except ReplayRecipeError as exc:
+                    recipe_error = exc
+                    message = f"Error: Verification failed. Could not generate a commit-pinned replay bundle: {exc}"
+                    notes.append(message)
+                    _record_submit_check(
+                        checks=checks,
+                        name="repro_bundle",
+                        target="repro/build.sh",
+                        passed=False,
+                        summary=message,
+                        actual=exc.classification,
+                    )
                 except (OSError, ValueError) as exc:
                     message = f"Error: Verification failed. Could not generate a commit-pinned replay bundle: {exc}"
                     notes.append(message)
@@ -1639,6 +1842,7 @@ def submit_build_result_impl(
                         summary="Generated a commit-pinned replay script from successful container commands.",
                     )
                     current.artifacts = list(artifacts)
+                    current.replay_recipe = recipe
                     current.verification = VerificationResult(
                         status="candidate_ready",
                         checks=list(checks),
@@ -1721,6 +1925,9 @@ def submit_build_result_impl(
         "replay_attempt_id": replay_attempt.attempt_id if replay_attempt else None,
         "submit_attempt_id": submit_attempt_id,
         "supporting_command_id": supporting_command_id,
+        "recipe_command_ids": recipe_command_ids,
+        "classification": recipe_error.classification if recipe_error is not None else None,
+        "offending_command_id": recipe_error.offending_command_id if recipe_error is not None else None,
         "image_id": session.image_id,
         "artifact_count": len(artifacts),
         "artifacts": [
@@ -1749,6 +1956,9 @@ def submit_build_result_impl(
         replay_attempt_id=replay_attempt.attempt_id if replay_attempt else None,
         submit_attempt_id=submit_attempt_id,
         supporting_command_id=supporting_command_id,
+        recipe_command_ids=recipe_command_ids,
+        classification=recipe_error.classification if recipe_error is not None else None,
+        offending_command_id=recipe_error.offending_command_id if recipe_error is not None else None,
     )
     supporting_command = next(
         (command for command in session.commands if command.command_id == supporting_command_id),
@@ -1789,7 +1999,9 @@ def submit_build_result_impl(
         },
     )
     if status != "passed":
-        primary_classification = replay_attempt.primary_failure_classification if replay_attempt is not None else (constraint_failures[0] if constraint_failures else "candidate_verification_failed")
+        primary_classification = (
+            replay_attempt.primary_failure_classification if replay_attempt is not None else recipe_error.classification if recipe_error is not None else constraint_failures[0] if constraint_failures else "candidate_verification_failed"
+        )
         record_experiment_event(
             session.thread_id,
             "failure.recorded",
@@ -1870,7 +2082,143 @@ def _validate_replay_repo_url(repo_url: str) -> None:
         raise ValueError("A remote repo_url is required to generate a replay bundle.")
 
 
-def _write_repro_bundle(session: CompileSession) -> Path:
+_REPLAY_RECIPE_ROLES = {"dependency", "dependency_setup", "configure", "build", "artifact_stage"}
+
+
+def build_replay_recipe(
+    session: CompileSession,
+    *,
+    supporting_command_id: str,
+    recipe_command_ids: list[str],
+) -> ReplayRecipe:
+    if not recipe_command_ids:
+        raise ReplayRecipeError("recipe_empty", "Replay recipe must contain explicit command IDs.")
+
+    seen: set[str] = set()
+    command_positions: dict[str, list[int]] = {}
+    for index, command in enumerate(session.commands):
+        command_positions.setdefault(command.command_id, []).append(index)
+
+    steps: list[ReplayRecipeStep] = []
+    previous_position = -1
+    for command_id in recipe_command_ids:
+        if command_id in seen:
+            raise ReplayRecipeError(
+                "recipe_command_duplicate",
+                "Replay recipe command IDs must be unique.",
+                offending_command_id=command_id,
+            )
+        seen.add(command_id)
+        positions = command_positions.get(command_id, [])
+        if not positions:
+            raise ReplayRecipeError(
+                "recipe_command_missing",
+                "Replay recipe references a command outside this session.",
+                offending_command_id=command_id,
+            )
+        if len(positions) != 1:
+            raise ReplayRecipeError(
+                "recipe_command_ambiguous",
+                "Replay recipe references a non-unique command ID.",
+                offending_command_id=command_id,
+            )
+        position = positions[0]
+        if position <= previous_position:
+            raise ReplayRecipeError(
+                "recipe_command_out_of_order",
+                "Replay recipe commands must retain their original execution order.",
+                offending_command_id=command_id,
+            )
+        previous_position = position
+        command = session.commands[position]
+        if command.role not in _REPLAY_RECIPE_ROLES:
+            raise ReplayRecipeError(
+                "recipe_role_not_allowed",
+                "Replay recipe contains a diagnostic, smoke, or other non-build command.",
+                offending_command_id=command_id,
+            )
+        if command.exit_code != 0 or command.timed_out:
+            raise ReplayRecipeError(
+                "recipe_command_not_successful",
+                "Replay recipe commands must have completed successfully.",
+                offending_command_id=command_id,
+            )
+        try:
+            workdir = _validate_replay_workdir(command.workdir)
+            _validate_replay_command(session, command.command)
+        except ValueError as exc:
+            raise ReplayRecipeError(
+                "recipe_command_not_portable",
+                str(exc),
+                offending_command_id=command_id,
+            ) from exc
+        recipe_role = "dependency" if command.role == "dependency_setup" else command.role
+        steps.append(
+            ReplayRecipeStep(
+                command_id=command_id,
+                role=recipe_role,
+                command_sha256=_sha256_text(command.command),
+                workdir_sha256=_sha256_text(workdir),
+            )
+        )
+
+    roles = {step.role for step in steps}
+    if "build" not in roles:
+        raise ReplayRecipeError("recipe_build_missing", "Replay recipe must include a successful build command.")
+    if "artifact_stage" not in roles:
+        raise ReplayRecipeError("recipe_artifact_stage_missing", "Replay recipe must include artifact staging.")
+    if supporting_command_id not in seen:
+        raise ReplayRecipeError(
+            "supporting_command_not_in_recipe",
+            "The supporting build command must be included in the replay recipe.",
+            offending_command_id=supporting_command_id,
+        )
+    supporting = session.commands[command_positions[supporting_command_id][0]]
+    if supporting.role != "build" or supporting.exit_code != 0 or supporting.timed_out:
+        raise ReplayRecipeError(
+            "supporting_command_invalid",
+            "The supporting command must be a successful build command.",
+            offending_command_id=supporting_command_id,
+        )
+    if session.post_build_supporting_command_id and session.post_build_supporting_command_id != supporting_command_id:
+        raise ReplayRecipeError(
+            "supporting_command_superseded",
+            "The selected supporting command is not the build associated with the staged candidate.",
+            offending_command_id=supporting_command_id,
+        )
+
+    fingerprint_payload = {
+        "commit_sha": session.commit_sha,
+        "image_id": session.image_id,
+        "supporting_command_id": supporting_command_id,
+        "artifacts": [
+            {
+                "path": artifact.path,
+                "artifact_type": artifact.artifact_type,
+                "size_bytes": artifact.size_bytes,
+                "sha256": artifact.sha256,
+            }
+            for artifact in sorted(session.artifacts, key=lambda item: item.path)
+        ],
+        "steps": [
+            {
+                "command_id": step.command_id,
+                "role": step.role,
+                "command_sha256": step.command_sha256,
+                "workdir_sha256": step.workdir_sha256,
+            }
+            for step in steps
+        ],
+    }
+    fingerprint = _sha256_text(json.dumps(fingerprint_payload, sort_keys=True, separators=(",", ":")))
+    return ReplayRecipe(
+        supporting_command_id=supporting_command_id,
+        steps=steps,
+        fingerprint=fingerprint,
+    )
+
+
+def _write_repro_bundle(session: CompileSession, recipe: ReplayRecipe) -> Path:
     repro_dir = Path(session.metadata_path).parent / "repro"
     build_path = repro_dir / "build.sh"
     build_path.unlink(missing_ok=True)
@@ -1905,25 +2253,34 @@ def _write_repro_bundle(session: CompileSession) -> Path:
         ")",
         "",
     ]
-    replay_index = 0
-    for command in session.commands:
-        if command.stage != "bash" or command.exit_code != 0:
-            continue
+    commands_by_id = {command.command_id: command for command in session.commands}
+    for replay_index, step in enumerate(recipe.steps, start=1):
+        command = commands_by_id.get(step.command_id)
+        if command is None:
+            raise ReplayRecipeError(
+                "recipe_command_missing",
+                "Replay recipe command no longer exists in the session audit history.",
+                offending_command_id=step.command_id,
+            )
         workdir = _validate_replay_workdir(command.workdir)
         _validate_replay_command(session, command.command)
-        replay_index += 1
+        if _sha256_text(command.command) != step.command_sha256 or _sha256_text(workdir) != step.workdir_sha256:
+            raise ReplayRecipeError(
+                "recipe_command_changed",
+                "Replay recipe command metadata changed after validation.",
+                offending_command_id=step.command_id,
+            )
         build_lines.extend(
             [
-                f"# Successful build command {replay_index}",
+                f"# Replay step {replay_index}: {step.command_id} ({step.role})",
                 "(",
                 f"cd -- {shell_quote(workdir)}",
-                f"bash -lc {shell_quote(command.command)}",
+                "set -euo pipefail",
+                command.command,
                 ")",
                 "",
             ]
         )
-    if replay_index == 0:
-        raise ValueError("At least one successful bash command is required to generate a replay bundle.")
 
     repro_dir.mkdir(parents=True, exist_ok=True)
     temporary_path = repro_dir / f".build.sh.{uuid.uuid4().hex}.tmp"
@@ -2270,6 +2627,20 @@ def verify_clean_replay_impl(
     with services.manager.session_lock(session.thread_id, session.session_id):
         current = _load_authoritative_session(session)
         session.__dict__.update(current.__dict__)
+        if session.replay_recipe is None:
+            raise ReplayRecipeError("recipe_missing", "A validated replay recipe is required before clean replay.")
+        for previous in reversed(session.replay_attempts):
+            same_recipe = previous.recipe_fingerprint == session.replay_recipe.fingerprint
+            deterministic_failure = previous.status == "failed" and previous.cleanup_succeeded is True and previous.primary_failure_classification in _DETERMINISTIC_REPLAY_FAILURES
+            if same_recipe and (previous.status == "passed" or deterministic_failure):
+                services.manager.log_event(
+                    session,
+                    "replay.deduplicated",
+                    replay_attempt_id=previous.attempt_id,
+                    recipe_fingerprint=session.replay_recipe.fingerprint,
+                    status=previous.status,
+                )
+                return previous
         attempt = ReplayVerificationResult(
             attempt_id=attempt_id,
             status="pending",
@@ -2277,6 +2648,7 @@ def verify_clean_replay_impl(
             image_id=session.image_id or "",
             commit_sha=session.commit_sha or "",
             recipe_sha256="",
+            recipe_fingerprint=session.replay_recipe.fingerprint,
             submit_attempt_id=submit_attempt_id,
             timeout_seconds=effective_timeout,
         )
@@ -2554,7 +2926,15 @@ def _latest_replay_passed(session: CompileSession) -> bool:
         recipe_sha256 = _sha256_file(build_path)
     except OSError:
         return False
-    return latest.status == "passed" and latest.cleanup_succeeded is True and latest.image_id == session.image_id and latest.commit_sha == session.commit_sha and latest.recipe_sha256 == recipe_sha256
+    return (
+        latest.status == "passed"
+        and latest.cleanup_succeeded is True
+        and latest.image_id == session.image_id
+        and latest.commit_sha == session.commit_sha
+        and latest.recipe_sha256 == recipe_sha256
+        and session.replay_recipe is not None
+        and latest.recipe_fingerprint == session.replay_recipe.fingerprint
+    )
 
 
 def _accepted_artifacts_still_match(session: CompileSession) -> tuple[bool, dict]:
@@ -2958,22 +3338,24 @@ def finalize_unfinished_thread_sessions_impl(
     """Clean and finalize sessions left behind when a parent run exits."""
     services = get_compile_services()
     finalized: list[CompileSession] = []
-    for discovered_session in services.manager.list_sessions(thread_id):
-        if run_id is not None and discovered_session.run_id != run_id:
-            continue
-        with services.manager.session_lock(thread_id, discovered_session.session_id):
-            try:
-                session = services.manager.load_session(discovered_session.session_id, thread_id)
-            except (OSError, TypeError, ValueError, json.JSONDecodeError):
-                session = discovered_session
-            if session.finalized_at is not None or (run_id is not None and session.run_id != run_id):
+    lock_id = run_id or "__all_runs__"
+    with services.manager.run_lock(thread_id, lock_id):
+        for discovered_session in services.manager.list_sessions(thread_id):
+            if run_id is not None and discovered_session.run_id != run_id:
                 continue
-            updated, _cleanup_result = cleanup_and_finalize_compile_session_impl(
-                session=session,
-                interrupted_status=interrupted_status,
-                error=error,
-            )
-            finalized.append(updated)
+            with services.manager.session_lock(thread_id, discovered_session.session_id):
+                try:
+                    session = services.manager.load_session(discovered_session.session_id, thread_id)
+                except (OSError, TypeError, ValueError, json.JSONDecodeError):
+                    session = discovered_session
+                if session.finalized_at is not None or (run_id is not None and session.run_id != run_id):
+                    continue
+                updated, _cleanup_result = cleanup_and_finalize_compile_session_impl(
+                    session=session,
+                    interrupted_status=interrupted_status,
+                    error=error,
+                )
+                finalized.append(updated)
     return finalized
 
 

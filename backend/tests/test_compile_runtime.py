@@ -1,5 +1,6 @@
 import hashlib
 import json
+import os
 import shutil
 import subprocess
 import threading
@@ -86,14 +87,50 @@ def make_experiment_policy(
     )
 
 
-def add_replayable_build_command(session: CompileSession, command: str = "cmake --build build") -> None:
-    session.commands.append(
-        BuildCommandRecord(
-            stage="bash",
-            command=command,
-            workdir="/workspace/repo",
-            exit_code=0,
-        )
+def add_replayable_build_command(session: CompileSession, command: str = "cmake --build build") -> list[str]:
+    build_command, separator, stage_suffix = command.partition(" && cp ")
+    build_record = BuildCommandRecord(
+        stage="bash",
+        command=build_command,
+        workdir="/workspace/repo",
+        role="build",
+        exit_code=0,
+    )
+    stage_record = BuildCommandRecord(
+        stage="bash",
+        command=f"cp {stage_suffix}" if separator else "cp build/hello /artifacts/hello",
+        workdir="/workspace/repo",
+        role="artifact_stage",
+        exit_code=0,
+    )
+    session.commands.extend([build_record, stage_record])
+    session.post_build_supporting_command_id = build_record.command_id
+    return [build_record.command_id, stage_record.command_id]
+
+
+def build_explicit_recipe(session: CompileSession, recipe_command_ids: list[str] | None = None):
+    selected_ids = recipe_command_ids or [command.command_id for command in session.commands if command.role in {"dependency", "dependency_setup", "configure", "build", "artifact_stage"} and command.exit_code == 0 and not command.timed_out]
+    supporting_command_id = session.post_build_supporting_command_id or next(command.command_id for command in reversed(session.commands) if command.role == "build")
+    session.post_build_supporting_command_id = supporting_command_id
+    return operations.build_replay_recipe(
+        session,
+        supporting_command_id=supporting_command_id,
+        recipe_command_ids=selected_ids,
+    )
+
+
+def write_explicit_repro_bundle(session: CompileSession, recipe_command_ids: list[str] | None = None) -> Path:
+    recipe = build_explicit_recipe(session, recipe_command_ids)
+    session.replay_recipe = recipe
+    return _write_repro_bundle(session, recipe)
+
+
+def submit_explicit(session: CompileSession) -> str:
+    recipe = build_explicit_recipe(session)
+    return submit_build_result_impl(
+        session=session,
+        supporting_command_id=recipe.supporting_command_id,
+        recipe_command_ids=[step.command_id for step in recipe.steps],
     )
 
 
@@ -216,38 +253,6 @@ def test_inspect_build_system_rejects_failed_container_probe(tmp_path: Path, mon
     assert events[-1]["exit_code"] == 66
 
 
-@pytest.mark.parametrize(
-    ("command", "declared", "effective", "inferred"),
-    [
-        ("cmake --build build -j2", "other", "build", "build"),
-        ("make -j2", "other", "build", "build"),
-        ("ninja -C build", "other", "build", "build"),
-        ("cmake -S . -B build", "other", "configure", "configure"),
-        ("autoreconf -fi && ./configure", "other", "configure", "configure"),
-        ("cp build/libexample.a /artifacts/", "other", "artifact_stage", "artifact_stage"),
-        ("cmake --install build --prefix /artifacts", "other", "artifact_stage", "artifact_stage"),
-        ("make install DESTDIR=/artifacts", "other", "artifact_stage", "artifact_stage"),
-        ("apt-get install -y texinfo", "other", "dependency_setup", "dependency_setup"),
-        ("make -j2 && cp libexample.a /artifacts/", "other", "build", "build"),
-        ("bash -lc 'apt-get install -y texinfo && make -j2 && cp libexample.a /artifacts/'", "other", "build", "build"),
-        ("make clean && cp old.a /artifacts/", "other", "artifact_stage", "artifact_stage"),
-        ("make clean", "other", "other", None),
-        ("ninja -C build clean", "build", "other", None),
-        ("cmake --build build --target clean", "build", "other", None),
-        ("make clean all", "other", "build", "build"),
-        ("printf 'not a build'", "build", "other", None),
-        ("find build -type f", "smoke", "smoke", None),
-    ],
-)
-def test_command_role_is_resolved_from_server_side_evidence(
-    command: str,
-    declared: str,
-    effective: str,
-    inferred: str | None,
-) -> None:
-    assert operations.resolve_command_role(command, declared) == (effective, inferred)
-
-
 def test_compound_command_analysis_retains_every_control_plane_role() -> None:
     assert operations.infer_command_roles("apt-get install -y texinfo && make -j2 && cp lib.a /artifacts/") == {
         "dependency_setup",
@@ -265,7 +270,7 @@ def test_compound_command_analysis_retains_every_control_plane_role() -> None:
     }
 
 
-def test_successful_mislabelled_build_enters_persisted_post_build_fence(tmp_path: Path, monkeypatch) -> None:
+def test_successful_explicit_build_enters_persisted_post_build_fence(tmp_path: Path, monkeypatch) -> None:
     manager = CompileSessionManager(paths=make_test_paths(tmp_path))
     session = manager.create_session(
         thread_id="thread-post-build-fence",
@@ -292,12 +297,12 @@ def test_successful_mislabelled_build_enters_persisted_post_build_fence(tmp_path
     build_result, _message, build_record = bound_compile_tools._run_container_bash_impl(
         session=session,
         command="cmake --build build -j2",
-        command_role="other",
+        command_role="build",
     )
     rejected_result, _rejected_message, rejected_record = bound_compile_tools._run_container_bash_impl(
         session=session,
         command="cmake -S . -B build-again",
-        command_role="other",
+        command_role="configure",
     )
 
     reloaded = manager.load_session(session.session_id, session.thread_id)
@@ -387,10 +392,12 @@ def test_experiment_build_is_rejected_before_runtime_when_frozen_arguments_are_m
         configure_result, _configure_message, _configure_record = bound_compile_tools._run_container_bash_impl(
             session=session,
             command=configure_command,
+            command_role="configure",
         )
         build_result, build_message, build_record = bound_compile_tools._run_container_bash_impl(
             session=session,
             command=build_command,
+            command_role="build",
         )
     finally:
         deactivate_experiment(thread_id)
@@ -803,7 +810,6 @@ def make_replay_ready_session(tmp_path: Path, *, commands: list[BuildCommandReco
         add_replayable_build_command(session, "cmake --build build && cp build/hello /artifacts/hello")
     else:
         session.commands = commands
-    _write_repro_bundle(session)
     artifact_path = Path(session.leadagent_artifacts_dir) / "hello"
     write_elf(artifact_path, 2)
     artifact_bytes = artifact_path.read_bytes()
@@ -820,6 +826,8 @@ def make_replay_ready_session(tmp_path: Path, *, commands: list[BuildCommandReco
             smoke_output_sha256=hashlib.sha256(b"Hello Matt!\n").hexdigest(),
         )
     ]
+    session.replay_recipe = build_explicit_recipe(session)
+    _write_repro_bundle(session, session.replay_recipe)
     session.verification = VerificationResult(status="candidate_ready", artifact_count=1)
     manager.save_session(session)
     return manager, session
@@ -1986,42 +1994,49 @@ def test_repro_bundle_pins_commit_and_renders_only_successful_bash_commands(tmp_
             stage="bash",
             command="cmake -S . -B 'build dir'",
             workdir="/workspace/repo",
+            role="configure",
             exit_code=0,
         ),
         BuildCommandRecord(
             stage="bash",
             command="cmake --build broken",
             workdir="/workspace/repo",
+            role="build",
             exit_code=1,
         ),
         BuildCommandRecord(
             stage="bash",
             command="cmake --build timed-out",
             workdir="/workspace/repo",
+            role="build",
             exit_code=124,
         ),
         BuildCommandRecord(
             stage="bash",
             command="cmake --build unfinished",
             workdir="/workspace/repo",
+            role="build",
             exit_code=None,
         ),
         BuildCommandRecord(
             stage="inspect",
             command="echo inspect-only",
             workdir="/workspace/repo",
+            role="diagnostic",
             exit_code=0,
         ),
         BuildCommandRecord(
             stage="bash",
-            command="cmake --build . && cp hello /artifacts/hello",
+            command="cmake --build .",
             workdir="/workspace/repo/build dir",
+            role="build",
             exit_code=0,
         ),
         BuildCommandRecord(
             stage="bash",
-            command="test -f hello",
-            workdir="/artifacts",
+            command="cp hello /artifacts/hello",
+            workdir="/workspace/repo/build dir",
+            role="artifact_stage",
             exit_code=0,
         ),
         BuildCommandRecord(
@@ -2031,8 +2046,12 @@ def test_repro_bundle_pins_commit_and_renders_only_successful_bash_commands(tmp_
             exit_code=0,
         ),
     ]
+    session.post_build_supporting_command_id = session.commands[6].command_id
 
-    build_path = _write_repro_bundle(session)
+    build_path = write_explicit_repro_bundle(
+        session,
+        [session.commands[index].command_id for index in (1, 6, 7)],
+    )
     script = build_path.read_text(encoding="utf-8")
 
     assert f"REPO_URL={operations.shell_quote(session.repo_url)}" in script
@@ -2043,11 +2062,10 @@ def test_repro_bundle_pins_commit_and_renders_only_successful_bash_commands(tmp_
     assert 'find "$ARTIFACTS_DIR" -mindepth 1 -maxdepth 1 -exec rm -rf -- {} +' in script
     assert 'git init --quiet "$REPO_DIR"' in script
     assert 'git config --global --add safe.directory "$REPO_DIR"' in script
-    assert f"bash -lc {operations.shell_quote("cmake -S . -B 'build dir'")}" in script
+    assert "cmake -S . -B 'build dir'" in script
     assert "cd -- '/workspace/repo/build dir'" in script
-    assert f"bash -lc {operations.shell_quote('cmake --build . && cp hello /artifacts/hello')}" in script
-    assert "cd -- /artifacts" in script
-    assert "bash -lc 'test -f hello'" in script
+    assert "cmake --build ." in script
+    assert "cp hello /artifacts/hello" in script
     assert "cmake --build broken" not in script
     assert "cmake --build timed-out" not in script
     assert "cmake --build unfinished" not in script
@@ -2056,7 +2074,8 @@ def test_repro_bundle_pins_commit_and_renders_only_successful_bash_commands(tmp_
     assert "moving.example" not in script
     assert session.session_id not in script
     assert ".compile-sessions" not in script
-    subprocess.run(["bash", "-n", str(build_path)], check=True, capture_output=True)
+    if os.name != "nt":
+        subprocess.run(["bash", "-n", str(build_path)], check=True, capture_output=True)
 
 
 @pytest.mark.parametrize(
@@ -2077,12 +2096,15 @@ def test_repro_bundle_rejects_non_container_workdir(tmp_path: Path, workdir: str
             stage="bash",
             command="cmake --build .",
             workdir=workdir,
+            role="build",
             exit_code=0,
         )
     ]
+    session.commands.append(BuildCommandRecord(stage="bash", command="cp app /artifacts/app", workdir="/workspace/repo", role="artifact_stage", exit_code=0))
+    session.post_build_supporting_command_id = session.commands[0].command_id
 
     with pytest.raises(ValueError, match="replay workdir"):
-        _write_repro_bundle(session)
+        build_explicit_recipe(session)
 
 
 @pytest.mark.parametrize(
@@ -2104,23 +2126,28 @@ def test_repro_bundle_rejects_host_path_in_command(tmp_path: Path, command: str)
             stage="bash",
             command=command,
             workdir="/workspace/repo",
+            role="build",
             exit_code=0,
         )
     ]
+    session.commands.append(BuildCommandRecord(stage="bash", command="cp app /artifacts/app", workdir="/workspace/repo", role="artifact_stage", exit_code=0))
+    session.post_build_supporting_command_id = session.commands[0].command_id
 
     with pytest.raises(ValueError, match="replay command"):
-        _write_repro_bundle(session)
+        build_explicit_recipe(session)
 
 
 def test_repro_bundle_requires_commit_sha(tmp_path: Path):
     manager = CompileSessionManager(paths=make_test_paths(tmp_path))
     session = manager.create_session(thread_id="thread-repro-commit", repo_url="https://example.com/repo.git")
+    add_replayable_build_command(session)
+    recipe = build_explicit_recipe(session)
 
     with pytest.raises(ValueError, match="commit_sha"):
-        _write_repro_bundle(session)
+        _write_repro_bundle(session, recipe)
 
 
-def test_repro_bundle_rejects_empty_successful_recipe_and_removes_stale_script(tmp_path: Path):
+def test_repro_bundle_rejects_empty_explicit_recipe_without_replacing_existing_script(tmp_path: Path):
     manager = CompileSessionManager(paths=make_test_paths(tmp_path))
     session = manager.create_session(thread_id="thread-empty-repro", repo_url="https://example.com/repo.git")
     session.commit_sha = "a" * 40
@@ -2128,10 +2155,10 @@ def test_repro_bundle_rejects_empty_successful_recipe_and_removes_stale_script(t
     build_path.parent.mkdir(parents=True, exist_ok=True)
     build_path.write_text("stale unsafe replay\n", encoding="utf-8")
 
-    with pytest.raises(ValueError, match="successful bash command"):
-        _write_repro_bundle(session)
+    with pytest.raises(operations.ReplayRecipeError, match="explicit command IDs"):
+        operations.build_replay_recipe(session, supporting_command_id="missing", recipe_command_ids=[])
 
-    assert not build_path.exists()
+    assert build_path.read_text(encoding="utf-8") == "stale unsafe replay\n"
 
 
 @pytest.mark.parametrize(
@@ -2147,7 +2174,7 @@ def test_repro_bundle_normalizes_commit_sha_and_selects_git_object_format(tmp_pa
     session.commit_sha = commit_sha
     add_replayable_build_command(session)
 
-    script = _write_repro_bundle(session).read_text(encoding="utf-8")
+    script = write_explicit_repro_bundle(session).read_text(encoding="utf-8")
 
     assert f"COMMIT_SHA={commit_sha.lower()}" in script
     assert expected_init in script
@@ -2165,9 +2192,11 @@ def test_repro_bundle_rejects_invalid_commit_sha(tmp_path: Path, commit_sha: str
     manager = CompileSessionManager(paths=make_test_paths(tmp_path))
     session = manager.create_session(thread_id="thread-invalid-commit", repo_url="https://example.com/repo.git")
     session.commit_sha = commit_sha
+    add_replayable_build_command(session)
+    recipe = build_explicit_recipe(session)
 
     with pytest.raises(ValueError, match="commit_sha"):
-        _write_repro_bundle(session)
+        _write_repro_bundle(session, recipe)
 
 
 @pytest.mark.parametrize(
@@ -2187,14 +2216,17 @@ def test_repro_bundle_rejects_credentialed_or_local_repo_url(tmp_path: Path, rep
     manager = CompileSessionManager(paths=make_test_paths(tmp_path))
     session = manager.create_session(thread_id="thread-invalid-repo-url", repo_url=repo_url)
     session.commit_sha = "a" * 40
+    add_replayable_build_command(session)
+    recipe = build_explicit_recipe(session)
 
     with pytest.raises(ValueError, match="repo_url"):
-        _write_repro_bundle(session)
+        _write_repro_bundle(session, recipe)
 
 
 def test_submit_rejects_artifact_when_repro_bundle_is_not_commit_pinned(tmp_path: Path, monkeypatch):
     manager = CompileSessionManager(paths=make_test_paths(tmp_path))
     session = manager.create_session(thread_id="thread-unpinned-repro", repo_url="https://example.com/repo.git")
+    add_replayable_build_command(session)
     write_elf(Path(session.leadagent_artifacts_dir) / "hello", 2)
 
     def fake_exec(*args, **kwargs):
@@ -2202,7 +2234,7 @@ def test_submit_rejects_artifact_when_repro_bundle_is_not_commit_pinned(tmp_path
 
     monkeypatch.setattr(operations, "_services", CompileOperationsServices(manager=manager, runtime=SimpleNamespace(exec=fake_exec)))
 
-    payload = json.loads(submit_build_result_impl(session=session))
+    payload = json.loads(submit_explicit(session))
 
     assert payload["status"] == "failed"
     assert "replay bundle" in payload["message"].lower()
@@ -2225,7 +2257,7 @@ def test_submit_rejects_executable_mode_text_without_running_it(tmp_path: Path, 
 
     monkeypatch.setattr(operations, "_services", CompileOperationsServices(manager=manager, runtime=SimpleNamespace(exec=fail_exec)))
 
-    payload = json.loads(submit_build_result_impl(session=session))
+    payload = json.loads(submit_build_result_impl(session=session, supporting_command_id="missing", recipe_command_ids=["missing"]))
 
     assert payload["status"] == "failed"
     assert payload["artifact_count"] == 0
@@ -2237,14 +2269,17 @@ def test_submit_rejects_symlinked_system_executable_without_running_it(tmp_path:
     manager = CompileSessionManager(paths=make_test_paths(tmp_path))
     session = manager.create_session(thread_id="thread-symlink-artifact", repo_url="https://example.com/repo.git")
     symlink = Path(session.leadagent_artifacts_dir) / "fake-app"
-    symlink.symlink_to("/bin/true")
+    try:
+        symlink.symlink_to("/bin/true")
+    except OSError:
+        pytest.skip("creating symlinks requires additional privileges on this platform")
 
     def fail_exec(*args, **kwargs):
         raise AssertionError("Symlinked artifacts must not be executed")
 
     monkeypatch.setattr(operations, "_services", CompileOperationsServices(manager=manager, runtime=SimpleNamespace(exec=fail_exec)))
 
-    payload = json.loads(submit_build_result_impl(session=session))
+    payload = json.loads(submit_build_result_impl(session=session, supporting_command_id="missing", recipe_command_ids=["missing"]))
 
     assert payload["status"] == "failed"
     assert payload["artifact_count"] == 0
@@ -2273,7 +2308,7 @@ def test_submit_smokes_only_elf_executable_and_ignores_text(tmp_path: Path, monk
     install_passed_replay_stub(monkeypatch)
     monkeypatch.setattr(operations, "_services", CompileOperationsServices(manager=manager, runtime=SimpleNamespace(exec=fake_exec)))
 
-    payload = json.loads(submit_build_result_impl(session=session))
+    payload = json.loads(submit_explicit(session))
 
     assert payload["status"] == "passed"
     assert payload["artifact_count"] == 1
@@ -2314,7 +2349,7 @@ def test_submit_accepts_non_executable_compiled_outputs_without_smoke(tmp_path: 
     install_passed_replay_stub(monkeypatch)
     monkeypatch.setattr(operations, "_services", CompileOperationsServices(manager=manager, runtime=SimpleNamespace(exec=fail_exec)))
 
-    payload = json.loads(submit_build_result_impl(session=session))
+    payload = json.loads(submit_explicit(session))
 
     assert payload["status"] == "passed"
     assert payload["artifacts"][0]["artifact_type"] == expected_type
@@ -2350,9 +2385,15 @@ def test_submit_resuming_after_parent_finalization_cannot_create_replay_or_overw
 
     runtime = GatedSubmitRuntime(manager)
     monkeypatch.setattr(operations, "_services", CompileOperationsServices(manager=manager, runtime=runtime))
+    recipe = build_explicit_recipe(session)
 
     with ThreadPoolExecutor(max_workers=1) as pool:
-        future = pool.submit(submit_build_result_impl, session=session)
+        future = pool.submit(
+            submit_build_result_impl,
+            session=session,
+            supporting_command_id=recipe.supporting_command_id,
+            recipe_command_ids=[step.command_id for step in recipe.steps],
+        )
         try:
             assert entered.wait(5)
             parent_session = manager.load_session(session.session_id, session.thread_id)
@@ -2460,15 +2501,24 @@ def test_clean_replay_rejects_recipe_that_depends_on_failed_command_side_effect(
         stage="bash",
         command="cmake -S . -B build && false",
         workdir="/workspace/repo",
+        role="configure",
         exit_code=1,
     )
     successful_build = BuildCommandRecord(
         stage="bash",
-        command="cmake --build build && cp build/hello /artifacts/hello",
+        command="cmake --build build",
         workdir="/workspace/repo",
+        role="build",
         exit_code=0,
     )
-    manager, session = make_replay_ready_session(tmp_path, commands=[failed_configure, successful_build])
+    artifact_stage = BuildCommandRecord(
+        stage="bash",
+        command="cp build/hello /artifacts/hello",
+        workdir="/workspace/repo",
+        role="artifact_stage",
+        exit_code=0,
+    )
+    manager, session = make_replay_ready_session(tmp_path, commands=[failed_configure, successful_build, artifact_stage])
     original_history = [record.__dict__.copy() for record in session.commands]
     script = (Path(session.leadagent_repro_dir) / "build.sh").read_text(encoding="utf-8")
     assert failed_configure.command not in script

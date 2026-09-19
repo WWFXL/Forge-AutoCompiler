@@ -1,10 +1,12 @@
 from __future__ import annotations
 
 import json
+import re
 import subprocess
 import time
 from collections import deque
 from pathlib import Path
+from typing import Literal
 
 from langchain.tools import tool
 
@@ -13,15 +15,20 @@ from deerflow.compile.operations import (
     get_bound_session,
     get_compile_services,
     infer_command_roles,
-    resolve_command_role,
     submit_build_result_impl,
     validate_experiment_build_arguments,
 )
-from deerflow.compile.schemas import BuildCommandRecord, CommandResult, CompileSession, utc_now_iso
+from deerflow.compile.schemas import COMPILE_COMMAND_ROLES, BuildCommandRecord, CommandResult, CompileSession, utc_now_iso
+
+CompileCommandRole = Literal["dependency", "configure", "build", "diagnostic", "smoke", "artifact_stage"]
 
 _MAX_OUTPUT_LINES = 50
 _MAX_POST_BUILD_NON_STAGING_COMMANDS = 2
 _POLICY_REJECTED_EXIT_CODE = 126
+_STRICT_SHELL_DISABLE_PATTERNS = (
+    re.compile(r"(?:^|[;&|()\n]\s*)set\s+\+[a-zA-Z]*[eu][a-zA-Z]*(?=\s|[;&|()]|$)"),
+    re.compile(r"(?:^|[;&|()\n]\s*)set\s+\+o\s+(?:errexit|nounset|pipefail)(?=\s|[;&|()]|$)"),
+)
 _POST_BUILD_FORBIDDEN_ROLES = {
     "clone",
     "inspect",
@@ -38,6 +45,16 @@ def _truncate_output_tail(output: str, max_lines: int = _MAX_OUTPUT_LINES) -> st
         return ""
     tail = deque(output.splitlines(), maxlen=max_lines)
     return "\n".join(tail)
+
+
+def _disables_strict_shell(command: str) -> bool:
+    return any(pattern.search(command) is not None for pattern in _STRICT_SHELL_DISABLE_PATTERNS)
+
+
+def _write_policy_rejection_log(log_path: str, rejection: str) -> None:
+    path = Path(log_path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(rejection.rstrip() + "\n", encoding="utf-8")
 
 
 def _build_timeout_message(command: str, timeout_seconds: int) -> str:
@@ -159,29 +176,20 @@ def _consume_post_build_budget(session: CompileSession, *, command_role: str) ->
         session.__dict__.update(current.__dict__)
 
 
-def _has_staged_artifacts(session: CompileSession) -> bool:
-    artifacts_dir = Path(session.leadagent_artifacts_dir)
-    if not artifacts_dir.is_dir():
-        return False
-    return any(path.is_file() and not path.is_symlink() for path in artifacts_dir.rglob("*"))
-
-
 def _submit_with_post_build_phase(
     session: CompileSession,
     *,
-    supporting_command_id: str | None = None,
+    supporting_command_id: str,
+    recipe_command_ids: list[str],
 ) -> str:
     _reload_session(session)
-    supporting_command_id = supporting_command_id or session.post_build_supporting_command_id
     had_post_build_phase = session.post_build_supporting_command_id is not None
     try:
-        if supporting_command_id is None:
-            result = submit_build_result_impl(session=session)
-        else:
-            result = submit_build_result_impl(
-                session=session,
-                supporting_command_id=supporting_command_id,
-            )
+        result = submit_build_result_impl(
+            session=session,
+            supporting_command_id=supporting_command_id,
+            recipe_command_ids=recipe_command_ids,
+        )
     except Exception:
         if had_post_build_phase:
             _clear_post_build_phase(session, reason="submit_error")
@@ -197,56 +205,24 @@ def _submit_with_post_build_phase(
     return result
 
 
-def _maybe_submit_staged_artifacts(
-    *,
-    session: CompileSession,
-    result: CommandResult,
-    message: str,
-    record: BuildCommandRecord,
-) -> str:
-    if result.exit_code != 0 or record.role not in {"artifact_stage", "build"}:
-        return message
-    _reload_session(session)
-    supporting_command_id = session.post_build_supporting_command_id
-    if supporting_command_id is None or not _has_staged_artifacts(session):
-        return message
-    submit_result = _submit_with_post_build_phase(
-        session,
-        supporting_command_id=supporting_command_id,
-    )
-    try:
-        submit_payload = json.loads(submit_result)
-    except (TypeError, json.JSONDecodeError):
-        return message
-    return json.dumps(
-        {
-            "command": {
-                "command_id": record.command_id,
-                "command_role": record.role,
-                "exit_code": result.exit_code,
-                "message": message,
-            },
-            "automatic_submit": submit_payload,
-        },
-        ensure_ascii=False,
-        indent=2,
-    )
-
-
 def _run_container_bash_impl(
     *,
     session: CompileSession,
     command: str,
     timeout_seconds: int = 1200,
     workdir: str | None = None,
-    command_role: str = "other",
+    command_role: CompileCommandRole,
 ) -> tuple[CommandResult, str, BuildCommandRecord]:
     services = get_compile_services()
     effective_workdir = workdir or "/workspace/repo"
+    if command_role not in COMPILE_COMMAND_ROLES:
+        raise ValueError(f"Unsupported compile command role: {command_role!r}")
     declared_role = allowed_command_role(command_role)
-    effective_role, inferred_role = resolve_command_role(command, declared_role)
+    inferred_roles = infer_command_roles(command)
+    inferred_role = next(iter(sorted(inferred_roles)), None)
+    effective_role = declared_role
     command_id = new_evidence_id("command")
-    log_path = str(services.manager.local_logs_dir(session) / f"{len(session.commands) + 1:03d}_bash.log")
+    log_path = str(services.manager.local_logs_dir(session) / f"{command_id}.log")
 
     services.manager.log_event(
         session,
@@ -257,6 +233,42 @@ def _run_container_bash_impl(
         effective_role=effective_role,
         corrected=effective_role != declared_role,
     )
+
+    if _disables_strict_shell(command):
+        rejection = "Commands may not disable errexit, nounset, or pipefail. Keep the runtime strict-shell contract enabled."
+        _write_policy_rejection_log(log_path, rejection)
+        now = utc_now_iso()
+        record = _record_bash_command(
+            session=session,
+            command=command,
+            workdir=effective_workdir,
+            started_at=now,
+            completed_at=now,
+            exit_code=_POLICY_REJECTED_EXIT_CODE,
+            log_path=log_path,
+            command_id=command_id,
+            command_role=effective_role,
+            timeout_seconds=timeout_seconds,
+            duration_seconds=0.0,
+            timed_out=False,
+            termination="policy_rejected",
+        )
+        services.manager.log_event(
+            session,
+            "command.strict_shell_rejected",
+            command_id=command_id,
+            command_role=effective_role,
+            classification="strict_shell_disabled",
+        )
+        result = CommandResult(
+            exit_code=_POLICY_REJECTED_EXIT_CODE,
+            stdout="",
+            stderr=rejection,
+            combined_output=rejection,
+            log_path=log_path,
+        )
+        message = f"command_id={command_id}\ncommand_role={effective_role}\nexit_code={_POLICY_REJECTED_EXIT_CODE} (Policy rejected)\nworkdir={effective_workdir}\nclassification=strict_shell_disabled\nerror: {rejection}"
+        return result, message, record
     record_experiment_event(
         session.thread_id,
         "command.role_resolved",
@@ -268,12 +280,51 @@ def _run_container_bash_impl(
         corrected=effective_role != declared_role,
     )
 
+    logical_roles = set(inferred_roles) & {"dependency_setup", "configure", "build", "artifact_stage", "smoke"}
+    if len(logical_roles) > 1:
+        rejection = "A run_container_bash call may execute only one logical stage. Split dependency, configure, build, smoke, and artifact staging into separate calls."
+        _write_policy_rejection_log(log_path, rejection)
+        now = utc_now_iso()
+        record = _record_bash_command(
+            session=session,
+            command=command,
+            workdir=effective_workdir,
+            started_at=now,
+            completed_at=now,
+            exit_code=_POLICY_REJECTED_EXIT_CODE,
+            log_path=log_path,
+            command_id=command_id,
+            command_role=effective_role,
+            timeout_seconds=timeout_seconds,
+            duration_seconds=0.0,
+            timed_out=False,
+            termination="policy_rejected",
+        )
+        services.manager.log_event(
+            session,
+            "command.stage_rejected",
+            command_id=command_id,
+            command_role=effective_role,
+            classification="mixed_logical_stages",
+            detected_roles=sorted(logical_roles),
+        )
+        result = CommandResult(
+            exit_code=_POLICY_REJECTED_EXIT_CODE,
+            stdout="",
+            stderr=rejection,
+            combined_output=rejection,
+            log_path=log_path,
+        )
+        message = f"command_id={command_id}\ncommand_role={effective_role}\nexit_code={_POLICY_REJECTED_EXIT_CODE} (Policy rejected)\nworkdir={effective_workdir}\nclassification=mixed_logical_stages\nerror: {rejection}"
+        return result, message, record
+
     rejection = _post_build_rejection(
         session,
         command=command,
         command_role=effective_role,
     )
     if rejection is not None:
+        _write_policy_rejection_log(log_path, rejection)
         now = utc_now_iso()
         record = _record_bash_command(
             session=session,
@@ -324,6 +375,7 @@ def _run_container_bash_impl(
         )
     if argument_failure is not None:
         rejection = "The build command was not executed because no successful configure command observed every frozen build argument in order. Correct the configure command with the experiment policy arguments, then retry the build."
+        _write_policy_rejection_log(log_path, rejection)
         now = utc_now_iso()
         record = _record_bash_command(
             session=session,
@@ -391,6 +443,7 @@ def _run_container_bash_impl(
             workdir=effective_workdir,
             timeout_seconds=timeout_seconds,
             log_path=log_path,
+            strict_shell=True,
         )
     except subprocess.TimeoutExpired as exc:
         completed_at = utc_now_iso()
@@ -461,7 +514,8 @@ def _run_container_bash_impl(
         command_id=command_id,
         command_role=effective_role,
     )
-    message = f"command_id={command_id}\ncommand_role={effective_role}\nexit_code={result.exit_code}\nworkdir={effective_workdir}\nlog_path={log_path}\noutput_tail:\n{truncated_output}"
+    container_log_path = f"/logs/{command_id}.log"
+    message = f"command_id={command_id}\ncommand_role={effective_role}\nexit_code={result.exit_code}\nworkdir={effective_workdir}\nlog_path={container_log_path}\noutput_tail:\n{truncated_output}"
     if result.exit_code == 0 and effective_role == "build":
         _set_post_build_phase(session, record.command_id)
     return result, message, record
@@ -472,9 +526,9 @@ def run_container_bash(
     session_id: str,
     thread_id: str,
     command: str,
+    command_role: CompileCommandRole,
     timeout_seconds: int = 1200,
     workdir: str | None = None,
-    command_role: str = "other",
 ) -> str:
     """Run a bash command inside a compile session container.
 
@@ -488,29 +542,25 @@ def run_container_bash(
         command: Bash command to execute inside the compile container.
         timeout_seconds: Command timeout in seconds.
         workdir: Optional absolute working directory inside the compile container.
-        command_role: Evidence role: configure, build, artifact_stage, smoke, or other.
+        command_role: One logical stage: dependency, configure, build, diagnostic, smoke, or artifact_stage.
     """
     session = get_bound_session(session_id=session_id, thread_id=thread_id)
-    result, message, record = _run_container_bash_impl(
+    _result, message, _record = _run_container_bash_impl(
         session=session,
         command=command,
         timeout_seconds=timeout_seconds,
         workdir=workdir,
         command_role=command_role,
     )
-    return _maybe_submit_staged_artifacts(
-        session=session,
-        result=result,
-        message=message,
-        record=record,
-    )
+    return message
 
 
 @tool("submit_build_result", parse_docstring=True)
 def submit_build_result(
     session_id: str,
     thread_id: str,
-    supporting_command_id: str | None = None,
+    supporting_command_id: str,
+    recipe_command_ids: list[str],
 ) -> str:
     """Submit final build artifacts from `/artifacts` for deterministic acceptance.
 
@@ -518,11 +568,13 @@ def submit_build_result(
         session_id: Compile session identifier.
         thread_id: Parent workflow thread identifier.
         supporting_command_id: Stable ID of the successful build command supporting this submission.
+        recipe_command_ids: Ordered successful command IDs forming the minimal clean-replay recipe.
     """
     session = get_bound_session(session_id=session_id, thread_id=thread_id)
     return _submit_with_post_build_phase(
         session=session,
         supporting_command_id=supporting_command_id,
+        recipe_command_ids=recipe_command_ids,
     )
 
 
@@ -530,9 +582,9 @@ def get_bound_compile_tools(session: CompileSession):
     @tool("run_container_bash", parse_docstring=True)
     def bound_run_container_bash(
         command: str,
+        command_role: CompileCommandRole,
         timeout_seconds: int = 1200,
         workdir: str | None = None,
-        command_role: str = "other",
     ) -> str:
         """Run a bash command inside the bound compile session container.
 
@@ -540,32 +592,29 @@ def get_bound_compile_tools(session: CompileSession):
             command: Bash command to execute inside the compile container.
             timeout_seconds: Command timeout in seconds.
             workdir: Optional absolute working directory inside the compile container.
-            command_role: Evidence role: configure, build, artifact_stage, smoke, or other.
+            command_role: One logical stage: dependency, configure, build, diagnostic, smoke, or artifact_stage.
         """
-        result, message, record = _run_container_bash_impl(
+        _result, message, _record = _run_container_bash_impl(
             session=session,
             command=command,
             timeout_seconds=timeout_seconds,
             workdir=workdir,
             command_role=command_role,
         )
-        return _maybe_submit_staged_artifacts(
-            session=session,
-            result=result,
-            message=message,
-            record=record,
-        )
+        return message
 
     @tool("submit_build_result", parse_docstring=True)
-    def bound_submit_build_result(supporting_command_id: str | None = None) -> str:
+    def bound_submit_build_result(supporting_command_id: str, recipe_command_ids: list[str]) -> str:
         """Submit final build artifacts from `/artifacts` for deterministic acceptance.
 
         Args:
             supporting_command_id: Stable ID of the successful build command supporting this submission.
+            recipe_command_ids: Ordered successful command IDs forming the minimal clean-replay recipe.
         """
         return _submit_with_post_build_phase(
             session=session,
             supporting_command_id=supporting_command_id,
+            recipe_command_ids=recipe_command_ids,
         )
 
     return [bound_run_container_bash, bound_submit_build_result]

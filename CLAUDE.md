@@ -88,10 +88,13 @@ Lead Agent
 ```
 
 **compiler 子代理**：只有 `run_container_bash` 和 `submit_build_result` 两个工具，被禁止使用 `task` / `ask_clarification` / `view_image` 等。它必须：
+- 每次 `run_container_bash` 显式声明 `dependency/configure/build/diagnostic/smoke/artifact_stage` 之一，一次只完成一个逻辑阶段
+- 保持运行时注入的 `set -euo pipefail`，不得用 `tail/head`、末尾 `echo`、`|| true`、`$?` 或关闭 Shell 选项来掩盖失败
 - 失败时改策略，不允许盲目重试同一条命令
 - 把最终产物 `cp`（而非 `mv`）到 `/artifacts`，不能整目录倾倒
 - 跑 CMake 项目时若装了新 apt 包必须清掉 `build/`、`CMakeCache.txt`、`CMakeFiles/` 再 reconfigure
 - 不允许自行宣告成功，必须以 `submit_build_result` 的返回为准
+- 提交时显式提供 successful build 的 `supporting_command_id`，以及最小、有序、可移植的 `recipe_command_ids`
 - 子代理返回严格 JSON：`{build_status, proceed_to_verify, verification_status, summary, artifacts[]}`
 
 **验证（`submit_build_result_impl`）**：逐文件检查
@@ -99,10 +102,10 @@ Lead Agent
 2. `non_empty`：size > 0
 3. 结构：只接受有效 ELF executable/shared library/object 或有效 `ar` static archive
 4. 若是可执行：smoke test 依次尝试 `-version` / `--version` / `--help`，任一退出 0 即通过
-5. `repro_bundle`：必须能从远端 `repo_url` 检出完整 `commit_sha`，并安全渲染成功构建步骤
+5. `repro_bundle`：必须能从远端 `repo_url` 检出完整 `commit_sha`，并只安全渲染 Compiler 显式选择的 recipe 步骤
 6. `clean_replay`：使用原容器记录的完整 `image_id`，在唯一 attempt 的空 workspace/artifacts 中执行候选脚本，并比较产物集合、类型、大小、SHA-256 和 smoke 结果
 
-两层检查全部通过 → session 状态 `verified`。`repro/build.sh` 只按记录顺序回放 `stage == "bash" && exit_code == 0` 的命令，并在各自容器 `workdir` 中独立执行；候选生成成功本身不构成验证通过。cleanup/finalize 成功后才进入 `completed`。
+两层检查全部通过 → session 状态 `verified`。`repro/build.sh` 只回放显式 recipe 中通过校验的 `dependency/configure/build/artifact_stage` 命令，并在各自容器 `workdir` 中独立执行；完整命令审计与 replay 配方彼此分离。cleanup/finalize 成功后才进入 `completed`。Runtime v2 的详细契约见 [`docs/compile_runtime_v2.md`](docs/compile_runtime_v2.md)。
 
 ### 4.3 会话目录布局（宿主机）
 
@@ -113,7 +116,7 @@ $HOST_PROJECT_ROOT/.compile-sessions/{thread_id}/{session_id}/
 ├── artifacts/               # 子代理 cp 的最终产物
 ├── logs/
 │   ├── workflow.log         # JSONL 事件流（session.created、command.recorded、…）
-│   ├── 001_clone.log        # 每条命令的 stdout+stderr 全量
+│   ├── command_<uuid>.log   # run_container_bash 的 stdout+stderr 全量
 │   └── ...
 ├── repro/build.sh           # submit 的候选 replay bundle
 └── replay/{attempt_id}/     # 每次自动 clean replay 的独立证据
@@ -133,13 +136,16 @@ $HOST_PROJECT_ROOT/.compile-sessions/{thread_id}/{session_id}/
 - **容器 network 固定 `compile_network_wwf_v1`**：若改名需同步 `RuntimeConfig.network`
 - **smoke test 仅尝试 3 个旗标**：不要随便加，会污染验证语义
 - **replay 固定完整 commit**：只接受 40/64 位十六进制 SHA 与不含持久凭据的远端 URL
-- **replay 只消费成功 bash 记录**：失败尝试、clone/inspect 与 submit 审计记录不进入脚本
+- **同 run 单活动 session**：相同 repo/branch/image 的重复 prepare 复用原 session/container；不同请求明确冲突
+- **严格 Shell 不可关闭**：`run_container_bash` 强制 `set -euo pipefail`，并拒绝显式关闭 `errexit`、`nounset` 或 `pipefail`
+- **replay 只消费显式 recipe**：只允许成功的 dependency/configure/build/artifact_stage；diagnostic、smoke、失败、超时、重复、乱序与不可移植命令不进入脚本
 - **replay workdir 只允许容器路径**：必须位于 `/workspace` 或 `/artifacts`；拒绝 Windows、WSL 宿主路径和 `.compile-sessions` 路径
 - **replay 固定原始镜像 ID**：原容器创建后记录完整 `image_id`；自动 replay 只能在同一 Docker daemon 中使用该 ID，不得重新解析 tag，也不承诺跨主机/跨架构复现
 - **replay 只能清空 attempt 专用目录**：每次创建唯一的 `replay/{attempt_id}/{recipe,workspace,artifacts,logs}`；脚本从空 `/workspace` 与 `/artifacts` 开始，严禁挂载原 session 目录
 - **候选生成不等于 clean replay 通过**：`repro_bundle` 只证明脚本安全且非空；自动 replay 还必须执行成功，并让产物集合、类型、大小、SHA-256 与 smoke 命令/退出码/有限预览/完整输出哈希全部匹配，session 才能进入 `verified`。删除原 compile container 后还要重新核对交付产物，才能进入 `completed`
 - **replay 有执行/验证 deadline**：`COMPILE_REPLAY_TIMEOUT_SECONDS` 默认 `1200` 秒，覆盖 Docker control、脚本、产物遍历/分类/哈希和 smoke；cleanup 使用独立短时限。实际时限、日志、duration、image identity 与 failure classification 必须随 attempt 持久化
 - **replay 清理有两条路径**：正常/异常返回由 `finally` 删除容器；父任务取消在 worker 停止前后都重新加载 authoritative session，并按 container name/ID 幂等删除。创建握手必须持有 session lock 且有短时限；worker 保存不得覆盖父级写入的 `cancelled`。任何路径都不能覆盖原 workspace/artifacts，也不能把模型凭据传进 replay 容器
+- **容器 ownership 必须完整**：compile/replay 容器记录 managed/role/thread/run/session labels；orphan reconciliation 只删除身份匹配且 session 已终态的容器
 - **compiler 子代理的 system prompt 是产品契约**：改它等同于改产品行为，需要同时改 `compiler_agent.py` 和对应测试
 
 ## 5. 架构约束：Harness / App 分层

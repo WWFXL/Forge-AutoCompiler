@@ -1,5 +1,6 @@
 """Terminate successful compile tool flows without another model call."""
 
+import asyncio
 import json
 from collections.abc import Awaitable, Callable, Mapping
 from typing import NotRequired, override
@@ -116,6 +117,52 @@ class CompileTerminationMiddleware(AgentMiddleware[CompileTerminationState]):
 
     state_schema = CompileTerminationState
 
+    def __init__(self, *, cleanup_run_on_end: bool = False):
+        self.cleanup_run_on_end = cleanup_run_on_end
+
+    @staticmethod
+    def _run_identity(runtime: Runtime) -> tuple[str | None, str | None]:
+        context = runtime.context or {}
+        thread_id = context.get("thread_id")
+        if thread_id is None:
+            thread_id = runtime.config.get("configurable", {}).get("thread_id")
+        run_id = context.get("run_id")
+        if run_id is None:
+            run_id = runtime.config.get("configurable", {}).get("run_id")
+        if run_id is None:
+            run_id = runtime.config.get("run_id")
+        return thread_id, str(run_id) if run_id is not None else None
+
+    @override
+    def after_agent(self, state: CompileTerminationState, runtime: Runtime) -> dict | None:
+        del state
+        if not self.cleanup_run_on_end:
+            return None
+        thread_id, run_id = self._run_identity(runtime)
+        if not thread_id or not run_id:
+            return None
+        from deerflow.compile.operations import finalize_unfinished_thread_sessions_impl
+
+        finalize_unfinished_thread_sessions_impl(thread_id=thread_id, run_id=run_id)
+        return None
+
+    @override
+    async def aafter_agent(self, state: CompileTerminationState, runtime: Runtime) -> dict | None:
+        del state
+        if not self.cleanup_run_on_end:
+            return None
+        thread_id, run_id = self._run_identity(runtime)
+        if not thread_id or not run_id:
+            return None
+        from deerflow.compile.operations import finalize_unfinished_thread_sessions_impl
+
+        await asyncio.to_thread(
+            finalize_unfinished_thread_sessions_impl,
+            thread_id=thread_id,
+            run_id=run_id,
+        )
+        return None
+
     @hook_config(can_jump_to=["end"])
     @override
     def before_model(
@@ -143,7 +190,7 @@ class CompileTerminationMiddleware(AgentMiddleware[CompileTerminationState]):
             return result
 
         tool_name = request.tool_call.get("name")
-        if tool_name not in {"run_container_bash", "submit_build_result", "finalize_session"}:
+        if tool_name not in {"submit_build_result", "finalize_session"}:
             return result
 
         try:
@@ -151,16 +198,15 @@ class CompileTerminationMiddleware(AgentMiddleware[CompileTerminationState]):
         except (TypeError, json.JSONDecodeError):
             return result
 
-        if tool_name in {"run_container_bash", "submit_build_result"}:
-            submit_payload = payload.get("automatic_submit") if tool_name == "run_container_bash" else payload
-            if not isinstance(submit_payload, dict) or submit_payload.get("status") != "passed":
+        if tool_name == "submit_build_result":
+            if payload.get("status") != "passed":
                 return result
             terminal_payload = {
                 "build_status": "success",
                 "proceed_to_verify": False,
                 "verification_status": "passed",
-                "summary": submit_payload["message"],
-                "artifacts": [artifact["path"] for artifact in submit_payload.get("artifacts", [])],
+                "summary": payload["message"],
+                "artifacts": [artifact["path"] for artifact in payload.get("artifacts", [])],
             }
             terminal_content = json.dumps(terminal_payload, ensure_ascii=False, indent=2)
         else:

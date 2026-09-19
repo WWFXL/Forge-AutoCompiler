@@ -80,18 +80,20 @@ created → ready → source_ready → inspected → (compiler 子代理执行) 
 `session.commands` 是完整的命令审计轨迹。clone、inspect 和 `run_container_bash` 等阶段会记录：
 
 - 记录到 `session.commands`（持久化到 `session.json`）
-- 写一份完整 stdout+stderr 到独立 log（命名 `{index:03d}_{stage}.log`）
+- 写一份完整 stdout+stderr 到独立 log；`run_container_bash` 使用稳定的 `{command_id}.log`，并发命令不会共享文件
 - `workflow.log` 写一条 `command.recorded` JSONL 事件
 
 `submit_build_result` 是验证/审计事件：它写 `submit.*` 事件、summary log 和 verification checks，但不伪装成 shell command 写入 `session.commands`。
 
-成功 submit 时生成 `repro/build.sh`。生成器只消费 `stage == "bash" && exit_code == 0` 的记录，保持顺序与各自容器 `workdir`，并用独立 `bash -lc` 执行。clone/inspect、失败或超时尝试以及 submit 审计均不进入 replay。
+成功 submit 时生成 `repro/build.sh`。Compiler 必须显式提交 `supporting_command_id` 和有序 `recipe_command_ids`；生成器只消费 recipe 中通过校验的成功 dependency/configure/build/artifact_stage 记录。clone/inspect、diagnostic、smoke、失败或超时尝试以及 submit 审计均不进入 replay。
 
 需要进入 replay 的构建步骤必须通过 `run_container_bash` 执行；`workdir` 必须是 `/workspace` 或 `/artifacts` 下的绝对容器路径。生成器还要求完整 40/64 位 commit SHA、无持久凭据的远端 URL，并拒绝 Windows/WSL 宿主路径、`.compile-sessions` 路径和 session 标识。修改过滤或安全规则时必须同步 `tests/test_compile_runtime.py`。
 
 `repro_bundle` verification check 只证明候选脚本可安全生成且非空。随后 `submit_build_result` 自动用 session 保存的完整 `image_id` 创建唯一 `replay/<attempt_id>/`，把候选脚本复制到只读 recipe mount，并从空 workspace/artifacts 执行。原容器的 tag 仅作说明，replay 不得重新解析它；`image_id` 只保证同一 Docker daemon 内的精确镜像身份。
 
 provider canary 的任务提示要求编译子代理只使用 `/workspace/repo`、`/artifacts` 等容器路径，并禁止检查 `.compile-sessions`、session/线程根目录或宿主机路径，避免诊断命令污染 replay recipe。
+
+`run_container_bash` 的 `command_role` 是必填枚举，一次调用只能表示一个逻辑阶段。执行器注入 `set -euo pipefail`，工具层拒绝显式关闭严格选项和可确定的混合阶段；完整规则及 run/session/container ownership 见 [`docs/compile_runtime_v2.md`](../docs/compile_runtime_v2.md)。
 
 每个 replay attempt 独立持久化实际 timeout、执行日志、duration、image identity、failure classification，以及原始/replay 产物的相对路径集合、类型、大小、SHA-256、smoke 命令、退出码、有限预览和完整输出 SHA-256。只有执行、全部比较和容器清理均成功才能把 session 标为 `verified`；删除原 compile container 后还要重新核对最终产物集合、类型、大小和 SHA-256，才能标为 `completed`。执行/验证 deadline 来自 `COMPILE_REPLAY_TIMEOUT_SECONDS`（默认 `1200` 秒），覆盖 Docker control 与本地 artifact 工作；cleanup 使用独立短时限。创建握手必须在 session lock 内完成，父任务取消在 worker 停止前后都要重新加载并按 name/ID 幂等清理，worker 不得用 stale session 覆盖 `cancelled`。Replay 目录不得与原 workspace/artifacts 重合，容器不得继承模型凭据。
 

@@ -34,7 +34,9 @@ def _get_run_id(runtime: ToolRuntime[ContextT, ThreadState]) -> str | None:
     run_id = runtime.context.get("run_id") if runtime.context else None
     if run_id is None:
         run_id = runtime.config.get("configurable", {}).get("run_id")
-    return run_id
+    if run_id is None:
+        run_id = runtime.config.get("run_id")
+    return str(run_id) if run_id is not None else None
 
 
 def _get_state_value(runtime: ToolRuntime[ContextT, ThreadState], key: str) -> str | None:
@@ -130,11 +132,14 @@ def prepare_compile_session(
         repo_url: Git repository URL to compile.
         branch: Optional branch associated with the repository.
     """
+    run_id = _get_run_id(runtime)
+    if not run_id:
+        raise RuntimeError("Missing run_id; refusing to create an unowned compile session.")
     session = prepare_compile_session_impl(
         thread_id=_get_thread_id(runtime),
         repo_url=repo_url,
         branch=branch,
-        run_id=_get_run_id(runtime),
+        run_id=run_id,
     )
     message = f"Compile session prepared. Next call clone_repository() using the bound session. session_id={session.session_id}, container_id={session.container_id}, container_repo_path={COMPILE_CONTAINER_REPO_PATH}"
     update = _build_compile_state_update(

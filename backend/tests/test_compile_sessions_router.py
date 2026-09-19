@@ -58,7 +58,10 @@ def test_snapshot_preserves_failed_and_successful_attempts_without_writes(eviden
     assert data["commands"][0]["command"] == "cmake --build build"
     assert "private" not in data
     assert "log_path" not in data["commands"][0]
-    assert client.get(BASE + "/commands/command-1/log").json() == {"output": log.read_text(), "truncated": False}
+    assert client.get(BASE + "/commands/command-1/log").json() == {
+        "output": log.read_bytes().decode("utf-8"),
+        "truncated": False,
+    }
     assert client.get(BASE + "/replays/replay-1/log").status_code == 200
     after = {str(p): hashlib.sha256(p.read_bytes()).hexdigest() for p in metadata.parent.rglob("*") if p.is_file()}
     assert before == after
@@ -176,5 +179,8 @@ def test_metadata_symlink_escape_is_rejected(evidence, tmp_path):
     outside = tmp_path / "private.json"
     outside.write_text(json.dumps(data), encoding="utf-8")
     metadata.unlink()
-    metadata.symlink_to(outside)
+    try:
+        metadata.symlink_to(outside)
+    except OSError:
+        pytest.skip("creating symlinks requires additional privileges on this platform")
     assert client.get(BASE).status_code == 403

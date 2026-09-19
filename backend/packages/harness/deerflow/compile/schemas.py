@@ -6,6 +6,24 @@ from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
+COMPILE_COMMAND_ROLES = (
+    "dependency",
+    "configure",
+    "build",
+    "diagnostic",
+    "smoke",
+    "artifact_stage",
+)
+
+TERMINAL_COMPILE_SESSION_STATUSES = frozenset(
+    {
+        "completed",
+        "failed",
+        "cancelled",
+        "timed_out",
+    }
+)
+
 
 def utc_now_iso() -> str:
     return datetime.now(UTC).isoformat()
@@ -89,6 +107,22 @@ class ReplayArtifactComparison:
 
 
 @dataclass
+class ReplayRecipeStep:
+    command_id: str
+    role: str
+    command_sha256: str
+    workdir_sha256: str
+
+
+@dataclass
+class ReplayRecipe:
+    supporting_command_id: str
+    steps: list[ReplayRecipeStep]
+    fingerprint: str
+    created_at: str = field(default_factory=utc_now_iso)
+
+
+@dataclass
 class ReplayVerificationResult:
     attempt_id: str
     status: str
@@ -96,6 +130,7 @@ class ReplayVerificationResult:
     image_id: str
     commit_sha: str
     recipe_sha256: str
+    recipe_fingerprint: str | None = None
     submit_attempt_id: str | None = None
     primary_failure_classification: str | None = None
     secondary_failure_classifications: list[str] = field(default_factory=list)
@@ -160,6 +195,7 @@ class CompileSession:
     commands: list[BuildCommandRecord] = field(default_factory=list)
     artifacts: list[BuildArtifact] = field(default_factory=list)
     verification: VerificationResult | None = None
+    replay_recipe: ReplayRecipe | None = None
     replay_attempts: list[ReplayVerificationResult] = field(default_factory=list)
 
     def to_dict(self) -> dict[str, Any]:
@@ -176,6 +212,7 @@ class CompileSession:
             "post_build_supporting_command_id": None,
             "post_build_started_at": None,
             "post_build_commands_remaining": None,
+            "replay_recipe": None,
             "replay_attempts": [],
             **data,
         }
@@ -199,11 +236,18 @@ class CompileSession:
                     **replay_payload,
                 )
             )
-        payload = {k: v for k, v in data.items() if k not in {"commands", "artifacts", "verification", "replay_attempts"}}
+        replay_recipe_data = data.get("replay_recipe")
+        replay_recipe = None
+        if replay_recipe_data:
+            recipe_steps = [ReplayRecipeStep(**item) for item in replay_recipe_data.get("steps", [])]
+            recipe_payload = {k: v for k, v in replay_recipe_data.items() if k != "steps"}
+            replay_recipe = ReplayRecipe(steps=recipe_steps, **recipe_payload)
+        payload = {k: v for k, v in data.items() if k not in {"commands", "artifacts", "verification", "replay_recipe", "replay_attempts"}}
         return cls(
             commands=commands,
             artifacts=artifacts,
             verification=verification,
+            replay_recipe=replay_recipe,
             replay_attempts=replay_attempts,
             **payload,
         )

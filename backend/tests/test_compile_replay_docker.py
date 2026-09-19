@@ -119,6 +119,8 @@ def _record_build_command(
     session: CompileSession,
     command: str,
     result: CommandResult,
+    *,
+    role: str,
 ) -> None:
     manager.record_command(
         session,
@@ -126,6 +128,7 @@ def _record_build_command(
             stage="bash",
             command=command,
             workdir="/workspace/repo",
+            role=role,
             exit_code=result.exit_code,
         ),
     )
@@ -159,16 +162,24 @@ def _prepare_original_build(
         workdir="/workspace/repo",
         expected_exit_code=expected_configure_exit,
     )
-    _record_build_command(manager, session, configure_command, configure_result)
+    _record_build_command(manager, session, configure_command, configure_result, role="configure")
 
-    build_command = "cmake --build build --parallel && cp build/hello /artifacts/hello"
+    build_command = "cmake --build build --parallel"
     build_result = _run_checked(
         runtime,
         session,
         build_command,
         workdir="/workspace/repo",
     )
-    _record_build_command(manager, session, build_command, build_result)
+    _record_build_command(manager, session, build_command, build_result, role="build")
+    stage_command = "cp build/hello /artifacts/hello"
+    stage_result = _run_checked(
+        runtime,
+        session,
+        stage_command,
+        workdir="/workspace/repo",
+    )
+    _record_build_command(manager, session, stage_command, stage_result, role="artifact_stage")
 
     artifact_path = Path(session.leadagent_artifacts_dir) / "hello"
     assert artifact_path.is_file()
@@ -200,7 +211,15 @@ def _prepare_original_build(
         artifact_count=1,
     )
     session.commit_sha = COMMIT_SHA
-    _write_repro_bundle(session)
+    recipe_command_ids = [command.command_id for command in session.commands if command.exit_code == 0 and command.role in {"configure", "build", "artifact_stage"}]
+    supporting_command_id = next(command.command_id for command in reversed(session.commands) if command.role == "build")
+    session.post_build_supporting_command_id = supporting_command_id
+    session.replay_recipe = operations.build_replay_recipe(
+        session,
+        supporting_command_id=supporting_command_id,
+        recipe_command_ids=recipe_command_ids,
+    )
+    _write_repro_bundle(session, session.replay_recipe)
     manager.save_session(session)
 
 
@@ -222,6 +241,20 @@ def _assert_no_replay_container(session: CompileSession) -> None:
     )
     assert result.returncode == 0, result.stderr
     assert result.stdout.strip() == ""
+
+
+def _submit_bound_recipe(manager: CompileSessionManager, session: CompileSession) -> dict:
+    current = manager.load_session(session.session_id, session.thread_id)
+    supporting_command_id = current.post_build_supporting_command_id
+    assert supporting_command_id is not None
+    recipe_command_ids = [command.command_id for command in current.commands if command.exit_code == 0 and not command.timed_out and command.role in {"dependency", "dependency_setup", "configure", "build", "artifact_stage"}]
+    submit_tool = next(tool for tool in bound_compile_tools.get_bound_compile_tools(current) if tool.name == "submit_build_result")
+    return json.loads(
+        submit_tool.func(
+            supporting_command_id=supporting_command_id,
+            recipe_command_ids=recipe_command_ids,
+        )
+    )
 
 
 def _run_post_build_fixture(
@@ -326,33 +359,32 @@ def _run_post_build_fixture(
         if dependency_command is not None:
             dependency_setup = run_tool.func(
                 command=dependency_command,
-                command_role="dependency_setup",
+                command_role="dependency",
             )
-            assert "command_role=dependency_setup" in dependency_setup
+            assert "command_role=dependency" in dependency_setup
             assert "exit_code=0\n" in dependency_setup, dependency_setup
         if configure_command is not None:
             configured = run_tool.func(
                 command=configure_command,
-                command_role="other",
+                command_role="configure",
             )
             assert "command_role=configure" in configured
             assert "exit_code=0\n" in configured, configured
 
         built = run_tool.func(
             command=build_command,
-            command_role="other",
+            command_role="build",
         )
         assert "command_role=build" in built
         assert "exit_code=0\n" in built, built
-        staged = json.loads(
-            run_tool.func(
-                command=stage_command,
-                command_role="other",
-            )
+        staged = run_tool.func(
+            command=stage_command,
+            command_role="artifact_stage",
         )
-        assert staged["command"]["command_role"] == "artifact_stage"
-        assert staged["automatic_submit"]["status"] == "passed"
-        assert staged["automatic_submit"]["replay_status"] == "passed"
+        assert "command_role=artifact_stage" in staged
+        submitted = _submit_bound_recipe(manager, session)
+        assert submitted["status"] == "passed"
+        assert submitted["replay_status"] == "passed"
 
         finalized, cleanup = cleanup_and_finalize_compile_session_impl(session=session)
         assert cleanup.succeeded is True
@@ -783,11 +815,11 @@ def test_missing_frozen_arguments_stop_before_real_build_and_replay(monkeypatch)
         run_tool = next(tool for tool in bound_compile_tools.get_bound_compile_tools(session) if tool.name == "run_container_bash")
         configured = run_tool.func(
             command="cmake -S . -B build",
-            command_role="other",
+            command_role="configure",
         )
         rejected = run_tool.func(
             command="cmake --build build -j2",
-            command_role="other",
+            command_role="build",
         )
 
         assert "command_role=configure" in configured
@@ -819,7 +851,7 @@ def test_missing_frozen_arguments_stop_before_real_build_and_replay(monkeypatch)
         shutil.rmtree(Path(session.metadata_path).parent.parent, ignore_errors=True)
 
 
-def test_post_build_handoff_corrects_role_and_auto_submits_cmake_fixture(monkeypatch):
+def test_post_build_handoff_explicitly_submits_cmake_fixture(monkeypatch):
     paths = Paths()
     manager = CompileSessionManager(paths=paths, default_image=COMPILE_IMAGE)
     thread_id = f"docker-post-build-handoff-{uuid.uuid4().hex[:12]}"
@@ -846,12 +878,12 @@ def test_post_build_handoff_corrects_role_and_auto_submits_cmake_fixture(monkeyp
         run_tool = next(tool for tool in bound_compile_tools.get_bound_compile_tools(session) if tool.name == "run_container_bash")
         configure_result = run_tool.func(
             command="cmake -S . -B build",
-            command_role="other",
+            command_role="configure",
         )
         assert "command_role=configure" in configure_result
         build_result = run_tool.func(
             command="cmake --build build --parallel",
-            command_role="other",
+            command_role="build",
         )
         assert "command_role=build" in build_result
 
@@ -859,19 +891,18 @@ def test_post_build_handoff_corrects_role_and_auto_submits_cmake_fixture(monkeyp
         assert post_build.post_build_supporting_command_id is not None
         rejected = run_tool.func(
             command="cmake -S . -B build-again",
-            command_role="other",
+            command_role="configure",
         )
         assert "exit_code=126 (Policy rejected)" in rejected
 
-        staged = json.loads(
-            run_tool.func(
-                command="cp build/hello /artifacts/hello",
-                command_role="other",
-            )
+        staged = run_tool.func(
+            command="cp build/hello /artifacts/hello",
+            command_role="artifact_stage",
         )
-        assert staged["command"]["command_role"] == "artifact_stage"
-        assert staged["automatic_submit"]["status"] == "passed"
-        assert staged["automatic_submit"]["replay_status"] == "passed"
+        assert "command_role=artifact_stage" in staged
+        submitted = _submit_bound_recipe(manager, session)
+        assert submitted["status"] == "passed"
+        assert submitted["replay_status"] == "passed"
 
         finalized, cleanup = cleanup_and_finalize_compile_session_impl(session=session)
         assert cleanup.succeeded is True
@@ -885,7 +916,7 @@ def test_post_build_handoff_corrects_role_and_auto_submits_cmake_fixture(monkeyp
         shutil.rmtree(Path(session.metadata_path).parent.parent, ignore_errors=True)
 
 
-def test_post_build_handoff_auto_submits_compound_build_and_stage(monkeypatch):
+def test_post_build_handoff_requires_explicit_stage_and_submit(monkeypatch):
     paths = Paths()
     manager = CompileSessionManager(paths=paths, default_image=COMPILE_IMAGE)
     thread_id = f"docker-post-build-compound-{uuid.uuid4().hex[:12]}"
@@ -911,18 +942,22 @@ def test_post_build_handoff_auto_submits_compound_build_and_stage(monkeypatch):
         run_tool = next(tool for tool in bound_compile_tools.get_bound_compile_tools(session) if tool.name == "run_container_bash")
         configured = run_tool.func(
             command="cmake -S . -B build",
-            command_role="other",
+            command_role="configure",
         )
         assert "command_role=configure" in configured
-        submitted = json.loads(
-            run_tool.func(
-                command="cmake --build build --parallel && cp build/hello /artifacts/hello",
-                command_role="other",
-            )
+        built = run_tool.func(
+            command="cmake --build build --parallel",
+            command_role="build",
         )
-        assert submitted["command"]["command_role"] == "build"
-        assert submitted["automatic_submit"]["status"] == "passed"
-        assert submitted["automatic_submit"]["replay_status"] == "passed"
+        assert "command_role=build" in built
+        staged = run_tool.func(
+            command="cp build/hello /artifacts/hello",
+            command_role="artifact_stage",
+        )
+        assert "command_role=artifact_stage" in staged
+        submitted = _submit_bound_recipe(manager, session)
+        assert submitted["status"] == "passed"
+        assert submitted["replay_status"] == "passed"
 
         finalized, cleanup = cleanup_and_finalize_compile_session_impl(session=session)
         assert cleanup.succeeded is True
@@ -935,7 +970,7 @@ def test_post_build_handoff_auto_submits_compound_build_and_stage(monkeypatch):
         shutil.rmtree(Path(session.metadata_path).parent.parent, ignore_errors=True)
 
 
-def test_post_build_handoff_auto_submits_make_fixture(monkeypatch):
+def test_post_build_handoff_explicitly_submits_make_fixture(monkeypatch):
     _run_post_build_fixture(
         monkeypatch,
         case_id="hiredis-make",
@@ -953,7 +988,7 @@ def test_post_build_handoff_auto_submits_make_fixture(monkeypatch):
     )
 
 
-def test_post_build_handoff_detects_source_autotools_and_auto_submits(monkeypatch):
+def test_post_build_handoff_detects_source_autotools_and_explicitly_submits(monkeypatch):
     _run_post_build_fixture(
         monkeypatch,
         case_id="libcheck-autotools",
@@ -1072,7 +1107,11 @@ def test_attempt_budget_rejects_submit_but_finalizes_and_leaves_no_orphan(
 
         now[0] = 115.0
         with pytest.raises(AttemptBudgetExceeded):
-            submit_build_result_impl(session=session)
+            submit_build_result_impl(
+                session=session,
+                supporting_command_id="budget-check",
+                recipe_command_ids=["budget-check"],
+            )
 
         now[0] = 121.0
         finalized, cleanup = cleanup_and_finalize_compile_session_impl(

@@ -1,0 +1,37 @@
+{
+  "schema_version": "forge-compile-runtime-identity-v1",
+  "identity": "forge-compile-runtime-v2",
+  "status": "engineering_validation",
+  "issued_on": "2026-09-19",
+  "issue_url": "https://github.com/WWFXL/Forge-AutoCompiler/issues/269",
+  "predecessor": {
+    "commit_sha": "fa558d3ab1f3498a8e751d141319cda6c1fea939",
+    "historical_manifests_immutable": true,
+    "historical_evidence_immutable": true
+  },
+  "authorization": {
+    "interactive_product_validation": true,
+    "provider_experiment_execution": false,
+    "formal_collection": false
+  },
+  "contracts": {
+    "strict_shell_failure_propagation": true,
+    "single_active_session_per_run": true,
+    "run_owned_container_cleanup": true,
+    "explicit_replay_recipe": true,
+    "unique_command_log_identity": true
+  },
+  "component_sha256": {
+    "backend/packages/harness/deerflow/agents/middlewares/compile_termination_middleware.py": "46f97a16b925b7388f4d74e6a471cd8b169468ccdfc95448f86b2fe0682dafdf",
+    "backend/packages/harness/deerflow/agents/middlewares/tool_error_handling_middleware.py": "76b5c8bc2fedf2c5641af3bc7a2ab58f0872d649c95d0963379ee7ea5d83c60f",
+    "backend/packages/harness/deerflow/compile/docker_runtime.py": "193ae2e25a52471bb00bc81e7e506b0e9578db784094d8e5d063c1df8e7b888d",
+    "backend/packages/harness/deerflow/compile/evidence.py": "4a134e9e7e9cd0333c17aeedb37e8ed5295c760d135252b08ce4e238f4fefdec",
+    "backend/packages/harness/deerflow/compile/manager.py": "fc2375d5dd3e766be7ec64d25cecba62820ea3e4538b8ba3b0e9e603b11d9552",
+    "backend/packages/harness/deerflow/compile/operations.py": "91ddb36c17b3eafcd0236794c2b9c56d2cfa12a2d22dd2e2ff59a6c704c6ea5f",
+    "backend/packages/harness/deerflow/compile/schemas.py": "4e01aae7a89727ea31ae677e2f02a38c5cf3658905ed2379bd14ab634789b0fc",
+    "backend/packages/harness/deerflow/subagents/builtins/compiler_agent.py": "4f8b424e4206ce8308af8154037437cf6957a8ddf9239f2e2fb46a02971ed929",
+    "backend/packages/harness/deerflow/tools/bound_compile_tools.py": "a3a6f2c5c59e18fff566dfdecb8ac1fe43740ef0e0588228a22f46f338b30bdb",
+    "backend/packages/harness/deerflow/tools/builtins/agent_compile_tools.py": "166bd5c6bbb49b0e6b74598c92c2f4032e9bf3e736d3eed0616a7b37d7f6933a",
+    "backend/packages/harness/deerflow/tools/builtins/task_tool.py": "150a886b132c871f859baa566b9c350f3f0c15500ff852ab70fdc8c363aafd43"
+  }
+}
