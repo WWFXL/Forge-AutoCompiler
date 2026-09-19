@@ -7,6 +7,7 @@
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
 - 2026-09-19 — 收敛并批准编译运行时可靠性改造，等待 Issue 门禁后实施
+  - GitHub: 中文 Issue #269 已创建并回读；标题、正文和换行正确，业务代码修改门禁已满足。
   - 结论: 基于真实 gRPC run 的多 session、replay 污染、Shell 退出码掩盖、日志覆盖和取消后遗留容器证据，实施范围收敛为阶段化 Shell、单 run 单活动 session/container、run 级清理和显式 replay recipe。
   - 边界: 暂不实施非零退出码容忍、P2 复杂仓库优化、独立 artifact consumer gate、正式 provider 实验或服务器遗留容器清理；必须先创建并回读中文 Issue，再修改业务代码。
   - 文件: `docs/superpowers/specs/2026-09-18-compile-runtime-reliability-design.md`, `docs/superpowers/plans/2026-09-18-compile-runtime-reliability.md`

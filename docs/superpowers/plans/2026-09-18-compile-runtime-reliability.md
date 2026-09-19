@@ -19,7 +19,7 @@
 
 - [x] 用户批准实施范围。
 - [x] 完成并检查最新版 Spec/Plan。
-- [ ] 创建中文 GitHub Issue，回读标题和正文确认格式正确。
+- [x] 创建并回读中文 GitHub Issue #269，标题、正文和换行正确。
 - [ ] Issue 创建成功后，从最新 `origin/main` 创建独立实现 worktree。
 - [ ] 将已批准 Spec/Plan 带入实现分支。
 - [ ] 先写失败测试，再修改业务代码。
@@ -31,9 +31,9 @@
 
 ## 3. Phase A：Issue 与实现基线
 
-1. `git diff --check` 检查 Spec/Plan，提交设计更新。
-2. Issue 正文包含证据、设计不变量、验收标准和非目标。
-3. 用 `gh issue view` 回读，确认不存在字面 `\n`、字段漂移或敏感路径。
+1. [x] `git diff --check` 检查 Spec/Plan，提交设计更新。
+2. [x] Issue #269 正文包含证据、设计不变量、验收标准和非目标。
+3. [x] 用 `gh issue view` 回读，确认不存在字面 `\n`、字段漂移或敏感路径。
 4. 获取最新 `origin/main`；不覆盖主 worktree 中用户未提交内容。
 5. 新建 `fix/compile-runtime-reliability` worktree，确认 clean tree 和基线提交。
 6. 阅读根、`backend/` 范围的 AGENTS/CLAUDE 指令及现有类型和测试，再锁定实际修改文件。
