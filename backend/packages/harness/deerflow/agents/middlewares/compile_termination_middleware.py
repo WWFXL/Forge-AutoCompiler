@@ -8,6 +8,7 @@ from typing import NotRequired, override
 from langchain.agents import AgentState
 from langchain.agents.middleware import AgentMiddleware, hook_config
 from langchain_core.messages import AIMessage, ToolMessage
+from langgraph.config import get_config
 from langgraph.prebuilt.tool_node import ToolCallRequest
 from langgraph.runtime import Runtime
 from langgraph.types import Command
@@ -122,16 +123,26 @@ class CompileTerminationMiddleware(AgentMiddleware[CompileTerminationState]):
 
     @staticmethod
     def _run_identity(runtime: Runtime) -> tuple[str | None, str | None]:
-        context = runtime.context or {}
+        context = runtime.context if isinstance(runtime.context, Mapping) else {}
+        try:
+            config = get_config()
+        except RuntimeError:
+            config = {}
+        configurable = config.get("configurable", {})
+        if not isinstance(configurable, Mapping):
+            configurable = {}
         thread_id = context.get("thread_id")
         if thread_id is None:
-            thread_id = runtime.config.get("configurable", {}).get("thread_id")
+            thread_id = configurable.get("thread_id")
         run_id = context.get("run_id")
         if run_id is None:
-            run_id = runtime.config.get("configurable", {}).get("run_id")
+            run_id = configurable.get("run_id")
         if run_id is None:
-            run_id = runtime.config.get("run_id")
-        return thread_id, str(run_id) if run_id is not None else None
+            run_id = config.get("run_id")
+        return (
+            str(thread_id) if thread_id is not None else None,
+            str(run_id) if run_id is not None else None,
+        )
 
     @override
     def after_agent(self, state: CompileTerminationState, runtime: Runtime) -> dict | None:

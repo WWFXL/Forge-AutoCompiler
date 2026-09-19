@@ -213,11 +213,13 @@ def _prepare_original_build(
     session.commit_sha = COMMIT_SHA
     recipe_command_ids = [command.command_id for command in session.commands if command.exit_code == 0 and command.role in {"configure", "build", "artifact_stage"}]
     supporting_command_id = next(command.command_id for command in reversed(session.commands) if command.role == "build")
+    verification_command_ids = [command.command_id for command in session.commands if command.exit_code == 0 and command.role == "smoke"]
     session.post_build_supporting_command_id = supporting_command_id
     session.replay_recipe = operations.build_replay_recipe(
         session,
         supporting_command_id=supporting_command_id,
         recipe_command_ids=recipe_command_ids,
+        verification_command_ids=verification_command_ids,
     )
     _write_repro_bundle(session, session.replay_recipe)
     manager.save_session(session)
@@ -1111,6 +1113,7 @@ def test_attempt_budget_rejects_submit_but_finalizes_and_leaves_no_orphan(
                 session=session,
                 supporting_command_id="budget-check",
                 recipe_command_ids=["budget-check"],
+                verification_command_ids=[],
             )
 
         now[0] = 121.0

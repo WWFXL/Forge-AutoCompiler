@@ -23,8 +23,10 @@ export interface CompileReplay {
   duration_seconds: number | null;
   failure_classification: string | null;
   cleanup_succeeded: boolean | null;
+  verification_exit_code: number | null;
   checks: CompileCheck[];
   has_log: boolean;
+  has_verification_log: boolean;
 }
 
 export interface CompileSessionSnapshot {
@@ -34,6 +36,7 @@ export interface CompileSessionSnapshot {
   commit_sha: string | null;
   selected_build_system: string | null;
   executed_build_system: string | null;
+  parallel_jobs: number;
   commands: CompileCommand[];
   verification: { status: string; checks: CompileCheck[] } | null;
   replay_attempts: CompileReplay[];

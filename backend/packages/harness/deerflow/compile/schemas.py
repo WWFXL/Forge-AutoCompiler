@@ -15,6 +15,8 @@ COMPILE_COMMAND_ROLES = (
     "artifact_stage",
 )
 
+DEFAULT_COMPILE_PARALLEL_JOBS = 4
+
 TERMINAL_COMPILE_SESSION_STATUSES = frozenset(
     {
         "completed",
@@ -119,6 +121,7 @@ class ReplayRecipe:
     supporting_command_id: str
     steps: list[ReplayRecipeStep]
     fingerprint: str
+    verification_steps: list[ReplayRecipeStep] = field(default_factory=list)
     created_at: str = field(default_factory=utc_now_iso)
 
 
@@ -142,6 +145,9 @@ class ReplayVerificationResult:
     container_name: str | None = None
     log_path: str | None = None
     exit_code: int | None = None
+    verification_log_path: str | None = None
+    verification_exit_code: int | None = None
+    verification_recipe_sha256: str | None = None
     cleanup_succeeded: bool | None = None
     failure_classification: str | None = None
     checks: list[VerificationCheck] = field(default_factory=list)
@@ -182,6 +188,7 @@ class CompileSession:
     build_system_capabilities: list[str] = field(default_factory=list)
     selected_build_system: str | None = None
     executed_build_system: str | None = None
+    parallel_jobs: int = DEFAULT_COMPILE_PARALLEL_JOBS
     post_build_supporting_command_id: str | None = None
     post_build_started_at: str | None = None
     post_build_commands_remaining: int | None = None
@@ -209,6 +216,7 @@ class CompileSession:
             "build_system_capabilities": [],
             "selected_build_system": None,
             "executed_build_system": None,
+            "parallel_jobs": DEFAULT_COMPILE_PARALLEL_JOBS,
             "post_build_supporting_command_id": None,
             "post_build_started_at": None,
             "post_build_commands_remaining": None,
@@ -240,8 +248,13 @@ class CompileSession:
         replay_recipe = None
         if replay_recipe_data:
             recipe_steps = [ReplayRecipeStep(**item) for item in replay_recipe_data.get("steps", [])]
-            recipe_payload = {k: v for k, v in replay_recipe_data.items() if k != "steps"}
-            replay_recipe = ReplayRecipe(steps=recipe_steps, **recipe_payload)
+            verification_steps = [ReplayRecipeStep(**item) for item in replay_recipe_data.get("verification_steps", [])]
+            recipe_payload = {k: v for k, v in replay_recipe_data.items() if k not in {"steps", "verification_steps"}}
+            replay_recipe = ReplayRecipe(
+                steps=recipe_steps,
+                verification_steps=verification_steps,
+                **recipe_payload,
+            )
         payload = {k: v for k, v in data.items() if k not in {"commands", "artifacts", "verification", "replay_recipe", "replay_attempts"}}
         return cls(
             commands=commands,

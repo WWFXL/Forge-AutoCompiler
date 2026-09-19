@@ -59,6 +59,7 @@ class SingleToolCallModel(BaseChatModel):
                     "args": {
                         "supporting_command_id": "command-build",
                         "recipe_command_ids": ["command-build", "command-stage"],
+                        "verification_command_ids": [],
                     },
                     "id": "tool-call-graph",
                     "type": "tool_call",
@@ -103,7 +104,11 @@ def test_successful_bound_submit_returns_machine_readable_result(monkeypatch):
     monkeypatch.setattr(bound_compile_tools, "submit_build_result_impl", lambda **_kwargs: json.dumps(submit_payload))
     submit_tool = next(tool for tool in bound_compile_tools.get_bound_compile_tools(session) if tool.name == "submit_build_result")
 
-    result = submit_tool.func(supporting_command_id="command-build", recipe_command_ids=["command-build", "command-stage"])
+    result = submit_tool.func(
+        supporting_command_id="command-build",
+        recipe_command_ids=["command-build", "command-stage"],
+        verification_command_ids=[],
+    )
 
     assert json.loads(result) == submit_payload
 
@@ -150,7 +155,11 @@ def test_failed_bound_submit_remains_repairable(monkeypatch):
     monkeypatch.setattr(bound_compile_tools, "submit_build_result_impl", lambda **_kwargs: json.dumps(submit_payload))
     submit_tool = next(tool for tool in bound_compile_tools.get_bound_compile_tools(session) if tool.name == "submit_build_result")
 
-    result = submit_tool.func(supporting_command_id="command-build", recipe_command_ids=["command-build", "command-stage"])
+    result = submit_tool.func(
+        supporting_command_id="command-build",
+        recipe_command_ids=["command-build", "command-stage"],
+        verification_command_ids=[],
+    )
 
     assert isinstance(result, str)
     assert json.loads(result)["status"] == "failed"
@@ -206,6 +215,7 @@ def test_invalid_submit_response_releases_post_build_fence(monkeypatch):
         session,
         supporting_command_id="command-build",
         recipe_command_ids=["command-build", "command-stage"],
+        verification_command_ids=[],
     )
 
     assert result == "not-json"

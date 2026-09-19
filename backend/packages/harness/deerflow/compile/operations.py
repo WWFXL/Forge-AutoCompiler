@@ -91,6 +91,7 @@ _DETERMINISTIC_REPLAY_FAILURES = {
     "size_mismatch",
     "smoke_mismatch",
     "type_mismatch",
+    "verification_execution_failed",
 }
 _HOUSEKEEPING_BUILD_TARGETS = {
     "clean",
@@ -778,14 +779,14 @@ def inspect_build_system_impl(*, session: CompileSession) -> tuple[str, list[tup
     autotools_marker = next((marker for build_system, marker in detected if build_system == "autotools"), None)
     autotools_commands = {
         "configure": ["chmod +x ./configure && ./configure", "make -j"],
-        "autogen.sh": ["chmod +x ./autogen.sh && ./autogen.sh", "make -j"],
-        "configure.ac": ["autoreconf -fi && ./configure", "make -j"],
-        "configure.in": ["autoreconf -fi && ./configure", "make -j"],
+        "autogen.sh": ["chmod +x ./autogen.sh && ./autogen.sh", "make"],
+        "configure.ac": ["autoreconf -fi && ./configure", "make"],
+        "configure.in": ["autoreconf -fi && ./configure", "make"],
     }
     suggested_commands = {
-        "cmake": ["mkdir -p build && cd build && cmake ..", "cmake --build build -j"],
-        "make": ["make -j"],
-        "autotools": autotools_commands.get(autotools_marker, ["autoreconf -fi && ./configure", "make -j"]),
+        "cmake": ["mkdir -p build && cd build && cmake ..", "cmake --build build"],
+        "make": ["make"],
+        "autotools": autotools_commands.get(autotools_marker, ["autoreconf -fi && ./configure", "make"]),
         "unknown": ["Inspect repository manually and run the appropriate C/C++ build command"],
     }
 
@@ -1141,6 +1142,13 @@ def _classify_compiled_artifact(path: Path, *, deadline: float | None = None) ->
             return _classify_elf_stream(stream, base_offset=0, file_size=file_size, deadline=deadline)
     except OSError:
         return None
+
+
+def _classify_artifact(path: Path, *, deadline: float | None = None) -> str | None:
+    if path.is_symlink() or not path.is_file():
+        return None
+    compiled_type = _classify_compiled_artifact(path) if deadline is None else _classify_compiled_artifact(path, deadline=deadline)
+    return compiled_type or "support_file"
 
 
 def _record_submit_check(
@@ -1527,14 +1535,16 @@ def _persist_executed_build_system(session: CompileSession, executed_build_syste
 def _experiment_submit_constraints(
     session: CompileSession,
     supporting_command_id: str | None,
+    executed_build_system: str | None = None,
 ) -> tuple[bool, list[str], str | None]:
     active = get_active_experiment(session.thread_id)
     if active is None:
-        return True, [], None
+        return True, [], executed_build_system
+    if executed_build_system is None:
+        executed_build_system = _infer_executed_build_system(session.commands, supporting_command_id)
     failures: list[str] = []
     selected_build_system = session.selected_build_system
     expected_build_system = active.policy.selected_build_system
-    executed_build_system = _infer_executed_build_system(session.commands, supporting_command_id)
     selection_matches = selected_build_system == expected_build_system
     execution_matches = executed_build_system is not None and executed_build_system == selected_build_system
     record_experiment_event(
@@ -1634,6 +1644,7 @@ def submit_build_result_impl(
     session: CompileSession,
     supporting_command_id: str,
     recipe_command_ids: list[str],
+    verification_command_ids: list[str],
 ) -> str:
     enforce_experiment_attempt_budget(
         session.thread_id,
@@ -1652,9 +1663,22 @@ def submit_build_result_impl(
                 supporting_command_id=supporting_command_id,
             )
         session.__dict__.update(current.__dict__)
-    constraints_passed, constraint_failures, executed_build_system = _experiment_submit_constraints(session, supporting_command_id)
-    if get_active_experiment(session.thread_id) is not None:
-        _persist_executed_build_system(session, executed_build_system)
+    executed_build_system = _infer_executed_build_system(session.commands, supporting_command_id)
+    _persist_executed_build_system(session, executed_build_system)
+    services.manager.log_event(
+        session,
+        "build.execution_checked",
+        supporting_command_id=supporting_command_id,
+        selected_build_system=session.selected_build_system,
+        observed_build_system=executed_build_system,
+        detected_build_systems=list(session.build_system_capabilities),
+        matches=(session.selected_build_system == executed_build_system if session.selected_build_system is not None else executed_build_system is not None),
+    )
+    constraints_passed, constraint_failures, executed_build_system = _experiment_submit_constraints(
+        session,
+        supporting_command_id,
+        executed_build_system,
+    )
     submit_index = len(session.commands) + 1
     summary_log_path = local_log_path(session, f"{submit_index:03d}_submit.log")
     while Path(summary_log_path).exists():
@@ -1669,6 +1693,7 @@ def submit_build_result_impl(
         submit_attempt_id=submit_attempt_id,
         supporting_command_id=supporting_command_id,
         recipe_command_ids=recipe_command_ids,
+        verification_command_ids=verification_command_ids,
     )
     record_experiment_event(
         session.thread_id,
@@ -1676,6 +1701,7 @@ def submit_build_result_impl(
         submit_attempt_id=submit_attempt_id,
         supporting_command_id=supporting_command_id,
         recipe_command_ids=recipe_command_ids,
+        verification_command_ids=verification_command_ids,
         session_id=session.session_id,
         command_cutoff_before_delay=len(session.commands),
     )
@@ -1711,9 +1737,9 @@ def submit_build_result_impl(
             rel_posix = rel.as_posix()
             container_candidate = f"/artifacts/{rel_posix}" if rel_posix else "/artifacts"
 
-            artifact_type = _classify_compiled_artifact(candidate_path)
+            artifact_type = _classify_artifact(candidate_path)
             if artifact_type is None:
-                notes.append(f"Ignored non-compiled file '{rel_posix}' in /artifacts.")
+                notes.append(f"Ignored unsafe or non-regular file '{rel_posix}' in /artifacts.")
                 continue
 
             exists = candidate_path.exists()
@@ -1728,16 +1754,17 @@ def submit_build_result_impl(
                 continue
 
             size_bytes = candidate_path.stat().st_size
-            non_empty = size_bytes > 0
-            _record_submit_check(
-                checks=checks,
-                name=f"{candidate_path.name}_non_empty",
-                target=rel_posix,
-                passed=non_empty,
-                summary=(f"Artifact size is {size_bytes} bytes." if non_empty else f"Error: Verification failed. File '{rel_posix}' is empty. Rebuild or copy the correct output into /artifacts and submit again."),
-            )
-            if not non_empty:
-                continue
+            if artifact_type != "support_file":
+                non_empty = size_bytes > 0
+                _record_submit_check(
+                    checks=checks,
+                    name=f"{candidate_path.name}_non_empty",
+                    target=rel_posix,
+                    passed=non_empty,
+                    summary=(f"Artifact size is {size_bytes} bytes." if non_empty else f"Error: Verification failed. File '{rel_posix}' is empty. Rebuild or copy the correct output into /artifacts and submit again."),
+                )
+                if not non_empty:
+                    continue
 
             artifact_sha256 = _sha256_file(candidate_path)
             smoke_command_used: str | None = None
@@ -1787,14 +1814,25 @@ def submit_build_result_impl(
                 )
             )
 
-    if discovered_files and not artifacts:
-        notes.append("Error: Verification failed. No recognized compiled artifacts were found in /artifacts.")
+    compiled_artifacts = [artifact for artifact in artifacts if artifact.artifact_type != "support_file"]
+    if discovered_files and not compiled_artifacts:
+        message = "Error: Verification failed. No compiled artifacts were found in /artifacts. Support files cannot pass acceptance by themselves."
+        notes.append(message)
+        _record_submit_check(
+            checks=checks,
+            name="compiled_artifact_present",
+            target="/artifacts",
+            passed=False,
+            summary=message,
+            expected=">=1 compiled artifact",
+            actual=0,
+        )
 
     candidate_status = "failed"
     replay_attempt: ReplayVerificationResult | None = None
     recipe_error: ReplayRecipeError | None = None
     candidate_lifecycle_fenced = False
-    if artifacts and all(check.passed for check in checks):
+    if compiled_artifacts and all(check.passed for check in checks):
         with services.manager.session_lock(session.thread_id, session.session_id):
             current = _load_authoritative_session(session)
             if _session_lifecycle_fenced(current):
@@ -1808,6 +1846,7 @@ def submit_build_result_impl(
                         session,
                         supporting_command_id=supporting_command_id,
                         recipe_command_ids=recipe_command_ids,
+                        verification_command_ids=verification_command_ids,
                     )
                     _write_repro_bundle(session, recipe)
                 except ReplayRecipeError as exc:
@@ -1862,7 +1901,7 @@ def submit_build_result_impl(
         )
 
     candidate_failed_checks = sum(1 for check in checks if not check.passed)
-    if candidate_status == "passed" and artifacts and candidate_failed_checks == 0:
+    if candidate_status == "passed" and compiled_artifacts and candidate_failed_checks == 0:
         if get_active_experiment(session.thread_id) is None:
             replay_attempt = verify_clean_replay_impl(session=session)
         else:
@@ -1889,7 +1928,7 @@ def submit_build_result_impl(
             notes.append(replay_summary)
 
     failed_checks = sum(1 for check in checks if not check.passed)
-    status = "passed" if artifacts and candidate_status == "passed" and replay_attempt is not None and replay_attempt.status == "passed" and replay_attempt.cleanup_succeeded is True and failed_checks == 0 else "failed"
+    status = "passed" if compiled_artifacts and candidate_status == "passed" and replay_attempt is not None and replay_attempt.status == "passed" and replay_attempt.cleanup_succeeded is True and failed_checks == 0 else "failed"
     verification = VerificationResult(
         status=status,
         checks=checks,
@@ -1926,6 +1965,7 @@ def submit_build_result_impl(
         "submit_attempt_id": submit_attempt_id,
         "supporting_command_id": supporting_command_id,
         "recipe_command_ids": recipe_command_ids,
+        "verification_command_ids": verification_command_ids,
         "classification": recipe_error.classification if recipe_error is not None else None,
         "offending_command_id": recipe_error.offending_command_id if recipe_error is not None else None,
         "image_id": session.image_id,
@@ -1957,6 +1997,7 @@ def submit_build_result_impl(
         submit_attempt_id=submit_attempt_id,
         supporting_command_id=supporting_command_id,
         recipe_command_ids=recipe_command_ids,
+        verification_command_ids=verification_command_ids,
         classification=recipe_error.classification if recipe_error is not None else None,
         offending_command_id=recipe_error.offending_command_id if recipe_error is not None else None,
     )
@@ -2090,6 +2131,7 @@ def build_replay_recipe(
     *,
     supporting_command_id: str,
     recipe_command_ids: list[str],
+    verification_command_ids: list[str],
 ) -> ReplayRecipe:
     if not recipe_command_ids:
         raise ReplayRecipeError("recipe_empty", "Replay recipe must contain explicit command IDs.")
@@ -2187,10 +2229,88 @@ def build_replay_recipe(
             offending_command_id=supporting_command_id,
         )
 
+    supporting_position = command_positions[supporting_command_id][0]
+    verification_steps: list[ReplayRecipeStep] = []
+    verification_seen: set[str] = set()
+    previous_verification_position = supporting_position
+    for command_id in verification_command_ids:
+        if command_id in verification_seen:
+            raise ReplayRecipeError(
+                "verification_command_duplicate",
+                "Verification command IDs must be unique.",
+                offending_command_id=command_id,
+            )
+        verification_seen.add(command_id)
+        positions = command_positions.get(command_id, [])
+        if not positions:
+            raise ReplayRecipeError(
+                "verification_command_missing",
+                "Verification recipe references a command outside this session.",
+                offending_command_id=command_id,
+            )
+        if len(positions) != 1:
+            raise ReplayRecipeError(
+                "verification_command_ambiguous",
+                "Verification recipe references a non-unique command ID.",
+                offending_command_id=command_id,
+            )
+        position = positions[0]
+        if position <= supporting_position:
+            raise ReplayRecipeError(
+                "verification_command_before_build",
+                "Verification commands must run after the supporting build command.",
+                offending_command_id=command_id,
+            )
+        if position <= previous_verification_position:
+            raise ReplayRecipeError(
+                "verification_command_out_of_order",
+                "Verification commands must retain their original execution order.",
+                offending_command_id=command_id,
+            )
+        previous_verification_position = position
+        command = session.commands[position]
+        if command.role != "smoke":
+            raise ReplayRecipeError(
+                "verification_role_not_allowed",
+                "Verification recipe may contain only smoke commands.",
+                offending_command_id=command_id,
+            )
+        if command.exit_code != 0 or command.timed_out:
+            raise ReplayRecipeError(
+                "verification_command_not_successful",
+                "Verification recipe commands must have completed successfully.",
+                offending_command_id=command_id,
+            )
+        try:
+            workdir = _validate_replay_workdir(command.workdir)
+            _validate_replay_command(session, command.command)
+        except ValueError as exc:
+            raise ReplayRecipeError(
+                "verification_command_not_portable",
+                str(exc),
+                offending_command_id=command_id,
+            ) from exc
+        verification_steps.append(
+            ReplayRecipeStep(
+                command_id=command_id,
+                role="smoke",
+                command_sha256=_sha256_text(command.command),
+                workdir_sha256=_sha256_text(workdir),
+            )
+        )
+
+    successful_post_build_smoke_exists = any(command.role == "smoke" and command.exit_code == 0 and not command.timed_out for command in session.commands[supporting_position + 1 :])
+    if successful_post_build_smoke_exists and not verification_steps:
+        raise ReplayRecipeError(
+            "verification_command_required",
+            "At least one successful post-build smoke command must be selected for clean replay.",
+        )
+
     fingerprint_payload = {
         "commit_sha": session.commit_sha,
         "image_id": session.image_id,
         "supporting_command_id": supporting_command_id,
+        "parallel_jobs": session.parallel_jobs,
         "artifacts": [
             {
                 "path": artifact.path,
@@ -2209,11 +2329,21 @@ def build_replay_recipe(
             }
             for step in steps
         ],
+        "verification_steps": [
+            {
+                "command_id": step.command_id,
+                "role": step.role,
+                "command_sha256": step.command_sha256,
+                "workdir_sha256": step.workdir_sha256,
+            }
+            for step in verification_steps
+        ],
     }
     fingerprint = _sha256_text(json.dumps(fingerprint_payload, sort_keys=True, separators=(",", ":")))
     return ReplayRecipe(
         supporting_command_id=supporting_command_id,
         steps=steps,
+        verification_steps=verification_steps,
         fingerprint=fingerprint,
     )
 
@@ -2221,7 +2351,9 @@ def build_replay_recipe(
 def _write_repro_bundle(session: CompileSession, recipe: ReplayRecipe) -> Path:
     repro_dir = Path(session.metadata_path).parent / "repro"
     build_path = repro_dir / "build.sh"
+    verify_path = repro_dir / "verify.sh"
     build_path.unlink(missing_ok=True)
+    verify_path.unlink(missing_ok=True)
 
     commit_sha = (session.commit_sha or "").strip().lower()
     if not re.fullmatch(r"[0-9A-Fa-f]{40}|[0-9A-Fa-f]{64}", commit_sha):
@@ -2289,6 +2421,48 @@ def _write_repro_bundle(session: CompileSession, recipe: ReplayRecipe) -> Path:
         temporary_path.replace(build_path)
     finally:
         temporary_path.unlink(missing_ok=True)
+
+    if recipe.verification_steps:
+        verify_lines = ["#!/usr/bin/env bash", "set -euo pipefail", ""]
+        for replay_index, step in enumerate(recipe.verification_steps, start=1):
+            command = commands_by_id.get(step.command_id)
+            if command is None:
+                raise ReplayRecipeError(
+                    "verification_command_missing",
+                    "Verification recipe command no longer exists in the session audit history.",
+                    offending_command_id=step.command_id,
+                )
+            workdir = _validate_replay_workdir(command.workdir)
+            _validate_replay_command(session, command.command)
+            if command.role != "smoke" or command.exit_code != 0 or command.timed_out:
+                raise ReplayRecipeError(
+                    "verification_command_changed",
+                    "Verification recipe command metadata changed after validation.",
+                    offending_command_id=step.command_id,
+                )
+            if _sha256_text(command.command) != step.command_sha256 or _sha256_text(workdir) != step.workdir_sha256:
+                raise ReplayRecipeError(
+                    "verification_command_changed",
+                    "Verification recipe command metadata changed after validation.",
+                    offending_command_id=step.command_id,
+                )
+            verify_lines.extend(
+                [
+                    f"# Verification step {replay_index}: {step.command_id}",
+                    "(",
+                    f"cd -- {shell_quote(workdir)}",
+                    "set -euo pipefail",
+                    command.command,
+                    ")",
+                    "",
+                ]
+            )
+        temporary_verify_path = repro_dir / f".verify.sh.{uuid.uuid4().hex}.tmp"
+        try:
+            temporary_verify_path.write_text("\n".join(verify_lines) + "\n", encoding="utf-8")
+            temporary_verify_path.replace(verify_path)
+        finally:
+            temporary_verify_path.unlink(missing_ok=True)
     return build_path
 
 
@@ -2410,7 +2584,7 @@ def _compare_replay_artifacts(
     actual_files: dict[str, Path] = {}
     actual_types: dict[str, str] = {}
     for path in _list_artifact_files(replay_artifacts_dir, deadline=deadline):
-        artifact_type = _classify_compiled_artifact(path, deadline=deadline)
+        artifact_type = _classify_artifact(path, deadline=deadline)
         if artifact_type is None:
             continue
         relative_path = path.relative_to(replay_artifacts_dir).as_posix()
@@ -2734,6 +2908,29 @@ def verify_clean_replay_impl(
                 "recipe_snapshot_mismatch",
                 "Candidate recipe changed while the replay snapshot was being created.",
             )
+        if session.replay_recipe.verification_steps:
+            source_verify_path = Path(session.leadagent_repro_dir) / "verify.sh"
+            verify_path = recipe_dir / "verify.sh"
+            source_verify_sha256 = _sha256_file(source_verify_path, deadline=deadline)
+            _check_replay_deadline(deadline)
+            shutil.copy2(source_verify_path, verify_path)
+            attempt.verification_recipe_sha256 = _sha256_file(verify_path, deadline=deadline)
+            attempt.verification_log_path = services.manager.relative_path(session, logs_dir / "verify.log")
+            verification_snapshot_matches = source_verify_sha256 == attempt.verification_recipe_sha256
+            _record_replay_check(
+                attempt,
+                name="verification_recipe_snapshot",
+                target="recipe/verify.sh",
+                passed=verification_snapshot_matches,
+                summary="Snapshotted the generated verification recipe for this replay attempt.",
+                expected=source_verify_sha256,
+                actual=attempt.verification_recipe_sha256,
+            )
+            if not verification_snapshot_matches:
+                raise _ReplayVerificationFailure(
+                    "verification_recipe_snapshot_mismatch",
+                    "Verification recipe changed while the replay snapshot was being created.",
+                )
         if not session.image_id:
             raise _ReplayVerificationFailure(
                 "image_identity_unavailable",
@@ -2813,6 +3010,35 @@ def verify_clean_replay_impl(
                 "recipe_execution_failed",
                 f"Clean replay recipe exited with code {build_result.exit_code}.",
             )
+        if session.replay_recipe.verification_steps:
+            verification_log_path = logs_dir / "verify.log"
+            verification_result = services.runtime.exec_replay_container(
+                session,
+                handle,
+                command="bash /repro/verify.sh",
+                timeout_seconds=_remaining_replay_timeout(deadline),
+                log_path=str(verification_log_path),
+            )
+            attempt.verification_exit_code = verification_result.exit_code
+            verification_passed = verification_result.exit_code == 0
+            _record_replay_check(
+                attempt,
+                name="verification_execution",
+                target="recipe/verify.sh",
+                passed=verification_passed,
+                summary=("Verification recipe completed successfully in the clean replay container." if verification_passed else "Verification recipe failed in the clean replay container."),
+                expected=0,
+                actual=verification_result.exit_code,
+                exit_code=verification_result.exit_code,
+                log_path=attempt.verification_log_path,
+            )
+            if verification_result.exit_code == 124:
+                raise _ReplayVerificationFailure("timeout", "Clean replay verification execution timed out.")
+            if verification_result.exit_code != 0:
+                raise _ReplayVerificationFailure(
+                    "verification_execution_failed",
+                    f"Clean replay verification exited with code {verification_result.exit_code}.",
+                )
         failure_classification = _compare_replay_artifacts(
             session=session,
             attempt=attempt,
@@ -2888,6 +3114,8 @@ def verify_clean_replay_impl(
             timeout_seconds=attempt.timeout_seconds,
             image_id=attempt.image_id,
             recipe_sha256=attempt.recipe_sha256,
+            verification_recipe_sha256=attempt.verification_recipe_sha256,
+            verification_exit_code=attempt.verification_exit_code,
             completed_by="replay_worker",
             submit_attempt_id=submit_attempt_id,
             primary_failure_classification=attempt.primary_failure_classification,
@@ -2907,6 +3135,8 @@ def verify_clean_replay_impl(
             image_id=attempt.image_id,
             commit_sha=attempt.commit_sha,
             recipe_sha256=attempt.recipe_sha256 or None,
+            verification_recipe_sha256=attempt.verification_recipe_sha256,
+            verification_exit_code=attempt.verification_exit_code,
             primary_failure_classification=attempt.primary_failure_classification,
             secondary_failure_classifications=list(attempt.secondary_failure_classifications),
             checks=_check_evidence_snapshot(attempt.checks),
@@ -2924,6 +3154,8 @@ def _latest_replay_passed(session: CompileSession) -> bool:
     build_path = Path(session.leadagent_repro_dir) / "build.sh"
     try:
         recipe_sha256 = _sha256_file(build_path)
+        verify_path = Path(session.leadagent_repro_dir) / "verify.sh"
+        verification_recipe_sha256 = _sha256_file(verify_path) if session.replay_recipe is not None and session.replay_recipe.verification_steps else None
     except OSError:
         return False
     return (
@@ -2932,6 +3164,7 @@ def _latest_replay_passed(session: CompileSession) -> bool:
         and latest.image_id == session.image_id
         and latest.commit_sha == session.commit_sha
         and latest.recipe_sha256 == recipe_sha256
+        and latest.verification_recipe_sha256 == verification_recipe_sha256
         and session.replay_recipe is not None
         and latest.recipe_fingerprint == session.replay_recipe.fingerprint
     )
@@ -2976,7 +3209,7 @@ def _accepted_artifacts_still_match(session: CompileSession) -> tuple[bool, dict
         if not resolved_candidate.is_relative_to(resolved_base) or not resolved_candidate.is_file():
             mismatches.append(f"path_escape_or_not_file:{relative_path}")
             continue
-        artifact_type = _classify_compiled_artifact(resolved_candidate)
+        artifact_type = _classify_artifact(resolved_candidate)
         size_bytes = resolved_candidate.stat().st_size
         sha256 = _sha256_file(resolved_candidate)
         actual[relative_path] = {
@@ -2991,23 +3224,23 @@ def _accepted_artifacts_still_match(session: CompileSession) -> tuple[bool, dict
         if sha256 != artifact.sha256:
             mismatches.append(f"sha256:{relative_path}")
 
-    actual_compiled_paths: set[str] = set()
+    actual_artifact_paths: set[str] = set()
     for candidate in _list_artifact_files(base):
-        artifact_type = _classify_compiled_artifact(candidate)
+        artifact_type = _classify_artifact(candidate)
         if artifact_type is not None:
-            actual_compiled_paths.add(candidate.relative_to(base).as_posix())
+            actual_artifact_paths.add(candidate.relative_to(base).as_posix())
     expected_paths = set(expected)
-    if actual_compiled_paths != expected_paths:
-        for missing_path in sorted(expected_paths - actual_compiled_paths):
-            mismatch = f"missing_compiled_artifact:{missing_path}"
+    if actual_artifact_paths != expected_paths:
+        for missing_path in sorted(expected_paths - actual_artifact_paths):
+            mismatch = f"missing_artifact:{missing_path}"
             if mismatch not in mismatches:
                 mismatches.append(mismatch)
-        for extra_path in sorted(actual_compiled_paths - expected_paths):
-            mismatches.append(f"unexpected_compiled_artifact:{extra_path}")
+        for extra_path in sorted(actual_artifact_paths - expected_paths):
+            mismatches.append(f"unexpected_artifact:{extra_path}")
 
     return not mismatches, {
         "expected_paths": sorted(expected_paths),
-        "actual_paths": sorted(actual_compiled_paths),
+        "actual_paths": sorted(actual_artifact_paths),
         "actual": actual,
         "mismatches": mismatches,
     }

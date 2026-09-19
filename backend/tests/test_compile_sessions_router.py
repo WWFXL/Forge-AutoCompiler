@@ -23,14 +23,25 @@ def evidence(tmp_path, monkeypatch):
     replay_log = directory / "replay" / "replay-1" / "logs" / "build.log"
     replay_log.parent.mkdir(parents=True)
     replay_log.write_text("replay failed\n", encoding="utf-8")
+    verification_log = replay_log.with_name("verify.log")
+    verification_log.write_text("verification failed\n", encoding="utf-8")
     data = {
         "thread_id": "thread-1",
         "session_id": "session-1",
         "status": "completed",
+        "parallel_jobs": 4,
         "commands": [{"command_id": "command-1", "command": "cmake --build build", "exit_code": 0, "log_path": str(log)}],
         "verification": {"status": "passed", "checks": [{"name": "archive", "passed": True, "summary": "accepted"}]},
         "replay_attempts": [
-            {"attempt_id": "replay-1", "status": "failed", "failure_classification": "smoke_mismatch", "checks": [{"name": "smoke", "passed": False}], "log_path": str(replay_log.relative_to(root))},
+            {
+                "attempt_id": "replay-1",
+                "status": "failed",
+                "failure_classification": "verification_execution_failed",
+                "checks": [{"name": "verification_execution", "passed": False}],
+                "log_path": str(replay_log.relative_to(root)),
+                "verification_log_path": str(verification_log.relative_to(root)),
+                "verification_exit_code": 8,
+            },
             {"attempt_id": "replay-2", "status": "passed", "cleanup_succeeded": True, "checks": []},
         ],
         "private": "not returned",
@@ -55,6 +66,7 @@ def test_snapshot_preserves_failed_and_successful_attempts_without_writes(eviden
     assert response.status_code == 200
     data = response.json()
     assert [a["status"] for a in data["replay_attempts"]] == ["failed", "passed"]
+    assert data["parallel_jobs"] == 4
     assert data["commands"][0]["command"] == "cmake --build build"
     assert "private" not in data
     assert "log_path" not in data["commands"][0]
@@ -63,8 +75,26 @@ def test_snapshot_preserves_failed_and_successful_attempts_without_writes(eviden
         "truncated": False,
     }
     assert client.get(BASE + "/replays/replay-1/log").status_code == 200
+    assert client.get(BASE + "/replays/replay-1/verification-log").json() == {
+        "output": (metadata.parent / "replay" / "replay-1" / "logs" / "verify.log").read_bytes().decode("utf-8"),
+        "truncated": False,
+    }
+    assert data["replay_attempts"][0]["has_verification_log"] is True
+    assert data["replay_attempts"][0]["verification_exit_code"] == 8
     after = {str(p): hashlib.sha256(p.read_bytes()).hexdigest() for p in metadata.parent.rglob("*") if p.is_file()}
     assert before == after
+
+
+@pytest.mark.parametrize("parallel_jobs", [None, 0, -1, True, "8"])
+def test_snapshot_defaults_invalid_or_missing_historical_parallel_policy(evidence, parallel_jobs):
+    client, metadata, data, _ = evidence
+    if parallel_jobs is None:
+        data.pop("parallel_jobs")
+    else:
+        data["parallel_jobs"] = parallel_jobs
+    _save(metadata, data)
+
+    assert client.get(BASE).json()["parallel_jobs"] == 4
 
 
 def test_bounded_tail_and_redaction(evidence, monkeypatch):

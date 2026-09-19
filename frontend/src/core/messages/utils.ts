@@ -278,18 +278,8 @@ export function hasReasoning(message: Message) {
   if (message.type !== "ai") {
     return false;
   }
-  if (typeof message.additional_kwargs?.reasoning_content === "string") {
-    return true;
-  }
-  if (Array.isArray(message.content)) {
-    const part = message.content[0];
-    // Compatible with the Anthropic gateway
-    return (part as unknown as { type: "thinking" })?.type === "thinking";
-  }
-  if (typeof message.content === "string") {
-    return splitInlineReasoning(message.content).reasoning !== null;
-  }
-  return false;
+  const reasoning = extractReasoningContentFromMessage(message);
+  return typeof reasoning === "string" && reasoning.trim().length > 0;
 }
 
 export function hasToolCalls(message: Message) {

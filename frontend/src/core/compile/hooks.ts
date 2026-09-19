@@ -42,7 +42,7 @@ export function useCompileSession(
 export function useCompileLog(
   threadId: string,
   sessionId: string,
-  kind: "commands" | "replays",
+  kind: "commands" | "replays" | "replay-verifications",
   recordId: string,
   enabled: boolean,
   active: boolean,
@@ -51,7 +51,9 @@ export function useCompileLog(
     queryKey: ["compile-log", threadId, sessionId, kind, recordId],
     queryFn: () =>
       readEvidence<CompileLog>(
-        `${sessionPath(threadId, sessionId)}/${kind}/${encodeURIComponent(recordId)}/log`,
+        kind === "replay-verifications"
+          ? `${sessionPath(threadId, sessionId)}/replays/${encodeURIComponent(recordId)}/verification-log`
+          : `${sessionPath(threadId, sessionId)}/${kind}/${encodeURIComponent(recordId)}/log`,
       ),
     enabled,
     retry: false,

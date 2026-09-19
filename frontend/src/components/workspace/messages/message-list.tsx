@@ -164,6 +164,7 @@ export function MessageList({
               results.push(
                 <div
                   key="subtask-count"
+                  data-testid="subtask-count"
                   className="text-muted-foreground pt-2 text-sm font-normal"
                 >
                   {t.subtasks.executing(tasks.size)}
@@ -187,6 +188,7 @@ export function MessageList({
             return (
               <div
                 key={"subtask-group-" + group.id}
+                data-testid="subtask-group"
                 className="relative z-1 flex flex-col gap-2"
               >
                 {results}
