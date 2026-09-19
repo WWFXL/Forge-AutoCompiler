@@ -6,6 +6,11 @@
 
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
+- 2026-09-19 — 收敛并批准编译运行时可靠性改造，等待 Issue 门禁后实施
+  - 结论: 基于真实 gRPC run 的多 session、replay 污染、Shell 退出码掩盖、日志覆盖和取消后遗留容器证据，实施范围收敛为阶段化 Shell、单 run 单活动 session/container、run 级清理和显式 replay recipe。
+  - 边界: 暂不实施非零退出码容忍、P2 复杂仓库优化、独立 artifact consumer gate、正式 provider 实验或服务器遗留容器清理；必须先创建并回读中文 Issue，再修改业务代码。
+  - 文件: `docs/superpowers/specs/2026-09-18-compile-runtime-reliability-design.md`, `docs/superpowers/plans/2026-09-18-compile-runtime-reliability.md`
+
 - 2026-09-18 — 修复 Issue #263 编译终态展示、消息分组与 Todo 收尾
   - GitHub: 中文 Issue #263 已创建并回读；分支为 `fix/issue-263-compile-terminal-ui`，基线为 `main@b3224a33`。Spec/Plan 位于 `docs/superpowers/`。
   - 根因: `CompileTerminationMiddleware` 为避免 `finalize_session` 后再次调用模型，把完整 JSON直接复制成 AIMessage 并跳转 graph end，导致结构化字段直出且最后一个 Todo 无机会通过 `write_todos` 收尾；前端 `groupMessages()` 只接受最后一个开放分组，LangGraph 流式中 `final AI` 先于 ToolMessage 出现时会在 render 路径触发 `console.error`；clarification 裸 Markdown 未明确使用主题前景色。
