@@ -1,6 +1,6 @@
 # 编译运行时可靠性实施计划
 
-日期：2026-09-19。设计：`../specs/2026-09-18-compile-runtime-reliability-design.md`。状态：**用户已批准实施；必须先创建并回读 Issue，再修改业务代码**。
+日期：2026-09-19。设计：`../specs/2026-09-18-compile-runtime-reliability-design.md`。状态：**工程实现与本地产品回归完成，等待提交、PR 和 Ubuntu CI**。
 
 ## 1. 交付范围
 
@@ -8,7 +8,7 @@
 
 - `run_container_bash` 显式 role、一次一个逻辑阶段、强制 `set -euo pipefail`；
 - 同 run 单活动 session/container，重复 prepare 幂等复用；
-- success/error/cancel/recursion exhausted 的 run 级统一清理与启动 orphan reconciliation；
+- 正常结束、compiler error/cancel/timeout、Gateway worker 异常路径的 run 级统一清理，以及 prepare 前 orphan reconciliation；
 - `submit_build_result` 显式 `recipe_command_ids` 和 replay 去重；
 - `command_id` 唯一日志命名；
 - 对应回归测试、开发文档和项目状态快照。
@@ -20,11 +20,11 @@
 - [x] 用户批准实施范围。
 - [x] 完成并检查最新版 Spec/Plan。
 - [x] 创建并回读中文 GitHub Issue #269，标题、正文和换行正确。
-- [ ] Issue 创建成功后，从最新 `origin/main` 创建独立实现 worktree。
-- [ ] 将已批准 Spec/Plan 带入实现分支。
-- [ ] 先写失败测试，再修改业务代码。
-- [ ] 跑定向、相邻和全量测试。
-- [ ] 更新文档和 `.claude/memory/project.md`。
+- [x] Issue 创建成功后，从最新 `origin/main` 创建独立实现 worktree。
+- [x] 将已批准 Spec/Plan 带入实现分支。
+- [x] 先写失败测试，再修改业务代码。
+- [x] 跑定向、相邻和当前产品全量测试。
+- [x] 更新文档和 `.claude/memory/project.md`。
 - [ ] 中文提交，通过 `scripts/push-via-wsl.ps1` 推送。
 - [ ] 创建并回读中文 PR，使用 `Closes #<issue>`。
 - [ ] 等待 CI，通过后合并并确认 Issue 自动关闭。
@@ -34,9 +34,9 @@
 1. [x] `git diff --check` 检查 Spec/Plan，提交设计更新。
 2. [x] Issue #269 正文包含证据、设计不变量、验收标准和非目标。
 3. [x] 用 `gh issue view` 回读，确认不存在字面 `\n`、字段漂移或敏感路径。
-4. 获取最新 `origin/main`；不覆盖主 worktree 中用户未提交内容。
-5. 新建 `fix/compile-runtime-reliability` worktree，确认 clean tree 和基线提交。
-6. 阅读根、`backend/` 范围的 AGENTS/CLAUDE 指令及现有类型和测试，再锁定实际修改文件。
+4. [x] 获取 `origin/main@fa558d3a`；不覆盖主 worktree中用户未提交内容。
+5. [x] 新建 `fix/issue-269-compile-runtime-reliability` worktree并确认基线提交。
+6. [x] 阅读根、`backend/` 范围的 AGENTS/CLAUDE 指令及现有类型和测试，再锁定实际修改文件。
 
 ## 4. Phase B：测试先行
 
@@ -161,7 +161,7 @@
 2. compile manager/tools/runtime/replay/termination 相邻测试集。
 3. 改动 Python 文件 Ruff check 与 format check。
 4. backend 全量 lint/test；既有失败必须用 `origin/main` 同环境复核，不能口头归因。
-5. 若本机 Linux Docker daemon 可用，运行不访问真实 provider 的 Docker 集成测试，验证唯一容器、clean replay 和取消清理。
+5. 若本机 Linux Docker daemon 可用，运行不访问真实 provider 的 Docker 集成测试，验证唯一容器、clean replay 和取消清理；当前 Windows 开发机只完成 opt-in 文件收集，真实 Docker 留给服务器前端工程验收。
 6. `git diff --check`、敏感信息扫描、frozen manifest/evidence diff 检查。
 
 不通过的测试必须修复或明确阻塞，不以“读代码应该正确”代替运行验证。
@@ -175,6 +175,13 @@
 5. 创建中文 PR，正文包含 `Closes #<issue>`、测试证据、非目标和迁移影响。
 6. 用 `gh pr view` 回读 PR；检查 CI，失败则定位并修复。
 7. CI 全绿后合并；回读 PR、Issue 和 `origin/main`，确认合并完成、Issue 已关闭。
+
+## 12. 实施记录
+
+- 当前产品全量后端：`1579 passed, 41 skipped`，0 provider、0 Compile Session、0 experiment evidence write。
+- 可靠性与相邻回归：阶段化 Shell、严格选项拒绝、标准 `RunnableConfig.run_id`、prepare 幂等/冲突、显式 recipe、去重、ownership 和 Lead cleanup 均有回归。
+- 冻结 predecessor 在 Windows 完整运行：`982 passed, 30 skipped, 11 failed`；11 项均为冻结协议明确依赖 POSIX `/workspace` 路径或 Windows SQLite 文件锁的环境差异，完整集合耗时 2 分 49 秒。最终门禁为 PR 上的 Ubuntu `frozen-benchmark-tests`。
+- Runtime identity：`forge-compile-runtime-v2` 状态为 `engineering_validation`，只授权前端产品验证，不授权 provider 实验或正式采集。
 
 ## 11. 停止并请求用户决策的条件
 

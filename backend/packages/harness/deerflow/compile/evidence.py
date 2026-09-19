@@ -60,10 +60,12 @@ _ALLOWED_COMMAND_ROLES = {
     "clone",
     "inspect",
     "dependency_setup",
+    "dependency",
     "configure",
     "build",
     "artifact_stage",
     "smoke",
+    "diagnostic",
     "replay_delay",
     "other",
 }

@@ -53,7 +53,17 @@ class SingleToolCallModel(BaseChatModel):
             raise AssertionError("The model was called after a terminal compile tool")
         response = AIMessage(
             content="",
-            tool_calls=[{"name": self.tool_name, "args": {}, "id": "tool-call-graph", "type": "tool_call"}],
+            tool_calls=[
+                {
+                    "name": self.tool_name,
+                    "args": {
+                        "supporting_command_id": "command-build",
+                        "recipe_command_ids": ["command-build", "command-stage"],
+                    },
+                    "id": "tool-call-graph",
+                    "type": "tool_call",
+                }
+            ],
         )
         return ChatResult(generations=[ChatGeneration(message=response)])
 
@@ -74,7 +84,10 @@ def make_session() -> CompileSession:
         leadagent_artifacts_dir="/sessions/thread-123/session-123/artifacts",
         leadagent_logs_dir="/sessions/thread-123/session-123/logs",
         leadagent_repro_dir="/sessions/thread-123/session-123/repro",
-        commands=[BuildCommandRecord(stage="build", command="cmake --build build", workdir="/workspace/repo")],
+        commands=[
+            BuildCommandRecord(stage="bash", command="cmake --build build", workdir="/workspace/repo", command_id="command-build", role="build", exit_code=0),
+            BuildCommandRecord(stage="bash", command="cp build/hello /artifacts/hello", workdir="/workspace/repo", command_id="command-stage", role="artifact_stage", exit_code=0),
+        ],
         artifacts=[BuildArtifact(path="thread-123/session-123/artifacts/hello", artifact_type="executable", size_bytes=16504)],
         verification=VerificationResult(status="passed", artifact_count=1),
     )
@@ -87,10 +100,10 @@ def test_successful_bound_submit_returns_machine_readable_result(monkeypatch):
         "message": "Build artifacts accepted from /artifacts.",
         "artifacts": [{"path": "thread-123/session-123/artifacts/hello"}],
     }
-    monkeypatch.setattr(bound_compile_tools, "submit_build_result_impl", lambda session: json.dumps(submit_payload))
+    monkeypatch.setattr(bound_compile_tools, "submit_build_result_impl", lambda **_kwargs: json.dumps(submit_payload))
     submit_tool = next(tool for tool in bound_compile_tools.get_bound_compile_tools(session) if tool.name == "submit_build_result")
 
-    result = submit_tool.func()
+    result = submit_tool.func(supporting_command_id="command-build", recipe_command_ids=["command-build", "command-stage"])
 
     assert json.loads(result) == submit_payload
 
@@ -102,7 +115,7 @@ def test_successful_submit_ends_react_graph_after_one_model_call(monkeypatch):
         "message": "Build artifacts accepted from /artifacts.",
         "artifacts": [{"path": "thread-123/session-123/artifacts/hello"}],
     }
-    monkeypatch.setattr(bound_compile_tools, "submit_build_result_impl", lambda session: json.dumps(submit_payload))
+    monkeypatch.setattr(bound_compile_tools, "submit_build_result_impl", lambda **_kwargs: json.dumps(submit_payload))
     submit_tool = next(tool for tool in bound_compile_tools.get_bound_compile_tools(session) if tool.name == "submit_build_result")
     model = SingleToolCallModel()
     agent = create_agent(model=model, tools=[submit_tool], middleware=[CompileTerminationMiddleware()])
@@ -120,7 +133,7 @@ def test_successful_submit_ends_async_react_graph_after_one_model_call(monkeypat
         "message": "Build artifacts accepted from /artifacts.",
         "artifacts": [{"path": "thread-123/session-123/artifacts/hello"}],
     }
-    monkeypatch.setattr(bound_compile_tools, "submit_build_result_impl", lambda session: json.dumps(submit_payload))
+    monkeypatch.setattr(bound_compile_tools, "submit_build_result_impl", lambda **_kwargs: json.dumps(submit_payload))
     submit_tool = next(tool for tool in bound_compile_tools.get_bound_compile_tools(session) if tool.name == "submit_build_result")
     model = SingleToolCallModel()
     agent = create_agent(model=model, tools=[submit_tool], middleware=[CompileTerminationMiddleware()])
@@ -134,16 +147,16 @@ def test_successful_submit_ends_async_react_graph_after_one_model_call(monkeypat
 def test_failed_bound_submit_remains_repairable(monkeypatch):
     session = make_session()
     submit_payload = {"status": "failed", "message": "No compiled artifacts", "artifacts": []}
-    monkeypatch.setattr(bound_compile_tools, "submit_build_result_impl", lambda session: json.dumps(submit_payload))
+    monkeypatch.setattr(bound_compile_tools, "submit_build_result_impl", lambda **_kwargs: json.dumps(submit_payload))
     submit_tool = next(tool for tool in bound_compile_tools.get_bound_compile_tools(session) if tool.name == "submit_build_result")
 
-    result = submit_tool.func()
+    result = submit_tool.func(supporting_command_id="command-build", recipe_command_ids=["command-build", "command-stage"])
 
     assert isinstance(result, str)
     assert json.loads(result)["status"] == "failed"
 
 
-def test_staged_artifacts_submit_automatically_in_same_tool_call(monkeypatch):
+def test_staged_artifacts_require_an_explicit_submit_call(monkeypatch):
     session = make_session()
     session.status = "inspected"
     session.post_build_supporting_command_id = "command-build"
@@ -167,29 +180,18 @@ def test_staged_artifacts_submit_automatically_in_same_tool_call(monkeypatch):
         "_run_container_bash_impl",
         lambda **_kwargs: (command_result, "command completed", record),
     )
-    monkeypatch.setattr(bound_compile_tools, "_reload_session", lambda current: current)
-    monkeypatch.setattr(bound_compile_tools, "_has_staged_artifacts", lambda _session: True)
 
-    def submit(*, session, supporting_command_id):
-        del session
+    def submit(*, supporting_command_id, **_kwargs):
         submitted.append(supporting_command_id)
         return json.dumps(submit_payload)
 
     monkeypatch.setattr(bound_compile_tools, "submit_build_result_impl", submit)
     run_tool = next(tool for tool in bound_compile_tools.get_bound_compile_tools(session) if tool.name == "run_container_bash")
 
-    result = json.loads(run_tool.func(command="cp build/hello /artifacts/hello"))
+    result = run_tool.func(command="cp build/hello /artifacts/hello", command_role="artifact_stage")
 
-    assert submitted == ["command-build"]
-    assert result["command"]["command_id"] == "command-stage"
-    assert result["automatic_submit"] == submit_payload
-
-    record.role = "build"
-    combined_result = json.loads(run_tool.func(command="make -j2 && cp build/hello /artifacts/hello"))
-
-    assert submitted == ["command-build", "command-build"]
-    assert combined_result["command"]["command_role"] == "build"
-    assert combined_result["automatic_submit"] == submit_payload
+    assert submitted == []
+    assert result == "command completed"
 
 
 def test_invalid_submit_response_releases_post_build_fence(monkeypatch):
@@ -200,7 +202,11 @@ def test_invalid_submit_response_releases_post_build_fence(monkeypatch):
     monkeypatch.setattr(bound_compile_tools, "_clear_post_build_phase", lambda _session, *, reason: released.append(reason))
     monkeypatch.setattr(bound_compile_tools, "submit_build_result_impl", lambda **_kwargs: "not-json")
 
-    result = bound_compile_tools._submit_with_post_build_phase(session)
+    result = bound_compile_tools._submit_with_post_build_phase(
+        session,
+        supporting_command_id="command-build",
+        recipe_command_ids=["command-build", "command-stage"],
+    )
 
     assert result == "not-json"
     assert released == ["submit_invalid_response"]
@@ -235,12 +241,12 @@ def test_post_build_fence_blocks_reconfigure_rebuild_and_manual_replay(monkeypat
     assert "successful build" in bound_compile_tools._post_build_rejection(
         session,
         command="apt-get install -y texinfo",
-        command_role="other",
+        command_role="dependency",
     )
     assert "successful build" in bound_compile_tools._post_build_rejection(
         session,
         command="bash -lc 'apt-get install -y texinfo'",
-        command_role="other",
+        command_role="dependency",
     )
     assert (
         bound_compile_tools._post_build_rejection(
@@ -253,14 +259,14 @@ def test_post_build_fence_blocks_reconfigure_rebuild_and_manual_replay(monkeypat
     assert "/repro" in bound_compile_tools._post_build_rejection(
         session,
         command="bash /repro/build.sh",
-        command_role="other",
+        command_role="diagnostic",
     )
 
     session.post_build_commands_remaining = 0
     assert "budget is exhausted" in bound_compile_tools._post_build_rejection(
         session,
         command="find build -type f",
-        command_role="other",
+        command_role="diagnostic",
     )
     assert (
         bound_compile_tools._post_build_rejection(
@@ -272,32 +278,17 @@ def test_post_build_fence_blocks_reconfigure_rebuild_and_manual_replay(monkeypat
     )
 
 
-def test_automatic_submit_ends_compiler_graph_without_another_model_call():
-    payload = {
-        "command": {
-            "command_id": "command-stage",
-            "command_role": "artifact_stage",
-            "exit_code": 0,
-            "message": "command completed",
-        },
-        "automatic_submit": {
-            "status": "passed",
-            "message": "Build artifacts and clean replay accepted.",
-            "artifacts": [{"path": "thread-123/session-123/artifacts/hello"}],
-        },
-    }
+def test_run_container_bash_never_ends_the_compiler_graph():
     request = SimpleNamespace(tool_call={"name": "run_container_bash", "id": "tool-stage", "args": {}})
     tool_message = ToolMessage(
-        content=json.dumps(payload),
+        content="command_id=command-stage\ncommand_role=artifact_stage\nexit_code=0",
         tool_call_id="tool-stage",
         name="run_container_bash",
     )
 
     terminal = CompileTerminationMiddleware().wrap_tool_call(request, lambda _request: tool_message)
 
-    assert isinstance(terminal, Command)
-    assert terminal.update["compile_terminal"] is True
-    assert json.loads(terminal.update["messages"][-1].content)["verification_status"] == "passed"
+    assert terminal is tool_message
 
 
 def test_compile_session_skips_post_run_memory_model_work(monkeypatch):
@@ -343,7 +334,7 @@ def test_finalize_cleans_container_then_ends_lead_with_deterministic_summary(mon
     final_payload = json.loads(result)
     assert final_payload["status"] == "completed"
     assert final_payload["session_id"] == session.session_id
-    assert final_payload["commands"] == ["cmake --build build"]
+    assert final_payload["commands"] == ["cmake --build build", "cp build/hello /artifacts/hello"]
     assert final_payload["verification"] == "passed"
     assert final_payload["container_stopped"] is True
     assert final_payload["container_removed"] is True

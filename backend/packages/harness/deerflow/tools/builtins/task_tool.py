@@ -145,7 +145,7 @@ def _with_benchmark_constraints(prompt: str, policy: ExperimentPolicy) -> str:
         [
             "- Set command_role on every run_container_bash call; use configure for configuration and build for the successful command that supports final acceptance.",
             "- Pass that successful build command's returned command_id as supporting_command_id to submit_build_result.",
-            "- Do not write /repro or run a manual replay. After the first successful build, use only bounded smoke/artifact staging work; staging into /artifacts may submit automatically in the same tool call.",
+            "- Do not write /repro or run a manual replay. After the first successful build, use only bounded smoke/artifact staging work, then explicitly submit the minimal ordered replay recipe command IDs.",
         ]
     )
     return f"{prompt.rstrip()}\n\n" + "\n".join(requirements)

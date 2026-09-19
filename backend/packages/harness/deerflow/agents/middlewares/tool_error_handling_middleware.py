@@ -75,6 +75,7 @@ def _build_runtime_middlewares(
     lazy_init: bool = False,
     include_thread_data: bool = True,
     include_sandbox: bool = False,
+    cleanup_compile_run_on_end: bool = False,
 ) -> list[AgentMiddleware]:
     """Build shared base middlewares for agent execution."""
     from deerflow.agents.middlewares.llm_error_handling_middleware import LLMErrorHandlingMiddleware
@@ -124,7 +125,7 @@ def _build_runtime_middlewares(
 
     middlewares.append(SandboxAuditMiddleware())
     middlewares.append(ToolErrorHandlingMiddleware())
-    middlewares.append(CompileTerminationMiddleware())
+    middlewares.append(CompileTerminationMiddleware(cleanup_run_on_end=cleanup_compile_run_on_end))
     return middlewares
 
 
@@ -136,6 +137,7 @@ def build_lead_runtime_middlewares(*, lazy_init: bool = True) -> list[AgentMiddl
         lazy_init=lazy_init,
         include_thread_data=True,
         include_sandbox=True,
+        cleanup_compile_run_on_end=True,
     )
 
 
@@ -147,6 +149,7 @@ def build_subagent_runtime_middlewares(*, lazy_init: bool = True) -> list[AgentM
         lazy_init=lazy_init,
         include_thread_data=True,
         include_sandbox=True,
+        cleanup_compile_run_on_end=False,
     )
 
 

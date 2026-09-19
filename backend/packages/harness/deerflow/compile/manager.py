@@ -20,11 +20,10 @@ from deerflow.compile.paths import (
     get_thread_compile_root,
     get_workspace_dir,
 )
-from deerflow.compile.schemas import BuildArtifact, BuildCommandRecord, CompileSession, utc_now_iso
+from deerflow.compile.schemas import TERMINAL_COMPILE_SESSION_STATUSES, BuildArtifact, BuildCommandRecord, CompileSession, utc_now_iso
 
 DEFAULT_COMPILE_IMAGE = "autocompiler:gcc13"
 WORKFLOW_LOG_NAME = "workflow.log"
-TERMINAL_SESSION_STATUSES = {"completed", "failed", "cancelled", "timed_out"}
 
 
 class CompileSessionManager:
@@ -33,12 +32,22 @@ class CompileSessionManager:
         self.default_image = default_image
         self._session_locks: dict[tuple[str, str], threading.RLock] = {}
         self._session_locks_guard = threading.Lock()
+        self._run_locks: dict[tuple[str, str], threading.RLock] = {}
+        self._run_locks_guard = threading.Lock()
 
     @contextmanager
     def session_lock(self, thread_id: str, session_id: str) -> Iterator[None]:
         key = (thread_id, session_id)
         with self._session_locks_guard:
             lock = self._session_locks.setdefault(key, threading.RLock())
+        with lock:
+            yield
+
+    @contextmanager
+    def run_lock(self, thread_id: str, run_id: str) -> Iterator[None]:
+        key = (thread_id, run_id)
+        with self._run_locks_guard:
+            lock = self._run_locks.setdefault(key, threading.RLock())
         with lock:
             yield
 
@@ -114,6 +123,9 @@ class CompileSessionManager:
             except (OSError, TypeError, ValueError, json.JSONDecodeError):
                 continue
         return sessions
+
+    def list_active_run_sessions(self, thread_id: str, run_id: str) -> list[CompileSession]:
+        return [session for session in self.list_sessions(thread_id) if session.run_id == run_id and session.status not in TERMINAL_COMPILE_SESSION_STATUSES and session.finalized_at is None]
 
     @staticmethod
     def _read_persisted_session(metadata_file: Path) -> CompileSession | None:
@@ -192,7 +204,7 @@ class CompileSessionManager:
     def mark_session_status(self, session: CompileSession, status: str, error: str | None = None, summary: str | None = None) -> CompileSession:
         with self.session_lock(session.thread_id, session.session_id):
             authoritative = self._read_persisted_session(Path(session.metadata_path))
-            termination_blocks_transition = authoritative is not None and authoritative.termination_requested_at is not None and status not in TERMINAL_SESSION_STATUSES
+            termination_blocks_transition = authoritative is not None and authoritative.termination_requested_at is not None and status not in TERMINAL_COMPILE_SESSION_STATUSES
             if authoritative is not None and (authoritative.finalized_at is not None or termination_blocks_transition):
                 session.__dict__.update(authoritative.__dict__)
                 return session
@@ -205,7 +217,7 @@ class CompileSessionManager:
 
             previous_status = target.status
             target.status = status
-            if status in TERMINAL_SESSION_STATUSES:
+            if status in TERMINAL_COMPILE_SESSION_STATUSES:
                 target.completed_at = target.completed_at if previous_status == status and target.completed_at is not None else utc_now_iso()
             else:
                 target.completed_at = None
@@ -214,7 +226,7 @@ class CompileSessionManager:
                 target.summary = summary
             if not self.save_session(
                 target,
-                allow_lifecycle_fenced=(authoritative is not None and authoritative.termination_requested_at is not None and status in TERMINAL_SESSION_STATUSES),
+                allow_lifecycle_fenced=(authoritative is not None and authoritative.termination_requested_at is not None and status in TERMINAL_COMPILE_SESSION_STATUSES),
             ):
                 session.__dict__.update(target.__dict__)
                 return session

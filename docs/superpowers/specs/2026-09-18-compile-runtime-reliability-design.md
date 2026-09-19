@@ -124,16 +124,14 @@ run_id + normalized_repo_url + branch + resolved_image
 
 ### 7.1 生命周期边界
 
-资源回收不能依赖模型是否调用 `finalize_session`。Agent run 的所有外部退出路径必须进入同一生命周期边界：
+资源回收不能依赖模型是否调用 `finalize_session`。当前两种运行模式分别接入可用的生命周期边界：
 
 ```text
-try:
-    execute run
-finally:
-    cleanup all Forge containers owned by run_id
+标准 LangGraph：compiler task error/cancel/timeout cleanup + Lead 正常 after_agent cleanup
+Gateway 内嵌运行时：worker try/finally cleanup all Forge containers owned by run_id
 ```
 
-覆盖：正常成功、业务异常、客户端/用户取消、recursion exhausted。清理同时处理 compile 和 replay 容器，并在必要时把仍非终态的 session 收敛为明确的 cancelled/failed 终态。
+Gateway worker 的 `finally` 覆盖正常成功、业务异常、客户端/用户取消和 timeout；compiler task 自身覆盖 recursion exhausted、失败、取消与超时。清理同时处理 compile 和 replay 容器，并在必要时把仍非终态的 session 收敛为明确终态。标准 LangGraph 进程被强制终止时 Python cleanup 可能无法执行；安全 reconciliation 不会删除仍标记为活动且无法证明为 orphan 的容器。
 
 ### 7.2 幂等与安全范围
 
@@ -145,7 +143,7 @@ finally:
 
 ### 7.3 启动 reconciliation
 
-LangGraph 运行时启动时执行一次严格 Forge-label-scoped orphan reconciliation：只处理有完整 ownership labels、所属 run 已不活动的 compile/replay 容器。无法证明 ownership 或活动状态时不删除，并记录可审计结果。
+每次 prepare 前执行严格 Forge-label-scoped orphan reconciliation：只处理有完整 ownership labels、身份与持久化 session 匹配且 session 已终态的 compile/replay 容器。无法证明 ownership 或终态时不删除，并记录可审计结果。
 
 ## 8. 显式 replay recipe
 
@@ -222,8 +220,8 @@ logs/{command_id}.log
 - 串行重复 prepare 相同请求复用原 session/container。
 - 100 个并发相同 prepare 只产生一个 session/container。
 - 同 run 的不同请求返回 `active_session_conflict`；已有多个活动 session 返回 `multiple_active_sessions`。
-- success、exception、cancel、recursion exhausted 都清空 run-owned compile/replay containers。
-- 启动 reconciliation 只处理标签完整且可证明为 orphan 的 Forge 容器。
+- Lead 正常结束、compiler exception/cancel/timeout/recursion exhausted 和 Gateway worker 的所有退出路径都触发相应的 run/session cleanup。
+- prepare 前 reconciliation 只处理标签完整、身份匹配且 session 已终态的 Forge 容器。
 
 ### Recipe 与日志
 

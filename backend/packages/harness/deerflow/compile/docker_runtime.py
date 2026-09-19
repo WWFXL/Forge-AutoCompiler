@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 import math
 import os
 import re
@@ -89,6 +90,13 @@ class ReplayContainerHandle:
     container_id: str
     container_name: str
     image_id: str
+
+
+@dataclass(frozen=True)
+class ManagedCompileContainer:
+    container_id: str
+    container_name: str
+    labels: dict[str, str]
 
 
 class CompileDockerRuntime:
@@ -234,6 +242,71 @@ class CompileDockerRuntime:
             raise RuntimeError(f"Failed to inspect immutable image ID for container {container_reference!r}: {error}")
         return self._validate_image_id(result.stdout)
 
+    def list_managed_containers(self) -> list[ManagedCompileContainer]:
+        """Return Docker containers carrying the Forge ownership marker."""
+
+        list_command = [
+            "docker",
+            "ps",
+            "-aq",
+            "--filter",
+            "label=deerflow.compile.managed=true",
+        ]
+        listed = subprocess.run(
+            list_command,
+            check=False,
+            capture_output=True,
+            text=True,
+            timeout=self.config.docker_control_timeout_seconds,
+        )
+        if listed.returncode != 0:
+            error = listed.stderr.strip() or listed.stdout.strip() or "unknown Docker error"
+            raise RuntimeError(f"Failed to list Forge-managed containers: {error}")
+        container_ids = [line.strip() for line in listed.stdout.splitlines() if line.strip()]
+        if not container_ids:
+            return []
+
+        inspect_command = ["docker", "inspect", *container_ids]
+        inspected = subprocess.run(
+            inspect_command,
+            check=False,
+            capture_output=True,
+            text=True,
+            timeout=self.config.docker_control_timeout_seconds,
+        )
+        if inspected.returncode != 0:
+            error = inspected.stderr.strip() or inspected.stdout.strip() or "unknown Docker error"
+            raise RuntimeError(f"Failed to inspect Forge-managed containers: {error}")
+        try:
+            payload = json.loads(inspected.stdout)
+        except json.JSONDecodeError as exc:
+            raise RuntimeError("Docker returned malformed managed-container metadata") from exc
+        if not isinstance(payload, list):
+            raise RuntimeError("Docker returned invalid managed-container metadata")
+
+        containers: list[ManagedCompileContainer] = []
+        for item in payload:
+            if not isinstance(item, dict):
+                continue
+            container_id = item.get("Id")
+            container_name = item.get("Name")
+            raw_labels = (item.get("Config") or {}).get("Labels")
+            if not isinstance(container_id, str) or not container_id:
+                continue
+            if not isinstance(container_name, str) or not container_name:
+                continue
+            if not isinstance(raw_labels, dict):
+                raw_labels = {}
+            labels = {str(key): str(value) for key, value in raw_labels.items() if value is not None}
+            containers.append(
+                ManagedCompileContainer(
+                    container_id=container_id,
+                    container_name=container_name.removeprefix("/"),
+                    labels=labels,
+                )
+            )
+        return containers
+
     def _reconcile_timed_out_replay_create(
         self,
         session: CompileSession,
@@ -357,11 +430,15 @@ class CompileDockerRuntime:
             "--name",
             container_name,
             "--label",
+            "deerflow.compile.managed=true",
+            "--label",
             "deerflow.compile.role=compile",
             "--label",
             f"deerflow.compile.session_id={session.session_id}",
             "--label",
             f"deerflow.compile.thread_id={session.thread_id}",
+            "--label",
+            f"deerflow.compile.run_id={session.run_id or ''}",
             *experiment_label_flags,
             "--network",
             self.config.network,
@@ -495,11 +572,15 @@ class CompileDockerRuntime:
             "--name",
             container_name,
             "--label",
+            "deerflow.compile.managed=true",
+            "--label",
             "deerflow.compile.role=replay",
             "--label",
             f"deerflow.compile.session_id={session.session_id}",
             "--label",
             f"deerflow.compile.thread_id={session.thread_id}",
+            "--label",
+            f"deerflow.compile.run_id={session.run_id or ''}",
             "--label",
             f"deerflow.compile.attempt_id={attempt_id}",
             *experiment_label_flags,
@@ -621,11 +702,13 @@ class CompileDockerRuntime:
         timeout_seconds: int = 600,
         log_path: str | None = None,
         event_prefix: str = "container.exec",
+        strict_shell: bool = False,
     ) -> CommandResult:
         if not container_id:
             raise ValueError("A container ID is required to execute a compile command")
         container_workdir = workdir or CONTAINER_REPO_DIR
         container_timeout = max(1, timeout_seconds)
+        effective_command = f"set -euo pipefail\n{command}" if strict_shell else command
         exec_command = [
             "docker",
             "exec",
@@ -638,7 +721,7 @@ class CompileDockerRuntime:
             f"{container_timeout}s",
             "bash",
             "-lc",
-            command,
+            effective_command,
         ]
         self._log(
             session,
@@ -648,6 +731,7 @@ class CompileDockerRuntime:
             timeout_seconds=container_timeout,
             log_path=log_path,
             command=command,
+            strict_shell=strict_shell,
             docker_command=exec_command,
         )
         started_at = utc_now_iso()
@@ -720,6 +804,7 @@ class CompileDockerRuntime:
         workdir: str | None = None,
         timeout_seconds: int = 600,
         log_path: str | None = None,
+        strict_shell: bool = False,
     ) -> CommandResult:
         if not session.container_id:
             raise ValueError("Compile session container has not been created")
@@ -730,6 +815,7 @@ class CompileDockerRuntime:
             workdir=workdir,
             timeout_seconds=timeout_seconds,
             log_path=log_path,
+            strict_shell=strict_shell,
         )
 
     def exec_replay_container(
