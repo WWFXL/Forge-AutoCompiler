@@ -7,6 +7,8 @@ from pathlib import Path
 from types import SimpleNamespace
 
 import pytest
+from langchain_core.runnables import RunnableLambda
+from langgraph.runtime import Runtime
 
 from deerflow.agents.middlewares.compile_termination_middleware import CompileTerminationMiddleware
 from deerflow.compile import operations
@@ -155,16 +157,23 @@ def test_strict_shell_options_cannot_be_disabled(
 
 
 def test_standard_runnable_config_run_id_is_used_for_compile_ownership() -> None:
-    runtime = SimpleNamespace(
+    tool_runtime = SimpleNamespace(
         context={},
+        config={"configurable": {"thread_id": "thread-config-run"}, "run_id": "run-from-runnable-config"},
+    )
+    middleware_runtime = Runtime(context={})
+
+    assert agent_compile_tools._get_run_id(tool_runtime) == "run-from-runnable-config"
+    identity = RunnableLambda(lambda _: CompileTerminationMiddleware._run_identity(middleware_runtime)).invoke(
+        None,
         config={
-            "configurable": {"thread_id": "thread-config-run"},
-            "run_id": "run-from-runnable-config",
+            "configurable": {
+                "thread_id": "thread-config-run",
+                "run_id": "run-from-runnable-config",
+            }
         },
     )
-
-    assert agent_compile_tools._get_run_id(runtime) == "run-from-runnable-config"
-    assert CompileTerminationMiddleware._run_identity(runtime) == (
+    assert identity == (
         "thread-config-run",
         "run-from-runnable-config",
     )
@@ -194,10 +203,7 @@ def test_lead_cleanup_does_not_expand_to_the_whole_thread_without_run_id(
         lambda **kwargs: calls.append(kwargs),
     )
     middleware = CompileTerminationMiddleware(cleanup_run_on_end=True)
-    runtime = SimpleNamespace(
-        context={"thread_id": "thread-without-run"},
-        config={"configurable": {}},
-    )
+    runtime = Runtime(context={"thread_id": "thread-without-run"})
 
     assert asyncio.run(middleware.aafter_agent({}, runtime)) is None
     assert calls == []
@@ -400,6 +406,7 @@ def test_replay_bundle_uses_only_explicit_recipe_command_ids(tmp_path: Path) -> 
         session,
         supporting_command_id="command_build",
         recipe_command_ids=["command_configure", "command_build", "command_stage"],
+        verification_command_ids=[],
     )
     script = operations._write_repro_bundle(session, recipe).read_text(encoding="utf-8")
 
@@ -446,6 +453,7 @@ def test_replay_recipe_rejects_nonportable_audit_history(
             session,
             supporting_command_id="command_build",
             recipe_command_ids=recipe_ids,
+            verification_command_ids=[],
         )
 
     assert raised.value.classification == classification
@@ -500,6 +508,7 @@ def test_submit_reports_structured_replay_recipe_rejection(
                 "command_build",
                 "command_stage",
             ],
+            verification_command_ids=[],
         )
     )
 
@@ -721,10 +730,7 @@ def test_lead_after_agent_finalizes_unfinished_run_sessions(monkeypatch: pytest.
 
     monkeypatch.setattr(operations, "finalize_unfinished_thread_sessions_impl", finalize)
     middleware = CompileTerminationMiddleware(cleanup_run_on_end=True)
-    runtime = SimpleNamespace(
-        context={"thread_id": "thread-after-agent", "run_id": "run-after-agent"},
-        config={"configurable": {}},
-    )
+    runtime = Runtime(context={"thread_id": "thread-after-agent", "run_id": "run-after-agent"})
 
     assert asyncio.run(middleware.aafter_agent({}, runtime)) is None
     assert calls == [
@@ -749,6 +755,7 @@ def test_replay_recipe_is_persisted_in_session_round_trip(tmp_path: Path) -> Non
         session,
         supporting_command_id="command_build",
         recipe_command_ids=["command_build", "command_stage"],
+        verification_command_ids=[],
     )
     manager.save_session(session)
 

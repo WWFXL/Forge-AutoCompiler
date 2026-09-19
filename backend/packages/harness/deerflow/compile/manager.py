@@ -20,16 +20,25 @@ from deerflow.compile.paths import (
     get_thread_compile_root,
     get_workspace_dir,
 )
-from deerflow.compile.schemas import TERMINAL_COMPILE_SESSION_STATUSES, BuildArtifact, BuildCommandRecord, CompileSession, utc_now_iso
+from deerflow.compile.schemas import DEFAULT_COMPILE_PARALLEL_JOBS, TERMINAL_COMPILE_SESSION_STATUSES, BuildArtifact, BuildCommandRecord, CompileSession, utc_now_iso
 
 DEFAULT_COMPILE_IMAGE = "autocompiler:gcc13"
 WORKFLOW_LOG_NAME = "workflow.log"
 
 
+def _configured_parallel_jobs() -> int:
+    try:
+        value = int(os.getenv("COMPILE_MAX_PARALLEL_JOBS", str(DEFAULT_COMPILE_PARALLEL_JOBS)))
+    except ValueError:
+        return DEFAULT_COMPILE_PARALLEL_JOBS
+    return value if value > 0 else DEFAULT_COMPILE_PARALLEL_JOBS
+
+
 class CompileSessionManager:
-    def __init__(self, paths=None, default_image: str = DEFAULT_COMPILE_IMAGE):
+    def __init__(self, paths=None, default_image: str = DEFAULT_COMPILE_IMAGE, parallel_jobs: int | None = None):
         self.paths = paths
         self.default_image = default_image
+        self.parallel_jobs = parallel_jobs if parallel_jobs is not None and parallel_jobs > 0 else _configured_parallel_jobs()
         self._session_locks: dict[tuple[str, str], threading.RLock] = {}
         self._session_locks_guard = threading.Lock()
         self._run_locks: dict[tuple[str, str], threading.RLock] = {}
@@ -81,6 +90,7 @@ class CompileSessionManager:
                 branch=branch,
                 image=image or self.default_image,
                 status="created",
+                parallel_jobs=self.parallel_jobs,
                 metadata_path=str(metadata_path),
                 leadagent_repo_dir=str(workspace_dir / "repo"),
                 leadagent_artifacts_dir=str(artifacts_dir),
@@ -96,6 +106,7 @@ class CompileSessionManager:
                 repo_url=repo_url,
                 branch=branch,
                 image=session.image,
+                parallel_jobs=session.parallel_jobs,
                 compile_sessions_root=str(session_dir.parent.parent),
                 session_dir=str(session_dir),
                 workspace_dir=str(workspace_dir),

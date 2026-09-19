@@ -18,6 +18,7 @@ const ai = (id, name, args = {}) => ({
   id: `ai-${id}`,
   type: "ai",
   content: "",
+  additional_kwargs: { reasoning_content: "" },
   tool_calls: [{ id, name, args }],
 });
 const tool = (id, content) => ({
@@ -251,6 +252,33 @@ function snapshot(sessionId) {
       assert.ok((await traces.nth(1).innerText()).includes("session-new"));
       assert.ok((await traces.nth(1).innerText()).includes("smoke_mismatch"));
       assert.ok((await traces.nth(1).innerText()).includes("2. passed"));
+      const subtaskGroups = page.getByTestId("subtask-group");
+      assert.equal(await subtaskGroups.count(), 2);
+      for (let index = 0; index < (await subtaskGroups.count()); index++) {
+        const bounds = await subtaskGroups.nth(index).evaluate((group) => {
+          const title = group.querySelector('[data-testid="subtask-count"]');
+          const card = title?.nextElementSibling;
+          const unexpected = title?.previousElementSibling;
+          const titleBox = title?.getBoundingClientRect();
+          const cardBox = card?.getBoundingClientRect();
+          return {
+            unexpectedBeforeTitle: Boolean(unexpected),
+            titleBottom: titleBox?.bottom,
+            cardTop: cardBox?.top,
+          };
+        });
+        assert.equal(
+          bounds.unexpectedBeforeTitle,
+          false,
+          JSON.stringify(bounds),
+        );
+        assert.ok(
+          bounds.titleBottom !== undefined &&
+            bounds.cardTop !== undefined &&
+            bounds.titleBottom < bounds.cardTop,
+          JSON.stringify(bounds),
+        );
+      }
       assert.equal(logs.length, 0, "日志只能展开后读取");
       const command = traces.nth(1).locator("ol").first().locator("li").nth(1);
       await command.locator("summary").first().click();

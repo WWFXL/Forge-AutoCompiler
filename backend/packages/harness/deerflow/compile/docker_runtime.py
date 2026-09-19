@@ -25,7 +25,7 @@ from deerflow.compile.paths import (
     get_replay_recipe_dir,
     get_replay_workspace_dir,
 )
-from deerflow.compile.schemas import CommandResult, CompileSession, utc_now_iso
+from deerflow.compile.schemas import DEFAULT_COMPILE_PARALLEL_JOBS, CommandResult, CompileSession, utc_now_iso
 from deerflow.config.paths import Paths
 
 DEFAULT_NETWORK = "compile_network_wwf_v1"
@@ -37,6 +37,7 @@ CONTAINER_REPRO_DIR = "/repro"
 DEFAULT_REPLAY_TIMEOUT_SECONDS = 1200
 DEFAULT_DOCKER_CONTROL_TIMEOUT_SECONDS = 30
 DEFAULT_DOCKER_CLEANUP_TIMEOUT_SECONDS = 20
+DEFAULT_DOCKER_STOP_GRACE_SECONDS = 3
 _REPLAY_CREATE_RECONCILE_COMMAND_TIMEOUT_SECONDS = 2.0
 _REPLAY_CREATE_RECONCILE_POLL_SECONDS = 0.5
 _IMAGE_ID_RE = re.compile(r"sha256:[0-9a-f]{64}")
@@ -58,6 +59,12 @@ class RuntimeConfig:
     image: str = "autocompiler:gcc13"
     network: str = DEFAULT_NETWORK
     remove_on_cleanup: bool = True
+    parallel_jobs: int = field(
+        default_factory=lambda: _positive_int_from_env(
+            "COMPILE_MAX_PARALLEL_JOBS",
+            DEFAULT_COMPILE_PARALLEL_JOBS,
+        )
+    )
     replay_timeout_seconds: int = field(
         default_factory=lambda: _positive_int_from_env(
             "COMPILE_REPLAY_TIMEOUT_SECONDS",
@@ -74,6 +81,12 @@ class RuntimeConfig:
         default_factory=lambda: _positive_int_from_env(
             "COMPILE_DOCKER_CLEANUP_TIMEOUT_SECONDS",
             DEFAULT_DOCKER_CLEANUP_TIMEOUT_SECONDS,
+        )
+    )
+    stop_grace_seconds: int = field(
+        default_factory=lambda: _positive_int_from_env(
+            "COMPILE_DOCKER_STOP_GRACE_SECONDS",
+            DEFAULT_DOCKER_STOP_GRACE_SECONDS,
         )
     )
 
@@ -145,6 +158,23 @@ class CompileDockerRuntime:
             f"deerflow.compile.experiment_id={active.experiment_id}",
             "--label",
             (f"deerflow.compile.physical_attempt_id={active.physical_attempt_id}"),
+        ]
+
+    @staticmethod
+    def _parallel_policy_flags(session: CompileSession) -> list[str]:
+        parallel_jobs = session.parallel_jobs
+        if parallel_jobs <= 0:
+            raise ValueError("Compile session parallel_jobs must be a positive integer")
+        value = str(parallel_jobs)
+        return [
+            "--cpus",
+            value,
+            "--env",
+            f"CMAKE_BUILD_PARALLEL_LEVEL={value}",
+            "--env",
+            f"CTEST_PARALLEL_LEVEL={value}",
+            "--env",
+            f"MAKEFLAGS=-j{value}",
         ]
 
     def _paths(self) -> Paths:
@@ -422,6 +452,7 @@ class CompileDockerRuntime:
         proxy_flags, run_environment = self._runtime_proxy_environment()
         experiment_environment_flags = self._experiment_environment_flags(session)
         experiment_label_flags = self._experiment_label_flags(session)
+        parallel_policy_flags = self._parallel_policy_flags(session)
         container_name = f"deerflow-compile-{session.thread_id[:8]}-{session.session_id[:8]}"
         command = [
             "docker",
@@ -440,6 +471,7 @@ class CompileDockerRuntime:
             "--label",
             f"deerflow.compile.run_id={session.run_id or ''}",
             *experiment_label_flags,
+            *parallel_policy_flags,
             "--network",
             self.config.network,
             "--add-host",
@@ -467,6 +499,7 @@ class CompileDockerRuntime:
             container_name=container_name,
             image=session.image or self.config.image,
             network=self.config.network,
+            parallel_jobs=session.parallel_jobs,
             mounts={
                 str(host_workspace_dir): CONTAINER_WORKSPACE_DIR,
                 str(host_artifacts_dir): CONTAINER_ARTIFACTS_DIR,
@@ -546,6 +579,10 @@ class CompileDockerRuntime:
         recipe_path = recipe_dir / "build.sh"
         if recipe_path.is_symlink() or not recipe_path.is_file():
             raise ValueError("Replay recipe/build.sh must be a regular file before container creation")
+        if session.replay_recipe is not None and session.replay_recipe.verification_steps:
+            verification_recipe_path = recipe_dir / "verify.sh"
+            if verification_recipe_path.is_symlink() or not verification_recipe_path.is_file():
+                raise ValueError("Replay recipe/verify.sh must be a regular file before container creation")
         for directory in (workspace_dir, artifacts_dir, logs_dir):
             if any(directory.iterdir()):
                 raise ValueError(f"Replay {directory.name} directory must be empty before container creation")
@@ -564,6 +601,7 @@ class CompileDockerRuntime:
         proxy_flags, run_environment = self._runtime_proxy_environment()
         experiment_environment_flags = self._experiment_environment_flags(session)
         experiment_label_flags = self._experiment_label_flags(session)
+        parallel_policy_flags = self._parallel_policy_flags(session)
         container_name = self.replay_container_name(session, attempt_id)
         command = [
             "docker",
@@ -584,6 +622,7 @@ class CompileDockerRuntime:
             "--label",
             f"deerflow.compile.attempt_id={attempt_id}",
             *experiment_label_flags,
+            *parallel_policy_flags,
             "--network",
             self.config.network,
             "--add-host",
@@ -614,6 +653,7 @@ class CompileDockerRuntime:
             image_id=image_id,
             network=self.config.network,
             timeout_seconds=effective_timeout,
+            parallel_jobs=session.parallel_jobs,
             mounts={
                 host_recipe_dir: f"{CONTAINER_REPRO_DIR}:ro",
                 host_workspace_dir: CONTAINER_WORKSPACE_DIR,
@@ -901,14 +941,24 @@ class CompileDockerRuntime:
             force_remove=force_remove,
             remove_on_cleanup=should_remove,
         )
-        stop_command = ["docker", "stop", container_reference]
+        stop_grace_seconds = min(
+            self.config.stop_grace_seconds,
+            max(1, effective_timeout - 2),
+        )
+        stop_command = [
+            "docker",
+            "stop",
+            "--time",
+            str(stop_grace_seconds),
+            container_reference,
+        ]
         stop_timeout = min(
             self._remaining_timeout(
                 deadline,
                 command=stop_command,
                 timeout_budget=effective_timeout,
             ),
-            max(1, effective_timeout // 2),
+            max(1, min(stop_grace_seconds + 1, effective_timeout - 1)),
         )
         try:
             stop_result = subprocess.run(
@@ -935,6 +985,7 @@ class CompileDockerRuntime:
             stdout=stop_stdout,
             stderr=stop_stderr,
             timeout_seconds=stop_timeout,
+            stop_grace_seconds=stop_grace_seconds,
         )
         stop_succeeded = stop_returncode == 0 or "No such container" in stop_stderr
         if should_remove:

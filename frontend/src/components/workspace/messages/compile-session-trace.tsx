@@ -34,12 +34,14 @@ function EvidenceLog({
   kind,
   recordId,
   active,
+  label,
 }: {
   threadId: string;
   sessionId: string;
-  kind: "commands" | "replays";
+  kind: "commands" | "replays" | "replay-verifications";
   recordId: string;
   active: boolean;
+  label?: string;
 }) {
   const { t } = useI18n();
   const [open, setOpen] = useState(false);
@@ -49,7 +51,9 @@ function EvidenceLog({
       className="mt-2 min-w-0"
       onToggle={(event) => setOpen(event.currentTarget.open)}
     >
-      <summary className="cursor-pointer text-xs">{t.compileTrace.log}</summary>
+      <summary className="cursor-pointer text-xs">
+        {label ?? t.compileTrace.log}
+      </summary>
       {open && (
         <div className="mt-2">
           {log.isPending && (
@@ -226,6 +230,16 @@ export function CompileSessionTrace({
                 kind="replays"
                 recordId={attempt.attempt_id}
                 active={active}
+              />
+            )}
+            {attempt.has_verification_log && (
+              <EvidenceLog
+                threadId={threadId}
+                sessionId={sessionId}
+                kind="replay-verifications"
+                recordId={attempt.attempt_id}
+                active={active}
+                label={`${t.compileTrace.verification} ${t.compileTrace.log}`}
               />
             )}
           </li>

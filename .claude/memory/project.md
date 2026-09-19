@@ -6,14 +6,6 @@
 
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
-- 2026-09-19 — 完成 Compile Runtime v2 工程实现，等待 PR、Ubuntu CI 与合并
-  - GitHub: 中文 Issue #269 已创建并回读；实现分支 `fix/issue-269-compile-runtime-reliability` 基于 `main@fa558d3a`，中文 PR #270 已创建，等待测试修复后的 CI 与合并。
-  - 实现: `run_container_bash` 使用必填六值 role、严格 Shell 和 command-id 日志；同 run 重复 prepare 幂等复用 session/container；compile/replay 容器使用完整 ownership labels 并接入 task/Lead/Gateway 清理及 prepare 前 reconciliation；submit 使用显式最小 recipe、结构化拒绝与确定性 replay 去重。
-  - 身份: 新增 `forge-compile-runtime-v2`，状态为 `engineering_validation`，只授权前端产品验证；provider 实验与正式采集均为 false，历史 manifest/evidence 保持冻结并在 predecessor revision 独立审计。
-  - 验证: 当前产品后端最终回归 `1565 passed, 41 skipped`，Runtime v2 identity `3 passed`，全量 Ruff check/format、workflow YAML、diff whitespace 与敏感信息扫描通过；PR 首轮暴露两条测试隐式依赖本机 `pytest-asyncio`，已改用项目既有的 `asyncio.run(...)` 并在禁用该插件时验证 `2 passed`；冻结 predecessor 在 Windows 为 `982 passed, 30 skipped, 11 failed`，失败均来自 POSIX 路径或 Windows SQLite 锁，最终以 PR Ubuntu job 为门禁；0 provider、0 Compile Session、0 experiment evidence write。
-  - 边界: 暂不实施非零退出码容忍、P2 复杂仓库优化、独立 artifact consumer gate、正式 provider 实验或服务器遗留容器清理；标准 LangGraph 进程强杀后仍活动且无法证明 orphan 的容器不会自动误删。
-  - 文件: `docs/compile_runtime_v2.md`, `docs/superpowers/specs/2026-09-18-compile-runtime-reliability-design.md`, `docs/superpowers/plans/2026-09-18-compile-runtime-reliability.md`, `backend/packages/harness/deerflow/compile/`, `backend/packages/harness/deerflow/tools/bound_compile_tools.py`, `benchmarks/runtime-identities/compile-runtime-v2.json`
-
 - 2026-09-18 — 修复 Issue #263 编译终态展示、消息分组与 Todo 收尾
   - GitHub: 中文 Issue #263 已创建并回读；分支为 `fix/issue-263-compile-terminal-ui`，基线为 `main@b3224a33`。Spec/Plan 位于 `docs/superpowers/`。
   - 根因: `CompileTerminationMiddleware` 为避免 `finalize_session` 后再次调用模型，把完整 JSON直接复制成 AIMessage 并跳转 graph end，导致结构化字段直出且最后一个 Todo 无机会通过 `write_todos` 收尾；前端 `groupMessages()` 只接受最后一个开放分组，LangGraph 流式中 `final AI` 先于 ToolMessage 出现时会在 render 路径触发 `console.error`；clarification 裸 Markdown 未明确使用主题前景色。
@@ -104,6 +96,16 @@
 ## 最近变更 (Recent Changes)
 
 <!-- 倒序，最新在上。 -->
+
+- 2026-09-19 — 完成 Issue #271 编译终态、资源上限、重放证据与子任务布局修复
+  - 实现: 修复 LangGraph `Runtime.config` 接口误用；session 冻结 compile/replay 并行策略并施加 Docker CPU quota；完整记录 `support_file`；把成功 smoke/test 分离为 `repro/verify.sh` 并保存独立 replay 日志；显式设置 Docker stop grace；产品路径持久化实际构建系统。前端不再为空 reasoning 创建消息组，并展示 replay verification 日志。
+  - 身份: 新增 `forge-compile-runtime-v3` 工程验证身份；Runtime v2、历史 benchmark、manifest 和 evidence 保持不变。未调用 provider，未创建真实 Compile Session，也未写正式实验 evidence。
+  - 验证: 后端产品全量 `1584 passed, 41 skipped`，编译核心 `193 passed, 20 skipped`，Runtime identity `4 passed`，Ruff 通过；前端消息测试 `5 passed`，TypeScript/Prettier、Next.js production build 和 1280x900、390x844、1280x500 三视口 Playwright 通过。Windows 临时依赖树的全量 ESLint 仍报告 12 个基线即存在的 import-order 问题，改动文件定向 ESLint 通过，最终以 PR Ubuntu CI 为门禁。
+  - 文件: `backend/packages/harness/deerflow/compile/`, `backend/packages/harness/deerflow/agents/middlewares/compile_termination_middleware.py`, `backend/app/gateway/routers/compile_sessions.py`, `frontend/src/core/messages/utils.ts`, `frontend/src/components/workspace/messages/compile-session-trace.tsx`, `docs/compile_runtime_v3.md`, `benchmarks/runtime-identities/compile-runtime-v3.json`
+
+- 2026-09-19 — 合并 Compile Runtime v2 可靠性基线
+  - 交付: Issue #269 / PR #270 已合并为 `main@9ddf428e`；严格 Shell、同 run 单活动 session、容器 ownership/回收和显式最小 replay recipe 成为本轮 Runtime v3 的 predecessor。
+  - 文件: `docs/compile_runtime_v2.md`, `backend/packages/harness/deerflow/compile/`, `backend/packages/harness/deerflow/tools/bound_compile_tools.py`, `benchmarks/runtime-identities/compile-runtime-v2.json`
 
 - 2026-09-19 — 恢复服务重建前历史会话的消息展示
   - 交付: Issue #267 / PR #268；LangGraph 当前使用 `InMemorySaver`，重建前 checkpoint history 为空，但 thread snapshot 仍保留完整 `values.messages`。前端现在按 thread ID 读取 snapshot，并作为 SDK `initialValues`；官方 history/live state 始终优先，不写回历史、不触发模型 run。

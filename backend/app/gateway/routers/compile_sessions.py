@@ -7,6 +7,7 @@ from pathlib import Path
 
 from fastapi import APIRouter, HTTPException
 
+from deerflow.compile.schemas import DEFAULT_COMPILE_PARALLEL_JOBS
 from deerflow.config.paths import get_paths
 
 router = APIRouter(prefix="/api/threads/{thread_id}/compile-sessions", tags=["compile-sessions"])
@@ -77,6 +78,8 @@ def _read_session(thread_id: str, session_id: str) -> tuple[Path, Path, dict]:
 def get_compile_session(thread_id: str, session_id: str) -> dict:
     _, _, data = _read_session(thread_id, session_id)
     result = _fields(data, ("session_id", "status", "repo_url", "commit_sha", "selected_build_system", "executed_build_system"))
+    parallel_jobs = data.get("parallel_jobs")
+    result["parallel_jobs"] = parallel_jobs if isinstance(parallel_jobs, int) and not isinstance(parallel_jobs, bool) and parallel_jobs > 0 else DEFAULT_COMPILE_PARALLEL_JOBS
     result["commands"] = [
         {
             **_fields(command, ("command_id", "stage", "role", "command", "workdir", "exit_code", "duration_seconds", "timed_out")),
@@ -89,9 +92,10 @@ def get_compile_session(thread_id: str, session_id: str) -> dict:
     result["verification"] = {"status": verification.get("status"), "checks": _checks(verification)} if isinstance(verification, dict) else None
     result["replay_attempts"] = [
         {
-            **_fields(attempt, ("attempt_id", "status", "duration_seconds", "failure_classification", "cleanup_succeeded")),
+            **_fields(attempt, ("attempt_id", "status", "duration_seconds", "failure_classification", "cleanup_succeeded", "verification_exit_code")),
             "checks": _checks(attempt),
             "has_log": bool(attempt.get("log_path")),
+            "has_verification_log": bool(attempt.get("verification_log_path")),
         }
         for attempt in data.get("replay_attempts", [])
         if isinstance(attempt, dict)
@@ -99,13 +103,21 @@ def get_compile_session(thread_id: str, session_id: str) -> dict:
     return result
 
 
-def _read_log(thread_id: str, session_id: str, record_id: str, collection: str, id_field: str) -> dict:
+def _read_log(
+    thread_id: str,
+    session_id: str,
+    record_id: str,
+    collection: str,
+    id_field: str,
+    *,
+    log_field: str = "log_path",
+) -> dict:
     _validate_id(record_id)
     root, directory, data = _read_session(thread_id, session_id)
     record = next((item for item in data.get(collection, []) if isinstance(item, dict) and item.get(id_field) == record_id), None)
-    if record is None or not isinstance(record.get("log_path"), str) or not record["log_path"]:
+    if record is None or not isinstance(record.get(log_field), str) or not record[log_field]:
         raise HTTPException(404, "Evidence log not found")
-    path = Path(record["log_path"])
+    path = Path(record[log_field])
     path = _contained(path if path.is_absolute() else root / path, directory)
     log_directory = directory / "logs" if collection == "commands" else directory / "replay" / record_id / "logs"
     path = _contained(path, log_directory)
@@ -131,3 +143,15 @@ def get_command_log(thread_id: str, session_id: str, command_id: str) -> dict:
 @router.get("/{session_id}/replays/{attempt_id}/log")
 def get_replay_log(thread_id: str, session_id: str, attempt_id: str) -> dict:
     return _read_log(thread_id, session_id, attempt_id, "replay_attempts", "attempt_id")
+
+
+@router.get("/{session_id}/replays/{attempt_id}/verification-log")
+def get_replay_verification_log(thread_id: str, session_id: str, attempt_id: str) -> dict:
+    return _read_log(
+        thread_id,
+        session_id,
+        attempt_id,
+        "replay_attempts",
+        "attempt_id",
+        log_field="verification_log_path",
+    )

@@ -12,8 +12,8 @@
 4. 由 **compiler 子代理**在容器内反复尝试 configure / build / 补依赖，直到产出可执行物
 5. 把最终产物 `cp` 到 `/artifacts`
 6. 系统对 `/artifacts` 做强制验证（ELF/`ar` 结构识别与 executable smoke test）
-7. 提交验证先生成固定源码 commit 的候选 `repro/build.sh`，再用原容器的不可变 `image_id` 在全新容器和空挂载中自动 replay
-8. 系统结构化比较产物集合、类型、大小、SHA-256 与 smoke 结果；全部通过后 session 才标记 `verified`
+7. 提交验证生成固定源码 commit 的 `repro/build.sh`，并把成功的项目测试单独写入可选 `repro/verify.sh`
+8. 系统用原容器的不可变 `image_id` 在全新容器和空挂载中依次执行 build/verify，再结构化比较完整交付文件集合、类型、大小、SHA-256 与 executable smoke 结果；全部通过后 session 才标记 `verified`
 9. 容器清理与 finalize 成功后，session 才标记 `completed`
 
 项目 fork 自 DeerFlow 2.0（一个通用 LangGraph Agent Harness）。许多 DeerFlow 时代的能力（IM channels、20+ skills、memory、MCP）**仍在代码中**，但**与编译核心无关**，是历史遗留。文档中明确标注 “非编译核心”，今后可能裁剪。
@@ -92,20 +92,22 @@ Lead Agent
 - 保持运行时注入的 `set -euo pipefail`，不得用 `tail/head`、末尾 `echo`、`|| true`、`$?` 或关闭 Shell 选项来掩盖失败
 - 失败时改策略，不允许盲目重试同一条命令
 - 把最终产物 `cp`（而非 `mv`）到 `/artifacts`，不能整目录倾倒
+- 允许把公共头文件、package metadata 和许可证作为 `support_file` 精确暂存，但至少仍需一个真实编译产物
+- 不自行指定裸 `-j`、`-j$(nproc)` 或超大并行值；session 冻结的 CPU quota 与构建工具环境控制 compile/replay 并行度
 - 跑 CMake 项目时若装了新 apt 包必须清掉 `build/`、`CMakeCache.txt`、`CMakeFiles/` 再 reconfigure
 - 不允许自行宣告成功，必须以 `submit_build_result` 的返回为准
-- 提交时显式提供 successful build 的 `supporting_command_id`，以及最小、有序、可移植的 `recipe_command_ids`
+- 提交时显式提供 successful build 的 `supporting_command_id`、最小有序的 `recipe_command_ids`，以及成功 smoke/test 的 `verification_command_ids`
 - 子代理返回严格 JSON：`{build_status, proceed_to_verify, verification_status, summary, artifacts[]}`
 
 **验证（`submit_build_result_impl`）**：逐文件检查
 1. `exists`：文件存在
 2. `non_empty`：size > 0
-3. 结构：只接受有效 ELF executable/shared library/object 或有效 `ar` static archive
+3. 结构：识别有效 ELF executable/shared library/object 或有效 `ar` static archive；其他安全普通文件作为 `support_file` 进入 manifest，但不能单独通过
 4. 若是可执行：smoke test 依次尝试 `-version` / `--version` / `--help`，任一退出 0 即通过
 5. `repro_bundle`：必须能从远端 `repo_url` 检出完整 `commit_sha`，并只安全渲染 Compiler 显式选择的 recipe 步骤
 6. `clean_replay`：使用原容器记录的完整 `image_id`，在唯一 attempt 的空 workspace/artifacts 中执行候选脚本，并比较产物集合、类型、大小、SHA-256 和 smoke 结果
 
-两层检查全部通过 → session 状态 `verified`。`repro/build.sh` 只回放显式 recipe 中通过校验的 `dependency/configure/build/artifact_stage` 命令，并在各自容器 `workdir` 中独立执行；完整命令审计与 replay 配方彼此分离。cleanup/finalize 成功后才进入 `completed`。Runtime v2 的详细契约见 [`docs/compile_runtime_v2.md`](docs/compile_runtime_v2.md)。
+两层检查全部通过 → session 状态 `verified`。`repro/build.sh` 只回放显式 recipe 中通过校验的 `dependency/configure/build/artifact_stage` 命令；可选 `repro/verify.sh` 只回放显式选择的成功 `smoke` 命令。完整命令审计与 replay 配方彼此分离。cleanup/finalize 成功后才进入 `completed`。当前工程契约见 [`docs/compile_runtime_v3.md`](docs/compile_runtime_v3.md)；Runtime v2 是历史只读身份。
 
 ### 4.3 会话目录布局（宿主机）
 
@@ -119,6 +121,7 @@ $HOST_PROJECT_ROOT/.compile-sessions/{thread_id}/{session_id}/
 │   ├── command_<uuid>.log   # run_container_bash 的 stdout+stderr 全量
 │   └── ...
 ├── repro/build.sh           # submit 的候选 replay bundle
+├── repro/verify.sh          # 可选：clean replay 中重跑的项目测试
 └── replay/{attempt_id}/     # 每次自动 clean replay 的独立证据
     ├── recipe/build.sh
     ├── workspace/
@@ -131,7 +134,7 @@ $HOST_PROJECT_ROOT/.compile-sessions/{thread_id}/{session_id}/
 ### 4.4 关键不变量（改动时勿破）
 
 - **容器内仓库根永远是 `/workspace/repo`**：compiler 子代理、识别构建系统逻辑都强依赖这条
-- **产物只看 `/artifacts`**：`submit_build_result_impl` 只列 `/artifacts` 下文件，不会去 build/ 找
+- **交付只看 `/artifacts`**：compiled artifacts 与 support files 都必须精确暂存到这里；系统不会去 build/ 找
 - **`HOST_PROJECT_ROOT` 必须设置**：`CompileDockerRuntime._host_project_root()` 在缺失时会抛错
 - **容器 network 固定 `compile_network_wwf_v1`**：若改名需同步 `RuntimeConfig.network`
 - **smoke test 仅尝试 3 个旗标**：不要随便加，会污染验证语义
@@ -144,6 +147,7 @@ $HOST_PROJECT_ROOT/.compile-sessions/{thread_id}/{session_id}/
 - **replay 只能清空 attempt 专用目录**：每次创建唯一的 `replay/{attempt_id}/{recipe,workspace,artifacts,logs}`；脚本从空 `/workspace` 与 `/artifacts` 开始，严禁挂载原 session 目录
 - **候选生成不等于 clean replay 通过**：`repro_bundle` 只证明脚本安全且非空；自动 replay 还必须执行成功，并让产物集合、类型、大小、SHA-256 与 smoke 命令/退出码/有限预览/完整输出哈希全部匹配，session 才能进入 `verified`。删除原 compile container 后还要重新核对交付产物，才能进入 `completed`
 - **replay 有执行/验证 deadline**：`COMPILE_REPLAY_TIMEOUT_SECONDS` 默认 `1200` 秒，覆盖 Docker control、脚本、产物遍历/分类/哈希和 smoke；cleanup 使用独立短时限。实际时限、日志、duration、image identity 与 failure classification 必须随 attempt 持久化
+- **并行策略按 session 冻结**：`COMPILE_MAX_PARALLEL_JOBS` 默认 `4`，同时施加 Docker `--cpus` 与 CMake/CTest/Make 环境，clean replay 必须复用同一值
 - **replay 清理有两条路径**：正常/异常返回由 `finally` 删除容器；父任务取消在 worker 停止前后都重新加载 authoritative session，并按 container name/ID 幂等删除。创建握手必须持有 session lock 且有短时限；worker 保存不得覆盖父级写入的 `cancelled`。任何路径都不能覆盖原 workspace/artifacts，也不能把模型凭据传进 replay 容器
 - **容器 ownership 必须完整**：compile/replay 容器记录 managed/role/thread/run/session labels；orphan reconciliation 只删除身份匹配且 session 已终态的容器
 - **compiler 子代理的 system prompt 是产品契约**：改它等同于改产品行为，需要同时改 `compiler_agent.py` 和对应测试

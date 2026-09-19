@@ -108,7 +108,11 @@ def add_replayable_build_command(session: CompileSession, command: str = "cmake 
     return [build_record.command_id, stage_record.command_id]
 
 
-def build_explicit_recipe(session: CompileSession, recipe_command_ids: list[str] | None = None):
+def build_explicit_recipe(
+    session: CompileSession,
+    recipe_command_ids: list[str] | None = None,
+    verification_command_ids: list[str] | None = None,
+):
     selected_ids = recipe_command_ids or [command.command_id for command in session.commands if command.role in {"dependency", "dependency_setup", "configure", "build", "artifact_stage"} and command.exit_code == 0 and not command.timed_out]
     supporting_command_id = session.post_build_supporting_command_id or next(command.command_id for command in reversed(session.commands) if command.role == "build")
     session.post_build_supporting_command_id = supporting_command_id
@@ -116,11 +120,16 @@ def build_explicit_recipe(session: CompileSession, recipe_command_ids: list[str]
         session,
         supporting_command_id=supporting_command_id,
         recipe_command_ids=selected_ids,
+        verification_command_ids=verification_command_ids or [],
     )
 
 
-def write_explicit_repro_bundle(session: CompileSession, recipe_command_ids: list[str] | None = None) -> Path:
-    recipe = build_explicit_recipe(session, recipe_command_ids)
+def write_explicit_repro_bundle(
+    session: CompileSession,
+    recipe_command_ids: list[str] | None = None,
+    verification_command_ids: list[str] | None = None,
+) -> Path:
+    recipe = build_explicit_recipe(session, recipe_command_ids, verification_command_ids)
     session.replay_recipe = recipe
     return _write_repro_bundle(session, recipe)
 
@@ -131,6 +140,7 @@ def submit_explicit(session: CompileSession) -> str:
         session=session,
         supporting_command_id=recipe.supporting_command_id,
         recipe_command_ids=[step.command_id for step in recipe.steps],
+        verification_command_ids=[step.command_id for step in recipe.verification_steps],
     )
 
 
@@ -719,6 +729,7 @@ class FakeReplayRuntime:
         manager: CompileSessionManager,
         *,
         build_exit_code: int = 0,
+        verification_exit_code: int = 0,
         cleanup_result: ContainerCleanupResult | None = None,
         build_exception: BaseException | None = None,
         mutate_replay_artifact=None,
@@ -727,6 +738,7 @@ class FakeReplayRuntime:
         self.manager = manager
         self.config = SimpleNamespace(replay_timeout_seconds=30)
         self.build_exit_code = build_exit_code
+        self.verification_exit_code = verification_exit_code
         self.cleanup_result = cleanup_result or ContainerCleanupResult(succeeded=True, stopped=True, removed=True)
         self.build_exception = build_exception
         self.mutate_replay_artifact = mutate_replay_artifact
@@ -778,6 +790,14 @@ class FakeReplayRuntime:
                 stdout="",
                 stderr="recipe failed\n" if self.build_exit_code else "",
                 combined_output="recipe failed\n" if self.build_exit_code else "",
+                log_path=log_path,
+            )
+        if command == "bash /repro/verify.sh":
+            return CommandResult(
+                exit_code=self.verification_exit_code,
+                stdout="tests passed\n" if self.verification_exit_code == 0 else "",
+                stderr="tests failed\n" if self.verification_exit_code else "",
+                combined_output="tests passed\n" if self.verification_exit_code == 0 else "tests failed\n",
                 log_path=log_path,
             )
         return CommandResult(
@@ -973,6 +993,7 @@ def test_save_and_load_session_roundtrip(tmp_path: Path):
     session.build_system_capabilities = ["cmake", "make"]
     session.selected_build_system = "make"
     session.executed_build_system = "make"
+    session.parallel_jobs = 7
     session.summary = "done"
     session.commands.append(BuildCommandRecord(stage="clone", command="git clone ...", workdir="/workspace"))
     session.artifacts.append(BuildArtifact(path="artifacts/app", artifact_type="binary", size_bytes=123))
@@ -986,9 +1007,42 @@ def test_save_and_load_session_roundtrip(tmp_path: Path):
     assert loaded.build_system_capabilities == ["cmake", "make"]
     assert loaded.selected_build_system == "make"
     assert loaded.executed_build_system == "make"
+    assert loaded.parallel_jobs == 7
     assert loaded.summary == "done"
     assert len(loaded.commands) == 1
     assert len(loaded.artifacts) == 1
+
+
+@pytest.mark.parametrize(
+    ("configured", "expected"),
+    [(None, 4), ("6", 6), ("0", 4), ("invalid", 4)],
+)
+def test_compile_session_freezes_parallel_policy_from_environment(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    configured: str | None,
+    expected: int,
+) -> None:
+    if configured is None:
+        monkeypatch.delenv("COMPILE_MAX_PARALLEL_JOBS", raising=False)
+    else:
+        monkeypatch.setenv("COMPILE_MAX_PARALLEL_JOBS", configured)
+
+    manager = CompileSessionManager(paths=make_test_paths(tmp_path))
+    session = manager.create_session(thread_id="thread-parallel-policy", repo_url="https://example.com/repo.git")
+
+    assert session.parallel_jobs == expected
+    assert manager.load_session(session.session_id, session.thread_id).parallel_jobs == expected
+
+
+def test_runtime_config_reads_parallel_and_stop_grace_environment(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setenv("COMPILE_MAX_PARALLEL_JOBS", "6")
+    monkeypatch.setenv("COMPILE_DOCKER_STOP_GRACE_SECONDS", "2")
+
+    config = RuntimeConfig()
+
+    assert config.parallel_jobs == 6
+    assert config.stop_grace_seconds == 2
 
 
 def test_mark_status_sets_completed_at_for_terminal_state(tmp_path: Path):
@@ -1535,8 +1589,8 @@ def test_cleanup_reports_stopped_container_without_claiming_removal(monkeypatch)
     )
 
     def fake_run(command, **kwargs):
-        del kwargs
-        assert command == ["docker", "stop", "container-123"]
+        assert kwargs["timeout"] == 4
+        assert command == ["docker", "stop", "--time", "3", "container-123"]
         return SimpleNamespace(returncode=0, stdout="container-123\n", stderr="")
 
     monkeypatch.setattr(subprocess, "run", fake_run)
@@ -1553,6 +1607,7 @@ def test_docker_runtime_uses_paths_host_workspace_root(tmp_path: Path, monkeypat
     paths = make_test_paths(tmp_path, host_workspace_root=str(host_root))
     manager = CompileSessionManager(paths=paths)
     session = manager.create_session(thread_id="thread-runtime", repo_url="https://example.com/repo.git")
+    session.parallel_jobs = 3
     runtime = CompileDockerRuntime(config=RuntimeConfig(network=DEFAULT_NETWORK), manager=manager)
     commands: list[list[str]] = []
 
@@ -1570,6 +1625,10 @@ def test_docker_runtime_uses_paths_host_workspace_root(tmp_path: Path, monkeypat
     docker_command = next(command for command in commands if command[:2] == ["docker", "run"])
     assert ["docker", "network", "inspect", DEFAULT_NETWORK] in commands
     assert f"{host_root / '.compile-sessions' / session.thread_id / session.session_id / 'workspace'}:/workspace" in docker_command
+    assert ["--cpus", "3"] == docker_command[docker_command.index("--cpus") : docker_command.index("--cpus") + 2]
+    assert "CMAKE_BUILD_PARALLEL_LEVEL=3" in docker_command
+    assert "CTEST_PARALLEL_LEVEL=3" in docker_command
+    assert "MAKEFLAGS=-j3" in docker_command
     assert "HOST_PROJECT_ROOT" not in docker_command
 
 
@@ -2156,9 +2215,114 @@ def test_repro_bundle_rejects_empty_explicit_recipe_without_replacing_existing_s
     build_path.write_text("stale unsafe replay\n", encoding="utf-8")
 
     with pytest.raises(operations.ReplayRecipeError, match="explicit command IDs"):
-        operations.build_replay_recipe(session, supporting_command_id="missing", recipe_command_ids=[])
+        operations.build_replay_recipe(
+            session,
+            supporting_command_id="missing",
+            recipe_command_ids=[],
+            verification_command_ids=[],
+        )
 
     assert build_path.read_text(encoding="utf-8") == "stale unsafe replay\n"
+
+
+def test_repro_bundle_writes_separate_verification_script_and_fingerprints_policy(tmp_path: Path) -> None:
+    manager = CompileSessionManager(paths=make_test_paths(tmp_path), parallel_jobs=3)
+    session = manager.create_session(thread_id="thread-verify-recipe", repo_url="https://example.com/repo.git")
+    session.commit_sha = "a" * 40
+    build_id, stage_id = add_replayable_build_command(session)
+    smoke = BuildCommandRecord(
+        stage="bash",
+        command="ctest --test-dir build --output-on-failure",
+        workdir="/workspace/repo",
+        role="smoke",
+        exit_code=0,
+    )
+    session.commands.insert(-1, smoke)
+
+    recipe = build_explicit_recipe(
+        session,
+        recipe_command_ids=[build_id, stage_id],
+        verification_command_ids=[smoke.command_id],
+    )
+    _write_repro_bundle(session, recipe)
+    original_fingerprint = recipe.fingerprint
+
+    assert [step.command_id for step in recipe.verification_steps] == [smoke.command_id]
+    assert smoke.command not in (Path(session.leadagent_repro_dir) / "build.sh").read_text(encoding="utf-8")
+    assert smoke.command in (Path(session.leadagent_repro_dir) / "verify.sh").read_text(encoding="utf-8")
+
+    session.parallel_jobs = 4
+    changed = build_explicit_recipe(
+        session,
+        recipe_command_ids=[build_id, stage_id],
+        verification_command_ids=[smoke.command_id],
+    )
+    assert changed.fingerprint != original_fingerprint
+
+
+@pytest.mark.parametrize(
+    ("role", "exit_code", "timed_out", "expected_classification"),
+    [
+        ("diagnostic", 0, False, "verification_role_not_allowed"),
+        ("smoke", 1, False, "verification_command_not_successful"),
+        ("smoke", 0, True, "verification_command_not_successful"),
+    ],
+)
+def test_replay_recipe_rejects_invalid_verification_commands(
+    tmp_path: Path,
+    role: str,
+    exit_code: int,
+    timed_out: bool,
+    expected_classification: str,
+) -> None:
+    manager = CompileSessionManager(paths=make_test_paths(tmp_path))
+    session = manager.create_session(thread_id="thread-invalid-verify", repo_url="https://example.com/repo.git")
+    session.commit_sha = "a" * 40
+    build_id, stage_id = add_replayable_build_command(session)
+    command = BuildCommandRecord(
+        stage="bash",
+        command="ctest --test-dir build",
+        workdir="/workspace/repo",
+        role=role,
+        exit_code=exit_code,
+        timed_out=timed_out,
+    )
+    session.commands.insert(-1, command)
+
+    with pytest.raises(operations.ReplayRecipeError) as raised:
+        build_explicit_recipe(
+            session,
+            recipe_command_ids=[build_id, stage_id],
+            verification_command_ids=[command.command_id],
+        )
+
+    assert raised.value.classification == expected_classification
+
+
+def test_replay_recipe_requires_selecting_available_post_build_verification(tmp_path: Path) -> None:
+    manager = CompileSessionManager(paths=make_test_paths(tmp_path))
+    session = manager.create_session(thread_id="thread-required-verify", repo_url="https://example.com/repo.git")
+    session.commit_sha = "a" * 40
+    build_id, stage_id = add_replayable_build_command(session)
+    session.commands.insert(
+        -1,
+        BuildCommandRecord(
+            stage="bash",
+            command="ctest --test-dir build",
+            workdir="/workspace/repo",
+            role="smoke",
+            exit_code=0,
+        ),
+    )
+
+    with pytest.raises(operations.ReplayRecipeError) as raised:
+        build_explicit_recipe(
+            session,
+            recipe_command_ids=[build_id, stage_id],
+            verification_command_ids=[],
+        )
+
+    assert raised.value.classification == "verification_command_required"
 
 
 @pytest.mark.parametrize(
@@ -2245,7 +2409,7 @@ def test_submit_rejects_artifact_when_repro_bundle_is_not_commit_pinned(tmp_path
     assert not (Path(session.metadata_path).parent / "repro" / "build.sh").exists()
 
 
-def test_submit_rejects_executable_mode_text_without_running_it(tmp_path: Path, monkeypatch):
+def test_submit_records_text_as_support_file_but_requires_a_compiled_artifact(tmp_path: Path, monkeypatch):
     manager = CompileSessionManager(paths=make_test_paths(tmp_path))
     session = manager.create_session(thread_id="thread-text-artifact", repo_url="https://example.com/repo.git")
     text_log = Path(session.leadagent_artifacts_dir) / "commands.log"
@@ -2257,11 +2421,19 @@ def test_submit_rejects_executable_mode_text_without_running_it(tmp_path: Path, 
 
     monkeypatch.setattr(operations, "_services", CompileOperationsServices(manager=manager, runtime=SimpleNamespace(exec=fail_exec)))
 
-    payload = json.loads(submit_build_result_impl(session=session, supporting_command_id="missing", recipe_command_ids=["missing"]))
+    payload = json.loads(
+        submit_build_result_impl(
+            session=session,
+            supporting_command_id="missing",
+            recipe_command_ids=["missing"],
+            verification_command_ids=[],
+        )
+    )
 
     assert payload["status"] == "failed"
-    assert payload["artifact_count"] == 0
-    assert "No recognized compiled artifacts" in payload["message"]
+    assert payload["artifact_count"] == 1
+    assert payload["artifacts"][0]["artifact_type"] == "support_file"
+    assert "No compiled artifacts" in payload["message"]
     assert session.status == "verification_failed"
 
 
@@ -2279,14 +2451,21 @@ def test_submit_rejects_symlinked_system_executable_without_running_it(tmp_path:
 
     monkeypatch.setattr(operations, "_services", CompileOperationsServices(manager=manager, runtime=SimpleNamespace(exec=fail_exec)))
 
-    payload = json.loads(submit_build_result_impl(session=session, supporting_command_id="missing", recipe_command_ids=["missing"]))
+    payload = json.loads(
+        submit_build_result_impl(
+            session=session,
+            supporting_command_id="missing",
+            recipe_command_ids=["missing"],
+            verification_command_ids=[],
+        )
+    )
 
     assert payload["status"] == "failed"
     assert payload["artifact_count"] == 0
     assert session.status == "verification_failed"
 
 
-def test_submit_smokes_only_elf_executable_and_ignores_text(tmp_path: Path, monkeypatch):
+def test_submit_smokes_only_elf_executable_and_records_support_files(tmp_path: Path, monkeypatch):
     manager = CompileSessionManager(paths=make_test_paths(tmp_path))
     session = manager.create_session(thread_id="thread-mixed-artifacts", repo_url="https://example.com/repo.git")
     session.commit_sha = "a" * 40
@@ -2311,8 +2490,11 @@ def test_submit_smokes_only_elf_executable_and_ignores_text(tmp_path: Path, monk
     payload = json.loads(submit_explicit(session))
 
     assert payload["status"] == "passed"
-    assert payload["artifact_count"] == 1
-    assert payload["artifacts"][0]["artifact_type"] == "executable"
+    assert payload["artifact_count"] == 2
+    assert {artifact["artifact_type"] for artifact in payload["artifacts"]} == {
+        "executable",
+        "support_file",
+    }
     assert calls == ["/artifacts/hello -version"]
     assert session.status == "verified"
     assert session.error is None
@@ -2353,6 +2535,7 @@ def test_submit_accepts_non_executable_compiled_outputs_without_smoke(tmp_path: 
 
     assert payload["status"] == "passed"
     assert payload["artifacts"][0]["artifact_type"] == expected_type
+    assert session.executed_build_system == "cmake"
     assert session.status == "verified"
 
 
@@ -2393,6 +2576,7 @@ def test_submit_resuming_after_parent_finalization_cannot_create_replay_or_overw
             session=session,
             supporting_command_id=recipe.supporting_command_id,
             recipe_command_ids=[step.command_id for step in recipe.steps],
+            verification_command_ids=[],
         )
         try:
             assert entered.wait(5)
@@ -2494,6 +2678,106 @@ def test_clean_replay_matching_executable_persists_structured_checks_and_cleans_
     reloaded = manager.load_session(session.session_id, session.thread_id)
     assert reloaded.status == "replay_verifying"
     assert reloaded.replay_attempts[-1].status == "passed"
+
+
+def test_clean_replay_executes_verification_recipe_with_independent_evidence(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    manager, session = make_replay_ready_session(tmp_path)
+    smoke = BuildCommandRecord(
+        stage="bash",
+        command="ctest --test-dir build --output-on-failure",
+        workdir="/workspace/repo",
+        role="smoke",
+        exit_code=0,
+    )
+    session.commands.insert(-1, smoke)
+    session.replay_recipe = build_explicit_recipe(session, verification_command_ids=[smoke.command_id])
+    _write_repro_bundle(session, session.replay_recipe)
+    manager.save_session(session)
+    runtime = FakeReplayRuntime(manager)
+    monkeypatch.setattr(operations, "_services", CompileOperationsServices(manager=manager, runtime=runtime))
+
+    attempt = verify_clean_replay_impl(session=session)
+
+    assert attempt.status == "passed"
+    assert attempt.verification_exit_code == 0
+    assert attempt.verification_log_path is not None
+    assert attempt.verification_recipe_sha256 is not None
+    assert next(check for check in attempt.checks if check.name == "verification_execution").passed is True
+    assert [event[1] for event in runtime.events if event[0] == "exec"][:2] == [
+        "bash /repro/build.sh",
+        "bash /repro/verify.sh",
+    ]
+
+
+def test_clean_replay_classifies_verification_failure_before_artifact_comparison(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    manager, session = make_replay_ready_session(tmp_path)
+    smoke = BuildCommandRecord(
+        stage="bash",
+        command="ctest --test-dir build --output-on-failure",
+        workdir="/workspace/repo",
+        role="smoke",
+        exit_code=0,
+    )
+    session.commands.insert(-1, smoke)
+    session.replay_recipe = build_explicit_recipe(session, verification_command_ids=[smoke.command_id])
+    _write_repro_bundle(session, session.replay_recipe)
+    manager.save_session(session)
+    runtime = FakeReplayRuntime(manager, verification_exit_code=8)
+    monkeypatch.setattr(operations, "_services", CompileOperationsServices(manager=manager, runtime=runtime))
+
+    attempt = verify_clean_replay_impl(session=session)
+
+    assert attempt.status == "failed"
+    assert attempt.failure_classification == "verification_execution_failed"
+    assert attempt.verification_exit_code == 8
+    assert next(check for check in attempt.checks if check.name == "verification_execution").passed is False
+    assert not any(check.name == "artifact_set" for check in attempt.checks)
+
+
+def test_support_files_participate_in_replay_and_finalize_manifest(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    manager, session = make_replay_ready_session(tmp_path)
+    header = Path(session.leadagent_artifacts_dir) / "include" / "fmt" / "format.h"
+    header.parent.mkdir(parents=True)
+    header.write_text("#pragma once\n", encoding="utf-8")
+    session.artifacts.append(
+        BuildArtifact(
+            path=manager.relative_path(session, header),
+            artifact_type="support_file",
+            size_bytes=header.stat().st_size,
+            source_path="/artifacts/include/fmt/format.h",
+            sha256=hashlib.sha256(header.read_bytes()).hexdigest(),
+        )
+    )
+    session.replay_recipe = build_explicit_recipe(session)
+    _write_repro_bundle(session, session.replay_recipe)
+    manager.save_session(session)
+    runtime = FakeReplayRuntime(manager)
+    monkeypatch.setattr(operations, "_services", CompileOperationsServices(manager=manager, runtime=runtime))
+
+    attempt = verify_clean_replay_impl(session=session)
+
+    assert attempt.status == "passed"
+    support = next(item for item in attempt.artifacts if item.path == "include/fmt/format.h")
+    assert support.expected_type == support.actual_type == "support_file"
+    assert support.sha256_matches is True
+
+    session.verification = VerificationResult(status="passed", artifact_count=2)
+    manager.mark_session_status(session, "verified")
+    header.write_text("#pragma once\n// changed\n", encoding="utf-8")
+
+    def cleanup(_session: CompileSession) -> ContainerCleanupResult:
+        return ContainerCleanupResult(succeeded=True, stopped=True, removed=True)
+
+    monkeypatch.setattr(
+        operations,
+        "_services",
+        CompileOperationsServices(manager=manager, runtime=SimpleNamespace(stop_and_remove_container=cleanup)),
+    )
+    finalized, cleanup_result = operations.cleanup_and_finalize_compile_session_impl(session=session)
+
+    assert cleanup_result.succeeded is True
+    assert finalized.status == "failed"
+    assert "changed after clean replay" in (finalized.error or "")
 
 
 def test_clean_replay_rejects_recipe_that_depends_on_failed_command_side_effect(tmp_path: Path, monkeypatch):
@@ -2806,6 +3090,7 @@ def test_replay_docker_command_uses_immutable_image_isolated_mounts_read_only_re
     manager = CompileSessionManager(paths=paths)
     session = manager.create_session(thread_id="thread-replay-runtime", repo_url="https://example.com/repo.git")
     session.image_id = VALID_IMAGE_ID
+    session.parallel_jobs = 3
     attempt_id = "attempt123"
     recipe_dir = get_replay_recipe_dir(session.session_id, session.thread_id, attempt_id, paths)
     workspace_dir = get_replay_workspace_dir(session.session_id, session.thread_id, attempt_id, paths)
@@ -2838,6 +3123,10 @@ def test_replay_docker_command_uses_immutable_image_isolated_mounts_read_only_re
     docker_run, run_kwargs = next((command, kwargs) for command, kwargs in calls if command[:2] == ["docker", "run"])
     assert docker_run[-4:] == [VALID_IMAGE_ID, "tail", "-f", "/dev/null"]
     assert session.image not in docker_run
+    assert ["--cpus", "3"] == docker_run[docker_run.index("--cpus") : docker_run.index("--cpus") + 2]
+    assert "CMAKE_BUILD_PARALLEL_LEVEL=3" in docker_run
+    assert "CTEST_PARALLEL_LEVEL=3" in docker_run
+    assert "MAKEFLAGS=-j3" in docker_run
     assert f"{get_host_replay_recipe_dir(session.session_id, session.thread_id, attempt_id, paths)}:/repro:ro" in docker_run
     assert f"{get_host_replay_workspace_dir(session.session_id, session.thread_id, attempt_id, paths)}:/workspace" in docker_run
     assert f"{get_host_replay_artifacts_dir(session.session_id, session.thread_id, attempt_id, paths)}:/artifacts" in docker_run
@@ -3215,6 +3504,7 @@ def test_cleanup_stop_timeout_falls_back_to_bounded_force_remove(tmp_path: Path,
     assert result.stopped is False
     assert result.removed is True
     assert [command[:2] for command in calls] == [["docker", "stop"], ["docker", "rm"]]
+    assert calls[0][2:4] == ["--time", "2"]
 
 
 def test_cleanup_remove_timeout_is_reported_without_hanging(tmp_path: Path, monkeypatch):

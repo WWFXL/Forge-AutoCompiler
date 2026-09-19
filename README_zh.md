@@ -162,7 +162,7 @@ Lead:  prepare_compile_session(repo_url)
        → task(subagent_type="compiler", prompt=...)        ← 委派
        ↓
 Compiler:  run_container_bash("cmake ...")  ← 反复迭代
-           run_container_bash("make -j")
+           run_container_bash("make")       ← 并行度由 session/runtime 限制
            ...                              ← 失败必改策略，禁止盲目重试
            run_container_bash("cp .../app /artifacts/")
            submit_build_result()             ← 验证原产物、生成候选脚本并自动 clean replay；全部通过才置为 verified
@@ -191,9 +191,11 @@ logs/
 ├── workflow.log          # JSONL 事件流（session.created、command.recorded、...）
 ├── 001_clone.log         # 每条命令的完整 stdout+stderr
 └── ...
-repro/build.sh            # submit 生成的 commit-pinned 候选 bundle
+repro/build.sh            # submit 生成的 commit-pinned 构建配方
+repro/verify.sh           # 可选：独立的项目测试配方
 replay/<attempt_id>/       # 每次自动 clean replay 的独立证据目录
-├── recipe/build.sh       # 本次实际执行的候选脚本副本
+├── recipe/build.sh       # 本次实际执行的构建脚本副本
+├── recipe/verify.sh      # 可选：本次实际执行的验证脚本副本
 ├── workspace/            # 空白源码工作区，不复用原 session workspace
 ├── artifacts/            # replay 产生的产物，不覆盖原始 artifacts
 └── logs/                 # replay 执行日志
@@ -201,9 +203,9 @@ replay/<attempt_id>/       # 每次自动 clean replay 的独立证据目录
 
 **复现脚本和 clean replay 证据是这套系统的核心交付物**。`repro/build.sh` 从 `repo_url` 检出 session 记录的完整 `commit_sha`，只按原顺序和 workdir 回放成功的 `run_container_bash` 命令；失败尝试、clone/inspect 和 submit 审计事件不会进入脚本。脚本生成只是候选配方，不单独证明构建可从空环境复现。
 
-`submit_build_result` 会把两层结果分开记录：`repro_bundle` check 只表示候选脚本安全且非空；随后系统自动创建唯一的 `replay/<attempt_id>/`，使用原编译容器解析出的完整 `image_id` 和空白挂载执行脚本。自动 replay 的执行/验证 deadline 由 `COMPILE_REPLAY_TIMEOUT_SECONDS` 控制，默认 `1200` 秒，覆盖网络与镜像检查、容器创建、脚本执行、产物遍历/分类/哈希和 smoke。系统以结构化 check 比较原始与 replay 产物的相对路径集合、ELF/`ar` 类型、字节大小、SHA-256，以及 executable 的 smoke 命令、退出码、有限预览和完整输出 SHA-256。任一执行、比较或清理步骤失败，session 都不会进入 `verified`。
+`submit_build_result` 会把构建与项目验证分开记录：`repro/build.sh` 回放构建和精确暂存步骤，可选 `repro/verify.sh` 回放成功的 CTest/smoke 命令。系统自动创建唯一的 `replay/<attempt_id>/`，使用原编译容器解析出的完整 `image_id` 和空白挂载依次执行两个脚本。自动 replay 的 deadline 由 `COMPILE_REPLAY_TIMEOUT_SECONDS` 控制，默认 `1200` 秒。系统比较完整交付 manifest：ELF/`ar` 编译产物以及公共头文件、package metadata、许可证等 `support_file` 的相对路径、类型、字节大小与 SHA-256；executable 还比较 smoke 证据。任一执行、比较或清理步骤失败，session 都不会进入 `verified`。
 
-Replay 容器不需要 Forge 后端或模型密钥，也不会挂载原 session 的 workspace/artifacts。容器创建握手在 session lifecycle lock 内完成并使用短时限；正常返回走 `finally` 清理，父任务取消会在 worker 停止前后各重新加载一次并按名称/ID 幂等清理。清理由独立的 `COMPILE_DOCKER_CLEANUP_TIMEOUT_SECONDS` 控制，默认 `20` 秒，stop 卡住时仍会尝试 bounded `rm -f`。原编译容器删除后、session 进入 `completed` 前，系统还会重新核对最终 `/artifacts` 的路径集合、类型、大小和 SHA-256，拒绝 replay 通过后的后台改写。`image_id` 只保证同一 Docker daemon 上的精确镜像身份：镜像被清理、换 daemon、换架构或外部依赖变化后，不承诺跨主机复现。
+Replay 容器不需要 Forge 后端或模型密钥，也不会挂载原 session 的 workspace/artifacts。compile 与 replay 同时使用 session 冻结的 `COMPILE_MAX_PARALLEL_JOBS`（默认 `4`）：Docker `--cpus` 提供硬边界，CMake/CTest/Make 环境提供默认并行度。清理由 `COMPILE_DOCKER_CLEANUP_TIMEOUT_SECONDS`（默认 `20` 秒）控制，`COMPILE_DOCKER_STOP_GRACE_SECONDS`（默认 `3` 秒）给 `docker stop` 留出短宽限并为 `rm -f` 保留时间。原编译容器删除后、session 进入 `completed` 前，系统重新核对完整 manifest，拒绝 replay 通过后的后台改写。
 
 provider canary 的任务提示要求编译子代理只使用 `/workspace/repo`、`/artifacts` 等容器路径，并禁止检查 `.compile-sessions`、session/线程根目录或宿主机路径，避免诊断命令污染候选 recipe。
 
@@ -217,6 +219,7 @@ SESSION_DIR="$PWD/.compile-sessions/<thread_id>/<session_id>"
 REPLAY_RUN="$(mktemp -d)"
 REPLAY_NAME="forge-manual-replay-$$"
 REPLAY_TIMEOUT="${COMPILE_REPLAY_TIMEOUT_SECONDS:-1200}"
+MAX_JOBS="${COMPILE_MAX_PARALLEL_JOBS:-4}"
 NETWORK="${COMPILE_RUNTIME_NETWORK:-compile_network_wwf_v1}"
 IMAGE_ID="$(python3 -c 'import json, sys; print(json.load(open(sys.argv[1], encoding="utf-8"))["image_id"])' "$SESSION_DIR/session.json")"
 
@@ -229,11 +232,16 @@ trap cleanup EXIT INT TERM
 mkdir -p "$REPLAY_RUN/workspace" "$REPLAY_RUN/artifacts"
 docker image inspect "$IMAGE_ID" >/dev/null
 docker run --rm --name "$REPLAY_NAME" \
+  --cpus "$MAX_JOBS" \
+  --env "CMAKE_BUILD_PARALLEL_LEVEL=$MAX_JOBS" \
+  --env "CTEST_PARALLEL_LEVEL=$MAX_JOBS" \
+  --env "MAKEFLAGS=-j$MAX_JOBS" \
   --network "$NETWORK" \
   --mount "type=bind,src=$(realpath "$SESSION_DIR/repro"),dst=/repro,readonly" \
   --mount "type=bind,src=$(realpath "$REPLAY_RUN/workspace"),dst=/workspace" \
   --mount "type=bind,src=$(realpath "$REPLAY_RUN/artifacts"),dst=/artifacts" \
-  "$IMAGE_ID" timeout --signal=TERM --kill-after=5s "${REPLAY_TIMEOUT}s" bash /repro/build.sh
+  "$IMAGE_ID" timeout --signal=TERM --kill-after=5s "${REPLAY_TIMEOUT}s" \
+  bash -lc 'set -euo pipefail; bash /repro/build.sh; if [ -f /repro/verify.sh ]; then bash /repro/verify.sh; fi'
 
 file "$REPLAY_RUN"/artifacts/*
 sha256sum "$REPLAY_RUN"/artifacts/*
@@ -262,7 +270,7 @@ sha256sum "$REPLAY_RUN"/artifacts/*
 - `config.yaml` 在项目根，从 `config.example.yaml` 复制。schema 升级跑 `make config-upgrade`。
 - 至少需要一个可用的 LLM 模型条目（`models[]`）。
 - C/C++ 编译会话使用独立的 `autocompiler:gcc13` 镜像；首次运行前执行 `make compile-image`。
-- 自动 clean replay 的执行/验证时限由 `COMPILE_REPLAY_TIMEOUT_SECONDS` 设置，默认 `1200` 秒；清理另有默认 `20` 秒的 bounded budget。实际时限、duration 和镜像身份会写入 replay 证据。
+- 自动 clean replay 的执行/验证时限由 `COMPILE_REPLAY_TIMEOUT_SECONDS` 设置，默认 `1200` 秒；并行度由 `COMPILE_MAX_PARALLEL_JOBS` 设置，默认 `4`；清理另有默认 `20` 秒 budget 和默认 `3` 秒 stop grace。实际值、duration 和镜像身份会写入 session/replay 证据。
 - 宿主机必须设 `HOST_PROJECT_ROOT` 环境变量（本机模式由启动脚本注入；自己手动跑后端时要自己 export）。
 
 ---

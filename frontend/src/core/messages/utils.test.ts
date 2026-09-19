@@ -3,7 +3,7 @@ import test from "node:test";
 
 import type { Message } from "@langchain/langgraph-sdk";
 
-const { groupMessages } = await import(
+const { groupMessages, hasReasoning } = await import(
   new URL("./utils.ts", import.meta.url).href
 );
 
@@ -114,4 +114,26 @@ void test("ignores an unmatched tool result without logging a render error", () 
   } finally {
     console.error = originalError;
   }
+});
+
+void test("treats empty provider reasoning fields as absent", () => {
+  const empty = {
+    ...aiMessage({
+      id: "empty-reasoning",
+      toolCallId: "task-1",
+      toolName: "task",
+    }),
+    additional_kwargs: { reasoning_content: "   \n" },
+  } as Message;
+  const present = {
+    ...aiMessage({
+      id: "real-reasoning",
+      toolCallId: "task-2",
+      toolName: "task",
+    }),
+    additional_kwargs: { reasoning_content: "先确认构建系统。" },
+  } as Message;
+
+  assert.equal(hasReasoning(empty), false);
+  assert.equal(hasReasoning(present), true);
 });

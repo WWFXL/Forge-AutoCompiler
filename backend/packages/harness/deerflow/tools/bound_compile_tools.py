@@ -181,6 +181,7 @@ def _submit_with_post_build_phase(
     *,
     supporting_command_id: str,
     recipe_command_ids: list[str],
+    verification_command_ids: list[str],
 ) -> str:
     _reload_session(session)
     had_post_build_phase = session.post_build_supporting_command_id is not None
@@ -189,6 +190,7 @@ def _submit_with_post_build_phase(
             session=session,
             supporting_command_id=supporting_command_id,
             recipe_command_ids=recipe_command_ids,
+            verification_command_ids=verification_command_ids,
         )
     except Exception:
         if had_post_build_phase:
@@ -561,6 +563,7 @@ def submit_build_result(
     thread_id: str,
     supporting_command_id: str,
     recipe_command_ids: list[str],
+    verification_command_ids: list[str],
 ) -> str:
     """Submit final build artifacts from `/artifacts` for deterministic acceptance.
 
@@ -569,12 +572,14 @@ def submit_build_result(
         thread_id: Parent workflow thread identifier.
         supporting_command_id: Stable ID of the successful build command supporting this submission.
         recipe_command_ids: Ordered successful command IDs forming the minimal clean-replay recipe.
+        verification_command_ids: Ordered successful smoke command IDs to rerun after the clean replay build, or an empty list when no project verification command ran.
     """
     session = get_bound_session(session_id=session_id, thread_id=thread_id)
     return _submit_with_post_build_phase(
         session=session,
         supporting_command_id=supporting_command_id,
         recipe_command_ids=recipe_command_ids,
+        verification_command_ids=verification_command_ids,
     )
 
 
@@ -604,17 +609,23 @@ def get_bound_compile_tools(session: CompileSession):
         return message
 
     @tool("submit_build_result", parse_docstring=True)
-    def bound_submit_build_result(supporting_command_id: str, recipe_command_ids: list[str]) -> str:
+    def bound_submit_build_result(
+        supporting_command_id: str,
+        recipe_command_ids: list[str],
+        verification_command_ids: list[str],
+    ) -> str:
         """Submit final build artifacts from `/artifacts` for deterministic acceptance.
 
         Args:
             supporting_command_id: Stable ID of the successful build command supporting this submission.
             recipe_command_ids: Ordered successful command IDs forming the minimal clean-replay recipe.
+            verification_command_ids: Ordered successful smoke command IDs to rerun after the clean replay build, or an empty list when no project verification command ran.
         """
         return _submit_with_post_build_phase(
             session=session,
             supporting_command_id=supporting_command_id,
             recipe_command_ids=recipe_command_ids,
+            verification_command_ids=verification_command_ids,
         )
 
     return [bound_run_container_bash, bound_submit_build_result]

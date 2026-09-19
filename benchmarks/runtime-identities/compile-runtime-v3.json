@@ -1,0 +1,40 @@
+{
+  "schema_version": "forge-compile-runtime-identity-v1",
+  "identity": "forge-compile-runtime-v3",
+  "status": "engineering_validation",
+  "issued_on": "2026-09-19",
+  "issue_url": "https://github.com/WWFXL/Forge-AutoCompiler/issues/271",
+  "predecessor": {
+    "commit_sha": "9ddf428ef3cc619a8f55e4e3305c92bb64bb2bfe",
+    "historical_manifests_immutable": true,
+    "historical_evidence_immutable": true
+  },
+  "authorization": {
+    "interactive_product_validation": true,
+    "provider_experiment_execution": false,
+    "formal_collection": false
+  },
+  "contracts": {
+    "langgraph_runtime_identity": true,
+    "frozen_parallel_policy": true,
+    "complete_artifact_manifest": true,
+    "separate_verification_recipe": true,
+    "bounded_docker_stop_grace": true,
+    "nonempty_reasoning_layout": true
+  },
+  "component_sha256": {
+    "backend/app/gateway/routers/compile_sessions.py": "1bc51f2581fd20674cfe2d3b3e6fe895d49e67bdd11899b91c36a872ffecbb53",
+    "backend/packages/harness/deerflow/agents/middlewares/compile_termination_middleware.py": "1d34f9ed4a0d5258eb7ab69a27e90b1db87b22dc30dc0d3a68925e06a32b1efb",
+    "backend/packages/harness/deerflow/compile/docker_runtime.py": "8a2f6a09790a52d9c2fc37611c039f239ec25c6c998fec949a83e1f32379079b",
+    "backend/packages/harness/deerflow/compile/manager.py": "70970debb9711985d5e6931b9088ead5fec4f33a870c8fda56179e2eb3bcb618",
+    "backend/packages/harness/deerflow/compile/operations.py": "b4768e02d91f038eb6f5f2593970d6197e9b4b9316ea3d33d78294e9d7ac95bf",
+    "backend/packages/harness/deerflow/compile/schemas.py": "4ae3ccc9100bc66e463be3ef683f8766df7fccbda82a5a4833687a4a6e0bfd13",
+    "backend/packages/harness/deerflow/subagents/builtins/compiler_agent.py": "1c48640c4c9216ae630372f2b28e4819ec0d7a0b9b90a6458f7839e4629a3075",
+    "backend/packages/harness/deerflow/tools/bound_compile_tools.py": "19bdf63a6f9c1538321ec4385d6baba8a5a1ae30a57f5246b5898dd07f6f2e11",
+    "frontend/src/components/workspace/messages/compile-session-trace.tsx": "6f6ff40db3c8bd2b2b889bfd3a92f32003124c7d503891699b13d2a8ace0a7e4",
+    "frontend/src/components/workspace/messages/message-list.tsx": "0faecf91011e5bd7b66618767fcdfb1af51aaafb7a7fb49f693de630c6710823",
+    "frontend/src/core/compile/hooks.ts": "4f7ca50ca9c8ef03c9c2f73e91c03532ec52ec490661bb42b0cd7e060ef6808d",
+    "frontend/src/core/compile/types.ts": "bc57475842217a0b62bbc577bd90026dd944175f2f89f43dcb19e04045b4d3a7",
+    "frontend/src/core/messages/utils.ts": "31ad311e7acdcebb704a44e82949d1272b3a937c039ba32aaec99696cf3f11e2"
+  }
+}
