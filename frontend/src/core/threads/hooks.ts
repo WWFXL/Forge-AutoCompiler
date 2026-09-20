@@ -2,7 +2,7 @@ import type { AIMessage, Message } from "@langchain/langgraph-sdk";
 import type { ThreadsClient } from "@langchain/langgraph-sdk/client";
 import { useStream } from "@langchain/langgraph-sdk/react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { toast } from "sonner";
 
 import type { PromptInputMessage } from "@/components/ai-elements/prompt-input";
@@ -19,12 +19,8 @@ import { promptInputFilePartToFile, uploadFiles } from "../uploads";
 
 import { buildRunContext } from "./run-context";
 import { selectThreadSnapshotValues } from "./snapshot";
+import { createToolEndEventHandler, type ToolEndEvent } from "./stream-events";
 import type { AgentThread, AgentThreadState } from "./types";
-
-export type ToolEndEvent = {
-  name: string;
-  data: unknown;
-};
 
 export type ThreadStreamOptions = {
   threadId?: string | null | undefined;
@@ -211,6 +207,15 @@ export function useThreadStream({
     },
     [_handleOnStart],
   );
+  const handleToolEnd = useCallback((event: ToolEndEvent) => {
+    listeners.current.onToolEnd?.(event);
+  }, []);
+  const hasToolEndListener = onToolEnd !== undefined;
+  const langChainEventHandler = useMemo(
+    () =>
+      createToolEndEventHandler(hasToolEndListener ? handleToolEnd : undefined),
+    [handleToolEnd, hasToolEndListener],
+  );
 
   const queryClient = useQueryClient();
   const updateSubtask = useUpdateSubtask();
@@ -240,14 +245,7 @@ export function useThreadStream({
       handleStreamStart(meta.thread_id);
       setOnStreamThreadId(meta.thread_id);
     },
-    onLangChainEvent(event) {
-      if (event.event === "on_tool_end") {
-        listeners.current.onToolEnd?.({
-          name: event.name,
-          data: event.data,
-        });
-      }
-    },
+    onLangChainEvent: langChainEventHandler,
     onUpdateEvent(data) {
       const updates: Array<Partial<AgentThreadState> | null> = Object.values(
         data || {},

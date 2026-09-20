@@ -18,6 +18,7 @@ from langgraph.types import Command
 
 class CompileTerminationState(AgentState):
     compile_terminal: NotRequired[bool]
+    compile_terminal_complete_todos: NotRequired[bool]
     todos: NotRequired[list | None]
 
 
@@ -107,13 +108,7 @@ def _format_finalize_summary(payload: Mapping[str, object]) -> str:
     return "\n".join(lines)
 
 
-def _completed_todos(request: ToolCallRequest, payload: Mapping[str, object]) -> list | None:
-    if payload.get("status") != "completed":
-        return None
-
-    state = getattr(request, "state", None)
-    if not isinstance(state, Mapping):
-        return None
+def _completed_todos(state: Mapping[str, object]) -> list | None:
     todos = state.get("todos")
     if not isinstance(todos, list):
         return None
@@ -203,7 +198,15 @@ class CompileTerminationMiddleware(AgentMiddleware[CompileTerminationState]):
         del runtime
         if not state.get("compile_terminal"):
             return None
-        return {"compile_terminal": False, "jump_to": "end"}
+        update = {
+            "compile_terminal": False,
+            "jump_to": "end",
+        }
+        if state.get("compile_terminal_complete_todos"):
+            update["compile_terminal_complete_todos"] = False
+            if (todos := _completed_todos(state)) is not None:
+                update["todos"] = todos
+        return update
 
     @hook_config(can_jump_to=["end"])
     @override
@@ -248,8 +251,8 @@ class CompileTerminationMiddleware(AgentMiddleware[CompileTerminationState]):
             "messages": [result, AIMessage(content=terminal_content)],
             "compile_terminal": True,
         }
-        if tool_name == "finalize_session" and (todos := _completed_todos(request, payload)) is not None:
-            update["todos"] = todos
+        if tool_name == "finalize_session" and payload.get("status") == "completed":
+            update["compile_terminal_complete_todos"] = True
         return Command(update=update)
 
     @override
