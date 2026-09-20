@@ -3,7 +3,7 @@ import test from "node:test";
 
 import type { Message } from "@langchain/langgraph-sdk";
 
-const { findCompileSessionForTask } = await import(
+const { findCompileSessionForTask, findCompileSessionIds } = await import(
   new URL("./utils.ts", import.meta.url).href
 );
 
@@ -104,4 +104,19 @@ void test("late results from an older prepare cannot overwrite the current bindi
     ai("t", "task"),
   ];
   assert.equal(findCompileSessionForTask(messages, "t"), "current");
+});
+
+void test("导出识别所有已准备的编译会话，忽略无关及重复结果", () => {
+  const messages = [
+    ai("p1", "prepare_compile_session"),
+    ai("p2", "prepare_compile_session"),
+    tool("p2", '{"session_id":"second"}'),
+    tool("p1", "session_id=first"),
+    ai("p3", "prepare_compile_session"),
+    tool("p3", "session_id=first"),
+    tool("other", "session_id=unrelated"),
+    ai("p4", "prepare_compile_session"),
+    tool("p4", "Error: failed"),
+  ];
+  assert.deepEqual(findCompileSessionIds(messages), ["second", "first"]);
 });

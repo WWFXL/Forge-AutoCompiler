@@ -28,6 +28,32 @@ function preparedSession(content: string): string | undefined {
   }
 }
 
+export function findCompileSessionIds(messages: Message[]): string[] {
+  const prepareCalls = new Set<string>();
+  for (const message of messages) {
+    if (message.type === "ai") {
+      for (const call of message.tool_calls ?? []) {
+        if (call.name === "prepare_compile_session" && call.id) {
+          prepareCalls.add(call.id);
+        }
+      }
+    }
+  }
+
+  const ids = new Set<string>();
+  for (const message of messages) {
+    if (
+      message.type === "tool" &&
+      message.tool_call_id &&
+      prepareCalls.has(message.tool_call_id)
+    ) {
+      const id = preparedSession(textContent(message));
+      if (id) ids.add(id);
+    }
+  }
+  return [...ids];
+}
+
 // 只消费目标 task 之前的 prepare 结果，避免历史卡片串到后续会话。
 export function findCompileSessionForTask(
   messages: Message[],

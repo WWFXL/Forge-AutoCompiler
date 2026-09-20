@@ -208,3 +208,5 @@ def test_compiler_prompt_prefers_install_then_one_safe_discovery_and_submit() ->
     assert "glob" in prompt
     assert "`submit_build_result` immediately" in prompt
     assert "candidate" in prompt and "clean replay" in prompt
+    assert "国内高等院校" in prompt
+    assert "中文" in prompt

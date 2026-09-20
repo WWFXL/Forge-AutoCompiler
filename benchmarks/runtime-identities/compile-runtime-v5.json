@@ -1,0 +1,32 @@
+{
+  "schema_version": "forge-compile-runtime-identity-v1",
+  "identity": "forge-compile-runtime-v5",
+  "status": "engineering_validation",
+  "issued_on": "2026-09-20",
+  "issue_url": "https://github.com/WWFXL/Forge-AutoCompiler/issues/275",
+  "predecessor": {
+    "commit_sha": "ab0b79356ea4f27780675eaee2f0f12d64a03fa5",
+    "historical_manifests_immutable": true,
+    "historical_evidence_immutable": true
+  },
+  "authorization": {
+    "interactive_product_validation": true,
+    "provider_experiment_execution": false,
+    "formal_collection": false
+  },
+  "contracts": {
+    "chinese_user_facing_compile_updates": true,
+    "complete_exported_tool_messages": true,
+    "compile_session_export_evidence": true,
+    "existing_log_api_limits_preserved": true
+  },
+  "component_sha256": {
+    "backend/packages/harness/deerflow/agents/lead_agent/prompt.py": "b81301ba0b355b0776bdec66df0250c8561a2bbbe49dcaee860fa7a5698b4bde",
+    "backend/packages/harness/deerflow/subagents/builtins/compiler_agent.py": "96befc9fbb24e4bac856466cc12100e24c654f84fd0608055bf39bade17ceeda",
+    "frontend/src/components/workspace/export-trigger.tsx": "fc2b7acb13dfc92620220c1c77f766833d2773e9969fcdd4e88df702d0b94b90",
+    "frontend/src/components/workspace/recent-chat-list.tsx": "fdb9f90d87d8605a13e848efbc01ca4f43b11a7c620769974b397940df2f92af",
+    "frontend/src/core/compile/utils.ts": "d586ab7f8be2c903a3226765d3fe44dfe94853a21dc15c621effa50e8d56b2ec",
+    "frontend/src/core/threads/export.ts": "ca5d82377d579c3297e21b3f40a907b934581a214c28827b1e99ed0199e6fa3e",
+    "frontend/src/core/threads/export-evidence.ts": "2465e818b595507c19538916ed3f33312056538e70f2e836901ae184e54cfeb0"
+  }
+}
