@@ -174,7 +174,7 @@ Lead:  finalize_session()  ← 停并删除容器；验证通过且有产物时�
 - [`CLAUDE.md`](CLAUDE.md) — 给 AI 编程助手用的总指南
 - [`backend/CLAUDE.md`](backend/CLAUDE.md) — 后端实现细节
 - [`frontend/CLAUDE.md`](frontend/CLAUDE.md) — 前端实现细节
-- [`docs/compile_runtime_v4.md`](docs/compile_runtime_v4.md) — 当前编译运行时工程契约与授权边界
+- [`docs/compile_runtime_v6.md`](docs/compile_runtime_v6.md) — 当前编译运行时工程契约与授权边界
 - [`docs/run_compile_workflow_workflow_mechanism.md`](docs/run_compile_workflow_workflow_mechanism.md) — 工作流机制说明
 - [`docs/current_compile_project_implementation.md`](docs/current_compile_project_implementation.md) — 当前实现自审
 
@@ -206,7 +206,9 @@ Docker 启动入口会把当前用户的 `id -u` / `id -g` 成对传入 Gateway 
 
 前端 Compile Session 证据卡展示完整产物 manifest：compiled artifacts 默认展开，support files 默认折叠，均保留短相对路径、类型、大小和 SHA-256；命令被运行时策略拒绝时单独显示“策略拒绝”。
 
-会话左上角或历史列表的“导出”可保存 Markdown/JSON：包含模型消息、工具调用参数与结果，以及关联编译 Session 的命令、日志预览、验证、重放和完整产物清单。日志遵循现有证据 API 的末尾 16 KiB/脱敏规则，导出会标明截断；证据读取失败时不会生成不完整的文档。新编译任务的用户可见说明默认使用中文，已有消息与原始命令/日志保持原文。工程身份与实验边界见 [`docs/compile_runtime_v5.md`](docs/compile_runtime_v5.md)。
+会话左上角或历史列表的“导出”可保存 HTML、Markdown 或 JSON：HTML 是便于离线阅读的自包含交互报告，Markdown 用 `<details>` 折叠工具结果和长日志，JSON 保留原始消息与证据对象。三种格式都包含模型消息、工具调用参数与结果，以及关联编译 Session 的命令、日志预览、验证、重放和完整产物清单。日志遵循现有证据 API 的末尾 16 KiB/脱敏规则，导出会标明截断；证据读取失败时不会生成不完整的文档。
+
+带工具调用的 AI 消息仍会展示模型真实生成的中文 `content`；供应商返回的 `reasoning_content` 保持原文，放在默认折叠的“原始模型推理”中。前端不会在正文缺失时合成中文说明，也不会把英文推理翻译后冒充模型输出。工程身份与实验边界见 [`docs/compile_runtime_v6.md`](docs/compile_runtime_v6.md)。
 
 **复现脚本和 clean replay 证据是这套系统的核心交付物**。`repro/build.sh` 从 `repo_url` 检出 session 记录的完整 `commit_sha`，只按原顺序和 workdir 回放成功的 `run_container_bash` 命令；失败尝试、clone/inspect 和 submit 审计事件不会进入脚本。脚本生成只是候选配方，不单独证明构建可从空环境复现。
 

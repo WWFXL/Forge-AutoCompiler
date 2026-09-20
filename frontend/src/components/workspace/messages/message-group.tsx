@@ -7,6 +7,7 @@ import {
   LightbulbIcon,
   ListTodoIcon,
   MessageCircleQuestionMarkIcon,
+  MessageSquareTextIcon,
   NotebookPenIcon,
   SearchIcon,
   SquareTerminalIcon,
@@ -25,9 +26,10 @@ import { CodeBlock } from "@/components/ai-elements/code-block";
 import { Button } from "@/components/ui/button";
 import { useI18n } from "@/core/i18n/hooks";
 import {
-  extractReasoningContentFromMessage,
-  findToolCallResult,
-} from "@/core/messages/utils";
+  convertToProcessingSteps,
+  type ProcessingStep,
+  type ToolCallProcessingStep,
+} from "@/core/messages/processing-steps";
 import { useRehypeSplitWordsIntoSpans } from "@/core/rehype";
 import { extractTitleFromMarkdown } from "@/core/utils/markdown";
 import { env } from "@/env";
@@ -52,37 +54,81 @@ export function MessageGroup({
   const [showAbove, setShowAbove] = useState(
     env.NEXT_PUBLIC_STATIC_WEBSITE_ONLY === "true",
   );
-  const [showLastThinking, setShowLastThinking] = useState(
-    env.NEXT_PUBLIC_STATIC_WEBSITE_ONLY === "true",
-  );
-  const steps = useMemo(() => convertToSteps(messages), [messages]);
-  const lastToolCallStep = useMemo(() => {
-    const filteredSteps = steps.filter((step) => step.type === "toolCall");
-    return filteredSteps[filteredSteps.length - 1];
+  const steps = useMemo(() => convertToProcessingSteps(messages), [messages]);
+  const [lastToolCallIndex, previousToolCallIndex] = useMemo(() => {
+    let last = -1;
+    let previous = -1;
+    for (let index = steps.length - 1; index >= 0; index -= 1) {
+      if (steps[index]?.type !== "toolCall") continue;
+      if (last < 0) last = index;
+      else {
+        previous = index;
+        break;
+      }
+    }
+    return [last, previous];
   }, [steps]);
-  const aboveLastToolCallSteps = useMemo(() => {
-    if (lastToolCallStep) {
-      const index = steps.indexOf(lastToolCallStep);
-      return steps.slice(0, index);
-    }
-    return [];
-  }, [lastToolCallStep, steps]);
-  const lastReasoningStep = useMemo(() => {
-    if (lastToolCallStep) {
-      const index = steps.indexOf(lastToolCallStep);
-      return steps.slice(index + 1).find((step) => step.type === "reasoning");
-    } else {
-      const filteredSteps = steps.filter((step) => step.type === "reasoning");
-      return filteredSteps[filteredSteps.length - 1];
-    }
-  }, [lastToolCallStep, steps]);
+  const historicalSteps =
+    previousToolCallIndex >= 0 ? steps.slice(0, previousToolCallIndex + 1) : [];
+  const currentLeadSteps =
+    lastToolCallIndex >= 0
+      ? steps.slice(previousToolCallIndex + 1, lastToolCallIndex)
+      : [];
+  const lastToolCallStep =
+    lastToolCallIndex >= 0
+      ? (steps[lastToolCallIndex] as ToolCallProcessingStep)
+      : undefined;
+  const trailingSteps =
+    lastToolCallIndex >= 0 ? steps.slice(lastToolCallIndex + 1) : steps;
   const rehypePlugins = useRehypeSplitWordsIntoSpans(isLoading);
+  const renderStep = (step: ProcessingStep) => {
+    if (step.type === "narration") {
+      return (
+        <ChainOfThoughtStep
+          key={step.id}
+          data-testid="processing-narration"
+          icon={MessageSquareTextIcon}
+          label={
+            <MarkdownContent
+              content={step.content}
+              isLoading={isLoading}
+              rehypePlugins={rehypePlugins}
+            />
+          }
+        />
+      );
+    }
+    if (step.type === "reasoning") {
+      return (
+        <ChainOfThoughtStep
+          key={step.id}
+          data-testid="raw-model-reasoning"
+          icon={LightbulbIcon}
+          label={
+            <details className="min-w-0">
+              <summary className="cursor-pointer">
+                {t.common.rawModelReasoning}
+              </summary>
+              <div className="mt-2 pl-1">
+                <MarkdownContent
+                  content={step.reasoning}
+                  isLoading={isLoading}
+                  rehypePlugins={rehypePlugins}
+                />
+              </div>
+            </details>
+          }
+        />
+      );
+    }
+    return <ToolCall key={step.id} {...step} isLoading={isLoading} />;
+  };
   return (
     <ChainOfThought
       className={cn("w-full gap-2 rounded-lg border p-0.5", className)}
       open={true}
     >
-      {aboveLastToolCallSteps.length > 0 && (
+      {historicalSteps.length > 0 && (
         <Button
           key="above"
           className="w-full items-start justify-start text-left"
@@ -94,7 +140,7 @@ export function MessageGroup({
               <span className="opacity-60">
                 {showAbove
                   ? t.toolCalls.lessSteps
-                  : t.toolCalls.moreSteps(aboveLastToolCallSteps.length)}
+                  : t.toolCalls.moreSteps(historicalSteps.length)}
               </span>
             }
             icon={
@@ -110,74 +156,23 @@ export function MessageGroup({
       )}
       {lastToolCallStep && (
         <ChainOfThoughtContent className="px-4 pb-2">
-          {showAbove &&
-            aboveLastToolCallSteps.map((step) =>
-              step.type === "reasoning" ? (
-                <ChainOfThoughtStep
-                  key={step.id}
-                  label={
-                    <MarkdownContent
-                      content={step.reasoning ?? ""}
-                      isLoading={isLoading}
-                      rehypePlugins={rehypePlugins}
-                    />
-                  }
-                ></ChainOfThoughtStep>
-              ) : (
-                <ToolCall key={step.id} {...step} isLoading={isLoading} />
-              ),
-            )}
-          {lastToolCallStep && (
-            <FlipDisplay uniqueKey={lastToolCallStep.id ?? ""}>
-              <ToolCall
-                key={lastToolCallStep.id}
-                {...lastToolCallStep}
-                isLast={true}
-                isLoading={isLoading}
-              />
-            </FlipDisplay>
-          )}
+          {showAbove && historicalSteps.map(renderStep)}
+          {currentLeadSteps.map(renderStep)}
+          <FlipDisplay uniqueKey={lastToolCallStep.id ?? ""}>
+            <ToolCall
+              key={lastToolCallStep.id}
+              {...lastToolCallStep}
+              isLast={true}
+              isLoading={isLoading}
+            />
+          </FlipDisplay>
+          {trailingSteps.map(renderStep)}
         </ChainOfThoughtContent>
       )}
-      {lastReasoningStep && (
-        <>
-          <Button
-            key={lastReasoningStep.id}
-            className="w-full items-start justify-start text-left"
-            variant="ghost"
-            onClick={() => setShowLastThinking(!showLastThinking)}
-          >
-            <div className="flex w-full items-center justify-between">
-              <ChainOfThoughtStep
-                className="font-normal"
-                label={t.common.thinking}
-                icon={LightbulbIcon}
-              ></ChainOfThoughtStep>
-              <div>
-                <ChevronUp
-                  className={cn(
-                    "text-muted-foreground size-4",
-                    showLastThinking ? "" : "rotate-180",
-                  )}
-                />
-              </div>
-            </div>
-          </Button>
-          {showLastThinking && (
-            <ChainOfThoughtContent className="px-4 pb-2">
-              <ChainOfThoughtStep
-                key={lastReasoningStep.id}
-                label={
-                  <MarkdownContent
-                    content={lastReasoningStep.reasoning ?? ""}
-                    isLoading={isLoading}
-                    rehypePlugins={rehypePlugins}
-                  />
-                }
-              ></ChainOfThoughtStep>
-            </ChainOfThoughtContent>
-          )}
-        </>
+      {!lastToolCallStep && trailingSteps.length > 0 && (
+        <ChainOfThoughtContent className="px-4 pb-2">
+          {trailingSteps.map(renderStep)}
+        </ChainOfThoughtContent>
       )}
     </ChainOfThought>
   );
@@ -442,66 +437,4 @@ function ToolCall({
       </ChainOfThoughtStep>
     );
   }
-}
-
-interface GenericCoTStep<T extends string = string> {
-  id?: string;
-  messageId?: string;
-  type: T;
-}
-
-interface CoTReasoningStep extends GenericCoTStep<"reasoning"> {
-  reasoning: string | null;
-}
-
-interface CoTToolCallStep extends GenericCoTStep<"toolCall"> {
-  name: string;
-  args: Record<string, unknown>;
-  result?: string;
-}
-
-type CoTStep = CoTReasoningStep | CoTToolCallStep;
-
-function convertToSteps(messages: Message[]): CoTStep[] {
-  const steps: CoTStep[] = [];
-  for (const message of messages) {
-    if (message.type === "ai") {
-      const reasoning = extractReasoningContentFromMessage(message);
-      if (reasoning) {
-        const step: CoTReasoningStep = {
-          id: message.id,
-          messageId: message.id,
-          type: "reasoning",
-          reasoning: extractReasoningContentFromMessage(message),
-        };
-        steps.push(step);
-      }
-      for (const tool_call of message.tool_calls ?? []) {
-        if (tool_call.name === "task") {
-          continue;
-        }
-        const step: CoTToolCallStep = {
-          id: tool_call.id,
-          messageId: message.id,
-          type: "toolCall",
-          name: tool_call.name,
-          args: tool_call.args,
-        };
-        const toolCallId = tool_call.id;
-        if (toolCallId) {
-          const toolCallResult = findToolCallResult(toolCallId, messages);
-          if (toolCallResult) {
-            try {
-              const json = JSON.parse(toolCallResult);
-              step.result = json;
-            } catch {
-              step.result = toolCallResult;
-            }
-          }
-        }
-        steps.push(step);
-      }
-    }
-  }
-  return steps;
 }
