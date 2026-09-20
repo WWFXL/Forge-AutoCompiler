@@ -15,11 +15,11 @@ import { getAPIClient } from "@/core/api";
 import { findCompileSessionIds } from "@/core/compile/utils";
 import { getBackendBaseURL } from "@/core/config";
 import { useI18n } from "@/core/i18n/hooks";
-import { loadCompileEvidence } from "@/core/threads/export-evidence";
 import {
   exportThreadAsJSON,
   exportThreadAsMarkdown,
 } from "@/core/threads/export";
+import { loadCompileEvidence } from "@/core/threads/export-evidence";
 import type { AgentThread } from "@/core/threads/types";
 
 import { useThread } from "./messages/context";
