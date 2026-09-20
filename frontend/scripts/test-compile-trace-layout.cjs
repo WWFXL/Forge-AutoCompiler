@@ -14,11 +14,11 @@ const output =
   path.join(require("node:os").tmpdir(), "forge-compile-trace-layout");
 fs.mkdirSync(output, { recursive: true });
 const threadId = "a1111111-1111-4111-8111-111111111111";
-const ai = (id, name, args = {}) => ({
+const ai = (id, name, args = {}, content = "", reasoning = "") => ({
   id: `ai-${id}`,
   type: "ai",
-  content: "",
-  additional_kwargs: { reasoning_content: "" },
+  content,
+  additional_kwargs: { reasoning_content: reasoning },
   tool_calls: [{ id, name, args }],
 });
 const tool = (id, content) => ({
@@ -34,14 +34,26 @@ for (const [index, sessionId] of ["session-old", "session-new"].entries()) {
   const prepare = `prepare-${index}`;
   const task = `task-${index}`;
   messages.push(
-    ai(prepare, "prepare_compile_session"),
+    ai(
+      prepare,
+      "prepare_compile_session",
+      {},
+      `中文过程正文：准备 ${sessionId}`,
+      `Raw reasoning for ${sessionId}`,
+    ),
     tool(
       prepare,
       `Compile session prepared. session_id=${sessionId}, container_id=test`,
     ),
   );
   messages.push(
-    ai(`clone-${index}`, "clone_repository"),
+    ai(
+      `clone-${index}`,
+      "clone_repository",
+      {},
+      "",
+      `Clone reasoning for ${sessionId}`,
+    ),
     tool(`clone-${index}`, "Repository cloned at /workspace/repo"),
   );
   messages.push(
@@ -313,6 +325,34 @@ function snapshot(sessionId) {
           JSON.stringify(bounds),
         );
       }
+      const moreSteps = page.getByRole("button", { name: /查看.*步骤/ });
+      while ((await moreSteps.count()) > 0) {
+        await moreSteps.first().click();
+      }
+      const narrations = page.getByTestId("processing-narration");
+      assert.equal(await narrations.count(), 2);
+      assert.ok(
+        (await narrations.nth(0).innerText()).includes(
+          "中文过程正文：准备 session-old",
+        ),
+      );
+      assert.ok(
+        (await narrations.nth(1).innerText()).includes(
+          "中文过程正文：准备 session-new",
+        ),
+      );
+      const rawReasoning = page.getByTestId("raw-model-reasoning");
+      assert.equal(await rawReasoning.count(), 4);
+      for (let index = 0; index < (await rawReasoning.count()); index++) {
+        const details = rawReasoning.nth(index).locator("details");
+        assert.equal(await details.getAttribute("open"), null);
+      }
+      await rawReasoning.nth(0).locator("summary").click();
+      assert.ok(
+        (await rawReasoning.nth(0).innerText()).includes(
+          "Raw reasoning for session-old",
+        ),
+      );
       assert.equal(logs.length, 0, "日志只能展开后读取");
       const command = traces.nth(1).locator("ol").first().locator("li").nth(1);
       await command.locator("summary").first().click();

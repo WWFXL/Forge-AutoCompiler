@@ -9,7 +9,7 @@
 - 看 Forge Landing（`src/app/page.tsx`）
 - 创建会话（thread），通过聊天界面把编译任务（"克隆并编译 https://..."）交给 Lead Agent
 - 实时看 agent 工具调用与 streaming 输出
-- 导出包含工具消息和编译会话证据的 Markdown/JSON（日志遵循只读证据 API 的截断/脱敏规则）
+- 导出包含工具消息和编译会话证据的自包含 HTML、可折叠 Markdown 和原始 JSON（日志遵循只读证据 API 的截断/脱敏规则）
 - 查看产物（artifacts）和 todos
 
 **当前现状**：UI 沿用 DeerFlow 时代的通用对话式工作台。Welcome 区已经换成 Forge 主题（金色，三张 action card 直接预填 CMake / gRPC / 架构介绍三个示例任务），但**没有专门的「编译表单」**。用户仍然以自然语言驱动 agent。
@@ -81,6 +81,8 @@ src/
 - **Thread hooks 是唯一的对外 API**（`useThreadStream`、`useSubmitThread`、`useThreads`）
 - **LangGraph 客户端是单例**（`getAPIClient()`，`core/api/`）
 - **Server Components 优先**；只在交互必需时 `"use client"`
+- 带 tool call 的 AI 消息必须同时保留真实 `content`；供应商 `reasoning_content` 只作为默认折叠的原始推理显示，缺少 `content` 时不得生成前端替代文案
+- HTML/Markdown 导出把 tool call 与相同 ID 的 ToolMessage 配对折叠；JSON 保留原始消息与证据结构
 
 ## 5. Forge 视觉与文案
 

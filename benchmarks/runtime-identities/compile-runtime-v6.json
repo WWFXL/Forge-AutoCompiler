@@ -1,0 +1,34 @@
+{
+  "schema_version": "forge-compile-runtime-identity-v1",
+  "identity": "forge-compile-runtime-v6",
+  "status": "engineering_validation",
+  "issued_on": "2026-09-20",
+  "issue_url": "https://github.com/WWFXL/Forge-AutoCompiler/issues/277",
+  "predecessor": {
+    "commit_sha": "e7c93d1df6a3311bea64f0ba84bdd3815c55d353",
+    "historical_manifests_immutable": true,
+    "historical_evidence_immutable": true
+  },
+  "authorization": {
+    "interactive_product_validation": true,
+    "provider_experiment_execution": false,
+    "formal_collection": false
+  },
+  "contracts": {
+    "authentic_processing_content_preserved": true,
+    "raw_model_reasoning_collapsible_and_untranslated": true,
+    "tool_calls_and_results_paired_in_exports": true,
+    "self_contained_html_export": true,
+    "raw_json_export_preserved": true,
+    "existing_log_api_limits_preserved": true
+  },
+  "component_sha256": {
+    "frontend/src/components/workspace/export-trigger.tsx": "b5dfac0e7a5c55502bda26b943df09b1013f2e8a2bdf3d1b475f1634f195edf0",
+    "frontend/src/components/workspace/messages/message-group.tsx": "935876346e13d8261ed18ff04c7f45b7999af16a842817ac13d6b145140a1e69",
+    "frontend/src/components/workspace/recent-chat-list.tsx": "676fae88cc723d9e2d2e79c9d9105d40bd62ba3a6c8383d5f47c2131004609d8",
+    "frontend/src/core/messages/processing-steps.ts": "6bb48faf454ddc8d38a5488cd88b8917b7ea7bf0dec5d782a77b9f6a6227e56f",
+    "frontend/src/core/messages/utils.ts": "31ad311e7acdcebb704a44e82949d1272b3a937c039ba32aaec99696cf3f11e2",
+    "frontend/src/core/threads/export-evidence.ts": "2465e818b595507c19538916ed3f33312056538e70f2e836901ae184e54cfeb0",
+    "frontend/src/core/threads/export.ts": "ab9dff6cd1acc21fe821f6abc0e38752f8f6d4df5b3b7f305af9cb0cd5202b7f"
+  }
+}

@@ -12,7 +12,9 @@ const messages = [
     id: "prepare",
     type: "ai",
     content: "准备编译会话",
-    additional_kwargs: { reasoning_content: "先确认会话目录。" },
+    additional_kwargs: {
+      reasoning_content: "Inspect the session directory before cloning.",
+    },
     tool_calls: [
       {
         id: "call-prepare",
@@ -156,7 +158,11 @@ async function downloadedText(page, format) {
         });
       if (path.endsWith("/commands/command-build/log"))
         return route.fulfill({
-          json: { output: "完整命令原文", truncated: true },
+          json: {
+            output:
+              '完整命令原文\n</script><img src=x onerror="globalThis.pwned=true">',
+            truncated: true,
+          },
         });
       if (path.endsWith("/replays/replay-1/log"))
         return route.fulfill({
@@ -189,20 +195,62 @@ async function downloadedText(page, format) {
       "2026",
       "repo_url",
       "session_id=session-fmt",
-      "调用工具",
-      "工具结果",
+      "工具 `prepare_compile_session`",
+      "原始工具结果",
       "cmake --build build",
       "完整命令原文",
       "原日志已截断",
       "22/22 CTest passed",
       "lib/libfmt.a",
       "SHA-256",
-      "先确认会话目录。",
+      "Inspect the session directory before cloning.",
+      "模型返回的原始推理",
+      "准备编译会话",
       "编译成功，已通过重放。",
     ]) {
       assert.ok(markdown.includes(expected), `Markdown 缺失: ${expected}`);
     }
     assert.ok(!markdown.includes("Created Unknown"));
+    assert.ok(markdown.includes("<details>"));
+
+    const html = await downloadedText(page, "HTML");
+    for (const expected of [
+      "<!doctype html>",
+      "编译 fmt CMake 项目",
+      "准备编译会话",
+      "原始模型推理",
+      "prepare_compile_session",
+      "完整命令原文",
+      "lib/libfmt.a",
+      "Session API 原始响应",
+    ]) {
+      assert.ok(html.includes(expected), `HTML 缺失: ${expected}`);
+    }
+    assert.ok(html.includes("&lt;/script&gt;&lt;img"));
+    assert.ok(!html.includes("<img src=x"));
+    const report = await browser.newPage();
+    await report.setContent(html);
+    const toolDetails = report.locator("details.tool-call").first();
+    assert.equal(await toolDetails.getAttribute("open"), null);
+    await toolDetails.locator("summary").click();
+    assert.ok(
+      (await toolDetails.innerText()).includes("session_id=session-fmt"),
+    );
+    const reasoningDetails = report.locator("details.raw-reasoning").first();
+    assert.equal(await reasoningDetails.getAttribute("open"), null);
+    await reasoningDetails.locator("summary").click();
+    assert.ok(
+      (await reasoningDetails.innerText()).includes(
+        "Inspect the session directory before cloning.",
+      ),
+    );
+    await report.getByRole("button", { name: "全部展开" }).click();
+    assert.equal(
+      await report.locator("details:not([open])").count(),
+      0,
+      "全部展开必须打开报告中的每个 details",
+    );
+    await report.close();
 
     const json = JSON.parse(await downloadedText(page, "JSON"));
     assert.equal(json.created_at, metadata.created_at);
@@ -225,11 +273,12 @@ async function downloadedText(page, format) {
     await page.getByRole("menuitem", { name: "导出", exact: true }).hover();
     const [historyDownload] = await Promise.all([
       page.waitForEvent("download"),
-      page.getByRole("menuitem", { name: "导出为 Markdown" }).click(),
+      page.getByRole("menuitem", { name: "导出为 HTML" }).click(),
     ]);
     const historyStream = await historyDownload.createReadStream();
     let historyText = "";
     for await (const chunk of historyStream) historyText += chunk.toString();
+    assert.ok(historyText.includes("<!doctype html>"));
     assert.ok(historyText.includes("cmake --build build"));
     assert.ok(historyText.includes("编译成功，已通过重放。"));
 
@@ -240,6 +289,7 @@ async function downloadedText(page, format) {
     console.log(
       JSON.stringify({
         markdown: true,
+        html: true,
         json: true,
         history: true,
         evidenceFailure: true,

@@ -97,6 +97,11 @@
 
 <!-- 倒序，最新在上。 -->
 
+- 2026-09-20 — 保留真实中文过程正文并提供可折叠 HTML/Markdown 导出
+  - 文件: `frontend/src/core/messages/processing-steps.ts`, `frontend/src/components/workspace/messages/message-group.tsx`, `frontend/src/core/threads/export.ts`, `benchmarks/runtime-identities/compile-runtime-v6.json`, `docs/compile_runtime_v6.md`
+  - 动机: Issue #277 修复带 tool call 的 AI 消息进入 processing group 后丢弃真实 `content`、只显示英文 reasoning 的问题；原始推理保持供应商原文并默认折叠，缺少正文时不合成替代文案。HTML/Markdown 将工具结果、命令、日志、replay 和 raw Session 按项折叠，JSON 保留原始对象。
+  - 验证: 前端纯逻辑 `29 passed`，TypeScript、ESLint、Prettier、Runtime identity `4 passed`、Ruff 和 Next.js webpack production build（44 页）通过；离线浏览器覆盖桌面/手机/短屏、当前/历史三格式导出、证据失败与 HTML 注入转义。0 provider、0 model token、0 Compile Session、0 experiment evidence write。
+
 - 2026-09-20 — 完善编译对话导出与中文可见说明
   - 文件: `frontend/src/core/threads/export.ts`, `frontend/src/core/threads/export-evidence.ts`, `frontend/src/components/workspace/export-trigger.tsx`, `frontend/src/components/workspace/recent-chat-list.tsx`, `backend/packages/harness/deerflow/agents/lead_agent/prompt.py`, `backend/packages/harness/deerflow/subagents/builtins/compiler_agent.py`, `docs/compile_runtime_v5.md`
   - 动机: Issue #275 修复导出仅显示工具名且遗漏工具返回与编译证据、创建时间未知以及中文请求仍输出英文过程说明；保留 v4 身份与现有证据 API 日志限制，新增仅限交互产品验证的 v5 身份。

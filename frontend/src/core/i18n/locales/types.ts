@@ -20,6 +20,7 @@ export interface Translations {
     search: string;
     download: string;
     thinking: string;
+    rawModelReasoning: string;
     artifacts: string;
     public: string;
     custom: string;
@@ -35,6 +36,7 @@ export interface Translations {
     create: string;
     import: string;
     export: string;
+    exportAsHTML: string;
     exportAsMarkdown: string;
     exportAsJSON: string;
     exportSuccess: string;

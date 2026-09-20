@@ -1,6 +1,6 @@
 "use client";
 
-import { Download, FileJson, FileText } from "lucide-react";
+import { Download, FileCode2, FileJson, FileText } from "lucide-react";
 import { useCallback, useState } from "react";
 import { toast } from "sonner";
 
@@ -16,6 +16,7 @@ import { findCompileSessionIds } from "@/core/compile/utils";
 import { getBackendBaseURL } from "@/core/config";
 import { useI18n } from "@/core/i18n/hooks";
 import {
+  exportThreadAsHTML,
   exportThreadAsJSON,
   exportThreadAsMarkdown,
 } from "@/core/threads/export";
@@ -33,7 +34,7 @@ export function ExportTrigger({ threadId }: { threadId: string }) {
   const messages = thread.messages;
 
   const handleExport = useCallback(
-    async (format: "markdown" | "json") => {
+    async (format: "html" | "markdown" | "json") => {
       if (messages.length === 0) {
         toast.error(t.conversation.noMessages);
         return;
@@ -51,7 +52,9 @@ export function ExportTrigger({ threadId }: { threadId: string }) {
           threadId,
           findCompileSessionIds(messages),
         );
-        if (format === "markdown") {
+        if (format === "html") {
+          exportThreadAsHTML(agentThread, messages, evidence);
+        } else if (format === "markdown") {
           exportThreadAsMarkdown(agentThread, messages, evidence);
         } else {
           exportThreadAsJSON(agentThread, messages, evidence);
@@ -87,6 +90,10 @@ export function ExportTrigger({ threadId }: { threadId: string }) {
         </DropdownMenuTrigger>
       </Tooltip>
       <DropdownMenuContent align="end">
+        <DropdownMenuItem onSelect={() => handleExport("html")}>
+          <FileCode2 className="text-muted-foreground" />
+          <span>{t.common.exportAsHTML}</span>
+        </DropdownMenuItem>
         <DropdownMenuItem onSelect={() => handleExport("markdown")}>
           <FileText className="text-muted-foreground" />
           <span>{t.common.exportAsMarkdown}</span>

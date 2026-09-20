@@ -2,6 +2,7 @@
 
 import {
   Download,
+  FileCode2,
   FileJson,
   FileText,
   MoreHorizontal,
@@ -47,6 +48,7 @@ import { findCompileSessionIds } from "@/core/compile/utils";
 import { getBackendBaseURL } from "@/core/config";
 import { useI18n } from "@/core/i18n/hooks";
 import {
+  exportThreadAsHTML,
   exportThreadAsJSON,
   exportThreadAsMarkdown,
 } from "@/core/threads/export";
@@ -134,7 +136,7 @@ export function RecentChatList() {
   );
 
   const handleExport = useCallback(
-    async (thread: AgentThread, format: "markdown" | "json") => {
+    async (thread: AgentThread, format: "html" | "markdown" | "json") => {
       try {
         const apiClient = getAPIClient();
         const [state, metadata] = await Promise.all([
@@ -157,7 +159,9 @@ export function RecentChatList() {
           findCompileSessionIds(messages),
         );
         const exportThread = { ...metadata, values };
-        if (format === "markdown") {
+        if (format === "html") {
+          exportThreadAsHTML(exportThread, messages, evidence);
+        } else if (format === "markdown") {
           exportThreadAsMarkdown(exportThread, messages, evidence);
         } else {
           exportThreadAsJSON(exportThread, messages, evidence);
@@ -245,6 +249,14 @@ export function RecentChatList() {
                                   <span>{t.common.export}</span>
                                 </DropdownMenuSubTrigger>
                                 <DropdownMenuSubContent>
+                                  <DropdownMenuItem
+                                    onSelect={() =>
+                                      handleExport(thread, "html")
+                                    }
+                                  >
+                                    <FileCode2 className="text-muted-foreground" />
+                                    <span>{t.common.exportAsHTML}</span>
+                                  </DropdownMenuItem>
                                   <DropdownMenuItem
                                     onSelect={() =>
                                       handleExport(thread, "markdown")
