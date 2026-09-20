@@ -43,11 +43,14 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import { getAPIClient } from "@/core/api";
+import { findCompileSessionIds } from "@/core/compile/utils";
+import { getBackendBaseURL } from "@/core/config";
 import { useI18n } from "@/core/i18n/hooks";
 import {
   exportThreadAsJSON,
   exportThreadAsMarkdown,
 } from "@/core/threads/export";
+import { loadCompileEvidence } from "@/core/threads/export-evidence";
 import {
   useDeleteThread,
   useRenameThread,
@@ -134,22 +137,36 @@ export function RecentChatList() {
     async (thread: AgentThread, format: "markdown" | "json") => {
       try {
         const apiClient = getAPIClient();
-        const state = await apiClient.threads.getState<AgentThreadState>(
-          thread.thread_id,
-        );
-        const messages = state.values?.messages ?? [];
+        const [state, metadata] = await Promise.all([
+          apiClient.threads
+            .getState<AgentThreadState>(thread.thread_id)
+            .catch(() => null),
+          apiClient.threads.get<AgentThreadState>(thread.thread_id),
+        ]);
+        const values = state?.values?.messages?.length
+          ? state.values
+          : metadata.values;
+        const messages = values?.messages ?? [];
         if (messages.length === 0) {
           toast.error(t.conversation.noMessages);
           return;
         }
+        const evidence = await loadCompileEvidence(
+          getBackendBaseURL(),
+          thread.thread_id,
+          findCompileSessionIds(messages),
+        );
+        const exportThread = { ...metadata, values };
         if (format === "markdown") {
-          exportThreadAsMarkdown(thread, messages);
+          exportThreadAsMarkdown(exportThread, messages, evidence);
         } else {
-          exportThreadAsJSON(thread, messages);
+          exportThreadAsJSON(exportThread, messages, evidence);
         }
         toast.success(t.common.exportSuccess);
-      } catch {
-        toast.error("Failed to export conversation");
+      } catch (error) {
+        toast.error(t.common.exportFailed, {
+          description: error instanceof Error ? error.message : undefined,
+        });
       }
     },
     [t],

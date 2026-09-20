@@ -49,6 +49,7 @@ export const enUS: Translations = {
     exportAsMarkdown: "Export as Markdown",
     exportAsJSON: "Export as JSON",
     exportSuccess: "Conversation exported",
+    exportFailed: "Export failed: compile evidence could not be fully loaded",
   },
 
   // Home

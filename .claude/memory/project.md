@@ -97,6 +97,11 @@
 
 <!-- 倒序，最新在上。 -->
 
+- 2026-09-20 — 完善编译对话导出与中文可见说明
+  - 文件: `frontend/src/core/threads/export.ts`, `frontend/src/core/threads/export-evidence.ts`, `frontend/src/components/workspace/export-trigger.tsx`, `frontend/src/components/workspace/recent-chat-list.tsx`, `backend/packages/harness/deerflow/agents/lead_agent/prompt.py`, `backend/packages/harness/deerflow/subagents/builtins/compiler_agent.py`, `docs/compile_runtime_v5.md`
+  - 动机: Issue #275 修复导出仅显示工具名且遗漏工具返回与编译证据、创建时间未知以及中文请求仍输出英文过程说明；保留 v4 身份与现有证据 API 日志限制，新增仅限交互产品验证的 v5 身份。
+  - 验证: 后端产品测试 `1595 passed, 43 skipped`，离线浏览器覆盖左上角 Markdown/JSON、历史快照回退和证据失败；不运行真实 provider 或正式实验。
+
 - 2026-09-19 — 完成编译 Session 宿主权限、产物交付和终态证据改进
   - 文件: `backend/packages/harness/deerflow/compile/manager.py`, `backend/packages/harness/deerflow/compile/artifact_display.py`, `backend/packages/harness/deerflow/subagents/builtins/compiler_agent.py`, `frontend/src/components/workspace/messages/compile-session-trace.tsx`, `docs/compile_runtime_v4.md`
   - 动机: Docker root 写入的 bind mount 使宿主用户难以管理 Session；FMT 构建后存在脆弱/重复诊断，终态铺开 support files 且策略拒绝容易被误读。Issue #273 以受限 UID/GID 规范化、CMake install 优先、完整折叠证据和 `docker stop --timeout` 修复这些问题，并保持 Runtime v2/v3 与历史 evidence 冻结。

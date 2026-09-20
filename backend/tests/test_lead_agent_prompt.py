@@ -39,6 +39,14 @@ def test_lead_prompt_uses_registered_compile_workflow(monkeypatch):
     assert "routine build-system, dependency, or artifact-discovery choices" in prompt_module.SYSTEM_PROMPT_TEMPLATE
 
 
+def test_lead_prompt_prefers_chinese_user_facing_updates():
+    prompt = prompt_module.SYSTEM_PROMPT_TEMPLATE
+    assert "国内高等院校" in prompt
+    assert "用户可见" in prompt
+    assert "思考摘要" in prompt
+    assert "中文" in prompt
+
+
 def test_build_custom_mounts_section_returns_empty_when_no_mounts(monkeypatch):
     config = SimpleNamespace(custom_mounts=[])
     monkeypatch.setattr("deerflow.config.app_config.get_app_config", lambda: config)
