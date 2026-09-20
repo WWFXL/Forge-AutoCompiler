@@ -4,6 +4,7 @@ from collections.abc import Sequence
 from types import SimpleNamespace
 from typing import Any
 
+import pytest
 from langchain.agents import create_agent
 from langchain_core.callbacks import CallbackManagerForLLMRun
 from langchain_core.language_models import BaseChatModel
@@ -15,6 +16,7 @@ from langgraph.types import Command
 
 from deerflow.agents.middlewares.compile_termination_middleware import CompileTerminationMiddleware
 from deerflow.agents.middlewares.memory_middleware import MemoryMiddleware
+from deerflow.agents.middlewares.todo_middleware import TodoMiddleware
 from deerflow.agents.thread_state import ThreadState
 from deerflow.compile.docker_runtime import ContainerCleanupResult
 from deerflow.compile.schemas import BuildArtifact, BuildCommandRecord, CompileSession, VerificationResult
@@ -64,6 +66,59 @@ class SingleToolCallModel(BaseChatModel):
                     "id": "tool-call-graph",
                     "type": "tool_call",
                 }
+            ],
+        )
+        return ChatResult(generations=[ChatGeneration(message=response)])
+
+
+class ParallelFinalizeModel(BaseChatModel):
+    calls: int = 0
+
+    @property
+    def _llm_type(self) -> str:
+        return "parallel-finalize"
+
+    def bind_tools(
+        self,
+        tools: Sequence[dict[str, Any] | type | Any | BaseTool],
+        *,
+        tool_choice: str | None = None,
+        **kwargs: Any,
+    ) -> Runnable:
+        del tools, tool_choice, kwargs
+        return self
+
+    def _generate(
+        self,
+        messages: list[BaseMessage],
+        stop: list[str] | None = None,
+        run_manager: CallbackManagerForLLMRun | None = None,
+        **kwargs: Any,
+    ) -> ChatResult:
+        del messages, stop, run_manager, kwargs
+        self.calls += 1
+        if self.calls > 1:
+            raise AssertionError("The model was called after a terminal compile tool")
+        response = AIMessage(
+            content="构建成功，验证通过。现在收尾会话。",
+            tool_calls=[
+                {
+                    "name": "write_todos",
+                    "args": {
+                        "todos": [
+                            {"status": "completed", "content": "Compile and verify"},
+                            {"status": "in_progress", "content": "Finalize compile session"},
+                        ]
+                    },
+                    "id": "tool-call-todos",
+                    "type": "tool_call",
+                },
+                {
+                    "name": "finalize_session",
+                    "args": {},
+                    "id": "tool-call-finalize",
+                    "type": "tool_call",
+                },
             ],
         )
         return ChatResult(generations=[ChatGeneration(message=response)])
@@ -412,18 +467,29 @@ def test_finalize_cleans_container_then_ends_lead_with_deterministic_summary(mon
     assert "`include/fmt/`：16 个文件" in summary
     assert "`LICENSE`：1 个文件" in summary
     assert "thread-123/session-123" not in summary
-    assert terminal.update["todos"] == [
-        {"status": "completed", "content": "Clone repository"},
-        {"status": "completed", "content": "Clean up the compile session and summarize results"},
-        {"status": "pending", "content": "Optional follow-up"},
-    ]
-    assert terminal.update["todos"] is not todos
+    assert "todos" not in terminal.update
+    assert terminal.update["compile_terminal_complete_todos"] is True
 
     jump = CompileTerminationMiddleware().before_model(
-        {"messages": terminal.update["messages"], "compile_terminal": True},
+        {
+            "messages": terminal.update["messages"],
+            "compile_terminal": True,
+            "compile_terminal_complete_todos": True,
+            "todos": todos,
+        },
         SimpleNamespace(),
     )
-    assert jump == {"compile_terminal": False, "jump_to": "end"}
+    assert jump == {
+        "compile_terminal": False,
+        "compile_terminal_complete_todos": False,
+        "jump_to": "end",
+        "todos": [
+            {"status": "completed", "content": "Clone repository"},
+            {"status": "completed", "content": "Clean up the compile session and summarize results"},
+            {"status": "pending", "content": "Optional follow-up"},
+        ],
+    }
+    assert jump["todos"] is not todos
 
 
 def test_build_system_mismatch_cleans_session_and_stops_before_compiler(monkeypatch):
@@ -575,6 +641,49 @@ def test_finalize_ends_lead_graph_after_one_model_call(monkeypatch):
     assert final_state["todos"] == [{"status": "completed", "content": "Finalize compile session"}]
 
 
+@pytest.mark.parametrize("asynchronous", [False, True], ids=["sync", "async"])
+def test_parallel_todo_update_and_finalize_end_lead_graph_without_state_conflict(monkeypatch, asynchronous: bool):
+    session = make_session()
+    events: list[str] = []
+
+    def cleanup_and_finalize(*, session: CompileSession):
+        events.append("cleanup")
+        events.append("finalize")
+        session.status = "completed"
+        return session, ContainerCleanupResult(succeeded=True, stopped=True, removed=True)
+
+    monkeypatch.setattr(agent_compile_tools, "get_bound_session", lambda session_id, thread_id: session)
+    monkeypatch.setattr(agent_compile_tools, "cleanup_and_finalize_compile_session_impl", cleanup_and_finalize)
+    model = ParallelFinalizeModel()
+    agent = create_agent(
+        model=model,
+        tools=[agent_compile_tools.finalize_session],
+        middleware=[CompileTerminationMiddleware(), TodoMiddleware()],
+        state_schema=ThreadState,
+    )
+
+    state = {
+        "messages": [HumanMessage(content="Finalize the verified compile session.")],
+        "compile_session_id": session.session_id,
+        "artifacts": [],
+        "todos": [
+            {"status": "in_progress", "content": "Compile and verify"},
+            {"status": "pending", "content": "Finalize compile session"},
+        ],
+        "viewed_images": {},
+    }
+    config = {"configurable": {"thread_id": session.thread_id}}
+    final_state = asyncio.run(agent.ainvoke(state, config=config)) if asynchronous else agent.invoke(state, config=config)
+
+    assert model.calls == 1
+    assert events == ["cleanup", "finalize"]
+    assert final_state["messages"][-1].content.startswith("## 编译会话已完成")
+    assert final_state["todos"] == [
+        {"status": "completed", "content": "Compile and verify"},
+        {"status": "completed", "content": "Finalize compile session"},
+    ]
+
+
 def test_failed_finalize_summary_preserves_in_progress_todos():
     payload = {
         "status": "failed",
@@ -606,6 +715,7 @@ def test_failed_finalize_summary_preserves_in_progress_todos():
     assert terminal.update["messages"][-1].content.startswith("## 编译会话失败")
     assert "No recognized compiled artifacts were found." in terminal.update["messages"][-1].content
     assert "todos" not in terminal.update
+    assert "compile_terminal_complete_todos" not in terminal.update
     assert todos == [{"status": "in_progress", "content": "Repair failed verification"}]
 
 

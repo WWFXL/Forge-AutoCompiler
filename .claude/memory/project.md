@@ -6,6 +6,14 @@
 
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
+- 2026-09-20 — 修复 Issue #279 编译终态 Todo 并发更新与流式负载
+  - GitHub: 中文 Issue #279 已创建并回读；分支为 `fix/issue-279-todo-concurrency`，基线为 `main@d5b3073d`。Spec/Plan 位于 `docs/superpowers/`。
+  - 根因: Lead Agent 同轮调用 `write_todos` 与 `finalize_session` 时，Todo 工具和 `CompileTerminationMiddleware.wrap_tool_call` 在同一 graph step 写入两份完整 `LastValue` Todo 快照，触发 `INVALID_CONCURRENT_GRAPH_UPDATE`；普通聊天还无条件注册 `onLangChainEvent`，让 SDK 加入高体积 `events`，事故运行首次和重连流各约 10.7 MB。
+  - 实现: finalize 工具阶段只写终态消息、跳转标记和成功收尾标记；并行工具结果合并后由 `before_model` 基于最新 state 完成 `in_progress` Todo 并结束 graph。前端仅在调用者提供 `onToolEnd` 时创建 LangChain event handler，保留 Agent 创建页能力，普通 Forge 聊天不再订阅 events。
+  - 验证: 新回归修复前同步路径稳定复现 `InvalidUpdateError`；修复后同步/异步真实 agent、单独 finalize 与失败终态共 `18 passed`，相邻 middleware 集合 `71 passed`，前端纯逻辑 `31 passed`，全量 Ruff、ESLint、TypeScript 和 44 页 production build 通过。修正 Windows worktree Git 指针、使用可写 uv 缓存并显式导入当前工作树源码后，正式产品测试范围最终为 `1610 passed, 30 skipped`。
+  - 边界: 0 provider、0 model token、0 Docker Compile Session、0 formal evidence write；不改 Compile Session、验证、replay、产物或历史实验协议。
+  - 文件: `backend/packages/harness/deerflow/agents/middlewares/compile_termination_middleware.py`, `backend/tests/test_compile_terminal_tools.py`, `frontend/src/core/threads/hooks.ts`, `frontend/src/core/threads/stream-events.ts`, `frontend/src/core/threads/stream-events.test.ts`
+
 - 2026-09-18 — 修复 Issue #263 编译终态展示、消息分组与 Todo 收尾
   - GitHub: 中文 Issue #263 已创建并回读；分支为 `fix/issue-263-compile-terminal-ui`，基线为 `main@b3224a33`。Spec/Plan 位于 `docs/superpowers/`。
   - 根因: `CompileTerminationMiddleware` 为避免 `finalize_session` 后再次调用模型，把完整 JSON直接复制成 AIMessage 并跳转 graph end，导致结构化字段直出且最后一个 Todo 无机会通过 `write_todos` 收尾；前端 `groupMessages()` 只接受最后一个开放分组，LangGraph 流式中 `final AI` 先于 ToolMessage 出现时会在 render 路径触发 `console.error`；clarification 裸 Markdown 未明确使用主题前景色。

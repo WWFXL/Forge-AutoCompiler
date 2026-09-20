@@ -119,7 +119,7 @@ pnpm start       # 起生产 server
 
 ## 8. 与后端的契约
 
-- **流协议**：`@langchain/langgraph-sdk` 的 SSE。前端订阅 `messages-tuple` 收增量消息、`values` 收 ThreadState 快照、`end` 表示流结束
+- **流协议**：`@langchain/langgraph-sdk` 的 SSE。前端订阅 `messages-tuple` 收增量消息、`values` 收 ThreadState 快照、`end` 表示流结束；只有实际提供 `onToolEnd` 的调用页才注册 `onLangChainEvent`，普通聊天不能无条件订阅高体积 `events`
 - **artifacts**：通过 Gateway 的 `GET /api/threads/{id}/artifacts/{path}` 拿，前端有同名 hook（`useArtifact`）
 - **uploads**：`POST /api/threads/{id}/uploads`（multipart），Gateway 会自动把 PDF/PPT/Excel/Word 转 Markdown
 - **suggestions**：`POST /api/threads/{id}/suggestions` 生成后续追问

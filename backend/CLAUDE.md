@@ -149,6 +149,8 @@ compiler 子代理通过 `disallowed_tools` 明确禁掉 `task` / `ask_clarifica
 
 > ⚠️ 如果你看到旧文档（已删除）写「9 个 / 10 个中间件 + ThreadDataMiddleware / SandboxMiddleware / DanglingToolCallMiddleware / GuardrailMiddleware / UploadsMiddleware」——那是 DeerFlow 时期的清单，已不准确。以本节为准；以源码为最终真相。
 
+`CompileTerminationMiddleware` 负责在 `submit_build_result` 或 `finalize_session` 进入终态后跳过额外模型调用。成功 finalize 的 Todo 收口必须发生在并行工具结果合并后的 `before_model`，不能在 `wrap_tool_call` 中与 `write_todos` 同一步写完整 `todos` 快照；该字段是单值状态，不使用列表拼接或依赖并发顺序的 reducer。
+
 ### 3.2 Prompt 注意
 
 `lead_agent/prompt.py` 顶部注释明确：
