@@ -7,10 +7,10 @@
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
 - 2026-09-24 — 实现 Issue #285 外部 Evaluator S0-S5 适配层
-  - GitHub: Phase 2 PR #284 已 squash 合并到 `main@7dcf661b0968ae2c8ca558467521d386fa919cac`，Issue #283 已关闭；Phase 3 中文 Issue #285 已创建并回读，分支为 `research/285-external-evaluator-phase3`。
+  - GitHub: Phase 2 PR #284 已 squash 合并到 `main@7dcf661b0968ae2c8ca558467521d386fa919cac`，Issue #283 已关闭；Phase 3 中文 Issue #285 与 PR #286 已创建并回读，实现提交为 `f0a4b914`，分支为 `research/285-external-evaluator-phase3`。
   - 实现: 新增版本化 `run_external_evaluator_v1` 与可注入 backend，离线复算 S0/S1 并复用 Forge artifact verifier、provenance recipe、功能 oracle 和 clean replay 形成 S2-S5；严格成功要求六层全过，bitwise SHA-256 作为独立辅助终点。Evaluator 使用接续节点 evidence head 的独立 hash-chain ledger、create-once result/summary/failure，异常后只追加失败与 terminal 事件。
   - 重评: oracle 规格、evaluator 版本和规则摘要进入结果证据；新 evaluation ID 保留旧 run，adjudication 按冻结 task 顺序合并并拒绝 attempt/run/session/submission、commit、build system、candidate 和节点 identity 漂移。
-  - 验证: evaluator 聚焦测试 `27 passed`，Phase 1/2 与 Compile Runtime 相邻回归 `268 passed`；CI 产品测试 `1692 passed, 30 skipped`，完整 Ruff check/format（375 files）和 diff check 通过。全程 0 真实 provider、0 Docker、0 正式实验 evidence。
+  - 验证: evaluator 聚焦测试 `27 passed`，Phase 1/2 与 Compile Runtime 相邻回归 `268 passed`；CI 产品测试 `1692 passed, 30 skipped`，完整 Ruff check/format（375 files）和 diff check 通过。PR #286 的 backend unit、frozen benchmark、backend lint、frontend lint 全绿。全程 0 真实 provider、0 Docker、0 正式实验 evidence。
   - 边界: Lead + Compiler 仍是默认产品路径，Phase 3 研究入口不自动接入产品编排；Phase 4 真实 Compile Session/Docker 零 Provider 门禁尚未启动，Phase 3 PR 未经后续明确授权不合并。
   - 文件: `backend/packages/harness/deerflow/compile/external_evaluator.py`, `backend/packages/harness/deerflow/compile/__init__.py`, `backend/tests/test_external_evaluator.py`, `docs/agent_workflow_node_v1.md`, `.claude/memory/project.md`
 
