@@ -7,11 +7,11 @@
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
 - 2026-09-24 — 实现 Issue #283 单 Agent Workflow Node v1 的 Phase 2 运行时
-  - GitHub: PR #282 已 squash 合并到 `main@555b6850`，Issue #281 已关闭；Phase 2 中文 Issue #283 已创建并回读，分支为 `research/283-agent-workflow-node-phase2`。
+  - GitHub: PR #282 已 squash 合并到 `main@555b6850`，Issue #281 已关闭；Phase 2 中文 Issue #283 和 PR #284 已创建并回读，分支为 `research/283-agent-workflow-node-phase2`，PR 的 backend unit、frozen benchmark、backend lint、frontend lint 全绿。
   - 实现: 新增显式 `run_agent_workflow_node_v1`，注入 `BaseChatModel` 并复用 Compiler prompt、绑定 `run_container_bash` 和 authoritative Compile Session；新增 `submit_candidate_v1`，只校验 command/build-system/artifact 并 create-once 冻结候选，不执行 verifier 或 clean replay。模型强制串行工具调用，accepted Submit 后终止循环；节点使用独立 hash-chain JSONL 记录模型、工具、新 command、artifact 和候选事件。
   - 可靠性: 节点 wall-clock 使用 `asyncio.timeout`；预算、取消、工具异常和候选持久化失败统一收口，失败结果不暴露 submission identity；finalizer 错误作为 secondary failure，保留唯一终态。
   - 验证: fake `BaseChatModel` 运行时测试 `19 passed`，Compile Runtime 相邻回归 `231 passed`，CI 产品测试 `1665 passed, 30 skipped`；完整 Ruff check/format（373 files）、`py_compile` 和 diff check 通过。全程 0 真实 provider、0 Docker、0 正式实验 evidence。
-  - 边界: Lead + Compiler 和 `submit_build_result` 仍为默认产品路径；Phase 2 PR 待创建，未经后续明确授权不合并，也不启动 Phase 3 evaluator 或正式实验。
+  - 边界: Lead + Compiler 和 `submit_build_result` 仍为默认产品路径；Phase 2 PR 保持待审，未经后续明确授权不合并，也不启动 Phase 3 evaluator 或正式实验。
   - 文件: `backend/packages/harness/deerflow/compile/__init__.py`, `backend/packages/harness/deerflow/compile/agent_workflow_node.py`, `backend/packages/harness/deerflow/compile/agent_workflow_runtime.py`, `backend/tests/test_agent_workflow_runtime.py`, `docs/agent_workflow_node_v1.md`, `.claude/memory/project.md`
 
 - 2026-09-20 — 修复 Issue #279 编译终态 Todo 并发更新与流式负载
