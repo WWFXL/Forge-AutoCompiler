@@ -50,6 +50,18 @@ class SubmitCandidateRejectionCode(StrEnum):
     INVALID_CONTRACT = "invalid_contract"
     NODE_NOT_RUNNING = "node_not_running"
     CANDIDATE_ALREADY_FROZEN = "candidate_already_frozen"
+    SESSION_INACTIVE = "session_inactive"
+    COMMAND_MISSING = "command_missing"
+    COMMAND_AMBIGUOUS = "command_ambiguous"
+    COMMAND_NOT_COMPLETED = "command_not_completed"
+    COMMAND_NOT_SUCCESSFUL = "command_not_successful"
+    COMMAND_ROLE_INVALID = "command_role_invalid"
+    COMMAND_ORDER_INVALID = "command_order_invalid"
+    BUILD_SYSTEM_MISMATCH = "build_system_mismatch"
+    ARTIFACT_MISSING = "artifact_missing"
+    ARTIFACT_NOT_REGULAR = "artifact_not_regular"
+    ARTIFACT_SYMLINK = "artifact_symlink"
+    CANDIDATE_PERSISTENCE_FAILED = "candidate_persistence_failed"
 
 
 @dataclass(frozen=True)

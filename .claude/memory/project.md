@@ -6,13 +6,13 @@
 
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
-- 2026-09-24 — 实现 Issue #281 单 Agent Workflow Node v1 的 Phase 1 合同与状态机
-  - GitHub: 中文 Issue #281 已创建并回读；分支为 `research/281-agent-workflow-node-v1`，基线为 `main@4412588f`。当前 Linux 环境已安装并认证用户级 `gh 2.101.0`，账号 `WWFXL` 对仓库具有 ADMIN 权限。
-  - 实现: 新增版本化节点输入、候选提交/响应、节点结果、剩余预算和 canonical SHA-256 合同；JSON 输入在构造时深度冻结。新增显式状态机、first-reason-wins、终态写入保护、预算跟踪和并发安全的首次候选冻结，重复、迟到和无效 Submit 返回稳定拒绝码。
-  - 边界: 保留现有 `submit_build_result` 语义和 Lead + Compiler 默认路径；当前只完成知识库设计文档的 Phase 1，不调用 Docker、不修改历史 evidence，Agent 调用、Session command 归属校验、版本化 Submit 工具和外部 evaluator 留给后续 Phase 2/3。
-  - 验证: 聚焦 `36 passed`，Compile Runtime 相邻回归 `194 passed`，对齐 CI 的产品测试 `1646 passed, 30 skipped`；完整 Ruff check/format（371 files）和 diff check 通过。直接运行全部 `tests/` 会加载冻结 `test_forge_*`，当前主干历史脚本引用已移除的 `resolve_command_role` 并产生 13 个收集错误；CI 在冻结旧提交独立验证这些协议。
-  - 偏离: 一次本地产品测试未设置 `CI=true`，在 filesystem 用例因 root-owned `backend/.deer-flow` 失败前，4 个 live client 模型用例已经通过，可能产生 4 次当前配置模型请求；未创建 Compile Session、Docker 容器或正式实验 evidence。随后使用 CI 条件重跑并全绿。
-  - 文件: `backend/packages/harness/deerflow/compile/agent_workflow_schemas.py`, `backend/packages/harness/deerflow/compile/agent_workflow_node.py`, `backend/tests/test_agent_workflow_node_contract.py`, `.claude/memory/project.md`
+- 2026-09-24 — 实现 Issue #283 单 Agent Workflow Node v1 的 Phase 2 运行时
+  - GitHub: PR #282 已 squash 合并到 `main@555b6850`，Issue #281 已关闭；Phase 2 中文 Issue #283 已创建并回读，分支为 `research/283-agent-workflow-node-phase2`。
+  - 实现: 新增显式 `run_agent_workflow_node_v1`，注入 `BaseChatModel` 并复用 Compiler prompt、绑定 `run_container_bash` 和 authoritative Compile Session；新增 `submit_candidate_v1`，只校验 command/build-system/artifact 并 create-once 冻结候选，不执行 verifier 或 clean replay。模型强制串行工具调用，accepted Submit 后终止循环；节点使用独立 hash-chain JSONL 记录模型、工具、新 command、artifact 和候选事件。
+  - 可靠性: 节点 wall-clock 使用 `asyncio.timeout`；预算、取消、工具异常和候选持久化失败统一收口，失败结果不暴露 submission identity；finalizer 错误作为 secondary failure，保留唯一终态。
+  - 验证: fake `BaseChatModel` 运行时测试 `19 passed`，Compile Runtime 相邻回归 `231 passed`，CI 产品测试 `1665 passed, 30 skipped`；完整 Ruff check/format（373 files）、`py_compile` 和 diff check 通过。全程 0 真实 provider、0 Docker、0 正式实验 evidence。
+  - 边界: Lead + Compiler 和 `submit_build_result` 仍为默认产品路径；Phase 2 PR 待创建，未经后续明确授权不合并，也不启动 Phase 3 evaluator 或正式实验。
+  - 文件: `backend/packages/harness/deerflow/compile/__init__.py`, `backend/packages/harness/deerflow/compile/agent_workflow_node.py`, `backend/packages/harness/deerflow/compile/agent_workflow_runtime.py`, `backend/tests/test_agent_workflow_runtime.py`, `docs/agent_workflow_node_v1.md`, `.claude/memory/project.md`
 
 - 2026-09-20 — 修复 Issue #279 编译终态 Todo 并发更新与流式负载
   - GitHub: 中文 Issue #279 已创建并回读；分支为 `fix/issue-279-todo-concurrency`，基线为 `main@d5b3073d`。Spec/Plan 位于 `docs/superpowers/`。
@@ -112,6 +112,12 @@
 ## 最近变更 (Recent Changes)
 
 <!-- 倒序，最新在上。 -->
+
+- 2026-09-24 — 完成 Issue #281 单 Agent Workflow Node v1 的 Phase 1 合同与状态机
+  - GitHub: 中文 Issue #281 与 PR #282 已完成；PR squash 合并到 `main@555b6850ffee0c8f5b1be56233aaa9fbbe48e812`，Issue 已自动关闭。
+  - 实现: 新增版本化节点输入、候选提交/响应、节点结果、剩余预算和 canonical SHA-256 合同；JSON 输入在构造时深度冻结。新增显式状态机、first-reason-wins、终态写入保护、预算跟踪和并发安全的首次候选冻结，重复、迟到和无效 Submit 返回稳定拒绝码。
+  - 验证: 聚焦 `36 passed`，Compile Runtime 相邻回归 `194 passed`，CI 产品测试 `1646 passed, 30 skipped`；完整 Ruff check/format（371 files）和 diff check 通过。
+  - 文件: `backend/packages/harness/deerflow/compile/agent_workflow_schemas.py`, `backend/packages/harness/deerflow/compile/agent_workflow_node.py`, `backend/tests/test_agent_workflow_node_contract.py`
 
 - 2026-09-20 — 保留真实中文过程正文并提供可折叠 HTML/Markdown 导出
   - 文件: `frontend/src/core/messages/processing-steps.ts`, `frontend/src/components/workspace/messages/message-group.tsx`, `frontend/src/core/threads/export.ts`, `benchmarks/runtime-identities/compile-runtime-v6.json`, `docs/compile_runtime_v6.md`
