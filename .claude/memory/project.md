@@ -6,6 +6,14 @@
 
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
+- 2026-09-24 — 实现 Issue #281 单 Agent Workflow Node v1 的 Phase 1 合同与状态机
+  - GitHub: 中文 Issue #281 已创建并回读；分支为 `research/281-agent-workflow-node-v1`，基线为 `main@4412588f`。当前 Linux 环境已安装并认证用户级 `gh 2.101.0`，账号 `WWFXL` 对仓库具有 ADMIN 权限。
+  - 实现: 新增版本化节点输入、候选提交/响应、节点结果、剩余预算和 canonical SHA-256 合同；JSON 输入在构造时深度冻结。新增显式状态机、first-reason-wins、终态写入保护、预算跟踪和并发安全的首次候选冻结，重复、迟到和无效 Submit 返回稳定拒绝码。
+  - 边界: 保留现有 `submit_build_result` 语义和 Lead + Compiler 默认路径；当前只完成知识库设计文档的 Phase 1，不调用 Docker、不修改历史 evidence，Agent 调用、Session command 归属校验、版本化 Submit 工具和外部 evaluator 留给后续 Phase 2/3。
+  - 验证: 聚焦 `36 passed`，Compile Runtime 相邻回归 `194 passed`，对齐 CI 的产品测试 `1646 passed, 30 skipped`；完整 Ruff check/format（371 files）和 diff check 通过。直接运行全部 `tests/` 会加载冻结 `test_forge_*`，当前主干历史脚本引用已移除的 `resolve_command_role` 并产生 13 个收集错误；CI 在冻结旧提交独立验证这些协议。
+  - 偏离: 一次本地产品测试未设置 `CI=true`，在 filesystem 用例因 root-owned `backend/.deer-flow` 失败前，4 个 live client 模型用例已经通过，可能产生 4 次当前配置模型请求；未创建 Compile Session、Docker 容器或正式实验 evidence。随后使用 CI 条件重跑并全绿。
+  - 文件: `backend/packages/harness/deerflow/compile/agent_workflow_schemas.py`, `backend/packages/harness/deerflow/compile/agent_workflow_node.py`, `backend/tests/test_agent_workflow_node_contract.py`, `.claude/memory/project.md`
+
 - 2026-09-20 — 修复 Issue #279 编译终态 Todo 并发更新与流式负载
   - GitHub: 中文 Issue #279 已创建并回读；分支为 `fix/issue-279-todo-concurrency`，基线为 `main@d5b3073d`。Spec/Plan 位于 `docs/superpowers/`。
   - 根因: Lead Agent 同轮调用 `write_todos` 与 `finalize_session` 时，Todo 工具和 `CompileTerminationMiddleware.wrap_tool_call` 在同一 graph step 写入两份完整 `LastValue` Todo 快照，触发 `INVALID_CONCURRENT_GRAPH_UPDATE`；普通聊天还无条件注册 `onLangChainEvent`，让 SDK 加入高体积 `events`，事故运行首次和重连流各约 10.7 MB。
