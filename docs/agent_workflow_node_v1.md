@@ -1,6 +1,6 @@
 # Agent Workflow Node v1
 
-`agent_workflow_node_v1` 是自动化编译实验的显式运行路径。它复用现有 Compile Session、Compiler 提示词和 `run_container_bash`，但把候选冻结与最终验证拆开，供后续外部 evaluator 使用。
+`agent_workflow_node_v1` 是自动化编译实验的显式运行路径。它复用现有 Compile Session、Compiler 提示词和 `run_container_bash`，并把候选冻结与外部确定性评测分开。
 
 现有 Lead Agent + Compiler 仍是默认产品路径，`submit_build_result` 的 artifact verification、repro bundle 和 clean replay 语义保持不变。新路径只有调用 `deerflow.compile.run_agent_workflow_node_v1(...)` 时才会启用。
 
@@ -18,18 +18,36 @@
 agent-workflow/<attempt_id>/
 ├── input.json
 ├── candidate.json    # 仅 accepted Submit 后存在
-└── events.jsonl
+├── events.jsonl
+└── evaluations/<evaluation_id>/
+    ├── events.jsonl
+    ├── failure.json  # 仅 evaluator 自身异常时存在
+    ├── result.json
+    ├── summary.json
+    └── oracle/
+        ├── stdout.log
+        └── stderr.log
 ```
+
+## Phase 3 外部 Evaluator
+
+- `run_external_evaluator_v1(...)` 读取冻结候选和 authoritative Compile Session，先离线复算 S0 身份/生命周期与 S1 命令证据，再通过可注入 backend 判定 S2-S5。
+- `ForgeCompileEvaluationBackend` 复用现有 artifact verifier、replay recipe、provenance 检查和 clean replay。S3 oracle 由冻结 registry 选择；相对可执行文件必须保留显式 `./binary` 语义。
+- 主要终点 `strict_reproducible_build_success` 只有在 S0-S5 全部通过时成立。bitwise SHA-256 一致性单独记录，不会在 task contract 未要求时覆盖功能重放结果。
+- Agent 的 `agent_summary`、`known_limitations` 或自报成败不参与各层判定。每层只保存稳定 reason code 和可复核 evidence reference。
+- evaluator ledger 的首 hash 接到 Phase 2 节点 ledger 终点。异常会形成 create-once `failure.json`、失败 ledger 终态、`result.json` 和 `summary.json`，不继续追加普通评测事件。
+- 每次修订使用新的 `evaluation_id`，旧目录保持只读。`adjudicate_external_evaluations_v1(...)` 按冻结 task 顺序选择定向 replacement，并拒绝 commit、build system、candidate 或节点输入/结果身份漂移；evaluator 版本和规则可以随修订变化。
 
 ## 当前边界
 
-Phase 2 只实现 Agent 运行与候选冻结。外部 evaluator、S0-S5 综合判定、正式 Docker 运行和实验 evidence 不在本阶段内。调用方不得把 `node_status="submitted"` 解释为构建已验证或 Session 已完成。
+Phase 3 提供适配层和确定性单元测试，不自动接入现有 Lead + Compiler 产品路径，也不运行 Phase 4 的真实 Compile Session/Docker 集成门禁或正式实验 evidence。调用方仍不得把 `node_status="submitted"` 解释为构建已验证；只有外部 evaluator 的 S0-S5 结果可以形成严格成功结论。
 
 主要实现位于：
 
 - `backend/packages/harness/deerflow/compile/agent_workflow_runtime.py`
 - `backend/packages/harness/deerflow/compile/agent_workflow_node.py`
 - `backend/packages/harness/deerflow/compile/agent_workflow_schemas.py`
+- `backend/packages/harness/deerflow/compile/external_evaluator.py`
 
 回归测试使用假 `BaseChatModel` 和本地临时 Session，不调用真实 provider 或 Docker：
 
@@ -38,5 +56,6 @@ cd backend
 UV_CACHE_DIR=/home/yiwei/.cache/uv-user PYTHONPATH=. uv run pytest \
   tests/test_agent_workflow_runtime.py \
   tests/test_agent_workflow_node_contract.py \
+  tests/test_external_evaluator.py \
   -o cache_dir=/home/yiwei/.cache/pytest-forge
 ```
