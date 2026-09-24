@@ -18,6 +18,50 @@ _EXPORTS = {
         "deerflow.compile.agent_workflow_runtime",
         "run_agent_workflow_node_v1",
     ),
+    "ExternalEvaluationAdjudication": (
+        "deerflow.compile.external_evaluator",
+        "ExternalEvaluationAdjudication",
+    ),
+    "ExternalEvaluationResult": (
+        "deerflow.compile.external_evaluator",
+        "ExternalEvaluationResult",
+    ),
+    "EvaluatorEvidenceReference": (
+        "deerflow.compile.external_evaluator",
+        "EvaluatorEvidenceReference",
+    ),
+    "ExternalEvaluatorBackend": (
+        "deerflow.compile.external_evaluator",
+        "ExternalEvaluatorBackend",
+    ),
+    "ExternalEvaluatorBackendResult": (
+        "deerflow.compile.external_evaluator",
+        "ExternalEvaluatorBackendResult",
+    ),
+    "ExternalEvaluatorContractError": (
+        "deerflow.compile.external_evaluator",
+        "ExternalEvaluatorContractError",
+    ),
+    "ExternalEvaluatorLayerResult": (
+        "deerflow.compile.external_evaluator",
+        "ExternalEvaluatorLayerResult",
+    ),
+    "ForgeCompileEvaluationBackend": (
+        "deerflow.compile.external_evaluator",
+        "ForgeCompileEvaluationBackend",
+    ),
+    "FunctionalOracleSpec": (
+        "deerflow.compile.external_evaluator",
+        "FunctionalOracleSpec",
+    ),
+    "adjudicate_external_evaluations_v1": (
+        "deerflow.compile.external_evaluator",
+        "adjudicate_external_evaluations_v1",
+    ),
+    "run_external_evaluator_v1": (
+        "deerflow.compile.external_evaluator",
+        "run_external_evaluator_v1",
+    ),
     "get_compile_services": (
         "deerflow.compile.operations",
         "get_compile_services",

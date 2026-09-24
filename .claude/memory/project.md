@@ -6,13 +6,13 @@
 
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
-- 2026-09-24 — 实现 Issue #283 单 Agent Workflow Node v1 的 Phase 2 运行时
-  - GitHub: PR #282 已 squash 合并到 `main@555b6850`，Issue #281 已关闭；Phase 2 中文 Issue #283 和 PR #284 已创建并回读，分支为 `research/283-agent-workflow-node-phase2`，PR 的 backend unit、frozen benchmark、backend lint、frontend lint 全绿。
-  - 实现: 新增显式 `run_agent_workflow_node_v1`，注入 `BaseChatModel` 并复用 Compiler prompt、绑定 `run_container_bash` 和 authoritative Compile Session；新增 `submit_candidate_v1`，只校验 command/build-system/artifact 并 create-once 冻结候选，不执行 verifier 或 clean replay。模型强制串行工具调用，accepted Submit 后终止循环；节点使用独立 hash-chain JSONL 记录模型、工具、新 command、artifact 和候选事件。
-  - 可靠性: 节点 wall-clock 使用 `asyncio.timeout`；预算、取消、工具异常和候选持久化失败统一收口，失败结果不暴露 submission identity；finalizer 错误作为 secondary failure，保留唯一终态。
-  - 验证: fake `BaseChatModel` 运行时测试 `19 passed`，Compile Runtime 相邻回归 `231 passed`，CI 产品测试 `1665 passed, 30 skipped`；完整 Ruff check/format（373 files）、`py_compile` 和 diff check 通过。全程 0 真实 provider、0 Docker、0 正式实验 evidence。
-  - 边界: Lead + Compiler 和 `submit_build_result` 仍为默认产品路径；Phase 2 PR 保持待审，未经后续明确授权不合并，也不启动 Phase 3 evaluator 或正式实验。
-  - 文件: `backend/packages/harness/deerflow/compile/__init__.py`, `backend/packages/harness/deerflow/compile/agent_workflow_node.py`, `backend/packages/harness/deerflow/compile/agent_workflow_runtime.py`, `backend/tests/test_agent_workflow_runtime.py`, `docs/agent_workflow_node_v1.md`, `.claude/memory/project.md`
+- 2026-09-24 — 实现 Issue #285 外部 Evaluator S0-S5 适配层
+  - GitHub: Phase 2 PR #284 已 squash 合并到 `main@7dcf661b0968ae2c8ca558467521d386fa919cac`，Issue #283 已关闭；Phase 3 中文 Issue #285 与 PR #286 已创建并回读，实现提交为 `f0a4b914`，分支为 `research/285-external-evaluator-phase3`。
+  - 实现: 新增版本化 `run_external_evaluator_v1` 与可注入 backend，离线复算 S0/S1 并复用 Forge artifact verifier、provenance recipe、功能 oracle 和 clean replay 形成 S2-S5；严格成功要求六层全过，bitwise SHA-256 作为独立辅助终点。Evaluator 使用接续节点 evidence head 的独立 hash-chain ledger、create-once result/summary/failure，异常后只追加失败与 terminal 事件。
+  - 重评: oracle 规格、evaluator 版本和规则摘要进入结果证据；新 evaluation ID 保留旧 run，adjudication 按冻结 task 顺序合并并拒绝 attempt/run/session/submission、commit、build system、candidate 和节点 identity 漂移。
+  - 验证: evaluator 聚焦测试 `27 passed`，Phase 1/2 与 Compile Runtime 相邻回归 `268 passed`；CI 产品测试 `1692 passed, 30 skipped`，完整 Ruff check/format（375 files）和 diff check 通过。PR #286 的 backend unit、frozen benchmark、backend lint、frontend lint 全绿。全程 0 真实 provider、0 Docker、0 正式实验 evidence。
+  - 边界: Lead + Compiler 仍是默认产品路径，Phase 3 研究入口不自动接入产品编排；Phase 4 真实 Compile Session/Docker 零 Provider 门禁尚未启动，Phase 3 PR 未经后续明确授权不合并。
+  - 文件: `backend/packages/harness/deerflow/compile/external_evaluator.py`, `backend/packages/harness/deerflow/compile/__init__.py`, `backend/tests/test_external_evaluator.py`, `docs/agent_workflow_node_v1.md`, `.claude/memory/project.md`
 
 - 2026-09-20 — 修复 Issue #279 编译终态 Todo 并发更新与流式负载
   - GitHub: 中文 Issue #279 已创建并回读；分支为 `fix/issue-279-todo-concurrency`，基线为 `main@d5b3073d`。Spec/Plan 位于 `docs/superpowers/`。
@@ -112,6 +112,13 @@
 ## 最近变更 (Recent Changes)
 
 <!-- 倒序，最新在上。 -->
+
+- 2026-09-24 — 完成 Issue #283 单 Agent Workflow Node v1 的 Phase 2 运行时
+  - GitHub: 中文 PR #284 已 squash 合并到 `main@7dcf661b0968ae2c8ca558467521d386fa919cac`，Issue #283 已关闭。
+  - 实现: 新增显式 `run_agent_workflow_node_v1`，注入 `BaseChatModel` 并复用 Compiler prompt、绑定 `run_container_bash` 和 authoritative Compile Session；新增 `submit_candidate_v1`，只校验 command/build-system/artifact 并 create-once 冻结候选，不执行 verifier 或 clean replay。模型强制串行工具调用，accepted Submit 后终止循环；节点使用独立 hash-chain JSONL 记录模型、工具、新 command、artifact 和候选事件。
+  - 可靠性: 节点 wall-clock 使用 `asyncio.timeout`；预算、取消、工具异常和候选持久化失败统一收口，失败结果不暴露 submission identity；finalizer 错误作为 secondary failure，保留唯一终态。
+  - 验证: fake `BaseChatModel` 运行时测试 `19 passed`，Compile Runtime 相邻回归 `231 passed`，CI 产品测试 `1665 passed, 30 skipped`；完整 Ruff check/format（373 files）、`py_compile` 和 diff check 通过。全程 0 真实 provider、0 Docker、0 正式实验 evidence。
+  - 文件: `backend/packages/harness/deerflow/compile/__init__.py`, `backend/packages/harness/deerflow/compile/agent_workflow_node.py`, `backend/packages/harness/deerflow/compile/agent_workflow_runtime.py`, `backend/tests/test_agent_workflow_runtime.py`, `docs/agent_workflow_node_v1.md`, `.claude/memory/project.md`
 
 - 2026-09-24 — 完成 Issue #281 单 Agent Workflow Node v1 的 Phase 1 合同与状态机
   - GitHub: 中文 Issue #281 与 PR #282 已完成；PR squash 合并到 `main@555b6850ffee0c8f5b1be56233aaa9fbbe48e812`，Issue 已自动关闭。
