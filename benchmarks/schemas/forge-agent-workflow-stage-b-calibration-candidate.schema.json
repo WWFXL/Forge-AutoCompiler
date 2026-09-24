@@ -1,0 +1,363 @@
+{
+  "$id": "https://github.com/WWFXL/Forge-AutoCompiler/benchmarks/schemas/forge-agent-workflow-stage-b-calibration-candidate.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "const": {
+    "$schema": "../schemas/forge-agent-workflow-stage-b-calibration-candidate.schema.json",
+    "authorization": {
+      "credential_read_authorized": false,
+      "docker_execution_authorized": false,
+      "evidence_write_authorized": false,
+      "formal_attempts_authorized": false,
+      "model_creation_authorized": false,
+      "model_tokens_authorized": 0,
+      "provider_calls_authorized": false,
+      "reachability_request_authorized": false
+    },
+    "baseline_commit": "5129cccf46d6ff7afd92e9978e0efc7967ac29c8",
+    "budget_candidate": {
+      "batch_max_recorded_tokens": 1800000,
+      "budget_checked_between_attempts_only": true,
+      "per_task": {
+        "cleanup_timeout_seconds": 120,
+        "command_timeout_seconds": 900,
+        "evaluator_timeout_seconds": 1800,
+        "max_agent_steps": 64,
+        "max_commands": 32,
+        "max_model_requests": 24,
+        "max_recorded_tokens": 300000,
+        "max_tool_calls": 48,
+        "node_timeout_seconds": 1800,
+        "replay_timeout_seconds": 1800
+      }
+    },
+    "document_type": "forge_agent_workflow_stage_b_calibration_candidate",
+    "environment_candidate": {
+      "compile_image": "autocompiler:gcc13",
+      "image_id": null,
+      "image_id_must_be_frozen_by_authorized_amendment": true,
+      "network_policy": "compile-network-v1",
+      "parallel_jobs": 4
+    },
+    "evidence_candidate": {
+      "batch_marker": "markers/batch.json",
+      "batch_report": "reports/stage-b-calibration.json",
+      "create_once": true,
+      "directory": "/workspace/.compile-sessions/benchmark-evidence-agent-workflow-stage-b-calibration-v1",
+      "historical_evidence_reused": false,
+      "task_result_path": "tasks/{task_id}/result.json",
+      "writes_authorized": false
+    },
+    "frozen_components": {
+      "backend/packages/harness/deerflow/compile/agent_workflow_runtime.py": "ac5144533c9e2f85e72255affc6d1dd6a909af80c9c6a13bc1cef9d9cffc976e",
+      "backend/packages/harness/deerflow/compile/external_evaluator.py": "c4ac897de06ab91d1cd557dfc3b6427974cae99c2ca16c216e8880303c094c61",
+      "backend/tests/test_agent_workflow_phase4_docker.py": "0afb88e4aa64b13d40b40a8a0f5d5d9ad3d952903b3c3bb8c8499d75c0a8eb5f",
+      "benchmarks/fixtures/cxxcrafter-stage-b-adjudication-v1.json": "f8cfd33a422c4c47502fceed7f4a7d52d5560587b07ae7d55c74fa5e4af9d2c9",
+      "benchmarks/preregistrations/cpp-agent-workflow-stage-b-calibration-candidate.md": "141a6b85e2f3a9988fc8d600ab2d5808d72f24020d1984d26747c1c644edb710",
+      "scripts/forge_agent_workflow_stage_b_calibration_protocol.py": "cb2744980ec114dd1b7ce42964ae9800a6f9210050e4976b8b15f348e7dccd4d",
+      "scripts/forge_agent_workflow_stage_b_calibration_runner.py": "d23fb60269909b8ace71d1703aa0031f8559c25f97ca79aefa3e6654f29d8e86"
+    },
+    "historical_baseline": {
+      "audit": {
+        "bitwise_reproducible": 5,
+        "candidate_generated": 6,
+        "candidate_submitted": 4,
+        "candidate_to_submit_gap": [
+          "cppitertools",
+          "uwebsockets"
+        ],
+        "evaluator_v3_overrides": [
+          "uwebsockets"
+        ],
+        "strict_success": 6,
+        "task_count": 6
+      },
+      "fixture_path": "benchmarks/fixtures/cxxcrafter-stage-b-adjudication-v1.json",
+      "fixture_sha256": "f8cfd33a422c4c47502fceed7f4a7d52d5560587b07ae7d55c74fa5e4af9d2c9",
+      "historical_evidence_mutated": false,
+      "outcomes_imported": false,
+      "source_adjudication_sha256": "7e724e5a9f2ed98836d42ad2521bbbaad316b7f53fc3c16001032380bb2c1c7e"
+    },
+    "issue_url": "https://github.com/WWFXL/Forge-AutoCompiler/issues/289",
+    "operation_policy_ref": "agent-workflow-stage-b-calibration-v1",
+    "provider_candidate": {
+      "credential_env_name": "DEEPSEEK_API_KEY",
+      "endpoint": "https://api.deepseek.com",
+      "fallback_enabled": false,
+      "model_max_retries": 0,
+      "profile": "deepseek-flash",
+      "provider": "deepseek",
+      "request_timeout_seconds": 300
+    },
+    "purpose": "engineering_calibration_only",
+    "reporting": {
+      "independent_layers": [
+        "candidate_generated",
+        "candidate_submitted",
+        "s0_s5",
+        "bitwise_reproducible"
+      ],
+      "stage_c_authorized": false,
+      "unbiased_success_rate_claim_allowed": false
+    },
+    "runtime_candidate": {
+      "clean_replay_required": true,
+      "external_evaluator": "external-evaluator-v1",
+      "finalize_and_cleanup_required": true,
+      "orchestration_mode": "agent_workflow_node_v1",
+      "protocol_path": "scripts/forge_agent_workflow_stage_b_calibration_protocol.py",
+      "runner_path": "scripts/forge_agent_workflow_stage_b_calibration_runner.py",
+      "zero_managed_orphans_required": true
+    },
+    "schedule": {
+      "attempts_per_task": 1,
+      "backfill": false,
+      "order": [
+        "yyjson",
+        "cppitertools",
+        "openh264",
+        "uwebsockets",
+        "c-ares",
+        "libass"
+      ],
+      "reorder_after_outcome": false,
+      "replacement": false
+    },
+    "schema_version": "forge-agent-workflow-stage-b-calibration-candidate-1.0.0",
+    "status": "candidate_not_authorized",
+    "tasks": [
+      {
+        "build_system": "cmake",
+        "commit_sha": "9365ddc7061033df656578bf86040048b5b5531a",
+        "oracle": {
+          "compile_argv": [
+            "cc",
+            "-std=c11",
+            "-I/artifacts/include",
+            "{source}",
+            "/artifacts/libyyjson.a",
+            "-o",
+            "{executable}"
+          ],
+          "kind": "compile_and_run",
+          "language": "c11",
+          "run_argv": [
+            "{executable}"
+          ],
+          "source": "#include <yyjson.h>\nint main(void) { yyjson_doc *doc = yyjson_read(\"null\", 4, 0); if (!doc) return 1; yyjson_doc_free(doc); return 0; }\n"
+        },
+        "repository_url": "https://github.com/ibireme/yyjson.git",
+        "required_candidate_artifacts": [
+          "libyyjson.a",
+          "include/yyjson.h"
+        ],
+        "target_contract": {
+          "artifact_path_patterns": [
+            "libyyjson.a"
+          ],
+          "artifact_types": [
+            "static_library"
+          ],
+          "functional_oracle_ref": "stage-b-yyjson-consumer-v1",
+          "target_id": "yyjson-static-library"
+        },
+        "task_id": "yyjson"
+      },
+      {
+        "build_system": "cmake",
+        "commit_sha": "531b3d753d2bbfe3b0ababe61c2e95e965c54a66",
+        "oracle": {
+          "compile_argv": [
+            "c++",
+            "-std=c++17",
+            "-I/artifacts",
+            "{source}",
+            "-o",
+            "{executable}"
+          ],
+          "kind": "compile_and_run",
+          "language": "c++17",
+          "run_argv": [
+            "{executable}"
+          ],
+          "source": "#include <cppitertools/range.hpp>\nint main() { int sum = 0; for (int value : iter::range(4)) sum += value; return sum == 6 ? 0 : 1; }\n"
+        },
+        "repository_url": "https://github.com/ryanhaining/cppitertools.git",
+        "required_candidate_artifacts": [
+          "cppitertools-consumer",
+          "cppitertools/range.hpp"
+        ],
+        "target_contract": {
+          "artifact_path_patterns": [
+            "cppitertools-consumer"
+          ],
+          "artifact_types": [
+            "executable"
+          ],
+          "functional_oracle_ref": "stage-b-cppitertools-consumer-v1",
+          "target_id": "cppitertools-consumer"
+        },
+        "task_id": "cppitertools"
+      },
+      {
+        "build_system": "make",
+        "commit_sha": "4a2615fac570c6ca1ed4f157b9fdab9466edfd80",
+        "oracle": {
+          "compile_argv": [
+            "c++",
+            "-std=c++17",
+            "-I/artifacts/include",
+            "{source}",
+            "/artifacts/libopenh264.a",
+            "-lpthread",
+            "-lm",
+            "-o",
+            "{executable}"
+          ],
+          "kind": "compile_and_run",
+          "language": "c++17",
+          "run_argv": [
+            "{executable}"
+          ],
+          "source": "#include <wels/codec_api.h>\nint main() { ISVCEncoder *encoder = nullptr; if (WelsCreateSVCEncoder(&encoder) != 0 || !encoder) return 1; WelsDestroySVCEncoder(encoder); return 0; }\n"
+        },
+        "repository_url": "https://github.com/cisco/openh264.git",
+        "required_candidate_artifacts": [
+          "libopenh264.a",
+          "include/wels/codec_api.h",
+          "include/wels/codec_app_def.h",
+          "include/wels/codec_def.h"
+        ],
+        "target_contract": {
+          "artifact_path_patterns": [
+            "libopenh264.a"
+          ],
+          "artifact_types": [
+            "static_library"
+          ],
+          "functional_oracle_ref": "stage-b-openh264-consumer-v1",
+          "target_id": "openh264-static-library"
+        },
+        "task_id": "openh264"
+      },
+      {
+        "build_system": "make",
+        "commit_sha": "fe7c01a477b688a7743f754fee33bdd78d52ad91",
+        "oracle": {
+          "kind": "service_probe",
+          "listen_host": "127.0.0.1",
+          "listen_port": 3000,
+          "probe": {
+            "expected_status": 200,
+            "path": "/",
+            "scheme": "http"
+          },
+          "start_argv": [
+            "./HelloWorld"
+          ],
+          "startup_timeout_seconds": 10,
+          "workdir": "/artifacts"
+        },
+        "repository_url": "https://github.com/uNetworking/uWebSockets.git",
+        "required_candidate_artifacts": [
+          "HelloWorld",
+          "uSockets/uSockets.a"
+        ],
+        "target_contract": {
+          "artifact_path_patterns": [
+            "HelloWorld"
+          ],
+          "artifact_types": [
+            "executable"
+          ],
+          "functional_oracle_ref": "stage-b-uwebsockets-http-v3",
+          "target_id": "uwebsockets-hello-world"
+        },
+        "task_id": "uwebsockets"
+      },
+      {
+        "build_system": "autotools",
+        "commit_sha": "589b5887d47736e5b70a1fddaf9bf90297adde65",
+        "oracle": {
+          "compile_argv": [
+            "cc",
+            "-std=c11",
+            "{source}",
+            "-I/artifacts/include",
+            "-L/artifacts/lib",
+            "-Wl,-rpath,/artifacts/lib",
+            "-lcares",
+            "-o",
+            "{executable}"
+          ],
+          "kind": "compile_and_run",
+          "language": "c11",
+          "run_argv": [
+            "{executable}"
+          ],
+          "source": "#include <ares.h>\nint main(void) { if (ares_library_init(ARES_LIB_INIT_ALL) != ARES_SUCCESS) return 1; ares_library_cleanup(); return 0; }\n"
+        },
+        "repository_url": "https://github.com/c-ares/c-ares.git",
+        "required_candidate_artifacts": [
+          "lib/libcares.so",
+          "include/ares.h",
+          "include/ares_build.h",
+          "include/ares_rules.h",
+          "include/ares_version.h"
+        ],
+        "target_contract": {
+          "artifact_path_patterns": [
+            "lib/libcares.so"
+          ],
+          "artifact_types": [
+            "shared_library"
+          ],
+          "functional_oracle_ref": "stage-b-cares-consumer-v1",
+          "target_id": "cares-shared-library"
+        },
+        "task_id": "c-ares"
+      },
+      {
+        "build_system": "autotools",
+        "commit_sha": "f9fd3d20dff1cd84b7c74c8ae7f79711ad7736fa",
+        "oracle": {
+          "compile_argv": [
+            "cc",
+            "-std=c11",
+            "{source}",
+            "-I/artifacts/include",
+            "-L/artifacts/lib",
+            "-Wl,-rpath,/artifacts/lib",
+            "-lass",
+            "-o",
+            "{executable}"
+          ],
+          "kind": "compile_and_run",
+          "language": "c11",
+          "run_argv": [
+            "{executable}"
+          ],
+          "source": "#include <ass/ass.h>\nint main(void) { ASS_Library *library = ass_library_init(); if (!library) return 1; ass_library_done(library); return 0; }\n"
+        },
+        "repository_url": "https://github.com/libass/libass.git",
+        "required_candidate_artifacts": [
+          "lib/libass.so.9.4.2",
+          "lib/libass.a",
+          "include/ass/ass.h",
+          "include/ass/ass_types.h"
+        ],
+        "target_contract": {
+          "artifact_path_patterns": [
+            "lib/libass.so.9.4.2"
+          ],
+          "artifact_types": [
+            "shared_library"
+          ],
+          "functional_oracle_ref": "stage-b-libass-consumer-v1",
+          "target_id": "libass-shared-library"
+        },
+        "task_id": "libass"
+      }
+    ]
+  },
+  "title": "Forge Agent Workflow Stage B calibration candidate"
+}

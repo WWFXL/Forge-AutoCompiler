@@ -7,6 +7,7 @@
 ## Phase 2 能力
 
 - 调用方必须显式传入 `AgentBuildNodeInput`、authoritative `CompileSession`、对应的 `CompileSessionManager` 和 `BaseChatModel`。运行时不会自行选择或创建 provider。
+- 首次模型请求会收到冻结 target ID、artifact 类型与路径规则、functional oracle 引用、operation policy 和 initial observation；项目差异通过节点输入表达，不写入公共 Compiler prompt。
 - Agent 只获得绑定到当前 Session 的 `run_container_bash` 和版本化 `submit_candidate_v1`。模型调用强制设置 `parallel_tool_calls=False`。
 - `submit_candidate_v1` 只校验并冻结候选，不执行 verifier、repro bundle 或 clean replay。候选必须引用当前 Session 中唯一、已完成、成功且顺序有效的 command，并且 artifact 必须是 `/artifacts` 对应宿主目录内的普通非符号链接文件。
 - accepted Submit 会立即停止 Agent 循环。未 Submit、预算耗尽、取消和节点错误进入独立终态；finalizer 失败记录为 secondary failure，不覆盖首个终止原因。
@@ -58,9 +59,28 @@ FORGE_RUN_AGENT_WORKFLOW_PHASE4_DOCKER=1 \
   tests/test_agent_workflow_phase4_docker.py -p no:cacheprovider -v
 ```
 
+## Phase 5 六项目内部校准候选
+
+Issue #289 冻结 CXXCrafter Stage B 的 `yyjson`、`cppitertools`、`openh264`、`uwebsockets`、`c-ares` 和 `libass` 六项目身份、target、oracle、顺序、预算与停止规则。候选 manifest 的 canonical SHA-256 为 `303b41c0ee95c4732eb9388a39176789064e131c19217632175fa19e1526434f`。
+
+- 历史只读 fixture 绑定原综合裁决 SHA-256，独立报告 generated `6/6`、submitted `4/6`、strict S0-S5 `6/6` 和 bitwise `5/6`；仅 uwebsockets 选择 evaluator v3 定向修订。
+- 新 evidence 根与历史 CXXCrafter evidence 分离；历史 outcome 不导入 Phase 5 方法结果。
+- manifest、Schema、protocol 和 candidate runner 均为确定性文件。当前所有 provider、credential、Docker、evidence 和 formal attempt 授权为 false，model token 授权为 0。
+- `reachability` 和 `batch` 在读取 credential 或创建模型前硬拒绝。合并后必须派生 authorized amendment，冻结 release commit 和完整 image ID，才可开始真实校准。
+
+离线验证不会调用 provider、读取 credential、启动 Docker 或写 experiment evidence：
+
+```bash
+cd backend
+UV_CACHE_DIR=/tmp/forge-phase5-uv-cache uv run python \
+  ../scripts/forge_agent_workflow_stage_b_calibration_protocol.py validate
+UV_CACHE_DIR=/tmp/forge-phase5-uv-cache uv run python \
+  ../scripts/forge_agent_workflow_stage_b_calibration_runner.py preflight
+```
+
 ## 当前边界
 
-Phase 4 是研究路径的集成门禁，不自动接入现有 Lead + Compiler 产品路径，也不运行 Phase 5 的六项目内部校准或写正式实验 evidence。调用方仍不得把 `node_status="submitted"` 解释为构建已验证；只有外部 evaluator 的 S0-S5 结果可以形成严格成功结论。
+Phase 5 当前只冻结未授权候选，不自动接入现有 Lead + Compiler 产品路径，也未运行六项目 physical attempt 或写正式实验 evidence。调用方仍不得把 `node_status="submitted"` 解释为构建已验证；只有外部 evaluator 的 S0-S5 结果可以形成严格成功结论。Stage C 保持阻断。
 
 主要实现位于：
 

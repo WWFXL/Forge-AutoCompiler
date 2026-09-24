@@ -213,6 +213,25 @@ def submit_args(**overrides: Any) -> dict[str, Any]:
     return values
 
 
+def test_task_prompt_exposes_frozen_target_policy_and_initial_observation(tmp_path: Path) -> None:
+    session = make_session(tmp_path)
+    runner = AgentWorkflowNodeRunner(
+        node_input=make_node_input(session),
+        session=session,
+        manager=FakeManager(session),  # type: ignore[arg-type]
+        model=ScriptedChatModel(responses=[]),
+    )
+
+    prompt = runner._task_prompt()
+
+    assert '"target_id":"fmt-library"' in prompt
+    assert '"artifact_types":["static_library"]' in prompt
+    assert '"artifact_path_patterns":["lib/libfmt.a"]' in prompt
+    assert '"functional_oracle_ref":"oracle-fmt-link-v1"' in prompt
+    assert '"operation_policy_ref":"compile-policy-v1"' in prompt
+    assert '"initial_observation":{"build_system":"cmake"}' in prompt
+
+
 def tool_call_message(name: str, args: dict[str, Any], call_id: str, *, total_tokens: int = 15) -> AIMessage:
     return AIMessage(
         content="",
