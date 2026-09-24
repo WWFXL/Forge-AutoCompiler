@@ -14,6 +14,10 @@ _EXPORTS = {
         "deerflow.compile.manager",
         "CompileSessionManager",
     ),
+    "run_agent_workflow_node_v1": (
+        "deerflow.compile.agent_workflow_runtime",
+        "run_agent_workflow_node_v1",
+    ),
     "get_compile_services": (
         "deerflow.compile.operations",
         "get_compile_services",
