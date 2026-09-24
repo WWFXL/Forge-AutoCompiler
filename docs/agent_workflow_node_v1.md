@@ -38,9 +38,29 @@ agent-workflow/<attempt_id>/
 - evaluator ledger 的首 hash 接到 Phase 2 节点 ledger 终点。异常会形成 create-once `failure.json`、失败 ledger 终态、`result.json` 和 `summary.json`，不继续追加普通评测事件。
 - 每次修订使用新的 `evaluation_id`，旧目录保持只读。`adjudicate_external_evaluations_v1(...)` 按冻结 task 顺序选择定向 replacement，并拒绝 commit、build system、candidate 或节点输入/结果身份漂移；evaluator 版本和规则可以随修订变化。
 
+## Phase 4 零 Provider 集成门禁
+
+`backend/tests/test_agent_workflow_phase4_docker.py` 使用注入的确定性 `BaseChatModel` 和真实 Docker Compile Session，覆盖：
+
+- 由临时本地 Git daemon 提供 exact-commit CMake、Make、Autotools 最小仓库；compile 与 clean replay 容器读取同一源码身份，不依赖 GitHub 出口。
+- 真实 `run_container_bash` command evidence、`submit_candidate_v1` candidate freeze、S0-S5、功能 oracle、clean replay、finalize 和 cleanup。
+- no-submit、功能保持但 size/SHA-256 不一致的 replay、evaluator exception、cancel、timeout 和 cleanup failure/retry。
+- 每轮门禁前后检查 Forge managed container、paused managed parent 和 managed image 均为 0。
+- provider model factory 被显式禁用；门禁不激活 experiment policy，不读取 provider credential，也不创建正式 attempt/evidence。
+
+运行前需要可用的 Docker daemon、`/var/run/docker.sock` 和 `autocompiler:gcc13` 镜像：
+
+```bash
+cd backend
+FORGE_RUN_AGENT_WORKFLOW_PHASE4_DOCKER=1 \
+  UV_CACHE_DIR=/tmp/forge-phase4-uv-cache \
+  PYTHONPATH=. uv run pytest \
+  tests/test_agent_workflow_phase4_docker.py -p no:cacheprovider -v
+```
+
 ## 当前边界
 
-Phase 3 提供适配层和确定性单元测试，不自动接入现有 Lead + Compiler 产品路径，也不运行 Phase 4 的真实 Compile Session/Docker 集成门禁或正式实验 evidence。调用方仍不得把 `node_status="submitted"` 解释为构建已验证；只有外部 evaluator 的 S0-S5 结果可以形成严格成功结论。
+Phase 4 是研究路径的集成门禁，不自动接入现有 Lead + Compiler 产品路径，也不运行 Phase 5 的六项目内部校准或写正式实验 evidence。调用方仍不得把 `node_status="submitted"` 解释为构建已验证；只有外部 evaluator 的 S0-S5 结果可以形成严格成功结论。
 
 主要实现位于：
 
@@ -49,7 +69,7 @@ Phase 3 提供适配层和确定性单元测试，不自动接入现有 Lead + C
 - `backend/packages/harness/deerflow/compile/agent_workflow_schemas.py`
 - `backend/packages/harness/deerflow/compile/external_evaluator.py`
 
-回归测试使用假 `BaseChatModel` 和本地临时 Session，不调用真实 provider 或 Docker：
+Phase 1-3 回归测试使用假 `BaseChatModel` 和本地临时 Session，不调用真实 provider 或 Docker：
 
 ```bash
 cd backend
