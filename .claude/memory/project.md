@@ -105,6 +105,10 @@
 
 <!-- 倒序，最新在上。 -->
 
+- 2026-09-25 — 将 Agent 开发指导迁移到 Linux 原生工作流
+  - 文件: `AGENTS.md`, `CLAUDE.md`, `.claude/memory/project.md`
+  - 动机: Issue #301 移除从旧 Windows/macOS 工作区遗留的默认 `gh`、PowerShell、WSL 推送和绝对快照路径假设，使后续会话使用当前 Linux `gh`、`git push` 与仓库相对快照路径；历史实验和 replay 安全契约保持不变。
+
 - 2026-09-25 — 审计 Phase 5 v2 结果并隔离 evaluator 系统 oracle 权限
   - GitHub: 创建并回读中文 Issue #299；从 `main@5ed549ea` 建立 `fix/phase5-v2-evaluator-audit`，实现提交 `ffcb7468` 已推送，中文 PR #300 已创建并回读，关联关闭 #299/#297 并保留 #291 跟踪后续阶段。设计与计划位于 `docs/superpowers/`。
   - 审计: 原始 batch 已执行闭合，generated/submitted/strict/bitwise=`6/5/1/2`，总 recorded tokens 为 `918179`；描述性分类固定为 1 项可靠成功、2 项工作流失败、3 项 evaluator 缺陷导致不可判定。Stage C 继续阻断，当前 batch 禁止重跑、retry、replacement 和 backfill。

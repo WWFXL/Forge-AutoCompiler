@@ -183,9 +183,11 @@ $HOST_PROJECT_ROOT/.compile-sessions/{thread_id}/{session_id}/
 
 Stop hook（`~/.claude/hooks/snapshot.sh`）每次 session 调用过 `Edit`/`Write`/`Bash` 后注入提示，要求按本节维护 `<repo-root>/.claude/memory/project.md`。**违反本节会导致 hook 反复失败。**
 
-### 文件路径（固定）
+### 文件路径（仓库相对路径）
 
-`/Users/yiwei/work1/Forge-AutoCompiler/.claude/memory/project.md`
+`<repo-root>/.claude/memory/project.md`
+
+不要写死某台机器的 Windows、macOS 或 Linux 工作区绝对路径。当前会话应先定位仓库根目录，再从根目录读写上述文件。
 
 ### 必须的模块模板
 
