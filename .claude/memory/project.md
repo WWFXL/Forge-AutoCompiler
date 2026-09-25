@@ -6,13 +6,14 @@
 
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
-- 2026-09-26 — 设计 Stage C 十二项目受控配对校准协议
-  - GitHub: Issue #310 跟踪 Stage C 设计；当前只完成 C0，后续 C1-C5 分阶段实施。
-  - 设计: 主要比较固定为 CXXCrafter-style controlled baseline 对 Agent Workflow Node；12 projects × 2 replicates × 2 arms，共 24 pairs / 48 physical attempts，按项目反向平衡 arm order。
-  - 边界: Stage B 六项目不进入分母；B 不新增 fast path 或 evaluator feedback。任务、package snapshot、不可变镜像、controlled adapter 和统一 runner 均为执行前硬门禁。
-  - 预算: 候选为每臂 300,000 tokens / 24 requests / 1,800 秒 work，机械总上限 14,405,000 tokens（含唯一 reachability），尚未获得执行授权。
-  - 当前状态: 0 Provider、0 model token、0 Stage C attempt、0正式 evidence；`stage_c_execution_started=false`。
-  - 文件: `docs/superpowers/specs/2026-09-26-stage-c-paired-calibration-design.md`, `docs/superpowers/plans/2026-09-26-stage-c-paired-calibration.md`
+- 2026-09-26 — 实现 Stage C 十二项目受控配对校准执行准备
+  - GitHub: Issue #310 冻结设计；Issue #312 跟踪 C1-C4 实现，当前分支为 `research/stage-c-execution-readiness`。
+  - 实现: 冻结结果盲 12 项 task pool、target/oracle/bitwise 资格计划与 Ubuntu snapshot 镜像；新增 24 次 reference qualification、CXXCrafter-style controlled A 臂、Forge Runtime v2 + evaluator v4 B 臂、24 pairs / 48 arms 反向平衡调度、pair-boundary budget gate、create-once evidence 与报告。
+  - 门禁: fake-model 单测为 `12 passed, 3 skipped`；CMake/Make/Autotools 短小真实 Docker 门禁为 `3 passed`；相邻回归 `147 passed, 3 skipped`；完整后端为 `1811 passed, 41 skipped`；Ruff 400 files 通过。Docker 门禁发现并修复 BuildKit 不能直接解析 `FROM sha256:<image-id>` 的问题，执行时使用核对完整 ID 的一次性本地 alias。
+  - 当前状态: 资格 plan `validate` 与非模型 `preflight` 通过，0 managed resources；尚未构建 `autocompiler:stage-c-v1`，尚未执行 12 项双重复 reference qualification，因此 authorized manifest/schema 尚未生成。
+  - 边界: 0 Provider、0 model token、0 Stage C physical attempt、0 正式 Stage C evidence；未运行正式 `reachability` 或 `batch`。
+  - 下一步: 合并实现 PR 后，由实验所有者运行 Stage C image build 与 qualification；回传 receipt 后只读验证、生成 authorized identity，并运行 `validate`/`preflight`，停在正式实验可开始但未开始的状态。
+  - 文件: `scripts/forge_stage_c_*.py`, `benchmarks/fixtures/stage-c-source-pool.json`, `benchmarks/manifests/cpp-stage-c-task-qualification.json`, `benchmarks/preregistrations/cpp-stage-c-paired-calibration.md`, `docker/compile/Dockerfile.stage-c`, `backend/tests/test_stage_c_execution_readiness.py`
 
 - 2026-09-25 — 冻结 evaluator v3 的 Phase 5 独立授权评测 identity
   - GitHub: 中文 Issue #303 与 PR #304 已创建并回读；分支为 `research/phase5-v3-authorized-identity`，基线为 `main@9f8c8ad4`，实现提交为 `4c85e0fd`。首轮 backend unit、frozen benchmark、backend lint 和 frontend lint 四项 CI 全绿。Spec/Plan 位于 `docs/superpowers/`。

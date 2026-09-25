@@ -1,0 +1,286 @@
+{
+  "$schema": "../schemas/forge-stage-c-task-qualification.schema.json",
+  "schema_version": "forge-stage-c-task-qualification-1.0.0",
+  "document_type": "forge_stage_c_task_qualification",
+  "issue_url": "https://github.com/WWFXL/Forge-AutoCompiler/issues/312",
+  "status": "planned_not_executed",
+  "authorization": {
+    "provider_calls_authorized": false,
+    "credential_read_authorized": false,
+    "model_creation_authorized": false,
+    "formal_stage_c_attempts_authorized": false,
+    "formal_stage_c_evidence_write_authorized": false,
+    "reference_builds_authorized": true,
+    "model_tokens_authorized": 0
+  },
+  "source_pool_path": "benchmarks/fixtures/stage-c-source-pool.json",
+  "environment": {
+    "dockerfile_path": "docker/compile/Dockerfile.stage-c",
+    "image_tag": "autocompiler:stage-c-v1",
+    "image_id": null,
+    "base_image_digest": "sha256:224a1869083a311ef3f13648a154ba79832fbef6364d31493642ca03082da254",
+    "ubuntu_snapshot": "20260925T000000Z",
+    "network_during_clone": true,
+    "network_during_reference_build": false,
+    "parallel_jobs": 4,
+    "per_task_timeout_seconds": 1800
+  },
+  "operation_policy": {
+    "apt_install_during_attempt": false,
+    "apt_upgrade": false,
+    "floating_source_ref": false,
+    "unfixed_download": false,
+    "source_modification": true,
+    "build_script_modification": true,
+    "module_disable": true,
+    "persistent_credentials": false
+  },
+  "tasks": [
+    {
+      "task_id": "leveldb",
+      "target": {
+        "target_id": "leveldb-static-library",
+        "required_artifacts": ["include/leveldb/db.h", "lib/libleveldb.a"],
+        "artifact_types": ["support_file", "static_library"],
+        "bitwise_required": true
+      },
+      "reference_recipe": [
+        "cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DLEVELDB_BUILD_TESTS=OFF -DLEVELDB_BUILD_BENCHMARKS=OFF -DLEVELDB_INSTALL=ON -DCMAKE_INSTALL_PREFIX=/artifacts -DCMAKE_INSTALL_LIBDIR=lib",
+        "cmake --build build --parallel 4",
+        "cmake --install build"
+      ],
+      "oracle": {
+        "kind": "compile_and_run",
+        "language": "c++17",
+        "source": "#include <leveldb/db.h>\n#include <string>\nint main(){ leveldb::DB* db=nullptr; leveldb::Options o; o.create_if_missing=true; auto s=leveldb::DB::Open(o,\"/tmp/forge-leveldb-oracle\",&db); if(!s.ok()) return 1; s=db->Put(leveldb::WriteOptions(),\"k\",\"v\"); std::string v; if(s.ok()) s=db->Get(leveldb::ReadOptions(),\"k\",&v); delete db; return s.ok() && v==\"v\" ? 0 : 2; }\n",
+        "compile_argv": ["c++", "-std=c++17", "-I/artifacts/include", "{source}", "/artifacts/lib/libleveldb.a", "-pthread", "-o", "{executable}"],
+        "run_argv": ["{executable}"]
+      }
+    },
+    {
+      "task_id": "libjpeg-turbo",
+      "target": {
+        "target_id": "libjpeg-turbo-static-library",
+        "required_artifacts": ["include/jpeglib.h", "lib/libjpeg.a"],
+        "artifact_types": ["support_file", "static_library"],
+        "bitwise_required": true
+      },
+      "reference_recipe": [
+        "cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DENABLE_SHARED=OFF -DENABLE_STATIC=ON -DWITH_TURBOJPEG=OFF -DWITH_SIMD=OFF -DCMAKE_INSTALL_PREFIX=/artifacts -DCMAKE_INSTALL_LIBDIR=lib",
+        "cmake --build build --parallel 4",
+        "cmake --install build"
+      ],
+      "oracle": {
+        "kind": "compile_and_run",
+        "language": "c11",
+        "source": "#include <stdio.h>\n#include <jpeglib.h>\nint main(void){ struct jpeg_error_mgr e; return jpeg_std_error(&e) == &e ? 0 : 1; }\n",
+        "compile_argv": ["cc", "-std=c11", "-I/artifacts/include", "{source}", "/artifacts/lib/libjpeg.a", "-o", "{executable}"],
+        "run_argv": ["{executable}"]
+      }
+    },
+    {
+      "task_id": "libsoundio",
+      "target": {
+        "target_id": "libsoundio-static-library",
+        "required_artifacts": ["include/soundio/soundio.h", "lib/libsoundio.a"],
+        "artifact_types": ["support_file", "static_library"],
+        "bitwise_required": true
+      },
+      "reference_recipe": [
+        "cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DBUILD_DYNAMIC_LIBS=OFF -DBUILD_STATIC_LIBS=ON -DBUILD_EXAMPLE_PROGRAMS=OFF -DBUILD_TESTS=OFF -DENABLE_JACK=OFF -DENABLE_PULSEAUDIO=OFF -DENABLE_ALSA=OFF -DCMAKE_INSTALL_PREFIX=/artifacts -DCMAKE_INSTALL_LIBDIR=lib",
+        "cmake --build build --parallel 4",
+        "cmake --install build"
+      ],
+      "oracle": {
+        "kind": "compile_and_run",
+        "language": "c11",
+        "source": "#include <soundio/soundio.h>\nint main(void){ struct SoundIo *s=soundio_create(); if(!s) return 1; soundio_destroy(s); return 0; }\n",
+        "compile_argv": ["cc", "-std=c11", "-I/artifacts/include", "{source}", "/artifacts/lib/libsoundio.a", "-pthread", "-lm", "-o", "{executable}"],
+        "run_argv": ["{executable}"]
+      }
+    },
+    {
+      "task_id": "oatpp",
+      "target": {
+        "target_id": "oatpp-static-library",
+        "required_artifacts": ["include/oatpp-1.4.0/oatpp/oatpp/Environment.hpp", "lib/oatpp-1.4.0/liboatpp.a"],
+        "artifact_types": ["support_file", "static_library"],
+        "bitwise_required": true
+      },
+      "reference_recipe": [
+        "cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DOATPP_BUILD_TESTS=OFF -DOATPP_LINK_TEST_LIBRARY=OFF -DCMAKE_INSTALL_PREFIX=/artifacts -DCMAKE_INSTALL_LIBDIR=lib",
+        "cmake --build build --parallel 4",
+        "cmake --install build"
+      ],
+      "oracle": {
+        "kind": "compile_and_run",
+        "language": "c++17",
+        "source": "#include <oatpp/Environment.hpp>\nint main(){ oatpp::base::Environment::init(); oatpp::base::Environment::destroy(); return 0; }\n",
+        "compile_argv": ["c++", "-std=c++17", "-I/artifacts/include/oatpp-1.4.0/oatpp", "{source}", "/artifacts/lib/oatpp-1.4.0/liboatpp.a", "-pthread", "-latomic", "-o", "{executable}"],
+        "run_argv": ["{executable}"]
+      }
+    },
+    {
+      "task_id": "8cc",
+      "target": {
+        "target_id": "8cc-executable",
+        "required_artifacts": ["bin/8cc"],
+        "artifact_types": ["executable"],
+        "bitwise_required": false
+      },
+      "reference_recipe": [
+        "make -j4 8cc",
+        "mkdir -p /artifacts/bin && cp 8cc /artifacts/bin/8cc"
+      ],
+      "oracle": {
+        "kind": "command",
+        "argv": ["sh", "-c", "printf 'int main(void){return 0;}\\n' > /tmp/forge-8cc-oracle.c && /artifacts/bin/8cc -o /tmp/forge-8cc-oracle /tmp/forge-8cc-oracle.c && /tmp/forge-8cc-oracle"],
+        "workdir": "/workspace"
+      }
+    },
+    {
+      "task_id": "stockfish-11",
+      "target": {
+        "target_id": "stockfish-executable",
+        "required_artifacts": ["bin/stockfish"],
+        "artifact_types": ["executable"],
+        "bitwise_required": false
+      },
+      "reference_recipe": [
+        "make -C src -j4 build ARCH=x86-64",
+        "mkdir -p /artifacts/bin && cp src/stockfish /artifacts/bin/stockfish"
+      ],
+      "oracle": {
+        "kind": "command",
+        "argv": ["sh", "-c", "printf 'uci\\nquit\\n' | /artifacts/bin/stockfish | grep -F 'uciok'"],
+        "workdir": "/workspace"
+      }
+    },
+    {
+      "task_id": "lz4",
+      "target": {
+        "target_id": "lz4-library-and-cli",
+        "required_artifacts": ["bin/lz4", "include/lz4.h", "lib/liblz4.a"],
+        "artifact_types": ["executable", "support_file", "static_library"],
+        "bitwise_required": true
+      },
+      "reference_recipe": [
+        "make -j4",
+        "make PREFIX=/artifacts install"
+      ],
+      "oracle": {
+        "kind": "command",
+        "argv": ["sh", "-c", "printf 'forge-stage-c-lz4\\n' > /tmp/forge-lz4-input && /artifacts/bin/lz4 -f /tmp/forge-lz4-input /tmp/forge-lz4-input.lz4 >/dev/null && /artifacts/bin/lz4 -d -f /tmp/forge-lz4-input.lz4 /tmp/forge-lz4-output >/dev/null && cmp /tmp/forge-lz4-input /tmp/forge-lz4-output"],
+        "workdir": "/workspace"
+      }
+    },
+    {
+      "task_id": "rnnoise-0.1.1",
+      "target": {
+        "target_id": "rnnoise-static-library",
+        "required_artifacts": ["include/rnnoise.h", "lib/librnnoise.a"],
+        "artifact_types": ["support_file", "static_library"],
+        "bitwise_required": true
+      },
+      "reference_recipe": [
+        "./autogen.sh",
+        "./configure --prefix=/artifacts --disable-examples",
+        "make -j4",
+        "make install"
+      ],
+      "oracle": {
+        "kind": "compile_and_run",
+        "language": "c11",
+        "source": "#include <rnnoise.h>\nint main(void){ DenoiseState *s=rnnoise_create(0); if(!s) return 1; rnnoise_destroy(s); return 0; }\n",
+        "compile_argv": ["cc", "-std=c11", "-I/artifacts/include", "{source}", "/artifacts/lib/librnnoise.a", "-lm", "-o", "{executable}"],
+        "run_argv": ["{executable}"]
+      }
+    },
+    {
+      "task_id": "theora",
+      "target": {
+        "target_id": "theora-static-library",
+        "required_artifacts": ["include/theora/theora.h", "lib/libtheora.a"],
+        "artifact_types": ["support_file", "static_library"],
+        "bitwise_required": true
+      },
+      "reference_recipe": [
+        "./autogen.sh",
+        "./configure --prefix=/artifacts --disable-examples --disable-vorbistest --disable-doc",
+        "make -j4",
+        "make install"
+      ],
+      "oracle": {
+        "kind": "compile_and_run",
+        "language": "c11",
+        "source": "#include <theora/theora.h>\nint main(void){ th_info i; th_info_init(&i); th_info_clear(&i); return 0; }\n",
+        "compile_argv": ["cc", "-std=c11", "-I/artifacts/include", "{source}", "/artifacts/lib/libtheora.a", "-logg", "-lm", "-o", "{executable}"],
+        "run_argv": ["{executable}"]
+      }
+    },
+    {
+      "task_id": "libsndfile",
+      "target": {
+        "target_id": "libsndfile-static-library",
+        "required_artifacts": ["include/sndfile.h", "lib/libsndfile.a"],
+        "artifact_types": ["support_file", "static_library"],
+        "bitwise_required": true
+      },
+      "reference_recipe": [
+        "autoreconf -vif",
+        "./configure --prefix=/artifacts --disable-external-libs --disable-full-suite --disable-programs --disable-shared --enable-static",
+        "make -j4",
+        "make install"
+      ],
+      "oracle": {
+        "kind": "compile_and_run",
+        "language": "c11",
+        "source": "#include <sndfile.h>\nint main(void){ const char *v=sf_version_string(); return v && *v ? 0 : 1; }\n",
+        "compile_argv": ["cc", "-std=c11", "-I/artifacts/include", "{source}", "/artifacts/lib/libsndfile.a", "-lm", "-o", "{executable}"],
+        "run_argv": ["{executable}"]
+      }
+    },
+    {
+      "task_id": "civetweb",
+      "target": {
+        "target_id": "civetweb-static-library",
+        "required_artifacts": ["include/civetweb.h", "lib/libcivetweb.a"],
+        "artifact_types": ["support_file", "static_library"],
+        "bitwise_required": true
+      },
+      "reference_recipe": [
+        "make -j4 lib NO_SSL=1 WITH_CPP=0 WITH_WEBSOCKET=0",
+        "mkdir -p /artifacts/include /artifacts/lib && cp include/civetweb.h /artifacts/include/civetweb.h && cp libcivetweb.a /artifacts/lib/libcivetweb.a"
+      ],
+      "oracle": {
+        "kind": "compile_and_run",
+        "language": "c11",
+        "source": "#include <civetweb.h>\nint main(void){ const char *v=mg_version(); return v && *v ? 0 : 1; }\n",
+        "compile_argv": ["cc", "-std=c11", "-I/artifacts/include", "{source}", "/artifacts/lib/libcivetweb.a", "-pthread", "-ldl", "-o", "{executable}"],
+        "run_argv": ["{executable}"]
+      }
+    },
+    {
+      "task_id": "json-c",
+      "target": {
+        "target_id": "json-c-static-library",
+        "required_artifacts": ["include/json-c/json.h", "lib/libjson-c.a"],
+        "artifact_types": ["support_file", "static_library"],
+        "bitwise_required": true
+      },
+      "reference_recipe": [
+        "cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=OFF -DBUILD_TESTING=OFF -DCMAKE_INSTALL_PREFIX=/artifacts -DCMAKE_INSTALL_LIBDIR=lib",
+        "cmake --build build --parallel 4",
+        "cmake --install build"
+      ],
+      "oracle": {
+        "kind": "compile_and_run",
+        "language": "c11",
+        "source": "#include <json-c/json.h>\nint main(void){ struct json_object *o=json_object_new_int(7); if(!o) return 1; int ok=json_object_get_int(o)==7; json_object_put(o); return ok ? 0 : 2; }\n",
+        "compile_argv": ["cc", "-std=c11", "-I/artifacts/include", "{source}", "/artifacts/lib/libjson-c.a", "-pthread", "-lm", "-o", "{executable}"],
+        "run_argv": ["{executable}"]
+      }
+    }
+  ],
+  "result_path": "benchmarks/fixtures/stage-c-task-qualification-result.json"
+}

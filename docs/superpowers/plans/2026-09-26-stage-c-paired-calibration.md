@@ -1,6 +1,6 @@
 # Stage C 十二项目配对校准实施计划
 
-日期：2026-09-26。设计：`../specs/2026-09-26-stage-c-paired-calibration-design.md`。追踪：Issue #310。
+日期：2026-09-26。设计：`../specs/2026-09-26-stage-c-paired-calibration-design.md`。设计追踪：Issue #310。实现追踪：Issue #312。
 
 ## C0：协议设计
 
@@ -12,30 +12,30 @@
 
 ## C1：任务与环境资格
 
-- [ ] 建立结果盲来源池，排除 Stage B 和已有 A/B 模型结果项目。
-- [ ] 实现确定性分层、seed 排序和排除审计。
-- [ ] 冻结 12 个 exact-commit task、submodule 和 source snapshot。
-- [ ] 为每项冻结 target、required artifacts、S3 oracle 和 bitwise 条件。
+- [x] 建立结果盲来源池，排除 Stage B 和已有 A/B 模型结果项目。
+- [x] 实现确定性分层、seed 排序和排除审计。
+- [x] 冻结 12 个 exact-commit task、submodule 和 source snapshot。
+- [x] 为每项冻结 target、required artifacts、S3 oracle 和 bitwise 条件。
 - [ ] 构建绑定 package repository snapshot 的不可变 Stage C image。
 - [ ] 执行零 Provider reference qualification，并生成 qualification receipt。
 
 ## C2：统一 runner 候选
 
-- [ ] 为 CXXCrafter-style baseline 实现受控环境与统一 candidate adapter。
-- [ ] 复用 Stage B Agent Workflow Node，不增加 fast path 或 evaluator feedback。
-- [ ] 统一 attempt ledger、request/token accounting、external evaluator 和 cleanup。
-- [ ] 实现 24 pairs / 48 arms 的 counterbalanced schedule 与 pair-boundary budget gate。
-- [ ] 生成未授权 manifest、const Schema、protocol 和 runner。
-- [ ] 将 Provider、credential、model creation、Docker、attempt 和 evidence write 设为 false/0。
+- [x] 为 CXXCrafter-style baseline 实现受控环境与统一 candidate adapter。
+- [x] 复用 Stage B Agent Workflow Node v2，不增加 fast path 或 evaluator feedback。
+- [x] 统一 attempt ledger、request/token accounting、external evaluator 和 cleanup。
+- [x] 实现 24 pairs / 48 arms 的 counterbalanced schedule 与 pair-boundary budget gate。
+- [x] 实现由资格回执派生 authorized manifest、const Schema、protocol 和 runner。
+- [x] 在资格阶段保持 Provider、credential、model creation、formal attempt 和 formal evidence write 为 false/0。
 
 ## C3：零 Provider 门禁
 
-- [ ] 用 scripted/fake model 覆盖 A/B success、no-submit、budget exhaustion 和 candidate rejection。
-- [ ] 验证第一 arm 普通失败后仍执行第二 arm。
-- [ ] 验证 identity/evidence/cleanup/orphan 缺陷 fail closed。
-- [ ] 用真实 Docker 覆盖 CMake、Make、Autotools、oracle、clean replay 和 cleanup。
-- [ ] 验证任务选择、manifest、schema、schedule 和报告确定性。
-- [ ] 运行相邻回归、完整后端测试、lint 和 frozen identity 检查。
+- [x] 用 scripted/fake model 覆盖 A success、modifier、no-submit/budget exhaustion；B 的 success、no-submit、budget 和 candidate rejection 复用 Runtime v2 既有门禁。
+- [x] 验证第一 arm 普通失败后仍执行第二 arm。
+- [x] 验证 identity/evidence/cleanup/orphan 缺陷 fail closed。
+- [x] 用真实 Docker 覆盖 CMake、Make、Autotools、oracle、clean replay 和 cleanup。
+- [x] 验证任务选择、资格 manifest/schema、schedule 和报告确定性。
+- [x] 运行相邻回归、完整后端测试、lint 和资格 frozen identity 检查；authorized identity 等资格回执后生成。
 
 ## C4：执行候选与授权
 
@@ -52,4 +52,4 @@
 - [ ] 只读复算全部哈希、终态和分析结果。
 - [ ] 根据最小有意义效应、区间宽度、成本和失败结构决定是否扩样。
 
-本 Issue 只完成 C0。C1 及之后必须分别建立可审查的实现 Issue/PR；C5 不属于本次授权。
+Issue #310 只完成 C0。Issue #312 实现 C1-C4 的执行准备；C5 正式 reachability 与 batch 不属于本次代码实现。
