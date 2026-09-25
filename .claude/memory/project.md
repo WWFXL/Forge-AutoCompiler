@@ -6,14 +6,6 @@
 
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
-- 2026-09-25 — 实现 Issue #294 Phase 5 v2 资格门禁与显式 executable oracle
-  - GitHub: Issue #294 已创建并回读；分支为 `feat/phase5-v2-qualification-oracle`，基线为 `main@bc176d4b`。
-  - 实现: Runtime v7 增加版本化 `successful_command_v1` policy，固定 executable oracle 的 command/workdir/result 并在 clean replay 复验；新增独立 evaluator v2，允许 delivery manifest 含未逐项声明的 support files但继续拒绝额外 compiled artifacts；evaluator v1 保持冻结 SHA-256 `c4ac897d...94c61`。
-  - 资格门禁: 新 qualification plan/protocol/runner 对六项目执行 exact-commit checkout、Forge build-system capability 探测与逐项目 cleanup，固定 0 Provider/0 formal attempt 和 0 orphan；plan canonical SHA-256 为 `5f06941f19183117ba542099f0b3e9deb2c15d53798ef175812b5398d9769070`。
-  - 验证: `test_compile_runtime.py`、`test_external_evaluator.py` 与 qualification 测试共 `167 passed`；Ruff、确定性 plan 校验、diff check 和旧 Phase 5 authorized identity 回归通过。未运行 Docker qualification、Docker replay 集成门禁或全量 backend。
-  - 下一步: 提交、推送并创建中文 PR；合并到 main 后由用户运行六项目 Docker qualification，返回 result SHA-256 后再冻结新 Phase 5 v2 candidate identity，不续跑旧 batch。
-  - 文件: `backend/packages/harness/deerflow/compile/operations.py`, `backend/packages/harness/deerflow/compile/schemas.py`, `backend/packages/harness/deerflow/compile/external_evaluator_v2.py`, `scripts/forge_agent_workflow_stage_b_phase5_v2_qualification_protocol.py`, `scripts/forge_agent_workflow_stage_b_phase5_v2_qualification_runner.py`, `benchmarks/manifests/cpp-agent-workflow-stage-b-phase5-v2-qualification.json`, `docs/compile_runtime_v7.md`
-
 - 2026-09-20 — 修复 Issue #279 编译终态 Todo 并发更新与流式负载
   - GitHub: 中文 Issue #279 已创建并回读；分支为 `fix/issue-279-todo-concurrency`，基线为 `main@d5b3073d`。Spec/Plan 位于 `docs/superpowers/`。
   - 根因: Lead Agent 同轮调用 `write_todos` 与 `finalize_session` 时，Todo 工具和 `CompileTerminationMiddleware.wrap_tool_call` 在同一 graph step 写入两份完整 `LastValue` Todo 快照，触发 `INVALID_CONCURRENT_GRAPH_UPDATE`；普通聊天还无条件注册 `onLangChainEvent`，让 SDK 加入高体积 `events`，事故运行首次和重连流各约 10.7 MB。
@@ -112,6 +104,13 @@
 ## 最近变更 (Recent Changes)
 
 <!-- 倒序，最新在上。 -->
+
+- 2026-09-25 — 冻结 Phase 5 v2 qualification result 与未授权 candidate identity
+  - GitHub: Runtime v7 与 qualification PR #295 已 squash 合并到 `main@1269d34c`，Issue #294 已关闭；新 candidate 分支为 `codex/phase5-v2-candidate`，继续由开放 Issue #291 跟踪。
+  - Qualification: 用户在合并后的 main 上完成六项目 exact-commit 探测，plan canonical SHA-256 为 `5f06941f...9070`、result SHA-256 为 `df98e57e...43125`；0 Provider、0 model、0 formal attempt，前后 0 managed resource，六项目 cleanup 全部成功。冻结 selection 为 `cmake/cmake/make/make/cmake/autotools`，其中 `c-ares` capabilities 为 `[cmake, autotools]`。
+  - Candidate: 新 manifest/Schema/protocol/runner 固化 qualification receipt、完整 capabilities 与 selection、external evaluator v2、独立 evidence 目录和 v2 identity；不导入首次 Phase 5 outcome，当前全部真实执行授权为 false、token ceiling 为 0，reachability/batch fail closed。
+  - 验证: candidate canonical SHA-256 为 `babc7d2f07058aa7968bea19cd8e022eea6442bd64388c99965f5333d12e4ee3`；相关回归 `188 passed`，标准 `make test` 为 `1741 passed, 38 skipped`，`make lint` 检查 390 个文件通过；确定性 manifest/preflight、diff check 通过，evaluator v1 保持 SHA-256 `c4ac897d...94c61`。
+  - 文件: `scripts/forge_agent_workflow_stage_b_phase5_v2_candidate_protocol.py`, `scripts/forge_agent_workflow_stage_b_phase5_v2_candidate_runner.py`, `backend/tests/test_agent_workflow_stage_b_phase5_v2_candidate.py`, `benchmarks/manifests/cpp-agent-workflow-stage-b-phase5-v2-candidate.json`, `benchmarks/fixtures/agent-workflow-stage-b-phase5-v2-qualification-result.json`, `benchmarks/preregistrations/cpp-agent-workflow-stage-b-phase5-v2-candidate.md`, `docs/compile_runtime_v7.md`
 
 - 2026-09-25 — 完成 Phase 5 唯一执行并冻结停止结果
   - GitHub: authorized PR #292 已 squash 合并到 `main@1a60cf2e`；唯一 batch 未满足六项目验收，Issue #291 已重新打开并回读失败摘要，结果审计分支为 `research/291-agent-workflow-phase5-result-audit`。
@@ -829,6 +828,7 @@
 
 <!-- 工作中踩过的坑、限制或意外行为。 -->
 
+- Docker/root 进程曾把 `/home/yiwei/.cache/uv` 与 `backend/.pytest_cache` 建成 root-owned，导致 `uv` 子进程在测试逻辑前失败；旧目录已原子保留为 `uv.root-owned-20260925` 与 `.pytest_cache.root-owned-20260925`，活跃缓存已由当前用户重新创建。旧备份只能由具备 sudo 权限的人工后续清理。
 - Confirmatory v1 的真实 fake-model Docker gate 只覆盖 CMake `args`，因此没有触达 R3 Make 对 `case.reference_case_id` 与 `make_lifecycle.provenance.command_history_sha256` 的隐含依赖。跨 build-system 复用 runner 时，至少各选一个 CMake/Make case 做真实零 provider 门禁；发现冻结 runtime 缺口后必须新增版本化 adapter/test，不能原地修改 v1 或重生成旧 manifest 掩盖失败。
 - R3 Make runner 在 `gate.capture()` 的 evidence callback 抛错时，`gate` 已创建但 coordinator record 可能尚未提交；现有异常清理会跳过直接 parent container removal，留下已退出的 compile 容器。opt-in 测试必须跟踪自身创建的 Session 并在 `finally` 按精确 identity 清理；未来若授权 recovery，应先在新版本 runner 中补齐 capture-before-commit 的生产 cleanup 门禁。
 - PowerShell → WSL 命令不得嵌入 Bash `$变量`、`$()`、正则括号或多层引号；即使目的是只读 Docker 审计，也必须拆成 `wsl.exe -d Ubuntu -- docker ...` 固定参数命令。零 orphan 查询使用独立的 `docker ps -aq --filter=name=deerflow-compile-` 和 `--filter=name=deerflow-replay-`，不要再写包装 shell。

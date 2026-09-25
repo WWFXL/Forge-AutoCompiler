@@ -1,0 +1,158 @@
+{
+  "completed_at": "2026-09-25T07:37:44.115152+00:00",
+  "document_type": "forge_agent_workflow_stage_b_phase5_v2_qualification_result",
+  "formal_attempt_created": false,
+  "image": "autocompiler:gcc13",
+  "image_id": "sha256:d27a6ab733c7c3a9cbb5e4b32fb595aa5a422ff04bd212888d1041b90a2c4c2a",
+  "model_created": false,
+  "provider_request_count": 0,
+  "qualification_plan_sha256": "5f06941f19183117ba542099f0b3e9deb2c15d53798ef175812b5398d9769070",
+  "release_revision": "1269d34ccb58f3545ffbd5469c141d321cdc1246",
+  "schema_version": "forge-agent-workflow-stage-b-phase5-v2-qualification-result-1.0.0",
+  "status": "passed",
+  "tasks": [
+    {
+      "build_system_capabilities": [
+        "cmake"
+      ],
+      "cleanup_succeeded": true,
+      "commit_sha": "9365ddc7061033df656578bf86040048b5b5531a",
+      "detected_markers": [
+        {
+          "build_system": "cmake",
+          "marker": "CMakeLists.txt"
+        }
+      ],
+      "historical_build_system_label": "cmake",
+      "repository_url": "https://github.com/ibireme/yyjson.git",
+      "selected_build_system": "cmake",
+      "session_id": "40899232a72a",
+      "session_metadata_path": "/workspace/.compile-sessions/phase5-v2-qualification-yyjson-33056b7c55bb/40899232a72a/session.json",
+      "suggested_commands": [
+        "mkdir -p build && cd build && cmake ..",
+        "cmake --build build"
+      ],
+      "task_id": "yyjson"
+    },
+    {
+      "build_system_capabilities": [
+        "cmake"
+      ],
+      "cleanup_succeeded": true,
+      "commit_sha": "531b3d753d2bbfe3b0ababe61c2e95e965c54a66",
+      "detected_markers": [
+        {
+          "build_system": "cmake",
+          "marker": "CMakeLists.txt"
+        }
+      ],
+      "historical_build_system_label": "cmake",
+      "repository_url": "https://github.com/ryanhaining/cppitertools.git",
+      "selected_build_system": "cmake",
+      "session_id": "9ecf05fd0bc7",
+      "session_metadata_path": "/workspace/.compile-sessions/phase5-v2-qualification-cppitertools-a095ba64faa4/9ecf05fd0bc7/session.json",
+      "suggested_commands": [
+        "mkdir -p build && cd build && cmake ..",
+        "cmake --build build"
+      ],
+      "task_id": "cppitertools"
+    },
+    {
+      "build_system_capabilities": [
+        "make"
+      ],
+      "cleanup_succeeded": true,
+      "commit_sha": "4a2615fac570c6ca1ed4f157b9fdab9466edfd80",
+      "detected_markers": [
+        {
+          "build_system": "make",
+          "marker": "Makefile"
+        }
+      ],
+      "historical_build_system_label": "make",
+      "repository_url": "https://github.com/cisco/openh264.git",
+      "selected_build_system": "make",
+      "session_id": "fc31fb83e4b4",
+      "session_metadata_path": "/workspace/.compile-sessions/phase5-v2-qualification-openh264-20d1000747d2/fc31fb83e4b4/session.json",
+      "suggested_commands": [
+        "make"
+      ],
+      "task_id": "openh264"
+    },
+    {
+      "build_system_capabilities": [
+        "make"
+      ],
+      "cleanup_succeeded": true,
+      "commit_sha": "fe7c01a477b688a7743f754fee33bdd78d52ad91",
+      "detected_markers": [
+        {
+          "build_system": "make",
+          "marker": "Makefile"
+        }
+      ],
+      "historical_build_system_label": "make",
+      "repository_url": "https://github.com/uNetworking/uWebSockets.git",
+      "selected_build_system": "make",
+      "session_id": "aa1f94d03120",
+      "session_metadata_path": "/workspace/.compile-sessions/phase5-v2-qualification-uwebsockets-ce98018e6862/aa1f94d03120/session.json",
+      "suggested_commands": [
+        "make"
+      ],
+      "task_id": "uwebsockets"
+    },
+    {
+      "build_system_capabilities": [
+        "cmake",
+        "autotools"
+      ],
+      "cleanup_succeeded": true,
+      "commit_sha": "589b5887d47736e5b70a1fddaf9bf90297adde65",
+      "detected_markers": [
+        {
+          "build_system": "cmake",
+          "marker": "CMakeLists.txt"
+        },
+        {
+          "build_system": "autotools",
+          "marker": "configure.ac"
+        }
+      ],
+      "historical_build_system_label": "autotools",
+      "repository_url": "https://github.com/c-ares/c-ares.git",
+      "selected_build_system": "cmake",
+      "session_id": "97719fb44344",
+      "session_metadata_path": "/workspace/.compile-sessions/phase5-v2-qualification-c-ares-a3395696475f/97719fb44344/session.json",
+      "suggested_commands": [
+        "mkdir -p build && cd build && cmake ..",
+        "cmake --build build"
+      ],
+      "task_id": "c-ares"
+    },
+    {
+      "build_system_capabilities": [
+        "autotools"
+      ],
+      "cleanup_succeeded": true,
+      "commit_sha": "f9fd3d20dff1cd84b7c74c8ae7f79711ad7736fa",
+      "detected_markers": [
+        {
+          "build_system": "autotools",
+          "marker": "configure.ac"
+        }
+      ],
+      "historical_build_system_label": "autotools",
+      "repository_url": "https://github.com/libass/libass.git",
+      "selected_build_system": "autotools",
+      "session_id": "1eddf82ad362",
+      "session_metadata_path": "/workspace/.compile-sessions/phase5-v2-qualification-libass-c5d99d81fd9e/1eddf82ad362/session.json",
+      "suggested_commands": [
+        "autoreconf -fi && ./configure",
+        "make"
+      ],
+      "task_id": "libass"
+    }
+  ],
+  "zero_managed_resources_after": true,
+  "zero_managed_resources_before": true
+}

@@ -24,4 +24,6 @@ Runtime v7 在既有提交验证与 clean replay 上增加显式 executable veri
 
 ## 边界
 
-本版本不修改 Compiler prompt、模型预算、Provider、停止规则或历史 Phase 5 evidence。Phase 5 v2 必须先通过独立 exact-commit build-system qualification，之后才能派生新的未授权 candidate identity。
+本版本不修改 Compiler prompt、模型预算、Provider、停止规则或历史 Phase 5 evidence。Phase 5 v2 的独立 exact-commit build-system qualification 已在 `main@1269d34ccb58f3545ffbd5469c141d321cdc1246` 上通过，结果 SHA-256 为 `df98e57edfea7b42911e8008534b94a62261aa93d7c3d20ae36f6ee8f8343125`。
+
+新的未授权 candidate identity 固化六项目完整 capability 集合及实际 selection；`c-ares` 固化为 capabilities `[cmake, autotools]`、selection `cmake`。candidate 使用独立 v2 evidence 目录与 evaluator v2，且继续保持 0 Provider、0 model、0 formal attempt。真实 reachability 或 batch 必须等待独立 authorized amendment。
