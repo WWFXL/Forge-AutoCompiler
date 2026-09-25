@@ -19,7 +19,7 @@
 - [x] 运行 v2 candidate 定向测试并更新项目状态快照。
 - [x] 运行标准后端完整回归与 lint，修复本地 root-owned cache 环境问题。
 - [x] 提交、推送并创建独立 PR #296。
-- [ ] candidate 合并后单独设计 authorized amendment；在此之前保持 0 Provider、0 formal attempt。
+- [x] candidate 合并后通过 Issue #297 和独立设计派生 authorized amendment；实现见 `2026-09-25-phase5-v2-authorized-amendment.md`。
 
 ## 2. 产品合同实现
 

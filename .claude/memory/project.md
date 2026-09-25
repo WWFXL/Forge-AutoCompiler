@@ -105,6 +105,14 @@
 
 <!-- 倒序，最新在上。 -->
 
+- 2026-09-25 — 冻结 Phase 5 v2 authorized amendment 候选
+  - GitHub: 创建并回读中文 Issue #297；从 `main@03a870ee` 建立 `codex/phase5-v2-authorized`，独立设计与计划位于 `docs/superpowers/`。
+  - Identity: authorized manifest 只允许改变父 v2 candidate 的授权位、版本化 protocol/runner、独立 evidence 目录和 execution identity；父 candidate canonical SHA-256 保持 `babc7d2f...e4ee3`，新 manifest canonical SHA-256 为 `aa1f9ec280cbbecf91b5e10a9724e9b2462aed8dccc44bfb906c5e3e1ef962ed`。
+  - 执行门禁: 全局 preflight 在模型创建前验证干净 `main == origin/main`、candidate/qualification/组件哈希、网络介质、Provider 配置、Docker control plane、冻结 image ID 和 0 orphan；每项显式 exact-commit checkout 后复核完整 capabilities 与 selected build system，`c-ares` 固定选择 `cmake`。
+  - 生命周期: 新 runner 使用 external evaluator v2、新 `phase5-v2` attempt/thread/evaluation identity 和 `phase5-v2-authorized` evidence 目录；reachability/batch/task marker 均 create-once，只允许同 revision、同 `started` batch marker 下闭合连续前缀在 task 边界恢复，拒绝 retry/replacement/backfill 和无 marker evidence 导入。
+  - 验证与边界: v2/旧授权/runtime/evaluator 相关回归 `191 passed`；标准后端测试 `1752 passed, 38 skipped, 32 warnings`，全量 Ruff check/format 391 个文件通过。0 Provider、0 model、0 Docker、0 formal attempt、0 experiment evidence write；真实 preflight/reachability/batch 等待 PR 合并后由实验所有者执行。
+  - 文件: `scripts/forge_agent_workflow_stage_b_phase5_v2_authorized_protocol.py`, `scripts/forge_agent_workflow_stage_b_phase5_v2_authorized_runner.py`, `benchmarks/manifests/cpp-agent-workflow-stage-b-phase5-v2-authorized.json`, `benchmarks/preregistrations/cpp-agent-workflow-stage-b-phase5-v2-authorized.md`, `backend/tests/test_agent_workflow_stage_b_phase5_v2_authorized.py`
+
 - 2026-09-25 — 冻结 Phase 5 v2 qualification result 与未授权 candidate identity
   - GitHub: Runtime v7 与 qualification PR #295 已 squash 合并到 `main@1269d34c`，Issue #294 已关闭；candidate PR #296 已从 `codex/phase5-v2-candidate` 创建并回读，继续由开放 Issue #291 跟踪。
   - Qualification: 用户在合并后的 main 上完成六项目 exact-commit 探测，plan canonical SHA-256 为 `5f06941f...9070`、result SHA-256 为 `df98e57e...43125`；0 Provider、0 model、0 formal attempt，前后 0 managed resource，六项目 cleanup 全部成功。冻结 selection 为 `cmake/cmake/make/make/cmake/autotools`，其中 `c-ares` capabilities 为 `[cmake, autotools]`。
