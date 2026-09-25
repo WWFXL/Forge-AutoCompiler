@@ -10,5 +10,5 @@
 - [x] 接入 external evaluator v2 和独立 attempt/thread/evidence identity。
 - [x] 实现 create-once reachability、连续前缀 batch、报告与 Stage C 决策包。
 - [x] 添加确定性与生命周期测试，运行后端相关回归和 lint。
-- [ ] 更新项目状态快照，提交、推送并创建中文 PR。
+- [x] 更新项目状态快照，提交、推送并创建中文 PR #298。
 - [ ] PR 合并后由实验所有者运行真实 preflight、reachability 和六项目 batch。

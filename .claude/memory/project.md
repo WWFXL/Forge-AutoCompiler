@@ -106,7 +106,7 @@
 <!-- 倒序，最新在上。 -->
 
 - 2026-09-25 — 冻结 Phase 5 v2 authorized amendment 候选
-  - GitHub: 创建并回读中文 Issue #297；从 `main@03a870ee` 建立 `codex/phase5-v2-authorized`，独立设计与计划位于 `docs/superpowers/`。
+  - GitHub: 创建并回读中文 Issue #297；从 `main@03a870ee` 建立 `codex/phase5-v2-authorized`，实现提交 `a76d01ba` 已推送，中文 PR #298 已创建并回读且引用 #297/#291；独立设计与计划位于 `docs/superpowers/`。
   - Identity: authorized manifest 只允许改变父 v2 candidate 的授权位、版本化 protocol/runner、独立 evidence 目录和 execution identity；父 candidate canonical SHA-256 保持 `babc7d2f...e4ee3`，新 manifest canonical SHA-256 为 `aa1f9ec280cbbecf91b5e10a9724e9b2462aed8dccc44bfb906c5e3e1ef962ed`。
   - 执行门禁: 全局 preflight 在模型创建前验证干净 `main == origin/main`、candidate/qualification/组件哈希、网络介质、Provider 配置、Docker control plane、冻结 image ID 和 0 orphan；每项显式 exact-commit checkout 后复核完整 capabilities 与 selected build system，`c-ares` 固定选择 `cmake`。
   - 生命周期: 新 runner 使用 external evaluator v2、新 `phase5-v2` attempt/thread/evaluation identity 和 `phase5-v2-authorized` evidence 目录；reachability/batch/task marker 均 create-once，只允许同 revision、同 `started` batch marker 下闭合连续前缀在 task 边界恢复，拒绝 retry/replacement/backfill 和无 marker evidence 导入。
