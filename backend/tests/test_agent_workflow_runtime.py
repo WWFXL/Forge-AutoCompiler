@@ -15,8 +15,10 @@ from langchain_core.messages import AIMessage, BaseMessage
 from langchain_core.outputs import ChatGeneration, ChatResult
 from langchain_core.runnables import Runnable
 from langchain_core.tools import BaseTool
+from langgraph.errors import GraphRecursionError
 from pydantic import Field
 
+from deerflow.compile import agent_workflow_runtime_v2
 from deerflow.compile.agent_workflow_node import AgentWorkflowBudgetTracker, AgentWorkflowCandidateStore, AgentWorkflowNodeStatus, AgentWorkflowStateMachine
 from deerflow.compile.agent_workflow_runtime import AgentWorkflowCandidateService, AgentWorkflowEvidenceLedger, AgentWorkflowNodeRunner, run_agent_workflow_node_v1
 from deerflow.compile.agent_workflow_schemas import (
@@ -230,6 +232,23 @@ def test_task_prompt_exposes_frozen_target_policy_and_initial_observation(tmp_pa
     assert '"functional_oracle_ref":"oracle-fmt-link-v1"' in prompt
     assert '"operation_policy_ref":"compile-policy-v1"' in prompt
     assert '"initial_observation":{"build_system":"cmake"}' in prompt
+
+
+def test_system_prompt_requires_immediate_regular_file_submission_after_build(tmp_path: Path) -> None:
+    session = make_session(tmp_path)
+    runner = agent_workflow_runtime_v2.AgentWorkflowNodeRunner(
+        node_input=make_node_input(session),
+        session=session,
+        manager=FakeManager(session),  # type: ignore[arg-type]
+        model=ScriptedChatModel(responses=[]),
+    )
+
+    prompt = runner._system_prompt()
+
+    assert "use only artifact_stage commands" in prompt
+    assert "external evaluator owns functional verification" in prompt
+    assert "must contain only regular files, never symlinks" in prompt
+    assert "submit_candidate_v1 immediately" in prompt
 
 
 def tool_call_message(name: str, args: dict[str, Any], call_id: str, *, total_tokens: int = 15) -> AIMessage:
@@ -447,6 +466,40 @@ def test_runtime_budget_exhaustion_has_stable_reason(
     assert result.candidate_submitted is False
 
 
+def test_graph_recursion_guard_is_above_business_budget_and_classified_as_agent_steps(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    session = make_session(tmp_path)
+    observed_config: dict[str, Any] = {}
+
+    class RecursingAgent:
+        async def ainvoke(self, *args: Any, **kwargs: Any) -> None:
+            del args
+            observed_config.update(kwargs["config"])
+            raise GraphRecursionError("test recursion guard")
+
+    monkeypatch.setattr(agent_workflow_runtime_v2, "_agent_factory", lambda **kwargs: RecursingAgent())
+    budget = make_budget(max_agent_steps=24)
+
+    result = asyncio.run(
+        agent_workflow_runtime_v2.run_agent_workflow_node_v2(
+            node_input=make_node_input(session, budget=budget),
+            session=session,
+            manager=FakeManager(session),  # type: ignore[arg-type]
+            model=ScriptedChatModel(responses=[]),
+        )
+    )
+
+    assert observed_config["recursion_limit"] == 52
+    assert result.node_status == "no_submission"
+    assert result.primary_failure == "budget_exhausted"
+    assert result.budget_terminal_reason == "agent_steps"
+    events = read_events(session)
+    assert any(event["event_type"] == "budget.guard_reached" for event in events)
+    assert not any(event["event_type"] == "node.failed" for event in events)
+
+
 def make_service(tmp_path: Path, session: CompileSession) -> AgentWorkflowCandidateService:
     node_input = make_node_input(session)
     tracker = AgentWorkflowBudgetTracker(node_input.budget)
@@ -503,6 +556,32 @@ def test_submit_rejects_stale_or_invalid_command_evidence(
 
     assert response.accepted is False
     assert expected_code in response.rejection_codes
+
+
+def test_submit_rejects_undeclared_required_artifact(tmp_path: Path) -> None:
+    session = make_session(tmp_path)
+    Path(session.leadagent_artifacts_dir, "lib", "libfmt.a").write_bytes(b"archive")
+    node_input = make_node_input(
+        session,
+        initial_observation={
+            "build_system": "cmake",
+            "required_candidate_artifacts": ("lib/libfmt.a", "include/fmt/format.h"),
+        },
+    )
+    tracker = AgentWorkflowBudgetTracker(node_input.budget)
+    service = agent_workflow_runtime_v2.AgentWorkflowCandidateService(
+        node_input=node_input,
+        session=session,
+        manager=FakeManager(session),  # type: ignore[arg-type]
+        store=AgentWorkflowCandidateStore(AgentWorkflowStateMachine(status=AgentWorkflowNodeStatus.RUNNING), tracker),
+        candidate_path=tmp_path / "candidate-required.json",
+        ledger=AgentWorkflowEvidenceLedger(tmp_path / "required-events.jsonl", node_input=node_input, run_id=session.run_id or ""),
+    )
+
+    response = service.submit(make_request())
+
+    assert response.accepted is False
+    assert response.rejection_codes == ("required_artifact_undeclared",)
 
 
 @pytest.mark.parametrize(

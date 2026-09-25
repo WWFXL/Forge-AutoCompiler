@@ -1,0 +1,368 @@
+{
+  "$schema": "../schemas/forge-agent-workflow-stage-b-phase5-v4-remediation-authorized.schema.json",
+  "authorization": {
+    "credential_read_authorized": true,
+    "docker_execution_authorized": true,
+    "evidence_write_authorized": true,
+    "formal_attempts_authorized": true,
+    "model_creation_authorized": true,
+    "model_tokens_authorized": 905000,
+    "provider_calls_authorized": true,
+    "reachability_request_authorized": true
+  },
+  "authorized_execution": {
+    "attempt_id_template": "phase5-v4-remediation-{task_id}-attempt-1",
+    "authorization_baseline_commit": "5765d78754be298c8da90afe9ce4a353c8d8720d",
+    "batch_marker": "markers/batch.json",
+    "batch_report": "reports/stage-b-phase5-v4-remediation.json",
+    "commands": [
+      "validate",
+      "preflight",
+      "reachability",
+      "batch",
+      "report",
+      "adjudicate",
+      "decision"
+    ],
+    "cross_run_adjudication_report": "reports/stage-b-phase5-v3-v4-cross-run-adjudication.json",
+    "cross_run_task_order": [
+      "yyjson",
+      "cppitertools",
+      "openh264",
+      "uwebsockets",
+      "c-ares",
+      "libass"
+    ],
+    "evaluation_id_template": "phase5-v4-remediation-{task_id}-evaluation-v4",
+    "evaluator": {
+      "file_sha256": "9009c400b1b54d9ad05411f1a64124423cf50d8ba49bfa2d13071d9bedad4613",
+      "name": "external-evaluator-v4",
+      "oracle_execution_authority": "system_owned_post_build_fence_isolated_v1",
+      "path": "backend/packages/harness/deerflow/compile/external_evaluator_v4.py",
+      "rules_sha256": "e5ad0acc6dd9f841258daccfd8d659f032e457139e8d09685388d04304b6e3d1",
+      "version": "forge-external-evaluator-1.3.0"
+    },
+    "final_stage_c_decision_package": "reports/stage-c-decision.json",
+    "historical_success_evidence": {
+      "decision_file_sha256": "b8762865a3ef03017697c84ac9546844333feb79a6da58ae2a4ee76f8efdb951",
+      "decision_path": "reports/stage-c-decision.json",
+      "evidence_directory": "/workspace/.compile-sessions/benchmark-evidence-agent-workflow-stage-b-phase5-v3-authorized",
+      "manifest_canonical_sha256": "191062f15d83bee8e1a323e67763dafdee2b9cc9bee6ac399971872f36e48747",
+      "mutable": false,
+      "report_file_sha256": "4a4b5f4610fc9f31ee0dd06285b1f2ba3ab7371a1fb9c454ac8b80ab2bb3a4aa",
+      "report_path": "reports/stage-b-phase5-v3.json",
+      "task_results": {
+        "cppitertools": {
+          "file_sha256": "8eca2ef4a262b0ce9f3688eb89f9d75b2bf1524cdb0cd80d845fe4a02db09297",
+          "path": "tasks/cppitertools/result.json"
+        },
+        "openh264": {
+          "file_sha256": "573abb644cdae8ed70364521153cbb2d81c4180616307ab001c164bbd8d17399",
+          "path": "tasks/openh264/result.json"
+        },
+        "yyjson": {
+          "file_sha256": "72abc8ca35f11f4637a8fb61aa4c884c5151c03d0acbd807d8715e0722d5768e",
+          "path": "tasks/yyjson/result.json"
+        }
+      },
+      "use": "cross_run_engineering_adjudication_only"
+    },
+    "independence": {
+      "historical_results_used_for_statistical_estimation": false,
+      "new_compile_session_per_task": true,
+      "v3_evidence_mutated": false,
+      "v3_failed_outcomes_imported": false,
+      "v3_reachability_reused": false,
+      "v3_success_outcomes_used_for_cross_run_adjudication": true,
+      "v3_task_attempts_reused": false
+    },
+    "network_access_medium": "ethernet",
+    "network_access_medium_env": "FORGE_NETWORK_ACCESS_MEDIUM",
+    "parent_manifest_canonical_sha256": "191062f15d83bee8e1a323e67763dafdee2b9cc9bee6ac399971872f36e48747",
+    "parent_manifest_file_sha256": "a6975472306bf4b8cf53ef864ec702d38e6c9fc38f54544ff907f5c5de262ef4",
+    "parent_manifest_path": "benchmarks/manifests/cpp-agent-workflow-stage-b-phase5-v3-authorized.json",
+    "qualification_result_sha256": "df98e57edfea7b42911e8008534b94a62261aa93d7c3d20ae36f6ee8f8343125",
+    "reachability": {
+      "expected_response": "CANARY_OK",
+      "marker": "markers/reachability.json",
+      "maximum_recorded_tokens": 5000,
+      "maximum_requests": 1,
+      "prompt": "Reply with exactly CANARY_OK and nothing else.",
+      "report": "reports/reachability.json"
+    },
+    "release_branch": "main",
+    "release_revision_policy": "descendant_of_authorization_baseline_and_record_each_attempt",
+    "remediation_completion_package": "reports/remediation-completion.json",
+    "resume_policy": "completed_contiguous_prefix_only",
+    "stage_c_decision_package": "reports/remediation-completion.json",
+    "task_marker_path": "tasks/{task_id}/attempt.json",
+    "task_result_path": "tasks/{task_id}/result.json",
+    "thread_id_prefix": "phase5-v4-remediation"
+  },
+  "baseline_commit": "5765d78754be298c8da90afe9ce4a353c8d8720d",
+  "budget_candidate": {
+    "batch_max_recorded_tokens": 900000,
+    "budget_checked_between_attempts_only": true,
+    "per_task": {
+      "cleanup_timeout_seconds": 120,
+      "command_timeout_seconds": 900,
+      "evaluator_timeout_seconds": 1800,
+      "max_agent_steps": 64,
+      "max_commands": 32,
+      "max_model_requests": 24,
+      "max_recorded_tokens": 300000,
+      "max_tool_calls": 48,
+      "node_timeout_seconds": 1800,
+      "replay_timeout_seconds": 1800
+    }
+  },
+  "document_type": "forge_agent_workflow_stage_b_phase5_v4_remediation_authorized",
+  "environment_candidate": {
+    "compile_image": "autocompiler:gcc13",
+    "image_id": "sha256:d27a6ab733c7c3a9cbb5e4b32fb595aa5a422ff04bd212888d1041b90a2c4c2a",
+    "image_id_must_be_frozen_by_authorized_amendment": false,
+    "network_policy": "compile-network-v1",
+    "parallel_jobs": 4
+  },
+  "evidence_candidate": {
+    "batch_marker": "markers/batch.json",
+    "batch_report": "reports/stage-b-phase5-v4-remediation.json",
+    "create_once": true,
+    "directory": "/workspace/.compile-sessions/benchmark-evidence-agent-workflow-stage-b-phase5-v4-remediation-authorized",
+    "historical_evidence_reused": false,
+    "task_result_path": "tasks/{task_id}/result.json",
+    "writes_authorized": true
+  },
+  "frozen_authorized_components": {
+    "backend/packages/harness/deerflow/compile/agent_workflow_node.py": "34f6c6c5a2eea3a6064fd6b36e650df4bfffeabdcb99976beaa9369acc0052c1",
+    "backend/packages/harness/deerflow/compile/agent_workflow_runtime.py": "ac5144533c9e2f85e72255affc6d1dd6a909af80c9c6a13bc1cef9d9cffc976e",
+    "backend/packages/harness/deerflow/compile/agent_workflow_runtime_v2.py": "7358c8396a6eee7776f64f6645f0d516b1f4e6ed4743a249c1d8c32b4c1ecef5",
+    "backend/packages/harness/deerflow/compile/external_evaluator_v4.py": "9009c400b1b54d9ad05411f1a64124423cf50d8ba49bfa2d13071d9bedad4613",
+    "benchmarks/manifests/cpp-agent-workflow-stage-b-phase5-v3-authorized.json": "a6975472306bf4b8cf53ef864ec702d38e6c9fc38f54544ff907f5c5de262ef4",
+    "benchmarks/preregistrations/cpp-agent-workflow-stage-b-phase5-v4-remediation-authorized.md": "966c161bef993186aefc5d4478b5eaade85fda7497a7f37730112ade60a7b5b7",
+    "scripts/forge_agent_workflow_stage_b_phase5_v3_authorized_protocol.py": "166fda80357c7cd5e85c6adf310a6656f75562da128e0f7caf39e07b581cbb86",
+    "scripts/forge_agent_workflow_stage_b_phase5_v3_authorized_runner.py": "55e39c4e07147293be152b096a9d7fee805f1121a8497945e075bbf4a98afcf7",
+    "scripts/forge_agent_workflow_stage_b_phase5_v4_remediation_authorized_protocol.py": "9571bb4ed3a621c4bc7b786af42de4fd7b8d4900a142c2356f404bfd567747e1",
+    "scripts/forge_agent_workflow_stage_b_phase5_v4_remediation_authorized_runner.py": "18e8c957a5a2dd21d9e92503879c41baf2042839c3cab50a4285534d8b7ebdbd"
+  },
+  "frozen_components": {
+    "backend/packages/harness/deerflow/compile/agent_workflow_runtime.py": "ac5144533c9e2f85e72255affc6d1dd6a909af80c9c6a13bc1cef9d9cffc976e",
+    "backend/packages/harness/deerflow/compile/external_evaluator_v2.py": "19044e161b321fe5afed8458c0138f1bcfbe41582af2d5f4efcdf6846c3d579b",
+    "benchmarks/fixtures/agent-workflow-stage-b-phase5-v2-qualification-result.json": "df98e57edfea7b42911e8008534b94a62261aa93d7c3d20ae36f6ee8f8343125",
+    "benchmarks/manifests/cpp-agent-workflow-stage-b-phase5-v2-qualification.json": "095061b73b5f290c107497c90bb9c6d8c5ec83e005396ea0ec9dbf03a87d5ee0",
+    "benchmarks/preregistrations/cpp-agent-workflow-stage-b-phase5-v2-candidate.md": "57c70d1d9a3ba158d6c2f1cacd0e635ac1105a22e2c83eb22fc0ac8176cc064f",
+    "scripts/forge_agent_workflow_stage_b_phase5_v2_candidate_protocol.py": "9421c601bf3ef4f76071218ba843798b7fbf05e98a976914a71a5320803cd56f",
+    "scripts/forge_agent_workflow_stage_b_phase5_v2_candidate_runner.py": "041161f25c48a1a8de670913ffcc94bda66e56c5eb13ae1c2e0246ee0b0342a5",
+    "scripts/forge_agent_workflow_stage_b_phase5_v2_qualification_protocol.py": "b4a9a9eb483d632afc5ca74a55b7f051c5eca4c7628efd3707c74ef81d447d1d"
+  },
+  "issue_url": "https://github.com/WWFXL/Forge-AutoCompiler/issues/305",
+  "operation_policy_ref": "agent-workflow-stage-b-calibration-v1",
+  "parent_phase5": {
+    "candidate_manifest_canonical_sha256": "303b41c0ee95c4732eb9388a39176789064e131c19217632175fa19e1526434f",
+    "candidate_manifest_path": "benchmarks/manifests/cpp-agent-workflow-stage-b-calibration-candidate.json",
+    "historical_evidence_reused": false,
+    "outcomes_imported": false,
+    "stopped_report_path": "benchmarks/reports/cpp-agent-workflow-stage-b-calibration-failed.json",
+    "stopped_report_sha256": "00d2463d3bfc4da9ca59c4b23f3eb0d9dba57144cffbe680ca4c808ced1f565e"
+  },
+  "provider_candidate": {
+    "credential_env_name": "DEEPSEEK_API_KEY",
+    "endpoint": "https://api.deepseek.com",
+    "fallback_enabled": false,
+    "model_max_retries": 0,
+    "profile": "deepseek-flash",
+    "provider": "deepseek",
+    "request_timeout_seconds": 300
+  },
+  "purpose": "engineering_remediation_and_cross_run_stage_c_adjudication_only",
+  "qualification": {
+    "formal_attempt_created": false,
+    "image_id": "sha256:d27a6ab733c7c3a9cbb5e4b32fb595aa5a422ff04bd212888d1041b90a2c4c2a",
+    "model_created": false,
+    "plan_canonical_sha256": "5f06941f19183117ba542099f0b3e9deb2c15d53798ef175812b5398d9769070",
+    "plan_path": "benchmarks/manifests/cpp-agent-workflow-stage-b-phase5-v2-qualification.json",
+    "provider_request_count": 0,
+    "release_revision": "1269d34ccb58f3545ffbd5469c141d321cdc1246",
+    "result_path": "benchmarks/fixtures/agent-workflow-stage-b-phase5-v2-qualification-result.json",
+    "result_sha256": "df98e57edfea7b42911e8008534b94a62261aa93d7c3d20ae36f6ee8f8343125",
+    "status": "passed",
+    "zero_managed_resources_after": true,
+    "zero_managed_resources_before": true
+  },
+  "reporting": {
+    "cross_run_adjudication_required": true,
+    "independent_layers": [
+      "candidate_generated",
+      "candidate_submitted",
+      "s0_s5",
+      "bitwise_reproducible"
+    ],
+    "stage_c_authorized": false,
+    "unbiased_success_rate_claim_allowed": false
+  },
+  "runtime_candidate": {
+    "clean_replay_required": true,
+    "evaluator_identity": {
+      "file_sha256": "9009c400b1b54d9ad05411f1a64124423cf50d8ba49bfa2d13071d9bedad4613",
+      "name": "external-evaluator-v4",
+      "oracle_execution_authority": "system_owned_post_build_fence_isolated_v1",
+      "path": "backend/packages/harness/deerflow/compile/external_evaluator_v4.py",
+      "rules_sha256": "e5ad0acc6dd9f841258daccfd8d659f032e457139e8d09685388d04304b6e3d1",
+      "version": "forge-external-evaluator-1.3.0"
+    },
+    "external_evaluator": "external-evaluator-v4",
+    "finalize_and_cleanup_required": true,
+    "orchestration_mode": "agent_workflow_node_v1",
+    "parent_lifecycle_runner_reused_without_modification": true,
+    "protocol_path": "scripts/forge_agent_workflow_stage_b_phase5_v4_remediation_authorized_protocol.py",
+    "qualification_revalidation_before_model_creation": true,
+    "runner_path": "scripts/forge_agent_workflow_stage_b_phase5_v4_remediation_authorized_runner.py",
+    "zero_managed_orphans_required": true
+  },
+  "schedule": {
+    "attempts_per_task": 1,
+    "backfill": false,
+    "order": [
+      "uwebsockets",
+      "c-ares",
+      "libass"
+    ],
+    "reorder_after_outcome": false,
+    "replacement": false
+  },
+  "schema_version": "forge-agent-workflow-stage-b-phase5-v4-remediation-authorized-1.0.0",
+  "status": "authorized_not_executed",
+  "tasks": [
+    {
+      "build_system_capabilities": [
+        "make"
+      ],
+      "commit_sha": "fe7c01a477b688a7743f754fee33bdd78d52ad91",
+      "historical_build_system_label": "make",
+      "oracle": {
+        "kind": "service_probe",
+        "listen_host": "127.0.0.1",
+        "listen_port": 3000,
+        "probe": {
+          "expected_status": 200,
+          "path": "/",
+          "scheme": "http"
+        },
+        "start_argv": [
+          "./HelloWorld"
+        ],
+        "startup_timeout_seconds": 10,
+        "workdir": "/artifacts"
+      },
+      "repository_url": "https://github.com/uNetworking/uWebSockets.git",
+      "required_candidate_artifacts": [
+        "HelloWorld",
+        "uSockets/uSockets.a"
+      ],
+      "selected_build_system": "make",
+      "target_contract": {
+        "artifact_path_patterns": [
+          "HelloWorld"
+        ],
+        "artifact_types": [
+          "executable"
+        ],
+        "functional_oracle_ref": "stage-b-uwebsockets-http-v3",
+        "target_id": "uwebsockets-hello-world"
+      },
+      "task_id": "uwebsockets"
+    },
+    {
+      "build_system_capabilities": [
+        "cmake",
+        "autotools"
+      ],
+      "commit_sha": "589b5887d47736e5b70a1fddaf9bf90297adde65",
+      "historical_build_system_label": "autotools",
+      "oracle": {
+        "compile_argv": [
+          "cc",
+          "-std=c11",
+          "{source}",
+          "-I/artifacts/include",
+          "-L/artifacts/lib",
+          "-Wl,-rpath,/artifacts/lib",
+          "-lcares",
+          "-o",
+          "{executable}"
+        ],
+        "kind": "compile_and_run",
+        "language": "c11",
+        "run_argv": [
+          "{executable}"
+        ],
+        "source": "#include <ares.h>\nint main(void) { if (ares_library_init(ARES_LIB_INIT_ALL) != ARES_SUCCESS) return 1; ares_library_cleanup(); return 0; }\n"
+      },
+      "repository_url": "https://github.com/c-ares/c-ares.git",
+      "required_candidate_artifacts": [
+        "lib/libcares.so",
+        "include/ares.h",
+        "include/ares_build.h",
+        "include/ares_rules.h",
+        "include/ares_version.h"
+      ],
+      "selected_build_system": "cmake",
+      "target_contract": {
+        "artifact_path_patterns": [
+          "lib/libcares.so"
+        ],
+        "artifact_types": [
+          "shared_library"
+        ],
+        "functional_oracle_ref": "stage-b-cares-consumer-v1",
+        "target_id": "cares-shared-library"
+      },
+      "task_id": "c-ares"
+    },
+    {
+      "build_system_capabilities": [
+        "autotools"
+      ],
+      "commit_sha": "f9fd3d20dff1cd84b7c74c8ae7f79711ad7736fa",
+      "historical_build_system_label": "autotools",
+      "oracle": {
+        "compile_argv": [
+          "cc",
+          "-std=c11",
+          "{source}",
+          "-I/artifacts/include",
+          "-L/artifacts/lib",
+          "-Wl,-rpath,/artifacts/lib",
+          "-lass",
+          "-o",
+          "{executable}"
+        ],
+        "kind": "compile_and_run",
+        "language": "c11",
+        "run_argv": [
+          "{executable}"
+        ],
+        "source": "#include <ass/ass.h>\nint main(void) { ASS_Library *library = ass_library_init(); if (!library) return 1; ass_library_done(library); return 0; }\n"
+      },
+      "repository_url": "https://github.com/libass/libass.git",
+      "required_candidate_artifacts": [
+        "lib/libass.so.9.4.2",
+        "lib/libass.a",
+        "include/ass/ass.h",
+        "include/ass/ass_types.h"
+      ],
+      "selected_build_system": "autotools",
+      "target_contract": {
+        "artifact_path_patterns": [
+          "lib/libass.so.9.4.2"
+        ],
+        "artifact_types": [
+          "shared_library"
+        ],
+        "functional_oracle_ref": "stage-b-libass-consumer-v1",
+        "target_id": "libass-shared-library"
+      },
+      "task_id": "libass"
+    }
+  ]
+}

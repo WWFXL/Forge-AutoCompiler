@@ -6,6 +6,13 @@
 
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
+- 2026-09-26 — 完成 Issue #305 Phase 5 v4 修复重评实现与本地门禁
+  - 实现: 新增版本化 `agent-workflow-runtime-v2` 与 external evaluator v4，修复 LangGraph recursion 预算分类、post-build 立即提交提示和 required artifacts 声明/交付校验；冻结 v1 runtime/node 字节，避免历史 Stage B identity 漂移。
+  - 协议: 新 identity 只执行 `uwebsockets`、`c-ares`、`libass`，batch ceiling 为 900,000 tokens；只读核对 v3 报告、旧 decision 与 `yyjson`/`cppitertools`/`openh264` 三项严格成功结果的固定 SHA-256，生成 cross-run adjudication 和独立 Stage C decision，始终记录 `stage_c_execution_started=false`。
+  - 当前验证: manifest canonical SHA-256 为 `deb33c2aafacd5926df0f16d2437db4f9f37bb80e49b462b0ca62b0572bcb28a`；聚焦回归 `68 passed`，Stage B/Phase 5 历史链 `156 passed`，后端产品测试 `1789 passed, 38 skipped`，完整 Ruff 398 files、Docker runtime 与 0 managed container 审计通过。
+  - 下一步: 提交、推送中文 PR 并等待 CI；合并到干净 `main == origin/main` 后执行唯一 preflight、reachability 和三任务 batch。若跨 run 六项均严格通过则停在 `stage_c_authorized=true`，不运行 Stage C。
+  - 文件: `backend/packages/harness/deerflow/compile/agent_workflow_runtime_v2.py`, `backend/packages/harness/deerflow/compile/external_evaluator_v4.py`, `scripts/forge_agent_workflow_stage_b_phase5_v4_remediation_authorized_protocol.py`, `scripts/forge_agent_workflow_stage_b_phase5_v4_remediation_authorized_runner.py`, `backend/tests/test_agent_workflow_stage_b_phase5_v4_remediation_authorized.py`, `benchmarks/manifests/cpp-agent-workflow-stage-b-phase5-v4-remediation-authorized.json`, `benchmarks/schemas/forge-agent-workflow-stage-b-phase5-v4-remediation-authorized.schema.json`, `benchmarks/preregistrations/cpp-agent-workflow-stage-b-phase5-v4-remediation-authorized.md`
+
 - 2026-09-25 — 冻结 evaluator v3 的 Phase 5 独立授权评测 identity
   - GitHub: 中文 Issue #303 与 PR #304 已创建并回读；分支为 `research/phase5-v3-authorized-identity`，基线为 `main@9f8c8ad4`，实现提交为 `4c85e0fd`。首轮 backend unit、frozen benchmark、backend lint 和 frontend lint 四项 CI 全绿。Spec/Plan 位于 `docs/superpowers/`。
   - 实现: 新 protocol、const Schema、manifest、预注册和薄 runner 原样继承 Phase 5 v2 的六任务、Provider、镜像、预算、顺序与单 attempt 约束，冻结 external evaluator v3 文件/版本/rules identity；新 reachability、attempt、evaluation、report 与 evidence identity 完全独立，不导入 v2 结果或证据。

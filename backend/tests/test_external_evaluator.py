@@ -58,6 +58,15 @@ from deerflow.compile.external_evaluator_v3 import (
 from deerflow.compile.external_evaluator_v3 import (
     SystemOwnedFunctionalOracleRunner,
 )
+from deerflow.compile.external_evaluator_v4 import (
+    EXTERNAL_EVALUATOR_VERSION as EXTERNAL_EVALUATOR_V4_VERSION,
+)
+from deerflow.compile.external_evaluator_v4 import (
+    ExternalEvaluatorRunner as ExternalEvaluatorRunnerV4,
+)
+from deerflow.compile.external_evaluator_v4 import (
+    ForgeCompileEvaluationBackend as ForgeCompileEvaluationBackendV4,
+)
 from deerflow.compile.operations import SuccessfulCommandVerification
 from deerflow.compile.schemas import (
     BuildArtifact,
@@ -648,6 +657,64 @@ def test_s2_allows_undeclared_support_files_in_delivery_manifest(tmp_path: Path)
     assert layer.reason_codes == ("candidate_artifacts_valid",)
 
 
+def test_v4_s2_requires_preregistered_artifacts_in_candidate_and_delivery(tmp_path: Path) -> None:
+    session = make_session(tmp_path)
+    session.artifacts = [
+        BuildArtifact(
+            path="artifacts/lib/libfmt.a",
+            source_path="/artifacts/lib/libfmt.a",
+            artifact_type="static_library",
+            size_bytes=7,
+            sha256=SHA256_A,
+        )
+    ]
+    node_input = replace(
+        make_node_input(session),
+        initial_observation={
+            "build_system": "cmake",
+            "required_candidate_artifacts": ("lib/libfmt.a", "include/fmt/format.h"),
+        },
+    )
+
+    layer = ForgeCompileEvaluationBackendV4._evaluate_s2(make_candidate(), node_input, session, {"candidate_status": "passed"})
+
+    assert layer.status == "failed"
+    assert layer.reason_codes == ("required_artifact_undeclared", "required_artifact_missing")
+
+
+def test_v4_s2_accepts_complete_preregistered_artifact_set(tmp_path: Path) -> None:
+    session = make_session(tmp_path)
+    session.artifacts = [
+        BuildArtifact(
+            path="artifacts/lib/libfmt.a",
+            source_path="/artifacts/lib/libfmt.a",
+            artifact_type="static_library",
+            size_bytes=7,
+            sha256=SHA256_A,
+        ),
+        BuildArtifact(
+            path="artifacts/include/fmt/format.h",
+            source_path="/artifacts/include/fmt/format.h",
+            artifact_type="support_file",
+            size_bytes=5,
+            sha256=SHA256_B,
+        ),
+    ]
+    candidate = replace(make_candidate(), artifact_paths=("lib/libfmt.a", "include/fmt/format.h"))
+    node_input = replace(
+        make_node_input(session),
+        initial_observation={
+            "build_system": "cmake",
+            "required_candidate_artifacts": ("lib/libfmt.a", "include/fmt/format.h"),
+        },
+    )
+
+    layer = ForgeCompileEvaluationBackendV4._evaluate_s2(candidate, node_input, session, {"candidate_status": "passed"})
+
+    assert layer.status == "passed"
+    assert layer.reason_codes == ("candidate_artifacts_valid",)
+
+
 def test_external_evaluator_v2_records_distinct_rules_identity(tmp_path: Path) -> None:
     runner, session, candidate_path = prepare_runner(tmp_path, backend=FakeBackend(bitwise=True))
     v2_runner = ExternalEvaluatorRunnerV2(
@@ -682,6 +749,24 @@ def test_external_evaluator_v3_records_distinct_rules_identity(tmp_path: Path) -
 
     assert result.evaluator_version == EXTERNAL_EVALUATOR_V3_VERSION
     assert result.evaluator_version not in {EXTERNAL_EVALUATOR_VERSION, EXTERNAL_EVALUATOR_V2_VERSION}
+
+
+def test_external_evaluator_v4_records_distinct_rules_identity(tmp_path: Path) -> None:
+    runner, session, candidate_path = prepare_runner(tmp_path, backend=FakeBackend(bitwise=True))
+    v4_runner = ExternalEvaluatorRunnerV4(
+        node_input=runner.node_input,
+        node_result=runner.node_result,
+        session=session,
+        manager=runner.manager,
+        candidate_path=candidate_path,
+        evaluation_id="evaluation-v4",
+        backend=runner.backend,
+    )
+
+    result = v4_runner.run()
+
+    assert result.evaluator_version == EXTERNAL_EVALUATOR_V4_VERSION
+    assert result.evaluator_version not in {EXTERNAL_EVALUATOR_VERSION, EXTERNAL_EVALUATOR_V2_VERSION, EXTERNAL_EVALUATOR_V3_VERSION}
 
 
 def test_v3_oracle_uses_system_owned_command_path(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
