@@ -91,15 +91,19 @@ class BoundCommandFunctionalOracleRunner:
         current = manager.load_session(session.session_id, session.thread_id)
         session.__dict__.update(current.__dict__)
         successful_commands = (
-            SuccessfulCommandVerification(
-                command_id=record.command_id,
-                command=record.command,
-                workdir=record.workdir,
-                exit_code=record.exit_code or 0,
-                output=command_result.combined_output,
-                output_sha256=hashlib.sha256(command_result.combined_output.encode()).hexdigest(),
-            ),
-        ) if passed else ()
+            (
+                SuccessfulCommandVerification(
+                    command_id=record.command_id,
+                    command=record.command,
+                    workdir=record.workdir,
+                    exit_code=record.exit_code or 0,
+                    output=command_result.combined_output,
+                    output_sha256=hashlib.sha256(command_result.combined_output.encode()).hexdigest(),
+                ),
+            )
+            if passed
+            else ()
+        )
         return FunctionalOracleExecution(
             layer=layer,
             verification_command_ids=(record.command_id,) if passed else (),
@@ -171,13 +175,7 @@ class ForgeCompileEvaluationBackend(v1.ForgeCompileEvaluationBackend):
         oracle: FunctionalOracleExecution,
     ) -> ExecutableVerificationPolicy | None:
         target_paths = set(candidate.target_mapping.values())
-        if (
-            oracle.layer.status != "passed"
-            or set(node_input.target_contract.artifact_types) != {"executable"}
-            or len(target_paths) != 1
-            or len(oracle.successful_commands) != 1
-            or oracle.successful_commands[0].exit_code != 0
-        ):
+        if oracle.layer.status != "passed" or set(node_input.target_contract.artifact_types) != {"executable"} or len(target_paths) != 1 or len(oracle.successful_commands) != 1 or oracle.successful_commands[0].exit_code != 0:
             return None
         return ExecutableVerificationPolicy.successful_commands({next(iter(target_paths)): oracle.successful_commands[0]})
 
@@ -197,11 +195,7 @@ class ForgeCompileEvaluationBackend(v1.ForgeCompileEvaluationBackend):
         if payload.get("candidate_status") != "passed":
             reasons.append("candidate_verifier_failed")
         delivery_paths = set(artifacts_by_path)
-        undeclared_compiled_paths = {
-            path
-            for path, artifact in artifact_entries
-            if path not in requested_paths and artifact.artifact_type != "support_file"
-        }
+        undeclared_compiled_paths = {path for path, artifact in artifact_entries if path not in requested_paths and artifact.artifact_type != "support_file"}
         if len(artifact_entries) != len(artifacts_by_path) or not requested_paths.issubset(delivery_paths) or undeclared_compiled_paths:
             reasons.append("candidate_artifact_set_mismatch")
         allowed_types = set(node_input.target_contract.artifact_types)
@@ -213,10 +207,7 @@ class ForgeCompileEvaluationBackend(v1.ForgeCompileEvaluationBackend):
         patterns = node_input.target_contract.artifact_path_patterns
         if any(not any(PurePosixPath(path).match(pattern) for pattern in patterns) for path in target_paths):
             reasons.append("target_path_mismatch")
-        evidence = tuple(
-            v1._reference("artifact", PurePosixPath(path).name, path=path, sha256=artifact.sha256, size_bytes=artifact.size_bytes)
-            for path, artifact in artifact_entries
-        )
+        evidence = tuple(v1._reference("artifact", PurePosixPath(path).name, path=path, sha256=artifact.sha256, size_bytes=artifact.size_bytes) for path, artifact in artifact_entries)
         return v1._layer("S2", "passed" if not reasons else "failed", *(reasons or ["candidate_artifacts_valid"]), evidence=evidence)
 
 

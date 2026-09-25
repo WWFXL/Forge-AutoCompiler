@@ -9,7 +9,7 @@
 - 2026-09-25 — 实现 Issue #294 Phase 5 v2 资格门禁与显式 executable oracle
   - GitHub: Issue #294 已创建并回读；分支为 `feat/phase5-v2-qualification-oracle`，基线为 `main@bc176d4b`。
   - 实现: Runtime v7 增加版本化 `successful_command_v1` policy，固定 executable oracle 的 command/workdir/result 并在 clean replay 复验；新增独立 evaluator v2，允许 delivery manifest 含未逐项声明的 support files但继续拒绝额外 compiled artifacts；evaluator v1 保持冻结 SHA-256 `c4ac897d...94c61`。
-  - 资格门禁: 新 qualification plan/protocol/runner 对六项目执行 exact-commit checkout、Forge build-system capability 探测与逐项目 cleanup，固定 0 Provider/0 formal attempt 和 0 orphan；plan canonical SHA-256 为 `2c10763fb6ceaaa6b5950ec8f9d7d9c7261a58bb5337f9a0b23c9396440c57a1`。
+  - 资格门禁: 新 qualification plan/protocol/runner 对六项目执行 exact-commit checkout、Forge build-system capability 探测与逐项目 cleanup，固定 0 Provider/0 formal attempt 和 0 orphan；plan canonical SHA-256 为 `5f06941f19183117ba542099f0b3e9deb2c15d53798ef175812b5398d9769070`。
   - 验证: `test_compile_runtime.py`、`test_external_evaluator.py` 与 qualification 测试共 `167 passed`；Ruff、确定性 plan 校验、diff check 和旧 Phase 5 authorized identity 回归通过。未运行 Docker qualification、Docker replay 集成门禁或全量 backend。
   - 下一步: 提交、推送并创建中文 PR；合并到 main 后由用户运行六项目 Docker qualification，返回 result SHA-256 后再冻结新 Phase 5 v2 candidate identity，不续跑旧 batch。
   - 文件: `backend/packages/harness/deerflow/compile/operations.py`, `backend/packages/harness/deerflow/compile/schemas.py`, `backend/packages/harness/deerflow/compile/external_evaluator_v2.py`, `scripts/forge_agent_workflow_stage_b_phase5_v2_qualification_protocol.py`, `scripts/forge_agent_workflow_stage_b_phase5_v2_qualification_runner.py`, `benchmarks/manifests/cpp-agent-workflow-stage-b-phase5-v2-qualification.json`, `docs/compile_runtime_v7.md`

@@ -1742,10 +1742,7 @@ def submit_build_result_impl(
         {
             "schema_version": executable_verification_policy.schema_version,
             "mode": executable_verification_policy.mode,
-            "bindings": {
-                artifact_path: evidence.command_id
-                for artifact_path, evidence in sorted(executable_verification_policy.commands_by_artifact.items())
-            },
+            "bindings": {artifact_path: evidence.command_id for artifact_path, evidence in sorted(executable_verification_policy.commands_by_artifact.items())},
         }
         if executable_verification_policy is not None
         else None
@@ -1957,11 +1954,7 @@ def submit_build_result_impl(
             name="executable_verification_bindings",
             target="/artifacts",
             passed=bindings_match,
-            summary=(
-                "Executable verification bindings match the delivered executable set."
-                if bindings_match
-                else "Error: Verification failed. Explicit executable verification bindings do not match the delivered executable set."
-            ),
+            summary=("Executable verification bindings match the delivered executable set." if bindings_match else "Error: Verification failed. Explicit executable verification bindings do not match the delivered executable set."),
             expected=sorted(executable_artifact_paths),
             actual=sorted(binding_paths),
         )
@@ -2798,11 +2791,7 @@ def _compare_replay_artifacts(
             smoke_output_matches = expected.smoke_output_sha256 == actual_smoke_output_sha256 if expected.smoke_output_sha256 is not None else expected.smoke_output == actual_smoke_output
             expected_smoke_workdir = expected.smoke_workdir or CONTAINER_WORKSPACE_DIR
             smoke_matches = (
-                actual_smoke_result is not None
-                and expected.smoke_command == actual_smoke_command
-                and expected_smoke_workdir == actual_smoke_workdir
-                and expected.smoke_exit_code == actual_smoke_result.exit_code
-                and smoke_output_matches
+                actual_smoke_result is not None and expected.smoke_command == actual_smoke_command and expected_smoke_workdir == actual_smoke_workdir and expected.smoke_exit_code == actual_smoke_result.exit_code and smoke_output_matches
             )
         else:
             actual_smoke_output = _persisted_output(actual_smoke_result.combined_output) if actual_smoke_result else None
