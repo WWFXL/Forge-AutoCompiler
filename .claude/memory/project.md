@@ -6,13 +6,13 @@
 
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
-- 2026-09-25 — 开始 Issue #289 单 Agent Workflow Node v1 Phase 5 六项目内部校准
-  - GitHub: Phase 4 PR #288 已 squash 合并到 `main@5129cccf`，Issue #287 已关闭；Phase 5 中文 Issue #289 已创建并回读，分支为 `research/289-agent-workflow-phase5-calibration`。
-  - 候选: 冻结 Stage B 六项目 exact commit、target/oracle、固定顺序、DeepSeek `deepseek-flash` 候选、预算、独立 evidence 根和停止规则；所有 provider、credential、Docker、evidence 与 formal attempt 授权为 false，model token 为 0，真实执行等待候选合并后派生 authorized amendment。
+- 2026-09-25 — 开始 Issue #291 单 Agent Workflow Node v1 Phase 5 授权校准
+  - GitHub: Phase 5 候选 PR #290 已 squash 合并到 `main@c12cb609`，Issue #289 已关闭；授权执行 Issue #291 已创建并回读，分支为 `research/291-agent-workflow-phase5-authorized`。
+  - 候选: 已冻结 Stage B 六项目 exact commit、target/oracle、固定顺序、DeepSeek `deepseek-flash`、预算、独立 evidence 根和停止规则；授权修订只开放唯一 reachability、六个 formal attempt、Docker 与 evidence，并冻结 image ID `sha256:d27a6ab...c2a`。
   - 历史审计: 最小只读 fixture 绑定 CXXCrafter 综合裁决 SHA-256 `7e724e5a...c1c7e`，独立复算 generated `6/6`、submitted `4/6`、strict `6/6`、bitwise `5/6`，仅 uwebsockets 使用 v3 定向修订；历史 outcome 不导入 Phase 5 结果。
   - 通用接线: 节点任务消息现在包含冻结 target、oracle 引用、operation policy 和 initial observation；项目差异仍只来自输入合同，不写入公共 Compiler prompt。
-  - 当前验证: manifest canonical SHA-256 为 `303b41c0...434f`；协议 validate/audit/preflight 通过，聚焦回归 `27 passed`，Phase 1-5 扩大回归 `221 passed, 9 skipped`，产品测试 `1715 passed, 38 skipped`，完整 Ruff check/format（377 files）通过。阶段内 0 provider、0 credential read、0 Docker、0 formal attempt、0 model token、0 evidence write。
-  - 文件: `scripts/forge_agent_workflow_stage_b_calibration_protocol.py`, `scripts/forge_agent_workflow_stage_b_calibration_runner.py`, `benchmarks/manifests/cpp-agent-workflow-stage-b-calibration-candidate.json`, `benchmarks/schemas/forge-agent-workflow-stage-b-calibration-candidate.schema.json`, `benchmarks/fixtures/cxxcrafter-stage-b-adjudication-v1.json`, `benchmarks/preregistrations/cpp-agent-workflow-stage-b-calibration-candidate.md`, `backend/tests/test_agent_workflow_stage_b_calibration.py`, `backend/packages/harness/deerflow/compile/agent_workflow_runtime.py`
+  - 当前验证: 父候选 manifest canonical SHA-256 为 `303b41c0...434f`，授权 manifest 为 `9818ea13...1dcf`；授权合同与聚焦回归 `63 passed`，Phase 1-5 扩大回归 `259 passed, 9 skipped`，产品测试 `1724 passed, 38 skipped`，完整 Ruff check/format（380 files）通过。真实容器 Docker/Compose identity 门禁通过；reachability 必须等授权 PR 合并后执行。
+  - 文件: `scripts/forge_agent_workflow_stage_b_calibration_authorized_protocol.py`, `scripts/forge_agent_workflow_stage_b_calibration_authorized_runner.py`, `benchmarks/manifests/cpp-agent-workflow-stage-b-calibration-authorized.json`, `benchmarks/schemas/forge-agent-workflow-stage-b-calibration-authorized.schema.json`, `benchmarks/preregistrations/cpp-agent-workflow-stage-b-calibration-authorized.md`, `backend/tests/test_agent_workflow_stage_b_calibration_authorized.py`
 
 - 2026-09-20 — 修复 Issue #279 编译终态 Todo 并发更新与流式负载
   - GitHub: 中文 Issue #279 已创建并回读；分支为 `fix/issue-279-todo-concurrency`，基线为 `main@d5b3073d`。Spec/Plan 位于 `docs/superpowers/`。

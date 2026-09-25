@@ -24,6 +24,30 @@ UV_CACHE_DIR=/tmp/forge-phase5-uv-cache uv run python \
 `reachability` and `batch` remain hard-blocked until a reviewed authorized
 amendment freezes the merged release revision and complete Docker image ID.
 
+## Agent Workflow Node Stage B authorized calibration
+
+Issue #291 derives an authorized amendment from the candidate without changing
+the six tasks, commits, order, targets, oracles, per-task budgets, or stopping
+rules. It freezes `main@c12cb609` as the authorization baseline and
+`autocompiler:gcc13@sha256:d27a6ab...c2a` as the compile image identity.
+
+The authorized manifest canonical SHA-256 is
+`9818ea136c90620f2e38925cb936c1c21e3cf523b43ea8039c8c2283ea6f1dcf`.
+After the amendment is merged, run preflight and the single reachability from
+the Compose/DooD control plane before starting the resumable six-task batch:
+
+```bash
+cd /repo/backend
+export FORGE_NETWORK_ACCESS_MEDIUM=ethernet
+uv run python ../scripts/forge_agent_workflow_stage_b_calibration_authorized_runner.py preflight
+uv run python ../scripts/forge_agent_workflow_stage_b_calibration_authorized_runner.py reachability
+uv run python ../scripts/forge_agent_workflow_stage_b_calibration_authorized_runner.py batch
+```
+
+The runner writes only the frozen Phase 5 evidence root. Completed task results
+form a resumable contiguous prefix; an incomplete or identity-mismatched task
+blocks replacement and backfill.
+
 ## Formal v4 bounded diagnostics and canary amendment
 
 Issue #115 preserves the consumed formal v4 canary failure and authorizes a

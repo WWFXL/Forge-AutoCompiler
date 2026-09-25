@@ -80,7 +80,9 @@ UV_CACHE_DIR=/tmp/forge-phase5-uv-cache uv run python \
 
 ## 当前边界
 
-Phase 5 当前只冻结未授权候选，不自动接入现有 Lead + Compiler 产品路径，也未运行六项目 physical attempt 或写正式实验 evidence。调用方仍不得把 `node_status="submitted"` 解释为构建已验证；只有外部 evaluator 的 S0-S5 结果可以形成严格成功结论。Stage C 保持阻断。
+Issue #291 已派生 Phase 5 authorized amendment，冻结候选合并提交、完整 Docker image ID、唯一 reachability 和六项目 create-once/resume 规则。授权 manifest canonical SHA-256 为 `9818ea136c90620f2e38925cb936c1c21e3cf523b43ea8039c8c2283ea6f1dcf`。真实执行仍必须等待授权修订合并，并在 Compose/DooD control plane 的干净 `main == origin/main` 上完成 preflight。
+
+该研究路径不自动接入现有 Lead + Compiler 产品入口。调用方仍不得把 `node_status="submitted"` 解释为构建已验证；只有外部 evaluator 的 S0-S5 结果可以形成严格成功结论。Stage C 保持阻断，直到六项目完整终态与决策包形成并经审核。
 
 主要实现位于：
 
@@ -88,6 +90,8 @@ Phase 5 当前只冻结未授权候选，不自动接入现有 Lead + Compiler �
 - `backend/packages/harness/deerflow/compile/agent_workflow_node.py`
 - `backend/packages/harness/deerflow/compile/agent_workflow_schemas.py`
 - `backend/packages/harness/deerflow/compile/external_evaluator.py`
+- `scripts/forge_agent_workflow_stage_b_calibration_authorized_protocol.py`
+- `scripts/forge_agent_workflow_stage_b_calibration_authorized_runner.py`
 
 Phase 1-3 回归测试使用假 `BaseChatModel` 和本地临时 Session，不调用真实 provider 或 Docker：
 
