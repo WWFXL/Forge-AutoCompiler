@@ -7,8 +7,8 @@ from types import SimpleNamespace
 
 import pytest
 
+from deerflow.compile import evidence_ownership, operations
 from deerflow.compile import manager as manager_module
-from deerflow.compile import operations
 from deerflow.compile.manager import CompileSessionManager
 from deerflow.compile.operations import CompileOperationsServices
 from deerflow.config.paths import Paths
@@ -76,6 +76,66 @@ def test_metadata_and_workflow_writes_apply_configured_host_identity(
 
     assert (Path(session.metadata_path), 1010, 1011, True) in ownership
     assert (manager.workflow_log_path(session), 1010, 1011, True) in ownership
+
+
+@pytest.mark.skipif(os.name != "posix", reason="POSIX mode and symlink semantics")
+def test_evidence_tree_normalization_does_not_follow_symlinks(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.setenv("FORGE_HOST_UID", "1010")
+    monkeypatch.setenv("FORGE_HOST_GID", "1011")
+    ownership: list[tuple[Path, int, int, bool]] = []
+    monkeypatch.setattr(
+        evidence_ownership,
+        "_change_owner",
+        lambda path, uid, gid, *, follow_symlinks: ownership.append((Path(path), uid, gid, follow_symlinks)),
+    )
+    evidence_root = tmp_path / "evidence"
+    evidence_file = evidence_root / "tasks" / "task-a" / "experiment.jsonl"
+    evidence_file.parent.mkdir(parents=True)
+    evidence_file.write_text("{}\n", encoding="utf-8")
+    evidence_file.chmod(0o600)
+    outside = tmp_path / "outside.txt"
+    outside.write_text("outside", encoding="utf-8")
+    outside.chmod(0o644)
+    link = evidence_root / "outside-link"
+    link.symlink_to(outside)
+
+    assert evidence_ownership.normalize_evidence_tree(evidence_root) is True
+
+    assert stat.S_IMODE(evidence_file.stat().st_mode) == 0o600
+    assert stat.S_IMODE(outside.stat().st_mode) == 0o644
+    assert (link, 1010, 1011, False) in ownership
+    assert all(path != outside for path, *_rest in ownership)
+
+
+def test_evidence_tree_normalization_rejects_symlink_root(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setenv("FORGE_HOST_UID", "1010")
+    monkeypatch.setenv("FORGE_HOST_GID", "1011")
+    monkeypatch.setattr(evidence_ownership, "_change_owner", lambda *_args, **_kwargs: None)
+    outside = tmp_path / "outside"
+    outside.mkdir()
+    evidence_root = tmp_path / "evidence"
+    evidence_root.symlink_to(outside, target_is_directory=True)
+
+    with pytest.raises(ValueError, match="symbolic-link"):
+        evidence_ownership.normalize_evidence_tree(evidence_root)
+
+
+def test_evidence_path_normalization_rejects_symlink_parent(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setenv("FORGE_HOST_UID", "1010")
+    monkeypatch.setenv("FORGE_HOST_GID", "1011")
+    monkeypatch.setattr(evidence_ownership, "_change_owner", lambda *_args, **_kwargs: None)
+    outside = tmp_path / "outside"
+    outside.mkdir()
+    evidence_file = outside / "experiment.jsonl"
+    evidence_file.write_text("{}\n", encoding="utf-8")
+    linked_parent = tmp_path / "linked"
+    linked_parent.symlink_to(outside, target_is_directory=True)
+
+    with pytest.raises(ValueError, match="symbolic-link"):
+        evidence_ownership.normalize_evidence_path(linked_parent / "experiment.jsonl")
 
 
 @pytest.mark.skipif(os.name != "posix", reason="POSIX mode and symlink semantics")
