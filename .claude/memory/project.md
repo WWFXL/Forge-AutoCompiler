@@ -6,14 +6,6 @@
 
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
-- 2026-09-25 — 开始 Issue #291 单 Agent Workflow Node v1 Phase 5 授权校准
-  - GitHub: Phase 5 候选 PR #290 已 squash 合并到 `main@c12cb609`，Issue #289 已关闭；授权执行 Issue #291 已创建并回读，分支为 `research/291-agent-workflow-phase5-authorized`。
-  - 候选: 已冻结 Stage B 六项目 exact commit、target/oracle、固定顺序、DeepSeek `deepseek-flash`、预算、独立 evidence 根和停止规则；授权修订只开放唯一 reachability、六个 formal attempt、Docker 与 evidence，并冻结 image ID `sha256:d27a6ab...c2a`。
-  - 历史审计: 最小只读 fixture 绑定 CXXCrafter 综合裁决 SHA-256 `7e724e5a...c1c7e`，独立复算 generated `6/6`、submitted `4/6`、strict `6/6`、bitwise `5/6`，仅 uwebsockets 使用 v3 定向修订；历史 outcome 不导入 Phase 5 结果。
-  - 通用接线: 节点任务消息现在包含冻结 target、oracle 引用、operation policy 和 initial observation；项目差异仍只来自输入合同，不写入公共 Compiler prompt。
-  - 当前验证: 父候选 manifest canonical SHA-256 为 `303b41c0...434f`，授权 manifest 为 `9818ea13...1dcf`；授权合同与聚焦回归 `63 passed`，Phase 1-5 扩大回归 `259 passed, 9 skipped`，产品测试 `1724 passed, 38 skipped`，完整 Ruff check/format（380 files）通过。真实容器 Docker/Compose identity 门禁通过；reachability 必须等授权 PR 合并后执行。
-  - 文件: `scripts/forge_agent_workflow_stage_b_calibration_authorized_protocol.py`, `scripts/forge_agent_workflow_stage_b_calibration_authorized_runner.py`, `benchmarks/manifests/cpp-agent-workflow-stage-b-calibration-authorized.json`, `benchmarks/schemas/forge-agent-workflow-stage-b-calibration-authorized.schema.json`, `benchmarks/preregistrations/cpp-agent-workflow-stage-b-calibration-authorized.md`, `backend/tests/test_agent_workflow_stage_b_calibration_authorized.py`
-
 - 2026-09-20 — 修复 Issue #279 编译终态 Todo 并发更新与流式负载
   - GitHub: 中文 Issue #279 已创建并回读；分支为 `fix/issue-279-todo-concurrency`，基线为 `main@d5b3073d`。Spec/Plan 位于 `docs/superpowers/`。
   - 根因: Lead Agent 同轮调用 `write_todos` 与 `finalize_session` 时，Todo 工具和 `CompileTerminationMiddleware.wrap_tool_call` 在同一 graph step 写入两份完整 `LastValue` Todo 快照，触发 `INVALID_CONCURRENT_GRAPH_UPDATE`；普通聊天还无条件注册 `onLangChainEvent`，让 SDK 加入高体积 `events`，事故运行首次和重连流各约 10.7 MB。
@@ -112,6 +104,14 @@
 ## 最近变更 (Recent Changes)
 
 <!-- 倒序，最新在上。 -->
+
+- 2026-09-25 — 完成 Phase 5 唯一执行并冻结停止结果
+  - GitHub: authorized PR #292 已 squash 合并到 `main@1a60cf2e`；唯一 batch 未满足六项目验收，Issue #291 已重新打开并回读失败摘要，结果审计分支为 `research/291-agent-workflow-phase5-result-audit`。
+  - 执行: 唯一 reachability 通过，1 request / 61 tokens；`yyjson`、`cppitertools`、`openh264`、`uwebsockets` 形成完整 task result，generated/submitted=`4/6`、strict=`1/6`、bitwise=`1/6`，batch 545,484 tokens、总计 545,545/1,805,000 tokens。
+  - 停止: `c-ares` exact commit 检出后，父候选冻结 `autotools` 而 Forge 探测器按既有优先级记录 `cmake`，在模型调用前触发 identity drift；marker 为 `failed/Phase5AuthorizedRunnerError`，`libass` 未创建 attempt。原 batch 不重跑、不 replacement/backfill。
+  - 审计: `uwebsockets` functional oracle 通过，但通用 executable verifier 对服务型 `HelloWorld` 的三个版本旗标各等待 600 秒后失败；最终 S0-S5 passed 为 `4/4/1/2/1/1`。停止后 0 managed container/image/paused parent，未生成 batch report 或 Stage C 决策包，Stage C 保持阻断。
+  - 验证: 只读报告实际复算通过；聚焦结果/授权/候选测试 `19 passed`，Phase 1-5 扩大回归 `262 passed, 9 skipped`，产品测试 `1727 passed, 38 skipped`，完整 Ruff check/format（380 files）通过。
+  - 文件: `scripts/forge_agent_workflow_stage_b_calibration_result.py`, `backend/tests/test_agent_workflow_stage_b_calibration_result.py`, `benchmarks/reports/cpp-agent-workflow-stage-b-calibration-failed.json`, `benchmarks/reports/cpp-agent-workflow-stage-b-calibration-failed.md`
 
 - 2026-09-24 — 完成 Issue #287 单 Agent Workflow Node v1 的 Phase 4 零 Provider Docker 门禁
   - GitHub: Phase 3 PR #286 已 squash 合并到 `main@c7e3fa3e`；Phase 4 PR #288 已 squash 合并到 `main@5129cccf`，Issue #287 已关闭。

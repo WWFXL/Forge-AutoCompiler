@@ -80,9 +80,9 @@ UV_CACHE_DIR=/tmp/forge-phase5-uv-cache uv run python \
 
 ## 当前边界
 
-Issue #291 已派生 Phase 5 authorized amendment，冻结候选合并提交、完整 Docker image ID、唯一 reachability 和六项目 create-once/resume 规则。授权 manifest canonical SHA-256 为 `9818ea136c90620f2e38925cb936c1c21e3cf523b43ea8039c8c2283ea6f1dcf`。真实执行仍必须等待授权修订合并，并在 Compose/DooD control plane 的干净 `main == origin/main` 上完成 preflight。
+Issue #291 的 authorized amendment 已通过 PR #292 合并，授权 manifest canonical SHA-256 为 `9818ea136c90620f2e38925cb936c1c21e3cf523b43ea8039c8c2283ea6f1dcf`。唯一 reachability 在 `main@1a60cf2e` 上通过；batch 完成四个项目结果后，在第五个 `c-ares` 的模型调用前因 manifest 冻结 `autotools`、Forge 探测为 `cmake` 而停止，`libass` 未执行。原 batch 不得重跑、replacement 或 backfill。
 
-该研究路径不自动接入现有 Lead + Compiler 产品入口。调用方仍不得把 `node_status="submitted"` 解释为构建已验证；只有外部 evaluator 的 S0-S5 结果可以形成严格成功结论。Stage C 保持阻断，直到六项目完整终态与决策包形成并经审核。
+只读结果审计记录 generated `4/6`、submitted `4/6`、strict `1/6`、bitwise `1/6`，总计 545,545 recorded tokens，停止后 0 managed resources。该研究路径不自动接入现有 Lead + Compiler 产品入口。调用方仍不得把 `node_status="submitted"` 解释为构建已验证；只有外部 evaluator 的 S0-S5 结果可以形成严格成功结论。六项目终态不完整且没有 Stage C 决策包，Stage C 保持阻断；任何后续执行必须使用新 identity。
 
 主要实现位于：
 
@@ -92,6 +92,7 @@ Issue #291 已派生 Phase 5 authorized amendment，冻结候选合并提交、�
 - `backend/packages/harness/deerflow/compile/external_evaluator.py`
 - `scripts/forge_agent_workflow_stage_b_calibration_authorized_protocol.py`
 - `scripts/forge_agent_workflow_stage_b_calibration_authorized_runner.py`
+- `scripts/forge_agent_workflow_stage_b_calibration_result.py`
 
 Phase 1-3 回归测试使用假 `BaseChatModel` 和本地临时 Session，不调用真实 provider 或 Docker：
 

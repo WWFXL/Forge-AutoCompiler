@@ -1,0 +1,380 @@
+{
+  "batch": {
+    "attempted_task_count": 5,
+    "authorized_task_count": 6,
+    "completed_task_count": 4,
+    "error_class": "Phase5AuthorizedRunnerError",
+    "marker_status": "failed",
+    "original_batch_must_not_resume": true,
+    "stopped_task_id": "c-ares",
+    "unattempted_tasks": [
+      "libass"
+    ]
+  },
+  "document_type": "forge_agent_workflow_stage_b_calibration_result",
+  "evidence_references": [
+    {
+      "path": "markers/reachability.json",
+      "sha256": "63153967b380ad7f3ad967c66d33d35571dadf84bdaa75448ccb3356a539acb0",
+      "size_bytes": 424
+    },
+    {
+      "path": "reports/reachability.json",
+      "sha256": "c442e7d69ad3525eed80334aac3a90dd43e16659fe458dca2fc9467925f4a1bc",
+      "size_bytes": 696
+    },
+    {
+      "path": "markers/batch.json",
+      "sha256": "b327c33f519aa22c01ee4c9c3cca2d8ad50f22f4c86f181b6a6874a4ba2e8c10",
+      "size_bytes": 442
+    },
+    {
+      "path": "tasks/yyjson/attempt.json",
+      "sha256": "f721d7feaab44095bc655ada706b490abe18eafb37d7277a2c0997aeb2a55738",
+      "size_bytes": 420
+    },
+    {
+      "path": "tasks/yyjson/result.json",
+      "sha256": "66d43607b2af2341135470fc3d3a9e18a0bb12a315d98bbe959d17a60d018339",
+      "size_bytes": 7608
+    },
+    {
+      "path": "tasks/cppitertools/attempt.json",
+      "sha256": "854be2f954c7fddf3736dae21012df66ce81ef175e9eca533eb6fb4c356e87c4",
+      "size_bytes": 426
+    },
+    {
+      "path": "tasks/cppitertools/result.json",
+      "sha256": "dd99f73ca8efa976749fb633b154f7c1fb0702d20e61309082785690e1766250",
+      "size_bytes": 17749
+    },
+    {
+      "path": "tasks/openh264/attempt.json",
+      "sha256": "445a0c761a28da06cb6236940ac8b5894a9f841873a91d4c6baa41a4b108ff3b",
+      "size_bytes": 422
+    },
+    {
+      "path": "tasks/openh264/result.json",
+      "sha256": "07271a0af3209513bbae756869aa8f55172bd3cf904f4c502f0cefedf7549c90",
+      "size_bytes": 7748
+    },
+    {
+      "path": "tasks/uwebsockets/attempt.json",
+      "sha256": "75ddac1752bf76a6848216cbbe28c03b185a988d5a19762a0621e06f263766b4",
+      "size_bytes": 425
+    },
+    {
+      "path": "tasks/uwebsockets/result.json",
+      "sha256": "69b478b6c829a53505f6044ab976f204dff57b3503f278ffc4dc62f6ec152f59",
+      "size_bytes": 18343
+    },
+    {
+      "path": "tasks/c-ares/attempt.json",
+      "sha256": "ef1f395274c477e91deede634f371a29da9dd628999ee888c99d711b53acc00c",
+      "size_bytes": 445
+    }
+  ],
+  "interpretation": {
+    "descriptive_only": true,
+    "historical_evidence_reused": false,
+    "replacement_or_backfill_allowed": false,
+    "unbiased_success_rate_claim_allowed": false
+  },
+  "issue_url": "https://github.com/WWFXL/Forge-AutoCompiler/issues/291",
+  "manifest_sha256": "9818ea136c90620f2e38925cb936c1c21e3cf523b43ea8039c8c2283ea6f1dcf",
+  "observed_at": "2026-09-25T05:22:46.018511+00:00",
+  "reachability": {
+    "actual_model": "deepseek-flash",
+    "passed": true,
+    "recorded_tokens": 61,
+    "request_count": 1
+  },
+  "release_revision": "1a60cf2e496ca32081450b9163eeecd47eb61182",
+  "resource_audit": {
+    "managed_containers": [],
+    "managed_images": [],
+    "paused_parents": [],
+    "zero_managed_resources": true
+  },
+  "schema_version": "forge-agent-workflow-stage-b-calibration-result-1.0.0",
+  "stage_c": {
+    "authorized": false,
+    "decision_package_generated": false,
+    "reason": "phase5_six_task_terminal_set_incomplete",
+    "required_next_action": "review_stopped_phase5_and_preregister_new_identity"
+  },
+  "status": "stopped_on_pre_model_identity_drift",
+  "stop_audit": {
+    "classification": "frozen_build_system_identity_mismatch",
+    "exact_commit": "589b5887d47736e5b70a1fddaf9bf90297adde65",
+    "frozen_build_system": "autotools",
+    "model_invocation_reached": false,
+    "observed_build_system": "cmake",
+    "session_reference": {
+      "path": "phase5-c-ares-9818ea136c90/12714a712a60/session.json",
+      "sha256": "fbdfd94050fab05cfabc55c1d80087c53ba4e0c29fae1c28c8b8803310c66b9a",
+      "size_bytes": 2954
+    }
+  },
+  "summary": {
+    "authorized_recorded_token_ceiling": 1805000,
+    "batch_recorded_tokens": 545484,
+    "bitwise_reproducible": 1,
+    "candidate_generated": 4,
+    "candidate_submitted": 4,
+    "reachability_recorded_tokens": 61,
+    "s0_s5_passed": {
+      "S0": 4,
+      "S1": 4,
+      "S2": 1,
+      "S3": 2,
+      "S4": 1,
+      "S5": 1
+    },
+    "strict_success": 1,
+    "total_recorded_tokens": 545545
+  },
+  "tasks": [
+    {
+      "attempt_status": "completed",
+      "bitwise_reproducible": null,
+      "candidate_generated": true,
+      "candidate_submitted": true,
+      "duration_ms": 73305,
+      "layers": [
+        {
+          "layer": "S0",
+          "reason_codes": [
+            "identity_valid"
+          ],
+          "status": "passed"
+        },
+        {
+          "layer": "S1",
+          "reason_codes": [
+            "commands_valid"
+          ],
+          "status": "passed"
+        },
+        {
+          "layer": "S2",
+          "reason_codes": [
+            "candidate_verifier_failed"
+          ],
+          "status": "failed"
+        },
+        {
+          "layer": "S3",
+          "reason_codes": [
+            "functional_oracle_failed"
+          ],
+          "status": "failed"
+        },
+        {
+          "layer": "S4",
+          "reason_codes": [
+            "replay_recipe_missing",
+            "provenance_policy_failed"
+          ],
+          "status": "failed"
+        },
+        {
+          "layer": "S5",
+          "reason_codes": [
+            "clean_replay_missing"
+          ],
+          "status": "failed"
+        }
+      ],
+      "recorded_tokens": 133186,
+      "session_status": "failed",
+      "strict_reproducible_build_success": false,
+      "task_id": "yyjson"
+    },
+    {
+      "attempt_status": "completed",
+      "bitwise_reproducible": null,
+      "candidate_generated": true,
+      "candidate_submitted": true,
+      "duration_ms": 57953,
+      "layers": [
+        {
+          "layer": "S0",
+          "reason_codes": [
+            "identity_valid"
+          ],
+          "status": "passed"
+        },
+        {
+          "layer": "S1",
+          "reason_codes": [
+            "commands_valid"
+          ],
+          "status": "passed"
+        },
+        {
+          "layer": "S2",
+          "reason_codes": [
+            "candidate_verifier_failed",
+            "candidate_artifact_set_mismatch"
+          ],
+          "status": "failed"
+        },
+        {
+          "layer": "S3",
+          "reason_codes": [
+            "functional_oracle_failed"
+          ],
+          "status": "failed"
+        },
+        {
+          "layer": "S4",
+          "reason_codes": [
+            "replay_recipe_missing",
+            "provenance_policy_failed"
+          ],
+          "status": "failed"
+        },
+        {
+          "layer": "S5",
+          "reason_codes": [
+            "clean_replay_missing"
+          ],
+          "status": "failed"
+        }
+      ],
+      "recorded_tokens": 155645,
+      "session_status": "failed",
+      "strict_reproducible_build_success": false,
+      "task_id": "cppitertools"
+    },
+    {
+      "attempt_status": "completed",
+      "bitwise_reproducible": true,
+      "candidate_generated": true,
+      "candidate_submitted": true,
+      "duration_ms": 149414,
+      "layers": [
+        {
+          "layer": "S0",
+          "reason_codes": [
+            "identity_valid"
+          ],
+          "status": "passed"
+        },
+        {
+          "layer": "S1",
+          "reason_codes": [
+            "commands_valid"
+          ],
+          "status": "passed"
+        },
+        {
+          "layer": "S2",
+          "reason_codes": [
+            "candidate_artifacts_valid"
+          ],
+          "status": "passed"
+        },
+        {
+          "layer": "S3",
+          "reason_codes": [
+            "functional_oracle_passed"
+          ],
+          "status": "passed"
+        },
+        {
+          "layer": "S4",
+          "reason_codes": [
+            "provenance_policy_valid"
+          ],
+          "status": "passed"
+        },
+        {
+          "layer": "S5",
+          "reason_codes": [
+            "clean_replay_functional_success"
+          ],
+          "status": "passed"
+        }
+      ],
+      "recorded_tokens": 94031,
+      "session_status": "completed",
+      "strict_reproducible_build_success": true,
+      "task_id": "openh264"
+    },
+    {
+      "attempt_status": "completed",
+      "bitwise_reproducible": null,
+      "candidate_generated": true,
+      "candidate_submitted": true,
+      "duration_ms": 2028608,
+      "layers": [
+        {
+          "layer": "S0",
+          "reason_codes": [
+            "identity_valid"
+          ],
+          "status": "passed"
+        },
+        {
+          "layer": "S1",
+          "reason_codes": [
+            "commands_valid"
+          ],
+          "status": "passed"
+        },
+        {
+          "layer": "S2",
+          "reason_codes": [
+            "candidate_verifier_failed",
+            "candidate_artifact_set_mismatch",
+            "target_mapping_invalid"
+          ],
+          "status": "failed"
+        },
+        {
+          "layer": "S3",
+          "reason_codes": [
+            "functional_oracle_passed"
+          ],
+          "status": "passed"
+        },
+        {
+          "layer": "S4",
+          "reason_codes": [
+            "replay_recipe_missing"
+          ],
+          "status": "failed"
+        },
+        {
+          "layer": "S5",
+          "reason_codes": [
+            "clean_replay_missing"
+          ],
+          "status": "failed"
+        }
+      ],
+      "recorded_tokens": 162622,
+      "session_status": "failed",
+      "strict_reproducible_build_success": false,
+      "task_id": "uwebsockets"
+    },
+    {
+      "attempt_status": "stopped_before_model",
+      "error_class": "Phase5AuthorizedRunnerError",
+      "exact_commit_checked_out": "589b5887d47736e5b70a1fddaf9bf90297adde65",
+      "frozen_build_system": "autotools",
+      "observed_build_system": "cmake",
+      "recorded_tokens": 0,
+      "session_finalized_at": "2026-09-25T05:22:45.644817+00:00",
+      "session_status": "failed",
+      "task_id": "c-ares"
+    },
+    {
+      "attempt_status": "not_attempted",
+      "recorded_tokens": 0,
+      "task_id": "libass"
+    }
+  ]
+}
