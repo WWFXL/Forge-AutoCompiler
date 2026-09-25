@@ -38,6 +38,7 @@ _POST_BUILD_FORBIDDEN_ROLES = {
     "housekeeping",
     "replay_delay",
 }
+_SYSTEM_ORACLE_AUTHORITY = object()
 
 
 def _truncate_output_tail(output: str, max_lines: int = _MAX_OUTPUT_LINES) -> str:
@@ -214,9 +215,13 @@ def _run_container_bash_impl(
     timeout_seconds: int = 1200,
     workdir: str | None = None,
     command_role: CompileCommandRole,
+    _execution_authority: object | None = None,
 ) -> tuple[CommandResult, str, BuildCommandRecord]:
     services = get_compile_services()
     effective_workdir = workdir or "/workspace/repo"
+    if _execution_authority is not None and _execution_authority is not _SYSTEM_ORACLE_AUTHORITY:
+        raise ValueError("Unsupported command execution authority")
+    system_oracle = _execution_authority is _SYSTEM_ORACLE_AUTHORITY
     if command_role not in COMPILE_COMMAND_ROLES:
         raise ValueError(f"Unsupported compile command role: {command_role!r}")
     declared_role = allowed_command_role(command_role)
@@ -320,11 +325,14 @@ def _run_container_bash_impl(
         message = f"command_id={command_id}\ncommand_role={effective_role}\nexit_code={_POLICY_REJECTED_EXIT_CODE} (Policy rejected)\nworkdir={effective_workdir}\nclassification=mixed_logical_stages\nerror: {rejection}"
         return result, message, record
 
-    rejection = _post_build_rejection(
-        session,
-        command=command,
-        command_role=effective_role,
-    )
+    if system_oracle:
+        rejection = "Compiler commands may not read or write /repro; replay is controlled by the acceptance service." if "/repro" in command else None
+    else:
+        rejection = _post_build_rejection(
+            session,
+            command=command,
+            command_role=effective_role,
+        )
     if rejection is not None:
         _write_policy_rejection_log(log_path, rejection)
         now = utc_now_iso()
@@ -423,7 +431,15 @@ def _run_container_bash_impl(
         message = f"command_id={command_id}\ncommand_role={effective_role}\nexit_code={_POLICY_REJECTED_EXIT_CODE} (Policy rejected)\nworkdir={effective_workdir}\nclassification={argument_failure}\nerror: {rejection}"
         return result, message, record
 
-    _consume_post_build_budget(session, command_role=effective_role)
+    if system_oracle:
+        services.manager.log_event(
+            session,
+            "system_oracle.command_authorized",
+            command_id=command_id,
+            command_role=effective_role,
+        )
+    else:
+        _consume_post_build_budget(session, command_role=effective_role)
 
     services.manager.log_event(
         session,
@@ -521,6 +537,25 @@ def _run_container_bash_impl(
     if result.exit_code == 0 and effective_role == "build":
         _set_post_build_phase(session, record.command_id)
     return result, message, record
+
+
+def _run_system_oracle_bash_impl(
+    *,
+    session: CompileSession,
+    command: str,
+    timeout_seconds: int = 1200,
+    workdir: str | None = None,
+    command_role: CompileCommandRole,
+) -> tuple[CommandResult, str, BuildCommandRecord]:
+    """使用系统 evaluator 权限执行命令，不占用 Agent 的 post-build 次数。"""
+    return _run_container_bash_impl(
+        session=session,
+        command=command,
+        timeout_seconds=timeout_seconds,
+        workdir=workdir,
+        command_role=command_role,
+        _execution_authority=_SYSTEM_ORACLE_AUTHORITY,
+    )
 
 
 @tool("run_container_bash", parse_docstring=True)

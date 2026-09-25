@@ -105,6 +105,14 @@
 
 <!-- 倒序，最新在上。 -->
 
+- 2026-09-25 — 审计 Phase 5 v2 结果并隔离 evaluator 系统 oracle 权限
+  - GitHub: 创建并回读中文 Issue #299；从 `main@5ed549ea` 建立 `fix/phase5-v2-evaluator-audit`，实现提交 `ffcb7468` 已推送，中文 PR #300 已创建并回读，关联关闭 #299/#297 并保留 #291 跟踪后续阶段。设计与计划位于 `docs/superpowers/`。
+  - 审计: 原始 batch 已执行闭合，generated/submitted/strict/bitwise=`6/5/1/2`，总 recorded tokens 为 `918179`；描述性分类固定为 1 项可靠成功、2 项工作流失败、3 项 evaluator 缺陷导致不可判定。Stage C 继续阻断，当前 batch 禁止重跑、retry、replacement 和 backfill。
+  - 修复: 新增 external evaluator v3，以 opaque 内部 authority 让系统 functional oracle 跳过 Agent post-build 次数门禁，同时保留 `/repro`、严格 shell、命令记录与其他 policy；Agent 工具 schema 和默认门禁不变。未来 experiment ledger 按宿主 UID/GID 规范化，通用 evidence tree 遍历不跟随符号链接。
+  - 冻结边界: evaluator v1/v2、Phase 5 v2 authorized runner、原始报告与 Stage C decision SHA-256 均未变化；`.compile-sessions` evidence 未修改。正式 JSON/Markdown 审计报告写入 `benchmarks/reports/`，CLI 只输出紧凑摘要。
+  - 验证: Phase 5 与相邻运行时回归 `145 passed`；标准后端测试 `1764 passed, 38 skipped`；完整 Ruff check/format 394 个文件通过；`py_compile`、报告只读复算和 diff check 通过。0 Provider、0 model token、0 Docker、0 formal attempt、0 原始 evidence write。
+  - 文件: `backend/packages/harness/deerflow/compile/external_evaluator_v3.py`, `backend/packages/harness/deerflow/tools/bound_compile_tools.py`, `backend/packages/harness/deerflow/compile/evidence_ownership.py`, `scripts/forge_agent_workflow_stage_b_phase5_v2_result_audit.py`, `benchmarks/reports/cpp-agent-workflow-stage-b-phase5-v2-audit.json`
+
 - 2026-09-25 — 冻结 Phase 5 v2 authorized amendment 候选
   - GitHub: 创建并回读中文 Issue #297；从 `main@03a870ee` 建立 `codex/phase5-v2-authorized`，实现提交 `a76d01ba` 已推送，中文 PR #298 已创建并回读且引用 #297/#291；独立设计与计划位于 `docs/superpowers/`。
   - Identity: authorized manifest 只允许改变父 v2 candidate 的授权位、版本化 protocol/runner、独立 evidence 目录和 execution identity；父 candidate canonical SHA-256 保持 `babc7d2f...e4ee3`，新 manifest canonical SHA-256 为 `aa1f9ec280cbbecf91b5e10a9724e9b2462aed8dccc44bfb906c5e3e1ef962ed`。

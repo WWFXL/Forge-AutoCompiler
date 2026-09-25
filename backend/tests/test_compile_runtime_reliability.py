@@ -43,6 +43,7 @@ def test_run_container_bash_schema_requires_a_supported_logical_role() -> None:
     schema = bound_compile_tools.run_container_bash.args_schema.model_json_schema()
 
     assert "command_role" in schema["required"]
+    assert "_execution_authority" not in schema["properties"]
     assert set(schema["properties"]["command_role"]["enum"]) == {
         "dependency",
         "configure",
@@ -71,6 +72,65 @@ def test_run_container_bash_rejects_an_unsupported_role_before_execution(
             command="printf invalid",
             command_role="other",  # type: ignore[arg-type]
         )
+
+
+def test_system_oracle_bypasses_only_agent_post_build_budget(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    manager = CompileSessionManager(paths=make_test_paths(tmp_path))
+    session = manager.create_session(
+        thread_id="thread-system-oracle",
+        repo_url="https://example.com/repo.git",
+    )
+    session.post_build_supporting_command_id = "command-build"
+    session.post_build_commands_remaining = 0
+    manager.save_session(session)
+    executed: list[str] = []
+
+    def fake_exec(_session, command, **kwargs):
+        executed.append(command)
+        Path(kwargs["log_path"]).write_text("oracle ok\n", encoding="utf-8")
+        return CommandResult(
+            exit_code=0,
+            stdout="oracle ok\n",
+            stderr="",
+            combined_output="oracle ok\n",
+            log_path=kwargs["log_path"],
+        )
+
+    monkeypatch.setattr(
+        operations,
+        "_services",
+        CompileOperationsServices(manager=manager, runtime=SimpleNamespace(exec=fake_exec)),
+    )
+
+    agent_result, _message, agent_record = bound_compile_tools._run_container_bash_impl(
+        session=session,
+        command="printf oracle",
+        command_role="smoke",
+    )
+    system_result, _message, system_record = bound_compile_tools._run_system_oracle_bash_impl(
+        session=session,
+        command="printf oracle",
+        command_role="smoke",
+    )
+    repro_result, _message, repro_record = bound_compile_tools._run_system_oracle_bash_impl(
+        session=session,
+        command="bash /repro/build.sh",
+        command_role="smoke",
+    )
+
+    assert agent_result.exit_code == 126
+    assert agent_record.termination == "policy_rejected"
+    assert system_result.exit_code == 0
+    assert system_record.termination == "completed"
+    assert repro_result.exit_code == 126
+    assert repro_record.termination == "policy_rejected"
+    assert executed == ["printf oracle"]
+    assert manager.load_session(session.session_id, session.thread_id).post_build_commands_remaining == 0
+    workflow_events = [json.loads(line) for line in manager.workflow_log_path(session).read_text(encoding="utf-8").splitlines()]
+    assert any(event["event"] == "system_oracle.command_authorized" and event["command_id"] == system_record.command_id for event in workflow_events)
 
 
 def test_runtime_strict_shell_prelude_preserves_pipeline_and_sequence_failures(monkeypatch: pytest.MonkeyPatch) -> None:

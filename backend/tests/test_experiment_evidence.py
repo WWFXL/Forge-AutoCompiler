@@ -69,6 +69,15 @@ def create_ledger(tmp_path: Path) -> ExperimentLedger:
     )
 
 
+def test_ledger_normalizes_file_and_parent_for_host_ownership(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    normalized: list[Path] = []
+    monkeypatch.setattr("deerflow.compile.evidence.normalize_evidence_path", lambda path: normalized.append(Path(path)) or True)
+
+    ledger = create_ledger(tmp_path)
+
+    assert normalized == [ledger.path, ledger.path.parent]
+
+
 def test_legacy_policy_payload_is_unchanged_and_future_budgets_are_explicit() -> None:
     legacy_payload = make_policy().to_payload()
 

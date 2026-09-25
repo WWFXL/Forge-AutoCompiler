@@ -46,6 +46,18 @@ from deerflow.compile.external_evaluator_v2 import (
 from deerflow.compile.external_evaluator_v2 import (
     FunctionalOracleExecution as FunctionalOracleExecutionV2,
 )
+from deerflow.compile.external_evaluator_v3 import (
+    EXTERNAL_EVALUATOR_VERSION as EXTERNAL_EVALUATOR_V3_VERSION,
+)
+from deerflow.compile.external_evaluator_v3 import (
+    ExternalEvaluatorRunner as ExternalEvaluatorRunnerV3,
+)
+from deerflow.compile.external_evaluator_v3 import (
+    ForgeCompileEvaluationBackend as ForgeCompileEvaluationBackendV3,
+)
+from deerflow.compile.external_evaluator_v3 import (
+    SystemOwnedFunctionalOracleRunner,
+)
 from deerflow.compile.operations import SuccessfulCommandVerification
 from deerflow.compile.schemas import (
     BuildArtifact,
@@ -652,6 +664,64 @@ def test_external_evaluator_v2_records_distinct_rules_identity(tmp_path: Path) -
 
     assert result.evaluator_version == EXTERNAL_EVALUATOR_V2_VERSION
     assert result.evaluator_version != EXTERNAL_EVALUATOR_VERSION
+
+
+def test_external_evaluator_v3_records_distinct_rules_identity(tmp_path: Path) -> None:
+    runner, session, candidate_path = prepare_runner(tmp_path, backend=FakeBackend(bitwise=True))
+    v3_runner = ExternalEvaluatorRunnerV3(
+        node_input=runner.node_input,
+        node_result=runner.node_result,
+        session=session,
+        manager=runner.manager,
+        candidate_path=candidate_path,
+        evaluation_id="evaluation-v3",
+        backend=runner.backend,
+    )
+
+    result = v3_runner.run()
+
+    assert result.evaluator_version == EXTERNAL_EVALUATOR_V3_VERSION
+    assert result.evaluator_version not in {EXTERNAL_EVALUATOR_VERSION, EXTERNAL_EVALUATOR_V2_VERSION}
+
+
+def test_v3_oracle_uses_system_owned_command_path(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    session = make_session(tmp_path)
+    record = BuildCommandRecord(
+        stage="bash",
+        command="./link-test",
+        workdir="/workspace/repo",
+        command_id="command-system-oracle",
+        role="smoke",
+        completed_at=utc_now_iso(),
+        exit_code=0,
+    )
+    calls: list[dict[str, Any]] = []
+
+    def fake_system_oracle(**kwargs: Any) -> tuple[CommandResult, str, BuildCommandRecord]:
+        calls.append(kwargs)
+        session.commands.append(record)
+        return CommandResult(exit_code=0, stdout="ok\n", stderr="", combined_output="ok\n"), "", record
+
+    monkeypatch.setattr("deerflow.compile.external_evaluator_v3._run_system_oracle_bash_impl", fake_system_oracle)
+
+    execution = SystemOwnedFunctionalOracleRunner().run(
+        spec=FunctionalOracleSpec(oracle_ref="oracle-link-v3", argv=("./link-test",), requires_explicit_relative_executable=True),
+        session=session,
+        manager=FakeManager(session),  # type: ignore[arg-type]
+        evaluation_dir=tmp_path / "evaluation-v3",
+    )
+
+    assert execution.layer.status == "passed"
+    assert execution.verification_command_ids == ("command-system-oracle",)
+    assert calls[0]["command_role"] == "smoke"
+
+
+def test_v3_backend_uses_system_owned_oracle_by_default() -> None:
+    spec = FunctionalOracleSpec(oracle_ref="oracle-v3", argv=("./link-test",), requires_explicit_relative_executable=True)
+
+    backend = ForgeCompileEvaluationBackendV3(oracle_registry={spec.oracle_ref: spec})
+
+    assert isinstance(backend.oracle_runner, SystemOwnedFunctionalOracleRunner)
 
 
 def make_evaluation_result(task_id: str, *, evaluation_id: str, commit_sha: str = COMMIT_SHA, build_system: str = "cmake") -> ExternalEvaluationResult:

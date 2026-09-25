@@ -1,0 +1,174 @@
+{
+  "audit_result": {
+    "evaluator_invalid_tasks_may_be_counted_as_success": false,
+    "invalid_due_to_evaluator_defect": 3,
+    "reliable_success": 1,
+    "unbiased_success_rate_claim_allowed": false,
+    "workflow_failure": 2
+  },
+  "document_type": "forge_agent_workflow_stage_b_phase5_v2_result_audit",
+  "evidence_ownership": {
+    "fix_scope": "future_evidence_only",
+    "historical_evidence_modified": false,
+    "root_owned_private_ledger_count": 6,
+    "root_owned_private_ledgers": [
+      "tasks/yyjson/experiment.jsonl",
+      "tasks/cppitertools/experiment.jsonl",
+      "tasks/openh264/experiment.jsonl",
+      "tasks/uwebsockets/experiment.jsonl",
+      "tasks/c-ares/experiment.jsonl",
+      "tasks/libass/experiment.jsonl"
+    ]
+  },
+  "historical_evidence_mutated": false,
+  "issue_url": "https://github.com/WWFXL/Forge-AutoCompiler/issues/299",
+  "manifest_sha256": "aa1f9ec280cbbecf91b5e10a9724e9b2462aed8dccc44bfb906c5e3e1ef962ed",
+  "raw_result": {
+    "batch_marker_status": "passed",
+    "batch_recorded_tokens": 918121,
+    "bitwise_reproducible": 2,
+    "candidate_generated": 6,
+    "candidate_submitted": 5,
+    "execution_completed": true,
+    "reachability_recorded_tokens": 58,
+    "strict_success": 1,
+    "total_recorded_tokens": 918179
+  },
+  "release_revision": "5ed549ea92add2403a91512d3148f29686559d67",
+  "schema_version": "forge-agent-workflow-stage-b-phase5-v2-result-audit-1.0.0",
+  "source_completed_at": "2026-09-25T11:33:12.763774+00:00",
+  "source_identity": {
+    "authorized_runner_sha256": "af3ec35814f566736ec6fae6d47567a9d10deb4e23034fc8cc24840a8ba13c48",
+    "batch_marker_sha256": "5bcb669a7744b1f546aecbef78f3969374dca9bcb2c7d9f1071b52f53ce9f968",
+    "external_evaluator_v2_sha256": "19044e161b321fe5afed8458c0138f1bcfbe41582af2d5f4efcdf6846c3d579b",
+    "report_sha256": "4cab2400927ef2a557ab81e7deeba26d3ee5aad85e716ca56157516a865c4d6c",
+    "stage_c_decision_sha256": "7e8000f10b8c6026a5908b1b6634e4c8ccbf323762e369d3d47ae5c7b0045a5d"
+  },
+  "source_references": [
+    {
+      "path": "reports/stage-b-phase5-v2.json",
+      "sha256": "4cab2400927ef2a557ab81e7deeba26d3ee5aad85e716ca56157516a865c4d6c",
+      "size_bytes": 126430
+    },
+    {
+      "path": "reports/stage-c-decision.json",
+      "sha256": "7e8000f10b8c6026a5908b1b6634e4c8ccbf323762e369d3d47ae5c7b0045a5d",
+      "size_bytes": 575
+    },
+    {
+      "path": "markers/batch.json",
+      "sha256": "5bcb669a7744b1f546aecbef78f3969374dca9bcb2c7d9f1071b52f53ce9f968",
+      "size_bytes": 415
+    },
+    {
+      "path": "tasks/yyjson/result.json",
+      "sha256": "8f939999aa5947e66ec2e9b2017e128c1a89b505824fcacccfdab032821f9d2f",
+      "size_bytes": 8148
+    },
+    {
+      "path": "tasks/cppitertools/result.json",
+      "sha256": "2a755fa213bffbf73b9012274df83cdadfd3f5d23721f7b790aabb06dd156df3",
+      "size_bytes": 28635
+    },
+    {
+      "path": "tasks/openh264/result.json",
+      "sha256": "138929617ce5631a68a1a605c96c921c42ea08d76209b95349d6af18bd2b71bd",
+      "size_bytes": 7366
+    },
+    {
+      "path": "tasks/uwebsockets/result.json",
+      "sha256": "9d8e62b0fb2e1de29f3aaa31fa5555fdcaf4141743a6995d51fa3baa33cc7a22",
+      "size_bytes": 1628
+    },
+    {
+      "path": "tasks/c-ares/result.json",
+      "sha256": "92673124f64fd3b5fed37aef1b8300b0a36528d3a1cffeb8278b90c142723250",
+      "size_bytes": 57569
+    },
+    {
+      "path": "tasks/libass/result.json",
+      "sha256": "692ea733efeac186ee1f0c53fbcb4ac4138904a99d973351bae93f4609bdc08a",
+      "size_bytes": 8301
+    }
+  ],
+  "stage_c": {
+    "authorized": false,
+    "current_batch_rerun_allowed": false,
+    "required_next_action": "merge_evaluator_v3_fix_then_design_new_authorized_evaluation",
+    "retry_replacement_backfill_allowed": false
+  },
+  "tasks": [
+    {
+      "audit_classification": "workflow_failure",
+      "candidate_generated": true,
+      "candidate_submitted": true,
+      "declared_artifact": "libyyjson.a",
+      "raw_bitwise_reproducible": true,
+      "raw_strict_success": false,
+      "reason": "undeclared_compiled_artifact",
+      "recorded_tokens": 82169,
+      "task_id": "yyjson",
+      "undeclared_compiled_artifact": "lib/libyyjson.a"
+    },
+    {
+      "audit_classification": "reliable_success",
+      "candidate_generated": true,
+      "candidate_submitted": true,
+      "raw_bitwise_reproducible": true,
+      "raw_strict_success": true,
+      "reason": "all_s0_s5_layers_passed",
+      "recorded_tokens": 72219,
+      "task_id": "cppitertools"
+    },
+    {
+      "audit_classification": "invalid_due_to_evaluator_defect",
+      "candidate_generated": true,
+      "candidate_submitted": true,
+      "oracle_command_id": "command_70144129790648218497c247867ea8f0",
+      "oracle_exit_code": 126,
+      "oracle_stderr_sha256": "8b872d3ecea20be5053da15d0a6ddd17bbaf3ef9dbfc8241cef37c33435e916c",
+      "raw_bitwise_reproducible": null,
+      "raw_strict_success": false,
+      "reason": "system_oracle_inherited_agent_post_build_budget",
+      "recorded_tokens": 225403,
+      "task_id": "openh264"
+    },
+    {
+      "audit_classification": "workflow_failure",
+      "candidate_generated": true,
+      "candidate_submitted": false,
+      "raw_bitwise_reproducible": null,
+      "raw_strict_success": false,
+      "reason": "invalid_candidate_contract_then_graph_recursion_limit",
+      "recorded_tokens": 279841,
+      "rejected_candidate_id": "probe-incomplete-1",
+      "task_id": "uwebsockets"
+    },
+    {
+      "audit_classification": "invalid_due_to_evaluator_defect",
+      "candidate_generated": true,
+      "candidate_submitted": true,
+      "oracle_command_id": "command_8c770ca1e5f64a65b1e63ac7b3e49293",
+      "oracle_exit_code": 126,
+      "oracle_stderr_sha256": "8b872d3ecea20be5053da15d0a6ddd17bbaf3ef9dbfc8241cef37c33435e916c",
+      "raw_bitwise_reproducible": null,
+      "raw_strict_success": false,
+      "reason": "system_oracle_inherited_agent_post_build_budget",
+      "recorded_tokens": 121692,
+      "task_id": "c-ares"
+    },
+    {
+      "audit_classification": "invalid_due_to_evaluator_defect",
+      "candidate_generated": true,
+      "candidate_submitted": true,
+      "oracle_command_id": "command_d957a76bf17346628a287086d74b67f5",
+      "oracle_exit_code": 126,
+      "oracle_stderr_sha256": "8b872d3ecea20be5053da15d0a6ddd17bbaf3ef9dbfc8241cef37c33435e916c",
+      "raw_bitwise_reproducible": null,
+      "raw_strict_success": false,
+      "reason": "system_oracle_inherited_agent_post_build_budget",
+      "recorded_tokens": 136797,
+      "task_id": "libass"
+    }
+  ]
+}

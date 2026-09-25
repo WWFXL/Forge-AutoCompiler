@@ -16,6 +16,7 @@ from pathlib import Path, PurePosixPath
 from typing import Any
 from urllib.parse import urlsplit
 
+from deerflow.compile.evidence_ownership import normalize_evidence_path
 from deerflow.compile.schemas import utc_now_iso
 
 LEDGER_VERSION = "1.0.0"
@@ -820,6 +821,8 @@ class ExperimentLedger:
                     fp.flush()
                     os.fsync(fp.fileno())
                 os.replace(temporary_path, self.path)
+                normalize_evidence_path(self.path)
+                normalize_evidence_path(self.path.parent)
                 if os.name == "posix":
                     directory_fd = os.open(self.path.parent, os.O_RDONLY)
                     try:
