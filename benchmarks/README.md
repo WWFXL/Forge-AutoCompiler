@@ -33,20 +33,23 @@ rules. It freezes `main@c12cb609` as the authorization baseline and
 
 The authorized manifest canonical SHA-256 is
 `9818ea136c90620f2e38925cb936c1c21e3cf523b43ea8039c8c2283ea6f1dcf`.
-After the amendment is merged, run preflight and the single reachability from
-the Compose/DooD control plane before starting the resumable six-task batch:
+The unique execution on `main@1a60cf2e` is consumed. Reachability passed, four
+task results completed, and the batch stopped before the c-ares model request
+because the manifest froze `autotools` while Forge detected `cmake` at the
+exact commit. Libass was not attempted. The original batch must not be resumed,
+replaced, or backfilled.
+
+The frozen read-only audit is in
+`reports/cpp-agent-workflow-stage-b-calibration-failed.{json,md}`. Recompute it
+from the existing evidence and verify zero managed resources using:
 
 ```bash
-cd /repo/backend
-export FORGE_NETWORK_ACCESS_MEDIUM=ethernet
-uv run python ../scripts/forge_agent_workflow_stage_b_calibration_authorized_runner.py preflight
-uv run python ../scripts/forge_agent_workflow_stage_b_calibration_authorized_runner.py reachability
-uv run python ../scripts/forge_agent_workflow_stage_b_calibration_authorized_runner.py batch
+python scripts/forge_agent_workflow_stage_b_calibration_result.py
 ```
 
-The runner writes only the frozen Phase 5 evidence root. Completed task results
-form a resumable contiguous prefix; an incomplete or identity-mismatched task
-blocks replacement and backfill.
+The audit records generated/submitted/strict/bitwise separately, preserves the
+failed batch and task markers, and keeps Stage C blocked. Any later execution
+requires a new preregistered identity.
 
 ## Formal v4 bounded diagnostics and canary amendment
 
