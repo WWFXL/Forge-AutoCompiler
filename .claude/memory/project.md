@@ -7,11 +7,11 @@
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
 - 2026-09-25 — 冻结 evaluator v3 的 Phase 5 独立授权评测 identity
-  - GitHub: 中文 Issue #303 已创建并回读；分支为 `research/phase5-v3-authorized-identity`，基线为 `main@9f8c8ad4`。Spec/Plan 位于 `docs/superpowers/`。
+  - GitHub: 中文 Issue #303 与 PR #304 已创建并回读；分支为 `research/phase5-v3-authorized-identity`，基线为 `main@9f8c8ad4`，实现提交为 `4c85e0fd`。首轮 backend unit、frozen benchmark、backend lint 和 frontend lint 四项 CI 全绿。Spec/Plan 位于 `docs/superpowers/`。
   - 实现: 新 protocol、const Schema、manifest、预注册和薄 runner 原样继承 Phase 5 v2 的六任务、Provider、镜像、预算、顺序与单 attempt 约束，冻结 external evaluator v3 文件/版本/rules identity；新 reachability、attempt、evaluation、report 与 evidence identity 完全独立，不导入 v2 结果或证据。
   - 边界: Stage C 继续未授权，只能报告已暴露 Stage B 校准集合的工程结果；开发与测试阶段为 0 Provider、0 credential read、0 Docker、0 formal attempt、0 model token、0 experiment evidence write。
   - 验证: 聚焦测试 `10 passed`，Phase 5/evaluator 相邻回归 `80 passed`，完整后端产品测试 `1759 passed, 39 skipped`，完整 Ruff 387 个文件通过；`py_compile`、protocol validate/delta、runner validate、两次确定性再生成和 `git diff --check` 均通过。canonical manifest SHA-256 为 `191062f15d83bee8e1a323e67763dafdee2b9cc9bee6ac399971872f36e48747`。
-  - 下一步: 中文提交、推送并创建 PR；CI 全绿且用户明确确认后合并，再执行零 Provider preflight。真实 reachability 与六任务 batch 由实验所有者运行。
+  - 下一步: 等待用户明确确认后合并，再执行零 Provider preflight。真实 reachability 与六任务 batch 由实验所有者运行。
   - 文件: `scripts/forge_agent_workflow_stage_b_phase5_v3_authorized_protocol.py`, `scripts/forge_agent_workflow_stage_b_phase5_v3_authorized_runner.py`, `backend/tests/test_agent_workflow_stage_b_phase5_v3_authorized.py`, `benchmarks/manifests/cpp-agent-workflow-stage-b-phase5-v3-authorized.json`, `benchmarks/schemas/forge-agent-workflow-stage-b-phase5-v3-authorized.schema.json`, `benchmarks/preregistrations/cpp-agent-workflow-stage-b-phase5-v3-authorized.md`
 
 - 2026-09-20 — 修复 Issue #279 编译终态 Todo 并发更新与流式负载

@@ -10,6 +10,6 @@
 - [x] 添加 allowed-delta、独立 identity、绑定恢复、异常保真和报告合同测试。
 - [x] 生成并验证 manifest/Schema，运行 Phase 5 相邻回归与 Ruff。
 - [x] 更新项目状态快照并完成中文提交前审计。
-- [ ] 中文提交、推送并创建 PR。
+- [x] 中文提交、推送并创建 PR。
 - [ ] PR 合并后运行零 Provider preflight。
 - [ ] preflight 通过后，由实验所有者执行唯一 reachability 和六任务 batch。
