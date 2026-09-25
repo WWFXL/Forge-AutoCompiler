@@ -106,7 +106,7 @@
 <!-- 倒序，最新在上。 -->
 
 - 2026-09-25 — 冻结 Phase 5 v2 qualification result 与未授权 candidate identity
-  - GitHub: Runtime v7 与 qualification PR #295 已 squash 合并到 `main@1269d34c`，Issue #294 已关闭；新 candidate 分支为 `codex/phase5-v2-candidate`，继续由开放 Issue #291 跟踪。
+  - GitHub: Runtime v7 与 qualification PR #295 已 squash 合并到 `main@1269d34c`，Issue #294 已关闭；candidate PR #296 已从 `codex/phase5-v2-candidate` 创建并回读，继续由开放 Issue #291 跟踪。
   - Qualification: 用户在合并后的 main 上完成六项目 exact-commit 探测，plan canonical SHA-256 为 `5f06941f...9070`、result SHA-256 为 `df98e57e...43125`；0 Provider、0 model、0 formal attempt，前后 0 managed resource，六项目 cleanup 全部成功。冻结 selection 为 `cmake/cmake/make/make/cmake/autotools`，其中 `c-ares` capabilities 为 `[cmake, autotools]`。
   - Candidate: 新 manifest/Schema/protocol/runner 固化 qualification receipt、完整 capabilities 与 selection、external evaluator v2、独立 evidence 目录和 v2 identity；不导入首次 Phase 5 outcome，当前全部真实执行授权为 false、token ceiling 为 0，reachability/batch fail closed。
   - 验证: candidate canonical SHA-256 为 `babc7d2f07058aa7968bea19cd8e022eea6442bd64388c99965f5333d12e4ee3`；相关回归 `188 passed`，标准 `make test` 为 `1741 passed, 38 skipped`，`make lint` 检查 390 个文件通过；确定性 manifest/preflight、diff check 通过，evaluator v1 保持 SHA-256 `c4ac897d...94c61`。

@@ -1,6 +1,6 @@
 # Phase 5 v2 资格门禁与 executable oracle 实施计划
 
-日期：2026-09-25。设计：`../specs/2026-09-25-phase5-v2-qualification-oracle-design.md`。追踪：Issue #294、Issue #291。状态：**未授权 v2 candidate 已冻结并通过完整回归，等待发布**。
+日期：2026-09-25。设计：`../specs/2026-09-25-phase5-v2-qualification-oracle-design.md`。追踪：Issue #294、Issue #291。状态：**未授权 v2 candidate 已冻结、通过完整回归并发布为 PR #296**。
 
 ## 1. 交付顺序
 
@@ -18,7 +18,7 @@
 - [x] 使用 qualification result 冻结 Phase 5 v2 candidate identity、Schema 与未授权 runner。
 - [x] 运行 v2 candidate 定向测试并更新项目状态快照。
 - [x] 运行标准后端完整回归与 lint，修复本地 root-owned cache 环境问题。
-- [ ] 提交、推送并创建独立 PR。
+- [x] 提交、推送并创建独立 PR #296。
 - [ ] candidate 合并后单独设计 authorized amendment；在此之前保持 0 Provider、0 formal attempt。
 
 ## 2. 产品合同实现
