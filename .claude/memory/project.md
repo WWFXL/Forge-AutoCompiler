@@ -6,6 +6,14 @@
 
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
+- 2026-09-26 — 设计 Stage C 十二项目受控配对校准协议
+  - GitHub: Issue #310 跟踪 Stage C 设计；当前只完成 C0，后续 C1-C5 分阶段实施。
+  - 设计: 主要比较固定为 CXXCrafter-style controlled baseline 对 Agent Workflow Node；12 projects × 2 replicates × 2 arms，共 24 pairs / 48 physical attempts，按项目反向平衡 arm order。
+  - 边界: Stage B 六项目不进入分母；B 不新增 fast path 或 evaluator feedback。任务、package snapshot、不可变镜像、controlled adapter 和统一 runner 均为执行前硬门禁。
+  - 预算: 候选为每臂 300,000 tokens / 24 requests / 1,800 秒 work，机械总上限 14,405,000 tokens（含唯一 reachability），尚未获得执行授权。
+  - 当前状态: 0 Provider、0 model token、0 Stage C attempt、0正式 evidence；`stage_c_execution_started=false`。
+  - 文件: `docs/superpowers/specs/2026-09-26-stage-c-paired-calibration-design.md`, `docs/superpowers/plans/2026-09-26-stage-c-paired-calibration.md`
+
 - 2026-09-25 — 冻结 evaluator v3 的 Phase 5 独立授权评测 identity
   - GitHub: 中文 Issue #303 与 PR #304 已创建并回读；分支为 `research/phase5-v3-authorized-identity`，基线为 `main@9f8c8ad4`，实现提交为 `4c85e0fd`。首轮 backend unit、frozen benchmark、backend lint 和 frontend lint 四项 CI 全绿。Spec/Plan 位于 `docs/superpowers/`。
   - 实现: 新 protocol、const Schema、manifest、预注册和薄 runner 原样继承 Phase 5 v2 的六任务、Provider、镜像、预算、顺序与单 attempt 约束，冻结 external evaluator v3 文件/版本/rules identity；新 reachability、attempt、evaluation、report 与 evidence identity 完全独立，不导入 v2 结果或证据。
