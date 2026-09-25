@@ -6,13 +6,6 @@
 
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
-- 2026-09-26 — 完成 Issue #307 Phase 5 v5 定向重评实现与本地门禁
-  - v4 结果: `c-ares` 与 `libass` 均严格成功；`uwebsockets` 已生成和暂存产物，但先误分类 build、随后 `make examples` 因超预算 timeout/截断管道被拒、直接编译又误标为 artifact stage，提交以 `build_system_mismatch` 拒绝后耗尽 278,722 tokens。v4 报告已闭合且 0 managed resources，跨 run 裁决因 v3 汇总报告内嵌 outcome 保留 v2 标签而误拒 `cppitertools`。
-  - v5 实现: 新 identity 只执行 `uwebsockets`；任务输入冻结 `uwebsockets-make-examples-v1`，明确 submodule dependency、`make examples` build、精确 staging 和立即 submit。runner 只规范化 v3 内嵌 outcome 的两个已知标签，并按固定 SHA-256 只读核验 v3 三项与 v4 两项严格成功证据；decision 始终保持 `stage_c_execution_started=false`。
-  - 当前验证: manifest canonical SHA-256 为 `69f3a363d686365142152fbb32179c1d94e2870501a94abb02a6cd0737514c85`；Phase 5 相邻回归 `99 passed`，后端产品测试 `1799 passed, 38 skipped`，CI lint 399 files 通过。冻结镜像和 commit 的非正式 Docker 验证按预注册命令成功生成 `HelloWorld` 与 `uSockets.a`，真实 v3/v4 历史证据加载为 3+2 项，前后均为 0 managed container。
-  - 下一步: 提交、推送中文 PR 并等待 CI；合并到干净 `main == origin/main` 后执行唯一 preflight、reachability 和单任务 batch。跨 run 六项严格成功后停在 `stage_c_authorized=true`，不运行 Stage C。
-  - 文件: `scripts/forge_agent_workflow_stage_b_phase5_v5_remediation_authorized_protocol.py`, `scripts/forge_agent_workflow_stage_b_phase5_v5_remediation_authorized_runner.py`, `backend/tests/test_agent_workflow_stage_b_phase5_v5_remediation_authorized.py`, `benchmarks/manifests/cpp-agent-workflow-stage-b-phase5-v5-remediation-authorized.json`, `benchmarks/schemas/forge-agent-workflow-stage-b-phase5-v5-remediation-authorized.schema.json`, `benchmarks/preregistrations/cpp-agent-workflow-stage-b-phase5-v5-remediation-authorized.md`
-
 - 2026-09-25 — 冻结 evaluator v3 的 Phase 5 独立授权评测 identity
   - GitHub: 中文 Issue #303 与 PR #304 已创建并回读；分支为 `research/phase5-v3-authorized-identity`，基线为 `main@9f8c8ad4`，实现提交为 `4c85e0fd`。首轮 backend unit、frozen benchmark、backend lint 和 frontend lint 四项 CI 全绿。Spec/Plan 位于 `docs/superpowers/`。
   - 实现: 新 protocol、const Schema、manifest、预注册和薄 runner 原样继承 Phase 5 v2 的六任务、Provider、镜像、预算、顺序与单 attempt 约束，冻结 external evaluator v3 文件/版本/rules identity；新 reachability、attempt、evaluation、report 与 evidence identity 完全独立，不导入 v2 结果或证据。
@@ -119,6 +112,12 @@
 ## 最近变更 (Recent Changes)
 
 <!-- 倒序，最新在上。 -->
+
+- 2026-09-26 — 冻结 Phase 5 v5 正式终态并确认 Stage C 准入
+  - 文件: `docs/agent_workflow_node_v1.md`, `.claude/memory/project.md`
+  - 结果: v5 在 `main@1d5107e8` 上只执行 `uwebsockets`；唯一 reachability 为 1 request / 58 tokens，正式任务完成候选提交、功能 service probe、clean replay、S0-S5 和 cleanup。跨 run 裁决固定读取 v3 三项、v4 两项和 v5 一项成功证据，六项严格成功且全部哈希通过，最终 decision 为 `stage_c_authorized=true`、`stage_c_execution_started=false`，0 managed resources。
+  - 边界: `HelloWorld` 字节一致，`uSockets/uSockets.a` 非 bitwise 一致；当前预注册合同将 bitwise 作为独立指标，因此不推翻 S0-S5 严格成功。结论仅用于跨 run 工程准入，不能声称新的六项目同条件实验或无偏成功率；Stage C 未启动。
+  - 验证: 已用 v5 runner 重新执行 `validate`、`report`、`adjudicate` 和 `decision` 的只读/幂等复核；manifest canonical SHA-256 为 `69f3a363d686365142152fbb32179c1d94e2870501a94abb02a6cd0737514c85`，固定证据哈希、batch marker 和资源清理均通过。
 
 - 2026-09-25 — 将 Agent 开发指导迁移到 Linux 原生工作流
   - 文件: `AGENTS.md`, `CLAUDE.md`, `.claude/memory/project.md`

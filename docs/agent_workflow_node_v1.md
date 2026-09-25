@@ -80,9 +80,13 @@ UV_CACHE_DIR=/tmp/forge-phase5-uv-cache uv run python \
 
 ## 当前边界
 
-Issue #291 的 authorized amendment 已通过 PR #292 合并，授权 manifest canonical SHA-256 为 `9818ea136c90620f2e38925cb936c1c21e3cf523b43ea8039c8c2283ea6f1dcf`。唯一 reachability 在 `main@1a60cf2e` 上通过；batch 完成四个项目结果后，在第五个 `c-ares` 的模型调用前因 manifest 冻结 `autotools`、Forge 探测为 `cmake` 而停止，`libass` 未执行。原 batch 不得重跑、replacement 或 backfill。
+Issue #291 后续以独立 identity 完成 v2 审计、evaluator v3、Phase 5 v3/v4 和 v5 定向重评。v5 授权 manifest canonical SHA-256 为 `69f3a363d686365142152fbb32179c1d94e2870501a94abb02a6cd0737514c85`，正式运行绑定 `main@1d5107e8`，仅重新执行 `uwebsockets`。唯一 reachability 使用 `deepseek-flash`，记录 1 个请求、58 tokens；正式任务生成并提交候选，S0-S5 全部通过，清理后为 0 managed resources。
 
-只读结果审计记录 generated `4/6`、submitted `4/6`、strict `1/6`、bitwise `1/6`，总计 545,545 recorded tokens，停止后 0 managed resources。该研究路径不自动接入现有 Lead + Compiler 产品入口。调用方仍不得把 `node_status="submitted"` 解释为构建已验证；只有外部 evaluator 的 S0-S5 结果可以形成严格成功结论。六项目终态不完整且没有 Stage C 决策包，Stage C 保持阻断；任何后续执行必须使用新 identity。
+`uwebsockets` 的功能 service probe 和 clean replay 均通过，但 `uSockets/uSockets.a` 的 size/SHA-256 不一致，因此 `bitwise_reproducible=false`。这不覆盖当前任务合同的功能重放结论：`strict_reproducible_build_success` 按预注册定义由 S0-S5 决定，bitwise 一致性作为独立指标记录。`HelloWorld` 在 clean replay 中保持字节一致。
+
+最终裁决只读组合 v3 的 `yyjson`、`cppitertools`、`openh264`，v4 的 `c-ares`、`libass`，以及 v5 的 `uwebsockets`。六项均满足候选提交、S0-S5、严格成功、cleanup 和 0 managed resources，固定证据哈希全部通过，因此 Stage C decision 为 `stage_c_authorized=true`、`stage_c_execution_started=false`，下一动作是设计 Stage C 协议。该结论仅用于跨 run 工程准入，不能表述为一次新的六项目同条件实验或无偏成功率。
+
+历史失败 batch、reachability、task result 和 evidence 均保持只读，不允许 retry、replacement、backfill 或覆盖。该研究路径仍不自动接入现有 Lead + Compiler 产品入口；调用方不得把 `node_status="submitted"` 单独解释为构建已验证。
 
 主要实现位于：
 
@@ -93,6 +97,8 @@ Issue #291 的 authorized amendment 已通过 PR #292 合并，授权 manifest c
 - `scripts/forge_agent_workflow_stage_b_calibration_authorized_protocol.py`
 - `scripts/forge_agent_workflow_stage_b_calibration_authorized_runner.py`
 - `scripts/forge_agent_workflow_stage_b_calibration_result.py`
+- `scripts/forge_agent_workflow_stage_b_phase5_v5_remediation_authorized_protocol.py`
+- `scripts/forge_agent_workflow_stage_b_phase5_v5_remediation_authorized_runner.py`
 
 Phase 1-3 回归测试使用假 `BaseChatModel` 和本地临时 Session，不调用真实 provider 或 Docker：
 
