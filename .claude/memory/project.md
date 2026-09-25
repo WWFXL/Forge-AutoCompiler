@@ -106,7 +106,7 @@
 <!-- 倒序，最新在上。 -->
 
 - 2026-09-25 — 审计 Phase 5 v2 结果并隔离 evaluator 系统 oracle 权限
-  - GitHub: 创建并回读中文 Issue #299；从 `main@5ed549ea` 建立 `fix/phase5-v2-evaluator-audit`。设计与计划位于 `docs/superpowers/`。
+  - GitHub: 创建并回读中文 Issue #299；从 `main@5ed549ea` 建立 `fix/phase5-v2-evaluator-audit`，实现提交 `ffcb7468` 已推送，中文 PR #300 已创建并回读，关联关闭 #299/#297 并保留 #291 跟踪后续阶段。设计与计划位于 `docs/superpowers/`。
   - 审计: 原始 batch 已执行闭合，generated/submitted/strict/bitwise=`6/5/1/2`，总 recorded tokens 为 `918179`；描述性分类固定为 1 项可靠成功、2 项工作流失败、3 项 evaluator 缺陷导致不可判定。Stage C 继续阻断，当前 batch 禁止重跑、retry、replacement 和 backfill。
   - 修复: 新增 external evaluator v3，以 opaque 内部 authority 让系统 functional oracle 跳过 Agent post-build 次数门禁，同时保留 `/repro`、严格 shell、命令记录与其他 policy；Agent 工具 schema 和默认门禁不变。未来 experiment ledger 按宿主 UID/GID 规范化，通用 evidence tree 遍历不跟随符号链接。
   - 冻结边界: evaluator v1/v2、Phase 5 v2 authorized runner、原始报告与 Stage C decision SHA-256 均未变化；`.compile-sessions` evidence 未修改。正式 JSON/Markdown 审计报告写入 `benchmarks/reports/`，CLI 只输出紧凑摘要。
