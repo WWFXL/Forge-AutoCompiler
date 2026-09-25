@@ -1,6 +1,6 @@
 # Phase 5 v2 资格门禁与 executable oracle 实施计划
 
-日期：2026-09-25。设计：`../specs/2026-09-25-phase5-v2-qualification-oracle-design.md`。追踪：Issue #294。状态：**产品实现与非 Docker 回归完成，等待 PR、人工 qualification 和 v2 candidate 冻结**。
+日期：2026-09-25。设计：`../specs/2026-09-25-phase5-v2-qualification-oracle-design.md`。追踪：Issue #294、Issue #291。状态：**未授权 v2 candidate 已冻结、通过完整回归并发布为 PR #296**。
 
 ## 1. 交付顺序
 
@@ -13,10 +13,13 @@
 - [x] 更新 Runtime 文档并运行快速定向测试与 Ruff。
 - [x] 实现 Phase 5 v2 exact-commit qualification plan/protocol/runner。
 - [x] 运行全部非 Docker 定向测试和确定性 identity 校验。
-- [ ] 更新项目状态快照，提交并创建 PR。
-- [ ] 使用人工 qualification result 冻结 Phase 5 v2 candidate identity 与正式 runner。
-- [ ] 将耗时 Docker qualification 与完整回归命令交给用户运行。
-- [ ] 根据用户返回结果修复问题或冻结 qualification，再单独设计授权修订。
+- [x] 更新项目状态快照，提交并创建产品合同与 qualification PR #295。
+- [x] 完成人工 Docker qualification，并验证 0 Provider、0 formal attempt 与 0 orphan。
+- [x] 使用 qualification result 冻结 Phase 5 v2 candidate identity、Schema 与未授权 runner。
+- [x] 运行 v2 candidate 定向测试并更新项目状态快照。
+- [x] 运行标准后端完整回归与 lint，修复本地 root-owned cache 环境问题。
+- [x] 提交、推送并创建独立 PR #296。
+- [ ] candidate 合并后单独设计 authorized amendment；在此之前保持 0 Provider、0 formal attempt。
 
 ## 2. 产品合同实现
 
