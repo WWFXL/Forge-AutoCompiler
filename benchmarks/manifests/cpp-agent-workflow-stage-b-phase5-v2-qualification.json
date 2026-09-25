@@ -1,0 +1,84 @@
+{
+  "$schema": "../schemas/forge-agent-workflow-stage-b-phase5-v2-qualification.schema.json",
+  "authorization": {
+    "credential_read_authorized": false,
+    "docker_qualification_execution_owner": "user",
+    "formal_attempts_authorized": false,
+    "formal_evidence_write_authorized": false,
+    "model_creation_authorized": false,
+    "provider_calls_authorized": false
+  },
+  "document_type": "forge_agent_workflow_stage_b_phase5_v2_qualification",
+  "environment": {
+    "compile_image": "autocompiler:gcc13",
+    "image_id": "sha256:d27a6ab733c7c3a9cbb5e4b32fb595aa5a422ff04bd212888d1041b90a2c4c2a",
+    "parallel_jobs": 4
+  },
+  "frozen_components": {
+    "backend/packages/harness/deerflow/compile/external_evaluator_v2.py": "19044e161b321fe5afed8458c0138f1bcfbe41582af2d5f4efcdf6846c3d579b",
+    "backend/packages/harness/deerflow/compile/operations.py": "30686cfaaaf84c63cfb55ad3def77f47862401e5b0cc38631aa6fb489c87306d",
+    "backend/packages/harness/deerflow/compile/schemas.py": "9156ffa771e983c2cc1bb5fa308bb30f699c7f6cda76f60b5a70a33239938b51",
+    "docs/superpowers/specs/2026-09-25-phase5-v2-qualification-oracle-design.md": "1692257c5fac757320336bc677063e1d64602bfccd92dde9eaecfc8977c0e733",
+    "scripts/forge_agent_workflow_stage_b_phase5_v2_qualification_protocol.py": "b4a9a9eb483d632afc5ca74a55b7f051c5eca4c7628efd3707c74ef81d447d1d",
+    "scripts/forge_agent_workflow_stage_b_phase5_v2_qualification_runner.py": "d5df3dfe545121b44c91aa663acd3b710a4720917c6924830110c844bf6baaf7"
+  },
+  "issue_url": "https://github.com/WWFXL/Forge-AutoCompiler/issues/294",
+  "parent_manifest": {
+    "canonical_sha256": "303b41c0ee95c4732eb9388a39176789064e131c19217632175fa19e1526434f",
+    "path": "benchmarks/manifests/cpp-agent-workflow-stage-b-calibration-candidate.json"
+  },
+  "purpose": "offline_exact_commit_build_system_qualification",
+  "requirements": {
+    "cleanup_each_task": true,
+    "exact_commit_checkout": true,
+    "forge_build_system_probe": "inspect_build_system_impl",
+    "freeze_capabilities_and_selection": true,
+    "output_outside_formal_evidence": true,
+    "zero_managed_orphans_before_and_after": true
+  },
+  "schema_version": "forge-agent-workflow-stage-b-phase5-v2-qualification-1.0.0",
+  "status": "awaiting_manual_execution",
+  "stopped_phase5_report": {
+    "historical_evidence_reused": false,
+    "path": "benchmarks/reports/cpp-agent-workflow-stage-b-calibration-failed.json",
+    "sha256": "00d2463d3bfc4da9ca59c4b23f3eb0d9dba57144cffbe680ca4c808ced1f565e"
+  },
+  "tasks": [
+    {
+      "commit_sha": "9365ddc7061033df656578bf86040048b5b5531a",
+      "historical_build_system_label": "cmake",
+      "repository_url": "https://github.com/ibireme/yyjson.git",
+      "task_id": "yyjson"
+    },
+    {
+      "commit_sha": "531b3d753d2bbfe3b0ababe61c2e95e965c54a66",
+      "historical_build_system_label": "cmake",
+      "repository_url": "https://github.com/ryanhaining/cppitertools.git",
+      "task_id": "cppitertools"
+    },
+    {
+      "commit_sha": "4a2615fac570c6ca1ed4f157b9fdab9466edfd80",
+      "historical_build_system_label": "make",
+      "repository_url": "https://github.com/cisco/openh264.git",
+      "task_id": "openh264"
+    },
+    {
+      "commit_sha": "fe7c01a477b688a7743f754fee33bdd78d52ad91",
+      "historical_build_system_label": "make",
+      "repository_url": "https://github.com/uNetworking/uWebSockets.git",
+      "task_id": "uwebsockets"
+    },
+    {
+      "commit_sha": "589b5887d47736e5b70a1fddaf9bf90297adde65",
+      "historical_build_system_label": "autotools",
+      "repository_url": "https://github.com/c-ares/c-ares.git",
+      "task_id": "c-ares"
+    },
+    {
+      "commit_sha": "f9fd3d20dff1cd84b7c74c8ae7f79711ad7736fa",
+      "historical_build_system_label": "autotools",
+      "repository_url": "https://github.com/libass/libass.git",
+      "task_id": "libass"
+    }
+  ]
+}

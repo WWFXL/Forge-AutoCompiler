@@ -34,6 +34,19 @@ from deerflow.compile.external_evaluator import (
     FunctionalOracleSpec,
     adjudicate_external_evaluations_v1,
 )
+from deerflow.compile.external_evaluator_v2 import (
+    EXTERNAL_EVALUATOR_VERSION as EXTERNAL_EVALUATOR_V2_VERSION,
+)
+from deerflow.compile.external_evaluator_v2 import (
+    ExternalEvaluatorRunner as ExternalEvaluatorRunnerV2,
+)
+from deerflow.compile.external_evaluator_v2 import (
+    ForgeCompileEvaluationBackend as ForgeCompileEvaluationBackendV2,
+)
+from deerflow.compile.external_evaluator_v2 import (
+    FunctionalOracleExecution as FunctionalOracleExecutionV2,
+)
+from deerflow.compile.operations import SuccessfulCommandVerification
 from deerflow.compile.schemas import (
     BuildArtifact,
     BuildCommandRecord,
@@ -527,6 +540,51 @@ def test_forge_backend_rejects_oracle_registry_identity_mismatch() -> None:
         ForgeCompileEvaluationBackend(oracle_registry={"oracle-b": spec})
 
 
+def test_forge_backend_binds_single_executable_target_to_successful_oracle() -> None:
+    session = CompileSession(
+        session_id="session-server",
+        thread_id="thread-server",
+        repo_url="https://example.com/server.git",
+        branch=None,
+        image="autocompiler:gcc13",
+        status="inspected",
+        commit_sha=COMMIT_SHA,
+    )
+    node_input = replace(
+        make_node_input(session),
+        target_contract=AgentWorkflowTargetContract(
+            target_id="server",
+            artifact_types=("executable",),
+            artifact_path_patterns=("server",),
+            functional_oracle_ref="oracle-server-v1",
+        ),
+    )
+    candidate = replace(
+        make_candidate(),
+        artifact_paths=("server",),
+        target_mapping={"server": "server"},
+    )
+    command = SuccessfulCommandVerification(
+        command_id="command-smoke",
+        command="./server",
+        workdir="/artifacts",
+        exit_code=0,
+        output="",
+        output_sha256=hashlib.sha256(b"").hexdigest(),
+    )
+    oracle = FunctionalOracleExecutionV2(
+        layer=ExternalEvaluatorLayerResult(layer="S3", status="passed", reason_codes=("functional_oracle_passed",)),
+        verification_command_ids=(command.command_id,),
+        successful_commands=(command,),
+    )
+
+    policy = ForgeCompileEvaluationBackendV2._executable_verification_policy(candidate, node_input, oracle)
+
+    assert policy is not None
+    assert policy.mode == "successful_command_v1"
+    assert policy.commands_by_artifact == {"server": command}
+
+
 def test_s2_rejects_undeclared_artifacts_and_target_contract_drift(tmp_path: Path) -> None:
     session = make_session(tmp_path)
     session.artifacts = [
@@ -551,6 +609,49 @@ def test_s2_rejects_undeclared_artifacts_and_target_contract_drift(tmp_path: Pat
 
     assert layer.status == "failed"
     assert layer.reason_codes == ("candidate_artifact_set_mismatch", "target_mapping_invalid")
+
+
+def test_s2_allows_undeclared_support_files_in_delivery_manifest(tmp_path: Path) -> None:
+    session = make_session(tmp_path)
+    session.artifacts = [
+        BuildArtifact(
+            path="artifacts/lib/libfmt.a",
+            source_path="/artifacts/lib/libfmt.a",
+            artifact_type="static_library",
+            size_bytes=7,
+            sha256=SHA256_A,
+        ),
+        BuildArtifact(
+            path="artifacts/include/fmt/format.h",
+            source_path="/artifacts/include/fmt/format.h",
+            artifact_type="support_file",
+            size_bytes=5,
+            sha256=SHA256_B,
+        ),
+    ]
+
+    layer = ForgeCompileEvaluationBackendV2._evaluate_s2(make_candidate(), make_node_input(session), session, {"candidate_status": "passed"})
+
+    assert layer.status == "passed"
+    assert layer.reason_codes == ("candidate_artifacts_valid",)
+
+
+def test_external_evaluator_v2_records_distinct_rules_identity(tmp_path: Path) -> None:
+    runner, session, candidate_path = prepare_runner(tmp_path, backend=FakeBackend(bitwise=True))
+    v2_runner = ExternalEvaluatorRunnerV2(
+        node_input=runner.node_input,
+        node_result=runner.node_result,
+        session=session,
+        manager=runner.manager,
+        candidate_path=candidate_path,
+        evaluation_id="evaluation-v2",
+        backend=runner.backend,
+    )
+
+    result = v2_runner.run()
+
+    assert result.evaluator_version == EXTERNAL_EVALUATOR_V2_VERSION
+    assert result.evaluator_version != EXTERNAL_EVALUATOR_VERSION
 
 
 def make_evaluation_result(task_id: str, *, evaluation_id: str, commit_sha: str = COMMIT_SHA, build_system: str = "cmake") -> ExternalEvaluationResult:

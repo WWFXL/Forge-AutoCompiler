@@ -6,6 +6,14 @@
 
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
+- 2026-09-25 — 实现 Issue #294 Phase 5 v2 资格门禁与显式 executable oracle
+  - GitHub: Issue #294 已创建并回读；分支为 `feat/phase5-v2-qualification-oracle`，基线为 `main@bc176d4b`。
+  - 实现: Runtime v7 增加版本化 `successful_command_v1` policy，固定 executable oracle 的 command/workdir/result 并在 clean replay 复验；新增独立 evaluator v2，允许 delivery manifest 含未逐项声明的 support files但继续拒绝额外 compiled artifacts；evaluator v1 保持冻结 SHA-256 `c4ac897d...94c61`。
+  - 资格门禁: 新 qualification plan/protocol/runner 对六项目执行 exact-commit checkout、Forge build-system capability 探测与逐项目 cleanup，固定 0 Provider/0 formal attempt 和 0 orphan；plan canonical SHA-256 为 `5f06941f19183117ba542099f0b3e9deb2c15d53798ef175812b5398d9769070`。
+  - 验证: `test_compile_runtime.py`、`test_external_evaluator.py` 与 qualification 测试共 `167 passed`；Ruff、确定性 plan 校验、diff check 和旧 Phase 5 authorized identity 回归通过。未运行 Docker qualification、Docker replay 集成门禁或全量 backend。
+  - 下一步: 提交、推送并创建中文 PR；合并到 main 后由用户运行六项目 Docker qualification，返回 result SHA-256 后再冻结新 Phase 5 v2 candidate identity，不续跑旧 batch。
+  - 文件: `backend/packages/harness/deerflow/compile/operations.py`, `backend/packages/harness/deerflow/compile/schemas.py`, `backend/packages/harness/deerflow/compile/external_evaluator_v2.py`, `scripts/forge_agent_workflow_stage_b_phase5_v2_qualification_protocol.py`, `scripts/forge_agent_workflow_stage_b_phase5_v2_qualification_runner.py`, `benchmarks/manifests/cpp-agent-workflow-stage-b-phase5-v2-qualification.json`, `docs/compile_runtime_v7.md`
+
 - 2026-09-20 — 修复 Issue #279 编译终态 Todo 并发更新与流式负载
   - GitHub: 中文 Issue #279 已创建并回读；分支为 `fix/issue-279-todo-concurrency`，基线为 `main@d5b3073d`。Spec/Plan 位于 `docs/superpowers/`。
   - 根因: Lead Agent 同轮调用 `write_todos` 与 `finalize_session` 时，Todo 工具和 `CompileTerminationMiddleware.wrap_tool_call` 在同一 graph step 写入两份完整 `LastValue` Todo 快照，触发 `INVALID_CONCURRENT_GRAPH_UPDATE`；普通聊天还无条件注册 `onLangChainEvent`，让 SDK 加入高体积 `events`，事故运行首次和重连流各约 10.7 MB。
