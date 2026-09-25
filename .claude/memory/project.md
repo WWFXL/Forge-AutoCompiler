@@ -6,6 +6,14 @@
 
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
+- 2026-09-25 — 开始 Issue #289 单 Agent Workflow Node v1 Phase 5 六项目内部校准
+  - GitHub: Phase 4 PR #288 已 squash 合并到 `main@5129cccf`，Issue #287 已关闭；Phase 5 中文 Issue #289 已创建并回读，分支为 `research/289-agent-workflow-phase5-calibration`。
+  - 候选: 冻结 Stage B 六项目 exact commit、target/oracle、固定顺序、DeepSeek `deepseek-flash` 候选、预算、独立 evidence 根和停止规则；所有 provider、credential、Docker、evidence 与 formal attempt 授权为 false，model token 为 0，真实执行等待候选合并后派生 authorized amendment。
+  - 历史审计: 最小只读 fixture 绑定 CXXCrafter 综合裁决 SHA-256 `7e724e5a...c1c7e`，独立复算 generated `6/6`、submitted `4/6`、strict `6/6`、bitwise `5/6`，仅 uwebsockets 使用 v3 定向修订；历史 outcome 不导入 Phase 5 结果。
+  - 通用接线: 节点任务消息现在包含冻结 target、oracle 引用、operation policy 和 initial observation；项目差异仍只来自输入合同，不写入公共 Compiler prompt。
+  - 当前验证: manifest canonical SHA-256 为 `303b41c0...434f`；协议 validate/audit/preflight 通过，聚焦回归 `27 passed`，Phase 1-5 扩大回归 `221 passed, 9 skipped`，产品测试 `1715 passed, 38 skipped`，完整 Ruff check/format（377 files）通过。阶段内 0 provider、0 credential read、0 Docker、0 formal attempt、0 model token、0 evidence write。
+  - 文件: `scripts/forge_agent_workflow_stage_b_calibration_protocol.py`, `scripts/forge_agent_workflow_stage_b_calibration_runner.py`, `benchmarks/manifests/cpp-agent-workflow-stage-b-calibration-candidate.json`, `benchmarks/schemas/forge-agent-workflow-stage-b-calibration-candidate.schema.json`, `benchmarks/fixtures/cxxcrafter-stage-b-adjudication-v1.json`, `benchmarks/preregistrations/cpp-agent-workflow-stage-b-calibration-candidate.md`, `backend/tests/test_agent_workflow_stage_b_calibration.py`, `backend/packages/harness/deerflow/compile/agent_workflow_runtime.py`
+
 - 2026-09-20 — 修复 Issue #279 编译终态 Todo 并发更新与流式负载
   - GitHub: 中文 Issue #279 已创建并回读；分支为 `fix/issue-279-todo-concurrency`，基线为 `main@d5b3073d`。Spec/Plan 位于 `docs/superpowers/`。
   - 根因: Lead Agent 同轮调用 `write_todos` 与 `finalize_session` 时，Todo 工具和 `CompileTerminationMiddleware.wrap_tool_call` 在同一 graph step 写入两份完整 `LastValue` Todo 快照，触发 `INVALID_CONCURRENT_GRAPH_UPDATE`；普通聊天还无条件注册 `onLangChainEvent`，让 SDK 加入高体积 `events`，事故运行首次和重连流各约 10.7 MB。
@@ -106,7 +114,7 @@
 <!-- 倒序，最新在上。 -->
 
 - 2026-09-24 — 完成 Issue #287 单 Agent Workflow Node v1 的 Phase 4 零 Provider Docker 门禁
-  - GitHub: Phase 3 PR #286 已 squash 合并到 `main@c7e3fa3e`；Phase 4 分支为 `research/287-agent-workflow-phase4`，基线为该提交。
+  - GitHub: Phase 3 PR #286 已 squash 合并到 `main@c7e3fa3e`；Phase 4 PR #288 已 squash 合并到 `main@5129cccf`，Issue #287 已关闭。
   - 实现: 新增 opt-in Docker 集成门禁，以本地临时 Git daemon 提供 exact-commit CMake、Make、Autotools fixture，并用确定性 fake `BaseChatModel` 驱动真实 Compile Session、command evidence、候选提交、S0-S5 evaluator、功能 oracle、clean replay、finalize 和 cleanup。
   - 故障: 覆盖 no-submit、功能保持但 size/SHA-256 不一致的 replay、evaluator exception、cancel、timeout 和 cleanup failure/retry；显式禁用 provider model factory，并在门禁前后断言 managed container、paused parent 和 managed image 均为 0。
   - 验证: Phase 4 Docker 门禁 `9 passed in 78.76s`；Phase 1-4 聚焦回归 `82 passed, 9 skipped`；CI 对齐产品测试 `1707 passed, 38 skipped`；完整 Ruff check/format（376 files）通过。全程未激活实验 policy、未读取 provider credential、未创建正式 experiment attempt/evidence。

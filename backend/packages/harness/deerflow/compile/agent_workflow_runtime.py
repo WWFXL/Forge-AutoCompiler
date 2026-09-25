@@ -736,10 +736,26 @@ class AgentWorkflowNodeRunner:
         )
 
     def _task_prompt(self) -> str:
+        target = self.node_input.target_contract
+        initial_observation = json.loads(self.node_input.canonical_json())["initial_observation"]
+        contract = json.dumps(
+            {
+                "artifact_path_patterns": list(target.artifact_path_patterns),
+                "artifact_types": list(target.artifact_types),
+                "functional_oracle_ref": target.functional_oracle_ref,
+                "initial_observation": initial_observation,
+                "operation_policy_ref": self.node_input.operation_policy_ref,
+                "target_id": target.target_id,
+            },
+            ensure_ascii=False,
+            sort_keys=True,
+            separators=(",", ":"),
+        )
         return (
             f"执行 task {self.node_input.task_id} 的有界构建节点。"
             f"session_id={self.session.session_id}，commit={self.node_input.commit_sha}，"
             f"build_system_candidates={','.join(self.node_input.build_system_candidates)}。"
+            f"冻结任务合同={contract}。"
             "使用绑定工具构建或修复，并通过 submit_candidate_v1 冻结候选。"
         )
 

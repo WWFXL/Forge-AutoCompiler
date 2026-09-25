@@ -1,5 +1,29 @@
 # Forge C/C++ benchmark protocols
 
+## Agent Workflow Node Stage B calibration candidate
+
+Issue #289 freezes an unauthorized Phase 5 engineering-calibration candidate
+for `yyjson`, `cppitertools`, `openh264`, `uwebsockets`, `c-ares`, and `libass`.
+The manifest keeps generated, submitted, strict S0-S5, and bitwise outcomes as
+separate layers and binds the corrected uwebsockets `./HelloWorld` evaluator
+semantics. Historical CXXCrafter outcomes are available only through a minimal
+read-only audit fixture and are never imported as Forge outcomes.
+
+The candidate authorizes no provider request, credential read, model creation,
+Docker execution, formal attempt, evidence write, or model token. Validate it
+without external work using:
+
+```bash
+cd backend
+UV_CACHE_DIR=/tmp/forge-phase5-uv-cache uv run python \
+  ../scripts/forge_agent_workflow_stage_b_calibration_protocol.py validate
+UV_CACHE_DIR=/tmp/forge-phase5-uv-cache uv run python \
+  ../scripts/forge_agent_workflow_stage_b_calibration_runner.py preflight
+```
+
+`reachability` and `batch` remain hard-blocked until a reviewed authorized
+amendment freezes the merged release revision and complete Docker image ID.
+
 ## Formal v4 bounded diagnostics and canary amendment
 
 Issue #115 preserves the consumed formal v4 canary failure and authorizes a
