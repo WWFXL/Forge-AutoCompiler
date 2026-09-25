@@ -105,11 +105,11 @@ Lead Agent
 1. `exists`：文件存在
 2. `non_empty`：size > 0
 3. 结构：识别有效 ELF executable/shared library/object 或有效 `ar` static archive；其他安全普通文件作为 `support_file` 进入 manifest，但不能单独通过
-4. 若是可执行：smoke test 依次尝试 `-version` / `--version` / `--help`，任一退出 0 即通过
+4. 若是可执行：默认 smoke test 依次尝试 `-version` / `--version` / `--help`；受信 evaluator 可通过版本化 policy 把单目标 executable 绑定到本 Session 已成功的显式 functional oracle
 5. `repro_bundle`：必须能从远端 `repo_url` 检出完整 `commit_sha`，并只安全渲染 Compiler 显式选择的 recipe 步骤
 6. `clean_replay`：使用原容器记录的完整 `image_id`，在唯一 attempt 的空 workspace/artifacts 中执行候选脚本，并比较产物集合、类型、大小、SHA-256 和 smoke 结果
 
-两层检查全部通过 → session 状态 `verified`。`repro/build.sh` 只回放显式 recipe 中通过校验的 `dependency/configure/build/artifact_stage` 命令；可选 `repro/verify.sh` 只回放显式选择的成功 `smoke` 命令。完整命令审计与 replay 配方彼此分离。cleanup/finalize 成功后才进入 `completed`。当前工程契约见 [`docs/compile_runtime_v4.md`](docs/compile_runtime_v4.md)；Runtime v2/v3 是历史只读身份。
+两层检查全部通过 → session 状态 `verified`。`repro/build.sh` 只回放显式 recipe 中通过校验的 `dependency/configure/build/artifact_stage` 命令；可选 `repro/verify.sh` 只回放显式选择的成功 `smoke` 命令。完整命令审计与 replay 配方彼此分离。cleanup/finalize 成功后才进入 `completed`。当前工程契约见 [`docs/compile_runtime_v7.md`](docs/compile_runtime_v7.md)；更早 Runtime identity 与 evidence 保持只读。
 
 ### 4.3 会话目录布局（宿主机）
 
@@ -140,7 +140,7 @@ $HOST_PROJECT_ROOT/.compile-sessions/{thread_id}/{session_id}/
 - **`HOST_PROJECT_ROOT` 必须设置**：`CompileDockerRuntime._host_project_root()` 在缺失时会抛错
 - **Docker 模式必须传递成对的宿主 UID/GID**：`scripts/docker-runtime.sh` 默认用 `id -u`/`id -g` 设置 `FORGE_HOST_UID`/`FORGE_HOST_GID`；终态只规范化当前 Session 树，不跟随符号链接，并清除 other 权限
 - **容器 network 固定 `compile_network_wwf_v1`**：若改名需同步 `RuntimeConfig.network`
-- **smoke test 仅尝试 3 个旗标**：不要随便加，会污染验证语义
+- **默认 smoke test 仅尝试 3 个旗标**：受信 evaluator 的显式 policy 可绑定已成功的 functional oracle；其他调用方不得增加隐式探测
 - **replay 固定完整 commit**：只接受 40/64 位十六进制 SHA 与不含持久凭据的远端 URL
 - **同 run 单活动 session**：相同 repo/branch/image 的重复 prepare 复用原 session/container；不同请求明确冲突
 - **严格 Shell 不可关闭**：`run_container_bash` 强制 `set -euo pipefail`，并拒绝显式关闭 `errexit`、`nounset` 或 `pipefail`

@@ -9,10 +9,12 @@ import struct
 import subprocess
 import time
 import uuid
+from collections.abc import Mapping
 from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path, PurePosixPath
 from shlex import quote, shlex, split
+from types import MappingProxyType
 from typing import BinaryIO
 from urllib.parse import urlsplit
 
@@ -84,6 +86,7 @@ _WSL_HOST_PATH_RE = re.compile(r"(?i)(?<![A-Za-z0-9_])/mnt/[A-Z](?:/|$)")
 _REPLAY_SMOKE_TIMEOUT_SECONDS = 30
 _REPLAY_CONTAINER_CREATE_TIMEOUT_SECONDS = 30
 _MAX_PERSISTED_SMOKE_OUTPUT = 4000
+EXECUTABLE_VERIFICATION_POLICY_SCHEMA_VERSION = "forge-executable-verification-policy-1.0.0"
 _DETERMINISTIC_REPLAY_FAILURES = {
     "artifact_set_mismatch",
     "recipe_execution_failed",
@@ -93,6 +96,80 @@ _DETERMINISTIC_REPLAY_FAILURES = {
     "type_mismatch",
     "verification_execution_failed",
 }
+
+
+@dataclass(frozen=True)
+class SuccessfulCommandVerification:
+    command_id: str
+    command: str
+    workdir: str
+    exit_code: int
+    output: str
+    output_sha256: str
+
+
+@dataclass(frozen=True)
+class ExecutableVerificationPolicy:
+    mode: str
+    commands_by_artifact: Mapping[str, SuccessfulCommandVerification]
+    schema_version: str = EXECUTABLE_VERIFICATION_POLICY_SCHEMA_VERSION
+
+    def __post_init__(self) -> None:
+        object.__setattr__(self, "commands_by_artifact", MappingProxyType(dict(self.commands_by_artifact)))
+
+    @classmethod
+    def successful_commands(cls, commands_by_artifact: Mapping[str, SuccessfulCommandVerification]) -> ExecutableVerificationPolicy:
+        return cls(mode="successful_command_v1", commands_by_artifact=commands_by_artifact)
+
+    def validate(self) -> None:
+        if self.schema_version != EXECUTABLE_VERIFICATION_POLICY_SCHEMA_VERSION:
+            raise ValueError("Unsupported executable verification policy schema version.")
+        if self.mode != "successful_command_v1" or not self.commands_by_artifact:
+            raise ValueError("Executable verification policy must contain successful command bindings.")
+        for artifact_path, evidence in self.commands_by_artifact.items():
+            path = PurePosixPath(artifact_path)
+            if not artifact_path or path.is_absolute() or ".." in path.parts or path.as_posix() != artifact_path:
+                raise ValueError("Executable verification artifact paths must be safe relative paths.")
+            if not evidence.command_id or not evidence.command or not evidence.workdir:
+                raise ValueError("Executable verification command evidence is incomplete.")
+            if evidence.exit_code != 0 or evidence.output_sha256 != _sha256_text(evidence.output):
+                raise ValueError("Executable verification command evidence must describe a successful intact result.")
+
+
+def _successful_command_for_artifact(
+    *,
+    session: CompileSession,
+    supporting_command_id: str,
+    artifact_path: str,
+    policy: ExecutableVerificationPolicy,
+) -> SuccessfulCommandVerification | None:
+    evidence = policy.commands_by_artifact.get(artifact_path)
+    if evidence is None:
+        return None
+    matching = [(index, command) for index, command in enumerate(session.commands) if command.command_id == evidence.command_id]
+    supporting_positions = [index for index, command in enumerate(session.commands) if command.command_id == supporting_command_id]
+    if len(matching) != 1 or len(supporting_positions) != 1:
+        return None
+    position, command = matching[0]
+    if (
+        position <= supporting_positions[0]
+        or command.role != "smoke"
+        or command.completed_at is None
+        or command.timed_out
+        or command.exit_code != 0
+        or command.command != evidence.command
+        or command.workdir != evidence.workdir
+        or command.exit_code != evidence.exit_code
+    ):
+        return None
+    try:
+        _validate_replay_workdir(command.workdir)
+        _validate_replay_command(session, command.command)
+    except ValueError:
+        return None
+    return evidence
+
+
 _HOUSEKEEPING_BUILD_TARGETS = {
     "clean",
     "distclean",
@@ -575,6 +652,7 @@ def clone_repository_impl(
     session: CompileSession,
     repo_url: str,
     branch: str | None = None,
+    commit_sha: str | None = None,
     depth: int = 1,
     max_retries: int = 2,
 ) -> tuple[CommandResult, str]:
@@ -583,7 +661,12 @@ def clone_repository_impl(
     repo_dir = Path(session.leadagent_repo_dir)
     effective_branch = branch if branch is not None else session.branch
     active = get_active_experiment(session.thread_id)
-    expected_commit_sha = active.policy.expected_commit_sha if active is not None else None
+    policy_commit_sha = active.policy.expected_commit_sha if active is not None else None
+    if commit_sha is not None and not re.fullmatch(r"[0-9a-f]{40}|[0-9a-f]{64}", commit_sha):
+        raise ValueError("commit_sha must be a lowercase 40- or 64-character hexadecimal digest")
+    if policy_commit_sha is not None and commit_sha is not None and policy_commit_sha != commit_sha:
+        raise EvidenceError("Explicit commit does not match the active benchmark policy")
+    expected_commit_sha = policy_commit_sha or commit_sha
     if active is not None and repo_url.rstrip("/") != active.policy.expected_repo_url.rstrip("/"):
         raise EvidenceError("Clone repository does not match the active benchmark case")
     session.repo_url = repo_url
@@ -1189,6 +1272,8 @@ def _artifact_evidence_snapshot(artifacts: list[BuildArtifact]) -> list[dict]:
                 "artifact_type": artifact.artifact_type,
                 "size_bytes": artifact.size_bytes,
                 "sha256": artifact.sha256,
+                "smoke_command": artifact.smoke_command,
+                "smoke_workdir": artifact.smoke_workdir,
                 "smoke_exit_code": artifact.smoke_exit_code,
                 "smoke_output_sha256": artifact.smoke_output_sha256,
             }
@@ -1219,6 +1304,10 @@ def _replay_artifact_evidence_snapshot(
             "actual_size_bytes": artifact.actual_size_bytes,
             "expected_sha256": artifact.expected_sha256,
             "actual_sha256": artifact.actual_sha256,
+            "expected_smoke_command": artifact.expected_smoke_command,
+            "actual_smoke_command": artifact.actual_smoke_command,
+            "expected_smoke_workdir": artifact.expected_smoke_workdir,
+            "actual_smoke_workdir": artifact.actual_smoke_workdir,
             "expected_smoke_exit_code": artifact.expected_smoke_exit_code,
             "actual_smoke_exit_code": artifact.actual_smoke_exit_code,
             "expected_smoke_output_sha256": artifact.expected_smoke_output_sha256,
@@ -1645,7 +1734,22 @@ def submit_build_result_impl(
     supporting_command_id: str,
     recipe_command_ids: list[str],
     verification_command_ids: list[str],
+    executable_verification_policy: ExecutableVerificationPolicy | None = None,
 ) -> str:
+    if executable_verification_policy is not None:
+        executable_verification_policy.validate()
+    executable_policy_identity = (
+        {
+            "schema_version": executable_verification_policy.schema_version,
+            "mode": executable_verification_policy.mode,
+            "bindings": {
+                artifact_path: evidence.command_id
+                for artifact_path, evidence in sorted(executable_verification_policy.commands_by_artifact.items())
+            },
+        }
+        if executable_verification_policy is not None
+        else None
+    )
     enforce_experiment_attempt_budget(
         session.thread_id,
         "before_submit_or_replay",
@@ -1694,6 +1798,7 @@ def submit_build_result_impl(
         supporting_command_id=supporting_command_id,
         recipe_command_ids=recipe_command_ids,
         verification_command_ids=verification_command_ids,
+        executable_verification_policy=executable_policy_identity,
     )
     record_experiment_event(
         session.thread_id,
@@ -1702,6 +1807,7 @@ def submit_build_result_impl(
         supporting_command_id=supporting_command_id,
         recipe_command_ids=recipe_command_ids,
         verification_command_ids=verification_command_ids,
+        executable_verification_policy=executable_policy_identity,
         session_id=session.session_id,
         command_cutoff_before_delay=len(session.commands),
     )
@@ -1714,6 +1820,7 @@ def submit_build_result_impl(
     checks: list[VerificationCheck] = []
     artifacts: list[BuildArtifact] = []
     notes: list[str] = []
+    executable_artifact_paths: set[str] = set()
 
     if not constraints_passed:
         message = "Error: Verification failed. Benchmark launch constraints were not completely observed."
@@ -1768,24 +1875,51 @@ def submit_build_result_impl(
 
             artifact_sha256 = _sha256_file(candidate_path)
             smoke_command_used: str | None = None
+            smoke_workdir_used: str | None = None
             smoke_result_used: CommandResult | None = None
+            smoke_output_used: str | None = None
+            smoke_output_sha256_used: str | None = None
             if artifact_type == "executable":
-                smoke_passed = False
-                for smoke_command in (
-                    f"{shell_quote(container_candidate)} -version",
-                    f"{shell_quote(container_candidate)} --version",
-                    f"{shell_quote(container_candidate)} --help",
-                ):
-                    smoke_result = services.runtime.exec(
-                        session,
-                        smoke_command,
-                        workdir="/workspace",
+                executable_artifact_paths.add(rel_posix)
+                if executable_verification_policy is not None:
+                    evidence = _successful_command_for_artifact(
+                        session=session,
+                        supporting_command_id=supporting_command_id,
+                        artifact_path=rel_posix,
+                        policy=executable_verification_policy,
                     )
-                    if smoke_result.exit_code == 0:
-                        smoke_passed = True
-                        smoke_command_used = smoke_command
-                        smoke_result_used = smoke_result
-                        break
+                    smoke_passed = evidence is not None
+                    if evidence is not None:
+                        smoke_command_used = evidence.command
+                        smoke_workdir_used = evidence.workdir
+                        smoke_result_used = CommandResult(
+                            exit_code=evidence.exit_code,
+                            stdout=evidence.output,
+                            stderr="",
+                            combined_output=evidence.output,
+                        )
+                        smoke_output_used = _persisted_output(evidence.output)
+                        smoke_output_sha256_used = evidence.output_sha256
+                else:
+                    smoke_passed = False
+                    smoke_workdir_used = CONTAINER_WORKSPACE_DIR
+                    for smoke_command in (
+                        f"{shell_quote(container_candidate)} -version",
+                        f"{shell_quote(container_candidate)} --version",
+                        f"{shell_quote(container_candidate)} --help",
+                    ):
+                        smoke_result = services.runtime.exec(
+                            session,
+                            smoke_command,
+                            workdir=smoke_workdir_used,
+                        )
+                        if smoke_result.exit_code == 0:
+                            smoke_passed = True
+                            smoke_command_used = smoke_command
+                            smoke_result_used = smoke_result
+                            smoke_output_used = _persisted_output(smoke_result.combined_output)
+                            smoke_output_sha256_used = _sha256_text(smoke_result.combined_output)
+                            break
                 _record_submit_check(
                     checks=checks,
                     name=f"{candidate_path.name}_smoke_test",
@@ -1808,11 +1942,29 @@ def submit_build_result_impl(
                     source_path=container_candidate,
                     sha256=artifact_sha256,
                     smoke_command=smoke_command_used,
+                    smoke_workdir=smoke_workdir_used,
                     smoke_exit_code=smoke_result_used.exit_code if smoke_result_used else None,
-                    smoke_output=_persisted_output(smoke_result_used.combined_output) if smoke_result_used else None,
-                    smoke_output_sha256=_sha256_text(smoke_result_used.combined_output) if smoke_result_used else None,
+                    smoke_output=smoke_output_used,
+                    smoke_output_sha256=smoke_output_sha256_used,
                 )
             )
+
+    if executable_verification_policy is not None:
+        binding_paths = set(executable_verification_policy.commands_by_artifact)
+        bindings_match = binding_paths == executable_artifact_paths
+        _record_submit_check(
+            checks=checks,
+            name="executable_verification_bindings",
+            target="/artifacts",
+            passed=bindings_match,
+            summary=(
+                "Executable verification bindings match the delivered executable set."
+                if bindings_match
+                else "Error: Verification failed. Explicit executable verification bindings do not match the delivered executable set."
+            ),
+            expected=sorted(executable_artifact_paths),
+            actual=sorted(binding_paths),
+        )
 
     compiled_artifacts = [artifact for artifact in artifacts if artifact.artifact_type != "support_file"]
     if discovered_files and not compiled_artifacts:
@@ -1966,6 +2118,7 @@ def submit_build_result_impl(
         "supporting_command_id": supporting_command_id,
         "recipe_command_ids": recipe_command_ids,
         "verification_command_ids": verification_command_ids,
+        "executable_verification_policy": executable_policy_identity,
         "classification": recipe_error.classification if recipe_error is not None else None,
         "offending_command_id": recipe_error.offending_command_id if recipe_error is not None else None,
         "image_id": session.image_id,
@@ -1977,6 +2130,10 @@ def submit_build_result_impl(
                 "artifact_type": artifact.artifact_type,
                 "size_bytes": artifact.size_bytes,
                 "sha256": artifact.sha256,
+                "smoke_command": artifact.smoke_command,
+                "smoke_workdir": artifact.smoke_workdir,
+                "smoke_exit_code": artifact.smoke_exit_code,
+                "smoke_output_sha256": artifact.smoke_output_sha256,
             }
             for artifact in artifacts
         ],
@@ -2317,6 +2474,10 @@ def build_replay_recipe(
                 "artifact_type": artifact.artifact_type,
                 "size_bytes": artifact.size_bytes,
                 "sha256": artifact.sha256,
+                "smoke_command": artifact.smoke_command,
+                "smoke_workdir": artifact.smoke_workdir,
+                "smoke_exit_code": artifact.smoke_exit_code,
+                "smoke_output_sha256": artifact.smoke_output_sha256,
             }
             for artifact in sorted(session.artifacts, key=lambda item: item.path)
         ],
@@ -2529,6 +2690,7 @@ def _run_replay_smoke(
     services = get_compile_services()
     container_path = f"/artifacts/{relative_path}"
     expected_command = expected.smoke_command if expected else None
+    smoke_workdir = expected.smoke_workdir if expected and expected.smoke_workdir else CONTAINER_WORKSPACE_DIR
     smoke_commands = (
         (expected_command,)
         if expected_command
@@ -2549,7 +2711,7 @@ def _run_replay_smoke(
             session,
             handle,
             command=smoke_command,
-            workdir=CONTAINER_WORKSPACE_DIR,
+            workdir=smoke_workdir,
             timeout_seconds=timeout_seconds,
             log_path=str(log_path),
         )
@@ -2612,6 +2774,7 @@ def _compare_replay_artifacts(
         actual_size = actual_path.stat().st_size if actual_path else None
         actual_sha256 = _sha256_file(actual_path, deadline=deadline) if actual_path else None
         actual_smoke_command: str | None = None
+        actual_smoke_workdir: str | None = None
         actual_smoke_result: CommandResult | None = None
         if actual_path is not None and actual_type == "executable":
             smoke_log_path = replay_logs_dir / f"smoke_{artifact_index:03d}.log"
@@ -2623,6 +2786,7 @@ def _compare_replay_artifacts(
                 deadline=deadline,
                 log_path=smoke_log_path,
             )
+            actual_smoke_workdir = expected.smoke_workdir if expected and expected.smoke_workdir else CONTAINER_WORKSPACE_DIR
 
         type_matches = expected is not None and actual_path is not None and expected.artifact_type == actual_type
         size_matches = expected is not None and actual_path is not None and expected.size_bytes == actual_size
@@ -2632,7 +2796,14 @@ def _compare_replay_artifacts(
             actual_smoke_output = _persisted_output(actual_smoke_result.combined_output) if actual_smoke_result else None
             actual_smoke_output_sha256 = _sha256_text(actual_smoke_result.combined_output) if actual_smoke_result else None
             smoke_output_matches = expected.smoke_output_sha256 == actual_smoke_output_sha256 if expected.smoke_output_sha256 is not None else expected.smoke_output == actual_smoke_output
-            smoke_matches = actual_smoke_result is not None and expected.smoke_command == actual_smoke_command and expected.smoke_exit_code == actual_smoke_result.exit_code and smoke_output_matches
+            expected_smoke_workdir = expected.smoke_workdir or CONTAINER_WORKSPACE_DIR
+            smoke_matches = (
+                actual_smoke_result is not None
+                and expected.smoke_command == actual_smoke_command
+                and expected_smoke_workdir == actual_smoke_workdir
+                and expected.smoke_exit_code == actual_smoke_result.exit_code
+                and smoke_output_matches
+            )
         else:
             actual_smoke_output = _persisted_output(actual_smoke_result.combined_output) if actual_smoke_result else None
             actual_smoke_output_sha256 = _sha256_text(actual_smoke_result.combined_output) if actual_smoke_result else None
@@ -2662,6 +2833,8 @@ def _compare_replay_artifacts(
             actual_sha256=actual_sha256,
             expected_smoke_command=expected.smoke_command if expected else None,
             actual_smoke_command=actual_smoke_command,
+            expected_smoke_workdir=(expected.smoke_workdir or CONTAINER_WORKSPACE_DIR) if expected and expected.artifact_type == "executable" else None,
+            actual_smoke_workdir=actual_smoke_workdir,
             expected_smoke_exit_code=expected.smoke_exit_code if expected else None,
             actual_smoke_exit_code=actual_smoke_result.exit_code if actual_smoke_result else None,
             expected_smoke_output=expected.smoke_output if expected else None,
@@ -2684,12 +2857,14 @@ def _compare_replay_artifacts(
                 "smoke",
                 {
                     "command": comparison.expected_smoke_command,
+                    "workdir": comparison.expected_smoke_workdir,
                     "exit_code": comparison.expected_smoke_exit_code,
                     "output": comparison.expected_smoke_output,
                     "output_sha256": comparison.expected_smoke_output_sha256,
                 },
                 {
                     "command": comparison.actual_smoke_command,
+                    "workdir": comparison.actual_smoke_workdir,
                     "exit_code": comparison.actual_smoke_exit_code,
                     "output": comparison.actual_smoke_output,
                     "output_sha256": comparison.actual_smoke_output_sha256,

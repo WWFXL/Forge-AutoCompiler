@@ -14,7 +14,16 @@ from deerflow.compile import operations
 from deerflow.compile.docker_runtime import DEFAULT_NETWORK, CompileDockerRuntime, ContainerCleanupResult, ReplayContainerHandle, RuntimeConfig
 from deerflow.compile.evidence import ExperimentLedger, ExperimentPolicy, activate_experiment, deactivate_experiment, new_evidence_id
 from deerflow.compile.manager import CompileSessionManager
-from deerflow.compile.operations import CompileOperationsServices, _classify_compiled_artifact, _write_repro_bundle, clone_repository_impl, submit_build_result_impl, verify_clean_replay_impl
+from deerflow.compile.operations import (
+    CompileOperationsServices,
+    ExecutableVerificationPolicy,
+    SuccessfulCommandVerification,
+    _classify_compiled_artifact,
+    _write_repro_bundle,
+    clone_repository_impl,
+    submit_build_result_impl,
+    verify_clean_replay_impl,
+)
 from deerflow.compile.paths import (
     get_compile_sessions_root,
     get_host_replay_artifacts_dir,
@@ -30,7 +39,7 @@ from deerflow.compile.paths import (
     get_replay_workspace_dir,
     get_session_dir,
 )
-from deerflow.compile.schemas import BuildArtifact, BuildCommandRecord, CommandResult, CompileSession, ReplayArtifactComparison, ReplayVerificationResult, VerificationCheck, VerificationResult
+from deerflow.compile.schemas import BuildArtifact, BuildCommandRecord, CommandResult, CompileSession, ReplayArtifactComparison, ReplayVerificationResult, VerificationCheck, VerificationResult, utc_now_iso
 from deerflow.config.paths import Paths
 from deerflow.tools import bound_compile_tools
 
@@ -745,6 +754,7 @@ class FakeReplayRuntime:
         self.smoke_output = smoke_output
         self.attempt_id: str | None = None
         self.events: list[tuple] = []
+        self.exec_workdirs: list[tuple[str, str]] = []
 
     def replay_container_name(self, session: CompileSession, attempt_id: str) -> str:
         del session
@@ -768,8 +778,9 @@ class FakeReplayRuntime:
         timeout_seconds: int | None = None,
         log_path: str | None = None,
     ) -> CommandResult:
-        del handle, workdir
+        del handle
         self.events.append(("exec", command, timeout_seconds, log_path))
+        self.exec_workdirs.append((command, workdir))
         if command == "bash /repro/build.sh":
             if self.build_exception is not None:
                 raise self.build_exception
@@ -1868,6 +1879,34 @@ def test_exact_commit_clone_marks_repository_safe_before_git_c_operations(tmp_pa
     assert "Repository cloned successfully" in message
 
 
+def test_exact_commit_clone_can_be_requested_without_active_experiment(tmp_path: Path, monkeypatch):
+    manager = CompileSessionManager(paths=make_test_paths(tmp_path))
+    repo_url = "https://example.com/repo.git"
+    commit_sha = "0123456789abcdef0123456789abcdef01234567"
+    session = manager.create_session(thread_id="thread-explicit-exact-clone", repo_url=repo_url)
+    calls: list[str] = []
+
+    def fake_exec(session_arg, command, **_kwargs):
+        assert session_arg is session
+        calls.append(command)
+        if command.endswith("rev-parse HEAD"):
+            return CommandResult(exit_code=0, stdout=f"{commit_sha}\n", stderr="", combined_output=f"{commit_sha}\n")
+        return CommandResult(exit_code=0, stdout="", stderr="", combined_output="")
+
+    monkeypatch.setattr(operations, "_services", CompileOperationsServices(manager=manager, runtime=SimpleNamespace(exec=fake_exec)))
+
+    result, _message = clone_repository_impl(
+        session=session,
+        repo_url=repo_url,
+        commit_sha=commit_sha,
+        max_retries=1,
+    )
+
+    assert result.exit_code == 0
+    assert f"fetch --depth 1 origin {commit_sha}" in calls[0]
+    assert session.commit_sha == commit_sha
+
+
 def test_clone_repository_retries_with_container_side_cleanup(tmp_path: Path, monkeypatch):
     manager = CompileSessionManager(paths=make_test_paths(tmp_path))
     session = manager.create_session(thread_id="thread-clone-retry", repo_url="https://example.com/repo.git")
@@ -2503,6 +2542,75 @@ def test_submit_smokes_only_elf_executable_and_records_support_files(tmp_path: P
     assert (Path(session.metadata_path).parent / "repro" / "build.sh").exists()
 
 
+def test_submit_accepts_successful_command_policy_without_running_default_smoke(tmp_path: Path, monkeypatch):
+    manager = CompileSessionManager(paths=make_test_paths(tmp_path))
+    session = manager.create_session(thread_id="thread-explicit-executable-verification", repo_url="https://example.com/repo.git")
+    session.commit_sha = "a" * 40
+    recipe_command_ids = add_replayable_build_command(session, "cmake --build build && cp build/hello /artifacts/hello")
+    smoke = BuildCommandRecord(
+        stage="bash",
+        command="./hello",
+        workdir="/artifacts",
+        role="smoke",
+        completed_at=utc_now_iso(),
+        exit_code=0,
+    )
+    session.commands.append(smoke)
+    manager.save_session(session)
+    write_elf(Path(session.leadagent_artifacts_dir) / "hello", 2)
+
+    def fail_exec(*args, **kwargs):
+        raise AssertionError("显式成功命令不得再次执行默认版本旗标 smoke")
+
+    install_passed_replay_stub(monkeypatch)
+    monkeypatch.setattr(operations, "_services", CompileOperationsServices(manager=manager, runtime=SimpleNamespace(exec=fail_exec)))
+    output = "service probe passed\n"
+    policy = ExecutableVerificationPolicy.successful_commands(
+        {
+            "hello": SuccessfulCommandVerification(
+                command_id=smoke.command_id,
+                command=smoke.command,
+                workdir=smoke.workdir,
+                exit_code=0,
+                output=output,
+                output_sha256=hashlib.sha256(output.encode()).hexdigest(),
+            )
+        }
+    )
+
+    payload = json.loads(
+        submit_build_result_impl(
+            session=session,
+            supporting_command_id=session.post_build_supporting_command_id or "",
+            recipe_command_ids=recipe_command_ids,
+            verification_command_ids=[smoke.command_id],
+            executable_verification_policy=policy,
+        )
+    )
+
+    assert payload["status"] == "passed"
+    artifact = session.artifacts[0]
+    assert artifact.smoke_command == "./hello"
+    assert artifact.smoke_workdir == "/artifacts"
+    assert artifact.smoke_exit_code == 0
+    assert artifact.smoke_output_sha256 == hashlib.sha256(output.encode()).hexdigest()
+
+
+def test_clean_replay_uses_frozen_smoke_workdir(tmp_path: Path, monkeypatch):
+    manager, session = make_replay_ready_session(tmp_path)
+    session.artifacts[0].smoke_workdir = "/artifacts"
+    manager.save_session(session)
+    runtime = FakeReplayRuntime(manager)
+    monkeypatch.setattr(operations, "_services", CompileOperationsServices(manager=manager, runtime=runtime))
+
+    attempt = verify_clean_replay_impl(session=session)
+
+    assert attempt.status == "passed"
+    assert ("/artifacts/hello -version", "/artifacts") in runtime.exec_workdirs
+    assert attempt.artifacts[0].expected_smoke_workdir == "/artifacts"
+    assert attempt.artifacts[0].actual_smoke_workdir == "/artifacts"
+
+
 @pytest.mark.parametrize(
     ("filename", "file_type", "expected_type"),
     [
@@ -2659,6 +2767,7 @@ def test_clean_replay_matching_executable_persists_structured_checks_and_cleans_
     assert checks["artifact_1_sha256"].actual == original_sha256
     assert checks["artifact_1_smoke"].actual == {
         "command": "/artifacts/hello -version",
+        "workdir": "/workspace",
         "exit_code": 0,
         "output": "Hello Matt!\n",
         "output_sha256": hashlib.sha256(b"Hello Matt!\n").hexdigest(),

@@ -56,6 +56,7 @@ class BuildArtifact:
     source_path: str | None = None
     sha256: str | None = None
     smoke_command: str | None = None
+    smoke_workdir: str | None = None
     smoke_exit_code: int | None = None
     smoke_output: str | None = None
     smoke_output_sha256: str | None = None
@@ -94,6 +95,8 @@ class ReplayArtifactComparison:
     actual_sha256: str | None = None
     expected_smoke_command: str | None = None
     actual_smoke_command: str | None = None
+    expected_smoke_workdir: str | None = None
+    actual_smoke_workdir: str | None = None
     expected_smoke_exit_code: int | None = None
     actual_smoke_exit_code: int | None = None
     expected_smoke_output: str | None = None
