@@ -134,7 +134,7 @@
       ],
       "oracle": {
         "kind": "command",
-        "argv": ["sh", "-c", "printf 'int main(void){return 0;}\\n' > /tmp/forge-8cc-oracle.c && /artifacts/bin/8cc -o /tmp/forge-8cc-oracle /tmp/forge-8cc-oracle.c && /tmp/forge-8cc-oracle"],
+        "argv": ["sh", "-c", "printf 'int main(void){return 0;}\\n' > /tmp/forge-8cc-oracle.c && /artifacts/bin/8cc -c -o /tmp/forge-8cc-oracle.o /tmp/forge-8cc-oracle.c && cc /tmp/forge-8cc-oracle.o -o /tmp/forge-8cc-oracle && /tmp/forge-8cc-oracle"],
         "workdir": "/workspace"
       }
     },
@@ -213,7 +213,7 @@
       "oracle": {
         "kind": "compile_and_run",
         "language": "c11",
-        "source": "#include <theora/theora.h>\nint main(void){ th_info i; th_info_init(&i); th_info_clear(&i); return 0; }\n",
+        "source": "#include <theora/theora.h>\nint main(void){ theora_info i; theora_info_init(&i); theora_info_clear(&i); return 0; }\n",
         "compile_argv": ["cc", "-std=c11", "-I/artifacts/include", "{source}", "/artifacts/lib/libtheora.a", "-logg", "-lm", "-o", "{executable}"],
         "run_argv": ["{executable}"]
       }
