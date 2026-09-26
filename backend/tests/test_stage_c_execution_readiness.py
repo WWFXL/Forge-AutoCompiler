@@ -128,6 +128,78 @@ def test_stage_c_theora_oracle_matches_legacy_header_api() -> None:
     assert "th_info" not in source
 
 
+def test_stage_c_libsndfile_autotools_dependency_and_recipe_are_valid() -> None:
+    plan = qualification.load_plan()
+    task = next(item for item in plan["tasks"] if item["task_id"] == "libsndfile")
+    dockerfile = (REPO_ROOT / "docker/compile/Dockerfile.stage-c").read_text()
+
+    assert "      autogen \\\n" in dockerfile
+    assert task["reference_recipe"][0] == "autoreconf -vif"
+    assert "--disable-programs" not in task["reference_recipe"][1]
+
+
+def test_stage_c_civetweb_reference_recipe_repairs_frozen_upstream_commit() -> None:
+    plan = qualification.load_plan()
+    task = next(item for item in plan["tasks"] if item["task_id"] == "civetweb")
+    patch_command = task["reference_recipe"][0]
+
+    assert "patch -p1 --fuzz=0" in patch_command
+    assert 'mg_strcasecmp(h_chunk, "identity")' in patch_command
+    assert "strtoll(h_len, &endptr, 10)" in patch_command
+    assert task["reference_recipe"][1].startswith("make -j4 lib")
+
+
+def test_stage_c_image_identity_is_bound_to_current_dockerfile(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    plan = qualification.load_plan()
+    dockerfile = REPO_ROOT / plan["environment"]["dockerfile_path"]
+    expected_digest = qualification.file_sha256(dockerfile)
+
+    monkeypatch.setattr(
+        qualification,
+        "_run_checked",
+        lambda _argv: f"{_IMAGE_ID}\t{'0' * 64}",
+    )
+    with pytest.raises(
+        qualification.StageCTaskQualificationError,
+        match="必须重新执行 build-image",
+    ):
+        qualification.image_id(plan)
+
+    monkeypatch.setattr(
+        qualification,
+        "_run_checked",
+        lambda _argv: f"{_IMAGE_ID}\t{expected_digest}",
+    )
+    assert qualification.image_id(plan) == _IMAGE_ID
+
+
+def test_stage_c_image_build_records_current_dockerfile_identity(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    plan = qualification.load_plan()
+    dockerfile = REPO_ROOT / plan["environment"]["dockerfile_path"]
+    expected_digest = qualification.file_sha256(dockerfile)
+    commands: list[list[str]] = []
+
+    monkeypatch.setattr(qualification, "require_zero_managed_resources", lambda: None)
+    monkeypatch.setattr(
+        qualification,
+        "_run_checked",
+        lambda argv, **_kwargs: commands.append(argv) or "",
+    )
+    monkeypatch.setattr(qualification, "image_id", lambda _plan: _IMAGE_ID)
+
+    result = qualification.build_image(plan)
+
+    assert len(commands) == 1
+    command = commands[0]
+    assert command[command.index("--label") + 1] == (f"{qualification.DOCKERFILE_SHA256_LABEL}={expected_digest}")
+    assert result["dockerfile_sha256"] == expected_digest
+    assert result["image_id"] == _IMAGE_ID
+
+
 def test_stage_c_dockerfile_bootstraps_ca_before_verified_snapshot_install() -> None:
     dockerfile = (REPO_ROOT / "docker/compile/Dockerfile.stage-c").read_text()
 

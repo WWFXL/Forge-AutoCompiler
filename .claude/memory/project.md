@@ -7,15 +7,16 @@
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
 - 2026-09-26 — 实现 Stage C 十二项目受控配对校准执行准备
-  - GitHub: Issue #310 冻结设计；Issue #312 / PR #313 已把 C1-C4 实现 squash 合并为 `main@503b3160`；PR #315 修复 snapshot CA 引导，PR #316 修复 oatpp oracle 与临时目录权限。Issue #314 跟踪资格回执与执行前门禁，当前分支为 `fix/stage-c-8cc-oracle`。
+  - GitHub: Issue #310 冻结设计；Issue #312 / PR #313 已把 C1-C4 实现合并；PR #315-#317 依次修复 snapshot CA、oatpp/ownership 与 8cc/Theora。Issue #314 跟踪资格回执与执行前门禁，当前基线为 `main@8a7489da`，修复分支为 `fix/stage-c-reference-qualification-v4`。
   - 实现: 冻结结果盲 12 项 task pool、target/oracle/bitwise 资格计划与 Ubuntu snapshot 镜像；新增 24 次 reference qualification、CXXCrafter-style controlled A 臂、Forge Runtime v2 + evaluator v4 B 臂、24 pairs / 48 arms 反向平衡调度、pair-boundary budget gate、create-once evidence 与报告。
   - 门禁: fake-model 单测为 `12 passed, 3 skipped`；CMake/Make/Autotools 短小真实 Docker 门禁为 `3 passed`；相邻回归 `147 passed, 3 skipped`；完整后端为 `1811 passed, 41 skipped`；Ruff 400 files 通过。Docker 门禁发现并修复 BuildKit 不能直接解析 `FROM sha256:<image-id>` 的问题，执行时使用核对完整 ID 的一次性本地 alias。
-  - 当前状态: `autocompiler:stage-c-v1` 已构建为 `sha256:aa56877b...054b2`，资格 plan `validate` 与非模型 `preflight` 通过且 0 managed resources；12 项双重复 reference qualification 尚未闭合，因此 authorized manifest/schema 尚未生成。
+  - 当前状态: 旧 `autocompiler:stage-c-v1@sha256:aa56877b...054b2` 不含新冻结的 GNU AutoGen，需在修复合并后按 Stage C Dockerfile 重新构建；资格 plan `validate` 通过且 0 managed resources。12 项双重复 reference qualification 尚未闭合，因此 authorized manifest/schema 尚未生成。
   - 资格构建修复: 首次 `build-image` 暴露固定 Ubuntu 最小基础镜像不含 CA，snapshot HTTPS 索引刷新被 APT 作为警告吞掉，随后工具链安装误报软件包不存在。Stage C Dockerfile 改为由签名的 InRelease 元数据保护一次性 CA 引导，删除临时 TLS 配置后以正常 peer 校验重新刷新索引；PR #315 合并后镜像构建通过。
   - 资格运行修复: 修复后镜像成功冻结为 `sha256:aa56877b...054b2`；首次 `run` 在 oatpp replicate 1 暴露旧版 `oatpp::base::Environment` oracle 与固定 1.4.0 API 不符，并因容器 root 写 bind mount 导致异常清理权限失败。oracle 已按实际固定头文件更正，qualification 容器改用宿主 UID/GID；尚未生成资格回执。
   - 8cc oracle 修复: 第二次 `run` 正常清理后停在 8cc replicate 1；固定 commit 要求显式 `-c/-S` 等模式，不能直接完成链接。oracle 改为由 8cc `-c` 生成目标文件，再由系统 `cc` 链接和运行；已在固定镜像与准确源码 commit 上通过真实探针。继续审计未到达任务时发现 Theora 旧版交付头文件与新版 `th_info` 调用不匹配，已改用该头文件实际声明的 `theora_info` API；仍未生成资格回执。
+  - libsndfile/civetweb 修复: 第三次 `run` 停在 libsndfile replicate 1；固定源码的 Autotools 路径依赖 GNU AutoGen 生成 `src/test_endswap.c`，镜像已补齐该 snapshot 包并移除无效 configure 参数。随后审计发现 civetweb 固定上游提交本身损坏，已在允许源码修改的 reference recipe 中冻结最小确定性修复。两项各两个真实重复均通过 artifact、oracle 与 bitwise 哈希核对，json-c 单重复探针也通过。
   - 边界: 0 Provider、0 model token、0 Stage C physical attempt、0 正式 Stage C evidence；未运行正式 `reachability` 或 `batch`。
-  - 下一步: 合并 qualification runner 修复后，由实验所有者重新运行 qualification；回传 receipt 后只读验证、生成 authorized identity，并运行 `validate`/`preflight`，停在正式实验可开始但未开始的状态。
+  - 下一步: 合并 v4 资格修复后，由实验所有者重新构建正式 Stage C 镜像并运行 qualification；回传 receipt 后只读验证、生成 authorized identity，并运行 `validate`/`preflight`，停在正式实验可开始但未开始的状态。
   - 文件: `scripts/forge_stage_c_*.py`, `benchmarks/fixtures/stage-c-source-pool.json`, `benchmarks/manifests/cpp-stage-c-task-qualification.json`, `benchmarks/preregistrations/cpp-stage-c-paired-calibration.md`, `docker/compile/Dockerfile.stage-c`, `backend/tests/test_stage_c_execution_readiness.py`
 
 - 2026-09-25 — 冻结 evaluator v3 的 Phase 5 独立授权评测 identity
@@ -124,6 +125,11 @@
 ## 最近变更 (Recent Changes)
 
 <!-- 倒序，最新在上。 -->
+
+- 2026-09-26 — 修复 Stage C libsndfile 与 civetweb 资格参考构建
+  - 文件: `scripts/forge_stage_c_task_qualification.py`, `docker/compile/Dockerfile.stage-c`, `benchmarks/manifests/cpp-stage-c-task-qualification.json`, `benchmarks/schemas/forge-stage-c-task-qualification.schema.json`, `benchmarks/fixtures/stage-c-source-pool.json`, `backend/tests/test_stage_c_execution_readiness.py`, `docs/superpowers/plans/2026-09-26-stage-c-paired-calibration.md`
+  - 动机: libsndfile 的 Autotools 路径需要 GNU AutoGen 生成 `src/test_endswap.c`，civetweb 固定上游提交本身含 C 语法与变量引用错误；同时将 Dockerfile SHA-256 绑定进镜像标签，阻止旧 tag 被误用于新资格计划。在不改变 exact commit、构建系统分层和正式实验边界的前提下闭合零 Provider reference qualification。
+  - 验证: libsndfile 与 civetweb 各两个独立真实重复均通过 artifact、oracle 和 bitwise 哈希核对，json-c 单重复通过；Stage C 聚焦测试 `20 passed, 3 skipped`，完整后端 `1818 passed, 41 skipped`，Ruff 400 files 通过；旧镜像 preflight 被正确拒绝，0 managed resources。
 
 - 2026-09-26 — 冻结 Phase 5 v5 正式终态并确认 Stage C 准入
   - 文件: `docs/agent_workflow_node_v1.md`, `.claude/memory/project.md`

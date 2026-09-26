@@ -16,6 +16,7 @@
 - [x] 实现确定性分层、seed 排序和排除审计。
 - [x] 冻结 12 个 exact-commit task、submodule 和 source snapshot。
 - [x] 为每项冻结 target、required artifacts、S3 oracle 和 bitwise 条件。
+- [x] 修正资格探针暴露的版本敏感 reference recipe：为 libsndfile Autotools 路径补齐 GNU AutoGen，为 civetweb 固定损坏提交冻结最小源码修复，并以 Dockerfile SHA-256 label 拒绝过期镜像。
 - [ ] 构建绑定 package repository snapshot 的不可变 Stage C image。
 - [ ] 执行零 Provider reference qualification，并生成 qualification receipt。
 

@@ -32,6 +32,7 @@ DEFAULT_RESULT = (
     REPO_ROOT / "benchmarks/fixtures/stage-c-task-qualification-result.json"
 )
 MANAGED_PREFIX = "forge-stage-c-qualification-"
+DOCKERFILE_SHA256_LABEL = "org.forge-autocompiler.stage-c.dockerfile-sha256"
 HEX40 = re.compile(r"^[0-9a-f]{40}$")
 HEX64 = re.compile(r"^[0-9a-f]{64}$")
 
@@ -292,21 +293,39 @@ def require_zero_managed_resources() -> None:
 
 def image_id(plan: dict[str, Any]) -> str:
     tag = plan["environment"]["image_tag"]
-    value = _run_checked(["docker", "image", "inspect", tag, "--format", "{{.Id}}"])
-    if not value.startswith("sha256:"):
+    dockerfile = REPO_ROOT / plan["environment"]["dockerfile_path"]
+    value = _run_checked(
+        [
+            "docker",
+            "image",
+            "inspect",
+            tag,
+            "--format",
+            f'{{{{.Id}}}}\t{{{{index .Config.Labels "{DOCKERFILE_SHA256_LABEL}"}}}}',
+        ]
+    )
+    parts = value.split("\t")
+    if len(parts) != 2 or not parts[0].startswith("sha256:"):
         raise StageCTaskQualificationError("Stage C image ID 无效")
-    return value
+    if parts[1] != file_sha256(dockerfile):
+        raise StageCTaskQualificationError(
+            "Stage C image 未绑定当前 Dockerfile，必须重新执行 build-image"
+        )
+    return parts[0]
 
 
 def build_image(plan: dict[str, Any]) -> dict[str, Any]:
     require_zero_managed_resources()
     environment = plan["environment"]
     dockerfile = REPO_ROOT / environment["dockerfile_path"]
+    dockerfile_digest = file_sha256(dockerfile)
     _run_checked(
         [
             "docker",
             "build",
             "--pull=false",
+            "--label",
+            f"{DOCKERFILE_SHA256_LABEL}={dockerfile_digest}",
             "--tag",
             environment["image_tag"],
             "--file",
@@ -318,7 +337,7 @@ def build_image(plan: dict[str, Any]) -> dict[str, Any]:
     result = {
         "image_tag": environment["image_tag"],
         "image_id": image_id(plan),
-        "dockerfile_sha256": file_sha256(dockerfile),
+        "dockerfile_sha256": dockerfile_digest,
         "ubuntu_snapshot": environment["ubuntu_snapshot"],
         "provider_calls": 0,
         "model_tokens": 0,

@@ -228,7 +228,7 @@
       },
       "reference_recipe": [
         "autoreconf -vif",
-        "./configure --prefix=/artifacts --disable-external-libs --disable-full-suite --disable-programs --disable-shared --enable-static",
+        "./configure --prefix=/artifacts --disable-external-libs --disable-full-suite --disable-shared --enable-static",
         "make -j4",
         "make install"
       ],
@@ -249,6 +249,7 @@
         "bitwise_required": true
       },
       "reference_recipe": [
+        "patch -p1 --fuzz=0 <<'PATCH'\n--- a/src/civetweb.c\n+++ b/src/civetweb.c\n@@ -19201,15 +19201,14 @@ get_request(struct mg_connection *conn, char *ebuf, size_t ebuf_len, int *err)\n \t\tconn->accept_gzip = 1;\n \t}\n #endif\n-   h_chunk = get_header(conn->request_info.http_headers,\n+\th_chunk = get_header(conn->request_info.http_headers,\n \t                      conn->request_info.num_headers,\n \t                      \"Transfer-Encoding\");\n-   h_len = get_header(conn->request_info.http_headers,\n-\t                            conn->request_info.num_headers,\n-\t                            \"Content-Length\");\n-\tif (h_chunk != NULL)\n-\t    && mg_strcasecmp(cl, \"identity\")) {\n-\t\tif ((0!=mg_strcasecmp(cl, \"chunked\")) || (h_len!=NULL)) {\n+\th_len = get_header(conn->request_info.http_headers,\n+\t                   conn->request_info.num_headers,\n+\t                   \"Content-Length\");\n+\tif ((h_chunk != NULL) && mg_strcasecmp(h_chunk, \"identity\")) {\n+\t\tif ((0 != mg_strcasecmp(h_chunk, \"chunked\")) || (h_len != NULL)) {\n \t\t\tmg_snprintf(conn,\n \t\t\t            NULL, /* No truncation check for ebuf */\n \t\t\t            ebuf,\n@@ -19224,8 +19223,8 @@ get_request(struct mg_connection *conn, char *ebuf, size_t ebuf_len, int *err)\n \t} else if (h_len != NULL) {\n \t\t/* Request has content length set */\n \t\tchar *endptr = NULL;\n-\t\tconn->content_len = strtoll(cl, &endptr, 10);\n-\t\tif ((endptr == cl) || (conn->content_len < 0)) {\n+\t\tconn->content_len = strtoll(h_len, &endptr, 10);\n+\t\tif ((endptr == h_len) || (conn->content_len < 0)) {\n \t\t\tmg_snprintf(conn,\n \t\t\t            NULL, /* No truncation check for ebuf */\n \t\t\t            ebuf,\nPATCH",
         "make -j4 lib NO_SSL=1 WITH_CPP=0 WITH_WEBSOCKET=0",
         "mkdir -p /artifacts/include /artifacts/lib && cp include/civetweb.h /artifacts/include/civetweb.h && cp libcivetweb.a /artifacts/lib/libcivetweb.a"
       ],
