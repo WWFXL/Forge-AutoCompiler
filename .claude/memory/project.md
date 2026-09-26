@@ -6,16 +6,6 @@
 
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
-- 2026-09-26 — 闭合 Stage C 资格回执并派生授权执行身份
-  - GitHub: Issue #310 冻结设计；Issue #312 / PR #313 已合并 C1-C4 执行准备；PR #315-#318 已合并 snapshot CA、资格运行、版本敏感 oracle 与 reference recipe 修复。Issue #314 跟踪最终资格回执与执行前门禁；当前分支为 `research/stage-c-authorized-identity`，基线为 `main@2be1fcb1`。
-  - 资格结果: 新镜像为 `sha256:adbef4a...e758b1`，Dockerfile SHA-256 为 `023b38d3...85ac`。资格回执文件 SHA-256 为 `b5c268cd...e6eb`；12/12 tasks、24/24 reference builds/oracles 与 12/12 bitwise reproducible 全部通过，前后均为 0 managed resources。独立 `verify-result` 与原结果逐字一致。
-  - 成本审计: 只读冻结 CXXCrafter Stage B 六项 212,109 tokens 和 Forge Stage B 六项 918,121 tokens；历史单项最大 279,841，相对 300,000 上限仅余 20,159（6.7197%）。300,000 只作为单臂硬停止上限，48 arms 加唯一 reachability 的最坏授权上限为 14,405,000，不作为预期消耗。
-  - 授权身份: authorized manifest/const Schema 已绑定资格回执、完整 image ID、成本审计、模型、网络政策、24 pairs / 48 arms 和总 token ceiling；canonical manifest SHA-256 为 `6ef6f6fe...c641`，状态为 `authorized_not_executed` 且 `stage_c_execution_started=false`。公开 task 不含 reference recipe。
-  - 验证: Stage C 聚焦门禁 `22 passed, 3 skipped`；完整产品后端 `1821 passed, 41 skipped`；Ruff check 与 400 文件 format check 通过；runner/protocol validate、资格回执复算、连续确定性再生成和 `git diff --check` 通过。
-  - 边界: 资格与开发过程保持 0 Provider、0 model token、0 Stage C physical attempt、0 正式 Stage C evidence；未运行正式 `reachability` 或 `batch`。
-  - 下一步: 提交、推送并创建中文 PR；四项 CI 全绿后合并，从干净 `main == origin/main` 只运行 `validate` 与非模型 `preflight`，随后停在正式 Stage C 可开始但尚未开始的状态。
-  - 文件: `benchmarks/fixtures/stage-c-task-qualification-result.json`, `benchmarks/reports/cpp-stage-c-cost-sensitivity-audit.json`, `benchmarks/manifests/cpp-stage-c-paired-calibration-authorized.json`, `benchmarks/schemas/forge-stage-c-paired-calibration-authorized.schema.json`, `scripts/forge_stage_c_protocol.py`, `backend/tests/test_stage_c_execution_readiness.py`
-
 - 2026-09-25 — 冻结 evaluator v3 的 Phase 5 独立授权评测 identity
   - GitHub: 中文 Issue #303 与 PR #304 已创建并回读；分支为 `research/phase5-v3-authorized-identity`，基线为 `main@9f8c8ad4`，实现提交为 `4c85e0fd`。首轮 backend unit、frozen benchmark、backend lint 和 frontend lint 四项 CI 全绿。Spec/Plan 位于 `docs/superpowers/`。
   - 实现: 新 protocol、const Schema、manifest、预注册和薄 runner 原样继承 Phase 5 v2 的六任务、Provider、镜像、预算、顺序与单 attempt 约束，冻结 external evaluator v3 文件/版本/rules identity；新 reachability、attempt、evaluation、report 与 evidence identity 完全独立，不导入 v2 结果或证据。
@@ -122,6 +112,15 @@
 ## 最近变更 (Recent Changes)
 
 <!-- 倒序，最新在上。 -->
+
+- 2026-09-26 — 闭合 Stage C 资格回执并冻结授权执行身份
+  - GitHub: Issue #314 已由 PR #319 自动关闭；授权实现 squash 合并为 `main@72b2f692dccf1bce6c8a066b5020cc1ad095b541`，四项 CI 全绿。
+  - 资格结果: 镜像为 `sha256:adbef4a...e758b1`；回执 SHA-256 为 `b5c268cd...e6eb`；12/12 tasks、24/24 reference builds/oracles、12/12 bitwise reproducible，前后均为 0 managed resources。
+  - 成本与身份: 历史最大单项为 279,841 tokens，300,000 保留为单臂硬停止上限；authorized manifest canonical SHA-256 为 `6ef6f6fe...c641`，绑定 24 pairs / 48 arms 和 14,405,000-token 最坏上限。
+  - 验证: Stage C 聚焦门禁 `22 passed, 3 skipped`；完整产品后端 `1821 passed, 41 skipped`；Ruff check 与 400 文件 format check、资格回执复算、runner/protocol validate、确定性再生成均通过。
+  - 合并后门禁: 干净 `main == origin/main` 的非模型 preflight 返回 `ready=true`、`evidence_files=[]`、0 Provider、0 token、0 formal attempt、0 managed resources。
+  - 边界: 正式 `reachability` 与 `batch` 均未运行，`stage_c_execution_started=false`；Stage C 已停在可开始但尚未开始的状态。
+  - 文件: `benchmarks/fixtures/stage-c-task-qualification-result.json`, `benchmarks/reports/cpp-stage-c-cost-sensitivity-audit.json`, `benchmarks/manifests/cpp-stage-c-paired-calibration-authorized.json`, `benchmarks/schemas/forge-stage-c-paired-calibration-authorized.schema.json`, `scripts/forge_stage_c_protocol.py`, `backend/tests/test_stage_c_execution_readiness.py`
 
 - 2026-09-26 — 修复 Stage C libsndfile 与 civetweb 资格参考构建
   - 文件: `scripts/forge_stage_c_task_qualification.py`, `docker/compile/Dockerfile.stage-c`, `benchmarks/manifests/cpp-stage-c-task-qualification.json`, `benchmarks/schemas/forge-stage-c-task-qualification.schema.json`, `benchmarks/fixtures/stage-c-source-pool.json`, `backend/tests/test_stage_c_execution_readiness.py`, `docs/superpowers/plans/2026-09-26-stage-c-paired-calibration.md`
