@@ -219,7 +219,8 @@
       "size_stratum": "large",
       "documentation_stratum": "ambiguous",
       "tracked_file_count": 1425,
-      "submodule_commits": {}
+      "submodule_commits": {},
+      "qualification_note": "固定提交的 request handling 重构存在上游 C 语法与变量引用错误；任务允许源码修改，reference qualification 使用已冻结的最小确定性修复。"
     },
     {
       "task_id": "json-c",
