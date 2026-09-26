@@ -109,6 +109,25 @@ def test_stage_c_qualification_contract_is_result_blind_and_balanced() -> None:
     assert {task["task_id"] for task in pool["tasks"]}.isdisjoint(pool["exclusions"]["stage_b_task_ids"])
 
 
+def test_stage_c_8cc_oracle_uses_supported_compile_mode() -> None:
+    plan = qualification.load_plan()
+    task = next(item for item in plan["tasks"] if item["task_id"] == "8cc")
+    command = task["oracle"]["argv"][2]
+
+    assert "/artifacts/bin/8cc -c -o /tmp/forge-8cc-oracle.o" in command
+    assert "cc /tmp/forge-8cc-oracle.o -o /tmp/forge-8cc-oracle" in command
+
+
+def test_stage_c_theora_oracle_matches_legacy_header_api() -> None:
+    plan = qualification.load_plan()
+    task = next(item for item in plan["tasks"] if item["task_id"] == "theora")
+    source = task["oracle"]["source"]
+
+    assert "theora_info_init(&i)" in source
+    assert "theora_info_clear(&i)" in source
+    assert "th_info" not in source
+
+
 def test_stage_c_dockerfile_bootstraps_ca_before_verified_snapshot_install() -> None:
     dockerfile = (REPO_ROOT / "docker/compile/Dockerfile.stage-c").read_text()
 
