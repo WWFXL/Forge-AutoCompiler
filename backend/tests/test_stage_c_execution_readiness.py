@@ -1,9 +1,11 @@
 from __future__ import annotations
 
+import asyncio
 import json
 import os
 import subprocess
 import sys
+from contextlib import contextmanager
 from dataclasses import dataclass
 from pathlib import Path
 from types import SimpleNamespace
@@ -18,6 +20,7 @@ if str(SCRIPT_ROOT) not in sys.path:
 
 import forge_stage_c_controlled_baseline as baseline  # noqa: E402
 import forge_stage_c_protocol as protocol  # noqa: E402
+import forge_stage_c_remediation_protocol as remediation_protocol  # noqa: E402
 import forge_stage_c_runner as runner  # noqa: E402
 import forge_stage_c_task_qualification as qualification  # noqa: E402
 
@@ -373,6 +376,20 @@ def test_stage_c_manifest_binds_qualification_and_cost_audit() -> None:
     assert protocol.COST_AUDIT_PATH in manifest["frozen_components"]
 
 
+def test_stage_c_remediation_manifest_binds_failed_v1_without_importing_outcomes() -> None:
+    manifest = remediation_protocol.generate_manifest()
+    prior = manifest["prior_failed_identity"]
+
+    assert prior["manifest_sha256"] == "6ef6f6fe9986ad6eb53d57273d4901389e96bff5b6b69d884d09282d391ac641"
+    assert prior["must_not_resume"] is True
+    assert prior["historical_outcomes_imported"] is False
+    assert manifest["execution"]["evidence_directory"] == remediation_protocol.DEFAULT_EVIDENCE_DIRECTORY
+    assert manifest["authorization"]["prior_reachability_recorded_tokens"] == 70
+    assert manifest["authorization"]["cumulative_max_recorded_tokens"] == 14_405_070
+    assert all(pair["pair_id"].startswith("stage-c-v2-") for pair in manifest["schedule"]["pairs"])
+    assert len({attempt for pair in manifest["schedule"]["pairs"] for attempt in pair["attempt_ids"].values()}) == 48
+
+
 def test_stage_c_public_tasks_do_not_expose_reference_recipes() -> None:
     pool = qualification.validate_source_pool(qualification.load_json(qualification.DEFAULT_POOL))
     plan = qualification.load_plan()
@@ -510,8 +527,8 @@ def test_stage_c_node_input_matches_runtime_v2_contract() -> None:
             }
         },
         "frozen_components": {
-            protocol.PROTOCOL_PATH: "4" * 64,
-            protocol.RUNNER_PATH: "5" * 64,
+            remediation_protocol.PROTOCOL_PATH: "4" * 64,
+            remediation_protocol.RUNNER_PATH: "5" * 64,
         },
     }
 
@@ -559,7 +576,7 @@ def _batch_manifest(*, formal_token_budget: int = 600_000) -> dict[str, Any]:
         "attempt_ids": {"A": "fixture-a", "B": "fixture-b"},
     }
     return {
-        "tasks": [{"task_id": "fixture"}],
+        "tasks": [{"task_id": "fixture", "source_snapshot_sha256": "2" * 64}],
         "schedule": {"pairs": [pair], "project_order": ["fixture"]},
         "budget": {
             "per_arm": {"max_recorded_tokens": 300_000},
@@ -598,7 +615,11 @@ def _patch_batch_preflight(monkeypatch: pytest.MonkeyPatch, manifest: dict[str, 
     monkeypatch.setattr(
         runner,
         "collect_preflight",
-        lambda *_args, **_kwargs: {"release_revision": "release"},
+        lambda *_args, **_kwargs: {
+            "release_revision": "release",
+            "ready": True,
+            "incomplete_pairs": [],
+        },
     )
     monkeypatch.setattr(
         runner,
@@ -624,6 +645,14 @@ def test_stage_c_first_arm_failure_does_not_block_second(tmp_path: Path, monkeyp
     ) -> dict[str, Any]:
         arm = arm_dir.name
         observed.append(arm)
+        runner._register_arm_attempt(
+            manifest,
+            pair,
+            arm,
+            release_revision=release_revision,
+            arm_dir=arm_dir,
+            source_snapshot_sha256="2" * 64,
+        )
         value = _arm_result(manifest, pair, arm, success=arm == "B")
         runner._write_once(arm_dir / "result.json", value)
         return value
@@ -681,6 +710,155 @@ def test_stage_c_incomplete_pair_and_managed_orphan_fail_closed(tmp_path: Path, 
     )
     with pytest.raises(runner.StageCRunnerError, match="managed orphan"):
         runner.require_zero_managed_resources()
+
+
+def test_stage_c_controlled_source_failure_creates_no_formal_attempt(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    manifest = _batch_manifest()
+    pair = manifest["schedule"]["pairs"][0]
+    task = manifest["tasks"][0]
+    monkeypatch.setattr(
+        runner,
+        "_clone_export",
+        lambda *_args, **_kwargs: (_ for _ in ()).throw(runner.StageCRunnerError("source fetch failed")),
+    )
+
+    with pytest.raises(runner.StageCRunnerError, match="source fetch failed"):
+        runner.execute_controlled_arm(
+            manifest,
+            task,
+            pair,
+            release_revision="release",
+            arm_dir=tmp_path / "pairs" / pair["pair_id"] / "A",
+            model_factory=lambda *_args: (_ for _ in ()).throw(AssertionError("源码准备失败前不得创建模型")),
+        )
+
+    assert not (tmp_path / "pairs").exists()
+
+
+def test_stage_c_forge_source_failure_creates_no_formal_attempt(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    manifest = _batch_manifest()
+    manifest["environment"] = {"image_id": _IMAGE_ID}
+    pair = manifest["schedule"]["pairs"][0]
+    task = manifest["tasks"][0]
+    task.update(
+        {
+            "repository_url": "https://example.invalid/fixture.git",
+            "commit_sha": "1" * 40,
+        }
+    )
+
+    @contextmanager
+    def runtime_identity(_manifest: dict[str, Any]):
+        yield SimpleNamespace()
+
+    monkeypatch.setattr(runner, "_stage_c_runtime_identity", runtime_identity)
+    monkeypatch.setattr(
+        runner,
+        "_clone_export",
+        lambda *_args, **_kwargs: (_ for _ in ()).throw(runner.StageCRunnerError("source fetch failed")),
+    )
+    monkeypatch.setattr(runner, "require_zero_managed_resources", lambda: None)
+
+    with pytest.raises(runner.StageCRunnerError, match="source fetch failed"):
+        asyncio.run(
+            runner.execute_forge_arm(
+                manifest,
+                task,
+                pair,
+                release_revision="release",
+                arm_dir=tmp_path / "pairs" / pair["pair_id"] / "B",
+            )
+        )
+
+    assert not (tmp_path / "pairs").exists()
+
+
+def test_stage_c_forge_source_preparation_populates_session_before_attempt(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    repository = tmp_path / "prepared-repository"
+    source = tmp_path / "prepared-source"
+    repository.mkdir()
+    source.mkdir()
+    (repository / ".git").mkdir()
+    (repository / ".git/HEAD").write_text("ref: refs/heads/main\n")
+    (repository / "CMakeLists.txt").write_text("project(fixture)\n")
+    (source / "CMakeLists.txt").write_text("project(fixture)\n")
+    session_repo = tmp_path / "session/workspace/repo"
+    session = SimpleNamespace(
+        leadagent_repo_dir=str(session_repo),
+        commit_sha=None,
+        summary=None,
+    )
+    events: list[tuple[str, dict[str, Any]]] = []
+
+    class Manager:
+        def create_session(self, **_kwargs: Any) -> SimpleNamespace:
+            session_repo.parent.mkdir(parents=True)
+            return session
+
+        def save_session(self, _session: SimpleNamespace) -> None:
+            events.append(("saved", {}))
+
+        def log_event(self, _session: SimpleNamespace, event: str, **payload: Any) -> None:
+            events.append((event, payload))
+
+        def mark_session_status(self, _session: SimpleNamespace, status: str, **_kwargs: Any) -> None:
+            events.append(("status", {"status": status}))
+
+    task = {
+        "task_id": "fixture",
+        "repository_url": "https://example.invalid/fixture.git",
+        "commit_sha": "1" * 40,
+        "source_snapshot_sha256": "2" * 64,
+        "build_system_capabilities": ["cmake"],
+    }
+    pair = {"pair_id": "stage-c-v2-fixture-r1"}
+    monkeypatch.setattr(
+        runner,
+        "_clone_export",
+        lambda *_args, **_kwargs: {
+            "repository": repository,
+            "source": source,
+            "source_snapshot_sha256": "2" * 64,
+        },
+    )
+
+    prepared, source_digest = runner._prepare_forge_session(
+        task,
+        pair,
+        "stage-c-v2-fixture",
+        SimpleNamespace(manager=Manager()),
+    )
+
+    assert prepared is session
+    assert source_digest == "2" * 64
+    assert session.commit_sha == "1" * 40
+    assert (session_repo / "CMakeLists.txt").read_text() == "project(fixture)\n"
+    assert (session_repo / ".git/HEAD").is_file()
+    assert ("status", {"status": "source_ready"}) in events
+
+
+def test_stage_c_preflight_recomputes_usage_and_incomplete_pairs(tmp_path: Path) -> None:
+    runner._write_once(
+        tmp_path / "reports/reachability.json",
+        {"request_count": 1, "recorded_tokens": 70},
+    )
+    runner._write_once(
+        tmp_path / "pairs/pair-1/A/attempt.json",
+        {"status": "started"},
+    )
+    runner._write_once(
+        tmp_path / "pairs/pair-1/A/result.json",
+        {"model_requests": 3, "recorded_tokens": 123},
+    )
+
+    state = runner._recorded_evidence_state(tmp_path)
+
+    assert state == {
+        "formal_stage_c_attempts": 1,
+        "incomplete_pairs": ["pair-1"],
+        "provider_calls": 4,
+        "model_tokens": 193,
+    }
 
 
 @pytest.mark.skipif(

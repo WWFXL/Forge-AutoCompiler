@@ -6,6 +6,15 @@
 
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
+- 2026-09-26 — 封存 Stage C v1 源码获取中断并派生 v2 remediation identity
+  - GitHub: 中文 Issue #321 已创建并回读；分支为 `fix/stage-c-source-preparation-remediation`，基线为 `main@80ac16d0`。
+  - 事故: v1 唯一 reachability 已通过（1 request / 70 tokens），首个 `stage-c-json-c-r1` A 臂在 `git fetch` 完成前中断，只留下 `started` batch marker 和空 `FETCH_HEAD`；正式 arm attempt、arm Provider 请求、arm token 和 outcome 均为 0。v1 evidence 的 21 个文件已逐项复核 SHA-256，旧 identity 禁止续跑、清理后重试或导入 outcome。
+  - 修复: A/B 两臂先在系统临时目录完成 exact clone、source snapshot 和 build-system 校验，之后才写 create-once `attempt.json`；B 臂把已验证仓库复制到尚未启动容器的 Compile Session，登记 attempt 后才启动容器和方法。preflight 现在从 evidence 复算 usage/attempt，并把未闭合 pair 标为不可执行。
+  - Identity: 新 evidence 为 `benchmark-evidence-stage-c-paired-calibration-v2-remediation`，24 个 pair / 48 个 attempt 全部使用 `stage-c-v2-*` 新 ID；不导入 v1 outcome。v2 canonical manifest SHA-256 为 `5a479832a2a6f9bdc49407a35b3ccc997547365fa65273d19fda4d1b4516eee4`，v1 已用 70 tokens 与 v2 最坏上限合计 14,405,070。
+  - 验证: Stage C 非 Docker `27 passed, 3 skipped`，真实 Docker fixture `3 passed`，产品全集 `1825 passed, 41 skipped`，完整 backend Ruff 400 files 通过，protocol/runner validate、旧 evidence inventory、JSON/Schema 和 diff check 通过。裸 `pytest` 命中快照既有的 13 个 opaque-provenance `resolve_command_role` 收集错误，产品与 frozen job 的分离门禁均未受影响。
+  - 下一步: 完成提交、PR、CI 与合并；合并后只运行 v2 非模型 preflight。新的 reachability 和正式 batch 尚未执行。
+  - 文件: `scripts/forge_stage_c_runner.py`, `scripts/forge_stage_c_remediation_protocol.py`, `backend/tests/test_stage_c_execution_readiness.py`, `benchmarks/manifests/cpp-stage-c-paired-calibration-v2-remediation-authorized.json`, `benchmarks/schemas/forge-stage-c-paired-calibration-v2-remediation-authorized.schema.json`, `benchmarks/preregistrations/cpp-stage-c-paired-calibration-v2-remediation.md`, `benchmarks/reports/cpp-stage-c-paired-calibration-v1-failed.json`, `benchmarks/reports/cpp-stage-c-paired-calibration-v1-failed.md`
+
 - 2026-09-25 — 冻结 evaluator v3 的 Phase 5 独立授权评测 identity
   - GitHub: 中文 Issue #303 与 PR #304 已创建并回读；分支为 `research/phase5-v3-authorized-identity`，基线为 `main@9f8c8ad4`，实现提交为 `4c85e0fd`。首轮 backend unit、frozen benchmark、backend lint 和 frontend lint 四项 CI 全绿。Spec/Plan 位于 `docs/superpowers/`。
   - 实现: 新 protocol、const Schema、manifest、预注册和薄 runner 原样继承 Phase 5 v2 的六任务、Provider、镜像、预算、顺序与单 attempt 约束，冻结 external evaluator v3 文件/版本/rules identity；新 reachability、attempt、evaluation、report 与 evidence identity 完全独立，不导入 v2 结果或证据。
