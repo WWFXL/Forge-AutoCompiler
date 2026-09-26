@@ -17,8 +17,8 @@
 - [x] 冻结 12 个 exact-commit task、submodule 和 source snapshot。
 - [x] 为每项冻结 target、required artifacts、S3 oracle 和 bitwise 条件。
 - [x] 修正资格探针暴露的版本敏感 reference recipe：为 libsndfile Autotools 路径补齐 GNU AutoGen，为 civetweb 固定损坏提交冻结最小源码修复，并以 Dockerfile SHA-256 label 拒绝过期镜像。
-- [ ] 构建绑定 package repository snapshot 的不可变 Stage C image。
-- [ ] 执行零 Provider reference qualification，并生成 qualification receipt。
+- [x] 构建绑定 package repository snapshot 的不可变 Stage C image。
+- [x] 执行零 Provider reference qualification，并生成 qualification receipt。
 
 ## C2：统一 runner 候选
 
@@ -40,10 +40,10 @@
 
 ## C4：执行候选与授权
 
-- [ ] 发布未授权 candidate PR，并保持 0 Provider / 0 formal evidence。
-- [ ] 只读审计历史成本，确认或修订 300,000-token 单臂候选上限。
-- [ ] 单独派生 authorized amendment，绑定 release、image ID、模型、网络介质、evidence 目录和总 token ceiling。
-- [ ] 获得实验负责人明确的 Provider、14,405,000-token 最坏上限和 48-arm 授权。
+- [x] 发布未授权 candidate PR，并保持 0 Provider / 0 formal evidence。
+- [x] 只读审计历史成本，确认 300,000-token 单臂硬停止上限。
+- [x] 派生 authorized identity，绑定 release policy、image ID、模型、网络介质、evidence 目录、资格回执和总 token ceiling。
+- [x] 获得实验负责人对 Provider、14,405,000-token 最坏上限和 48-arm 的明确授权。
 
 ## C5：正式执行与分析
 

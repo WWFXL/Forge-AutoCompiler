@@ -1,0 +1,746 @@
+{
+  "completed_at": "2026-09-26T05:34:30.288651+00:00",
+  "dockerfile_sha256": "023b38d30139eeacbb6e46643ec2deaa375d8516e43d2d0a8c730475bd3b85ac",
+  "document_type": "forge_stage_c_task_qualification_result",
+  "formal_stage_c_attempt_created": false,
+  "formal_stage_c_evidence_written": false,
+  "image_id": "sha256:adbef4a26de49e9cd2c361a50b5fe2a000073a343b072ed0e515cc67e6e758b1",
+  "model_created": false,
+  "model_tokens": 0,
+  "plan_canonical_sha256": "44021f8e78da22d9fc676cd9fbaf6f2acf38f877977e3b34dc6da34b2beb5fb2",
+  "provider_request_count": 0,
+  "reference_build_count": 24,
+  "schema_version": "forge-stage-c-task-qualification-result-1.0.0",
+  "source_pool_canonical_sha256": "4178be4cab59b63c902e615f05c2417b667ad35e74e64e4b1be1b5baba7b86a1",
+  "status": "passed",
+  "task_count": 12,
+  "tasks": [
+    {
+      "bitwise_reproducible": true,
+      "passed": true,
+      "replicates": [
+        {
+          "artifacts": [
+            {
+              "file_type": "C++ source, ASCII text",
+              "path": "include/leveldb/db.h",
+              "sha256": "e0d5c78895ae329b5382e8c9c32809e5c32868d5a5e929f922b6f5f64f057af5",
+              "size_bytes": 6803,
+              "type": "support_file"
+            },
+            {
+              "file_type": "current ar archive",
+              "path": "lib/libleveldb.a",
+              "sha256": "4e746c50182f4918d74e5f5d68dbb935155e89e71d3ee0fb555b84ffd4ba0ca7",
+              "size_bytes": 742794,
+              "type": "static_library"
+            }
+          ],
+          "duration_seconds": 10.02,
+          "oracle_passed": true,
+          "replicate": 1,
+          "source_identity": {
+            "commit_sha": "7ee830d02b623e8ffe0b95d59a74db1e58da04c5",
+            "license_sha256": "ccc19f1da0798ed666609b65a5b44dd8b3abe6fc08b9c0592eb76e82e174db19",
+            "source_snapshot_sha256": "ec08de9cdd5fa574a2c0ccd6e901d4acca47bb29f740c171e1404fc08c551ba1",
+            "submodule_commits": {
+              "third_party/benchmark": "1a54956777ba672764db09a51960056ea042af7e",
+              "third_party/googletest": "a35bc7693c117a048152beeb34f6aac354b9423f"
+            }
+          }
+        },
+        {
+          "artifacts": [
+            {
+              "file_type": "C++ source, ASCII text",
+              "path": "include/leveldb/db.h",
+              "sha256": "e0d5c78895ae329b5382e8c9c32809e5c32868d5a5e929f922b6f5f64f057af5",
+              "size_bytes": 6803,
+              "type": "support_file"
+            },
+            {
+              "file_type": "current ar archive",
+              "path": "lib/libleveldb.a",
+              "sha256": "4e746c50182f4918d74e5f5d68dbb935155e89e71d3ee0fb555b84ffd4ba0ca7",
+              "size_bytes": 742794,
+              "type": "static_library"
+            }
+          ],
+          "duration_seconds": 9.968,
+          "oracle_passed": true,
+          "replicate": 2,
+          "source_identity": {
+            "commit_sha": "7ee830d02b623e8ffe0b95d59a74db1e58da04c5",
+            "license_sha256": "ccc19f1da0798ed666609b65a5b44dd8b3abe6fc08b9c0592eb76e82e174db19",
+            "source_snapshot_sha256": "ec08de9cdd5fa574a2c0ccd6e901d4acca47bb29f740c171e1404fc08c551ba1",
+            "submodule_commits": {
+              "third_party/benchmark": "1a54956777ba672764db09a51960056ea042af7e",
+              "third_party/googletest": "a35bc7693c117a048152beeb34f6aac354b9423f"
+            }
+          }
+        }
+      ],
+      "task_id": "leveldb"
+    },
+    {
+      "bitwise_reproducible": true,
+      "passed": true,
+      "replicates": [
+        {
+          "artifacts": [
+            {
+              "file_type": "C source, ASCII text",
+              "path": "include/jpeglib.h",
+              "sha256": "dc3e8220f34b7e9f9e48620f5cb8dc070834feb3214bb12bbad78478ebb29e60",
+              "size_bytes": 55794,
+              "type": "support_file"
+            },
+            {
+              "file_type": "current ar archive",
+              "path": "lib/libjpeg.a",
+              "sha256": "c875e13ff80abc041a8970df5ae689eb3e8e04f82b126bc761effbfaa55b8d68",
+              "size_bytes": 944566,
+              "type": "static_library"
+            }
+          ],
+          "duration_seconds": 13.665,
+          "oracle_passed": true,
+          "replicate": 1,
+          "source_identity": {
+            "commit_sha": "dd8ad7915cdf5ab1f8719d488894a5e54c876dd6",
+            "license_sha256": "ba6bceebcba0fdd35488477c2cca8c4632ce82c74dbfbc87d886ce6fc4433579",
+            "source_snapshot_sha256": "1ed97e520d88d3d3cfb47fd3ad461311bf9b89c82549c3a5d2d653f9e8314c6a",
+            "submodule_commits": {}
+          }
+        },
+        {
+          "artifacts": [
+            {
+              "file_type": "C source, ASCII text",
+              "path": "include/jpeglib.h",
+              "sha256": "dc3e8220f34b7e9f9e48620f5cb8dc070834feb3214bb12bbad78478ebb29e60",
+              "size_bytes": 55794,
+              "type": "support_file"
+            },
+            {
+              "file_type": "current ar archive",
+              "path": "lib/libjpeg.a",
+              "sha256": "c875e13ff80abc041a8970df5ae689eb3e8e04f82b126bc761effbfaa55b8d68",
+              "size_bytes": 944566,
+              "type": "static_library"
+            }
+          ],
+          "duration_seconds": 13.705,
+          "oracle_passed": true,
+          "replicate": 2,
+          "source_identity": {
+            "commit_sha": "dd8ad7915cdf5ab1f8719d488894a5e54c876dd6",
+            "license_sha256": "ba6bceebcba0fdd35488477c2cca8c4632ce82c74dbfbc87d886ce6fc4433579",
+            "source_snapshot_sha256": "1ed97e520d88d3d3cfb47fd3ad461311bf9b89c82549c3a5d2d653f9e8314c6a",
+            "submodule_commits": {}
+          }
+        }
+      ],
+      "task_id": "libjpeg-turbo"
+    },
+    {
+      "bitwise_reproducible": true,
+      "passed": true,
+      "replicates": [
+        {
+          "artifacts": [
+            {
+              "file_type": "LaTeX document, ASCII text",
+              "path": "include/soundio/soundio.h",
+              "sha256": "0a8af46f57ef6ea4ba3e21d98f16a7f4fb92c413609f0e57a9dc74c899f66353",
+              "size_bytes": 53954,
+              "type": "support_file"
+            },
+            {
+              "file_type": "current ar archive",
+              "path": "lib/libsoundio.a",
+              "sha256": "53d746883a786e02c3cfd1d951dca35315e31baf4bda1e76c49c3de7a6b10ca2",
+              "size_bytes": 73060,
+              "type": "static_library"
+            }
+          ],
+          "duration_seconds": 1.909,
+          "oracle_passed": true,
+          "replicate": 1,
+          "source_identity": {
+            "commit_sha": "49a1f78b50eb0f5a49d096786a95a93874a2592a",
+            "license_sha256": "12043f8e6dfb42e979158fbecbbeeb0cf70d2721ea2864f627379331b95c58e6",
+            "source_snapshot_sha256": "41bb3c4fb57661b7f2715c152f0b3983f6027741e4f4847987ef8b7b2cb99bea",
+            "submodule_commits": {}
+          }
+        },
+        {
+          "artifacts": [
+            {
+              "file_type": "LaTeX document, ASCII text",
+              "path": "include/soundio/soundio.h",
+              "sha256": "0a8af46f57ef6ea4ba3e21d98f16a7f4fb92c413609f0e57a9dc74c899f66353",
+              "size_bytes": 53954,
+              "type": "support_file"
+            },
+            {
+              "file_type": "current ar archive",
+              "path": "lib/libsoundio.a",
+              "sha256": "53d746883a786e02c3cfd1d951dca35315e31baf4bda1e76c49c3de7a6b10ca2",
+              "size_bytes": 73060,
+              "type": "static_library"
+            }
+          ],
+          "duration_seconds": 1.959,
+          "oracle_passed": true,
+          "replicate": 2,
+          "source_identity": {
+            "commit_sha": "49a1f78b50eb0f5a49d096786a95a93874a2592a",
+            "license_sha256": "12043f8e6dfb42e979158fbecbbeeb0cf70d2721ea2864f627379331b95c58e6",
+            "source_snapshot_sha256": "41bb3c4fb57661b7f2715c152f0b3983f6027741e4f4847987ef8b7b2cb99bea",
+            "submodule_commits": {}
+          }
+        }
+      ],
+      "task_id": "libsoundio"
+    },
+    {
+      "bitwise_reproducible": true,
+      "passed": true,
+      "replicates": [
+        {
+          "artifacts": [
+            {
+              "file_type": "C++ source, Unicode text, UTF-8 text",
+              "path": "include/oatpp-1.4.0/oatpp/oatpp/Environment.hpp",
+              "sha256": "c49b3ea13e5c4411536d02be4fdc15f2eb6b03e9b9a4919965201e5cfe40664a",
+              "size_bytes": 11807,
+              "type": "support_file"
+            },
+            {
+              "file_type": "current ar archive",
+              "path": "lib/oatpp-1.4.0/liboatpp.a",
+              "sha256": "1a09df6b628badd8ffbc0931af913fde3ef8feeeba2e0d46867fa01883dc94fd",
+              "size_bytes": 152742144,
+              "type": "static_library"
+            }
+          ],
+          "duration_seconds": 45.946,
+          "oracle_passed": true,
+          "replicate": 1,
+          "source_identity": {
+            "commit_sha": "f83d648fd82dc222ef88aabbafb68efbd7d7bf50",
+            "license_sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+            "source_snapshot_sha256": "b921579d93578104353d112696491f32836be9d987c1c77bb4735b668fbcfbe3",
+            "submodule_commits": {}
+          }
+        },
+        {
+          "artifacts": [
+            {
+              "file_type": "C++ source, Unicode text, UTF-8 text",
+              "path": "include/oatpp-1.4.0/oatpp/oatpp/Environment.hpp",
+              "sha256": "c49b3ea13e5c4411536d02be4fdc15f2eb6b03e9b9a4919965201e5cfe40664a",
+              "size_bytes": 11807,
+              "type": "support_file"
+            },
+            {
+              "file_type": "current ar archive",
+              "path": "lib/oatpp-1.4.0/liboatpp.a",
+              "sha256": "1a09df6b628badd8ffbc0931af913fde3ef8feeeba2e0d46867fa01883dc94fd",
+              "size_bytes": 152742144,
+              "type": "static_library"
+            }
+          ],
+          "duration_seconds": 45.993,
+          "oracle_passed": true,
+          "replicate": 2,
+          "source_identity": {
+            "commit_sha": "f83d648fd82dc222ef88aabbafb68efbd7d7bf50",
+            "license_sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+            "source_snapshot_sha256": "b921579d93578104353d112696491f32836be9d987c1c77bb4735b668fbcfbe3",
+            "submodule_commits": {}
+          }
+        }
+      ],
+      "task_id": "oatpp"
+    },
+    {
+      "bitwise_reproducible": true,
+      "passed": true,
+      "replicates": [
+        {
+          "artifacts": [
+            {
+              "file_type": "ELF 64-bit LSB pie executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, BuildID[sha1]=d7e0d0ad6442bfe3f954f11bcc61627bddfc9cdd, for GNU/Linux 3.2.0, with debug_info, not stripped",
+              "path": "bin/8cc",
+              "sha256": "4dfe3e58e69d26d3d7464a5bed942b91b53d9548bb840f06ade66da7c35e3c86",
+              "size_bytes": 340720,
+              "type": "executable"
+            }
+          ],
+          "duration_seconds": 1.31,
+          "oracle_passed": true,
+          "replicate": 1,
+          "source_identity": {
+            "commit_sha": "b480958396f159d3794f0d4883172b21438a8597",
+            "license_sha256": "58275bfb98f6f88347ee25dafaa3cc10831de4be310abbe0054fec67fcb22e97",
+            "source_snapshot_sha256": "5eac43b53d767fa8c69466a229f96034926583c1f5e28e72ed4d3d6b18d6f99c",
+            "submodule_commits": {}
+          }
+        },
+        {
+          "artifacts": [
+            {
+              "file_type": "ELF 64-bit LSB pie executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, BuildID[sha1]=d7e0d0ad6442bfe3f954f11bcc61627bddfc9cdd, for GNU/Linux 3.2.0, with debug_info, not stripped",
+              "path": "bin/8cc",
+              "sha256": "4dfe3e58e69d26d3d7464a5bed942b91b53d9548bb840f06ade66da7c35e3c86",
+              "size_bytes": 340720,
+              "type": "executable"
+            }
+          ],
+          "duration_seconds": 1.331,
+          "oracle_passed": true,
+          "replicate": 2,
+          "source_identity": {
+            "commit_sha": "b480958396f159d3794f0d4883172b21438a8597",
+            "license_sha256": "58275bfb98f6f88347ee25dafaa3cc10831de4be310abbe0054fec67fcb22e97",
+            "source_snapshot_sha256": "5eac43b53d767fa8c69466a229f96034926583c1f5e28e72ed4d3d6b18d6f99c",
+            "submodule_commits": {}
+          }
+        }
+      ],
+      "task_id": "8cc"
+    },
+    {
+      "bitwise_reproducible": true,
+      "passed": true,
+      "replicates": [
+        {
+          "artifacts": [
+            {
+              "file_type": "ELF 64-bit LSB pie executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, BuildID[sha1]=70e6ce487fd808c79a5083e093a581b3c1c7fad7, for GNU/Linux 3.2.0, not stripped",
+              "path": "bin/stockfish",
+              "sha256": "b3edf37f85694b8ec2ba905bb6071952729692b295e92d44fbb25c041cfbec91",
+              "size_bytes": 397248,
+              "type": "executable"
+            }
+          ],
+          "duration_seconds": 12.993,
+          "oracle_passed": true,
+          "replicate": 1,
+          "source_identity": {
+            "commit_sha": "c3483fa9a7d7c0ffa9fcc32b467ca844cfb63790",
+            "license_sha256": "0b383d5a63da644f628d99c33976ea6487ed89aaa59f0b3257992deac1171e6b",
+            "source_snapshot_sha256": "3c9cc5a72ea366e39a5312bc8f5d157c5071186c659b5136122f8fd28fd9662f",
+            "submodule_commits": {}
+          }
+        },
+        {
+          "artifacts": [
+            {
+              "file_type": "ELF 64-bit LSB pie executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, BuildID[sha1]=70e6ce487fd808c79a5083e093a581b3c1c7fad7, for GNU/Linux 3.2.0, not stripped",
+              "path": "bin/stockfish",
+              "sha256": "b3edf37f85694b8ec2ba905bb6071952729692b295e92d44fbb25c041cfbec91",
+              "size_bytes": 397248,
+              "type": "executable"
+            }
+          ],
+          "duration_seconds": 12.904,
+          "oracle_passed": true,
+          "replicate": 2,
+          "source_identity": {
+            "commit_sha": "c3483fa9a7d7c0ffa9fcc32b467ca844cfb63790",
+            "license_sha256": "0b383d5a63da644f628d99c33976ea6487ed89aaa59f0b3257992deac1171e6b",
+            "source_snapshot_sha256": "3c9cc5a72ea366e39a5312bc8f5d157c5071186c659b5136122f8fd28fd9662f",
+            "submodule_commits": {}
+          }
+        }
+      ],
+      "task_id": "stockfish-11"
+    },
+    {
+      "bitwise_reproducible": true,
+      "passed": true,
+      "replicates": [
+        {
+          "artifacts": [
+            {
+              "file_type": "ELF 64-bit LSB pie executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, BuildID[sha1]=5bfa101880e14191adbabf41bda98e69f30dd5f4, for GNU/Linux 3.2.0, not stripped",
+              "path": "bin/lz4",
+              "sha256": "4091f38c996849483412385024ff3a8c8d90ccad33d34072c80e8681a0463262",
+              "size_bytes": 351064,
+              "type": "executable"
+            },
+            {
+              "file_type": "C source, ASCII text",
+              "path": "include/lz4.h",
+              "sha256": "774f26afe507c3ea4e781faca51dfcad719f60804526cef7fe223e3c3e534eef",
+              "size_bytes": 46123,
+              "type": "support_file"
+            },
+            {
+              "file_type": "current ar archive",
+              "path": "lib/liblz4.a",
+              "sha256": "1dade03d2350467c6b8ee778c432d178dae8c80a4419cafd08242ac69cc3ef52",
+              "size_bytes": 250794,
+              "type": "static_library"
+            }
+          ],
+          "duration_seconds": 8.037,
+          "oracle_passed": true,
+          "replicate": 1,
+          "source_identity": {
+            "commit_sha": "0774d05537f9762f838f7ab541b7765f1a729cb5",
+            "license_sha256": "4bc9c403f6b679cc076dee210e0e21c27b4e8f6d3fb43d85364c76657bfaaac5",
+            "source_snapshot_sha256": "bab835b7c1c9e4dbfb3f5718a73545723dcc4f54e9cd8dcb5c1f73bab57de77d",
+            "submodule_commits": {}
+          }
+        },
+        {
+          "artifacts": [
+            {
+              "file_type": "ELF 64-bit LSB pie executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, BuildID[sha1]=5bfa101880e14191adbabf41bda98e69f30dd5f4, for GNU/Linux 3.2.0, not stripped",
+              "path": "bin/lz4",
+              "sha256": "4091f38c996849483412385024ff3a8c8d90ccad33d34072c80e8681a0463262",
+              "size_bytes": 351064,
+              "type": "executable"
+            },
+            {
+              "file_type": "C source, ASCII text",
+              "path": "include/lz4.h",
+              "sha256": "774f26afe507c3ea4e781faca51dfcad719f60804526cef7fe223e3c3e534eef",
+              "size_bytes": 46123,
+              "type": "support_file"
+            },
+            {
+              "file_type": "current ar archive",
+              "path": "lib/liblz4.a",
+              "sha256": "1dade03d2350467c6b8ee778c432d178dae8c80a4419cafd08242ac69cc3ef52",
+              "size_bytes": 250794,
+              "type": "static_library"
+            }
+          ],
+          "duration_seconds": 8.122,
+          "oracle_passed": true,
+          "replicate": 2,
+          "source_identity": {
+            "commit_sha": "0774d05537f9762f838f7ab541b7765f1a729cb5",
+            "license_sha256": "4bc9c403f6b679cc076dee210e0e21c27b4e8f6d3fb43d85364c76657bfaaac5",
+            "source_snapshot_sha256": "bab835b7c1c9e4dbfb3f5718a73545723dcc4f54e9cd8dcb5c1f73bab57de77d",
+            "submodule_commits": {}
+          }
+        }
+      ],
+      "task_id": "lz4"
+    },
+    {
+      "bitwise_reproducible": true,
+      "passed": true,
+      "replicates": [
+        {
+          "artifacts": [
+            {
+              "file_type": "C source, ASCII text",
+              "path": "include/rnnoise.h",
+              "sha256": "9d6c8bd5607d1795b870b2a094ee2ad08cc239cae0c0c584a701a809811156f6",
+              "size_bytes": 3307,
+              "type": "support_file"
+            },
+            {
+              "file_type": "current ar archive",
+              "path": "lib/librnnoise.a",
+              "sha256": "23f1a1381505581038b793431c8bb06fa37f8a48b982ef9de309cb6588846f22",
+              "size_bytes": 286784,
+              "type": "static_library"
+            }
+          ],
+          "duration_seconds": 12.788,
+          "oracle_passed": true,
+          "replicate": 1,
+          "source_identity": {
+            "commit_sha": "6cbfd53eb348a8d394e0757b4025c6ded34eb2b6",
+            "license_sha256": "e2f59ff41d9d03adc3dcf3deff170f8c8cf4a6eb4a9b174762a7656d23200ffa",
+            "source_snapshot_sha256": "6b0c652469053da4311d5e6870cf47d3bd08190cc2a4b05142fe39d6a4b37a3f",
+            "submodule_commits": {}
+          }
+        },
+        {
+          "artifacts": [
+            {
+              "file_type": "C source, ASCII text",
+              "path": "include/rnnoise.h",
+              "sha256": "9d6c8bd5607d1795b870b2a094ee2ad08cc239cae0c0c584a701a809811156f6",
+              "size_bytes": 3307,
+              "type": "support_file"
+            },
+            {
+              "file_type": "current ar archive",
+              "path": "lib/librnnoise.a",
+              "sha256": "23f1a1381505581038b793431c8bb06fa37f8a48b982ef9de309cb6588846f22",
+              "size_bytes": 286784,
+              "type": "static_library"
+            }
+          ],
+          "duration_seconds": 12.384,
+          "oracle_passed": true,
+          "replicate": 2,
+          "source_identity": {
+            "commit_sha": "6cbfd53eb348a8d394e0757b4025c6ded34eb2b6",
+            "license_sha256": "e2f59ff41d9d03adc3dcf3deff170f8c8cf4a6eb4a9b174762a7656d23200ffa",
+            "source_snapshot_sha256": "6b0c652469053da4311d5e6870cf47d3bd08190cc2a4b05142fe39d6a4b37a3f",
+            "submodule_commits": {}
+          }
+        }
+      ],
+      "task_id": "rnnoise-0.1.1"
+    },
+    {
+      "bitwise_reproducible": true,
+      "passed": true,
+      "replicates": [
+        {
+          "artifacts": [
+            {
+              "file_type": "LaTeX document, ASCII text",
+              "path": "include/theora/theora.h",
+              "sha256": "6ab9415acebc2021934ac8513ce57af278961068bf1873090baf3092d10e475e",
+              "size_bytes": 33393,
+              "type": "support_file"
+            },
+            {
+              "file_type": "current ar archive",
+              "path": "lib/libtheora.a",
+              "sha256": "1d877aa2008525d41a6643e79ce832bbcbc55f1c8d85da3c6902499830d8e91d",
+              "size_bytes": 1594002,
+              "type": "static_library"
+            }
+          ],
+          "duration_seconds": 18.358,
+          "oracle_passed": true,
+          "replicate": 1,
+          "source_identity": {
+            "commit_sha": "28fd5ec77f0ad0e07a371cef1047828116f6bd8a",
+            "license_sha256": "8417fad7da775735564e209484a2e011e0fa201e94f01fdbee6e4977e478e6fc",
+            "source_snapshot_sha256": "877a1d6307abea54295959252f48fd39fb44d8f096212720bc46f0ef0692d7e5",
+            "submodule_commits": {}
+          }
+        },
+        {
+          "artifacts": [
+            {
+              "file_type": "LaTeX document, ASCII text",
+              "path": "include/theora/theora.h",
+              "sha256": "6ab9415acebc2021934ac8513ce57af278961068bf1873090baf3092d10e475e",
+              "size_bytes": 33393,
+              "type": "support_file"
+            },
+            {
+              "file_type": "current ar archive",
+              "path": "lib/libtheora.a",
+              "sha256": "1d877aa2008525d41a6643e79ce832bbcbc55f1c8d85da3c6902499830d8e91d",
+              "size_bytes": 1594002,
+              "type": "static_library"
+            }
+          ],
+          "duration_seconds": 17.979,
+          "oracle_passed": true,
+          "replicate": 2,
+          "source_identity": {
+            "commit_sha": "28fd5ec77f0ad0e07a371cef1047828116f6bd8a",
+            "license_sha256": "8417fad7da775735564e209484a2e011e0fa201e94f01fdbee6e4977e478e6fc",
+            "source_snapshot_sha256": "877a1d6307abea54295959252f48fd39fb44d8f096212720bc46f0ef0692d7e5",
+            "submodule_commits": {}
+          }
+        }
+      ],
+      "task_id": "theora"
+    },
+    {
+      "bitwise_reproducible": true,
+      "passed": true,
+      "replicates": [
+        {
+          "artifacts": [
+            {
+              "file_type": "C source, ASCII text",
+              "path": "include/sndfile.h",
+              "sha256": "911098ea4b66f0c5ad59785b176f2b19f6e657042c15c93791edb53467efd6c0",
+              "size_bytes": 29558,
+              "type": "support_file"
+            },
+            {
+              "file_type": "current ar archive",
+              "path": "lib/libsndfile.a",
+              "sha256": "ee0b7e729e95019f859604fd6887de49a6c6dc4f3fa2cd6c815544441e233e59",
+              "size_bytes": 909736,
+              "type": "static_library"
+            }
+          ],
+          "duration_seconds": 35.906,
+          "oracle_passed": true,
+          "replicate": 1,
+          "source_identity": {
+            "commit_sha": "b9103bd48b6c8fb517ae737fe3baee0c718b804c",
+            "license_sha256": "ad01ea5cd2755f6048383c8d54c88459cd6fcb17757c5c8892f8c5ea060f6140",
+            "source_snapshot_sha256": "cea4a9d086e69d0a204a05f2d200bb6ab60d84d21ee59a381b449a0096a9db00",
+            "submodule_commits": {}
+          }
+        },
+        {
+          "artifacts": [
+            {
+              "file_type": "C source, ASCII text",
+              "path": "include/sndfile.h",
+              "sha256": "911098ea4b66f0c5ad59785b176f2b19f6e657042c15c93791edb53467efd6c0",
+              "size_bytes": 29558,
+              "type": "support_file"
+            },
+            {
+              "file_type": "current ar archive",
+              "path": "lib/libsndfile.a",
+              "sha256": "ee0b7e729e95019f859604fd6887de49a6c6dc4f3fa2cd6c815544441e233e59",
+              "size_bytes": 909736,
+              "type": "static_library"
+            }
+          ],
+          "duration_seconds": 35.911,
+          "oracle_passed": true,
+          "replicate": 2,
+          "source_identity": {
+            "commit_sha": "b9103bd48b6c8fb517ae737fe3baee0c718b804c",
+            "license_sha256": "ad01ea5cd2755f6048383c8d54c88459cd6fcb17757c5c8892f8c5ea060f6140",
+            "source_snapshot_sha256": "cea4a9d086e69d0a204a05f2d200bb6ab60d84d21ee59a381b449a0096a9db00",
+            "submodule_commits": {}
+          }
+        }
+      ],
+      "task_id": "libsndfile"
+    },
+    {
+      "bitwise_reproducible": true,
+      "passed": true,
+      "replicates": [
+        {
+          "artifacts": [
+            {
+              "file_type": "C source, ASCII text",
+              "path": "include/civetweb.h",
+              "sha256": "a9e4e597a6898214774847a1d2b27dcc7a5990108e4e2dc7c2cf1084a92f4f80",
+              "size_bytes": 68546,
+              "type": "support_file"
+            },
+            {
+              "file_type": "current ar archive",
+              "path": "lib/libcivetweb.a",
+              "sha256": "49dce69a580d1f2063d86c34e0b238c5995bc680d73403c1209ddca513adcaa0",
+              "size_bytes": 310298,
+              "type": "static_library"
+            }
+          ],
+          "duration_seconds": 3.555,
+          "oracle_passed": true,
+          "replicate": 1,
+          "source_identity": {
+            "commit_sha": "588860e30721bf5453b0440c390865a8e85dcae5",
+            "license_sha256": "bf567777c38932fe77d76ffe23529e2f415ae7a5cdf8ed6200a2a0236acc8440",
+            "source_snapshot_sha256": "7bc15099e2ffc9d8f6b5eac68d98cb3e63f77682b90eef76d944e4fe4edec30f",
+            "submodule_commits": {}
+          }
+        },
+        {
+          "artifacts": [
+            {
+              "file_type": "C source, ASCII text",
+              "path": "include/civetweb.h",
+              "sha256": "a9e4e597a6898214774847a1d2b27dcc7a5990108e4e2dc7c2cf1084a92f4f80",
+              "size_bytes": 68546,
+              "type": "support_file"
+            },
+            {
+              "file_type": "current ar archive",
+              "path": "lib/libcivetweb.a",
+              "sha256": "49dce69a580d1f2063d86c34e0b238c5995bc680d73403c1209ddca513adcaa0",
+              "size_bytes": 310298,
+              "type": "static_library"
+            }
+          ],
+          "duration_seconds": 3.575,
+          "oracle_passed": true,
+          "replicate": 2,
+          "source_identity": {
+            "commit_sha": "588860e30721bf5453b0440c390865a8e85dcae5",
+            "license_sha256": "bf567777c38932fe77d76ffe23529e2f415ae7a5cdf8ed6200a2a0236acc8440",
+            "source_snapshot_sha256": "7bc15099e2ffc9d8f6b5eac68d98cb3e63f77682b90eef76d944e4fe4edec30f",
+            "submodule_commits": {}
+          }
+        }
+      ],
+      "task_id": "civetweb"
+    },
+    {
+      "bitwise_reproducible": true,
+      "passed": true,
+      "replicates": [
+        {
+          "artifacts": [
+            {
+              "file_type": "C source, ASCII text",
+              "path": "include/json-c/json.h",
+              "sha256": "05408079f9d62dbec3c4ebc2c05babdc0f70cf130fdbda39c95337805a358f25",
+              "size_bytes": 834,
+              "type": "support_file"
+            },
+            {
+              "file_type": "current ar archive",
+              "path": "lib/libjson-c.a",
+              "sha256": "801f68eedf65ae8576af92167fcc6c956a225f406132d2ac472c78edfbca954c",
+              "size_bytes": 165086,
+              "type": "static_library"
+            }
+          ],
+          "duration_seconds": 12.295,
+          "oracle_passed": true,
+          "replicate": 1,
+          "source_identity": {
+            "commit_sha": "25895a587eb5a80ee18514af784122e3bacb10c4",
+            "license_sha256": "74c1e6ca5eba76b54d0ad00d4815c8315c1b3bc45ff99de61d103dc92486284c",
+            "source_snapshot_sha256": "5eb4b4783df616ab418ece3fd0681f66f8f455b99f93e84634fbd5bf07a3667f",
+            "submodule_commits": {}
+          }
+        },
+        {
+          "artifacts": [
+            {
+              "file_type": "C source, ASCII text",
+              "path": "include/json-c/json.h",
+              "sha256": "05408079f9d62dbec3c4ebc2c05babdc0f70cf130fdbda39c95337805a358f25",
+              "size_bytes": 834,
+              "type": "support_file"
+            },
+            {
+              "file_type": "current ar archive",
+              "path": "lib/libjson-c.a",
+              "sha256": "801f68eedf65ae8576af92167fcc6c956a225f406132d2ac472c78edfbca954c",
+              "size_bytes": 165086,
+              "type": "static_library"
+            }
+          ],
+          "duration_seconds": 12.422,
+          "oracle_passed": true,
+          "replicate": 2,
+          "source_identity": {
+            "commit_sha": "25895a587eb5a80ee18514af784122e3bacb10c4",
+            "license_sha256": "74c1e6ca5eba76b54d0ad00d4815c8315c1b3bc45ff99de61d103dc92486284c",
+            "source_snapshot_sha256": "5eb4b4783df616ab418ece3fd0681f66f8f455b99f93e84634fbd5bf07a3667f",
+            "submodule_commits": {}
+          }
+        }
+      ],
+      "task_id": "json-c"
+    }
+  ],
+  "ubuntu_snapshot": "20260925T000000Z",
+  "zero_managed_resources_after": true,
+  "zero_managed_resources_before": true
+}

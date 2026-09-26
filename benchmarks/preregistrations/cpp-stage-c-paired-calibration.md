@@ -35,6 +35,7 @@
 - Replicate 1 的前 6 项为 A->B，后 6 项为 B->A；每个项目的 replicate 2 使用相反顺序。
 - 同一 pair 的两个 arm 相邻执行。第一 arm 的合法方法失败不阻止第二 arm。
 - 单臂上限为 24 model requests、300,000 recorded tokens、1,800 秒 method work、120 秒 cleanup reserve、900 秒单命令、1,800 秒 evaluator、1,800 秒 replay。B 另限 64 agent steps、48 tool calls 和 32 commands。
+- 历史成本敏感性审计冻结在 `benchmarks/reports/cpp-stage-c-cost-sensitivity-audit.json`。CXXCrafter Stage B 六项共 212,109 tokens；Forge Stage B 最终六项共 918,121 tokens，单项最大 279,841。相对 300,000 上限仅余 20,159（6.7197%），因此 300,000 保留为硬停止上限，不解释为预期消耗。
 - 唯一 reachability 上限为 1 request / 5,000 recorded tokens。48 arms 上限为 14,400,000 tokens，总上限为 14,405,000 tokens。
 - 只在完整 pair 开始前检查剩余总预算。已开始 pair 尽量执行完双臂；禁止 retry、replacement、fallback、backfill 和按结果重排。
 
@@ -45,6 +46,10 @@
 部署口径保留所有已登记 arm，包括模型失败、no-submit、预算耗尽、Provider timeout、候选拒绝、oracle 失败与 replay 失败。只有完整 pair 进入 paired estimate；不完整 pair 保留原始 evidence，不得补跑或静默删失。
 
 报告必须分别呈现 candidate generated、candidate submitted、S0-S5、strict success、bitwise、请求、tokens、墙钟、失败分类、清理和 evidence inventory。Stage C 是校准实验，不把 24 pairs 当作 24 个独立项目，也不以显著性声明为主要结论。
+
+## 执行授权状态
+
+零 Provider reference qualification 已完成：12/12 tasks、24/24 reference builds/oracles、12/12 bitwise reproducible，且前后均为 0 managed resources。资格过程保持 0 Provider request、0 model token、0 formal Stage C attempt 和 0 正式 Stage C evidence。授权 identity 绑定资格回执、完整镜像 ID、成本审计、48 arms 与 14,405,000-token 最坏上限；`stage_c_execution_started=false`，正式 `reachability` 与 `batch` 尚未运行。
 
 ## 网络、身份与停止规则
 

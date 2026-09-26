@@ -1,0 +1,112 @@
+{
+  "audit_date": "2026-09-26",
+  "decision": {
+    "formal_arm_count": 48,
+    "formal_arms_max_recorded_tokens": 14400000,
+    "historical_max_recorded_tokens": 279841,
+    "max_recorded_tokens_per_arm": 300000,
+    "observed_max_headroom_fraction": 0.067197,
+    "observed_max_headroom_percent": 6.7197,
+    "observed_max_headroom_tokens": 20159,
+    "reachability_max_recorded_tokens": 5000,
+    "total_max_recorded_tokens": 14405000,
+    "upper_bound_role": "hard_stop_not_expected_consumption"
+  },
+  "document_type": "forge_stage_c_cost_sensitivity_audit",
+  "historical_inputs": [
+    {
+      "audit_report": {
+        "path": "benchmark/reports/stage-b-canary-v2-audit.md",
+        "sha256": "baf686cc4408b03b72c5fa9aade07f3c43fa8c10af1d83443d5b1ad31e7662b5"
+      },
+      "method": "cxxcrafter_stage_b_canary_v2",
+      "repository": "https://github.com/seclab-fudan/CXXCrafter-Community-Edition.git",
+      "revision": "bac70e99e48b210a350c18b3f93efd839787ce37",
+      "task_count": 6,
+      "tasks": [
+        {
+          "input_tokens": 16616,
+          "output_tokens": 11387,
+          "recorded_tokens": 28003,
+          "task_id": "yyjson"
+        },
+        {
+          "input_tokens": 14105,
+          "output_tokens": 7578,
+          "recorded_tokens": 21683,
+          "task_id": "cppitertools"
+        },
+        {
+          "input_tokens": 51115,
+          "output_tokens": 9530,
+          "recorded_tokens": 60645,
+          "task_id": "openh264"
+        },
+        {
+          "input_tokens": 19119,
+          "output_tokens": 28206,
+          "recorded_tokens": 47325,
+          "task_id": "uwebsockets"
+        },
+        {
+          "input_tokens": 19874,
+          "output_tokens": 8363,
+          "recorded_tokens": 28237,
+          "task_id": "c-ares"
+        },
+        {
+          "input_tokens": 6839,
+          "output_tokens": 19377,
+          "recorded_tokens": 26216,
+          "task_id": "libass"
+        }
+      ],
+      "total_recorded_tokens": 212109
+    },
+    {
+      "audit_report": {
+        "path": "benchmarks/reports/cpp-agent-workflow-stage-b-phase5-v2-audit.json",
+        "sha256": "9d636d779ac43c5eee2095d219333fb30cc9082a09db8201a0bec10971337ef0"
+      },
+      "method": "forge_agent_workflow_stage_b_phase5_v2",
+      "release_revision": "5ed549ea92add2403a91512d3148f29686559d67",
+      "repository": "https://github.com/WWFXL/Forge-AutoCompiler.git",
+      "task_count": 6,
+      "tasks": [
+        {
+          "recorded_tokens": 82169,
+          "task_id": "yyjson"
+        },
+        {
+          "recorded_tokens": 72219,
+          "task_id": "cppitertools"
+        },
+        {
+          "recorded_tokens": 225403,
+          "task_id": "openh264"
+        },
+        {
+          "recorded_tokens": 279841,
+          "task_id": "uwebsockets"
+        },
+        {
+          "recorded_tokens": 121692,
+          "task_id": "c-ares"
+        },
+        {
+          "recorded_tokens": 136797,
+          "task_id": "libass"
+        }
+      ],
+      "total_recorded_tokens": 918121
+    }
+  ],
+  "limitations": [
+    "historical_stage_b_tasks_are_not_stage_c_tasks",
+    "historical_methods_used_different_execution_contracts",
+    "small_samples_do_not_estimate_stage_c_expected_consumption",
+    "audit_sets_a_safety_ceiling_only"
+  ],
+  "schema_version": "forge-stage-c-cost-sensitivity-audit-1.0.0",
+  "stage_c_outcomes_observed": false
+}

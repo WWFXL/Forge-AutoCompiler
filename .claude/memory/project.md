@@ -6,18 +6,15 @@
 
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
-- 2026-09-26 — 实现 Stage C 十二项目受控配对校准执行准备
-  - GitHub: Issue #310 冻结设计；Issue #312 / PR #313 已把 C1-C4 实现合并；PR #315-#317 依次修复 snapshot CA、oatpp/ownership 与 8cc/Theora。Issue #314 跟踪资格回执与执行前门禁，当前基线为 `main@8a7489da`，修复分支为 `fix/stage-c-reference-qualification-v4`。
-  - 实现: 冻结结果盲 12 项 task pool、target/oracle/bitwise 资格计划与 Ubuntu snapshot 镜像；新增 24 次 reference qualification、CXXCrafter-style controlled A 臂、Forge Runtime v2 + evaluator v4 B 臂、24 pairs / 48 arms 反向平衡调度、pair-boundary budget gate、create-once evidence 与报告。
-  - 门禁: fake-model 单测为 `12 passed, 3 skipped`；CMake/Make/Autotools 短小真实 Docker 门禁为 `3 passed`；相邻回归 `147 passed, 3 skipped`；完整后端为 `1811 passed, 41 skipped`；Ruff 400 files 通过。Docker 门禁发现并修复 BuildKit 不能直接解析 `FROM sha256:<image-id>` 的问题，执行时使用核对完整 ID 的一次性本地 alias。
-  - 当前状态: 旧 `autocompiler:stage-c-v1@sha256:aa56877b...054b2` 不含新冻结的 GNU AutoGen，需在修复合并后按 Stage C Dockerfile 重新构建；资格 plan `validate` 通过且 0 managed resources。12 项双重复 reference qualification 尚未闭合，因此 authorized manifest/schema 尚未生成。
-  - 资格构建修复: 首次 `build-image` 暴露固定 Ubuntu 最小基础镜像不含 CA，snapshot HTTPS 索引刷新被 APT 作为警告吞掉，随后工具链安装误报软件包不存在。Stage C Dockerfile 改为由签名的 InRelease 元数据保护一次性 CA 引导，删除临时 TLS 配置后以正常 peer 校验重新刷新索引；PR #315 合并后镜像构建通过。
-  - 资格运行修复: 修复后镜像成功冻结为 `sha256:aa56877b...054b2`；首次 `run` 在 oatpp replicate 1 暴露旧版 `oatpp::base::Environment` oracle 与固定 1.4.0 API 不符，并因容器 root 写 bind mount 导致异常清理权限失败。oracle 已按实际固定头文件更正，qualification 容器改用宿主 UID/GID；尚未生成资格回执。
-  - 8cc oracle 修复: 第二次 `run` 正常清理后停在 8cc replicate 1；固定 commit 要求显式 `-c/-S` 等模式，不能直接完成链接。oracle 改为由 8cc `-c` 生成目标文件，再由系统 `cc` 链接和运行；已在固定镜像与准确源码 commit 上通过真实探针。继续审计未到达任务时发现 Theora 旧版交付头文件与新版 `th_info` 调用不匹配，已改用该头文件实际声明的 `theora_info` API；仍未生成资格回执。
-  - libsndfile/civetweb 修复: 第三次 `run` 停在 libsndfile replicate 1；固定源码的 Autotools 路径依赖 GNU AutoGen 生成 `src/test_endswap.c`，镜像已补齐该 snapshot 包并移除无效 configure 参数。随后审计发现 civetweb 固定上游提交本身损坏，已在允许源码修改的 reference recipe 中冻结最小确定性修复。两项各两个真实重复均通过 artifact、oracle 与 bitwise 哈希核对，json-c 单重复探针也通过。
-  - 边界: 0 Provider、0 model token、0 Stage C physical attempt、0 正式 Stage C evidence；未运行正式 `reachability` 或 `batch`。
-  - 下一步: 合并 v4 资格修复后，由实验所有者重新构建正式 Stage C 镜像并运行 qualification；回传 receipt 后只读验证、生成 authorized identity，并运行 `validate`/`preflight`，停在正式实验可开始但未开始的状态。
-  - 文件: `scripts/forge_stage_c_*.py`, `benchmarks/fixtures/stage-c-source-pool.json`, `benchmarks/manifests/cpp-stage-c-task-qualification.json`, `benchmarks/preregistrations/cpp-stage-c-paired-calibration.md`, `docker/compile/Dockerfile.stage-c`, `backend/tests/test_stage_c_execution_readiness.py`
+- 2026-09-26 — 闭合 Stage C 资格回执并派生授权执行身份
+  - GitHub: Issue #310 冻结设计；Issue #312 / PR #313 已合并 C1-C4 执行准备；PR #315-#318 已合并 snapshot CA、资格运行、版本敏感 oracle 与 reference recipe 修复。Issue #314 跟踪最终资格回执与执行前门禁；当前分支为 `research/stage-c-authorized-identity`，基线为 `main@2be1fcb1`。
+  - 资格结果: 新镜像为 `sha256:adbef4a...e758b1`，Dockerfile SHA-256 为 `023b38d3...85ac`。资格回执文件 SHA-256 为 `b5c268cd...e6eb`；12/12 tasks、24/24 reference builds/oracles 与 12/12 bitwise reproducible 全部通过，前后均为 0 managed resources。独立 `verify-result` 与原结果逐字一致。
+  - 成本审计: 只读冻结 CXXCrafter Stage B 六项 212,109 tokens 和 Forge Stage B 六项 918,121 tokens；历史单项最大 279,841，相对 300,000 上限仅余 20,159（6.7197%）。300,000 只作为单臂硬停止上限，48 arms 加唯一 reachability 的最坏授权上限为 14,405,000，不作为预期消耗。
+  - 授权身份: authorized manifest/const Schema 已绑定资格回执、完整 image ID、成本审计、模型、网络政策、24 pairs / 48 arms 和总 token ceiling；canonical manifest SHA-256 为 `6ef6f6fe...c641`，状态为 `authorized_not_executed` 且 `stage_c_execution_started=false`。公开 task 不含 reference recipe。
+  - 验证: Stage C 聚焦门禁 `22 passed, 3 skipped`；完整产品后端 `1821 passed, 41 skipped`；Ruff check 与 400 文件 format check 通过；runner/protocol validate、资格回执复算、连续确定性再生成和 `git diff --check` 通过。
+  - 边界: 资格与开发过程保持 0 Provider、0 model token、0 Stage C physical attempt、0 正式 Stage C evidence；未运行正式 `reachability` 或 `batch`。
+  - 下一步: 提交、推送并创建中文 PR；四项 CI 全绿后合并，从干净 `main == origin/main` 只运行 `validate` 与非模型 `preflight`，随后停在正式 Stage C 可开始但尚未开始的状态。
+  - 文件: `benchmarks/fixtures/stage-c-task-qualification-result.json`, `benchmarks/reports/cpp-stage-c-cost-sensitivity-audit.json`, `benchmarks/manifests/cpp-stage-c-paired-calibration-authorized.json`, `benchmarks/schemas/forge-stage-c-paired-calibration-authorized.schema.json`, `scripts/forge_stage_c_protocol.py`, `backend/tests/test_stage_c_execution_readiness.py`
 
 - 2026-09-25 — 冻结 evaluator v3 的 Phase 5 独立授权评测 identity
   - GitHub: 中文 Issue #303 与 PR #304 已创建并回读；分支为 `research/phase5-v3-authorized-identity`，基线为 `main@9f8c8ad4`，实现提交为 `4c85e0fd`。首轮 backend unit、frozen benchmark、backend lint 和 frontend lint 四项 CI 全绿。Spec/Plan 位于 `docs/superpowers/`。
@@ -880,6 +877,7 @@
 
 <!-- 工作中踩过的坑、限制或意外行为。 -->
 
+- CI 的 `frozen-benchmark-tests` 会固定检出历史 `fa558d3ab1f3498a8e751d141319cda6c1fea939`，再运行该历史树的 `tests/test_forge_*.py`。不要在当前主干直接用同一 glob 模拟该 job：旧 opaque-provenance 脚本仍导入已从现行 runtime 删除的 `resolve_command_role`，会产生 13 个收集错误；这不等价于 CI frozen job 失败。当前树的新 benchmark 门禁应运行对应的聚焦测试，产品全集使用 `make test-product`。
 - Docker/root 进程曾把 `/home/yiwei/.cache/uv` 与 `backend/.pytest_cache` 建成 root-owned，导致 `uv` 子进程在测试逻辑前失败；旧目录已原子保留为 `uv.root-owned-20260925` 与 `.pytest_cache.root-owned-20260925`，活跃缓存已由当前用户重新创建。旧备份只能由具备 sudo 权限的人工后续清理。
 - Confirmatory v1 的真实 fake-model Docker gate 只覆盖 CMake `args`，因此没有触达 R3 Make 对 `case.reference_case_id` 与 `make_lifecycle.provenance.command_history_sha256` 的隐含依赖。跨 build-system 复用 runner 时，至少各选一个 CMake/Make case 做真实零 provider 门禁；发现冻结 runtime 缺口后必须新增版本化 adapter/test，不能原地修改 v1 或重生成旧 manifest 掩盖失败。
 - R3 Make runner 在 `gate.capture()` 的 evidence callback 抛错时，`gate` 已创建但 coordinator record 可能尚未提交；现有异常清理会跳过直接 parent container removal，留下已退出的 compile 容器。opt-in 测试必须跟踪自身创建的 Session 并在 `finally` 按精确 identity 清理；未来若授权 recovery，应先在新版本 runner 中补齐 capture-before-commit 的生产 cleanup 门禁。
