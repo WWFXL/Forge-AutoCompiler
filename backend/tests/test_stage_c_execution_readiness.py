@@ -124,6 +124,50 @@ def test_stage_c_dockerfile_bootstraps_ca_before_verified_snapshot_install() -> 
     assert bootstrap_write < ca_install < bootstrap_remove < verified_update < toolchain_install
 
 
+def test_stage_c_qualification_containers_use_host_identity(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    docker_runs: list[list[str]] = []
+    docker_removals: list[list[str]] = []
+
+    def fake_clone(_task: dict[str, Any], destination: Path) -> None:
+        destination.mkdir(parents=True)
+
+    def fake_checked(argv: list[str], **_kwargs: Any) -> str:
+        docker_runs.append(argv)
+        return ""
+
+    monkeypatch.setattr(qualification, "_clone_exact", fake_clone)
+    monkeypatch.setattr(qualification, "_verify_source", lambda *_args: {})
+    monkeypatch.setattr(qualification, "_artifact_evidence", lambda *_args: [])
+    monkeypatch.setattr(qualification, "_run_checked", fake_checked)
+    monkeypatch.setattr(
+        qualification.subprocess,
+        "run",
+        lambda argv, **_kwargs: docker_removals.append(argv),
+    )
+    plan = {"environment": {"parallel_jobs": 4, "per_task_timeout_seconds": 60}}
+    task = {
+        "task_id": "fixture",
+        "reference_recipe": ["true"],
+        "oracle": {"kind": "command", "argv": ["true"]},
+    }
+
+    qualification._run_reference_once(
+        plan,
+        {},
+        task,
+        tmp_path / "replicate-1",
+        1,
+        _IMAGE_ID,
+    )
+
+    assert len(docker_runs) == 2
+    for command in docker_runs:
+        assert command[command.index("--user") + 1] == f"{os.getuid()}:{os.getgid()}"
+        assert command[command.index("--env") + 1] == "HOME=/tmp"
+    assert len(docker_removals) == 2
+    assert all(command[:3] == ["docker", "rm", "-f"] for command in docker_removals)
+
+
 def test_controlled_baseline_submits_unified_candidate(tmp_path: Path) -> None:
     model = _FakeModel(
         [

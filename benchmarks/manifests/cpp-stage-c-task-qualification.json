@@ -115,7 +115,7 @@
       "oracle": {
         "kind": "compile_and_run",
         "language": "c++17",
-        "source": "#include <oatpp/Environment.hpp>\nint main(){ oatpp::base::Environment::init(); oatpp::base::Environment::destroy(); return 0; }\n",
+        "source": "#include <oatpp/Environment.hpp>\nint main(){ oatpp::Environment::init(); oatpp::Environment::destroy(); return 0; }\n",
         "compile_argv": ["c++", "-std=c++17", "-I/artifacts/include/oatpp-1.4.0/oatpp", "{source}", "/artifacts/lib/oatpp-1.4.0/liboatpp.a", "-pthread", "-latomic", "-o", "{executable}"],
         "run_argv": ["{executable}"]
       }

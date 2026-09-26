@@ -270,6 +270,15 @@ def _run_checked(
     return result.stdout.strip()
 
 
+def _docker_host_identity_args() -> list[str]:
+    return [
+        "--user",
+        f"{os.getuid()}:{os.getgid()}",
+        "--env",
+        "HOME=/tmp",
+    ]
+
+
 def require_zero_managed_resources() -> None:
     output = _run_checked(["docker", "ps", "-a", "--format", "{{.Names}}"])
     names = sorted(
@@ -505,6 +514,7 @@ def _run_reference_once(
                 "forge.stage-c.qualification=true",
                 "--network",
                 "none",
+                *_docker_host_identity_args(),
                 "--cpus",
                 str(plan["environment"]["parallel_jobs"]),
                 "--volume",
@@ -540,6 +550,7 @@ def _run_reference_once(
                 "forge.stage-c.qualification=true",
                 "--network",
                 "none",
+                *_docker_host_identity_args(),
                 "--volume",
                 f"{source.resolve()}:/workspace/repo",
                 "--volume",
