@@ -1,0 +1,215 @@
+{
+  "document_type": "forge_stage_c_v4_source_structure_audit",
+  "formal_stage_c_attempts": 0,
+  "manifest_sha256": "410f32b0a2cf22eac9023c80da18876adee5fbd6f2abd689eac37ce63e8f2b29",
+  "model_tokens": 0,
+  "provider_calls": 0,
+  "schema_version": "forge-stage-c-v4-source-structure-audit-1.0.0",
+  "scope": "all_12_exact_sources_top_level_then_one_subdirectory",
+  "task_count": 12,
+  "tasks": [
+    {
+      "commit_sha": "25895a587eb5a80ee18514af784122e3bacb10c4",
+      "declared_capabilities": [
+        "cmake",
+        "cmake-configure"
+      ],
+      "detected_markers": {
+        "cmake": [
+          "CMakeLists.txt"
+        ]
+      },
+      "passed": true,
+      "selected_build_system": "cmake",
+      "selected_marker": "CMakeLists.txt",
+      "source_snapshot_sha256": "5eb4b4783df616ab418ece3fd0681f66f8f455b99f93e84634fbd5bf07a3667f",
+      "task_id": "json-c"
+    },
+    {
+      "commit_sha": "c3483fa9a7d7c0ffa9fcc32b467ca844cfb63790",
+      "declared_capabilities": [
+        "make"
+      ],
+      "detected_markers": {
+        "make": [
+          "src/Makefile"
+        ]
+      },
+      "passed": true,
+      "selected_build_system": "make",
+      "selected_marker": "src/Makefile",
+      "source_snapshot_sha256": "3c9cc5a72ea366e39a5312bc8f5d157c5071186c659b5136122f8fd28fd9662f",
+      "task_id": "stockfish-11"
+    },
+    {
+      "commit_sha": "6cbfd53eb348a8d394e0757b4025c6ded34eb2b6",
+      "declared_capabilities": [
+        "autotools"
+      ],
+      "detected_markers": {
+        "autotools": [
+          "configure.ac",
+          "autogen.sh"
+        ]
+      },
+      "passed": true,
+      "selected_build_system": "autotools",
+      "selected_marker": "configure.ac",
+      "source_snapshot_sha256": "6b0c652469053da4311d5e6870cf47d3bd08190cc2a4b05142fe39d6a4b37a3f",
+      "task_id": "rnnoise-0.1.1"
+    },
+    {
+      "commit_sha": "b9103bd48b6c8fb517ae737fe3baee0c718b804c",
+      "declared_capabilities": [
+        "autotools",
+        "cmake"
+      ],
+      "detected_markers": {
+        "autotools": [
+          "configure.ac"
+        ],
+        "cmake": [
+          "CMakeLists.txt"
+        ]
+      },
+      "passed": true,
+      "selected_build_system": "autotools",
+      "selected_marker": "configure.ac",
+      "source_snapshot_sha256": "cea4a9d086e69d0a204a05f2d200bb6ab60d84d21ee59a381b449a0096a9db00",
+      "task_id": "libsndfile"
+    },
+    {
+      "commit_sha": "0774d05537f9762f838f7ab541b7765f1a729cb5",
+      "declared_capabilities": [
+        "make"
+      ],
+      "detected_markers": {
+        "make": [
+          "Makefile"
+        ]
+      },
+      "passed": true,
+      "selected_build_system": "make",
+      "selected_marker": "Makefile",
+      "source_snapshot_sha256": "bab835b7c1c9e4dbfb3f5718a73545723dcc4f54e9cd8dcb5c1f73bab57de77d",
+      "task_id": "lz4"
+    },
+    {
+      "commit_sha": "49a1f78b50eb0f5a49d096786a95a93874a2592a",
+      "declared_capabilities": [
+        "cmake"
+      ],
+      "detected_markers": {
+        "cmake": [
+          "CMakeLists.txt"
+        ]
+      },
+      "passed": true,
+      "selected_build_system": "cmake",
+      "selected_marker": "CMakeLists.txt",
+      "source_snapshot_sha256": "41bb3c4fb57661b7f2715c152f0b3983f6027741e4f4847987ef8b7b2cb99bea",
+      "task_id": "libsoundio"
+    },
+    {
+      "commit_sha": "28fd5ec77f0ad0e07a371cef1047828116f6bd8a",
+      "declared_capabilities": [
+        "autotools"
+      ],
+      "detected_markers": {
+        "autotools": [
+          "configure.ac",
+          "autogen.sh"
+        ]
+      },
+      "passed": true,
+      "selected_build_system": "autotools",
+      "selected_marker": "configure.ac",
+      "source_snapshot_sha256": "877a1d6307abea54295959252f48fd39fb44d8f096212720bc46f0ef0692d7e5",
+      "task_id": "theora"
+    },
+    {
+      "commit_sha": "b480958396f159d3794f0d4883172b21438a8597",
+      "declared_capabilities": [
+        "make"
+      ],
+      "detected_markers": {
+        "make": [
+          "Makefile"
+        ]
+      },
+      "passed": true,
+      "selected_build_system": "make",
+      "selected_marker": "Makefile",
+      "source_snapshot_sha256": "5eac43b53d767fa8c69466a229f96034926583c1f5e28e72ed4d3d6b18d6f99c",
+      "task_id": "8cc"
+    },
+    {
+      "commit_sha": "dd8ad7915cdf5ab1f8719d488894a5e54c876dd6",
+      "declared_capabilities": [
+        "cmake"
+      ],
+      "detected_markers": {
+        "cmake": [
+          "CMakeLists.txt"
+        ]
+      },
+      "passed": true,
+      "selected_build_system": "cmake",
+      "selected_marker": "CMakeLists.txt",
+      "source_snapshot_sha256": "1ed97e520d88d3d3cfb47fd3ad461311bf9b89c82549c3a5d2d653f9e8314c6a",
+      "task_id": "libjpeg-turbo"
+    },
+    {
+      "commit_sha": "588860e30721bf5453b0440c390865a8e85dcae5",
+      "declared_capabilities": [
+        "make",
+        "cmake"
+      ],
+      "detected_markers": {
+        "cmake": [
+          "CMakeLists.txt"
+        ],
+        "make": [
+          "Makefile"
+        ]
+      },
+      "passed": true,
+      "selected_build_system": "make",
+      "selected_marker": "Makefile",
+      "source_snapshot_sha256": "7bc15099e2ffc9d8f6b5eac68d98cb3e63f77682b90eef76d944e4fe4edec30f",
+      "task_id": "civetweb"
+    },
+    {
+      "commit_sha": "7ee830d02b623e8ffe0b95d59a74db1e58da04c5",
+      "declared_capabilities": [
+        "cmake"
+      ],
+      "detected_markers": {
+        "cmake": [
+          "CMakeLists.txt"
+        ]
+      },
+      "passed": true,
+      "selected_build_system": "cmake",
+      "selected_marker": "CMakeLists.txt",
+      "source_snapshot_sha256": "ec08de9cdd5fa574a2c0ccd6e901d4acca47bb29f740c171e1404fc08c551ba1",
+      "task_id": "leveldb"
+    },
+    {
+      "commit_sha": "f83d648fd82dc222ef88aabbafb68efbd7d7bf50",
+      "declared_capabilities": [
+        "cmake"
+      ],
+      "detected_markers": {
+        "cmake": [
+          "CMakeLists.txt"
+        ]
+      },
+      "passed": true,
+      "selected_build_system": "cmake",
+      "selected_marker": "CMakeLists.txt",
+      "source_snapshot_sha256": "b921579d93578104353d112696491f32836be9d987c1c77bb4735b668fbcfbe3",
+      "task_id": "oatpp"
+    }
+  ]
+}

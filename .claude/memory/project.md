@@ -122,6 +122,15 @@
 
 <!-- 倒序，最新在上。 -->
 
+- 2026-09-27 — 封存 Stage C v3 失败并冻结 v4 构建入口修复身份
+  - GitHub: Issue #325 跟踪 Stage C v3 在 `json-c` 首个完整 pair 后拒绝 Stockfish `src/Makefile`、Agent build-system 枚举污染和 A 臂 oracle 跨容器路径错误；修复分支为 `research/stage-c-v4-build-entrypoint`，基线为 `main@cbb29c24`。
+  - 审计: v3 固定为 1 个闭合 pair、2 个正式 arm attempt、4 次 Provider 调用和 30,768 recorded tokens；243 个 evidence 文件逐项冻结，0 未闭合 pair、0 managed resource，旧 identity 永久禁止续跑。
+  - 实现: build-system probe 在顶层无 marker 时确定性检查一层子目录；Stage C Agent 输入过滤辅助能力标签并在 preflight 校验全部任务；A 臂 oracle 在候选镜像内以 `network=none`、只读 rootfs 和可执行 tmpfs 运行；exact-commit fetch 仅向 Git 子进程映射 compile-runtime proxy、固定 HTTP/1.1 并在 attempt 前最多重试三次。
+  - Identity: v4 不导入旧 outcome，使用独立 evidence、24 个新 pair 和 48 个新 attempt；12 个 exact source 的 snapshot/marker 审计已冻结，canonical manifest SHA-256 为 `46d1f2f95a14042f035fb908d3f5460672d560ae26eabcaa66f823a5594b8189`。
+  - 测试边界: 产品测试排除已冻结且会因共享源码正常演进而失效的 `test_agent_workflow_stage_b_*`，历史 manifest/protocol/evidence 保持原样；当前 Stage C 测试仍由产品和定向门禁执行。
+  - 验证: 产品测试 `1762 passed, 42 skipped`；Compile Runtime 与 Stage C 聚焦回归 `168 passed, 4 skipped`；Stage C 真实 Docker 门禁 `37 passed`；Ruff、protocol/runner validate、28 个冻结组件哈希和 diff check 均通过。尚未执行 v4 reachability、正式 batch 或写入 v4 evidence。
+  - 文件: `scripts/forge_stage_c_v4_protocol.py`, `scripts/forge_stage_c_runner.py`, `backend/packages/harness/deerflow/compile/operations.py`, `backend/tests/test_compile_runtime.py`, `backend/tests/test_stage_c_execution_readiness.py`, `backend/Makefile`, `benchmarks/manifests/cpp-stage-c-paired-calibration-v4-build-entrypoint-authorized.json`, `benchmarks/preregistrations/cpp-stage-c-paired-calibration-v4-build-entrypoint.md`, `benchmarks/reports/cpp-stage-c-paired-calibration-v3-failed.json`, `benchmarks/reports/cpp-stage-c-v4-source-structure-audit.json`
+
 - 2026-09-26 — 闭合 Stage C 资格回执并冻结授权执行身份
   - GitHub: Issue #314 已由 PR #319 自动关闭；授权实现 squash 合并为 `main@72b2f692dccf1bce6c8a066b5020cc1ad095b541`，四项 CI 全绿。
   - 资格结果: 镜像为 `sha256:adbef4a...e758b1`；回执 SHA-256 为 `b5c268cd...e6eb`；12/12 tasks、24/24 reference builds/oracles、12/12 bitwise reproducible，前后均为 0 managed resources。

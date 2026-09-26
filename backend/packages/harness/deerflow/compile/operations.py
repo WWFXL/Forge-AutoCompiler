@@ -798,29 +798,57 @@ def clone_repository_json(
 
 
 def _build_system_marker_probe_command() -> str:
-    statements = [f"test -d {shell_quote(CONTAINER_REPO_DIR)} || exit 66"]
+    statements = [
+        f"test -d {shell_quote(CONTAINER_REPO_DIR)} || exit 66",
+        "top_level_detected=0",
+    ]
     for build_system, markers in _BUILD_SYSTEM_MARKERS.items():
         branches = []
         for index, marker in enumerate(markers):
             keyword = "if" if index == 0 else "elif"
             marker_path = f"{CONTAINER_REPO_DIR}/{marker}"
-            branches.append(f"{keyword} test -f {shell_quote(marker_path)}; then printf '%s\\t%s\\n' {shell_quote(build_system)} {shell_quote(marker)}")
+            branches.append(f"{keyword} test -f {shell_quote(marker_path)}; then printf '%s\\t%s\\n' {shell_quote(build_system)} {shell_quote(marker)}; top_level_detected=1")
         statements.append("; ".join(branches) + "; fi")
+    statements.append('if test "$top_level_detected" -eq 0; then')
+    for build_system, markers in _BUILD_SYSTEM_MARKERS.items():
+        names = " -o ".join(f"-name {shell_quote(marker)}" for marker in markers)
+        statements.extend(
+            (
+                f"nested_marker=$(find {shell_quote(CONTAINER_REPO_DIR)} -mindepth 2 -maxdepth 2 -type f \\( {names} \\) -print | LC_ALL=C sort | head -n 1)",
+                'if test -n "$nested_marker"; then',
+                f"relative_marker=${{nested_marker#{CONTAINER_REPO_DIR}/}}",
+                f"printf '%s\\t%s\\n' {shell_quote(build_system)} \"$relative_marker\"",
+                "fi",
+            )
+        )
+    statements.append("fi")
     return "\n".join(statements)
 
 
 def _detected_build_system_markers(stdout: str) -> list[tuple[str, str]]:
     observed = [line for line in stdout.splitlines() if line]
-    allowed = {f"{build_system}\t{marker}" for build_system, markers in _BUILD_SYSTEM_MARKERS.items() for marker in markers}
-    if len(observed) != len(set(observed)) or any(line not in allowed for line in observed):
+    if len(observed) != len(set(observed)):
         raise RuntimeError("Compile container returned invalid build-system marker evidence")
 
-    observed_set = set(observed)
+    parsed: list[tuple[str, str]] = []
+    for line in observed:
+        try:
+            build_system, marker_path = line.split("\t", 1)
+        except ValueError as exc:
+            raise RuntimeError("Compile container returned invalid build-system marker evidence") from exc
+        path = PurePosixPath(marker_path)
+        if build_system not in _BUILD_SYSTEM_MARKERS or not marker_path or path.is_absolute() or path.as_posix() != marker_path or len(path.parts) not in {1, 2} or path.name not in _BUILD_SYSTEM_MARKERS[build_system]:
+            raise RuntimeError("Compile container returned invalid build-system marker evidence")
+        parsed.append((build_system, marker_path))
+
     detected: list[tuple[str, str]] = []
     for build_system, markers in _BUILD_SYSTEM_MARKERS.items():
-        marker = next((candidate for candidate in markers if f"{build_system}\t{candidate}" in observed_set), None)
-        if marker is not None:
-            detected.append((build_system, marker))
+        marker_path = next(
+            (path for system, path in parsed if system == build_system and PurePosixPath(path).name in markers),
+            None,
+        )
+        if marker_path is not None:
+            detected.append((build_system, marker_path))
     return detected
 
 
@@ -859,7 +887,10 @@ def inspect_build_system_impl(*, session: CompileSession) -> tuple[str, list[tup
         session.build_system = None
     services.manager.save_session(session)
 
-    autotools_marker = next((marker for build_system, marker in detected if build_system == "autotools"), None)
+    autotools_marker = next(
+        (PurePosixPath(marker).name for build_system, marker in detected if build_system == "autotools"),
+        None,
+    )
     autotools_commands = {
         "configure": ["chmod +x ./configure && ./configure", "make -j"],
         "autogen.sh": ["chmod +x ./autogen.sh && ./autogen.sh", "make"],
