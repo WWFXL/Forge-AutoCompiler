@@ -12,11 +12,17 @@ ENV TZ=Asia/Shanghai \
     CTEST_PARALLEL_LEVEL=4 \
     MAKEFLAGS=-j4
 
+# Ubuntu 最小镜像不含 CA；引导包仍由签名的 InRelease 元数据校验。
 RUN set -eux; \
     printf 'Types: deb\nURIs: https://snapshot.ubuntu.com/ubuntu/%s/\nSuites: noble noble-updates noble-security\nComponents: main universe\nSigned-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg\n' "$UBUNTU_SNAPSHOT" \
       > /etc/apt/sources.list.d/ubuntu.sources; \
     printf 'Acquire::Check-Valid-Until "false";\nAcquire::Retries "5";\nAcquire::http::Timeout "120";\nAcquire::https::Timeout "120";\n' \
       > /etc/apt/apt.conf.d/80-stage-c-snapshot; \
+    printf 'Acquire::https::Verify-Peer "false";\n' \
+      > /etc/apt/apt.conf.d/81-stage-c-ca-bootstrap; \
+    apt-get update; \
+    apt-get install -y --no-install-recommends ca-certificates; \
+    rm -f /etc/apt/apt.conf.d/81-stage-c-ca-bootstrap; \
     apt-get update; \
     apt-get install -y --no-install-recommends \
       autoconf \
@@ -24,7 +30,6 @@ RUN set -eux; \
       bash \
       bison \
       build-essential \
-      ca-certificates \
       cmake \
       curl \
       file \

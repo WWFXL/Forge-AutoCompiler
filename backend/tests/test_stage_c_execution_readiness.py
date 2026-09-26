@@ -109,6 +109,21 @@ def test_stage_c_qualification_contract_is_result_blind_and_balanced() -> None:
     assert {task["task_id"] for task in pool["tasks"]}.isdisjoint(pool["exclusions"]["stage_b_task_ids"])
 
 
+def test_stage_c_dockerfile_bootstraps_ca_before_verified_snapshot_install() -> None:
+    dockerfile = (REPO_ROOT / "docker/compile/Dockerfile.stage-c").read_text()
+
+    bootstrap_config = "/etc/apt/apt.conf.d/81-stage-c-ca-bootstrap"
+    bootstrap_write = dockerfile.index(f"> {bootstrap_config}")
+    ca_install = dockerfile.index("apt-get install -y --no-install-recommends ca-certificates")
+    bootstrap_remove = dockerfile.index(f"rm -f {bootstrap_config}")
+    verified_update = dockerfile.index("apt-get update", bootstrap_remove)
+    toolchain_install = dockerfile.index("apt-get install -y --no-install-recommends \\", verified_update)
+
+    assert 'Acquire::https::Verify-Peer "false";' in dockerfile
+    assert dockerfile.count("apt-get update") == 2
+    assert bootstrap_write < ca_install < bootstrap_remove < verified_update < toolchain_install
+
+
 def test_controlled_baseline_submits_unified_candidate(tmp_path: Path) -> None:
     model = _FakeModel(
         [
