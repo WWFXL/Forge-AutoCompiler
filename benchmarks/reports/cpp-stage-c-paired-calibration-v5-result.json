@@ -1,0 +1,165 @@
+{
+  "schema_version": "forge-stage-c-paired-calibration-v5-result-audit-1.0.0",
+  "document_type": "forge_stage_c_paired_calibration_v5_result_audit",
+  "tracking_issue": 329,
+  "identity": {
+    "manifest_sha256": "11eefa99737b6e20fdf5d300802cf5a7cf0a9178a5f0a44de4028693721859a2",
+    "release_revision": "c37a145c3b0b30453cb2053a8fca3dd2d3599435",
+    "evidence_directory": ".compile-sessions/benchmark-evidence-stage-c-paired-calibration-v5-session-identity"
+  },
+  "reachability": {
+    "passed": true,
+    "provider": "deepseek",
+    "model": "deepseek-flash",
+    "actual_model": "deepseek-flash",
+    "request_count": 1,
+    "recorded_tokens": 73,
+    "completed_at": "2026-09-26T16:54:58.269084+00:00",
+    "report_sha256": "a7b66b991a6463f5399cbd382244a829340dbe85b27e1791a4dcc209016f1387"
+  },
+  "batch": {
+    "status": "passed",
+    "pair_count": 24,
+    "arm_count": 48,
+    "completed_at": "2026-09-26T18:03:59.276709+00:00",
+    "marker_sha256": "13c6f8ef05613f3bd72af22287aba831c91816ab4598368fba866ab0c98b0ddb",
+    "deployment_report_sha256": "61b2a387d7b57adfca8c0debf7110ffdc78d61f120749b2e53da0c570bdb6b7b",
+    "paired_report_sha256": "9e732c22237dc41535b007dd1274aabbd3d44340cccae2e0a6e00af987783046"
+  },
+  "usage": {
+    "formal_arm_model_requests": 331,
+    "formal_arm_recorded_tokens": 3131424,
+    "provider_calls_including_reachability": 332,
+    "recorded_tokens_including_reachability": 3131497,
+    "arm_A": {
+      "model_requests": 88,
+      "recorded_tokens": 842776,
+      "total_duration_ms": 2678162,
+      "min_duration_ms": 45062,
+      "max_duration_ms": 286785
+    },
+    "arm_B": {
+      "model_requests": 243,
+      "recorded_tokens": 2288648,
+      "total_duration_ms": 1321645,
+      "min_duration_ms": 15943,
+      "max_duration_ms": 215495
+    }
+  },
+  "arm_summary": {
+    "A": {
+      "method": "cxxcrafter-controlled",
+      "attempts": 24,
+      "candidate_generated": 24,
+      "candidate_submitted": 24,
+      "externally_evaluated": 24,
+      "strict_success": 19,
+      "bitwise_true": 19,
+      "bitwise_false": 0,
+      "bitwise_unavailable": 5,
+      "method_error": 0,
+      "no_candidate": 0,
+      "layers": {
+        "S0": {"passed": 24, "failed": 0, "unavailable": 0},
+        "S1": {"passed": 24, "failed": 0, "unavailable": 0},
+        "S2": {"passed": 24, "failed": 0, "unavailable": 0},
+        "S3": {"passed": 19, "failed": 5, "unavailable": 0},
+        "S4": {"passed": 24, "failed": 0, "unavailable": 0},
+        "S5": {"passed": 19, "failed": 5, "unavailable": 0}
+      }
+    },
+    "B": {
+      "method": "forge-agent-workflow-node-v2",
+      "attempts": 24,
+      "candidate_generated": 22,
+      "candidate_submitted": 22,
+      "externally_evaluated": 16,
+      "strict_success": 0,
+      "bitwise_true": 0,
+      "bitwise_false": 15,
+      "bitwise_unavailable": 9,
+      "method_error": 6,
+      "no_candidate": 2,
+      "layers": {
+        "S0": {"passed": 16, "failed": 0, "unavailable": 8},
+        "S1": {"passed": 16, "failed": 0, "unavailable": 8},
+        "S2": {"passed": 12, "failed": 4, "unavailable": 8},
+        "S3": {"passed": 15, "failed": 1, "unavailable": 8},
+        "S4": {"passed": 15, "failed": 1, "unavailable": 8},
+        "S5": {"passed": 0, "failed": 16, "unavailable": 8}
+      }
+    }
+  },
+  "paired_analysis": {
+    "independent_unit": "project",
+    "inference_status": "calibration_descriptive_only",
+    "pair_delta_definition": "strict_success_B_minus_strict_success_A",
+    "complete_project_count": 12,
+    "complete_pair_count": 24,
+    "pair_delta_counts": {
+      "minus_one": 19,
+      "zero": 5,
+      "plus_one": 0
+    },
+    "mean_project_level_paired_delta": -0.7916666666666666,
+    "project_scores": [
+      {"task_id": "json-c", "replicate_deltas": [-1, -1], "score": -1.0},
+      {"task_id": "stockfish-11", "replicate_deltas": [-1, -1], "score": -1.0},
+      {"task_id": "rnnoise-0.1.1", "replicate_deltas": [-1, -1], "score": -1.0},
+      {"task_id": "libsndfile", "replicate_deltas": [-1, -1], "score": -1.0},
+      {"task_id": "lz4", "replicate_deltas": [-1, -1], "score": -1.0},
+      {"task_id": "libsoundio", "replicate_deltas": [0, 0], "score": 0.0},
+      {"task_id": "theora", "replicate_deltas": [-1, -1], "score": -1.0},
+      {"task_id": "8cc", "replicate_deltas": [-1, -1], "score": -1.0},
+      {"task_id": "libjpeg-turbo", "replicate_deltas": [-1, 0], "score": -0.5},
+      {"task_id": "civetweb", "replicate_deltas": [-1, -1], "score": -1.0},
+      {"task_id": "leveldb", "replicate_deltas": [-1, 0], "score": -0.5},
+      {"task_id": "oatpp", "replicate_deltas": [0, -1], "score": -0.5}
+    ]
+  },
+  "failure_structure": {
+    "arm_A_failed_pairs": [
+      "stage-c-v5-libsoundio-r1",
+      "stage-c-v5-oatpp-r1",
+      "stage-c-v5-libsoundio-r2",
+      "stage-c-v5-libjpeg-turbo-r2",
+      "stage-c-v5-leveldb-r2"
+    ],
+    "arm_A_common_failed_layers": ["S3", "S5"],
+    "arm_B_method_error_pairs": [
+      "stage-c-v5-stockfish-11-r1",
+      "stage-c-v5-lz4-r1",
+      "stage-c-v5-8cc-r1",
+      "stage-c-v5-stockfish-11-r2",
+      "stage-c-v5-lz4-r2",
+      "stage-c-v5-8cc-r2"
+    ],
+    "arm_B_no_candidate_pairs": [
+      "stage-c-v5-civetweb-r1",
+      "stage-c-v5-civetweb-r2"
+    ],
+    "arm_B_evaluated_without_strict_success": 16,
+    "arm_B_s5_failed": 16
+  },
+  "resource_audit": {
+    "zero_managed_resources": true,
+    "managed_containers_after_batch": 0,
+    "managed_images_after_batch": 0
+  },
+  "evidence_inventory": {
+    "file_count": 23219,
+    "total_size_bytes": 1049568450,
+    "inventory_digest_algorithm": "sha256 of sorted relative-path sha256sum lines",
+    "inventory_sha256": "f114e4641a61bdb5ecd7eb809a96deaa5a410d661016581c9b95f94a4ef91c05"
+  },
+  "interpretation": {
+    "historical_outcomes_imported": false,
+    "all_registered_arms_included": true,
+    "stockfish_nested_build_entrypoint_fix_confirmed": true,
+    "rnnoise_safe_session_identity_fix_confirmed": true,
+    "v5_identity_closed": true,
+    "formal_evidence_modified_by_audit": false,
+    "primary_conclusion": "在冻结的十二项目双重复校准中，A 臂严格成功 19/24，B 臂严格成功 0/24，预注册的 B-A 项目均值为 -0.7916666666666666。",
+    "boundary": "Stage C 是校准性描述实验；24 个 pair 不是 24 个独立项目，不作显著性或总体无偏成功率声明。"
+  }
+}
