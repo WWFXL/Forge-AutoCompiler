@@ -30,8 +30,9 @@ if str(SCRIPT_ROOT) not in sys.path:
 
 import forge_agent_workflow_stage_b_phase5_v2_authorized_runner as stage_b  # noqa: E402
 import forge_stage_c_controlled_baseline as controlled  # noqa: E402
-import forge_stage_c_remediation_protocol as protocol  # noqa: E402
 import forge_stage_c_task_qualification as qualification  # noqa: E402
+import forge_stage_c_v3_protocol as protocol  # noqa: E402
+
 from deerflow.compile.agent_workflow_runtime_v2 import (  # noqa: E402
     run_agent_workflow_node_v2,
 )
@@ -630,38 +631,33 @@ def _prepare_forge_session(
     pair: dict[str, Any],
     thread_id: str,
     services: Any,
+    source_identity: dict[str, Any],
 ) -> tuple[Any, str]:
-    with tempfile.TemporaryDirectory(
-        prefix=f"forge-stage-c-source-{task['task_id']}-"
-    ) as temporary:
-        source_identity = _clone_export(task, Path(temporary) / "source-acquisition")
-        _validate_prepared_source(task, source_identity)
-        session = services.manager.create_session(
-            thread_id=thread_id,
+    _validate_prepared_source(task, source_identity)
+    session = services.manager.create_session(
+        thread_id=thread_id,
+        repo_url=task["repository_url"],
+        run_id=f"stage-c-{pair['pair_id']}-b-{uuid.uuid4().hex}",
+        session_id=uuid.uuid4().hex[:12],
+    )
+    try:
+        shutil.copytree(source_identity["repository"], Path(session.leadagent_repo_dir))
+        session.commit_sha = task["commit_sha"]
+        session.summary = f"Stage C arm B: {pair['pair_id']}"
+        services.manager.save_session(session)
+        services.manager.log_event(
+            session,
+            "source.prepared",
             repo_url=task["repository_url"],
-            run_id=f"stage-c-{pair['pair_id']}-b-{uuid.uuid4().hex}",
-            session_id=uuid.uuid4().hex[:12],
+            commit_sha=task["commit_sha"],
+            source_snapshot_sha256=source_identity["source_snapshot_sha256"],
+            preparation_boundary="before_first_pair_arm_attempt",
         )
-        try:
-            shutil.copytree(
-                source_identity["repository"], Path(session.leadagent_repo_dir)
-            )
-            session.commit_sha = task["commit_sha"]
-            session.summary = f"Stage C arm B: {pair['pair_id']}"
-            services.manager.save_session(session)
-            services.manager.log_event(
-                session,
-                "source.prepared",
-                repo_url=task["repository_url"],
-                commit_sha=task["commit_sha"],
-                source_snapshot_sha256=source_identity["source_snapshot_sha256"],
-                preparation_boundary="before_formal_attempt",
-            )
-            services.manager.mark_session_status(session, "source_ready")
-        except BaseException as exc:
-            services.manager.mark_session_status(session, "failed", error=str(exc))
-            raise
-        return session, source_identity["source_snapshot_sha256"]
+        services.manager.mark_session_status(session, "source_ready")
+    except BaseException as exc:
+        services.manager.mark_session_status(session, "failed", error=str(exc))
+        raise
+    return session, source_identity["source_snapshot_sha256"]
 
 
 async def execute_forge_arm(
@@ -671,6 +667,7 @@ async def execute_forge_arm(
     *,
     release_revision: str,
     arm_dir: Path,
+    source_identity: dict[str, Any],
     model_factory: Callable[[dict[str, Any], str | None], Any] = _model,
 ) -> dict[str, Any]:
     attempt_id = pair["attempt_ids"]["B"]
@@ -687,10 +684,8 @@ async def execute_forge_arm(
     error_class = None
     try:
         with _stage_c_runtime_identity(manifest) as services:
-            # Source acquisition is shared infrastructure. It must finish before the
-            # create-once arm marker makes this a formal physical attempt.
             session, observed_source = _prepare_forge_session(
-                task, pair, thread_id, services
+                task, pair, thread_id, services, source_identity
             )
             _register_arm_attempt(
                 manifest,
@@ -828,6 +823,23 @@ async def execute_forge_arm(
     return result
 
 
+def _export_repository(repository: Path, export: Path, task_id: str) -> None:
+    archive = subprocess.Popen(
+        ["git", "-C", str(repository), "archive", "--format=tar", "HEAD"],
+        stdout=subprocess.PIPE,
+    )
+    export.mkdir()
+    extract = subprocess.run(
+        ["tar", "-xf", "-", "-C", str(export)],
+        stdin=archive.stdout,
+        check=False,
+    )
+    if archive.stdout is not None:
+        archive.stdout.close()
+    if extract.returncode != 0 or archive.wait() != 0:
+        raise StageCRunnerError(f"{task_id} source export 失败")
+
+
 def _clone_export(task: dict[str, Any], destination: Path) -> dict[str, Any]:
     repository = destination / "repository"
     export = destination / "source"
@@ -861,20 +873,12 @@ def _clone_export(task: dict[str, Any], destination: Path) -> dict[str, Any]:
     _run(
         ["git", "-C", str(repository), "checkout", "--quiet", "--detach", "FETCH_HEAD"]
     )
-    archive = subprocess.Popen(
-        ["git", "-C", str(repository), "archive", "--format=tar", "HEAD"],
-        stdout=subprocess.PIPE,
-    )
-    export.mkdir()
-    extract = subprocess.run(
-        ["tar", "-xf", "-", "-C", str(export)],
-        stdin=archive.stdout,
-        check=False,
-    )
-    if archive.stdout is not None:
-        archive.stdout.close()
-    if extract.returncode != 0 or archive.wait() != 0:
-        raise StageCRunnerError(f"{task['task_id']} source export 失败")
+    checked_out = _run(
+        ["git", "-C", str(repository), "rev-parse", "HEAD"]
+    ).stdout.strip()
+    if checked_out != task["commit_sha"]:
+        raise StageCRunnerError(f"{task['task_id']} exact commit 漂移")
+    _export_repository(repository, export, task["task_id"])
     observed = qualification._archive_sha256(repository)
     if observed != task["source_snapshot_sha256"]:
         raise StageCRunnerError(f"{task['task_id']} source snapshot 漂移")
@@ -883,6 +887,43 @@ def _clone_export(task: dict[str, Any], destination: Path) -> dict[str, Any]:
         "source": export,
         "source_snapshot_sha256": observed,
     }
+
+
+def _copy_prepared_source(
+    task: dict[str, Any], source_identity: dict[str, Any], destination: Path
+) -> dict[str, Any]:
+    destination.mkdir(parents=True, exist_ok=False)
+    repository = destination / "repository"
+    source = destination / "source"
+    shutil.copytree(source_identity["repository"], repository, symlinks=True)
+    checked_out = _run(
+        ["git", "-C", str(repository), "rev-parse", "HEAD"]
+    ).stdout.strip()
+    observed = qualification._archive_sha256(repository)
+    if checked_out != task["commit_sha"] or observed != task["source_snapshot_sha256"]:
+        raise StageCRunnerError(f"{task['task_id']} pair source 副本身份漂移")
+    _export_repository(repository, source, task["task_id"])
+    copied = {
+        "repository": repository,
+        "source": source,
+        "source_snapshot_sha256": observed,
+    }
+    _validate_prepared_source(task, copied)
+    return copied
+
+
+def _prepare_pair_sources(
+    task: dict[str, Any], destination: Path
+) -> dict[str, dict[str, Any]]:
+    acquired = _clone_export(task, destination / "source-acquisition")
+    _validate_prepared_source(task, acquired)
+    prepared = {
+        arm: _copy_prepared_source(task, acquired, destination / f"arm-{arm.lower()}")
+        for arm in ("A", "B")
+    }
+    if prepared["A"]["repository"].samefile(prepared["B"]["repository"]):
+        raise StageCRunnerError(f"{task['task_id']} pair source 未隔离")
+    return prepared
 
 
 def _source_observation(source: Path) -> dict[str, Any]:
@@ -910,6 +951,62 @@ def _source_observation(source: Path) -> dict[str, Any]:
         "top_level_files": sorted(path.name for path in source.iterdir())[:200],
         "documents": documents,
     }
+
+
+def _candidate_artifact_validation_script(task: dict[str, Any]) -> str:
+    lines = ["set -euo pipefail"]
+    for relative, expected_type in zip(
+        task["target_contract"]["required_artifacts"],
+        task["target_contract"]["artifact_types"],
+        strict=True,
+    ):
+        path = shlex.quote(f"/artifacts/{relative}")
+        lines.extend(
+            (
+                f"test -f {path}",
+                f"test ! -L {path}",
+                f"test -s {path}",
+                f"kind=$(file -b -- {path})",
+            )
+        )
+        if expected_type == "static_library":
+            lines.append(f'test -n "$(ar t {path})"')
+        elif expected_type == "executable":
+            lines.append('case "$kind" in *[Ee]xecutable*) ;; *) exit 23 ;; esac')
+        lines.append("printf '%s\\n' \"$kind\"")
+    return "\n".join(lines)
+
+
+def _artifact_evidence_from_candidate(
+    task: dict[str, Any], artifacts: Path, file_types: list[str]
+) -> list[dict[str, Any]]:
+    required = task["target_contract"]["required_artifacts"]
+    types = task["target_contract"]["artifact_types"]
+    if len(file_types) != len(required):
+        raise StageCRunnerError(f"{task['task_id']} candidate file 输出数量无效")
+    result = []
+    for relative, expected_type, file_type in zip(
+        required, types, file_types, strict=True
+    ):
+        path = artifacts / relative
+        if not path.is_file() or path.is_symlink() or path.stat().st_size <= 0:
+            raise StageCRunnerError(
+                f"{task['task_id']} 缺少有效 required artifact: {relative}"
+            )
+        if expected_type == "static_library" and path.read_bytes()[:8] != b"!<arch>\n":
+            raise StageCRunnerError(f"{task['task_id']} 非静态库: {relative}")
+        if expected_type == "executable" and "executable" not in file_type.lower():
+            raise StageCRunnerError(f"{task['task_id']} 非 executable: {relative}")
+        result.append(
+            {
+                "path": relative,
+                "type": expected_type,
+                "size_bytes": path.stat().st_size,
+                "sha256": qualification.file_sha256(path),
+                "file_type": file_type,
+            }
+        )
+    return result
 
 
 class DockerfileExecutor:
@@ -998,31 +1095,48 @@ class DockerfileExecutor:
                 ["docker", "image", "inspect", tag, "--format", "{{.Id}}"]
             ).stdout.strip()
             self.images.append(tag)
+            validation = None
             try:
-                container_id = _run(
+                validation = _run(
                     [
                         "docker",
-                        "create",
+                        "run",
                         "--name",
                         name,
                         "--label",
                         "forge.stage-c.managed=true",
                         "--network",
                         "none",
+                        "--read-only",
                         image_id,
-                    ]
-                ).stdout.strip()
-                _run(["docker", "cp", f"{container_id}:/artifacts/.", str(artifacts)])
+                        "bash",
+                        "-lc",
+                        _candidate_artifact_validation_script(self.task),
+                    ],
+                    timeout=min(self.timeout_seconds, 300),
+                    check=False,
+                )
+                if validation.returncode == 0:
+                    _run(["docker", "cp", f"{name}:/artifacts/.", str(artifacts)])
             finally:
                 _run(["docker", "rm", "-f", name], check=False)
-            qualification_task = {
-                "task_id": self.task["task_id"],
-                "target": self.task["target_contract"],
-            }
             try:
-                items = qualification._artifact_evidence(qualification_task, artifacts)
+                if validation is None or validation.returncode != 0:
+                    detail = (
+                        ""
+                        if validation is None
+                        else (validation.stderr or validation.stdout)
+                    )
+                    raise StageCRunnerError(
+                        f"{self.task['task_id']} candidate image 产物验证失败: {detail.strip()[-2000:]}"
+                    )
+                items = _artifact_evidence_from_candidate(
+                    self.task,
+                    artifacts,
+                    validation.stdout.splitlines(),
+                )
                 artifacts_valid = True
-            except qualification.StageCTaskQualificationError as exc:
+            except StageCRunnerError as exc:
                 items = []
                 output = (output + f"\nartifact validation failed: {exc}")[-64 * 1024 :]
             artifact_paths = tuple(item["path"] for item in items)
@@ -1084,10 +1198,7 @@ def _run_oracle(
             executable if item == "{executable}" else item
             for item in oracle["run_argv"]
         ]
-        script = (
-            f"printf %s {shlex.quote(encoded)} | base64 -d > {source} && "
-            f"{shlex.join(compile_argv)} && {shlex.join(run_argv)}"
-        )
+        script = f"printf %s {shlex.quote(encoded)} | base64 -d > {source} && {shlex.join(compile_argv)} && {shlex.join(run_argv)}"
     else:
         script = shlex.join(oracle["argv"])
     try:
@@ -1184,6 +1295,7 @@ def execute_controlled_arm(
     *,
     release_revision: str,
     arm_dir: Path,
+    source_identity: dict[str, Any],
     model_factory: Callable[[dict[str, Any], str | None], Any] = _model,
 ) -> dict[str, Any]:
     started = time.perf_counter()
@@ -1193,61 +1305,57 @@ def execute_controlled_arm(
     layers: list[dict[str, Any]] = []
     strict = False
     bitwise = None
-    with tempfile.TemporaryDirectory(
-        prefix=f"forge-stage-c-source-{task['task_id']}-"
-    ) as temporary:
-        source_identity = _clone_export(task, Path(temporary) / "source-acquisition")
-        _validate_prepared_source(task, source_identity)
-        _register_arm_attempt(
-            manifest,
-            pair,
-            "A",
-            release_revision=release_revision,
-            arm_dir=arm_dir,
-            source_snapshot_sha256=source_identity["source_snapshot_sha256"],
+    _validate_prepared_source(task, source_identity)
+    _register_arm_attempt(
+        manifest,
+        pair,
+        "A",
+        release_revision=release_revision,
+        arm_dir=arm_dir,
+        source_snapshot_sha256=source_identity["source_snapshot_sha256"],
+    )
+    executor = DockerfileExecutor(
+        source=source_identity["source"],
+        task=task,
+        arm_dir=arm_dir,
+        timeout_seconds=budget["command_timeout_seconds"],
+    )
+    try:
+        public_contract = {
+            "repository_url": task["repository_url"],
+            "commit_sha": task["commit_sha"],
+            "build_system_capabilities": task["build_system_capabilities"],
+            "selected_build_system": task["selected_build_system"],
+            "target_contract": task["target_contract"],
+            "operation_policy": manifest["environment"]["network_policy"],
+        }
+        outcome = controlled.ControlledBaselineRunner(
+            task_contract=public_contract,
+            source_observation=_source_observation(source_identity["source"]),
+            task_id=task["task_id"],
+            attempt_id=pair["attempt_ids"]["A"],
+            base_image_id=manifest["environment"]["image_id"],
+            model=model_factory(manifest, f"stage-c-a-{pair['pair_id']}"),
+            executor=executor,
+            limits=controlled.ControlledBaselineLimits(
+                max_model_requests=budget["max_model_requests"],
+                max_recorded_tokens=budget["max_recorded_tokens"],
+                work_timeout_seconds=budget["work_timeout_seconds"],
+            ),
+            output_dir=arm_dir / "method",
+        ).run()
+        dockerfile_path = arm_dir / "method/Dockerfile"
+        dockerfile = (
+            dockerfile_path.read_text(encoding="utf-8")
+            if dockerfile_path.is_file()
+            else None
         )
-        executor = DockerfileExecutor(
-            source=source_identity["source"],
-            task=task,
-            arm_dir=arm_dir,
-            timeout_seconds=budget["command_timeout_seconds"],
+        layers, strict, bitwise = _evaluate_a(
+            manifest, task, outcome, executor, dockerfile
         )
-        try:
-            public_contract = {
-                "repository_url": task["repository_url"],
-                "commit_sha": task["commit_sha"],
-                "build_system_capabilities": task["build_system_capabilities"],
-                "selected_build_system": task["selected_build_system"],
-                "target_contract": task["target_contract"],
-                "operation_policy": manifest["environment"]["network_policy"],
-            }
-            outcome = controlled.ControlledBaselineRunner(
-                task_contract=public_contract,
-                source_observation=_source_observation(source_identity["source"]),
-                task_id=task["task_id"],
-                attempt_id=pair["attempt_ids"]["A"],
-                base_image_id=manifest["environment"]["image_id"],
-                model=model_factory(manifest, f"stage-c-a-{pair['pair_id']}"),
-                executor=executor,
-                limits=controlled.ControlledBaselineLimits(
-                    max_model_requests=budget["max_model_requests"],
-                    max_recorded_tokens=budget["max_recorded_tokens"],
-                    work_timeout_seconds=budget["work_timeout_seconds"],
-                ),
-                output_dir=arm_dir / "method",
-            ).run()
-            dockerfile_path = arm_dir / "method/Dockerfile"
-            dockerfile = (
-                dockerfile_path.read_text(encoding="utf-8")
-                if dockerfile_path.is_file()
-                else None
-            )
-            layers, strict, bitwise = _evaluate_a(
-                manifest, task, outcome, executor, dockerfile
-            )
-        finally:
-            executor.cleanup()
-            require_zero_managed_resources()
+    finally:
+        executor.cleanup()
+        require_zero_managed_resources()
     assert outcome is not None
     result = {
         "schema_version": "forge-stage-c-arm-result-1.0.0",
@@ -1457,23 +1565,30 @@ async def run_batch_async(
         ):
             break
         pair_dir = output_dir / "pairs" / pair["pair_id"]
+        task = _task(manifest, pair["task_id"])
         arms = []
-        for arm in pair["arm_order"]:
-            arm_dir = pair_dir / arm
-            executor = executors[arm]
-            value = executor(
-                manifest,
-                _task(manifest, pair["task_id"]),
-                pair,
-                release_revision=revision,
-                arm_dir=arm_dir,
-            )
-            if hasattr(value, "__await__"):
-                value = await value
-            _validate_attempt_marker(manifest, pair, arm, arm_dir)
-            _validate_arm_result(manifest, pair, arm, value)
-            arms.append(value)
+        with tempfile.TemporaryDirectory(
+            prefix=f"forge-stage-c-pair-source-{task['task_id']}-"
+        ) as temporary:
+            sources = _prepare_pair_sources(task, Path(temporary))
             require_zero_managed_resources()
+            for arm in pair["arm_order"]:
+                arm_dir = pair_dir / arm
+                executor = executors[arm]
+                value = executor(
+                    manifest,
+                    task,
+                    pair,
+                    release_revision=revision,
+                    arm_dir=arm_dir,
+                    source_identity=sources[arm],
+                )
+                if hasattr(value, "__await__"):
+                    value = await value
+                _validate_attempt_marker(manifest, pair, arm, arm_dir)
+                _validate_arm_result(manifest, pair, arm, value)
+                arms.append(value)
+                require_zero_managed_resources()
         normalized_arms = [
             next(item for item in arms if item["arm"] == arm) for arm in ("A", "B")
         ]

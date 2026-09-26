@@ -1,11 +1,9 @@
 from __future__ import annotations
 
-import asyncio
 import json
 import os
 import subprocess
 import sys
-from contextlib import contextmanager
 from dataclasses import dataclass
 from pathlib import Path
 from types import SimpleNamespace
@@ -23,6 +21,7 @@ import forge_stage_c_protocol as protocol  # noqa: E402
 import forge_stage_c_remediation_protocol as remediation_protocol  # noqa: E402
 import forge_stage_c_runner as runner  # noqa: E402
 import forge_stage_c_task_qualification as qualification  # noqa: E402
+import forge_stage_c_v3_protocol as v3_protocol  # noqa: E402
 
 
 @dataclass
@@ -390,6 +389,22 @@ def test_stage_c_remediation_manifest_binds_failed_v1_without_importing_outcomes
     assert len({attempt for pair in manifest["schedule"]["pairs"] for attempt in pair["attempt_ids"].values()}) == 48
 
 
+def test_stage_c_v3_manifest_binds_failed_v2_without_importing_outcomes() -> None:
+    manifest = v3_protocol.generate_manifest()
+    prior = manifest["prior_failed_identity"]
+
+    assert prior["manifest_sha256"] == "5a479832a2a6f9bdc49407a35b3ccc997547365fa65273d19fda4d1b4516eee4"
+    assert prior["must_not_resume"] is True
+    assert prior["historical_outcomes_imported"] is False
+    assert manifest["execution"]["evidence_directory"] == v3_protocol.DEFAULT_EVIDENCE_DIRECTORY
+    assert manifest["execution"]["source_preparation_boundary"] == "before_first_pair_arm_attempt_marker"
+    assert manifest["authorization"]["prior_actual_recorded_tokens"] == 42_001
+    assert manifest["authorization"]["cumulative_max_recorded_tokens"] == 14_447_001
+    assert manifest["schedule"]["pair_source_acquisition_count"] == 1
+    assert all(pair["pair_id"].startswith("stage-c-v3-") for pair in manifest["schedule"]["pairs"])
+    assert len({attempt for pair in manifest["schedule"]["pairs"] for attempt in pair["attempt_ids"].values()}) == 48
+
+
 def test_stage_c_public_tasks_do_not_expose_reference_recipes() -> None:
     pool = qualification.validate_source_pool(qualification.load_json(qualification.DEFAULT_POOL))
     plan = qualification.load_plan()
@@ -527,8 +542,8 @@ def test_stage_c_node_input_matches_runtime_v2_contract() -> None:
             }
         },
         "frozen_components": {
-            remediation_protocol.PROTOCOL_PATH: "4" * 64,
-            remediation_protocol.RUNNER_PATH: "5" * 64,
+            v3_protocol.PROTOCOL_PATH: "4" * 64,
+            v3_protocol.RUNNER_PATH: "5" * 64,
         },
     }
 
@@ -627,6 +642,18 @@ def _patch_batch_preflight(monkeypatch: pytest.MonkeyPatch, manifest: dict[str, 
         lambda *_args, **_kwargs: {"recorded_tokens": 7},
     )
     monkeypatch.setattr(runner, "require_zero_managed_resources", lambda: None)
+    monkeypatch.setattr(
+        runner,
+        "_prepare_pair_sources",
+        lambda _task, destination: {
+            arm: {
+                "repository": destination / f"{arm}-repository",
+                "source": destination / f"{arm}-source",
+                "source_snapshot_sha256": "2" * 64,
+            }
+            for arm in ("A", "B")
+        },
+    )
 
 
 def test_stage_c_first_arm_failure_does_not_block_second(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
@@ -642,9 +669,11 @@ def test_stage_c_first_arm_failure_does_not_block_second(tmp_path: Path, monkeyp
         *,
         release_revision: str,
         arm_dir: Path,
+        source_identity: dict[str, Any],
     ) -> dict[str, Any]:
         arm = arm_dir.name
         observed.append(arm)
+        assert source_identity["source"].name == f"{arm}-source"
         runner._register_arm_attempt(
             manifest,
             pair,
@@ -712,65 +741,190 @@ def test_stage_c_incomplete_pair_and_managed_orphan_fail_closed(tmp_path: Path, 
         runner.require_zero_managed_resources()
 
 
-def test_stage_c_controlled_source_failure_creates_no_formal_attempt(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+def test_stage_c_pair_source_failure_creates_no_formal_attempt(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
     manifest = _batch_manifest()
-    pair = manifest["schedule"]["pairs"][0]
-    task = manifest["tasks"][0]
+    _patch_batch_preflight(monkeypatch, manifest)
     monkeypatch.setattr(
         runner,
-        "_clone_export",
+        "_prepare_pair_sources",
         lambda *_args, **_kwargs: (_ for _ in ()).throw(runner.StageCRunnerError("source fetch failed")),
     )
 
     with pytest.raises(runner.StageCRunnerError, match="source fetch failed"):
-        runner.execute_controlled_arm(
+        runner.run_batch(
             manifest,
-            task,
-            pair,
-            release_revision="release",
-            arm_dir=tmp_path / "pairs" / pair["pair_id"] / "A",
-            model_factory=lambda *_args: (_ for _ in ()).throw(AssertionError("源码准备失败前不得创建模型")),
+            output_dir=tmp_path,
+            arm_executors={
+                "A": lambda *_args, **_kwargs: (_ for _ in ()).throw(AssertionError("源码准备失败前不得执行 A")),
+                "B": lambda *_args, **_kwargs: (_ for _ in ()).throw(AssertionError("源码准备失败前不得执行 B")),
+            },
         )
 
     assert not (tmp_path / "pairs").exists()
 
 
-def test_stage_c_forge_source_failure_creates_no_formal_attempt(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+def test_stage_c_pair_source_is_acquired_once_and_copied_per_arm(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    repository = tmp_path / "acquired-repository"
+    source = tmp_path / "acquired-source"
+    repository.mkdir()
+    source.mkdir()
+    (repository / "CMakeLists.txt").write_text("project(fixture)\n")
+    (source / "CMakeLists.txt").write_text("project(fixture)\n")
+    subprocess.run(["git", "init", "--quiet", str(repository)], check=True)
+    subprocess.run(["git", "-C", str(repository), "add", "CMakeLists.txt"], check=True)
+    subprocess.run(
+        [
+            "git",
+            "-C",
+            str(repository),
+            "-c",
+            "user.name=Stage C Test",
+            "-c",
+            "user.email=stage-c@example.invalid",
+            "commit",
+            "--quiet",
+            "-m",
+            "fixture",
+        ],
+        check=True,
+    )
+    commit = subprocess.run(
+        ["git", "-C", str(repository), "rev-parse", "HEAD"],
+        check=True,
+        capture_output=True,
+        text=True,
+    ).stdout.strip()
+    snapshot = qualification._archive_sha256(repository)
+    calls = 0
+
+    def acquire(_task: dict[str, Any], _destination: Path) -> dict[str, Any]:
+        nonlocal calls
+        calls += 1
+        return {
+            "repository": repository,
+            "source": source,
+            "source_snapshot_sha256": snapshot,
+        }
+
+    monkeypatch.setattr(runner, "_clone_export", acquire)
+    task = {
+        "task_id": "fixture",
+        "commit_sha": commit,
+        "source_snapshot_sha256": snapshot,
+        "build_system_capabilities": ["cmake"],
+    }
+
+    prepared = runner._prepare_pair_sources(task, tmp_path / "pair-source")
+
+    assert calls == 1
+    assert prepared["A"]["repository"] != prepared["B"]["repository"]
+    assert prepared["A"]["source"] != prepared["B"]["source"]
+    (prepared["A"]["source"] / "CMakeLists.txt").write_text("changed\n")
+    assert (prepared["B"]["source"] / "CMakeLists.txt").read_text() == "project(fixture)\n"
+
+
+def test_stage_c_controlled_arm_consumes_prepared_source(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
     manifest = _batch_manifest()
-    manifest["environment"] = {"image_id": _IMAGE_ID}
+    manifest["environment"] = {
+        "image_id": _IMAGE_ID,
+        "network_policy": {"build": "none"},
+    }
+    manifest["budget"]["per_arm"].update(
+        {
+            "max_model_requests": 1,
+            "work_timeout_seconds": 1,
+            "command_timeout_seconds": 1,
+        }
+    )
     pair = manifest["schedule"]["pairs"][0]
     task = manifest["tasks"][0]
     task.update(
         {
             "repository_url": "https://example.invalid/fixture.git",
             "commit_sha": "1" * 40,
+            "build_system_capabilities": ["cmake"],
+            "selected_build_system": "cmake",
+            "target_contract": {
+                "required_artifacts": ["bin/app"],
+                "artifact_types": ["executable"],
+            },
         }
     )
-
-    @contextmanager
-    def runtime_identity(_manifest: dict[str, Any]):
-        yield SimpleNamespace()
-
-    monkeypatch.setattr(runner, "_stage_c_runtime_identity", runtime_identity)
-    monkeypatch.setattr(
-        runner,
-        "_clone_export",
-        lambda *_args, **_kwargs: (_ for _ in ()).throw(runner.StageCRunnerError("source fetch failed")),
-    )
+    source = tmp_path / "prepared-source"
+    repository = tmp_path / "prepared-repository"
+    source.mkdir()
+    repository.mkdir()
+    (source / "CMakeLists.txt").write_text("project(fixture)\n")
     monkeypatch.setattr(runner, "require_zero_managed_resources", lambda: None)
+    monkeypatch.setattr(
+        runner.controlled.ControlledBaselineRunner,
+        "run",
+        lambda _self: baseline.ControlledBaselineOutcome(
+            task_id="fixture",
+            attempt_id="fixture-a",
+            candidate_generated=False,
+            candidate_submitted=False,
+            termination_reason="method_failed",
+            model_requests=0,
+            recorded_tokens=0,
+            executor_runs=0,
+            judge_runs=0,
+            modifier_runs=0,
+            duration_seconds=0,
+            candidate=None,
+            evidence_head_sha256="0" * 64,
+        ),
+    )
 
-    with pytest.raises(runner.StageCRunnerError, match="source fetch failed"):
-        asyncio.run(
-            runner.execute_forge_arm(
-                manifest,
-                task,
-                pair,
-                release_revision="release",
-                arm_dir=tmp_path / "pairs" / pair["pair_id"] / "B",
-            )
-        )
+    result = runner.execute_controlled_arm(
+        manifest,
+        task,
+        pair,
+        release_revision="release",
+        arm_dir=tmp_path / "pairs" / pair["pair_id"] / "A",
+        source_identity={
+            "repository": repository,
+            "source": source,
+            "source_snapshot_sha256": "2" * 64,
+        },
+        model_factory=lambda *_args: SimpleNamespace(),
+    )
 
-    assert not (tmp_path / "pairs").exists()
+    assert result["error_class"] == "method_failed"
+    assert (tmp_path / "pairs" / pair["pair_id"] / "A/attempt.json").is_file()
+
+
+def test_stage_c_candidate_artifact_evidence_uses_validated_file_metadata(
+    tmp_path: Path,
+) -> None:
+    artifacts = tmp_path / "artifacts"
+    header = artifacts / "include/fixture.h"
+    library = artifacts / "lib/libfixture.a"
+    header.parent.mkdir(parents=True)
+    library.parent.mkdir(parents=True)
+    header.write_text("#pragma once\n")
+    library.write_bytes(b"!<arch>\nfixture")
+    task = {
+        "task_id": "fixture",
+        "target_contract": {
+            "required_artifacts": ["include/fixture.h", "lib/libfixture.a"],
+            "artifact_types": ["support_file", "static_library"],
+        },
+    }
+
+    script = runner._candidate_artifact_validation_script(task)
+    evidence = runner._artifact_evidence_from_candidate(
+        task,
+        artifacts,
+        ["C source, ASCII text", "current ar archive"],
+    )
+
+    assert "file -b" in script
+    assert "ar t" in script
+    assert [item["path"] for item in evidence] == [
+        "include/fixture.h",
+        "lib/libfixture.a",
+    ]
 
 
 def test_stage_c_forge_source_preparation_populates_session_before_attempt(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
@@ -811,22 +965,19 @@ def test_stage_c_forge_source_preparation_populates_session_before_attempt(tmp_p
         "source_snapshot_sha256": "2" * 64,
         "build_system_capabilities": ["cmake"],
     }
-    pair = {"pair_id": "stage-c-v2-fixture-r1"}
-    monkeypatch.setattr(
-        runner,
-        "_clone_export",
-        lambda *_args, **_kwargs: {
-            "repository": repository,
-            "source": source,
-            "source_snapshot_sha256": "2" * 64,
-        },
-    )
+    pair = {"pair_id": "stage-c-v3-fixture-r1"}
+    source_identity = {
+        "repository": repository,
+        "source": source,
+        "source_snapshot_sha256": "2" * 64,
+    }
 
     prepared, source_digest = runner._prepare_forge_session(
         task,
         pair,
-        "stage-c-v2-fixture",
+        "stage-c-v3-fixture",
         SimpleNamespace(manager=Manager()),
+        source_identity,
     )
 
     assert prepared is session
@@ -909,6 +1060,55 @@ def test_stage_c_a_docker_fixture_covers_oracle_replay_and_cleanup(build_system:
             executor.artifact_dirs[1],
             f"fixture-{build_system}",
         )
+    finally:
+        executor.cleanup()
+    runner.require_zero_managed_resources()
+
+
+@pytest.mark.skipif(
+    not _DOCKER_ENABLED,
+    reason="set FORGE_RUN_STAGE_C_DOCKER=1 to run the Stage C Docker gate",
+)
+def test_stage_c_a_static_library_validation_runs_inside_candidate_image(
+    tmp_path: Path,
+) -> None:
+    image_id = subprocess.run(
+        ["docker", "image", "inspect", "autocompiler:gcc13", "--format", "{{.Id}}"],
+        check=True,
+        capture_output=True,
+        text=True,
+    ).stdout.strip()
+    source = tmp_path / "source"
+    source.mkdir()
+    (source / "fixture.h").write_text("int fixture_value(void);\n")
+    (source / "fixture.c").write_text('#include "fixture.h"\nint fixture_value(void){return 7;}\n')
+    task = {
+        "task_id": "fixture-static-library",
+        "target_contract": {
+            "required_artifacts": ["include/fixture.h", "lib/libfixture.a"],
+            "artifact_types": ["support_file", "static_library"],
+        },
+    }
+    dockerfile = (
+        f"FROM {image_id}\n"
+        "COPY source/ /workspace/repo/\n"
+        "RUN cd /workspace/repo && cc -c fixture.c -o fixture.o && "
+        "ar rcs libfixture.a fixture.o && mkdir -p /artifacts/include /artifacts/lib && "
+        "cp fixture.h /artifacts/include/fixture.h && cp libfixture.a /artifacts/lib/libfixture.a\n"
+    )
+    executor = runner.DockerfileExecutor(
+        source=source,
+        task=task,
+        arm_dir=tmp_path / "arm",
+        timeout_seconds=180,
+    )
+    try:
+        first = executor.execute(dockerfile, revision=1)
+        replay = executor.execute(dockerfile, revision=2)
+        assert first.succeeded is True
+        assert replay.succeeded is True
+        assert first.artifact_paths == ("include/fixture.h", "lib/libfixture.a")
+        assert first.artifact_manifest_sha256 == replay.artifact_manifest_sha256
     finally:
         executor.cleanup()
     runner.require_zero_managed_resources()
