@@ -13,6 +13,7 @@ import shlex
 import shutil
 import subprocess
 import sys
+import tempfile
 import time
 import uuid
 from collections.abc import Callable
@@ -29,7 +30,7 @@ if str(SCRIPT_ROOT) not in sys.path:
 
 import forge_agent_workflow_stage_b_phase5_v2_authorized_runner as stage_b  # noqa: E402
 import forge_stage_c_controlled_baseline as controlled  # noqa: E402
-import forge_stage_c_protocol as protocol  # noqa: E402
+import forge_stage_c_remediation_protocol as protocol  # noqa: E402
 import forge_stage_c_task_qualification as qualification  # noqa: E402
 from deerflow.compile.agent_workflow_runtime_v2 import (  # noqa: E402
     run_agent_workflow_node_v2,
@@ -48,6 +49,7 @@ from deerflow.compile.evidence import (  # noqa: E402
     activate_experiment,
     deactivate_experiment,
     new_evidence_id,
+    record_experiment_event,
 )
 from deerflow.compile.external_evaluator_v4 import (  # noqa: E402
     ExternalEvaluatorIdentityError,
@@ -56,17 +58,18 @@ from deerflow.compile.external_evaluator_v4 import (  # noqa: E402
 )
 from deerflow.compile.operations import (  # noqa: E402
     cleanup_and_finalize_compile_session_impl,
-    clone_repository_impl,
     get_compile_services,
     inspect_build_system_impl,
-    prepare_compile_session_impl,
 )
 
 DEFAULT_MANIFEST = protocol.DEFAULT_MANIFEST
-DEFAULT_OUTPUT_DIR = Path(
-    "/workspace/.compile-sessions/benchmark-evidence-stage-c-paired-calibration-v1"
-)
+DEFAULT_OUTPUT_DIR = Path(protocol.DEFAULT_EVIDENCE_DIRECTORY)
 MANAGED_A_PREFIX = "forge-stage-c-arm-a-"
+_BUILD_SYSTEM_MARKERS = {
+    "cmake": ("CMakeLists.txt",),
+    "make": ("Makefile", "GNUmakefile", "makefile"),
+    "autotools": ("configure", "configure.ac", "configure.in", "autogen.sh"),
+}
 
 
 class StageCRunnerError(RuntimeError):
@@ -184,6 +187,58 @@ def _provider_preflight(manifest: dict[str, Any]) -> None:
     stage_b._provider_config_preflight(_compatibility_manifest(manifest))
 
 
+def _recorded_evidence_state(output_dir: Path) -> dict[str, Any]:
+    pair_root = output_dir / "pairs"
+    pair_dirs = (
+        sorted(path for path in pair_root.iterdir() if path.is_dir())
+        if pair_root.is_dir()
+        else []
+    )
+    incomplete_pairs = [
+        path.name for path in pair_dirs if not (path / "pair.json").is_file()
+    ]
+    attempt_markers = (
+        sorted(pair_root.glob("*/*/attempt.json")) if pair_root.is_dir() else []
+    )
+    provider_calls = 0
+    model_tokens = 0
+    reachability = output_dir / "reports/reachability.json"
+    if reachability.is_file():
+        value = _load_json(reachability)
+        requests = value.get("request_count")
+        tokens = value.get("recorded_tokens")
+        if (
+            type(requests) is not int
+            or requests < 0
+            or type(tokens) is not int
+            or tokens < 0
+        ):
+            raise StageCRunnerError("reachability usage evidence 无效")
+        provider_calls += requests
+        model_tokens += tokens
+    for result_path in (
+        sorted(pair_root.glob("*/*/result.json")) if pair_root.is_dir() else []
+    ):
+        value = _load_json(result_path)
+        requests = value.get("model_requests")
+        tokens = value.get("recorded_tokens")
+        if (
+            type(requests) is not int
+            or requests < 0
+            or type(tokens) is not int
+            or tokens < 0
+        ):
+            raise StageCRunnerError(f"arm usage evidence 无效: {result_path}")
+        provider_calls += requests
+        model_tokens += tokens
+    return {
+        "formal_stage_c_attempts": len(attempt_markers),
+        "incomplete_pairs": incomplete_pairs,
+        "provider_calls": provider_calls,
+        "model_tokens": model_tokens,
+    }
+
+
 def collect_preflight(
     manifest: dict[str, Any],
     *,
@@ -223,8 +278,9 @@ def collect_preflight(
     )
     if require_empty and files:
         raise StageCRunnerError("reachability 前要求 Stage C evidence 目录为空")
+    evidence_state = _recorded_evidence_state(output_dir)
     return {
-        "ready": True,
+        "ready": not evidence_state["incomplete_pairs"],
         "manifest_sha256": protocol.canonical_sha256(manifest),
         "release_revision": revision,
         "image_id": actual_image_id,
@@ -232,9 +288,7 @@ def collect_preflight(
         "credential_check": "environment_variable_presence_only",
         "evidence_files": files,
         "zero_managed_resources": True,
-        "provider_calls": 0,
-        "formal_stage_c_attempts": 0,
-        "model_tokens": 0,
+        **evidence_state,
     }
 
 
@@ -509,6 +563,107 @@ def _stage_c_runtime_identity(manifest: dict[str, Any]):
         ) = original
 
 
+def _register_arm_attempt(
+    manifest: dict[str, Any],
+    pair: dict[str, Any],
+    arm: str,
+    *,
+    release_revision: str,
+    arm_dir: Path,
+    source_snapshot_sha256: str,
+) -> dict[str, Any]:
+    marker = {
+        "schema_version": "forge-stage-c-arm-attempt-1.0.0",
+        "manifest_sha256": protocol.canonical_sha256(manifest),
+        "release_revision": release_revision,
+        "pair_id": pair["pair_id"],
+        "task_id": pair["task_id"],
+        "replicate": pair["replicate"],
+        "arm": arm,
+        "attempt_id": pair["attempt_ids"][arm],
+        "source_snapshot_sha256": source_snapshot_sha256,
+        "status": "started",
+        "registered_at": datetime.now(UTC).isoformat(),
+    }
+    _write_once(arm_dir / "attempt.json", marker)
+    return marker
+
+
+def _validate_attempt_marker(
+    manifest: dict[str, Any], pair: dict[str, Any], arm: str, arm_dir: Path
+) -> None:
+    value = _load_json(arm_dir / "attempt.json")
+    task = _task(manifest, pair["task_id"])
+    if (
+        value.get("schema_version") != "forge-stage-c-arm-attempt-1.0.0"
+        or value.get("manifest_sha256") != protocol.canonical_sha256(manifest)
+        or value.get("pair_id") != pair["pair_id"]
+        or value.get("task_id") != pair["task_id"]
+        or value.get("replicate") != pair["replicate"]
+        or value.get("arm") != arm
+        or value.get("attempt_id") != pair["attempt_ids"][arm]
+        or value.get("source_snapshot_sha256") != task["source_snapshot_sha256"]
+        or value.get("status") != "started"
+    ):
+        raise StageCRunnerError(f"{pair['pair_id']} arm {arm} attempt marker 无效")
+
+
+def _validate_prepared_source(
+    task: dict[str, Any], source_identity: dict[str, Any]
+) -> str:
+    if source_identity["source_snapshot_sha256"] != task["source_snapshot_sha256"]:
+        raise StageCRunnerError(f"{task['task_id']} source snapshot 漂移")
+    source = source_identity["source"]
+    detected = [
+        build_system
+        for build_system, markers in _BUILD_SYSTEM_MARKERS.items()
+        if any((source / marker).is_file() for marker in markers)
+    ]
+    primary = detected[0] if detected else "unknown"
+    if primary not in task["build_system_capabilities"]:
+        raise StageCRunnerError(f"{task['task_id']} build-system identity 漂移")
+    return primary
+
+
+def _prepare_forge_session(
+    task: dict[str, Any],
+    pair: dict[str, Any],
+    thread_id: str,
+    services: Any,
+) -> tuple[Any, str]:
+    with tempfile.TemporaryDirectory(
+        prefix=f"forge-stage-c-source-{task['task_id']}-"
+    ) as temporary:
+        source_identity = _clone_export(task, Path(temporary) / "source-acquisition")
+        _validate_prepared_source(task, source_identity)
+        session = services.manager.create_session(
+            thread_id=thread_id,
+            repo_url=task["repository_url"],
+            run_id=f"stage-c-{pair['pair_id']}-b-{uuid.uuid4().hex}",
+            session_id=uuid.uuid4().hex[:12],
+        )
+        try:
+            shutil.copytree(
+                source_identity["repository"], Path(session.leadagent_repo_dir)
+            )
+            session.commit_sha = task["commit_sha"]
+            session.summary = f"Stage C arm B: {pair['pair_id']}"
+            services.manager.save_session(session)
+            services.manager.log_event(
+                session,
+                "source.prepared",
+                repo_url=task["repository_url"],
+                commit_sha=task["commit_sha"],
+                source_snapshot_sha256=source_identity["source_snapshot_sha256"],
+                preparation_boundary="before_formal_attempt",
+            )
+            services.manager.mark_session_status(session, "source_ready")
+        except BaseException as exc:
+            services.manager.mark_session_status(session, "failed", error=str(exc))
+            raise
+        return session, source_identity["source_snapshot_sha256"]
+
+
 async def execute_forge_arm(
     manifest: dict[str, Any],
     task: dict[str, Any],
@@ -521,19 +676,10 @@ async def execute_forge_arm(
     attempt_id = pair["attempt_ids"]["B"]
     digest = protocol.canonical_sha256(manifest)
     thread_id = f"stage-c-b-{pair['pair_id']}-{digest[:10]}"
-    ledger = ExperimentLedger.create(
-        arm_dir / "experiment.jsonl",
-        experiment_id=new_evidence_id("experiment"),
-        physical_attempt_id=new_evidence_id("physical_attempt"),
-        context={
-            "manifest_sha256": digest,
-            "release_revision": release_revision,
-            "pair_id": pair["pair_id"],
-            "arm": "B",
-        },
-    )
+    ledger = None
     session = None
     active = False
+    attempt_registered = False
     started = time.perf_counter()
     evaluation = None
     node_result = None
@@ -541,6 +687,32 @@ async def execute_forge_arm(
     error_class = None
     try:
         with _stage_c_runtime_identity(manifest) as services:
+            # Source acquisition is shared infrastructure. It must finish before the
+            # create-once arm marker makes this a formal physical attempt.
+            session, observed_source = _prepare_forge_session(
+                task, pair, thread_id, services
+            )
+            _register_arm_attempt(
+                manifest,
+                pair,
+                "B",
+                release_revision=release_revision,
+                arm_dir=arm_dir,
+                source_snapshot_sha256=observed_source,
+            )
+            attempt_registered = True
+            ledger = ExperimentLedger.create(
+                arm_dir / "experiment.jsonl",
+                experiment_id=new_evidence_id("experiment"),
+                physical_attempt_id=new_evidence_id("physical_attempt"),
+                context={
+                    "manifest_sha256": digest,
+                    "release_revision": release_revision,
+                    "pair_id": pair["pair_id"],
+                    "arm": "B",
+                    "source_snapshot_sha256": observed_source,
+                },
+            )
             activate_experiment(
                 thread_id=thread_id,
                 experiment_id=ledger.experiment_id,
@@ -549,21 +721,29 @@ async def execute_forge_arm(
                 policy=_forge_policy(manifest, task, pair),
             )
             active = True
-            session = prepare_compile_session_impl(
-                thread_id=thread_id,
-                repo_url=task["repository_url"],
-                run_id=f"stage-c-{pair['pair_id']}-b-{uuid.uuid4().hex}",
-                task_description=f"Stage C arm B: {pair['pair_id']}",
+            services.runtime.create_container(session)
+            if session.image_id != manifest["environment"]["image_id"]:
+                raise StageCRunnerError(f"{pair['pair_id']} arm B image identity 漂移")
+            services.manager.save_session(session)
+            record_experiment_event(
+                thread_id,
+                "session.bound",
+                session_id=session.session_id,
+                repo_url=session.repo_url,
+                image=session.image,
+                image_id=session.image_id,
+                source_snapshot_sha256=observed_source,
             )
-            clone, _message = clone_repository_impl(
-                session=session,
-                repo_url=task["repository_url"],
-                commit_sha=task["commit_sha"],
-                depth=1,
-                max_retries=1,
+            safe_directory = services.runtime.exec(
+                session,
+                "git config --global --replace-all safe.directory /workspace/repo",
+                workdir="/workspace",
+                timeout_seconds=30,
             )
-            if clone.exit_code != 0 or session.commit_sha != task["commit_sha"]:
-                raise StageCRunnerError(f"{pair['pair_id']} arm B exact clone 失败")
+            if safe_directory.exit_code != 0:
+                raise StageCRunnerError(
+                    f"{pair['pair_id']} arm B Git safe.directory 配置失败"
+                )
             primary, _detected, _suggested = inspect_build_system_impl(session=session)
             if primary not in task["build_system_capabilities"]:
                 raise StageCRunnerError(f"{task['task_id']} build-system identity 漂移")
@@ -596,6 +776,8 @@ async def execute_forge_arm(
     except (EvidenceError, ExternalEvaluatorIdentityError, StageCRunnerError):
         raise
     except Exception as exc:
+        if not attempt_registered:
+            raise
         error_class = type(exc).__name__
     finally:
         if active:
@@ -1006,54 +1188,66 @@ def execute_controlled_arm(
 ) -> dict[str, Any]:
     started = time.perf_counter()
     digest = protocol.canonical_sha256(manifest)
-    source_identity = _clone_export(task, arm_dir / "source-acquisition")
     budget = manifest["budget"]["per_arm"]
-    executor = DockerfileExecutor(
-        source=source_identity["source"],
-        task=task,
-        arm_dir=arm_dir,
-        timeout_seconds=budget["command_timeout_seconds"],
-    )
     outcome = None
     layers: list[dict[str, Any]] = []
     strict = False
     bitwise = None
-    try:
-        public_contract = {
-            "repository_url": task["repository_url"],
-            "commit_sha": task["commit_sha"],
-            "build_system_capabilities": task["build_system_capabilities"],
-            "selected_build_system": task["selected_build_system"],
-            "target_contract": task["target_contract"],
-            "operation_policy": manifest["environment"]["network_policy"],
-        }
-        outcome = controlled.ControlledBaselineRunner(
-            task_contract=public_contract,
-            source_observation=_source_observation(source_identity["source"]),
-            task_id=task["task_id"],
-            attempt_id=pair["attempt_ids"]["A"],
-            base_image_id=manifest["environment"]["image_id"],
-            model=model_factory(manifest, f"stage-c-a-{pair['pair_id']}"),
-            executor=executor,
-            limits=controlled.ControlledBaselineLimits(
-                max_model_requests=budget["max_model_requests"],
-                max_recorded_tokens=budget["max_recorded_tokens"],
-                work_timeout_seconds=budget["work_timeout_seconds"],
-            ),
-            output_dir=arm_dir / "method",
-        ).run()
-        dockerfile_path = arm_dir / "method/Dockerfile"
-        dockerfile = (
-            dockerfile_path.read_text(encoding="utf-8")
-            if dockerfile_path.is_file()
-            else None
+    with tempfile.TemporaryDirectory(
+        prefix=f"forge-stage-c-source-{task['task_id']}-"
+    ) as temporary:
+        source_identity = _clone_export(task, Path(temporary) / "source-acquisition")
+        _validate_prepared_source(task, source_identity)
+        _register_arm_attempt(
+            manifest,
+            pair,
+            "A",
+            release_revision=release_revision,
+            arm_dir=arm_dir,
+            source_snapshot_sha256=source_identity["source_snapshot_sha256"],
         )
-        layers, strict, bitwise = _evaluate_a(
-            manifest, task, outcome, executor, dockerfile
+        executor = DockerfileExecutor(
+            source=source_identity["source"],
+            task=task,
+            arm_dir=arm_dir,
+            timeout_seconds=budget["command_timeout_seconds"],
         )
-    finally:
-        executor.cleanup()
-        require_zero_managed_resources()
+        try:
+            public_contract = {
+                "repository_url": task["repository_url"],
+                "commit_sha": task["commit_sha"],
+                "build_system_capabilities": task["build_system_capabilities"],
+                "selected_build_system": task["selected_build_system"],
+                "target_contract": task["target_contract"],
+                "operation_policy": manifest["environment"]["network_policy"],
+            }
+            outcome = controlled.ControlledBaselineRunner(
+                task_contract=public_contract,
+                source_observation=_source_observation(source_identity["source"]),
+                task_id=task["task_id"],
+                attempt_id=pair["attempt_ids"]["A"],
+                base_image_id=manifest["environment"]["image_id"],
+                model=model_factory(manifest, f"stage-c-a-{pair['pair_id']}"),
+                executor=executor,
+                limits=controlled.ControlledBaselineLimits(
+                    max_model_requests=budget["max_model_requests"],
+                    max_recorded_tokens=budget["max_recorded_tokens"],
+                    work_timeout_seconds=budget["work_timeout_seconds"],
+                ),
+                output_dir=arm_dir / "method",
+            ).run()
+            dockerfile_path = arm_dir / "method/Dockerfile"
+            dockerfile = (
+                dockerfile_path.read_text(encoding="utf-8")
+                if dockerfile_path.is_file()
+                else None
+            )
+            layers, strict, bitwise = _evaluate_a(
+                manifest, task, outcome, executor, dockerfile
+            )
+        finally:
+            executor.cleanup()
+            require_zero_managed_resources()
     assert outcome is not None
     result = {
         "schema_version": "forge-stage-c-arm-result-1.0.0",
@@ -1134,6 +1328,7 @@ def _completed_pairs(
         value = _load_json(pair_result)
         arm_values = []
         for arm in ("A", "B"):
+            _validate_attempt_marker(manifest, pair, arm, pair_dir / arm)
             arm_value = _load_json(pair_dir / arm / "result.json")
             _validate_arm_result(manifest, pair, arm, arm_value)
             arm_values.append(arm_value)
@@ -1229,6 +1424,11 @@ async def run_batch_async(
     arm_executors: dict[str, Callable[..., Any]] | None = None,
 ) -> dict[str, Any]:
     preflight = collect_preflight(manifest, output_dir=output_dir, require_empty=False)
+    if not preflight["ready"]:
+        raise StageCRunnerError(
+            "存在未闭合 pair，禁止静默续跑或补跑: "
+            + ",".join(preflight["incomplete_pairs"])
+        )
     revision = preflight["release_revision"]
     reachability = _require_reachability(manifest, output_dir, revision)
     completed = _completed_pairs(manifest, output_dir)
@@ -1270,6 +1470,7 @@ async def run_batch_async(
             )
             if hasattr(value, "__await__"):
                 value = await value
+            _validate_attempt_marker(manifest, pair, arm, arm_dir)
             _validate_arm_result(manifest, pair, arm, value)
             arms.append(value)
             require_zero_managed_resources()
