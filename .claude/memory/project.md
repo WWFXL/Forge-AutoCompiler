@@ -7,13 +7,14 @@
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
 - 2026-09-26 — 实现 Stage C 十二项目受控配对校准执行准备
-  - GitHub: Issue #310 冻结设计；Issue #312 / PR #313 已把 C1-C4 实现 squash 合并为 `main@503b3160`。Issue #314 跟踪资格回执与执行前门禁，当前分支为 `research/stage-c-qualification-result`。
+  - GitHub: Issue #310 冻结设计；Issue #312 / PR #313 已把 C1-C4 实现 squash 合并为 `main@503b3160`；PR #315 已修复 snapshot CA 引导。Issue #314 跟踪资格回执与执行前门禁，当前分支为 `fix/stage-c-qualification-runner`。
   - 实现: 冻结结果盲 12 项 task pool、target/oracle/bitwise 资格计划与 Ubuntu snapshot 镜像；新增 24 次 reference qualification、CXXCrafter-style controlled A 臂、Forge Runtime v2 + evaluator v4 B 臂、24 pairs / 48 arms 反向平衡调度、pair-boundary budget gate、create-once evidence 与报告。
   - 门禁: fake-model 单测为 `12 passed, 3 skipped`；CMake/Make/Autotools 短小真实 Docker 门禁为 `3 passed`；相邻回归 `147 passed, 3 skipped`；完整后端为 `1811 passed, 41 skipped`；Ruff 400 files 通过。Docker 门禁发现并修复 BuildKit 不能直接解析 `FROM sha256:<image-id>` 的问题，执行时使用核对完整 ID 的一次性本地 alias。
-  - 当前状态: 资格 plan `validate` 与非模型 `preflight` 通过，0 managed resources；尚未构建 `autocompiler:stage-c-v1`，尚未执行 12 项双重复 reference qualification，因此 authorized manifest/schema 尚未生成。
-  - 资格构建修复: 首次 `build-image` 暴露固定 Ubuntu 最小基础镜像不含 CA，snapshot HTTPS 索引刷新被 APT 作为警告吞掉，随后工具链安装误报软件包不存在。Stage C Dockerfile 改为由签名的 InRelease 元数据保护一次性 CA 引导，删除临时 TLS 配置后以正常 peer 校验重新刷新索引；待重新执行耗时镜像构建。
+  - 当前状态: `autocompiler:stage-c-v1` 已构建为 `sha256:aa56877b...054b2`，资格 plan `validate` 与非模型 `preflight` 通过且 0 managed resources；12 项双重复 reference qualification 尚未闭合，因此 authorized manifest/schema 尚未生成。
+  - 资格构建修复: 首次 `build-image` 暴露固定 Ubuntu 最小基础镜像不含 CA，snapshot HTTPS 索引刷新被 APT 作为警告吞掉，随后工具链安装误报软件包不存在。Stage C Dockerfile 改为由签名的 InRelease 元数据保护一次性 CA 引导，删除临时 TLS 配置后以正常 peer 校验重新刷新索引；PR #315 合并后镜像构建通过。
+  - 资格运行修复: 修复后镜像成功冻结为 `sha256:aa56877b...054b2`；首次 `run` 在 oatpp replicate 1 暴露旧版 `oatpp::base::Environment` oracle 与固定 1.4.0 API 不符，并因容器 root 写 bind mount 导致异常清理权限失败。oracle 已按实际固定头文件更正，qualification 容器改用宿主 UID/GID；尚未生成资格回执。
   - 边界: 0 Provider、0 model token、0 Stage C physical attempt、0 正式 Stage C evidence；未运行正式 `reachability` 或 `batch`。
-  - 下一步: 由实验所有者运行 Stage C image build 与 qualification；回传 receipt 后只读验证、生成 authorized identity，并运行 `validate`/`preflight`，停在正式实验可开始但未开始的状态。
+  - 下一步: 合并 qualification runner 修复后，由实验所有者重新运行 qualification；回传 receipt 后只读验证、生成 authorized identity，并运行 `validate`/`preflight`，停在正式实验可开始但未开始的状态。
   - 文件: `scripts/forge_stage_c_*.py`, `benchmarks/fixtures/stage-c-source-pool.json`, `benchmarks/manifests/cpp-stage-c-task-qualification.json`, `benchmarks/preregistrations/cpp-stage-c-paired-calibration.md`, `docker/compile/Dockerfile.stage-c`, `backend/tests/test_stage_c_execution_readiness.py`
 
 - 2026-09-25 — 冻结 evaluator v3 的 Phase 5 独立授权评测 identity
