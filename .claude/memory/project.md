@@ -122,6 +122,14 @@
 
 <!-- 倒序，最新在上。 -->
 
+- 2026-09-27 — 封存 Stage C v4 Session identity 失败并冻结 v5
+  - GitHub: Issue #327 跟踪 `rnnoise-0.1.1` B 臂在 attempt 前被 Compile Session 路径合同拒绝；修复分支为 `research/stage-c-v5-session-identity`，基线为 `main@9c271ea1`。
+  - v4 结果: Stockfish `src/Makefile` 修复已由完整 pair 证实；`json-c`、`stockfish-11` 两个 pair 闭合，`rnnoise-0.1.1` A 臂闭合后 B 臂未登记。v4 合计 5 个正式 attempt、31 次总 Provider 调用、213,374 recorded tokens、887 个 evidence 文件，0 managed resource，旧 identity 禁止续跑。
+  - 根因与修复: pair ID 的点号被直接拼入只允许 `[A-Za-z0-9_-]` 的 thread ID。v5 改用完整 pair ID 的 SHA-256 与 manifest 前缀生成固定长度安全 ID，并在 validate/preflight 按真实 Session manager 合同预校验全部 24 个 pair 和唯一性。
+  - Identity: v5 不导入旧 outcome，使用 24 个新 pair / 48 个新 attempt 和独立 evidence；历史实际消耗为 286,143 tokens，连同 v5 最坏上限合计 14,691,143。canonical manifest SHA-256 为 `11eefa99737b6e20fdf5d300802cf5a7cf0a9178a5f0a44de4028693721859a2`。
+  - 验证: 产品测试 `1763 passed, 42 skipped`；Compile Runtime 与 Stage C 聚焦回归 `169 passed, 4 skipped`；Stage C 真实 Docker门禁 `38 passed`；Ruff、protocol/runner validate、33 个冻结组件哈希和 diff check 通过。尚未执行 v5 reachability、正式 batch 或写入 v5 evidence。
+  - 文件: `scripts/forge_stage_c_v5_protocol.py`, `scripts/forge_stage_c_runner.py`, `backend/tests/test_stage_c_execution_readiness.py`, `benchmarks/manifests/cpp-stage-c-paired-calibration-v5-session-identity-authorized.json`, `benchmarks/preregistrations/cpp-stage-c-paired-calibration-v5-session-identity.md`, `benchmarks/reports/cpp-stage-c-paired-calibration-v4-failed.json`
+
 - 2026-09-27 — 封存 Stage C v3 失败并冻结 v4 构建入口修复身份
   - GitHub: Issue #325 跟踪 Stage C v3 在 `json-c` 首个完整 pair 后拒绝 Stockfish `src/Makefile`、Agent build-system 枚举污染和 A 臂 oracle 跨容器路径错误；修复分支为 `research/stage-c-v4-build-entrypoint`，基线为 `main@cbb29c24`。
   - 审计: v3 固定为 1 个闭合 pair、2 个正式 arm attempt、4 次 Provider 调用和 30,768 recorded tokens；243 个 evidence 文件逐项冻结，0 未闭合 pair、0 managed resource，旧 identity 永久禁止续跑。
