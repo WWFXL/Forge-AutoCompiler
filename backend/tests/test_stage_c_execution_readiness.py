@@ -22,6 +22,7 @@ import forge_stage_c_remediation_protocol as remediation_protocol  # noqa: E402
 import forge_stage_c_runner as runner  # noqa: E402
 import forge_stage_c_task_qualification as qualification  # noqa: E402
 import forge_stage_c_v3_protocol as v3_protocol  # noqa: E402
+import forge_stage_c_v4_protocol as v4_protocol  # noqa: E402
 
 
 @dataclass
@@ -405,6 +406,23 @@ def test_stage_c_v3_manifest_binds_failed_v2_without_importing_outcomes() -> Non
     assert len({attempt for pair in manifest["schedule"]["pairs"] for attempt in pair["attempt_ids"].values()}) == 48
 
 
+def test_stage_c_v4_manifest_binds_failed_v3_and_source_structure_audit() -> None:
+    manifest = v4_protocol.generate_manifest()
+    prior = manifest["prior_failed_identity"]
+
+    assert prior["manifest_sha256"] == v4_protocol.V3_MANIFEST_SHA256
+    assert prior["must_not_resume"] is True
+    assert prior["historical_outcomes_imported"] is False
+    assert manifest["execution"]["evidence_directory"] == v4_protocol.DEFAULT_EVIDENCE_DIRECTORY
+    assert manifest["execution"]["oracle_artifact_source"] == "candidate_image"
+    assert manifest["authorization"]["prior_actual_recorded_tokens"] == 72_769
+    assert manifest["authorization"]["cumulative_max_recorded_tokens"] == 14_477_769
+    assert manifest["source_structure_audit"]["task_count"] == 12
+    assert manifest["source_structure_audit"]["stockfish_build_marker"] == "src/Makefile"
+    assert all(pair["pair_id"].startswith("stage-c-v4-") for pair in manifest["schedule"]["pairs"])
+    assert len({attempt for pair in manifest["schedule"]["pairs"] for attempt in pair["attempt_ids"].values()}) == 48
+
+
 def test_stage_c_public_tasks_do_not_expose_reference_recipes() -> None:
     pool = qualification.validate_source_pool(qualification.load_json(qualification.DEFAULT_POOL))
     plan = qualification.load_plan()
@@ -511,7 +529,7 @@ def test_stage_c_node_input_matches_runtime_v2_contract() -> None:
         "repository_url": "https://example.com/fixture.git",
         "commit_sha": "1" * 40,
         "source_snapshot_sha256": "2" * 64,
-        "build_system_capabilities": ["cmake"],
+        "build_system_capabilities": ["cmake", "cmake-configure"],
         "selected_build_system": "cmake",
         "qualification_receipt": {"receipt_sha256": "3" * 64},
         "target_contract": {
@@ -542,14 +560,15 @@ def test_stage_c_node_input_matches_runtime_v2_contract() -> None:
             }
         },
         "frozen_components": {
-            v3_protocol.PROTOCOL_PATH: "4" * 64,
-            v3_protocol.RUNNER_PATH: "5" * 64,
+            v4_protocol.PROTOCOL_PATH: "4" * 64,
+            v4_protocol.RUNNER_PATH: "5" * 64,
         },
     }
 
     node_input = runner._node_input(manifest, task, SimpleNamespace(session_id="session-fixture"), "attempt-fixture")
 
     node_input.validate()
+    assert node_input.build_system_candidates == ("cmake",)
     assert node_input.environment.image_id == _IMAGE_ID
     assert node_input.target_contract.artifact_types == ("static_library",)
     assert node_input.source_snapshot_sha256 == "2" * 64
@@ -812,6 +831,7 @@ def test_stage_c_pair_source_is_acquired_once_and_copied_per_arm(tmp_path: Path,
         "commit_sha": commit,
         "source_snapshot_sha256": snapshot,
         "build_system_capabilities": ["cmake"],
+        "selected_build_system": "cmake",
     }
 
     prepared = runner._prepare_pair_sources(task, tmp_path / "pair-source")
@@ -821,6 +841,53 @@ def test_stage_c_pair_source_is_acquired_once_and_copied_per_arm(tmp_path: Path,
     assert prepared["A"]["source"] != prepared["B"]["source"]
     (prepared["A"]["source"] / "CMakeLists.txt").write_text("changed\n")
     assert (prepared["B"]["source"] / "CMakeLists.txt").read_text() == "project(fixture)\n"
+
+
+def test_stage_c_prepared_source_accepts_one_level_nested_selected_marker(
+    tmp_path: Path,
+) -> None:
+    source = tmp_path / "source"
+    (source / "src").mkdir(parents=True)
+    (source / "src/Makefile").write_text("build:\n\t@true\n")
+    identity = {
+        "source": source,
+        "source_snapshot_sha256": "2" * 64,
+    }
+    task = {
+        "task_id": "stockfish-fixture",
+        "source_snapshot_sha256": "2" * 64,
+        "build_system_capabilities": ["make"],
+        "selected_build_system": "make",
+    }
+
+    assert runner._validate_prepared_source(task, identity) == "make"
+    assert identity["build_system_marker"] == "src/Makefile"
+
+
+def test_stage_c_exact_commit_fetch_retries_with_runtime_proxy(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    calls: list[tuple[list[str], dict[str, str]]] = []
+
+    def fake_run(argv: list[str], **kwargs: Any) -> subprocess.CompletedProcess[str]:
+        calls.append((argv, kwargs["env"]))
+        return subprocess.CompletedProcess(
+            argv,
+            0 if len(calls) == 3 else 128,
+            "",
+            "transient TLS failure",
+        )
+
+    monkeypatch.setenv("COMPILE_RUNTIME_HTTPS_PROXY", "http://forge-egress:7890")
+    monkeypatch.setattr(runner, "_run", fake_run)
+    monkeypatch.setattr(runner.time, "sleep", lambda _seconds: None)
+
+    runner._fetch_exact_commit(
+        tmp_path,
+        {"task_id": "fixture", "commit_sha": "1" * 40},
+    )
+
+    assert len(calls) == 3
+    assert all("http.version=HTTP/1.1" in argv for argv, _env in calls)
+    assert all(env["HTTPS_PROXY"] == "http://forge-egress:7890" for _argv, env in calls)
 
 
 def test_stage_c_controlled_arm_consumes_prepared_source(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
@@ -964,6 +1031,7 @@ def test_stage_c_forge_source_preparation_populates_session_before_attempt(tmp_p
         "commit_sha": "1" * 40,
         "source_snapshot_sha256": "2" * 64,
         "build_system_capabilities": ["cmake"],
+        "selected_build_system": "cmake",
     }
     pair = {"pair_id": "stage-c-v3-fixture-r1"}
     source_identity = {
@@ -1040,7 +1108,6 @@ def test_stage_c_a_docker_fixture_covers_oracle_replay_and_cleanup(build_system:
             "argv": ["sh", "-c", "/artifacts/bin/app | grep -F stage-c-fixture"],
         },
     }
-    manifest = {"environment": {"image_id": image_id}}
     dockerfile = f"FROM {image_id}\nCOPY source/ /workspace/repo/\n{build_command}\n"
     executor = runner.DockerfileExecutor(
         source=source,
@@ -1054,10 +1121,10 @@ def test_stage_c_a_docker_fixture_covers_oracle_replay_and_cleanup(build_system:
         assert first.succeeded is True
         assert replay.succeeded is True
         assert first.artifact_manifest_sha256 == replay.artifact_manifest_sha256
+        assert first.candidate_image_id is not None
         assert runner._run_oracle(
-            manifest,
             task,
-            executor.artifact_dirs[1],
+            first.candidate_image_id,
             f"fixture-{build_system}",
         )
     finally:
@@ -1088,6 +1155,20 @@ def test_stage_c_a_static_library_validation_runs_inside_candidate_image(
             "required_artifacts": ["include/fixture.h", "lib/libfixture.a"],
             "artifact_types": ["support_file", "static_library"],
         },
+        "oracle": {
+            "kind": "compile_and_run",
+            "language": "c11",
+            "source": "#include <fixture.h>\nint main(void){return fixture_value()==7 ? 0 : 1;}\n",
+            "compile_argv": [
+                "cc",
+                "-I/artifacts/include",
+                "{source}",
+                "/artifacts/lib/libfixture.a",
+                "-o",
+                "{executable}",
+            ],
+            "run_argv": ["{executable}"],
+        },
     }
     dockerfile = (
         f"FROM {image_id}\n"
@@ -1109,6 +1190,12 @@ def test_stage_c_a_static_library_validation_runs_inside_candidate_image(
         assert replay.succeeded is True
         assert first.artifact_paths == ("include/fixture.h", "lib/libfixture.a")
         assert first.artifact_manifest_sha256 == replay.artifact_manifest_sha256
+        assert first.candidate_image_id is not None
+        assert runner._run_oracle(
+            task,
+            first.candidate_image_id,
+            "fixture-static-library",
+        )
     finally:
         executor.cleanup()
     runner.require_zero_managed_resources()

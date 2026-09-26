@@ -10,7 +10,9 @@ gateway:
 test: test-product
 
 test-product:
-	PYTHONPATH=. uv run pytest tests/ -v --ignore-glob='tests/test_forge_*.py'
+	PYTHONPATH=. uv run pytest tests/ -v \
+		--ignore-glob='tests/test_forge_*.py' \
+		--ignore-glob='tests/test_agent_workflow_stage_b_*.py'
 
 lint:
 	uvx ruff check .

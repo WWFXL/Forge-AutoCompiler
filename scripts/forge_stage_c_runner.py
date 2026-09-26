@@ -31,7 +31,7 @@ if str(SCRIPT_ROOT) not in sys.path:
 import forge_agent_workflow_stage_b_phase5_v2_authorized_runner as stage_b  # noqa: E402
 import forge_stage_c_controlled_baseline as controlled  # noqa: E402
 import forge_stage_c_task_qualification as qualification  # noqa: E402
-import forge_stage_c_v3_protocol as protocol  # noqa: E402
+import forge_stage_c_v4_protocol as protocol  # noqa: E402
 
 from deerflow.compile.agent_workflow_runtime_v2 import (  # noqa: E402
     run_agent_workflow_node_v2,
@@ -39,6 +39,7 @@ from deerflow.compile.agent_workflow_runtime_v2 import (  # noqa: E402
 from deerflow.compile.agent_workflow_schemas import (  # noqa: E402
     AgentBuildNodeInput,
     AgentWorkflowBudget,
+    AgentWorkflowContractError,
     AgentWorkflowEnvironmentIdentity,
     AgentWorkflowExperimentIdentity,
     AgentWorkflowTargetContract,
@@ -97,6 +98,7 @@ def _run(
     cwd: Path = REPO_ROOT,
     timeout: int = 120,
     check: bool = True,
+    env: dict[str, str] | None = None,
 ) -> subprocess.CompletedProcess[str]:
     result = subprocess.run(
         argv,
@@ -105,6 +107,7 @@ def _run(
         capture_output=True,
         text=True,
         timeout=timeout,
+        env=env,
     )
     if check and result.returncode != 0:
         detail = (result.stderr or result.stdout).strip()[-4000:]
@@ -247,6 +250,7 @@ def collect_preflight(
     require_empty: bool,
 ) -> dict[str, Any]:
     protocol.validate_manifest(manifest)
+    _validate_all_node_inputs(manifest)
     revision = _release_identity(manifest)
     if output_dir != Path(manifest["execution"]["evidence_directory"]):
         raise StageCRunnerError("Stage C evidence directory 与 manifest 不一致")
@@ -463,13 +467,22 @@ def _node_input(
     if not compiled_types:
         raise StageCRunnerError(f"{task['task_id']} 缺少可编译 target 类型")
     frozen = manifest["frozen_components"]
+    build_system_candidates = tuple(
+        build_system
+        for build_system in task["build_system_capabilities"]
+        if build_system in _BUILD_SYSTEM_MARKERS
+    )
+    if task["selected_build_system"] not in build_system_candidates:
+        raise StageCRunnerError(
+            f"{task['task_id']} selected build system 不满足 Agent 合同"
+        )
     return AgentBuildNodeInput(
         task_id=task["task_id"],
         attempt_id=attempt_id,
         session_id=session.session_id,
         repository_url=task["repository_url"],
         commit_sha=task["commit_sha"],
-        build_system_candidates=tuple(task["build_system_capabilities"]),
+        build_system_candidates=build_system_candidates,
         target_contract=AgentWorkflowTargetContract(
             target_id=target["target_id"],
             artifact_types=compiled_types,
@@ -510,6 +523,22 @@ def _node_input(
             "network_after_clone": "none",
         },
     )
+
+
+def _validate_all_node_inputs(manifest: dict[str, Any]) -> None:
+    session = type("StageCContractSession", (), {"session_id": "stage-c-contract"})()
+    for task in manifest["tasks"]:
+        try:
+            _node_input(
+                manifest,
+                task,
+                session,
+                f"stage-c-contract-{task['task_id']}",
+            ).validate()
+        except AgentWorkflowContractError as exc:
+            raise StageCRunnerError(
+                f"{task['task_id']} Agent input contract 无效: {exc}"
+            ) from exc
 
 
 @contextmanager
@@ -615,15 +644,30 @@ def _validate_prepared_source(
     if source_identity["source_snapshot_sha256"] != task["source_snapshot_sha256"]:
         raise StageCRunnerError(f"{task['task_id']} source snapshot 漂移")
     source = source_identity["source"]
-    detected = [
-        build_system
-        for build_system, markers in _BUILD_SYSTEM_MARKERS.items()
-        if any((source / marker).is_file() for marker in markers)
-    ]
-    primary = detected[0] if detected else "unknown"
-    if primary not in task["build_system_capabilities"]:
+    detected: dict[str, str] = {}
+    for build_system, markers in _BUILD_SYSTEM_MARKERS.items():
+        marker = next(
+            (candidate for candidate in markers if (source / candidate).is_file()),
+            None,
+        )
+        if marker is not None:
+            detected[build_system] = marker
+    if not detected:
+        for build_system, markers in _BUILD_SYSTEM_MARKERS.items():
+            candidates = sorted(
+                path.relative_to(source).as_posix()
+                for child in source.iterdir()
+                if child.is_dir()
+                for marker in markers
+                if (path := child / marker).is_file()
+            )
+            if candidates:
+                detected[build_system] = candidates[0]
+    selected = task["selected_build_system"]
+    if selected not in detected:
         raise StageCRunnerError(f"{task['task_id']} build-system identity 漂移")
-    return primary
+    source_identity["build_system_marker"] = detected[selected]
+    return selected
 
 
 def _prepare_forge_session(
@@ -840,6 +884,51 @@ def _export_repository(repository: Path, export: Path, task_id: str) -> None:
         raise StageCRunnerError(f"{task_id} source export 失败")
 
 
+def _source_git_environment() -> dict[str, str]:
+    env = os.environ.copy()
+    for source_name, target_name in (
+        ("COMPILE_RUNTIME_HTTP_PROXY", "HTTP_PROXY"),
+        ("COMPILE_RUNTIME_HTTPS_PROXY", "HTTPS_PROXY"),
+        ("COMPILE_RUNTIME_NO_PROXY", "NO_PROXY"),
+    ):
+        value = os.environ.get(source_name)
+        if value:
+            env[target_name] = value
+    return env
+
+
+def _fetch_exact_commit(repository: Path, task: dict[str, Any]) -> None:
+    argv = [
+        "git",
+        "-c",
+        "http.version=HTTP/1.1",
+        "-C",
+        str(repository),
+        "fetch",
+        "--quiet",
+        "--depth",
+        "1",
+        "origin",
+        task["commit_sha"],
+    ]
+    failures: list[str] = []
+    for attempt in range(1, 4):
+        result = _run(
+            argv,
+            timeout=600,
+            check=False,
+            env=_source_git_environment(),
+        )
+        if result.returncode == 0:
+            return
+        failures.append((result.stderr or result.stdout).strip()[-2000:])
+        if attempt < 3:
+            time.sleep(attempt)
+    raise StageCRunnerError(
+        f"{task['task_id']} exact commit fetch 连续 3 次失败:\n{failures[-1]}"
+    )
+
+
 def _clone_export(task: dict[str, Any], destination: Path) -> dict[str, Any]:
     repository = destination / "repository"
     export = destination / "source"
@@ -856,20 +945,7 @@ def _clone_export(task: dict[str, Any], destination: Path) -> dict[str, Any]:
             task["repository_url"],
         ]
     )
-    _run(
-        [
-            "git",
-            "-C",
-            str(repository),
-            "fetch",
-            "--quiet",
-            "--depth",
-            "1",
-            "origin",
-            task["commit_sha"],
-        ],
-        timeout=600,
-    )
+    _fetch_exact_commit(repository, task)
     _run(
         ["git", "-C", str(repository), "checkout", "--quiet", "--detach", "FETCH_HEAD"]
     )
@@ -1176,9 +1252,7 @@ class DockerfileExecutor:
         self.base_aliases.clear()
 
 
-def _run_oracle(
-    manifest: dict[str, Any], task: dict[str, Any], artifacts: Path, suffix: str
-) -> bool:
+def _run_oracle(task: dict[str, Any], candidate_image_id: str, suffix: str) -> bool:
     name = f"{MANAGED_A_PREFIX}oracle-{uuid.uuid4().hex[:8]}"
     oracle = task["oracle"]
     if oracle["kind"] == "compile_and_run":
@@ -1212,9 +1286,10 @@ def _run_oracle(
                 "forge.stage-c.managed=true",
                 "--network",
                 "none",
-                "--volume",
-                f"{artifacts.resolve()}:/artifacts:ro",
-                manifest["environment"]["image_id"],
+                "--read-only",
+                "--tmpfs",
+                "/tmp:rw,exec,nosuid,nodev,size=64m",
+                candidate_image_id,
                 "bash",
                 "-lc",
                 "set -euo pipefail\n" + script,
@@ -1253,7 +1328,9 @@ def _evaluate_a(
     )
     s3 = bool(
         artifacts
-        and _run_oracle(manifest, task, artifacts, f"{task['task_id']}-candidate")
+        and first
+        and first.candidate_image_id
+        and _run_oracle(task, first.candidate_image_id, f"{task['task_id']}-candidate")
     )
     try:
         s4 = bool(
@@ -1270,10 +1347,15 @@ def _evaluate_a(
         replay = executor.execute(
             dockerfile, revision=outcome.candidate.revision + 1000
         )
-        replay_artifacts = executor.artifact_dirs[outcome.candidate.revision + 1000]
         bitwise = replay.artifact_manifest_sha256 == first.artifact_manifest_sha256
-        replay_oracle = replay.succeeded and _run_oracle(
-            manifest, task, replay_artifacts, f"{task['task_id']}-replay"
+        replay_oracle = bool(
+            replay.succeeded
+            and replay.candidate_image_id
+            and _run_oracle(
+                task,
+                replay.candidate_image_id,
+                f"{task['task_id']}-replay",
+            )
         )
         s5 = (
             replay.succeeded
@@ -1642,6 +1724,7 @@ def main(argv: list[str] | None = None) -> int:
     args = parser.parse_args(argv)
     manifest = protocol.load_manifest(args.manifest)
     if args.command == "validate":
+        _validate_all_node_inputs(manifest)
         result: Any = {
             "status": "valid",
             "manifest_sha256": protocol.canonical_sha256(manifest),

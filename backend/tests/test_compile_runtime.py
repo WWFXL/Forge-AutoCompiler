@@ -248,6 +248,42 @@ def test_inspect_build_system_detects_source_autotools_markers(
     assert manager.load_session(session.session_id, session.thread_id).build_system_capabilities == ["autotools"]
 
 
+def test_inspect_build_system_accepts_one_level_nested_marker(tmp_path: Path, monkeypatch) -> None:
+    manager = CompileSessionManager(paths=make_test_paths(tmp_path))
+    session = manager.create_session(
+        thread_id="thread-nested-make",
+        repo_url="https://example.com/stockfish.git",
+    )
+
+    def fake_exec(_session, _command, **_kwargs):
+        output = "make\tsrc/Makefile\n"
+        return CommandResult(
+            exit_code=0,
+            stdout=output,
+            stderr="",
+            combined_output=output,
+        )
+
+    monkeypatch.setattr(
+        operations,
+        "_services",
+        CompileOperationsServices(
+            manager=manager,
+            runtime=SimpleNamespace(exec=fake_exec),
+        ),
+    )
+
+    primary, detected, suggested = operations.inspect_build_system_impl(session=session)
+
+    assert "-mindepth 2 -maxdepth 2" in operations._build_system_marker_probe_command()
+    assert primary == "make"
+    assert detected == [("make", "src/Makefile")]
+    assert suggested == ["make"]
+    reloaded = manager.load_session(session.session_id, session.thread_id)
+    assert reloaded.build_system == "make"
+    assert reloaded.build_system_capabilities == ["make"]
+
+
 def test_inspect_build_system_rejects_failed_container_probe(tmp_path: Path, monkeypatch) -> None:
     manager = CompileSessionManager(paths=make_test_paths(tmp_path))
     session = manager.create_session(
