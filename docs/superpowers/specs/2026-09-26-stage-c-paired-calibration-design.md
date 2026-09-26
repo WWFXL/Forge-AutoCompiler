@@ -6,7 +6,7 @@
 
 Stage C 比较 CXXCrafter-style 固定 LLM Workflow 与 Forge Agent Workflow Node 在受控条件下的严格可复现构建成功率、成本和失败结构。Stage B 六项目已经暴露，只用于工程准入和合同校准，不进入 Stage C 分母。
 
-本设计只冻结协议，不授权 Provider、Docker、正式 attempt、Stage C evidence 或模型 token。12 个 task、package snapshot、不可变镜像、controlled baseline adapter 和未授权 candidate runner 完成前，`stage_c_execution_started` 必须保持 false。
+本设计先冻结协议；后续 authorized identity 已按独立资格回执与历史成本审计派生。12 个 task、package snapshot、不可变镜像、controlled baseline adapter 和 runner 已完成，`stage_c_execution_started` 仍保持 false，正式执行只能使用该冻结 identity。
 
 ## 主要比较
 
@@ -114,11 +114,13 @@ B 继续使用 64 agent steps、48 tool calls 和 32 commands。A 的 Generator�
 
 ## 执行前硬门禁
 
-1. 12 个新 task 尚未按结果盲规则冻结。
-2. target、S3 oracle 和 bitwise 条件尚未完成资格审计。
-3. package repository snapshot 和 Stage C image 尚未冻结。
-4. CXXCrafter-style controlled adapter 尚未接入统一合同。
-5. candidate manifest/schema/protocol/runner 尚未实现。
-6. 14,405,000-token 最坏上限尚未获得执行授权。
+以下门禁已经闭合：
 
-任一条件未完成时都不得启动 Stage C。
+1. 12 个新 task 已按结果盲规则冻结。
+2. target、S3 oracle 和 bitwise 条件已通过 24 次零 Provider reference build 资格审计。
+3. package repository snapshot 与 Stage C image 已冻结并绑定完整 image ID。
+4. CXXCrafter-style controlled adapter 已接入统一合同。
+5. candidate manifest/schema/protocol/runner 已实现。
+6. 300,000-token 单臂硬停止上限已完成历史成本敏感性审计，14,405,000-token 最坏上限与 48 arms 已获执行授权。
+
+正式执行前仍须从合并后的干净 `main` 通过 `validate` 与非模型 `preflight`；不得在合并前或身份漂移时启动 Stage C。

@@ -350,6 +350,29 @@ def test_stage_c_schedule_is_deterministic_and_counterbalanced() -> None:
         assert orders[1] == list(reversed(orders[0]))
 
 
+def test_stage_c_cost_audit_recomputes_history_and_binds_hard_ceiling() -> None:
+    audit = protocol._validate_cost_audit(REPO_ROOT)
+    decision = audit["decision"]
+
+    assert audit["stage_c_outcomes_observed"] is False
+    assert [item["total_recorded_tokens"] for item in audit["historical_inputs"]] == [212_109, 918_121]
+    assert max(task["recorded_tokens"] for item in audit["historical_inputs"] for task in item["tasks"]) == decision["historical_max_recorded_tokens"] == 279_841
+    assert decision["max_recorded_tokens_per_arm"] == 300_000
+    assert decision["observed_max_headroom_tokens"] == 20_159
+    assert decision["upper_bound_role"] == "hard_stop_not_expected_consumption"
+
+
+def test_stage_c_manifest_binds_qualification_and_cost_audit() -> None:
+    manifest = protocol.generate_manifest()
+
+    assert manifest["qualification"]["result_file_sha256"] == qualification.file_sha256(qualification.DEFAULT_RESULT)
+    audit = manifest["budget"]["cost_sensitivity_audit"]
+    assert audit["path"] == protocol.COST_AUDIT_PATH
+    assert audit["file_sha256"] == qualification.file_sha256(REPO_ROOT / protocol.COST_AUDIT_PATH)
+    assert audit["decision"]["total_max_recorded_tokens"] == 14_405_000
+    assert protocol.COST_AUDIT_PATH in manifest["frozen_components"]
+
+
 def test_stage_c_public_tasks_do_not_expose_reference_recipes() -> None:
     pool = qualification.validate_source_pool(qualification.load_json(qualification.DEFAULT_POOL))
     plan = qualification.load_plan()

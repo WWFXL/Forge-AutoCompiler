@@ -33,6 +33,7 @@ SCHEMA_RELATIVE_PATH = (
 )
 PREREGISTRATION_PATH = "benchmarks/preregistrations/cpp-stage-c-paired-calibration.md"
 QUALIFICATION_RESULT_PATH = "benchmarks/fixtures/stage-c-task-qualification-result.json"
+COST_AUDIT_PATH = "benchmarks/reports/cpp-stage-c-cost-sensitivity-audit.json"
 RUNNER_PATH = "scripts/forge_stage_c_runner.py"
 PROTOCOL_PATH = "scripts/forge_stage_c_protocol.py"
 BASELINE_ADAPTER_PATH = "scripts/forge_stage_c_controlled_baseline.py"
@@ -138,6 +139,7 @@ def _public_tasks(
 def _frozen_components(repo_root: Path) -> dict[str, str]:
     paths = (
         PREREGISTRATION_PATH,
+        COST_AUDIT_PATH,
         qualification.DEFAULT_POOL.relative_to(REPO_ROOT).as_posix(),
         qualification.DEFAULT_PLAN.relative_to(REPO_ROOT).as_posix(),
         qualification.DEFAULT_SCHEMA.relative_to(REPO_ROOT).as_posix(),
@@ -153,6 +155,119 @@ def _frozen_components(repo_root: Path) -> dict[str, str]:
     if missing:
         raise StageCProtocolError(f"Stage C frozen component 缺失: {','.join(missing)}")
     return {path: file_sha256(repo_root / path) for path in paths}
+
+
+def _validate_cost_audit(repo_root: Path) -> dict[str, Any]:
+    path = repo_root / COST_AUDIT_PATH
+    if not path.is_file():
+        raise StageCProtocolError("Stage C 成本敏感性审计不存在")
+    audit = qualification.load_json(path)
+    expected_decision = {
+        "formal_arm_count": 48,
+        "formal_arms_max_recorded_tokens": 14_400_000,
+        "historical_max_recorded_tokens": 279_841,
+        "max_recorded_tokens_per_arm": 300_000,
+        "observed_max_headroom_fraction": 0.067197,
+        "observed_max_headroom_percent": 6.7197,
+        "observed_max_headroom_tokens": 20_159,
+        "reachability_max_recorded_tokens": 5_000,
+        "total_max_recorded_tokens": 14_405_000,
+        "upper_bound_role": "hard_stop_not_expected_consumption",
+    }
+    if audit.get("schema_version") != "forge-stage-c-cost-sensitivity-audit-1.0.0":
+        raise StageCProtocolError("Stage C 成本敏感性审计 schema 无效")
+    if audit.get("document_type") != "forge_stage_c_cost_sensitivity_audit":
+        raise StageCProtocolError("Stage C 成本敏感性审计类型无效")
+    if audit.get("audit_date") != "2026-09-26":
+        raise StageCProtocolError("Stage C 成本敏感性审计日期漂移")
+    if audit.get("stage_c_outcomes_observed") is not False:
+        raise StageCProtocolError("Stage C 成本审计必须保持结果盲态")
+    if audit.get("decision") != expected_decision:
+        raise StageCProtocolError("Stage C 成本敏感性审计决策漂移")
+    inputs = audit.get("historical_inputs")
+    if not isinstance(inputs, list) or len(inputs) != 2:
+        raise StageCProtocolError("Stage C 成本审计历史输入不完整")
+    cxxcrafter, forge = inputs
+    expected_cxxcrafter_tasks = [
+        ("yyjson", 16_616, 11_387, 28_003),
+        ("cppitertools", 14_105, 7_578, 21_683),
+        ("openh264", 51_115, 9_530, 60_645),
+        ("uwebsockets", 19_119, 28_206, 47_325),
+        ("c-ares", 19_874, 8_363, 28_237),
+        ("libass", 6_839, 19_377, 26_216),
+    ]
+    actual_cxxcrafter_tasks = [
+        (
+            task.get("task_id"),
+            task.get("input_tokens"),
+            task.get("output_tokens"),
+            task.get("recorded_tokens"),
+        )
+        for task in cxxcrafter.get("tasks", [])
+    ]
+    if actual_cxxcrafter_tasks != expected_cxxcrafter_tasks:
+        raise StageCProtocolError("Stage C CXXCrafter 历史 token 明细漂移")
+    if {
+        "method": cxxcrafter.get("method"),
+        "repository": cxxcrafter.get("repository"),
+        "revision": cxxcrafter.get("revision"),
+        "task_count": cxxcrafter.get("task_count"),
+        "total_recorded_tokens": cxxcrafter.get("total_recorded_tokens"),
+        "audit_report": cxxcrafter.get("audit_report"),
+    } != {
+        "method": "cxxcrafter_stage_b_canary_v2",
+        "repository": "https://github.com/seclab-fudan/CXXCrafter-Community-Edition.git",
+        "revision": "bac70e99e48b210a350c18b3f93efd839787ce37",
+        "task_count": 6,
+        "total_recorded_tokens": 212_109,
+        "audit_report": {
+            "path": "benchmark/reports/stage-b-canary-v2-audit.md",
+            "sha256": "baf686cc4408b03b72c5fa9aade07f3c43fa8c10af1d83443d5b1ad31e7662b5",
+        },
+    }:
+        raise StageCProtocolError("Stage C CXXCrafter 历史来源漂移")
+    expected_forge_tasks = [
+        ("yyjson", 82_169),
+        ("cppitertools", 72_219),
+        ("openh264", 225_403),
+        ("uwebsockets", 279_841),
+        ("c-ares", 121_692),
+        ("libass", 136_797),
+    ]
+    actual_forge_tasks = [
+        (task.get("task_id"), task.get("recorded_tokens"))
+        for task in forge.get("tasks", [])
+    ]
+    if actual_forge_tasks != expected_forge_tasks:
+        raise StageCProtocolError("Stage C Forge 历史 token 明细漂移")
+    forge_report = {
+        "path": "benchmarks/reports/cpp-agent-workflow-stage-b-phase5-v2-audit.json",
+        "sha256": "9d636d779ac43c5eee2095d219333fb30cc9082a09db8201a0bec10971337ef0",
+    }
+    if {
+        "method": forge.get("method"),
+        "repository": forge.get("repository"),
+        "release_revision": forge.get("release_revision"),
+        "task_count": forge.get("task_count"),
+        "total_recorded_tokens": forge.get("total_recorded_tokens"),
+        "audit_report": forge.get("audit_report"),
+    } != {
+        "method": "forge_agent_workflow_stage_b_phase5_v2",
+        "repository": "https://github.com/WWFXL/Forge-AutoCompiler.git",
+        "release_revision": "5ed549ea92add2403a91512d3148f29686559d67",
+        "task_count": 6,
+        "total_recorded_tokens": 918_121,
+        "audit_report": forge_report,
+    }:
+        raise StageCProtocolError("Stage C Forge 历史来源漂移")
+    if file_sha256(repo_root / forge_report["path"]) != forge_report["sha256"]:
+        raise StageCProtocolError("Stage C Forge 历史审计报告哈希漂移")
+    if (
+        max(token for _, token in expected_forge_tasks)
+        != expected_decision["historical_max_recorded_tokens"]
+    ):
+        raise StageCProtocolError("Stage C 历史最大 token 无法复算")
+    return audit
 
 
 def generate_manifest(
@@ -180,6 +295,7 @@ def generate_manifest(
     if not preregistration.is_file():
         raise StageCProtocolError("Stage C 预注册不存在")
     schedule = _schedule(pool)
+    cost_audit = _validate_cost_audit(repo_root)
     per_arm_tokens = 300_000
     reachability_tokens = 5_000
     total_tokens = (
@@ -245,6 +361,11 @@ def generate_manifest(
             "seed": "provider_unsupported",
         },
         "budget": {
+            "cost_sensitivity_audit": {
+                "path": COST_AUDIT_PATH,
+                "file_sha256": file_sha256(repo_root / COST_AUDIT_PATH),
+                "decision": copy.deepcopy(cost_audit["decision"]),
+            },
             "per_arm": {
                 "max_recorded_tokens": per_arm_tokens,
                 "max_model_requests": 24,
