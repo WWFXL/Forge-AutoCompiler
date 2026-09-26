@@ -23,6 +23,7 @@ import forge_stage_c_runner as runner  # noqa: E402
 import forge_stage_c_task_qualification as qualification  # noqa: E402
 import forge_stage_c_v3_protocol as v3_protocol  # noqa: E402
 import forge_stage_c_v4_protocol as v4_protocol  # noqa: E402
+import forge_stage_c_v5_protocol as v5_protocol  # noqa: E402
 
 
 @dataclass
@@ -423,6 +424,27 @@ def test_stage_c_v4_manifest_binds_failed_v3_and_source_structure_audit() -> Non
     assert len({attempt for pair in manifest["schedule"]["pairs"] for attempt in pair["attempt_ids"].values()}) == 48
 
 
+def test_stage_c_v5_manifest_binds_failed_v4_and_safe_session_identities() -> None:
+    manifest = v5_protocol.generate_manifest()
+    prior = manifest["prior_failed_identity"]
+
+    assert prior["manifest_sha256"] == v5_protocol.V4_MANIFEST_SHA256
+    assert prior["must_not_resume"] is True
+    assert prior["historical_outcomes_imported"] is False
+    assert manifest["execution"]["evidence_directory"] == v5_protocol.DEFAULT_EVIDENCE_DIRECTORY
+    assert manifest["execution"]["session_identity_preflight_pair_count"] == 24
+    assert manifest["authorization"]["prior_actual_recorded_tokens"] == 286_143
+    assert manifest["authorization"]["cumulative_max_recorded_tokens"] == 14_691_143
+    assert all(pair["pair_id"].startswith("stage-c-v5-") for pair in manifest["schedule"]["pairs"])
+    assert len({attempt for pair in manifest["schedule"]["pairs"] for attempt in pair["attempt_ids"].values()}) == 48
+
+    digest = v5_protocol.canonical_sha256(manifest)
+    thread_ids = [runner._forge_thread_id(pair, digest) for pair in manifest["schedule"]["pairs"]]
+    assert len(thread_ids) == len(set(thread_ids)) == 24
+    assert all("." not in thread_id and len(thread_id) < 128 for thread_id in thread_ids)
+    runner._validate_all_node_inputs(manifest)
+
+
 def test_stage_c_public_tasks_do_not_expose_reference_recipes() -> None:
     pool = qualification.validate_source_pool(qualification.load_json(qualification.DEFAULT_POOL))
     plan = qualification.load_plan()
@@ -560,8 +582,8 @@ def test_stage_c_node_input_matches_runtime_v2_contract() -> None:
             }
         },
         "frozen_components": {
-            v4_protocol.PROTOCOL_PATH: "4" * 64,
-            v4_protocol.RUNNER_PATH: "5" * 64,
+            v5_protocol.PROTOCOL_PATH: "4" * 64,
+            v5_protocol.RUNNER_PATH: "5" * 64,
         },
     }
 

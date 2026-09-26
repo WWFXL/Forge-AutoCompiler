@@ -31,7 +31,7 @@ if str(SCRIPT_ROOT) not in sys.path:
 import forge_agent_workflow_stage_b_phase5_v2_authorized_runner as stage_b  # noqa: E402
 import forge_stage_c_controlled_baseline as controlled  # noqa: E402
 import forge_stage_c_task_qualification as qualification  # noqa: E402
-import forge_stage_c_v4_protocol as protocol  # noqa: E402
+import forge_stage_c_v5_protocol as protocol  # noqa: E402
 
 from deerflow.compile.agent_workflow_runtime_v2 import (  # noqa: E402
     run_agent_workflow_node_v2,
@@ -58,6 +58,7 @@ from deerflow.compile.external_evaluator_v4 import (  # noqa: E402
     ForgeCompileEvaluationBackend,
     run_external_evaluator_v4,
 )
+from deerflow.compile.manager import CompileSessionManager  # noqa: E402
 from deerflow.compile.operations import (  # noqa: E402
     cleanup_and_finalize_compile_session_impl,
     get_compile_services,
@@ -540,6 +541,27 @@ def _validate_all_node_inputs(manifest: dict[str, Any]) -> None:
                 f"{task['task_id']} Agent input contract 无效: {exc}"
             ) from exc
 
+    digest = protocol.canonical_sha256(manifest)
+    thread_ids = [
+        _forge_thread_id(pair, digest) for pair in manifest["schedule"]["pairs"]
+    ]
+    if len(thread_ids) != len(set(thread_ids)):
+        raise StageCRunnerError("Stage C Forge thread identity 不唯一")
+    for pair, thread_id in zip(manifest["schedule"]["pairs"], thread_ids, strict=True):
+        try:
+            CompileSessionManager._validate_session_components(
+                thread_id, "stage-c-contract"
+            )
+        except ValueError as exc:
+            raise StageCRunnerError(
+                f"{pair['pair_id']} Forge thread identity 无效: {exc}"
+            ) from exc
+
+
+def _forge_thread_id(pair: dict[str, Any], manifest_sha256: str) -> str:
+    pair_digest = hashlib.sha256(pair["pair_id"].encode("utf-8")).hexdigest()
+    return f"stage-c-b-{pair_digest}-{manifest_sha256[:16]}"
+
 
 @contextmanager
 def _offline_runtime(session: Any):
@@ -716,7 +738,7 @@ async def execute_forge_arm(
 ) -> dict[str, Any]:
     attempt_id = pair["attempt_ids"]["B"]
     digest = protocol.canonical_sha256(manifest)
-    thread_id = f"stage-c-b-{pair['pair_id']}-{digest[:10]}"
+    thread_id = _forge_thread_id(pair, digest)
     ledger = None
     session = None
     active = False
