@@ -118,7 +118,7 @@
   - 覆盖: 单元 fixture 固定复现 `theora r1`、`json-c r2`、`libjpeg-turbo r2`、`oatpp r2` 四类失败和有界 symlink evidence；Runtime 集成验证错误 target、功能失败、修复后第三次提交才冻结。真实 Docker lifecycle 依次触发 broad delivery、错误 target、header closure 三次拒绝，修复后通过 evaluator v4 S0-S5、bitwise replay、finalize 与 cleanup。
   - 验证: 聚焦 Runtime/合同回归 `67 passed, 1 skipped`；产品测试 `1786 passed, 44 skipped`；完整 Ruff check/format 405 个文件通过；opt-in Docker 门禁两次均为 `1 passed`，结束后 managed container、paused parent 与 managed image 均为 0。
   - 边界: 历史 Runtime v1/v2、external evaluator v4、v5/v6 evidence 均未修改；门禁使用确定性本地模型，0 Provider request、0 formal attempt。Docker Node 的 8 次模型响应逐次记录为 96 synthetic tokens，单元 Runtime 的 3 次响应记录为 36 synthetic tokens；均使用 `max_recorded_tokens=None`。
-  - 下一步: 当前完成实现、零 Provider 门禁与本地提交，尚未推送或创建 PR，也未派生新 Provider canary/实验 identity；代码审查合并后再单独冻结新 identity。
+  - 下一步: 实现与零 Provider 门禁已提交并推送，PR #340（`https://github.com/WWFXL/Forge-AutoCompiler/pull/340`）已创建；等待 CI 与代码审查，合并后再单独冻结新 Provider canary/实验 identity。
   - 文件: `backend/packages/harness/deerflow/compile/candidate_verifier.py`, `backend/packages/harness/deerflow/compile/agent_workflow_runtime_v3.py`, `backend/tests/test_candidate_prefreeze_verifier.py`, `backend/tests/test_candidate_prefreeze_verifier_docker.py`, `docs/agent_workflow_runtime_v3.md`, `.claude/memory/project.md`
 
 - 2026-09-27 — 完成 Issue #337 Stage C v6 四条候选失败只读审计
