@@ -113,6 +113,15 @@
 
 <!-- 倒序，最新在上。 -->
 
+- 2026-09-27 — 完成 Issue #337 Stage C v6 四条候选失败只读审计
+  - 结论: 4 条 recipe 命令证据均通过，3 条功能 oracle 通过；`theora r1`、`json-c r2`、`oatpp r2` 均 bitwise 重放其失败交付，`libjpeg-turbo r2` 在候选验证失败后没有 replay recipe。4 条都是候选合同失败，未发现 evaluator、远程 Git、runner 或 cleanup 缺陷。
+  - 根因: `theora r1` 有两个未声明静态库和 0-byte support file；`json-c r2` 多映射一个非冻结 target 且头文件闭包缺失；`libjpeg-turbo r2` broad install 引入未声明库/工具并有 3 个 executable smoke 失败；`oatpp r2` 显式安装但未声明 test library。
+  - 机制: Runtime v2 的 candidate submit 只检查已声明路径和 required subset，不在 create-once 冻结前扫描完整 delivery、核对唯一 target ID 或运行功能检查；external evaluator 判定正确但反馈发生过晚，Agent 无法在同一 attempt 修复。
+  - 决策: 暂不启动新配对校准。下一阶段先实现零 Provider pre-freeze candidate verifier，返回有界结构化拒绝并保留冻结后 external evaluator 的独立权威；四类失败先进入单元与真实 Docker lifecycle 门禁，通过后才派生新 identity。
+  - Identity: 审计 JSON/Markdown SHA-256 分别为 `e64c04a1714dc03c19209a9c95b519fb34a8f83e8a8d9580cb5dbb23cdddf688` 与 `c4027a44b3177c431afdb9d37db2d18778bd96b4eee259f5a51479e147234ac8`。
+  - 边界: v5/v6 结果和原始 evidence 保持只读；本审计 0 formal attempt、0 Provider request、0 input/output/total token，不追认失败为成功。
+  - 文件: `benchmarks/reports/cpp-stage-c-v6-failure-audit.json`, `benchmarks/reports/cpp-stage-c-v6-failure-audit.md`, `.claude/memory/project.md`
+
 - 2026-09-27 — 完成并冻结 Stage C v6 零 Provider 离线定向重评
   - GitHub: Issue #333 的授权实现由 PR #334 以四项 CI 全绿合并为 `main@13928727bae286eb96a0c96173f63a513236259a`；Issue #335 跟踪正式结果冻结与审计。
   - 执行: 唯一 22 条 batch 全部闭合，strict success 为 `18/22`，bitwise reproducible 为 `21/22`，cleanup 为 `22/22`；结束时 0 managed resources。22 份 token ledger 均为 0 requests，input/output/total token 全为 0。

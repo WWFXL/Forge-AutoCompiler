@@ -1,0 +1,251 @@
+{
+  "schema_version": "forge-stage-c-v6-failure-audit-1.0.0",
+  "document_type": "forge_stage_c_v6_failure_audit",
+  "tracking_issue": 337,
+  "identity": {
+    "authorized_manifest_sha256": "00530ddc740ae98f0327a89e5a1860e9a983c9e47b9aaeabd27543f4c75f23dd",
+    "execution_release_revision": "13928727bae286eb96a0c96173f63a513236259a",
+    "source_candidate_receipt_file_sha256": "098c6fef91ab34d13355646aae01832479f179cfc7ffadc6aac690095f514c25",
+    "source_result_report_file_sha256": "be0783c1f693d510291a853e1fa97223dfa716f539bf80c00fb1327502edf42f",
+    "source_inventory_file_sha256": "90b479a13e93912d5a5bfdf061ea10cfbc4c2e52f26c1a78b97f489d5be5ce36",
+    "source_batch_completed_marker_sha256": "47c1745bd3d9d98334f34b9ce57812bf5f83f3dafd4a1b6d4db5bff949fcab07",
+    "external_evaluator_v4_file_sha256": "9009c400b1b54d9ad05411f1a64124423cf50d8ba49bfa2d13071d9bedad4613",
+    "agent_workflow_runtime_file_sha256": "6522c31a81a3032cfd8ed3bc976aca93eea888ca3cd1840a7763ef5a3986b439",
+    "agent_workflow_runtime_v2_file_sha256": "7358c8396a6eee7776f64f6645f0d516b1f4e6ed4743a249c1d8c32b4c1ecef5"
+  },
+  "scope": {
+    "source_failure_count": 4,
+    "source_evaluation_count": 22,
+    "read_only_audit": true,
+    "historical_evidence_modified": false,
+    "formal_attempts_created": 0,
+    "provider_requests": 0,
+    "input_tokens": 0,
+    "output_tokens": 0,
+    "total_tokens": 0
+  },
+  "summary": {
+    "recipe_command_evidence_passed_count": 4,
+    "functional_oracle_passed_count": 3,
+    "bitwise_reproducible_count": 3,
+    "candidate_contract_failure_count": 4,
+    "infrastructure_failure_count": 0,
+    "evaluator_defect_count": 0,
+    "runtime_prefreeze_feedback_gap_count": 4
+  },
+  "cases": [
+    {
+      "evaluation_id": "stage-c-v6-theora-r1-b-reevaluation",
+      "source_attempt_id": "stage-c-v5-theora-r1-b",
+      "task_id": "theora",
+      "candidate_id": "theora-autotools-static-1",
+      "source_candidate_record_sha256": "b3a01305d56d5bf8a4c0b8d9bb5a8cef1228204965954214d5bc042794aef7f9",
+      "source_session_file_sha256": "59581d9c5fb1b60da78dbeef7b3ce4264cbb9c3c4aa5638114312292c028f439",
+      "v6_result_file_sha256": "63cbcdd2a597639aa1ea68f68183f03f1ed446dd579022089aa1805abc969ac2",
+      "target_id": "theora-static-library",
+      "declared_artifact_paths": [
+        "include/theora/theora.h",
+        "lib/libtheora.a"
+      ],
+      "target_mapping": {
+        "theora-static-library": "lib/libtheora.a"
+      },
+      "filesystem_delivery_file_count": 18,
+      "session_delivery_manifest_count": 18,
+      "undeclared_compiled_artifacts": [
+        "lib/libtheoradec.a",
+        "lib/libtheoraenc.a"
+      ],
+      "zero_byte_artifacts": [
+        "share/doc/libtheora/doxygen-build.stamp"
+      ],
+      "trigger_command_id": "command_86a583f6f11d48b4989730723c070544",
+      "trigger_command": "make install prefix=/artifacts",
+      "primary_failure": "candidate_artifact_set_mismatch",
+      "failed_layers": {
+        "S2": [
+          "candidate_artifact_set_mismatch",
+          "candidate_artifact_invalid"
+        ],
+        "S5": [
+          "replay_artifact_invalid"
+        ]
+      },
+      "functional_oracle_passed": true,
+      "candidate_verification_passed": true,
+      "clean_replay_attempt_id": "replay_4b1ff07a05fb4e7aad55a2af6077bc7e",
+      "clean_replay_recipe_passed": true,
+      "clean_replay_cleanup_succeeded": true,
+      "bitwise_reproducible": true,
+      "audit_classification": "reproducible_invalid_delivery",
+      "root_cause": "broad_install_left_undeclared_static_libraries_and_zero_byte_support_file"
+    },
+    {
+      "evaluation_id": "stage-c-v6-json-c-r2-b-reevaluation",
+      "source_attempt_id": "stage-c-v5-json-c-r2-b",
+      "task_id": "json-c",
+      "candidate_id": "json-c-static-cmake-1",
+      "source_candidate_record_sha256": "5e9a59324413845593c14ebc7d7a386aa6f8fbd4a6b14e0c3dfd8ebc1965d7c1",
+      "source_session_file_sha256": "6ad334b37a9e94d79610becacb401da86d447b4e04b7ae031b91427bddf2d27f",
+      "v6_result_file_sha256": "91e18a58d81cd05b271fe9c5b6fdefeadc3181a68a5950cbb6129604b171874a",
+      "target_id": "json-c-static-library",
+      "declared_artifact_paths": [
+        "include/json-c/json.h",
+        "lib/libjson-c.a"
+      ],
+      "target_mapping": {
+        "json-c-public-headers": "include/json-c/json.h",
+        "json-c-static-library": "lib/libjson-c.a"
+      },
+      "filesystem_delivery_file_count": 6,
+      "session_delivery_manifest_count": 6,
+      "undeclared_compiled_artifacts": [],
+      "zero_byte_artifacts": [],
+      "trigger_command_id": "command_c0d6cc4eeb7c43b2af4f8dbc72b97e08",
+      "trigger_observation": "only_json_h_was_delivered_from_the_public_header_set",
+      "primary_failure": "target_mapping_invalid",
+      "failed_layers": {
+        "S2": [
+          "target_mapping_invalid"
+        ],
+        "S3": [
+          "functional_oracle_failed"
+        ],
+        "S5": [
+          "replay_functional_oracle_failed"
+        ]
+      },
+      "functional_oracle_passed": false,
+      "functional_oracle_stderr_sha256": "7770759b9a3c2c2bfc2a21d85fd836989c26bbea55e002649d5261907b71fbd5",
+      "functional_oracle_failure": "json.h includes missing arraylist.h",
+      "candidate_verification_passed": true,
+      "clean_replay_attempt_id": "replay_cb3ca4b0c9724cd7ba55d67de5cf524d",
+      "clean_replay_recipe_passed": true,
+      "clean_replay_cleanup_succeeded": true,
+      "bitwise_reproducible": true,
+      "audit_classification": "reproducible_invalid_target_and_incomplete_header_closure",
+      "root_cause": "extra_target_mapping_key_and_incomplete_public_header_delivery"
+    },
+    {
+      "evaluation_id": "stage-c-v6-libjpeg-turbo-r2-b-reevaluation",
+      "source_attempt_id": "stage-c-v5-libjpeg-turbo-r2-b",
+      "task_id": "libjpeg-turbo",
+      "candidate_id": "libjpeg-turbo-static-cmake-dd8ad79",
+      "source_candidate_record_sha256": "3ac0eb54283e0d15261ffb17a817f56d2978ab6b5e4eca6698d3c14e7a3d7a85",
+      "source_session_file_sha256": "a67954c6b3769ddc7f64d111701e8646ea17385e62166a9a690c19439b4c6f6d",
+      "v6_result_file_sha256": "b78052160205e4ab9ed974c2b102c86a9812019bc50254988d6102a7612d63a2",
+      "target_id": "libjpeg-turbo-static-library",
+      "declared_artifact_paths": [
+        "include/jpeglib.h",
+        "lib/libjpeg.a"
+      ],
+      "target_mapping": {
+        "libjpeg-turbo-static-library": "lib/libjpeg.a"
+      },
+      "filesystem_delivery_file_count": 35,
+      "session_delivery_manifest_count": 32,
+      "undeclared_compiled_artifacts_in_session_manifest": [
+        "bin/cjpeg",
+        "bin/djpeg",
+        "bin/jpegtran",
+        "lib/libturbojpeg.a"
+      ],
+      "failed_executable_verification": [
+        "bin/rdjpgcom",
+        "bin/tjbench",
+        "bin/wrjpgcom"
+      ],
+      "zero_byte_artifacts": [],
+      "trigger_command_id": "command_7c1875ea2cef47069152a5f0e5143f92",
+      "trigger_command": "cmake --install /workspace/repo/build --prefix /artifacts",
+      "configuration_observation": "WITH_TURBOJPEG=ON installs additional libraries and tools",
+      "primary_failure": "candidate_verifier_failed",
+      "failed_layers": {
+        "S2": [
+          "candidate_verifier_failed",
+          "candidate_artifact_set_mismatch"
+        ],
+        "S4": [
+          "replay_recipe_missing"
+        ],
+        "S5": [
+          "clean_replay_missing"
+        ]
+      },
+      "functional_oracle_passed": true,
+      "candidate_verification_passed": false,
+      "clean_replay_attempt_id": null,
+      "clean_replay_recipe_passed": null,
+      "clean_replay_cleanup_succeeded": null,
+      "bitwise_reproducible": null,
+      "audit_classification": "candidate_verifier_blocked_broad_delivery",
+      "root_cause": "broad_install_left_undeclared_library_and_tools_with_three_failed_default_smokes"
+    },
+    {
+      "evaluation_id": "stage-c-v6-oatpp-r2-b-reevaluation",
+      "source_attempt_id": "stage-c-v5-oatpp-r2-b",
+      "task_id": "oatpp",
+      "candidate_id": "oatpp-static-library-cmake-v1",
+      "source_candidate_record_sha256": "042b339395e7aab614e8188fabc9e18e69edf6bffe23e1443539090c6b1622ad",
+      "source_session_file_sha256": "1362f14fb0ef19879790337186bf34246f35e02fa958651dec810ad53c280f6a",
+      "v6_result_file_sha256": "88ca112da7eca6d8bfb2549596483b5a76a3e84cab8f22ce5a2e8577b358d582",
+      "target_id": "oatpp-static-library",
+      "declared_artifact_paths": [
+        "include/oatpp-1.4.0/oatpp/oatpp/Environment.hpp",
+        "lib/oatpp-1.4.0/liboatpp.a"
+      ],
+      "target_mapping": {
+        "oatpp-static-library": "lib/oatpp-1.4.0/liboatpp.a"
+      },
+      "filesystem_delivery_file_count": 184,
+      "session_delivery_manifest_count": 184,
+      "undeclared_compiled_artifacts": [
+        "lib/oatpp-1.4.0/liboatpp-test.a"
+      ],
+      "zero_byte_artifacts": [],
+      "trigger_command_id": "command_c4df34bd3b2c47aaac1a4072f1365c78",
+      "trigger_configuration": "OATPP_LINK_TEST_LIBRARY=ON",
+      "primary_failure": "candidate_artifact_set_mismatch",
+      "failed_layers": {
+        "S2": [
+          "candidate_artifact_set_mismatch"
+        ]
+      },
+      "functional_oracle_passed": true,
+      "candidate_verification_passed": true,
+      "clean_replay_attempt_id": "replay_7298123577324399868b45d6cc605c8d",
+      "clean_replay_recipe_passed": true,
+      "clean_replay_cleanup_succeeded": true,
+      "bitwise_reproducible": true,
+      "audit_classification": "reproducible_invalid_delivery",
+      "root_cause": "test_library_was_installed_but_not_declared"
+    }
+  ],
+  "cross_cutting_findings": {
+    "external_evaluator_v4_semantics_confirmed": true,
+    "undeclared_support_files_allowed": true,
+    "undeclared_compiled_artifacts_rejected": true,
+    "invalid_or_zero_byte_delivery_files_rejected": true,
+    "target_mapping_must_match_the_single_frozen_target_id": true,
+    "candidate_submit_checks_only_declared_paths": true,
+    "candidate_submit_scans_complete_delivery_manifest": false,
+    "candidate_submit_validates_target_id_against_node_input": false,
+    "candidate_submit_runs_functional_oracle_before_freeze": false,
+    "finding": "structural and functional defects become visible only after the create-once candidate is frozen, so the Agent cannot repair them within the same attempt"
+  },
+  "decision": {
+    "v5_outcome_replaced": false,
+    "v6_outcome_replaced": false,
+    "new_pair_calibration_authorized": false,
+    "provider_execution_authorized": false,
+    "next_phase": "zero_provider_prefreeze_candidate_verifier_gate",
+    "requirements": [
+      "scan and classify the complete artifacts delivery before candidate persistence",
+      "validate target_mapping keys against the single frozen target contract",
+      "reject undeclared compiled artifacts and invalid or zero-byte delivery files with bounded structured path evidence",
+      "provide a trusted pre-freeze functional check so incomplete header closure can be repaired while the independent external evaluator remains authoritative",
+      "cover all four frozen failure shapes with synthetic or copied read-only fixtures without rerunning formal attempts",
+      "publish a new runtime and experiment identity only after zero-provider and Docker lifecycle gates pass"
+    ]
+  }
+}
