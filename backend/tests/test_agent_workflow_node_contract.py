@@ -36,7 +36,7 @@ SHA256_C = "c" * 64
 COMMIT_SHA = "d" * 40
 
 
-def make_budget(**overrides: int) -> AgentWorkflowBudget:
+def make_budget(**overrides: int | None) -> AgentWorkflowBudget:
     values = {
         "max_model_requests": 8,
         "max_recorded_tokens": 120_000,
@@ -461,3 +461,13 @@ def test_budget_tracker_reports_remaining_budget() -> None:
         commands=23,
         node_seconds=7.5,
     )
+
+
+def test_budget_tracker_records_tokens_without_a_token_ceiling() -> None:
+    tracker = AgentWorkflowBudgetTracker(make_budget(max_recorded_tokens=None, max_model_requests=2))
+
+    tracker.consume(model_requests=1, recorded_tokens=450_000)
+    tracker.consume(model_requests=1, recorded_tokens=350_000)
+
+    assert tracker.snapshot().recorded_tokens == 800_000
+    assert tracker.remaining().recorded_tokens is None

@@ -54,8 +54,10 @@ from deerflow.compile.evidence import (  # noqa: E402
     record_experiment_event,
 )
 from deerflow.compile.external_evaluator_v4 import (  # noqa: E402
+    ExternalEvaluatorContractError,
     ExternalEvaluatorIdentityError,
     ForgeCompileEvaluationBackend,
+    FunctionalOracleSpec,
     run_external_evaluator_v4,
 )
 from deerflow.compile.manager import CompileSessionManager  # noqa: E402
@@ -331,11 +333,18 @@ def execute_reachability(
         text = stage_b._response_text(response).strip()
         actual_model, usage = stage_b.model_response_metadata(response)
         tokens = usage.get("total_tokens")
+        reachability_token_limit = manifest["budget"].get(
+            "reachability_max_recorded_tokens"
+        )
         passed = (
             text == "STAGE_C_CANARY_OK"
             and actual_model == manifest["provider"]["actual_model"]
             and type(tokens) is int
-            and 0 <= tokens <= manifest["budget"]["reachability_max_recorded_tokens"]
+            and tokens >= 0
+            and (
+                reachability_token_limit is None
+                or tokens <= reachability_token_limit
+            )
         )
         report = {
             "schema_version": "forge-stage-c-reachability-1.0.0",
@@ -347,6 +356,8 @@ def execute_reachability(
             "actual_model": actual_model,
             "endpoint": manifest["provider"]["endpoint"],
             "request_count": 1,
+            "input_tokens": usage.get("prompt_tokens", usage.get("input_tokens", 0)),
+            "output_tokens": usage.get("completion_tokens", usage.get("output_tokens", 0)),
             "recorded_tokens": tokens,
             "passed": passed,
             "response_sha256": hashlib.sha256(text.encode()).hexdigest(),
@@ -401,18 +412,63 @@ def _task(manifest: dict[str, Any], task_id: str) -> dict[str, Any]:
     return matches[0]
 
 
-def _oracle_spec(task: dict[str, Any]) -> Any:
-    compatible = {
-        **task,
-        "required_candidate_artifacts": task["target_contract"]["required_artifacts"],
-        "target_contract": {
-            "target_id": task["target_contract"]["target_id"],
-            "artifact_types": task["target_contract"]["artifact_types"],
-            "artifact_path_patterns": task["target_contract"]["required_artifacts"],
-            "functional_oracle_ref": f"stage-c-{task['task_id']}-oracle-v1",
-        },
-    }
-    return stage_b._oracle_spec(compatible)
+def _bounded_error_message(
+    error: BaseException,
+    *,
+    secret_environment_names: tuple[str, ...],
+) -> tuple[str, str]:
+    raw_message = str(error)
+    for environment_name in secret_environment_names:
+        secret = os.environ.get(environment_name)
+        if secret:
+            raw_message = raw_message.replace(secret, "[REDACTED]")
+    encoded = raw_message.encode("utf-8", errors="replace")
+    digest = hashlib.sha256(encoded).hexdigest()
+    return encoded[:4096].decode("utf-8", errors="ignore"), digest
+
+
+def _oracle_spec(task: dict[str, Any]) -> FunctionalOracleSpec:
+    oracle = task["oracle"]
+    oracle_ref = f"stage-c-{task['task_id']}-oracle-v1"
+    if oracle["kind"] == "command":
+        return FunctionalOracleSpec(
+            oracle_ref=oracle_ref,
+            argv=tuple(oracle["argv"]),
+            workdir=oracle["workdir"],
+            timeout_seconds=int(oracle.get("timeout_seconds", 120)),
+        )
+    if oracle["kind"] == "compile_and_run":
+        suffix = ".c" if oracle["language"] == "c11" else ".cc"
+        source_path = f"/workspace/forge-stage-c-oracle-{task['task_id']}{suffix}"
+        executable_path = f"/workspace/forge-stage-c-oracle-{task['task_id']}"
+        encoded = base64.b64encode(oracle["source"].encode("utf-8")).decode("ascii")
+        compile_argv = [source_path if item == "{source}" else executable_path if item == "{executable}" else item for item in oracle["compile_argv"]]
+        run_argv = [executable_path if item == "{executable}" else item for item in oracle["run_argv"]]
+        script = f"printf %s {shlex.quote(encoded)} | base64 -d > {shlex.quote(source_path)} && {shlex.join(compile_argv)} && {shlex.join(run_argv)}"
+        return FunctionalOracleSpec(
+            oracle_ref=oracle_ref,
+            argv=("sh", "-c", script),
+            workdir="/workspace",
+            timeout_seconds=int(oracle.get("timeout_seconds", 120)),
+        )
+    if oracle["kind"] == "service_probe":
+        start = shlex.join(oracle["start_argv"])
+        url = f"{oracle['probe']['scheme']}://{oracle['listen_host']}:{oracle['listen_port']}{oracle['probe']['path']}"
+        expected = str(oracle["probe"]["expected_status"])
+        attempts = max(1, int(oracle["startup_timeout_seconds"]) * 2)
+        script = (
+            f"{start} >/tmp/forge-stage-c-service.stdout 2>/tmp/forge-stage-c-service.stderr & pid=$!; "
+            'cleanup() { if kill -0 "$pid" 2>/dev/null; then kill "$pid" 2>/dev/null || :; fi; wait "$pid" 2>/dev/null || :; }; trap cleanup EXIT; '
+            f"i=0; while [ \"$i\" -lt {attempts} ]; do status=$(curl -sS -o /dev/null -w '%{{http_code}}' {shlex.quote(url)} || :); "
+            f'if [ "$status" = {shlex.quote(expected)} ]; then exit 0; fi; kill -0 "$pid" 2>/dev/null || exit 1; i=$((i+1)); sleep 0.5; done; exit 1'
+        )
+        return FunctionalOracleSpec(
+            oracle_ref=oracle_ref,
+            argv=("sh", "-c", script),
+            workdir=oracle["workdir"],
+            timeout_seconds=int(oracle["startup_timeout_seconds"]) + 5,
+        )
+    raise StageCRunnerError(f"{task['task_id']} 不支持的 oracle kind: {oracle['kind']}")
 
 
 def _forge_policy(
@@ -536,9 +592,10 @@ def _validate_all_node_inputs(manifest: dict[str, Any]) -> None:
                 session,
                 f"stage-c-contract-{task['task_id']}",
             ).validate()
-        except AgentWorkflowContractError as exc:
+            _oracle_spec(task).validate()
+        except (AgentWorkflowContractError, ExternalEvaluatorContractError) as exc:
             raise StageCRunnerError(
-                f"{task['task_id']} Agent input contract 无效: {exc}"
+                f"{task['task_id']} Agent 或 oracle contract 无效: {exc}"
             ) from exc
 
     digest = protocol.canonical_sha256(manifest)
@@ -708,7 +765,25 @@ def _prepare_forge_session(
     )
     try:
         shutil.copytree(source_identity["repository"], Path(session.leadagent_repo_dir))
+        source_archive = Path(session.leadagent_repro_dir) / "source.tar"
+        source_archive.parent.mkdir(parents=True, exist_ok=True)
+        _run(
+            [
+                "git",
+                "-C",
+                str(source_identity["repository"]),
+                "archive",
+                "--format=tar",
+                "--output",
+                str(source_archive),
+                "HEAD",
+            ]
+        )
+        observed_archive = qualification.file_sha256(source_archive)
+        if observed_archive != source_identity["source_snapshot_sha256"]:
+            raise StageCRunnerError(f"{task['task_id']} replay source archive identity 漂移")
         session.commit_sha = task["commit_sha"]
+        session.replay_source_archive_sha256 = observed_archive
         session.summary = f"Stage C arm B: {pair['pair_id']}"
         services.manager.save_session(session)
         services.manager.log_event(
@@ -748,6 +823,8 @@ async def execute_forge_arm(
     node_result = None
     cleanup_succeeded = False
     error_class = None
+    error_message = None
+    error_message_sha256 = None
     try:
         with _stage_c_runtime_identity(manifest) as services:
             session, observed_source = _prepare_forge_session(
@@ -840,6 +917,18 @@ async def execute_forge_arm(
         if not attempt_registered:
             raise
         error_class = type(exc).__name__
+        error_message, error_message_sha256 = _bounded_error_message(
+            exc,
+            secret_environment_names=tuple(
+                name
+                for name in (
+                    manifest["provider"].get("credential_env_name"),
+                    "COMPILE_RUNTIME_HTTP_PROXY",
+                    "COMPILE_RUNTIME_HTTPS_PROXY",
+                )
+                if name
+            ),
+        )
     finally:
         if active:
             deactivate_experiment(thread_id)
@@ -880,6 +969,8 @@ async def execute_forge_arm(
         "tool_calls": usage.tool_calls if usage else 0,
         "commands": usage.commands if usage else 0,
         "error_class": error_class,
+        "error_message": error_message,
+        "error_message_sha256": error_message_sha256,
         "cleanup_succeeded": True,
         "zero_managed_resources": True,
         "duration_ms": round((time.perf_counter() - started) * 1000),
@@ -1497,6 +1588,8 @@ def execute_controlled_arm(
 def _validate_arm_result(
     manifest: dict[str, Any], pair: dict[str, Any], arm: str, value: dict[str, Any]
 ) -> None:
+    recorded_tokens = value.get("recorded_tokens")
+    token_limit = manifest["budget"]["per_arm"].get("max_recorded_tokens")
     if (
         value.get("manifest_sha256") != protocol.canonical_sha256(manifest)
         or value.get("pair_id") != pair["pair_id"]
@@ -1512,10 +1605,9 @@ def _validate_arm_result(
         or type(value.get("strict_reproducible_build_success")) is not bool
         or value.get("bitwise_reproducible") not in {None, True, False}
         or not isinstance(value.get("s0_s5"), list)
-        or type(value.get("recorded_tokens")) is not int
-        or not 0
-        <= value["recorded_tokens"]
-        <= manifest["budget"]["per_arm"]["max_recorded_tokens"]
+        or type(recorded_tokens) is not int
+        or recorded_tokens < 0
+        or (token_limit is not None and recorded_tokens > token_limit)
         or value.get("cleanup_succeeded") is not True
         or value.get("zero_managed_resources") is not True
     ):
@@ -1662,12 +1754,18 @@ async def run_batch_async(
         "B": execute_forge_arm,
     }
     for pair in manifest["schedule"]["pairs"][len(completed) :]:
-        used = sum(arm["recorded_tokens"] for item in completed for arm in item["arms"])
-        if (
-            used + 2 * manifest["budget"]["per_arm"]["max_recorded_tokens"]
-            > manifest["budget"]["formal_arms_max_recorded_tokens"]
-        ):
-            break
+        per_arm_token_limit = manifest["budget"]["per_arm"].get(
+            "max_recorded_tokens"
+        )
+        formal_token_limit = manifest["budget"].get(
+            "formal_arms_max_recorded_tokens"
+        )
+        if per_arm_token_limit is not None and formal_token_limit is not None:
+            used = sum(
+                arm["recorded_tokens"] for item in completed for arm in item["arms"]
+            )
+            if used + 2 * per_arm_token_limit > formal_token_limit:
+                break
         pair_dir = output_dir / "pairs" / pair["pair_id"]
         task = _task(manifest, pair["task_id"])
         arms = []

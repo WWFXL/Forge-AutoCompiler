@@ -113,6 +113,13 @@
 
 <!-- 倒序，最新在上。 -->
 
+- 2026-09-27 — 完成 Issue #331 Stage C 测量链路修复与 v6 未授权候选
+  - 实现: Agent Workflow 与 controlled baseline 取消 token 硬上限，仅逐请求记录 input/output/total tokens；保留请求、步骤、工具、命令和墙钟限制。Compile Session replay 绑定并校验源码快照 SHA-256，可在 `network=none` 且代理不可达时从只读 `/repro/source.tar` 重建源码；普通产品路径继续支持远程 exact-commit fetch。
+  - 测量修复: Stage C B 臂绑定 `git archive` 源码快照；oracle adapter 覆盖 `command`、`compile_and_run`、`service_probe`；preflight 校验全部冻结 task oracle；已登记 attempt 的非协议异常写入脱敏、4096-byte 有界消息及 SHA-256。v6 机械选择 v5 的 22 个已提交候选做零 Provider 离线重评，排除两个无候选 CivetWeb attempt。
+  - Identity: v6 candidate canonical manifest SHA-256 为 `739201108b9389a30d1f2c620e124ba30f1232c764c315674e1122b524084698`；所有执行授权为 false，token ceiling 为 `null`，只允许 `generate`、`validate`、`show-plan`。v5 manifest、报告和原始 evidence 保持只读，新结果不得回填 v5。
+  - 验证: 聚焦回归 `238 passed, 4 skipped`；完整后端 `1773 passed, 43 skipped`；Stage C Docker 套件 `44 passed`；新增无网络源码快照 replay 用例复跑 `1 passed` 且无 ownership 警告；Ruff check 与 400 文件 format check、protocol deterministic validate、Docker runtime gate、冻结组件哈希和 `git diff --check` 通过。
+  - 文件: `backend/packages/harness/deerflow/compile/agent_workflow_node.py`, `backend/packages/harness/deerflow/compile/agent_workflow_runtime.py`, `backend/packages/harness/deerflow/compile/agent_workflow_schemas.py`, `backend/packages/harness/deerflow/compile/operations.py`, `backend/packages/harness/deerflow/compile/schemas.py`, `scripts/forge_stage_c_controlled_baseline.py`, `scripts/forge_stage_c_runner.py`, `scripts/forge_stage_c_v6_measurement_remediation_protocol.py`, `benchmarks/manifests/cpp-stage-c-paired-calibration-v6-measurement-remediation-candidate.json`, `benchmarks/preregistrations/cpp-stage-c-paired-calibration-v6-measurement-remediation-candidate.md`, `benchmarks/schemas/forge-stage-c-v6-measurement-remediation-candidate.schema.json`
+
 - 2026-09-27 — 完成并冻结 Stage C v5 十二项目配对校准
   - GitHub: Issue #329 跟踪正式结果冻结与审计；结果分支为 `research/stage-c-v5-result-audit`，执行 release 为 `main@c37a145c`。
   - 执行: 唯一 reachability 为 1 request / 73 tokens；正式 batch 以 `passed` 闭合 24/24 pairs 与 48/48 arms，331 次正式请求、3,131,424 recorded tokens。A（CXXCrafter controlled）严格成功 19/24，B（Forge Agent Workflow v2）严格成功 0/24；预注册 `B-A` 项目均值为 `-0.7916666666666666`。

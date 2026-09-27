@@ -51,12 +51,14 @@ def _write_once(path: Path, text: str) -> None:
 @dataclass(frozen=True)
 class ControlledBaselineLimits:
     max_model_requests: int
-    max_recorded_tokens: int
+    max_recorded_tokens: int | None
     work_timeout_seconds: int
 
     def validate(self) -> None:
-        if self.max_model_requests < 1 or self.max_recorded_tokens < 1:
-            raise ControlledBaselineError("请求与 token 上限必须为正数")
+        if self.max_model_requests < 1:
+            raise ControlledBaselineError("请求上限必须为正数")
+        if self.max_recorded_tokens is not None and self.max_recorded_tokens < 1:
+            raise ControlledBaselineError("token 上限必须为 null 或正数")
         if self.work_timeout_seconds < 1:
             raise ControlledBaselineError("work timeout 必须为正数")
 
@@ -189,7 +191,7 @@ class RequestBudget:
         if tokens < 0:
             raise ControlledBaselineError("recorded tokens 不能为负数")
         self.tokens += tokens
-        if self.tokens > self.limits.max_recorded_tokens:
+        if self.limits.max_recorded_tokens is not None and self.tokens > self.limits.max_recorded_tokens:
             raise ControlledBaselineBudgetExceeded("recorded_tokens")
         self._check_time()
 
@@ -213,20 +215,32 @@ def _response_text(response: Any) -> str:
     return ""
 
 
-def _response_tokens(response: Any) -> int:
+def _response_token_usage(response: Any) -> dict[str, int]:
     usage = getattr(response, "usage_metadata", None)
     if isinstance(usage, dict):
-        value = usage.get("total_tokens", 0)
-        if isinstance(value, int) and value >= 0:
-            return value
+        values = {
+            "input_tokens": usage.get("input_tokens", 0),
+            "output_tokens": usage.get("output_tokens", 0),
+            "total_tokens": usage.get("total_tokens", 0),
+        }
+        if all(isinstance(value, int) and value >= 0 for value in values.values()):
+            return values
     metadata = getattr(response, "response_metadata", None)
     if isinstance(metadata, dict):
         token_usage = metadata.get("token_usage", metadata.get("usage", {}))
         if isinstance(token_usage, dict):
-            value = token_usage.get("total_tokens", 0)
-            if isinstance(value, int) and value >= 0:
-                return value
-    return 0
+            values = {
+                "input_tokens": token_usage.get("prompt_tokens", token_usage.get("input_tokens", 0)),
+                "output_tokens": token_usage.get("completion_tokens", token_usage.get("output_tokens", 0)),
+                "total_tokens": token_usage.get("total_tokens", 0),
+            }
+            if all(isinstance(value, int) and value >= 0 for value in values.values()):
+                return values
+    return {"input_tokens": 0, "output_tokens": 0, "total_tokens": 0}
+
+
+def _response_tokens(response: Any) -> int:
+    return _response_token_usage(response)["total_tokens"]
 
 
 def _parse_object(text: str, label: str) -> dict[str, Any]:
@@ -327,13 +341,15 @@ class ControlledBaselineRunner:
                 error_class=type(exc).__name__,
             )
             raise
-        tokens = _response_tokens(response)
-        budget.after_request(tokens)
+        usage = _response_token_usage(response)
+        budget.after_request(usage["total_tokens"])
         ledger.append(
             "model.request_completed",
             role=role,
             request_sequence=budget.requests,
-            recorded_tokens=tokens,
+            input_tokens=usage["input_tokens"],
+            output_tokens=usage["output_tokens"],
+            recorded_tokens=usage["total_tokens"],
         )
         return _parse_object(_response_text(response), role)
 

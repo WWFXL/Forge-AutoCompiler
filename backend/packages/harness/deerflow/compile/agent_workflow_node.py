@@ -163,7 +163,7 @@ class AgentWorkflowBudgetTracker:
     def remaining(self) -> AgentWorkflowRemainingBudget:
         return AgentWorkflowRemainingBudget(
             model_requests=self.limits.max_model_requests - self._snapshot.model_requests,
-            recorded_tokens=self.limits.max_recorded_tokens - self._snapshot.recorded_tokens,
+            recorded_tokens=(None if self.limits.max_recorded_tokens is None else self.limits.max_recorded_tokens - self._snapshot.recorded_tokens),
             agent_steps=self.limits.max_agent_steps - self._snapshot.agent_steps,
             tool_calls=self.limits.max_tool_calls - self._snapshot.tool_calls,
             commands=self.limits.max_commands - self._snapshot.commands,
@@ -204,6 +204,8 @@ class AgentWorkflowBudgetTracker:
             "commands": self.limits.max_commands,
         }
         for field_name, ceiling in ceilings.items():
+            if ceiling is None:
+                continue
             if getattr(candidate, field_name) > ceiling:
                 raise AgentWorkflowBudgetExceeded(field_name, self._snapshot)
         self._snapshot = candidate

@@ -2212,6 +2212,83 @@ def test_repro_bundle_pins_commit_and_renders_only_successful_bash_commands(tmp_
         subprocess.run(["bash", "-n", str(build_path)], check=True, capture_output=True)
 
 
+def test_repro_bundle_can_use_a_verified_offline_source_archive(tmp_path: Path):
+    manager = CompileSessionManager(paths=make_test_paths(tmp_path))
+    session = manager.create_session(
+        thread_id="thread-repro-snapshot",
+        repo_url="https://example.com/repo.git",
+    )
+    session.commit_sha = "0123456789abcdef0123456789abcdef01234567"
+    source_archive = Path(session.leadagent_repro_dir) / "source.tar"
+    source_archive.write_bytes(b"frozen-stage-c-source")
+    session.replay_source_archive_sha256 = hashlib.sha256(source_archive.read_bytes()).hexdigest()
+    session.commands = [
+        BuildCommandRecord(
+            stage="bash",
+            command="make",
+            workdir="/workspace/repo",
+            role="build",
+            exit_code=0,
+        ),
+        BuildCommandRecord(
+            stage="bash",
+            command="cp app /artifacts/app",
+            workdir="/workspace/repo",
+            role="artifact_stage",
+            exit_code=0,
+        ),
+    ]
+    session.post_build_supporting_command_id = session.commands[0].command_id
+
+    build_path = write_explicit_repro_bundle(
+        session,
+        [command.command_id for command in session.commands],
+    )
+    script = build_path.read_text(encoding="utf-8")
+
+    assert "SOURCE_ARCHIVE=/repro/source.tar" in script
+    assert session.replay_source_archive_sha256 in script
+    assert 'tar -xf "$SOURCE_ARCHIVE" -C "$REPO_DIR"' in script
+    assert "git fetch" not in script
+    assert "git remote add" not in script
+
+
+def test_repro_bundle_rejects_a_changed_offline_source_archive(tmp_path: Path):
+    manager = CompileSessionManager(paths=make_test_paths(tmp_path))
+    session = manager.create_session(
+        thread_id="thread-repro-snapshot-drift",
+        repo_url="https://example.com/repo.git",
+    )
+    session.commit_sha = "0123456789abcdef0123456789abcdef01234567"
+    source_archive = Path(session.leadagent_repro_dir) / "source.tar"
+    source_archive.write_bytes(b"frozen-stage-c-source")
+    session.replay_source_archive_sha256 = hashlib.sha256(source_archive.read_bytes()).hexdigest()
+    source_archive.write_bytes(b"changed-stage-c-source")
+    session.commands = [
+        BuildCommandRecord(
+            stage="bash",
+            command="make",
+            workdir="/workspace/repo",
+            role="build",
+            exit_code=0,
+        ),
+        BuildCommandRecord(
+            stage="bash",
+            command="cp app /artifacts/app",
+            workdir="/workspace/repo",
+            role="artifact_stage",
+            exit_code=0,
+        ),
+    ]
+    session.post_build_supporting_command_id = session.commands[0].command_id
+
+    with pytest.raises(ValueError, match="does not match"):
+        write_explicit_repro_bundle(
+            session,
+            [command.command_id for command in session.commands],
+        )
+
+
 @pytest.mark.parametrize(
     "workdir",
     [
