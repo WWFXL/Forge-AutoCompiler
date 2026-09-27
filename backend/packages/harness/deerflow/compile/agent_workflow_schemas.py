@@ -83,7 +83,7 @@ def _json_data(value: Any) -> Any:
 @dataclass(frozen=True)
 class AgentWorkflowBudget:
     max_model_requests: int
-    max_recorded_tokens: int
+    max_recorded_tokens: int | None
     max_agent_steps: int
     max_tool_calls: int
     max_commands: int
@@ -94,7 +94,10 @@ class AgentWorkflowBudget:
     cleanup_timeout_seconds: int
 
     def validate(self) -> None:
-        for field_name, value in asdict(self).items():
+        values = asdict(self)
+        if values.pop("max_recorded_tokens") is not None:
+            _require_positive(self.max_recorded_tokens, "max_recorded_tokens")
+        for field_name, value in values.items():
             _require_positive(value, field_name)
 
 
@@ -248,17 +251,19 @@ class SubmitCandidateRequest:
 @dataclass(frozen=True)
 class AgentWorkflowRemainingBudget:
     model_requests: int
-    recorded_tokens: int
+    recorded_tokens: int | None
     agent_steps: int
     tool_calls: int
     commands: int
     node_seconds: float
 
     def validate(self) -> None:
-        for field_name in ("model_requests", "recorded_tokens", "agent_steps", "tool_calls", "commands"):
+        for field_name in ("model_requests", "agent_steps", "tool_calls", "commands"):
             value = getattr(self, field_name)
             if type(value) is not int or value < 0:
                 raise AgentWorkflowContractError(f"remaining_budget.{field_name} must be a non-negative integer")
+        if self.recorded_tokens is not None and (type(self.recorded_tokens) is not int or self.recorded_tokens < 0):
+            raise AgentWorkflowContractError("remaining_budget.recorded_tokens must be null or a non-negative integer")
         if not isinstance(self.node_seconds, (int, float)) or isinstance(self.node_seconds, bool) or self.node_seconds < 0:
             raise AgentWorkflowContractError("remaining_budget.node_seconds must be a non-negative number")
 

@@ -95,8 +95,8 @@ class SlowChatModel(ScriptedChatModel):
         return ChatResult(generations=[ChatGeneration(message=AIMessage(content="late"))])
 
 
-def make_budget(**overrides: int | float) -> AgentWorkflowBudget:
-    values: dict[str, int | float] = {
+def make_budget(**overrides: int | float | None) -> AgentWorkflowBudget:
+    values: dict[str, int | float | None] = {
         "max_model_requests": 8,
         "max_recorded_tokens": 120_000,
         "max_agent_steps": 24,
@@ -324,6 +324,58 @@ def test_invalid_submit_can_be_repaired_on_next_model_request(tmp_path: Path) ->
     assert model.calls == 2
     rejections = [event for event in read_events(session) if event["event_type"] == "candidate.submit_rejected"]
     assert rejections[0]["payload"]["rejection_codes"] == ["invalid_contract"]
+
+
+def test_runtime_records_each_request_without_a_token_ceiling(tmp_path: Path) -> None:
+    session = make_session(tmp_path)
+    Path(session.leadagent_artifacts_dir, "lib", "libfmt.a").write_bytes(b"archive")
+    model = ScriptedChatModel(
+        responses=[
+            tool_call_message(
+                "submit_candidate_v1",
+                submit_args(artifact_paths=["/artifacts/libfmt.a"]),
+                "submit-invalid",
+                total_tokens=310_000,
+            ),
+            tool_call_message(
+                "submit_candidate_v1",
+                submit_args(),
+                "submit-valid",
+                total_tokens=25_000,
+            ),
+        ]
+    )
+
+    result = asyncio.run(
+        run_agent_workflow_node_v1(
+            node_input=make_node_input(
+                session,
+                budget=make_budget(max_recorded_tokens=None),
+            ),
+            session=session,
+            manager=FakeManager(session),  # type: ignore[arg-type]
+            model=model,
+        )
+    )
+
+    assert result.node_status == "submitted"
+    assert result.budget_terminal_reason is None
+    assert result.usage.recorded_tokens == 335_000
+    completed = [event["payload"] for event in read_events(session) if event["event_type"] == "model.request_completed"]
+    assert completed == [
+        {
+            "input_tokens": 309_995,
+            "output_tokens": 5,
+            "recorded_tokens": 310_000,
+            "request_sequence": 1,
+        },
+        {
+            "input_tokens": 24_995,
+            "output_tokens": 5,
+            "recorded_tokens": 25_000,
+            "request_sequence": 2,
+        },
+    ]
 
 
 def test_existing_artifact_without_submit_is_no_submission(tmp_path: Path) -> None:

@@ -327,9 +327,18 @@ class AgentWorkflowExecutionMiddleware(AgentMiddleware[AgentWorkflowGraphState])
         return self._request_sequence
 
     def _after_request(self, response: ModelResponse, request_sequence: int) -> None:
-        tokens = sum(int(usage.get("total_tokens", 0)) for message in response.result if isinstance((usage := getattr(message, "usage_metadata", None)), Mapping))
-        self.ledger.append("model.request_completed", request_sequence=request_sequence, recorded_tokens=tokens)
-        self.tracker.consume(recorded_tokens=tokens)
+        usages = [usage for message in response.result if isinstance((usage := getattr(message, "usage_metadata", None)), Mapping)]
+        input_tokens = sum(int(usage.get("input_tokens", 0)) for usage in usages)
+        output_tokens = sum(int(usage.get("output_tokens", 0)) for usage in usages)
+        total_tokens = sum(int(usage.get("total_tokens", 0)) for usage in usages)
+        self.ledger.append(
+            "model.request_completed",
+            request_sequence=request_sequence,
+            input_tokens=input_tokens,
+            output_tokens=output_tokens,
+            recorded_tokens=total_tokens,
+        )
+        self.tracker.consume(recorded_tokens=total_tokens)
 
     @override
     def wrap_model_call(self, request: ModelRequest, handler: Callable[[ModelRequest], ModelResponse]) -> ModelCallResult:

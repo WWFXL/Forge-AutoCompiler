@@ -2524,6 +2524,8 @@ def build_replay_recipe(
             for step in verification_steps
         ],
     }
+    if session.replay_source_archive_sha256 is not None:
+        fingerprint_payload["replay_source_archive_sha256"] = session.replay_source_archive_sha256
     fingerprint = _sha256_text(json.dumps(fingerprint_payload, sort_keys=True, separators=(",", ":")))
     return ReplayRecipe(
         supporting_command_id=supporting_command_id,
@@ -2545,7 +2547,6 @@ def _write_repro_bundle(session: CompileSession, recipe: ReplayRecipe) -> Path:
         raise ValueError("A full commit_sha is required to generate a replay bundle.")
     _validate_replay_repo_url(session.repo_url)
 
-    git_init_command = 'git init --quiet "$REPO_DIR"' if len(commit_sha) == 40 else 'git init --object-format=sha256 --quiet "$REPO_DIR"'
     build_lines = [
         "#!/usr/bin/env bash",
         "set -euo pipefail",
@@ -2559,17 +2560,42 @@ def _write_repro_bundle(session: CompileSession, recipe: ReplayRecipe) -> Path:
         'mkdir -p -- "$WORKSPACE_DIR" "$ARTIFACTS_DIR"',
         'find "$WORKSPACE_DIR" -mindepth 1 -maxdepth 1 -exec rm -rf -- {} +',
         'find "$ARTIFACTS_DIR" -mindepth 1 -maxdepth 1 -exec rm -rf -- {} +',
-        git_init_command,
-        'git config --global --add safe.directory "$REPO_DIR"',
-        "(",
-        'cd -- "$REPO_DIR"',
-        'git remote add origin "$REPO_URL"',
-        'git fetch --depth 1 origin "$COMMIT_SHA"',
-        'git checkout --detach "$COMMIT_SHA"',
-        'test "$(git rev-parse HEAD)" = "$COMMIT_SHA"',
-        ")",
-        "",
     ]
+    source_archive_sha256 = session.replay_source_archive_sha256
+    if source_archive_sha256 is not None:
+        if not re.fullmatch(r"[0-9a-f]{64}", source_archive_sha256):
+            raise ValueError("Replay source archive SHA-256 must be a lowercase hexadecimal digest.")
+        source_archive = repro_dir / "source.tar"
+        if source_archive.is_symlink() or not source_archive.is_file():
+            raise ValueError("Replay source archive must be a regular repro/source.tar file.")
+        if _sha256_file(source_archive) != source_archive_sha256:
+            raise ValueError("Replay source archive SHA-256 does not match the compile session identity.")
+        build_lines.extend(
+            [
+                "SOURCE_ARCHIVE=/repro/source.tar",
+                f"SOURCE_ARCHIVE_SHA256={shell_quote(source_archive_sha256)}",
+                'test "$(sha256sum "$SOURCE_ARCHIVE" | cut -d " " -f 1)" = "$SOURCE_ARCHIVE_SHA256"',
+                'mkdir -p -- "$REPO_DIR"',
+                'tar -xf "$SOURCE_ARCHIVE" -C "$REPO_DIR"',
+                "",
+            ]
+        )
+    else:
+        git_init_command = 'git init --quiet "$REPO_DIR"' if len(commit_sha) == 40 else 'git init --object-format=sha256 --quiet "$REPO_DIR"'
+        build_lines.extend(
+            [
+                git_init_command,
+                'git config --global --add safe.directory "$REPO_DIR"',
+                "(",
+                'cd -- "$REPO_DIR"',
+                'git remote add origin "$REPO_URL"',
+                'git fetch --depth 1 origin "$COMMIT_SHA"',
+                'git checkout --detach "$COMMIT_SHA"',
+                'test "$(git rev-parse HEAD)" = "$COMMIT_SHA"',
+                ")",
+                "",
+            ]
+        )
     commands_by_id = {command.command_id: command for command in session.commands}
     for replay_index, step in enumerate(recipe.steps, start=1):
         command = commands_by_id.get(step.command_id)
@@ -3103,6 +3129,33 @@ def verify_clean_replay_impl(
                 "recipe_snapshot_mismatch",
                 "Candidate recipe changed while the replay snapshot was being created.",
             )
+        if session.replay_source_archive_sha256 is not None:
+            source_archive_path = Path(session.leadagent_repro_dir) / "source.tar"
+            replay_source_archive_path = recipe_dir / "source.tar"
+            observed_source_sha256 = _sha256_file(source_archive_path, deadline=deadline)
+            if observed_source_sha256 != session.replay_source_archive_sha256:
+                raise _ReplayVerificationFailure(
+                    "source_snapshot_mismatch",
+                    "Frozen replay source archive no longer matches the compile session identity.",
+                )
+            _check_replay_deadline(deadline)
+            shutil.copy2(source_archive_path, replay_source_archive_path)
+            replay_source_sha256 = _sha256_file(replay_source_archive_path, deadline=deadline)
+            source_snapshot_matches = replay_source_sha256 == session.replay_source_archive_sha256
+            _record_replay_check(
+                attempt,
+                name="source_snapshot",
+                target="recipe/source.tar",
+                passed=source_snapshot_matches,
+                summary="Snapshotted the verified source archive for offline clean replay.",
+                expected=session.replay_source_archive_sha256,
+                actual=replay_source_sha256,
+            )
+            if not source_snapshot_matches:
+                raise _ReplayVerificationFailure(
+                    "source_snapshot_mismatch",
+                    "Replay source archive changed while the replay snapshot was being created.",
+                )
         if session.replay_recipe.verification_steps:
             source_verify_path = Path(session.leadagent_repro_dir) / "verify.sh"
             verify_path = recipe_dir / "verify.sh"

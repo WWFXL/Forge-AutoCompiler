@@ -24,6 +24,7 @@ import forge_stage_c_task_qualification as qualification  # noqa: E402
 import forge_stage_c_v3_protocol as v3_protocol  # noqa: E402
 import forge_stage_c_v4_protocol as v4_protocol  # noqa: E402
 import forge_stage_c_v5_protocol as v5_protocol  # noqa: E402
+import forge_stage_c_v6_measurement_remediation_protocol as v6_protocol  # noqa: E402
 
 
 @dataclass
@@ -120,6 +121,61 @@ def test_stage_c_8cc_oracle_uses_supported_compile_mode() -> None:
 
     assert "/artifacts/bin/8cc -c -o /tmp/forge-8cc-oracle.o" in command
     assert "cc /tmp/forge-8cc-oracle.o -o /tmp/forge-8cc-oracle" in command
+
+
+def test_stage_c_forge_oracle_adapter_supports_every_frozen_task() -> None:
+    manifest = v5_protocol.generate_manifest()
+
+    specs = {task["task_id"]: runner._oracle_spec(task) for task in manifest["tasks"]}
+
+    assert set(specs) == {task["task_id"] for task in manifest["tasks"]}
+    assert specs["stockfish-11"].argv == (
+        "sh",
+        "-c",
+        "printf 'uci\\nquit\\n' | /artifacts/bin/stockfish | grep -F 'uciok'",
+    )
+    for spec in specs.values():
+        spec.validate()
+
+
+def test_stage_c_preflight_rejects_unknown_oracle_before_execution() -> None:
+    manifest = v5_protocol.generate_manifest()
+    manifest["tasks"][0]["oracle"] = {"kind": "unsupported"}
+
+    with pytest.raises(runner.StageCRunnerError, match="不支持的 oracle kind"):
+        runner._validate_all_node_inputs(manifest)
+
+
+def test_stage_c_v6_candidate_targets_only_submitted_v5_candidates() -> None:
+    manifest = v6_protocol.generate_manifest()
+
+    v6_protocol.validate_manifest(manifest, check_schema_file=False)
+    schedule = manifest["schedule"]
+    assert schedule["evaluation_count"] == 22
+    assert schedule["excluded_no_candidate_pairs"] == [
+        "stage-c-v5-civetweb-r1",
+        "stage-c-v5-civetweb-r2",
+    ]
+    assert all(item["provider_requests"] == 0 for item in schedule["evaluations"])
+    assert len({item["evaluation_id"] for item in schedule["evaluations"]}) == 22
+    assert manifest["authorization"]["candidate_identity_only"] is True
+    assert manifest["execution"]["execution_authorized"] is False
+
+
+def test_stage_c_v6_candidate_has_meter_only_token_policy() -> None:
+    manifest = v6_protocol.generate_manifest()
+
+    assert manifest["budget"]["per_arm"]["max_recorded_tokens"] is None
+    assert manifest["budget"]["reachability_max_recorded_tokens"] is None
+    assert manifest["budget"]["formal_arms_max_recorded_tokens"] is None
+    assert manifest["budget"]["total_max_recorded_tokens"] is None
+    assert manifest["budget"]["token_accounting"] == {
+        "mode": "meter_each_request_without_ceiling",
+        "record_input_tokens": True,
+        "record_output_tokens": True,
+        "record_total_tokens": True,
+        "token_total_is_termination_condition": False,
+    }
 
 
 def test_stage_c_theora_oracle_matches_legacy_header_api() -> None:
@@ -623,6 +679,44 @@ def test_controlled_baseline_budget_exhaustion_is_a_closed_arm(tmp_path: Path) -
     assert controlled.model_requests == 3
 
 
+def test_controlled_baseline_records_tokens_without_a_token_ceiling(tmp_path: Path) -> None:
+    class HighUsageModel(_FakeModel):
+        def invoke(self, prompt: str) -> SimpleNamespace:
+            response = super().invoke(prompt)
+            response.usage_metadata = {
+                "input_tokens": 149_000,
+                "output_tokens": 1_000,
+                "total_tokens": 150_000,
+            }
+            return response
+
+    outcome = baseline.ControlledBaselineRunner(
+        task_contract={"required_artifacts": ["bin/app"]},
+        source_observation={"files": ["Makefile", "main.c"]},
+        task_id="fixture",
+        attempt_id="fixture-unlimited-tokens",
+        base_image_id=_IMAGE_ID,
+        model=HighUsageModel(
+            [
+                _parser_value(),
+                {"dockerfile": _DOCKERFILE},
+                {"success": True, "advice": None},
+            ]
+        ),
+        executor=_FakeExecutor([_execution(succeeded=True, revision=1)]),
+        limits=baseline.ControlledBaselineLimits(3, None, 1800),
+        output_dir=tmp_path / "attempt",
+    ).run()
+
+    assert outcome.candidate_submitted is True
+    assert outcome.termination_reason == "candidate_submitted"
+    assert outcome.recorded_tokens == 450_000
+    events = [json.loads(line) for line in (tmp_path / "attempt/events.jsonl").read_text().splitlines()]
+    completed = [event["payload"] for event in events if event["event_type"] == "model.request_completed"]
+    assert len(completed) == 3
+    assert all(item["input_tokens"] == 149_000 and item["output_tokens"] == 1_000 and item["recorded_tokens"] == 150_000 for item in completed)
+
+
 def _batch_manifest(*, formal_token_budget: int = 600_000) -> dict[str, Any]:
     pair = {
         "pair_id": "stage-c-fixture-r1",
@@ -1026,11 +1120,24 @@ def test_stage_c_forge_source_preparation_populates_session_before_attempt(tmp_p
     (repository / "CMakeLists.txt").write_text("project(fixture)\n")
     (source / "CMakeLists.txt").write_text("project(fixture)\n")
     session_repo = tmp_path / "session/workspace/repo"
+    session_repro = tmp_path / "session/repro"
     session = SimpleNamespace(
         leadagent_repo_dir=str(session_repo),
+        leadagent_repro_dir=str(session_repro),
         commit_sha=None,
+        replay_source_archive_sha256=None,
         summary=None,
     )
+
+    def fake_run(argv: list[str], **_kwargs: Any) -> SimpleNamespace:
+        assert argv[:4] == ["git", "-C", str(repository), "archive"]
+        output_index = argv.index("--output") + 1
+        archive = Path(argv[output_index])
+        archive.write_bytes(b"frozen-source-archive")
+        return SimpleNamespace(stdout="", stderr="", returncode=0)
+
+    source_digest = baseline.hashlib.sha256(b"frozen-source-archive").hexdigest()
+    monkeypatch.setattr(runner, "_run", fake_run)
     events: list[tuple[str, dict[str, Any]]] = []
 
     class Manager:
@@ -1051,7 +1158,7 @@ def test_stage_c_forge_source_preparation_populates_session_before_attempt(tmp_p
         "task_id": "fixture",
         "repository_url": "https://example.invalid/fixture.git",
         "commit_sha": "1" * 40,
-        "source_snapshot_sha256": "2" * 64,
+        "source_snapshot_sha256": source_digest,
         "build_system_capabilities": ["cmake"],
         "selected_build_system": "cmake",
     }
@@ -1059,7 +1166,7 @@ def test_stage_c_forge_source_preparation_populates_session_before_attempt(tmp_p
     source_identity = {
         "repository": repository,
         "source": source,
-        "source_snapshot_sha256": "2" * 64,
+        "source_snapshot_sha256": source_digest,
     }
 
     prepared, source_digest = runner._prepare_forge_session(
@@ -1071,11 +1178,26 @@ def test_stage_c_forge_source_preparation_populates_session_before_attempt(tmp_p
     )
 
     assert prepared is session
-    assert source_digest == "2" * 64
+    assert source_digest == session.replay_source_archive_sha256
     assert session.commit_sha == "1" * 40
+    assert (session_repro / "source.tar").read_bytes() == b"frozen-source-archive"
     assert (session_repo / "CMakeLists.txt").read_text() == "project(fixture)\n"
     assert (session_repo / ".git/HEAD").is_file()
     assert ("status", {"status": "source_ready"}) in events
+
+
+def test_stage_c_error_message_is_bounded_and_redacted(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setenv("STAGE_C_TEST_SECRET", "secret-value")
+
+    message, digest = runner._bounded_error_message(
+        RuntimeError("prefix secret-value " + "x" * 5000),
+        secret_environment_names=("STAGE_C_TEST_SECRET",),
+    )
+
+    assert "secret-value" not in message
+    assert "[REDACTED]" in message
+    assert len(message.encode("utf-8")) <= 4096
+    assert digest == baseline.hashlib.sha256(("prefix [REDACTED] " + "x" * 5000).encode()).hexdigest()
 
 
 def test_stage_c_preflight_recomputes_usage_and_incomplete_pairs(tmp_path: Path) -> None:

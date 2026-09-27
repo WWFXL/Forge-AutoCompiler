@@ -13,6 +13,7 @@ import json
 import os
 import shutil
 import subprocess
+import tarfile
 import uuid
 from pathlib import Path
 from types import SimpleNamespace
@@ -1025,6 +1026,144 @@ def test_clean_replay_rebuilds_pinned_cmake_fixture_in_fresh_container(monkeypat
     assert comparison.sha256_matches is True
     assert comparison.smoke_matches is True
     assert comparison.passed is True
+
+
+def test_clean_replay_uses_verified_source_archive_with_no_network_and_invalid_proxy(
+    monkeypatch,
+    tmp_path: Path,
+):
+    workspace_root = tmp_path / "workspace"
+    paths = Paths(
+        base_dir=tmp_path / ".deer-flow",
+        workspace_root=workspace_root,
+        host_workspace_root=str(workspace_root),
+    )
+    manager = CompileSessionManager(paths=paths, default_image=COMPILE_IMAGE)
+    thread_id = f"docker-offline-source-replay-{uuid.uuid4().hex[:12]}"
+    session = manager.create_session(
+        thread_id=thread_id,
+        repo_url="https://example.invalid/offline-source.git",
+        image=COMPILE_IMAGE,
+    )
+    runtime = CompileDockerRuntime(manager=manager)
+    monkeypatch.setattr(
+        operations,
+        "_services",
+        CompileOperationsServices(manager=manager, runtime=runtime),
+    )
+    try:
+        runtime.create_container(session)
+        manager.save_session(session)
+        source_path = Path(session.leadagent_repo_dir) / "main.c"
+        source_path.parent.mkdir(parents=True, exist_ok=True)
+        source_path.write_text(
+            '#include <stdio.h>\nint main(void){puts("offline-replay-ok");return 0;}\n',
+            encoding="utf-8",
+        )
+
+        build_command = "cc main.c -o app"
+        build_result = _run_checked(
+            runtime,
+            session,
+            build_command,
+            workdir="/workspace/repo",
+        )
+        _record_build_command(
+            manager,
+            session,
+            build_command,
+            build_result,
+            role="build",
+        )
+        stage_command = "cp app /artifacts/app"
+        stage_result = _run_checked(
+            runtime,
+            session,
+            stage_command,
+            workdir="/workspace/repo",
+        )
+        _record_build_command(
+            manager,
+            session,
+            stage_command,
+            stage_result,
+            role="artifact_stage",
+        )
+
+        artifact_path = Path(session.leadagent_artifacts_dir) / "app"
+        artifact_bytes = artifact_path.read_bytes()
+        smoke_command = "/artifacts/app"
+        smoke_result = _run_checked(
+            runtime,
+            session,
+            smoke_command,
+            workdir="/workspace",
+        )
+        session.artifacts = [
+            BuildArtifact(
+                path=manager.relative_path(session, artifact_path),
+                artifact_type="executable",
+                size_bytes=len(artifact_bytes),
+                source_path="/artifacts/app",
+                sha256=hashlib.sha256(artifact_bytes).hexdigest(),
+                smoke_command=smoke_command,
+                smoke_exit_code=smoke_result.exit_code,
+                smoke_output=smoke_result.combined_output[:4000],
+                smoke_output_sha256=hashlib.sha256(smoke_result.combined_output.encode()).hexdigest(),
+            )
+        ]
+        session.commit_sha = "a" * 40
+        source_archive = Path(session.leadagent_repro_dir) / "source.tar"
+        with tarfile.open(source_archive, "w") as archive:
+            archive.add(source_path, arcname="main.c")
+        session.replay_source_archive_sha256 = hashlib.sha256(source_archive.read_bytes()).hexdigest()
+        supporting_command_id = next(command.command_id for command in session.commands if command.role == "build")
+        session.post_build_supporting_command_id = supporting_command_id
+        session.replay_recipe = operations.build_replay_recipe(
+            session,
+            supporting_command_id=supporting_command_id,
+            recipe_command_ids=[command.command_id for command in session.commands],
+            verification_command_ids=[],
+        )
+        _write_repro_bundle(session, session.replay_recipe)
+        manager.save_session(session)
+
+        runtime.config.network = "none"
+        monkeypatch.setenv("COMPILE_RUNTIME_HTTP_PROXY", "http://127.0.0.1:9")
+        monkeypatch.setenv("COMPILE_RUNTIME_HTTPS_PROXY", "http://127.0.0.1:9")
+        attempt = verify_clean_replay_impl(session=session, timeout_seconds=120)
+
+        assert attempt.status == "passed"
+        assert attempt.cleanup_succeeded is True
+        assert any(check.name == "source_snapshot" and check.passed for check in attempt.checks)
+        assert not any("git fetch" in path.read_text(encoding="utf-8") for path in Path(session.leadagent_repro_dir).glob("*.sh"))
+        _assert_no_replay_container(session)
+    finally:
+        compile_cleanup = runtime.stop_and_remove_container(session)
+        session_dir = Path(session.metadata_path).parent
+        if session_dir.is_dir():
+            subprocess.run(
+                [
+                    "docker",
+                    "run",
+                    "--rm",
+                    "--network",
+                    "none",
+                    "-v",
+                    f"{session_dir}:/session",
+                    COMPILE_IMAGE,
+                    "chown",
+                    "-R",
+                    f"{os.getuid()}:{os.getgid()}",
+                    "/session",
+                ],
+                check=True,
+                capture_output=True,
+                text=True,
+                timeout=30,
+            )
+        shutil.rmtree(Path(session.metadata_path).parent.parent, ignore_errors=True)
+        assert compile_cleanup.succeeded is True
 
 
 def test_clean_replay_rejects_success_recipe_dependent_on_failed_configure_side_effect(monkeypatch):

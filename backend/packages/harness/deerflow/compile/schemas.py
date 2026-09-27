@@ -206,6 +206,7 @@ class CompileSession:
     artifacts: list[BuildArtifact] = field(default_factory=list)
     verification: VerificationResult | None = None
     replay_recipe: ReplayRecipe | None = None
+    replay_source_archive_sha256: str | None = None
     replay_attempts: list[ReplayVerificationResult] = field(default_factory=list)
 
     def to_dict(self) -> dict[str, Any]:
@@ -224,6 +225,7 @@ class CompileSession:
             "post_build_started_at": None,
             "post_build_commands_remaining": None,
             "replay_recipe": None,
+            "replay_source_archive_sha256": None,
             "replay_attempts": [],
             **data,
         }
