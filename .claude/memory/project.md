@@ -113,6 +113,14 @@
 
 <!-- 倒序，最新在上。 -->
 
+- 2026-09-27 — 冻结 Issue #341 Stage C v7 pre-freeze verifier canary 候选身份
+  - GitHub: PR #340 已 squash 合并为 `main@cea24f53`，Issue #339 自动关闭；新中文 Issue #341 已创建并回读，候选分支为 `research/341-stage-c-v7-prefreeze-canary`。
+  - 实现: 新 v7 candidate manifest、const Schema、协议和预注册固定 `theora`、`json-c`、`libjpeg-turbo`、`oatpp` 四个 B 臂工程 canary，使用 Agent Workflow Runtime v3 与 external evaluator v4，观察 pre-freeze 拒绝、同 attempt 修复重提、candidate create-once、S0-S5、bitwise replay 和 cleanup；任一失败即停止，禁止 retry、replacement、backfill 和历史候选复用。
+  - 授权与 token: 当前 identity 只允许 `validate`/`show-plan`，Provider、凭据、模型、正式 Docker attempt 和 evidence 写入均未授权；所有 token 上限为 `null`，未来逐请求记录 input/output/total。当前 0 Provider、0 formal attempt、0 formal token；真实 Docker 门禁的确定性本地模型为 8 次响应、每次 12、合计 96 synthetic tokens。
+  - 验证: manifest canonical SHA-256 为 `80de8fa1ca05910384570920bd67762935f67c2567c4c905a40c86232ed73983`，确定性再生成一致；新测试 `7 passed`，Stage C/Runtime 聚焦回归 `60 passed, 4 skipped`，产品测试 `1793 passed, 44 skipped`，Ruff 通过；真实 Docker lifecycle `1 passed`，结束后 managed container、paused container 和 managed image 均为 0。
+  - 下一步: 候选需经中文 PR、CI 和代码审查后合并；合并后必须另行派生 create-once authorized identity，才可读取凭据或运行真实 Provider canary。
+  - 文件: `scripts/forge_stage_c_v7_prefreeze_canary_protocol.py`, `backend/tests/test_stage_c_v7_prefreeze_canary.py`, `benchmarks/manifests/cpp-stage-c-v7-prefreeze-verifier-canary-candidate.json`, `benchmarks/schemas/forge-stage-c-v7-prefreeze-verifier-canary-candidate.schema.json`, `benchmarks/preregistrations/cpp-stage-c-v7-prefreeze-verifier-canary-candidate.md`, `.claude/memory/project.md`
+
 - 2026-09-27 — 实现 Issue #339 Stage C pre-freeze candidate verifier
   - 实现: 新增 Agent Workflow Runtime v3，在 create-once candidate 持久化前扫描完整 `/artifacts`，按内容分类并哈希全部文件，拒绝无效/零字节文件、未声明 compiled artifact、非唯一 target mapping 与路径/类型漂移；结构门禁通过后运行显式注册的 system-owned functional oracle。拒绝响应最多返回 12 条排序路径或值及总数，只暴露 oracle 退出状态和输出 SHA-256，允许 Agent 在同一 attempt 修复后重提；external evaluator v4 继续在冻结后独立复算。
   - 覆盖: 单元 fixture 固定复现 `theora r1`、`json-c r2`、`libjpeg-turbo r2`、`oatpp r2` 四类失败和有界 symlink evidence；Runtime 集成验证错误 target、功能失败、修复后第三次提交才冻结。真实 Docker lifecycle 依次触发 broad delivery、错误 target、header closure 三次拒绝，修复后通过 evaluator v4 S0-S5、bitwise replay、finalize 与 cleanup。
