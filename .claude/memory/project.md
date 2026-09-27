@@ -6,14 +6,6 @@
 
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
-- 2026-09-27 — 执行 Issue #333 Stage C v6 零 Provider 离线定向重评
-  - 实现: 新 authorized protocol/manifest/Schema/runner 从 v5 的 22 个已提交 B 臂候选派生独立重评，逐条绑定来源 Session、node input、candidate、事件链、命令、产物和既有 evaluator result；两次无候选 CivetWeb 明确排除。新 Session 保留冻结 node input 的 session ID，但使用独立 thread、源码快照、candidate、产物、evaluation、replay 和 create-once evidence。
-  - 测量边界: 原 `AgentBuildNodeResult` 未单独持久化，因此 synthetic node result 显式绑定可恢复字段，并把不可恢复的 `agent_steps`/`wall_clock_ms` 记为 0；不声称与原对象字节一致。每条 token ledger 固定 `requests=[]`，input/output/total 均为 0；Provider、凭据和模型创建保持禁止，token 无硬上限且不是终止条件。
-  - Identity: v5 来源收据覆盖 22/22 条，文件 SHA-256 为 `098c6fef91ab34d13355646aae01832479f179cfc7ffadc6aac690095f514c25`；当前 authorized manifest canonical SHA-256 为 `00530ddc740ae98f0327a89e5a1860e9a983c9e47b9aaeabd27543f4c75f23dd`，授权基线为 `main@9fecc8d5`，正式执行只允许 clean `main == origin/main`。
-  - 验证: 新单测 `7 passed`；Stage C/evaluator/runtime 聚焦回归 `220 passed, 20 skipped`；完整后端 `1780 passed, 43 skipped`；Ruff check 与 403 文件 format check 通过。服务容器 root 视角的只读 preflight 已复算来源收据、冻结 image、12 项 schedule oracle、三类 adapter 合同与 0 managed resources，0 Provider / 0 token / 0 formal attempt。
-  - 下一步: 提交、推送、创建并合并 PR；随后在合并后的干净主干运行唯一 22 条离线 batch，冻结 JSON/Markdown 结果和 inventory。禁止 retry、replacement、backfill，v5 evidence 保持只读。
-  - 文件: `scripts/forge_stage_c_v6_offline_reevaluation_protocol.py`, `scripts/forge_stage_c_v6_offline_reevaluation_runner.py`, `backend/tests/test_stage_c_v6_offline_reevaluation.py`, `benchmarks/manifests/cpp-stage-c-v6-offline-reevaluation-authorized.json`, `benchmarks/schemas/forge-stage-c-v6-offline-reevaluation-authorized.schema.json`, `benchmarks/reports/cpp-stage-c-v6-source-candidate-receipt.json`, `benchmarks/preregistrations/cpp-stage-c-v6-offline-reevaluation-authorized.md`
-
 - 2026-09-25 — 冻结 evaluator v3 的 Phase 5 独立授权评测 identity
   - GitHub: 中文 Issue #303 与 PR #304 已创建并回读；分支为 `research/phase5-v3-authorized-identity`，基线为 `main@9f8c8ad4`，实现提交为 `4c85e0fd`。首轮 backend unit、frozen benchmark、backend lint 和 frontend lint 四项 CI 全绿。Spec/Plan 位于 `docs/superpowers/`。
   - 实现: 新 protocol、const Schema、manifest、预注册和薄 runner 原样继承 Phase 5 v2 的六任务、Provider、镜像、预算、顺序与单 attempt 约束，冻结 external evaluator v3 文件/版本/rules identity；新 reachability、attempt、evaluation、report 与 evidence identity 完全独立，不导入 v2 结果或证据。
@@ -120,6 +112,14 @@
 ## 最近变更 (Recent Changes)
 
 <!-- 倒序，最新在上。 -->
+
+- 2026-09-27 — 完成并冻结 Stage C v6 零 Provider 离线定向重评
+  - GitHub: Issue #333 的授权实现由 PR #334 以四项 CI 全绿合并为 `main@13928727bae286eb96a0c96173f63a513236259a`；Issue #335 跟踪正式结果冻结与审计。
+  - 执行: 唯一 22 条 batch 全部闭合，strict success 为 `18/22`，bitwise reproducible 为 `21/22`，cleanup 为 `22/22`；结束时 0 managed resources。22 份 token ledger 均为 0 requests，input/output/total token 全为 0。
+  - 失败: `theora r1` 为 candidate artifact set/validity 失败并在 S5 重现；`json-c r2` 为 target mapping 与 functional oracle 失败；`libjpeg-turbo r2` 为 candidate verifier 失败且无 replay recipe；`oatpp r2` 为 candidate artifact set mismatch。4 条均是候选/验证结果，不是 Provider、远程 Git、执行器异常或 cleanup 失败。
+  - Identity: authorized manifest canonical SHA-256 为 `00530ddc740ae98f0327a89e5a1860e9a983c9e47b9aaeabd27543f4c75f23dd`，来源收据文件 SHA-256 为 `098c6fef91ab34d13355646aae01832479f179cfc7ffadc6aac690095f514c25`。inventory 为 114 files / 704,893 bytes；聚合 JSON/Markdown SHA-256 分别为 `be0783c1f693d510291a853e1fa97223dfa716f539bf80c00fb1327502edf42f` 与 `318e3d76dfab6e979070b45685e5bf0b8ddc127c51371efca1d7571375e503d7`。
+  - 边界: 本结果仅为 post-hoc measurement-remediation sensitivity analysis，不替代 v5 的 A `19/24`、B `0/24` 预注册主要结果；两次无候选 CivetWeb attempt 不在重评分母，22 attempts 不能解释为 22 个独立项目，原始 evidence 与 v5 保持只读。
+  - 文件: `benchmarks/reports/cpp-stage-c-v6-offline-reevaluation-result.json`, `benchmarks/reports/cpp-stage-c-v6-offline-reevaluation-result.md`, `.claude/memory/project.md`
 
 - 2026-09-27 — 完成 Issue #331 Stage C 测量链路修复与 v6 未授权候选
   - 实现: Agent Workflow 与 controlled baseline 取消 token 硬上限，仅逐请求记录 input/output/total tokens；保留请求、步骤、工具、命令和墙钟限制。Compile Session replay 绑定并校验源码快照 SHA-256，可在 `network=none` 且代理不可达时从只读 `/repro/source.tar` 重建源码；普通产品路径继续支持远程 exact-commit fetch。
