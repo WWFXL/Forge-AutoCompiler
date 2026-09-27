@@ -113,6 +113,14 @@
 
 <!-- 倒序，最新在上。 -->
 
+- 2026-09-27 — 实现 Issue #343 Stage C v7 授权 canary runner
+  - GitHub: 中文 Issue #343 已创建并回读；实现分支为 `research/343-stage-c-v7-authorized-canary`，基线为 `main@d8f0e24a`。
+  - 实现: 从候选 canonical identity `80de8fa1...73983` 派生 create-once authorized manifest、const Schema、协议、预注册和 runner；固定 `theora -> json-c -> libjpeg-turbo -> oatpp`，显式调用 Agent Workflow Runtime v3 与 external evaluator v4，任一失败立即停止，禁止 retry、replacement 与 backfill。恢复只接受完整连续 attempt 前缀，clone 后冻结 `source.tar` 供离线 clean replay；失败路径仍执行 finalize/cleanup。
+  - Token 与边界: 不设 token 上限，逐响应记录 input/output/total token；请求数、Agent step、工具调用、命令数和墙钟门禁继续生效。`validate` 不读 credential、不访问 Docker、不创建模型、不写 evidence；本阶段 0 Provider、0 formal attempt、0 experiment evidence write。最终 Docker gate 的确定性本地模型为 3 次响应、36 synthetic tokens；调试阶段另有一次完整 Docker attempt 记录 36 synthetic tokens，累计 72 synthetic tokens。
+  - 验证: authorized manifest canonical SHA-256 为 `261da6d0d0416073998d9aed544c99dba3097784fa2c3edd0022a2cd96e3086f`；新静态测试 `10 passed`，Stage C/Runtime 聚焦回归 `47 passed, 2 skipped`，产品测试 `1803 passed, 45 skipped`，Ruff check/format 408 个文件通过；最终 identity 的 opt-in Docker gate `1 passed in 12.41s`，结束后 managed container、paused container 和 managed image 均为 0。
+  - 下一步: 提交、推送并创建中文 PR；CI 和代码审查通过、合并后再由实验所有者决定是否执行真实 Provider reachability 与唯一四任务 canary。报告只允许描述工程结果，禁止 treatment effect、p 值和模型排名声明。
+  - 文件: `scripts/forge_stage_c_v7_prefreeze_canary_authorized_protocol.py`, `scripts/forge_stage_c_v7_prefreeze_canary_authorized_runner.py`, `backend/tests/test_stage_c_v7_prefreeze_canary_authorized.py`, `backend/tests/test_stage_c_v7_prefreeze_canary_authorized_docker.py`, `benchmarks/manifests/cpp-stage-c-v7-prefreeze-verifier-canary-authorized.json`, `benchmarks/schemas/forge-stage-c-v7-prefreeze-verifier-canary-authorized.schema.json`, `benchmarks/preregistrations/cpp-stage-c-v7-prefreeze-verifier-canary-authorized.md`, `.claude/memory/project.md`
+
 - 2026-09-27 — 冻结 Issue #341 Stage C v7 pre-freeze verifier canary 候选身份
   - GitHub: PR #340 已 squash 合并为 `main@cea24f53`，Issue #339 自动关闭；新中文 Issue #341 已创建并回读，候选分支为 `research/341-stage-c-v7-prefreeze-canary`。
   - 实现: 新 v7 candidate manifest、const Schema、协议和预注册固定 `theora`、`json-c`、`libjpeg-turbo`、`oatpp` 四个 B 臂工程 canary，使用 Agent Workflow Runtime v3 与 external evaluator v4，观察 pre-freeze 拒绝、同 attempt 修复重提、candidate create-once、S0-S5、bitwise replay 和 cleanup；任一失败即停止，禁止 retry、replacement、backfill 和历史候选复用。
