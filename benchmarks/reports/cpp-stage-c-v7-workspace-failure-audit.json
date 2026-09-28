@@ -1,0 +1,130 @@
+{
+  "batch": {
+    "cleanup_succeeded": true,
+    "marker_status": "stopped",
+    "observed_attempt_count": 1,
+    "observed_task_order": [
+      "theora"
+    ],
+    "scheduled_task_order": [
+      "theora",
+      "json-c",
+      "libjpeg-turbo",
+      "oatpp"
+    ],
+    "status": "stopped_on_first_failure",
+    "stopped_after_task": "theora",
+    "zero_managed_resources": true
+  },
+  "classification": "compile_session_workspace_permission_failure_before_session_creation",
+  "decision": {
+    "historical_outcomes_imported": false,
+    "next_identity": "stage_c_v8_workspace_remediation_candidate",
+    "old_batch_resumable": false,
+    "provider_execution_authorized": false,
+    "replacement_authorized": false,
+    "retry_authorized": false
+  },
+  "document_type": "forge_stage_c_v7_workspace_failure_audit",
+  "evidence_inventory": {
+    "digest_algorithm": "sha256 of sorted relative-path<TAB>sha256<TAB>size<LF>",
+    "file_count": 7,
+    "files": [
+      {
+        "path": "attempts/01-theora/attempt.json",
+        "sha256": "fd1f6fdbb07465d53e65e0dc234edab4638d22b8b26de043d0187bcc2c256141",
+        "size_bytes": 462
+      },
+      {
+        "path": "attempts/01-theora/experiment.jsonl",
+        "sha256": "2f331d1fee604e11579143cfa6ba311bbfc132aa295f58c0c145ba467eb4d2ed",
+        "size_bytes": 1225
+      },
+      {
+        "path": "attempts/01-theora/result.json",
+        "sha256": "61cf4df28162f492ff6561af5d83286aeb80fb558d5dd7239319501eb236c0c3",
+        "size_bytes": 1325
+      },
+      {
+        "path": "markers/batch.json",
+        "sha256": "d95d7fd1fac3fc14d35e4cf1282ec71e8fb3b8f9979b2d1a1428dbd8ae7de94c",
+        "size_bytes": 433
+      },
+      {
+        "path": "markers/reachability.json",
+        "sha256": "025d2a42d98ba16b844ccc9d1d843035032273fcd028803ececc8e7e3c7a5429",
+        "size_bytes": 440
+      },
+      {
+        "path": "reports/canary.json",
+        "sha256": "0d2cb85ae71e1cb8fdbf47e89cca7fa90438361a61196a4555a0fe1014089ea3",
+        "size_bytes": 2732
+      },
+      {
+        "path": "reports/reachability.json",
+        "sha256": "650d45322a708551f50d7d5e0a7445a8bd33f8809cc9c0c9a1cf447271afc843",
+        "size_bytes": 799
+      }
+    ],
+    "inventory_sha256": "ca7e467911c5ac798bc9ed2042b5dd949bab9bbabbefa31e0bc0c5ee954e404f",
+    "total_size_bytes": 7416
+  },
+  "identity": {
+    "manifest_file_sha256": "e311add867c1aa88b1776c6fe08a3ea59d94edbe17e48bb37ae36054688e77ef",
+    "manifest_sha256": "261da6d0d0416073998d9aed544c99dba3097784fa2c3edd0022a2cd96e3086f",
+    "release_revision": "5a01b2ac51da57b699202de02dec6065a8f643be"
+  },
+  "reachability": {
+    "actual_model": "deepseek-flash",
+    "input_tokens": 46,
+    "output_tokens": 24,
+    "passed": true,
+    "request_count": 1,
+    "response_sha256": "d8cfba618307633efcbc5f294402ae2b85536728a368be8cce0dad23649e0da6",
+    "total_tokens": 70
+  },
+  "root_cause": {
+    "compile_session_created": false,
+    "error_class": "PermissionError",
+    "error_message_sha256": "1f6ef3419a6797fe5790dbbb695d535aa96b670c8065c80f28c09699db93e6a6",
+    "failed_path": "/workspace/.compile-sessions/stage-c-v7-b-278bb68aa24fa13d3858797e9fd6fcbc-261da6d0d0416073",
+    "failure_phase": "prepare_compile_session_before_model_creation",
+    "preflight_gap": [
+      "evidence_directory_creatability_not_checked",
+      "compile_session_process_root_writability_not_checked",
+      "compile_session_host_root_identity_not_checked"
+    ],
+    "workspace_selection": "implicit_default_selected_existing_/workspace",
+    "workspace_parent_mode": "root:root_0755"
+  },
+  "schema_version": "forge-stage-c-v7-workspace-failure-audit-1.0.0",
+  "scientific_interpretation": {
+    "agent_behavior_observed": false,
+    "candidate_verifier_observed": false,
+    "external_evaluator_observed": false,
+    "mechanism_effect_inference_authorized": false,
+    "task_build_behavior_observed": false
+  },
+  "theora_attempt": {
+    "agent_steps": 0,
+    "attempt_id": "stage-c-v7-theora-b-canary",
+    "canary_passed": false,
+    "candidate_generated": false,
+    "candidate_submitted": false,
+    "cleanup_succeeded": true,
+    "commands": 0,
+    "error_class": "PermissionError",
+    "model_requests": 0,
+    "recorded_tokens": 0,
+    "session_id": null,
+    "tool_calls": 0,
+    "zero_managed_resources": true
+  },
+  "usage": {
+    "attempt_recorded_tokens": 0,
+    "formal_attempt_count": 1,
+    "provider_requests": 1,
+    "reachability_recorded_tokens": 70,
+    "total_recorded_tokens": 70
+  }
+}
