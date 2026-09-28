@@ -113,6 +113,13 @@
 
 <!-- 倒序，最新在上。 -->
 
+- 2026-09-28 — 实现 Issue #347 Stage C v8 workspace remediation authorized canary identity
+  - 实现: 从 v8 candidate canonical SHA-256 `4ed33a827d2c801ed1b0f56c717ee332f0a65141ed8d07d05326ff373dd07f6d` 派生独立 create-once authorized manifest、const Schema、protocol、runner 与预注册；固定 `theora -> json-c -> libjpeg-turbo -> oatpp`、Runtime v3、pre-freeze verifier、external evaluator v4、首失败停止和逐响应 token ledger，token 总量不作终止条件。
+  - Workspace 门禁: release repository、process/host Compile Session root 和授权 evidence 路径必须显式同源；preflight 与独立 `execute_attempt` 均在 credential、Provider、model、marker/ledger 前拒绝路径漂移，prepare、replay、evaluator、finalize 和异常 cleanup 全程保持在同一显式 `Paths` 上下文。
+  - 验证: authorized canonical manifest SHA-256 为 `df3a8c7ac1e13567b99ec5b7c77d341b6df20f35236cf767e76c06af46835a61`，两次确定性生成一致；新单元和最终 opt-in Docker gate `12 passed`，Stage C 相邻回归 `81 passed, 4 skipped`，完整产品测试 `1827 passed, 47 skipped`，完整 Ruff 412 文件通过。Docker gate 三次各记录 36 synthetic tokens，七次单元 reachability fixture 各记录 12 synthetic tokens，累计 192 synthetic tokens；真实 Provider request、formal attempt、真实 model token 和正式 evidence write 均为 0。结束时授权 evidence 目录不存在，managed container、paused managed container 和 managed image 均为 0。
+  - 下一步: 中文提交、推送并创建关联 `Closes #347` 的 PR；CI 全绿和代码审查后等待实验负责人确认合并。合并后仍需再次明确确认，才可在干净 `main == origin/main` 上运行真实 preflight、唯一 reachability 和四任务 batch。
+  - 文件: `scripts/forge_stage_c_v8_workspace_remediation_authorized_protocol.py`, `scripts/forge_stage_c_v8_workspace_remediation_authorized_runner.py`, `backend/tests/test_stage_c_v8_workspace_remediation_authorized.py`, `backend/tests/test_stage_c_v8_workspace_remediation_authorized_docker.py`, `benchmarks/manifests/cpp-stage-c-v8-workspace-remediation-canary-authorized.json`, `benchmarks/schemas/forge-stage-c-v8-workspace-remediation-canary-authorized.schema.json`, `benchmarks/preregistrations/cpp-stage-c-v8-workspace-remediation-canary-authorized.md`, `.claude/memory/project.md`
+
 - 2026-09-28 — 冻结 Issue #345 Stage C v7 workspace 失败并实现 v8 remediation candidate
   - 根因与修复: v7 因全局 `Paths()` 发现 `/workspace` 而把 Compile Session 隐式绑定到 root-owned `/workspace/.compile-sessions`，首个 `theora` attempt 在模型创建前失败。v8 显式把 process/host workspace 同时绑定到 release repository root，并在 credential、model、Provider 和 marker 前检查 repository、`.compile-sessions`、candidate evidence 的符号链接、同一性、直属关系和写入权限；prepare、Runtime v3、evaluator v4、finalize 与异常 cleanup 共用完整显式路径上下文。
   - 历史与授权边界: v7 的 7 文件、7,416 bytes、inventory SHA-256 `ca7e4679...04f`、70-token reachability 和 0-token `PermissionError` attempt 保持只读，禁止 retry、replacement、backfill 或续跑。v8 candidate 的 credential、Provider、模型、reachability、正式 attempt 和 evidence 写入全部未授权；token 上限继续为 `null` 并要求逐响应记录。
