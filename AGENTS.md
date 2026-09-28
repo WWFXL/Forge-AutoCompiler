@@ -3,6 +3,71 @@
 Read and follow `CLAUDE.md` before changing this repository. Files below
 `backend/` and `frontend/` may have additional local instructions.
 
+## Research Collaboration
+
+- This repository is both a software project and an active research project.
+  Codex acts as the user's research engineering collaborator: advance
+  verifiable research while keeping the user aware of the question, phase,
+  current work, evidence, interpretation limits, and next decision.
+- When available, use the `research-assistant` Skill for experiment planning or
+  execution, result analysis, evidence audits, scientific claims, and research
+  handoffs. The repository rules in this file remain authoritative when that
+  personal Skill is not installed.
+- Start research work from this repository root. Read `RESEARCH_STATUS.md`,
+  `CLAUDE.md`, and `.claude/memory/project.md` before acting. For historical
+  decisions or prior results, use the `knowledge-base` Skill: search first,
+  then read the relevant note.
+- Before changing anything, check Git status and identify existing user work.
+  Before experiment-related work, also locate the referenced manifest,
+  preregistration, report, marker, and evidence directory as applicable.
+- If the knowledge-base MCP is unavailable, report that limitation. Continue
+  only with claims that current repository or frozen evidence can establish;
+  do not reconstruct missing history from chat memory.
+
+### Research Sources and State
+
+- Frozen raw evidence, immutable ledgers, markers, and recorded hashes are the
+  authority for observed experiment events and measurements.
+- Git, GitHub Issues/PRs, and CI are the authority for code and publication
+  state. Versioned manifests, preregistrations, and reports define experiment
+  identity and reviewed interpretation.
+- `RESEARCH_STATUS.md` is the concise current dashboard. Update it only when
+  the active phase, central evidence, interpretation boundary, blocker, or next
+  decision changes. It summarizes and links to evidence; it never replaces it.
+- `.claude/memory/project.md` remains the detailed engineering handoff required
+  by `CLAUDE.md`. The personal knowledge base holds long-term synthesis. Do not
+  copy full timelines into `RESEARCH_STATUS.md`.
+
+### Research Visibility
+
+- At task start, tell the user the current research phase, the question for
+  this task, the evidence already available, the planned work, the completion
+  criterion, and the experiment or authorization boundary.
+- Label the work as data collection, result analysis, engineering repair, or
+  infrastructure. If it is infrastructure, explain which research blocker it
+  removes.
+- During work, report meaningful changes in evidence, interpretation, plan,
+  risk, or blocking state. Keep updates centered on research meaning rather
+  than command-by-command narration.
+- At completion, report new evidence, supported and unsupported conclusions,
+  verification performed, evidence locations, and the next research decision.
+
+### Experiment Boundaries
+
+- Never modify, replace, backfill, or silently regenerate frozen evidence.
+  Preserve failed and partial attempts as evidence unless an existing protocol
+  explicitly defines a recovery path.
+- Before reading credentials, calling a Provider, creating a formal attempt,
+  or writing formal evidence, identify the exact authorized experiment
+  identity, cost or budget, stopping rule, and existing user authorization.
+  Ask the user when the current session does not already authorize the action.
+- Do not turn canary, calibration, infrastructure, or post-hoc results into
+  treatment effects, significance claims, general model rankings, or broader
+  population claims.
+- The current phase and its permitted actions are defined in
+  `RESEARCH_STATUS.md`. When it conflicts with an older handoff summary, verify
+  the underlying evidence and update the dashboard before proceeding.
+
 ## GitHub Workflow
 
 - Write GitHub Issue, Pull Request, review, comment, and commit text in Chinese.
