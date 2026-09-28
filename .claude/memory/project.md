@@ -113,6 +113,22 @@
 
 <!-- 倒序，最新在上。 -->
 
+- 2026-09-28 — 建立 Codex 科研协作契约与当前状态入口
+  - GitHub: 中文 Issue #349 已创建并回读；工作分支为 `docs/issue-349-research-collaboration`，基线为 `main@6682d86cb30cc4e8d7b240bca8922606077a4808`。
+  - 实现: 全局 `AGENTS.md` 新增科研工程协作者身份和进度可见性契约；全局 `research-assistant` Skill 集中启动核对、工作分类、证据边界、过程汇报和持久状态规则；仓库 `AGENTS.md` 新增 Forge 科研启动顺序、事实源、授权和冻结 evidence 边界；根目录 `RESEARCH_STATUS.md` 提供当前 Stage C v8 一屏状态入口。
+  - 核验: Skill 通过 `quick_validate.py`；`git diff --check` 通过。只读核对确认 v8 evidence 为 16 files / 631,570 bytes，canary/reachability report SHA-256 分别为 `d6e6f440bacaacb43ca31b1d6899180b272038a7cea151d641a1e00771efca70` 与 `c418a6de746c021192bc521116a2f85a5e26b7ad45f1ead6e9e949a41aa8d078`，batch marker 为 `passed`，canary report 为 `completed`、4/4 strict success、S0-S5 各 4/4、279,988 total tokens。原交接记录的 inventory SHA-256 与 ledger 连续性留给结果冻结审计按原算法复算。
+  - 边界: 0 Provider、0 credential read、0 model request、0 Docker、0 formal attempt、0 experiment evidence write；未修改任何 manifest、Schema、runner、产品代码或冻结 evidence。知识库写入有上一会话回执，但本会话 MCP 搜索与精确读取均在 120 秒后超时，索引回读仍待服务恢复后验证。
+  - 文件: `AGENTS.md`, `RESEARCH_STATUS.md`, `.claude/memory/project.md`, `/home/yiwei/.codex/AGENTS.md`, `/home/yiwei/.codex/skills/research-assistant/SKILL.md`, `/home/yiwei/.codex/skills/research-assistant/agents/openai.yaml`
+
+- 2026-09-28 — 合并并完成 Stage C v8 workspace remediation 真实 canary
+  - 合并与身份: PR #348 已 squash 合并为 `main@6682d86cb30cc4e8d7b240bca8922606077a4808`，`main == origin/main` 且工作树干净；authorized manifest canonical SHA-256 为 `df3a8c7ac1e13567b99ec5b7c77d341b6df20f35236cf767e76c06af46835a61`。静态 validate、delta、runner validate、非模型 preflight 和唯一 `deepseek-flash` reachability 全部通过。
+  - 真实结果: 固定顺序 `theora -> json-c -> libjpeg-turbo -> oatpp` 的四任务 batch 为 4/4 strict success，S0-S5 各 4/4、bitwise reproducible 4/4、cleanup 4/4；`libjpeg-turbo` 首次提交被 pre-freeze verifier 以 `target_mapping_invalid` 拒绝，同一 attempt 修复后第二次提交成功，其余任务均一次提交成功。
+  - Token: reachability 为 1 request / 47 input / 35 output / 82 total；四任务分别记录 86,910、35,839、46,120、111,037 tokens。完整闭合为 37 requests / 260,873 input / 19,115 output / 279,988 total，逐请求 ledger 与 attempt/report 汇总一致，token 总量不作为终止条件。
+  - 完整性: 四条 `ExperimentLedger.verify_path()` 哈希链均连续并以唯一 immutable `experiment.completed` 封口；evidence 为 16 files / 631,570 bytes，`sha256sum` inventory SHA-256 为 `afe607e075509eee1999a65f4c485b0995959a1f026bf22f3f6ff7673d6b14a7`，canary/reachability report SHA-256 分别为 `d6e6f440bacaacb43ca31b1d6899180b272038a7cea151d641a1e00771efca70`、`c418a6de746c021192bc521116a2f85a5e26b7ad45f1ead6e9e949a41aa8d078`。最终 batch marker 为 `passed`，所有 attempt marker 为 `completed`，managed container、paused managed container 和 managed image 均为 0。
+  - 边界与下一步: 原始 evidence 位于 `.compile-sessions/benchmark-evidence-stage-c-v8-workspace-remediation-canary-authorized-v1`，保持只读且未提交 Git。下一阶段应从干净 `main` 派生独立结果冻结/审计分支，生成脱敏 JSON/Markdown 聚合报告并通过中文 Issue/PR 评审，不重跑或改写本次 create-once evidence。
+  - 会话交接: 个人知识库已创建 `01-研究/自动化编译/2026-09-28-Forge-Stage-C-v8结果与后续会话交接.md`，并更新 `自动化编译研究索引.md`；后续 Codex 会话应从 `/home/yiwei/work/Forge-AutoCompiler` 启动，先读取仓库 `AGENTS.md`、`CLAUDE.md`、本文件与该知识库交接笔记。当前本地唯一已知未提交改动为本文件的科研快照，必须保留并在下一结果冻结/审计分支中处理。
+  - 文件: `.claude/memory/project.md`
+
 - 2026-09-28 — 实现 Issue #347 Stage C v8 workspace remediation authorized canary identity
   - 实现: 从 v8 candidate canonical SHA-256 `4ed33a827d2c801ed1b0f56c717ee332f0a65141ed8d07d05326ff373dd07f6d` 派生独立 create-once authorized manifest、const Schema、protocol、runner 与预注册；固定 `theora -> json-c -> libjpeg-turbo -> oatpp`、Runtime v3、pre-freeze verifier、external evaluator v4、首失败停止和逐响应 token ledger，token 总量不作终止条件。
   - Workspace 门禁: release repository、process/host Compile Session root 和授权 evidence 路径必须显式同源；preflight 与独立 `execute_attempt` 均在 credential、Provider、model、marker/ledger 前拒绝路径漂移，prepare、replay、evaluator、finalize 和异常 cleanup 全程保持在同一显式 `Paths` 上下文。
