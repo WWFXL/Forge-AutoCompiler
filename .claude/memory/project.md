@@ -113,6 +113,13 @@
 
 <!-- 倒序，最新在上。 -->
 
+- 2026-09-28 — 冻结 Issue #345 Stage C v7 workspace 失败并实现 v8 remediation candidate
+  - 根因与修复: v7 因全局 `Paths()` 发现 `/workspace` 而把 Compile Session 隐式绑定到 root-owned `/workspace/.compile-sessions`，首个 `theora` attempt 在模型创建前失败。v8 显式把 process/host workspace 同时绑定到 release repository root，并在 credential、model、Provider 和 marker 前检查 repository、`.compile-sessions`、candidate evidence 的符号链接、同一性、直属关系和写入权限；prepare、Runtime v3、evaluator v4、finalize 与异常 cleanup 共用完整显式路径上下文。
+  - 历史与授权边界: v7 的 7 文件、7,416 bytes、inventory SHA-256 `ca7e4679...04f`、70-token reachability 和 0-token `PermissionError` attempt 保持只读，禁止 retry、replacement、backfill 或续跑。v8 candidate 的 credential、Provider、模型、reachability、正式 attempt 和 evidence 写入全部未授权；token 上限继续为 `null` 并要求逐响应记录。
+  - 验证: v8 manifest canonical SHA-256 为 `4ed33a827d2c801ed1b0f56c717ee332f0a65141ed8d07d05326ff373dd07f6d`；静态测试 `13 passed`，Stage C/Runtime/evaluator 相邻回归 `143 passed, 4 skipped`，产品测试 `1816 passed, 46 skipped`，完整 Ruff 通过。最终 identity 的 opt-in Docker gate `1 passed in 13.00s`，显式路径绕过不可写 root-owned decoy 并完成 Runtime v3、external evaluator v4、bitwise clean replay、finalize、cleanup；调试与最终 gate 各记录 36 synthetic tokens，累计 72 synthetic tokens，真实 Provider/model token 为 0，结束后 managed container、paused container 和 managed image 均为 0。
+  - 下一步: 提交、推送并创建中文 PR；合并后另行派生 create-once authorized amendment，当前 candidate 不得运行真实 Provider。
+  - 文件: `scripts/forge_stage_c_v8_workspace_remediation_protocol.py`, `scripts/forge_stage_c_v8_workspace_remediation_runner.py`, `backend/tests/test_stage_c_v8_workspace_remediation.py`, `backend/tests/test_stage_c_v8_workspace_remediation_docker.py`, `benchmarks/manifests/cpp-stage-c-v8-workspace-remediation-canary-candidate.json`, `benchmarks/schemas/forge-stage-c-v8-workspace-remediation-canary-candidate.schema.json`, `benchmarks/preregistrations/cpp-stage-c-v8-workspace-remediation-canary-candidate.md`, `benchmarks/reports/cpp-stage-c-v7-workspace-failure-audit.json`, `benchmarks/reports/cpp-stage-c-v7-workspace-failure-audit.md`, `.claude/memory/project.md`
+
 - 2026-09-27 — 实现 Issue #343 Stage C v7 授权 canary runner
   - GitHub: 中文 Issue #343 已创建并回读；实现分支为 `research/343-stage-c-v7-authorized-canary`，基线为 `main@d8f0e24a`。
   - 实现: 从候选 canonical identity `80de8fa1...73983` 派生 create-once authorized manifest、const Schema、协议、预注册和 runner；固定 `theora -> json-c -> libjpeg-turbo -> oatpp`，显式调用 Agent Workflow Runtime v3 与 external evaluator v4，任一失败立即停止，禁止 retry、replacement 与 backfill。恢复只接受完整连续 attempt 前缀，clone 后冻结 `source.tar` 供离线 clean replay；失败路径仍执行 finalize/cleanup。

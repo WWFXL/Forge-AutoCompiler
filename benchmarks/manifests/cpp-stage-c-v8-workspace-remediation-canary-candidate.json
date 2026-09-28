@@ -1,0 +1,537 @@
+{
+  "$schema": "../schemas/forge-stage-c-v8-workspace-remediation-canary-candidate.schema.json",
+  "analysis": {
+    "a_arm_present": false,
+    "descriptive_canary_only": true,
+    "generalization_claim_authorized": false,
+    "independent_unit": "task",
+    "kind": "b_arm_engineering_canary",
+    "model_ranking_authorized": false,
+    "p_value_computed": false,
+    "treatment_effect_estimated": false,
+    "v5_outcomes_replaced": false,
+    "v6_outcomes_replaced": false
+  },
+  "authorization": {
+    "candidate_identity_only": true,
+    "credential_read_authorized": false,
+    "docker_execution_authorized": false,
+    "evidence_write_authorized": false,
+    "formal_stage_c_attempts_authorized": false,
+    "model_creation_authorized": false,
+    "model_token_ceiling": null,
+    "model_tokens_authorized": false,
+    "provider_calls_authorized": false,
+    "reachability_request_authorized": false,
+    "stage_c_execution_started": false
+  },
+  "budget": {
+    "canary_attempts_max_recorded_tokens": null,
+    "per_attempt": {
+      "cleanup_reserve_seconds": 120,
+      "command_timeout_seconds": 900,
+      "evaluator_timeout_seconds": 1800,
+      "forge_max_agent_steps": 64,
+      "forge_max_commands": 32,
+      "forge_max_tool_calls": 48,
+      "max_model_requests": 24,
+      "max_recorded_tokens": null,
+      "replay_timeout_seconds": 1800,
+      "work_timeout_seconds": 1800
+    },
+    "reachability_max_recorded_tokens": null,
+    "reachability_max_requests": 1,
+    "token_accounting": {
+      "mode": "meter_each_request_without_ceiling",
+      "record_input_tokens": true,
+      "record_output_tokens": true,
+      "record_total_tokens": true,
+      "token_total_is_termination_condition": false
+    },
+    "total_max_recorded_tokens": null
+  },
+  "candidate_contract": {
+    "complete_delivery_scan": true,
+    "create_once": true,
+    "max_rejection_evidence_items": 12,
+    "oracle_raw_output_exposed": false,
+    "same_attempt_repair_and_resubmit": true,
+    "single_frozen_target_id": true,
+    "submission_schema_version": "agent-workflow-node-v1",
+    "system_owned_functional_oracle": true
+  },
+  "document_type": "forge_stage_c_v8_workspace_remediation_canary_candidate",
+  "environment": {
+    "base_image_digest": "sha256:224a1869083a311ef3f13648a154ba79832fbef6364d31493642ca03082da254",
+    "compile_image": "autocompiler:stage-c-v1",
+    "cpu_limit": 4,
+    "fresh_workspace_per_arm": true,
+    "image_id": "sha256:adbef4a26de49e9cd2c361a50b5fe2a000073a343b072ed0e515cc67e6e758b1",
+    "mutable_cache_shared": false,
+    "network_policy": {
+      "configure_build_stage_oracle_replay": "none",
+      "dependency": "frozen_image_only",
+      "source_clone": "task_remote_and_exact_submodules_only"
+    },
+    "parallel_jobs": 4,
+    "ubuntu_snapshot": "20260925T000000Z"
+  },
+  "execution": {
+    "commands": [
+      "validate",
+      "preflight",
+      "show-plan"
+    ],
+    "docker": {
+      "context": "default",
+      "endpoint": "unix:///var/run/docker.sock",
+      "provider": "linux-native"
+    },
+    "evidence_directory_relative": ".compile-sessions/benchmark-evidence-stage-c-v8-workspace-remediation-canary-candidate",
+    "planned_authorized_markers": {
+      "attempt_template": "attempts/{sequence:02d}-{task_id}/attempt.json",
+      "batch": "markers/batch.json",
+      "reachability": "markers/reachability.json"
+    },
+    "release_branch": "main",
+    "source_main_revision": "5a01b2ac51da57b699202de02dec6065a8f643be",
+    "workspace": {
+      "binding": "release_repository_root",
+      "compile_sessions_relative_path": ".compile-sessions",
+      "compile_sessions_root_must_be_writable": true,
+      "compile_sessions_root_must_not_be_symlink": true,
+      "host_workspace_root": ".",
+      "preflight_before_credential_model_provider_or_marker": true,
+      "process_host_roots_must_match": true,
+      "process_workspace_root": ".",
+      "repository_root_must_not_be_symlink": true
+    }
+  },
+  "external_evaluator": {
+    "backend": "external-evaluator-v4",
+    "backend_path": "backend/packages/harness/deerflow/compile/external_evaluator_v4.py",
+    "independent_after_candidate_freeze": true,
+    "layers": [
+      "S0",
+      "S1",
+      "S2",
+      "S3",
+      "S4",
+      "S5"
+    ],
+    "strict_success": "all_layers_passed"
+  },
+  "failure_audit": {
+    "file_sha256": "bbe7c554fdf82a6fafddc304d20f6737995a95250d8a939ec747f58e9a009845",
+    "path": "benchmarks/reports/cpp-stage-c-v7-workspace-failure-audit.json",
+    "report_file_sha256": "bcf2b083a88bf85a301e50eb623d4065dd27e5d0474243bd159cbe8d5dfdda0f",
+    "report_path": "benchmarks/reports/cpp-stage-c-v7-workspace-failure-audit.md"
+  },
+  "frozen_authorized_components": {
+    "backend/packages/harness/deerflow/compile/agent_workflow_runtime_v3.py": "2d71383d011e943f78e9259b9f7ceec2c8e1f080d7609e86413ce188a841f65e",
+    "backend/packages/harness/deerflow/compile/candidate_verifier.py": "e358b06ce2721d2ec90d3f30e9d1cb05d210e9c6f802690fc88a554c058dff7a",
+    "backend/packages/harness/deerflow/compile/external_evaluator_v4.py": "9009c400b1b54d9ad05411f1a64124423cf50d8ba49bfa2d13071d9bedad4613",
+    "benchmarks/manifests/cpp-stage-c-v7-prefreeze-verifier-canary-candidate.json": "021232ab43727fc0720edd4d07f3a27ceb1ec734ea35f7515a3b9041a4fafc5d",
+    "benchmarks/preregistrations/cpp-stage-c-v7-prefreeze-verifier-canary-authorized.md": "f57b750180977788bd774e8a04c00bee9bec4491e4045117cab6583dbb9412fa",
+    "benchmarks/preregistrations/cpp-stage-c-v7-prefreeze-verifier-canary-candidate.md": "7c2f5828d5b2c23edc3f907b742f1063d1975bb2484f659844fdeaea1dced909",
+    "benchmarks/schemas/forge-stage-c-v7-prefreeze-verifier-canary-candidate.schema.json": "58c46a7d2881ae051acbc48b5a4aac218b2d2790588516034fdfab634d34456c",
+    "scripts/forge_stage_c_v7_prefreeze_canary_authorized_protocol.py": "bb4c122719b638b9842b4b61037fd109739b9bb06a397ca107745fa12a440146",
+    "scripts/forge_stage_c_v7_prefreeze_canary_authorized_runner.py": "21375f95956e4268fda7448c2788597d9d095221608bbdd3fe0a99d5d21ff6bf",
+    "scripts/forge_stage_c_v7_prefreeze_canary_protocol.py": "cb84313d1569eec022118ca77f075a66bbf241fabfba7a4687de60f074077b7d"
+  },
+  "frozen_candidate_components": {
+    "backend/packages/harness/deerflow/compile/agent_workflow_runtime_v3.py": "2d71383d011e943f78e9259b9f7ceec2c8e1f080d7609e86413ce188a841f65e",
+    "backend/packages/harness/deerflow/compile/candidate_verifier.py": "e358b06ce2721d2ec90d3f30e9d1cb05d210e9c6f802690fc88a554c058dff7a",
+    "backend/packages/harness/deerflow/compile/external_evaluator_v4.py": "9009c400b1b54d9ad05411f1a64124423cf50d8ba49bfa2d13071d9bedad4613",
+    "benchmarks/manifests/cpp-stage-c-v7-prefreeze-verifier-canary-authorized.json": "e311add867c1aa88b1776c6fe08a3ea59d94edbe17e48bb37ae36054688e77ef",
+    "benchmarks/preregistrations/cpp-stage-c-v7-prefreeze-verifier-canary-authorized.md": "f57b750180977788bd774e8a04c00bee9bec4491e4045117cab6583dbb9412fa",
+    "benchmarks/preregistrations/cpp-stage-c-v8-workspace-remediation-canary-candidate.md": "32d86e3d9335c29c1b4374d88724f2c7123141f6e192ae42690a0d8e2397fa18",
+    "benchmarks/reports/cpp-stage-c-v7-workspace-failure-audit.json": "bbe7c554fdf82a6fafddc304d20f6737995a95250d8a939ec747f58e9a009845",
+    "benchmarks/reports/cpp-stage-c-v7-workspace-failure-audit.md": "bcf2b083a88bf85a301e50eb623d4065dd27e5d0474243bd159cbe8d5dfdda0f",
+    "benchmarks/schemas/forge-stage-c-v7-prefreeze-verifier-canary-authorized.schema.json": "8b770fa712e3fc11587e8e3591a65a6f88cc8f141be69abde847031888b49147",
+    "scripts/forge_stage_c_v7_prefreeze_canary_authorized_protocol.py": "bb4c122719b638b9842b4b61037fd109739b9bb06a397ca107745fa12a440146",
+    "scripts/forge_stage_c_v7_prefreeze_canary_authorized_runner.py": "21375f95956e4268fda7448c2788597d9d095221608bbdd3fe0a99d5d21ff6bf",
+    "scripts/forge_stage_c_v8_workspace_remediation_protocol.py": "5862ccf4bc86ebc0d58a58c74cfff66032d900af58a44b5c2a54a8643cf4c2aa",
+    "scripts/forge_stage_c_v8_workspace_remediation_runner.py": "5ac881c3ee1e9b7cbacd54ac1af86cf0a5e677828704c7b4d021bbbbd7eac64c"
+  },
+  "frozen_components": {
+    "backend/packages/harness/deerflow/compile/agent_workflow_runtime.py": "6522c31a81a3032cfd8ed3bc976aca93eea888ca3cd1840a7763ef5a3986b439",
+    "backend/packages/harness/deerflow/compile/agent_workflow_runtime_v2.py": "7358c8396a6eee7776f64f6645f0d516b1f4e6ed4743a249c1d8c32b4c1ecef5",
+    "backend/packages/harness/deerflow/compile/agent_workflow_runtime_v3.py": "2d71383d011e943f78e9259b9f7ceec2c8e1f080d7609e86413ce188a841f65e",
+    "backend/packages/harness/deerflow/compile/agent_workflow_schemas.py": "1491a153d3509bd4ebd96fc49e6d2e543d6af22c26df69fa51e34d02fdec1246",
+    "backend/packages/harness/deerflow/compile/candidate_verifier.py": "e358b06ce2721d2ec90d3f30e9d1cb05d210e9c6f802690fc88a554c058dff7a",
+    "backend/packages/harness/deerflow/compile/external_evaluator_v4.py": "9009c400b1b54d9ad05411f1a64124423cf50d8ba49bfa2d13071d9bedad4613",
+    "benchmarks/manifests/cpp-stage-c-paired-calibration-v5-session-identity-authorized.json": "72e264046f9aca73b2c30e830b57db671ef6ca400b4e92dc106b3c1a2534f19e",
+    "benchmarks/manifests/cpp-stage-c-v6-offline-reevaluation-authorized.json": "b72011da6a921c8e790826c198038830b55bed5d7256df5a3653604250389638",
+    "benchmarks/preregistrations/cpp-stage-c-v7-prefreeze-verifier-canary-candidate.md": "7c2f5828d5b2c23edc3f907b742f1063d1975bb2484f659844fdeaea1dced909",
+    "benchmarks/reports/cpp-stage-c-v6-failure-audit.json": "e64c04a1714dc03c19209a9c95b519fb34a8f83e8a8d9580cb5dbb23cdddf688",
+    "benchmarks/reports/cpp-stage-c-v6-failure-audit.md": "c4027a44b3177c431afdb9d37db2d18778bd96b4eee259f5a51479e147234ac8",
+    "benchmarks/reports/cpp-stage-c-v6-offline-reevaluation-result.json": "be0783c1f693d510291a853e1fa97223dfa716f539bf80c00fb1327502edf42f",
+    "benchmarks/reports/cpp-stage-c-v6-offline-reevaluation-result.md": "318e3d76dfab6e979070b45685e5bf0b8ddc127c51371efca1d7571375e503d7",
+    "scripts/forge_stage_c_protocol.py": "09671fcf3460394e9be702f8ac6ea0d37f5b06be7110de4493362f78d4108d42",
+    "scripts/forge_stage_c_runner.py": "c92e9b45e9fad6d57a69c263feaa66bd1ebb9dcdd9baa791241e00b1563b0391",
+    "scripts/forge_stage_c_v5_protocol.py": "029805b706e228354ab23747e96adc02ed58ac370240c94600843a060697db93",
+    "scripts/forge_stage_c_v7_prefreeze_canary_protocol.py": "cb84313d1569eec022118ca77f075a66bbf241fabfba7a4687de60f074077b7d"
+  },
+  "historical_inputs": {
+    "v5_manifest": {
+      "canonical_sha256": "11eefa99737b6e20fdf5d300802cf5a7cf0a9178a5f0a44de4028693721859a2",
+      "file_sha256": "72e264046f9aca73b2c30e830b57db671ef6ca400b4e92dc106b3c1a2534f19e",
+      "path": "benchmarks/manifests/cpp-stage-c-paired-calibration-v5-session-identity-authorized.json",
+      "read_only": true
+    },
+    "v6_failure_audit": {
+      "file_sha256": "e64c04a1714dc03c19209a9c95b519fb34a8f83e8a8d9580cb5dbb23cdddf688",
+      "path": "benchmarks/reports/cpp-stage-c-v6-failure-audit.json",
+      "read_only": true
+    },
+    "v6_manifest": {
+      "canonical_sha256": "00530ddc740ae98f0327a89e5a1860e9a983c9e47b9aaeabd27543f4c75f23dd",
+      "file_sha256": "b72011da6a921c8e790826c198038830b55bed5d7256df5a3653604250389638",
+      "path": "benchmarks/manifests/cpp-stage-c-v6-offline-reevaluation-authorized.json",
+      "read_only": true
+    },
+    "v6_result": {
+      "file_sha256": "be0783c1f693d510291a853e1fa97223dfa716f539bf80c00fb1327502edf42f",
+      "path": "benchmarks/reports/cpp-stage-c-v6-offline-reevaluation-result.json",
+      "read_only": true
+    }
+  },
+  "issue_url": "https://github.com/WWFXL/Forge-AutoCompiler/issues/345",
+  "methods": {
+    "B": {
+      "external_evaluator_feedback_to_agent": false,
+      "name": "forge-agent-workflow-node-v3",
+      "prefreeze_feedback_to_agent": true,
+      "runtime_path": "backend/packages/harness/deerflow/compile/agent_workflow_runtime_v3.py",
+      "runtime_version": "agent-workflow-runtime-v3",
+      "zero_model_fast_path": false
+    }
+  },
+  "parent_authorized_v7": {
+    "batch_resumable": false,
+    "manifest_file_sha256": "e311add867c1aa88b1776c6fe08a3ea59d94edbe17e48bb37ae36054688e77ef",
+    "manifest_path": "benchmarks/manifests/cpp-stage-c-v7-prefreeze-verifier-canary-authorized.json",
+    "manifest_sha256": "261da6d0d0416073998d9aed544c99dba3097784fa2c3edd0022a2cd96e3086f",
+    "outcomes_imported": false,
+    "read_only": true,
+    "release_revision": "5a01b2ac51da57b699202de02dec6065a8f643be"
+  },
+  "parent_candidate": {
+    "canonical_sha256": "80de8fa1ca05910384570920bd67762935f67c2567c4c905a40c86232ed73983",
+    "file_sha256": "021232ab43727fc0720edd4d07f3a27ceb1ec734ea35f7515a3b9041a4fafc5d",
+    "historical_evidence_reused": false,
+    "historical_outcomes_imported": false,
+    "manifest_path": "benchmarks/manifests/cpp-stage-c-v7-prefreeze-verifier-canary-candidate.json",
+    "preregistration_file_sha256": "7c2f5828d5b2c23edc3f907b742f1063d1975bb2484f659844fdeaea1dced909",
+    "preregistration_path": "benchmarks/preregistrations/cpp-stage-c-v7-prefreeze-verifier-canary-candidate.md",
+    "protocol_file_sha256": "cb84313d1569eec022118ca77f075a66bbf241fabfba7a4687de60f074077b7d",
+    "protocol_path": "scripts/forge_stage_c_v7_prefreeze_canary_protocol.py",
+    "schema_file_sha256": "58c46a7d2881ae051acbc48b5a4aac218b2d2790588516034fdfab634d34456c",
+    "schema_path": "benchmarks/schemas/forge-stage-c-v7-prefreeze-verifier-canary-candidate.schema.json"
+  },
+  "preregistration": {
+    "file_sha256": "32d86e3d9335c29c1b4374d88724f2c7123141f6e192ae42690a0d8e2397fa18",
+    "path": "benchmarks/preregistrations/cpp-stage-c-v8-workspace-remediation-canary-candidate.md"
+  },
+  "provider": {
+    "actual_model": "deepseek-flash",
+    "credential_env_name": "DEEPSEEK_API_KEY",
+    "endpoint": "https://api.deepseek.com",
+    "fallback_enabled": false,
+    "model_max_retries": 0,
+    "parallel_tool_calls": false,
+    "profile": "deepseek-flash",
+    "provider": "deepseek",
+    "request_timeout_seconds": 300,
+    "seed": "provider_unsupported",
+    "temperature": "provider_default_unsupported_freeze",
+    "top_p": "provider_default_unsupported_freeze"
+  },
+  "purpose": "stage_c_v8_workspace_remediation_canary_candidate",
+  "schedule": {
+    "attempts": [
+      {
+        "arm": "B",
+        "attempt_id": "stage-c-v8-theora-workspace-remediation-b-canary",
+        "canary_id": "stage-c-v8-theora-workspace-remediation-canary",
+        "method": "forge-agent-workflow-node-v3",
+        "sequence": 1,
+        "source_attempt_id": "stage-c-v5-theora-r1-b",
+        "source_evaluation_id": "stage-c-v6-theora-r1-b-reevaluation",
+        "source_primary_failure": "candidate_artifact_set_mismatch",
+        "source_root_cause": "broad_install_left_undeclared_static_libraries_and_zero_byte_support_file",
+        "task_id": "theora"
+      },
+      {
+        "arm": "B",
+        "attempt_id": "stage-c-v8-json-c-workspace-remediation-b-canary",
+        "canary_id": "stage-c-v8-json-c-workspace-remediation-canary",
+        "method": "forge-agent-workflow-node-v3",
+        "sequence": 2,
+        "source_attempt_id": "stage-c-v5-json-c-r2-b",
+        "source_evaluation_id": "stage-c-v6-json-c-r2-b-reevaluation",
+        "source_primary_failure": "target_mapping_invalid",
+        "source_root_cause": "extra_target_mapping_key_and_incomplete_public_header_delivery",
+        "task_id": "json-c"
+      },
+      {
+        "arm": "B",
+        "attempt_id": "stage-c-v8-libjpeg-turbo-workspace-remediation-b-canary",
+        "canary_id": "stage-c-v8-libjpeg-turbo-workspace-remediation-canary",
+        "method": "forge-agent-workflow-node-v3",
+        "sequence": 3,
+        "source_attempt_id": "stage-c-v5-libjpeg-turbo-r2-b",
+        "source_evaluation_id": "stage-c-v6-libjpeg-turbo-r2-b-reevaluation",
+        "source_primary_failure": "candidate_verifier_failed",
+        "source_root_cause": "broad_install_left_undeclared_library_and_tools_with_three_failed_default_smokes",
+        "task_id": "libjpeg-turbo"
+      },
+      {
+        "arm": "B",
+        "attempt_id": "stage-c-v8-oatpp-workspace-remediation-b-canary",
+        "canary_id": "stage-c-v8-oatpp-workspace-remediation-canary",
+        "method": "forge-agent-workflow-node-v3",
+        "sequence": 4,
+        "source_attempt_id": "stage-c-v5-oatpp-r2-b",
+        "source_evaluation_id": "stage-c-v6-oatpp-r2-b-reevaluation",
+        "source_primary_failure": "candidate_artifact_set_mismatch",
+        "source_root_cause": "test_library_was_installed_but_not_declared",
+        "task_id": "oatpp"
+      }
+    ],
+    "backfill": false,
+    "canary_attempt_count": 4,
+    "historical_candidates_reused": false,
+    "replacement": false,
+    "retry": false,
+    "stop_on_first_failure": true
+  },
+  "schema_version": "forge-stage-c-v8-workspace-remediation-canary-candidate-1.0.0",
+  "status": "candidate_not_authorized",
+  "tasks": [
+    {
+      "build_system_capabilities": [
+        "autotools"
+      ],
+      "build_system_stratum": "autotools",
+      "commit_sha": "28fd5ec77f0ad0e07a371cef1047828116f6bd8a",
+      "dataset": "top100",
+      "documentation_stratum": "ambiguous",
+      "license_path": "COPYING",
+      "license_sha256": "8417fad7da775735564e209484a2e011e0fa201e94f01fdbee6e4977e478e6fc",
+      "oracle": {
+        "compile_argv": [
+          "cc",
+          "-std=c11",
+          "-I/artifacts/include",
+          "{source}",
+          "/artifacts/lib/libtheora.a",
+          "-logg",
+          "-lm",
+          "-o",
+          "{executable}"
+        ],
+        "kind": "compile_and_run",
+        "language": "c11",
+        "run_argv": [
+          "{executable}"
+        ],
+        "source": "#include <theora/theora.h>\nint main(void){ theora_info i; theora_info_init(&i); theora_info_clear(&i); return 0; }\n"
+      },
+      "qualification_receipt": {
+        "bitwise_reproducible": true,
+        "passed": true,
+        "receipt_sha256": "73aab4beeed33572d991927032b4c252b76afdc13f9f4fedb01c8c7d5d505ab3",
+        "replicate_count": 2
+      },
+      "repository_url": "https://github.com/xiph/theora.git",
+      "selected_build_system": "autotools",
+      "selection_key": "47da9b0cffe2a6352dbf1f7b8278f203fd4014b90341a30fad549a879508f84d",
+      "size_stratum": "large",
+      "source_snapshot_sha256": "877a1d6307abea54295959252f48fd39fb44d8f096212720bc46f0ef0692d7e5",
+      "submodule_commits": {},
+      "target_contract": {
+        "artifact_types": [
+          "support_file",
+          "static_library"
+        ],
+        "bitwise_required": true,
+        "required_artifacts": [
+          "include/theora/theora.h",
+          "lib/libtheora.a"
+        ],
+        "target_id": "theora-static-library"
+      },
+      "task_id": "theora",
+      "tracked_file_count": 274
+    },
+    {
+      "build_system_capabilities": [
+        "cmake",
+        "cmake-configure"
+      ],
+      "build_system_stratum": "multi",
+      "commit_sha": "25895a587eb5a80ee18514af784122e3bacb10c4",
+      "dataset": "awesome_cpp",
+      "documentation_stratum": "ambiguous",
+      "license_path": "COPYING",
+      "license_sha256": "74c1e6ca5eba76b54d0ad00d4815c8315c1b3bc45ff99de61d103dc92486284c",
+      "oracle": {
+        "compile_argv": [
+          "cc",
+          "-std=c11",
+          "-I/artifacts/include",
+          "{source}",
+          "/artifacts/lib/libjson-c.a",
+          "-pthread",
+          "-lm",
+          "-o",
+          "{executable}"
+        ],
+        "kind": "compile_and_run",
+        "language": "c11",
+        "run_argv": [
+          "{executable}"
+        ],
+        "source": "#include <json-c/json.h>\nint main(void){ struct json_object *o=json_object_new_int(7); if(!o) return 1; int ok=json_object_get_int(o)==7; json_object_put(o); return ok ? 0 : 2; }\n"
+      },
+      "qualification_receipt": {
+        "bitwise_reproducible": true,
+        "passed": true,
+        "receipt_sha256": "b8f5409e132d539dc6454ab2aac6b96cf53527fb5718cf90ab4c74f3d195df28",
+        "replicate_count": 2
+      },
+      "repository_url": "https://github.com/json-c/json-c.git",
+      "selected_build_system": "cmake",
+      "selection_key": "0ad996ba620eb479e78fb66dad2ed2eab3074e7099213974e05f20af4d23c2f1",
+      "size_stratum": "medium",
+      "source_snapshot_sha256": "5eb4b4783df616ab418ece3fd0681f66f8f455b99f93e84634fbd5bf07a3667f",
+      "submodule_commits": {},
+      "target_contract": {
+        "artifact_types": [
+          "support_file",
+          "static_library"
+        ],
+        "bitwise_required": true,
+        "required_artifacts": [
+          "include/json-c/json.h",
+          "lib/libjson-c.a"
+        ],
+        "target_id": "json-c-static-library"
+      },
+      "task_id": "json-c",
+      "tracked_file_count": 205
+    },
+    {
+      "build_system_capabilities": [
+        "cmake"
+      ],
+      "build_system_stratum": "cmake",
+      "commit_sha": "dd8ad7915cdf5ab1f8719d488894a5e54c876dd6",
+      "dataset": "top100",
+      "documentation_stratum": "clear",
+      "license_path": "LICENSE.md",
+      "license_sha256": "ba6bceebcba0fdd35488477c2cca8c4632ce82c74dbfbc87d886ce6fc4433579",
+      "oracle": {
+        "compile_argv": [
+          "cc",
+          "-std=c11",
+          "-I/artifacts/include",
+          "{source}",
+          "/artifacts/lib/libjpeg.a",
+          "-o",
+          "{executable}"
+        ],
+        "kind": "compile_and_run",
+        "language": "c11",
+        "run_argv": [
+          "{executable}"
+        ],
+        "source": "#include <stdio.h>\n#include <jpeglib.h>\nint main(void){ struct jpeg_error_mgr e; return jpeg_std_error(&e) == &e ? 0 : 1; }\n"
+      },
+      "qualification_receipt": {
+        "bitwise_reproducible": true,
+        "passed": true,
+        "receipt_sha256": "12a26ea4f04a521ab21a1107b55e3365f3c11a75f4a4c745124179a710c5c065",
+        "replicate_count": 2
+      },
+      "repository_url": "https://github.com/libjpeg-turbo/libjpeg-turbo.git",
+      "selected_build_system": "cmake",
+      "selection_key": "703aeb9d76c0aecac3c80ec72096ef9dbbf9c0317cbc849e5a09026ea579ca3a",
+      "size_stratum": "large",
+      "source_snapshot_sha256": "1ed97e520d88d3d3cfb47fd3ad461311bf9b89c82549c3a5d2d653f9e8314c6a",
+      "submodule_commits": {},
+      "target_contract": {
+        "artifact_types": [
+          "support_file",
+          "static_library"
+        ],
+        "bitwise_required": true,
+        "required_artifacts": [
+          "include/jpeglib.h",
+          "lib/libjpeg.a"
+        ],
+        "target_id": "libjpeg-turbo-static-library"
+      },
+      "task_id": "libjpeg-turbo",
+      "tracked_file_count": 622
+    },
+    {
+      "build_system_capabilities": [
+        "cmake"
+      ],
+      "build_system_stratum": "cmake",
+      "commit_sha": "f83d648fd82dc222ef88aabbafb68efbd7d7bf50",
+      "dataset": "top100",
+      "documentation_stratum": "ambiguous",
+      "license_path": "LICENSE",
+      "license_sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+      "oracle": {
+        "compile_argv": [
+          "c++",
+          "-std=c++17",
+          "-I/artifacts/include/oatpp-1.4.0/oatpp",
+          "{source}",
+          "/artifacts/lib/oatpp-1.4.0/liboatpp.a",
+          "-pthread",
+          "-latomic",
+          "-o",
+          "{executable}"
+        ],
+        "kind": "compile_and_run",
+        "language": "c++17",
+        "run_argv": [
+          "{executable}"
+        ],
+        "source": "#include <oatpp/Environment.hpp>\nint main(){ oatpp::Environment::init(); oatpp::Environment::destroy(); return 0; }\n"
+      },
+      "qualification_receipt": {
+        "bitwise_reproducible": true,
+        "passed": true,
+        "receipt_sha256": "8efd69bd3ce76d4865e147d413b7bac931de471c36e17442323de580f5c61aeb",
+        "replicate_count": 2
+      },
+      "repository_url": "https://github.com/oatpp/oatpp.git",
+      "selected_build_system": "cmake",
+      "selection_key": "d6cd515934fca3d9e7d34cf6e5eb4fd6062617810e11cd5b777e6fe10bd7d090",
+      "size_stratum": "large",
+      "source_snapshot_sha256": "b921579d93578104353d112696491f32836be9d987c1c77bb4735b668fbcfbe3",
+      "submodule_commits": {},
+      "target_contract": {
+        "artifact_types": [
+          "support_file",
+          "static_library"
+        ],
+        "bitwise_required": true,
+        "required_artifacts": [
+          "include/oatpp-1.4.0/oatpp/oatpp/Environment.hpp",
+          "lib/oatpp-1.4.0/liboatpp.a"
+        ],
+        "target_id": "oatpp-static-library"
+      },
+      "task_id": "oatpp",
+      "tracked_file_count": 467
+    }
+  ]
+}
