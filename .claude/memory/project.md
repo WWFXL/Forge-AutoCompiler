@@ -6,14 +6,24 @@
 
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
-- 2026-09-29 — 开始 Issue #355 release-bound 授权身份阶段
+- 2026-09-29 — 开始 Issue #357 availability qualification 候选 amendment 阶段
+  - Release: PR #356 四项 CI 全绿并经用户确认 squash-merge 为 `main@25b358814e4749031cc7fd3d83139a79d884f7a4`，Issue #355 已关闭；新分支为 `yiwei/357-contract-repair-availability-candidate`。
+  - 工作类型: 实验授权基础设施。绑定父 authorized canonical `840eac32...0a0a0` 和 exact implementation release，原样继承科学合同、schedule、预算、停止规则和 create-once evidence identity。
+  - Availability 合同: DeepSeek `deepseek-flash`；唯一无实验内容请求 `Reply exactly with FORGE_READY.`；最多 2 attempts，只允许一次 0-response/0-token/0-side-effect transport retry；无 token ceiling 但逐响应记账；失败不得创建 batch。
+  - 身份分层: candidate implementation 为 true；availability execution、formal collection、credential、Provider、model creation、Docker Session、formal attempt、evidence write 和 model token 授权均为 false。`availability`/`batch` 在 manifest/runtime probe 前 fail closed。
+  - 当前验证: candidate + authorized + parent candidate + Runtime v3 qualification + design sensitivity 共 `45 passed`；CandidateVerifier、P2、external evaluator v3 与 lifecycle 相邻回归 `80 passed`；Ruff check/format、`py_compile`、两次确定性生成、protocol/runner CLI 与受限入口负测通过。提交后的 clean-tree 非模型 preflight 为 `ready=true`，冻结镜像、0 managed resources 和 evidence path absent 均通过；candidate canonical SHA-256 为 `e0583ddb5830f2181450ef73b9275de8d5ec5d8166ec6c3ad46c319698479f00`。
+  - 边界: 0 credential read、0 Provider、0 model creation、0 Docker Session、0 formal attempt、0 model token、0 marker/ledger/evidence write。下一步推送并建立关联 Issue #357 的 PR；PR 合并仍不授权 availability execution。
+  - 文件: `scripts/forge_contract_driven_repair_mechanism_v1_availability_candidate_protocol.py`, `scripts/forge_contract_driven_repair_mechanism_v1_availability_candidate_runner.py`, `backend/tests/test_forge_contract_driven_repair_mechanism_v1_availability_candidate.py`, `benchmarks/manifests/cpp-contract-driven-repair-mechanism-v1-availability-candidate.json`, `benchmarks/schemas/forge-contract-driven-repair-mechanism-v1-availability-candidate.schema.json`, `benchmarks/preregistrations/cpp-contract-driven-repair-mechanism-v1-availability-candidate.md`
+
+- 2026-09-29 — 完成 Issue #355 release-bound 授权身份阶段
   - Release: PR #354 四项 CI 全绿后经用户确认 squash-merge，最终为 `main@a63f328b0cd2771ec656414e697ebbb831391ed9`；Issue #352/#353 已关闭。新分支为 `yiwei/355-contract-repair-authorized-identity`。
   - 工作类型: 实验身份工程与基础设施。原样继承父 candidate 的 provider、预算、feedback、12 checkpoints / 36 arms schedule、终点、分析和停止规则；本阶段不产生 observation。
   - 身份分层: `identity_implementation_authorized=true`；availability、formal collection、credential、Provider、model creation、Docker Session、formal attempt、evidence write 和 model token 授权均为 false。blocked 命令在 identity/runtime probe 前 fail closed。
   - Release/evidence: 科学合同 release 固定为 `a63f328b...391ed9`，父 canonical 为 `fc1ec9ad...00f8f`；执行实现必须是 clean descendant 并记录 exact SHA。独立 create-once evidence 路径在授权 marker 前必须不存在。
   - 环境: Stage C qualification 权威镜像为 `autocompiler:stage-c-v1@sha256:adbef4a...e758b1`。首次探针发现旧 Stage B 标签 `autocompiler:gcc13` 指向另一镜像，已按现有 qualification/Stage C manifest 修正新 protocol 标签，未 retag、rebuild 或启动容器。
   - 当前验证: authorized + parent candidate + Runtime v3 qualification + design sensitivity 静态门禁 `37 passed`；CandidateVerifier、P2、external evaluator v3 与 lifecycle 相邻回归 `80 passed`；Ruff check/format、`py_compile`、两次确定性再生成和受限 CLI fail-closed 检查通过。提交后的干净工作树真实非模型 preflight 为 `ready=true`：Docker daemon/Compose/socket、冻结 image ID、0 managed resources 和 evidence path absent 均通过，全部执行计数为 0。
-  - 边界: 0 credential read、0 Provider、0 model creation、0 Docker Session、0 formal attempt、0 model token、0 marker/ledger/evidence write。下一步推送并建立关联 Issue #355 的 PR；合并后再记录 authorized implementation revision，availability 与 formal collection 继续等待各自明确授权。
+  - 发布: PR #356 四项 CI 全绿并经用户确认 squash-merge 为 `main@25b358814e4749031cc7fd3d83139a79d884f7a4`；Issue #355 自动关闭。全过程为 0 credential read、0 Provider、0 model creation、0 Docker Session、0 formal attempt、0 model token、0 marker/ledger/evidence write。
+  - 下一步: Issue #357 从 authorized implementation release 派生 availability qualification candidate；availability 与 formal collection 继续等待各自明确授权。
   - 文件: `scripts/forge_contract_driven_repair_mechanism_v1_authorized_protocol.py`, `scripts/forge_contract_driven_repair_mechanism_v1_authorized_runner.py`, `backend/tests/test_forge_contract_driven_repair_mechanism_v1_authorized.py`, `benchmarks/manifests/cpp-contract-driven-repair-mechanism-v1-authorized.json`, `benchmarks/schemas/forge-contract-driven-repair-mechanism-v1-authorized.schema.json`, `benchmarks/preregistrations/cpp-contract-driven-repair-mechanism-v1-authorized.md`
 
 - 2026-09-29 — 冻结并实现契约驱动修复三臂未授权候选 identity
