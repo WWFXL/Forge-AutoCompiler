@@ -4,8 +4,8 @@
 
 ## 当前阶段
 
-- 状态：availability execution 与审计已分别由 PR #360/#362 合并；Issue #363 正在实现绑定通过 marker 的 36-arm formal collection execution identity，当前仍处于合并前基础设施门禁阶段。
-- 当前工作类型：实验执行基础设施。已形成一个 endpoint availability observation，但尚未创建 C0/T1/T2 formal observation；本分支全部验证为零 Provider qualification，不能解释为 treatment effect。
+- 状态：PR #364 已合并为 `main@e5acf5d7`；formal identity 在首个 T2 arm 完成后因 runner marker 封口缺陷停止。Issue #365 正在冻结失败审计与独立 repair，原 identity 禁止续跑或回填。
+- 当前工作类型：正式数据采集失败审计与工程修复。已形成 1 个 incomplete-batch arm observation，但没有完整 checkpoint、project block 或可计算的 C0/T1/T2 比较。
 - 研究目标：围绕自动化编译形成范围适中、可验证、可复现的毕业论文贡献；Forge 的 Agent Workflow Node 与 Multi-Agent 视为研究基础设施，CXXCrafter 视为相关工作之一。
 - 首选方向：面向自动化编译的契约驱动修复，组合可恢复失败状态、确定性候选验证反馈和分层正确性判定。
 - 当前主问题候选：在相同编译失败状态、模型、工具和预算下，C0 普通失败、T1 合同 finding、T2 finding + 抽象 repair goal 三种反馈暴露是否产生不同的严格候选转换率，并减少重复或无效动作？
@@ -36,7 +36,7 @@ Repo2Run、EvoConfig、PhantomRun、跨 ISA Build-bench、Exact Feedback、SpecH
 - 生产 verifier 已能生成确定性、有界、结构化的 delivery、artifact、target mapping 和 functional-oracle findings；candidate verification、external evaluator 与 clean replay 保持独立。
 - Runtime v3 三臂 qualification：delivery/target 与 provenance 两个真实 Docker parent checkpoint 均派生 C0/T1/T2；六个 arm 的 candidate、functional oracle、provenance、external evaluator v3、clean replay 和 cleanup 全部闭合，最终复跑为 `2 passed in 75.93s`，运行前后 0 managed orphan。该结果只证明基础设施可执行，不是 treatment evidence。
 - Availability qualification：绑定 `main@09d7ff36` 与 execution manifest `cf21d2c...7839` 的唯一 `deepseek-flash` request 在首个 attempt 通过；39 input / 19 output / 58 total tokens，exact response 与 model identity 匹配，0 tool side effects、0 managed resources。Marker SHA-256 为 `8527d64a...8bee`；这只证明固定端点在该时点完成往返。
-- Formal execution candidate：Issue #363 已确定性派生 12 个 matched checkpoints / 36 arms 的 create-once runner，当前 manifest canonical SHA-256 为 `3a843799109e1163b34f4ed046f0155c7eca91a48ebaecb904e5ad3ed015829f`。最终双 stratum Docker gate 中 delivery/target 通过；provenance 首次因 GitHub TLS handshake 在 clone 阶段中断，未形成 checkpoint，确认 0 managed resources 后单独复跑通过。该证据只支持 runner 可执行与清理闭合。
+- Formal execution failure：manifest `3a843799...5829f` 在 clean-main preflight 后启动；sequence 1（`rnnoise-0.1.1:delivery_target / T2`）以 5 requests / 44,561 input / 8,423 output / 52,984 total tokens 达到 strict endpoint，S0-S5、clean replay 与 cleanup 均通过。随后 `_update_claimed_marker` 的 mapping/keyword 调用合同不一致导致 attempt 与 batch marker 无法封口，schedule 在 sequence 2 前停止。冻结 evidence 为 9 files / 66,466 bytes，inventory SHA-256 `24019a37...2fb5`，失败后 0 managed resources。该单 arm 不支持 treatment effect。
 
 ## 设计审计结论
 
@@ -79,30 +79,28 @@ Repo2Run、EvoConfig、PhantomRun、跨 ISA Build-bench、Exact Feedback、SpecH
 - 实现、审阅 release-bound identity，并运行不读取 credential、不创建容器或 evidence 的非模型 preflight。
 - 派生、审阅 availability qualification 候选 amendment，并运行同样的非模型 preflight。
 - 从已通过的 availability marker 派生并审阅独立 formal collection execution identity；绑定 marker 哈希后才允许创建 36-arm batch。
-- Issue #363 的实现、测试、提交、推送、PR、CI 与合并；合并后在 clean `main == origin/main` 上运行 formal preflight，并在其通过后按冻结 schedule 执行唯一 batch。研究负责人已授权 credential presence check、`deepseek-flash` Provider 调用、formal attempt、create-once evidence 和结果审计。
+- 对失败 formal evidence 做只读核验；实现不修改冻结 runner 的独立 marker repair；提交、推送、PR、CI 与合并 Issue #365 的审计和工程修复。
 
 禁止：
 
 - 重跑、retry、replacement、backfill 或改写任何历史 experiment identity；
 - 修改、移动、删除或重新生成冻结 evidence；
-- 在 execution identity 合并和 clean-main preflight 通过前读取 Provider 凭据、调用模型、创建 formal attempt 或写入新 evidence；禁止越过 identity、schedule、预算、retry、停止规则或第二个 endpoint-censored arm，禁止把 qualification 当作 treatment evidence。
+- 对 manifest `3a843799...5829f` 的 batch 做续跑、重跑、replacement、backfill、marker 手工修补或新增 evidence；在新的科研决策与独立 identity 合并前调用 Provider；禁止把单个 T2 arm 或 qualification 当作 treatment evidence。
 
 ## 当前工作区与知识库状态
 
-- 当前工作分支：`yiwei/363-contract-repair-formal-collection`；基线为 availability 审计合并后的 `main@c04507aa31d0352bd3bc05b97448a4809e149d2e`，tracking Issue 为 #363。
+- 当前工作分支：`yiwei/365-formal-marker-failure-audit`；基线为 formal execution 合并后的 `main@e5acf5d79209fea8894fc31aad1cbb3ce815b205`，tracking Issue 为 #365。
 - Stage C v8 原始 evidence 保持只读，权威结果入口为 `benchmarks/reports/cpp-stage-c-v8-workspace-remediation-result-audit.md`。
 - Runtime v3 qualification 入口为 `benchmarks/preregistrations/cpp-runtime-v3-three-arm-zero-provider-qualification.md`；它是基础设施门禁记录，不是 formal experiment evidence。
 - 候选预注册决策包入口为 `docs/research/2026-09-29-contract-driven-repair-preregistration-decision.md`；研究负责人已冻结其推荐方案，但它不是执行授权。
 - 父 candidate 入口为 `benchmarks/manifests/cpp-contract-driven-repair-mechanism-v1-candidate.json`；新 release-bound identity 入口为 `benchmarks/manifests/cpp-contract-driven-repair-mechanism-v1-authorized.json`。当前只授权身份实现，availability、formal collection、credential、Provider、Docker Session、formal attempt、formal evidence 和 model token 授权均为 false。
 - Issue #357 availability candidate 入口为 `benchmarks/manifests/cpp-contract-driven-repair-mechanism-v1-availability-candidate.json`；它绑定 authorized implementation release，但 availability execution 与 formal collection 仍均未授权。
 - Issue #359 availability execution 入口为 `benchmarks/manifests/cpp-contract-driven-repair-mechanism-v1-availability-execution.json`；通过 marker 的版本化只读审计为 `benchmarks/reports/cpp-contract-driven-repair-mechanism-v1-availability-audit.md`，formal collection 仍在该 identity 中关闭。
-- Issue #363 formal execution 入口为 `benchmarks/manifests/cpp-contract-driven-repair-mechanism-v1-formal-execution.json`；预注册、const Schema、protocol、runner 与零 Provider gate 尚待提交和 PR 审阅。正式 evidence 目录仍不存在。
+- Issue #363 formal execution 入口为 `benchmarks/manifests/cpp-contract-driven-repair-mechanism-v1-formal-execution.json`；原始 evidence 位于 `.compile-sessions/benchmark-evidence-contract-driven-repair-mechanism-v1-authorized`，保持只读。Issue #365 审计入口为 `benchmarks/reports/cpp-contract-driven-repair-mechanism-v1-formal-failure-audit.md`。
 - 2026-09-29 已按 `search_notes -> read_note` 核对个人知识库中的毕业论文方向与契约驱动修复主笔记；本轮不修改知识库。
 
 ## 下一项工作
 
-完成 Issue #363 的最终静态/零 Provider Docker 验证后提交、推送并创建中文 PR；CI 通过后按既有授权合并。
-随后只在 clean `main == origin/main` 上运行 strict preflight；通过后串行执行唯一 36-arm batch，每个 checkpoint
-边界持久化 marker/ledger，第二个 endpoint-censored arm 或任何 identity、model、ledger、evaluator、cleanup 异常立即停止。
-
-availability 与 qualification 均不构成 treatment outcome；formal collection 尚未开始。
+完成 Issue #365 的只读失败审计、独立 marker repair、回归、PR 与 CI。修复合并后需要研究负责人在三个选项中
+作出决定：使用全新 opaque identity 从 36 arms 重新开始；创建显式 evidence-import amendment 并预注册首 arm 的
+处理；停止本轮 collection。任何选项都不得修改现有 9 文件 evidence；在决定与新 identity 合并前不再调用 Provider。
