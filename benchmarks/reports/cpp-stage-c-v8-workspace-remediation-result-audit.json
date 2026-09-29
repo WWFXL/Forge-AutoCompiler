@@ -1,0 +1,548 @@
+{
+  "batch": {
+    "attempt_count": 4,
+    "bitwise_reproducible_count": 4,
+    "cleanup_succeeded_count": 4,
+    "marker_status": "passed",
+    "report_status": "completed",
+    "s0_s5_passed": {
+      "S0": 4,
+      "S1": 4,
+      "S2": 4,
+      "S3": 4,
+      "S4": 4,
+      "S5": 4
+    },
+    "strict_success_count": 4,
+    "task_order": [
+      "theora",
+      "json-c",
+      "libjpeg-turbo",
+      "oatpp"
+    ],
+    "task_tokens": {
+      "input_tokens": 260826,
+      "output_tokens": 19080,
+      "requests": 36,
+      "total_tokens": 279906
+    },
+    "total_tokens_with_reachability": {
+      "input_tokens": 260873,
+      "output_tokens": 19115,
+      "requests": 37,
+      "total_tokens": 279988
+    },
+    "zero_managed_resources": true
+  },
+  "document_type": "forge_stage_c_v8_workspace_remediation_result_audit",
+  "execution_boundary": {
+    "credential_read": false,
+    "docker_executed": false,
+    "experiment_evidence_written": false,
+    "formal_attempts": 0,
+    "model_tokens": 0,
+    "next_action": "review_result_freeze_then_decide_confirmatory_sample_independent_replication_or_stop",
+    "provider_calls": 0,
+    "rerun_allowed": false,
+    "retry_replacement_backfill_allowed": false,
+    "source_evidence_modified": false
+  },
+  "identity": {
+    "external_evaluator": "external-evaluator-v4",
+    "manifest_canonical_sha256": "df3a8c7ac1e13567b99ec5b7c77d341b6df20f35236cf767e76c06af46835a61",
+    "manifest_file_sha256": "eb7cb461c17720f4ed6526a76d01e5112d59db19c857afbf1d08d81e1b2200d5",
+    "manifest_path": "benchmarks/manifests/cpp-stage-c-v8-workspace-remediation-canary-authorized.json",
+    "parent_manifest_canonical_sha256": "4ed33a827d2c801ed1b0f56c717ee332f0a65141ed8d07d05326ff373dd07f6d",
+    "release_revision": "6682d86cb30cc4e8d7b240bca8922606077a4808",
+    "runtime": "agent-workflow-runtime-v3",
+    "source_evidence_root": ".compile-sessions/benchmark-evidence-stage-c-v8-workspace-remediation-canary-authorized-v1"
+  },
+  "interpretation": {
+    "analysis_kind": "descriptive_b_arm_engineering_canary_result_freeze",
+    "model_ranking_performed": false,
+    "p_value_computed": false,
+    "supported_claims": [
+      "workspace_remediation_closed_end_to_end_for_four_fixed_canary_tasks",
+      "prefreeze_rejection_and_same_attempt_repair_observed_for_libjpeg_turbo",
+      "all_four_candidates_passed_external_evaluator_v4_s0_s5_bitwise_replay_and_cleanup"
+    ],
+    "treatment_effect_estimated": false,
+    "unsupported_claims": [
+      "stage_c_v5_result_replacement",
+      "treatment_effect_or_statistical_significance",
+      "population_success_rate",
+      "provider_or_model_ranking",
+      "generalization_beyond_observed_tasks_environment_or_identity"
+    ],
+    "v5_outcomes_replaced": false,
+    "v6_outcomes_replaced": false,
+    "v7_terminal_state_rewritten": false
+  },
+  "issue_url": "https://github.com/WWFXL/Forge-AutoCompiler/issues/351",
+  "reachability": {
+    "actual_model": "deepseek-flash",
+    "marker_status": "passed",
+    "passed": true,
+    "tokens": {
+      "input_tokens": 47,
+      "output_tokens": 35,
+      "requests": 1,
+      "total_tokens": 82
+    }
+  },
+  "schema_version": "forge-stage-c-v8-workspace-remediation-result-audit-1.0.0",
+  "source_completed_at": "2026-09-28T04:19:46.371727+00:00",
+  "source_integrity": {
+    "file_count": 16,
+    "files": [
+      {
+        "path": "attempts/01-theora/attempt.json",
+        "sha256": "38fa19cdd8ace9168c801b845449fffbaab75e2ba916c770849b50842fd972bd",
+        "size_bytes": 495
+      },
+      {
+        "path": "attempts/01-theora/experiment.jsonl",
+        "sha256": "55e035f09e0ac3ed5c81005eceb44384c515d3241ddf9c38d876b16a8cf34f72",
+        "size_bytes": 39421
+      },
+      {
+        "path": "attempts/01-theora/result.json",
+        "sha256": "2febe4afbb42c434042a9a2f8ecd7defd6eac4d398e0ce7cd89c3b5b2cdc550e",
+        "size_bytes": 10045
+      },
+      {
+        "path": "attempts/02-json-c/attempt.json",
+        "sha256": "c5851b6e9b2338c25ba4b165ff72d9b19d7e00332c74256a703399958de2dc4b",
+        "size_bytes": 495
+      },
+      {
+        "path": "attempts/02-json-c/experiment.jsonl",
+        "sha256": "082789a7aece2200563836ae233a2e76cd46ffd17b9696d25eb55f5ed6f217ff",
+        "size_bytes": 50300
+      },
+      {
+        "path": "attempts/02-json-c/result.json",
+        "sha256": "4f747006363bae0d0a46c8badc599380548c45844892316c9347c2e54ba9ff4a",
+        "size_bytes": 13025
+      },
+      {
+        "path": "attempts/03-libjpeg-turbo/attempt.json",
+        "sha256": "7d82bcef01a583e6ff200ba1066c2d3495fe73db51ea84d09796291b3d28c559",
+        "size_bytes": 509
+      },
+      {
+        "path": "attempts/03-libjpeg-turbo/experiment.jsonl",
+        "sha256": "026bffcebccc98dfd8a1abbfe447b1e15813afa5043e6a669574d5803f097ef8",
+        "size_bytes": 27806
+      },
+      {
+        "path": "attempts/03-libjpeg-turbo/result.json",
+        "sha256": "6a07340df527020e4af71abe64188463ab937793ffd12ee5a2a3a95e07ed35d2",
+        "size_bytes": 8630
+      },
+      {
+        "path": "attempts/04-oatpp/attempt.json",
+        "sha256": "6d809d061de03b3d9c2791d17585f4ff049e5b653e0b8f56d832ff0f95d05049",
+        "size_bytes": 493
+      },
+      {
+        "path": "attempts/04-oatpp/experiment.jsonl",
+        "sha256": "3adc60b98d7e935de45136def9d8893c68cdcff381b9bd907daf99b4a52b5dee",
+        "size_bytes": 300588
+      },
+      {
+        "path": "attempts/04-oatpp/result.json",
+        "sha256": "10aec2ac7ee37080c562a4aebce234e12aa2b037797d2ba9ed026d0f8b5595a5",
+        "size_bytes": 66997
+      },
+      {
+        "path": "markers/batch.json",
+        "sha256": "363642d7b2cf57b740cb6d1e6650d40f6a2737029e612d46812d07a4a87d447f",
+        "size_bytes": 443
+      },
+      {
+        "path": "markers/reachability.json",
+        "sha256": "2d827b8cc80ffb4f34ca0b7f1a54324112f2c5471c610070b60b1b06fcb6dafd",
+        "size_bytes": 451
+      },
+      {
+        "path": "reports/canary.json",
+        "sha256": "d6e6f440bacaacb43ca31b1d6899180b272038a7cea151d641a1e00771efca70",
+        "size_bytes": 111073
+      },
+      {
+        "path": "reports/reachability.json",
+        "sha256": "c418a6de746c021192bc521116a2f85a5e26b7ad45f1ead6e9e949a41aa8d078",
+        "size_bytes": 799
+      }
+    ],
+    "historical_evidence_mutated": false,
+    "inventory_algorithm": "sha256(sha256sum_lines_sorted_by_dot_slash_relative_path)",
+    "inventory_sha256": "afe607e075509eee1999a65f4c485b0995959a1f026bf22f3f6ff7673d6b14a7",
+    "total_size_bytes": 631570
+  },
+  "tasks": [
+    {
+      "agent_steps": 25,
+      "attempt_id": "stage-c-v8-theora-workspace-remediation-b-canary",
+      "bitwise_reproducible": true,
+      "candidate_generated": true,
+      "candidate_submitted": true,
+      "cleanup_succeeded": true,
+      "commands": 12,
+      "layers": [
+        {
+          "layer": "S0",
+          "reason_codes": [
+            "identity_valid"
+          ],
+          "status": "passed"
+        },
+        {
+          "layer": "S1",
+          "reason_codes": [
+            "commands_valid"
+          ],
+          "status": "passed"
+        },
+        {
+          "layer": "S2",
+          "reason_codes": [
+            "candidate_artifacts_valid"
+          ],
+          "status": "passed"
+        },
+        {
+          "layer": "S3",
+          "reason_codes": [
+            "functional_oracle_passed"
+          ],
+          "status": "passed"
+        },
+        {
+          "layer": "S4",
+          "reason_codes": [
+            "provenance_policy_valid"
+          ],
+          "status": "passed"
+        },
+        {
+          "layer": "S5",
+          "reason_codes": [
+            "clean_replay_functional_success"
+          ],
+          "status": "passed"
+        }
+      ],
+      "ledger": {
+        "completion_result_sha256": "2febe4afbb42c434042a9a2f8ecd7defd6eac4d398e0ce7cd89c3b5b2cdc550e",
+        "event_count": 39,
+        "immutable_after_completion": true,
+        "path": "attempts/01-theora/experiment.jsonl",
+        "sha256": "55e035f09e0ac3ed5c81005eceb44384c515d3241ddf9c38d876b16a8cf34f72",
+        "terminal_event": "experiment.completed",
+        "terminal_event_sha256": "c576bc039b6dfde77684b1ac34273d2430fb7c105c8ad429ecc7387d63403b94"
+      },
+      "marker": {
+        "path": "attempts/01-theora/attempt.json",
+        "sha256": "38fa19cdd8ace9168c801b845449fffbaab75e2ba916c770849b50842fd972bd",
+        "size_bytes": 495
+      },
+      "method": "forge-agent-workflow-node-v3",
+      "result": {
+        "path": "attempts/01-theora/result.json",
+        "sha256": "2febe4afbb42c434042a9a2f8ecd7defd6eac4d398e0ce7cd89c3b5b2cdc550e",
+        "size_bytes": 10045
+      },
+      "sequence": 1,
+      "strict_reproducible_build_success": true,
+      "submit": {
+        "attempts": 1,
+        "rejection_codes": [],
+        "rejection_evidence_count": 0,
+        "same_attempt_repair_observed": false
+      },
+      "task_id": "theora",
+      "tokens": {
+        "input_tokens": 78595,
+        "output_tokens": 8315,
+        "requests": 12,
+        "total_tokens": 86910
+      },
+      "tool_calls": 13,
+      "zero_managed_resources": true
+    },
+    {
+      "agent_steps": 13,
+      "attempt_id": "stage-c-v8-json-c-workspace-remediation-b-canary",
+      "bitwise_reproducible": true,
+      "candidate_generated": true,
+      "candidate_submitted": true,
+      "cleanup_succeeded": true,
+      "commands": 6,
+      "layers": [
+        {
+          "layer": "S0",
+          "reason_codes": [
+            "identity_valid"
+          ],
+          "status": "passed"
+        },
+        {
+          "layer": "S1",
+          "reason_codes": [
+            "commands_valid"
+          ],
+          "status": "passed"
+        },
+        {
+          "layer": "S2",
+          "reason_codes": [
+            "candidate_artifacts_valid"
+          ],
+          "status": "passed"
+        },
+        {
+          "layer": "S3",
+          "reason_codes": [
+            "functional_oracle_passed"
+          ],
+          "status": "passed"
+        },
+        {
+          "layer": "S4",
+          "reason_codes": [
+            "provenance_policy_valid"
+          ],
+          "status": "passed"
+        },
+        {
+          "layer": "S5",
+          "reason_codes": [
+            "clean_replay_functional_success"
+          ],
+          "status": "passed"
+        }
+      ],
+      "ledger": {
+        "completion_result_sha256": "4f747006363bae0d0a46c8badc599380548c45844892316c9347c2e54ba9ff4a",
+        "event_count": 27,
+        "immutable_after_completion": true,
+        "path": "attempts/02-json-c/experiment.jsonl",
+        "sha256": "082789a7aece2200563836ae233a2e76cd46ffd17b9696d25eb55f5ed6f217ff",
+        "terminal_event": "experiment.completed",
+        "terminal_event_sha256": "9541201fab07975a6ea04726522c07724cd308890beb829da1e48043dcfd2359"
+      },
+      "marker": {
+        "path": "attempts/02-json-c/attempt.json",
+        "sha256": "c5851b6e9b2338c25ba4b165ff72d9b19d7e00332c74256a703399958de2dc4b",
+        "size_bytes": 495
+      },
+      "method": "forge-agent-workflow-node-v3",
+      "result": {
+        "path": "attempts/02-json-c/result.json",
+        "sha256": "4f747006363bae0d0a46c8badc599380548c45844892316c9347c2e54ba9ff4a",
+        "size_bytes": 13025
+      },
+      "sequence": 2,
+      "strict_reproducible_build_success": true,
+      "submit": {
+        "attempts": 1,
+        "rejection_codes": [],
+        "rejection_evidence_count": 0,
+        "same_attempt_repair_observed": false
+      },
+      "task_id": "json-c",
+      "tokens": {
+        "input_tokens": 33544,
+        "output_tokens": 2295,
+        "requests": 6,
+        "total_tokens": 35839
+      },
+      "tool_calls": 7,
+      "zero_managed_resources": true
+    },
+    {
+      "agent_steps": 15,
+      "attempt_id": "stage-c-v8-libjpeg-turbo-workspace-remediation-b-canary",
+      "bitwise_reproducible": true,
+      "candidate_generated": true,
+      "candidate_submitted": true,
+      "cleanup_succeeded": true,
+      "commands": 6,
+      "layers": [
+        {
+          "layer": "S0",
+          "reason_codes": [
+            "identity_valid"
+          ],
+          "status": "passed"
+        },
+        {
+          "layer": "S1",
+          "reason_codes": [
+            "commands_valid"
+          ],
+          "status": "passed"
+        },
+        {
+          "layer": "S2",
+          "reason_codes": [
+            "candidate_artifacts_valid"
+          ],
+          "status": "passed"
+        },
+        {
+          "layer": "S3",
+          "reason_codes": [
+            "functional_oracle_passed"
+          ],
+          "status": "passed"
+        },
+        {
+          "layer": "S4",
+          "reason_codes": [
+            "provenance_policy_valid"
+          ],
+          "status": "passed"
+        },
+        {
+          "layer": "S5",
+          "reason_codes": [
+            "clean_replay_functional_success"
+          ],
+          "status": "passed"
+        }
+      ],
+      "ledger": {
+        "completion_result_sha256": "6a07340df527020e4af71abe64188463ab937793ffd12ee5a2a3a95e07ed35d2",
+        "event_count": 27,
+        "immutable_after_completion": true,
+        "path": "attempts/03-libjpeg-turbo/experiment.jsonl",
+        "sha256": "026bffcebccc98dfd8a1abbfe447b1e15813afa5043e6a669574d5803f097ef8",
+        "terminal_event": "experiment.completed",
+        "terminal_event_sha256": "e2031fa6c5e6d2d5812357a0360b32fe05d5b9bd1e6e44de11ccd9eaab3ef323"
+      },
+      "marker": {
+        "path": "attempts/03-libjpeg-turbo/attempt.json",
+        "sha256": "7d82bcef01a583e6ff200ba1066c2d3495fe73db51ea84d09796291b3d28c559",
+        "size_bytes": 509
+      },
+      "method": "forge-agent-workflow-node-v3",
+      "result": {
+        "path": "attempts/03-libjpeg-turbo/result.json",
+        "sha256": "6a07340df527020e4af71abe64188463ab937793ffd12ee5a2a3a95e07ed35d2",
+        "size_bytes": 8630
+      },
+      "sequence": 3,
+      "strict_reproducible_build_success": true,
+      "submit": {
+        "attempts": 2,
+        "rejection_codes": [
+          "target_mapping_invalid"
+        ],
+        "rejection_evidence_count": 1,
+        "same_attempt_repair_observed": true
+      },
+      "task_id": "libjpeg-turbo",
+      "tokens": {
+        "input_tokens": 41977,
+        "output_tokens": 4143,
+        "requests": 7,
+        "total_tokens": 46120
+      },
+      "tool_calls": 8,
+      "zero_managed_resources": true
+    },
+    {
+      "agent_steps": 25,
+      "attempt_id": "stage-c-v8-oatpp-workspace-remediation-b-canary",
+      "bitwise_reproducible": true,
+      "candidate_generated": true,
+      "candidate_submitted": true,
+      "cleanup_succeeded": true,
+      "commands": 13,
+      "layers": [
+        {
+          "layer": "S0",
+          "reason_codes": [
+            "identity_valid"
+          ],
+          "status": "passed"
+        },
+        {
+          "layer": "S1",
+          "reason_codes": [
+            "commands_valid"
+          ],
+          "status": "passed"
+        },
+        {
+          "layer": "S2",
+          "reason_codes": [
+            "candidate_artifacts_valid"
+          ],
+          "status": "passed"
+        },
+        {
+          "layer": "S3",
+          "reason_codes": [
+            "functional_oracle_passed"
+          ],
+          "status": "passed"
+        },
+        {
+          "layer": "S4",
+          "reason_codes": [
+            "provenance_policy_valid"
+          ],
+          "status": "passed"
+        },
+        {
+          "layer": "S5",
+          "reason_codes": [
+            "clean_replay_functional_success"
+          ],
+          "status": "passed"
+        }
+      ],
+      "ledger": {
+        "completion_result_sha256": "10aec2ac7ee37080c562a4aebce234e12aa2b037797d2ba9ed026d0f8b5595a5",
+        "event_count": 41,
+        "immutable_after_completion": true,
+        "path": "attempts/04-oatpp/experiment.jsonl",
+        "sha256": "3adc60b98d7e935de45136def9d8893c68cdcff381b9bd907daf99b4a52b5dee",
+        "terminal_event": "experiment.completed",
+        "terminal_event_sha256": "a4db8f1159b4ae3027bb30b51d156de23f5b660e2b3fc6bc0b159e9e172a8e71"
+      },
+      "marker": {
+        "path": "attempts/04-oatpp/attempt.json",
+        "sha256": "6d809d061de03b3d9c2791d17585f4ff049e5b653e0b8f56d832ff0f95d05049",
+        "size_bytes": 493
+      },
+      "method": "forge-agent-workflow-node-v3",
+      "result": {
+        "path": "attempts/04-oatpp/result.json",
+        "sha256": "10aec2ac7ee37080c562a4aebce234e12aa2b037797d2ba9ed026d0f8b5595a5",
+        "size_bytes": 66997
+      },
+      "sequence": 4,
+      "strict_reproducible_build_success": true,
+      "submit": {
+        "attempts": 1,
+        "rejection_codes": [],
+        "rejection_evidence_count": 0,
+        "same_attempt_repair_observed": false
+      },
+      "task_id": "oatpp",
+      "tokens": {
+        "input_tokens": 106710,
+        "output_tokens": 4327,
+        "requests": 11,
+        "total_tokens": 111037
+      },
+      "tool_calls": 14,
+      "zero_managed_resources": true
+    }
+  ]
+}

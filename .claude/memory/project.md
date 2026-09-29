@@ -113,6 +113,16 @@
 
 <!-- 倒序，最新在上。 -->
 
+- 2026-09-29 — 完成 Issue #351 Stage C v8 结果冻结与只读审计
+  - GitHub: 中文 Issue #351 已创建并回读；工作分支为 `yiwei/351-stage-c-v8-result-freeze`，基线为 `main@50626ec1875dba28dd52bd7f0a559be3c100e3b4`。本结果继续绑定实验 release `6682d86cb30cc4e8d7b240bca8922606077a4808`，不把后续文档提交写回实验 identity。
+  - 实现: 新增确定性只读审计器、const Schema、脱敏 JSON/Markdown 报告和聚焦测试。审计器只接受冻结的 16 文件精确集合，按原 `sha256sum` 行算法复算 inventory，使用 `ExperimentLedger.verify_path()` 验证四条 sequence/digest/previous-event 链及唯一末尾 completion，并逐项闭合 manifest、marker、result、S0-S5、submit repair、逐请求 token 和 cleanup。
+  - 结果: Evidence 保持 16 files / 631,570 bytes，inventory SHA-256 为 `afe607e075509eee1999a65f4c485b0995959a1f026bf22f3f6ff7673d6b14a7`；四任务 strict、S0-S5、bitwise、cleanup 均为 4/4，完整账本为 37 requests / 260,873 input / 19,115 output / 279,988 total tokens。`libjpeg-turbo` 的 `target_mapping_invalid` 拒绝、同 attempt 修复和第二次提交成功保持为唯一观察到的 repair 轨迹。
+  - 报告身份: JSON SHA-256 为 `43d995ff5f6ae414f0ce87405265c4dd63ccf837657eb7c852c2cdd5bd4a11a4`，Markdown SHA-256 为 `d7c26f5977721369fc8d787a1718b3c0643a9e6cba597dc96e1979c2a860364d`，const Schema SHA-256 为 `93ff7e868a16a740e9df0a624fa3fb4d61fc47c24b3fc4ba8dd28282d1382dcb`。报告仅含白名单字段和相对路径，不含 prompt、模型正文、credential、Session ID、宿主绝对路径或 stdout/stderr。
+  - 验证: Stage C/Runtime/external evaluator 扩大回归 `133 passed, 4 skipped`，其中 4 项为需显式 opt-in 的 Docker 门禁；从 `backend/` 运行 `make test-product` 得到 `1836 passed, 47 skipped`。Ruff check/format、authorized protocol validate、报告 generate/validate、const Schema、Markdown 确定性和 `git diff --check` 通过。生成与测试前后 inventory SHA-256 不变。
+  - 解释与执行边界: 本报告只支持四个固定 canary task 的工程闭合和一次可观察 repair 轨迹，不替换 v5、改写 v6/v7、估计 treatment effect/p 值/总体成功率、排名模型或外推。全程 0 Provider、0 credential read、0 Docker、0 model token、0 formal attempt、0 experiment evidence write；原 identity 不允许重跑、retry、replacement、backfill 或续跑。
+  - 下一步: 审阅冻结报告后，在扩大确认性样本、独立 replication 和停止当前机制路线之间作出研究决策；任何新实验必须另建 identity、预算、停止规则和明确授权。
+  - 文件: `scripts/forge_stage_c_v8_workspace_remediation_result_audit.py`, `backend/tests/test_stage_c_v8_workspace_remediation_result_audit.py`, `benchmarks/schemas/forge-stage-c-v8-workspace-remediation-result-audit.schema.json`, `benchmarks/reports/cpp-stage-c-v8-workspace-remediation-result-audit.json`, `benchmarks/reports/cpp-stage-c-v8-workspace-remediation-result-audit.md`, `RESEARCH_STATUS.md`, `.claude/memory/project.md`
+
 - 2026-09-28 — 建立 Codex 科研协作契约与当前状态入口
   - GitHub: 中文 Issue #349 已创建并回读；工作分支为 `docs/issue-349-research-collaboration`，基线为 `main@6682d86cb30cc4e8d7b240bca8922606077a4808`。
   - 实现: 全局 `AGENTS.md` 新增科研工程协作者身份和进度可见性契约；全局 `research-assistant` Skill 集中启动核对、工作分类、证据边界、过程汇报和持久状态规则；仓库 `AGENTS.md` 新增 Forge 科研启动顺序、事实源、授权和冻结 evidence 边界；根目录 `RESEARCH_STATUS.md` 提供当前 Stage C v8 一屏状态入口。
