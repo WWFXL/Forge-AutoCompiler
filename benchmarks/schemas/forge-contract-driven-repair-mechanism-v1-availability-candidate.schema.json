@@ -1,0 +1,1279 @@
+{
+  "$id": "https://github.com/WWFXL/Forge-AutoCompiler/benchmarks/schemas/forge-contract-driven-repair-mechanism-v1-availability-candidate.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "const": {
+    "$schema": "../schemas/forge-contract-driven-repair-mechanism-v1-availability-candidate.schema.json",
+    "analysis": {
+      "incomplete_data": {
+        "best_and_worst_case_identification_interval_reported": true,
+        "missing_arms_imputed_as_zero": false,
+        "observed_complete_estimate_reported": true
+      },
+      "population": "six frozen small/medium C/C++ projects only",
+      "power_claim": "fixed-sample mechanism study; not powered confirmation",
+      "primary": {
+        "alpha": 0.05,
+        "comparison": "c0_vs_t1",
+        "estimand": "mean of six project scores over twelve matched checkpoints",
+        "minimum_meaningful_effect": "1/3",
+        "minimum_net_conversions": 4,
+        "requires_all_relevant_arms_eligible": true,
+        "test": "two-sided exact project-level sign-flip"
+      },
+      "project_weighting": "equal",
+      "secondary": {
+        "alpha": 0.05,
+        "comparison": "t1_vs_t2",
+        "gate": "primary statistical and practical criteria both pass",
+        "minimum_meaningful_effect": "1/6",
+        "minimum_net_conversions": 2,
+        "requires_all_relevant_arms_eligible": true,
+        "test": "two-sided exact project-level sign-flip"
+      },
+      "supportive": {
+        "comparison": "c0_vs_t2",
+        "confirmatory_p_value": false,
+        "report": "effect size and stratum descriptions only"
+      }
+    },
+    "authorization": {
+      "availability_candidate_implementation_authorized": true,
+      "availability_execution_authorized": false,
+      "credential_read_authorized": false,
+      "docker_session_creation_authorized": false,
+      "execution_started": false,
+      "formal_attempts_authorized": false,
+      "formal_collection_execution_authorized": false,
+      "formal_evidence_write_authorized": false,
+      "identity_implementation_authorized": true,
+      "model_creation_authorized": false,
+      "model_tokens_authorized": false,
+      "provider_calls_authorized": false
+    },
+    "authorized_runtime": {
+      "availability": {
+        "before_formal_marker": true,
+        "expected_response": "FORGE_READY",
+        "experiment_content_included": false,
+        "failure_creates_batch": false,
+        "logical_request_count": 1,
+        "max_request_attempts_including_transport_retry": 2,
+        "request": "Reply exactly with FORGE_READY.",
+        "request_attempts_count_toward_formal_arm_budget": false,
+        "transport_retry_policy_applies": true
+      },
+      "commands_allowed_without_execution_authorization": [
+        "validate",
+        "plan",
+        "preflight"
+      ],
+      "commands_fail_closed_without_separate_authorization": [
+        "availability",
+        "batch"
+      ],
+      "formal_collection": {
+        "arm_count": 36,
+        "replacement_or_backfill_allowed": false,
+        "schedule_extension_allowed": false,
+        "strictly_serial": true
+      },
+      "preflight": {
+        "before_credential_model_provider_marker_or_docker_session": true,
+        "creates_evidence_or_marker": false,
+        "verify_clean_descendant_revision": true,
+        "verify_compile_image_id": true,
+        "verify_evidence_directory_absent": true,
+        "verify_linux_docker_daemon_compose_and_socket": true,
+        "verify_parent_and_component_hashes": true,
+        "verify_zero_managed_containers_paused_parents_and_images": true
+      },
+      "protocol_path": "scripts/forge_contract_driven_repair_mechanism_v1_authorized_protocol.py",
+      "runner_path": "scripts/forge_contract_driven_repair_mechanism_v1_authorized_runner.py"
+    },
+    "availability_candidate": {
+      "actual_model": "deepseek-flash",
+      "contract": {
+        "before_formal_marker": true,
+        "expected_response": "FORGE_READY",
+        "experiment_content_included": false,
+        "failure_creates_batch": false,
+        "logical_request_count": 1,
+        "max_request_attempts_including_transport_retry": 2,
+        "request": "Reply exactly with FORGE_READY.",
+        "request_attempts_count_toward_formal_arm_budget": false,
+        "transport_retry_policy_applies": true
+      },
+      "credential_read_authorized": false,
+      "execution_authorized": false,
+      "formal_batch_creation_authorized": false,
+      "marker_write_authorized": false,
+      "max_recorded_tokens": null,
+      "model_creation_authorized": false,
+      "model_tokens_authorized": false,
+      "provider_calls_authorized": false,
+      "provider_profile": "deepseek-flash",
+      "result_observed": false,
+      "token_accounting": {
+        "mode": "meter_each_request_without_ceiling",
+        "record_input_tokens": true,
+        "record_output_tokens": true,
+        "record_total_tokens": true,
+        "token_total_is_termination_condition": false
+      }
+    },
+    "availability_candidate_runtime": {
+      "commands_allowed_without_execution_authorization": [
+        "validate",
+        "plan",
+        "preflight"
+      ],
+      "commands_fail_closed_without_separate_authorization": [
+        "availability",
+        "batch"
+      ],
+      "preflight": {
+        "before_credential_model_provider_marker_or_docker_session": true,
+        "creates_evidence_or_marker": false,
+        "verify_clean_descendant_revision": "25b358814e4749031cc7fd3d83139a79d884f7a4",
+        "verify_compile_image_id": true,
+        "verify_evidence_directory_absent": true,
+        "verify_linux_docker_daemon_compose_and_socket": true,
+        "verify_parent_and_component_hashes": true,
+        "verify_zero_managed_containers_paused_parents_and_images": true
+      },
+      "protocol_path": "scripts/forge_contract_driven_repair_mechanism_v1_availability_candidate_protocol.py",
+      "runner_path": "scripts/forge_contract_driven_repair_mechanism_v1_availability_candidate_runner.py"
+    },
+    "budget_candidate": {
+      "formal_arm_count": 36,
+      "formal_arms_total_max_model_request_attempts": 288,
+      "monetary_stop_rule": null,
+      "per_arm": {
+        "clean_replay_timeout_seconds": 900,
+        "cleanup_reserve_seconds": 120,
+        "command_timeout_seconds": 300,
+        "continuation_timeout_seconds": 600,
+        "evaluator_timeout_seconds": 900,
+        "max_commands": 16,
+        "max_graph_steps": 24,
+        "max_model_request_attempts": 8,
+        "max_recorded_tokens": null,
+        "max_tool_calls": 24,
+        "max_turns": 8
+      },
+      "runtime_budget_mapping": {
+        "clean_replay_timeout_seconds": "AgentWorkflowBudget.replay_timeout_seconds",
+        "continuation_timeout_seconds": "AgentWorkflowBudget.node_timeout_seconds",
+        "max_graph_steps": "AgentWorkflowBudget.max_agent_steps",
+        "max_model_request_attempts": "AgentWorkflowBudget.max_model_requests"
+      },
+      "token_accounting": {
+        "mode": "meter_each_request_without_ceiling",
+        "record_input_tokens": true,
+        "record_output_tokens": true,
+        "record_total_tokens": true,
+        "token_total_is_termination_condition": false
+      },
+      "total_max_recorded_tokens": null,
+      "total_provider_request_attempts_including_availability_max": 290
+    },
+    "candidate_evidence": {
+      "attempt_template": "attempts/{sequence:02d}-{opaque_clone_id}/attempt.json",
+      "availability_marker": "markers/availability.json",
+      "batch_marker": "markers/batch.json",
+      "batch_report": "reports/contract-driven-repair-mechanism-v1.json",
+      "create_once": true,
+      "directory": ".compile-sessions/benchmark-evidence-contract-driven-repair-mechanism-v1-authorized",
+      "historical_evidence_reused": false,
+      "must_not_exist_before_authorized_marker": true,
+      "result_template": "attempts/{sequence:02d}-{opaque_clone_id}/result.json",
+      "writes_authorized": false
+    },
+    "checkpoint_contract": {
+      "capture_timing": "after authoritative rejection and before any continuation model request",
+      "independent_parent_per_task_and_stratum": true,
+      "state_matched_fields": [
+        "source",
+        "commit",
+        "rootfs",
+        "workspace",
+        "artifacts",
+        "parent_command_history",
+        "candidate_request",
+        "authoritative_rejection",
+        "message_prefix",
+        "remaining_budget",
+        "tool_policy",
+        "authority_hashes"
+      ],
+      "strata": {
+        "delivery_target": {
+          "authority": "production CandidateVerifier",
+          "preconditions": [
+            "target_artifacts_exist",
+            "functional_oracle_passed",
+            "single_expected_finding"
+          ],
+          "unique_finding_code": "target_mapping_invalid"
+        },
+        "provenance": {
+          "authority": "production CandidateVerifier followed by P2 reference criterion",
+          "direct_command_record_write_forbidden": true,
+          "preconditions": [
+            "target_artifacts_exist",
+            "functional_oracle_passed",
+            "single_expected_finding"
+          ],
+          "repair_must_use_real_compiler_tool_surface": true,
+          "required_actual": "opaque_wrapper",
+          "unique_finding_code": "build_system_unproven"
+        }
+      }
+    },
+    "development_revision": {
+      "authorized_implementation_revision": "25b358814e4749031cc7fd3d83139a79d884f7a4",
+      "execution_revision_policy": "clean_descendant_of_authorized_implementation_and_record_exact_revision",
+      "formal_execution_requires_release_branch": "main",
+      "implementation_revision_frozen": true,
+      "scientific_contract_release_revision": "a63f328b0cd2771ec656414e697ebbb831391ed9"
+    },
+    "document_type": "forge_contract_driven_repair_mechanism_v1_availability_candidate",
+    "environment_identity": {
+      "compile_image": "autocompiler:stage-c-v1",
+      "dockerfile_sha256": "023b38d30139eeacbb6e46643ec2deaa375d8516e43d2d0a8c730475bd3b85ac",
+      "image_id": "sha256:adbef4a26de49e9cd2c361a50b5fe2a000073a343b072ed0e515cc67e6e758b1",
+      "network_policy": "clone_then_network_none",
+      "parallel_jobs": 4,
+      "ubuntu_snapshot": "20260925T000000Z"
+    },
+    "feedback_contract": {
+      "allowed_cross_arm_delta": "feedback projection only",
+      "conditions": {
+        "c0": "generic verification_failed payload only",
+        "t1": "C0 plus classification and code/paths/expected/actual finding",
+        "t2": "T1 plus bounded abstract repair_goal without commands, patches, or answers"
+      },
+      "forbidden_content": [
+        "argv",
+        "shell",
+        "complete_command",
+        "patch",
+        "answer",
+        "credential",
+        "external_evaluator_information"
+      ],
+      "schema_version": "forge-contract-feedback-projection-1.0.0"
+    },
+    "frozen_authorized_components": {
+      "backend/packages/harness/deerflow/compile/agent_workflow_runtime_v3.py": "2d71383d011e943f78e9259b9f7ceec2c8e1f080d7609e86413ce188a841f65e",
+      "backend/packages/harness/deerflow/compile/candidate_verifier.py": "e358b06ce2721d2ec90d3f30e9d1cb05d210e9c6f802690fc88a554c058dff7a",
+      "backend/packages/harness/deerflow/compile/external_evaluator_v3.py": "cfb5e3baeff772e54051925e6b0504eea25b6ba9284d8a5c6ad7135355fde79c",
+      "backend/packages/harness/deerflow/compile/operations.py": "275160c4e773938e6334961406692a9622066e04feb36401857f92f80dc3889d",
+      "backend/packages/harness/deerflow/tools/bound_compile_tools.py": "735ec5c8daa34d66e4b1116987e281e861149a5273434ec200e403c3fe1ec758",
+      "backend/tests/test_forge_runtime_v3_three_arm_qualification_docker.py": "ecfc1cb025780a187d404c23520b7da29af5552e6a5093b993b29e95bc5fa705",
+      "benchmarks/fixtures/stage-c-task-qualification-result.json": "b5c268cd7e32aac7068b69c4a29d3bed3491093bc36563d5e1d95383ec24e6eb",
+      "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v1-candidate.json": "18edcd30bf50fce775594b2e26333f2c0837013a68ad1af64554788400187e8a",
+      "benchmarks/preregistrations/cpp-contract-driven-repair-mechanism-v1-authorized.md": "e24449346785772a5c54af6c5de2114e2b5a4dab32c75bd10562113d638f8696",
+      "benchmarks/preregistrations/cpp-contract-driven-repair-mechanism-v1-candidate.md": "eb275d8eb6d531665647918aed1aaf5ecdd86d78c6c4be1d6de0999686c6ec30",
+      "benchmarks/schemas/forge-contract-driven-repair-mechanism-v1-candidate.schema.json": "d3d04d2d52d63b7edb064a07c10e438e67cb9f95b79b9cb6c48358d9e3fcb64c",
+      "scripts/forge_contract_driven_repair_mechanism_v1_authorized_protocol.py": "99c6d1bb5dabc40a77305fd795efb30cd9932be0246ba71c5e2cedf443da1516",
+      "scripts/forge_contract_driven_repair_mechanism_v1_authorized_runner.py": "89537110fc59bfa0c872a3982925cb5f0fd48f34bd482a9d1ff901015cfdee04",
+      "scripts/forge_contract_driven_repair_mechanism_v1_candidate_protocol.py": "e4fb8a467158490c162834909bb3755e56e1792bc1b1868a479a26d9643b5bdd",
+      "scripts/forge_contract_driven_repair_mechanism_v1_candidate_runner.py": "174bd4551f017556e54108a1daeaed63c5fb29759685b939d85498c09831b05b",
+      "scripts/forge_opaque_build_provenance_gate.py": "0f21ece5f3419a477925515f5312a009b0d447c1fa982f9e7fb626bf0f30e07a",
+      "scripts/forge_runtime_v3_three_arm_qualification.py": "e257d24b4ca76b546e79ebc8d2cce5b78acf532b39d07cf33dfa20fcddb6c295",
+      "scripts/require-docker-runtime.sh": "50c7e21e6eb277f3c76849b88f62b4f5e30c449d27d526c0d1d0882b2e173958"
+    },
+    "frozen_availability_candidate_components": {
+      "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v1-authorized.json": "3290255fb2414a22a6133696ac96e2f0f2760b943e0377c3c2612380c04dde23",
+      "benchmarks/preregistrations/cpp-contract-driven-repair-mechanism-v1-authorized.md": "e24449346785772a5c54af6c5de2114e2b5a4dab32c75bd10562113d638f8696",
+      "benchmarks/preregistrations/cpp-contract-driven-repair-mechanism-v1-availability-candidate.md": "8538df1c1b14cbc8ee3da59fd481c0183c7f92711f455d69d7a002916f5153cd",
+      "benchmarks/schemas/forge-contract-driven-repair-mechanism-v1-authorized.schema.json": "481965173f9045b78b9cc68b7944a461811901eb1a4b233261551c26cb7af9ae",
+      "scripts/forge_contract_driven_repair_mechanism_v1_authorized_protocol.py": "99c6d1bb5dabc40a77305fd795efb30cd9932be0246ba71c5e2cedf443da1516",
+      "scripts/forge_contract_driven_repair_mechanism_v1_authorized_runner.py": "89537110fc59bfa0c872a3982925cb5f0fd48f34bd482a9d1ff901015cfdee04",
+      "scripts/forge_contract_driven_repair_mechanism_v1_availability_candidate_protocol.py": "2a7b54e7f3d51576513d5fa5af9d0de51df2d40f4c40a5ad6bddbe59e89603d6",
+      "scripts/forge_contract_driven_repair_mechanism_v1_availability_candidate_runner.py": "39206ffec4c6d158210e9613b42d7dbe99a8ddc2a86f88faa9ebf28bf2072614"
+    },
+    "frozen_components": {
+      "backend/packages/harness/deerflow/compile/agent_workflow_runtime_v3.py": "2d71383d011e943f78e9259b9f7ceec2c8e1f080d7609e86413ce188a841f65e",
+      "backend/packages/harness/deerflow/compile/agent_workflow_schemas.py": "1491a153d3509bd4ebd96fc49e6d2e543d6af22c26df69fa51e34d02fdec1246",
+      "backend/packages/harness/deerflow/compile/candidate_verifier.py": "e358b06ce2721d2ec90d3f30e9d1cb05d210e9c6f802690fc88a554c058dff7a",
+      "backend/packages/harness/deerflow/compile/external_evaluator_v3.py": "cfb5e3baeff772e54051925e6b0504eea25b6ba9284d8a5c6ad7135355fde79c",
+      "backend/packages/harness/deerflow/compile/operations.py": "275160c4e773938e6334961406692a9622066e04feb36401857f92f80dc3889d",
+      "backend/packages/harness/deerflow/tools/bound_compile_tools.py": "735ec5c8daa34d66e4b1116987e281e861149a5273434ec200e403c3fe1ec758",
+      "backend/tests/test_forge_runtime_v3_three_arm_qualification_docker.py": "ecfc1cb025780a187d404c23520b7da29af5552e6a5093b993b29e95bc5fa705",
+      "benchmarks/fixtures/stage-c-source-pool.json": "827cdb190ad9cae5b5b03ff11ddfd7b564a6d1cef6b0d351c0611d6b5c98aaae",
+      "benchmarks/fixtures/stage-c-task-qualification-result.json": "b5c268cd7e32aac7068b69c4a29d3bed3491093bc36563d5e1d95383ec24e6eb",
+      "benchmarks/manifests/cpp-stage-c-task-qualification.json": "25163c480d2580e7809ab8ed28a7c40ea2596bed2acf8cd7157e23838919c2bb",
+      "benchmarks/preregistrations/cpp-contract-driven-repair-mechanism-v1-candidate.md": "eb275d8eb6d531665647918aed1aaf5ecdd86d78c6c4be1d6de0999686c6ec30",
+      "benchmarks/preregistrations/cpp-runtime-v3-three-arm-zero-provider-qualification.md": "3a7b53eb92e08ed4e2b799f17c6cac8af78a0704e9b1f2a719f3c191980ee9b7",
+      "benchmarks/schemas/forge-stage-c-task-qualification.schema.json": "716eb3298c31f98eeac4a8bdc310d213c5538ab6ae76f8b3e946693868f46b0f",
+      "docs/research/2026-09-29-contract-driven-repair-design-audit.md": "59cc36bf109bca55c591a1eca54deae9feb4ca537801b8d529e9ed648931aa30",
+      "docs/research/2026-09-29-contract-driven-repair-preregistration-decision.md": "52adceda1d506d51e2222d194b6ab313d196641e958b959ec86562b5e78d7b55",
+      "scripts/forge_contract_driven_repair_mechanism_v1_candidate_protocol.py": "e4fb8a467158490c162834909bb3755e56e1792bc1b1868a479a26d9643b5bdd",
+      "scripts/forge_contract_driven_repair_mechanism_v1_candidate_runner.py": "174bd4551f017556e54108a1daeaed63c5fb29759685b939d85498c09831b05b",
+      "scripts/forge_contract_repair_design_sensitivity.py": "93748b94af864dd5edc3158e2397d18649fb3f13202d3cfa06c699fc1ed25661",
+      "scripts/forge_opaque_build_provenance_gate.py": "0f21ece5f3419a477925515f5312a009b0d447c1fa982f9e7fb626bf0f30e07a",
+      "scripts/forge_runtime_v3_three_arm_qualification.py": "e257d24b4ca76b546e79ebc8d2cce5b78acf532b39d07cf33dfa20fcddb6c295"
+    },
+    "interpretation_boundary": [
+      "candidate identity is not execution authorization",
+      "qualification evidence is not a treatment effect",
+      "results cannot establish a general provider or model ranking",
+      "inference is limited to the six frozen projects and conditions"
+    ],
+    "issue_url": "https://github.com/WWFXL/Forge-AutoCompiler/issues/357",
+    "parent_authorized": {
+      "evidence_identity_inherited_without_change": true,
+      "historical_evidence_reused": false,
+      "historical_outcomes_imported": false,
+      "implementation_release_revision": "25b358814e4749031cc7fd3d83139a79d884f7a4",
+      "manifest_canonical_sha256": "840eac32711fc69e88609aa00b7e308fd7854bc2b7f5f4c3bffc6b5d0d39a0a0",
+      "manifest_file_sha256": "3290255fb2414a22a6133696ac96e2f0f2760b943e0377c3c2612380c04dde23",
+      "manifest_path": "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v1-authorized.json",
+      "pull_request": "https://github.com/WWFXL/Forge-AutoCompiler/pull/356",
+      "read_only": true,
+      "scientific_contract_inherited_without_change": true
+    },
+    "parent_candidate": {
+      "historical_evidence_reused": false,
+      "historical_outcomes_imported": false,
+      "manifest_canonical_sha256": "fc1ec9adfb9961e258e4bb8fad8f1ae2f0f5e1b1356748d53d5783dd55700f8f",
+      "manifest_file_sha256": "18edcd30bf50fce775594b2e26333f2c0837013a68ad1af64554788400187e8a",
+      "manifest_path": "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v1-candidate.json",
+      "pull_request": "https://github.com/WWFXL/Forge-AutoCompiler/pull/354",
+      "read_only": true,
+      "schedule_inherited_without_change": true,
+      "scientific_contract_release_revision": "a63f328b0cd2771ec656414e697ebbb831391ed9"
+    },
+    "provider_candidate": {
+      "actual_model": "deepseek-flash",
+      "credential_env_name": "DEEPSEEK_API_KEY",
+      "endpoint": "https://api.deepseek.com",
+      "fallback_enabled": false,
+      "model_max_retries": 0,
+      "parallel_tool_calls": false,
+      "profile": "deepseek-flash",
+      "provider": "deepseek",
+      "request_timeout_seconds": 300,
+      "streaming": false
+    },
+    "runtime_candidate": {
+      "clean_replay_required": true,
+      "cleanup_required": true,
+      "commands_allowed_by_candidate_runner": [
+        "validate",
+        "plan",
+        "show-checkpoint"
+      ],
+      "commands_fail_closed": [
+        "reachability",
+        "run",
+        "batch"
+      ],
+      "external_evaluator": "external_evaluator_v3",
+      "external_evaluator_input_contract": {
+        "allowed_identity_fields": [
+          "opaque_evaluation_id",
+          "checkpoint_id",
+          "task_id"
+        ],
+        "forbidden_fields": [
+          "condition",
+          "arm",
+          "feedback_projection",
+          "opaque_clone_id"
+        ]
+      },
+      "orchestration": "agent_workflow_runtime_v3",
+      "tool_policy": {
+        "action_policy": "runtime-v3-compiler-tool-surface",
+        "parallel_tool_calls": false,
+        "tools": [
+          "run_container_bash",
+          "submit_candidate_v1"
+        ]
+      }
+    },
+    "runtime_v3_qualification": {
+      "adjacent_regression_tests_passed": 77,
+      "arms": [
+        "c0",
+        "t1",
+        "t2"
+      ],
+      "docker_tests_passed": 2,
+      "fault_strata": [
+        "delivery_target",
+        "provenance"
+      ],
+      "formal_attempts": 0,
+      "formal_evidence_writes": 0,
+      "interpretation": "infrastructure qualification only; no treatment effect",
+      "provider_requests": 0,
+      "static_tests_passed": 14,
+      "status": "passed"
+    },
+    "schedule": {
+      "arm_order_method": "stratum-specific SHA-256 ranking of all six C0/T1/T2 permutations",
+      "backfill": false,
+      "checkpoints": [
+        {
+          "arm_order": [
+            "t2",
+            "c0",
+            "t1"
+          ],
+          "arms": [
+            {
+              "condition": "t2",
+              "feedback_projection": "forge-contract-feedback-projection-1.0.0#t2",
+              "opaque_clone_id": "clone-4d90a79086b9d5007c7ccbf5",
+              "opaque_evaluation_id": "evaluation-4852fc753476876ab3909382",
+              "position_within_checkpoint": 1,
+              "sequence": 1
+            },
+            {
+              "condition": "c0",
+              "feedback_projection": "forge-contract-feedback-projection-1.0.0#c0",
+              "opaque_clone_id": "clone-bb7b6083c416cbaf1f86dd24",
+              "opaque_evaluation_id": "evaluation-7bebf9a68fa428aeb684d1e8",
+              "position_within_checkpoint": 2,
+              "sequence": 2
+            },
+            {
+              "condition": "t1",
+              "feedback_projection": "forge-contract-feedback-projection-1.0.0#t1",
+              "opaque_clone_id": "clone-ece55bdb51e82d38decfb1ce",
+              "opaque_evaluation_id": "evaluation-d46304e1c011df4d91112cd7",
+              "position_within_checkpoint": 3,
+              "sequence": 3
+            }
+          ],
+          "checkpoint_id": "rnnoise-0.1.1:delivery_target",
+          "checkpoint_sequence": 1,
+          "stratum": "delivery_target",
+          "task_id": "rnnoise-0.1.1"
+        },
+        {
+          "arm_order": [
+            "c0",
+            "t1",
+            "t2"
+          ],
+          "arms": [
+            {
+              "condition": "c0",
+              "feedback_projection": "forge-contract-feedback-projection-1.0.0#c0",
+              "opaque_clone_id": "clone-7f94f7258d8552aaca77222f",
+              "opaque_evaluation_id": "evaluation-64b38c3007c6c6b2c564fc21",
+              "position_within_checkpoint": 1,
+              "sequence": 4
+            },
+            {
+              "condition": "t1",
+              "feedback_projection": "forge-contract-feedback-projection-1.0.0#t1",
+              "opaque_clone_id": "clone-70eec637cb2deca0467da31c",
+              "opaque_evaluation_id": "evaluation-af4b5a457bfb4237e281fd37",
+              "position_within_checkpoint": 2,
+              "sequence": 5
+            },
+            {
+              "condition": "t2",
+              "feedback_projection": "forge-contract-feedback-projection-1.0.0#t2",
+              "opaque_clone_id": "clone-82cec4862797faff5ef4955c",
+              "opaque_evaluation_id": "evaluation-90fe0ed5958f399aaf849478",
+              "position_within_checkpoint": 3,
+              "sequence": 6
+            }
+          ],
+          "checkpoint_id": "rnnoise-0.1.1:provenance",
+          "checkpoint_sequence": 2,
+          "stratum": "provenance",
+          "task_id": "rnnoise-0.1.1"
+        },
+        {
+          "arm_order": [
+            "t1",
+            "t2",
+            "c0"
+          ],
+          "arms": [
+            {
+              "condition": "t1",
+              "feedback_projection": "forge-contract-feedback-projection-1.0.0#t1",
+              "opaque_clone_id": "clone-d484a6cea27bec851edb169c",
+              "opaque_evaluation_id": "evaluation-f2f1fe19d683f93d507c576c",
+              "position_within_checkpoint": 1,
+              "sequence": 7
+            },
+            {
+              "condition": "t2",
+              "feedback_projection": "forge-contract-feedback-projection-1.0.0#t2",
+              "opaque_clone_id": "clone-1a9ad5d3f2876e808725d315",
+              "opaque_evaluation_id": "evaluation-32831bc32116e1971711e62e",
+              "position_within_checkpoint": 2,
+              "sequence": 8
+            },
+            {
+              "condition": "c0",
+              "feedback_projection": "forge-contract-feedback-projection-1.0.0#c0",
+              "opaque_clone_id": "clone-359ae281302d3909a9b877af",
+              "opaque_evaluation_id": "evaluation-669b3f55e2fbce2614518edb",
+              "position_within_checkpoint": 3,
+              "sequence": 9
+            }
+          ],
+          "checkpoint_id": "libsoundio:provenance",
+          "checkpoint_sequence": 3,
+          "stratum": "provenance",
+          "task_id": "libsoundio"
+        },
+        {
+          "arm_order": [
+            "t2",
+            "t1",
+            "c0"
+          ],
+          "arms": [
+            {
+              "condition": "t2",
+              "feedback_projection": "forge-contract-feedback-projection-1.0.0#t2",
+              "opaque_clone_id": "clone-5db164e0ef496fe6b09fa1d0",
+              "opaque_evaluation_id": "evaluation-259eb3878901ac34c2d0f517",
+              "position_within_checkpoint": 1,
+              "sequence": 10
+            },
+            {
+              "condition": "t1",
+              "feedback_projection": "forge-contract-feedback-projection-1.0.0#t1",
+              "opaque_clone_id": "clone-c1779261cb14f968937f4b58",
+              "opaque_evaluation_id": "evaluation-22c5fca2cf8dcf1ce0b08028",
+              "position_within_checkpoint": 2,
+              "sequence": 11
+            },
+            {
+              "condition": "c0",
+              "feedback_projection": "forge-contract-feedback-projection-1.0.0#c0",
+              "opaque_clone_id": "clone-0ef053e0f5a61d75b75e3844",
+              "opaque_evaluation_id": "evaluation-dcc13cdaecfcce1818a04812",
+              "position_within_checkpoint": 3,
+              "sequence": 12
+            }
+          ],
+          "checkpoint_id": "libsoundio:delivery_target",
+          "checkpoint_sequence": 4,
+          "stratum": "delivery_target",
+          "task_id": "libsoundio"
+        },
+        {
+          "arm_order": [
+            "t1",
+            "c0",
+            "t2"
+          ],
+          "arms": [
+            {
+              "condition": "t1",
+              "feedback_projection": "forge-contract-feedback-projection-1.0.0#t1",
+              "opaque_clone_id": "clone-1cdd150dcff7a51c270d8dea",
+              "opaque_evaluation_id": "evaluation-1b907a040375829635ae677a",
+              "position_within_checkpoint": 1,
+              "sequence": 13
+            },
+            {
+              "condition": "c0",
+              "feedback_projection": "forge-contract-feedback-projection-1.0.0#c0",
+              "opaque_clone_id": "clone-0bbea882fb644e30e71d318c",
+              "opaque_evaluation_id": "evaluation-e03c979e9355b84ef11cbca3",
+              "position_within_checkpoint": 2,
+              "sequence": 14
+            },
+            {
+              "condition": "t2",
+              "feedback_projection": "forge-contract-feedback-projection-1.0.0#t2",
+              "opaque_clone_id": "clone-f97c018737b921afd0f2e610",
+              "opaque_evaluation_id": "evaluation-42568ccfc59f0e7e6fa63d99",
+              "position_within_checkpoint": 3,
+              "sequence": 15
+            }
+          ],
+          "checkpoint_id": "lz4:delivery_target",
+          "checkpoint_sequence": 5,
+          "stratum": "delivery_target",
+          "task_id": "lz4"
+        },
+        {
+          "arm_order": [
+            "t2",
+            "c0",
+            "t1"
+          ],
+          "arms": [
+            {
+              "condition": "t2",
+              "feedback_projection": "forge-contract-feedback-projection-1.0.0#t2",
+              "opaque_clone_id": "clone-5585367c2b864024198c9147",
+              "opaque_evaluation_id": "evaluation-cf031d6db4d56ae126c9beb1",
+              "position_within_checkpoint": 1,
+              "sequence": 16
+            },
+            {
+              "condition": "c0",
+              "feedback_projection": "forge-contract-feedback-projection-1.0.0#c0",
+              "opaque_clone_id": "clone-701b442db3bbec83e933a386",
+              "opaque_evaluation_id": "evaluation-c132e825017f4b93bfca78dc",
+              "position_within_checkpoint": 2,
+              "sequence": 17
+            },
+            {
+              "condition": "t1",
+              "feedback_projection": "forge-contract-feedback-projection-1.0.0#t1",
+              "opaque_clone_id": "clone-7cf5f7ad238dbc0e75f61c73",
+              "opaque_evaluation_id": "evaluation-9aa5f48dc3d0002925efb4f7",
+              "position_within_checkpoint": 3,
+              "sequence": 18
+            }
+          ],
+          "checkpoint_id": "lz4:provenance",
+          "checkpoint_sequence": 6,
+          "stratum": "provenance",
+          "task_id": "lz4"
+        },
+        {
+          "arm_order": [
+            "t2",
+            "t1",
+            "c0"
+          ],
+          "arms": [
+            {
+              "condition": "t2",
+              "feedback_projection": "forge-contract-feedback-projection-1.0.0#t2",
+              "opaque_clone_id": "clone-b733956f2da6075df013f5a5",
+              "opaque_evaluation_id": "evaluation-dfbda31a1f8dc2c320cad00b",
+              "position_within_checkpoint": 1,
+              "sequence": 19
+            },
+            {
+              "condition": "t1",
+              "feedback_projection": "forge-contract-feedback-projection-1.0.0#t1",
+              "opaque_clone_id": "clone-8b2cba56573fe08f002cc8e4",
+              "opaque_evaluation_id": "evaluation-b23c6ea04d73557f052dddb0",
+              "position_within_checkpoint": 2,
+              "sequence": 20
+            },
+            {
+              "condition": "c0",
+              "feedback_projection": "forge-contract-feedback-projection-1.0.0#c0",
+              "opaque_clone_id": "clone-619cf163955d7ff9d17104e1",
+              "opaque_evaluation_id": "evaluation-34af1622fad4474ae04782ff",
+              "position_within_checkpoint": 3,
+              "sequence": 21
+            }
+          ],
+          "checkpoint_id": "8cc:provenance",
+          "checkpoint_sequence": 7,
+          "stratum": "provenance",
+          "task_id": "8cc"
+        },
+        {
+          "arm_order": [
+            "c0",
+            "t2",
+            "t1"
+          ],
+          "arms": [
+            {
+              "condition": "c0",
+              "feedback_projection": "forge-contract-feedback-projection-1.0.0#c0",
+              "opaque_clone_id": "clone-9c79eabf6791235cb6badaad",
+              "opaque_evaluation_id": "evaluation-4d97a09d6fff6d87f3a7be2f",
+              "position_within_checkpoint": 1,
+              "sequence": 22
+            },
+            {
+              "condition": "t2",
+              "feedback_projection": "forge-contract-feedback-projection-1.0.0#t2",
+              "opaque_clone_id": "clone-563fa3720e4be36f8e7a137d",
+              "opaque_evaluation_id": "evaluation-3f7c1c343e72fc4ae0c88947",
+              "position_within_checkpoint": 2,
+              "sequence": 23
+            },
+            {
+              "condition": "t1",
+              "feedback_projection": "forge-contract-feedback-projection-1.0.0#t1",
+              "opaque_clone_id": "clone-53270becf35bb92c55fb9424",
+              "opaque_evaluation_id": "evaluation-a74068f747b879716175f8ac",
+              "position_within_checkpoint": 3,
+              "sequence": 24
+            }
+          ],
+          "checkpoint_id": "8cc:delivery_target",
+          "checkpoint_sequence": 8,
+          "stratum": "delivery_target",
+          "task_id": "8cc"
+        },
+        {
+          "arm_order": [
+            "c0",
+            "t1",
+            "t2"
+          ],
+          "arms": [
+            {
+              "condition": "c0",
+              "feedback_projection": "forge-contract-feedback-projection-1.0.0#c0",
+              "opaque_clone_id": "clone-3c0979881df4481b6a418ac8",
+              "opaque_evaluation_id": "evaluation-28a055f0297857b678282f5f",
+              "position_within_checkpoint": 1,
+              "sequence": 25
+            },
+            {
+              "condition": "t1",
+              "feedback_projection": "forge-contract-feedback-projection-1.0.0#t1",
+              "opaque_clone_id": "clone-3e9514956ce594c9e6971d8d",
+              "opaque_evaluation_id": "evaluation-766b626c2aa4d2f6e5c0a7b8",
+              "position_within_checkpoint": 2,
+              "sequence": 26
+            },
+            {
+              "condition": "t2",
+              "feedback_projection": "forge-contract-feedback-projection-1.0.0#t2",
+              "opaque_clone_id": "clone-6ce9add14a14c9588c3584d3",
+              "opaque_evaluation_id": "evaluation-d28865f8e22657c9b71d1836",
+              "position_within_checkpoint": 3,
+              "sequence": 27
+            }
+          ],
+          "checkpoint_id": "leveldb:delivery_target",
+          "checkpoint_sequence": 9,
+          "stratum": "delivery_target",
+          "task_id": "leveldb"
+        },
+        {
+          "arm_order": [
+            "t1",
+            "c0",
+            "t2"
+          ],
+          "arms": [
+            {
+              "condition": "t1",
+              "feedback_projection": "forge-contract-feedback-projection-1.0.0#t1",
+              "opaque_clone_id": "clone-d175b5f05430daf745158df5",
+              "opaque_evaluation_id": "evaluation-01a47c662414ee371e3c9e87",
+              "position_within_checkpoint": 1,
+              "sequence": 28
+            },
+            {
+              "condition": "c0",
+              "feedback_projection": "forge-contract-feedback-projection-1.0.0#c0",
+              "opaque_clone_id": "clone-814bae0cdb5b5326023549fa",
+              "opaque_evaluation_id": "evaluation-cb913efffd0f97aefc3fe9b3",
+              "position_within_checkpoint": 2,
+              "sequence": 29
+            },
+            {
+              "condition": "t2",
+              "feedback_projection": "forge-contract-feedback-projection-1.0.0#t2",
+              "opaque_clone_id": "clone-e754a9ef0e2f84eec0e5c117",
+              "opaque_evaluation_id": "evaluation-c43dca0ee8beeddb1f51ce6c",
+              "position_within_checkpoint": 3,
+              "sequence": 30
+            }
+          ],
+          "checkpoint_id": "leveldb:provenance",
+          "checkpoint_sequence": 10,
+          "stratum": "provenance",
+          "task_id": "leveldb"
+        },
+        {
+          "arm_order": [
+            "c0",
+            "t2",
+            "t1"
+          ],
+          "arms": [
+            {
+              "condition": "c0",
+              "feedback_projection": "forge-contract-feedback-projection-1.0.0#c0",
+              "opaque_clone_id": "clone-1508e1b86149a03bd8e71d45",
+              "opaque_evaluation_id": "evaluation-b5537f1e8039d1c361c10a6e",
+              "position_within_checkpoint": 1,
+              "sequence": 31
+            },
+            {
+              "condition": "t2",
+              "feedback_projection": "forge-contract-feedback-projection-1.0.0#t2",
+              "opaque_clone_id": "clone-b4d5f2c03d18805306f2ef4e",
+              "opaque_evaluation_id": "evaluation-8789b097250da1e22945f51a",
+              "position_within_checkpoint": 2,
+              "sequence": 32
+            },
+            {
+              "condition": "t1",
+              "feedback_projection": "forge-contract-feedback-projection-1.0.0#t1",
+              "opaque_clone_id": "clone-d5e28a24b2a46f6ccbf52c12",
+              "opaque_evaluation_id": "evaluation-3983a0cc82fbfee1882bec71",
+              "position_within_checkpoint": 3,
+              "sequence": 33
+            }
+          ],
+          "checkpoint_id": "libsndfile:provenance",
+          "checkpoint_sequence": 11,
+          "stratum": "provenance",
+          "task_id": "libsndfile"
+        },
+        {
+          "arm_order": [
+            "t1",
+            "t2",
+            "c0"
+          ],
+          "arms": [
+            {
+              "condition": "t1",
+              "feedback_projection": "forge-contract-feedback-projection-1.0.0#t1",
+              "opaque_clone_id": "clone-0956338264c6a10e4a3b0ef6",
+              "opaque_evaluation_id": "evaluation-d56d493362fe42c1e3fbb400",
+              "position_within_checkpoint": 1,
+              "sequence": 34
+            },
+            {
+              "condition": "t2",
+              "feedback_projection": "forge-contract-feedback-projection-1.0.0#t2",
+              "opaque_clone_id": "clone-cbb8027b62957a150d94a9e4",
+              "opaque_evaluation_id": "evaluation-f273de878b559ac5120009b7",
+              "position_within_checkpoint": 2,
+              "sequence": 35
+            },
+            {
+              "condition": "c0",
+              "feedback_projection": "forge-contract-feedback-projection-1.0.0#c0",
+              "opaque_clone_id": "clone-04f021a81f80a3391c76f00b",
+              "opaque_evaluation_id": "evaluation-5d2731e280ea37c18d604c22",
+              "position_within_checkpoint": 3,
+              "sequence": 36
+            }
+          ],
+          "checkpoint_id": "libsndfile:delivery_target",
+          "checkpoint_sequence": 12,
+          "stratum": "delivery_target",
+          "task_id": "libsndfile"
+        }
+      ],
+      "execution": "strictly_serial",
+      "failed_arm_rerun": false,
+      "outcome_adaptive_reordering": false,
+      "post_outcome_extension": false,
+      "project_order_key": "sha256(seed || NUL || repository_url || NUL || commit_sha)",
+      "projects": [
+        {
+          "project_sequence": 1,
+          "selection_key_sha256": "4a74b420db7b62020098e8f37cf2b82f50bffa5e51500b49f3aaa67cddf411a8",
+          "stratum_order": [
+            "delivery_target",
+            "provenance"
+          ],
+          "task_id": "rnnoise-0.1.1"
+        },
+        {
+          "project_sequence": 2,
+          "selection_key_sha256": "8ce8e6a4b3bef9da4ac2fe1c3d5207bd9a4961d2597ff74a595cd306d077d660",
+          "stratum_order": [
+            "provenance",
+            "delivery_target"
+          ],
+          "task_id": "libsoundio"
+        },
+        {
+          "project_sequence": 3,
+          "selection_key_sha256": "8d07893b36541900bd89f7d4c250b432eb960dcc68c278f0e4da3cbb5db6b6a8",
+          "stratum_order": [
+            "delivery_target",
+            "provenance"
+          ],
+          "task_id": "lz4"
+        },
+        {
+          "project_sequence": 4,
+          "selection_key_sha256": "a27717165668b9c65d951edd641edd83047f0e031dabc487168aeda6fa08e5ae",
+          "stratum_order": [
+            "provenance",
+            "delivery_target"
+          ],
+          "task_id": "8cc"
+        },
+        {
+          "project_sequence": 5,
+          "selection_key_sha256": "b7c87443635d747830a45d364b686894e3c939f28a938d6c96aabdb9b620e136",
+          "stratum_order": [
+            "delivery_target",
+            "provenance"
+          ],
+          "task_id": "leveldb"
+        },
+        {
+          "project_sequence": 6,
+          "selection_key_sha256": "e11795e09c112f9c610148eabfb517a6b1b2d069375e6071d1c6a565b29fb2ba",
+          "stratum_order": [
+            "provenance",
+            "delivery_target"
+          ],
+          "task_id": "libsndfile"
+        }
+      ],
+      "replacement": false,
+      "seed": "forge-contract-driven-repair-mechanism-v1-2026-09-29"
+    },
+    "schema_version": "forge-contract-driven-repair-mechanism-v1-availability-candidate-1.0.0",
+    "status": "availability_qualification_candidate_not_execution_authorized",
+    "strict_endpoint": {
+      "all_required": [
+        "candidate_accepted",
+        "functional_oracle_passed",
+        "provenance_passed",
+        "external_evaluator_v3_passed",
+        "clean_replay_passed",
+        "cleanup_closed",
+        "zero_managed_orphans"
+      ],
+      "endpoint_censoring_is_not_zero": true,
+      "model_behavior_failures_are_zero": [
+        "request_or_step_or_time_budget_exhausted",
+        "no_submit",
+        "candidate_rejected_again"
+      ],
+      "name": "strict_post_checkpoint_conversion"
+    },
+    "tasks": [
+      {
+        "contract": {
+          "functional_oracle": {
+            "authority_path": "benchmarks/manifests/cpp-stage-c-task-qualification.json",
+            "definition_canonical_sha256": "feaf1c537f7c8fbb535aac8ee9e4f49da355eb48d03b085c58e3825f813c2895",
+            "evaluator_only": true,
+            "exposed_to_model": false
+          },
+          "target": {
+            "artifact_types": [
+              "support_file",
+              "static_library"
+            ],
+            "bitwise_required": true,
+            "required_artifacts": [
+              "include/leveldb/db.h",
+              "lib/libleveldb.a"
+            ],
+            "target_id": "leveldb-static-library"
+          }
+        },
+        "historical_model_outcomes_imported": false,
+        "qualification": {
+          "artifact_set_canonical_sha256": "ec7f7b351ecb7f0a070673144c940b5cdbb54e74e470ee1edf7a9f9b695c3749",
+          "bitwise_reproducible": true,
+          "passed": true,
+          "replicate_count": 2,
+          "task_result_canonical_sha256": "08db4892535ed77ec5eebf4f74a7ef968d77bcf6368f05c682eb80a3f4c2a2b2"
+        },
+        "source": {
+          "build_system_capabilities": [
+            "cmake"
+          ],
+          "build_system_stratum": "cmake",
+          "commit_sha": "7ee830d02b623e8ffe0b95d59a74db1e58da04c5",
+          "dataset": "top100",
+          "documentation_stratum": "clear",
+          "license_path": "LICENSE",
+          "license_sha256": "ccc19f1da0798ed666609b65a5b44dd8b3abe6fc08b9c0592eb76e82e174db19",
+          "repository_url": "https://github.com/google/leveldb.git",
+          "selected_build_system": "cmake",
+          "size_stratum": "medium",
+          "source_snapshot_sha256": "ec08de9cdd5fa574a2c0ccd6e901d4acca47bb29f740c171e1404fc08c551ba1",
+          "submodule_commits": {
+            "third_party/benchmark": "1a54956777ba672764db09a51960056ea042af7e",
+            "third_party/googletest": "a35bc7693c117a048152beeb34f6aac354b9423f"
+          },
+          "task_id": "leveldb",
+          "tracked_file_count": 154
+        },
+        "task_id": "leveldb"
+      },
+      {
+        "contract": {
+          "functional_oracle": {
+            "authority_path": "benchmarks/manifests/cpp-stage-c-task-qualification.json",
+            "definition_canonical_sha256": "09fdc74f762495b83d34b543cf1e65fbc55e48268a49f1ff5b45ebfb66e075aa",
+            "evaluator_only": true,
+            "exposed_to_model": false
+          },
+          "target": {
+            "artifact_types": [
+              "support_file",
+              "static_library"
+            ],
+            "bitwise_required": true,
+            "required_artifacts": [
+              "include/soundio/soundio.h",
+              "lib/libsoundio.a"
+            ],
+            "target_id": "libsoundio-static-library"
+          }
+        },
+        "historical_model_outcomes_imported": false,
+        "qualification": {
+          "artifact_set_canonical_sha256": "797d83b6c7f529388e9d0f18ce46ba519fb8c7304713bb73148785c154a6cea3",
+          "bitwise_reproducible": true,
+          "passed": true,
+          "replicate_count": 2,
+          "task_result_canonical_sha256": "4c33bba8618907f31c6218a3b9718bff6b4fcbcf74195ef74245530c342a89ec"
+        },
+        "source": {
+          "build_system_capabilities": [
+            "cmake"
+          ],
+          "build_system_stratum": "cmake",
+          "commit_sha": "49a1f78b50eb0f5a49d096786a95a93874a2592a",
+          "dataset": "top100",
+          "documentation_stratum": "incomplete",
+          "license_path": "LICENSE",
+          "license_sha256": "12043f8e6dfb42e979158fbecbbeeb0cf70d2721ea2864f627379331b95c58e6",
+          "repository_url": "https://github.com/andrewrk/libsoundio.git",
+          "selected_build_system": "cmake",
+          "size_stratum": "small",
+          "source_snapshot_sha256": "41bb3c4fb57661b7f2715c152f0b3983f6027741e4f4847987ef8b7b2cb99bea",
+          "submodule_commits": {},
+          "task_id": "libsoundio",
+          "tracked_file_count": 49
+        },
+        "task_id": "libsoundio"
+      },
+      {
+        "contract": {
+          "functional_oracle": {
+            "authority_path": "benchmarks/manifests/cpp-stage-c-task-qualification.json",
+            "definition_canonical_sha256": "913a14c49fac7f2224589571a7017342e38cffd074239f9c49fcc3e33a6c6398",
+            "evaluator_only": true,
+            "exposed_to_model": false
+          },
+          "target": {
+            "artifact_types": [
+              "executable"
+            ],
+            "bitwise_required": false,
+            "required_artifacts": [
+              "bin/8cc"
+            ],
+            "target_id": "8cc-executable"
+          }
+        },
+        "historical_model_outcomes_imported": false,
+        "qualification": {
+          "artifact_set_canonical_sha256": "c0d543303945dbb228d9d0e200c9a6e53f3ce4df1bd825d826965f4801fbee27",
+          "bitwise_reproducible": true,
+          "passed": true,
+          "replicate_count": 2,
+          "task_result_canonical_sha256": "d53e0e658eebfd1bad1f466e78f6a9688379de49f07b1f88a001ea84eaf31116"
+        },
+        "source": {
+          "build_system_capabilities": [
+            "make"
+          ],
+          "build_system_stratum": "make",
+          "commit_sha": "b480958396f159d3794f0d4883172b21438a8597",
+          "dataset": "top100",
+          "documentation_stratum": "incomplete",
+          "license_path": "LICENSE",
+          "license_sha256": "58275bfb98f6f88347ee25dafaa3cc10831de4be310abbe0054fec67fcb22e97",
+          "repository_url": "https://github.com/rui314/8cc.git",
+          "selected_build_system": "make",
+          "size_stratum": "small",
+          "source_snapshot_sha256": "5eac43b53d767fa8c69466a229f96034926583c1f5e28e72ed4d3d6b18d6f99c",
+          "submodule_commits": {},
+          "task_id": "8cc",
+          "tracked_file_count": 88
+        },
+        "task_id": "8cc"
+      },
+      {
+        "contract": {
+          "functional_oracle": {
+            "authority_path": "benchmarks/manifests/cpp-stage-c-task-qualification.json",
+            "definition_canonical_sha256": "697a7de88f058d35215e05c4116d42e02135e1b221e4accb1fa0e3cb75fb327d",
+            "evaluator_only": true,
+            "exposed_to_model": false
+          },
+          "target": {
+            "artifact_types": [
+              "executable",
+              "support_file",
+              "static_library"
+            ],
+            "bitwise_required": true,
+            "required_artifacts": [
+              "bin/lz4",
+              "include/lz4.h",
+              "lib/liblz4.a"
+            ],
+            "target_id": "lz4-library-and-cli"
+          }
+        },
+        "historical_model_outcomes_imported": false,
+        "qualification": {
+          "artifact_set_canonical_sha256": "7d3768be248e24fcb35e3f414c570d4ad2b43d01f7cd4cc7a03fcbc6a5d3c99d",
+          "bitwise_reproducible": true,
+          "passed": true,
+          "replicate_count": 2,
+          "task_result_canonical_sha256": "009b7b5317d97a82015aa46f25403b059fbcec0855d6254174b6f87ec2784e28"
+        },
+        "source": {
+          "build_system_capabilities": [
+            "make"
+          ],
+          "build_system_stratum": "make",
+          "commit_sha": "0774d05537f9762f838f7ab541b7765f1a729cb5",
+          "dataset": "awesome_cpp",
+          "documentation_stratum": "incomplete",
+          "license_path": "LICENSE",
+          "license_sha256": "4bc9c403f6b679cc076dee210e0e21c27b4e8f6d3fb43d85364c76657bfaaac5",
+          "repository_url": "https://github.com/lz4/lz4.git",
+          "selected_build_system": "make",
+          "size_stratum": "medium",
+          "source_snapshot_sha256": "bab835b7c1c9e4dbfb3f5718a73545723dcc4f54e9cd8dcb5c1f73bab57de77d",
+          "submodule_commits": {},
+          "task_id": "lz4",
+          "tracked_file_count": 209
+        },
+        "task_id": "lz4"
+      },
+      {
+        "contract": {
+          "functional_oracle": {
+            "authority_path": "benchmarks/manifests/cpp-stage-c-task-qualification.json",
+            "definition_canonical_sha256": "31d215b16b8f625c6dbf89502176b8b323afecceb775a3e902953e76bcab9a79",
+            "evaluator_only": true,
+            "exposed_to_model": false
+          },
+          "target": {
+            "artifact_types": [
+              "support_file",
+              "static_library"
+            ],
+            "bitwise_required": true,
+            "required_artifacts": [
+              "include/rnnoise.h",
+              "lib/librnnoise.a"
+            ],
+            "target_id": "rnnoise-static-library"
+          }
+        },
+        "historical_model_outcomes_imported": false,
+        "qualification": {
+          "artifact_set_canonical_sha256": "f8f9a867a5c39a2d07641aa48208baf2803cd7140d8136a8706c545c2acc54ca",
+          "bitwise_reproducible": true,
+          "passed": true,
+          "replicate_count": 2,
+          "task_result_canonical_sha256": "e6bcbda5b8c25e4c1551865acca15f41f7706e39919401bd6a78fb109bad7f7b"
+        },
+        "source": {
+          "build_system_capabilities": [
+            "autotools"
+          ],
+          "build_system_stratum": "autotools",
+          "commit_sha": "6cbfd53eb348a8d394e0757b4025c6ded34eb2b6",
+          "dataset": "top100",
+          "documentation_stratum": "incomplete",
+          "license_path": "COPYING",
+          "license_sha256": "e2f59ff41d9d03adc3dcf3deff170f8c8cf4a6eb4a9b174762a7656d23200ffa",
+          "qualification_note": "冻结到 v0.1.1 peeled commit，源码内含模型数据且构建阶段无需下载。",
+          "repository_url": "https://github.com/xiph/rnnoise.git",
+          "selected_build_system": "autotools",
+          "size_stratum": "small",
+          "source_snapshot_sha256": "6b0c652469053da4311d5e6870cf47d3bd08190cc2a4b05142fe39d6a4b37a3f",
+          "submodule_commits": {},
+          "task_id": "rnnoise-0.1.1",
+          "tracked_file_count": 36
+        },
+        "task_id": "rnnoise-0.1.1"
+      },
+      {
+        "contract": {
+          "functional_oracle": {
+            "authority_path": "benchmarks/manifests/cpp-stage-c-task-qualification.json",
+            "definition_canonical_sha256": "c11ff742f0aef2cba46d74115041f62e1a77e4b940cc6c185c31863262ee785e",
+            "evaluator_only": true,
+            "exposed_to_model": false
+          },
+          "target": {
+            "artifact_types": [
+              "support_file",
+              "static_library"
+            ],
+            "bitwise_required": true,
+            "required_artifacts": [
+              "include/sndfile.h",
+              "lib/libsndfile.a"
+            ],
+            "target_id": "libsndfile-static-library"
+          }
+        },
+        "historical_model_outcomes_imported": false,
+        "qualification": {
+          "artifact_set_canonical_sha256": "33e2792e0cc14672e73cdb0c369ca691215ca5a69dae47774969c3e7c2bc8a00",
+          "bitwise_reproducible": true,
+          "passed": true,
+          "replicate_count": 2,
+          "task_result_canonical_sha256": "95a3e87f8ea99565a8fdccd442b27ef8c8c1e7d81e66e95cfe58b783139d2b6d"
+        },
+        "source": {
+          "build_system_capabilities": [
+            "autotools",
+            "cmake"
+          ],
+          "build_system_stratum": "autotools",
+          "commit_sha": "b9103bd48b6c8fb517ae737fe3baee0c718b804c",
+          "dataset": "top100",
+          "documentation_stratum": "clear",
+          "license_path": "COPYING",
+          "license_sha256": "ad01ea5cd2755f6048383c8d54c88459cd6fcb17757c5c8892f8c5ea060f6140",
+          "repository_url": "https://github.com/libsndfile/libsndfile.git",
+          "selected_build_system": "autotools",
+          "size_stratum": "medium",
+          "source_snapshot_sha256": "cea4a9d086e69d0a204a05f2d200bb6ab60d84d21ee59a381b449a0096a9db00",
+          "submodule_commits": {},
+          "task_id": "libsndfile",
+          "tracked_file_count": 362
+        },
+        "task_id": "libsndfile"
+      }
+    ],
+    "transport_and_stopping": {
+      "availability_qualification": {
+        "before_formal_marker": true,
+        "expected_response": "FORGE_READY",
+        "experiment_content_included": false,
+        "failure_creates_batch": false,
+        "logical_request_count": 1,
+        "max_request_attempts_including_transport_retry": 2,
+        "request": "Reply exactly with FORGE_READY.",
+        "request_attempts_count_toward_formal_arm_budget": false,
+        "transport_retry_policy_applies": true
+      },
+      "cleanup_current_checkpoint_before_stop": true,
+      "evaluator_or_cleanup_or_orphan_failure_stops_identity": true,
+      "identity_or_checkpoint_failure_stops_identity": true,
+      "ledger_or_budget_failure_stops_identity": true,
+      "model_behavior_retry_allowed": false,
+      "stop_after_endpoint_censored_arm_count": 2,
+      "transport_retry_conditions": [
+        "zero_response",
+        "zero_recorded_tokens",
+        "zero_tool_side_effects"
+      ],
+      "transport_retry_counts_toward_request_attempt_limit": true,
+      "transport_retry_max_per_logical_request": 1
+    }
+  },
+  "title": "Forge contract-driven repair mechanism v1 availability qualification candidate"
+}
