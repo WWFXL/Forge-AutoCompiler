@@ -6,13 +6,23 @@
 
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
-- 2026-09-29 — 开始 Issue #357 availability qualification 候选 amendment 阶段
+- 2026-09-29 — 开始 Issue #359 availability qualification 授权执行阶段
+  - 授权: 研究负责人明确授权合并 PR #358、执行唯一 availability，并在它通过后执行冻结的 36-arm formal collection；无需再次确认常规提交/推送/PR/合并、credential presence check、Provider request 或 evidence write。协议漂移或失败早停仍不可越过。
+  - Release: PR #358 四项 CI 全绿并 squash-merge 为 `main@d55f39b03179f59b0b3b89bb8648a168ec54f7bd`，Issue #357 已关闭；新分支为 `yiwei/359-contract-repair-availability-execution`。
+  - 身份: 从父 candidate canonical `e0583ddb...9f00` 派生 execution manifest；只授权 DeepSeek `deepseek-flash` 的唯一 `FORGE_READY` logical request、credential/model/token 和 `markers/availability.json` 写入，formal batch 保持关闭。canonical SHA-256 为 `cf21d2c228e46b39a3287d3c9ab7139c9f24d8ba36990e4b8e94475c9b0d7839`。
+  - Retry/evidence: 最多 2 attempts；第二次只允许首次 0 response、0 recorded tokens、0 tool side effects。SDK retry 为 0；marker 在 Provider 前 create-once，每个 attempt 原子更新；只保存响应哈希/长度、actual model、token ledger 和 bounded error class。
+  - 当前验证: execution + candidate + authorized + parent candidate + Runtime v3 qualification + sensitivity 共 `56 passed`；CandidateVerifier、P2、external evaluator v3 与 lifecycle 相邻回归 `80 passed`；Ruff check/format、`py_compile`、两次确定性生成、protocol/runner CLI、marker/retry/audit 和 batch fail-closed 门禁通过。
+  - 边界: 当前仍为 0 credential read、0 Provider、0 model creation、0 Docker Session、0 formal attempt、0 model token、0 marker/ledger/evidence write。下一步提交、PR、CI 和合并；只有干净 `main == origin/main` 且 strict preflight 通过才执行 availability。
+  - 文件: `scripts/forge_contract_driven_repair_mechanism_v1_availability_execution_protocol.py`, `scripts/forge_contract_driven_repair_mechanism_v1_availability_execution_runner.py`, `backend/tests/test_forge_contract_driven_repair_mechanism_v1_availability_execution.py`, `benchmarks/manifests/cpp-contract-driven-repair-mechanism-v1-availability-execution.json`, `benchmarks/schemas/forge-contract-driven-repair-mechanism-v1-availability-execution.schema.json`, `benchmarks/preregistrations/cpp-contract-driven-repair-mechanism-v1-availability-execution.md`
+
+- 2026-09-29 — 完成 Issue #357 availability qualification 候选 amendment 阶段
   - Release: PR #356 四项 CI 全绿并经用户确认 squash-merge 为 `main@25b358814e4749031cc7fd3d83139a79d884f7a4`，Issue #355 已关闭；新分支为 `yiwei/357-contract-repair-availability-candidate`。
   - 工作类型: 实验授权基础设施。绑定父 authorized canonical `840eac32...0a0a0` 和 exact implementation release，原样继承科学合同、schedule、预算、停止规则和 create-once evidence identity。
   - Availability 合同: DeepSeek `deepseek-flash`；唯一无实验内容请求 `Reply exactly with FORGE_READY.`；最多 2 attempts，只允许一次 0-response/0-token/0-side-effect transport retry；无 token ceiling 但逐响应记账；失败不得创建 batch。
   - 身份分层: candidate implementation 为 true；availability execution、formal collection、credential、Provider、model creation、Docker Session、formal attempt、evidence write 和 model token 授权均为 false。`availability`/`batch` 在 manifest/runtime probe 前 fail closed。
   - 当前验证: candidate + authorized + parent candidate + Runtime v3 qualification + design sensitivity 共 `45 passed`；CandidateVerifier、P2、external evaluator v3 与 lifecycle 相邻回归 `80 passed`；Ruff check/format、`py_compile`、两次确定性生成、protocol/runner CLI 与受限入口负测通过。提交后的 clean-tree 非模型 preflight 为 `ready=true`，冻结镜像、0 managed resources 和 evidence path absent 均通过；candidate canonical SHA-256 为 `e0583ddb5830f2181450ef73b9275de8d5ec5d8166ec6c3ad46c319698479f00`。
-  - 边界: 0 credential read、0 Provider、0 model creation、0 Docker Session、0 formal attempt、0 model token、0 marker/ledger/evidence write。下一步推送并建立关联 Issue #357 的 PR；PR 合并仍不授权 availability execution。
+  - 发布: PR #358 四项 CI 全绿并经用户确认 squash-merge 为 `main@d55f39b03179f59b0b3b89bb8648a168ec54f7bd`；Issue #357 自动关闭。全过程为 0 credential read、0 Provider、0 model creation、0 Docker Session、0 formal attempt、0 model token、0 marker/ledger/evidence write。
+  - 下一步: Issue #359 在用户明确授权下派生唯一 availability execution identity；formal collection 仍受 availability 通过 marker 和独立身份门禁约束。
   - 文件: `scripts/forge_contract_driven_repair_mechanism_v1_availability_candidate_protocol.py`, `scripts/forge_contract_driven_repair_mechanism_v1_availability_candidate_runner.py`, `backend/tests/test_forge_contract_driven_repair_mechanism_v1_availability_candidate.py`, `benchmarks/manifests/cpp-contract-driven-repair-mechanism-v1-availability-candidate.json`, `benchmarks/schemas/forge-contract-driven-repair-mechanism-v1-availability-candidate.schema.json`, `benchmarks/preregistrations/cpp-contract-driven-repair-mechanism-v1-availability-candidate.md`
 
 - 2026-09-29 — 完成 Issue #355 release-bound 授权身份阶段
