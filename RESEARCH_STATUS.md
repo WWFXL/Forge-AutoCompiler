@@ -4,8 +4,8 @@
 
 ## 当前阶段
 
-- 状态：毕业论文方向、设计审计、Runtime v3 三臂零 Provider qualification 和 Issue #353 未授权 candidate identity 均已完成；36-arm 固定样本设计等待代码审阅与 release revision 冻结。
-- 当前工作类型：实验设计与基础设施。Runtime v3 candidate submission 基础设施门禁和确定性执行计划已闭合，本阶段未创建正式 observation。
+- 状态：PR #354 已合并为 `main@a63f328b`，Runtime v3 qualification 与 36-arm candidate identity 已冻结；Issue #355 release-bound 授权身份和零执行 preflight 已完成，等待代码审阅。
+- 当前工作类型：实验身份工程与基础设施。科学合同、确定性执行计划和父 release 已闭合，当前不创建正式 observation。
 - 研究目标：围绕自动化编译形成范围适中、可验证、可复现的毕业论文贡献；Forge 的 Agent Workflow Node 与 Multi-Agent 视为研究基础设施，CXXCrafter 视为相关工作之一。
 - 首选方向：面向自动化编译的契约驱动修复，组合可恢复失败状态、确定性候选验证反馈和分层正确性判定。
 - 当前主问题候选：在相同编译失败状态、模型、工具和预算下，C0 普通失败、T1 合同 finding、T2 finding + 抽象 repair goal 三种反馈暴露是否产生不同的严格候选转换率，并减少重复或无效动作？
@@ -47,6 +47,7 @@ Repo2Run、EvoConfig、PhantomRun、跨 ISA Build-bench、Exact Feedback、SpecH
 - Issue #352 的独立 qualification adapter 已满足该缺口，并把当前 Runtime v3、CandidateVerifier、P2、external evaluator v3、compile operations 与 compiler tool surface 的 SHA-256 纳入 authority identity；历史 runner、manifest、report 和 evidence 均未修改。
 - Issue #353 的结果盲可辨识性审计显示：12-checkpoint / 36-arm 设计在真实绝对效应 `+1/3` 时，双侧 exact paired test 的估计功效仅约 `0.16--0.20`；在中等 discordance 假设下达到约 80% 功效需约 36 个 checkpoint / 108 arms。因此推荐把 36 arms 定位为固定样本的毕业论文机制研究，而非功效充分的确认性总体效应实验。
 - Issue #353 candidate 已确定性生成 6-project / 12-checkpoint / 36-arm schedule；每个 stratum 恰好使用 C0/T1/T2 六种排列各一次，三个项目先运行 delivery/target、三个先运行 provenance。三臂使用 opaque clone/evaluation identity，external evaluator 输入不含 arm label。
+- PR #354 四项 CI 全绿并 squash-merge；Issue #355 release-bound identity 以 `main@a63f328b0cd2771ec656414e697ebbb831391ed9` 和父 candidate canonical SHA-256 `fc1ec9ad...00f8f` 为权威输入，原样继承全部科学字段。
 
 ## 解释边界
 
@@ -71,28 +72,27 @@ Repo2Run、EvoConfig、PhantomRun、跨 ISA Build-bench、Exact Feedback、SpecH
 
 - 只读核验论文、仓库报告、manifest、ledger 和冻结 evidence；
 - 实现并运行使用确定性本地模型的零 Provider、零正式 attempt、独立 evidence 目录 qualification；
-- 起草新的候选 protocol/preregistration，但不能把候选文档写成已授权实验。
+- 实现、审阅 release-bound identity，并运行不读取 credential、不创建容器或 evidence 的非模型 preflight。
 
 禁止：
 
 - 重跑、retry、replacement、backfill 或改写任何历史 experiment identity；
 - 修改、移动、删除或重新生成冻结 evidence；
-- 在新 identity、样本、预算、停止规则和明确授权前读取 Provider 凭据、调用模型或创建正式 attempt。
+- 在 availability 与 formal collection 分别获得明确执行授权前读取 Provider 凭据、调用模型、创建 formal attempt 或写入新 evidence。
 
 ## 当前工作区与知识库状态
 
-- 当前工作分支：`yiwei/352-runtime-v3-qualification`；基线 HEAD `47b34eb1`，当前 qualification 改动尚未提交或 push，本阶段不执行发布操作。
+- 当前工作分支：`yiwei/355-contract-repair-authorized-identity`；基线为 PR #354 合并后的 `main@a63f328b0cd2771ec656414e697ebbb831391ed9`。
 - Stage C v8 原始 evidence 保持只读，权威结果入口为 `benchmarks/reports/cpp-stage-c-v8-workspace-remediation-result-audit.md`。
 - Runtime v3 qualification 入口为 `benchmarks/preregistrations/cpp-runtime-v3-three-arm-zero-provider-qualification.md`；它是基础设施门禁记录，不是 formal experiment evidence。
 - 候选预注册决策包入口为 `docs/research/2026-09-29-contract-driven-repair-preregistration-decision.md`；研究负责人已冻结其推荐方案，但它不是执行授权。
-- 未授权 identity 入口为 `benchmarks/manifests/cpp-contract-driven-repair-mechanism-v1-candidate.json`；release revision 为 `null`，所有 credential、Provider、Docker、formal attempt、formal evidence 和 model token 授权均为 false。
+- 父 candidate 入口为 `benchmarks/manifests/cpp-contract-driven-repair-mechanism-v1-candidate.json`；新 release-bound identity 入口为 `benchmarks/manifests/cpp-contract-driven-repair-mechanism-v1-authorized.json`。当前只授权身份实现，availability、formal collection、credential、Provider、Docker Session、formal attempt、formal evidence 和 model token 授权均为 false。
 - 2026-09-29 已按 `search_notes -> read_note` 核对个人知识库中的毕业论文方向与契约驱动修复主笔记；本轮不修改知识库。
 
 ## 下一项工作
 
-Issue #353 的 manifest、const Schema、preregistration 与 plan-only runner 已完成并通过零执行门禁。下一项工作
-是审阅并提交当前 qualification + candidate 变更，形成可冻结的 release revision；随后派生独立 create-once
-authorized identity，再由研究负责人明确授权 availability qualification 和 36-arm formal collection。
+Issue #355 的 release-bound manifest、const Schema、预注册、runner、静态门禁和真实非模型 preflight 已完成；
+下一项工作是推送并审阅 PR。该 identity 合并后，研究负责人再单独决定是否授权唯一 availability
+qualification；只有 availability 通过且 formal collection 获得再次授权，才允许创建 36-arm batch。
 
-candidate 通过审阅仍不等于执行授权。任何下一轮 Provider、credential、formal attempt 或 formal evidence
-写入都需要合并后的 release revision、独立授权 identity 和明确执行授权。
+当前身份实现与 preflight 不构成 Provider 或 formal collection 授权，也不产生 treatment outcome。

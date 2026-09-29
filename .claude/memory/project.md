@@ -6,8 +6,18 @@
 
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
+- 2026-09-29 — 开始 Issue #355 release-bound 授权身份阶段
+  - Release: PR #354 四项 CI 全绿后经用户确认 squash-merge，最终为 `main@a63f328b0cd2771ec656414e697ebbb831391ed9`；Issue #352/#353 已关闭。新分支为 `yiwei/355-contract-repair-authorized-identity`。
+  - 工作类型: 实验身份工程与基础设施。原样继承父 candidate 的 provider、预算、feedback、12 checkpoints / 36 arms schedule、终点、分析和停止规则；本阶段不产生 observation。
+  - 身份分层: `identity_implementation_authorized=true`；availability、formal collection、credential、Provider、model creation、Docker Session、formal attempt、evidence write 和 model token 授权均为 false。blocked 命令在 identity/runtime probe 前 fail closed。
+  - Release/evidence: 科学合同 release 固定为 `a63f328b...391ed9`，父 canonical 为 `fc1ec9ad...00f8f`；执行实现必须是 clean descendant 并记录 exact SHA。独立 create-once evidence 路径在授权 marker 前必须不存在。
+  - 环境: Stage C qualification 权威镜像为 `autocompiler:stage-c-v1@sha256:adbef4a...e758b1`。首次探针发现旧 Stage B 标签 `autocompiler:gcc13` 指向另一镜像，已按现有 qualification/Stage C manifest 修正新 protocol 标签，未 retag、rebuild 或启动容器。
+  - 当前验证: authorized + parent candidate + Runtime v3 qualification + design sensitivity 静态门禁 `37 passed`；CandidateVerifier、P2、external evaluator v3 与 lifecycle 相邻回归 `80 passed`；Ruff check/format、`py_compile`、两次确定性再生成和受限 CLI fail-closed 检查通过。提交后的干净工作树真实非模型 preflight 为 `ready=true`：Docker daemon/Compose/socket、冻结 image ID、0 managed resources 和 evidence path absent 均通过，全部执行计数为 0。
+  - 边界: 0 credential read、0 Provider、0 model creation、0 Docker Session、0 formal attempt、0 model token、0 marker/ledger/evidence write。下一步推送并建立关联 Issue #355 的 PR；合并后再记录 authorized implementation revision，availability 与 formal collection 继续等待各自明确授权。
+  - 文件: `scripts/forge_contract_driven_repair_mechanism_v1_authorized_protocol.py`, `scripts/forge_contract_driven_repair_mechanism_v1_authorized_runner.py`, `backend/tests/test_forge_contract_driven_repair_mechanism_v1_authorized.py`, `benchmarks/manifests/cpp-contract-driven-repair-mechanism-v1-authorized.json`, `benchmarks/schemas/forge-contract-driven-repair-mechanism-v1-authorized.schema.json`, `benchmarks/preregistrations/cpp-contract-driven-repair-mechanism-v1-authorized.md`
+
 - 2026-09-29 — 冻结并实现契约驱动修复三臂未授权候选 identity
-  - GitHub: 中文 Issue #353 已创建并回读，关联 #352；当前仍在 `yiwei/352-runtime-v3-qualification` 未提交工作树中进行结果盲设计，不执行 push 或发布。
+  - GitHub: Issue #352/#353 与 PR #354 已完成；PR 四项 CI 全绿并 squash-merge 为 `main@a63f328b0cd2771ec656414e697ebbb831391ed9`。
   - 工作类型: 结果分析与实验设计。目标是把已通过 qualification 的 36-arm 可执行性候选转化为可审阅的研究身份；本阶段不创建正式 observation。
   - 可辨识性: 对 12 个 matched checkpoints 的 exact paired test 做结果盲枚举。真实绝对效应 `+1/3` 时，合理 discordance 情景的估计功效约 `0.16--0.20`；达到约 80% 功效约需 23--56 checkpoints。正式 project-level 分析更保守，因此 36 arms 不能表述为功效充分的确认性总体效应实验。
   - 冻结定位: 保持 6 projects x 2 strata x 3 arms，把研究定位为固定样本、预注册、可证伪的毕业论文机制研究；主要最小有意义效应取 C0 vs T1 `+1/3`，即 12 checkpoint 中净增加 4 次严格转换。T1 vs T2 的次级实际意义门槛为 `+1/6`。
@@ -19,8 +29,8 @@
   - Schedule: 固定 seed + repository URL + exact commit 得到 `rnnoise-0.1.1 -> libsoundio -> lz4 -> 8cc -> leveldb -> libsndfile`；两个 strata 各使用三臂六种排列一次，首 stratum 3/3 平衡，共 12 checkpoints / 36 opaque clone/evaluation identities。evaluator 只接收 opaque evaluation/checkpoint/task identity。
   - 门禁: runner 只允许 `validate`、`plan`、`show-checkpoint`；`reachability`、`run`、`batch` 在加载 manifest、读取 credential、创建模型、Docker 或 evidence 前 fail closed。availability logical request 冻结为无实验内容的 `FORGE_READY` 确定性往返。
   - 验证: candidate + Runtime v3 静态 qualification + sensitivity 共 `25 passed`；CandidateVerifier、P2、external evaluator v3、lifecycle 相邻回归 `77 passed`；candidate Ruff check/format、const Schema、CLI、执行入口负测与 diff check 通过。canonical manifest SHA-256 为 `fc1ec9adfb9961e258e4bb8fad8f1ae2f0f5e1b1356748d53d5783dd55700f8f`。
-  - 边界: 0 Provider、0 credential read、0 formal attempt、0 formal evidence write；未修改历史 manifest、runner、report 或冻结 evidence。Issue #353 已记录并回读冻结决策；candidate release revision 尚未冻结，不能执行。候选决策包为 `docs/research/2026-09-29-contract-driven-repair-preregistration-decision.md`。
-  - 下一步: 审阅并提交当前未提交 qualification + candidate 变更，形成 release revision；再派生独立 authorized identity。未经该身份与明确授权，不运行 availability qualification 或 36-arm collection。
+  - 边界: 0 Provider、0 credential read、0 formal attempt、0 formal evidence write；未修改历史 manifest、runner、report 或冻结 evidence。候选决策包为 `docs/research/2026-09-29-contract-driven-repair-preregistration-decision.md`。
+  - 下一步: Issue #355 从合并后的 release 派生独立 release-bound identity；未经 availability/formal collection 的分层明确授权，不调用 Provider 或创建 36-arm batch。
   - 文件: `scripts/forge_contract_driven_repair_mechanism_v1_candidate_protocol.py`, `scripts/forge_contract_driven_repair_mechanism_v1_candidate_runner.py`, `backend/tests/test_forge_contract_driven_repair_mechanism_v1_candidate.py`, `benchmarks/manifests/cpp-contract-driven-repair-mechanism-v1-candidate.json`, `benchmarks/schemas/forge-contract-driven-repair-mechanism-v1-candidate.schema.json`, `benchmarks/preregistrations/cpp-contract-driven-repair-mechanism-v1-candidate.md`
 
 - 2026-09-29 — 完成 Runtime v3 双 fault-stratum、三臂零 Provider qualification
