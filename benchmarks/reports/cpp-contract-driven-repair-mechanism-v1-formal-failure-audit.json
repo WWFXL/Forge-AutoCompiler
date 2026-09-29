@@ -1,0 +1,151 @@
+{
+  "checkpoint": {
+    "authoritative_rejection_code": "target_mapping_invalid",
+    "formal_attempts_before_capture": 0,
+    "ledger": {
+      "event_count": 5,
+      "terminal_event": "candidate.submit_rejected",
+      "terminal_head_sha256": "6025772b4a4ce2c1e011adf12a61915ea92ad53833c30f3396fb772ac6c54a90"
+    },
+    "provider_calls_before_capture": 0,
+    "status": "captured"
+  },
+  "document_type": "forge_contract_repair_formal_failure_audit",
+  "execution_boundary": {
+    "backfill_allowed": false,
+    "completed_arm_results": 1,
+    "continuation_allowed": false,
+    "endpoint_censored_arms": 0,
+    "formal_provider_request_attempts": 5,
+    "formal_total_tokens": 52984,
+    "identity_terminal_failed": true,
+    "marker_repair_allowed": false,
+    "replacement_allowed": false,
+    "rerun_allowed": false,
+    "schedule_stopped_before_sequence": 2,
+    "zero_managed_resources_observed_after_failure": true
+  },
+  "failure": {
+    "attempt_marker_status": "started",
+    "batch_marker_completed_arm_count": 0,
+    "batch_marker_provider_request_attempt_count": 0,
+    "batch_marker_status": "running",
+    "classification": "formal_marker_terminalization_failed",
+    "exception_class": "TypeError",
+    "exception_message_sha256": "f10abf03c41c79e8e386a76469c36eca73c9e4595a0058714363772002e23c26",
+    "phase": "after_result_and_experiment_completion_before_attempt_marker_terminalization",
+    "root_cause": "marker_helper_requires_updates_mapping_but_all_runtime_call_sites_pass_keyword_updates",
+    "secondary_failure": "batch_exception_terminalization_called_the_same_incompatible_helper_contract"
+  },
+  "identity": {
+    "implementation_pr_url": "https://github.com/WWFXL/Forge-AutoCompiler/pull/364",
+    "manifest_canonical_sha256": "3a843799109e1163b34f4ed046f0155c7eca91a48ebaecb904e5ad3ed015829f",
+    "manifest_file_sha256": "4fae67f177d692a0a0165326b9b3845fc79244b5d510abb88cd855eb159544a4",
+    "manifest_path": "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v1-formal-execution.json",
+    "release_revision": "e5acf5d79209fea8894fc31aad1cbb3ce815b205",
+    "runner_file_sha256": "5bb1797d2a3a5a8c700ba8da5677b195d0c0db969498521df878f669c815e358",
+    "source_evidence_root": ".compile-sessions/benchmark-evidence-contract-driven-repair-mechanism-v1-authorized"
+  },
+  "interpretation": {
+    "analysis_kind": "formal_infrastructure_failure_audit",
+    "model_ranking_performed": false,
+    "p_value_computed": false,
+    "supported_claims": [
+      "the_first_t2_arm_reached_the_preregistered_strict_endpoint_before_marker_terminalization_failed",
+      "the_runner_stopped_before_sequence_2_and_cleanup_left_zero_managed_resources",
+      "the_failure_was_caused_by_the_marker_update_call_contract"
+    ],
+    "treatment_effect_estimated": false,
+    "unsupported_claims": [
+      "c0_t1_or_t1_t2_treatment_effect",
+      "statistical_significance_or_project_level_estimate",
+      "population_success_rate_or_model_ranking",
+      "permission_to_reuse_rerun_replace_or_backfill_the_observed_arm"
+    ]
+  },
+  "issue_url": "https://github.com/WWFXL/Forge-AutoCompiler/issues/365",
+  "next_decision": "choose_between_a_new_full_identity_an_explicit_evidence_import_amendment_or_stopping_collection_after_repair_review",
+  "observed_arm": {
+    "candidate_accepted": true,
+    "checkpoint_id": "rnnoise-0.1.1:delivery_target",
+    "clean_replay_passed": true,
+    "cleanup_closed": true,
+    "completed_at": "2026-09-29T17:17:40.834934+00:00",
+    "condition": "t2",
+    "external_evaluator_v3_passed": true,
+    "functional_oracle_passed": true,
+    "ledger": {
+      "event_count": 17,
+      "result_sha256": "db258e1a6caa11bc26f23795bd15b63a1636a2b260295e1ed6b54be361fb9aaf",
+      "terminal_event": "experiment.completed",
+      "terminal_head_sha256": "87835c97ad556b49e6bb9d5665a00ffe2cbb510d5f19cf0ef8dc249134830c63"
+    },
+    "provenance_passed": true,
+    "result_sha256": "db258e1a6caa11bc26f23795bd15b63a1636a2b260295e1ed6b54be361fb9aaf",
+    "runtime_event_count": 34,
+    "s0_s5_passed": 6,
+    "sequence": 1,
+    "status": "complete",
+    "strict_post_checkpoint_conversion": true,
+    "tokens": {
+      "input_tokens": 44561,
+      "output_tokens": 8423,
+      "request_attempts": 5,
+      "total_tokens": 52984
+    }
+  },
+  "schema_version": "forge-contract-repair-formal-failure-audit-1.0.0",
+  "source_integrity": {
+    "file_count": 9,
+    "files": [
+      {
+        "path": "attempts/01-clone-4d90a79086b9d5007c7ccbf5/attempt.json",
+        "sha256": "0301d258c6c39ead59f9a97e19a23c83ed0dbc251403e56c41803645b5a3504c",
+        "size_bytes": 559
+      },
+      {
+        "path": "attempts/01-clone-4d90a79086b9d5007c7ccbf5/candidate.json",
+        "sha256": "fc5d17baa377c08ee9f5ec1de3e905ea7fc90e991e3ee9f9f0db6df83e7cf5ad",
+        "size_bytes": 1474
+      },
+      {
+        "path": "attempts/01-clone-4d90a79086b9d5007c7ccbf5/experiment.jsonl",
+        "sha256": "b53015db1706e54b4771dab12912b2e987ba2fc63611feddcfac60c5f0a2b531",
+        "size_bytes": 16395
+      },
+      {
+        "path": "attempts/01-clone-4d90a79086b9d5007c7ccbf5/result.json",
+        "sha256": "db258e1a6caa11bc26f23795bd15b63a1636a2b260295e1ed6b54be361fb9aaf",
+        "size_bytes": 8416
+      },
+      {
+        "path": "attempts/01-clone-4d90a79086b9d5007c7ccbf5/runtime-events.jsonl",
+        "sha256": "34ba2be9533f9fa03240b00a74394b2d9fb376581d24eaee0e8da3755c475d38",
+        "size_bytes": 20912
+      },
+      {
+        "path": "checkpoints/01-rnnoise-0.1.1-delivery-target/checkpoint.json",
+        "sha256": "4185bbaa50b256f17d1fe08cb9a182e4c67604d3d9f8a8e560ed923c2150d6f0",
+        "size_bytes": 13321
+      },
+      {
+        "path": "checkpoints/01-rnnoise-0.1.1-delivery-target/experiment.jsonl",
+        "sha256": "ca1f5f72594e970a5fed4e37b5b47bdad29058c290a68e54656366d9e62af153",
+        "size_bytes": 3400
+      },
+      {
+        "path": "markers/availability.json",
+        "sha256": "8527d64acc50a88ea0d5f8b64fc25971d68294fb142b043f1e889586ad088bee",
+        "size_bytes": 1437
+      },
+      {
+        "path": "markers/batch.json",
+        "sha256": "11bfe119281988765b803123c0030eb74788915413c69e1125cd35c6a5d17b64",
+        "size_bytes": 552
+      }
+    ],
+    "inventory_sha256": "24019a372a3b49fe6dc1b141da45f09f764639c253fc1ed16521341f3c6d2fb5",
+    "source_evidence_modified": false,
+    "total_size_bytes": 66466
+  }
+}

@@ -6,6 +6,15 @@
 
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
+- 2026-09-30 — Formal identity 在首 arm 后因 marker 封口缺陷停止，进入 Issue #365 失败审计与 repair
+  - Release 与启动: PR #364 四项 CI 全绿并 squash-merge 为 `main@e5acf5d79209fea8894fc31aad1cbb3ce815b205`，Issue #363 自动关闭；clean `main == origin/main` 的 strict preflight 校验 manifest `3a843799...5829f`、availability marker `8527d64a...8bee`、image `sha256:adbef4a...758b1`、credential presence、空 formal evidence 和 0 managed resources 后返回 `ready=true`。
+  - 观察: sequence 1 `rnnoise-0.1.1:delivery_target / T2` 使用 5 个 `deepseek-flash` requests，44,561 input / 8,423 output / 52,984 total tokens；candidate、functional oracle、provenance、external evaluator v3、clean replay、S0-S5 和 cleanup 均通过，result SHA-256 `db258e1a...b9aaf`，17-event ledger 以唯一 `experiment.completed` 封口，head `87835c97...30c63`。
+  - 失败: result/ledger 落盘后，`_update_claimed_marker` 定义要求 `updates` mapping，但 attempt、batch progress、正常终态和异常终态调用均传 keyword updates，首先抛出 `TypeError`，异常封口再次触发同一缺陷。Attempt marker 保持 `started`，batch marker 保持 `running` 且计数 0，schedule 在 sequence 2 前停止。
+  - Evidence: 原 identity 视为失败，9 files / 66,466 bytes，inventory SHA-256 `24019a372a3b49fe6dc1b141da45f09f764639c253fc1ed16521341f3c6d2fb5`；0 managed containers / 0 capture images，parent/arm session 均 finalize。禁止续跑、重跑、replacement、backfill、marker 手工修补或 evidence 修改。
+  - 审计与 repair: Issue #365 已创建并回读，分支 `yiwei/365-formal-marker-failure-audit`。新增只读审计器、JSON/Markdown/const Schema 与测试，固定 9 文件及解释边界；新增绑定 frozen runner SHA-256 `5bb1797d...e358` 的进程内 marker adapter，为未来独立 identity 转换 keyword updates，不修改历史 runner。
+  - 当前验证: 审计/repair 聚焦 `12 passed`；审计 validate 与 repair validate 通过，均为 0 Provider / 0 formal attempt / 0 formal evidence write。下一步完成 Ruff、扩大回归、状态提交与 PR；修复合并后由研究负责人在全新 36-arm identity、显式 evidence-import amendment、停止 collection 三者中决策。
+  - 文件: `scripts/forge_contract_driven_repair_mechanism_v1_formal_failure_audit.py`, `scripts/forge_contract_driven_repair_mechanism_v1_formal_marker_repair.py`, `backend/tests/test_forge_contract_driven_repair_mechanism_v1_formal_failure_audit.py`, `benchmarks/reports/cpp-contract-driven-repair-mechanism-v1-formal-failure-audit.json`, `benchmarks/reports/cpp-contract-driven-repair-mechanism-v1-formal-failure-audit.md`, `benchmarks/schemas/forge-contract-repair-formal-failure-audit.schema.json`, `RESEARCH_STATUS.md`, `.claude/memory/project.md`
+
 - 2026-09-30 — Issue #363 formal collection execution identity 进入合并前门禁
   - 身份与授权: 分支 `yiwei/363-contract-repair-formal-collection` 基于 `main@c04507aa31d0352bd3bc05b97448a4809e149d2e`；Issue #363 已创建并回读。研究负责人已授权实现、测试、Docker、提交、推送、PR、CI、合并，以及 clean-main preflight 通过后的 `DEEPSEEK_API_KEY` presence check、DeepSeek `deepseek-flash`、36-arm formal attempts、create-once evidence 和结果审计。
   - 实现: 新 formal protocol/manifest/const Schema/预注册/runner 固定 6 projects × delivery/target 与 provenance × C0/T1/T2，共 12 matched checkpoints / 36 arms；实现 checkpoint-boundary recovery、每物理请求计数的一次 transport retry、actual model 强校验、逐响应 token ledger、第二个 endpoint censor 早停、candidate/oracle/P2/external evaluator v3/clean replay/cleanup 严格终点与 fixed-sequence 分析。
