@@ -6,6 +6,47 @@
 
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
+- 2026-09-29 — 冻结并实现契约驱动修复三臂未授权候选 identity
+  - GitHub: 中文 Issue #353 已创建并回读，关联 #352；当前仍在 `yiwei/352-runtime-v3-qualification` 未提交工作树中进行结果盲设计，不执行 push 或发布。
+  - 工作类型: 结果分析与实验设计。目标是把已通过 qualification 的 36-arm 可执行性候选转化为可审阅的研究身份；本阶段不创建正式 observation。
+  - 可辨识性: 对 12 个 matched checkpoints 的 exact paired test 做结果盲枚举。真实绝对效应 `+1/3` 时，合理 discordance 情景的估计功效约 `0.16--0.20`；达到约 80% 功效约需 23--56 checkpoints。正式 project-level 分析更保守，因此 36 arms 不能表述为功效充分的确认性总体效应实验。
+  - 冻结定位: 保持 6 projects x 2 strata x 3 arms，把研究定位为固定样本、预注册、可证伪的毕业论文机制研究；主要最小有意义效应取 C0 vs T1 `+1/3`，即 12 checkpoint 中净增加 4 次严格转换。T1 vs T2 的次级实际意义门槛为 `+1/6`。
+  - 结果盲样本: 从冻结 Stage C source pool 排除直接进入 v8 Runtime v3 remediation canary 的四项目，再按原顺序对 CMake/Make/Autotools 各取首个 small 与 medium：`leveldb`、`libsoundio`、`8cc`、`lz4`、`rnnoise-0.1.1`、`libsndfile`。选择只使用 source metadata、零 Provider reference qualification、人工合同和 oracle，不读取新 outcome。
+  - 冻结分析: 每项目各建一个 `target_mapping_invalid` 和一个 `build_system_unproven / opaque_wrapper` checkpoint；主要分析单位为 project block。C0 vs T1 先做双侧 exact sign-flip 且要求 `Delta >= +1/3`，通过后才检验 T1 vs T2；C0 vs T2 只作支持性描述。
+  - Provider/预算: Provider profile 与实际模型均冻结为 DeepSeek `deepseek-flash`；每 arm 8 request attempts，36 个正式 arms 最多 288 attempts，另有 availability 最多 2 attempts，因此 identity 最多 290 Provider attempts。单臂与总体 `max_recorded_tokens=null`，逐响应记录 input/output/total tokens，但 token 总量不作终止条件。只允许一次 0-response/0-token/0-side-effect transport retry；第二个 endpoint-censored arm 后停止；不引入货币停止条件。
+  - 可复算性: 新增纯标准库 `scripts/forge_contract_repair_design_sensitivity.py` 与聚焦测试，枚举 exact paired-test sensitivity 和 `+1/3` 下 80% 功效的 checkpoint 数，不读取实验 outcome；CLI `validate` 与 `3 passed`、定向 Ruff、format、diff check 均通过。
+  - Candidate identity: 新增确定性 protocol、const Schema、manifest、预注册与 plan-only runner；绑定 source pool/task qualification、Issue #352 adapter/Docker gate/preregistration、Runtime v3、CandidateVerifier、P2、external evaluator v3、operations、tool surface、敏感性脚本与设计决策。release revision 保持 `null`，全部执行授权为 false。
+  - Schedule: 固定 seed + repository URL + exact commit 得到 `rnnoise-0.1.1 -> libsoundio -> lz4 -> 8cc -> leveldb -> libsndfile`；两个 strata 各使用三臂六种排列一次，首 stratum 3/3 平衡，共 12 checkpoints / 36 opaque clone/evaluation identities。evaluator 只接收 opaque evaluation/checkpoint/task identity。
+  - 门禁: runner 只允许 `validate`、`plan`、`show-checkpoint`；`reachability`、`run`、`batch` 在加载 manifest、读取 credential、创建模型、Docker 或 evidence 前 fail closed。availability logical request 冻结为无实验内容的 `FORGE_READY` 确定性往返。
+  - 验证: candidate + Runtime v3 静态 qualification + sensitivity 共 `25 passed`；CandidateVerifier、P2、external evaluator v3、lifecycle 相邻回归 `77 passed`；candidate Ruff check/format、const Schema、CLI、执行入口负测与 diff check 通过。canonical manifest SHA-256 为 `fc1ec9adfb9961e258e4bb8fad8f1ae2f0f5e1b1356748d53d5783dd55700f8f`。
+  - 边界: 0 Provider、0 credential read、0 formal attempt、0 formal evidence write；未修改历史 manifest、runner、report 或冻结 evidence。Issue #353 已记录并回读冻结决策；candidate release revision 尚未冻结，不能执行。候选决策包为 `docs/research/2026-09-29-contract-driven-repair-preregistration-decision.md`。
+  - 下一步: 审阅并提交当前未提交 qualification + candidate 变更，形成 release revision；再派生独立 authorized identity。未经该身份与明确授权，不运行 availability qualification 或 36-arm collection。
+  - 文件: `scripts/forge_contract_driven_repair_mechanism_v1_candidate_protocol.py`, `scripts/forge_contract_driven_repair_mechanism_v1_candidate_runner.py`, `backend/tests/test_forge_contract_driven_repair_mechanism_v1_candidate.py`, `benchmarks/manifests/cpp-contract-driven-repair-mechanism-v1-candidate.json`, `benchmarks/schemas/forge-contract-driven-repair-mechanism-v1-candidate.schema.json`, `benchmarks/preregistrations/cpp-contract-driven-repair-mechanism-v1-candidate.md`
+
+- 2026-09-29 — 完成 Runtime v3 双 fault-stratum、三臂零 Provider qualification
+  - GitHub: 中文 Issue #352 已创建并回读；当前分支为 `yiwei/352-runtime-v3-qualification`，基线 HEAD 为 `47b34eb1`，未提交、未 push。
+  - 工作类型: 基础设施。目标是解除生产 candidate submission boundary 尚不能统一形成 delivery/target 与 provenance 两层 state-matched C0/T1/T2 的研究阻塞；本门禁不产生 treatment effect outcome。
+  - 实现: 新增 `forge-runtime-v3-three-arm-qualification-1.0.0` 独立 adapter；直接使用 Runtime v3 CandidateService 和生产 CandidateVerifier。P2 仅在唯一粗粒度 `build_system_mismatch` 上接管，并在同一 submit 边界生成 `build_system_unproven`。C0/T1/T2 精确限制为普通失败、finding、finding + 抽象 repair goal，拒绝具体命令、argv、shell、patch、答案、跨 pair evidence 与 evaluator 信息。
+  - State matching: 每个 stratum 由一个真实 Docker parent 在 authoritative rejection 后、任何 continuation/model request 前暂停；提交 rootfs、复制 workspace/artifacts，并把 source、history、candidate request、rejection、message prefix、environment、budget、tool policy 与 component SHA-256 写入 create-once checkpoint。三臂使用 opaque session/evaluation identity 从唯一 snapshot 派生，`parallel_tool_calls=false`。
+  - 真实结果: delivery/target 的 production `target_mapping_invalid` 与 provenance 的 P2 `build_system_unproven / opaque_wrapper` 均完成三臂 qualification；六个 arm 的 candidate、S3 functional oracle、provenance、external evaluator v3 strict success、clean replay、finalize/cleanup 全部通过。最终 opt-in Docker 复跑为 `2 passed in 75.93s`；六臂均 0 model request / 0 recorded token，阶段固定 0 Provider / 0 formal attempt / 0 experiment evidence write，运行前后 0 managed container / paused container / managed image。
+  - 负面门禁: 覆盖错误字段、具体命令泄露、跨 pair evidence、state drift、budget drift、evaluator arm label 泄露、orphan、checkpoint identity 重用与 manifest hash 漂移。未修改历史 runner、manifest、report 或冻结 evidence。
+  - 验证: qualification 静态门禁 `14 passed`，CandidateVerifier、P2 gate、external evaluator v3 与 lifecycle checkpoint 相邻回归 `77 passed`；定向 Ruff check/format 和 `git diff --check` 通过。
+  - 解释边界: 结果只证明当前工程边界可执行，不能解释为 C0/T1/T2 treatment effect、统计功效、模型排名或自然失败外推；36 arms 仍只是可执行性候选。
+  - 下一步: 研究负责人需在不读取新 outcome 的前提下决定最小有意义效应，并冻结具体项目/checkpoint、独立性、顺序/随机化、多重比较、Provider、预算、retry 与停止规则；之后才建立候选 manifest/Schema/preregistration/plan-only runner，仍不自动授权 Provider 或 formal evidence。
+  - 文件: `scripts/forge_runtime_v3_three_arm_qualification.py`, `backend/tests/test_forge_runtime_v3_three_arm_qualification.py`, `backend/tests/test_forge_runtime_v3_three_arm_qualification_docker.py`, `benchmarks/preregistrations/cpp-runtime-v3-three-arm-zero-provider-qualification.md`, `RESEARCH_STATUS.md`, `.claude/memory/project.md`
+
+- 2026-09-29 — 开始毕业论文问题冻结前的文献定位与实验设计审计
+  - 目标: 研究方向保持为自动化编译，Forge 的 Agent Workflow Node 与 Lead/Compiler Multi-Agent 作为基础设施；CXXCrafter 只是相关工作之一。当前首选题目为“面向自动化编译的契约驱动修复：基于可恢复失败状态、确定性候选验证反馈和分层正确性判定的方法”。
+  - 文献: 定向核验 CXXCrafter、CompileAgent、BuildBench、ComBench、EnConda-Bench、GradleFixer、EvidenT、Repo2Run、EvoConfig、PhantomRun、跨 ISA Build-bench、Exact Feedback、SpecHarness 和 FDE-Bench。Agent 编译、固定 Workflow、多 Agent、日志反馈、领域工具、evidence、独立 verifier、clean replay、过程指标和完整文件/patch 比较均已有直接先例，不能单独主张创新。
+  - 主问题候选: 在相同编译失败状态、模型、工具和预算下，确定性候选合同验证器生成的最小结构化拒绝反馈，相比普通失败载荷，是否提高合法候选转换率并减少重复或无效动作。CXXCrafter-style、CompileAgent-style 和当前 Forge Multi-Agent 只作为系统层相关基线或外部效度参照，不替代 matched-state 主比较。
+  - 已有机制证据: behavioral v2 为 baseline/treatment `3/6 -> 5/6`；multi-checkpoint v3 跨 CMake/Make/Autotools 为 `4/6 -> 6/6`，但仍只有 `artifact_staging_missing` 一个 fault family；opaque provenance replication 有 treatment 6/12 conversion 和六次 clean replay，但 7/12 pairs endpoint-censored、仅 2/6 project blocks 完整，`primary_test=null`。Stage C v8 的 4/4 结果只作生产链路工程 canary。
+  - 设计审计: 历史 behavioral v2/v3、opaque provenance 与生产 Runtime v3 使用不同反馈合同，不能直接合并为确认性实验；Stage C v8 的同 attempt repair 没有 state-matched 对照。主 estimand 应是“合同派生的可操作反馈包暴露效应”，不能表述为纯结构化格式效应。
+  - 候选设计: 研究负责人已选择 C0 普通失败、T1 合同 finding、T2 finding + 抽象 repair goal 三臂；C0 vs T1 为主要比较，T1 vs T2 为次级比较，C0 vs T2 为支持性比较。当前可执行性候选为 6 个项目 × 2 个 checkpoint × 3 臂，共 36 arms；candidate delivery/target 与 build provenance 分层报告。具体项目/checkpoint、顺序、多重比较规则和最小有意义效应尚未冻结。
+  - 当前树复核: CandidateVerifier 与 multi-checkpoint 无 Provider 聚焦测试 `12 passed`。旧 opaque replication authorized 测试在 collection 阶段因冻结 runner 仍导入当前 `operations.py` 已移除的 `resolve_command_role` 而失败；该 current-tree import drift 不改变历史冻结结果，但禁止把旧 runner 直接作为新实验执行基线或原地修补。
+  - 边界: 本阶段是结果分析，不调用 Provider、不读取 credential、不启动 Docker、不创建 formal attempt、不修改冻结 evidence。文献检索不是系统综述，只能写“本次检索语料中未发现直接覆盖”；现有 pilot 不能支持确认性 treatment effect、模型排名或总体外推。
+  - 下一步: 实现 Runtime v3 candidate submission 边界的双 fault-stratum、state-matched 零 Provider qualification；delivery/target 使用生产 CandidateVerifier，provenance 使用接入同一 submission/checkpoint 边界的 P2 reference criterion。必须在下一次模型调用前原子冻结 message/environment/budget，并证明 C0/T1/T2 除白名单 feedback projection 外完全同源。门禁通过后，再冻结效应阈值、具体样本、顺序、多重比较规则和新实验 identity。
+  - 文件: `docs/research/2026-09-29-automated-compilation-thesis-direction.md`, `docs/research/2026-09-29-contract-driven-repair-design-audit.md`, `RESEARCH_STATUS.md`, `.claude/memory/project.md`
+
 - 2026-09-25 — 冻结 evaluator v3 的 Phase 5 独立授权评测 identity
   - GitHub: 中文 Issue #303 与 PR #304 已创建并回读；分支为 `research/phase5-v3-authorized-identity`，基线为 `main@9f8c8ad4`，实现提交为 `4c85e0fd`。首轮 backend unit、frozen benchmark、backend lint 和 frontend lint 四项 CI 全绿。Spec/Plan 位于 `docs/superpowers/`。
   - 实现: 新 protocol、const Schema、manifest、预注册和薄 runner 原样继承 Phase 5 v2 的六任务、Provider、镜像、预算、顺序与单 attempt 约束，冻结 external evaluator v3 文件/版本/rules identity；新 reachability、attempt、evaluation、report 与 evidence identity 完全独立，不导入 v2 结果或证据。
@@ -112,6 +153,28 @@
 ## 最近变更 (Recent Changes)
 
 <!-- 倒序，最新在上。 -->
+
+- 2026-09-29 — 固化契约驱动修复机制实验的三臂研究决策
+  - 决策: 选择 C0 普通失败、T1 合同 finding、T2 finding + 抽象 repair goal 三臂；C0 vs T1 为主要比较，T1 vs T2 为次级比较，C0 vs T2 为支持性比较。人工冻结任务合同、delivery/target 与 provenance 两个 stratum、后续四类系统基线和主张边界按既定方案执行。
+  - 未决: 最小有意义效应暂不确定；具体项目/checkpoint、执行顺序、多重比较规则、预算和正式 experiment identity 仍需在 qualification 后预注册冻结。36 arms 仅为当前可执行性候选，不是功效结论。
+  - 边界: 本次只固化研究决策并同步知识库；0 Provider、0 credential read、0 Docker、0 formal attempt、0 model token、0 experiment evidence write，冻结 evidence 未修改。
+  - 文件: `RESEARCH_STATUS.md`, `docs/research/2026-09-29-automated-compilation-thesis-direction.md`, `docs/research/2026-09-29-contract-driven-repair-design-audit.md`, `.claude/memory/project.md`
+
+- 2026-09-29 — 制作契约驱动修复研究方向的正式答辩风格 HTML 幻灯片
+  - 实现: 形成 13 页 16:9 单文件演示，覆盖研究动机、相关工作边界、Forge 四项研究基础、failure checkpoint、C0/T1/T2 反馈干预、实际案例、RQ1-RQ4、严格评价指标、完整系统实验、预期结果与研究路线；支持键盘翻页、目录、全屏、进度和打印。
+  - 验证: Chrome 1600x900 桌面逐页截图与整套联系表通过视觉审查；桌面和移动断点的 `data-overflow-slides` 均为空且无文档横向溢出；打印 PDF 为 13 页、每页 960 x 540 pt；无远程资源依赖，`git diff --check` 通过。
+  - 边界: 该文件只整理现有研究设计与证据边界，不新增实验 observation，不冻结正式实验 identity，不调用 Provider，不启动 Docker，不修改冻结 evidence；`RESEARCH_STATUS.md` 的当前阶段与下一项工作不变。
+  - 文件: `docs/research/2026-09-29-contract-guided-repair-defense.html`, `.claude/memory/project.md`
+
+- 2026-09-29 — 完成 Issue #351 Stage C v8 结果冻结与只读审计
+  - GitHub: 中文 Issue #351 已创建并回读；工作分支为 `yiwei/351-stage-c-v8-result-freeze`，基线为 `main@50626ec1875dba28dd52bd7f0a559be3c100e3b4`。本结果继续绑定实验 release `6682d86cb30cc4e8d7b240bca8922606077a4808`，不把后续文档提交写回实验 identity。
+  - 实现: 新增确定性只读审计器、const Schema、脱敏 JSON/Markdown 报告和聚焦测试。审计器只接受冻结的 16 文件精确集合，按原 `sha256sum` 行算法复算 inventory，使用 `ExperimentLedger.verify_path()` 验证四条 sequence/digest/previous-event 链及唯一末尾 completion，并逐项闭合 manifest、marker、result、S0-S5、submit repair、逐请求 token 和 cleanup。
+  - 结果: Evidence 保持 16 files / 631,570 bytes，inventory SHA-256 为 `afe607e075509eee1999a65f4c485b0995959a1f026bf22f3f6ff7673d6b14a7`；四任务 strict、S0-S5、bitwise、cleanup 均为 4/4，完整账本为 37 requests / 260,873 input / 19,115 output / 279,988 total tokens。`libjpeg-turbo` 的 `target_mapping_invalid` 拒绝、同 attempt 修复和第二次提交成功保持为唯一观察到的 repair 轨迹。
+  - 报告身份: JSON SHA-256 为 `43d995ff5f6ae414f0ce87405265c4dd63ccf837657eb7c852c2cdd5bd4a11a4`，Markdown SHA-256 为 `d7c26f5977721369fc8d787a1718b3c0643a9e6cba597dc96e1979c2a860364d`，const Schema SHA-256 为 `93ff7e868a16a740e9df0a624fa3fb4d61fc47c24b3fc4ba8dd28282d1382dcb`。报告仅含白名单字段和相对路径，不含 prompt、模型正文、credential、Session ID、宿主绝对路径或 stdout/stderr。
+  - 验证: Stage C/Runtime/external evaluator 扩大回归 `133 passed, 4 skipped`，其中 4 项为需显式 opt-in 的 Docker 门禁；从 `backend/` 运行 `make test-product` 得到 `1836 passed, 47 skipped`。Ruff check/format、authorized protocol validate、报告 generate/validate、const Schema、Markdown 确定性和 `git diff --check` 通过。生成与测试前后 inventory SHA-256 不变。
+  - 解释与执行边界: 本报告只支持四个固定 canary task 的工程闭合和一次可观察 repair 轨迹，不替换 v5、改写 v6/v7、估计 treatment effect/p 值/总体成功率、排名模型或外推。全程 0 Provider、0 credential read、0 Docker、0 model token、0 formal attempt、0 experiment evidence write；原 identity 不允许重跑、retry、replacement、backfill 或续跑。
+  - 下一步: 审阅冻结报告后，在扩大确认性样本、独立 replication 和停止当前机制路线之间作出研究决策；任何新实验必须另建 identity、预算、停止规则和明确授权。
+  - 文件: `scripts/forge_stage_c_v8_workspace_remediation_result_audit.py`, `backend/tests/test_stage_c_v8_workspace_remediation_result_audit.py`, `benchmarks/schemas/forge-stage-c-v8-workspace-remediation-result-audit.schema.json`, `benchmarks/reports/cpp-stage-c-v8-workspace-remediation-result-audit.json`, `benchmarks/reports/cpp-stage-c-v8-workspace-remediation-result-audit.md`, `RESEARCH_STATUS.md`, `.claude/memory/project.md`
 
 - 2026-09-28 — 建立 Codex 科研协作契约与当前状态入口
   - GitHub: 中文 Issue #349 已创建并回读；工作分支为 `docs/issue-349-research-collaboration`，基线为 `main@6682d86cb30cc4e8d7b240bca8922606077a4808`。

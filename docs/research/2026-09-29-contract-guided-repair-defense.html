@@ -1,0 +1,1442 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>面向自动化编译的合同引导修复与严格验证</title>
+  <style>
+    :root {
+      --navy: #0a2540;
+      --ink: #152536;
+      --muted: #5c6b7a;
+      --line: #d9e1e8;
+      --paper: #ffffff;
+      --page: #eef2f6;
+      --blue: #1976d2;
+      --blue-soft: #e9f2fb;
+      --orange: #ed6c36;
+      --orange-soft: #fff0e8;
+      --green: #21835b;
+      --green-soft: #e8f5ef;
+      --red: #b94141;
+      --red-soft: #fbecec;
+      --gray-soft: #f4f6f8;
+      --shadow: 0 22px 70px rgba(7, 28, 47, 0.22);
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      background: var(--navy);
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      overflow: hidden;
+      color: var(--ink);
+      background: var(--navy);
+      font-family: "Microsoft YaHei", "PingFang SC", "Noto Sans CJK SC", Arial, sans-serif;
+    }
+
+    button, a { font: inherit; }
+
+    button:focus-visible,
+    a:focus-visible {
+      outline: 3px solid rgba(25, 118, 210, 0.38);
+      outline-offset: 3px;
+    }
+
+    .deck {
+      height: 100svh;
+      overflow-y: auto;
+      scroll-snap-type: y mandatory;
+      scrollbar-width: none;
+    }
+
+    .deck::-webkit-scrollbar { display: none; }
+
+    .slide {
+      min-height: 100svh;
+      padding: 2.4vh 2vw;
+      display: grid;
+      place-items: center;
+      scroll-snap-align: start;
+      scroll-snap-stop: always;
+    }
+
+    .slide-canvas {
+      container-type: inline-size;
+      position: relative;
+      width: min(96vw, calc(95svh * 16 / 9));
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      padding: 4.1cqw 5.2cqw 3.3cqw;
+      background: var(--paper);
+      border-radius: 4px;
+      box-shadow: var(--shadow);
+      font-size: 1.12cqw;
+    }
+
+    .slide-canvas::before,
+    .slide-canvas::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 0.55cqw;
+      background: var(--navy);
+    }
+
+    .slide-canvas::before { top: 0; }
+    .slide-canvas::after { bottom: 0; }
+
+    .slide-canvas > * { position: relative; z-index: 1; }
+
+    .left-rail {
+      position: absolute;
+      z-index: 0;
+      inset: 0 auto 0 0;
+      width: 2.7cqw;
+      background: #e8eef6;
+    }
+
+    .left-rail::after {
+      content: "";
+      position: absolute;
+      inset: 0 0 0 auto;
+      width: 0.48cqw;
+      background: var(--blue);
+    }
+
+    .slide-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 2cqw;
+      margin-bottom: 2cqw;
+    }
+
+    .eyebrow {
+      margin: 0 0 0.7cqw;
+      color: var(--blue);
+      font-size: 0.9em;
+      font-weight: 700;
+      letter-spacing: 0;
+      text-transform: uppercase;
+    }
+
+    h1, h2, h3, p { margin-top: 0; }
+
+    h1 {
+      margin-bottom: 1.25cqw;
+      color: var(--navy);
+      font-size: 3.7em;
+      line-height: 1.2;
+      letter-spacing: 0;
+    }
+
+    h2 {
+      margin-bottom: 0;
+      color: var(--navy);
+      font-size: 2.2em;
+      line-height: 1.2;
+      letter-spacing: 0;
+    }
+
+    h3 {
+      margin-bottom: 0.65cqw;
+      color: var(--navy);
+      font-size: 1.18em;
+      line-height: 1.3;
+      letter-spacing: 0;
+    }
+
+    p {
+      margin-bottom: 0.8cqw;
+      line-height: 1.65;
+    }
+
+    strong { color: var(--navy); }
+
+    .lead {
+      color: #33485c;
+      font-size: 1.28em;
+      line-height: 1.65;
+    }
+
+    .small {
+      color: var(--muted);
+      font-size: 0.82em;
+      line-height: 1.55;
+    }
+
+    .accent-line {
+      width: 7.5cqw;
+      height: 0.32cqw;
+      margin: 1.6cqw 0 1.55cqw;
+      background: var(--orange);
+    }
+
+    .slide-index {
+      flex: 0 0 auto;
+      padding-top: 0.25cqw;
+      color: #8a98a6;
+      font-size: 0.92em;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .slide-foot {
+      position: absolute;
+      left: 5.2cqw;
+      right: 5.2cqw;
+      bottom: 1.35cqw;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.4cqw;
+      color: #7b8996;
+      font-size: 0.7em;
+    }
+
+    .slide-foot a {
+      color: inherit;
+      text-decoration: none;
+      border-bottom: 1px solid #cbd4dc;
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6cqw;
+      align-items: center;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      min-height: 1.8cqw;
+      padding: 0.25cqw 0.7cqw;
+      border: 1px solid transparent;
+      border-radius: 3px;
+      font-size: 0.72em;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .tag.observed { color: #176746; background: var(--green-soft); border-color: #b9dfcf; }
+    .tag.hypothesis { color: #9a461f; background: var(--orange-soft); border-color: #f0c3aa; }
+    .tag.design { color: #145b9c; background: var(--blue-soft); border-color: #b9d4eb; }
+    .tag.boundary { color: #556473; background: var(--gray-soft); border-color: #d7dfe6; }
+
+    .grid-2,
+    .grid-3,
+    .grid-4 {
+      display: grid;
+      gap: 1.5cqw;
+    }
+
+    .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .grid-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+    .band {
+      padding: 1.25cqw 1.45cqw;
+      border-left: 0.35cqw solid var(--blue);
+      background: var(--blue-soft);
+    }
+
+    .band.orange { border-color: var(--orange); background: var(--orange-soft); }
+    .band.green { border-color: var(--green); background: var(--green-soft); }
+    .band.gray { border-color: #8a98a6; background: var(--gray-soft); }
+
+    .panel {
+      min-width: 0;
+      padding: 1.25cqw 1.35cqw;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: #fff;
+    }
+
+    .panel.blue { border-top: 0.35cqw solid var(--blue); }
+    .panel.orange { border-top: 0.35cqw solid var(--orange); }
+    .panel.green { border-top: 0.35cqw solid var(--green); }
+    .panel.red { border-top: 0.35cqw solid var(--red); }
+
+    .metric {
+      display: flex;
+      align-items: baseline;
+      gap: 0.45cqw;
+      margin: 0.4cqw 0;
+    }
+
+    .metric strong {
+      color: var(--blue);
+      font-size: 2em;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .metric span { color: var(--muted); }
+
+    .plain-list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .plain-list li {
+      position: relative;
+      margin: 0.55cqw 0;
+      padding-left: 1.1cqw;
+      line-height: 1.52;
+    }
+
+    .plain-list li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.68em;
+      width: 0.42cqw;
+      height: 0.42cqw;
+      background: var(--orange);
+    }
+
+    .flow {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      gap: 1.1cqw;
+      align-items: stretch;
+      margin: 2cqw 0;
+    }
+
+    .flow-step {
+      position: relative;
+      min-height: 7.6cqw;
+      padding: 1.05cqw 0.75cqw;
+      border-top: 0.28cqw solid var(--blue);
+      background: var(--gray-soft);
+      text-align: center;
+    }
+
+    .flow-step:not(:last-child)::after {
+      content: "›";
+      position: absolute;
+      top: 50%;
+      right: -0.86cqw;
+      z-index: 2;
+      width: 0.6cqw;
+      color: #8ba1b4;
+      font-size: 1.55em;
+      font-weight: 700;
+      transform: translateY(-52%);
+    }
+
+    .flow-step b {
+      display: block;
+      margin-bottom: 0.4cqw;
+      color: var(--navy);
+      font-size: 1em;
+    }
+
+    .flow-step span {
+      color: var(--muted);
+      font-size: 0.76em;
+      line-height: 1.45;
+    }
+
+    .research-table {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+      font-size: 0.82em;
+    }
+
+    .research-table th {
+      padding: 0.72cqw 0.8cqw;
+      color: #fff;
+      background: var(--navy);
+      text-align: left;
+      line-height: 1.35;
+    }
+
+    .research-table td {
+      padding: 0.68cqw 0.8cqw;
+      border-bottom: 1px solid var(--line);
+      vertical-align: top;
+      line-height: 1.48;
+    }
+
+    .research-table tbody tr:nth-child(even) td { background: #f7f9fb; }
+
+    .research-table .work {
+      color: var(--navy);
+      font-weight: 700;
+    }
+
+    .layer-track {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 0.8cqw;
+      margin: 1.8cqw 0;
+    }
+
+    .layer {
+      position: relative;
+      min-height: 8.3cqw;
+      padding: 1.1cqw;
+      border: 1px solid var(--line);
+      border-bottom: 0.38cqw solid var(--blue);
+      background: #fff;
+    }
+
+    .layer::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      right: -0.83cqw;
+      width: 0.75cqw;
+      border-top: 2px solid #a8b6c2;
+    }
+
+    .layer:last-child::after { display: none; }
+
+    .layer-code {
+      display: inline-block;
+      margin-bottom: 0.6cqw;
+      color: var(--blue);
+      font-size: 0.84em;
+      font-weight: 800;
+    }
+
+    .layer p { margin: 0; color: var(--muted); font-size: 0.78em; line-height: 1.5; }
+
+    .architecture {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 1.35cqw;
+      align-items: stretch;
+      margin: 2.1cqw 0 1.7cqw;
+    }
+
+    .capability {
+      position: relative;
+      min-height: 14cqw;
+      padding: 1.3cqw;
+      border: 1px solid var(--line);
+      background: #fff;
+    }
+
+    .capability:not(:last-child)::after {
+      content: "›";
+      position: absolute;
+      top: 50%;
+      right: -1.05cqw;
+      z-index: 2;
+      color: var(--blue);
+      font-size: 1.8em;
+      transform: translateY(-55%);
+    }
+
+    .capability-no {
+      display: inline-grid;
+      width: 2.1cqw;
+      height: 2.1cqw;
+      margin-bottom: 1cqw;
+      place-items: center;
+      color: #fff;
+      background: var(--navy);
+      border-radius: 50%;
+      font-size: 0.8em;
+      font-weight: 800;
+    }
+
+    .capability h3 { font-size: 1.08em; }
+    .capability p { color: var(--muted); font-size: 0.8em; line-height: 1.55; }
+
+    .checkpoint-layout {
+      display: grid;
+      grid-template-columns: 0.82fr 1.7fr;
+      gap: 2cqw;
+      align-items: center;
+      margin-top: 1.1cqw;
+    }
+
+    .checkpoint-source {
+      padding: 1.4cqw;
+      border: 1px solid #b9d4eb;
+      background: var(--blue-soft);
+    }
+
+    .checkpoint-source .node {
+      margin: 0.7cqw 0;
+      padding: 0.75cqw;
+      background: #fff;
+      border-left: 0.28cqw solid var(--blue);
+      font-size: 0.82em;
+    }
+
+    .branch-zone {
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1.2cqw;
+      padding-left: 1.4cqw;
+    }
+
+    .branch-zone::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 0;
+      width: 1.2cqw;
+      border-top: 2px solid #8da2b4;
+    }
+
+    .branch {
+      min-height: 15.2cqw;
+      padding: 1.15cqw;
+      border: 1px solid var(--line);
+      background: #fff;
+    }
+
+    .branch.c0 { border-top: 0.35cqw solid #7f8b96; }
+    .branch.t1 { border-top: 0.35cqw solid var(--blue); }
+    .branch.t2 { border-top: 0.35cqw solid var(--orange); }
+
+    .branch-label {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5cqw;
+      margin-bottom: 0.8cqw;
+      color: var(--navy);
+      font-weight: 800;
+    }
+
+    .branch p { color: var(--muted); font-size: 0.78em; line-height: 1.55; }
+
+    pre {
+      margin: 0;
+      overflow: hidden;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+      color: #dfe9f1;
+      background: #142d42;
+      border-radius: 4px;
+      font-family: "Cascadia Code", "SFMono-Regular", Consolas, monospace;
+      font-size: 0.67em;
+      line-height: 1.52;
+      tab-size: 2;
+    }
+
+    .feedback-code { min-height: 14cqw; padding: 1cqw; }
+
+    .code-key { color: #8cc8ff; }
+    .code-value { color: #ffd19b; }
+    .code-muted { color: #94a7b7; }
+
+    .example-layout {
+      display: grid;
+      grid-template-columns: 0.9fr 1.3fr;
+      gap: 1.8cqw;
+      align-items: stretch;
+    }
+
+    .contract-compare {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.9cqw;
+      margin-bottom: 1cqw;
+    }
+
+    .contract-box {
+      padding: 1cqw;
+      border: 1px solid var(--line);
+      background: var(--gray-soft);
+    }
+
+    .contract-box.bad { border-color: #e3b5b5; background: var(--red-soft); }
+
+    .contract-box b { display: block; margin-bottom: 0.55cqw; }
+    .contract-box code { color: var(--navy); font-size: 0.82em; line-height: 1.5; }
+
+    .behavior-row {
+      display: grid;
+      grid-template-columns: 4.5cqw 1fr 4.8cqw;
+      gap: 0.9cqw;
+      align-items: center;
+      padding: 0.8cqw 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .behavior-row:last-child { border-bottom: 0; }
+    .behavior-row strong { font-size: 0.85em; }
+    .behavior-row p { margin: 0; color: var(--muted); font-size: 0.78em; line-height: 1.48; }
+
+    .outcome-pill {
+      padding: 0.35cqw 0.45cqw;
+      border-radius: 3px;
+      text-align: center;
+      font-size: 0.68em;
+      font-weight: 700;
+    }
+
+    .outcome-pill.unknown { color: #6a4b12; background: #fff2c9; }
+
+    .rq-list {
+      display: grid;
+      gap: 0.75cqw;
+    }
+
+    .rq-row {
+      display: grid;
+      grid-template-columns: 4.4cqw 1fr;
+      gap: 1cqw;
+      align-items: start;
+      padding: 0.78cqw 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .rq-row:last-child { border-bottom: 0; }
+
+    .rq-code {
+      padding: 0.35cqw;
+      color: #fff;
+      background: var(--navy);
+      text-align: center;
+      font-size: 0.8em;
+      font-weight: 800;
+    }
+
+    .rq-row p { margin: 0; line-height: 1.5; }
+    .rq-row span { color: var(--muted); font-size: 0.76em; }
+
+    .sample-equation {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1cqw;
+      margin: 1.2cqw 0;
+      color: var(--navy);
+      font-size: 1.35em;
+      font-weight: 800;
+    }
+
+    .sample-equation b {
+      display: grid;
+      min-width: 5.7cqw;
+      min-height: 5.7cqw;
+      padding: 0.6cqw;
+      place-items: center;
+      background: var(--blue-soft);
+      border: 1px solid #b9d4eb;
+      text-align: center;
+    }
+
+    .sample-equation b:last-child {
+      color: #fff;
+      background: var(--blue);
+      border-color: var(--blue);
+    }
+
+    .formula {
+      padding: 1.2cqw 1.5cqw;
+      color: #fff;
+      background: var(--navy);
+      text-align: center;
+      font-family: "Cascadia Code", Consolas, monospace;
+      font-size: 1.1em;
+      line-height: 1.5;
+    }
+
+    .metrics-layout {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 1.7cqw;
+      margin-top: 1.5cqw;
+    }
+
+    .metric-group {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.9cqw;
+    }
+
+    .metric-item {
+      min-height: 5.7cqw;
+      padding: 0.9cqw;
+      border-left: 0.3cqw solid var(--blue);
+      background: var(--gray-soft);
+    }
+
+    .metric-item b { display: block; margin-bottom: 0.35cqw; }
+    .metric-item span { color: var(--muted); font-size: 0.76em; line-height: 1.45; }
+
+    .system-lanes {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 1cqw;
+      margin: 1.4cqw 0;
+    }
+
+    .system-lane {
+      min-height: 12.3cqw;
+      padding: 1.1cqw;
+      border: 1px solid var(--line);
+      background: #fff;
+    }
+
+    .system-lane.primary {
+      border: 2px solid var(--blue);
+      background: #f8fbfe;
+    }
+
+    .system-lane h3 { font-size: 1em; }
+    .system-lane p { color: var(--muted); font-size: 0.75em; line-height: 1.5; }
+
+    .result-pattern {
+      display: grid;
+      grid-template-columns: 1.05fr 1fr;
+      gap: 1cqw;
+      align-items: center;
+      min-height: 5.7cqw;
+      padding: 0.9cqw 1.1cqw;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .result-pattern:last-child { border-bottom: 0; }
+    .pattern { color: var(--blue); font-size: 1.18em; font-weight: 800; }
+    .result-pattern p { margin: 0; color: var(--muted); font-size: 0.8em; line-height: 1.5; }
+
+    .roadmap {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 0.85cqw;
+      margin: 1.4cqw 0 1.7cqw;
+    }
+
+    .road-step {
+      position: relative;
+      min-height: 8cqw;
+      padding: 1cqw;
+      border-top: 0.35cqw solid var(--blue);
+      background: var(--gray-soft);
+    }
+
+    .road-step:last-child { border-color: var(--orange); background: var(--orange-soft); }
+    .road-step b { display: block; margin-bottom: 0.4cqw; }
+    .road-step span { color: var(--muted); font-size: 0.76em; line-height: 1.45; }
+
+    .cover .slide-canvas { padding-left: 7.2cqw; }
+
+    .institution {
+      color: #67798a;
+      font-size: 0.86em;
+      font-weight: 700;
+    }
+
+    .cover-kicker {
+      margin-top: 1.2cqw;
+      color: var(--ink);
+      font-size: 1.25em;
+    }
+
+    .cover-title {
+      max-width: 70cqw;
+      margin-top: 3cqw;
+    }
+
+    .cover-subtitle {
+      margin-bottom: 2.3cqw;
+      color: var(--blue);
+      font-size: 1.18em;
+      font-weight: 600;
+    }
+
+    .cover-meta {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      width: 36cqw;
+      gap: 0.65cqw 2cqw;
+      color: var(--muted);
+      font-size: 0.9em;
+    }
+
+    .cover-meta b { margin-left: 0.8cqw; }
+
+    .cover-status {
+      position: absolute;
+      right: 5.2cqw;
+      bottom: 4.2cqw;
+      width: 26cqw;
+    }
+
+    .takeaway {
+      color: var(--navy);
+      font-size: 1.18em;
+      font-weight: 700;
+      line-height: 1.55;
+    }
+
+    .chrome {
+      position: fixed;
+      z-index: 30;
+      right: 2vw;
+      bottom: 1.4vh;
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.45rem;
+      color: #fff;
+      background: rgba(4, 20, 34, 0.88);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 6px;
+      backdrop-filter: blur(10px);
+    }
+
+    .chrome button {
+      display: grid;
+      width: 2.4rem;
+      height: 2.4rem;
+      padding: 0;
+      place-items: center;
+      color: #fff;
+      background: transparent;
+      border: 0;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .chrome button:hover { background: rgba(255, 255, 255, 0.12); }
+    .chrome button:disabled { opacity: 0.35; cursor: default; }
+    .counter {
+      min-width: 4.2rem;
+      color: #d8e4ee;
+      text-align: center;
+      font-size: 0.82rem;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .control-icon { font-size: 1.25rem; line-height: 1; }
+
+    .progress {
+      position: fixed;
+      z-index: 31;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.14);
+    }
+
+    .progress-bar {
+      width: 0;
+      height: 100%;
+      background: var(--orange);
+      transition: width 180ms ease;
+    }
+
+    .outline {
+      position: fixed;
+      z-index: 40;
+      top: 1.4vh;
+      right: 1.4vw;
+      width: min(23rem, 84vw);
+      max-height: 82svh;
+      padding: 0.7rem;
+      overflow: auto;
+      color: #fff;
+      background: rgba(4, 20, 34, 0.96);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 6px;
+      box-shadow: 0 18px 50px rgba(0, 0, 0, 0.35);
+    }
+
+    .outline[hidden] { display: none; }
+
+    .outline a {
+      display: grid;
+      grid-template-columns: 2.2rem 1fr;
+      gap: 0.45rem;
+      padding: 0.65rem 0.75rem;
+      color: #dce8f1;
+      border-radius: 4px;
+      text-decoration: none;
+      line-height: 1.35;
+    }
+
+    .outline a:hover,
+    .outline a[aria-current="page"] { background: rgba(255, 255, 255, 0.1); }
+
+    .outline a span:first-child { color: #80b7e7; font-variant-numeric: tabular-nums; }
+
+    @media (max-width: 820px), (orientation: portrait) {
+      html, body { width: 100%; max-width: 100%; overflow-x: hidden; }
+      body { overflow-y: auto; background: var(--page); }
+      .deck { width: 100%; height: auto; overflow: visible; scroll-snap-type: none; }
+      .slide { width: 100%; min-width: 0; min-height: auto; padding: 0.6rem; scroll-snap-align: none; }
+      .slide-canvas {
+        container-type: normal;
+        width: 100%;
+        min-width: 0;
+        max-width: 100%;
+        min-height: calc(100svh - 1.2rem);
+        aspect-ratio: auto;
+        padding: 4.5rem 1.35rem 3.6rem;
+        border-radius: 0;
+        font-size: 14px;
+        overflow: visible;
+        box-shadow: none;
+      }
+      .slide-canvas::before,
+      .slide-canvas::after { height: 8px; }
+      .left-rail { width: 13px; }
+      .left-rail::after { width: 4px; }
+      .slide-head { margin-bottom: 1.4rem; }
+      h1 { font-size: 2.05rem; overflow-wrap: anywhere; word-break: break-word; }
+      h2 { font-size: 1.7rem; }
+      .cover .slide-canvas { padding-left: 2.4rem; }
+      .cover-title { width: 100%; max-width: 100%; min-width: 0; }
+      .cover-meta { width: 100%; grid-template-columns: 1fr; }
+      .cover-status { position: static; width: auto; margin-top: 2rem; }
+      .slide-foot { left: 1.35rem; right: 1.35rem; bottom: 1.4rem; }
+      .grid-2, .grid-3, .grid-4, .flow, .layer-track, .architecture,
+      .checkpoint-layout, .branch-zone, .example-layout, .metrics-layout,
+      .system-lanes, .roadmap { grid-template-columns: 1fr; }
+      .flow-step, .layer, .capability, .branch, .system-lane, .road-step { min-height: auto; }
+      .flow-step:not(:last-child)::after, .layer::after, .capability:not(:last-child)::after,
+      .branch-zone::before { display: none; }
+      .contract-compare, .metric-group { grid-template-columns: 1fr; }
+      .research-table { display: block; overflow-x: auto; font-size: 0.78rem; }
+      .feedback-code { min-height: auto; font-size: 0.72rem; }
+      .sample-equation { flex-wrap: wrap; font-size: 1rem; }
+      .sample-equation b { min-width: 7.4rem; min-height: 5rem; }
+      .chrome { right: 0.65rem; bottom: 0.65rem; }
+      .progress { height: 3px; }
+    }
+
+    @media print {
+      @page { size: 13.333in 7.5in; margin: 0; }
+      html, body { background: #fff; }
+      body { overflow: visible; }
+      .deck { height: auto; overflow: visible; }
+      .slide {
+        width: 13.333in;
+        height: 7.49in;
+        min-height: 0;
+        padding: 0;
+        display: block;
+        overflow: hidden;
+        break-inside: avoid-page;
+        page-break-inside: avoid;
+        page-break-after: always;
+      }
+      .slide-canvas {
+        width: 13.333in;
+        height: 7.49in;
+        aspect-ratio: auto;
+        border-radius: 0;
+        box-shadow: none;
+        break-inside: avoid-page;
+        page-break-inside: avoid;
+      }
+      .slide:last-child { page-break-after: auto; }
+      .chrome, .progress, .outline { display: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <main class="deck" id="deck" aria-label="研究汇报幻灯片">
+    <section class="slide cover active" id="slide-1" data-title="研究题目">
+      <div class="slide-canvas">
+        <div class="left-rail" aria-hidden="true"></div>
+        <div class="institution">武汉理工大学&nbsp;&nbsp; WUHAN UNIVERSITY OF TECHNOLOGY</div>
+        <div class="cover-kicker">硕士研究课题汇报</div>
+        <div class="cover-title">
+          <h1>面向自动化编译的<br>合同引导修复与严格验证</h1>
+          <div class="accent-line"></div>
+          <div class="cover-subtitle">反馈粒度、可恢复失败状态及完整系统评测</div>
+          <div class="tag-row">
+            <span class="tag design">研究问题冻结前</span>
+            <span class="tag observed">已有探索性证据</span>
+            <span class="tag hypothesis">正式结论待实验</span>
+          </div>
+        </div>
+        <div class="cover-meta">
+          <span>研究生 <b>王威福</b></span>
+          <span>指导教师 <b>杜亚娟 教授</b></span>
+          <span>培养单位 <b>计算机与人工智能学院</b></span>
+          <span>汇报日期 <b>2026 年 9 月</b></span>
+        </div>
+        <div class="cover-status band">
+          <div class="small">研究定位</div>
+          <div class="takeaway">先验证“反馈为什么有效”，再评价“完整 Forge 是否有效”。</div>
+        </div>
+        <div class="slide-foot"><span>Forge-AutoCompiler · 研究方向汇报</span><span>01 / 13</span></div>
+      </div>
+    </section>
+
+    <section class="slide" id="slide-2" data-title="研究背景">
+      <div class="slide-canvas">
+        <header class="slide-head">
+          <div><p class="eyebrow">01 · 研究背景</p><h2>自动化编译的难点发生在“运行命令”之外</h2></div>
+          <div class="slide-index">02 / 13</div>
+        </header>
+        <p class="lead">真实 C/C++ 仓库需要连续解决环境、依赖、入口、配置、交付和复现问题。</p>
+        <div class="flow" aria-label="自动化编译工作流">
+          <div class="flow-step"><b>理解项目</b><span>文档、目录<br>构建入口</span></div>
+          <div class="flow-step"><b>准备环境</b><span>工具链<br>系统依赖</span></div>
+          <div class="flow-step"><b>执行构建</b><span>配置、编译<br>链接、安装</span></div>
+          <div class="flow-step"><b>处理失败</b><span>诊断日志<br>修正策略</span></div>
+          <div class="flow-step"><b>提交产物</b><span>路径、类型<br>目标映射</span></div>
+          <div class="flow-step"><b>功能验收</b><span>最小消费者<br>任务行为</span></div>
+          <div class="flow-step"><b>干净重建</b><span>空 workspace<br>同一身份</span></div>
+        </div>
+        <div class="grid-2">
+          <div class="panel blue">
+            <h3>CXXCrafter 的问题测量</h3>
+            <div class="metric"><strong>21/100</strong><span>默认构建命令成功</span></div>
+            <div class="metric"><strong>75/100</strong><span>CXXCrafter 在 Top100 成功</span></div>
+            <p class="small">说明真实执行反馈和迭代修复具有价值。</p>
+          </div>
+          <div class="band orange">
+            <div class="small">核心矛盾</div>
+            <p class="takeaway">“构建过程没有报错”仍不能回答：交付物是否正确、功能是否满足任务、来源是否可信、结果是否可以重现。</p>
+          </div>
+        </div>
+        <div class="slide-foot"><span>证据：CXXCrafter，Top100 实验；数字为论文报告</span><span>研究动机</span></div>
+      </div>
+    </section>
+
+    <section class="slide" id="slide-3" data-title="相关工作">
+      <div class="slide-canvas">
+        <header class="slide-head">
+          <div><p class="eyebrow">02 · 相关工作</p><h2>已有研究已经覆盖 Agent、日志反馈与多层验证</h2></div>
+          <div class="slide-index">03 / 13</div>
+        </header>
+        <table class="research-table" aria-label="相关工作对比">
+          <thead><tr><th style="width:17%">工作</th><th style="width:31%">已经解决</th><th style="width:26%">评价证据</th><th>留下的问题</th></tr></thead>
+          <tbody>
+            <tr><td class="work">CXXCrafter</td><td>Parser → Dockerfile Generator → Executor → LLM Judge 闭环</td><td>指令与日志 Judge、人工复核、部分测试与产物对比</td><td>未统一覆盖功能、来源与独立 clean replay</td></tr>
+            <tr><td class="work">CompileAgent</td><td>固定 Flow、说明检索、错误讨论与工具集成 Agent</td><td>构建完成与目标文件检查</td><td>Workflow 中嵌入 Agent 本身已不是空白</td></tr>
+            <tr><td class="work">ComBench / FDE-Bench</td><td>真实编译错误；build / behavior / conformance 分层评价</td><td>编译、语义、exact-match；纯净环境重建</td><td>主要回答 benchmark 与评价，不隔离反馈机制</td></tr>
+            <tr><td class="work">EvidenT / SpecHarness</td><td>证据保留、外部 Build Service、proposal / validation / commit 分离</td><td>迭代证据与独立 authority</td><td>与 Forge 高度相邻，不能把 verifier 单独称为创新</td></tr>
+            <tr><td class="work">Exact Feedback</td><td>确定性 verifier、固定预算与 matched-state 反馈干预</td><td>19 个模型的闭环约束修订</td><td>实验思想相近，但任务不是自动化编译</td></tr>
+          </tbody>
+        </table>
+        <div class="band orange" style="margin-top:1.35cqw">
+          <div class="tag-row"><span class="tag boundary">不能单独主张</span><strong>“使用 Agent”“多 Agent 诊断”“日志反馈”“独立 verifier”“clean rebuild”“分层评价”。</strong></div>
+        </div>
+        <div class="slide-foot"><span>本次定位为定向检索，不声称严格系统综述或全球首次</span><span>相关工作边界</span></div>
+      </div>
+    </section>
+
+    <section class="slide" id="slide-4" data-title="研究缺口">
+      <div class="slide-canvas">
+        <header class="slide-head">
+          <div><p class="eyebrow">03 · 研究缺口</p><h2>从“看起来成功”到“严格可复现成功”</h2></div>
+          <div class="slide-index">04 / 13</div>
+        </header>
+        <p class="lead">一次成功需要连续通过五层证据；任何一层失败，都不能用前一层替代。</p>
+        <div class="layer-track" aria-label="严格成功证据层">
+          <div class="layer"><span class="layer-code">S1 · Build</span><h3>构建完成</h3><p>配置、编译和链接命令真实执行并正常退出。</p></div>
+          <div class="layer"><span class="layer-code">S2 · Artifact</span><h3>产物有效</h3><p>目标文件存在、非空、类型与路径符合任务。</p></div>
+          <div class="layer"><span class="layer-code">S3 · Function</span><h3>功能正确</h3><p>预声明的最小消费者或任务级 oracle 通过。</p></div>
+          <div class="layer"><span class="layer-code">S4 · Provenance</span><h3>来源合法</h3><p>产物来自记录的源码、构建系统与允许动作。</p></div>
+          <div class="layer"><span class="layer-code">S5 · Replay</span><h3>干净重建</h3><p>在空环境按冻结配方重新产生合格结果。</p></div>
+        </div>
+        <div class="grid-3">
+          <div class="panel red"><h3>退出码为 0</h3><p class="small">可能只安装了依赖，或者构建了错误目标。</p></div>
+          <div class="panel orange"><h3>产物确实存在</h3><p class="small">可能来自旧缓存、错误源码或未记录操作。</p></div>
+          <div class="panel green"><h3>第一次功能通过</h3><p class="small">仍可能无法在新的空 workspace 中重现。</p></div>
+        </div>
+        <div class="slide-foot"><span>严格成功定义：S0 身份有效，并且 S1 ∧ S2 ∧ S3 ∧ S4 ∧ S5</span><span>成功判据</span></div>
+      </div>
+    </section>
+
+    <section class="slide" id="slide-5" data-title="Forge 研究基础">
+      <div class="slide-canvas">
+        <header class="slide-head">
+          <div><p class="eyebrow">04 · Forge 研究基础</p><h2>四项能力构成“修复—裁决—复现—实验”闭环</h2></div>
+          <div class="slide-index">05 / 13</div>
+        </header>
+        <div class="architecture" aria-label="Forge 四项基础能力">
+          <div class="capability"><span class="capability-no">1</span><h3>CandidateVerifier</h3><p>在候选冻结前检查交付、目标映射与功能 oracle；拒绝后允许 Agent 继续修复。</p><span class="tag design">在线门禁</span></div>
+          <div class="capability"><span class="capability-no">2</span><h3>External evaluator</h3><p>候选冻结后独立执行 S0–S5，不把最终裁决反馈给 Agent。</p><span class="tag design">独立裁判</span></div>
+          <div class="capability"><span class="capability-no">3</span><h3>Clean replay</h3><p>使用 exact commit、不可变镜像和空目录重放配方，再检查产物与功能。</p><span class="tag observed">复现证据</span></div>
+          <div class="capability"><span class="capability-no">4</span><h3>Failure checkpoint</h3><p>冻结失败后的消息、环境和预算，从同一个现场派生隔离实验分支。</p><span class="tag observed">历史原型已验证</span></div>
+        </div>
+        <div class="band">
+          <p class="takeaway">当前缺口不是重新建设一个编译 Agent，而是把生产 candidate submission 与 checkpoint、反馈投影和严格评价统一到同一个实验边界。</p>
+        </div>
+        <div class="slide-foot"><span>注意：Runtime v3 的统一 state-matched qualification 尚未完成</span><span>基础设施阶段</span></div>
+      </div>
+    </section>
+
+    <section class="slide" id="slide-6" data-title="核心研究机制">
+      <div class="slide-canvas">
+        <header class="slide-head">
+          <div><p class="eyebrow">05 · 核心研究机制</p><h2>从同一个失败现场，只改变 Agent 能看到的反馈</h2></div>
+          <div class="slide-index">06 / 13</div>
+        </header>
+        <div class="checkpoint-layout">
+          <div class="checkpoint-source">
+            <span class="tag design">共同父状态</span>
+            <div class="node">Agent 已执行构建并提交候选</div>
+            <div class="node">同一个 CandidateVerifier 产生 finding</div>
+            <div class="node">反馈进入模型前冻结 checkpoint</div>
+            <p class="small" style="margin-bottom:0">消息、workspace、产物、命令历史、环境与剩余预算全部相同。</p>
+          </div>
+          <div class="branch-zone">
+            <div class="branch c0"><div class="branch-label"><span>C0</span><span class="tag boundary">对照</span></div><h3>普通失败</h3><p>只知道候选验证失败。Agent 依靠 workspace 和工具自行定位。</p></div>
+            <div class="branch t1"><div class="branch-label"><span>T1</span><span class="tag design">证据</span></div><h3>分类 + finding</h3><p>看到错误分类、相关路径以及 expected / actual。</p></div>
+            <div class="branch t2"><div class="branch-label"><span>T2</span><span class="tag hypothesis">行动</span></div><h3>证据 + repair goal</h3><p>在 T1 基础上增加抽象修复目标，不提供命令或答案。</p></div>
+          </div>
+        </div>
+        <div class="band orange" style="margin-top:1.45cqw">
+          <strong>主研究问题：</strong>在相同失败状态、模型、工具、环境和预算下，哪一级确定性合同信息足以提高严格候选转换率？
+        </div>
+        <div class="slide-foot"><span>三组使用同一个验证器和 external evaluator；唯一实验变量是 feedback exposure</span><span>因果识别</span></div>
+      </div>
+    </section>
+
+    <section class="slide" id="slide-7" data-title="反馈粒度">
+      <div class="slide-canvas">
+        <header class="slide-head">
+          <div><p class="eyebrow">06 · 反馈粒度</p><h2>研究目标不是“越详细越好”，而是寻找最小充分信息</h2></div>
+          <div class="slide-index">07 / 13</div>
+        </header>
+        <div class="grid-3">
+          <div class="panel">
+            <div class="branch-label"><span>C0 · 普通失败</span><span class="tag boundary">基线</span></div>
+            <pre class="feedback-code">{
+  <span class="code-key">"accepted"</span>: <span class="code-value">false</span>,
+  <span class="code-key">"reason"</span>:
+    <span class="code-value">"verification_failed"</span>
+}</pre>
+            <p class="small" style="margin-top:0.8cqw">测量 Agent 自行诊断能力。</p>
+          </div>
+          <div class="panel blue">
+            <div class="branch-label"><span>T1 · 验证证据</span><span class="tag design">增量 1</span></div>
+            <pre class="feedback-code">{
+  <span class="code-key">"code"</span>:
+    <span class="code-value">"target_mapping_invalid"</span>,
+  <span class="code-key">"path"</span>: <span class="code-value">"lib/libdemo.a"</span>,
+  <span class="code-key">"expected"</span>: [<span class="code-value">"shared"</span>],
+  <span class="code-key">"actual"</span>: [<span class="code-value">"static"</span>]
+}</pre>
+            <p class="small" style="margin-top:0.8cqw">测量机器确认事实的价值。</p>
+          </div>
+          <div class="panel orange">
+            <div class="branch-label"><span>T2 · 可操作目标</span><span class="tag hypothesis">增量 2</span></div>
+            <pre class="feedback-code">{
+  <span class="code-muted">...T1 fields,</span>
+  <span class="code-key">"repair_goal"</span>:
+    <span class="code-value">"提交与目标类型和</span>
+    <span class="code-value">路径合同一致的候选"</span>
+}</pre>
+            <p class="small" style="margin-top:0.8cqw">测量抽象行动指导的额外价值。</p>
+          </div>
+        </div>
+        <div class="band gray" style="margin-top:1.35cqw">
+          <strong>统一禁止：</strong>shell 命令、argv、补丁、正确候选内容、其他实验分支信息和隐藏 evaluator 断言。
+        </div>
+        <div class="slide-foot"><span>Treatment 同时改变信息内容与结构，因此不解释为“纯 JSON 格式效应”</span><span>干预定义</span></div>
+      </div>
+    </section>
+
+    <section class="slide" id="slide-8" data-title="实际案例">
+      <div class="slide-canvas">
+        <header class="slide-head">
+          <div><p class="eyebrow">07 · 教学示意</p><h2>示例：构建成功，但提交了错误类型的目标产物</h2></div>
+          <div class="slide-index">08 / 13</div>
+        </header>
+        <div class="example-layout">
+          <div>
+            <div class="contract-compare">
+              <div class="contract-box"><b>任务合同</b><code>target: demo<br>kind: shared_library<br>path: libdemo.so</code></div>
+              <div class="contract-box bad"><b>Agent 提交</b><code>target: demo<br>kind: static_library<br>path: libdemo.a</code></div>
+            </div>
+            <div class="band orange">
+              <div class="small">确定性 finding</div>
+              <strong>target_mapping_invalid</strong>
+              <p class="small" style="margin-bottom:0">`expected=shared_library`，`actual=static_library`。构建日志本身可能没有错误。</p>
+            </div>
+          </div>
+          <div class="panel">
+            <h3>同一个现场下可能出现的后续行为</h3>
+            <div class="behavior-row"><strong>C0</strong><p>重新运行构建或搜索日志，但未必意识到失败来自目标合同。</p><span class="outcome-pill unknown">待观测</span></div>
+            <div class="behavior-row"><strong>T1</strong><p>根据 expected / actual 检查已有产物，修正目标映射或构建选项。</p><span class="outcome-pill unknown">待观测</span></div>
+            <div class="behavior-row"><strong>T2</strong><p>获得相同证据和抽象目标，可能更快行动，也可能因提示冗余无额外收益。</p><span class="outcome-pill unknown">待观测</span></div>
+            <div class="band green" style="margin-top:0.8cqw">
+              <p class="small" style="margin:0"><strong>严格成功：</strong>重新提交只是第一步；仍需功能、provenance、external evaluator、clean replay 和 cleanup 全部通过。</p>
+            </div>
+          </div>
+        </div>
+        <div class="slide-foot"><span>该案例用于解释机制，不是对某次真实 attempt 的逐字复述</span><span>机制示例</span></div>
+      </div>
+    </section>
+
+    <section class="slide" id="slide-9" data-title="研究问题">
+      <div class="slide-canvas">
+        <header class="slide-head">
+          <div><p class="eyebrow">08 · 研究问题</p><h2>从局部机制到完整系统，分四个问题回答</h2></div>
+          <div class="slide-index">09 / 13</div>
+        </header>
+        <div class="grid-2">
+          <div class="rq-list">
+            <div class="rq-row"><div class="rq-code">RQ1</div><p><strong>反馈粒度</strong><br><span>C0、T1、T2 如何影响严格候选转换率与修复成本？</span></p></div>
+            <div class="rq-row"><div class="rq-code">RQ2</div><p><strong>故障差异</strong><br><span>delivery / target 与 build provenance 是否需要不同反馈？</span></p></div>
+            <div class="rq-row"><div class="rq-code">RQ3</div><p><strong>系统效果</strong><br><span>完整 Forge 是否提高严格可复现构建成功率？</span></p></div>
+            <div class="rq-row"><div class="rq-code">RQ4</div><p><strong>效率与可靠性</strong><br><span>收益是否足以抵消验证与重放开销？</span></p></div>
+          </div>
+          <div class="panel blue">
+            <div class="tag-row"><span class="tag design">候选规模</span><span class="tag boundary">可执行性建议，非功效结论</span></div>
+            <div class="sample-equation">
+              <b>6<br><span class="small">项目</span></b><span>×</span><b>2<br><span class="small">checkpoint</span></b><span>×</span><b>3<br><span class="small">反馈条件</span></b><span>=</span><b>36<br><span style="font-size:.55em">arms</span></b>
+            </div>
+            <div class="grid-2">
+              <div class="band"><strong>3 个项目</strong><p class="small" style="margin:0">delivery / target contract</p></div>
+              <div class="band orange"><strong>3 个项目</strong><p class="small" style="margin:0">build provenance contract</p></div>
+            </div>
+            <p class="small" style="margin-top:0.9cqw">项目是分析单位；重复 checkpoint 用于观察模型随机性，不能扩充独立样本数。</p>
+          </div>
+        </div>
+        <div class="slide-foot"><span>反馈机制实验回答“为什么”；完整系统实验回答“整体是否有效”</span><span>问题分层</span></div>
+      </div>
+    </section>
+
+    <section class="slide" id="slide-10" data-title="评价指标">
+      <div class="slide-canvas">
+        <header class="slide-head">
+          <div><p class="eyebrow">09 · 评价指标</p><h2>主要终点必须同时满足正确性、来源与可复现性</h2></div>
+          <div class="slide-index">10 / 13</div>
+        </header>
+        <div class="formula">strict_post_checkpoint_conversion = candidate ∧ function ∧ provenance ∧ evaluator ∧ replay ∧ cleanup</div>
+        <div class="metrics-layout">
+          <div>
+            <h3>主要终点：二元严格转换</h3>
+            <div class="layer-track" style="grid-template-columns:repeat(3,1fr);margin:1cqw 0">
+              <div class="layer"><span class="layer-code">01</span><h3>候选接受</h3><p>在预算内重新提交并通过 CandidateVerifier。</p></div>
+              <div class="layer"><span class="layer-code">02</span><h3>独立验收</h3><p>功能、产物与 provenance 由外部 evaluator 接受。</p></div>
+              <div class="layer"><span class="layer-code">03</span><h3>重放闭合</h3><p>clean replay 与 cleanup 完成且无 managed orphan。</p></div>
+            </div>
+            <div class="band orange"><p class="small" style="margin:0">没有提交、预算耗尽、再次被拒绝或只通过部分层级，均记为 0；基础设施删失另行报告。</p></div>
+          </div>
+          <div class="metric-group">
+            <div class="metric-item"><b>成功率</b><span>项目级严格转换、分层通过率</span></div>
+            <div class="metric-item"><b>修复距离</b><span>首次合法候选前的请求与步骤</span></div>
+            <div class="metric-item"><b>成本</b><span>input/output tokens、Provider 费用</span></div>
+            <div class="metric-item"><b>时间</b><span>总墙钟、首次成功时间</span></div>
+            <div class="metric-item"><b>过程</b><span>重复提交、policy rejection、错误序列</span></div>
+            <div class="metric-item"><b>可靠性</b><span>endpoint、Docker、删失和资源残留</span></div>
+          </div>
+        </div>
+        <div class="slide-foot"><span>不同系统的“轮次”不可直接等同，因此同步报告请求数、工具调用、token 与墙钟</span><span>统一口径</span></div>
+      </div>
+    </section>
+
+    <section class="slide" id="slide-11" data-title="完整系统实验">
+      <div class="slide-canvas">
+        <header class="slide-head">
+          <div><p class="eyebrow">10 · 完整系统实验</p><h2>机制有效后，再评价整个 Forge 系统</h2></div>
+          <div class="slide-index">11 / 13</div>
+        </header>
+        <div class="system-lanes">
+          <div class="system-lane"><h3>Default Build</h3><p>标准构建命令，无 LLM 修复。提供最低自动化基线。</p><span class="tag boundary">基础基线</span></div>
+          <div class="system-lane"><h3>CXXCrafter-style</h3><p>Parser、Dockerfile Generator、Executor、Judge 与整体修订。</p><span class="tag design">方法基线</span></div>
+          <div class="system-lane"><h3>Forge w/o Feedback</h3><p>保留 Workflow、Session 和严格评价，移除合同反馈暴露。</p><span class="tag design">系统消融</span></div>
+          <div class="system-lane primary"><h3>Full Forge</h3><p>Workflow、Agent、候选合同反馈、external evaluator 与 replay。</p><span class="tag hypothesis">完整系统</span></div>
+        </div>
+        <div class="grid-2">
+          <div class="band">
+            <h3>受控方法比较 · 主实验</h3>
+            <p class="small" style="margin:0">共享 repository@exact_commit、公开任务、模型、环境、工具权限、预算、停止规则和统一 external evaluator。</p>
+          </div>
+          <div class="band gray">
+            <h3>原生系统比较 · 补充实验</h3>
+            <p class="small" style="margin:0">允许各方法使用原生镜像和策略，更接近产品能力，但差异来源更多。</p>
+          </div>
+        </div>
+        <div class="band orange" style="margin-top:1.05cqw">
+          <strong>公平边界：</strong>所有系统看到同一公开任务说明；隐藏 oracle 只供共同 evaluator 使用。不能把论文的 `587/752` 直接作为本地基线。
+        </div>
+        <div class="slide-foot"><span>公开实现不能稳定复现时，名称必须使用 CXXCrafter-style baseline</span><span>系统评测</span></div>
+      </div>
+    </section>
+
+    <section class="slide" id="slide-12" data-title="预期结果">
+      <div class="slide-canvas">
+        <header class="slide-head">
+          <div><p class="eyebrow">11 · 预期结果</p><h2>预期结果是可证伪假设，不是预先写好的结论</h2></div>
+          <div class="slide-index">12 / 13</div>
+        </header>
+        <div class="grid-2">
+          <div class="panel blue">
+            <div class="tag-row"><span class="tag hypothesis">机制实验</span><span class="tag boundary">三种均可接受</span></div>
+            <div class="result-pattern"><div class="pattern">C0 &lt; T1 ≈ T2</div><p>确定性证据有用，额外 repair goal 没有稳定增益。</p></div>
+            <div class="result-pattern"><div class="pattern">C0 ≈ T1 &lt; T2</div><p>错误事实不足，Agent 还需要抽象行动目标。</p></div>
+            <div class="result-pattern"><div class="pattern">C0 ≈ T1 ≈ T2</div><p>Agent 可自行诊断；反馈机制不应成为主创新。</p></div>
+          </div>
+          <div class="panel orange">
+            <div class="tag-row"><span class="tag hypothesis">系统实验</span></div>
+            <ul class="plain-list" style="margin-top:1cqw">
+              <li><strong>Full Forge</strong> 可能提高严格成功率和结果可信度。</li>
+              <li>原始 build completion 未必明显优于 CXXCrafter-style。</li>
+              <li>验证和 replay 会增加固定时间开销。</li>
+              <li>更少的无效迭代可能抵消部分 token 与费用。</li>
+              <li>不同 failure stratum 可能需要不同最小反馈。</li>
+            </ul>
+          </div>
+        </div>
+        <div class="band green" style="margin-top:1.35cqw">
+          <p class="takeaway" style="margin:0">理想结论不是“反馈越多越好”，而是识别不同自动化编译失败所需的最小充分证据，以及它带来的可靠性—成本权衡。</p>
+        </div>
+        <div class="slide-foot"><span>探索性结果只支持继续检验，不支持提前声称总体效应</span><span>假设边界</span></div>
+      </div>
+    </section>
+
+    <section class="slide" id="slide-13" data-title="贡献与路线图">
+      <div class="slide-canvas">
+        <header class="slide-head">
+          <div><p class="eyebrow">12 · 贡献与路线图</p><h2>先建立可信机制证据，再扩展为完整自动化系统</h2></div>
+          <div class="slide-index">13 / 13</div>
+        </header>
+        <div class="grid-3">
+          <div class="panel blue"><span class="tag design">方法贡献</span><h3 style="margin-top:0.8cqw">有界合同反馈</h3><p class="small">从确定性 finding 生成不同信息粒度、无答案泄露的修复反馈。</p></div>
+          <div class="panel orange"><span class="tag design">实验贡献</span><h3 style="margin-top:0.8cqw">同状态机制比较</h3><p class="small">从可恢复失败 checkpoint 派生分支，隔离 feedback exposure。</p></div>
+          <div class="panel green"><span class="tag design">系统贡献</span><h3 style="margin-top:0.8cqw">严格统一评价</h3><p class="small">把候选、功能、来源、clean replay 和成本纳入共同评测。</p></div>
+        </div>
+        <div class="roadmap" aria-label="研究路线图">
+          <div class="road-step"><b>01 · 零 Provider qualification</b><span>证明 checkpoint 同源、反馈唯一差异和完整闭环。</span></div>
+          <div class="road-step"><b>02 · 反馈机制实验</b><span>比较 C0 / T1 / T2，按 failure stratum 报告。</span></div>
+          <div class="road-step"><b>03 · 完整系统实验</b><span>统一 evaluator 下比较成功率、时间、费用和轮次。</span></div>
+          <div class="road-step"><b>04 · 后续扩展</b><span>解析构建元数据，Agent 生成候选合同，用户只处理歧义。</span></div>
+        </div>
+        <div class="band">
+          <p class="takeaway" style="margin:0">当前论文先回答：给定可信任务合同后，如何让自动化编译的修复过程更有效、结果更可信、证据更可复现。</p>
+        </div>
+        <div style="margin-top:1.35cqw;text-align:right;color:var(--navy);font-size:1.25em;font-weight:700">谢谢 · 敬请指正</div>
+        <div class="slide-foot"><span>研究方向候选 · 正式实验 identity 尚未冻结</span><span>Q &amp; A</span></div>
+      </div>
+    </section>
+  </main>
+
+  <aside class="outline" id="outline" hidden aria-label="幻灯片目录"></aside>
+
+  <div class="chrome" aria-label="幻灯片控制">
+    <button type="button" id="outline-button" aria-label="打开目录" title="目录">
+      <span class="control-icon" aria-hidden="true">☷</span>
+    </button>
+    <button type="button" id="previous-button" aria-label="上一页" title="上一页">
+      <span class="control-icon" aria-hidden="true">‹</span>
+    </button>
+    <div class="counter" id="counter">01 / 13</div>
+    <button type="button" id="next-button" aria-label="下一页" title="下一页">
+      <span class="control-icon" aria-hidden="true">›</span>
+    </button>
+    <button type="button" id="fullscreen-button" aria-label="全屏" title="全屏">
+      <span class="control-icon" aria-hidden="true">⛶</span>
+    </button>
+  </div>
+  <div class="progress" aria-hidden="true"><div class="progress-bar" id="progress-bar"></div></div>
+
+  <script>
+    const deck = document.getElementById("deck");
+    const slides = [...document.querySelectorAll(".slide")];
+    const counter = document.getElementById("counter");
+    const progressBar = document.getElementById("progress-bar");
+    const previousButton = document.getElementById("previous-button");
+    const nextButton = document.getElementById("next-button");
+    const fullscreenButton = document.getElementById("fullscreen-button");
+    const outlineButton = document.getElementById("outline-button");
+    const outline = document.getElementById("outline");
+    let currentIndex = 0;
+
+    outline.innerHTML = slides.map((slide, index) =>
+      `<a href="#${slide.id}" data-index="${index}"><span>${String(index + 1).padStart(2, "0")}</span><span>${slide.dataset.title}</span></a>`
+    ).join("");
+
+    function update(index, replaceHash = true) {
+      currentIndex = Math.max(0, Math.min(index, slides.length - 1));
+      slides.forEach((slide, slideIndex) => slide.classList.toggle("active", slideIndex === currentIndex));
+      counter.textContent = `${String(currentIndex + 1).padStart(2, "0")} / ${String(slides.length).padStart(2, "0")}`;
+      progressBar.style.width = `${((currentIndex + 1) / slides.length) * 100}%`;
+      previousButton.disabled = currentIndex === 0;
+      nextButton.disabled = currentIndex === slides.length - 1;
+      [...outline.querySelectorAll("a")].forEach((link, linkIndex) => {
+        if (linkIndex === currentIndex) link.setAttribute("aria-current", "page");
+        else link.removeAttribute("aria-current");
+      });
+      if (replaceHash) history.replaceState(null, "", `#${slides[currentIndex].id}`);
+    }
+
+    function goTo(index) {
+      const target = Math.max(0, Math.min(index, slides.length - 1));
+      slides[target].scrollIntoView({ behavior: "smooth", block: "start" });
+      update(target);
+    }
+
+    previousButton.addEventListener("click", () => goTo(currentIndex - 1));
+    nextButton.addEventListener("click", () => goTo(currentIndex + 1));
+    outlineButton.addEventListener("click", () => {
+      outline.hidden = !outline.hidden;
+      outlineButton.setAttribute("aria-expanded", String(!outline.hidden));
+    });
+    outline.addEventListener("click", event => {
+      const link = event.target.closest("a");
+      if (!link) return;
+      event.preventDefault();
+      outline.hidden = true;
+      goTo(Number(link.dataset.index));
+    });
+    fullscreenButton.addEventListener("click", async () => {
+      if (!document.fullscreenElement) await document.documentElement.requestFullscreen();
+      else await document.exitFullscreen();
+    });
+
+    document.addEventListener("keydown", event => {
+      if (["ArrowRight", "ArrowDown", "PageDown", " "].includes(event.key)) {
+        event.preventDefault();
+        goTo(currentIndex + 1);
+      } else if (["ArrowLeft", "ArrowUp", "PageUp"].includes(event.key)) {
+        event.preventDefault();
+        goTo(currentIndex - 1);
+      } else if (event.key === "Home") {
+        event.preventDefault();
+        goTo(0);
+      } else if (event.key === "End") {
+        event.preventDefault();
+        goTo(slides.length - 1);
+      } else if (event.key === "Escape" && !outline.hidden) {
+        outline.hidden = true;
+      }
+    });
+
+    const observer = new IntersectionObserver(entries => {
+      const visible = entries.filter(entry => entry.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+      if (!visible) return;
+      update(slides.indexOf(visible.target));
+    }, { root: deck, threshold: [0.55, 0.8] });
+    slides.forEach(slide => observer.observe(slide));
+
+    const hashIndex = slides.findIndex(slide => `#${slide.id}` === window.location.hash);
+    if (hashIndex >= 0) {
+      slides[hashIndex].scrollIntoView({ block: "start" });
+      update(hashIndex, false);
+    } else {
+      update(0, false);
+    }
+
+    requestAnimationFrame(() => {
+      const overflowing = slides.filter(slide => {
+        const canvas = slide.querySelector(".slide-canvas");
+        return canvas.scrollHeight > canvas.clientHeight + 2 || canvas.scrollWidth > canvas.clientWidth + 2;
+      });
+      document.documentElement.dataset.overflowSlides = overflowing.map(slide => slide.id).join(",");
+      document.documentElement.dataset.documentOverflow = `${document.documentElement.scrollWidth}/${window.innerWidth}`;
+    });
+  </script>
+</body>
+</html>
