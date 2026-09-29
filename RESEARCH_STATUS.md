@@ -4,8 +4,8 @@
 
 ## 当前阶段
 
-- 状态：PR #358 已合并为 `main@d55f39b0`，availability candidate 已冻结；研究负责人已明确授权唯一 availability 和其通过后的 36-arm formal collection，Issue #359 正在实现 availability execution identity。
-- 当前工作类型：实验授权基础设施。availability execution identity 尚未合并，因此当前还没有创建 Provider availability observation。
+- 状态：PR #360 已合并为 `main@09d7ff36`；唯一 DeepSeek `deepseek-flash` availability 已一次通过并完成只读审计，Issue #361 正在冻结结果与 formal collection 阶段交接。
+- 当前工作类型：结果审计与实验授权基础设施。已形成一个 endpoint availability observation，但尚未创建 C0/T1/T2 formal observation。
 - 研究目标：围绕自动化编译形成范围适中、可验证、可复现的毕业论文贡献；Forge 的 Agent Workflow Node 与 Multi-Agent 视为研究基础设施，CXXCrafter 视为相关工作之一。
 - 首选方向：面向自动化编译的契约驱动修复，组合可恢复失败状态、确定性候选验证反馈和分层正确性判定。
 - 当前主问题候选：在相同编译失败状态、模型、工具和预算下，C0 普通失败、T1 合同 finding、T2 finding + 抽象 repair goal 三种反馈暴露是否产生不同的严格候选转换率，并减少重复或无效动作？
@@ -35,6 +35,7 @@ Repo2Run、EvoConfig、PhantomRun、跨 ISA Build-bench、Exact Feedback、SpecH
 - Stage C v8：四任务 strict、S0-S5、bitwise、cleanup 均 4/4；37 requests / 279,988 tokens。`libjpeg-turbo` 有一次 `target_mapping_invalid -> 同 attempt 修复 -> 成功`。这是工程 canary，不是 Forge/CXXCrafter 或 baseline/treatment 对照。
 - 生产 verifier 已能生成确定性、有界、结构化的 delivery、artifact、target mapping 和 functional-oracle findings；candidate verification、external evaluator 与 clean replay 保持独立。
 - Runtime v3 三臂 qualification：delivery/target 与 provenance 两个真实 Docker parent checkpoint 均派生 C0/T1/T2；六个 arm 的 candidate、functional oracle、provenance、external evaluator v3、clean replay 和 cleanup 全部闭合，最终复跑为 `2 passed in 75.93s`，运行前后 0 managed orphan。该结果只证明基础设施可执行，不是 treatment evidence。
+- Availability qualification：绑定 `main@09d7ff36` 与 execution manifest `cf21d2c...7839` 的唯一 `deepseek-flash` request 在首个 attempt 通过；39 input / 19 output / 58 total tokens，exact response 与 model identity 匹配，0 tool side effects、0 managed resources。Marker SHA-256 为 `8527d64a...8bee`；这只证明固定端点在该时点完成往返。
 
 ## 设计审计结论
 
@@ -76,7 +77,7 @@ Repo2Run、EvoConfig、PhantomRun、跨 ISA Build-bench、Exact Feedback、SpecH
 - 实现并运行使用确定性本地模型的零 Provider、零正式 attempt、独立 evidence 目录 qualification；
 - 实现、审阅 release-bound identity，并运行不读取 credential、不创建容器或 evidence 的非模型 preflight。
 - 派生、审阅 availability qualification 候选 amendment，并运行同样的非模型 preflight。
-- 在 Issue #359 execution identity 合并后，读取冻结 credential env、执行唯一 availability logical request，并写入 create-once marker；若通过，再派生 formal collection identity。
+- 从已通过的 availability marker 派生并审阅独立 formal collection execution identity；绑定 marker 哈希后才允许创建 36-arm batch。
 
 禁止：
 
@@ -86,19 +87,19 @@ Repo2Run、EvoConfig、PhantomRun、跨 ISA Build-bench、Exact Feedback、SpecH
 
 ## 当前工作区与知识库状态
 
-- 当前工作分支：`yiwei/359-contract-repair-availability-execution`；基线为 PR #358 合并后的 `main@d55f39b03179f59b0b3b89bb8648a168ec54f7bd`。
+- 当前工作分支：`yiwei/361-contract-repair-availability-audit`；基线为 PR #360 合并后的 `main@09d7ff36ca081f5bfa39f8e1d6f3b3daa53c93a0`。
 - Stage C v8 原始 evidence 保持只读，权威结果入口为 `benchmarks/reports/cpp-stage-c-v8-workspace-remediation-result-audit.md`。
 - Runtime v3 qualification 入口为 `benchmarks/preregistrations/cpp-runtime-v3-three-arm-zero-provider-qualification.md`；它是基础设施门禁记录，不是 formal experiment evidence。
 - 候选预注册决策包入口为 `docs/research/2026-09-29-contract-driven-repair-preregistration-decision.md`；研究负责人已冻结其推荐方案，但它不是执行授权。
 - 父 candidate 入口为 `benchmarks/manifests/cpp-contract-driven-repair-mechanism-v1-candidate.json`；新 release-bound identity 入口为 `benchmarks/manifests/cpp-contract-driven-repair-mechanism-v1-authorized.json`。当前只授权身份实现，availability、formal collection、credential、Provider、Docker Session、formal attempt、formal evidence 和 model token 授权均为 false。
 - Issue #357 availability candidate 入口为 `benchmarks/manifests/cpp-contract-driven-repair-mechanism-v1-availability-candidate.json`；它绑定 authorized implementation release，但 availability execution 与 formal collection 仍均未授权。
-- Issue #359 availability execution 入口为 `benchmarks/manifests/cpp-contract-driven-repair-mechanism-v1-availability-execution.json`；当前代码候选授权 availability、credential、Provider、model、token 和唯一 marker 写入，formal collection 仍在此 identity 中关闭。
+- Issue #359 availability execution 入口为 `benchmarks/manifests/cpp-contract-driven-repair-mechanism-v1-availability-execution.json`；通过 marker 的版本化只读审计为 `benchmarks/reports/cpp-contract-driven-repair-mechanism-v1-availability-audit.md`，formal collection 仍在该 identity 中关闭。
 - 2026-09-29 已按 `search_notes -> read_note` 核对个人知识库中的毕业论文方向与契约驱动修复主笔记；本轮不修改知识库。
 
 ## 下一项工作
 
-Issue #359 的 availability execution manifest、const Schema、预注册、runner、marker/retry 测试和静态门禁已
-完成；下一项工作是提交、推送、审阅并合并 PR，在合并后的干净 `main` 上运行严格 preflight 和唯一
-availability request。只有 marker 通过，才能派生已经获得原则授权但仍需独立 identity 的 36-arm batch。
+Issue #361 正在把已通过 availability marker 冻结为版本化审计报告。该检查点合并后，下一项工作是新建
+tracking Issue，从通过 marker 派生独立 formal collection execution identity；身份经测试、PR、CI 与 clean-main
+strict preflight 后，按既有授权串行执行冻结的 36 arms，并在第二个 endpoint-censored arm 后早停。
 
-当前身份实现与 preflight 不构成 Provider 或 formal collection 授权，也不产生 treatment outcome。
+availability 结果不构成 treatment outcome；formal collection 尚未开始。

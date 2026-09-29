@@ -6,13 +6,21 @@
 
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
-- 2026-09-29 — 开始 Issue #359 availability qualification 授权执行阶段
+- 2026-09-29 — 开始 Issue #361 availability qualification 结果审计与 formal 交接阶段
+  - Release: PR #360 四项 CI 全绿并按用户预授权 squash-merge 为 `main@09d7ff36ca081f5bfa39f8e1d6f3b3daa53c93a0`；Issue #359 自动关闭。本地 `main == origin/main` 且 clean。
+  - Preflight: execution manifest canonical `cf21d2c...7839`、冻结 image `sha256:adbef4a...758b1`、Provider 配置、credential presence、evidence absent 与 0 managed resources 全部通过；preflight 仍为 0 Provider / 0 token / 0 formal attempt。
+  - Availability: 唯一 `deepseek-flash` logical request 在首个 attempt 通过；actual model 和 exact `FORGE_READY` 匹配，39 input / 19 output / 58 total tokens，0 tool side effects，未触发 transport retry。执行时间为 `2026-09-29T15:53:58.432584+00:00` 至 `2026-09-29T15:53:59.938408+00:00`。
+  - Evidence: create-once marker 为 `.compile-sessions/benchmark-evidence-contract-driven-repair-mechanism-v1-authorized/markers/availability.json`，SHA-256 `8527d64acc50a88ea0d5f8b64fc25971d68294fb142b043f1e889586ad088bee`，1,437 bytes；只读 audit 通过，0 managed resources，formal batch 保持关闭。
+  - 解释边界: 只支持固定端点在该时点完成确定性往返；不支持模型能力、总体可靠性、C0/T1/T2 outcome、treatment effect、显著性或排名。该 availability identity 已消费，不允许重跑、replacement 或 backfill。
+  - 当前: Issue #361 / 分支 `yiwei/361-contract-repair-availability-audit` 冻结 JSON/Markdown audit 并更新状态入口；合并后新建 formal collection tracking Issue，派生绑定通过 marker 哈希的独立 execution identity。
+
+- 2026-09-29 — 完成 Issue #359 availability qualification 授权执行阶段
   - 授权: 研究负责人明确授权合并 PR #358、执行唯一 availability，并在它通过后执行冻结的 36-arm formal collection；无需再次确认常规提交/推送/PR/合并、credential presence check、Provider request 或 evidence write。协议漂移或失败早停仍不可越过。
   - Release: PR #358 四项 CI 全绿并 squash-merge 为 `main@d55f39b03179f59b0b3b89bb8648a168ec54f7bd`，Issue #357 已关闭；新分支为 `yiwei/359-contract-repair-availability-execution`。
   - 身份: 从父 candidate canonical `e0583ddb...9f00` 派生 execution manifest；只授权 DeepSeek `deepseek-flash` 的唯一 `FORGE_READY` logical request、credential/model/token 和 `markers/availability.json` 写入，formal batch 保持关闭。canonical SHA-256 为 `cf21d2c228e46b39a3287d3c9ab7139c9f24d8ba36990e4b8e94475c9b0d7839`。
   - Retry/evidence: 最多 2 attempts；第二次只允许首次 0 response、0 recorded tokens、0 tool side effects。SDK retry 为 0；marker 在 Provider 前 create-once，每个 attempt 原子更新；只保存响应哈希/长度、actual model、token ledger 和 bounded error class。
   - 当前验证: execution + candidate + authorized + parent candidate + Runtime v3 qualification + sensitivity 共 `56 passed`；CandidateVerifier、P2、external evaluator v3 与 lifecycle 相邻回归 `80 passed`；Ruff check/format、`py_compile`、两次确定性生成、protocol/runner CLI、marker/retry/audit 和 batch fail-closed 门禁通过。
-  - 边界: 当前仍为 0 credential read、0 Provider、0 model creation、0 Docker Session、0 formal attempt、0 model token、0 marker/ledger/evidence write。下一步提交、PR、CI 和合并；只有干净 `main == origin/main` 且 strict preflight 通过才执行 availability。
+  - 发布与执行: 提交 `c0b41dbe` 经 PR #360 四项 CI 全绿并 squash-merge 为 `main@09d7ff36ca081f5bfa39f8e1d6f3b3daa53c93a0`；clean-main preflight 通过后，唯一 availability 一次通过并由 Issue #361 冻结审计。正式 attempt 与 formal evidence 仍为 0。
   - 文件: `scripts/forge_contract_driven_repair_mechanism_v1_availability_execution_protocol.py`, `scripts/forge_contract_driven_repair_mechanism_v1_availability_execution_runner.py`, `backend/tests/test_forge_contract_driven_repair_mechanism_v1_availability_execution.py`, `benchmarks/manifests/cpp-contract-driven-repair-mechanism-v1-availability-execution.json`, `benchmarks/schemas/forge-contract-driven-repair-mechanism-v1-availability-execution.schema.json`, `benchmarks/preregistrations/cpp-contract-driven-repair-mechanism-v1-availability-execution.md`
 
 - 2026-09-29 — 完成 Issue #357 availability qualification 候选 amendment 阶段
