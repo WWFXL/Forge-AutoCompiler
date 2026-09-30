@@ -1,0 +1,77 @@
+{
+  "availability": {
+    "actual_model": "deepseek-flash",
+    "duration_ms": 1054,
+    "endpoint": "https://api.deepseek.com",
+    "error_class": null,
+    "expected_response_match": true,
+    "logical_request_count": 1,
+    "model_identity_match": true,
+    "passed": true,
+    "provider": "deepseek",
+    "request_attempt_count": 1,
+    "response_length": 11,
+    "response_sha256": "a49d816e1729386c287f5b926bac15e3bc01c1d02f0734bde6bc0776c33a4549",
+    "status": "passed",
+    "tokens": {
+      "input_tokens": 39,
+      "output_tokens": 119,
+      "total_tokens": 158
+    },
+    "tool_side_effect_count": 0,
+    "transport_retry_used": false,
+    "usage_metadata_observed": true
+  },
+  "document_type": "forge_contract_driven_repair_mechanism_v2_availability_audit",
+  "execution_boundary": {
+    "credential_value_retained": false,
+    "docker_sessions_created": 0,
+    "formal_attempts": 0,
+    "formal_batch_created": false,
+    "formal_evidence_writes": 0,
+    "next_action": "request_authorization_for_independent_formal_collection_identity_bound_to_passed_marker",
+    "provider_request_attempts": 1,
+    "replacement_or_backfill_allowed": false,
+    "rerun_allowed": false,
+    "source_evidence_modified": false
+  },
+  "identity": {
+    "execution_manifest_canonical_sha256": "71d2f5e2e84b4e24eac5bff0fac43a092ceffa8abdf396714801f93d7ed41065",
+    "execution_manifest_file_sha256": "39f390cef095eff1f03fe066f4e66990c99aa89aa931994f805e9d110ad25dfd",
+    "execution_manifest_path": "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v2-availability-execution.json",
+    "execution_revision": "12681ffb0fd2997e2f572f3355e02b50a1b79744",
+    "parent_release_bound_canonical_sha256": "9ce0b7ebef27f03c4c918e4e20577cacfac971a947e60e9a787914bdc6e08197",
+    "source_evidence_root": ".compile-sessions/benchmark-evidence-contract-driven-repair-mechanism-v2-independent"
+  },
+  "interpretation": {
+    "analysis_kind": "availability_infrastructure_result_audit",
+    "model_ranking_performed": false,
+    "population_reliability_estimated": false,
+    "supported_claims": [
+      "fixed_deepseek_flash_endpoint_completed_the_preregistered_round_trip_at_the_observed_time",
+      "one_request_attempt_returned_the_exact_expected_response_and_model_identity",
+      "availability_marker_and_cleanup_audit_passed"
+    ],
+    "treatment_effect_estimated": false,
+    "unsupported_claims": [
+      "model_capability_or_general_reliability",
+      "c0_t1_t2_arm_outcome",
+      "treatment_effect_or_statistical_significance",
+      "provider_or_model_ranking",
+      "generalization_beyond_the_observed_endpoint_time_and_identity"
+    ]
+  },
+  "issue_url": "https://github.com/WWFXL/Forge-AutoCompiler/issues/373",
+  "schema_version": "forge-contract-driven-repair-mechanism-v2-availability-audit-1.0.0",
+  "source_completed_at": "2026-09-30T08:29:13.578472+00:00",
+  "source_integrity": {
+    "audit_command_passed": true,
+    "formal_batch_creation_authorized": false,
+    "marker_path": "markers/availability.json",
+    "marker_schema_version": "forge-contract-repair-availability-marker-1.0.0",
+    "marker_sha256": "73a505f396278eaa93430264fb3ef8d86964891763d242d419e4793b475f21ee",
+    "marker_size_bytes": 1442,
+    "zero_managed_resources": true,
+    "zero_tool_side_effects": true
+  }
+}
