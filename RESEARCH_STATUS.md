@@ -4,8 +4,8 @@
 
 ## 当前阶段
 
-- 状态：Issue #377 正在实现已授权的 mechanism v2 独立 formal collection identity；父 availability marker 与审计已冻结且禁止重跑。当前 feature branch 仍为 0 个 v2 formal arm，只有合并后的 clean-main strict preflight 通过才允许创建唯一 batch。
-- 当前工作类型：formal collection 基础设施。新 identity 绑定已有 36-arm 科学合同、v2 availability receipt 和 marker repair，为下一步正式数据采集移除身份与封口阻塞；本阶段测试不是 treatment evidence。
+- 状态：Issue #379 已完成 mechanism v2 唯一 formal batch 的只读失败审计。该 identity 在完成 12/36 arms、4/12 checkpoints 后因 `lz4` checkpoint target-mapped artifact 基数不兼容而永久失败；禁止续跑、重跑、replacement、backfill 或 evidence 修改。
+- 当前工作类型：结果分析与基础设施失败审计。版本化报告冻结不完整 batch、预注册缺失数据边界和 checkpoint builder 根因；它不产生新的实验 observation，也不构成 treatment effect 证据。
 - 研究目标：围绕自动化编译形成范围适中、可验证、可复现的毕业论文贡献；Forge 的 Agent Workflow Node 与 Multi-Agent 视为研究基础设施，CXXCrafter 视为相关工作之一。
 - 首选方向：面向自动化编译的契约驱动修复，组合可恢复失败状态、确定性候选验证反馈和分层正确性判定。
 - 当前主问题候选：在相同编译失败状态、模型、工具和预算下，C0 普通失败、T1 合同 finding、T2 finding + 抽象 repair goal 三种反馈暴露是否产生不同的严格候选转换率，并减少重复或无效动作？
@@ -37,11 +37,12 @@ Repo2Run、EvoConfig、PhantomRun、跨 ISA Build-bench、Exact Feedback、SpecH
 - Runtime v3 三臂 qualification：delivery/target 与 provenance 两个真实 Docker parent checkpoint 均派生 C0/T1/T2；六个 arm 的 candidate、functional oracle、provenance、external evaluator v3、clean replay 和 cleanup 全部闭合，最终复跑为 `2 passed in 75.93s`，运行前后 0 managed orphan。该结果只证明基础设施可执行，不是 treatment evidence。
 - Availability qualification：绑定 `main@09d7ff36` 与 execution manifest `cf21d2c...7839` 的唯一 `deepseek-flash` request 在首个 attempt 通过；39 input / 19 output / 58 total tokens，exact response 与 model identity 匹配，0 tool side effects、0 managed resources。Marker SHA-256 为 `8527d64a...8bee`；这只证明固定端点在该时点完成往返。
 - Formal execution failure：manifest `3a843799...5829f` 在 clean-main preflight 后启动；sequence 1（`rnnoise-0.1.1:delivery_target / T2`）以 5 requests / 44,561 input / 8,423 output / 52,984 total tokens 达到 strict endpoint，S0-S5、clean replay 与 cleanup 均通过。随后 `_update_claimed_marker` 的 mapping/keyword 调用合同不一致导致 attempt 与 batch marker 无法封口，schedule 在 sequence 2 前停止。冻结 evidence 为 9 files / 66,466 bytes，inventory SHA-256 `24019a37...2fb5`，失败后 0 managed resources。该单 arm 不支持 treatment effect。
-- Mechanism v2 candidate：从零派生 36 个新 opaque clone IDs 与 36 个新 evaluation IDs，和 v1 均为零重叠；任务、condition 顺序、预算、停止规则与分析规则不变。新 evidence root 为 `.compile-sessions/benchmark-evidence-contract-driven-repair-mechanism-v2-independent`，当前不存在；v1 sequence 1 永久排除于 v2 分析。Marker repair 四类终态门禁通过，最终 manifest 的双 stratum Docker lifecycle gate 为 `2 passed in 76.63s`，结束后 0 managed resources。该结果只证明新身份基础设施可执行。
+- Mechanism v2 candidate：从零派生 36 个新 opaque clone IDs 与 36 个新 evaluation IDs，和 v1 均为零重叠；任务、condition 顺序、预算、停止规则与分析规则不变。执行前的 Marker repair 四类终态门禁与双 stratum Docker lifecycle gate 通过；v1 sequence 1 永久排除于 v2 分析。该 qualification 只证明新身份基础设施当时可执行。
 - Mechanism v2 clean-main preflight：`main == origin/main == 70b257c840f4065285c047ba6207ffe99f8dcb36`，candidate canonical `40ea4706...e25f0d`、image `sha256:adbef4a...758b1`、v1 inventory `24019a37...2fb5`、新 evidence absence 和 0 managed resources 全部闭合；credential 未读取。
 - Mechanism v2 release-bound identity：PR #370 四项 CI 全绿并 squash-merge 为 `main@646ff59a67b27038b241358261bc92adcb100eb6`；canonical `9ce0b7eb...e08197`，clean-main preflight 继续确认冻结镜像、v1 inventory、新 evidence absence 和 0 managed resources，credential 未读取。
 - Mechanism v2 availability qualification：PR #372 四项 CI 全绿并 squash-merge 为 `main@12681ffb0fd2997e2f572f3355e02b50a1b79744`；manifest canonical `71d2f5e2...41065`。唯一 `FORGE_READY` request 在首个 attempt 通过，39 input / 119 output / 158 total tokens，1054 ms，exact response 与 actual model 匹配，0 tool side effects、0 managed resources。Marker SHA-256 为 `73a505f3...21ee`；这只证明固定端点在该时点完成往返。
-- Mechanism v2 formal execution candidate：Issue #377 identity canonical SHA-256 为 `491d877c0d4b94380e4541a23dfd65e7ec83eee2f110d2420c2673597f873609`；availability 被显式冻结为 `passed_consumed_read_only`，v1 sequence 1 T2 observation 继续排除。Marker repair 覆盖 attempt、batch progress、正常和异常终态；最终 identity 聚焦测试为 `9 passed in 126.81s`，双 stratum 零 Provider Docker gate 为 `2 passed in 286.12s`，结束后 0 managed resources。当前仍为 0 Provider / 0 formal attempt / 0 formal evidence write。
+- Mechanism v2 formal execution：PR #378 合并为 `main@fe36cf137dbaa3a0dd29793ae67e74e97a631c61`，manifest canonical SHA-256 为 `491d877c...3609`。唯一 batch 完成 12 arms / 4 checkpoints 后，在 checkpoint 5 `lz4:delivery_target` 构造阶段以 `FormalFatalError` 封口；sequence 13 与 checkpoint 5 evidence 均未创建。冻结 evidence 为 70 files / 689,742 bytes，inventory SHA-256 `5c885b2a...b9d11`；75 requests / 907,258 input / 161,276 output / 1,068,534 total tokens，0 endpoint censor，失败后 0 managed containers / 0 capture images。
+- Mechanism v2 不完整结果：两个完整项目的 delivery/target 中 C0/T1/T2 均为 1，provenance 中三臂均为 0，所以三个 observed-complete project score 均为 0。剩余 8/12 checkpoints 不填零，三个比较的 best/worst identification interval 均为 `[-2/3, +2/3]`；`primary_test=null`、`secondary_test=null`，不计算 p 值，也不能据此判断存在或不存在有意义效应。
 
 ## 设计审计结论
 
@@ -69,6 +70,7 @@ Repo2Run、EvoConfig、PhantomRun、跨 ISA Build-bench、Exact Feedback、SpecH
 - Runtime v3 当前实现可在两个候选 fault strata 上形成 state-matched C0/T1/T2，并以确定性 continuation 闭合严格工程终点；
 - 探索性结果支持“结构化合同拒绝反馈可能促进候选转换”这一待验证假设；
 - 当前最适合把分层评测作为支撑性贡献，把 matched-state 契约反馈作为主要机制问题。
+- Mechanism v2 的两个完整项目呈现相同的分层描述：delivery/target 三臂均成功，provenance 三臂均为预算耗尽零 outcome；冻结 checkpoint builder 与 `lz4` 双 compiled target 合同存在可复现的基数不兼容。
 
 当前证据不能支持：
 
@@ -77,6 +79,7 @@ Repo2Run、EvoConfig、PhantomRun、跨 ISA Build-bench、Exact Feedback、SpecH
 - Provider 或模型的普遍能力排名；
 - verifier、matched-state、独立 authority 或分层评测的通用首创性；
 - 将 Stage C v8 canary 当作方法比较，或用它覆盖历史实验终态。
+- 从 2/6 个完整项目的零差推断 C0/T1/T2 无效、等效或不存在有意义效应；对不完整 mechanism v2 batch 运行主要或次级 exact test。
 
 ## 当前允许与禁止
 
@@ -86,7 +89,7 @@ Repo2Run、EvoConfig、PhantomRun、跨 ISA Build-bench、Exact Feedback、SpecH
 - 实现并运行使用确定性本地模型的零 Provider、零正式 attempt、独立 evidence 目录 qualification；
 - 实现、审阅 release-bound identity，并运行不读取 credential、不创建容器或 evidence 的非模型 preflight。
 - 派生、审阅 availability qualification 候选 amendment，并运行同样的非模型 preflight。
-- 实现、测试、Docker qualification、提交、推送、PR、CI 与合并 Issue #377 的独立 formal collection identity；合并后在 strict clean-main preflight 通过时调用 `deepseek-flash`，创建唯一 36-arm batch、formal attempts 与 create-once evidence。
+- 对 Issue #377 的失败 formal evidence 做只读核验；实现、测试、提交、推送、PR、CI 与合并 Issue #379 的版本化失败审计和状态交接。
 - 对失败 formal evidence 做只读核验；实现不修改冻结 runner 的独立 marker repair；提交、推送、PR、CI 与合并 Issue #365 的审计和工程修复。
 - 实现、测试、Docker qualification、提交、推送、PR、CI 与合并 Issue #367 的独立 36-arm candidate；运行不读取 credential、不创建 formal attempt 或 formal evidence 的非模型 preflight。
 - 实现、测试、提交、推送、PR、CI 与合并 Issue #369 的 exact release-bound identity；运行相同的零 credential、零 Provider preflight。
@@ -99,11 +102,11 @@ Repo2Run、EvoConfig、PhantomRun、跨 ISA Build-bench、Exact Feedback、SpecH
 - 修改、移动、删除或重新生成冻结 evidence；
 - 对 manifest `3a843799...5829f` 的 batch 做续跑、重跑、replacement、backfill、marker 手工修补或新增 evidence；在新的科研决策与独立 identity 合并前调用 Provider；禁止把单个 T2 arm 或 qualification 当作 treatment evidence。
 - 对已消费的 v2 availability identity 做 rerun、retry、replacement、backfill、marker 修改或新增 evidence；禁止修改 v1 evidence 或把 v1 sequence 1 导入 v2。
-- 在 Issue #377 identity 合并且 clean-main strict preflight 通过前创建 36-arm batch、formal attempt 或 formal evidence；执行后禁止 replacement、backfill、失败 arm 人工重跑、重排或 schedule extension。
+- 对 Issue #377 mechanism v2 batch 做 continuation、rerun、retry、replacement、backfill、schedule extension、marker 修补或 sequence 13/checkpoint 5 补写；禁止把两个完整项目的描述性零差解释为 treatment effect。
 
 ## 当前工作区与知识库状态
 
-- 当前发布基线：availability 审计已由 PR #374 合并为 `main@d0572d296612cfdc28b226fcd1b2dfed7d02c6a0`；Issue #375 仅同步该完成态，不改变研究身份或 evidence。
+- 当前 formal 发布基线：PR #378 已合并为 `main@fe36cf137dbaa3a0dd29793ae67e74e97a631c61`；该 release 创建的唯一 batch 已永久失败并保持只读。
 - Stage C v8 原始 evidence 保持只读，权威结果入口为 `benchmarks/reports/cpp-stage-c-v8-workspace-remediation-result-audit.md`。
 - Runtime v3 qualification 入口为 `benchmarks/preregistrations/cpp-runtime-v3-three-arm-zero-provider-qualification.md`；它是基础设施门禁记录，不是 formal experiment evidence。
 - 候选预注册决策包入口为 `docs/research/2026-09-29-contract-driven-repair-preregistration-decision.md`；研究负责人已冻结其推荐方案，但它不是执行授权。
@@ -111,14 +114,12 @@ Repo2Run、EvoConfig、PhantomRun、跨 ISA Build-bench、Exact Feedback、SpecH
 - Issue #357 availability candidate 入口为 `benchmarks/manifests/cpp-contract-driven-repair-mechanism-v1-availability-candidate.json`；它绑定 authorized implementation release，但 availability execution 与 formal collection 仍均未授权。
 - Issue #359 availability execution 入口为 `benchmarks/manifests/cpp-contract-driven-repair-mechanism-v1-availability-execution.json`；通过 marker 的版本化只读审计为 `benchmarks/reports/cpp-contract-driven-repair-mechanism-v1-availability-audit.md`，formal collection 仍在该 identity 中关闭。
 - Issue #363 formal execution 入口为 `benchmarks/manifests/cpp-contract-driven-repair-mechanism-v1-formal-execution.json`；原始 evidence 位于 `.compile-sessions/benchmark-evidence-contract-driven-repair-mechanism-v1-authorized`，保持只读。Issue #365 审计入口为 `benchmarks/reports/cpp-contract-driven-repair-mechanism-v1-formal-failure-audit.md`。
-- Issue #367 独立 candidate 入口为 `benchmarks/manifests/cpp-contract-driven-repair-mechanism-v2-candidate.json`；预注册入口为 `benchmarks/preregistrations/cpp-contract-driven-repair-mechanism-v2-candidate.md`。新 evidence root 尚不存在，全部 Provider/credential/formal 权限为 false。
+- Issue #367 独立 candidate 入口为 `benchmarks/manifests/cpp-contract-driven-repair-mechanism-v2-candidate.json`；预注册入口为 `benchmarks/preregistrations/cpp-contract-driven-repair-mechanism-v2-candidate.md`。Candidate 本身保持不可执行，其派生 formal identity 的已消费 evidence 独立冻结。
 - Issue #369 release-bound 入口为 `benchmarks/manifests/cpp-contract-driven-repair-mechanism-v2-authorized.json`；它绑定 PR #368 merge commit 和父 candidate，全部 Provider/credential/formal 权限继续为 false。
 - Issue #371 availability execution 入口为 `benchmarks/manifests/cpp-contract-driven-repair-mechanism-v2-availability-execution.json`；该 identity 已消费，formal collection 权限保持 false。Issue #373 只读审计入口为 `benchmarks/reports/cpp-contract-driven-repair-mechanism-v2-availability-audit.md`。
-- Issue #377 formal execution candidate 入口为 `benchmarks/manifests/cpp-contract-driven-repair-mechanism-v2-formal-execution.json`；当前分支为 `yiwei/377-v2-formal-collection`，tracking Issue 已创建并回读。Identity 已授权 formal 行为，但 feature branch 只执行 0 Provider、0 formal evidence 的验证。
+- Issue #377 formal execution 入口为 `benchmarks/manifests/cpp-contract-driven-repair-mechanism-v2-formal-execution.json`；原始 evidence 位于 `.compile-sessions/benchmark-evidence-contract-driven-repair-mechanism-v2-independent` 并保持只读。Issue #379 权威审计入口为 `benchmarks/reports/cpp-contract-driven-repair-mechanism-v2-formal-failure-audit.md`。
 - 2026-09-29 已按 `search_notes -> read_note` 核对个人知识库中的毕业论文方向与契约驱动修复主笔记；本轮不修改知识库。
 
 ## 下一项工作
 
-完成 Issue #377 最终回归、提交、PR、CI 与合并。然后在 clean `main == origin/main` 上执行严格 preflight；只有
-manifest、availability marker/audit、镜像、旧 evidence inventory、v2 evidence inventory、credential presence 和
-0 managed resources 全部一致，才启动唯一 36-arm batch。批次终结后立即进行只读审计和版本化结果冻结。
+审阅 Issue #379 冻结报告后，在“修复 checkpoint builder 并建立全新独立 identity”与“停止 formal collection”之间作出科研决策。任何修复与新 collection 都必须使用新的 tracking Issue、独立 evidence root、预算、停止规则和明确授权；不得导入或修改当前失败 batch。

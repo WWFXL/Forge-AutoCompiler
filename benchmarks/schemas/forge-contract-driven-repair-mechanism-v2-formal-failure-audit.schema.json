@@ -1,0 +1,1019 @@
+{
+  "$id": "https://forge-autocompiler.local/schemas/forge-contract-driven-repair-mechanism-v2-formal-failure-audit.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "const": {
+    "analysis": {
+      "comparisons": {
+        "c0_vs_t1": {
+          "best_worst_identification_interval": {
+            "lower": "-2/3",
+            "upper": "2/3"
+          },
+          "observed_complete_estimate": "0",
+          "observed_complete_project_count": 2
+        },
+        "c0_vs_t2": {
+          "best_worst_identification_interval": {
+            "lower": "-2/3",
+            "upper": "2/3"
+          },
+          "observed_complete_estimate": "0",
+          "observed_complete_project_count": 2
+        },
+        "t1_vs_t2": {
+          "best_worst_identification_interval": {
+            "lower": "-2/3",
+            "upper": "2/3"
+          },
+          "observed_complete_estimate": "0",
+          "observed_complete_project_count": 2
+        }
+      },
+      "missing_arms_imputed_as_zero": false,
+      "missing_checkpoint_count": 8,
+      "observed_complete_checkpoint_count": 4,
+      "observed_complete_project_count": 2,
+      "p_value_computed": false,
+      "primary_test": null,
+      "projects": [
+        {
+          "checkpoint_outcomes": {
+            "delivery_target": {
+              "c0": 1,
+              "t1": 1,
+              "t2": 1
+            },
+            "provenance": {
+              "c0": 0,
+              "t1": 0,
+              "t2": 0
+            }
+          },
+          "project_scores": {
+            "c0_vs_t1": "0",
+            "c0_vs_t2": "0",
+            "t1_vs_t2": "0"
+          },
+          "task_id": "rnnoise-0.1.1"
+        },
+        {
+          "checkpoint_outcomes": {
+            "delivery_target": {
+              "c0": 1,
+              "t1": 1,
+              "t2": 1
+            },
+            "provenance": {
+              "c0": 0,
+              "t1": 0,
+              "t2": 0
+            }
+          },
+          "project_scores": {
+            "c0_vs_t1": "0",
+            "c0_vs_t2": "0",
+            "t1_vs_t2": "0"
+          },
+          "task_id": "libsoundio"
+        }
+      ],
+      "scheduled_checkpoint_count": 12,
+      "scheduled_project_count": 6,
+      "secondary_test": null,
+      "status": "incomplete_batch_descriptive_only",
+      "supportive_confirmatory_test": null,
+      "treatment_effect_estimated": false
+    },
+    "arms": [
+      {
+        "candidate_accepted": true,
+        "checkpoint_id": "rnnoise-0.1.1:delivery_target",
+        "clean_replay_passed": true,
+        "cleanup_closed": true,
+        "completed_at": "2026-09-30T10:57:40.531095+00:00",
+        "condition": "t2",
+        "external_evaluator_v3_passed": true,
+        "functional_oracle_passed": true,
+        "ledger": {
+          "event_count": 19,
+          "result_sha256": "12b42f12a754b59978b7a12d4cf520c651a6043f4a3706e1a5e0f9d06cbf4241",
+          "terminal_event": "experiment.completed",
+          "terminal_head_sha256": "bf262c11eb709c2da4e9c2f687b443c3553bf3468927fbd536418d6ac84366ce"
+        },
+        "model_behavior_terminal": null,
+        "provenance_passed": true,
+        "result_sha256": "12b42f12a754b59978b7a12d4cf520c651a6043f4a3706e1a5e0f9d06cbf4241",
+        "runtime_event_count": 33,
+        "s0_s5_passed": 6,
+        "sequence": 1,
+        "status": "complete",
+        "stratum": "delivery_target",
+        "strict_post_checkpoint_conversion": true,
+        "task_id": "rnnoise-0.1.1",
+        "tokens": {
+          "input_tokens": 39076,
+          "output_tokens": 7896,
+          "request_attempts": 4,
+          "total_tokens": 46972
+        },
+        "zero_managed_orphans": true
+      },
+      {
+        "candidate_accepted": true,
+        "checkpoint_id": "rnnoise-0.1.1:delivery_target",
+        "clean_replay_passed": true,
+        "cleanup_closed": true,
+        "completed_at": "2026-09-30T10:58:43.997830+00:00",
+        "condition": "c0",
+        "external_evaluator_v3_passed": true,
+        "functional_oracle_passed": true,
+        "ledger": {
+          "event_count": 21,
+          "result_sha256": "ae939178e1445bde8e530151f8c3deb8a64e7168fb14835bec2ec008d93f0f6d",
+          "terminal_event": "experiment.completed",
+          "terminal_head_sha256": "34ab50f50778464dda546bf55a902ab96ecc214bc7975584bc2bd9ccd7a17bcf"
+        },
+        "model_behavior_terminal": null,
+        "provenance_passed": true,
+        "result_sha256": "ae939178e1445bde8e530151f8c3deb8a64e7168fb14835bec2ec008d93f0f6d",
+        "runtime_event_count": 38,
+        "s0_s5_passed": 6,
+        "sequence": 2,
+        "status": "complete",
+        "stratum": "delivery_target",
+        "strict_post_checkpoint_conversion": true,
+        "task_id": "rnnoise-0.1.1",
+        "tokens": {
+          "input_tokens": 61424,
+          "output_tokens": 8879,
+          "request_attempts": 6,
+          "total_tokens": 70303
+        },
+        "zero_managed_orphans": true
+      },
+      {
+        "candidate_accepted": true,
+        "checkpoint_id": "rnnoise-0.1.1:delivery_target",
+        "clean_replay_passed": true,
+        "cleanup_closed": true,
+        "completed_at": "2026-09-30T10:59:24.062105+00:00",
+        "condition": "t1",
+        "external_evaluator_v3_passed": true,
+        "functional_oracle_passed": true,
+        "ledger": {
+          "event_count": 21,
+          "result_sha256": "14a55b911c69af05d4ee2abff315c40090e38ece7a96b7b14f88c064d72978ab",
+          "terminal_event": "experiment.completed",
+          "terminal_head_sha256": "a20b92ba69d40f2389b535095b6d6fed7757358fc57ee4a43efd19a18b1edc16"
+        },
+        "model_behavior_terminal": null,
+        "provenance_passed": true,
+        "result_sha256": "14a55b911c69af05d4ee2abff315c40090e38ece7a96b7b14f88c064d72978ab",
+        "runtime_event_count": 38,
+        "s0_s5_passed": 6,
+        "sequence": 3,
+        "status": "complete",
+        "stratum": "delivery_target",
+        "strict_post_checkpoint_conversion": true,
+        "task_id": "rnnoise-0.1.1",
+        "tokens": {
+          "input_tokens": 45754,
+          "output_tokens": 3674,
+          "request_attempts": 6,
+          "total_tokens": 49428
+        },
+        "zero_managed_orphans": true
+      },
+      {
+        "candidate_accepted": false,
+        "checkpoint_id": "rnnoise-0.1.1:provenance",
+        "clean_replay_passed": false,
+        "cleanup_closed": true,
+        "completed_at": "2026-09-30T11:01:59.561618+00:00",
+        "condition": "c0",
+        "external_evaluator_v3_passed": false,
+        "functional_oracle_passed": false,
+        "ledger": {
+          "event_count": 22,
+          "result_sha256": "c9d24491c3496ec6c3743c1711ea6bd14312c8937f9046015ba6460007734d88",
+          "terminal_event": "experiment.completed",
+          "terminal_head_sha256": "a9b0811a4480f993ea5fe43ad00add43c416912ff0a0deab59bc9661b5c59999"
+        },
+        "model_behavior_terminal": "budget_exhausted",
+        "provenance_passed": false,
+        "result_sha256": "c9d24491c3496ec6c3743c1711ea6bd14312c8937f9046015ba6460007734d88",
+        "runtime_event_count": 57,
+        "s0_s5_passed": 0,
+        "sequence": 4,
+        "status": "complete",
+        "stratum": "provenance",
+        "strict_post_checkpoint_conversion": false,
+        "task_id": "rnnoise-0.1.1",
+        "tokens": {
+          "input_tokens": 167480,
+          "output_tokens": 28067,
+          "request_attempts": 8,
+          "total_tokens": 195547
+        },
+        "zero_managed_orphans": true
+      },
+      {
+        "candidate_accepted": false,
+        "checkpoint_id": "rnnoise-0.1.1:provenance",
+        "clean_replay_passed": false,
+        "cleanup_closed": true,
+        "completed_at": "2026-09-30T11:04:11.017277+00:00",
+        "condition": "t1",
+        "external_evaluator_v3_passed": false,
+        "functional_oracle_passed": false,
+        "ledger": {
+          "event_count": 20,
+          "result_sha256": "62116a4e4c661253b5729767d1dbb9c38451e8b356c571b2d43fd581d337af5a",
+          "terminal_event": "experiment.completed",
+          "terminal_head_sha256": "991511952c36b425da3a67c45bd2afb39b0c5647f3a9ebc4fd16dfa631d0fd8f"
+        },
+        "model_behavior_terminal": "budget_exhausted",
+        "provenance_passed": false,
+        "result_sha256": "62116a4e4c661253b5729767d1dbb9c38451e8b356c571b2d43fd581d337af5a",
+        "runtime_event_count": 59,
+        "s0_s5_passed": 0,
+        "sequence": 5,
+        "status": "complete",
+        "stratum": "provenance",
+        "strict_post_checkpoint_conversion": false,
+        "task_id": "rnnoise-0.1.1",
+        "tokens": {
+          "input_tokens": 141463,
+          "output_tokens": 26540,
+          "request_attempts": 8,
+          "total_tokens": 168003
+        },
+        "zero_managed_orphans": true
+      },
+      {
+        "candidate_accepted": false,
+        "checkpoint_id": "rnnoise-0.1.1:provenance",
+        "clean_replay_passed": false,
+        "cleanup_closed": true,
+        "completed_at": "2026-09-30T11:05:48.844869+00:00",
+        "condition": "t2",
+        "external_evaluator_v3_passed": false,
+        "functional_oracle_passed": false,
+        "ledger": {
+          "event_count": 16,
+          "result_sha256": "ac6f45e608cd5f81b04e40c9d1514109b598f971f5dd51cf83d5a8ff1147bd93",
+          "terminal_event": "experiment.completed",
+          "terminal_head_sha256": "f0c329042175f85b07ac3566d852a5d88613fdb4eb2b510880397c3fab52904d"
+        },
+        "model_behavior_terminal": "budget_exhausted",
+        "provenance_passed": false,
+        "result_sha256": "ac6f45e608cd5f81b04e40c9d1514109b598f971f5dd51cf83d5a8ff1147bd93",
+        "runtime_event_count": 48,
+        "s0_s5_passed": 0,
+        "sequence": 6,
+        "status": "complete",
+        "stratum": "provenance",
+        "strict_post_checkpoint_conversion": false,
+        "task_id": "rnnoise-0.1.1",
+        "tokens": {
+          "input_tokens": 91739,
+          "output_tokens": 19162,
+          "request_attempts": 8,
+          "total_tokens": 110901
+        },
+        "zero_managed_orphans": true
+      },
+      {
+        "candidate_accepted": false,
+        "checkpoint_id": "libsoundio:provenance",
+        "clean_replay_passed": false,
+        "cleanup_closed": true,
+        "completed_at": "2026-09-30T11:08:18.923593+00:00",
+        "condition": "t1",
+        "external_evaluator_v3_passed": false,
+        "functional_oracle_passed": false,
+        "ledger": {
+          "event_count": 20,
+          "result_sha256": "3e9f76785f79a6aae2dc1c0c716bdf7cfe031b4eb787eabcb1984f474b417065",
+          "terminal_event": "experiment.completed",
+          "terminal_head_sha256": "29b5be6ba11a7f69e5a5bf9576932026b3d0286e7b8b110d99afaaf4c1f0236f"
+        },
+        "model_behavior_terminal": "budget_exhausted",
+        "provenance_passed": false,
+        "result_sha256": "3e9f76785f79a6aae2dc1c0c716bdf7cfe031b4eb787eabcb1984f474b417065",
+        "runtime_event_count": 59,
+        "s0_s5_passed": 0,
+        "sequence": 7,
+        "status": "complete",
+        "stratum": "provenance",
+        "strict_post_checkpoint_conversion": false,
+        "task_id": "libsoundio",
+        "tokens": {
+          "input_tokens": 109682,
+          "output_tokens": 28497,
+          "request_attempts": 8,
+          "total_tokens": 138179
+        },
+        "zero_managed_orphans": true
+      },
+      {
+        "candidate_accepted": false,
+        "checkpoint_id": "libsoundio:provenance",
+        "clean_replay_passed": false,
+        "cleanup_closed": true,
+        "completed_at": "2026-09-30T11:08:58.461137+00:00",
+        "condition": "t2",
+        "external_evaluator_v3_passed": false,
+        "functional_oracle_passed": false,
+        "ledger": {
+          "event_count": 20,
+          "result_sha256": "e18380d735e603a3f7560a59534e86927e886177a8eaf7b05edd248509036a5a",
+          "terminal_event": "experiment.completed",
+          "terminal_head_sha256": "35f679f26d2d5d5fcb6eb8f9013084fa155f731dd30ffccb2cdd78ba48bc3e34"
+        },
+        "model_behavior_terminal": "budget_exhausted",
+        "provenance_passed": false,
+        "result_sha256": "e18380d735e603a3f7560a59534e86927e886177a8eaf7b05edd248509036a5a",
+        "runtime_event_count": 59,
+        "s0_s5_passed": 0,
+        "sequence": 8,
+        "status": "complete",
+        "stratum": "provenance",
+        "strict_post_checkpoint_conversion": false,
+        "task_id": "libsoundio",
+        "tokens": {
+          "input_tokens": 70255,
+          "output_tokens": 7103,
+          "request_attempts": 8,
+          "total_tokens": 77358
+        },
+        "zero_managed_orphans": true
+      },
+      {
+        "candidate_accepted": false,
+        "checkpoint_id": "libsoundio:provenance",
+        "clean_replay_passed": false,
+        "cleanup_closed": true,
+        "completed_at": "2026-09-30T11:10:38.550740+00:00",
+        "condition": "c0",
+        "external_evaluator_v3_passed": false,
+        "functional_oracle_passed": false,
+        "ledger": {
+          "event_count": 20,
+          "result_sha256": "adeca8c9e80a5f724e09074173c5ee50c28721af9be4b533f3fe3a32c410bf90",
+          "terminal_event": "experiment.completed",
+          "terminal_head_sha256": "fc266396e0c8e92bc2a9d547d9a5177212aa5df6531962e43c056265865ba591"
+        },
+        "model_behavior_terminal": "budget_exhausted",
+        "provenance_passed": false,
+        "result_sha256": "adeca8c9e80a5f724e09074173c5ee50c28721af9be4b533f3fe3a32c410bf90",
+        "runtime_event_count": 55,
+        "s0_s5_passed": 0,
+        "sequence": 9,
+        "status": "complete",
+        "stratum": "provenance",
+        "strict_post_checkpoint_conversion": false,
+        "task_id": "libsoundio",
+        "tokens": {
+          "input_tokens": 109122,
+          "output_tokens": 20489,
+          "request_attempts": 8,
+          "total_tokens": 129611
+        },
+        "zero_managed_orphans": true
+      },
+      {
+        "candidate_accepted": true,
+        "checkpoint_id": "libsoundio:delivery_target",
+        "clean_replay_passed": true,
+        "cleanup_closed": true,
+        "completed_at": "2026-09-30T11:11:16.718033+00:00",
+        "condition": "t2",
+        "external_evaluator_v3_passed": true,
+        "functional_oracle_passed": true,
+        "ledger": {
+          "event_count": 19,
+          "result_sha256": "847994216203598a99efda490e25f15fec4fd726c66f7449053b1ec7786fe033",
+          "terminal_event": "experiment.completed",
+          "terminal_head_sha256": "e1c341ddb4e7ef8eaa0708382d0239b43ed87df9822d19a1b1e2989e171c7ebf"
+        },
+        "model_behavior_terminal": null,
+        "provenance_passed": true,
+        "result_sha256": "847994216203598a99efda490e25f15fec4fd726c66f7449053b1ec7786fe033",
+        "runtime_event_count": 33,
+        "s0_s5_passed": 6,
+        "sequence": 10,
+        "status": "complete",
+        "stratum": "delivery_target",
+        "strict_post_checkpoint_conversion": true,
+        "task_id": "libsoundio",
+        "tokens": {
+          "input_tokens": 27709,
+          "output_tokens": 3684,
+          "request_attempts": 4,
+          "total_tokens": 31393
+        },
+        "zero_managed_orphans": true
+      },
+      {
+        "candidate_accepted": true,
+        "checkpoint_id": "libsoundio:delivery_target",
+        "clean_replay_passed": true,
+        "cleanup_closed": true,
+        "completed_at": "2026-09-30T11:11:37.595416+00:00",
+        "condition": "t1",
+        "external_evaluator_v3_passed": true,
+        "functional_oracle_passed": true,
+        "ledger": {
+          "event_count": 17,
+          "result_sha256": "3c304456d68a40720c442479a1a82488f8dcea6940c8e8113fde64f876b64f1c",
+          "terminal_event": "experiment.completed",
+          "terminal_head_sha256": "bcaef2f6d53079cc8235ab7774ebbd6a1af66aca0da9d973d0f672d015eb8e31"
+        },
+        "model_behavior_terminal": null,
+        "provenance_passed": true,
+        "result_sha256": "3c304456d68a40720c442479a1a82488f8dcea6940c8e8113fde64f876b64f1c",
+        "runtime_event_count": 28,
+        "s0_s5_passed": 6,
+        "sequence": 11,
+        "status": "complete",
+        "stratum": "delivery_target",
+        "strict_post_checkpoint_conversion": true,
+        "task_id": "libsoundio",
+        "tokens": {
+          "input_tokens": 24266,
+          "output_tokens": 2170,
+          "request_attempts": 4,
+          "total_tokens": 26436
+        },
+        "zero_managed_orphans": true
+      },
+      {
+        "candidate_accepted": true,
+        "checkpoint_id": "libsoundio:delivery_target",
+        "clean_replay_passed": true,
+        "cleanup_closed": true,
+        "completed_at": "2026-09-30T11:12:10.964447+00:00",
+        "condition": "c0",
+        "external_evaluator_v3_passed": true,
+        "functional_oracle_passed": true,
+        "ledger": {
+          "event_count": 15,
+          "result_sha256": "d8e6d21e1f57cab536ba6aa21e9828ea07c9fe9899ee2a2aef47368ba03155d5",
+          "terminal_event": "experiment.completed",
+          "terminal_head_sha256": "163b30ed83f765995faa21286b705e275e1a8376f886869e4d2493b20666ef29"
+        },
+        "model_behavior_terminal": null,
+        "provenance_passed": true,
+        "result_sha256": "d8e6d21e1f57cab536ba6aa21e9828ea07c9fe9899ee2a2aef47368ba03155d5",
+        "runtime_event_count": 23,
+        "s0_s5_passed": 6,
+        "sequence": 12,
+        "status": "complete",
+        "stratum": "delivery_target",
+        "strict_post_checkpoint_conversion": true,
+        "task_id": "libsoundio",
+        "tokens": {
+          "input_tokens": 19288,
+          "output_tokens": 5115,
+          "request_attempts": 3,
+          "total_tokens": 24403
+        },
+        "zero_managed_orphans": true
+      }
+    ],
+    "availability_receipt": {
+      "marker_sha256": "73a505f396278eaa93430264fb3ef8d86964891763d242d419e4793b475f21ee",
+      "recorded_total_tokens": 158,
+      "request_attempt_count": 1,
+      "rerun_allowed": false,
+      "status": "passed_consumed_read_only"
+    },
+    "batch_terminal": {
+      "batch_marker_sha256": "7c71e20ae7310840a00ad7eb2816c42673825d3d3fde5d0df80c8587390c1667",
+      "completed_arm_count": 12,
+      "completed_checkpoint_count": 4,
+      "endpoint_censored_arm_count": 0,
+      "error_class": "FormalFatalError",
+      "last_completed_sequence": 12,
+      "scheduled_arm_count": 36,
+      "scheduled_checkpoint_count": 12,
+      "started_at": "2026-09-30T10:56:26.557407+00:00",
+      "status": "failed",
+      "stopped_at": "2026-09-30T11:12:28.986046+00:00",
+      "tokens": {
+        "input_tokens": 907258,
+        "output_tokens": 161276,
+        "request_attempts": 75,
+        "total_tokens": 1068534
+      },
+      "unstarted_arm_count": 24,
+      "unstarted_checkpoint_count": 8
+    },
+    "checkpoints": [
+      {
+        "authoritative_rejection_code": "target_mapping_invalid",
+        "captured_at": "2026-09-30T10:56:43.434884+00:00",
+        "checkpoint_id": "rnnoise-0.1.1:delivery_target",
+        "checkpoint_manifest_sha256": "e2868e69fe0de8b617b9ba22d606a2db929b5d0d452c595efa33708147cfb60d",
+        "checkpoint_marker_sha256": "0ab5882ce10b83aeaaf6310c9e5368abac2cd9a735e9bb44087d6f3c067ddd5f",
+        "checkpoint_sequence": 1,
+        "formal_attempts_before_capture": 0,
+        "functional_precheck_passed": true,
+        "ledger": {
+          "event_count": 5,
+          "terminal_event": "candidate.submit_rejected",
+          "terminal_head_sha256": "d55a7ac0326164b1476a518921b3641f3c7bc5edc7541f704ca1f5acf7da95f9"
+        },
+        "provider_calls_before_capture": 0,
+        "status": "captured",
+        "stratum": "delivery_target",
+        "task_id": "rnnoise-0.1.1"
+      },
+      {
+        "authoritative_rejection_code": "build_system_unproven",
+        "captured_at": "2026-09-30T10:59:45.864243+00:00",
+        "checkpoint_id": "rnnoise-0.1.1:provenance",
+        "checkpoint_manifest_sha256": "8edc89d90db12e1d5b38dae556e5b784f21e7a620f2d934dd4939d98353a1643",
+        "checkpoint_marker_sha256": "18102a4a412778e634b3acb0a9b62dab069099e9f3bf0a311eedee59abd03e74",
+        "checkpoint_sequence": 2,
+        "formal_attempts_before_capture": 0,
+        "functional_precheck_passed": true,
+        "ledger": {
+          "event_count": 6,
+          "terminal_event": "candidate.submit_rejected",
+          "terminal_head_sha256": "574b3f7915494328d05779bc2f95c8797f45600eab80e207323b719186daa9d5"
+        },
+        "provider_calls_before_capture": 0,
+        "status": "captured",
+        "stratum": "provenance",
+        "task_id": "rnnoise-0.1.1"
+      },
+      {
+        "authoritative_rejection_code": "build_system_unproven",
+        "captured_at": "2026-09-30T11:05:59.603695+00:00",
+        "checkpoint_id": "libsoundio:provenance",
+        "checkpoint_manifest_sha256": "4edbc3d294b2adff07d617dbe40e8a01a4551ba6d6d64fbbe6ab2714cd432d41",
+        "checkpoint_marker_sha256": "1dfb09dea2fb6e8976e40c369604d31e09bbceb2746582c3d8cba34f48df8e93",
+        "checkpoint_sequence": 3,
+        "formal_attempts_before_capture": 0,
+        "functional_precheck_passed": true,
+        "ledger": {
+          "event_count": 6,
+          "terminal_event": "candidate.submit_rejected",
+          "terminal_head_sha256": "8e701ae22b435b9bddb35c53121dfdf1afa2feaabd42dba46f7174997b945e15"
+        },
+        "provider_calls_before_capture": 0,
+        "status": "captured",
+        "stratum": "provenance",
+        "task_id": "libsoundio"
+      },
+      {
+        "authoritative_rejection_code": "target_mapping_invalid",
+        "captured_at": "2026-09-30T11:10:49.440944+00:00",
+        "checkpoint_id": "libsoundio:delivery_target",
+        "checkpoint_manifest_sha256": "5314c396818210e682394327089c3900893a19bb0ba6654501e9ba0b0346416e",
+        "checkpoint_marker_sha256": "e530c29fc4931da2c84cd31723a0b034b8a5bec7cdee8631f98311f7b8d2bc85",
+        "checkpoint_sequence": 4,
+        "formal_attempts_before_capture": 0,
+        "functional_precheck_passed": true,
+        "ledger": {
+          "event_count": 5,
+          "terminal_event": "candidate.submit_rejected",
+          "terminal_head_sha256": "797fa3d6e02052a355a98a7675a612d49c21092610bcb4ed0fb135a31c4abd9d"
+        },
+        "provider_calls_before_capture": 0,
+        "status": "captured",
+        "stratum": "delivery_target",
+        "task_id": "libsoundio"
+      }
+    ],
+    "document_type": "forge_contract_repair_mechanism_v2_formal_failure_audit",
+    "execution_boundary": {
+      "backfill_allowed": false,
+      "continuation_allowed": false,
+      "credential_read_authorized_for_audit": false,
+      "formal_evidence_write_authorized_for_audit": false,
+      "identity_terminal_failed": true,
+      "marker_repair_allowed": false,
+      "provider_call_authorized_for_audit": false,
+      "replacement_allowed": false,
+      "rerun_allowed": false,
+      "retry_allowed": false,
+      "schedule_extension_allowed": false,
+      "symlinks_or_temporary_files_observed": false,
+      "zero_capture_images_observed_after_failure": true,
+      "zero_managed_containers_observed_after_failure": true
+    },
+    "failure": {
+      "checkpoint_evidence_created": false,
+      "checkpoint_id": "lz4:delivery_target",
+      "checkpoint_sequence": 5,
+      "classification": "checkpoint_target_mapping_cardinality_failure",
+      "exception_class": "FormalFatalError",
+      "exception_message_sha256": "8e7adb776b6ef3ff643ebd25b8b3bba91dd94c55814a84b1314e3539207f2dd9",
+      "frozen_contract_compiled_target_cardinality": 2,
+      "frozen_contract_compiled_targets": [
+        "bin/lz4",
+        "lib/liblz4.a"
+      ],
+      "phase": "checkpoint_5_parent_capture_before_checkpoint_marker_ledger_or_sequence_13_attempt",
+      "required_compiled_target_cardinality": 1,
+      "root_cause": "frozen_checkpoint_builder_requires_one_compiled_target_but_lz4_contract_requires_executable_and_static_library",
+      "sequence_13_attempt_created": false,
+      "stratum": "delivery_target",
+      "task_id": "lz4"
+    },
+    "identity": {
+      "frozen_engine_file_sha256": "5bb1797d2a3a5a8c700ba8da5677b195d0c0db969498521df878f669c815e358",
+      "implementation_pr_url": "https://github.com/WWFXL/Forge-AutoCompiler/pull/378",
+      "manifest_canonical_sha256": "491d877c0d4b94380e4541a23dfd65e7ec83eee2f110d2420c2673597f873609",
+      "manifest_file_sha256": "c655a09a4e60ac8dc6bf3bf2dbcdad9f071bde9d81091ca2ea84f9742385e6cf",
+      "manifest_path": "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v2-formal-execution.json",
+      "release_revision": "fe36cf137dbaa3a0dd29793ae67e74e97a631c61",
+      "source_evidence_root": ".compile-sessions/benchmark-evidence-contract-driven-repair-mechanism-v2-independent",
+      "v2_runner_file_sha256": "c4ae111ac7df6e12616e2245ac61b94e2b68abd5d85e321a2b68b6c55e207f77"
+    },
+    "interpretation": {
+      "analysis_kind": "incomplete_formal_batch_infrastructure_failure_audit",
+      "model_ranking_performed": false,
+      "supported_claims": [
+        "twelve_arms_and_four_matched_checkpoints_completed_before_the_infrastructure_failure",
+        "delivery_target_was_one_for_all_three_arms_and_provenance_was_zero_for_all_three_arms_in_each_of_two_complete_projects",
+        "all_observed_pairwise_project_scores_are_zero_and_the_incomplete_data_identification_interval_is_minus_two_thirds_to_plus_two_thirds",
+        "the_batch_stopped_during_lz4_checkpoint_construction_before_sequence_13",
+        "the_failure_is_a_single_target_checkpoint_builder_incompatibility_with_the_lz4_multi_target_contract",
+        "cleanup_left_zero_managed_containers_and_capture_images"
+      ],
+      "unsupported_claims": [
+        "c0_vs_t1_or_t1_vs_t2_treatment_effect",
+        "statistical_significance_or_confirmatory_p_value",
+        "absence_or_presence_of_a_practically_meaningful_effect",
+        "population_success_rate_provider_reliability_or_model_ranking",
+        "permission_to_continue_rerun_replace_backfill_or_repair_the_failed_identity"
+      ]
+    },
+    "issue_url": "https://github.com/WWFXL/Forge-AutoCompiler/issues/379",
+    "next_decision": "choose_between_engineering_repair_with_a_new_independent_identity_or_stopping_formal_collection",
+    "schema_version": "forge-contract-repair-mechanism-v2-formal-failure-audit-1.0.0",
+    "source_integrity": {
+      "file_count": 70,
+      "files": [
+        {
+          "path": "attempts/01-clone-e9c7df2724c4f0be5153f832/attempt.json",
+          "sha256": "317d6c16e99d67b946a3a01e0db64516e63d8d311564e344532dd839f8a4fa26",
+          "size_bytes": 614
+        },
+        {
+          "path": "attempts/01-clone-e9c7df2724c4f0be5153f832/candidate.json",
+          "sha256": "63c9aa0832050a6062f16e35184d0b5cd6ffcdc0cc18a1ee71800e34322728ea",
+          "size_bytes": 1840
+        },
+        {
+          "path": "attempts/01-clone-e9c7df2724c4f0be5153f832/experiment.jsonl",
+          "sha256": "1f5593a6c4ba6c5d1a2b26af03dc7c78ba299ad4b34e8f9ccd7cdb4d6f8a7c56",
+          "size_bytes": 17868
+        },
+        {
+          "path": "attempts/01-clone-e9c7df2724c4f0be5153f832/result.json",
+          "sha256": "12b42f12a754b59978b7a12d4cf520c651a6043f4a3706e1a5e0f9d06cbf4241",
+          "size_bytes": 8302
+        },
+        {
+          "path": "attempts/01-clone-e9c7df2724c4f0be5153f832/runtime-events.jsonl",
+          "sha256": "6270f39070b8ad460273bcfe230c99a1b1e91ac757eebbf44d6e48f2e842c192",
+          "size_bytes": 20617
+        },
+        {
+          "path": "attempts/02-clone-896635f63ac7141ba3ebab2e/attempt.json",
+          "sha256": "21800e80d93359256913a51723f8935a8b9ac285d98b6b83fea970bde6c96505",
+          "size_bytes": 614
+        },
+        {
+          "path": "attempts/02-clone-896635f63ac7141ba3ebab2e/candidate.json",
+          "sha256": "d1f7d11bcf3d7d39ef843d4209408292b0fb6150b0898a3bea6a5f0b3b0fd021",
+          "size_bytes": 1327
+        },
+        {
+          "path": "attempts/02-clone-896635f63ac7141ba3ebab2e/experiment.jsonl",
+          "sha256": "38503ce72aea34b602262e39770ef913a38c3f0fece75fdb283932fda22afb1e",
+          "size_bytes": 24888
+        },
+        {
+          "path": "attempts/02-clone-896635f63ac7141ba3ebab2e/result.json",
+          "sha256": "ae939178e1445bde8e530151f8c3deb8a64e7168fb14835bec2ec008d93f0f6d",
+          "size_bytes": 10448
+        },
+        {
+          "path": "attempts/02-clone-896635f63ac7141ba3ebab2e/runtime-events.jsonl",
+          "sha256": "0769988d20fcda5125ebba68256c9c2333179a56bdb1cb525e08fb09f3077771",
+          "size_bytes": 23396
+        },
+        {
+          "path": "attempts/03-clone-f684dbb547324adc8cd5d8e0/attempt.json",
+          "sha256": "104e47be3125d72e8dd12fc31a294031a3abbc5691299ed05c39b7ce0e467497",
+          "size_bytes": 614
+        },
+        {
+          "path": "attempts/03-clone-f684dbb547324adc8cd5d8e0/candidate.json",
+          "sha256": "1b149785507c8b206980edb6b46e7cbbab851e264860d18d8e46d57d0f82a5c9",
+          "size_bytes": 965
+        },
+        {
+          "path": "attempts/03-clone-f684dbb547324adc8cd5d8e0/experiment.jsonl",
+          "sha256": "9e5c22d00d215ca22f826a37750addfae09dc74e3f741f5aa010c95fb41e4c0f",
+          "size_bytes": 24914
+        },
+        {
+          "path": "attempts/03-clone-f684dbb547324adc8cd5d8e0/result.json",
+          "sha256": "14a55b911c69af05d4ee2abff315c40090e38ece7a96b7b14f88c064d72978ab",
+          "size_bytes": 10425
+        },
+        {
+          "path": "attempts/03-clone-f684dbb547324adc8cd5d8e0/runtime-events.jsonl",
+          "sha256": "0d5a29a31268867a990e266fae24f55a647ae8b273d333f14613f4867e92e2b3",
+          "size_bytes": 23360
+        },
+        {
+          "path": "attempts/04-clone-2869c18c55c8b61b9a022ca2/attempt.json",
+          "sha256": "c54ed05504dda7d9fdd41da55c9aa4556d195f28030aa3924ad05e8dd2ef9f2b",
+          "size_bytes": 609
+        },
+        {
+          "path": "attempts/04-clone-2869c18c55c8b61b9a022ca2/candidate.json",
+          "sha256": "b6c139730fc66ab8bd0d5a5d041b2d9f8e4786afbcda8e8296c8741ae11cf232",
+          "size_bytes": 33
+        },
+        {
+          "path": "attempts/04-clone-2869c18c55c8b61b9a022ca2/experiment.jsonl",
+          "sha256": "575c5ec48df1e8eaeab0eec7b0c2aaadda8ea75a1a4db7a74df0604700a06524",
+          "size_bytes": 15231
+        },
+        {
+          "path": "attempts/04-clone-2869c18c55c8b61b9a022ca2/result.json",
+          "sha256": "c9d24491c3496ec6c3743c1711ea6bd14312c8937f9046015ba6460007734d88",
+          "size_bytes": 4069
+        },
+        {
+          "path": "attempts/04-clone-2869c18c55c8b61b9a022ca2/runtime-events.jsonl",
+          "sha256": "15fd01c6b88b35c54ee0071e838e9849757c32526b02a132d13702503c72bea6",
+          "size_bytes": 35448
+        },
+        {
+          "path": "attempts/05-clone-94b7d506c9e207b95882f343/attempt.json",
+          "sha256": "3c438e4b63922807e7dd045c13b0ba44f04aec8ae7cc4a0e43af26d9b30c7a27",
+          "size_bytes": 609
+        },
+        {
+          "path": "attempts/05-clone-94b7d506c9e207b95882f343/candidate.json",
+          "sha256": "b6c139730fc66ab8bd0d5a5d041b2d9f8e4786afbcda8e8296c8741ae11cf232",
+          "size_bytes": 33
+        },
+        {
+          "path": "attempts/05-clone-94b7d506c9e207b95882f343/experiment.jsonl",
+          "sha256": "ab8c2c5cc4e4490fe90ae230829deb240445235745613f3311c556bf5e812891",
+          "size_bytes": 13823
+        },
+        {
+          "path": "attempts/05-clone-94b7d506c9e207b95882f343/result.json",
+          "sha256": "62116a4e4c661253b5729767d1dbb9c38451e8b356c571b2d43fd581d337af5a",
+          "size_bytes": 4066
+        },
+        {
+          "path": "attempts/05-clone-94b7d506c9e207b95882f343/runtime-events.jsonl",
+          "sha256": "f8abbe92103c7d97fdb9d13f7f096422e0d811c9c5791fe957b500ae7853193d",
+          "size_bytes": 36751
+        },
+        {
+          "path": "attempts/06-clone-5d36baae0ccd1312e719d891/attempt.json",
+          "sha256": "26ba80a18cec5bd046f2e52e6fd93ecba8128fbee553e5b027a11ca9f5cc145f",
+          "size_bytes": 609
+        },
+        {
+          "path": "attempts/06-clone-5d36baae0ccd1312e719d891/candidate.json",
+          "sha256": "b6c139730fc66ab8bd0d5a5d041b2d9f8e4786afbcda8e8296c8741ae11cf232",
+          "size_bytes": 33
+        },
+        {
+          "path": "attempts/06-clone-5d36baae0ccd1312e719d891/experiment.jsonl",
+          "sha256": "e4944f3664a3a5aa6301b8d25e9b91df2364bbbc02f85224ec04dd3ec695cd13",
+          "size_bytes": 11011
+        },
+        {
+          "path": "attempts/06-clone-5d36baae0ccd1312e719d891/result.json",
+          "sha256": "ac6f45e608cd5f81b04e40c9d1514109b598f971f5dd51cf83d5a8ff1147bd93",
+          "size_bytes": 4060
+        },
+        {
+          "path": "attempts/06-clone-5d36baae0ccd1312e719d891/runtime-events.jsonl",
+          "sha256": "ef6a91bb38af9bea1259c5b1ebdcac8a9bdf37d282691ee34180d90bc56a5b5d",
+          "size_bytes": 29233
+        },
+        {
+          "path": "attempts/07-clone-d84162ebf29c3ed6710b5b8d/attempt.json",
+          "sha256": "2cd89840f04cd74bc48e9b0f4951ba9e8399cbfa4134a29ca7ad102a899a9266",
+          "size_bytes": 606
+        },
+        {
+          "path": "attempts/07-clone-d84162ebf29c3ed6710b5b8d/candidate.json",
+          "sha256": "b6c139730fc66ab8bd0d5a5d041b2d9f8e4786afbcda8e8296c8741ae11cf232",
+          "size_bytes": 33
+        },
+        {
+          "path": "attempts/07-clone-d84162ebf29c3ed6710b5b8d/experiment.jsonl",
+          "sha256": "364233f8ecf8424835ee131afd250792936516889d7f3043be0ae3e37ff40323",
+          "size_bytes": 13798
+        },
+        {
+          "path": "attempts/07-clone-d84162ebf29c3ed6710b5b8d/result.json",
+          "sha256": "3e9f76785f79a6aae2dc1c0c716bdf7cfe031b4eb787eabcb1984f474b417065",
+          "size_bytes": 4059
+        },
+        {
+          "path": "attempts/07-clone-d84162ebf29c3ed6710b5b8d/runtime-events.jsonl",
+          "sha256": "807d64a0682e3d90890017f2ed2b54ef8ad8344a59ec7add70ed72b9bb004350",
+          "size_bytes": 36399
+        },
+        {
+          "path": "attempts/08-clone-493a9abb5d0751c2572e26a1/attempt.json",
+          "sha256": "aba362182f3af92d9d066ae68c03c619bb9b718604b1f504ea401c7391f0488b",
+          "size_bytes": 606
+        },
+        {
+          "path": "attempts/08-clone-493a9abb5d0751c2572e26a1/candidate.json",
+          "sha256": "b6c139730fc66ab8bd0d5a5d041b2d9f8e4786afbcda8e8296c8741ae11cf232",
+          "size_bytes": 33
+        },
+        {
+          "path": "attempts/08-clone-493a9abb5d0751c2572e26a1/experiment.jsonl",
+          "sha256": "343b4e79057b90421c0052574e686dd923b1b7af26d5c6912532d46206e17c0a",
+          "size_bytes": 13850
+        },
+        {
+          "path": "attempts/08-clone-493a9abb5d0751c2572e26a1/result.json",
+          "sha256": "e18380d735e603a3f7560a59534e86927e886177a8eaf7b05edd248509036a5a",
+          "size_bytes": 4045
+        },
+        {
+          "path": "attempts/08-clone-493a9abb5d0751c2572e26a1/runtime-events.jsonl",
+          "sha256": "33da4106231f4f9d04eeba27def8ebc679eb9fca4c85cb597ddc5dd7d7f1605c",
+          "size_bytes": 36542
+        },
+        {
+          "path": "attempts/09-clone-5d716de8a7e6a2cca41c4745/attempt.json",
+          "sha256": "b43f4222da2d6b77c5ac9ee3b572dc3684b778a189bb8e11546e15754bee74c8",
+          "size_bytes": 606
+        },
+        {
+          "path": "attempts/09-clone-5d716de8a7e6a2cca41c4745/candidate.json",
+          "sha256": "b6c139730fc66ab8bd0d5a5d041b2d9f8e4786afbcda8e8296c8741ae11cf232",
+          "size_bytes": 33
+        },
+        {
+          "path": "attempts/09-clone-5d716de8a7e6a2cca41c4745/experiment.jsonl",
+          "sha256": "b5e513e9004c8ce7ce78c4433116159a71a4bcc4556ac70720fdc5ef4e4b84d5",
+          "size_bytes": 13794
+        },
+        {
+          "path": "attempts/09-clone-5d716de8a7e6a2cca41c4745/result.json",
+          "sha256": "adeca8c9e80a5f724e09074173c5ee50c28721af9be4b533f3fe3a32c410bf90",
+          "size_bytes": 4058
+        },
+        {
+          "path": "attempts/09-clone-5d716de8a7e6a2cca41c4745/runtime-events.jsonl",
+          "sha256": "4bc524120022b43fa1889c3b89025326d4bf88aea228ce86ce1472fe2975c424",
+          "size_bytes": 33944
+        },
+        {
+          "path": "attempts/10-clone-61965322bbddc42cf7baca39/attempt.json",
+          "sha256": "9f0dccbe11de4534d6d02acd3193c1434d1708df5f25a1867c6138da052b4fde",
+          "size_bytes": 612
+        },
+        {
+          "path": "attempts/10-clone-61965322bbddc42cf7baca39/candidate.json",
+          "sha256": "13b06b3a411d09f47f83d770c8590042f3f5790f4e558446354cfbf12a5b9125",
+          "size_bytes": 1171
+        },
+        {
+          "path": "attempts/10-clone-61965322bbddc42cf7baca39/experiment.jsonl",
+          "sha256": "35d62c21b006eaa4ffffbaba96d8ea9d7581a4b272ace98f27e1023a10b0bae9",
+          "size_bytes": 18808
+        },
+        {
+          "path": "attempts/10-clone-61965322bbddc42cf7baca39/result.json",
+          "sha256": "847994216203598a99efda490e25f15fec4fd726c66f7449053b1ec7786fe033",
+          "size_bytes": 8104
+        },
+        {
+          "path": "attempts/10-clone-61965322bbddc42cf7baca39/runtime-events.jsonl",
+          "sha256": "67f014aded8104f03a152a1446186e8ee04cf16fb9fe2a1f9179c407b44fde85",
+          "size_bytes": 20512
+        },
+        {
+          "path": "attempts/11-clone-86f07e4728efea31afb3d95f/attempt.json",
+          "sha256": "2e4fe1be1707b4986e602cdbb01cda6f8cb5b285b777e5a9de7de550aee5bf0d",
+          "size_bytes": 612
+        },
+        {
+          "path": "attempts/11-clone-86f07e4728efea31afb3d95f/candidate.json",
+          "sha256": "d269160ba8d249bf12cd9274e7354b1fb31a68ed48f6b2bc049a5d38cddef464",
+          "size_bytes": 771
+        },
+        {
+          "path": "attempts/11-clone-86f07e4728efea31afb3d95f/experiment.jsonl",
+          "sha256": "bb6c63934d6d7e253528fc8bf83b9521265756e52e817948caabfaa6e1a19657",
+          "size_bytes": 17389
+        },
+        {
+          "path": "attempts/11-clone-86f07e4728efea31afb3d95f/result.json",
+          "sha256": "3c304456d68a40720c442479a1a82488f8dcea6940c8e8113fde64f876b64f1c",
+          "size_bytes": 8109
+        },
+        {
+          "path": "attempts/11-clone-86f07e4728efea31afb3d95f/runtime-events.jsonl",
+          "sha256": "795a64271d871018cf20aebffca3cd8d31b0a85b7b535c376ec86ababa2043db",
+          "size_bytes": 17121
+        },
+        {
+          "path": "attempts/12-clone-3071461291e81d129ad0fed6/attempt.json",
+          "sha256": "d4a3f373acf700044457564e3b333a70657660de1b50d067e78fc553edf971c6",
+          "size_bytes": 612
+        },
+        {
+          "path": "attempts/12-clone-3071461291e81d129ad0fed6/candidate.json",
+          "sha256": "db2cf952acb94a8ffe962d2574e0efd3bb82b95a6e9378a1f83f9036b70d020a",
+          "size_bytes": 1489
+        },
+        {
+          "path": "attempts/12-clone-3071461291e81d129ad0fed6/experiment.jsonl",
+          "sha256": "0ef91d53569f446dad62b3948ef92334798f23666512feaedf433272ac13f91a",
+          "size_bytes": 15957
+        },
+        {
+          "path": "attempts/12-clone-3071461291e81d129ad0fed6/result.json",
+          "sha256": "d8e6d21e1f57cab536ba6aa21e9828ea07c9fe9899ee2a2aef47368ba03155d5",
+          "size_bytes": 7762
+        },
+        {
+          "path": "attempts/12-clone-3071461291e81d129ad0fed6/runtime-events.jsonl",
+          "sha256": "44059d706c901babf50ea7d79024272adecce021b54ae567a724da4c572730af",
+          "size_bytes": 14052
+        },
+        {
+          "path": "checkpoints/01-rnnoise-0.1.1-delivery-target/checkpoint.json",
+          "sha256": "0ab5882ce10b83aeaaf6310c9e5368abac2cd9a735e9bb44087d6f3c067ddd5f",
+          "size_bytes": 14043
+        },
+        {
+          "path": "checkpoints/01-rnnoise-0.1.1-delivery-target/experiment.jsonl",
+          "sha256": "70b1ed51f580356e8ce4747a3c1a9bcc26b38579483d63fd45e2aa4ef3b8de40",
+          "size_bytes": 3400
+        },
+        {
+          "path": "checkpoints/02-rnnoise-0.1.1-provenance/checkpoint.json",
+          "sha256": "18102a4a412778e634b3acb0a9b62dab069099e9f3bf0a311eedee59abd03e74",
+          "size_bytes": 12519
+        },
+        {
+          "path": "checkpoints/02-rnnoise-0.1.1-provenance/experiment.jsonl",
+          "sha256": "215a21c0bfa8b84d4a0d35aa97a128f1574de3660eda27c6fd6b61b33445158b",
+          "size_bytes": 3970
+        },
+        {
+          "path": "checkpoints/03-libsoundio-provenance/checkpoint.json",
+          "sha256": "1dfb09dea2fb6e8976e40c369604d31e09bbceb2746582c3d8cba34f48df8e93",
+          "size_bytes": 11908
+        },
+        {
+          "path": "checkpoints/03-libsoundio-provenance/experiment.jsonl",
+          "sha256": "356c7b13e108336289dac9868eda4adc1df200a716ab1cf8eac0dbd59342b6d5",
+          "size_bytes": 3962
+        },
+        {
+          "path": "checkpoints/04-libsoundio-delivery-target/checkpoint.json",
+          "sha256": "e530c29fc4931da2c84cd31723a0b034b8a5bec7cdee8631f98311f7b8d2bc85",
+          "size_bytes": 13127
+        },
+        {
+          "path": "checkpoints/04-libsoundio-delivery-target/experiment.jsonl",
+          "sha256": "72afd195fcaa5e2bfbd2713e8373a86b7edc1ca6bb89a0e38a490fe142a3659f",
+          "size_bytes": 3399
+        },
+        {
+          "path": "markers/availability.json",
+          "sha256": "73a505f396278eaa93430264fb3ef8d86964891763d242d419e4793b475f21ee",
+          "size_bytes": 1442
+        },
+        {
+          "path": "markers/batch.json",
+          "sha256": "7c71e20ae7310840a00ad7eb2816c42673825d3d3fde5d0df80c8587390c1667",
+          "size_bytes": 675
+        }
+      ],
+      "inventory_sha256": "5c885b2a9d2bb2156f28913365c73b32d11a60ffcce7804d85d6cae718eb9d11",
+      "source_evidence_modified": false,
+      "total_size_bytes": 689742
+    }
+  },
+  "title": "Forge Contract Repair Mechanism v2 Formal Failure Audit"
+}
