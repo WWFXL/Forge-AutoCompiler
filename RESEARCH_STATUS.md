@@ -4,8 +4,8 @@
 
 ## 当前阶段
 
-- 状态：Issue #365 / PR #366 已把 formal marker 封口失败审计与独立 repair 合并为 `main@b5acc18c`。研究负责人已选择全新 36-arm identity；Issue #367 正在建立 mechanism v2 独立 candidate，原 identity 禁止续跑或回填。
-- 当前工作类型：工程修复与实验基础设施。旧 identity 形成 1 个 incomplete-batch arm observation，但没有完整 checkpoint、project block 或可计算的 C0/T1/T2 比较；v2 candidate 不产生新实验 observation。
+- 状态：Issue #367 / PR #368 已把 mechanism v2 独立 36-arm candidate 合并为 `main@70b257c8`，clean-main 非模型 preflight 为 `ready=true`。Issue #369 正在冻结 exact release-bound identity；原 identity 禁止续跑或回填。
+- 当前工作类型：实验身份基础设施。旧 identity 形成 1 个 incomplete-batch arm observation，但没有完整 checkpoint、project block 或可计算的 C0/T1/T2 比较；v2 candidate 与 release-bound identity 均不产生新实验 observation。
 - 研究目标：围绕自动化编译形成范围适中、可验证、可复现的毕业论文贡献；Forge 的 Agent Workflow Node 与 Multi-Agent 视为研究基础设施，CXXCrafter 视为相关工作之一。
 - 首选方向：面向自动化编译的契约驱动修复，组合可恢复失败状态、确定性候选验证反馈和分层正确性判定。
 - 当前主问题候选：在相同编译失败状态、模型、工具和预算下，C0 普通失败、T1 合同 finding、T2 finding + 抽象 repair goal 三种反馈暴露是否产生不同的严格候选转换率，并减少重复或无效动作？
@@ -38,6 +38,7 @@ Repo2Run、EvoConfig、PhantomRun、跨 ISA Build-bench、Exact Feedback、SpecH
 - Availability qualification：绑定 `main@09d7ff36` 与 execution manifest `cf21d2c...7839` 的唯一 `deepseek-flash` request 在首个 attempt 通过；39 input / 19 output / 58 total tokens，exact response 与 model identity 匹配，0 tool side effects、0 managed resources。Marker SHA-256 为 `8527d64a...8bee`；这只证明固定端点在该时点完成往返。
 - Formal execution failure：manifest `3a843799...5829f` 在 clean-main preflight 后启动；sequence 1（`rnnoise-0.1.1:delivery_target / T2`）以 5 requests / 44,561 input / 8,423 output / 52,984 total tokens 达到 strict endpoint，S0-S5、clean replay 与 cleanup 均通过。随后 `_update_claimed_marker` 的 mapping/keyword 调用合同不一致导致 attempt 与 batch marker 无法封口，schedule 在 sequence 2 前停止。冻结 evidence 为 9 files / 66,466 bytes，inventory SHA-256 `24019a37...2fb5`，失败后 0 managed resources。该单 arm 不支持 treatment effect。
 - Mechanism v2 candidate：从零派生 36 个新 opaque clone IDs 与 36 个新 evaluation IDs，和 v1 均为零重叠；任务、condition 顺序、预算、停止规则与分析规则不变。新 evidence root 为 `.compile-sessions/benchmark-evidence-contract-driven-repair-mechanism-v2-independent`，当前不存在；v1 sequence 1 永久排除于 v2 分析。Marker repair 四类终态门禁通过，最终 manifest 的双 stratum Docker lifecycle gate 为 `2 passed in 76.63s`，结束后 0 managed resources。该结果只证明新身份基础设施可执行。
+- Mechanism v2 clean-main preflight：`main == origin/main == 70b257c840f4065285c047ba6207ffe99f8dcb36`，candidate canonical `40ea4706...e25f0d`、image `sha256:adbef4a...758b1`、v1 inventory `24019a37...2fb5`、新 evidence absence 和 0 managed resources 全部闭合；credential 未读取。
 
 ## 设计审计结论
 
@@ -55,6 +56,7 @@ Repo2Run、EvoConfig、PhantomRun、跨 ISA Build-bench、Exact Feedback、SpecH
 - PR #358 四项 CI 全绿并经用户确认 squash-merge 为 `main@d55f39b03179f59b0b3b89bb8648a168ec54f7bd`；availability candidate canonical SHA-256 为 `e0583ddb...9f00`，仍为 0 Provider observation。
 - PR #366 四项 CI 全绿并 squash-merge 为 `main@b5acc18c13057e7ba1deee078c628ad907647679`；failure audit 固定旧 evidence inventory `24019a37...2fb5`，marker repair 绑定 frozen runner SHA-256 `5bb1797d...e358`。
 - Issue #367 mechanism v2 candidate 当前 canonical SHA-256 为 `40ea4706...e25f0d`；全部真实执行授权为 false，历史 availability、checkpoint、arm、ledger、result、token 和 outcome 均不导入。
+- PR #368 四项 CI 全绿并 squash-merge 为 `main@70b257c840f4065285c047ba6207ffe99f8dcb36`；Issue #367 自动关闭。Issue #369 release-bound candidate 绑定该 exact release 与父 canonical，当前 canonical SHA-256 为 `9ce0b7eb...e08197`，真实执行权限仍全部为 false。
 
 ## 解释边界
 
@@ -84,6 +86,7 @@ Repo2Run、EvoConfig、PhantomRun、跨 ISA Build-bench、Exact Feedback、SpecH
 - 从已通过的 availability marker 派生并审阅独立 formal collection execution identity；绑定 marker 哈希后才允许创建 36-arm batch。
 - 对失败 formal evidence 做只读核验；实现不修改冻结 runner 的独立 marker repair；提交、推送、PR、CI 与合并 Issue #365 的审计和工程修复。
 - 实现、测试、Docker qualification、提交、推送、PR、CI 与合并 Issue #367 的独立 36-arm candidate；运行不读取 credential、不创建 formal attempt 或 formal evidence 的非模型 preflight。
+- 实现、测试、提交、推送、PR、CI 与合并 Issue #369 的 exact release-bound identity；运行相同的零 credential、零 Provider preflight。
 
 禁止：
 
@@ -94,7 +97,7 @@ Repo2Run、EvoConfig、PhantomRun、跨 ISA Build-bench、Exact Feedback、SpecH
 
 ## 当前工作区与知识库状态
 
-- 当前工作分支：`yiwei/367-independent-36-arm-identity`；基线为 failure audit/repair 合并后的 `main@b5acc18c13057e7ba1deee078c628ad907647679`，tracking Issue 为 #367。
+- 当前工作分支：`yiwei/369-v2-release-bound-identity`；基线为 mechanism v2 candidate 合并后的 `main@70b257c840f4065285c047ba6207ffe99f8dcb36`，tracking Issue 为 #369。
 - Stage C v8 原始 evidence 保持只读，权威结果入口为 `benchmarks/reports/cpp-stage-c-v8-workspace-remediation-result-audit.md`。
 - Runtime v3 qualification 入口为 `benchmarks/preregistrations/cpp-runtime-v3-three-arm-zero-provider-qualification.md`；它是基础设施门禁记录，不是 formal experiment evidence。
 - 候选预注册决策包入口为 `docs/research/2026-09-29-contract-driven-repair-preregistration-decision.md`；研究负责人已冻结其推荐方案，但它不是执行授权。
@@ -103,11 +106,12 @@ Repo2Run、EvoConfig、PhantomRun、跨 ISA Build-bench、Exact Feedback、SpecH
 - Issue #359 availability execution 入口为 `benchmarks/manifests/cpp-contract-driven-repair-mechanism-v1-availability-execution.json`；通过 marker 的版本化只读审计为 `benchmarks/reports/cpp-contract-driven-repair-mechanism-v1-availability-audit.md`，formal collection 仍在该 identity 中关闭。
 - Issue #363 formal execution 入口为 `benchmarks/manifests/cpp-contract-driven-repair-mechanism-v1-formal-execution.json`；原始 evidence 位于 `.compile-sessions/benchmark-evidence-contract-driven-repair-mechanism-v1-authorized`，保持只读。Issue #365 审计入口为 `benchmarks/reports/cpp-contract-driven-repair-mechanism-v1-formal-failure-audit.md`。
 - Issue #367 独立 candidate 入口为 `benchmarks/manifests/cpp-contract-driven-repair-mechanism-v2-candidate.json`；预注册入口为 `benchmarks/preregistrations/cpp-contract-driven-repair-mechanism-v2-candidate.md`。新 evidence root 尚不存在，全部 Provider/credential/formal 权限为 false。
+- Issue #369 release-bound 入口为 `benchmarks/manifests/cpp-contract-driven-repair-mechanism-v2-authorized.json`；它绑定 PR #368 merge commit 和父 candidate，全部 Provider/credential/formal 权限继续为 false。
 - 2026-09-29 已按 `search_notes -> read_note` 核对个人知识库中的毕业论文方向与契约驱动修复主笔记；本轮不修改知识库。
 
 ## 下一项工作
 
-完成 Issue #367 的扩大回归、状态提交、PR、CI、合并与 clean-main 非模型 preflight。候选发布后，下一项科研决策是
-是否授权独立 availability/execution identity；该 identity 必须绑定合并后的 exact release，在 v2 evidence root 内创建新的
-availability marker，并再次冻结 credential、Provider、attempt 与 evidence 权限。获得该授权前不读取 credential、不调用
-Provider，也不创建 formal attempt 或 evidence。
+完成 Issue #369 的确定性回归、状态提交、PR、CI、合并与 clean-main 非模型 preflight。Release-bound identity 发布后，
+下一项科研决策是是否授权独立 availability execution identity；该 identity 必须绑定 release-bound canonical，在 v2 evidence
+root 内创建新的 availability marker，并冻结 credential、Provider、model、token 与 marker 权限。Availability 通过并审计后，
+再派生 formal collection execution identity。获得对应授权前不读取 credential、不调用 Provider，也不创建 formal attempt 或 evidence。
