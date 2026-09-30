@@ -6,11 +6,11 @@
 
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
-- 2026-09-30 — Issue #373 冻结 mechanism v2 availability 结果审计
+- 2026-09-30 — 完成 Issue #373 mechanism v2 availability 结果审计
   - 权威 evidence: PR #372 四项 CI 全绿并 squash-merge 为 `main@12681ffb0fd2997e2f572f3355e02b50a1b79744`；clean-main preflight 返回 `ready=true`。唯一 DeepSeek `deepseek-flash` request 在首个 attempt 通过，39 input / 119 output / 158 total tokens，1054 ms，exact response/model identity 匹配，0 tool side effects，0 managed resources。
   - Marker: `.compile-sessions/benchmark-evidence-contract-driven-repair-mechanism-v2-independent/markers/availability.json` 是当前 v2 root 唯一文件，1,442 bytes，SHA-256 `73a505f396278eaa93430264fb3ef8d86964891763d242d419e4793b475f21ee`；只读 runner audit 通过，无 `.tmp` 或 symlink。Manifest canonical 为 `71d2f5e2...41065`，文件 SHA-256 为 `39f390cf...5dfd`。
   - 解释与权限: 只支持固定端点在该时点完成确定性往返，不支持模型能力、总体可靠性、arm outcome、treatment effect、显著性或排名。Availability identity 已消费，禁止 rerun/retry/replacement/backfill/marker 修改。Formal collection、Docker formal Session、formal attempts/evidence 与新的 Provider 调用仍未授权。
-  - 当前: 分支 `yiwei/373-v2-availability-audit` 基于 `main@12681ffb...9744`，tracking Issue #373 已创建并回读；新增 JSON/Markdown 版本化审计并更新状态入口。下一步验证报告与 raw marker 逐字段一致，提交、push、PR、CI 与合并；之后由研究负责人决定是否授权绑定 marker 哈希的独立 formal collection identity。
+  - 发布与交接: PR #374 四项 CI 全绿并 squash-merge 为 `main@d0572d296612cfdc28b226fcd1b2dfed7d02c6a0`，Issue #373 已关闭。合并后 runner 只读 audit 再次通过，marker 哈希不变，Git 主干干净且 managed container/image/paused resource 均为 0。下一步由研究负责人决定是否授权绑定 marker 哈希的独立 formal collection identity 与后续 Provider/formal execution；当前不得创建 batch、formal attempt/evidence 或再次调用 availability Provider。
   - 文件: `benchmarks/reports/cpp-contract-driven-repair-mechanism-v2-availability-audit.json`, `benchmarks/reports/cpp-contract-driven-repair-mechanism-v2-availability-audit.md`, `RESEARCH_STATUS.md`, `.claude/memory/project.md`
 
 - 2026-09-30 — Issue #371 执行 mechanism v2 独立 availability qualification
