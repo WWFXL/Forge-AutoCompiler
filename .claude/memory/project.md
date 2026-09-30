@@ -6,12 +6,19 @@
 
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
+- 2026-09-30 — Issue #373 冻结 mechanism v2 availability 结果审计
+  - 权威 evidence: PR #372 四项 CI 全绿并 squash-merge 为 `main@12681ffb0fd2997e2f572f3355e02b50a1b79744`；clean-main preflight 返回 `ready=true`。唯一 DeepSeek `deepseek-flash` request 在首个 attempt 通过，39 input / 119 output / 158 total tokens，1054 ms，exact response/model identity 匹配，0 tool side effects，0 managed resources。
+  - Marker: `.compile-sessions/benchmark-evidence-contract-driven-repair-mechanism-v2-independent/markers/availability.json` 是当前 v2 root 唯一文件，1,442 bytes，SHA-256 `73a505f396278eaa93430264fb3ef8d86964891763d242d419e4793b475f21ee`；只读 runner audit 通过，无 `.tmp` 或 symlink。Manifest canonical 为 `71d2f5e2...41065`，文件 SHA-256 为 `39f390cf...5dfd`。
+  - 解释与权限: 只支持固定端点在该时点完成确定性往返，不支持模型能力、总体可靠性、arm outcome、treatment effect、显著性或排名。Availability identity 已消费，禁止 rerun/retry/replacement/backfill/marker 修改。Formal collection、Docker formal Session、formal attempts/evidence 与新的 Provider 调用仍未授权。
+  - 当前: 分支 `yiwei/373-v2-availability-audit` 基于 `main@12681ffb...9744`，tracking Issue #373 已创建并回读；新增 JSON/Markdown 版本化审计并更新状态入口。下一步验证报告与 raw marker 逐字段一致，提交、push、PR、CI 与合并；之后由研究负责人决定是否授权绑定 marker 哈希的独立 formal collection identity。
+  - 文件: `benchmarks/reports/cpp-contract-driven-repair-mechanism-v2-availability-audit.json`, `benchmarks/reports/cpp-contract-driven-repair-mechanism-v2-availability-audit.md`, `RESEARCH_STATUS.md`, `.claude/memory/project.md`
+
 - 2026-09-30 — Issue #371 执行 mechanism v2 独立 availability qualification
   - 授权与身份: 研究负责人明确授权派生、提交、推送并合并独立 availability execution identity，以及在合并后的 clean main 检查 `DEEPSEEK_API_KEY` presence、调用 DeepSeek `deepseek-flash`、消费并逐响应计量无 ceiling token、写入唯一 create-once availability marker。分支 `yiwei/371-v2-availability-execution` 基于 `main@646ff59a67b27038b241358261bc92adcb100eb6`，tracking Issue #371 已创建并回读。
   - 合同: 父 release-bound canonical 为 `9ce0b7eb...e08197`，文件 SHA-256 为 `945be3f3...c9118`。只允许一个 `FORGE_READY` logical request、最多两个 physical attempts；第二次仅在首次 0 response / 0 recorded tokens / 0 tool side effects 时允许。唯一写路径为 `.compile-sessions/benchmark-evidence-contract-driven-repair-mechanism-v2-independent/markers/availability.json`；`batch/report` 在 manifest/runtime probe 前 fail closed。
   - 边界: credential value、响应正文与 Provider 原始错误不保留；Docker formal Session、36-arm batch、formal attempts 与 formal evidence 权限全部为 false。v1 evidence 只读且不导入。Availability 仅为基础设施可用性证据，不支持 arm outcome、treatment effect、显著性、可靠性或模型排名。
   - 当前 candidate: canonical manifest SHA-256 `71d2f5e2e84b4e24eac5bff0fac43a092ceffa8abdf396714801f93d7ed41065`，manifest 文件 SHA-256 `39f390cf...5dfd`。聚焦测试 `16 passed`；隔离进程扩大回归为 v1/evidence/model `106 passed` 与 v2 release/availability `31 passed`。单进程把 Issue #365 测试的 alternate-name repair import 排在 frozen v2 runner import 前会形成测试专用嵌套 patch（`1 failed, 136 passed`）；正式 CLI 不导入测试模块，冻结 v2 runner 不为测试顺序改写。Ruff、format、隔离 pycache 的 `py_compile`、protocol/runner validate/plan、确定性复生成与 diff check 通过。当前仍为 0 credential read / 0 Provider / 0 model token / 0 formal attempt / 0 evidence write。
-  - 下一步: 完成扩大相关回归、确定性复生成、提交、push、PR、CI 与合并；随后在 clean main 执行 preflight、唯一 availability 和只读 audit。失败立即停止且保留 marker，成功后冻结 audit 再派生独立 formal collection identity。
+  - 结果: PR #372 四项 CI 全绿并 squash-merge 为 `main@12681ffb0fd2997e2f572f3355e02b50a1b79744`；clean-main preflight 通过，唯一 availability 首次通过并进入 Issue #373 只读审计。Formal batch 未创建，formal attempt/evidence 仍为 0。
   - 文件: `scripts/forge_contract_driven_repair_mechanism_v2_availability_execution_protocol.py`, `scripts/forge_contract_driven_repair_mechanism_v2_availability_execution_runner.py`, `backend/tests/test_forge_contract_driven_repair_mechanism_v2_availability_execution.py`, `benchmarks/manifests/cpp-contract-driven-repair-mechanism-v2-availability-execution.json`, `benchmarks/schemas/forge-contract-driven-repair-mechanism-v2-availability-execution.schema.json`, `benchmarks/preregistrations/cpp-contract-driven-repair-mechanism-v2-availability-execution.md`, `RESEARCH_STATUS.md`, `.claude/memory/project.md`
 
 - 2026-09-30 — Issue #369 冻结 mechanism v2 exact release-bound identity
