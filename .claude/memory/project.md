@@ -6,6 +6,14 @@
 
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
+- 2026-09-30 — Issue #369 冻结 mechanism v2 exact release-bound identity
+  - 父发布: PR #368 四项 CI 全绿并 squash-merge 为 `main@70b257c840f4065285c047ba6207ffe99f8dcb36`，Issue #367 自动关闭；clean-main candidate preflight 返回 `ready=true`，credential 未读取，0 Provider / 0 model token / 0 Docker Session / 0 formal attempt / 0 formal evidence write。
+  - 身份: 分支 `yiwei/369-v2-release-bound-identity`，tracking Issue #369 已创建并回读。新 identity 绑定 exact scientific-contract release `70b257c8...dcb36`、父 candidate canonical `40ea4706...e25f0d` 与文件 SHA-256 `9d60eeb7...b22c4`；schedule、36 clone/evaluation IDs、evidence root、预算、停止规则、分析与 v1 排除声明逐字继承。
+  - 权限: 仅 `identity_implementation_authorized=true`；credential、Provider、model、token、Docker formal Session、availability、formal collection、formal attempt 和 evidence 权限均为 false。Runner 只开放 `validate/plan/preflight`，`availability/batch/report/audit` fail closed。
+  - 当前 candidate: canonical manifest SHA-256 `9ce0b7ebef27f03c4c918e4e20577cacfac971a947e60e9a787914bdc6e08197`，manifest 文件 SHA-256 `945be3f3...c9118`。聚焦回归 `15 passed`，扩大相关回归 `97 passed, 2 skipped`；Ruff、format、`py_compile`、权限扫描、protocol/runner validate 和 diff check 通过。两项 skip 为父 candidate 已实际通过并冻结的 opt-in Docker gate。
+  - 下一步: 确定性复生成、提交、push、PR、CI、合并与 clean-main preflight。之后由研究负责人决定是否授权独立 v2 availability execution；未授权前不读取 credential 或调用 Provider。
+  - 文件: `scripts/forge_contract_driven_repair_mechanism_v2_authorized_protocol.py`, `scripts/forge_contract_driven_repair_mechanism_v2_authorized_runner.py`, `backend/tests/test_forge_contract_driven_repair_mechanism_v2_authorized.py`, `benchmarks/manifests/cpp-contract-driven-repair-mechanism-v2-authorized.json`, `benchmarks/schemas/forge-contract-driven-repair-mechanism-v2-authorized.schema.json`, `benchmarks/preregistrations/cpp-contract-driven-repair-mechanism-v2-authorized.md`, `RESEARCH_STATUS.md`, `.claude/memory/project.md`
+
 - 2026-09-30 — Issue #367 建立 mechanism v2 全新 36-arm candidate identity
   - 决策: 研究负责人选择“全新 36-arm identity”。v1 sequence 1 T2 arm 只保留为基础设施失败证据，永久排除于 v2 的 primary/secondary/supportive analysis；v1 的 9 文件 evidence 禁止修改、续跑、重跑、replacement、backfill 或 marker 修补。
   - 身份: 分支 `yiwei/367-independent-36-arm-identity` 基于 clean `main@b5acc18c13057e7ba1deee078c628ad907647679`，tracking Issue #367 已创建并回读。新 manifest 原样继承 6 projects / 12 checkpoints / C0-T1-T2 condition 顺序、DeepSeek `deepseek-flash`、无 token ceiling、288 requests 机械上限、第二个 endpoint censor 早停、预算与分析规则；仅重新生成 36 clone IDs、36 evaluation IDs，并使用 `.compile-sessions/benchmark-evidence-contract-driven-repair-mechanism-v2-independent`。
