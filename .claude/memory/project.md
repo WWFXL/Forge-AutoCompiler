@@ -6,17 +6,12 @@
 
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
-- 2026-09-30 — Issue #379 冻结 mechanism v2 formal checkpoint 构造失败
-  - Release 与启动: PR #378 四项 CI 全绿并 squash-merge 为 `main@fe36cf137dbaa3a0dd29793ae67e74e97a631c61`；manifest canonical SHA-256 为 `491d877c0d4b94380e4541a23dfd65e7ec83eee2f110d2420c2673597f873609`。Strict clean-main preflight 校验 release、availability receipt、v1 inventory、compile image、credential presence、v2 root 精确状态和 0 managed resources 后返回 `ready=true`，随后创建唯一正式 batch。
-  - Batch 终态: batch 从 `2026-09-30T10:56:26.557407+00:00` 运行至 `2026-09-30T11:12:28.986046+00:00`，以 `FormalFatalError` 永久失败；完成 12/36 arms、4/12 checkpoints，75 Provider requests / 907,258 input / 161,276 output / 1,068,534 total tokens，0 endpoint censor。Batch marker SHA-256 为 `7c71e20a...c1667`。
-  - 已观察结果: `rnnoise-0.1.1` 与 `libsoundio` 两个完整项目的 delivery/target checkpoint 中 C0/T1/T2 均达到 strict endpoint，provenance checkpoint 中三臂均以 `budget_exhausted` 形成合法零 outcome。每个项目的 `d01`、`d12`、`d02` project score 均为 0；其余 8 checkpoints 不填零，三个比较的 best/worst identification interval 均为 `[-2/3, +2/3]`。
-  - 失败根因: checkpoint 5 `lz4:delivery_target` 在 `_capture_checkpoint -> _compiled_target_path` 阶段停止。Frozen engine 要求恰有一个 target-mapped compiled artifact，而 frozen `lz4` contract 同时要求 executable `bin/lz4` 与 static library `lib/liblz4.a`；该单 target 基数约束与多 target 合同不兼容。故障发生在 checkpoint 5 marker/ledger 与 sequence 13 attempt 创建前，异常路径 finalize parent 并删除 capture image。
-  - Evidence: `.compile-sessions/benchmark-evidence-contract-driven-repair-mechanism-v2-independent` 保持 create-once 只读，共 70 files / 689,742 bytes，inventory SHA-256 `5c885b2a9d2bb2156f28913365c73b32d11a60ffcce7804d85d6cae718eb9d11`；无 symlink、`.tmp`、partial sequence 13 或 checkpoint 5。失败后机械核验为 0 managed containers / 0 capture images，Git 主干仍 clean 且与 origin 一致。
-  - 审计实现: 分支 `yiwei/379-v2-formal-failure-audit` 基于 `main@fe36cf13`；Issue #379 已创建并回读。独立只读审计器从 schedule 派生精确 70-file layout，复算 inventory，验证 4 条 checkpoint hash chain、12 条 arm `ExperimentLedger` 链、attempt/result 身份、逐请求 token、strict endpoint、cleanup 与 frozen engine/contract failure path，并确定性生成脱敏 JSON/Markdown 与 const Schema。
-  - 解释边界: `primary_test=null`、`secondary_test=null`，不计算 p 值。两个完整项目的零差只作描述；宽识别区间不支持“存在或不存在有意义效应”、总体成功率、Provider 可靠性或模型排名。当前 identity 禁止 continuation、rerun、retry、replacement、backfill、schedule extension、marker 修补或 evidence 修改。
-  - 报告身份: JSON SHA-256 为 `471494cad91420be737e54b283fc063c53223197e14123ee6823667df0f2dd74`，Markdown SHA-256 为 `1bac4d3e5f93b76851121fcf9f5cb627372c5126a49ac94c859d6e4d9731d929`，const Schema SHA-256 为 `acc29da1cd1c4ab669282322d1ee2218eafd8d5dcd8c6a127fdfb76db163504d`；确定性复生成前后哈希与 evidence inventory 均不变。
-  - 当前验证: 聚焦测试 `9 passed in 272.00s`；扩大同进程回归为 `29 passed, 1 failed`，唯一失败是已记录的 v1 failure-audit alternate-name repair import 先于 v2 formal runner 造成测试专用嵌套 patch。冻结 runner 不为测试顺序改写，v2 formal 隔离进程复跑为 `9 passed in 127.17s`；审计 `validate`、Ruff check/format、隔离 `py_compile`、确定性复生成和 `git diff --check` 通过。下一步完成最终资源/evidence 不变核验、提交、PR、CI 与合并，然后由研究负责人在“工程修复 + 全新独立 identity”与“停止 formal collection”之间决策。
-  - 文件: `scripts/forge_contract_driven_repair_mechanism_v2_formal_failure_audit.py`, `backend/tests/test_forge_contract_driven_repair_mechanism_v2_formal_failure_audit.py`, `benchmarks/reports/cpp-contract-driven-repair-mechanism-v2-formal-failure-audit.json`, `benchmarks/reports/cpp-contract-driven-repair-mechanism-v2-formal-failure-audit.md`, `benchmarks/schemas/forge-contract-driven-repair-mechanism-v2-formal-failure-audit.schema.json`, `RESEARCH_STATUS.md`, `.claude/memory/project.md`
+- 2026-10-06 — Issue #381 重新评估自动化编译创新方向
+  - 决策背景: 保留合同作为严格裁判，停止把 C0/T1/T2 合同反馈作为主要创新；mechanism v2 永久停止，不修复 `lz4` checkpoint、不继续剩余 24 arms、不建立 replacement identity。
+  - 当前工作: 核对 2024-2026 自动化编译、环境配置、编译错误修复和可迁移 AI 技术；比较严格成功、时间、轮次、token、费用与预算分配，形成版本化研究综述。
+  - 当前建议: 主线收敛为“进展感知、预算约束自适应控制”；合同 verifier、external evaluator 和 clean replay 作为统一终点。推荐先做零 Provider 的状态与计量 qualification，再决定新 identity。
+  - 边界: 0 credential read、0 Provider、0 formal attempt、0 formal evidence write；所有历史 evidence 保持只读，旧不完整结果不解释为 treatment effect。
+  - 文件: `docs/research/2026-10-06-automated-compilation-innovation-landscape.md`, `RESEARCH_STATUS.md`, `.claude/memory/project.md`
 
 - 2026-09-30 — 完成 Issue #373 mechanism v2 availability 结果审计
   - 权威 evidence: PR #372 四项 CI 全绿并 squash-merge 为 `main@12681ffb0fd2997e2f572f3355e02b50a1b79744`；clean-main preflight 返回 `ready=true`。唯一 DeepSeek `deepseek-flash` request 在首个 attempt 通过，39 input / 119 output / 158 total tokens，1054 ms，exact response/model identity 匹配，0 tool side effects，0 managed resources。
@@ -254,6 +249,11 @@
 ## 最近变更 (Recent Changes)
 
 <!-- 倒序，最新在上。 -->
+
+- 2026-09-30 — 完成 Issue #379 mechanism v2 formal 失败审计
+  - 发布: PR #380 已合并为 `main@1f05361e852ff34a377ef40bcae7cca9cb0c87c4`，Issue #379 已关闭；版本化审计绑定 70 个冻结 evidence 文件并保持 inventory SHA-256 `5c885b2a...b9d11` 不变。
+  - 结论: 唯一 batch 永久停止于 12/36 arms、4/12 checkpoints；`primary_test=null`、`secondary_test=null`，两个完整项目的零差只作描述。研究负责人随后决定不修复、不续跑、不 replacement，并转向新的创新问题。
+  - 文件: `scripts/forge_contract_driven_repair_mechanism_v2_formal_failure_audit.py`, `backend/tests/test_forge_contract_driven_repair_mechanism_v2_formal_failure_audit.py`, `benchmarks/reports/cpp-contract-driven-repair-mechanism-v2-formal-failure-audit.json`, `benchmarks/reports/cpp-contract-driven-repair-mechanism-v2-formal-failure-audit.md`, `benchmarks/schemas/forge-contract-driven-repair-mechanism-v2-formal-failure-audit.schema.json`, `RESEARCH_STATUS.md`, `.claude/memory/project.md`
 
 - 2026-09-29 — 固化契约驱动修复机制实验的三臂研究决策
   - 决策: 选择 C0 普通失败、T1 合同 finding、T2 finding + 抽象 repair goal 三臂；C0 vs T1 为主要比较，T1 vs T2 为次级比较，C0 vs T2 为支持性比较。人工冻结任务合同、delivery/target 与 provenance 两个 stratum、后续四类系统基线和主张边界按既定方案执行。
