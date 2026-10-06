@@ -8,9 +8,10 @@
 
 - 2026-10-06 — Issue #381 重新评估自动化编译创新方向
   - 决策背景: 保留合同作为严格裁判，停止把 C0/T1/T2 合同反馈作为主要创新；mechanism v2 永久停止，不修复 `lz4` checkpoint、不继续剩余 24 arms、不建立 replacement identity。
-  - 当前工作: 核对 2024-2026 自动化编译、环境配置、编译错误修复和可迁移 AI 技术；比较严格成功、时间、轮次、token、费用与预算分配，形成版本化研究综述。
+  - 本地成果: 已核对 2024-2026 自动化编译、环境配置、编译错误修复和可迁移 AI 技术，完成现有实现矩阵、指标体系、技术映射、方向评分和分阶段验证路线；首个本地提交为 `7d49628b`。
   - 当前建议: 主线收敛为“进展感知、预算约束自适应控制”；合同 verifier、external evaluator 和 clean replay 作为统一终点。推荐先做零 Provider 的状态与计量 qualification，再决定新 identity。
   - 边界: 0 credential read、0 Provider、0 formal attempt、0 formal evidence write；所有历史 evidence 保持只读，旧不完整结果不解释为 treatment effect。
+  - 当前状态: 研究交付已在本地完成并通过事实/链接/diff 检查；等待研究负责人授权 push 与 PR，暂不合并。
   - 文件: `docs/research/2026-10-06-automated-compilation-innovation-landscape.md`, `RESEARCH_STATUS.md`, `.claude/memory/project.md`
 
 - 2026-09-30 — 完成 Issue #373 mechanism v2 availability 结果审计

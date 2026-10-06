@@ -114,6 +114,23 @@ Forge 的任务成功应继续使用分层终点：
 | [PhantomRun](https://arxiv.org/abs/2602.20284)（MSR 2026） | 从四个嵌入式项目 4,000+ CI build failures 研究自动修复，报告最高约 45% | 使用日志、源码、历史修复和多 CI/build-system 适配层 | 历史修复和领域适配已有先例；跨项目迁移仍受项目族和工具链限制 |
 | [EvidenT](https://arxiv.org/abs/2605.08621)（2026 预印本） | 219 个 RISC-V 系统包失败中修复 118 个（53.88%），所适配 agentic baseline 为 20.55% | 每个包最多三轮，维护 iteration-aware evidence，使用外部 Build Service | 证据保留、外部构建和迭代历史不能单独作为创新；尚未回答在全局预算下何时继续、分支或停止 |
 
+### 5.1 现有实现机制对比
+
+论文成功率掩盖了系统实现上的差异。以下矩阵只比较论文或公开实现明确描述的机制；“未充分报告”不表示系统一定没有该能力。
+
+| 系统 | 控制循环 | 跨轮状态 | 主要工具/动作 | 成功裁判 | 资源策略 |
+| --- | --- | --- | --- | --- | --- |
+| CXXCrafter | Parser -> Dockerfile Generator -> Executor/Judge -> 失败反馈 | 当前完整 Dockerfile、相关历史和最近日志 | 仓库解析、文档/依赖提取、Docker build | 指令与日志的 LLM Judge，主结果另有人工复核和部分产物检查 | 默认固定 10 步；统一比较 5/10/20 步 |
+| CompileAgent | CompileNavigator -> Shell -> ErrorSolver -> 再执行 | MasterAgent 会话与工具结果 | 文件导航、说明提取、网页搜索、Shell、多 Agent 讨论 | Shell outcome 与人工预编译 target files 匹配 | 固定 Flow；逐条件 token/调用上限未充分报告 |
+| OSS-Build-Agent | 说明检索 -> 单命令执行 -> 错误修复循环 | 检索轨迹、命令与执行结果 | LLM-assisted retrieval、Shell/执行 Agent | 专家目标文件名列表的 strict/flexible success | 固定最大轮次；另以重复完整运行计算 pass@k |
+| Repo2Run | Docker image 构建 -> unit tests -> Dockerfile 修订 | 当前 Dockerfile 与 build/test feedback | Docker、Shell、测试 | 整条 build/test pipeline 通过 | 固定迭代流程，未形成跨任务预算调度 |
+| GradleFixer | Agent 读写 -> 专用 Gradle 动作 -> rebuild | workspace、工具结果和模型上下文 | `run_build`、`run_gradle`、`change_java_version` | Android build 成功 | 主实验不限制 LLM calls；消融固定 30 calls |
+| EvoConfig | 专家诊断 -> 多 Agent 修复 -> 自反馈调整优先级 | 诊断和修复优先级 | 环境配置、专家诊断、多 Agent 协作 | 环境可执行 | 动态调整修复优先级，但未把时间/token/费用统一成预算控制 |
+| EvidenT | Evidence Controller -> Repair Orchestrator -> Build Service | 最近 build feedback、累计 repair history、缓存分析 | 定位、artifact inspection、package/source 修复、外部 build | 外部 Build Service clean build | 每包最多三轮；没有跨任务资源再分配 |
+| Forge 当前基础 | Compile Session -> compiler Agent -> candidate/evaluator/replay | session ledger、failure checkpoint、candidate 与 replay evidence | 受限 Shell、candidate submit、functional/provenance/replay evaluator | S0-S5、external evaluator、clean replay、cleanup | 预算字段已可冻结，但当前没有根据构建进展联合选择模型、工具、分支和停止 |
+
+这张表显示，Forge 的差异化资产是严格、外部化的终点和可恢复构建状态；缺失的研究机制是利用这些状态进行资源控制。若只复制某个系统的固定循环、增加一组工具或增加轮次，无法形成新的主张。
+
 以上数值均属于各论文自己的协议，不能当作 Forge 基线或模型排名。公开实现可参考 [CXXCrafter Community Edition](https://github.com/seclab-fudan/CXXCrafter-Community-Edition)、[Repo2Run](https://github.com/bytedance/Repo2Run) 和 [EnConda-Bench](https://github.com/TencentYoutuResearch/EnConda-Bench)。
 
 ## 6. 可迁移的新型 AI 技术
