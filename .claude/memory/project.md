@@ -6,10 +6,18 @@
 
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
+- 2026-10-07 — 补齐合同反馈旧研究与进展状态新候选的方向演进文档
+  - 工作类型: 结果分析、文献研究与研究设计；没有调用 Provider、读取 credential、创建 formal attempt 或写 formal experiment evidence。
+  - 旧方向: 在 `docs/research/2026-10-06-automated-compilation-innovation-landscape.md` 中补齐合同反馈研究的动机、问题、C0/T1/T2 干预和四阶段效果证据。Behavioral v2 为 baseline 3/6、treatment 5/6；multi-checkpoint v3 为 4/6 vs 6/6；opaque provenance replication 有 7/12 endpoint censor、`primary_test=null`；mechanism v2 两个完整项目的 delivery/target 为 1/1/1、provenance 为 0/0/0，三个 observed-complete estimate 都为 0。
+  - 解释: 证据链从单一 delivery fault 的早期正向信号走向更广 fault stratum 下未观察到稳定增量。mechanism v2 不完整，不能证明反馈无效或等效；结合 T1 容易退化为更详细错误信息、T2 干预较弱，支持保留合同裁判并停止把反馈暴露作为主要创新。
+  - 新候选: 将问题收紧为“跨构建系统进展状态建模与预算控制”，先表示推进、横向变化、停滞和回退，再研究动作的单位成本成功增益。该方向尚未冻结；若仅实现重复阈值、token 阈值或固定模型 cascade，仍属于工程调度。
+  - 下一步: 对失败前沿/进展状态、typed action abstraction、带项目族和时间隔离的跨仓库经验迁移做创新机制审计。通过审计前不进入 controller 实现、Provider canary 或 formal identity。
+  - 文件: `docs/research/2026-10-06-automated-compilation-innovation-landscape.md`, `RESEARCH_STATUS.md`, `.claude/memory/project.md`
+
 - 2026-10-06 — Issue #381 重新评估自动化编译创新方向
   - 决策背景: 保留合同作为严格裁判，停止把 C0/T1/T2 合同反馈作为主要创新；mechanism v2 永久停止，不修复 `lz4` checkpoint、不继续剩余 24 arms、不建立 replacement identity。
   - 本地成果: 已核对 2024-2026 自动化编译、环境配置、编译错误修复和可迁移 AI 技术，完成现有实现矩阵、指标体系、技术映射、方向评分和分阶段验证路线；首个本地提交为 `7d49628b`。
-  - 当前建议: 主线收敛为“进展感知、预算约束自适应控制”；合同 verifier、external evaluator 和 clean replay 作为统一终点。推荐先做零 Provider 的状态与计量 qualification，再决定新 identity。
+  - 当前建议（已由 2026-10-07 更新）: 当时建议主线收敛为“进展感知、预算约束自适应控制”；现调整为优先候选，先完成三方向机制审计。合同 verifier、external evaluator 和 clean replay 继续作为统一终点。
   - 边界: 0 credential read、0 Provider、0 formal attempt、0 formal evidence write；所有历史 evidence 保持只读，旧不完整结果不解释为 treatment effect。
   - 当前状态: 研究交付已在本地完成并通过事实/链接/diff 检查；等待研究负责人授权 push 与 PR，暂不合并。
   - 文件: `docs/research/2026-10-06-automated-compilation-innovation-landscape.md`, `RESEARCH_STATUS.md`, `.claude/memory/project.md`

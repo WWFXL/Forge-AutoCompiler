@@ -4,11 +4,11 @@
 
 ## 当前阶段
 
-- 状态：Issue #381 的自动化编译创新方向综述和决策包已在本地完成，等待研究负责人审阅。旧“合同反馈驱动修复”不再作为毕业论文主线，mechanism v2 永久停止。
-- 当前工作类型：已完成的文献研究与研究设计。本阶段没有产生新的实验 observation、调用 Provider 或形成方法效果证据。
-- 推荐主线：面向严格可验证自动化编译的**进展感知、预算约束自适应控制**。根据构建阶段、诊断变化、目标产物进展和剩余预算，决定继续、切换工具、从 checkpoint 分支、升级模型或停止。
+- 状态：Issue #381 的研究方向演进文档已在本地完成。旧“合同反馈驱动修复”不再作为毕业论文主线，mechanism v2 永久停止；新主线尚未冻结。
+- 当前工作类型：结果分析、文献研究与研究设计。本阶段没有产生新的实验 observation、调用 Provider 或形成新方法效果证据。
+- 优先候选：面向严格可验证自动化编译的**跨构建系统进展状态建模与预算控制**。核心先回答如何确定性区分推进、横向变化、停滞和回退，再研究如何据此决定继续、切换工具、从 checkpoint 分支、升级模型或停止。
 - 合同定位：任务合同、CandidateVerifier、external evaluator 和 clean replay 继续作为统一裁判与支撑性基础设施，不再把 C0/T1/T2 feedback projection 作为主要创新。
-- 当前研究问题：在相同项目、exact commit、环境、可用模型/工具和预算向量下，自适应控制是否比固定 Flow 改善严格成功率与 success-time-cost 前沿？
+- 当前研究问题候选：能否构造跨 CMake、Make、Autotools 的进展状态，使其比轮次、token 和错误类别等简单特征更能支持动作选择，并改善严格成功率与 success-time-cost 前沿？
 - 当前方向文档：`docs/research/2026-10-06-automated-compilation-innovation-landscape.md`。
 - 历史方向与审计：`docs/research/2026-09-29-automated-compilation-thesis-direction.md`、`docs/research/2026-09-29-contract-driven-repair-design-audit.md`。
 
@@ -39,13 +39,15 @@ success-time-cost 前沿。本次检索不是系统综述，不能声称全球�
 - Runtime v3 三臂 qualification 在 delivery/target 与 provenance 两个真实 Docker parent checkpoint 上闭合 candidate、oracle、external evaluator、clean replay 和 cleanup。它只证明基础设施可执行。
 - Mechanism v2 唯一 formal batch 在 12/36 arms、4/12 checkpoints 后因 `lz4` target-mapped artifact 基数不兼容永久失败。冻结 evidence 为 70 files / 689,742 bytes，inventory SHA-256 `5c885b2a...b9d11`，75 requests / 1,068,534 total tokens，失败后 0 managed resources。
 - Mechanism v2 的两个完整项目中，delivery/target 三臂均成功，provenance 三臂均为 0；其余 8 checkpoints 不填零，三个比较的识别区间均为 `[-2/3, +2/3]`，`primary_test=null`、`secondary_test=null`。
+- 当前证据链表现为：单一 delivery fault 的早期 pilots 有正向探索信号；扩大到 provenance 后可辨识性不足；mechanism v2 已完成的四个 checkpoints 由 fault stratum 而非反馈条件区分。它支持停止该主线，不支持“反馈无效”或等效性结论。
 
 ## 当前研究决策
 
 - 保留合同作为严格裁判，不再把合同 feedback exposure 当作主要修复机制。
 - 不修复 `lz4` checkpoint，不继续 mechanism v2 剩余 24 arms，不建立 replacement identity。
 - 旧 C0/T1/T2 evidence 永久只读，可作为探索性负结果和研究转向依据，不能解释为 treatment effect。
-- 新方向优先采用两臂：固定 Flow `F0` 与进展感知预算控制 `A1`。模型路由、typed tools、checkpoint 分支和早停是 A1 的候选动作，后续按最小版本逐步消融。
+- 新方向仍需与跨构建系统 typed action abstraction、带项目族和时间隔离的跨仓库经验迁移做机制审计；尚未授权进入实现或实验。
+- 若进展状态方向通过审计，首个比较候选为固定 Flow `F0` 与进展感知预算控制 `A1`。模型路由、typed tools、checkpoint 分支和早停只作为候选动作，不能各自提前表述为创新。
 - 新实验必须重新冻结有限预算向量、开发/测试项目隔离、严格成功、删失效率指标、最小有意义效应和分析顺序；旧 identity 的“无 token ceiling”不沿用为成本研究设计。
 
 ## 解释边界
@@ -71,8 +73,8 @@ success-time-cost 前沿。本次检索不是系统综述，不能声称全球�
 
 - 只读核验论文、公开实现、仓库报告、manifest、ledger 和冻结 evidence；
 - 编写、审阅和发布 Issue #381 的版本化研究综述与状态交接；
-- 设计新的状态 schema、预算账本和 F0/A1 qualification，但实际实现前必须先确认独立 tracking Issue；
-- 在后续独立阶段运行零 credential、零 Provider、零 formal attempt 的确定性本地 qualification。
+- 对进展状态、typed action abstraction 和跨仓库经验迁移做文献与机制比较；
+- 在方向通过机制审计后，设计新的状态 schema、预算账本和 F0/A1 qualification；实际实现前必须先确认独立 tracking Issue。
 
 禁止：
 
@@ -89,8 +91,10 @@ success-time-cost 前沿。本次检索不是系统综述，不能声称全球�
 - Runtime v3 qualification：`benchmarks/preregistrations/cpp-runtime-v3-three-arm-zero-provider-qualification.md`。
 - Stage C v8 审计：`benchmarks/reports/cpp-stage-c-v8-workspace-remediation-result-audit.md`。
 - 2026-10-06 已按 `search_notes -> read_note` 核对个人知识库论文索引、CXXCrafter 和 CompileAgent 解读；本轮不修改知识库。
+- 2026-10-07 已按 `search_notes -> read_note` 核对个人知识库笔记“Forge 毕业论文方向与契约驱动修复设计”；本轮不修改知识库。
 
 ## 下一项工作
 
-审阅 Issue #381 研究综述后，进入“状态与计量资格门禁设计”：冻结构建状态签名、进展/停滞定义、预算账本、
-F0/A1 允许动作、开发/测试隔离和有序分析规则。该阶段仍应为零 Provider 基础设施，不创建新 formal identity。
+先完成三个候选的创新机制审计：跨构建系统失败前沿/进展状态、typed action abstraction、带项目族和时间隔离的
+跨仓库构建经验迁移。逐项判断相对最新论文的新机制、工程组合风险、最小可证伪实验、Forge 资产匹配和放弃条件。
+只有候选通过审计后，才进入零 Provider 资格门禁设计；当前不创建新 formal identity。
