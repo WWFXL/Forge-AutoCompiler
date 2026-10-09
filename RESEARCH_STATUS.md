@@ -4,8 +4,8 @@
 
 ## 当前阶段
 
-- 状态：Issue #389 的 Jev 类型化动作 benchmark 阶段 A 已完成。24 个项目、120 个状态和 720 次候选动作执行通过可执行性门槛，但后续 RuleGate 可辨识性审计发现：仅用确定性阶段事实即可在 120/120 状态选择安全且推进的动作，直接执行覆盖率 100%、错误率 0%。当前 v1 无法检验语义日志或 Jev 的增量价值，决定为 `stop_jev_provider_qualification_and_redesign_benchmark`。
-- 当前工作类型：零 Provider 数据收集、结果分析与研究交接。Jev Provider 资格、controller 和端到端三臂比较均未开始；若继续该问题，必须建立新 identity 的“相同 coarse phase facts、不同失败根因、不同最优动作”benchmark，并使用新的未暴露评测项目族。
+- 状态：Issue #391 的同阶段异根因语义路由 benchmark v2 已完成。6 个项目、18 个状态、12 个 reference closure 和 144 个 action branch 全部闭合，72/72 state/action pair 重复一致；RuleGate top-1 与 route-acceptable coverage 均为 6/18，LOPO TF-IDF/逻辑回归为 17/18。按预注册决定为 `proceed_to_jev_offline_qualification`。
+- 当前工作类型：零 Provider 数据收集、结果分析与研究交接。v2 已证明相同 coarse phase facts 下存在需要不同动作的可执行语义决策空间；Jev Provider 资格、confidence 校准、controller 和端到端比较仍未开始，下一阶段必须建立独立 identity 并冻结模型、预算、项目族切分、阈值与停止规则。
 - 已回答问题：由执行证据形成的 v1 偏序构建义务能够确定性区分推进、横向变化、停滞和回退，但在本次未见项目族与未来时间隔离测试中，相对轮次、预算、构建系统、动作和错误类别没有达到预注册的增量信息门槛。
 - 最新机制结论：竞争失败假设、区分性诊断、概率更新、信息增益、动作成本和停止已有直接先例；跨 CMake、Make、Autotools 的剩余增量主要是 schema、adapter、oracle 和 benchmark，不能作为新的主动诊断机制。
 - 合同定位：任务合同、CandidateVerifier、external evaluator 和 clean replay 继续作为统一裁判与支撑性基础设施，不再把 C0/T1/T2 feedback projection 作为主要创新。
@@ -14,6 +14,8 @@
 - Jev 阶段 A 预注册：`benchmarks/preregistrations/cpp-typed-action-benchmark-qualification-v1.md`。
 - Jev 阶段 A 资格报告：`benchmarks/reports/cpp-typed-action-benchmark-qualification-v1.md`。
 - Jev RuleGate 可辨识性审计：`benchmarks/reports/cpp-typed-action-benchmark-rule-gate-audit-v1.md`。
+- Jev v2 预注册：`benchmarks/preregistrations/cpp-typed-semantic-routing-pilot-v2.md`。
+- Jev v2 资格报告：`benchmarks/reports/cpp-typed-semantic-routing-pilot-v2.md`。
 - 三候选机制审计：`docs/research/2026-10-09-three-candidate-mechanism-audit.md`。
 - 主动诊断机制审计：`docs/research/2026-10-09-active-diagnosis-mechanism-audit.md`。
 - 阶段 0 预注册：`benchmarks/preregistrations/cpp-cross-build-progress-state-qualification-v1.md`。
@@ -55,6 +57,8 @@ BootstrapAgent、SWE-Skills-Bench、VibeMemBench 等轨迹控制、动作接口�
 - Jev 阶段 A 使用 CMake/Make/Autotools 各 8 个 project family，按 exact commit 时间严格切为 6 个 design、6 个 calibration、12 个 evaluation；每项目构造 5 个状态、每状态 3 个代码绑定动作。48 个 reference build/oracle closure 和 720 次候选动作执行全部闭合，360/360 state/action pair 的 categorical replay 一致，旧 409 点目录覆盖为 409/409。
 - Attempt 1 在 `libuv` functional oracle 因 `-std=c11` 隐藏 `pthread_rwlock_t` 后停止并冻结失败记录；Amendment 1 只将该 oracle 改为 `-std=gnu11`，不复用部分 outcome，attempt 2 从全新目录完整重跑并通过。
 - 资格通过不等于研究问题可辨识。冻结 RuleGate 只读 `phase_facts` 与候选动作族，在 CMake、Make、Autotools 各 40/40 状态、evaluation 60/60 状态上均为 top-1 安全率 100%、直接执行覆盖 100%、错误率 0%；48 个状态还有两个合格动作。阶段 B 要求同风险下比 RuleGate 多 10 个百分点覆盖，最大可能提升为 0，因此不调用 Jev。
+- Jev v2 使用 6 个未进入 v1 的 project family，CMake/Make/Autotools 各 2 个；每项目构造缺失编译输入、失效构建状态和错误 target 三类故障，向路由器暴露完全相同的 phase facts 与动作顺序。12/12 reference closure、144/144 action branch 有界终结，72/72 pair 的 categorical replay 一致；由 strict success 与冻结成本重建的最优动作中，`dependency`、`configure`、`build` 各为 6/18，并各覆盖全部 6 个 project family。
+- v2 RuleGate 固定选择 `build`，top-1 与 route-acceptable coverage 均为 `0.3333`，通过 75%/90% 难度门槛；LOPO TF-IDF/逻辑回归为 17/18（`0.9444`），以 1 个样本低于 95% 停止线。唯一错误是 held-out `numactl` 的缺失 `libnuma.c` 状态被判为 `build`。v2 按规则进入 Jev 离线资格，但文本基线已接近饱和，不能据此预期 Jev 会有明显准确率增益。
 
 ## 当前研究决策
 
@@ -66,7 +70,8 @@ BootstrapAgent、SWE-Skills-Bench、VibeMemBench 等轨迹控制、动作接口�
 - Issue #385 主动诊断候选按 `abandon_active_diagnosis_as_novel_mechanism` 停止；不把已有 hypothesis/EIG/POMDP/cost-aware testing 组合重新表述为 Forge 新机制。
 - Issue #389 阶段 A 的 `proceed_to_jev_offline_qualification` 只表示 benchmark 可执行门槛通过；后续零 Provider RuleGate 审计覆盖该进入决定，当前最终决定为 `stop_jev_provider_qualification_and_redesign_benchmark`。
 - 不创建当前 v1 的 Jev Provider identity，不读取 credential，不执行阶段 B-D，不实现 controller。原因是 RuleGate 已在 0 错误下覆盖 100%，冻结的 `+10pp` 相对覆盖门槛不可达到；这不是 Jev 模型效果失败。
-- 当前 v1 的 evaluation split 已被 RuleGate 审计暴露，不能在修订动作或状态后继续作为确认性模型评测集。任何 v2 必须使用新项目族和更晚 exact commit。
+- 当前 v1 的 evaluation split 已被 RuleGate 审计暴露，不能在修订动作或状态后继续作为确认性模型评测集。Issue #391 v2 使用了 6 个新项目族，但它是受控故障难度 pilot，不是时间后移的确认性模型评测；后续 Provider 评测必须另行冻结项目族与时间隔离，或把 v2 锁定为一次性 evaluation 并使用完全独立的 design/calibration 数据。
+- Issue #391 v2 已按冻结规则通过零 Provider 难度门禁，决定为 `proceed_to_jev_offline_qualification`；该决定只授权规划独立的 Jev 离线资格 identity，不把 #391 转成 Provider 实验，也不允许修改或重跑 v2 outcome。
 - 项目族与时间隔离属于所有候选的评测纪律，不单独构成经验迁移的新机制。
 - 当前不得设计固定 Flow `F0` 与进展感知预算控制 `A1`。模型路由、typed tools、checkpoint 分支和早停不能各自表述为创新。
 - 新实验必须重新冻结有限预算向量、开发/测试项目隔离、严格成功、删失效率指标、最小有意义效应和分析顺序；旧 identity 的“无 token ceiling”不沿用为成本研究设计。
@@ -83,6 +88,7 @@ BootstrapAgent、SWE-Skills-Bench、VibeMemBench 等轨迹控制、动作接口�
 - Forge 现有轨迹能描述已执行的诊断过程，但缺少同状态替代动作结果与独立根因，不能支持主动诊断动作价值估计。
 - Forge 已能执行跨三种构建系统的闭集候选动作 outcome matrix，并在隔离副本中获得可重复标签；这是 benchmark 基础设施证据。
 - 当前 v1 的确定性阶段事实已经完全决定安全推进动作，语义日志没有可测的增量决策空间，不能用于评价 Jev 相对 RuleGate 的提升。
+- v2 在相同阶段事实下形成了跨三种构建系统的异最优动作标签，证明语义失败日志相对 coarse RuleGate 有决策信息；它支持测试 Jev 的动作判断，不支持 Jev 已有效。
 
 当前证据不能支持：
 
@@ -94,8 +100,8 @@ BootstrapAgent、SWE-Skills-Bench、VibeMemBench 等轨迹控制、动作接口�
 - Forge 整体优于 CXXCrafter、CompileAgent、BuildBench 或其他系统；
 - Provider/模型能力排名，或 verifier、路由、搜索、领域工具的通用首创性；
 - 从成功案例均值推断总体时间/成本，或把 canary/qualification 当作 treatment evidence。
-- Jev 的动作判断准确率、confidence 校准、费用优势、严格成功非劣或任何模型排名；本阶段未调用模型。
-- “Jev 不适合自动化编译”或“语义路由无效”；当前停止原因是 benchmark 被简单规则饱和，而非模型结果。
+- Jev 的动作判断准确率、confidence、成本、延迟、严格成功非劣或任何模型排名；v2 未调用任何模型，且 TF-IDF 已达到 17/18。
+- v2 在自然发生的真实失败总体中也有相同准确率、标签分布或可迁移性；当前只是 6 个项目、三类受控故障的资格 pilot。
 
 ## 当前允许与禁止
 
@@ -105,7 +111,7 @@ BootstrapAgent、SWE-Skills-Bench、VibeMemBench 等轨迹控制、动作接口�
 - 编写、审阅和发布 Issue #381 的版本化研究综述与状态交接；
 - 对进展状态、typed action abstraction 和跨仓库经验迁移做文献与机制比较；
 - 发布并审阅 Issue #382 和 #385 的版本化报告，保持失败结果与冻结输入可重建；为下一研究问题重新做文献与机制审计。
-- 只读分析 Issue #389 的新 outcome matrix；设计新 identity 的同阶段异根因 benchmark，使动作价值由候选动作后的冻结 continuation 与严格终点决定。
+- 只读分析 Issue #389 v1 与 Issue #391 v2 outcome matrix；设计独立的 Jev 离线资格 identity，冻结模型版本、请求 schema、项目族隔离、预算、校准与停止规则。
 
 禁止：
 
@@ -116,6 +122,7 @@ BootstrapAgent、SWE-Skills-Bench、VibeMemBench 等轨迹控制、动作接口�
 - 对进展状态 v1 做结果后调参、改切分、改标签或改阈值，或据此直接实现 controller/F0/A1。
 - 在当前 v1 上调用 Jev/通用 LLM、调整 RuleGate、继续阶段 B-D 或实现 controller；当前 evaluation 已暴露且 RuleGate 饱和。
 - 把阶段 A 的 100% replay 一致率解释为模型效果、成本收益或语义路由成功。
+- 修改、重跑、replacement、backfill Issue #391 v2 的项目、故障、动作、成本、阈值、outcome 或报告；在 #391 identity 下读取 credential、调用 Provider 或实现 controller。
 
 ## 权威入口
 
@@ -136,13 +143,16 @@ BootstrapAgent、SWE-Skills-Bench、VibeMemBench 等轨迹控制、动作接口�
 - Issue #389 分支：`yiwei/389-typed-action-benchmark`，基线 `eb03a873`，实现提交 `87a36c32`；中文 PR #390 已创建并回读，以 `yiwei/387-thesis-research-bar` 为 base，通过 `Closes #389` 关联 Issue。CI 与评审状态以 PR 为准，本阶段不合并。
 - Jev 阶段 A JSON 报告 SHA-256：`bdbf2bca0f76c978630d58f618202cc9fb61d968ed287dd74a2f29f5292151d6`。
 - RuleGate 可辨识性 JSON 报告 SHA-256：`7ca7e47846ce77001dcf12c99e2615e74e6d2f0803f8ea5e04439db331c5e8c6`。
+- Issue #391：`https://github.com/WWFXL/Forge-AutoCompiler/issues/391`；分支 `yiwei/391-semantic-routing-pilot`，结果盲执行 revision `b8b68b1a5457e0097c3d4d1a8213595c73178ece`。
+- Jev v2 JSON 报告 SHA-256：`ea2e126e81cfca374900436fa670015b28b3cc3f9d8c83e746ae2c92d2badfed`；Markdown SHA-256：`6220d059fa03e182f7e86c62b2688d91893c1ddbf43b163fd3a9fe8409b95e63`。
 - 进展状态 v1 manifest canonical SHA-256：`9340a10f005a9a90f980ac45356e8c13d00f35a7b095e30a68ccde610944ee6d`。
 - 进展状态 v1 JSON 报告 SHA-256：`b4b682d8699bdbcf5e768736e525ac13109675db64971a23c3007dafa2442a4d`。
 
 ## 下一项工作
 
-当前 Jev v1 已得到关键停止结论。若继续语义路由，下一项工作不是阶段 B，而是新建 v2 benchmark identity：在相同
-`phase_facts` 下构造至少三类需要不同恢复动作的真实失败根因，对每个候选动作执行冻结 continuation，并以 strict
-success、成本和失败分类形成反事实标签；设计、校准、评测继续按项目族与时间隔离，且评测集必须是未在 v1 RuleGate
-审计中暴露的新项目。v2 首先运行 RuleGate/TF-IDF 的零 Provider 难度门禁，只有简单规则未饱和且语义文本存在可测增量
-空间，才冻结 Jev 模型、预算、校准与停止规则并进入 Provider 实验。
+Issue #391 v2 已得到关键资格结论。下一项工作是新建独立的 Jev 离线资格 identity：固定 Jev 版本与 API 返回版本，使用
+独立 design/calibration 项目冻结问题 schema 与置信度阈值，再对 v2 只读 `model_input` 做一次 evaluation；若选择扩大评测，
+新 evaluation 还需项目族与时间后移隔离。Jev 输出下一动作 Choice 和完整概率分布，并与 RuleGate、冻结 TF-IDF/逻辑回归
+和通用 LLM structured output 比较。由于 TF-IDF 已为 17/18，下一协议必须预先说明当前 18 状态上的准确率最大增益只有
+1/18，并把费用、延迟、Brier、ECE、风险覆盖和拒答作为关键判据；不得在 v2 evaluation 上调 prompt、阈值或 split。冻结
+新 identity、预算、credential 与停止规则前不读取 credential、不调用 Provider、不实现 controller。

@@ -1,0 +1,132 @@
+{
+  "$schema": "../schemas/forge-typed-semantic-routing-pilot-v2.schema.json",
+  "authorization": {
+    "controller_implementation_authorized": false,
+    "credential_read_authorized": false,
+    "docker_action_execution_authorized": true,
+    "historical_evidence_write_authorized": false,
+    "model_calls_authorized": false,
+    "model_tokens_authorized": 0,
+    "new_identity_evidence_write_authorized": true,
+    "provider_calls_authorized": false
+  },
+  "baselines": {
+    "rule_gate": {
+      "fixed_choice": "build",
+      "inputs": [
+        "phase_facts",
+        "candidate_action_families",
+        "action_costs"
+      ]
+    },
+    "tfidf_logistic_regression": {
+      "c": 1.0,
+      "input": "semantic_failure_log_only",
+      "max_features": 5000,
+      "multiclass_strategy": "one_vs_rest",
+      "ngram_range": [
+        1,
+        2
+      ],
+      "random_state": 391,
+      "solver": "liblinear",
+      "split": "leave_one_project_family_out",
+      "sublinear_tf": true
+    }
+  },
+  "benchmark_design": {
+    "action_costs": {
+      "build": 1,
+      "configure": 2,
+      "dependency": 3,
+      "escalate_agent": 4
+    },
+    "action_order": [
+      "dependency",
+      "configure",
+      "build",
+      "escalate_agent"
+    ],
+    "actions_per_state": 4,
+    "continuation": [
+      "normal_build",
+      "artifact_stage",
+      "functional_oracle",
+      "exact_commit_provenance",
+      "clean_replay"
+    ],
+    "escalate_agent_execution": "zero_provider_deterministic_recovery_surrogate",
+    "fault_types": [
+      "missing_compile_input",
+      "invalid_build_state",
+      "wrong_build_target"
+    ],
+    "faults_per_project": 3,
+    "hidden_fault_mapping_separate_from_model_input": true,
+    "label_rule": "strict_success_then_minimum_frozen_action_cost",
+    "old_agent_action_is_ground_truth": false,
+    "phase_facts": {
+      "artifacts_staged": false,
+      "build_attempted": true,
+      "build_succeeded": false,
+      "configured": true,
+      "functional_oracle_passed": false,
+      "source_available": true,
+      "strict_verifier_passed": false
+    },
+    "project_count": 6,
+    "projects_per_build_system": 2,
+    "shell_generation_by_model": false,
+    "state_id": "opaque_sha256_prefix"
+  },
+  "decision_rule": {
+    "fail": "stop_jev_provider_qualification",
+    "pass": "proceed_to_jev_offline_qualification",
+    "project_replacement_after_results": false,
+    "threshold_adjustment_after_results": false
+  },
+  "document_type": "forge_typed_semantic_routing_pilot",
+  "environment": {
+    "dockerfile_path": "docker/compile/Dockerfile.stage-c",
+    "expected_image_id": "sha256:adbef4a26de49e9cd2c361a50b5fe2a000073a343b072ed0e515cc67e6e758b1",
+    "image_tag": "autocompiler:stage-c-v1",
+    "network_during_action": false,
+    "network_during_clone": true,
+    "parallel_jobs": 4,
+    "per_action_timeout_seconds": 900,
+    "replicates": 2
+  },
+  "identity": "cpp-typed-semantic-routing-pilot-v2",
+  "issue_url": "https://github.com/WWFXL/Forge-AutoCompiler/issues/391",
+  "outputs": {
+    "json_report": "benchmarks/reports/cpp-typed-semantic-routing-pilot-v2.json",
+    "markdown_report": "benchmarks/reports/cpp-typed-semantic-routing-pilot-v2.md"
+  },
+  "preregistration": {
+    "must_be_committed_and_pushed_before_outcomes": true,
+    "path": "benchmarks/preregistrations/cpp-typed-semantic-routing-pilot-v2.md"
+  },
+  "qualification_thresholds": {
+    "maximum_rule_gate_route_acceptable_coverage_exclusive": 0.9,
+    "maximum_rule_gate_top1_exclusive": 0.75,
+    "maximum_tfidf_top1_exclusive": 0.95,
+    "minimum_project_families_per_direct_optimal_action": 2,
+    "minimum_replay_consistency": 0.95,
+    "require_all_build_systems_complete": true,
+    "require_no_direct_label_leakage": true
+  },
+  "schema_version": "forge-typed-semantic-routing-pilot-2.0.0",
+  "source_pool": {
+    "canonical_sha256": "9c3a398b3d868ff11c6b292ba9ce0cf2dc6601c27389ea4839daa022849fcd47",
+    "path": "benchmarks/fixtures/cpp-typed-semantic-routing-pilot-v2-source-pool.json",
+    "task_ids": [
+      "args",
+      "yyjson",
+      "hoextdown",
+      "hiredis",
+      "c-ares",
+      "numactl"
+    ]
+  },
+  "status": "authorized_zero_provider_pilot"
+}

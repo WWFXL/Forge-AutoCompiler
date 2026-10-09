@@ -288,6 +288,16 @@
 
 <!-- 倒序，最新在上。 -->
 
+- 2026-10-09 — 完成 Issue #391 同阶段异根因语义路由 benchmark v2
+  - 工作类型: 零 Provider 数据收集与结果分析；结果盲预注册提交 `b8b68b1a` 先推送到 `yiwei/391-semantic-routing-pilot`，随后一次性执行完整 outcome matrix。未读取 credential、未调用模型、未实现 controller，v1 与历史 evidence 全程只读。
+  - 身份与设计: 新 identity `cpp-typed-semantic-routing-pilot-v2` 固定 6 个未进入 v1 的 project family，CMake/Make/Autotools 各 2 个；每项目构造缺失编译输入、失效构建状态、错误 target 三类故障，路由可见 phase facts、动作顺序和预算完全相同。四个动作固定为 `dependency/configure/build/escalate_agent`，标签由 candidate 后冻结 continuation 的 strict success 与 `1/2/3/4` 成本重建。
+  - 执行证据: 12/12 reference closure、18 个状态和 144/144 action branch 有界闭合，72/72 state/action pair categorical replay 一致，0 residual container。`dependency`、`configure`、`build` 各在 6/18 状态且全部 6 个 project family 中成为唯一最优；三种构建系统各自包含三类最优动作。
+  - 难度门禁: RuleGate 固定选 `build`，top-1 与 route-acceptable coverage 均为 6/18（`0.3333`）；项目族 leave-one-out TF-IDF/one-vs-rest liblinear 为 17/18（`0.9444`），唯一错误是 held-out `numactl` 缺失 `libnuma.c` 被判为 `build`。全部冻结 gate 通过，决定为 `proceed_to_jev_offline_qualification`。
+  - 解释边界: TF-IDF 仅以 1 个样本低于 95% 停止线，因此形式资格通过但准确率空间很窄；它证明 v2 相对 coarse RuleGate 可辨识，不证明 Jev 有效，也不支持外推自然失败总体。v2 使用新项目族但不是时间后移的确认性模型评测；后续 Jev 实验需使用独立 design/calibration 数据，把 v2 锁定为一次性 evaluation，或另建项目族与时间后移 evaluation，并重点比较费用、延迟、概率校准和拒答。
+  - Evidence: 结果 JSON SHA-256 `ea2e126e81cfca374900436fa670015b28b3cc3f9d8c83e746ae2c92d2badfed`，Markdown SHA-256 `6220d059fa03e182f7e86c62b2688d91893c1ddbf43b163fd3a9fe8409b95e63`；新 identity 原始目录 `.compile-sessions/benchmark-evidence-typed-semantic-routing-pilot-v2` 为 150,114 files / 2,368,938,292 bytes、534 logs，从终态起只读。
+  - 下一步: 先发布本轮报告与状态交接；若研究负责人继续，另建 Jev 离线资格 Issue/identity，冻结模型版本、请求 schema、项目族切分、预算、校准和停止规则。Issue #391 identity 禁止 Provider、credential、重跑、replacement、backfill 和 controller。
+  - 文件: `scripts/forge_typed_semantic_routing_pilot_v2.py`, `backend/tests/test_forge_typed_semantic_routing_pilot_v2.py`, `benchmarks/fixtures/cpp-typed-semantic-routing-pilot-v2-source-pool.json`, `benchmarks/manifests/cpp-typed-semantic-routing-pilot-v2.json`, `benchmarks/schemas/forge-typed-semantic-routing-pilot-v2.schema.json`, `benchmarks/preregistrations/cpp-typed-semantic-routing-pilot-v2.md`, `benchmarks/reports/cpp-typed-semantic-routing-pilot-v2.json`, `benchmarks/reports/cpp-typed-semantic-routing-pilot-v2.md`, `RESEARCH_STATUS.md`, `.claude/memory/project.md`
+
 - 2026-10-09 — 完成 Issue #389 Jev 类型化动作 benchmark 阶段 A 并因 RuleGate 饱和停止当前 v1
   - 工作类型: 零 Provider 数据收集、基础设施资格审计与结果分析；未读取 credential、未调用模型、未创建 Provider attempt，历史 experiment identity/evidence 全程只读。
   - 身份与样本: 新建独立 manifest、Schema、预注册、runner 和测试；固定 24 个 project family，CMake/Make/Autotools 各 8 个，按 exact commit 时间切为 6 个 design、6 个 calibration、12 个 evaluation。每项目构造 5 个状态，每状态绑定 3 个候选动作。
