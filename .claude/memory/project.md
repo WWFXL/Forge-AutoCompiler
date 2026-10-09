@@ -6,6 +6,17 @@
 
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
+- 2026-10-10 — Issue #395 Jev formal 离线资格在 outcome qualification 阶段失败关闭
+  - 工作类型: 正式数据采集与失败结果分析。Formal identity 为 `cpp-jev-offline-qualification-v1`，执行分支 `yiwei/395-jev-offline-execution`，implementation revision `1d1840f9e52f27d79dae644a189f20f32c701c3e`，execution revision `5b07807fe934c2a31e0ff2c6913f5710186c0a55`，manifest canonical SHA-256 `e98b6b3e3a485ca26f3185491f460cc5a6b447f64d7a15d5fac9fcf72daf6616`。
+  - 执行前门禁: tracking Issue #395 已创建并回读；runner、label-free evaluation fixture 和 12 项聚焦测试冻结并推送。相邻研究回归最终为 `32 passed, 2 skipped`；preflight 验证 clean/pushed branch、exact Docker image、0 managed resources、credential mode 600、0 credential read、0 Provider call 和不存在的 evidence root。
+  - Formal 结果: outcome collection 在 18/24 replicates 后处理 `zstd` calibration replicate 1 时停止。`missing_compile_input` 删除 `lib/common/entropy_common.c` 后，`make -C lib -j4 libzstd.a` 返回成功，违反“故障必须形成有界构建失败”的资格合同。runner 写入 `outcome-terminal-failed.json`，没有生成 `outcomes.json`，没有进入 design/calibration/evaluation。
+  - 根因: zstd exact commit 的 `lib/libzstd.mk` 通过 `$(wildcard $(LIB_SRCDIR)/common/*.c)` 动态形成源文件集合。被删除文件从输入集合中消失，而不是成为缺失 target；因此这是受控故障 fixture 与构建规则不相容，不是随机 Docker 或 verifier 故障。
+  - 部分证据: 已封存 18 records、9 project families、27 unique states、216 action outcomes 和 18 reference closures；已完成 reference closure/strict checks 全过，action/strict timeout 均为 0。但缺少完整 36 states、288 branches 和 24 closures，禁止据此形成 outcome labels 或部分样本模型结论。
+  - Evidence: root 为 `.compile-sessions/benchmark-evidence-jev-offline-qualification-v1`，20 files，inventory canonical SHA-256 `b1c52c54b5ccae8b6e21a841df480fdaba3415d333ee007a937688eba75633fb`；identity SHA-256 `ef131abe...d1ab`，terminal marker SHA-256 `3522f650...f9f8`。失败后 0 managed container，Provider evidence 文件为 0。
+  - 决定与边界: `stop_before_credential_read` / `stop_jev_controller_and_keep_offline_result`。全程 0 credential read、0 Provider call、0 model token、0 model cost；`jev-apikey.txt` 内容未读取。该结果只证明当前 zstd fault fixture 不合格和失败关闭有效，不能评价 Jev 准确率、顺序稳定性、校准、延迟、费用或 controller 效果。
+  - 下一决策: 当前 identity 永久只读，禁止重跑、续跑、补齐、换 fault 后覆盖或导入部分 outcome。若研究负责人仍要评价 Jev，需另行决定是否新建 identity，并先加入每项目 pre-fault bounded-failure 资格门禁；当前不得读取 credential、调用 Jev 或实现 controller。
+  - 文件: `scripts/forge_jev_offline_qualification_v1.py`, `backend/tests/test_forge_jev_offline_qualification_v1.py`, `benchmarks/manifests/cpp-jev-offline-qualification-v1.json`, `benchmarks/preregistrations/cpp-jev-offline-qualification-v1-execution-amendment.md`, `benchmarks/reports/cpp-jev-offline-qualification-v1.json`, `benchmarks/reports/cpp-jev-offline-qualification-v1.md`, `RESEARCH_STATUS.md`
+
 - 2026-10-09 — 完成 Issue #393 Jev 离线资格 candidate 与零 Provider API 前置门禁
   - 工作类型: 实验基础设施；为 Issue #391 已通过难度门禁的语义动作路由建立独立 API、数据、预算和停止合同。本轮 0 credential read、0 Provider call、0 model token、0 Docker outcome collection、0 formal attempt/evidence，Issue #391 和全部历史 evidence 只读。
   - 官方合同: 已审计 TypeSafe Quick start、API、Models、Confidence、Choice、State、Python SDK、RetryPolicy 和 Jev 1.13 jaggedness。固定 `POST /v1/systemone`、`typesafe-sdk==0.7.3`、`jev-1.13.0`、30 秒 timeout、`max_retries=0`；不用会漂移的 alias。当前价格为每百万 input token 0.042 美元、output 免费。

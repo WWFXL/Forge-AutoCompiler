@@ -341,3 +341,26 @@ def test_prediction_metrics_report_calibration_latency_and_build_systems() -> No
     assert metrics["latency_ms"]["median"] == 2.0
     assert metrics["usage"]["input_tokens"] == 30
     assert set(metrics["by_build_system"]) == {"cmake", "make", "autotools"}
+
+
+def test_frozen_failure_report_stops_before_provider_and_model_claims() -> None:
+    report = jev.v1.load_json(REPO_ROOT / "benchmarks/reports/cpp-jev-offline-qualification-v1.json")
+
+    assert report["identity"] == jev.IDENTITY
+    assert report["terminal_stage"] == "outcome_qualification"
+    assert report["decision"] == "stop_before_credential_read"
+    assert report["controller_decision"] == "stop_jev_controller_and_keep_offline_result"
+    assert report["failure"]["task_id"] == "zstd"
+    assert report["failure"]["fault_type"] == "missing_compile_input"
+    assert report["partial_collection"]["eligible_for_outcome_analysis"] is False
+    assert report["provider_usage"] == {
+        "credential_reads": 0,
+        "provider_calls": 0,
+        "model_requests": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "model_cost_usd": 0.0,
+        "credential_file_content_observed": False,
+    }
+    assert report["interpretation"]["jev_model_effect_estimated"] is False
+    assert report["interpretation"]["controller_effect_estimated"] is False
