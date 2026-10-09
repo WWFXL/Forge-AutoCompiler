@@ -14,7 +14,7 @@
   - 决定: 直接先例覆盖与反事实数据缺失两个放弃条件同时触发，冻结决定为 `abandon_active_diagnosis_as_novel_mechanism`。不进入预注册、controller 或 Provider 实验，不把公共 schema、构建系统 adapter、严格 oracle 和 benchmark 表述为新增决策机制。
   - 解释边界: 结论只说明该候选不满足当前机制创新门槛，并说明旧轨迹不能识别动作价值；不说明主动诊断没有产品价值，也不排除跨构建系统 benchmark、可执行探针协议、应用实证或更窄的构建特有机制空白。本轮是定向机制审计，不是系统综述。
   - 下一决策: 研究负责人需选择将目标改为 benchmark/评测贡献，或继续寻找具有构建领域特有状态变量、约束或学习目标的新机制。前者需要新的受控故障、可恢复快照和全动作 outcome matrix；两条路线都不能复用旧轨迹制造反事实结果。
-  - 发布: 分支 `yiwei/385-active-diagnosis-audit` 基于 `yiwei/382-progress-state-qualification@bca74035`；中文 Issue #385 已创建并回读。审计发布为 stacked PR，不合并现有 PR #383/#384。
+  - 发布: 分支 `yiwei/385-active-diagnosis-audit` 基于 `yiwei/382-progress-state-qualification@bca74035`；中文 Issue #385 和 PR #386 已创建并回读。PR #386 以进展状态分支为 base、通过 `Closes #385` 关联 Issue，并依赖 PR #384；不在本阶段合并现有 PR #383/#384/#386。
   - 文件: `docs/research/2026-10-09-active-diagnosis-mechanism-audit.md`, `RESEARCH_STATUS.md`, `.claude/memory/project.md`
 
 - 2026-10-09 — 完成 Issue #382 跨构建系统进展状态离线资格审计，当前机制按门槛停止
