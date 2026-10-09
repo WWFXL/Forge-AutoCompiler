@@ -1,0 +1,98 @@
+{
+  "schema_version": "forge-jev-offline-qualification-failure-report-1.0.0",
+  "document_type": "forge_jev_offline_qualification_failure_report",
+  "identity": "cpp-jev-offline-qualification-v1",
+  "issue_url": "https://github.com/WWFXL/Forge-AutoCompiler/issues/395",
+  "created_at": "2026-10-09T16:20:06Z",
+  "execution_revision": "5b07807fe934c2a31e0ff2c6913f5710186c0a55",
+  "implementation_revision": "1d1840f9e52f27d79dae644a189f20f32c701c3e",
+  "manifest_canonical_sha256": "e98b6b3e3a485ca26f3185491f460cc5a6b447f64d7a15d5fac9fcf72daf6616",
+  "terminal_stage": "outcome_qualification",
+  "status": "failed",
+  "decision": "stop_before_credential_read",
+  "controller_decision": "stop_jev_controller_and_keep_offline_result",
+  "failure": {
+    "error_type": "PilotError",
+    "task_id": "zstd",
+    "qualification_split": "calibration",
+    "replicate": 1,
+    "fault_type": "missing_compile_input",
+    "message": "zstd missing_compile_input 未形成有界构建失败",
+    "fault_file": "lib/common/entropy_common.c",
+    "build_command": "make -C lib -j4 libzstd.a",
+    "root_cause": "zstd 的 lib/libzstd.mk 使用 wildcard 动态收集 common 目录中的 C 源文件；删除 entropy_common.c 后，该文件从构建输入集合中消失，而不是成为缺失依赖，因此冻结 build 命令仍可成功。",
+    "classification": "controlled_fault_fixture_invalid_for_exact_project_commit"
+  },
+  "partial_collection": {
+    "replicate_records": 18,
+    "planned_replicate_records": 24,
+    "completed_project_families": 9,
+    "planned_project_families": 12,
+    "unique_states": 27,
+    "planned_unique_states": 36,
+    "action_outcomes": 216,
+    "planned_action_outcomes": 288,
+    "reference_closures": 18,
+    "all_completed_reference_closures_passed": true,
+    "all_completed_reference_strict_checks_passed": true,
+    "completed_action_timeouts": 0,
+    "completed_strict_timeouts": 0,
+    "completed_tasks": [
+      "8cc",
+      "cjson",
+      "fmt",
+      "leveldb",
+      "libogg",
+      "libsoundio",
+      "rnnoise-0.1.1",
+      "stockfish-11",
+      "xxhash"
+    ],
+    "eligible_for_outcome_analysis": false,
+    "reason": "完整 36 状态、288 动作分支和 24 reference closure 门槛未满足；部分记录只作为失败审计证据保留。"
+  },
+  "provider_usage": {
+    "credential_reads": 0,
+    "provider_calls": 0,
+    "model_requests": 0,
+    "input_tokens": 0,
+    "output_tokens": 0,
+    "model_cost_usd": 0.0,
+    "credential_file_content_observed": false
+  },
+  "evidence": {
+    "root": ".compile-sessions/benchmark-evidence-jev-offline-qualification-v1",
+    "file_count": 20,
+    "inventory_canonical_sha256": "b1c52c54b5ccae8b6e21a841df480fdaba3415d333ee007a937688eba75633fb",
+    "identity_file_sha256": "ef131abeafe878a955dde53e0a6df73c2a021ccacb9b304042d9d642019ad1ab",
+    "terminal_marker_sha256": "3522f650bf46cf4d0f542d411e338698ce45c2f62a79b4f9283d1b74cf76f9f8",
+    "provider_evidence_file_count": 0,
+    "managed_container_count_after_failure": 0,
+    "historical_evidence_modified": false
+  },
+  "gates": {
+    "expected_counts": false,
+    "all_faults_form_bounded_failures": false,
+    "outcome_qualification": false,
+    "provider_design_allowed": false,
+    "calibration_allowed": false,
+    "evaluation_allowed": false,
+    "controller_replay_allowed": false
+  },
+  "interpretation": {
+    "supported": [
+      "当前 source pool 中的 zstd missing_compile_input 故障构造不满足冻结的数据资格合同。",
+      "失败关闭在首次不合格故障处生效，且未读取 credential、未调用 Provider。",
+      "cpp-jev-offline-qualification-v1 不得重跑、续跑、补齐或覆盖。"
+    ],
+    "unsupported": [
+      "Jev 的动作选择准确率、顺序稳定性、校准质量、延迟或成本。",
+      "Jev controller 的严格成功率、成本收益或部署可行性。",
+      "已完成部分记录上的完整 benchmark 标签分布、模型排名或总体结论。"
+    ],
+    "temporal_generalization_estimated": false,
+    "natural_failure_population_estimated": false,
+    "jev_model_effect_estimated": false,
+    "controller_effect_estimated": false
+  }
+}
