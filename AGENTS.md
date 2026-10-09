@@ -24,6 +24,55 @@ Read and follow `CLAUDE.md` before changing this repository. Files below
   only with claims that current repository or frozen evidence can establish;
   do not reconstruct missing history from chat memory.
 
+### Thesis Goal and Research Bar
+
+- The user's primary research objective in this repository is a complete,
+  defensible, and reproducible master's thesis on automated compilation. A
+  top-conference publication or a globally first general mechanism is not a
+  prerequisite for selecting a direction.
+- Calibrate novelty requirements to that objective. A contribution may be
+  suitable when it provides substantive build-domain adaptation, method or
+  system design, cross-build-system evaluation, a reproducible benchmark, or
+  a useful empirical result, even if some constituent techniques have prior
+  art in another domain.
+- Do not reject a candidate solely because related work covers one or more of
+  its ingredients. Assess whether the candidate solves a concrete automated
+  compilation problem, requires meaningful domain modeling or technical
+  design, supports a testable claim against appropriate baselines, and forms
+  enough coherent work for a master's thesis.
+- Distinguish between four contribution levels when advising the user:
+  general mechanism innovation, automated-compilation method or adaptation,
+  substantive system or evaluation contribution, and routine feature
+  implementation. A thesis candidate need not reach the first level, but
+  should normally reach the second or third.
+- Accept combinations of established techniques when the integration is
+  technically substantive and experiments or ablations identify what each
+  component contributes. Describe the resulting contribution honestly as a
+  domain method, system, benchmark, or empirical study rather than overstating
+  it as a new general mechanism.
+- Favor bounded directions that can first be qualified with inexpensive
+  offline evidence and then validated end to end. When several candidates are
+  viable, compare novelty strength, implementation cost, experimental risk,
+  thesis completeness, and likelihood of finishing on time.
+- Recommend abandoning a candidate when it has no distinguishable technical
+  contribution, cannot support a credible comparison or falsifiable claim,
+  is effectively identical to existing work, or requires resources clearly
+  beyond the thesis constraints. Failure to meet a top-conference novelty bar
+  alone is not an abandonment condition.
+- The graduation-oriented novelty bar does not relax research quality. Keep
+  research questions and hypotheses explicit; use fair baselines, ablations,
+  project-family and time isolation where applicable, preregistered formal
+  experiment boundaries, strict validation, reproducible evidence, and claims
+  limited to what the results support.
+- In research communication, explicitly distinguish "not a top-tier general
+  mechanism contribution" from "insufficient for a master's thesis." When a
+  direction has thesis value but limited general novelty, help narrow and
+  position the claim instead of treating that limitation as automatic
+  disqualification.
+- Keep this section limited to durable goals and evaluation principles.
+  Candidate names, current results, stopping decisions, and publication state
+  belong in `RESEARCH_STATUS.md` and the versioned research artifacts it links.
+
 ### Research Sources and State
 
 - Frozen raw evidence, immutable ledgers, markers, and recorded hashes are the
