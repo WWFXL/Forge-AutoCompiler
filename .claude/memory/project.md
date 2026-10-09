@@ -6,12 +6,16 @@
 
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
-- 2026-10-09 — 启动 Issue #382 跨构建系统进展状态离线资格审计
-  - 工作类型: 基础设施与结果分析；研究负责人已冻结问题并授权阶段 0 直至完成。零 Provider、零 credential read、零 formal attempt，旧 identity/evidence 只读。
-  - 冻结设计: 开发集固定为 2026-09-25 Phase 5 v3 的 6 个项目族，隔离测试集固定为 2026-09-26 Stage C v5 baseline 的 12 个未见项目族/24 条重复轨迹；其他 session、reevaluation、remediation、clone 和 mechanism 轨迹排除。
-  - 门槛: 输入哈希闭合、人工状态重建一致性、四类转移覆盖、相对 simple combined baseline 的项目族宏平均 log loss 至少改善 0.05 nat 且 bootstrap 95% 上界小于 0，并满足 Brier 与跨系统非劣化约束。
-  - 边界: extractor 只读 session 命令元数据、命令日志和 model request token 事件；禁止读取命令正文、candidate/evaluator/verification/replay/arm outcome 或隐藏答案。
-  - 文件: `benchmarks/preregistrations/cpp-cross-build-progress-state-qualification-v1.md`, `RESEARCH_STATUS.md`, `.claude/memory/project.md`
+- 2026-10-09 — 完成 Issue #382 跨构建系统进展状态离线资格审计，当前机制按门槛停止
+  - 工作类型: 基础设施与结果分析；零 Provider、零 credential read、零 formal attempt，旧 identity/evidence 全程只读。预注册提交为 `6ae22aa4`，结果前实现快照为 `2afd42ab`，最终比较只运行一次。
+  - 冻结输入: 开发集为 2026-09-25 Phase 5 v3 的 6 个项目族/6 条 session/100 个决策点；隔离测试集为 2026-09-26 Stage C v5 baseline 的 12 个未见项目族/24 条 session/309 个决策点。manifest canonical SHA-256 为 `9340a10f005a9a90f980ac45356e8c13d00f35a7b095e30a68ccde610944ee6d`。
+  - 前置门禁: 开发集转移为 progress 24、lateral 33、stagnation 42、regression 1；测试集为 76、59、170、4，均覆盖四类。按哈希选取的 12 点人工审计中，216 个 obligation 字段、24 个诊断字段和 12 个转移标签与 extractor 一致率均为 1.0。
+  - 主要结果: `progress_state - simple_combined` 的项目族宏平均 log loss 差值为 `-0.001621` nat，10,000 次项目族 bootstrap 95% 区间为 `[-0.103283, 0.114255]`，7/12 项目族改善。Brier 差值为 `-0.006741`；CMake/Make/Autotools 的 log-loss 差值分别为 `+0.013306/-0.139002/+0.105905`。
+  - 决定: 最小 `0.05` nat 改善、bootstrap 上界 `< 0` 和跨系统一致性门槛失败，故 `abandon_current_progress_state_mechanism`。不得结果后调整切分、阈值、义务、诊断或模型，不进入 controller、F0/A1 或预算动作实验设计。
+  - 证据: JSON/Markdown 报告 SHA-256 分别为 `b4b682d8699bdbcf5e768736e525ac13109675db64971a23c3007dafa2442a4d`、`ea39730246ea9b782f8b685c4276956b268b52d941b1774817e6ea685cef88f3`。结果支持固定 observed-action 轨迹上的重建一致性与缺乏预注册增量，不支持反事实动作效果、controller treatment effect、strict success/成本改善、总体泛化、显著性或模型排名。
+  - 验证: 报告 `check` 确定性重建通过，资格审计目标测试 `21 passed`，后端产品回归 `1836 passed, 47 skipped`；Ruff check/format、依赖锁和 `git diff --check` 通过。scikit-learn 1.9 只对预注册显式 `penalty="l2"` 给出未来弃用警告，当前语义与结果不受影响。
+  - 下一步: 完成中文提交、push 与关闭 #382 的 PR；发布后由研究负责人选择新的可证伪机制，当前没有获准的新主线或 formal identity。
+  - 文件: `scripts/forge_progress_state_qualification.py`, `backend/tests/test_forge_progress_state_qualification.py`, `benchmarks/preregistrations/cpp-cross-build-progress-state-qualification-v1.md`, `benchmarks/manifests/cpp-cross-build-progress-state-qualification-v1.json`, `benchmarks/fixtures/cpp-cross-build-progress-state-manual-audit-v1.json`, `benchmarks/reports/cpp-cross-build-progress-state-qualification-v1.json`, `benchmarks/reports/cpp-cross-build-progress-state-qualification-v1.md`, `RESEARCH_STATUS.md`, `.claude/memory/project.md`
 
 - 2026-10-09 — 完成 Issue #381 三候选创新机制审计并收紧下一研究决策
   - 工作类型: 结果分析、文献研究与研究设计；0 Provider、0 credential read、0 formal identity、0 formal attempt、0 formal evidence write，所有冻结 evidence 保持只读。

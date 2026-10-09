@@ -290,6 +290,25 @@ def test_local_manifest_and_manual_audit_are_deterministically_rebuilt() -> None
     }
 
 
+@pytest.mark.skipif(
+    not qualification.DEFAULT_SESSIONS_ROOT.is_dir()
+    or not qualification.DEFAULT_MANIFEST.is_file()
+    or not qualification.DEFAULT_MANUAL_AUDIT.is_file()
+    or not qualification.DEFAULT_JSON_REPORT.is_file()
+    or not qualification.DEFAULT_MARKDOWN_REPORT.is_file(),
+    reason="本机未同时挂载只读历史 Session 与资格审计报告",
+)
+def test_committed_reports_are_deterministically_rebuilt() -> None:
+    expected = qualification.build_report()
+    committed = qualification.load_json(
+        qualification.DEFAULT_JSON_REPORT,
+        "qualification report",
+    )
+
+    assert expected == committed
+    assert qualification.render_markdown(expected) == qualification.DEFAULT_MARKDOWN_REPORT.read_text(encoding="utf-8")
+
+
 def test_analysis_source_has_no_runtime_or_network_execution_path() -> None:
     source = SCRIPT_PATH.read_text(encoding="utf-8")
     for forbidden in (

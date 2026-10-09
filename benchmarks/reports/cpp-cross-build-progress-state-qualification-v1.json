@@ -1,0 +1,964 @@
+{
+  "analysis_date": "2026-10-09",
+  "claim_boundary": {
+    "supported": [
+      "固定输入上的状态重建一致性",
+      "固定 observed-action 转移标签上的隔离预测增量或缺失",
+      "是否达到进入后续预算动作实验设计的预注册门槛"
+    ],
+    "unsupported": [
+      "未选择动作的反事实效果",
+      "controller treatment effect",
+      "strict success、时间、token 或费用改善",
+      "跨更广项目总体的泛化",
+      "模型排名、统计显著性或全球首次"
+    ]
+  },
+  "credential_reads": 0,
+  "decision": {
+    "decision": "abandon_current_progress_state_mechanism",
+    "gates": [
+      {
+        "name": "input_integrity_and_isolation",
+        "observed": true,
+        "passed": true,
+        "threshold": true
+      },
+      {
+        "name": "four_class_coverage",
+        "observed": {
+          "development": {
+            "lateral": 33,
+            "progress": 24,
+            "regression": 1,
+            "stagnation": 42
+          },
+          "evaluation": {
+            "lateral": 59,
+            "progress": 76,
+            "regression": 4,
+            "stagnation": 170
+          }
+        },
+        "passed": true,
+        "threshold": "每个 split 四类均至少 1 项"
+      },
+      {
+        "name": "manual_reconstruction",
+        "observed": {
+          "obligation_agreement": 1.0,
+          "transition_agreement": 1.0
+        },
+        "passed": true,
+        "threshold": {
+          "obligation_agreement": 0.9,
+          "transition_agreement": 0.9
+        }
+      },
+      {
+        "name": "minimum_log_loss_improvement",
+        "observed": 0.0016212136746145411,
+        "passed": false,
+        "threshold": 0.05
+      },
+      {
+        "name": "bootstrap_upper_below_zero",
+        "observed": 0.114255163598367,
+        "passed": false,
+        "threshold": 0
+      },
+      {
+        "name": "brier_non_degradation",
+        "observed": -0.006741100911633879,
+        "passed": true,
+        "threshold": 0.01
+      },
+      {
+        "name": "cross_build_system_consistency",
+        "observed": {
+          "autotools": 0.10590486186538972,
+          "cmake": 0.01330636146217734,
+          "make": -0.13900243948820246
+        },
+        "passed": false,
+        "threshold": {
+          "improved_systems": 2,
+          "maximum_degradation": 0.1
+        }
+      }
+    ],
+    "interpretation": "输入与重建门禁已闭合，但偏序状态未通过冻结的增量信息门槛。",
+    "passed": false
+  },
+  "derived_transition_coverage": {
+    "development": {
+      "all_four_observed": true,
+      "counts": {
+        "lateral": 33,
+        "progress": 24,
+        "regression": 1,
+        "stagnation": 42
+      }
+    },
+    "evaluation": {
+      "all_four_observed": true,
+      "counts": {
+        "lateral": 59,
+        "progress": 76,
+        "regression": 4,
+        "stagnation": 170
+      }
+    },
+    "passed": true
+  },
+  "formal_attempts": 0,
+  "hidden_answers_read": false,
+  "identity": "cpp-cross-build-progress-state-qualification-v1",
+  "issue": "https://github.com/WWFXL/Forge-AutoCompiler/issues/382",
+  "manual_reconstruction_audit": {
+    "diagnostic_agreement": 1.0,
+    "item_count": 12,
+    "mismatches": [],
+    "obligation_agreement": 1.0,
+    "obligation_field_count": 216,
+    "passed": true,
+    "transition_agreement": 1.0
+  },
+  "metrics": {
+    "budget": {
+      "by_build_system": {
+        "autotools": {
+          "log_loss": 0.8521380943444644,
+          "project_family_count": 3
+        },
+        "cmake": {
+          "log_loss": 0.5969239975660227,
+          "project_family_count": 6
+        },
+        "make": {
+          "log_loss": 0.7069410338014821,
+          "project_family_count": 3
+        }
+      },
+      "by_project_family": [
+        {
+          "accuracy": 0.9047619047619048,
+          "brier": 0.32534876149472486,
+          "build_system": "cmake",
+          "log_loss": 0.5775430239620987,
+          "macro_f1": 0.4642857142857143,
+          "project_family": "github.com/andrewrk/libsoundio",
+          "row_count": 21
+        },
+        {
+          "accuracy": 0.6271186440677966,
+          "brier": 0.456306395940148,
+          "build_system": "cmake",
+          "log_loss": 0.6871715488598671,
+          "macro_f1": 0.2978021978021978,
+          "project_family": "github.com/civetweb/civetweb",
+          "row_count": 59
+        },
+        {
+          "accuracy": 1.0,
+          "brier": 0.23658046598850366,
+          "build_system": "cmake",
+          "log_loss": 0.4786221250004433,
+          "macro_f1": 0.5,
+          "project_family": "github.com/google/leveldb",
+          "row_count": 18
+        },
+        {
+          "accuracy": 0.7857142857142857,
+          "brier": 0.3385159744884719,
+          "build_system": "cmake",
+          "log_loss": 0.636944725292023,
+          "macro_f1": 0.45588235294117646,
+          "project_family": "github.com/json-c/json-c",
+          "row_count": 14
+        },
+        {
+          "accuracy": 0.8,
+          "brier": 0.37588656168695384,
+          "build_system": "cmake",
+          "log_loss": 0.6407712751873896,
+          "macro_f1": 0.43529411764705883,
+          "project_family": "github.com/libjpeg-turbo/libjpeg-turbo",
+          "row_count": 20
+        },
+        {
+          "accuracy": 0.5185185185185185,
+          "brier": 0.5774148838941104,
+          "build_system": "autotools",
+          "log_loss": 0.9463919878748338,
+          "macro_f1": 0.3333333333333333,
+          "project_family": "github.com/libsndfile/libsndfile",
+          "row_count": 27
+        },
+        {
+          "accuracy": 0.782608695652174,
+          "brier": 0.37730950485439174,
+          "build_system": "make",
+          "log_loss": 0.7260179810592785,
+          "macro_f1": 0.40104166666666663,
+          "project_family": "github.com/lz4/lz4",
+          "row_count": 23
+        },
+        {
+          "accuracy": 0.8928571428571429,
+          "brier": 0.31652778358204864,
+          "build_system": "cmake",
+          "log_loss": 0.5604912870943145,
+          "macro_f1": 0.4797297297297297,
+          "project_family": "github.com/oatpp/oatpp",
+          "row_count": 28
+        },
+        {
+          "accuracy": 0.8260869565217391,
+          "brier": 0.3507063464406276,
+          "build_system": "make",
+          "log_loss": 0.6836710847649599,
+          "macro_f1": 0.4494949494949495,
+          "project_family": "github.com/official-stockfish/stockfish",
+          "row_count": 23
+        },
+        {
+          "accuracy": 0.8,
+          "brier": 0.35220626399024174,
+          "build_system": "make",
+          "log_loss": 0.7111340355802083,
+          "macro_f1": 0.43529411764705883,
+          "project_family": "github.com/rui314/8cc",
+          "row_count": 15
+        },
+        {
+          "accuracy": 0.625,
+          "brier": 0.48892208284531946,
+          "build_system": "autotools",
+          "log_loss": 0.7948048770037413,
+          "macro_f1": 0.3611111111111111,
+          "project_family": "github.com/xiph/rnnoise",
+          "row_count": 32
+        },
+        {
+          "accuracy": 0.5862068965517241,
+          "brier": 0.518520976305677,
+          "build_system": "autotools",
+          "log_loss": 0.8152174181548182,
+          "macro_f1": 0.34834558823529416,
+          "project_family": "github.com/xiph/theora",
+          "row_count": 29
+        }
+      ],
+      "project_family_macro": {
+        "accuracy": 0.7624060870537738,
+        "brier": 0.3928538334592682,
+        "log_loss": 0.688231780819498,
+        "macro_f1": 0.41346790657452415
+      },
+      "row_accuracy": 0.7313915857605178
+    },
+    "context": {
+      "by_build_system": {
+        "autotools": {
+          "log_loss": 0.9062025121755236,
+          "project_family_count": 3
+        },
+        "cmake": {
+          "log_loss": 0.5917859760987739,
+          "project_family_count": 6
+        },
+        "make": {
+          "log_loss": 0.7519687553663399,
+          "project_family_count": 3
+        }
+      },
+      "by_project_family": [
+        {
+          "accuracy": 1.0,
+          "brier": 0.23551264374097278,
+          "build_system": "cmake",
+          "log_loss": 0.4757264401429211,
+          "macro_f1": 0.5,
+          "project_family": "github.com/andrewrk/libsoundio",
+          "row_count": 21
+        },
+        {
+          "accuracy": 0.6949152542372882,
+          "brier": 0.4455614402098962,
+          "build_system": "cmake",
+          "log_loss": 0.7124006580743043,
+          "macro_f1": 0.31052631578947365,
+          "project_family": "github.com/civetweb/civetweb",
+          "row_count": 59
+        },
+        {
+          "accuracy": 1.0,
+          "brier": 0.23667074134867055,
+          "build_system": "cmake",
+          "log_loss": 0.4786333714863381,
+          "macro_f1": 0.5,
+          "project_family": "github.com/google/leveldb",
+          "row_count": 18
+        },
+        {
+          "accuracy": 0.7857142857142857,
+          "brier": 0.37553723509794196,
+          "build_system": "cmake",
+          "log_loss": 0.6920500440197267,
+          "macro_f1": 0.45588235294117646,
+          "project_family": "github.com/json-c/json-c",
+          "row_count": 14
+        },
+        {
+          "accuracy": 0.8,
+          "brier": 0.3721501374941035,
+          "build_system": "cmake",
+          "log_loss": 0.6406973700809908,
+          "macro_f1": 0.43529411764705883,
+          "project_family": "github.com/libjpeg-turbo/libjpeg-turbo",
+          "row_count": 20
+        },
+        {
+          "accuracy": 0.48148148148148145,
+          "brier": 0.6165005323038945,
+          "build_system": "autotools",
+          "log_loss": 0.9951414296125138,
+          "macro_f1": 0.3137254901960784,
+          "project_family": "github.com/libsndfile/libsndfile",
+          "row_count": 27
+        },
+        {
+          "accuracy": 0.782608695652174,
+          "brier": 0.3890031342334609,
+          "build_system": "make",
+          "log_loss": 0.7285187852628819,
+          "macro_f1": 0.40104166666666663,
+          "project_family": "github.com/lz4/lz4",
+          "row_count": 23
+        },
+        {
+          "accuracy": 0.8928571428571429,
+          "brier": 0.3049651329963864,
+          "build_system": "cmake",
+          "log_loss": 0.551207972788363,
+          "macro_f1": 0.4797297297297297,
+          "project_family": "github.com/oatpp/oatpp",
+          "row_count": 28
+        },
+        {
+          "accuracy": 0.782608695652174,
+          "brier": 0.3906559653226752,
+          "build_system": "make",
+          "log_loss": 0.7248351590834108,
+          "macro_f1": 0.4147727272727273,
+          "project_family": "github.com/official-stockfish/stockfish",
+          "row_count": 23
+        },
+        {
+          "accuracy": 0.8,
+          "brier": 0.40054804096704694,
+          "build_system": "make",
+          "log_loss": 0.8025523217527273,
+          "macro_f1": 0.5477941176470589,
+          "project_family": "github.com/rui314/8cc",
+          "row_count": 15
+        },
+        {
+          "accuracy": 0.625,
+          "brier": 0.55478542268826,
+          "build_system": "autotools",
+          "log_loss": 0.8511423481158648,
+          "macro_f1": 0.3611111111111111,
+          "project_family": "github.com/xiph/rnnoise",
+          "row_count": 32
+        },
+        {
+          "accuracy": 0.5862068965517241,
+          "brier": 0.571903240432605,
+          "build_system": "autotools",
+          "log_loss": 0.872323758798192,
+          "macro_f1": 0.34834558823529416,
+          "project_family": "github.com/xiph/theora",
+          "row_count": 29
+        }
+      ],
+      "project_family_macro": {
+        "accuracy": 0.7692827043455225,
+        "brier": 0.40781613890299284,
+        "log_loss": 0.7104358049348529,
+        "macro_f1": 0.42235193476969796
+      },
+      "row_accuracy": 0.7443365695792881
+    },
+    "error": {
+      "by_build_system": {
+        "autotools": {
+          "log_loss": 0.7234045324337687,
+          "project_family_count": 3
+        },
+        "cmake": {
+          "log_loss": 0.6036639383508592,
+          "project_family_count": 6
+        },
+        "make": {
+          "log_loss": 0.6747786049372116,
+          "project_family_count": 3
+        }
+      },
+      "by_project_family": [
+        {
+          "accuracy": 0.8095238095238095,
+          "brier": 0.2854982498734487,
+          "build_system": "cmake",
+          "log_loss": 0.5390016043717346,
+          "macro_f1": 0.39880952380952384,
+          "project_family": "github.com/andrewrk/libsoundio",
+          "row_count": 21
+        },
+        {
+          "accuracy": 0.8305084745762712,
+          "brier": 0.29781125591816804,
+          "build_system": "cmake",
+          "log_loss": 0.5185251881731365,
+          "macro_f1": 0.5124584717607973,
+          "project_family": "github.com/civetweb/civetweb",
+          "row_count": 59
+        },
+        {
+          "accuracy": 0.7777777777777778,
+          "brier": 0.3093649398727325,
+          "build_system": "cmake",
+          "log_loss": 0.5739658440774666,
+          "macro_f1": 0.3939393939393939,
+          "project_family": "github.com/google/leveldb",
+          "row_count": 18
+        },
+        {
+          "accuracy": 0.6428571428571429,
+          "brier": 0.4458970744946932,
+          "build_system": "cmake",
+          "log_loss": 0.7763927701835742,
+          "macro_f1": 0.45384615384615384,
+          "project_family": "github.com/json-c/json-c",
+          "row_count": 14
+        },
+        {
+          "accuracy": 0.7,
+          "brier": 0.3801212038495191,
+          "build_system": "cmake",
+          "log_loss": 0.6446540040949228,
+          "macro_f1": 0.4545454545454546,
+          "project_family": "github.com/libjpeg-turbo/libjpeg-turbo",
+          "row_count": 20
+        },
+        {
+          "accuracy": 0.5925925925925926,
+          "brier": 0.49033598937581635,
+          "build_system": "autotools",
+          "log_loss": 0.8292805709625226,
+          "macro_f1": 0.4405797101449275,
+          "project_family": "github.com/libsndfile/libsndfile",
+          "row_count": 27
+        },
+        {
+          "accuracy": 0.8260869565217391,
+          "brier": 0.30087286777052075,
+          "build_system": "make",
+          "log_loss": 0.5966989578543899,
+          "macro_f1": 0.521875,
+          "project_family": "github.com/lz4/lz4",
+          "row_count": 23
+        },
+        {
+          "accuracy": 0.7857142857142857,
+          "brier": 0.3248058798269908,
+          "build_system": "cmake",
+          "log_loss": 0.5694442192043205,
+          "macro_f1": 0.4736842105263158,
+          "project_family": "github.com/oatpp/oatpp",
+          "row_count": 28
+        },
+        {
+          "accuracy": 0.782608695652174,
+          "brier": 0.33421291211824883,
+          "build_system": "make",
+          "log_loss": 0.6561725129360749,
+          "macro_f1": 0.4701298701298701,
+          "project_family": "github.com/official-stockfish/stockfish",
+          "row_count": 23
+        },
+        {
+          "accuracy": 0.7333333333333333,
+          "brier": 0.38427971940614875,
+          "build_system": "make",
+          "log_loss": 0.7714643440211703,
+          "macro_f1": 0.49007936507936506,
+          "project_family": "github.com/rui314/8cc",
+          "row_count": 15
+        },
+        {
+          "accuracy": 0.71875,
+          "brier": 0.3764220194080542,
+          "build_system": "autotools",
+          "log_loss": 0.6463173684051691,
+          "macro_f1": 0.5028846153846154,
+          "project_family": "github.com/xiph/rnnoise",
+          "row_count": 32
+        },
+        {
+          "accuracy": 0.6551724137931034,
+          "brier": 0.42461209730077687,
+          "build_system": "autotools",
+          "log_loss": 0.6946156579336143,
+          "macro_f1": 0.4653846153846154,
+          "project_family": "github.com/xiph/theora",
+          "row_count": 29
+        }
+      ],
+      "project_family_macro": {
+        "accuracy": 0.7379104568618523,
+        "brier": 0.3628528507679265,
+        "log_loss": 0.6513777535181747,
+        "macro_f1": 0.4648513653792527
+      },
+      "row_accuracy": 0.7475728155339806
+    },
+    "progress_state": {
+      "by_build_system": {
+        "autotools": {
+          "log_loss": 0.9572048589872993,
+          "project_family_count": 3
+        },
+        "cmake": {
+          "log_loss": 0.5995043929244511,
+          "project_family_count": 6
+        },
+        "make": {
+          "log_loss": 0.5242353972425999,
+          "project_family_count": 3
+        }
+      },
+      "by_project_family": [
+        {
+          "accuracy": 0.9047619047619048,
+          "brier": 0.1802685278496671,
+          "build_system": "cmake",
+          "log_loss": 0.37928150800497396,
+          "macro_f1": 0.4642857142857143,
+          "project_family": "github.com/andrewrk/libsoundio",
+          "row_count": 21
+        },
+        {
+          "accuracy": 0.7457627118644068,
+          "brier": 0.452646500645381,
+          "build_system": "cmake",
+          "log_loss": 1.0039177939153545,
+          "macro_f1": 0.40362318840579714,
+          "project_family": "github.com/civetweb/civetweb",
+          "row_count": 59
+        },
+        {
+          "accuracy": 0.8888888888888888,
+          "brier": 0.21360733220028538,
+          "build_system": "cmake",
+          "log_loss": 0.4279269675444975,
+          "macro_f1": 0.4642857142857143,
+          "project_family": "github.com/google/leveldb",
+          "row_count": 18
+        },
+        {
+          "accuracy": 0.8571428571428571,
+          "brier": 0.27353180782405395,
+          "build_system": "cmake",
+          "log_loss": 0.49134164172939493,
+          "macro_f1": 0.632554945054945,
+          "project_family": "github.com/json-c/json-c",
+          "row_count": 14
+        },
+        {
+          "accuracy": 0.75,
+          "brier": 0.3690716740706157,
+          "build_system": "cmake",
+          "log_loss": 0.6240636905303405,
+          "macro_f1": 0.49624060150375937,
+          "project_family": "github.com/libjpeg-turbo/libjpeg-turbo",
+          "row_count": 20
+        },
+        {
+          "accuracy": 0.5185185185185185,
+          "brier": 0.5754978442130029,
+          "build_system": "autotools",
+          "log_loss": 0.8878427158117063,
+          "macro_f1": 0.41226708074534163,
+          "project_family": "github.com/libsndfile/libsndfile",
+          "row_count": 27
+        },
+        {
+          "accuracy": 0.8695652173913043,
+          "brier": 0.22928698479858478,
+          "build_system": "make",
+          "log_loss": 0.4788936701117294,
+          "macro_f1": 0.5815972222222222,
+          "project_family": "github.com/lz4/lz4",
+          "row_count": 23
+        },
+        {
+          "accuracy": 0.75,
+          "brier": 0.3553802088889903,
+          "build_system": "cmake",
+          "log_loss": 0.6704947558221451,
+          "macro_f1": 0.37916666666666665,
+          "project_family": "github.com/oatpp/oatpp",
+          "row_count": 28
+        },
+        {
+          "accuracy": 0.8260869565217391,
+          "brier": 0.2778450999124562,
+          "build_system": "make",
+          "log_loss": 0.5495204974326631,
+          "macro_f1": 0.5726190476190476,
+          "project_family": "github.com/official-stockfish/stockfish",
+          "row_count": 23
+        },
+        {
+          "accuracy": 0.8666666666666667,
+          "brier": 0.26212602313289757,
+          "build_system": "make",
+          "log_loss": 0.5442920241834073,
+          "macro_f1": 0.5972222222222222,
+          "project_family": "github.com/rui314/8cc",
+          "row_count": 15
+        },
+        {
+          "accuracy": 0.6875,
+          "brier": 0.49762274234678233,
+          "build_system": "autotools",
+          "log_loss": 0.8071568090236023,
+          "macro_f1": 0.5196678321678321,
+          "project_family": "github.com/xiph/rnnoise",
+          "row_count": 32
+        },
+        {
+          "accuracy": 0.3793103448275862,
+          "brier": 0.7269396999602222,
+          "build_system": "autotools",
+          "log_loss": 1.1766150521265895,
+          "macro_f1": 0.2965399610136452,
+          "project_family": "github.com/xiph/theora",
+          "row_count": 29
+        }
+      ],
+      "project_family_macro": {
+        "accuracy": 0.7536836722153226,
+        "brier": 0.36781870382024495,
+        "log_loss": 0.6701122605197004,
+        "macro_f1": 0.48500584968274224
+      },
+      "row_accuracy": 0.7313915857605178
+    },
+    "simple_combined": {
+      "by_build_system": {
+        "autotools": {
+          "log_loss": 0.8512999971219096,
+          "project_family_count": 3
+        },
+        "cmake": {
+          "log_loss": 0.5861980314622738,
+          "project_family_count": 6
+        },
+        "make": {
+          "log_loss": 0.6632378367308024,
+          "project_family_count": 3
+        }
+      },
+      "by_project_family": [
+        {
+          "accuracy": 0.8095238095238095,
+          "brier": 0.3401690122000998,
+          "build_system": "cmake",
+          "log_loss": 0.6082082565486093,
+          "macro_f1": 0.39880952380952384,
+          "project_family": "github.com/andrewrk/libsoundio",
+          "row_count": 21
+        },
+        {
+          "accuracy": 0.8305084745762712,
+          "brier": 0.35650182377878276,
+          "build_system": "cmake",
+          "log_loss": 0.5921179051852435,
+          "macro_f1": 0.4901260504201681,
+          "project_family": "github.com/civetweb/civetweb",
+          "row_count": 59
+        },
+        {
+          "accuracy": 0.8888888888888888,
+          "brier": 0.25617421726179374,
+          "build_system": "cmake",
+          "log_loss": 0.5085568116871942,
+          "macro_f1": 0.4642857142857143,
+          "project_family": "github.com/google/leveldb",
+          "row_count": 18
+        },
+        {
+          "accuracy": 0.8571428571428571,
+          "brier": 0.3807923390091547,
+          "build_system": "cmake",
+          "log_loss": 0.6901758309859009,
+          "macro_f1": 0.59375,
+          "project_family": "github.com/json-c/json-c",
+          "row_count": 14
+        },
+        {
+          "accuracy": 0.75,
+          "brier": 0.3290088164039453,
+          "build_system": "cmake",
+          "log_loss": 0.5854714966071943,
+          "macro_f1": 0.5,
+          "project_family": "github.com/libjpeg-turbo/libjpeg-turbo",
+          "row_count": 20
+        },
+        {
+          "accuracy": 0.5555555555555556,
+          "brier": 0.5591913095370218,
+          "build_system": "autotools",
+          "log_loss": 0.9194794792502096,
+          "macro_f1": 0.41553983773663405,
+          "project_family": "github.com/libsndfile/libsndfile",
+          "row_count": 27
+        },
+        {
+          "accuracy": 0.8260869565217391,
+          "brier": 0.2854970810507253,
+          "build_system": "make",
+          "log_loss": 0.6112056163607995,
+          "macro_f1": 0.521875,
+          "project_family": "github.com/lz4/lz4",
+          "row_count": 23
+        },
+        {
+          "accuracy": 0.8571428571428571,
+          "brier": 0.29079375282811143,
+          "build_system": "cmake",
+          "log_loss": 0.5326578877595002,
+          "macro_f1": 0.5629699248120301,
+          "project_family": "github.com/oatpp/oatpp",
+          "row_count": 28
+        },
+        {
+          "accuracy": 0.782608695652174,
+          "brier": 0.31066377635538067,
+          "build_system": "make",
+          "log_loss": 0.6491855578566548,
+          "macro_f1": 0.4701298701298701,
+          "project_family": "github.com/official-stockfish/stockfish",
+          "row_count": 23
+        },
+        {
+          "accuracy": 0.7333333333333333,
+          "brier": 0.3437778064920637,
+          "build_system": "make",
+          "log_loss": 0.7293223359749527,
+          "macro_f1": 0.38888888888888884,
+          "project_family": "github.com/rui314/8cc",
+          "row_count": 15
+        },
+        {
+          "accuracy": 0.65625,
+          "brier": 0.48474970082941826,
+          "build_system": "autotools",
+          "log_loss": 0.7700735914057668,
+          "macro_f1": 0.4549019607843137,
+          "project_family": "github.com/xiph/rnnoise",
+          "row_count": 32
+        },
+        {
+          "accuracy": 0.5172413793103449,
+          "brier": 0.5573980210360483,
+          "build_system": "autotools",
+          "log_loss": 0.8643469207097527,
+          "macro_f1": 0.3706140350877193,
+          "project_family": "github.com/xiph/theora",
+          "row_count": 29
+        }
+      ],
+      "project_family_macro": {
+        "accuracy": 0.7553569006373193,
+        "brier": 0.37455980473187883,
+        "log_loss": 0.671733474194315,
+        "macro_f1": 0.46932423382957184
+      },
+      "row_accuracy": 0.7508090614886731
+    }
+  },
+  "model_specification": {
+    "C": 1.0,
+    "classifier": "LogisticRegression",
+    "features": {
+      "budget": [
+        "turn_index",
+        "commands_used",
+        "wall_clock_seconds_used",
+        "model_requests_used",
+        "recorded_tokens_used",
+        "next_action_role"
+      ],
+      "context": [
+        "build_system",
+        "next_action_role"
+      ],
+      "error": [
+        "next_action_role",
+        "prior_error_category"
+      ],
+      "progress_state": [
+        "turn_index",
+        "commands_used",
+        "wall_clock_seconds_used",
+        "model_requests_used",
+        "recorded_tokens_used",
+        "verified_count",
+        "invalidated_count",
+        "state_repeat_count",
+        "build_system",
+        "next_action_role",
+        "prior_error_category",
+        "frontier_obligation",
+        "previous_transition",
+        "obligation_source_available",
+        "obligation_toolchain_ready",
+        "obligation_configuration_generated",
+        "obligation_build_graph_ready",
+        "obligation_contract_target_built",
+        "obligation_artifacts_staged",
+        "obligation_functional_oracle_passed",
+        "obligation_provenance_verified",
+        "obligation_clean_replay_closed"
+      ],
+      "simple_combined": [
+        "turn_index",
+        "commands_used",
+        "wall_clock_seconds_used",
+        "model_requests_used",
+        "recorded_tokens_used",
+        "build_system",
+        "next_action_role",
+        "prior_error_category"
+      ]
+    },
+    "library": "scikit-learn",
+    "max_iter": 2000,
+    "penalty": "l2",
+    "random_state": 382,
+    "solver": "lbfgs"
+  },
+  "observed_input": {
+    "development": {
+      "project_family_count": 6,
+      "row_count": 100,
+      "rows_by_build_system": {
+        "autotools": 25,
+        "cmake": 31,
+        "make": 44
+      },
+      "sessions": 6
+    },
+    "evaluation": {
+      "project_family_count": 12,
+      "row_count": 309,
+      "rows_by_build_system": {
+        "autotools": 88,
+        "cmake": 160,
+        "make": 61
+      },
+      "sessions": 24
+    }
+  },
+  "primary_comparison": {
+    "bootstrap_samples": 10000,
+    "confidence_interval_95": {
+      "lower": -0.10328332093655651,
+      "upper": 0.114255163598367
+    },
+    "definition": "progress_state - simple_combined；负值表示状态更好",
+    "improved_project_family_count": 7,
+    "mean_delta": -0.001621213674614518,
+    "per_project_family": [
+      {
+        "delta": -0.22892674854363537,
+        "project_family": "github.com/andrewrk/libsoundio"
+      },
+      {
+        "delta": 0.411799888730111,
+        "project_family": "github.com/civetweb/civetweb"
+      },
+      {
+        "delta": -0.08062984414269675,
+        "project_family": "github.com/google/leveldb"
+      },
+      {
+        "delta": -0.19883418925650592,
+        "project_family": "github.com/json-c/json-c"
+      },
+      {
+        "delta": 0.03859219392314617,
+        "project_family": "github.com/libjpeg-turbo/libjpeg-turbo"
+      },
+      {
+        "delta": -0.0316367634385033,
+        "project_family": "github.com/libsndfile/libsndfile"
+      },
+      {
+        "delta": -0.1323119462490701,
+        "project_family": "github.com/lz4/lz4"
+      },
+      {
+        "delta": 0.13783686806264495,
+        "project_family": "github.com/oatpp/oatpp"
+      },
+      {
+        "delta": -0.0996650604239917,
+        "project_family": "github.com/official-stockfish/stockfish"
+      },
+      {
+        "delta": -0.1850303117915454,
+        "project_family": "github.com/rui314/8cc"
+      },
+      {
+        "delta": 0.03708321761783551,
+        "project_family": "github.com/xiph/rnnoise"
+      },
+      {
+        "delta": 0.31226813141683674,
+        "project_family": "github.com/xiph/theora"
+      }
+    ],
+    "project_family_count": 12,
+    "seed": 382
+  },
+  "provider_calls": 0,
+  "schema_version": "forge-cross-build-progress-state-qualification-report-1.0.0",
+  "source_integrity": {
+    "analysis_script_sha256": "2935d77708477fadfac7267391e71ef15423e97600a6b61799ac931405c0494d",
+    "command_count": 415,
+    "development_latest_created_at": "2026-09-25T14:57:16.607839+00:00",
+    "development_project_family_count": 6,
+    "development_session_count": 6,
+    "eligible_command_count": 409,
+    "evaluation_earliest_created_at": "2026-09-26T16:56:57.806804+00:00",
+    "evaluation_project_families_by_build_system": {
+      "autotools": 3,
+      "cmake": 6,
+      "make": 3
+    },
+    "evaluation_project_family_count": 12,
+    "evaluation_session_count": 24,
+    "manifest_file_sha256": "1d1077b3e7786f42f2e3829fd5c888464f886be31c53f93eb1eeaa64d50b510c",
+    "manifest_sha256": "9340a10f005a9a90f980ac45356e8c13d00f35a7b095e30a68ccde610944ee6d",
+    "manual_audit_sha256": "fbca6db98fe446693f13cb4d6714d081c6a39064ad3b62c4d3bc37145771a268",
+    "preregistration_sha256": "d4d9d63078692dba85f5e68020b09c298ac848b212e94c2c4ff8d255b5b59ce6",
+    "session_count": 30,
+    "verified": true
+  },
+  "work_type": "infrastructure_and_result_analysis"
+}
