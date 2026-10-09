@@ -14,7 +14,7 @@
   - 决定: 最小 `0.05` nat 改善、bootstrap 上界 `< 0` 和跨系统一致性门槛失败，故 `abandon_current_progress_state_mechanism`。不得结果后调整切分、阈值、义务、诊断或模型，不进入 controller、F0/A1 或预算动作实验设计。
   - 证据: JSON/Markdown 报告 SHA-256 分别为 `b4b682d8699bdbcf5e768736e525ac13109675db64971a23c3007dafa2442a4d`、`ea39730246ea9b782f8b685c4276956b268b52d941b1774817e6ea685cef88f3`。结果支持固定 observed-action 轨迹上的重建一致性与缺乏预注册增量，不支持反事实动作效果、controller treatment effect、strict success/成本改善、总体泛化、显著性或模型排名。
   - 验证: 报告 `check` 确定性重建通过，资格审计目标测试 `21 passed`，后端产品回归 `1836 passed, 47 skipped`；Ruff check/format、依赖锁和 `git diff --check` 通过。scikit-learn 1.9 只对预注册显式 `penalty="l2"` 给出未来弃用警告，当前语义与结果不受影响。
-  - 下一步: 完成中文提交、push 与关闭 #382 的 PR；发布后由研究负责人选择新的可证伪机制，当前没有获准的新主线或 formal identity。
+  - 发布与下一步: 分支 `yiwei/382-progress-state-qualification` 已推送，中文 PR #384 以 `yiwei/381-innovation-landscape` 为 base、通过 `Closes #382` 关联 Issue，并依赖 PR #383；当前等待 CI 与评审，不在本阶段合并。完成发布后由研究负责人选择新的可证伪机制，当前没有获准的新主线或 formal identity。
   - 文件: `scripts/forge_progress_state_qualification.py`, `backend/tests/test_forge_progress_state_qualification.py`, `benchmarks/preregistrations/cpp-cross-build-progress-state-qualification-v1.md`, `benchmarks/manifests/cpp-cross-build-progress-state-qualification-v1.json`, `benchmarks/fixtures/cpp-cross-build-progress-state-manual-audit-v1.json`, `benchmarks/reports/cpp-cross-build-progress-state-qualification-v1.json`, `benchmarks/reports/cpp-cross-build-progress-state-qualification-v1.md`, `RESEARCH_STATUS.md`, `.claude/memory/project.md`
 
 - 2026-10-09 — 完成 Issue #381 三候选创新机制审计并收紧下一研究决策
