@@ -6,6 +6,13 @@
 
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
+- 2026-10-09 — 完成 Issue #381 三候选创新机制审计并收紧下一研究决策
+  - 工作类型: 结果分析、文献研究与研究设计；0 Provider、0 credential read、0 formal identity、0 formal attempt、0 formal evidence write，所有冻结 evidence 保持只读。
+  - 文献增量: 在原创新版图上补充核对 EnConda-Bench、SWE-Replay、EET、FailFast、run-level failure prediction、GradleFixer、ALIGN、ToolRosella、XRepoSkill、SetupX、BootstrapAgent、SWE-Skills-Bench、VibeMemBench 等 2024–2026 工作。个人知识库按 `search_notes -> read_note` 读取“2025-2026 自动化编译论文索引”和“Forge 毕业论文方向与契约驱动修复设计”，未修改知识库。
+  - 审计结论: 跨构建系统可验证进展状态有条件通过；其可保留机制是由执行证据构成、允许回退的偏序构建义务及状态转移，并需证明相对轮次、预算、阶段和错误类别的增量价值。typed action 与 GradleFixer Tool Bridging 高度重合，只保留为动作层。跨仓库经验迁移已被 XRepoSkill、SetupX、EET、BootstrapAgent 等覆盖主要机制，项目族/时间隔离仅是评测纪律，当前延后。
+  - 下一决策: 研究负责人决定是否冻结进展状态问题。获准后另开 tracking Issue，先做零 Provider 状态重建与 family/time held-out 离线资格审计；通过前不实现 controller、不设计 F0/A1、不创建新 identity。
+  - 文件: `docs/research/2026-10-09-three-candidate-mechanism-audit.md`, `docs/research/2026-10-06-automated-compilation-innovation-landscape.md`, `RESEARCH_STATUS.md`, `.claude/memory/project.md`
+
 - 2026-10-07 — 补齐合同反馈旧研究与进展状态新候选的方向演进文档
   - 工作类型: 结果分析、文献研究与研究设计；没有调用 Provider、读取 credential、创建 formal attempt 或写 formal experiment evidence。
   - 旧方向: 在 `docs/research/2026-10-06-automated-compilation-innovation-landscape.md` 中补齐合同反馈研究的动机、问题、C0/T1/T2 干预和四阶段效果证据。Behavioral v2 为 baseline 3/6、treatment 5/6；multi-checkpoint v3 为 4/6 vs 6/6；opaque provenance replication 有 7/12 endpoint censor、`primary_test=null`；mechanism v2 两个完整项目的 delivery/target 为 1/1/1、provenance 为 0/0/0，三个 observed-complete estimate 都为 0。

@@ -4,19 +4,20 @@
 
 ## 当前阶段
 
-- 状态：Issue #381 的研究方向演进文档已在本地完成。旧“合同反馈驱动修复”不再作为毕业论文主线，mechanism v2 永久停止；新主线尚未冻结。
+- 状态：Issue #381 的三候选创新机制审计已在本地完成。旧“合同反馈驱动修复”不再作为毕业论文主线，mechanism v2 永久停止；新主线尚未冻结。
 - 当前工作类型：结果分析、文献研究与研究设计。本阶段没有产生新的实验 observation、调用 Provider 或形成新方法效果证据。
-- 优先候选：面向严格可验证自动化编译的**跨构建系统进展状态建模与预算控制**。核心先回答如何确定性区分推进、横向变化、停滞和回退，再研究如何据此决定继续、切换工具、从 checkpoint 分支、升级模型或停止。
+- 优先候选：面向严格可验证自动化编译的**跨构建系统可验证进展状态**。核心先回答由执行证据形成的偏序构建义务能否确定性区分推进、横向变化、停滞和回退，并比轮次、预算、阶段和错误类别提供额外信息；通过后才研究预算动作。
 - 合同定位：任务合同、CandidateVerifier、external evaluator 和 clean replay 继续作为统一裁判与支撑性基础设施，不再把 C0/T1/T2 feedback projection 作为主要创新。
-- 当前研究问题候选：能否构造跨 CMake、Make、Autotools 的进展状态，使其比轮次、token 和错误类别等简单特征更能支持动作选择，并改善严格成功率与 success-time-cost 前沿？
+- 当前研究问题候选：能否构造跨 CMake、Make、Autotools 的进展状态，使其在未见项目族和未来时间段中比轮次、token、阶段和错误类别等简单特征更能解释短期状态转移，并为后续预算动作实验提供足够的增量信息？
 - 当前方向文档：`docs/research/2026-10-06-automated-compilation-innovation-landscape.md`。
+- 三候选机制审计：`docs/research/2026-10-09-three-candidate-mechanism-audit.md`。
 - 历史方向与审计：`docs/research/2026-09-29-automated-compilation-thesis-direction.md`、`docs/research/2026-09-29-contract-driven-repair-design-audit.md`。
 
 ## 文献定位
 
 本轮定向检索覆盖 CXXCrafter、CompileAgent、BuildBench、Repo2Run、GradleFixer、EnConda-Bench、
-EvoConfig、ComBench、PhantomRun、EvidenT，以及软件工程 Agent 的测试时扩展、轨迹搜索/复用、
-预算路由、经验记忆和早停。
+EvoConfig、ComBench、PhantomRun、EvidenT，以及 SWE-Replay、EET、FailFast、XRepoSkill、SetupX、
+BootstrapAgent、SWE-Skills-Bench、VibeMemBench 等轨迹控制、动作接口和经验迁移工作。
 
 已确认不能单独作为新贡献的表述：
 
@@ -26,9 +27,9 @@ EvoConfig、ComBench、PhantomRun、EvidenT，以及软件工程 Agent 的测试
 - 增加领域专用工具、更多推理轮次或更多并行采样；
 - 只报告成功率、成功案例平均时间、token 或费用。
 
-本次检索语料显示的主要空白是：直接相关系统通常使用固定流程和固定重试上限，虽报告成功、时间或费用，
-但很少根据运行中构建状态联合决定模型、工具、分支和停止动作，也很少完整估计严格
-success-time-cost 前沿。本次检索不是系统综述，不能声称全球首次。
+机制审计后的可保留空白进一步缩小为：本次语料中尚未发现使用**跨构建系统、由可执行证据构成、允许回退的偏序
+构建义务状态**，并验证其相对轮次、预算、阶段和错误类别的增量决策价值。过程评价、早停、checkpoint 分支、
+domain-specific tools 和跨仓库经验迁移都已有直接先例。本次检索不是系统综述，不能声称全球首次。
 
 ## Forge 已有证据
 
@@ -46,7 +47,8 @@ success-time-cost 前沿。本次检索不是系统综述，不能声称全球�
 - 保留合同作为严格裁判，不再把合同 feedback exposure 当作主要修复机制。
 - 不修复 `lz4` checkpoint，不继续 mechanism v2 剩余 24 arms，不建立 replacement identity。
 - 旧 C0/T1/T2 evidence 永久只读，可作为探索性负结果和研究转向依据，不能解释为 treatment effect。
-- 新方向仍需与跨构建系统 typed action abstraction、带项目族和时间隔离的跨仓库经验迁移做机制审计；尚未授权进入实现或实验。
+- 三候选机制审计已完成：进展状态有条件通过；typed action 只作为支撑动作层；跨仓库经验迁移当前延后。尚未授权进入实现或实验。
+- 项目族与时间隔离属于所有候选的评测纪律，不单独构成经验迁移的新机制。
 - 若进展状态方向通过审计，首个比较候选为固定 Flow `F0` 与进展感知预算控制 `A1`。模型路由、typed tools、checkpoint 分支和早停只作为候选动作，不能各自提前表述为创新。
 - 新实验必须重新冻结有限预算向量、开发/测试项目隔离、严格成功、删失效率指标、最小有意义效应和分析顺序；旧 identity 的“无 token ceiling”不沿用为成本研究设计。
 
@@ -62,6 +64,7 @@ success-time-cost 前沿。本次检索不是系统综述，不能声称全球�
 当前证据不能支持：
 
 - 进展感知预算控制优于固定 Flow，或任何具体节省比例；
+- 可验证进展状态能够稳定重建、优于简单特征或改善任何动作选择；
 - 结构化合同反馈的总体效应、统计显著性、无效或等效；
 - Forge 整体优于 CXXCrafter、CompileAgent、BuildBench 或其他系统；
 - Provider/模型能力排名，或 verifier、路由、搜索、领域工具的通用首创性；
@@ -74,7 +77,7 @@ success-time-cost 前沿。本次检索不是系统综述，不能声称全球�
 - 只读核验论文、公开实现、仓库报告、manifest、ledger 和冻结 evidence；
 - 编写、审阅和发布 Issue #381 的版本化研究综述与状态交接；
 - 对进展状态、typed action abstraction 和跨仓库经验迁移做文献与机制比较；
-- 在方向通过机制审计后，设计新的状态 schema、预算账本和 F0/A1 qualification；实际实现前必须先确认独立 tracking Issue。
+- 在研究负责人冻结进展状态问题后，为零 Provider 状态资格审计建立独立 tracking Issue；只有资格审计通过后才设计 F0/A1。
 
 禁止：
 
@@ -92,9 +95,10 @@ success-time-cost 前沿。本次检索不是系统综述，不能声称全球�
 - Stage C v8 审计：`benchmarks/reports/cpp-stage-c-v8-workspace-remediation-result-audit.md`。
 - 2026-10-06 已按 `search_notes -> read_note` 核对个人知识库论文索引、CXXCrafter 和 CompileAgent 解读；本轮不修改知识库。
 - 2026-10-07 已按 `search_notes -> read_note` 核对个人知识库笔记“Forge 毕业论文方向与契约驱动修复设计”；本轮不修改知识库。
+- 2026-10-09 已按 `search_notes -> read_note` 核对个人知识库“2025-2026 自动化编译论文索引”和旧方向设计原文；本轮不修改知识库。
 
 ## 下一项工作
 
-先完成三个候选的创新机制审计：跨构建系统失败前沿/进展状态、typed action abstraction、带项目族和时间隔离的
-跨仓库构建经验迁移。逐项判断相对最新论文的新机制、工程组合风险、最小可证伪实验、Forge 资产匹配和放弃条件。
-只有候选通过审计后，才进入零 Provider 资格门禁设计；当前不创建新 formal identity。
+下一项由研究负责人决定：是否把“跨构建系统可验证进展状态及其相对简单特征的增量价值”冻结为下一阶段唯一候选。
+若批准，先新开 tracking Issue，冻结状态义务、证据/失效规则、family/time 切分、简单基线、最小有意义效应和放弃条件，
+再做零 Provider 离线资格审计。当前不实现 controller，不创建新 formal identity。

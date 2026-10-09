@@ -1,6 +1,6 @@
 # 自动化编译研究方向演进：合同反馈研究与进展感知控制候选
 
-> 日期：2026-10-07
+> 日期：2026-10-09
 > Tracking Issue：[#381](https://github.com/WWFXL/Forge-AutoCompiler/issues/381)
 > 工作类型：结果分析、文献研究与研究设计
 > 证据边界：本轮未调用 Provider、未读取 credential、未创建 formal attempt，也未写入 formal experiment evidence。
@@ -271,16 +271,22 @@ GradleFixer 的直接证据很强：工具越贴近领域动作，成功率越�
 
 | 优先级 | 候选方向 | 新颖性 | Forge 匹配 | 最小验证可行性 | 预算友好 | 论文成立性 | 主要风险 |
 | ---: | --- | ---: | ---: | ---: | ---: | ---: | --- |
-| 1 | 进展感知、预算约束自适应控制 | 4 | 5 | 4 | 5 | 4 | 需要足量开发轨迹校准策略；不能让 controller 训练集泄漏到测试项目 |
+| 1 | 跨构建系统可验证进展状态 | 4 | 4 | 4 | 5 | 4 | 现有执行与评价资产强，但 family/time 语料未确认足够；需先证明偏序状态比简单特征有增量价值 |
 | 2 | verifier-guided checkpoint 分支与轨迹复用 | 3 | 5 | 3 | 3 | 3 | 与 SWE-Replay/SWE-Search 相邻，完整树搜索成本高 |
-| 3 | C/C++ 跨构建系统 typed tool routing | 3 | 4 | 4 | 4 | 3 | GradleFixer 已证明 Tool Bridging，单纯换领域不足 |
-| 4 | 跨仓库经验记忆与技能迁移 | 3 | 3 | 2 | 4 | 2 | 数据泄漏、经验过时和项目族偏差难控制 |
+| 3 | C/C++ 跨构建系统 typed action abstraction | 2 | 4 | 3 | 4 | 2 | GradleFixer 已证明 Tool Bridging；只有跨系统动作语义迁移仍可能有增量 |
+| 4 | 跨仓库经验记忆与技能迁移 | 2 | 3 | 2 | 2 | 2 | XRepoSkill、SetupX、EET 和 BootstrapAgent 已覆盖主要机制；时间隔离本身不是创新 |
 | 5 | 单独研究运行失败预测/早停 | 2 | 4 | 3 | 5 | 2 | 早期 within-task 信号可能不足，容易省成本同时损害成功率 |
 | 6 | 合同反馈或合同裁判作为主创新 | 2 | 5 | 5 | 4 | 2 | 裁判价值明确，但容易被解释为更严格评测或更详细错误信息 |
 
-第 1 项目前是优先审计的候选，不是已冻结的主线。下一步还需与“跨构建系统 typed action abstraction”和“带项目族、时间隔离的跨仓库经验迁移”做机制级比较。第 6 项继续作为统一 oracle 和支撑性贡献。
+三个候选的机制级比较已于 2026-10-09 完成，详见
+[`2026-10-09-three-candidate-mechanism-audit.md`](2026-10-09-three-candidate-mechanism-audit.md)。
+第 1 项有条件通过，下一步应先审计状态可重建性和相对简单特征的增量价值；typed action 降级为动作层，
+跨仓库经验迁移延后。第 6 项继续作为统一 oracle 和支撑性贡献。新主线仍需研究负责人冻结。
 
-## 10. 候选方法：进展感知预算控制器
+## 10. 状态资格审计通过后的下游候选：进展感知预算控制器
+
+本节保留状态表示通过资格审计后可能检验的下游干预，用于说明状态机制最终需要支持什么决策。它不是当前已冻结的方法，
+也不授权实现 controller、设计 F0/A1 或创建实验 identity；当前阶段只检验状态本身是否成立。
 
 ### 10.1 状态
 
@@ -335,26 +341,31 @@ GradleFixer 的直接证据很强：工具越贴近领域动作，成功率越�
 
 ## 11. 最小验证路线
 
-### 阶段 0：状态与计量资格门禁
+### 阶段 0：状态表示与计量资格门禁
 
-类型：基础设施。零 Provider、零 formal attempt。
+类型：基础设施与结果分析。零 Provider、零 formal attempt。它先移除“状态是否可重建、是否有独立信息”这一研究阻塞，
+不产生方法效果证据。
 
-- 从现有只读轨迹验证状态字段能否确定性重建；
+- 冻结公共构建义务、可执行证据来源、失效规则和 `not_applicable` 语义；
+- 从现有只读轨迹验证确定性 extractor 与人工审计 rubric 能否一致重建状态；
 - 固定 logical request、physical attempt、tokens、费用、build execution 和 wall-clock 的计量口径；
 - 验证相同轨迹重复提取产生相同状态签名；
-- 验证 controller 看不到 hidden arm label、ground-truth patch 或 evaluator 答案。
+- 在 family-held-out、time-forward 切分上，比较状态与轮次、预算、构建阶段、错误类别等简单基线对下一状态转移的解释增量；
+- 验证状态提取与离线分析不读取 hidden arm label、ground-truth patch 或 evaluator 答案。
 
-完成标准：状态 schema、签名算法和预算账本在代表性 CMake/Make/Autotools 轨迹上闭合。
+完成标准：状态 schema、签名算法和预算账本在代表性 CMake/Make/Autotools 轨迹上闭合，状态重建达到预先冻结的
+一致性要求，并在隔离测试集上超过预先冻结的最小有意义效应；否则停止该方向。
 
-### 阶段 1：离线可行性分析
+### 阶段 1：离线预算动作可行性分析
 
 类型：结果分析，不作因果效果解释。
 
-- 描述成功与失败轨迹的资源分布、重复签名和阶段迁移；
+- 仅在阶段 0 通过后，描述成功与失败轨迹的资源分布、重复状态和状态转移；
 - 估计“按项目/checkpoint 静态分配”与“运行中早停”各自可能节省的预算上界；
-- 用 project-family 和时间切分检查状态特征是否过拟合具体项目。
+- 检查该状态是否会改变任何可执行动作选择，并明确历史已选动作不能识别未选动作的反事实结果。
 
-完成标准：证明至少存在可重复识别的停滞/进展状态；否则停止该方向。
+完成标准：存在可审计的动作分歧和后续干预价值；若状态不改变动作、数据不足以支持比较或收益只来自项目身份泄漏，
+则不进入 controller qualification。
 
 ### 阶段 2：零 Provider 控制面 qualification
 
@@ -388,23 +399,29 @@ GradleFixer 的直接证据很强：工具越贴近领域动作，成功率越�
 - **基础设施混杂：**网络、Provider、Docker 和 evaluator 故障保留在分母并按预注册分类。
 - **相关工作重合：**若后续检索发现同任务、同状态动作和同严格终点的直接方法，应缩小或更换主张。
 
-## 13. 下一项决策
+## 13. 机制审计结论与下一项决策
 
-下一项工作不是直接实现 controller，而是完成一次**创新机制审计**。应对以下三个候选做直接比较：
+2026-10-09 的[三候选创新机制审计](2026-10-09-three-candidate-mechanism-audit.md)得到：
 
-1. 跨构建系统的失败前沿/进展状态表示；
-2. 跨 CMake、Make、Autotools 的 typed action abstraction；
-3. 带项目族和时间隔离的跨仓库构建经验迁移。
+1. 跨构建系统可验证进展状态有条件通过，是唯一值得进入问题冻结决策的主线候选；
+2. typed action abstraction 与 GradleFixer 的 Tool Bridging 高度重合，只保留为进展状态控制器的动作层；
+3. 跨仓库经验迁移已被 XRepoSkill、SetupX、EET、BootstrapAgent 等最新工作覆盖主要机制，当前延后。
 
-每个候选都需要回答：相对最新论文新增了什么机制，是否只是场景迁移或工程组合，最小可证伪实验是什么，Forge 现有资产能否支持，以及什么结果会使方向被放弃。只有进展状态候选通过这轮审计后，才进入阶段 0 的状态与计量资格门禁设计，并冻结：
+进展状态的可保留增量是：由可执行证据形成跨 CMake、Make、Autotools 的偏序构建义务，显式表示已证实、
+待满足和被破坏的义务，并用状态转移区分推进、横向变化、停滞和回退。若只使用阶段编号、错误重复阈值、
+token 阈值或固定模型 cascade，仍然只是工程调度。
 
-1. 状态签名最小字段和“有进展/停滞”的可执行定义；
-2. F0/A1 可使用的模型和工具集合；
-3. 预算向量及主要预算点；
-4. 开发项目与最终测试项目的隔离规则；
-5. 严格成功、受限平均时间/成本和 success-budget curve 的有序分析规则。
+下一项需要研究负责人决定是否冻结该研究问题。获准后，先为阶段 0 零 Provider 状态资格审计新开 tracking Issue，
+并冻结：
 
-这些审计和设计决策完成前，不应创建新 formal identity、读取 credential 或调用 Provider。
+1. 公共构建义务、证据来源、失效规则和 `not_applicable` 语义；
+2. 确定性 extractor、人工审计 rubric 和状态重建一致性要求；
+3. 开发/测试项目族、时间切分及未来信息排除规则；
+4. 轮次、预算、阶段、错误类别及其组合等简单基线，并让所有条件接收相同 action type；
+5. 状态重建、转移区分和校准指标，以及最小有意义效应和放弃规则。
+
+阶段 0 只验证状态可重建性以及相对轮次、预算、阶段和错误类别的增量信息，不实现 controller，不估计方法效果。
+该审计通过后才决定是否设计 F0/A1。研究问题冻结前，不应创建新 formal identity、读取 credential 或调用 Provider。
 
 ## 参考资料
 
@@ -429,3 +446,12 @@ GradleFixer 的直接证据很强：工具越贴近领域动作，成功率越�
 - Wang et al. [Agent Workflow Memory](https://arxiv.org/abs/2409.07429). 2024.
 - Lin et al. [BAGEN: Are LLM Agents Budget-Aware?](https://arxiv.org/abs/2606.00198). 2026.
 - EsfandyariDoulabi et al. [Disentangling Task Difficulty from Run-Level Failure in Agent Failure Prediction](https://arxiv.org/abs/2610.05572). 2026.
+- [Fail-Fast, Restart-Smart: Early Failure Prediction and Restart for SWE Agentic Tasks](https://arxiv.org/abs/2608.03222). 2026.
+- [EET: Experience-Driven Early Termination for Cost-Efficient Software Engineering Agents](https://arxiv.org/abs/2601.05777). Findings of ACL 2026.
+- [Agent-Environment Alignment via Automated Interface Generation](https://arxiv.org/abs/2505.21055). 2025.
+- [ToolRosella: Translating Code Repositories into Standardized Tools for Scientific Agents](https://arxiv.org/abs/2603.09290). 2026.
+- [SetupX: Can LLM Agents Learn from Past Failures in Functionality-Correct Code Repository Setup?](https://arxiv.org/abs/2605.26186). 2026.
+- [BootstrapAgent: Distilling Repository Setup into Reusable Agent Knowledge](https://arxiv.org/abs/2605.15815). 2026.
+- [XRepoSkill: Learning Transferable Skills for Software Engineering Agents](https://arxiv.org/abs/2609.36807). 2026.
+- [SWE-Skills-Bench: Do Agent Skills Actually Help in Real-World Software Engineering?](https://arxiv.org/abs/2603.15401). 2026.
+- [VibeMemBench: Evaluating Memory Systems for Coding Agents on Real Repository Coding Tasks](https://arxiv.org/abs/2609.23570). 2026.
