@@ -288,6 +288,17 @@
 
 <!-- 倒序，最新在上。 -->
 
+- 2026-10-09 — 完成 Issue #389 Jev 类型化动作 benchmark 阶段 A 并因 RuleGate 饱和停止当前 v1
+  - 工作类型: 零 Provider 数据收集、基础设施资格审计与结果分析；未读取 credential、未调用模型、未创建 Provider attempt，历史 experiment identity/evidence 全程只读。
+  - 身份与样本: 新建独立 manifest、Schema、预注册、runner 和测试；固定 24 个 project family，CMake/Make/Autotools 各 8 个，按 exact commit 时间切为 6 个 design、6 个 calibration、12 个 evaluation。每项目构造 5 个状态，每状态绑定 3 个候选动作。
+  - 执行证据: 完成 48 个 reference build/oracle closure、120 个状态和 720 次隔离候选动作执行；360/360 state/action pair 的 categorical replay 一致，旧 409 个决策点动作目录覆盖为 409/409，三个构建系统各有 40 个完整状态。阶段 A JSON 报告 SHA-256 为 `bdbf2bca0f76c978630d58f618202cc9fb61d968ed287dd74a2f29f5292151d6`。
+  - 失败保留: attempt 1 在 `libuv` reference oracle 因 `-std=c11` 隐藏 glibc `pthread_rwlock_t` 后停止并保留失败记录；Amendment 1 只将该 oracle 改为 `-std=gnu11`，未改项目、split、动作或门槛，也未复用 attempt 1 的部分 outcome。attempt 2 从全新目录完整重跑后通过。
+  - 关键停止结论: 冻结 RuleGate 只使用 `phase_facts` 和候选动作族，不读取语义日志，却在 120/120 状态选出安全且推进的动作，top-1 安全率和直接执行覆盖率均为 100%，错误率为 0%；CMake、Make、Autotools 各 40/40，evaluation 为 60/60。阶段 B 要求同风险下相对 RuleGate 增加至少 10 个百分点覆盖率，理论最大提升为 0，因此最终决定为 `stop_jev_provider_qualification_and_redesign_benchmark`。RuleGate JSON 报告 SHA-256 为 `7ca7e47846ce77001dcf12c99e2615e74e6d2f0803f8ea5e04439db331c5e8c6`。
+  - 解释边界: 本结果证明 v1 benchmark 可执行且可重复，同时证明其难度设计不足；不支持 Jev 判断准确率、confidence 校准、成本收益、严格成功非劣、模型排名或“Jev 不适合自动化编译”。当前 evaluation split 已暴露，不得调整状态或动作后继续用作确认性模型评测。
+  - 发布: 实现提交 `87a36c32` 已推送；中文 PR #390 已创建并回读，以 `yiwei/387-thesis-research-bar` 为 base，通过 `Closes #389` 关联 tracking Issue。CI 与评审状态以 PR 为准，本阶段不合并。
+  - 下一步: 若继续语义路由，必须建立新 identity 的 v2：使用新的未暴露项目族和更晚 exact commit，在相同 coarse `phase_facts` 下构造至少三类需要不同恢复动作的真实根因，以候选动作后的冻结 continuation、strict success、成本和失败分类形成反事实标签；先通过 RuleGate/TF-IDF 零 Provider 难度门禁，再决定是否冻结 Jev Provider 实验。
+  - 文件: `scripts/forge_typed_action_benchmark_qualification.py`, `backend/tests/test_forge_typed_action_benchmark_qualification.py`, `benchmarks/fixtures/cpp-typed-action-benchmark-source-pool-v1.json`, `benchmarks/manifests/cpp-typed-action-benchmark-qualification-v1.json`, `benchmarks/schemas/forge-typed-action-benchmark-qualification-v1.schema.json`, `benchmarks/preregistrations/cpp-typed-action-benchmark-qualification-v1.md`, `benchmarks/reports/cpp-typed-action-benchmark-qualification-v1-attempt-1-failure.json`, `benchmarks/reports/cpp-typed-action-benchmark-qualification-v1.json`, `benchmarks/reports/cpp-typed-action-benchmark-qualification-v1.md`, `benchmarks/reports/cpp-typed-action-benchmark-rule-gate-audit-v1.json`, `benchmarks/reports/cpp-typed-action-benchmark-rule-gate-audit-v1.md`, `RESEARCH_STATUS.md`, `.claude/memory/project.md`
+
 - 2026-09-30 — 完成 Issue #379 mechanism v2 formal 失败审计
   - 发布: PR #380 已合并为 `main@1f05361e852ff34a377ef40bcae7cca9cb0c87c4`，Issue #379 已关闭；版本化审计绑定 70 个冻结 evidence 文件并保持 inventory SHA-256 `5c885b2a...b9d11` 不变。
   - 结论: 唯一 batch 永久停止于 12/36 arms、4/12 checkpoints；`primary_test=null`、`secondary_test=null`，两个完整项目的零差只作描述。研究负责人随后决定不修复、不续跑、不 replacement，并转向新的创新问题。
@@ -1180,6 +1191,9 @@
 
 <!-- 工作中踩过的坑、限制或意外行为。 -->
 
+- 规范化的五阶段状态若直接暴露 `phase_facts` 和候选动作族，会被简单 RuleGate 完全解出；新动作路由 benchmark 必须在相同 coarse facts 下构造不同真实失败根因和不同恢复动作，并在任何 Provider 资格前先运行 RuleGate/TF-IDF 难度门禁。
+- Issue #389 v1 的 evaluation 项目和状态已被 RuleGate 审计暴露，后续不能通过修改标签、候选动作或状态字段继续把它当确认性评测集；v2 必须使用新的未暴露项目族和更晚 exact commit。
+- `libuv` 的 installed-header functional oracle 需要 `-std=gnu11`；使用严格 `-std=c11` 会隐藏 glibc 的 `pthread_rwlock_t`，在 configure/build/install 均成功后产生 oracle 假失败。该修正只适用于 benchmark oracle，不应被解释为候选动作效果。
 - CI 的 `frozen-benchmark-tests` 会固定检出历史 `fa558d3ab1f3498a8e751d141319cda6c1fea939`，再运行该历史树的 `tests/test_forge_*.py`。不要在当前主干直接用同一 glob 模拟该 job：旧 opaque-provenance 脚本仍导入已从现行 runtime 删除的 `resolve_command_role`，会产生 13 个收集错误；这不等价于 CI frozen job 失败。当前树的新 benchmark 门禁应运行对应的聚焦测试，产品全集使用 `make test-product`。
 - Docker/root 进程曾把 `/home/yiwei/.cache/uv` 与 `backend/.pytest_cache` 建成 root-owned，导致 `uv` 子进程在测试逻辑前失败；旧目录已原子保留为 `uv.root-owned-20260925` 与 `.pytest_cache.root-owned-20260925`，活跃缓存已由当前用户重新创建。旧备份只能由具备 sudo 权限的人工后续清理。
 - Confirmatory v1 的真实 fake-model Docker gate 只覆盖 CMake `args`，因此没有触达 R3 Make 对 `case.reference_case_id` 与 `make_lifecycle.provenance.command_history_sha256` 的隐含依赖。跨 build-system 复用 runner 时，至少各选一个 CMake/Make case 做真实零 provider 门禁；发现冻结 runtime 缺口后必须新增版本化 adapter/test，不能原地修改 v1 或重生成旧 manifest 掩盖失败。
