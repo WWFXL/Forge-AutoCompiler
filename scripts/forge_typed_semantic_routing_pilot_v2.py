@@ -14,12 +14,11 @@ from datetime import UTC, datetime
 from pathlib import Path, PurePosixPath
 from typing import Any
 
+import forge_typed_action_benchmark_qualification as v1
 import jsonschema
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import LogisticRegression
 from sklearn.multiclass import OneVsRestClassifier
-
-import forge_typed_action_benchmark_qualification as v1
 
 SCRIPT_PATH = Path(__file__).resolve()
 REPO_ROOT = SCRIPT_PATH.parent.parent
@@ -55,6 +54,18 @@ BUILD_SYSTEMS = ("cmake", "make", "autotools")
 FAULT_TYPES = ("missing_compile_input", "invalid_build_state", "wrong_build_target")
 ACTION_FAMILIES = ("dependency", "configure", "build", "escalate_agent")
 ACTION_COSTS = {"build": 1, "configure": 2, "dependency": 3, "escalate_agent": 4}
+GATE_ORDER = (
+    "expected_counts",
+    "reference_closure",
+    "replay_consistency",
+    "all_build_systems_complete",
+    "direct_actions_optimal_in_two_project_families",
+    "rule_gate_top1_below_ceiling",
+    "rule_gate_coverage_below_ceiling",
+    "tfidf_top1_below_ceiling",
+    "no_direct_label_leakage",
+    "all_candidates_bounded",
+)
 EXPECTED_PHASE_FACTS = {
     "source_available": True,
     "configured": True,
@@ -1410,9 +1421,11 @@ def validate_report(
 
 def render_markdown(report: dict[str, Any]) -> str:
     analysis = report["analysis"]
+    if set(analysis["gates"]) != set(GATE_ORDER):
+        raise PilotError("report 门禁集合漂移")
     gates = "\n".join(
-        f"| `{name}` | {'通过' if passed else '失败'} |"
-        for name, passed in analysis["gates"].items()
+        f"| `{name}` | {'通过' if analysis['gates'][name] else '失败'} |"
+        for name in GATE_ORDER
     )
     systems = "\n".join(
         f"| {name} | {analysis['counts']['states_by_build_system'].get(name, 0)} |"
@@ -1430,12 +1443,23 @@ def render_markdown(report: dict[str, Any]) -> str:
         )
     else:
         failed = ", ".join(
-            name for name, passed in analysis["gates"].items() if not passed
+            name for name in GATE_ORDER if not analysis["gates"][name]
         )
         conclusion = (
             "v2 未通过零 Provider 难度门禁，停止 Jev Provider 资格。失败门禁为："
             f"{failed}。该结果评价 benchmark 设计，不是 Jev 模型效果。"
         )
+    protocol_summary = (
+        "本轮在完全相同的 coarse phase facts 下，对 6 个项目各构造 3 个故障状态。"
+        "每个 state/action pair 执行两次，候选动作后统一运行 build、artifact stage、"
+        "functional oracle、provenance 和 clean replay。最优动作由 strict success 优先、"
+        "冻结成本次优确定，没有使用旧 Agent 行为或人工故障类别作标签。"
+    )
+    interpretation_boundary = (
+        "本 pilot 只回答 benchmark 是否能在相同阶段事实下形成异根因、异最优动作，并抵抗两个零 Provider 基线。"
+        "它没有调用 Jev 或通用 LLM，不估计 confidence、费用、延迟、controller 成功率或端到端 treatment effect。"
+        "`escalate_agent` 使用确定性零 Provider recovery surrogate，只保证每个状态存在兜底路径，不代表真实 Agent 效果。"
+    )
     return f"""# 同阶段异根因类型化语义路由 benchmark v2 结果
 
 - identity：`{IDENTITY}`
@@ -1447,7 +1471,7 @@ def render_markdown(report: dict[str, Any]) -> str:
 
 {conclusion}
 
-本轮在完全相同的 coarse phase facts 下，对 6 个项目各构造 3 个故障状态。每个 state/action pair 执行两次，候选动作后统一运行 build、artifact stage、functional oracle、provenance 和 clean replay。最优动作由 strict success 优先、冻结成本次优确定，没有使用旧 Agent 行为或人工故障类别作标签。
+{protocol_summary}
 
 ## 结果
 
@@ -1474,7 +1498,7 @@ def render_markdown(report: dict[str, Any]) -> str:
 
 ## 解释边界
 
-本 pilot 只回答 benchmark 是否能在相同阶段事实下形成异根因、异最优动作，并抵抗两个零 Provider 基线。它没有调用 Jev 或通用 LLM，不估计 confidence、费用、延迟、controller 成功率或端到端 treatment effect。`escalate_agent` 使用确定性零 Provider recovery surrogate，只保证每个状态存在兜底路径，不代表真实 Agent 效果。
+{interpretation_boundary}
 
 Provider `0` 次、credential `0` 次、模型调用 `0` 次、模型 token `0`；历史 evidence 保持只读。
 """

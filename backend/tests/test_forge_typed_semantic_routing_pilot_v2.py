@@ -148,6 +148,31 @@ def test_tfidf_baseline_supports_frozen_three_class_one_vs_rest() -> None:
     assert result["top1_accuracy"] == 1.0
 
 
+def test_completed_report_rebuilds_the_preregistered_decision() -> None:
+    manifest, pool = pilot.load_contract()
+    report = pilot.validate_report(pilot.v1.load_json(pilot.DEFAULT_JSON_REPORT), manifest, pool)
+    analysis = report["analysis"]
+
+    assert analysis["counts"]["project_count"] == 6
+    assert analysis["counts"]["state_count"] == 18
+    assert analysis["counts"]["action_branch_count"] == 144
+    assert analysis["counts"]["reference_closure_count"] == 12
+    assert analysis["counts"]["optimal_actions"] == {
+        "build": 6,
+        "configure": 6,
+        "dependency": 6,
+    }
+    assert analysis["replay"]["replay_consistency"] == 1.0
+    assert analysis["rule_gate"]["top1_accuracy"] == 0.333333
+    assert analysis["rule_gate"]["route_acceptable_coverage"] == 0.333333
+    assert analysis["tfidf_logistic_regression"]["top1_correct"] == 17
+    assert analysis["tfidf_logistic_regression"]["top1_accuracy"] == 0.944444
+    assert analysis["passed"] is True
+    assert analysis["decision"] == "proceed_to_jev_offline_qualification"
+    assert all(analysis["gates"].values())
+    assert pilot.render_markdown(report) == pilot.DEFAULT_MARKDOWN_REPORT.read_text(encoding="utf-8")
+
+
 @pytest.mark.skipif(os.getenv("FORGE_RUN_SEMANTIC_ROUTING_DOCKER") != "1", reason="需要显式启用 Docker 集成门禁")
 def test_docker_preflight_uses_frozen_image_and_zero_provider() -> None:
     manifest, pool = pilot.load_contract()
