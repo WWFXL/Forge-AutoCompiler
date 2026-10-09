@@ -8,6 +8,7 @@ import contextlib
 import json
 import logging
 import math
+import re
 import shlex
 import subprocess
 import tempfile
@@ -76,6 +77,13 @@ def _git_blob(revision: str, relative_path: str) -> bytes:
     if result.returncode != 0:
         raise ExecutionError(f"无法读取 implementation revision 中的 {relative_path}")
     return result.stdout
+
+
+def _canonical_revision(revision: str) -> str:
+    canonical = _git("rev-parse", "--verify", f"{revision}^{{commit}}")
+    if not re.fullmatch(r"[0-9a-f]{40}", canonical):
+        raise ExecutionError("implementation revision 不是完整 commit SHA")
+    return canonical
 
 
 def _bytes_sha256(payload: bytes) -> str:
@@ -304,6 +312,7 @@ evaluation。Evaluation 的 top-1、直接覆盖、错误直接动作、顺序�
 def bind_execution(implementation_revision: str) -> dict[str, Any]:
     if EXECUTION_MANIFEST.exists() or EXECUTION_SCHEMA.exists() or AMENDMENT.exists():
         raise ExecutionError("execution identity 文件已存在，禁止覆盖")
+    implementation_revision = _canonical_revision(implementation_revision)
     relative = SCRIPT_PATH.relative_to(REPO_ROOT).as_posix()
     runner_sha = _bytes_sha256(_git_blob(implementation_revision, relative))
     if runner_sha != v1.file_sha256(SCRIPT_PATH):

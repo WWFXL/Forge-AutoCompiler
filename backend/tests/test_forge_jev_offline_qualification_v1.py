@@ -57,6 +57,18 @@ def test_execution_manifest_freezes_authorization_budget_and_runner() -> None:
     assert manifest["thresholds"]["maximum_erroneous_direct_actions"] == 0
 
 
+def test_revision_expression_is_canonicalized_to_full_commit(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.setattr(
+        jev,
+        "_git",
+        lambda *args: "29d61604c9492d2fe176fdd6d093920618ae2368",
+    )
+
+    assert jev._canonical_revision("29d61604^{commit}") == "29d61604c9492d2fe176fdd6d093920618ae2368"
+
+
 def test_formal_faults_use_task_specific_build_state_and_make_directory() -> None:
     stockfish = {
         "selected_build_system": "make",
