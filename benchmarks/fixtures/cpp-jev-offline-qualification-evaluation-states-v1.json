@@ -1,0 +1,495 @@
+{
+  "contains_labels": false,
+  "schema_version": "forge-jev-evaluation-states-1.0.0",
+  "source_identity": "cpp-typed-semantic-routing-pilot-v2",
+  "source_report_file_sha256": "ea2e126e81cfca374900436fa670015b28b3cc3f9d8c83e746ae2c92d2badfed",
+  "source_report_path": "benchmarks/reports/cpp-typed-semantic-routing-pilot-v2.json",
+  "states": [
+    {
+      "model_input": {
+        "build_system": "cmake",
+        "candidate_action_families": [
+          "dependency",
+          "configure",
+          "build",
+          "escalate_agent"
+        ],
+        "phase_facts": {
+          "artifacts_staged": false,
+          "build_attempted": true,
+          "build_succeeded": false,
+          "configured": true,
+          "functional_oracle_passed": false,
+          "source_available": true,
+          "strict_verifier_passed": false
+        },
+        "remaining_budget": {
+          "actions": 8,
+          "wall_clock_seconds": 900
+        },
+        "semantic_failure_log": "Makefile:1: *** missing separator.  Stop.\n",
+        "state_id": "s-04583a661d7afed169c1"
+      },
+      "state_id": "s-04583a661d7afed169c1"
+    },
+    {
+      "model_input": {
+        "build_system": "make",
+        "candidate_action_families": [
+          "dependency",
+          "configure",
+          "build",
+          "escalate_agent"
+        ],
+        "phase_facts": {
+          "artifacts_staged": false,
+          "build_attempted": true,
+          "build_succeeded": false,
+          "configured": true,
+          "functional_oracle_passed": false,
+          "source_available": true,
+          "strict_verifier_passed": false
+        },
+        "remaining_budget": {
+          "actions": 8,
+          "wall_clock_seconds": 900
+        },
+        "semantic_failure_log": "Makefile:1: *** missing separator.  Stop.\n",
+        "state_id": "s-1a79cc859bb2c737959a"
+      },
+      "state_id": "s-1a79cc859bb2c737959a"
+    },
+    {
+      "model_input": {
+        "build_system": "cmake",
+        "candidate_action_families": [
+          "dependency",
+          "configure",
+          "build",
+          "escalate_agent"
+        ],
+        "phase_facts": {
+          "artifacts_staged": false,
+          "build_attempted": true,
+          "build_succeeded": false,
+          "configured": true,
+          "functional_oracle_passed": false,
+          "source_available": true,
+          "strict_verifier_passed": false
+        },
+        "remaining_budget": {
+          "actions": 8,
+          "wall_clock_seconds": 900
+        },
+        "semantic_failure_log": "gmake: *** No rule to make target 'forge_probe_7b92e1'.  Stop.\n",
+        "state_id": "s-24a82eb0e6f3a737d7ca"
+      },
+      "state_id": "s-24a82eb0e6f3a737d7ca"
+    },
+    {
+      "model_input": {
+        "build_system": "autotools",
+        "candidate_action_families": [
+          "dependency",
+          "configure",
+          "build",
+          "escalate_agent"
+        ],
+        "phase_facts": {
+          "artifacts_staged": false,
+          "build_attempted": true,
+          "build_succeeded": false,
+          "configured": true,
+          "functional_oracle_passed": false,
+          "source_available": true,
+          "strict_verifier_passed": false
+        },
+        "remaining_budget": {
+          "actions": 8,
+          "wall_clock_seconds": 900
+        },
+        "semantic_failure_log": "Making all in include\nmake[1]: Entering directory '/workspace/repo/include'\nmake  all-am\nmake[2]: Entering directory '/workspace/repo/include'\nmake[2]: Leaving directory '/workspace/repo/include'\nmake[1]: Leaving directory '/workspace/repo/include'\nMaking all in src\nmake[1]: Entering directory '/workspace/repo/src'\nMaking all in lib\nmake[2]: Entering directory '/workspace/repo/src/lib'\nmake  all-recursive\nmake[3]: Entering directory '/workspace/repo/src/lib'\nmake[4]: Entering directory '/workspace/repo/src/lib'\n  CC       libcares_la-ares_addrinfo2hostent.lo\n  CC       libcares_la-ares_addrinfo_localhost.lo\n  CC       libcares_la-ares_android.lo\n  CC       libcares_la-ares_cancel.lo\n  CC       libcares_la-ares_close_sockets.lo\n  CC       libcares_la-ares_conn.lo\n  CC       libcares_la-ares_cookie.lo\n  CC       libcares_la-ares_data.lo\n  CC       libcares_la-ares_destroy.lo\n  CC       libcares_la-ares_free_hostent.lo\n  CC       libcares_la-ares_free_string.lo\n  CC       libcares_la-ares_freeaddrinfo.lo\n  CC       libcares_la-ares_getaddrinfo.lo\n  CC       libcares_la-ares_getenv.lo\n  CC       libcares_la-ares_gethostbyaddr.lo\n  CC       libcares_la-ares_gethostbyname.lo\n  CC       libcares_la-ares_getnameinfo.lo\n  CC       libcares_la-ares_hosts_file.lo\nmake[4]: *** No rule to make target 'ares_library_init.c', needed by 'libcares_la-ares_library_init.lo'.  Stop.\nmake[4]: *** Waiting for unfinished jobs....\n  CC       libcares_la-ares_init.lo\nmake[4]: Leaving directory '/workspace/repo/src/lib'\nmake[3]: *** [Makefile:1825: all-recursive] Error 1\nmake[3]: Leaving directory '/workspace/repo/src/lib'\nmake[2]: *** [Makefile:787: all] Error 2\nmake[2]: Leaving directory '/workspace/repo/src/lib'\nmake[1]: *** [Makefile:414: all-recursive] Error 1\nmake[1]: Leaving directory '/workspace/repo/src'\nmake: *** [Makefile:545: all-recursive] Error 1\n",
+        "state_id": "s-3b766e7d393c963c2a86"
+      },
+      "state_id": "s-3b766e7d393c963c2a86"
+    },
+    {
+      "model_input": {
+        "build_system": "make",
+        "candidate_action_families": [
+          "dependency",
+          "configure",
+          "build",
+          "escalate_agent"
+        ],
+        "phase_facts": {
+          "artifacts_staged": false,
+          "build_attempted": true,
+          "build_succeeded": false,
+          "configured": true,
+          "functional_oracle_passed": false,
+          "source_available": true,
+          "strict_verifier_passed": false
+        },
+        "remaining_budget": {
+          "actions": 8,
+          "wall_clock_seconds": 900
+        },
+        "semantic_failure_log": "gcc-13 -g -O3 -std=c99 -D_DEFAULT_SOURCE -pedantic -Wall -Wextra -Wno-unused-parameter -Isrc -fPIC -c -o src/autolink.o src/autolink.c\nmake: *** No rule to make target 'src/buffer.c', needed by 'src/buffer.o'.  Stop.\nmake: *** Waiting for unfinished jobs....\nsrc/autolink.c:147:1: warning: conflicting types for ‘hoedown_autolink__www’ due to enum/integer mismatch; have ‘size_t(size_t *, hoedown_buffer *, uint8_t *, size_t,  size_t,  unsigned int)’ {aka ‘long unsigned int(long unsigned int *, hoedown_buffer *, unsigned char *, long unsigned int,  long unsigned int,  unsigned int)’} [-Wenum-int-mismatch]\n  147 | hoedown_autolink__www(\n      | ^~~~~~~~~~~~~~~~~~~~~\nIn file included from src/autolink.c:1:\nsrc/autolink.h:30:8: note: previous declaration of ‘hoedown_autolink__www’ with type ‘size_t(size_t *, hoedown_buffer *, uint8_t *, size_t,  size_t,  hoedown_autolink_flags)’ {aka ‘long unsigned int(long unsigned int *, hoedown_buffer *, unsigned char *, long unsigned int,  long unsigned int,  hoedown_autolink_flags)’}\n   30 | size_t hoedown_autolink__www(size_t *rewind_p, hoedown_buffer *link,\n      |        ^~~~~~~~~~~~~~~~~~~~~\nsrc/autolink.c:183:1: warning: conflicting types for ‘hoedown_autolink__email’ due to enum/integer mismatch; have ‘size_t(size_t *, hoedown_buffer *, uint8_t *, size_t,  size_t,  unsigned int)’ {aka ‘long unsigned int(long unsigned int *, hoedown_buffer *, unsigned char *, long unsigned int,  long unsigned int,  unsigned int)’} [-Wenum-int-mismatch]\n  183 | hoedown_autolink__email(\n      | ^~~~~~~~~~~~~~~~~~~~~~~\nsrc/autolink.h:34:8: note: previous declaration of ‘hoedown_autolink__email’ with type ‘size_t(size_t *, hoedown_buffer *, uint8_t *, size_t,  size_t,  hoedown_autolink_flags)’ {aka ‘long unsigned int(long unsigned int *, hoedown_buffer *, unsigned char *, long unsigned int,  long unsigned int,  hoedown_autolink_flags)’}\n   34 | size_t hoedown_autolink__email(size_t *rewind_p, hoedown_buffer *link,\n      |        ^~~~~~~~~~~~~~~~~~~~~~~\nsrc/autolink.c:239:1: warning: conflicting types for ‘hoedown_autolink__url’ due to enum/integer mismatch; have ‘size_t(size_t *, hoedown_buffer *, uint8_t *, size_t,  size_t,  unsigned int)’ {aka ‘long unsigned int(long unsigned int *, hoedown_buffer *, unsigned char *, long unsigned int,  long unsigned int,  unsigned int)’} [-Wenum-int-mismatch]\n  239 | hoedown_autolink__url(\n      | ^~~~~~~~~~~~~~~~~~~~~\nsrc/autolink.h:38:8: note: previous declaration of ‘hoedown_autolink__url’ with type ‘size_t(size_t *, hoedown_buffer *, uint8_t *, size_t,  size_t,  hoedown_autolink_flags)’ {aka ‘long unsigned int(long unsigned int *, hoedown_buffer *, unsigned char *, long unsigned int,  long unsigned int,  hoedown_autolink_flags)’}\n   38 | size_t hoedown_autolink__url(size_t *rewind_p, hoedown_buffer *link,\n      |        ^~~~~~~~~~~~~~~~~~~~~\n",
+        "state_id": "s-43d6dc524621d9452800"
+      },
+      "state_id": "s-43d6dc524621d9452800"
+    },
+    {
+      "model_input": {
+        "build_system": "autotools",
+        "candidate_action_families": [
+          "dependency",
+          "configure",
+          "build",
+          "escalate_agent"
+        ],
+        "phase_facts": {
+          "artifacts_staged": false,
+          "build_attempted": true,
+          "build_succeeded": false,
+          "configured": true,
+          "functional_oracle_passed": false,
+          "source_available": true,
+          "strict_verifier_passed": false
+        },
+        "remaining_budget": {
+          "actions": 8,
+          "wall_clock_seconds": 900
+        },
+        "semantic_failure_log": "make: *** No rule to make target 'forge_probe_7b92e1'.  Stop.\n",
+        "state_id": "s-556022689d838bba8b99"
+      },
+      "state_id": "s-556022689d838bba8b99"
+    },
+    {
+      "model_input": {
+        "build_system": "cmake",
+        "candidate_action_families": [
+          "dependency",
+          "configure",
+          "build",
+          "escalate_agent"
+        ],
+        "phase_facts": {
+          "artifacts_staged": false,
+          "build_attempted": true,
+          "build_succeeded": false,
+          "configured": true,
+          "functional_oracle_passed": false,
+          "source_available": true,
+          "strict_verifier_passed": false
+        },
+        "remaining_budget": {
+          "actions": 8,
+          "wall_clock_seconds": 900
+        },
+        "semantic_failure_log": "gmake: *** No rule to make target 'forge_probe_7b92e1'.  Stop.\n",
+        "state_id": "s-6227b03255d47a2aa384"
+      },
+      "state_id": "s-6227b03255d47a2aa384"
+    },
+    {
+      "model_input": {
+        "build_system": "make",
+        "candidate_action_families": [
+          "dependency",
+          "configure",
+          "build",
+          "escalate_agent"
+        ],
+        "phase_facts": {
+          "artifacts_staged": false,
+          "build_attempted": true,
+          "build_succeeded": false,
+          "configured": true,
+          "functional_oracle_passed": false,
+          "source_available": true,
+          "strict_verifier_passed": false
+        },
+        "remaining_budget": {
+          "actions": 8,
+          "wall_clock_seconds": 900
+        },
+        "semantic_failure_log": "make: *** No rule to make target 'forge_probe_7b92e1'.  Stop.\n",
+        "state_id": "s-772563d4dd7ba7c80d3a"
+      },
+      "state_id": "s-772563d4dd7ba7c80d3a"
+    },
+    {
+      "model_input": {
+        "build_system": "make",
+        "candidate_action_families": [
+          "dependency",
+          "configure",
+          "build",
+          "escalate_agent"
+        ],
+        "phase_facts": {
+          "artifacts_staged": false,
+          "build_attempted": true,
+          "build_succeeded": false,
+          "configured": true,
+          "functional_oracle_passed": false,
+          "source_available": true,
+          "strict_verifier_passed": false
+        },
+        "remaining_budget": {
+          "actions": 8,
+          "wall_clock_seconds": 900
+        },
+        "semantic_failure_log": "make: *** No rule to make target 'forge_probe_7b92e1'.  Stop.\n",
+        "state_id": "s-79362feaf13d94eebfae"
+      },
+      "state_id": "s-79362feaf13d94eebfae"
+    },
+    {
+      "model_input": {
+        "build_system": "cmake",
+        "candidate_action_families": [
+          "dependency",
+          "configure",
+          "build",
+          "escalate_agent"
+        ],
+        "phase_facts": {
+          "artifacts_staged": false,
+          "build_attempted": true,
+          "build_succeeded": false,
+          "configured": true,
+          "functional_oracle_passed": false,
+          "source_available": true,
+          "strict_verifier_passed": false
+        },
+        "remaining_budget": {
+          "actions": 8,
+          "wall_clock_seconds": 900
+        },
+        "semantic_failure_log": "[ 50%] Building CXX object CMakeFiles/gitlike.dir/examples/gitlike.cxx.o\n/workspace/repo/examples/gitlike.cxx:8:10: fatal error: args.hxx: No such file or directory\n    8 | #include \"args.hxx\"\n      |          ^~~~~~~~~~\ncompilation terminated.\ngmake[3]: *** [CMakeFiles/gitlike.dir/build.make:76: CMakeFiles/gitlike.dir/examples/gitlike.cxx.o] Error 1\ngmake[2]: *** [CMakeFiles/Makefile2:85: CMakeFiles/gitlike.dir/all] Error 2\ngmake[1]: *** [CMakeFiles/Makefile2:92: CMakeFiles/gitlike.dir/rule] Error 2\ngmake: *** [Makefile:189: gitlike] Error 2\n",
+        "state_id": "s-7fc6d755cdf374a4b79e"
+      },
+      "state_id": "s-7fc6d755cdf374a4b79e"
+    },
+    {
+      "model_input": {
+        "build_system": "cmake",
+        "candidate_action_families": [
+          "dependency",
+          "configure",
+          "build",
+          "escalate_agent"
+        ],
+        "phase_facts": {
+          "artifacts_staged": false,
+          "build_attempted": true,
+          "build_succeeded": false,
+          "configured": true,
+          "functional_oracle_passed": false,
+          "source_available": true,
+          "strict_verifier_passed": false
+        },
+        "remaining_budget": {
+          "actions": 8,
+          "wall_clock_seconds": 900
+        },
+        "semantic_failure_log": "Makefile:1: *** missing separator.  Stop.\n",
+        "state_id": "s-91f45981ca5f02feeb1c"
+      },
+      "state_id": "s-91f45981ca5f02feeb1c"
+    },
+    {
+      "model_input": {
+        "build_system": "autotools",
+        "candidate_action_families": [
+          "dependency",
+          "configure",
+          "build",
+          "escalate_agent"
+        ],
+        "phase_facts": {
+          "artifacts_staged": false,
+          "build_attempted": true,
+          "build_succeeded": false,
+          "configured": true,
+          "functional_oracle_passed": false,
+          "source_available": true,
+          "strict_verifier_passed": false
+        },
+        "remaining_budget": {
+          "actions": 8,
+          "wall_clock_seconds": 900
+        },
+        "semantic_failure_log": "make: *** No rule to make target 'forge_probe_7b92e1'.  Stop.\n",
+        "state_id": "s-929f23cdc35c78036248"
+      },
+      "state_id": "s-929f23cdc35c78036248"
+    },
+    {
+      "model_input": {
+        "build_system": "autotools",
+        "candidate_action_families": [
+          "dependency",
+          "configure",
+          "build",
+          "escalate_agent"
+        ],
+        "phase_facts": {
+          "artifacts_staged": false,
+          "build_attempted": true,
+          "build_succeeded": false,
+          "configured": true,
+          "functional_oracle_passed": false,
+          "source_available": true,
+          "strict_verifier_passed": false
+        },
+        "remaining_budget": {
+          "actions": 8,
+          "wall_clock_seconds": 900
+        },
+        "semantic_failure_log": "make: *** No rule to make target 'libnuma.c', needed by 'libnuma.lo'.  Stop.\n",
+        "state_id": "s-9367b10556f281130338"
+      },
+      "state_id": "s-9367b10556f281130338"
+    },
+    {
+      "model_input": {
+        "build_system": "make",
+        "candidate_action_families": [
+          "dependency",
+          "configure",
+          "build",
+          "escalate_agent"
+        ],
+        "phase_facts": {
+          "artifacts_staged": false,
+          "build_attempted": true,
+          "build_succeeded": false,
+          "configured": true,
+          "functional_oracle_passed": false,
+          "source_available": true,
+          "strict_verifier_passed": false
+        },
+        "remaining_budget": {
+          "actions": 8,
+          "wall_clock_seconds": 900
+        },
+        "semantic_failure_log": "gcc-13 -std=c99 -c -O3 -fPIC   -Wall -Wextra -Werror -Wstrict-prototypes -Wwrite-strings -Wno-missing-field-initializers -g -ggdb  -pedantic alloc.c\ngcc-13 -std=c99 -c -O3 -fPIC   -Wall -Wextra -Werror -Wstrict-prototypes -Wwrite-strings -Wno-missing-field-initializers -g -ggdb  -pedantic net.c\nmake: *** No rule to make target 'hiredis.c', needed by 'hiredis.o'.  Stop.\nmake: *** Waiting for unfinished jobs....\n",
+        "state_id": "s-b494d9209391bfc45581"
+      },
+      "state_id": "s-b494d9209391bfc45581"
+    },
+    {
+      "model_input": {
+        "build_system": "autotools",
+        "candidate_action_families": [
+          "dependency",
+          "configure",
+          "build",
+          "escalate_agent"
+        ],
+        "phase_facts": {
+          "artifacts_staged": false,
+          "build_attempted": true,
+          "build_succeeded": false,
+          "configured": true,
+          "functional_oracle_passed": false,
+          "source_available": true,
+          "strict_verifier_passed": false
+        },
+        "remaining_budget": {
+          "actions": 8,
+          "wall_clock_seconds": 900
+        },
+        "semantic_failure_log": "Makefile:1: *** missing separator.  Stop.\n",
+        "state_id": "s-be1455dc44d3cedc53ff"
+      },
+      "state_id": "s-be1455dc44d3cedc53ff"
+    },
+    {
+      "model_input": {
+        "build_system": "make",
+        "candidate_action_families": [
+          "dependency",
+          "configure",
+          "build",
+          "escalate_agent"
+        ],
+        "phase_facts": {
+          "artifacts_staged": false,
+          "build_attempted": true,
+          "build_succeeded": false,
+          "configured": true,
+          "functional_oracle_passed": false,
+          "source_available": true,
+          "strict_verifier_passed": false
+        },
+        "remaining_budget": {
+          "actions": 8,
+          "wall_clock_seconds": 900
+        },
+        "semantic_failure_log": "Makefile:1: *** missing separator.  Stop.\n",
+        "state_id": "s-cbeadc0e7593e1792d01"
+      },
+      "state_id": "s-cbeadc0e7593e1792d01"
+    },
+    {
+      "model_input": {
+        "build_system": "autotools",
+        "candidate_action_families": [
+          "dependency",
+          "configure",
+          "build",
+          "escalate_agent"
+        ],
+        "phase_facts": {
+          "artifacts_staged": false,
+          "build_attempted": true,
+          "build_succeeded": false,
+          "configured": true,
+          "functional_oracle_passed": false,
+          "source_available": true,
+          "strict_verifier_passed": false
+        },
+        "remaining_budget": {
+          "actions": 8,
+          "wall_clock_seconds": 900
+        },
+        "semantic_failure_log": "Makefile:1: *** missing separator.  Stop.\n",
+        "state_id": "s-defeb87ae1e0c9d3db71"
+      },
+      "state_id": "s-defeb87ae1e0c9d3db71"
+    },
+    {
+      "model_input": {
+        "build_system": "cmake",
+        "candidate_action_families": [
+          "dependency",
+          "configure",
+          "build",
+          "escalate_agent"
+        ],
+        "phase_facts": {
+          "artifacts_staged": false,
+          "build_attempted": true,
+          "build_succeeded": false,
+          "configured": true,
+          "functional_oracle_passed": false,
+          "source_available": true,
+          "strict_verifier_passed": false
+        },
+        "remaining_budget": {
+          "actions": 8,
+          "wall_clock_seconds": 900
+        },
+        "semantic_failure_log": "gmake[3]: *** No rule to make target '/workspace/repo/src/yyjson.c', needed by 'CMakeFiles/yyjson.dir/src/yyjson.c.o'.  Stop.\ngmake[2]: *** [CMakeFiles/Makefile2:83: CMakeFiles/yyjson.dir/all] Error 2\ngmake[1]: *** [CMakeFiles/Makefile2:90: CMakeFiles/yyjson.dir/rule] Error 2\ngmake: *** [Makefile:169: yyjson] Error 2\n",
+        "state_id": "s-fdee3a9654716799080d"
+      },
+      "state_id": "s-fdee3a9654716799080d"
+    }
+  ]
+}
