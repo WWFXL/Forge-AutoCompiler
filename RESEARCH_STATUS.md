@@ -4,13 +4,14 @@
 
 ## 当前阶段
 
-- 状态：Issue #381 的三候选创新机制审计已在本地完成。旧“合同反馈驱动修复”不再作为毕业论文主线，mechanism v2 永久停止；新主线尚未冻结。
-- 当前工作类型：结果分析、文献研究与研究设计。本阶段没有产生新的实验 observation、调用 Provider 或形成新方法效果证据。
-- 优先候选：面向严格可验证自动化编译的**跨构建系统可验证进展状态**。核心先回答由执行证据形成的偏序构建义务能否确定性区分推进、横向变化、停滞和回退，并比轮次、预算、阶段和错误类别提供额外信息；通过后才研究预算动作。
+- 状态：研究负责人已冻结跨构建系统可验证进展状态问题，Issue #382 进入阶段 0 离线资格审计。旧“合同反馈驱动修复”不再作为毕业论文主线，mechanism v2 永久停止。
+- 当前工作类型：基础设施与结果分析。阶段 0 先移除“状态能否可靠重建、是否具有独立信息”这一研究阻塞；不实现 controller，不估计方法效果。
+- 当前主线问题：由执行证据形成的偏序构建义务能否确定性区分推进、横向变化、停滞和回退，并在未见项目族与未来时间段中比轮次、预算、阶段和错误类别提供额外信息；通过后才研究预算动作。
 - 合同定位：任务合同、CandidateVerifier、external evaluator 和 clean replay 继续作为统一裁判与支撑性基础设施，不再把 C0/T1/T2 feedback projection 作为主要创新。
-- 当前研究问题候选：能否构造跨 CMake、Make、Autotools 的进展状态，使其在未见项目族和未来时间段中比轮次、token、阶段和错误类别等简单特征更能解释短期状态转移，并为后续预算动作实验提供足够的增量信息？
+- 冻结研究问题：能否构造跨 CMake、Make、Autotools 的进展状态，使其在未见项目族和未来时间段中比轮次、token、阶段和错误类别等简单特征更能解释短期状态转移，并为后续预算动作实验提供足够的增量信息？
 - 当前方向文档：`docs/research/2026-10-06-automated-compilation-innovation-landscape.md`。
 - 三候选机制审计：`docs/research/2026-10-09-three-candidate-mechanism-audit.md`。
+- 阶段 0 预注册：`benchmarks/preregistrations/cpp-cross-build-progress-state-qualification-v1.md`。
 - 历史方向与审计：`docs/research/2026-09-29-automated-compilation-thesis-direction.md`、`docs/research/2026-09-29-contract-driven-repair-design-audit.md`。
 
 ## 文献定位
@@ -47,9 +48,10 @@ domain-specific tools 和跨仓库经验迁移都已有直接先例。本次检�
 - 保留合同作为严格裁判，不再把合同 feedback exposure 当作主要修复机制。
 - 不修复 `lz4` checkpoint，不继续 mechanism v2 剩余 24 arms，不建立 replacement identity。
 - 旧 C0/T1/T2 evidence 永久只读，可作为探索性负结果和研究转向依据，不能解释为 treatment effect。
-- 三候选机制审计已完成：进展状态有条件通过；typed action 只作为支撑动作层；跨仓库经验迁移当前延后。尚未授权进入实现或实验。
+- 三候选机制审计已完成：进展状态有条件通过；typed action 只作为支撑动作层；跨仓库经验迁移当前延后。
+- 研究负责人已冻结进展状态问题并授权 Issue #382 的零 Provider 基础设施与结果分析，直至阶段 0 完成。
 - 项目族与时间隔离属于所有候选的评测纪律，不单独构成经验迁移的新机制。
-- 若进展状态方向通过审计，首个比较候选为固定 Flow `F0` 与进展感知预算控制 `A1`。模型路由、typed tools、checkpoint 分支和早停只作为候选动作，不能各自提前表述为创新。
+- 只有阶段 0 通过预注册的状态重建和增量信息门槛，才可另行设计固定 Flow `F0` 与进展感知预算控制 `A1`。模型路由、typed tools、checkpoint 分支和早停只作为候选动作，不能各自提前表述为创新。
 - 新实验必须重新冻结有限预算向量、开发/测试项目隔离、严格成功、删失效率指标、最小有意义效应和分析顺序；旧 identity 的“无 token ceiling”不沿用为成本研究设计。
 
 ## 解释边界
@@ -78,6 +80,7 @@ domain-specific tools 和跨仓库经验迁移都已有直接先例。本次检�
 - 编写、审阅和发布 Issue #381 的版本化研究综述与状态交接；
 - 对进展状态、typed action abstraction 和跨仓库经验迁移做文献与机制比较；
 - 在研究负责人冻结进展状态问题后，为零 Provider 状态资格审计建立独立 tracking Issue；只有资格审计通过后才设计 F0/A1。
+- 在 Issue #382 冻结只读输入、实现状态 extractor、执行人工重建门禁和 family-held-out/time-forward 离线比较。
 
 禁止：
 
@@ -96,9 +99,9 @@ domain-specific tools 和跨仓库经验迁移都已有直接先例。本次检�
 - 2026-10-06 已按 `search_notes -> read_note` 核对个人知识库论文索引、CXXCrafter 和 CompileAgent 解读；本轮不修改知识库。
 - 2026-10-07 已按 `search_notes -> read_note` 核对个人知识库笔记“Forge 毕业论文方向与契约驱动修复设计”；本轮不修改知识库。
 - 2026-10-09 已按 `search_notes -> read_note` 核对个人知识库“2025-2026 自动化编译论文索引”和旧方向设计原文；本轮不修改知识库。
+- Issue #382：`https://github.com/WWFXL/Forge-AutoCompiler/issues/382`。
 
 ## 下一项工作
 
-下一项由研究负责人决定：是否把“跨构建系统可验证进展状态及其相对简单特征的增量价值”冻结为下一阶段唯一候选。
-若批准，先新开 tracking Issue，冻结状态义务、证据/失效规则、family/time 切分、简单基线、最小有意义效应和放弃条件，
-再做零 Provider 离线资格审计。当前不实现 controller，不创建新 formal identity。
+按 Issue #382 和阶段 0 预注册完成只读输入清单、状态 extractor、人工重建门禁与隔离比较，并依据冻结门槛决定
+进入后续预算动作实验设计或停止当前状态机制。当前不实现 controller，不创建新 formal identity。

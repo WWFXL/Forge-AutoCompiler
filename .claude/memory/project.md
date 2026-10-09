@@ -6,6 +6,13 @@
 
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
+- 2026-10-09 — 启动 Issue #382 跨构建系统进展状态离线资格审计
+  - 工作类型: 基础设施与结果分析；研究负责人已冻结问题并授权阶段 0 直至完成。零 Provider、零 credential read、零 formal attempt，旧 identity/evidence 只读。
+  - 冻结设计: 开发集固定为 2026-09-25 Phase 5 v3 的 6 个项目族，隔离测试集固定为 2026-09-26 Stage C v5 baseline 的 12 个未见项目族/24 条重复轨迹；其他 session、reevaluation、remediation、clone 和 mechanism 轨迹排除。
+  - 门槛: 输入哈希闭合、人工状态重建一致性、四类转移覆盖、相对 simple combined baseline 的项目族宏平均 log loss 至少改善 0.05 nat 且 bootstrap 95% 上界小于 0，并满足 Brier 与跨系统非劣化约束。
+  - 边界: extractor 只读 session 命令元数据、命令日志和 model request token 事件；禁止读取命令正文、candidate/evaluator/verification/replay/arm outcome 或隐藏答案。
+  - 文件: `benchmarks/preregistrations/cpp-cross-build-progress-state-qualification-v1.md`, `RESEARCH_STATUS.md`, `.claude/memory/project.md`
+
 - 2026-10-09 — 完成 Issue #381 三候选创新机制审计并收紧下一研究决策
   - 工作类型: 结果分析、文献研究与研究设计；0 Provider、0 credential read、0 formal identity、0 formal attempt、0 formal evidence write，所有冻结 evidence 保持只读。
   - 文献增量: 在原创新版图上补充核对 EnConda-Bench、SWE-Replay、EET、FailFast、run-level failure prediction、GradleFixer、ALIGN、ToolRosella、XRepoSkill、SetupX、BootstrapAgent、SWE-Skills-Bench、VibeMemBench 等 2024–2026 工作。个人知识库按 `search_notes -> read_note` 读取“2025-2026 自动化编译论文索引”和“Forge 毕业论文方向与契约驱动修复设计”，未修改知识库。
