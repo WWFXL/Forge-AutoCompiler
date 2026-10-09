@@ -1,0 +1,1268 @@
+{
+  "amendments": [
+    {
+      "amendment": 1,
+      "reason": "libuv oracle compile contract hid pthread declarations under strict c11",
+      "reuse_partial_outcomes": false,
+      "sole_change": "libuv oracle compile flag -std=c11 -> -std=gnu11"
+    }
+  ],
+  "document_type": "forge_typed_action_source_pool",
+  "identity": "cpp-typed-action-benchmark-qualification-v1",
+  "quotas": {
+    "build_system": {
+      "autotools": 8,
+      "cmake": 8,
+      "make": 8
+    },
+    "project_count": 24,
+    "split": {
+      "calibration": 6,
+      "design": 6,
+      "evaluation": 12
+    }
+  },
+  "schema_version": "forge-typed-action-source-pool-1.0.1",
+  "selection_frozen_at": "2026-10-09T18:30:00+08:00",
+  "selection_notes": {
+    "catalog_unavailable": "seclab-fudan/CXXCrafter-Community-Edition@bac70e99e48b210a350c18b3f93efd839787ce37 was unavailable during selection",
+    "excluded_candidates": [
+      {
+        "commit_sha": "bc553867367246d140cd156f060bd0409f57f157",
+        "outcome_observed_before_replacement": false,
+        "reason": "fixed image autoreconf failed because LT_SYS_SYMBOL_USCORE was undefined",
+        "replacement_task_id": "libuv",
+        "repository_url": "https://github.com/libffi/libffi.git",
+        "task_id": "libffi"
+      }
+    ],
+    "existing_qualified_source_pool": "benchmarks/fixtures/stage-c-source-pool.json",
+    "historical_results_imported": false,
+    "replacement_after_benchmark_outcome": false
+  },
+  "tasks": [
+    {
+      "artifact_stage_commands": [
+        "mkdir -p /artifacts/bin && cp src/stockfish /artifacts/bin/stockfish"
+      ],
+      "build_commands": [
+        "make -C src -j4 build ARCH=x86-64"
+      ],
+      "commit_committed_at": "2020-01-18T01:44:37+01:00",
+      "commit_sha": "c3483fa9a7d7c0ffa9fcc32b467ca844cfb63790",
+      "configure_commands": [],
+      "license_path": "Copying.txt",
+      "license_sha256": "0b383d5a63da644f628d99c33976ea6487ed89aaa59f0b3257992deac1171e6b",
+      "oracle": {
+        "argv": [
+          "sh",
+          "-c",
+          "printf 'uci\\nquit\\n' | /artifacts/bin/stockfish | grep -F 'uciok'"
+        ],
+        "kind": "command",
+        "workdir": "/workspace"
+      },
+      "project_family": "github.com/official-stockfish/stockfish",
+      "repository_url": "https://github.com/official-stockfish/Stockfish.git",
+      "selected_build_system": "make",
+      "source_snapshot_sha256": "3c9cc5a72ea366e39a5312bc8f5d157c5071186c659b5136122f8fd28fd9662f",
+      "split": "design",
+      "submodule_commits": {},
+      "target": {
+        "artifact_types": [
+          "executable"
+        ],
+        "bitwise_required": false,
+        "required_artifacts": [
+          "bin/stockfish"
+        ]
+      },
+      "task_id": "stockfish-11",
+      "tracked_file_count": 48
+    },
+    {
+      "artifact_stage_commands": [
+        "cmake --install build"
+      ],
+      "build_commands": [
+        "cmake --build build --parallel 4"
+      ],
+      "commit_committed_at": "2023-07-05T18:55:18-07:00",
+      "commit_sha": "49a1f78b50eb0f5a49d096786a95a93874a2592a",
+      "configure_commands": [
+        "cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DBUILD_DYNAMIC_LIBS=OFF -DBUILD_STATIC_LIBS=ON -DBUILD_EXAMPLE_PROGRAMS=OFF -DBUILD_TESTS=OFF -DENABLE_JACK=OFF -DENABLE_PULSEAUDIO=OFF -DENABLE_ALSA=OFF -DCMAKE_INSTALL_PREFIX=/artifacts -DCMAKE_INSTALL_LIBDIR=lib"
+      ],
+      "license_path": "LICENSE",
+      "license_sha256": "12043f8e6dfb42e979158fbecbbeeb0cf70d2721ea2864f627379331b95c58e6",
+      "oracle": {
+        "compile_argv": [
+          "cc",
+          "-std=c11",
+          "-I/artifacts/include",
+          "{source}",
+          "/artifacts/lib/libsoundio.a",
+          "-pthread",
+          "-lm",
+          "-o",
+          "{executable}"
+        ],
+        "kind": "compile_and_run",
+        "language": "c11",
+        "run_argv": [
+          "{executable}"
+        ],
+        "source": "#include <soundio/soundio.h>\nint main(void){ struct SoundIo *s=soundio_create(); if(!s) return 1; soundio_destroy(s); return 0; }\n"
+      },
+      "project_family": "github.com/andrewrk/libsoundio",
+      "repository_url": "https://github.com/andrewrk/libsoundio.git",
+      "selected_build_system": "cmake",
+      "source_snapshot_sha256": "41bb3c4fb57661b7f2715c152f0b3983f6027741e4f4847987ef8b7b2cb99bea",
+      "split": "design",
+      "submodule_commits": {},
+      "target": {
+        "artifact_types": [
+          "support_file",
+          "static_library"
+        ],
+        "bitwise_required": true,
+        "required_artifacts": [
+          "include/soundio/soundio.h",
+          "lib/libsoundio.a"
+        ]
+      },
+      "task_id": "libsoundio",
+      "tracked_file_count": 49
+    },
+    {
+      "artifact_stage_commands": [
+        "make install"
+      ],
+      "build_commands": [
+        "make -j4"
+      ],
+      "commit_committed_at": "2024-03-22T17:44:13-04:00",
+      "commit_sha": "6cbfd53eb348a8d394e0757b4025c6ded34eb2b6",
+      "configure_commands": [
+        "./autogen.sh",
+        "./configure --prefix=/artifacts --disable-examples"
+      ],
+      "license_path": "COPYING",
+      "license_sha256": "e2f59ff41d9d03adc3dcf3deff170f8c8cf4a6eb4a9b174762a7656d23200ffa",
+      "oracle": {
+        "compile_argv": [
+          "cc",
+          "-std=c11",
+          "-I/artifacts/include",
+          "{source}",
+          "/artifacts/lib/librnnoise.a",
+          "-lm",
+          "-o",
+          "{executable}"
+        ],
+        "kind": "compile_and_run",
+        "language": "c11",
+        "run_argv": [
+          "{executable}"
+        ],
+        "source": "#include <rnnoise.h>\nint main(void){ DenoiseState *s=rnnoise_create(0); if(!s) return 1; rnnoise_destroy(s); return 0; }\n"
+      },
+      "project_family": "github.com/xiph/rnnoise",
+      "repository_url": "https://github.com/xiph/rnnoise.git",
+      "selected_build_system": "autotools",
+      "source_snapshot_sha256": "6b0c652469053da4311d5e6870cf47d3bd08190cc2a4b05142fe39d6a4b37a3f",
+      "split": "design",
+      "submodule_commits": {},
+      "target": {
+        "artifact_types": [
+          "support_file",
+          "static_library"
+        ],
+        "bitwise_required": true,
+        "required_artifacts": [
+          "include/rnnoise.h",
+          "lib/librnnoise.a"
+        ]
+      },
+      "task_id": "rnnoise-0.1.1",
+      "tracked_file_count": 36
+    },
+    {
+      "artifact_stage_commands": [
+        "cmake --install build"
+      ],
+      "build_commands": [
+        "cmake --build build --parallel 4"
+      ],
+      "commit_committed_at": "2026-03-10T21:06:29-07:00",
+      "commit_sha": "7ee830d02b623e8ffe0b95d59a74db1e58da04c5",
+      "configure_commands": [
+        "cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DLEVELDB_BUILD_TESTS=OFF -DLEVELDB_BUILD_BENCHMARKS=OFF -DLEVELDB_INSTALL=ON -DCMAKE_INSTALL_PREFIX=/artifacts -DCMAKE_INSTALL_LIBDIR=lib"
+      ],
+      "license_path": "LICENSE",
+      "license_sha256": "ccc19f1da0798ed666609b65a5b44dd8b3abe6fc08b9c0592eb76e82e174db19",
+      "oracle": {
+        "compile_argv": [
+          "c++",
+          "-std=c++17",
+          "-I/artifacts/include",
+          "{source}",
+          "/artifacts/lib/libleveldb.a",
+          "-pthread",
+          "-o",
+          "{executable}"
+        ],
+        "kind": "compile_and_run",
+        "language": "c++17",
+        "run_argv": [
+          "{executable}"
+        ],
+        "source": "#include <leveldb/db.h>\n#include <string>\nint main(){ leveldb::DB* db=nullptr; leveldb::Options o; o.create_if_missing=true; auto s=leveldb::DB::Open(o,\"/tmp/forge-leveldb-oracle\",&db); if(!s.ok()) return 1; s=db->Put(leveldb::WriteOptions(),\"k\",\"v\"); std::string v; if(s.ok()) s=db->Get(leveldb::ReadOptions(),\"k\",&v); delete db; return s.ok() && v==\"v\" ? 0 : 2; }\n"
+      },
+      "project_family": "github.com/google/leveldb",
+      "repository_url": "https://github.com/google/leveldb.git",
+      "selected_build_system": "cmake",
+      "source_snapshot_sha256": "ec08de9cdd5fa574a2c0ccd6e901d4acca47bb29f740c171e1404fc08c551ba1",
+      "split": "design",
+      "submodule_commits": {
+        "third_party/benchmark": "1a54956777ba672764db09a51960056ea042af7e",
+        "third_party/googletest": "a35bc7693c117a048152beeb34f6aac354b9423f"
+      },
+      "target": {
+        "artifact_types": [
+          "support_file",
+          "static_library"
+        ],
+        "bitwise_required": true,
+        "required_artifacts": [
+          "include/leveldb/db.h",
+          "lib/libleveldb.a"
+        ]
+      },
+      "task_id": "leveldb",
+      "tracked_file_count": 154
+    },
+    {
+      "artifact_stage_commands": [
+        "make PREFIX=/artifacts install"
+      ],
+      "build_commands": [
+        "make -j4"
+      ],
+      "commit_committed_at": "2026-06-01T15:21:37-07:00",
+      "commit_sha": "0774d05537f9762f838f7ab541b7765f1a729cb5",
+      "configure_commands": [],
+      "license_path": "LICENSE",
+      "license_sha256": "4bc9c403f6b679cc076dee210e0e21c27b4e8f6d3fb43d85364c76657bfaaac5",
+      "oracle": {
+        "argv": [
+          "sh",
+          "-c",
+          "printf 'forge-stage-c-lz4\\n' > /tmp/forge-lz4-input && /artifacts/bin/lz4 -f /tmp/forge-lz4-input /tmp/forge-lz4-input.lz4 >/dev/null && /artifacts/bin/lz4 -d -f /tmp/forge-lz4-input.lz4 /tmp/forge-lz4-output >/dev/null && cmp /tmp/forge-lz4-input /tmp/forge-lz4-output"
+        ],
+        "kind": "command",
+        "workdir": "/workspace"
+      },
+      "project_family": "github.com/lz4/lz4",
+      "repository_url": "https://github.com/lz4/lz4.git",
+      "selected_build_system": "make",
+      "source_snapshot_sha256": "bab835b7c1c9e4dbfb3f5718a73545723dcc4f54e9cd8dcb5c1f73bab57de77d",
+      "split": "design",
+      "submodule_commits": {},
+      "target": {
+        "artifact_types": [
+          "executable",
+          "support_file",
+          "static_library"
+        ],
+        "bitwise_required": true,
+        "required_artifacts": [
+          "bin/lz4",
+          "include/lz4.h",
+          "lib/liblz4.a"
+        ]
+      },
+      "task_id": "lz4",
+      "tracked_file_count": 209
+    },
+    {
+      "artifact_stage_commands": [
+        "make install"
+      ],
+      "build_commands": [
+        "make -j4"
+      ],
+      "commit_committed_at": "2026-07-09T20:43:34+03:00",
+      "commit_sha": "851a2145e3256f2e67e5dfe24b0e456bf198b741",
+      "configure_commands": [
+        "autoreconf -fi",
+        "./configure --prefix=/artifacts --disable-shared"
+      ],
+      "license_path": "LICENSE",
+      "license_sha256": "150d90904cd8de73609bb177b42edd3867b07b4b7b786dbba319f30de39fcda2",
+      "oracle": {
+        "compile_argv": [
+          "cc",
+          "-std=c11",
+          "-I/artifacts/include",
+          "{source}",
+          "/artifacts/lib/libjansson.a",
+          "-o",
+          "{executable}"
+        ],
+        "kind": "compile_and_run",
+        "language": "c11",
+        "run_argv": [
+          "{executable}"
+        ],
+        "source": "#include <jansson.h>\nint main(void){ json_t *v=json_integer(7); if(!v) return 1; json_decref(v); return 0; }\n"
+      },
+      "project_family": "github.com/akheron/jansson",
+      "repository_url": "https://github.com/akheron/jansson.git",
+      "selected_build_system": "autotools",
+      "source_snapshot_sha256": "a2ea0993f0afd2fc9d28186ee0a0e8884a29ed0aaa63b11b10d3f002061a2e7b",
+      "split": "design",
+      "submodule_commits": {},
+      "target": {
+        "artifact_types": [
+          "support_file",
+          "static_library"
+        ],
+        "bitwise_required": true,
+        "required_artifacts": [
+          "include/jansson.h",
+          "lib/libjansson.a"
+        ]
+      },
+      "task_id": "jansson",
+      "tracked_file_count": 369
+    },
+    {
+      "artifact_stage_commands": [
+        "mkdir -p /artifacts/bin && cp 8cc /artifacts/bin/8cc"
+      ],
+      "build_commands": [
+        "make -j4 8cc"
+      ],
+      "commit_committed_at": "2020-10-13T11:02:56+09:00",
+      "commit_sha": "b480958396f159d3794f0d4883172b21438a8597",
+      "configure_commands": [],
+      "license_path": "LICENSE",
+      "license_sha256": "58275bfb98f6f88347ee25dafaa3cc10831de4be310abbe0054fec67fcb22e97",
+      "oracle": {
+        "argv": [
+          "sh",
+          "-c",
+          "printf 'int main(void){return 0;}\\n' > /tmp/forge-8cc-oracle.c && /artifacts/bin/8cc -c -o /tmp/forge-8cc-oracle.o /tmp/forge-8cc-oracle.c && cc /tmp/forge-8cc-oracle.o -o /tmp/forge-8cc-oracle && /tmp/forge-8cc-oracle"
+        ],
+        "kind": "command",
+        "workdir": "/workspace"
+      },
+      "project_family": "github.com/rui314/8cc",
+      "repository_url": "https://github.com/rui314/8cc.git",
+      "selected_build_system": "make",
+      "source_snapshot_sha256": "5eac43b53d767fa8c69466a229f96034926583c1f5e28e72ed4d3d6b18d6f99c",
+      "split": "calibration",
+      "submodule_commits": {},
+      "target": {
+        "artifact_types": [
+          "executable"
+        ],
+        "bitwise_required": false,
+        "required_artifacts": [
+          "bin/8cc"
+        ]
+      },
+      "task_id": "8cc",
+      "tracked_file_count": 88
+    },
+    {
+      "artifact_stage_commands": [
+        "cmake --install build"
+      ],
+      "build_commands": [
+        "cmake --build build --parallel 4"
+      ],
+      "commit_committed_at": "2025-11-12T08:19:27+02:00",
+      "commit_sha": "f83d648fd82dc222ef88aabbafb68efbd7d7bf50",
+      "configure_commands": [
+        "cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DOATPP_BUILD_TESTS=OFF -DOATPP_LINK_TEST_LIBRARY=OFF -DCMAKE_INSTALL_PREFIX=/artifacts -DCMAKE_INSTALL_LIBDIR=lib"
+      ],
+      "license_path": "LICENSE",
+      "license_sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+      "oracle": {
+        "compile_argv": [
+          "c++",
+          "-std=c++17",
+          "-I/artifacts/include/oatpp-1.4.0/oatpp",
+          "{source}",
+          "/artifacts/lib/oatpp-1.4.0/liboatpp.a",
+          "-pthread",
+          "-latomic",
+          "-o",
+          "{executable}"
+        ],
+        "kind": "compile_and_run",
+        "language": "c++17",
+        "run_argv": [
+          "{executable}"
+        ],
+        "source": "#include <oatpp/Environment.hpp>\nint main(){ oatpp::Environment::init(); oatpp::Environment::destroy(); return 0; }\n"
+      },
+      "project_family": "github.com/oatpp/oatpp",
+      "repository_url": "https://github.com/oatpp/oatpp.git",
+      "selected_build_system": "cmake",
+      "source_snapshot_sha256": "b921579d93578104353d112696491f32836be9d987c1c77bb4735b668fbcfbe3",
+      "split": "calibration",
+      "submodule_commits": {},
+      "target": {
+        "artifact_types": [
+          "support_file",
+          "static_library"
+        ],
+        "bitwise_required": true,
+        "required_artifacts": [
+          "include/oatpp-1.4.0/oatpp/oatpp/Environment.hpp",
+          "lib/oatpp-1.4.0/liboatpp.a"
+        ]
+      },
+      "task_id": "oatpp",
+      "tracked_file_count": 467
+    },
+    {
+      "artifact_stage_commands": [
+        "make install"
+      ],
+      "build_commands": [
+        "make -j4"
+      ],
+      "commit_committed_at": "2026-03-02T05:10:35-08:00",
+      "commit_sha": "06a5e0262cdc28aa4ae6797627a783b5010440f0",
+      "configure_commands": [
+        "./autogen.sh",
+        "./configure --prefix=/artifacts --disable-shared"
+      ],
+      "license_path": "COPYING",
+      "license_sha256": "d2ab5758336489da61c12cc5bb757da5339c4ae9001f9bb0562b4370249af814",
+      "oracle": {
+        "compile_argv": [
+          "cc",
+          "-std=c11",
+          "-I/artifacts/include",
+          "{source}",
+          "/artifacts/lib/libogg.a",
+          "-o",
+          "{executable}"
+        ],
+        "kind": "compile_and_run",
+        "language": "c11",
+        "run_argv": [
+          "{executable}"
+        ],
+        "source": "#include <ogg/ogg.h>\nint main(void){ ogg_sync_state s; if(ogg_sync_init(&s)) return 1; return ogg_sync_clear(&s); }\n"
+      },
+      "project_family": "github.com/xiph/ogg",
+      "repository_url": "https://github.com/xiph/ogg.git",
+      "selected_build_system": "autotools",
+      "source_snapshot_sha256": "ec48ebf0de5430d125dba13cabc36c4141623d345457378a67da184669dbbe16",
+      "split": "calibration",
+      "submodule_commits": {},
+      "target": {
+        "artifact_types": [
+          "support_file",
+          "static_library"
+        ],
+        "bitwise_required": true,
+        "required_artifacts": [
+          "include/ogg/ogg.h",
+          "lib/libogg.a"
+        ]
+      },
+      "task_id": "libogg",
+      "tracked_file_count": 125
+    },
+    {
+      "artifact_stage_commands": [
+        "mkdir -p /artifacts/include /artifacts/lib && cp include/civetweb.h /artifacts/include/civetweb.h && cp libcivetweb.a /artifacts/lib/libcivetweb.a"
+      ],
+      "build_commands": [
+        "make -j4 lib NO_SSL=1 WITH_CPP=0 WITH_WEBSOCKET=0"
+      ],
+      "commit_committed_at": "2026-04-19T17:04:45+02:00",
+      "commit_sha": "588860e30721bf5453b0440c390865a8e85dcae5",
+      "configure_commands": [
+        "patch -p1 --fuzz=0 <<'PATCH'\n--- a/src/civetweb.c\n+++ b/src/civetweb.c\n@@ -19201,15 +19201,14 @@ get_request(struct mg_connection *conn, char *ebuf, size_t ebuf_len, int *err)\n \t\tconn->accept_gzip = 1;\n \t}\n #endif\n-   h_chunk = get_header(conn->request_info.http_headers,\n+\th_chunk = get_header(conn->request_info.http_headers,\n \t                      conn->request_info.num_headers,\n \t                      \"Transfer-Encoding\");\n-   h_len = get_header(conn->request_info.http_headers,\n-\t                            conn->request_info.num_headers,\n-\t                            \"Content-Length\");\n-\tif (h_chunk != NULL)\n-\t    && mg_strcasecmp(cl, \"identity\")) {\n-\t\tif ((0!=mg_strcasecmp(cl, \"chunked\")) || (h_len!=NULL)) {\n+\th_len = get_header(conn->request_info.http_headers,\n+\t                   conn->request_info.num_headers,\n+\t                   \"Content-Length\");\n+\tif ((h_chunk != NULL) && mg_strcasecmp(h_chunk, \"identity\")) {\n+\t\tif ((0 != mg_strcasecmp(h_chunk, \"chunked\")) || (h_len != NULL)) {\n \t\t\tmg_snprintf(conn,\n \t\t\t            NULL, /* No truncation check for ebuf */\n \t\t\t            ebuf,\n@@ -19224,8 +19223,8 @@ get_request(struct mg_connection *conn, char *ebuf, size_t ebuf_len, int *err)\n \t} else if (h_len != NULL) {\n \t\t/* Request has content length set */\n \t\tchar *endptr = NULL;\n-\t\tconn->content_len = strtoll(cl, &endptr, 10);\n-\t\tif ((endptr == cl) || (conn->content_len < 0)) {\n+\t\tconn->content_len = strtoll(h_len, &endptr, 10);\n+\t\tif ((endptr == h_len) || (conn->content_len < 0)) {\n \t\t\tmg_snprintf(conn,\n \t\t\t            NULL, /* No truncation check for ebuf */\n \t\t\t            ebuf,\nPATCH"
+      ],
+      "license_path": "LICENSE.md",
+      "license_sha256": "bf567777c38932fe77d76ffe23529e2f415ae7a5cdf8ed6200a2a0236acc8440",
+      "oracle": {
+        "compile_argv": [
+          "cc",
+          "-std=c11",
+          "-I/artifacts/include",
+          "{source}",
+          "/artifacts/lib/libcivetweb.a",
+          "-pthread",
+          "-ldl",
+          "-o",
+          "{executable}"
+        ],
+        "kind": "compile_and_run",
+        "language": "c11",
+        "run_argv": [
+          "{executable}"
+        ],
+        "source": "#include <civetweb.h>\nint main(void){ const char *v=mg_version(); return v && *v ? 0 : 1; }\n"
+      },
+      "project_family": "github.com/civetweb/civetweb",
+      "repository_url": "https://github.com/civetweb/civetweb.git",
+      "selected_build_system": "make",
+      "source_snapshot_sha256": "7bc15099e2ffc9d8f6b5eac68d98cb3e63f77682b90eef76d944e4fe4edec30f",
+      "split": "calibration",
+      "submodule_commits": {},
+      "target": {
+        "artifact_types": [
+          "support_file",
+          "static_library"
+        ],
+        "bitwise_required": true,
+        "required_artifacts": [
+          "include/civetweb.h",
+          "lib/libcivetweb.a"
+        ]
+      },
+      "task_id": "civetweb",
+      "tracked_file_count": 1425
+    },
+    {
+      "artifact_stage_commands": [
+        "make install"
+      ],
+      "build_commands": [
+        "make -j4"
+      ],
+      "commit_committed_at": "2026-05-11T02:27:30+00:00",
+      "commit_sha": "28fd5ec77f0ad0e07a371cef1047828116f6bd8a",
+      "configure_commands": [
+        "./autogen.sh",
+        "./configure --prefix=/artifacts --disable-examples --disable-vorbistest --disable-doc"
+      ],
+      "license_path": "COPYING",
+      "license_sha256": "8417fad7da775735564e209484a2e011e0fa201e94f01fdbee6e4977e478e6fc",
+      "oracle": {
+        "compile_argv": [
+          "cc",
+          "-std=c11",
+          "-I/artifacts/include",
+          "{source}",
+          "/artifacts/lib/libtheora.a",
+          "-logg",
+          "-lm",
+          "-o",
+          "{executable}"
+        ],
+        "kind": "compile_and_run",
+        "language": "c11",
+        "run_argv": [
+          "{executable}"
+        ],
+        "source": "#include <theora/theora.h>\nint main(void){ theora_info i; theora_info_init(&i); theora_info_clear(&i); return 0; }\n"
+      },
+      "project_family": "github.com/xiph/theora",
+      "repository_url": "https://github.com/xiph/theora.git",
+      "selected_build_system": "autotools",
+      "source_snapshot_sha256": "877a1d6307abea54295959252f48fd39fb44d8f096212720bc46f0ef0692d7e5",
+      "split": "calibration",
+      "submodule_commits": {},
+      "target": {
+        "artifact_types": [
+          "support_file",
+          "static_library"
+        ],
+        "bitwise_required": true,
+        "required_artifacts": [
+          "include/theora/theora.h",
+          "lib/libtheora.a"
+        ]
+      },
+      "task_id": "theora",
+      "tracked_file_count": 274
+    },
+    {
+      "artifact_stage_commands": [
+        "make install"
+      ],
+      "build_commands": [
+        "make -j4"
+      ],
+      "commit_committed_at": "2026-08-21T14:12:42-04:00",
+      "commit_sha": "90a56d4500aa1a1798514c5cb55c3ad4cb095f94",
+      "configure_commands": [
+        "autoreconf -fi",
+        "./configure --prefix=/artifacts --disable-shared"
+      ],
+      "license_path": "License",
+      "license_sha256": "c40112449f254b9753045925248313e9270efa36d226b22d82d4cc6c43c57f29",
+      "oracle": {
+        "compile_argv": [
+          "cc",
+          "-std=c11",
+          "-I/artifacts/include",
+          "{source}",
+          "/artifacts/lib/libyaml.a",
+          "-o",
+          "{executable}"
+        ],
+        "kind": "compile_and_run",
+        "language": "c11",
+        "run_argv": [
+          "{executable}"
+        ],
+        "source": "#include <yaml.h>\nint main(void){ yaml_parser_t p; if(!yaml_parser_initialize(&p)) return 1; yaml_parser_delete(&p); return 0; }\n"
+      },
+      "project_family": "github.com/yaml/libyaml",
+      "repository_url": "https://github.com/yaml/libyaml.git",
+      "selected_build_system": "autotools",
+      "source_snapshot_sha256": "2b37373e4dca9d599e74f3e330d799f91881aabf114a146f505d3bd4d0c4a4ca",
+      "split": "calibration",
+      "submodule_commits": {},
+      "target": {
+        "artifact_types": [
+          "support_file",
+          "static_library"
+        ],
+        "bitwise_required": true,
+        "required_artifacts": [
+          "include/yaml.h",
+          "lib/libyaml.a"
+        ]
+      },
+      "task_id": "libyaml",
+      "tracked_file_count": 70
+    },
+    {
+      "artifact_stage_commands": [
+        "make install"
+      ],
+      "build_commands": [
+        "make -j4"
+      ],
+      "commit_committed_at": "2026-08-29T15:34:26-07:00",
+      "commit_sha": "d82464a277d0f42703702c4dfd9af6af38595a83",
+      "configure_commands": [
+        "./autogen.sh",
+        "./configure --prefix=/artifacts --disable-shared --disable-openssl --disable-libevent-regress"
+      ],
+      "license_path": "LICENSE",
+      "license_sha256": "75092d5ecfeefefacc0f345b6f0172234ca580c279c537de7229597cfbfd71e7",
+      "oracle": {
+        "compile_argv": [
+          "cc",
+          "-std=c11",
+          "-I/artifacts/include",
+          "{source}",
+          "/artifacts/lib/libevent.a",
+          "-pthread",
+          "-o",
+          "{executable}"
+        ],
+        "kind": "compile_and_run",
+        "language": "c11",
+        "run_argv": [
+          "{executable}"
+        ],
+        "source": "#include <event2/event.h>\nint main(void){ struct event_base *b=event_base_new(); if(!b) return 1; event_base_free(b); return 0; }\n"
+      },
+      "project_family": "github.com/libevent/libevent",
+      "repository_url": "https://github.com/libevent/libevent.git",
+      "selected_build_system": "autotools",
+      "source_snapshot_sha256": "b574b21eaac116b5791a167a750898f922ce24677c7f60d2da9fd37c237c5e10",
+      "split": "evaluation",
+      "submodule_commits": {},
+      "target": {
+        "artifact_types": [
+          "support_file",
+          "static_library"
+        ],
+        "bitwise_required": true,
+        "required_artifacts": [
+          "include/event2/event.h",
+          "lib/libevent.a"
+        ]
+      },
+      "task_id": "libevent",
+      "tracked_file_count": 266
+    },
+    {
+      "artifact_stage_commands": [
+        "mkdir -p /artifacts/lib /artifacts/include && cp libtomcrypt.a /artifacts/lib/libtomcrypt.a && cp -a src/headers/. /artifacts/include/"
+      ],
+      "build_commands": [
+        "make -j4 library"
+      ],
+      "commit_committed_at": "2026-09-01T14:17:58+02:00",
+      "commit_sha": "6c6d5104de66f3ca0dfd7b68540ef86869982b07",
+      "configure_commands": [],
+      "license_path": "LICENSE",
+      "license_sha256": "2fa64b163659f41965c9815882a8296d3d03ff546b76153e11445f9bdecf955a",
+      "oracle": {
+        "compile_argv": [
+          "cc",
+          "-std=c11",
+          "-I/artifacts/include",
+          "{source}",
+          "/artifacts/lib/libtomcrypt.a",
+          "-o",
+          "{executable}"
+        ],
+        "kind": "compile_and_run",
+        "language": "c11",
+        "run_argv": [
+          "{executable}"
+        ],
+        "source": "#include <tomcrypt.h>\nint main(void){ return register_hash(&sha256_desc) >= 0 ? 0 : 1; }\n"
+      },
+      "project_family": "github.com/libtom/libtomcrypt",
+      "repository_url": "https://github.com/libtom/libtomcrypt.git",
+      "selected_build_system": "make",
+      "source_snapshot_sha256": "e27383f400dc997bd5674bf66bc06154b51a8653c27ad57297c0986b1f6ea3fc",
+      "split": "evaluation",
+      "submodule_commits": {},
+      "target": {
+        "artifact_types": [
+          "support_file",
+          "static_library"
+        ],
+        "bitwise_required": true,
+        "required_artifacts": [
+          "include/tomcrypt.h",
+          "lib/libtomcrypt.a"
+        ]
+      },
+      "task_id": "libtomcrypt",
+      "tracked_file_count": 1052
+    },
+    {
+      "artifact_stage_commands": [
+        "make install"
+      ],
+      "build_commands": [
+        "make -j4"
+      ],
+      "commit_committed_at": "2026-09-01T19:08:11+10:00",
+      "commit_sha": "b9103bd48b6c8fb517ae737fe3baee0c718b804c",
+      "configure_commands": [
+        "autoreconf -vif",
+        "./configure --prefix=/artifacts --disable-external-libs --disable-full-suite --disable-shared --enable-static"
+      ],
+      "license_path": "COPYING",
+      "license_sha256": "ad01ea5cd2755f6048383c8d54c88459cd6fcb17757c5c8892f8c5ea060f6140",
+      "oracle": {
+        "compile_argv": [
+          "cc",
+          "-std=c11",
+          "-I/artifacts/include",
+          "{source}",
+          "/artifacts/lib/libsndfile.a",
+          "-lm",
+          "-o",
+          "{executable}"
+        ],
+        "kind": "compile_and_run",
+        "language": "c11",
+        "run_argv": [
+          "{executable}"
+        ],
+        "source": "#include <sndfile.h>\nint main(void){ const char *v=sf_version_string(); return v && *v ? 0 : 1; }\n"
+      },
+      "project_family": "github.com/libsndfile/libsndfile",
+      "repository_url": "https://github.com/libsndfile/libsndfile.git",
+      "selected_build_system": "autotools",
+      "source_snapshot_sha256": "cea4a9d086e69d0a204a05f2d200bb6ab60d84d21ee59a381b449a0096a9db00",
+      "split": "evaluation",
+      "submodule_commits": {},
+      "target": {
+        "artifact_types": [
+          "support_file",
+          "static_library"
+        ],
+        "bitwise_required": true,
+        "required_artifacts": [
+          "include/sndfile.h",
+          "lib/libsndfile.a"
+        ]
+      },
+      "task_id": "libsndfile",
+      "tracked_file_count": 362
+    },
+    {
+      "artifact_stage_commands": [
+        "cmake --install build"
+      ],
+      "build_commands": [
+        "cmake --build build --parallel 4"
+      ],
+      "commit_committed_at": "2026-09-16T09:55:35+08:00",
+      "commit_sha": "6d9f2443ab071f86e5d9b43025a40929ec41c46c",
+      "configure_commands": [
+        "cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/artifacts -DENABLE_CJSON_TEST=OFF -DENABLE_CJSON_UTILS=OFF -DBUILD_SHARED_LIBS=OFF"
+      ],
+      "license_path": "LICENSE",
+      "license_sha256": "a36dda207c36db5818729c54e7ad4e8b0c6fba847491ba64f372c1a2037b6d5c",
+      "oracle": {
+        "compile_argv": [
+          "cc",
+          "-std=c11",
+          "-I/artifacts/include",
+          "{source}",
+          "/artifacts/lib/libcjson.a",
+          "-o",
+          "{executable}"
+        ],
+        "kind": "compile_and_run",
+        "language": "c11",
+        "run_argv": [
+          "{executable}"
+        ],
+        "source": "#include <cjson/cJSON.h>\nint main(void){ cJSON *v=cJSON_Parse(\"{\\\"x\\\":1}\"); if(!v) return 1; cJSON_Delete(v); return 0; }\n"
+      },
+      "project_family": "github.com/davegamble/cjson",
+      "repository_url": "https://github.com/DaveGamble/cJSON.git",
+      "selected_build_system": "cmake",
+      "source_snapshot_sha256": "ec38c5916785f16394225fb3f6246e2a15a235a856ecf03800828e1baf0c8031",
+      "split": "evaluation",
+      "submodule_commits": {},
+      "target": {
+        "artifact_types": [
+          "support_file",
+          "static_library"
+        ],
+        "bitwise_required": true,
+        "required_artifacts": [
+          "include/cjson/cJSON.h",
+          "lib/libcjson.a"
+        ]
+      },
+      "task_id": "cjson",
+      "tracked_file_count": 229
+    },
+    {
+      "artifact_stage_commands": [
+        "mkdir -p /artifacts/lib /artifacts/include && cp libxxhash.a /artifacts/lib/libxxhash.a && cp xxhash.h /artifacts/include/xxhash.h"
+      ],
+      "build_commands": [
+        "make -j4 lib"
+      ],
+      "commit_committed_at": "2026-09-19T22:53:15-07:00",
+      "commit_sha": "680bf463fa1ca0461b9a7c2dab7556e1f54cf4cf",
+      "configure_commands": [],
+      "license_path": "LICENSE",
+      "license_sha256": "6ffedbc0f7878612d2b23589f1ff2ab15633e1df7963a5d9fc750ec5500c7e7a",
+      "oracle": {
+        "compile_argv": [
+          "cc",
+          "-std=c11",
+          "-I/artifacts/include",
+          "{source}",
+          "/artifacts/lib/libxxhash.a",
+          "-o",
+          "{executable}"
+        ],
+        "kind": "compile_and_run",
+        "language": "c11",
+        "run_argv": [
+          "{executable}"
+        ],
+        "source": "#include <xxhash.h>\nint main(void){ return XXH64(\"forge\",5,0) ? 0 : 1; }\n"
+      },
+      "project_family": "github.com/cyan4973/xxhash",
+      "repository_url": "https://github.com/Cyan4973/xxHash.git",
+      "selected_build_system": "make",
+      "source_snapshot_sha256": "dc406b7d480d7708d1bf77bf1c1e7f898d1a5da06f438aa343dae5946c5b17d3",
+      "split": "evaluation",
+      "submodule_commits": {},
+      "target": {
+        "artifact_types": [
+          "support_file",
+          "static_library"
+        ],
+        "bitwise_required": true,
+        "required_artifacts": [
+          "include/xxhash.h",
+          "lib/libxxhash.a"
+        ]
+      },
+      "task_id": "xxhash",
+      "tracked_file_count": 101
+    },
+    {
+      "artifact_stage_commands": [
+        "cmake --install build"
+      ],
+      "build_commands": [
+        "cmake --build build --parallel 4"
+      ],
+      "commit_committed_at": "2026-09-20T16:06:05-04:00",
+      "commit_sha": "25895a587eb5a80ee18514af784122e3bacb10c4",
+      "configure_commands": [
+        "cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=OFF -DBUILD_TESTING=OFF -DCMAKE_INSTALL_PREFIX=/artifacts -DCMAKE_INSTALL_LIBDIR=lib"
+      ],
+      "license_path": "COPYING",
+      "license_sha256": "74c1e6ca5eba76b54d0ad00d4815c8315c1b3bc45ff99de61d103dc92486284c",
+      "oracle": {
+        "compile_argv": [
+          "cc",
+          "-std=c11",
+          "-I/artifacts/include",
+          "{source}",
+          "/artifacts/lib/libjson-c.a",
+          "-pthread",
+          "-lm",
+          "-o",
+          "{executable}"
+        ],
+        "kind": "compile_and_run",
+        "language": "c11",
+        "run_argv": [
+          "{executable}"
+        ],
+        "source": "#include <json-c/json.h>\nint main(void){ struct json_object *o=json_object_new_int(7); if(!o) return 1; int ok=json_object_get_int(o)==7; json_object_put(o); return ok ? 0 : 2; }\n"
+      },
+      "project_family": "github.com/json-c/json-c",
+      "repository_url": "https://github.com/json-c/json-c.git",
+      "selected_build_system": "cmake",
+      "source_snapshot_sha256": "5eb4b4783df616ab418ece3fd0681f66f8f455b99f93e84634fbd5bf07a3667f",
+      "split": "evaluation",
+      "submodule_commits": {},
+      "target": {
+        "artifact_types": [
+          "support_file",
+          "static_library"
+        ],
+        "bitwise_required": true,
+        "required_artifacts": [
+          "include/json-c/json.h",
+          "lib/libjson-c.a"
+        ]
+      },
+      "task_id": "json-c",
+      "tracked_file_count": 205
+    },
+    {
+      "artifact_stage_commands": [
+        "cmake --install build"
+      ],
+      "build_commands": [
+        "cmake --build build --parallel 4"
+      ],
+      "commit_committed_at": "2026-09-24T12:07:01-04:00",
+      "commit_sha": "dd8ad7915cdf5ab1f8719d488894a5e54c876dd6",
+      "configure_commands": [
+        "cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DENABLE_SHARED=OFF -DENABLE_STATIC=ON -DWITH_TURBOJPEG=OFF -DWITH_SIMD=OFF -DCMAKE_INSTALL_PREFIX=/artifacts -DCMAKE_INSTALL_LIBDIR=lib"
+      ],
+      "license_path": "LICENSE.md",
+      "license_sha256": "ba6bceebcba0fdd35488477c2cca8c4632ce82c74dbfbc87d886ce6fc4433579",
+      "oracle": {
+        "compile_argv": [
+          "cc",
+          "-std=c11",
+          "-I/artifacts/include",
+          "{source}",
+          "/artifacts/lib/libjpeg.a",
+          "-o",
+          "{executable}"
+        ],
+        "kind": "compile_and_run",
+        "language": "c11",
+        "run_argv": [
+          "{executable}"
+        ],
+        "source": "#include <stdio.h>\n#include <jpeglib.h>\nint main(void){ struct jpeg_error_mgr e; return jpeg_std_error(&e) == &e ? 0 : 1; }\n"
+      },
+      "project_family": "github.com/libjpeg-turbo/libjpeg-turbo",
+      "repository_url": "https://github.com/libjpeg-turbo/libjpeg-turbo.git",
+      "selected_build_system": "cmake",
+      "source_snapshot_sha256": "1ed97e520d88d3d3cfb47fd3ad461311bf9b89c82549c3a5d2d653f9e8314c6a",
+      "split": "evaluation",
+      "submodule_commits": {},
+      "target": {
+        "artifact_types": [
+          "support_file",
+          "static_library"
+        ],
+        "bitwise_required": true,
+        "required_artifacts": [
+          "include/jpeglib.h",
+          "lib/libjpeg.a"
+        ]
+      },
+      "task_id": "libjpeg-turbo",
+      "tracked_file_count": 622
+    },
+    {
+      "artifact_stage_commands": [
+        "mkdir -p /artifacts/lib /artifacts/include && cp lib/libzstd.a /artifacts/lib/libzstd.a && cp lib/zstd.h lib/zdict.h lib/zstd_errors.h /artifacts/include/"
+      ],
+      "build_commands": [
+        "make -C lib -j4 libzstd.a"
+      ],
+      "commit_committed_at": "2026-10-05T18:11:50-07:00",
+      "commit_sha": "49cf51799ea051457f57243527aa2058f999f005",
+      "configure_commands": [],
+      "license_path": "LICENSE",
+      "license_sha256": "7055266497633c9025b777c78eb7235af13922117480ed5c674677adc381c9d8",
+      "oracle": {
+        "compile_argv": [
+          "cc",
+          "-std=c11",
+          "-I/artifacts/include",
+          "{source}",
+          "/artifacts/lib/libzstd.a",
+          "-pthread",
+          "-o",
+          "{executable}"
+        ],
+        "kind": "compile_and_run",
+        "language": "c11",
+        "run_argv": [
+          "{executable}"
+        ],
+        "source": "#include <zstd.h>\nint main(void){ return ZSTD_versionNumber() > 0 ? 0 : 1; }\n"
+      },
+      "project_family": "github.com/facebook/zstd",
+      "repository_url": "https://github.com/facebook/zstd.git",
+      "selected_build_system": "make",
+      "source_snapshot_sha256": "4757b5ad42b146f39c370bcd7ee6390e6ff188bbd414daa6897fa5c5b4c5d9f6",
+      "split": "evaluation",
+      "submodule_commits": {},
+      "target": {
+        "artifact_types": [
+          "support_file",
+          "static_library"
+        ],
+        "bitwise_required": true,
+        "required_artifacts": [
+          "include/zstd.h",
+          "lib/libzstd.a"
+        ]
+      },
+      "task_id": "zstd",
+      "tracked_file_count": 662
+    },
+    {
+      "artifact_stage_commands": [
+        "make install"
+      ],
+      "build_commands": [
+        "make -j4"
+      ],
+      "commit_committed_at": "2026-10-07T21:19:22+02:00",
+      "commit_sha": "eb497c582f5c0887add4d4658c7801e4ef412e10",
+      "configure_commands": [
+        "./autogen.sh",
+        "./configure --prefix=/artifacts --disable-shared"
+      ],
+      "license_path": "LICENSE",
+      "license_sha256": "16de0c32b265cb7d46a6d3bd614f259dd4d693a5e26b3407b04aae8d73041f0c",
+      "oracle": {
+        "compile_argv": [
+          "cc",
+          "-std=gnu11",
+          "-I/artifacts/include",
+          "{source}",
+          "/artifacts/lib/libuv.a",
+          "-pthread",
+          "-ldl",
+          "-o",
+          "{executable}"
+        ],
+        "kind": "compile_and_run",
+        "language": "c11",
+        "run_argv": [
+          "{executable}"
+        ],
+        "source": "#include <uv.h>\nint main(void){ uv_loop_t loop; if(uv_loop_init(&loop)) return 1; return uv_loop_close(&loop); }\n"
+      },
+      "project_family": "github.com/libuv/libuv",
+      "repository_url": "https://github.com/libuv/libuv.git",
+      "selected_build_system": "autotools",
+      "source_snapshot_sha256": "87f9fc85b0ac7917f08617bf87d9f8824d28f216401fe8a2315c90435eaea999",
+      "split": "evaluation",
+      "submodule_commits": {},
+      "target": {
+        "artifact_types": [
+          "support_file",
+          "static_library"
+        ],
+        "bitwise_required": true,
+        "required_artifacts": [
+          "include/uv.h",
+          "lib/libuv.a"
+        ]
+      },
+      "task_id": "libuv",
+      "tracked_file_count": 483
+    },
+    {
+      "artifact_stage_commands": [
+        "cmake --install build"
+      ],
+      "build_commands": [
+        "cmake --build build --parallel 4"
+      ],
+      "commit_committed_at": "2026-10-08T00:01:57-07:00",
+      "commit_sha": "61421263d199c749b21fb1907b23d79ddd8285a1",
+      "configure_commands": [
+        "cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/artifacts -DPUGIXML_BUILD_TESTS=OFF -DBUILD_SHARED_LIBS=OFF"
+      ],
+      "license_path": "LICENSE.md",
+      "license_sha256": "90974fbb120e966b452654eaae3ba6ee55f3647db3b28918a7649733ee99da97",
+      "oracle": {
+        "compile_argv": [
+          "c++",
+          "-std=c++17",
+          "-I/artifacts/include",
+          "{source}",
+          "/artifacts/lib/libpugixml.a",
+          "-o",
+          "{executable}"
+        ],
+        "kind": "compile_and_run",
+        "language": "c++17",
+        "run_argv": [
+          "{executable}"
+        ],
+        "source": "#include <pugixml.hpp>\nint main(){ pugi::xml_document d; return d.load_string(\"<x/>\") ? 0 : 1; }\n"
+      },
+      "project_family": "github.com/zeux/pugixml",
+      "repository_url": "https://github.com/zeux/pugixml.git",
+      "selected_build_system": "cmake",
+      "source_snapshot_sha256": "e52b0f28fee758e4e7a6cb3861641431ccc5839bb52798f5695544514edfe9cf",
+      "split": "evaluation",
+      "submodule_commits": {},
+      "target": {
+        "artifact_types": [
+          "support_file",
+          "static_library"
+        ],
+        "bitwise_required": true,
+        "required_artifacts": [
+          "include/pugixml.hpp",
+          "lib/libpugixml.a"
+        ]
+      },
+      "task_id": "pugixml",
+      "tracked_file_count": 191
+    },
+    {
+      "artifact_stage_commands": [
+        "cmake --install build"
+      ],
+      "build_commands": [
+        "cmake --build build --parallel 4"
+      ],
+      "commit_committed_at": "2026-10-08T13:06:28-07:00",
+      "commit_sha": "35c58f084e7cd79b51997439cff68346f4c724c0",
+      "configure_commands": [
+        "cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/artifacts -DFMT_TEST=OFF -DFMT_DOC=OFF -DFMT_INSTALL=ON -DBUILD_SHARED_LIBS=OFF"
+      ],
+      "license_path": "LICENSE",
+      "license_sha256": "a65fcc5a1095fc33cc37e4fff69366e49d7e92f613558a2b95ed1b70e33758b4",
+      "oracle": {
+        "compile_argv": [
+          "c++",
+          "-std=c++17",
+          "-I/artifacts/include",
+          "{source}",
+          "/artifacts/lib/libfmt.a",
+          "-o",
+          "{executable}"
+        ],
+        "kind": "compile_and_run",
+        "language": "c++17",
+        "run_argv": [
+          "{executable}"
+        ],
+        "source": "#include <fmt/format.h>\nint main(){ return fmt::format(\"{}\", 7)==\"7\" ? 0 : 1; }\n"
+      },
+      "project_family": "github.com/fmtlib/fmt",
+      "repository_url": "https://github.com/fmtlib/fmt.git",
+      "selected_build_system": "cmake",
+      "source_snapshot_sha256": "043285960b64a33d13fed19a4671227d88aef95fbb3cbf32e838bd2097d8a359",
+      "split": "evaluation",
+      "submodule_commits": {},
+      "target": {
+        "artifact_types": [
+          "support_file",
+          "static_library"
+        ],
+        "bitwise_required": true,
+        "required_artifacts": [
+          "include/fmt/format.h",
+          "lib/libfmt.a"
+        ]
+      },
+      "task_id": "fmt",
+      "tracked_file_count": 145
+    },
+    {
+      "artifact_stage_commands": [
+        "mkdir -p /artifacts/lib /artifacts/include/wels && cp libopenh264.a /artifacts/lib/libopenh264.a && cp codec/api/wels/*.h /artifacts/include/wels/"
+      ],
+      "build_commands": [
+        "make -j4 libraries"
+      ],
+      "commit_committed_at": "2026-10-09T16:06:24+08:00",
+      "commit_sha": "6fe62b8f3fcc6bf34512be7efc7f64e91f510f02",
+      "configure_commands": [],
+      "license_path": "LICENSE",
+      "license_sha256": "dd5c1c9668512530fa5a96e4c29ac4033d70a7eeb0eed7a42fddb6dd794ebdbb",
+      "oracle": {
+        "compile_argv": [
+          "c++",
+          "-std=c++17",
+          "-I/artifacts/include",
+          "{source}",
+          "/artifacts/lib/libopenh264.a",
+          "-pthread",
+          "-lm",
+          "-o",
+          "{executable}"
+        ],
+        "kind": "compile_and_run",
+        "language": "c++17",
+        "run_argv": [
+          "{executable}"
+        ],
+        "source": "#include <wels/codec_api.h>\nint main(){ ISVCEncoder *e=nullptr; if(WelsCreateSVCEncoder(&e)!=0 || !e) return 1; WelsDestroySVCEncoder(e); return 0; }\n"
+      },
+      "project_family": "github.com/cisco/openh264",
+      "repository_url": "https://github.com/cisco/openh264.git",
+      "selected_build_system": "make",
+      "source_snapshot_sha256": "ca8df42586a47c211b43a963b140e3f2beaf8e24b5a9986f29a47f81d03a9499",
+      "split": "evaluation",
+      "submodule_commits": {},
+      "target": {
+        "artifact_types": [
+          "support_file",
+          "static_library"
+        ],
+        "bitwise_required": true,
+        "required_artifacts": [
+          "include/wels/codec_api.h",
+          "lib/libopenh264.a"
+        ]
+      },
+      "task_id": "openh264",
+      "tracked_file_count": 742
+    }
+  ],
+  "temporal_rule": {
+    "development_splits": [
+      "design",
+      "calibration"
+    ],
+    "earliest_evaluation_commit": "2026-08-29T15:34:26-07:00",
+    "kind": "strict_commit_time_separation",
+    "latest_development_commit": "2026-08-21T14:12:42-04:00"
+  }
+}

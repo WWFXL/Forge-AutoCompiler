@@ -1,0 +1,142 @@
+{
+  "$id": "https://github.com/WWFXL/Forge-AutoCompiler/benchmarks/schemas/forge-typed-action-benchmark-qualification-v1.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "const": {
+    "$schema": "../schemas/forge-typed-action-benchmark-qualification-v1.schema.json",
+    "amendments": [
+      {
+        "action_schema_change": false,
+        "amendment": 1,
+        "failed_attempt": 1,
+        "failure_record_path": "benchmarks/reports/cpp-typed-action-benchmark-qualification-v1-attempt-1-failure.json",
+        "failure_record_sha256": "75aee32271d1e9397804971bf59268e5cb2d430bfe78f5ea87e9c0a1c1950bac",
+        "fresh_full_rerun_required": true,
+        "project_replacement": false,
+        "sole_change": "libuv oracle compile flag -std=c11 -> -std=gnu11",
+        "threshold_change": false
+      }
+    ],
+    "authorization": {
+      "controller_implementation_authorized": false,
+      "credential_read_authorized": false,
+      "docker_action_execution_authorized": true,
+      "historical_evidence_write_authorized": false,
+      "model_calls_authorized": false,
+      "model_tokens_authorized": 0,
+      "new_identity_evidence_write_authorized": true,
+      "provider_calls_authorized": false,
+      "reference_clone_authorized": true
+    },
+    "benchmark_design": {
+      "action_catalog": {
+        "candidate_count_per_state": 3,
+        "direct_execution_definition": "execute_bound_action_without_full_agent_reasoning",
+        "families": [
+          "dependency",
+          "configure",
+          "build",
+          "diagnostic_probe",
+          "smoke",
+          "artifact_stage",
+          "submit",
+          "escalate_agent"
+        ],
+        "generation": "code_bound_closed_set",
+        "shell_generation_by_model": false,
+        "strict_endpoints_never_skipped": [
+          "candidate_verifier",
+          "functional_oracle",
+          "provenance",
+          "clean_replay"
+        ]
+      },
+      "candidate_actions_per_state": 3,
+      "old_agent_action_is_ground_truth": false,
+      "outcome_source": "isolated_candidate_execution",
+      "state_kinds": [
+        "source_ready",
+        "configured_or_ready",
+        "build_failed",
+        "built",
+        "staged"
+      ],
+      "states_per_project": 5
+    },
+    "decision_rule": {
+      "fail": "abandon_controller_and_keep_benchmark",
+      "pass": "proceed_to_jev_offline_qualification",
+      "threshold_adjustment_after_results": false
+    },
+    "document_type": "forge_typed_action_benchmark_qualification",
+    "environment": {
+      "dockerfile_path": "docker/compile/Dockerfile.stage-c",
+      "expected_image_id": "sha256:adbef4a26de49e9cd2c361a50b5fe2a000073a343b072ed0e515cc67e6e758b1",
+      "image_tag": "autocompiler:stage-c-v1",
+      "network_during_action": false,
+      "network_during_clone": true,
+      "parallel_jobs": 4,
+      "per_action_timeout_seconds": 900,
+      "replicates": 2
+    },
+    "historical_coverage_audit": {
+      "counterfactual_outcomes_read": false,
+      "expected_eligible_decisions": 409,
+      "manifest_path": "benchmarks/manifests/cpp-cross-build-progress-state-qualification-v1.json",
+      "manifest_sha256": "1d1077b3e7786f42f2e3829fd5c888464f886be31c53f93eb1eeaa64d50b510c",
+      "read_only": true,
+      "report_path": "benchmarks/reports/cpp-cross-build-progress-state-qualification-v1.json",
+      "report_sha256": "b4b682d8699bdbcf5e768736e525ac13109675db64971a23c3007dafa2442a4d"
+    },
+    "identity": "cpp-typed-action-benchmark-qualification-v1",
+    "issue_url": "https://github.com/WWFXL/Forge-AutoCompiler/issues/389",
+    "outputs": {
+      "json_report": "benchmarks/reports/cpp-typed-action-benchmark-qualification-v1.json",
+      "markdown_report": "benchmarks/reports/cpp-typed-action-benchmark-qualification-v1.md"
+    },
+    "qualification_thresholds": {
+      "calibration_projects": 6,
+      "design_projects": 6,
+      "evaluation_projects": 12,
+      "minimum_historical_catalog_coverage": 0.3,
+      "minimum_replay_consistency": 0.95,
+      "minimum_states_per_action_family": 20,
+      "project_count": 24,
+      "projects_per_build_system": 8,
+      "require_all_build_systems_complete": true,
+      "states_per_project": 5
+    },
+    "schema_version": "forge-typed-action-benchmark-qualification-1.0.1",
+    "source_pool": {
+      "canonical_sha256": "8b9997ba22453886801ec7fac6aefdca5f8ec6d493b62b370861913880499d0f",
+      "path": "benchmarks/fixtures/cpp-typed-action-benchmark-source-pool-v1.json",
+      "task_ids": [
+        "stockfish-11",
+        "libsoundio",
+        "rnnoise-0.1.1",
+        "leveldb",
+        "lz4",
+        "jansson",
+        "8cc",
+        "oatpp",
+        "libogg",
+        "civetweb",
+        "theora",
+        "libyaml",
+        "libevent",
+        "libtomcrypt",
+        "libsndfile",
+        "cjson",
+        "xxhash",
+        "json-c",
+        "libjpeg-turbo",
+        "zstd",
+        "libuv",
+        "pugixml",
+        "fmt",
+        "openh264"
+      ]
+    },
+    "status": "authorized_zero_provider_qualification"
+  },
+  "title": "Forge typed action benchmark qualification v1"
+}

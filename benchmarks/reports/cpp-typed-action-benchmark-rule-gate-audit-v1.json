@@ -1,0 +1,1298 @@
+{
+  "analysis_kind": "zero_provider_phase_b_entry_identifiability",
+  "by_build_system": {
+    "autotools": {
+      "direct_execution_coverage": 1.0,
+      "eligible_count": 40,
+      "safe_count": 40,
+      "state_count": 40,
+      "top1_safe_rate": 1.0,
+      "wrong_direct_action_rate": 0.0
+    },
+    "cmake": {
+      "direct_execution_coverage": 1.0,
+      "eligible_count": 40,
+      "safe_count": 40,
+      "state_count": 40,
+      "top1_safe_rate": 1.0,
+      "wrong_direct_action_rate": 0.0
+    },
+    "make": {
+      "direct_execution_coverage": 1.0,
+      "eligible_count": 40,
+      "safe_count": 40,
+      "state_count": 40,
+      "top1_safe_rate": 1.0,
+      "wrong_direct_action_rate": 0.0
+    }
+  },
+  "by_split": {
+    "calibration": {
+      "direct_execution_coverage": 1.0,
+      "eligible_count": 30,
+      "safe_count": 30,
+      "state_count": 30,
+      "top1_safe_rate": 1.0,
+      "wrong_direct_action_rate": 0.0
+    },
+    "design": {
+      "direct_execution_coverage": 1.0,
+      "eligible_count": 30,
+      "safe_count": 30,
+      "state_count": 30,
+      "top1_safe_rate": 1.0,
+      "wrong_direct_action_rate": 0.0
+    },
+    "evaluation": {
+      "direct_execution_coverage": 1.0,
+      "eligible_count": 60,
+      "safe_count": 60,
+      "state_count": 60,
+      "top1_safe_rate": 1.0,
+      "wrong_direct_action_rate": 0.0
+    }
+  },
+  "credential_reads": 0,
+  "decision": "stop_jev_provider_qualification_and_redesign_benchmark",
+  "document_type": "forge_typed_action_rule_gate_audit",
+  "eligible_action_multiplicity": {
+    "1": 72,
+    "2": 48
+  },
+  "identity": "cpp-typed-action-benchmark-rule-gate-audit-v1",
+  "interpretation": {
+    "current_identity_reusable_for_confirmatory_model_evaluation": false,
+    "evaluation_split_is_now_exposed": true,
+    "jev_model_effect_estimated": false,
+    "qualification_executability_passed": true,
+    "rule_gate_saturation_is_jev_failure": false,
+    "semantic_routing_question_identifiable": false
+  },
+  "issue_url": "https://github.com/WWFXL/Forge-AutoCompiler/issues/389",
+  "model_calls": 0,
+  "model_tokens": 0,
+  "overall": {
+    "direct_execution_coverage": 1.0,
+    "eligible_count": 120,
+    "safe_count": 120,
+    "state_count": 120,
+    "top1_safe_rate": 1.0,
+    "wrong_direct_action_rate": 0.0
+  },
+  "phase_b_entry_gate": {
+    "jev_entry_identifiable": false,
+    "maximum_possible_coverage_uplift": 0.0,
+    "required_rule_gate_coverage_uplift": 0.1
+  },
+  "provider_calls": 0,
+  "rows": [
+    {
+      "build_system": "make",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "build",
+      "semantic_log_used": false,
+      "split": "design",
+      "state_id": "stockfish-11:source_ready",
+      "state_kind": "source_ready"
+    },
+    {
+      "build_system": "make",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "build",
+      "semantic_log_used": false,
+      "split": "design",
+      "state_id": "stockfish-11:configured_or_ready",
+      "state_kind": "configured_or_ready"
+    },
+    {
+      "build_system": "make",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "build",
+      "semantic_log_used": false,
+      "split": "design",
+      "state_id": "stockfish-11:build_failed",
+      "state_kind": "build_failed"
+    },
+    {
+      "build_system": "make",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "artifact_stage",
+      "semantic_log_used": false,
+      "split": "design",
+      "state_id": "stockfish-11:built",
+      "state_kind": "built"
+    },
+    {
+      "build_system": "make",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "submit",
+      "semantic_log_used": false,
+      "split": "design",
+      "state_id": "stockfish-11:staged",
+      "state_kind": "staged"
+    },
+    {
+      "build_system": "cmake",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "configure",
+      "semantic_log_used": false,
+      "split": "design",
+      "state_id": "libsoundio:source_ready",
+      "state_kind": "source_ready"
+    },
+    {
+      "build_system": "cmake",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "build",
+      "semantic_log_used": false,
+      "split": "design",
+      "state_id": "libsoundio:configured_or_ready",
+      "state_kind": "configured_or_ready"
+    },
+    {
+      "build_system": "cmake",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "build",
+      "semantic_log_used": false,
+      "split": "design",
+      "state_id": "libsoundio:build_failed",
+      "state_kind": "build_failed"
+    },
+    {
+      "build_system": "cmake",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "artifact_stage",
+      "semantic_log_used": false,
+      "split": "design",
+      "state_id": "libsoundio:built",
+      "state_kind": "built"
+    },
+    {
+      "build_system": "cmake",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "submit",
+      "semantic_log_used": false,
+      "split": "design",
+      "state_id": "libsoundio:staged",
+      "state_kind": "staged"
+    },
+    {
+      "build_system": "autotools",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "configure",
+      "semantic_log_used": false,
+      "split": "design",
+      "state_id": "rnnoise-0.1.1:source_ready",
+      "state_kind": "source_ready"
+    },
+    {
+      "build_system": "autotools",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "build",
+      "semantic_log_used": false,
+      "split": "design",
+      "state_id": "rnnoise-0.1.1:configured_or_ready",
+      "state_kind": "configured_or_ready"
+    },
+    {
+      "build_system": "autotools",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "build",
+      "semantic_log_used": false,
+      "split": "design",
+      "state_id": "rnnoise-0.1.1:build_failed",
+      "state_kind": "build_failed"
+    },
+    {
+      "build_system": "autotools",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "artifact_stage",
+      "semantic_log_used": false,
+      "split": "design",
+      "state_id": "rnnoise-0.1.1:built",
+      "state_kind": "built"
+    },
+    {
+      "build_system": "autotools",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "submit",
+      "semantic_log_used": false,
+      "split": "design",
+      "state_id": "rnnoise-0.1.1:staged",
+      "state_kind": "staged"
+    },
+    {
+      "build_system": "cmake",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "configure",
+      "semantic_log_used": false,
+      "split": "design",
+      "state_id": "leveldb:source_ready",
+      "state_kind": "source_ready"
+    },
+    {
+      "build_system": "cmake",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "build",
+      "semantic_log_used": false,
+      "split": "design",
+      "state_id": "leveldb:configured_or_ready",
+      "state_kind": "configured_or_ready"
+    },
+    {
+      "build_system": "cmake",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "build",
+      "semantic_log_used": false,
+      "split": "design",
+      "state_id": "leveldb:build_failed",
+      "state_kind": "build_failed"
+    },
+    {
+      "build_system": "cmake",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "artifact_stage",
+      "semantic_log_used": false,
+      "split": "design",
+      "state_id": "leveldb:built",
+      "state_kind": "built"
+    },
+    {
+      "build_system": "cmake",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "submit",
+      "semantic_log_used": false,
+      "split": "design",
+      "state_id": "leveldb:staged",
+      "state_kind": "staged"
+    },
+    {
+      "build_system": "make",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "build",
+      "semantic_log_used": false,
+      "split": "design",
+      "state_id": "lz4:source_ready",
+      "state_kind": "source_ready"
+    },
+    {
+      "build_system": "make",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "build",
+      "semantic_log_used": false,
+      "split": "design",
+      "state_id": "lz4:configured_or_ready",
+      "state_kind": "configured_or_ready"
+    },
+    {
+      "build_system": "make",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "build",
+      "semantic_log_used": false,
+      "split": "design",
+      "state_id": "lz4:build_failed",
+      "state_kind": "build_failed"
+    },
+    {
+      "build_system": "make",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "artifact_stage",
+      "semantic_log_used": false,
+      "split": "design",
+      "state_id": "lz4:built",
+      "state_kind": "built"
+    },
+    {
+      "build_system": "make",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "submit",
+      "semantic_log_used": false,
+      "split": "design",
+      "state_id": "lz4:staged",
+      "state_kind": "staged"
+    },
+    {
+      "build_system": "autotools",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "configure",
+      "semantic_log_used": false,
+      "split": "design",
+      "state_id": "jansson:source_ready",
+      "state_kind": "source_ready"
+    },
+    {
+      "build_system": "autotools",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "build",
+      "semantic_log_used": false,
+      "split": "design",
+      "state_id": "jansson:configured_or_ready",
+      "state_kind": "configured_or_ready"
+    },
+    {
+      "build_system": "autotools",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "build",
+      "semantic_log_used": false,
+      "split": "design",
+      "state_id": "jansson:build_failed",
+      "state_kind": "build_failed"
+    },
+    {
+      "build_system": "autotools",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "artifact_stage",
+      "semantic_log_used": false,
+      "split": "design",
+      "state_id": "jansson:built",
+      "state_kind": "built"
+    },
+    {
+      "build_system": "autotools",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "submit",
+      "semantic_log_used": false,
+      "split": "design",
+      "state_id": "jansson:staged",
+      "state_kind": "staged"
+    },
+    {
+      "build_system": "make",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "build",
+      "semantic_log_used": false,
+      "split": "calibration",
+      "state_id": "8cc:source_ready",
+      "state_kind": "source_ready"
+    },
+    {
+      "build_system": "make",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "build",
+      "semantic_log_used": false,
+      "split": "calibration",
+      "state_id": "8cc:configured_or_ready",
+      "state_kind": "configured_or_ready"
+    },
+    {
+      "build_system": "make",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "build",
+      "semantic_log_used": false,
+      "split": "calibration",
+      "state_id": "8cc:build_failed",
+      "state_kind": "build_failed"
+    },
+    {
+      "build_system": "make",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "artifact_stage",
+      "semantic_log_used": false,
+      "split": "calibration",
+      "state_id": "8cc:built",
+      "state_kind": "built"
+    },
+    {
+      "build_system": "make",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "submit",
+      "semantic_log_used": false,
+      "split": "calibration",
+      "state_id": "8cc:staged",
+      "state_kind": "staged"
+    },
+    {
+      "build_system": "cmake",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "configure",
+      "semantic_log_used": false,
+      "split": "calibration",
+      "state_id": "oatpp:source_ready",
+      "state_kind": "source_ready"
+    },
+    {
+      "build_system": "cmake",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "build",
+      "semantic_log_used": false,
+      "split": "calibration",
+      "state_id": "oatpp:configured_or_ready",
+      "state_kind": "configured_or_ready"
+    },
+    {
+      "build_system": "cmake",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "build",
+      "semantic_log_used": false,
+      "split": "calibration",
+      "state_id": "oatpp:build_failed",
+      "state_kind": "build_failed"
+    },
+    {
+      "build_system": "cmake",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "artifact_stage",
+      "semantic_log_used": false,
+      "split": "calibration",
+      "state_id": "oatpp:built",
+      "state_kind": "built"
+    },
+    {
+      "build_system": "cmake",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "submit",
+      "semantic_log_used": false,
+      "split": "calibration",
+      "state_id": "oatpp:staged",
+      "state_kind": "staged"
+    },
+    {
+      "build_system": "autotools",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "configure",
+      "semantic_log_used": false,
+      "split": "calibration",
+      "state_id": "libogg:source_ready",
+      "state_kind": "source_ready"
+    },
+    {
+      "build_system": "autotools",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "build",
+      "semantic_log_used": false,
+      "split": "calibration",
+      "state_id": "libogg:configured_or_ready",
+      "state_kind": "configured_or_ready"
+    },
+    {
+      "build_system": "autotools",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "build",
+      "semantic_log_used": false,
+      "split": "calibration",
+      "state_id": "libogg:build_failed",
+      "state_kind": "build_failed"
+    },
+    {
+      "build_system": "autotools",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "artifact_stage",
+      "semantic_log_used": false,
+      "split": "calibration",
+      "state_id": "libogg:built",
+      "state_kind": "built"
+    },
+    {
+      "build_system": "autotools",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "submit",
+      "semantic_log_used": false,
+      "split": "calibration",
+      "state_id": "libogg:staged",
+      "state_kind": "staged"
+    },
+    {
+      "build_system": "make",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "configure",
+      "semantic_log_used": false,
+      "split": "calibration",
+      "state_id": "civetweb:source_ready",
+      "state_kind": "source_ready"
+    },
+    {
+      "build_system": "make",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "build",
+      "semantic_log_used": false,
+      "split": "calibration",
+      "state_id": "civetweb:configured_or_ready",
+      "state_kind": "configured_or_ready"
+    },
+    {
+      "build_system": "make",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "build",
+      "semantic_log_used": false,
+      "split": "calibration",
+      "state_id": "civetweb:build_failed",
+      "state_kind": "build_failed"
+    },
+    {
+      "build_system": "make",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "artifact_stage",
+      "semantic_log_used": false,
+      "split": "calibration",
+      "state_id": "civetweb:built",
+      "state_kind": "built"
+    },
+    {
+      "build_system": "make",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "submit",
+      "semantic_log_used": false,
+      "split": "calibration",
+      "state_id": "civetweb:staged",
+      "state_kind": "staged"
+    },
+    {
+      "build_system": "autotools",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "configure",
+      "semantic_log_used": false,
+      "split": "calibration",
+      "state_id": "theora:source_ready",
+      "state_kind": "source_ready"
+    },
+    {
+      "build_system": "autotools",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "build",
+      "semantic_log_used": false,
+      "split": "calibration",
+      "state_id": "theora:configured_or_ready",
+      "state_kind": "configured_or_ready"
+    },
+    {
+      "build_system": "autotools",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "build",
+      "semantic_log_used": false,
+      "split": "calibration",
+      "state_id": "theora:build_failed",
+      "state_kind": "build_failed"
+    },
+    {
+      "build_system": "autotools",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "artifact_stage",
+      "semantic_log_used": false,
+      "split": "calibration",
+      "state_id": "theora:built",
+      "state_kind": "built"
+    },
+    {
+      "build_system": "autotools",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "submit",
+      "semantic_log_used": false,
+      "split": "calibration",
+      "state_id": "theora:staged",
+      "state_kind": "staged"
+    },
+    {
+      "build_system": "autotools",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "configure",
+      "semantic_log_used": false,
+      "split": "calibration",
+      "state_id": "libyaml:source_ready",
+      "state_kind": "source_ready"
+    },
+    {
+      "build_system": "autotools",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "build",
+      "semantic_log_used": false,
+      "split": "calibration",
+      "state_id": "libyaml:configured_or_ready",
+      "state_kind": "configured_or_ready"
+    },
+    {
+      "build_system": "autotools",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "build",
+      "semantic_log_used": false,
+      "split": "calibration",
+      "state_id": "libyaml:build_failed",
+      "state_kind": "build_failed"
+    },
+    {
+      "build_system": "autotools",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "artifact_stage",
+      "semantic_log_used": false,
+      "split": "calibration",
+      "state_id": "libyaml:built",
+      "state_kind": "built"
+    },
+    {
+      "build_system": "autotools",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "submit",
+      "semantic_log_used": false,
+      "split": "calibration",
+      "state_id": "libyaml:staged",
+      "state_kind": "staged"
+    },
+    {
+      "build_system": "autotools",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "configure",
+      "semantic_log_used": false,
+      "split": "evaluation",
+      "state_id": "libevent:source_ready",
+      "state_kind": "source_ready"
+    },
+    {
+      "build_system": "autotools",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "build",
+      "semantic_log_used": false,
+      "split": "evaluation",
+      "state_id": "libevent:configured_or_ready",
+      "state_kind": "configured_or_ready"
+    },
+    {
+      "build_system": "autotools",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "build",
+      "semantic_log_used": false,
+      "split": "evaluation",
+      "state_id": "libevent:build_failed",
+      "state_kind": "build_failed"
+    },
+    {
+      "build_system": "autotools",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "artifact_stage",
+      "semantic_log_used": false,
+      "split": "evaluation",
+      "state_id": "libevent:built",
+      "state_kind": "built"
+    },
+    {
+      "build_system": "autotools",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "submit",
+      "semantic_log_used": false,
+      "split": "evaluation",
+      "state_id": "libevent:staged",
+      "state_kind": "staged"
+    },
+    {
+      "build_system": "make",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "build",
+      "semantic_log_used": false,
+      "split": "evaluation",
+      "state_id": "libtomcrypt:source_ready",
+      "state_kind": "source_ready"
+    },
+    {
+      "build_system": "make",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "build",
+      "semantic_log_used": false,
+      "split": "evaluation",
+      "state_id": "libtomcrypt:configured_or_ready",
+      "state_kind": "configured_or_ready"
+    },
+    {
+      "build_system": "make",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "build",
+      "semantic_log_used": false,
+      "split": "evaluation",
+      "state_id": "libtomcrypt:build_failed",
+      "state_kind": "build_failed"
+    },
+    {
+      "build_system": "make",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "artifact_stage",
+      "semantic_log_used": false,
+      "split": "evaluation",
+      "state_id": "libtomcrypt:built",
+      "state_kind": "built"
+    },
+    {
+      "build_system": "make",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "submit",
+      "semantic_log_used": false,
+      "split": "evaluation",
+      "state_id": "libtomcrypt:staged",
+      "state_kind": "staged"
+    },
+    {
+      "build_system": "autotools",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "configure",
+      "semantic_log_used": false,
+      "split": "evaluation",
+      "state_id": "libsndfile:source_ready",
+      "state_kind": "source_ready"
+    },
+    {
+      "build_system": "autotools",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "build",
+      "semantic_log_used": false,
+      "split": "evaluation",
+      "state_id": "libsndfile:configured_or_ready",
+      "state_kind": "configured_or_ready"
+    },
+    {
+      "build_system": "autotools",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "build",
+      "semantic_log_used": false,
+      "split": "evaluation",
+      "state_id": "libsndfile:build_failed",
+      "state_kind": "build_failed"
+    },
+    {
+      "build_system": "autotools",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "artifact_stage",
+      "semantic_log_used": false,
+      "split": "evaluation",
+      "state_id": "libsndfile:built",
+      "state_kind": "built"
+    },
+    {
+      "build_system": "autotools",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "submit",
+      "semantic_log_used": false,
+      "split": "evaluation",
+      "state_id": "libsndfile:staged",
+      "state_kind": "staged"
+    },
+    {
+      "build_system": "cmake",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "configure",
+      "semantic_log_used": false,
+      "split": "evaluation",
+      "state_id": "cjson:source_ready",
+      "state_kind": "source_ready"
+    },
+    {
+      "build_system": "cmake",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "build",
+      "semantic_log_used": false,
+      "split": "evaluation",
+      "state_id": "cjson:configured_or_ready",
+      "state_kind": "configured_or_ready"
+    },
+    {
+      "build_system": "cmake",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "build",
+      "semantic_log_used": false,
+      "split": "evaluation",
+      "state_id": "cjson:build_failed",
+      "state_kind": "build_failed"
+    },
+    {
+      "build_system": "cmake",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "artifact_stage",
+      "semantic_log_used": false,
+      "split": "evaluation",
+      "state_id": "cjson:built",
+      "state_kind": "built"
+    },
+    {
+      "build_system": "cmake",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "submit",
+      "semantic_log_used": false,
+      "split": "evaluation",
+      "state_id": "cjson:staged",
+      "state_kind": "staged"
+    },
+    {
+      "build_system": "make",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "build",
+      "semantic_log_used": false,
+      "split": "evaluation",
+      "state_id": "xxhash:source_ready",
+      "state_kind": "source_ready"
+    },
+    {
+      "build_system": "make",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "build",
+      "semantic_log_used": false,
+      "split": "evaluation",
+      "state_id": "xxhash:configured_or_ready",
+      "state_kind": "configured_or_ready"
+    },
+    {
+      "build_system": "make",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "build",
+      "semantic_log_used": false,
+      "split": "evaluation",
+      "state_id": "xxhash:build_failed",
+      "state_kind": "build_failed"
+    },
+    {
+      "build_system": "make",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "artifact_stage",
+      "semantic_log_used": false,
+      "split": "evaluation",
+      "state_id": "xxhash:built",
+      "state_kind": "built"
+    },
+    {
+      "build_system": "make",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "submit",
+      "semantic_log_used": false,
+      "split": "evaluation",
+      "state_id": "xxhash:staged",
+      "state_kind": "staged"
+    },
+    {
+      "build_system": "cmake",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "configure",
+      "semantic_log_used": false,
+      "split": "evaluation",
+      "state_id": "json-c:source_ready",
+      "state_kind": "source_ready"
+    },
+    {
+      "build_system": "cmake",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "build",
+      "semantic_log_used": false,
+      "split": "evaluation",
+      "state_id": "json-c:configured_or_ready",
+      "state_kind": "configured_or_ready"
+    },
+    {
+      "build_system": "cmake",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "build",
+      "semantic_log_used": false,
+      "split": "evaluation",
+      "state_id": "json-c:build_failed",
+      "state_kind": "build_failed"
+    },
+    {
+      "build_system": "cmake",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "artifact_stage",
+      "semantic_log_used": false,
+      "split": "evaluation",
+      "state_id": "json-c:built",
+      "state_kind": "built"
+    },
+    {
+      "build_system": "cmake",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "submit",
+      "semantic_log_used": false,
+      "split": "evaluation",
+      "state_id": "json-c:staged",
+      "state_kind": "staged"
+    },
+    {
+      "build_system": "cmake",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "configure",
+      "semantic_log_used": false,
+      "split": "evaluation",
+      "state_id": "libjpeg-turbo:source_ready",
+      "state_kind": "source_ready"
+    },
+    {
+      "build_system": "cmake",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "build",
+      "semantic_log_used": false,
+      "split": "evaluation",
+      "state_id": "libjpeg-turbo:configured_or_ready",
+      "state_kind": "configured_or_ready"
+    },
+    {
+      "build_system": "cmake",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "build",
+      "semantic_log_used": false,
+      "split": "evaluation",
+      "state_id": "libjpeg-turbo:build_failed",
+      "state_kind": "build_failed"
+    },
+    {
+      "build_system": "cmake",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "artifact_stage",
+      "semantic_log_used": false,
+      "split": "evaluation",
+      "state_id": "libjpeg-turbo:built",
+      "state_kind": "built"
+    },
+    {
+      "build_system": "cmake",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "submit",
+      "semantic_log_used": false,
+      "split": "evaluation",
+      "state_id": "libjpeg-turbo:staged",
+      "state_kind": "staged"
+    },
+    {
+      "build_system": "make",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "build",
+      "semantic_log_used": false,
+      "split": "evaluation",
+      "state_id": "zstd:source_ready",
+      "state_kind": "source_ready"
+    },
+    {
+      "build_system": "make",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "build",
+      "semantic_log_used": false,
+      "split": "evaluation",
+      "state_id": "zstd:configured_or_ready",
+      "state_kind": "configured_or_ready"
+    },
+    {
+      "build_system": "make",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "build",
+      "semantic_log_used": false,
+      "split": "evaluation",
+      "state_id": "zstd:build_failed",
+      "state_kind": "build_failed"
+    },
+    {
+      "build_system": "make",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "artifact_stage",
+      "semantic_log_used": false,
+      "split": "evaluation",
+      "state_id": "zstd:built",
+      "state_kind": "built"
+    },
+    {
+      "build_system": "make",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "submit",
+      "semantic_log_used": false,
+      "split": "evaluation",
+      "state_id": "zstd:staged",
+      "state_kind": "staged"
+    },
+    {
+      "build_system": "autotools",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "configure",
+      "semantic_log_used": false,
+      "split": "evaluation",
+      "state_id": "libuv:source_ready",
+      "state_kind": "source_ready"
+    },
+    {
+      "build_system": "autotools",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "build",
+      "semantic_log_used": false,
+      "split": "evaluation",
+      "state_id": "libuv:configured_or_ready",
+      "state_kind": "configured_or_ready"
+    },
+    {
+      "build_system": "autotools",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "build",
+      "semantic_log_used": false,
+      "split": "evaluation",
+      "state_id": "libuv:build_failed",
+      "state_kind": "build_failed"
+    },
+    {
+      "build_system": "autotools",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "artifact_stage",
+      "semantic_log_used": false,
+      "split": "evaluation",
+      "state_id": "libuv:built",
+      "state_kind": "built"
+    },
+    {
+      "build_system": "autotools",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "submit",
+      "semantic_log_used": false,
+      "split": "evaluation",
+      "state_id": "libuv:staged",
+      "state_kind": "staged"
+    },
+    {
+      "build_system": "cmake",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "configure",
+      "semantic_log_used": false,
+      "split": "evaluation",
+      "state_id": "pugixml:source_ready",
+      "state_kind": "source_ready"
+    },
+    {
+      "build_system": "cmake",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "build",
+      "semantic_log_used": false,
+      "split": "evaluation",
+      "state_id": "pugixml:configured_or_ready",
+      "state_kind": "configured_or_ready"
+    },
+    {
+      "build_system": "cmake",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "build",
+      "semantic_log_used": false,
+      "split": "evaluation",
+      "state_id": "pugixml:build_failed",
+      "state_kind": "build_failed"
+    },
+    {
+      "build_system": "cmake",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "artifact_stage",
+      "semantic_log_used": false,
+      "split": "evaluation",
+      "state_id": "pugixml:built",
+      "state_kind": "built"
+    },
+    {
+      "build_system": "cmake",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "submit",
+      "semantic_log_used": false,
+      "split": "evaluation",
+      "state_id": "pugixml:staged",
+      "state_kind": "staged"
+    },
+    {
+      "build_system": "cmake",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "configure",
+      "semantic_log_used": false,
+      "split": "evaluation",
+      "state_id": "fmt:source_ready",
+      "state_kind": "source_ready"
+    },
+    {
+      "build_system": "cmake",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "build",
+      "semantic_log_used": false,
+      "split": "evaluation",
+      "state_id": "fmt:configured_or_ready",
+      "state_kind": "configured_or_ready"
+    },
+    {
+      "build_system": "cmake",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "build",
+      "semantic_log_used": false,
+      "split": "evaluation",
+      "state_id": "fmt:build_failed",
+      "state_kind": "build_failed"
+    },
+    {
+      "build_system": "cmake",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "artifact_stage",
+      "semantic_log_used": false,
+      "split": "evaluation",
+      "state_id": "fmt:built",
+      "state_kind": "built"
+    },
+    {
+      "build_system": "cmake",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "submit",
+      "semantic_log_used": false,
+      "split": "evaluation",
+      "state_id": "fmt:staged",
+      "state_kind": "staged"
+    },
+    {
+      "build_system": "make",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "build",
+      "semantic_log_used": false,
+      "split": "evaluation",
+      "state_id": "openh264:source_ready",
+      "state_kind": "source_ready"
+    },
+    {
+      "build_system": "make",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "build",
+      "semantic_log_used": false,
+      "split": "evaluation",
+      "state_id": "openh264:configured_or_ready",
+      "state_kind": "configured_or_ready"
+    },
+    {
+      "build_system": "make",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "build",
+      "semantic_log_used": false,
+      "split": "evaluation",
+      "state_id": "openh264:build_failed",
+      "state_kind": "build_failed"
+    },
+    {
+      "build_system": "make",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "artifact_stage",
+      "semantic_log_used": false,
+      "split": "evaluation",
+      "state_id": "openh264:built",
+      "state_kind": "built"
+    },
+    {
+      "build_system": "make",
+      "direct_execution_safe": true,
+      "eligible_next_action": true,
+      "selected_action_family": "submit",
+      "semantic_log_used": false,
+      "split": "evaluation",
+      "state_id": "openh264:staged",
+      "state_kind": "staged"
+    }
+  ],
+  "rule_gate_inputs": [
+    "phase_facts",
+    "candidate_action_families"
+  ],
+  "schema_version": "forge-typed-action-rule-gate-audit-1.0.0",
+  "semantic_log_used": false,
+  "source_qualification_report_path": "benchmarks/reports/cpp-typed-action-benchmark-qualification-v1.json",
+  "source_qualification_report_sha256": "bdbf2bca0f76c978630d58f618202cc9fb61d968ed287dd74a2f29f5292151d6"
+}

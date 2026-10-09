@@ -1,0 +1,33 @@
+{
+  "schema_version": "forge-typed-action-benchmark-qualification-failure-1.0.0",
+  "document_type": "forge_typed_action_benchmark_qualification_failure",
+  "identity": "cpp-typed-action-benchmark-qualification-v1",
+  "attempt": 1,
+  "status": "invalidated_infrastructure_failure",
+  "stopped_at": "2026-10-09T10:36:41+00:00",
+  "manifest_canonical_sha256": "15b79e0efb213b5567574dc095417d1eb0f4c0ba830d40cb89f856d6f2dac6d7",
+  "source_pool_canonical_sha256": "63521f5e71f33e8ce3802ac74e59fd982a9158710f5369585c2c20abaa6b0e36",
+  "completed_project_replicates": 40,
+  "partial_project": "libuv",
+  "partial_replicate": 1,
+  "failure_stage": "reference_functional_oracle",
+  "failure_class": "oracle_compile_contract_error",
+  "failure_message": "libuv public header requires pthread feature declarations that are hidden by strict -std=c11 in the frozen image",
+  "failure_log_sha256": "085a12950ba44796e5804014082bb3c729cc3f27d611f9d8b647e580820ba73d",
+  "failure_log_size_bytes": 555,
+  "provider_calls": 0,
+  "credential_reads": 0,
+  "model_calls": 0,
+  "model_tokens": 0,
+  "formal_qualification_report_written": false,
+  "historical_evidence_modified": false,
+  "recovery": {
+    "authorized": true,
+    "kind": "fresh_full_rerun_after_oracle_compile_mode_correction",
+    "sole_contract_change": "libuv oracle compile flag -std=c11 -> -std=gnu11",
+    "reuse_partial_outcomes": false,
+    "project_replacement": false,
+    "threshold_change": false,
+    "action_schema_change": false
+  }
+}
