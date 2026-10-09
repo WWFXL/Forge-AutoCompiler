@@ -6,6 +6,18 @@
 
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
+- 2026-10-09 — 完成 Issue #393 Jev 离线资格 candidate 与零 Provider API 前置门禁
+  - 工作类型: 实验基础设施；为 Issue #391 已通过难度门禁的语义动作路由建立独立 API、数据、预算和停止合同。本轮 0 credential read、0 Provider call、0 model token、0 Docker outcome collection、0 formal attempt/evidence，Issue #391 和全部历史 evidence 只读。
+  - 官方合同: 已审计 TypeSafe Quick start、API、Models、Confidence、Choice、State、Python SDK、RetryPolicy 和 Jev 1.13 jaggedness。固定 `POST /v1/systemone`、`typesafe-sdk==0.7.3`、`jev-1.13.0`、30 秒 timeout、`max_retries=0`；不用会漂移的 alias。当前价格为每百万 input token 0.042 美元、output 免费。
+  - 模型边界: Jev 只在 `dependency/configure/build/escalate_agent` 闭集中选择，不判断代码可确定的阶段、不生成 Shell、不绕过严格裁判。四选一 confidence 只是最高概率的单调变换；同一请求加入 criteria 正序与完全逆序两个 Choice，显式审计官方记录的 Jev 1.13 顺序偏差。
+  - 数据设计: design/calibration 各 6 个项目族，CMake/Make/Autotools 各 2 个；Issue #391 的 6 项目/18 状态报告以文件 SHA-256 `ea2e126e...adfed` 锁定为一次性 evaluation。三个 split 项目族不重叠，但不满足全局 commit 时间后移，且 v2 标签对研究者可见，因此只支持冻结受控故障 holdout，不支持时间泛化或自然失败总体声明。
+  - 校准与门槛: design 最多两轮；calibration 在 54 个直接 `state × action` 对上对完整 Choice 概率做一维 Platt scaling，再选零观察错误且覆盖最大的门槛。Evaluation 门槛为 top-1 至少 15/18、直接覆盖至少 6/18、错误直接动作 0、正反顺序至少 16/18 一致且三个构建系统均有正确直接动作。总硬上限为 72 请求、1,000,000 input tokens、0.042 美元。
+  - SDK 验证: `httpx2.MockTransport` 已验证真实 SDK wire shape、Bearer header、固定模型、两题及 criteria 顺序、request ID、usage、Choice 概率、confidence 和费用；模拟 529 在 retry=0 下只发生一次物理请求。Candidate manifest canonical SHA-256 为 `920ee99c3b63218436fdbfdcb86ead0d4bfecb02c833d1652244b9b92a40b583`。
+  - 凭据: 仓库根 `jev-apikey.txt` 已被 `.gitignore` 排除并收紧为 mode 600；只检查过路径、权限和大小，从未读取内容。首次读取前要求 candidate 提交并推送，另建 authorized amendment 绑定 exact revision、credential 授权、预算与 create-once evidence。
+  - 验证: `generate/validate/mock-check/preflight` 通过；candidate、v2 和阶段 A 相邻回归 `21 passed, 2 skipped`，skip 均为显式 Docker 集成门禁；完整 Ruff `427 files` 通过，`uv lock --check`、敏感字段扫描和 `git diff --check` 通过。完整 pytest 首轮因 13 个旧 opaque-provenance 测试仍导入已删除的 `resolve_command_role` 在 collection 中止；排除这些已知文件后为 `2887 passed, 78 skipped, 90 failed`，失败均在当前堆叠分支已有的冻结组件 hash/import drift 与其派生协议，没有新增 Jev 测试失败，不将全量 pytest 表述为全绿。
+  - 分支与发布: tracking Issue #393 已创建并回读；分支 `yiwei/393-jev-offline-qualification` 基于 `yiwei/391-semantic-routing-pilot@8c36e2ea`。本地 candidate 已提交，等待发布；Provider 运行和 controller 仍未授权。
+  - 文件: `scripts/forge_jev_offline_qualification_candidate.py`, `backend/tests/test_forge_jev_offline_qualification_candidate.py`, `benchmarks/fixtures/cpp-jev-offline-qualification-source-pool-v1.json`, `benchmarks/manifests/cpp-jev-offline-qualification-candidate-v1.json`, `benchmarks/schemas/forge-jev-offline-qualification-candidate-v1.schema.json`, `benchmarks/preregistrations/cpp-jev-offline-qualification-candidate-v1.md`, `docs/research/2026-10-09-jev-api-contract-audit.md`, `RESEARCH_STATUS.md`
+
 - 2026-10-09 — 完成 Issue #385 主动诊断动作价值候选机制审计并停止该候选
   - 工作类型: 结果分析、文献研究与零 Provider 资产审计；未读取 credential，未创建 formal identity/attempt，未写或修改冻结 experiment evidence，知识库只读。
   - 候选机制: 维护竞争性失败原因及概率，为诊断动作建模成本和可能证据，按预期假设排除价值选择下一动作，并在证据充分或继续诊断价值不足时修复或停止。

@@ -1,0 +1,188 @@
+{
+  "$schema": "../schemas/forge-jev-offline-qualification-candidate-v1.schema.json",
+  "authorization": {
+    "controller_implementation_authorized": false,
+    "credential_read_authorized": false,
+    "docker_outcome_collection_authorized": false,
+    "historical_evidence_write_authorized": false,
+    "model_calls_authorized": false,
+    "model_tokens_authorized": 0,
+    "provider_calls_authorized": false,
+    "provider_evidence_write_authorized": false
+  },
+  "budget": {
+    "calibration_maximum_requests": 18,
+    "design_maximum_requests": 36,
+    "evaluation_maximum_requests": 18,
+    "maximum_input_tokens": 1000000,
+    "maximum_model_cost_usd": 0.042,
+    "maximum_model_requests": 72
+  },
+  "candidate_thresholds": {
+    "maximum_erroneous_direct_actions": 0,
+    "minimum_direct_execution_coverage_count": 6,
+    "minimum_evaluation_top1_correct": 15,
+    "minimum_order_agreement_count": 16,
+    "require_correct_direct_action_in_every_build_system": true,
+    "threshold_selected_on_calibration_only": true
+  },
+  "data_contract": {
+    "calibration": {
+      "project_count": 6,
+      "state_count": 18
+    },
+    "design": {
+      "maximum_provider_rounds": 2,
+      "project_count": 6,
+      "state_count": 18
+    },
+    "evaluation": {
+      "file_sha256": "ea2e126e81cfca374900436fa670015b28b3cc3f9d8c83e746ae2c92d2badfed",
+      "identity": "cpp-typed-semantic-routing-pilot-v2",
+      "path": "benchmarks/reports/cpp-typed-semantic-routing-pilot-v2.json",
+      "project_count": 6,
+      "project_families": [
+        "github.com/c-ares/c-ares",
+        "github.com/ibireme/yyjson",
+        "github.com/kjdev/hoextdown",
+        "github.com/numactl/numactl",
+        "github.com/redis/hiredis",
+        "github.com/taywee/args"
+      ],
+      "prompt_or_threshold_tuning_allowed": false,
+      "read_only": true,
+      "single_analysis_only": true,
+      "state_count": 18,
+      "state_ids": [
+        "s-04583a661d7afed169c1",
+        "s-1a79cc859bb2c737959a",
+        "s-24a82eb0e6f3a737d7ca",
+        "s-3b766e7d393c963c2a86",
+        "s-43d6dc524621d9452800",
+        "s-556022689d838bba8b99",
+        "s-6227b03255d47a2aa384",
+        "s-772563d4dd7ba7c80d3a",
+        "s-79362feaf13d94eebfae",
+        "s-7fc6d755cdf374a4b79e",
+        "s-91f45981ca5f02feeb1c",
+        "s-929f23cdc35c78036248",
+        "s-9367b10556f281130338",
+        "s-b494d9209391bfc45581",
+        "s-be1455dc44d3cedc53ff",
+        "s-cbeadc0e7593e1792d01",
+        "s-defeb87ae1e0c9d3db71",
+        "s-fdee3a9654716799080d"
+      ]
+    },
+    "fault_name_is_not_model_input": true,
+    "global_commit_time_isolation": false,
+    "new_labels_from_executed_candidate_outcomes": true,
+    "project_family_overlap_allowed": false,
+    "source_pool": {
+      "canonical_sha256": "5b56141f4e46ed388883ba0a97f8d3dfc6c066f50bf185fc4be78acb901a640f",
+      "path": "benchmarks/fixtures/cpp-jev-offline-qualification-source-pool-v1.json"
+    },
+    "temporal_generalization_claim_allowed": false
+  },
+  "document_type": "forge_jev_offline_qualification_candidate",
+  "identity": "cpp-jev-offline-qualification-candidate-v1",
+  "issue_url": "https://github.com/WWFXL/Forge-AutoCompiler/issues/393",
+  "preregistration": {
+    "must_be_committed_and_pushed_before_credential_read": true,
+    "path": "benchmarks/preregistrations/cpp-jev-offline-qualification-candidate-v1.md",
+    "requires_separate_authorized_amendment": true
+  },
+  "provider_contract": {
+    "aliases_forbidden": [
+      "jev-latest",
+      "jev-preview"
+    ],
+    "api_base_url": "https://api.typesafe.ai",
+    "credential_env": "TYPESAFE_API_KEY",
+    "documentation_audit_path": "docs/research/2026-10-09-jev-api-contract-audit.md",
+    "endpoint": "/v1/systemone",
+    "input_price_usd_per_million_tokens": 0.042,
+    "max_retries": 0,
+    "model": "jev-1.13.0",
+    "output_tokens_free": true,
+    "provider": "TypeSafe AI",
+    "response_model_must_equal_request_model": true,
+    "sdk_default_max_retries": 2,
+    "sdk_distribution": "typesafe-sdk",
+    "sdk_log_level": "off",
+    "sdk_version": "0.7.3",
+    "timeout_seconds": 30.0
+  },
+  "request_contract": {
+    "one_request_per_state_per_round": true,
+    "order_sensitivity": {
+      "criteria": {
+        "build": "Run the already-bound normal build action without changing dependencies or generated configuration, then continue the strict build verification workflow.",
+        "configure": "Run the already-bound configure recovery action that regenerates damaged or stale build-system state, then continue the strict build verification workflow.",
+        "dependency": "Run the already-bound recovery action that restores a missing source or dependency input, then continue the strict build verification workflow.",
+        "escalate_agent": "Do not execute a direct recovery action. Escalate the state to the full compilation Agent because the evidence does not safely support one direct action."
+      },
+      "instructions": "Choose the single next action that is best supported by the observed build failure and is most likely to reach the strict build endpoint at the lowest listed action cost. Use only the supplied state. Choose escalate_agent when the evidence is insufficient for a direct action. Do not invent commands or actions.",
+      "type": "choice"
+    },
+    "primary": {
+      "criteria": {
+        "build": "Run the already-bound normal build action without changing dependencies or generated configuration, then continue the strict build verification workflow.",
+        "configure": "Run the already-bound configure recovery action that regenerates damaged or stale build-system state, then continue the strict build verification workflow.",
+        "dependency": "Run the already-bound recovery action that restores a missing source or dependency input, then continue the strict build verification workflow.",
+        "escalate_agent": "Do not execute a direct recovery action. Escalate the state to the full compilation Agent because the evidence does not safely support one direct action."
+      },
+      "instructions": "Choose the single next action that is best supported by the observed build failure and is most likely to reach the strict build endpoint at the lowest listed action cost. Use only the supplied state. Choose escalate_agent when the evidence is insufficient for a direct action. Do not invent commands or actions.",
+      "type": "choice"
+    },
+    "question_ids": [
+      "next_action_primary",
+      "next_action_order_sensitivity"
+    ],
+    "shell_generation_by_model": false,
+    "state_fields": [
+      "build_system",
+      "phase_facts",
+      "remaining_budget",
+      "semantic_failure_log",
+      "candidate_action_costs"
+    ]
+  },
+  "response_contract": {
+    "choice_confidence_formula": "(p_max - 1/n) / (1 - 1/n)",
+    "confidence_formula_absolute_tolerance": 0.02,
+    "probability_keys": [
+      "dependency",
+      "configure",
+      "build",
+      "escalate_agent"
+    ],
+    "probability_sum_absolute_tolerance": 1e-06,
+    "required_answer_fields": [
+      "type",
+      "choice",
+      "probabilities",
+      "confidence"
+    ],
+    "required_fields": [
+      "model",
+      "answers",
+      "usage.input_tokens",
+      "usage.output_tokens",
+      "x-typesafe-request-id"
+    ],
+    "store_authorization_header": false,
+    "store_raw_credential": false
+  },
+  "schema_version": "forge-jev-offline-qualification-candidate-1.0.0",
+  "status": "candidate_zero_provider",
+  "stopping_rules": {
+    "adjust_after_evaluation": false,
+    "backfill_failed_evaluation_state": false,
+    "replace_failed_evaluation_state": false,
+    "retry_failed_evaluation_request": false,
+    "stop_batch_on_first_request_failure": true,
+    "stop_on_model_version_drift": true,
+    "stop_on_response_contract_drift": true
+  }
+}

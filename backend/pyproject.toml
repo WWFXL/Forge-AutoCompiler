@@ -25,6 +25,7 @@ dev = [
     "pytest>=8.0.0",
     "ruff>=0.14.11",
     "scikit-learn>=1.7,<2",
+    "typesafe-sdk==0.7.3",
 ]
 
 [tool.uv.workspace]
