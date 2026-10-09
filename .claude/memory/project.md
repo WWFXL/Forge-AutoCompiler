@@ -6,6 +6,17 @@
 
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
+- 2026-10-09 — 完成 Issue #385 主动诊断动作价值候选机制审计并停止该候选
+  - 工作类型: 结果分析、文献研究与零 Provider 资产审计；未读取 credential，未创建 formal identity/attempt，未写或修改冻结 experiment evidence，知识库只读。
+  - 候选机制: 维护竞争性失败原因及概率，为诊断动作建模成本和可能证据，按预期假设排除价值选择下一动作，并在证据充分或继续诊断价值不足时修复或停止。
+  - 文献结论: `LLM-as-an-Investigator` 已覆盖竞争假设、区分问题、概率更新与预算停止；2024 cost-aware active testing 已覆盖观察、测试、干预、反事实选步与期望诊断成本；`Calibrate-Then-Act` 已用 POMDP 联合潜在状态、探索动作、成本和 commit。EIG、成本约束工具获取、debugger subagent 与显式 repair hypothesis 另有直接先例。
+  - 资产审计: 阶段 0 固定语料含 30 条 session、18 个项目族、409 个决策点和 264 个 `diagnostic` 动作，其中 256 条 Shell 命令逐字不同。每个状态只有原策略所选动作的 outcome，manifest 没有独立根因标签，`duration_seconds` 也只提供 realized cost；Stage C v6 的四条后验根因审计不构成同状态动作分支。
+  - 决定: 直接先例覆盖与反事实数据缺失两个放弃条件同时触发，冻结决定为 `abandon_active_diagnosis_as_novel_mechanism`。不进入预注册、controller 或 Provider 实验，不把公共 schema、构建系统 adapter、严格 oracle 和 benchmark 表述为新增决策机制。
+  - 解释边界: 结论只说明该候选不满足当前机制创新门槛，并说明旧轨迹不能识别动作价值；不说明主动诊断没有产品价值，也不排除跨构建系统 benchmark、可执行探针协议、应用实证或更窄的构建特有机制空白。本轮是定向机制审计，不是系统综述。
+  - 下一决策: 研究负责人需选择将目标改为 benchmark/评测贡献，或继续寻找具有构建领域特有状态变量、约束或学习目标的新机制。前者需要新的受控故障、可恢复快照和全动作 outcome matrix；两条路线都不能复用旧轨迹制造反事实结果。
+  - 发布: 分支 `yiwei/385-active-diagnosis-audit` 基于 `yiwei/382-progress-state-qualification@bca74035`；中文 Issue #385 已创建并回读。审计发布为 stacked PR，不合并现有 PR #383/#384。
+  - 文件: `docs/research/2026-10-09-active-diagnosis-mechanism-audit.md`, `RESEARCH_STATUS.md`, `.claude/memory/project.md`
+
 - 2026-10-09 — 完成 Issue #382 跨构建系统进展状态离线资格审计，当前机制按门槛停止
   - 工作类型: 基础设施与结果分析；零 Provider、零 credential read、零 formal attempt，旧 identity/evidence 全程只读。预注册提交为 `6ae22aa4`，结果前实现快照为 `2afd42ab`，最终比较只运行一次。
   - 冻结输入: 开发集为 2026-09-25 Phase 5 v3 的 6 个项目族/6 条 session/100 个决策点；隔离测试集为 2026-09-26 Stage C v5 baseline 的 12 个未见项目族/24 条 session/309 个决策点。manifest canonical SHA-256 为 `9340a10f005a9a90f980ac45356e8c13d00f35a7b095e30a68ccde610944ee6d`。
