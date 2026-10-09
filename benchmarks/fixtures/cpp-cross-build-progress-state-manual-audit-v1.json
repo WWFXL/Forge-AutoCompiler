@@ -1,0 +1,1230 @@
+{
+  "annotations": [
+    {
+      "annotation": {
+        "after_diagnostic_category": "none",
+        "after_obligations": {
+          "artifacts_staged": "pending",
+          "build_graph_ready": "verified",
+          "clean_replay_closed": "pending",
+          "configuration_generated": "verified",
+          "contract_target_built": "pending",
+          "functional_oracle_passed": "pending",
+          "provenance_verified": "pending",
+          "source_available": "verified",
+          "toolchain_ready": "verified"
+        },
+        "before_diagnostic_category": "none",
+        "before_obligations": {
+          "artifacts_staged": "pending",
+          "build_graph_ready": "pending",
+          "clean_replay_closed": "pending",
+          "configuration_generated": "pending",
+          "contract_target_built": "pending",
+          "functional_oracle_passed": "pending",
+          "provenance_verified": "pending",
+          "source_available": "verified",
+          "toolchain_ready": "pending"
+        },
+        "transition": "progress"
+      },
+      "audit_id": "cmake-01",
+      "build_system": "cmake",
+      "command_id": "command_835245a454e74290a8ffcd7f395dc36f",
+      "commit_sha": "9365ddc7061033df656578bf86040048b5b5531a",
+      "eligible_command_index": 5,
+      "evidence_prefix": [
+        {
+          "command_id": "command_187ef0729faa490980015501b9670436",
+          "exit_code": 0,
+          "log_path": "phase5-v3-yyjson-191062f15d83/75c5e98a8b6d/logs/command_187ef0729faa490980015501b9670436.log",
+          "log_sha256": "43a89345fa9eb6084c64a2ac5f389b6cd3c567bfb6637e77649711985ceef7a2",
+          "role": "diagnostic",
+          "termination": "completed",
+          "timed_out": false
+        },
+        {
+          "command_id": "command_93ae7320ea5e40a3b2cdf82babf24b79",
+          "exit_code": 0,
+          "log_path": "phase5-v3-yyjson-191062f15d83/75c5e98a8b6d/logs/command_93ae7320ea5e40a3b2cdf82babf24b79.log",
+          "log_sha256": "7b4f42f81a0a56458b48209ab6069a6e5b093a66394d9ae475117a206f523f88",
+          "role": "diagnostic",
+          "termination": "completed",
+          "timed_out": false
+        },
+        {
+          "command_id": "command_1734dbd984dc4f1e9451cbe01ca8721a",
+          "exit_code": 0,
+          "log_path": "phase5-v3-yyjson-191062f15d83/75c5e98a8b6d/logs/command_1734dbd984dc4f1e9451cbe01ca8721a.log",
+          "log_sha256": "e9b427bc12f8786b5d5a1d1a1297c002d7d9ca8cf4a192e52868e6f634913aa4",
+          "role": "diagnostic",
+          "termination": "completed",
+          "timed_out": false
+        },
+        {
+          "command_id": "command_cffa49fc57eb432285c722bc4c505a9a",
+          "exit_code": 0,
+          "log_path": "phase5-v3-yyjson-191062f15d83/75c5e98a8b6d/logs/command_cffa49fc57eb432285c722bc4c505a9a.log",
+          "log_sha256": "4ccc70bb8f6120e6e9da90119210b3c65851d2202726ef461699362e293cb44b",
+          "role": "diagnostic",
+          "termination": "completed",
+          "timed_out": false
+        },
+        {
+          "command_id": "command_835245a454e74290a8ffcd7f395dc36f",
+          "exit_code": 0,
+          "log_path": "phase5-v3-yyjson-191062f15d83/75c5e98a8b6d/logs/command_835245a454e74290a8ffcd7f395dc36f.log",
+          "log_sha256": "017472e4c661712905c3042338f875f56f44f1774b734986f3796601d9ff1e3c",
+          "role": "configure",
+          "termination": "completed",
+          "timed_out": false
+        }
+      ],
+      "project_family": "github.com/ibireme/yyjson",
+      "selection_hash": "016722affd5f3966e6375d872b038c4c60560a1c56e652b5d809e1c3a68e27a5",
+      "session_path": "phase5-v3-yyjson-191062f15d83/75c5e98a8b6d/session.json",
+      "split": "development"
+    },
+    {
+      "annotation": {
+        "after_diagnostic_category": "none",
+        "after_obligations": {
+          "artifacts_staged": "verified",
+          "build_graph_ready": "verified",
+          "clean_replay_closed": "pending",
+          "configuration_generated": "verified",
+          "contract_target_built": "verified",
+          "functional_oracle_passed": "verified",
+          "provenance_verified": "pending",
+          "source_available": "verified",
+          "toolchain_ready": "verified"
+        },
+        "before_diagnostic_category": "none",
+        "before_obligations": {
+          "artifacts_staged": "verified",
+          "build_graph_ready": "verified",
+          "clean_replay_closed": "pending",
+          "configuration_generated": "verified",
+          "contract_target_built": "verified",
+          "functional_oracle_passed": "pending",
+          "provenance_verified": "pending",
+          "source_available": "verified",
+          "toolchain_ready": "verified"
+        },
+        "transition": "progress"
+      },
+      "audit_id": "cmake-02",
+      "build_system": "cmake",
+      "command_id": "command_727370f360d4447090110a1eefe29de8",
+      "commit_sha": "531b3d753d2bbfe3b0ababe61c2e95e965c54a66",
+      "eligible_command_index": 9,
+      "evidence_prefix": [
+        {
+          "command_id": "command_74932f20504142f2822e8d8f1efbfe21",
+          "exit_code": 0,
+          "log_path": "phase5-v3-cppitertools-191062f15d83/6699e0a8f303/logs/command_74932f20504142f2822e8d8f1efbfe21.log",
+          "log_sha256": "a956c27c54fefe1833906e20850ed5aa3762288fff78d0c0dfb9765631d5174d",
+          "role": "diagnostic",
+          "termination": "completed",
+          "timed_out": false
+        },
+        {
+          "command_id": "command_637fa378250c4001a3213d0b4128d72b",
+          "exit_code": 0,
+          "log_path": "phase5-v3-cppitertools-191062f15d83/6699e0a8f303/logs/command_637fa378250c4001a3213d0b4128d72b.log",
+          "log_sha256": "89073d07f6688c9d192b552387d964de0c5c4fc5110d1eb30736dc17e9d9030f",
+          "role": "diagnostic",
+          "termination": "completed",
+          "timed_out": false
+        },
+        {
+          "command_id": "command_08544b3d70cf41ad88a5378a9f5c289f",
+          "exit_code": 0,
+          "log_path": "phase5-v3-cppitertools-191062f15d83/6699e0a8f303/logs/command_08544b3d70cf41ad88a5378a9f5c289f.log",
+          "log_sha256": "e3f981bfd8b6db3233e3e5efb4b65122899176325a836273b26bc7b13d89b17f",
+          "role": "diagnostic",
+          "termination": "completed",
+          "timed_out": false
+        },
+        {
+          "command_id": "command_b0944055eaaf411fb9cd7d89349a0318",
+          "exit_code": 126,
+          "log_path": "phase5-v3-cppitertools-191062f15d83/6699e0a8f303/logs/command_b0944055eaaf411fb9cd7d89349a0318.log",
+          "log_sha256": "d3331d58a425542be299fded50d3e83af576e1c1c1384c835ea1a570109b648c",
+          "role": "configure",
+          "termination": "policy_rejected",
+          "timed_out": false
+        },
+        {
+          "command_id": "command_76dd5c410bef46acbeb1f51a13c38e46",
+          "exit_code": 0,
+          "log_path": "phase5-v3-cppitertools-191062f15d83/6699e0a8f303/logs/command_76dd5c410bef46acbeb1f51a13c38e46.log",
+          "log_sha256": "4b30dcacec71deef846346bfa1b3cc082ab20714bf5db1fdf0cc623a2fea33fd",
+          "role": "dependency",
+          "termination": "completed",
+          "timed_out": false
+        },
+        {
+          "command_id": "command_97a3173b68b74968aeb2f1fd9733a38b",
+          "exit_code": 0,
+          "log_path": "phase5-v3-cppitertools-191062f15d83/6699e0a8f303/logs/command_97a3173b68b74968aeb2f1fd9733a38b.log",
+          "log_sha256": "b399954f183438cad99fde5103f53384c7d2a13262e5f19d751f475526c18a54",
+          "role": "configure",
+          "termination": "completed",
+          "timed_out": false
+        },
+        {
+          "command_id": "command_28e431a2b1874f2cbca5cccae2bb4680",
+          "exit_code": 0,
+          "log_path": "phase5-v3-cppitertools-191062f15d83/6699e0a8f303/logs/command_28e431a2b1874f2cbca5cccae2bb4680.log",
+          "log_sha256": "97e5cc11a2c56b2e2451754177cbdfa187eb09d0d3be65f8b7b18130e44fcfd8",
+          "role": "build",
+          "termination": "completed",
+          "timed_out": false
+        },
+        {
+          "command_id": "command_60c28ac6ab3442a5889a6ea196ed56a4",
+          "exit_code": 0,
+          "log_path": "phase5-v3-cppitertools-191062f15d83/6699e0a8f303/logs/command_60c28ac6ab3442a5889a6ea196ed56a4.log",
+          "log_sha256": "69d71f59cb5fd2f04c57449277703fe5990d40eb758683888ff7d415948613d8",
+          "role": "artifact_stage",
+          "termination": "completed",
+          "timed_out": false
+        },
+        {
+          "command_id": "command_727370f360d4447090110a1eefe29de8",
+          "exit_code": 0,
+          "log_path": "phase5-v3-cppitertools-191062f15d83/6699e0a8f303/logs/command_727370f360d4447090110a1eefe29de8.log",
+          "log_sha256": "613def9fc592b8bba9a50ce0a7fde7a2b49543f9f0708f9f472f551e291336db",
+          "role": "smoke",
+          "termination": "completed",
+          "timed_out": false
+        }
+      ],
+      "project_family": "github.com/ryanhaining/cppitertools",
+      "selection_hash": "0cded56d1de822f445a42c8fb6f135fe8d3d94dfe221560ce1d9343921d24d98",
+      "session_path": "phase5-v3-cppitertools-191062f15d83/6699e0a8f303/session.json",
+      "split": "development"
+    },
+    {
+      "annotation": {
+        "after_diagnostic_category": "none",
+        "after_obligations": {
+          "artifacts_staged": "pending",
+          "build_graph_ready": "pending",
+          "clean_replay_closed": "pending",
+          "configuration_generated": "pending",
+          "contract_target_built": "pending",
+          "functional_oracle_passed": "pending",
+          "provenance_verified": "pending",
+          "source_available": "verified",
+          "toolchain_ready": "pending"
+        },
+        "before_diagnostic_category": "none",
+        "before_obligations": {
+          "artifacts_staged": "pending",
+          "build_graph_ready": "pending",
+          "clean_replay_closed": "pending",
+          "configuration_generated": "pending",
+          "contract_target_built": "pending",
+          "functional_oracle_passed": "pending",
+          "provenance_verified": "pending",
+          "source_available": "verified",
+          "toolchain_ready": "pending"
+        },
+        "transition": "stagnation"
+      },
+      "audit_id": "cmake-03",
+      "build_system": "cmake",
+      "command_id": "command_70eaccc48a994f60a6bf8254b7e75fa6",
+      "commit_sha": "25895a587eb5a80ee18514af784122e3bacb10c4",
+      "eligible_command_index": 1,
+      "evidence_prefix": [
+        {
+          "command_id": "command_70eaccc48a994f60a6bf8254b7e75fa6",
+          "exit_code": 0,
+          "log_path": "stage-c-b-b55d25d5ed9827a913ecd9aadaac3a5a8635aa629bc38e01baf80a0dcd048c7c-11eefa99737b6e20/39b555620ecf/logs/command_70eaccc48a994f60a6bf8254b7e75fa6.log",
+          "log_sha256": "43662d38cc0dd64f829f1bb72c69db04ee7b26583eac77bf57db2643ad0b8191",
+          "role": "diagnostic",
+          "termination": "completed",
+          "timed_out": false
+        }
+      ],
+      "project_family": "github.com/json-c/json-c",
+      "selection_hash": "0d47836ae282f18f6800f8525a99baac92d0f04182815dbacb3be6cd22294d54",
+      "session_path": "stage-c-b-b55d25d5ed9827a913ecd9aadaac3a5a8635aa629bc38e01baf80a0dcd048c7c-11eefa99737b6e20/39b555620ecf/session.json",
+      "split": "evaluation"
+    },
+    {
+      "annotation": {
+        "after_diagnostic_category": "none",
+        "after_obligations": {
+          "artifacts_staged": "pending",
+          "build_graph_ready": "pending",
+          "clean_replay_closed": "pending",
+          "configuration_generated": "pending",
+          "contract_target_built": "pending",
+          "functional_oracle_passed": "pending",
+          "provenance_verified": "pending",
+          "source_available": "verified",
+          "toolchain_ready": "pending"
+        },
+        "before_diagnostic_category": "none",
+        "before_obligations": {
+          "artifacts_staged": "pending",
+          "build_graph_ready": "pending",
+          "clean_replay_closed": "pending",
+          "configuration_generated": "pending",
+          "contract_target_built": "pending",
+          "functional_oracle_passed": "pending",
+          "provenance_verified": "pending",
+          "source_available": "verified",
+          "toolchain_ready": "pending"
+        },
+        "transition": "stagnation"
+      },
+      "audit_id": "cmake-04",
+      "build_system": "cmake",
+      "command_id": "command_2b22ff1099de44b48a86bc79fefab7a8",
+      "commit_sha": "588860e30721bf5453b0440c390865a8e85dcae5",
+      "eligible_command_index": 8,
+      "evidence_prefix": [
+        {
+          "command_id": "command_bbaa6be77f7c4c7ab20413af201afbc1",
+          "exit_code": 0,
+          "log_path": "stage-c-b-38d39fd75086e68057a5ff83963d11bad4a8dee2450942074d4645361e4247a2-11eefa99737b6e20/fd074b0b01f4/logs/command_bbaa6be77f7c4c7ab20413af201afbc1.log",
+          "log_sha256": "653e52fddf938a8aac5078b10e2fdc27e4e480b1346470388400e5e96a0a209f",
+          "role": "diagnostic",
+          "termination": "completed",
+          "timed_out": false
+        },
+        {
+          "command_id": "command_5d146d5ba5934b3dad8bab5e6f85ffa9",
+          "exit_code": 0,
+          "log_path": "stage-c-b-38d39fd75086e68057a5ff83963d11bad4a8dee2450942074d4645361e4247a2-11eefa99737b6e20/fd074b0b01f4/logs/command_5d146d5ba5934b3dad8bab5e6f85ffa9.log",
+          "log_sha256": "4cc74b1300b4336540df75611d6545a08ad77d6c22f4340e7cda306cd3596ec0",
+          "role": "diagnostic",
+          "termination": "completed",
+          "timed_out": false
+        },
+        {
+          "command_id": "command_83d6533d58a548688f2f818e005390d3",
+          "exit_code": 0,
+          "log_path": "stage-c-b-38d39fd75086e68057a5ff83963d11bad4a8dee2450942074d4645361e4247a2-11eefa99737b6e20/fd074b0b01f4/logs/command_83d6533d58a548688f2f818e005390d3.log",
+          "log_sha256": "afd70de9b37e3bf51ae7f483eabf4349712df6102de4de450cc36c7527bd09dc",
+          "role": "diagnostic",
+          "termination": "completed",
+          "timed_out": false
+        },
+        {
+          "command_id": "command_4b2843d4300542e990dee19aeac7e3ab",
+          "exit_code": 0,
+          "log_path": "stage-c-b-38d39fd75086e68057a5ff83963d11bad4a8dee2450942074d4645361e4247a2-11eefa99737b6e20/fd074b0b01f4/logs/command_4b2843d4300542e990dee19aeac7e3ab.log",
+          "log_sha256": "64bf67624bed84d37dba67a50e2385292d7d38ef7303a7a9b6a2db060d3bcae3",
+          "role": "diagnostic",
+          "termination": "completed",
+          "timed_out": false
+        },
+        {
+          "command_id": "command_906fa277b5844f78a677cc7b5d0dbc22",
+          "exit_code": 0,
+          "log_path": "stage-c-b-38d39fd75086e68057a5ff83963d11bad4a8dee2450942074d4645361e4247a2-11eefa99737b6e20/fd074b0b01f4/logs/command_906fa277b5844f78a677cc7b5d0dbc22.log",
+          "log_sha256": "7bffaa420e32c6b536daf3a079382bec9fd8c96585cbb1c53f12f36e4064c7c1",
+          "role": "diagnostic",
+          "termination": "completed",
+          "timed_out": false
+        },
+        {
+          "command_id": "command_f98a50847ba54340887d189f056bbece",
+          "exit_code": 0,
+          "log_path": "stage-c-b-38d39fd75086e68057a5ff83963d11bad4a8dee2450942074d4645361e4247a2-11eefa99737b6e20/fd074b0b01f4/logs/command_f98a50847ba54340887d189f056bbece.log",
+          "log_sha256": "5bd091fba3f6b4c19c39ed39d3d673eb581418cd128d0c6447a8b4b32f349b9a",
+          "role": "diagnostic",
+          "termination": "completed",
+          "timed_out": false
+        },
+        {
+          "command_id": "command_2ca01ac2140d406db39ffa2cbd33e37a",
+          "exit_code": 0,
+          "log_path": "stage-c-b-38d39fd75086e68057a5ff83963d11bad4a8dee2450942074d4645361e4247a2-11eefa99737b6e20/fd074b0b01f4/logs/command_2ca01ac2140d406db39ffa2cbd33e37a.log",
+          "log_sha256": "8cfb11ce24adeee47d9bc319a7de0f61e5553b1492639043154bd167c0eac7d4",
+          "role": "diagnostic",
+          "termination": "completed",
+          "timed_out": false
+        },
+        {
+          "command_id": "command_2b22ff1099de44b48a86bc79fefab7a8",
+          "exit_code": 0,
+          "log_path": "stage-c-b-38d39fd75086e68057a5ff83963d11bad4a8dee2450942074d4645361e4247a2-11eefa99737b6e20/fd074b0b01f4/logs/command_2b22ff1099de44b48a86bc79fefab7a8.log",
+          "log_sha256": "befd74c04656046079044dae3b70db44f2e9305203d5c85b174d9b49f305588d",
+          "role": "diagnostic",
+          "termination": "completed",
+          "timed_out": false
+        }
+      ],
+      "project_family": "github.com/civetweb/civetweb",
+      "selection_hash": "0e754d87ea7d5946dfb1a5df132b8e11dfdd24011f9cc3a4458ae18b6f693012",
+      "session_path": "stage-c-b-38d39fd75086e68057a5ff83963d11bad4a8dee2450942074d4645361e4247a2-11eefa99737b6e20/fd074b0b01f4/session.json",
+      "split": "evaluation"
+    },
+    {
+      "annotation": {
+        "after_diagnostic_category": "policy_rejected",
+        "after_obligations": {
+          "artifacts_staged": "pending",
+          "build_graph_ready": "verified",
+          "clean_replay_closed": "pending",
+          "configuration_generated": "not_applicable",
+          "contract_target_built": "verified",
+          "functional_oracle_passed": "pending",
+          "provenance_verified": "pending",
+          "source_available": "verified",
+          "toolchain_ready": "verified"
+        },
+        "before_diagnostic_category": "none",
+        "before_obligations": {
+          "artifacts_staged": "pending",
+          "build_graph_ready": "verified",
+          "clean_replay_closed": "pending",
+          "configuration_generated": "not_applicable",
+          "contract_target_built": "verified",
+          "functional_oracle_passed": "pending",
+          "provenance_verified": "pending",
+          "source_available": "verified",
+          "toolchain_ready": "verified"
+        },
+        "transition": "lateral"
+      },
+      "audit_id": "make-01",
+      "build_system": "make",
+      "command_id": "command_59273e749d8647a18c1cdab60b146704",
+      "commit_sha": "0774d05537f9762f838f7ab541b7765f1a729cb5",
+      "eligible_command_index": 4,
+      "evidence_prefix": [
+        {
+          "command_id": "command_c90169b86bf840ada8d0d3613db07730",
+          "exit_code": 0,
+          "log_path": "stage-c-b-6c0ef3e667f26d0258935ddcbe310c9718b7e660336cd54c143479b1226732bf-11eefa99737b6e20/eb2e2a8c013d/logs/command_c90169b86bf840ada8d0d3613db07730.log",
+          "log_sha256": "fed88b83a44b3c7f17d07e42b476c4e7cdb3da7baa51c4dcb103dfc679b1fb48",
+          "role": "diagnostic",
+          "termination": "completed",
+          "timed_out": false
+        },
+        {
+          "command_id": "command_095cfdc4764c4f048182ea8a3b722af3",
+          "exit_code": 0,
+          "log_path": "stage-c-b-6c0ef3e667f26d0258935ddcbe310c9718b7e660336cd54c143479b1226732bf-11eefa99737b6e20/eb2e2a8c013d/logs/command_095cfdc4764c4f048182ea8a3b722af3.log",
+          "log_sha256": "f10596644f05d024c6e0f1e733620f3687df8964ee404609d49f9d8ce820f160",
+          "role": "diagnostic",
+          "termination": "completed",
+          "timed_out": false
+        },
+        {
+          "command_id": "command_44eda263525040198c7195462a65afc6",
+          "exit_code": 0,
+          "log_path": "stage-c-b-6c0ef3e667f26d0258935ddcbe310c9718b7e660336cd54c143479b1226732bf-11eefa99737b6e20/eb2e2a8c013d/logs/command_44eda263525040198c7195462a65afc6.log",
+          "log_sha256": "96a7b09875728b7d5d0b94397f93bce3952bbf61800bc6446741609ca31a5d97",
+          "role": "build",
+          "termination": "completed",
+          "timed_out": false
+        },
+        {
+          "command_id": "command_59273e749d8647a18c1cdab60b146704",
+          "exit_code": 126,
+          "log_path": "stage-c-b-6c0ef3e667f26d0258935ddcbe310c9718b7e660336cd54c143479b1226732bf-11eefa99737b6e20/eb2e2a8c013d/logs/command_59273e749d8647a18c1cdab60b146704.log",
+          "log_sha256": "b497d6b70047f00a24a5f1aa177586c6b3e79765299b2a50db7fd576ce6e50e8",
+          "role": "build",
+          "termination": "policy_rejected",
+          "timed_out": false
+        }
+      ],
+      "project_family": "github.com/lz4/lz4",
+      "selection_hash": "019da6f7e253c904ad2f879e5d7792689070b238cce0394eb3774b3096602c39",
+      "session_path": "stage-c-b-6c0ef3e667f26d0258935ddcbe310c9718b7e660336cd54c143479b1226732bf-11eefa99737b6e20/eb2e2a8c013d/session.json",
+      "split": "evaluation"
+    },
+    {
+      "annotation": {
+        "after_diagnostic_category": "none",
+        "after_obligations": {
+          "artifacts_staged": "pending",
+          "build_graph_ready": "pending",
+          "clean_replay_closed": "pending",
+          "configuration_generated": "not_applicable",
+          "contract_target_built": "pending",
+          "functional_oracle_passed": "pending",
+          "provenance_verified": "pending",
+          "source_available": "verified",
+          "toolchain_ready": "verified"
+        },
+        "before_diagnostic_category": "none",
+        "before_obligations": {
+          "artifacts_staged": "pending",
+          "build_graph_ready": "pending",
+          "clean_replay_closed": "pending",
+          "configuration_generated": "not_applicable",
+          "contract_target_built": "pending",
+          "functional_oracle_passed": "pending",
+          "provenance_verified": "pending",
+          "source_available": "verified",
+          "toolchain_ready": "verified"
+        },
+        "transition": "stagnation"
+      },
+      "audit_id": "make-02",
+      "build_system": "make",
+      "command_id": "command_6ff168da25374a9db9af45cde8d74783",
+      "commit_sha": "4a2615fac570c6ca1ed4f157b9fdab9466edfd80",
+      "eligible_command_index": 8,
+      "evidence_prefix": [
+        {
+          "command_id": "command_9659464f901e45b2b6ab20f5f7c8acee",
+          "exit_code": 0,
+          "log_path": "phase5-v3-openh264-191062f15d83/e2ffa10af7e0/logs/command_9659464f901e45b2b6ab20f5f7c8acee.log",
+          "log_sha256": "c096b68d18141935a3f2127f64d019dbe7c993f849b2a08367ba9b02660aebd9",
+          "role": "diagnostic",
+          "termination": "completed",
+          "timed_out": false
+        },
+        {
+          "command_id": "command_2aecfe418d404a1795ea604ed71c2228",
+          "exit_code": 0,
+          "log_path": "phase5-v3-openh264-191062f15d83/e2ffa10af7e0/logs/command_2aecfe418d404a1795ea604ed71c2228.log",
+          "log_sha256": "d88bd10ae5a29cbefe75c94567ba0fc623f4434915ca05deba45583206d2ff90",
+          "role": "diagnostic",
+          "termination": "completed",
+          "timed_out": false
+        },
+        {
+          "command_id": "command_767a502b088b4c41aff651e15e3f2a3b",
+          "exit_code": 1,
+          "log_path": "phase5-v3-openh264-191062f15d83/e2ffa10af7e0/logs/command_767a502b088b4c41aff651e15e3f2a3b.log",
+          "log_sha256": "69c0f4e801d2f8f68188e5843041da6d8c041c63e3cd3e38926c698523a1a209",
+          "role": "diagnostic",
+          "termination": "failed",
+          "timed_out": false
+        },
+        {
+          "command_id": "command_e6988c33938a4bae8f385ed749b50a86",
+          "exit_code": 0,
+          "log_path": "phase5-v3-openh264-191062f15d83/e2ffa10af7e0/logs/command_e6988c33938a4bae8f385ed749b50a86.log",
+          "log_sha256": "45eb08ccf82d335e49509e095c12700e3716595a2414c79256790832b6cb7b2d",
+          "role": "diagnostic",
+          "termination": "completed",
+          "timed_out": false
+        },
+        {
+          "command_id": "command_412a1dc30ce34a829c9ba24c08c530e7",
+          "exit_code": 0,
+          "log_path": "phase5-v3-openh264-191062f15d83/e2ffa10af7e0/logs/command_412a1dc30ce34a829c9ba24c08c530e7.log",
+          "log_sha256": "6f1b0656b49dfae27eb51d079944e7898184cb728ecfff42453182b871a144e5",
+          "role": "diagnostic",
+          "termination": "completed",
+          "timed_out": false
+        },
+        {
+          "command_id": "command_c4a79ac471bc499082cbee3371504f8a",
+          "exit_code": 100,
+          "log_path": "phase5-v3-openh264-191062f15d83/e2ffa10af7e0/logs/command_c4a79ac471bc499082cbee3371504f8a.log",
+          "log_sha256": "075526c0406f48c0bef4f7444d597b1d369c75c60a6430f4f6999a366cb10cab",
+          "role": "dependency",
+          "termination": "failed",
+          "timed_out": false
+        },
+        {
+          "command_id": "command_f76bd2d8514246829f7cff9d812a87e3",
+          "exit_code": 0,
+          "log_path": "phase5-v3-openh264-191062f15d83/e2ffa10af7e0/logs/command_f76bd2d8514246829f7cff9d812a87e3.log",
+          "log_sha256": "ab4d95b7ebd79ea2a96bb4d02ca37064ea66f611087ae9e28f5a254c455dedf5",
+          "role": "dependency",
+          "termination": "completed",
+          "timed_out": false
+        },
+        {
+          "command_id": "command_6ff168da25374a9db9af45cde8d74783",
+          "exit_code": 0,
+          "log_path": "phase5-v3-openh264-191062f15d83/e2ffa10af7e0/logs/command_6ff168da25374a9db9af45cde8d74783.log",
+          "log_sha256": "679dcbbc7c217933d99952168426ff633d339320e9beb03fe8cebf1aaf890e9a",
+          "role": "dependency",
+          "termination": "completed",
+          "timed_out": false
+        }
+      ],
+      "project_family": "github.com/cisco/openh264",
+      "selection_hash": "026b4dab1c3eda8f85cefc0094970143bec20606aa54c3c601c49917e8d312fa",
+      "session_path": "phase5-v3-openh264-191062f15d83/e2ffa10af7e0/session.json",
+      "split": "development"
+    },
+    {
+      "annotation": {
+        "after_diagnostic_category": "none",
+        "after_obligations": {
+          "artifacts_staged": "pending",
+          "build_graph_ready": "pending",
+          "clean_replay_closed": "pending",
+          "configuration_generated": "not_applicable",
+          "contract_target_built": "pending",
+          "functional_oracle_passed": "pending",
+          "provenance_verified": "pending",
+          "source_available": "verified",
+          "toolchain_ready": "pending"
+        },
+        "before_diagnostic_category": "none",
+        "before_obligations": {
+          "artifacts_staged": "pending",
+          "build_graph_ready": "pending",
+          "clean_replay_closed": "pending",
+          "configuration_generated": "not_applicable",
+          "contract_target_built": "pending",
+          "functional_oracle_passed": "pending",
+          "provenance_verified": "pending",
+          "source_available": "verified",
+          "toolchain_ready": "pending"
+        },
+        "transition": "stagnation"
+      },
+      "audit_id": "make-03",
+      "build_system": "make",
+      "command_id": "command_d176aa3e01ac408aa9fc8f3bb6aaa884",
+      "commit_sha": "0774d05537f9762f838f7ab541b7765f1a729cb5",
+      "eligible_command_index": 11,
+      "evidence_prefix": [
+        {
+          "command_id": "command_0487979087ba4262a78180648eb5e294",
+          "exit_code": 0,
+          "log_path": "stage-c-b-8e2465cbaf0197a7db1a0523d937df69da837c5ce96d5d1db80bf02d810d01bc-11eefa99737b6e20/905137dcf36c/logs/command_0487979087ba4262a78180648eb5e294.log",
+          "log_sha256": "3d21c2e64ed493ad50237db983ac74ed30dd4c77e149e9683dee0c12a1b57e2f",
+          "role": "diagnostic",
+          "termination": "completed",
+          "timed_out": false
+        },
+        {
+          "command_id": "command_e89ff28987c84b238ad866c6e820a108",
+          "exit_code": 0,
+          "log_path": "stage-c-b-8e2465cbaf0197a7db1a0523d937df69da837c5ce96d5d1db80bf02d810d01bc-11eefa99737b6e20/905137dcf36c/logs/command_e89ff28987c84b238ad866c6e820a108.log",
+          "log_sha256": "01f84c4ea2e0019bfe9ac1f2bad0062c2a3074cb58a0ad64a617de955cc91ce4",
+          "role": "diagnostic",
+          "termination": "completed",
+          "timed_out": false
+        },
+        {
+          "command_id": "command_472a3b4f64e24013adec2d187907950d",
+          "exit_code": 0,
+          "log_path": "stage-c-b-8e2465cbaf0197a7db1a0523d937df69da837c5ce96d5d1db80bf02d810d01bc-11eefa99737b6e20/905137dcf36c/logs/command_472a3b4f64e24013adec2d187907950d.log",
+          "log_sha256": "f462bbdff8efde4caeed530f6c4252b6fb7513cd9cc6500e7f3ed9ee031ec89a",
+          "role": "diagnostic",
+          "termination": "completed",
+          "timed_out": false
+        },
+        {
+          "command_id": "command_60bf82e02dee4773bac285cd443a1390",
+          "exit_code": 0,
+          "log_path": "stage-c-b-8e2465cbaf0197a7db1a0523d937df69da837c5ce96d5d1db80bf02d810d01bc-11eefa99737b6e20/905137dcf36c/logs/command_60bf82e02dee4773bac285cd443a1390.log",
+          "log_sha256": "2c6cc0fdedd306063e506b748e9607efe54783332e8e00f70fcff6abb53cf7ef",
+          "role": "diagnostic",
+          "termination": "completed",
+          "timed_out": false
+        },
+        {
+          "command_id": "command_3c93f4e3f92b4bf7b210510547b033be",
+          "exit_code": 0,
+          "log_path": "stage-c-b-8e2465cbaf0197a7db1a0523d937df69da837c5ce96d5d1db80bf02d810d01bc-11eefa99737b6e20/905137dcf36c/logs/command_3c93f4e3f92b4bf7b210510547b033be.log",
+          "log_sha256": "07b6ad398e2c504b44f96abe1f5db2f1075abecd4cf52f5723a7f30a0f3ad068",
+          "role": "diagnostic",
+          "termination": "completed",
+          "timed_out": false
+        },
+        {
+          "command_id": "command_6f2e4c727a094951a2350a7e580ad27f",
+          "exit_code": 0,
+          "log_path": "stage-c-b-8e2465cbaf0197a7db1a0523d937df69da837c5ce96d5d1db80bf02d810d01bc-11eefa99737b6e20/905137dcf36c/logs/command_6f2e4c727a094951a2350a7e580ad27f.log",
+          "log_sha256": "7dac1a71c384a32f2193d1c7aac7793e2f51edea761c7aeaf3722a72b17ce8fd",
+          "role": "diagnostic",
+          "termination": "completed",
+          "timed_out": false
+        },
+        {
+          "command_id": "command_aca4723d8c6f45208cbae36b4d77dffc",
+          "exit_code": 0,
+          "log_path": "stage-c-b-8e2465cbaf0197a7db1a0523d937df69da837c5ce96d5d1db80bf02d810d01bc-11eefa99737b6e20/905137dcf36c/logs/command_aca4723d8c6f45208cbae36b4d77dffc.log",
+          "log_sha256": "55aa345612e59d65e02c30c94603ec719e7af97fd9bb0f8c97e159159ef8dcb6",
+          "role": "diagnostic",
+          "termination": "completed",
+          "timed_out": false
+        },
+        {
+          "command_id": "command_f669eabe8a844d2c97b65f5a34701863",
+          "exit_code": 0,
+          "log_path": "stage-c-b-8e2465cbaf0197a7db1a0523d937df69da837c5ce96d5d1db80bf02d810d01bc-11eefa99737b6e20/905137dcf36c/logs/command_f669eabe8a844d2c97b65f5a34701863.log",
+          "log_sha256": "ddefc036ed9dc134180d170027784623d9f10c4880a26671b367b9bb858bf9b1",
+          "role": "diagnostic",
+          "termination": "completed",
+          "timed_out": false
+        },
+        {
+          "command_id": "command_96ada98f78324712a4385d9927880e83",
+          "exit_code": 0,
+          "log_path": "stage-c-b-8e2465cbaf0197a7db1a0523d937df69da837c5ce96d5d1db80bf02d810d01bc-11eefa99737b6e20/905137dcf36c/logs/command_96ada98f78324712a4385d9927880e83.log",
+          "log_sha256": "7353d5dd9d77dd1a949187dc14777174b1d5b190adff620a28b902c6e39fe739",
+          "role": "diagnostic",
+          "termination": "completed",
+          "timed_out": false
+        },
+        {
+          "command_id": "command_dcc44be1937e4e82969ede5c8538d01b",
+          "exit_code": 0,
+          "log_path": "stage-c-b-8e2465cbaf0197a7db1a0523d937df69da837c5ce96d5d1db80bf02d810d01bc-11eefa99737b6e20/905137dcf36c/logs/command_dcc44be1937e4e82969ede5c8538d01b.log",
+          "log_sha256": "3c4ff363dd8e8af5ef7afbdecd91146b167fc0bec149f966a35a40cd49788d86",
+          "role": "diagnostic",
+          "termination": "completed",
+          "timed_out": false
+        },
+        {
+          "command_id": "command_d176aa3e01ac408aa9fc8f3bb6aaa884",
+          "exit_code": 0,
+          "log_path": "stage-c-b-8e2465cbaf0197a7db1a0523d937df69da837c5ce96d5d1db80bf02d810d01bc-11eefa99737b6e20/905137dcf36c/logs/command_d176aa3e01ac408aa9fc8f3bb6aaa884.log",
+          "log_sha256": "6ebb9d54c7039e849a6121cbbfedb04d3be6c5dfea355609459bd8df23b520e3",
+          "role": "diagnostic",
+          "termination": "completed",
+          "timed_out": false
+        }
+      ],
+      "project_family": "github.com/lz4/lz4",
+      "selection_hash": "0296fe94fd710cf66a43aefa2e5f90671df438bb826d203d3aedbc851adcf34c",
+      "session_path": "stage-c-b-8e2465cbaf0197a7db1a0523d937df69da837c5ce96d5d1db80bf02d810d01bc-11eefa99737b6e20/905137dcf36c/session.json",
+      "split": "evaluation"
+    },
+    {
+      "annotation": {
+        "after_diagnostic_category": "none",
+        "after_obligations": {
+          "artifacts_staged": "verified",
+          "build_graph_ready": "verified",
+          "clean_replay_closed": "pending",
+          "configuration_generated": "not_applicable",
+          "contract_target_built": "verified",
+          "functional_oracle_passed": "pending",
+          "provenance_verified": "pending",
+          "source_available": "verified",
+          "toolchain_ready": "verified"
+        },
+        "before_diagnostic_category": "policy_rejected",
+        "before_obligations": {
+          "artifacts_staged": "pending",
+          "build_graph_ready": "verified",
+          "clean_replay_closed": "pending",
+          "configuration_generated": "not_applicable",
+          "contract_target_built": "verified",
+          "functional_oracle_passed": "pending",
+          "provenance_verified": "pending",
+          "source_available": "verified",
+          "toolchain_ready": "verified"
+        },
+        "transition": "progress"
+      },
+      "audit_id": "make-04",
+      "build_system": "make",
+      "command_id": "command_1abe7046d6c04c77a4c0581d4a0d7247",
+      "commit_sha": "0774d05537f9762f838f7ab541b7765f1a729cb5",
+      "eligible_command_index": 5,
+      "evidence_prefix": [
+        {
+          "command_id": "command_c90169b86bf840ada8d0d3613db07730",
+          "exit_code": 0,
+          "log_path": "stage-c-b-6c0ef3e667f26d0258935ddcbe310c9718b7e660336cd54c143479b1226732bf-11eefa99737b6e20/eb2e2a8c013d/logs/command_c90169b86bf840ada8d0d3613db07730.log",
+          "log_sha256": "fed88b83a44b3c7f17d07e42b476c4e7cdb3da7baa51c4dcb103dfc679b1fb48",
+          "role": "diagnostic",
+          "termination": "completed",
+          "timed_out": false
+        },
+        {
+          "command_id": "command_095cfdc4764c4f048182ea8a3b722af3",
+          "exit_code": 0,
+          "log_path": "stage-c-b-6c0ef3e667f26d0258935ddcbe310c9718b7e660336cd54c143479b1226732bf-11eefa99737b6e20/eb2e2a8c013d/logs/command_095cfdc4764c4f048182ea8a3b722af3.log",
+          "log_sha256": "f10596644f05d024c6e0f1e733620f3687df8964ee404609d49f9d8ce820f160",
+          "role": "diagnostic",
+          "termination": "completed",
+          "timed_out": false
+        },
+        {
+          "command_id": "command_44eda263525040198c7195462a65afc6",
+          "exit_code": 0,
+          "log_path": "stage-c-b-6c0ef3e667f26d0258935ddcbe310c9718b7e660336cd54c143479b1226732bf-11eefa99737b6e20/eb2e2a8c013d/logs/command_44eda263525040198c7195462a65afc6.log",
+          "log_sha256": "96a7b09875728b7d5d0b94397f93bce3952bbf61800bc6446741609ca31a5d97",
+          "role": "build",
+          "termination": "completed",
+          "timed_out": false
+        },
+        {
+          "command_id": "command_59273e749d8647a18c1cdab60b146704",
+          "exit_code": 126,
+          "log_path": "stage-c-b-6c0ef3e667f26d0258935ddcbe310c9718b7e660336cd54c143479b1226732bf-11eefa99737b6e20/eb2e2a8c013d/logs/command_59273e749d8647a18c1cdab60b146704.log",
+          "log_sha256": "b497d6b70047f00a24a5f1aa177586c6b3e79765299b2a50db7fd576ce6e50e8",
+          "role": "build",
+          "termination": "policy_rejected",
+          "timed_out": false
+        },
+        {
+          "command_id": "command_1abe7046d6c04c77a4c0581d4a0d7247",
+          "exit_code": 0,
+          "log_path": "stage-c-b-6c0ef3e667f26d0258935ddcbe310c9718b7e660336cd54c143479b1226732bf-11eefa99737b6e20/eb2e2a8c013d/logs/command_1abe7046d6c04c77a4c0581d4a0d7247.log",
+          "log_sha256": "aa9868e111aad3cf29124f4c679584d8804eb05574c76f1ba0e6093fc4af5f40",
+          "role": "artifact_stage",
+          "termination": "completed",
+          "timed_out": false
+        }
+      ],
+      "project_family": "github.com/lz4/lz4",
+      "selection_hash": "08d72c9a2c933910188b4a81c70037543f3bd5a805dd2a30d51efdf5d7d8da04",
+      "session_path": "stage-c-b-6c0ef3e667f26d0258935ddcbe310c9718b7e660336cd54c143479b1226732bf-11eefa99737b6e20/eb2e2a8c013d/session.json",
+      "split": "evaluation"
+    },
+    {
+      "annotation": {
+        "after_diagnostic_category": "none",
+        "after_obligations": {
+          "artifacts_staged": "pending",
+          "build_graph_ready": "pending",
+          "clean_replay_closed": "pending",
+          "configuration_generated": "pending",
+          "contract_target_built": "pending",
+          "functional_oracle_passed": "pending",
+          "provenance_verified": "pending",
+          "source_available": "verified",
+          "toolchain_ready": "pending"
+        },
+        "before_diagnostic_category": "none",
+        "before_obligations": {
+          "artifacts_staged": "pending",
+          "build_graph_ready": "pending",
+          "clean_replay_closed": "pending",
+          "configuration_generated": "pending",
+          "contract_target_built": "pending",
+          "functional_oracle_passed": "pending",
+          "provenance_verified": "pending",
+          "source_available": "verified",
+          "toolchain_ready": "pending"
+        },
+        "transition": "stagnation"
+      },
+      "audit_id": "autotools-01",
+      "build_system": "autotools",
+      "command_id": "command_262a5b0ef6af4ad39057614e7d7a1123",
+      "commit_sha": "6cbfd53eb348a8d394e0757b4025c6ded34eb2b6",
+      "eligible_command_index": 2,
+      "evidence_prefix": [
+        {
+          "command_id": "command_28a057ff78ea4164ac971be1e1fcb2e0",
+          "exit_code": 0,
+          "log_path": "stage-c-b-02810566fda9265ecbb206a4a381f9f34d99e3a34632a81fd22ac7d35c6e746f-11eefa99737b6e20/cb5c5c8f4bd8/logs/command_28a057ff78ea4164ac971be1e1fcb2e0.log",
+          "log_sha256": "d90253edd44fb92d9c85be020ba68c1fa6d2219bb58ae724872ab4c0abd7280b",
+          "role": "diagnostic",
+          "termination": "completed",
+          "timed_out": false
+        },
+        {
+          "command_id": "command_262a5b0ef6af4ad39057614e7d7a1123",
+          "exit_code": 0,
+          "log_path": "stage-c-b-02810566fda9265ecbb206a4a381f9f34d99e3a34632a81fd22ac7d35c6e746f-11eefa99737b6e20/cb5c5c8f4bd8/logs/command_262a5b0ef6af4ad39057614e7d7a1123.log",
+          "log_sha256": "cd8e1e69c2ff5aef27c5eb83fa23fbfb9c7ddf5ee5afc4f0b6c5a8c92efda31a",
+          "role": "diagnostic",
+          "termination": "completed",
+          "timed_out": false
+        }
+      ],
+      "project_family": "github.com/xiph/rnnoise",
+      "selection_hash": "00a578f57931bef618f94759a6ae2378a36c5380b33c7f2de406b7112713f56e",
+      "session_path": "stage-c-b-02810566fda9265ecbb206a4a381f9f34d99e3a34632a81fd22ac7d35c6e746f-11eefa99737b6e20/cb5c5c8f4bd8/session.json",
+      "split": "evaluation"
+    },
+    {
+      "annotation": {
+        "after_diagnostic_category": "none",
+        "after_obligations": {
+          "artifacts_staged": "pending",
+          "build_graph_ready": "pending",
+          "clean_replay_closed": "pending",
+          "configuration_generated": "pending",
+          "contract_target_built": "pending",
+          "functional_oracle_passed": "pending",
+          "provenance_verified": "pending",
+          "source_available": "verified",
+          "toolchain_ready": "pending"
+        },
+        "before_diagnostic_category": "unknown_error",
+        "before_obligations": {
+          "artifacts_staged": "pending",
+          "build_graph_ready": "pending",
+          "clean_replay_closed": "pending",
+          "configuration_generated": "pending",
+          "contract_target_built": "pending",
+          "functional_oracle_passed": "pending",
+          "provenance_verified": "pending",
+          "source_available": "verified",
+          "toolchain_ready": "pending"
+        },
+        "transition": "lateral"
+      },
+      "audit_id": "autotools-02",
+      "build_system": "autotools",
+      "command_id": "command_1cbc26d386ba4888b456b0858ffc1008",
+      "commit_sha": "28fd5ec77f0ad0e07a371cef1047828116f6bd8a",
+      "eligible_command_index": 2,
+      "evidence_prefix": [
+        {
+          "command_id": "command_3eb3fce5e0584e21b6055064abcd0580",
+          "exit_code": 1,
+          "log_path": "stage-c-b-6830bf5feb2e1925fb97bd3dc2de70f28b3f9d7852f26a15202cf5822e3f9e66-11eefa99737b6e20/19e9529eb656/logs/command_3eb3fce5e0584e21b6055064abcd0580.log",
+          "log_sha256": "a025c380c3a59a0afc7b378b051dc19567e7aa1e7a33ac2827b92b61bd8b04ab",
+          "role": "diagnostic",
+          "termination": "failed",
+          "timed_out": false
+        },
+        {
+          "command_id": "command_1cbc26d386ba4888b456b0858ffc1008",
+          "exit_code": 0,
+          "log_path": "stage-c-b-6830bf5feb2e1925fb97bd3dc2de70f28b3f9d7852f26a15202cf5822e3f9e66-11eefa99737b6e20/19e9529eb656/logs/command_1cbc26d386ba4888b456b0858ffc1008.log",
+          "log_sha256": "ae5700c06c2ebb91df4756f1febb9db8bcb0bb4ea9cc5dec8cd9a65d6a964ce4",
+          "role": "diagnostic",
+          "termination": "completed",
+          "timed_out": false
+        }
+      ],
+      "project_family": "github.com/xiph/theora",
+      "selection_hash": "014aa5a0219f9f77b8370dc24617b11180771fee821de65b03356affa6a5a4f1",
+      "session_path": "stage-c-b-6830bf5feb2e1925fb97bd3dc2de70f28b3f9d7852f26a15202cf5822e3f9e66-11eefa99737b6e20/19e9529eb656/session.json",
+      "split": "evaluation"
+    },
+    {
+      "annotation": {
+        "after_diagnostic_category": "none",
+        "after_obligations": {
+          "artifacts_staged": "pending",
+          "build_graph_ready": "verified",
+          "clean_replay_closed": "pending",
+          "configuration_generated": "verified",
+          "contract_target_built": "verified",
+          "functional_oracle_passed": "pending",
+          "provenance_verified": "pending",
+          "source_available": "verified",
+          "toolchain_ready": "verified"
+        },
+        "before_diagnostic_category": "none",
+        "before_obligations": {
+          "artifacts_staged": "pending",
+          "build_graph_ready": "verified",
+          "clean_replay_closed": "pending",
+          "configuration_generated": "verified",
+          "contract_target_built": "pending",
+          "functional_oracle_passed": "pending",
+          "provenance_verified": "pending",
+          "source_available": "verified",
+          "toolchain_ready": "verified"
+        },
+        "transition": "progress"
+      },
+      "audit_id": "autotools-03",
+      "build_system": "autotools",
+      "command_id": "command_894af813693548abbc2cc8dbfcad72d6",
+      "commit_sha": "f9fd3d20dff1cd84b7c74c8ae7f79711ad7736fa",
+      "eligible_command_index": 18,
+      "evidence_prefix": [
+        {
+          "command_id": "command_1d1e0473de59442fbf04d6285e461d2f",
+          "exit_code": 2,
+          "log_path": "phase5-v3-libass-191062f15d83/89f5948e4489/logs/command_1d1e0473de59442fbf04d6285e461d2f.log",
+          "log_sha256": "59dbf669439c27e89fb5caedacef48caf45cd417f1798880c8e54fe497187185",
+          "role": "diagnostic",
+          "termination": "failed",
+          "timed_out": false
+        },
+        {
+          "command_id": "command_6a39c9b5a24740dfb565282a1e1b363f",
+          "exit_code": 0,
+          "log_path": "phase5-v3-libass-191062f15d83/89f5948e4489/logs/command_6a39c9b5a24740dfb565282a1e1b363f.log",
+          "log_sha256": "6d9ed885a33c07c5298847674525b380278b06dd8e3ada8397824633288797b2",
+          "role": "diagnostic",
+          "termination": "completed",
+          "timed_out": false
+        },
+        {
+          "command_id": "command_157eeb7e1c1b4acbad1330a577659993",
+          "exit_code": 1,
+          "log_path": "phase5-v3-libass-191062f15d83/89f5948e4489/logs/command_157eeb7e1c1b4acbad1330a577659993.log",
+          "log_sha256": "6b396db7762ca0ef3d4d8fde16297064b01fa4f72307112c40f88a2d1eb4ef3f",
+          "role": "diagnostic",
+          "termination": "failed",
+          "timed_out": false
+        },
+        {
+          "command_id": "command_b4898f8fd46e49bdb2066a15c66e71eb",
+          "exit_code": 0,
+          "log_path": "phase5-v3-libass-191062f15d83/89f5948e4489/logs/command_b4898f8fd46e49bdb2066a15c66e71eb.log",
+          "log_sha256": "7bf70154922607421e06faae029b83f69538cb3f966c4012370ed0ce8114c560",
+          "role": "diagnostic",
+          "termination": "completed",
+          "timed_out": false
+        },
+        {
+          "command_id": "command_07d861d3138948d6b5e6b10d998a8e78",
+          "exit_code": 0,
+          "log_path": "phase5-v3-libass-191062f15d83/89f5948e4489/logs/command_07d861d3138948d6b5e6b10d998a8e78.log",
+          "log_sha256": "6461bdd07a34fa989714a16142d5edc2086b7ee3ac5bd831cdad25e357dcc294",
+          "role": "diagnostic",
+          "termination": "completed",
+          "timed_out": false
+        },
+        {
+          "command_id": "command_908b4b63ca3948c8a4968049cb9fad10",
+          "exit_code": 2,
+          "log_path": "phase5-v3-libass-191062f15d83/89f5948e4489/logs/command_908b4b63ca3948c8a4968049cb9fad10.log",
+          "log_sha256": "4568a3fece8a849c48954bed9e6a4210d45edd394d868ad6108115afb4e5095f",
+          "role": "dependency",
+          "termination": "failed",
+          "timed_out": false
+        },
+        {
+          "command_id": "command_2dc306202a7a425fbbc0a749759f5995",
+          "exit_code": 0,
+          "log_path": "phase5-v3-libass-191062f15d83/89f5948e4489/logs/command_2dc306202a7a425fbbc0a749759f5995.log",
+          "log_sha256": "5d4ebdb5197b05ceb212d89cc9c3228198986efe6ddd33119d2146449d1c4306",
+          "role": "dependency",
+          "termination": "completed",
+          "timed_out": false
+        },
+        {
+          "command_id": "command_79121a400a964215826c0b81d6e7ad8f",
+          "exit_code": 0,
+          "log_path": "phase5-v3-libass-191062f15d83/89f5948e4489/logs/command_79121a400a964215826c0b81d6e7ad8f.log",
+          "log_sha256": "71e637d6b1cbe08ab511b61947b80fcbaea27c6fc413b0e8f29d90d40becd5a2",
+          "role": "dependency",
+          "termination": "completed",
+          "timed_out": false
+        },
+        {
+          "command_id": "command_f50add435aaa4205b0ac97a4e5f6e836",
+          "exit_code": 1,
+          "log_path": "phase5-v3-libass-191062f15d83/89f5948e4489/logs/command_f50add435aaa4205b0ac97a4e5f6e836.log",
+          "log_sha256": "c023a1fcb3128ceec3c14ea262c66aabd075b94b2424a5c14bef8bc90c69e8f3",
+          "role": "diagnostic",
+          "termination": "failed",
+          "timed_out": false
+        },
+        {
+          "command_id": "command_d20f03272f4f40b78a93e5bd3de94058",
+          "exit_code": 0,
+          "log_path": "phase5-v3-libass-191062f15d83/89f5948e4489/logs/command_d20f03272f4f40b78a93e5bd3de94058.log",
+          "log_sha256": "777205f2e2046b3c01644ce2c135bb96ad9161841feeb05b6254d8ba8ec657d3",
+          "role": "configure",
+          "termination": "completed",
+          "timed_out": false
+        },
+        {
+          "command_id": "command_e4f15858075a4e87916660bb9d5ca1f8",
+          "exit_code": 0,
+          "log_path": "phase5-v3-libass-191062f15d83/89f5948e4489/logs/command_e4f15858075a4e87916660bb9d5ca1f8.log",
+          "log_sha256": "8cb079910e0d692e1ab4637744b0ad09df81e76944ead787959f627e2692cfc5",
+          "role": "diagnostic",
+          "termination": "completed",
+          "timed_out": false
+        },
+        {
+          "command_id": "command_58a104b8a79842c5b45e99b3e6047278",
+          "exit_code": 0,
+          "log_path": "phase5-v3-libass-191062f15d83/89f5948e4489/logs/command_58a104b8a79842c5b45e99b3e6047278.log",
+          "log_sha256": "5aced60988140daf9f67cf234853cd1536e95b5b998705ab5380c330e550538a",
+          "role": "diagnostic",
+          "termination": "completed",
+          "timed_out": false
+        },
+        {
+          "command_id": "command_2e8a24e12a7d431fb0b6c5a2234baf9b",
+          "exit_code": 0,
+          "log_path": "phase5-v3-libass-191062f15d83/89f5948e4489/logs/command_2e8a24e12a7d431fb0b6c5a2234baf9b.log",
+          "log_sha256": "b63f8f86c17b1cf00f77abe1baf6679b4eb51c46d87f1941eaf20c3fbbbdfcf9",
+          "role": "diagnostic",
+          "termination": "completed",
+          "timed_out": false
+        },
+        {
+          "command_id": "command_6ea2578fcd154fe7abfe6f6500bdbbd6",
+          "exit_code": 0,
+          "log_path": "phase5-v3-libass-191062f15d83/89f5948e4489/logs/command_6ea2578fcd154fe7abfe6f6500bdbbd6.log",
+          "log_sha256": "629079d7e88429a3a640e446dcfc3e139fbe586b307e8c4cc1ad507a8b68b544",
+          "role": "diagnostic",
+          "termination": "completed",
+          "timed_out": false
+        },
+        {
+          "command_id": "command_cdf349ef41764bc6b909a88e522c5c5c",
+          "exit_code": 1,
+          "log_path": "phase5-v3-libass-191062f15d83/89f5948e4489/logs/command_cdf349ef41764bc6b909a88e522c5c5c.log",
+          "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "role": "diagnostic",
+          "termination": "failed",
+          "timed_out": false
+        },
+        {
+          "command_id": "command_40588b474ab94248b6160cdcac7d0b65",
+          "exit_code": 0,
+          "log_path": "phase5-v3-libass-191062f15d83/89f5948e4489/logs/command_40588b474ab94248b6160cdcac7d0b65.log",
+          "log_sha256": "6b5b59ad91feb6ebb959198dd80cd0fea5b025175cd8a0d46c41ac8536bf1fcd",
+          "role": "diagnostic",
+          "termination": "completed",
+          "timed_out": false
+        },
+        {
+          "command_id": "command_47ab3741ecc2408fab1a1f2b08af6490",
+          "exit_code": 0,
+          "log_path": "phase5-v3-libass-191062f15d83/89f5948e4489/logs/command_47ab3741ecc2408fab1a1f2b08af6490.log",
+          "log_sha256": "3df1d33d20a93f8b65e34068abe6d8d159f1f8657c48375e6bf3977eea7671b9",
+          "role": "configure",
+          "termination": "completed",
+          "timed_out": false
+        },
+        {
+          "command_id": "command_894af813693548abbc2cc8dbfcad72d6",
+          "exit_code": 0,
+          "log_path": "phase5-v3-libass-191062f15d83/89f5948e4489/logs/command_894af813693548abbc2cc8dbfcad72d6.log",
+          "log_sha256": "f34891bf66c2a2cfaeb78ed47842afd633f7b18539674a219ac6a9e86c95a4e2",
+          "role": "build",
+          "termination": "completed",
+          "timed_out": false
+        }
+      ],
+      "project_family": "github.com/libass/libass",
+      "selection_hash": "02bee8add28b2791c4da7e328185129259e84a1893a9e37a41f8258d7b54e1af",
+      "session_path": "phase5-v3-libass-191062f15d83/89f5948e4489/session.json",
+      "split": "development"
+    },
+    {
+      "annotation": {
+        "after_diagnostic_category": "none",
+        "after_obligations": {
+          "artifacts_staged": "pending",
+          "build_graph_ready": "pending",
+          "clean_replay_closed": "pending",
+          "configuration_generated": "pending",
+          "contract_target_built": "pending",
+          "functional_oracle_passed": "pending",
+          "provenance_verified": "pending",
+          "source_available": "verified",
+          "toolchain_ready": "pending"
+        },
+        "before_diagnostic_category": "unknown_error",
+        "before_obligations": {
+          "artifacts_staged": "pending",
+          "build_graph_ready": "pending",
+          "clean_replay_closed": "pending",
+          "configuration_generated": "pending",
+          "contract_target_built": "pending",
+          "functional_oracle_passed": "pending",
+          "provenance_verified": "pending",
+          "source_available": "verified",
+          "toolchain_ready": "pending"
+        },
+        "transition": "lateral"
+      },
+      "audit_id": "autotools-04",
+      "build_system": "autotools",
+      "command_id": "command_7cded5355efe4ca0a41eeacb13646bef",
+      "commit_sha": "6cbfd53eb348a8d394e0757b4025c6ded34eb2b6",
+      "eligible_command_index": 9,
+      "evidence_prefix": [
+        {
+          "command_id": "command_28a057ff78ea4164ac971be1e1fcb2e0",
+          "exit_code": 0,
+          "log_path": "stage-c-b-02810566fda9265ecbb206a4a381f9f34d99e3a34632a81fd22ac7d35c6e746f-11eefa99737b6e20/cb5c5c8f4bd8/logs/command_28a057ff78ea4164ac971be1e1fcb2e0.log",
+          "log_sha256": "d90253edd44fb92d9c85be020ba68c1fa6d2219bb58ae724872ab4c0abd7280b",
+          "role": "diagnostic",
+          "termination": "completed",
+          "timed_out": false
+        },
+        {
+          "command_id": "command_262a5b0ef6af4ad39057614e7d7a1123",
+          "exit_code": 0,
+          "log_path": "stage-c-b-02810566fda9265ecbb206a4a381f9f34d99e3a34632a81fd22ac7d35c6e746f-11eefa99737b6e20/cb5c5c8f4bd8/logs/command_262a5b0ef6af4ad39057614e7d7a1123.log",
+          "log_sha256": "cd8e1e69c2ff5aef27c5eb83fa23fbfb9c7ddf5ee5afc4f0b6c5a8c92efda31a",
+          "role": "diagnostic",
+          "termination": "completed",
+          "timed_out": false
+        },
+        {
+          "command_id": "command_fb21500e70bd49c8a811cbce7af71dcb",
+          "exit_code": 0,
+          "log_path": "stage-c-b-02810566fda9265ecbb206a4a381f9f34d99e3a34632a81fd22ac7d35c6e746f-11eefa99737b6e20/cb5c5c8f4bd8/logs/command_fb21500e70bd49c8a811cbce7af71dcb.log",
+          "log_sha256": "9de649acdb19b62abdaa2c1e931c653d9c81f9454a6b7fddf167c7b05f553c8f",
+          "role": "diagnostic",
+          "termination": "completed",
+          "timed_out": false
+        },
+        {
+          "command_id": "command_ea63bee9318c46448b33dc15dbd9c26b",
+          "exit_code": 0,
+          "log_path": "stage-c-b-02810566fda9265ecbb206a4a381f9f34d99e3a34632a81fd22ac7d35c6e746f-11eefa99737b6e20/cb5c5c8f4bd8/logs/command_ea63bee9318c46448b33dc15dbd9c26b.log",
+          "log_sha256": "ec0947b1d39a6a36bee48713392570586008db80a34dfb0356b3e0718c42e8d9",
+          "role": "diagnostic",
+          "termination": "completed",
+          "timed_out": false
+        },
+        {
+          "command_id": "command_a9a07d39a36f426cabd484961654a271",
+          "exit_code": 0,
+          "log_path": "stage-c-b-02810566fda9265ecbb206a4a381f9f34d99e3a34632a81fd22ac7d35c6e746f-11eefa99737b6e20/cb5c5c8f4bd8/logs/command_a9a07d39a36f426cabd484961654a271.log",
+          "log_sha256": "db7f913e800f5dafa667a3012c8ef2b3116f733e631b3a65f058cac589061d7b",
+          "role": "diagnostic",
+          "termination": "completed",
+          "timed_out": false
+        },
+        {
+          "command_id": "command_84f41af6b24e4f27ad5c53afdbd4ae90",
+          "exit_code": 0,
+          "log_path": "stage-c-b-02810566fda9265ecbb206a4a381f9f34d99e3a34632a81fd22ac7d35c6e746f-11eefa99737b6e20/cb5c5c8f4bd8/logs/command_84f41af6b24e4f27ad5c53afdbd4ae90.log",
+          "log_sha256": "c5942b5f0ec6c3c5f5146ac0b2ff2dac678404071ff60ef26311d5a2f9539cb8",
+          "role": "diagnostic",
+          "termination": "completed",
+          "timed_out": false
+        },
+        {
+          "command_id": "command_4f0e076f124044a09cc4dea28dcfe1bc",
+          "exit_code": 0,
+          "log_path": "stage-c-b-02810566fda9265ecbb206a4a381f9f34d99e3a34632a81fd22ac7d35c6e746f-11eefa99737b6e20/cb5c5c8f4bd8/logs/command_4f0e076f124044a09cc4dea28dcfe1bc.log",
+          "log_sha256": "18088ccf769b9554c5cdec25b6d158a86133f57e22a634aff5ee6edf7c68eecd",
+          "role": "diagnostic",
+          "termination": "completed",
+          "timed_out": false
+        },
+        {
+          "command_id": "command_95d8a42c985e4d9db95ea9f0bbb73df5",
+          "exit_code": 1,
+          "log_path": "stage-c-b-02810566fda9265ecbb206a4a381f9f34d99e3a34632a81fd22ac7d35c6e746f-11eefa99737b6e20/cb5c5c8f4bd8/logs/command_95d8a42c985e4d9db95ea9f0bbb73df5.log",
+          "log_sha256": "d71b341432cd3bff9e10261819b47b5f572cea961ae7d790c1616eae474b3c72",
+          "role": "diagnostic",
+          "termination": "failed",
+          "timed_out": false
+        },
+        {
+          "command_id": "command_7cded5355efe4ca0a41eeacb13646bef",
+          "exit_code": 0,
+          "log_path": "stage-c-b-02810566fda9265ecbb206a4a381f9f34d99e3a34632a81fd22ac7d35c6e746f-11eefa99737b6e20/cb5c5c8f4bd8/logs/command_7cded5355efe4ca0a41eeacb13646bef.log",
+          "log_sha256": "4da3d0a8ba6b30ddc298827e1455d04d681f7f808b80170a20722cdf3635132b",
+          "role": "diagnostic",
+          "termination": "completed",
+          "timed_out": false
+        }
+      ],
+      "project_family": "github.com/xiph/rnnoise",
+      "selection_hash": "046f24a29ccf73a42d615ba7473429c029a7432ff721efb48a732a8e9e723182",
+      "session_path": "stage-c-b-02810566fda9265ecbb206a4a381f9f34d99e3a34632a81fd22ac7d35c6e746f-11eefa99737b6e20/cb5c5c8f4bd8/session.json",
+      "split": "evaluation"
+    }
+  ],
+  "identity": "cpp-cross-build-progress-state-qualification-v1",
+  "issue": "https://github.com/WWFXL/Forge-AutoCompiler/issues/382",
+  "schema_version": "forge-cross-build-progress-state-manual-audit-1.0.0",
+  "selection": {
+    "algorithm": "每个构建系统按 SHA-256(project_family + NUL + command_id) 取最小 4 项",
+    "count": 12,
+    "uses_transition_label": false
+  }
+}
