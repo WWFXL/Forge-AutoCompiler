@@ -1,0 +1,1173 @@
+{
+  "$id": "https://github.com/WWFXL/Forge-AutoCompiler/benchmarks/schemas/forge-jev-formal-comparison-v1.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "const": {
+    "$schema": "../schemas/forge-jev-formal-comparison-v1.schema.json",
+    "agent_provider": {
+      "cost_estimation": {
+        "input_price_usd_per_million_tokens": 0.3,
+        "method": "peak_cache_miss_upper_bound",
+        "output_price_usd_per_million_tokens": 1.2,
+        "retrieved_at": "2026-10-11",
+        "source": "https://api-docs.deepseek.com/quick_start/pricing"
+      },
+      "credential_env": "DEEPSEEK_API_KEY",
+      "endpoint": "https://api.deepseek.com",
+      "max_retries": 0,
+      "profile": "deepseek-flash",
+      "request_timeout_seconds": 300
+    },
+    "analysis": {
+      "bootstrap_samples": 20000,
+      "bootstrap_seed": 40820261011,
+      "evaluation_cutoff": "2026-10-08T20:06:00Z",
+      "minimum_provider_cost_reduction": 0.2,
+      "noninferiority_margin": -0.1,
+      "primary_comparison": [
+        "jev_gate_agent",
+        "always_agent"
+      ],
+      "project_family_clustered_bootstrap": true,
+      "rmst_tau_seconds": 1800,
+      "secondary_baseline": "rule_gate_agent"
+    },
+    "arms": [
+      "always_agent",
+      "rule_gate_agent",
+      "jev_gate_agent"
+    ],
+    "authorization": {
+      "backfill": false,
+      "credential_reads": true,
+      "docker_execution": true,
+      "formal_attempts": 72,
+      "formal_evidence_write": true,
+      "historical_evidence_write": false,
+      "provider_calls": true,
+      "replacement": false
+    },
+    "branch": "yiwei/408-jev-formal-comparison",
+    "budget": {
+      "per_arm_agent": {
+        "cleanup_timeout_seconds": 120,
+        "command_timeout_seconds": 900,
+        "evaluator_timeout_seconds": 1800,
+        "max_agent_steps": 64,
+        "max_commands": 32,
+        "max_model_requests": 24,
+        "max_recorded_tokens": 300000,
+        "max_tool_calls": 48,
+        "node_timeout_seconds": 1800,
+        "replay_timeout_seconds": 1800
+      },
+      "total_agent_request_ceiling": 1728,
+      "total_agent_token_ceiling": 21600000,
+      "total_jev_cost_ceiling_usd": 0.02016,
+      "total_jev_input_token_ceiling": 480000,
+      "total_jev_request_ceiling": 24
+    },
+    "cases": [
+      {
+        "expected_action": "configure",
+        "fault_type": "invalid_build_state",
+        "source": {
+          "artifact_stage_commands": [
+            "mkdir -p /artifacts/lib /artifacts/include && cp build/libgit2.a /artifacts/lib/ && cp -r include/git2 /artifacts/include/ && cp include/git2.h /artifacts/include/"
+          ],
+          "build_commands": [
+            "cmake --build build --parallel 4"
+          ],
+          "commit_sha": "1484ddee27a0f85c3d3303ccc432fb22f6fca8fd",
+          "configure_commands": [
+            "cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=OFF -DBUILD_TESTS=OFF -DBUILD_CLI=OFF -DUSE_SSH=OFF -DUSE_HTTPS=OFF -DUSE_AUTH_NTLM=OFF"
+          ],
+          "configure_repair_commands": [
+            "rm -rf build",
+            "cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=OFF -DBUILD_TESTS=OFF -DBUILD_CLI=OFF -DUSE_SSH=OFF -DUSE_HTTPS=OFF -DUSE_AUTH_NTLM=OFF"
+          ],
+          "fault_file": "include/git2.h",
+          "oracle": {
+            "compile_argv": [
+              "cc",
+              "-std=c11",
+              "-I/artifacts/include",
+              "{source}",
+              "/artifacts/lib/libgit2.a",
+              "-lpthread",
+              "-ldl",
+              "-lz",
+              "-o",
+              "{executable}"
+            ],
+            "kind": "compile_and_run",
+            "language": "c11",
+            "run_argv": [
+              "{executable}"
+            ],
+            "source": "#include <git2.h>\nint main(void){int a,b,c;git_libgit2_version(&a,&b,&c);return a<1;}\n"
+          },
+          "project_family": "https://github.com/libgit2/libgit2",
+          "repository_url": "https://github.com/libgit2/libgit2",
+          "selected_build_system": "cmake",
+          "source_snapshot_sha256": "cb982bf44dab59448ca593a5b75c57a6a8106af0a5b95a88e6eac8d036bf6afc",
+          "target": {
+            "artifact_types": [
+              "support_file",
+              "static_library"
+            ],
+            "bitwise_required": true,
+            "required_artifacts": [
+              "include/git2.h",
+              "lib/libgit2.a"
+            ]
+          },
+          "task_id": "libgit2"
+        },
+        "task_id": "libgit2"
+      },
+      {
+        "expected_action": "build",
+        "fault_type": "wrong_build_target",
+        "source": {
+          "artifact_stage_commands": [
+            "mkdir -p /artifacts/lib /artifacts/include && cp build/libsimdjson.a /artifacts/lib/ && cp -r include/simdjson.h include/simdjson /artifacts/include/"
+          ],
+          "build_commands": [
+            "cmake --build build --target simdjson --parallel 4"
+          ],
+          "commit_sha": "7f6f8dca84c3c9129b8a4506d55a4ae1c16024f0",
+          "configure_commands": [
+            "cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DSIMDJSON_DEVELOPER_MODE=OFF -DBUILD_SHARED_LIBS=OFF"
+          ],
+          "configure_repair_commands": [
+            "rm -rf build",
+            "cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DSIMDJSON_DEVELOPER_MODE=OFF -DBUILD_SHARED_LIBS=OFF"
+          ],
+          "fault_file": "src/simdjson.cpp",
+          "oracle": {
+            "compile_argv": [
+              "c++",
+              "-std=c++17",
+              "-I/artifacts/include",
+              "{source}",
+              "/artifacts/lib/libsimdjson.a",
+              "-pthread",
+              "-o",
+              "{executable}"
+            ],
+            "kind": "compile_and_run",
+            "language": "c++17",
+            "run_argv": [
+              "{executable}"
+            ],
+            "source": "#include <simdjson.h>\nint main(){return simdjson::get_active_implementation()->name().empty();}\n"
+          },
+          "project_family": "https://github.com/simdjson/simdjson",
+          "repository_url": "https://github.com/simdjson/simdjson",
+          "selected_build_system": "cmake",
+          "source_snapshot_sha256": "21505e8faf3a77d23fd01f56b6856b57c8b879d11d8fd5126028193683857f76",
+          "target": {
+            "artifact_types": [
+              "support_file",
+              "static_library"
+            ],
+            "bitwise_required": true,
+            "required_artifacts": [
+              "include/simdjson.h",
+              "lib/libsimdjson.a"
+            ]
+          },
+          "task_id": "simdjson"
+        },
+        "task_id": "simdjson"
+      },
+      {
+        "expected_action": "dependency",
+        "fault_type": "missing_compile_input",
+        "source": {
+          "artifact_stage_commands": [
+            "mkdir -p /artifacts/lib /artifacts/include && cp build/src/libbenchmark.a /artifacts/lib/ && cp -r include/benchmark /artifacts/include/"
+          ],
+          "build_commands": [
+            "cmake --build build --target benchmark --parallel 4"
+          ],
+          "commit_sha": "f2f78087c2235e9e3156d0651be26660005a03a1",
+          "configure_commands": [
+            "cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=OFF -DBENCHMARK_ENABLE_TESTING=OFF -DBENCHMARK_ENABLE_INSTALL=OFF -DBENCHMARK_ENABLE_GTEST_TESTS=OFF"
+          ],
+          "configure_repair_commands": [
+            "rm -rf build",
+            "cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=OFF -DBENCHMARK_ENABLE_TESTING=OFF -DBENCHMARK_ENABLE_INSTALL=OFF -DBENCHMARK_ENABLE_GTEST_TESTS=OFF"
+          ],
+          "fault_file": "src/benchmark.cc",
+          "oracle": {
+            "compile_argv": [
+              "c++",
+              "-std=c++17",
+              "-I/artifacts/include",
+              "{source}",
+              "/artifacts/lib/libbenchmark.a",
+              "-pthread",
+              "-o",
+              "{executable}"
+            ],
+            "kind": "compile_and_run",
+            "language": "c++17",
+            "run_argv": [
+              "{executable}"
+            ],
+            "source": "#include <benchmark/benchmark.h>\nint main(){return benchmark::CPUInfo::Get().num_cpus>0?0:1;}\n"
+          },
+          "project_family": "https://github.com/google/benchmark",
+          "repository_url": "https://github.com/google/benchmark",
+          "selected_build_system": "cmake",
+          "source_snapshot_sha256": "21bc68005a6e8f236b5cbb8899a14ddff6412ef5d88e52a65c98b1210bb3cbfe",
+          "target": {
+            "artifact_types": [
+              "support_file",
+              "static_library"
+            ],
+            "bitwise_required": true,
+            "required_artifacts": [
+              "include/benchmark/benchmark.h",
+              "lib/libbenchmark.a"
+            ]
+          },
+          "task_id": "benchmark"
+        },
+        "task_id": "benchmark"
+      },
+      {
+        "expected_action": "configure",
+        "fault_type": "invalid_build_state",
+        "source": {
+          "artifact_stage_commands": [
+            "cp build/pcre2grep /artifacts/pcre2grep"
+          ],
+          "build_commands": [
+            "cmake --build build --target pcre2grep --parallel 4"
+          ],
+          "commit_sha": "ead0e18635bd70e321354531d0c2fb38b928853d",
+          "configure_commands": [
+            "cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=OFF -DPCRE2_BUILD_PCRE2GREP=ON -DPCRE2_BUILD_TESTS=OFF"
+          ],
+          "configure_repair_commands": [
+            "rm -rf build",
+            "cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=OFF -DPCRE2_BUILD_PCRE2GREP=ON -DPCRE2_BUILD_TESTS=OFF"
+          ],
+          "fault_file": "src/pcre2_compile.c",
+          "oracle": {
+            "argv": [
+              "/artifacts/pcre2grep",
+              "--version"
+            ],
+            "kind": "command"
+          },
+          "project_family": "https://github.com/pcre2project/pcre2",
+          "repository_url": "https://github.com/PCRE2Project/pcre2",
+          "selected_build_system": "cmake",
+          "source_snapshot_sha256": "1726e5955c70c9bee5dc96b2854de14640faa85eac14764f29cff2082c8252d5",
+          "target": {
+            "artifact_types": [
+              "executable"
+            ],
+            "bitwise_required": false,
+            "required_artifacts": [
+              "pcre2grep"
+            ]
+          },
+          "task_id": "pcre2"
+        },
+        "task_id": "pcre2"
+      },
+      {
+        "expected_action": "build",
+        "fault_type": "wrong_build_target",
+        "source": {
+          "artifact_stage_commands": [
+            "cp haproxy /artifacts/haproxy"
+          ],
+          "build_commands": [
+            "make -j4 TARGET=linux-glibc USE_OPENSSL= USE_ZLIB= USE_PCRE= haproxy"
+          ],
+          "commit_sha": "a8639b910f3bfbfd21456ea35811ec83d5c4d867",
+          "configure_commands": [
+            "test -f Makefile"
+          ],
+          "configure_repair_commands": [
+            "git checkout HEAD -- Makefile",
+            "test -f Makefile"
+          ],
+          "fault_file": "src/haproxy.c",
+          "oracle": {
+            "argv": [
+              "/artifacts/haproxy",
+              "-v"
+            ],
+            "kind": "command"
+          },
+          "project_family": "https://github.com/haproxy/haproxy",
+          "repository_url": "https://github.com/haproxy/haproxy",
+          "selected_build_system": "make",
+          "source_snapshot_sha256": "6dce2f50ee05237d6eb3a7eca6963209ed9f995292dadb055d1e78b6d3e44dd0",
+          "target": {
+            "artifact_types": [
+              "executable"
+            ],
+            "bitwise_required": false,
+            "required_artifacts": [
+              "haproxy"
+            ]
+          },
+          "task_id": "haproxy"
+        },
+        "task_id": "haproxy"
+      },
+      {
+        "expected_action": "dependency",
+        "fault_type": "missing_compile_input",
+        "source": {
+          "artifact_stage_commands": [
+            "cp bin/cc65 /artifacts/cc65"
+          ],
+          "build_commands": [
+            "make -j4"
+          ],
+          "commit_sha": "b3bf30f090f091a111fb3a19de0df44b2a7cf530",
+          "configure_commands": [
+            "test -f Makefile"
+          ],
+          "configure_repair_commands": [
+            "git checkout HEAD -- Makefile",
+            "test -f Makefile"
+          ],
+          "fault_file": "src/cc65/main.c",
+          "oracle": {
+            "argv": [
+              "/artifacts/cc65",
+              "--version"
+            ],
+            "kind": "command"
+          },
+          "project_family": "https://github.com/cc65/cc65",
+          "repository_url": "https://github.com/cc65/cc65",
+          "selected_build_system": "make",
+          "source_snapshot_sha256": "4ae1fb267a71dfe3b357f6fd34cfdd1ea2965267b91340f257fa7aad25ad11c9",
+          "target": {
+            "artifact_types": [
+              "executable"
+            ],
+            "bitwise_required": false,
+            "required_artifacts": [
+              "cc65"
+            ]
+          },
+          "task_id": "cc65"
+        },
+        "task_id": "cc65"
+      },
+      {
+        "expected_action": "configure",
+        "fault_type": "invalid_build_state",
+        "source": {
+          "artifact_stage_commands": [
+            "cp ffmpeg /artifacts/ffmpeg"
+          ],
+          "build_commands": [
+            "make -j4 ffmpeg"
+          ],
+          "commit_sha": "8e9db1f1528fb341eedbfe775fd16c03ba3ac026",
+          "configure_commands": [
+            "./configure --disable-x86asm --disable-doc --disable-debug --disable-ffplay --disable-ffprobe --disable-network --disable-autodetect"
+          ],
+          "configure_repair_commands": [
+            "./configure --disable-x86asm --disable-doc --disable-debug --disable-ffplay --disable-ffprobe --disable-network --disable-autodetect"
+          ],
+          "fault_file": "fftools/ffmpeg.c",
+          "oracle": {
+            "argv": [
+              "/artifacts/ffmpeg",
+              "-version"
+            ],
+            "kind": "command"
+          },
+          "project_family": "https://github.com/ffmpeg/ffmpeg",
+          "repository_url": "https://github.com/FFmpeg/FFmpeg",
+          "selected_build_system": "make",
+          "source_snapshot_sha256": "6b018d40d58ae87bbfc331a32b0a955be29ced8b6ec509d3b8ce5f5144db383a",
+          "target": {
+            "artifact_types": [
+              "executable"
+            ],
+            "bitwise_required": false,
+            "required_artifacts": [
+              "ffmpeg"
+            ]
+          },
+          "task_id": "ffmpeg"
+        },
+        "task_id": "ffmpeg"
+      },
+      {
+        "expected_action": "build",
+        "fault_type": "wrong_build_target",
+        "source": {
+          "artifact_stage_commands": [
+            "cp src/redis-server /artifacts/redis-server"
+          ],
+          "build_commands": [
+            "make -j4 BUILD_TLS=no MALLOC=libc redis-server"
+          ],
+          "commit_sha": "558ef8fafb508adb276fb838442f7f202fc1d7e6",
+          "configure_commands": [
+            "test -f Makefile"
+          ],
+          "configure_repair_commands": [
+            "git checkout HEAD -- Makefile",
+            "test -f Makefile"
+          ],
+          "fault_file": "src/server.c",
+          "oracle": {
+            "argv": [
+              "/artifacts/redis-server",
+              "--version"
+            ],
+            "kind": "command"
+          },
+          "project_family": "https://github.com/redis/redis",
+          "repository_url": "https://github.com/redis/redis",
+          "selected_build_system": "make",
+          "source_snapshot_sha256": "ffd15bd570f568e25f6a5f44197aab9f4b5a7104ff7a5a60a1ae9fb01275c966",
+          "target": {
+            "artifact_types": [
+              "executable"
+            ],
+            "bitwise_required": false,
+            "required_artifacts": [
+              "redis-server"
+            ]
+          },
+          "task_id": "redis"
+        },
+        "task_id": "redis"
+      },
+      {
+        "expected_action": "dependency",
+        "fault_type": "missing_compile_input",
+        "source": {
+          "artifact_stage_commands": [
+            "mkdir -p /artifacts/lib /artifacts/include && cp .libs/libarchive.a /artifacts/lib/ && cp libarchive/archive.h libarchive/archive_entry.h /artifacts/include/"
+          ],
+          "build_commands": [
+            "make -j4 libarchive.la"
+          ],
+          "commit_sha": "4e97bd559929642d827020b7dffa1fe7483af5e6",
+          "configure_commands": [
+            "autoreconf -fi",
+            "./configure --disable-shared --enable-static --without-xml2 --without-expat --without-openssl --without-lz4 --without-zstd --without-lzma --without-bz2lib --without-libb2 --without-iconv --without-zlib"
+          ],
+          "configure_repair_commands": [
+            "autoreconf -fi",
+            "./configure --disable-shared --enable-static --without-xml2 --without-expat --without-openssl --without-lz4 --without-zstd --without-lzma --without-bz2lib --without-libb2 --without-iconv --without-zlib"
+          ],
+          "fault_file": "libarchive/archive_read.c",
+          "oracle": {
+            "compile_argv": [
+              "cc",
+              "-std=c11",
+              "-I/artifacts/include",
+              "{source}",
+              "/artifacts/lib/libarchive.a",
+              "-o",
+              "{executable}"
+            ],
+            "kind": "compile_and_run",
+            "language": "c11",
+            "run_argv": [
+              "{executable}"
+            ],
+            "source": "#include <archive.h>\nint main(void){return archive_version_number()>0?0:1;}\n"
+          },
+          "project_family": "https://github.com/libarchive/libarchive",
+          "repository_url": "https://github.com/libarchive/libarchive",
+          "selected_build_system": "autotools",
+          "source_snapshot_sha256": "de8029ef74dd99628f1c8d47b085d89f60a9b2269bbe191f091601c982c7e08f",
+          "target": {
+            "artifact_types": [
+              "support_file",
+              "static_library"
+            ],
+            "bitwise_required": true,
+            "required_artifacts": [
+              "include/archive.h",
+              "lib/libarchive.a"
+            ]
+          },
+          "task_id": "libarchive"
+        },
+        "task_id": "libarchive"
+      },
+      {
+        "expected_action": "configure",
+        "fault_type": "invalid_build_state",
+        "source": {
+          "artifact_stage_commands": [
+            "cp src/curl /artifacts/curl"
+          ],
+          "build_commands": [
+            "make -j4"
+          ],
+          "commit_sha": "82aea8c0675c108a1f656e3a33c7fda09ba7aa50",
+          "configure_commands": [
+            "autoreconf -fi",
+            "./configure --disable-shared --enable-static --without-ssl --without-libpsl --without-zlib --without-brotli --without-zstd --disable-ldap --disable-ldaps --disable-docs"
+          ],
+          "configure_repair_commands": [
+            "autoreconf -fi",
+            "./configure --disable-shared --enable-static --without-ssl --without-libpsl --without-zlib --without-brotli --without-zstd --disable-ldap --disable-ldaps --disable-docs"
+          ],
+          "fault_file": "lib/easy.c",
+          "oracle": {
+            "argv": [
+              "/artifacts/curl",
+              "--version"
+            ],
+            "kind": "command"
+          },
+          "project_family": "https://github.com/curl/curl",
+          "repository_url": "https://github.com/curl/curl",
+          "selected_build_system": "autotools",
+          "source_snapshot_sha256": "5d31ac6a6875606c5d9b9d2d46e623ff7b96e66ec1cc606c46ebbfa1d8622bb5",
+          "target": {
+            "artifact_types": [
+              "executable"
+            ],
+            "bitwise_required": false,
+            "required_artifacts": [
+              "curl"
+            ]
+          },
+          "task_id": "curl"
+        },
+        "task_id": "curl"
+      },
+      {
+        "expected_action": "build",
+        "fault_type": "wrong_build_target",
+        "source": {
+          "artifact_stage_commands": [
+            "mkdir -p /artifacts/lib /artifacts/include && cp lib/libjemalloc.a /artifacts/lib/ && cp -r include/jemalloc /artifacts/include/"
+          ],
+          "build_commands": [
+            "make -j4"
+          ],
+          "commit_sha": "0d9d5d553e4ff722a64570a2f7c97399e5d37963",
+          "configure_commands": [
+            "./autogen.sh --disable-shared --enable-static"
+          ],
+          "configure_repair_commands": [
+            "./autogen.sh --disable-shared --enable-static"
+          ],
+          "fault_file": "src/jemalloc.c",
+          "oracle": {
+            "compile_argv": [
+              "cc",
+              "-std=c11",
+              "-I/artifacts/include",
+              "{source}",
+              "/artifacts/lib/libjemalloc.a",
+              "-pthread",
+              "-ldl",
+              "-o",
+              "{executable}"
+            ],
+            "kind": "compile_and_run",
+            "language": "c11",
+            "run_argv": [
+              "{executable}"
+            ],
+            "source": "#include <jemalloc/jemalloc.h>\nint main(void){void*p=mallocx(32,0);if(!p)return 1;dallocx(p,0);return 0;}\n"
+          },
+          "project_family": "https://github.com/jemalloc/jemalloc",
+          "repository_url": "https://github.com/jemalloc/jemalloc",
+          "selected_build_system": "autotools",
+          "source_snapshot_sha256": "33b5aa0cd4e3c38beb6b5392aec181a7642b3cb38e58228771b100da0a8a9f74",
+          "target": {
+            "artifact_types": [
+              "support_file",
+              "static_library"
+            ],
+            "bitwise_required": true,
+            "required_artifacts": [
+              "include/jemalloc/jemalloc.h",
+              "lib/libjemalloc.a"
+            ]
+          },
+          "task_id": "jemalloc"
+        },
+        "task_id": "jemalloc"
+      },
+      {
+        "expected_action": "dependency",
+        "fault_type": "missing_compile_input",
+        "source": {
+          "artifact_stage_commands": [
+            "mkdir -p /artifacts/lib /artifacts/include && cp src/.libs/libwolfssl.a /artifacts/lib/ && cp -r wolfssl /artifacts/include/"
+          ],
+          "build_commands": [
+            "make -j4"
+          ],
+          "commit_sha": "7499fc5b6c99eb39055a59f538bb3709971341c9",
+          "configure_commands": [
+            "./autogen.sh",
+            "./configure --disable-shared --enable-static --disable-examples --disable-crypttests"
+          ],
+          "configure_repair_commands": [
+            "./autogen.sh",
+            "./configure --disable-shared --enable-static --disable-examples --disable-crypttests"
+          ],
+          "fault_file": "src/ssl.c",
+          "oracle": {
+            "compile_argv": [
+              "cc",
+              "-std=c11",
+              "-I/artifacts/include",
+              "{source}",
+              "/artifacts/lib/libwolfssl.a",
+              "-pthread",
+              "-lm",
+              "-o",
+              "{executable}"
+            ],
+            "kind": "compile_and_run",
+            "language": "c11",
+            "run_argv": [
+              "{executable}"
+            ],
+            "source": "#include <wolfssl/options.h>\n#include <wolfssl/ssl.h>\nint main(void){return wolfSSL_lib_version_hex()>0?0:1;}\n"
+          },
+          "project_family": "https://github.com/wolfssl/wolfssl",
+          "repository_url": "https://github.com/wolfSSL/wolfssl",
+          "selected_build_system": "autotools",
+          "source_snapshot_sha256": "00e76dbaf04690265d73bdda58faf78650ce930db6e489a704220c0636cbf755",
+          "target": {
+            "artifact_types": [
+              "support_file",
+              "static_library"
+            ],
+            "bitwise_required": true,
+            "required_artifacts": [
+              "include/wolfssl/ssl.h",
+              "lib/libwolfssl.a"
+            ]
+          },
+          "task_id": "wolfssl"
+        },
+        "task_id": "wolfssl"
+      }
+    ],
+    "components": {
+      "backend/packages/harness/deerflow/compile/agent_workflow_runtime.py": "6522c31a81a3032cfd8ed3bc976aca93eea888ca3cd1840a7763ef5a3986b439",
+      "backend/packages/harness/deerflow/compile/external_evaluator_v2.py": "19044e161b321fe5afed8458c0138f1bcfbe41582af2d5f4efcdf6846c3d579b",
+      "backend/packages/harness/deerflow/compile/jev_controller.py": "f8c53aa301c60399aae33c052d7d3efd8d39c0827dc751d99cd823194a810e9f",
+      "scripts/forge_jev_formal_comparison_v1.py": "281e36b44d0e76aa8869daa08741c9619550c812ec84f0892ec6e8e707cdd8c0"
+    },
+    "environment": {
+      "compile_image": "autocompiler:gcc13",
+      "image_id": "sha256:d27a6ab733c7c3a9cbb5e4b32fb595aa5a422ff04bd212888d1041b90a2c4c2a",
+      "network_policy": "compile-network-v1",
+      "parallel_jobs": 4,
+      "workspace_root_binding": "repository_root"
+    },
+    "evidence": {
+      "create_once": true,
+      "preserve_failures": true,
+      "root": ".compile-sessions/benchmark-evidence-jev-formal-comparison-v1",
+      "store_credentials": false
+    },
+    "identity": "cpp-jev-formal-comparison-v1",
+    "implementation_revision": "7dda64349f774dfe02e69234f6b3eadf0120e256",
+    "interpretation": {
+      "controlled_failure_formal_comparison": true,
+      "cost_savings_claim": true,
+      "dynamic_budget_claim": false,
+      "natural_failure_generalization": false,
+      "strict_success_noninferiority": true
+    },
+    "issue_url": "https://github.com/WWFXL/Forge-AutoCompiler/issues/408",
+    "jev_provider": {
+      "credential_file": "jev-apikey.txt",
+      "endpoint": "https://api.typesafe.ai",
+      "input_price_usd_per_million_tokens": 0.042,
+      "max_retries": 0,
+      "model": "jev-1.13.0",
+      "request_timeout_seconds": 30
+    },
+    "parents": {
+      "benchmarks/manifests/cpp-jev-end-to-end-canary-v7.json": "1adb84f8009568778c22bc389f2add503bf7257f8474c88909d6e6b8e9e44cce",
+      "benchmarks/reports/cpp-jev-end-to-end-canary-v7-qualification.json": "a29e816ee7c04eb60569cd0825635cbdfddaea50ba3df921cc5b5031fa5d293b",
+      "benchmarks/reports/cpp-jev-end-to-end-canary-v7.json": "2fdbf0d64c3254b4e4dedc39c2f59b525febb0b0ad0d5dd25ed20e2858597ef4"
+    },
+    "routing": {
+      "agent_escalation_on_direct_action_failure": true,
+      "candidate_actions": [
+        "dependency",
+        "configure",
+        "build",
+        "escalate_agent"
+      ],
+      "direct_action_terminal_success_allowed": false,
+      "jev_calibration": {
+        "coefficient": 0.08805149266059632,
+        "intercept": 0.618335523488825,
+        "model": "jev-1.13.0",
+        "threshold": 0.6747568477098429
+      },
+      "jev_model": "jev-1.13.0",
+      "rule_gate_action": "build"
+    },
+    "schedule": [
+      {
+        "arm": "always_agent",
+        "repetition": 1,
+        "sequence": 1,
+        "task_id": "libgit2"
+      },
+      {
+        "arm": "rule_gate_agent",
+        "repetition": 1,
+        "sequence": 2,
+        "task_id": "libgit2"
+      },
+      {
+        "arm": "jev_gate_agent",
+        "repetition": 1,
+        "sequence": 3,
+        "task_id": "libgit2"
+      },
+      {
+        "arm": "rule_gate_agent",
+        "repetition": 1,
+        "sequence": 4,
+        "task_id": "simdjson"
+      },
+      {
+        "arm": "jev_gate_agent",
+        "repetition": 1,
+        "sequence": 5,
+        "task_id": "simdjson"
+      },
+      {
+        "arm": "always_agent",
+        "repetition": 1,
+        "sequence": 6,
+        "task_id": "simdjson"
+      },
+      {
+        "arm": "jev_gate_agent",
+        "repetition": 1,
+        "sequence": 7,
+        "task_id": "benchmark"
+      },
+      {
+        "arm": "always_agent",
+        "repetition": 1,
+        "sequence": 8,
+        "task_id": "benchmark"
+      },
+      {
+        "arm": "rule_gate_agent",
+        "repetition": 1,
+        "sequence": 9,
+        "task_id": "benchmark"
+      },
+      {
+        "arm": "always_agent",
+        "repetition": 1,
+        "sequence": 10,
+        "task_id": "pcre2"
+      },
+      {
+        "arm": "rule_gate_agent",
+        "repetition": 1,
+        "sequence": 11,
+        "task_id": "pcre2"
+      },
+      {
+        "arm": "jev_gate_agent",
+        "repetition": 1,
+        "sequence": 12,
+        "task_id": "pcre2"
+      },
+      {
+        "arm": "rule_gate_agent",
+        "repetition": 1,
+        "sequence": 13,
+        "task_id": "haproxy"
+      },
+      {
+        "arm": "jev_gate_agent",
+        "repetition": 1,
+        "sequence": 14,
+        "task_id": "haproxy"
+      },
+      {
+        "arm": "always_agent",
+        "repetition": 1,
+        "sequence": 15,
+        "task_id": "haproxy"
+      },
+      {
+        "arm": "jev_gate_agent",
+        "repetition": 1,
+        "sequence": 16,
+        "task_id": "cc65"
+      },
+      {
+        "arm": "always_agent",
+        "repetition": 1,
+        "sequence": 17,
+        "task_id": "cc65"
+      },
+      {
+        "arm": "rule_gate_agent",
+        "repetition": 1,
+        "sequence": 18,
+        "task_id": "cc65"
+      },
+      {
+        "arm": "always_agent",
+        "repetition": 1,
+        "sequence": 19,
+        "task_id": "ffmpeg"
+      },
+      {
+        "arm": "rule_gate_agent",
+        "repetition": 1,
+        "sequence": 20,
+        "task_id": "ffmpeg"
+      },
+      {
+        "arm": "jev_gate_agent",
+        "repetition": 1,
+        "sequence": 21,
+        "task_id": "ffmpeg"
+      },
+      {
+        "arm": "rule_gate_agent",
+        "repetition": 1,
+        "sequence": 22,
+        "task_id": "redis"
+      },
+      {
+        "arm": "jev_gate_agent",
+        "repetition": 1,
+        "sequence": 23,
+        "task_id": "redis"
+      },
+      {
+        "arm": "always_agent",
+        "repetition": 1,
+        "sequence": 24,
+        "task_id": "redis"
+      },
+      {
+        "arm": "jev_gate_agent",
+        "repetition": 1,
+        "sequence": 25,
+        "task_id": "libarchive"
+      },
+      {
+        "arm": "always_agent",
+        "repetition": 1,
+        "sequence": 26,
+        "task_id": "libarchive"
+      },
+      {
+        "arm": "rule_gate_agent",
+        "repetition": 1,
+        "sequence": 27,
+        "task_id": "libarchive"
+      },
+      {
+        "arm": "always_agent",
+        "repetition": 1,
+        "sequence": 28,
+        "task_id": "curl"
+      },
+      {
+        "arm": "rule_gate_agent",
+        "repetition": 1,
+        "sequence": 29,
+        "task_id": "curl"
+      },
+      {
+        "arm": "jev_gate_agent",
+        "repetition": 1,
+        "sequence": 30,
+        "task_id": "curl"
+      },
+      {
+        "arm": "rule_gate_agent",
+        "repetition": 1,
+        "sequence": 31,
+        "task_id": "jemalloc"
+      },
+      {
+        "arm": "jev_gate_agent",
+        "repetition": 1,
+        "sequence": 32,
+        "task_id": "jemalloc"
+      },
+      {
+        "arm": "always_agent",
+        "repetition": 1,
+        "sequence": 33,
+        "task_id": "jemalloc"
+      },
+      {
+        "arm": "jev_gate_agent",
+        "repetition": 1,
+        "sequence": 34,
+        "task_id": "wolfssl"
+      },
+      {
+        "arm": "always_agent",
+        "repetition": 1,
+        "sequence": 35,
+        "task_id": "wolfssl"
+      },
+      {
+        "arm": "rule_gate_agent",
+        "repetition": 1,
+        "sequence": 36,
+        "task_id": "wolfssl"
+      },
+      {
+        "arm": "rule_gate_agent",
+        "repetition": 2,
+        "sequence": 37,
+        "task_id": "libgit2"
+      },
+      {
+        "arm": "jev_gate_agent",
+        "repetition": 2,
+        "sequence": 38,
+        "task_id": "libgit2"
+      },
+      {
+        "arm": "always_agent",
+        "repetition": 2,
+        "sequence": 39,
+        "task_id": "libgit2"
+      },
+      {
+        "arm": "jev_gate_agent",
+        "repetition": 2,
+        "sequence": 40,
+        "task_id": "simdjson"
+      },
+      {
+        "arm": "always_agent",
+        "repetition": 2,
+        "sequence": 41,
+        "task_id": "simdjson"
+      },
+      {
+        "arm": "rule_gate_agent",
+        "repetition": 2,
+        "sequence": 42,
+        "task_id": "simdjson"
+      },
+      {
+        "arm": "always_agent",
+        "repetition": 2,
+        "sequence": 43,
+        "task_id": "benchmark"
+      },
+      {
+        "arm": "rule_gate_agent",
+        "repetition": 2,
+        "sequence": 44,
+        "task_id": "benchmark"
+      },
+      {
+        "arm": "jev_gate_agent",
+        "repetition": 2,
+        "sequence": 45,
+        "task_id": "benchmark"
+      },
+      {
+        "arm": "rule_gate_agent",
+        "repetition": 2,
+        "sequence": 46,
+        "task_id": "pcre2"
+      },
+      {
+        "arm": "jev_gate_agent",
+        "repetition": 2,
+        "sequence": 47,
+        "task_id": "pcre2"
+      },
+      {
+        "arm": "always_agent",
+        "repetition": 2,
+        "sequence": 48,
+        "task_id": "pcre2"
+      },
+      {
+        "arm": "jev_gate_agent",
+        "repetition": 2,
+        "sequence": 49,
+        "task_id": "haproxy"
+      },
+      {
+        "arm": "always_agent",
+        "repetition": 2,
+        "sequence": 50,
+        "task_id": "haproxy"
+      },
+      {
+        "arm": "rule_gate_agent",
+        "repetition": 2,
+        "sequence": 51,
+        "task_id": "haproxy"
+      },
+      {
+        "arm": "always_agent",
+        "repetition": 2,
+        "sequence": 52,
+        "task_id": "cc65"
+      },
+      {
+        "arm": "rule_gate_agent",
+        "repetition": 2,
+        "sequence": 53,
+        "task_id": "cc65"
+      },
+      {
+        "arm": "jev_gate_agent",
+        "repetition": 2,
+        "sequence": 54,
+        "task_id": "cc65"
+      },
+      {
+        "arm": "rule_gate_agent",
+        "repetition": 2,
+        "sequence": 55,
+        "task_id": "ffmpeg"
+      },
+      {
+        "arm": "jev_gate_agent",
+        "repetition": 2,
+        "sequence": 56,
+        "task_id": "ffmpeg"
+      },
+      {
+        "arm": "always_agent",
+        "repetition": 2,
+        "sequence": 57,
+        "task_id": "ffmpeg"
+      },
+      {
+        "arm": "jev_gate_agent",
+        "repetition": 2,
+        "sequence": 58,
+        "task_id": "redis"
+      },
+      {
+        "arm": "always_agent",
+        "repetition": 2,
+        "sequence": 59,
+        "task_id": "redis"
+      },
+      {
+        "arm": "rule_gate_agent",
+        "repetition": 2,
+        "sequence": 60,
+        "task_id": "redis"
+      },
+      {
+        "arm": "always_agent",
+        "repetition": 2,
+        "sequence": 61,
+        "task_id": "libarchive"
+      },
+      {
+        "arm": "rule_gate_agent",
+        "repetition": 2,
+        "sequence": 62,
+        "task_id": "libarchive"
+      },
+      {
+        "arm": "jev_gate_agent",
+        "repetition": 2,
+        "sequence": 63,
+        "task_id": "libarchive"
+      },
+      {
+        "arm": "rule_gate_agent",
+        "repetition": 2,
+        "sequence": 64,
+        "task_id": "curl"
+      },
+      {
+        "arm": "jev_gate_agent",
+        "repetition": 2,
+        "sequence": 65,
+        "task_id": "curl"
+      },
+      {
+        "arm": "always_agent",
+        "repetition": 2,
+        "sequence": 66,
+        "task_id": "curl"
+      },
+      {
+        "arm": "jev_gate_agent",
+        "repetition": 2,
+        "sequence": 67,
+        "task_id": "jemalloc"
+      },
+      {
+        "arm": "always_agent",
+        "repetition": 2,
+        "sequence": 68,
+        "task_id": "jemalloc"
+      },
+      {
+        "arm": "rule_gate_agent",
+        "repetition": 2,
+        "sequence": 69,
+        "task_id": "jemalloc"
+      },
+      {
+        "arm": "always_agent",
+        "repetition": 2,
+        "sequence": 70,
+        "task_id": "wolfssl"
+      },
+      {
+        "arm": "rule_gate_agent",
+        "repetition": 2,
+        "sequence": 71,
+        "task_id": "wolfssl"
+      },
+      {
+        "arm": "jev_gate_agent",
+        "repetition": 2,
+        "sequence": 72,
+        "task_id": "wolfssl"
+      }
+    ],
+    "schema_version": "forge-jev-formal-comparison-1.0.0",
+    "stopping_rules": {
+      "continue_after_behavioral_failure": true,
+      "provider_or_model_failure_is_arm_outcome": true,
+      "stop_batch_on_budget_overrun": true,
+      "stop_batch_on_cleanup_or_orphan_failure": true,
+      "stop_batch_on_identity_or_evidence_corruption": true
+    }
+  },
+  "title": "Forge Jev formal comparison v1"
+}
