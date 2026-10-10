@@ -1,0 +1,133 @@
+{
+  "availability": {
+    "created_at": "2026-10-10T01:54:37.476447+00:00",
+    "credential_reads": 1,
+    "decision": "stop_model_unavailable",
+    "identity": "cpp-jev-offline-qualification-v4",
+    "model_inference_performed": false,
+    "models": [
+      {
+        "name": "jev-latest",
+        "release_date": "2026-09-10T18:38:01.391457+00:00"
+      },
+      {
+        "name": "jev-preview",
+        "release_date": "2026-09-10T18:39:06.057655+00:00"
+      }
+    ],
+    "passed": false,
+    "provider_route": {
+      "cap_drop_all": true,
+      "config_mode": "600",
+      "config_sha256": "61ed936fe28f5cc7631fbd20c3fe92a93230db16d2bd5dee07829119a05d37ea",
+      "container": "forge-typesafe-egress",
+      "image_id": "sha256:30afbbe303155d74537b0e3061ffda5e5e64746a6b41ad32991dd63ab9984ce0",
+      "no_new_privileges": true,
+      "passed": true,
+      "proxy_url": "http://127.0.0.1:17891",
+      "read_only_rootfs": true
+    },
+    "request_count": 1,
+    "required_model": "jev-1.13.0"
+  },
+  "budget": {
+    "completed_model_responses": 0,
+    "input_tokens": 0,
+    "model_cost_usd": 0.0,
+    "model_requests": 0,
+    "output_tokens": 0
+  },
+  "calibration": null,
+  "created_at": "2026-10-10T01:55:34.373072+00:00",
+  "decision": "stop_jev_controller_and_keep_offline_result",
+  "design": null,
+  "document_type": "forge_jev_offline_qualification_report",
+  "evaluation": null,
+  "evidence_inventory": [
+    {
+      "path": "availability/attempt.json",
+      "sha256": "e53a068cdaca44ee613db3acac68d107712d2d08b296e35b71f2a3e8042bc49a",
+      "size": 182
+    },
+    {
+      "path": "availability/failed.json",
+      "sha256": "839b6ab02679d84197ec0b267903f3bf7310e160daeec2b87d00c534b81e39d3",
+      "size": 922
+    },
+    {
+      "path": "availability/identity.json",
+      "sha256": "ffb9fbb074423f9a87a97f27161e96819d967eb53033bae32154de69174c0695",
+      "size": 353
+    }
+  ],
+  "evidence_inventory_canonical_sha256": "281d18d2dfb39ba93f15bf86248625b402df2a2740c7f2dfa867be7ce75f5db5",
+  "gates": {
+    "availability": false
+  },
+  "git_commit": "606b6de0434894602ff43491bfe8a3fe05b2a7ea",
+  "identity": "cpp-jev-offline-qualification-v4",
+  "interpretation": {
+    "controller_effect_estimated": false,
+    "historical_evidence_modified": false,
+    "jev_offline_action_qualification_estimated": false,
+    "natural_failure_population_estimated": false,
+    "strict_success_noninferiority_estimated": false,
+    "temporal_generalization_estimated": false
+  },
+  "issue_url": "https://github.com/WWFXL/Forge-AutoCompiler/issues/399",
+  "manifest_canonical_sha256": "665bf655a7c9bd5a44e2fe84d65a9122587fcea2dd4320a0d016cb5e6e1c9416",
+  "parent_outcome_qualification": {
+    "action_outcome_count": 288,
+    "file_sha256": "8fd490d8cc9e2517c1ff8e182a8e0930e103a6b6c9b2ff426904deede9d2cf93",
+    "gates": {
+      "all_candidates_bounded": true,
+      "expected_counts": true,
+      "no_direct_label_leakage": true,
+      "reference_closure": true,
+      "replay_consistency": true,
+      "split_balance": true
+    },
+    "identity": "cpp-jev-offline-qualification-v3",
+    "passed": true,
+    "reference_closure_count": 24,
+    "replay": {
+      "consistent_state_action_pair_count": 144,
+      "replay_consistency": 1.0,
+      "state_action_pair_count": 144
+    },
+    "split_metrics": {
+      "calibration": {
+        "optimal_actions": {
+          "build": 6,
+          "configure": 6,
+          "dependency": 6
+        },
+        "project_count": 6,
+        "state_count": 18,
+        "states_by_build_system": {
+          "autotools": 6,
+          "cmake": 6,
+          "make": 6
+        }
+      },
+      "design": {
+        "optimal_actions": {
+          "build": 6,
+          "configure": 6,
+          "dependency": 6
+        },
+        "project_count": 6,
+        "state_count": 18,
+        "states_by_build_system": {
+          "autotools": 6,
+          "cmake": 6,
+          "make": 6
+        }
+      }
+    },
+    "state_count": 36
+  },
+  "passed": false,
+  "schema_version": "forge-jev-offline-qualification-report-4.0.0",
+  "terminal_stage": "availability"
+}
