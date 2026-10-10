@@ -1,0 +1,744 @@
+{
+  "created_at": "2026-10-10T11:12:10.066741+00:00",
+  "credential_reads": 0,
+  "decision": "stop_before_formal_canary",
+  "formal_attempts": 0,
+  "gates": {
+    "all_actions_succeeded": true,
+    "all_artifacts_staged": true,
+    "all_build_systems": true,
+    "all_candidates_submitted": true,
+    "all_compile_sessions_cleaned": true,
+    "all_faults_triggered": true,
+    "all_s0_s5_passed": false,
+    "authoritative_build_system_selected": true,
+    "zero_credential_read": true,
+    "zero_managed_resources": true,
+    "zero_provider": true
+  },
+  "identity": "cpp-jev-end-to-end-canary-v5",
+  "manifest_sha256": "29f6ec39cd442e6fc0606dc02321dc758f5eb6a7c621428beb9d14ef76409081",
+  "passed": false,
+  "provider_calls": 0,
+  "rows": [
+    {
+      "action_succeeded": true,
+      "artifact_stage_succeeded": true,
+      "build_system": "cmake",
+      "build_system_detection": {
+        "detected": [
+          "cmake",
+          "make"
+        ],
+        "primary": "cmake",
+        "selected": "cmake"
+      },
+      "candidate_submitted": true,
+      "cleanup_succeeded": true,
+      "expected_action": "configure",
+      "fault_exit_code": 2,
+      "fault_type": "invalid_build_state",
+      "s0_s5": [
+        {
+          "evidence": [
+            {
+              "exit_code": null,
+              "identifier": "canary-v5-qualification-01-direct",
+              "kind": "node_input",
+              "relative_path": null,
+              "sha256": "2d13bd4cf0f61315646eb418a808e325f7c5baf124aca13ce93472b5a45af2be",
+              "size_bytes": null
+            },
+            {
+              "exit_code": null,
+              "identifier": "canary-v5-qualification-01-direct",
+              "kind": "node_result",
+              "relative_path": null,
+              "sha256": "eb1bbe4377e888c53ceba8c5c97670e4f090157dfa646cbe3015e07dfed516eb",
+              "size_bytes": null
+            },
+            {
+              "exit_code": null,
+              "identifier": "canary-01-qualification-direct",
+              "kind": "candidate",
+              "relative_path": null,
+              "sha256": "0bd400c2749dbcf83b4c57acc2e5e1b1be059afa6fe4f093f91bce36812cb773",
+              "size_bytes": null
+            },
+            {
+              "exit_code": null,
+              "identifier": "96116f9e3929",
+              "kind": "session",
+              "relative_path": null,
+              "sha256": null,
+              "size_bytes": null
+            }
+          ],
+          "layer": "S0",
+          "reason_codes": [
+            "identity_valid"
+          ],
+          "status": "passed"
+        },
+        {
+          "evidence": [
+            {
+              "exit_code": null,
+              "identifier": "command_755a71a769a841679bf7ee23dbc1e653",
+              "kind": "command",
+              "relative_path": null,
+              "sha256": null,
+              "size_bytes": null
+            },
+            {
+              "exit_code": null,
+              "identifier": "command_ef9f70f3fab7485da8d796b527d6ad0b",
+              "kind": "command",
+              "relative_path": null,
+              "sha256": null,
+              "size_bytes": null
+            },
+            {
+              "exit_code": null,
+              "identifier": "command_1dd9e1270da24c748fd0e1eeaca378cd",
+              "kind": "command",
+              "relative_path": null,
+              "sha256": null,
+              "size_bytes": null
+            },
+            {
+              "exit_code": null,
+              "identifier": "command_d3b715335a00446fbfc626c679dc1dfd",
+              "kind": "command",
+              "relative_path": null,
+              "sha256": null,
+              "size_bytes": null
+            },
+            {
+              "exit_code": null,
+              "identifier": "command_e584a0c9b257478ebaf8529495f30cb2",
+              "kind": "command",
+              "relative_path": null,
+              "sha256": null,
+              "size_bytes": null
+            }
+          ],
+          "layer": "S1",
+          "reason_codes": [
+            "commands_valid"
+          ],
+          "status": "passed"
+        },
+        {
+          "evidence": [
+            {
+              "exit_code": null,
+              "identifier": "gitlike",
+              "kind": "artifact",
+              "relative_path": "gitlike",
+              "sha256": "f7eaf09e22231ccdb80a08baef48bf1f373abbc82289915f16a2fe959fc994ee",
+              "size_bytes": 246656
+            }
+          ],
+          "layer": "S2",
+          "reason_codes": [
+            "candidate_artifacts_valid"
+          ],
+          "status": "passed"
+        },
+        {
+          "evidence": [
+            {
+              "exit_code": null,
+              "identifier": "args-functional-oracle-v1",
+              "kind": "oracle_spec",
+              "relative_path": null,
+              "sha256": "7ac4350a8c4a0197771252b6268cb4ce83dde7379254c28add43edecb1274923",
+              "size_bytes": null
+            },
+            {
+              "exit_code": 0,
+              "identifier": "command_11499dec950e4c39bcbbaa365cfe1da0",
+              "kind": "command",
+              "relative_path": null,
+              "sha256": null,
+              "size_bytes": null
+            },
+            {
+              "exit_code": null,
+              "identifier": "command_11499dec950e4c39bcbbaa365cfe1da0:stdout",
+              "kind": "oracle_stdout",
+              "relative_path": "oracle/stdout.log",
+              "sha256": "785a8880c7cc85ac1cd975f79bf5a0d848444d4c60030ca9474f9007ad497d4b",
+              "size_bytes": 523
+            },
+            {
+              "exit_code": null,
+              "identifier": "command_11499dec950e4c39bcbbaa365cfe1da0:stderr",
+              "kind": "oracle_stderr",
+              "relative_path": "oracle/stderr.log",
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "size_bytes": 0
+            }
+          ],
+          "layer": "S3",
+          "reason_codes": [
+            "functional_oracle_passed"
+          ],
+          "status": "passed"
+        },
+        {
+          "evidence": [
+            {
+              "exit_code": null,
+              "identifier": "96116f9e3929",
+              "kind": "session",
+              "relative_path": null,
+              "sha256": null,
+              "size_bytes": null
+            },
+            {
+              "exit_code": null,
+              "identifier": "f68daa941a4548f93de0b9cb701927250a5bab24518d0187d04e3e77c375df98",
+              "kind": "replay_recipe",
+              "relative_path": null,
+              "sha256": null,
+              "size_bytes": null
+            }
+          ],
+          "layer": "S4",
+          "reason_codes": [
+            "provenance_policy_valid"
+          ],
+          "status": "passed"
+        },
+        {
+          "evidence": [
+            {
+              "exit_code": null,
+              "identifier": "replay_dfe9932df9e64a1fafe145ee9cbe97f6",
+              "kind": "replay",
+              "relative_path": null,
+              "sha256": null,
+              "size_bytes": null
+            }
+          ],
+          "layer": "S5",
+          "reason_codes": [
+            "clean_replay_functional_success"
+          ],
+          "status": "passed"
+        }
+      ],
+      "session_status": "completed",
+      "state_id": "s-04583a661d7afed169c1",
+      "strict_success": true,
+      "task_id": "args"
+    },
+    {
+      "action_succeeded": true,
+      "artifact_stage_succeeded": true,
+      "build_system": "make",
+      "build_system_detection": {
+        "detected": [
+          "make"
+        ],
+        "primary": "make",
+        "selected": "make"
+      },
+      "candidate_submitted": true,
+      "cleanup_succeeded": true,
+      "expected_action": "build",
+      "fault_exit_code": 2,
+      "fault_type": "wrong_build_target",
+      "s0_s5": [
+        {
+          "evidence": [
+            {
+              "exit_code": null,
+              "identifier": "canary-v5-qualification-02-direct",
+              "kind": "node_input",
+              "relative_path": null,
+              "sha256": "f57cff38f8f0b78d4bafac6ed24b13c37e31d36c954e78a4c4491f591c0547e7",
+              "size_bytes": null
+            },
+            {
+              "exit_code": null,
+              "identifier": "canary-v5-qualification-02-direct",
+              "kind": "node_result",
+              "relative_path": null,
+              "sha256": "8af2ac92747564db35204b9149a2f3553cf0c99dd4d0660f5c36280af4852209",
+              "size_bytes": null
+            },
+            {
+              "exit_code": null,
+              "identifier": "canary-02-qualification-direct",
+              "kind": "candidate",
+              "relative_path": null,
+              "sha256": "6a900ddc623d621e917919ce84a19e5ebc46b6ccd91a4c26e60c454dfaf0e5a4",
+              "size_bytes": null
+            },
+            {
+              "exit_code": null,
+              "identifier": "eda6fa7da9f7",
+              "kind": "session",
+              "relative_path": null,
+              "sha256": null,
+              "size_bytes": null
+            }
+          ],
+          "layer": "S0",
+          "reason_codes": [
+            "identity_valid"
+          ],
+          "status": "passed"
+        },
+        {
+          "evidence": [
+            {
+              "exit_code": null,
+              "identifier": "command_f464135e3e834c7c97cfd1a497d80065",
+              "kind": "command",
+              "relative_path": null,
+              "sha256": null,
+              "size_bytes": null
+            },
+            {
+              "exit_code": null,
+              "identifier": "command_798a97bc29c04554bf9e27235c1ec2a7",
+              "kind": "command",
+              "relative_path": null,
+              "sha256": null,
+              "size_bytes": null
+            },
+            {
+              "exit_code": null,
+              "identifier": "command_f951d2e7e4d04812b54ef58860cecf78",
+              "kind": "command",
+              "relative_path": null,
+              "sha256": null,
+              "size_bytes": null
+            }
+          ],
+          "layer": "S1",
+          "reason_codes": [
+            "commands_valid"
+          ],
+          "status": "passed"
+        },
+        {
+          "evidence": [
+            {
+              "exit_code": null,
+              "identifier": "autolink.h",
+              "kind": "artifact",
+              "relative_path": "include/autolink.h",
+              "sha256": "81b7c98ec9407d1b36bed937d42dac1f2b489480431b34f566754802f5b46bb4",
+              "size_bytes": 1189
+            },
+            {
+              "exit_code": null,
+              "identifier": "buffer.h",
+              "kind": "artifact",
+              "relative_path": "include/buffer.h",
+              "sha256": "b9cee50f338180b78822e786b122fa77b87609d2198b0c405af14d2b6a29771a",
+              "size_bytes": 4535
+            },
+            {
+              "exit_code": null,
+              "identifier": "context_test.h",
+              "kind": "artifact",
+              "relative_path": "include/context_test.h",
+              "sha256": "dd607fc9d08001087bcc41fd7e18e67641d55a8c61eece428374d27c19b42237",
+              "size_bytes": 859
+            },
+            {
+              "exit_code": null,
+              "identifier": "document.h",
+              "kind": "artifact",
+              "relative_path": "include/document.h",
+              "sha256": "a25af50b14257992aee35bbe0cd6cc4161c9abd4385d6f54a6b711fbcc4e20cd",
+              "size_bytes": 12061
+            },
+            {
+              "exit_code": null,
+              "identifier": "escape.h",
+              "kind": "artifact",
+              "relative_path": "include/escape.h",
+              "sha256": "cd61d2350271c9823df34681a126b9cbd704d79a22aa414ea815b5cf03955fb7",
+              "size_bytes": 532
+            },
+            {
+              "exit_code": null,
+              "identifier": "hash.h",
+              "kind": "artifact",
+              "relative_path": "include/hash.h",
+              "sha256": "fc5221c5b68dce83ee850317cba11e6e14be3362e7591cf42218330bd458edf4",
+              "size_bytes": 888
+            },
+            {
+              "exit_code": null,
+              "identifier": "html.h",
+              "kind": "artifact",
+              "relative_path": "include/html.h",
+              "sha256": "2be89e7ae605f68257496f54bee6d6f9e6f074e3f5c56452e9f0ce0791445b04",
+              "size_bytes": 2329
+            },
+            {
+              "exit_code": null,
+              "identifier": "stack.h",
+              "kind": "artifact",
+              "relative_path": "include/stack.h",
+              "sha256": "26310ffd4d14a94b5e9e80aaa7818fb213496cd56caceba4e0cc25080508ea4f",
+              "size_bytes": 1113
+            },
+            {
+              "exit_code": null,
+              "identifier": "version.h",
+              "kind": "artifact",
+              "relative_path": "include/version.h",
+              "sha256": "9d241e58b20bd70b62379355d7d8bef0ba83cb4eb7e0ba5c48660c70ae089c14",
+              "size_bytes": 597
+            },
+            {
+              "exit_code": null,
+              "identifier": "libhoedown.a",
+              "kind": "artifact",
+              "relative_path": "lib/libhoedown.a",
+              "sha256": "23d1dd6735df78fa7b823ed6cc8265d23ea2771c43049f3d2ac5ede25456509e",
+              "size_bytes": 683460
+            }
+          ],
+          "layer": "S2",
+          "reason_codes": [
+            "candidate_artifacts_valid"
+          ],
+          "status": "passed"
+        },
+        {
+          "evidence": [
+            {
+              "exit_code": null,
+              "identifier": "hoextdown-functional-oracle-v1",
+              "kind": "oracle_spec",
+              "relative_path": null,
+              "sha256": "06a69ed34c654c05b181066e0b8e7ee75e10addf2d87306cb7dd4338796a0187",
+              "size_bytes": null
+            },
+            {
+              "exit_code": 0,
+              "identifier": "command_88b74a8fb62a4b818e443f02b83fcc25",
+              "kind": "command",
+              "relative_path": null,
+              "sha256": null,
+              "size_bytes": null
+            },
+            {
+              "exit_code": null,
+              "identifier": "command_88b74a8fb62a4b818e443f02b83fcc25:stdout",
+              "kind": "oracle_stdout",
+              "relative_path": "oracle/stdout.log",
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "size_bytes": 0
+            },
+            {
+              "exit_code": null,
+              "identifier": "command_88b74a8fb62a4b818e443f02b83fcc25:stderr",
+              "kind": "oracle_stderr",
+              "relative_path": "oracle/stderr.log",
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "size_bytes": 0
+            }
+          ],
+          "layer": "S3",
+          "reason_codes": [
+            "functional_oracle_passed"
+          ],
+          "status": "passed"
+        },
+        {
+          "evidence": [
+            {
+              "exit_code": null,
+              "identifier": "eda6fa7da9f7",
+              "kind": "session",
+              "relative_path": null,
+              "sha256": null,
+              "size_bytes": null
+            },
+            {
+              "exit_code": null,
+              "identifier": "d3a8d0e9ad951388f8d878b3b3c9cd8ac82818e0179c0ff2253d7d53fbcd43fa",
+              "kind": "replay_recipe",
+              "relative_path": null,
+              "sha256": null,
+              "size_bytes": null
+            }
+          ],
+          "layer": "S4",
+          "reason_codes": [
+            "provenance_policy_valid"
+          ],
+          "status": "passed"
+        },
+        {
+          "evidence": [
+            {
+              "exit_code": null,
+              "identifier": "replay_0ba05e3fb31f499891869c5c30a76e36",
+              "kind": "replay",
+              "relative_path": null,
+              "sha256": null,
+              "size_bytes": null
+            }
+          ],
+          "layer": "S5",
+          "reason_codes": [
+            "clean_replay_functional_success"
+          ],
+          "status": "passed"
+        }
+      ],
+      "session_status": "completed",
+      "state_id": "s-79362feaf13d94eebfae",
+      "strict_success": true,
+      "task_id": "hoextdown"
+    },
+    {
+      "action_succeeded": true,
+      "artifact_stage_succeeded": true,
+      "build_system": "autotools",
+      "build_system_detection": {
+        "detected": [
+          "cmake",
+          "autotools"
+        ],
+        "primary": "cmake",
+        "selected": "autotools"
+      },
+      "candidate_submitted": true,
+      "cleanup_succeeded": true,
+      "expected_action": "dependency",
+      "fault_exit_code": 2,
+      "fault_type": "missing_compile_input",
+      "s0_s5": [
+        {
+          "evidence": [
+            {
+              "exit_code": null,
+              "identifier": "canary-v5-qualification-03-direct",
+              "kind": "node_input",
+              "relative_path": null,
+              "sha256": "ba70ce3a7c898b9d840c760cb42a1d796aa4b46ba0bc311864686652aef6efbc",
+              "size_bytes": null
+            },
+            {
+              "exit_code": null,
+              "identifier": "canary-v5-qualification-03-direct",
+              "kind": "node_result",
+              "relative_path": null,
+              "sha256": "d11ea5feeca04e67645f8d0e9c7009d07c7d46dbe37c775c0d58c5ed22639d1b",
+              "size_bytes": null
+            },
+            {
+              "exit_code": null,
+              "identifier": "canary-03-qualification-direct",
+              "kind": "candidate",
+              "relative_path": null,
+              "sha256": "23211a2a3528ddaae1b0e154da6f9c4dccbe2c39454140ee25e8c38598a56d2f",
+              "size_bytes": null
+            },
+            {
+              "exit_code": null,
+              "identifier": "c50a3690d0b5",
+              "kind": "session",
+              "relative_path": null,
+              "sha256": null,
+              "size_bytes": null
+            }
+          ],
+          "layer": "S0",
+          "reason_codes": [
+            "identity_valid"
+          ],
+          "status": "passed"
+        },
+        {
+          "evidence": [
+            {
+              "exit_code": null,
+              "identifier": "command_1382d3f3411848daa7cd23c15d9c9b65",
+              "kind": "command",
+              "relative_path": null,
+              "sha256": null,
+              "size_bytes": null
+            },
+            {
+              "exit_code": null,
+              "identifier": "command_28927e1c758f4d53b2bb896af19ad027",
+              "kind": "command",
+              "relative_path": null,
+              "sha256": null,
+              "size_bytes": null
+            },
+            {
+              "exit_code": null,
+              "identifier": "command_5d957b9c68d14e778cca67ae0077b102",
+              "kind": "command",
+              "relative_path": null,
+              "sha256": null,
+              "size_bytes": null
+            },
+            {
+              "exit_code": null,
+              "identifier": "command_bde8907c42a24b4ba058a0b29cd0ba16",
+              "kind": "command",
+              "relative_path": null,
+              "sha256": null,
+              "size_bytes": null
+            },
+            {
+              "exit_code": null,
+              "identifier": "command_60e25c31bb0343af83855c236de25a93",
+              "kind": "command",
+              "relative_path": null,
+              "sha256": null,
+              "size_bytes": null
+            }
+          ],
+          "layer": "S1",
+          "reason_codes": [
+            "commands_valid"
+          ],
+          "status": "passed"
+        },
+        {
+          "evidence": [
+            {
+              "exit_code": null,
+              "identifier": "ares.h",
+              "kind": "artifact",
+              "relative_path": "include/ares.h",
+              "sha256": "10416d1e27dac548bbfac8231d90fe2e09695eb6aee81f3b2366bc1017dcb8ff",
+              "size_bytes": 48521
+            },
+            {
+              "exit_code": null,
+              "identifier": "ares_build.h",
+              "kind": "artifact",
+              "relative_path": "include/ares_build.h",
+              "sha256": "5531b0c92608437a2ace4cd87157f2dc5aeedabe8fc6140ee519e4d02316cc45",
+              "size_bytes": 1176
+            },
+            {
+              "exit_code": null,
+              "identifier": "libcares.a",
+              "kind": "artifact",
+              "relative_path": "lib/libcares.a",
+              "sha256": "459ab705c3adf508dbabb8c1524afded0eae257ac743e9034d32a81e1b510e80",
+              "size_bytes": 3291338
+            }
+          ],
+          "layer": "S2",
+          "reason_codes": [
+            "candidate_artifacts_valid"
+          ],
+          "status": "passed"
+        },
+        {
+          "evidence": [
+            {
+              "exit_code": null,
+              "identifier": "c-ares-functional-oracle-v1",
+              "kind": "oracle_spec",
+              "relative_path": null,
+              "sha256": "bd6a9baa0635301a6c7c74585675dd3c6159285b1acd4e8fbe26d23810018876",
+              "size_bytes": null
+            },
+            {
+              "exit_code": 1,
+              "identifier": "command_7f7bf9188f8f45e6b6b41255f3a7c7b6",
+              "kind": "command",
+              "relative_path": null,
+              "sha256": null,
+              "size_bytes": null
+            },
+            {
+              "exit_code": null,
+              "identifier": "command_7f7bf9188f8f45e6b6b41255f3a7c7b6:stdout",
+              "kind": "oracle_stdout",
+              "relative_path": "oracle/stdout.log",
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "size_bytes": 0
+            },
+            {
+              "exit_code": null,
+              "identifier": "command_7f7bf9188f8f45e6b6b41255f3a7c7b6:stderr",
+              "kind": "oracle_stderr",
+              "relative_path": "oracle/stderr.log",
+              "sha256": "25d34e5608cdd1cc6eb29437dc4a1460837088be492093623c35e65116a5a73c",
+              "size_bytes": 273
+            }
+          ],
+          "layer": "S3",
+          "reason_codes": [
+            "functional_oracle_failed"
+          ],
+          "status": "failed"
+        },
+        {
+          "evidence": [
+            {
+              "exit_code": null,
+              "identifier": "c50a3690d0b5",
+              "kind": "session",
+              "relative_path": null,
+              "sha256": null,
+              "size_bytes": null
+            },
+            {
+              "exit_code": null,
+              "identifier": "2fda68b6f9e0bb6f41ef1f1a72eb969def19f2ece75f8003e8823a7cd0e8c284",
+              "kind": "replay_recipe",
+              "relative_path": null,
+              "sha256": null,
+              "size_bytes": null
+            }
+          ],
+          "layer": "S4",
+          "reason_codes": [
+            "provenance_policy_valid"
+          ],
+          "status": "passed"
+        },
+        {
+          "evidence": [
+            {
+              "exit_code": null,
+              "identifier": "replay_9f3e7fcc8ba94510b09a03870d2663b5",
+              "kind": "replay",
+              "relative_path": null,
+              "sha256": null,
+              "size_bytes": null
+            }
+          ],
+          "layer": "S5",
+          "reason_codes": [
+            "replay_functional_oracle_failed"
+          ],
+          "status": "failed"
+        }
+      ],
+      "session_status": "completed",
+      "state_id": "s-3b766e7d393c963c2a86",
+      "strict_success": false,
+      "task_id": "c-ares"
+    }
+  ],
+  "schema_version": "forge-jev-end-to-end-canary-qualification-5.0.0",
+  "workspace": {
+    "binding": "repository_root",
+    "host_root": ".compile-sessions",
+    "process_root": ".compile-sessions"
+  }
+}
