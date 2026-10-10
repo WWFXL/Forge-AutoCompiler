@@ -1,0 +1,327 @@
+{
+  "$id": "https://github.com/WWFXL/Forge-AutoCompiler/benchmarks/schemas/forge-jev-end-to-end-canary-v5.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "const": {
+    "$schema": "../schemas/forge-jev-end-to-end-canary-v5.schema.json",
+    "agent_provider": {
+      "credential_env": "DEEPSEEK_API_KEY",
+      "endpoint": "https://api.deepseek.com",
+      "max_retries": 0,
+      "profile": "deepseek-flash",
+      "request_timeout_seconds": 300
+    },
+    "arms": [
+      "always_agent",
+      "rule_gate_agent",
+      "jev_gate_agent"
+    ],
+    "authorization": {
+      "backfill": false,
+      "credential_reads": true,
+      "docker_execution": true,
+      "formal_attempts": 9,
+      "formal_evidence_write": true,
+      "historical_evidence_write": false,
+      "provider_calls": true,
+      "replacement": false
+    },
+    "branch": "yiwei/406-jev-end-to-end-canary",
+    "budget": {
+      "per_arm_agent": {
+        "cleanup_timeout_seconds": 120,
+        "command_timeout_seconds": 900,
+        "evaluator_timeout_seconds": 1800,
+        "max_agent_steps": 64,
+        "max_commands": 32,
+        "max_model_requests": 24,
+        "max_recorded_tokens": 300000,
+        "max_tool_calls": 48,
+        "node_timeout_seconds": 1800,
+        "replay_timeout_seconds": 1800
+      },
+      "total_agent_request_ceiling": 216,
+      "total_agent_token_ceiling": 2700000,
+      "total_jev_cost_ceiling_usd": 0.00252,
+      "total_jev_input_token_ceiling": 60000,
+      "total_jev_request_ceiling": 3
+    },
+    "cases": [
+      {
+        "expected_action": "configure",
+        "fault_type": "invalid_build_state",
+        "source": {
+          "artifact_stage_commands": [
+            "cp build/gitlike /artifacts/gitlike"
+          ],
+          "build_commands": [
+            "cmake --build build --target gitlike --parallel 4"
+          ],
+          "commit_sha": "fe4450bd9549e4e02bc2047b2a2800b09f1bb878",
+          "configure_commands": [
+            "cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DARGS_BUILD_EXAMPLE=ON -DARGS_BUILD_UNITTESTS=OFF -DBUILD_FUZZERS=OFF"
+          ],
+          "configure_repair_commands": [
+            "rm -rf build",
+            "cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DARGS_BUILD_EXAMPLE=ON -DARGS_BUILD_UNITTESTS=OFF -DBUILD_FUZZERS=OFF"
+          ],
+          "fault_file": "args.hxx",
+          "oracle": {
+            "argv": [
+              "/artifacts/gitlike",
+              "--help"
+            ],
+            "kind": "command"
+          },
+          "project_family": "github.com/taywee/args",
+          "repository_url": "https://github.com/Taywee/args",
+          "selected_build_system": "cmake",
+          "source_snapshot_sha256": "b96e278749a1d9d311845a449cf354cdaa4aa799ab92f4e61f9aa4ba35bb0112",
+          "target": {
+            "artifact_types": [
+              "executable"
+            ],
+            "bitwise_required": false,
+            "required_artifacts": [
+              "gitlike"
+            ]
+          },
+          "task_id": "args"
+        },
+        "task_id": "args"
+      },
+      {
+        "expected_action": "build",
+        "fault_type": "wrong_build_target",
+        "source": {
+          "artifact_stage_commands": [
+            "mkdir -p /artifacts/lib /artifacts/include && cp libhoedown.a /artifacts/lib/libhoedown.a && cp src/*.h /artifacts/include/"
+          ],
+          "build_commands": [
+            "make -j4 libhoedown.a"
+          ],
+          "commit_sha": "1ef9a71957570c2a65b7daa1b2f693ad87daf385",
+          "configure_commands": [
+            "test -f Makefile"
+          ],
+          "configure_repair_commands": [
+            "git checkout HEAD -- Makefile",
+            "test -f Makefile"
+          ],
+          "fault_file": "src/buffer.c",
+          "oracle": {
+            "compile_argv": [
+              "cc",
+              "-std=c11",
+              "-I/artifacts/include",
+              "{source}",
+              "/artifacts/lib/libhoedown.a",
+              "-o",
+              "{executable}"
+            ],
+            "kind": "compile_and_run",
+            "language": "c11",
+            "run_argv": [
+              "{executable}"
+            ],
+            "source": "#include <buffer.h>\nint main(void){ hoedown_buffer *b=hoedown_buffer_new(8); if(!b) return 1; hoedown_buffer_free(b); return 0; }\n"
+          },
+          "project_family": "github.com/kjdev/hoextdown",
+          "repository_url": "https://github.com/kjdev/hoextdown",
+          "selected_build_system": "make",
+          "source_snapshot_sha256": "0a230ee9c50eaa10dc0b97233c91500621087fff6bb70deb50aff4a3c2ec0234",
+          "target": {
+            "artifact_types": [
+              "support_file",
+              "static_library"
+            ],
+            "bitwise_required": true,
+            "required_artifacts": [
+              "include/buffer.h",
+              "lib/libhoedown.a"
+            ]
+          },
+          "task_id": "hoextdown"
+        },
+        "task_id": "hoextdown"
+      },
+      {
+        "expected_action": "dependency",
+        "fault_type": "missing_compile_input",
+        "source": {
+          "artifact_stage_commands": [
+            "mkdir -p /artifacts/lib /artifacts/include && cp src/lib/.libs/libcares.a /artifacts/lib/libcares.a && cp include/ares.h include/ares_build.h /artifacts/include/"
+          ],
+          "build_commands": [
+            "make -j4"
+          ],
+          "commit_sha": "589b5887d47736e5b70a1fddaf9bf90297adde65",
+          "configure_commands": [
+            "autoreconf -fi",
+            "./configure --prefix=/artifacts --disable-shared --enable-static --disable-tests"
+          ],
+          "configure_repair_commands": [
+            "autoreconf -fi",
+            "./configure --prefix=/artifacts --disable-shared --enable-static --disable-tests"
+          ],
+          "fault_file": "src/lib/ares_library_init.c",
+          "oracle": {
+            "compile_argv": [
+              "cc",
+              "-std=c11",
+              "-I/artifacts/include",
+              "{source}",
+              "/artifacts/lib/libcares.a",
+              "-pthread",
+              "-o",
+              "{executable}"
+            ],
+            "kind": "compile_and_run",
+            "language": "c11",
+            "run_argv": [
+              "{executable}"
+            ],
+            "source": "#include <ares.h>\nint main(void){ if(ares_library_init(ARES_LIB_INIT_ALL)!=ARES_SUCCESS) return 1; ares_library_cleanup(); return 0; }\n"
+          },
+          "project_family": "github.com/c-ares/c-ares",
+          "repository_url": "https://github.com/c-ares/c-ares",
+          "selected_build_system": "autotools",
+          "source_snapshot_sha256": "b681abdf95bac81e4c1ea1df5415e63072b034dda804ecbc89c84cb349de26a9",
+          "target": {
+            "artifact_types": [
+              "support_file",
+              "static_library"
+            ],
+            "bitwise_required": true,
+            "required_artifacts": [
+              "include/ares.h",
+              "lib/libcares.a"
+            ]
+          },
+          "task_id": "c-ares"
+        },
+        "task_id": "c-ares"
+      }
+    ],
+    "components": {
+      "backend/packages/harness/deerflow/compile/agent_workflow_runtime.py": "6522c31a81a3032cfd8ed3bc976aca93eea888ca3cd1840a7763ef5a3986b439",
+      "backend/packages/harness/deerflow/compile/external_evaluator_v2.py": "19044e161b321fe5afed8458c0138f1bcfbe41582af2d5f4efcdf6846c3d579b",
+      "backend/packages/harness/deerflow/compile/jev_controller.py": "f8c53aa301c60399aae33c052d7d3efd8d39c0827dc751d99cd823194a810e9f",
+      "scripts/forge_jev_end_to_end_canary_v5.py": "1b2edc1250b7f11c49478f9e4d1df4b44c77f97eb7f48f9d0eb10353b98bea54"
+    },
+    "environment": {
+      "compile_image": "autocompiler:gcc13",
+      "image_id": "sha256:d27a6ab733c7c3a9cbb5e4b32fb595aa5a422ff04bd212888d1041b90a2c4c2a",
+      "network_policy": "compile-network-v1",
+      "parallel_jobs": 4,
+      "workspace_root_binding": "repository_root"
+    },
+    "evidence": {
+      "create_once": true,
+      "preserve_failures": true,
+      "root": ".compile-sessions/benchmark-evidence-jev-end-to-end-canary-v5",
+      "store_credentials": false
+    },
+    "identity": "cpp-jev-end-to-end-canary-v5",
+    "implementation_revision": "0618739b231223c75ee7b66802795e8063bf92bd",
+    "interpretation": {
+      "canary_only": true,
+      "cost_savings_claim": false,
+      "dynamic_budget_claim": false,
+      "strict_success_noninferiority": false,
+      "treatment_effect": false
+    },
+    "issue_url": "https://github.com/WWFXL/Forge-AutoCompiler/issues/406",
+    "jev_provider": {
+      "credential_file": "jev-apikey.txt",
+      "endpoint": "https://api.typesafe.ai",
+      "input_price_usd_per_million_tokens": 0.042,
+      "max_retries": 0,
+      "model": "jev-1.13.0",
+      "request_timeout_seconds": 30
+    },
+    "parents": {
+      "benchmarks/manifests/cpp-jev-end-to-end-canary-v1.json": "1c7ff892fcc9f72f0276bfaa41e8e09badd6f866cf2caa605d9a0b3f30a20572",
+      "benchmarks/reports/cpp-jev-controller-replay-qualification-v2.json": "71a8102a5ca89ea194d77d7d853cf413e5c45d3438f4933bdc70e226f27bdfb7",
+      "benchmarks/reports/cpp-jev-end-to-end-canary-v1-qualification-failure.json": "8ab14990de7d91a2a30723adc54d299e74a906f267c8e3eec8325bb1024169cd",
+      "benchmarks/reports/cpp-jev-end-to-end-canary-v2.json": "e33196ac5ae7630f198dcc7ab566885daa7cf12334ee91694101d8a8d9d255c7",
+      "benchmarks/reports/cpp-jev-end-to-end-canary-v3.json": "61e557aa321249e6e2a72dfaeb7be9d88ce973951731d2cb4d5d8a5ceff7f679",
+      "benchmarks/reports/cpp-jev-end-to-end-canary-v4-qualification-failure.json": "8d0f1f577280959f34225c00d4b8e3cf7411e064ca38da78e11c5c69ecaf493e",
+      "benchmarks/reports/cpp-jev-offline-qualification-v6.json": "7a9d440acd0dc1b51eea7470563fc263b518fffd428b2e4bd6c3967ab696b2c6",
+      "benchmarks/reports/cpp-typed-semantic-routing-pilot-v2.json": "ea2e126e81cfca374900436fa670015b28b3cc3f9d8c83e746ae2c92d2badfed"
+    },
+    "routing": {
+      "agent_escalation_on_direct_action_failure": true,
+      "candidate_actions": [
+        "dependency",
+        "configure",
+        "build",
+        "escalate_agent"
+      ],
+      "direct_action_terminal_success_allowed": false,
+      "jev_calibration": {
+        "coefficient": 0.08805149266059632,
+        "intercept": 0.618335523488825,
+        "model": "jev-1.13.0",
+        "threshold": 0.6747568477098429
+      },
+      "jev_model": "jev-1.13.0",
+      "rule_gate_action": "build"
+    },
+    "schedule": [
+      {
+        "arm": "always_agent",
+        "sequence": 1,
+        "task_id": "args"
+      },
+      {
+        "arm": "rule_gate_agent",
+        "sequence": 2,
+        "task_id": "args"
+      },
+      {
+        "arm": "jev_gate_agent",
+        "sequence": 3,
+        "task_id": "args"
+      },
+      {
+        "arm": "rule_gate_agent",
+        "sequence": 4,
+        "task_id": "hoextdown"
+      },
+      {
+        "arm": "jev_gate_agent",
+        "sequence": 5,
+        "task_id": "hoextdown"
+      },
+      {
+        "arm": "always_agent",
+        "sequence": 6,
+        "task_id": "hoextdown"
+      },
+      {
+        "arm": "jev_gate_agent",
+        "sequence": 7,
+        "task_id": "c-ares"
+      },
+      {
+        "arm": "always_agent",
+        "sequence": 8,
+        "task_id": "c-ares"
+      },
+      {
+        "arm": "rule_gate_agent",
+        "sequence": 9,
+        "task_id": "c-ares"
+      }
+    ],
+    "schema_version": "forge-jev-end-to-end-canary-5.0.0",
+    "stopping_rules": {
+      "continue_after_behavioral_failure": true,
+      "provider_or_model_failure_is_arm_outcome": true,
+      "stop_batch_on_budget_overrun": true,
+      "stop_batch_on_cleanup_or_orphan_failure": true,
+      "stop_batch_on_identity_or_evidence_corruption": true
+    }
+  },
+  "title": "Forge Jev end-to-end canary v5"
+}
