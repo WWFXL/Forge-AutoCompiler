@@ -182,6 +182,7 @@ BootstrapAgent、SWE-Skills-Bench、VibeMemBench 等轨迹控制、动作接口�
 - Issue #399：`https://github.com/WWFXL/Forge-AutoCompiler/issues/399`；v4 JSON 报告 SHA-256 `85e62c6fa8b6f4c1d9dc1eabd2808b12ec5cc2d30e5ceb6d16ec9604b6a82909`。
 - Issue #400：`https://github.com/WWFXL/Forge-AutoCompiler/issues/400`；v5 JSON 报告 SHA-256 `42512a051c99cbf46279ceb395adc947f9eb27c029e770a7355cd713f8d41327`。
 - Issue #401：`https://github.com/WWFXL/Forge-AutoCompiler/issues/401`；v6 manifest canonical SHA-256 `4d17426ecee591584bdfd6d1520c454d3e402d5da894ae54ec7c0841ba067eee`。
+- Jev v2-v6 结果 PR：`https://github.com/WWFXL/Forge-AutoCompiler/pull/402`；以 `yiwei/395-jev-offline-execution` 为 base，依赖 PR #396，CI 与评审状态以 PR 为准。
 - Jev v6 冻结 evidence：`.compile-sessions/benchmark-evidence-jev-offline-qualification-v6`；JSON/Markdown 报告 SHA-256 分别为 `7a9d440acd0dc1b51eea7470563fc263b518fffd428b2e4bd6c3967ab696b2c6`、`cf40eb89063e1757bf78c7d3dca3458afdec2c2f240537e4fab07338483b9bc3`。
 - 进展状态 v1 manifest canonical SHA-256：`9340a10f005a9a90f980ac45356e8c13d00f35a7b095e30a68ccde610944ee6d`。
 - 进展状态 v1 JSON 报告 SHA-256：`b4b682d8699bdbcf5e768736e525ac13109675db64971a23c3007dafa2442a4d`。
