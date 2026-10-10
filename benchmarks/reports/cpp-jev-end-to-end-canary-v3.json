@@ -1,0 +1,645 @@
+{
+  "arm_count": 9,
+  "created_at": "2026-10-10T10:50:28.529504+00:00",
+  "decision": "stop_before_formal_comparison",
+  "evidence_inventory": [
+    {
+      "path": "arms/01-args-always_agent/attempt.json",
+      "sha256": "f15b88f0925bc49bff5e3a018cbaa9739c97a96d808e6e0a7951d62c8a125866",
+      "size_bytes": 445
+    },
+    {
+      "path": "arms/01-args-always_agent/experiment.jsonl",
+      "sha256": "eb5cfd9cea3a89a801de0ae56d1acc0a6c008e5fa6c94cc1cd1c7fd363f08877",
+      "size_bytes": 4779
+    },
+    {
+      "path": "arms/01-args-always_agent/result.json",
+      "sha256": "5c56e93abe36527382ce46b6d30cb96dd0b82c565e5968acb0d52847b2c6b8b2",
+      "size_bytes": 1373
+    },
+    {
+      "path": "arms/02-args-rule_gate_agent/attempt.json",
+      "sha256": "0672e43887456bf51855ca062cf611b7f4078f4b96e29ebbe6451b0e3627676d",
+      "size_bytes": 448
+    },
+    {
+      "path": "arms/02-args-rule_gate_agent/experiment.jsonl",
+      "sha256": "8ff0c05f2ab23826cdf0983edd4853a1dbcfc6f784b600066399518cf4f52401",
+      "size_bytes": 4783
+    },
+    {
+      "path": "arms/02-args-rule_gate_agent/result.json",
+      "sha256": "9cd7470a5d8d963741f5135e2cc921f8077e3d217e908347690abb5741020880",
+      "size_bytes": 1380
+    },
+    {
+      "path": "arms/03-args-jev_gate_agent/attempt.json",
+      "sha256": "b2f79b3e61d8aded39eb9471ba4e488cd4fd0ce8250187f1fbe8567e2fc2caa7",
+      "size_bytes": 447
+    },
+    {
+      "path": "arms/03-args-jev_gate_agent/experiment.jsonl",
+      "sha256": "bfeca507979181daf28e22bfc96bef3c545efcc2b07dfba9eb10ffb7de1eca1d",
+      "size_bytes": 4782
+    },
+    {
+      "path": "arms/03-args-jev_gate_agent/result.json",
+      "sha256": "760880aa8f8ff32277f5b570fc67ac65dcf83eb9f8167d6e84aab0c553e98d96",
+      "size_bytes": 1378
+    },
+    {
+      "path": "arms/04-hoextdown-rule_gate_agent/attempt.json",
+      "sha256": "277aba7ea868a9978b05e88fa5e4913c9df948c3062337323dc18a0406f53420",
+      "size_bytes": 449
+    },
+    {
+      "path": "arms/04-hoextdown-rule_gate_agent/experiment.jsonl",
+      "sha256": "36b1fd48d0d21a00ba71e7d9511d701f00346c91aec27dc7b545a86e642b152c",
+      "size_bytes": 10723
+    },
+    {
+      "path": "arms/04-hoextdown-rule_gate_agent/result.json",
+      "sha256": "4952651e1447bd54824de6491af36ee821afa60010f7d022d232d9a211dea463",
+      "size_bytes": 1556
+    },
+    {
+      "path": "arms/05-hoextdown-jev_gate_agent/attempt.json",
+      "sha256": "916a87da850191e33851c6b8b67b69eca9730d70ae1066473758275e0cb1b380",
+      "size_bytes": 448
+    },
+    {
+      "path": "arms/05-hoextdown-jev_gate_agent/experiment.jsonl",
+      "sha256": "487f778acdd422eb511aee623166f19f456aba7a3ee3399131ae393a298f24f2",
+      "size_bytes": 10721
+    },
+    {
+      "path": "arms/05-hoextdown-jev_gate_agent/result.json",
+      "sha256": "4e3aa6c35ebee558498b2204317116d5804783053af8b30a0114fd34656db199",
+      "size_bytes": 1895
+    },
+    {
+      "path": "arms/06-hoextdown-always_agent/attempt.json",
+      "sha256": "a6f12ffb49024f1dd421cf6c3f9aa1544f86bcfcb93c36eb45bdc45ebc817b58",
+      "size_bytes": 437
+    },
+    {
+      "path": "arms/06-hoextdown-always_agent/experiment.jsonl",
+      "sha256": "fd2a607e9ef2afc92d27961bab2fdf8ec7a70d4f4e72025b28598c181dfd7f0b",
+      "size_bytes": 7327
+    },
+    {
+      "path": "arms/06-hoextdown-always_agent/result.json",
+      "sha256": "e6e7bdfb2a20c08688358980a0c48fd6ed498b162913e3070a2be60821e6fbed",
+      "size_bytes": 1482
+    },
+    {
+      "path": "arms/07-c-ares-jev_gate_agent/attempt.json",
+      "sha256": "5279bf48853f6706743712099021c5f677ba78962dbf459d6cb5322cb8511f71",
+      "size_bytes": 445
+    },
+    {
+      "path": "arms/07-c-ares-jev_gate_agent/experiment.jsonl",
+      "sha256": "9816502fb34f8c81c5e5214bd8282c6a45852408f91d193e145ba4927612a019",
+      "size_bytes": 3395
+    },
+    {
+      "path": "arms/07-c-ares-jev_gate_agent/result.json",
+      "sha256": "07ab4b35b2dd49a1c9284e19a531efac6694b6fe1a50ef9ea5a154513f5ca840",
+      "size_bytes": 1382
+    },
+    {
+      "path": "arms/08-c-ares-always_agent/attempt.json",
+      "sha256": "f5e69792eefa404b0c224249f6c2e54805e1548c6f9ef9deac3a73a3c8d86a6d",
+      "size_bytes": 443
+    },
+    {
+      "path": "arms/08-c-ares-always_agent/experiment.jsonl",
+      "sha256": "c475a8bf455a6812791a7f2a42a010bc19c36d1216320d34ba7f466979779864",
+      "size_bytes": 3393
+    },
+    {
+      "path": "arms/08-c-ares-always_agent/result.json",
+      "sha256": "d5070d73527562ad69832b2339b9377210e20651a10cd01b14f34cd7068f6b94",
+      "size_bytes": 1377
+    },
+    {
+      "path": "arms/09-c-ares-rule_gate_agent/attempt.json",
+      "sha256": "679db421eaf3a1457d7ac888d280bfdbb14721ef5b56f3f205626c0e9af9c2ee",
+      "size_bytes": 446
+    },
+    {
+      "path": "arms/09-c-ares-rule_gate_agent/experiment.jsonl",
+      "sha256": "04506b74d544a2a3725f40add8219dbcddaaa900552c25ed0a363b552b4402b4",
+      "size_bytes": 3396
+    },
+    {
+      "path": "arms/09-c-ares-rule_gate_agent/result.json",
+      "sha256": "ca99b76f3610cb6205c072dc600658ac9d2abcf878f33c14947e5e7703946201",
+      "size_bytes": 1384
+    },
+    {
+      "path": "batch.json",
+      "sha256": "1927a70f1c804b80cdda1b3e6685a097ac611f42cfaebc9a6f2d493a4721f409",
+      "size_bytes": 562
+    }
+  ],
+  "gates": {
+    "all_cleanup_succeeded": true,
+    "batch_completed": true,
+    "metrics_complete": false,
+    "nine_classified_arms": true,
+    "parent_evidence_unchanged": true,
+    "within_frozen_budget": true,
+    "zero_managed_resources": true
+  },
+  "identity": "cpp-jev-end-to-end-canary-v3",
+  "interpretation": {
+    "canary_only": true,
+    "cost_savings_claim": false,
+    "dynamic_budget_claim": false,
+    "strict_success_noninferiority": false,
+    "treatment_effect": false
+  },
+  "manifest_sha256": "bdbcdc31fd77b8a3f602d5bd6214b42d63d458d18a6ea213f12139c9fad3e7da",
+  "passed": false,
+  "release_revision": "e24b02d8143747b47790103eedafb6ef4f0d9653",
+  "routing": {
+    "agent_escalations": 3,
+    "direct_action_failures": 0,
+    "direct_attempts": 2
+  },
+  "rows": [
+    {
+      "agent_usage": {
+        "agent_steps": 0,
+        "commands": 0,
+        "model_requests": 0,
+        "recorded_tokens": 0,
+        "tool_calls": 0
+      },
+      "arm": "always_agent",
+      "bitwise_reproducible": null,
+      "build_system": "cmake",
+      "candidate_submitted": false,
+      "cleanup_succeeded": true,
+      "command_count": 2,
+      "completed_at": "2026-10-10T10:49:10.139694+00:00",
+      "direct_action_succeeded": false,
+      "direct_attempted": false,
+      "duration_ms": 8178,
+      "error_class": "PermissionError",
+      "escalated_agent": true,
+      "evaluation_sha256": null,
+      "fault_type": "invalid_build_state",
+      "identity": "cpp-jev-end-to-end-canary-v3",
+      "jev_usage": {
+        "cost_usd": null,
+        "error_class": null,
+        "input_tokens": null,
+        "model_requests": 0,
+        "output_tokens": null,
+        "response_observed": false
+      },
+      "manifest_sha256": "bdbcdc31fd77b8a3f602d5bd6214b42d63d458d18a6ea213f12139c9fad3e7da",
+      "node_status": null,
+      "release_revision": "e24b02d8143747b47790103eedafb6ef4f0d9653",
+      "route": {
+        "controller": "always_agent"
+      },
+      "route_action": "escalate_agent",
+      "s0_s5": [],
+      "schema_version": "forge-jev-end-to-end-canary-arm-result-1.0.0",
+      "sequence": 1,
+      "session_id": "5c7655a5dace",
+      "session_status": "failed",
+      "strict_reproducible_build_success": false,
+      "task_id": "args",
+      "terminal_classification": "arm_error",
+      "zero_managed_resources": true
+    },
+    {
+      "agent_usage": {
+        "agent_steps": 0,
+        "commands": 0,
+        "model_requests": 0,
+        "recorded_tokens": 0,
+        "tool_calls": 0
+      },
+      "arm": "rule_gate_agent",
+      "bitwise_reproducible": null,
+      "build_system": "cmake",
+      "candidate_submitted": false,
+      "cleanup_succeeded": true,
+      "command_count": 2,
+      "completed_at": "2026-10-10T10:49:18.344745+00:00",
+      "direct_action_succeeded": false,
+      "direct_attempted": false,
+      "duration_ms": 8132,
+      "error_class": "PermissionError",
+      "escalated_agent": false,
+      "evaluation_sha256": null,
+      "fault_type": "invalid_build_state",
+      "identity": "cpp-jev-end-to-end-canary-v3",
+      "jev_usage": {
+        "cost_usd": null,
+        "error_class": null,
+        "input_tokens": null,
+        "model_requests": 0,
+        "output_tokens": null,
+        "response_observed": false
+      },
+      "manifest_sha256": "bdbcdc31fd77b8a3f602d5bd6214b42d63d458d18a6ea213f12139c9fad3e7da",
+      "node_status": null,
+      "release_revision": "e24b02d8143747b47790103eedafb6ef4f0d9653",
+      "route": {
+        "controller": "rule_gate_agent"
+      },
+      "route_action": "escalate_agent",
+      "s0_s5": [],
+      "schema_version": "forge-jev-end-to-end-canary-arm-result-1.0.0",
+      "sequence": 2,
+      "session_id": "8ada77282c38",
+      "session_status": "failed",
+      "strict_reproducible_build_success": false,
+      "task_id": "args",
+      "terminal_classification": "arm_error",
+      "zero_managed_resources": true
+    },
+    {
+      "agent_usage": {
+        "agent_steps": 0,
+        "commands": 0,
+        "model_requests": 0,
+        "recorded_tokens": 0,
+        "tool_calls": 0
+      },
+      "arm": "jev_gate_agent",
+      "bitwise_reproducible": null,
+      "build_system": "cmake",
+      "candidate_submitted": false,
+      "cleanup_succeeded": true,
+      "command_count": 2,
+      "completed_at": "2026-10-10T10:49:26.520331+00:00",
+      "direct_action_succeeded": false,
+      "direct_attempted": false,
+      "duration_ms": 8114,
+      "error_class": "PermissionError",
+      "escalated_agent": false,
+      "evaluation_sha256": null,
+      "fault_type": "invalid_build_state",
+      "identity": "cpp-jev-end-to-end-canary-v3",
+      "jev_usage": {
+        "cost_usd": null,
+        "error_class": null,
+        "input_tokens": null,
+        "model_requests": 0,
+        "output_tokens": null,
+        "response_observed": false
+      },
+      "manifest_sha256": "bdbcdc31fd77b8a3f602d5bd6214b42d63d458d18a6ea213f12139c9fad3e7da",
+      "node_status": null,
+      "release_revision": "e24b02d8143747b47790103eedafb6ef4f0d9653",
+      "route": {
+        "controller": "jev_gate_agent"
+      },
+      "route_action": "escalate_agent",
+      "s0_s5": [],
+      "schema_version": "forge-jev-end-to-end-canary-arm-result-1.0.0",
+      "sequence": 3,
+      "session_id": "ca859056cb89",
+      "session_status": "failed",
+      "strict_reproducible_build_success": false,
+      "task_id": "args",
+      "terminal_classification": "arm_error",
+      "zero_managed_resources": true
+    },
+    {
+      "agent_usage": {
+        "agent_steps": 0,
+        "commands": 0,
+        "model_requests": 0,
+        "recorded_tokens": 0,
+        "tool_calls": 0
+      },
+      "arm": "rule_gate_agent",
+      "bitwise_reproducible": null,
+      "build_system": "make",
+      "candidate_submitted": false,
+      "cleanup_succeeded": true,
+      "command_count": 5,
+      "completed_at": "2026-10-10T10:49:34.902372+00:00",
+      "direct_action_succeeded": true,
+      "direct_attempted": true,
+      "duration_ms": 8319,
+      "error_class": "CanaryError",
+      "escalated_agent": false,
+      "evaluation_sha256": null,
+      "fault_type": "wrong_build_target",
+      "identity": "cpp-jev-end-to-end-canary-v3",
+      "jev_usage": {
+        "cost_usd": null,
+        "error_class": null,
+        "input_tokens": null,
+        "model_requests": 0,
+        "output_tokens": null,
+        "response_observed": false
+      },
+      "manifest_sha256": "bdbcdc31fd77b8a3f602d5bd6214b42d63d458d18a6ea213f12139c9fad3e7da",
+      "node_status": null,
+      "release_revision": "e24b02d8143747b47790103eedafb6ef4f0d9653",
+      "route": {
+        "controller": "rule_gate_agent",
+        "disposition": "direct_execute",
+        "failure_command_id": "command_16abd52d98ac4c0b95b08272b3274c23",
+        "selected_action_family": "build",
+        "state_id": "s-79362feaf13d94eebfae"
+      },
+      "route_action": "build",
+      "s0_s5": [],
+      "schema_version": "forge-jev-end-to-end-canary-arm-result-1.0.0",
+      "sequence": 4,
+      "session_id": "134a535ef9bd",
+      "session_status": "failed",
+      "strict_reproducible_build_success": false,
+      "task_id": "hoextdown",
+      "terminal_classification": "arm_error",
+      "zero_managed_resources": true
+    },
+    {
+      "agent_usage": {
+        "agent_steps": 0,
+        "commands": 0,
+        "model_requests": 0,
+        "recorded_tokens": 0,
+        "tool_calls": 0
+      },
+      "arm": "jev_gate_agent",
+      "bitwise_reproducible": null,
+      "build_system": "make",
+      "candidate_submitted": false,
+      "cleanup_succeeded": true,
+      "command_count": 5,
+      "completed_at": "2026-10-10T10:49:43.888244+00:00",
+      "direct_action_succeeded": true,
+      "direct_attempted": true,
+      "duration_ms": 8924,
+      "error_class": "CanaryError",
+      "escalated_agent": false,
+      "evaluation_sha256": null,
+      "fault_type": "wrong_build_target",
+      "identity": "cpp-jev-end-to-end-canary-v3",
+      "jev_usage": {
+        "cost_usd": 5.0400000000000005e-05,
+        "error_class": null,
+        "input_tokens": 1200,
+        "model_requests": 1,
+        "output_tokens": 101,
+        "response_observed": true
+      },
+      "manifest_sha256": "bdbcdc31fd77b8a3f602d5bd6214b42d63d458d18a6ea213f12139c9fad3e7da",
+      "node_status": null,
+      "release_revision": "e24b02d8143747b47790103eedafb6ef4f0d9653",
+      "route": {
+        "calibrated_safe_probability": 0.8623339474077644,
+        "controller": "jev_gate_agent",
+        "dispatch_disposition": "awaiting_strict_verification",
+        "disposition": "direct_execute",
+        "failure_command_id": "command_4197457bbc6b42558b62f2dcf870d0ca",
+        "reasons": [
+          "calibrated_direct_action"
+        ],
+        "request_fingerprint": "4798c064aa5705c6411beb1274fc4b65be5932ddc2faead25fe67cc655972a14",
+        "selected_action_family": "build",
+        "selected_action_id": "s-79362feaf13d94eebfae:build",
+        "state_id": "s-79362feaf13d94eebfae"
+      },
+      "route_action": "build",
+      "s0_s5": [],
+      "schema_version": "forge-jev-end-to-end-canary-arm-result-1.0.0",
+      "sequence": 5,
+      "session_id": "ad3bfb347889",
+      "session_status": "failed",
+      "strict_reproducible_build_success": false,
+      "task_id": "hoextdown",
+      "terminal_classification": "arm_error",
+      "zero_managed_resources": true
+    },
+    {
+      "agent_usage": {
+        "agent_steps": 0,
+        "commands": 0,
+        "model_requests": 0,
+        "recorded_tokens": 0,
+        "tool_calls": 0
+      },
+      "arm": "always_agent",
+      "bitwise_reproducible": null,
+      "build_system": "make",
+      "candidate_submitted": false,
+      "cleanup_succeeded": true,
+      "command_count": 3,
+      "completed_at": "2026-10-10T10:49:50.757190+00:00",
+      "direct_action_succeeded": false,
+      "direct_attempted": false,
+      "duration_ms": 6808,
+      "error_class": null,
+      "escalated_agent": true,
+      "evaluation_sha256": null,
+      "fault_type": "wrong_build_target",
+      "identity": "cpp-jev-end-to-end-canary-v3",
+      "jev_usage": {
+        "cost_usd": null,
+        "error_class": null,
+        "input_tokens": null,
+        "model_requests": 0,
+        "output_tokens": null,
+        "response_observed": false
+      },
+      "manifest_sha256": "bdbcdc31fd77b8a3f602d5bd6214b42d63d458d18a6ea213f12139c9fad3e7da",
+      "node_status": "failed",
+      "release_revision": "e24b02d8143747b47790103eedafb6ef4f0d9653",
+      "route": {
+        "controller": "always_agent",
+        "failure_command_id": "command_dc340766b7af4b559898a1e88cef09c5",
+        "state_id": "s-79362feaf13d94eebfae"
+      },
+      "route_action": "escalate_agent",
+      "s0_s5": [],
+      "schema_version": "forge-jev-end-to-end-canary-arm-result-1.0.0",
+      "sequence": 6,
+      "session_id": "be75f25570d3",
+      "session_status": "failed",
+      "strict_reproducible_build_success": false,
+      "task_id": "hoextdown",
+      "terminal_classification": "no_candidate",
+      "zero_managed_resources": true
+    },
+    {
+      "agent_usage": {
+        "agent_steps": 0,
+        "commands": 0,
+        "model_requests": 0,
+        "recorded_tokens": 0,
+        "tool_calls": 0
+      },
+      "arm": "jev_gate_agent",
+      "bitwise_reproducible": null,
+      "build_system": "autotools",
+      "candidate_submitted": false,
+      "cleanup_succeeded": true,
+      "command_count": 1,
+      "completed_at": "2026-10-10T10:49:57.352720+00:00",
+      "direct_action_succeeded": false,
+      "direct_attempted": false,
+      "duration_ms": 6529,
+      "error_class": "CanaryError",
+      "escalated_agent": false,
+      "evaluation_sha256": null,
+      "fault_type": "missing_compile_input",
+      "identity": "cpp-jev-end-to-end-canary-v3",
+      "jev_usage": {
+        "cost_usd": null,
+        "error_class": null,
+        "input_tokens": null,
+        "model_requests": 0,
+        "output_tokens": null,
+        "response_observed": false
+      },
+      "manifest_sha256": "bdbcdc31fd77b8a3f602d5bd6214b42d63d458d18a6ea213f12139c9fad3e7da",
+      "node_status": null,
+      "release_revision": "e24b02d8143747b47790103eedafb6ef4f0d9653",
+      "route": {
+        "controller": "jev_gate_agent"
+      },
+      "route_action": "escalate_agent",
+      "s0_s5": [],
+      "schema_version": "forge-jev-end-to-end-canary-arm-result-1.0.0",
+      "sequence": 7,
+      "session_id": "cf467e841613",
+      "session_status": "failed",
+      "strict_reproducible_build_success": false,
+      "task_id": "c-ares",
+      "terminal_classification": "arm_error",
+      "zero_managed_resources": true
+    },
+    {
+      "agent_usage": {
+        "agent_steps": 0,
+        "commands": 0,
+        "model_requests": 0,
+        "recorded_tokens": 0,
+        "tool_calls": 0
+      },
+      "arm": "always_agent",
+      "bitwise_reproducible": null,
+      "build_system": "autotools",
+      "candidate_submitted": false,
+      "cleanup_succeeded": true,
+      "command_count": 1,
+      "completed_at": "2026-10-10T10:50:03.661696+00:00",
+      "direct_action_succeeded": false,
+      "direct_attempted": false,
+      "duration_ms": 6260,
+      "error_class": "CanaryError",
+      "escalated_agent": true,
+      "evaluation_sha256": null,
+      "fault_type": "missing_compile_input",
+      "identity": "cpp-jev-end-to-end-canary-v3",
+      "jev_usage": {
+        "cost_usd": null,
+        "error_class": null,
+        "input_tokens": null,
+        "model_requests": 0,
+        "output_tokens": null,
+        "response_observed": false
+      },
+      "manifest_sha256": "bdbcdc31fd77b8a3f602d5bd6214b42d63d458d18a6ea213f12139c9fad3e7da",
+      "node_status": null,
+      "release_revision": "e24b02d8143747b47790103eedafb6ef4f0d9653",
+      "route": {
+        "controller": "always_agent"
+      },
+      "route_action": "escalate_agent",
+      "s0_s5": [],
+      "schema_version": "forge-jev-end-to-end-canary-arm-result-1.0.0",
+      "sequence": 8,
+      "session_id": "339a1d58f01c",
+      "session_status": "failed",
+      "strict_reproducible_build_success": false,
+      "task_id": "c-ares",
+      "terminal_classification": "arm_error",
+      "zero_managed_resources": true
+    },
+    {
+      "agent_usage": {
+        "agent_steps": 0,
+        "commands": 0,
+        "model_requests": 0,
+        "recorded_tokens": 0,
+        "tool_calls": 0
+      },
+      "arm": "rule_gate_agent",
+      "bitwise_reproducible": null,
+      "build_system": "autotools",
+      "candidate_submitted": false,
+      "cleanup_succeeded": true,
+      "command_count": 1,
+      "completed_at": "2026-10-10T10:50:11.040357+00:00",
+      "direct_action_succeeded": false,
+      "direct_attempted": false,
+      "duration_ms": 7317,
+      "error_class": "CanaryError",
+      "escalated_agent": false,
+      "evaluation_sha256": null,
+      "fault_type": "missing_compile_input",
+      "identity": "cpp-jev-end-to-end-canary-v3",
+      "jev_usage": {
+        "cost_usd": null,
+        "error_class": null,
+        "input_tokens": null,
+        "model_requests": 0,
+        "output_tokens": null,
+        "response_observed": false
+      },
+      "manifest_sha256": "bdbcdc31fd77b8a3f602d5bd6214b42d63d458d18a6ea213f12139c9fad3e7da",
+      "node_status": null,
+      "release_revision": "e24b02d8143747b47790103eedafb6ef4f0d9653",
+      "route": {
+        "controller": "rule_gate_agent"
+      },
+      "route_action": "escalate_agent",
+      "s0_s5": [],
+      "schema_version": "forge-jev-end-to-end-canary-arm-result-1.0.0",
+      "sequence": 9,
+      "session_id": "13dd27012e8e",
+      "session_status": "failed",
+      "strict_reproducible_build_success": false,
+      "task_id": "c-ares",
+      "terminal_classification": "arm_error",
+      "zero_managed_resources": true
+    }
+  ],
+  "schema_version": "forge-jev-end-to-end-canary-report-3.0.0",
+  "strict_success_by_arm": {
+    "always_agent": {
+      "arms": 3,
+      "successes": 0
+    },
+    "jev_gate_agent": {
+      "arms": 3,
+      "successes": 0
+    },
+    "rule_gate_agent": {
+      "arms": 3,
+      "successes": 0
+    }
+  },
+  "totals": {
+    "agent_recorded_tokens": 0,
+    "agent_requests": 0,
+    "jev_cost_usd": 5.0400000000000005e-05,
+    "jev_input_tokens": 1200,
+    "jev_requests": 1
+  }
+}
