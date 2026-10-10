@@ -6,6 +6,18 @@
 
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
+- 2026-10-10 — Issue #401 Jev 离线资格 v6 得到正向动作选择与校准结论
+  - 工作类型与问题: 正式数据采集、结果分析和发布。目标是检验固定 `jev-1.13.0` 能否根据真实构建失败日志，在 `dependency/configure/build/escalate_agent` 闭集中选择安全且最低成本的下一动作，并以项目族隔离校准实现低风险直接执行；不实现 controller，不估计端到端 treatment effect。
+  - v4/v5 失败链: Issue #399 的 v4 因 `/v1/models` 只列 alias、未显式列出固定版本而在 0 模型请求下失败；v5 随后证明 `jev-1.13.0` 可直接调用，因此 v4 是目录门禁假阴性。Issue #400 的 v5 保存 12 个 design 响应，第 13 个因概率序列化和超出 `1e-6` 容差失败关闭；13 requests、11,826 input、1,212 output、`$0.000496692` 均保留，两个 identity 永久只读。
+  - v6 身份: Identity 为 `cpp-jev-offline-qualification-v6`，分支 `yiwei/401-jev-offline-v6`，implementation revision `9de7f68f3e7dcb377a6c1be335995b0a59466c68`，manifest canonical SHA-256 `4d17426ecee591584bdfd6d1520c454d3e402d5da894ae54ec7c0841ba067eee`。原始概率和容差冻结为 `0.005`，保存原始概率与原始和，归一化后分析；响应 observation 在语义校验前 create-once 封存。
+  - Design: Round 1 为 10/18 top-1、18/18 route-acceptable、17/18 正反顺序一致，错误集中在把错误顶层 target 判为 dependency/configure。按协议执行唯一一次 prompt 修订，冻结 amendment SHA-256 `60692ee695d6806a05a4c5daa061cebfc9afe1b6dbf459d2d9f5357eeb2671a8`；round 2 为 18/18 top-1、18/18 route-acceptable、18/18 顺序一致。
+  - Calibration/evaluation: Calibration 为 18/18 top-1、18/18 顺序一致，零观察错误阈值 `0.6747568477098429`。Evaluation 为 18/18 top-1、18/18 顺序一致、18/18 校准后直接执行、0 错误，CMake/Make/Autotools 各 6/6；Macro-F1 `1.0`、multiclass Brier `0.00032222222222222255`、ECE `0.00722222222222213`。固定 build RuleGate 为 6/18，TF-IDF/逻辑回归为 17/18。
+  - 预算与证据: 72/72 requests 和 completed responses，83,210 input、7,284 output，费用 `$0.00349482`。冻结 evidence 位于 `.compile-sessions/benchmark-evidence-jev-offline-qualification-v6`，共 231 files，inventory canonical SHA-256 `296a365e9ebb7b0148fb9662d2aa2edf3cc5c2dfcf0da943f3a521e751877521`；credential/header 扫描通过，所有 raw probability sum 最大偏差为 0。
+  - 决定与边界: 正式决定为 `proceed_to_controller_replay_qualification`。结论支持固定受控故障 holdout 上的安全动作选择与项目族隔离校准，不支持端到端成功非劣、成本收益、自然失败/开放世界/跨时间泛化或 Jev 相对简单规则的明显增量；prompt 已编码三类故障语义且 TF-IDF 为 17/18，因此论文主张应定位为自动化编译领域方法、benchmark 和系统实证。
+  - 验证与发布状态: v2-v6 及相邻资格回归 `113 passed, 1 skipped`；v6 JSON/Markdown 报告 SHA-256 分别为 `7a9d440acd0dc1b51eea7470563fc263b518fffd428b2e4bd6c3967ab696b2c6`、`cf40eb89063e1757bf78c7d3dca3458afdec2c2f240537e4fab07338483b9bc3`。结果提交 `1ffe9f42` 已推送；中文 PR #402 以 `yiwei/395-jev-offline-execution` 为 base，依赖 PR #396，并通过 `Closes #397` 至 `Closes #401` 关联完整 v2-v6 失败链与最终结论。PR 正文已回读一致，CI 状态以 PR 为准。
+  - 下一步: 新建独立的零 Provider controller replay 资格 identity，只读取 v6 冻结响应，验证候选动作前置条件、校准门禁、Agent 升级和严格 verifier 不可绕过。通过后再决定是否建立三臂端到端 canary；任何新 Provider 对照实验必须另建 identity、预算、停止规则和授权。
+  - 文件: `benchmarks/preregistrations/cpp-jev-offline-qualification-v6.md`, `benchmarks/preregistrations/cpp-jev-offline-qualification-v6-prompt-amendment.json`, `benchmarks/reports/cpp-jev-offline-qualification-v6.json`, `benchmarks/reports/cpp-jev-offline-qualification-v6.md`, `RESEARCH_STATUS.md`, `.claude/memory/project.md`
+
 - 2026-10-10 — Issue #395 Jev formal 离线资格在 outcome qualification 阶段失败关闭
   - 工作类型: 正式数据采集与失败结果分析。Formal identity 为 `cpp-jev-offline-qualification-v1`，执行分支 `yiwei/395-jev-offline-execution`，implementation revision `1d1840f9e52f27d79dae644a189f20f32c701c3e`，execution revision `5b07807fe934c2a31e0ff2c6913f5710186c0a55`，manifest canonical SHA-256 `e98b6b3e3a485ca26f3185491f460cc5a6b447f64d7a15d5fac9fcf72daf6616`。
   - 执行前门禁: tracking Issue #395 已创建并回读；runner、label-free evaluation fixture 和 12 项聚焦测试冻结并推送。相邻研究回归最终为 `32 passed, 2 skipped`；preflight 验证 clean/pushed branch、exact Docker image、0 managed resources、credential mode 600、0 credential read、0 Provider call 和不存在的 evidence root。

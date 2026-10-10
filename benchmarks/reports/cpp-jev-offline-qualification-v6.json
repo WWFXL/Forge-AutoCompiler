@@ -1,0 +1,3792 @@
+{
+  "baselines": {
+    "rule_gate": {
+      "fixed_choice": "build",
+      "route_acceptable_count": 6,
+      "top1_correct": 6
+    },
+    "tfidf_logistic_regression": {
+      "evaluation_state_count": 18,
+      "rows": [
+        {
+          "correct": true,
+          "optimal_action": "configure",
+          "prediction": "configure",
+          "state_id": "s-04583a661d7afed169c1"
+        },
+        {
+          "correct": true,
+          "optimal_action": "configure",
+          "prediction": "configure",
+          "state_id": "s-1a79cc859bb2c737959a"
+        },
+        {
+          "correct": true,
+          "optimal_action": "build",
+          "prediction": "build",
+          "state_id": "s-24a82eb0e6f3a737d7ca"
+        },
+        {
+          "correct": true,
+          "optimal_action": "dependency",
+          "prediction": "dependency",
+          "state_id": "s-3b766e7d393c963c2a86"
+        },
+        {
+          "correct": true,
+          "optimal_action": "dependency",
+          "prediction": "dependency",
+          "state_id": "s-43d6dc524621d9452800"
+        },
+        {
+          "correct": true,
+          "optimal_action": "build",
+          "prediction": "build",
+          "state_id": "s-556022689d838bba8b99"
+        },
+        {
+          "correct": true,
+          "optimal_action": "build",
+          "prediction": "build",
+          "state_id": "s-6227b03255d47a2aa384"
+        },
+        {
+          "correct": true,
+          "optimal_action": "build",
+          "prediction": "build",
+          "state_id": "s-772563d4dd7ba7c80d3a"
+        },
+        {
+          "correct": true,
+          "optimal_action": "build",
+          "prediction": "build",
+          "state_id": "s-79362feaf13d94eebfae"
+        },
+        {
+          "correct": true,
+          "optimal_action": "dependency",
+          "prediction": "dependency",
+          "state_id": "s-7fc6d755cdf374a4b79e"
+        },
+        {
+          "correct": true,
+          "optimal_action": "configure",
+          "prediction": "configure",
+          "state_id": "s-91f45981ca5f02feeb1c"
+        },
+        {
+          "correct": true,
+          "optimal_action": "build",
+          "prediction": "build",
+          "state_id": "s-929f23cdc35c78036248"
+        },
+        {
+          "correct": false,
+          "optimal_action": "dependency",
+          "prediction": "build",
+          "state_id": "s-9367b10556f281130338"
+        },
+        {
+          "correct": true,
+          "optimal_action": "dependency",
+          "prediction": "dependency",
+          "state_id": "s-b494d9209391bfc45581"
+        },
+        {
+          "correct": true,
+          "optimal_action": "configure",
+          "prediction": "configure",
+          "state_id": "s-be1455dc44d3cedc53ff"
+        },
+        {
+          "correct": true,
+          "optimal_action": "configure",
+          "prediction": "configure",
+          "state_id": "s-cbeadc0e7593e1792d01"
+        },
+        {
+          "correct": true,
+          "optimal_action": "configure",
+          "prediction": "configure",
+          "state_id": "s-defeb87ae1e0c9d3db71"
+        },
+        {
+          "correct": true,
+          "optimal_action": "dependency",
+          "prediction": "dependency",
+          "state_id": "s-fdee3a9654716799080d"
+        }
+      ],
+      "top1_correct": 17,
+      "training_state_count": 36
+    }
+  },
+  "budget": {
+    "completed_model_responses": 72,
+    "input_tokens": 83210,
+    "model_cost_usd": 0.00349482,
+    "model_requests": 72,
+    "output_tokens": 7284
+  },
+  "calibrated_gate": {
+    "correct_direct_build_systems": [
+      "autotools",
+      "cmake",
+      "make"
+    ],
+    "direct_execution_count": 18,
+    "rejection_count": 0,
+    "rejection_rate": 0.0,
+    "risk_coverage_curve": [
+      {
+        "coverage": 0.5,
+        "error_count": 0,
+        "risk": 0.0,
+        "selected_count": 9,
+        "threshold": 0.8623339474077644
+      },
+      {
+        "coverage": 0.9444444444444444,
+        "error_count": 0,
+        "risk": 0.0,
+        "selected_count": 17,
+        "threshold": 0.735545402401868
+      },
+      {
+        "coverage": 1.0,
+        "error_count": 0,
+        "risk": 0.0,
+        "selected_count": 18,
+        "threshold": 0.7063241729447685
+      }
+    ],
+    "rows": [
+      {
+        "build_system": "cmake",
+        "calibrated_safe_probability": 0.735545402401868,
+        "choice": "configure",
+        "confidence": 0.99,
+        "cost_usd": 4.6158e-05,
+        "direct_choice": true,
+        "direct_execute": true,
+        "latency_ms": 431.947975885123,
+        "optimal_action": "configure",
+        "order_agreement": true,
+        "probabilities": {
+          "build": 0.01,
+          "configure": 0.99,
+          "dependency": 0.0,
+          "escalate_agent": 0.0
+        },
+        "project_family": "github.com/taywee/args",
+        "route_acceptable": true,
+        "semantic_failure_log_sha256": "4c53874027bebad1d9ac17738d329fe2c2d086bc3f2e002f11e69f417645eb0a",
+        "state_id": "s-04583a661d7afed169c1",
+        "successful_actions": [
+          "configure",
+          "escalate_agent"
+        ],
+        "top1_correct": true,
+        "usage": {
+          "input_tokens": 1099,
+          "output_tokens": 101
+        }
+      },
+      {
+        "build_system": "make",
+        "calibrated_safe_probability": 0.735545402401868,
+        "choice": "configure",
+        "confidence": 0.99,
+        "cost_usd": 4.6116e-05,
+        "direct_choice": true,
+        "direct_execute": true,
+        "latency_ms": 322.5011918693781,
+        "optimal_action": "configure",
+        "order_agreement": true,
+        "probabilities": {
+          "build": 0.01,
+          "configure": 0.99,
+          "dependency": 0.0,
+          "escalate_agent": 0.0
+        },
+        "project_family": "github.com/redis/hiredis",
+        "route_acceptable": true,
+        "semantic_failure_log_sha256": "4c53874027bebad1d9ac17738d329fe2c2d086bc3f2e002f11e69f417645eb0a",
+        "state_id": "s-1a79cc859bb2c737959a",
+        "successful_actions": [
+          "configure",
+          "escalate_agent"
+        ],
+        "top1_correct": true,
+        "usage": {
+          "input_tokens": 1098,
+          "output_tokens": 101
+        }
+      },
+      {
+        "build_system": "cmake",
+        "calibrated_safe_probability": 0.8623339474077644,
+        "choice": "build",
+        "confidence": 1.0,
+        "cost_usd": 4.6578e-05,
+        "direct_choice": true,
+        "direct_execute": true,
+        "latency_ms": 332.9808481503278,
+        "optimal_action": "build",
+        "order_agreement": true,
+        "probabilities": {
+          "build": 1.0,
+          "configure": 0.0,
+          "dependency": 0.0,
+          "escalate_agent": 0.0
+        },
+        "project_family": "github.com/taywee/args",
+        "route_acceptable": true,
+        "semantic_failure_log_sha256": "20b0c8a568b9749cf551aecce980c85b5155e4f3c00d93f571496358fdb50949",
+        "state_id": "s-24a82eb0e6f3a737d7ca",
+        "successful_actions": [
+          "dependency",
+          "configure",
+          "build",
+          "escalate_agent"
+        ],
+        "top1_correct": true,
+        "usage": {
+          "input_tokens": 1109,
+          "output_tokens": 101
+        }
+      },
+      {
+        "build_system": "autotools",
+        "calibrated_safe_probability": 0.8623339474077644,
+        "choice": "dependency",
+        "confidence": 1.0,
+        "cost_usd": 6.9804e-05,
+        "direct_choice": true,
+        "direct_execute": true,
+        "latency_ms": 293.08641888201237,
+        "optimal_action": "dependency",
+        "order_agreement": true,
+        "probabilities": {
+          "build": 0.0,
+          "configure": 0.0,
+          "dependency": 1.0,
+          "escalate_agent": 0.0
+        },
+        "project_family": "github.com/c-ares/c-ares",
+        "route_acceptable": true,
+        "semantic_failure_log_sha256": "92d6b94ae46e1bbf84467bef42fe1df66d1e6dda7fcb5e4c0dead90f416e63af",
+        "state_id": "s-3b766e7d393c963c2a86",
+        "successful_actions": [
+          "dependency",
+          "escalate_agent"
+        ],
+        "top1_correct": true,
+        "usage": {
+          "input_tokens": 1662,
+          "output_tokens": 101
+        }
+      },
+      {
+        "build_system": "make",
+        "calibrated_safe_probability": 0.735545402401868,
+        "choice": "dependency",
+        "confidence": 0.99,
+        "cost_usd": 8.563800000000001e-05,
+        "direct_choice": true,
+        "direct_execute": true,
+        "latency_ms": 303.3241161610931,
+        "optimal_action": "dependency",
+        "order_agreement": true,
+        "probabilities": {
+          "build": 0.01,
+          "configure": 0.0,
+          "dependency": 0.99,
+          "escalate_agent": 0.0
+        },
+        "project_family": "github.com/kjdev/hoextdown",
+        "route_acceptable": true,
+        "semantic_failure_log_sha256": "fbe75bbbe7db2717fb56be59491dc1308322522de6263b09f561bdec1ed75e07",
+        "state_id": "s-43d6dc524621d9452800",
+        "successful_actions": [
+          "dependency",
+          "escalate_agent"
+        ],
+        "top1_correct": true,
+        "usage": {
+          "input_tokens": 2039,
+          "output_tokens": 101
+        }
+      },
+      {
+        "build_system": "autotools",
+        "calibrated_safe_probability": 0.8623339474077644,
+        "choice": "build",
+        "confidence": 1.0,
+        "cost_usd": 4.6578e-05,
+        "direct_choice": true,
+        "direct_execute": true,
+        "latency_ms": 296.06436705216765,
+        "optimal_action": "build",
+        "order_agreement": true,
+        "probabilities": {
+          "build": 1.0,
+          "configure": 0.0,
+          "dependency": 0.0,
+          "escalate_agent": 0.0
+        },
+        "project_family": "github.com/c-ares/c-ares",
+        "route_acceptable": true,
+        "semantic_failure_log_sha256": "65ab78f48cb7292ab695f483eb55d81f8f6b7a2fed1297bf265c2d551a5692ea",
+        "state_id": "s-556022689d838bba8b99",
+        "successful_actions": [
+          "dependency",
+          "configure",
+          "build",
+          "escalate_agent"
+        ],
+        "top1_correct": true,
+        "usage": {
+          "input_tokens": 1109,
+          "output_tokens": 101
+        }
+      },
+      {
+        "build_system": "cmake",
+        "calibrated_safe_probability": 0.8623339474077644,
+        "choice": "build",
+        "confidence": 1.0,
+        "cost_usd": 4.6578e-05,
+        "direct_choice": true,
+        "direct_execute": true,
+        "latency_ms": 298.0825658887625,
+        "optimal_action": "build",
+        "order_agreement": true,
+        "probabilities": {
+          "build": 1.0,
+          "configure": 0.0,
+          "dependency": 0.0,
+          "escalate_agent": 0.0
+        },
+        "project_family": "github.com/ibireme/yyjson",
+        "route_acceptable": true,
+        "semantic_failure_log_sha256": "20b0c8a568b9749cf551aecce980c85b5155e4f3c00d93f571496358fdb50949",
+        "state_id": "s-6227b03255d47a2aa384",
+        "successful_actions": [
+          "dependency",
+          "configure",
+          "build",
+          "escalate_agent"
+        ],
+        "top1_correct": true,
+        "usage": {
+          "input_tokens": 1109,
+          "output_tokens": 101
+        }
+      },
+      {
+        "build_system": "make",
+        "calibrated_safe_probability": 0.8623339474077644,
+        "choice": "build",
+        "confidence": 1.0,
+        "cost_usd": 4.6494e-05,
+        "direct_choice": true,
+        "direct_execute": true,
+        "latency_ms": 303.02344518713653,
+        "optimal_action": "build",
+        "order_agreement": true,
+        "probabilities": {
+          "build": 1.0,
+          "configure": 0.0,
+          "dependency": 0.0,
+          "escalate_agent": 0.0
+        },
+        "project_family": "github.com/redis/hiredis",
+        "route_acceptable": true,
+        "semantic_failure_log_sha256": "65ab78f48cb7292ab695f483eb55d81f8f6b7a2fed1297bf265c2d551a5692ea",
+        "state_id": "s-772563d4dd7ba7c80d3a",
+        "successful_actions": [
+          "dependency",
+          "configure",
+          "build",
+          "escalate_agent"
+        ],
+        "top1_correct": true,
+        "usage": {
+          "input_tokens": 1107,
+          "output_tokens": 101
+        }
+      },
+      {
+        "build_system": "make",
+        "calibrated_safe_probability": 0.8623339474077644,
+        "choice": "build",
+        "confidence": 1.0,
+        "cost_usd": 4.6494e-05,
+        "direct_choice": true,
+        "direct_execute": true,
+        "latency_ms": 296.9564408995211,
+        "optimal_action": "build",
+        "order_agreement": true,
+        "probabilities": {
+          "build": 1.0,
+          "configure": 0.0,
+          "dependency": 0.0,
+          "escalate_agent": 0.0
+        },
+        "project_family": "github.com/kjdev/hoextdown",
+        "route_acceptable": true,
+        "semantic_failure_log_sha256": "65ab78f48cb7292ab695f483eb55d81f8f6b7a2fed1297bf265c2d551a5692ea",
+        "state_id": "s-79362feaf13d94eebfae",
+        "successful_actions": [
+          "dependency",
+          "configure",
+          "build",
+          "escalate_agent"
+        ],
+        "top1_correct": true,
+        "usage": {
+          "input_tokens": 1107,
+          "output_tokens": 101
+        }
+      },
+      {
+        "build_system": "cmake",
+        "calibrated_safe_probability": 0.7063241729447685,
+        "choice": "dependency",
+        "confidence": 0.93,
+        "cost_usd": 5.4054e-05,
+        "direct_choice": true,
+        "direct_execute": true,
+        "latency_ms": 302.5578409433365,
+        "optimal_action": "dependency",
+        "order_agreement": true,
+        "probabilities": {
+          "build": 0.04,
+          "configure": 0.0,
+          "dependency": 0.95,
+          "escalate_agent": 0.01
+        },
+        "project_family": "github.com/taywee/args",
+        "route_acceptable": true,
+        "semantic_failure_log_sha256": "1bfd3ce8141978da2bef7fa527869468febeff5961e90ffdb6642a17831ee963",
+        "state_id": "s-7fc6d755cdf374a4b79e",
+        "successful_actions": [
+          "dependency",
+          "escalate_agent"
+        ],
+        "top1_correct": true,
+        "usage": {
+          "input_tokens": 1287,
+          "output_tokens": 101
+        }
+      },
+      {
+        "build_system": "cmake",
+        "calibrated_safe_probability": 0.735545402401868,
+        "choice": "configure",
+        "confidence": 0.99,
+        "cost_usd": 4.6158e-05,
+        "direct_choice": true,
+        "direct_execute": true,
+        "latency_ms": 295.7984930835664,
+        "optimal_action": "configure",
+        "order_agreement": true,
+        "probabilities": {
+          "build": 0.01,
+          "configure": 0.99,
+          "dependency": 0.0,
+          "escalate_agent": 0.0
+        },
+        "project_family": "github.com/ibireme/yyjson",
+        "route_acceptable": true,
+        "semantic_failure_log_sha256": "4c53874027bebad1d9ac17738d329fe2c2d086bc3f2e002f11e69f417645eb0a",
+        "state_id": "s-91f45981ca5f02feeb1c",
+        "successful_actions": [
+          "configure",
+          "escalate_agent"
+        ],
+        "top1_correct": true,
+        "usage": {
+          "input_tokens": 1099,
+          "output_tokens": 101
+        }
+      },
+      {
+        "build_system": "autotools",
+        "calibrated_safe_probability": 0.8623339474077644,
+        "choice": "build",
+        "confidence": 1.0,
+        "cost_usd": 4.6578e-05,
+        "direct_choice": true,
+        "direct_execute": true,
+        "latency_ms": 296.31525091826916,
+        "optimal_action": "build",
+        "order_agreement": true,
+        "probabilities": {
+          "build": 1.0,
+          "configure": 0.0,
+          "dependency": 0.0,
+          "escalate_agent": 0.0
+        },
+        "project_family": "github.com/numactl/numactl",
+        "route_acceptable": true,
+        "semantic_failure_log_sha256": "65ab78f48cb7292ab695f483eb55d81f8f6b7a2fed1297bf265c2d551a5692ea",
+        "state_id": "s-929f23cdc35c78036248",
+        "successful_actions": [
+          "dependency",
+          "configure",
+          "build",
+          "escalate_agent"
+        ],
+        "top1_correct": true,
+        "usage": {
+          "input_tokens": 1109,
+          "output_tokens": 101
+        }
+      },
+      {
+        "build_system": "autotools",
+        "calibrated_safe_probability": 0.8623339474077644,
+        "choice": "dependency",
+        "confidence": 1.0,
+        "cost_usd": 4.6704e-05,
+        "direct_choice": true,
+        "direct_execute": true,
+        "latency_ms": 296.331447083503,
+        "optimal_action": "dependency",
+        "order_agreement": true,
+        "probabilities": {
+          "build": 0.0,
+          "configure": 0.0,
+          "dependency": 1.0,
+          "escalate_agent": 0.0
+        },
+        "project_family": "github.com/numactl/numactl",
+        "route_acceptable": true,
+        "semantic_failure_log_sha256": "53e3a42627e72cb82ca511624562951ad0be8ede6d276a956aee6ad49049f906",
+        "state_id": "s-9367b10556f281130338",
+        "successful_actions": [
+          "dependency",
+          "escalate_agent"
+        ],
+        "top1_correct": true,
+        "usage": {
+          "input_tokens": 1112,
+          "output_tokens": 101
+        }
+      },
+      {
+        "build_system": "make",
+        "calibrated_safe_probability": 0.735545402401868,
+        "choice": "dependency",
+        "confidence": 0.99,
+        "cost_usd": 5.2332e-05,
+        "direct_choice": true,
+        "direct_execute": true,
+        "latency_ms": 357.9934739973396,
+        "optimal_action": "dependency",
+        "order_agreement": true,
+        "probabilities": {
+          "build": 0.01,
+          "configure": 0.0,
+          "dependency": 0.99,
+          "escalate_agent": 0.0
+        },
+        "project_family": "github.com/redis/hiredis",
+        "route_acceptable": true,
+        "semantic_failure_log_sha256": "41ec7fe68930a531fff186968a34784c41cb38cb0a7399e79baba931cc0cc9eb",
+        "state_id": "s-b494d9209391bfc45581",
+        "successful_actions": [
+          "dependency",
+          "escalate_agent"
+        ],
+        "top1_correct": true,
+        "usage": {
+          "input_tokens": 1246,
+          "output_tokens": 101
+        }
+      },
+      {
+        "build_system": "autotools",
+        "calibrated_safe_probability": 0.735545402401868,
+        "choice": "configure",
+        "confidence": 0.99,
+        "cost_usd": 4.6200000000000005e-05,
+        "direct_choice": true,
+        "direct_execute": true,
+        "latency_ms": 297.18941380269825,
+        "optimal_action": "configure",
+        "order_agreement": true,
+        "probabilities": {
+          "build": 0.01,
+          "configure": 0.99,
+          "dependency": 0.0,
+          "escalate_agent": 0.0
+        },
+        "project_family": "github.com/numactl/numactl",
+        "route_acceptable": true,
+        "semantic_failure_log_sha256": "4c53874027bebad1d9ac17738d329fe2c2d086bc3f2e002f11e69f417645eb0a",
+        "state_id": "s-be1455dc44d3cedc53ff",
+        "successful_actions": [
+          "configure",
+          "escalate_agent"
+        ],
+        "top1_correct": true,
+        "usage": {
+          "input_tokens": 1100,
+          "output_tokens": 101
+        }
+      },
+      {
+        "build_system": "make",
+        "calibrated_safe_probability": 0.735545402401868,
+        "choice": "configure",
+        "confidence": 0.99,
+        "cost_usd": 4.6116e-05,
+        "direct_choice": true,
+        "direct_execute": true,
+        "latency_ms": 302.3867108859122,
+        "optimal_action": "configure",
+        "order_agreement": true,
+        "probabilities": {
+          "build": 0.01,
+          "configure": 0.99,
+          "dependency": 0.0,
+          "escalate_agent": 0.0
+        },
+        "project_family": "github.com/kjdev/hoextdown",
+        "route_acceptable": true,
+        "semantic_failure_log_sha256": "4c53874027bebad1d9ac17738d329fe2c2d086bc3f2e002f11e69f417645eb0a",
+        "state_id": "s-cbeadc0e7593e1792d01",
+        "successful_actions": [
+          "configure",
+          "escalate_agent"
+        ],
+        "top1_correct": true,
+        "usage": {
+          "input_tokens": 1098,
+          "output_tokens": 101
+        }
+      },
+      {
+        "build_system": "autotools",
+        "calibrated_safe_probability": 0.735545402401868,
+        "choice": "configure",
+        "confidence": 0.99,
+        "cost_usd": 4.6200000000000005e-05,
+        "direct_choice": true,
+        "direct_execute": true,
+        "latency_ms": 294.12165679968894,
+        "optimal_action": "configure",
+        "order_agreement": true,
+        "probabilities": {
+          "build": 0.01,
+          "configure": 0.99,
+          "dependency": 0.0,
+          "escalate_agent": 0.0
+        },
+        "project_family": "github.com/c-ares/c-ares",
+        "route_acceptable": true,
+        "semantic_failure_log_sha256": "4c53874027bebad1d9ac17738d329fe2c2d086bc3f2e002f11e69f417645eb0a",
+        "state_id": "s-defeb87ae1e0c9d3db71",
+        "successful_actions": [
+          "configure",
+          "escalate_agent"
+        ],
+        "top1_correct": true,
+        "usage": {
+          "input_tokens": 1100,
+          "output_tokens": 101
+        }
+      },
+      {
+        "build_system": "cmake",
+        "calibrated_safe_probability": 0.8623339474077644,
+        "choice": "dependency",
+        "confidence": 1.0,
+        "cost_usd": 5.1072e-05,
+        "direct_choice": true,
+        "direct_execute": true,
+        "latency_ms": 302.0747941918671,
+        "optimal_action": "dependency",
+        "order_agreement": true,
+        "probabilities": {
+          "build": 0.0,
+          "configure": 0.0,
+          "dependency": 1.0,
+          "escalate_agent": 0.0
+        },
+        "project_family": "github.com/ibireme/yyjson",
+        "route_acceptable": true,
+        "semantic_failure_log_sha256": "fda2332dd050995a7099e13d14173b68a3a9f0e6c7ed573688623783075912e0",
+        "state_id": "s-fdee3a9654716799080d",
+        "successful_actions": [
+          "dependency",
+          "escalate_agent"
+        ],
+        "top1_correct": true,
+        "usage": {
+          "input_tokens": 1216,
+          "output_tokens": 101
+        }
+      }
+    ],
+    "threshold": 0.6747568477098429,
+    "wrong_direct_action_count": 0
+  },
+  "calibration": {
+    "analysis": {
+      "direct_choice_count": 18,
+      "order_agreement_count": 18,
+      "route_acceptable_count": 18,
+      "rows": [
+        {
+          "build_system": "make",
+          "calibrated_safe_probability": 0.6747568477098429,
+          "choice": "dependency",
+          "confidence": 0.71,
+          "cost_usd": 7.728e-05,
+          "direct_choice": true,
+          "latency_ms": 405.66599695011973,
+          "optimal_action": "dependency",
+          "order_agreement": true,
+          "probabilities": {
+            "build": 0.21,
+            "configure": 0.0,
+            "dependency": 0.78,
+            "escalate_agent": 0.01
+          },
+          "project_family": "github.com/rui314/8cc",
+          "route_acceptable": true,
+          "semantic_failure_log_sha256": "e2fcba700e9a356709896744b047989ce0cc086a1c40b9e4fa5c91cefddf03f8",
+          "state_id": "s-00cbdd48cf2b8718f655",
+          "successful_actions": [
+            "dependency",
+            "escalate_agent"
+          ],
+          "top1_correct": true,
+          "usage": {
+            "input_tokens": 1840,
+            "output_tokens": 101
+          }
+        },
+        {
+          "build_system": "make",
+          "calibrated_safe_probability": 0.735545402401868,
+          "choice": "configure",
+          "confidence": 0.99,
+          "cost_usd": 4.6116e-05,
+          "direct_choice": true,
+          "latency_ms": 320.0889639556408,
+          "optimal_action": "configure",
+          "order_agreement": true,
+          "probabilities": {
+            "build": 0.01,
+            "configure": 0.99,
+            "dependency": 0.0,
+            "escalate_agent": 0.0
+          },
+          "project_family": "github.com/rui314/8cc",
+          "route_acceptable": true,
+          "semantic_failure_log_sha256": "4c53874027bebad1d9ac17738d329fe2c2d086bc3f2e002f11e69f417645eb0a",
+          "state_id": "s-1c616672c9e2b407ee10",
+          "successful_actions": [
+            "configure",
+            "escalate_agent"
+          ],
+          "top1_correct": true,
+          "usage": {
+            "input_tokens": 1098,
+            "output_tokens": 101
+          }
+        },
+        {
+          "build_system": "cmake",
+          "calibrated_safe_probability": 0.735545402401868,
+          "choice": "configure",
+          "confidence": 0.99,
+          "cost_usd": 4.6158e-05,
+          "direct_choice": true,
+          "latency_ms": 324.3504799902439,
+          "optimal_action": "configure",
+          "order_agreement": true,
+          "probabilities": {
+            "build": 0.01,
+            "configure": 0.99,
+            "dependency": 0.0,
+            "escalate_agent": 0.0
+          },
+          "project_family": "github.com/google/leveldb",
+          "route_acceptable": true,
+          "semantic_failure_log_sha256": "4c53874027bebad1d9ac17738d329fe2c2d086bc3f2e002f11e69f417645eb0a",
+          "state_id": "s-1f8f7c2aee48dd59f0d0",
+          "successful_actions": [
+            "configure",
+            "escalate_agent"
+          ],
+          "top1_correct": true,
+          "usage": {
+            "input_tokens": 1099,
+            "output_tokens": 101
+          }
+        },
+        {
+          "build_system": "make",
+          "calibrated_safe_probability": 0.6783089138008125,
+          "choice": "dependency",
+          "confidence": 0.75,
+          "cost_usd": 6.6696e-05,
+          "direct_choice": true,
+          "latency_ms": 295.1085860840976,
+          "optimal_action": "dependency",
+          "order_agreement": true,
+          "probabilities": {
+            "build": 0.1,
+            "configure": 0.05,
+            "dependency": 0.8099999999999999,
+            "escalate_agent": 0.04
+          },
+          "project_family": "github.com/facebook/zstd",
+          "route_acceptable": true,
+          "semantic_failure_log_sha256": "e665cae431ac322162c098d59f912f9304c0d548beeae8fb3bab444c1c1fac5e",
+          "state_id": "s-39843500d4e78ef33e8b",
+          "successful_actions": [
+            "dependency",
+            "escalate_agent"
+          ],
+          "top1_correct": true,
+          "usage": {
+            "input_tokens": 1588,
+            "output_tokens": 101
+          }
+        },
+        {
+          "build_system": "cmake",
+          "calibrated_safe_probability": 0.7233252011250114,
+          "choice": "dependency",
+          "confidence": 0.97,
+          "cost_usd": 5.1744e-05,
+          "direct_choice": true,
+          "latency_ms": 328.49079300649464,
+          "optimal_action": "dependency",
+          "order_agreement": true,
+          "probabilities": {
+            "build": 0.01,
+            "configure": 0.0,
+            "dependency": 0.98,
+            "escalate_agent": 0.01
+          },
+          "project_family": "github.com/google/leveldb",
+          "route_acceptable": true,
+          "semantic_failure_log_sha256": "0e68f81b678d88803e3fd87a3361a2417e252046693bee6286bd7e1d0932b5cc",
+          "state_id": "s-511773316574c0a06fb6",
+          "successful_actions": [
+            "dependency",
+            "escalate_agent"
+          ],
+          "top1_correct": true,
+          "usage": {
+            "input_tokens": 1232,
+            "output_tokens": 101
+          }
+        },
+        {
+          "build_system": "autotools",
+          "calibrated_safe_probability": 0.735545402401868,
+          "choice": "dependency",
+          "confidence": 0.99,
+          "cost_usd": 0.00010924200000000001,
+          "direct_choice": true,
+          "latency_ms": 309.2807000502944,
+          "optimal_action": "dependency",
+          "order_agreement": true,
+          "probabilities": {
+            "build": 0.01,
+            "configure": 0.0,
+            "dependency": 0.99,
+            "escalate_agent": 0.0
+          },
+          "project_family": "github.com/akheron/jansson",
+          "route_acceptable": true,
+          "semantic_failure_log_sha256": "3ad00c81ca24f2d4576c8acb63d13e8717d66591284f6d9384b9357a264dd4be",
+          "state_id": "s-599e7d2e3689267f0a96",
+          "successful_actions": [
+            "dependency",
+            "escalate_agent"
+          ],
+          "top1_correct": true,
+          "usage": {
+            "input_tokens": 2601,
+            "output_tokens": 101
+          }
+        },
+        {
+          "build_system": "cmake",
+          "calibrated_safe_probability": 0.735545402401868,
+          "choice": "dependency",
+          "confidence": 0.99,
+          "cost_usd": 4.935e-05,
+          "direct_choice": true,
+          "latency_ms": 310.27433299459517,
+          "optimal_action": "dependency",
+          "order_agreement": true,
+          "probabilities": {
+            "build": 0.01,
+            "configure": 0.0,
+            "dependency": 0.99,
+            "escalate_agent": 0.0
+          },
+          "project_family": "github.com/fmtlib/fmt",
+          "route_acceptable": true,
+          "semantic_failure_log_sha256": "4c78cbbd65ad88022565040f034c81f016d0c3014a54a0e764189cf60193cfc9",
+          "state_id": "s-5fae6ee1836cbd03b71b",
+          "successful_actions": [
+            "dependency",
+            "escalate_agent"
+          ],
+          "top1_correct": true,
+          "usage": {
+            "input_tokens": 1175,
+            "output_tokens": 101
+          }
+        },
+        {
+          "build_system": "make",
+          "calibrated_safe_probability": 0.8623339474077644,
+          "choice": "build",
+          "confidence": 1.0,
+          "cost_usd": 4.6494e-05,
+          "direct_choice": true,
+          "latency_ms": 350.3084760159254,
+          "optimal_action": "build",
+          "order_agreement": true,
+          "probabilities": {
+            "build": 1.0,
+            "configure": 0.0,
+            "dependency": 0.0,
+            "escalate_agent": 0.0
+          },
+          "project_family": "github.com/rui314/8cc",
+          "route_acceptable": true,
+          "semantic_failure_log_sha256": "65ab78f48cb7292ab695f483eb55d81f8f6b7a2fed1297bf265c2d551a5692ea",
+          "state_id": "s-995aabafaa16a9db99bc",
+          "successful_actions": [
+            "dependency",
+            "configure",
+            "build",
+            "escalate_agent"
+          ],
+          "top1_correct": true,
+          "usage": {
+            "input_tokens": 1107,
+            "output_tokens": 101
+          }
+        },
+        {
+          "build_system": "autotools",
+          "calibrated_safe_probability": 0.735545402401868,
+          "choice": "configure",
+          "confidence": 0.99,
+          "cost_usd": 4.6200000000000005e-05,
+          "direct_choice": true,
+          "latency_ms": 331.1494051013142,
+          "optimal_action": "configure",
+          "order_agreement": true,
+          "probabilities": {
+            "build": 0.01,
+            "configure": 0.99,
+            "dependency": 0.0,
+            "escalate_agent": 0.0
+          },
+          "project_family": "github.com/akheron/jansson",
+          "route_acceptable": true,
+          "semantic_failure_log_sha256": "4c53874027bebad1d9ac17738d329fe2c2d086bc3f2e002f11e69f417645eb0a",
+          "state_id": "s-a5b14e59cbc6636f3199",
+          "successful_actions": [
+            "configure",
+            "escalate_agent"
+          ],
+          "top1_correct": true,
+          "usage": {
+            "input_tokens": 1100,
+            "output_tokens": 101
+          }
+        },
+        {
+          "build_system": "autotools",
+          "calibrated_safe_probability": 0.8623339474077644,
+          "choice": "build",
+          "confidence": 1.0,
+          "cost_usd": 4.6578e-05,
+          "direct_choice": true,
+          "latency_ms": 332.81715284101665,
+          "optimal_action": "build",
+          "order_agreement": true,
+          "probabilities": {
+            "build": 1.0,
+            "configure": 0.0,
+            "dependency": 0.0,
+            "escalate_agent": 0.0
+          },
+          "project_family": "github.com/akheron/jansson",
+          "route_acceptable": true,
+          "semantic_failure_log_sha256": "65ab78f48cb7292ab695f483eb55d81f8f6b7a2fed1297bf265c2d551a5692ea",
+          "state_id": "s-a653ff6b5429d47f5d17",
+          "successful_actions": [
+            "dependency",
+            "configure",
+            "build",
+            "escalate_agent"
+          ],
+          "top1_correct": true,
+          "usage": {
+            "input_tokens": 1109,
+            "output_tokens": 101
+          }
+        },
+        {
+          "build_system": "autotools",
+          "calibrated_safe_probability": 0.8623339474077644,
+          "choice": "build",
+          "confidence": 1.0,
+          "cost_usd": 4.6578e-05,
+          "direct_choice": true,
+          "latency_ms": 303.32767590880394,
+          "optimal_action": "build",
+          "order_agreement": true,
+          "probabilities": {
+            "build": 1.0,
+            "configure": 0.0,
+            "dependency": 0.0,
+            "escalate_agent": 0.0
+          },
+          "project_family": "github.com/yaml/libyaml",
+          "route_acceptable": true,
+          "semantic_failure_log_sha256": "65ab78f48cb7292ab695f483eb55d81f8f6b7a2fed1297bf265c2d551a5692ea",
+          "state_id": "s-b6a38192fcd549eb2f98",
+          "successful_actions": [
+            "dependency",
+            "configure",
+            "build",
+            "escalate_agent"
+          ],
+          "top1_correct": true,
+          "usage": {
+            "input_tokens": 1109,
+            "output_tokens": 101
+          }
+        },
+        {
+          "build_system": "autotools",
+          "calibrated_safe_probability": 0.735545402401868,
+          "choice": "configure",
+          "confidence": 0.99,
+          "cost_usd": 4.6200000000000005e-05,
+          "direct_choice": true,
+          "latency_ms": 290.1026331819594,
+          "optimal_action": "configure",
+          "order_agreement": true,
+          "probabilities": {
+            "build": 0.01,
+            "configure": 0.99,
+            "dependency": 0.0,
+            "escalate_agent": 0.0
+          },
+          "project_family": "github.com/yaml/libyaml",
+          "route_acceptable": true,
+          "semantic_failure_log_sha256": "4c53874027bebad1d9ac17738d329fe2c2d086bc3f2e002f11e69f417645eb0a",
+          "state_id": "s-bc028728a7845f87e01a",
+          "successful_actions": [
+            "configure",
+            "escalate_agent"
+          ],
+          "top1_correct": true,
+          "usage": {
+            "input_tokens": 1100,
+            "output_tokens": 101
+          }
+        },
+        {
+          "build_system": "make",
+          "calibrated_safe_probability": 0.7233252011250114,
+          "choice": "configure",
+          "confidence": 0.97,
+          "cost_usd": 4.7040000000000004e-05,
+          "direct_choice": true,
+          "latency_ms": 306.77642207592726,
+          "optimal_action": "configure",
+          "order_agreement": true,
+          "probabilities": {
+            "build": 0.02,
+            "configure": 0.98,
+            "dependency": 0.0,
+            "escalate_agent": 0.0
+          },
+          "project_family": "github.com/facebook/zstd",
+          "route_acceptable": true,
+          "semantic_failure_log_sha256": "0ecddd96822ee88be29af8a2a7c161f8b6753134201e626c2430cebbe6a97fcd",
+          "state_id": "s-c0d9e08ef7caf9048cb7",
+          "successful_actions": [
+            "configure",
+            "escalate_agent"
+          ],
+          "top1_correct": true,
+          "usage": {
+            "input_tokens": 1120,
+            "output_tokens": 101
+          }
+        },
+        {
+          "build_system": "cmake",
+          "calibrated_safe_probability": 0.8623339474077644,
+          "choice": "build",
+          "confidence": 1.0,
+          "cost_usd": 4.6578e-05,
+          "direct_choice": true,
+          "latency_ms": 309.9971148185432,
+          "optimal_action": "build",
+          "order_agreement": true,
+          "probabilities": {
+            "build": 1.0,
+            "configure": 0.0,
+            "dependency": 0.0,
+            "escalate_agent": 0.0
+          },
+          "project_family": "github.com/google/leveldb",
+          "route_acceptable": true,
+          "semantic_failure_log_sha256": "20b0c8a568b9749cf551aecce980c85b5155e4f3c00d93f571496358fdb50949",
+          "state_id": "s-cc405c569f467b6b87a6",
+          "successful_actions": [
+            "dependency",
+            "configure",
+            "build",
+            "escalate_agent"
+          ],
+          "top1_correct": true,
+          "usage": {
+            "input_tokens": 1109,
+            "output_tokens": 101
+          }
+        },
+        {
+          "build_system": "cmake",
+          "calibrated_safe_probability": 0.8623339474077644,
+          "choice": "build",
+          "confidence": 1.0,
+          "cost_usd": 4.6578e-05,
+          "direct_choice": true,
+          "latency_ms": 315.9114900045097,
+          "optimal_action": "build",
+          "order_agreement": true,
+          "probabilities": {
+            "build": 1.0,
+            "configure": 0.0,
+            "dependency": 0.0,
+            "escalate_agent": 0.0
+          },
+          "project_family": "github.com/fmtlib/fmt",
+          "route_acceptable": true,
+          "semantic_failure_log_sha256": "20b0c8a568b9749cf551aecce980c85b5155e4f3c00d93f571496358fdb50949",
+          "state_id": "s-cee99393e3d6575233dc",
+          "successful_actions": [
+            "dependency",
+            "configure",
+            "build",
+            "escalate_agent"
+          ],
+          "top1_correct": true,
+          "usage": {
+            "input_tokens": 1109,
+            "output_tokens": 101
+          }
+        },
+        {
+          "build_system": "cmake",
+          "calibrated_safe_probability": 0.735545402401868,
+          "choice": "configure",
+          "confidence": 0.99,
+          "cost_usd": 4.6158e-05,
+          "direct_choice": true,
+          "latency_ms": 317.90274288505316,
+          "optimal_action": "configure",
+          "order_agreement": true,
+          "probabilities": {
+            "build": 0.01,
+            "configure": 0.99,
+            "dependency": 0.0,
+            "escalate_agent": 0.0
+          },
+          "project_family": "github.com/fmtlib/fmt",
+          "route_acceptable": true,
+          "semantic_failure_log_sha256": "4c53874027bebad1d9ac17738d329fe2c2d086bc3f2e002f11e69f417645eb0a",
+          "state_id": "s-d966d46de76d7446a8e7",
+          "successful_actions": [
+            "configure",
+            "escalate_agent"
+          ],
+          "top1_correct": true,
+          "usage": {
+            "input_tokens": 1099,
+            "output_tokens": 101
+          }
+        },
+        {
+          "build_system": "autotools",
+          "calibrated_safe_probability": 0.735545402401868,
+          "choice": "dependency",
+          "confidence": 0.99,
+          "cost_usd": 5.1408e-05,
+          "direct_choice": true,
+          "latency_ms": 322.4221388809383,
+          "optimal_action": "dependency",
+          "order_agreement": true,
+          "probabilities": {
+            "build": 0.01,
+            "configure": 0.0,
+            "dependency": 0.99,
+            "escalate_agent": 0.0
+          },
+          "project_family": "github.com/yaml/libyaml",
+          "route_acceptable": true,
+          "semantic_failure_log_sha256": "f50c6f78aed2bdca5d56323ff4a2a19c7d1c841e46a8d4a1dcbde69d121dfe63",
+          "state_id": "s-f34c385884e2cf32e8e2",
+          "successful_actions": [
+            "dependency",
+            "escalate_agent"
+          ],
+          "top1_correct": true,
+          "usage": {
+            "input_tokens": 1224,
+            "output_tokens": 101
+          }
+        },
+        {
+          "build_system": "make",
+          "calibrated_safe_probability": 0.8623339474077644,
+          "choice": "build",
+          "confidence": 1.0,
+          "cost_usd": 4.7418000000000006e-05,
+          "direct_choice": true,
+          "latency_ms": 317.21817795187235,
+          "optimal_action": "build",
+          "order_agreement": true,
+          "probabilities": {
+            "build": 1.0,
+            "configure": 0.0,
+            "dependency": 0.0,
+            "escalate_agent": 0.0
+          },
+          "project_family": "github.com/facebook/zstd",
+          "route_acceptable": true,
+          "semantic_failure_log_sha256": "ff06f06819e950ae31a81324d0de570c7ca74aaa140b99df146fa49ff1c20d61",
+          "state_id": "s-fee61e444164463d058e",
+          "successful_actions": [
+            "dependency",
+            "configure",
+            "build",
+            "escalate_agent"
+          ],
+          "top1_correct": true,
+          "usage": {
+            "input_tokens": 1129,
+            "output_tokens": 101
+          }
+        }
+      ],
+      "split": "calibration",
+      "state_count": 18,
+      "top1_correct": 18
+    },
+    "created_at": "2026-10-10T02:13:07.551286+00:00",
+    "decision": "proceed_to_single_evaluation",
+    "identity": "cpp-jev-offline-qualification-v6",
+    "model": {
+      "c": 1.0,
+      "coefficient": 0.08805149266059632,
+      "intercept": 0.618335523488825,
+      "max_iter": 1000,
+      "negative_count": 24,
+      "positive_count": 30,
+      "random_state": 393,
+      "solver": "liblinear",
+      "training_pair_count": 54
+    },
+    "passed": true,
+    "threshold": {
+      "coverage": 18,
+      "errors": 0,
+      "threshold": 0.6747568477098429
+    }
+  },
+  "created_at": "2026-10-10T02:13:40.211196+00:00",
+  "decision": "proceed_to_controller_replay_qualification",
+  "design": {
+    "direct_choice_count": 18,
+    "order_agreement_count": 18,
+    "route_acceptable_count": 18,
+    "rows": [
+      {
+        "build_system": "make",
+        "choice": "build",
+        "confidence": 1.0,
+        "cost_usd": 4.6494e-05,
+        "direct_choice": true,
+        "latency_ms": 605.70964589715,
+        "optimal_action": "build",
+        "order_agreement": true,
+        "probabilities": {
+          "build": 1.0,
+          "configure": 0.0,
+          "dependency": 0.0,
+          "escalate_agent": 0.0
+        },
+        "project_family": "github.com/cyan4973/xxhash",
+        "route_acceptable": true,
+        "semantic_failure_log_sha256": "65ab78f48cb7292ab695f483eb55d81f8f6b7a2fed1297bf265c2d551a5692ea",
+        "state_id": "s-09b9c5f349a144ded615",
+        "successful_actions": [
+          "dependency",
+          "configure",
+          "build",
+          "escalate_agent"
+        ],
+        "top1_correct": true,
+        "usage": {
+          "input_tokens": 1107,
+          "output_tokens": 101
+        }
+      },
+      {
+        "build_system": "autotools",
+        "choice": "dependency",
+        "confidence": 0.99,
+        "cost_usd": 4.8846000000000006e-05,
+        "direct_choice": true,
+        "latency_ms": 304.5373361092061,
+        "optimal_action": "dependency",
+        "order_agreement": true,
+        "probabilities": {
+          "build": 0.01,
+          "configure": 0.0,
+          "dependency": 0.99,
+          "escalate_agent": 0.0
+        },
+        "project_family": "github.com/xiph/rnnoise",
+        "route_acceptable": true,
+        "semantic_failure_log_sha256": "bf48af971b5d1377c897a97066ece669ded71e45a04b6ad9efe524135cbc599f",
+        "state_id": "s-3b63064ac5ed3cb4a6be",
+        "successful_actions": [
+          "dependency",
+          "escalate_agent"
+        ],
+        "top1_correct": true,
+        "usage": {
+          "input_tokens": 1163,
+          "output_tokens": 101
+        }
+      },
+      {
+        "build_system": "cmake",
+        "choice": "dependency",
+        "confidence": 1.0,
+        "cost_usd": 4.9392000000000004e-05,
+        "direct_choice": true,
+        "latency_ms": 286.42053599469364,
+        "optimal_action": "dependency",
+        "order_agreement": true,
+        "probabilities": {
+          "build": 0.0,
+          "configure": 0.0,
+          "dependency": 1.0,
+          "escalate_agent": 0.0
+        },
+        "project_family": "github.com/davegamble/cjson",
+        "route_acceptable": true,
+        "semantic_failure_log_sha256": "0481e0f35da2318ffd29e440cc8d5678bc87f654366256fe7a9de05285121e31",
+        "state_id": "s-3cee20ea8ccde8a8d60b",
+        "successful_actions": [
+          "dependency",
+          "escalate_agent"
+        ],
+        "top1_correct": true,
+        "usage": {
+          "input_tokens": 1176,
+          "output_tokens": 101
+        }
+      },
+      {
+        "build_system": "autotools",
+        "choice": "build",
+        "confidence": 1.0,
+        "cost_usd": 4.6578e-05,
+        "direct_choice": true,
+        "latency_ms": 316.80541206151247,
+        "optimal_action": "build",
+        "order_agreement": true,
+        "probabilities": {
+          "build": 1.0,
+          "configure": 0.0,
+          "dependency": 0.0,
+          "escalate_agent": 0.0
+        },
+        "project_family": "github.com/xiph/rnnoise",
+        "route_acceptable": true,
+        "semantic_failure_log_sha256": "65ab78f48cb7292ab695f483eb55d81f8f6b7a2fed1297bf265c2d551a5692ea",
+        "state_id": "s-46ab4053e8e9e952dbc6",
+        "successful_actions": [
+          "dependency",
+          "configure",
+          "build",
+          "escalate_agent"
+        ],
+        "top1_correct": true,
+        "usage": {
+          "input_tokens": 1109,
+          "output_tokens": 101
+        }
+      },
+      {
+        "build_system": "cmake",
+        "choice": "build",
+        "confidence": 1.0,
+        "cost_usd": 4.6578e-05,
+        "direct_choice": true,
+        "latency_ms": 292.4670360516757,
+        "optimal_action": "build",
+        "order_agreement": true,
+        "probabilities": {
+          "build": 1.0,
+          "configure": 0.0,
+          "dependency": 0.0,
+          "escalate_agent": 0.0
+        },
+        "project_family": "github.com/davegamble/cjson",
+        "route_acceptable": true,
+        "semantic_failure_log_sha256": "20b0c8a568b9749cf551aecce980c85b5155e4f3c00d93f571496358fdb50949",
+        "state_id": "s-54193a88d09cc993b303",
+        "successful_actions": [
+          "dependency",
+          "configure",
+          "build",
+          "escalate_agent"
+        ],
+        "top1_correct": true,
+        "usage": {
+          "input_tokens": 1109,
+          "output_tokens": 101
+        }
+      },
+      {
+        "build_system": "autotools",
+        "choice": "dependency",
+        "confidence": 1.0,
+        "cost_usd": 5.1198e-05,
+        "direct_choice": true,
+        "latency_ms": 297.67586500383914,
+        "optimal_action": "dependency",
+        "order_agreement": true,
+        "probabilities": {
+          "build": 0.0,
+          "configure": 0.0,
+          "dependency": 1.0,
+          "escalate_agent": 0.0
+        },
+        "project_family": "github.com/xiph/ogg",
+        "route_acceptable": true,
+        "semantic_failure_log_sha256": "b4f70bccbaede228af0b5162646342897d73530166a46bc98407efffcd87c93a",
+        "state_id": "s-64a8732e22cd55b39b17",
+        "successful_actions": [
+          "dependency",
+          "escalate_agent"
+        ],
+        "top1_correct": true,
+        "usage": {
+          "input_tokens": 1219,
+          "output_tokens": 101
+        }
+      },
+      {
+        "build_system": "cmake",
+        "choice": "configure",
+        "confidence": 0.99,
+        "cost_usd": 4.6158e-05,
+        "direct_choice": true,
+        "latency_ms": 294.64936815202236,
+        "optimal_action": "configure",
+        "order_agreement": true,
+        "probabilities": {
+          "build": 0.01,
+          "configure": 0.99,
+          "dependency": 0.0,
+          "escalate_agent": 0.0
+        },
+        "project_family": "github.com/andrewrk/libsoundio",
+        "route_acceptable": true,
+        "semantic_failure_log_sha256": "4c53874027bebad1d9ac17738d329fe2c2d086bc3f2e002f11e69f417645eb0a",
+        "state_id": "s-686f7dec7c67b354d921",
+        "successful_actions": [
+          "configure",
+          "escalate_agent"
+        ],
+        "top1_correct": true,
+        "usage": {
+          "input_tokens": 1099,
+          "output_tokens": 101
+        }
+      },
+      {
+        "build_system": "autotools",
+        "choice": "configure",
+        "confidence": 0.99,
+        "cost_usd": 4.6200000000000005e-05,
+        "direct_choice": true,
+        "latency_ms": 297.20937204547226,
+        "optimal_action": "configure",
+        "order_agreement": true,
+        "probabilities": {
+          "build": 0.01,
+          "configure": 0.99,
+          "dependency": 0.0,
+          "escalate_agent": 0.0
+        },
+        "project_family": "github.com/xiph/ogg",
+        "route_acceptable": true,
+        "semantic_failure_log_sha256": "4c53874027bebad1d9ac17738d329fe2c2d086bc3f2e002f11e69f417645eb0a",
+        "state_id": "s-88fc7e9e638d56cea2c4",
+        "successful_actions": [
+          "configure",
+          "escalate_agent"
+        ],
+        "top1_correct": true,
+        "usage": {
+          "input_tokens": 1100,
+          "output_tokens": 101
+        }
+      },
+      {
+        "build_system": "cmake",
+        "choice": "build",
+        "confidence": 1.0,
+        "cost_usd": 4.6578e-05,
+        "direct_choice": true,
+        "latency_ms": 311.54516409151256,
+        "optimal_action": "build",
+        "order_agreement": true,
+        "probabilities": {
+          "build": 1.0,
+          "configure": 0.0,
+          "dependency": 0.0,
+          "escalate_agent": 0.0
+        },
+        "project_family": "github.com/andrewrk/libsoundio",
+        "route_acceptable": true,
+        "semantic_failure_log_sha256": "20b0c8a568b9749cf551aecce980c85b5155e4f3c00d93f571496358fdb50949",
+        "state_id": "s-997049025ac2fd8515de",
+        "successful_actions": [
+          "dependency",
+          "configure",
+          "build",
+          "escalate_agent"
+        ],
+        "top1_correct": true,
+        "usage": {
+          "input_tokens": 1109,
+          "output_tokens": 101
+        }
+      },
+      {
+        "build_system": "make",
+        "choice": "dependency",
+        "confidence": 0.95,
+        "cost_usd": 9.252600000000002e-05,
+        "direct_choice": true,
+        "latency_ms": 313.56847705319524,
+        "optimal_action": "dependency",
+        "order_agreement": true,
+        "probabilities": {
+          "build": 0.04,
+          "configure": 0.0,
+          "dependency": 0.96,
+          "escalate_agent": 0.0
+        },
+        "project_family": "github.com/official-stockfish/stockfish",
+        "route_acceptable": true,
+        "semantic_failure_log_sha256": "9a28b7a7ae189a3a45e65043006f085ac61fe36a3a0a6a2f217340dcae3156b0",
+        "state_id": "s-9e32cbeba31f56fc5bd1",
+        "successful_actions": [
+          "dependency",
+          "escalate_agent"
+        ],
+        "top1_correct": true,
+        "usage": {
+          "input_tokens": 2203,
+          "output_tokens": 101
+        }
+      },
+      {
+        "build_system": "autotools",
+        "choice": "build",
+        "confidence": 1.0,
+        "cost_usd": 4.6578e-05,
+        "direct_choice": true,
+        "latency_ms": 323.9150559529662,
+        "optimal_action": "build",
+        "order_agreement": true,
+        "probabilities": {
+          "build": 1.0,
+          "configure": 0.0,
+          "dependency": 0.0,
+          "escalate_agent": 0.0
+        },
+        "project_family": "github.com/xiph/ogg",
+        "route_acceptable": true,
+        "semantic_failure_log_sha256": "65ab78f48cb7292ab695f483eb55d81f8f6b7a2fed1297bf265c2d551a5692ea",
+        "state_id": "s-ab138df42d28306ad733",
+        "successful_actions": [
+          "dependency",
+          "configure",
+          "build",
+          "escalate_agent"
+        ],
+        "top1_correct": true,
+        "usage": {
+          "input_tokens": 1109,
+          "output_tokens": 101
+        }
+      },
+      {
+        "build_system": "cmake",
+        "choice": "dependency",
+        "confidence": 0.99,
+        "cost_usd": 4.9518e-05,
+        "direct_choice": true,
+        "latency_ms": 310.6231880374253,
+        "optimal_action": "dependency",
+        "order_agreement": true,
+        "probabilities": {
+          "build": 0.01,
+          "configure": 0.0,
+          "dependency": 0.99,
+          "escalate_agent": 0.0
+        },
+        "project_family": "github.com/andrewrk/libsoundio",
+        "route_acceptable": true,
+        "semantic_failure_log_sha256": "053688d8bf6c5e539e1766ca42c584d0bee24cb9f9cdc034cd9d7c71b47e2307",
+        "state_id": "s-bd8175fdb8527de8e5f2",
+        "successful_actions": [
+          "dependency",
+          "escalate_agent"
+        ],
+        "top1_correct": true,
+        "usage": {
+          "input_tokens": 1179,
+          "output_tokens": 101
+        }
+      },
+      {
+        "build_system": "autotools",
+        "choice": "configure",
+        "confidence": 0.99,
+        "cost_usd": 4.6200000000000005e-05,
+        "direct_choice": true,
+        "latency_ms": 317.13969307020307,
+        "optimal_action": "configure",
+        "order_agreement": true,
+        "probabilities": {
+          "build": 0.01,
+          "configure": 0.99,
+          "dependency": 0.0,
+          "escalate_agent": 0.0
+        },
+        "project_family": "github.com/xiph/rnnoise",
+        "route_acceptable": true,
+        "semantic_failure_log_sha256": "4c53874027bebad1d9ac17738d329fe2c2d086bc3f2e002f11e69f417645eb0a",
+        "state_id": "s-c12be5b065b0b080eae6",
+        "successful_actions": [
+          "configure",
+          "escalate_agent"
+        ],
+        "top1_correct": true,
+        "usage": {
+          "input_tokens": 1100,
+          "output_tokens": 101
+        }
+      },
+      {
+        "build_system": "make",
+        "choice": "build",
+        "confidence": 1.0,
+        "cost_usd": 4.7418000000000006e-05,
+        "direct_choice": true,
+        "latency_ms": 311.22506503015757,
+        "optimal_action": "build",
+        "order_agreement": true,
+        "probabilities": {
+          "build": 1.0,
+          "configure": 0.0,
+          "dependency": 0.0,
+          "escalate_agent": 0.0
+        },
+        "project_family": "github.com/official-stockfish/stockfish",
+        "route_acceptable": true,
+        "semantic_failure_log_sha256": "30ec0dc08f270fc061bf3f798f4131c07a11bc76d5c374fe40884727b0ca7771",
+        "state_id": "s-c438d977e2e5a3b41bfa",
+        "successful_actions": [
+          "dependency",
+          "configure",
+          "build",
+          "escalate_agent"
+        ],
+        "top1_correct": true,
+        "usage": {
+          "input_tokens": 1129,
+          "output_tokens": 101
+        }
+      },
+      {
+        "build_system": "make",
+        "choice": "dependency",
+        "confidence": 0.97,
+        "cost_usd": 4.7964000000000004e-05,
+        "direct_choice": true,
+        "latency_ms": 290.4383889399469,
+        "optimal_action": "dependency",
+        "order_agreement": true,
+        "probabilities": {
+          "build": 0.02,
+          "configure": 0.0,
+          "dependency": 0.98,
+          "escalate_agent": 0.0
+        },
+        "project_family": "github.com/cyan4973/xxhash",
+        "route_acceptable": true,
+        "semantic_failure_log_sha256": "9e0ff261a3eef770ac9856a73a6f321b7b24864705135253679db74d6d3785ba",
+        "state_id": "s-d0ba6d02f3d149238cda",
+        "successful_actions": [
+          "dependency",
+          "escalate_agent"
+        ],
+        "top1_correct": true,
+        "usage": {
+          "input_tokens": 1142,
+          "output_tokens": 101
+        }
+      },
+      {
+        "build_system": "make",
+        "choice": "configure",
+        "confidence": 0.97,
+        "cost_usd": 4.7040000000000004e-05,
+        "direct_choice": true,
+        "latency_ms": 287.24691085517406,
+        "optimal_action": "configure",
+        "order_agreement": true,
+        "probabilities": {
+          "build": 0.02,
+          "configure": 0.98,
+          "dependency": 0.0,
+          "escalate_agent": 0.0
+        },
+        "project_family": "github.com/official-stockfish/stockfish",
+        "route_acceptable": true,
+        "semantic_failure_log_sha256": "7113259918cecbf39775cf175e7be3ec2e7177ee2af998e6a99db1901a6317bd",
+        "state_id": "s-d634eb13701d255ce805",
+        "successful_actions": [
+          "configure",
+          "escalate_agent"
+        ],
+        "top1_correct": true,
+        "usage": {
+          "input_tokens": 1120,
+          "output_tokens": 101
+        }
+      },
+      {
+        "build_system": "cmake",
+        "choice": "configure",
+        "confidence": 0.99,
+        "cost_usd": 4.6158e-05,
+        "direct_choice": true,
+        "latency_ms": 278.239554958418,
+        "optimal_action": "configure",
+        "order_agreement": true,
+        "probabilities": {
+          "build": 0.01,
+          "configure": 0.99,
+          "dependency": 0.0,
+          "escalate_agent": 0.0
+        },
+        "project_family": "github.com/davegamble/cjson",
+        "route_acceptable": true,
+        "semantic_failure_log_sha256": "4c53874027bebad1d9ac17738d329fe2c2d086bc3f2e002f11e69f417645eb0a",
+        "state_id": "s-dcbe3dfaed44e758c423",
+        "successful_actions": [
+          "configure",
+          "escalate_agent"
+        ],
+        "top1_correct": true,
+        "usage": {
+          "input_tokens": 1099,
+          "output_tokens": 101
+        }
+      },
+      {
+        "build_system": "make",
+        "choice": "configure",
+        "confidence": 0.99,
+        "cost_usd": 4.6116e-05,
+        "direct_choice": true,
+        "latency_ms": 280.8209811337292,
+        "optimal_action": "configure",
+        "order_agreement": true,
+        "probabilities": {
+          "build": 0.01,
+          "configure": 0.99,
+          "dependency": 0.0,
+          "escalate_agent": 0.0
+        },
+        "project_family": "github.com/cyan4973/xxhash",
+        "route_acceptable": true,
+        "semantic_failure_log_sha256": "4c53874027bebad1d9ac17738d329fe2c2d086bc3f2e002f11e69f417645eb0a",
+        "state_id": "s-dfe32dff679fa297124a",
+        "successful_actions": [
+          "configure",
+          "escalate_agent"
+        ],
+        "top1_correct": true,
+        "usage": {
+          "input_tokens": 1098,
+          "output_tokens": 101
+        }
+      }
+    ],
+    "split": "design",
+    "state_count": 18,
+    "top1_correct": 18
+  },
+  "document_type": "forge_jev_offline_qualification_report",
+  "evaluation": {
+    "direct_choice_count": 18,
+    "order_agreement_count": 18,
+    "route_acceptable_count": 18,
+    "rows": [
+      {
+        "build_system": "cmake",
+        "calibrated_safe_probability": 0.735545402401868,
+        "choice": "configure",
+        "confidence": 0.99,
+        "cost_usd": 4.6158e-05,
+        "direct_choice": true,
+        "direct_execute": true,
+        "latency_ms": 431.947975885123,
+        "optimal_action": "configure",
+        "order_agreement": true,
+        "probabilities": {
+          "build": 0.01,
+          "configure": 0.99,
+          "dependency": 0.0,
+          "escalate_agent": 0.0
+        },
+        "project_family": "github.com/taywee/args",
+        "route_acceptable": true,
+        "semantic_failure_log_sha256": "4c53874027bebad1d9ac17738d329fe2c2d086bc3f2e002f11e69f417645eb0a",
+        "state_id": "s-04583a661d7afed169c1",
+        "successful_actions": [
+          "configure",
+          "escalate_agent"
+        ],
+        "top1_correct": true,
+        "usage": {
+          "input_tokens": 1099,
+          "output_tokens": 101
+        }
+      },
+      {
+        "build_system": "make",
+        "calibrated_safe_probability": 0.735545402401868,
+        "choice": "configure",
+        "confidence": 0.99,
+        "cost_usd": 4.6116e-05,
+        "direct_choice": true,
+        "direct_execute": true,
+        "latency_ms": 322.5011918693781,
+        "optimal_action": "configure",
+        "order_agreement": true,
+        "probabilities": {
+          "build": 0.01,
+          "configure": 0.99,
+          "dependency": 0.0,
+          "escalate_agent": 0.0
+        },
+        "project_family": "github.com/redis/hiredis",
+        "route_acceptable": true,
+        "semantic_failure_log_sha256": "4c53874027bebad1d9ac17738d329fe2c2d086bc3f2e002f11e69f417645eb0a",
+        "state_id": "s-1a79cc859bb2c737959a",
+        "successful_actions": [
+          "configure",
+          "escalate_agent"
+        ],
+        "top1_correct": true,
+        "usage": {
+          "input_tokens": 1098,
+          "output_tokens": 101
+        }
+      },
+      {
+        "build_system": "cmake",
+        "calibrated_safe_probability": 0.8623339474077644,
+        "choice": "build",
+        "confidence": 1.0,
+        "cost_usd": 4.6578e-05,
+        "direct_choice": true,
+        "direct_execute": true,
+        "latency_ms": 332.9808481503278,
+        "optimal_action": "build",
+        "order_agreement": true,
+        "probabilities": {
+          "build": 1.0,
+          "configure": 0.0,
+          "dependency": 0.0,
+          "escalate_agent": 0.0
+        },
+        "project_family": "github.com/taywee/args",
+        "route_acceptable": true,
+        "semantic_failure_log_sha256": "20b0c8a568b9749cf551aecce980c85b5155e4f3c00d93f571496358fdb50949",
+        "state_id": "s-24a82eb0e6f3a737d7ca",
+        "successful_actions": [
+          "dependency",
+          "configure",
+          "build",
+          "escalate_agent"
+        ],
+        "top1_correct": true,
+        "usage": {
+          "input_tokens": 1109,
+          "output_tokens": 101
+        }
+      },
+      {
+        "build_system": "autotools",
+        "calibrated_safe_probability": 0.8623339474077644,
+        "choice": "dependency",
+        "confidence": 1.0,
+        "cost_usd": 6.9804e-05,
+        "direct_choice": true,
+        "direct_execute": true,
+        "latency_ms": 293.08641888201237,
+        "optimal_action": "dependency",
+        "order_agreement": true,
+        "probabilities": {
+          "build": 0.0,
+          "configure": 0.0,
+          "dependency": 1.0,
+          "escalate_agent": 0.0
+        },
+        "project_family": "github.com/c-ares/c-ares",
+        "route_acceptable": true,
+        "semantic_failure_log_sha256": "92d6b94ae46e1bbf84467bef42fe1df66d1e6dda7fcb5e4c0dead90f416e63af",
+        "state_id": "s-3b766e7d393c963c2a86",
+        "successful_actions": [
+          "dependency",
+          "escalate_agent"
+        ],
+        "top1_correct": true,
+        "usage": {
+          "input_tokens": 1662,
+          "output_tokens": 101
+        }
+      },
+      {
+        "build_system": "make",
+        "calibrated_safe_probability": 0.735545402401868,
+        "choice": "dependency",
+        "confidence": 0.99,
+        "cost_usd": 8.563800000000001e-05,
+        "direct_choice": true,
+        "direct_execute": true,
+        "latency_ms": 303.3241161610931,
+        "optimal_action": "dependency",
+        "order_agreement": true,
+        "probabilities": {
+          "build": 0.01,
+          "configure": 0.0,
+          "dependency": 0.99,
+          "escalate_agent": 0.0
+        },
+        "project_family": "github.com/kjdev/hoextdown",
+        "route_acceptable": true,
+        "semantic_failure_log_sha256": "fbe75bbbe7db2717fb56be59491dc1308322522de6263b09f561bdec1ed75e07",
+        "state_id": "s-43d6dc524621d9452800",
+        "successful_actions": [
+          "dependency",
+          "escalate_agent"
+        ],
+        "top1_correct": true,
+        "usage": {
+          "input_tokens": 2039,
+          "output_tokens": 101
+        }
+      },
+      {
+        "build_system": "autotools",
+        "calibrated_safe_probability": 0.8623339474077644,
+        "choice": "build",
+        "confidence": 1.0,
+        "cost_usd": 4.6578e-05,
+        "direct_choice": true,
+        "direct_execute": true,
+        "latency_ms": 296.06436705216765,
+        "optimal_action": "build",
+        "order_agreement": true,
+        "probabilities": {
+          "build": 1.0,
+          "configure": 0.0,
+          "dependency": 0.0,
+          "escalate_agent": 0.0
+        },
+        "project_family": "github.com/c-ares/c-ares",
+        "route_acceptable": true,
+        "semantic_failure_log_sha256": "65ab78f48cb7292ab695f483eb55d81f8f6b7a2fed1297bf265c2d551a5692ea",
+        "state_id": "s-556022689d838bba8b99",
+        "successful_actions": [
+          "dependency",
+          "configure",
+          "build",
+          "escalate_agent"
+        ],
+        "top1_correct": true,
+        "usage": {
+          "input_tokens": 1109,
+          "output_tokens": 101
+        }
+      },
+      {
+        "build_system": "cmake",
+        "calibrated_safe_probability": 0.8623339474077644,
+        "choice": "build",
+        "confidence": 1.0,
+        "cost_usd": 4.6578e-05,
+        "direct_choice": true,
+        "direct_execute": true,
+        "latency_ms": 298.0825658887625,
+        "optimal_action": "build",
+        "order_agreement": true,
+        "probabilities": {
+          "build": 1.0,
+          "configure": 0.0,
+          "dependency": 0.0,
+          "escalate_agent": 0.0
+        },
+        "project_family": "github.com/ibireme/yyjson",
+        "route_acceptable": true,
+        "semantic_failure_log_sha256": "20b0c8a568b9749cf551aecce980c85b5155e4f3c00d93f571496358fdb50949",
+        "state_id": "s-6227b03255d47a2aa384",
+        "successful_actions": [
+          "dependency",
+          "configure",
+          "build",
+          "escalate_agent"
+        ],
+        "top1_correct": true,
+        "usage": {
+          "input_tokens": 1109,
+          "output_tokens": 101
+        }
+      },
+      {
+        "build_system": "make",
+        "calibrated_safe_probability": 0.8623339474077644,
+        "choice": "build",
+        "confidence": 1.0,
+        "cost_usd": 4.6494e-05,
+        "direct_choice": true,
+        "direct_execute": true,
+        "latency_ms": 303.02344518713653,
+        "optimal_action": "build",
+        "order_agreement": true,
+        "probabilities": {
+          "build": 1.0,
+          "configure": 0.0,
+          "dependency": 0.0,
+          "escalate_agent": 0.0
+        },
+        "project_family": "github.com/redis/hiredis",
+        "route_acceptable": true,
+        "semantic_failure_log_sha256": "65ab78f48cb7292ab695f483eb55d81f8f6b7a2fed1297bf265c2d551a5692ea",
+        "state_id": "s-772563d4dd7ba7c80d3a",
+        "successful_actions": [
+          "dependency",
+          "configure",
+          "build",
+          "escalate_agent"
+        ],
+        "top1_correct": true,
+        "usage": {
+          "input_tokens": 1107,
+          "output_tokens": 101
+        }
+      },
+      {
+        "build_system": "make",
+        "calibrated_safe_probability": 0.8623339474077644,
+        "choice": "build",
+        "confidence": 1.0,
+        "cost_usd": 4.6494e-05,
+        "direct_choice": true,
+        "direct_execute": true,
+        "latency_ms": 296.9564408995211,
+        "optimal_action": "build",
+        "order_agreement": true,
+        "probabilities": {
+          "build": 1.0,
+          "configure": 0.0,
+          "dependency": 0.0,
+          "escalate_agent": 0.0
+        },
+        "project_family": "github.com/kjdev/hoextdown",
+        "route_acceptable": true,
+        "semantic_failure_log_sha256": "65ab78f48cb7292ab695f483eb55d81f8f6b7a2fed1297bf265c2d551a5692ea",
+        "state_id": "s-79362feaf13d94eebfae",
+        "successful_actions": [
+          "dependency",
+          "configure",
+          "build",
+          "escalate_agent"
+        ],
+        "top1_correct": true,
+        "usage": {
+          "input_tokens": 1107,
+          "output_tokens": 101
+        }
+      },
+      {
+        "build_system": "cmake",
+        "calibrated_safe_probability": 0.7063241729447685,
+        "choice": "dependency",
+        "confidence": 0.93,
+        "cost_usd": 5.4054e-05,
+        "direct_choice": true,
+        "direct_execute": true,
+        "latency_ms": 302.5578409433365,
+        "optimal_action": "dependency",
+        "order_agreement": true,
+        "probabilities": {
+          "build": 0.04,
+          "configure": 0.0,
+          "dependency": 0.95,
+          "escalate_agent": 0.01
+        },
+        "project_family": "github.com/taywee/args",
+        "route_acceptable": true,
+        "semantic_failure_log_sha256": "1bfd3ce8141978da2bef7fa527869468febeff5961e90ffdb6642a17831ee963",
+        "state_id": "s-7fc6d755cdf374a4b79e",
+        "successful_actions": [
+          "dependency",
+          "escalate_agent"
+        ],
+        "top1_correct": true,
+        "usage": {
+          "input_tokens": 1287,
+          "output_tokens": 101
+        }
+      },
+      {
+        "build_system": "cmake",
+        "calibrated_safe_probability": 0.735545402401868,
+        "choice": "configure",
+        "confidence": 0.99,
+        "cost_usd": 4.6158e-05,
+        "direct_choice": true,
+        "direct_execute": true,
+        "latency_ms": 295.7984930835664,
+        "optimal_action": "configure",
+        "order_agreement": true,
+        "probabilities": {
+          "build": 0.01,
+          "configure": 0.99,
+          "dependency": 0.0,
+          "escalate_agent": 0.0
+        },
+        "project_family": "github.com/ibireme/yyjson",
+        "route_acceptable": true,
+        "semantic_failure_log_sha256": "4c53874027bebad1d9ac17738d329fe2c2d086bc3f2e002f11e69f417645eb0a",
+        "state_id": "s-91f45981ca5f02feeb1c",
+        "successful_actions": [
+          "configure",
+          "escalate_agent"
+        ],
+        "top1_correct": true,
+        "usage": {
+          "input_tokens": 1099,
+          "output_tokens": 101
+        }
+      },
+      {
+        "build_system": "autotools",
+        "calibrated_safe_probability": 0.8623339474077644,
+        "choice": "build",
+        "confidence": 1.0,
+        "cost_usd": 4.6578e-05,
+        "direct_choice": true,
+        "direct_execute": true,
+        "latency_ms": 296.31525091826916,
+        "optimal_action": "build",
+        "order_agreement": true,
+        "probabilities": {
+          "build": 1.0,
+          "configure": 0.0,
+          "dependency": 0.0,
+          "escalate_agent": 0.0
+        },
+        "project_family": "github.com/numactl/numactl",
+        "route_acceptable": true,
+        "semantic_failure_log_sha256": "65ab78f48cb7292ab695f483eb55d81f8f6b7a2fed1297bf265c2d551a5692ea",
+        "state_id": "s-929f23cdc35c78036248",
+        "successful_actions": [
+          "dependency",
+          "configure",
+          "build",
+          "escalate_agent"
+        ],
+        "top1_correct": true,
+        "usage": {
+          "input_tokens": 1109,
+          "output_tokens": 101
+        }
+      },
+      {
+        "build_system": "autotools",
+        "calibrated_safe_probability": 0.8623339474077644,
+        "choice": "dependency",
+        "confidence": 1.0,
+        "cost_usd": 4.6704e-05,
+        "direct_choice": true,
+        "direct_execute": true,
+        "latency_ms": 296.331447083503,
+        "optimal_action": "dependency",
+        "order_agreement": true,
+        "probabilities": {
+          "build": 0.0,
+          "configure": 0.0,
+          "dependency": 1.0,
+          "escalate_agent": 0.0
+        },
+        "project_family": "github.com/numactl/numactl",
+        "route_acceptable": true,
+        "semantic_failure_log_sha256": "53e3a42627e72cb82ca511624562951ad0be8ede6d276a956aee6ad49049f906",
+        "state_id": "s-9367b10556f281130338",
+        "successful_actions": [
+          "dependency",
+          "escalate_agent"
+        ],
+        "top1_correct": true,
+        "usage": {
+          "input_tokens": 1112,
+          "output_tokens": 101
+        }
+      },
+      {
+        "build_system": "make",
+        "calibrated_safe_probability": 0.735545402401868,
+        "choice": "dependency",
+        "confidence": 0.99,
+        "cost_usd": 5.2332e-05,
+        "direct_choice": true,
+        "direct_execute": true,
+        "latency_ms": 357.9934739973396,
+        "optimal_action": "dependency",
+        "order_agreement": true,
+        "probabilities": {
+          "build": 0.01,
+          "configure": 0.0,
+          "dependency": 0.99,
+          "escalate_agent": 0.0
+        },
+        "project_family": "github.com/redis/hiredis",
+        "route_acceptable": true,
+        "semantic_failure_log_sha256": "41ec7fe68930a531fff186968a34784c41cb38cb0a7399e79baba931cc0cc9eb",
+        "state_id": "s-b494d9209391bfc45581",
+        "successful_actions": [
+          "dependency",
+          "escalate_agent"
+        ],
+        "top1_correct": true,
+        "usage": {
+          "input_tokens": 1246,
+          "output_tokens": 101
+        }
+      },
+      {
+        "build_system": "autotools",
+        "calibrated_safe_probability": 0.735545402401868,
+        "choice": "configure",
+        "confidence": 0.99,
+        "cost_usd": 4.6200000000000005e-05,
+        "direct_choice": true,
+        "direct_execute": true,
+        "latency_ms": 297.18941380269825,
+        "optimal_action": "configure",
+        "order_agreement": true,
+        "probabilities": {
+          "build": 0.01,
+          "configure": 0.99,
+          "dependency": 0.0,
+          "escalate_agent": 0.0
+        },
+        "project_family": "github.com/numactl/numactl",
+        "route_acceptable": true,
+        "semantic_failure_log_sha256": "4c53874027bebad1d9ac17738d329fe2c2d086bc3f2e002f11e69f417645eb0a",
+        "state_id": "s-be1455dc44d3cedc53ff",
+        "successful_actions": [
+          "configure",
+          "escalate_agent"
+        ],
+        "top1_correct": true,
+        "usage": {
+          "input_tokens": 1100,
+          "output_tokens": 101
+        }
+      },
+      {
+        "build_system": "make",
+        "calibrated_safe_probability": 0.735545402401868,
+        "choice": "configure",
+        "confidence": 0.99,
+        "cost_usd": 4.6116e-05,
+        "direct_choice": true,
+        "direct_execute": true,
+        "latency_ms": 302.3867108859122,
+        "optimal_action": "configure",
+        "order_agreement": true,
+        "probabilities": {
+          "build": 0.01,
+          "configure": 0.99,
+          "dependency": 0.0,
+          "escalate_agent": 0.0
+        },
+        "project_family": "github.com/kjdev/hoextdown",
+        "route_acceptable": true,
+        "semantic_failure_log_sha256": "4c53874027bebad1d9ac17738d329fe2c2d086bc3f2e002f11e69f417645eb0a",
+        "state_id": "s-cbeadc0e7593e1792d01",
+        "successful_actions": [
+          "configure",
+          "escalate_agent"
+        ],
+        "top1_correct": true,
+        "usage": {
+          "input_tokens": 1098,
+          "output_tokens": 101
+        }
+      },
+      {
+        "build_system": "autotools",
+        "calibrated_safe_probability": 0.735545402401868,
+        "choice": "configure",
+        "confidence": 0.99,
+        "cost_usd": 4.6200000000000005e-05,
+        "direct_choice": true,
+        "direct_execute": true,
+        "latency_ms": 294.12165679968894,
+        "optimal_action": "configure",
+        "order_agreement": true,
+        "probabilities": {
+          "build": 0.01,
+          "configure": 0.99,
+          "dependency": 0.0,
+          "escalate_agent": 0.0
+        },
+        "project_family": "github.com/c-ares/c-ares",
+        "route_acceptable": true,
+        "semantic_failure_log_sha256": "4c53874027bebad1d9ac17738d329fe2c2d086bc3f2e002f11e69f417645eb0a",
+        "state_id": "s-defeb87ae1e0c9d3db71",
+        "successful_actions": [
+          "configure",
+          "escalate_agent"
+        ],
+        "top1_correct": true,
+        "usage": {
+          "input_tokens": 1100,
+          "output_tokens": 101
+        }
+      },
+      {
+        "build_system": "cmake",
+        "calibrated_safe_probability": 0.8623339474077644,
+        "choice": "dependency",
+        "confidence": 1.0,
+        "cost_usd": 5.1072e-05,
+        "direct_choice": true,
+        "direct_execute": true,
+        "latency_ms": 302.0747941918671,
+        "optimal_action": "dependency",
+        "order_agreement": true,
+        "probabilities": {
+          "build": 0.0,
+          "configure": 0.0,
+          "dependency": 1.0,
+          "escalate_agent": 0.0
+        },
+        "project_family": "github.com/ibireme/yyjson",
+        "route_acceptable": true,
+        "semantic_failure_log_sha256": "fda2332dd050995a7099e13d14173b68a3a9f0e6c7ed573688623783075912e0",
+        "state_id": "s-fdee3a9654716799080d",
+        "successful_actions": [
+          "dependency",
+          "escalate_agent"
+        ],
+        "top1_correct": true,
+        "usage": {
+          "input_tokens": 1216,
+          "output_tokens": 101
+        }
+      }
+    ],
+    "split": "evaluation",
+    "state_count": 18,
+    "top1_correct": 18
+  },
+  "evidence_inventory": [
+    {
+      "path": "calibration.json",
+      "sha256": "1c2d4a24eeb407821ad4e56f41b62e50bef247c71764398044d51d3a24c835cf",
+      "size": 18186
+    },
+    {
+      "path": "design-round-1-review.json",
+      "sha256": "933a8c9c652b759bc06f6cc3f84b03bebbc3d7e796c4b92faaf9f49c389eff3b",
+      "size": 17070
+    },
+    {
+      "path": "prompt-freeze.json",
+      "sha256": "8aec6318209884137d18b94edc1616e1262f7111b70e7666dc8c05abd1aafe79",
+      "size": 17031
+    },
+    {
+      "path": "provider/calibration/analysis.json",
+      "sha256": "a611db5d0d1b9cdd757d55dcde28713b5a3c32862f38a872bca158fcf1d79867",
+      "size": 15503
+    },
+    {
+      "path": "provider/calibration/attempts/01-s-00cbdd48cf2b8718f655.json",
+      "sha256": "b9a0c5699906f9631a242ca5f0e6618971c079f09dcbf1c3b51c867950bfd974",
+      "size": 486
+    },
+    {
+      "path": "provider/calibration/attempts/02-s-1c616672c9e2b407ee10.json",
+      "sha256": "feb763cca85181d02b6128b5259fe2b554fdb3519655218a144213d89692d33a",
+      "size": 486
+    },
+    {
+      "path": "provider/calibration/attempts/03-s-1f8f7c2aee48dd59f0d0.json",
+      "sha256": "6ea9110f287c353534d2bb3f97a14f984c635e0433153781eac80ad986c73448",
+      "size": 486
+    },
+    {
+      "path": "provider/calibration/attempts/04-s-39843500d4e78ef33e8b.json",
+      "sha256": "92b8364d9ff843e85acf92e1f456f06372756b28c572a1e3320f65281c9e5c92",
+      "size": 486
+    },
+    {
+      "path": "provider/calibration/attempts/05-s-511773316574c0a06fb6.json",
+      "sha256": "e43888929a954116bdfb8fee1ad34aef9fa5367183a32aa1e18909dbd1e0ef8f",
+      "size": 486
+    },
+    {
+      "path": "provider/calibration/attempts/06-s-599e7d2e3689267f0a96.json",
+      "sha256": "38f0d6fba6c5e5d7b73be4c00ec6411e4c971dae42684117074d4aadc0371d44",
+      "size": 486
+    },
+    {
+      "path": "provider/calibration/attempts/07-s-5fae6ee1836cbd03b71b.json",
+      "sha256": "ca5f8b1b1347d961e0e53fd6f5068cd07f1f8f11465f611283413ee162a05b81",
+      "size": 486
+    },
+    {
+      "path": "provider/calibration/attempts/08-s-995aabafaa16a9db99bc.json",
+      "sha256": "0cbd92e7e416ec627a687c982c02c37350a8317cae88559eba7031528a1892a2",
+      "size": 486
+    },
+    {
+      "path": "provider/calibration/attempts/09-s-a5b14e59cbc6636f3199.json",
+      "sha256": "a322f9ca80304fa07100620b6aa6fa0d8aa62f090d6efc06014f0dc02c922541",
+      "size": 486
+    },
+    {
+      "path": "provider/calibration/attempts/10-s-a653ff6b5429d47f5d17.json",
+      "sha256": "c68fba821ad0dad27b3622ac129aa392c6c3ea5d599a458268a967321f4e684f",
+      "size": 487
+    },
+    {
+      "path": "provider/calibration/attempts/11-s-b6a38192fcd549eb2f98.json",
+      "sha256": "c955b115c5583cc242c7db173e628122118a1cb71d5d5d2933bf3b0c0a05d54f",
+      "size": 487
+    },
+    {
+      "path": "provider/calibration/attempts/12-s-bc028728a7845f87e01a.json",
+      "sha256": "1e3c9d4542befd5fad9be582eddbdbd517af6311798d6bb99444350e7f3eb6c7",
+      "size": 487
+    },
+    {
+      "path": "provider/calibration/attempts/13-s-c0d9e08ef7caf9048cb7.json",
+      "sha256": "bd12585f1a41786330a6c748b6870f8b36fabc8634ad4fe5cf539c72bd1cdbc9",
+      "size": 487
+    },
+    {
+      "path": "provider/calibration/attempts/14-s-cc405c569f467b6b87a6.json",
+      "sha256": "93b941c151f0dafdc2df4ae92bf3307ec16bcb4aea1b15035798ceb729ecf15d",
+      "size": 487
+    },
+    {
+      "path": "provider/calibration/attempts/15-s-cee99393e3d6575233dc.json",
+      "sha256": "1d18133d619a59027adf7c7ff412842758c795a23473ad848968f847c8f42061",
+      "size": 487
+    },
+    {
+      "path": "provider/calibration/attempts/16-s-d966d46de76d7446a8e7.json",
+      "sha256": "d0a1b98f5c5db8163f0ff778b6b1a90bb0198d1c494b4be90545a42f127b3223",
+      "size": 487
+    },
+    {
+      "path": "provider/calibration/attempts/17-s-f34c385884e2cf32e8e2.json",
+      "sha256": "231055543098bdc6b538e99e66ee9c8e7eb0ef82c4dfda1a40428571cf2cbedd",
+      "size": 487
+    },
+    {
+      "path": "provider/calibration/attempts/18-s-fee61e444164463d058e.json",
+      "sha256": "f9ddb8ec839d08a9a594f46b0a014dda40768b3e3ca5f4ce9c714ccf22faa210",
+      "size": 487
+    },
+    {
+      "path": "provider/calibration/completed.json",
+      "sha256": "8d6eb54aa37c3b431a98c8e5821dbb2a4e062d86caf69cfe15677a49f2e1669c",
+      "size": 405
+    },
+    {
+      "path": "provider/calibration/observations/01-s-00cbdd48cf2b8718f655.json",
+      "sha256": "2ad2704578f60362ae8159f5f5192e227961a5e760c517c84272020461b7be7f",
+      "size": 1165
+    },
+    {
+      "path": "provider/calibration/observations/02-s-1c616672c9e2b407ee10.json",
+      "sha256": "919d29c24094108f66f591b85ab4a737f7f876d10cd6aa78b7d10e599aa3fe34",
+      "size": 1161
+    },
+    {
+      "path": "provider/calibration/observations/03-s-1f8f7c2aee48dd59f0d0.json",
+      "sha256": "02995c37847adfb29187779fec4f5e1d5faddbbfe30d830373358ac462be4a11",
+      "size": 1161
+    },
+    {
+      "path": "provider/calibration/observations/04-s-39843500d4e78ef33e8b.json",
+      "sha256": "fe55e37180c7828828804ade59d5c76861f748aac341dd7b8c92ea4dd93a3e5d",
+      "size": 1180
+    },
+    {
+      "path": "provider/calibration/observations/05-s-511773316574c0a06fb6.json",
+      "sha256": "84c529d9694cd55d2bd396c6fb939c429dfca34f45c3e2b46a9d98619ed29c9f",
+      "size": 1165
+    },
+    {
+      "path": "provider/calibration/observations/06-s-599e7d2e3689267f0a96.json",
+      "sha256": "5f88d5e9199712756861a61285a0f6da6cac93ceeaaaa4585abe02beb0450ae5",
+      "size": 1175
+    },
+    {
+      "path": "provider/calibration/observations/07-s-5fae6ee1836cbd03b71b.json",
+      "sha256": "ac0ffe1f83242e0458ff9a65d3fb2a872ab64b11fe7284c47daaf578d81da225",
+      "size": 1163
+    },
+    {
+      "path": "provider/calibration/observations/08-s-995aabafaa16a9db99bc.json",
+      "sha256": "cf7b5f19558bbf625a86f31dd0bbdd4c2a954101e275a1afa5ad5a692d045638",
+      "size": 1147
+    },
+    {
+      "path": "provider/calibration/observations/09-s-a5b14e59cbc6636f3199.json",
+      "sha256": "b5b545e5ce6d355b23689f65aa660d1c33a8294113fe82c7142ca49aa2dacf36",
+      "size": 1173
+    },
+    {
+      "path": "provider/calibration/observations/10-s-a653ff6b5429d47f5d17.json",
+      "sha256": "cc405fec8d16f9eb499ce944af5a447e88ddd843dd8d65b9a911818030b3674a",
+      "size": 1149
+    },
+    {
+      "path": "provider/calibration/observations/11-s-b6a38192fcd549eb2f98.json",
+      "sha256": "842807b0779c5d45917bfef4ac0ef7f4de9eec8514a35ad44f2994b2b9b0b63a",
+      "size": 1149
+    },
+    {
+      "path": "provider/calibration/observations/12-s-bc028728a7845f87e01a.json",
+      "sha256": "1b8f42820fada65dab098cbf058fe53105804581dcf96780a5337306d0ddb7eb",
+      "size": 1174
+    },
+    {
+      "path": "provider/calibration/observations/13-s-c0d9e08ef7caf9048cb7.json",
+      "sha256": "2f7073de83442750cc6675a2a7a2dd04144bd3de602a294b7c2615d6f5384fd3",
+      "size": 1175
+    },
+    {
+      "path": "provider/calibration/observations/14-s-cc405c569f467b6b87a6.json",
+      "sha256": "b69ba6dc619dd6344445ad4a84ada599a6d1dae6af01a0913e13a9bb32b711f4",
+      "size": 1148
+    },
+    {
+      "path": "provider/calibration/observations/15-s-cee99393e3d6575233dc.json",
+      "sha256": "8b0b756c6277cc1680ebc3bce24d711a0c1b1a5b0d218cf280e12270bc56ea75",
+      "size": 1148
+    },
+    {
+      "path": "provider/calibration/observations/16-s-d966d46de76d7446a8e7.json",
+      "sha256": "b6043cb246ac1ded488704ce8b8d751624d011e62121a9f53326055c5cfd98ae",
+      "size": 1163
+    },
+    {
+      "path": "provider/calibration/observations/17-s-f34c385884e2cf32e8e2.json",
+      "sha256": "d976e34fd79948abf3bde11bd7e4643e525cf5c99e4435c08c799b0d3c087f4d",
+      "size": 1161
+    },
+    {
+      "path": "provider/calibration/observations/18-s-fee61e444164463d058e.json",
+      "sha256": "897a90447773ce6ecf6b80957e3f37a2551f1a0f454b882ed86bf07573f25166",
+      "size": 1161
+    },
+    {
+      "path": "provider/calibration/requests/01-s-00cbdd48cf2b8718f655.json",
+      "sha256": "e40a7a29453b91b909afbc8fc62f59588787b778b65ffd415f293296d2f0d576",
+      "size": 1658
+    },
+    {
+      "path": "provider/calibration/requests/02-s-1c616672c9e2b407ee10.json",
+      "sha256": "153ff5508f4a294ff921d1817187ca7b0d5d9d21a378c2fcc46a910fc5d515d8",
+      "size": 1652
+    },
+    {
+      "path": "provider/calibration/requests/03-s-1f8f7c2aee48dd59f0d0.json",
+      "sha256": "46d5cd8bcc51ba443bb667bdda38249560cf4027720056f591c6ea621070f639",
+      "size": 1652
+    },
+    {
+      "path": "provider/calibration/requests/04-s-39843500d4e78ef33e8b.json",
+      "sha256": "3e2c8990eaf3f28f80ff6111997774a0ed28b8daa5f4f43760842c9c6e68bc2e",
+      "size": 1688
+    },
+    {
+      "path": "provider/calibration/requests/05-s-511773316574c0a06fb6.json",
+      "sha256": "b3c0bd13ada7b59f9ee4c2f05363737d3f51ba35b80975c9bf9deb26c18f7d5a",
+      "size": 1657
+    },
+    {
+      "path": "provider/calibration/requests/06-s-599e7d2e3689267f0a96.json",
+      "sha256": "d76b6f9bd0956cd6b243fb8bcd007f98fa45e0b66179cb02af952c4fc94d7f54",
+      "size": 1666
+    },
+    {
+      "path": "provider/calibration/requests/07-s-5fae6ee1836cbd03b71b.json",
+      "sha256": "6fcefae59fc8be5fc50043b0001372ad81650098c45b43cb974fe0a4bff5606e",
+      "size": 1654
+    },
+    {
+      "path": "provider/calibration/requests/08-s-995aabafaa16a9db99bc.json",
+      "sha256": "fc3716c3d5ff8d2ab189e242fc5009de4c36c6ce5ae684e69f5a8e270666fa49",
+      "size": 1604
+    },
+    {
+      "path": "provider/calibration/requests/09-s-a5b14e59cbc6636f3199.json",
+      "sha256": "90123d9966784355529b0672d7294cfb809b151d69b91c00242abadb14b9c2ca",
+      "size": 1664
+    },
+    {
+      "path": "provider/calibration/requests/10-s-a653ff6b5429d47f5d17.json",
+      "sha256": "d1cb10664e086fa54cdeedef518bfa2ec51f60b5fdc7286cc9a897eeeeadc3ee",
+      "size": 1606
+    },
+    {
+      "path": "provider/calibration/requests/11-s-b6a38192fcd549eb2f98.json",
+      "sha256": "49741b850fb934ee70887afb3f9dcc8f0384384e6cae33920918698c408634cb",
+      "size": 1606
+    },
+    {
+      "path": "provider/calibration/requests/12-s-bc028728a7845f87e01a.json",
+      "sha256": "7326b1eb862976a2a2e320b2fea472d65820243e1847b487ef49e9453bfbb131",
+      "size": 1665
+    },
+    {
+      "path": "provider/calibration/requests/13-s-c0d9e08ef7caf9048cb7.json",
+      "sha256": "eebf761615a32f475d64e1d0224deb84a72b9aeb5dfe29f9cc515eb106948c39",
+      "size": 1666
+    },
+    {
+      "path": "provider/calibration/requests/14-s-cc405c569f467b6b87a6.json",
+      "sha256": "a1205485c7dc362f8dc02cc4efdb79b739a23f4fb99db90b1decbed28576c067",
+      "size": 1605
+    },
+    {
+      "path": "provider/calibration/requests/15-s-cee99393e3d6575233dc.json",
+      "sha256": "e73b3ded8fff7e6a405d36b3ad3e138eeccd8520d73b6f6a3d332ff48e2fbb76",
+      "size": 1605
+    },
+    {
+      "path": "provider/calibration/requests/16-s-d966d46de76d7446a8e7.json",
+      "sha256": "eb56feda4dd8bcab4c018c8a4ea325b3cf6c118ba66ab33e6b833557eedb6b9b",
+      "size": 1654
+    },
+    {
+      "path": "provider/calibration/requests/17-s-f34c385884e2cf32e8e2.json",
+      "sha256": "1f184e40aa28f5565e0a0b77c39bad0dc39da5846ef2ae8680411c042ed617ac",
+      "size": 1635
+    },
+    {
+      "path": "provider/calibration/requests/18-s-fee61e444164463d058e.json",
+      "sha256": "e293e53bd81dbf243b5da73b0c374c1ab4c29a13ed3c5f5d4af0ea592000015f",
+      "size": 1618
+    },
+    {
+      "path": "provider/calibration/started.json",
+      "sha256": "23c2fbec9e208e553689ca5909f38239408732f2c45a62689190a2b14eac073a",
+      "size": 380
+    },
+    {
+      "path": "provider/design-round-1/analysis.json",
+      "sha256": "8cd16005ccfc0b3adbb98d8841bcb2063746f1e78d0bde1a8b8eccb703522415",
+      "size": 15632
+    },
+    {
+      "path": "provider/design-round-1/attempts/01-s-09b9c5f349a144ded615.json",
+      "sha256": "d1d430b3c7f8edbe9cac7baaa42c39cc8ddc099050b9d781165dfd573680296b",
+      "size": 481
+    },
+    {
+      "path": "provider/design-round-1/attempts/02-s-3b63064ac5ed3cb4a6be.json",
+      "sha256": "cb865b61a614a75e87b73ccc763e29dcdb0ee91b6886ddfb33786afeac0db1cb",
+      "size": 481
+    },
+    {
+      "path": "provider/design-round-1/attempts/03-s-3cee20ea8ccde8a8d60b.json",
+      "sha256": "74d320fee932ac69b9eb7e86c55c176ab0850ba7e2973d647c3d9801010104f4",
+      "size": 481
+    },
+    {
+      "path": "provider/design-round-1/attempts/04-s-46ab4053e8e9e952dbc6.json",
+      "sha256": "f9738b9b0ffe149202a845c00d83de5833098d42cdef9782971dfe68cdc1792b",
+      "size": 481
+    },
+    {
+      "path": "provider/design-round-1/attempts/05-s-54193a88d09cc993b303.json",
+      "sha256": "1e0bc71317172eb53d14eff9e98f6d11aaba2429dcfc99d3800fc4dd8de20fe5",
+      "size": 481
+    },
+    {
+      "path": "provider/design-round-1/attempts/06-s-64a8732e22cd55b39b17.json",
+      "sha256": "46a7b101b3faafdd558c29af4016dd7cf0ea3e193e49183de0326ce2f3f9ea59",
+      "size": 481
+    },
+    {
+      "path": "provider/design-round-1/attempts/07-s-686f7dec7c67b354d921.json",
+      "sha256": "bf2dd48e07214861e36cc9be8b673af7ff12ceccff1fab948e615ef765e11000",
+      "size": 481
+    },
+    {
+      "path": "provider/design-round-1/attempts/08-s-88fc7e9e638d56cea2c4.json",
+      "sha256": "dfabaa9f62ccc39b317c106beca1879df6a805397e3a647c49f64ea401f31cdc",
+      "size": 481
+    },
+    {
+      "path": "provider/design-round-1/attempts/09-s-997049025ac2fd8515de.json",
+      "sha256": "a7783ddde7baa1e7c6eaa3dfe0d87c7e7826d0f2e8188e7762eb8562920423f5",
+      "size": 481
+    },
+    {
+      "path": "provider/design-round-1/attempts/10-s-9e32cbeba31f56fc5bd1.json",
+      "sha256": "057a678780ae2886657313bec25d82025bb7f57865e605baa6a837f0acf44590",
+      "size": 482
+    },
+    {
+      "path": "provider/design-round-1/attempts/11-s-ab138df42d28306ad733.json",
+      "sha256": "421f286fb3fd041fc5354aba5ffa2f9420e30b89c31a39a2ab156302933d028c",
+      "size": 482
+    },
+    {
+      "path": "provider/design-round-1/attempts/12-s-bd8175fdb8527de8e5f2.json",
+      "sha256": "c049d93fed4a5aba0cacbf4f73d349a8f7618931269e584a78ea48647f66c8a6",
+      "size": 482
+    },
+    {
+      "path": "provider/design-round-1/attempts/13-s-c12be5b065b0b080eae6.json",
+      "sha256": "215b2cf52e2cc0953c26bf29ac301ec3368860bc263bfa1e5276e226a9c0d4b0",
+      "size": 482
+    },
+    {
+      "path": "provider/design-round-1/attempts/14-s-c438d977e2e5a3b41bfa.json",
+      "sha256": "b08f438efc2452d021dfa9c2bf07c6c7ecceba4566f4e80b7dafb5aba57fac24",
+      "size": 482
+    },
+    {
+      "path": "provider/design-round-1/attempts/15-s-d0ba6d02f3d149238cda.json",
+      "sha256": "32ec81b6846a8e907aa01154a637de04fc1f1936fd64c4db84eb1ef80c784019",
+      "size": 482
+    },
+    {
+      "path": "provider/design-round-1/attempts/16-s-d634eb13701d255ce805.json",
+      "sha256": "7d38f47363583eaaae238dfa5b6f2e3e31f468fe5447dc68fb334198b3a9fb40",
+      "size": 482
+    },
+    {
+      "path": "provider/design-round-1/attempts/17-s-dcbe3dfaed44e758c423.json",
+      "sha256": "99b3cb0d151351ea1c8d7a816f5ed3ecddf9d5ecaa8a6dea492cf18ed2f31c37",
+      "size": 482
+    },
+    {
+      "path": "provider/design-round-1/attempts/18-s-dfe32dff679fa297124a.json",
+      "sha256": "1fb7af20db76b7b4ee27b744698fc1f11a9d5c9b2b5f5b142d040e4a7da323c1",
+      "size": 482
+    },
+    {
+      "path": "provider/design-round-1/completed.json",
+      "sha256": "6377c943520f36d6232d61a44677017736b4913288bb0df3e8b285a713b256ff",
+      "size": 390
+    },
+    {
+      "path": "provider/design-round-1/observations/01-s-09b9c5f349a144ded615.json",
+      "sha256": "a626b35f23d1badc2b3e4b83227d8ed8474f4b15ad55c465c7e4c2074650b955",
+      "size": 1160
+    },
+    {
+      "path": "provider/design-round-1/observations/02-s-3b63064ac5ed3cb4a6be.json",
+      "sha256": "c60bc5a355b6e237afab83b294fd34fd00b808981a6ebcc2cf7c4de9a25c9a41",
+      "size": 1160
+    },
+    {
+      "path": "provider/design-round-1/observations/03-s-3cee20ea8ccde8a8d60b.json",
+      "sha256": "10a79814b2561adf1cbfcfc2126d932043fd3b36ca823763356c31c5a5b2f3a7",
+      "size": 1161
+    },
+    {
+      "path": "provider/design-round-1/observations/04-s-46ab4053e8e9e952dbc6.json",
+      "sha256": "2bdf2cb843c8efab15b9852b67b899596b368741f40798f4975d4601a0f06551",
+      "size": 1157
+    },
+    {
+      "path": "provider/design-round-1/observations/05-s-54193a88d09cc993b303.json",
+      "sha256": "b4d220bf5259a415f9313d7bdfdf4ef7fbad85331f6712bde0ecaa2abee52416",
+      "size": 1158
+    },
+    {
+      "path": "provider/design-round-1/observations/06-s-64a8732e22cd55b39b17.json",
+      "sha256": "0dfa137ee2c0e277b1249551374b6e2c710e94c5ed2d67ed22e426a8041a1e44",
+      "size": 1159
+    },
+    {
+      "path": "provider/design-round-1/observations/07-s-686f7dec7c67b354d921.json",
+      "sha256": "526f56e82c528057ab46472adaa616ea53859990b91ab7b8c82c9c5b8103c1a3",
+      "size": 1172
+    },
+    {
+      "path": "provider/design-round-1/observations/08-s-88fc7e9e638d56cea2c4.json",
+      "sha256": "6b91c1604b3fdd8559120664b972d0a9491d732d62a17a2996cc1401eb86c5d9",
+      "size": 1160
+    },
+    {
+      "path": "provider/design-round-1/observations/09-s-997049025ac2fd8515de.json",
+      "sha256": "225391b5000aec2d09b8d3879db8c046804db28bd5d79bf6f477ab2f491ccbe9",
+      "size": 1159
+    },
+    {
+      "path": "provider/design-round-1/observations/10-s-9e32cbeba31f56fc5bd1.json",
+      "sha256": "9194b70fb9c5efb45a5a6bba3fe7d675c9c8e68272c5e4d370c41513007dc2df",
+      "size": 1162
+    },
+    {
+      "path": "provider/design-round-1/observations/11-s-ab138df42d28306ad733.json",
+      "sha256": "a2d9dc9b22641249b2cec343a30896f626e02b4e1eb57a1682bbfc857ad1c15e",
+      "size": 1159
+    },
+    {
+      "path": "provider/design-round-1/observations/12-s-bd8175fdb8527de8e5f2.json",
+      "sha256": "8e110a98fadd7497f4edb4d99005bb87ff8c7560d6b0c48429bd0449ad06d2aa",
+      "size": 1174
+    },
+    {
+      "path": "provider/design-round-1/observations/13-s-c12be5b065b0b080eae6.json",
+      "sha256": "807ca893dfee8163910fcda091a5ed30f6bad6c99c7b07a809b9bd14e3890987",
+      "size": 1161
+    },
+    {
+      "path": "provider/design-round-1/observations/14-s-c438d977e2e5a3b41bfa.json",
+      "sha256": "c93c8cb16f8a53504d9f640e3e6a8e80c75c95a8a2f1e0dfd9f688fd66ba6e67",
+      "size": 1159
+    },
+    {
+      "path": "provider/design-round-1/observations/15-s-d0ba6d02f3d149238cda.json",
+      "sha256": "f3e63fa1b458c9fc268708b4dd43ddfc410a510acfc877650ecdcef425413a36",
+      "size": 1172
+    },
+    {
+      "path": "provider/design-round-1/observations/16-s-d634eb13701d255ce805.json",
+      "sha256": "4fc83db30ec15501143f4f47b28a23df5eb05413ba82ed1ca3261c6ed88b1ba1",
+      "size": 1181
+    },
+    {
+      "path": "provider/design-round-1/observations/17-s-dcbe3dfaed44e758c423.json",
+      "sha256": "3d1e5055bcfe07fdeb59de50032ecfeefa637fabbaf491fdfb824eddc680603f",
+      "size": 1159
+    },
+    {
+      "path": "provider/design-round-1/observations/18-s-dfe32dff679fa297124a.json",
+      "sha256": "13e8091b4164f9739c882e7d1d0dbd0e6aa8ab984eda2175c1b58badeb71866f",
+      "size": 1181
+    },
+    {
+      "path": "provider/design-round-1/requests/01-s-09b9c5f349a144ded615.json",
+      "sha256": "e101ab4fbbaa648c1da3170cb5807f6f84f158b01f6e1fd365190bf656b5d5eb",
+      "size": 1658
+    },
+    {
+      "path": "provider/design-round-1/requests/02-s-3b63064ac5ed3cb4a6be.json",
+      "sha256": "94b3bd857b40ebf7ef368f2126c3a30d0c9e24d99978ebea785f2093e17925b6",
+      "size": 1654
+    },
+    {
+      "path": "provider/design-round-1/requests/03-s-3cee20ea8ccde8a8d60b.json",
+      "sha256": "c46b25e5f377c11cc44f14fdf45fb1aaac8cd32cba4091807e376e94cfd5cdbe",
+      "size": 1655
+    },
+    {
+      "path": "provider/design-round-1/requests/04-s-46ab4053e8e9e952dbc6.json",
+      "sha256": "f6a9424ff4f283ca8d6cc7f61a506c8a4614ea3e9017370f3add6112daf7780e",
+      "size": 1653
+    },
+    {
+      "path": "provider/design-round-1/requests/05-s-54193a88d09cc993b303.json",
+      "sha256": "22aae7d47e09a86da697c2cfa7d5e4534f23de2ac2dda18524c4386b91c47774",
+      "size": 1653
+    },
+    {
+      "path": "provider/design-round-1/requests/06-s-64a8732e22cd55b39b17.json",
+      "sha256": "09f83bf2316dbe8ead26bfd34f010411a3d3bdc7d2cf5bdcc486158b5436a46d",
+      "size": 1652
+    },
+    {
+      "path": "provider/design-round-1/requests/07-s-686f7dec7c67b354d921.json",
+      "sha256": "afe70c308cd1f28ea37e227661d88999e954168e1caa6d241b11a1b46ce0a5b3",
+      "size": 1680
+    },
+    {
+      "path": "provider/design-round-1/requests/08-s-88fc7e9e638d56cea2c4.json",
+      "sha256": "725bd2350f3602810b2e5587874621f520cb19bc0d6912fc94ae005efdbfab2f",
+      "size": 1655
+    },
+    {
+      "path": "provider/design-round-1/requests/09-s-997049025ac2fd8515de.json",
+      "sha256": "5e643cac81a2152f842ba102c497ef414af34de0f0a83e034cebb8a9f8374935",
+      "size": 1640
+    },
+    {
+      "path": "provider/design-round-1/requests/10-s-9e32cbeba31f56fc5bd1.json",
+      "sha256": "68a5593e9f6549c18e9a4c175c483f7336776e0ce8b56269b613bf07b2547648",
+      "size": 1656
+    },
+    {
+      "path": "provider/design-round-1/requests/11-s-ab138df42d28306ad733.json",
+      "sha256": "27689f9bd9896f0a83655b06da9c70fb29d1b644181258e272f1022f8c3e613b",
+      "size": 1656
+    },
+    {
+      "path": "provider/design-round-1/requests/12-s-bd8175fdb8527de8e5f2.json",
+      "sha256": "b3a974fa3eef4f7785d177d541caa953cc2fa01c061ebd90d7655fe08e465137",
+      "size": 1654
+    },
+    {
+      "path": "provider/design-round-1/requests/13-s-c12be5b065b0b080eae6.json",
+      "sha256": "3d8f89e48c7125c6760ed3fead1d476a92dd8117a888ada7f1094648815c9617",
+      "size": 1657
+    },
+    {
+      "path": "provider/design-round-1/requests/14-s-c438d977e2e5a3b41bfa.json",
+      "sha256": "8c40d898f0a2390c0d5a85914a1049eedc17ed539ae05145faceb6cb1ffc437e",
+      "size": 1655
+    },
+    {
+      "path": "provider/design-round-1/requests/15-s-d0ba6d02f3d149238cda.json",
+      "sha256": "acc949658178b11e0feabd806cab2a9b48129af6cebbfcd4fb8dcd3632dec78a",
+      "size": 1650
+    },
+    {
+      "path": "provider/design-round-1/requests/16-s-d634eb13701d255ce805.json",
+      "sha256": "bad3ad3e1f2bc8e97833f2659cee5136f31e70d67a8445c46f9c3e67f96f713a",
+      "size": 1660
+    },
+    {
+      "path": "provider/design-round-1/requests/17-s-dcbe3dfaed44e758c423.json",
+      "sha256": "a240d6e45e06bf78c10d1556fc5989712d148427bd0bfca81127b5b5fa54b23d",
+      "size": 1639
+    },
+    {
+      "path": "provider/design-round-1/requests/18-s-dfe32dff679fa297124a.json",
+      "sha256": "3a80d43c6171277f0a05fc61eeea71f653a99ea1ff4f4b65a189f7b2d12b28af",
+      "size": 1675
+    },
+    {
+      "path": "provider/design-round-1/started.json",
+      "sha256": "53d1dd03acd5d1ae9a3b180e8a8a1c081047c77e78ca4a2d078790ee9ce35400",
+      "size": 348
+    },
+    {
+      "path": "provider/design-round-2/analysis.json",
+      "sha256": "32668daaa1a30c6fc6ef38633ff11a3c17051b31e61ac2dad979790523d8ea05",
+      "size": 15583
+    },
+    {
+      "path": "provider/design-round-2/attempts/01-s-09b9c5f349a144ded615.json",
+      "sha256": "7cec73661fb59b81c232290961ac961ce3f021c525eeb4a186d7a69f23369761",
+      "size": 481
+    },
+    {
+      "path": "provider/design-round-2/attempts/02-s-3b63064ac5ed3cb4a6be.json",
+      "sha256": "01235818b962916a9c61d706fba709af8e54a4f860075174b05d354e3810e190",
+      "size": 481
+    },
+    {
+      "path": "provider/design-round-2/attempts/03-s-3cee20ea8ccde8a8d60b.json",
+      "sha256": "ab97c8d96b00bf6bcabb600182a6ebcfff182c030cc3257879fd31b3d6fd0549",
+      "size": 481
+    },
+    {
+      "path": "provider/design-round-2/attempts/04-s-46ab4053e8e9e952dbc6.json",
+      "sha256": "f2117a8365422dad6ce8808480ad75a9be5e76c29b4d4998c8fb4bb8624e5e73",
+      "size": 481
+    },
+    {
+      "path": "provider/design-round-2/attempts/05-s-54193a88d09cc993b303.json",
+      "sha256": "00de16cdb0ace80aab5f1061797222144afddd968e58c0625b5ef06d88062464",
+      "size": 481
+    },
+    {
+      "path": "provider/design-round-2/attempts/06-s-64a8732e22cd55b39b17.json",
+      "sha256": "bc139735da8f8d8d8e58a5d2e3750effdd533dc5f64c02197b1b80649903200c",
+      "size": 481
+    },
+    {
+      "path": "provider/design-round-2/attempts/07-s-686f7dec7c67b354d921.json",
+      "sha256": "2d3891cbd0867e942231d7623c8f449deee608e34c51a4615d377a04c5e16b3a",
+      "size": 481
+    },
+    {
+      "path": "provider/design-round-2/attempts/08-s-88fc7e9e638d56cea2c4.json",
+      "sha256": "8f3933701a89b7fd40286aa6706a321696c8d1106e2b1caa98e24f8d18b45be6",
+      "size": 481
+    },
+    {
+      "path": "provider/design-round-2/attempts/09-s-997049025ac2fd8515de.json",
+      "sha256": "d736955f75d781d0bf79c619760b3e52f236059b192aa9bcf32358ecf7e5e40d",
+      "size": 481
+    },
+    {
+      "path": "provider/design-round-2/attempts/10-s-9e32cbeba31f56fc5bd1.json",
+      "sha256": "432e482fe01c46c8a6f36590f64d810f51a61d20290fc476ba2189f731e17b71",
+      "size": 482
+    },
+    {
+      "path": "provider/design-round-2/attempts/11-s-ab138df42d28306ad733.json",
+      "sha256": "2edb604d864316e836ed9e686deee42a46aa318c105807df479b7366967f5f96",
+      "size": 482
+    },
+    {
+      "path": "provider/design-round-2/attempts/12-s-bd8175fdb8527de8e5f2.json",
+      "sha256": "6705a283594bb42aac910355b29cb1e59827ae8ab47a307fd8616b396c28f4e4",
+      "size": 482
+    },
+    {
+      "path": "provider/design-round-2/attempts/13-s-c12be5b065b0b080eae6.json",
+      "sha256": "7752041291e10fd30ec0f7a02ec5b61ec5d5e3c487f5b70ce45e8f843897ed75",
+      "size": 482
+    },
+    {
+      "path": "provider/design-round-2/attempts/14-s-c438d977e2e5a3b41bfa.json",
+      "sha256": "e50b3d77a879f7f7b3d03616d65c83e0bf7ec42d9d55321969acab6f76a19cb5",
+      "size": 482
+    },
+    {
+      "path": "provider/design-round-2/attempts/15-s-d0ba6d02f3d149238cda.json",
+      "sha256": "36390b3aa602a0c081619266b01fa2f81e79cd92d1d666f52e15c8353f156421",
+      "size": 482
+    },
+    {
+      "path": "provider/design-round-2/attempts/16-s-d634eb13701d255ce805.json",
+      "sha256": "05b64f7eeb891fac3028c1ebc6a08b663e23b884024e54a7aa25a658eaf928d3",
+      "size": 482
+    },
+    {
+      "path": "provider/design-round-2/attempts/17-s-dcbe3dfaed44e758c423.json",
+      "sha256": "d382197141a49ca2153f75be129fd0145abd66b898a38eb7a39930a9a10f1351",
+      "size": 482
+    },
+    {
+      "path": "provider/design-round-2/attempts/18-s-dfe32dff679fa297124a.json",
+      "sha256": "90488dc6d9b833a2bd42f12ae71683083cf2139d58d2a0a89b26ce60f5855445",
+      "size": 482
+    },
+    {
+      "path": "provider/design-round-2/completed.json",
+      "sha256": "45aec107a3420590b74e233d1b586d8872e7d278eddd0abeb4ab0e1c4d06d1e2",
+      "size": 400
+    },
+    {
+      "path": "provider/design-round-2/observations/01-s-09b9c5f349a144ded615.json",
+      "sha256": "230c7da5c79b90fd62d5fb1961fce584d8a101ae94e486accfc52e43446d3a37",
+      "size": 1140
+    },
+    {
+      "path": "provider/design-round-2/observations/02-s-3b63064ac5ed3cb4a6be.json",
+      "sha256": "d05379fea484e79b74279ff0123e0dfeff5cf20888abe351db0e034feb135c24",
+      "size": 1167
+    },
+    {
+      "path": "provider/design-round-2/observations/03-s-3cee20ea8ccde8a8d60b.json",
+      "sha256": "8af1b23ce18d1cd4bdfbc319fc3e46a78c58005fbe07bc4b82242c30cbe5bfb9",
+      "size": 1165
+    },
+    {
+      "path": "provider/design-round-2/observations/04-s-46ab4053e8e9e952dbc6.json",
+      "sha256": "9f9bbf73ffad3639f38f4b78bfbab43fda818ef3b5ecc03c6e4bd8306d9f4b2d",
+      "size": 1143
+    },
+    {
+      "path": "provider/design-round-2/observations/05-s-54193a88d09cc993b303.json",
+      "sha256": "00fcf7745b4a89a4fe550f1117f4457f48ca33877679c4743fba0dc4479ed2db",
+      "size": 1142
+    },
+    {
+      "path": "provider/design-round-2/observations/06-s-64a8732e22cd55b39b17.json",
+      "sha256": "54d534bda91163e06c8ed74266761f086352be477fac778d7b96b216cd3060bd",
+      "size": 1153
+    },
+    {
+      "path": "provider/design-round-2/observations/07-s-686f7dec7c67b354d921.json",
+      "sha256": "253cfd57fe72cc58c1f5587947332daf60da78d37773f28dd64ec04b3585c9f2",
+      "size": 1157
+    },
+    {
+      "path": "provider/design-round-2/observations/08-s-88fc7e9e638d56cea2c4.json",
+      "sha256": "4488d0a9acefedc07000066bb46b19bf92f8e251593733818238f9d5edf5afec",
+      "size": 1169
+    },
+    {
+      "path": "provider/design-round-2/observations/09-s-997049025ac2fd8515de.json",
+      "sha256": "4b4af0a81eb37cc7077dadf7534f562ee7936e11db6afadc0dbfaed8fa3e9eff",
+      "size": 1143
+    },
+    {
+      "path": "provider/design-round-2/observations/10-s-9e32cbeba31f56fc5bd1.json",
+      "sha256": "f8175ba0f29c96c45f0a897d9b5d31c4de8916429a54309b08eee9884e786213",
+      "size": 1171
+    },
+    {
+      "path": "provider/design-round-2/observations/11-s-ab138df42d28306ad733.json",
+      "sha256": "b7d5e34c023b0b360452c6944b66dcf2f7bea53920d0b33d6ce3df3691d7168e",
+      "size": 1143
+    },
+    {
+      "path": "provider/design-round-2/observations/12-s-bd8175fdb8527de8e5f2.json",
+      "sha256": "7924fa42fc84eb30696faf433713a4e99adbebbb4ac8da5b9581e1bd81ed0c07",
+      "size": 1156
+    },
+    {
+      "path": "provider/design-round-2/observations/13-s-c12be5b065b0b080eae6.json",
+      "sha256": "d4915d06aa393aee08914e03c91884782ba61d86ddb103cf018d23b8c5477e20",
+      "size": 1170
+    },
+    {
+      "path": "provider/design-round-2/observations/14-s-c438d977e2e5a3b41bfa.json",
+      "sha256": "44a33b9091d7b0d1a9061873b5673eb23d1002591d240f1274432d3ec257eec5",
+      "size": 1156
+    },
+    {
+      "path": "provider/design-round-2/observations/15-s-d0ba6d02f3d149238cda.json",
+      "sha256": "d0b2a68c3668942a0794540861ae7ec0e585d455dcaaa7a56765e5a950cc17dd",
+      "size": 1171
+    },
+    {
+      "path": "provider/design-round-2/observations/16-s-d634eb13701d255ce805.json",
+      "sha256": "8dccb02d60fc48fc2b06c6a1724f0c6363de5a982fd0f9c3e8ec9dba4b0dedd8",
+      "size": 1170
+    },
+    {
+      "path": "provider/design-round-2/observations/17-s-dcbe3dfaed44e758c423.json",
+      "sha256": "7a0fecab9d02164c0d48a2c2576d476bd4a30c31ba7c9bac470e23451df05ae8",
+      "size": 1156
+    },
+    {
+      "path": "provider/design-round-2/observations/18-s-dfe32dff679fa297124a.json",
+      "sha256": "4cec40ca103160823df83ab8e32a2948db9c55d08ed8fa6ec243f9d9a3ff2f21",
+      "size": 1157
+    },
+    {
+      "path": "provider/design-round-2/requests/01-s-09b9c5f349a144ded615.json",
+      "sha256": "94da6814ecdd73308b3cd139b6c33ecc317ce77bfeeb93834f1d70cea2627186",
+      "size": 1597
+    },
+    {
+      "path": "provider/design-round-2/requests/02-s-3b63064ac5ed3cb4a6be.json",
+      "sha256": "c572877a1335922fa9e22eddac4f3370f453b8ca2d012886c133209fbcd52140",
+      "size": 1641
+    },
+    {
+      "path": "provider/design-round-2/requests/03-s-3cee20ea8ccde8a8d60b.json",
+      "sha256": "3852c07f8b7eea1afce68a89b1476c54395228d791c5a0aeb799fb44ec139405",
+      "size": 1622
+    },
+    {
+      "path": "provider/design-round-2/requests/04-s-46ab4053e8e9e952dbc6.json",
+      "sha256": "3966d52ef1223ab7d9e24530b0f2c0dbcb0ed74a9cfbe21d264d4a6afae7998d",
+      "size": 1600
+    },
+    {
+      "path": "provider/design-round-2/requests/05-s-54193a88d09cc993b303.json",
+      "sha256": "e171949249047d7412d63229449521eb578c0f7d0a040bf5c4eff4e2f00e7379",
+      "size": 1599
+    },
+    {
+      "path": "provider/design-round-2/requests/06-s-64a8732e22cd55b39b17.json",
+      "sha256": "28b51b78b295916f5d301d5dc4c2e474d361362415d84ea1ee11e3df8ce917c3",
+      "size": 1610
+    },
+    {
+      "path": "provider/design-round-2/requests/07-s-686f7dec7c67b354d921.json",
+      "sha256": "7047438510ecb36b86776dea438ffffb81452daa47d3e062ad7939f6f24d114f",
+      "size": 1648
+    },
+    {
+      "path": "provider/design-round-2/requests/08-s-88fc7e9e638d56cea2c4.json",
+      "sha256": "072af8163475b4a47551c7a6a4586324d6ba5783fabaf42bb3b4e76f03bd6792",
+      "size": 1660
+    },
+    {
+      "path": "provider/design-round-2/requests/09-s-997049025ac2fd8515de.json",
+      "sha256": "a5ac7381da709907ad6005c927e71f182708b6dd567e0a80b5ccd9d9e1fcc079",
+      "size": 1600
+    },
+    {
+      "path": "provider/design-round-2/requests/10-s-9e32cbeba31f56fc5bd1.json",
+      "sha256": "180dc06dfde73a9eecdab27b628c7bd23272d50084440ef0e5d39ec783ab3863",
+      "size": 1662
+    },
+    {
+      "path": "provider/design-round-2/requests/11-s-ab138df42d28306ad733.json",
+      "sha256": "a3bfb32d10595c290ac0318cce4581e9a722b6a24b7c07868b868bbb787837c7",
+      "size": 1600
+    },
+    {
+      "path": "provider/design-round-2/requests/12-s-bd8175fdb8527de8e5f2.json",
+      "sha256": "249340201d2d5ebcf969608fec74289d8f7f95cb77e475f455d760fb1792825c",
+      "size": 1630
+    },
+    {
+      "path": "provider/design-round-2/requests/13-s-c12be5b065b0b080eae6.json",
+      "sha256": "bdb81464430b91f2d757c5ee20d34b069719ab70cfb6e8b4cb233a73083177b9",
+      "size": 1661
+    },
+    {
+      "path": "provider/design-round-2/requests/14-s-c438d977e2e5a3b41bfa.json",
+      "sha256": "b774efd0ed2ad868e72b0a59b02dd60e010b02cef4314deb9d6550ac2f40854b",
+      "size": 1613
+    },
+    {
+      "path": "provider/design-round-2/requests/15-s-d0ba6d02f3d149238cda.json",
+      "sha256": "56e54f7f89007ce7f6bdde496b281ebdb4bbc6a33f5acd79a58a71b79c561b29",
+      "size": 1662
+    },
+    {
+      "path": "provider/design-round-2/requests/16-s-d634eb13701d255ce805.json",
+      "sha256": "2d91aa2e280fc1f88d35ea0bb0e317c3759f2527acf9209e5dc6c6d6e6d618f2",
+      "size": 1661
+    },
+    {
+      "path": "provider/design-round-2/requests/17-s-dcbe3dfaed44e758c423.json",
+      "sha256": "d23eb2ff17612fb7d6704419a720c8edc42dc86022a32f0443c6462adbd229f2",
+      "size": 1647
+    },
+    {
+      "path": "provider/design-round-2/requests/18-s-dfe32dff679fa297124a.json",
+      "sha256": "c3768d6bc3f4e51552c257cf54d84525d9d361bbd51a013561336de475e7fbf7",
+      "size": 1648
+    },
+    {
+      "path": "provider/design-round-2/started.json",
+      "sha256": "5ffd5ad50b2142edf7cff848d2993e4b8d69e8bdcc2142e4258bf7a4384983c5",
+      "size": 365
+    },
+    {
+      "path": "provider/evaluation/analysis.json",
+      "sha256": "311f3f977677cb9d77a4d74b6fba4b5cf3de79c37b7e332178e35f4d13b2f33c",
+      "size": 15471
+    },
+    {
+      "path": "provider/evaluation/attempts/01-s-04583a661d7afed169c1.json",
+      "sha256": "a9c177d8c23608abad2c5e6654f54f86243a0e7cf42202678d5bced564bd0f52",
+      "size": 485
+    },
+    {
+      "path": "provider/evaluation/attempts/02-s-1a79cc859bb2c737959a.json",
+      "sha256": "d78a23840bf1dc4c58189ed3266fba3cf3a67f92524c45bcd521761e48d3e538",
+      "size": 485
+    },
+    {
+      "path": "provider/evaluation/attempts/03-s-24a82eb0e6f3a737d7ca.json",
+      "sha256": "2273a7e2f1499e98b9d9e13762f27dc86feaaa1e371b52f8fac1838e9e3664d3",
+      "size": 485
+    },
+    {
+      "path": "provider/evaluation/attempts/04-s-3b766e7d393c963c2a86.json",
+      "sha256": "3b9f43a8b6458685d9b5018b7d7b16ad752b3023b18270659ea51edd98e9e9a1",
+      "size": 485
+    },
+    {
+      "path": "provider/evaluation/attempts/05-s-43d6dc524621d9452800.json",
+      "sha256": "93034d494d1aeb7c79f6563873f1cc1d365879e2640d5fdfcc0335839c9b589a",
+      "size": 485
+    },
+    {
+      "path": "provider/evaluation/attempts/06-s-556022689d838bba8b99.json",
+      "sha256": "a6d436d9aa75bc46cc1a842be65f5ee6e160fa3e6a011af4bf5e9023e518e397",
+      "size": 485
+    },
+    {
+      "path": "provider/evaluation/attempts/07-s-6227b03255d47a2aa384.json",
+      "sha256": "6563a453128efeb8d28b627f54615b1d79f43bfe54c1e519d83a56678501b45f",
+      "size": 485
+    },
+    {
+      "path": "provider/evaluation/attempts/08-s-772563d4dd7ba7c80d3a.json",
+      "sha256": "87240f1a88bbe090f4b0bae0197eb2983db33e2cc5c30539851275933c87e234",
+      "size": 485
+    },
+    {
+      "path": "provider/evaluation/attempts/09-s-79362feaf13d94eebfae.json",
+      "sha256": "10ab639de423c4fdfe39736aca8fcd6ee6f0e8bab2db0054adadb2d01079629a",
+      "size": 485
+    },
+    {
+      "path": "provider/evaluation/attempts/10-s-7fc6d755cdf374a4b79e.json",
+      "sha256": "694042b3cf7a1350a511857fcbcfc85cdcfa14002d0470b382b5394e82df1be9",
+      "size": 486
+    },
+    {
+      "path": "provider/evaluation/attempts/11-s-91f45981ca5f02feeb1c.json",
+      "sha256": "3b10136583d16f91c9e9bdc4ab2770a68e579cf89f6f155755b6a3817169246c",
+      "size": 486
+    },
+    {
+      "path": "provider/evaluation/attempts/12-s-929f23cdc35c78036248.json",
+      "sha256": "636b36f56f74c23cbe1cf6ea464fde0912537644b842206037295b8a445ed12e",
+      "size": 486
+    },
+    {
+      "path": "provider/evaluation/attempts/13-s-9367b10556f281130338.json",
+      "sha256": "6a86fc988627e2b6c0ea4f377db22f6a2be2ed63084b201ae35c627b108190f1",
+      "size": 486
+    },
+    {
+      "path": "provider/evaluation/attempts/14-s-b494d9209391bfc45581.json",
+      "sha256": "6ba204738b12c9cfcd303acbe036a8d52057c18ffa4827823b83698e8b9c26c9",
+      "size": 486
+    },
+    {
+      "path": "provider/evaluation/attempts/15-s-be1455dc44d3cedc53ff.json",
+      "sha256": "92cf88a5b2cfc6312b3588f1584ad16070c02f5bd1aa55c0a0346f1c3059043f",
+      "size": 486
+    },
+    {
+      "path": "provider/evaluation/attempts/16-s-cbeadc0e7593e1792d01.json",
+      "sha256": "214d07ba94ced19079494d2ed03357692cf3294cfdd379186db8ab83159ef4fc",
+      "size": 486
+    },
+    {
+      "path": "provider/evaluation/attempts/17-s-defeb87ae1e0c9d3db71.json",
+      "sha256": "a67b19cef1a033f18ebcf50e3028ef68531172f6c0350d8a8ce618b22f8ddf7f",
+      "size": 486
+    },
+    {
+      "path": "provider/evaluation/attempts/18-s-fdee3a9654716799080d.json",
+      "sha256": "3cc9b906618a8250f93250196ca683dacf37f1b93e75bf54bf86b15f6fc48c7b",
+      "size": 486
+    },
+    {
+      "path": "provider/evaluation/completed.json",
+      "sha256": "0c0c21efa77ce54cb6178c119133493701dcb96897168604c19d4e9721abca3a",
+      "size": 393
+    },
+    {
+      "path": "provider/evaluation/observations/01-s-04583a661d7afed169c1.json",
+      "sha256": "0b0cff2be5cc872314dab067ecc6f0046f660811545f71ae8fad65c9983310fe",
+      "size": 1159
+    },
+    {
+      "path": "provider/evaluation/observations/02-s-1a79cc859bb2c737959a.json",
+      "sha256": "4483617536ce2a9b21c09251688000719dc4e1d997a1b569947241a34310d268",
+      "size": 1160
+    },
+    {
+      "path": "provider/evaluation/observations/03-s-24a82eb0e6f3a737d7ca.json",
+      "sha256": "ec311be5b3e03ac0adf563ef744943e75a994dc9addb120ebaf67fb00226a186",
+      "size": 1146
+    },
+    {
+      "path": "provider/evaluation/observations/04-s-3b766e7d393c963c2a86.json",
+      "sha256": "652f443815999df44f8268aed3f35eab51e4fdd9e2c20eebeb3b537c2a6f7d1f",
+      "size": 1157
+    },
+    {
+      "path": "provider/evaluation/observations/05-s-43d6dc524621d9452800.json",
+      "sha256": "725f7f35ab2edc302caca7fd3e683ed8bec788f98b0d04b363b0413c70681d4b",
+      "size": 1173
+    },
+    {
+      "path": "provider/evaluation/observations/06-s-556022689d838bba8b99.json",
+      "sha256": "7ae70fdffe29e1d29eb04400343b8f161fdebe71eb1bfb49ada54a99d6b929f0",
+      "size": 1147
+    },
+    {
+      "path": "provider/evaluation/observations/07-s-6227b03255d47a2aa384.json",
+      "sha256": "13af010c889eb4c4156e7946043dfbbe410e356a464a9213ece7035353763dfb",
+      "size": 1146
+    },
+    {
+      "path": "provider/evaluation/observations/08-s-772563d4dd7ba7c80d3a.json",
+      "sha256": "830474b57f0bec2aa2355f9cb63437b288683326a223d2d4066c66b502264579",
+      "size": 1147
+    },
+    {
+      "path": "provider/evaluation/observations/09-s-79362feaf13d94eebfae.json",
+      "sha256": "fe0b7d3b29302e69ce2784f5ecae390014031a033abcd2378c0500e3c5906990",
+      "size": 1146
+    },
+    {
+      "path": "provider/evaluation/observations/10-s-7fc6d755cdf374a4b79e.json",
+      "sha256": "7278e02797f2cca18d356ccc7e62edd9570e92749695f205679184832e924d9f",
+      "size": 1164
+    },
+    {
+      "path": "provider/evaluation/observations/11-s-91f45981ca5f02feeb1c.json",
+      "sha256": "4e0a3cac9625aa2951b21083524149e7882465a4ab5210dcf554c3c77e7fc96a",
+      "size": 1161
+    },
+    {
+      "path": "provider/evaluation/observations/12-s-929f23cdc35c78036248.json",
+      "sha256": "41dff8aad323ebe9740aec3ab848bf02bf1ee607aca9d0a574771f853279cbf7",
+      "size": 1148
+    },
+    {
+      "path": "provider/evaluation/observations/13-s-9367b10556f281130338.json",
+      "sha256": "f52f389327320e75cdffc595b5bf7099479fd0374c162619eabc8aa190581762",
+      "size": 1156
+    },
+    {
+      "path": "provider/evaluation/observations/14-s-b494d9209391bfc45581.json",
+      "sha256": "c51842f23adc80b9c2f1900e6223fb64607a7c7cfe2eb9b4d1b0ac57c83460b2",
+      "size": 1160
+    },
+    {
+      "path": "provider/evaluation/observations/15-s-be1455dc44d3cedc53ff.json",
+      "sha256": "0a1b87db0e4905b3c3ad97f0048b383a400f20fe6580cc82d2f770d47a9bfa75",
+      "size": 1174
+    },
+    {
+      "path": "provider/evaluation/observations/16-s-cbeadc0e7593e1792d01.json",
+      "sha256": "df00e04fc9217f21afb39d675e5e0e000ebe9ded4a49ae2e53e99ec896a5175f",
+      "size": 1161
+    },
+    {
+      "path": "provider/evaluation/observations/17-s-defeb87ae1e0c9d3db71.json",
+      "sha256": "9df8e6d273222799dd05353c577aa34273ba8523809b3a522e726e5729efeaec",
+      "size": 1174
+    },
+    {
+      "path": "provider/evaluation/observations/18-s-fdee3a9654716799080d.json",
+      "sha256": "16976acf03c12ffc343e85b1536456bf68003c9a06c94e5198fd486a0d58090b",
+      "size": 1157
+    },
+    {
+      "path": "provider/evaluation/requests/01-s-04583a661d7afed169c1.json",
+      "sha256": "b81389e212e7498f23d34d06aa0cdc602f81cbfa4aa00cb842d101794bf13649",
+      "size": 1650
+    },
+    {
+      "path": "provider/evaluation/requests/02-s-1a79cc859bb2c737959a.json",
+      "sha256": "1da18fc378d7e3c8398f8272eccd7be38fb115b080fa9ea2b5325559f6717b87",
+      "size": 1651
+    },
+    {
+      "path": "provider/evaluation/requests/03-s-24a82eb0e6f3a737d7ca.json",
+      "sha256": "1ac16a3b1ebb3dc815653a99e2ab79a8485620746efc6b8d27554ec10459bd54",
+      "size": 1603
+    },
+    {
+      "path": "provider/evaluation/requests/04-s-3b766e7d393c963c2a86.json",
+      "sha256": "a55e553399d0551a6ecad87c3fe4aafbd9082644878f46d6e1db0918dcb63c59",
+      "size": 1614
+    },
+    {
+      "path": "provider/evaluation/requests/05-s-43d6dc524621d9452800.json",
+      "sha256": "ff03f963369a8f7675692283de57b7e388fbc79f6229c190827bf62b87b174a8",
+      "size": 1664
+    },
+    {
+      "path": "provider/evaluation/requests/06-s-556022689d838bba8b99.json",
+      "sha256": "8dd0ba53bc443e68df6cfcaf2bfb8747c5d7e71dda07182fb4a41bd35af95162",
+      "size": 1604
+    },
+    {
+      "path": "provider/evaluation/requests/07-s-6227b03255d47a2aa384.json",
+      "sha256": "3f174891dc6e7dc5e0c4f6ce7efe50b2a46992962cfe1b3110b0dfd05fd91a2a",
+      "size": 1603
+    },
+    {
+      "path": "provider/evaluation/requests/08-s-772563d4dd7ba7c80d3a.json",
+      "sha256": "161d35db71522ca4d65ab70a3967dc96cbe799d28494024bed210c0abafccff0",
+      "size": 1604
+    },
+    {
+      "path": "provider/evaluation/requests/09-s-79362feaf13d94eebfae.json",
+      "sha256": "84a5a121c0ae9b0c45cd0da6605e72338ad52a4e8ef8aad2c5592f98a6399209",
+      "size": 1603
+    },
+    {
+      "path": "provider/evaluation/requests/10-s-7fc6d755cdf374a4b79e.json",
+      "sha256": "26c7995c444b651717d8c96fd20c16342c3f9777739610547f423c4723a0fbca",
+      "size": 1656
+    },
+    {
+      "path": "provider/evaluation/requests/11-s-91f45981ca5f02feeb1c.json",
+      "sha256": "0c89563b6e0ecb0119582a723e51db60822cb6a2821cc74c7e4d4a15c907a662",
+      "size": 1652
+    },
+    {
+      "path": "provider/evaluation/requests/12-s-929f23cdc35c78036248.json",
+      "sha256": "b5df9963af5e80ecf13d658a6e375a6e99a865e0c5d1e5b0e4a77100fbcb0826",
+      "size": 1605
+    },
+    {
+      "path": "provider/evaluation/requests/13-s-9367b10556f281130338.json",
+      "sha256": "060a9196cd8c7ded82d68c29476caf82a7e8a225434fd1220809b18b64912bb6",
+      "size": 1613
+    },
+    {
+      "path": "provider/evaluation/requests/14-s-b494d9209391bfc45581.json",
+      "sha256": "06cf22230b125f1a36766b00181edd445c293204d828509c03c38522a1967bcd",
+      "size": 1634
+    },
+    {
+      "path": "provider/evaluation/requests/15-s-be1455dc44d3cedc53ff.json",
+      "sha256": "a60fd57b37bfeb50f2896672e23dbe4ae8cbd4e128d93d604a653ebe909f9e22",
+      "size": 1665
+    },
+    {
+      "path": "provider/evaluation/requests/16-s-cbeadc0e7593e1792d01.json",
+      "sha256": "fd19f11c67c28db2646b5475d050faa1e288bcc6cf035932dfa36a8ebbbb7013",
+      "size": 1652
+    },
+    {
+      "path": "provider/evaluation/requests/17-s-defeb87ae1e0c9d3db71.json",
+      "sha256": "ea9777426f03a21f741136f40f12ad0282325472d99713f3a6f53dc27ccd96c8",
+      "size": 1665
+    },
+    {
+      "path": "provider/evaluation/requests/18-s-fdee3a9654716799080d.json",
+      "sha256": "b2a0175b4a36e86393aaab1b2bba5ae051535d6ba1771570a575af51b8bc21f9",
+      "size": 1614
+    },
+    {
+      "path": "provider/evaluation/started.json",
+      "sha256": "e3aa98b9080d6edfa72e52685b9d2b4134571e8a79b715edc3702e81c9c986f0",
+      "size": 379
+    }
+  ],
+  "evidence_inventory_canonical_sha256": "296a365e9ebb7b0148fb9662d2aa2edf3cc5c2dfcf0da943f3a521e751877521",
+  "gates": {
+    "all_build_systems_correct_direct": true,
+    "budget": true,
+    "calibration_direct_coverage": true,
+    "design_qualification": true,
+    "direct_coverage": true,
+    "evaluation_top1": true,
+    "fixed_model_provider_execution": true,
+    "order_agreement": true,
+    "zero_wrong_direct_actions": true
+  },
+  "git_commit": "3e9a2e878ed82011b8d7d5a58fa53c4612432538",
+  "identity": "cpp-jev-offline-qualification-v6",
+  "interpretation": {
+    "controller_effect_estimated": false,
+    "historical_evidence_modified": false,
+    "jev_offline_action_qualification_estimated": true,
+    "natural_failure_population_estimated": false,
+    "strict_success_noninferiority_estimated": false,
+    "temporal_generalization_estimated": false
+  },
+  "issue_url": "https://github.com/WWFXL/Forge-AutoCompiler/issues/401",
+  "manifest_canonical_sha256": "4d17426ecee591584bdfd6d1520c454d3e402d5da894ae54ec7c0841ba067eee",
+  "parent_model_catalog": {
+    "identity": "cpp-jev-offline-qualification-v4",
+    "interpretation": "catalog_aliases_do_not_establish_exact_version_callability",
+    "model_inference_performed": false,
+    "observed_models": [
+      {
+        "name": "jev-latest",
+        "release_date": "2026-09-10T18:38:01.391457+00:00"
+      },
+      {
+        "name": "jev-preview",
+        "release_date": "2026-09-10T18:39:06.057655+00:00"
+      }
+    ],
+    "report_file_sha256": "85e62c6fa8b6f4c1d9dc1eabd2808b12ec5cc2d30e5ceb6d16ec9604b6a82909"
+  },
+  "parent_numeric_failure": {
+    "failure_type": "CandidateError",
+    "identity": "cpp-jev-offline-qualification-v5",
+    "model_requests": 13,
+    "persisted_model_responses": 12,
+    "provider_evidence_reused": false,
+    "report_file_sha256": "42512a051c99cbf46279ceb395adc947f9eb27c029e770a7355cd713f8d41327"
+  },
+  "parent_outcome_qualification": {
+    "action_outcome_count": 288,
+    "file_sha256": "8fd490d8cc9e2517c1ff8e182a8e0930e103a6b6c9b2ff426904deede9d2cf93",
+    "gates": {
+      "all_candidates_bounded": true,
+      "expected_counts": true,
+      "no_direct_label_leakage": true,
+      "reference_closure": true,
+      "replay_consistency": true,
+      "split_balance": true
+    },
+    "identity": "cpp-jev-offline-qualification-v3",
+    "passed": true,
+    "reference_closure_count": 24,
+    "replay": {
+      "consistent_state_action_pair_count": 144,
+      "replay_consistency": 1.0,
+      "state_action_pair_count": 144
+    },
+    "split_metrics": {
+      "calibration": {
+        "optimal_actions": {
+          "build": 6,
+          "configure": 6,
+          "dependency": 6
+        },
+        "project_count": 6,
+        "state_count": 18,
+        "states_by_build_system": {
+          "autotools": 6,
+          "cmake": 6,
+          "make": 6
+        }
+      },
+      "design": {
+        "optimal_actions": {
+          "build": 6,
+          "configure": 6,
+          "dependency": 6
+        },
+        "project_count": 6,
+        "state_count": 18,
+        "states_by_build_system": {
+          "autotools": 6,
+          "cmake": 6,
+          "make": 6
+        }
+      }
+    },
+    "state_count": 36
+  },
+  "passed": true,
+  "schema_version": "forge-jev-offline-qualification-report-6.0.0",
+  "supporting_metrics": {
+    "brier_definition": "mean sum of squared class-probability errors",
+    "by_build_system": {
+      "autotools": {
+        "order_agreement_count": 6,
+        "route_acceptable_count": 6,
+        "state_count": 6,
+        "top1_correct": 6
+      },
+      "cmake": {
+        "order_agreement_count": 6,
+        "route_acceptable_count": 6,
+        "state_count": 6,
+        "top1_correct": 6
+      },
+      "make": {
+        "order_agreement_count": 6,
+        "route_acceptable_count": 6,
+        "state_count": 6,
+        "top1_correct": 6
+      }
+    },
+    "ece_5_equal_width_bins": 0.00722222222222213,
+    "ece_bins": [
+      {
+        "accuracy": null,
+        "count": 0,
+        "lower": 0.0,
+        "mean_confidence": null,
+        "upper": 0.2
+      },
+      {
+        "accuracy": null,
+        "count": 0,
+        "lower": 0.2,
+        "mean_confidence": null,
+        "upper": 0.4
+      },
+      {
+        "accuracy": null,
+        "count": 0,
+        "lower": 0.4,
+        "mean_confidence": null,
+        "upper": 0.6
+      },
+      {
+        "accuracy": null,
+        "count": 0,
+        "lower": 0.6,
+        "mean_confidence": null,
+        "upper": 0.8
+      },
+      {
+        "accuracy": 1.0,
+        "count": 18,
+        "lower": 0.8,
+        "mean_confidence": 0.9927777777777779,
+        "upper": 1.0
+      }
+    ],
+    "f1_by_class": {
+      "build": 1.0,
+      "configure": 1.0,
+      "dependency": 1.0
+    },
+    "latency_ms": {
+      "mean": 312.37424731565017,
+      "median": 300.0786800403148,
+      "p95_nearest_rank": 431.947975885123,
+      "total": 5622.736451681703
+    },
+    "macro_f1": 1.0,
+    "macro_f1_classes": [
+      "build",
+      "configure",
+      "dependency"
+    ],
+    "multiclass_brier_score": 0.00032222222222222255,
+    "usage": {
+      "input_tokens": 21806,
+      "model_cost_usd": 0.000915852,
+      "output_tokens": 1818
+    }
+  },
+  "terminal_stage": "evaluation"
+}
