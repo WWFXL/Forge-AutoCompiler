@@ -6,6 +6,18 @@
 
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
+- 2026-10-10 — Issue #406 Jev 三臂真实端到端 canary 得到正式比较进入结论
+  - 工作类型与问题: 工程修复、零 Provider 资格和正式数据采集。目标是判断 `AlwaysAgent`、固定 `build` 的 `RuleGate+Agent` 与 `JevGate+Agent` 能否在相同强模型预算、真实 Shell、CandidateVerifier、functional oracle、provenance 和 clean replay 下闭合，并采集严格成功与成本指标。Canary 不估计 treatment effect。
+  - Git 与网络: 分支 `yiwei/406-jev-end-to-end-canary`，Issue #406 已确认。仓库级 `git config http.version HTTP/1.1` 修复服务器 GnuTLS 握手中断；修复后 `git ls-remote` 10/10、fetch 和本轮多次 push 均成功，未修改 credential、proxy 或系统证书。
+  - 失败链: v1 在零 Provider qualification 因父 manifest 常量错误停止；v2 在 formal sequence 1 因默认 `/workspace/.compile-sessions` 不可写停止；v3 完成 9/9 终态但 runner 从宿主修改 root-owned 源码且未设置 authoritative build system，0 Agent 请求、1 Jev 请求、0/9 strict；v4 修复这两点后在 c-ares `make install` staging 被 post-build 策略拒绝；v5/v6 分别因遗漏 `ares_version.h` 和 `ares_dns_record.h` 在 S3/S5 可重复失败。所有 identity、session 与报告保持只读，不续跑、不补齐、不替换。
+  - v7 identity: `cpp-jev-end-to-end-canary-v7`，implementation revision `c19c6d9b108c9385b32cf7e8e1531c9e914fc60c`，manifest canonical SHA-256 `60355130979a192f256b47411a2c4b2ca51754a72e091d5d7b0753e871f853cb`。c-ares staging 按 Autotools install 语义复制静态库与完整 `include/ares*.h`；项目、故障、三臂顺序、Provider、校准、预算和停止规则未改变。
+  - 零 Provider qualification: CMake/Make/Autotools 三个真实 Compile Session 均形成预期故障，authoritative build-system selection、正确 typed action、artifact staging、Candidate 提交、S0-S5、functional oracle、provenance、clean replay 和 cleanup 全部 `3/3`；Provider/credential/formal attempt 为 `0/0/0`，决定 `proceed_to_formal_canary`。
+  - 正式 canary: 9/9 arm 分类终结，全部 cleanup、预算、父证据和零资源门禁通过。严格成功为 JevGate `3/3`、AlwaysAgent `1/3`、RuleGate+Agent `1/3`。Jev 分别选择 args `configure`、hoextdown `build`、c-ares `dependency`，三次校准安全概率均约 `0.8623`，直接动作和严格终点全部通过，0 Agent 请求；3 次 Jev 共 4,162 input tokens、费用 `$0.000174804`。AlwaysAgent 共 39 请求/440,480 tokens；RuleGate+Agent 在两个错误 `build` 动作后升级 Agent，共 23 请求/238,067 tokens。全批次为 62 Agent 请求/678,547 tokens。
+  - 结论边界: 冻结决定为 `proceed_to_formal_end_to_end_comparison_design`。该结果证明真实端到端比较可运行，并给出 Jev 可能同时改善严格成功和完整 Agent 成本的强探索信号；每项目每臂仅一次，且三个项目和故障来自先前资格数据，不能主张非劣、节省比例、显著性、自然失败泛化或相对 TF-IDF/逻辑回归的稳定增量。
+  - 当前机制: 决策状态由确定性构建事实与语义失败日志组成；Jev 只在代码绑定的 `dependency/configure/build/escalate_agent` 中选择，经校准门禁直接执行或升级 Agent；严格合同与 evaluator 保留最终裁判。偏序义务状态 v1 已停止，动态预算控制仍是后续机制候选，本轮未验证。
+  - 验证与证据: 聚焦单元/共享执行链回归 `98 passed`，Ruff、`py_compile`、Schema/manifest validate、Docker runtime、formal preflight 和 Git push 均通过。v7 raw evidence 位于 `.compile-sessions/benchmark-evidence-jev-end-to-end-canary-v7`，28 files / 385,384 bytes，inventory canonical SHA-256 `837f0d2702c5e2c959522a51abcd15ea56b079c198a130c2a7454960c9f293d9`；JSON/Markdown 报告 SHA-256 分别为 `2fdbf0d64c3254b4e4dedc39c2f59b525febb0b0ad0d5dd25ed20e2858597ef4`、`13dd8346e7d85844958e4a48d0d3134c8bb9377ed2bce2bddb598144df16080c`。
+  - 下一步: 使用新的未见项目族与时间隔离 exact commit 设计正式三臂比较，预注册严格成功非劣与成本下降的联合判据、最小效应、聚类分析和停止规则。v1-v7 禁止重跑、续跑、replacement 或 backfill；正式比较冻结前不得再调用 Provider。
+
 - 2026-10-10 — Issue #403/#404 Jev 控制器零 Provider 回放得到 canary 进入结论
   - 工作类型与问题: 正式数据采集、工程修复与结果分析。目标是验证冻结 v6 Jev 响应能否被最小控制器安全消费，并在响应、模型、状态、概率、候选、预算、前置条件或严格 verifier 能力异常时 fail closed；不执行真实 Shell、不调用 Provider、不估计 treatment effect。
   - 控制器边界: 动作闭集为 `dependency/configure/build/escalate_agent`；Jev 不能生成 Shell，直接动作只能映射代码绑定候选。正常调度只能进入 `awaiting_strict_verification`，且必须保留 CandidateVerifier、functional oracle、provenance 和 clean replay，路由器不能宣告终态成功。
