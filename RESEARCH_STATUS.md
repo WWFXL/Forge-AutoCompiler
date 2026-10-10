@@ -193,6 +193,7 @@ BootstrapAgent、SWE-Skills-Bench、VibeMemBench 等轨迹控制、动作接口�
 - Issue #403：`https://github.com/WWFXL/Forge-AutoCompiler/issues/403`；v1 failure evidence 位于 `.compile-sessions/benchmark-evidence-jev-controller-replay-qualification-v1`，inventory canonical SHA-256 为 `e11cf5aa77587606ec70e5454cbe8b9c2574a34f6c1249660096e5c469863538`。
 - Issue #404：`https://github.com/WWFXL/Forge-AutoCompiler/issues/404`；v2 manifest canonical SHA-256 为 `309b02edf34db238e318e2b5f9fbe945692e0d946edb181f76028f1c5bd4ce28`。
 - Jev controller replay v2 evidence：`.compile-sessions/benchmark-evidence-jev-controller-replay-qualification-v2`；inventory canonical SHA-256 为 `8a07709058f998b7820677b86754027b17c8e015da2579c41c96783edc80699c`；JSON/Markdown 报告 SHA-256 分别为 `71a8102a5ca89ea194d77d7d853cf413e5c45d3438f4933bdc70e226f27bdfb7`、`ae27029ccd57a346420563fe2d99c057608bdc15a9febcba2b36b99daad5bb4f`。
+- Jev controller replay 结果 PR：`https://github.com/WWFXL/Forge-AutoCompiler/pull/405`；base 为 `yiwei/401-jev-offline-v6`，依赖 PR #402，通过 `Closes #403` 与 `Closes #404` 关联失败链和最终结论；backend unit 与 frozen benchmark CI 全绿。
 - 进展状态 v1 manifest canonical SHA-256：`9340a10f005a9a90f980ac45356e8c13d00f35a7b095e30a68ccde610944ee6d`。
 - 进展状态 v1 JSON 报告 SHA-256：`b4b682d8699bdbcf5e768736e525ac13109675db64971a23c3007dafa2442a4d`。
 
