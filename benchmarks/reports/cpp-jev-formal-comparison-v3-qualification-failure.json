@@ -1,0 +1,68 @@
+{
+  "schema_version": "forge-jev-formal-comparison-qualification-failure-3.0.0",
+  "identity": "cpp-jev-formal-comparison-v3",
+  "manifest_sha256": "0e0c27a0d377785ace99b01a8e425ba021e9680d25950a3ee34e5fe9d7a9be03",
+  "created_at": "2026-10-10T16:58:14Z",
+  "stage": "zero_provider_qualification",
+  "failed_case": {
+    "sequence": 7,
+    "task_id": "ffmpeg",
+    "build_system": "make",
+    "fault_type": "invalid_build_state",
+    "expected_action": "configure",
+    "session_id": "8366771dcf2b",
+    "failure_class": "strict_verifier_classified_configure_make_pipeline_as_autotools",
+    "observed_failure": "direct candidate rejected: build_system_mismatch",
+    "repair_build_exit_code": 0,
+    "artifact_stage_exit_code": 0,
+    "candidate_accepted": false,
+    "candidate_rejection_codes": ["build_system_mismatch"],
+    "detected_build_systems": ["make", "autotools"],
+    "selected_build_system": "make",
+    "verifier_inferred_build_system": "autotools"
+  },
+  "completed_cases": [
+    {"sequence": 1, "task_id": "libgit2", "session_id": "d519f295ed0f", "strict_success": true},
+    {"sequence": 2, "task_id": "simdjson", "session_id": "f6686de40e81", "strict_success": true},
+    {"sequence": 3, "task_id": "benchmark", "session_id": "b25a40ff22c8", "strict_success": true},
+    {"sequence": 4, "task_id": "pcre2", "session_id": "d9bb9ff00dfe", "strict_success": true},
+    {"sequence": 5, "task_id": "haproxy", "session_id": "9a2dd164e651", "strict_success": true},
+    {"sequence": 6, "task_id": "cc65", "session_id": "e619f07c27a3", "strict_success": true}
+  ],
+  "replacement_qualification": {
+    "task_id": "quickjs",
+    "project_family": "https://github.com/bellard/quickjs",
+    "repository_url": "https://github.com/bellard/quickjs",
+    "commit_sha": "9d01a96849dbbe653da65f231cd40bddc7457ae2",
+    "commit_time": "2026-10-10T16:47:01Z",
+    "evaluation_cutoff": "2026-10-08T20:06:00Z",
+    "source_snapshot_sha256": "320a80d616dede86413c8aecc46d665e971f0bf55eec414599d795917c537def",
+    "prior_forge_reference_count": 0,
+    "compile_image": "autocompiler:gcc13",
+    "build_command": "make -j4 qjs",
+    "build_exit_code": 0,
+    "functional_probe": "./qjs -e console.log(6 * 7)",
+    "functional_probe_exit_code": 0,
+    "functional_probe_stdout": "42"
+  },
+  "observed_counts": {
+    "compile_sessions": 7,
+    "strict_successes": 6,
+    "provider_calls": 0,
+    "credential_reads": 0,
+    "formal_attempts": 0
+  },
+  "cleanup": {
+    "all_sessions_terminal": true,
+    "managed_resources_remaining": 0
+  },
+  "formal_evidence_root_created": false,
+  "qualification_report_created": false,
+  "decision": "supersede_with_fresh_v4_identity_and_replace_incompatible_case",
+  "interpretation": {
+    "infrastructure_failure_only": true,
+    "jev_effect_evaluated": false,
+    "agent_effect_evaluated": false,
+    "treatment_effect": false
+  }
+}
