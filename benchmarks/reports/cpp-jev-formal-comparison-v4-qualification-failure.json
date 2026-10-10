@@ -1,0 +1,86 @@
+{
+  "schema_version": "forge-jev-formal-comparison-qualification-failure-4.0.0",
+  "identity": "cpp-jev-formal-comparison-v4",
+  "manifest_sha256": "a2576dbafc90e8fa8eb7a66dc57e1e65eb3529fbeaa5cca9c0fdd6d3229c57c7",
+  "created_at": "2026-10-10T17:29:58Z",
+  "stage": "zero_provider_qualification",
+  "qualification_report": {
+    "path": "benchmarks/reports/cpp-jev-formal-comparison-v4-qualification.json",
+    "sha256": "50da4a2fe68a2bcfa447cb53bbbda0887028d1b74d8879ac35030027214c8b0d"
+  },
+  "completed_cases": [
+    {"sequence": 1, "task_id": "libgit2", "session_id": "088847e27148", "strict_success": true, "session_status": "completed", "cleanup_succeeded": true},
+    {"sequence": 2, "task_id": "simdjson", "session_id": "da64d925b8c5", "strict_success": true, "session_status": "completed", "cleanup_succeeded": true},
+    {"sequence": 3, "task_id": "benchmark", "session_id": "77ac5a4796a8", "strict_success": true, "session_status": "completed", "cleanup_succeeded": true},
+    {"sequence": 4, "task_id": "pcre2", "session_id": "54c433a9c98a", "strict_success": true, "session_status": "completed", "cleanup_succeeded": true},
+    {"sequence": 5, "task_id": "haproxy", "session_id": "e6514ee5680d", "strict_success": true, "session_status": "completed", "cleanup_succeeded": true},
+    {"sequence": 6, "task_id": "cc65", "session_id": "9e13fca03eff", "strict_success": true, "session_status": "completed", "cleanup_succeeded": true},
+    {"sequence": 7, "task_id": "quickjs", "session_id": "d82bf19f11da", "strict_success": true, "session_status": "completed", "cleanup_succeeded": true},
+    {"sequence": 8, "task_id": "redis", "session_id": "ee896465980a", "strict_success": false, "session_status": "failed", "cleanup_succeeded": true},
+    {"sequence": 9, "task_id": "libarchive", "session_id": "9bbad3cdbfe4", "strict_success": true, "session_status": "completed", "cleanup_succeeded": true},
+    {"sequence": 10, "task_id": "curl", "session_id": "54e6a64967cf", "strict_success": true, "session_status": "completed", "cleanup_succeeded": true},
+    {"sequence": 11, "task_id": "jemalloc", "session_id": "b5acf96cd3b0", "strict_success": true, "session_status": "completed", "cleanup_succeeded": true},
+    {"sequence": 12, "task_id": "wolfssl", "session_id": "ca0afd15fe49", "strict_success": false, "session_status": "completed", "cleanup_succeeded": true}
+  ],
+  "failures": [
+    {
+      "sequence": 8,
+      "task_id": "redis",
+      "failed_layers": [{"layer": "S5", "reason_codes": ["replay_artifact_invalid"]}],
+      "failure_class": "nondeterministic_build_id",
+      "observed_failure": "candidate and replay redis-server had equal sizes but different SHA-256 and --version build IDs",
+      "root_cause": "src/mkreleasehdr.sh used hostname and wall-clock time because SOURCE_DATE_EPOCH was unset",
+      "minimal_repair": "set SOURCE_DATE_EPOCH to the frozen exact-commit timestamp for every Redis build command"
+    },
+    {
+      "sequence": 12,
+      "task_id": "wolfssl",
+      "failed_layers": [
+        {"layer": "S2", "reason_codes": ["candidate_artifact_invalid"]},
+        {"layer": "S5", "reason_codes": ["replay_artifact_invalid"]}
+      ],
+      "failure_class": "zero_byte_support_file",
+      "observed_failure": "the staged header tree contained one zero-byte support file",
+      "invalid_artifact": {
+        "relative_path": "include/wolfssl/wolfcrypt/fips.h",
+        "size_bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "minimal_repair": "exclude the empty placeholder header while staging the otherwise unchanged header tree"
+    }
+  ],
+  "repair_diagnostics": {
+    "redis": {
+      "independent_clean_builds": 2,
+      "fixed_source_date_epoch": 1791478575,
+      "matching_binary_sha256": "2ce2097ddd2d7a7d8b5db0c165fde2fe16d91ac514598ec25c33f1c3b9ffaad9",
+      "matching_version_build_id": "b89e3abfcc1ec1be",
+      "bitwise_equal": true
+    },
+    "wolfssl": {
+      "staged_file_count": 281,
+      "zero_byte_file_count": 0,
+      "static_library_sha256": "261816bf6020ded92a237ac3a1208ab37315aa4ced9a53acb5befb94e74c9171",
+      "functional_oracle_exit_code": 0
+    }
+  },
+  "observed_counts": {
+    "compile_sessions": 12,
+    "strict_successes": 10,
+    "provider_calls": 0,
+    "credential_reads": 0,
+    "formal_attempts": 0
+  },
+  "cleanup": {
+    "all_cleanup_calls_succeeded": true,
+    "managed_resources_remaining": 0
+  },
+  "formal_evidence_root_created": false,
+  "decision": "supersede_with_fresh_v5_identity_and_repair_two_project_contracts",
+  "interpretation": {
+    "infrastructure_failure_only": true,
+    "jev_effect_evaluated": false,
+    "agent_effect_evaluated": false,
+    "treatment_effect": false
+  }
+}
