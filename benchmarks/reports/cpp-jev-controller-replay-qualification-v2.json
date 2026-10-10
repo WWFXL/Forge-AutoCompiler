@@ -1,0 +1,84 @@
+{
+  "build_system_counts": {
+    "autotools": 6,
+    "cmake": 6,
+    "make": 6
+  },
+  "created_at": "2026-10-10T09:37:02.070238+00:00",
+  "credential_reads": 0,
+  "decision": "proceed_to_end_to_end_canary",
+  "document_type": "forge_jev_controller_replay_qualification_report",
+  "evidence_inventory": [
+    {
+      "path": "completed.json",
+      "sha256": "cc31480a617ee812981198791902b717a0f1d6906ea47212fbfb56b4f3bdc701",
+      "size": 310
+    },
+    {
+      "path": "identity.json",
+      "sha256": "4c3852e0eae9baf26d1026710bf723d4f9adb6897e2e8454b8c74f82030bf313",
+      "size": 829
+    },
+    {
+      "path": "replay.json",
+      "sha256": "87be82d19dddae99d2b0f56e29504e517ccbc112125e0379bd1e2c897728ce74",
+      "size": 89053
+    }
+  ],
+  "evidence_inventory_canonical_sha256": "8a07709058f998b7820677b86754027b17c8e015da2579c41c96783edc80699c",
+  "fault_case_count": 324,
+  "fault_escalation_count": 324,
+  "fault_executor_call_count": 0,
+  "fault_scenario_count": 18,
+  "gates": {
+    "all_build_systems_covered": true,
+    "all_faults_escalate": true,
+    "historical_evidence_unchanged": true,
+    "normal_dispatch_waits_for_strict_verification": true,
+    "normal_routes_match_v6": true,
+    "zero_credential_read": true,
+    "zero_fault_executor_calls": true,
+    "zero_provider": true,
+    "zero_router_terminal_success": true,
+    "zero_shell_action_execution": true
+  },
+  "git_commit": "c1fd7219ebdb1fe0d6c9a6f242cdca3781a7c1b6",
+  "historical_evidence_unchanged": true,
+  "identity": "cpp-jev-controller-replay-qualification-v2",
+  "implementation_revision": "984532a2344b0f79152fea1731aec3816ca6ee16",
+  "interpretation": {
+    "controller_path_qualification": true,
+    "controller_treatment_effect": false,
+    "cost_savings": false,
+    "natural_failure_generalization": false,
+    "strict_success_noninferiority": false
+  },
+  "issue_url": "https://github.com/WWFXL/Forge-AutoCompiler/issues/404",
+  "manifest_canonical_sha256": "309b02edf34db238e318e2b5f9fbe945692e0d946edb181f76028f1c5bd4ce28",
+  "model_cost_usd": 0,
+  "model_tokens": 0,
+  "normal_direct_route_count": 18,
+  "normal_dispatch_waiting_verification_count": 18,
+  "normal_state_count": 18,
+  "parent_inputs": {
+    "calibration_sha256": "1c2d4a24eeb407821ad4e56f41b62e50bef247c71764398044d51d3a24c835cf",
+    "evaluation_analysis_sha256": "311f3f977677cb9d77a4d74b6fba4b5cf3de79c37b7e332178e35f4d13b2f33c",
+    "v1_failure_evidence_inventory_canonical_sha256": "e11cf5aa77587606ec70e5454cbe8b9c2574a34f6c1249660096e5c469863538",
+    "v1_failure_evidence_root": ".compile-sessions/benchmark-evidence-jev-controller-replay-qualification-v1",
+    "v2_report": {
+      "path": "benchmarks/reports/cpp-typed-semantic-routing-pilot-v2.json",
+      "sha256": "ea2e126e81cfca374900436fa670015b28b3cc3f9d8c83e746ae2c92d2badfed"
+    },
+    "v6_evidence_inventory_canonical_sha256": "296a365e9ebb7b0148fb9662d2aa2edf3cc5c2dfcf0da943f3a521e751877521",
+    "v6_evidence_root": ".compile-sessions/benchmark-evidence-jev-offline-qualification-v6",
+    "v6_report": {
+      "path": "benchmarks/reports/cpp-jev-offline-qualification-v6.json",
+      "sha256": "7a9d440acd0dc1b51eea7470563fc263b518fffd428b2e4bd6c3967ab696b2c6"
+    }
+  },
+  "passed": true,
+  "provider_calls": 0,
+  "schema_version": "forge-jev-controller-replay-report-2.0.0",
+  "shell_action_executions": 0,
+  "wrong_direct_action_count": 0
+}

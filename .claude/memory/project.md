@@ -6,6 +6,18 @@
 
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
+- 2026-10-10 — Issue #403/#404 Jev 控制器零 Provider 回放得到 canary 进入结论
+  - 工作类型与问题: 正式数据采集、工程修复与结果分析。目标是验证冻结 v6 Jev 响应能否被最小控制器安全消费，并在响应、模型、状态、概率、候选、预算、前置条件或严格 verifier 能力异常时 fail closed；不执行真实 Shell、不调用 Provider、不估计 treatment effect。
+  - 控制器边界: 动作闭集为 `dependency/configure/build/escalate_agent`；Jev 不能生成 Shell，直接动作只能映射代码绑定候选。正常调度只能进入 `awaiting_strict_verification`，且必须保留 CandidateVerifier、functional oracle、provenance 和 clean replay，路由器不能宣告终态成功。
+  - v1 失败: `cpp-jev-controller-replay-qualification-v1` 在首个状态的 `choice_probability_mismatch` 场景按协议永久失败。故障夹具构造的概率和为 0.9，控制器实际安全升级为 `probability_contract_invalid`，但 runner 预期唯一理由为 `choice_probability_mismatch`。失败 evidence 只含 `identity.json` 与 `failed.json`，inventory canonical SHA-256 `e11cf5aa77587606ec70e5454cbe8b9c2574a34f6c1249660096e5c469863538`；决定为 `stop_before_end_to_end_canary`，禁止删除、覆盖或重跑。
+  - v1 只读诊断: 对 18 个状态 × 18 个故障场景完整检查后，324/324 实际均升级 Agent、错误直接动作 0、executor 调用 0；唯一偏差是 18 个 choice/argmax mismatch 被更早的概率合同门禁捕获。该诊断只定位夹具缺陷，不替代 formal identity。
+  - v2 修正与身份: Issue #404 只把 mismatch 分布改为 primary `0.2`、alternate `0.5`、其余各 `0.15`，并新增正式 324 场景唯一理由回归；控制器、校准系数、阈值、父样本和通过门槛不变。Identity 为 `cpp-jev-controller-replay-qualification-v2`，implementation revision `984532a2344b0f79152fea1731aec3816ca6ee16`，冻结 HEAD `c1fd7219ebdb1fe0d6c9a6f242cdca3781a7c1b6`，manifest canonical SHA-256 `309b02edf34db238e318e2b5f9fbe945692e0d946edb181f76028f1c5bd4ce28`。
+  - 正式结果: 正常路径 18/18 复现 v6，18/18 调度只进入等待严格验证；324/324 故障以冻结理由升级，错误直接动作 0、故障 executor 调用 0、router terminal success 0；CMake/Make/Autotools 各 6 个状态。v1 与 v6 evidence inventory 前后不变，Provider/credential/model token/cost/Shell execution 为 `0/0/0/$0/0`。冻结决定为 `proceed_to_end_to_end_canary`。
+  - 证据与验证: v2 evidence 位于 `.compile-sessions/benchmark-evidence-jev-controller-replay-qualification-v2`，inventory canonical SHA-256 `8a07709058f998b7820677b86754027b17c8e015da2579c41c96783edc80699c`；JSON/Markdown 报告 SHA-256 为 `71a8102a5ca89ea194d77d7d853cf413e5c45d3438f4933bdc70e226f27bdfb7` / `ae27029ccd57a346420563fe2d99c057608bdc15a9febcba2b36b99daad5bb4f`。v1/v2、v6、语义路由和 harness boundary 组合回归 `60 passed, 1 skipped`，Ruff check/format 与 `git diff --check` 通过。
+  - 网络与发布: 原生 HTTPS push 曾因 GnuTLS 非正常终止失败，Git Data API 无法保持本地 commit SHA，未创建 ref；使用一次性 `git -c http.version=HTTP/1.1 push` 后原 Git 对象成功发布。分支为 `yiwei/404-jev-controller-replay-v2`，tracking Issue #404 已创建并回读。
+  - 结论边界与下一步: 结果证明冻结响应的控制路径和 fail-closed 边界在当前 18 个受控状态上可执行，不证明真实动作后的严格成功率非劣、Agent 调用/token/费用/墙钟下降、自然失败泛化或 treatment effect。下一步先建立 `AlwaysAgent`、`RuleGate+Agent`、`JevGate+Agent` 的独立端到端 canary candidate 与零 Provider 门禁；新 Provider identity、样本、预算和停止规则冻结前不得运行。
+  - 文件: `backend/packages/harness/deerflow/compile/jev_controller.py`, `scripts/forge_jev_controller_replay_qualification.py`, `scripts/forge_jev_controller_replay_qualification_v2.py`, `backend/tests/test_jev_controller.py`, `backend/tests/test_forge_jev_controller_replay_qualification.py`, `backend/tests/test_forge_jev_controller_replay_qualification_v2.py`, `benchmarks/preregistrations/cpp-jev-controller-replay-qualification-v2.md`, `benchmarks/reports/cpp-jev-controller-replay-qualification-v2.json`, `benchmarks/reports/cpp-jev-controller-replay-qualification-v2.md`, `RESEARCH_STATUS.md`
+
 - 2026-10-10 — Issue #401 Jev 离线资格 v6 得到正向动作选择与校准结论
   - 工作类型与问题: 正式数据采集、结果分析和发布。目标是检验固定 `jev-1.13.0` 能否根据真实构建失败日志，在 `dependency/configure/build/escalate_agent` 闭集中选择安全且最低成本的下一动作，并以项目族隔离校准实现低风险直接执行；不实现 controller，不估计端到端 treatment effect。
   - v4/v5 失败链: Issue #399 的 v4 因 `/v1/models` 只列 alias、未显式列出固定版本而在 0 模型请求下失败；v5 随后证明 `jev-1.13.0` 可直接调用，因此 v4 是目录门禁假阴性。Issue #400 的 v5 保存 12 个 design 响应，第 13 个因概率序列化和超出 `1e-6` 容差失败关闭；13 requests、11,826 input、1,212 output、`$0.000496692` 均保留，两个 identity 永久只读。
@@ -15,7 +27,7 @@
   - 预算与证据: 72/72 requests 和 completed responses，83,210 input、7,284 output，费用 `$0.00349482`。冻结 evidence 位于 `.compile-sessions/benchmark-evidence-jev-offline-qualification-v6`，共 231 files，inventory canonical SHA-256 `296a365e9ebb7b0148fb9662d2aa2edf3cc5c2dfcf0da943f3a521e751877521`；credential/header 扫描通过，所有 raw probability sum 最大偏差为 0。
   - 决定与边界: 正式决定为 `proceed_to_controller_replay_qualification`。结论支持固定受控故障 holdout 上的安全动作选择与项目族隔离校准，不支持端到端成功非劣、成本收益、自然失败/开放世界/跨时间泛化或 Jev 相对简单规则的明显增量；prompt 已编码三类故障语义且 TF-IDF 为 17/18，因此论文主张应定位为自动化编译领域方法、benchmark 和系统实证。
   - 验证与发布状态: v2-v6 及相邻资格回归 `113 passed, 1 skipped`；v6 JSON/Markdown 报告 SHA-256 分别为 `7a9d440acd0dc1b51eea7470563fc263b518fffd428b2e4bd6c3967ab696b2c6`、`cf40eb89063e1757bf78c7d3dca3458afdec2c2f240537e4fab07338483b9bc3`。结果提交 `1ffe9f42` 已推送；中文 PR #402 以 `yiwei/395-jev-offline-execution` 为 base，依赖 PR #396，并通过 `Closes #397` 至 `Closes #401` 关联完整 v2-v6 失败链与最终结论。PR 正文已回读一致，CI 状态以 PR 为准。
-  - 下一步: 新建独立的零 Provider controller replay 资格 identity，只读取 v6 冻结响应，验证候选动作前置条件、校准门禁、Agent 升级和严格 verifier 不可绕过。通过后再决定是否建立三臂端到端 canary；任何新 Provider 对照实验必须另建 identity、预算、停止规则和授权。
+  - 后续状态: Issue #403 v1 因故障夹具不可辨识按协议失败；Issue #404 v2 修正夹具后通过 controller replay，决定为 `proceed_to_end_to_end_canary`。任何新 Provider 对照实验仍须另建 identity、预算、停止规则和授权。
   - 文件: `benchmarks/preregistrations/cpp-jev-offline-qualification-v6.md`, `benchmarks/preregistrations/cpp-jev-offline-qualification-v6-prompt-amendment.json`, `benchmarks/reports/cpp-jev-offline-qualification-v6.json`, `benchmarks/reports/cpp-jev-offline-qualification-v6.md`, `RESEARCH_STATUS.md`, `.claude/memory/project.md`
 
 - 2026-10-10 — Issue #395 Jev formal 离线资格在 outcome qualification 阶段失败关闭
