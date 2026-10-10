@@ -4,11 +4,12 @@
 
 ## 当前阶段
 
-- 状态：Issue #406 的 formal identity `cpp-jev-end-to-end-canary-v7` 已完成三臂真实端到端 canary，冻结决定为 `proceed_to_formal_end_to_end_comparison_design`。
-- 当前工作类型：正式数据采集完成后的结果分析与发布。v7 的 9/9 arm 均分类终结并完成 cleanup；JevGate、AlwaysAgent、RuleGate+Agent 的严格成功分别为 `3/3`、`1/3`、`1/3`。全批次使用 62 次 Agent 请求、678,547 Agent tokens；Jev 使用 3 次请求、4,162 input tokens、费用 `$0.000174804`。
-- 已回答问题：在三个已知可恢复的 CMake/Make/Autotools 受控失败上，Jev 分别选择 `configure/build/dependency`，三次均通过代码绑定动作、CandidateVerifier、functional oracle、provenance 和 clean replay，完整 Agent 调用为 0。三臂生命周期、预算和指标采集已经闭合，可以进入独立正式比较设计。
-- 当前研究边界：v7 每项目每臂只有一次，项目与故障来自先前资格数据；`3/3` 对 `1/3` 只是强探索信号，不支持非劣、节省比例、显著性、自然失败泛化或 Jev 相对轻量文本分类器的稳定增量。
-- 当前机制定位：确定性构建事实与语义失败日志构成决策状态，Jev 只在代码枚举的 typed actions 中选择并经校准门禁直接执行或升级 Agent，任务合同、CandidateVerifier、external evaluator 和 clean replay 负责严格裁判。偏序义务状态 v1 已停止；动态预算控制仍是后续机制候选，本次 canary 未验证。
+- 状态：Issue #408 的 formal identity `cpp-jev-formal-comparison-v6` 已完成 12 个未见项目族、两次重复和三臂共 72 个真实端到端 arm，冻结决定为 `supports_jev_controlled_failure_claim`。当前停在 `workflow + agent + Jev` 新工程链路设计之前，等待研究负责人核实。
+- 当前工作类型：正式数据采集完成后的结果分析与研究交接。72/72 arm 全部分类终结，cleanup、预算、父证据和零残留资源门禁全部通过；没有 replacement、backfill 或结果后阈值修改。
+- 主要结果：严格成功为 `JevGate+Agent 22/24`、`AlwaysAgent 10/24`、`RuleGate+Agent 13/24`。Jev 相对 AlwaysAgent 的成功率差为 `+0.500`，项目族聚类 bootstrap 单侧 95% 下界为 `+0.292`，高于冻结非劣界 `-0.100`；Provider 估算成本为 `$0.092116` 对 `$0.884421`，下降 `89.6%`，超过冻结门槛 `20%`。
+- 路由证据：Jev 21 次直接动作全部严格成功，错误直接动作率为 0；3 次升级 Agent 中 1 次成功、2 次失败，其中一次为校准拒答后的 Agent 方差，一次为 `TypeSafeAPIConnectionError` 后回退 Agent 失败。分系统严格成功为 CMake `8/8`、Make `6/8`、Autotools `8/8`。
+- 当前研究边界：正式结果支持冻结受控失败、当前 12 个未见项目族和固定模型/阈值下的领域方法结论；不支持自然失败、开放世界、更多构建系统、通用模型排名或动态预算控制。Jev 相对 TF-IDF/逻辑回归的普遍模型优势仍未建立。
+- 当前机制定位：确定性构建事实与语义失败日志构成决策状态，Jev 只在代码枚举的 typed actions 中选择并经校准门禁直接执行或升级 Agent，任务合同、CandidateVerifier、external evaluator 和 clean replay 负责严格裁判。偏序义务状态 v1 已停止；动态预算控制仍是独立待验证候选，未包含在 Issue #408 的主结论中。
 - 阶段 0 冻结问题：能否构造跨 CMake、Make、Autotools 的进展状态，使其在未见项目族和未来时间段中比轮次、token、阶段和错误类别等简单特征更能解释短期状态转移，并为后续预算动作实验提供足够的增量信息？
 - 当前方向文档：`docs/research/2026-10-06-automated-compilation-innovation-landscape.md`。
 - Jev 阶段 A 预注册：`benchmarks/preregistrations/cpp-typed-action-benchmark-qualification-v1.md`。
@@ -26,6 +27,9 @@
 - Jev controller replay v2 结果：`benchmarks/reports/cpp-jev-controller-replay-qualification-v2.md`。
 - Jev 端到端 canary v7 预注册：`benchmarks/preregistrations/cpp-jev-end-to-end-canary-v7.md`。
 - Jev 端到端 canary v7 结果：`benchmarks/reports/cpp-jev-end-to-end-canary-v7.md`。
+- Jev 正式三臂比较 v6 预注册：`benchmarks/preregistrations/cpp-jev-formal-comparison-v6.md`。
+- Jev 正式三臂比较 v6 资格报告：`benchmarks/reports/cpp-jev-formal-comparison-v6-qualification.md`。
+- Jev 正式三臂比较 v6 结果：`benchmarks/reports/cpp-jev-formal-comparison-v6.md`。
 - Jev API 合同审计：`docs/research/2026-10-09-jev-api-contract-audit.md`。
 - 三候选机制审计：`docs/research/2026-10-09-three-candidate-mechanism-audit.md`。
 - 主动诊断机制审计：`docs/research/2026-10-09-active-diagnosis-mechanism-audit.md`。
@@ -80,6 +84,7 @@ BootstrapAgent、SWE-Skills-Bench、VibeMemBench 等轨迹控制、动作接口�
 - Issue #403 的 controller replay v1 在首个 `choice_probability_mismatch` 场景按协议失败并永久停止。控制器实际安全升级，但故障夹具概率和为 0.9，先触发 `probability_contract_invalid`；只读全矩阵诊断为 324/324 升级、0 错误直接动作、0 executor 调用，不能替代新的 formal identity。
 - Issue #404 v2 只修正故障夹具可辨识性，不修改控制器、阈值、父样本或通过门槛。正式回放复现正常路由 18/18，18/18 调度均等待严格验证，324/324 故障以冻结理由升级，错误直接动作和故障 executor 调用均为 0；CMake/Make/Autotools 各 6 个状态，v1/v6 evidence inventory 前后不变。
 - Issue #406 的 v1-v6 依次暴露父常量、workspace、宿主权限、build-system identity、artifact role 和公开头文件 staging 问题，均保持只读。v7 零 Provider qualification 为 3/3 strict；正式 canary 中 JevGate 为 3/3 strict、0 Agent 请求，AlwaysAgent 为 1/3 strict、39 请求/440,480 tokens，RuleGate+Agent 为 1/3 strict、23 请求/238,067 tokens。Jev 三次请求均直接执行且严格通过，总费用 `$0.000174804`。
+- Issue #408 的 v1-v5 资格失败分别暴露 source snapshot、权限、fault compatibility、artifact closure 和 Redis 可复现 header 问题，均冻结只读；v6 零 Provider qualification 为 12/12 strict。正式 72-arm 比较中 JevGate、AlwaysAgent、RuleGate+Agent 分别为 `22/24`、`10/24`、`13/24` strict；Jev 相对 AlwaysAgent 的项目族聚类单侧 95% 下界为 `+0.292`，成本下降 `89.6%`，联合门槛通过。
 
 ## 当前研究决策
 
@@ -96,9 +101,10 @@ BootstrapAgent、SWE-Skills-Bench、VibeMemBench 等轨迹控制、动作接口�
 - Issue #393 candidate 只冻结后续 Provider 实验的前置合同，不是 formal Provider attempt。使用固定 `jev-1.13.0`，同一请求包含动作正序与逆序 Choice，SDK retry 为 0，总预算候选为 72 请求、1,000,000 input tokens、0.042 美元。
 - Issue #393 的 evaluation 做到项目族隔离，但不满足全局 commit 时间后移，且 v2 标签对研究者可见；后续结果只能解释为冻结受控故障 holdout，不能支持跨时间、自然失败总体或开放世界泛化。
 - Issue #395、#399、#400 与 #401 均已消费且永久只读，禁止重跑、续跑、补齐、替换或覆盖 evidence。v4/v5 的基础设施失败和 v6 的正向资格结果必须同时保留。
-- v6 决定为 `proceed_to_controller_replay_qualification`，Issue #404 v2 决定为 `proceed_to_end_to_end_canary`，Issue #406 v7 已进一步决定 `proceed_to_formal_end_to_end_comparison_design`。下一阶段必须使用新的未见项目族、独立 identity 和预注册联合判据；不得复用 v7 canary 样本估计 treatment effect。
+- v6 决定为 `proceed_to_controller_replay_qualification`，Issue #404 v2 决定为 `proceed_to_end_to_end_canary`，Issue #406 v7 决定为 `proceed_to_formal_end_to_end_comparison_design`；Issue #408 v6 已以独立未见项目族正式比较得到 `supports_jev_controlled_failure_claim`。
+- `cpp-jev-formal-comparison-v1` 至 `v6` 及全部资格、正式 evidence 已消费并永久只读；禁止重跑、续跑、replacement、backfill 或结果后修改阈值。正式结果确认 Jev 类型化语义路由达到当前硕士论文的领域方法与系统实证门槛，但不主张通用路由机制首创。
 - 项目族与时间隔离属于所有候选的评测纪律，不单独构成经验迁移的新机制。
-- 动态预算控制仍属于整体机制候选，但尚未独立验证；正式语义路由比较完成前不直接实现或宣称其有效。模型路由、typed tools、checkpoint 分支和早停也不能各自表述为通用创新。
+- 动态预算控制仍属于整体机制候选，但尚未独立验证；Issue #408 不能用于宣称预算控制有效。`workflow + agent + Jev` 新工程链路设计等待研究负责人核实正式结论后另开阶段，不在当前 identity 下继续。
 - 新实验必须重新冻结有限预算向量、开发/测试项目隔离、严格成功、删失效率指标、最小有意义效应和分析顺序；旧 identity 的“无 token ceiling”不沿用为成本研究设计。
 
 ## 解释边界
@@ -119,6 +125,7 @@ BootstrapAgent、SWE-Skills-Bench、VibeMemBench 等轨迹控制、动作接口�
 - v6 的正式模型调用满足 72 请求、1,000,000 input tokens 和 `$0.042` 的冻结预算上限，实际为 72 请求、83,210 input tokens 和 `$0.00349482`。
 - 冻结 v6 响应可通过最小控制器复现 18/18 路由；控制器只执行代码绑定候选，不能生成 Shell 或宣告终态成功，并在 324/324 个冻结故障回放中升级 Agent、零故障 executor 调用。
 - v7 canary 证明同一控制器可在真实 Shell 和严格终点下闭合三种构建系统；Jev 的 `configure/build/dependency` 三次直接执行均严格成功，并在该三项目 canary 中避免完整 Agent 调用。
+- Issue #408 的正式比较支持：在冻结的 12 个未见项目族、三类受控构建失败、固定 `jev-1.13.0` 和当前校准阈值下，JevGate 相对 AlwaysAgent 同时满足严格成功非劣与 Provider 成本下降。21/21 次 Jev 直接动作通过严格终点，且 CMake、Make、Autotools 均无系统性退化。
 
 当前证据不能支持：
 
@@ -131,7 +138,8 @@ BootstrapAgent、SWE-Skills-Bench、VibeMemBench 等轨迹控制、动作接口�
 - Provider/模型能力排名，或 verifier、路由、搜索、领域工具的通用首创性；
 - 从成功案例均值推断总体时间/成本，或把 canary/qualification 当作 treatment evidence。
 - v6 之外自然失败、开放世界、跨时间数据上的 Jev 准确率或校准迁移，以及任何通用模型排名；当前 evaluation 是 6 个项目族、三类受控故障。
-- Jev controller 在未见项目族上的严格成功率非劣、完整 Agent 调用减少、token/费用/墙钟节省比例或 treatment effect；v7 虽有真实 Shell 和端到端对照，但样本已参与先前资格且每格仅一次。
+- Jev 在自然发生的构建失败、开放动作空间、更多构建系统或其他 Provider/模型上的严格成功非劣与成本收益；Issue #408 只覆盖冻结的受控失败与当前样本总体。
+- Issue #408 不能证明动态预算控制、进展状态 v1 或 `workflow + agent + Jev` 新工程链路有效；这些都需要独立机制、identity 和实验。
 - Jev 相对规则或轻量文本分类器具有稳定的实质增量；当前 TF-IDF/逻辑回归已达到 17/18，且 prompt 修订编码了三类故障语义。
 - v2 在自然发生的真实失败总体中也有相同准确率、标签分布或可迁移性；当前只是 6 个项目、三类受控故障的资格 pilot。
 - Issue #393 的 SDK mock 本身不能说明真实 API 能力；真实 API 可达、固定模型执行和离线选择结果由 v5/v6 单独证明，但仍不能说明 controller 能节省成本。
@@ -145,8 +153,8 @@ BootstrapAgent、SWE-Skills-Bench、VibeMemBench 等轨迹控制、动作接口�
 - 编写、审阅和发布 Issue #381 的版本化研究综述与状态交接；
 - 对进展状态、typed action abstraction 和跨仓库经验迁移做文献与机制比较；
 - 发布并审阅 Issue #382 和 #385 的版本化报告，保持失败结果与冻结输入可重建；为下一研究问题重新做文献与机制审计。
-- 只读核验 Issue #389/#391/#393/#395/#399/#400/#401/#403/#404/#406 的 manifest、报告与冻结 evidence，并发布 Issue #406 的结果交接。
-- 为 `AlwaysAgent`、`RuleGate+Agent`、`JevGate+Agent` 设计独立正式比较，预先冻结未见项目族、时间隔离、Provider、预算、停止规则、最小效应和严格成功/成本联合判据。
+- 只读核验 Issue #389/#391/#393/#395/#399/#400/#401/#403/#404/#406/#408 的 manifest、报告与冻结 evidence，并发布 Issue #408 的结果交接。
+- 在研究负责人核实 Issue #408 关键结论前，只进行结果审阅、论文定位和状态维护。
 
 禁止：
 
@@ -161,7 +169,8 @@ BootstrapAgent、SWE-Skills-Bench、VibeMemBench 等轨迹控制、动作接口�
 - 重跑、续跑、补齐、替换或覆盖 `cpp-jev-offline-qualification-v1/v4/v5/v6`，或把任一失败 identity 的部分响应导入其他 identity。
 - 重跑、续跑、替换或覆盖 `cpp-jev-controller-replay-qualification-v1/v2`，或删除 v1 失败 evidence；后续端到端实验不得复用 v6 或 replay identity。
 - 重跑、续跑、替换或覆盖 `cpp-jev-end-to-end-canary-v1` 至 `v7`，或把 qualification/canary 结果解释为正式 treatment effect。
-- 在新的正式比较 identity、未见项目族、Provider、预算、停止规则和授权冻结前执行真实动作或调用 Provider。
+- 重跑、续跑、替换、补齐或覆盖 `cpp-jev-formal-comparison-v1` 至 `v6`，或按正式结果调整阈值、样本、预算和停止规则。
+- 在研究负责人核实前开始动态预算控制或 `workflow + agent + Jev` 新工程链路设计与实现。
 
 ## 权威入口
 
@@ -201,14 +210,13 @@ BootstrapAgent、SWE-Skills-Bench、VibeMemBench 等轨迹控制、动作接口�
 - Jev controller replay 结果 PR：`https://github.com/WWFXL/Forge-AutoCompiler/pull/405`；base 为 `yiwei/401-jev-offline-v6`，依赖 PR #402，通过 `Closes #403` 与 `Closes #404` 关联失败链和最终结论；backend unit 与 frozen benchmark CI 全绿。
 - Issue #406：`https://github.com/WWFXL/Forge-AutoCompiler/issues/406`；v7 manifest canonical SHA-256 为 `60355130979a192f256b47411a2c4b2ca51754a72e091d5d7b0753e871f853cb`。
 - Jev 端到端 canary v7 evidence：`.compile-sessions/benchmark-evidence-jev-end-to-end-canary-v7`，28 files / 385,384 bytes，inventory canonical SHA-256 `837f0d2702c5e2c959522a51abcd15ea56b079c198a130c2a7454960c9f293d9`；JSON/Markdown 报告 SHA-256 分别为 `2fdbf0d64c3254b4e4dedc39c2f59b525febb0b0ad0d5dd25ed20e2858597ef4`、`13dd8346e7d85844958e4a48d0d3134c8bb9377ed2bce2bddb598144df16080c`。
+- Issue #408：`https://github.com/WWFXL/Forge-AutoCompiler/issues/408`；v6 manifest canonical SHA-256 为 `cd5f30686677c6ac2aab1226f44437bbc0ed5ef1a702a45629bef157c35ad414`，正式 release revision 为 `65a051b8bdadbece7fe1bf18fbc6f83e75141a17`。
+- Jev 正式比较 v6 evidence：`.compile-sessions/benchmark-evidence-jev-formal-comparison-v6`；72/72 attempt marker 均为 completed，全部 cleanup 且 0 managed resources。JSON/Markdown 报告 SHA-256 分别为 `620e0c823dc00ababc4ba7b283c548a4823e7c7d1147ef72f289f7f940b53c15`、`1fbc08bd5652bda48174520e3051d715e96150c1ade794e1430bbc9b76a77837`。
 - 进展状态 v1 manifest canonical SHA-256：`9340a10f005a9a90f980ac45356e8c13d00f35a7b095e30a68ccde610944ee6d`。
 - 进展状态 v1 JSON 报告 SHA-256：`b4b682d8699bdbcf5e768736e525ac13109675db64971a23c3007dafa2442a4d`。
 
 ## 下一项工作
 
-Issue #406 v7 已得到三臂真实端到端 canary 的关键结论。下一项工作是设计独立正式比较：使用未见项目族和时间隔离的 exact commit，
-保持 `AlwaysAgent`、`RuleGate+Agent`、`JevGate+Agent` 的强模型、工具、初始状态、总预算和严格裁判一致，预注册严格成功非劣与
-成本下降的联合判据、最小有意义效应、聚类分析和停止规则。
-
-动态预算控制在该正式语义路由比较得到可重复结果前保持候选状态；不能把 v7 的 `3/3`、0 Agent 请求或观察到的时长差直接写成
-成功率提升或成本节省结论。
+Issue #408 已得到受控失败正式比较的关键结论。当前停止继续实现，等待研究负责人核实 `22/24` strict、`+0.292` 单侧 95% 下界和
+`89.6%` 成本下降及其解释边界。核实后再为 `workflow + agent + Jev` 工程链路另开 tracking Issue，先设计最小端到端链路和失败回退；
+动态预算控制仍需独立研究问题、预注册和实验，不与本次语义路由结论合并宣称。

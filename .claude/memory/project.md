@@ -347,6 +347,15 @@
 
 <!-- 倒序，最新在上。 -->
 
+- 2026-10-11 — 完成 Issue #408 Jev 未见项目族正式三臂比较并得到正向关键结论
+  - 工作类型与问题: 正式数据采集、结果分析与研究交接。检验 `JevGate+Agent` 在 12 个未见项目族、CMake/Make/Autotools 各 4 个、每臂每族两次的 72-arm 受控失败比较中，能否相对 `AlwaysAgent` 保持严格成功非劣并降低 Provider 成本；不验证自然失败或动态预算控制。
+  - 身份与资格: formal identity 为 `cpp-jev-formal-comparison-v6`，manifest canonical SHA-256 `cd5f30686677c6ac2aab1226f44437bbc0ed5ef1a702a45629bef157c35ad414`，release revision `65a051b8bdadbece7fe1bf18fbc6f83e75141a17`。v1-v5 的 source snapshot、权限、fault compatibility、artifact closure 和 Redis header 失败均冻结只读；v6 零 Provider qualification 为 12/12 strict，Provider/credential/formal attempt 为 0/0/0。
+  - 正式结果: 72/72 arm 分类终结，全部 cleanup、预算、父证据和零 managed resource 门禁通过。严格成功为 JevGate `22/24`、AlwaysAgent `10/24`、RuleGate+Agent `13/24`；Jev 相对 AlwaysAgent 差值 `+0.500`，项目族聚类 bootstrap 单侧 95% 下界 `+0.292`，高于 `-0.100` 非劣界。Provider 估算成本为 `$0.092115696` 对 `$0.884421`，下降 `89.6%`，超过 20% 门槛；决定为 `supports_jev_controlled_failure_claim`。
+  - 路由与失败: Jev 21 次直接动作全部严格成功，错误直接动作 0；3 次升级中 cc65 repetition 2 的校准拒答后 Agent 失败，Redis repetition 2 因 `TypeSafeAPIConnectionError` 升级后 Agent 失败，其余 1 次升级成功。分系统 Jev strict 为 CMake `8/8`、Make `6/8`、Autotools `8/8`。全批次为 474 Agent requests / 5,102,633 recorded tokens；Jev 24 requests / 34,938 input tokens / `$0.001467396`。
+  - 解释边界: 支持冻结受控失败、当前项目族和固定模型/阈值下的自动化编译领域方法与系统实证贡献；不支持自然失败、开放世界、更多构建系统、Jev 相对轻量文本分类器的通用优势、动态预算控制或通用路由首创。所有 v1-v6 identity/evidence 禁止重跑、续跑、replacement、backfill 或结果后调阈值。
+  - 证据与状态: raw evidence 位于 `.compile-sessions/benchmark-evidence-jev-formal-comparison-v6`；正式 JSON/Markdown 报告 SHA-256 为 `620e0c823dc00ababc4ba7b283c548a4823e7c7d1147ef72f289f7f940b53c15` / `1fbc08bd5652bda48174520e3051d715e96150c1ade794e1430bbc9b76a77837`。当前停在 `workflow + agent + Jev` 新工程链路设计前，等待研究负责人核实。
+  - 文件: `benchmarks/reports/cpp-jev-formal-comparison-v6.json`, `benchmarks/reports/cpp-jev-formal-comparison-v6.md`, `RESEARCH_STATUS.md`, `.claude/memory/project.md`
+
 - 2026-10-09 — 完成 Issue #391 同阶段异根因语义路由 benchmark v2
   - 工作类型: 零 Provider 数据收集与结果分析；结果盲预注册提交 `b8b68b1a` 先推送到 `yiwei/391-semantic-routing-pilot`，随后一次性执行完整 outcome matrix。未读取 credential、未调用模型、未实现 controller，v1 与历史 evidence 全程只读。
   - 身份与设计: 新 identity `cpp-typed-semantic-routing-pilot-v2` 固定 6 个未进入 v1 的 project family，CMake/Make/Autotools 各 2 个；每项目构造缺失编译输入、失效构建状态、错误 target 三类故障，路由可见 phase facts、动作顺序和预算完全相同。四个动作固定为 `dependency/configure/build/escalate_agent`，标签由 candidate 后冻结 continuation 的 strict success 与 `1/2/3/4` 成本重建。
