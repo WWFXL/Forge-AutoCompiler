@@ -1,0 +1,139 @@
+{
+  "schema_version": "forge-jev-offline-qualification-failure-report-3.0.0",
+  "document_type": "forge_jev_offline_qualification_failure_report",
+  "identity": "cpp-jev-offline-qualification-v3",
+  "issue_url": "https://github.com/WWFXL/Forge-AutoCompiler/issues/398",
+  "created_at": "2026-10-10T01:29:52.889324Z",
+  "execution_revision": "4dcf3275ea8e0b64be95991d7da331d64dd7b3d1",
+  "implementation_revision": "51751d9e48194aa872d5dae338ae431e946e2e67",
+  "manifest_canonical_sha256": "b96c6ab0f8b3306607711b2fe7a6c6aebeebfc0455943547b029727149857c55",
+  "terminal_stage": "provider_design_round_1",
+  "status": "failed",
+  "decision": "stop_jev_controller_and_keep_offline_result",
+  "failure": {
+    "error_type": "TypeSafeAPIError",
+    "http_status": 451,
+    "provider_message": "Typesafe is not available in your region.",
+    "classification": "provider_region_unavailable",
+    "sequence": 1,
+    "split": "design",
+    "round": 1,
+    "completed_response": false,
+    "same_identity_retry_allowed": false
+  },
+  "source_cache": {
+    "task_count": 12,
+    "bundle_count": 12,
+    "total_bundle_bytes": 85060643,
+    "all_first_acquisition_attempt": true,
+    "prior_acquisition_errors": 0,
+    "formal_network_checkout_allowed": false,
+    "index_canonical_sha256": "76d5c18aa9322842ed226180f31876e598e506db0f7dae6cdd989876d703ce62"
+  },
+  "fault_trigger_qualification": {
+    "attempts": 72,
+    "planned_attempts": 72,
+    "passed": true,
+    "all_nonzero_exit": true,
+    "no_timeout": true,
+    "nonempty_semantic_log": true,
+    "replicate_exit_class_consistency": true,
+    "build_system_counts": {
+      "autotools": 24,
+      "cmake": 24,
+      "make": 24
+    },
+    "split_counts": {
+      "calibration": 36,
+      "design": 36
+    }
+  },
+  "outcome_qualification": {
+    "passed": true,
+    "state_count": 36,
+    "action_outcome_count": 288,
+    "reference_closure_count": 24,
+    "state_action_pair_count": 144,
+    "consistent_state_action_pair_count": 144,
+    "replay_consistency": 1.0,
+    "all_candidates_bounded": true,
+    "all_reference_closures_passed": true,
+    "no_direct_label_leakage": true,
+    "per_split": {
+      "calibration": {
+        "project_count": 6,
+        "state_count": 18,
+        "states_by_build_system": {
+          "autotools": 6,
+          "cmake": 6,
+          "make": 6
+        },
+        "optimal_actions": {
+          "build": 6,
+          "configure": 6,
+          "dependency": 6
+        }
+      },
+      "design": {
+        "project_count": 6,
+        "state_count": 18,
+        "states_by_build_system": {
+          "autotools": 6,
+          "cmake": 6,
+          "make": 6
+        },
+        "optimal_actions": {
+          "build": 6,
+          "configure": 6,
+          "dependency": 6
+        }
+      }
+    }
+  },
+  "provider_usage": {
+    "credential_reads": 1,
+    "physical_requests": 1,
+    "completed_model_responses": 0,
+    "input_tokens": 0,
+    "output_tokens": 0,
+    "model_cost_usd": 0,
+    "credential_stored_in_evidence": false
+  },
+  "evidence": {
+    "root": ".compile-sessions/benchmark-evidence-jev-offline-qualification-v3",
+    "file_count": 105,
+    "inventory_canonical_sha256": "1e931f3124973b69daf24871a7b92d1b0cd982b8dc9e7baa51a324966c178507",
+    "identity_file_sha256": "9dab80e3c0bac3ec370a2f1451eef5a59fef4dc22d3d13e96be8ebe56f64123c",
+    "fault_trigger_summary_sha256": "c256276c304b521958f994d9b1dfea3a80bfe94e223d48b69a55e8f653f24e29",
+    "outcomes_sha256": "8fd490d8cc9e2517c1ff8e182a8e0930e103a6b6c9b2ff426904deede9d2cf93",
+    "provider_failure_sha256": "75028da23c2c1c6bff2fdb343c24d98e2d36ab853ba7d207c54fa1d8ecaf744b",
+    "managed_container_count_after_failure": 0,
+    "historical_evidence_modified": false
+  },
+  "gates": {
+    "source_cache": true,
+    "fault_trigger_qualification": true,
+    "outcome_qualification": true,
+    "provider_design_completed": false,
+    "calibration_allowed": false,
+    "evaluation_allowed": false,
+    "controller_replay_allowed": false
+  },
+  "interpretation": {
+    "supported": [
+      "12 个冻结 source bundles 可在 formal run 中移除远端 checkout 依赖。",
+      "36 状态、288 动作分支和 24 reference closures 构成合格且重复一致的离线动作 outcome benchmark。",
+      "当前服务器直连 TypeSafe API 被区域策略拒绝，v3 在首个请求后失败关闭。",
+      "cpp-jev-offline-qualification-v3 不得重跑、续跑或补齐。"
+    ],
+    "unsupported": [
+      "Jev 的动作选择准确率、顺序稳定性、校准质量、延迟、token 或费用。",
+      "Jev 与 TF-IDF、RuleGate 或通用 LLM 的模型能力比较。",
+      "Jev controller 的严格成功率、成本收益或部署可行性。"
+    ],
+    "jev_model_effect_estimated": false,
+    "controller_effect_estimated": false,
+    "temporal_generalization_estimated": false,
+    "natural_failure_population_estimated": false
+  }
+}
