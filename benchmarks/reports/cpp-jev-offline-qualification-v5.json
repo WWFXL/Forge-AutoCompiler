@@ -1,0 +1,254 @@
+{
+  "budget": {
+    "completed_model_responses": 12,
+    "input_tokens": 11826,
+    "model_cost_usd": 0.0004966920000000001,
+    "model_requests": 13,
+    "output_tokens": 1212
+  },
+  "calibration": null,
+  "created_at": "2026-10-10T02:03:11.586257+00:00",
+  "decision": "stop_jev_controller_and_keep_offline_result",
+  "design": {
+    "budget_after": {
+      "completed_model_responses": 12,
+      "input_tokens": 11826,
+      "model_cost_usd": 0.0004966920000000001,
+      "model_requests": 13,
+      "output_tokens": 1212
+    },
+    "created_at": "2026-10-10T02:02:46.274191+00:00",
+    "credential_reads": 1,
+    "error_type": "CandidateError",
+    "identity": "cpp-jev-offline-qualification-v5",
+    "request_id": null,
+    "round": 1,
+    "split": "design",
+    "status": "failed"
+  },
+  "document_type": "forge_jev_offline_qualification_report",
+  "evaluation": null,
+  "evidence_inventory": [
+    {
+      "path": "provider/design-round-1/attempts/01-s-09b9c5f349a144ded615.json",
+      "sha256": "ca7f5475b0672490b995765b853e53b0b6c8978f73fa0933e49f15dc37f407e2",
+      "size": 481
+    },
+    {
+      "path": "provider/design-round-1/attempts/02-s-3b63064ac5ed3cb4a6be.json",
+      "sha256": "6373d75924b9512d2940e6f12836e2996c9d26c71cf997ae80a6ff77852f7f7e",
+      "size": 481
+    },
+    {
+      "path": "provider/design-round-1/attempts/03-s-3cee20ea8ccde8a8d60b.json",
+      "sha256": "818216153f3673b1661989ee3667a5e3bf826c1ad222c73845e0a4208a6d67d0",
+      "size": 481
+    },
+    {
+      "path": "provider/design-round-1/attempts/04-s-46ab4053e8e9e952dbc6.json",
+      "sha256": "6ebcc824522c74b2259d90a6eb580d9e43c922fd3b38ed97ff7d94530bd1739a",
+      "size": 481
+    },
+    {
+      "path": "provider/design-round-1/attempts/05-s-54193a88d09cc993b303.json",
+      "sha256": "3ebec1da1b4eec07e31edc7f6e5ce9ea41a4a5485208f639b06a1293b03e2c63",
+      "size": 481
+    },
+    {
+      "path": "provider/design-round-1/attempts/06-s-64a8732e22cd55b39b17.json",
+      "sha256": "9bf1dbec9212f91dfb66ec968acc02d58010dfd768331ced6f04ec228c58ae71",
+      "size": 481
+    },
+    {
+      "path": "provider/design-round-1/attempts/07-s-686f7dec7c67b354d921.json",
+      "sha256": "b8ca7efc06bdd25caf96cd3334ff319ad1443252779dfc49741c25f7b0c25885",
+      "size": 481
+    },
+    {
+      "path": "provider/design-round-1/attempts/08-s-88fc7e9e638d56cea2c4.json",
+      "sha256": "ac95258a314248c2d2430d090261c4a40ddfee4defc9bf1821c3919a9eabd5a7",
+      "size": 481
+    },
+    {
+      "path": "provider/design-round-1/attempts/09-s-997049025ac2fd8515de.json",
+      "sha256": "6f41a1ab6dc0b7c1cb210ab9385fb6b7c6adecbc1d8dca48d46a4de301c70523",
+      "size": 481
+    },
+    {
+      "path": "provider/design-round-1/attempts/10-s-9e32cbeba31f56fc5bd1.json",
+      "sha256": "e040a8e5464b589024fb46ad502692b8b77a2f816e30c6bf52cdbf387145f595",
+      "size": 482
+    },
+    {
+      "path": "provider/design-round-1/attempts/11-s-ab138df42d28306ad733.json",
+      "sha256": "a5178ca986ee7c0d56d0c435455959a0766b676e89b3ea29a77b028c1bc978ed",
+      "size": 482
+    },
+    {
+      "path": "provider/design-round-1/attempts/12-s-bd8175fdb8527de8e5f2.json",
+      "sha256": "63e21fd080d7e639555b76feb537fc814b416e7549278d7ba0d35e009050f0ac",
+      "size": 482
+    },
+    {
+      "path": "provider/design-round-1/attempts/13-s-c12be5b065b0b080eae6.json",
+      "sha256": "77b3b54a1cdb94334b70c9ae3e742df536e68a86222730305044028489328eae",
+      "size": 482
+    },
+    {
+      "path": "provider/design-round-1/failed.json",
+      "sha256": "6b10430e418697bcd63e0b255117c423e0edd453484df38385b4173fbe9b0da6",
+      "size": 429
+    },
+    {
+      "path": "provider/design-round-1/requests/01-s-09b9c5f349a144ded615.json",
+      "sha256": "2888e04373bc78e8bf7e7bfda06980f18d9726e8a1f2df9318dfcbcab8ee26ca",
+      "size": 1266
+    },
+    {
+      "path": "provider/design-round-1/requests/02-s-3b63064ac5ed3cb4a6be.json",
+      "sha256": "aa5b384611d0249548b5d4d1660216048f5a12fd7657c88f9cb5331a3694ae35",
+      "size": 1251
+    },
+    {
+      "path": "provider/design-round-1/requests/03-s-3cee20ea8ccde8a8d60b.json",
+      "sha256": "91bb5885e4890526489f85341f752ee29bde752dc4cd625076c67924bb19b6fb",
+      "size": 1266
+    },
+    {
+      "path": "provider/design-round-1/requests/04-s-46ab4053e8e9e952dbc6.json",
+      "sha256": "ca0f64d9789d543cd82e7ff7ae5bca0d982524315ecc5801a5c9f4ec6fd5933d",
+      "size": 1252
+    },
+    {
+      "path": "provider/design-round-1/requests/05-s-54193a88d09cc993b303.json",
+      "sha256": "3d95114477f269fe2863f7c814205cf6866e8289f3251f4c0f88b7190cadbea6",
+      "size": 1253
+    },
+    {
+      "path": "provider/design-round-1/requests/06-s-64a8732e22cd55b39b17.json",
+      "sha256": "50a190ad15c1a87356161886ac8ccdbab340f504ee23e1e78adcd69731a93893",
+      "size": 1265
+    },
+    {
+      "path": "provider/design-round-1/requests/07-s-686f7dec7c67b354d921.json",
+      "sha256": "c0ab759e5118cb43c571ddf099f3c78b98eb94cdf22b747a35135c031f2f6558",
+      "size": 1263
+    },
+    {
+      "path": "provider/design-round-1/requests/08-s-88fc7e9e638d56cea2c4.json",
+      "sha256": "9d5d174da5b3620b902ab4abbf68a437b9df9214365a97200e188ea820cc8578",
+      "size": 1262
+    },
+    {
+      "path": "provider/design-round-1/requests/09-s-997049025ac2fd8515de.json",
+      "sha256": "be44d2c987130dd784460042a27cace55cec36b3ec74ffe46bf831c75a017dfb",
+      "size": 1261
+    },
+    {
+      "path": "provider/design-round-1/requests/10-s-9e32cbeba31f56fc5bd1.json",
+      "sha256": "5687282a9148910898b6a0951957d87efc073aa58402c88faf5a525e165c4e9a",
+      "size": 1253
+    },
+    {
+      "path": "provider/design-round-1/requests/11-s-ab138df42d28306ad733.json",
+      "sha256": "2c42201a4baa78cf810589831a3d8952bc8c1d7442247f31e798e2eed812d06c",
+      "size": 1267
+    },
+    {
+      "path": "provider/design-round-1/requests/12-s-bd8175fdb8527de8e5f2.json",
+      "sha256": "1093df04d9b205b2a8f0bb1a5f33473f252948c078e250ef659fc9735f89a901",
+      "size": 1280
+    },
+    {
+      "path": "provider/design-round-1/started.json",
+      "sha256": "066712a9859aa89518a7e202090bd6f691afad1e7dff55fc21806eb98c90ba8f",
+      "size": 348
+    }
+  ],
+  "evidence_inventory_canonical_sha256": "59f5eb0084b7253e69145c0d09087f8827bdbf956fa49ef2d9b984d1e272a6f0",
+  "gates": {
+    "fixed_model_provider_execution": false
+  },
+  "git_commit": "66b288b9edf8adb10da1ed22689a1cf1e219e444",
+  "identity": "cpp-jev-offline-qualification-v5",
+  "interpretation": {
+    "controller_effect_estimated": false,
+    "historical_evidence_modified": false,
+    "jev_offline_action_qualification_estimated": false,
+    "natural_failure_population_estimated": false,
+    "strict_success_noninferiority_estimated": false,
+    "temporal_generalization_estimated": false
+  },
+  "issue_url": "https://github.com/WWFXL/Forge-AutoCompiler/issues/400",
+  "manifest_canonical_sha256": "1ae7b5059083ca9db3385b02dfca3f54dbffee75e073199f69701cd9eb8025bd",
+  "parent_model_catalog": {
+    "identity": "cpp-jev-offline-qualification-v4",
+    "interpretation": "catalog_aliases_do_not_establish_exact_version_callability",
+    "model_inference_performed": false,
+    "observed_models": [
+      {
+        "name": "jev-latest",
+        "release_date": "2026-09-10T18:38:01.391457+00:00"
+      },
+      {
+        "name": "jev-preview",
+        "release_date": "2026-09-10T18:39:06.057655+00:00"
+      }
+    ],
+    "report_file_sha256": "85e62c6fa8b6f4c1d9dc1eabd2808b12ec5cc2d30e5ceb6d16ec9604b6a82909"
+  },
+  "parent_outcome_qualification": {
+    "action_outcome_count": 288,
+    "file_sha256": "8fd490d8cc9e2517c1ff8e182a8e0930e103a6b6c9b2ff426904deede9d2cf93",
+    "gates": {
+      "all_candidates_bounded": true,
+      "expected_counts": true,
+      "no_direct_label_leakage": true,
+      "reference_closure": true,
+      "replay_consistency": true,
+      "split_balance": true
+    },
+    "identity": "cpp-jev-offline-qualification-v3",
+    "passed": true,
+    "reference_closure_count": 24,
+    "replay": {
+      "consistent_state_action_pair_count": 144,
+      "replay_consistency": 1.0,
+      "state_action_pair_count": 144
+    },
+    "split_metrics": {
+      "calibration": {
+        "optimal_actions": {
+          "build": 6,
+          "configure": 6,
+          "dependency": 6
+        },
+        "project_count": 6,
+        "state_count": 18,
+        "states_by_build_system": {
+          "autotools": 6,
+          "cmake": 6,
+          "make": 6
+        }
+      },
+      "design": {
+        "optimal_actions": {
+          "build": 6,
+          "configure": 6,
+          "dependency": 6
+        },
+        "project_count": 6,
+        "state_count": 18,
+        "states_by_build_system": {
+          "autotools": 6,
+          "cmake": 6,
+          "make": 6
+        }
+      }
+    },
+    "state_count": 36
+  },
+  "passed": false,
+  "schema_version": "forge-jev-offline-qualification-report-5.0.0",
+  "terminal_stage": "provider_design"
+}
