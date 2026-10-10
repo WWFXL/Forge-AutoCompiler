@@ -1,0 +1,117 @@
+{
+  "$id": "https://github.com/WWFXL/Forge-AutoCompiler/benchmarks/schemas/forge-jev-controller-replay-qualification-v2.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "const": {
+    "$schema": "../schemas/forge-jev-controller-replay-qualification-v2.schema.json",
+    "authorization": {
+      "credential_reads": 0,
+      "formal_evidence_write": true,
+      "formal_replay": true,
+      "historical_evidence_write": false,
+      "model_cost_usd": 0,
+      "model_tokens": 0,
+      "provider_calls": 0,
+      "shell_action_execution": false
+    },
+    "branch": "yiwei/404-jev-controller-replay-v2",
+    "components": {
+      "controller": {
+        "path": "backend/packages/harness/deerflow/compile/jev_controller.py",
+        "sha256": "f8c53aa301c60399aae33c052d7d3efd8d39c0827dc751d99cd823194a810e9f"
+      },
+      "controller_test": {
+        "path": "backend/tests/test_jev_controller.py",
+        "sha256": "c23cb36228894f3a9122b853b759399d56602e00d819826c6e674c3734c940da"
+      },
+      "runner": {
+        "path": "scripts/forge_jev_controller_replay_qualification_v2.py",
+        "sha256": "0d195060615107d90c424b4a95798019b18dc92567b9c0c2642c6cdab7e2c1ee"
+      },
+      "runner_test": {
+        "path": "backend/tests/test_forge_jev_controller_replay_qualification_v2.py",
+        "sha256": "058528fa4938a4ca0559270451f6b6e52f06a9962cabbddd8a23e6d1d3b23b4b"
+      }
+    },
+    "controller_contract": {
+      "action_families": [
+        "dependency",
+        "configure",
+        "build",
+        "escalate_agent"
+      ],
+      "calibration": {
+        "coefficient": 0.08805149266059632,
+        "intercept": 0.618335523488825,
+        "threshold": 0.6747568477098429
+      },
+      "direct_action_terminal_status": "awaiting_strict_verification",
+      "model": "jev-1.13.0",
+      "model_generated_commands_allowed": false,
+      "required_verifiers": [
+        "candidate_verifier",
+        "functional_oracle",
+        "provenance",
+        "clean_replay"
+      ]
+    },
+    "frozen_inputs": {
+      "calibration_sha256": "1c2d4a24eeb407821ad4e56f41b62e50bef247c71764398044d51d3a24c835cf",
+      "evaluation_analysis_sha256": "311f3f977677cb9d77a4d74b6fba4b5cf3de79c37b7e332178e35f4d13b2f33c",
+      "v1_failure_evidence_inventory_canonical_sha256": "e11cf5aa77587606ec70e5454cbe8b9c2574a34f6c1249660096e5c469863538",
+      "v1_failure_evidence_root": ".compile-sessions/benchmark-evidence-jev-controller-replay-qualification-v1",
+      "v2_report": {
+        "path": "benchmarks/reports/cpp-typed-semantic-routing-pilot-v2.json",
+        "sha256": "ea2e126e81cfca374900436fa670015b28b3cc3f9d8c83e746ae2c92d2badfed"
+      },
+      "v6_evidence_inventory_canonical_sha256": "296a365e9ebb7b0148fb9662d2aa2edf3cc5c2dfcf0da943f3a521e751877521",
+      "v6_evidence_root": ".compile-sessions/benchmark-evidence-jev-offline-qualification-v6",
+      "v6_report": {
+        "path": "benchmarks/reports/cpp-jev-offline-qualification-v6.json",
+        "sha256": "7a9d440acd0dc1b51eea7470563fc263b518fffd428b2e4bd6c3967ab696b2c6"
+      }
+    },
+    "identity": "cpp-jev-controller-replay-qualification-v2",
+    "implementation_revision": "984532a2344b0f79152fea1731aec3816ca6ee16",
+    "interpretation": {
+      "controller_path_qualification": true,
+      "controller_treatment_effect": false,
+      "cost_savings": false,
+      "natural_failure_generalization": false,
+      "strict_success_noninferiority": false
+    },
+    "issue_url": "https://github.com/WWFXL/Forge-AutoCompiler/issues/404",
+    "schedule": {
+      "expected_fault_case_count": 324,
+      "fault_injection_per_state": true,
+      "fault_scenarios": [
+        "response_missing",
+        "model_mismatch",
+        "state_mismatch",
+        "request_fingerprint_mismatch",
+        "choice_order_disagreement",
+        "probability_non_finite",
+        "probability_sum_invalid",
+        "choice_probability_mismatch",
+        "below_calibrated_threshold",
+        "selected_candidate_missing",
+        "selected_candidate_precondition_failed",
+        "budget_exhausted",
+        "candidate_verifier_missing",
+        "functional_oracle_missing",
+        "provenance_missing",
+        "clean_replay_missing",
+        "model_requested_escalation",
+        "unknown_action_choice"
+      ],
+      "normal_state_count": 18
+    },
+    "schema_version": "forge-jev-controller-replay-qualification-2.0.0",
+    "stopping_rule": {
+      "fail_decision": "stop_before_end_to_end_canary",
+      "pass_decision": "proceed_to_end_to_end_canary",
+      "stop_on_first_wrong_direct_action": true,
+      "stop_on_parent_input_drift": true
+    }
+  },
+  "title": "Forge Jev controller replay qualification v2"
+}
