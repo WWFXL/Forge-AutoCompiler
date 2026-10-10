@@ -1,0 +1,22 @@
+{
+  "schema_version": "forge-jev-end-to-end-canary-qualification-failure-1.0.0",
+  "identity": "cpp-jev-end-to-end-canary-v1",
+  "manifest_canonical_sha256": "03f472ebee1c46574df99f409d6f41d24f999caa09f6c8636ac65a65d515fe3e",
+  "manifest_file_sha256": "1c7ff892fcc9f72f0276bfaa41e8e09badd6f866cf2caa605d9a0b3f30a20572",
+  "implementation_revision": "b8ebc5b0bd09c5fedeeb727ec1601613cb9e7ecc",
+  "execution_revision": "a9a1fcf091de89ab3ea078905c8cc50a90804467",
+  "observed_at": "2026-10-10T18:33:23+08:00",
+  "stage": "zero_provider_qualification_startup",
+  "error_class": "AttributeError",
+  "classification": "parent_manifest_constant_mismatch",
+  "docker_action_executions": 0,
+  "credential_reads": 0,
+  "provider_calls": 0,
+  "model_tokens": 0,
+  "formal_attempts": 0,
+  "formal_evidence_writes": 0,
+  "qualification_report_written": false,
+  "managed_resources_after_failure": 0,
+  "replacement_or_backfill": false,
+  "decision": "supersede_with_fresh_v2_identity"
+}

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Issue #406 Jev 三臂端到端 canary v1。"""
+"""Issue #406 Jev 三臂端到端 canary v2。"""
 
 from __future__ import annotations
 
@@ -88,31 +88,37 @@ from deerflow.compile.operations import (  # noqa: E402
 from deerflow.tools.bound_compile_tools import _run_container_bash_impl  # noqa: E402
 from typesafe_sdk import RetryPolicy, TypeSafeClient  # noqa: E402
 
-IDENTITY = "cpp-jev-end-to-end-canary-v1"
+IDENTITY = "cpp-jev-end-to-end-canary-v2"
 ISSUE_URL = "https://github.com/WWFXL/Forge-AutoCompiler/issues/406"
 BRANCH = "yiwei/406-jev-end-to-end-canary"
-SCHEMA_VERSION = "forge-jev-end-to-end-canary-1.0.0"
-REPORT_SCHEMA_VERSION = "forge-jev-end-to-end-canary-report-1.0.0"
+SCHEMA_VERSION = "forge-jev-end-to-end-canary-2.0.0"
+REPORT_SCHEMA_VERSION = "forge-jev-end-to-end-canary-report-2.0.0"
 
-MANIFEST_PATH = REPO_ROOT / "benchmarks/manifests/cpp-jev-end-to-end-canary-v1.json"
+MANIFEST_PATH = REPO_ROOT / "benchmarks/manifests/cpp-jev-end-to-end-canary-v2.json"
 SCHEMA_PATH = (
-    REPO_ROOT / "benchmarks/schemas/forge-jev-end-to-end-canary-v1.schema.json"
+    REPO_ROOT / "benchmarks/schemas/forge-jev-end-to-end-canary-v2.schema.json"
 )
 PREREGISTRATION_PATH = (
-    REPO_ROOT / "benchmarks/preregistrations/cpp-jev-end-to-end-canary-v1.md"
+    REPO_ROOT / "benchmarks/preregistrations/cpp-jev-end-to-end-canary-v2.md"
 )
 QUALIFICATION_JSON_PATH = (
-    REPO_ROOT / "benchmarks/reports/cpp-jev-end-to-end-canary-v1-qualification.json"
+    REPO_ROOT / "benchmarks/reports/cpp-jev-end-to-end-canary-v2-qualification.json"
 )
 QUALIFICATION_MARKDOWN_PATH = (
-    REPO_ROOT / "benchmarks/reports/cpp-jev-end-to-end-canary-v1-qualification.md"
+    REPO_ROOT / "benchmarks/reports/cpp-jev-end-to-end-canary-v2-qualification.md"
 )
-JSON_REPORT_PATH = REPO_ROOT / "benchmarks/reports/cpp-jev-end-to-end-canary-v1.json"
-MARKDOWN_REPORT_PATH = REPO_ROOT / "benchmarks/reports/cpp-jev-end-to-end-canary-v1.md"
+JSON_REPORT_PATH = REPO_ROOT / "benchmarks/reports/cpp-jev-end-to-end-canary-v2.json"
+MARKDOWN_REPORT_PATH = REPO_ROOT / "benchmarks/reports/cpp-jev-end-to-end-canary-v2.md"
 EVIDENCE_ROOT = (
-    REPO_ROOT / ".compile-sessions/benchmark-evidence-jev-end-to-end-canary-v1"
+    REPO_ROOT / ".compile-sessions/benchmark-evidence-jev-end-to-end-canary-v2"
 )
 CREDENTIAL_FILE = REPO_ROOT / "jev-apikey.txt"
+
+V1_MANIFEST_PATH = REPO_ROOT / "benchmarks/manifests/cpp-jev-end-to-end-canary-v1.json"
+V1_FAILURE_PATH = (
+    REPO_ROOT
+    / "benchmarks/reports/cpp-jev-end-to-end-canary-v1-qualification-failure.json"
+)
 
 V2_REPORT_PATH = (
     REPO_ROOT / "benchmarks/reports/cpp-typed-semantic-routing-pilot-v2.json"
@@ -121,7 +127,13 @@ V6_REPORT_PATH = REPO_ROOT / "benchmarks/reports/cpp-jev-offline-qualification-v
 CONTROLLER_REPORT_PATH = (
     REPO_ROOT / "benchmarks/reports/cpp-jev-controller-replay-qualification-v2.json"
 )
-PARENT_PATHS = (V2_REPORT_PATH, V6_REPORT_PATH, CONTROLLER_REPORT_PATH)
+PARENT_PATHS = (
+    V2_REPORT_PATH,
+    V6_REPORT_PATH,
+    CONTROLLER_REPORT_PATH,
+    V1_MANIFEST_PATH,
+    V1_FAILURE_PATH,
+)
 
 COMPILE_IMAGE = "autocompiler:gcc13"
 EXPECTED_IMAGE_ID = (
@@ -346,7 +358,7 @@ def build_manifest(implementation_revision: str) -> dict[str, Any]:
         ),
     }
     return {
-        "$schema": "../schemas/forge-jev-end-to-end-canary-v1.schema.json",
+        "$schema": "../schemas/forge-jev-end-to-end-canary-v2.schema.json",
         "schema_version": SCHEMA_VERSION,
         "identity": IDENTITY,
         "issue_url": ISSUE_URL,
@@ -442,8 +454,8 @@ def build_manifest(implementation_revision: str) -> dict[str, Any]:
 def build_schema(manifest: dict[str, Any]) -> dict[str, Any]:
     return {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "https://github.com/WWFXL/Forge-AutoCompiler/benchmarks/schemas/forge-jev-end-to-end-canary-v1.schema.json",
-        "title": "Forge Jev end-to-end canary v1",
+        "$id": "https://github.com/WWFXL/Forge-AutoCompiler/benchmarks/schemas/forge-jev-end-to-end-canary-v2.schema.json",
+        "title": "Forge Jev end-to-end canary v2",
         "const": manifest,
     }
 
@@ -453,7 +465,7 @@ def render_preregistration(manifest: dict[str, Any]) -> str:
         f"{row['sequence']}. `{row['task_id']}` / `{row['arm']}`"
         for row in manifest["schedule"]
     )
-    return f"""# Jev 三臂端到端 canary v1
+    return f"""# Jev 三臂端到端 canary v2
 
 - Tracking Issue：[#406]({ISSUE_URL})
 - Identity：`{IDENTITY}`
@@ -465,6 +477,10 @@ def render_preregistration(manifest: dict[str, Any]) -> str:
 在三个受控、已知可恢复的 CMake/Make/Autotools 失败状态上，`AlwaysAgent`、`RuleGate+Agent` 和 `JevGate+Agent` 能否在相同完整 Agent 预算与同一严格 evaluator 下形成闭合终态，并完整记录 Agent 调用、Jev 调用、token、墙钟、升级与严格成功？
 
 本阶段是 canary，只评价运行闭合、指标可采集性和预算可接受性，不估计 treatment effect。
+
+v1 在零 Provider qualification 启动时因父 manifest 常量名错误而在 Docker 动作前失败，
+未读取 credential、未调用 Provider、未创建 formal attempt 或 formal evidence。v2 只修正
+该接口名并使用全新 manifest、报告和 evidence root；不导入、续跑或改写 v1。
 
 ## 样本与顺序
 
@@ -537,12 +553,15 @@ def validate_parents() -> None:
     v2 = _load_json(V2_REPORT_PATH)
     v6 = _load_json(V6_REPORT_PATH)
     controller = _load_json(CONTROLLER_REPORT_PATH)
+    v1_failure = _load_json(V1_FAILURE_PATH)
     if v2.get("analysis", {}).get("decision") != "proceed_to_jev_offline_qualification":
         raise CanaryError("v2 未通过")
     if v6.get("decision") != "proceed_to_controller_replay_qualification":
         raise CanaryError("v6 未通过")
     if controller.get("decision") != "proceed_to_end_to_end_canary":
         raise CanaryError("controller replay 未通过")
+    if v1_failure.get("decision") != "supersede_with_fresh_v2_identity":
+        raise CanaryError("v1 qualification failure record 无效")
 
 
 def _image_id() -> str:
@@ -727,7 +746,7 @@ def choose_jev_route(
 
 def zero_provider_qualification() -> dict[str, Any]:
     manifest = validate_manifest()
-    parent_manifest = _load_json(semantic_v2.MANIFEST_PATH)
+    parent_manifest = _load_json(semantic_v2.DEFAULT_MANIFEST)
     image = manifest["environment"]["image_id"]
     rows: list[dict[str, Any]] = []
     with tempfile.TemporaryDirectory(
@@ -836,7 +855,7 @@ def zero_provider_qualification() -> dict[str, Any]:
     _write_once_json(QUALIFICATION_JSON_PATH, report)
     _write_once(
         QUALIFICATION_MARKDOWN_PATH,
-        "# Jev 三臂端到端 canary v1 零 Provider 资格报告\n\n"
+        "# Jev 三臂端到端 canary v2 零 Provider 资格报告\n\n"
         f"- 决定：`{report['decision']}`\n"
         f"- 三个构建系统严格成功：`{sum(row['strict_success'] for row in rows)}/3`\n"
         "- Provider / credential / formal attempt：`0 / 0 / 0`\n\n"
@@ -1774,7 +1793,7 @@ def generate_report() -> dict[str, Any]:
     )
     _write_once(
         MARKDOWN_REPORT_PATH,
-        "# Jev 三臂端到端 canary v1\n\n"
+        "# Jev 三臂端到端 canary v2\n\n"
         f"- 决定：`{report['decision']}`\n"
         f"- 完整 arm：`{report['arm_count']}/9`\n"
         f"- Agent 请求 / tokens：`{totals['agent_requests']} / {totals['agent_recorded_tokens']}`\n"

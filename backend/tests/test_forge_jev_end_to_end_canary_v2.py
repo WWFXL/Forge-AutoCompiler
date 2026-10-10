@@ -7,14 +7,14 @@ from pathlib import Path
 import pytest
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
-SCRIPT_PATH = REPO_ROOT / "scripts/forge_jev_end_to_end_canary_v1.py"
+SCRIPT_PATH = REPO_ROOT / "scripts/forge_jev_end_to_end_canary_v2.py"
 SCRIPTS_ROOT = str(REPO_ROOT / "scripts")
 if SCRIPTS_ROOT not in sys.path:
     sys.path.insert(0, SCRIPTS_ROOT)
 
 
 def _load_module():
-    spec = importlib.util.spec_from_file_location("forge_jev_end_to_end_canary_v1", SCRIPT_PATH)
+    spec = importlib.util.spec_from_file_location("forge_jev_end_to_end_canary_v2", SCRIPT_PATH)
     assert spec is not None and spec.loader is not None
     module = importlib.util.module_from_spec(spec)
     sys.modules[spec.name] = module
