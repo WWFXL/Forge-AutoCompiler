@@ -1,0 +1,14 @@
+{
+  "schema_version": "forge-jev-prompt-amendment-1.0.0",
+  "identity": "cpp-jev-offline-qualification-v6",
+  "based_on_design_round": 1,
+  "design_analysis_canonical_sha256": "190032d1666bd108660829ab2daf5ebbcff0b335163f6622dc76dd8a1ac14078",
+  "rationale": "Design round 1 was safe on 18/18 states but selected the lowest-cost optimal action on only 10/18. The errors mainly confused a missing requested top-level target, which the already-bound normal build action fixes by using the valid target, with a missing real prerequisite input. Clarify these action boundaries without changing data, labels, thresholds, or candidate commands.",
+  "instructions": "Choose the single lowest-cost direct action that is supported by the failure, and escalate only when no direct action is safe. Distinguish a missing real prerequisite input from an invalid requested target: 'No rule to make target X, needed by Y' indicates a missing input and supports dependency, while 'No rule to make target X. Stop.' with no 'needed by' relation indicates that the attempted target itself is invalid and supports the already-bound normal build action. A generated build file parse error such as 'Makefile:1: missing separator' supports configure. Prefer build whenever the configured state is usable and retrying the valid bound build command is sufficient. Use only the supplied state and do not invent commands or actions.",
+  "action_descriptions": {
+    "dependency": "Run the already-bound recovery action only when the log identifies a missing real source, object-cache, or dependency input required by another target; then continue strict verification.",
+    "configure": "Run the already-bound configure recovery action only when generated build-system state is damaged, stale, or syntactically invalid; then continue strict verification.",
+    "build": "Run the already-bound valid normal build command when dependencies and generated configuration need no repair, including when the failed command requested a nonexistent top-level target; this is the lowest-cost direct action.",
+    "escalate_agent": "Do not execute a direct recovery action. Escalate to the full compilation Agent only when the evidence cannot safely distinguish dependency, configure, and build."
+  }
+}
