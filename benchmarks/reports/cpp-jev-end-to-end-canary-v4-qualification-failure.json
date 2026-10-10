@@ -1,0 +1,87 @@
+{
+  "schema_version": "forge-jev-end-to-end-canary-qualification-failure-1.0.0",
+  "identity": "cpp-jev-end-to-end-canary-v4",
+  "manifest_sha256": "eb7202270eeb1c07d40b9198aadd51b635df4db4a302fa806c68c5df59afa646",
+  "implementation_revision": "955ed8760e453d97850bc8c66a6245731d94907c",
+  "created_at": "2026-10-10T11:06:29Z",
+  "decision": "supersede_with_fresh_v5_identity",
+  "failure_classification": "artifact_stage_role_policy_conflict",
+  "failed_case": {
+    "task_id": "c-ares",
+    "build_system": "autotools",
+    "fault_type": "missing_compile_input",
+    "expected_action": "dependency",
+    "authoritative_build_system_selected": true,
+    "fault_triggered": true,
+    "dependency_action_succeeded": true,
+    "rebuild_succeeded": true,
+    "artifact_stage_command": "make install",
+    "artifact_stage_exit_code": 126,
+    "policy_message": "A successful build already entered the post-build phase; configure, build, housekeeping, dependency, and replay commands are now blocked. Stage artifacts or submit the existing build."
+  },
+  "completed_cases": [
+    {
+      "task_id": "args",
+      "build_system": "cmake",
+      "strict_reproducible_build_success": true,
+      "s0_s5_passed": true,
+      "cleanup_succeeded": true
+    },
+    {
+      "task_id": "hoextdown",
+      "build_system": "make",
+      "strict_reproducible_build_success": true,
+      "s0_s5_passed": true,
+      "cleanup_succeeded": true
+    }
+  ],
+  "observed_counts": {
+    "compile_sessions": 3,
+    "strict_successes": 2,
+    "provider_calls": 0,
+    "credential_reads": 0,
+    "formal_attempts": 0,
+    "model_tokens": 0,
+    "managed_resources_after_failure": 0
+  },
+  "session_evidence": [
+    {
+      "path": ".compile-sessions/jev-canary-v4-qualification-01-eb7202270e/f9b76d4b4d9a/session.json",
+      "sha256": "72ccfc32025f6e122b8d05c7d012b4b3008993d1f9fec7d74427889a2c78d641"
+    },
+    {
+      "path": ".compile-sessions/jev-canary-v4-qualification-01-eb7202270e/f9b76d4b4d9a/agent-workflow/canary-v4-qualification-01-direct/evaluations/canary-v4-qualification-01/result.json",
+      "sha256": "964297d353a94234abf8ea6a32e52681a6bc370d74a75abe5942cb7ff25bffaf"
+    },
+    {
+      "path": ".compile-sessions/jev-canary-v4-qualification-02-eb7202270e/057a1dc1a1fa/session.json",
+      "sha256": "159569f34a3af4d59db86b5ab78ef2e721f78a5ce0168e99ddddcb572d114f04"
+    },
+    {
+      "path": ".compile-sessions/jev-canary-v4-qualification-02-eb7202270e/057a1dc1a1fa/agent-workflow/canary-v4-qualification-02-direct/evaluations/canary-v4-qualification-02/result.json",
+      "sha256": "64933c55005fbbdda47189b0fd183135d1ff47483fb614832fdeb962c2d9fc93"
+    },
+    {
+      "path": ".compile-sessions/jev-canary-v4-qualification-03-eb7202270e/1bdfed016399/session.json",
+      "sha256": "e433f617d722446d65c38c04e316ceaef7fbf8f17d35b3f5ce4bfeb6669053f2"
+    }
+  ],
+  "interpretation": {
+    "supports": [
+      "container-side fault injection avoids the v3 host ownership failure",
+      "authoritative build-system selection supports the frozen Autotools capability",
+      "the full strict evaluator closes on the CMake and Make qualification cases"
+    ],
+    "does_not_support": [
+      "formal canary execution",
+      "Jev or Agent effectiveness",
+      "treatment effects or cost savings"
+    ]
+  },
+  "immutability": {
+    "rerun_v4": false,
+    "continue_v4": false,
+    "replace_v4_evidence": false,
+    "historical_evidence_modified": false
+  }
+}
