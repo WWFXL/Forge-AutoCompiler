@@ -1,0 +1,108 @@
+{
+  "schema_version": "forge-jev-offline-qualification-failure-report-2.0.0",
+  "document_type": "forge_jev_offline_qualification_failure_report",
+  "identity": "cpp-jev-offline-qualification-v2",
+  "issue_url": "https://github.com/WWFXL/Forge-AutoCompiler/issues/397",
+  "created_at": "2026-10-10T00:07:34.814664Z",
+  "execution_revision": "072f908c48b985212cdd4f374d58703d633a517c",
+  "implementation_revision": "2044a76cbb265705a8bb53be6fe4b3db287d0c48",
+  "manifest_canonical_sha256": "6bfe42e6e89273d21cd1cb6465c732386894030b778a7d60bfa2033c60eaf7ab",
+  "terminal_stage": "outcome_qualification",
+  "status": "failed",
+  "decision": "stop_before_credential_read",
+  "controller_decision": "stop_jev_controller_and_keep_offline_result",
+  "failure": {
+    "error_type": "QualificationError",
+    "task_id": "xxhash",
+    "message": "xxhash exact clone 失败: GitHub TLS connection was non-properly terminated before the reference list completed",
+    "classification": "source_checkout_transport_failure",
+    "scientific_gate_failure": false,
+    "same_identity_retry_allowed": false
+  },
+  "fault_trigger_qualification": {
+    "attempts": 72,
+    "planned_attempts": 72,
+    "passed": true,
+    "all_nonzero_exit": true,
+    "no_timeout": true,
+    "nonempty_semantic_log": true,
+    "replicate_exit_class_consistency": true,
+    "build_system_counts": {
+      "autotools": 24,
+      "cmake": 24,
+      "make": 24
+    },
+    "split_counts": {
+      "calibration": 36,
+      "design": 36
+    }
+  },
+  "partial_collection": {
+    "replicate_records": 6,
+    "planned_replicate_records": 24,
+    "completed_project_families": 3,
+    "planned_project_families": 12,
+    "unique_states": 9,
+    "planned_unique_states": 36,
+    "action_outcomes": 72,
+    "planned_action_outcomes": 288,
+    "reference_closures": 6,
+    "planned_reference_closures": 24,
+    "all_completed_reference_closures_passed": true,
+    "all_completed_reference_strict_checks_passed": true,
+    "completed_action_timeouts": 0,
+    "completed_strict_timeouts": 0,
+    "completed_tasks": [
+      "cjson",
+      "libsoundio",
+      "stockfish-11"
+    ],
+    "eligible_for_outcome_analysis": false,
+    "reason": "完整 36 状态、288 动作分支和 24 reference closure 门槛未满足；部分记录只作为失败审计证据保留。"
+  },
+  "provider_usage": {
+    "credential_reads": 0,
+    "provider_calls": 0,
+    "model_requests": 0,
+    "input_tokens": 0,
+    "output_tokens": 0,
+    "model_cost_usd": 0,
+    "credential_file_content_observed": false
+  },
+  "evidence": {
+    "root": ".compile-sessions/benchmark-evidence-jev-offline-qualification-v2",
+    "file_count": 83,
+    "inventory_canonical_sha256": "14fe4fd6cb4e60f792fc2c446d9f0b9fe5f857ce11c336534ef5c1939efc4e21",
+    "identity_file_sha256": "b1c30fdc0afef78b8fe69fcd2e95074067f744d145d95635e8d168fde011c157",
+    "fault_trigger_summary_sha256": "0d27fb9ce1952a367eb058337bda30d549baa7730886ecb1cccdf57897a7245a",
+    "terminal_marker_sha256": "b27fc0bdc024e0ef1510f2fb865258fd1753643d22035cc5a9e2566603bbb0b5",
+    "provider_evidence_file_count": 0,
+    "managed_container_count_after_failure": 0,
+    "historical_evidence_modified": false
+  },
+  "gates": {
+    "fault_trigger_qualification": true,
+    "expected_outcome_counts": false,
+    "outcome_qualification": false,
+    "provider_design_allowed": false,
+    "calibration_allowed": false,
+    "evaluation_allowed": false,
+    "controller_replay_allowed": false
+  },
+  "interpretation": {
+    "supported": [
+      "修正后的 12 项目三类故障均可重复形成有界构建失败。",
+      "v2 因正式运行中的 source checkout 传输故障失败关闭，未读取 credential、未调用 Provider。",
+      "cpp-jev-offline-qualification-v2 不得重跑、续跑、补齐或覆盖。"
+    ],
+    "unsupported": [
+      "Jev 的动作选择准确率、顺序稳定性、校准质量、延迟或成本。",
+      "完整 outcome matrix 的动作标签分布、基线表现或模型排名。",
+      "Jev controller 的严格成功率、成本收益或部署可行性。"
+    ],
+    "temporal_generalization_estimated": false,
+    "natural_failure_population_estimated": false,
+    "jev_model_effect_estimated": false,
+    "controller_effect_estimated": false
+  }
+}
