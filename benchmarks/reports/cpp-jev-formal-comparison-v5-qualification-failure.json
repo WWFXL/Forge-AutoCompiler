@@ -1,0 +1,70 @@
+{
+  "schema_version": "forge-jev-formal-comparison-qualification-failure-5.0.0",
+  "identity": "cpp-jev-formal-comparison-v5",
+  "manifest_sha256": "9d94bbf9ed24b560a6d1bfe61b2d4ec06fe5e5ecf6b77c4dd75df5cb610b057a",
+  "created_at": "2026-10-10T18:08:40Z",
+  "stage": "zero_provider_qualification",
+  "qualification_report": {
+    "path": "benchmarks/reports/cpp-jev-formal-comparison-v5-qualification.json",
+    "sha256": "2e7a16b83942f2e99e1a6ae6779391b022d215d9adfa54b25da436ff73ac50a2"
+  },
+  "completed_cases": [
+    {"sequence": 1, "task_id": "libgit2", "session_id": "453783213019", "strict_success": true, "session_status": "completed", "cleanup_succeeded": true},
+    {"sequence": 2, "task_id": "simdjson", "session_id": "5895a5ad8788", "strict_success": true, "session_status": "completed", "cleanup_succeeded": true},
+    {"sequence": 3, "task_id": "benchmark", "session_id": "a2c54ca9292e", "strict_success": true, "session_status": "completed", "cleanup_succeeded": true},
+    {"sequence": 4, "task_id": "pcre2", "session_id": "9b67e625bb6c", "strict_success": true, "session_status": "completed", "cleanup_succeeded": true},
+    {"sequence": 5, "task_id": "haproxy", "session_id": "6a7733f62df4", "strict_success": true, "session_status": "completed", "cleanup_succeeded": true},
+    {"sequence": 6, "task_id": "cc65", "session_id": "17482115a88b", "strict_success": true, "session_status": "completed", "cleanup_succeeded": true},
+    {"sequence": 7, "task_id": "quickjs", "session_id": "eb9c88230a5c", "strict_success": true, "session_status": "completed", "cleanup_succeeded": true},
+    {"sequence": 8, "task_id": "redis", "session_id": "c0932e6e6516", "strict_success": false, "session_status": "failed", "cleanup_succeeded": true},
+    {"sequence": 9, "task_id": "libarchive", "session_id": "784308095535", "strict_success": true, "session_status": "completed", "cleanup_succeeded": true},
+    {"sequence": 10, "task_id": "curl", "session_id": "88a83b4a1463", "strict_success": true, "session_status": "completed", "cleanup_succeeded": true},
+    {"sequence": 11, "task_id": "jemalloc", "session_id": "8bfc909ab5eb", "strict_success": true, "session_status": "completed", "cleanup_succeeded": true},
+    {"sequence": 12, "task_id": "wolfssl", "session_id": "f3f78ba7ccf9", "strict_success": true, "session_status": "completed", "cleanup_succeeded": true}
+  ],
+  "failure": {
+    "sequence": 8,
+    "task_id": "redis",
+    "failed_layers": [{"layer": "S5", "reason_codes": ["replay_artifact_invalid"]}],
+    "failure_class": "fault_trajectory_generated_stale_release_header",
+    "observed_failure": {
+      "candidate_size_bytes": 16522904,
+      "replay_size_bytes": 16522896,
+      "candidate_sha256": "21576ff62d75c156edfafa92601c62d35b2de8df9dd8f4e3ccc760a7de65b1ee",
+      "replay_sha256": "98e18976688b32ced8d3a2e59e9bef01499248fc7dabc3a66b6c8b2d018b24a0",
+      "candidate_build_id": "8a2f49759e6babf3",
+      "replay_build_id": "24d1ecd7f6d885c3"
+    },
+    "root_cause": "the controlled wrong-target command generated src/release.h before the repaired build; mkreleasehdr.sh considered the file current using only Git SHA and dirty state, so the later SOURCE_DATE_EPOCH assignment did not replace its hostname/time build ID, while clean replay did not execute the failed command",
+    "minimal_repair": "generate src/release.h with the frozen SOURCE_DATE_EPOCH during the shared configure phase and keep the same variable on the build command"
+  },
+  "repair_diagnostic": {
+    "candidate_included_failed_target": true,
+    "replay_excluded_failed_target": true,
+    "git_metadata_preserved": true,
+    "safe_directory_matched_forge": true,
+    "fixed_source_date_epoch": 1791622465,
+    "matching_binary_sha256": "98e18976688b32ced8d3a2e59e9bef01499248fc7dabc3a66b6c8b2d018b24a0",
+    "matching_version_build_id": "24d1ecd7f6d885c3",
+    "bitwise_equal": true
+  },
+  "observed_counts": {
+    "compile_sessions": 12,
+    "strict_successes": 11,
+    "provider_calls": 0,
+    "credential_reads": 0,
+    "formal_attempts": 0
+  },
+  "cleanup": {
+    "all_cleanup_calls_succeeded": true,
+    "managed_resources_remaining": 0
+  },
+  "formal_evidence_root_created": false,
+  "decision": "supersede_with_fresh_v6_identity_and_preseed_deterministic_redis_header",
+  "interpretation": {
+    "infrastructure_failure_only": true,
+    "jev_effect_evaluated": false,
+    "agent_effect_evaluated": false,
+    "treatment_effect": false
+  }
+}
