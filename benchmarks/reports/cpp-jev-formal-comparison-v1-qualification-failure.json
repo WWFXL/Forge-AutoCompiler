@@ -1,0 +1,47 @@
+{
+  "schema_version": "forge-jev-formal-comparison-qualification-failure-1.0.0",
+  "identity": "cpp-jev-formal-comparison-v1",
+  "manifest_sha256": "b9be8ff7568934ef13c00b5cb7fc8a9810fe43dfb487e7edc1a63c48f45d5a4d",
+  "created_at": "2026-10-10T16:23:01Z",
+  "stage": "zero_provider_qualification",
+  "failed_case": {
+    "sequence": 7,
+    "task_id": "ffmpeg",
+    "build_system": "make",
+    "fault_type": "invalid_build_state",
+    "expected_action": "configure",
+    "session_id": "89cd41acd658",
+    "failure_class": "frozen_configure_action_did_not_replace_invalid_makefile",
+    "observed_failure": "Makefile:1: *** missing separator. Stop.",
+    "configure_exit_code": 0,
+    "post_action_build_exit_code": 2
+  },
+  "completed_cases": [
+    {"sequence": 1, "task_id": "libgit2", "session_id": "1d73fb617627", "strict_success": true},
+    {"sequence": 2, "task_id": "simdjson", "session_id": "02372cdc37fa", "strict_success": true},
+    {"sequence": 3, "task_id": "benchmark", "session_id": "a3bcc4d4f08e", "strict_success": true},
+    {"sequence": 4, "task_id": "pcre2", "session_id": "173bc12fd092", "strict_success": true},
+    {"sequence": 5, "task_id": "haproxy", "session_id": "216f53aa14c4", "strict_success": true},
+    {"sequence": 6, "task_id": "cc65", "session_id": "4c9e74bf11df", "strict_success": true}
+  ],
+  "observed_counts": {
+    "compile_sessions": 7,
+    "strict_successes": 6,
+    "provider_calls": 0,
+    "credential_reads": 0,
+    "formal_attempts": 0
+  },
+  "cleanup": {
+    "all_sessions_terminal": true,
+    "managed_resources_remaining": 0
+  },
+  "formal_evidence_root_created": false,
+  "qualification_report_created": false,
+  "decision": "supersede_with_fresh_v2_identity",
+  "interpretation": {
+    "infrastructure_failure_only": true,
+    "jev_effect_evaluated": false,
+    "agent_effect_evaluated": false,
+    "treatment_effect": false
+  }
+}
