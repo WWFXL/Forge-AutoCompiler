@@ -7,14 +7,14 @@ from pathlib import Path
 import pytest
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
-SCRIPT_PATH = REPO_ROOT / "scripts/forge_jev_end_to_end_canary_v2.py"
+SCRIPT_PATH = REPO_ROOT / "scripts/forge_jev_end_to_end_canary_v3.py"
 SCRIPTS_ROOT = str(REPO_ROOT / "scripts")
 if SCRIPTS_ROOT not in sys.path:
     sys.path.insert(0, SCRIPTS_ROOT)
 
 
 def _load_module():
-    spec = importlib.util.spec_from_file_location("forge_jev_end_to_end_canary_v2", SCRIPT_PATH)
+    spec = importlib.util.spec_from_file_location("forge_jev_end_to_end_canary_v3", SCRIPT_PATH)
     assert spec is not None and spec.loader is not None
     module = importlib.util.module_from_spec(spec)
     sys.modules[spec.name] = module
@@ -117,3 +117,16 @@ def test_batch_budget_aggregation_fails_closed(canary) -> None:
     assert canary._within_budget(totals) is True
     totals["jev_requests"] = canary.TOTAL_JEV_REQUEST_CEILING + 1
     assert canary._within_budget(totals) is False
+
+
+def test_compile_workspace_is_bound_to_repository_root(canary, monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.delenv("DEER_FLOW_WORKSPACE_ROOT", raising=False)
+    monkeypatch.delenv("DEER_FLOW_HOST_WORKSPACE_ROOT", raising=False)
+    workspace = canary._configure_compile_workspace({"environment": {"workspace_root_binding": "repository_root"}})
+    assert workspace == {
+        "binding": "repository_root",
+        "process_root": ".compile-sessions",
+        "host_root": ".compile-sessions",
+    }
+    assert canary.os.environ["DEER_FLOW_WORKSPACE_ROOT"] == str(canary.REPO_ROOT)
+    assert canary.os.environ["DEER_FLOW_HOST_WORKSPACE_ROOT"] == str(canary.REPO_ROOT)

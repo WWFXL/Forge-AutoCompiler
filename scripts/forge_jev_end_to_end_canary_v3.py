@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Issue #406 Jev 三臂端到端 canary v2。"""
+"""Issue #406 Jev 三臂端到端 canary v3。"""
 
 from __future__ import annotations
 
@@ -85,32 +85,36 @@ from deerflow.compile.operations import (  # noqa: E402
     inspect_build_system_impl,
     prepare_compile_session_impl,
 )
+from deerflow.compile.paths import (  # noqa: E402
+    get_compile_sessions_root,
+    get_host_compile_sessions_root,
+)
 from deerflow.tools.bound_compile_tools import _run_container_bash_impl  # noqa: E402
 from typesafe_sdk import RetryPolicy, TypeSafeClient  # noqa: E402
 
-IDENTITY = "cpp-jev-end-to-end-canary-v2"
+IDENTITY = "cpp-jev-end-to-end-canary-v3"
 ISSUE_URL = "https://github.com/WWFXL/Forge-AutoCompiler/issues/406"
 BRANCH = "yiwei/406-jev-end-to-end-canary"
-SCHEMA_VERSION = "forge-jev-end-to-end-canary-2.0.0"
-REPORT_SCHEMA_VERSION = "forge-jev-end-to-end-canary-report-2.0.0"
+SCHEMA_VERSION = "forge-jev-end-to-end-canary-3.0.0"
+REPORT_SCHEMA_VERSION = "forge-jev-end-to-end-canary-report-3.0.0"
 
-MANIFEST_PATH = REPO_ROOT / "benchmarks/manifests/cpp-jev-end-to-end-canary-v2.json"
+MANIFEST_PATH = REPO_ROOT / "benchmarks/manifests/cpp-jev-end-to-end-canary-v3.json"
 SCHEMA_PATH = (
-    REPO_ROOT / "benchmarks/schemas/forge-jev-end-to-end-canary-v2.schema.json"
+    REPO_ROOT / "benchmarks/schemas/forge-jev-end-to-end-canary-v3.schema.json"
 )
 PREREGISTRATION_PATH = (
-    REPO_ROOT / "benchmarks/preregistrations/cpp-jev-end-to-end-canary-v2.md"
+    REPO_ROOT / "benchmarks/preregistrations/cpp-jev-end-to-end-canary-v3.md"
 )
 QUALIFICATION_JSON_PATH = (
-    REPO_ROOT / "benchmarks/reports/cpp-jev-end-to-end-canary-v2-qualification.json"
+    REPO_ROOT / "benchmarks/reports/cpp-jev-end-to-end-canary-v3-qualification.json"
 )
 QUALIFICATION_MARKDOWN_PATH = (
-    REPO_ROOT / "benchmarks/reports/cpp-jev-end-to-end-canary-v2-qualification.md"
+    REPO_ROOT / "benchmarks/reports/cpp-jev-end-to-end-canary-v3-qualification.md"
 )
-JSON_REPORT_PATH = REPO_ROOT / "benchmarks/reports/cpp-jev-end-to-end-canary-v2.json"
-MARKDOWN_REPORT_PATH = REPO_ROOT / "benchmarks/reports/cpp-jev-end-to-end-canary-v2.md"
+JSON_REPORT_PATH = REPO_ROOT / "benchmarks/reports/cpp-jev-end-to-end-canary-v3.json"
+MARKDOWN_REPORT_PATH = REPO_ROOT / "benchmarks/reports/cpp-jev-end-to-end-canary-v3.md"
 EVIDENCE_ROOT = (
-    REPO_ROOT / ".compile-sessions/benchmark-evidence-jev-end-to-end-canary-v2"
+    REPO_ROOT / ".compile-sessions/benchmark-evidence-jev-end-to-end-canary-v3"
 )
 CREDENTIAL_FILE = REPO_ROOT / "jev-apikey.txt"
 
@@ -119,8 +123,11 @@ V1_FAILURE_PATH = (
     REPO_ROOT
     / "benchmarks/reports/cpp-jev-end-to-end-canary-v1-qualification-failure.json"
 )
+CANARY_V2_REPORT_PATH = (
+    REPO_ROOT / "benchmarks/reports/cpp-jev-end-to-end-canary-v2.json"
+)
 
-V2_REPORT_PATH = (
+SEMANTIC_V2_REPORT_PATH = (
     REPO_ROOT / "benchmarks/reports/cpp-typed-semantic-routing-pilot-v2.json"
 )
 V6_REPORT_PATH = REPO_ROOT / "benchmarks/reports/cpp-jev-offline-qualification-v6.json"
@@ -128,11 +135,12 @@ CONTROLLER_REPORT_PATH = (
     REPO_ROOT / "benchmarks/reports/cpp-jev-controller-replay-qualification-v2.json"
 )
 PARENT_PATHS = (
-    V2_REPORT_PATH,
+    SEMANTIC_V2_REPORT_PATH,
     V6_REPORT_PATH,
     CONTROLLER_REPORT_PATH,
     V1_MANIFEST_PATH,
     V1_FAILURE_PATH,
+    CANARY_V2_REPORT_PATH,
 )
 
 COMPILE_IMAGE = "autocompiler:gcc13"
@@ -358,7 +366,7 @@ def build_manifest(implementation_revision: str) -> dict[str, Any]:
         ),
     }
     return {
-        "$schema": "../schemas/forge-jev-end-to-end-canary-v2.schema.json",
+        "$schema": "../schemas/forge-jev-end-to-end-canary-v3.schema.json",
         "schema_version": SCHEMA_VERSION,
         "identity": IDENTITY,
         "issue_url": ISSUE_URL,
@@ -409,6 +417,7 @@ def build_manifest(implementation_revision: str) -> dict[str, Any]:
             "image_id": EXPECTED_IMAGE_ID,
             "parallel_jobs": 4,
             "network_policy": "compile-network-v1",
+            "workspace_root_binding": "repository_root",
         },
         "budget": {
             "per_arm_agent": AGENT_BUDGET,
@@ -454,8 +463,8 @@ def build_manifest(implementation_revision: str) -> dict[str, Any]:
 def build_schema(manifest: dict[str, Any]) -> dict[str, Any]:
     return {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "https://github.com/WWFXL/Forge-AutoCompiler/benchmarks/schemas/forge-jev-end-to-end-canary-v2.schema.json",
-        "title": "Forge Jev end-to-end canary v2",
+        "$id": "https://github.com/WWFXL/Forge-AutoCompiler/benchmarks/schemas/forge-jev-end-to-end-canary-v3.schema.json",
+        "title": "Forge Jev end-to-end canary v3",
         "const": manifest,
     }
 
@@ -465,7 +474,7 @@ def render_preregistration(manifest: dict[str, Any]) -> str:
         f"{row['sequence']}. `{row['task_id']}` / `{row['arm']}`"
         for row in manifest["schedule"]
     )
-    return f"""# Jev 三臂端到端 canary v2
+    return f"""# Jev 三臂端到端 canary v3
 
 - Tracking Issue：[#406]({ISSUE_URL})
 - Identity：`{IDENTITY}`
@@ -478,9 +487,13 @@ def render_preregistration(manifest: dict[str, Any]) -> str:
 
 本阶段是 canary，只评价运行闭合、指标可采集性和预算可接受性，不估计 treatment effect。
 
-v1 在零 Provider qualification 启动时因父 manifest 常量名错误而在 Docker 动作前失败，
-未读取 credential、未调用 Provider、未创建 formal attempt 或 formal evidence。v2 只修正
-该接口名并使用全新 manifest、报告和 evidence root；不导入、续跑或改写 v1。
+v1 在零 Provider qualification 启动时因父 manifest 常量名错误而在 Docker 动作前失败。
+v2 修正常量后通过零 Provider qualification，但 formal sequence 1 在创建 Compile Session
+前因本机默认 `/workspace/.compile-sessions` 不可写而停止。两个失败 identity 均为 0 Provider、
+0 model token；v2 创建了 1 个 formal attempt marker/result，但未创建 Session。v3 唯一新增
+修复是将 process-visible 和 host-visible workspace 显式绑定到 repository root，并在零 Provider
+qualification 中加入真实 Compile Session prepare/cleanup 门禁。v3 使用全新 manifest、报告和
+evidence root，不导入、续跑或改写 v1/v2。
 
 ## 样本与顺序
 
@@ -550,11 +563,15 @@ def validate_parents() -> None:
     for relative, digest in manifest["parents"].items():
         if file_sha256(REPO_ROOT / relative) != digest:
             raise CanaryError(f"父报告漂移: {relative}")
-    v2 = _load_json(V2_REPORT_PATH)
+    semantic_v2_report = _load_json(SEMANTIC_V2_REPORT_PATH)
     v6 = _load_json(V6_REPORT_PATH)
     controller = _load_json(CONTROLLER_REPORT_PATH)
     v1_failure = _load_json(V1_FAILURE_PATH)
-    if v2.get("analysis", {}).get("decision") != "proceed_to_jev_offline_qualification":
+    canary_v2_report = _load_json(CANARY_V2_REPORT_PATH)
+    if (
+        semantic_v2_report.get("analysis", {}).get("decision")
+        != "proceed_to_jev_offline_qualification"
+    ):
         raise CanaryError("v2 未通过")
     if v6.get("decision") != "proceed_to_controller_replay_qualification":
         raise CanaryError("v6 未通过")
@@ -562,6 +579,51 @@ def validate_parents() -> None:
         raise CanaryError("controller replay 未通过")
     if v1_failure.get("decision") != "supersede_with_fresh_v2_identity":
         raise CanaryError("v1 qualification failure record 无效")
+    if (
+        canary_v2_report.get("decision") != "stop_before_formal_comparison"
+        or canary_v2_report.get("arm_count") != 1
+        or canary_v2_report.get("totals", {}).get("agent_requests") != 0
+        or canary_v2_report.get("totals", {}).get("jev_requests") != 0
+    ):
+        raise CanaryError("canary v2 failure report 无效")
+
+
+def _configure_compile_workspace(manifest: dict[str, Any]) -> dict[str, str]:
+    if manifest["environment"].get("workspace_root_binding") != "repository_root":
+        raise CanaryError("Compile Session workspace binding 漂移")
+    root = REPO_ROOT.resolve()
+    os.environ["DEER_FLOW_WORKSPACE_ROOT"] = str(root)
+    os.environ["DEER_FLOW_HOST_WORKSPACE_ROOT"] = str(root)
+    services = get_compile_services()
+    process_root = get_compile_sessions_root(services.manager.paths).resolve()
+    host_root = Path(get_host_compile_sessions_root(services.manager.paths)).resolve()
+    expected = root / ".compile-sessions"
+    if process_root != expected or host_root != expected:
+        raise CanaryError("Compile Session workspace 未绑定到 repository root")
+    return {
+        "binding": "repository_root",
+        "process_root": ".compile-sessions",
+        "host_root": ".compile-sessions",
+    }
+
+
+def _qualification_lifecycle(manifest: dict[str, Any]) -> dict[str, Any]:
+    workspace = _configure_compile_workspace(manifest)
+    task = _task("args")
+    session = prepare_compile_session_impl(
+        thread_id=f"jev-canary-v3-qualification-{canonical_sha256(manifest)[:10]}",
+        repo_url=task["repository_url"],
+        run_id=f"jev-canary-v3-qualification-{uuid.uuid4().hex}",
+        task_description="Jev canary v3 zero-provider Compile Session lifecycle gate",
+    )
+    finalized, cleanup = _safe_cleanup(session)
+    return {
+        "workspace": workspace,
+        "session_created": True,
+        "session_status": finalized.status,
+        "cleanup_succeeded": cleanup.succeeded,
+        "zero_managed_resources": True,
+    }
 
 
 def _image_id() -> str:
@@ -583,6 +645,7 @@ def preflight(
     manifest = validate_manifest()
     validate_parents()
     _qualification_report()
+    workspace = _configure_compile_workspace(manifest)
     if _git("branch", "--show-current") != BRANCH:
         raise CanaryError("当前分支与实验身份不一致")
     if require_clean and _git("status", "--porcelain"):
@@ -630,6 +693,7 @@ def preflight(
         "git_commit": head,
         "manifest_sha256": canonical_sha256(manifest),
         "image_id": _image_id(),
+        "workspace": workspace,
         "credential_reads": 0,
         "provider_calls": 0,
         "formal_attempts": 0,
@@ -746,6 +810,7 @@ def choose_jev_route(
 
 def zero_provider_qualification() -> dict[str, Any]:
     manifest = validate_manifest()
+    lifecycle = _qualification_lifecycle(manifest)
     parent_manifest = _load_json(semantic_v2.DEFAULT_MANIFEST)
     image = manifest["environment"]["image_id"]
     rows: list[dict[str, Any]] = []
@@ -832,14 +897,17 @@ def zero_provider_qualification() -> dict[str, Any]:
             row["strict_success"] and set(row["strict_checks"].values()) == {True}
             for row in rows
         ),
+        "compile_session_lifecycle": lifecycle["cleanup_succeeded"]
+        and lifecycle["zero_managed_resources"],
         "zero_provider": True,
         "zero_credential_read": True,
     }
     report = {
-        "schema_version": "forge-jev-end-to-end-canary-qualification-1.0.0",
+        "schema_version": "forge-jev-end-to-end-canary-qualification-3.0.0",
         "identity": IDENTITY,
         "manifest_sha256": canonical_sha256(manifest),
         "created_at": _now(),
+        "compile_session_lifecycle": lifecycle,
         "rows": rows,
         "gates": gates,
         "passed": all(gates.values()),
@@ -855,7 +923,7 @@ def zero_provider_qualification() -> dict[str, Any]:
     _write_once_json(QUALIFICATION_JSON_PATH, report)
     _write_once(
         QUALIFICATION_MARKDOWN_PATH,
-        "# Jev 三臂端到端 canary v2 零 Provider 资格报告\n\n"
+        "# Jev 三臂端到端 canary v3 零 Provider 资格报告\n\n"
         f"- 决定：`{report['decision']}`\n"
         f"- 三个构建系统严格成功：`{sum(row['strict_success'] for row in rows)}/3`\n"
         "- Provider / credential / formal attempt：`0 / 0 / 0`\n\n"
@@ -1793,7 +1861,7 @@ def generate_report() -> dict[str, Any]:
     )
     _write_once(
         MARKDOWN_REPORT_PATH,
-        "# Jev 三臂端到端 canary v2\n\n"
+        "# Jev 三臂端到端 canary v3\n\n"
         f"- 决定：`{report['decision']}`\n"
         f"- 完整 arm：`{report['arm_count']}/9`\n"
         f"- Agent 请求 / tokens：`{totals['agent_requests']} / {totals['agent_recorded_tokens']}`\n"
