@@ -1,0 +1,62 @@
+{
+  "schema_version": "forge-jev-formal-comparison-qualification-failure-2.0.0",
+  "identity": "cpp-jev-formal-comparison-v2",
+  "manifest_sha256": "a14444fac5bdab0cec129d67b48145f70813c423cb115d4d1c7d4af2917b96c1",
+  "created_at": "2026-10-10T16:40:53Z",
+  "stage": "zero_provider_qualification",
+  "failed_case": {
+    "sequence": 7,
+    "task_id": "ffmpeg",
+    "build_system": "make",
+    "fault_type": "invalid_build_state",
+    "expected_action": "configure",
+    "session_id": "635d199e1517",
+    "failure_class": "configure_deleted_tracked_makefile_and_generated_self_include",
+    "observed_failure": "Makefile:1: *** Too many open files. Stop.",
+    "configure_exit_code": 0,
+    "post_action_build_exit_code": 2,
+    "makefile_after_repair": "include ./Makefile"
+  },
+  "completed_cases": [
+    {"sequence": 1, "task_id": "libgit2", "session_id": "319a32c0f279", "strict_success": true},
+    {"sequence": 2, "task_id": "simdjson", "session_id": "37aa58dc5b7e", "strict_success": true},
+    {"sequence": 3, "task_id": "benchmark", "session_id": "9058110be8dc", "strict_success": true},
+    {"sequence": 4, "task_id": "pcre2", "session_id": "854e39124071", "strict_success": true},
+    {"sequence": 5, "task_id": "haproxy", "session_id": "080ec3973698", "strict_success": true},
+    {"sequence": 6, "task_id": "cc65", "session_id": "6f4c83c3b5e6", "strict_success": true}
+  ],
+  "diagnostic_reproduction": {
+    "isolated_copy": true,
+    "compile_image": "autocompiler:gcc13",
+    "nofile_limit": 1024,
+    "repair_commands": [
+      "git checkout HEAD -- Makefile",
+      "./configure --disable-x86asm --disable-doc --disable-debug --disable-ffplay --disable-ffprobe --disable-network --disable-autodetect"
+    ],
+    "build_command": "make -j4 ffmpeg",
+    "build_exit_code": 0,
+    "functional_probe": "./ffmpeg -version",
+    "functional_probe_exit_code": 0,
+    "makefile_first_line": "MAIN_MAKEFILE=1"
+  },
+  "observed_counts": {
+    "compile_sessions": 7,
+    "strict_successes": 6,
+    "provider_calls": 0,
+    "credential_reads": 0,
+    "formal_attempts": 0
+  },
+  "cleanup": {
+    "all_sessions_terminal": true,
+    "managed_resources_remaining": 0
+  },
+  "formal_evidence_root_created": false,
+  "qualification_report_created": false,
+  "decision": "supersede_with_fresh_v3_identity",
+  "interpretation": {
+    "infrastructure_failure_only": true,
+    "jev_effect_evaluated": false,
+    "agent_effect_evaluated": false,
+    "treatment_effect": false
+  }
+}
