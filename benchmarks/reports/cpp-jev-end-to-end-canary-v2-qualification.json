@@ -1,0 +1,69 @@
+{
+  "created_at": "2026-10-10T10:38:00.990762+00:00",
+  "credential_reads": 0,
+  "decision": "proceed_to_formal_canary",
+  "formal_attempts": 0,
+  "gates": {
+    "all_actions_succeeded": true,
+    "all_build_systems": true,
+    "all_faults_triggered": true,
+    "all_strict_checks_passed": true,
+    "zero_credential_read": true,
+    "zero_provider": true
+  },
+  "identity": "cpp-jev-end-to-end-canary-v2",
+  "manifest_sha256": "0ded1be06180806b02af0affff525cfbc3a9c564017afd8b790785e996e3da67",
+  "passed": true,
+  "provider_calls": 0,
+  "rows": [
+    {
+      "action_exit_code": 0,
+      "build_system": "cmake",
+      "expected_action": "configure",
+      "fault_exit_code": 2,
+      "fault_type": "invalid_build_state",
+      "state_id": "s-04583a661d7afed169c1",
+      "strict_checks": {
+        "candidate": true,
+        "clean_replay": true,
+        "functional": true,
+        "provenance": true
+      },
+      "strict_success": true,
+      "task_id": "args"
+    },
+    {
+      "action_exit_code": 0,
+      "build_system": "make",
+      "expected_action": "build",
+      "fault_exit_code": 2,
+      "fault_type": "wrong_build_target",
+      "state_id": "s-79362feaf13d94eebfae",
+      "strict_checks": {
+        "candidate": true,
+        "clean_replay": true,
+        "functional": true,
+        "provenance": true
+      },
+      "strict_success": true,
+      "task_id": "hoextdown"
+    },
+    {
+      "action_exit_code": 0,
+      "build_system": "autotools",
+      "expected_action": "dependency",
+      "fault_exit_code": 2,
+      "fault_type": "missing_compile_input",
+      "state_id": "s-3b766e7d393c963c2a86",
+      "strict_checks": {
+        "candidate": true,
+        "clean_replay": true,
+        "functional": true,
+        "provenance": true
+      },
+      "strict_success": true,
+      "task_id": "c-ares"
+    }
+  ],
+  "schema_version": "forge-jev-end-to-end-canary-qualification-1.0.0"
+}
