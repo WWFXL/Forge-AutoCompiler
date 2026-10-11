@@ -30,11 +30,11 @@ def _blob(text: str) -> dict[str, str]:
     return {"encoding": "base64", "content": base64.b64encode(text.encode()).decode()}
 
 
-def test_protocol_is_valid_and_candidate_only() -> None:
+def test_protocol_is_valid_and_execution_authorized() -> None:
     result = protocol.validate_protocol()
 
     assert result["valid"] is True
-    assert result["authorization"] == "candidate_only"
+    assert result["authorization"] == "execution"
     assert result["history_project_family_count"] == 205
 
 
