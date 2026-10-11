@@ -1,0 +1,119 @@
+{
+  "$schema": "../schemas/forge-jev-natural-failure-source-qualification-v1.schema.json",
+  "schema_version": "forge-jev-natural-failure-source-qualification-1.0.0",
+  "identity": "cpp-jev-natural-failure-source-qualification-v1",
+  "issue_url": "https://github.com/WWFXL/Forge-AutoCompiler/issues/411",
+  "branch": "yiwei/411-jev-natural-failures",
+  "design_revision": "e94c94c871881adfb6f621e0edf1550d2e800f0e",
+  "implementation_revision": "ae25f7f0919e4b526e536e95a409247b3da96301",
+  "source_pool": {
+    "path": "benchmarks/fixtures/cpp-jev-natural-failure-source-pool-v1.json",
+    "sha256": "be8633875cb52f907275c3ae0461f35d60cd375372230ec946ea1c1ee515bd33",
+    "task_count": 22
+  },
+  "parents": {
+    "benchmarks/manifests/cpp-jev-hybrid-workflow-canary-v1.json": "292bd9fd592124a06204ace1feeabf93731db284692f3ac5d7bcce811df6eda8",
+    "benchmarks/reports/cpp-jev-hybrid-workflow-canary-v1.json": "1e6ecc0c464fe8450a5e164f3d4708f0c8bef68310825c7f084011b46cac79d6",
+    "benchmarks/reports/cpp-jev-hybrid-workflow-qualification-v3.json": "0e15cdf2820cd72e01b3b7057ce355fa1189b538cf4359a0b1264d94165270ad",
+    "docs/superpowers/specs/2026-10-11-jev-natural-failure-evaluation-design.md": "24e6e6d30966927de44ef9b12c9728a1bfae9e32ce152ace599327e09a38d3fc"
+  },
+  "environment": {
+    "compile_image": "autocompiler:gcc13",
+    "image_id": "sha256:d27a6ab733c7c3a9cbb5e4b32fb595aa5a422ff04bd212888d1041b90a2c4c2a",
+    "build_network": "none",
+    "parallel_jobs": 4
+  },
+  "initial_paths": {
+    "cmake": [
+      {
+        "phase": "configure",
+        "command": "cmake -S . -B build -DCMAKE_BUILD_TYPE=Release"
+      },
+      {
+        "phase": "build",
+        "command": "cmake --build build --parallel 4"
+      }
+    ],
+    "make": [
+      {
+        "phase": "build",
+        "command": "make -j4"
+      }
+    ],
+    "autotools": {
+      "bootstrap_precedence": [
+        "./autogen.sh",
+        "./bootstrap",
+        "autoreconf -fi"
+      ],
+      "after_bootstrap": [
+        {
+          "phase": "configure",
+          "command": "./configure"
+        },
+        {
+          "phase": "build",
+          "command": "make -j4"
+        }
+      ]
+    }
+  },
+  "budget": {
+    "replicates_per_task": 2,
+    "clone_timeout_seconds": 300,
+    "submodule_timeout_seconds": 300,
+    "command_timeout_seconds": 300,
+    "session_timeout_seconds": 600,
+    "total_wall_clock_seconds": 28800,
+    "provider_requests": 0,
+    "model_tokens": 0,
+    "retries": 0
+  },
+  "qualification": {
+    "required_by_system_and_role": {
+      "design": 1,
+      "calibration": 1,
+      "evaluation": 2
+    },
+    "stable_failure_replicates": 2,
+    "require_same_failure_phase": true,
+    "require_same_normalized_error_category": true,
+    "excluded_outcomes": [
+      "initial_success",
+      "source_contract_ineligible",
+      "infrastructure_failure",
+      "timeout",
+      "inconsistent_failure"
+    ],
+    "pass_decision": "proceed_to_reference_recipe_qualification",
+    "fail_decision": "stop_natural_failure_evaluation"
+  },
+  "evidence": {
+    "root": ".compile-sessions/benchmark-evidence-jev-natural-failure-source-qualification-v1",
+    "work_root": ".compile-sessions/work-jev-natural-failure-source-qualification-v1",
+    "report_json": "benchmarks/reports/cpp-jev-natural-failure-source-qualification-v1.json",
+    "report_markdown": "benchmarks/reports/cpp-jev-natural-failure-source-qualification-v1.md",
+    "create_once": true,
+    "preserve_failures": true
+  },
+  "authorization": {
+    "execution": true,
+    "docker_execution": true,
+    "formal_attempts": 1,
+    "formal_evidence_write": true,
+    "credential_reads": false,
+    "provider_calls": false,
+    "historical_evidence_write": false,
+    "replacement": false,
+    "backfill": false
+  },
+  "interpretation": {
+    "source_qualification_only": true,
+    "benchmark_qualified": false,
+    "jev_effect": false,
+    "agent_effect": false,
+    "cost_savings_claim": false,
+    "dynamic_budget_claim": false,
+    "treatment_effect": false
+  }
+}

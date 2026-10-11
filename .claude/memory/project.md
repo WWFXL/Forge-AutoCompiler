@@ -6,6 +6,16 @@
 
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
+- 2026-10-11 — Issue #411 自然构建失败 source qualification v1 失败关闭
+  - 工作类型与问题: 数据资格、基础设施失败审计和结果分析。目标是在调用 Provider 前，从 CXXCrafter Top100 冻结 22 个未见 exact commit，按 CMake/Make/Autotools 与 design/calibration/evaluation 角色检查标准初始路径能否形成稳定自然失败来源。
+  - 设计与身份: spec/plan 提交 `e94c94c8` 先于 observation；source pool 固定 22 项、根入口、禁网、每项两次 clean replay、单命令/clone/submodule 300 秒和不可 replacement/backfill。实现 release 为 `ae25f7f0`，execution revision 为 `ba6c2f26a56f7be51caa34f5f512b380508c848a`，manifest canonical SHA-256 为 `64aeb10b...a8deb`。
+  - 正式 attempt: 完成 7/22 项后，`cmake-rpcs3` recursive submodule update 达到 300 秒；runner 未把 `TimeoutExpired` 转成项目级排除而提升为全局错误，attempt 以 `attempt_failed` 封口。失败 identity 不续跑、不 replacement、不 backfill。
+  - 原始与复核分类: runner 报告 5 项 `source_contract_ineligible`、2 项 `stable_natural_failure`。只读日志复核确认 `flameshot` 与 `kvrocks` 都是 CMake `FetchContent` 在禁网条件下 clone/download 失败，属于预注册明确排除的网络失败；协议有效自然失败为 0/7。未执行 Make/Autotools 不填零。
+  - 单调停止事实: 固定 CMake calibration 候选 `openalpr` 与 `treefrog-framework` 均缺少根 `CMakeLists.txt`，合格数 0，预注册要求至少 1；角色不可前移、项目不可替换，因此剩余任务不能使 v1 通过。决定为 `stop_natural_failure_evaluation_v1`，不进入 reference recipe、typed action matrix 或 Provider。
+  - Evidence: raw root 为 `.compile-sessions/benchmark-evidence-jev-natural-failure-source-qualification-v1`，42 files / 49,680 bytes，inventory canonical SHA-256 `fcb426ed7c7241148a9be224837a27b48935e300388d7c89a6fb6555afcd9c8b`；marker SHA-256 `b485883c...4e23e`。生成 JSON/Markdown 报告 SHA-256 为 `72e8a578...c60e` / `55749952...834`，均保持原样；只读 failure audit 另行解释标签和单调停止事实。
+  - 边界与下一步: 全程 0 credential read、0 Jev/Agent Provider、0 model token、0 reference recipe、0 action matrix，cleanup 后 0 managed resources。不能评价 Jev、Agent、Make/Autotools、成本或动态预算。若继续自然失败路线，需要新 Issue/source pool/identity，先做 root-entrypoint、submodule 成本和离线依赖闭包的 source-only 资格，再分层；本次部分 outcome 不导入 treatment 分母。
+  - 文件: `docs/superpowers/specs/2026-10-11-jev-natural-failure-evaluation-design.md`, `docs/superpowers/plans/2026-10-11-jev-natural-failure-evaluation.md`, `scripts/forge_jev_natural_failure_source_qualification_v1.py`, `benchmarks/preregistrations/cpp-jev-natural-failure-source-qualification-v1.md`, `benchmarks/reports/cpp-jev-natural-failure-source-qualification-v1.md`, `benchmarks/reports/cpp-jev-natural-failure-source-qualification-v1-failure-audit.md`, `RESEARCH_STATUS.md`
+
 - 2026-10-11 — Issue #409 完成 Workflow + Jev + Agent 混合链路资格与 Provider canary
   - 工作类型与问题: 工程链路资格、正式数据采集与结果分析。目标是让确定性 Workflow 持有 Compile Session 状态、固定安全预算和严格终点，让 Jev 只选择代码绑定 typed action，在拒答、异常或候选不可执行时把控制权交给有界 Compiler Agent，并在 Agent 返回后重新读取权威状态。
   - 设计与实现: spec/plan 先于实现冻结；新增 `hybrid_workflow.py` 的异步协调循环、不可变 observation/outcome/trace/result、固定 direct/Agent/cycle/wall-clock 预算和 fail-closed 路由。Jev 不能生成 Shell；callback 自报成功无效；任何终态都由 observer 的 S0-S5、functional oracle、provenance 和 clean replay 决定。Lead Agent 默认入口未改变。

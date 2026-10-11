@@ -1,0 +1,111 @@
+{
+  "schema_version": "forge-jev-natural-failure-source-qualification-failure-audit-1.0.0",
+  "document_type": "posthoc_read_only_failure_audit",
+  "identity": "cpp-jev-natural-failure-source-qualification-v1",
+  "issue_url": "https://github.com/WWFXL/Forge-AutoCompiler/issues/411",
+  "execution_revision": "ba6c2f26a56f7be51caa34f5f512b380508c848a",
+  "frozen_inputs": {
+    "manifest_canonical_sha256": "64aeb10b8960b78ce82bb802f45d4bd7a437b5eaec1e17fdce6cd7b7e08a8deb",
+    "source_pool_sha256": "be8633875cb52f907275c3ae0461f35d60cd375372230ec946ea1c1ee515bd33"
+  },
+  "frozen_outputs": {
+    "marker_path": ".compile-sessions/benchmark-evidence-jev-natural-failure-source-qualification-v1/marker.json",
+    "marker_sha256": "b485883ca1ecc2c5c56896b7ebbb8cd83b900eb37d79d03d1d568ca17da4e23e",
+    "generated_report_json_sha256": "72e8a57858365bafcd05e0cad764c52fff01cb4774240430deba2b07f586c60e",
+    "generated_report_markdown_sha256": "557499529eb762ef99113b85161df893a1dfb3be47d76570cc9e0fe731cca834",
+    "evidence_file_count": 42,
+    "evidence_bytes": 49680,
+    "evidence_inventory_canonical_sha256": "fcb426ed7c7241148a9be224837a27b48935e300388d7c89a6fb6555afcd9c8b"
+  },
+  "attempt": {
+    "status": "failed",
+    "tasks_total": 22,
+    "tasks_completed": 7,
+    "last_completed_task": "cmake-srs",
+    "failure_task": "cmake-rpcs3",
+    "failure_stage": "submodule",
+    "failure_reason": "unhandled_submodule_timeout_expired_after_300_seconds",
+    "continuation": false,
+    "replacement": false,
+    "backfill": false
+  },
+  "observed_completed_tasks": {
+    "runner_classification": {
+      "source_contract_ineligible": 5,
+      "stable_natural_failure": 2
+    },
+    "protocol_adjudication": {
+      "source_contract_ineligible": 5,
+      "network_dependent_configure_failure": 2,
+      "qualified_stable_natural_failure": 0
+    },
+    "source_contract_ineligible_tasks": [
+      "cmake-mold",
+      "cmake-openalpr",
+      "cmake-treefrog-framework",
+      "cmake-soloud",
+      "cmake-srs"
+    ],
+    "network_excluded_tasks": [
+      {
+        "task_id": "cmake-flameshot",
+        "evidence": "CMake FetchContent attempted to clone Qt-Color-Widgets from gitlab.com and failed because the build network was disabled",
+        "replicate_stderr_sha256": [
+          "05db1adf10b55272441a84eb11a11a6324d5298c3ca69bbec79f58c2ce1d51b6",
+          "05db1adf10b55272441a84eb11a11a6324d5298c3ca69bbec79f58c2ce1d51b6"
+        ]
+      },
+      {
+        "task_id": "cmake-kvrocks",
+        "evidence": "CMake FetchContent attempted to download jemalloc from github.com and failed because the build network was disabled",
+        "replicate_stderr_sha256": [
+          "c538f6906ecc19a8b0ce1717dddf8bfb1f84223a79183f89e17330b9fd634b9d",
+          "c538f6906ecc19a8b0ce1717dddf8bfb1f84223a79183f89e17330b9fd634b9d"
+        ]
+      }
+    ]
+  },
+  "monotone_stopping_fact": {
+    "preregistered_requirement": "each build system must contain at least one calibration stable natural failure",
+    "fixed_role": "cmake_calibration",
+    "fixed_candidates": [
+      "cmake-openalpr",
+      "cmake-treefrog-framework"
+    ],
+    "observed_qualified_count": 0,
+    "required_count": 1,
+    "remaining_tasks_can_change_result": false
+  },
+  "decision": "stop_natural_failure_evaluation_v1",
+  "decision_reasons": [
+    "the fixed CMake calibration quota is impossible without forbidden replacement or role movement",
+    "the two runner-labelled stable failures violate the preregistered exclusion of network failures",
+    "the formal attempt failed because project-level submodule timeout was incorrectly promoted to a global runner failure"
+  ],
+  "provider_boundary": {
+    "credential_reads": 0,
+    "jev_requests": 0,
+    "agent_provider_requests": 0,
+    "model_tokens": 0,
+    "reference_recipe_attempts": 0,
+    "action_matrix_attempts": 0
+  },
+  "cleanup": {
+    "managed_containers": 0,
+    "work_root_removed": true
+  },
+  "claim_boundary": {
+    "supported": [
+      "the frozen v1 source selection and runner cannot qualify a natural-failure benchmark",
+      "CXXCrafter build-system capability metadata did not guarantee the frozen root entrypoint contract",
+      "network-dependent configure failures need an explicit exclusion before stable-failure labelling"
+    ],
+    "unsupported": [
+      "Jev effectiveness on natural build failures",
+      "Agent or RuleGate effectiveness on natural build failures",
+      "Make or Autotools natural-failure prevalence",
+      "reference recipe or typed-action outcome diversity",
+      "cost savings, treatment effects, or dynamic budget control"
+    ]
+  }
+}
