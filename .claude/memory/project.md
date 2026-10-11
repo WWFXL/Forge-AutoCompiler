@@ -6,6 +6,19 @@
 
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
+- 2026-10-11 — Issue #409 完成 Workflow + Jev + Agent 混合链路资格与 Provider canary
+  - 工作类型与问题: 工程链路资格、正式数据采集与结果分析。目标是让确定性 Workflow 持有 Compile Session 状态、固定安全预算和严格终点，让 Jev 只选择代码绑定 typed action，在拒答、异常或候选不可执行时把控制权交给有界 Compiler Agent，并在 Agent 返回后重新读取权威状态。
+  - 设计与实现: spec/plan 先于实现冻结；新增 `hybrid_workflow.py` 的异步协调循环、不可变 observation/outcome/trace/result、固定 direct/Agent/cycle/wall-clock 预算和 fail-closed 路由。Jev 不能生成 Shell；callback 自报成功无效；任何终态都由 observer 的 S0-S5、functional oracle、provenance 和 clean replay 决定。Lead Agent 默认入口未改变。
+  - 零 Provider 失败链: qualification v1 的 CMake 实际 strict，但报告读取不存在的 `CompileSession.replay_verification`，按规则冻结失败；v2 的 CMake/Make strict，Autotools oracle 错把包含故意失败用例的上游自测作为功能验收，按规则冻结失败。两个 identity 均不续跑、不覆盖。
+  - 零 Provider v3: CMake、Make、Autotools `3/3` strict，2 次直接动作、1 次 scripted Agent handoff，全部 strict evaluator、clean replay 和 cleanup 通过；0 credential read、0 Provider、0 formal attempt、0 managed resources。决定为 `proceed_to_provider_canary_identity_freeze`。
+  - Provider canary identity: `cpp-jev-hybrid-workflow-canary-v1`，manifest canonical SHA-256 `9abebe01635161cff64220e0e7748a2bb7eef3f7cb9e220c0ecc3c77651866b2`，release revision `71fdc281ce3c082664f118f98ef84546dc9395a3`，3 个 create-once attempts，禁止 retry/replacement/backfill。
+  - Provider canary 结果: `3/3` S0-S5 strict，全部 cleanup 且 0 managed resources。args/CMake 由 Jev 选择 `configure` 直接成功；hoextdown/Make 由 Jev 选择 `build`，冻结前置条件为 false，触发 `selected_candidate_precondition_failed` 后真实 Agent handoff 成功并交还控制；c-ares/Autotools 由 Jev 选择 `dependency` 直接成功。
+  - 用量与证据: Jev 3 requests / 4,146 input tokens / `$0.000174132`；Agent 1 handoff / 9 requests / 86,160 recorded tokens。Evidence 位于 `.compile-sessions/benchmark-evidence-jev-hybrid-workflow-canary-v1`，10 files / 132,192 bytes，inventory canonical SHA-256 `6b6424f65603bc0d9a1b4c379fa7ad37206cbe6f437bd50395512c8586b4b859`。JSON/Markdown 报告 SHA-256 为 `1e6ecc0c464fe8450a5e164f3d4708f0c8bef68310825c7f084011b46cac79d6` / `8c5869a102f0e0dd8c401b99062190900a86cdc92bb0e4b15f21ee3dd5c91bb9`。
+  - 验证: `make lint` 通过；协调器、Jev controller 与 Agent runtime 相邻回归通过，最大组合为 `93 passed`。完整 backend 收集的 13 个错误来自历史 opaque-provenance 脚本仍导入已删除的 `resolve_command_role`，未改写冻结历史脚本。只读 canary preflight、marker/result 哈希、evidence inventory、Docker 容器/网络/卷残留均复核通过。
+  - 结论边界与下一步: 决定为 `proceed_to_natural_failure_evaluation_design`。该 canary 只证明真实 Provider 接线、控制权交还、固定预算、严格终点和 cleanup；case 来自既往受控故障且 Make 人为强制 handoff，不能宣称自然失败成功率、成本收益、模型排名、未见项目泛化或动态预算有效。下一步先设计独立自然失败三臂对照实验，不直接继续实现或调用 Provider。
+  - Git 与发布: Issue #409 已确认；分支 `yiwei/409-jev-hybrid-workflow` 基于 `yiwei/408-jev-formal-comparison@31c8562c`。Spec/plan、实现、失败链、v3 和 canary identity 已分层提交；canary 报告提交为 `b265be22` 并已推送。父分支尚未合并，因此当前 PR 应以 `yiwei/408-jev-formal-comparison` 为 base。
+  - 文件: `docs/superpowers/specs/2026-10-11-jev-hybrid-workflow-design.md`, `docs/superpowers/plans/2026-10-11-jev-hybrid-workflow.md`, `backend/packages/harness/deerflow/compile/hybrid_workflow.py`, `backend/tests/test_hybrid_workflow.py`, `scripts/forge_jev_hybrid_workflow_qualification.py`, `scripts/forge_jev_hybrid_workflow_canary_v1.py`, `benchmarks/reports/cpp-jev-hybrid-workflow-qualification-v3.md`, `benchmarks/reports/cpp-jev-hybrid-workflow-canary-v1.md`, `RESEARCH_STATUS.md`
+
 - 2026-10-10 — Issue #406 Jev 三臂真实端到端 canary 得到正式比较进入结论
   - 工作类型与问题: 工程修复、零 Provider 资格和正式数据采集。目标是判断 `AlwaysAgent`、固定 `build` 的 `RuleGate+Agent` 与 `JevGate+Agent` 能否在相同强模型预算、真实 Shell、CandidateVerifier、functional oracle、provenance 和 clean replay 下闭合，并采集严格成功与成本指标。Canary 不估计 treatment effect。
   - Git 与网络: 分支 `yiwei/406-jev-end-to-end-canary`，Issue #406 已确认。仓库级 `git config http.version HTTP/1.1` 修复服务器 GnuTLS 握手中断；修复后 `git ls-remote` 10/10、fetch 和本轮多次 push 均成功，未修改 credential、proxy 或系统证书。
