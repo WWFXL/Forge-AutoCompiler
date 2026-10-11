@@ -4,8 +4,14 @@
 
 ## 当前阶段
 
-- 状态：Issue #411 已完成自然失败 source qualification v1 的结果盲设计、实现、唯一正式 attempt 和只读失败审计；决定为 `stop_natural_failure_evaluation_v1`，不进入 reference recipe、动作矩阵或 Provider 三臂实验。
-- 当前工作类型：数据资格与失败结果分析。v1 计划从 CXXCrafter Top100 的 22 个未见 exact commit 构造跨 CMake/Make/Autotools 自然失败；attempt 在完成 7 项后因 `rpcs3` submodule timeout 被 runner 错误提升为全局失败而封口。
+- 状态：Issue #413 的 source catalog 与双 clean build qualification 已完成；生成 build gate 机械通过，但 reference 前构造效度审计证明 Make calibration 配额不可能满足，最终决定为 `stop_natural_failure_evaluation_v2_before_reference_recipe`。
+- 当前工作类型：数据资格结果与只读构造效度审计。catalog 从 120 个搜索结果排除 11 个历史项目后得到 109 个未见候选；53 个 source eligible，最终为 CMake、Make、Autotools 各冻结 8 个互不重复的项目族。
+- source catalog 证据：109/109 仓库项目级终结，0 infrastructure failure；30 项因 `.gitmodules` 排除、23 项缺少根入口、3 项命中根入口网络获取信号。attempt 用时约 336 秒，114 个 evidence 文件共 197,527 bytes，inventory canonical SHA-256 为 `d561e612...59736`。
+- build qualification 证据：24/24 项完成，生成分类为 17 个稳定失败、6 个初始成功、1 个运行时网络依赖排除；机械角色计数为 CMake `1/1/3`、Make `1/1/4`、Autotools `2/1/3`。434 个 evidence 文件共 736,283 bytes，inventory canonical SHA-256 为 `d2c61123...1d658`，全部 cleanup 且 0 受管容器。
+- v2 停止原因：Make calibration 只有 `sogou/workflow` 初始成功和 `SketchyBar` 稳定失败；后者唯一构建入口固定 Apple target、framework 与 Mach-O/lipo，无法在冻结 Linux ELF/`ar` 严格终点形成 reference closure。reference-eligible 配额上限为 `0/1`，角色不可前移或替换。
+- v2 边界：0 credential read、0 Provider request、0 model token、0 reference recipe、0 action matrix；它不支持对 Jev 自然失败能力作正负判断。Issue #411 及更早 evidence 永久只读。
+- v1 状态：Issue #411 已完成自然失败 source qualification v1 的结果盲设计、实现、唯一正式 attempt 和只读失败审计；决定为 `stop_natural_failure_evaluation_v1`，不进入 reference recipe、动作矩阵或 Provider 三臂实验。
+- v1 工作类型：数据资格与失败结果分析。v1 计划从 CXXCrafter Top100 的 22 个未见 exact commit 构造跨 CMake/Make/Autotools 自然失败；attempt 在完成 7 项后因 `rpcs3` submodule timeout 被 runner 错误提升为全局失败而封口。
 - 自然失败关键证据：7 个完成项中，5 个与冻结根入口合同不符；runner 标为稳定失败的 `flameshot`、`kvrocks` 均是禁网下 `FetchContent` 失败，按预注册网络排除项复核后，有效稳定自然失败为 `0/7`。固定 CMake calibration 两项均 root-entrypoint ineligible，配额 `0/1`，剩余任务无法改变停止结论。
 - 自然失败证据边界：Make/Autotools 和其余 CMake 候选未观察，不记零；本轮不支持 Jev/Agent 自然失败效果、reference/action 多样性、成本收益或动态预算结论。全过程 0 credential / 0 Provider / 0 token / 0 reference recipe / 0 action matrix，cleanup 后 0 受管容器。
 - 上游正式结果：Issue #408 的受控失败正式比较中，严格成功为 `JevGate+Agent 22/24`、`AlwaysAgent 10/24`、`RuleGate+Agent 13/24`；Jev 相对 AlwaysAgent 的成功率差为 `+0.500`，项目族聚类 bootstrap 单侧 95% 下界为 `+0.292`，Provider 估算成本下降 `89.6%`。
@@ -39,6 +45,11 @@
 - 混合链路 Provider canary v1：`benchmarks/reports/cpp-jev-hybrid-workflow-canary-v1.md`。
 - 自然失败 source qualification v1：`benchmarks/reports/cpp-jev-natural-failure-source-qualification-v1.md`。
 - 自然失败 source qualification v1 失败审计：`benchmarks/reports/cpp-jev-natural-failure-source-qualification-v1-failure-audit.md`。
+- 自然失败 source catalog v2 设计：`docs/superpowers/specs/2026-10-11-jev-natural-failure-source-catalog-v2-design.md`。
+- 自然失败 source catalog v2 预注册：`benchmarks/preregistrations/cpp-jev-natural-failure-source-catalog-v2.md`。
+- 自然失败 source catalog v2 结果：`benchmarks/reports/cpp-jev-natural-failure-source-catalog-v2.md`。
+- 自然失败 build qualification v2 结果：`benchmarks/reports/cpp-jev-natural-failure-source-qualification-v2.md`。
+- 自然失败 build qualification v2 构造效度审计：`benchmarks/reports/cpp-jev-natural-failure-source-qualification-v2-construct-audit.md`。
 - Jev API 合同审计：`docs/research/2026-10-09-jev-api-contract-audit.md`。
 - 三候选机制审计：`docs/research/2026-10-09-three-candidate-mechanism-audit.md`。
 - 主动诊断机制审计：`docs/research/2026-10-09-active-diagnosis-mechanism-audit.md`。

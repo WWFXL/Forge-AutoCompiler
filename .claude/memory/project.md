@@ -6,6 +6,15 @@
 
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
+- 2026-10-11 — Issue #413 自然构建失败 source qualification v2 在 reference 前停止
+  - 工作类型与问题: 零 Provider 数据资格与只读构造效度审计。目标是在全新未见 source pool 上先完成结果盲 catalog，再对冻结的 CMake、Make、Autotools 各 8 个 exact commit 做双 clean build，判断是否具备进入 reference recipe 和自然失败 Jev 对照实验的有效样本。
+  - source catalog: 搜索 120 项，排除 11 个历史项目后审计 109 个未见候选；53 项 source eligible，30 项因 `.gitmodules` 排除、23 项缺少根入口、3 项命中根入口网络获取信号。最终三个系统各冻结 8 个唯一项目族，109/109 项目级终结且 0 infrastructure failure。Evidence 为 114 files / 197,527 bytes，inventory canonical SHA-256 `d561e612515b5378a8ab2f6ab7cb6e94beb0b305229e15b1bd52a01aafd59736`，决定为 `proceed_to_natural_failure_build_qualification_v2`。
+  - build qualification: execution revision 为 `ca2d5380119eaf1dc3a09097273aebef3bea56c3`；24/24 项各执行两次 clean run，生成分类为 17 个 `stable_natural_failure`、6 个 `initial_success`、1 个 `network_dependency_excluded`。机械角色计数为 CMake `1/1/3`、Make `1/1/4`、Autotools `2/1/3`，runner 决定为 `proceed_to_reference_recipe_qualification_v2`。Evidence 为 434 files / 736,283 bytes，inventory canonical SHA-256 `d2c61123506f80dd925f4df20e12bd1c613bb46959ab1ccc401f90d90ea1d658`；24 项 cleanup 全部成功且 0 受管容器。
+  - 决定性构造效度审计: Make calibration 固定单元只有 `sogou/workflow` 初始成功和 `felixkratz/sketchybar` 稳定失败。后者唯一根构建入口固定 Apple target、macOS frameworks 与 `lipo` Mach-O；Linux 两次失败都是 GCC 拒绝 `-target`，且 Forge 冻结终点只接受 ELF 或 `ar`。因此该单元 reference-eligible 自然失败上限为 `0/1`，角色不可前移、替换或回填，继续审核其余失败无法改变结论。
+  - 最终决定与边界: `stop_natural_failure_evaluation_v2_before_reference_recipe`。不创建 reference recipe、typed action matrix 或 Provider identity。该结果否定 v2 source contract 缺少 Linux target applicability 检查，不评价 Jev 的自然失败能力、动作多样性、RuleGate 难度、自然失败成功率、Provider 成本或动态预算控制。全阶段 0 credential read、0 Jev/Agent request、0 model token；Issue #411 及更早 evidence 全部只读。
+  - 下一研究决策: 若继续自然失败路线，必须新建 Issue/source pool/identity，并在角色冻结前加入 Linux target applicability 与严格终点可闭合性审计；不能修补或续跑 v2。当前仅完成结果固化、知识库同步和堆叠 PR 发布，不进入新实验设计。
+  - 文件: `docs/superpowers/specs/2026-10-11-jev-natural-failure-source-catalog-v2-design.md`, `benchmarks/reports/cpp-jev-natural-failure-source-catalog-v2.md`, `benchmarks/reports/cpp-jev-natural-failure-source-qualification-v2.md`, `benchmarks/reports/cpp-jev-natural-failure-source-qualification-v2-construct-audit.md`, `RESEARCH_STATUS.md`
+
 - 2026-10-11 — Issue #411 自然构建失败 source qualification v1 失败关闭
   - 工作类型与问题: 数据资格、基础设施失败审计和结果分析。目标是在调用 Provider 前，从 CXXCrafter Top100 冻结 22 个未见 exact commit，按 CMake/Make/Autotools 与 design/calibration/evaluation 角色检查标准初始路径能否形成稳定自然失败来源。
   - 设计与身份: spec/plan 提交 `e94c94c8` 先于 observation；source pool 固定 22 项、根入口、禁网、每项两次 clean replay、单命令/clone/submodule 300 秒和不可 replacement/backfill。实现 release 为 `ae25f7f0`，execution revision 为 `ba6c2f26a56f7be51caa34f5f512b380508c848a`，manifest canonical SHA-256 为 `64aeb10b...a8deb`。

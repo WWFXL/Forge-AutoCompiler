@@ -1,0 +1,108 @@
+{
+  "$schema": "../schemas/forge-jev-natural-failure-source-catalog-v2.schema.json",
+  "schema_version": "forge-jev-natural-failure-source-catalog-2.0.0",
+  "identity": "cpp-jev-natural-failure-source-catalog-v2",
+  "issue": 413,
+  "branch": "yiwei/413-jev-natural-failure-v2",
+  "design_revision": "ce180be940445a7b2e53991df6cd8b9b807e2dee",
+  "implementation_revision": "0a5db715c14c422b097381a502f0bbb69fc96a8b",
+  "history_exclusion": {
+    "revision": "da8de64e4c8073858178d83dd2ed671878103197",
+    "project_family_count": 96,
+    "canonical_sha256": "d5a4e627d79be3f1ebd05e9acb9f3016cd5ae683ef37614e9a447d2be6b54580"
+  },
+  "parents": {
+    "benchmarks/reports/cpp-jev-natural-failure-source-qualification-v1-failure-audit.md": "cca664b38353d4f5af13e34c5b8931fdc2f7a62e77b93edd392f533641e8edcd",
+    "benchmarks/preregistrations/cpp-jev-natural-failure-source-catalog-v2.md": "4ddc0e5b7c291035a47ab6ab8bf96d7f01006a6834268128c3a328621870f6e7",
+    "docs/superpowers/plans/2026-10-11-jev-natural-failure-source-catalog-v2.md": "6d29dd294c9580b217816dfcea95e85b105218807e4e2428a852a2995b1311f8",
+    "docs/superpowers/specs/2026-10-11-jev-natural-failure-source-catalog-v2-design.md": "757175e74e6431ec03109a9d982e3703614d6b2872396254e3df4906de9fa668"
+  },
+  "search": {
+    "queries": [
+      {
+        "id": "c",
+        "language": "C",
+        "stars": "100..20000",
+        "size_kib": "<100000",
+        "updated": ">=2024-01-01",
+        "sort": "stars",
+        "order": "desc",
+        "limit": 60
+      },
+      {
+        "id": "cpp",
+        "language": "C++",
+        "stars": "100..20000",
+        "size_kib": "<100000",
+        "updated": ">=2024-01-01",
+        "sort": "stars",
+        "order": "desc",
+        "limit": 60
+      }
+    ]
+  },
+  "source_contract": {
+    "systems": ["cmake", "make", "autotools"],
+    "root_markers": {
+      "cmake": ["CMakeLists.txt"],
+      "make": ["GNUmakefile", "Makefile", "makefile"],
+      "autotools": ["configure.ac", "configure.in"]
+    },
+    "submodules_allowed": false,
+    "network_signal_names": [
+      "cmake_fetch_content",
+      "cmake_external_project",
+      "cmake_file_download",
+      "git_clone",
+      "curl_command",
+      "wget_command"
+    ],
+    "max_entry_blob_bytes": 1048576
+  },
+  "selection": {
+    "seed": "forge-jev-natural-failure-source-catalog-v2-2026-10-11",
+    "required_per_system": 8,
+    "role_by_rank": {
+      "1": "design",
+      "2": "design",
+      "3": "calibration",
+      "4": "calibration",
+      "5": "evaluation",
+      "6": "evaluation",
+      "7": "evaluation",
+      "8": "evaluation"
+    },
+    "pass_decision": "proceed_to_natural_failure_build_qualification_v2",
+    "fail_decision": "stop_natural_failure_source_catalog_v2"
+  },
+  "budget": {
+    "request_timeout_seconds": 60,
+    "total_wall_clock_seconds": 3600,
+    "repository_search_requests": 2,
+    "maximum_search_results": 120,
+    "build_commands": 0,
+    "docker_containers": 0,
+    "credential_reads": 0,
+    "provider_requests": 0,
+    "model_tokens": 0
+  },
+  "authorization": {
+    "execution": true,
+    "formal_attempts": 1,
+    "formal_evidence_write": true,
+    "authorized_by": "user_explicit_session_authorization",
+    "authorized_at": "2026-10-11T14:26:36Z"
+  },
+  "evidence": {
+    "root": ".compile-sessions/benchmark-evidence-jev-natural-failure-source-catalog-v2",
+    "report_json": "benchmarks/reports/cpp-jev-natural-failure-source-catalog-v2.json",
+    "report_markdown": "benchmarks/reports/cpp-jev-natural-failure-source-catalog-v2.md"
+  },
+  "interpretation": {
+    "source_catalog_only": true,
+    "natural_failure_observed": false,
+    "jev_effect_estimated": false,
+    "agent_effect_estimated": false,
+    "dynamic_budget_estimated": false
+  }
+}

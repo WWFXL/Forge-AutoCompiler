@@ -1,0 +1,113 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/WWFXL/Forge-AutoCompiler/benchmarks/schemas/forge-jev-natural-failure-source-qualification-v2.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "$schema",
+    "schema_version",
+    "identity",
+    "issue",
+    "branch",
+    "design_revision",
+    "implementation_revision",
+    "source_catalog",
+    "parents",
+    "environment",
+    "initial_paths",
+    "budget",
+    "qualification",
+    "authorization",
+    "evidence",
+    "interpretation"
+  ],
+  "properties": {
+    "$schema": {"const": "../schemas/forge-jev-natural-failure-source-qualification-v2.schema.json"},
+    "schema_version": {"const": "forge-jev-natural-failure-source-qualification-2.0.0"},
+    "identity": {"const": "cpp-jev-natural-failure-source-qualification-v2"},
+    "issue": {"const": 413},
+    "branch": {"const": "yiwei/413-jev-natural-failure-v2"},
+    "design_revision": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "implementation_revision": {
+      "oneOf": [{"type": "null"}, {"type": "string", "pattern": "^[0-9a-f]{40}$"}]
+    },
+    "source_catalog": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256", "required_decision", "task_count"],
+      "properties": {
+        "path": {"const": "benchmarks/reports/cpp-jev-natural-failure-source-catalog-v2.json"},
+        "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "required_decision": {"const": "proceed_to_natural_failure_build_qualification_v2"},
+        "task_count": {"const": 24}
+      }
+    },
+    "parents": {
+      "type": "object",
+      "minProperties": 3,
+      "additionalProperties": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+    },
+    "environment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["compile_image", "image_id", "build_network", "parallel_jobs"],
+      "properties": {
+        "compile_image": {"const": "autocompiler:gcc13"},
+        "image_id": {"const": "sha256:d27a6ab733c7c3a9cbb5e4b32fb595aa5a422ff04bd212888d1041b90a2c4c2a"},
+        "build_network": {"const": "none"},
+        "parallel_jobs": {"const": 4}
+      }
+    },
+    "initial_paths": {"type": "object"},
+    "budget": {
+      "type": "object",
+      "properties": {
+        "replicates_per_task": {"const": 2},
+        "source_stage_timeout_seconds": {"const": 180},
+        "command_timeout_seconds": {"const": 180},
+        "session_timeout_seconds": {"const": 300},
+        "total_wall_clock_seconds": {"const": 14400},
+        "retries": {"const": 0},
+        "credential_reads": {"const": 0},
+        "provider_requests": {"const": 0},
+        "model_tokens": {"const": 0}
+      },
+      "required": [
+        "replicates_per_task",
+        "source_stage_timeout_seconds",
+        "command_timeout_seconds",
+        "session_timeout_seconds",
+        "total_wall_clock_seconds",
+        "retries",
+        "credential_reads",
+        "provider_requests",
+        "model_tokens"
+      ]
+    },
+    "qualification": {"type": "object"},
+    "authorization": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["execution", "formal_attempts", "formal_evidence_write", "authorized_by", "authorized_at"],
+      "properties": {
+        "execution": {"type": "boolean"},
+        "formal_attempts": {"enum": [0, 1]},
+        "formal_evidence_write": {"type": "boolean"},
+        "authorized_by": {"type": ["string", "null"]},
+        "authorized_at": {"type": ["string", "null"]}
+      }
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["root", "work_root", "report_json", "report_markdown"],
+      "properties": {
+        "root": {"const": ".compile-sessions/benchmark-evidence-jev-natural-failure-source-qualification-v2"},
+        "work_root": {"const": ".compile-sessions/work-jev-natural-failure-source-qualification-v2"},
+        "report_json": {"const": "benchmarks/reports/cpp-jev-natural-failure-source-qualification-v2.json"},
+        "report_markdown": {"const": "benchmarks/reports/cpp-jev-natural-failure-source-qualification-v2.md"}
+      }
+    },
+    "interpretation": {"type": "object"}
+  }
+}
