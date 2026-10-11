@@ -5,7 +5,7 @@
   "issue": 413,
   "branch": "yiwei/413-jev-natural-failure-v2",
   "design_revision": "ce180be940445a7b2e53991df6cd8b9b807e2dee",
-  "implementation_revision": null,
+  "implementation_revision": "0a5db715c14c422b097381a502f0bbb69fc96a8b",
   "history_exclusion": {
     "revision": "da8de64e4c8073858178d83dd2ed671878103197",
     "project_family_count": 96,
@@ -87,11 +87,11 @@
     "model_tokens": 0
   },
   "authorization": {
-    "execution": false,
-    "formal_attempts": 0,
-    "formal_evidence_write": false,
-    "authorized_by": null,
-    "authorized_at": null
+    "execution": true,
+    "formal_attempts": 1,
+    "formal_evidence_write": true,
+    "authorized_by": "user_explicit_session_authorization",
+    "authorized_at": "2026-10-11T14:26:36Z"
   },
   "evidence": {
     "root": ".compile-sessions/benchmark-evidence-jev-natural-failure-source-catalog-v2",
