@@ -1,0 +1,176 @@
+{
+  "authorization": {
+    "credential_reads": false,
+    "docker_execution": true,
+    "formal_attempts": 0,
+    "provider_calls": false,
+    "qualification_attempts": 3
+  },
+  "branch": "yiwei/409-jev-hybrid-workflow",
+  "budget": {
+    "command_timeout_seconds": 900,
+    "hybrid_workflow": {
+      "max_agent_handoffs": 1,
+      "max_cycles": 2,
+      "max_direct_actions": 1,
+      "wall_clock_seconds": 1800
+    }
+  },
+  "cases": [
+    {
+      "agent_commands": [],
+      "build_system": "cmake",
+      "candidate_commands": {
+        "build": [
+          "cmake --build build --parallel 2"
+        ],
+        "configure": [
+          "cmake -S . -B build"
+        ],
+        "dependency": [
+          "test -d ."
+        ]
+      },
+      "commit_sha": "6fda0b169299b1241ed883c8d4af8519da30ce52",
+      "project_family": "github.com/mattclarkson/cmakehelloworld",
+      "repository_url": "https://github.com/MattClarkson/CMakeHelloWorld.git",
+      "route_mode": "jev_scripted",
+      "selected_action_family": "configure",
+      "task_id": "cmake-hello-world",
+      "workflow_after_direct": [
+        {
+          "command": "cmake --build build --parallel 2",
+          "role": "build"
+        },
+        {
+          "command": "cp build/hello /artifacts/hello",
+          "role": "artifact_stage"
+        },
+        {
+          "command": "/artifacts/hello",
+          "role": "smoke"
+        }
+      ]
+    },
+    {
+      "agent_commands": [],
+      "build_system": "make",
+      "candidate_commands": {
+        "build": [
+          "make -j2 && printf '%s\\n' '#include \"hiredis.h\"' 'int main(void) { redisReader *reader = redisReaderCreate(); if (!reader) return 1; redisReaderFree(reader); return 0; }' > qualification.c && cc -I. qualification.c libhiredis.a -o qualification-hiredis"
+        ],
+        "configure": [
+          "test -f Makefile"
+        ],
+        "dependency": [
+          "test -d ."
+        ]
+      },
+      "commit_sha": "60e5075d4ac77424809f855ba3e398df7aacefe8",
+      "project_family": "github.com/redis/hiredis",
+      "repository_url": "https://github.com/redis/hiredis",
+      "route_mode": "jev_scripted",
+      "selected_action_family": "build",
+      "task_id": "hiredis-make",
+      "workflow_after_direct": [
+        {
+          "command": "cp qualification-hiredis /artifacts/qualification-hiredis",
+          "role": "artifact_stage"
+        },
+        {
+          "command": "/artifacts/qualification-hiredis",
+          "role": "smoke"
+        }
+      ]
+    },
+    {
+      "agent_commands": [
+        {
+          "command": "apt-get update && apt-get install -y --no-install-recommends texinfo",
+          "role": "dependency"
+        },
+        {
+          "command": "autoreconf -fi && ./configure --disable-subunit",
+          "role": "configure"
+        },
+        {
+          "command": "make -j2",
+          "role": "build"
+        },
+        {
+          "command": "cp tests/check_check /artifacts/check-check",
+          "role": "artifact_stage"
+        },
+        {
+          "command": "CK_FORK=no /artifacts/check-check",
+          "role": "smoke"
+        }
+      ],
+      "build_system": "autotools",
+      "candidate_commands": {
+        "build": [
+          "make -j2"
+        ],
+        "configure": [
+          "autoreconf -fi && ./configure --disable-subunit"
+        ],
+        "dependency": [
+          "apt-get update && apt-get install -y --no-install-recommends texinfo"
+        ]
+      },
+      "commit_sha": "11970a7e112dfe243a2e68773f014687df2900e8",
+      "project_family": "github.com/libcheck/check",
+      "repository_url": "https://github.com/libcheck/check",
+      "route_mode": "agent",
+      "selected_action_family": "escalate_agent",
+      "task_id": "libcheck-autotools",
+      "workflow_after_direct": []
+    }
+  ],
+  "components": {
+    "backend/packages/harness/deerflow/compile/hybrid_workflow.py": "73e215ebf2d0c3a53db7f8b44993a72c9d6a140091d5c78d5114fec578676d4e",
+    "scripts/forge_jev_hybrid_workflow_qualification.py": "a11a72db8008be8e3f7749ebd0baaa3a86165c362a1bad1342b43764129be2d1",
+    "scripts/forge_jev_hybrid_workflow_qualification_v2.py": "412459825da7e85351e05d20c6d10e843f44852e1d53a31549bd4089bd410443"
+  },
+  "environment": {
+    "compile_image": "autocompiler:gcc13",
+    "image_id": "sha256:d27a6ab733c7c3a9cbb5e4b32fb595aa5a422ff04bd212888d1041b90a2c4c2a",
+    "network_policy": "compile-network-v1",
+    "parallel_jobs": 2,
+    "workspace_root_binding": "repository_root"
+  },
+  "evidence": {
+    "create_once": true,
+    "preserve_failures": true,
+    "root": ".compile-sessions/benchmark-evidence-jev-hybrid-workflow-qualification-v2",
+    "store_credentials": false
+  },
+  "identity": "cpp-jev-hybrid-workflow-qualification-v2",
+  "implementation_revision": "371f7c61194881fdd9a5ea7f6008313ff6542f5a",
+  "interpretation": {
+    "canary": false,
+    "cost_savings_claim": false,
+    "dynamic_budget_claim": false,
+    "infrastructure_qualification_only": true,
+    "model_ranking": false,
+    "natural_failure_effect": false,
+    "treatment_effect": false
+  },
+  "issue_url": "https://github.com/WWFXL/Forge-AutoCompiler/issues/409",
+  "parents": {
+    "benchmarks/manifests/cpp-jev-hybrid-workflow-qualification-v1.json": "7ccd4fb32aff400dfaf35c58e863f219451e35f56860c916974317eb6ea1920b",
+    "benchmarks/reports/cpp-jev-hybrid-workflow-qualification-v1-failure.json": "cefce3c32366011eb4c68c4b9178d3d8c1421d01018345183a5aa5468acaf76d"
+  },
+  "remediation": {
+    "behavior_change": false,
+    "field_after": "CompileSession.replay_attempts[-1].status",
+    "field_before": "CompileSession.replay_verification.status",
+    "scope": "qualification report serialization only"
+  },
+  "stopping": {
+    "backfill": false,
+    "on_first_unrecoverable_failure": "stop_and_preserve",
+    "replacement": false,
+    "retry": false
+  }
+}
