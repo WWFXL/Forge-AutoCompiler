@@ -1,0 +1,81 @@
+{
+  "schema_version": "forge-jev-natural-failure-source-qualification-construct-audit-1.0.0",
+  "identity": "cpp-jev-natural-failure-source-qualification-v2",
+  "issue": 413,
+  "audit_date": "2026-10-11",
+  "generated_report": {
+    "path": "benchmarks/reports/cpp-jev-natural-failure-source-qualification-v2.json",
+    "sha256": "f46494bc41f8db7fa0157d32a97ee3379717bf3f574843a76842749a4e485f18",
+    "decision": "proceed_to_reference_recipe_qualification_v2",
+    "stable_natural_failures": 17,
+    "evidence_inventory_canonical_sha256": "d2c61123506f80dd925f4df20e12bd1c613bb46959ab1ccc401f90d90ea1d658"
+  },
+  "audit_scope": "read_only_construct_validity_review_before_reference_recipe_identity",
+  "decisive_cell": {
+    "build_system": "make",
+    "role": "calibration",
+    "required_reference_eligible_failures": 1,
+    "candidates": [
+      {
+        "task_id": "make-sogou-workflow",
+        "classification": "initial_success",
+        "reference_failure_candidate": false
+      },
+      {
+        "task_id": "make-felixkratz-sketchybar",
+        "classification": "stable_natural_failure",
+        "generated_failure": "build / compile_error",
+        "reference_failure_candidate": false,
+        "audit_reason": "macos_only_primary_build_path"
+      }
+    ],
+    "maximum_reference_eligible_failures": 0,
+    "requirement_reachable": false
+  },
+  "sketchybar_evidence": {
+    "project_family": "felixkratz/sketchybar",
+    "commit_sha": "515046e8a150d6b8767a8a6dd624824eaafa2c8b",
+    "readme_blob_sha": "a221809eb100d001496759f31a537cb4cca600a4",
+    "makefile_blob_sha": "7eb46331573a680aa1b282c53b7e8f3eb4c4fca6",
+    "makefile_content_sha256": "4a9ceaa45fb838a8d0742ebed9b2917c18c626fae82cf2bee84f28e88fa1c098",
+    "build_files_at_root": ["makefile"],
+    "makefile_facts": [
+      "x86 target adds -target x86_64-apple-macos10.13",
+      "arm64 target adds -target arm64-apple-macos11",
+      "link libraries are Apple Carbon, AppKit, QuartzCore, CoreAudio, CoreWLAN, CoreVideo, IOKit and private frameworks",
+      "universal target combines Mach-O binaries with lipo"
+    ],
+    "replicate_1_stdout_sha256": "4232941a0956134ccc507fea2954a56bcdcf87b44710f6985975a400747b6016",
+    "replicate_1_stderr_sha256": "541c1a973ad75e3d7f0cdc7b49b024e9d34329f0e826713c437b289a7c0a0826",
+    "observed_failure": "gcc-13 rejects the Apple-target -target option before compiling the project",
+    "reference_closure": "impossible_under_frozen_linux_elf_or_ar_endpoint"
+  },
+  "forge_endpoint": {
+    "implementation_path": "backend/packages/harness/deerflow/compile/operations.py",
+    "implementation_sha256": "275160c4e773938e6334961406692a9622066e04feb36401857f92f80dc3889d",
+    "compiled_artifact_contract": "supported Linux C/C++ outputs are ELF executable/shared/object or ar static archive",
+    "mach_o_accepted": false
+  },
+  "audit_decision": "stop_natural_failure_evaluation_v2_before_reference_recipe",
+  "supported_conclusions": [
+    "the source catalog and build runner completed without infrastructure or cleanup failures",
+    "the generated build-only gate mechanically reached its stable-failure quota",
+    "the v2 source contract did not establish Linux target applicability",
+    "the frozen Make calibration cell cannot satisfy the required reference-eligible natural-failure quota",
+    "a reference recipe or action-matrix identity would be futile under the frozen roles"
+  ],
+  "unsupported_conclusions": [
+    "Jev succeeds or fails on natural build failures",
+    "Make or Autotools natural failures are generally unsuitable for typed routing",
+    "the 17 generated stable failures all have or lack successful reference recipes",
+    "dynamic budget control is effective or ineffective"
+  ],
+  "provider_boundary": {
+    "credential_reads": 0,
+    "jev_requests": 0,
+    "agent_provider_requests": 0,
+    "model_tokens": 0,
+    "reference_recipe_attempts": 0,
+    "action_matrix_attempts": 0
+  }
+}
