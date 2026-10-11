@@ -1,0 +1,137 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/WWFXL/Forge-AutoCompiler/benchmarks/schemas/forge-jev-natural-failure-source-catalog-v2.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "$schema",
+    "schema_version",
+    "identity",
+    "issue",
+    "branch",
+    "design_revision",
+    "implementation_revision",
+    "history_exclusion",
+    "parents",
+    "search",
+    "source_contract",
+    "selection",
+    "budget",
+    "authorization",
+    "evidence",
+    "interpretation"
+  ],
+  "properties": {
+    "$schema": {"const": "../schemas/forge-jev-natural-failure-source-catalog-v2.schema.json"},
+    "schema_version": {"const": "forge-jev-natural-failure-source-catalog-2.0.0"},
+    "identity": {"const": "cpp-jev-natural-failure-source-catalog-v2"},
+    "issue": {"const": 413},
+    "branch": {"const": "yiwei/413-jev-natural-failure-v2"},
+    "design_revision": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "implementation_revision": {
+      "oneOf": [
+        {"type": "null"},
+        {"type": "string", "pattern": "^[0-9a-f]{40}$"}
+      ]
+    },
+    "history_exclusion": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["revision", "project_family_count", "canonical_sha256"],
+      "properties": {
+        "revision": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+        "project_family_count": {"type": "integer", "minimum": 1},
+        "canonical_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+      }
+    },
+    "parents": {
+      "type": "object",
+      "minProperties": 4,
+      "additionalProperties": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+    },
+    "search": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["queries"],
+      "properties": {
+        "queries": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["id", "language", "stars", "size_kib", "updated", "sort", "order", "limit"],
+            "properties": {
+              "id": {"enum": ["c", "cpp"]},
+              "language": {"enum": ["C", "C++"]},
+              "stars": {"const": "100..20000"},
+              "size_kib": {"const": "<100000"},
+              "updated": {"const": ">=2024-01-01"},
+              "sort": {"const": "stars"},
+              "order": {"const": "desc"},
+              "limit": {"const": 60}
+            }
+          }
+        }
+      }
+    },
+    "source_contract": {"type": "object"},
+    "selection": {"type": "object"},
+    "budget": {
+      "type": "object",
+      "properties": {
+        "build_commands": {"const": 0},
+        "docker_containers": {"const": 0},
+        "credential_reads": {"const": 0},
+        "provider_requests": {"const": 0},
+        "model_tokens": {"const": 0}
+      },
+      "required": [
+        "request_timeout_seconds",
+        "total_wall_clock_seconds",
+        "repository_search_requests",
+        "maximum_search_results",
+        "build_commands",
+        "docker_containers",
+        "credential_reads",
+        "provider_requests",
+        "model_tokens"
+      ]
+    },
+    "authorization": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["execution", "formal_attempts", "formal_evidence_write", "authorized_by", "authorized_at"],
+      "properties": {
+        "execution": {"type": "boolean"},
+        "formal_attempts": {"enum": [0, 1]},
+        "formal_evidence_write": {"type": "boolean"},
+        "authorized_by": {"type": ["string", "null"]},
+        "authorized_at": {"type": ["string", "null"]}
+      }
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["root", "report_json", "report_markdown"],
+      "properties": {
+        "root": {"const": ".compile-sessions/benchmark-evidence-jev-natural-failure-source-catalog-v2"},
+        "report_json": {"const": "benchmarks/reports/cpp-jev-natural-failure-source-catalog-v2.json"},
+        "report_markdown": {"const": "benchmarks/reports/cpp-jev-natural-failure-source-catalog-v2.md"}
+      }
+    },
+    "interpretation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source_catalog_only", "natural_failure_observed", "jev_effect_estimated", "agent_effect_estimated", "dynamic_budget_estimated"],
+      "properties": {
+        "source_catalog_only": {"const": true},
+        "natural_failure_observed": {"const": false},
+        "jev_effect_estimated": {"const": false},
+        "agent_effect_estimated": {"const": false},
+        "dynamic_budget_estimated": {"const": false}
+      }
+    }
+  }
+}
