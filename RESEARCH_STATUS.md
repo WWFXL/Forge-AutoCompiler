@@ -4,10 +4,11 @@
 
 ## 当前阶段
 
-- 状态：Issue #413 已启动自然失败 source catalog v2；当前先执行 source-only 数据资格与 runner 故障隔离门禁，catalog 通过前不创建 build qualification 或调用 Provider。
-- 当前工作类型：数据资格和基础设施。v2 从一次性 GitHub C/C++ 搜索快照中排除全部历史项目族，只读取 exact commit、根 tree 和构建入口 blob，目标是为 CMake、Make、Autotools 各冻结 8 个无 submodule、根入口无显式下载动作的项目族。
-- v2 完成标准：catalog runner 的仓库级 API 故障均保存 observation 后继续，三个系统达到 8/8/8 唯一项目配额；否则冻结 `stop_natural_failure_source_catalog_v2`。通过只授权另行预注册双 clean build qualification，不证明自然失败或 Jev 效果。
-- v2 边界：0 build command、0 Docker、0 credential read、0 Provider request、0 model token；Issue #411 及更早 evidence 永久只读。
+- 状态：Issue #413 的 `cpp-jev-natural-failure-source-catalog-v2` 已通过，决定为 `proceed_to_natural_failure_build_qualification_v2`；当前进入独立双 clean build qualification 的协议与实现阶段，仍不调用 Provider。
+- 当前工作类型：source catalog 为数据资格结果，后续 build runner 为基础设施和零 Provider 数据收集。catalog 从 120 个搜索结果排除 11 个历史项目后得到 109 个未见候选；53 个 source eligible，最终为 CMake、Make、Autotools 各冻结 8 个互不重复的项目族。
+- source catalog 证据：109/109 仓库项目级终结，0 infrastructure failure；30 项因 `.gitmodules` 排除、23 项缺少根入口、3 项命中根入口网络获取信号。attempt 用时约 336 秒，114 个 evidence 文件共 197,527 bytes，inventory canonical SHA-256 为 `d561e612...59736`。
+- v2 下一门槛：对冻结的 24 个 exact commit 执行双 clean build，把网络、平台、Docker、超时和 harness 失败与稳定自然失败分离；三个系统必须各有 design `>=1`、calibration `>=1`、evaluation `>=2`，否则停止。
+- v2 边界：catalog 为 0 build command、0 Docker、0 credential read、0 Provider request、0 model token；它不证明存在自然失败或 Jev 效果。Issue #411 及更早 evidence 永久只读。
 - v1 状态：Issue #411 已完成自然失败 source qualification v1 的结果盲设计、实现、唯一正式 attempt 和只读失败审计；决定为 `stop_natural_failure_evaluation_v1`，不进入 reference recipe、动作矩阵或 Provider 三臂实验。
 - v1 工作类型：数据资格与失败结果分析。v1 计划从 CXXCrafter Top100 的 22 个未见 exact commit 构造跨 CMake/Make/Autotools 自然失败；attempt 在完成 7 项后因 `rpcs3` submodule timeout 被 runner 错误提升为全局失败而封口。
 - 自然失败关键证据：7 个完成项中，5 个与冻结根入口合同不符；runner 标为稳定失败的 `flameshot`、`kvrocks` 均是禁网下 `FetchContent` 失败，按预注册网络排除项复核后，有效稳定自然失败为 `0/7`。固定 CMake calibration 两项均 root-entrypoint ineligible，配额 `0/1`，剩余任务无法改变停止结论。
@@ -45,6 +46,7 @@
 - 自然失败 source qualification v1 失败审计：`benchmarks/reports/cpp-jev-natural-failure-source-qualification-v1-failure-audit.md`。
 - 自然失败 source catalog v2 设计：`docs/superpowers/specs/2026-10-11-jev-natural-failure-source-catalog-v2-design.md`。
 - 自然失败 source catalog v2 预注册：`benchmarks/preregistrations/cpp-jev-natural-failure-source-catalog-v2.md`。
+- 自然失败 source catalog v2 结果：`benchmarks/reports/cpp-jev-natural-failure-source-catalog-v2.md`。
 - Jev API 合同审计：`docs/research/2026-10-09-jev-api-contract-audit.md`。
 - 三候选机制审计：`docs/research/2026-10-09-three-candidate-mechanism-audit.md`。
 - 主动诊断机制审计：`docs/research/2026-10-09-active-diagnosis-mechanism-audit.md`。

@@ -1,0 +1,4686 @@
+{
+  "completed_at": "2026-10-11T14:32:58.916214+00:00",
+  "evidence_inventory": [
+    {
+      "bytes": 41726,
+      "path": "candidates.json",
+      "sha256": "e8c10553344683fdd1a6bc4e986b6bc3acfb03d25262e2cf6ebc4a6b374a6a97"
+    },
+    {
+      "bytes": 2102,
+      "path": "history-exclusions.json",
+      "sha256": "17c64fb6c71c8fa69179b2bc3b3c050849cf927ff7f0c998993cf42f2b77ff2b"
+    },
+    {
+      "bytes": 3753,
+      "path": "manifest.json",
+      "sha256": "759592988ede58146eddbaa9425d9890250ec7cb976ed405710086df43048fda"
+    },
+    {
+      "bytes": 1175,
+      "path": "repositories/abseil--abseil-cpp/result.json",
+      "sha256": "7d758abae29c714a3dde7bfa98cd7aa2f076a3a0a753e405ea0ceff4587d8be7"
+    },
+    {
+      "bytes": 785,
+      "path": "repositories/acaudwell--gource/result.json",
+      "sha256": "515e0cd28e88c24224df339acd2620eab8a5844e1f670ef193bdefc3dda1b225"
+    },
+    {
+      "bytes": 774,
+      "path": "repositories/alexays--waybar/result.json",
+      "sha256": "9f0e1e45d0fd46e9adbbf85cf6c3ccfa98a90fe61a5913df953197d3931b767e"
+    },
+    {
+      "bytes": 757,
+      "path": "repositories/alibaba--tengine/result.json",
+      "sha256": "6602a4898ff9844b28eea08a2e5971090392069df78eb13ad65adc31e6c62f2d"
+    },
+    {
+      "bytes": 769,
+      "path": "repositories/alibaba--zvec/result.json",
+      "sha256": "1eaeab33170dee7ed2b172b3558eb25e279262b76cd895570633c82e066301d6"
+    },
+    {
+      "bytes": 1179,
+      "path": "repositories/alinshans--mytinystl/result.json",
+      "sha256": "568041d3c2fcdeaf992eaf9b9f0359c00dcf54ae7717587b1b300acd70abbd73"
+    },
+    {
+      "bytes": 750,
+      "path": "repositories/andlabs--libui/result.json",
+      "sha256": "da7d7242e7df598a9c6a7cdb342243227fa90c1656a8d632f866a37d8f306412"
+    },
+    {
+      "bytes": 1625,
+      "path": "repositories/apache--brpc/result.json",
+      "sha256": "be05db64b75a54aed19984ef49bb5fbb0fc8cae6ca387a4f9937cbc344a3c004"
+    },
+    {
+      "bytes": 777,
+      "path": "repositories/arut--nginx-rtmp-module/result.json",
+      "sha256": "19d7c95a7bce063bfd2990324178f64b492504cfda0d04b22664e2ef3786ad97"
+    },
+    {
+      "bytes": 779,
+      "path": "repositories/autohotkey--autohotkey/result.json",
+      "sha256": "f797c789175e19e3380f7148225d0cdbd2f35acd54a3bd16fe8a49ecbc83024a"
+    },
+    {
+      "bytes": 792,
+      "path": "repositories/awesome-harmonyos--harmonyos/result.json",
+      "sha256": "9c7e02fad7b8a41d3bf25dfd23fc43d03df0440138e814a7cc94fd6e9b78c4c9"
+    },
+    {
+      "bytes": 1152,
+      "path": "repositories/bol-van--zapret/result.json",
+      "sha256": "3c77a744e72a912d52cd4a8b44304aa48cde239a746f907ddbf5e378081b907b"
+    },
+    {
+      "bytes": 1200,
+      "path": "repositories/cameron314--concurrentqueue/result.json",
+      "sha256": "7badcd499541a12b777d0dfccb6e58cb93151601c9ebba4363edb2645360a526"
+    },
+    {
+      "bytes": 1179,
+      "path": "repositories/capnproto--capnproto/result.json",
+      "sha256": "96d461f7cc8d0cc9c17fa23c95e1eab695174ae09b4afaac2ce1c49a97db799b"
+    },
+    {
+      "bytes": 760,
+      "path": "repositories/cesanta--mongoose/result.json",
+      "sha256": "3bb29d90ce2aaf586e9a156bda79b9d24d2d8384e16f920c7a6bf6ce13972288"
+    },
+    {
+      "bytes": 1164,
+      "path": "repositories/chenshuo--muduo/result.json",
+      "sha256": "7d81694fef16f6c59ccc772e93e984cc9489fc72d122f8d013e364056cc81539"
+    },
+    {
+      "bytes": 1572,
+      "path": "repositories/citusdata--citus/result.json",
+      "sha256": "5676fcb695cafc395f0f04b38ed62adc00b436dc8fd65aba38facdde2b4771c3"
+    },
+    {
+      "bytes": 770,
+      "path": "repositories/cloudwu--skynet/result.json",
+      "sha256": "92ae9c28e4fccf47c4f4b10dc4ab30be63197a8718eaa853f34e9d8fbe75b4ea"
+    },
+    {
+      "bytes": 773,
+      "path": "repositories/colmap--colmap/result.json",
+      "sha256": "9ca4fad5942c92734ad173bff028c1edf13dc1623735c3dd9fa94e5e0cb8c034"
+    },
+    {
+      "bytes": 1157,
+      "path": "repositories/coturn--coturn/result.json",
+      "sha256": "19fed8ae9ac36367077f1b31d68dd217729ac57ead722f97cefc726d423d1812"
+    },
+    {
+      "bytes": 751,
+      "path": "repositories/curzibn--luban/result.json",
+      "sha256": "761d4f71e8634dc7fcf457b598db799cffa9fad5858a8e6d0c2be7907d82f1a0"
+    },
+    {
+      "bytes": 1183,
+      "path": "repositories/dail8859--notepadnext/result.json",
+      "sha256": "23b0548242da62f1e67848e66065cb4a5bf12dba929aa9073ec28a7eaf83f313"
+    },
+    {
+      "bytes": 760,
+      "path": "repositories/davatorium--rofi/result.json",
+      "sha256": "b753137e06c9b3a23042f4fe1e174d1d34ae2cb8e5ba192ae9f1ec137a8d1c92"
+    },
+    {
+      "bytes": 1165,
+      "path": "repositories/davisking--dlib/result.json",
+      "sha256": "2bc0678b41f6d636570bfb722a4f69e80668086a7040a8341ea3e702c7f25350"
+    },
+    {
+      "bytes": 777,
+      "path": "repositories/deepseek-ai--flashmla/result.json",
+      "sha256": "235b4b83d6f56c41dede21d1964d964a5b2a1de643d6084f123320a6a6c362ed"
+    },
+    {
+      "bytes": 753,
+      "path": "repositories/doctorwkt--acwj/result.json",
+      "sha256": "60e08bed23cf8cd36d04275dffc702447b705d4de7e792e990aa79b931adb7f7"
+    },
+    {
+      "bytes": 761,
+      "path": "repositories/doitsujin--dxvk/result.json",
+      "sha256": "2399482a7d3c6346aaa21f012592509573aa4919cfcf5f0f4f3cbb1d76c2fa4b"
+    },
+    {
+      "bytes": 799,
+      "path": "repositories/drogonframework--drogon/result.json",
+      "sha256": "59b21f74f08737831f5a4abf0dac243e56c6c049829e4d7c4deabd02ff1c1df1"
+    },
+    {
+      "bytes": 769,
+      "path": "repositories/duixcom--duix-avatar/result.json",
+      "sha256": "2b593e7bb6cfc5186e851a7f66f3ed776e7b6369c84b3f6a8db6158ec1e4759f"
+    },
+    {
+      "bytes": 799,
+      "path": "repositories/dyang886--game-cheats-manager/result.json",
+      "sha256": "bef4e4cb81fc092d84e2f2a91740d0b620f359b02e8eae8573240dc2ced68b7e"
+    },
+    {
+      "bytes": 1598,
+      "path": "repositories/eclipse-mosquitto--mosquitto/result.json",
+      "sha256": "85407dd9f7c24a9c1a85d0f085ee14e2cb96aee16c0bb3e5ba280a66054fa472"
+    },
+    {
+      "bytes": 789,
+      "path": "repositories/existentialaudio--blackhole/result.json",
+      "sha256": "9d424769cd7ee35f07272e7c2c8887d5aef5ff92bbc88e504b460d53fb0bdec2"
+    },
+    {
+      "bytes": 1175,
+      "path": "repositories/facebook--watchman/result.json",
+      "sha256": "c2d1dc82af60e0d21dcfd07d542c16625dc1a177cf273c4a796060bf4c703b8c"
+    },
+    {
+      "bytes": 1172,
+      "path": "repositories/felixkratz--sketchybar/result.json",
+      "sha256": "a1c3bf0f527c8812c58808bef536f3aac2bf037460e09c8e867ab9130e718968"
+    },
+    {
+      "bytes": 795,
+      "path": "repositories/ffmpegwasm--ffmpeg.wasm/result.json",
+      "sha256": "e8ac27ee3bf0d95ce1285a86bceb97384fae0c874ba50050d424fdf33b7406a3"
+    },
+    {
+      "bytes": 820,
+      "path": "repositories/flipperdevices--flipperzero-firmware/result.json",
+      "sha256": "f15b8ad7657e68076fe8782a3bbb9ca2d4d19915035f61e8029a30ccf9b352ad"
+    },
+    {
+      "bytes": 1161,
+      "path": "repositories/fogleman--craft/result.json",
+      "sha256": "29ba2b314c3b93352036a6692bc4e7f2687ad605ba72247996f8c7fefae23850"
+    },
+    {
+      "bytes": 1165,
+      "path": "repositories/freerdp--freerdp/result.json",
+      "sha256": "9c5d7d97149c2b56545043c8dd4c9f69d3b18c2f7719f5aabd409abe1f657421"
+    },
+    {
+      "bytes": 773,
+      "path": "repositories/ggml-org--ggml/result.json",
+      "sha256": "90bcc2632aebe4a08a47dacfc9c2dcf1d7bb5934b74db8d880cd14d43f2f2d89"
+    },
+    {
+      "bytes": 1146,
+      "path": "repositories/glfw--glfw/result.json",
+      "sha256": "8253f80099e76943790e7aec9e519aade8419a32c2b15351548a888467039115"
+    },
+    {
+      "bytes": 771,
+      "path": "repositories/gojue--ecapture/result.json",
+      "sha256": "91b28e388724871fa1264b4666b03d793da27b1b3b8a91f76667acad796b2919"
+    },
+    {
+      "bytes": 763,
+      "path": "repositories/google--sanitizers/result.json",
+      "sha256": "bc6acb88cb19f361af4a1c4e373ef362b6aea9acf775f5a3499819d57dd258ee"
+    },
+    {
+      "bytes": 1171,
+      "path": "repositories/haiwen--seafile/result.json",
+      "sha256": "04145a083f0a45fb31e4d7be0c8cde93c51ea58a74571744ca15a358f6c19dc0"
+    },
+    {
+      "bytes": 756,
+      "path": "repositories/haoel--leetcode/result.json",
+      "sha256": "03693ae302e2f07477cff51d43299f5a6c6dbf83ad2326e688f15851297074d4"
+    },
+    {
+      "bytes": 765,
+      "path": "repositories/henrypp--memreduct/result.json",
+      "sha256": "fcbbbb9b257050a100f4e6cb49bdb1b3194e94cf6cab42b72b9a098fb4eb3a32"
+    },
+    {
+      "bytes": 787,
+      "path": "repositories/hillya51--lunatranslator/result.json",
+      "sha256": "70e2bb6f1ea33689ea2d99a71f6575576e570511d6e37586b78e3e5df6e405b7"
+    },
+    {
+      "bytes": 1153,
+      "path": "repositories/hluk--copyq/result.json",
+      "sha256": "f78a75347151c8751b6f0ea53e7b94294e8456c78d95279a520aa7d3a8cd7a0b"
+    },
+    {
+      "bytes": 1244,
+      "path": "repositories/immediate-mode-ui--nuklear/result.json",
+      "sha256": "40e0f09fd4ad02e496db3e400a12b3ade7b109c2337c384371da331a2b54b91b"
+    },
+    {
+      "bytes": 1184,
+      "path": "repositories/jedisct1--libsodium/result.json",
+      "sha256": "c208916da03f66a23f4d2e9af4bfc9709de860fd70f848ae2fc72fddbb497ccb"
+    },
+    {
+      "bytes": 1553,
+      "path": "repositories/jonas--tig/result.json",
+      "sha256": "25eb9c986b14393b54d0de310c8de736af85f5fd9b4c526ed1dd60f71b44fc9c"
+    },
+    {
+      "bytes": 1178,
+      "path": "repositories/k2-fsa--sherpa-onnx/result.json",
+      "sha256": "92c79b2388e1ae1db6fc2acf0d5bb93a9e955ab04c86f08e83df8365cc376d4e"
+    },
+    {
+      "bytes": 1153,
+      "path": "repositories/krallin--tini/result.json",
+      "sha256": "9e26f89fc6cacc9610ebba091a52c18ce2db2cb2220db09922009b53fe95ae7b"
+    },
+    {
+      "bytes": 796,
+      "path": "repositories/kyleneideck--backgroundmusic/result.json",
+      "sha256": "44a8b7a6a792f85a2971f9ad7a879920e600d54b266fee74cca2458aacf9018b"
+    },
+    {
+      "bytes": 1623,
+      "path": "repositories/leandromoreira--ffmpeg-libav-tutorial/result.json",
+      "sha256": "41f139beeb47e10e684b3bcda19ad7041bae1b49e60ddf730b2071d6b66646fa"
+    },
+    {
+      "bytes": 797,
+      "path": "repositories/lightgbm-org--lightgbm/result.json",
+      "sha256": "3bdfb7bc4be9f5ff1955508764bcd499ac8cb2f15fe27e5f0a87c9eb9fe838f4"
+    },
+    {
+      "bytes": 764,
+      "path": "repositories/lynx-family--lynx/result.json",
+      "sha256": "02019559e7f9e3118dcf05a66bdef14dff69e1559977b44358277f4352a93af7"
+    },
+    {
+      "bytes": 758,
+      "path": "repositories/m2team--nanazip/result.json",
+      "sha256": "0f5c487d3f15ac145f0007294f26263f31a3114300a10a17cd3f3392cf0649e0"
+    },
+    {
+      "bytes": 1187,
+      "path": "repositories/memcached--memcached/result.json",
+      "sha256": "a8f2dab3f477098ce2d507140f266feb1e258acf1d2fd455cf5e009eb99ae1f3"
+    },
+    {
+      "bytes": 1174,
+      "path": "repositories/microsoft--mimalloc/result.json",
+      "sha256": "80a2b84c262d32189ed17fe3753805b5d8848cdac3ff11cca496fdf631486ae2"
+    },
+    {
+      "bytes": 1164,
+      "path": "repositories/mit-pdos--xv6-riscv/result.json",
+      "sha256": "a0d65c41e96332e0546a8ae0bc22bfc5bc87aea3034e1d1a387767bc6fbabc0f"
+    },
+    {
+      "bytes": 1184,
+      "path": "repositories/mobile-shell--mosh/result.json",
+      "sha256": "18e3a1b85d13c16523a6703662d001ceaa8bc5571d7be7a2e744ec27ac52c4b1"
+    },
+    {
+      "bytes": 1161,
+      "path": "repositories/nicbarker--clay/result.json",
+      "sha256": "10da613d8479ff832ed385f78506e84d6069a462981642e889abc985749df4a8"
+    },
+    {
+      "bytes": 1252,
+      "path": "repositories/ninja-build--ninja/result.json",
+      "sha256": "b178747292ddce821f3a957bd34d585f3fae44428cbefa37fbdee3aeb908d1dd"
+    },
+    {
+      "bytes": 762,
+      "path": "repositories/octalmage--robotjs/result.json",
+      "sha256": "ebacb6f66f75beba4682178e67fd380239ff8db162132b0dc089c781cee9f3e5"
+    },
+    {
+      "bytes": 781,
+      "path": "repositories/opengenus--cosmos/result.json",
+      "sha256": "7e42cdbd6e3b8e66ca44d385c7febfd30d01554759fdbdf26531a4c7ddc074b9"
+    },
+    {
+      "bytes": 790,
+      "path": "repositories/openresty--lua-nginx-module/result.json",
+      "sha256": "d91877144c8627e7e333094cf90cd4ce00a82acf3fb8dc117968c8937fe97a94"
+    },
+    {
+      "bytes": 1165,
+      "path": "repositories/openresty--openresty/result.json",
+      "sha256": "498e00b4df1e15a3033771915b61ae3acfacab31123518d69ccfb280ac89f537"
+    },
+    {
+      "bytes": 1582,
+      "path": "repositories/openvpn--openvpn/result.json",
+      "sha256": "8e38dd8aafb54e0d64404a0d170f3f96042f3918736c0e1c90d4ea020af9ff4b"
+    },
+    {
+      "bytes": 783,
+      "path": "repositories/peng-zhihui--dummy-robot/result.json",
+      "sha256": "e0731b0431a6395d580a840c08e1656e5da6c0f921c93f63a783edbc395cf33b"
+    },
+    {
+      "bytes": 778,
+      "path": "repositories/polybar--polybar/result.json",
+      "sha256": "2aecee8328ec654383757139e1dbec438e2803884b2e5328f9ace6383b1ef51b"
+    },
+    {
+      "bytes": 1169,
+      "path": "repositories/pybind--pybind11/result.json",
+      "sha256": "0a95087397191b07f07d1d38db113448bc577050cedb456173411c4a5a382475"
+    },
+    {
+      "bytes": 1154,
+      "path": "repositories/pymumu--smartdns/result.json",
+      "sha256": "878241229f86266980bd7460f863aff12eb79f96d6c68ee5dcefe4e0a8d11446"
+    },
+    {
+      "bytes": 1179,
+      "path": "repositories/qinguoyi--tinywebserver/result.json",
+      "sha256": "35e8cb970a5332435a6a6a4189805638ce83f21c9b3fe7afc145230e6d5faa9b"
+    },
+    {
+      "bytes": 773,
+      "path": "repositories/qv2ray--qv2ray/result.json",
+      "sha256": "8ede474d032b150c2429f162864071e827518adeb644a800539d57610ad576f8"
+    },
+    {
+      "bytes": 1153,
+      "path": "repositories/react--yoga/result.json",
+      "sha256": "acd33375a403a3b0a0ee37b6c2c7d0f90d134b67bdfb3085053933c7cff88d0d"
+    },
+    {
+      "bytes": 779,
+      "path": "repositories/rizinorg--cutter/result.json",
+      "sha256": "110746cce91a0a2f0af283450113d0db3b38257375bdf0e0ecc01c85288a5ba0"
+    },
+    {
+      "bytes": 1171,
+      "path": "repositories/rofl0r--proxychains-ng/result.json",
+      "sha256": "d685e61dcf69b7ff66cf015a9703f50ae77ec3628f51cbfbb21736ced24b6272"
+    },
+    {
+      "bytes": 798,
+      "path": "repositories/s-matyukevich--raspberry-pi-os/result.json",
+      "sha256": "5c0b61fbe2cb57f4ab1ad5ac5501b59926ea59bb58ab6e50151480d759b7bfe6"
+    },
+    {
+      "bytes": 805,
+      "path": "repositories/shadowsocks--shadowsocks-c/result.json",
+      "sha256": "5ed76699dd5d169ed7086b1b5dacc27ffc9a02a7114ba174525b03ad443a26c8"
+    },
+    {
+      "bytes": 1163,
+      "path": "repositories/skypjack--entt/result.json",
+      "sha256": "e35cf9f289532baa548a43ddc56666fd619a1ad4fc1b3e22ec3e8356a3119c75"
+    },
+    {
+      "bytes": 1162,
+      "path": "repositories/skywind3000--kcp/result.json",
+      "sha256": "cb898c4bf5624afa6d3c1361d5e3d99c3d432285f745532041a29e1b4593423f"
+    },
+    {
+      "bytes": 775,
+      "path": "repositories/snapchat--keydb/result.json",
+      "sha256": "bd55bfd9149e36b43032186ebec71134282ceaa7c56a1e558a429f329239f1e9"
+    },
+    {
+      "bytes": 758,
+      "path": "repositories/snapchat--valdi/result.json",
+      "sha256": "b8d7efe92bc18ec1dd46bcd7af5f5428d1a0a51aacd33fc9fc146e2542174576"
+    },
+    {
+      "bytes": 1167,
+      "path": "repositories/snowie2000--mactype/result.json",
+      "sha256": "98a3c358f9379b25bb12db8c2527fb596702cab7860dab7cebbc94de701845df"
+    },
+    {
+      "bytes": 1564,
+      "path": "repositories/sogou--workflow/result.json",
+      "sha256": "0b52dd02782e11f861e2b62337c34f49dd4a15ba296d40c73e977b314f4f7c28"
+    },
+    {
+      "bytes": 802,
+      "path": "repositories/spacehuhntech--esp8266_deauther/result.json",
+      "sha256": "b8d389707114b47cdd5f7e8c488581c5238ab8212f9aff90117c8e006a10b7ca"
+    },
+    {
+      "bytes": 1160,
+      "path": "repositories/spotify--annoy/result.json",
+      "sha256": "fcd2a839c7247185ecf3f1656bb082132530b013b47d5d3ab159334f99b0d36b"
+    },
+    {
+      "bytes": 745,
+      "path": "repositories/swaywm--sway/result.json",
+      "sha256": "96d4a23f8d8b2ff6a2179f2b3a83f58a08fe0654c41dfa94f42306acf5edb9ba"
+    },
+    {
+      "bytes": 1174,
+      "path": "repositories/swoole--swoole-src/result.json",
+      "sha256": "c9f39eae58a7fe2242f33df6c35cbab33fc4486b8e5abbee0407fea92f61cb4a"
+    },
+    {
+      "bytes": 1151,
+      "path": "repositories/syllo--nvtop/result.json",
+      "sha256": "05d798a2ac99526cd1fbaec14ef97e1159d49c4aae179cd3572ae212c56dd35f"
+    },
+    {
+      "bytes": 769,
+      "path": "repositories/tencent--mmkv/result.json",
+      "sha256": "6824f9944bb8c635f879ee704d010490605ab38b0f8ada0b089997c8d078e41d"
+    },
+    {
+      "bytes": 785,
+      "path": "repositories/tencent--rapidjson/result.json",
+      "sha256": "74f5298ca3f50123e5c439ff2f1f916a819c5b7f3f3adeeef9d076eab4c48cab"
+    },
+    {
+      "bytes": 751,
+      "path": "repositories/tencent--wcdb/result.json",
+      "sha256": "fba92b353d95a0b0de2e677c8ecf0022d98c91cc34bc23cdb23904133273f3c0"
+    },
+    {
+      "bytes": 764,
+      "path": "repositories/thecherno--hazel/result.json",
+      "sha256": "152cf95a5cf1fe9d95ed9ea22c2404115781a209a5e1d7cb9c72afee8a7ad063"
+    },
+    {
+      "bytes": 1188,
+      "path": "repositories/tindy2013--subconverter/result.json",
+      "sha256": "0403c2bf8636e4a621f7cf2007a43d68c19a5dfbe11bfbeb9059087604e4006f"
+    },
+    {
+      "bytes": 1172,
+      "path": "repositories/trojan-gfw--trojan/result.json",
+      "sha256": "8e529314d950e85314f3163df6f076ce67504a7881efb449f61abc67d03a85aa"
+    },
+    {
+      "bytes": 1155,
+      "path": "repositories/tsl0922--ttyd/result.json",
+      "sha256": "25d5b3ad762bb493feae6ba1b0bf401265498da61dc72d491f815ad1df652f71"
+    },
+    {
+      "bytes": 1179,
+      "path": "repositories/twitter--twemproxy/result.json",
+      "sha256": "7ed2c28c54f3a985542632f8e5b84a16ac1801b0154dafaf034062c60a1ad961"
+    },
+    {
+      "bytes": 767,
+      "path": "repositories/upx--upx/result.json",
+      "sha256": "b6b89c34302cdd18f028539634d0ce8fdc137a0f0b7f2025d2335e53bea4f5ed"
+    },
+    {
+      "bytes": 1178,
+      "path": "repositories/vanhauser-thc--thc-hydra/result.json",
+      "sha256": "0553f7dba812e4145824ac4ee9ab602da8d5b22ea12838bbcafd3a5cfee04c31"
+    },
+    {
+      "bytes": 770,
+      "path": "repositories/vnotex--vnote/result.json",
+      "sha256": "bb74df74a4c34a9a63f30ed62f02d1e0932df4ffd766dd2619a9080f0dc8c962"
+    },
+    {
+      "bytes": 1166,
+      "path": "repositories/webview--webview/result.json",
+      "sha256": "eed002f055be24901bbd81a42dbffb2526cb0ce818e9bf63f2a96b19db1f56db"
+    },
+    {
+      "bytes": 1194,
+      "path": "repositories/winsiderss--systeminformer/result.json",
+      "sha256": "6d782848cc348989dc18e35eecac4c88e572542c668615d478ed2f503f70a05a"
+    },
+    {
+      "bytes": 743,
+      "path": "repositories/wled--wled/result.json",
+      "sha256": "88904baf18a3d9a99f03d3d76049a2b6e1fe3dfb787e678849741dd627472f73"
+    },
+    {
+      "bytes": 1163,
+      "path": "repositories/wolfpld--tracy/result.json",
+      "sha256": "e0dfc9a46e808075f359f0faa9c52394a944a00815981b00dee2558a4e9f7406"
+    },
+    {
+      "bytes": 763,
+      "path": "repositories/woltapp--blurhash/result.json",
+      "sha256": "44371172e98432f0b995b03de63d79de5427e7a45dbbfff52e75e3930af0006b"
+    },
+    {
+      "bytes": 1259,
+      "path": "repositories/xournalpp--xournalpp/result.json",
+      "sha256": "b93de63ddba257cc2bd894a5b47df04401a25a5821f13369e5282489898c2b3d"
+    },
+    {
+      "bytes": 1180,
+      "path": "repositories/yhirose--cpp-httplib/result.json",
+      "sha256": "60d6bc175556dce0760529efe78ffda91af431cd1b74c7709127a9680c79ed7b"
+    },
+    {
+      "bytes": 1161,
+      "path": "repositories/zealdocs--zeal/result.json",
+      "sha256": "281582bb56729444847e7c17560801c7023cafcde1b4f38b9e6ba3b8a359f14a"
+    },
+    {
+      "bytes": 20151,
+      "path": "search-c.json",
+      "sha256": "580b70423fb2fa23688ae19843149d4c1495030ac5d7e449ac182565bf817edc"
+    },
+    {
+      "bytes": 20107,
+      "path": "search-cpp.json",
+      "sha256": "c9c5f26fd35f88e39e197423e6fa10502123d6d6d2d3c356649cdb92c65386c3"
+    }
+  ],
+  "evidence_inventory_canonical_sha256": "d561e612515b5378a8ab2f6ab7cb6e94beb0b305229e15b1bd52a01aafd59736",
+  "execution_revision": "17b42e8caa3188543be926c1ba0392e185e65ef1",
+  "identity": "cpp-jev-natural-failure-source-catalog-v2",
+  "interpretation": {
+    "agent_effect_estimated": false,
+    "dynamic_budget_estimated": false,
+    "jev_effect_estimated": false,
+    "natural_failure_observed": false,
+    "source_catalog_only": true
+  },
+  "manifest_canonical_sha256": "3b7e1c0c77e47fdadcbf030074919fc718c1b0aa38e81f392811a0900e5ba5f8",
+  "qualification": {
+    "counts": {
+      "autotools": 8,
+      "cmake": 8,
+      "make": 8
+    },
+    "decision": "proceed_to_natural_failure_build_qualification_v2",
+    "failed_requirements": [],
+    "passed": true,
+    "projects": [
+      {
+        "commit_committed_at": "2026-10-07T04:49:38Z",
+        "commit_sha": "f5dc479ba4dec5be5fe347971e0c19412843ee20",
+        "edge_key": "0942c8e0ab97885c303862993437cf91441715999446d088198ee2308eeb7b58",
+        "full_name": "zealdocs/zeal",
+        "project_family": "zealdocs/zeal",
+        "repository_url": "https://github.com/zealdocs/zeal",
+        "role": "design",
+        "selected_build_system": "cmake",
+        "selection_key": "2915297e306a807d92b7ce7befb78c5669af4b27b53dbca0fc253ea287d3f7b4",
+        "system_rank": 1
+      },
+      {
+        "commit_committed_at": "2025-10-29T14:08:37Z",
+        "commit_sha": "379f744667aba6b40ba3db8a07678df173a88f74",
+        "edge_key": "2dfee70724cf96a29c69f4d118b6d55ce1f87ff1b74de58d86e0c717f231103d",
+        "full_name": "spotify/annoy",
+        "project_family": "spotify/annoy",
+        "repository_url": "https://github.com/spotify/annoy",
+        "role": "design",
+        "selected_build_system": "cmake",
+        "selection_key": "2f3ccd92d9928c127d0690f6f2bcfcfcf0ec0ddda4d9f0f612bf1c6401a318c7",
+        "system_rank": 2
+      },
+      {
+        "commit_committed_at": "2026-05-20T02:17:58Z",
+        "commit_sha": "e6cc36941ab2af5d81107617039d6f527a1c660b",
+        "edge_key": "0ac3f02b0280285aba522a3b878f27e55409948c0efc195fdddea1583a10432d",
+        "full_name": "nicbarker/clay",
+        "project_family": "nicbarker/clay",
+        "repository_url": "https://github.com/nicbarker/clay",
+        "role": "calibration",
+        "selected_build_system": "cmake",
+        "selection_key": "3cc996f20c6c1f92bef09a4c123bb487078cc676c0d89b3d5a7936e7f3ea72c7",
+        "system_rank": 3
+      },
+      {
+        "commit_committed_at": "2026-10-11T11:51:29Z",
+        "commit_sha": "8799bfeb9316bf79ce794f9a0325ee9dd2b18432",
+        "edge_key": "06fc4cf97b5f4e870446746516f3ca5dde73ba8ec713fa11c5459aeee7a09de4",
+        "full_name": "hluk/CopyQ",
+        "project_family": "hluk/copyq",
+        "repository_url": "https://github.com/hluk/CopyQ",
+        "role": "calibration",
+        "selected_build_system": "cmake",
+        "selection_key": "91d744b7a651dd7ebb0f38d68f05d7531535a791e1bd5a4b8dd522e09f14f1c2",
+        "system_rank": 4
+      },
+      {
+        "commit_committed_at": "2026-10-11T14:25:29Z",
+        "commit_sha": "d40ecb16a090dd234e819652fde9083807f0e58a",
+        "edge_key": "33612d84db35bdb1bb7e8177760983833bd6362b856614ee4810c2d89ef5c0b4",
+        "full_name": "winsiderss/systeminformer",
+        "project_family": "winsiderss/systeminformer",
+        "repository_url": "https://github.com/winsiderss/systeminformer",
+        "role": "evaluation",
+        "selected_build_system": "cmake",
+        "selection_key": "a7ef938aef210775e0d9be2dbdbdc92cdd639941b80c63264de62466dd3c5319",
+        "system_rank": 5
+      },
+      {
+        "commit_committed_at": "2026-08-12T03:39:18Z",
+        "commit_sha": "2922cb89f518bae4d0fcf4d757a7419638fc71fc",
+        "edge_key": "2231622b69fcfca5637a22ae9fa5833488972386c82b1114acc4620a721b54fd",
+        "full_name": "tsl0922/ttyd",
+        "project_family": "tsl0922/ttyd",
+        "repository_url": "https://github.com/tsl0922/ttyd",
+        "role": "evaluation",
+        "selected_build_system": "cmake",
+        "selection_key": "b3fc34df8b65d22ea327ea1da0b504f2beb10e6148b90f20128a0f780c7050d3",
+        "system_rank": 6
+      },
+      {
+        "commit_committed_at": "2024-10-27T15:07:33Z",
+        "commit_sha": "f86437ecffe8800cf247f9a21d55ee002d519e3f",
+        "edge_key": "1cb0c74c9fa81dd3d6449350cde0b8785a717961c34983cf3cc767a6cef9d9be",
+        "full_name": "Alinshans/MyTinySTL",
+        "project_family": "alinshans/mytinystl",
+        "repository_url": "https://github.com/Alinshans/MyTinySTL",
+        "role": "evaluation",
+        "selected_build_system": "cmake",
+        "selection_key": "c5302d58a54733fc0914c152ec4a9caba1dc2b346db215fbf7b15c25bfc6e071",
+        "system_rank": 7
+      },
+      {
+        "commit_committed_at": "2026-06-23T06:21:10Z",
+        "commit_sha": "b1a7a2101dcbb96017681a500d6b82bbe5a88766",
+        "edge_key": "0de9ec890b0ff418cb90c1da9e73756422c4e738a78679df69a317c0c164dc9b",
+        "full_name": "skywind3000/kcp",
+        "project_family": "skywind3000/kcp",
+        "repository_url": "https://github.com/skywind3000/kcp",
+        "role": "evaluation",
+        "selected_build_system": "cmake",
+        "selection_key": "fc52e91376dc6f2f452eb1602c91bb97ebf62f011d3095632adab5df5e6852b3",
+        "system_rank": 8
+      },
+      {
+        "commit_committed_at": "2024-01-29T01:43:17Z",
+        "commit_sha": "4bcf88762f85135e9bd46a1032e815e458de6f2e",
+        "edge_key": "4d3a4ca1f3a57db5ef3f1a7780ecee720a9ffb8f2ca928460db829c1711088ab",
+        "full_name": "qinguoyi/TinyWebServer",
+        "project_family": "qinguoyi/tinywebserver",
+        "repository_url": "https://github.com/qinguoyi/TinyWebServer",
+        "role": "design",
+        "selected_build_system": "make",
+        "selection_key": "0b5d853e04ef2da83ff1eb5a10b0e71fb9ff71d705611a04011ca7f735ac9db1",
+        "system_rank": 1
+      },
+      {
+        "commit_committed_at": "2026-06-18T14:18:13Z",
+        "commit_sha": "82df59dffa161ef1cf47b86f6b958e7b2f78bb8a",
+        "edge_key": "052d0e1ff3358e36bd8fbb2ab2aee66ea9694c0c15ae323531975c657d7948f7",
+        "full_name": "leandromoreira/ffmpeg-libav-tutorial",
+        "project_family": "leandromoreira/ffmpeg-libav-tutorial",
+        "repository_url": "https://github.com/leandromoreira/ffmpeg-libav-tutorial",
+        "role": "design",
+        "selected_build_system": "make",
+        "selection_key": "7e17609d538de1cabdfef6439c397e57755674fd9a95bf984e0bce833dbd3f48",
+        "system_rank": 2
+      },
+      {
+        "commit_committed_at": "2026-08-10T10:17:41Z",
+        "commit_sha": "3d5739960ac34d6164d5fec0abf268e83d72fe93",
+        "edge_key": "83ef4d24f39e1a6780b909869c2d7ebfd9817f165f9e918e8a7c3c2614a7599a",
+        "full_name": "sogou/workflow",
+        "project_family": "sogou/workflow",
+        "repository_url": "https://github.com/sogou/workflow",
+        "role": "calibration",
+        "selected_build_system": "make",
+        "selection_key": "81e4fc22b68681fa980750a58e4a71a8257793ecf9a8ded706c4b3cb099511a3",
+        "system_rank": 3
+      },
+      {
+        "commit_committed_at": "2026-10-09T21:12:59Z",
+        "commit_sha": "515046e8a150d6b8767a8a6dd624824eaafa2c8b",
+        "edge_key": "296b81ce944be08ea53abac8e1d0d49ab2bdc4a365d4aec0a7a16736e0aa9822",
+        "full_name": "FelixKratz/SketchyBar",
+        "project_family": "felixkratz/sketchybar",
+        "repository_url": "https://github.com/FelixKratz/SketchyBar",
+        "role": "calibration",
+        "selected_build_system": "make",
+        "selection_key": "af81efd1cf1795bc1985363333575581c436ba819358b69c1d554dc8074b7b67",
+        "system_rank": 4
+      },
+      {
+        "commit_committed_at": "2026-04-29T03:00:39Z",
+        "commit_sha": "05052e88c7ce134f93b66db95132284a1ed10de7",
+        "edge_key": "7d5862abb4e2349a43ba50a03d3ca6204b8b3c2d5cddcb2e50447274c0b062a8",
+        "full_name": "snowie2000/mactype",
+        "project_family": "snowie2000/mactype",
+        "repository_url": "https://github.com/snowie2000/mactype",
+        "role": "evaluation",
+        "selected_build_system": "make",
+        "selection_key": "b128da59ba025dcdfefbe56cea8ab02ac76ac0c21ee337e5157c40bd9b266c2d",
+        "system_rank": 5
+      },
+      {
+        "commit_committed_at": "2026-09-26T08:54:30Z",
+        "commit_sha": "06aad25c735fd3159bdfae5680be4eab7b1668b2",
+        "edge_key": "7f4d462a7b41c560b19318806d34dc16291728d8e95ace1aa197123d13f2348e",
+        "full_name": "mit-pdos/xv6-riscv",
+        "project_family": "mit-pdos/xv6-riscv",
+        "repository_url": "https://github.com/mit-pdos/xv6-riscv",
+        "role": "evaluation",
+        "selected_build_system": "make",
+        "selection_key": "d26c47c7ad85097d306eaf1da87c5b61852f6148e0b2c94e00cb2947a625a4de",
+        "system_rank": 6
+      },
+      {
+        "commit_committed_at": "2026-10-04T07:18:38Z",
+        "commit_sha": "c4d0b1990129dce2b28095277173ee0d7702d304",
+        "edge_key": "2df429c0f9f999acebf0164c1ecf8be6aedce0ac20aa09ad8b7f99be5e217d1e",
+        "full_name": "bol-van/zapret",
+        "project_family": "bol-van/zapret",
+        "repository_url": "https://github.com/bol-van/zapret",
+        "role": "evaluation",
+        "selected_build_system": "make",
+        "selection_key": "ec293bc7c3770dbc0553e9f7c451c97eb68aa4bb5a95c87bf3ca01daf0c76497",
+        "system_rank": 7
+      },
+      {
+        "commit_committed_at": "2026-10-10T05:59:21Z",
+        "commit_sha": "74e2c92654f07024d456e00e428eb5449ad5a810",
+        "edge_key": "537c83cd59d7c95540393b15d6e75db9f730cd147ff86a0976908776db4a0da2",
+        "full_name": "apache/brpc",
+        "project_family": "apache/brpc",
+        "repository_url": "https://github.com/apache/brpc",
+        "role": "evaluation",
+        "selected_build_system": "make",
+        "selection_key": "f0cb734862fda926d39b77b5d68e0977aac2887ed4a06aa2adc9963876c67709",
+        "system_rank": 8
+      },
+      {
+        "commit_committed_at": "2026-07-10T04:11:54Z",
+        "commit_sha": "2d51e364799bc9698bd4b11728ea978cea12da6e",
+        "edge_key": "8205290ec6853218db467fd2d332a367fb9441bedb0769e15201f767f4a58182",
+        "full_name": "memcached/memcached",
+        "project_family": "memcached/memcached",
+        "repository_url": "https://github.com/memcached/memcached",
+        "role": "design",
+        "selected_build_system": "autotools",
+        "selection_key": "39303292b191dac1a4f20d8c5c9953415456f1a72901bfb5ef81a60cebcae603",
+        "system_rank": 1
+      },
+      {
+        "commit_committed_at": "2026-03-22T20:20:13Z",
+        "commit_sha": "decd9b705eb81626f694335b8d5940538beb06da",
+        "edge_key": "a3b26299f634c801835ec8c5d22d26f1f3506f47671e03fea0a5efa29df94770",
+        "full_name": "mobile-shell/mosh",
+        "project_family": "mobile-shell/mosh",
+        "repository_url": "https://github.com/mobile-shell/mosh",
+        "role": "design",
+        "selected_build_system": "autotools",
+        "selection_key": "48017e1e761543c6ad401d87e915a3d8b4b7d326e238d667c0a87e9b32e5c069",
+        "system_rank": 2
+      },
+      {
+        "commit_committed_at": "2026-10-08T17:06:34Z",
+        "commit_sha": "1700e4860d7f669ba71e88d9bace430e56cd7ebf",
+        "edge_key": "fd958cbc7f578053418cd93b5474812cfb2a64b095c0b54fc4bca997a69b5e10",
+        "full_name": "jonas/tig",
+        "project_family": "jonas/tig",
+        "repository_url": "https://github.com/jonas/tig",
+        "role": "calibration",
+        "selected_build_system": "autotools",
+        "selection_key": "5bd6bf882ccab23649ec4d0cce0b54640e2eca86d30afa82b784c2320d6edbd2",
+        "system_rank": 3
+      },
+      {
+        "commit_committed_at": "2026-10-10T03:01:50Z",
+        "commit_sha": "0a4ec322cc654b903c163d52a019f798a0db5739",
+        "edge_key": "06db90f5ce0e08823869ba455cef5ec829dd19d9dfcf3453fbb5a61520e93ee5",
+        "full_name": "haiwen/seafile",
+        "project_family": "haiwen/seafile",
+        "repository_url": "https://github.com/haiwen/seafile",
+        "role": "calibration",
+        "selected_build_system": "autotools",
+        "selection_key": "b57a1d3f73515fa507f789a078b4fc5b4d57dc614c53c3ae47dca335c9c3b443",
+        "system_rank": 4
+      },
+      {
+        "commit_committed_at": "2026-10-11T13:00:37Z",
+        "commit_sha": "66f8cdb9fd0b0334b6d79016b9d02cfceb6887d7",
+        "edge_key": "bdfe0635380514fb013e8d086862fb87493ba55e2462162be4edf2519cdeea3c",
+        "full_name": "OpenVPN/openvpn",
+        "project_family": "openvpn/openvpn",
+        "repository_url": "https://github.com/OpenVPN/openvpn",
+        "role": "evaluation",
+        "selected_build_system": "autotools",
+        "selection_key": "cf05068e71f0e393e03a7c3f2c22e437cc10fd3f990fa2057e333635d1ba25b3",
+        "system_rank": 5
+      },
+      {
+        "commit_committed_at": "2022-10-06T02:22:22Z",
+        "commit_sha": "60aaf855ba2e15e20d0efbe440c8ff071b719580",
+        "edge_key": "1d3ad1b8dc7d7fd5f82885e25b6d2f87a9bc89d2827ad1dd3dd5685267df7824",
+        "full_name": "twitter/twemproxy",
+        "project_family": "twitter/twemproxy",
+        "repository_url": "https://github.com/twitter/twemproxy",
+        "role": "evaluation",
+        "selected_build_system": "autotools",
+        "selection_key": "d5f86c066e4e6095f4831229767e11eb4236180a6ea72102541cc294aa8a79a2",
+        "system_rank": 6
+      },
+      {
+        "commit_committed_at": "2026-10-09T10:05:23Z",
+        "commit_sha": "89e500718da7e1fc90e168bd88e18d1060f54db3",
+        "edge_key": "27b165ac78630c5d9011f833ff7cd5c3cd4f5db61b30df51ed389503eb9d29d4",
+        "full_name": "jedisct1/libsodium",
+        "project_family": "jedisct1/libsodium",
+        "repository_url": "https://github.com/jedisct1/libsodium",
+        "role": "evaluation",
+        "selected_build_system": "autotools",
+        "selection_key": "e659d765befe7b59a8a529df528dc0befc9d54e34df38c3c3433412a12358355",
+        "system_rank": 7
+      },
+      {
+        "commit_committed_at": "2026-10-08T10:13:41Z",
+        "commit_sha": "d41eec345969a6d3d9d2dbb0d5c2e52b45ac62dc",
+        "edge_key": "88fb2b406f6c76610a5258a9db5cf971b53217db361ee524d720bbe7a889aad5",
+        "full_name": "citusdata/citus",
+        "project_family": "citusdata/citus",
+        "repository_url": "https://github.com/citusdata/citus",
+        "role": "evaluation",
+        "selected_build_system": "autotools",
+        "selection_key": "edbabbf5f3b5050b0e4b3d9f2e3440be423e78525f1867ee39148cb1d8a4b682",
+        "system_rank": 8
+      }
+    ],
+    "required_per_system": 8
+  },
+  "repositories": [
+    {
+      "classification": "source_eligible",
+      "commit_committed_at": "2026-10-11T05:33:07Z",
+      "commit_sha": "30bc83809d1653901f0a586600aedb8ff830d3df",
+      "eligible_systems": [
+        "cmake"
+      ],
+      "full_name": "abseil/abseil-cpp",
+      "observed_systems": [
+        "cmake"
+      ],
+      "project_family": "abseil/abseil-cpp",
+      "reason": "root_contract_passed",
+      "repository_url": "https://github.com/abseil/abseil-cpp",
+      "root_entry_count": 19,
+      "root_paths_sha256": "97a77ea190a4f2ba2823f8998d1a7a21fa34d8d4c7cf3fbb6f58b849d12f4a68",
+      "root_tree_sha": "30bc83809d1653901f0a586600aedb8ff830d3df",
+      "search_metadata": {
+        "language": "C++",
+        "pushed_at": "2026-10-11T05:35:23Z",
+        "size_kib": 23037,
+        "stargazers_count": 18158
+      },
+      "search_query_ids": [
+        "cpp"
+      ],
+      "system_scans": {
+        "cmake": {
+          "eligible": true,
+          "entry_files": [
+            {
+              "blob_sha": "3583e3dbe46f2be6cef921ad1be69befc1c9b642",
+              "content_sha256": "134cad0f7a171c705c3c05175397ed9032608aa6e069718ba3a26b600fc5fa6f",
+              "network_signals": [],
+              "path": "CMakeLists.txt",
+              "size": 10296
+            }
+          ],
+          "network_signals": []
+        }
+      }
+    },
+    {
+      "classification": "source_ineligible",
+      "commit_committed_at": "2026-03-06T05:45:50Z",
+      "commit_sha": "70db547c6b8b40745fb41a8db7e8d28897be1a9e",
+      "eligible_systems": [],
+      "full_name": "acaudwell/Gource",
+      "observed_systems": [
+        "autotools"
+      ],
+      "project_family": "acaudwell/gource",
+      "reason": "submodule_manifest_present",
+      "repository_url": "https://github.com/acaudwell/Gource",
+      "root_entry_count": 22,
+      "root_paths_sha256": "55e879d7631bef6bdcc8e7dd909eac5b4d3e433fbdd7aeb37f8c9ffab865d24d",
+      "root_tree_sha": "70db547c6b8b40745fb41a8db7e8d28897be1a9e",
+      "search_metadata": {
+        "language": "C++",
+        "pushed_at": "2026-03-06T05:51:40Z",
+        "size_kib": 4070,
+        "stargazers_count": 13167
+      },
+      "search_query_ids": [
+        "cpp"
+      ],
+      "system_scans": {}
+    },
+    {
+      "classification": "source_ineligible",
+      "commit_committed_at": "2026-10-10T22:43:29Z",
+      "commit_sha": "4e207a0cb51a9eb89b4245d90245721f5e39bf06",
+      "eligible_systems": [],
+      "full_name": "Alexays/Waybar",
+      "observed_systems": [
+        "make"
+      ],
+      "project_family": "alexays/waybar",
+      "reason": "submodule_manifest_present",
+      "repository_url": "https://github.com/Alexays/Waybar",
+      "root_entry_count": 31,
+      "root_paths_sha256": "c72cbbc14a65b462cc941e0d5c0a2efc81eef60fa05ad8e648b5f4478f00ffe2",
+      "root_tree_sha": "4e207a0cb51a9eb89b4245d90245721f5e39bf06",
+      "search_metadata": {
+        "language": "C++",
+        "pushed_at": "2026-10-10T22:43:29Z",
+        "size_kib": 7440,
+        "stargazers_count": 12047
+      },
+      "search_query_ids": [
+        "cpp"
+      ],
+      "system_scans": {}
+    },
+    {
+      "classification": "source_ineligible",
+      "commit_committed_at": "2026-09-07T02:39:23Z",
+      "commit_sha": "f9c9f759c029dec42ad855141fa7f0c24e9a671e",
+      "eligible_systems": [],
+      "full_name": "alibaba/tengine",
+      "observed_systems": [],
+      "project_family": "alibaba/tengine",
+      "reason": "root_entrypoint_missing",
+      "repository_url": "https://github.com/alibaba/tengine",
+      "root_entry_count": 23,
+      "root_paths_sha256": "e30d8d09049cfb56e780cc3a58109764edf1e63bc896c81b2a07592b129f085c",
+      "root_tree_sha": "f9c9f759c029dec42ad855141fa7f0c24e9a671e",
+      "search_metadata": {
+        "language": "C",
+        "pushed_at": "2026-09-07T02:39:23Z",
+        "size_kib": 26560,
+        "stargazers_count": 13386
+      },
+      "search_query_ids": [
+        "c"
+      ],
+      "system_scans": {}
+    },
+    {
+      "classification": "source_ineligible",
+      "commit_committed_at": "2026-10-09T06:17:17Z",
+      "commit_sha": "7f54d9460c4c083f98b959ceb4a1d1bbfd07a8b6",
+      "eligible_systems": [],
+      "full_name": "alibaba/zvec",
+      "observed_systems": [
+        "cmake"
+      ],
+      "project_family": "alibaba/zvec",
+      "reason": "submodule_manifest_present",
+      "repository_url": "https://github.com/alibaba/zvec",
+      "root_entry_count": 23,
+      "root_paths_sha256": "cd6f86bd9589b44b70d9548dfd350ee1e07b8e403ed318e9fbf9cb3fc0355cae",
+      "root_tree_sha": "7f54d9460c4c083f98b959ceb4a1d1bbfd07a8b6",
+      "search_metadata": {
+        "language": "C++",
+        "pushed_at": "2026-10-09T06:17:18Z",
+        "size_kib": 7679,
+        "stargazers_count": 16093
+      },
+      "search_query_ids": [
+        "cpp"
+      ],
+      "system_scans": {}
+    },
+    {
+      "classification": "source_eligible",
+      "commit_committed_at": "2024-10-27T15:07:33Z",
+      "commit_sha": "f86437ecffe8800cf247f9a21d55ee002d519e3f",
+      "eligible_systems": [
+        "cmake"
+      ],
+      "full_name": "Alinshans/MyTinySTL",
+      "observed_systems": [
+        "cmake"
+      ],
+      "project_family": "alinshans/mytinystl",
+      "reason": "root_contract_passed",
+      "repository_url": "https://github.com/Alinshans/MyTinySTL",
+      "root_entry_count": 10,
+      "root_paths_sha256": "6146f5f4c06d6ac1404d70a449d8f2706db71711b9cbef6f5ca86a781ebbe26d",
+      "root_tree_sha": "f86437ecffe8800cf247f9a21d55ee002d519e3f",
+      "search_metadata": {
+        "language": "C++",
+        "pushed_at": "2024-10-27T15:07:33Z",
+        "size_kib": 2690,
+        "stargazers_count": 12472
+      },
+      "search_query_ids": [
+        "cpp"
+      ],
+      "system_scans": {
+        "cmake": {
+          "eligible": true,
+          "entry_files": [
+            {
+              "blob_sha": "e4c8662ce1dba74b43a2da2ab7754f21a8b1ebd7",
+              "content_sha256": "c737a137f65e51d1df4e8689342ff7ea963eb3435ae74656de1cad7b95851d4f",
+              "network_signals": [],
+              "path": "CMakeLists.txt",
+              "size": 1348
+            }
+          ],
+          "network_signals": []
+        }
+      }
+    },
+    {
+      "classification": "source_ineligible",
+      "commit_committed_at": "2021-01-02T05:39:49Z",
+      "commit_sha": "fea45b2d5b75839be0af9acc842a147c5cba9295",
+      "eligible_systems": [],
+      "full_name": "andlabs/libui",
+      "observed_systems": [],
+      "project_family": "andlabs/libui",
+      "reason": "root_entrypoint_missing",
+      "repository_url": "https://github.com/andlabs/libui",
+      "root_entry_count": 26,
+      "root_paths_sha256": "c214c1aa3d8d896c72504a351820081dd4c0ce470f1a945bbd174d762d466dfc",
+      "root_tree_sha": "fea45b2d5b75839be0af9acc842a147c5cba9295",
+      "search_metadata": {
+        "language": "C",
+        "pushed_at": "2024-05-29T04:55:35Z",
+        "size_kib": 6375,
+        "stargazers_count": 10896
+      },
+      "search_query_ids": [
+        "c"
+      ],
+      "system_scans": {}
+    },
+    {
+      "classification": "source_eligible",
+      "commit_committed_at": "2026-10-10T05:59:21Z",
+      "commit_sha": "74e2c92654f07024d456e00e428eb5449ad5a810",
+      "eligible_systems": [
+        "make"
+      ],
+      "full_name": "apache/brpc",
+      "observed_systems": [
+        "cmake",
+        "make"
+      ],
+      "project_family": "apache/brpc",
+      "reason": "root_contract_passed",
+      "repository_url": "https://github.com/apache/brpc",
+      "root_entry_count": 41,
+      "root_paths_sha256": "222a341ca28496e7e58b05f23817aa7bdc7b2d93bf4992d232aae6e55d6af4e3",
+      "root_tree_sha": "74e2c92654f07024d456e00e428eb5449ad5a810",
+      "search_metadata": {
+        "language": "C++",
+        "pushed_at": "2026-10-10T05:59:21Z",
+        "size_kib": 45664,
+        "stargazers_count": 17630
+      },
+      "search_query_ids": [
+        "cpp"
+      ],
+      "system_scans": {
+        "cmake": {
+          "eligible": false,
+          "entry_files": [
+            {
+              "blob_sha": "4d00c90b1e96e8f61de2e3d5123b6673e27f3415",
+              "content_sha256": "aad259f1bb333f91713153aa17e3f23ba3a4b8dd6f03eecb484f501b36c3710b",
+              "network_signals": [
+                "cmake_fetch_content"
+              ],
+              "path": "CMakeLists.txt",
+              "size": 30440
+            }
+          ],
+          "network_signals": [
+            "cmake_fetch_content"
+          ]
+        },
+        "make": {
+          "eligible": true,
+          "entry_files": [
+            {
+              "blob_sha": "271b518ae66ad528642f606c64a23a7955ab7713",
+              "content_sha256": "d844f8ae9fa68d93386e6394948934494f91765be53e2694a7b376af6e9d609b",
+              "network_signals": [],
+              "path": "Makefile",
+              "size": 13749
+            }
+          ],
+          "network_signals": []
+        }
+      }
+    },
+    {
+      "classification": "source_ineligible",
+      "commit_committed_at": "2024-12-24T10:27:05Z",
+      "commit_sha": "6c7719d0ba32e00b563ec70bd43dad11960fa9c4",
+      "eligible_systems": [],
+      "full_name": "arut/nginx-rtmp-module",
+      "observed_systems": [],
+      "project_family": "arut/nginx-rtmp-module",
+      "reason": "root_entrypoint_missing",
+      "repository_url": "https://github.com/arut/nginx-rtmp-module",
+      "root_entry_count": 54,
+      "root_paths_sha256": "8550bdd788c10307b6b6689fc19da69e13bcd7225eebd5b5660b6494a7fb927e",
+      "root_tree_sha": "6c7719d0ba32e00b563ec70bd43dad11960fa9c4",
+      "search_metadata": {
+        "language": "C",
+        "pushed_at": "2024-12-24T10:28:38Z",
+        "size_kib": 3176,
+        "stargazers_count": 14026
+      },
+      "search_query_ids": [
+        "c"
+      ],
+      "system_scans": {}
+    },
+    {
+      "classification": "source_ineligible",
+      "commit_committed_at": "2026-10-11T01:31:15Z",
+      "commit_sha": "3a1291c6801d97c314b17fc590d69717b4add864",
+      "eligible_systems": [],
+      "full_name": "AutoHotkey/AutoHotkey",
+      "observed_systems": [],
+      "project_family": "autohotkey/autohotkey",
+      "reason": "root_entrypoint_missing",
+      "repository_url": "https://github.com/AutoHotkey/AutoHotkey",
+      "root_entry_count": 14,
+      "root_paths_sha256": "ec3215abb277fc3235df1e94d39309a41e79655c839a253f5a99dec0c82cd9c0",
+      "root_tree_sha": "3a1291c6801d97c314b17fc590d69717b4add864",
+      "search_metadata": {
+        "language": "C++",
+        "pushed_at": "2026-10-11T07:38:54Z",
+        "size_kib": 27805,
+        "stargazers_count": 13271
+      },
+      "search_query_ids": [
+        "cpp"
+      ],
+      "system_scans": {}
+    },
+    {
+      "classification": "source_ineligible",
+      "commit_committed_at": "2021-06-08T14:44:29Z",
+      "commit_sha": "5d2008e97ea2547dfb3d0b4c9409953e1bf633fc",
+      "eligible_systems": [],
+      "full_name": "Awesome-HarmonyOS/HarmonyOS",
+      "observed_systems": [],
+      "project_family": "awesome-harmonyos/harmonyos",
+      "reason": "root_entrypoint_missing",
+      "repository_url": "https://github.com/Awesome-HarmonyOS/HarmonyOS",
+      "root_entry_count": 9,
+      "root_paths_sha256": "fc571e0c7336eec1d6cdbf2fa0051bcdedf364ddb7935c7aef635f06dbc615db",
+      "root_tree_sha": "5d2008e97ea2547dfb3d0b4c9409953e1bf633fc",
+      "search_metadata": {
+        "language": "C",
+        "pushed_at": "2024-07-19T18:47:55Z",
+        "size_kib": 23807,
+        "stargazers_count": 19981
+      },
+      "search_query_ids": [
+        "c"
+      ],
+      "system_scans": {}
+    },
+    {
+      "classification": "source_eligible",
+      "commit_committed_at": "2026-10-04T07:18:38Z",
+      "commit_sha": "c4d0b1990129dce2b28095277173ee0d7702d304",
+      "eligible_systems": [
+        "make"
+      ],
+      "full_name": "bol-van/zapret",
+      "observed_systems": [
+        "make"
+      ],
+      "project_family": "bol-van/zapret",
+      "reason": "root_contract_passed",
+      "repository_url": "https://github.com/bol-van/zapret",
+      "root_entry_count": 20,
+      "root_paths_sha256": "36aa7bab90ed5c6f1a90159df35d58e4770d4c48915b1cdc4ffab734f7bbdd7d",
+      "root_tree_sha": "c4d0b1990129dce2b28095277173ee0d7702d304",
+      "search_metadata": {
+        "language": "C",
+        "pushed_at": "2026-10-04T07:18:54Z",
+        "size_kib": 20213,
+        "stargazers_count": 16247
+      },
+      "search_query_ids": [
+        "c"
+      ],
+      "system_scans": {
+        "make": {
+          "eligible": true,
+          "entry_files": [
+            {
+              "blob_sha": "5f6cfc06ec9f07f9975f61621088101ef1652e03",
+              "content_sha256": "9286336d75e44ba16e0206286e1f0f3d95b398e1fbeb3daf34f4bc8d3fba3de3",
+              "network_signals": [],
+              "path": "Makefile",
+              "size": 2129
+            }
+          ],
+          "network_signals": []
+        }
+      }
+    },
+    {
+      "classification": "source_eligible",
+      "commit_committed_at": "2026-07-11T17:15:50Z",
+      "commit_sha": "683b9e31ea15eb69f1b81cc1defc7850d5f20b71",
+      "eligible_systems": [
+        "cmake"
+      ],
+      "full_name": "cameron314/concurrentqueue",
+      "observed_systems": [
+        "cmake"
+      ],
+      "project_family": "cameron314/concurrentqueue",
+      "reason": "root_contract_passed",
+      "repository_url": "https://github.com/cameron314/concurrentqueue",
+      "root_entry_count": 15,
+      "root_paths_sha256": "3e610fdc65dd75f11ef8ca0eb9dc995ef70cc8f110a7c175422320b494d0161f",
+      "root_tree_sha": "683b9e31ea15eb69f1b81cc1defc7850d5f20b71",
+      "search_metadata": {
+        "language": "C++",
+        "pushed_at": "2026-07-11T17:15:50Z",
+        "size_kib": 5024,
+        "stargazers_count": 12510
+      },
+      "search_query_ids": [
+        "cpp"
+      ],
+      "system_scans": {
+        "cmake": {
+          "eligible": true,
+          "entry_files": [
+            {
+              "blob_sha": "e8a38cfe2277b3bd8680f018e84623dc45e332dc",
+              "content_sha256": "dc9124bff900fba6d90a9d62c9c44812243ca67001725e292672a91124b4f28e",
+              "network_signals": [],
+              "path": "CMakeLists.txt",
+              "size": 2281
+            }
+          ],
+          "network_signals": []
+        }
+      }
+    },
+    {
+      "classification": "source_eligible",
+      "commit_committed_at": "2026-10-08T16:26:13Z",
+      "commit_sha": "35e606794552c0a318d41d54488b64f2c5eaf03e",
+      "eligible_systems": [
+        "cmake"
+      ],
+      "full_name": "capnproto/capnproto",
+      "observed_systems": [
+        "cmake"
+      ],
+      "project_family": "capnproto/capnproto",
+      "reason": "root_contract_passed",
+      "repository_url": "https://github.com/capnproto/capnproto",
+      "root_entry_count": 21,
+      "root_paths_sha256": "53c278a793246c7ef5ccbaa749618e4b8477c002027dc97ff527d38122931c35",
+      "root_tree_sha": "35e606794552c0a318d41d54488b64f2c5eaf03e",
+      "search_metadata": {
+        "language": "C++",
+        "pushed_at": "2026-10-09T18:12:57Z",
+        "size_kib": 26926,
+        "stargazers_count": 13213
+      },
+      "search_query_ids": [
+        "cpp"
+      ],
+      "system_scans": {
+        "cmake": {
+          "eligible": true,
+          "entry_files": [
+            {
+              "blob_sha": "340350e3a67bda3bc933571b96a7822f3fe31275",
+              "content_sha256": "4ce1f3d3c7e18fcf61a18c55c6f2db334d7c1b13057bd04c22e1f530590f95c8",
+              "network_signals": [],
+              "path": "CMakeLists.txt",
+              "size": 227
+            }
+          ],
+          "network_signals": []
+        }
+      }
+    },
+    {
+      "classification": "source_ineligible",
+      "commit_committed_at": "2026-10-11T08:17:16Z",
+      "commit_sha": "fd7db763244bb847d0d6fced650abfc5e1381d05",
+      "eligible_systems": [],
+      "full_name": "cesanta/mongoose",
+      "observed_systems": [],
+      "project_family": "cesanta/mongoose",
+      "reason": "root_entrypoint_missing",
+      "repository_url": "https://github.com/cesanta/mongoose",
+      "root_entry_count": 13,
+      "root_paths_sha256": "0a3684cda263539519d0166bf291be8945575bad9e582ab3bee75fec97523672",
+      "root_tree_sha": "fd7db763244bb847d0d6fced650abfc5e1381d05",
+      "search_metadata": {
+        "language": "C",
+        "pushed_at": "2026-10-11T08:17:42Z",
+        "size_kib": 51881,
+        "stargazers_count": 13082
+      },
+      "search_query_ids": [
+        "c"
+      ],
+      "system_scans": {}
+    },
+    {
+      "classification": "source_eligible",
+      "commit_committed_at": "2025-02-28T19:40:58Z",
+      "commit_sha": "f1fc77e0c13b80e5086ff457362c8a86d1b609d4",
+      "eligible_systems": [
+        "cmake"
+      ],
+      "full_name": "chenshuo/muduo",
+      "observed_systems": [
+        "cmake"
+      ],
+      "project_family": "chenshuo/muduo",
+      "reason": "root_contract_passed",
+      "repository_url": "https://github.com/chenshuo/muduo",
+      "root_entry_count": 16,
+      "root_paths_sha256": "3cd19ca84120482ca8a752457001fe61d62524089b72a17bd27737848d038447",
+      "root_tree_sha": "f1fc77e0c13b80e5086ff457362c8a86d1b609d4",
+      "search_metadata": {
+        "language": "C++",
+        "pushed_at": "2025-12-23T17:18:04Z",
+        "size_kib": 1795,
+        "stargazers_count": 16259
+      },
+      "search_query_ids": [
+        "cpp"
+      ],
+      "system_scans": {
+        "cmake": {
+          "eligible": true,
+          "entry_files": [
+            {
+              "blob_sha": "6071a4ec8e1379f4f5b43e6f665c95c6eac25e92",
+              "content_sha256": "e0d88963ef8ff66c6864d9a902a684d8356e9541a662c70eac56aaff3563b3ff",
+              "network_signals": [],
+              "path": "CMakeLists.txt",
+              "size": 3061
+            }
+          ],
+          "network_signals": []
+        }
+      }
+    },
+    {
+      "classification": "source_eligible",
+      "commit_committed_at": "2026-10-08T10:13:41Z",
+      "commit_sha": "d41eec345969a6d3d9d2dbb0d5c2e52b45ac62dc",
+      "eligible_systems": [
+        "make",
+        "autotools"
+      ],
+      "full_name": "citusdata/citus",
+      "observed_systems": [
+        "make",
+        "autotools"
+      ],
+      "project_family": "citusdata/citus",
+      "reason": "root_contract_passed",
+      "repository_url": "https://github.com/citusdata/citus",
+      "root_entry_count": 33,
+      "root_paths_sha256": "dc4cd1044d77a33ad9de37f8678c3ca0111035c2d8f68a85051340a3763e7fc3",
+      "root_tree_sha": "d41eec345969a6d3d9d2dbb0d5c2e52b45ac62dc",
+      "search_metadata": {
+        "language": "C",
+        "pushed_at": "2026-10-08T15:48:33Z",
+        "size_kib": 74669,
+        "stargazers_count": 12805
+      },
+      "search_query_ids": [
+        "c"
+      ],
+      "system_scans": {
+        "autotools": {
+          "eligible": true,
+          "entry_files": [
+            {
+              "blob_sha": "81c29eaef7a6b11b6e9a17f44685fc5f0dfae96a",
+              "content_sha256": "b2b2e89a89d9e23a58eb1be0cf4c2a33ad22fb02bf0aaddc2c91ca80306524e6",
+              "network_signals": [],
+              "path": "configure.ac",
+              "size": 11520
+            }
+          ],
+          "network_signals": []
+        },
+        "make": {
+          "eligible": true,
+          "entry_files": [
+            {
+              "blob_sha": "77d8cad3ee69cb8b469178aaaab1fc559c578cb3",
+              "content_sha256": "7dc800df9dd1c8857f6246caaa35741ecaddb80db4801e53b6a08c01fdcccc6a",
+              "network_signals": [],
+              "path": "Makefile",
+              "size": 2057
+            }
+          ],
+          "network_signals": []
+        }
+      }
+    },
+    {
+      "classification": "source_ineligible",
+      "commit_committed_at": "2026-09-29T04:18:08Z",
+      "commit_sha": "64391f732e76507ea6615f312cb71be1fd7bfbdd",
+      "eligible_systems": [],
+      "full_name": "cloudwu/skynet",
+      "observed_systems": [
+        "make"
+      ],
+      "project_family": "cloudwu/skynet",
+      "reason": "submodule_manifest_present",
+      "repository_url": "https://github.com/cloudwu/skynet",
+      "root_entry_count": 17,
+      "root_paths_sha256": "7812ef9bb9597adaaec51782e3fdf898244b07189204c175346442d8b146571c",
+      "root_tree_sha": "64391f732e76507ea6615f312cb71be1fd7bfbdd",
+      "search_metadata": {
+        "language": "C",
+        "pushed_at": "2026-09-29T04:18:08Z",
+        "size_kib": 5321,
+        "stargazers_count": 14163
+      },
+      "search_query_ids": [
+        "c"
+      ],
+      "system_scans": {}
+    },
+    {
+      "classification": "source_ineligible",
+      "commit_committed_at": "2026-10-11T13:05:36Z",
+      "commit_sha": "9b8efa9a79d0674c76ee6204285ed23582aeaffd",
+      "eligible_systems": [],
+      "full_name": "colmap/colmap",
+      "observed_systems": [
+        "cmake"
+      ],
+      "project_family": "colmap/colmap",
+      "reason": "submodule_manifest_present",
+      "repository_url": "https://github.com/colmap/colmap",
+      "root_entry_count": 23,
+      "root_paths_sha256": "21e6bf0c268a8503c93ebda5a917aa233803a96d5d97595d94fa02ea293a3c76",
+      "root_tree_sha": "9b8efa9a79d0674c76ee6204285ed23582aeaffd",
+      "search_metadata": {
+        "language": "C++",
+        "pushed_at": "2026-10-11T13:05:36Z",
+        "size_kib": 85181,
+        "stargazers_count": 12891
+      },
+      "search_query_ids": [
+        "cpp"
+      ],
+      "system_scans": {}
+    },
+    {
+      "classification": "source_eligible",
+      "commit_committed_at": "2026-10-06T04:25:10Z",
+      "commit_sha": "ba8635d646bfdcae8cdf828ed5fe45d771e09cd9",
+      "eligible_systems": [
+        "cmake"
+      ],
+      "full_name": "coturn/coturn",
+      "observed_systems": [
+        "cmake"
+      ],
+      "project_family": "coturn/coturn",
+      "reason": "root_contract_passed",
+      "repository_url": "https://github.com/coturn/coturn",
+      "root_entry_count": 39,
+      "root_paths_sha256": "4bdb46094dccb8847f9acbd03bd9226f7f578d261ef9ea2e941b87b602f026e9",
+      "root_tree_sha": "ba8635d646bfdcae8cdf828ed5fe45d771e09cd9",
+      "search_metadata": {
+        "language": "C",
+        "pushed_at": "2026-10-06T05:24:02Z",
+        "size_kib": 7772,
+        "stargazers_count": 14474
+      },
+      "search_query_ids": [
+        "c"
+      ],
+      "system_scans": {
+        "cmake": {
+          "eligible": true,
+          "entry_files": [
+            {
+              "blob_sha": "2dda996fea6224e29d1492797e667bb9dd5e9dff",
+              "content_sha256": "1e2209ccf7989bb26c8b6d5e1f3835f414ed4bc74827f02d2f6936a5b6d52fe0",
+              "network_signals": [],
+              "path": "CMakeLists.txt",
+              "size": 6741
+            }
+          ],
+          "network_signals": []
+        }
+      }
+    },
+    {
+      "classification": "source_ineligible",
+      "commit_committed_at": "2026-10-07T18:01:17Z",
+      "commit_sha": "250ab4d13c723ea037b51a2c3d7dae14881a94cd",
+      "eligible_systems": [],
+      "full_name": "Curzibn/Luban",
+      "observed_systems": [],
+      "project_family": "curzibn/luban",
+      "reason": "root_entrypoint_missing",
+      "repository_url": "https://github.com/Curzibn/Luban",
+      "root_entry_count": 16,
+      "root_paths_sha256": "e43b2b1d7239e9461644434c03f1f03b25f6efa10eb2f7336859efeb083c8dce",
+      "root_tree_sha": "250ab4d13c723ea037b51a2c3d7dae14881a94cd",
+      "search_metadata": {
+        "language": "C",
+        "pushed_at": "2026-10-07T18:01:21Z",
+        "size_kib": 11862,
+        "stargazers_count": 13771
+      },
+      "search_query_ids": [
+        "c"
+      ],
+      "system_scans": {}
+    },
+    {
+      "classification": "source_eligible",
+      "commit_committed_at": "2026-10-11T02:04:54Z",
+      "commit_sha": "88fd13c65a35fec60f8ea0055c081a39108911cb",
+      "eligible_systems": [
+        "cmake"
+      ],
+      "full_name": "dail8859/NotepadNext",
+      "observed_systems": [
+        "cmake"
+      ],
+      "project_family": "dail8859/notepadnext",
+      "reason": "root_contract_passed",
+      "repository_url": "https://github.com/dail8859/NotepadNext",
+      "root_entry_count": 17,
+      "root_paths_sha256": "8a722173b9c980efe91636de303808791f489f2f3eca4b7670468c4b85418878",
+      "root_tree_sha": "88fd13c65a35fec60f8ea0055c081a39108911cb",
+      "search_metadata": {
+        "language": "C++",
+        "pushed_at": "2026-10-11T02:04:55Z",
+        "size_kib": 21033,
+        "stargazers_count": 14678
+      },
+      "search_query_ids": [
+        "cpp"
+      ],
+      "system_scans": {
+        "cmake": {
+          "eligible": true,
+          "entry_files": [
+            {
+              "blob_sha": "f91212f7159e44539971b71597a1c543092bdc7f",
+              "content_sha256": "850472c83d794b0d6a66173238c6baaa5e9d0d815790c2f340db54149dd1daf7",
+              "network_signals": [],
+              "path": "CMakeLists.txt",
+              "size": 1283
+            }
+          ],
+          "network_signals": []
+        }
+      }
+    },
+    {
+      "classification": "source_ineligible",
+      "commit_committed_at": "2026-10-01T12:03:03Z",
+      "commit_sha": "1ad1df6b72d4c8b0e40e8ced1249ef8a8a6bc0ad",
+      "eligible_systems": [],
+      "full_name": "davatorium/rofi",
+      "observed_systems": [],
+      "project_family": "davatorium/rofi",
+      "reason": "submodule_manifest_present",
+      "repository_url": "https://github.com/davatorium/rofi",
+      "root_entry_count": 34,
+      "root_paths_sha256": "f4e929078e6b02180542e8b2e0ca9dc9bab87a01d4c30c564ce4f345a96663c6",
+      "root_tree_sha": "1ad1df6b72d4c8b0e40e8ced1249ef8a8a6bc0ad",
+      "search_metadata": {
+        "language": "C",
+        "pushed_at": "2026-10-01T12:03:39Z",
+        "size_kib": 32202,
+        "stargazers_count": 16453
+      },
+      "search_query_ids": [
+        "c"
+      ],
+      "system_scans": {}
+    },
+    {
+      "classification": "source_eligible",
+      "commit_committed_at": "2026-10-04T19:58:12Z",
+      "commit_sha": "ac7d55406eae4faf59603df2b27d33057ba2b1a9",
+      "eligible_systems": [
+        "cmake"
+      ],
+      "full_name": "davisking/dlib",
+      "observed_systems": [
+        "cmake"
+      ],
+      "project_family": "davisking/dlib",
+      "reason": "root_contract_passed",
+      "repository_url": "https://github.com/davisking/dlib",
+      "root_entry_count": 13,
+      "root_paths_sha256": "5613160302d398b9016c2eda31db6f74ed5197e83da812675e30fe69c1c27f03",
+      "root_tree_sha": "ac7d55406eae4faf59603df2b27d33057ba2b1a9",
+      "search_metadata": {
+        "language": "C++",
+        "pushed_at": "2026-10-04T19:58:35Z",
+        "size_kib": 51147,
+        "stargazers_count": 14459
+      },
+      "search_query_ids": [
+        "cpp"
+      ],
+      "system_scans": {
+        "cmake": {
+          "eligible": true,
+          "entry_files": [
+            {
+              "blob_sha": "ca00843f18f0e3e734b58e34853250b261555a0b",
+              "content_sha256": "f909365ad10c83ceb06344ae1ac827b8e7840dd2e0c96e572cb8e1f1c3b6aea9",
+              "network_signals": [],
+              "path": "CMakeLists.txt",
+              "size": 1654
+            }
+          ],
+          "network_signals": []
+        }
+      }
+    },
+    {
+      "classification": "source_ineligible",
+      "commit_committed_at": "2026-09-30T01:58:27Z",
+      "commit_sha": "2e5429fc5653bab6e081f09477126f731882a6a9",
+      "eligible_systems": [],
+      "full_name": "deepseek-ai/FlashMLA",
+      "observed_systems": [],
+      "project_family": "deepseek-ai/flashmla",
+      "reason": "submodule_manifest_present",
+      "repository_url": "https://github.com/deepseek-ai/FlashMLA",
+      "root_entry_count": 10,
+      "root_paths_sha256": "92ad4a663ef8f1697b5803e9df48398d926ff459f89b6c218f6f78595b4e304a",
+      "root_tree_sha": "2e5429fc5653bab6e081f09477126f731882a6a9",
+      "search_metadata": {
+        "language": "C++",
+        "pushed_at": "2026-09-30T01:58:27Z",
+        "size_kib": 770,
+        "stargazers_count": 13064
+      },
+      "search_query_ids": [
+        "cpp"
+      ],
+      "system_scans": {}
+    },
+    {
+      "classification": "source_ineligible",
+      "commit_committed_at": "2026-06-06T21:17:51Z",
+      "commit_sha": "84855ea20dcd2f300ba8e91951cf6aa1e7810225",
+      "eligible_systems": [],
+      "full_name": "DoctorWkt/acwj",
+      "observed_systems": [],
+      "project_family": "doctorwkt/acwj",
+      "reason": "root_entrypoint_missing",
+      "repository_url": "https://github.com/DoctorWkt/acwj",
+      "root_entry_count": 67,
+      "root_paths_sha256": "827873b117bbf820e6cc6bd5addf91f8818c71552de98084b99d991a8b60d930",
+      "root_tree_sha": "84855ea20dcd2f300ba8e91951cf6aa1e7810225",
+      "search_metadata": {
+        "language": "C",
+        "pushed_at": "2026-06-06T21:17:51Z",
+        "size_kib": 4062,
+        "stargazers_count": 13465
+      },
+      "search_query_ids": [
+        "c"
+      ],
+      "system_scans": {}
+    },
+    {
+      "classification": "source_ineligible",
+      "commit_committed_at": "2026-10-11T11:36:14Z",
+      "commit_sha": "2c94c5f25cf75c313ef2a55b2e0c9276d67c28d6",
+      "eligible_systems": [],
+      "full_name": "doitsujin/dxvk",
+      "observed_systems": [],
+      "project_family": "doitsujin/dxvk",
+      "reason": "submodule_manifest_present",
+      "repository_url": "https://github.com/doitsujin/dxvk",
+      "root_entry_count": 18,
+      "root_paths_sha256": "d7a0e15936c70dca992ddfed004e618976a69b6daa2756bcb57427982525301f",
+      "root_tree_sha": "2c94c5f25cf75c313ef2a55b2e0c9276d67c28d6",
+      "search_metadata": {
+        "language": "C++",
+        "pushed_at": "2026-10-11T11:36:15Z",
+        "size_kib": 27465,
+        "stargazers_count": 18269
+      },
+      "search_query_ids": [
+        "cpp"
+      ],
+      "system_scans": {}
+    },
+    {
+      "classification": "source_ineligible",
+      "commit_committed_at": "2026-10-11T11:10:17Z",
+      "commit_sha": "9bba0cb0b9ff3c38484f580025b34904a437090b",
+      "eligible_systems": [],
+      "full_name": "drogonframework/drogon",
+      "observed_systems": [
+        "cmake"
+      ],
+      "project_family": "drogonframework/drogon",
+      "reason": "submodule_manifest_present",
+      "repository_url": "https://github.com/drogonframework/drogon",
+      "root_entry_count": 31,
+      "root_paths_sha256": "767f648a2e7765d69d45d3dca713304a2bcd41cc26ef456cf603b851582cb664",
+      "root_tree_sha": "9bba0cb0b9ff3c38484f580025b34904a437090b",
+      "search_metadata": {
+        "language": "C++",
+        "pushed_at": "2026-10-11T14:04:34Z",
+        "size_kib": 6692,
+        "stargazers_count": 14324
+      },
+      "search_query_ids": [
+        "cpp"
+      ],
+      "system_scans": {}
+    },
+    {
+      "classification": "source_ineligible",
+      "commit_committed_at": "2026-04-21T07:06:08Z",
+      "commit_sha": "1328feb5871448c8fa3d0e45b3bbc87e7c1d458a",
+      "eligible_systems": [],
+      "full_name": "duixcom/Duix-Avatar",
+      "observed_systems": [],
+      "project_family": "duixcom/duix-avatar",
+      "reason": "root_entrypoint_missing",
+      "repository_url": "https://github.com/duixcom/Duix-Avatar",
+      "root_entry_count": 26,
+      "root_paths_sha256": "d8d83011e77e956226631dbca41525baf20313c2fc73d7dcadc63bf34918770a",
+      "root_tree_sha": "1328feb5871448c8fa3d0e45b3bbc87e7c1d458a",
+      "search_metadata": {
+        "language": "C",
+        "pushed_at": "2026-04-21T07:06:36Z",
+        "size_kib": 98909,
+        "stargazers_count": 15843
+      },
+      "search_query_ids": [
+        "c"
+      ],
+      "system_scans": {}
+    },
+    {
+      "classification": "source_ineligible",
+      "commit_committed_at": "2026-10-07T18:39:39Z",
+      "commit_sha": "476fc90f766a5a0f5e15c006bc0c8771eaa5d6fe",
+      "eligible_systems": [],
+      "full_name": "dyang886/Game-Cheats-Manager",
+      "observed_systems": [],
+      "project_family": "dyang886/game-cheats-manager",
+      "reason": "root_entrypoint_missing",
+      "repository_url": "https://github.com/dyang886/Game-Cheats-Manager",
+      "root_entry_count": 9,
+      "root_paths_sha256": "63cf76b889359b5222875cee313ab7fb541fe63006aa5359d72963cbfe65fd57",
+      "root_tree_sha": "476fc90f766a5a0f5e15c006bc0c8771eaa5d6fe",
+      "search_metadata": {
+        "language": "C++",
+        "pushed_at": "2026-10-07T18:58:01Z",
+        "size_kib": 72895,
+        "stargazers_count": 15208
+      },
+      "search_query_ids": [
+        "cpp"
+      ],
+      "system_scans": {}
+    },
+    {
+      "classification": "source_eligible",
+      "commit_committed_at": "2026-10-04T09:31:29Z",
+      "commit_sha": "83f2620f0b955b89aadce32cceb96a8e81950f5e",
+      "eligible_systems": [
+        "cmake",
+        "make"
+      ],
+      "full_name": "eclipse-mosquitto/mosquitto",
+      "observed_systems": [
+        "cmake",
+        "make"
+      ],
+      "project_family": "eclipse-mosquitto/mosquitto",
+      "reason": "root_contract_passed",
+      "repository_url": "https://github.com/eclipse-mosquitto/mosquitto",
+      "root_entry_count": 62,
+      "root_paths_sha256": "0043835c96b2024af887249e8c26e1cfd3c723a3d4980ddb617ac98764790ae6",
+      "root_tree_sha": "83f2620f0b955b89aadce32cceb96a8e81950f5e",
+      "search_metadata": {
+        "language": "C",
+        "pushed_at": "2026-10-04T09:31:37Z",
+        "size_kib": 18537,
+        "stargazers_count": 11259
+      },
+      "search_query_ids": [
+        "c"
+      ],
+      "system_scans": {
+        "cmake": {
+          "eligible": true,
+          "entry_files": [
+            {
+              "blob_sha": "3b5f469d9fda2b346963979af76cf1105c7fabf1",
+              "content_sha256": "c1df7266cccf85d017c3e8a00258eb240ab645e4d94eaf51af1ba982497bda52",
+              "network_signals": [],
+              "path": "CMakeLists.txt",
+              "size": 12592
+            }
+          ],
+          "network_signals": []
+        },
+        "make": {
+          "eligible": true,
+          "entry_files": [
+            {
+              "blob_sha": "bc95b2e4d54acfae07a92b7034f1200353888374",
+              "content_sha256": "76d6b995b9539619c8cc6e48c9802d04154724097d117aa37a8cdc85374609c3",
+              "network_signals": [],
+              "path": "Makefile",
+              "size": 5143
+            }
+          ],
+          "network_signals": []
+        }
+      }
+    },
+    {
+      "classification": "source_ineligible",
+      "commit_committed_at": "2026-10-07T13:23:35Z",
+      "commit_sha": "561d934c77a1fa64987e01ccabe890fed30e181f",
+      "eligible_systems": [],
+      "full_name": "ExistentialAudio/BlackHole",
+      "observed_systems": [],
+      "project_family": "existentialaudio/blackhole",
+      "reason": "root_entrypoint_missing",
+      "repository_url": "https://github.com/ExistentialAudio/BlackHole",
+      "root_entry_count": 12,
+      "root_paths_sha256": "c9516a84052fd50c9b94d90cfc414fa5110889c2e7bdf45a3037d7a2adb0baf8",
+      "root_tree_sha": "561d934c77a1fa64987e01ccabe890fed30e181f",
+      "search_metadata": {
+        "language": "C",
+        "pushed_at": "2026-10-07T13:25:25Z",
+        "size_kib": 5490,
+        "stargazers_count": 19896
+      },
+      "search_query_ids": [
+        "c"
+      ],
+      "system_scans": {}
+    },
+    {
+      "classification": "source_eligible",
+      "commit_committed_at": "2026-10-10T16:33:23Z",
+      "commit_sha": "8137286cddcb56a89579644a628dba87cf24e9ad",
+      "eligible_systems": [
+        "cmake"
+      ],
+      "full_name": "facebook/watchman",
+      "observed_systems": [
+        "cmake"
+      ],
+      "project_family": "facebook/watchman",
+      "reason": "root_contract_passed",
+      "repository_url": "https://github.com/facebook/watchman",
+      "root_entry_count": 18,
+      "root_paths_sha256": "3c08c7fb437306226bf1f3858fc8baaef3fb9991d8459cb64aeed9bc3d78eca2",
+      "root_tree_sha": "8137286cddcb56a89579644a628dba87cf24e9ad",
+      "search_metadata": {
+        "language": "C++",
+        "pushed_at": "2026-10-10T16:36:08Z",
+        "size_kib": 35066,
+        "stargazers_count": 13738
+      },
+      "search_query_ids": [
+        "cpp"
+      ],
+      "system_scans": {
+        "cmake": {
+          "eligible": true,
+          "entry_files": [
+            {
+              "blob_sha": "33b0b03096c79f25c7c118923cda7cd54d16f807",
+              "content_sha256": "ca118ec1872be882146d2b9a2f49686e7e92ffbf370d4bd587aa9991e2fc760e",
+              "network_signals": [],
+              "path": "CMakeLists.txt",
+              "size": 25526
+            }
+          ],
+          "network_signals": []
+        }
+      }
+    },
+    {
+      "classification": "source_eligible",
+      "commit_committed_at": "2026-10-09T21:12:59Z",
+      "commit_sha": "515046e8a150d6b8767a8a6dd624824eaafa2c8b",
+      "eligible_systems": [
+        "make"
+      ],
+      "full_name": "FelixKratz/SketchyBar",
+      "observed_systems": [
+        "make"
+      ],
+      "project_family": "felixkratz/sketchybar",
+      "reason": "root_contract_passed",
+      "repository_url": "https://github.com/FelixKratz/SketchyBar",
+      "root_entry_count": 9,
+      "root_paths_sha256": "b1b66df05920821b1391825b154554ca38d136d98674108e42cf95114075aef3",
+      "root_tree_sha": "515046e8a150d6b8767a8a6dd624824eaafa2c8b",
+      "search_metadata": {
+        "language": "C",
+        "pushed_at": "2026-10-09T21:14:53Z",
+        "size_kib": 16494,
+        "stargazers_count": 12468
+      },
+      "search_query_ids": [
+        "c"
+      ],
+      "system_scans": {
+        "make": {
+          "eligible": true,
+          "entry_files": [
+            {
+              "blob_sha": "7eb46331573a680aa1b282c53b7e8f3eb4c4fca6",
+              "content_sha256": "4a9ceaa45fb838a8d0742ebed9b2917c18c626fae82cf2bee84f28e88fa1c098",
+              "network_signals": [],
+              "path": "makefile",
+              "size": 2034
+            }
+          ],
+          "network_signals": []
+        }
+      }
+    },
+    {
+      "classification": "source_ineligible",
+      "commit_committed_at": "2025-09-17T00:49:07Z",
+      "commit_sha": "f876f907c7e9b9bf51d4ed0b913a855a63ae63fc",
+      "eligible_systems": [],
+      "full_name": "ffmpegwasm/ffmpeg.wasm",
+      "observed_systems": [
+        "make"
+      ],
+      "project_family": "ffmpegwasm/ffmpeg.wasm",
+      "reason": "submodule_manifest_present",
+      "repository_url": "https://github.com/ffmpegwasm/ffmpeg.wasm",
+      "root_entry_count": 20,
+      "root_paths_sha256": "1b5b96bb1104c91cf73a77767a1076cba9bbf6b988d68fab9cd3cad778a1fd07",
+      "root_tree_sha": "f876f907c7e9b9bf51d4ed0b913a855a63ae63fc",
+      "search_metadata": {
+        "language": "C",
+        "pushed_at": "2026-09-29T21:30:20Z",
+        "size_kib": 17934,
+        "stargazers_count": 17841
+      },
+      "search_query_ids": [
+        "c"
+      ],
+      "system_scans": {}
+    },
+    {
+      "classification": "source_ineligible",
+      "commit_committed_at": "2026-10-09T13:09:00Z",
+      "commit_sha": "ad3d55bacc98f347702098c69ab21e3bd6e9937f",
+      "eligible_systems": [],
+      "full_name": "flipperdevices/flipperzero-firmware",
+      "observed_systems": [],
+      "project_family": "flipperdevices/flipperzero-firmware",
+      "reason": "submodule_manifest_present",
+      "repository_url": "https://github.com/flipperdevices/flipperzero-firmware",
+      "root_entry_count": 31,
+      "root_paths_sha256": "f1c0fafb111e390edc905f0ee8fdc45c885c2a01c95321f40e0eb08f0cb0613e",
+      "root_tree_sha": "ad3d55bacc98f347702098c69ab21e3bd6e9937f",
+      "search_metadata": {
+        "language": "C",
+        "pushed_at": "2026-10-09T13:09:01Z",
+        "size_kib": 80222,
+        "stargazers_count": 16708
+      },
+      "search_query_ids": [
+        "c"
+      ],
+      "system_scans": {}
+    },
+    {
+      "classification": "source_eligible",
+      "commit_committed_at": "2021-02-24T15:40:38Z",
+      "commit_sha": "d6888a6e1e54340358ce25b1220f410541360b6b",
+      "eligible_systems": [
+        "cmake"
+      ],
+      "full_name": "fogleman/Craft",
+      "observed_systems": [
+        "cmake"
+      ],
+      "project_family": "fogleman/craft",
+      "reason": "root_contract_passed",
+      "repository_url": "https://github.com/fogleman/Craft",
+      "root_entry_count": 11,
+      "root_paths_sha256": "b971eefab1c529b7dc893711ee7e2787c236599d43ebbc8a296bfc2346eab3a1",
+      "root_tree_sha": "d6888a6e1e54340358ce25b1220f410541360b6b",
+      "search_metadata": {
+        "language": "C",
+        "pushed_at": "2024-04-03T15:49:34Z",
+        "size_kib": 14666,
+        "stargazers_count": 11116
+      },
+      "search_query_ids": [
+        "c"
+      ],
+      "system_scans": {
+        "cmake": {
+          "eligible": true,
+          "entry_files": [
+            {
+              "blob_sha": "851ae3ad7f372f326a90fa587b0120e3e7a04ad9",
+              "content_sha256": "14314b0475fb349312d5ea06c8605a086e43f37c5e02daf22a38872b1ec18017",
+              "network_signals": [],
+              "path": "CMakeLists.txt",
+              "size": 1197
+            }
+          ],
+          "network_signals": []
+        }
+      }
+    },
+    {
+      "classification": "source_eligible",
+      "commit_committed_at": "2026-10-09T19:39:53Z",
+      "commit_sha": "87baff6c80e16087c146937bca81d2bdb788e236",
+      "eligible_systems": [
+        "cmake"
+      ],
+      "full_name": "FreeRDP/FreeRDP",
+      "observed_systems": [
+        "cmake"
+      ],
+      "project_family": "freerdp/freerdp",
+      "reason": "root_contract_passed",
+      "repository_url": "https://github.com/FreeRDP/FreeRDP",
+      "root_entry_count": 30,
+      "root_paths_sha256": "e885158dd68ee430bef6862e2960ebfea6c63f0cd1a22dfd03478d25796c4e21",
+      "root_tree_sha": "87baff6c80e16087c146937bca81d2bdb788e236",
+      "search_metadata": {
+        "language": "C",
+        "pushed_at": "2026-10-09T19:39:53Z",
+        "size_kib": 94542,
+        "stargazers_count": 13811
+      },
+      "search_query_ids": [
+        "c"
+      ],
+      "system_scans": {
+        "cmake": {
+          "eligible": true,
+          "entry_files": [
+            {
+              "blob_sha": "d185e6592fa29be9b3a28efe2dd7e71ee5b971a8",
+              "content_sha256": "b1ae6b9046d7f94c069ce2db119074c58fc07cebc4988922792bd14c52dd412c",
+              "network_signals": [],
+              "path": "CMakeLists.txt",
+              "size": 19570
+            }
+          ],
+          "network_signals": []
+        }
+      }
+    },
+    {
+      "classification": "source_ineligible",
+      "commit_committed_at": "2026-10-05T14:30:07Z",
+      "commit_sha": "ffa4e8b80930029a35991f94e7c8a93cd67730ab",
+      "eligible_systems": [],
+      "full_name": "ggml-org/ggml",
+      "observed_systems": [
+        "cmake"
+      ],
+      "project_family": "ggml-org/ggml",
+      "reason": "submodule_manifest_present",
+      "repository_url": "https://github.com/ggml-org/ggml",
+      "root_entry_count": 20,
+      "root_paths_sha256": "0b0a8496349decef0ab5888e6d55a7074deb69114c4ce966ee75761db2cf8eb4",
+      "root_tree_sha": "ffa4e8b80930029a35991f94e7c8a93cd67730ab",
+      "search_metadata": {
+        "language": "C++",
+        "pushed_at": "2026-10-05T14:36:32Z",
+        "size_kib": 34941,
+        "stargazers_count": 15469
+      },
+      "search_query_ids": [
+        "cpp"
+      ],
+      "system_scans": {}
+    },
+    {
+      "classification": "source_eligible",
+      "commit_committed_at": "2026-08-03T17:04:50Z",
+      "commit_sha": "92dcf4ce74f2e2554a98fea09be7c705c17daa5a",
+      "eligible_systems": [
+        "cmake"
+      ],
+      "full_name": "glfw/glfw",
+      "observed_systems": [
+        "cmake"
+      ],
+      "project_family": "glfw/glfw",
+      "reason": "root_contract_passed",
+      "repository_url": "https://github.com/glfw/glfw",
+      "root_entry_count": 17,
+      "root_paths_sha256": "3fc773fe11a2e21b100e7392027429f7a19b1ce9a71066b675efd89a78a3f114",
+      "root_tree_sha": "92dcf4ce74f2e2554a98fea09be7c705c17daa5a",
+      "search_metadata": {
+        "language": "C",
+        "pushed_at": "2026-08-04T16:34:20Z",
+        "size_kib": 17086,
+        "stargazers_count": 15392
+      },
+      "search_query_ids": [
+        "c"
+      ],
+      "system_scans": {
+        "cmake": {
+          "eligible": true,
+          "entry_files": [
+            {
+              "blob_sha": "8b6cb3b733c31674bb4f4c1c9f2c1765590bb6bc",
+              "content_sha256": "44fb200b77d5f5a80b8fcb506aeab0c5da415cfdcf9a36a263dea7981d07b403",
+              "network_signals": [],
+              "path": "CMakeLists.txt",
+              "size": 5221
+            }
+          ],
+          "network_signals": []
+        }
+      }
+    },
+    {
+      "classification": "source_ineligible",
+      "commit_committed_at": "2026-10-11T14:25:38Z",
+      "commit_sha": "75b38c791905cd3ae865ae7fc0c6bde4926c5ee6",
+      "eligible_systems": [],
+      "full_name": "gojue/ecapture",
+      "observed_systems": [
+        "make"
+      ],
+      "project_family": "gojue/ecapture",
+      "reason": "submodule_manifest_present",
+      "repository_url": "https://github.com/gojue/ecapture",
+      "root_entry_count": 38,
+      "root_paths_sha256": "ff47d485ca159c7f6322851d28aae2f7f7987179a867ca0e532aac8161051f47",
+      "root_tree_sha": "75b38c791905cd3ae865ae7fc0c6bde4926c5ee6",
+      "search_metadata": {
+        "language": "C",
+        "pushed_at": "2026-10-11T14:25:50Z",
+        "size_kib": 17509,
+        "stargazers_count": 15492
+      },
+      "search_query_ids": [
+        "c"
+      ],
+      "system_scans": {}
+    },
+    {
+      "classification": "source_ineligible",
+      "commit_committed_at": "2026-10-09T20:41:44Z",
+      "commit_sha": "7c9a2e766f29dddfb1d9c6e5d2218c320732ec3a",
+      "eligible_systems": [],
+      "full_name": "google/sanitizers",
+      "observed_systems": [],
+      "project_family": "google/sanitizers",
+      "reason": "root_entrypoint_missing",
+      "repository_url": "https://github.com/google/sanitizers",
+      "root_entry_count": 10,
+      "root_paths_sha256": "57d4a5ac53d6996d676c8d303b03d36686854d97793031a6f104ae1c31120c0a",
+      "root_tree_sha": "7c9a2e766f29dddfb1d9c6e5d2218c320732ec3a",
+      "search_metadata": {
+        "language": "C",
+        "pushed_at": "2026-10-09T20:41:44Z",
+        "size_kib": 48928,
+        "stargazers_count": 12502
+      },
+      "search_query_ids": [
+        "c"
+      ],
+      "system_scans": {}
+    },
+    {
+      "classification": "source_eligible",
+      "commit_committed_at": "2026-10-10T03:01:50Z",
+      "commit_sha": "0a4ec322cc654b903c163d52a019f798a0db5739",
+      "eligible_systems": [
+        "autotools"
+      ],
+      "full_name": "haiwen/seafile",
+      "observed_systems": [
+        "autotools"
+      ],
+      "project_family": "haiwen/seafile",
+      "reason": "root_contract_passed",
+      "repository_url": "https://github.com/haiwen/seafile",
+      "root_entry_count": 28,
+      "root_paths_sha256": "5f3651441535032f6b292bd00d62c8766a10e1f53ddc2dd49d97689aa1ea5dd4",
+      "root_tree_sha": "0a4ec322cc654b903c163d52a019f798a0db5739",
+      "search_metadata": {
+        "language": "C",
+        "pushed_at": "2026-10-10T03:24:58Z",
+        "size_kib": 12545,
+        "stargazers_count": 15323
+      },
+      "search_query_ids": [
+        "c"
+      ],
+      "system_scans": {
+        "autotools": {
+          "eligible": true,
+          "entry_files": [
+            {
+              "blob_sha": "927c5c45e4be4086859b7eb92e78d14f2d6f5eac",
+              "content_sha256": "1e827436162a83f578b6375413dc732da8b8166d37cc7bdf17cf754e3162e927",
+              "network_signals": [],
+              "path": "configure.ac",
+              "size": 7690
+            }
+          ],
+          "network_signals": []
+        }
+      }
+    },
+    {
+      "classification": "source_ineligible",
+      "commit_committed_at": "2022-04-09T05:30:24Z",
+      "commit_sha": "125c4d8d7e3a4700d7b2dc5b6e7137f84da884e3",
+      "eligible_systems": [],
+      "full_name": "haoel/leetcode",
+      "observed_systems": [],
+      "project_family": "haoel/leetcode",
+      "reason": "root_entrypoint_missing",
+      "repository_url": "https://github.com/haoel/leetcode",
+      "root_entry_count": 6,
+      "root_paths_sha256": "9a2efb97aca09e835242e8d479c6fe564c9ea204c178826a9074edc90638489a",
+      "root_tree_sha": "125c4d8d7e3a4700d7b2dc5b6e7137f84da884e3",
+      "search_metadata": {
+        "language": "C++",
+        "pushed_at": "2024-01-17T16:23:10Z",
+        "size_kib": 3164,
+        "stargazers_count": 18067
+      },
+      "search_query_ids": [
+        "cpp"
+      ],
+      "system_scans": {}
+    },
+    {
+      "classification": "source_ineligible",
+      "commit_committed_at": "2026-10-07T11:50:50Z",
+      "commit_sha": "04402de8b6a8ff9d1c5517c675d87c346655323c",
+      "eligible_systems": [],
+      "full_name": "henrypp/memreduct",
+      "observed_systems": [],
+      "project_family": "henrypp/memreduct",
+      "reason": "submodule_manifest_present",
+      "repository_url": "https://github.com/henrypp/memreduct",
+      "root_entry_count": 18,
+      "root_paths_sha256": "987dca972f6a48d932b9d9512e3b92f8b8dec8cb1a4d81be03caa0ef612ae066",
+      "root_tree_sha": "04402de8b6a8ff9d1c5517c675d87c346655323c",
+      "search_metadata": {
+        "language": "C",
+        "pushed_at": "2026-10-07T11:50:59Z",
+        "size_kib": 1983,
+        "stargazers_count": 10778
+      },
+      "search_query_ids": [
+        "c"
+      ],
+      "system_scans": {}
+    },
+    {
+      "classification": "source_ineligible",
+      "commit_committed_at": "2026-10-11T13:34:09Z",
+      "commit_sha": "7648bd937f2708134c8876148158fd9254436e6b",
+      "eligible_systems": [],
+      "full_name": "HIllya51/LunaTranslator",
+      "observed_systems": [],
+      "project_family": "hillya51/lunatranslator",
+      "reason": "submodule_manifest_present",
+      "repository_url": "https://github.com/HIllya51/LunaTranslator",
+      "root_entry_count": 7,
+      "root_paths_sha256": "69c92f6554fd38b1ae0c83354ce1420999c8f823c37889684e7ce5635f904302",
+      "root_tree_sha": "7648bd937f2708134c8876148158fd9254436e6b",
+      "search_metadata": {
+        "language": "C++",
+        "pushed_at": "2026-10-11T13:50:38Z",
+        "size_kib": 27102,
+        "stargazers_count": 13681
+      },
+      "search_query_ids": [
+        "cpp"
+      ],
+      "system_scans": {}
+    },
+    {
+      "classification": "source_eligible",
+      "commit_committed_at": "2026-10-11T11:51:29Z",
+      "commit_sha": "8799bfeb9316bf79ce794f9a0325ee9dd2b18432",
+      "eligible_systems": [
+        "cmake"
+      ],
+      "full_name": "hluk/CopyQ",
+      "observed_systems": [
+        "cmake"
+      ],
+      "project_family": "hluk/copyq",
+      "reason": "root_contract_passed",
+      "repository_url": "https://github.com/hluk/CopyQ",
+      "root_entry_count": 28,
+      "root_paths_sha256": "dd6d76f6ea82338b2c71c39e3208ab151f6fd22d6af32415cb1c4f10c44f09b8",
+      "root_tree_sha": "8799bfeb9316bf79ce794f9a0325ee9dd2b18432",
+      "search_metadata": {
+        "language": "C++",
+        "pushed_at": "2026-10-11T11:51:33Z",
+        "size_kib": 45272,
+        "stargazers_count": 12430
+      },
+      "search_query_ids": [
+        "cpp"
+      ],
+      "system_scans": {
+        "cmake": {
+          "eligible": true,
+          "entry_files": [
+            {
+              "blob_sha": "9322b9d4d13014bce7d4387c150e04a236b962d8",
+              "content_sha256": "4b222bba0aff1962050846dc9b97c5316961db6e65832ed10ebe94ee6ed4eb2c",
+              "network_signals": [],
+              "path": "CMakeLists.txt",
+              "size": 9118
+            }
+          ],
+          "network_signals": []
+        }
+      }
+    },
+    {
+      "classification": "source_ineligible",
+      "commit_committed_at": "2026-09-20T21:11:10Z",
+      "commit_sha": "9f7750296f176e506c2b24ff55bc24495e2db750",
+      "eligible_systems": [],
+      "full_name": "Immediate-Mode-UI/Nuklear",
+      "observed_systems": [
+        "make"
+      ],
+      "project_family": "immediate-mode-ui/nuklear",
+      "reason": "network_or_entry_blob_signal",
+      "repository_url": "https://github.com/Immediate-Mode-UI/Nuklear",
+      "root_entry_count": 15,
+      "root_paths_sha256": "7b07abe1bb4abb1cf4673e528e90d2335990319c90996646ba2020929d12293f",
+      "root_tree_sha": "9f7750296f176e506c2b24ff55bc24495e2db750",
+      "search_metadata": {
+        "language": "C",
+        "pushed_at": "2026-09-20T21:11:42Z",
+        "size_kib": 21568,
+        "stargazers_count": 11446
+      },
+      "search_query_ids": [
+        "c"
+      ],
+      "system_scans": {
+        "make": {
+          "eligible": false,
+          "entry_files": [
+            {
+              "blob_sha": "9e0934dc683815d95328d133c048f7455874ec44",
+              "content_sha256": "575a795abc12abd1df2918ee951024931c4cfcff71c5381684fcc33c16af8781",
+              "network_signals": [
+                "git_clone"
+              ],
+              "path": "Makefile",
+              "size": 3256
+            }
+          ],
+          "network_signals": [
+            "git_clone"
+          ]
+        }
+      }
+    },
+    {
+      "classification": "source_eligible",
+      "commit_committed_at": "2026-10-09T10:05:23Z",
+      "commit_sha": "89e500718da7e1fc90e168bd88e18d1060f54db3",
+      "eligible_systems": [
+        "autotools"
+      ],
+      "full_name": "jedisct1/libsodium",
+      "observed_systems": [
+        "autotools"
+      ],
+      "project_family": "jedisct1/libsodium",
+      "reason": "root_contract_passed",
+      "repository_url": "https://github.com/jedisct1/libsodium",
+      "root_entry_count": 27,
+      "root_paths_sha256": "cdd9f27f3b4519e573a5ead6c8c44693448f20d6beab6e0d3a491e23d04d4500",
+      "root_tree_sha": "89e500718da7e1fc90e168bd88e18d1060f54db3",
+      "search_metadata": {
+        "language": "C",
+        "pushed_at": "2026-10-09T10:05:26Z",
+        "size_kib": 13627,
+        "stargazers_count": 13985
+      },
+      "search_query_ids": [
+        "c"
+      ],
+      "system_scans": {
+        "autotools": {
+          "eligible": true,
+          "entry_files": [
+            {
+              "blob_sha": "b79a04117b361458e9d87c518194bf4c44874763",
+              "content_sha256": "e3dfbf4dad97e1ca3b6e84eacc434f14a230cf92ce3d9e94e87c37363abfef63",
+              "network_signals": [],
+              "path": "configure.ac",
+              "size": 33717
+            }
+          ],
+          "network_signals": []
+        }
+      }
+    },
+    {
+      "classification": "source_eligible",
+      "commit_committed_at": "2026-10-08T17:06:34Z",
+      "commit_sha": "1700e4860d7f669ba71e88d9bace430e56cd7ebf",
+      "eligible_systems": [
+        "make",
+        "autotools"
+      ],
+      "full_name": "jonas/tig",
+      "observed_systems": [
+        "make",
+        "autotools"
+      ],
+      "project_family": "jonas/tig",
+      "reason": "root_contract_passed",
+      "repository_url": "https://github.com/jonas/tig",
+      "root_entry_count": 24,
+      "root_paths_sha256": "ec6e1a9175853e52861b07a18f6be58ca44c7bc4977f7611982eeefd5f271265",
+      "root_tree_sha": "1700e4860d7f669ba71e88d9bace430e56cd7ebf",
+      "search_metadata": {
+        "language": "C",
+        "pushed_at": "2026-10-08T17:09:31Z",
+        "size_kib": 7274,
+        "stargazers_count": 13360
+      },
+      "search_query_ids": [
+        "c"
+      ],
+      "system_scans": {
+        "autotools": {
+          "eligible": true,
+          "entry_files": [
+            {
+              "blob_sha": "cf55c658fe372148c66d5b14e7d3913ea9c5fb8c",
+              "content_sha256": "48dfcb2c8034d65a338f9f4af7f48fefdff9051b99febc1e3cb35e35189502be",
+              "network_signals": [],
+              "path": "configure.ac",
+              "size": 2465
+            }
+          ],
+          "network_signals": []
+        },
+        "make": {
+          "eligible": true,
+          "entry_files": [
+            {
+              "blob_sha": "f9ddf951596c1f83ba4d215b5abb488e771b08e6",
+              "content_sha256": "f2a078b0cf4073e780caad4324b5bbc0641d64b2d1afb2075dd0548f0c86d2cb",
+              "network_signals": [],
+              "path": "Makefile",
+              "size": 15130
+            }
+          ],
+          "network_signals": []
+        }
+      }
+    },
+    {
+      "classification": "source_eligible",
+      "commit_committed_at": "2026-10-09T07:49:02Z",
+      "commit_sha": "9db1af1871ed78cee9357c23898e5a7d8702d21a",
+      "eligible_systems": [
+        "cmake"
+      ],
+      "full_name": "k2-fsa/sherpa-onnx",
+      "observed_systems": [
+        "cmake"
+      ],
+      "project_family": "k2-fsa/sherpa-onnx",
+      "reason": "root_contract_passed",
+      "repository_url": "https://github.com/k2-fsa/sherpa-onnx",
+      "root_entry_count": 79,
+      "root_paths_sha256": "461531cf6f55639780b4ee2c3c548d81822161fd3a961673f24dc06befc25383",
+      "root_tree_sha": "9db1af1871ed78cee9357c23898e5a7d8702d21a",
+      "search_metadata": {
+        "language": "C++",
+        "pushed_at": "2026-10-09T07:49:03Z",
+        "size_kib": 16724,
+        "stargazers_count": 15220
+      },
+      "search_query_ids": [
+        "cpp"
+      ],
+      "system_scans": {
+        "cmake": {
+          "eligible": true,
+          "entry_files": [
+            {
+              "blob_sha": "03ed01e977a6bec59a948624ce9ab60063323416",
+              "content_sha256": "4df4359dc8ad360eadd0d125059622c12bcac99f32e7cf2aabe44aaa16a0c09c",
+              "network_signals": [],
+              "path": "CMakeLists.txt",
+              "size": 23792
+            }
+          ],
+          "network_signals": []
+        }
+      }
+    },
+    {
+      "classification": "source_eligible",
+      "commit_committed_at": "2025-05-08T14:41:25Z",
+      "commit_sha": "369448a167e8b3da4ca5bca0b3307500c3371828",
+      "eligible_systems": [
+        "cmake"
+      ],
+      "full_name": "krallin/tini",
+      "observed_systems": [
+        "cmake"
+      ],
+      "project_family": "krallin/tini",
+      "reason": "root_contract_passed",
+      "repository_url": "https://github.com/krallin/tini",
+      "root_entry_count": 15,
+      "root_paths_sha256": "4135893a1ad8892c76263e4bde3e681295c9d7a8de8d2efad3d04ed0093a6ea6",
+      "root_tree_sha": "369448a167e8b3da4ca5bca0b3307500c3371828",
+      "search_metadata": {
+        "language": "C",
+        "pushed_at": "2025-05-08T14:42:27Z",
+        "size_kib": 245,
+        "stargazers_count": 11260
+      },
+      "search_query_ids": [
+        "c"
+      ],
+      "system_scans": {
+        "cmake": {
+          "eligible": true,
+          "entry_files": [
+            {
+              "blob_sha": "16d693df4f769f826379a3e39d3fbee5e96e6dbd",
+              "content_sha256": "24d958358df2c081488f03a7739f7a63ef70b667648b0b12ddf694b07c4c7b8a",
+              "network_signals": [],
+              "path": "CMakeLists.txt",
+              "size": 3435
+            }
+          ],
+          "network_signals": []
+        }
+      }
+    },
+    {
+      "classification": "source_ineligible",
+      "commit_committed_at": "2026-06-10T08:56:32Z",
+      "commit_sha": "8c25450e9b0d3867417c4872018b03fb30c0c85c",
+      "eligible_systems": [],
+      "full_name": "kyleneideck/BackgroundMusic",
+      "observed_systems": [],
+      "project_family": "kyleneideck/backgroundmusic",
+      "reason": "root_entrypoint_missing",
+      "repository_url": "https://github.com/kyleneideck/BackgroundMusic",
+      "root_entry_count": 20,
+      "root_paths_sha256": "ca5737362d7940d46b6df0c58c3669c00a91843cbbb4e67e9d5caa0d441ef54f",
+      "root_tree_sha": "8c25450e9b0d3867417c4872018b03fb30c0c85c",
+      "search_metadata": {
+        "language": "C++",
+        "pushed_at": "2026-06-10T08:58:49Z",
+        "size_kib": 2301,
+        "stargazers_count": 19332
+      },
+      "search_query_ids": [
+        "cpp"
+      ],
+      "system_scans": {}
+    },
+    {
+      "classification": "source_eligible",
+      "commit_committed_at": "2026-06-18T14:18:13Z",
+      "commit_sha": "82df59dffa161ef1cf47b86f6b958e7b2f78bb8a",
+      "eligible_systems": [
+        "cmake",
+        "make"
+      ],
+      "full_name": "leandromoreira/ffmpeg-libav-tutorial",
+      "observed_systems": [
+        "cmake",
+        "make"
+      ],
+      "project_family": "leandromoreira/ffmpeg-libav-tutorial",
+      "reason": "root_contract_passed",
+      "repository_url": "https://github.com/leandromoreira/ffmpeg-libav-tutorial",
+      "root_entry_count": 23,
+      "root_paths_sha256": "24382e03c39fc525ac6e6469caa60fd1c604428b331aaffd6b38ae2b7dbb3ca3",
+      "root_tree_sha": "82df59dffa161ef1cf47b86f6b958e7b2f78bb8a",
+      "search_metadata": {
+        "language": "C",
+        "pushed_at": "2026-06-18T14:18:13Z",
+        "size_kib": 6155,
+        "stargazers_count": 11050
+      },
+      "search_query_ids": [
+        "c"
+      ],
+      "system_scans": {
+        "cmake": {
+          "eligible": true,
+          "entry_files": [
+            {
+              "blob_sha": "ba8a55078071be0f5be5316a3c40490675eab28c",
+              "content_sha256": "8a9737877b9c79c59ab1d1f7b05cdc8261e8542964ef985d04fe1a558635aa3c",
+              "network_signals": [],
+              "path": "CMakeLists.txt",
+              "size": 1297
+            }
+          ],
+          "network_signals": []
+        },
+        "make": {
+          "eligible": true,
+          "entry_files": [
+            {
+              "blob_sha": "abb404ca25e46a2af0949eee3c9ed11010988ebf",
+              "content_sha256": "7b246890ffb50f4a2318d173f985153dc529e991b286e94bb1d291e3c3a19d0b",
+              "network_signals": [],
+              "path": "Makefile",
+              "size": 1952
+            }
+          ],
+          "network_signals": []
+        }
+      }
+    },
+    {
+      "classification": "source_ineligible",
+      "commit_committed_at": "2026-10-10T02:47:38Z",
+      "commit_sha": "c8be3579413199a6e0f769e74c15ee119735471c",
+      "eligible_systems": [],
+      "full_name": "lightgbm-org/LightGBM",
+      "observed_systems": [
+        "cmake"
+      ],
+      "project_family": "lightgbm-org/lightgbm",
+      "reason": "submodule_manifest_present",
+      "repository_url": "https://github.com/lightgbm-org/LightGBM",
+      "root_entry_count": 38,
+      "root_paths_sha256": "ff9ff59799290714993de09d18671db6f3dd2a9ad1c38a053d8018a89fa1a81e",
+      "root_tree_sha": "c8be3579413199a6e0f769e74c15ee119735471c",
+      "search_metadata": {
+        "language": "C++",
+        "pushed_at": "2026-10-11T04:10:12Z",
+        "size_kib": 25712,
+        "stargazers_count": 18856
+      },
+      "search_query_ids": [
+        "cpp"
+      ],
+      "system_scans": {}
+    },
+    {
+      "classification": "source_ineligible",
+      "commit_committed_at": "2026-10-10T14:26:27Z",
+      "commit_sha": "706c714fd1ec9f5a16329e091e8ce8d419711639",
+      "eligible_systems": [],
+      "full_name": "lynx-family/lynx",
+      "observed_systems": [],
+      "project_family": "lynx-family/lynx",
+      "reason": "root_entrypoint_missing",
+      "repository_url": "https://github.com/lynx-family/lynx",
+      "root_entry_count": 47,
+      "root_paths_sha256": "6c8a58c33e4dc61904a19970f71e15c62de817a12d83c17e384610a1450fcc89",
+      "root_tree_sha": "706c714fd1ec9f5a16329e091e8ce8d419711639",
+      "search_metadata": {
+        "language": "C++",
+        "pushed_at": "2026-10-11T14:22:38Z",
+        "size_kib": 85043,
+        "stargazers_count": 15168
+      },
+      "search_query_ids": [
+        "cpp"
+      ],
+      "system_scans": {}
+    },
+    {
+      "classification": "source_ineligible",
+      "commit_committed_at": "2026-10-10T12:50:07Z",
+      "commit_sha": "1f850e0fc37cc652c4639901a92593ae165607bf",
+      "eligible_systems": [],
+      "full_name": "M2Team/NanaZip",
+      "observed_systems": [],
+      "project_family": "m2team/nanazip",
+      "reason": "root_entrypoint_missing",
+      "repository_url": "https://github.com/M2Team/NanaZip",
+      "root_entry_count": 37,
+      "root_paths_sha256": "99f4a372d305aeb2bc7b0f87155b59cc2942a4b851e14512a849344997279b51",
+      "root_tree_sha": "1f850e0fc37cc652c4639901a92593ae165607bf",
+      "search_metadata": {
+        "language": "C++",
+        "pushed_at": "2026-10-10T12:57:58Z",
+        "size_kib": 53995,
+        "stargazers_count": 15805
+      },
+      "search_query_ids": [
+        "cpp"
+      ],
+      "system_scans": {}
+    },
+    {
+      "classification": "source_eligible",
+      "commit_committed_at": "2026-07-10T04:11:54Z",
+      "commit_sha": "2d51e364799bc9698bd4b11728ea978cea12da6e",
+      "eligible_systems": [
+        "autotools"
+      ],
+      "full_name": "memcached/memcached",
+      "observed_systems": [
+        "autotools"
+      ],
+      "project_family": "memcached/memcached",
+      "reason": "root_contract_passed",
+      "repository_url": "https://github.com/memcached/memcached",
+      "root_entry_count": 121,
+      "root_paths_sha256": "c1e0bbb8423cbae0e9cb2e3bd80ffea4a7247f49fe0a2e7a6195908422b4b7fa",
+      "root_tree_sha": "2d51e364799bc9698bd4b11728ea978cea12da6e",
+      "search_metadata": {
+        "language": "C",
+        "pushed_at": "2026-09-11T03:07:33Z",
+        "size_kib": 6419,
+        "stargazers_count": 14291
+      },
+      "search_query_ids": [
+        "c"
+      ],
+      "system_scans": {
+        "autotools": {
+          "eligible": true,
+          "entry_files": [
+            {
+              "blob_sha": "6f2ef97cdb263ddc79d8798da644c65d5fd6c0e8",
+              "content_sha256": "b2029b67baa3a78ece9cac400cd3caa5f587f80c1b07c6a7d49a064d8e8a3710",
+              "network_signals": [],
+              "path": "configure.ac",
+              "size": 27125
+            }
+          ],
+          "network_signals": []
+        }
+      }
+    },
+    {
+      "classification": "source_eligible",
+      "commit_committed_at": "2026-09-17T00:54:59Z",
+      "commit_sha": "31d034d94cdb8e22f7d7ed55967f581a2d6e831d",
+      "eligible_systems": [
+        "cmake"
+      ],
+      "full_name": "microsoft/mimalloc",
+      "observed_systems": [
+        "cmake"
+      ],
+      "project_family": "microsoft/mimalloc",
+      "reason": "root_contract_passed",
+      "repository_url": "https://github.com/microsoft/mimalloc",
+      "root_entry_count": 18,
+      "root_paths_sha256": "a11bea9fcf6e2ca85e56347d75fbaeba2358a696cdff4618b23b98e0331df106",
+      "root_tree_sha": "31d034d94cdb8e22f7d7ed55967f581a2d6e831d",
+      "search_metadata": {
+        "language": "C",
+        "pushed_at": "2026-10-09T22:50:18Z",
+        "size_kib": 11089,
+        "stargazers_count": 13446
+      },
+      "search_query_ids": [
+        "c"
+      ],
+      "system_scans": {
+        "cmake": {
+          "eligible": true,
+          "entry_files": [
+            {
+              "blob_sha": "a4a260af098faf5a0923234912fcfcce5644a646",
+              "content_sha256": "f06ff097ad6f5714547934da4d0dacd043aa3f960cc663a547fc288795747169",
+              "network_signals": [],
+              "path": "CMakeLists.txt",
+              "size": 54017
+            }
+          ],
+          "network_signals": []
+        }
+      }
+    },
+    {
+      "classification": "source_eligible",
+      "commit_committed_at": "2026-09-26T08:54:30Z",
+      "commit_sha": "06aad25c735fd3159bdfae5680be4eab7b1668b2",
+      "eligible_systems": [
+        "make"
+      ],
+      "full_name": "mit-pdos/xv6-riscv",
+      "observed_systems": [
+        "make"
+      ],
+      "project_family": "mit-pdos/xv6-riscv",
+      "reason": "root_contract_passed",
+      "repository_url": "https://github.com/mit-pdos/xv6-riscv",
+      "root_entry_count": 13,
+      "root_paths_sha256": "56888b221a3732640e5927e0672a24c6e215ab16377fb30cbceb126b00d65350",
+      "root_tree_sha": "06aad25c735fd3159bdfae5680be4eab7b1668b2",
+      "search_metadata": {
+        "language": "C",
+        "pushed_at": "2026-10-09T11:15:22Z",
+        "size_kib": 18075,
+        "stargazers_count": 10617
+      },
+      "search_query_ids": [
+        "c"
+      ],
+      "system_scans": {
+        "make": {
+          "eligible": true,
+          "entry_files": [
+            {
+              "blob_sha": "af1e7a5af5d29efb53117cf2466993cf18881e05",
+              "content_sha256": "8254b968e063083d2f56788c0acc0bfa787c971ab2180538d6ce8385dea3c230",
+              "network_signals": [],
+              "path": "Makefile",
+              "size": 5744
+            }
+          ],
+          "network_signals": []
+        }
+      }
+    },
+    {
+      "classification": "source_eligible",
+      "commit_committed_at": "2026-03-22T20:20:13Z",
+      "commit_sha": "decd9b705eb81626f694335b8d5940538beb06da",
+      "eligible_systems": [
+        "autotools"
+      ],
+      "full_name": "mobile-shell/mosh",
+      "observed_systems": [
+        "autotools"
+      ],
+      "project_family": "mobile-shell/mosh",
+      "reason": "root_contract_passed",
+      "repository_url": "https://github.com/mobile-shell/mosh",
+      "root_entry_count": 25,
+      "root_paths_sha256": "1f7eba1e88ca896c4b7b48254aade45da3f9c4c63fc36864cabef789eb859e15",
+      "root_tree_sha": "decd9b705eb81626f694335b8d5940538beb06da",
+      "search_metadata": {
+        "language": "C++",
+        "pushed_at": "2026-03-22T20:20:13Z",
+        "size_kib": 2756,
+        "stargazers_count": 14559
+      },
+      "search_query_ids": [
+        "cpp"
+      ],
+      "system_scans": {
+        "autotools": {
+          "eligible": true,
+          "entry_files": [
+            {
+              "blob_sha": "75dd7d2862b1da48a19ae951a20af4b425ebad87",
+              "content_sha256": "4ce9df00b9bec8723d13d3e1e748ca4dba2afe275c6023a8cb64409742fb6254",
+              "network_signals": [],
+              "path": "configure.ac",
+              "size": 22242
+            }
+          ],
+          "network_signals": []
+        }
+      }
+    },
+    {
+      "classification": "source_eligible",
+      "commit_committed_at": "2026-05-20T02:17:58Z",
+      "commit_sha": "e6cc36941ab2af5d81107617039d6f527a1c660b",
+      "eligible_systems": [
+        "cmake"
+      ],
+      "full_name": "nicbarker/clay",
+      "observed_systems": [
+        "cmake"
+      ],
+      "project_family": "nicbarker/clay",
+      "reason": "root_contract_passed",
+      "repository_url": "https://github.com/nicbarker/clay",
+      "root_entry_count": 12,
+      "root_paths_sha256": "546493f3263b1235686b81bb690007620fdfce6b56beb6573b9f4ee1ff288cb8",
+      "root_tree_sha": "e6cc36941ab2af5d81107617039d6f527a1c660b",
+      "search_metadata": {
+        "language": "C",
+        "pushed_at": "2026-05-20T02:17:59Z",
+        "size_kib": 19203,
+        "stargazers_count": 18243
+      },
+      "search_query_ids": [
+        "c"
+      ],
+      "system_scans": {
+        "cmake": {
+          "eligible": true,
+          "entry_files": [
+            {
+              "blob_sha": "6ab1b94e02123196ad5a98fcb450bc05dc796467",
+              "content_sha256": "631b78227c915f3f45bd582858173beb1a2c42319bd407db1fbc345f5d3b37d3",
+              "network_signals": [],
+              "path": "CMakeLists.txt",
+              "size": 2439
+            }
+          ],
+          "network_signals": []
+        }
+      }
+    },
+    {
+      "classification": "source_ineligible",
+      "commit_committed_at": "2026-10-09T08:19:24Z",
+      "commit_sha": "c2817e5854b825b3e7d38ac7a266724ba1313e29",
+      "eligible_systems": [],
+      "full_name": "ninja-build/ninja",
+      "observed_systems": [
+        "cmake"
+      ],
+      "project_family": "ninja-build/ninja",
+      "reason": "network_or_entry_blob_signal",
+      "repository_url": "https://github.com/ninja-build/ninja",
+      "root_entry_count": 17,
+      "root_paths_sha256": "f0b5e06f7d55dd7da1beff0fef641a7e33e2d9ba529d844f4936ca244169b0f5",
+      "root_tree_sha": "c2817e5854b825b3e7d38ac7a266724ba1313e29",
+      "search_metadata": {
+        "language": "C++",
+        "pushed_at": "2026-10-10T12:04:37Z",
+        "size_kib": 5442,
+        "stargazers_count": 13297
+      },
+      "search_query_ids": [
+        "cpp"
+      ],
+      "system_scans": {
+        "cmake": {
+          "eligible": false,
+          "entry_files": [
+            {
+              "blob_sha": "c9a0f7d0d569ddac4423429dedaf0cf02d2c438a",
+              "content_sha256": "dfa6547287b53961cefa07c913964cf950421fbc65b0e110464e329eb1787e7d",
+              "network_signals": [
+                "cmake_fetch_content"
+              ],
+              "path": "CMakeLists.txt",
+              "size": 10833
+            }
+          ],
+          "network_signals": [
+            "cmake_fetch_content"
+          ]
+        }
+      }
+    },
+    {
+      "classification": "source_ineligible",
+      "commit_committed_at": "2026-08-07T09:31:57Z",
+      "commit_sha": "4fba61cf7bd5deefe1cc3c8c1a1620ecf93fe0c1",
+      "eligible_systems": [],
+      "full_name": "octalmage/robotjs",
+      "observed_systems": [],
+      "project_family": "octalmage/robotjs",
+      "reason": "root_entrypoint_missing",
+      "repository_url": "https://github.com/octalmage/robotjs",
+      "root_entry_count": 14,
+      "root_paths_sha256": "1e147106c907c143199adf26a215954f099304bdf5f1f9226c7e05d539124529",
+      "root_tree_sha": "4fba61cf7bd5deefe1cc3c8c1a1620ecf93fe0c1",
+      "search_metadata": {
+        "language": "C",
+        "pushed_at": "2026-10-01T15:42:48Z",
+        "size_kib": 1234,
+        "stargazers_count": 12779
+      },
+      "search_query_ids": [
+        "c"
+      ],
+      "system_scans": {}
+    },
+    {
+      "classification": "source_ineligible",
+      "commit_committed_at": "2024-10-05T22:20:46Z",
+      "commit_sha": "47fc66f8ab795be8e3b4f149eb85b6f9cddc1b82",
+      "eligible_systems": [],
+      "full_name": "OpenGenus/cosmos",
+      "observed_systems": [
+        "make"
+      ],
+      "project_family": "opengenus/cosmos",
+      "reason": "submodule_manifest_present",
+      "repository_url": "https://github.com/OpenGenus/cosmos",
+      "root_entry_count": 15,
+      "root_paths_sha256": "7a68d7756d01f9a2fcb5b3cc5194004598ac99f4ebb6f598a53cb4edb7e0606a",
+      "root_tree_sha": "47fc66f8ab795be8e3b4f149eb85b6f9cddc1b82",
+      "search_metadata": {
+        "language": "C++",
+        "pushed_at": "2024-10-05T22:20:46Z",
+        "size_kib": 84619,
+        "stargazers_count": 13743
+      },
+      "search_query_ids": [
+        "cpp"
+      ],
+      "system_scans": {}
+    },
+    {
+      "classification": "source_ineligible",
+      "commit_committed_at": "2026-09-24T06:39:56Z",
+      "commit_sha": "62d9257fba363e2d2012b36b75fe7c2c7ae65db2",
+      "eligible_systems": [],
+      "full_name": "openresty/lua-nginx-module",
+      "observed_systems": [],
+      "project_family": "openresty/lua-nginx-module",
+      "reason": "root_entrypoint_missing",
+      "repository_url": "https://github.com/openresty/lua-nginx-module",
+      "root_entry_count": 14,
+      "root_paths_sha256": "94c16fad00e5a0c2e70b1231358f618186f8b35920a8720c199a55747a311079",
+      "root_tree_sha": "62d9257fba363e2d2012b36b75fe7c2c7ae65db2",
+      "search_metadata": {
+        "language": "C",
+        "pushed_at": "2026-09-24T06:40:17Z",
+        "size_kib": 16127,
+        "stargazers_count": 11783
+      },
+      "search_query_ids": [
+        "c"
+      ],
+      "system_scans": {}
+    },
+    {
+      "classification": "source_eligible",
+      "commit_committed_at": "2026-09-21T08:37:12Z",
+      "commit_sha": "bc8bf89488f2d02572389158533b3f85ca0ded7f",
+      "eligible_systems": [
+        "make"
+      ],
+      "full_name": "openresty/openresty",
+      "observed_systems": [
+        "make"
+      ],
+      "project_family": "openresty/openresty",
+      "reason": "root_contract_passed",
+      "repository_url": "https://github.com/openresty/openresty",
+      "root_entry_count": 16,
+      "root_paths_sha256": "a15479f4b925c9f3120f44726ba8a05e12bb3ffbe9e41cb9e0713d22fab377f5",
+      "root_tree_sha": "bc8bf89488f2d02572389158533b3f85ca0ded7f",
+      "search_metadata": {
+        "language": "C",
+        "pushed_at": "2026-09-21T08:37:23Z",
+        "size_kib": 3075,
+        "stargazers_count": 14066
+      },
+      "search_query_ids": [
+        "c"
+      ],
+      "system_scans": {
+        "make": {
+          "eligible": true,
+          "entry_files": [
+            {
+              "blob_sha": "7c8d60b68bbab6953a09b606a6226a2ac6920d7e",
+              "content_sha256": "7745b883f50f8b26439ab0f37d1a98810ba94cc1ce6e6fabcfd880c6cea7db8b",
+              "network_signals": [],
+              "path": "Makefile",
+              "size": 279
+            }
+          ],
+          "network_signals": []
+        }
+      }
+    },
+    {
+      "classification": "source_eligible",
+      "commit_committed_at": "2026-10-11T13:00:37Z",
+      "commit_sha": "66f8cdb9fd0b0334b6d79016b9d02cfceb6887d7",
+      "eligible_systems": [
+        "cmake",
+        "autotools"
+      ],
+      "full_name": "OpenVPN/openvpn",
+      "observed_systems": [
+        "cmake",
+        "autotools"
+      ],
+      "project_family": "openvpn/openvpn",
+      "reason": "root_contract_passed",
+      "repository_url": "https://github.com/OpenVPN/openvpn",
+      "root_entry_count": 45,
+      "root_paths_sha256": "d823ce0c31a9fbfef37313d7ab91ce2d68db6074056a526cdf19179a50aea4f4",
+      "root_tree_sha": "66f8cdb9fd0b0334b6d79016b9d02cfceb6887d7",
+      "search_metadata": {
+        "language": "C",
+        "pushed_at": "2026-10-11T14:20:51Z",
+        "size_kib": 30827,
+        "stargazers_count": 14666
+      },
+      "search_query_ids": [
+        "c"
+      ],
+      "system_scans": {
+        "autotools": {
+          "eligible": true,
+          "entry_files": [
+            {
+              "blob_sha": "56109af461609908070414116941ca5b3677328a",
+              "content_sha256": "10151c7d5e71fc03ec41b6d4cec8ac3428e836461a3043a7a339e0a8131eb424",
+              "network_signals": [],
+              "path": "configure.ac",
+              "size": 41980
+            }
+          ],
+          "network_signals": []
+        },
+        "cmake": {
+          "eligible": true,
+          "entry_files": [
+            {
+              "blob_sha": "bac4dd44ea63962b4df7a8d7ab359be03f4d9f2a",
+              "content_sha256": "64af483703f967171440bdfec1f5072e4c39ef19d63e0142983afd1ed59b07db",
+              "network_signals": [],
+              "path": "CMakeLists.txt",
+              "size": 35101
+            }
+          ],
+          "network_signals": []
+        }
+      }
+    },
+    {
+      "classification": "source_ineligible",
+      "commit_committed_at": "2022-10-20T16:38:31Z",
+      "commit_sha": "84453f1391c4442b5387a799571b7f67418afa2d",
+      "eligible_systems": [],
+      "full_name": "peng-zhihui/Dummy-Robot",
+      "observed_systems": [],
+      "project_family": "peng-zhihui/dummy-robot",
+      "reason": "submodule_manifest_present",
+      "repository_url": "https://github.com/peng-zhihui/Dummy-Robot",
+      "root_entry_count": 8,
+      "root_paths_sha256": "ebafa73210137c6ab3283e086beea369daf147e9ec90ba8e02c7247688d0bc88",
+      "root_tree_sha": "84453f1391c4442b5387a799571b7f67418afa2d",
+      "search_metadata": {
+        "language": "C",
+        "pushed_at": "2024-03-14T14:02:29Z",
+        "size_kib": 80730,
+        "stargazers_count": 15620
+      },
+      "search_query_ids": [
+        "c"
+      ],
+      "system_scans": {}
+    },
+    {
+      "classification": "source_ineligible",
+      "commit_committed_at": "2025-09-24T08:29:01Z",
+      "commit_sha": "f99e0b1c7a5b094f5a04b14101899d0cb4ece69d",
+      "eligible_systems": [],
+      "full_name": "polybar/polybar",
+      "observed_systems": [
+        "cmake"
+      ],
+      "project_family": "polybar/polybar",
+      "reason": "submodule_manifest_present",
+      "repository_url": "https://github.com/polybar/polybar",
+      "root_entry_count": 24,
+      "root_paths_sha256": "5962167efba4b19ffdec9667b1ae609ebc0bb0168cbcec270fc78d5838cff5f1",
+      "root_tree_sha": "f99e0b1c7a5b094f5a04b14101899d0cb4ece69d",
+      "search_metadata": {
+        "language": "C++",
+        "pushed_at": "2025-09-24T08:29:01Z",
+        "size_kib": 8999,
+        "stargazers_count": 15353
+      },
+      "search_query_ids": [
+        "cpp"
+      ],
+      "system_scans": {}
+    },
+    {
+      "classification": "source_eligible",
+      "commit_committed_at": "2026-10-09T12:21:36Z",
+      "commit_sha": "6254086d96062249c5153c17eab6b4437dd1589f",
+      "eligible_systems": [
+        "cmake"
+      ],
+      "full_name": "pybind/pybind11",
+      "observed_systems": [
+        "cmake"
+      ],
+      "project_family": "pybind/pybind11",
+      "reason": "root_contract_passed",
+      "repository_url": "https://github.com/pybind/pybind11",
+      "root_entry_count": 25,
+      "root_paths_sha256": "1814e131167df72b66923d8f88f891a2072449958342fcc0625c5e93cbf93698",
+      "root_tree_sha": "6254086d96062249c5153c17eab6b4437dd1589f",
+      "search_metadata": {
+        "language": "C++",
+        "pushed_at": "2026-10-09T12:21:37Z",
+        "size_kib": 13941,
+        "stargazers_count": 18024
+      },
+      "search_query_ids": [
+        "cpp"
+      ],
+      "system_scans": {
+        "cmake": {
+          "eligible": true,
+          "entry_files": [
+            {
+              "blob_sha": "46f0a1f11df06ff78d84dc393353bbbede68a605",
+              "content_sha256": "a533c2c5ce14a5adbe1d80dcc93c0ee038845a3c28633420ee04b14284f85159",
+              "network_signals": [],
+              "path": "CMakeLists.txt",
+              "size": 18588
+            }
+          ],
+          "network_signals": []
+        }
+      }
+    },
+    {
+      "classification": "source_eligible",
+      "commit_committed_at": "2026-08-30T01:29:50Z",
+      "commit_sha": "dfc9ef4bd947891178924c06070fbccc3ea370ba",
+      "eligible_systems": [
+        "make"
+      ],
+      "full_name": "pymumu/smartdns",
+      "observed_systems": [
+        "make"
+      ],
+      "project_family": "pymumu/smartdns",
+      "reason": "root_contract_passed",
+      "repository_url": "https://github.com/pymumu/smartdns",
+      "root_entry_count": 16,
+      "root_paths_sha256": "d8edca9944d9e13b0d524fb70bb96332cb1ec1a2c7e3ba3e73b775535715dd89",
+      "root_tree_sha": "dfc9ef4bd947891178924c06070fbccc3ea370ba",
+      "search_metadata": {
+        "language": "C",
+        "pushed_at": "2026-08-30T18:28:15Z",
+        "size_kib": 5905,
+        "stargazers_count": 11328
+      },
+      "search_query_ids": [
+        "c"
+      ],
+      "system_scans": {
+        "make": {
+          "eligible": true,
+          "entry_files": [
+            {
+              "blob_sha": "a04b09f8393e70f7703436f196855a69f6bb2074",
+              "content_sha256": "eff16d54147157216ea67c6c2b4e971352ace48c645b5914dc6e8a6deaaab393",
+              "network_signals": [],
+              "path": "Makefile",
+              "size": 2489
+            }
+          ],
+          "network_signals": []
+        }
+      }
+    },
+    {
+      "classification": "source_eligible",
+      "commit_committed_at": "2024-01-29T01:43:17Z",
+      "commit_sha": "4bcf88762f85135e9bd46a1032e815e458de6f2e",
+      "eligible_systems": [
+        "make"
+      ],
+      "full_name": "qinguoyi/TinyWebServer",
+      "observed_systems": [
+        "make"
+      ],
+      "project_family": "qinguoyi/tinywebserver",
+      "reason": "root_contract_passed",
+      "repository_url": "https://github.com/qinguoyi/TinyWebServer",
+      "root_entry_count": 17,
+      "root_paths_sha256": "6fad97a6c5ebbc25c98e2160c0bcd7f76e91c97e8e3918abb7c09c29cbd91d27",
+      "root_tree_sha": "4bcf88762f85135e9bd46a1032e815e458de6f2e",
+      "search_metadata": {
+        "language": "C++",
+        "pushed_at": "2024-07-05T13:35:04Z",
+        "size_kib": 57302,
+        "stargazers_count": 19725
+      },
+      "search_query_ids": [
+        "cpp"
+      ],
+      "system_scans": {
+        "make": {
+          "eligible": true,
+          "entry_files": [
+            {
+              "blob_sha": "f3e877431d8314b9547b8083e2d7354374b503b0",
+              "content_sha256": "e6f8c0bc4fa891fffc1bb9f8d2834f97f54f793c96e512a150bac4a4c4396ad4",
+              "network_signals": [],
+              "path": "makefile",
+              "size": 311
+            }
+          ],
+          "network_signals": []
+        }
+      }
+    },
+    {
+      "classification": "source_ineligible",
+      "commit_committed_at": "2024-06-25T00:21:06Z",
+      "commit_sha": "d5c5aeb366e2fbe9c9243648af36b0d11da14920",
+      "eligible_systems": [],
+      "full_name": "Qv2ray/Qv2ray",
+      "observed_systems": [
+        "cmake"
+      ],
+      "project_family": "qv2ray/qv2ray",
+      "reason": "submodule_manifest_present",
+      "repository_url": "https://github.com/Qv2ray/Qv2ray",
+      "root_entry_count": 26,
+      "root_paths_sha256": "afbcc5e681a47b1e543b3091ef611b2eeae8bf6696fdda1c228e895e86be321d",
+      "root_tree_sha": "d5c5aeb366e2fbe9c9243648af36b0d11da14920",
+      "search_metadata": {
+        "language": "C++",
+        "pushed_at": "2025-10-27T16:12:40Z",
+        "size_kib": 25596,
+        "stargazers_count": 16885
+      },
+      "search_query_ids": [
+        "cpp"
+      ],
+      "system_scans": {}
+    },
+    {
+      "classification": "source_eligible",
+      "commit_committed_at": "2026-10-01T14:34:09Z",
+      "commit_sha": "08250431e09bc4b864917e51f9e9d52998ee2dce",
+      "eligible_systems": [
+        "cmake"
+      ],
+      "full_name": "react/yoga",
+      "observed_systems": [
+        "cmake"
+      ],
+      "project_family": "react/yoga",
+      "reason": "root_contract_passed",
+      "repository_url": "https://github.com/react/yoga",
+      "root_entry_count": 42,
+      "root_paths_sha256": "a132ce33da3263c246d2884337d11625d5b5f182eb53ede29c52ba3146bd92d4",
+      "root_tree_sha": "08250431e09bc4b864917e51f9e9d52998ee2dce",
+      "search_metadata": {
+        "language": "C++",
+        "pushed_at": "2026-10-01T14:34:10Z",
+        "size_kib": 27253,
+        "stargazers_count": 18922
+      },
+      "search_query_ids": [
+        "cpp"
+      ],
+      "system_scans": {
+        "cmake": {
+          "eligible": true,
+          "entry_files": [
+            {
+              "blob_sha": "55f1a6df35f9a5d5f65bfb71aeb39ce0a2d3303c",
+              "content_sha256": "cb377109beb72932248f1d813de654fdb3ae366ae6920646471e83242f746154",
+              "network_signals": [],
+              "path": "CMakeLists.txt",
+              "size": 1527
+            }
+          ],
+          "network_signals": []
+        }
+      }
+    },
+    {
+      "classification": "source_ineligible",
+      "commit_committed_at": "2026-09-11T12:44:04Z",
+      "commit_sha": "d7f11b220884a6cc8549da955b744bd318645103",
+      "eligible_systems": [],
+      "full_name": "rizinorg/cutter",
+      "observed_systems": [
+        "cmake"
+      ],
+      "project_family": "rizinorg/cutter",
+      "reason": "submodule_manifest_present",
+      "repository_url": "https://github.com/rizinorg/cutter",
+      "root_entry_count": 21,
+      "root_paths_sha256": "33f7359e4cf87f266ca0575e3b0d8c9f97712fe51a04f866ef35b2d11a537c9a",
+      "root_tree_sha": "d7f11b220884a6cc8549da955b744bd318645103",
+      "search_metadata": {
+        "language": "C++",
+        "pushed_at": "2026-09-11T12:44:05Z",
+        "size_kib": 16352,
+        "stargazers_count": 19979
+      },
+      "search_query_ids": [
+        "cpp"
+      ],
+      "system_scans": {}
+    },
+    {
+      "classification": "source_eligible",
+      "commit_committed_at": "2026-10-06T07:14:46Z",
+      "commit_sha": "aa87f65c4f8aacfa73f76ba23bfea4e82250be3b",
+      "eligible_systems": [
+        "make"
+      ],
+      "full_name": "rofl0r/proxychains-ng",
+      "observed_systems": [
+        "make"
+      ],
+      "project_family": "rofl0r/proxychains-ng",
+      "reason": "root_contract_passed",
+      "repository_url": "https://github.com/rofl0r/proxychains-ng",
+      "root_entry_count": 12,
+      "root_paths_sha256": "266f3901b5ce029b1c052dc498e884b2a9890a771c99096f05fc8a01757b214a",
+      "root_tree_sha": "aa87f65c4f8aacfa73f76ba23bfea4e82250be3b",
+      "search_metadata": {
+        "language": "C",
+        "pushed_at": "2026-10-06T07:16:58Z",
+        "size_kib": 669,
+        "stargazers_count": 10692
+      },
+      "search_query_ids": [
+        "c"
+      ],
+      "system_scans": {
+        "make": {
+          "eligible": true,
+          "entry_files": [
+            {
+              "blob_sha": "11d0df85df391c5a0d6fd30c42054e487eb3a2ae",
+              "content_sha256": "e62bfd63618c322e8976c8227b734df4d4fa5e6a8afe09ff1b46bf8744ffba9d",
+              "network_signals": [],
+              "path": "Makefile",
+              "size": 2783
+            }
+          ],
+          "network_signals": []
+        }
+      }
+    },
+    {
+      "classification": "source_ineligible",
+      "commit_committed_at": "2021-04-16T03:35:06Z",
+      "commit_sha": "31fc1481f529ba1a72a8a6bc62dc488b84fc2cdb",
+      "eligible_systems": [],
+      "full_name": "s-matyukevich/raspberry-pi-os",
+      "observed_systems": [],
+      "project_family": "s-matyukevich/raspberry-pi-os",
+      "reason": "root_entrypoint_missing",
+      "repository_url": "https://github.com/s-matyukevich/raspberry-pi-os",
+      "root_entry_count": 12,
+      "root_paths_sha256": "80508c70e38b1d803a83ce4c82d0c755028e925e56f6800c5ca082783fc8b578",
+      "root_tree_sha": "31fc1481f529ba1a72a8a6bc62dc488b84fc2cdb",
+      "search_metadata": {
+        "language": "C",
+        "pushed_at": "2024-03-29T21:19:52Z",
+        "size_kib": 2016,
+        "stargazers_count": 13950
+      },
+      "search_query_ids": [
+        "c"
+      ],
+      "system_scans": {}
+    },
+    {
+      "classification": "source_ineligible",
+      "commit_committed_at": "2026-09-12T23:23:22Z",
+      "commit_sha": "d52ddf2bcee97d799c74f54bf63533351a05324c",
+      "eligible_systems": [],
+      "full_name": "shadowsocks/shadowsocks-c",
+      "observed_systems": [
+        "cmake"
+      ],
+      "project_family": "shadowsocks/shadowsocks-c",
+      "reason": "submodule_manifest_present",
+      "repository_url": "https://github.com/shadowsocks/shadowsocks-c",
+      "root_entry_count": 32,
+      "root_paths_sha256": "00d0d7f70f5948b4f98a3d0b3e85b61dd8f2c0cc7220ba0476a81e5f0564188f",
+      "root_tree_sha": "d52ddf2bcee97d799c74f54bf63533351a05324c",
+      "search_metadata": {
+        "language": "C",
+        "pushed_at": "2026-10-06T02:00:39Z",
+        "size_kib": 24235,
+        "stargazers_count": 16183
+      },
+      "search_query_ids": [
+        "c"
+      ],
+      "system_scans": {}
+    },
+    {
+      "classification": "source_eligible",
+      "commit_committed_at": "2026-10-07T13:53:00Z",
+      "commit_sha": "1dcd7aab6548786f7672ff578639188bd2f0d837",
+      "eligible_systems": [
+        "cmake"
+      ],
+      "full_name": "skypjack/entt",
+      "observed_systems": [
+        "cmake"
+      ],
+      "project_family": "skypjack/entt",
+      "reason": "root_contract_passed",
+      "repository_url": "https://github.com/skypjack/entt",
+      "root_entry_count": 28,
+      "root_paths_sha256": "c712f7d8dcc4d583281592238f7438c63b42db0ba63a6e29cc40410fc49802e9",
+      "root_tree_sha": "1dcd7aab6548786f7672ff578639188bd2f0d837",
+      "search_metadata": {
+        "language": "C++",
+        "pushed_at": "2026-10-09T15:00:04Z",
+        "size_kib": 41888,
+        "stargazers_count": 13184
+      },
+      "search_query_ids": [
+        "cpp"
+      ],
+      "system_scans": {
+        "cmake": {
+          "eligible": true,
+          "entry_files": [
+            {
+              "blob_sha": "cbf808805be00b489739eea9f789c08f71b87172",
+              "content_sha256": "a62d4c13e4027a97afebdbc555f96ac1a8dad3a84ea9d8cfabc32f003d83c1a7",
+              "network_signals": [],
+              "path": "CMakeLists.txt",
+              "size": 10908
+            }
+          ],
+          "network_signals": []
+        }
+      }
+    },
+    {
+      "classification": "source_eligible",
+      "commit_committed_at": "2026-06-23T06:21:10Z",
+      "commit_sha": "b1a7a2101dcbb96017681a500d6b82bbe5a88766",
+      "eligible_systems": [
+        "cmake"
+      ],
+      "full_name": "skywind3000/kcp",
+      "observed_systems": [
+        "cmake"
+      ],
+      "project_family": "skywind3000/kcp",
+      "reason": "root_contract_passed",
+      "repository_url": "https://github.com/skywind3000/kcp",
+      "root_entry_count": 14,
+      "root_paths_sha256": "cebc9fe088610e4c0107fc54451542e0ea6d7344b4e446815512af565bcf065e",
+      "root_tree_sha": "b1a7a2101dcbb96017681a500d6b82bbe5a88766",
+      "search_metadata": {
+        "language": "C",
+        "pushed_at": "2026-06-23T06:21:10Z",
+        "size_kib": 625,
+        "stargazers_count": 16932
+      },
+      "search_query_ids": [
+        "c"
+      ],
+      "system_scans": {
+        "cmake": {
+          "eligible": true,
+          "entry_files": [
+            {
+              "blob_sha": "fea5bef9ece980ec270fe5739ff2e5326458a172",
+              "content_sha256": "af19102c2da710c712d7cc3741e8f94d9b49f5e1e67012382a9e5b2f4fbb3fda",
+              "network_signals": [],
+              "path": "CMakeLists.txt",
+              "size": 1356
+            }
+          ],
+          "network_signals": []
+        }
+      }
+    },
+    {
+      "classification": "source_ineligible",
+      "commit_committed_at": "2024-04-04T20:26:33Z",
+      "commit_sha": "603ebb27fb82a27fb98b0feb6749b0f7661a1c4b",
+      "eligible_systems": [],
+      "full_name": "Snapchat/KeyDB",
+      "observed_systems": [
+        "make"
+      ],
+      "project_family": "snapchat/keydb",
+      "reason": "submodule_manifest_present",
+      "repository_url": "https://github.com/Snapchat/KeyDB",
+      "root_entry_count": 28,
+      "root_paths_sha256": "fb2adcb510d76d5e549793294b211cc3ed9046584dff720e5c4f7a198fcdb334",
+      "root_tree_sha": "603ebb27fb82a27fb98b0feb6749b0f7661a1c4b",
+      "search_metadata": {
+        "language": "C++",
+        "pushed_at": "2024-05-29T08:55:22Z",
+        "size_kib": 38115,
+        "stargazers_count": 12501
+      },
+      "search_query_ids": [
+        "cpp"
+      ],
+      "system_scans": {}
+    },
+    {
+      "classification": "source_ineligible",
+      "commit_committed_at": "2026-10-10T00:23:06Z",
+      "commit_sha": "aa5ab02716d18439efb590feb7dc8f24328832d7",
+      "eligible_systems": [],
+      "full_name": "Snapchat/Valdi",
+      "observed_systems": [],
+      "project_family": "snapchat/valdi",
+      "reason": "root_entrypoint_missing",
+      "repository_url": "https://github.com/Snapchat/Valdi",
+      "root_entry_count": 44,
+      "root_paths_sha256": "a4669e98753a2d65a1d5710983379b5533bab10f40609b63276f20ed32a9b3f9",
+      "root_tree_sha": "aa5ab02716d18439efb590feb7dc8f24328832d7",
+      "search_metadata": {
+        "language": "C++",
+        "pushed_at": "2026-10-10T00:23:08Z",
+        "size_kib": 91427,
+        "stargazers_count": 16374
+      },
+      "search_query_ids": [
+        "cpp"
+      ],
+      "system_scans": {}
+    },
+    {
+      "classification": "source_eligible",
+      "commit_committed_at": "2026-04-29T03:00:39Z",
+      "commit_sha": "05052e88c7ce134f93b66db95132284a1ed10de7",
+      "eligible_systems": [
+        "make"
+      ],
+      "full_name": "snowie2000/mactype",
+      "observed_systems": [
+        "make"
+      ],
+      "project_family": "snowie2000/mactype",
+      "reason": "root_contract_passed",
+      "repository_url": "https://github.com/snowie2000/mactype",
+      "root_entry_count": 76,
+      "root_paths_sha256": "1c0437943a255c0adb89675e788526d68525ee2e226ffed9d4bfb9cf6de5c9c9",
+      "root_tree_sha": "05052e88c7ce134f93b66db95132284a1ed10de7",
+      "search_metadata": {
+        "language": "C++",
+        "pushed_at": "2026-04-29T03:00:50Z",
+        "size_kib": 1019,
+        "stargazers_count": 11988
+      },
+      "search_query_ids": [
+        "cpp"
+      ],
+      "system_scans": {
+        "make": {
+          "eligible": true,
+          "entry_files": [
+            {
+              "blob_sha": "9a6e326b96936b972cc21089256d0733fd1b1fbb",
+              "content_sha256": "d2ffe0285ce3960823b36cd18f46d9403a3577abff33fcf1574031ec180c1380",
+              "network_signals": [],
+              "path": "Makefile",
+              "size": 3486
+            }
+          ],
+          "network_signals": []
+        }
+      }
+    },
+    {
+      "classification": "source_eligible",
+      "commit_committed_at": "2026-08-10T10:17:41Z",
+      "commit_sha": "3d5739960ac34d6164d5fec0abf268e83d72fe93",
+      "eligible_systems": [
+        "cmake",
+        "make"
+      ],
+      "full_name": "sogou/workflow",
+      "observed_systems": [
+        "cmake",
+        "make"
+      ],
+      "project_family": "sogou/workflow",
+      "reason": "root_contract_passed",
+      "repository_url": "https://github.com/sogou/workflow",
+      "root_entry_count": 20,
+      "root_paths_sha256": "f862616000aa4c254ae0e12af01f2b1b29e6c8936e4a913f2af8e26d1489d387",
+      "root_tree_sha": "3d5739960ac34d6164d5fec0abf268e83d72fe93",
+      "search_metadata": {
+        "language": "C++",
+        "pushed_at": "2026-08-10T10:20:51Z",
+        "size_kib": 5114,
+        "stargazers_count": 14425
+      },
+      "search_query_ids": [
+        "cpp"
+      ],
+      "system_scans": {
+        "cmake": {
+          "eligible": true,
+          "entry_files": [
+            {
+              "blob_sha": "33f2e9507e4e15272375f06a82919bac19efc2f7",
+              "content_sha256": "894ec79051991c9bfe4c4fc97b7a255cab5a96699e3fcabd6dbfcbabc4ba5dae",
+              "network_signals": [],
+              "path": "CMakeLists.txt",
+              "size": 3498
+            }
+          ],
+          "network_signals": []
+        },
+        "make": {
+          "eligible": true,
+          "entry_files": [
+            {
+              "blob_sha": "9101db2522752d809d91e5fe51d43c7f7e3b87f2",
+              "content_sha256": "d7b3c0b5ecd08322f7b1bd15f4d3219c76798208bcf9f1d4a3bc2e57ffd03926",
+              "network_signals": [],
+              "path": "GNUmakefile",
+              "size": 1558
+            }
+          ],
+          "network_signals": []
+        }
+      }
+    },
+    {
+      "classification": "source_ineligible",
+      "commit_committed_at": "2022-12-18T17:34:45Z",
+      "commit_sha": "b98f1598115b9400d320f7ffdf08fbc78f01607f",
+      "eligible_systems": [],
+      "full_name": "SpacehuhnTech/esp8266_deauther",
+      "observed_systems": [],
+      "project_family": "spacehuhntech/esp8266_deauther",
+      "reason": "root_entrypoint_missing",
+      "repository_url": "https://github.com/SpacehuhnTech/esp8266_deauther",
+      "root_entry_count": 11,
+      "root_paths_sha256": "e904455cd4db84e034ee97020c288b2fbb613a8c41b1345b9eaa940cbb07705c",
+      "root_tree_sha": "b98f1598115b9400d320f7ffdf08fbc78f01607f",
+      "search_metadata": {
+        "language": "C",
+        "pushed_at": "2024-08-14T17:38:08Z",
+        "size_kib": 16399,
+        "stargazers_count": 15018
+      },
+      "search_query_ids": [
+        "c"
+      ],
+      "system_scans": {}
+    },
+    {
+      "classification": "source_eligible",
+      "commit_committed_at": "2025-10-29T14:08:37Z",
+      "commit_sha": "379f744667aba6b40ba3db8a07678df173a88f74",
+      "eligible_systems": [
+        "cmake"
+      ],
+      "full_name": "spotify/annoy",
+      "observed_systems": [
+        "cmake"
+      ],
+      "project_family": "spotify/annoy",
+      "reason": "root_contract_passed",
+      "repository_url": "https://github.com/spotify/annoy",
+      "root_entry_count": 19,
+      "root_paths_sha256": "1711e0c882453db73a8685864e791f238d16d905684348d32098bcf493cad948",
+      "root_tree_sha": "379f744667aba6b40ba3db8a07678df173a88f74",
+      "search_metadata": {
+        "language": "C++",
+        "pushed_at": "2025-10-29T14:08:37Z",
+        "size_kib": 2034,
+        "stargazers_count": 14314
+      },
+      "search_query_ids": [
+        "cpp"
+      ],
+      "system_scans": {
+        "cmake": {
+          "eligible": true,
+          "entry_files": [
+            {
+              "blob_sha": "a7844d6d730cf9579c1b63021ec1d072ab3bfa48",
+              "content_sha256": "317375dafc5c835425e363937fa6501fe725293d939211f778515078591b4eb2",
+              "network_signals": [],
+              "path": "CMakeLists.txt",
+              "size": 917
+            }
+          ],
+          "network_signals": []
+        }
+      }
+    },
+    {
+      "classification": "source_ineligible",
+      "commit_committed_at": "2026-09-21T12:28:57Z",
+      "commit_sha": "1652c54b73f67df17b7b4ab0b0f7048204aa8104",
+      "eligible_systems": [],
+      "full_name": "swaywm/sway",
+      "observed_systems": [],
+      "project_family": "swaywm/sway",
+      "reason": "root_entrypoint_missing",
+      "repository_url": "https://github.com/swaywm/sway",
+      "root_entry_count": 50,
+      "root_paths_sha256": "db4bb743de000fb2a1ab99447c37003d15cd85cf20280a682a4cf98ed9c4cc68",
+      "root_tree_sha": "1652c54b73f67df17b7b4ab0b0f7048204aa8104",
+      "search_metadata": {
+        "language": "C",
+        "pushed_at": "2026-09-21T12:28:58Z",
+        "size_kib": 30866,
+        "stargazers_count": 17416
+      },
+      "search_query_ids": [
+        "c"
+      ],
+      "system_scans": {}
+    },
+    {
+      "classification": "source_eligible",
+      "commit_committed_at": "2026-10-10T11:42:17Z",
+      "commit_sha": "74a5199f79ad7adc2fa3e1c8c5c0aaef399feb11",
+      "eligible_systems": [
+        "cmake"
+      ],
+      "full_name": "swoole/swoole-src",
+      "observed_systems": [
+        "cmake"
+      ],
+      "project_family": "swoole/swoole-src",
+      "reason": "root_contract_passed",
+      "repository_url": "https://github.com/swoole/swoole-src",
+      "root_entry_count": 32,
+      "root_paths_sha256": "c014e327823240344f953a32fdb597e9a7598852aa2f7be3f3c474f818330652",
+      "root_tree_sha": "74a5199f79ad7adc2fa3e1c8c5c0aaef399feb11",
+      "search_metadata": {
+        "language": "C++",
+        "pushed_at": "2026-10-10T11:42:56Z",
+        "size_kib": 57198,
+        "stargazers_count": 18918
+      },
+      "search_query_ids": [
+        "cpp"
+      ],
+      "system_scans": {
+        "cmake": {
+          "eligible": true,
+          "entry_files": [
+            {
+              "blob_sha": "f4a0f40b6fa804d6754f1123c19f411768fa0031",
+              "content_sha256": "7ba3c1f2afa515c43bdbe03cdedd183ceefd43de5492155137e2690cff0a9355",
+              "network_signals": [],
+              "path": "CMakeLists.txt",
+              "size": 8410
+            }
+          ],
+          "network_signals": []
+        }
+      }
+    },
+    {
+      "classification": "source_eligible",
+      "commit_committed_at": "2026-10-04T13:42:35Z",
+      "commit_sha": "71094a9f7dfbfe7cbe9faebfdf055e580a034283",
+      "eligible_systems": [
+        "cmake"
+      ],
+      "full_name": "Syllo/nvtop",
+      "observed_systems": [
+        "cmake"
+      ],
+      "project_family": "syllo/nvtop",
+      "reason": "root_contract_passed",
+      "repository_url": "https://github.com/Syllo/nvtop",
+      "root_entry_count": 18,
+      "root_paths_sha256": "39c60d557855461f813d246faa256c8f3201f7752aaf19462a0fba4aa1ac2acc",
+      "root_tree_sha": "71094a9f7dfbfe7cbe9faebfdf055e580a034283",
+      "search_metadata": {
+        "language": "C",
+        "pushed_at": "2026-10-04T13:42:35Z",
+        "size_kib": 1331,
+        "stargazers_count": 11065
+      },
+      "search_query_ids": [
+        "c"
+      ],
+      "system_scans": {
+        "cmake": {
+          "eligible": true,
+          "entry_files": [
+            {
+              "blob_sha": "20258e64da21c746dd4ced916c69bfa1e8e2403d",
+              "content_sha256": "83a8f03c9f37d7179f4d9294ab9b3fc68b6933e47ed58444112c3b004cafde3a",
+              "network_signals": [],
+              "path": "CMakeLists.txt",
+              "size": 8110
+            }
+          ],
+          "network_signals": []
+        }
+      }
+    },
+    {
+      "classification": "source_ineligible",
+      "commit_committed_at": "2026-08-21T03:11:51Z",
+      "commit_sha": "ad7657ef9d120dbcdd7432d75aa6c59391149b22",
+      "eligible_systems": [],
+      "full_name": "Tencent/MMKV",
+      "observed_systems": [
+        "make"
+      ],
+      "project_family": "tencent/mmkv",
+      "reason": "submodule_manifest_present",
+      "repository_url": "https://github.com/Tencent/MMKV",
+      "root_entry_count": 31,
+      "root_paths_sha256": "4b9a8ff029b1664bef816999604a486c2ebf868a042fa2f966bae836990883f8",
+      "root_tree_sha": "ad7657ef9d120dbcdd7432d75aa6c59391149b22",
+      "search_metadata": {
+        "language": "C++",
+        "pushed_at": "2026-10-08T08:21:31Z",
+        "size_kib": 48733,
+        "stargazers_count": 18761
+      },
+      "search_query_ids": [
+        "cpp"
+      ],
+      "system_scans": {}
+    },
+    {
+      "classification": "source_ineligible",
+      "commit_committed_at": "2025-02-05T13:28:08Z",
+      "commit_sha": "24b5e7a8b27f42fa16b96fc70aade9106cf7102f",
+      "eligible_systems": [],
+      "full_name": "Tencent/rapidjson",
+      "observed_systems": [
+        "cmake"
+      ],
+      "project_family": "tencent/rapidjson",
+      "reason": "submodule_manifest_present",
+      "repository_url": "https://github.com/Tencent/rapidjson",
+      "root_entry_count": 27,
+      "root_paths_sha256": "bb00950345469478ffddee1ea39d5fdff81bbcdc142fc9f57a741fa276bd2173",
+      "root_tree_sha": "24b5e7a8b27f42fa16b96fc70aade9106cf7102f",
+      "search_metadata": {
+        "language": "C++",
+        "pushed_at": "2025-02-05T13:28:08Z",
+        "size_kib": 30407,
+        "stargazers_count": 15138
+      },
+      "search_query_ids": [
+        "cpp"
+      ],
+      "system_scans": {}
+    },
+    {
+      "classification": "source_ineligible",
+      "commit_committed_at": "2026-10-08T11:41:55Z",
+      "commit_sha": "17ebdcbb0a6d610432ea0106718a40676506b0a3",
+      "eligible_systems": [],
+      "full_name": "Tencent/wcdb",
+      "observed_systems": [],
+      "project_family": "tencent/wcdb",
+      "reason": "submodule_manifest_present",
+      "repository_url": "https://github.com/Tencent/wcdb",
+      "root_entry_count": 22,
+      "root_paths_sha256": "d14133f8bf058a5a885bbb068580d0f870a336c8e5f13c7b0450b1b25410f508",
+      "root_tree_sha": "17ebdcbb0a6d610432ea0106718a40676506b0a3",
+      "search_metadata": {
+        "language": "C",
+        "pushed_at": "2026-10-08T11:42:44Z",
+        "size_kib": 85861,
+        "stargazers_count": 11639
+      },
+      "search_query_ids": [
+        "c"
+      ],
+      "system_scans": {}
+    },
+    {
+      "classification": "source_ineligible",
+      "commit_committed_at": "2023-10-27T16:25:33Z",
+      "commit_sha": "1feb70572fa87fa1c4ba784a2cfeada5b4a500db",
+      "eligible_systems": [],
+      "full_name": "TheCherno/Hazel",
+      "observed_systems": [],
+      "project_family": "thecherno/hazel",
+      "reason": "submodule_manifest_present",
+      "repository_url": "https://github.com/TheCherno/Hazel",
+      "root_entry_count": 15,
+      "root_paths_sha256": "d946830d47436c83bca3298e1516ef43e204ec715d2153df8f97008390f3e852",
+      "root_tree_sha": "1feb70572fa87fa1c4ba784a2cfeada5b4a500db",
+      "search_metadata": {
+        "language": "C++",
+        "pushed_at": "2024-04-20T19:01:27Z",
+        "size_kib": 54825,
+        "stargazers_count": 13122
+      },
+      "search_query_ids": [
+        "cpp"
+      ],
+      "system_scans": {}
+    },
+    {
+      "classification": "source_eligible",
+      "commit_committed_at": "2026-07-08T09:47:30Z",
+      "commit_sha": "a0d4eab28cb8b6c782d4ce5c3a918de4829b4a72",
+      "eligible_systems": [
+        "cmake"
+      ],
+      "full_name": "tindy2013/subconverter",
+      "observed_systems": [
+        "cmake"
+      ],
+      "project_family": "tindy2013/subconverter",
+      "reason": "root_contract_passed",
+      "repository_url": "https://github.com/tindy2013/subconverter",
+      "root_entry_count": 13,
+      "root_paths_sha256": "aa9540e237b3f6fdbbca28a78364260a6d242c3e87deb696325afe0bd7d11b71",
+      "root_tree_sha": "a0d4eab28cb8b6c782d4ce5c3a918de4829b4a72",
+      "search_metadata": {
+        "language": "C++",
+        "pushed_at": "2026-07-09T15:40:27Z",
+        "size_kib": 7405,
+        "stargazers_count": 17094
+      },
+      "search_query_ids": [
+        "cpp"
+      ],
+      "system_scans": {
+        "cmake": {
+          "eligible": true,
+          "entry_files": [
+            {
+              "blob_sha": "c057be7fee33e192eefbba9c81adfd37fa0883f3",
+              "content_sha256": "b9462ca34fd01c5fcbaeb3a5296ef4bd12f7026b50d0d2ef4087680b0dff504d",
+              "network_signals": [],
+              "path": "CMakeLists.txt",
+              "size": 6413
+            }
+          ],
+          "network_signals": []
+        }
+      }
+    },
+    {
+      "classification": "source_eligible",
+      "commit_committed_at": "2020-11-08T21:51:26Z",
+      "commit_sha": "3e7bb9aecdc694f9bcae8d646fae395f773d60f8",
+      "eligible_systems": [
+        "cmake"
+      ],
+      "full_name": "trojan-gfw/trojan",
+      "observed_systems": [
+        "cmake"
+      ],
+      "project_family": "trojan-gfw/trojan",
+      "reason": "root_contract_passed",
+      "repository_url": "https://github.com/trojan-gfw/trojan",
+      "root_entry_count": 18,
+      "root_paths_sha256": "e81315b25480f117ca949f6af95f62f1c51371bf9ad2f936f814f493e582e279",
+      "root_tree_sha": "3e7bb9aecdc694f9bcae8d646fae395f773d60f8",
+      "search_metadata": {
+        "language": "C++",
+        "pushed_at": "2024-08-21T09:27:36Z",
+        "size_kib": 927,
+        "stargazers_count": 19760
+      },
+      "search_query_ids": [
+        "cpp"
+      ],
+      "system_scans": {
+        "cmake": {
+          "eligible": true,
+          "entry_files": [
+            {
+              "blob_sha": "d2ee06fc9eae417d778736c79fe110a99a3b05db",
+              "content_sha256": "0021f2b6faa7cd6b444981a07b775717b2295e79cdb12779e8405d8655ee8834",
+              "network_signals": [],
+              "path": "CMakeLists.txt",
+              "size": 4469
+            }
+          ],
+          "network_signals": []
+        }
+      }
+    },
+    {
+      "classification": "source_eligible",
+      "commit_committed_at": "2026-08-12T03:39:18Z",
+      "commit_sha": "2922cb89f518bae4d0fcf4d757a7419638fc71fc",
+      "eligible_systems": [
+        "cmake"
+      ],
+      "full_name": "tsl0922/ttyd",
+      "observed_systems": [
+        "cmake"
+      ],
+      "project_family": "tsl0922/ttyd",
+      "reason": "root_contract_passed",
+      "repository_url": "https://github.com/tsl0922/ttyd",
+      "root_entry_count": 17,
+      "root_paths_sha256": "e49a2a131a19dd85f4cabdd8758f439d0cd0a27631a050c58c94c116386954c8",
+      "root_tree_sha": "2922cb89f518bae4d0fcf4d757a7419638fc71fc",
+      "search_metadata": {
+        "language": "C",
+        "pushed_at": "2026-08-12T03:39:18Z",
+        "size_kib": 20567,
+        "stargazers_count": 12492
+      },
+      "search_query_ids": [
+        "c"
+      ],
+      "system_scans": {
+        "cmake": {
+          "eligible": true,
+          "entry_files": [
+            {
+              "blob_sha": "669a65b8a1ee7da7e698a785379ee512642d2efa",
+              "content_sha256": "a2e3015f5ca0d60e52fe372d50c01f73cfa405d783473f51e16b3a40a2511ca4",
+              "network_signals": [],
+              "path": "CMakeLists.txt",
+              "size": 4461
+            }
+          ],
+          "network_signals": []
+        }
+      }
+    },
+    {
+      "classification": "source_eligible",
+      "commit_committed_at": "2022-10-06T02:22:22Z",
+      "commit_sha": "60aaf855ba2e15e20d0efbe440c8ff071b719580",
+      "eligible_systems": [
+        "autotools"
+      ],
+      "full_name": "twitter/twemproxy",
+      "observed_systems": [
+        "autotools"
+      ],
+      "project_family": "twitter/twemproxy",
+      "reason": "root_contract_passed",
+      "repository_url": "https://github.com/twitter/twemproxy",
+      "root_entry_count": 22,
+      "root_paths_sha256": "5290f062d81dc8f38784f781dc414b283333e58ccacf7f8c3cd6bf3ea5761f16",
+      "root_tree_sha": "60aaf855ba2e15e20d0efbe440c8ff071b719580",
+      "search_metadata": {
+        "language": "C",
+        "pushed_at": "2024-03-29T03:09:06Z",
+        "size_kib": 2961,
+        "stargazers_count": 12334
+      },
+      "search_query_ids": [
+        "c"
+      ],
+      "system_scans": {
+        "autotools": {
+          "eligible": true,
+          "entry_files": [
+            {
+              "blob_sha": "0f96dbae589cbfd4a2a1071b4138af791ab85b0c",
+              "content_sha256": "ae436f4825547c5b3d916904c90e0bf98b2fca2394d73fd770c73cc47089f3e1",
+              "network_signals": [],
+              "path": "configure.ac",
+              "size": 6130
+            }
+          ],
+          "network_signals": []
+        }
+      }
+    },
+    {
+      "classification": "source_ineligible",
+      "commit_committed_at": "2026-10-09T20:22:46Z",
+      "commit_sha": "e5ec07fa791724dbd2e06af3d11391d6f562d2ed",
+      "eligible_systems": [],
+      "full_name": "upx/upx",
+      "observed_systems": [
+        "cmake",
+        "make"
+      ],
+      "project_family": "upx/upx",
+      "reason": "submodule_manifest_present",
+      "repository_url": "https://github.com/upx/upx",
+      "root_entry_count": 19,
+      "root_paths_sha256": "13d575ffdfba19c86dba20f64719a1d82b35435f1975149e6631e4fca8960c1b",
+      "root_tree_sha": "e5ec07fa791724dbd2e06af3d11391d6f562d2ed",
+      "search_metadata": {
+        "language": "C++",
+        "pushed_at": "2026-10-11T06:55:48Z",
+        "size_kib": 80014,
+        "stargazers_count": 17933
+      },
+      "search_query_ids": [
+        "cpp"
+      ],
+      "system_scans": {}
+    },
+    {
+      "classification": "source_eligible",
+      "commit_committed_at": "2026-07-30T10:11:35Z",
+      "commit_sha": "17b52613320257a620ce3b5611b2e8196eb6e7fc",
+      "eligible_systems": [
+        "make"
+      ],
+      "full_name": "vanhauser-thc/thc-hydra",
+      "observed_systems": [
+        "make"
+      ],
+      "project_family": "vanhauser-thc/thc-hydra",
+      "reason": "root_contract_passed",
+      "repository_url": "https://github.com/vanhauser-thc/thc-hydra",
+      "root_entry_count": 113,
+      "root_paths_sha256": "ea6a22e9f0dba00156414e5adfef590c0d63edfe1c3d879bc52b74fdee233aa4",
+      "root_tree_sha": "17b52613320257a620ce3b5611b2e8196eb6e7fc",
+      "search_metadata": {
+        "language": "C",
+        "pushed_at": "2026-07-30T10:11:35Z",
+        "size_kib": 3744,
+        "stargazers_count": 12363
+      },
+      "search_query_ids": [
+        "c"
+      ],
+      "system_scans": {
+        "make": {
+          "eligible": true,
+          "entry_files": [
+            {
+              "blob_sha": "0fc0d2ef316be5f24d96f9e10268387765629065",
+              "content_sha256": "cc6a658e084177b66248f7058ca72bf0f17fb9ef10c2d7e8c14e0d144d596148",
+              "network_signals": [],
+              "path": "Makefile",
+              "size": 149
+            }
+          ],
+          "network_signals": []
+        }
+      }
+    },
+    {
+      "classification": "source_ineligible",
+      "commit_committed_at": "2026-10-10T15:54:21Z",
+      "commit_sha": "d339c7fcc061b7ade9d9ef7997ee1b5a4350684d",
+      "eligible_systems": [],
+      "full_name": "vnotex/vnote",
+      "observed_systems": [
+        "cmake"
+      ],
+      "project_family": "vnotex/vnote",
+      "reason": "submodule_manifest_present",
+      "repository_url": "https://github.com/vnotex/vnote",
+      "root_entry_count": 26,
+      "root_paths_sha256": "50bc6dbf7c1507ed644f4aa81f851bcffb8c4e9492c578654bdc03cb5d1c5275",
+      "root_tree_sha": "d339c7fcc061b7ade9d9ef7997ee1b5a4350684d",
+      "search_metadata": {
+        "language": "C++",
+        "pushed_at": "2026-10-11T14:02:20Z",
+        "size_kib": 59293,
+        "stargazers_count": 13002
+      },
+      "search_query_ids": [
+        "cpp"
+      ],
+      "system_scans": {}
+    },
+    {
+      "classification": "source_eligible",
+      "commit_committed_at": "2026-03-09T07:51:25Z",
+      "commit_sha": "cbbdee44afff22867de9fd88a9fc8350d9bdd399",
+      "eligible_systems": [
+        "cmake"
+      ],
+      "full_name": "webview/webview",
+      "observed_systems": [
+        "cmake"
+      ],
+      "project_family": "webview/webview",
+      "reason": "root_contract_passed",
+      "repository_url": "https://github.com/webview/webview",
+      "root_entry_count": 22,
+      "root_paths_sha256": "24c40387791cda0c092c263485ac096a43475d0e8fc90e514b53ed2defa5b017",
+      "root_tree_sha": "cbbdee44afff22867de9fd88a9fc8350d9bdd399",
+      "search_metadata": {
+        "language": "C++",
+        "pushed_at": "2026-03-09T07:51:25Z",
+        "size_kib": 5847,
+        "stargazers_count": 14273
+      },
+      "search_query_ids": [
+        "cpp"
+      ],
+      "system_scans": {
+        "cmake": {
+          "eligible": true,
+          "entry_files": [
+            {
+              "blob_sha": "b93f61ea99adc0c38acfb1a86de83b31d715e413",
+              "content_sha256": "344b1cef4055812763d8033b372d4f87f998716f9b3abc96b81ddb8f059cb567",
+              "network_signals": [],
+              "path": "CMakeLists.txt",
+              "size": 862
+            }
+          ],
+          "network_signals": []
+        }
+      }
+    },
+    {
+      "classification": "source_eligible",
+      "commit_committed_at": "2026-10-11T14:25:29Z",
+      "commit_sha": "d40ecb16a090dd234e819652fde9083807f0e58a",
+      "eligible_systems": [
+        "cmake"
+      ],
+      "full_name": "winsiderss/systeminformer",
+      "observed_systems": [
+        "cmake"
+      ],
+      "project_family": "winsiderss/systeminformer",
+      "reason": "root_contract_passed",
+      "repository_url": "https://github.com/winsiderss/systeminformer",
+      "root_entry_count": 35,
+      "root_paths_sha256": "00e9e573add6412a33a3fef626a0c7acf57cf6fb9e11f4cea82c9c397750c76e",
+      "root_tree_sha": "d40ecb16a090dd234e819652fde9083807f0e58a",
+      "search_metadata": {
+        "language": "C",
+        "pushed_at": "2026-10-11T14:25:31Z",
+        "size_kib": 99925,
+        "stargazers_count": 16219
+      },
+      "search_query_ids": [
+        "c"
+      ],
+      "system_scans": {
+        "cmake": {
+          "eligible": true,
+          "entry_files": [
+            {
+              "blob_sha": "f9482a455b131b298f707dfdbe354792e4def305",
+              "content_sha256": "07b3f5e2cc3b9acce3c948c5a39070982c9f184ac08e5f87ea902ab1fe7a6880",
+              "network_signals": [],
+              "path": "CMakeLists.txt",
+              "size": 1563
+            }
+          ],
+          "network_signals": []
+        }
+      }
+    },
+    {
+      "classification": "source_ineligible",
+      "commit_committed_at": "2026-10-10T12:27:28Z",
+      "commit_sha": "ebb85174831dca0c1db74f1ba789786f31a2cada",
+      "eligible_systems": [],
+      "full_name": "wled/WLED",
+      "observed_systems": [],
+      "project_family": "wled/wled",
+      "reason": "root_entrypoint_missing",
+      "repository_url": "https://github.com/wled/WLED",
+      "root_entry_count": 32,
+      "root_paths_sha256": "0271acd265b03769fe7f06a2f6ed9281c4b1f65f1ab9ec8b5b349e9705aebba8",
+      "root_tree_sha": "ebb85174831dca0c1db74f1ba789786f31a2cada",
+      "search_metadata": {
+        "language": "C++",
+        "pushed_at": "2026-10-10T12:27:29Z",
+        "size_kib": 71076,
+        "stargazers_count": 18789
+      },
+      "search_query_ids": [
+        "cpp"
+      ],
+      "system_scans": {}
+    },
+    {
+      "classification": "source_eligible",
+      "commit_committed_at": "2026-10-09T21:49:59Z",
+      "commit_sha": "d55cee060180ad386aaa0b289880f5889cc5407d",
+      "eligible_systems": [
+        "cmake"
+      ],
+      "full_name": "wolfpld/tracy",
+      "observed_systems": [
+        "cmake"
+      ],
+      "project_family": "wolfpld/tracy",
+      "reason": "root_contract_passed",
+      "repository_url": "https://github.com/wolfpld/tracy",
+      "root_entry_count": 34,
+      "root_paths_sha256": "b519e1757e7ae78cc913b653b51b7082411404237c3f146ece10251ef2502e22",
+      "root_tree_sha": "d55cee060180ad386aaa0b289880f5889cc5407d",
+      "search_metadata": {
+        "language": "C++",
+        "pushed_at": "2026-10-10T19:49:58Z",
+        "size_kib": 55113,
+        "stargazers_count": 16913
+      },
+      "search_query_ids": [
+        "cpp"
+      ],
+      "system_scans": {
+        "cmake": {
+          "eligible": true,
+          "entry_files": [
+            {
+              "blob_sha": "073fb6f295a4683c9c9518aa9feb11250e5dc05a",
+              "content_sha256": "4d50d28c5ccd21d5a35a832360c8e550a4e387e66132daa7289942d93e056287",
+              "network_signals": [],
+              "path": "CMakeLists.txt",
+              "size": 13264
+            }
+          ],
+          "network_signals": []
+        }
+      }
+    },
+    {
+      "classification": "source_ineligible",
+      "commit_committed_at": "2024-05-21T11:49:45Z",
+      "commit_sha": "712a47f946b98c30097eb1ada086ea00b18681ec",
+      "eligible_systems": [],
+      "full_name": "woltapp/blurhash",
+      "observed_systems": [],
+      "project_family": "woltapp/blurhash",
+      "reason": "submodule_manifest_present",
+      "repository_url": "https://github.com/woltapp/blurhash",
+      "root_entry_count": 14,
+      "root_paths_sha256": "2e172f740b81cac23ee3d52495c1e7d608e055ac25f9ea6c71786c02cccf049d",
+      "root_tree_sha": "712a47f946b98c30097eb1ada086ea00b18681ec",
+      "search_metadata": {
+        "language": "C",
+        "pushed_at": "2024-07-08T22:23:42Z",
+        "size_kib": 12283,
+        "stargazers_count": 17082
+      },
+      "search_query_ids": [
+        "c"
+      ],
+      "system_scans": {}
+    },
+    {
+      "classification": "source_ineligible",
+      "commit_committed_at": "2026-10-10T16:47:42Z",
+      "commit_sha": "f15431508e305f4e4724ef39205b63d68266e63d",
+      "eligible_systems": [],
+      "full_name": "xournalpp/xournalpp",
+      "observed_systems": [
+        "cmake"
+      ],
+      "project_family": "xournalpp/xournalpp",
+      "reason": "network_or_entry_blob_signal",
+      "repository_url": "https://github.com/xournalpp/xournalpp",
+      "root_entry_count": 36,
+      "root_paths_sha256": "19cb2d0ce85f16d9ae43911112681fa3110168325fac713cea0a55505572ef7e",
+      "root_tree_sha": "f15431508e305f4e4724ef39205b63d68266e63d",
+      "search_metadata": {
+        "language": "C++",
+        "pushed_at": "2026-10-11T04:35:31Z",
+        "size_kib": 72171,
+        "stargazers_count": 15497
+      },
+      "search_query_ids": [
+        "cpp"
+      ],
+      "system_scans": {
+        "cmake": {
+          "eligible": false,
+          "entry_files": [
+            {
+              "blob_sha": "7063ef90bbeefed46a1960d1dbff39a901d9a245",
+              "content_sha256": "f6042333205dad1ea85d4b73d9f47d7aaa5ddd3f989653eb46407ed257541942",
+              "network_signals": [
+                "cmake_fetch_content"
+              ],
+              "path": "CMakeLists.txt",
+              "size": 18517
+            }
+          ],
+          "network_signals": [
+            "cmake_fetch_content"
+          ]
+        }
+      }
+    },
+    {
+      "classification": "source_eligible",
+      "commit_committed_at": "2026-10-09T01:07:40Z",
+      "commit_sha": "fee592c2c2f2727c865169e32f45684abfd2d47b",
+      "eligible_systems": [
+        "cmake"
+      ],
+      "full_name": "yhirose/cpp-httplib",
+      "observed_systems": [
+        "cmake"
+      ],
+      "project_family": "yhirose/cpp-httplib",
+      "reason": "root_contract_passed",
+      "repository_url": "https://github.com/yhirose/cpp-httplib",
+      "root_entry_count": 27,
+      "root_paths_sha256": "9d67d2c33815d814b35b675f7169fb19e659aa83a3e7d5eb1aac988114635ecc",
+      "root_tree_sha": "fee592c2c2f2727c865169e32f45684abfd2d47b",
+      "search_metadata": {
+        "language": "C++",
+        "pushed_at": "2026-10-09T01:10:15Z",
+        "size_kib": 7043,
+        "stargazers_count": 16906
+      },
+      "search_query_ids": [
+        "cpp"
+      ],
+      "system_scans": {
+        "cmake": {
+          "eligible": true,
+          "entry_files": [
+            {
+              "blob_sha": "d3418b44864d4502e9eb74bec16785d37c416c95",
+              "content_sha256": "adf57bcbb5b26559ee0dcbabf988abd5716eeb67fe9d73ab3441987adc397491",
+              "network_signals": [],
+              "path": "CMakeLists.txt",
+              "size": 21195
+            }
+          ],
+          "network_signals": []
+        }
+      }
+    },
+    {
+      "classification": "source_eligible",
+      "commit_committed_at": "2026-10-07T04:49:38Z",
+      "commit_sha": "f5dc479ba4dec5be5fe347971e0c19412843ee20",
+      "eligible_systems": [
+        "cmake"
+      ],
+      "full_name": "zealdocs/zeal",
+      "observed_systems": [
+        "cmake"
+      ],
+      "project_family": "zealdocs/zeal",
+      "reason": "root_contract_passed",
+      "repository_url": "https://github.com/zealdocs/zeal",
+      "root_entry_count": 26,
+      "root_paths_sha256": "926c969ca6c9b8168bc9ef4b71985dc36150a56d5348de131ef19915c896df22",
+      "root_tree_sha": "f5dc479ba4dec5be5fe347971e0c19412843ee20",
+      "search_metadata": {
+        "language": "C++",
+        "pushed_at": "2026-10-07T04:49:39Z",
+        "size_kib": 9037,
+        "stargazers_count": 12826
+      },
+      "search_query_ids": [
+        "cpp"
+      ],
+      "system_scans": {
+        "cmake": {
+          "eligible": true,
+          "entry_files": [
+            {
+              "blob_sha": "bae8081f8d91a4b79137187b790def8f207157dd",
+              "content_sha256": "3449811fe67449a55a40a4b2d0e7bbad9fa55e1f331843b918fba32245db7efc",
+              "network_signals": [],
+              "path": "CMakeLists.txt",
+              "size": 3944
+            }
+          ],
+          "network_signals": []
+        }
+      }
+    }
+  ],
+  "schema_version": "forge-jev-natural-failure-source-catalog-report-2.0.0",
+  "started_at": "2026-10-11T14:27:22.828796+00:00",
+  "status": "completed",
+  "summary": {
+    "build_commands": 0,
+    "credential_reads": 0,
+    "docker_containers": 0,
+    "elapsed_seconds": 336.08740429393947,
+    "history_exclusions": 11,
+    "infrastructure_failures": 0,
+    "invalid_or_policy_exclusions": 0,
+    "model_tokens": 0,
+    "provider_requests": 0,
+    "raw_search_results": 120,
+    "repositories_completed": 109,
+    "source_eligible": 53,
+    "unique_unseen_candidates": 109
+  }
+}
