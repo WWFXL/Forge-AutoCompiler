@@ -13,11 +13,11 @@ if str(SCRIPT_ROOT) not in sys.path:
 import forge_jev_natural_failure_source_qualification_v2 as protocol  # noqa: E402
 
 
-def test_protocol_is_valid_and_candidate_only() -> None:
+def test_protocol_is_valid_and_authorized() -> None:
     result = protocol.validate_protocol()
 
     assert result["valid"] is True
-    assert result["authorization"] == "candidate_only"
+    assert result["authorization"] == "execution"
     assert result["task_count"] == 24
     assert result["counts"] == {"cmake": 8, "make": 8, "autotools": 8}
 

@@ -5,7 +5,7 @@
   "issue": 413,
   "branch": "yiwei/413-jev-natural-failure-v2",
   "design_revision": "2021eb1b2bc59f02fba5f0deb6de783631a51193",
-  "implementation_revision": null,
+  "implementation_revision": "514f9fae6992f6b9c456c2ccd1b66c4be4785c4a",
   "source_catalog": {
     "path": "benchmarks/reports/cpp-jev-natural-failure-source-catalog-v2.json",
     "sha256": "5ac8824a17bbc72307c39df0f0605284a03897f0149bfc9ecca9b7aab13887f8",
@@ -72,11 +72,11 @@
     "fail_decision": "stop_natural_failure_build_qualification_v2"
   },
   "authorization": {
-    "execution": false,
-    "formal_attempts": 0,
-    "formal_evidence_write": false,
-    "authorized_by": null,
-    "authorized_at": null
+    "execution": true,
+    "formal_attempts": 1,
+    "formal_evidence_write": true,
+    "authorized_by": "user_explicit_session_authorization",
+    "authorized_at": "2026-10-11T14:41:33Z"
   },
   "evidence": {
     "root": ".compile-sessions/benchmark-evidence-jev-natural-failure-source-qualification-v2",
