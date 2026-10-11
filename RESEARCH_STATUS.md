@@ -4,6 +4,10 @@
 
 ## 当前阶段
 
+- 状态：Issue #415 已开启自然失败 Linux applicability v3 基础设施修复。v3 将在任何角色冻结、双 clean build 或 reference recipe 前，排除明确的 Apple、Windows、裸机/固件和固定交叉编译路径；Issue #413 的 v2 结论与 evidence 保持只读。
+- 本轮问题：source-only 门禁能否排除 `SketchyBar` 式无法进入 Linux ELF/`ar` 终点的构建系统边，同时保留具有 Linux 路径的多平台项目，并为 CMake、Make、Autotools 各形成至少 12 个无角色 reserve 候选。
+- 当前工作类型：研究基础设施和零 Provider 资格设计。静态门禁只建立 Linux/终点适用性的必要条件；后续仍须先完成双 clean build 与 reference closure，再按固定哈希分配 design/calibration/evaluation 角色。
+- v3 边界：当前尚未创建 formal attempt 或 evidence；0 build、0 Docker、0 credential read、0 Provider request、0 model token。未修改 v1/v2 runner、manifest、报告或 raw evidence。
 - 状态：Issue #413 的 source catalog 与双 clean build qualification 已完成；生成 build gate 机械通过，但 reference 前构造效度审计证明 Make calibration 配额不可能满足，最终决定为 `stop_natural_failure_evaluation_v2_before_reference_recipe`。
 - 当前工作类型：数据资格结果与只读构造效度审计。catalog 从 120 个搜索结果排除 11 个历史项目后得到 109 个未见候选；53 个 source eligible，最终为 CMake、Make、Autotools 各冻结 8 个互不重复的项目族。
 - source catalog 证据：109/109 仓库项目级终结，0 infrastructure failure；30 项因 `.gitmodules` 排除、23 项缺少根入口、3 项命中根入口网络获取信号。attempt 用时约 336 秒，114 个 evidence 文件共 197,527 bytes，inventory canonical SHA-256 为 `d561e612...59736`。
@@ -50,6 +54,8 @@
 - 自然失败 source catalog v2 结果：`benchmarks/reports/cpp-jev-natural-failure-source-catalog-v2.md`。
 - 自然失败 build qualification v2 结果：`benchmarks/reports/cpp-jev-natural-failure-source-qualification-v2.md`。
 - 自然失败 build qualification v2 构造效度审计：`benchmarks/reports/cpp-jev-natural-failure-source-qualification-v2-construct-audit.md`。
+- 自然失败 Linux applicability v3 设计：`docs/superpowers/specs/2026-10-12-jev-natural-failure-linux-applicability-v3-design.md`。
+- 自然失败 Linux applicability v3 预注册：`benchmarks/preregistrations/cpp-jev-natural-failure-linux-applicability-v3.md`。
 - Jev API 合同审计：`docs/research/2026-10-09-jev-api-contract-audit.md`。
 - 三候选机制审计：`docs/research/2026-10-09-three-candidate-mechanism-audit.md`。
 - 主动诊断机制审计：`docs/research/2026-10-09-active-diagnosis-mechanism-audit.md`。
