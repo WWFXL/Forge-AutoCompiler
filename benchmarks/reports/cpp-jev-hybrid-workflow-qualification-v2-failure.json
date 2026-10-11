@@ -1,0 +1,300 @@
+{
+  "completed_rows": [
+    {
+      "agent_triggers": [],
+      "build_system": "cmake",
+      "cleanup": {
+        "removed": true,
+        "replay_status": "passed",
+        "session_id": "7ee69601a27d",
+        "session_path": ".compile-sessions/jev-hybrid-qualification-01-cmake-hello-world-55e6dcafc7/7ee69601a27d/session.json",
+        "status": "completed",
+        "succeeded": true,
+        "thread_id": "jev-hybrid-qualification-01-cmake-hello-world-55e6dcafc7"
+      },
+      "detection": {
+        "detected": [
+          {
+            "build_system": "cmake",
+            "marker": "CMakeLists.txt"
+          }
+        ],
+        "primary": "cmake",
+        "selected": "cmake"
+      },
+      "error_class": null,
+      "hybrid_result": {
+        "agent_handoffs": 0,
+        "cycles": 1,
+        "decisions": 1,
+        "direct_actions": 1,
+        "fail_closed": false,
+        "observations": 2,
+        "reason": "forge_strict_verification_passed",
+        "status": "strict_success",
+        "trace": [
+          {
+            "action_family": null,
+            "action_id": null,
+            "disposition": "pending",
+            "event": "observation",
+            "observation_id": 1,
+            "reason": "pending",
+            "reported_terminal_success": false,
+            "sequence": 1,
+            "state_id": "cmake-hello-world-state-1",
+            "succeeded": null
+          },
+          {
+            "action_family": null,
+            "action_id": null,
+            "disposition": "direct_execute",
+            "event": "route",
+            "observation_id": 1,
+            "reason": "calibrated_direct_action",
+            "reported_terminal_success": false,
+            "sequence": 2,
+            "state_id": "cmake-hello-world-state-1",
+            "succeeded": null
+          },
+          {
+            "action_family": "configure",
+            "action_id": "cmake-hello-world-state-1:configure",
+            "disposition": "awaiting_authoritative_observation",
+            "event": "direct_action",
+            "observation_id": 1,
+            "reason": "strict_submit_passed",
+            "reported_terminal_success": true,
+            "sequence": 3,
+            "state_id": "cmake-hello-world-state-1",
+            "succeeded": true
+          },
+          {
+            "action_family": null,
+            "action_id": null,
+            "disposition": "strict_success",
+            "event": "observation",
+            "observation_id": 2,
+            "reason": "strict_success",
+            "reported_terminal_success": false,
+            "sequence": 4,
+            "state_id": "cmake-hello-world-state-2",
+            "succeeded": null
+          },
+          {
+            "action_family": null,
+            "action_id": null,
+            "disposition": "strict_success",
+            "event": "terminal",
+            "observation_id": 2,
+            "reason": "forge_strict_verification_passed",
+            "reported_terminal_success": false,
+            "sequence": 5,
+            "state_id": "cmake-hello-world-state-2",
+            "succeeded": true
+          }
+        ]
+      },
+      "route_mode": "jev_scripted",
+      "selected_action_family": "configure",
+      "sequence": 1,
+      "submit": {
+        "artifact_count": 1,
+        "artifacts": [
+          {
+            "artifact_type": "executable",
+            "path": "jev-hybrid-qualification-01-cmake-hello-world-55e6dcafc7/7ee69601a27d/artifacts/hello",
+            "sha256": "33114a53b889e9b6d810929a1420a24c33ac04b3646a26e180cfca62b93a0c20",
+            "size_bytes": 16504,
+            "smoke_command": "/artifacts/hello -version",
+            "smoke_exit_code": 0,
+            "smoke_output_sha256": "291eb1ea1f52c5d638760b73e61a416153ca2a5a6533f87f55b80235362f6dc8",
+            "smoke_workdir": "/workspace",
+            "source_path": "/artifacts/hello"
+          }
+        ],
+        "candidate_status": "passed",
+        "classification": null,
+        "executable_verification_policy": null,
+        "exit_code": 0,
+        "image_id": "sha256:d27a6ab733c7c3a9cbb5e4b32fb595aa5a422ff04bd212888d1041b90a2c4c2a",
+        "message": "Build artifacts and clean replay accepted.",
+        "offending_command_id": null,
+        "recipe_command_ids": [
+          "command_1e5b7706d52142c283477553e23d44cd",
+          "command_4ab5ae319e194c08b6c69a32afdab0dc",
+          "command_6d84b12c39bb4caca51e6449f5387461"
+        ],
+        "replay_attempt_id": "replay_21b1b9d9aa354ff3ab6da1f292c4c11e",
+        "replay_status": "passed",
+        "status": "passed",
+        "submit_attempt_id": "submit_3b83dd777d994829a8a5c72f490575f6",
+        "supporting_command_id": "command_4ab5ae319e194c08b6c69a32afdab0dc",
+        "verification_command_ids": [
+          "command_a33542200f844f24ac0527633bb6b8ff"
+        ]
+      },
+      "task_id": "cmake-hello-world"
+    },
+    {
+      "agent_triggers": [],
+      "build_system": "make",
+      "cleanup": {
+        "removed": true,
+        "replay_status": "passed",
+        "session_id": "38de81eb627c",
+        "session_path": ".compile-sessions/jev-hybrid-qualification-02-hiredis-make-55e6dcafc7/38de81eb627c/session.json",
+        "status": "completed",
+        "succeeded": true,
+        "thread_id": "jev-hybrid-qualification-02-hiredis-make-55e6dcafc7"
+      },
+      "detection": {
+        "detected": [
+          {
+            "build_system": "cmake",
+            "marker": "CMakeLists.txt"
+          },
+          {
+            "build_system": "make",
+            "marker": "Makefile"
+          }
+        ],
+        "primary": "cmake",
+        "selected": "make"
+      },
+      "error_class": null,
+      "hybrid_result": {
+        "agent_handoffs": 0,
+        "cycles": 1,
+        "decisions": 1,
+        "direct_actions": 1,
+        "fail_closed": false,
+        "observations": 2,
+        "reason": "forge_strict_verification_passed",
+        "status": "strict_success",
+        "trace": [
+          {
+            "action_family": null,
+            "action_id": null,
+            "disposition": "pending",
+            "event": "observation",
+            "observation_id": 1,
+            "reason": "pending",
+            "reported_terminal_success": false,
+            "sequence": 1,
+            "state_id": "hiredis-make-state-1",
+            "succeeded": null
+          },
+          {
+            "action_family": null,
+            "action_id": null,
+            "disposition": "direct_execute",
+            "event": "route",
+            "observation_id": 1,
+            "reason": "calibrated_direct_action",
+            "reported_terminal_success": false,
+            "sequence": 2,
+            "state_id": "hiredis-make-state-1",
+            "succeeded": null
+          },
+          {
+            "action_family": "build",
+            "action_id": "hiredis-make-state-1:build",
+            "disposition": "awaiting_authoritative_observation",
+            "event": "direct_action",
+            "observation_id": 1,
+            "reason": "strict_submit_passed",
+            "reported_terminal_success": true,
+            "sequence": 3,
+            "state_id": "hiredis-make-state-1",
+            "succeeded": true
+          },
+          {
+            "action_family": null,
+            "action_id": null,
+            "disposition": "strict_success",
+            "event": "observation",
+            "observation_id": 2,
+            "reason": "strict_success",
+            "reported_terminal_success": false,
+            "sequence": 4,
+            "state_id": "hiredis-make-state-2",
+            "succeeded": null
+          },
+          {
+            "action_family": null,
+            "action_id": null,
+            "disposition": "strict_success",
+            "event": "terminal",
+            "observation_id": 2,
+            "reason": "forge_strict_verification_passed",
+            "reported_terminal_success": false,
+            "sequence": 5,
+            "state_id": "hiredis-make-state-2",
+            "succeeded": true
+          }
+        ]
+      },
+      "route_mode": "jev_scripted",
+      "selected_action_family": "build",
+      "sequence": 2,
+      "submit": {
+        "artifact_count": 1,
+        "artifacts": [
+          {
+            "artifact_type": "executable",
+            "path": "jev-hybrid-qualification-02-hiredis-make-55e6dcafc7/38de81eb627c/artifacts/qualification-hiredis",
+            "sha256": "c846ee7104d250d9e9cf1db20a72631ccab47d0c8e48c060c9fbb7ec884fddbb",
+            "size_bytes": 314104,
+            "smoke_command": "/artifacts/qualification-hiredis -version",
+            "smoke_exit_code": 0,
+            "smoke_output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "smoke_workdir": "/workspace",
+            "source_path": "/artifacts/qualification-hiredis"
+          }
+        ],
+        "candidate_status": "passed",
+        "classification": null,
+        "executable_verification_policy": null,
+        "exit_code": 0,
+        "image_id": "sha256:d27a6ab733c7c3a9cbb5e4b32fb595aa5a422ff04bd212888d1041b90a2c4c2a",
+        "message": "Build artifacts and clean replay accepted.",
+        "offending_command_id": null,
+        "recipe_command_ids": [
+          "command_1383965cafd743c7ae77faac7e7f818b",
+          "command_8b91ea5c7d094034b9b102829eea98e8"
+        ],
+        "replay_attempt_id": "replay_a028b776bdb241009ae2722c714043ac",
+        "replay_status": "passed",
+        "status": "passed",
+        "submit_attempt_id": "submit_8258e69428224e05bd88fbf994edbf01",
+        "supporting_command_id": "command_1383965cafd743c7ae77faac7e7f818b",
+        "verification_command_ids": [
+          "command_f782ea98ce76472d9c4eb75d0bbfa8f3"
+        ]
+      },
+      "task_id": "hiredis-make"
+    }
+  ],
+  "created_at": "2026-10-11T02:12:44.192266+00:00",
+  "credential_reads": 0,
+  "decision": "stop_and_repair_hybrid_workflow",
+  "error_class": "QualificationError",
+  "formal_attempts": 0,
+  "identity": "cpp-jev-hybrid-workflow-qualification-v2",
+  "managed_resources_after": 0,
+  "manifest_sha256": "55e6dcafc76596273e863033b8e60cd28b423952497e16f40b8fe7a0cf0ecd5c",
+  "preflight": {
+    "branch": "yiwei/409-jev-hybrid-workflow",
+    "credential_reads": 0,
+    "formal_attempts": 0,
+    "image_id": "sha256:d27a6ab733c7c3a9cbb5e4b32fb595aa5a422ff04bd212888d1041b90a2c4c2a",
+    "implementation_revision": "371f7c61194881fdd9a5ea7f6008313ff6542f5a",
+    "managed_resources_before": 0,
+    "manifest_sha256": "55e6dcafc76596273e863033b8e60cd28b423952497e16f40b8fe7a0cf0ecd5c",
+    "provider_calls": 0,
+    "release_revision": "ebfa8e8a331da6fc4087ae30320cbf04bb23ecbd"
+  },
+  "provider_calls": 0,
+  "schema_version": "forge-jev-hybrid-workflow-qualification-failure-1.0.0"
+}

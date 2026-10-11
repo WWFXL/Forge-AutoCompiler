@@ -1,0 +1,24 @@
+{
+  "completed_rows": [],
+  "created_at": "2026-10-11T02:07:45.985566+00:00",
+  "credential_reads": 0,
+  "decision": "stop_and_repair_hybrid_workflow",
+  "error_class": "AttributeError",
+  "formal_attempts": 0,
+  "identity": "cpp-jev-hybrid-workflow-qualification-v1",
+  "managed_resources_after": 0,
+  "manifest_sha256": "ee975de39691dfc2aa935d39ab5888af50a05c324641857d60addcf4b0c4b09c",
+  "preflight": {
+    "branch": "yiwei/409-jev-hybrid-workflow",
+    "credential_reads": 0,
+    "formal_attempts": 0,
+    "image_id": "sha256:d27a6ab733c7c3a9cbb5e4b32fb595aa5a422ff04bd212888d1041b90a2c4c2a",
+    "implementation_revision": "062d7d7830364c984bc33f3d74df03c2f66d47f4",
+    "managed_resources_before": 0,
+    "manifest_sha256": "ee975de39691dfc2aa935d39ab5888af50a05c324641857d60addcf4b0c4b09c",
+    "provider_calls": 0,
+    "release_revision": "8d81798774fdb185cffad60113cee037ac54a2e1"
+  },
+  "provider_calls": 0,
+  "schema_version": "forge-jev-hybrid-workflow-qualification-failure-1.0.0"
+}

@@ -18,6 +18,38 @@ _EXPORTS = {
         "deerflow.compile.agent_workflow_runtime",
         "run_agent_workflow_node_v1",
     ),
+    "HybridAgentHandoff": (
+        "deerflow.compile.hybrid_workflow",
+        "HybridAgentHandoff",
+    ),
+    "HybridStepOutcome": (
+        "deerflow.compile.hybrid_workflow",
+        "HybridStepOutcome",
+    ),
+    "HybridTraceEntry": (
+        "deerflow.compile.hybrid_workflow",
+        "HybridTraceEntry",
+    ),
+    "HybridWorkflowBudget": (
+        "deerflow.compile.hybrid_workflow",
+        "HybridWorkflowBudget",
+    ),
+    "HybridWorkflowObservation": (
+        "deerflow.compile.hybrid_workflow",
+        "HybridWorkflowObservation",
+    ),
+    "HybridWorkflowResult": (
+        "deerflow.compile.hybrid_workflow",
+        "HybridWorkflowResult",
+    ),
+    "HybridWorkflowSnapshot": (
+        "deerflow.compile.hybrid_workflow",
+        "HybridWorkflowSnapshot",
+    ),
+    "run_hybrid_workflow": (
+        "deerflow.compile.hybrid_workflow",
+        "run_hybrid_workflow",
+    ),
     "ExternalEvaluationAdjudication": (
         "deerflow.compile.external_evaluator",
         "ExternalEvaluationAdjudication",

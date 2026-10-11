@@ -1,0 +1,1247 @@
+{
+  "created_at": "2026-10-11T02:32:26.129018+00:00",
+  "decision": "proceed_to_natural_failure_evaluation_design",
+  "evidence_inventory": [
+    {
+      "path": "batch.json",
+      "sha256": "1e6b1905374dbb397202291f05b6da661f49c80cdc4ea2f0939274cf897353f7",
+      "size_bytes": 486
+    },
+    {
+      "path": "cases/01-args/attempt.json",
+      "sha256": "9ee685a0d1112bd0f240eb23b9de9fa5639738a6dc6eac58e844aa7f05832a61",
+      "size_bytes": 434
+    },
+    {
+      "path": "cases/01-args/experiment.jsonl",
+      "sha256": "3e00ecadddbd7fea9ea433b4a17e4bdd2d51335ff4cb26d9390a1c8c914f3e0e",
+      "size_bytes": 22717
+    },
+    {
+      "path": "cases/01-args/result.json",
+      "sha256": "31b1a5a53972d5bc50aa4222ec675c57c49058d1d2d8239b18eb3f032aa5f263",
+      "size_bytes": 9862
+    },
+    {
+      "path": "cases/02-hoextdown/attempt.json",
+      "sha256": "8b9815e834aaa778566e828a511ead1348509a175c084be4cf42f423c247569a",
+      "size_bytes": 439
+    },
+    {
+      "path": "cases/02-hoextdown/experiment.jsonl",
+      "sha256": "3ac4c7f0473147c5a1f49674a5477963aa0e0f28063db27c37072511dc31802c",
+      "size_bytes": 44157
+    },
+    {
+      "path": "cases/02-hoextdown/result.json",
+      "sha256": "2e79577fd13e988bda1d2d3115648b3b3d6f67c2b2b3a639df3dcb3a9603a8d1",
+      "size_bytes": 11697
+    },
+    {
+      "path": "cases/03-c-ares/attempt.json",
+      "sha256": "760352ae1f7f495893b3ad1bdd5ea1f5aef95b13bcc3090ad12c7c04ec4894c1",
+      "size_bytes": 436
+    },
+    {
+      "path": "cases/03-c-ares/experiment.jsonl",
+      "sha256": "cd95f978b633ff5bf9fc3690ad3356f8f8e9d90902ff171f7c5fb1531d4ab64b",
+      "size_bytes": 30391
+    },
+    {
+      "path": "cases/03-c-ares/result.json",
+      "sha256": "547bf17f88a519c45cf489223e1b08c98e448db00e395c9e52b90494daffffac",
+      "size_bytes": 11573
+    }
+  ],
+  "gates": {
+    "agent_control_return_observed": true,
+    "agent_handoff_observed": true,
+    "all_cleanup_succeeded": true,
+    "all_strict_success": true,
+    "batch_completed": true,
+    "parent_evidence_unchanged": true,
+    "three_cases_classified": true,
+    "three_jev_responses": true,
+    "within_frozen_budget": true,
+    "zero_managed_resources": true
+  },
+  "identity": "cpp-jev-hybrid-workflow-canary-v1",
+  "interpretation": {
+    "canary_only": true,
+    "cost_savings_claim": false,
+    "dynamic_budget_claim": false,
+    "model_ranking": false,
+    "natural_failure_effect": false,
+    "strict_success_noninferiority": false,
+    "treatment_effect": false
+  },
+  "manifest_sha256": "9abebe01635161cff64220e0e7748a2bb7eef3f7cb9e220c0ecc3c77651866b2",
+  "passed": true,
+  "release_revision": "71fdc281ce3c082664f118f98ef84546dc9395a3",
+  "routing": {
+    "agent_handoffs": 1,
+    "direct_attempts": 2
+  },
+  "rows": [
+    {
+      "agent_handoff_observed": false,
+      "agent_usage": {
+        "agent_steps": 0,
+        "commands": 0,
+        "model_requests": 0,
+        "recorded_tokens": 0,
+        "tool_calls": 0
+      },
+      "build_system": "cmake",
+      "candidate_submitted": true,
+      "cleanup_succeeded": true,
+      "direct_action_succeeded": true,
+      "direct_attempted": true,
+      "duration_ms": 31016,
+      "error_class": null,
+      "fault_type": "invalid_build_state",
+      "force_agent_handoff": false,
+      "hybrid_result": {
+        "agent_handoffs": 0,
+        "cycles": 1,
+        "decisions": 1,
+        "direct_actions": 1,
+        "fail_closed": false,
+        "final_observation_id": 2,
+        "observations": 2,
+        "reason": "s0_s5_strict_evaluator_passed",
+        "status": "strict_success",
+        "trace": [
+          {
+            "action_family": null,
+            "action_id": null,
+            "disposition": "pending",
+            "event": "observation",
+            "observation_id": 1,
+            "reason": "pending",
+            "reported_terminal_success": false,
+            "sequence": 1,
+            "state_id": "s-04583a661d7afed169c1",
+            "succeeded": null
+          },
+          {
+            "action_family": null,
+            "action_id": null,
+            "disposition": "direct_execute",
+            "event": "route",
+            "observation_id": 1,
+            "reason": "calibrated_direct_action",
+            "reported_terminal_success": false,
+            "sequence": 2,
+            "state_id": "s-04583a661d7afed169c1",
+            "succeeded": null
+          },
+          {
+            "action_family": "configure",
+            "action_id": "s-04583a661d7afed169c1:configure",
+            "disposition": "awaiting_authoritative_observation",
+            "event": "direct_action",
+            "observation_id": 1,
+            "reason": "strict_direct_evaluation_passed",
+            "reported_terminal_success": true,
+            "sequence": 3,
+            "state_id": "s-04583a661d7afed169c1",
+            "succeeded": true
+          },
+          {
+            "action_family": null,
+            "action_id": null,
+            "disposition": "strict_success",
+            "event": "observation",
+            "observation_id": 2,
+            "reason": "strict_success",
+            "reported_terminal_success": false,
+            "sequence": 4,
+            "state_id": "s-04583a661d7afed169c1",
+            "succeeded": null
+          },
+          {
+            "action_family": null,
+            "action_id": null,
+            "disposition": "strict_success",
+            "event": "terminal",
+            "observation_id": 2,
+            "reason": "s0_s5_strict_evaluator_passed",
+            "reported_terminal_success": false,
+            "sequence": 5,
+            "state_id": "s-04583a661d7afed169c1",
+            "succeeded": true
+          }
+        ]
+      },
+      "identity": "cpp-jev-hybrid-workflow-canary-v1",
+      "jev_response": {
+        "answers": {
+          "next_action_order_sensitivity": {
+            "choice": "configure",
+            "confidence": 0.99,
+            "probabilities": {
+              "build": 0.01,
+              "configure": 0.99,
+              "dependency": 0.0,
+              "escalate_agent": 0.0
+            },
+            "raw_probabilities": {
+              "build": 0.01,
+              "configure": 0.99,
+              "dependency": 0.0,
+              "escalate_agent": 0.0
+            },
+            "raw_probability_sum": 1.0,
+            "recomputed_confidence": 0.9866666666666667
+          },
+          "next_action_primary": {
+            "choice": "configure",
+            "confidence": 1.0,
+            "probabilities": {
+              "build": 0.0,
+              "configure": 1.0,
+              "dependency": 0.0,
+              "escalate_agent": 0.0
+            },
+            "raw_probabilities": {
+              "build": 0.0,
+              "configure": 1.0,
+              "dependency": 0.0,
+              "escalate_agent": 0.0
+            },
+            "raw_probability_sum": 1.0,
+            "recomputed_confidence": 1.0
+          }
+        },
+        "cost_usd": 4.9980000000000006e-05,
+        "latency_ms": 502.23665684461594,
+        "model": "jev-1.13.0",
+        "order_agreement": true,
+        "request_id": "req_01a128cb29c17f4680116685816c5895",
+        "usage": {
+          "input_tokens": 1190,
+          "output_tokens": 101
+        }
+      },
+      "jev_usage": {
+        "cost_usd": 4.9980000000000006e-05,
+        "error_class": null,
+        "input_tokens": 1190,
+        "model_requests": 1,
+        "output_tokens": 101,
+        "response_observed": true
+      },
+      "manifest_sha256": "9abebe01635161cff64220e0e7748a2bb7eef3f7cb9e220c0ecc3c77651866b2",
+      "node_status": "submitted",
+      "release_revision": "71fdc281ce3c082664f118f98ef84546dc9395a3",
+      "route_trigger": null,
+      "s0_s5": [
+        {
+          "evidence": [
+            {
+              "exit_code": null,
+              "identifier": "hybrid-canary-01-direct",
+              "kind": "node_input",
+              "relative_path": null,
+              "sha256": "dbcafa2d6c1ff99d9ba08b657306446f90111ea70ab0c7faf5e8eb9285388105",
+              "size_bytes": null
+            },
+            {
+              "exit_code": null,
+              "identifier": "hybrid-canary-01-direct",
+              "kind": "node_result",
+              "relative_path": null,
+              "sha256": "7eabbaabbaf7a96cb4425ef7977888d64e49551b216a3ab1ff6547f7ff02dfe2",
+              "size_bytes": null
+            },
+            {
+              "exit_code": null,
+              "identifier": "canary-01-hybrid-direct",
+              "kind": "candidate",
+              "relative_path": null,
+              "sha256": "23ff3f844f1142d162cb119997877ed8ae7f91573a1dfb12d20ec64c30ebfaa3",
+              "size_bytes": null
+            },
+            {
+              "exit_code": null,
+              "identifier": "feb75003713f",
+              "kind": "session",
+              "relative_path": null,
+              "sha256": null,
+              "size_bytes": null
+            }
+          ],
+          "layer": "S0",
+          "reason_codes": [
+            "identity_valid"
+          ],
+          "status": "passed"
+        },
+        {
+          "evidence": [
+            {
+              "exit_code": null,
+              "identifier": "command_caf26ebbe2dd4ba9b59596b8e78ee71d",
+              "kind": "command",
+              "relative_path": null,
+              "sha256": null,
+              "size_bytes": null
+            },
+            {
+              "exit_code": null,
+              "identifier": "command_e13ec715af9448ed9282bece1b6b5059",
+              "kind": "command",
+              "relative_path": null,
+              "sha256": null,
+              "size_bytes": null
+            },
+            {
+              "exit_code": null,
+              "identifier": "command_4d5a318b3d614bec87c589d0dd1d5177",
+              "kind": "command",
+              "relative_path": null,
+              "sha256": null,
+              "size_bytes": null
+            },
+            {
+              "exit_code": null,
+              "identifier": "command_a8fb856dbb384af4aa19f69dde64f264",
+              "kind": "command",
+              "relative_path": null,
+              "sha256": null,
+              "size_bytes": null
+            },
+            {
+              "exit_code": null,
+              "identifier": "command_33dd0de079ca44febb259809558ce9bf",
+              "kind": "command",
+              "relative_path": null,
+              "sha256": null,
+              "size_bytes": null
+            }
+          ],
+          "layer": "S1",
+          "reason_codes": [
+            "commands_valid"
+          ],
+          "status": "passed"
+        },
+        {
+          "evidence": [
+            {
+              "exit_code": null,
+              "identifier": "gitlike",
+              "kind": "artifact",
+              "relative_path": "gitlike",
+              "sha256": "f7eaf09e22231ccdb80a08baef48bf1f373abbc82289915f16a2fe959fc994ee",
+              "size_bytes": 246656
+            }
+          ],
+          "layer": "S2",
+          "reason_codes": [
+            "candidate_artifacts_valid"
+          ],
+          "status": "passed"
+        },
+        {
+          "evidence": [
+            {
+              "exit_code": null,
+              "identifier": "args-functional-oracle-v1",
+              "kind": "oracle_spec",
+              "relative_path": null,
+              "sha256": "7ac4350a8c4a0197771252b6268cb4ce83dde7379254c28add43edecb1274923",
+              "size_bytes": null
+            },
+            {
+              "exit_code": 0,
+              "identifier": "command_e7132596e371431892d91894a9e2d4ca",
+              "kind": "command",
+              "relative_path": null,
+              "sha256": null,
+              "size_bytes": null
+            },
+            {
+              "exit_code": null,
+              "identifier": "command_e7132596e371431892d91894a9e2d4ca:stdout",
+              "kind": "oracle_stdout",
+              "relative_path": "oracle/stdout.log",
+              "sha256": "785a8880c7cc85ac1cd975f79bf5a0d848444d4c60030ca9474f9007ad497d4b",
+              "size_bytes": 523
+            },
+            {
+              "exit_code": null,
+              "identifier": "command_e7132596e371431892d91894a9e2d4ca:stderr",
+              "kind": "oracle_stderr",
+              "relative_path": "oracle/stderr.log",
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "size_bytes": 0
+            }
+          ],
+          "layer": "S3",
+          "reason_codes": [
+            "functional_oracle_passed"
+          ],
+          "status": "passed"
+        },
+        {
+          "evidence": [
+            {
+              "exit_code": null,
+              "identifier": "feb75003713f",
+              "kind": "session",
+              "relative_path": null,
+              "sha256": null,
+              "size_bytes": null
+            },
+            {
+              "exit_code": null,
+              "identifier": "1bd817758979eb366fedb82e399f6bf8cb616333e89908caadd6c4dea9edaa0f",
+              "kind": "replay_recipe",
+              "relative_path": null,
+              "sha256": null,
+              "size_bytes": null
+            }
+          ],
+          "layer": "S4",
+          "reason_codes": [
+            "provenance_policy_valid"
+          ],
+          "status": "passed"
+        },
+        {
+          "evidence": [
+            {
+              "exit_code": null,
+              "identifier": "replay_f180865a8c6d4da6b18f35cf95a8e50b",
+              "kind": "replay",
+              "relative_path": null,
+              "sha256": null,
+              "size_bytes": null
+            }
+          ],
+          "layer": "S5",
+          "reason_codes": [
+            "clean_replay_functional_success"
+          ],
+          "status": "passed"
+        }
+      ],
+      "schema_version": "forge-jev-hybrid-workflow-canary-case-1.0.0",
+      "sequence": 1,
+      "session_status": "completed",
+      "strict_reproducible_build_success": true,
+      "task_id": "args",
+      "terminal_classification": "strict_success"
+    },
+    {
+      "agent_handoff_observed": true,
+      "agent_usage": {
+        "agent_steps": 21,
+        "commands": 11,
+        "model_requests": 9,
+        "recorded_tokens": 86160,
+        "tool_calls": 12
+      },
+      "build_system": "make",
+      "candidate_submitted": true,
+      "cleanup_succeeded": true,
+      "direct_action_succeeded": false,
+      "direct_attempted": false,
+      "duration_ms": 41827,
+      "error_class": null,
+      "fault_type": "wrong_build_target",
+      "force_agent_handoff": true,
+      "hybrid_result": {
+        "agent_handoffs": 1,
+        "cycles": 1,
+        "decisions": 1,
+        "direct_actions": 0,
+        "fail_closed": true,
+        "final_observation_id": 2,
+        "observations": 2,
+        "reason": "s0_s5_strict_evaluator_passed",
+        "status": "strict_success",
+        "trace": [
+          {
+            "action_family": null,
+            "action_id": null,
+            "disposition": "pending",
+            "event": "observation",
+            "observation_id": 1,
+            "reason": "pending",
+            "reported_terminal_success": false,
+            "sequence": 1,
+            "state_id": "s-79362feaf13d94eebfae",
+            "succeeded": null
+          },
+          {
+            "action_family": null,
+            "action_id": null,
+            "disposition": "escalate_agent",
+            "event": "route",
+            "observation_id": 1,
+            "reason": "selected_candidate_precondition_failed",
+            "reported_terminal_success": false,
+            "sequence": 2,
+            "state_id": "s-79362feaf13d94eebfae",
+            "succeeded": null
+          },
+          {
+            "action_family": null,
+            "action_id": null,
+            "disposition": "awaiting_authoritative_observation",
+            "event": "agent_handoff",
+            "observation_id": 1,
+            "reason": "strict_agent_evaluation_passed",
+            "reported_terminal_success": true,
+            "sequence": 3,
+            "state_id": "s-79362feaf13d94eebfae",
+            "succeeded": true
+          },
+          {
+            "action_family": null,
+            "action_id": null,
+            "disposition": "strict_success",
+            "event": "observation",
+            "observation_id": 2,
+            "reason": "strict_success",
+            "reported_terminal_success": false,
+            "sequence": 4,
+            "state_id": "s-79362feaf13d94eebfae",
+            "succeeded": null
+          },
+          {
+            "action_family": null,
+            "action_id": null,
+            "disposition": "strict_success",
+            "event": "terminal",
+            "observation_id": 2,
+            "reason": "s0_s5_strict_evaluator_passed",
+            "reported_terminal_success": false,
+            "sequence": 5,
+            "state_id": "s-79362feaf13d94eebfae",
+            "succeeded": true
+          }
+        ]
+      },
+      "identity": "cpp-jev-hybrid-workflow-canary-v1",
+      "jev_response": {
+        "answers": {
+          "next_action_order_sensitivity": {
+            "choice": "build",
+            "confidence": 1.0,
+            "probabilities": {
+              "build": 1.0,
+              "configure": 0.0,
+              "dependency": 0.0,
+              "escalate_agent": 0.0
+            },
+            "raw_probabilities": {
+              "build": 1.0,
+              "configure": 0.0,
+              "dependency": 0.0,
+              "escalate_agent": 0.0
+            },
+            "raw_probability_sum": 1.0,
+            "recomputed_confidence": 1.0
+          },
+          "next_action_primary": {
+            "choice": "build",
+            "confidence": 1.0,
+            "probabilities": {
+              "build": 1.0,
+              "configure": 0.0,
+              "dependency": 0.0,
+              "escalate_agent": 0.0
+            },
+            "raw_probabilities": {
+              "build": 1.0,
+              "configure": 0.0,
+              "dependency": 0.0,
+              "escalate_agent": 0.0
+            },
+            "raw_probability_sum": 1.0,
+            "recomputed_confidence": 1.0
+          }
+        },
+        "cost_usd": 5.0316000000000004e-05,
+        "latency_ms": 451.6008938662708,
+        "model": "jev-1.13.0",
+        "order_agreement": true,
+        "request_id": "req_01a128cb99b179eab0181b9d2a769894",
+        "usage": {
+          "input_tokens": 1198,
+          "output_tokens": 101
+        }
+      },
+      "jev_usage": {
+        "cost_usd": 5.0316000000000004e-05,
+        "error_class": null,
+        "input_tokens": 1198,
+        "model_requests": 1,
+        "output_tokens": 101,
+        "response_observed": true
+      },
+      "manifest_sha256": "9abebe01635161cff64220e0e7748a2bb7eef3f7cb9e220c0ecc3c77651866b2",
+      "node_status": "submitted",
+      "release_revision": "71fdc281ce3c082664f118f98ef84546dc9395a3",
+      "route_trigger": "selected_candidate_precondition_failed",
+      "s0_s5": [
+        {
+          "evidence": [
+            {
+              "exit_code": null,
+              "identifier": "hybrid-canary-02-agent",
+              "kind": "node_input",
+              "relative_path": null,
+              "sha256": "3f0d5fd081c855e1510dfdd73a9729faafecb6af50c24abbdd678b2867f16117",
+              "size_bytes": null
+            },
+            {
+              "exit_code": null,
+              "identifier": "hybrid-canary-02-agent",
+              "kind": "node_result",
+              "relative_path": null,
+              "sha256": "62ce1c9be95b77f0bcf87a85ac0ad82ecc6aac0563f4447a50cb392e9406edb5",
+              "size_bytes": null
+            },
+            {
+              "exit_code": null,
+              "identifier": "hoextdown-make-libhoedown-a",
+              "kind": "candidate",
+              "relative_path": null,
+              "sha256": "4f7902a958238819536f1f385896bcafafa2e73700a07cfc344a101daff2e192",
+              "size_bytes": null
+            },
+            {
+              "exit_code": null,
+              "identifier": "d46aaa41f149",
+              "kind": "session",
+              "relative_path": null,
+              "sha256": null,
+              "size_bytes": null
+            }
+          ],
+          "layer": "S0",
+          "reason_codes": [
+            "identity_valid"
+          ],
+          "status": "passed"
+        },
+        {
+          "evidence": [
+            {
+              "exit_code": null,
+              "identifier": "command_453b6a4901394d1eb074f208811d9ab3",
+              "kind": "command",
+              "relative_path": null,
+              "sha256": null,
+              "size_bytes": null
+            },
+            {
+              "exit_code": null,
+              "identifier": "command_3a9411d0396b446b957304197dbc7764",
+              "kind": "command",
+              "relative_path": null,
+              "sha256": null,
+              "size_bytes": null
+            }
+          ],
+          "layer": "S1",
+          "reason_codes": [
+            "commands_valid"
+          ],
+          "status": "passed"
+        },
+        {
+          "evidence": [
+            {
+              "exit_code": null,
+              "identifier": "autolink.h",
+              "kind": "artifact",
+              "relative_path": "include/autolink.h",
+              "sha256": "81b7c98ec9407d1b36bed937d42dac1f2b489480431b34f566754802f5b46bb4",
+              "size_bytes": 1189
+            },
+            {
+              "exit_code": null,
+              "identifier": "buffer.h",
+              "kind": "artifact",
+              "relative_path": "include/buffer.h",
+              "sha256": "b9cee50f338180b78822e786b122fa77b87609d2198b0c405af14d2b6a29771a",
+              "size_bytes": 4535
+            },
+            {
+              "exit_code": null,
+              "identifier": "context_test.h",
+              "kind": "artifact",
+              "relative_path": "include/context_test.h",
+              "sha256": "dd607fc9d08001087bcc41fd7e18e67641d55a8c61eece428374d27c19b42237",
+              "size_bytes": 859
+            },
+            {
+              "exit_code": null,
+              "identifier": "document.h",
+              "kind": "artifact",
+              "relative_path": "include/document.h",
+              "sha256": "a25af50b14257992aee35bbe0cd6cc4161c9abd4385d6f54a6b711fbcc4e20cd",
+              "size_bytes": 12061
+            },
+            {
+              "exit_code": null,
+              "identifier": "escape.h",
+              "kind": "artifact",
+              "relative_path": "include/escape.h",
+              "sha256": "cd61d2350271c9823df34681a126b9cbd704d79a22aa414ea815b5cf03955fb7",
+              "size_bytes": 532
+            },
+            {
+              "exit_code": null,
+              "identifier": "hash.h",
+              "kind": "artifact",
+              "relative_path": "include/hash.h",
+              "sha256": "fc5221c5b68dce83ee850317cba11e6e14be3362e7591cf42218330bd458edf4",
+              "size_bytes": 888
+            },
+            {
+              "exit_code": null,
+              "identifier": "html.h",
+              "kind": "artifact",
+              "relative_path": "include/html.h",
+              "sha256": "2be89e7ae605f68257496f54bee6d6f9e6f074e3f5c56452e9f0ce0791445b04",
+              "size_bytes": 2329
+            },
+            {
+              "exit_code": null,
+              "identifier": "stack.h",
+              "kind": "artifact",
+              "relative_path": "include/stack.h",
+              "sha256": "26310ffd4d14a94b5e9e80aaa7818fb213496cd56caceba4e0cc25080508ea4f",
+              "size_bytes": 1113
+            },
+            {
+              "exit_code": null,
+              "identifier": "version.h",
+              "kind": "artifact",
+              "relative_path": "include/version.h",
+              "sha256": "9d241e58b20bd70b62379355d7d8bef0ba83cb4eb7e0ba5c48660c70ae089c14",
+              "size_bytes": 597
+            },
+            {
+              "exit_code": null,
+              "identifier": "libhoedown.a",
+              "kind": "artifact",
+              "relative_path": "lib/libhoedown.a",
+              "sha256": "23d1dd6735df78fa7b823ed6cc8265d23ea2771c43049f3d2ac5ede25456509e",
+              "size_bytes": 683460
+            }
+          ],
+          "layer": "S2",
+          "reason_codes": [
+            "candidate_artifacts_valid"
+          ],
+          "status": "passed"
+        },
+        {
+          "evidence": [
+            {
+              "exit_code": null,
+              "identifier": "hoextdown-functional-oracle-v1",
+              "kind": "oracle_spec",
+              "relative_path": null,
+              "sha256": "06a69ed34c654c05b181066e0b8e7ee75e10addf2d87306cb7dd4338796a0187",
+              "size_bytes": null
+            },
+            {
+              "exit_code": 0,
+              "identifier": "command_f86f744aca13438bbf6bb19cff4650fd",
+              "kind": "command",
+              "relative_path": null,
+              "sha256": null,
+              "size_bytes": null
+            },
+            {
+              "exit_code": null,
+              "identifier": "command_f86f744aca13438bbf6bb19cff4650fd:stdout",
+              "kind": "oracle_stdout",
+              "relative_path": "oracle/stdout.log",
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "size_bytes": 0
+            },
+            {
+              "exit_code": null,
+              "identifier": "command_f86f744aca13438bbf6bb19cff4650fd:stderr",
+              "kind": "oracle_stderr",
+              "relative_path": "oracle/stderr.log",
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "size_bytes": 0
+            }
+          ],
+          "layer": "S3",
+          "reason_codes": [
+            "functional_oracle_passed"
+          ],
+          "status": "passed"
+        },
+        {
+          "evidence": [
+            {
+              "exit_code": null,
+              "identifier": "d46aaa41f149",
+              "kind": "session",
+              "relative_path": null,
+              "sha256": null,
+              "size_bytes": null
+            },
+            {
+              "exit_code": null,
+              "identifier": "a432421ad71738b00e46702fef353d4521f5356fbf822508c4f0105e00d6342b",
+              "kind": "replay_recipe",
+              "relative_path": null,
+              "sha256": null,
+              "size_bytes": null
+            }
+          ],
+          "layer": "S4",
+          "reason_codes": [
+            "provenance_policy_valid"
+          ],
+          "status": "passed"
+        },
+        {
+          "evidence": [
+            {
+              "exit_code": null,
+              "identifier": "replay_687fdbeaba6e44b793796e602b6a7c38",
+              "kind": "replay",
+              "relative_path": null,
+              "sha256": null,
+              "size_bytes": null
+            }
+          ],
+          "layer": "S5",
+          "reason_codes": [
+            "clean_replay_functional_success"
+          ],
+          "status": "passed"
+        }
+      ],
+      "schema_version": "forge-jev-hybrid-workflow-canary-case-1.0.0",
+      "sequence": 2,
+      "session_status": "completed",
+      "strict_reproducible_build_success": true,
+      "task_id": "hoextdown",
+      "terminal_classification": "strict_success"
+    },
+    {
+      "agent_handoff_observed": false,
+      "agent_usage": {
+        "agent_steps": 0,
+        "commands": 0,
+        "model_requests": 0,
+        "recorded_tokens": 0,
+        "tool_calls": 0
+      },
+      "build_system": "autotools",
+      "candidate_submitted": true,
+      "cleanup_succeeded": true,
+      "direct_action_succeeded": true,
+      "direct_attempted": true,
+      "duration_ms": 78760,
+      "error_class": null,
+      "fault_type": "missing_compile_input",
+      "force_agent_handoff": false,
+      "hybrid_result": {
+        "agent_handoffs": 0,
+        "cycles": 1,
+        "decisions": 1,
+        "direct_actions": 1,
+        "fail_closed": false,
+        "final_observation_id": 2,
+        "observations": 2,
+        "reason": "s0_s5_strict_evaluator_passed",
+        "status": "strict_success",
+        "trace": [
+          {
+            "action_family": null,
+            "action_id": null,
+            "disposition": "pending",
+            "event": "observation",
+            "observation_id": 1,
+            "reason": "pending",
+            "reported_terminal_success": false,
+            "sequence": 1,
+            "state_id": "s-3b766e7d393c963c2a86",
+            "succeeded": null
+          },
+          {
+            "action_family": null,
+            "action_id": null,
+            "disposition": "direct_execute",
+            "event": "route",
+            "observation_id": 1,
+            "reason": "calibrated_direct_action",
+            "reported_terminal_success": false,
+            "sequence": 2,
+            "state_id": "s-3b766e7d393c963c2a86",
+            "succeeded": null
+          },
+          {
+            "action_family": "dependency",
+            "action_id": "s-3b766e7d393c963c2a86:dependency",
+            "disposition": "awaiting_authoritative_observation",
+            "event": "direct_action",
+            "observation_id": 1,
+            "reason": "strict_direct_evaluation_passed",
+            "reported_terminal_success": true,
+            "sequence": 3,
+            "state_id": "s-3b766e7d393c963c2a86",
+            "succeeded": true
+          },
+          {
+            "action_family": null,
+            "action_id": null,
+            "disposition": "strict_success",
+            "event": "observation",
+            "observation_id": 2,
+            "reason": "strict_success",
+            "reported_terminal_success": false,
+            "sequence": 4,
+            "state_id": "s-3b766e7d393c963c2a86",
+            "succeeded": null
+          },
+          {
+            "action_family": null,
+            "action_id": null,
+            "disposition": "strict_success",
+            "event": "terminal",
+            "observation_id": 2,
+            "reason": "s0_s5_strict_evaluator_passed",
+            "reported_terminal_success": false,
+            "sequence": 5,
+            "state_id": "s-3b766e7d393c963c2a86",
+            "succeeded": true
+          }
+        ]
+      },
+      "identity": "cpp-jev-hybrid-workflow-canary-v1",
+      "jev_response": {
+        "answers": {
+          "next_action_order_sensitivity": {
+            "choice": "dependency",
+            "confidence": 1.0,
+            "probabilities": {
+              "build": 0.0,
+              "configure": 0.0,
+              "dependency": 1.0,
+              "escalate_agent": 0.0
+            },
+            "raw_probabilities": {
+              "build": 0.0,
+              "configure": 0.0,
+              "dependency": 1.0,
+              "escalate_agent": 0.0
+            },
+            "raw_probability_sum": 1.0,
+            "recomputed_confidence": 1.0
+          },
+          "next_action_primary": {
+            "choice": "dependency",
+            "confidence": 1.0,
+            "probabilities": {
+              "build": 0.0,
+              "configure": 0.0,
+              "dependency": 1.0,
+              "escalate_agent": 0.0
+            },
+            "raw_probabilities": {
+              "build": 0.0,
+              "configure": 0.0,
+              "dependency": 1.0,
+              "escalate_agent": 0.0
+            },
+            "raw_probability_sum": 1.0,
+            "recomputed_confidence": 1.0
+          }
+        },
+        "cost_usd": 7.3836e-05,
+        "latency_ms": 467.6451871637255,
+        "model": "jev-1.13.0",
+        "order_agreement": true,
+        "request_id": "req_01a128cca3f477b0a3631c97b4b5187b",
+        "usage": {
+          "input_tokens": 1758,
+          "output_tokens": 101
+        }
+      },
+      "jev_usage": {
+        "cost_usd": 7.3836e-05,
+        "error_class": null,
+        "input_tokens": 1758,
+        "model_requests": 1,
+        "output_tokens": 101,
+        "response_observed": true
+      },
+      "manifest_sha256": "9abebe01635161cff64220e0e7748a2bb7eef3f7cb9e220c0ecc3c77651866b2",
+      "node_status": "submitted",
+      "release_revision": "71fdc281ce3c082664f118f98ef84546dc9395a3",
+      "route_trigger": null,
+      "s0_s5": [
+        {
+          "evidence": [
+            {
+              "exit_code": null,
+              "identifier": "hybrid-canary-03-direct",
+              "kind": "node_input",
+              "relative_path": null,
+              "sha256": "841ecc8ab9187c12c40aad0ab21980de9fe1c96060ca8ed14ddccac7996fb05f",
+              "size_bytes": null
+            },
+            {
+              "exit_code": null,
+              "identifier": "hybrid-canary-03-direct",
+              "kind": "node_result",
+              "relative_path": null,
+              "sha256": "7120643309c6eb4d13f6254dfafb3daa4d6ee4bdab657054f7692a1c907c89ee",
+              "size_bytes": null
+            },
+            {
+              "exit_code": null,
+              "identifier": "canary-03-hybrid-direct",
+              "kind": "candidate",
+              "relative_path": null,
+              "sha256": "5062d41a6c60d2d6c1c8e818481a2a97d48c66e877e58498b4d6b6bf3db58a38",
+              "size_bytes": null
+            },
+            {
+              "exit_code": null,
+              "identifier": "f0d2328c36b8",
+              "kind": "session",
+              "relative_path": null,
+              "sha256": null,
+              "size_bytes": null
+            }
+          ],
+          "layer": "S0",
+          "reason_codes": [
+            "identity_valid"
+          ],
+          "status": "passed"
+        },
+        {
+          "evidence": [
+            {
+              "exit_code": null,
+              "identifier": "command_d4e38383f92e464a951ea38d68c9bdc6",
+              "kind": "command",
+              "relative_path": null,
+              "sha256": null,
+              "size_bytes": null
+            },
+            {
+              "exit_code": null,
+              "identifier": "command_460eccf19c994b01881c0bcf25e660f7",
+              "kind": "command",
+              "relative_path": null,
+              "sha256": null,
+              "size_bytes": null
+            },
+            {
+              "exit_code": null,
+              "identifier": "command_aa8b1f5456ff4435844543a8ac39c31b",
+              "kind": "command",
+              "relative_path": null,
+              "sha256": null,
+              "size_bytes": null
+            },
+            {
+              "exit_code": null,
+              "identifier": "command_a19af3d59dbc4aa1a8a266f3340ef41d",
+              "kind": "command",
+              "relative_path": null,
+              "sha256": null,
+              "size_bytes": null
+            },
+            {
+              "exit_code": null,
+              "identifier": "command_e75ac6df290042ddbf3d1a9c885d00ff",
+              "kind": "command",
+              "relative_path": null,
+              "sha256": null,
+              "size_bytes": null
+            }
+          ],
+          "layer": "S1",
+          "reason_codes": [
+            "commands_valid"
+          ],
+          "status": "passed"
+        },
+        {
+          "evidence": [
+            {
+              "exit_code": null,
+              "identifier": "ares.h",
+              "kind": "artifact",
+              "relative_path": "include/ares.h",
+              "sha256": "10416d1e27dac548bbfac8231d90fe2e09695eb6aee81f3b2366bc1017dcb8ff",
+              "size_bytes": 48521
+            },
+            {
+              "exit_code": null,
+              "identifier": "ares_build.h",
+              "kind": "artifact",
+              "relative_path": "include/ares_build.h",
+              "sha256": "5531b0c92608437a2ace4cd87157f2dc5aeedabe8fc6140ee519e4d02316cc45",
+              "size_bytes": 1176
+            },
+            {
+              "exit_code": null,
+              "identifier": "ares_dns.h",
+              "kind": "artifact",
+              "relative_path": "include/ares_dns.h",
+              "sha256": "ce41d525f326c7ff6d608d7fdc300b8e9fc1778c6c7a261e77fd60938976b623",
+              "size_bytes": 5790
+            },
+            {
+              "exit_code": null,
+              "identifier": "ares_dns_record.h",
+              "kind": "artifact",
+              "relative_path": "include/ares_dns_record.h",
+              "sha256": "7368b896b5e8ca2732d7a7339bc74de687d0fcfbe51f231c8ffffaa779bc15f3",
+              "size_bytes": 54795
+            },
+            {
+              "exit_code": null,
+              "identifier": "ares_nameser.h",
+              "kind": "artifact",
+              "relative_path": "include/ares_nameser.h",
+              "sha256": "9a95fc65ba35d14518cf6aaf76b09dfd285eacd1e4dff0191fee54b13d96ed8b",
+              "size_bytes": 13711
+            },
+            {
+              "exit_code": null,
+              "identifier": "ares_version.h",
+              "kind": "artifact",
+              "relative_path": "include/ares_version.h",
+              "sha256": "33764c52e67be1ff84885aae9a5e613693d85e61b11d803912e7fa5794aeeeef",
+              "size_bytes": 1904
+            },
+            {
+              "exit_code": null,
+              "identifier": "libcares.a",
+              "kind": "artifact",
+              "relative_path": "lib/libcares.a",
+              "sha256": "459ab705c3adf508dbabb8c1524afded0eae257ac743e9034d32a81e1b510e80",
+              "size_bytes": 3291338
+            }
+          ],
+          "layer": "S2",
+          "reason_codes": [
+            "candidate_artifacts_valid"
+          ],
+          "status": "passed"
+        },
+        {
+          "evidence": [
+            {
+              "exit_code": null,
+              "identifier": "c-ares-functional-oracle-v1",
+              "kind": "oracle_spec",
+              "relative_path": null,
+              "sha256": "bd6a9baa0635301a6c7c74585675dd3c6159285b1acd4e8fbe26d23810018876",
+              "size_bytes": null
+            },
+            {
+              "exit_code": 0,
+              "identifier": "command_1eae8a793d4f4211b7091656802aa3f0",
+              "kind": "command",
+              "relative_path": null,
+              "sha256": null,
+              "size_bytes": null
+            },
+            {
+              "exit_code": null,
+              "identifier": "command_1eae8a793d4f4211b7091656802aa3f0:stdout",
+              "kind": "oracle_stdout",
+              "relative_path": "oracle/stdout.log",
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "size_bytes": 0
+            },
+            {
+              "exit_code": null,
+              "identifier": "command_1eae8a793d4f4211b7091656802aa3f0:stderr",
+              "kind": "oracle_stderr",
+              "relative_path": "oracle/stderr.log",
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "size_bytes": 0
+            }
+          ],
+          "layer": "S3",
+          "reason_codes": [
+            "functional_oracle_passed"
+          ],
+          "status": "passed"
+        },
+        {
+          "evidence": [
+            {
+              "exit_code": null,
+              "identifier": "f0d2328c36b8",
+              "kind": "session",
+              "relative_path": null,
+              "sha256": null,
+              "size_bytes": null
+            },
+            {
+              "exit_code": null,
+              "identifier": "e7b1776d3959d6c7cac0a1215f5791a5adbe7edb4b75dc0c972b1a24bcae64fb",
+              "kind": "replay_recipe",
+              "relative_path": null,
+              "sha256": null,
+              "size_bytes": null
+            }
+          ],
+          "layer": "S4",
+          "reason_codes": [
+            "provenance_policy_valid"
+          ],
+          "status": "passed"
+        },
+        {
+          "evidence": [
+            {
+              "exit_code": null,
+              "identifier": "replay_b584c4457cfb4d80a82864b9ab27dd75",
+              "kind": "replay",
+              "relative_path": null,
+              "sha256": null,
+              "size_bytes": null
+            }
+          ],
+          "layer": "S5",
+          "reason_codes": [
+            "clean_replay_functional_success"
+          ],
+          "status": "passed"
+        }
+      ],
+      "schema_version": "forge-jev-hybrid-workflow-canary-case-1.0.0",
+      "sequence": 3,
+      "session_status": "completed",
+      "strict_reproducible_build_success": true,
+      "task_id": "c-ares",
+      "terminal_classification": "strict_success"
+    }
+  ],
+  "schema_version": "forge-jev-hybrid-workflow-canary-report-1.0.0",
+  "totals": {
+    "agent_recorded_tokens": 86160,
+    "agent_requests": 9,
+    "jev_cost_usd": 0.00017413200000000002,
+    "jev_input_tokens": 4146,
+    "jev_requests": 3
+  }
+}
