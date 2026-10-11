@@ -1,0 +1,284 @@
+{
+  "agent_provider": {
+    "credential_env": "DEEPSEEK_API_KEY",
+    "endpoint": "https://api.deepseek.com",
+    "max_retries": 0,
+    "profile": "deepseek-flash",
+    "request_timeout_seconds": 300
+  },
+  "authorization": {
+    "backfill": false,
+    "credential_reads": true,
+    "docker_execution": true,
+    "formal_attempts": 3,
+    "formal_evidence_write": true,
+    "historical_evidence_write": false,
+    "provider_calls": true,
+    "replacement": false
+  },
+  "branch": "yiwei/409-jev-hybrid-workflow",
+  "budget": {
+    "hybrid_workflow": {
+      "max_agent_handoffs": 1,
+      "max_cycles": 2,
+      "max_direct_actions": 1,
+      "wall_clock_seconds": 3600
+    },
+    "per_case_agent": {
+      "cleanup_timeout_seconds": 120,
+      "command_timeout_seconds": 900,
+      "evaluator_timeout_seconds": 1800,
+      "max_agent_steps": 64,
+      "max_commands": 32,
+      "max_model_requests": 24,
+      "max_recorded_tokens": 300000,
+      "max_tool_calls": 48,
+      "node_timeout_seconds": 1800,
+      "replay_timeout_seconds": 1800
+    },
+    "total_agent_request_ceiling": 72,
+    "total_agent_token_ceiling": 900000,
+    "total_jev_cost_ceiling_usd": 0.00252,
+    "total_jev_input_token_ceiling": 60000,
+    "total_jev_request_ceiling": 3
+  },
+  "cases": [
+    {
+      "expected_action": "configure",
+      "fault_type": "invalid_build_state",
+      "force_agent_handoff": false,
+      "source": {
+        "artifact_stage_commands": [
+          "cp build/gitlike /artifacts/gitlike"
+        ],
+        "build_commands": [
+          "cmake --build build --target gitlike --parallel 4"
+        ],
+        "commit_sha": "fe4450bd9549e4e02bc2047b2a2800b09f1bb878",
+        "configure_commands": [
+          "cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DARGS_BUILD_EXAMPLE=ON -DARGS_BUILD_UNITTESTS=OFF -DBUILD_FUZZERS=OFF"
+        ],
+        "configure_repair_commands": [
+          "rm -rf build",
+          "cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DARGS_BUILD_EXAMPLE=ON -DARGS_BUILD_UNITTESTS=OFF -DBUILD_FUZZERS=OFF"
+        ],
+        "fault_file": "args.hxx",
+        "oracle": {
+          "argv": [
+            "/artifacts/gitlike",
+            "--help"
+          ],
+          "kind": "command"
+        },
+        "project_family": "github.com/taywee/args",
+        "repository_url": "https://github.com/Taywee/args",
+        "selected_build_system": "cmake",
+        "source_snapshot_sha256": "b96e278749a1d9d311845a449cf354cdaa4aa799ab92f4e61f9aa4ba35bb0112",
+        "target": {
+          "artifact_types": [
+            "executable"
+          ],
+          "bitwise_required": false,
+          "required_artifacts": [
+            "gitlike"
+          ]
+        },
+        "task_id": "args"
+      },
+      "task_id": "args"
+    },
+    {
+      "expected_action": "build",
+      "fault_type": "wrong_build_target",
+      "force_agent_handoff": true,
+      "source": {
+        "artifact_stage_commands": [
+          "mkdir -p /artifacts/lib /artifacts/include && cp libhoedown.a /artifacts/lib/libhoedown.a && cp src/*.h /artifacts/include/"
+        ],
+        "build_commands": [
+          "make -j4 libhoedown.a"
+        ],
+        "commit_sha": "1ef9a71957570c2a65b7daa1b2f693ad87daf385",
+        "configure_commands": [
+          "test -f Makefile"
+        ],
+        "configure_repair_commands": [
+          "git checkout HEAD -- Makefile",
+          "test -f Makefile"
+        ],
+        "fault_file": "src/buffer.c",
+        "oracle": {
+          "compile_argv": [
+            "cc",
+            "-std=c11",
+            "-I/artifacts/include",
+            "{source}",
+            "/artifacts/lib/libhoedown.a",
+            "-o",
+            "{executable}"
+          ],
+          "kind": "compile_and_run",
+          "language": "c11",
+          "run_argv": [
+            "{executable}"
+          ],
+          "source": "#include <buffer.h>\nint main(void){ hoedown_buffer *b=hoedown_buffer_new(8); if(!b) return 1; hoedown_buffer_free(b); return 0; }\n"
+        },
+        "project_family": "github.com/kjdev/hoextdown",
+        "repository_url": "https://github.com/kjdev/hoextdown",
+        "selected_build_system": "make",
+        "source_snapshot_sha256": "0a230ee9c50eaa10dc0b97233c91500621087fff6bb70deb50aff4a3c2ec0234",
+        "target": {
+          "artifact_types": [
+            "support_file",
+            "static_library"
+          ],
+          "bitwise_required": true,
+          "required_artifacts": [
+            "include/buffer.h",
+            "lib/libhoedown.a"
+          ]
+        },
+        "task_id": "hoextdown"
+      },
+      "task_id": "hoextdown"
+    },
+    {
+      "expected_action": "dependency",
+      "fault_type": "missing_compile_input",
+      "force_agent_handoff": false,
+      "source": {
+        "artifact_stage_commands": [
+          "mkdir -p /artifacts/lib /artifacts/include && cp src/lib/.libs/libcares.a /artifacts/lib/libcares.a && cp include/ares*.h /artifacts/include/"
+        ],
+        "build_commands": [
+          "make -j4"
+        ],
+        "commit_sha": "589b5887d47736e5b70a1fddaf9bf90297adde65",
+        "configure_commands": [
+          "autoreconf -fi",
+          "./configure --prefix=/artifacts --disable-shared --enable-static --disable-tests"
+        ],
+        "configure_repair_commands": [
+          "autoreconf -fi",
+          "./configure --prefix=/artifacts --disable-shared --enable-static --disable-tests"
+        ],
+        "fault_file": "src/lib/ares_library_init.c",
+        "oracle": {
+          "compile_argv": [
+            "cc",
+            "-std=c11",
+            "-I/artifacts/include",
+            "{source}",
+            "/artifacts/lib/libcares.a",
+            "-pthread",
+            "-o",
+            "{executable}"
+          ],
+          "kind": "compile_and_run",
+          "language": "c11",
+          "run_argv": [
+            "{executable}"
+          ],
+          "source": "#include <ares.h>\nint main(void){ if(ares_library_init(ARES_LIB_INIT_ALL)!=ARES_SUCCESS) return 1; ares_library_cleanup(); return 0; }\n"
+        },
+        "project_family": "github.com/c-ares/c-ares",
+        "repository_url": "https://github.com/c-ares/c-ares",
+        "selected_build_system": "autotools",
+        "source_snapshot_sha256": "b681abdf95bac81e4c1ea1df5415e63072b034dda804ecbc89c84cb349de26a9",
+        "target": {
+          "artifact_types": [
+            "support_file",
+            "static_library"
+          ],
+          "bitwise_required": true,
+          "required_artifacts": [
+            "include/ares.h",
+            "lib/libcares.a"
+          ]
+        },
+        "task_id": "c-ares"
+      },
+      "task_id": "c-ares"
+    }
+  ],
+  "components": {
+    "backend/packages/harness/deerflow/compile/agent_workflow_runtime.py": "6522c31a81a3032cfd8ed3bc976aca93eea888ca3cd1840a7763ef5a3986b439",
+    "backend/packages/harness/deerflow/compile/external_evaluator_v2.py": "19044e161b321fe5afed8458c0138f1bcfbe41582af2d5f4efcdf6846c3d579b",
+    "backend/packages/harness/deerflow/compile/hybrid_workflow.py": "73e215ebf2d0c3a53db7f8b44993a72c9d6a140091d5c78d5114fec578676d4e",
+    "backend/packages/harness/deerflow/compile/jev_controller.py": "f8c53aa301c60399aae33c052d7d3efd8d39c0827dc751d99cd823194a810e9f",
+    "scripts/forge_agent_workflow_stage_b_phase5_v2_authorized_runner.py": "af3ec35814f566736ec6fae6d47567a9d10deb4e23034fc8cc24840a8ba13c48",
+    "scripts/forge_jev_end_to_end_canary_v7.py": "2b70d4d8628e884c2499c242dca376e545f96b32b392711a3341a988a44c303b",
+    "scripts/forge_jev_hybrid_workflow_canary_v1.py": "b9cbe178f095a9dfc22f7a79650b3b126fd3f2e74b65014193a8cbe82c7ff4b1",
+    "scripts/forge_jev_offline_qualification_candidate.py": "90d5c1260231a79eaa94b9a488338b7994a54862bd14a4f50a1b112846a1ca17",
+    "scripts/forge_jev_offline_qualification_v6.py": "3347f1bd4b2428fd80d6d727158362bcc85d45b9934f36d1f2de5b476b08cdc0",
+    "scripts/forge_typed_semantic_routing_pilot_v2.py": "806ed376cc70756a939e28dae05eb820e070492a095bea8466a799e37ff1972f"
+  },
+  "environment": {
+    "compile_image": "autocompiler:gcc13",
+    "image_id": "sha256:d27a6ab733c7c3a9cbb5e4b32fb595aa5a422ff04bd212888d1041b90a2c4c2a",
+    "network_policy": "compile-network-v1",
+    "parallel_jobs": 4,
+    "workspace_root_binding": "repository_root"
+  },
+  "evidence": {
+    "create_once": true,
+    "preserve_failures": true,
+    "root": ".compile-sessions/benchmark-evidence-jev-hybrid-workflow-canary-v1",
+    "store_credentials": false
+  },
+  "identity": "cpp-jev-hybrid-workflow-canary-v1",
+  "implementation_revision": "e0f29958fc78b351663c96eac3777c3b7cb1df7f",
+  "interpretation": {
+    "canary_only": true,
+    "cost_savings_claim": false,
+    "dynamic_budget_claim": false,
+    "model_ranking": false,
+    "natural_failure_effect": false,
+    "strict_success_noninferiority": false,
+    "treatment_effect": false
+  },
+  "issue_url": "https://github.com/WWFXL/Forge-AutoCompiler/issues/409",
+  "jev_provider": {
+    "credential_file": "jev-apikey.txt",
+    "endpoint": "https://api.typesafe.ai",
+    "input_price_usd_per_million_tokens": 0.042,
+    "max_retries": 0,
+    "model": "jev-1.13.0",
+    "request_timeout_seconds": 30
+  },
+  "parents": {
+    "benchmarks/manifests/cpp-jev-end-to-end-canary-v7.json": "1adb84f8009568778c22bc389f2add503bf7257f8474c88909d6e6b8e9e44cce",
+    "benchmarks/reports/cpp-jev-end-to-end-canary-v7.json": "2fdbf0d64c3254b4e4dedc39c2f59b525febb0b0ad0d5dd25ed20e2858597ef4",
+    "benchmarks/reports/cpp-jev-hybrid-workflow-qualification-v3.json": "0e15cdf2820cd72e01b3b7057ce355fa1189b538cf4359a0b1264d94165270ad"
+  },
+  "routing": {
+    "calibration": {
+      "coefficient": 0.08805149266059632,
+      "intercept": 0.618335523488825,
+      "model": "jev-1.13.0",
+      "threshold": 0.6747568477098429
+    },
+    "candidate_actions": [
+      "dependency",
+      "configure",
+      "build",
+      "escalate_agent"
+    ],
+    "force_agent_handoff_case": "hoextdown",
+    "forced_handoff_mechanism": "all direct candidates have preconditions_satisfied=false after the real Jev response",
+    "strict_verifiers": [
+      "candidate_verifier",
+      "functional_oracle",
+      "provenance",
+      "clean_replay"
+    ]
+  },
+  "stopping": {
+    "backfill": false,
+    "on_budget_exhaustion": "stop_and_preserve",
+    "on_case_failure": "preserve_and_continue_if_cleanup_and_budget_are_valid",
+    "replacement": false,
+    "retry": false
+  }
+}
