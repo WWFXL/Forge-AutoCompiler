@@ -21,13 +21,15 @@
 
 ## C. 初始自然失败 replay
 
-- [ ] 运行 Docker preflight，确认镜像、daemon、磁盘和 0 managed resources。
-- [ ] 对 22 个候选执行 source/exact-commit 门禁；source-ineligible 结果保留且不换系统。
-- [ ] 对 source-eligible 项目执行两个独立、无网络的标准初始路径。
-- [ ] 保存完整日志、规范化失败阶段/类别、命令退出和 cleanup；不把超时或基础设施错误当自然失败。
-- [ ] 若三个系统的固定角色已不可能达到最低配额，按协议提前停止并冻结负结果。
+- [x] 运行 Docker preflight，确认镜像、daemon、磁盘和 0 managed resources。
+- [ ] 对 22 个候选执行 source/exact-commit 门禁；唯一 attempt 完成 7 项后在第 8 项因 runner 超时处理缺陷失败封口。
+- [ ] 对 source-eligible 项目执行两个独立、无网络的标准初始路径；已完成项保留，未观察项不填零。
+- [x] 保存已发生的完整日志、命令退出和 cleanup；只读审计纠正两项网络失败误标签。
+- [x] CMake calibration 固定配额已不可能达到，冻结负结果并停止 v1。
 
 ## D. Reference recipe 与动作矩阵
+
+v1 source qualification 未通过，本节不执行。
 
 - [ ] 对稳定自然失败逐项审计仓库文档、构建文件和失败日志，冻结可追溯 reference recipe。
 - [ ] 为每项绑定 target、functional oracle、provenance 和 clean replay，禁止源码补丁和 verifier 放宽。
@@ -38,13 +40,15 @@
 
 ## E. 资格分析与关键结论
 
-- [ ] 计算各系统/角色合格数、安全动作分布、RuleGate top-1 安全率和 replay 一致率。
-- [ ] 严格按设计门槛给出 `proceed_to_provider_evaluation` 或 `stop_provider_evaluation`。
-- [ ] 生成 create-once JSON、Markdown 报告和 canonical inventory；失败与排除项进入报告。
-- [ ] 更新 `RESEARCH_STATUS.md` 和 `.claude/memory/project.md`，区分 observation、派生指标和解释边界。
-- [ ] 运行聚焦测试、lint、Schema/protocol 校验、`git diff --check` 和最终 0-orphan 审计。
+- [x] 审计已观察角色配额；动作分布和 RuleGate 指标因未进入动作矩阵而不计算。
+- [x] 给出 `stop_natural_failure_evaluation_v1`，不进入 Provider evaluation。
+- [x] 生成 create-once 失败 JSON/Markdown、canonical inventory 和只读失败审计。
+- [x] 更新 `RESEARCH_STATUS.md` 和 `.claude/memory/project.md`，区分 observation、派生指标和解释边界。
+- [x] 运行聚焦测试、lint、Schema/protocol 校验、`git diff --check` 和最终 0-orphan 审计。
 
 ## F. 仅在资格通过后执行 Provider 阶段
+
+v1 未通过，本节不执行。
 
 - [ ] 派生独立 Provider identity，冻结 design prompt、calibration 方法、evaluation schedule 和三臂顺序。
 - [ ] 固定 Jev/Agent 模型、request/token/费用/墙钟预算、无隐式 retry、停止规则和 evidence 路径。

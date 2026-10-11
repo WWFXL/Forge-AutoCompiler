@@ -1,0 +1,542 @@
+{
+  "completed_at": "2026-10-11T06:26:10.856325+00:00",
+  "evidence_inventory": [
+    {
+      "bytes": 4020,
+      "path": "manifest.json",
+      "sha256": "40a53bc0305ef9d5a131caa28de683f7411abca31be4256d4ad09cd14f0f825d"
+    },
+    {
+      "bytes": 11147,
+      "path": "source-pool.json",
+      "sha256": "be8633875cb52f907275c3ae0461f35d60cd375372230ec946ea1c1ee515bd33"
+    },
+    {
+      "bytes": 1598,
+      "path": "tasks/cmake-flameshot/replicate-1-command-1.stderr.log",
+      "sha256": "05db1adf10b55272441a84eb11a11a6324d5298c3ca69bbec79f58c2ce1d51b6"
+    },
+    {
+      "bytes": 306,
+      "path": "tasks/cmake-flameshot/replicate-1-command-1.stdout.log",
+      "sha256": "3a5ed71f986f8d8e685f89fa503ef63e96287a07b25b8a78075418d01f563ad5"
+    },
+    {
+      "bytes": 932,
+      "path": "tasks/cmake-flameshot/replicate-1.json",
+      "sha256": "d16de060139791a1bceecb0a73c8e1cd791c50d4b6032553a7f7315980ea5666"
+    },
+    {
+      "bytes": 1598,
+      "path": "tasks/cmake-flameshot/replicate-2-command-1.stderr.log",
+      "sha256": "05db1adf10b55272441a84eb11a11a6324d5298c3ca69bbec79f58c2ce1d51b6"
+    },
+    {
+      "bytes": 306,
+      "path": "tasks/cmake-flameshot/replicate-2-command-1.stdout.log",
+      "sha256": "3a5ed71f986f8d8e685f89fa503ef63e96287a07b25b8a78075418d01f563ad5"
+    },
+    {
+      "bytes": 930,
+      "path": "tasks/cmake-flameshot/replicate-2.json",
+      "sha256": "16caf760821261c449264e6cff0add27cec7018d9b58491063769286c8ec153f"
+    },
+    {
+      "bytes": 3210,
+      "path": "tasks/cmake-flameshot/result.json",
+      "sha256": "5d95cbc0f91695e4bf0b83cdee6e94f353d946a7055be3d67fb9d4fecd9dee1c"
+    },
+    {
+      "bytes": 746,
+      "path": "tasks/cmake-flameshot/source.json",
+      "sha256": "2966df445303ffb6ed174c4cd93ca42b9d7f1d0a286c6b67dbd0d2abb35cf691"
+    },
+    {
+      "bytes": 241,
+      "path": "tasks/cmake-flameshot/source.stderr.log",
+      "sha256": "9940a7ae87368e2dd4ec8b9201715b7219edb7ca92a1999a0234281028efee33"
+    },
+    {
+      "bytes": 0,
+      "path": "tasks/cmake-flameshot/source.stdout.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 3617,
+      "path": "tasks/cmake-kvrocks/replicate-1-command-1.stderr.log",
+      "sha256": "c538f6906ecc19a8b0ce1717dddf8bfb1f84223a79183f89e17330b9fd634b9d"
+    },
+    {
+      "bytes": 556,
+      "path": "tasks/cmake-kvrocks/replicate-1-command-1.stdout.log",
+      "sha256": "be6566a06a89a7dc7bd212c79966044d980e413b6377606149d0ac0dd2ab196c"
+    },
+    {
+      "bytes": 918,
+      "path": "tasks/cmake-kvrocks/replicate-1.json",
+      "sha256": "7da6d1e9ae9223286a761f77d6e9b05101d2ea4eaf0e660d46167d2ae3494b43"
+    },
+    {
+      "bytes": 3617,
+      "path": "tasks/cmake-kvrocks/replicate-2-command-1.stderr.log",
+      "sha256": "c538f6906ecc19a8b0ce1717dddf8bfb1f84223a79183f89e17330b9fd634b9d"
+    },
+    {
+      "bytes": 556,
+      "path": "tasks/cmake-kvrocks/replicate-2-command-1.stdout.log",
+      "sha256": "be6566a06a89a7dc7bd212c79966044d980e413b6377606149d0ac0dd2ab196c"
+    },
+    {
+      "bytes": 918,
+      "path": "tasks/cmake-kvrocks/replicate-2.json",
+      "sha256": "ed4f3714eab2d669312305628e7186cf521a530f8fd4df0c9803e3eb41474216"
+    },
+    {
+      "bytes": 3166,
+      "path": "tasks/cmake-kvrocks/result.json",
+      "sha256": "8dce1138b2bcf886d421eb20a1623d3a3a0ecc51fc042e72f55ff35f60bd75a0"
+    },
+    {
+      "bytes": 743,
+      "path": "tasks/cmake-kvrocks/source.json",
+      "sha256": "d0e8f56fde9ef5a5753cd158363f5e3c1b25d4926e006f8944954e73cecbbf65"
+    },
+    {
+      "bytes": 214,
+      "path": "tasks/cmake-kvrocks/source.stderr.log",
+      "sha256": "9f630f9f957de2ceb52c2984e4e2734f8288f2180aa85449000361a90a421439"
+    },
+    {
+      "bytes": 0,
+      "path": "tasks/cmake-kvrocks/source.stdout.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 1088,
+      "path": "tasks/cmake-mold/result.json",
+      "sha256": "efb11ee3b845a251f8f5b2f4f025673f83b91dbee9e2ea781eb3538cc334a62c"
+    },
+    {
+      "bytes": 733,
+      "path": "tasks/cmake-mold/source.json",
+      "sha256": "084e57a065c3670c61a55467ee3c07b00afb83a9c593249d98ecfa9669562fc1"
+    },
+    {
+      "bytes": 211,
+      "path": "tasks/cmake-mold/source.stderr.log",
+      "sha256": "1525f1ff8c295ac6e860009eb9c3416db6e149053f36894eb88feb90931b01d7"
+    },
+    {
+      "bytes": 0,
+      "path": "tasks/cmake-mold/source.stdout.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 1115,
+      "path": "tasks/cmake-openalpr/result.json",
+      "sha256": "0083a0104e91b59c340a4e15730bcf76e125999105330f3d8a63f6d405237feb"
+    },
+    {
+      "bytes": 745,
+      "path": "tasks/cmake-openalpr/source.json",
+      "sha256": "26a9c52d8d877063ab9a7f7d02e757a2457b5c5d448c95c874469cd3562aa146"
+    },
+    {
+      "bytes": 228,
+      "path": "tasks/cmake-openalpr/source.stderr.log",
+      "sha256": "49e7a25a3fcc54f5d042a35a3cc07b4f26546f4181e9d781c2864e85da97597a"
+    },
+    {
+      "bytes": 0,
+      "path": "tasks/cmake-openalpr/source.stdout.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 1107,
+      "path": "tasks/cmake-soloud/result.json",
+      "sha256": "19787f4eb5680aa149295565ea51954c853e0458dead9972805fed1c4497fac8"
+    },
+    {
+      "bytes": 740,
+      "path": "tasks/cmake-soloud/source.json",
+      "sha256": "a167f1e2325342e7e7e3113c57bdfd7c9813b4a13febddc2a57ba0eb7cb5502b"
+    },
+    {
+      "bytes": 195,
+      "path": "tasks/cmake-soloud/source.stderr.log",
+      "sha256": "f5295396f43b4a3599d156647ee1cac9a743256b1544e33f0655611bebd683f2"
+    },
+    {
+      "bytes": 0,
+      "path": "tasks/cmake-soloud/source.stdout.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 1091,
+      "path": "tasks/cmake-srs/result.json",
+      "sha256": "6fd026aa11bdca46d7a33e7caafc025f1fc8529322ea5e3708fe3cbc13a6fab5"
+    },
+    {
+      "bytes": 735,
+      "path": "tasks/cmake-srs/source.json",
+      "sha256": "bab05c2349f1af088c487e615702c3f0cc4cd1fd63140f5174b1264eeb8cf539"
+    },
+    {
+      "bytes": 233,
+      "path": "tasks/cmake-srs/source.stderr.log",
+      "sha256": "dde2bc9c6cee817f774fed0f73e24c34607d4a7fea9cb11e5d317c1bf519d0f0"
+    },
+    {
+      "bytes": 0,
+      "path": "tasks/cmake-srs/source.stdout.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 1163,
+      "path": "tasks/cmake-treefrog-framework/result.json",
+      "sha256": "f6f1a93a55ab5828dce02b9cf1ed045733cc904957de9ac078ad11ea2faffbd6"
+    },
+    {
+      "bytes": 764,
+      "path": "tasks/cmake-treefrog-framework/source.json",
+      "sha256": "6da3bbefffc279a3b33a149a00197b3a03e8a25685b736ba2dfb3c88e22d1215"
+    },
+    {
+      "bytes": 193,
+      "path": "tasks/cmake-treefrog-framework/source.stderr.log",
+      "sha256": "f5c192f3bff097dc4078b207af1e6153e45267a59235143c5405654996f5d7ea"
+    },
+    {
+      "bytes": 0,
+      "path": "tasks/cmake-treefrog-framework/source.stdout.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "evidence_inventory_canonical_sha256": "fcb426ed7c7241148a9be224837a27b48935e300388d7c89a6fb6555afcd9c8b",
+  "execution_revision": "ba6c2f26a56f7be51caa34f5f512b380508c848a",
+  "identity": "cpp-jev-natural-failure-source-qualification-v1",
+  "interpretation": {
+    "agent_effect": false,
+    "benchmark_qualified": false,
+    "cost_savings_claim": false,
+    "dynamic_budget_claim": false,
+    "jev_effect": false,
+    "source_qualification_only": true,
+    "treatment_effect": false
+  },
+  "manifest_canonical_sha256": "64aeb10b8960b78ce82bb802f45d4bd7a437b5eaec1e17fdce6cd7b7e08a8deb",
+  "qualification": {
+    "decision": "attempt_failed",
+    "failed_requirements": [
+      "cmake:calibration:0<1",
+      "cmake:evaluation:1<2",
+      "make:design:0<1",
+      "make:calibration:0<1",
+      "make:evaluation:0<2",
+      "autotools:design:0<1",
+      "autotools:calibration:0<1",
+      "autotools:evaluation:0<2"
+    ],
+    "global_error": "TimeoutExpired:Command '['git', 'submodule', 'update', '--init', '--recursive', '--depth', '1']' timed out after 300 seconds",
+    "passed": false,
+    "stable_failure_counts": {
+      "autotools": {
+        "calibration": 0,
+        "design": 0,
+        "evaluation": 0
+      },
+      "cmake": {
+        "calibration": 0,
+        "design": 1,
+        "evaluation": 1
+      },
+      "make": {
+        "calibration": 0,
+        "design": 0,
+        "evaluation": 0
+      }
+    }
+  },
+  "schema_version": "forge-jev-natural-failure-source-qualification-report-1.0.0",
+  "source_pool_sha256": "be8633875cb52f907275c3ae0461f35d60cd375372230ec946ea1c1ee515bd33",
+  "started_at": "2026-10-11T06:17:10.211474+00:00",
+  "status": "failed",
+  "summary": {
+    "classifications": {
+      "source_contract_ineligible": 5,
+      "stable_natural_failure": 2
+    },
+    "credential_reads": 0,
+    "elapsed_seconds": 540.6448670169339,
+    "model_tokens": 0,
+    "provider_requests": 0,
+    "stable_natural_failures": 2,
+    "tasks_completed": 7,
+    "tasks_total": 22
+  },
+  "tasks": [
+    {
+      "classification": "source_contract_ineligible",
+      "commit_sha": "c522789231c9de8afb35722bf8c859341f1fcef6",
+      "project_family": "github.com/rui314/mold",
+      "reason": "cmakelists_missing",
+      "replicates": [],
+      "role": "design",
+      "selected_build_system": "cmake",
+      "source": {
+        "clean": true,
+        "elapsed_seconds": 5.017745050136,
+        "head": "c522789231c9de8afb35722bf8c859341f1fcef6",
+        "source_identity_sha256": "e882537a11516d8c3332110626e48c454bcadeefda7056b5fee1fb33277bee78",
+        "stage": "complete",
+        "status": "",
+        "stderr_path": ".compile-sessions/benchmark-evidence-jev-natural-failure-source-qualification-v1/tasks/cmake-mold/source.stderr.log",
+        "stderr_sha256": "1525f1ff8c295ac6e860009eb9c3416db6e149053f36894eb88feb90931b01d7",
+        "stdout_path": ".compile-sessions/benchmark-evidence-jev-natural-failure-source-qualification-v1/tasks/cmake-mold/source.stdout.log",
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "submodules": [],
+        "succeeded": true
+      },
+      "system_rank": 1,
+      "task_id": "cmake-mold"
+    },
+    {
+      "classification": "stable_natural_failure",
+      "commit_sha": "019bea68a4a2e4e0d311cce80eda0652c55b81df",
+      "project_family": "github.com/flameshot-org/flameshot",
+      "reason": "two_clean_replays_agree",
+      "replicates": [
+        {
+          "commands": [
+            {
+              "command": "cmake -S . -B build -DCMAKE_BUILD_TYPE=Release",
+              "elapsed_seconds": 1.0668250101152807,
+              "exit_code": 1,
+              "infrastructure_failure": false,
+              "phase": "configure",
+              "stderr_path": ".compile-sessions/benchmark-evidence-jev-natural-failure-source-qualification-v1/tasks/cmake-flameshot/replicate-1-command-1.stderr.log",
+              "stderr_sha256": "05db1adf10b55272441a84eb11a11a6324d5298c3ca69bbec79f58c2ce1d51b6",
+              "stdout_path": ".compile-sessions/benchmark-evidence-jev-natural-failure-source-qualification-v1/tasks/cmake-flameshot/replicate-1-command-1.stdout.log",
+              "stdout_sha256": "3a5ed71f986f8d8e685f89fa503ef63e96287a07b25b8a78075418d01f563ad5",
+              "timed_out": false
+            }
+          ],
+          "elapsed_seconds": 1.0979163111187518,
+          "error_category": "unknown_build_failure",
+          "failure_phase": "configure",
+          "outcome": "bounded_failure",
+          "replicate": 1
+        },
+        {
+          "commands": [
+            {
+              "command": "cmake -S . -B build -DCMAKE_BUILD_TYPE=Release",
+              "elapsed_seconds": 1.0625209240242839,
+              "exit_code": 1,
+              "infrastructure_failure": false,
+              "phase": "configure",
+              "stderr_path": ".compile-sessions/benchmark-evidence-jev-natural-failure-source-qualification-v1/tasks/cmake-flameshot/replicate-2-command-1.stderr.log",
+              "stderr_sha256": "05db1adf10b55272441a84eb11a11a6324d5298c3ca69bbec79f58c2ce1d51b6",
+              "stdout_path": ".compile-sessions/benchmark-evidence-jev-natural-failure-source-qualification-v1/tasks/cmake-flameshot/replicate-2-command-1.stdout.log",
+              "stdout_sha256": "3a5ed71f986f8d8e685f89fa503ef63e96287a07b25b8a78075418d01f563ad5",
+              "timed_out": false
+            }
+          ],
+          "elapsed_seconds": 1.09176611690782,
+          "error_category": "unknown_build_failure",
+          "failure_phase": "configure",
+          "outcome": "bounded_failure",
+          "replicate": 2
+        }
+      ],
+      "role": "design",
+      "selected_build_system": "cmake",
+      "source": {
+        "clean": true,
+        "elapsed_seconds": 8.629490821855143,
+        "head": "019bea68a4a2e4e0d311cce80eda0652c55b81df",
+        "source_identity_sha256": "0ebb56166467dd31d83b000e12db6b89c78d112bb48fef042a0d6a642d4b648d",
+        "stage": "complete",
+        "status": "",
+        "stderr_path": ".compile-sessions/benchmark-evidence-jev-natural-failure-source-qualification-v1/tasks/cmake-flameshot/source.stderr.log",
+        "stderr_sha256": "9940a7ae87368e2dd4ec8b9201715b7219edb7ca92a1999a0234281028efee33",
+        "stdout_path": ".compile-sessions/benchmark-evidence-jev-natural-failure-source-qualification-v1/tasks/cmake-flameshot/source.stdout.log",
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "submodules": [],
+        "succeeded": true
+      },
+      "stable_failure": "configure / unknown_build_failure",
+      "system_rank": 2,
+      "task_id": "cmake-flameshot"
+    },
+    {
+      "classification": "source_contract_ineligible",
+      "commit_sha": "736ab0e608cf9b20d92f36a873bb1152240daa98",
+      "project_family": "github.com/openalpr/openalpr",
+      "reason": "cmakelists_missing",
+      "replicates": [],
+      "role": "calibration",
+      "selected_build_system": "cmake",
+      "source": {
+        "clean": true,
+        "elapsed_seconds": 3.3482118928804994,
+        "head": "736ab0e608cf9b20d92f36a873bb1152240daa98",
+        "source_identity_sha256": "af8b33e749577cf0bb6092a2da37c56ce52a954fba575c316d00577b1b6c4099",
+        "stage": "complete",
+        "status": "",
+        "stderr_path": ".compile-sessions/benchmark-evidence-jev-natural-failure-source-qualification-v1/tasks/cmake-openalpr/source.stderr.log",
+        "stderr_sha256": "49e7a25a3fcc54f5d042a35a3cc07b4f26546f4181e9d781c2864e85da97597a",
+        "stdout_path": ".compile-sessions/benchmark-evidence-jev-natural-failure-source-qualification-v1/tasks/cmake-openalpr/source.stdout.log",
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "submodules": [],
+        "succeeded": true
+      },
+      "system_rank": 3,
+      "task_id": "cmake-openalpr"
+    },
+    {
+      "classification": "source_contract_ineligible",
+      "commit_sha": "f54f60220aa4b10ed69d541a3a3547259fc695c4",
+      "project_family": "github.com/treefrogframework/treefrog-framework",
+      "reason": "cmakelists_missing",
+      "replicates": [],
+      "role": "calibration",
+      "selected_build_system": "cmake",
+      "source": {
+        "clean": true,
+        "elapsed_seconds": 7.473529583076015,
+        "head": "f54f60220aa4b10ed69d541a3a3547259fc695c4",
+        "source_identity_sha256": "1467243bc62539f3ebcb70bd8a656c2cff6dd98d099d68d1eaa6a84743970d3d",
+        "stage": "complete",
+        "status": "",
+        "stderr_path": ".compile-sessions/benchmark-evidence-jev-natural-failure-source-qualification-v1/tasks/cmake-treefrog-framework/source.stderr.log",
+        "stderr_sha256": "f5c192f3bff097dc4078b207af1e6153e45267a59235143c5405654996f5d7ea",
+        "stdout_path": ".compile-sessions/benchmark-evidence-jev-natural-failure-source-qualification-v1/tasks/cmake-treefrog-framework/source.stdout.log",
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "submodules": [],
+        "succeeded": true
+      },
+      "system_rank": 4,
+      "task_id": "cmake-treefrog-framework"
+    },
+    {
+      "classification": "stable_natural_failure",
+      "commit_sha": "dc8bc3afdc31aa7aebab832dfcbaf2d850ec70e5",
+      "project_family": "github.com/apache/kvrocks",
+      "reason": "two_clean_replays_agree",
+      "replicates": [
+        {
+          "commands": [
+            {
+              "command": "cmake -S . -B build -DCMAKE_BUILD_TYPE=Release",
+              "elapsed_seconds": 86.41282410291024,
+              "exit_code": 1,
+              "infrastructure_failure": false,
+              "phase": "configure",
+              "stderr_path": ".compile-sessions/benchmark-evidence-jev-natural-failure-source-qualification-v1/tasks/cmake-kvrocks/replicate-1-command-1.stderr.log",
+              "stderr_sha256": "c538f6906ecc19a8b0ce1717dddf8bfb1f84223a79183f89e17330b9fd634b9d",
+              "stdout_path": ".compile-sessions/benchmark-evidence-jev-natural-failure-source-qualification-v1/tasks/cmake-kvrocks/replicate-1-command-1.stdout.log",
+              "stdout_sha256": "be6566a06a89a7dc7bd212c79966044d980e413b6377606149d0ac0dd2ab196c",
+              "timed_out": false
+            }
+          ],
+          "elapsed_seconds": 86.44364677020349,
+          "error_category": "compile_error",
+          "failure_phase": "configure",
+          "outcome": "bounded_failure",
+          "replicate": 1
+        },
+        {
+          "commands": [
+            {
+              "command": "cmake -S . -B build -DCMAKE_BUILD_TYPE=Release",
+              "elapsed_seconds": 86.36645059706643,
+              "exit_code": 1,
+              "infrastructure_failure": false,
+              "phase": "configure",
+              "stderr_path": ".compile-sessions/benchmark-evidence-jev-natural-failure-source-qualification-v1/tasks/cmake-kvrocks/replicate-2-command-1.stderr.log",
+              "stderr_sha256": "c538f6906ecc19a8b0ce1717dddf8bfb1f84223a79183f89e17330b9fd634b9d",
+              "stdout_path": ".compile-sessions/benchmark-evidence-jev-natural-failure-source-qualification-v1/tasks/cmake-kvrocks/replicate-2-command-1.stdout.log",
+              "stdout_sha256": "be6566a06a89a7dc7bd212c79966044d980e413b6377606149d0ac0dd2ab196c",
+              "timed_out": false
+            }
+          ],
+          "elapsed_seconds": 86.39817888708785,
+          "error_category": "compile_error",
+          "failure_phase": "configure",
+          "outcome": "bounded_failure",
+          "replicate": 2
+        }
+      ],
+      "role": "evaluation",
+      "selected_build_system": "cmake",
+      "source": {
+        "clean": true,
+        "elapsed_seconds": 4.9101002749521285,
+        "head": "dc8bc3afdc31aa7aebab832dfcbaf2d850ec70e5",
+        "source_identity_sha256": "a58b382343acc3a63a6bc530fe2fcb16df25ad3f349410b3ddd7102ba7b8ed2a",
+        "stage": "complete",
+        "status": "",
+        "stderr_path": ".compile-sessions/benchmark-evidence-jev-natural-failure-source-qualification-v1/tasks/cmake-kvrocks/source.stderr.log",
+        "stderr_sha256": "9f630f9f957de2ceb52c2984e4e2734f8288f2180aa85449000361a90a421439",
+        "stdout_path": ".compile-sessions/benchmark-evidence-jev-natural-failure-source-qualification-v1/tasks/cmake-kvrocks/source.stdout.log",
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "submodules": [],
+        "succeeded": true
+      },
+      "stable_failure": "configure / compile_error",
+      "system_rank": 5,
+      "task_id": "cmake-kvrocks"
+    },
+    {
+      "classification": "source_contract_ineligible",
+      "commit_sha": "e82fd32c1f62183922f08c14c814a02b58db1873",
+      "project_family": "github.com/jarikomppa/soloud",
+      "reason": "cmakelists_missing",
+      "replicates": [],
+      "role": "evaluation",
+      "selected_build_system": "cmake",
+      "source": {
+        "clean": true,
+        "elapsed_seconds": 4.794220715062693,
+        "head": "e82fd32c1f62183922f08c14c814a02b58db1873",
+        "source_identity_sha256": "775380d42219df5066492dc1f64c6ea79488f198ec7d514e3af5513c7bf5ecc4",
+        "stage": "complete",
+        "status": "",
+        "stderr_path": ".compile-sessions/benchmark-evidence-jev-natural-failure-source-qualification-v1/tasks/cmake-soloud/source.stderr.log",
+        "stderr_sha256": "f5295396f43b4a3599d156647ee1cac9a743256b1544e33f0655611bebd683f2",
+        "stdout_path": ".compile-sessions/benchmark-evidence-jev-natural-failure-source-qualification-v1/tasks/cmake-soloud/source.stdout.log",
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "submodules": [],
+        "succeeded": true
+      },
+      "system_rank": 6,
+      "task_id": "cmake-soloud"
+    },
+    {
+      "classification": "source_contract_ineligible",
+      "commit_sha": "185f78597370767311a52e49bc72e5fae3fee79b",
+      "project_family": "github.com/ossrs/srs",
+      "reason": "cmakelists_missing",
+      "replicates": [],
+      "role": "evaluation",
+      "selected_build_system": "cmake",
+      "source": {
+        "clean": true,
+        "elapsed_seconds": 17.707904326962307,
+        "head": "185f78597370767311a52e49bc72e5fae3fee79b",
+        "source_identity_sha256": "ab7f2f94775641557f421cbba3c7997bffcb1693c72780696267af43a0158be4",
+        "stage": "complete",
+        "status": "",
+        "stderr_path": ".compile-sessions/benchmark-evidence-jev-natural-failure-source-qualification-v1/tasks/cmake-srs/source.stderr.log",
+        "stderr_sha256": "dde2bc9c6cee817f774fed0f73e24c34607d4a7fea9cb11e5d317c1bf519d0f0",
+        "stdout_path": ".compile-sessions/benchmark-evidence-jev-natural-failure-source-qualification-v1/tasks/cmake-srs/source.stdout.log",
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "submodules": [],
+        "succeeded": true
+      },
+      "system_rank": 7,
+      "task_id": "cmake-srs"
+    }
+  ]
+}

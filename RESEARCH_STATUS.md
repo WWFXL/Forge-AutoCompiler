@@ -4,8 +4,10 @@
 
 ## 当前阶段
 
-- 状态：Issue #409 已完成 `Workflow + Jev + Agent` 混合链路的 spec、实现、零 Provider qualification 和真实 Provider canary；冻结决定为 `proceed_to_natural_failure_evaluation_design`。当前停在自然失败对照实验设计前。
-- 当前工作类型：工程链路资格与结果分析。该阶段验证系统能否安全组合确定性 Workflow、Jev typed-action 路由、完整 Agent 回退和 S0-S5 严格终点，不估计自然失败 treatment effect。
+- 状态：Issue #411 已完成自然失败 source qualification v1 的结果盲设计、实现、唯一正式 attempt 和只读失败审计；决定为 `stop_natural_failure_evaluation_v1`，不进入 reference recipe、动作矩阵或 Provider 三臂实验。
+- 当前工作类型：数据资格与失败结果分析。v1 计划从 CXXCrafter Top100 的 22 个未见 exact commit 构造跨 CMake/Make/Autotools 自然失败；attempt 在完成 7 项后因 `rpcs3` submodule timeout 被 runner 错误提升为全局失败而封口。
+- 自然失败关键证据：7 个完成项中，5 个与冻结根入口合同不符；runner 标为稳定失败的 `flameshot`、`kvrocks` 均是禁网下 `FetchContent` 失败，按预注册网络排除项复核后，有效稳定自然失败为 `0/7`。固定 CMake calibration 两项均 root-entrypoint ineligible，配额 `0/1`，剩余任务无法改变停止结论。
+- 自然失败证据边界：Make/Autotools 和其余 CMake 候选未观察，不记零；本轮不支持 Jev/Agent 自然失败效果、reference/action 多样性、成本收益或动态预算结论。全过程 0 credential / 0 Provider / 0 token / 0 reference recipe / 0 action matrix，cleanup 后 0 受管容器。
 - 上游正式结果：Issue #408 的受控失败正式比较中，严格成功为 `JevGate+Agent 22/24`、`AlwaysAgent 10/24`、`RuleGate+Agent 13/24`；Jev 相对 AlwaysAgent 的成功率差为 `+0.500`，项目族聚类 bootstrap 单侧 95% 下界为 `+0.292`，Provider 估算成本下降 `89.6%`。
 - 混合链路结果：零 Provider qualification v3 在 CMake、Make、Autotools 上 `3/3` 严格成功；真实 canary 也为 `3/3` S0-S5 严格成功、全部 cleanup、0 受管资源。Jev 对 CMake/Autotools 直接执行 `configure/dependency`，Make 的冻结候选前置条件失败后由真实 Agent 接管并把控制权交还 Workflow。
 - canary 用量：Jev 为 3 requests / 4,146 input tokens / `$0.000174132`；Agent handoff 为 1 次、9 requests / 86,160 recorded tokens。10 个 evidence 文件共 132,192 bytes，inventory canonical SHA-256 为 `6b6424f65603bc0d9a1b4c379fa7ad37206cbe6f437bd50395512c8586b4b859`。
@@ -35,6 +37,8 @@
 - 混合链路实施计划：`docs/superpowers/plans/2026-10-11-jev-hybrid-workflow.md`。
 - 混合链路零 Provider qualification v3：`benchmarks/reports/cpp-jev-hybrid-workflow-qualification-v3.md`。
 - 混合链路 Provider canary v1：`benchmarks/reports/cpp-jev-hybrid-workflow-canary-v1.md`。
+- 自然失败 source qualification v1：`benchmarks/reports/cpp-jev-natural-failure-source-qualification-v1.md`。
+- 自然失败 source qualification v1 失败审计：`benchmarks/reports/cpp-jev-natural-failure-source-qualification-v1-failure-audit.md`。
 - Jev API 合同审计：`docs/research/2026-10-09-jev-api-contract-audit.md`。
 - 三候选机制审计：`docs/research/2026-10-09-three-candidate-mechanism-audit.md`。
 - 主动诊断机制审计：`docs/research/2026-10-09-active-diagnosis-mechanism-audit.md`。
@@ -91,6 +95,7 @@ BootstrapAgent、SWE-Skills-Bench、VibeMemBench 等轨迹控制、动作接口�
 - Issue #406 的 v1-v6 依次暴露父常量、workspace、宿主权限、build-system identity、artifact role 和公开头文件 staging 问题，均保持只读。v7 零 Provider qualification 为 3/3 strict；正式 canary 中 JevGate 为 3/3 strict、0 Agent 请求，AlwaysAgent 为 1/3 strict、39 请求/440,480 tokens，RuleGate+Agent 为 1/3 strict、23 请求/238,067 tokens。Jev 三次请求均直接执行且严格通过，总费用 `$0.000174804`。
 - Issue #408 的 v1-v5 资格失败分别暴露 source snapshot、权限、fault compatibility、artifact closure 和 Redis 可复现 header 问题，均冻结只读；v6 零 Provider qualification 为 12/12 strict。正式 72-arm 比较中 JevGate、AlwaysAgent、RuleGate+Agent 分别为 `22/24`、`10/24`、`13/24` strict；Jev 相对 AlwaysAgent 的项目族聚类单侧 95% 下界为 `+0.292`，成本下降 `89.6%`，联合门槛通过。
 - Issue #409 的 qualification v1/v2 分别因不存在的取证字段和 Autotools oracle 错误而按规则冻结失败；v3 在三种构建系统上 `3/3` strict，2 次直接动作、1 次 scripted Agent handoff。真实 Provider canary 随后 `3/3` strict，观察到 2 次直接动作和 1 次真实 Agent handoff，控制权交还、预算、S0-S5、cleanup 和零资源门禁全部通过。
+- Issue #411 的 source qualification v1 完成 7/22 项后因 runner 未捕获 `rpcs3` submodule timeout 而失败封口。原始分类为 5 项 source-contract ineligible、2 项 stable failure；只读协议审计确认后两项实际是禁网导致的 CMake FetchContent 失败，故有效自然失败为 0/7。CMake calibration 固定两项均 ineligible，预注册 `>=1` 门槛已不可达到；42 个 evidence 文件共 49,680 bytes，inventory canonical SHA-256 为 `fcb426ed...cd9c8b`，0 Provider 且 cleanup 闭合。
 
 ## 当前研究决策
 
@@ -111,6 +116,7 @@ BootstrapAgent、SWE-Skills-Bench、VibeMemBench 等轨迹控制、动作接口�
 - `cpp-jev-formal-comparison-v1` 至 `v6` 及全部资格、正式 evidence 已消费并永久只读；禁止重跑、续跑、replacement、backfill 或结果后修改阈值。正式结果确认 Jev 类型化语义路由达到当前硕士论文的领域方法与系统实证门槛，但不主张通用路由机制首创。
 - 项目族与时间隔离属于所有候选的评测纪律，不单独构成经验迁移的新机制。
 - Issue #409 已冻结为 `proceed_to_natural_failure_evaluation_design`；其 qualification、canary manifest、报告和 raw evidence 均已消费并永久只读，禁止重跑、续跑、replacement 或 backfill。
+- Issue #411 v1 决定为 `stop_natural_failure_evaluation_v1`；失败 attempt、marker、日志和生成报告永久只读，禁止续跑、replacement、backfill 或改写标签。若继续自然失败路线，必须先用新的 source-only catalog 验证根入口、递归 submodule 成本和离线依赖闭包，再在新 Issue/identity 中分层；本次部分结果不得进入 treatment 分母。
 - 动态预算控制仍属于整体机制候选，但尚未独立验证；Issue #408/#409 均不能用于宣称预算控制有效。Issue #409 的固定安全预算只用于验证控制权交还和严格终点。
 - 新实验必须重新冻结有限预算向量、开发/测试项目隔离、严格成功、删失效率指标、最小有意义效应和分析顺序；旧 identity 的“无 token ceiling”不沿用为成本研究设计。
 
