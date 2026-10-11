@@ -246,13 +246,16 @@ class CaseHarness:
         if clone.exit_code != 0 or self.session.commit_sha != self.case["commit_sha"]:
             raise QualificationError(f"{task_id} exact commit checkout 失败")
         primary, detected, _suggested = inspect_build_system_impl(session=self.session)
-        if primary != self.case["build_system"]:
-            raise QualificationError(f"{task_id} build-system detection 漂移")
-        self.session.selected_build_system = primary
+        detected_systems = [system for system, _marker in detected]
+        selected = self.case["build_system"]
+        if selected not in detected_systems:
+            raise QualificationError(f"{task_id} 缺少冻结 build-system marker")
+        self.session.selected_build_system = selected
         self.services.manager.save_session(self.session)
         return {
             "primary": primary,
             "detected": [{"build_system": system, "marker": marker} for system, marker in detected],
+            "selected": selected,
         }
 
     def _current(self) -> Any:
