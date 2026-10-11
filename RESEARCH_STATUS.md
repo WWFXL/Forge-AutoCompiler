@@ -4,8 +4,8 @@
 
 ## 当前阶段
 
-- 状态：Issue #408 的 formal identity `cpp-jev-formal-comparison-v6` 已完成 12 个未见项目族、两次重复和三臂共 72 个真实端到端 arm，冻结决定为 `supports_jev_controlled_failure_claim`。当前停在 `workflow + agent + Jev` 新工程链路设计之前，等待研究负责人核实。
-- 当前工作类型：正式数据采集完成后的结果分析与研究交接。72/72 arm 全部分类终结，cleanup、预算、父证据和零残留资源门禁全部通过；没有 replacement、backfill 或结果后阈值修改。
+- 状态：Issue #408 的 formal identity `cpp-jev-formal-comparison-v6` 已冻结为 `supports_jev_controlled_failure_claim`；研究负责人已于 2026-10-11 核实并授权 Issue #409 进入 `Workflow + Jev + Agent` 混合编译链路的设计、实现与验证。
+- 当前工作类型：基础设施与工程链路资格。先冻结版本化 spec/plan，再实现最小协调器并执行零 Provider、真实 Docker 和有界 Provider canary；本阶段不估计自然失败 treatment effect。
 - 主要结果：严格成功为 `JevGate+Agent 22/24`、`AlwaysAgent 10/24`、`RuleGate+Agent 13/24`。Jev 相对 AlwaysAgent 的成功率差为 `+0.500`，项目族聚类 bootstrap 单侧 95% 下界为 `+0.292`，高于冻结非劣界 `-0.100`；Provider 估算成本为 `$0.092116` 对 `$0.884421`，下降 `89.6%`，超过冻结门槛 `20%`。
 - 路由证据：Jev 21 次直接动作全部严格成功，错误直接动作率为 0；3 次升级 Agent 中 1 次成功、2 次失败，其中一次为校准拒答后的 Agent 方差，一次为 `TypeSafeAPIConnectionError` 后回退 Agent 失败。分系统严格成功为 CMake `8/8`、Make `6/8`、Autotools `8/8`。
 - 当前研究边界：正式结果支持冻结受控失败、当前 12 个未见项目族和固定模型/阈值下的领域方法结论；不支持自然失败、开放世界、更多构建系统、通用模型排名或动态预算控制。Jev 相对 TF-IDF/逻辑回归的普遍模型优势仍未建立。
@@ -104,7 +104,7 @@ BootstrapAgent、SWE-Skills-Bench、VibeMemBench 等轨迹控制、动作接口�
 - v6 决定为 `proceed_to_controller_replay_qualification`，Issue #404 v2 决定为 `proceed_to_end_to_end_canary`，Issue #406 v7 决定为 `proceed_to_formal_end_to_end_comparison_design`；Issue #408 v6 已以独立未见项目族正式比较得到 `supports_jev_controlled_failure_claim`。
 - `cpp-jev-formal-comparison-v1` 至 `v6` 及全部资格、正式 evidence 已消费并永久只读；禁止重跑、续跑、replacement、backfill 或结果后修改阈值。正式结果确认 Jev 类型化语义路由达到当前硕士论文的领域方法与系统实证门槛，但不主张通用路由机制首创。
 - 项目族与时间隔离属于所有候选的评测纪律，不单独构成经验迁移的新机制。
-- 动态预算控制仍属于整体机制候选，但尚未独立验证；Issue #408 不能用于宣称预算控制有效。`workflow + agent + Jev` 新工程链路设计等待研究负责人核实正式结论后另开阶段，不在当前 identity 下继续。
+- 动态预算控制仍属于整体机制候选，但尚未独立验证；Issue #408 不能用于宣称预算控制有效。Issue #409 只使用固定安全预算验证控制权交还和严格终点，不把固定计数器包装为动态预算机制。
 - 新实验必须重新冻结有限预算向量、开发/测试项目隔离、严格成功、删失效率指标、最小有意义效应和分析顺序；旧 identity 的“无 token ceiling”不沿用为成本研究设计。
 
 ## 解释边界
@@ -170,7 +170,7 @@ BootstrapAgent、SWE-Skills-Bench、VibeMemBench 等轨迹控制、动作接口�
 - 重跑、续跑、替换或覆盖 `cpp-jev-controller-replay-qualification-v1/v2`，或删除 v1 失败 evidence；后续端到端实验不得复用 v6 或 replay identity。
 - 重跑、续跑、替换或覆盖 `cpp-jev-end-to-end-canary-v1` 至 `v7`，或把 qualification/canary 结果解释为正式 treatment effect。
 - 重跑、续跑、替换、补齐或覆盖 `cpp-jev-formal-comparison-v1` 至 `v6`，或按正式结果调整阈值、样本、预算和停止规则。
-- 在研究负责人核实前开始动态预算控制或 `workflow + agent + Jev` 新工程链路设计与实现。
+- 在独立 identity、预算、停止规则和 create-once evidence 目录冻结前调用 Issue #409 Provider 或写 canary evidence。
 
 ## 权威入口
 
@@ -217,6 +217,4 @@ BootstrapAgent、SWE-Skills-Bench、VibeMemBench 等轨迹控制、动作接口�
 
 ## 下一项工作
 
-Issue #408 已得到受控失败正式比较的关键结论。当前停止继续实现，等待研究负责人核实 `22/24` strict、`+0.292` 单侧 95% 下界和
-`89.6%` 成本下降及其解释边界。核实后再为 `workflow + agent + Jev` 工程链路另开 tracking Issue，先设计最小端到端链路和失败回退；
-动态预算控制仍需独立研究问题、预注册和实验，不与本次语义路由结论合并宣称。
+Issue #409 先提交 `docs/superpowers/specs/2026-10-11-jev-hybrid-workflow-design.md` 与对应实施计划，再实现内部混合协调器。先用 scripted callback 和真实 Docker fixture 验证 Jev 直接动作、Agent handoff、Workflow 控制权交还、严格验证与 cleanup；这些门禁全部通过后，才冻结并执行独立 Provider canary。动态预算控制继续作为后续独立研究问题。
