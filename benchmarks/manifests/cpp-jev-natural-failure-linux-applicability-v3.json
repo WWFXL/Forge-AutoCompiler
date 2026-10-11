@@ -5,7 +5,7 @@
   "issue": 415,
   "branch": "yiwei/415-linux-applicability-v3",
   "design_revision": "97d70d490446c137b9d2f8385eb2a4191ac26d04",
-  "implementation_revision": null,
+  "implementation_revision": "61ecf113807f3d3fd3ef9da25ab4aa7700e18336",
   "history_exclusion": {
     "revision": "97d70d490446c137b9d2f8385eb2a4191ac26d04",
     "v2_catalog_path": "benchmarks/reports/cpp-jev-natural-failure-source-catalog-v2.json",
@@ -109,11 +109,11 @@
     "model_tokens": 0
   },
   "authorization": {
-    "execution": false,
-    "formal_attempts": 0,
-    "formal_evidence_write": false,
-    "authorized_by": null,
-    "authorized_at": null
+    "execution": true,
+    "formal_attempts": 1,
+    "formal_evidence_write": true,
+    "authorized_by": "user_explicit_repair_authorization",
+    "authorized_at": "2026-10-11T23:02:41Z"
   },
   "evidence": {
     "root": ".compile-sessions/benchmark-evidence-jev-natural-failure-linux-applicability-v3",
