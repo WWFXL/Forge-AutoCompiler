@@ -47,7 +47,7 @@
 - [x] 根据设计中的通过/停止条件给出 `proceed_to_natural_failure_evaluation_design`。
 - [x] 更新 `RESEARCH_STATUS.md`、工程交接和知识库长期机制文档。
 - [x] 运行 `git diff --check`、报告哈希和 0 managed resource 复核。
-- [ ] 提交、推送并创建中文 PR，通过 `Closes #409` 关联 tracking Issue。
+- [x] 提交、推送并创建中文 PR #410，通过 `Closes #409` 关联 tracking Issue。
 
 ## 固定边界
 

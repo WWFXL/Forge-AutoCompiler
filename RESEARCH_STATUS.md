@@ -223,6 +223,7 @@ BootstrapAgent、SWE-Skills-Bench、VibeMemBench 等轨迹控制、动作接口�
 - Jev 正式比较 v6 evidence：`.compile-sessions/benchmark-evidence-jev-formal-comparison-v6`；72/72 attempt marker 均为 completed，全部 cleanup 且 0 managed resources。JSON/Markdown 报告 SHA-256 分别为 `620e0c823dc00ababc4ba7b283c548a4823e7c7d1147ef72f289f7f940b53c15`、`1fbc08bd5652bda48174520e3051d715e96150c1ade794e1430bbc9b76a77837`。
 - Issue #409：`https://github.com/WWFXL/Forge-AutoCompiler/issues/409`；混合链路 canary manifest canonical SHA-256 为 `9abebe01635161cff64220e0e7748a2bb7eef3f7cb9e220c0ecc3c77651866b2`，release revision 为 `71fdc281ce3c082664f118f98ef84546dc9395a3`。
 - 混合链路 canary evidence：`.compile-sessions/benchmark-evidence-jev-hybrid-workflow-canary-v1`；3/3 attempt marker completed，10 files / 132,192 bytes，inventory canonical SHA-256 `6b6424f65603bc0d9a1b4c379fa7ad37206cbe6f437bd50395512c8586b4b859`。JSON/Markdown 报告 SHA-256 分别为 `1e6ecc0c464fe8450a5e164f3d4708f0c8bef68310825c7f084011b46cac79d6`、`8c5869a102f0e0dd8c401b99062190900a86cdc92bb0e4b15f21ee3dd5c91bb9`。
+- 混合链路结果 PR：`https://github.com/WWFXL/Forge-AutoCompiler/pull/410`；base 为 `yiwei/408-jev-formal-comparison`，通过 `Closes #409` 关联 tracking Issue，CI 与评审状态以 PR 为准。
 - 进展状态 v1 manifest canonical SHA-256：`9340a10f005a9a90f980ac45356e8c13d00f35a7b095e30a68ccde610944ee6d`。
 - 进展状态 v1 JSON 报告 SHA-256：`b4b682d8699bdbcf5e768736e525ac13109675db64971a23c3007dafa2442a4d`。
 
