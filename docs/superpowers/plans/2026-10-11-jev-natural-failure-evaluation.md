@@ -10,7 +10,7 @@
 - [x] 从父结果提交建立 `yiwei/411-jev-natural-failures` 分支。
 - [x] 核对 CXXCrafter source revision、Top100 CSV、构建系统元数据和 Forge 历史 project family。
 - [x] 冻结 22 个 exact-commit 候选、系统内角色、标准初始路径、资源预算和不可替换规则。
-- [ ] 提交并推送 spec/plan，使设计提交先于任何构建 observation。
+- [x] 提交并推送 spec/plan，使设计提交先于任何构建 observation。
 
 ## B. 零 Provider qualification identity
 

@@ -1,0 +1,275 @@
+{
+  "schema_version": "forge-jev-natural-failure-source-pool-1.0.0",
+  "document_type": "forge_jev_natural_failure_source_pool",
+  "identity": "cpp-jev-natural-failure-source-qualification-v1",
+  "selection_frozen_at": "2026-10-11T06:03:27Z",
+  "selection_seed": "forge-jev-natural-failure-source-v1-2026-10-11",
+  "source_catalog": {
+    "repository": "https://github.com/seclab-fudan/CXXCrafter-Community-Edition.git",
+    "revision": "bac70e99e48b210a350c18b3f93efd839787ce37",
+    "dataset_path": "data/top100_dataset.csv",
+    "dataset_sha256": "39b0a41198ae7d92713b2f2c75cf691bb75aba5da56068edee18606272384bf9",
+    "build_system_path": "script/count_for_build_system_top100.txt",
+    "build_system_sha256": "5e4e986db6e21d13e38e9497462c8a6f26985fe53ce251ad8978dd218e9585a4"
+  },
+  "exclusions": {
+    "source_patterns": [
+      "benchmarks/fixtures/*.json",
+      "benchmarks/manifests/*.json"
+    ],
+    "canonical_family_count": 72,
+    "canonical_family_list_sha256": "2d937eec5be6a03f58379c0e49ff4590a4a3f1877531ec6058b8b58bc5ef1c9c",
+    "archived_repositories": true,
+    "maximum_github_size_kib": 300000,
+    "historical_outcomes_used_for_selection": false
+  },
+  "role_rule": {
+    "design": [1, 2],
+    "calibration": [3, 4],
+    "evaluation": [5, 6, 7, 8]
+  },
+  "tasks": [
+    {
+      "task_id": "cmake-mold",
+      "project_family": "github.com/rui314/mold",
+      "repository_url": "https://github.com/rui314/mold.git",
+      "commit_sha": "c522789231c9de8afb35722bf8c859341f1fcef6",
+      "selected_build_system": "cmake",
+      "system_rank": 1,
+      "role": "design",
+      "github_size_kib": 38050,
+      "selection_key": "04dc4defdf5435f86cbf40a865a6d1947134896162a493b47f912d37801f490e"
+    },
+    {
+      "task_id": "cmake-flameshot",
+      "project_family": "github.com/flameshot-org/flameshot",
+      "repository_url": "https://github.com/flameshot-org/flameshot.git",
+      "commit_sha": "019bea68a4a2e4e0d311cce80eda0652c55b81df",
+      "selected_build_system": "cmake",
+      "system_rank": 2,
+      "role": "design",
+      "github_size_kib": 27779,
+      "selection_key": "0b43c063790ec5e503286294fa3f16bd3ad76f9bd38b0f3ed7e5375bb742430e"
+    },
+    {
+      "task_id": "cmake-openalpr",
+      "project_family": "github.com/openalpr/openalpr",
+      "repository_url": "https://github.com/openalpr/openalpr.git",
+      "commit_sha": "736ab0e608cf9b20d92f36a873bb1152240daa98",
+      "selected_build_system": "cmake",
+      "system_rank": 3,
+      "role": "calibration",
+      "github_size_kib": 5744,
+      "selection_key": "10aecfba577080eb516e1708b4a26b3a04173c202150831c31147ef3bc01127e"
+    },
+    {
+      "task_id": "cmake-treefrog-framework",
+      "project_family": "github.com/treefrogframework/treefrog-framework",
+      "repository_url": "https://github.com/treefrogframework/treefrog-framework.git",
+      "commit_sha": "f54f60220aa4b10ed69d541a3a3547259fc695c4",
+      "selected_build_system": "cmake",
+      "system_rank": 4,
+      "role": "calibration",
+      "github_size_kib": 42016,
+      "selection_key": "1237ba920fd6e7740b6f03f14c6598b809de84d8f063e80edc085c2bae490865"
+    },
+    {
+      "task_id": "cmake-kvrocks",
+      "project_family": "github.com/apache/kvrocks",
+      "repository_url": "https://github.com/apache/kvrocks.git",
+      "commit_sha": "dc8bc3afdc31aa7aebab832dfcbaf2d850ec70e5",
+      "selected_build_system": "cmake",
+      "system_rank": 5,
+      "role": "evaluation",
+      "github_size_kib": 13939,
+      "selection_key": "25e5597b3d932e8c9fc4af9af4cd14d0ba2356fe96b8a66fd444d8477a5ad7f6"
+    },
+    {
+      "task_id": "cmake-soloud",
+      "project_family": "github.com/jarikomppa/soloud",
+      "repository_url": "https://github.com/jarikomppa/soloud.git",
+      "commit_sha": "e82fd32c1f62183922f08c14c814a02b58db1873",
+      "selected_build_system": "cmake",
+      "system_rank": 6,
+      "role": "evaluation",
+      "github_size_kib": 12543,
+      "selection_key": "2e846954af3a00e375c02e1a0ba8f0a60a12d1b4b3f1e86ced2287a2f0d83a26"
+    },
+    {
+      "task_id": "cmake-srs",
+      "project_family": "github.com/ossrs/srs",
+      "repository_url": "https://github.com/ossrs/srs.git",
+      "commit_sha": "185f78597370767311a52e49bc72e5fae3fee79b",
+      "selected_build_system": "cmake",
+      "system_rank": 7,
+      "role": "evaluation",
+      "github_size_kib": 265393,
+      "selection_key": "3a1a403fb503ed583d93c80694d838b74a394b1c08c5a23b4895e2d47aad5e18"
+    },
+    {
+      "task_id": "cmake-rpcs3",
+      "project_family": "github.com/rpcs3/rpcs3",
+      "repository_url": "https://github.com/RPCS3/rpcs3.git",
+      "commit_sha": "7b4de2f13dfe6da28129e2e5905dca79c87cfde8",
+      "selected_build_system": "cmake",
+      "system_rank": 8,
+      "role": "evaluation",
+      "github_size_kib": 159921,
+      "selection_key": "48853a9f41f3b9157ddc118f37478d55e7a7550ce5ae4db759b01db56d10c0c1"
+    },
+    {
+      "task_id": "make-crow",
+      "project_family": "github.com/ipkn/crow",
+      "repository_url": "https://github.com/ipkn/crow.git",
+      "commit_sha": "2b43d3cd6a9a9cdbc99dfef9b86ff3f3027f3d1f",
+      "selected_build_system": "make",
+      "system_rank": 1,
+      "role": "design",
+      "github_size_kib": 875,
+      "selection_key": "04353bfda0d9d2c3bdadec20518d09585267bd5bbda71c979fbf95db8ca7a39f"
+    },
+    {
+      "task_id": "make-libvpx",
+      "project_family": "github.com/webmproject/libvpx",
+      "repository_url": "https://github.com/webmproject/libvpx.git",
+      "commit_sha": "ed2a5b572f0f62a72d2e483dd3031841f08fb343",
+      "selected_build_system": "make",
+      "system_rank": 2,
+      "role": "design",
+      "github_size_kib": 75764,
+      "selection_key": "1d40e1f7f2478020bfdd88071024284198665e97dc0e4c6f63f858d814b2e83e"
+    },
+    {
+      "task_id": "make-serenity",
+      "project_family": "github.com/serenityos/serenity",
+      "repository_url": "https://github.com/SerenityOS/serenity.git",
+      "commit_sha": "80baeb29708ae10f4a4cc8a07ca57e9876c3e3d8",
+      "selected_build_system": "make",
+      "system_rank": 3,
+      "role": "calibration",
+      "github_size_kib": 243668,
+      "selection_key": "24ba589f2df074c51fc6715acee950341cce9d24e9e7780275aa0bd045cccad0"
+    },
+    {
+      "task_id": "make-x265",
+      "project_family": "github.com/videolan/x265",
+      "repository_url": "https://github.com/videolan/x265.git",
+      "commit_sha": "419182243fb2e2dfbe91dfc45a51778cf704f849",
+      "selected_build_system": "make",
+      "system_rank": 4,
+      "role": "calibration",
+      "github_size_kib": 124552,
+      "selection_key": "2efdfb8b24cfd4ac5f8228dd02964bf98cd8cc9ce2026e475ca746988e47608b"
+    },
+    {
+      "task_id": "make-caffe",
+      "project_family": "github.com/bvlc/caffe",
+      "repository_url": "https://github.com/BVLC/caffe.git",
+      "commit_sha": "9b891540183ddc834a02b2bd81b31afae71b2153",
+      "selected_build_system": "make",
+      "system_rank": 5,
+      "role": "evaluation",
+      "github_size_kib": 76170,
+      "selection_key": "34d55775139a21f4e2977ff405defe51a1b98a6a5567d241c80885a32d004c9b"
+    },
+    {
+      "task_id": "make-dearpygui",
+      "project_family": "github.com/hoffstadt/dearpygui",
+      "repository_url": "https://github.com/hoffstadt/DearPyGui.git",
+      "commit_sha": "df9dabfc74b13686000d0c95441d0fc862d6313d",
+      "selected_build_system": "make",
+      "system_rank": 6,
+      "role": "evaluation",
+      "github_size_kib": 146677,
+      "selection_key": "6f96ce9b1c399eae8ee54e0d7dc371b6d4275e9060abed8e9325ed322aaddc92"
+    },
+    {
+      "task_id": "make-rocksdb",
+      "project_family": "github.com/facebook/rocksdb",
+      "repository_url": "https://github.com/facebook/rocksdb.git",
+      "commit_sha": "4b44c2b4ba9c08b269d9689c69177553f1200bad",
+      "selected_build_system": "make",
+      "system_rank": 7,
+      "role": "evaluation",
+      "github_size_kib": 250639,
+      "selection_key": "8184e5ba975d1b5a67f6f15e948bf5d5ac1c17297ca78346f3935bb56f9805e1"
+    },
+    {
+      "task_id": "make-doom",
+      "project_family": "github.com/id-software/doom",
+      "repository_url": "https://github.com/id-Software/DOOM.git",
+      "commit_sha": "a77dfb96cb91780ca334d0d4cfd86957558007e0",
+      "selected_build_system": "make",
+      "system_rank": 8,
+      "role": "evaluation",
+      "github_size_kib": 149,
+      "selection_key": "85e9173d9d97bda49096db2694f5f3f33aa59940ae4632bee61243d8f008cc12"
+    },
+    {
+      "task_id": "autotools-rethinkdb",
+      "project_family": "github.com/rethinkdb/rethinkdb",
+      "repository_url": "https://github.com/rethinkdb/rethinkdb.git",
+      "commit_sha": "a2cf1308b57dca2e05d744f225a082881bab3fca",
+      "selected_build_system": "autotools",
+      "system_rank": 1,
+      "role": "design",
+      "github_size_kib": 283668,
+      "selection_key": "33e7cab9ffcc9951a4ff98ae5ec30007b17083d790487b2d74914b397603e23f"
+    },
+    {
+      "task_id": "autotools-xgboost",
+      "project_family": "github.com/dmlc/xgboost",
+      "repository_url": "https://github.com/dmlc/xgboost.git",
+      "commit_sha": "73e9188ff2674e7197f3e7f0ac03c851975dd004",
+      "selected_build_system": "autotools",
+      "system_rank": 2,
+      "role": "design",
+      "github_size_kib": 38828,
+      "selection_key": "53662a0a5c96c5ccc9e7576674c498dd13815014544128cd3c560726ce5ce702"
+    },
+    {
+      "task_id": "autotools-vireo",
+      "project_family": "github.com/twitter/vireo",
+      "repository_url": "https://github.com/twitter/vireo.git",
+      "commit_sha": "7f0bc1ad50f5eaf30a09de209f0172f2def36abd",
+      "selected_build_system": "autotools",
+      "system_rank": 3,
+      "role": "calibration",
+      "github_size_kib": 1781,
+      "selection_key": "53be3221c7e05cabedd9413ec6781edb315e8576de43ed6e9ee774025ef5d0c7"
+    },
+    {
+      "task_id": "autotools-tesseract",
+      "project_family": "github.com/tesseract-ocr/tesseract",
+      "repository_url": "https://github.com/tesseract-ocr/tesseract.git",
+      "commit_sha": "b2544450ca01407259ed53c870b7e5e4c67f7789",
+      "selected_build_system": "autotools",
+      "system_rank": 4,
+      "role": "calibration",
+      "github_size_kib": 54835,
+      "selection_key": "5ebd0b6d1dca6fbb65cbee65b0d077bf6453ec16cf08e9545621a00982743e5b"
+    },
+    {
+      "task_id": "autotools-libde265",
+      "project_family": "github.com/strukturag/libde265",
+      "repository_url": "https://github.com/strukturag/libde265.git",
+      "commit_sha": "4fb298ec1af0686211dc2def73f4f41c2ce19ce5",
+      "selected_build_system": "autotools",
+      "system_rank": 5,
+      "role": "evaluation",
+      "github_size_kib": 7626,
+      "selection_key": "720efb5540b06dabe0d4511cdffd725e7feec5bc0650ca4be59650f16322e6bf"
+    },
+    {
+      "task_id": "autotools-geany",
+      "project_family": "github.com/geany/geany",
+      "repository_url": "https://github.com/geany/geany.git",
+      "commit_sha": "956e5be9060df37abf5bd9039c8758709f2a6f8d",
+      "selected_build_system": "autotools",
+      "system_rank": 6,
+      "role": "evaluation",
+      "github_size_kib": 76281,
+      "selection_key": "b1908b7795bd0c674c3cd0de8ed0109a273a261d3da25d36340d7abd1afa9103"
+    }
+  ]
+}
