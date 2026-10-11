@@ -4,10 +4,13 @@
 
 ## 当前阶段
 
-- 状态：Issue #415 已开启自然失败 Linux applicability v3 基础设施修复。v3 将在任何角色冻结、双 clean build 或 reference recipe 前，排除明确的 Apple、Windows、裸机/固件和固定交叉编译路径；Issue #413 的 v2 结论与 evidence 保持只读。
-- 本轮问题：source-only 门禁能否排除 `SketchyBar` 式无法进入 Linux ELF/`ar` 终点的构建系统边，同时保留具有 Linux 路径的多平台项目，并为 CMake、Make、Autotools 各形成至少 12 个无角色 reserve 候选。
-- 当前工作类型：研究基础设施和零 Provider 资格设计。静态门禁只建立 Linux/终点适用性的必要条件；后续仍须先完成双 clean build 与 reference closure，再按固定哈希分配 design/calibration/evaluation 角色。
-- v3 边界：当前尚未创建 formal attempt 或 evidence；0 build、0 Docker、0 credential read、0 Provider request、0 model token。未修改 v1/v2 runner、manifest、报告或 raw evidence。
+- 状态：Issue #415 的 Linux applicability v3 唯一正式 source-only attempt 已完成并决定
+  `stop_natural_failure_linux_applicability_v3`；只读构造效度审计进一步判定 v3 classifier 不合格，必须使用新 identity 修复，不能续跑或改写 v3。
+- 本轮问题：source-only 门禁能否排除无法进入 Linux ELF/`ar` 终点的项目，同时保留具有 Linux 路径的多平台项目，并为 CMake、Make、Autotools 各形成至少 12 个无角色 reserve 候选。
+- v3 正式证据：200 个搜索结果排除 3 个历史项目后完成 197/197 个未见候选，0 infrastructure failure；79 个仓库 source eligible。可用项目边为 CMake 38、Make 39、Autotools 8，最稀缺优先分配在 Autotools 8 个耗尽后停止，因此正式分配数为 `0/0/8`，不应把 CMake/Make 的零解释为没有候选。
+- v3 构造效度：7 条 `platform_ineligible` 边经 exact-commit 全量复核，16 个入口/文档 blob 哈希全部匹配；5/7 是明显误伤，只有 GBA ROM 和裸机 firmware 两项应排除。根因是整文件正则没有注释或条件作用域，并且分类没有使用已经采集的 Linux 文档证据。
+- 当前工作类型：v3 结果分析与 v4 工程修复。v4 必须拆分宿主平台与产物终点、剥离注释、让明确 Linux 路径否决局部平台信号，并扩大全新未见搜索框；静态门禁之后仍须双 clean build 与 reference closure，才能分配实验角色。
+- v3 边界：202 个 evidence 文件共 447,440 bytes，inventory canonical SHA-256 为 `ba254ab6...4266d6b`；全过程 0 build、0 Docker、0 credential read、0 Provider request、0 model token。正式 report、marker、raw evidence 以及 v1/v2 资产全部只读。
 - 状态：Issue #413 的 source catalog 与双 clean build qualification 已完成；生成 build gate 机械通过，但 reference 前构造效度审计证明 Make calibration 配额不可能满足，最终决定为 `stop_natural_failure_evaluation_v2_before_reference_recipe`。
 - 当前工作类型：数据资格结果与只读构造效度审计。catalog 从 120 个搜索结果排除 11 个历史项目后得到 109 个未见候选；53 个 source eligible，最终为 CMake、Make、Autotools 各冻结 8 个互不重复的项目族。
 - source catalog 证据：109/109 仓库项目级终结，0 infrastructure failure；30 项因 `.gitmodules` 排除、23 项缺少根入口、3 项命中根入口网络获取信号。attempt 用时约 336 秒，114 个 evidence 文件共 197,527 bytes，inventory canonical SHA-256 为 `d561e612...59736`。
@@ -56,6 +59,8 @@
 - 自然失败 build qualification v2 构造效度审计：`benchmarks/reports/cpp-jev-natural-failure-source-qualification-v2-construct-audit.md`。
 - 自然失败 Linux applicability v3 设计：`docs/superpowers/specs/2026-10-12-jev-natural-failure-linux-applicability-v3-design.md`。
 - 自然失败 Linux applicability v3 预注册：`benchmarks/preregistrations/cpp-jev-natural-failure-linux-applicability-v3.md`。
+- 自然失败 Linux applicability v3 结果：`benchmarks/reports/cpp-jev-natural-failure-linux-applicability-v3.md`。
+- 自然失败 Linux applicability v3 构造效度审计：`benchmarks/reports/cpp-jev-natural-failure-linux-applicability-v3-construct-audit.md`。
 - Jev API 合同审计：`docs/research/2026-10-09-jev-api-contract-audit.md`。
 - 三候选机制审计：`docs/research/2026-10-09-three-candidate-mechanism-audit.md`。
 - 主动诊断机制审计：`docs/research/2026-10-09-active-diagnosis-mechanism-audit.md`。
@@ -202,6 +207,7 @@ BootstrapAgent、SWE-Skills-Bench、VibeMemBench 等轨迹控制、动作接口�
 - 重跑、续跑、替换或覆盖 `cpp-jev-end-to-end-canary-v1` 至 `v7`，或把 qualification/canary 结果解释为正式 treatment effect。
 - 重跑、续跑、替换、补齐或覆盖 `cpp-jev-formal-comparison-v1` 至 `v6`，或按正式结果调整阈值、样本、预算和停止规则。
 - 重跑、续跑、替换、补齐或覆盖 `cpp-jev-hybrid-workflow-qualification-v1/v2/v3` 与 `cpp-jev-hybrid-workflow-canary-v1`，或修改其 raw evidence。
+- 重跑、续跑、替换、补齐或覆盖 `cpp-jev-natural-failure-linux-applicability-v3`，或把 v3 的后验人工标签改写进正式 report/evidence。
 - 在独立 identity、自然失败样本、预算、停止规则和 create-once evidence 目录冻结前调用下一阶段 Provider 或写新实验 evidence。
 
 ## 权威入口
@@ -252,4 +258,4 @@ BootstrapAgent、SWE-Skills-Bench、VibeMemBench 等轨迹控制、动作接口�
 
 ## 下一项工作
 
-下一阶段先设计自然失败对照实验，不直接扩展当前协调器。需要定义自然失败语料如何获得且不泄漏标签，冻结项目族与时间隔离，比较 `AlwaysAgent`、`RuleGate+Agent`、`JevGate+Agent`，以严格成功非劣和 Provider 成本下降为联合主要判据，并保留超时、失败和所有升级事件。只有 spec、预注册、样本、预算、停止规则与新 identity 经核实后，才实现采集链路或调用 Provider。动态预算控制继续作为后续独立研究问题。
+下一阶段先完成 Linux applicability v4 修复，不直接扩展协调器或调用 Provider。v4 使用全新 identity 和未见项目池，将 Linux 宿主支持与非宿主产物终点分开判断，以 v3 的 7 个排除边作为已暴露 regression fixture，并扩大候选搜索框以形成至少 12 个 Autotools reserve。只有 source-only 门禁、双 clean build 和 reference closure 依次通过，才设计 `AlwaysAgent`、`RuleGate+Agent`、`JevGate+Agent` 自然失败对照；动态预算控制继续作为后续独立研究问题。

@@ -1,0 +1,88 @@
+{
+  "audit_type": "post_hoc_construct_validity_audit",
+  "audited_identity": "cpp-jev-natural-failure-linux-applicability-v3",
+  "decision": "stop_natural_failure_linux_applicability_v3",
+  "evidence_inventory_canonical_sha256": "ba254ab6c173c5f2bae89ee4968cc51854e9d9f4300ed420fd538a4704266d6b",
+  "exact_commit_blob_matches": 16,
+  "execution_revision": "2ac9d4982bb9e3182b468c85d9da3a52c5dcdb85",
+  "formal_report_json_sha256": "723c02cdecf3f351f9a707ebbaca85245cd45e554fdc0895f97a416b49e67435",
+  "formal_report_markdown_sha256": "6d72851a2cb1915176eccab47790c507714b71ed6f7fc3770ff16f495374122b",
+  "observed_system_coverage": {
+    "eligible_repository_edges": {
+      "autotools": 8,
+      "cmake": 38,
+      "make": 39
+    },
+    "frozen_allocations": {
+      "autotools": 8,
+      "cmake": 0,
+      "make": 0
+    },
+    "required_per_system": 12
+  },
+  "platform_exclusion_review": {
+    "correct_exclusions": 2,
+    "false_positive_rate": 0.7142857142857143,
+    "false_positives": 5,
+    "reviewed_edges": 7,
+    "rows": [
+      {
+        "full_name": "jondgoodwin/cone",
+        "judgment": "false_positive",
+        "observed_reason": "document_declares_exclusive_platform",
+        "rationale": "README 同时给出 Ubuntu 24.04 的 Linux 构建命令；Windows only 只修饰尚未移植的部分 OS 包。",
+        "system": "cmake"
+      },
+      {
+        "full_name": "LIJI32/SameBoy",
+        "judgment": "false_positive",
+        "observed_reason": "exclusive_entry_without_linux_path",
+        "rationale": "Makefile 在非 Darwin 平台默认构建 SDL，all 目标包含宿主二进制，并有明确 Linux install 路径；Apple 工具位于条件分支。",
+        "system": "make"
+      },
+      {
+        "full_name": "metroidret/mf",
+        "judgment": "correct_exclusion_wrong_primary_signal",
+        "observed_reason": "document_declares_exclusive_platform",
+        "rationale": "默认产物是 GBA ROM，依赖 arm-none-eabi 工具链，不是 Linux 用户态 ELF/ar 终点；WINDOWS ONLY 实际修饰 WSL 安装步骤。",
+        "system": "make"
+      },
+      {
+        "full_name": "mist-devel/mist-firmware",
+        "judgment": "correct_exclusion",
+        "observed_reason": "exclusive_entry_without_linux_path",
+        "rationale": "默认入口固定 arm-none-eabi 工具链并生成 firmware.hex、firmware.bin 和 firmware.upg。",
+        "system": "make"
+      },
+      {
+        "full_name": "redhat-et/ripwire",
+        "judgment": "false_positive",
+        "observed_reason": "exclusive_entry_without_linux_path",
+        "rationale": "README 发布 Linux arm64/x86-64 二进制，CMake 包含 Linux 分支；xcrun 与 CMAKE_OSX_SYSROOT 出现在注释或 APPLE 条件逻辑中。",
+        "system": "cmake"
+      },
+      {
+        "full_name": "SpeedBreakerProject/speedbreaker",
+        "judgment": "false_positive",
+        "observed_reason": "document_declares_exclusive_platform",
+        "rationale": "README 明确给出 Linux/SteamOS 的原生构建和运行步骤；macOS only 短语只描述特定依赖构建的可移植性。",
+        "system": "cmake"
+      },
+      {
+        "full_name": "Wallawalla47/Infernix",
+        "judgment": "false_positive",
+        "observed_reason": "exclusive_entry_without_linux_path",
+        "rationale": "README 明确声明原生 Windows 和 Linux 构建；MSBuild 仅出现在 CMake 注释中，Ninja 路径是有效入口。",
+        "system": "cmake"
+      }
+    ]
+  },
+  "result": {
+    "autotools_quota_satisfied": false,
+    "gate_construct_valid": false,
+    "jev_effect_estimated": false,
+    "natural_failure_observed": false,
+    "next_identity_required": true
+  },
+  "schema_version": "forge-jev-natural-failure-linux-applicability-construct-audit-1.0.0"
+}

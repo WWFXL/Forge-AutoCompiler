@@ -6,6 +6,15 @@
 
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
+- 2026-10-12 — Issue #415 Linux applicability v3 正式停止并暴露 classifier 构造效度缺陷
+  - 工作类型与问题: source-only 数据资格、结果分析和工程修复。目标是在角色冻结、build、reference 或 Provider 前排除不能闭合到 Linux ELF/`ar` 的平台/终点，同时保留真正存在 Linux 路径的多平台项目。
+  - 正式 attempt: identity `cpp-jev-natural-failure-linux-applicability-v3`，execution revision `2ac9d4982bb9e3182b468c85d9da3a52c5dcdb85`，manifest canonical SHA-256 `a67d4f0d0df5d1ba59a940b0d3b54b6e8159f1e1f05ca57725056baf351d5faa`。200 个原始搜索结果排除 3 个历史项目后完成 197/197 个未见候选，79 项 source eligible，0 infrastructure failure，7 条 platform-ineligible edge，0 ambiguous edge；全过程 0 build、0 Docker、0 credential、0 Provider、0 token。
+  - 配额与停止: source-eligible 项目的可用边为 CMake 38、Make 39、Autotools 8。分配器优先最稀缺系统，Autotools 8 个耗尽后即停止，因此正式 allocation 为 `cmake=0/make=0/autotools=8`，决定 `stop_natural_failure_linux_applicability_v3`；前两个零不是候选计数。Evidence 为 202 files / 447,440 bytes，inventory canonical SHA-256 `ba254ab6c173c5f2bae89ee4968cc51854e9d9f4300ed420fd538a4704266d6b`，正式 audit 有效且无错误。
+  - 构造效度审计: 对 7 个被排除项目逐项读取 exact commit，16 个入口/文档 blob 的 SHA-256 全部与正式 evidence 匹配。`jondgoodwin/cone`、`LIJI32/SameBoy`、`redhat-et/ripwire`、`SpeedBreakerProject/speedbreaker`、`Wallawalla47/Infernix` 均有明确 Linux 路径，属于 5 个明显误伤；`metroidret/mf` 是 GBA ROM、`mist-devel/mist-firmware` 是裸机固件，应排除，但前者被记录为 Windows-only 的主要理由不准确。
+  - 缺陷机制: v3 对整份入口/文档运行无作用域正则，既不剥离注释，也不区分条件分支、局部能力描述与项目级排他声明；已经采集的 `document_linux_signals` 没有参与分类。因此局部 Apple/Windows 文本会被提升为项目级排除。v3 不能宣称平台门禁修复成功，正式 report/marker/raw evidence 永久只读。
+  - 下一步: 在同一 tracking Issue 下建立独立 v4 identity；拆分宿主平台与产物终点，入口扫描先剥离注释，明确 Linux 路径可以否决局部 Apple/Windows 信号，裸机/固件/内核等非宿主终点仍直接排除。v3 全部 197 个未见候选进入历史排除集合，7 个排除边只作为已暴露 regression fixture；扩大新搜索框解决 Autotools 8/12 稀缺。v4 通过前不创建 build/reference identity。
+  - 文件: `benchmarks/reports/cpp-jev-natural-failure-linux-applicability-v3.md`, `benchmarks/reports/cpp-jev-natural-failure-linux-applicability-v3-construct-audit.md`, `RESEARCH_STATUS.md`
+
 - 2026-10-11 — Issue #413 自然构建失败 source qualification v2 在 reference 前停止
   - 工作类型与问题: 零 Provider 数据资格与只读构造效度审计。目标是在全新未见 source pool 上先完成结果盲 catalog，再对冻结的 CMake、Make、Autotools 各 8 个 exact commit 做双 clean build，判断是否具备进入 reference recipe 和自然失败 Jev 对照实验的有效样本。
   - source catalog: 搜索 120 项，排除 11 个历史项目后审计 109 个未见候选；53 项 source eligible，30 项因 `.gitmodules` 排除、23 项缺少根入口、3 项命中根入口网络获取信号。最终三个系统各冻结 8 个唯一项目族，109/109 项目级终结且 0 infrastructure failure。Evidence 为 114 files / 197,527 bytes，inventory canonical SHA-256 `d561e612515b5378a8ab2f6ab7cb6e94beb0b305229e15b1bd52a01aafd59736`，决定为 `proceed_to_natural_failure_build_qualification_v2`。
