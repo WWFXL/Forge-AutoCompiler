@@ -14,11 +14,11 @@ if str(SCRIPT_ROOT) not in sys.path:
 import forge_jev_natural_failure_source_catalog_v2 as protocol  # noqa: E402
 
 
-def test_protocol_is_valid_and_candidate_only() -> None:
+def test_protocol_is_valid_and_authorized() -> None:
     result = protocol.validate_protocol()
 
     assert result["valid"] is True
-    assert result["authorization"] == "candidate_only"
+    assert result["authorization"] == "execution"
     assert result["history_project_family_count"] == 96
 
 

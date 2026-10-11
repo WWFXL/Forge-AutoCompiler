@@ -1,0 +1,95 @@
+{
+  "$schema": "../schemas/forge-jev-natural-failure-source-qualification-v2.schema.json",
+  "schema_version": "forge-jev-natural-failure-source-qualification-2.0.0",
+  "identity": "cpp-jev-natural-failure-source-qualification-v2",
+  "issue": 413,
+  "branch": "yiwei/413-jev-natural-failure-v2",
+  "design_revision": "2021eb1b2bc59f02fba5f0deb6de783631a51193",
+  "implementation_revision": null,
+  "source_catalog": {
+    "path": "benchmarks/reports/cpp-jev-natural-failure-source-catalog-v2.json",
+    "sha256": "5ac8824a17bbc72307c39df0f0605284a03897f0149bfc9ecca9b7aab13887f8",
+    "required_decision": "proceed_to_natural_failure_build_qualification_v2",
+    "task_count": 24
+  },
+  "parents": {
+    "benchmarks/preregistrations/cpp-jev-natural-failure-source-qualification-v2.md": "dfcad3a2484d382678523c749a6684261807d6311e6c645f5fd276a81fab3833",
+    "benchmarks/reports/cpp-jev-natural-failure-source-catalog-v2.md": "79ffaebbe6250dfe79e286465e8cc479a3fed8675c5ebc52a75e85480403339d",
+    "docs/superpowers/specs/2026-10-11-jev-natural-failure-build-qualification-v2-design.md": "3ea8ac9feca5f5706f054832d1c0c072691bc477e5ce6a6d77e2c405a23bba24"
+  },
+  "environment": {
+    "compile_image": "autocompiler:gcc13",
+    "image_id": "sha256:d27a6ab733c7c3a9cbb5e4b32fb595aa5a422ff04bd212888d1041b90a2c4c2a",
+    "build_network": "none",
+    "parallel_jobs": 4
+  },
+  "initial_paths": {
+    "cmake": [
+      {"phase": "configure", "command": "cmake -S . -B build -DCMAKE_BUILD_TYPE=Release"},
+      {"phase": "build", "command": "cmake --build build --parallel 4"}
+    ],
+    "make": [
+      {"phase": "build", "command": "make -j4"}
+    ],
+    "autotools": {
+      "bootstrap_precedence": ["./autogen.sh", "./bootstrap", "autoreconf -fi"],
+      "after_bootstrap": [
+        {"phase": "configure", "command": "./configure"},
+        {"phase": "build", "command": "make -j4"}
+      ]
+    }
+  },
+  "budget": {
+    "replicates_per_task": 2,
+    "source_stage_timeout_seconds": 180,
+    "command_timeout_seconds": 180,
+    "session_timeout_seconds": 300,
+    "total_wall_clock_seconds": 14400,
+    "retries": 0,
+    "credential_reads": 0,
+    "provider_requests": 0,
+    "model_tokens": 0
+  },
+  "qualification": {
+    "required_by_system_and_role": {
+      "design": 1,
+      "calibration": 1,
+      "evaluation": 2
+    },
+    "stable_failure_replicates": 2,
+    "require_same_failure_phase": true,
+    "require_same_normalized_error_category": true,
+    "excluded_outcomes": [
+      "initial_success",
+      "source_contract_ineligible",
+      "network_dependency_excluded",
+      "platform_incompatible",
+      "infrastructure_failure",
+      "timeout",
+      "inconsistent_failure"
+    ],
+    "pass_decision": "proceed_to_reference_recipe_qualification_v2",
+    "fail_decision": "stop_natural_failure_build_qualification_v2"
+  },
+  "authorization": {
+    "execution": false,
+    "formal_attempts": 0,
+    "formal_evidence_write": false,
+    "authorized_by": null,
+    "authorized_at": null
+  },
+  "evidence": {
+    "root": ".compile-sessions/benchmark-evidence-jev-natural-failure-source-qualification-v2",
+    "work_root": ".compile-sessions/work-jev-natural-failure-source-qualification-v2",
+    "report_json": "benchmarks/reports/cpp-jev-natural-failure-source-qualification-v2.json",
+    "report_markdown": "benchmarks/reports/cpp-jev-natural-failure-source-qualification-v2.md"
+  },
+  "interpretation": {
+    "source_qualification_only": true,
+    "reference_recipe_qualified": false,
+    "action_matrix_observed": false,
+    "jev_effect_estimated": false,
+    "agent_effect_estimated": false,
+    "dynamic_budget_estimated": false
+  }
+}
