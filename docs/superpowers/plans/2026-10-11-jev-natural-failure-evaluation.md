@@ -14,10 +14,10 @@
 
 ## B. 零 Provider qualification identity
 
-- [ ] 创建版本化 source-pool fixture，记录选择输入、排除摘要、排序键、仓库元数据和 exact commit。
-- [ ] 创建 manifest、JSON Schema 和预注册，绑定设计提交、镜像 ID、父证据哈希和独立 evidence 根。
-- [ ] 固定失败类别规范化、命令/墙钟预算、停止条件、create-once marker 和 inventory 合同。
-- [ ] 添加 protocol 校验和只读 audit；默认入口不得读取 credential 或调用 Provider。
+- [x] 创建版本化 source-pool fixture，记录选择输入、排除摘要、排序键、仓库元数据和 exact commit。
+- [x] 创建 manifest、JSON Schema 和预注册，绑定设计提交、镜像 ID、父证据哈希和独立 evidence 根。
+- [x] 固定失败类别规范化、命令/墙钟预算、停止条件、create-once marker 和 inventory 合同。
+- [x] 添加 protocol 校验和只读 audit；默认入口不得读取 credential 或调用 Provider。
 
 ## C. 初始自然失败 replay
 

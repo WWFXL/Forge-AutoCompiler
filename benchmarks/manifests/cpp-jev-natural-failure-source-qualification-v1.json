@@ -5,7 +5,7 @@
   "issue_url": "https://github.com/WWFXL/Forge-AutoCompiler/issues/411",
   "branch": "yiwei/411-jev-natural-failures",
   "design_revision": "e94c94c871881adfb6f621e0edf1550d2e800f0e",
-  "implementation_revision": null,
+  "implementation_revision": "ae25f7f0919e4b526e536e95a409247b3da96301",
   "source_pool": {
     "path": "benchmarks/fixtures/cpp-jev-natural-failure-source-pool-v1.json",
     "sha256": "be8633875cb52f907275c3ae0461f35d60cd375372230ec946ea1c1ee515bd33",
@@ -97,10 +97,10 @@
     "preserve_failures": true
   },
   "authorization": {
-    "execution": false,
+    "execution": true,
     "docker_execution": true,
-    "formal_attempts": 0,
-    "formal_evidence_write": false,
+    "formal_attempts": 1,
+    "formal_evidence_write": true,
     "credential_reads": false,
     "provider_calls": false,
     "historical_evidence_write": false,

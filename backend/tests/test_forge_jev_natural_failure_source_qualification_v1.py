@@ -17,7 +17,7 @@ def test_protocol_is_valid_and_result_blind() -> None:
 
     assert result["valid"] is True
     assert result["task_count"] == 22
-    assert result["authorization"] == "candidate_only"
+    assert result["authorization"] == "execution"
 
 
 @pytest.mark.parametrize(
