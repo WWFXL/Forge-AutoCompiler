@@ -12,14 +12,22 @@
 - v1 缺陷：每个 arm 同时含主 Agent 和 evaluator 的 `events.jsonl`，旧派生器因递归命中两个文件返回空列表，把 H1
   snapshot/compaction 错记为 0，且 Q1 没有强制 treatment-separation 门禁。只读 raw events 显示三个 H1 arm 分别有
   `5/6/7` 个 snapshot，均等于请求数，H0 为 0；因此 treatment 实际接线存在，缺陷位于派生 instrumentation。
-- 当前阶段：已建立独立 `cpp-progress-aware-harness-comparison-v2` 候选，只修正主 Agent events 选择，并要求 H0
-  snapshot/compaction 为 0、H1 两者均大于 0 且等于请求数。H0/H1、9 个 checkpoint、3 次重复、配对顺序、
-  `deepseek-flash`、单臂预算、离线 source archive、CandidateVerifier、S0-S5、主要判据和停止规则全部继承 v1。
-  Q0 仍为 9 例，Q1 为 3 pairs / 6 arms，Q2 为 27 pairs / 54 arms；总上限为 1,440 requests、18,000,000 tokens 和
-  `$21.60`。v2 manifest canonical SHA-256 为
-  `2891fcf708efda329686fb31b11abb25ec20e5716fa5219c5859a13c9a015018`；聚焦测试 `3 passed`，Ruff、编译、validate、plan
-  通过。当前尚无 v2 formal attempt、credential read 或 Provider observation；下一步提交并推送 exact release，再执行
-  全新 Q0，只有 Q0 `9/9` strict 和 Q1 treatment-separation 门禁通过后才进入 Q2。
+- v2 正式结果：独立 `cpp-progress-aware-harness-comparison-v2` 已完成 Q0/Q1/Q2。Q0 为 `9/9` strict；Q1 六臂闭合且
+  treatment-separation 门禁通过；Q2 的 54/54 arms 均分类、计量、source/checkpoint 绑定、动作后观察和 cleanup 闭合，
+  0 infrastructure error。H0/H1 strict 为 `16/27` 与 `22/27`，差值 `+0.222`，task-cluster 单侧 95% 下界 `0.0`；
+  Provider cost 为 `$1.619287` 与 `$0.707752`，H1 下降 56.3%；recorded tokens 为 4,530,526 与 1,702,701，下降
+  62.4%；diagnostic commands 为 271 与 98。CMake strict 为 `3/9 -> 9/9`，Make 与 Autotools 均不退化。
+- v2 决定：预注册的 `primary_noninferiority_and_cost` 与 `system_non_regression` 通过，但正式决定仍为
+  `stop_progress_aware_harness_as_primary_mechanism`。8 个 H0 arm 的最后一次已完成响应使实际 recorded tokens 达到
+  304,588 至 328,146，超过单臂 300,000 上限；tracker 保留越界前 snapshot，导致 raw events 与 node usage 不一致、
+  `budget.complete=false`，唯一失败硬门禁为 `cost_and_budget_complete`。这支持 H1 的强正向机制信号，不支持把 v2 宣告为
+  正式通过或 strict superiority。
+- Evidence 与下一步：v2 release `0dec1b2427b5146c37ebad8ec589b5c8e43132e4`，manifest canonical SHA-256
+  `2891fcf708efda329686fb31b11abb25ec20e5716fa5219c5859a13c9a015018`；30,108 files / 719,928,939 bytes，inventory
+  canonical SHA-256 `fb8f77bf05885dcb2f008fc2799de8361f7dd91af558815b7cff42b01cd5dce8`，audit `valid=true`、0 managed
+  resources。v2 evidence 永久只读。下一步先建立零 Provider token-budget 语义门禁，使最后一次真实响应进入 authoritative
+  usage 并冻结可执行的 overshoot 语义；通过后再决定是否建立诚实标注为已观察后复现的 v3 identity。当前不进入
+  Workflow+Agent+Jev 新链路设计。
 - 状态：Issue #433 的进展感知结构化 Harness 零 Provider 资格已完成。`cpp-progress-aware-harness-qualification-v1`
   已按 create-once 合同失败封口：Runtime v4 完成 5 次权威 progress snapshot、2 次有效上下文裁剪、1 次 candidate-ready
   后命令拒绝和 1 次快照驱动提交；pre-freeze verifier、S0-S4、预算计数与 cleanup 全部通过，但 S5 clean replay 在任何
