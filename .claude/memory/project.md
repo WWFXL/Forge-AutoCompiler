@@ -6,13 +6,15 @@
 
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
-- 2026-10-13 — Issue #433 H0/H1 Provider 配对比较 v1 已冻结，等待 release 后执行 Q0/Q1/Q2
-  - 研究问题: 在模型、checkpoint、预算、工具、离线源码和严格裁判完全一致时，Runtime v4 的进展快照、上下文裁剪、candidate-ready guard 与 diagnostic guard 是否相对 Runtime v3 降低无进展行为和 Provider 成本，同时保持或提高 strict success。
-  - 身份与样本: `cpp-progress-aware-harness-comparison-v1`；Q0 9 个离线 reference closure；Q1 3 pairs / 6 arms；Q2 9 checkpoints x 3 repetitions x H0/H1 = 27 pairs / 54 arms。每项目绑定 state-1 同 commit archive，H0/H1 均禁止 replay `git fetch`。
-  - 模型与预算: `deepseek-flash`，retry=0；单臂 24 requests / 300,000 recorded tokens / 1,800 秒；Q1+Q2 上限 1,440 requests / 18,000,000 tokens / `$21.60`。
-  - 判定: 主要路径要求 task-cluster 单侧 95% strict-success difference 下界 `>= -0.10`、H1 cost reduction `>=20%` 且三系统不退化；替代路径要求 strict success 至少提高 0.10、下界大于 0、费用增加不超过 10% 且三系统不退化。
-  - 门禁: manifest canonical SHA-256 `2c90e1f82a9d47673aa1cd4e99bada60e2ba9e45dc5aa334f716abffe68b4f0f`；新增与相邻回归 `19 passed`，lint/format 通过；当前 0 credential、0 Provider、0 formal attempt。
-  - 文件: `scripts/forge_progress_aware_harness_comparison_v1.py`, `backend/tests/test_forge_progress_aware_harness_comparison_v1.py`, `benchmarks/manifests/cpp-progress-aware-harness-comparison-v1.json`, `benchmarks/schemas/forge-progress-aware-harness-comparison-v1.schema.json`, `benchmarks/preregistrations/cpp-progress-aware-harness-comparison-v1.md`, `docs/superpowers/specs/2026-10-13-progress-aware-harness-comparison-v1-design.md`, `docs/superpowers/plans/2026-10-13-progress-aware-harness-comparison-v1.md`
+- 2026-10-13 — Issue #433 H0/H1 Provider 配对比较 v1 在 canary instrumentation 缺口后停止，v2 待 release
+  - 研究问题: 在模型、checkpoint、预算、工具、离线源码和严格裁判一致时，Runtime v4 的进展快照、上下文裁剪、candidate-ready guard 与 diagnostic guard 是否相对 Runtime v3 降低无进展行为和 Provider 成本，同时保持或提高 strict success。
+  - v1 observation: Q0 `9/9` strict；Q1 6/6 arms 分类、计量、source binding 和 cleanup 闭合，H0/H1 strict 均为 `2/3`。H0 为 206,812 tokens / `$0.073173`，H1 为 108,612 tokens / `$0.038861`；canary 不形成 treatment claim。
+  - v1 停止原因: 派生 `_events()` 同时命中主 Agent 与 evaluator 两份 `events.jsonl` 后返回空列表，把 H1 snapshot/compaction 错记为 0，且 Q1 未强制 treatment separation。只读 raw events 证明三个 H1 arms 分别有 `5/6/7` 个 snapshot，等于请求数，H0 为 0。决定为 `supersede_before_q2_due_to_canary_instrumentation_gap`，Q2 不存在。
+  - v1 封存: 6,996 files / 123,160,740 bytes，inventory canonical SHA-256 `3a03ec1a2bed0ab5311842ce51bc0292963871d2c9f3d9d364ce84aae51fa201`；0 managed resources。v1 evidence 永久只读，不续跑、不重分类、不导入 v2 estimate。
+  - v2 修订: `cpp-progress-aware-harness-comparison-v2` 只读取不在 `evaluations/` 下的唯一主 Agent events；Q1 强制 H0 snapshot/compaction 均为 0，H1 两者均大于 0 且等于 model request 数。其余 treatment、9 个 checkpoint、3 次重复、顺序、`deepseek-flash`、单臂 24 requests / 300,000 tokens / 1,800 秒、总 `$21.60` 上限、裁判、判据和停止规则全部继承 v1。
+  - 当前门禁: manifest canonical SHA-256 `2891fcf708efda329686fb31b11abb25ec20e5716fa5219c5859a13c9a015018`；聚焦测试 `3 passed`，Ruff、编译、validate 和 plan 通过。当前 0 v2 formal attempt、0 credential read、0 Provider observation。
+  - 下一步: 提交并推送 v2 exact release；重新执行独立 Q0，要求 `9/9` strict；Q1 六臂还须通过新增 instrumentation 分离门禁，才允许执行 Q2 27 pairs / 54 arms。
+  - 文件: `benchmarks/reports/cpp-progress-aware-harness-comparison-v1-canary-instrumentation-audit.md`, `scripts/forge_progress_aware_harness_comparison_v2.py`, `backend/tests/test_forge_progress_aware_harness_comparison_v2.py`, `benchmarks/manifests/cpp-progress-aware-harness-comparison-v2.json`, `benchmarks/schemas/forge-progress-aware-harness-comparison-v2.schema.json`, `benchmarks/preregistrations/cpp-progress-aware-harness-comparison-v2.md`, `docs/superpowers/specs/2026-10-13-progress-aware-harness-comparison-v2-design.md`, `docs/superpowers/plans/2026-10-13-progress-aware-harness-comparison-v2.md`
 
 - 2026-10-12 — Issue #430 固定 Agent continuation 资格 v2 已完成并触发停止规则
   - 工作类型与问题: 正式资格数据采集与只读结果分析。研究问题是固定 Compiler Agent 从同源冻结 checkpoint 接管后，能否稳定达到 Forge 严格终点，并形成完整、可比较的成本和六维预算轨迹，从而允许下一步设计动态预算 controller。

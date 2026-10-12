@@ -4,17 +4,22 @@
 
 ## 当前阶段
 
-- 状态：Issue #433 已冻结 `cpp-progress-aware-harness-comparison-v1` H0/H1 Provider 配对实验候选。H0 为 Runtime v3
-  原受限 ReAct Harness，H1 为 Runtime v4 进展快照、最近两次交互裁剪、candidate-ready guard 和 diagnostic guard；
-  两臂共享 `deepseek-flash`、checkpoint、工具、单臂预算、离线 source archive、CandidateVerifier 和 S0-S5。
-- 冻结设计：Q0 为 9 个 checkpoint 的零 Provider 离线 reference closure；Q1 为 CMake、Make、Autotools 各 1 个
-  checkpoint 的 3 pairs / 6 arms canary；Q2 为 9 checkpoints x 3 repetitions x 2 treatments，共 27 pairs / 54 arms。
-  Provider 总机械上限为 1,440 requests、18,000,000 recorded tokens 和 `$21.60`；主要判据为 task-cluster 单侧
-  95% strict-success 差值下界不低于 `-0.10`、费用至少降低 20% 且三个构建系统均不退化，另预注册成功率明确改善的
-  替代路径。Manifest canonical SHA-256 为 `2c90e1f82a9d47673aa1cd4e99bada60e2ba9e45dc5aa334f716abffe68b4f0f`。
-- 当前边界：本 identity 尚未创建 formal attempt、读取 credential 或调用 Provider。新增与相邻聚焦回归 `19 passed`，
-  manifest、9 个 state-1 archive 和 54-arm schedule 已通过静态门禁。下一步提交并推送冻结 release，随后按 Q0→Q1→Q2
-  顺序执行；历史 H0/H1 outcome 只用于设计，不进入新 effect estimate。
+- 状态：Issue #433 的 `cpp-progress-aware-harness-comparison-v1` 已在 Q1 canary 后停止，决定为
+  `supersede_before_q2_due_to_canary_instrumentation_gap`。Q0 `9/9` strict；Q1 六臂均分类、计量和 cleanup 闭合，H0/H1
+  strict 均为 `2/3`，但这些 canary 数值不形成 treatment claim。v1 Q2 从未创建，全部 evidence 已按 6,996 files /
+  123,160,740 bytes、inventory canonical SHA-256
+  `3a03ec1a2bed0ab5311842ce51bc0292963871d2c9f3d9d364ce84aae51fa201` 封存只读。
+- v1 缺陷：每个 arm 同时含主 Agent 和 evaluator 的 `events.jsonl`，旧派生器因递归命中两个文件返回空列表，把 H1
+  snapshot/compaction 错记为 0，且 Q1 没有强制 treatment-separation 门禁。只读 raw events 显示三个 H1 arm 分别有
+  `5/6/7` 个 snapshot，均等于请求数，H0 为 0；因此 treatment 实际接线存在，缺陷位于派生 instrumentation。
+- 当前阶段：已建立独立 `cpp-progress-aware-harness-comparison-v2` 候选，只修正主 Agent events 选择，并要求 H0
+  snapshot/compaction 为 0、H1 两者均大于 0 且等于请求数。H0/H1、9 个 checkpoint、3 次重复、配对顺序、
+  `deepseek-flash`、单臂预算、离线 source archive、CandidateVerifier、S0-S5、主要判据和停止规则全部继承 v1。
+  Q0 仍为 9 例，Q1 为 3 pairs / 6 arms，Q2 为 27 pairs / 54 arms；总上限为 1,440 requests、18,000,000 tokens 和
+  `$21.60`。v2 manifest canonical SHA-256 为
+  `2891fcf708efda329686fb31b11abb25ec20e5716fa5219c5859a13c9a015018`；聚焦测试 `3 passed`，Ruff、编译、validate、plan
+  通过。当前尚无 v2 formal attempt、credential read 或 Provider observation；下一步提交并推送 exact release，再执行
+  全新 Q0，只有 Q0 `9/9` strict 和 Q1 treatment-separation 门禁通过后才进入 Q2。
 - 状态：Issue #433 的进展感知结构化 Harness 零 Provider 资格已完成。`cpp-progress-aware-harness-qualification-v1`
   已按 create-once 合同失败封口：Runtime v4 完成 5 次权威 progress snapshot、2 次有效上下文裁剪、1 次 candidate-ready
   后命令拒绝和 1 次快照驱动提交；pre-freeze verifier、S0-S4、预算计数与 cleanup 全部通过，但 S5 clean replay 在任何
