@@ -163,7 +163,7 @@ class AgentWorkflowBudgetTracker:
     def remaining(self) -> AgentWorkflowRemainingBudget:
         return AgentWorkflowRemainingBudget(
             model_requests=self.limits.max_model_requests - self._snapshot.model_requests,
-            recorded_tokens=(None if self.limits.max_recorded_tokens is None else self.limits.max_recorded_tokens - self._snapshot.recorded_tokens),
+            recorded_tokens=(None if self.limits.max_recorded_tokens is None else max(0, self.limits.max_recorded_tokens - self._snapshot.recorded_tokens)),
             agent_steps=self.limits.max_agent_steps - self._snapshot.agent_steps,
             tool_calls=self.limits.max_tool_calls - self._snapshot.tool_calls,
             commands=self.limits.max_commands - self._snapshot.commands,
@@ -210,6 +210,33 @@ class AgentWorkflowBudgetTracker:
                 raise AgentWorkflowBudgetExceeded(field_name, self._snapshot)
         self._snapshot = candidate
         return candidate
+
+    def ensure_model_request_allowed(self) -> None:
+        threshold = self.limits.max_recorded_tokens
+        if self.limits.max_recorded_tokens_per_response is not None and threshold is not None and self._snapshot.recorded_tokens >= threshold:
+            raise AgentWorkflowBudgetExceeded("recorded_tokens", self._snapshot)
+
+    def record_model_response(self, recorded_tokens: int) -> AgentWorkflowBudgetSnapshot:
+        response_limit = self.limits.max_recorded_tokens_per_response
+        if response_limit is None:
+            return self.consume(recorded_tokens=recorded_tokens)
+        if type(recorded_tokens) is not int or recorded_tokens < 0:
+            raise ValueError("recorded_tokens must be a non-negative integer")
+
+        self._snapshot = AgentWorkflowBudgetSnapshot(
+            model_requests=self._snapshot.model_requests,
+            recorded_tokens=self._snapshot.recorded_tokens + recorded_tokens,
+            agent_steps=self._snapshot.agent_steps,
+            tool_calls=self._snapshot.tool_calls,
+            commands=self._snapshot.commands,
+            elapsed_seconds=self._snapshot.elapsed_seconds,
+        )
+        if recorded_tokens > response_limit:
+            raise AgentWorkflowBudgetExceeded("recorded_tokens_per_response", self._snapshot)
+        threshold = self.limits.max_recorded_tokens
+        if threshold is not None and self._snapshot.recorded_tokens >= threshold:
+            raise AgentWorkflowBudgetExceeded("recorded_tokens", self._snapshot)
+        return self._snapshot
 
     def observe_elapsed(self, elapsed_seconds: float) -> AgentWorkflowBudgetSnapshot:
         if not isinstance(elapsed_seconds, (int, float)) or isinstance(elapsed_seconds, bool) or elapsed_seconds < 0:

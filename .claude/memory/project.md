@@ -6,6 +6,29 @@
 
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
+- 2026-10-13 — Issue #436 Agent Token 预算语义与证据一致性门禁完成
+  - 工作类型与问题: 工程修复与零 Provider 基础设施门禁。Issue #433 v2 的 8 个 H0 arm 已完整记录最后一次 Provider 响应，
+    但旧 tracker 在响应后发现超过 300,000 Token ceiling 时保留越界前 snapshot，使 raw events/费用与 node usage 不一致，
+    唯一硬门禁 `cost_and_budget_complete` 失败。本阶段检验可执行的 post-response 预算合同，不估计 H1 treatment effect。
+  - 合同实现: `AgentWorkflowBudget` 新增可选 `max_recorded_tokens_per_response=R`；显式配置时，
+    `max_recorded_tokens=T` 是下一请求准入停止阈值，派生授权上限为 `T+R`。已完成响应先严格验证 input/output/total，
+    写入 `model.request_completed` 并提交真实 Token；累计达到/超过 T 后停止，单响应超过 R 时完整计量并分类
+    `budget_contract_violation:recorded_tokens_per_response`。usage 缺失/不一致写 `model.request_usage_incomplete` 并以
+    `usage_incomplete` fail closed。overshoot 后 remaining 为 0，实际 usage 不截断；其他预算维持请求前严格拒绝。
+  - 门禁结果: `cpp-agent-token-budget-semantics-gate-v1` 的 9/9 scripted cases 通过。精确触阈为 events/result
+    `100/100`，bounded overshoot 为 `110/110` 且第二次响应后无第三次请求；response bound violation、missing/invalid
+    usage、Provider failure、request budget 和历史 unbounded 模式全部按预期分类且请求生命周期闭合。决定为
+    `proceed_to_progress_aware_harness_v3_replication_decision`。
+  - 完整性: v2 30,108 files / 719,928,939 bytes 逐项只读审计仍为 `valid=true`，inventory canonical SHA-256
+    `fb8f77bf05885dcb2f008fc2799de8361f7dd91af558815b7cff42b01cd5dce8`。相邻回归 `82 passed`，产品全量
+    `1787 passed, 40 skipped`，改动文件 Ruff/format 通过。0 credential、0 Provider、0 Docker、0 formal effect attempt。
+  - 边界与下一步: 本门禁只解除全新 H0/H1 v3 的预算合同阻塞，不改变 v2 正式停止决定，不证明 H1、Jev、动态预算
+    controller、自然失败或开放世界效果。v3 尚未创建或授权；若继续，必须披露 v2 已观察并冻结全新 spec、预算、单响应
+    上界、成本上限、停止规则和 identity。在用户审查前不进入 Workflow+Agent+Jev 新链路设计。
+  - 文件: `docs/superpowers/specs/2026-10-13-agent-token-budget-semantics-gate-design.md`,
+    `docs/superpowers/plans/2026-10-13-agent-token-budget-semantics-gate.md`,
+    `scripts/forge_agent_token_budget_semantics_gate.py`, `benchmarks/reports/cpp-agent-token-budget-semantics-gate-v1.{json,md}`
+
 - 2026-10-13 — Issue #433 H0/H1 Provider 配对比较 v1 停止，v2 完成并因 token ceiling 合同停止
   - 研究问题: 在模型、checkpoint、预算、工具、离线源码和严格裁判一致时，Runtime v4 的进展快照、上下文裁剪、candidate-ready guard 与 diagnostic guard 是否相对 Runtime v3 降低无进展行为和 Provider 成本，同时保持或提高 strict success。
   - v1 observation: Q0 `9/9` strict；Q1 6/6 arms 分类、计量、source binding 和 cleanup 闭合，H0/H1 strict 均为 `2/3`。H0 为 206,812 tokens / `$0.073173`，H1 为 108,612 tokens / `$0.038861`；canary 不形成 treatment claim。
