@@ -32,6 +32,14 @@ def _restore_snapshot(source: Path, destination: Path) -> None:
     archive.restore_checkpoint_archive(source, destination)
 
 
+def _report_compatible_result(value: Any) -> Any:
+    if isinstance(value, dict) and value.get("failure") is None:
+        compatible = copy.deepcopy(value)
+        compatible["failure"] = {}
+        return compatible
+    return value
+
+
 def configure_module() -> ModuleType:
     module = _load_module("forge_dynamic_budget_trajectory_qualification_v4", V4_SCRIPT_PATH).configure_module()
     module.IDENTITY = IDENTITY
@@ -51,6 +59,28 @@ def configure_module() -> ModuleType:
         return manifest
 
     module.validate_manifest = validate_manifest
+
+    inherited_report_payload = module._report_payload
+
+    def report_payload(manifest: dict[str, Any], root: Path) -> dict[str, Any]:
+        inherited_load_json = module._load_json
+        result_path = root / "result.json"
+
+        def load_json(path: Path) -> Any:
+            value = inherited_load_json(path)
+            if path == result_path:
+                return _report_compatible_result(value)
+            return value
+
+        module._load_json = load_json
+        try:
+            payload = inherited_report_payload(manifest, root)
+        finally:
+            module._load_json = inherited_load_json
+        payload["failure"] = None
+        return payload
+
+    module._report_payload = report_payload
     return module
 
 

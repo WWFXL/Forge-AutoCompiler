@@ -87,3 +87,13 @@ def test_v5_keeps_final_zero_provider_gate(configured: ModuleType) -> None:
     assert plan["controller_implementation"] is False
     assert configured.DETERMINISTIC_HOSTNAME is True
     assert configured.IGNORED_DECISION_TREE_DIR_NAMES == frozenset({"autom4te.cache"})
+
+
+def test_v5_report_compatibility_does_not_mutate_success_result() -> None:
+    module = _load_module()
+    result = {"status": "completed", "failure": None}
+
+    compatible = module._report_compatible_result(result)
+
+    assert result["failure"] is None
+    assert compatible["failure"] == {}
