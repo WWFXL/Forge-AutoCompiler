@@ -1,0 +1,94 @@
+{
+  "schema_version": "forge-agent-continuation-qualification-failure-audit-1.0.0",
+  "document_type": "posthoc_read_only_infrastructure_failure_audit",
+  "identity": "cpp-agent-continuation-qualification-v1",
+  "tracking_issue": 429,
+  "release_revision": "e1c669574670d97e31df107ead3b89cc3fda3efc",
+  "manifest_canonical_sha256": "46ec8c9953d906422d119d18e438abdae7a12d518b6c3b414187a0c22c23539e",
+  "created_at": "2026-10-12T09:22:52Z",
+  "stage": "q0_zero_provider_strict_closure",
+  "status": "failed_and_sealed",
+  "failed_case": {
+    "sequence": 1,
+    "task_id": "cmake-spdlog",
+    "checkpoint_state_id": "cmake-spdlog-state-1",
+    "session_id": "c1ce3958535c",
+    "strict_success": false,
+    "primary_failure": "command_missing",
+    "s0_status": "passed",
+    "s1_status": "failed",
+    "s1_reason_codes": [
+      "command_missing",
+      "supporting_command_invalid",
+      "artifact_stage_missing"
+    ],
+    "s2_to_s5_status": "not_run_blocked_by_s1",
+    "cleanup_succeeded": true,
+    "duration_milliseconds": 22055
+  },
+  "observed_facts": {
+    "reference_commands_recorded_in_workflow_log": [
+      {
+        "role": "configure",
+        "command_id": "command_528c7f8029d14f15a9dad31b977a59bb",
+        "exit_code": 0
+      },
+      {
+        "role": "build",
+        "command_id": "command_d2c42e3bc16b4486b1b70919669f575d",
+        "exit_code": 0
+      },
+      {
+        "role": "artifact_stage",
+        "command_id": "command_59c01ae0c0e14ce88bbf3280fbc6dcd7",
+        "exit_code": 0
+      }
+    ],
+    "artifact_path": "lib/libspdlog.a",
+    "artifact_sha256": "98f19bccd84c9d8ba846d6c7a88e381ea79422e3e7bf64f826f8aa7af0744517",
+    "candidate_prefreeze_verification_passed": true,
+    "functional_oracle_command_id": "command_4fcc730e98af4b17bed75d278622cbc7",
+    "functional_oracle_exit_code": 0,
+    "final_session_command_ids": [
+      "command_4fcc730e98af4b17bed75d278622cbc7"
+    ],
+    "provider_requests": 0,
+    "credential_reads": 0,
+    "agent_arms": 0,
+    "managed_resources_remaining": 0
+  },
+  "causal_audit": {
+    "failure_class": "stale_in_memory_session_overwrote_authoritative_command_history",
+    "mechanism": [
+      "Q0 reference commands were executed against freshly reloaded authoritative Session objects.",
+      "The original Session object passed to _direct_candidate was not refreshed before AgentWorkflowCandidateService captured it.",
+      "CandidateVerifier ran the system functional oracle with that stale Session object.",
+      "record_command appended the smoke command and save_session persisted the stale object, replacing the authoritative configure/build/artifact-stage command list.",
+      "The external evaluator therefore could not resolve the three command IDs referenced by the already accepted candidate."
+    ],
+    "project_or_checkpoint_failure": false,
+    "agent_continuation_evaluated": false,
+    "dynamic_budget_controller_evaluated": false
+  },
+  "protocol_closure": {
+    "q0_stopped_at_first_failure": true,
+    "remaining_q0_cases_not_observed": 8,
+    "q1_started": false,
+    "q2_started": false,
+    "replacement_or_backfill": false,
+    "identity_must_remain_read_only": true
+  },
+  "evidence_integrity": {
+    "root": ".compile-sessions/benchmark-evidence-agent-continuation-qualification-v1",
+    "file_count": 252,
+    "total_bytes": 5790620,
+    "inventory_canonical_sha256": "66c9e4678bdedc09db02bce8621cf2d140a2b1e4238923ea9bf504b8e753665f",
+    "q0_result_sha256": "234677054e3814a9fa7ea1880c3133cee3ca96e2504a967b8b78f5574b1d91bd",
+    "session_json_sha256": "78b80639a957f36668b35e01c9b5a9631622374b3b248ccd894b6f5fed1f2d74",
+    "workflow_log_sha256": "9a3e9935c8d162f7a5bef775eac0f9e98ce1b18292e8862191d32730a1e7d119",
+    "candidate_json_sha256": "d86e22185620f4cc4f68b511e718e2b63b29d5a1aaabc7610d3b964dd9b2a479",
+    "evaluation_result_sha256": "844c233090145b1ce80c421761f31bb850314216d36354ad544f672d587aae7f"
+  },
+  "decision": "supersede_with_fresh_v2_identity_after_session_refresh_repair",
+  "interpretation": "v1 supports only an infrastructure failure conclusion. It provides no evidence for or against fixed Agent continuation, Jev routing, or dynamic budget control."
+}

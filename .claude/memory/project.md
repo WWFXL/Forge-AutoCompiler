@@ -6,13 +6,13 @@
 
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
-- 2026-10-12 — Issue #429 固定 Agent continuation 资格 v1 协议与实现候选已冻结
-  - 工作类型与问题: Q0 基础设施门禁、Q1 Provider canary 和 Q2 正式资格数据采集。目标是从 v5 同源 checkpoint 重复运行固定 Compiler Agent，判断严格终点稳定性、成本完整性、恢复性和六维预算轨迹是否足以支持后续 dynamic-budget matched outcome matrix 设计。
-  - 冻结设计: Q0 选择 9 个 checkpoint，三个构建系统各覆盖 state 1/2/3，必须 9/9 通过 Runtime v3 CandidateVerifier、functional oracle、S0-S5、provenance、clean replay 和 cleanup。CLI11/cxxopts 编译最小 consumer ELF，kilo 编译静态库，避免 header-only 或交互式 endpoint 伪闭合。Q1 为 3 个不进入分析的跨系统 canary；Q2 为 9 checkpoint x 3 repetitions = 27 arms。
-  - Provider 与预算: `deepseek-flash`、thinking=false、streaming=false、retry=0；单臂 24 requests、300,000 recorded tokens、64 steps、48 tools、32 commands、1,800 秒；Q1+Q2 总上限 720 requests / 9,000,000 tokens。checkpoint 恢复后断开 compile container 网络；Agent 不接收 Q0 reference 命令。
-  - 判定: Q2 必须 27/27 分类终态、成本/六维预算完整、parent binding、动作后观察和 cleanup；至少 6/9 checkpoint 达到 >=2/3 strict，每系统与每深度至少 2/3 checkpoint 达标，timeout/budget exhausted <=3/27。通过才决定 `proceed_to_matched_outcome_matrix_design`，否则停止 controller。
-  - 当前验证与边界: Tracking Issue #429 已创建并回读；manifest static validate、v5 326 文件 inventory 复核、schedule/门禁与相邻恢复测试 `11 passed`，Ruff/format 通过。尚未创建 evidence，0 credential、0 Provider、0 Agent。下一步提交、推送 release 后只执行 Q0；Q0 失败时 Q1/Q2 在 credential 读取前 fail closed。
-  - 文件: `docs/superpowers/specs/2026-10-12-agent-continuation-qualification-v1-design.md`, `docs/superpowers/plans/2026-10-12-agent-continuation-qualification-v1.md`, `benchmarks/manifests/cpp-agent-continuation-qualification-v1.json`, `benchmarks/preregistrations/cpp-agent-continuation-qualification-v1.md`, `scripts/forge_agent_continuation_qualification_v1.py`, `backend/tests/test_forge_agent_continuation_qualification_v1.py`, `RESEARCH_STATUS.md`
+- 2026-10-12 — Issue #429 固定 Agent continuation 资格 v1 在 Q0 基础设施失败后封口
+  - 工作类型与问题: Q0 零 Provider 基础设施门禁。目标仍是为固定 Compiler Agent continuation 的稳定性、成本完整性、恢复性和六维预算轨迹建立资格；本次没有进入 Agent 数据采集。
+  - 正式 observation: 唯一 v1 Q0 attempt 在第一个 `cmake-spdlog-state-1` 停止。Reference configure/build/artifact-stage 三条命令均返回 0，`lib/libspdlog.a` 正确生成，Runtime v3 CandidateVerifier 与 functional oracle 通过；外部 evaluator S0 通过，S1 因 `command_missing`、`supporting_command_invalid`、`artifact_stage_missing` 失败，S2-S5 被阻断。cleanup 成功，0 受管资源。
+  - 根因: reference 命令使用重新加载的权威 Session，但 `_direct_candidate` 接收 checkpoint 恢复后的旧内存 Session。CandidateVerifier 的 functional oracle 在该旧对象上追加 smoke 并保存，覆盖了权威 `session.json` 中的 configure/build/artifact-stage 命令。`workflow.log` 仍完整记录四条命令，candidate 也正确引用前三条，但最终 Session 只剩 smoke。
+  - 封口与边界: v1 决定为 `supersede_with_fresh_v2_identity_after_session_refresh_repair`；其余 8 个 Q0 case、Q1、Q2 未观察，不记零。v1 evidence 为 252 files / 5,790,620 bytes，inventory canonical SHA-256 `66c9e4678bdedc09db02bce8621cf2d140a2b1e4238923ea9bf504b8e753665f`。全程 0 credential、0 Provider、0 Agent；不能评价 continuation 或 controller。
+  - 下一步: 新建 v2 Issue/分支/identity；在 CandidateVerifier 前重新加载权威 Session，增加 functional oracle 保存后完整保留 configure/build/artifact-stage/smoke 的回归。零 Provider 工程验证通过后执行全新 v2 Q0，9/9 strict 后才允许 Q1/Q2。
+  - 文件: `benchmarks/reports/cpp-agent-continuation-qualification-v1-failure-audit.{json,md}`, `.compile-sessions/benchmark-evidence-agent-continuation-qualification-v1/inventory.json`, `RESEARCH_STATUS.md`
 
 - 2026-10-12 — Issue #427 动态预算多步轨迹 benchmark 资格 v5 完整通过
   - 工作类型与问题: 正式零 Provider benchmark 资格数据采集。v5 用全新 create-once identity 完整重跑 v4 的 9 项目、27 连续状态、54 次同源禁网 Docker continuation，检验 Issue #425 修复后跨 CMake/Make/Autotools 的 checkpoint 恢复、重复性、动作后观察、六维预算和 stop reservation 转移能否闭合。

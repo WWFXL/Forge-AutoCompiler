@@ -4,17 +4,19 @@
 
 ## 当前阶段
 
-- 状态：Issue #429 已冻结 `cpp-agent-continuation-qualification-v1` 的 spec、plan、manifest、schema、预注册和执行门禁，
-  当前等待 release 提交/推送后执行 Q0 零 Provider strict-closure gate。研究问题是固定 Compiler Agent 从同源冻结
-  checkpoint 接管后，能否稳定达到严格终点并形成完整、可比较的成本轨迹。
-- 冻结设计：Q0 使用 9 个 checkpoint 覆盖 CMake/Make/Autotools 与 state 1/2/3，reference recipe 必须全部通过
-  Runtime v3 CandidateVerifier、functional oracle、S0-S5、provenance、clean replay 和 cleanup；Q1 使用 3 个不进入
-  正式分析的 Provider canary；Q2 为 9 checkpoint x 3 repetitions = 27 arms。模型固定 `deepseek-flash`、retry=0，
-  单臂 24 requests / 300,000 recorded tokens / 1,800 秒，Q1+Q2 总上限 720 requests / 9,000,000 tokens。
-- 当前证据与边界：manifest static validate、parent v5 326 文件 inventory 复核、schedule/门禁测试与相邻恢复回归共
-  `11 passed`，Ruff/format 通过；尚未创建新 evidence，0 credential、0 Provider、0 Agent。Q0 失败时 Q1/Q2 必须在
-  credential 读取前停止；只有 Q2 的硬门禁与行为门槛全部通过，才决定
-  `proceed_to_matched_outcome_matrix_design`。本阶段不调用 Jev、不实现动态预算 controller、不重启自然失败路线。
+- 状态：Issue #429 的 `cpp-agent-continuation-qualification-v1` 已在 Q0 第一个 `cmake-spdlog-state-1` 按协议失败封口，
+  决定为 `supersede_with_fresh_v2_identity_after_session_refresh_repair`。Q1/Q2 未启动，全程 0 credential、0 Provider、
+  0 Agent，cleanup 后 0 受管资源；v1 identity 与 evidence 永久只读。
+- v1 证据：reference configure/build/artifact-stage 均返回 0，`lib/libspdlog.a` 正确生成，Runtime v3 CandidateVerifier
+  和 functional oracle 通过；外部 evaluator S0 通过，S1 以 `command_missing`、`supporting_command_invalid`、
+  `artifact_stage_missing` 失败，S2-S5 被阻断。Evidence 为 252 files / 5,790,620 bytes，inventory canonical SHA-256
+  `66c9e4678bdedc09db02bce8621cf2d140a2b1e4238923ea9bf504b8e753665f`。
+- 根因与边界：reference 命令写入了重新加载的权威 Session，但 `_direct_candidate` 收到旧内存 Session；functional oracle
+  保存 smoke 命令时把旧对象写回，覆盖了 configure/build/artifact-stage 命令历史。这是 runner 基础设施失败，不评价
+  spdlog、checkpoint 或固定 Agent continuation，也不能支持动态预算 controller。
+- 下一步：建立独立 v2 Issue、分支和 identity；在 CandidateVerifier 前刷新权威 Session，并增加 oracle 保存后的命令
+  历史回归。先做零 Provider 工程验证，再执行全新 v2 Q0；只有 9/9 strict 才允许按冻结预算读取 credential、运行
+  三状态 Provider canary 和 27 个 Agent arms。
 - 状态：Issue #427 的 `cpp-dynamic-budget-trajectory-benchmark-qualification-v5` 唯一正式零 Provider attempt 已完整通过，
   决定为 `proceed_to_agent_continuation_qualification_design`。冻结的 CMake、Make、Autotools 各 3 个项目全部完成，
   共 9/9 项目、27/27 连续状态和 54/54 同源禁网 Docker continuation。
