@@ -20,7 +20,7 @@
   不证明动态预算 controller、Jev 或 Agent continuation 有效果。下一阶段只允许设计独立的 Agent continuation 资格：
   从同源 checkpoint 重复执行冻结 Agent continuation，先估计方差、成本、恢复性和预算轨迹，再决定是否实现 controller。
 - 发布状态：分支 `yiwei/427-dynamic-budget-trajectory-v5` 已推送；PR #428 堆叠在 PR #426 的分支之上并等待 CI/审查，
-  不自动合并。
+  `backend-unit-tests` 与 `frozen-benchmark-tests` 均已通过，等待用户审查，不自动合并。
 - 状态：Issue #425 的 `symlink-safe-checkpoint-restore-gate-v1` 工程门禁已通过，决定为
   `proceed_to_dynamic_budget_trajectory_qualification_v5_design`。恢复器继续使用 Python `tarfile.data_filter` 的成员路径、
   权限和特殊文件限制，只将 symlink 目标改为按成员父目录解析；hardlink 仍按 archive root 解析。所有内容先恢复到同级
