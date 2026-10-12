@@ -4,6 +4,21 @@
 
 ## 当前阶段
 
+- 状态：Issue #425 的 `symlink-safe-checkpoint-restore-gate-v1` 工程门禁已通过，决定为
+  `proceed_to_dynamic_budget_trajectory_qualification_v5_design`。恢复器继续使用 Python `tarfile.data_filter` 的成员路径、
+  权限和特殊文件限制，只将 symlink 目标改为按成员父目录解析；hardlink 仍按 archive root 解析。所有内容先恢复到同级
+  staging，完成解包后 containment 和 tree hash 校验后才原子发布 destination。
+- 门禁证据：8/8 case 通过。合法 `src/.libs/libestr.la -> ../libestr.la` 保持原始 link target 并正确解析；真实相对
+  越界、absolute symlink、越界 hardlink、character device、FIFO 和 tree-hash mismatch 均被拒绝且未发布 destination。
+  v4 `libestr` checkpoint 的完整 tree hash 恢复前后同为
+  `bf843bc282eabedefeb6e7ea053747a13944125c993660e61efa47a97d64fefe`，决策 tree hash 同为
+  `1e712e8e560e9b8bf3f7f2845df3aac66d7c6103b3bb4e2feb247d8abcd2488f`。
+- 历史完整性：门禁只读使用 v4 checkpoint，没有创建 continuation 或容器。门禁后 v4 evidence audit 仍为 1,797 files /
+  34,453,974 bytes，inventory canonical SHA-256
+  `e398003b48a2ded0b745900900481a21b2aa5879f3296ba71c06032f50e55294`。全程 0 credential、0 Provider、0 Agent。
+- 当前边界：该结果只解除全新 v5 的 checkpoint restore 基础设施阻塞，不说明 v5 已通过，也不评价动态预算、Jev、
+  Agent 或 controller 效果。下一步先设计并冻结 `dynamic_budget_trajectory_benchmark_qualification_v5` 的新 manifest、
+  预注册、identity 和 create-once evidence；不得续跑、补齐或修改 v1-v4。
 - 状态：Issue #423 的动态预算多步轨迹 benchmark 资格已在 v4 按规则停止，决定为
   `stop_before_agent_continuation_and_controller_implementation`。v1-v3 分别暴露 CMake 随机诊断名、未绑定的
   Docker hostname 和 Autoconf `autom4te.cache`；每个 identity 均 create-once 封口且 raw evidence 只读。
@@ -334,6 +349,9 @@ BootstrapAgent、SWE-Skills-Bench、VibeMemBench 等轨迹控制、动作接口�
   `benchmarks/reports/cpp-dynamic-budget-trajectory-benchmark-qualification-v4.md`；冻结 evidence：
   `.compile-sessions/benchmark-evidence-dynamic-budget-trajectory-qualification-v1` 至 `v4`。v4 inventory canonical
   SHA-256 为 `e398003b48a2ded0b745900900481a21b2aa5879f3296ba71c06032f50e55294`。
+- Issue #425：`https://github.com/WWFXL/Forge-AutoCompiler/issues/425`；恢复安全设计：
+  `docs/superpowers/specs/2026-10-12-symlink-safe-checkpoint-restore-gate-design.md`；工程门禁报告：
+  `benchmarks/reports/cpp-symlink-safe-checkpoint-restore-gate-v1.md`。
 - 2026-10-06 已按 `search_notes -> read_note` 核对个人知识库论文索引、CXXCrafter 和 CompileAgent 解读；本轮不修改知识库。
 - 2026-10-07 已按 `search_notes -> read_note` 核对个人知识库笔记“Forge 毕业论文方向与契约驱动修复设计”；本轮不修改知识库。
 - 2026-10-09 已按 `search_notes -> read_note` 核对个人知识库“2025-2026 自动化编译论文索引”和旧方向设计原文；本轮不修改知识库。
@@ -375,9 +393,8 @@ BootstrapAgent、SWE-Skills-Bench、VibeMemBench 等轨迹控制、动作接口�
 
 ## 下一项工作
 
-Issue #423 已证明多步 checkpoint、重复 continuation、逐动作六维预算和 stop 共享预算转移在 CMake/Make 及部分
-Autotools 状态上可运行，但 v4 被安全 tar 恢复器对合法 libtool 相对 symlink 的误判阻断。下一阶段先做独立、非正式
-`symlink_safe_checkpoint_restore_gate_v1` 工程修复：覆盖合法父目录相对 symlink、真正的 `..` 越界、absolute link、
-hardlink、device/FIFO、解包后 containment 和 tree-hash round trip。该门禁通过后再冻结全新的
-`dynamic_budget_trajectory_benchmark_qualification_v5`；不得续跑 v4。v5 完整通过前仍不读取 credential、不调用
-Jev/Agent、不设计 Provider continuation，也不实现动态预算 controller。
+Issue #425 已通过 symlink-safe checkpoint restore 工程门禁，解除 v4 暴露的合法 libtool 相对链接恢复阻塞。下一阶段
+为全新的 `dynamic_budget_trajectory_benchmark_qualification_v5` 编写 spec、manifest 和预注册，冻结独立 create-once
+evidence root，并让 v5 使用已通过门禁的恢复模块；不得续跑或复制补齐 v1-v4。v5 仍是 0 Provider 跨 CMake/Make/
+Autotools 轨迹资格，只有 checkpoint clean continuation、逐决策六维预算、共享预算转移和项目族覆盖全部通过后，才允许
+设计 Agent continuation 资格；通过前不读取 credential、不调用 Jev/Agent，也不实现动态预算 controller。

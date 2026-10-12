@@ -6,6 +6,15 @@
 
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
+- 2026-10-12 — Issue #425 symlink-safe checkpoint restore 工程门禁通过
+  - 工作类型与问题: 工程修复与基础设施门禁。Issue #423 v4 在 continuation 前被 Python 3.10 `tarfile.data_filter` 阻断；其 symlink 校验错误地用 extraction root 解析 `linkname`，使合法 `src/.libs/libestr.la -> ../libestr.la` 被误判为越界。
+  - 修复语义: 新 `forge_checkpoint_archive.py` 保留标准 data filter 的成员路径 containment、权限收缩、owner 清除和特殊文件拒绝；只把 symlink 校验目标转换为 `dirname(member.name) / member.linkname` 的 archive-root 相对形式，校验后恢复原始 link text。hardlink 继续按 archive root 解释。恢复先进入同级 staging，完成全树 symlink containment 和可选 tree hash 后才 `os.replace` 原子发布；失败清除 staging。
+  - 门禁结果: `symlink-safe-checkpoint-restore-gate-v1` 8/8 通过。合法 parent-relative symlink 成功；真实越界、absolute symlink、越界 hardlink、character device、FIFO 和 hash mismatch 均拒绝且未发布 destination。聚焦测试 11 passed。
+  - v4 只读 round trip: `libestr` checkpoint 完整 tree hash expected/observed 均为 `bf843bc282eabedefeb6e7ea053747a13944125c993660e61efa47a97d64fefe`；按 v4 exclusion 的 decision tree hash 均为 `1e712e8e560e9b8bf3f7f2845df3aac66d7c6103b3bb4e2feb247d8abcd2488f`；链接文本保持 `../libestr.la`。门禁后 v4 evidence audit 仍是 1,797 files / 34,453,974 bytes，inventory canonical SHA-256 `e398003b48a2ded0b745900900481a21b2aa5879f3296ba71c06032f50e55294`。
+  - 决定与边界: `proceed_to_dynamic_budget_trajectory_qualification_v5_design`。该结果只解除恢复基础设施阻塞，不说明 v5、动态预算、Jev、Agent 或 controller 有效。0 credential、0 Provider、0 Agent、0 Docker continuation；v1-v4 runner/report/evidence 均未修改或续跑。
+  - 下一步: 另建全新 v5 spec/manifest/预注册/identity，让 v5 使用新恢复模块并重新执行完整 9 项目、27 状态、54 continuation 资格。v5 全部通过前不设计 Agent continuation、不实现 controller。
+  - 文件: `scripts/forge_checkpoint_archive.py`, `scripts/forge_symlink_safe_checkpoint_restore_gate.py`, `backend/tests/test_forge_checkpoint_archive.py`, `backend/tests/test_forge_symlink_safe_checkpoint_restore_gate.py`, `benchmarks/reports/cpp-symlink-safe-checkpoint-restore-gate-v1.md`, `docs/superpowers/specs/2026-10-12-symlink-safe-checkpoint-restore-gate-design.md`, `RESEARCH_STATUS.md`
+
 - 2026-10-12 — Issue #423 动态预算多步轨迹 benchmark 资格在 checkpoint restore gate 停止
   - 工作类型与问题: 零 Provider 数据资格、基础设施修正和失败审计。Issue #421 已证明旧 Jev/进展数据不能识别动态预算 controller；本阶段固定 CMake/Make/Autotools 各 3 个全新项目族，每项 3 个连续状态、每状态 2 个同源 Docker continuation，记录 source/image/workspace/artifacts/message/budget hash 与六维预算，并以项目 block 验证 stop reservation 转移。
   - v1-v3 失败链: v1 首个 CMake configure 因 `CMakeConfigureLog.yaml` 的 `TryCompile/cmTC/tmp` 随机诊断名停止；v2 只排除四类原始保留的诊断日志，完整通过 spdlog 后发现 CLI11/CTest 将随机 Docker hostname 写入 `CMakeCache.txt` 和 `DartConfiguration.tcl`；v3 固定 state hostname 后完整通过 CMake/Make 6 项 18 状态，在 Autotools configure 因 `autom4te.cache/requests` 非权威缓存差异停止。三个 identity 均 create-once 封口且 evidence 只读。
