@@ -1,0 +1,99 @@
+{
+  "schema_version": "forge-linux-build-closure-canary-cases-1.0.0",
+  "parent_reports": {
+    "benchmarks/reports/cpp-jev-natural-failure-linux-applicability-v4.json": "d7b169290e47045bfde7d5ba6674917d15795d64780f963ea7f44ff40e6d7e6c",
+    "benchmarks/reports/cpp-jev-natural-failure-linux-applicability-v4-construct-audit.json": "be3dd03ef0a15772caecfb13a930bd839d88c88b5770b2172c5c2e85440ed411"
+  },
+  "cases": [
+    {
+      "case_id": "rakupp-linux-source-false-positive",
+      "project_family": "ash/rakupp",
+      "repository_url": "https://github.com/ash/rakupp",
+      "commit_sha": "86cefeeedffef77ef93e91bc55047dba41fc34bb",
+      "build_system": "cmake",
+      "audit_group": "linux_positive",
+      "source_v4_classification": "platform_ineligible"
+    },
+    {
+      "case_id": "opera-linux-source-false-positive",
+      "project_family": "libretro/opera-libretro",
+      "repository_url": "https://github.com/libretro/opera-libretro",
+      "commit_sha": "5a09dc47c1edc7de599fa7302d4992beacb55349",
+      "build_system": "make",
+      "audit_group": "linux_positive",
+      "source_v4_classification": "platform_ineligible"
+    },
+    {
+      "case_id": "sketchybar-macos-only",
+      "project_family": "felixkratz/sketchybar",
+      "repository_url": "https://github.com/FelixKratz/SketchyBar",
+      "commit_sha": "515046e8a150d6b8767a8a6dd624824eaafa2c8b",
+      "build_system": "make",
+      "audit_group": "non_host_negative",
+      "source_v4_classification": "historical_v2_false_inclusion"
+    },
+    {
+      "case_id": "gta-reversed-windows-dll",
+      "project_family": "gta-reversed/gta-reversed",
+      "repository_url": "https://github.com/gta-reversed/gta-reversed",
+      "commit_sha": "c85e5dcd9b7aa088e9e7a80f647d98bcd14a140f",
+      "build_system": "cmake",
+      "audit_group": "non_host_negative",
+      "source_v4_classification": "linux_applicable"
+    },
+    {
+      "case_id": "sel4-kernel",
+      "project_family": "sel4/sel4",
+      "repository_url": "https://github.com/seL4/seL4",
+      "commit_sha": "6df0b6ee61f6a9e8a4ee7de8eb8fd698c0211b64",
+      "build_system": "cmake",
+      "audit_group": "non_host_negative",
+      "source_v4_classification": "linux_applicable"
+    },
+    {
+      "case_id": "rb3enhanced-console",
+      "project_family": "rbenhanced/rb3enhanced",
+      "repository_url": "https://github.com/RBEnhanced/RB3Enhanced",
+      "commit_sha": "b4678376f503744f8be2f6b0fea3cb56227415f7",
+      "build_system": "make",
+      "audit_group": "non_host_negative",
+      "source_v4_classification": "linux_applicable"
+    },
+    {
+      "case_id": "vitagl-console",
+      "project_family": "rinnegatamante/vitagl",
+      "repository_url": "https://github.com/Rinnegatamante/vitaGL",
+      "commit_sha": "1a3b24765c0873f837ee0e8db4a554f01b8126c0",
+      "build_system": "make",
+      "audit_group": "non_host_negative",
+      "source_v4_classification": "linux_applicable"
+    },
+    {
+      "case_id": "echo-dot-android-device",
+      "project_family": "gamer92000/echo-dot-assist",
+      "repository_url": "https://github.com/Gamer92000/echo-dot-assist",
+      "commit_sha": "64cb7ae4e775e507a7fdbfdfe7f552b5dea5227b",
+      "build_system": "make",
+      "audit_group": "non_host_negative",
+      "source_v4_classification": "linux_applicable"
+    },
+    {
+      "case_id": "fast-float-header-only",
+      "project_family": "fastfloat/fast_float",
+      "repository_url": "https://github.com/fastfloat/fast_float",
+      "commit_sha": "033f64f6088bb00690858ce59bc8c7fd0566384a",
+      "build_system": "cmake",
+      "audit_group": "no_default_artifact_risk",
+      "source_v4_classification": "linux_applicable"
+    },
+    {
+      "case_id": "too-many-cooks-header-only",
+      "project_family": "tzcnt/toomanycooks",
+      "repository_url": "https://github.com/tzcnt/TooManyCooks",
+      "commit_sha": "e6db2f6fdd9b0760437556d946ed7cbd7b01a5dd",
+      "build_system": "cmake",
+      "audit_group": "no_default_artifact_risk",
+      "source_v4_classification": "linux_applicable"
+    }
+  ]
+}
