@@ -23,6 +23,8 @@
   raw evidence 为 15,373 files / 258,919,192 bytes，inventory canonical SHA-256
   `9d749bf76571429b3fb6e7e325e61c1168df78e18e5ffa72d4457caff9c75465`，audit `valid=true`，cleanup 后
   `zero_managed_resources=true`。v2 identity/evidence 已封口只读，禁止 retry、replacement、backfill 或续跑。
+- 发布状态：v1 PR #431 堆叠在 v5 PR #428 的分支上，v2 PR #432 堆叠在 v1 PR #431 的分支上；两者的
+  `backend-unit-tests` 与 `frozen-benchmark-tests` 均通过，等待用户审查，不自动合并。
 - 状态：Issue #429 的 `cpp-agent-continuation-qualification-v1` 已在 Q0 第一个 `cmake-spdlog-state-1` 按协议失败封口，
   决定为 `supersede_with_fresh_v2_identity_after_session_refresh_repair`。Q1/Q2 未启动，全程 0 credential、0 Provider、
   0 Agent，cleanup 后 0 受管资源；v1 identity 与 evidence 永久只读。

@@ -13,6 +13,7 @@
   - 失败机制审计: 8 个 evaluated failure 中，5 个是 clean replay 获取 exact commit 时的 GnuTLS/peer connection failure，2 个是 `libfastjson` replay recipe 漏掉生成 `configure` 的前置步骤，1 个是 `kilo` 候选包含 smoke 失败的可执行文件。no-candidate arm 是成功 build 后的 `UnicodeDecodeError`。这是 post-hoc 机制分解，不修改正式分类、分母或停止决定，也不把网络正常时的结果作成功反事实。
   - 决定与边界: `stop_before_dynamic_budget_controller_implementation`。固定 continuation 在部分 checkpoint 可成功，但当前 checkpoint 稳定性、深度/系统覆盖和预算尾部不合格；不进入 matched direct/escalate/stop matrix，不实现 controller。结果不评价 Jev、自然失败或开放世界。下一项研究决策是在“先修复 source-snapshot replay、Autotools recipe 闭包和二进制输出解码，再用全新 identity 复核”与“把固定 continuation 资格作为负结果封口并回到论文机制取舍”之间选择。
   - Evidence: 15,373 files / 258,919,192 bytes，inventory canonical SHA-256 `9d749bf76571429b3fb6e7e325e61c1168df78e18e5ffa72d4457caff9c75465`，Q2 result SHA-256 `7c716b0170e031af706ce4a269dc475d4c0d7fc3afd3fa76b8af3fd63f244fe1`，audit `valid=true`，0 managed resources。v2 evidence 永久只读，禁止 retry、replacement、backfill 或续跑。
+  - Git 与发布: 结果提交 `cfe4cbf3` 已推送。v1 中文 PR #431 以 `yiwei/427-dynamic-budget-trajectory-v5` 为 base，v2 中文 PR #432 以 `yiwei/429-agent-continuation-qualification-v1` 为 base；两者 `backend-unit-tests` 与 `frozen-benchmark-tests` 均通过，等待用户审查，不自动合并。Issue #430 已回写正式结果与证据哈希。
   - 文件: `benchmarks/reports/cpp-agent-continuation-qualification-v2.{json,md}`, `benchmarks/reports/cpp-agent-continuation-qualification-v2-failure-analysis.md`, `.compile-sessions/benchmark-evidence-agent-continuation-qualification-v2`, `RESEARCH_STATUS.md`
 
 - 2026-10-12 — Issue #429 固定 Agent continuation 资格 v1 在 Q0 基础设施失败后封口
