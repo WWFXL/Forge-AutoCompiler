@@ -1,0 +1,160 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/WWFXL/Forge-AutoCompiler/benchmarks/schemas/forge-jev-natural-failure-default-path-qualification-v1.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "$schema",
+    "schema_version",
+    "identity",
+    "issue",
+    "branch",
+    "design_revision",
+    "implementation_revision",
+    "parent",
+    "protocol_files",
+    "population",
+    "runtime",
+    "budget",
+    "qualification",
+    "authorization",
+    "evidence",
+    "interpretation"
+  ],
+  "properties": {
+    "$schema": {
+      "const": "../schemas/forge-jev-natural-failure-default-path-qualification-v1.schema.json"
+    },
+    "schema_version": {
+      "const": "forge-jev-natural-failure-default-path-qualification-1.0.0"
+    },
+    "identity": {
+      "const": "cpp-jev-natural-failure-default-path-qualification-v1"
+    },
+    "issue": {"const": 419},
+    "branch": {"const": "yiwei/419-formal-build-reference-v1"},
+    "design_revision": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "implementation_revision": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "parent": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256", "project_count"],
+      "properties": {
+        "path": {"const": "benchmarks/reports/cpp-jev-natural-failure-linux-applicability-v4.json"},
+        "sha256": {"const": "d7b169290e47045bfde7d5ba6674917d15795d64780f963ea7f44ff40e6d7e6c"},
+        "project_count": {"const": 36}
+      }
+    },
+    "protocol_files": {
+      "type": "object",
+      "minProperties": 4,
+      "additionalProperties": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+    },
+    "population": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["systems", "per_system", "replicates", "role_ranks", "replacement_allowed"],
+      "properties": {
+        "systems": {"const": ["cmake", "make", "autotools"]},
+        "per_system": {"const": 12},
+        "replicates": {"const": 2},
+        "role_ranks": {
+          "const": {
+            "design": [1, 2, 3],
+            "calibration": [4, 5, 6],
+            "evaluation": [7, 8, 9, 10, 11, 12]
+          }
+        },
+        "replacement_allowed": {"const": false}
+      }
+    },
+    "runtime": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["image_tag", "image_id", "network", "cpus", "host_machine"],
+      "properties": {
+        "image_tag": {"const": "autocompiler:gcc13"},
+        "image_id": {"const": "sha256:d27a6ab733c7c3a9cbb5e4b32fb595aa5a422ff04bd212888d1041b90a2c4c2a"},
+        "network": {"const": "none"},
+        "cpus": {"const": 4},
+        "host_machine": {"const": "x86_64"}
+      }
+    },
+    "budget": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_timeout_seconds",
+        "command_timeout_seconds",
+        "session_timeout_seconds",
+        "total_wall_clock_seconds",
+        "credential_reads",
+        "provider_requests",
+        "model_tokens"
+      ],
+      "properties": {
+        "source_timeout_seconds": {"const": 180},
+        "command_timeout_seconds": {"const": 300},
+        "session_timeout_seconds": {"const": 600},
+        "total_wall_clock_seconds": {"const": 43200},
+        "credential_reads": {"const": 0},
+        "provider_requests": {"const": 0},
+        "model_tokens": {"const": 0}
+      }
+    },
+    "qualification": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["required_role_counts", "pass_decision", "fail_decision"],
+      "properties": {
+        "required_role_counts": {
+          "const": {"design": 1, "calibration": 1, "evaluation": 2}
+        },
+        "pass_decision": {"const": "proceed_to_formal_reference_closure_qualification_v1"},
+        "fail_decision": {"const": "stop_natural_failure_build_reference_qualification_v1"}
+      }
+    },
+    "authorization": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["execution", "formal_attempts", "formal_evidence_write", "authorized_by", "authorized_at"],
+      "properties": {
+        "execution": {"type": "boolean"},
+        "formal_attempts": {"type": "integer", "minimum": 0, "maximum": 1},
+        "formal_evidence_write": {"type": "boolean"},
+        "authorized_by": {"type": "string"},
+        "authorized_at": {"type": ["string", "null"]}
+      }
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["root", "work_root", "report_json", "report_markdown"],
+      "properties": {
+        "root": {"const": ".compile-sessions/benchmark-evidence-jev-natural-failure-default-path-qualification-v1"},
+        "work_root": {"const": ".compile-sessions/work-jev-natural-failure-default-path-qualification-v1"},
+        "report_json": {"const": "benchmarks/reports/cpp-jev-natural-failure-default-path-qualification-v1.json"},
+        "report_markdown": {"const": "benchmarks/reports/cpp-jev-natural-failure-default-path-qualification-v1.md"}
+      }
+    },
+    "interpretation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "default_path_qualification_only",
+        "reference_closure_observed",
+        "jev_effect_estimated",
+        "agent_effect_estimated",
+        "dynamic_budget_estimated"
+      ],
+      "properties": {
+        "default_path_qualification_only": {"const": true},
+        "reference_closure_observed": {"const": false},
+        "jev_effect_estimated": {"const": false},
+        "agent_effect_estimated": {"const": false},
+        "dynamic_budget_estimated": {"const": false}
+      }
+    }
+  }
+}
+

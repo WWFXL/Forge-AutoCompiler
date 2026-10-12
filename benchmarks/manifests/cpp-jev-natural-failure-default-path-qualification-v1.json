@@ -1,0 +1,78 @@
+{
+  "$schema": "../schemas/forge-jev-natural-failure-default-path-qualification-v1.schema.json",
+  "schema_version": "forge-jev-natural-failure-default-path-qualification-1.0.0",
+  "identity": "cpp-jev-natural-failure-default-path-qualification-v1",
+  "issue": 419,
+  "branch": "yiwei/419-formal-build-reference-v1",
+  "design_revision": "0000000000000000000000000000000000000000",
+  "implementation_revision": "0000000000000000000000000000000000000000",
+  "parent": {
+    "path": "benchmarks/reports/cpp-jev-natural-failure-linux-applicability-v4.json",
+    "sha256": "d7b169290e47045bfde7d5ba6674917d15795d64780f963ea7f44ff40e6d7e6c",
+    "project_count": 36
+  },
+  "protocol_files": {
+    "benchmarks/preregistrations/cpp-jev-natural-failure-default-path-qualification-v1.md": "7da1e03819277df26859464b90c11ce8b2d026671764e11c29c12ae662f610b1",
+    "benchmarks/schemas/forge-jev-natural-failure-default-path-qualification-v1.schema.json": "6829687aeddd4afa88f834ccdcc68436ac7261f84be12ba6073d9a176983d68c",
+    "docs/superpowers/plans/2026-10-12-natural-failure-formal-build-reference-v1.md": "a43126062b2cdc5b02b2c852516b36cb39271ecb21116ddfe540c4054b9e4de1",
+    "docs/superpowers/specs/2026-10-12-natural-failure-formal-build-reference-v1-design.md": "fd7ee6fb709b2290597873b83124f0eaa74316a4e1b4d9fdeba421ecc265cb62",
+    "scripts/forge_jev_natural_failure_default_path_qualification_v1.py": "b381b3f22f02ce7b2603402238db3f05a640d489504fb26782c7f4c8c2dfe915"
+  },
+  "population": {
+    "systems": ["cmake", "make", "autotools"],
+    "per_system": 12,
+    "replicates": 2,
+    "role_ranks": {
+      "design": [1, 2, 3],
+      "calibration": [4, 5, 6],
+      "evaluation": [7, 8, 9, 10, 11, 12]
+    },
+    "replacement_allowed": false
+  },
+  "runtime": {
+    "image_tag": "autocompiler:gcc13",
+    "image_id": "sha256:d27a6ab733c7c3a9cbb5e4b32fb595aa5a422ff04bd212888d1041b90a2c4c2a",
+    "network": "none",
+    "cpus": 4,
+    "host_machine": "x86_64"
+  },
+  "budget": {
+    "source_timeout_seconds": 180,
+    "command_timeout_seconds": 300,
+    "session_timeout_seconds": 600,
+    "total_wall_clock_seconds": 43200,
+    "credential_reads": 0,
+    "provider_requests": 0,
+    "model_tokens": 0
+  },
+  "qualification": {
+    "required_role_counts": {
+      "design": 1,
+      "calibration": 1,
+      "evaluation": 2
+    },
+    "pass_decision": "proceed_to_formal_reference_closure_qualification_v1",
+    "fail_decision": "stop_natural_failure_build_reference_qualification_v1"
+  },
+  "authorization": {
+    "execution": false,
+    "formal_attempts": 0,
+    "formal_evidence_write": false,
+    "authorized_by": "pending_protocol_freeze",
+    "authorized_at": null
+  },
+  "evidence": {
+    "root": ".compile-sessions/benchmark-evidence-jev-natural-failure-default-path-qualification-v1",
+    "work_root": ".compile-sessions/work-jev-natural-failure-default-path-qualification-v1",
+    "report_json": "benchmarks/reports/cpp-jev-natural-failure-default-path-qualification-v1.json",
+    "report_markdown": "benchmarks/reports/cpp-jev-natural-failure-default-path-qualification-v1.md"
+  },
+  "interpretation": {
+    "default_path_qualification_only": true,
+    "reference_closure_observed": false,
+    "jev_effect_estimated": false,
+    "agent_effect_estimated": false,
+    "dynamic_budget_estimated": false
+  }
+}
+
