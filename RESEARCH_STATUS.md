@@ -4,6 +4,16 @@
 
 ## 当前阶段
 
+- 状态：Issue #433 正在进行进展感知结构化 Harness 的零 Provider 资格。`cpp-progress-aware-harness-qualification-v1`
+  已按 create-once 合同失败封口：Runtime v4 完成 5 次权威 progress snapshot、2 次有效上下文裁剪、1 次 candidate-ready
+  后命令拒绝和 1 次快照驱动提交；pre-freeze verifier、S0-S4、预算计数与 cleanup 全部通过，但 S5 clean replay 在任何
+  编译命令前执行 exact-commit `git fetch` 时因 `gnutls_handshake() failed` 退出 128。v1 strict success 为 false，
+  evidence audit `valid=true`，116 files / 1,354,383 bytes，inventory canonical SHA-256
+  `b45dd050963ecb033b15f246f62c4d0db4fa0b48c450e352d8d18ffc258024cd`，0 credential、0 Provider、0 受管残留。
+- 当前工作：v1 失败只说明在线 clean replay 基础设施不合格，不否定 H1 机制，也不改记为成功。独立 v2 identity 将同一项目
+  source-ready state-1 checkpoint 的冻结源码 archive 绑定到 Session，使 S5 通过 SHA-256 校验后离线解包，禁止 `git fetch`；
+  state-3 工作 checkpoint、三条动作、脚本模型、预算、Runtime v4 与裁判保持不变。v2 通过后才允许设计 H0/H1 Provider
+  配对实验；当前仍不读取 credential、不调用 Provider/Jev，也不实现动态预算 controller。
 - 状态：Issue #430 的 `cpp-agent-continuation-qualification-v2` 已完成 Q0/Q1/Q2，并按预注册停止在动态预算
   controller 实现前。Q0 reference 为 `9/9` strict；Q1 三个 Provider canary 全部形成分类候选，其中 `2/3` strict；
   Q2 的 27/27 arms 均分类终结、绑定 parent checkpoint、记录动作后权威状态并完成 cleanup。

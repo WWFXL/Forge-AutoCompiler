@@ -1501,3 +1501,21 @@
 - 完整 `test_client.py` 当前有 3 个与 v4 无关的既有 artifact 路径期望不一致：测试期待 `must start with`/`PathTraversalError`，实际 `Paths.resolve_virtual_path()` 返回 `Unsupported virtual path` 的 `ValueError`；v4 扩大回归为 `431 passed, 3 skipped, 3 failed`，stream/chat 定向测试仍为 `19 passed`。不要在 benchmark 协议提交中顺手修改。
 - 原生 async stream 不自动保证模型 client 的 event-loop ownership。`task_tool` 已在 Lead 的 async loop 中时，不能再通过 `thread pool -> asyncio.run()` 为 compiler 创建第二个 loop；保留同步兼容调用的隔离线程路径，并用 loop-bound 回归保护该边界。
 - Windows Git 的 HTTPS push/ls-remote 可能无输出挂起，而 `gh api` 正常。回退到 Git Data API 时要以 base tree 和 changed blobs 创建单提交，比较本地/远端 tree SHA，并把本地分支 ref 对齐远端 commit；不能只验证 PR 页面可见。
+
+# 2026-10-12 进展感知 Harness 零 Provider 资格
+
+- Issue #433 / Runtime v4：新增每轮权威 progress snapshot、最近两次 model/tool interaction 裁剪、candidate-ready
+  强制先提交、连续 4 次无进展 diagnostic 熔断，以及完整成功 replay command ID 建议。Runtime v1-v3 只增加行为保持的
+  middleware 扩展点；新增与相邻回归通过。
+- `cpp-progress-aware-harness-qualification-v1`：唯一正式 attempt 中 5 个本地脚本模型请求、5 个工具调用、3 条真实命令、
+  10 个 Agent step、60 recorded tokens；5 个 snapshot、2 次有效裁剪、1 次 ready guard 拒绝、pre-freeze verifier 和提交
+  全部闭合。S0-S4 通过，S5 在任何 replay 编译命令前因容器内 exact-commit `git fetch` 的 GnuTLS 握手中断而失败。
+  audit `valid=true`，inventory `b45dd050963ecb033b15f246f62c4d0db4fa0b48c450e352d8d18ffc258024cd`；0 credential、
+  0 Provider、cleanup 后 0 受管容器。v1 永久只读，不能 retry/replacement/backfill。
+- v2 修复边界：从相同 cxxopts exact commit 的 source-ready `cmake-cxxopts-state-1` checkpoint 绑定
+  `workspace.tar.gz`（SHA-256 `96bed50fe9c3f1a3ce6925d6828d252ac215fad7e48f35a34efd1d19a4b5ad77`）作为
+  `repro/source.tar`，使用 Forge 既有 `replay_source_archive_sha256` 路径让 S5 禁网解包，不修改 Runtime v4 机制、动作、
+  state-3 工作 checkpoint、预算或裁判。v2 通过只解除 Provider H0/H1 设计的工程阻塞，不产生 treatment effect。
+- Git 发布：native Git HTTPS 即使固定 HTTP/1.1 仍发生 GnuTLS 中断；GitHub API 通道正常。候选 release 通过 Git Data API
+  创建，tree `515f4a43e4da1c5f88d0477fc0f334aa1576cc87` 与本地完全一致；API commit 因消息末尾换行规范差异为
+  `703ce376358334abdce0ee694da6c8a57d9e19b3`，本地重建相同对象后与远端 ref 对齐。
