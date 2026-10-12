@@ -6,12 +6,14 @@
 
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
-- 2026-10-12 — Issue #430 固定 Agent continuation 资格 v2 已完成工程修复与协议冻结
-  - 工作类型与问题: Session 权威刷新工程修复，以及后续 Q0/Q1/Q2 资格数据采集准备。研究问题仍是固定 Compiler Agent 从同源 checkpoint 接管后能否稳定达到严格终点，并形成完整、可比较的成本和六维预算轨迹。
-  - v2 修复: 只在 `_direct_candidate` 构造 CandidateService 前重新加载权威 Session，并更新 runner 持有对象；保留 submit 后的再观察。新增回归模拟 functional oracle 追加并保存 smoke，验证 configure/build/artifact-stage/smoke 四条命令完整保留。
-  - 冻结协议: Issue #430 已创建并回读；v2 独立 identity/evidence root，继承 v1 的 9 个 Q0 checkpoint、3 个 canary、27 个 Q2 arms、`deepseek-flash`、retry=0、单臂 24 requests / 300,000 tokens / 1,800 秒和 Q2 门槛。Manifest canonical SHA-256 为 `2714e79f2431633e6267fa21668ca23ab8495f480d08c39999317d6856d3be6c`。
-  - 验证与边界: manifest validate/plan 通过；v2/v1、动态预算 v5 和 checkpoint restore 聚焦回归 `23 passed`，Ruff/format 通过。尚未创建 v2 evidence，0 credential、0 Provider、0 Agent。v1 与更早 evidence 只读；Q0 9/9 strict 前不得进入 Provider Q1/Q2。
-  - 文件: `docs/superpowers/specs/2026-10-12-agent-continuation-qualification-v2-design.md`, `docs/superpowers/plans/2026-10-12-agent-continuation-qualification-v2.md`, `benchmarks/manifests/cpp-agent-continuation-qualification-v2.json`, `benchmarks/preregistrations/cpp-agent-continuation-qualification-v2.md`, `scripts/forge_agent_continuation_qualification_v2.py`, `backend/tests/test_forge_agent_continuation_qualification_v2.py`, `RESEARCH_STATUS.md`
+- 2026-10-12 — Issue #430 固定 Agent continuation 资格 v2 已完成并触发停止规则
+  - 工作类型与问题: 正式资格数据采集与只读结果分析。研究问题是固定 Compiler Agent 从同源冻结 checkpoint 接管后，能否稳定达到 Forge 严格终点，并形成完整、可比较的成本和六维预算轨迹，从而允许下一步设计动态预算 controller。
+  - 工程修复与协议: CandidateVerifier 前重新加载权威 Session，避免 functional oracle 保存 smoke 时覆盖命令历史；聚焦回归 `23 passed`。v2 继承 9 个 Q0 checkpoint、3 个 Q1 canary、27 个 Q2 arms、`deepseek-flash`、retry=0、单臂 24 requests / 300,000 tokens / 1,800 秒。Manifest canonical SHA-256 为 `2714e79f2431633e6267fa21668ca23ab8495f480d08c39999317d6856d3be6c`。
+  - 正式结果: Q0 `9/9` strict；Q1 `3/3` classified、`2/3` strict；Q2 为 `12/27` strict、`8/27` evaluated failure、`6/27` budget exhausted、`1/27` no candidate。达标 checkpoint `5/9`，分系统 CMake/Make/Autotools 为 `1/3`、`2/3`、`2/3`，分深度 state-1/state-2/state-3 为 `3/3`、`1/3`、`1/3`；6 个 budget exhausted 超过 `3/27` 上限。311 requests，3,797,261 input tokens、266,407 output tokens，估算费用 `$1.458868`。
+  - 失败机制审计: 8 个 evaluated failure 中，5 个是 clean replay 获取 exact commit 时的 GnuTLS/peer connection failure，2 个是 `libfastjson` replay recipe 漏掉生成 `configure` 的前置步骤，1 个是 `kilo` 候选包含 smoke 失败的可执行文件。no-candidate arm 是成功 build 后的 `UnicodeDecodeError`。这是 post-hoc 机制分解，不修改正式分类、分母或停止决定，也不把网络正常时的结果作成功反事实。
+  - 决定与边界: `stop_before_dynamic_budget_controller_implementation`。固定 continuation 在部分 checkpoint 可成功，但当前 checkpoint 稳定性、深度/系统覆盖和预算尾部不合格；不进入 matched direct/escalate/stop matrix，不实现 controller。结果不评价 Jev、自然失败或开放世界。下一项研究决策是在“先修复 source-snapshot replay、Autotools recipe 闭包和二进制输出解码，再用全新 identity 复核”与“把固定 continuation 资格作为负结果封口并回到论文机制取舍”之间选择。
+  - Evidence: 15,373 files / 258,919,192 bytes，inventory canonical SHA-256 `9d749bf76571429b3fb6e7e325e61c1168df78e18e5ffa72d4457caff9c75465`，Q2 result SHA-256 `7c716b0170e031af706ce4a269dc475d4c0d7fc3afd3fa76b8af3fd63f244fe1`，audit `valid=true`，0 managed resources。v2 evidence 永久只读，禁止 retry、replacement、backfill 或续跑。
+  - 文件: `benchmarks/reports/cpp-agent-continuation-qualification-v2.{json,md}`, `benchmarks/reports/cpp-agent-continuation-qualification-v2-failure-analysis.md`, `.compile-sessions/benchmark-evidence-agent-continuation-qualification-v2`, `RESEARCH_STATUS.md`
 
 - 2026-10-12 — Issue #429 固定 Agent continuation 资格 v1 在 Q0 基础设施失败后封口
   - 工作类型与问题: Q0 零 Provider 基础设施门禁。目标仍是为固定 Compiler Agent continuation 的稳定性、成本完整性、恢复性和六维预算轨迹建立资格；本次没有进入 Agent 数据采集。

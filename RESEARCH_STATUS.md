@@ -4,12 +4,25 @@
 
 ## 当前阶段
 
-- 状态：Issue #430 已建立独立 `cpp-agent-continuation-qualification-v2`，修复 CandidateVerifier 前的 Session 权威刷新，
-  并冻结与 v1 相同的 9 个 Q0 checkpoint、3 个 Provider canary、27 个正式 Agent arms、模型、预算和停止规则。
-  v2 manifest canonical SHA-256 为 `2714e79f2431633e6267fa21668ca23ab8495f480d08c39999317d6856d3be6c`。
-- 工程验证：专门回归证明 functional oracle 保存 smoke 后，configure/build/artifact-stage/smoke 命令历史均保留；
-  v2/v1、动态预算 v5 和 checkpoint restore 聚焦回归共 `23 passed`，Ruff/format 通过。当前尚未创建 v2 evidence，
-  0 credential、0 Provider、0 Agent；下一步提交并推送冻结 release 后执行全新 Q0，必须 9/9 strict 才能进入 Q1/Q2。
+- 状态：Issue #430 的 `cpp-agent-continuation-qualification-v2` 已完成 Q0/Q1/Q2，并按预注册停止在动态预算
+  controller 实现前。Q0 reference 为 `9/9` strict；Q1 三个 Provider canary 全部形成分类候选，其中 `2/3` strict；
+  Q2 的 27/27 arms 均分类终结、绑定 parent checkpoint、记录动作后权威状态并完成 cleanup。
+- Q2 结果：strict success `12/27`，evaluated failure `8/27`，budget exhausted `6/27`，no candidate `1/27`。
+  只有 `5/9` checkpoint 达到至少 `2/3` strict，低于 `6/9` 门槛；分系统为 CMake `1/3`、Make `2/3`、
+  Autotools `2/3`，分深度为 state-1 `3/3`、state-2 `1/3`、state-3 `1/3`；budget exhausted `6/27`，
+  高于不超过 `3/27` 的门槛。Provider 共 311 requests、4,063,668 recorded tokens，估算费用 `$1.458868`。
+- 只读失败审计：8 个 evaluated failure 中，5 个发生在 clean replay 的 GitHub exact-commit 获取阶段，属于
+  GnuTLS/peer connection failure；2 个 `libfastjson` arm 的 replay recipe 缺少从源码生成 `configure` 的前置步骤；
+  1 个 `kilo` arm 提交的可执行文件 smoke 失败。唯一 no-candidate arm 在成功 build 后因 `UnicodeDecodeError`
+  终止。正式分类与分母保持不变；这些结果说明失败不全是 Agent 决策错误，也不能据此把网络失败反事实改记为成功。
+- 决定与边界：正式决定为 `stop_before_dynamic_budget_controller_implementation`。固定 Agent continuation 在部分
+  checkpoint 上可达严格终点，但当前稳定性、深度覆盖、跨系统覆盖和预算尾部均不合格，因此不进入 matched
+  direct/escalate/stop outcome matrix，也不实现 controller。该结果不评价 Jev、自然失败或开放世界；下一研究动作应先
+  决定是修复 replay 的 source-snapshot/recipe 闭包后建立全新资格 identity，还是将固定 Agent continuation 作为负结果封口。
+- Evidence：manifest canonical SHA-256 `2714e79f2431633e6267fa21668ca23ab8495f480d08c39999317d6856d3be6c`；
+  raw evidence 为 15,373 files / 258,919,192 bytes，inventory canonical SHA-256
+  `9d749bf76571429b3fb6e7e325e61c1168df78e18e5ffa72d4457caff9c75465`，audit `valid=true`，cleanup 后
+  `zero_managed_resources=true`。v2 identity/evidence 已封口只读，禁止 retry、replacement、backfill 或续跑。
 - 状态：Issue #429 的 `cpp-agent-continuation-qualification-v1` 已在 Q0 第一个 `cmake-spdlog-state-1` 按协议失败封口，
   决定为 `supersede_with_fresh_v2_identity_after_session_refresh_repair`。Q1/Q2 未启动，全程 0 credential、0 Provider、
   0 Agent，cleanup 后 0 受管资源；v1 identity 与 evidence 永久只读。
