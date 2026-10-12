@@ -4,6 +4,23 @@
 
 ## 当前阶段
 
+- 状态：Issue #427 的 `cpp-dynamic-budget-trajectory-benchmark-qualification-v5` 唯一正式零 Provider attempt 已完整通过，
+  决定为 `proceed_to_agent_continuation_qualification_design`。冻结的 CMake、Make、Autotools 各 3 个项目全部完成，
+  共 9/9 项目、27/27 连续状态和 54/54 同源禁网 Docker continuation。
+- 核心证据：54/54 continuation exit 0，27/27 successor 重复一致、checkpoint 绑定、六维预算守恒和动作后权威
+  观察闭合，3/3 build-system block 的 stop reservation 转移通过。三个 block 分别记录 CMake `32,218 ms`、
+  Make `18,082 ms`、Autotools `79,040 ms`，均消费冻结的 18 次执行且未超过 900,000 ms 上限；总 recorded action
+  wall clock 为 `129,340 ms`。
+- 完整性与运行边界：raw evidence audit 为 326 files / 19,191,933 bytes，inventory canonical SHA-256
+  `b29d6738344771f2b1a31d4d874390342fadfe5d6cad79db0d6a6c83f40d35d1`；0 credential、0 Provider、0 Agent，
+  cleanup 后 0 managed container。正式 run 在 raw result、marker 和 inventory 封口后因旧 reporter 对成功结果
+  `failure: null` 调用 `.get` 而退出；v5 增加只读内存兼容层后 audit/report 通过，raw evidence 和 inventory 未修改，
+  正式 attempt 未重跑。
+- 解释与下一步：v5 证明跨三种构建系统的 checkpoint 恢复、重复 continuation、动作后观察和共享预算计量基础合格，
+  不证明动态预算 controller、Jev 或 Agent continuation 有效果。下一阶段只允许设计独立的 Agent continuation 资格：
+  从同源 checkpoint 重复执行冻结 Agent continuation，先估计方差、成本、恢复性和预算轨迹，再决定是否实现 controller。
+- 发布状态：分支 `yiwei/427-dynamic-budget-trajectory-v5` 已推送；PR #428 堆叠在 PR #426 的分支之上并等待 CI/审查，
+  `backend-unit-tests` 与 `frozen-benchmark-tests` 均已通过，等待用户审查，不自动合并。
 - 状态：Issue #425 的 `symlink-safe-checkpoint-restore-gate-v1` 工程门禁已通过，决定为
   `proceed_to_dynamic_budget_trajectory_qualification_v5_design`。恢复器继续使用 Python `tarfile.data_filter` 的成员路径、
   权限和特殊文件限制，只将 symlink 目标改为按成员父目录解析；hardlink 仍按 archive root 解析。所有内容先恢复到同级

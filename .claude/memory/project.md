@@ -6,6 +6,16 @@
 
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
+- 2026-10-12 — Issue #427 动态预算多步轨迹 benchmark 资格 v5 完整通过
+  - 工作类型与问题: 正式零 Provider benchmark 资格数据采集。v5 用全新 create-once identity 完整重跑 v4 的 9 项目、27 连续状态、54 次同源禁网 Docker continuation，检验 Issue #425 修复后跨 CMake/Make/Autotools 的 checkpoint 恢复、重复性、动作后观察、六维预算和 stop reservation 转移能否闭合。
+  - 协议与实现: Tracking Issue #427 已创建并回读；运行前提交 `1515c0a5` 冻结 spec、plan、manifest、预注册、薄 wrapper runner 和回归。v5 继承 v4 的项目、exact commit、动作、固定 hostname、四类诊断日志和 `autom4te.cache` 决策哈希排除，只将 `_restore_snapshot` 接到 `restore_checkpoint_archive`；manifest SHA-256 为 `39f06186dae5bb6955f6501004444884ea598107576bb496613555e73d069dca`。
+  - 正式结果: 唯一 attempt 为 `completed`，决定 `proceed_to_agent_continuation_qualification_design`。9/9 项目、27/27 状态、54/54 continuation 完成且 exit 0；27/27 successor 一致、checkpoint 绑定、budget before/delta/after 守恒和 post-action observation 通过；3/3 stop transfer 通过。CMake/Make/Autotools block wall clock 分别为 32,218 / 18,082 / 79,040 ms，总 recorded action wall clock 129,340 ms；每 block 18 次执行。
+  - Evidence 与边界: raw evidence 为 326 files / 19,191,933 bytes，inventory canonical SHA-256 `b29d6738344771f2b1a31d4d874390342fadfe5d6cad79db0d6a6c83f40d35d1`；0 credential、0 Provider、0 Agent，cleanup 后 0 managed container。v1-v4 未续跑、补齐或修改。
+  - 报告后处理缺陷: raw result/marker/inventory 封口后，旧 `_report_payload` 对成功结果的 `failure: null` 调用 `.get`，使 `run` 命令只在报告阶段退出。冻结 runner 的独立 `audit` 已先确认 evidence `valid=true`；随后仅在 v5 增加内存兼容层，报告读取时临时映射为 `{}` 并在 payload 恢复 `null`。正式 attempt 未重跑，raw evidence 与 inventory 未修改；回归 16 passed，audit/report 均通过。
+  - 解释与下一步: 结果只支持跨三系统多步 trajectory benchmark 基础合格，不评价动态预算 controller、Jev、Agent continuation、自然失败或开放世界效果。下一步另建 Agent continuation qualification 设计，从同源 checkpoint 重复固定 Agent continuation，先测方差、成本、恢复性和预算轨迹，再决定是否实现 controller。
+  - Git 与发布: 运行前协议提交 `1515c0a5`，结果提交 `78f50835`；分支 `yiwei/427-dynamic-budget-trajectory-v5` 已推送。中文 PR #428 已创建并回读，base 为 `yiwei/425-symlink-safe-checkpoint-restore`、head 正确、`Closes #427` 已关联；`backend-unit-tests` 与 `frozen-benchmark-tests` 均通过，等待用户审查，不自动合并。
+  - 文件: `docs/superpowers/specs/2026-10-12-dynamic-budget-trajectory-qualification-v5-design.md`, `docs/superpowers/plans/2026-10-12-dynamic-budget-trajectory-qualification-v5.md`, `benchmarks/manifests/cpp-dynamic-budget-trajectory-benchmark-qualification-v5.json`, `benchmarks/preregistrations/cpp-dynamic-budget-trajectory-benchmark-qualification-v5.md`, `scripts/forge_dynamic_budget_trajectory_qualification_v5.py`, `backend/tests/test_forge_dynamic_budget_trajectory_qualification_v5.py`, `benchmarks/reports/cpp-dynamic-budget-trajectory-benchmark-qualification-v5.md`, `RESEARCH_STATUS.md`
+
 - 2026-10-12 — Issue #425 symlink-safe checkpoint restore 工程门禁通过
   - 工作类型与问题: 工程修复与基础设施门禁。Issue #423 v4 在 continuation 前被 Python 3.10 `tarfile.data_filter` 阻断；其 symlink 校验错误地用 extraction root 解析 `linkname`，使合法 `src/.libs/libestr.la -> ../libestr.la` 被误判为越界。
   - 修复语义: 新 `forge_checkpoint_archive.py` 保留标准 data filter 的成员路径 containment、权限收缩、owner 清除和特殊文件拒绝；只把 symlink 校验目标转换为 `dirname(member.name) / member.linkname` 的 archive-root 相对形式，校验后恢复原始 link text。hardlink 继续按 archive root 解释。恢复先进入同级 staging，完成全树 symlink containment 和可选 tree hash 后才 `os.replace` 原子发布；失败清除 staging。
