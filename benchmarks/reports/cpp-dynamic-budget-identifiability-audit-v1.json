@@ -1,0 +1,360 @@
+{
+  "analysis_date": "2026-10-12",
+  "authorization_observed": {
+    "controller_implementation_authorized": false,
+    "credential_reads": 0,
+    "formal_attempts": 0,
+    "historical_evidence_read_only": true,
+    "provider_calls": 0
+  },
+  "claim_boundary": {
+    "supported": [
+      "现有 v6 受控故障数据的 matched policy、严格终点与 71/72 总成本覆盖边界",
+      "历史 checkpoint 资产能够冻结环境和剩余安全预算",
+      "是否达到实现动态预算 controller 前的数据可辨识性门槛"
+    ],
+    "unsupported": [
+      "动态预算 controller 的成功率、成本或时间效果",
+      "任何未观察动作的反事实收益",
+      "自然失败、开放世界或跨时间泛化",
+      "Jev、Agent 或其他模型的通用排名"
+    ]
+  },
+  "decision": "stop_before_dynamic_budget_controller_implementation",
+  "gates": [
+    {
+      "name": "input_integrity",
+      "observed": {
+        "arms": 72,
+        "checkpoint_files": 4,
+        "ledger_result_matches": 72
+      },
+      "passed": true,
+      "threshold": {
+        "arms": 72,
+        "checkpoint_files": 4,
+        "ledger_result_matches": 72
+      }
+    },
+    {
+      "name": "matched_policy_coverage",
+      "observed": {
+        "build_systems": [
+          "autotools",
+          "cmake",
+          "make"
+        ],
+        "states": 12,
+        "three_policies_two_repetitions": true
+      },
+      "passed": true,
+      "threshold": {
+        "build_systems": [
+          "cmake",
+          "make",
+          "autotools"
+        ],
+        "repetitions_per_policy": 2,
+        "states": 12
+      }
+    },
+    {
+      "name": "strict_terminal_and_total_cost",
+      "observed": 71,
+      "passed": false,
+      "threshold": 72
+    },
+    {
+      "name": "action_continuation_support",
+      "observed": {
+        "composite_direct_then_escalate_arms": 16,
+        "required_actions": [
+          "direct",
+          "escalate",
+          "stop"
+        ],
+        "states": 12,
+        "states_meeting_all_actions": 0,
+        "states_without_pure_direct": [
+          "cc65"
+        ],
+        "stop_continuations": 0
+      },
+      "passed": false,
+      "threshold": {
+        "minimum_per_state_action": 2
+      }
+    },
+    {
+      "name": "sequential_control_decisions",
+      "observed": {
+        "maximum": 1,
+        "minimum": 1
+      },
+      "passed": false,
+      "threshold": {
+        "action_post_state_required": true,
+        "minimum": 2
+      }
+    },
+    {
+      "name": "resumable_checkpoint_coverage",
+      "observed": 0,
+      "passed": false,
+      "threshold": 12
+    },
+    {
+      "name": "per_decision_budget_state",
+      "observed": {
+        "complete_snapshots": 0,
+        "required_fields": [
+          "wall_clock",
+          "model_requests",
+          "input_tokens",
+          "output_tokens",
+          "provider_cost",
+          "build_executions"
+        ]
+      },
+      "passed": false,
+      "threshold": 72
+    },
+    {
+      "name": "unexposed_project_family_splits",
+      "observed": {
+        "outcomes_already_exposed": true,
+        "split_roles": [
+          "evaluation"
+        ]
+      },
+      "passed": false,
+      "threshold": {
+        "outcomes_already_exposed": false,
+        "split_roles": [
+          "design",
+          "calibration",
+          "evaluation"
+        ]
+      }
+    }
+  ],
+  "identity": "cpp-dynamic-budget-identifiability-audit-v1",
+  "interpretation": "现有证据足以比较单个受控故障状态上的策略终点和大部分总成本，但缺少 stop 的共享预算机会成本、序列动作后状态、逐决策剩余预算、评测状态 checkpoint 和未暴露项目族，因此不能识别动态预算控制器。",
+  "issue_url": "https://github.com/WWFXL/Forge-AutoCompiler/issues/421",
+  "manifest_canonical_sha256": "19b813e0709da6b89fb7cc2f2976a5537a7f33286a720e3ca80a9a5cc03a2e8f",
+  "manifest_file_sha256": "995473e6be39917ad1caf59127c08cb4639a5ae56462987ed4527ad4f67f7657",
+  "minimum_next_collection": {
+    "clean_checkpoint_replays_per_state": 2,
+    "go_condition": "9/9 项目、27/27 状态均完成两次 checkpoint clean replay，预算向量守恒且三种构建系统无缺口。",
+    "minimum_states_per_project": 3,
+    "phase": "dynamic_budget_trajectory_benchmark_qualification_v1",
+    "project_families": 9,
+    "project_families_per_build_system": 3,
+    "provider_calls": 0,
+    "required_properties": [
+      "每个状态绑定 source/image/workspace/artifacts/message/budget 哈希",
+      "direct 后始终重新观察并生成下一状态，禁止自动拼接 Agent",
+      "预算账本记录动作前、动作增量和动作后六维向量",
+      "项目 block 共享预算，使 stop 的资源可转移",
+      "结果盲冻结 design/calibration/evaluation 项目族与时间边界",
+      "先用确定性 continuation 资格化，再单独授权 Agent 重复 continuation"
+    ],
+    "stop_condition": "任一构建系统无法形成至少三个多步状态，或 checkpoint/预算重放一致率低于 95%，则停止动态 controller 路线。"
+  },
+  "passed": false,
+  "schema_version": "forge-dynamic-budget-identifiability-audit-report-1.0.0",
+  "source_audits": {
+    "historical_checkpoint_capability": {
+      "all_environment_hash_bound": true,
+      "all_remaining_budget_bound": true,
+      "checkpoint_count": 4,
+      "checkpoints": [
+        {
+          "checkpoint_id": "rnnoise-0.1.1:delivery_target",
+          "environment_hash_bound": true,
+          "remaining_budget_bound": true
+        },
+        {
+          "checkpoint_id": "rnnoise-0.1.1:provenance",
+          "environment_hash_bound": true,
+          "remaining_budget_bound": true
+        },
+        {
+          "checkpoint_id": "libsoundio:provenance",
+          "environment_hash_bound": true,
+          "remaining_budget_bound": true
+        },
+        {
+          "checkpoint_id": "libsoundio:delivery_target",
+          "environment_hash_bound": true,
+          "remaining_budget_bound": true
+        }
+      ],
+      "interpretation": "历史资产证明 Forge 能冻结环境与剩余安全预算；这些 checkpoint 的干预是反馈暴露，不是 direct/escalate/stop，不能充当本问题的动作标签。",
+      "relevant_action_labels": []
+    },
+    "jev_formal_comparison_v6": {
+      "action_support_passed": false,
+      "action_support_summary": {
+        "composite_direct_then_escalate_arms": 16,
+        "states": 12,
+        "states_meeting_all_actions": 0,
+        "states_without_pure_direct": [
+          "cc65"
+        ],
+        "stop_continuations": 0
+      },
+      "arm_count": 72,
+      "build_execution_total": 164,
+      "build_system_counts": {
+        "autotools": 24,
+        "cmake": 24,
+        "make": 24
+      },
+      "checkpoint_bound_state_count": 0,
+      "command_seconds_total": 3908.332626,
+      "complete_terminal_cost_rows": 71,
+      "control_decisions_per_trajectory": {
+        "maximum": 1,
+        "minimum": 1
+      },
+      "event_counts": {
+        "build.execution_checked": 71,
+        "build.system_checked": 72,
+        "command.completed": 924,
+        "command.role_resolved": 852,
+        "delivery.completed": 72,
+        "experiment.completed": 72,
+        "experiment.started": 72,
+        "failure.recorded": 24,
+        "formal.fault_injected": 72,
+        "formal.fault_observed": 72,
+        "postbuild.started": 72,
+        "replay.completed": 59,
+        "replay.started": 59,
+        "session.bound": 72,
+        "submit.completed": 71,
+        "submit.started": 71
+      },
+      "explicit_decision_budget_snapshot_count": 0,
+      "incomplete_terminal_cost_rows": [
+        {
+          "jev_error_class": "TypeSafeAPIConnectionError",
+          "jev_model_requests": 1,
+          "missing_usage_fields": [
+            "input_tokens",
+            "output_tokens",
+            "cost_usd"
+          ],
+          "policy": "jev_gate_agent",
+          "repetition": 2,
+          "task_id": "redis",
+          "terminal_classification": "evaluated_failure"
+        }
+      ],
+      "ledger_result_matches": 72,
+      "outcomes_already_exposed": true,
+      "policy_coverage_passed": true,
+      "pure_action_counts": {
+        "composite_direct_then_escalate": 16,
+        "direct": 29,
+        "escalate": 27
+      },
+      "route_action_counts": {
+        "build": 31,
+        "configure": 8,
+        "dependency": 6,
+        "escalate_agent": 27
+      },
+      "split_roles": [
+        "evaluation"
+      ],
+      "state_action_counts": {
+        "benchmark": {
+          "composite_direct_then_escalate": 2,
+          "direct": 2,
+          "escalate": 2,
+          "stop": 0
+        },
+        "cc65": {
+          "composite_direct_then_escalate": 2,
+          "direct": 0,
+          "escalate": 4,
+          "stop": 0
+        },
+        "curl": {
+          "composite_direct_then_escalate": 2,
+          "direct": 2,
+          "escalate": 2,
+          "stop": 0
+        },
+        "haproxy": {
+          "composite_direct_then_escalate": 0,
+          "direct": 4,
+          "escalate": 2,
+          "stop": 0
+        },
+        "jemalloc": {
+          "composite_direct_then_escalate": 0,
+          "direct": 4,
+          "escalate": 2,
+          "stop": 0
+        },
+        "libarchive": {
+          "composite_direct_then_escalate": 2,
+          "direct": 2,
+          "escalate": 2,
+          "stop": 0
+        },
+        "libgit2": {
+          "composite_direct_then_escalate": 2,
+          "direct": 2,
+          "escalate": 2,
+          "stop": 0
+        },
+        "pcre2": {
+          "composite_direct_then_escalate": 2,
+          "direct": 2,
+          "escalate": 2,
+          "stop": 0
+        },
+        "quickjs": {
+          "composite_direct_then_escalate": 2,
+          "direct": 2,
+          "escalate": 2,
+          "stop": 0
+        },
+        "redis": {
+          "composite_direct_then_escalate": 0,
+          "direct": 3,
+          "escalate": 3,
+          "stop": 0
+        },
+        "simdjson": {
+          "composite_direct_then_escalate": 0,
+          "direct": 4,
+          "escalate": 2,
+          "stop": 0
+        },
+        "wolfssl": {
+          "composite_direct_then_escalate": 2,
+          "direct": 2,
+          "escalate": 2,
+          "stop": 0
+        }
+      },
+      "state_count": 12,
+      "strict_failures": 27,
+      "strict_successes": 45,
+      "task_count": 12
+    },
+    "progress_state_v1": {
+      "alternative_action_outcomes": 0,
+      "interpretation": "轨迹包含连续 observed-action 状态，但报告按设计不读取未选择动作，不能提供动作反事实。",
+      "observed_action_decision_points": 409,
+      "project_families": 18,
+      "sessions": 30
+    }
+  },
+  "work_type": "result_analysis"
+}
