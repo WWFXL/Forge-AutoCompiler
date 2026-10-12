@@ -4,8 +4,8 @@
   "identity": "cpp-jev-natural-failure-default-path-qualification-v1",
   "issue": 419,
   "branch": "yiwei/419-formal-build-reference-v1",
-  "design_revision": "0000000000000000000000000000000000000000",
-  "implementation_revision": "0000000000000000000000000000000000000000",
+  "design_revision": "c0a9b522976b131093c810e2df7f074429d24544",
+  "implementation_revision": "c0a9b522976b131093c810e2df7f074429d24544",
   "parent": {
     "path": "benchmarks/reports/cpp-jev-natural-failure-linux-applicability-v4.json",
     "sha256": "d7b169290e47045bfde7d5ba6674917d15795d64780f963ea7f44ff40e6d7e6c",
@@ -55,11 +55,11 @@
     "fail_decision": "stop_natural_failure_build_reference_qualification_v1"
   },
   "authorization": {
-    "execution": false,
-    "formal_attempts": 0,
-    "formal_evidence_write": false,
-    "authorized_by": "pending_protocol_freeze",
-    "authorized_at": null
+    "execution": true,
+    "formal_attempts": 1,
+    "formal_evidence_write": true,
+    "authorized_by": "user_explicit_full_stage_authorization",
+    "authorized_at": "2026-10-12T02:07:59Z"
   },
   "evidence": {
     "root": ".compile-sessions/benchmark-evidence-jev-natural-failure-default-path-qualification-v1",
