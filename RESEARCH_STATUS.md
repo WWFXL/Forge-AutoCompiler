@@ -4,6 +4,20 @@
 
 ## 当前阶段
 
+- 状态：Issue #423 的动态预算多步轨迹 benchmark 资格已在 v4 按规则停止，决定为
+  `stop_before_agent_continuation_and_controller_implementation`。v1-v3 分别暴露 CMake 随机诊断名、未绑定的
+  Docker hostname 和 Autoconf `autom4te.cache`；每个 identity 均 create-once 封口且 raw evidence 只读。
+- v4 正向部分证据：CMake/Make 六个项目完整通过，Autotools `libestr` 的 configure/build 也通过，共 20 个完整
+  连续状态、40/40 禁网 Docker continuation exit 0 且 successor 等价、20/20 checkpoint 六类哈希完整、20/20
+  动作前/增量/动作后六维预算守恒。CMake/Make 两个 block 均消费 18 次执行，stop reservation 转移为 `2/2`；
+  全程 0 credential、0 Provider、0 Agent，cleanup 后 0 managed container。
+- v4 停止原因：恢复 `autotools-libestr-state-3` checkpoint 时，Python `tarfile` 的安全 `data` filter 将合法的
+  `src/.libs/libestr.la -> ../libestr.la` 相对 symlink 误判为越出 destination；该状态尚未执行 continuation，后续
+  `libfastjson/libev` 未观察、不填零。这是 checkpoint restore 基础设施失败，不是动态预算、Autotools action 或
+  controller 的负效果。
+- 当前边界：跨 CMake/Make/Autotools 的完整轨迹资格仍未通过，因此不设计 Agent Provider continuation、不实现
+  controller。下一步先建立独立 symlink-safe restore engineering gate：按 symlink 所在父目录解析并拒绝真正越界、
+  absolute、device/FIFO 等成员；门禁通过后才能冻结全新 v5 qualification，禁止续跑、补齐或修改 v1-v4。
 - 状态：Issue #421 已完成 `cpp-dynamic-budget-identifiability-audit-v1` 只读审计，决定为
   `stop_before_dynamic_budget_controller_implementation`。8 项资格门槛仅输入/账本完整性与 matched 三策略覆盖
   2 项通过；在新的轨迹 benchmark 资格通过前，不实现动态预算 controller。
@@ -315,6 +329,11 @@ BootstrapAgent、SWE-Skills-Bench、VibeMemBench 等轨迹控制、动作接口�
   `docs/superpowers/specs/2026-10-12-dynamic-budget-identifiability-audit-design.md`；机器可读结果：
   `benchmarks/reports/cpp-dynamic-budget-identifiability-audit-v1.json`；研究报告：
   `benchmarks/reports/cpp-dynamic-budget-identifiability-audit-v1.md`。
+- Issue #423：`https://github.com/WWFXL/Forge-AutoCompiler/issues/423`；资格设计：
+  `docs/superpowers/specs/2026-10-12-dynamic-budget-trajectory-benchmark-qualification-design.md`；最终 v4 报告：
+  `benchmarks/reports/cpp-dynamic-budget-trajectory-benchmark-qualification-v4.md`；冻结 evidence：
+  `.compile-sessions/benchmark-evidence-dynamic-budget-trajectory-qualification-v1` 至 `v4`。v4 inventory canonical
+  SHA-256 为 `e398003b48a2ded0b745900900481a21b2aa5879f3296ba71c06032f50e55294`。
 - 2026-10-06 已按 `search_notes -> read_note` 核对个人知识库论文索引、CXXCrafter 和 CompileAgent 解读；本轮不修改知识库。
 - 2026-10-07 已按 `search_notes -> read_note` 核对个人知识库笔记“Forge 毕业论文方向与契约驱动修复设计”；本轮不修改知识库。
 - 2026-10-09 已按 `search_notes -> read_note` 核对个人知识库“2025-2026 自动化编译论文索引”和旧方向设计原文；本轮不修改知识库。
@@ -356,8 +375,9 @@ BootstrapAgent、SWE-Skills-Bench、VibeMemBench 等轨迹控制、动作接口�
 
 ## 下一项工作
 
-Issue #421 已证明旧轨迹不具备动态预算 controller 的可辨识性。下一阶段应另建
-`dynamic_budget_trajectory_benchmark_qualification_v1` spec、预注册和 identity，使用 CMake、Make、Autotools 各
-3 个新项目族构造至少 27 个多步状态；每个状态绑定 source/image/workspace/artifacts/message/budget 哈希，执行两次
-clean checkpoint replay，并验证动作前、动作增量、动作后六维预算守恒与项目 block 共享预算。该 0 Provider 门禁
-通过后，才单独授权 Agent 重复 continuation；通过前不实现 controller，不读取 credential，不调用 Jev/Agent。
+Issue #423 已证明多步 checkpoint、重复 continuation、逐动作六维预算和 stop 共享预算转移在 CMake/Make 及部分
+Autotools 状态上可运行，但 v4 被安全 tar 恢复器对合法 libtool 相对 symlink 的误判阻断。下一阶段先做独立、非正式
+`symlink_safe_checkpoint_restore_gate_v1` 工程修复：覆盖合法父目录相对 symlink、真正的 `..` 越界、absolute link、
+hardlink、device/FIFO、解包后 containment 和 tree-hash round trip。该门禁通过后再冻结全新的
+`dynamic_budget_trajectory_benchmark_qualification_v5`；不得续跑 v4。v5 完整通过前仍不读取 credential、不调用
+Jev/Agent、不设计 Provider continuation，也不实现动态预算 controller。
