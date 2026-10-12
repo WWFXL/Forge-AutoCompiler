@@ -1,0 +1,1409 @@
+{
+  "schema_version": "forge-linux-build-closure-engineering-canary-summary-1.0.0",
+  "identity": "cpp-jev-natural-failure-linux-build-closure-canary-v5",
+  "evidence_class": "nonformal_engineering_canary",
+  "status": "completed",
+  "started_at": "2026-10-12T01:18:14.119156+00:00",
+  "completed_at": "2026-10-12T01:23:09.240896+00:00",
+  "runner_sha256": "09eb288684aae1ce05d9a11efa171f9447aedd85206772ab535fa0275d5dc703",
+  "fixture_path": "benchmarks/fixtures/linux-build-closure-v5/cases.json",
+  "fixture_sha256": "aa2bbdbcae8618130c32eba90ecd634509fe0e90b2e75ee132bc2788b4a6feee",
+  "runtime": {
+    "cc_target": "x86_64-linux-gnu",
+    "cxx_target": "x86_64-linux-gnu",
+    "host_elf_machine": 62,
+    "image": "autocompiler:gcc13",
+    "image_inspect": "sha256:d27a6ab733c7c3a9cbb5e4b32fb595aa5a422ff04bd212888d1041b90a2c4c2a amd64 linux",
+    "uname_machine": "x86_64"
+  },
+  "budget": {
+    "cases": 10,
+    "command_timeout_seconds": 120,
+    "credential_reads": 0,
+    "model_tokens": 0,
+    "provider_requests": 0,
+    "replicates_per_case": 2,
+    "session_timeout_seconds": 240,
+    "source_timeout_seconds": 180
+  },
+  "transient_raw_observation": {
+    "report_sha256": "6a77e23024493d88a0f8850fb8938ce478d05ca407a6367bc8bf348380064d4e",
+    "evidence_inventory_sha256": "ddbef154bb069126e922c32b05163ab4713ceddc682a7cb55d4cb59d8c55017e",
+    "evidence_files": 69,
+    "evidence_bytes": 1019758,
+    "durable_formal_evidence": false
+  },
+  "qualification": {
+    "counts": {
+      "stable_failure_candidate": 2,
+      "stable_host_userland_closure": 1,
+      "stable_no_compiled_artifact": 1,
+      "stable_non_host_target": 5,
+      "timeout": 1
+    },
+    "decision": "proceed_to_formal_build_reference_qualification_design",
+    "failed_requirements": [],
+    "passed": true
+  },
+  "summary": {
+    "case_count": 10,
+    "observation_count": 20,
+    "direct_non_host_detection": 5,
+    "non_host_negative_count": 6,
+    "host_userland_closure_count": 1,
+    "qualified_natural_failure_count": 0,
+    "managed_containers_after_run": 0,
+    "provider_requests": 0,
+    "credential_reads": 0,
+    "model_tokens": 0
+  },
+  "results": [
+    {
+      "case_id": "rakupp-linux-source-false-positive",
+      "project_family": "ash/rakupp",
+      "repository_url": "https://github.com/ash/rakupp",
+      "commit_sha": "86cefeeedffef77ef93e91bc55047dba41fc34bb",
+      "build_system": "cmake",
+      "audit_group": "linux_positive",
+      "source_v4_classification": "platform_ineligible",
+      "source": {
+        "head": "86cefeeedffef77ef93e91bc55047dba41fc34bb",
+        "stages": [
+          {
+            "exit_code": 0,
+            "stage": "init",
+            "stderr_preview": "",
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "timed_out": false
+          },
+          {
+            "exit_code": 0,
+            "stage": "remote",
+            "stderr_preview": "",
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "timed_out": false
+          },
+          {
+            "exit_code": 0,
+            "stage": "fetch",
+            "stderr_preview": "来自 https://github.com/ash/rakupp\n * branch            86cefeeedffef77ef93e91bc55047dba41fc34bb -> FETCH_HEAD\n",
+            "stderr_sha256": "f6c951b36635ab10ee3fa4b58779ad52d3d9f104a2435000f3ae5c29abcd024f",
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "timed_out": false
+          },
+          {
+            "exit_code": 0,
+            "stage": "checkout",
+            "stderr_preview": "HEAD 目前位于 86cefee `%*ENV<X>:delete` takes X out of what a child inherits (#157)\n",
+            "stderr_sha256": "0679f7011955a775ae99451de6e3994323b6a3d613c6a400d961251d6b3507ea",
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "timed_out": false
+          }
+        ],
+        "succeeded": true
+      },
+      "default_path": {
+        "classification": "timeout",
+        "eligible_as_natural_failure": false,
+        "observation_classes": [
+          "timeout",
+          "timeout"
+        ],
+        "reason": "observation_timeout"
+      },
+      "project_qualification": {
+        "classification": "not_qualified",
+        "eligible_as_natural_failure": false,
+        "reason": "default_path_timeout"
+      },
+      "observations": [
+        {
+          "replicate": 1,
+          "classification": "timeout",
+          "failure_phase": "build",
+          "error_category": "timeout",
+          "target_signals": [],
+          "elapsed_seconds": 122.74271293589845,
+          "timed_out": true,
+          "infrastructure_failure": false,
+          "artifact_count": 65,
+          "deliverable_artifacts": [
+            {
+              "relative_path": "build/librakupp_parse.a",
+              "artifact_type": "static_library",
+              "binary_format": "ar",
+              "elf_machines": [
+                62
+              ],
+              "host_machine_match": true,
+              "producer_evidence": true,
+              "producer_line_sha256": "2181f189f6d41aa98bc6edb403211e380587899649643e301cf1410c6a0d1749",
+              "size": 4457938,
+              "sha256": "8a573cb0a2c8ac478abd4a78cab279b157c35949c6ae1a628963f581f0203dda"
+            },
+            {
+              "relative_path": "build/librakupp_stubs.a",
+              "artifact_type": "static_library",
+              "binary_format": "ar",
+              "elf_machines": [
+                62
+              ],
+              "host_machine_match": true,
+              "producer_evidence": true,
+              "producer_line_sha256": "1639d0c59ceb583d67b9e6ade48ea8c8388bd2de8064cd4ea0dc86f7a07f9b65",
+              "size": 88886,
+              "sha256": "ccaf3fbc7397424ffb68b20546676dad18bac0a783fa4828ae83efd4c2161e93"
+            },
+            {
+              "relative_path": "build/librakupp_ucd_coll.a",
+              "artifact_type": "static_library",
+              "binary_format": "ar",
+              "elf_machines": [
+                62
+              ],
+              "host_machine_match": true,
+              "producer_evidence": true,
+              "producer_line_sha256": "7e68bdadd6537d6073accaeb75f59fdf9eebb32507922c46020603ba43faf9a5",
+              "size": 775938,
+              "sha256": "760f00c63503f56e1f6dba28ba66f8a40e6e77d12065d73f796b314e3e254671"
+            },
+            {
+              "relative_path": "build/librakupp_ucd_names.a",
+              "artifact_type": "static_library",
+              "binary_format": "ar",
+              "elf_machines": [
+                62
+              ],
+              "host_machine_match": true,
+              "producer_evidence": true,
+              "producer_line_sha256": "a6600737e4976564e1f755d656d20c144d4987f53289a3dd18cc3e8b6f3a3d85",
+              "size": 3190246,
+              "sha256": "e3d3333102f828ba306f5492089b1bc4b96263c959d9f29068964a5de043028f"
+            },
+            {
+              "relative_path": "build/librakupp_ucd_props.a",
+              "artifact_type": "static_library",
+              "binary_format": "ar",
+              "elf_machines": [
+                62
+              ],
+              "host_machine_match": true,
+              "producer_evidence": true,
+              "producer_line_sha256": "fbd59f1bfe4a52782ad3f2f050ef4853ff7386f855decb3c211c227e651892ab",
+              "size": 215244,
+              "sha256": "9fb53cc6817f1c7c5ed87de17dc7bce7faedc2730d54da844f3e97235db7e362"
+            }
+          ],
+          "commands": [
+            {
+              "phase": "configure",
+              "command": "cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_VERBOSE_MAKEFILE=ON -DCMAKE_EXPORT_COMPILE_COMMANDS=ON",
+              "exit_code": 0,
+              "timed_out": false,
+              "infrastructure_failure": false,
+              "elapsed_seconds": 1.7317222689744085,
+              "stdout_sha256": "40432f799cea6c424ae4e0fb34da37be62e992ff4320a4f4ca5140bee8059e42",
+              "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            {
+              "phase": "build",
+              "command": "cmake --build build --verbose --parallel 4",
+              "exit_code": null,
+              "timed_out": true,
+              "infrastructure_failure": false,
+              "elapsed_seconds": 120.00624133297242,
+              "stdout_sha256": "1df27d4eec75b6162570fa0be72c0c5d1b98f087174381d69346f4db54ea061a",
+              "stderr_sha256": "0e44fad76438d2aaaa5d7c0a2e66547026a679c3fa57d2eb004e9b229b093fc0"
+            }
+          ]
+        },
+        {
+          "replicate": 2,
+          "classification": "timeout",
+          "failure_phase": "build",
+          "error_category": "timeout",
+          "target_signals": [],
+          "elapsed_seconds": 122.65371885802597,
+          "timed_out": true,
+          "infrastructure_failure": false,
+          "artifact_count": 62,
+          "deliverable_artifacts": [
+            {
+              "relative_path": "build/librakupp_parse.a",
+              "artifact_type": "static_library",
+              "binary_format": "ar",
+              "elf_machines": [
+                62
+              ],
+              "host_machine_match": true,
+              "producer_evidence": true,
+              "producer_line_sha256": "2181f189f6d41aa98bc6edb403211e380587899649643e301cf1410c6a0d1749",
+              "size": 4457938,
+              "sha256": "8a573cb0a2c8ac478abd4a78cab279b157c35949c6ae1a628963f581f0203dda"
+            },
+            {
+              "relative_path": "build/librakupp_stubs.a",
+              "artifact_type": "static_library",
+              "binary_format": "ar",
+              "elf_machines": [
+                62
+              ],
+              "host_machine_match": true,
+              "producer_evidence": true,
+              "producer_line_sha256": "1639d0c59ceb583d67b9e6ade48ea8c8388bd2de8064cd4ea0dc86f7a07f9b65",
+              "size": 88886,
+              "sha256": "ccaf3fbc7397424ffb68b20546676dad18bac0a783fa4828ae83efd4c2161e93"
+            },
+            {
+              "relative_path": "build/librakupp_ucd_coll.a",
+              "artifact_type": "static_library",
+              "binary_format": "ar",
+              "elf_machines": [
+                62
+              ],
+              "host_machine_match": true,
+              "producer_evidence": true,
+              "producer_line_sha256": "7e68bdadd6537d6073accaeb75f59fdf9eebb32507922c46020603ba43faf9a5",
+              "size": 775938,
+              "sha256": "760f00c63503f56e1f6dba28ba66f8a40e6e77d12065d73f796b314e3e254671"
+            },
+            {
+              "relative_path": "build/librakupp_ucd_names.a",
+              "artifact_type": "static_library",
+              "binary_format": "ar",
+              "elf_machines": [
+                62
+              ],
+              "host_machine_match": true,
+              "producer_evidence": true,
+              "producer_line_sha256": "a6600737e4976564e1f755d656d20c144d4987f53289a3dd18cc3e8b6f3a3d85",
+              "size": 3190246,
+              "sha256": "e3d3333102f828ba306f5492089b1bc4b96263c959d9f29068964a5de043028f"
+            },
+            {
+              "relative_path": "build/librakupp_ucd_props.a",
+              "artifact_type": "static_library",
+              "binary_format": "ar",
+              "elf_machines": [
+                62
+              ],
+              "host_machine_match": true,
+              "producer_evidence": true,
+              "producer_line_sha256": "fbd59f1bfe4a52782ad3f2f050ef4853ff7386f855decb3c211c227e651892ab",
+              "size": 215244,
+              "sha256": "9fb53cc6817f1c7c5ed87de17dc7bce7faedc2730d54da844f3e97235db7e362"
+            }
+          ],
+          "commands": [
+            {
+              "phase": "configure",
+              "command": "cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_VERBOSE_MAKEFILE=ON -DCMAKE_EXPORT_COMPILE_COMMANDS=ON",
+              "exit_code": 0,
+              "timed_out": false,
+              "infrastructure_failure": false,
+              "elapsed_seconds": 1.6459642278496176,
+              "stdout_sha256": "40432f799cea6c424ae4e0fb34da37be62e992ff4320a4f4ca5140bee8059e42",
+              "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            {
+              "phase": "build",
+              "command": "cmake --build build --verbose --parallel 4",
+              "exit_code": null,
+              "timed_out": true,
+              "infrastructure_failure": false,
+              "elapsed_seconds": 120.00664147501811,
+              "stdout_sha256": "0d6a27ab976c0653511c2f0c605f221179f3daef990ea94953b8a7e50a2f348d",
+              "stderr_sha256": "ae5cea24448961da911f52fb3883de9e3d098865acf77c4315f907cd9b4df6c0"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "case_id": "opera-linux-source-false-positive",
+      "project_family": "libretro/opera-libretro",
+      "repository_url": "https://github.com/libretro/opera-libretro",
+      "commit_sha": "5a09dc47c1edc7de599fa7302d4992beacb55349",
+      "build_system": "make",
+      "audit_group": "linux_positive",
+      "source_v4_classification": "platform_ineligible",
+      "source": {
+        "head": "5a09dc47c1edc7de599fa7302d4992beacb55349",
+        "stages": [
+          {
+            "exit_code": 0,
+            "stage": "init",
+            "stderr_preview": "",
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "timed_out": false
+          },
+          {
+            "exit_code": 0,
+            "stage": "remote",
+            "stderr_preview": "",
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "timed_out": false
+          },
+          {
+            "exit_code": 0,
+            "stage": "fetch",
+            "stderr_preview": "来自 https://github.com/libretro/opera-libretro\n * branch            5a09dc47c1edc7de599fa7302d4992beacb55349 -> FETCH_HEAD\n",
+            "stderr_sha256": "1156c9562cfb119d23cf6784e77cf8073395fbcc0735bd687e8598254943f53d",
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "timed_out": false
+          },
+          {
+            "exit_code": 0,
+            "stage": "checkout",
+            "stderr_preview": "HEAD 目前位于 5a09dc4 Emulate ROM-overlay boot, reset semantics, and XBUS DIPIR\n",
+            "stderr_sha256": "f487c6fcbd1c51d734001ff771d429ec8509db80d77111c4b2a4c167e0f02796",
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "timed_out": false
+          }
+        ],
+        "succeeded": true
+      },
+      "default_path": {
+        "classification": "stable_host_userland_closure",
+        "eligible_as_natural_failure": false,
+        "observation_classes": [
+          "host_userland_closure",
+          "host_userland_closure"
+        ],
+        "reason": "two_clean_host_artifact_signatures_agree"
+      },
+      "project_qualification": {
+        "classification": "not_qualified",
+        "eligible_as_natural_failure": false,
+        "reason": "default_path_already_succeeds"
+      },
+      "observations": [
+        {
+          "replicate": 1,
+          "classification": "host_userland_closure",
+          "failure_phase": null,
+          "error_category": null,
+          "target_signals": [],
+          "elapsed_seconds": 5.185820148093626,
+          "timed_out": false,
+          "infrastructure_failure": false,
+          "artifact_count": 75,
+          "deliverable_artifacts": [
+            {
+              "relative_path": "opera_libretro.so",
+              "artifact_type": "shared_library",
+              "binary_format": "elf",
+              "elf_machines": [
+                62
+              ],
+              "host_machine_match": true,
+              "producer_evidence": true,
+              "producer_line_sha256": "d8007f75799ab27a556a52e3959e68d4fb471cf616c11ec1b3ebfa64b8fe23ca",
+              "size": 699656,
+              "sha256": "7720595acdc23a7d46ad3a2a1170ffc95b4cf1e1e08d1785971ce6f0b4516353"
+            }
+          ],
+          "commands": [
+            {
+              "phase": "build",
+              "command": "make --trace -j4 V=1 VERBOSE=1",
+              "exit_code": 0,
+              "timed_out": false,
+              "infrastructure_failure": false,
+              "elapsed_seconds": 5.030300007201731,
+              "stdout_sha256": "13173cde06820ce5070c87336a5f12b38615ce8f9143d75c1a347f2a2779f1a0",
+              "stderr_sha256": "d3612c85f0d3275579f6033918f6ad4388d9cb0bd71cff82b8c6e378b5637a57"
+            }
+          ]
+        },
+        {
+          "replicate": 2,
+          "classification": "host_userland_closure",
+          "failure_phase": null,
+          "error_category": null,
+          "target_signals": [],
+          "elapsed_seconds": 5.1389562650583684,
+          "timed_out": false,
+          "infrastructure_failure": false,
+          "artifact_count": 75,
+          "deliverable_artifacts": [
+            {
+              "relative_path": "opera_libretro.so",
+              "artifact_type": "shared_library",
+              "binary_format": "elf",
+              "elf_machines": [
+                62
+              ],
+              "host_machine_match": true,
+              "producer_evidence": true,
+              "producer_line_sha256": "d8007f75799ab27a556a52e3959e68d4fb471cf616c11ec1b3ebfa64b8fe23ca",
+              "size": 699656,
+              "sha256": "7720595acdc23a7d46ad3a2a1170ffc95b4cf1e1e08d1785971ce6f0b4516353"
+            }
+          ],
+          "commands": [
+            {
+              "phase": "build",
+              "command": "make --trace -j4 V=1 VERBOSE=1",
+              "exit_code": 0,
+              "timed_out": false,
+              "infrastructure_failure": false,
+              "elapsed_seconds": 5.000840336084366,
+              "stdout_sha256": "13173cde06820ce5070c87336a5f12b38615ce8f9143d75c1a347f2a2779f1a0",
+              "stderr_sha256": "d3612c85f0d3275579f6033918f6ad4388d9cb0bd71cff82b8c6e378b5637a57"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "case_id": "sketchybar-macos-only",
+      "project_family": "felixkratz/sketchybar",
+      "repository_url": "https://github.com/FelixKratz/SketchyBar",
+      "commit_sha": "515046e8a150d6b8767a8a6dd624824eaafa2c8b",
+      "build_system": "make",
+      "audit_group": "non_host_negative",
+      "source_v4_classification": "historical_v2_false_inclusion",
+      "source": {
+        "head": "515046e8a150d6b8767a8a6dd624824eaafa2c8b",
+        "stages": [
+          {
+            "exit_code": 0,
+            "stage": "init",
+            "stderr_preview": "",
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "timed_out": false
+          },
+          {
+            "exit_code": 0,
+            "stage": "remote",
+            "stderr_preview": "",
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "timed_out": false
+          },
+          {
+            "exit_code": 0,
+            "stage": "fetch",
+            "stderr_preview": "来自 https://github.com/FelixKratz/SketchyBar\n * branch            515046e8a150d6b8767a8a6dd624824eaafa2c8b -> FETCH_HEAD\n",
+            "stderr_sha256": "911bd1be84e2819386b459a9e58b3f74ff43a4bfaef6c0fd7c4e50373baee5ad",
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "timed_out": false
+          },
+          {
+            "exit_code": 0,
+            "stage": "checkout",
+            "stderr_preview": "HEAD 目前位于 515046e push version to 2.24.1\n",
+            "stderr_sha256": "bf800167a9838102eaffe4a984d2e8bf3c310556da5c8b3bc2dd10eacf21a7c3",
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "timed_out": false
+          }
+        ],
+        "succeeded": true
+      },
+      "default_path": {
+        "classification": "stable_non_host_target",
+        "eligible_as_natural_failure": false,
+        "observation_classes": [
+          "non_host_target",
+          "non_host_target"
+        ],
+        "reason": "two_clean_observations_show_non_host_target"
+      },
+      "project_qualification": {
+        "classification": "not_qualified",
+        "eligible_as_natural_failure": false,
+        "reason": "default_path_targets_non_host_endpoint"
+      },
+      "observations": [
+        {
+          "replicate": 1,
+          "classification": "non_host_target",
+          "failure_phase": "build",
+          "error_category": "apple_toolchain",
+          "target_signals": [
+            "apple_toolchain",
+            "foreign_target_flag"
+          ],
+          "elapsed_seconds": 0.49532357580028474,
+          "timed_out": false,
+          "infrastructure_failure": false,
+          "artifact_count": 0,
+          "deliverable_artifacts": [],
+          "commands": [
+            {
+              "phase": "build",
+              "command": "make --trace -j4 V=1 VERBOSE=1",
+              "exit_code": 2,
+              "timed_out": false,
+              "infrastructure_failure": false,
+              "elapsed_seconds": 0.3958971439860761,
+              "stdout_sha256": "293e87e92581b8424141ab68b162027eec5d86ace6b8410399a8be9d5beb6754",
+              "stderr_sha256": "da4bbe51f29ffc3ec5e5a715039911b3457287a740eb3a1a68c3a6bdb490027c"
+            }
+          ]
+        },
+        {
+          "replicate": 2,
+          "classification": "non_host_target",
+          "failure_phase": "build",
+          "error_category": "apple_toolchain",
+          "target_signals": [
+            "apple_toolchain",
+            "foreign_target_flag"
+          ],
+          "elapsed_seconds": 0.4961061149369925,
+          "timed_out": false,
+          "infrastructure_failure": false,
+          "artifact_count": 0,
+          "deliverable_artifacts": [],
+          "commands": [
+            {
+              "phase": "build",
+              "command": "make --trace -j4 V=1 VERBOSE=1",
+              "exit_code": 2,
+              "timed_out": false,
+              "infrastructure_failure": false,
+              "elapsed_seconds": 0.4071129390504211,
+              "stdout_sha256": "293e87e92581b8424141ab68b162027eec5d86ace6b8410399a8be9d5beb6754",
+              "stderr_sha256": "80fb8d2a77c01044280f751e5e7207abad6bac72096c9cae0939715077b87e0b"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "case_id": "gta-reversed-windows-dll",
+      "project_family": "gta-reversed/gta-reversed",
+      "repository_url": "https://github.com/gta-reversed/gta-reversed",
+      "commit_sha": "c85e5dcd9b7aa088e9e7a80f647d98bcd14a140f",
+      "build_system": "cmake",
+      "audit_group": "non_host_negative",
+      "source_v4_classification": "linux_applicable",
+      "source": {
+        "head": "c85e5dcd9b7aa088e9e7a80f647d98bcd14a140f",
+        "stages": [
+          {
+            "exit_code": 0,
+            "stage": "init",
+            "stderr_preview": "",
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "timed_out": false
+          },
+          {
+            "exit_code": 0,
+            "stage": "remote",
+            "stderr_preview": "",
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "timed_out": false
+          },
+          {
+            "exit_code": 0,
+            "stage": "fetch",
+            "stderr_preview": "来自 https://github.com/gta-reversed/gta-reversed\n * branch            c85e5dcd9b7aa088e9e7a80f647d98bcd14a140f -> FETCH_HEAD\n",
+            "stderr_sha256": "d97569edd9cebbccafa834c6ae310a24b28a14001cae286ec2fc576b34a3396d",
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "timed_out": false
+          },
+          {
+            "exit_code": 0,
+            "stage": "checkout",
+            "stderr_preview": "HEAD 目前位于 c85e5dc docs: Improve docs (Mostly for AI) (#1531)\n",
+            "stderr_sha256": "03fce5205ba2a28f32e60e1160401e97b6a71a5e3a21ebf8f81eecf6fac89bdc",
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "timed_out": false
+          }
+        ],
+        "succeeded": true
+      },
+      "default_path": {
+        "classification": "stable_failure_candidate",
+        "eligible_as_natural_failure": false,
+        "observation_classes": [
+          "bounded_failure",
+          "bounded_failure"
+        ],
+        "reason": "two_clean_failures_agree_target_unresolved"
+      },
+      "project_qualification": {
+        "classification": "not_qualified",
+        "eligible_as_natural_failure": false,
+        "reason": "reference_host_closure_required"
+      },
+      "observations": [
+        {
+          "replicate": 1,
+          "classification": "bounded_failure",
+          "failure_phase": "configure",
+          "error_category": "unknown_build_failure",
+          "target_signals": [],
+          "elapsed_seconds": 0.8806526949629188,
+          "timed_out": false,
+          "infrastructure_failure": false,
+          "artifact_count": 0,
+          "deliverable_artifacts": [],
+          "commands": [
+            {
+              "phase": "configure",
+              "command": "cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_VERBOSE_MAKEFILE=ON -DCMAKE_EXPORT_COMPILE_COMMANDS=ON",
+              "exit_code": 1,
+              "timed_out": false,
+              "infrastructure_failure": false,
+              "elapsed_seconds": 0.44487427710555494,
+              "stdout_sha256": "204e913b87cf5c75b808ca3186aab27bf7d903deb3392da1736bc0c966ba1151",
+              "stderr_sha256": "adad05a931b1ea5ac552405dec7ae510c5eca248d2866015c20201df06f676e8"
+            }
+          ]
+        },
+        {
+          "replicate": 2,
+          "classification": "bounded_failure",
+          "failure_phase": "configure",
+          "error_category": "unknown_build_failure",
+          "target_signals": [],
+          "elapsed_seconds": 0.8735147090628743,
+          "timed_out": false,
+          "infrastructure_failure": false,
+          "artifact_count": 0,
+          "deliverable_artifacts": [],
+          "commands": [
+            {
+              "phase": "configure",
+              "command": "cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_VERBOSE_MAKEFILE=ON -DCMAKE_EXPORT_COMPILE_COMMANDS=ON",
+              "exit_code": 1,
+              "timed_out": false,
+              "infrastructure_failure": false,
+              "elapsed_seconds": 0.4590952380094677,
+              "stdout_sha256": "204e913b87cf5c75b808ca3186aab27bf7d903deb3392da1736bc0c966ba1151",
+              "stderr_sha256": "adad05a931b1ea5ac552405dec7ae510c5eca248d2866015c20201df06f676e8"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "case_id": "sel4-kernel",
+      "project_family": "sel4/sel4",
+      "repository_url": "https://github.com/seL4/seL4",
+      "commit_sha": "6df0b6ee61f6a9e8a4ee7de8eb8fd698c0211b64",
+      "build_system": "cmake",
+      "audit_group": "non_host_negative",
+      "source_v4_classification": "linux_applicable",
+      "source": {
+        "head": "6df0b6ee61f6a9e8a4ee7de8eb8fd698c0211b64",
+        "stages": [
+          {
+            "exit_code": 0,
+            "stage": "init",
+            "stderr_preview": "",
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "timed_out": false
+          },
+          {
+            "exit_code": 0,
+            "stage": "remote",
+            "stderr_preview": "",
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "timed_out": false
+          },
+          {
+            "exit_code": 0,
+            "stage": "fetch",
+            "stderr_preview": "来自 https://github.com/seL4/seL4\n * branch            6df0b6ee61f6a9e8a4ee7de8eb8fd698c0211b64 -> FETCH_HEAD\n",
+            "stderr_sha256": "342774b711d0f6e566a594fbfd140d0c1b18e44b9b6fe2c6373b60c0e4862325",
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "timed_out": false
+          },
+          {
+            "exit_code": 0,
+            "stage": "checkout",
+            "stderr_preview": "HEAD 目前位于 6df0b6e AArch64: Fix KernelPrinting=OFF debug builds\n",
+            "stderr_sha256": "b6bf83d96be3ed319f3a4bba2159ddc90dff66cab75e6b3fd72a62c88e9c9c3c",
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "timed_out": false
+          }
+        ],
+        "succeeded": true
+      },
+      "default_path": {
+        "classification": "stable_non_host_target",
+        "eligible_as_natural_failure": false,
+        "observation_classes": [
+          "non_host_target",
+          "non_host_target"
+        ],
+        "reason": "two_clean_observations_show_non_host_target"
+      },
+      "project_qualification": {
+        "classification": "not_qualified",
+        "eligible_as_natural_failure": false,
+        "reason": "default_path_targets_non_host_endpoint"
+      },
+      "observations": [
+        {
+          "replicate": 1,
+          "classification": "non_host_target",
+          "failure_phase": "configure",
+          "error_category": "kernel_build_contract",
+          "target_signals": [
+            "kernel_build_contract"
+          ],
+          "elapsed_seconds": 0.7672828461509198,
+          "timed_out": false,
+          "infrastructure_failure": false,
+          "artifact_count": 0,
+          "deliverable_artifacts": [],
+          "commands": [
+            {
+              "phase": "configure",
+              "command": "cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_VERBOSE_MAKEFILE=ON -DCMAKE_EXPORT_COMPILE_COMMANDS=ON",
+              "exit_code": 1,
+              "timed_out": false,
+              "infrastructure_failure": false,
+              "elapsed_seconds": 0.46015506191179156,
+              "stdout_sha256": "204e913b87cf5c75b808ca3186aab27bf7d903deb3392da1736bc0c966ba1151",
+              "stderr_sha256": "27cd5a5dbf5d98f077e4d160b483cf4f5991c010d79a448114345d12f684a90b"
+            }
+          ]
+        },
+        {
+          "replicate": 2,
+          "classification": "non_host_target",
+          "failure_phase": "configure",
+          "error_category": "kernel_build_contract",
+          "target_signals": [
+            "kernel_build_contract"
+          ],
+          "elapsed_seconds": 0.7338382238522172,
+          "timed_out": false,
+          "infrastructure_failure": false,
+          "artifact_count": 0,
+          "deliverable_artifacts": [],
+          "commands": [
+            {
+              "phase": "configure",
+              "command": "cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_VERBOSE_MAKEFILE=ON -DCMAKE_EXPORT_COMPILE_COMMANDS=ON",
+              "exit_code": 1,
+              "timed_out": false,
+              "infrastructure_failure": false,
+              "elapsed_seconds": 0.4527571671642363,
+              "stdout_sha256": "204e913b87cf5c75b808ca3186aab27bf7d903deb3392da1736bc0c966ba1151",
+              "stderr_sha256": "27cd5a5dbf5d98f077e4d160b483cf4f5991c010d79a448114345d12f684a90b"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "case_id": "rb3enhanced-console",
+      "project_family": "rbenhanced/rb3enhanced",
+      "repository_url": "https://github.com/RBEnhanced/RB3Enhanced",
+      "commit_sha": "b4678376f503744f8be2f6b0fea3cb56227415f7",
+      "build_system": "make",
+      "audit_group": "non_host_negative",
+      "source_v4_classification": "linux_applicable",
+      "source": {
+        "head": "b4678376f503744f8be2f6b0fea3cb56227415f7",
+        "stages": [
+          {
+            "exit_code": 0,
+            "stage": "init",
+            "stderr_preview": "",
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "timed_out": false
+          },
+          {
+            "exit_code": 0,
+            "stage": "remote",
+            "stderr_preview": "",
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "timed_out": false
+          },
+          {
+            "exit_code": 0,
+            "stage": "fetch",
+            "stderr_preview": "来自 https://github.com/RBEnhanced/RB3Enhanced\n * branch            b4678376f503744f8be2f6b0fea3cb56227415f7 -> FETCH_HEAD\n",
+            "stderr_sha256": "90658e53e047164396c6c4b1883f6e8bf7c51769a7bbde4c6ed58cfcf040bdf1",
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "timed_out": false
+          },
+          {
+            "exit_code": 0,
+            "stage": "checkout",
+            "stderr_preview": "HEAD 目前位于 b467837 [fix] Do not enable memory overlay by default\n",
+            "stderr_sha256": "b8e60066b0e90e47eb65347fa601c43b3731957a835977ee59b1485320e09b60",
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "timed_out": false
+          }
+        ],
+        "succeeded": true
+      },
+      "default_path": {
+        "classification": "stable_non_host_target",
+        "eligible_as_natural_failure": false,
+        "observation_classes": [
+          "non_host_target",
+          "non_host_target"
+        ],
+        "reason": "two_clean_observations_show_non_host_target"
+      },
+      "project_qualification": {
+        "classification": "not_qualified",
+        "eligible_as_natural_failure": false,
+        "reason": "default_path_targets_non_host_endpoint"
+      },
+      "observations": [
+        {
+          "replicate": 1,
+          "classification": "non_host_target",
+          "failure_phase": "build",
+          "error_category": "windows_toolchain",
+          "target_signals": [
+            "windows_toolchain"
+          ],
+          "elapsed_seconds": 0.49729019100777805,
+          "timed_out": false,
+          "infrastructure_failure": false,
+          "artifact_count": 0,
+          "deliverable_artifacts": [],
+          "commands": [
+            {
+              "phase": "build",
+              "command": "make --trace -j4 V=1 VERBOSE=1",
+              "exit_code": 2,
+              "timed_out": false,
+              "infrastructure_failure": false,
+              "elapsed_seconds": 0.40540070296265185,
+              "stdout_sha256": "f842e2bf7558f6e3e6ce1bfc0cee5eda5a366a40be56ecd5d6acc72dfe8d07bb",
+              "stderr_sha256": "9de35cfd371d62cb75d50143d26ae4232c76bd90dd0f3ea77b26b2dbf826396c"
+            }
+          ]
+        },
+        {
+          "replicate": 2,
+          "classification": "non_host_target",
+          "failure_phase": "build",
+          "error_category": "windows_toolchain",
+          "target_signals": [
+            "windows_toolchain"
+          ],
+          "elapsed_seconds": 0.49984626402147114,
+          "timed_out": false,
+          "infrastructure_failure": false,
+          "artifact_count": 0,
+          "deliverable_artifacts": [],
+          "commands": [
+            {
+              "phase": "build",
+              "command": "make --trace -j4 V=1 VERBOSE=1",
+              "exit_code": 2,
+              "timed_out": false,
+              "infrastructure_failure": false,
+              "elapsed_seconds": 0.4246751628816128,
+              "stdout_sha256": "f842e2bf7558f6e3e6ce1bfc0cee5eda5a366a40be56ecd5d6acc72dfe8d07bb",
+              "stderr_sha256": "7b4b84e276e462ee2ae414b94bcf82258b96e116e1811e6e79af76612352ff06"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "case_id": "vitagl-console",
+      "project_family": "rinnegatamante/vitagl",
+      "repository_url": "https://github.com/Rinnegatamante/vitaGL",
+      "commit_sha": "1a3b24765c0873f837ee0e8db4a554f01b8126c0",
+      "build_system": "make",
+      "audit_group": "non_host_negative",
+      "source_v4_classification": "linux_applicable",
+      "source": {
+        "head": "1a3b24765c0873f837ee0e8db4a554f01b8126c0",
+        "stages": [
+          {
+            "exit_code": 0,
+            "stage": "init",
+            "stderr_preview": "",
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "timed_out": false
+          },
+          {
+            "exit_code": 0,
+            "stage": "remote",
+            "stderr_preview": "",
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "timed_out": false
+          },
+          {
+            "exit_code": 0,
+            "stage": "fetch",
+            "stderr_preview": "来自 https://github.com/Rinnegatamante/vitaGL\n * branch            1a3b24765c0873f837ee0e8db4a554f01b8126c0 -> FETCH_HEAD\n",
+            "stderr_sha256": "99bb0e9da969d5b64c9f8cf8397938cef5838bf72c13b08228add4f177e105b9",
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "timed_out": false
+          },
+          {
+            "exit_code": 0,
+            "stage": "checkout",
+            "stderr_preview": "HEAD 目前位于 1a3b247 Fix the enabled display-list build (#143)\n",
+            "stderr_sha256": "0618febbf7e31bfc4534a2d9afeb3e9f940e119bdd89e6c362d096f9645adf22",
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "timed_out": false
+          }
+        ],
+        "succeeded": true
+      },
+      "default_path": {
+        "classification": "stable_non_host_target",
+        "eligible_as_natural_failure": false,
+        "observation_classes": [
+          "non_host_target",
+          "non_host_target"
+        ],
+        "reason": "two_clean_observations_show_non_host_target"
+      },
+      "project_qualification": {
+        "classification": "not_qualified",
+        "eligible_as_natural_failure": false,
+        "reason": "default_path_targets_non_host_endpoint"
+      },
+      "observations": [
+        {
+          "replicate": 1,
+          "classification": "non_host_target",
+          "failure_phase": "build",
+          "error_category": "console_toolchain",
+          "target_signals": [
+            "console_toolchain"
+          ],
+          "elapsed_seconds": 0.5116752709727734,
+          "timed_out": false,
+          "infrastructure_failure": false,
+          "artifact_count": 0,
+          "deliverable_artifacts": [],
+          "commands": [
+            {
+              "phase": "build",
+              "command": "make --trace -j4 V=1 VERBOSE=1",
+              "exit_code": 2,
+              "timed_out": false,
+              "infrastructure_failure": false,
+              "elapsed_seconds": 0.40610122005455196,
+              "stdout_sha256": "e57bc03c29417067ba4dbdf2b354991a96a349d03c26ccfc20331ebeda7e5123",
+              "stderr_sha256": "1dbb09f377f2831dfaa65ca6ef9638aff196ad7f45999c4a7512b287accbc2cf"
+            }
+          ]
+        },
+        {
+          "replicate": 2,
+          "classification": "non_host_target",
+          "failure_phase": "build",
+          "error_category": "console_toolchain",
+          "target_signals": [
+            "console_toolchain"
+          ],
+          "elapsed_seconds": 0.48693989985622466,
+          "timed_out": false,
+          "infrastructure_failure": false,
+          "artifact_count": 0,
+          "deliverable_artifacts": [],
+          "commands": [
+            {
+              "phase": "build",
+              "command": "make --trace -j4 V=1 VERBOSE=1",
+              "exit_code": 2,
+              "timed_out": false,
+              "infrastructure_failure": false,
+              "elapsed_seconds": 0.3972740869503468,
+              "stdout_sha256": "e57bc03c29417067ba4dbdf2b354991a96a349d03c26ccfc20331ebeda7e5123",
+              "stderr_sha256": "1dbb09f377f2831dfaa65ca6ef9638aff196ad7f45999c4a7512b287accbc2cf"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "case_id": "echo-dot-android-device",
+      "project_family": "gamer92000/echo-dot-assist",
+      "repository_url": "https://github.com/Gamer92000/echo-dot-assist",
+      "commit_sha": "64cb7ae4e775e507a7fdbfdfe7f552b5dea5227b",
+      "build_system": "make",
+      "audit_group": "non_host_negative",
+      "source_v4_classification": "linux_applicable",
+      "source": {
+        "head": "64cb7ae4e775e507a7fdbfdfe7f552b5dea5227b",
+        "stages": [
+          {
+            "exit_code": 0,
+            "stage": "init",
+            "stderr_preview": "",
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "timed_out": false
+          },
+          {
+            "exit_code": 0,
+            "stage": "remote",
+            "stderr_preview": "",
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "timed_out": false
+          },
+          {
+            "exit_code": 0,
+            "stage": "fetch",
+            "stderr_preview": "来自 https://github.com/Gamer92000/echo-dot-assist\n * branch            64cb7ae4e775e507a7fdbfdfe7f552b5dea5227b -> FETCH_HEAD\n",
+            "stderr_sha256": "e1f7b67d22158dc49da9168eeefc6db14013520462e1cfa289e40406f6cb0ce3",
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "timed_out": false
+          },
+          {
+            "exit_code": 0,
+            "stage": "checkout",
+            "stderr_preview": "HEAD 目前位于 64cb7ae Online updates: switched on only once the Echo reached GitHub\n",
+            "stderr_sha256": "fcefa254de645399cbf2ac86ca611aeb6e5dfdbc985e7541fbd1aa990b572258",
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "timed_out": false
+          }
+        ],
+        "succeeded": true
+      },
+      "default_path": {
+        "classification": "stable_non_host_target",
+        "eligible_as_natural_failure": false,
+        "observation_classes": [
+          "non_host_target",
+          "non_host_target"
+        ],
+        "reason": "two_clean_observations_show_non_host_target"
+      },
+      "project_qualification": {
+        "classification": "not_qualified",
+        "eligible_as_natural_failure": false,
+        "reason": "default_path_targets_non_host_endpoint"
+      },
+      "observations": [
+        {
+          "replicate": 1,
+          "classification": "non_host_target",
+          "failure_phase": "build",
+          "error_category": "device_firmware_contract",
+          "target_signals": [
+            "device_firmware_contract"
+          ],
+          "elapsed_seconds": 0.5967513429932296,
+          "timed_out": false,
+          "infrastructure_failure": false,
+          "artifact_count": 0,
+          "deliverable_artifacts": [],
+          "commands": [
+            {
+              "phase": "build",
+              "command": "make --trace -j4 V=1 VERBOSE=1",
+              "exit_code": 2,
+              "timed_out": false,
+              "infrastructure_failure": false,
+              "elapsed_seconds": 0.47867687116377056,
+              "stdout_sha256": "b7644c22962401743f3e0a9e7eccf5cf546f3db80372ce7be65fce2fac54c834",
+              "stderr_sha256": "36d1df908641b1fa0134d6a29de744b73c1995a06fcbf5350ff9e17466e88e21"
+            }
+          ]
+        },
+        {
+          "replicate": 2,
+          "classification": "non_host_target",
+          "failure_phase": "build",
+          "error_category": "device_firmware_contract",
+          "target_signals": [
+            "device_firmware_contract"
+          ],
+          "elapsed_seconds": 0.6203421298414469,
+          "timed_out": false,
+          "infrastructure_failure": false,
+          "artifact_count": 0,
+          "deliverable_artifacts": [],
+          "commands": [
+            {
+              "phase": "build",
+              "command": "make --trace -j4 V=1 VERBOSE=1",
+              "exit_code": 2,
+              "timed_out": false,
+              "infrastructure_failure": false,
+              "elapsed_seconds": 0.518490033922717,
+              "stdout_sha256": "b7644c22962401743f3e0a9e7eccf5cf546f3db80372ce7be65fce2fac54c834",
+              "stderr_sha256": "36d1df908641b1fa0134d6a29de744b73c1995a06fcbf5350ff9e17466e88e21"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "case_id": "fast-float-header-only",
+      "project_family": "fastfloat/fast_float",
+      "repository_url": "https://github.com/fastfloat/fast_float",
+      "commit_sha": "033f64f6088bb00690858ce59bc8c7fd0566384a",
+      "build_system": "cmake",
+      "audit_group": "no_default_artifact_risk",
+      "source_v4_classification": "linux_applicable",
+      "source": {
+        "head": "033f64f6088bb00690858ce59bc8c7fd0566384a",
+        "stages": [
+          {
+            "exit_code": 0,
+            "stage": "init",
+            "stderr_preview": "",
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "timed_out": false
+          },
+          {
+            "exit_code": 0,
+            "stage": "remote",
+            "stderr_preview": "",
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "timed_out": false
+          },
+          {
+            "exit_code": 0,
+            "stage": "fetch",
+            "stderr_preview": "来自 https://github.com/fastfloat/fast_float\n * branch            033f64f6088bb00690858ce59bc8c7fd0566384a -> FETCH_HEAD\n",
+            "stderr_sha256": "4e104c5adab9b14ceeeec25f68e167d06eafa86161af388bda6c58a3f053700a",
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "timed_out": false
+          },
+          {
+            "exit_code": 0,
+            "stage": "checkout",
+            "stderr_preview": "HEAD 目前位于 033f64f Merge pull request #423 from sahvx655-wq/fuzz-coverage\n",
+            "stderr_sha256": "26b4b74c1aa921a259206e32daa9301d100550f7cf56580de4bf1f6d4ff0d326",
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "timed_out": false
+          }
+        ],
+        "succeeded": true
+      },
+      "default_path": {
+        "classification": "stable_no_compiled_artifact",
+        "eligible_as_natural_failure": false,
+        "observation_classes": [
+          "no_compiled_artifact",
+          "no_compiled_artifact"
+        ],
+        "reason": "two_clean_default_paths_produced_no_artifact"
+      },
+      "project_qualification": {
+        "classification": "not_qualified",
+        "eligible_as_natural_failure": false,
+        "reason": "default_path_has_no_compiled_artifact"
+      },
+      "observations": [
+        {
+          "replicate": 1,
+          "classification": "no_compiled_artifact",
+          "failure_phase": null,
+          "error_category": "default_path_produced_no_compiled_artifact",
+          "target_signals": [],
+          "elapsed_seconds": 1.3297104730736464,
+          "timed_out": false,
+          "infrastructure_failure": false,
+          "artifact_count": 0,
+          "deliverable_artifacts": [],
+          "commands": [
+            {
+              "phase": "configure",
+              "command": "cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_VERBOSE_MAKEFILE=ON -DCMAKE_EXPORT_COMPILE_COMMANDS=ON",
+              "exit_code": 0,
+              "timed_out": false,
+              "infrastructure_failure": false,
+              "elapsed_seconds": 0.7330945548601449,
+              "stdout_sha256": "f5ac9c3d5139bb064ecd66be74d16beba14891987b978685a9afd7fef6f79473",
+              "stderr_sha256": "a4c85a69cad1feb49c651a6c2fb9746e8f6276de69c981685e24aa9e35dc817e"
+            },
+            {
+              "phase": "build",
+              "command": "cmake --build build --verbose --parallel 4",
+              "exit_code": 0,
+              "timed_out": false,
+              "infrastructure_failure": false,
+              "elapsed_seconds": 0.48213986796326935,
+              "stdout_sha256": "70a2de79ad57174b28a81d6c4e527f1261aac79481aa8a30d65478bce9fdc7cd",
+              "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            }
+          ]
+        },
+        {
+          "replicate": 2,
+          "classification": "no_compiled_artifact",
+          "failure_phase": null,
+          "error_category": "default_path_produced_no_compiled_artifact",
+          "target_signals": [],
+          "elapsed_seconds": 1.3377969299908727,
+          "timed_out": false,
+          "infrastructure_failure": false,
+          "artifact_count": 0,
+          "deliverable_artifacts": [],
+          "commands": [
+            {
+              "phase": "configure",
+              "command": "cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_VERBOSE_MAKEFILE=ON -DCMAKE_EXPORT_COMPILE_COMMANDS=ON",
+              "exit_code": 0,
+              "timed_out": false,
+              "infrastructure_failure": false,
+              "elapsed_seconds": 0.7561863779556006,
+              "stdout_sha256": "f5ac9c3d5139bb064ecd66be74d16beba14891987b978685a9afd7fef6f79473",
+              "stderr_sha256": "a4c85a69cad1feb49c651a6c2fb9746e8f6276de69c981685e24aa9e35dc817e"
+            },
+            {
+              "phase": "build",
+              "command": "cmake --build build --verbose --parallel 4",
+              "exit_code": 0,
+              "timed_out": false,
+              "infrastructure_failure": false,
+              "elapsed_seconds": 0.48386804899200797,
+              "stdout_sha256": "70a2de79ad57174b28a81d6c4e527f1261aac79481aa8a30d65478bce9fdc7cd",
+              "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "case_id": "too-many-cooks-header-only",
+      "project_family": "tzcnt/toomanycooks",
+      "repository_url": "https://github.com/tzcnt/TooManyCooks",
+      "commit_sha": "e6db2f6fdd9b0760437556d946ed7cbd7b01a5dd",
+      "build_system": "cmake",
+      "audit_group": "no_default_artifact_risk",
+      "source_v4_classification": "linux_applicable",
+      "source": {
+        "head": "e6db2f6fdd9b0760437556d946ed7cbd7b01a5dd",
+        "stages": [
+          {
+            "exit_code": 0,
+            "stage": "init",
+            "stderr_preview": "",
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "timed_out": false
+          },
+          {
+            "exit_code": 0,
+            "stage": "remote",
+            "stderr_preview": "",
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "timed_out": false
+          },
+          {
+            "exit_code": 0,
+            "stage": "fetch",
+            "stderr_preview": "来自 https://github.com/tzcnt/TooManyCooks\n * branch            e6db2f6fdd9b0760437556d946ed7cbd7b01a5dd -> FETCH_HEAD\n",
+            "stderr_sha256": "0bc40212128a6bd8f686f89206eebd072f3c693d9383ef5aac454974e0af97ab",
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "timed_out": false
+          },
+          {
+            "exit_code": 0,
+            "stage": "checkout",
+            "stderr_preview": "HEAD 目前位于 e6db2f6 fallback for older kernels without futex_waitv (#280)\n",
+            "stderr_sha256": "127137ad87a65eb1f8a20fe59c1f5455f238d32015222bf9a66308dbf0e66071",
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "timed_out": false
+          }
+        ],
+        "succeeded": true
+      },
+      "default_path": {
+        "classification": "stable_failure_candidate",
+        "eligible_as_natural_failure": false,
+        "observation_classes": [
+          "bounded_failure",
+          "bounded_failure"
+        ],
+        "reason": "two_clean_failures_agree_target_unresolved"
+      },
+      "project_qualification": {
+        "classification": "not_qualified",
+        "eligible_as_natural_failure": false,
+        "reason": "reference_host_closure_required"
+      },
+      "observations": [
+        {
+          "replicate": 1,
+          "classification": "bounded_failure",
+          "failure_phase": "configure",
+          "error_category": "missing_tool",
+          "target_signals": [],
+          "elapsed_seconds": 0.8676667099352926,
+          "timed_out": false,
+          "infrastructure_failure": false,
+          "artifact_count": 0,
+          "deliverable_artifacts": [],
+          "commands": [
+            {
+              "phase": "configure",
+              "command": "cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_VERBOSE_MAKEFILE=ON -DCMAKE_EXPORT_COMPILE_COMMANDS=ON",
+              "exit_code": 1,
+              "timed_out": false,
+              "infrastructure_failure": false,
+              "elapsed_seconds": 0.7888803319074214,
+              "stdout_sha256": "3a5ed71f986f8d8e685f89fa503ef63e96287a07b25b8a78075418d01f563ad5",
+              "stderr_sha256": "11dbea8e570addf6da53c59023ca4947796cdb7f4fa0b5dbee79ab9799b84052"
+            }
+          ]
+        },
+        {
+          "replicate": 2,
+          "classification": "bounded_failure",
+          "failure_phase": "configure",
+          "error_category": "missing_tool",
+          "target_signals": [],
+          "elapsed_seconds": 0.8264322050381452,
+          "timed_out": false,
+          "infrastructure_failure": false,
+          "artifact_count": 0,
+          "deliverable_artifacts": [],
+          "commands": [
+            {
+              "phase": "configure",
+              "command": "cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_VERBOSE_MAKEFILE=ON -DCMAKE_EXPORT_COMPILE_COMMANDS=ON",
+              "exit_code": 1,
+              "timed_out": false,
+              "infrastructure_failure": false,
+              "elapsed_seconds": 0.7570882278960198,
+              "stdout_sha256": "3a5ed71f986f8d8e685f89fa503ef63e96287a07b25b8a78075418d01f563ad5",
+              "stderr_sha256": "11dbea8e570addf6da53c59023ca4947796cdb7f4fa0b5dbee79ab9799b84052"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "interpretation": {
+    "supported": [
+      "source-only platform labels cannot safely decide Linux applicability",
+      "dynamic default-path evidence separates observed host closure, non-host target, no-artifact, timeout, and unresolved failure states",
+      "stable failure alone cannot enter the natural-failure sample without a default-target-bound host reference closure",
+      "host closure requires a verifier-valid host-machine artifact bound to an observed compiler, linker, or archive producer"
+    ],
+    "unsupported": [
+      "full-pool qualification rate",
+      "natural-failure role quotas",
+      "Jev or Agent treatment effect",
+      "cost or dynamic-budget benefit"
+    ],
+    "next_decision": "design_formal_build_reference_qualification_identity"
+  }
+}

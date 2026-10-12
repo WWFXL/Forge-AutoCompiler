@@ -4,6 +4,28 @@
 
 ## 当前阶段
 
+- 状态：Issue #417 已完成 Linux build-closure v5 机制实现与非正式工程 canary。新门禁不再用 source-only
+  平台标签决定资格；默认路径重复失败只形成 `stable_failure_candidate`，只有绑定同一默认 target 的 reference
+  recipe 在两个 clean workspace 中均生成宿主 Linux 用户态 ELF/`ar`，且 source identity clean，项目才可进入
+  自然失败角色。
+- v5 工程 canary：10 个已人工审计 exact commit 各运行 2 次无网络 clean observation，共 20/20 有界终结，
+  0 infrastructure failure、0 受管容器残留。分类为 5 个 `stable_non_host_target`、1 个
+  `stable_host_userland_closure`、2 个 `stable_failure_candidate`、1 个 `stable_no_compiled_artifact` 和 1 个 timeout；
+  0/10 成为 `qualified_natural_failure`。
+- 构造效度信号：`SketchyBar` 的 Apple target、seL4 kernel contract、RB3Enhanced Windows toolchain、vitaGL
+  console toolchain 和 Echo firmware/rootfs 均从实际默认路径直接识别；`gta-reversed` 在 CMake 版本门禁处提前
+  失败，保守保持 target unresolved。旧 source false positive `opera-libretro` 两次生成 x86_64
+  `opera_libretro.so`；`rakupp` 进入实际宿主编译但在 120 秒命令预算内 timeout，没有再被静态误排。
+- 工程修复中的失败证据：首轮 canary 曾把 CMake 的 `CMakeDetermineCompilerABI_CXX.bin` 当作项目产物，使
+  `fast_float` 假闭合；该轮不作为通过证据。修复并新增回归后，最终轮将其正确分类为
+  `stable_no_compiled_artifact`。收紧 producer 合同后的最终聚焦测试为 26 passed，包括真实 gcc/ar、foreign ELF、
+  PE/Mach-O、probe 排除、producer 绑定、默认 target reference 绑定和 Docker clean build。
+- 当前工作类型：工程修复与机制资格，不是 treatment 数据收集。版本化 summary 明确标为
+  `nonformal_engineering_canary`；临时 raw observation 未发布为 formal evidence，因此本结果不支持全量候选通过率、
+  自然失败角色配额、Jev/Agent 效果、成本收益或动态预算结论。
+- 下一决策：设计独立 formal build/reference qualification identity，把 v4 source-only 输出只作为候选和风险信号，
+  对更大的冻结候选池执行默认路径双观察、默认 target reference 双闭合与 Forge verifier；通过后才分配
+  design/calibration/evaluation 角色。不得回写或续跑 v1-v4 identity。
 - 状态：Issue #415 的 Linux applicability v4 唯一正式 source-only attempt 已完成。机械决定为
   `proceed_to_natural_failure_build_reference_qualification_v4`，但只读构造效度审计发现双向分类错误，后验决定为
   `stop_before_natural_failure_build_reference_qualification_v4`；不得创建后续 build/reference identity。
@@ -76,6 +98,9 @@
 - 自然失败 Linux applicability v4 预注册：`benchmarks/preregistrations/cpp-jev-natural-failure-linux-applicability-v4.md`。
 - 自然失败 Linux applicability v4 结果：`benchmarks/reports/cpp-jev-natural-failure-linux-applicability-v4.md`。
 - 自然失败 Linux applicability v4 构造效度审计：`benchmarks/reports/cpp-jev-natural-failure-linux-applicability-v4-construct-audit.md`。
+- Linux build-closure v5 设计：`docs/superpowers/specs/2026-10-12-linux-build-closure-qualification-v5-design.md`。
+- Linux build-closure v5 实施计划：`docs/superpowers/plans/2026-10-12-linux-build-closure-qualification-v5.md`。
+- Linux build-closure v5 工程 canary：`benchmarks/reports/cpp-jev-natural-failure-linux-build-closure-canary-v5.md`。
 - Jev API 合同审计：`docs/research/2026-10-09-jev-api-contract-audit.md`。
 - 三候选机制审计：`docs/research/2026-10-09-three-candidate-mechanism-audit.md`。
 - 主动诊断机制审计：`docs/research/2026-10-09-active-diagnosis-mechanism-audit.md`。

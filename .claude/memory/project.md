@@ -6,6 +6,16 @@
 
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
+- 2026-10-12 — Issue #417 完成 Linux build-closure v5 工程修复与非正式 canary
+  - 工作类型与问题: 工程修复、机制资格和结果分析。Issue #415 的 v4 source-only 门禁不能解析默认条件分支、默认 target 依赖闭包或实际编译目标，导致 Linux 项目双向误判，并允许 `SketchyBar` 这类 macOS-only 项目以重复稳定失败进入自然失败候选。
+  - 修复机制: source-only 分类降级为候选与风险信号；新 runner 在 `autocompiler:gcc13`、`--network none`、固定 4 CPU 和两个 clean workspace 中执行默认 CMake/Make/Autotools 路径，比较构建前后文件，复用 Forge `_classify_compiled_artifact`，提取 ELF/archive member machine，并只从实际命令输出和真实产物提取 target signal。CMake compiler id/ABI 探针不计为项目产物；host closure 还要求产物路径绑定到实际 compiler/linker/`ar` producer，静默或预置 binary 保守保持未决。
+  - 最终资格合同: 默认路径重复失败只产生 `stable_failure_candidate`。成为 `qualified_natural_failure` 还必须有两次 `stable_host_userland_closure`、reference recipe 通过结构校验、source identity clean，且唯一 build 命令精确绑定对应构建系统默认 target；不能改选可选 Linux target 来洗白默认 macOS/kernel/device 路径。
+  - 工程 canary: 固定 10 个已审计 exact commit、每项 2 次 clean observation。最终 20/20 有界终结，分类为 5 个 stable non-host、1 个 stable host closure、2 个 stable failure candidate、1 个 stable no-artifact、1 个 timeout；0 infrastructure failure、0 natural-failure qualification、cleanup 后 0 受管容器。`opera-libretro` 两次生成 x86_64 `opera_libretro.so`；`SketchyBar`、seL4、RB3Enhanced、vitaGL、Echo device 的 non-host 事实由实际默认路径识别；`gta-reversed` 因更早的 CMake 版本门禁保持未决。
+  - 失败与修复: 首轮非正式 canary 把 `build/CMakeFiles/3.28.3/CMakeDetermineCompilerABI_CXX.bin` 误当作 `fast_float` 项目产物，该轮作废。新增 probe exclusion 与硬回归后，后续全量重跑均把 `fast_float` 归为 `stable_no_compiled_artifact`；再收紧 producer 绑定后最终全量结果保持不变。最终 runner 聚焦测试 `26 passed`，覆盖真实 gcc/ar、foreign ELF、PE/Mach-O、target signal、failure normalization、probe/producer、reference binding 和 Docker clean build。
+  - 证据边界: versioned JSON/Markdown 明确为 `nonformal_engineering_canary`；临时 raw observation 没有发布为 formal evidence。它支持门禁机制可行和 `SketchyBar` 漏洞已被阻断，不支持全量候选通过率、角色配额、Jev/Agent 效果、成本或动态预算结论。全程 0 credential、0 Provider、0 model token。
+  - Git 与下一步: tracking Issue #417 已创建并回读；分支 `yiwei/417-dynamic-linux-qualification-v5` 基于 `yiwei/415-linux-applicability-v4@7453e09e`。下一步先完成相邻回归、提交、push、PR/CI；研究上另建 formal build/reference qualification identity，冻结更大候选池、reference recipes、预算和停止规则，通过后才分配自然失败角色。
+  - 文件: `docs/superpowers/specs/2026-10-12-linux-build-closure-qualification-v5-design.md`, `docs/superpowers/plans/2026-10-12-linux-build-closure-qualification-v5.md`, `scripts/forge_linux_build_closure_qualification_v5.py`, `backend/tests/test_forge_linux_build_closure_qualification_v5.py`, `benchmarks/fixtures/linux-build-closure-v5/cases.json`, `benchmarks/reports/cpp-jev-natural-failure-linux-build-closure-canary-v5.md`, `RESEARCH_STATUS.md`
+
 - 2026-10-12 — Issue #415 Linux applicability v4 完成并在构造效度审计后停止
   - 工作类型与问题: source-only 数据资格、结果分析和基础设施设计。v4 试图在角色冻结和 build 前排除非 Linux 用户态 endpoint，同时避免 v3 对多平台项目的 Apple/Windows 局部文本误伤。
   - 实现与身份: v4 将 host-platform 与 endpoint 信号分离，剥离入口注释，让明确 Linux 路径覆盖局部平台信号，加入 14 个冻结回归并使用最大二分匹配分配 12/12/12 reserve。正式 identity 为 `cpp-jev-natural-failure-linux-applicability-v4`，execution revision `1e79fd0bd0864c805f857b99c77f87d6b9cc8e77`，manifest canonical SHA-256 `2f778a7014021756e7b55ee9a53bc8f01aa6b71ec7b9e6b3e62d34d0168a5bbd`。
