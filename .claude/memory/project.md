@@ -6,6 +6,14 @@
 
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
+- 2026-10-12 — Issue #429 固定 Agent continuation 资格 v1 协议与实现候选已冻结
+  - 工作类型与问题: Q0 基础设施门禁、Q1 Provider canary 和 Q2 正式资格数据采集。目标是从 v5 同源 checkpoint 重复运行固定 Compiler Agent，判断严格终点稳定性、成本完整性、恢复性和六维预算轨迹是否足以支持后续 dynamic-budget matched outcome matrix 设计。
+  - 冻结设计: Q0 选择 9 个 checkpoint，三个构建系统各覆盖 state 1/2/3，必须 9/9 通过 Runtime v3 CandidateVerifier、functional oracle、S0-S5、provenance、clean replay 和 cleanup。CLI11/cxxopts 编译最小 consumer ELF，kilo 编译静态库，避免 header-only 或交互式 endpoint 伪闭合。Q1 为 3 个不进入分析的跨系统 canary；Q2 为 9 checkpoint x 3 repetitions = 27 arms。
+  - Provider 与预算: `deepseek-flash`、thinking=false、streaming=false、retry=0；单臂 24 requests、300,000 recorded tokens、64 steps、48 tools、32 commands、1,800 秒；Q1+Q2 总上限 720 requests / 9,000,000 tokens。checkpoint 恢复后断开 compile container 网络；Agent 不接收 Q0 reference 命令。
+  - 判定: Q2 必须 27/27 分类终态、成本/六维预算完整、parent binding、动作后观察和 cleanup；至少 6/9 checkpoint 达到 >=2/3 strict，每系统与每深度至少 2/3 checkpoint 达标，timeout/budget exhausted <=3/27。通过才决定 `proceed_to_matched_outcome_matrix_design`，否则停止 controller。
+  - 当前验证与边界: Tracking Issue #429 已创建并回读；manifest static validate、v5 326 文件 inventory 复核、schedule/门禁与相邻恢复测试 `11 passed`，Ruff/format 通过。尚未创建 evidence，0 credential、0 Provider、0 Agent。下一步提交、推送 release 后只执行 Q0；Q0 失败时 Q1/Q2 在 credential 读取前 fail closed。
+  - 文件: `docs/superpowers/specs/2026-10-12-agent-continuation-qualification-v1-design.md`, `docs/superpowers/plans/2026-10-12-agent-continuation-qualification-v1.md`, `benchmarks/manifests/cpp-agent-continuation-qualification-v1.json`, `benchmarks/preregistrations/cpp-agent-continuation-qualification-v1.md`, `scripts/forge_agent_continuation_qualification_v1.py`, `backend/tests/test_forge_agent_continuation_qualification_v1.py`, `RESEARCH_STATUS.md`
+
 - 2026-10-12 — Issue #427 动态预算多步轨迹 benchmark 资格 v5 完整通过
   - 工作类型与问题: 正式零 Provider benchmark 资格数据采集。v5 用全新 create-once identity 完整重跑 v4 的 9 项目、27 连续状态、54 次同源禁网 Docker continuation，检验 Issue #425 修复后跨 CMake/Make/Autotools 的 checkpoint 恢复、重复性、动作后观察、六维预算和 stop reservation 转移能否闭合。
   - 协议与实现: Tracking Issue #427 已创建并回读；运行前提交 `1515c0a5` 冻结 spec、plan、manifest、预注册、薄 wrapper runner 和回归。v5 继承 v4 的项目、exact commit、动作、固定 hostname、四类诊断日志和 `autom4te.cache` 决策哈希排除，只将 `_restore_snapshot` 接到 `restore_checkpoint_archive`；manifest SHA-256 为 `39f06186dae5bb6955f6501004444884ea598107576bb496613555e73d069dca`。
