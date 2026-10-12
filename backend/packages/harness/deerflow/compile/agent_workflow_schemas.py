@@ -92,13 +92,26 @@ class AgentWorkflowBudget:
     evaluator_timeout_seconds: int
     replay_timeout_seconds: int
     cleanup_timeout_seconds: int
+    max_recorded_tokens_per_response: int | None = None
 
     def validate(self) -> None:
         values = asdict(self)
         if values.pop("max_recorded_tokens") is not None:
             _require_positive(self.max_recorded_tokens, "max_recorded_tokens")
+        if values.pop("max_recorded_tokens_per_response") is not None:
+            _require_positive(self.max_recorded_tokens_per_response, "max_recorded_tokens_per_response")
+            if self.max_recorded_tokens is None:
+                raise AgentWorkflowContractError("max_recorded_tokens_per_response requires max_recorded_tokens")
         for field_name, value in values.items():
             _require_positive(value, field_name)
+
+    @property
+    def authorized_recorded_tokens(self) -> int | None:
+        if self.max_recorded_tokens is None:
+            return None
+        if self.max_recorded_tokens_per_response is None:
+            return self.max_recorded_tokens
+        return self.max_recorded_tokens + self.max_recorded_tokens_per_response
 
 
 @dataclass(frozen=True)

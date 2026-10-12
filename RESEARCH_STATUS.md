@@ -4,6 +4,20 @@
 
 ## 当前阶段
 
+- 状态：Issue #436 的独立零 Provider `cpp-agent-token-budget-semantics-gate-v1` 已完成，决定为
+  `proceed_to_progress_aware_harness_v3_replication_decision`。Runtime 新增显式 `max_recorded_tokens_per_response`；配置后，
+  `max_recorded_tokens` 作为下一请求准入停止阈值，已完成响应先完整进入 authoritative usage，再按累计触阈或单响应上界
+  终止。usage 缺失/不一致以 `usage_incomplete` fail closed；model request、step、tool、command 和 wall clock 仍保持请求前
+  严格门禁。
+- 门禁证据：9/9 scripted cases 通过。低于阈值、精确触阈、bounded overshoot、单响应违规、usage 缺失/不一致、Provider
+  failure、非 Token 预算和历史无上限模式均按预期闭合；触阈响应的 completed-event / node-result Token 分别为 `100/100`
+  和 `110/110`，overshoot 后没有第三次请求。相邻回归 `82 passed`，产品全量 `1787 passed, 40 skipped`，改动文件
+  Ruff/format 通过。全程 0 credential、0 Provider、0 Docker、0 formal effect attempt。
+- 结论与下一步：该工程门禁只解除全新 H0/H1 v3 确认性复现的预算合同阻塞，不改变 v2 的
+  `stop_progress_aware_harness_as_primary_mechanism`，也不证明 H1、Jev 或动态预算 controller 效果。v2 的 30,108 文件 /
+  719,928,939 bytes 已逐项只读复核，inventory canonical SHA-256 仍为
+  `fb8f77bf05885dcb2f008fc2799de8361f7dd91af558815b7cff42b01cd5dce8`。当前停在研究负责人是否设计 v3 的决策点；
+  v3 尚未创建或获得执行授权，不进入 Workflow+Agent+Jev 新链路设计。
 - 状态：Issue #433 的 `cpp-progress-aware-harness-comparison-v1` 已在 Q1 canary 后停止，决定为
   `supersede_before_q2_due_to_canary_instrumentation_gap`。Q0 `9/9` strict；Q1 六臂均分类、计量和 cleanup 闭合，H0/H1
   strict 均为 `2/3`，但这些 canary 数值不形成 treatment claim。v1 Q2 从未创建，全部 evidence 已按 6,996 files /
@@ -22,12 +36,11 @@
   304,588 至 328,146，超过单臂 300,000 上限；tracker 保留越界前 snapshot，导致 raw events 与 node usage 不一致、
   `budget.complete=false`，唯一失败硬门禁为 `cost_and_budget_complete`。这支持 H1 的强正向机制信号，不支持把 v2 宣告为
   正式通过或 strict superiority。
-- Evidence 与下一步：v2 release `0dec1b2427b5146c37ebad8ec589b5c8e43132e4`，manifest canonical SHA-256
+- Evidence 与后续：v2 release `0dec1b2427b5146c37ebad8ec589b5c8e43132e4`，manifest canonical SHA-256
   `2891fcf708efda329686fb31b11abb25ec20e5716fa5219c5859a13c9a015018`；30,108 files / 719,928,939 bytes，inventory
   canonical SHA-256 `fb8f77bf05885dcb2f008fc2799de8361f7dd91af558815b7cff42b01cd5dce8`，audit `valid=true`、0 managed
-  resources。v2 evidence 永久只读。下一步先建立零 Provider token-budget 语义门禁，使最后一次真实响应进入 authoritative
-  usage 并冻结可执行的 overshoot 语义；通过后再决定是否建立诚实标注为已观察后复现的 v3 identity。当前不进入
-  Workflow+Agent+Jev 新链路设计。
+  resources。v2 evidence 永久只读。Issue #436 已完成零 Provider token-budget 语义门禁；后续若建立 v3，必须诚实标注为
+  已观察 v2 后的复现，并使用全新 spec、预算、停止规则和 identity。
 - 状态：Issue #433 的进展感知结构化 Harness 零 Provider 资格已完成。`cpp-progress-aware-harness-qualification-v1`
   已按 create-once 合同失败封口：Runtime v4 完成 5 次权威 progress snapshot、2 次有效上下文裁剪、1 次 candidate-ready
   后命令拒绝和 1 次快照驱动提交；pre-freeze verifier、S0-S4、预算计数与 cleanup 全部通过，但 S5 clean replay 在任何

@@ -50,7 +50,7 @@ usage 缺失或非法时写入独立的 `model.request_usage_incomplete` 事件�
 | --- | --- | --- |
 | `below_threshold` | 40 / 100 | 完整计量，可继续并提交候选 |
 | `exact_threshold` | 100 / 100 | 完整计量并停止，无工具执行 |
-| `bounded_overshoot` | 70 + 40 / 100，R=50 | 累计 110，第二次后停止，无第三次请求 |
+| `bounded_overshoot` | 70 + 40 / 100，R=70 | 累计 110，第二次后停止，无第三次请求 |
 | `response_bound_violation` | 60 / 100，R=50 | 累计 60，合同违规并停止 |
 | `missing_usage` | 无 usage metadata | `usage_incomplete`，无第二次请求 |
 | `invalid_usage` | total 与 input+output 不一致 | `usage_incomplete`，无第二次请求 |

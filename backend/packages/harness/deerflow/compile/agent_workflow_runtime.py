@@ -58,6 +58,14 @@ class AgentWorkflowIdentityError(AgentWorkflowRuntimeError):
     """节点输入与 Compile Session 的 authoritative identity 不一致。"""
 
 
+class AgentWorkflowUsageIncomplete(AgentWorkflowRuntimeError):
+    """已完成模型响应缺少可审计的 Token 用量。"""
+
+    def __init__(self, reason: str):
+        self.reason = reason
+        super().__init__(f"Agent workflow response usage is incomplete: {reason}")
+
+
 class AgentWorkflowGraphState(AgentState):
     agent_workflow_terminal: NotRequired[bool]
 
@@ -321,16 +329,22 @@ class AgentWorkflowExecutionMiddleware(AgentMiddleware[AgentWorkflowGraphState])
 
     def _before_request(self) -> int:
         self.tracker.observe_elapsed(time.monotonic() - self.started_monotonic)
+        self.tracker.ensure_model_request_allowed()
         self.tracker.consume(model_requests=1, agent_steps=1)
         self._request_sequence += 1
         self.ledger.append("model.request_started", request_sequence=self._request_sequence)
         return self._request_sequence
 
     def _after_request(self, response: ModelResponse, request_sequence: int) -> None:
-        usages = [usage for message in response.result if isinstance((usage := getattr(message, "usage_metadata", None)), Mapping)]
-        input_tokens = sum(int(usage.get("input_tokens", 0)) for usage in usages)
-        output_tokens = sum(int(usage.get("output_tokens", 0)) for usage in usages)
-        total_tokens = sum(int(usage.get("total_tokens", 0)) for usage in usages)
+        try:
+            input_tokens, output_tokens, total_tokens = self._response_usage(response)
+        except AgentWorkflowUsageIncomplete as exc:
+            self.ledger.append(
+                "model.request_usage_incomplete",
+                request_sequence=request_sequence,
+                reason=exc.reason,
+            )
+            raise
         self.ledger.append(
             "model.request_completed",
             request_sequence=request_sequence,
@@ -338,7 +352,29 @@ class AgentWorkflowExecutionMiddleware(AgentMiddleware[AgentWorkflowGraphState])
             output_tokens=output_tokens,
             recorded_tokens=total_tokens,
         )
-        self.tracker.consume(recorded_tokens=total_tokens)
+        self.tracker.record_model_response(total_tokens)
+
+    def _response_usage(self, response: ModelResponse) -> tuple[int, int, int]:
+        usages = [usage for message in response.result if isinstance((usage := getattr(message, "usage_metadata", None)), Mapping)]
+        if self.tracker.limits.max_recorded_tokens_per_response is None:
+            return (
+                sum(int(usage.get("input_tokens", 0)) for usage in usages),
+                sum(int(usage.get("output_tokens", 0)) for usage in usages),
+                sum(int(usage.get("total_tokens", 0)) for usage in usages),
+            )
+        if not response.result or len(usages) != len(response.result):
+            raise AgentWorkflowUsageIncomplete("missing_usage_metadata")
+
+        totals = {"input_tokens": 0, "output_tokens": 0, "total_tokens": 0}
+        for usage in usages:
+            values = {field_name: usage.get(field_name) for field_name in totals}
+            if any(type(value) is not int or value < 0 for value in values.values()):
+                raise AgentWorkflowUsageIncomplete("invalid_usage_metadata")
+            if values["total_tokens"] != values["input_tokens"] + values["output_tokens"]:
+                raise AgentWorkflowUsageIncomplete("inconsistent_usage_metadata")
+            for field_name, value in values.items():
+                totals[field_name] += value
+        return totals["input_tokens"], totals["output_tokens"], totals["total_tokens"]
 
     @override
     def wrap_model_call(self, request: ModelRequest, handler: Callable[[ModelRequest], ModelResponse]) -> ModelCallResult:
@@ -505,14 +541,29 @@ class AgentWorkflowNodeRunner:
                 node_status = "no_submission"
         except AgentWorkflowBudgetExceeded as exc:
             budget_reason = exc.reason
-            primary_failure = "budget_exhausted"
-            self._append_if_available("budget.exhausted", reason=exc.reason)
-            if self.state_machine.status is AgentWorkflowNodeStatus.RUNNING:
-                self.state_machine.transition(AgentWorkflowNodeStatus.NO_SUBMISSION)
-            elif self.state_machine.status is AgentWorkflowNodeStatus.CANDIDATE_SUBMITTED:
+            if exc.reason == "recorded_tokens_per_response":
+                primary_failure = "budget_contract_violation"
+                self._append_if_available("budget.contract_violated", reason=exc.reason)
+                if self.state_machine.status not in {AgentWorkflowNodeStatus.NODE_FAILED, AgentWorkflowNodeStatus.FINALIZING, AgentWorkflowNodeStatus.COMPLETED, AgentWorkflowNodeStatus.CANCELLED}:
+                    self.state_machine.transition(AgentWorkflowNodeStatus.NODE_FAILED)
+                secondary_failures.extend(await self._finalize_safely(AgentWorkflowTerminationReason.NODE_FAILED))
+                node_status = "failed"
+            else:
+                primary_failure = "budget_exhausted"
+                self._append_if_available("budget.exhausted", reason=exc.reason)
+                if self.state_machine.status is AgentWorkflowNodeStatus.RUNNING:
+                    self.state_machine.transition(AgentWorkflowNodeStatus.NO_SUBMISSION)
+                elif self.state_machine.status is AgentWorkflowNodeStatus.CANDIDATE_SUBMITTED:
+                    self.state_machine.transition(AgentWorkflowNodeStatus.NODE_FAILED)
+                secondary_failures.extend(await self._finalize_safely(AgentWorkflowTerminationReason.BUDGET_EXHAUSTED))
+                node_status = "no_submission"
+        except AgentWorkflowUsageIncomplete as exc:
+            primary_failure = "usage_incomplete"
+            self._append_if_available("node.usage_incomplete", reason=exc.reason)
+            if self.state_machine.status not in {AgentWorkflowNodeStatus.NODE_FAILED, AgentWorkflowNodeStatus.FINALIZING, AgentWorkflowNodeStatus.COMPLETED, AgentWorkflowNodeStatus.CANCELLED}:
                 self.state_machine.transition(AgentWorkflowNodeStatus.NODE_FAILED)
-            secondary_failures.extend(await self._finalize_safely(AgentWorkflowTerminationReason.BUDGET_EXHAUSTED))
-            node_status = "no_submission"
+            secondary_failures.extend(await self._finalize_safely(AgentWorkflowTerminationReason.NODE_FAILED))
+            node_status = "failed"
         except asyncio.CancelledError:
             primary_failure = "cancelled"
             self._append_if_available("node.cancelled")

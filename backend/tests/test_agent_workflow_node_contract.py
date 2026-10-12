@@ -434,6 +434,76 @@ def test_budget_tracker_rejects_action_before_exceeding_limit() -> None:
     assert tracker.snapshot().recorded_tokens == 50
 
 
+def test_bounded_post_response_budget_commits_exact_threshold_before_stopping() -> None:
+    tracker = AgentWorkflowBudgetTracker(
+        make_budget(
+            max_recorded_tokens=100,
+            max_recorded_tokens_per_response=70,
+        )
+    )
+
+    tracker.record_model_response(60)
+    with pytest.raises(AgentWorkflowBudgetExceeded) as raised:
+        tracker.record_model_response(40)
+
+    assert raised.value.reason == "recorded_tokens"
+    assert raised.value.snapshot.recorded_tokens == 100
+    assert tracker.snapshot().recorded_tokens == 100
+    assert tracker.remaining().recorded_tokens == 0
+    with pytest.raises(AgentWorkflowBudgetExceeded, match="recorded_tokens"):
+        tracker.ensure_model_request_allowed()
+
+
+def test_bounded_post_response_budget_preserves_overshoot() -> None:
+    tracker = AgentWorkflowBudgetTracker(
+        make_budget(
+            max_recorded_tokens=100,
+            max_recorded_tokens_per_response=70,
+        )
+    )
+
+    tracker.record_model_response(70)
+    with pytest.raises(AgentWorkflowBudgetExceeded) as raised:
+        tracker.record_model_response(40)
+
+    assert raised.value.reason == "recorded_tokens"
+    assert raised.value.snapshot.recorded_tokens == 110
+    assert tracker.snapshot().recorded_tokens == 110
+    assert tracker.remaining().recorded_tokens == 0
+
+
+def test_bounded_post_response_budget_records_response_bound_violation() -> None:
+    tracker = AgentWorkflowBudgetTracker(
+        make_budget(
+            max_recorded_tokens=100,
+            max_recorded_tokens_per_response=50,
+        )
+    )
+
+    with pytest.raises(AgentWorkflowBudgetExceeded) as raised:
+        tracker.record_model_response(60)
+
+    assert raised.value.reason == "recorded_tokens_per_response"
+    assert raised.value.snapshot.recorded_tokens == 60
+    assert tracker.snapshot().recorded_tokens == 60
+
+
+def test_response_bound_requires_a_token_stop_threshold() -> None:
+    budget = make_budget(
+        max_recorded_tokens=None,
+        max_recorded_tokens_per_response=50,
+    )
+
+    with pytest.raises(AgentWorkflowContractError, match="requires max_recorded_tokens"):
+        budget.validate()
+
+
+def test_budget_reports_derived_authorized_token_cap() -> None:
+    assert make_budget(max_recorded_tokens=100, max_recorded_tokens_per_response=50).authorized_recorded_tokens == 150
+    assert make_budget(max_recorded_tokens=100).authorized_recorded_tokens == 100
+    assert make_budget(max_recorded_tokens=None).authorized_recorded_tokens is None
+
+
 def test_budget_tracker_requires_monotonic_elapsed_time() -> None:
     tracker = AgentWorkflowBudgetTracker(make_budget(node_timeout_seconds=10))
     tracker.observe_elapsed(5.0)

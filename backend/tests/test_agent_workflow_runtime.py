@@ -95,6 +95,19 @@ class SlowChatModel(ScriptedChatModel):
         return ChatResult(generations=[ChatGeneration(message=AIMessage(content="late"))])
 
 
+class FailingChatModel(ScriptedChatModel):
+    def _generate(
+        self,
+        messages: list[BaseMessage],
+        stop: list[str] | None = None,
+        run_manager: CallbackManagerForLLMRun | None = None,
+        **kwargs: Any,
+    ) -> ChatResult:
+        del messages, stop, run_manager, kwargs
+        self.calls += 1
+        raise RuntimeError("scripted provider failure")
+
+
 def make_budget(**overrides: int | float | None) -> AgentWorkflowBudget:
     values: dict[str, int | float | None] = {
         "max_model_requests": 8,
@@ -259,6 +272,13 @@ def tool_call_message(name: str, args: dict[str, Any], call_id: str, *, total_to
     )
 
 
+def invalid_usage_message() -> AIMessage:
+    return AIMessage(
+        content="usage 不一致。",
+        usage_metadata={"input_tokens": 5, "output_tokens": 5, "total_tokens": 11},
+    )
+
+
 def read_events(session: CompileSession, attempt_id: str = "attempt-001") -> list[dict[str, Any]]:
     path = Path(session.metadata_path).parent / "agent-workflow" / attempt_id / "events.jsonl"
     return [json.loads(line) for line in path.read_text(encoding="utf-8").splitlines()]
@@ -376,6 +396,180 @@ def test_runtime_records_each_request_without_a_token_ceiling(tmp_path: Path) ->
             "request_sequence": 2,
         },
     ]
+
+
+def test_bounded_token_budget_records_exact_threshold_before_stopping(tmp_path: Path) -> None:
+    session = make_session(tmp_path)
+    Path(session.leadagent_artifacts_dir, "lib", "libfmt.a").write_bytes(b"archive")
+    model = ScriptedChatModel(
+        responses=[
+            tool_call_message("submit_candidate_v1", submit_args(), "submit-1", total_tokens=100),
+            AIMessage(content="不应请求第二次模型。"),
+        ]
+    )
+
+    result = asyncio.run(
+        run_agent_workflow_node_v1(
+            node_input=make_node_input(
+                session,
+                budget=make_budget(
+                    max_recorded_tokens=100,
+                    max_recorded_tokens_per_response=100,
+                ),
+            ),
+            session=session,
+            manager=FakeManager(session),  # type: ignore[arg-type]
+            model=model,
+        )
+    )
+
+    assert result.node_status == "no_submission"
+    assert result.primary_failure == "budget_exhausted"
+    assert result.budget_terminal_reason == "recorded_tokens"
+    assert result.usage.recorded_tokens == 100
+    assert result.candidate_submitted is False
+    assert model.calls == 1
+    events = read_events(session)
+    assert sum(event["payload"]["recorded_tokens"] for event in events if event["event_type"] == "model.request_completed") == result.usage.recorded_tokens
+
+
+def test_bounded_token_budget_keeps_overshoot_and_stops_before_third_request(tmp_path: Path) -> None:
+    session = make_session(tmp_path)
+    Path(session.leadagent_artifacts_dir, "lib", "libfmt.a").write_bytes(b"archive")
+    model = ScriptedChatModel(
+        responses=[
+            tool_call_message("submit_candidate_v1", submit_args(artifact_paths=["/invalid"]), "invalid-1", total_tokens=70),
+            tool_call_message("submit_candidate_v1", submit_args(), "submit-2", total_tokens=40),
+            AIMessage(content="不应请求第三次模型。"),
+        ]
+    )
+
+    result = asyncio.run(
+        run_agent_workflow_node_v1(
+            node_input=make_node_input(
+                session,
+                budget=make_budget(
+                    max_recorded_tokens=100,
+                    max_recorded_tokens_per_response=70,
+                ),
+            ),
+            session=session,
+            manager=FakeManager(session),  # type: ignore[arg-type]
+            model=model,
+        )
+    )
+
+    assert result.node_status == "no_submission"
+    assert result.primary_failure == "budget_exhausted"
+    assert result.budget_terminal_reason == "recorded_tokens"
+    assert result.usage.recorded_tokens == 110
+    assert result.candidate_submitted is False
+    assert model.calls == 2
+    events = read_events(session)
+    completed = [event["payload"] for event in events if event["event_type"] == "model.request_completed"]
+    assert [event["recorded_tokens"] for event in completed] == [70, 40]
+    assert sum(event["recorded_tokens"] for event in completed) == result.usage.recorded_tokens
+
+
+def test_response_bound_violation_is_fully_accounted_and_fails_closed(tmp_path: Path) -> None:
+    session = make_session(tmp_path)
+    model = ScriptedChatModel(
+        responses=[
+            tool_call_message("submit_candidate_v1", submit_args(), "submit-1", total_tokens=60),
+            AIMessage(content="不应请求第二次模型。"),
+        ]
+    )
+
+    result = asyncio.run(
+        run_agent_workflow_node_v1(
+            node_input=make_node_input(
+                session,
+                budget=make_budget(
+                    max_recorded_tokens=100,
+                    max_recorded_tokens_per_response=50,
+                ),
+            ),
+            session=session,
+            manager=FakeManager(session),  # type: ignore[arg-type]
+            model=model,
+        )
+    )
+
+    assert result.node_status == "failed"
+    assert result.primary_failure == "budget_contract_violation"
+    assert result.budget_terminal_reason == "recorded_tokens_per_response"
+    assert result.usage.recorded_tokens == 60
+    assert model.calls == 1
+    event_types = [event["event_type"] for event in read_events(session)]
+    assert "model.request_completed" in event_types
+    assert "budget.contract_violated" in event_types
+
+
+@pytest.mark.parametrize(
+    ("response", "expected_reason"),
+    [
+        (AIMessage(content="usage 缺失。"), "missing_usage_metadata"),
+        (invalid_usage_message(), "inconsistent_usage_metadata"),
+    ],
+)
+def test_bounded_token_budget_rejects_incomplete_usage(
+    tmp_path: Path,
+    response: AIMessage,
+    expected_reason: str,
+) -> None:
+    session = make_session(tmp_path)
+    model = ScriptedChatModel(responses=[response, AIMessage(content="不应请求第二次模型。")])
+
+    result = asyncio.run(
+        run_agent_workflow_node_v1(
+            node_input=make_node_input(
+                session,
+                budget=make_budget(
+                    max_recorded_tokens=100,
+                    max_recorded_tokens_per_response=50,
+                ),
+            ),
+            session=session,
+            manager=FakeManager(session),  # type: ignore[arg-type]
+            model=model,
+        )
+    )
+
+    assert result.node_status == "failed"
+    assert result.primary_failure == "usage_incomplete"
+    assert result.budget_terminal_reason is None
+    assert result.usage.recorded_tokens == 0
+    assert model.calls == 1
+    incomplete = [event for event in read_events(session) if event["event_type"] == "model.request_usage_incomplete"]
+    assert [event["payload"]["reason"] for event in incomplete] == [expected_reason]
+
+
+def test_provider_failure_does_not_fabricate_completed_usage(tmp_path: Path) -> None:
+    session = make_session(tmp_path)
+    model = FailingChatModel(responses=[])
+
+    result = asyncio.run(
+        run_agent_workflow_node_v1(
+            node_input=make_node_input(
+                session,
+                budget=make_budget(
+                    max_recorded_tokens=100,
+                    max_recorded_tokens_per_response=50,
+                ),
+            ),
+            session=session,
+            manager=FakeManager(session),  # type: ignore[arg-type]
+            model=model,
+        )
+    )
+
+    assert result.node_status == "failed"
+    assert result.primary_failure == "node_failed"
+    assert result.usage.recorded_tokens == 0
+    assert model.calls == 1
+    event_types = [event["event_type"] for event in read_events(session)]
+    assert "model.request_failed" in event_types
+    assert "model.request_completed" not in event_types
 
 
 def test_existing_artifact_without_submit_is_no_submission(tmp_path: Path) -> None:
