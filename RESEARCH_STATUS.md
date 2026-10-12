@@ -4,6 +4,24 @@
 
 ## 当前阶段
 
+- 状态：Issue #415 的 Linux applicability v4 唯一正式 source-only attempt 已完成。机械决定为
+  `proceed_to_natural_failure_build_reference_qualification_v4`，但只读构造效度审计发现双向分类错误，后验决定为
+  `stop_before_natural_failure_build_reference_qualification_v4`；不得创建后续 build/reference identity。
+- v4 正式证据：800 个搜索结果排除 214 个历史命中后完成 586/586 个未见候选，245 项 source eligible，
+  0 infrastructure failure；eligible edge 为 CMake 141、Make 97、Autotools 39，机械唯一分配为 `12/12/12`。
+- v4 构造效度：对 5 条正式排除和 36 条 reserve 全量复核，107 个 exact-commit 入口/文档 blob 的 Git SHA 与
+  内容 SHA-256 全部匹配。排除项中 `ash/rakupp`、`libretro/opera-libretro` 为 2 个明显误伤；reserve 中
+  `gta-reversed/gta-reversed`、`seL4/seL4`、`RBEnhanced/RB3Enhanced`、`Rinnegatamante/vitaGL`、
+  `Gamer92000/echo-dot-assist` 为 5 个明显误纳入。
+- 失败机制：v4 能剥离注释并识别部分 Linux 文档，但仍没有解析默认条件分支、默认 target 依赖闭包和编译器目标。
+  非默认分支中的 Apple/裸机信号仍会误伤多平台项目，规则表之外的 kernel、console、Android NDK 和 Windows DLL
+  又会落入 `portable_entry_without_exclusive_signal`。继续扩充关键词不能解决作用域问题。
+- 当前工作类型：v4 结果分析与下一资格机制设计。source-only 阶段应降级为高精度候选发现和风险标注；默认构建
+  路径、目标架构与 Linux 用户态 ELF/`ar` 闭合必须在隔离的零 Provider build/reference qualification 中确认，
+  严格 verifier 继续作为最终裁判。
+- v4 边界：591 个 evidence 文件共 1,488,806 bytes，inventory canonical SHA-256 为 `0d08616e...e6bc`；全过程
+  0 build、0 Docker、0 credential read、0 Provider request、0 model token。v1-v4 正式 report、marker 和 raw
+  evidence 全部只读；本结果不评价 Jev、Agent、自然失败成功率、成本或动态预算控制。
 - 状态：Issue #413 的 source catalog 与双 clean build qualification 已完成；生成 build gate 机械通过，但 reference 前构造效度审计证明 Make calibration 配额不可能满足，最终决定为 `stop_natural_failure_evaluation_v2_before_reference_recipe`。
 - 当前工作类型：数据资格结果与只读构造效度审计。catalog 从 120 个搜索结果排除 11 个历史项目后得到 109 个未见候选；53 个 source eligible，最终为 CMake、Make、Autotools 各冻结 8 个互不重复的项目族。
 - source catalog 证据：109/109 仓库项目级终结，0 infrastructure failure；30 项因 `.gitmodules` 排除、23 项缺少根入口、3 项命中根入口网络获取信号。attempt 用时约 336 秒，114 个 evidence 文件共 197,527 bytes，inventory canonical SHA-256 为 `d561e612...59736`。
@@ -50,6 +68,14 @@
 - 自然失败 source catalog v2 结果：`benchmarks/reports/cpp-jev-natural-failure-source-catalog-v2.md`。
 - 自然失败 build qualification v2 结果：`benchmarks/reports/cpp-jev-natural-failure-source-qualification-v2.md`。
 - 自然失败 build qualification v2 构造效度审计：`benchmarks/reports/cpp-jev-natural-failure-source-qualification-v2-construct-audit.md`。
+- 自然失败 Linux applicability v3 设计：`docs/superpowers/specs/2026-10-12-jev-natural-failure-linux-applicability-v3-design.md`。
+- 自然失败 Linux applicability v3 预注册：`benchmarks/preregistrations/cpp-jev-natural-failure-linux-applicability-v3.md`。
+- 自然失败 Linux applicability v3 结果：`benchmarks/reports/cpp-jev-natural-failure-linux-applicability-v3.md`。
+- 自然失败 Linux applicability v3 构造效度审计：`benchmarks/reports/cpp-jev-natural-failure-linux-applicability-v3-construct-audit.md`。
+- 自然失败 Linux applicability v4 设计：`docs/superpowers/specs/2026-10-12-jev-natural-failure-linux-applicability-v4-design.md`。
+- 自然失败 Linux applicability v4 预注册：`benchmarks/preregistrations/cpp-jev-natural-failure-linux-applicability-v4.md`。
+- 自然失败 Linux applicability v4 结果：`benchmarks/reports/cpp-jev-natural-failure-linux-applicability-v4.md`。
+- 自然失败 Linux applicability v4 构造效度审计：`benchmarks/reports/cpp-jev-natural-failure-linux-applicability-v4-construct-audit.md`。
 - Jev API 合同审计：`docs/research/2026-10-09-jev-api-contract-audit.md`。
 - 三候选机制审计：`docs/research/2026-10-09-three-candidate-mechanism-audit.md`。
 - 主动诊断机制审计：`docs/research/2026-10-09-active-diagnosis-mechanism-audit.md`。
@@ -196,6 +222,7 @@ BootstrapAgent、SWE-Skills-Bench、VibeMemBench 等轨迹控制、动作接口�
 - 重跑、续跑、替换或覆盖 `cpp-jev-end-to-end-canary-v1` 至 `v7`，或把 qualification/canary 结果解释为正式 treatment effect。
 - 重跑、续跑、替换、补齐或覆盖 `cpp-jev-formal-comparison-v1` 至 `v6`，或按正式结果调整阈值、样本、预算和停止规则。
 - 重跑、续跑、替换、补齐或覆盖 `cpp-jev-hybrid-workflow-qualification-v1/v2/v3` 与 `cpp-jev-hybrid-workflow-canary-v1`，或修改其 raw evidence。
+- 重跑、续跑、替换、补齐或覆盖 `cpp-jev-natural-failure-linux-applicability-v3`，或把 v3 的后验人工标签改写进正式 report/evidence。
 - 在独立 identity、自然失败样本、预算、停止规则和 create-once evidence 目录冻结前调用下一阶段 Provider 或写新实验 evidence。
 
 ## 权威入口
@@ -246,4 +273,4 @@ BootstrapAgent、SWE-Skills-Bench、VibeMemBench 等轨迹控制、动作接口�
 
 ## 下一项工作
 
-下一阶段先设计自然失败对照实验，不直接扩展当前协调器。需要定义自然失败语料如何获得且不泄漏标签，冻结项目族与时间隔离，比较 `AlwaysAgent`、`RuleGate+Agent`、`JevGate+Agent`，以严格成功非劣和 Provider 成本下降为联合主要判据，并保留超时、失败和所有升级事件。只有 spec、预注册、样本、预算、停止规则与新 identity 经核实后，才实现采集链路或调用 Provider。动态预算控制继续作为后续独立研究问题。
+下一阶段先完成 Linux applicability v4 修复，不直接扩展协调器或调用 Provider。v4 使用全新 identity 和未见项目池，将 Linux 宿主支持与非宿主产物终点分开判断，以 v3 的 7 个排除边作为已暴露 regression fixture，并扩大候选搜索框以形成至少 12 个 Autotools reserve。只有 source-only 门禁、双 clean build 和 reference closure 依次通过，才设计 `AlwaysAgent`、`RuleGate+Agent`、`JevGate+Agent` 自然失败对照；动态预算控制继续作为后续独立研究问题。

@@ -1,0 +1,88 @@
+{
+  "schema_version": "forge-jev-linux-applicability-regressions-1.0.0",
+  "cases": [
+    {
+      "id": "sketchybar-macos-only",
+      "source": {
+        "project_family": "felixkratz/sketchybar",
+        "commit_sha": "515046e8a150d6b8767a8a6dd624824eaafa2c8b",
+        "blob_sha": "7eb46331573a680aa1b282c53b7e8f3eb4c4fca6",
+        "content_sha256": "4a9ceaa45fb838a8d0742ebed9b2917c18c626fae82cf2bee84f28e88fa1c098"
+      },
+      "system": "make",
+      "entry_path": "makefile",
+      "entry_text": "LIBS = -framework Carbon -framework AppKit -framework QuartzCore\nx86: CFLAGS+=-target x86_64-apple-macos10.13\narm64: CFLAGS+=-target arm64-apple-macos11\nuniversal:\n\t$(MAKE) x86\n\t$(MAKE) arm64\n\tlipo -create -output bin/sketchybar bin/sketchybar_x86 bin/sketchybar_arm64\n",
+      "documents": [],
+      "expected_classification": "platform_ineligible",
+      "expected_entry_signals": [
+        "apple_target_triple",
+        "apple_framework_link",
+        "macho_universal"
+      ]
+    },
+    {
+      "id": "windows-msbuild-only",
+      "system": "make",
+      "entry_path": "Makefile",
+      "entry_text": "all:\n\tmsbuild.exe Project.sln /p:Configuration=Release\n",
+      "documents": [],
+      "expected_classification": "platform_ineligible",
+      "expected_entry_signals": ["windows_msbuild"]
+    },
+    {
+      "id": "bare-metal-firmware-only",
+      "system": "make",
+      "entry_path": "Makefile",
+      "entry_text": "CC = arm-none-eabi-gcc\nfirmware: main.c\n\t$(CC) main.c -o firmware.elf\n\tarm-none-eabi-objcopy -O ihex firmware.elf firmware.hex\n",
+      "documents": [],
+      "expected_classification": "platform_ineligible",
+      "expected_entry_signals": ["bare_metal_toolchain"]
+    },
+    {
+      "id": "make-darwin-and-linux",
+      "system": "make",
+      "entry_path": "Makefile",
+      "entry_text": "UNAME_S := $(shell uname -s)\nifeq ($(UNAME_S),Darwin)\nLDFLAGS += -framework AppKit\nelse ifeq ($(UNAME_S),Linux)\nLDFLAGS += -ldl\nendif\nall: app\n\t$(CC) main.c -o app $(LDFLAGS)\n",
+      "documents": [],
+      "expected_classification": "linux_applicable",
+      "expected_entry_signals": ["apple_framework_link"]
+    },
+    {
+      "id": "cmake-apple-option-and-linux-path",
+      "system": "cmake",
+      "entry_path": "CMakeLists.txt",
+      "entry_text": "project(example C)\nadd_executable(example main.c)\nif(APPLE)\n  target_link_libraries(example PRIVATE \"-framework AppKit\")\nelseif(CMAKE_SYSTEM_NAME STREQUAL \"Linux\")\n  target_link_libraries(example PRIVATE dl)\nendif()\n",
+      "documents": [],
+      "expected_classification": "linux_applicable",
+      "expected_entry_signals": ["apple_framework_link"]
+    },
+    {
+      "id": "portable-cmake-docs-mention-platforms",
+      "system": "cmake",
+      "entry_path": "CMakeLists.txt",
+      "entry_text": "cmake_minimum_required(VERSION 3.20)\nproject(example CXX)\nadd_library(example example.cpp)\n",
+      "documents": [
+        {
+          "path": "README.md",
+          "text": "This portable library is tested on Linux, macOS, and Windows."
+        }
+      ],
+      "expected_classification": "linux_applicable",
+      "expected_entry_signals": []
+    },
+    {
+      "id": "documented-macos-only",
+      "system": "make",
+      "entry_path": "Makefile",
+      "entry_text": "all: app\n\t$(CC) main.c -o app\n",
+      "documents": [
+        {
+          "path": "README.md",
+          "text": "This application is macOS-only and requires the Apple desktop environment."
+        }
+      ],
+      "expected_classification": "platform_ineligible",
+      "expected_entry_signals": []
+    }
+  ]
+}

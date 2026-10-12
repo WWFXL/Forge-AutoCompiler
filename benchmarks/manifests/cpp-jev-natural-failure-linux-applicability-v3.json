@@ -1,0 +1,132 @@
+{
+  "$schema": "../schemas/forge-jev-natural-failure-linux-applicability-v3.schema.json",
+  "schema_version": "forge-jev-natural-failure-linux-applicability-3.0.0",
+  "identity": "cpp-jev-natural-failure-linux-applicability-v3",
+  "issue": 415,
+  "branch": "yiwei/415-linux-applicability-v3",
+  "design_revision": "97d70d490446c137b9d2f8385eb2a4191ac26d04",
+  "implementation_revision": "61ecf113807f3d3fd3ef9da25ab4aa7700e18336",
+  "history_exclusion": {
+    "revision": "97d70d490446c137b9d2f8385eb2a4191ac26d04",
+    "v2_catalog_path": "benchmarks/reports/cpp-jev-natural-failure-source-catalog-v2.json",
+    "v2_catalog_sha256": "5ac8824a17bbc72307c39df0f0605284a03897f0149bfc9ecca9b7aab13887f8",
+    "project_family_count": 205,
+    "canonical_sha256": "3364738d600b522e71d71e1858bdec4acdf3903005686f2fbde356cd5647934d"
+  },
+  "parents": {
+    "benchmarks/preregistrations/cpp-jev-natural-failure-linux-applicability-v3.md": "a7507bb873500f2eed0c5caee799fd2dd9c151a0d58eb889455f841ab5f16777",
+    "benchmarks/reports/cpp-jev-natural-failure-source-catalog-v2.json": "5ac8824a17bbc72307c39df0f0605284a03897f0149bfc9ecca9b7aab13887f8",
+    "benchmarks/reports/cpp-jev-natural-failure-source-qualification-v2-construct-audit.md": "8ac47afe06b0bc5ac21341b518e2dc6d562f2a9a517844dd9aec721903aee37b",
+    "docs/superpowers/plans/2026-10-12-jev-natural-failure-linux-applicability-v3.md": "c0b43704ecafafcabf65b7f677db50d0f7e22472f4a4e77968554fc65bafbfac",
+    "docs/superpowers/specs/2026-10-12-jev-natural-failure-linux-applicability-v3-design.md": "e1b9ae056755934723d8d09a09707ec5934a72552117acc8708d5eb758ef80d9"
+  },
+  "regression_fixture": {
+    "path": "benchmarks/fixtures/cpp-jev-linux-applicability-v3-regressions.json",
+    "sha256": "343e6cc00241da778fca5cb191874590dca3413b1d9317372e3194a43cdaf9ca"
+  },
+  "search": {
+    "queries": [
+      {
+        "id": "c",
+        "language": "C",
+        "stars": "50..20000",
+        "size_kib": "<100000",
+        "updated": ">=2024-01-01",
+        "sort": "updated",
+        "order": "desc",
+        "limit": 100
+      },
+      {
+        "id": "cpp",
+        "language": "C++",
+        "stars": "50..20000",
+        "size_kib": "<100000",
+        "updated": ">=2024-01-01",
+        "sort": "updated",
+        "order": "desc",
+        "limit": 100
+      }
+    ]
+  },
+  "source_contract": {
+    "systems": ["cmake", "make", "autotools"],
+    "root_markers": {
+      "cmake": ["CMakeLists.txt"],
+      "make": ["GNUmakefile", "Makefile", "makefile"],
+      "autotools": ["configure.ac", "configure.in"]
+    },
+    "submodules_allowed": false,
+    "network_signal_names": [
+      "cmake_fetch_content",
+      "cmake_external_project",
+      "cmake_file_download",
+      "git_clone",
+      "curl_command",
+      "wget_command"
+    ],
+    "entry_signal_names": [
+      "apple_target_triple",
+      "apple_forced_sysroot",
+      "apple_toolchain",
+      "apple_framework_link",
+      "macho_universal",
+      "windows_msbuild",
+      "windows_msvc_compiler",
+      "windows_wdk",
+      "windows_forced_target",
+      "bare_metal_toolchain",
+      "kernel_default_endpoint",
+      "firmware_default_endpoint"
+    ],
+    "linux_signal_names": [
+      "explicit_linux_branch",
+      "uname_linux_branch",
+      "linux_target_triple"
+    ],
+    "document_exclusion_signal_names": [
+      "document_macos_only",
+      "document_windows_only",
+      "document_bare_metal_only"
+    ],
+    "max_entry_blob_bytes": 1048576,
+    "max_document_files": 6
+  },
+  "selection": {
+    "seed": "forge-jev-natural-failure-linux-applicability-v3-2026-10-12",
+    "required_per_system": 12,
+    "pass_decision": "proceed_to_natural_failure_build_reference_qualification_v3",
+    "fail_decision": "stop_natural_failure_linux_applicability_v3"
+  },
+  "budget": {
+    "request_timeout_seconds": 60,
+    "total_wall_clock_seconds": 7200,
+    "repository_search_requests": 2,
+    "maximum_search_results": 200,
+    "build_commands": 0,
+    "docker_containers": 0,
+    "credential_reads": 0,
+    "provider_requests": 0,
+    "model_tokens": 0
+  },
+  "authorization": {
+    "execution": true,
+    "formal_attempts": 1,
+    "formal_evidence_write": true,
+    "authorized_by": "user_explicit_repair_authorization",
+    "authorized_at": "2026-10-11T23:02:41Z"
+  },
+  "evidence": {
+    "root": ".compile-sessions/benchmark-evidence-jev-natural-failure-linux-applicability-v3",
+    "report_json": "benchmarks/reports/cpp-jev-natural-failure-linux-applicability-v3.json",
+    "report_markdown": "benchmarks/reports/cpp-jev-natural-failure-linux-applicability-v3.md"
+  },
+  "interpretation": {
+    "source_catalog_only": true,
+    "linux_applicability_sufficient": false,
+    "natural_failure_observed": false,
+    "reference_closure_observed": false,
+    "jev_effect_estimated": false,
+    "agent_effect_estimated": false,
+    "dynamic_budget_estimated": false
+  }
+}
