@@ -6,6 +6,14 @@
 
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
+- 2026-10-13 — Issue #433 H0/H1 Provider 配对比较 v1 已冻结，等待 release 后执行 Q0/Q1/Q2
+  - 研究问题: 在模型、checkpoint、预算、工具、离线源码和严格裁判完全一致时，Runtime v4 的进展快照、上下文裁剪、candidate-ready guard 与 diagnostic guard 是否相对 Runtime v3 降低无进展行为和 Provider 成本，同时保持或提高 strict success。
+  - 身份与样本: `cpp-progress-aware-harness-comparison-v1`；Q0 9 个离线 reference closure；Q1 3 pairs / 6 arms；Q2 9 checkpoints x 3 repetitions x H0/H1 = 27 pairs / 54 arms。每项目绑定 state-1 同 commit archive，H0/H1 均禁止 replay `git fetch`。
+  - 模型与预算: `deepseek-flash`，retry=0；单臂 24 requests / 300,000 recorded tokens / 1,800 秒；Q1+Q2 上限 1,440 requests / 18,000,000 tokens / `$21.60`。
+  - 判定: 主要路径要求 task-cluster 单侧 95% strict-success difference 下界 `>= -0.10`、H1 cost reduction `>=20%` 且三系统不退化；替代路径要求 strict success 至少提高 0.10、下界大于 0、费用增加不超过 10% 且三系统不退化。
+  - 门禁: manifest canonical SHA-256 `2c90e1f82a9d47673aa1cd4e99bada60e2ba9e45dc5aa334f716abffe68b4f0f`；新增与相邻回归 `19 passed`，lint/format 通过；当前 0 credential、0 Provider、0 formal attempt。
+  - 文件: `scripts/forge_progress_aware_harness_comparison_v1.py`, `backend/tests/test_forge_progress_aware_harness_comparison_v1.py`, `benchmarks/manifests/cpp-progress-aware-harness-comparison-v1.json`, `benchmarks/schemas/forge-progress-aware-harness-comparison-v1.schema.json`, `benchmarks/preregistrations/cpp-progress-aware-harness-comparison-v1.md`, `docs/superpowers/specs/2026-10-13-progress-aware-harness-comparison-v1-design.md`, `docs/superpowers/plans/2026-10-13-progress-aware-harness-comparison-v1.md`
+
 - 2026-10-12 — Issue #430 固定 Agent continuation 资格 v2 已完成并触发停止规则
   - 工作类型与问题: 正式资格数据采集与只读结果分析。研究问题是固定 Compiler Agent 从同源冻结 checkpoint 接管后，能否稳定达到 Forge 严格终点，并形成完整、可比较的成本和六维预算轨迹，从而允许下一步设计动态预算 controller。
   - 工程修复与协议: CandidateVerifier 前重新加载权威 Session，避免 functional oracle 保存 smoke 时覆盖命令历史；聚焦回归 `23 passed`。v2 继承 9 个 Q0 checkpoint、3 个 Q1 canary、27 个 Q2 arms、`deepseek-flash`、retry=0、单臂 24 requests / 300,000 tokens / 1,800 秒。Manifest canonical SHA-256 为 `2714e79f2431633e6267fa21668ca23ab8495f480d08c39999317d6856d3be6c`。

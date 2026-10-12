@@ -4,6 +4,17 @@
 
 ## 当前阶段
 
+- 状态：Issue #433 已冻结 `cpp-progress-aware-harness-comparison-v1` H0/H1 Provider 配对实验候选。H0 为 Runtime v3
+  原受限 ReAct Harness，H1 为 Runtime v4 进展快照、最近两次交互裁剪、candidate-ready guard 和 diagnostic guard；
+  两臂共享 `deepseek-flash`、checkpoint、工具、单臂预算、离线 source archive、CandidateVerifier 和 S0-S5。
+- 冻结设计：Q0 为 9 个 checkpoint 的零 Provider 离线 reference closure；Q1 为 CMake、Make、Autotools 各 1 个
+  checkpoint 的 3 pairs / 6 arms canary；Q2 为 9 checkpoints x 3 repetitions x 2 treatments，共 27 pairs / 54 arms。
+  Provider 总机械上限为 1,440 requests、18,000,000 recorded tokens 和 `$21.60`；主要判据为 task-cluster 单侧
+  95% strict-success 差值下界不低于 `-0.10`、费用至少降低 20% 且三个构建系统均不退化，另预注册成功率明确改善的
+  替代路径。Manifest canonical SHA-256 为 `2c90e1f82a9d47673aa1cd4e99bada60e2ba9e45dc5aa334f716abffe68b4f0f`。
+- 当前边界：本 identity 尚未创建 formal attempt、读取 credential 或调用 Provider。新增与相邻聚焦回归 `19 passed`，
+  manifest、9 个 state-1 archive 和 54-arm schedule 已通过静态门禁。下一步提交并推送冻结 release，随后按 Q0→Q1→Q2
+  顺序执行；历史 H0/H1 outcome 只用于设计，不进入新 effect estimate。
 - 状态：Issue #433 的进展感知结构化 Harness 零 Provider 资格已完成。`cpp-progress-aware-harness-qualification-v1`
   已按 create-once 合同失败封口：Runtime v4 完成 5 次权威 progress snapshot、2 次有效上下文裁剪、1 次 candidate-ready
   后命令拒绝和 1 次快照驱动提交；pre-freeze verifier、S0-S4、预算计数与 cleanup 全部通过，但 S5 clean replay 在任何
