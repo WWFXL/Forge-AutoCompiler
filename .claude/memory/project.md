@@ -1570,3 +1570,27 @@
   `703ce376358334abdce0ee694da6c8a57d9e19b3`，本地重建相同对象后与远端 ref 对齐。v2 identity release 同样因 native push
   GnuTLS 失败而使用 Git Data API，tree `661c295804f08309c46577773fee7553cd914f30`、commit
   `f1c33d3f17c7dae586f6f1d34f13eaf411b44ba0` 均已在本地与远端对齐。
+
+# 2026-10-13 H0/H1 v3 确认性复现 candidate
+
+- Issue #438 / 分支 `yiwei/438-h0-h1-v3-replication`：建立
+  `cpp-progress-aware-harness-comparison-v3-candidate`。工作类型为结果观察后的确认性复现设计与零 Provider 基础设施门禁，
+  不产生 treatment effect observation。
+- 复现定位：v2 的 H0/H1 strict `16/27 -> 22/27` 与费用 `$1.619287 -> $0.707752` 已在设计前观察，但
+  `cost_and_budget_complete=false` 使正式决定保持停止。v3 不导入或池化 v2 outcome，只检验修复预算语义后的同项目跨状态复现。
+- 样本选择：9 个 exact-commit 项目族不变，正式 checkpoint 深度按 `1 -> 3`、`2 -> 1`、`3 -> 2` 机械旋转，得到
+  `cmake-spdlog-state-3`、`cmake-cli11-state-1`、`cmake-cxxopts-state-2`、`make-libtommath-state-3`、
+  `make-tiny-aes-c-state-1`、`make-kilo-state-2`、`autotools-libestr-state-3`、`autotools-libfastjson-state-1`、
+  `autotools-libev-state-2`。九者均未进入 v2 Q1/Q2 effect arms；每个构建系统继续覆盖 state 1/2/3。
+- Canary：冻结 `cmake-cli11-state-3`、`make-tiny-aes-c-state-3`、`autotools-libfastjson-state-3`，与 v2 effect
+  checkpoint 和 v3 formal checkpoint 均不重叠。v5 已对所有 checkpoint 做双重复恢复、预算守恒与 successor 等价资格。
+- 预算：每臂请求准入停止阈值 `T=300,000`，单响应上界 `R=100,000`，派生授权上界 `400,000`。60 个 Provider arms
+  的计划上界为 1,440 requests、18,000,000 Token 停止阈值总和、24,000,000 Token 授权上界和 `$28.80`。v2 Q2
+  538 个完成响应的最大值为 60,594，R 是结果观察后冻结的设计值；超出即完整计量并使实验失败。
+- 静态门禁：manifest 与 const Schema 确定性闭合；v2 effect checkpoint overlap 为 0；v2 30,108 文件 / 719,928,939
+  bytes 和 v5 326 文件 / 19,191,933 bytes 全量逐文件哈希通过。聚焦与相邻回归 `91 passed`，新增文件 Ruff check/format、
+  `git diff --check` 通过。
+- 权限边界：0 credential、0 Provider、0 model token、0 Docker、0 formal attempt、0 evidence write；candidate CLI 只有
+  generate/validate/plan/static-gate，没有 Q0/Q1/Q2 执行入口。历史 evidence 未修改。
+- 决定：`ready_for_progress_aware_harness_v3_authorization_review`。下一步只能从已审阅 candidate 派生独立 authorized
+  identity 并绑定 release revision；先执行 Q0，`9/9` strict 后才允许读取 credential 和执行 Q1/Q2。candidate 本身不得改写。

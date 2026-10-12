@@ -1,0 +1,640 @@
+{
+  "$schema": "forge-progress-aware-harness-comparison-v3-candidate",
+  "schema_version": "1.0.0",
+  "identity": "cpp-progress-aware-harness-comparison-v3-candidate",
+  "issue": 438,
+  "branch": "yiwei/438-h0-h1-v3-replication",
+  "status": "candidate_not_authorized",
+  "release_revision": null,
+  "parent": {
+    "identity": "cpp-dynamic-budget-trajectory-benchmark-qualification-v5",
+    "evidence_root": ".compile-sessions/benchmark-evidence-dynamic-budget-trajectory-qualification-v5",
+    "inventory_canonical_sha256": "b29d6738344771f2b1a31d4d874390342fadfe5d6cad79db0d6a6c83f40d35d1",
+    "manifest_canonical_sha256": "3b0a0374837738674de3053ba197ed10dd8809e727726579bef6d00edd0753a1"
+  },
+  "observed_parent": {
+    "identity": "cpp-progress-aware-harness-comparison-v2",
+    "manifest_path": "benchmarks/manifests/cpp-progress-aware-harness-comparison-v2.json",
+    "manifest_canonical_sha256": "2891fcf708efda329686fb31b11abb25ec20e5716fa5219c5859a13c9a015018",
+    "evidence_root": ".compile-sessions/benchmark-evidence-progress-aware-harness-comparison-v2",
+    "inventory_canonical_sha256": "fb8f77bf05885dcb2f008fc2799de8361f7dd91af558815b7cff42b01cd5dce8",
+    "decision": "stop_progress_aware_harness_as_primary_mechanism",
+    "result_observed_before_v3_design": true
+  },
+  "engineering_gate": {
+    "identity": "cpp-agent-token-budget-semantics-gate-v1",
+    "decision": "proceed_to_progress_aware_harness_v3_replication_decision",
+    "release_revision": "e158858fb913a95b4c2a2dad02e02eca03b98393",
+    "report_sha256": {
+      "benchmarks/reports/cpp-progress-aware-harness-comparison-v2.json": "04a649c2bc3ec2e224fab3e449f6b771b05d7ba1cc18e74e844868573858d29a",
+      "benchmarks/reports/cpp-progress-aware-harness-comparison-v2.md": "2e75516fb05f5d3a2952b65bfbc21ac4df5796a3f3067d008e50696f2df9742f",
+      "benchmarks/reports/cpp-agent-token-budget-semantics-gate-v1.json": "1360c61e7588ab81242520807dac98d79e42a0788813fedebe3fb9c1cf36c6b1",
+      "benchmarks/reports/cpp-agent-token-budget-semantics-gate-v1.md": "c9887c7bc7af3de0e148ed9cf985718d99c6b1a6056d30a72a64b528fd298368"
+    }
+  },
+  "historical_controls": {
+    "h0": {
+      "identity": "cpp-agent-continuation-qualification-v2",
+      "evidence_root": ".compile-sessions/benchmark-evidence-agent-continuation-qualification-v2",
+      "inventory_canonical_sha256": "9d749bf76571429b3fb6e7e325e61c1168df78e18e5ffa72d4457caff9c75465",
+      "use_in_effect_estimate": false
+    },
+    "h1": {
+      "identity": "cpp-progress-aware-harness-qualification-v2",
+      "evidence_root": ".compile-sessions/benchmark-evidence-progress-aware-harness-qualification-v2",
+      "inventory_canonical_sha256": "c71c32c91ee886c643d92e3bdec322fb8110bb9c7f7b7e94d935860a9cb5efd7",
+      "use_in_effect_estimate": false
+    }
+  },
+  "authorization": {
+    "credential_read_authorized": false,
+    "provider_calls_authorized": false,
+    "model_creation_authorized": false,
+    "docker_execution_authorized": false,
+    "reference_execution_authorized": false,
+    "canary_execution_authorized": false,
+    "formal_execution_authorized": false,
+    "formal_evidence_write_authorized": false,
+    "historical_evidence_write_authorized": false,
+    "replacement_authorized": false,
+    "backfill_authorized": false,
+    "controller_implementation_authorized": false,
+    "jev_calls_authorized": false,
+    "model_tokens_authorized": 0
+  },
+  "environment": {
+    "compile_image": "autocompiler:gcc13",
+    "image_id": "sha256:d27a6ab733c7c3a9cbb5e4b32fb595aa5a422ff04bd212888d1041b90a2c4c2a",
+    "parallel_jobs": 4,
+    "network_policy": "none-after-checkpoint"
+  },
+  "provider": {
+    "provider": "deepseek",
+    "profile": "deepseek-flash",
+    "actual_model": "deepseek-flash",
+    "endpoint": "https://api.deepseek.com",
+    "credential_env_name": "DEEPSEEK_API_KEY",
+    "request_timeout_seconds": 300,
+    "model_max_retries": 0,
+    "thinking_enabled": false,
+    "streaming": false,
+    "input_price_usd_per_million_tokens": 0.3,
+    "output_price_usd_per_million_tokens": 1.2,
+    "status": "selected_not_authorized"
+  },
+  "budget": {
+    "per_arm": {
+      "max_model_requests": 24,
+      "max_recorded_tokens": 300000,
+      "max_agent_steps": 64,
+      "max_tool_calls": 48,
+      "max_commands": 32,
+      "node_timeout_seconds": 1800,
+      "command_timeout_seconds": 900,
+      "evaluator_timeout_seconds": 1800,
+      "replay_timeout_seconds": 1800,
+      "cleanup_timeout_seconds": 120,
+      "max_recorded_tokens_per_response": 100000
+    },
+    "provider_arms": 60,
+    "total_provider_requests": 1440,
+    "total_recorded_tokens_stop_threshold": 18000000,
+    "total_authorized_recorded_tokens": 24000000,
+    "total_provider_cost_usd_ceiling": 28.8
+  },
+  "planned_evidence_root": ".compile-sessions/benchmark-evidence-progress-aware-harness-comparison-v3",
+  "components": {
+    "scripts/forge_progress_aware_harness_comparison_v3_candidate.py": "7d97fd8038ab61d3cdef0a2f17b51cb408684abbb9609ea6068a21bee0586ef2",
+    "scripts/forge_progress_aware_harness_comparison_v2.py": "f7a90d73247871eb2c4f8b702800b36547517f3bc14fd436fd3545ce532cbf46",
+    "scripts/forge_progress_aware_harness_comparison_v1.py": "9fff264a03e53e9ac5c5418cc8b20cd63dbd19132934b7dd2cec922a6e969ded",
+    "scripts/forge_agent_continuation_qualification_v2.py": "efc4d75a0791ba3b8e614a920a018934d73476030c3ead3c7700568fe091ebac",
+    "scripts/forge_checkpoint_archive.py": "f2ac5b5db22931b57620fdebb4508eec9abbdd2c9af147afc267f402e83bc764",
+    "backend/packages/harness/deerflow/compile/agent_workflow_node.py": "9fc296c5ac5586fbc25cd0d4c8c0c2bb3c0db03c89fa3cf924d3ff6873a29155",
+    "backend/packages/harness/deerflow/compile/agent_workflow_runtime.py": "92277bf4b5568acb43523edb6344b2a6b6c70ce731cab62200295b3aa97d9931",
+    "backend/packages/harness/deerflow/compile/agent_workflow_runtime_v3.py": "2d71383d011e943f78e9259b9f7ceec2c8e1f080d7609e86413ce188a841f65e",
+    "backend/packages/harness/deerflow/compile/agent_workflow_runtime_v4.py": "48593cfea3a5cd0512531332bec89bc16afddbdc190605e55d17c027a7769c66",
+    "backend/packages/harness/deerflow/compile/agent_workflow_schemas.py": "21a19f6d1a0421fce2c7807474db9eefe0e0be25042241ca121fbb9d5ec99706",
+    "backend/packages/harness/deerflow/compile/candidate_verifier.py": "e358b06ce2721d2ec90d3f30e9d1cb05d210e9c6f802690fc88a554c058dff7a",
+    "backend/packages/harness/deerflow/compile/external_evaluator_v4.py": "9009c400b1b54d9ad05411f1a64124423cf50d8ba49bfa2d13071d9bedad4613",
+    "backend/packages/harness/deerflow/compile/operations.py": "275160c4e773938e6334961406692a9622066e04feb36401857f92f80dc3889d",
+    "backend/packages/harness/deerflow/tools/bound_compile_tools.py": "735ec5c8daa34d66e4b1116987e281e861149a5273434ec200e403c3fe1ec758",
+    "benchmarks/preregistrations/cpp-progress-aware-harness-comparison-v3-candidate.md": "f01aada259464a0c2b54755681d72d53c7a8993ef394f03859b2bab3c62c7804",
+    "docs/superpowers/specs/2026-10-13-progress-aware-harness-comparison-v3-design.md": "1f5d3c417be432971464653d208daa0558ce2f10cf197d690aff3a34c590ffb0",
+    "docs/superpowers/plans/2026-10-13-progress-aware-harness-comparison-v3.md": "be505331410d19057f774b7232f4fcc5999bfb2e941e4a9c78218242b9ac3a29"
+  },
+  "source_archives": {
+    "cmake-spdlog": {
+      "checkpoint_state_id": "cmake-spdlog-state-1",
+      "checkpoint_sha256": "3ed3393f1742eff231cf4004718d118ef8727d7ce2059b7bddc9620340df0106",
+      "sha256": "7ecd7fcc94978a6e05927ac6b28ca27b620d1484679ac737b84190748599ea8a"
+    },
+    "cmake-cli11": {
+      "checkpoint_state_id": "cmake-cli11-state-1",
+      "checkpoint_sha256": "17434bf9fa47a0962b23c07e854a66822153270a3e359f8f93eb17981654201c",
+      "sha256": "ff095e6dd369565c482138623014e48808f1da493988724e67e8c0842980cb00"
+    },
+    "cmake-cxxopts": {
+      "checkpoint_state_id": "cmake-cxxopts-state-1",
+      "checkpoint_sha256": "10fa2e17e60aa0f7311c57e13e901590906fac4e2710cac8712bf3bedbb3a5d5",
+      "sha256": "96bed50fe9c3f1a3ce6925d6828d252ac215fad7e48f35a34efd1d19a4b5ad77"
+    },
+    "make-libtommath": {
+      "checkpoint_state_id": "make-libtommath-state-1",
+      "checkpoint_sha256": "7291dbc2002423d246241d92c00ad4565e4a469cda423f7a03802a902c335d87",
+      "sha256": "4fd0f6531b69508fca7a1ce0ed716ed038947895af8d228640c8736ff71582a9"
+    },
+    "make-tiny-aes-c": {
+      "checkpoint_state_id": "make-tiny-aes-c-state-1",
+      "checkpoint_sha256": "180a21e725f945481b6719791f5f61dcfcc6d32f9f70820cd90dac19c34e4b06",
+      "sha256": "cb5a25f8841a1b43a40a95bdc7a90bb59d436e26d5e939b42e9f36216bc4267f"
+    },
+    "make-kilo": {
+      "checkpoint_state_id": "make-kilo-state-1",
+      "checkpoint_sha256": "0ea3840d553c0ca1bf4ec218b92d2b5b176b691a3821de354fb7e801016283c9",
+      "sha256": "dd9ed0093cb654da59815cfde3b612ff9054df50e2b32f31b325a04238143bbd"
+    },
+    "autotools-libestr": {
+      "checkpoint_state_id": "autotools-libestr-state-1",
+      "checkpoint_sha256": "0ee5f6bf014fc08386b344e54e2990fcbe804a8baedd6f5a04e2226b150da5d9",
+      "sha256": "f12ae994319aa794d611c030538d3e245e0b984f1d1d48ddf0f4da57d9b2e23c"
+    },
+    "autotools-libfastjson": {
+      "checkpoint_state_id": "autotools-libfastjson-state-1",
+      "checkpoint_sha256": "88d2438f1a10b2b6c8734a7324bc0efd91d801abe1a2b4b7889619b356e49074",
+      "sha256": "b0fd04f54537461ec7b44d3cd64234ad63139f602319f0b3364b7576cbff377d"
+    },
+    "autotools-libev": {
+      "checkpoint_state_id": "autotools-libev-state-1",
+      "checkpoint_sha256": "fe28be6fd6e7c10a80a108aceb69b77316b51d68d1c2623aa7bc400c6dbdb174",
+      "sha256": "36f523d4a79cb33fb3a0d17729f3942b992355a990cff7ff1c35412b83128cee"
+    }
+  },
+  "tasks": [
+    {
+      "task_id": "cmake-spdlog",
+      "build_system": "cmake",
+      "checkpoint_state_id": "cmake-spdlog-state-3",
+      "repository_url": "https://github.com/gabime/spdlog.git",
+      "commit_sha": "d6c93f38a08b4ea0f8ffcfd7f7857307d5d5c3fa",
+      "target": {
+        "target_id": "spdlog-static",
+        "artifact_path": "lib/libspdlog.a",
+        "artifact_type": "static_library"
+      },
+      "reference_commands": [
+        {
+          "role": "configure",
+          "command": "cmake -S . -B build -DSPDLOG_BUILD_TESTS=OFF -DSPDLOG_BUILD_EXAMPLE=OFF -DSPDLOG_BUILD_BENCH=OFF -DSPDLOG_BUILD_SHARED=OFF"
+        },
+        {
+          "role": "build",
+          "command": "cmake --build build --parallel 2"
+        },
+        {
+          "role": "artifact_stage",
+          "command": "install -Dm644 build/libspdlog.a /artifacts/lib/libspdlog.a"
+        }
+      ],
+      "oracle": {
+        "command": "printf '%s\\n' '#include <spdlog/spdlog.h>' 'int main(){ spdlog::info(\"forge\"); return 0; }' > /tmp/forge-spdlog.cc && c++ -std=c++17 -I/workspace/repo/include /tmp/forge-spdlog.cc /artifacts/lib/libspdlog.a -pthread -o /tmp/forge-spdlog && /tmp/forge-spdlog",
+        "workdir": "/workspace/repo",
+        "timeout_seconds": 120
+      }
+    },
+    {
+      "task_id": "cmake-cli11",
+      "build_system": "cmake",
+      "checkpoint_state_id": "cmake-cli11-state-1",
+      "repository_url": "https://github.com/CLIUtils/CLI11.git",
+      "commit_sha": "07c9f13b15a70c367a406e1cfe2c363aa1b66894",
+      "target": {
+        "target_id": "cli11-consumer",
+        "artifact_path": "bin/cli11-smoke",
+        "artifact_type": "executable"
+      },
+      "reference_commands": [
+        {
+          "role": "configure",
+          "command": "cmake -S . -B build -DCLI11_BUILD_TESTS=OFF -DCLI11_BUILD_EXAMPLES=OFF"
+        },
+        {
+          "role": "build",
+          "command": "cmake --build build --parallel 2 && printf '%s\\n' '#include <CLI/CLI.hpp>' 'int main(){ CLI::App app{\"forge\"}; (void)app; return 0; }' > build/forge-cli11-consumer.cc && c++ -std=c++17 -Iinclude build/forge-cli11-consumer.cc -o build/cli11-smoke"
+        },
+        {
+          "role": "artifact_stage",
+          "command": "install -Dm755 build/cli11-smoke /artifacts/bin/cli11-smoke"
+        }
+      ],
+      "oracle": {
+        "command": "/artifacts/bin/cli11-smoke",
+        "workdir": "/workspace/repo",
+        "timeout_seconds": 30
+      }
+    },
+    {
+      "task_id": "cmake-cxxopts",
+      "build_system": "cmake",
+      "checkpoint_state_id": "cmake-cxxopts-state-2",
+      "repository_url": "https://github.com/jarro2783/cxxopts.git",
+      "commit_sha": "bb791540908e3dc623f54b34898c6ad3e47292ab",
+      "target": {
+        "target_id": "cxxopts-consumer",
+        "artifact_path": "bin/cxxopts-smoke",
+        "artifact_type": "executable"
+      },
+      "reference_commands": [
+        {
+          "role": "configure",
+          "command": "cmake -S . -B build -DCXXOPTS_BUILD_TESTS=OFF -DCXXOPTS_BUILD_EXAMPLES=OFF"
+        },
+        {
+          "role": "build",
+          "command": "cmake --build build --parallel 2 && printf '%s\\n' '#include <cxxopts.hpp>' 'int main(){ cxxopts::Options options{\"forge\"}; (void)options; return 0; }' > build/forge-cxxopts-consumer.cc && c++ -std=c++17 -Iinclude build/forge-cxxopts-consumer.cc -o build/cxxopts-smoke"
+        },
+        {
+          "role": "artifact_stage",
+          "command": "install -Dm755 build/cxxopts-smoke /artifacts/bin/cxxopts-smoke"
+        }
+      ],
+      "oracle": {
+        "command": "/artifacts/bin/cxxopts-smoke",
+        "workdir": "/workspace/repo",
+        "timeout_seconds": 30
+      }
+    },
+    {
+      "task_id": "make-libtommath",
+      "build_system": "make",
+      "checkpoint_state_id": "make-libtommath-state-3",
+      "repository_url": "https://github.com/libtom/libtommath.git",
+      "commit_sha": "ae40a87a920099a7d9d00979570e0c8d917a1fd7",
+      "target": {
+        "target_id": "libtommath-static",
+        "artifact_path": "libtommath.a",
+        "artifact_type": "static_library"
+      },
+      "reference_commands": [
+        {
+          "role": "build",
+          "command": "make -f makefile -j2"
+        },
+        {
+          "role": "artifact_stage",
+          "command": "install -Dm644 libtommath.a /artifacts/libtommath.a"
+        }
+      ],
+      "oracle": {
+        "command": "printf '%s\\n' '#include \"tommath.h\"' 'int main(void){ mp_int a; if(mp_init(&a)!=MP_OKAY) return 1; mp_set(&a,7); int ok=mp_cmp_d(&a,7)==MP_EQ; mp_clear(&a); return ok?0:1; }' > /tmp/forge-tommath.c && cc -std=c11 -I/workspace/repo /tmp/forge-tommath.c /artifacts/libtommath.a -o /tmp/forge-tommath && /tmp/forge-tommath",
+        "workdir": "/workspace/repo",
+        "timeout_seconds": 120
+      }
+    },
+    {
+      "task_id": "make-tiny-aes-c",
+      "build_system": "make",
+      "checkpoint_state_id": "make-tiny-aes-c-state-1",
+      "repository_url": "https://github.com/kokke/tiny-AES-c.git",
+      "commit_sha": "23856752fbd139da0b8ca6e471a13d5bcc99a08d",
+      "target": {
+        "target_id": "tiny-aes-test",
+        "artifact_path": "bin/tiny-aes-test",
+        "artifact_type": "executable"
+      },
+      "reference_commands": [
+        {
+          "role": "build",
+          "command": "make -j2"
+        },
+        {
+          "role": "artifact_stage",
+          "command": "install -Dm755 test.elf /artifacts/bin/tiny-aes-test"
+        }
+      ],
+      "oracle": {
+        "command": "/artifacts/bin/tiny-aes-test",
+        "workdir": "/workspace/repo",
+        "timeout_seconds": 60
+      }
+    },
+    {
+      "task_id": "make-kilo",
+      "build_system": "make",
+      "checkpoint_state_id": "make-kilo-state-2",
+      "repository_url": "https://github.com/antirez/kilo.git",
+      "commit_sha": "323d93b29bd89a2cb446de90c4ed4fea1764176e",
+      "target": {
+        "target_id": "kilo-static",
+        "artifact_path": "libkilo.a",
+        "artifact_type": "static_library"
+      },
+      "reference_commands": [
+        {
+          "role": "build",
+          "command": "make -j2 && cc -std=c99 -D_DEFAULT_SOURCE -D_BSD_SOURCE -D_GNU_SOURCE -c kilo.c -o forge-kilo.o && ar rcs libkilo.a forge-kilo.o"
+        },
+        {
+          "role": "artifact_stage",
+          "command": "install -Dm644 libkilo.a /artifacts/libkilo.a"
+        }
+      ],
+      "oracle": {
+        "command": "nm -g --defined-only /artifacts/libkilo.a | grep -Eq '[[:space:]]T[[:space:]]main$'",
+        "workdir": "/workspace/repo",
+        "timeout_seconds": 30
+      }
+    },
+    {
+      "task_id": "autotools-libestr",
+      "build_system": "autotools",
+      "checkpoint_state_id": "autotools-libestr-state-3",
+      "repository_url": "https://github.com/rsyslog/libestr.git",
+      "commit_sha": "3e7bd45056ee1d3f9fba48d997bb2116ae52018f",
+      "target": {
+        "target_id": "libestr-static",
+        "artifact_path": "lib/libestr.a",
+        "artifact_type": "static_library"
+      },
+      "reference_commands": [
+        {
+          "role": "configure",
+          "command": "autoreconf -fi && ./configure --prefix=/artifacts"
+        },
+        {
+          "role": "build",
+          "command": "make -j2"
+        },
+        {
+          "role": "artifact_stage",
+          "command": "install -Dm644 src/.libs/libestr.a /artifacts/lib/libestr.a"
+        }
+      ],
+      "oracle": {
+        "command": "printf '%s\\n' '#include <libestr.h>' 'int main(void){ es_str_t *s=es_newStrFromCStr(\"forge\",5); if(!s) return 1; int ok=es_strlen(s)==5; es_deleteStr(s); return ok?0:1; }' > /tmp/forge-libestr.c && cc -std=c11 -I/workspace/repo/include /tmp/forge-libestr.c /artifacts/lib/libestr.a -o /tmp/forge-libestr && /tmp/forge-libestr",
+        "workdir": "/workspace/repo",
+        "timeout_seconds": 120
+      }
+    },
+    {
+      "task_id": "autotools-libfastjson",
+      "build_system": "autotools",
+      "checkpoint_state_id": "autotools-libfastjson-state-1",
+      "repository_url": "https://github.com/rsyslog/libfastjson.git",
+      "commit_sha": "2c7616434c0d474d338eda41a7e30ab96b95ee12",
+      "target": {
+        "target_id": "libfastjson-static",
+        "artifact_path": "lib/libfastjson.a",
+        "artifact_type": "static_library"
+      },
+      "reference_commands": [
+        {
+          "role": "configure",
+          "command": "autoreconf -fi && ./configure --prefix=/artifacts"
+        },
+        {
+          "role": "build",
+          "command": "make -j2"
+        },
+        {
+          "role": "artifact_stage",
+          "command": "install -Dm644 .libs/libfastjson.a /artifacts/lib/libfastjson.a"
+        }
+      ],
+      "oracle": {
+        "command": "printf '%s\\n' '#include <json_object.h>' 'int main(void){ struct fjson_object *v=fjson_object_new_string(\"forge\"); if(!v) return 1; int ok=fjson_object_get_string_len(v)==5; fjson_object_put(v); return ok?0:1; }' > /tmp/forge-fastjson.c && cc -std=c11 -I/workspace/repo /tmp/forge-fastjson.c /artifacts/lib/libfastjson.a -lm -o /tmp/forge-fastjson && /tmp/forge-fastjson",
+        "workdir": "/workspace/repo",
+        "timeout_seconds": 120
+      }
+    },
+    {
+      "task_id": "autotools-libev",
+      "build_system": "autotools",
+      "checkpoint_state_id": "autotools-libev-state-2",
+      "repository_url": "https://github.com/enki/libev.git",
+      "commit_sha": "93823e6ca699df195a6c7b8bfa6006ec40ee0003",
+      "target": {
+        "target_id": "libev-static",
+        "artifact_path": "lib/libev.a",
+        "artifact_type": "static_library"
+      },
+      "reference_commands": [
+        {
+          "role": "configure",
+          "command": "autoreconf -fi && ./configure --prefix=/artifacts"
+        },
+        {
+          "role": "build",
+          "command": "make -j2"
+        },
+        {
+          "role": "artifact_stage",
+          "command": "install -Dm644 .libs/libev.a /artifacts/lib/libev.a"
+        }
+      ],
+      "oracle": {
+        "command": "printf '%s\\n' '#include <ev.h>' 'int main(void){ struct ev_loop *loop=ev_loop_new(0); if(!loop) return 1; ev_loop_destroy(loop); return ev_version_major()>0?0:1; }' > /tmp/forge-libev.c && cc -std=c11 -I/workspace/repo /tmp/forge-libev.c /artifacts/lib/libev.a -lm -o /tmp/forge-libev && /tmp/forge-libev",
+        "workdir": "/workspace/repo",
+        "timeout_seconds": 120
+      }
+    }
+  ],
+  "canary_checkpoints": [
+    {
+      "task_id": "cmake-cli11",
+      "checkpoint_state_id": "cmake-cli11-state-3"
+    },
+    {
+      "task_id": "make-tiny-aes-c",
+      "checkpoint_state_id": "make-tiny-aes-c-state-3"
+    },
+    {
+      "task_id": "autotools-libfastjson",
+      "checkpoint_state_id": "autotools-libfastjson-state-3"
+    }
+  ],
+  "formal_schedule": [
+    {
+      "sequence": 1,
+      "task_id": "cmake-spdlog",
+      "repetition": 1
+    },
+    {
+      "sequence": 2,
+      "task_id": "make-libtommath",
+      "repetition": 1
+    },
+    {
+      "sequence": 3,
+      "task_id": "autotools-libestr",
+      "repetition": 1
+    },
+    {
+      "sequence": 4,
+      "task_id": "cmake-cli11",
+      "repetition": 1
+    },
+    {
+      "sequence": 5,
+      "task_id": "make-tiny-aes-c",
+      "repetition": 1
+    },
+    {
+      "sequence": 6,
+      "task_id": "autotools-libfastjson",
+      "repetition": 1
+    },
+    {
+      "sequence": 7,
+      "task_id": "cmake-cxxopts",
+      "repetition": 1
+    },
+    {
+      "sequence": 8,
+      "task_id": "make-kilo",
+      "repetition": 1
+    },
+    {
+      "sequence": 9,
+      "task_id": "autotools-libev",
+      "repetition": 1
+    },
+    {
+      "sequence": 10,
+      "task_id": "autotools-libev",
+      "repetition": 2
+    },
+    {
+      "sequence": 11,
+      "task_id": "make-kilo",
+      "repetition": 2
+    },
+    {
+      "sequence": 12,
+      "task_id": "cmake-cxxopts",
+      "repetition": 2
+    },
+    {
+      "sequence": 13,
+      "task_id": "autotools-libfastjson",
+      "repetition": 2
+    },
+    {
+      "sequence": 14,
+      "task_id": "make-tiny-aes-c",
+      "repetition": 2
+    },
+    {
+      "sequence": 15,
+      "task_id": "cmake-cli11",
+      "repetition": 2
+    },
+    {
+      "sequence": 16,
+      "task_id": "autotools-libestr",
+      "repetition": 2
+    },
+    {
+      "sequence": 17,
+      "task_id": "make-libtommath",
+      "repetition": 2
+    },
+    {
+      "sequence": 18,
+      "task_id": "cmake-spdlog",
+      "repetition": 2
+    },
+    {
+      "sequence": 19,
+      "task_id": "make-tiny-aes-c",
+      "repetition": 3
+    },
+    {
+      "sequence": 20,
+      "task_id": "autotools-libfastjson",
+      "repetition": 3
+    },
+    {
+      "sequence": 21,
+      "task_id": "cmake-cli11",
+      "repetition": 3
+    },
+    {
+      "sequence": 22,
+      "task_id": "make-kilo",
+      "repetition": 3
+    },
+    {
+      "sequence": 23,
+      "task_id": "autotools-libev",
+      "repetition": 3
+    },
+    {
+      "sequence": 24,
+      "task_id": "cmake-cxxopts",
+      "repetition": 3
+    },
+    {
+      "sequence": 25,
+      "task_id": "make-libtommath",
+      "repetition": 3
+    },
+    {
+      "sequence": 26,
+      "task_id": "autotools-libestr",
+      "repetition": 3
+    },
+    {
+      "sequence": 27,
+      "task_id": "cmake-spdlog",
+      "repetition": 3
+    }
+  ],
+  "treatments": {
+    "h0": "h0_runtime_v3",
+    "h1": "h1_runtime_v4",
+    "treatment_definition_changed_from_v2": false
+  },
+  "qualification": {
+    "q0_required_strict": 9,
+    "canary_blocks": 3,
+    "canary_arms": 6,
+    "formal_blocks": 27,
+    "formal_arms": 54,
+    "strict_success_noninferiority_margin": -0.1,
+    "minimum_cost_reduction": 0.2,
+    "alternative_minimum_success_improvement": 0.1,
+    "alternative_maximum_cost_increase": 0.1,
+    "cluster_bootstrap_samples": 10000,
+    "cluster_bootstrap_seed": 43301,
+    "pass_decision": "supports_same_project_cross_state_progress_aware_harness_replication",
+    "fail_decision": "stop_progress_aware_harness_as_primary_mechanism"
+  },
+  "replication": {
+    "classification": "post_observation_same_project_cross_state_confirmatory_replication",
+    "project_families_reused": 9,
+    "formal_effect_checkpoints_reused_from_v2": 0,
+    "checkpoint_selection_rule": "v2_depth_rotation_1_to_3_2_to_1_3_to_2",
+    "historical_outcomes_imported": false,
+    "historical_effect_estimates_pooled": false,
+    "v2_observed_summary": {
+      "h0_strict": 16,
+      "h1_strict": 22,
+      "formal_arms_per_treatment": 27,
+      "h0_provider_cost_usd": 1.619287,
+      "h1_provider_cost_usd": 0.707752,
+      "budget_complete": false
+    },
+    "maximum_observed_v2_response_tokens": 60594,
+    "claim_scope": "same_project_families_cross_checkpoint_depths",
+    "unseen_project_generalization": false
+  },
+  "preregistration": {
+    "path": "benchmarks/preregistrations/cpp-progress-aware-harness-comparison-v3-candidate.md",
+    "sha256": "f01aada259464a0c2b54755681d72d53c7a8993ef394f03859b2bab3c62c7804"
+  },
+  "future_execution": {
+    "authorized_identity_required": true,
+    "candidate_manifest_mutation_forbidden": true,
+    "q0_q1_q2_available": false
+  }
+}
