@@ -4,6 +4,29 @@
 
 ## 当前阶段
 
+- 状态：Issue #430 的 `cpp-agent-continuation-qualification-v2` 已完成 Q0/Q1/Q2，并按预注册停止在动态预算
+  controller 实现前。Q0 reference 为 `9/9` strict；Q1 三个 Provider canary 全部形成分类候选，其中 `2/3` strict；
+  Q2 的 27/27 arms 均分类终结、绑定 parent checkpoint、记录动作后权威状态并完成 cleanup。
+- Q2 结果：strict success `12/27`，evaluated failure `8/27`，budget exhausted `6/27`，no candidate `1/27`。
+  只有 `5/9` checkpoint 达到至少 `2/3` strict，低于 `6/9` 门槛；分系统为 CMake `1/3`、Make `2/3`、
+  Autotools `2/3`，分深度为 state-1 `3/3`、state-2 `1/3`、state-3 `1/3`；budget exhausted `6/27`，
+  高于不超过 `3/27` 的门槛。Provider 共 311 requests、4,063,668 recorded tokens，估算费用 `$1.458868`。
+- 只读失败审计：8 个 evaluated failure 中，5 个发生在 clean replay 的 GitHub exact-commit 获取阶段，属于
+  GnuTLS/peer connection failure；2 个 `libfastjson` arm 的 replay recipe 缺少从源码生成 `configure` 的前置步骤；
+  1 个 `kilo` arm 提交的可执行文件 smoke 失败。唯一 no-candidate arm 在成功 build 后因 `UnicodeDecodeError`
+  终止。正式分类与分母保持不变；这些结果说明失败不全是 Agent 决策错误，也不能据此把网络失败反事实改记为成功。
+- 决定与边界：正式决定为 `stop_before_dynamic_budget_controller_implementation`。固定 Agent continuation 在部分
+  checkpoint 上可达严格终点，但当前稳定性、深度覆盖、跨系统覆盖和预算尾部均不合格，因此不进入 matched
+  direct/escalate/stop outcome matrix，也不实现 controller。即使把 5 个网络失败、2 个 replay 前置缺口和 1 个解码终止
+  全部理想化为 strict success，CMake 仍仅 `1/3`、state-3 仍仅 `1/3`，且 6 个 budget exhausted 不变；基础设施修复本身
+  不可能使本设计通过全部门槛。因此不创建同设计 v3，将固定 continuation 资格作为负结果封口，下一步回到论文机制取舍。
+  该结果不评价 Jev、自然失败或开放世界。
+- Evidence：manifest canonical SHA-256 `2714e79f2431633e6267fa21668ca23ab8495f480d08c39999317d6856d3be6c`；
+  raw evidence 为 15,373 files / 258,919,192 bytes，inventory canonical SHA-256
+  `9d749bf76571429b3fb6e7e325e61c1168df78e18e5ffa72d4457caff9c75465`，audit `valid=true`，cleanup 后
+  `zero_managed_resources=true`。v2 identity/evidence 已封口只读，禁止 retry、replacement、backfill 或续跑。
+- 发布状态：v1 PR #431 堆叠在 v5 PR #428 的分支上，v2 PR #432 堆叠在 v1 PR #431 的分支上；两者的
+  `backend-unit-tests` 与 `frozen-benchmark-tests` 均通过，等待用户审查，不自动合并。
 - 状态：Issue #429 的 `cpp-agent-continuation-qualification-v1` 已在 Q0 第一个 `cmake-spdlog-state-1` 按协议失败封口，
   决定为 `supersede_with_fresh_v2_identity_after_session_refresh_repair`。Q1/Q2 未启动，全程 0 credential、0 Provider、
   0 Agent，cleanup 后 0 受管资源；v1 identity 与 evidence 永久只读。
@@ -14,9 +37,7 @@
 - 根因与边界：reference 命令写入了重新加载的权威 Session，但 `_direct_candidate` 收到旧内存 Session；functional oracle
   保存 smoke 命令时把旧对象写回，覆盖了 configure/build/artifact-stage 命令历史。这是 runner 基础设施失败，不评价
   spdlog、checkpoint 或固定 Agent continuation，也不能支持动态预算 controller。
-- 下一步：建立独立 v2 Issue、分支和 identity；在 CandidateVerifier 前刷新权威 Session，并增加 oracle 保存后的命令
-  历史回归。先做零 Provider 工程验证，再执行全新 v2 Q0；只有 9/9 strict 才允许按冻结预算读取 credential、运行
-  三状态 Provider canary 和 27 个 Agent arms。
+- v1 后续：禁止续跑、补齐、backfill 或修改；后续 observation 只写入独立 v2 evidence。
 - 状态：Issue #427 的 `cpp-dynamic-budget-trajectory-benchmark-qualification-v5` 唯一正式零 Provider attempt 已完整通过，
   决定为 `proceed_to_agent_continuation_qualification_design`。冻结的 CMake、Make、Autotools 各 3 个项目全部完成，
   共 9/9 项目、27/27 连续状态和 54/54 同源禁网 Docker continuation。

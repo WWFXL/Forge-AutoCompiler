@@ -1,0 +1,239 @@
+{
+  "$schema": "forge-agent-continuation-qualification-v2",
+  "schema_version": "1.0.0",
+  "identity": "cpp-agent-continuation-qualification-v2",
+  "issue": 430,
+  "branch": "yiwei/430-agent-continuation-qualification-v2",
+  "parent": {
+    "identity": "cpp-dynamic-budget-trajectory-benchmark-qualification-v5",
+    "evidence_root": ".compile-sessions/benchmark-evidence-dynamic-budget-trajectory-qualification-v5",
+    "inventory_canonical_sha256": "b29d6738344771f2b1a31d4d874390342fadfe5d6cad79db0d6a6c83f40d35d1",
+    "manifest_canonical_sha256": "3b0a0374837738674de3053ba197ed10dd8809e727726579bef6d00edd0753a1"
+  },
+  "authorization": {
+    "zero_provider_q0": true,
+    "credential_read_after_q0": true,
+    "provider_q1_q2": true,
+    "formal_evidence_write": true,
+    "historical_evidence_write": false,
+    "replacement": false,
+    "backfill": false,
+    "controller_implementation": false,
+    "jev_calls": false
+  },
+  "environment": {
+    "compile_image": "autocompiler:gcc13",
+    "image_id": "sha256:d27a6ab733c7c3a9cbb5e4b32fb595aa5a422ff04bd212888d1041b90a2c4c2a",
+    "parallel_jobs": 4,
+    "network_policy": "none-after-checkpoint"
+  },
+  "provider": {
+    "provider": "deepseek",
+    "profile": "deepseek-flash",
+    "actual_model": "deepseek-flash",
+    "endpoint": "https://api.deepseek.com",
+    "credential_env_name": "DEEPSEEK_API_KEY",
+    "request_timeout_seconds": 300,
+    "model_max_retries": 0,
+    "thinking_enabled": false,
+    "streaming": false,
+    "input_price_usd_per_million_tokens": 0.3,
+    "output_price_usd_per_million_tokens": 1.2
+  },
+  "budget": {
+    "per_arm": {
+      "max_model_requests": 24,
+      "max_recorded_tokens": 300000,
+      "max_agent_steps": 64,
+      "max_tool_calls": 48,
+      "max_commands": 32,
+      "node_timeout_seconds": 1800,
+      "command_timeout_seconds": 900,
+      "evaluator_timeout_seconds": 1800,
+      "replay_timeout_seconds": 1800,
+      "cleanup_timeout_seconds": 120
+    },
+    "provider_arms": 30,
+    "total_provider_requests": 720,
+    "total_recorded_tokens": 9000000
+  },
+  "evidence_root": ".compile-sessions/benchmark-evidence-agent-continuation-qualification-v2",
+  "components": {
+    "scripts/forge_agent_continuation_qualification_v2.py": "efc4d75a0791ba3b8e614a920a018934d73476030c3ead3c7700568fe091ebac",
+    "backend/tests/test_forge_agent_continuation_qualification_v2.py": "65c6c5f58753c90975998f61c5a0d3f85334eec557353b0a495268f0f6e75287",
+    "benchmarks/schemas/forge-agent-continuation-qualification-v2.schema.json": "8c22da62f6830946166821471d3bc54dfc1d6e4b908f39bc95b367a1bf172728",
+    "benchmarks/preregistrations/cpp-agent-continuation-qualification-v2.md": "57b485173a498a39065281d777b63538a6f842bfdb09deef967a7d92780da26a",
+    "docs/superpowers/specs/2026-10-12-agent-continuation-qualification-v2-design.md": "2b78e7e51a970f14a85db66ff71eaaaa928e1ff0eba8a8fc8f068eef13a98222",
+    "docs/superpowers/plans/2026-10-12-agent-continuation-qualification-v2.md": "158b85a2a8ce728968d2c78f2ac59009312237935b3b262b46ad551e1ee194ea"
+  },
+  "tasks": [
+    {
+      "task_id": "cmake-spdlog",
+      "build_system": "cmake",
+      "checkpoint_state_id": "cmake-spdlog-state-1",
+      "repository_url": "https://github.com/gabime/spdlog.git",
+      "commit_sha": "d6c93f38a08b4ea0f8ffcfd7f7857307d5d5c3fa",
+      "target": {"target_id": "spdlog-static", "artifact_path": "lib/libspdlog.a", "artifact_type": "static_library"},
+      "reference_commands": [
+        {"role": "configure", "command": "cmake -S . -B build -DSPDLOG_BUILD_TESTS=OFF -DSPDLOG_BUILD_EXAMPLE=OFF -DSPDLOG_BUILD_BENCH=OFF -DSPDLOG_BUILD_SHARED=OFF"},
+        {"role": "build", "command": "cmake --build build --parallel 2"},
+        {"role": "artifact_stage", "command": "install -Dm644 build/libspdlog.a /artifacts/lib/libspdlog.a"}
+      ],
+      "oracle": {"command": "printf '%s\\n' '#include <spdlog/spdlog.h>' 'int main(){ spdlog::info(\"forge\"); return 0; }' > /tmp/forge-spdlog.cc && c++ -std=c++17 -I/workspace/repo/include /tmp/forge-spdlog.cc /artifacts/lib/libspdlog.a -pthread -o /tmp/forge-spdlog && /tmp/forge-spdlog", "workdir": "/workspace/repo", "timeout_seconds": 120}
+    },
+    {
+      "task_id": "cmake-cli11",
+      "build_system": "cmake",
+      "checkpoint_state_id": "cmake-cli11-state-2",
+      "repository_url": "https://github.com/CLIUtils/CLI11.git",
+      "commit_sha": "07c9f13b15a70c367a406e1cfe2c363aa1b66894",
+      "target": {"target_id": "cli11-consumer", "artifact_path": "bin/cli11-smoke", "artifact_type": "executable"},
+      "reference_commands": [
+        {"role": "configure", "command": "cmake -S . -B build -DCLI11_BUILD_TESTS=OFF -DCLI11_BUILD_EXAMPLES=OFF"},
+        {"role": "build", "command": "cmake --build build --parallel 2 && printf '%s\\n' '#include <CLI/CLI.hpp>' 'int main(){ CLI::App app{\"forge\"}; (void)app; return 0; }' > build/forge-cli11-consumer.cc && c++ -std=c++17 -Iinclude build/forge-cli11-consumer.cc -o build/cli11-smoke"},
+        {"role": "artifact_stage", "command": "install -Dm755 build/cli11-smoke /artifacts/bin/cli11-smoke"}
+      ],
+      "oracle": {"command": "/artifacts/bin/cli11-smoke", "workdir": "/workspace/repo", "timeout_seconds": 30}
+    },
+    {
+      "task_id": "cmake-cxxopts",
+      "build_system": "cmake",
+      "checkpoint_state_id": "cmake-cxxopts-state-3",
+      "repository_url": "https://github.com/jarro2783/cxxopts.git",
+      "commit_sha": "bb791540908e3dc623f54b34898c6ad3e47292ab",
+      "target": {"target_id": "cxxopts-consumer", "artifact_path": "bin/cxxopts-smoke", "artifact_type": "executable"},
+      "reference_commands": [
+        {"role": "configure", "command": "cmake -S . -B build -DCXXOPTS_BUILD_TESTS=OFF -DCXXOPTS_BUILD_EXAMPLES=OFF"},
+        {"role": "build", "command": "cmake --build build --parallel 2 && printf '%s\\n' '#include <cxxopts.hpp>' 'int main(){ cxxopts::Options options{\"forge\"}; (void)options; return 0; }' > build/forge-cxxopts-consumer.cc && c++ -std=c++17 -Iinclude build/forge-cxxopts-consumer.cc -o build/cxxopts-smoke"},
+        {"role": "artifact_stage", "command": "install -Dm755 build/cxxopts-smoke /artifacts/bin/cxxopts-smoke"}
+      ],
+      "oracle": {"command": "/artifacts/bin/cxxopts-smoke", "workdir": "/workspace/repo", "timeout_seconds": 30}
+    },
+    {
+      "task_id": "make-libtommath",
+      "build_system": "make",
+      "checkpoint_state_id": "make-libtommath-state-1",
+      "repository_url": "https://github.com/libtom/libtommath.git",
+      "commit_sha": "ae40a87a920099a7d9d00979570e0c8d917a1fd7",
+      "target": {"target_id": "libtommath-static", "artifact_path": "libtommath.a", "artifact_type": "static_library"},
+      "reference_commands": [
+        {"role": "build", "command": "make -f makefile -j2"},
+        {"role": "artifact_stage", "command": "install -Dm644 libtommath.a /artifacts/libtommath.a"}
+      ],
+      "oracle": {"command": "printf '%s\\n' '#include \"tommath.h\"' 'int main(void){ mp_int a; if(mp_init(&a)!=MP_OKAY) return 1; mp_set(&a,7); int ok=mp_cmp_d(&a,7)==MP_EQ; mp_clear(&a); return ok?0:1; }' > /tmp/forge-tommath.c && cc -std=c11 -I/workspace/repo /tmp/forge-tommath.c /artifacts/libtommath.a -o /tmp/forge-tommath && /tmp/forge-tommath", "workdir": "/workspace/repo", "timeout_seconds": 120}
+    },
+    {
+      "task_id": "make-tiny-aes-c",
+      "build_system": "make",
+      "checkpoint_state_id": "make-tiny-aes-c-state-2",
+      "repository_url": "https://github.com/kokke/tiny-AES-c.git",
+      "commit_sha": "23856752fbd139da0b8ca6e471a13d5bcc99a08d",
+      "target": {"target_id": "tiny-aes-test", "artifact_path": "bin/tiny-aes-test", "artifact_type": "executable"},
+      "reference_commands": [
+        {"role": "build", "command": "make -j2"},
+        {"role": "artifact_stage", "command": "install -Dm755 test.elf /artifacts/bin/tiny-aes-test"}
+      ],
+      "oracle": {"command": "/artifacts/bin/tiny-aes-test", "workdir": "/workspace/repo", "timeout_seconds": 60}
+    },
+    {
+      "task_id": "make-kilo",
+      "build_system": "make",
+      "checkpoint_state_id": "make-kilo-state-3",
+      "repository_url": "https://github.com/antirez/kilo.git",
+      "commit_sha": "323d93b29bd89a2cb446de90c4ed4fea1764176e",
+      "target": {"target_id": "kilo-static", "artifact_path": "libkilo.a", "artifact_type": "static_library"},
+      "reference_commands": [
+        {"role": "build", "command": "make -j2 && cc -std=c99 -D_DEFAULT_SOURCE -D_BSD_SOURCE -D_GNU_SOURCE -c kilo.c -o forge-kilo.o && ar rcs libkilo.a forge-kilo.o"},
+        {"role": "artifact_stage", "command": "install -Dm644 libkilo.a /artifacts/libkilo.a"}
+      ],
+      "oracle": {"command": "nm -g --defined-only /artifacts/libkilo.a | grep -Eq '[[:space:]]T[[:space:]]main$'", "workdir": "/workspace/repo", "timeout_seconds": 30}
+    },
+    {
+      "task_id": "autotools-libestr",
+      "build_system": "autotools",
+      "checkpoint_state_id": "autotools-libestr-state-1",
+      "repository_url": "https://github.com/rsyslog/libestr.git",
+      "commit_sha": "3e7bd45056ee1d3f9fba48d997bb2116ae52018f",
+      "target": {"target_id": "libestr-static", "artifact_path": "lib/libestr.a", "artifact_type": "static_library"},
+      "reference_commands": [
+        {"role": "configure", "command": "autoreconf -fi && ./configure --prefix=/artifacts"},
+        {"role": "build", "command": "make -j2"},
+        {"role": "artifact_stage", "command": "install -Dm644 src/.libs/libestr.a /artifacts/lib/libestr.a"}
+      ],
+      "oracle": {"command": "printf '%s\\n' '#include <libestr.h>' 'int main(void){ es_str_t *s=es_newStrFromCStr(\"forge\",5); if(!s) return 1; int ok=es_strlen(s)==5; es_deleteStr(s); return ok?0:1; }' > /tmp/forge-libestr.c && cc -std=c11 -I/workspace/repo/include /tmp/forge-libestr.c /artifacts/lib/libestr.a -o /tmp/forge-libestr && /tmp/forge-libestr", "workdir": "/workspace/repo", "timeout_seconds": 120}
+    },
+    {
+      "task_id": "autotools-libfastjson",
+      "build_system": "autotools",
+      "checkpoint_state_id": "autotools-libfastjson-state-2",
+      "repository_url": "https://github.com/rsyslog/libfastjson.git",
+      "commit_sha": "2c7616434c0d474d338eda41a7e30ab96b95ee12",
+      "target": {"target_id": "libfastjson-static", "artifact_path": "lib/libfastjson.a", "artifact_type": "static_library"},
+      "reference_commands": [
+        {"role": "configure", "command": "autoreconf -fi && ./configure --prefix=/artifacts"},
+        {"role": "build", "command": "make -j2"},
+        {"role": "artifact_stage", "command": "install -Dm644 .libs/libfastjson.a /artifacts/lib/libfastjson.a"}
+      ],
+      "oracle": {"command": "printf '%s\\n' '#include <json_object.h>' 'int main(void){ struct fjson_object *v=fjson_object_new_string(\"forge\"); if(!v) return 1; int ok=fjson_object_get_string_len(v)==5; fjson_object_put(v); return ok?0:1; }' > /tmp/forge-fastjson.c && cc -std=c11 -I/workspace/repo /tmp/forge-fastjson.c /artifacts/lib/libfastjson.a -lm -o /tmp/forge-fastjson && /tmp/forge-fastjson", "workdir": "/workspace/repo", "timeout_seconds": 120}
+    },
+    {
+      "task_id": "autotools-libev",
+      "build_system": "autotools",
+      "checkpoint_state_id": "autotools-libev-state-3",
+      "repository_url": "https://github.com/enki/libev.git",
+      "commit_sha": "93823e6ca699df195a6c7b8bfa6006ec40ee0003",
+      "target": {"target_id": "libev-static", "artifact_path": "lib/libev.a", "artifact_type": "static_library"},
+      "reference_commands": [
+        {"role": "configure", "command": "autoreconf -fi && ./configure --prefix=/artifacts"},
+        {"role": "build", "command": "make -j2"},
+        {"role": "artifact_stage", "command": "install -Dm644 .libs/libev.a /artifacts/lib/libev.a"}
+      ],
+      "oracle": {"command": "printf '%s\\n' '#include <ev.h>' 'int main(void){ struct ev_loop *loop=ev_loop_new(0); if(!loop) return 1; ev_loop_destroy(loop); return ev_version_major()>0?0:1; }' > /tmp/forge-libev.c && cc -std=c11 -I/workspace/repo /tmp/forge-libev.c /artifacts/lib/libev.a -lm -o /tmp/forge-libev && /tmp/forge-libev", "workdir": "/workspace/repo", "timeout_seconds": 120}
+    }
+  ],
+  "canary_checkpoints": [
+    {"task_id": "cmake-spdlog", "checkpoint_state_id": "cmake-spdlog-state-2"},
+    {"task_id": "make-libtommath", "checkpoint_state_id": "make-libtommath-state-2"},
+    {"task_id": "autotools-libestr", "checkpoint_state_id": "autotools-libestr-state-2"}
+  ],
+  "formal_schedule": [
+    {"sequence": 1, "task_id": "cmake-spdlog", "repetition": 1},
+    {"sequence": 2, "task_id": "make-libtommath", "repetition": 1},
+    {"sequence": 3, "task_id": "autotools-libestr", "repetition": 1},
+    {"sequence": 4, "task_id": "cmake-cli11", "repetition": 1},
+    {"sequence": 5, "task_id": "make-tiny-aes-c", "repetition": 1},
+    {"sequence": 6, "task_id": "autotools-libfastjson", "repetition": 1},
+    {"sequence": 7, "task_id": "cmake-cxxopts", "repetition": 1},
+    {"sequence": 8, "task_id": "make-kilo", "repetition": 1},
+    {"sequence": 9, "task_id": "autotools-libev", "repetition": 1},
+    {"sequence": 10, "task_id": "autotools-libev", "repetition": 2},
+    {"sequence": 11, "task_id": "make-kilo", "repetition": 2},
+    {"sequence": 12, "task_id": "cmake-cxxopts", "repetition": 2},
+    {"sequence": 13, "task_id": "autotools-libfastjson", "repetition": 2},
+    {"sequence": 14, "task_id": "make-tiny-aes-c", "repetition": 2},
+    {"sequence": 15, "task_id": "cmake-cli11", "repetition": 2},
+    {"sequence": 16, "task_id": "autotools-libestr", "repetition": 2},
+    {"sequence": 17, "task_id": "make-libtommath", "repetition": 2},
+    {"sequence": 18, "task_id": "cmake-spdlog", "repetition": 2},
+    {"sequence": 19, "task_id": "make-tiny-aes-c", "repetition": 3},
+    {"sequence": 20, "task_id": "autotools-libfastjson", "repetition": 3},
+    {"sequence": 21, "task_id": "cmake-cli11", "repetition": 3},
+    {"sequence": 22, "task_id": "make-kilo", "repetition": 3},
+    {"sequence": 23, "task_id": "autotools-libev", "repetition": 3},
+    {"sequence": 24, "task_id": "cmake-cxxopts", "repetition": 3},
+    {"sequence": 25, "task_id": "make-libtommath", "repetition": 3},
+    {"sequence": 26, "task_id": "autotools-libestr", "repetition": 3},
+    {"sequence": 27, "task_id": "cmake-spdlog", "repetition": 3}
+  ],
+  "qualification": {
+    "q0_required_strict": 9,
+    "q1_required_classified_candidates": 3,
+    "formal_arms": 27,
+    "minimum_qualified_checkpoints": 6,
+    "minimum_qualified_checkpoints_per_system": 2,
+    "minimum_qualified_checkpoints_per_depth": 2,
+    "maximum_timeout_or_budget_exhausted_arms": 3,
+    "pass_decision": "proceed_to_matched_outcome_matrix_design",
+    "fail_decision": "stop_before_dynamic_budget_controller_implementation"
+  }
+}

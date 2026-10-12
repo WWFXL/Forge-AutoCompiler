@@ -6,6 +6,16 @@
 
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
+- 2026-10-12 — Issue #430 固定 Agent continuation 资格 v2 已完成并触发停止规则
+  - 工作类型与问题: 正式资格数据采集与只读结果分析。研究问题是固定 Compiler Agent 从同源冻结 checkpoint 接管后，能否稳定达到 Forge 严格终点，并形成完整、可比较的成本和六维预算轨迹，从而允许下一步设计动态预算 controller。
+  - 工程修复与协议: CandidateVerifier 前重新加载权威 Session，避免 functional oracle 保存 smoke 时覆盖命令历史；聚焦回归 `23 passed`。v2 继承 9 个 Q0 checkpoint、3 个 Q1 canary、27 个 Q2 arms、`deepseek-flash`、retry=0、单臂 24 requests / 300,000 tokens / 1,800 秒。Manifest canonical SHA-256 为 `2714e79f2431633e6267fa21668ca23ab8495f480d08c39999317d6856d3be6c`。
+  - 正式结果: Q0 `9/9` strict；Q1 `3/3` classified、`2/3` strict；Q2 为 `12/27` strict、`8/27` evaluated failure、`6/27` budget exhausted、`1/27` no candidate。达标 checkpoint `5/9`，分系统 CMake/Make/Autotools 为 `1/3`、`2/3`、`2/3`，分深度 state-1/state-2/state-3 为 `3/3`、`1/3`、`1/3`；6 个 budget exhausted 超过 `3/27` 上限。311 requests，3,797,261 input tokens、266,407 output tokens，估算费用 `$1.458868`。
+  - 失败机制审计: 8 个 evaluated failure 中，5 个是 clean replay 获取 exact commit 时的 GnuTLS/peer connection failure，2 个是 `libfastjson` replay recipe 漏掉生成 `configure` 的前置步骤，1 个是 `kilo` 候选包含 smoke 失败的可执行文件。no-candidate arm 是成功 build 后的 `UnicodeDecodeError`。这是 post-hoc 机制分解，不修改正式分类、分母或停止决定，也不把网络正常时的结果作成功反事实。
+  - 决定与边界: `stop_before_dynamic_budget_controller_implementation`。固定 continuation 在部分 checkpoint 可成功，但当前 checkpoint 稳定性、深度/系统覆盖和预算尾部不合格；不进入 matched direct/escalate/stop matrix，不实现 controller。保守敏感性检查即使把 5 个网络失败、2 个 replay 前置缺口和 1 个解码终止全部理想化为 strict，也只有 `20/27` strict、`6/9` checkpoint 达标，CMake `1/3`、state-3 `1/3` 和 budget exhausted `6/27` 仍不通过。因此基础设施修复本身不能改变资格决定，不创建同设计 v3；把固定 continuation 资格作为负结果封口并回到论文机制取舍。结果不评价 Jev、自然失败或开放世界。
+  - Evidence: 15,373 files / 258,919,192 bytes，inventory canonical SHA-256 `9d749bf76571429b3fb6e7e325e61c1168df78e18e5ffa72d4457caff9c75465`，Q2 result SHA-256 `7c716b0170e031af706ce4a269dc475d4c0d7fc3afd3fa76b8af3fd63f244fe1`，audit `valid=true`，0 managed resources。v2 evidence 永久只读，禁止 retry、replacement、backfill 或续跑。
+  - Git 与发布: 结果提交 `cfe4cbf3` 已推送。v1 中文 PR #431 以 `yiwei/427-dynamic-budget-trajectory-v5` 为 base，v2 中文 PR #432 以 `yiwei/429-agent-continuation-qualification-v1` 为 base；两者 `backend-unit-tests` 与 `frozen-benchmark-tests` 均通过，等待用户审查，不自动合并。Issue #430 已回写正式结果与证据哈希。
+  - 文件: `benchmarks/reports/cpp-agent-continuation-qualification-v2.{json,md}`, `benchmarks/reports/cpp-agent-continuation-qualification-v2-failure-analysis.md`, `.compile-sessions/benchmark-evidence-agent-continuation-qualification-v2`, `RESEARCH_STATUS.md`
+
 - 2026-10-12 — Issue #429 固定 Agent continuation 资格 v1 在 Q0 基础设施失败后封口
   - 工作类型与问题: Q0 零 Provider 基础设施门禁。目标仍是为固定 Compiler Agent continuation 的稳定性、成本完整性、恢复性和六维预算轨迹建立资格；本次没有进入 Agent 数据采集。
   - 正式 observation: 唯一 v1 Q0 attempt 在第一个 `cmake-spdlog-state-1` 停止。Reference configure/build/artifact-stage 三条命令均返回 0，`lib/libspdlog.a` 正确生成，Runtime v3 CandidateVerifier 与 functional oracle 通过；外部 evaluator S0 通过，S1 因 `command_missing`、`supporting_command_invalid`、`artifact_stage_missing` 失败，S2-S5 被阻断。cleanup 成功，0 受管资源。
