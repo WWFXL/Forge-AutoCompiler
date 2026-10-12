@@ -4,21 +4,28 @@
 
 ## 当前阶段
 
-- 状态：Issue #438 已完成未授权 `cpp-progress-aware-harness-comparison-v3-candidate` 的设计与零 Provider 静态门禁，决定为
-  `ready_for_progress_aware_harness_v3_authorization_review`。v3 明确披露 v2 结果已观察，定位为同项目族、跨 checkpoint
-  深度的 post-observation 确认性复现，不是首次盲验证或未见项目泛化。
-- 样本：保留 v2 的 9 个 exact-commit 项目族，但按冻结规则 `state-1 -> state-3`、`state-2 -> state-1`、
-  `state-3 -> state-2` 选择 9 个未进入 v2 Q1/Q2 H0/H1 arms 的正式 checkpoint；CMake、Make、Autotools 各覆盖
-  state 1/2/3。另有 3 个不重叠 canary checkpoint。历史 outcome 不参与选择，也不进入 v3 estimate。
-- 预算与判据：H0/H1 treatment、`deepseek-flash`、27 pairs / 54 formal arms、严格终点及 v2 的非劣/成本/分系统门槛保持
-  不变。每臂冻结 `T=300,000`、`R=100,000`，授权上界 `400,000`；60 个 Provider arms 的计划上界为 1,440 requests、
-  24,000,000 tokens 和 `$28.80`。events、node usage、请求生命周期或费用不一致，以及单响应越过 R，均使实验失败。
-- 门禁证据：candidate manifest/const Schema 确定性一致；9 个正式和 3 个 canary checkpoint 与 v2 effect checkpoint
-  overlap 为 0；v2 30,108 文件和 v5 326 文件逐项只读哈希复核通过；聚焦与相邻回归 `91 passed`，新增文件 Ruff check/
-  format 和 diff check 通过。全程 0 credential、0 Provider、0 model token、0 Docker、0 formal attempt、0 evidence write。
-- 下一步：研究负责人审阅 candidate 后，若继续，则派生独立 `cpp-progress-aware-harness-comparison-v3-authorized`，绑定 release
-  revision 和明确执行授权；先运行零 Provider Q0，只有 `9/9` strict 才读取 credential 并进入 Q1/Q2。当前不修改 candidate、
-  不调用 Provider，也不进入 Workflow+Agent+Jev 新链路设计。
+- 状态：Issue #440 的独立 `cpp-progress-aware-harness-comparison-v3-authorized` 已完成 Q0/Q1/Q2、审计、一次性封存和
+  报告生成，正式决定为 `stop_progress_aware_harness_as_primary_mechanism`。该 post-observation 确认性复现复用 9 个
+  exact-commit 项目族，但以冻结深度轮换选择了 9 个未进入 v2 effect arms 的 checkpoint；历史 outcome 未导入或池化。
+- 正式结果：Q0 reference `9/9` strict；Q1 六臂分类、计量和 cleanup 闭合，canary 不进入效应估计。Q2 的 54/54 arms、
+  27/27 pairs 以及全部请求生命周期、source/checkpoint 绑定、动作后观察、cleanup 和预算合同均闭合，0 infrastructure
+  error。H0/H1 strict 为 `19/27` 与 `22/27`，差值 `+0.111`，项目族聚类单侧 95% bootstrap 下界为 `-0.111`。
+- 成本与行为：H0/H1 Provider cost 为 `$1.507782` 与 `$0.753661`，H1 下降 50.0%；recorded tokens 为
+  `4,230,017 -> 1,788,466`，请求为 `314 -> 227`，diagnostic commands 为 `268 -> 83`，budget exhausted 为
+  `6 -> 1`。墙钟为 `2,146,456 -> 2,051,359 ms`，仅下降约 4.4%。总计 541 requests、6,018,483 recorded tokens、
+  `$2.261443`，低于 1,440 requests、24,000,000 tokens 和 `$28.80` 授权上界。
+- 失败门槛：预注册非劣下界要求 `>= -0.10`，实际 `-0.111`；分系统 strict 为 CMake `4/9 -> 9/9`、Make
+  `9/9 -> 8/9`、Autotools `6/9 -> 5/9`，未满足三系统均不退化。配对分解为共同成功 17、共同失败 3、H1-only 5、
+  H0-only 2；5 个 H1-only 全部是 CMake 中 H0 预算耗尽，两个 H0-only 分别是 Make 和 Autotools 中 H1 验证失败。
+  因此 H1 的成本节省和 CMake 长尾改善信号复现，但跨构建系统稳定非劣的主机制主张没有复现。
+- Evidence：release `0297f0c675c506be85a9a1b2d67175ab4e928605`，authorized manifest canonical SHA-256
+  `81a5a0af34a6e6eaf9fa6a6c116c4ef3e9418fdc5c44a55a348d9256d1e59479`；26,923 files / 572,668,150 bytes，
+  inventory canonical SHA-256 `a2cedd30ed5953eb716dd443e462e4ea0754ce53452a47b5504acb465957ffe7`，audit
+  `valid=true`、0 managed resources。运行中出现 `httpx.AsyncClient.aclose()` 在事件循环关闭后的后台告警，但告警前后
+  arms 的请求、usage、node、budget 和 report 均守恒，未构成预注册 infrastructure error。
+- 下一步：H1 保留为 Forge 的有价值工程 Harness、成本控制组件和论文消融对象，但不再作为论文主创新机制，也不以同一
+  项目族继续追加重复来挽救门槛。下一项研究决策应在独立设计中选择更窄的 CMake 长尾主张，或转入此前冻结的
+  Workflow+Agent+Jev / 动态预算组合；在用户核实前不启动新链路实现。v1-v3 identity 与全部 evidence 永久只读。
 - 状态：Issue #436 的独立零 Provider `cpp-agent-token-budget-semantics-gate-v1` 已完成，决定为
   `proceed_to_progress_aware_harness_v3_replication_decision`。Runtime 新增显式 `max_recorded_tokens_per_response`；配置后，
   `max_recorded_tokens` 作为下一请求准入停止阈值，已完成响应先完整进入 authoritative usage，再按累计触阈或单响应上界
