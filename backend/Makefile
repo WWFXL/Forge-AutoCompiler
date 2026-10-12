@@ -12,7 +12,8 @@ test: test-product
 test-product:
 	PYTHONPATH=. uv run pytest tests/ -v \
 		--ignore-glob='tests/test_forge_*.py' \
-		--ignore-glob='tests/test_agent_workflow_stage_b_*.py'
+		--ignore-glob='tests/test_agent_workflow_stage_b_*.py' \
+		--ignore-glob='tests/test_stage_c_*.py'
 
 lint:
 	uvx ruff check .

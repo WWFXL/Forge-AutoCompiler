@@ -1,0 +1,102 @@
+{
+  "$schema": "../schemas/forge-progress-aware-harness-qualification-v1.schema.json",
+  "schema_version": "1.0.0",
+  "identity": "cpp-progress-aware-harness-qualification-v1",
+  "issue": 433,
+  "branch": "yiwei/433-progress-aware-harness-qualification",
+  "evidence_root": ".compile-sessions/benchmark-evidence-progress-aware-harness-qualification-v1",
+  "authorization": {
+    "credential_reads": false,
+    "provider_calls": false,
+    "jev_calls": false,
+    "formal_attempts": 1,
+    "historical_evidence_write": false,
+    "replacement": false,
+    "backfill": false
+  },
+  "parent": {
+    "identity": "cpp-dynamic-budget-trajectory-benchmark-qualification-v5",
+    "evidence_root": ".compile-sessions/benchmark-evidence-dynamic-budget-trajectory-qualification-v5",
+    "inventory_canonical_sha256": "b29d6738344771f2b1a31d4d874390342fadfe5d6cad79db0d6a6c83f40d35d1",
+    "checkpoint_state_id": "cmake-cxxopts-state-3",
+    "checkpoint_sha256": "528fc63e94195189a5cfd289c64796d7ed0d9f5be473f9d78c39faf08277eed6"
+  },
+  "environment": {
+    "compile_image": "autocompiler:gcc13",
+    "image_id": "sha256:d27a6ab733c7c3a9cbb5e4b32fb595aa5a422ff04bd212888d1041b90a2c4c2a",
+    "parallel_jobs": 4,
+    "network_policy": "none-after-checkpoint"
+  },
+  "budget": {
+    "max_model_requests": 8,
+    "max_recorded_tokens": 1000,
+    "max_agent_steps": 24,
+    "max_tool_calls": 16,
+    "max_commands": 8,
+    "node_timeout_seconds": 900,
+    "command_timeout_seconds": 300,
+    "evaluator_timeout_seconds": 900,
+    "replay_timeout_seconds": 1200,
+    "cleanup_timeout_seconds": 120
+  },
+  "task": {
+    "task_id": "cmake-cxxopts",
+    "build_system": "cmake",
+    "checkpoint_state_id": "cmake-cxxopts-state-3",
+    "repository_url": "https://github.com/jarro2783/cxxopts.git",
+    "commit_sha": "bb791540908e3dc623f54b34898c6ad3e47292ab",
+    "target": {
+      "target_id": "cxxopts-consumer",
+      "artifact_path": "bin/cxxopts-smoke",
+      "artifact_type": "executable"
+    },
+    "commands": [
+      {
+        "role": "configure",
+        "command": "cmake -S . -B build -DCXXOPTS_BUILD_TESTS=OFF -DCXXOPTS_BUILD_EXAMPLES=OFF",
+        "timeout_seconds": 300
+      },
+      {
+        "role": "build",
+        "command": "cmake --build build --parallel 2 && printf '%s\\n' '#include <cxxopts.hpp>' 'int main(){ cxxopts::Options options{\"forge\"}; (void)options; return 0; }' > build/forge-cxxopts-consumer.cc && c++ -std=c++17 -Iinclude build/forge-cxxopts-consumer.cc -o build/cxxopts-smoke",
+        "timeout_seconds": 300
+      },
+      {
+        "role": "artifact_stage",
+        "command": "install -Dm755 build/cxxopts-smoke /artifacts/bin/cxxopts-smoke",
+        "timeout_seconds": 300
+      }
+    ],
+    "oracle": {
+      "command": "/artifacts/bin/cxxopts-smoke",
+      "workdir": "/workspace/repo",
+      "timeout_seconds": 30
+    }
+  },
+  "qualification": {
+    "pass_decision": "proceed_to_h0_h1_provider_comparison_design",
+    "fail_decision": "stop_before_h0_h1_provider_comparison"
+  },
+  "components": {
+    "scripts/forge_progress_aware_harness_qualification_v1.py": "7ec9830a99c69df3f9348aeec832d1f16222dd5c530b5aa0e25c65d45260c080",
+    "scripts/forge_agent_continuation_qualification_v2.py": "efc4d75a0791ba3b8e614a920a018934d73476030c3ead3c7700568fe091ebac",
+    "scripts/forge_checkpoint_archive.py": "f2ac5b5db22931b57620fdebb4508eec9abbdd2c9af147afc267f402e83bc764",
+    "backend/packages/harness/deerflow/compile/agent_workflow_runtime.py": "534a2f138e56616f75cbe2f61975bb63da24f7c63feaac2903a1ec0582e33ab0",
+    "backend/packages/harness/deerflow/compile/agent_workflow_runtime_v2.py": "7358c8396a6eee7776f64f6645f0d516b1f4e6ed4743a249c1d8c32b4c1ecef5",
+    "backend/packages/harness/deerflow/compile/agent_workflow_runtime_v3.py": "2d71383d011e943f78e9259b9f7ceec2c8e1f080d7609e86413ce188a841f65e",
+    "backend/packages/harness/deerflow/compile/agent_workflow_runtime_v4.py": "48593cfea3a5cd0512531332bec89bc16afddbdc190605e55d17c027a7769c66",
+    "backend/packages/harness/deerflow/compile/agent_workflow_schemas.py": "1491a153d3509bd4ebd96fc49e6d2e543d6af22c26df69fa51e34d02fdec1246",
+    "backend/packages/harness/deerflow/compile/candidate_verifier.py": "e358b06ce2721d2ec90d3f30e9d1cb05d210e9c6f802690fc88a554c058dff7a",
+    "backend/packages/harness/deerflow/compile/external_evaluator.py": "c4ac897de06ab91d1cd557dfc3b6427974cae99c2ca16c216e8880303c094c61",
+    "backend/packages/harness/deerflow/compile/external_evaluator_v3.py": "cfb5e3baeff772e54051925e6b0504eea25b6ba9284d8a5c6ad7135355fde79c",
+    "backend/packages/harness/deerflow/compile/external_evaluator_v4.py": "9009c400b1b54d9ad05411f1a64124423cf50d8ba49bfa2d13071d9bedad4613",
+    "backend/packages/harness/deerflow/compile/operations.py": "275160c4e773938e6334961406692a9622066e04feb36401857f92f80dc3889d",
+    "backend/packages/harness/deerflow/tools/bound_compile_tools.py": "735ec5c8daa34d66e4b1116987e281e861149a5273434ec200e403c3fe1ec758",
+    "backend/tests/test_agent_workflow_runtime_v4.py": "678d3c3cdab0116337d9cd128def697e23432bdeec9b14711bc03cbab3a02070",
+    "backend/tests/test_forge_progress_aware_harness_qualification_v1.py": "94d4fe4f8a0904f6091f20c40b995a6d5d5249900f79187f970af0d9712eb0be",
+    "benchmarks/schemas/forge-progress-aware-harness-qualification-v1.schema.json": "c55ad6abc902ce3bd21a8d666f25b0fde71df3502b0660dda440cc8f56473e47",
+    "benchmarks/preregistrations/cpp-progress-aware-harness-qualification-v1.md": "0b4c43c38fc37e8ad778dc96d20202300d444a7cb33957da5b016a2c724692cd",
+    "docs/superpowers/specs/2026-10-12-progress-aware-agent-harness-qualification-design.md": "f3e5aea8985dacbed3723941d451b0e813879167cf70f39309757db1fc905ac8",
+    "docs/superpowers/plans/2026-10-12-progress-aware-agent-harness-qualification.md": "6d43aa03baf87a24d49a4a21016e5c9e99c3ae37798d1a912055252574509011"
+  }
+}

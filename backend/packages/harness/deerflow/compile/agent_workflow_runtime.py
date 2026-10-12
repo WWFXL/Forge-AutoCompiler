@@ -473,10 +473,7 @@ class AgentWorkflowNodeRunner:
                 ledger=self.ledger,
             )
             tools = self._build_tools(service)
-            middleware = [
-                AgentWorkflowTerminationMiddleware(),
-                AgentWorkflowExecutionMiddleware(self.tracker, self.ledger, self.started_monotonic),
-            ]
+            middleware = self._build_middlewares()
             agent = create_agent(
                 model=self.model,
                 tools=tools,
@@ -555,6 +552,14 @@ class AgentWorkflowNodeRunner:
         )
         result.validate()
         return result
+
+    def _build_middlewares(self) -> list[AgentMiddleware]:
+        if self.ledger is None:
+            raise AgentWorkflowRuntimeError("agent workflow ledger 尚未初始化")
+        return [
+            AgentWorkflowTerminationMiddleware(),
+            AgentWorkflowExecutionMiddleware(self.tracker, self.ledger, self.started_monotonic),
+        ]
 
     def _validate_identity(self) -> None:
         current = self.manager.load_session(self.session.session_id, self.session.thread_id)

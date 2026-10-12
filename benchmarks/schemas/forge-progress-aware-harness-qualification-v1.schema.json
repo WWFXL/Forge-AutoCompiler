@@ -1,0 +1,186 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://forge.local/schemas/forge-progress-aware-harness-qualification-v1.schema.json",
+  "title": "Forge progress-aware harness zero-provider qualification v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "identity",
+    "issue",
+    "branch",
+    "evidence_root",
+    "authorization",
+    "parent",
+    "environment",
+    "budget",
+    "task",
+    "qualification",
+    "components"
+  ],
+  "properties": {
+    "$schema": {"type": "string"},
+    "schema_version": {"const": "1.0.0"},
+    "identity": {"const": "cpp-progress-aware-harness-qualification-v1"},
+    "issue": {"const": 433},
+    "branch": {"const": "yiwei/433-progress-aware-harness-qualification"},
+    "evidence_root": {
+      "const": ".compile-sessions/benchmark-evidence-progress-aware-harness-qualification-v1"
+    },
+    "authorization": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "credential_reads",
+        "provider_calls",
+        "jev_calls",
+        "formal_attempts",
+        "historical_evidence_write",
+        "replacement",
+        "backfill"
+      ],
+      "properties": {
+        "credential_reads": {"const": false},
+        "provider_calls": {"const": false},
+        "jev_calls": {"const": false},
+        "formal_attempts": {"const": 1},
+        "historical_evidence_write": {"const": false},
+        "replacement": {"const": false},
+        "backfill": {"const": false}
+      }
+    },
+    "parent": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "identity",
+        "evidence_root",
+        "inventory_canonical_sha256",
+        "checkpoint_state_id",
+        "checkpoint_sha256"
+      ],
+      "properties": {
+        "identity": {"const": "cpp-dynamic-budget-trajectory-benchmark-qualification-v5"},
+        "evidence_root": {
+          "const": ".compile-sessions/benchmark-evidence-dynamic-budget-trajectory-qualification-v5"
+        },
+        "inventory_canonical_sha256": {"$ref": "#/$defs/sha256"},
+        "checkpoint_state_id": {"const": "cmake-cxxopts-state-3"},
+        "checkpoint_sha256": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "environment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["compile_image", "image_id", "parallel_jobs", "network_policy"],
+      "properties": {
+        "compile_image": {"const": "autocompiler:gcc13"},
+        "image_id": {"pattern": "^sha256:[0-9a-f]{64}$", "type": "string"},
+        "parallel_jobs": {"const": 4},
+        "network_policy": {"const": "none-after-checkpoint"}
+      }
+    },
+    "budget": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "max_model_requests",
+        "max_recorded_tokens",
+        "max_agent_steps",
+        "max_tool_calls",
+        "max_commands",
+        "node_timeout_seconds",
+        "command_timeout_seconds",
+        "evaluator_timeout_seconds",
+        "replay_timeout_seconds",
+        "cleanup_timeout_seconds"
+      ],
+      "properties": {
+        "max_model_requests": {"const": 8},
+        "max_recorded_tokens": {"const": 1000},
+        "max_agent_steps": {"const": 24},
+        "max_tool_calls": {"const": 16},
+        "max_commands": {"const": 8},
+        "node_timeout_seconds": {"const": 900},
+        "command_timeout_seconds": {"const": 300},
+        "evaluator_timeout_seconds": {"const": 900},
+        "replay_timeout_seconds": {"const": 1200},
+        "cleanup_timeout_seconds": {"const": 120}
+      }
+    },
+    "task": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "task_id",
+        "build_system",
+        "checkpoint_state_id",
+        "repository_url",
+        "commit_sha",
+        "target",
+        "commands",
+        "oracle"
+      ],
+      "properties": {
+        "task_id": {"const": "cmake-cxxopts"},
+        "build_system": {"const": "cmake"},
+        "checkpoint_state_id": {"const": "cmake-cxxopts-state-3"},
+        "repository_url": {"const": "https://github.com/jarro2783/cxxopts.git"},
+        "commit_sha": {"pattern": "^[0-9a-f]{40}$", "type": "string"},
+        "target": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["target_id", "artifact_path", "artifact_type"],
+          "properties": {
+            "target_id": {"const": "cxxopts-consumer"},
+            "artifact_path": {"const": "bin/cxxopts-smoke"},
+            "artifact_type": {"const": "executable"}
+          }
+        },
+        "commands": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 3,
+          "items": {"$ref": "#/$defs/command"}
+        },
+        "oracle": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["command", "workdir", "timeout_seconds"],
+          "properties": {
+            "command": {"minLength": 1, "type": "string"},
+            "workdir": {"const": "/workspace/repo"},
+            "timeout_seconds": {"const": 30}
+          }
+        }
+      }
+    },
+    "qualification": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["pass_decision", "fail_decision"],
+      "properties": {
+        "pass_decision": {"const": "proceed_to_h0_h1_provider_comparison_design"},
+        "fail_decision": {"const": "stop_before_h0_h1_provider_comparison"}
+      }
+    },
+    "components": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {"$ref": "#/$defs/sha256"}
+    }
+  },
+  "$defs": {
+    "sha256": {"pattern": "^[0-9a-f]{64}$", "type": "string"},
+    "command": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["role", "command", "timeout_seconds"],
+      "properties": {
+        "role": {"enum": ["configure", "build", "artifact_stage"]},
+        "command": {"minLength": 1, "type": "string"},
+        "timeout_seconds": {"const": 300}
+      }
+    }
+  }
+}

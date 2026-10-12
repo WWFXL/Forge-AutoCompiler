@@ -1,0 +1,182 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://forge.local/schemas/forge-progress-aware-harness-qualification-v2.schema.json",
+  "title": "Forge progress-aware harness offline-replay qualification v2",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "identity",
+    "issue",
+    "branch",
+    "evidence_root",
+    "authorization",
+    "parent",
+    "remediation_parent",
+    "source_archive",
+    "environment",
+    "budget",
+    "task",
+    "qualification",
+    "components"
+  ],
+  "properties": {
+    "$schema": {"type": "string"},
+    "schema_version": {"const": "1.0.0"},
+    "identity": {"const": "cpp-progress-aware-harness-qualification-v2"},
+    "issue": {"const": 433},
+    "branch": {"const": "yiwei/433-progress-aware-harness-qualification"},
+    "evidence_root": {
+      "const": ".compile-sessions/benchmark-evidence-progress-aware-harness-qualification-v2"
+    },
+    "authorization": {
+      "const": {
+        "credential_reads": false,
+        "provider_calls": false,
+        "jev_calls": false,
+        "formal_attempts": 1,
+        "historical_evidence_write": false,
+        "replacement": false,
+        "backfill": false
+      }
+    },
+    "parent": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "identity",
+        "evidence_root",
+        "inventory_canonical_sha256",
+        "checkpoint_state_id",
+        "checkpoint_sha256"
+      ],
+      "properties": {
+        "identity": {"const": "cpp-dynamic-budget-trajectory-benchmark-qualification-v5"},
+        "evidence_root": {
+          "const": ".compile-sessions/benchmark-evidence-dynamic-budget-trajectory-qualification-v5"
+        },
+        "inventory_canonical_sha256": {"$ref": "#/$defs/sha256"},
+        "checkpoint_state_id": {"const": "cmake-cxxopts-state-3"},
+        "checkpoint_sha256": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "remediation_parent": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["identity", "evidence_root", "inventory_canonical_sha256", "failure"],
+      "properties": {
+        "identity": {"const": "cpp-progress-aware-harness-qualification-v1"},
+        "evidence_root": {
+          "const": ".compile-sessions/benchmark-evidence-progress-aware-harness-qualification-v1"
+        },
+        "inventory_canonical_sha256": {"$ref": "#/$defs/sha256"},
+        "failure": {"const": "clean_replay_git_fetch_gnutls_handshake"}
+      }
+    },
+    "source_archive": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["checkpoint_state_id", "checkpoint_sha256", "sha256"],
+      "properties": {
+        "checkpoint_state_id": {"const": "cmake-cxxopts-state-1"},
+        "checkpoint_sha256": {"const": "10fa2e17e60aa0f7311c57e13e901590906fac4e2710cac8712bf3bedbb3a5d5"},
+        "sha256": {"const": "96bed50fe9c3f1a3ce6925d6828d252ac215fad7e48f35a34efd1d19a4b5ad77"}
+      }
+    },
+    "environment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["compile_image", "image_id", "parallel_jobs", "network_policy"],
+      "properties": {
+        "compile_image": {"const": "autocompiler:gcc13"},
+        "image_id": {"const": "sha256:d27a6ab733c7c3a9cbb5e4b32fb595aa5a422ff04bd212888d1041b90a2c4c2a"},
+        "parallel_jobs": {"const": 4},
+        "network_policy": {"const": "none-after-checkpoint"}
+      }
+    },
+    "budget": {
+      "const": {
+        "max_model_requests": 8,
+        "max_recorded_tokens": 1000,
+        "max_agent_steps": 24,
+        "max_tool_calls": 16,
+        "max_commands": 8,
+        "node_timeout_seconds": 900,
+        "command_timeout_seconds": 300,
+        "evaluator_timeout_seconds": 900,
+        "replay_timeout_seconds": 1200,
+        "cleanup_timeout_seconds": 120
+      }
+    },
+    "task": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "task_id",
+        "build_system",
+        "checkpoint_state_id",
+        "repository_url",
+        "commit_sha",
+        "target",
+        "commands",
+        "oracle"
+      ],
+      "properties": {
+        "task_id": {"const": "cmake-cxxopts"},
+        "build_system": {"const": "cmake"},
+        "checkpoint_state_id": {"const": "cmake-cxxopts-state-3"},
+        "repository_url": {"const": "https://github.com/jarro2783/cxxopts.git"},
+        "commit_sha": {"const": "bb791540908e3dc623f54b34898c6ad3e47292ab"},
+        "target": {
+          "const": {
+            "target_id": "cxxopts-consumer",
+            "artifact_path": "bin/cxxopts-smoke",
+            "artifact_type": "executable"
+          }
+        },
+        "commands": {
+          "type": "array",
+          "prefixItems": [
+            {"$ref": "#/$defs/command"},
+            {"$ref": "#/$defs/command"},
+            {"$ref": "#/$defs/command"}
+          ],
+          "items": false,
+          "minItems": 3,
+          "maxItems": 3
+        },
+        "oracle": {
+          "const": {
+            "command": "/artifacts/bin/cxxopts-smoke",
+            "workdir": "/workspace/repo",
+            "timeout_seconds": 30
+          }
+        }
+      }
+    },
+    "qualification": {
+      "const": {
+        "pass_decision": "proceed_to_h0_h1_provider_comparison_design",
+        "fail_decision": "stop_before_h0_h1_provider_comparison"
+      }
+    },
+    "components": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {"$ref": "#/$defs/sha256"}
+    }
+  },
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "command": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["role", "command", "timeout_seconds"],
+      "properties": {
+        "role": {"enum": ["configure", "build", "artifact_stage"]},
+        "command": {"type": "string", "minLength": 1},
+        "timeout_seconds": {"const": 300}
+      }
+    }
+  }
+}

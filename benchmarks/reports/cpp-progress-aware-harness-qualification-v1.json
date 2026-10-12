@@ -1,0 +1,79 @@
+{
+  "checkpoint_state_id": "cmake-cxxopts-state-3",
+  "credential_reads": 0,
+  "decision": "stop_before_h0_h1_provider_comparison",
+  "event_summary": {
+    "candidate_prefreeze_verified": true,
+    "candidate_submit_accepted": true,
+    "context_compaction_count": 5,
+    "effective_compaction_count": 2,
+    "event_count": 40,
+    "progress_snapshot_count": 5,
+    "ready_guard_rejections": 1
+  },
+  "evidence_inventory_canonical_sha256": "b45dd050963ecb033b15f246f62c4d0db4fa0b48c450e352d8d18ffc258024cd",
+  "identity": "cpp-progress-aware-harness-qualification-v1",
+  "interpretation": {
+    "engineering_gate_only": true,
+    "harness_treatment_effect": false,
+    "model_capability_claim": false,
+    "provider_cost_claim": false
+  },
+  "layers": [
+    {
+      "layer": "S0",
+      "status": "passed"
+    },
+    {
+      "layer": "S1",
+      "status": "passed"
+    },
+    {
+      "layer": "S2",
+      "status": "passed"
+    },
+    {
+      "layer": "S3",
+      "status": "passed"
+    },
+    {
+      "layer": "S4",
+      "status": "passed"
+    },
+    {
+      "layer": "S5",
+      "status": "failed"
+    }
+  ],
+  "manifest_sha256": "56417b07f1b89ef6a85f443dc7be03023baf0b3b81ffc484834ebccdd4f217df",
+  "passed": false,
+  "provider_requests": 0,
+  "qualification": {
+    "decision": "stop_before_h0_h1_provider_comparison",
+    "gates": {
+      "budget_accounting": true,
+      "candidate_submit": true,
+      "cleanup": true,
+      "context_compaction": true,
+      "parent_inventory_unchanged": true,
+      "prefreeze_verifier": true,
+      "progress_snapshot": true,
+      "ready_guard": true,
+      "script_completed": true,
+      "strict_endpoint": false,
+      "zero_provider_boundary": true
+    },
+    "passed": false
+  },
+  "release_revision": "703ce376358334abdce0ee694da6c8a57d9e19b3",
+  "schema_version": "1.0.0",
+  "status": "failed",
+  "strict_success": false,
+  "usage": {
+    "agent_steps": 10,
+    "commands": 3,
+    "model_requests": 5,
+    "recorded_tokens": 60,
+    "tool_calls": 5
+  }
+}
