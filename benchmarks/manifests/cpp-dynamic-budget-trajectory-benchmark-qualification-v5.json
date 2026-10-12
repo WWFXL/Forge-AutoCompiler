@@ -1,0 +1,155 @@
+{
+  "$schema": "forge-dynamic-budget-trajectory-benchmark-qualification-v5",
+  "schema_version": "1.0.0",
+  "identity": "cpp-dynamic-budget-trajectory-benchmark-qualification-v5",
+  "issue": 427,
+  "parent_issue": 421,
+  "implementation_revision": "30deeff6",
+  "image": {
+    "reference": "autocompiler:gcc13",
+    "id": "sha256:d27a6ab733c7c3a9cbb5e4b32fb595aa5a422ff04bd212888d1041b90a2c4c2a"
+  },
+  "authorization": {
+    "zero_provider_collection": true,
+    "credential_read": false,
+    "provider_request": false,
+    "agent_continuation": false,
+    "controller_implementation": false,
+    "historical_evidence_write": false
+  },
+  "evidence_root": ".compile-sessions/benchmark-evidence-dynamic-budget-trajectory-qualification-v5",
+  "repetitions_per_state": 2,
+  "states_per_project": 3,
+  "shared_block_budget": {
+    "wall_clock_milliseconds": 900000,
+    "provider_requests": 0,
+    "input_tokens": 0,
+    "output_tokens": 0,
+    "provider_cost_microusd": 0,
+    "build_executions": 18
+  },
+  "allocation": {
+    "first_project": {"wall_clock_milliseconds": 300000, "build_executions": 6},
+    "second_project": {"wall_clock_milliseconds": 300000, "build_executions": 6},
+    "third_project_before_stop": {"wall_clock_milliseconds": 0, "build_executions": 0},
+    "stopped_reservation": {"wall_clock_milliseconds": 300000, "build_executions": 6}
+  },
+  "projects": [
+    {
+      "case_id": "cmake-spdlog",
+      "build_system": "cmake",
+      "project_family": "github.com/gabime/spdlog",
+      "repository_url": "https://github.com/gabime/spdlog.git",
+      "commit_sha": "d6c93f38a08b4ea0f8ffcfd7f7857307d5d5c3fa",
+      "actions": [
+        {"action_id": "configure", "role": "configure", "command": "cmake -S . -B build -DSPDLOG_BUILD_TESTS=OFF -DSPDLOG_BUILD_EXAMPLE=OFF -DSPDLOG_BUILD_BENCH=OFF", "declared_outputs": ["build/CMakeCache.txt"]},
+        {"action_id": "build", "role": "build", "command": "cmake --build build --parallel 2", "declared_outputs": ["build/libspdlog.a"]},
+        {"action_id": "artifact-stage", "role": "artifact_stage", "command": "cmake --install build --prefix /artifacts", "declared_outputs": ["/artifacts/lib/libspdlog.a"]}
+      ]
+    },
+    {
+      "case_id": "cmake-cli11",
+      "build_system": "cmake",
+      "project_family": "github.com/cliutils/cli11",
+      "repository_url": "https://github.com/CLIUtils/CLI11.git",
+      "commit_sha": "07c9f13b15a70c367a406e1cfe2c363aa1b66894",
+      "actions": [
+        {"action_id": "configure", "role": "configure", "command": "cmake -S . -B build -DCLI11_BUILD_TESTS=OFF -DCLI11_BUILD_EXAMPLES=OFF", "declared_outputs": ["build/CMakeCache.txt"]},
+        {"action_id": "build", "role": "build", "command": "cmake --build build --parallel 2", "declared_outputs": ["build/Makefile"]},
+        {"action_id": "artifact-stage", "role": "artifact_stage", "command": "cmake --install build --prefix /artifacts", "declared_outputs": ["/artifacts/include/CLI/CLI.hpp"]}
+      ]
+    },
+    {
+      "case_id": "cmake-cxxopts",
+      "build_system": "cmake",
+      "project_family": "github.com/jarro2783/cxxopts",
+      "repository_url": "https://github.com/jarro2783/cxxopts.git",
+      "commit_sha": "bb791540908e3dc623f54b34898c6ad3e47292ab",
+      "actions": [
+        {"action_id": "configure", "role": "configure", "command": "cmake -S . -B build -DCXXOPTS_BUILD_TESTS=OFF -DCXXOPTS_BUILD_EXAMPLES=OFF", "declared_outputs": ["build/CMakeCache.txt"]},
+        {"action_id": "build", "role": "build", "command": "cmake --build build --parallel 2", "declared_outputs": ["build/Makefile"]},
+        {"action_id": "artifact-stage", "role": "artifact_stage", "command": "cmake --install build --prefix /artifacts", "declared_outputs": ["/artifacts/include/cxxopts.hpp"]}
+      ]
+    },
+    {
+      "case_id": "make-libtommath",
+      "build_system": "make",
+      "project_family": "github.com/libtom/libtommath",
+      "repository_url": "https://github.com/libtom/libtommath.git",
+      "commit_sha": "ae40a87a920099a7d9d00979570e0c8d917a1fd7",
+      "actions": [
+        {"action_id": "build", "role": "build", "command": "make -f makefile -j2", "declared_outputs": ["libtommath.a"]},
+        {"action_id": "smoke", "role": "smoke", "command": "test -s libtommath.a", "declared_outputs": ["libtommath.a"]},
+        {"action_id": "artifact-stage", "role": "artifact_stage", "command": "install -Dm644 libtommath.a /artifacts/libtommath.a", "declared_outputs": ["/artifacts/libtommath.a"]}
+      ]
+    },
+    {
+      "case_id": "make-tiny-aes-c",
+      "build_system": "make",
+      "project_family": "github.com/kokke/tiny-aes-c",
+      "repository_url": "https://github.com/kokke/tiny-AES-c.git",
+      "commit_sha": "23856752fbd139da0b8ca6e471a13d5bcc99a08d",
+      "actions": [
+        {"action_id": "build", "role": "build", "command": "make -j2", "declared_outputs": ["test.elf"]},
+        {"action_id": "smoke", "role": "smoke", "command": "./test.elf", "declared_outputs": ["test.elf"]},
+        {"action_id": "artifact-stage", "role": "artifact_stage", "command": "install -Dm755 test.elf /artifacts/tiny-aes-test", "declared_outputs": ["/artifacts/tiny-aes-test"]}
+      ]
+    },
+    {
+      "case_id": "make-kilo",
+      "build_system": "make",
+      "project_family": "github.com/antirez/kilo",
+      "repository_url": "https://github.com/antirez/kilo.git",
+      "commit_sha": "323d93b29bd89a2cb446de90c4ed4fea1764176e",
+      "actions": [
+        {"action_id": "build", "role": "build", "command": "make -j2", "declared_outputs": ["kilo"]},
+        {"action_id": "smoke", "role": "smoke", "command": "test -x kilo", "declared_outputs": ["kilo"]},
+        {"action_id": "artifact-stage", "role": "artifact_stage", "command": "install -Dm755 kilo /artifacts/kilo", "declared_outputs": ["/artifacts/kilo"]}
+      ]
+    },
+    {
+      "case_id": "autotools-libestr",
+      "build_system": "autotools",
+      "project_family": "github.com/rsyslog/libestr",
+      "repository_url": "https://github.com/rsyslog/libestr.git",
+      "commit_sha": "3e7bd45056ee1d3f9fba48d997bb2116ae52018f",
+      "actions": [
+        {"action_id": "configure", "role": "configure", "command": "autoreconf -fi && ./configure --prefix=/artifacts", "declared_outputs": ["config.status"]},
+        {"action_id": "build", "role": "build", "command": "make -j2", "declared_outputs": ["src/.libs/libestr.a"]},
+        {"action_id": "artifact-stage", "role": "artifact_stage", "command": "make install", "declared_outputs": ["/artifacts/lib/libestr.a"]}
+      ]
+    },
+    {
+      "case_id": "autotools-libfastjson",
+      "build_system": "autotools",
+      "project_family": "github.com/rsyslog/libfastjson",
+      "repository_url": "https://github.com/rsyslog/libfastjson.git",
+      "commit_sha": "2c7616434c0d474d338eda41a7e30ab96b95ee12",
+      "actions": [
+        {"action_id": "configure", "role": "configure", "command": "autoreconf -fi && ./configure --prefix=/artifacts", "declared_outputs": ["config.status"]},
+        {"action_id": "build", "role": "build", "command": "make -j2", "declared_outputs": [".libs/libfastjson.a"]},
+        {"action_id": "artifact-stage", "role": "artifact_stage", "command": "make install", "declared_outputs": ["/artifacts/lib/libfastjson.a"]}
+      ]
+    },
+    {
+      "case_id": "autotools-libev",
+      "build_system": "autotools",
+      "project_family": "github.com/enki/libev",
+      "repository_url": "https://github.com/enki/libev.git",
+      "commit_sha": "93823e6ca699df195a6c7b8bfa6006ec40ee0003",
+      "actions": [
+        {"action_id": "configure", "role": "configure", "command": "autoreconf -fi && ./configure --prefix=/artifacts", "declared_outputs": ["config.status"]},
+        {"action_id": "build", "role": "build", "command": "make -j2", "declared_outputs": [".libs/libev.a"]},
+        {"action_id": "artifact-stage", "role": "artifact_stage", "command": "make install", "declared_outputs": ["/artifacts/lib/libev.a"]}
+      ]
+    }
+  ],
+  "qualification": {
+    "required_systems": ["cmake", "make", "autotools"],
+    "projects_per_system": 3,
+    "states": 27,
+    "continuations": 54,
+    "pass_decision": "proceed_to_agent_continuation_qualification_design",
+    "fail_decision": "stop_before_agent_continuation_and_controller_implementation"
+  }
+}
