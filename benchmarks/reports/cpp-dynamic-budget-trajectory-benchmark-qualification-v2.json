@@ -1,0 +1,211 @@
+{
+  "audit": {
+    "continuations": 8,
+    "credential_read": false,
+    "decision": "stop_before_agent_continuation_and_controller_implementation",
+    "inventory_canonical_sha256": "29a751233dff1be024e9e00225234880931e67524ce9157ff69541cc0c48aa23",
+    "inventory_file_count": 1808,
+    "inventory_total_bytes": 20469394,
+    "provider_requests": 0,
+    "states": 3,
+    "status": "failed",
+    "valid": true
+  },
+  "blocks": [],
+  "decision": "stop_before_agent_continuation_and_controller_implementation",
+  "evidence_inventory_canonical_sha256": "29a751233dff1be024e9e00225234880931e67524ce9157ff69541cc0c48aa23",
+  "failure": {
+    "message": "continuation mismatch at cmake-cli11-state-1",
+    "type": "QualificationError"
+  },
+  "failure_classification": null,
+  "identity": "cpp-dynamic-budget-trajectory-benchmark-qualification-v2",
+  "interpretation": {
+    "does_not_support": [
+      "动态预算 controller 的成功率、成本或时间效果",
+      "Jev 或 Agent continuation 的能力",
+      "自然失败、开放世界或总体项目泛化"
+    ],
+    "supports": [
+      "本 identity 的停止结论与已观察缺口",
+      "失败前已观察状态"
+    ]
+  },
+  "manifest_canonical_sha256": "32ebbab305f92649cec50600f41db86cdbc3c13e5eac3c4f7fcaf8051279b513",
+  "manifest_sha256": "01ef73559565be7f246b21e867fc4b4af54975b05d575545a0a2211c87f3b265",
+  "partial_observations": {
+    "attempted_state_ids": [
+      "cmake-cli11-state-1",
+      "cmake-spdlog-state-1",
+      "cmake-spdlog-state-2",
+      "cmake-spdlog-state-3"
+    ],
+    "recorded_repetitions": [
+      {
+        "artifacts_tree_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "declared_outputs": {
+          "build/CMakeCache.txt": {
+            "kind": "file",
+            "sha256": "dff45c1f20eccc6f8f2df807159ea58e4cd00c1cac38670f17192adadcf5609b",
+            "size": 20648
+          }
+        },
+        "exit_code": 0,
+        "repetition": 1,
+        "state_id": "cmake-cli11-state-1",
+        "successor_sha256": "eb3166e3c6a79ee85eb60d48cef8dc453eb89d7719725b5108875c4876077bec",
+        "workspace_tree_sha256": "865e633008b7b588f3e7c2dbf9802fc42befcc8bffefe84c92808acf43018b0d"
+      },
+      {
+        "artifacts_tree_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "declared_outputs": {
+          "build/CMakeCache.txt": {
+            "kind": "file",
+            "sha256": "b3a0b80e2ae9dcdb0cc8d3fdcfe5112e1a96746532362e97947695135b4d64ad",
+            "size": 20648
+          }
+        },
+        "exit_code": 0,
+        "repetition": 2,
+        "state_id": "cmake-cli11-state-1",
+        "successor_sha256": "638f3f853612dbdb49b4ac17b505b3790d6bc492ea14c02a0f73a3c01bc33b24",
+        "workspace_tree_sha256": "6876f94546d3a83a6aa3e50170be503960b6c1b9dadc71c110b7a90e1d526bb9"
+      },
+      {
+        "artifacts_tree_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "declared_outputs": {
+          "build/CMakeCache.txt": {
+            "kind": "file",
+            "sha256": "57783390122918a93cb4bc20131bd31ea42d7b2f91a9dcf2b33bb9b36574d483",
+            "size": 19531
+          }
+        },
+        "exit_code": 0,
+        "repetition": 1,
+        "state_id": "cmake-spdlog-state-1",
+        "successor_sha256": "9afabebaf24e839a008a3058f4387f282adf524229983f093cd970fda119462d",
+        "workspace_tree_sha256": "b8dd2c6077b1be756edec08d8543ff18255b3760a91085b2cc5d9058d359f891"
+      },
+      {
+        "artifacts_tree_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "declared_outputs": {
+          "build/CMakeCache.txt": {
+            "kind": "file",
+            "sha256": "57783390122918a93cb4bc20131bd31ea42d7b2f91a9dcf2b33bb9b36574d483",
+            "size": 19531
+          }
+        },
+        "exit_code": 0,
+        "repetition": 2,
+        "state_id": "cmake-spdlog-state-1",
+        "successor_sha256": "9afabebaf24e839a008a3058f4387f282adf524229983f093cd970fda119462d",
+        "workspace_tree_sha256": "b8dd2c6077b1be756edec08d8543ff18255b3760a91085b2cc5d9058d359f891"
+      },
+      {
+        "artifacts_tree_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "declared_outputs": {
+          "build/libspdlog.a": {
+            "kind": "file",
+            "sha256": "98f19bccd84c9d8ba846d6c7a88e381ea79422e3e7bf64f826f8aa7af0744517",
+            "size": 1443810
+          }
+        },
+        "exit_code": 0,
+        "repetition": 1,
+        "state_id": "cmake-spdlog-state-2",
+        "successor_sha256": "bddf26498d56df00df8ff364a82c0acc7173a0e33e2ac043cc4c53b46835dd26",
+        "workspace_tree_sha256": "4868773f4dc77a83524b791e82c81ab5609c28d3658f56ff4b15d78687102bc7"
+      },
+      {
+        "artifacts_tree_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "declared_outputs": {
+          "build/libspdlog.a": {
+            "kind": "file",
+            "sha256": "98f19bccd84c9d8ba846d6c7a88e381ea79422e3e7bf64f826f8aa7af0744517",
+            "size": 1443810
+          }
+        },
+        "exit_code": 0,
+        "repetition": 2,
+        "state_id": "cmake-spdlog-state-2",
+        "successor_sha256": "bddf26498d56df00df8ff364a82c0acc7173a0e33e2ac043cc4c53b46835dd26",
+        "workspace_tree_sha256": "4868773f4dc77a83524b791e82c81ab5609c28d3658f56ff4b15d78687102bc7"
+      },
+      {
+        "artifacts_tree_sha256": "2b17dd3266c5fa677dceca6fa33890574d1f926010d320c9df7b8a603aa84dc8",
+        "declared_outputs": {
+          "/artifacts/lib/libspdlog.a": {
+            "kind": "file",
+            "sha256": "98f19bccd84c9d8ba846d6c7a88e381ea79422e3e7bf64f826f8aa7af0744517",
+            "size": 1443810
+          }
+        },
+        "exit_code": 0,
+        "repetition": 1,
+        "state_id": "cmake-spdlog-state-3",
+        "successor_sha256": "ce272217230e03d71ce3ccaee6de47b7f09a5080111e1b79d99ae8b163aafb8d",
+        "workspace_tree_sha256": "d159ef5e36a6a997102808c1dd45860a9b12fc32257425b6ac1a04e55654c4bc"
+      },
+      {
+        "artifacts_tree_sha256": "2b17dd3266c5fa677dceca6fa33890574d1f926010d320c9df7b8a603aa84dc8",
+        "declared_outputs": {
+          "/artifacts/lib/libspdlog.a": {
+            "kind": "file",
+            "sha256": "98f19bccd84c9d8ba846d6c7a88e381ea79422e3e7bf64f826f8aa7af0744517",
+            "size": 1443810
+          }
+        },
+        "exit_code": 0,
+        "repetition": 2,
+        "state_id": "cmake-spdlog-state-3",
+        "successor_sha256": "ce272217230e03d71ce3ccaee6de47b7f09a5080111e1b79d99ae8b163aafb8d",
+        "workspace_tree_sha256": "d159ef5e36a6a997102808c1dd45860a9b12fc32257425b6ac1a04e55654c4bc"
+      }
+    ]
+  },
+  "projects": [
+    {
+      "budget_used": {
+        "build_executions": 6,
+        "wall_clock_milliseconds": 25382
+      },
+      "build_system": "cmake",
+      "case_id": "cmake-spdlog",
+      "project_family": "github.com/gabime/spdlog",
+      "state_count": 3
+    }
+  ],
+  "qualification": {
+    "decision": "stop_before_agent_continuation_and_controller_implementation",
+    "gates": {
+      "budget_conservation": false,
+      "checkpoint_binding": false,
+      "clean_continuations": false,
+      "cleanup": true,
+      "multistep_coverage": false,
+      "post_action_observation": false,
+      "project_coverage": false,
+      "repetition_consistency": false,
+      "stop_transfer": false
+    },
+    "passed": false
+  },
+  "schema_version": "1.0.0",
+  "status": "failed",
+  "summary": {
+    "agent_calls": 0,
+    "budget_conserved_states": 3,
+    "checkpoint_bindings": 3,
+    "completed_state_wall_clock_milliseconds": 25382,
+    "consistent_states": 3,
+    "continuations_in_completed_states": 6,
+    "continuations_recorded": 8,
+    "projects_completed": 1,
+    "provider_requests": 0,
+    "recorded_continuation_wall_clock_milliseconds": 27160,
+    "states_attempted": 4,
+    "states_completed": 3,
+    "stop_transfers": 0,
+    "successful_recorded_continuations": 8
+  }
+}

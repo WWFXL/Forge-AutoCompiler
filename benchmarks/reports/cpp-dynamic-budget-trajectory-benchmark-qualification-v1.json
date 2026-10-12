@@ -1,0 +1,107 @@
+{
+  "audit": {
+    "continuations": 2,
+    "credential_read": false,
+    "decision": "stop_before_agent_continuation_and_controller_implementation",
+    "inventory_canonical_sha256": "96d8df2fe6513a4f2f0838edc6b62dd9cb89060a4ddff80d006a866426430ca1",
+    "inventory_file_count": 639,
+    "inventory_total_bytes": 4526350,
+    "provider_requests": 0,
+    "states": 0,
+    "status": "failed",
+    "valid": true
+  },
+  "blocks": [],
+  "decision": "stop_before_agent_continuation_and_controller_implementation",
+  "evidence_inventory_canonical_sha256": "96d8df2fe6513a4f2f0838edc6b62dd9cb89060a4ddff80d006a866426430ca1",
+  "failure": {
+    "message": "continuation mismatch at cmake-spdlog-state-1",
+    "type": "QualificationError"
+  },
+  "failure_classification": null,
+  "identity": "cpp-dynamic-budget-trajectory-benchmark-qualification-v1",
+  "interpretation": {
+    "does_not_support": [
+      "动态预算 controller 的成功率、成本或时间效果",
+      "Jev 或 Agent continuation 的能力",
+      "自然失败、开放世界或总体项目泛化"
+    ],
+    "supports": [
+      "本 identity 的停止结论与已观察缺口",
+      "失败前已观察状态"
+    ]
+  },
+  "manifest_canonical_sha256": "7a95fa09beee083f02d2beceb880245fef56518cda9d89c9d55d1873ed8314a8",
+  "manifest_sha256": "c0536ebc2900c9fc44d78236685a67dcdeac17725ea3ecfa657406bacb8147de",
+  "partial_observations": {
+    "attempted_state_ids": [
+      "cmake-spdlog-state-1"
+    ],
+    "recorded_repetitions": [
+      {
+        "artifacts_tree_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "declared_outputs": {
+          "build/CMakeCache.txt": {
+            "kind": "file",
+            "sha256": "57783390122918a93cb4bc20131bd31ea42d7b2f91a9dcf2b33bb9b36574d483",
+            "size": 19531
+          }
+        },
+        "exit_code": 0,
+        "repetition": 1,
+        "state_id": "cmake-spdlog-state-1",
+        "successor_sha256": "fc3cff3e69f959b40df106219f5ebe919d1fc1a053f3ea7015acfd97153513a4",
+        "workspace_tree_sha256": "4b0efb7d3be79eb1d18a45f3130f69b69ade84294525ea2ff0cdb311dcc61cb8"
+      },
+      {
+        "artifacts_tree_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "declared_outputs": {
+          "build/CMakeCache.txt": {
+            "kind": "file",
+            "sha256": "57783390122918a93cb4bc20131bd31ea42d7b2f91a9dcf2b33bb9b36574d483",
+            "size": 19531
+          }
+        },
+        "exit_code": 0,
+        "repetition": 2,
+        "state_id": "cmake-spdlog-state-1",
+        "successor_sha256": "46acb48a34d2e3bec04694a77061a93f33ce9db03082fc5c87f0e36675911366",
+        "workspace_tree_sha256": "8398c2320f2192d15c8eb4209d2aa777c2b5732d59c46b856582755184669322"
+      }
+    ]
+  },
+  "projects": [],
+  "qualification": {
+    "decision": "stop_before_agent_continuation_and_controller_implementation",
+    "gates": {
+      "budget_conservation": false,
+      "checkpoint_binding": false,
+      "clean_continuations": false,
+      "cleanup": true,
+      "multistep_coverage": false,
+      "post_action_observation": false,
+      "project_coverage": false,
+      "repetition_consistency": false,
+      "stop_transfer": false
+    },
+    "passed": false
+  },
+  "schema_version": "1.0.0",
+  "status": "failed",
+  "summary": {
+    "agent_calls": 0,
+    "budget_conserved_states": 0,
+    "checkpoint_bindings": 0,
+    "completed_state_wall_clock_milliseconds": 0,
+    "consistent_states": 0,
+    "continuations_in_completed_states": 0,
+    "continuations_recorded": 2,
+    "projects_completed": 0,
+    "provider_requests": 0,
+    "recorded_continuation_wall_clock_milliseconds": 2350,
+    "states_attempted": 1,
+    "states_completed": 0,
+    "stop_transfers": 0,
+    "successful_recorded_continuations": 2
+  }
+}

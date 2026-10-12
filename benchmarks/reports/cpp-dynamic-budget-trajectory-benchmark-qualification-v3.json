@@ -1,0 +1,895 @@
+{
+  "audit": {
+    "continuations": 38,
+    "credential_read": false,
+    "decision": "stop_before_agent_continuation_and_controller_implementation",
+    "inventory_canonical_sha256": "3d0d290e7811e0fbc2f81192344ff4b847bc537f86edfcaed842cb083b51b0aa",
+    "inventory_file_count": 1789,
+    "inventory_total_bytes": 31812410,
+    "provider_requests": 0,
+    "states": 18,
+    "status": "failed",
+    "valid": true
+  },
+  "blocks": [
+    {
+      "allocations_initial": {
+        "cmake-cli11": {
+          "build_executions": 6,
+          "wall_clock_milliseconds": 300000
+        },
+        "cmake-cxxopts": {
+          "build_executions": 0,
+          "wall_clock_milliseconds": 0
+        },
+        "cmake-spdlog": {
+          "build_executions": 6,
+          "wall_clock_milliseconds": 300000
+        },
+        "stopped-reservation": {
+          "build_executions": 6,
+          "wall_clock_milliseconds": 300000
+        }
+      },
+      "budget_limit": {
+        "build_executions": 18,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "provider_cost_microusd": 0,
+        "provider_requests": 0,
+        "wall_clock_milliseconds": 900000
+      },
+      "budget_used": {
+        "build_executions": 18,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "provider_cost_microusd": 0,
+        "provider_requests": 0,
+        "wall_clock_milliseconds": 32008
+      },
+      "build_system": "cmake",
+      "stop_transfer": {
+        "after": {
+          "cmake-cli11": {
+            "build_executions": 6,
+            "wall_clock_milliseconds": 300000
+          },
+          "cmake-cxxopts": {
+            "build_executions": 6,
+            "wall_clock_milliseconds": 300000
+          },
+          "cmake-spdlog": {
+            "build_executions": 6,
+            "wall_clock_milliseconds": 300000
+          },
+          "stopped-reservation": {
+            "build_executions": 0,
+            "wall_clock_milliseconds": 0
+          }
+        },
+        "before": {
+          "cmake-cli11": {
+            "build_executions": 6,
+            "wall_clock_milliseconds": 300000
+          },
+          "cmake-cxxopts": {
+            "build_executions": 0,
+            "wall_clock_milliseconds": 0
+          },
+          "cmake-spdlog": {
+            "build_executions": 6,
+            "wall_clock_milliseconds": 300000
+          },
+          "stopped-reservation": {
+            "build_executions": 6,
+            "wall_clock_milliseconds": 300000
+          }
+        },
+        "conserved": true,
+        "passed": true,
+        "recipient": "cmake-cxxopts",
+        "released": {
+          "build_executions": 6,
+          "wall_clock_milliseconds": 300000
+        },
+        "stopped_task": "stopped-reservation"
+      },
+      "within_limit": true
+    },
+    {
+      "allocations_initial": {
+        "make-kilo": {
+          "build_executions": 0,
+          "wall_clock_milliseconds": 0
+        },
+        "make-libtommath": {
+          "build_executions": 6,
+          "wall_clock_milliseconds": 300000
+        },
+        "make-tiny-aes-c": {
+          "build_executions": 6,
+          "wall_clock_milliseconds": 300000
+        },
+        "stopped-reservation": {
+          "build_executions": 6,
+          "wall_clock_milliseconds": 300000
+        }
+      },
+      "budget_limit": {
+        "build_executions": 18,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "provider_cost_microusd": 0,
+        "provider_requests": 0,
+        "wall_clock_milliseconds": 900000
+      },
+      "budget_used": {
+        "build_executions": 18,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "provider_cost_microusd": 0,
+        "provider_requests": 0,
+        "wall_clock_milliseconds": 17836
+      },
+      "build_system": "make",
+      "stop_transfer": {
+        "after": {
+          "make-kilo": {
+            "build_executions": 6,
+            "wall_clock_milliseconds": 300000
+          },
+          "make-libtommath": {
+            "build_executions": 6,
+            "wall_clock_milliseconds": 300000
+          },
+          "make-tiny-aes-c": {
+            "build_executions": 6,
+            "wall_clock_milliseconds": 300000
+          },
+          "stopped-reservation": {
+            "build_executions": 0,
+            "wall_clock_milliseconds": 0
+          }
+        },
+        "before": {
+          "make-kilo": {
+            "build_executions": 0,
+            "wall_clock_milliseconds": 0
+          },
+          "make-libtommath": {
+            "build_executions": 6,
+            "wall_clock_milliseconds": 300000
+          },
+          "make-tiny-aes-c": {
+            "build_executions": 6,
+            "wall_clock_milliseconds": 300000
+          },
+          "stopped-reservation": {
+            "build_executions": 6,
+            "wall_clock_milliseconds": 300000
+          }
+        },
+        "conserved": true,
+        "passed": true,
+        "recipient": "make-kilo",
+        "released": {
+          "build_executions": 6,
+          "wall_clock_milliseconds": 300000
+        },
+        "stopped_task": "stopped-reservation"
+      },
+      "within_limit": true
+    }
+  ],
+  "decision": "stop_before_agent_continuation_and_controller_implementation",
+  "evidence_inventory_canonical_sha256": "3d0d290e7811e0fbc2f81192344ff4b847bc537f86edfcaed842cb083b51b0aa",
+  "failure": {
+    "message": "continuation mismatch at autotools-libestr-state-1",
+    "type": "QualificationError"
+  },
+  "failure_classification": null,
+  "identity": "cpp-dynamic-budget-trajectory-benchmark-qualification-v3",
+  "interpretation": {
+    "does_not_support": [
+      "动态预算 controller 的成功率、成本或时间效果",
+      "Jev 或 Agent continuation 的能力",
+      "自然失败、开放世界或总体项目泛化"
+    ],
+    "supports": [
+      "本 identity 的停止结论与已观察缺口",
+      "失败前已观察状态"
+    ]
+  },
+  "manifest_canonical_sha256": "d1fd7804f078c3a2d653429bb223e25f79123b29f2aa645ff280a00a4ab43c81",
+  "manifest_sha256": "261ad491fdd46af6dd127b4f2552279464a46da7707bd37458677f274a069892",
+  "partial_observations": {
+    "attempted_state_ids": [
+      "autotools-libestr-state-1",
+      "cmake-cli11-state-1",
+      "cmake-cli11-state-2",
+      "cmake-cli11-state-3",
+      "cmake-cxxopts-state-1",
+      "cmake-cxxopts-state-2",
+      "cmake-cxxopts-state-3",
+      "cmake-spdlog-state-1",
+      "cmake-spdlog-state-2",
+      "cmake-spdlog-state-3",
+      "make-kilo-state-1",
+      "make-kilo-state-2",
+      "make-kilo-state-3",
+      "make-libtommath-state-1",
+      "make-libtommath-state-2",
+      "make-libtommath-state-3",
+      "make-tiny-aes-c-state-1",
+      "make-tiny-aes-c-state-2",
+      "make-tiny-aes-c-state-3"
+    ],
+    "recorded_repetitions": [
+      {
+        "artifacts_tree_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "declared_outputs": {
+          "config.status": {
+            "kind": "file",
+            "sha256": "8dc267d00326e05434cccdd7490881bcfe9157646cea71d156b14cdc38adc7ec",
+            "size": 58324
+          }
+        },
+        "exit_code": 0,
+        "repetition": 1,
+        "state_id": "autotools-libestr-state-1",
+        "successor_sha256": "c2b1e9ed2a197b8b69d88144492e5ffd6b37ddf1e27ed54b6d94cec2b55f3fd5",
+        "workspace_tree_sha256": "d9f904490cae59792249427a03b0d0553ebf4b15db92e2a2238a574873153553"
+      },
+      {
+        "artifacts_tree_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "declared_outputs": {
+          "config.status": {
+            "kind": "file",
+            "sha256": "8dc267d00326e05434cccdd7490881bcfe9157646cea71d156b14cdc38adc7ec",
+            "size": 58324
+          }
+        },
+        "exit_code": 0,
+        "repetition": 2,
+        "state_id": "autotools-libestr-state-1",
+        "successor_sha256": "a8cf91ff86037257c417bf1d6d38382a8d9ee07285d3da8f48b4f3218ae5fe6e",
+        "workspace_tree_sha256": "756a853ecf69160a07e9d4e2ee6142f0dde46659354db4c3b71dc67f4a4befb1"
+      },
+      {
+        "artifacts_tree_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "declared_outputs": {
+          "build/CMakeCache.txt": {
+            "kind": "file",
+            "sha256": "8ff0fecb4c6528b61973dca8e72cb94efce761c46957c8937cef29939393f89a",
+            "size": 20655
+          }
+        },
+        "exit_code": 0,
+        "repetition": 1,
+        "state_id": "cmake-cli11-state-1",
+        "successor_sha256": "4ef4d489c22345dff3cc7da1a14a3abf4d753690081e32ba11912cc001993db9",
+        "workspace_tree_sha256": "b544a07fa66a2ccff67311e5979c9b0ebf48491a7015afd2283b58fc58216c9f"
+      },
+      {
+        "artifacts_tree_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "declared_outputs": {
+          "build/CMakeCache.txt": {
+            "kind": "file",
+            "sha256": "8ff0fecb4c6528b61973dca8e72cb94efce761c46957c8937cef29939393f89a",
+            "size": 20655
+          }
+        },
+        "exit_code": 0,
+        "repetition": 2,
+        "state_id": "cmake-cli11-state-1",
+        "successor_sha256": "4ef4d489c22345dff3cc7da1a14a3abf4d753690081e32ba11912cc001993db9",
+        "workspace_tree_sha256": "b544a07fa66a2ccff67311e5979c9b0ebf48491a7015afd2283b58fc58216c9f"
+      },
+      {
+        "artifacts_tree_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "declared_outputs": {
+          "build/Makefile": {
+            "kind": "file",
+            "sha256": "4fbb7c4724d525e88372cd096f7b583713bd24248a72277023087c4033e1c448",
+            "size": 22061
+          }
+        },
+        "exit_code": 0,
+        "repetition": 1,
+        "state_id": "cmake-cli11-state-2",
+        "successor_sha256": "a1a89b38e6668c0c2f73df084cf6c664712a23ba6eceea0e9aac3fda1536240e",
+        "workspace_tree_sha256": "b544a07fa66a2ccff67311e5979c9b0ebf48491a7015afd2283b58fc58216c9f"
+      },
+      {
+        "artifacts_tree_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "declared_outputs": {
+          "build/Makefile": {
+            "kind": "file",
+            "sha256": "4fbb7c4724d525e88372cd096f7b583713bd24248a72277023087c4033e1c448",
+            "size": 22061
+          }
+        },
+        "exit_code": 0,
+        "repetition": 2,
+        "state_id": "cmake-cli11-state-2",
+        "successor_sha256": "a1a89b38e6668c0c2f73df084cf6c664712a23ba6eceea0e9aac3fda1536240e",
+        "workspace_tree_sha256": "b544a07fa66a2ccff67311e5979c9b0ebf48491a7015afd2283b58fc58216c9f"
+      },
+      {
+        "artifacts_tree_sha256": "2738c3fb1bc7acc8efc6bf55b1a390a7672b5feb474c21c6c7b34a61eb62ff35",
+        "declared_outputs": {
+          "/artifacts/include/CLI/CLI.hpp": {
+            "kind": "file",
+            "sha256": "b0aa214ac913f67b28df19b4f0e7297171645ee20cc6c7a3f66041d62b0003bf",
+            "size": 752
+          }
+        },
+        "exit_code": 0,
+        "repetition": 1,
+        "state_id": "cmake-cli11-state-3",
+        "successor_sha256": "e22d96cbaf2f11adb3e8191360b85f99d4fdecba5760c6db69863055589729ab",
+        "workspace_tree_sha256": "c89ddf5fa6e4e2b2efbe59142e2f07f9793b88ad204cd21561795108ab95c975"
+      },
+      {
+        "artifacts_tree_sha256": "2738c3fb1bc7acc8efc6bf55b1a390a7672b5feb474c21c6c7b34a61eb62ff35",
+        "declared_outputs": {
+          "/artifacts/include/CLI/CLI.hpp": {
+            "kind": "file",
+            "sha256": "b0aa214ac913f67b28df19b4f0e7297171645ee20cc6c7a3f66041d62b0003bf",
+            "size": 752
+          }
+        },
+        "exit_code": 0,
+        "repetition": 2,
+        "state_id": "cmake-cli11-state-3",
+        "successor_sha256": "e22d96cbaf2f11adb3e8191360b85f99d4fdecba5760c6db69863055589729ab",
+        "workspace_tree_sha256": "c89ddf5fa6e4e2b2efbe59142e2f07f9793b88ad204cd21561795108ab95c975"
+      },
+      {
+        "artifacts_tree_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "declared_outputs": {
+          "build/CMakeCache.txt": {
+            "kind": "file",
+            "sha256": "7bc2fca093621ef94c502d9e5ada20ea62545ca2478fb500817860ee8912f48a",
+            "size": 18636
+          }
+        },
+        "exit_code": 0,
+        "repetition": 1,
+        "state_id": "cmake-cxxopts-state-1",
+        "successor_sha256": "f9f17e5c0cc4a5a50ca960b638d1f369d53281209ab3b52893d6698cfcccd972",
+        "workspace_tree_sha256": "cda564f2957c7fa7bd37b8ea8d9c1d926f7cbb790aa0b52f7c7f6f93e8fff8d5"
+      },
+      {
+        "artifacts_tree_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "declared_outputs": {
+          "build/CMakeCache.txt": {
+            "kind": "file",
+            "sha256": "7bc2fca093621ef94c502d9e5ada20ea62545ca2478fb500817860ee8912f48a",
+            "size": 18636
+          }
+        },
+        "exit_code": 0,
+        "repetition": 2,
+        "state_id": "cmake-cxxopts-state-1",
+        "successor_sha256": "f9f17e5c0cc4a5a50ca960b638d1f369d53281209ab3b52893d6698cfcccd972",
+        "workspace_tree_sha256": "cda564f2957c7fa7bd37b8ea8d9c1d926f7cbb790aa0b52f7c7f6f93e8fff8d5"
+      },
+      {
+        "artifacts_tree_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "declared_outputs": {
+          "build/Makefile": {
+            "kind": "file",
+            "sha256": "0348507c75b397593021eb5c0608ed570bad175bf0568f7c1a896ee3663b5d41",
+            "size": 6748
+          }
+        },
+        "exit_code": 0,
+        "repetition": 1,
+        "state_id": "cmake-cxxopts-state-2",
+        "successor_sha256": "d94125bec74d1130e3d1dc677a1fea6bfa911545d9f22b31a85d7a032fb9f04d",
+        "workspace_tree_sha256": "cda564f2957c7fa7bd37b8ea8d9c1d926f7cbb790aa0b52f7c7f6f93e8fff8d5"
+      },
+      {
+        "artifacts_tree_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "declared_outputs": {
+          "build/Makefile": {
+            "kind": "file",
+            "sha256": "0348507c75b397593021eb5c0608ed570bad175bf0568f7c1a896ee3663b5d41",
+            "size": 6748
+          }
+        },
+        "exit_code": 0,
+        "repetition": 2,
+        "state_id": "cmake-cxxopts-state-2",
+        "successor_sha256": "d94125bec74d1130e3d1dc677a1fea6bfa911545d9f22b31a85d7a032fb9f04d",
+        "workspace_tree_sha256": "cda564f2957c7fa7bd37b8ea8d9c1d926f7cbb790aa0b52f7c7f6f93e8fff8d5"
+      },
+      {
+        "artifacts_tree_sha256": "eb87eda590f0281aa2b0174ad3b32de3970d0528eb58360d51bd006541c54066",
+        "declared_outputs": {
+          "/artifacts/include/cxxopts.hpp": {
+            "kind": "file",
+            "sha256": "dcbca1ed72429010f766ebc09154d69f297d008ab382d1de661f0a3f06bcc79b",
+            "size": 68056
+          }
+        },
+        "exit_code": 0,
+        "repetition": 1,
+        "state_id": "cmake-cxxopts-state-3",
+        "successor_sha256": "b956a0a9f8ad7023fc20eab61d070871cdef62fd4229b4b45513297e9c672e09",
+        "workspace_tree_sha256": "a854035623759f5c02b24335029e8da69caa2f0713bb59848e7074906e5433ed"
+      },
+      {
+        "artifacts_tree_sha256": "eb87eda590f0281aa2b0174ad3b32de3970d0528eb58360d51bd006541c54066",
+        "declared_outputs": {
+          "/artifacts/include/cxxopts.hpp": {
+            "kind": "file",
+            "sha256": "dcbca1ed72429010f766ebc09154d69f297d008ab382d1de661f0a3f06bcc79b",
+            "size": 68056
+          }
+        },
+        "exit_code": 0,
+        "repetition": 2,
+        "state_id": "cmake-cxxopts-state-3",
+        "successor_sha256": "b956a0a9f8ad7023fc20eab61d070871cdef62fd4229b4b45513297e9c672e09",
+        "workspace_tree_sha256": "a854035623759f5c02b24335029e8da69caa2f0713bb59848e7074906e5433ed"
+      },
+      {
+        "artifacts_tree_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "declared_outputs": {
+          "build/CMakeCache.txt": {
+            "kind": "file",
+            "sha256": "57783390122918a93cb4bc20131bd31ea42d7b2f91a9dcf2b33bb9b36574d483",
+            "size": 19531
+          }
+        },
+        "exit_code": 0,
+        "repetition": 1,
+        "state_id": "cmake-spdlog-state-1",
+        "successor_sha256": "9afabebaf24e839a008a3058f4387f282adf524229983f093cd970fda119462d",
+        "workspace_tree_sha256": "b8dd2c6077b1be756edec08d8543ff18255b3760a91085b2cc5d9058d359f891"
+      },
+      {
+        "artifacts_tree_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "declared_outputs": {
+          "build/CMakeCache.txt": {
+            "kind": "file",
+            "sha256": "57783390122918a93cb4bc20131bd31ea42d7b2f91a9dcf2b33bb9b36574d483",
+            "size": 19531
+          }
+        },
+        "exit_code": 0,
+        "repetition": 2,
+        "state_id": "cmake-spdlog-state-1",
+        "successor_sha256": "9afabebaf24e839a008a3058f4387f282adf524229983f093cd970fda119462d",
+        "workspace_tree_sha256": "b8dd2c6077b1be756edec08d8543ff18255b3760a91085b2cc5d9058d359f891"
+      },
+      {
+        "artifacts_tree_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "declared_outputs": {
+          "build/libspdlog.a": {
+            "kind": "file",
+            "sha256": "98f19bccd84c9d8ba846d6c7a88e381ea79422e3e7bf64f826f8aa7af0744517",
+            "size": 1443810
+          }
+        },
+        "exit_code": 0,
+        "repetition": 1,
+        "state_id": "cmake-spdlog-state-2",
+        "successor_sha256": "bddf26498d56df00df8ff364a82c0acc7173a0e33e2ac043cc4c53b46835dd26",
+        "workspace_tree_sha256": "4868773f4dc77a83524b791e82c81ab5609c28d3658f56ff4b15d78687102bc7"
+      },
+      {
+        "artifacts_tree_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "declared_outputs": {
+          "build/libspdlog.a": {
+            "kind": "file",
+            "sha256": "98f19bccd84c9d8ba846d6c7a88e381ea79422e3e7bf64f826f8aa7af0744517",
+            "size": 1443810
+          }
+        },
+        "exit_code": 0,
+        "repetition": 2,
+        "state_id": "cmake-spdlog-state-2",
+        "successor_sha256": "bddf26498d56df00df8ff364a82c0acc7173a0e33e2ac043cc4c53b46835dd26",
+        "workspace_tree_sha256": "4868773f4dc77a83524b791e82c81ab5609c28d3658f56ff4b15d78687102bc7"
+      },
+      {
+        "artifacts_tree_sha256": "2b17dd3266c5fa677dceca6fa33890574d1f926010d320c9df7b8a603aa84dc8",
+        "declared_outputs": {
+          "/artifacts/lib/libspdlog.a": {
+            "kind": "file",
+            "sha256": "98f19bccd84c9d8ba846d6c7a88e381ea79422e3e7bf64f826f8aa7af0744517",
+            "size": 1443810
+          }
+        },
+        "exit_code": 0,
+        "repetition": 1,
+        "state_id": "cmake-spdlog-state-3",
+        "successor_sha256": "ce272217230e03d71ce3ccaee6de47b7f09a5080111e1b79d99ae8b163aafb8d",
+        "workspace_tree_sha256": "d159ef5e36a6a997102808c1dd45860a9b12fc32257425b6ac1a04e55654c4bc"
+      },
+      {
+        "artifacts_tree_sha256": "2b17dd3266c5fa677dceca6fa33890574d1f926010d320c9df7b8a603aa84dc8",
+        "declared_outputs": {
+          "/artifacts/lib/libspdlog.a": {
+            "kind": "file",
+            "sha256": "98f19bccd84c9d8ba846d6c7a88e381ea79422e3e7bf64f826f8aa7af0744517",
+            "size": 1443810
+          }
+        },
+        "exit_code": 0,
+        "repetition": 2,
+        "state_id": "cmake-spdlog-state-3",
+        "successor_sha256": "ce272217230e03d71ce3ccaee6de47b7f09a5080111e1b79d99ae8b163aafb8d",
+        "workspace_tree_sha256": "d159ef5e36a6a997102808c1dd45860a9b12fc32257425b6ac1a04e55654c4bc"
+      },
+      {
+        "artifacts_tree_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "declared_outputs": {
+          "kilo": {
+            "kind": "file",
+            "sha256": "71fadcb3371a146492f69d8585de81cf0ccc99e80467a5c8406746718ba1e094",
+            "size": 36288
+          }
+        },
+        "exit_code": 0,
+        "repetition": 1,
+        "state_id": "make-kilo-state-1",
+        "successor_sha256": "bb71f3ef42721dcdf83ba53fbc1268cfba916ab0196356923c73d91de33618af",
+        "workspace_tree_sha256": "61e523f01940cea88a6123f78325d0419fd2f35031f5fcc45df1f18f628ead36"
+      },
+      {
+        "artifacts_tree_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "declared_outputs": {
+          "kilo": {
+            "kind": "file",
+            "sha256": "71fadcb3371a146492f69d8585de81cf0ccc99e80467a5c8406746718ba1e094",
+            "size": 36288
+          }
+        },
+        "exit_code": 0,
+        "repetition": 2,
+        "state_id": "make-kilo-state-1",
+        "successor_sha256": "bb71f3ef42721dcdf83ba53fbc1268cfba916ab0196356923c73d91de33618af",
+        "workspace_tree_sha256": "61e523f01940cea88a6123f78325d0419fd2f35031f5fcc45df1f18f628ead36"
+      },
+      {
+        "artifacts_tree_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "declared_outputs": {
+          "kilo": {
+            "kind": "file",
+            "sha256": "71fadcb3371a146492f69d8585de81cf0ccc99e80467a5c8406746718ba1e094",
+            "size": 36288
+          }
+        },
+        "exit_code": 0,
+        "repetition": 1,
+        "state_id": "make-kilo-state-2",
+        "successor_sha256": "7ed34cfedb3bb4b3eba3db46b53ea8936286ff1e8da83a27fd3206d10f290ab9",
+        "workspace_tree_sha256": "61e523f01940cea88a6123f78325d0419fd2f35031f5fcc45df1f18f628ead36"
+      },
+      {
+        "artifacts_tree_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "declared_outputs": {
+          "kilo": {
+            "kind": "file",
+            "sha256": "71fadcb3371a146492f69d8585de81cf0ccc99e80467a5c8406746718ba1e094",
+            "size": 36288
+          }
+        },
+        "exit_code": 0,
+        "repetition": 2,
+        "state_id": "make-kilo-state-2",
+        "successor_sha256": "7ed34cfedb3bb4b3eba3db46b53ea8936286ff1e8da83a27fd3206d10f290ab9",
+        "workspace_tree_sha256": "61e523f01940cea88a6123f78325d0419fd2f35031f5fcc45df1f18f628ead36"
+      },
+      {
+        "artifacts_tree_sha256": "c371b91c8a6e539f12049613a41360792fb4ae27d66202808b9e69612902224b",
+        "declared_outputs": {
+          "/artifacts/kilo": {
+            "kind": "file",
+            "sha256": "71fadcb3371a146492f69d8585de81cf0ccc99e80467a5c8406746718ba1e094",
+            "size": 36288
+          }
+        },
+        "exit_code": 0,
+        "repetition": 1,
+        "state_id": "make-kilo-state-3",
+        "successor_sha256": "339180219bf9ed85d0d42683d2cb3cddc29f470c64460da0e3369cbf3f5fd9a5",
+        "workspace_tree_sha256": "61e523f01940cea88a6123f78325d0419fd2f35031f5fcc45df1f18f628ead36"
+      },
+      {
+        "artifacts_tree_sha256": "c371b91c8a6e539f12049613a41360792fb4ae27d66202808b9e69612902224b",
+        "declared_outputs": {
+          "/artifacts/kilo": {
+            "kind": "file",
+            "sha256": "71fadcb3371a146492f69d8585de81cf0ccc99e80467a5c8406746718ba1e094",
+            "size": 36288
+          }
+        },
+        "exit_code": 0,
+        "repetition": 2,
+        "state_id": "make-kilo-state-3",
+        "successor_sha256": "339180219bf9ed85d0d42683d2cb3cddc29f470c64460da0e3369cbf3f5fd9a5",
+        "workspace_tree_sha256": "61e523f01940cea88a6123f78325d0419fd2f35031f5fcc45df1f18f628ead36"
+      },
+      {
+        "artifacts_tree_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "declared_outputs": {
+          "libtommath.a": {
+            "kind": "file",
+            "sha256": "0a63046ce738d43cb6e169148832a64a4644008bb05826a888e7822eecbd7be9",
+            "size": 386392
+          }
+        },
+        "exit_code": 0,
+        "repetition": 1,
+        "state_id": "make-libtommath-state-1",
+        "successor_sha256": "026dbc014afed07d74903b09a5171e01c680567a13e38a8c86d6a226de906dbb",
+        "workspace_tree_sha256": "0499f7db27241eedd3828162bfc6aaf064ca796e10bb94c16984c416a4f39398"
+      },
+      {
+        "artifacts_tree_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "declared_outputs": {
+          "libtommath.a": {
+            "kind": "file",
+            "sha256": "0a63046ce738d43cb6e169148832a64a4644008bb05826a888e7822eecbd7be9",
+            "size": 386392
+          }
+        },
+        "exit_code": 0,
+        "repetition": 2,
+        "state_id": "make-libtommath-state-1",
+        "successor_sha256": "026dbc014afed07d74903b09a5171e01c680567a13e38a8c86d6a226de906dbb",
+        "workspace_tree_sha256": "0499f7db27241eedd3828162bfc6aaf064ca796e10bb94c16984c416a4f39398"
+      },
+      {
+        "artifacts_tree_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "declared_outputs": {
+          "libtommath.a": {
+            "kind": "file",
+            "sha256": "0a63046ce738d43cb6e169148832a64a4644008bb05826a888e7822eecbd7be9",
+            "size": 386392
+          }
+        },
+        "exit_code": 0,
+        "repetition": 1,
+        "state_id": "make-libtommath-state-2",
+        "successor_sha256": "1302774409a4830b82d46251d0ca3ab5675efb18608a6ac4940511e720b2090c",
+        "workspace_tree_sha256": "0499f7db27241eedd3828162bfc6aaf064ca796e10bb94c16984c416a4f39398"
+      },
+      {
+        "artifacts_tree_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "declared_outputs": {
+          "libtommath.a": {
+            "kind": "file",
+            "sha256": "0a63046ce738d43cb6e169148832a64a4644008bb05826a888e7822eecbd7be9",
+            "size": 386392
+          }
+        },
+        "exit_code": 0,
+        "repetition": 2,
+        "state_id": "make-libtommath-state-2",
+        "successor_sha256": "1302774409a4830b82d46251d0ca3ab5675efb18608a6ac4940511e720b2090c",
+        "workspace_tree_sha256": "0499f7db27241eedd3828162bfc6aaf064ca796e10bb94c16984c416a4f39398"
+      },
+      {
+        "artifacts_tree_sha256": "cb8674eb3f41629036e7f4a2f413421eb366df31408999135678c58877fac445",
+        "declared_outputs": {
+          "/artifacts/libtommath.a": {
+            "kind": "file",
+            "sha256": "0a63046ce738d43cb6e169148832a64a4644008bb05826a888e7822eecbd7be9",
+            "size": 386392
+          }
+        },
+        "exit_code": 0,
+        "repetition": 1,
+        "state_id": "make-libtommath-state-3",
+        "successor_sha256": "0241bf86a4e82328fba482f4f26c1a3cbaa586127face4f4f3be6b6ba6a35706",
+        "workspace_tree_sha256": "0499f7db27241eedd3828162bfc6aaf064ca796e10bb94c16984c416a4f39398"
+      },
+      {
+        "artifacts_tree_sha256": "cb8674eb3f41629036e7f4a2f413421eb366df31408999135678c58877fac445",
+        "declared_outputs": {
+          "/artifacts/libtommath.a": {
+            "kind": "file",
+            "sha256": "0a63046ce738d43cb6e169148832a64a4644008bb05826a888e7822eecbd7be9",
+            "size": 386392
+          }
+        },
+        "exit_code": 0,
+        "repetition": 2,
+        "state_id": "make-libtommath-state-3",
+        "successor_sha256": "0241bf86a4e82328fba482f4f26c1a3cbaa586127face4f4f3be6b6ba6a35706",
+        "workspace_tree_sha256": "0499f7db27241eedd3828162bfc6aaf064ca796e10bb94c16984c416a4f39398"
+      },
+      {
+        "artifacts_tree_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "declared_outputs": {
+          "test.elf": {
+            "kind": "file",
+            "sha256": "c80803a27bbb9942e67652391b8872757ae6de27fe5f3a358ee51d2a806a28a7",
+            "size": 16960
+          }
+        },
+        "exit_code": 0,
+        "repetition": 1,
+        "state_id": "make-tiny-aes-c-state-1",
+        "successor_sha256": "138d658c307e31a029297d410ae2fec37270c8ed3d8d4455ab464ec13e67bd51",
+        "workspace_tree_sha256": "42b45d1dcb6f2f88ef281d85e2567f1452424b06331b30d7a080423e6f2701fe"
+      },
+      {
+        "artifacts_tree_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "declared_outputs": {
+          "test.elf": {
+            "kind": "file",
+            "sha256": "c80803a27bbb9942e67652391b8872757ae6de27fe5f3a358ee51d2a806a28a7",
+            "size": 16960
+          }
+        },
+        "exit_code": 0,
+        "repetition": 2,
+        "state_id": "make-tiny-aes-c-state-1",
+        "successor_sha256": "138d658c307e31a029297d410ae2fec37270c8ed3d8d4455ab464ec13e67bd51",
+        "workspace_tree_sha256": "42b45d1dcb6f2f88ef281d85e2567f1452424b06331b30d7a080423e6f2701fe"
+      },
+      {
+        "artifacts_tree_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "declared_outputs": {
+          "test.elf": {
+            "kind": "file",
+            "sha256": "c80803a27bbb9942e67652391b8872757ae6de27fe5f3a358ee51d2a806a28a7",
+            "size": 16960
+          }
+        },
+        "exit_code": 0,
+        "repetition": 1,
+        "state_id": "make-tiny-aes-c-state-2",
+        "successor_sha256": "77fa7a95c5d153df25076634b95530144654754953ab5069473c5084e9ef46ed",
+        "workspace_tree_sha256": "42b45d1dcb6f2f88ef281d85e2567f1452424b06331b30d7a080423e6f2701fe"
+      },
+      {
+        "artifacts_tree_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "declared_outputs": {
+          "test.elf": {
+            "kind": "file",
+            "sha256": "c80803a27bbb9942e67652391b8872757ae6de27fe5f3a358ee51d2a806a28a7",
+            "size": 16960
+          }
+        },
+        "exit_code": 0,
+        "repetition": 2,
+        "state_id": "make-tiny-aes-c-state-2",
+        "successor_sha256": "77fa7a95c5d153df25076634b95530144654754953ab5069473c5084e9ef46ed",
+        "workspace_tree_sha256": "42b45d1dcb6f2f88ef281d85e2567f1452424b06331b30d7a080423e6f2701fe"
+      },
+      {
+        "artifacts_tree_sha256": "f591d15917ab26b29dcb585ffbae0f4163bea02a75a899971b29558d9f857c53",
+        "declared_outputs": {
+          "/artifacts/tiny-aes-test": {
+            "kind": "file",
+            "sha256": "c80803a27bbb9942e67652391b8872757ae6de27fe5f3a358ee51d2a806a28a7",
+            "size": 16960
+          }
+        },
+        "exit_code": 0,
+        "repetition": 1,
+        "state_id": "make-tiny-aes-c-state-3",
+        "successor_sha256": "d60b7f3f67ecaf784436c4a6299ae3ec40b8d4580f8e73185f06e04f9c0351be",
+        "workspace_tree_sha256": "42b45d1dcb6f2f88ef281d85e2567f1452424b06331b30d7a080423e6f2701fe"
+      },
+      {
+        "artifacts_tree_sha256": "f591d15917ab26b29dcb585ffbae0f4163bea02a75a899971b29558d9f857c53",
+        "declared_outputs": {
+          "/artifacts/tiny-aes-test": {
+            "kind": "file",
+            "sha256": "c80803a27bbb9942e67652391b8872757ae6de27fe5f3a358ee51d2a806a28a7",
+            "size": 16960
+          }
+        },
+        "exit_code": 0,
+        "repetition": 2,
+        "state_id": "make-tiny-aes-c-state-3",
+        "successor_sha256": "d60b7f3f67ecaf784436c4a6299ae3ec40b8d4580f8e73185f06e04f9c0351be",
+        "workspace_tree_sha256": "42b45d1dcb6f2f88ef281d85e2567f1452424b06331b30d7a080423e6f2701fe"
+      }
+    ]
+  },
+  "projects": [
+    {
+      "budget_used": {
+        "build_executions": 6,
+        "wall_clock_milliseconds": 24705
+      },
+      "build_system": "cmake",
+      "case_id": "cmake-spdlog",
+      "project_family": "github.com/gabime/spdlog",
+      "state_count": 3
+    },
+    {
+      "budget_used": {
+        "build_executions": 6,
+        "wall_clock_milliseconds": 3737
+      },
+      "build_system": "cmake",
+      "case_id": "cmake-cli11",
+      "project_family": "github.com/cliutils/cli11",
+      "state_count": 3
+    },
+    {
+      "budget_used": {
+        "build_executions": 6,
+        "wall_clock_milliseconds": 3566
+      },
+      "build_system": "cmake",
+      "case_id": "cmake-cxxopts",
+      "project_family": "github.com/jarro2783/cxxopts",
+      "state_count": 3
+    },
+    {
+      "budget_used": {
+        "build_executions": 6,
+        "wall_clock_milliseconds": 12131
+      },
+      "build_system": "make",
+      "case_id": "make-libtommath",
+      "project_family": "github.com/libtom/libtommath",
+      "state_count": 3
+    },
+    {
+      "budget_used": {
+        "build_executions": 6,
+        "wall_clock_milliseconds": 2916
+      },
+      "build_system": "make",
+      "case_id": "make-tiny-aes-c",
+      "project_family": "github.com/kokke/tiny-aes-c",
+      "state_count": 3
+    },
+    {
+      "budget_used": {
+        "build_executions": 6,
+        "wall_clock_milliseconds": 2789
+      },
+      "build_system": "make",
+      "case_id": "make-kilo",
+      "project_family": "github.com/antirez/kilo",
+      "state_count": 3
+    }
+  ],
+  "qualification": {
+    "decision": "stop_before_agent_continuation_and_controller_implementation",
+    "gates": {
+      "budget_conservation": false,
+      "checkpoint_binding": false,
+      "clean_continuations": false,
+      "cleanup": true,
+      "multistep_coverage": false,
+      "post_action_observation": false,
+      "project_coverage": false,
+      "repetition_consistency": false,
+      "stop_transfer": false
+    },
+    "passed": false
+  },
+  "schema_version": "1.0.0",
+  "status": "failed",
+  "summary": {
+    "agent_calls": 0,
+    "budget_conserved_states": 18,
+    "checkpoint_bindings": 18,
+    "completed_state_wall_clock_milliseconds": 49844,
+    "consistent_states": 18,
+    "continuations_in_completed_states": 36,
+    "continuations_recorded": 38,
+    "projects_completed": 6,
+    "provider_requests": 0,
+    "recorded_continuation_wall_clock_milliseconds": 67348,
+    "states_attempted": 19,
+    "states_completed": 18,
+    "stop_transfers": 2,
+    "successful_recorded_continuations": 38
+  }
+}

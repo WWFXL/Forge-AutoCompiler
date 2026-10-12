@@ -6,6 +6,15 @@
 
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
+- 2026-10-12 — Issue #423 动态预算多步轨迹 benchmark 资格在 checkpoint restore gate 停止
+  - 工作类型与问题: 零 Provider 数据资格、基础设施修正和失败审计。Issue #421 已证明旧 Jev/进展数据不能识别动态预算 controller；本阶段固定 CMake/Make/Autotools 各 3 个全新项目族，每项 3 个连续状态、每状态 2 个同源 Docker continuation，记录 source/image/workspace/artifacts/message/budget hash 与六维预算，并以项目 block 验证 stop reservation 转移。
+  - v1-v3 失败链: v1 首个 CMake configure 因 `CMakeConfigureLog.yaml` 的 `TryCompile/cmTC/tmp` 随机诊断名停止；v2 只排除四类原始保留的诊断日志，完整通过 spdlog 后发现 CLI11/CTest 将随机 Docker hostname 写入 `CMakeCache.txt` 和 `DartConfiguration.tcl`；v3 固定 state hostname 后完整通过 CMake/Make 6 项 18 状态，在 Autotools configure 因 `autom4te.cache/requests` 非权威缓存差异停止。三个 identity 均 create-once 封口且 evidence 只读。
+  - v4 结果: 最终语义等价规则保留完整 checkpoint/raw 文件，只从 successor decision hash 排除四类诊断日志和 `autom4te.cache`。v4 完成 6 个 CMake/Make 项目及 `libestr` configure/build，共 20 个完整状态；40/40 continuation exit 0 且 successor 等价，20/20 checkpoint 绑定、budget before/delta/after 守恒、direct 后 observation 闭合。CMake/Make 两个 block 均使用 18 次 build executions，2/2 stop reservation 原子转移通过。
+  - 最终停止: 恢复 `autotools-libestr-state-3` 时，Python `tarfile.extractall(filter="data")` 将合法 `src/.libs/libestr.la -> ../libestr.la` 相对 symlink 误判为 destination 外链接；该状态 0 continuation，`libfastjson/libev` 未观察。决定为 `stop_before_agent_continuation_and_controller_implementation`，分类为 checkpoint restore infrastructure failure，不是 controller、预算或 Autotools action 的负效果。
+  - Evidence: v4 为 1,797 files / 34,453,974 bytes，inventory canonical SHA-256 `e398003b48a2ded0b745900900481a21b2aa5879f3296ba71c06032f50e55294`；0 credential、0 Provider、0 Agent，cleanup 后 0 managed container。v1-v4 禁止重跑、续跑、replacement、backfill 或 raw evidence 修改。
+  - 下一步: 单独建立 symlink-safe restore engineering gate，按 symlink 成员父目录解析 containment，并覆盖真实越界、absolute link、hardlink、device/FIFO 和 round-trip；通过后才冻结全新 v5 qualification。v5 全跨系统通过前不设计 Agent Provider continuation、不实现 controller。
+  - 文件: `docs/superpowers/specs/2026-10-12-dynamic-budget-trajectory-benchmark-qualification-design.md`, `scripts/forge_dynamic_budget_trajectory_qualification.py`, `scripts/forge_dynamic_budget_trajectory_qualification_v2.py` 至 `v4.py`, `benchmarks/reports/cpp-dynamic-budget-trajectory-benchmark-qualification-v1.md` 至 `v4.md`, `RESEARCH_STATUS.md`
+
 - 2026-10-12 — Issue #417 完成 Linux build-closure v5 工程修复与非正式 canary
   - 工作类型与问题: 工程修复、机制资格和结果分析。Issue #415 的 v4 source-only 门禁不能解析默认条件分支、默认 target 依赖闭包或实际编译目标，导致 Linux 项目双向误判，并允许 `SketchyBar` 这类 macOS-only 项目以重复稳定失败进入自然失败候选。
   - 修复机制: source-only 分类降级为候选与风险信号；新 runner 在 `autocompiler:gcc13`、`--network none`、固定 4 CPU 和两个 clean workspace 中执行默认 CMake/Make/Autotools 路径，比较构建前后文件，复用 Forge `_classify_compiled_artifact`，提取 ELF/archive member machine，并只从实际命令输出和真实产物提取 target signal。CMake compiler id/ABI 探针不计为项目产物；host closure 还要求产物路径绑定到实际 compiler/linker/`ar` producer，静默或预置 binary 保守保持未决。
