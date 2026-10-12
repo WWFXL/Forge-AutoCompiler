@@ -4,6 +4,25 @@
 
 ## 当前阶段
 
+- 状态：Issue #419 的 `cpp-jev-natural-failure-default-path-qualification-v1` 已完成唯一正式 attempt 和只读结果审计，
+  最终决定为 `stop_before_reference_closure_qualification_v1`。不创建 reference closure、typed-action matrix 或
+  自然失败 Provider 三臂 identity。
+- 正式 observation：v4 冻结的 CMake、Make、Autotools 各 12 项全部执行两个 clean default-path replicate，
+  共 36/36 项、72/72 observation 完成；分类为 23 个 `stable_failure_candidate`、5 个
+  `stable_host_userland_closure`、5 个 `stable_non_host_target`、2 个 `stable_no_compiled_artifact` 和 1 个
+  `network_dependency_excluded`。0 infrastructure failure、0 credential、0 Provider、0 model token，cleanup 后
+  0 managed resource。
+- 机械失败与审计边界：正式门槛错误要求已知非宿主项目不得保持 target-unresolved failure candidate，导致
+  `gta-reversed` 触发机械 stop；该门槛比 v5 reference-closure 合同更严格，不能解释为 `gta-reversed` 已证明可在
+  Linux 闭合。正式 report、marker 和 raw evidence 保持原样，不结果后改标签或重跑。
+- 不可挽回的配额结论：CMake calibration 固定三个槽分别为默认路径直接成功的 `primesieve`、默认 endpoint 为
+  Windows DLL 的 `gta-reversed`、kernel endpoint 的 `seL4`，所以 reference-eligible natural failure 上限为
+  `0/1`。禁止 replacement、backfill 和角色前移，因此即使移除过严门槛，reference 阶段也不可能通过。
+- 新构造效度缺口：`Hamlib` 默认构建生成大量宿主 x86_64 ELF/`ar`，却因 libtool 构建普通共享库时使用
+  `-nostdlib` 被误判为 freestanding。v5 的无作用域 target-signal 优先级不能原样推广；未来若重启自然失败抽样，
+  non-host 信号必须绑定具体 producer、产物或默认 endpoint。
+- 当前工作类型：正式零 Provider 数据资格与只读结果审计，不是 treatment 实验。自然失败路线当前停止；受控失败
+  Jev 正向结论和混合 Workflow 工程闭合结论不受影响，动态预算控制仍是尚未独立验证的下一研究候选。
 - 状态：Issue #417 已完成 Linux build-closure v5 机制实现与非正式工程 canary。新门禁不再用 source-only
   平台标签决定资格；默认路径重复失败只形成 `stable_failure_candidate`，只有绑定同一默认 target 的 reference
   recipe 在两个 clean workspace 中均生成宿主 Linux 用户态 ELF/`ar`，且 source identity clean，项目才可进入
@@ -179,6 +198,10 @@ BootstrapAgent、SWE-Skills-Bench、VibeMemBench 等轨迹控制、动作接口�
 - 项目族与时间隔离属于所有候选的评测纪律，不单独构成经验迁移的新机制。
 - Issue #409 已冻结为 `proceed_to_natural_failure_evaluation_design`；其 qualification、canary manifest、报告和 raw evidence 均已消费并永久只读，禁止重跑、续跑、replacement 或 backfill。
 - Issue #411 v1 决定为 `stop_natural_failure_evaluation_v1`；失败 attempt、marker、日志和生成报告永久只读，禁止续跑、replacement、backfill 或改写标签。若继续自然失败路线，必须先用新的 source-only catalog 验证根入口、递归 submodule 成本和离线依赖闭包，再在新 Issue/identity 中分层；本次部分结果不得进入 treatment 分母。
+- Issue #419 默认路径资格 v1 的正式 report、marker、273 个 evidence 文件和结果审计永久只读；CMake calibration
+  reference-eligible 上限为 `0/1`，决定为 `stop_before_reference_closure_qualification_v1`。不得创建其 reference
+  子 identity、移动角色或用 replacement/backfill 挽救。若未来重新抽样，必须使用新的候选池、角色和 identity，
+  并先修复 target signal 与 producer/endpoint 的作用域绑定。
 - 动态预算控制仍属于整体机制候选，但尚未独立验证；Issue #408/#409 均不能用于宣称预算控制有效。Issue #409 的固定安全预算只用于验证控制权交还和严格终点。
 - 新实验必须重新冻结有限预算向量、开发/测试项目隔离、严格成功、删失效率指标、最小有意义效应和分析顺序；旧 identity 的“无 token ceiling”不沿用为成本研究设计。
 
@@ -202,6 +225,10 @@ BootstrapAgent、SWE-Skills-Bench、VibeMemBench 等轨迹控制、动作接口�
 - v7 canary 证明同一控制器可在真实 Shell 和严格终点下闭合三种构建系统；Jev 的 `configure/build/dependency` 三次直接执行均严格成功，并在该三项目 canary 中避免完整 Agent 调用。
 - Issue #408 的正式比较支持：在冻结的 12 个未见项目族、三类受控构建失败、固定 `jev-1.13.0` 和当前校准阈值下，JevGate 相对 AlwaysAgent 同时满足严格成功非劣与 Provider 成本下降。21/21 次 Jev 直接动作通过严格终点，且 CMake、Make、Autotools 均无系统性退化。
 - Issue #409 的最小混合协调器可在真实 Provider 条件下完成 Jev 直接动作、Agent 升级、权威状态重读、S0-S5 严格验收和 cleanup；callback 自报成功不能绕过 observer 的严格终点。
+- Issue #419 在 36 个固定项目、72 次 clean observation 中得到 23 个稳定失败候选，说明候选失败本身并不稀缺；
+  但固定 CMake calibration 的 reference-eligible 上限为 `0/1`，当前样本和角色无法支撑自然失败三臂实验。
+- 默认路径动态执行能识别多类真实 endpoint，但仅凭完整日志任意位置出现 `-nostdlib` 等信号会误判普通宿主
+  libtool 构建；target 信号需要与 producer、产物和默认 endpoint 建立作用域关系。
 
 当前证据不能支持：
 
@@ -231,6 +258,8 @@ BootstrapAgent、SWE-Skills-Bench、VibeMemBench 等轨迹控制、动作接口�
 - 发布并审阅 Issue #382 和 #385 的版本化报告，保持失败结果与冻结输入可重建；为下一研究问题重新做文献与机制审计。
 - 只读核验 Issue #389/#391/#393/#395/#399/#400/#401/#403/#404/#406/#408/#409 的 manifest、报告与冻结 evidence。
 - 设计自然失败对照实验，明确样本来源、项目族和时间隔离、三臂基线、预算、停止规则、主要 estimand 与最小有意义效应；冻结新 identity 前不采集新数据。
+- 设计独立的动态预算控制资格问题，冻结状态、预算动作、反事实或可重复 continuation、删失效率指标和停止条件；
+  不复用 Issue #419 自然失败项目作为结果后筛选的 treatment 样本。
 
 禁止：
 
@@ -249,6 +278,8 @@ BootstrapAgent、SWE-Skills-Bench、VibeMemBench 等轨迹控制、动作接口�
 - 重跑、续跑、替换、补齐或覆盖 `cpp-jev-hybrid-workflow-qualification-v1/v2/v3` 与 `cpp-jev-hybrid-workflow-canary-v1`，或修改其 raw evidence。
 - 重跑、续跑、替换、补齐或覆盖 `cpp-jev-natural-failure-linux-applicability-v3`，或把 v3 的后验人工标签改写进正式 report/evidence。
 - 在独立 identity、自然失败样本、预算、停止规则和 create-once evidence 目录冻结前调用下一阶段 Provider 或写新实验 evidence。
+- 重跑、续跑、替换、补齐或覆盖 `cpp-jev-natural-failure-default-path-qualification-v1`，修改其机械 stop 标签，或
+  为该 identity 创建 reference/action/Provider 子实验。
 
 ## 权威入口
 
@@ -257,6 +288,9 @@ BootstrapAgent、SWE-Skills-Bench、VibeMemBench 等轨迹控制、动作接口�
 - Mechanism v2 失败审计：`benchmarks/reports/cpp-contract-driven-repair-mechanism-v2-formal-failure-audit.md`。
 - Runtime v3 qualification：`benchmarks/preregistrations/cpp-runtime-v3-three-arm-zero-provider-qualification.md`。
 - Stage C v8 审计：`benchmarks/reports/cpp-stage-c-v8-workspace-remediation-result-audit.md`。
+- Issue #419 正式默认路径报告：`benchmarks/reports/cpp-jev-natural-failure-default-path-qualification-v1.md`；结果审计：
+  `benchmarks/reports/cpp-jev-natural-failure-default-path-qualification-v1-result-audit.md`；raw evidence：
+  `.compile-sessions/benchmark-evidence-jev-natural-failure-default-path-qualification-v1`。
 - 2026-10-06 已按 `search_notes -> read_note` 核对个人知识库论文索引、CXXCrafter 和 CompileAgent 解读；本轮不修改知识库。
 - 2026-10-07 已按 `search_notes -> read_note` 核对个人知识库笔记“Forge 毕业论文方向与契约驱动修复设计”；本轮不修改知识库。
 - 2026-10-09 已按 `search_notes -> read_note` 核对个人知识库“2025-2026 自动化编译论文索引”和旧方向设计原文；本轮不修改知识库。
@@ -298,4 +332,8 @@ BootstrapAgent、SWE-Skills-Bench、VibeMemBench 等轨迹控制、动作接口�
 
 ## 下一项工作
 
-下一阶段先完成 Linux applicability v4 修复，不直接扩展协调器或调用 Provider。v4 使用全新 identity 和未见项目池，将 Linux 宿主支持与非宿主产物终点分开判断，以 v3 的 7 个排除边作为已暴露 regression fixture，并扩大候选搜索框以形成至少 12 个 Autotools reserve。只有 source-only 门禁、双 clean build 和 reference closure 依次通过，才设计 `AlwaysAgent`、`RuleGate+Agent`、`JevGate+Agent` 自然失败对照；动态预算控制继续作为后续独立研究问题。
+自然失败 Jev 三臂路线在当前样本与角色下停止，不继续 reference 或 Provider。下一研究阶段应回到整体机制中的未验证
+部分：对动态预算控制做独立文献与数据可辨识性审计，先定义 Workflow/Jev/Agent 的预算状态、`direct / escalate /
+stop` 动作、固定预算基线、删失效率指标和最小可证伪实验；只有零 Provider 轨迹能够提供可重复 continuation 或可信
+反事实标签时才实现 controller。`Hamlib` 暴露的 target-signal 作用域缺口作为未来重新构造自然失败 benchmark 的
+工程前置问题保留，不在已停止的 Issue #419 identity 中修复。

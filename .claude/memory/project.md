@@ -399,6 +399,14 @@
 
 <!-- 倒序，最新在上。 -->
 
+- 2026-10-12 — 完成 Issue #419 自然失败默认路径正式资格并停止在 reference closure 之前
+  - 工作类型与身份: 零 Provider 正式数据资格、结果分析与研究交接。identity 为 `cpp-jev-natural-failure-default-path-qualification-v1`，分支 `yiwei/419-formal-build-reference-v1`；候选协议提交 `c0a9b522976b131093c810e2df7f074429d24544`、授权提交 `47166ccfdf7436082e1da9c89999c144fa8353ac`。固定输入是 v4 report 中 CMake/Make/Autotools 各 12 个 reserve，rank 1--3/4--6/7--12 分别绑定 design/calibration/evaluation，不 replacement、不 backfill、不前移角色。
+  - 正式结果: 36/36 项和 72/72 clean observation 完成，用时 1093.10 秒；23 个 stable failure candidate、5 个 stable host closure、5 个 stable non-host、2 个 no-artifact、1 个 network exclusion。0 infrastructure failure、0 credential、0 Provider、0 model token，cleanup 后 0 managed resource。evidence 为 273 files / 7,053,633 bytes，inventory canonical SHA-256 `97b42a7ffb1c2da66fb2c4e38395d6410e246199344ffa03f2bac37a48bde09a`，formal audit `valid=true`。
+  - 机械失败与只读审计: 预注册错误要求已知非宿主项目不能停在 target-unresolved failure candidate，`gta-reversed` 因而触发 `stop_natural_failure_build_reference_qualification_v1`。该门槛比 v5 合同更严格，正式 report/evidence 不修改。独立审计进一步证明无需 replacement：CMake calibration 固定槽为默认成功的 `primesieve`、Windows DLL 的 `gta-reversed`、kernel endpoint 的 `seL4`，reference-eligible 上限为 `0/1`，所以 reference 阶段无论如何都不能满足冻结配额。
+  - 新构造效度问题: `Hamlib` 成功生成大量 x86_64 Linux ELF/`ar`，但 libtool 构建普通共享库时的 `-nostdlib` 被无作用域规则提升为 freestanding，造成 non-host 假阳性。该缺口不影响 CMake calibration 上界，但 v5 target signal 不能原样用于新候选池；未来必须把信号绑定具体 producer、产物或默认 endpoint。
+  - 决定与边界: 最终决定 `stop_before_reference_closure_qualification_v1`，不创建 reference、typed-action matrix 或自然失败 Provider identity。结果不评价 Jev/Agent 自然失败效果、成本收益或动态预算；Issue #408 受控失败正向结论和 Issue #409 混合链路闭合保持不变。下一研究候选转向独立的动态预算控制可辨识性审计。
+  - 文件: `scripts/forge_jev_natural_failure_default_path_qualification_v1.py`, `benchmarks/manifests/cpp-jev-natural-failure-default-path-qualification-v1.json`, `benchmarks/preregistrations/cpp-jev-natural-failure-default-path-qualification-v1.md`, `benchmarks/reports/cpp-jev-natural-failure-default-path-qualification-v1.json`, `benchmarks/reports/cpp-jev-natural-failure-default-path-qualification-v1.md`, `benchmarks/reports/cpp-jev-natural-failure-default-path-qualification-v1-result-audit.json`, `benchmarks/reports/cpp-jev-natural-failure-default-path-qualification-v1-result-audit.md`, `RESEARCH_STATUS.md`, `.claude/memory/project.md`
+
 - 2026-10-11 — 完成 Issue #408 Jev 未见项目族正式三臂比较并得到正向关键结论
   - 工作类型与问题: 正式数据采集、结果分析与研究交接。检验 `JevGate+Agent` 在 12 个未见项目族、CMake/Make/Autotools 各 4 个、每臂每族两次的 72-arm 受控失败比较中，能否相对 `AlwaysAgent` 保持严格成功非劣并降低 Provider 成本；不验证自然失败或动态预算控制。
   - 身份与资格: formal identity 为 `cpp-jev-formal-comparison-v6`，manifest canonical SHA-256 `cd5f30686677c6ac2aab1226f44437bbc0ed5ef1a702a45629bef157c35ad414`，release revision `65a051b8bdadbece7fe1bf18fbc6f83e75141a17`。v1-v5 的 source snapshot、权限、fault compatibility、artifact closure 和 Redis header 失败均冻结只读；v6 零 Provider qualification 为 12/12 strict，Provider/credential/formal attempt 为 0/0/0。
