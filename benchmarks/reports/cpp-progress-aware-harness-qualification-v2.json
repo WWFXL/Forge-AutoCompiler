@@ -1,0 +1,91 @@
+{
+  "checkpoint_state_id": "cmake-cxxopts-state-3",
+  "credential_reads": 0,
+  "decision": "proceed_to_h0_h1_provider_comparison_design",
+  "event_summary": {
+    "candidate_prefreeze_verified": true,
+    "candidate_submit_accepted": true,
+    "context_compaction_count": 5,
+    "effective_compaction_count": 2,
+    "event_count": 40,
+    "progress_snapshot_count": 5,
+    "ready_guard_rejections": 1
+  },
+  "evidence_inventory_canonical_sha256": "c71c32c91ee886c643d92e3bdec322fb8110bb9c7f7b7e94d935860a9cb5efd7",
+  "identity": "cpp-progress-aware-harness-qualification-v2",
+  "interpretation": {
+    "engineering_gate_only": true,
+    "harness_treatment_effect": false,
+    "model_capability_claim": false,
+    "provider_cost_claim": false,
+    "v1_failure_reclassified": false
+  },
+  "layers": [
+    {
+      "layer": "S0",
+      "status": "passed"
+    },
+    {
+      "layer": "S1",
+      "status": "passed"
+    },
+    {
+      "layer": "S2",
+      "status": "passed"
+    },
+    {
+      "layer": "S3",
+      "status": "passed"
+    },
+    {
+      "layer": "S4",
+      "status": "passed"
+    },
+    {
+      "layer": "S5",
+      "status": "passed"
+    }
+  ],
+  "manifest_sha256": "436a1a5af7c3c4d939b99f9138d38ccffa782e1d5c8a6cb2e9e28e3b8181504e",
+  "passed": true,
+  "provider_requests": 0,
+  "qualification": {
+    "decision": "proceed_to_h0_h1_provider_comparison_design",
+    "gates": {
+      "budget_accounting": true,
+      "candidate_submit": true,
+      "cleanup": true,
+      "context_compaction": true,
+      "offline_source_bound": true,
+      "offline_source_snapshot": true,
+      "parent_inventory_unchanged": true,
+      "prefreeze_verifier": true,
+      "progress_snapshot": true,
+      "ready_guard": true,
+      "remediation_parent_unchanged": true,
+      "replay_network_independent": true,
+      "script_completed": true,
+      "strict_endpoint": true,
+      "zero_provider_boundary": true
+    },
+    "passed": true
+  },
+  "release_revision": "f1c33d3f17c7dae586f6f1d34f13eaf411b44ba0",
+  "replay": {
+    "attempt_count": 1,
+    "git_fetch_present": false,
+    "source_archive_extract_present": true,
+    "source_snapshot_passed": true
+  },
+  "schema_version": "1.0.0",
+  "source_archive_sha256": "96bed50fe9c3f1a3ce6925d6828d252ac215fad7e48f35a34efd1d19a4b5ad77",
+  "status": "passed",
+  "strict_success": true,
+  "usage": {
+    "agent_steps": 10,
+    "commands": 3,
+    "model_requests": 5,
+    "recorded_tokens": 60,
+    "tool_calls": 5
+  }
+}
