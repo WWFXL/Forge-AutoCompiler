@@ -1614,3 +1614,41 @@
   generate/validate/plan/static-gate，没有 Q0/Q1/Q2 执行入口。历史 evidence 未修改。
 - 决定：`ready_for_progress_aware_harness_v3_authorization_review`。下一步只能从已审阅 candidate 派生独立 authorized
   identity 并绑定 release revision；先执行 Q0，`9/9` strict 后才允许读取 credential 和执行 Q1/Q2。candidate 本身不得改写。
+
+# 2026-10-13 H0/H1 v3 正式确认性复现
+
+- Issue #440 / 分支 `yiwei/440-h0-h1-v3-execution`：建立并执行独立
+  `cpp-progress-aware-harness-comparison-v3-authorized`。正式 release 为
+  `0297f0c675c506be85a9a1b2d67175ab4e928605`，绑定 candidate revision
+  `c5ac1e0875b1de84594afa91e2a1fa5bfb2bdde7`、candidate manifest canonical SHA-256
+  `128c629dbcb5da28e0b68fb3fdfb0320e09cd1f86cac505b028d780ca692ced0` 和 authorized manifest canonical
+  SHA-256 `81a5a0af34a6e6eaf9fa6a6c116c4ef3e9418fdc5c44a55a348d9256d1e59479`。
+- Q0/Q1：Q0 reference 为 `9/9` strict，CMake/Make/Autotools 各 `3/3`，S0-S5、functional oracle、provenance、
+  clean replay、bitwise reproduction 和 cleanup 全部闭合，0 Provider。Q1 六臂全部分类、计量、cleanup 和 treatment
+  separation 闭合，H0/H1 strict 为 `1/3` 与 `2/3`；共 56 requests、845,780 recorded tokens、`$0.301318`，
+  `usage_incomplete=0`、`budget_contract_violation=0`。Q1 只用于门禁，不进入正式效应估计。
+- Q2 完整性：唯一 create-once attempt 完成 54/54 arms 和 27/27 pairs。全部 terminal classification、offline source、
+  parent checkpoint、post-action observation、cleanup、request lifecycle、events/node/budget/report 计量合同均通过；
+  `usage_incomplete=0`、`budget_contract_violation=0`、0 infrastructure error。总计 541 requests、6,018,483 recorded
+  tokens、`$2.261443`，未触达 1,440 requests、24,000,000 tokens 或 `$28.80` 授权上界。
+- Q2 效果：H0/H1 strict 为 `19/27` 与 `22/27`，差值 `+0.111`；项目族聚类单侧 95% bootstrap 下界
+  `-0.111`，低于预注册 `-0.10` 非劣门槛。分系统为 CMake `4/9 -> 9/9`、Make `9/9 -> 8/9`、Autotools
+  `6/9 -> 5/9`，因此 `primary_noninferiority_and_cost=false`、`system_non_regression=false`。
+- 配对解释：17 对共同成功、3 对共同失败、5 对 H1-only、2 对 H0-only。5 个 H1-only 全部来自 CMake：
+  `cli11-state-1` 两次和 `cxxopts-state-2` 三次，H0 均为 budget exhausted、H1 均 strict success。两个 H0-only
+  分别是 `make-tiny-aes-c-state-1` repetition 2 和 `autotools-libestr-state-3` repetition 3，H1 均为 evaluated
+  failure。这支持 CMake 长尾改善，不支持跨构建系统统一稳定改善。
+- 成本与轨迹：H0/H1 Provider cost `$1.507782 -> $0.753661`，下降 50.0%；recorded tokens
+  `4,230,017 -> 1,788,466`，下降约 57.7%；requests `314 -> 227`；diagnostic commands `268 -> 83`；budget
+  exhausted `6 -> 1`；wall clock `2,146,456 -> 2,051,359 ms`，仅下降约 4.4%。H1 记录 147 次有效上下文裁剪和
+  2 次 ready guard 拒绝，H0 均为 0。
+- 审计与封存：raw evidence 为 26,923 files / 572,668,150 bytes，inventory canonical SHA-256
+  `a2cedd30ed5953eb716dd443e462e4ea0754ce53452a47b5504acb465957ffe7`，audit `valid=true`、0 managed
+  resources；先只读 audit，再执行唯一一次 seal，未 retry、replacement、backfill 或删除失败 observation。运行期间多次出现
+  `httpx.AsyncClient.aclose()` 在事件循环关闭后的后台告警；抽查告警前后 arms 的 started/completed、usage、node、budget
+  与 cleanup 均完整，正式审计 `no_infrastructure_error=true`，因此记录为不影响本 identity 计量的运行时限制。
+- 决定：`stop_progress_aware_harness_as_primary_mechanism`。v3 完整计量后复现了显著成本下降、总体点估计改善和 CMake
+  长尾信号，但没有复现预注册的非劣下界及三系统不退化。H1 可保留为工程 Harness、成本组件和论文消融对象，不再作为
+  论文主创新机制；不得以相同项目族追加重复或事后修改阈值挽救。报告位于
+  `benchmarks/reports/cpp-progress-aware-harness-comparison-v3-authorized.{json,md}`；在研究负责人核实前不进入
+  Workflow+Agent+Jev 新链路实现。
