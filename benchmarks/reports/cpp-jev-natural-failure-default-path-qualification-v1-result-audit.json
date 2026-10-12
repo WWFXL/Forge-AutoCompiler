@@ -1,0 +1,86 @@
+{
+  "audit_type": "post_hoc_result_and_construct_validity_audit",
+  "audited_identity": "cpp-jev-natural-failure-default-path-qualification-v1",
+  "audit_decision": "stop_before_reference_closure_qualification_v1",
+  "formal_decision": "stop_natural_failure_build_reference_qualification_v1",
+  "evidence_integrity": {
+    "audit_valid": true,
+    "evidence_bytes": 7053633,
+    "evidence_files": 273,
+    "evidence_inventory_canonical_sha256": "97b42a7ffb1c2da66fb2c4e38395d6410e246199344ffa03f2bac37a48bde09a",
+    "report_json_sha256": "acb0b2a7c06c58c0a1a9b2172cb30e7c13a13f55b30fff8ccc3383132dfd3b9c",
+    "report_markdown_sha256": "c918d3e7b3f03af18d40e08f3728f703844a50de0df5abebadeb72a6014ddee3"
+  },
+  "formal_observations": {
+    "projects": 36,
+    "clean_observations": 72,
+    "infrastructure_failures": 0,
+    "managed_resources_after_cleanup": 0,
+    "credential_reads": 0,
+    "provider_requests": 0,
+    "model_tokens": 0,
+    "classification_counts": {
+      "network_dependency_excluded": 1,
+      "stable_failure_candidate": 23,
+      "stable_host_userland_closure": 5,
+      "stable_no_compiled_artifact": 2,
+      "stable_non_host_target": 5
+    }
+  },
+  "formal_gate_audit": {
+    "overconstrained_requirement": "known_non_host_project_must_not_be_stable_failure_candidate",
+    "affected_case": "cmake-05",
+    "affected_project": "gta-reversed/gta-reversed",
+    "formal_observation": "stable_failure_candidate",
+    "finding": "The gate conflicts with the v5 contract: a failure before target evidence may remain target-unresolved and must be rejected by reference closure rather than by default-path classification alone.",
+    "formal_evidence_modified": false
+  },
+  "cmake_calibration_upper_bound": {
+    "required_qualified_natural_failures": 1,
+    "maximum_qualified_natural_failures": 0,
+    "rows": [
+      {
+        "case_id": "cmake-04",
+        "full_name": "kimwalisch/primesieve",
+        "default_classification": "stable_host_userland_closure",
+        "reference_eligible": false,
+        "reason": "default_path_already_succeeds"
+      },
+      {
+        "case_id": "cmake-05",
+        "full_name": "gta-reversed/gta-reversed",
+        "default_classification": "stable_failure_candidate",
+        "reference_eligible": false,
+        "reason": "v4 exact-commit construct audit establishes that the default endpoint is a Windows DLL requiring the Windows GTA executable and ASI injection path"
+      },
+      {
+        "case_id": "cmake-06",
+        "full_name": "seL4/seL4",
+        "default_classification": "stable_non_host_target",
+        "reference_eligible": false,
+        "reason": "dynamic default-path evidence identifies a kernel build contract rather than a Linux userland endpoint"
+      }
+    ],
+    "replacement_allowed": false,
+    "role_movement_allowed": false,
+    "conclusion": "Reference closure cannot satisfy the frozen CMake calibration quota, even if the overconstrained formal gate is removed."
+  },
+  "additional_construct_finding": {
+    "case_id": "autotools-02",
+    "full_name": "Hamlib/Hamlib",
+    "reported_classification": "stable_non_host_target",
+    "observed_host_outputs": true,
+    "false_signal": "freestanding_flags",
+    "cause": "libtool uses -nostdlib while explicitly linking host CRT objects to produce a normal x86_64 Linux shared library",
+    "implication": "The v5 target-signal precedence is too broad for general reuse and must not treat every -nostdlib occurrence as proof of a non-host endpoint. This does not affect the CMake calibration upper bound."
+  },
+  "boundaries": {
+    "reference_identity_created": false,
+    "typed_action_matrix_created": false,
+    "provider_identity_created": false,
+    "jev_effect_estimated": false,
+    "agent_effect_estimated": false,
+    "dynamic_budget_estimated": false
+  }
+}
+
