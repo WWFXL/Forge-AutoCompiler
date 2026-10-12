@@ -4,13 +4,24 @@
 
 ## 当前阶段
 
-- 状态：Issue #415 的 Linux applicability v3 唯一正式 source-only attempt 已完成并决定
-  `stop_natural_failure_linux_applicability_v3`；只读构造效度审计进一步判定 v3 classifier 不合格，必须使用新 identity 修复，不能续跑或改写 v3。
-- 本轮问题：source-only 门禁能否排除无法进入 Linux ELF/`ar` 终点的项目，同时保留具有 Linux 路径的多平台项目，并为 CMake、Make、Autotools 各形成至少 12 个无角色 reserve 候选。
-- v3 正式证据：200 个搜索结果排除 3 个历史项目后完成 197/197 个未见候选，0 infrastructure failure；79 个仓库 source eligible。可用项目边为 CMake 38、Make 39、Autotools 8，最稀缺优先分配在 Autotools 8 个耗尽后停止，因此正式分配数为 `0/0/8`，不应把 CMake/Make 的零解释为没有候选。
-- v3 构造效度：7 条 `platform_ineligible` 边经 exact-commit 全量复核，16 个入口/文档 blob 哈希全部匹配；5/7 是明显误伤，只有 GBA ROM 和裸机 firmware 两项应排除。根因是整文件正则没有注释或条件作用域，并且分类没有使用已经采集的 Linux 文档证据。
-- 当前工作类型：v3 结果分析与 v4 工程修复。v4 必须拆分宿主平台与产物终点、剥离注释、让明确 Linux 路径否决局部平台信号，并扩大全新未见搜索框；静态门禁之后仍须双 clean build 与 reference closure，才能分配实验角色。
-- v3 边界：202 个 evidence 文件共 447,440 bytes，inventory canonical SHA-256 为 `ba254ab6...4266d6b`；全过程 0 build、0 Docker、0 credential read、0 Provider request、0 model token。正式 report、marker、raw evidence 以及 v1/v2 资产全部只读。
+- 状态：Issue #415 的 Linux applicability v4 唯一正式 source-only attempt 已完成。机械决定为
+  `proceed_to_natural_failure_build_reference_qualification_v4`，但只读构造效度审计发现双向分类错误，后验决定为
+  `stop_before_natural_failure_build_reference_qualification_v4`；不得创建后续 build/reference identity。
+- v4 正式证据：800 个搜索结果排除 214 个历史命中后完成 586/586 个未见候选，245 项 source eligible，
+  0 infrastructure failure；eligible edge 为 CMake 141、Make 97、Autotools 39，机械唯一分配为 `12/12/12`。
+- v4 构造效度：对 5 条正式排除和 36 条 reserve 全量复核，107 个 exact-commit 入口/文档 blob 的 Git SHA 与
+  内容 SHA-256 全部匹配。排除项中 `ash/rakupp`、`libretro/opera-libretro` 为 2 个明显误伤；reserve 中
+  `gta-reversed/gta-reversed`、`seL4/seL4`、`RBEnhanced/RB3Enhanced`、`Rinnegatamante/vitaGL`、
+  `Gamer92000/echo-dot-assist` 为 5 个明显误纳入。
+- 失败机制：v4 能剥离注释并识别部分 Linux 文档，但仍没有解析默认条件分支、默认 target 依赖闭包和编译器目标。
+  非默认分支中的 Apple/裸机信号仍会误伤多平台项目，规则表之外的 kernel、console、Android NDK 和 Windows DLL
+  又会落入 `portable_entry_without_exclusive_signal`。继续扩充关键词不能解决作用域问题。
+- 当前工作类型：v4 结果分析与下一资格机制设计。source-only 阶段应降级为高精度候选发现和风险标注；默认构建
+  路径、目标架构与 Linux 用户态 ELF/`ar` 闭合必须在隔离的零 Provider build/reference qualification 中确认，
+  严格 verifier 继续作为最终裁判。
+- v4 边界：591 个 evidence 文件共 1,488,806 bytes，inventory canonical SHA-256 为 `0d08616e...e6bc`；全过程
+  0 build、0 Docker、0 credential read、0 Provider request、0 model token。v1-v4 正式 report、marker 和 raw
+  evidence 全部只读；本结果不评价 Jev、Agent、自然失败成功率、成本或动态预算控制。
 - 状态：Issue #413 的 source catalog 与双 clean build qualification 已完成；生成 build gate 机械通过，但 reference 前构造效度审计证明 Make calibration 配额不可能满足，最终决定为 `stop_natural_failure_evaluation_v2_before_reference_recipe`。
 - 当前工作类型：数据资格结果与只读构造效度审计。catalog 从 120 个搜索结果排除 11 个历史项目后得到 109 个未见候选；53 个 source eligible，最终为 CMake、Make、Autotools 各冻结 8 个互不重复的项目族。
 - source catalog 证据：109/109 仓库项目级终结，0 infrastructure failure；30 项因 `.gitmodules` 排除、23 项缺少根入口、3 项命中根入口网络获取信号。attempt 用时约 336 秒，114 个 evidence 文件共 197,527 bytes，inventory canonical SHA-256 为 `d561e612...59736`。
@@ -61,6 +72,10 @@
 - 自然失败 Linux applicability v3 预注册：`benchmarks/preregistrations/cpp-jev-natural-failure-linux-applicability-v3.md`。
 - 自然失败 Linux applicability v3 结果：`benchmarks/reports/cpp-jev-natural-failure-linux-applicability-v3.md`。
 - 自然失败 Linux applicability v3 构造效度审计：`benchmarks/reports/cpp-jev-natural-failure-linux-applicability-v3-construct-audit.md`。
+- 自然失败 Linux applicability v4 设计：`docs/superpowers/specs/2026-10-12-jev-natural-failure-linux-applicability-v4-design.md`。
+- 自然失败 Linux applicability v4 预注册：`benchmarks/preregistrations/cpp-jev-natural-failure-linux-applicability-v4.md`。
+- 自然失败 Linux applicability v4 结果：`benchmarks/reports/cpp-jev-natural-failure-linux-applicability-v4.md`。
+- 自然失败 Linux applicability v4 构造效度审计：`benchmarks/reports/cpp-jev-natural-failure-linux-applicability-v4-construct-audit.md`。
 - Jev API 合同审计：`docs/research/2026-10-09-jev-api-contract-audit.md`。
 - 三候选机制审计：`docs/research/2026-10-09-three-candidate-mechanism-audit.md`。
 - 主动诊断机制审计：`docs/research/2026-10-09-active-diagnosis-mechanism-audit.md`。

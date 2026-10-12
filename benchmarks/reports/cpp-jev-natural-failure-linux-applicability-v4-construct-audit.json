@@ -1,0 +1,299 @@
+{
+  "audit_type": "post_hoc_construct_validity_audit",
+  "audited_identity": "cpp-jev-natural-failure-linux-applicability-v4",
+  "audit_decision": "stop_before_natural_failure_build_reference_qualification_v4",
+  "evidence_integrity": {
+    "evidence_bytes": 1488806,
+    "evidence_files": 591,
+    "evidence_inventory_canonical_sha256": "0d08616e0810a8def168a21fd838611b5a0dcb628d8aff3bbf638715fcc4e6bc",
+    "exact_commit_blob_matches": 107,
+    "formal_audit_errors": [],
+    "formal_audit_valid": true,
+    "formal_report_json_sha256": "d7b169290e47045bfde7d5ba6674917d15795d64780f963ea7f44ff40e6d7e6c",
+    "formal_report_markdown_sha256": "b604dda8bda83f543fb769e636e748259b00770740e2406a0a36d37b013aa35f"
+  },
+  "execution_revision": "1e79fd0bd0864c805f857b99c77f87d6b9cc8e77",
+  "exclusion_review": {
+    "correct_exclusions": 3,
+    "false_positive_rate": 0.4,
+    "false_positives": 2,
+    "reviewed_edges": 5,
+    "rows": [
+      {
+        "full_name": "ash/rakupp",
+        "judgment": "false_positive",
+        "observed_reason": "exclusive_host_platform_without_linux_path",
+        "rationale": "README 明确给出 macOS、Linux 和 BSD 安装、Linux amd64/arm64 容器与发行包，以及普通 CMake 源码构建；CMAKE_OSX_SYSROOT 只位于 Apple 条件分支。",
+        "system": "cmake"
+      },
+      {
+        "full_name": "incoai/splash",
+        "judgment": "correct_exclusion",
+        "observed_reason": "exclusive_host_platform_without_linux_path",
+        "rationale": "README 明确要求 Apple Silicon 与 macOS；Makefile 固定 xcrun、macOS SDK、Metal、Apple frameworks，并在 platform-check 拒绝非 Darwin/arm64。",
+        "system": "make"
+      },
+      {
+        "full_name": "libretro/opera-libretro",
+        "judgment": "false_positive",
+        "observed_reason": "non_host_endpoint",
+        "rationale": "Makefile 默认 platform=unix，在 Linux 上生成 opera_libretro.so；arm-none-eabi 和 Apple 工具链只属于非默认平台分支。",
+        "system": "make"
+      },
+      {
+        "full_name": "metroidret/mzm",
+        "judgment": "correct_exclusion",
+        "observed_reason": "non_host_endpoint",
+        "rationale": "README 和默认 all 目标均指向 mzm_us.gba，依赖 arm-none-eabi 与 GBA baserom，不是 Linux 用户态终点。",
+        "system": "make"
+      },
+      {
+        "full_name": "SAT-R/sa3",
+        "judgment": "correct_exclusion",
+        "observed_reason": "non_host_endpoint",
+        "rationale": "仓库虽有显式 sdl 辅助目标，但默认 PLATFORM 及 all/rom 路径生成 sa3.gba 并依赖 GBA 工具链和 baserom；默认主路径不是 Linux 用户态终点。",
+        "system": "make"
+      }
+    ]
+  },
+  "formal_decision": "proceed_to_natural_failure_build_reference_qualification_v4",
+  "reserve_review": {
+    "correct_inclusions": 31,
+    "false_inclusion_rate": 0.1388888888888889,
+    "false_inclusions": 5,
+    "reviewed_edges": 36,
+    "rows": [
+      {
+        "full_name": "fastfloat/fast_float",
+        "judgment": "correct_inclusion",
+        "rationale": "可移植 C++ header-only 库并有 Linux CI；默认不产生 compiled artifact，必须留给后续 build qualification 判定。",
+        "system": "cmake"
+      },
+      {
+        "full_name": "adswill/OnAir",
+        "judgment": "correct_inclusion",
+        "rationale": "README 明确支持 Linux 并提供 Linux 发行物，根 CMake 有普通 Linux 库和应用路径。",
+        "system": "cmake"
+      },
+      {
+        "full_name": "neXyon/audaspace",
+        "judgment": "correct_inclusion",
+        "rationale": "安装文档包含完整 Linux CMake 路径，根入口生成宿主共享或静态库。",
+        "system": "cmake"
+      },
+      {
+        "full_name": "kimwalisch/primesieve",
+        "judgment": "correct_inclusion",
+        "rationale": "可移植 C++ 库和命令行工具，根 CMake 未固定非宿主平台。",
+        "system": "cmake"
+      },
+      {
+        "full_name": "gta-reversed/gta-reversed",
+        "judgment": "false_inclusion",
+        "rationale": "README 说明产物是注入 GTA:SA 的 DLL，要求 Visual Studio、Windows Compact exe 和 ASI loader；当前目标不是 Linux 用户态主路径。",
+        "system": "cmake"
+      },
+      {
+        "full_name": "seL4/seL4",
+        "judgment": "false_inclusion",
+        "rationale": "根入口构建 seL4 kernel，明确使用 -ffreestanding、-nostdlib、kernel linker flags 和平台架构配置，不是宿主 Linux 用户态 ELF/ar。",
+        "system": "cmake"
+      },
+      {
+        "full_name": "games-on-whales/wolf",
+        "judgment": "correct_inclusion",
+        "rationale": "Linux 宿主流媒体服务器，根 CMake 存在 Linux 用户态构建路径。",
+        "system": "cmake"
+      },
+      {
+        "full_name": "tzcnt/TooManyCooks",
+        "judgment": "correct_inclusion",
+        "rationale": "Linux CI 和编译器支持明确，根 CMake 是宿主 header-only 库；默认产物闭合仍由后续 build qualification 判定。",
+        "system": "cmake"
+      },
+      {
+        "full_name": "shundhammer/myrlyn",
+        "judgment": "correct_inclusion",
+        "rationale": "Linux 用户态应用，根 CMake 未固定非宿主终点。",
+        "system": "cmake"
+      },
+      {
+        "full_name": "jlblancoc/nanoflann",
+        "judgment": "correct_inclusion",
+        "rationale": "宿主 C++ header-only 库；根项目默认启用 examples/tests，可形成 Linux 可执行物。",
+        "system": "cmake"
+      },
+      {
+        "full_name": "BlazingRenderer/BRender",
+        "judgment": "correct_inclusion",
+        "rationale": "根 CMake 构建可移植 SDL/OpenGL/软件渲染库及示例，未固定非宿主平台。",
+        "system": "cmake"
+      },
+      {
+        "full_name": "wangyu-/NC2000",
+        "judgment": "correct_inclusion",
+        "rationale": "README 明确支持 Windows/Linux/macOS，根 CMake 生成宿主 SDL 模拟器可执行物。",
+        "system": "cmake"
+      },
+      {
+        "full_name": "RBEnhanced/RB3Enhanced",
+        "judgment": "false_inclusion",
+        "rationale": "默认 all 同时构建 Wii BrainSlug MOD 和 Xbox DLL，固定 powerpc-eabi 与 XEDK/MSVC 工具链，没有 Linux 用户态产物。",
+        "system": "make"
+      },
+      {
+        "full_name": "multi-objective/moocore",
+        "judgment": "correct_inclusion",
+        "rationale": "默认目标运行宿主 R/Python/C 构建与测试，C 子项目提供宿主库和命令行工具。",
+        "system": "make"
+      },
+      {
+        "full_name": "wuxb45/wormhole",
+        "judgment": "correct_inclusion",
+        "rationale": "普通宿主 Make 构建路径，未固定内核、固件、ROM 或非宿主工具链。",
+        "system": "make"
+      },
+      {
+        "full_name": "tsotchke/eshkol",
+        "judgment": "correct_inclusion",
+        "rationale": "根 Make 构建宿主编译器/运行时，未固定非宿主目标。",
+        "system": "make"
+      },
+      {
+        "full_name": "Rinnegatamante/vitaGL",
+        "judgment": "false_inclusion",
+        "rationale": "Makefile 固定 arm-vita-eabi 工具链和 Cortex-A9/Vita flags，默认产物 libvitaGL 面向 PS Vita。",
+        "system": "make"
+      },
+      {
+        "full_name": "stella-emu/stella",
+        "judgment": "correct_inclusion",
+        "rationale": "根 Make 的 all 生成宿主 Stella 模拟器，并包含 Unix/Linux 安装路径。",
+        "system": "make"
+      },
+      {
+        "full_name": "Gamer92000/echo-dot-assist",
+        "judgment": "false_inclusion",
+        "rationale": "Linux PC 只是构建宿主；Makefile 固定 Android NDK 交叉编译器并链接 Echo 固件库，产物运行在 Echo 设备。",
+        "system": "make"
+      },
+      {
+        "full_name": "CEED/libCEED",
+        "judgment": "correct_inclusion",
+        "rationale": "根 Make 默认生成宿主 libceed 共享库，文档给出标准 Linux 构建与静态库选项。",
+        "system": "make"
+      },
+      {
+        "full_name": "hhoppe/Mesh-processing-library",
+        "judgment": "correct_inclusion",
+        "rationale": "README 明确给出 Linux GNU make 路径，默认构建宿主程序并运行单元测试。",
+        "system": "make"
+      },
+      {
+        "full_name": "manio/vdr-plugin-dvbapi",
+        "judgment": "correct_inclusion",
+        "rationale": "Linux VDR 用户态插件，默认 all 生成共享对象。",
+        "system": "make"
+      },
+      {
+        "full_name": "gbdev/rgbds",
+        "judgment": "correct_inclusion",
+        "rationale": "项目面向 Game Boy 开发，但根 Make 构建的是可在 Linux 运行的 assembler/linker 等宿主工具，不是 ROM 本身。",
+        "system": "make"
+      },
+      {
+        "full_name": "MarcJHuber/event-driven-servers",
+        "judgment": "correct_inclusion",
+        "rationale": "README 明确支持 Linux/FreeBSD/OpenBSD，默认 GNUmakefile 构建宿主服务器。",
+        "system": "make"
+      },
+      {
+        "full_name": "jdolan/quetoo",
+        "judgment": "correct_inclusion",
+        "rationale": "README 明确支持 Linux，Autotools 构建宿主游戏可执行物。",
+        "system": "autotools"
+      },
+      {
+        "full_name": "Hamlib/Hamlib",
+        "judgment": "correct_inclusion",
+        "rationale": "可移植宿主无线电控制库，Autotools 主路径不是 Android 辅助交叉编译说明。",
+        "system": "autotools"
+      },
+      {
+        "full_name": "nzjrs/osm-gps-map",
+        "judgment": "correct_inclusion",
+        "rationale": "GTK 宿主地图组件，普通 Autotools 用户态库路径。",
+        "system": "autotools"
+      },
+      {
+        "full_name": "OpenLightingProject/ola",
+        "judgment": "correct_inclusion",
+        "rationale": "README 和 Debian 文档给出 Linux Autotools 构建，Windows 文档只是并列端口。",
+        "system": "autotools"
+      },
+      {
+        "full_name": "freebsd/kyua",
+        "judgment": "correct_inclusion",
+        "rationale": "POSIX 用户态测试框架，Autotools 构建宿主可执行物；具体 Linux 闭合留给 build qualification。",
+        "system": "autotools"
+      },
+      {
+        "full_name": "openSUSE/snapper",
+        "judgment": "correct_inclusion",
+        "rationale": "README 明确为 Linux 文件系统快照管理工具。",
+        "system": "autotools"
+      },
+      {
+        "full_name": "starpu-runtime/starpu",
+        "judgment": "correct_inclusion",
+        "rationale": "Linux/POSIX 用户态异构运行时，Autotools 主路径生成宿主库和工具。",
+        "system": "autotools"
+      },
+      {
+        "full_name": "ppp-project/ppp",
+        "judgment": "correct_inclusion",
+        "rationale": "configure.ac 有显式 Linux 宿主分支，生成用户态 pppd 及插件。",
+        "system": "autotools"
+      },
+      {
+        "full_name": "blackav/ejudge",
+        "judgment": "correct_inclusion",
+        "rationale": "Unix/Linux 用户态竞赛管理系统，Autotools 主路径生成宿主服务和工具。",
+        "system": "autotools"
+      },
+      {
+        "full_name": "csete/gpredict",
+        "judgment": "correct_inclusion",
+        "rationale": "README 明确为 Linux desktop 卫星跟踪程序并给出 Debian/Ubuntu 构建依赖。",
+        "system": "autotools"
+      },
+      {
+        "full_name": "c-icap/c-icap-server",
+        "judgment": "correct_inclusion",
+        "rationale": "configure.ac 显式支持 Linux，生成宿主 ICAP server 和插件。",
+        "system": "autotools"
+      },
+      {
+        "full_name": "nickg/nvc",
+        "judgment": "correct_inclusion",
+        "rationale": "README 声明在 GNU/Linux 开发，Autotools 生成宿主 VHDL 编译器和模拟器。",
+        "system": "autotools"
+      }
+    ]
+  },
+  "result": {
+    "build_reference_identity_allowed": false,
+    "gate_construct_valid": false,
+    "jev_effect_estimated": false,
+    "natural_failure_observed": false,
+    "new_design_required": true
+  },
+  "review_scope": {
+    "exact_commit_files": 107,
+    "excluded_edges": 5,
+    "reserve_edges": 36,
+    "reviewed_edges": 41,
+    "reviewed_project_families": 41
+  },
+  "schema_version": "forge-jev-natural-failure-linux-applicability-construct-audit-1.0.0"
+}

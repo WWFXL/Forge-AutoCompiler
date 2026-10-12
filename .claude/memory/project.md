@@ -6,14 +6,14 @@
 
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
-- 2026-10-12 — Issue #415 Linux applicability v3 正式停止并暴露 classifier 构造效度缺陷
-  - 工作类型与问题: source-only 数据资格、结果分析和工程修复。目标是在角色冻结、build、reference 或 Provider 前排除不能闭合到 Linux ELF/`ar` 的平台/终点，同时保留真正存在 Linux 路径的多平台项目。
-  - 正式 attempt: identity `cpp-jev-natural-failure-linux-applicability-v3`，execution revision `2ac9d4982bb9e3182b468c85d9da3a52c5dcdb85`，manifest canonical SHA-256 `a67d4f0d0df5d1ba59a940b0d3b54b6e8159f1e1f05ca57725056baf351d5faa`。200 个原始搜索结果排除 3 个历史项目后完成 197/197 个未见候选，79 项 source eligible，0 infrastructure failure，7 条 platform-ineligible edge，0 ambiguous edge；全过程 0 build、0 Docker、0 credential、0 Provider、0 token。
-  - 配额与停止: source-eligible 项目的可用边为 CMake 38、Make 39、Autotools 8。分配器优先最稀缺系统，Autotools 8 个耗尽后即停止，因此正式 allocation 为 `cmake=0/make=0/autotools=8`，决定 `stop_natural_failure_linux_applicability_v3`；前两个零不是候选计数。Evidence 为 202 files / 447,440 bytes，inventory canonical SHA-256 `ba254ab6c173c5f2bae89ee4968cc51854e9d9f4300ed420fd538a4704266d6b`，正式 audit 有效且无错误。
-  - 构造效度审计: 对 7 个被排除项目逐项读取 exact commit，16 个入口/文档 blob 的 SHA-256 全部与正式 evidence 匹配。`jondgoodwin/cone`、`LIJI32/SameBoy`、`redhat-et/ripwire`、`SpeedBreakerProject/speedbreaker`、`Wallawalla47/Infernix` 均有明确 Linux 路径，属于 5 个明显误伤；`metroidret/mf` 是 GBA ROM、`mist-devel/mist-firmware` 是裸机固件，应排除，但前者被记录为 Windows-only 的主要理由不准确。
-  - 缺陷机制: v3 对整份入口/文档运行无作用域正则，既不剥离注释，也不区分条件分支、局部能力描述与项目级排他声明；已经采集的 `document_linux_signals` 没有参与分类。因此局部 Apple/Windows 文本会被提升为项目级排除。v3 不能宣称平台门禁修复成功，正式 report/marker/raw evidence 永久只读。
-  - 下一步: 在同一 tracking Issue 下建立独立 v4 identity；拆分宿主平台与产物终点，入口扫描先剥离注释，明确 Linux 路径可以否决局部 Apple/Windows 信号，裸机/固件/内核等非宿主终点仍直接排除。v3 全部 197 个未见候选进入历史排除集合，7 个排除边只作为已暴露 regression fixture；扩大新搜索框解决 Autotools 8/12 稀缺。v4 通过前不创建 build/reference identity。
-  - 文件: `benchmarks/reports/cpp-jev-natural-failure-linux-applicability-v3.md`, `benchmarks/reports/cpp-jev-natural-failure-linux-applicability-v3-construct-audit.md`, `RESEARCH_STATUS.md`
+- 2026-10-12 — Issue #415 Linux applicability v4 完成并在构造效度审计后停止
+  - 工作类型与问题: source-only 数据资格、结果分析和基础设施设计。v4 试图在角色冻结和 build 前排除非 Linux 用户态 endpoint，同时避免 v3 对多平台项目的 Apple/Windows 局部文本误伤。
+  - 实现与身份: v4 将 host-platform 与 endpoint 信号分离，剥离入口注释，让明确 Linux 路径覆盖局部平台信号，加入 14 个冻结回归并使用最大二分匹配分配 12/12/12 reserve。正式 identity 为 `cpp-jev-natural-failure-linux-applicability-v4`，execution revision `1e79fd0bd0864c805f857b99c77f87d6b9cc8e77`，manifest canonical SHA-256 `2f778a7014021756e7b55ee9a53bc8f01aa6b71ec7b9e6b3e62d34d0168a5bbd`。
+  - 正式结果: 800 个搜索结果、214 个历史命中、586 个唯一未见候选全部终结；245 项 source eligible，0 infrastructure failure，5 条 platform/endpoint-ineligible edge，0 ambiguous edge。Eligible edge 为 CMake 141、Make 97、Autotools 39，机械唯一分配为 12/12/12，正式决定为 `proceed_to_natural_failure_build_reference_qualification_v4`。Evidence 为 591 files / 1,488,806 bytes，inventory canonical SHA-256 `0d08616e0810a8def168a21fd838611b5a0dcb628d8aff3bbf638715fcc4e6bc`；正式 audit 有效且无错误。
+  - 后验全量审计: 对 5 条排除和 36 条 reserve 的 107 个 exact-commit 根入口/文档 blob 做 Git SHA 与内容 SHA-256 双校验，全部与正式 evidence 匹配。排除项有 2 个明显误伤：`ash/rakupp` 具备明确 Linux 构建，`libretro/opera-libretro` 默认 `platform=unix` 并生成 Linux `.so`。Reserve 有 5 个明显误纳入：`gta-reversed` 是 Windows GTA DLL，`seL4` 是 freestanding kernel，`RB3Enhanced` 是 Wii/Xbox 产物，`vitaGL` 固定 PS Vita 工具链，`echo-dot-assist` 用 Android NDK 为 Echo 设备交叉编译。
+  - 关键结论: 后验决定为 `stop_before_natural_failure_build_reference_qualification_v4`，不得创建 build/reference identity。v4 仍没有解析默认分支、默认 target 依赖闭包或编译器目标；增加关键词只能覆盖已暴露例子。后续应把 source-only 降级为候选发现和风险标注，在隔离的零 Provider build/reference qualification 中用实际编译器/产物和 Forge verifier 确认 Linux 用户态 ELF/`ar` 闭合。
+  - 边界: 全阶段 0 build、0 Docker、0 credential read、0 Provider request、0 model token。v1-v4 report、marker 与 raw evidence 永久只读；未观察自然失败、reference closure 或 Jev/Agent 效果。`fast_float` 与 `TooManyCooks` 的默认 header-only 无 compiled artifact 是后续 build qualification 风险，不在 source-only 平台标签中后验改判。
+  - 文件: `docs/superpowers/specs/2026-10-12-jev-natural-failure-linux-applicability-v4-design.md`, `benchmarks/preregistrations/cpp-jev-natural-failure-linux-applicability-v4.md`, `benchmarks/reports/cpp-jev-natural-failure-linux-applicability-v4.md`, `benchmarks/reports/cpp-jev-natural-failure-linux-applicability-v4-construct-audit.md`, `RESEARCH_STATUS.md`
 
 - 2026-10-11 — Issue #413 自然构建失败 source qualification v2 在 reference 前停止
   - 工作类型与问题: 零 Provider 数据资格与只读构造效度审计。目标是在全新未见 source pool 上先完成结果盲 catalog，再对冻结的 CMake、Make、Autotools 各 8 个 exact commit 做双 clean build，判断是否具备进入 reference recipe 和自然失败 Jev 对照实验的有效样本。
