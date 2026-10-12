@@ -1,0 +1,81 @@
+{
+  "cases": [
+    {
+      "case": "legal_parent_relative_symlink",
+      "passed": true,
+      "published": true
+    },
+    {
+      "case": "escaping_relative_symlink",
+      "passed": true,
+      "published": false
+    },
+    {
+      "case": "absolute_symlink",
+      "passed": true,
+      "published": false
+    },
+    {
+      "case": "escaping_hardlink",
+      "passed": true,
+      "published": false
+    },
+    {
+      "case": "character_device",
+      "passed": true,
+      "published": false
+    },
+    {
+      "case": "fifo",
+      "passed": true,
+      "published": false
+    },
+    {
+      "case": "tree_hash_mismatch_not_published",
+      "passed": true,
+      "published": false
+    },
+    {
+      "case": "v4_libestr_checkpoint_round_trip",
+      "expected_decision_tree_sha256": "1e712e8e560e9b8bf3f7f2845df3aac66d7c6103b3bb4e2feb247d8abcd2488f",
+      "expected_full_tree_sha256": "bf843bc282eabedefeb6e7ea053747a13944125c993660e61efa47a97d64fefe",
+      "link_target": "../libestr.la",
+      "observed_decision_tree_sha256": "1e712e8e560e9b8bf3f7f2845df3aac66d7c6103b3bb4e2feb247d8abcd2488f",
+      "observed_full_tree_sha256": "bf843bc282eabedefeb6e7ea053747a13944125c993660e61efa47a97d64fefe",
+      "passed": true,
+      "source_hashes_after": {
+        "canonical_workspace_tree_sha256": "bf843bc282eabedefeb6e7ea053747a13944125c993660e61efa47a97d64fefe",
+        "message_sha256": "19c3f6ec5d818ae51e2cb6affce9f2b9c165bad7bf4a853442051dfc3d628b46",
+        "workspace_archive_sha256": "101271af10e3fdb4dfbeb629251723063855d6b8036f575d75afd5c062a6cdb6"
+      },
+      "source_hashes_before": {
+        "canonical_workspace_tree_sha256": "bf843bc282eabedefeb6e7ea053747a13944125c993660e61efa47a97d64fefe",
+        "message_sha256": "19c3f6ec5d818ae51e2cb6affce9f2b9c165bad7bf4a853442051dfc3d628b46",
+        "workspace_archive_sha256": "101271af10e3fdb4dfbeb629251723063855d6b8036f575d75afd5c062a6cdb6"
+      },
+      "source_mutated": false
+    }
+  ],
+  "decision": "proceed_to_dynamic_budget_trajectory_qualification_v5_design",
+  "identity": "symlink-safe-checkpoint-restore-gate-v1",
+  "interpretation": {
+    "does_not_support": [
+      "动态预算 controller 的成功率、成本或时间效果",
+      "Jev 或 Agent continuation 的能力",
+      "v5 跨构建系统轨迹资格已经通过"
+    ],
+    "supports": [
+      "checkpoint 恢复器可区分合法相对 symlink 与越界链接",
+      "v4 libestr checkpoint 可保持 tree hash 无损恢复"
+    ]
+  },
+  "schema_version": "1.0.0",
+  "status": "passed",
+  "summary": {
+    "credential_read": false,
+    "passed": 8,
+    "provider_requests": 0,
+    "total": 8,
+    "v4_evidence_mutated": false
+  }
+}
