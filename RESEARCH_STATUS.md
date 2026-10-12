@@ -17,8 +17,10 @@
   终止。正式分类与分母保持不变；这些结果说明失败不全是 Agent 决策错误，也不能据此把网络失败反事实改记为成功。
 - 决定与边界：正式决定为 `stop_before_dynamic_budget_controller_implementation`。固定 Agent continuation 在部分
   checkpoint 上可达严格终点，但当前稳定性、深度覆盖、跨系统覆盖和预算尾部均不合格，因此不进入 matched
-  direct/escalate/stop outcome matrix，也不实现 controller。该结果不评价 Jev、自然失败或开放世界；下一研究动作应先
-  决定是修复 replay 的 source-snapshot/recipe 闭包后建立全新资格 identity，还是将固定 Agent continuation 作为负结果封口。
+  direct/escalate/stop outcome matrix，也不实现 controller。即使把 5 个网络失败、2 个 replay 前置缺口和 1 个解码终止
+  全部理想化为 strict success，CMake 仍仅 `1/3`、state-3 仍仅 `1/3`，且 6 个 budget exhausted 不变；基础设施修复本身
+  不可能使本设计通过全部门槛。因此不创建同设计 v3，将固定 continuation 资格作为负结果封口，下一步回到论文机制取舍。
+  该结果不评价 Jev、自然失败或开放世界。
 - Evidence：manifest canonical SHA-256 `2714e79f2431633e6267fa21668ca23ab8495f480d08c39999317d6856d3be6c`；
   raw evidence 为 15,373 files / 258,919,192 bytes，inventory canonical SHA-256
   `9d749bf76571429b3fb6e7e325e61c1168df78e18e5ffa72d4457caff9c75465`，audit `valid=true`，cleanup 后

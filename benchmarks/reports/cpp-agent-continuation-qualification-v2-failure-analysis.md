@@ -33,11 +33,21 @@
 
 不能得出：`12/27` 是纯 Agent 能力成功率；5 个网络失败在无网络故障时会成功；动态预算机制无效；Jev 路由无效；自然失败或开放世界上的 Agent continuation 具有同样表现。
 
+## 保守敏感性检查
+
+把 5 个 source-fetch failure、2 个 replay 前置闭包 failure 和 1 个 `UnicodeDecodeError` 全部按理想 strict success 计入，仅用于判断基础设施修复能否改变资格决定：
+
+- strict 上限为 `20/27`；
+- 达标 checkpoint 上限为 `6/9`；
+- CMake 仍只有 `spdlog` 达标，即 `1/3`，低于 `2/3`；
+- state-3 仍只有 `libev` 达标，即 `1/3`，低于 `2/3`；
+- budget exhausted 仍为 `6/27`，高于不超过 `3/27`。
+
+因此，即使采用对 continuation 最有利且未经观察的反事实，基础设施修复本身也不能让 v2 达到全部预注册门槛。这个检查不改变任何 arm outcome，只说明没有理由创建仅修网络、recipe 或解码后原样重跑的 v3。
+
 ## 后续决策门槛
 
-若继续该路线，应先用零 Provider 工程门禁证明：clean replay 从绑定 source snapshot 获取源码而不依赖运行时 GitHub；replay recipe 包含 checkpoint 之前影响 fresh build 的必要前置步骤；Docker/tool 输出按 bytes 捕获并以有界替换策略解码。三项通过后只能创建全新 identity 复核，不得修改或补跑 v2。
-
-若不继续复核，则将 v2 作为固定 Agent continuation 的资格负结果封口，保留已经成立的 Jev 受控失败路由与混合 Workflow 结论，并重新选择论文下一项可证伪问题。
+将 v2 作为固定 Agent continuation 的资格负结果封口，不创建只修网络、recipe 或解码的同设计 v3。保留已经成立的 Jev 受控失败路由与混合 Workflow 结论；下一阶段回到论文机制选择，决定是围绕现有正向机制收敛论文，还是提出改变 Agent 动作空间、预算策略或评价问题的新假设。任何新假设都必须使用新 spec、门槛和 identity，不能作为 v2 replacement。
 
 ## Evidence
 
