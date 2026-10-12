@@ -4,21 +4,26 @@
 
 ## 当前阶段
 
-- 状态：Issue #438 已完成未授权 `cpp-progress-aware-harness-comparison-v3-candidate` 的设计与零 Provider 静态门禁，决定为
-  `ready_for_progress_aware_harness_v3_authorization_review`。v3 明确披露 v2 结果已观察，定位为同项目族、跨 checkpoint
-  深度的 post-observation 确认性复现，不是首次盲验证或未见项目泛化。
+- 状态：Issue #440 已依据研究负责人的明确授权实现独立
+  `cpp-progress-aware-harness-comparison-v3-authorized`；当前处于正式执行前的协议发布阶段，尚未创建 Q0 attempt 或新
+  evidence。该 identity 绑定 Issue #438 candidate revision
+  `c5ac1e0875b1de84594afa91e2a1fa5bfb2bdde7` 与 manifest canonical SHA-256
+  `128c629dbcb5da28e0b68fb3fdfb0320e09cd1f86cac505b028d780ca692ced0`。v3 明确披露 v2 结果已观察，定位为同项目族、
+  跨 checkpoint 深度的 post-observation 确认性复现，不是首次盲验证或未见项目泛化。
 - 样本：保留 v2 的 9 个 exact-commit 项目族，但按冻结规则 `state-1 -> state-3`、`state-2 -> state-1`、
   `state-3 -> state-2` 选择 9 个未进入 v2 Q1/Q2 H0/H1 arms 的正式 checkpoint；CMake、Make、Autotools 各覆盖
   state 1/2/3。另有 3 个不重叠 canary checkpoint。历史 outcome 不参与选择，也不进入 v3 estimate。
 - 预算与判据：H0/H1 treatment、`deepseek-flash`、27 pairs / 54 formal arms、严格终点及 v2 的非劣/成本/分系统门槛保持
   不变。每臂冻结 `T=300,000`、`R=100,000`，授权上界 `400,000`；60 个 Provider arms 的计划上界为 1,440 requests、
   24,000,000 tokens 和 `$28.80`。events、node usage、请求生命周期或费用不一致，以及单响应越过 R，均使实验失败。
-- 门禁证据：candidate manifest/const Schema 确定性一致；9 个正式和 3 个 canary checkpoint 与 v2 effect checkpoint
-  overlap 为 0；v2 30,108 文件和 v5 326 文件逐项只读哈希复核通过；聚焦与相邻回归 `91 passed`，新增文件 Ruff check/
-  format 和 diff check 通过。全程 0 credential、0 Provider、0 model token、0 Docker、0 formal attempt、0 evidence write。
-- 下一步：研究负责人审阅 candidate 后，若继续，则派生独立 `cpp-progress-aware-harness-comparison-v3-authorized`，绑定 release
-  revision 和明确执行授权；先运行零 Provider Q0，只有 `9/9` strict 才读取 credential 并进入 Q1/Q2。当前不修改 candidate、
-  不调用 Provider，也不进入 Workflow+Agent+Jev 新链路设计。
+- 执行完整性：authorized manifest canonical SHA-256 当前为
+  `81a5a0af34a6e6eaf9fa6a6c116c4ef3e9418fdc5c44a55a348d9256d1e59479`；每个 request 必须满足
+  started/completed/failed/usage-incomplete 生命周期守恒，completed events、node tracker、预算记录与报告必须一致；
+  `usage_incomplete` 或 `budget_contract_violation` 使正式证据失败。协议与相邻回归当前 `81 passed`，Ruff、format 和 diff
+  check 通过；authorized release 尚未提交或推送，因此全程仍为 0 credential、0 Provider、0 model token、0 Docker、
+  0 formal attempt、0 evidence write。
+- 下一步：提交并推送唯一 authorized release revision，再运行零 Provider Q0；只有 `9/9` strict 才读取 credential 并进入
+  Q1/Q2。candidate 与全部历史 evidence 保持只读，不进入 Workflow+Agent+Jev 新链路设计。
 - 状态：Issue #436 的独立零 Provider `cpp-agent-token-budget-semantics-gate-v1` 已完成，决定为
   `proceed_to_progress_aware_harness_v3_replication_decision`。Runtime 新增显式 `max_recorded_tokens_per_response`；配置后，
   `max_recorded_tokens` 作为下一请求准入停止阈值，已完成响应先完整进入 authoritative usage，再按累计触阈或单响应上界

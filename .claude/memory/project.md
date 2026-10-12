@@ -6,6 +6,26 @@
 
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
+- 2026-10-13 — Issue #440 H0/H1 v3 正式复现 authorized identity 已实现，等待发布与 Q0
+  - 工作类型与问题: 正式数据采集前的协议实现。目标是在 v2 结果已观察的前提下，用同 9 个项目族、机械旋转到未进入
+    v2 effect arms 的 checkpoint 深度，检验 H1 strict/cost 正向信号能否在完整后付费 Token 计量下复现。
+  - 身份与授权: 新 identity `cpp-progress-aware-harness-comparison-v3-authorized` 绑定 candidate revision
+    `c5ac1e0875b1de84594afa91e2a1fa5bfb2bdde7` 和 candidate manifest canonical SHA-256
+    `128c629dbcb5da28e0b68fb3fdfb0320e09cd1f86cac505b028d780ca692ced0`。研究负责人授权 Docker、credential read、
+    DeepSeek Provider 和新的正式 evidence；上限为 1,440 requests、24,000,000 recorded tokens、`$28.80`。
+  - 协议实现: 保持 9 个 Q0 reference、6 个 Q1 canary arms、27 pairs / 54 个 Q2 formal arms、H0/H1 treatment、模型、
+    schedule 和判据不变。新增 started/completed/failed/usage-incomplete 生命周期守恒，completed event、node tracker、预算
+    与报告一致性，以及 `usage_incomplete`/`budget_contract_violation` 零容忍硬门禁；每臂继续使用 T=300,000、R=100,000。
+  - 当前验证: authorized manifest canonical SHA-256
+    `81a5a0af34a6e6eaf9fa6a6c116c4ef3e9418fdc5c44a55a348d9256d1e59479`；协议与相邻回归 `81 passed`，Ruff、format、
+    diff check 通过。尚未提交/推送 authorized release，0 credential、0 Provider、0 Docker、0 formal attempt/evidence。
+  - 下一步: 扩大相关回归，提交并推送唯一 release revision；Q0 必须 `9/9` strict 后才可读取 credential 和执行 Q1。
+    Q1 必须 6/6 分类、计量、treatment separation 与 cleanup 闭合后才执行 Q2。历史 evidence 和 candidate 永久只读。
+  - 文件: `scripts/forge_progress_aware_harness_comparison_v3.py`,
+    `backend/tests/test_forge_progress_aware_harness_comparison_v3.py`,
+    `benchmarks/manifests/cpp-progress-aware-harness-comparison-v3-authorized.json`,
+    `benchmarks/preregistrations/cpp-progress-aware-harness-comparison-v3-authorized.md`
+
 - 2026-10-13 — Issue #436 Agent Token 预算语义与证据一致性门禁完成
   - 工作类型与问题: 工程修复与零 Provider 基础设施门禁。Issue #433 v2 的 8 个 H0 arm 已完整记录最后一次 Provider 响应，
     但旧 tracker 在响应后发现超过 300,000 Token ceiling 时保留越界前 snapshot，使 raw events/费用与 node usage 不一致，
