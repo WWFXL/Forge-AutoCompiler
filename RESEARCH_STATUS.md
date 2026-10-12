@@ -4,6 +4,12 @@
 
 ## 当前阶段
 
+- 状态：Issue #430 已建立独立 `cpp-agent-continuation-qualification-v2`，修复 CandidateVerifier 前的 Session 权威刷新，
+  并冻结与 v1 相同的 9 个 Q0 checkpoint、3 个 Provider canary、27 个正式 Agent arms、模型、预算和停止规则。
+  v2 manifest canonical SHA-256 为 `2714e79f2431633e6267fa21668ca23ab8495f480d08c39999317d6856d3be6c`。
+- 工程验证：专门回归证明 functional oracle 保存 smoke 后，configure/build/artifact-stage/smoke 命令历史均保留；
+  v2/v1、动态预算 v5 和 checkpoint restore 聚焦回归共 `23 passed`，Ruff/format 通过。当前尚未创建 v2 evidence，
+  0 credential、0 Provider、0 Agent；下一步提交并推送冻结 release 后执行全新 Q0，必须 9/9 strict 才能进入 Q1/Q2。
 - 状态：Issue #429 的 `cpp-agent-continuation-qualification-v1` 已在 Q0 第一个 `cmake-spdlog-state-1` 按协议失败封口，
   决定为 `supersede_with_fresh_v2_identity_after_session_refresh_repair`。Q1/Q2 未启动，全程 0 credential、0 Provider、
   0 Agent，cleanup 后 0 受管资源；v1 identity 与 evidence 永久只读。
@@ -14,9 +20,7 @@
 - 根因与边界：reference 命令写入了重新加载的权威 Session，但 `_direct_candidate` 收到旧内存 Session；functional oracle
   保存 smoke 命令时把旧对象写回，覆盖了 configure/build/artifact-stage 命令历史。这是 runner 基础设施失败，不评价
   spdlog、checkpoint 或固定 Agent continuation，也不能支持动态预算 controller。
-- 下一步：建立独立 v2 Issue、分支和 identity；在 CandidateVerifier 前刷新权威 Session，并增加 oracle 保存后的命令
-  历史回归。先做零 Provider 工程验证，再执行全新 v2 Q0；只有 9/9 strict 才允许按冻结预算读取 credential、运行
-  三状态 Provider canary 和 27 个 Agent arms。
+- v1 后续：禁止续跑、补齐、backfill 或修改；后续 observation 只写入独立 v2 evidence。
 - 状态：Issue #427 的 `cpp-dynamic-budget-trajectory-benchmark-qualification-v5` 唯一正式零 Provider attempt 已完整通过，
   决定为 `proceed_to_agent_continuation_qualification_design`。冻结的 CMake、Make、Autotools 各 3 个项目全部完成，
   共 9/9 项目、27/27 连续状态和 54/54 同源禁网 Docker continuation。

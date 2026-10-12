@@ -6,6 +6,13 @@
 
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
+- 2026-10-12 — Issue #430 固定 Agent continuation 资格 v2 已完成工程修复与协议冻结
+  - 工作类型与问题: Session 权威刷新工程修复，以及后续 Q0/Q1/Q2 资格数据采集准备。研究问题仍是固定 Compiler Agent 从同源 checkpoint 接管后能否稳定达到严格终点，并形成完整、可比较的成本和六维预算轨迹。
+  - v2 修复: 只在 `_direct_candidate` 构造 CandidateService 前重新加载权威 Session，并更新 runner 持有对象；保留 submit 后的再观察。新增回归模拟 functional oracle 追加并保存 smoke，验证 configure/build/artifact-stage/smoke 四条命令完整保留。
+  - 冻结协议: Issue #430 已创建并回读；v2 独立 identity/evidence root，继承 v1 的 9 个 Q0 checkpoint、3 个 canary、27 个 Q2 arms、`deepseek-flash`、retry=0、单臂 24 requests / 300,000 tokens / 1,800 秒和 Q2 门槛。Manifest canonical SHA-256 为 `2714e79f2431633e6267fa21668ca23ab8495f480d08c39999317d6856d3be6c`。
+  - 验证与边界: manifest validate/plan 通过；v2/v1、动态预算 v5 和 checkpoint restore 聚焦回归 `23 passed`，Ruff/format 通过。尚未创建 v2 evidence，0 credential、0 Provider、0 Agent。v1 与更早 evidence 只读；Q0 9/9 strict 前不得进入 Provider Q1/Q2。
+  - 文件: `docs/superpowers/specs/2026-10-12-agent-continuation-qualification-v2-design.md`, `docs/superpowers/plans/2026-10-12-agent-continuation-qualification-v2.md`, `benchmarks/manifests/cpp-agent-continuation-qualification-v2.json`, `benchmarks/preregistrations/cpp-agent-continuation-qualification-v2.md`, `scripts/forge_agent_continuation_qualification_v2.py`, `backend/tests/test_forge_agent_continuation_qualification_v2.py`, `RESEARCH_STATUS.md`
+
 - 2026-10-12 — Issue #429 固定 Agent continuation 资格 v1 在 Q0 基础设施失败后封口
   - 工作类型与问题: Q0 零 Provider 基础设施门禁。目标仍是为固定 Compiler Agent continuation 的稳定性、成本完整性、恢复性和六维预算轨迹建立资格；本次没有进入 Agent 数据采集。
   - 正式 observation: 唯一 v1 Q0 attempt 在第一个 `cmake-spdlog-state-1` 停止。Reference configure/build/artifact-stage 三条命令均返回 0，`lib/libspdlog.a` 正确生成，Runtime v3 CandidateVerifier 与 functional oracle 通过；外部 evaluator S0 通过，S1 因 `command_missing`、`supporting_command_invalid`、`artifact_stage_missing` 失败，S2-S5 被阻断。cleanup 成功，0 受管资源。
