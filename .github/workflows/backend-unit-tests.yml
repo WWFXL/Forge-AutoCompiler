@@ -83,3 +83,31 @@ jobs:
       - name: Validate frozen benchmark protocols
         working-directory: backend
         run: PYTHONPATH=. uv run pytest tests/test_forge_*.py -v
+
+  frozen-stage-c-tests:
+    if: github.event.pull_request.draft == false
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout frozen Stage C protocols
+        uses: actions/checkout@v6
+        with:
+          ref: d4c0a50045cf00f8aa5f5af8be84c1f228379def
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
+
+      - name: Install frozen backend dependencies
+        working-directory: backend
+        run: uv sync --group dev
+
+      - name: Validate frozen Stage C protocols
+        working-directory: backend
+        run: PYTHONPATH=. uv run pytest tests/test_stage_c_*.py -v
