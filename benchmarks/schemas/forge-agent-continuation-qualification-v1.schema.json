@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "forge-agent-continuation-qualification-v1",
+  "type": "object",
+  "required": [
+    "identity",
+    "issue",
+    "parent",
+    "authorization",
+    "environment",
+    "provider",
+    "budget",
+    "evidence_root",
+    "tasks",
+    "canary_checkpoints",
+    "formal_schedule",
+    "qualification"
+  ],
+  "properties": {
+    "identity": {"const": "cpp-agent-continuation-qualification-v1"},
+    "issue": {"const": 429},
+    "evidence_root": {"type": "string", "minLength": 1},
+    "tasks": {"type": "array", "minItems": 9, "maxItems": 9},
+    "canary_checkpoints": {"type": "array", "minItems": 3, "maxItems": 3},
+    "formal_schedule": {"type": "array", "minItems": 27, "maxItems": 27}
+  },
+  "additionalProperties": true
+}

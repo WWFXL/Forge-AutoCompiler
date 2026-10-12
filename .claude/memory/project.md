@@ -6,6 +6,14 @@
 
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
+- 2026-10-12 — Issue #429 固定 Agent continuation 资格 v1 在 Q0 基础设施失败后封口
+  - 工作类型与问题: Q0 零 Provider 基础设施门禁。目标仍是为固定 Compiler Agent continuation 的稳定性、成本完整性、恢复性和六维预算轨迹建立资格；本次没有进入 Agent 数据采集。
+  - 正式 observation: 唯一 v1 Q0 attempt 在第一个 `cmake-spdlog-state-1` 停止。Reference configure/build/artifact-stage 三条命令均返回 0，`lib/libspdlog.a` 正确生成，Runtime v3 CandidateVerifier 与 functional oracle 通过；外部 evaluator S0 通过，S1 因 `command_missing`、`supporting_command_invalid`、`artifact_stage_missing` 失败，S2-S5 被阻断。cleanup 成功，0 受管资源。
+  - 根因: reference 命令使用重新加载的权威 Session，但 `_direct_candidate` 接收 checkpoint 恢复后的旧内存 Session。CandidateVerifier 的 functional oracle 在该旧对象上追加 smoke 并保存，覆盖了权威 `session.json` 中的 configure/build/artifact-stage 命令。`workflow.log` 仍完整记录四条命令，candidate 也正确引用前三条，但最终 Session 只剩 smoke。
+  - 封口与边界: v1 决定为 `supersede_with_fresh_v2_identity_after_session_refresh_repair`；其余 8 个 Q0 case、Q1、Q2 未观察，不记零。v1 evidence 为 252 files / 5,790,620 bytes，inventory canonical SHA-256 `66c9e4678bdedc09db02bce8621cf2d140a2b1e4238923ea9bf504b8e753665f`。全程 0 credential、0 Provider、0 Agent；不能评价 continuation 或 controller。
+  - 下一步: 新建 v2 Issue/分支/identity；在 CandidateVerifier 前重新加载权威 Session，增加 functional oracle 保存后完整保留 configure/build/artifact-stage/smoke 的回归。零 Provider 工程验证通过后执行全新 v2 Q0，9/9 strict 后才允许 Q1/Q2。
+  - 文件: `benchmarks/reports/cpp-agent-continuation-qualification-v1-failure-audit.{json,md}`, `.compile-sessions/benchmark-evidence-agent-continuation-qualification-v1/inventory.json`, `RESEARCH_STATUS.md`
+
 - 2026-10-12 — Issue #427 动态预算多步轨迹 benchmark 资格 v5 完整通过
   - 工作类型与问题: 正式零 Provider benchmark 资格数据采集。v5 用全新 create-once identity 完整重跑 v4 的 9 项目、27 连续状态、54 次同源禁网 Docker continuation，检验 Issue #425 修复后跨 CMake/Make/Autotools 的 checkpoint 恢复、重复性、动作后观察、六维预算和 stop reservation 转移能否闭合。
   - 协议与实现: Tracking Issue #427 已创建并回读；运行前提交 `1515c0a5` 冻结 spec、plan、manifest、预注册、薄 wrapper runner 和回归。v5 继承 v4 的项目、exact commit、动作、固定 hostname、四类诊断日志和 `autom4te.cache` 决策哈希排除，只将 `_restore_snapshot` 接到 `restore_checkpoint_archive`；manifest SHA-256 为 `39f06186dae5bb6955f6501004444884ea598107576bb496613555e73d069dca`。

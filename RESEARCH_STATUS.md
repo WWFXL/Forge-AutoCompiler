@@ -4,6 +4,19 @@
 
 ## 当前阶段
 
+- 状态：Issue #429 的 `cpp-agent-continuation-qualification-v1` 已在 Q0 第一个 `cmake-spdlog-state-1` 按协议失败封口，
+  决定为 `supersede_with_fresh_v2_identity_after_session_refresh_repair`。Q1/Q2 未启动，全程 0 credential、0 Provider、
+  0 Agent，cleanup 后 0 受管资源；v1 identity 与 evidence 永久只读。
+- v1 证据：reference configure/build/artifact-stage 均返回 0，`lib/libspdlog.a` 正确生成，Runtime v3 CandidateVerifier
+  和 functional oracle 通过；外部 evaluator S0 通过，S1 以 `command_missing`、`supporting_command_invalid`、
+  `artifact_stage_missing` 失败，S2-S5 被阻断。Evidence 为 252 files / 5,790,620 bytes，inventory canonical SHA-256
+  `66c9e4678bdedc09db02bce8621cf2d140a2b1e4238923ea9bf504b8e753665f`。
+- 根因与边界：reference 命令写入了重新加载的权威 Session，但 `_direct_candidate` 收到旧内存 Session；functional oracle
+  保存 smoke 命令时把旧对象写回，覆盖了 configure/build/artifact-stage 命令历史。这是 runner 基础设施失败，不评价
+  spdlog、checkpoint 或固定 Agent continuation，也不能支持动态预算 controller。
+- 下一步：建立独立 v2 Issue、分支和 identity；在 CandidateVerifier 前刷新权威 Session，并增加 oracle 保存后的命令
+  历史回归。先做零 Provider 工程验证，再执行全新 v2 Q0；只有 9/9 strict 才允许按冻结预算读取 credential、运行
+  三状态 Provider canary 和 27 个 Agent arms。
 - 状态：Issue #427 的 `cpp-dynamic-budget-trajectory-benchmark-qualification-v5` 唯一正式零 Provider attempt 已完整通过，
   决定为 `proceed_to_agent_continuation_qualification_design`。冻结的 CMake、Make、Autotools 各 3 个项目全部完成，
   共 9/9 项目、27/27 连续状态和 54/54 同源禁网 Docker continuation。
