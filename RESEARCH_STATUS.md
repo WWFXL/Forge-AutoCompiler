@@ -4,6 +4,22 @@
 
 ## 当前阶段
 
+- 状态：Issue #421 已完成 `cpp-dynamic-budget-identifiability-audit-v1` 只读审计，决定为
+  `stop_before_dynamic_budget_controller_implementation`。8 项资格门槛仅输入/账本完整性与 matched 三策略覆盖
+  2 项通过；在新的轨迹 benchmark 资格通过前，不实现动态预算 controller。
+- 已有可用结构：Jev v6 的 12 个同源受控故障状态、72 个 arm 全部 ledger/result 哈希闭合，三策略各两次重复，
+  CMake/Make/Autotools 各 24 arm；严格成功 45、失败 27。进展状态 v1 另有 409 个连续 observed-action 决策点，
+  但按设计没有未选择动作结果。历史 4 个 checkpoint 能冻结环境与剩余安全预算，但干预不是
+  `direct / escalate / stop`。
+- 决定性缺口：v6 每个 arm 只有一个控制决策；16 个直接动作失败 arm 自动拼接 Agent；pure action 覆盖为
+  direct 29、escalate 27、stop 0，且 `cc65` 没有 pure direct。72 个路由状态没有可恢复 checkpoint，也没有
+  动作前/后六维预算快照；12 个项目均为结果已公开的 evaluation 数据，每任务预算不能跨项目再分配。
+- 成本边界：71/72 arm 具有严格终点和完整总成本。`redis` repetition 2 的一次 Jev 请求因
+  `TypeSafeAPIConnectionError` 结束，已知发生 1 次请求，但 input/output token 与费用未知；审计未估算回填。
+- 解释边界：本结果不说明动态预算控制无效，只说明旧数据不能支持其离线训练、选择或效果评价。下一步先建立
+  `dynamic_budget_trajectory_benchmark_qualification_v1` 候选：三种构建系统各 3 个新项目族、每项至少 3 个
+  多步状态、每状态 2 次 clean checkpoint replay，显式记录动作前/增量/动作后预算并使用项目 block 共享预算；
+  该资格通过前保持 0 Provider、0 Agent/Jev 调用。
 - 状态：Issue #419 的 `cpp-jev-natural-failure-default-path-qualification-v1` 已完成唯一正式 attempt 和只读结果审计，
   最终决定为 `stop_before_reference_closure_qualification_v1`。不创建 reference closure、typed-action matrix 或
   自然失败 Provider 三臂 identity。
@@ -260,6 +276,8 @@ BootstrapAgent、SWE-Skills-Bench、VibeMemBench 等轨迹控制、动作接口�
 - 设计自然失败对照实验，明确样本来源、项目族和时间隔离、三臂基线、预算、停止规则、主要 estimand 与最小有意义效应；冻结新 identity 前不采集新数据。
 - 设计独立的动态预算控制资格问题，冻结状态、预算动作、反事实或可重复 continuation、删失效率指标和停止条件；
   不复用 Issue #419 自然失败项目作为结果后筛选的 treatment 样本。
+- 实现 Issue #421 已冻结的下一步 0 Provider 轨迹 benchmark 资格候选；只能使用新的项目族和 identity，先验证
+  多步状态、checkpoint clean replay、六维预算守恒和共享预算账本，不实现 controller。
 
 禁止：
 
@@ -268,6 +286,8 @@ BootstrapAgent、SWE-Skills-Bench、VibeMemBench 等轨迹控制、动作接口�
 - 对不完整 mechanism v2 执行 primary/secondary test 或声称 treatment effect；
 - 在新 identity、项目、预算、停止规则和明确授权冻结前读取 credential、调用 Provider、创建 formal attempt 或写 formal experiment evidence。
 - 对进展状态 v1 做结果后调参、改切分、改标签或改阈值，或据此直接实现 controller/F0/A1。
+- 用 Issue #421 已审计的旧轨迹训练、调阈值或评价动态预算 controller，或把 16 个 composite
+  `direct -> Agent` arm 当作 pure direct continuation。
 - 在当前 v1 上调用 Jev/通用 LLM、调整 RuleGate、继续阶段 B-D 或实现 controller；当前 evaluation 已暴露且 RuleGate 饱和。
 - 把阶段 A 的 100% replay 一致率解释为模型效果、成本收益或语义路由成功。
 - 修改、重跑、replacement、backfill Issue #391 v2 的项目、故障、动作、成本、阈值、outcome 或报告；在 #391 identity 下读取 credential、调用 Provider 或实现 controller。
@@ -291,6 +311,10 @@ BootstrapAgent、SWE-Skills-Bench、VibeMemBench 等轨迹控制、动作接口�
 - Issue #419 正式默认路径报告：`benchmarks/reports/cpp-jev-natural-failure-default-path-qualification-v1.md`；结果审计：
   `benchmarks/reports/cpp-jev-natural-failure-default-path-qualification-v1-result-audit.md`；raw evidence：
   `.compile-sessions/benchmark-evidence-jev-natural-failure-default-path-qualification-v1`。
+- Issue #421：`https://github.com/WWFXL/Forge-AutoCompiler/issues/421`；审计设计：
+  `docs/superpowers/specs/2026-10-12-dynamic-budget-identifiability-audit-design.md`；机器可读结果：
+  `benchmarks/reports/cpp-dynamic-budget-identifiability-audit-v1.json`；研究报告：
+  `benchmarks/reports/cpp-dynamic-budget-identifiability-audit-v1.md`。
 - 2026-10-06 已按 `search_notes -> read_note` 核对个人知识库论文索引、CXXCrafter 和 CompileAgent 解读；本轮不修改知识库。
 - 2026-10-07 已按 `search_notes -> read_note` 核对个人知识库笔记“Forge 毕业论文方向与契约驱动修复设计”；本轮不修改知识库。
 - 2026-10-09 已按 `search_notes -> read_note` 核对个人知识库“2025-2026 自动化编译论文索引”和旧方向设计原文；本轮不修改知识库。
@@ -332,8 +356,8 @@ BootstrapAgent、SWE-Skills-Bench、VibeMemBench 等轨迹控制、动作接口�
 
 ## 下一项工作
 
-自然失败 Jev 三臂路线在当前样本与角色下停止，不继续 reference 或 Provider。下一研究阶段应回到整体机制中的未验证
-部分：对动态预算控制做独立文献与数据可辨识性审计，先定义 Workflow/Jev/Agent 的预算状态、`direct / escalate /
-stop` 动作、固定预算基线、删失效率指标和最小可证伪实验；只有零 Provider 轨迹能够提供可重复 continuation 或可信
-反事实标签时才实现 controller。`Hamlib` 暴露的 target-signal 作用域缺口作为未来重新构造自然失败 benchmark 的
-工程前置问题保留，不在已停止的 Issue #419 identity 中修复。
+Issue #421 已证明旧轨迹不具备动态预算 controller 的可辨识性。下一阶段应另建
+`dynamic_budget_trajectory_benchmark_qualification_v1` spec、预注册和 identity，使用 CMake、Make、Autotools 各
+3 个新项目族构造至少 27 个多步状态；每个状态绑定 source/image/workspace/artifacts/message/budget 哈希，执行两次
+clean checkpoint replay，并验证动作前、动作增量、动作后六维预算守恒与项目 block 共享预算。该 0 Provider 门禁
+通过后，才单独授权 Agent 重复 continuation；通过前不实现 controller，不读取 credential，不调用 Jev/Agent。

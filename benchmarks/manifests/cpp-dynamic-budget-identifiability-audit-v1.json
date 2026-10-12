@@ -1,0 +1,64 @@
+{
+  "schema_version": "forge-dynamic-budget-identifiability-audit-input-1.0.0",
+  "identity": "cpp-dynamic-budget-identifiability-audit-v1",
+  "issue_url": "https://github.com/WWFXL/Forge-AutoCompiler/issues/421",
+  "analysis_date": "2026-10-12",
+  "work_type": "result_analysis",
+  "authorization": {
+    "credential_reads": 0,
+    "formal_attempts": 0,
+    "provider_calls": 0,
+    "historical_evidence_read_only": true,
+    "controller_implementation_authorized": false
+  },
+  "sources": {
+    "progress_state_report": {
+      "path": "benchmarks/reports/cpp-cross-build-progress-state-qualification-v1.json",
+      "file_sha256": "b4b682d8699bdbcf5e768736e525ac13109675db64971a23c3007dafa2442a4d"
+    },
+    "jev_formal_manifest": {
+      "path": "benchmarks/manifests/cpp-jev-formal-comparison-v6.json",
+      "file_sha256": "46e88e1ec362f2ad308b6af296b16898234620d49e14718f060c7863b06154b0"
+    },
+    "jev_formal_report": {
+      "path": "benchmarks/reports/cpp-jev-formal-comparison-v6.json",
+      "file_sha256": "620e0c823dc00ababc4ba7b283c548a4823e7c7d1147ef72f289f7f940b53c15"
+    },
+    "jev_formal_evidence_root": ".compile-sessions/benchmark-evidence-jev-formal-comparison-v6",
+    "checkpoint_glob": ".compile-sessions/benchmark-evidence-contract-driven-repair-mechanism-v2-independent/checkpoints/*/checkpoint.json",
+    "checkpoint_sha256": {
+      "01-rnnoise-0.1.1-delivery-target/checkpoint.json": "0ab5882ce10b83aeaaf6310c9e5368abac2cd9a735e9bb44087d6f3c067ddd5f",
+      "02-rnnoise-0.1.1-provenance/checkpoint.json": "18102a4a412778e634b3acb0a9b62dab069099e9f3bf0a311eedee59abd03e74",
+      "03-libsoundio-provenance/checkpoint.json": "1dfb09dea2fb6e8976e40c369604d31e09bbceb2746582c3d8cba34f48df8e93",
+      "04-libsoundio-delivery-target/checkpoint.json": "e530c29fc4931da2c84cd31723a0b034b8a5bec7cdee8631f98311f7b8d2bc85"
+    }
+  },
+  "expected": {
+    "build_systems": [
+      "cmake",
+      "make",
+      "autotools"
+    ],
+    "policies": [
+      "always_agent",
+      "rule_gate_agent",
+      "jev_gate_agent"
+    ],
+    "required_actions": [
+      "direct",
+      "escalate",
+      "stop"
+    ],
+    "state_count": 12,
+    "repetitions_per_policy": 2,
+    "arm_count": 72,
+    "minimum_continuations_per_state_action": 2,
+    "minimum_control_decisions_per_trajectory": 2,
+    "checkpoint_count": 4
+  },
+  "decision_rule": {
+    "all_core_gates_required": true,
+    "pass": "proceed_to_dynamic_budget_offline_controller_qualification",
+    "fail": "stop_before_dynamic_budget_controller_implementation"
+  }
+}
