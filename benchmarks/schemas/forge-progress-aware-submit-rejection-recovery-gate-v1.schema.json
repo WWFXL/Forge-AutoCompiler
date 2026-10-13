@@ -1,0 +1,94 @@
+{
+  "$id": "forge-progress-aware-submit-rejection-recovery-gate-v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "properties": {
+    "$schema": {
+      "const": "forge-progress-aware-submit-rejection-recovery-gate-v1"
+    },
+    "authorization": {
+      "const": {
+        "backfill": false,
+        "credential_read": false,
+        "docker": true,
+        "formal_effect_attempts": 0,
+        "historical_evidence_write": false,
+        "jev_calls": false,
+        "model_tokens": 0,
+        "new_evidence_write": true,
+        "provider_calls": false,
+        "replacement": false
+      }
+    },
+    "branch": {
+      "const": "yiwei/449-submit-rejection-recovery-gate"
+    },
+    "components": {
+      "additionalProperties": {
+        "type": "string"
+      },
+      "minProperties": 5,
+      "type": "object"
+    },
+    "evidence_root": {
+      "const": ".compile-sessions/benchmark-evidence-cpp-progress-aware-submit-rejection-recovery-gate-v1"
+    },
+    "identity": {
+      "const": "cpp-progress-aware-submit-rejection-recovery-gate-v1"
+    },
+    "issue": {
+      "const": 449
+    },
+    "parent_evidence": {
+      "const": {
+        "identity": "cpp-progress-aware-h0-h1-h2-unseen-provider-canary-v1",
+        "inventory_canonical_sha256": "e911bb1d5d40fc270ede9921bbb4781bcd75d4851bf8fe4ef1f95d02f97e6696",
+        "manifest_file_sha256": "c985c5e2424050b38b460902b7090cbcf153bb2daabd35dbc7a16ab0037a8c86",
+        "release_revision": "841405d82a2fd18227b6f85dc2139822630f90e9"
+      }
+    },
+    "preregistration": {
+      "required": [
+        "path",
+        "sha256"
+      ],
+      "type": "object"
+    },
+    "qualification": {
+      "const": {
+        "fail_decision": "stop_before_formal_comparison",
+        "max_artifact_stage_commands_per_rejected_frontier": 1,
+        "max_non_staging_repair_commands_per_rejected_frontier": 1,
+        "pass_decision": "proceed_to_unseen_three_arm_formal_comparison_design",
+        "required_first_closure_classification": "recipe_execution_failed",
+        "required_final_managed_containers": 0,
+        "required_final_submission_accepted": true
+      }
+    },
+    "release_revision_policy": {
+      "const": "bind_current_clean_head_at_identity_creation"
+    },
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "status": {
+      "const": "authorized_zero_provider_engineering_gate"
+    }
+  },
+  "required": [
+    "$schema",
+    "authorization",
+    "branch",
+    "components",
+    "evidence_root",
+    "identity",
+    "issue",
+    "parent_evidence",
+    "preregistration",
+    "qualification",
+    "release_revision_policy",
+    "schema_version",
+    "status"
+  ],
+  "title": "Forge submit rejection recovery zero-provider engineering gate",
+  "type": "object"
+}

@@ -1,0 +1,48 @@
+{
+  "$schema": "forge-progress-aware-submit-rejection-recovery-gate-v1",
+  "authorization": {
+    "backfill": false,
+    "credential_read": false,
+    "docker": true,
+    "formal_effect_attempts": 0,
+    "historical_evidence_write": false,
+    "jev_calls": false,
+    "model_tokens": 0,
+    "new_evidence_write": true,
+    "provider_calls": false,
+    "replacement": false
+  },
+  "branch": "yiwei/449-submit-rejection-recovery-gate",
+  "components": {
+    "backend/packages/harness/deerflow/compile/agent_workflow_runtime_v4.py": "48593cfea3a5cd0512531332bec89bc16afddbdc190605e55d17c027a7769c66",
+    "backend/packages/harness/deerflow/compile/agent_workflow_runtime_v5.py": "44462a2e6cf26e3008743281c942604ce75955ac62125afcf676fa1882c1c92a",
+    "backend/packages/harness/deerflow/compile/agent_workflow_runtime_v6.py": "70311ae3a598e183ba7450494629d8ee5a5e572c9e829f2d82a058122060406b",
+    "backend/tests/test_agent_workflow_runtime_v6.py": "d353e6c3895431ece0d1a8235bc3046b2c74eaf0f5ec8fa41885d922f28551b6",
+    "scripts/forge_submit_rejection_recovery_gate.py": "cbfc263ab17e2156d28d7d15ccc175d88bc15c641bf3ec0ed8244aff034719c1"
+  },
+  "evidence_root": ".compile-sessions/benchmark-evidence-cpp-progress-aware-submit-rejection-recovery-gate-v1",
+  "identity": "cpp-progress-aware-submit-rejection-recovery-gate-v1",
+  "issue": 449,
+  "parent_evidence": {
+    "identity": "cpp-progress-aware-h0-h1-h2-unseen-provider-canary-v1",
+    "inventory_canonical_sha256": "e911bb1d5d40fc270ede9921bbb4781bcd75d4851bf8fe4ef1f95d02f97e6696",
+    "manifest_file_sha256": "c985c5e2424050b38b460902b7090cbcf153bb2daabd35dbc7a16ab0037a8c86",
+    "release_revision": "841405d82a2fd18227b6f85dc2139822630f90e9"
+  },
+  "preregistration": {
+    "path": "benchmarks/preregistrations/cpp-progress-aware-submit-rejection-recovery-gate-v1.md",
+    "sha256": "549bb332f8309465a7095fc1e5f1cbfeb28114a54fe47eee2483040e412363d0"
+  },
+  "qualification": {
+    "fail_decision": "stop_before_formal_comparison",
+    "max_artifact_stage_commands_per_rejected_frontier": 1,
+    "max_non_staging_repair_commands_per_rejected_frontier": 1,
+    "pass_decision": "proceed_to_unseen_three_arm_formal_comparison_design",
+    "required_first_closure_classification": "recipe_execution_failed",
+    "required_final_managed_containers": 0,
+    "required_final_submission_accepted": true
+  },
+  "release_revision_policy": "bind_current_clean_head_at_identity_creation",
+  "schema_version": "1.0.0",
+  "status": "authorized_zero_provider_engineering_gate"
+}
