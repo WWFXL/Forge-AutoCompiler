@@ -24,7 +24,7 @@
 
 - [x] 运行聚焦测试、Runtime v5 相邻回归、Ruff 和 format check。
 - [x] 更新 `RESEARCH_STATUS.md` 与 `.claude/memory/project.md`。
-- [ ] 将结果回写 Issue #445，提交并推送分支，创建堆叠 PR。
+- [x] 将结果回写 Issue #445，提交并推送分支，创建堆叠 PR。
 
 ## D. 后续阶段
 
