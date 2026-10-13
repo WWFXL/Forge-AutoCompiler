@@ -1,0 +1,223 @@
+{
+  "authorization_observed": {
+    "credential_reads": 0,
+    "formal_effect_attempts": 0,
+    "jev_requests": 0,
+    "model_tokens": 0,
+    "provider_requests": 0
+  },
+  "budget_design": {
+    "authorized_recorded_tokens_per_arm": 700000,
+    "cleanup_timeout_seconds": 120,
+    "command_timeout_seconds": 900,
+    "evaluator_timeout_seconds": 1800,
+    "max_agent_steps": 96,
+    "max_commands": 48,
+    "max_model_requests": 36,
+    "max_recorded_tokens": 600000,
+    "max_recorded_tokens_per_response": 100000,
+    "max_tool_calls": 72,
+    "node_timeout_seconds": 1800,
+    "replay_timeout_seconds": 1800
+  },
+  "completed_at": "2026-10-13T04:15:51.536652+00:00",
+  "decision": "proceed_to_unseen_three_arm_provider_canary_design",
+  "evidence_inventory": {
+    "canonical_sha256": "63c9e7c9e0d55eb681ed7038aae295703fee0c7e3defea80329a859c472d97d8",
+    "file_count": 414,
+    "total_bytes": 9348206
+  },
+  "identity": "cpp-progress-aware-h0-h1-h2-unseen-qualification-v1",
+  "interpretation_boundary": {
+    "cost_claim": false,
+    "engineering_qualification_only": true,
+    "h0_sufficient_budget_answered": false,
+    "h2_incremental_effect_answered": false,
+    "success_rate_claim": false,
+    "treatment_effect": false
+  },
+  "manifest_sha256": "6c97e8fe3fc39601b3992555bcdfabea1548258d26b2a5ee7b5a1c61f02c2bb2",
+  "passed": true,
+  "q0": {
+    "outcomes": [
+      {
+        "commit_sha": "8224e427b655b83dae5e2298f1e6919523a78737",
+        "project_family": "github.com/leethomason/tinyxml2",
+        "sha256": "d85f89cb6753a888d9008daf23f51e3360028d9ec2a7ee1cae2fe332b4f15f7d",
+        "size": 644073,
+        "task_id": "cmake-tinyxml2"
+      },
+      {
+        "commit_sha": "696969cd0d35399cc66075f5ec7a96e23ba4a89b",
+        "project_family": "github.com/cesanta/mjson",
+        "sha256": "abe20784c4110f16d98738e4861beee622f51c1d1c6ab4feb7269e3669dbc26b",
+        "size": 183262,
+        "task_id": "make-mjson"
+      },
+      {
+        "commit_sha": "b1d5212831842ee5869d99bc208a21837e4037d5",
+        "project_family": "github.com/rgamble/libcsv",
+        "sha256": "d4ac01bf59378e7db9680fa1eb99f859cae20d46d1cb6d00c7a97ee553b5359c",
+        "size": 378235,
+        "task_id": "autotools-libcsv"
+      }
+    ],
+    "passed": true,
+    "source_archives": 3
+  },
+  "q1": {
+    "outcomes": [
+      {
+        "build_system": "cmake",
+        "cleanup_succeeded": true,
+        "closure": {
+          "actual_delivery": [
+            {
+              "artifact_type": "static_library",
+              "relative_path": "lib/libtinyxml2.a",
+              "sha256": "2c1abd331c85aced9debe55be3fd93954bf1f646c124396d1b268a3090ef1662",
+              "size_bytes": 206718
+            }
+          ],
+          "classification": "passed",
+          "cleanup_succeeded": true,
+          "duration_seconds": 5.513909,
+          "exit_code": 0,
+          "expected_delivery": [
+            {
+              "artifact_type": "static_library",
+              "relative_path": "lib/libtinyxml2.a",
+              "sha256": "2c1abd331c85aced9debe55be3fd93954bf1f646c124396d1b268a3090ef1662",
+              "size_bytes": 206718
+            }
+          ],
+          "frontier_sha256": "8e7def46feef7fbc5fc8f8bafb18271d6508490f08a318f29a630eee097f8cad",
+          "output_excerpt": "-- The C compiler identification is GNU 13.3.0\n-- The CXX compiler identification is GNU 13.3.0\n-- Detecting C compiler ABI info\n-- Detecting C compiler ABI info - done\n-- Check for working C compiler: /usr/bin/gcc-13 - skipped\n-- Detecting C compile features\n-- Detecting C compile features - done\n-- Detecting CXX compiler ABI info\n-- Detecting CXX compiler ABI info - done\n-- Check for working CXX compiler: /usr/bin/g++-13 - skipped\n-- Detecting CXX compile features\n-- Detecting CXX compile features - done\n-- Configuring done (0.6s)\n-- Generating done (0.0s)\n-- Build files have been written to: /workspace/repo/build\n[ 50%] Building CXX object CMakeFiles/tinyxml2.dir/tinyxml2.cpp.o\n[100%] Linking CXX static library libtinyxml2.a\n[100%] Built target tinyxml2\n",
+          "passed": true,
+          "recipe_fingerprint": "6a4b2249244ac338a7dd64513a0f61ea23903b88f61025bca92f2c6f61cd4fcc",
+          "schema_version": "agent-workflow-replay-closure-v1"
+        },
+        "commands": 3,
+        "commit_sha": "8224e427b655b83dae5e2298f1e6919523a78737",
+        "credential_reads": 0,
+        "duration_milliseconds": 11256,
+        "formal_effect_attempts": 0,
+        "managed_containers_after_cleanup": [],
+        "model_tokens": 0,
+        "no_formal_replay_attempt": true,
+        "project_family": "github.com/leethomason/tinyxml2",
+        "provider_requests": 0,
+        "source_archive": {
+          "sha256": "d85f89cb6753a888d9008daf23f51e3360028d9ec2a7ee1cae2fe332b4f15f7d",
+          "size": 644073
+        },
+        "status_unchanged": true,
+        "task_id": "cmake-tinyxml2"
+      },
+      {
+        "build_system": "make",
+        "cleanup_succeeded": true,
+        "closure": {
+          "actual_delivery": [
+            {
+              "artifact_type": "executable",
+              "relative_path": "bin/mjson-unit-test",
+              "sha256": "ca09c6c2b2623ebd62cfb69663d36d774f335521a9a6524c630d39d4f1f5d998",
+              "size_bytes": 346736
+            }
+          ],
+          "classification": "passed",
+          "cleanup_succeeded": true,
+          "duration_seconds": 6.821644,
+          "exit_code": 0,
+          "expected_delivery": [
+            {
+              "artifact_type": "executable",
+              "relative_path": "bin/mjson-unit-test",
+              "sha256": "ca09c6c2b2623ebd62cfb69663d36d774f335521a9a6524c630d39d4f1f5d998",
+              "size_bytes": 346736
+            }
+          ],
+          "frontier_sha256": "3caf2f14e55de69f5eec7c81845029f428f914dad3f8964bec17dac9e1223767",
+          "output_excerpt": "make: Entering directory '/workspace/repo/test'\ngcc-13 unit_test.c ../src/mjson.c -W -Wall -Wextra -Werror -Wshadow -Wdouble-promotion -fno-common -Wconversion -g3 -Os -I../src -DMJSON_ENABLE_MERGE=1 -DMJSON_ENABLE_PRETTY=1  -o unit_test &&  ./unit_test\nSUCCESS. Total tests: 394, failed: 0\ng++-13 -g -x c++ unit_test.c ../src/mjson.c -W -Wall -Wextra -Werror -Wshadow -Wdouble-promotion -fno-common -Wconversion -g3 -Os -I../src -DMJSON_ENABLE_MERGE=1 -DMJSON_ENABLE_PRETTY=1 -o unit_test &&  ./unit_test\nSUCCESS. Total tests: 394, failed: 0\nmake: Leaving directory '/workspace/repo/test'\n",
+          "passed": true,
+          "recipe_fingerprint": "d86087a93d41be4b4fb44841a92ac6ab97321481608c834294ad7889fdc1864b",
+          "schema_version": "agent-workflow-replay-closure-v1"
+        },
+        "commands": 2,
+        "commit_sha": "696969cd0d35399cc66075f5ec7a96e23ba4a89b",
+        "credential_reads": 0,
+        "duration_milliseconds": 13733,
+        "formal_effect_attempts": 0,
+        "managed_containers_after_cleanup": [],
+        "model_tokens": 0,
+        "no_formal_replay_attempt": true,
+        "project_family": "github.com/cesanta/mjson",
+        "provider_requests": 0,
+        "source_archive": {
+          "sha256": "abe20784c4110f16d98738e4861beee622f51c1d1c6ab4feb7269e3669dbc26b",
+          "size": 183262
+        },
+        "status_unchanged": true,
+        "task_id": "make-mjson"
+      },
+      {
+        "build_system": "autotools",
+        "cleanup_succeeded": true,
+        "closure": {
+          "actual_delivery": [
+            {
+              "artifact_type": "static_library",
+              "relative_path": "lib/libcsv.a",
+              "sha256": "6a3be780b7fb701cdfb341017a218f15af0247d9cfbac47f6a80a1d309e698ca",
+              "size_bytes": 32392
+            }
+          ],
+          "classification": "passed",
+          "cleanup_succeeded": true,
+          "duration_seconds": 10.352902,
+          "exit_code": 0,
+          "expected_delivery": [
+            {
+              "artifact_type": "static_library",
+              "relative_path": "lib/libcsv.a",
+              "sha256": "6a3be780b7fb701cdfb341017a218f15af0247d9cfbac47f6a80a1d309e698ca",
+              "size_bytes": 32392
+            }
+          ],
+          "frontier_sha256": "7b36016d1d57291f967c519b0c74184cb9b1a9db5092b3c7a2c5f4f9b7ba5f78",
+          "output_excerpt": "yes\nchecking that generated files are newer than configure... done\nconfigure: creating ./config.status\nconfig.status: creating Makefile\nconfig.status: executing depfiles commands\nconfig.status: executing libtool commands\n/bin/bash ./libtool  --tag=CC   --mode=compile gcc-13 -DPACKAGE_NAME=\\\"libcsv\\\" -DPACKAGE_TARNAME=\\\"libcsv\\\" -DPACKAGE_VERSION=\\\"3.0.3\\\" -DPACKAGE_STRING=\\\"libcsv\\ 3.0.3\\\" -DPACKAGE_BUGREPORT=\\\"rgamble99@gmail.com\\\" -DPACKAGE_URL=\\\"https://github.com/rgamble/libcsv\\\" -DPACKAGE=\\\"libcsv\\\" -DVERSION=\\\"3.0.3\\\" -DSTDC_HEADERS=1 -DHAVE_SYS_TYPES_H=1 -DHAVE_SYS_STAT_H=1 -DHAVE_STDLIB_H=1 -DHAVE_STRING_H=1 -DHAVE_MEMORY_H=1 -DHAVE_STRINGS_H=1 -DHAVE_INTTYPES_H=1 -DHAVE_STDINT_H=1 -DHAVE_UNISTD_H=1 -DHAVE_DLFCN_H=1 -DLT_OBJDIR=\\\".libs/\\\" -I.    -Wall -Wextra  -g -O2 -MT libcsv_la-libcsv.lo -MD -MP -MF .deps/libcsv_la-libcsv.Tpo -c -o libcsv_la-libcsv.lo `test -f 'libcsv.c' || echo './'`libcsv.c\nlibtool: compile:  gcc-13 -DPACKAGE_NAME=\\\"libcsv\\\" -DPACKAGE_TARNAME=\\\"libcsv\\\" -DPACKAGE_VERSION=\\\"3.0.3\\\" \"-DPACKAGE_STRING=\\\"libcsv 3.0.3\\\"\" -DPACKAGE_BUGREPORT=\\\"rgamble99@gmail.com\\\" -DPACKAGE_URL=\\\"https://github.com/rgamble/libcsv\\\" -DPACKAGE=\\\"libcsv\\\" -DVERSION=\\\"3.0.3\\\" -DSTDC_HEADERS=1 -DHAVE_SYS_TYPES_H=1 -DHAVE_SYS_STAT_H=1 -DHAVE_STDLIB_H=1 -DHAVE_STRING_H=1 -DHAVE_MEMORY_H=1 -DHAVE_STRINGS_H=1 -DHAVE_INTTYPES_H=1 -DHAVE_STDINT_H=1 -DHAVE_UNISTD_H=1 -DHAVE_DLFCN_H=1 -DLT_OBJDIR=\\\".libs/\\\" -I. -Wall -Wextra -g -O2 -MT libcsv_la-libcsv.lo -MD -MP -MF .deps/libcsv_la-libcsv.Tpo -c libcsv.c -o libcsv_la-libcsv.o\nmv -f .deps/libcsv_la-libcsv.Tpo .deps/libcsv_la-libcsv.Plo\n/bin/bash ./libtool  --tag=CC   --mode=link gcc-13 -Wall -Wextra  -g -O2 -version-info 3:3:0  -o libcsv.la -rpath /usr/local/lib libcsv_la-libcsv.lo  \nlibtool: link: ar cru .libs/libcsv.a  libcsv_la-libcsv.o\nlibtool: link: ranlib .libs/libcsv.a\nlibtool: link: ( cd \".libs\" && rm -f \"libcsv.la\" && ln -s \"../libcsv.la\" \"libcsv.la\" )\nar: `u' modifier ignored since `D' is the default (see `U')\n",
+          "passed": true,
+          "recipe_fingerprint": "7c899eae8c7c25fab7cc85f887ef405578724be6bc3e7faf41102c6d9e677663",
+          "schema_version": "agent-workflow-replay-closure-v1"
+        },
+        "commands": 4,
+        "commit_sha": "b1d5212831842ee5869d99bc208a21837e4037d5",
+        "credential_reads": 0,
+        "duration_milliseconds": 21120,
+        "formal_effect_attempts": 0,
+        "managed_containers_after_cleanup": [],
+        "model_tokens": 0,
+        "no_formal_replay_attempt": true,
+        "project_family": "github.com/rgamble/libcsv",
+        "provider_requests": 0,
+        "source_archive": {
+          "sha256": "d4ac01bf59378e7db9680fa1eb99f859cae20d46d1cb6d00c7a97ee553b5359c",
+          "size": 378235
+        },
+        "status_unchanged": true,
+        "task_id": "autotools-libcsv"
+      }
+    ],
+    "passed": true,
+    "reference_closures": 3,
+    "runtime_bindings": {
+      "h0_runtime_v3": "run_agent_workflow_node_v3",
+      "h1_runtime_v4": "run_agent_workflow_node_v4",
+      "h2_runtime_v5": "run_agent_workflow_node_v5"
+    }
+  },
+  "release_revision": "d4333f955688884219933c88e5fbf659f6ded3a1",
+  "schema_version": "1.0.0",
+  "status": "completed"
+}

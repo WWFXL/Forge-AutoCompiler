@@ -4,6 +4,27 @@
 
 ## 当前阶段
 
+- 状态：Issue #445 的独立零 Provider `cpp-progress-aware-h0-h1-h2-unseen-qualification-v1` 已完成并通过，决定为
+  `proceed_to_unseen_three_arm_provider_canary_design`。后续比较固定保留 H0/Runtime v3、H1/Runtime v4 与
+  H2/Runtime v5 三臂，以分别观察原始受限 ReAct、进展感知 Harness 和增量 pre-freeze replay closure。
+- 新样本与预算：冻结三个此前未进入 Forge benchmark 的项目族：CMake `tinyxml2@8224e427`、Make
+  `mjson@696969cd`、Autotools `libcsv@b1d52128`。基于 v3 H0 的 27 arms，6 个预算耗尽值位于
+  `308,166-337,389`、最大单响应为 `52,297`，后续三臂共同预算冻结为 `T=600,000`、`R=100,000`，单臂授权
+  上界 `700,000`。首轮 `libConfuse` 因冻结镜像缺少 `autopoint/config.rpath` 未通过来源筛查，未进入样本。
+- 资格结果：Q0 三份 exact-commit source archive `3/3` 与预冻结 SHA-256 完全一致；Q1 的 CMake/Make/Autotools
+  reference recipe、functional smoke、artifact stage 和真实 replay closure `3/3 passed`，preflight 墙钟分别为
+  `5.514s / 6.822s / 10.353s`。expected/actual delivery 的路径、类型、大小和 SHA-256 一致；Session 保持活动，
+  正式 replay attempt 为 0，cleanup 后受管容器为 0，credential、Provider、Jev、model token 和 formal effect
+  attempt 均为 0。
+- Evidence：release `d4333f955688884219933c88e5fbf659f6ded3a1`；evidence 位于
+  `.compile-sessions/benchmark-evidence-cpp-progress-aware-h0-h1-h2-unseen-qualification-v1`，414 files /
+  9,348,206 bytes，inventory canonical SHA-256
+  `63c9e7c9e0d55eb681ed7038aae295703fee0c7e3defea80329a859c472d97d8`，独立 audit `valid=true`。报告位于
+  `benchmarks/reports/cpp-progress-aware-h0-h1-h2-unseen-qualification-v1.{json,md}`。
+- 解释边界与下一步：该结果只证明样本、离线来源、H2 replay closure 和三臂 dispatch 具备执行资格，不回答 H0
+  在充足预算下能否成功，也不证明 H2 相对 H1 提高成功率或降低成本。下一阶段应建立独立的 9-arm Provider canary
+  identity，每项目每臂一次，只检查生命周期、计量、treatment separation 和方差；canary 不进入效果估计。通过后再决定
+  是否执行每项目每臂两次的 18-arm 正式比较。
 - 状态：Issue #442 的独立零 Provider `cpp-progress-aware-replay-closure-qualification-v1` 已完成并通过，决定为
   `proceed_to_unseen_h0_h2_comparison_design`。Runtime v5/H2 将 `workspace_ready` 与 `replay_closure_ready` 分离；
   candidate 在冻结前必须使用相同 recipe 生成逻辑、冻结 source archive 和不可变 image 在隔离容器中重建完整 delivery，
