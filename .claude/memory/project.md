@@ -501,6 +501,32 @@
 
 <!-- 倒序，最新在上。 -->
 
+- 2026-10-13 — 完成 Issue #449 submit 拒绝后的有界恢复工程门禁
+  - 工作类型与问题: 工程修复、基础设施资格和零 Provider 数据采集。Issue #447 的 `mjson/H2` 中，CandidateVerifier 的
+    functional smoke 在 submit 内追加命令，使 Runtime v4/v5 只记录的 submit 前 frontier 失效；14 次 repair Shell 均被
+    `candidate_ready_requires_submit` 拒绝。自定义 `submit_candidate_v1` 还未释放 post-build phase，单纯增加预算无法恢复。
+  - 设计修正: 单条 repair Shell 不能生成顺序合法且包含 artifact-stage 的 replay recipe，因此“一次修复”冻结为全 Node
+    最多一个 repair window：仅 `recipe_execution_failed` 非终态拒绝可打开，一个 build 后只允许一个 artifact-stage，随后
+    强制再次 submit。许可在执行前消费；普通 ready、第二个 build、额外 stage、invalid/terminal/malformed submit 均不解锁。
+  - 实现: 新 Runtime v6 继承 v5，v4/v5 原文件保持不变。submit 返回后重新读取权威 Session 和 post-submit frontier；
+    repairable rejection 释放本 Node post-build phase；progress snapshot v3 暴露 submit/repair 状态；ledger 记录 frontier、
+    phase release、许可消费和动作结果。CandidateVerifier、functional oracle、replay closure 与 external evaluator 语义不变。
+  - 正式结果: release `c28fae6f56760843cc36178efaf352bb77f3ed4a`。v5 死锁确定性复现；真实 Docker Make 夹具首次
+    closure 为 `recipe_execution_failed`，随后一次 `make -C test test` 和一次 stage，第二次 closure 为 `passed`，candidate
+    成功冻结。10/10 硬门禁通过，决定 `proceed_to_unseen_three_arm_formal_comparison_design`。
+  - 证据与完整性: 4 次脚本化模型请求、0 recorded tokens、0 credential/Provider/Jev/formal effect attempt；Session 未终结、
+    正式 replay attempt 为 0、cleanup 后 0 managed resource。Evidence 为 6 files / 18,677 bytes，inventory canonical
+    SHA-256 `f3b70746664547aea75d0b9e699032c0f09fc4672be3f298098dd248a76cd47c`，独立 audit `valid=true`。
+    #447 的 3,780 files / 55,020,816 bytes 和 inventory `e911bb1d...e6696` 保持不变。聚焦相邻回归 `53 passed`，
+    Ruff/format/diff check 通过。
+  - 边界与下一步: 这是已知死锁的工程资格，不是 H2 treatment effect，不改变 #447 的 H0/H1/H2 `3/3、3/3、2/3`，
+    不支持成功率、成本或自然失败主张。下一阶段另建 18-arm formal comparison 设计与 identity；canary 不进入正式分母。
+  - 文件: `backend/packages/harness/deerflow/compile/agent_workflow_runtime_v6.py`,
+    `scripts/forge_submit_rejection_recovery_gate.py`,
+    `benchmarks/reports/cpp-progress-aware-submit-rejection-recovery-gate-v1.{json,md}`,
+    `docs/superpowers/specs/2026-10-13-submit-rejection-recovery-gate-design.md`,
+    `docs/superpowers/plans/2026-10-13-submit-rejection-recovery-gate.md`, `RESEARCH_STATUS.md`
+
 - 2026-10-12 — 完成 Issue #421 动态预算控制轨迹可辨识性审计并停止 controller 实现
   - 工作类型与问题: 结果分析和下一数据阶段设计，identity 为 `cpp-dynamic-budget-identifiability-audit-v1`。只读审计进展状态 v1、Issue #408 Jev v6 的 72 个 arm，以及 mechanism v2 现存 checkpoint 元数据，判断旧证据能否支持 `direct / escalate / stop` 动态预算控制器的离线资格。全过程 0 credential read、0 Provider、0 formal attempt；全部历史 evidence 只读。
   - 可用结构: v6 的 12 个同源受控故障状态均有 AlwaysAgent、RuleGate+Agent、JevGate+Agent 各两次重复，三种构建系统各 24 arm，72/72 ledger/result SHA-256 闭合；严格成功 45、失败 27。进展状态 v1 有 409 个连续 observed-action 决策点。历史 4 个 checkpoint 均绑定 workspace/artifacts/repro/image 哈希和剩余安全预算。

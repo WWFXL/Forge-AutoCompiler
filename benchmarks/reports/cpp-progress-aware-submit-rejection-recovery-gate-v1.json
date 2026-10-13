@@ -1,0 +1,61 @@
+{
+  "audit_valid": true,
+  "decision": "proceed_to_unseen_three_arm_formal_comparison_design",
+  "docker_case_summary": {
+    "case_id": "make-dirty-workspace-recovery",
+    "checks": {
+      "cleanup_succeeded": true,
+      "exact_model_requests": true,
+      "first_closure_rejected_recipe": true,
+      "no_formal_replay_attempt": true,
+      "node_submitted": true,
+      "one_repair_build": true,
+      "one_repair_stage": true,
+      "one_submit_rejection": true,
+      "post_build_released_once": true,
+      "repair_window_bounded": true,
+      "second_closure_passed": true,
+      "session_remains_active": true,
+      "zero_recorded_tokens": true
+    },
+    "closure_classifications": [
+      "recipe_execution_failed",
+      "passed"
+    ],
+    "command_count": 7,
+    "duration_seconds": 13.381953,
+    "model_requests": 4,
+    "passed": true,
+    "recorded_tokens": 0
+  },
+  "gates": {
+    "cleanup_closed": true,
+    "docker_recovery_passed": true,
+    "first_closure_recipe_execution_failed": true,
+    "parent_evidence_unchanged": true,
+    "repair_window_bounded": true,
+    "second_closure_passed": true,
+    "session_and_replay_boundary_preserved": true,
+    "strict_candidate_submitted": true,
+    "v5_deadlock_reproduced": true,
+    "zero_provider_boundary": true
+  },
+  "identity": "cpp-progress-aware-submit-rejection-recovery-gate-v1",
+  "interpretation_boundary": "zero-provider engineering recovery gate; no treatment effect",
+  "inventory_canonical_sha256": "f3b70746664547aea75d0b9e699032c0f09fc4672be3f298098dd248a76cd47c",
+  "inventory_file_count": 6,
+  "inventory_total_bytes": 18677,
+  "passed": true,
+  "release_revision": "c28fae6f56760843cc36178efaf352bb77f3ed4a",
+  "v5_deadlock_reproduction": {
+    "command_count_after": 3,
+    "command_count_before": 2,
+    "credential_reads": 0,
+    "passed": true,
+    "post_submit_frontier_sha256": "170936979ee114798a85511915ac0d5c2c483b78b4a00e5f228a6ea4600f246f",
+    "pre_submit_frontier_sha256": "8360b5eb3b41c519cacb273f7b8c6debdee1da3682cdeee350db7078a0727631",
+    "provider_requests": 0,
+    "repair_guard_reason": "candidate_ready_requires_submit"
+  },
+  "zero_managed_resources": true
+}

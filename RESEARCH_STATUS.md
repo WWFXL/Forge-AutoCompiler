@@ -4,6 +4,23 @@
 
 ## 当前阶段
 
+- 状态：Issue #449 的独立零 Provider `cpp-progress-aware-submit-rejection-recovery-gate-v1` 已完成并通过，正式决定为
+  `proceed_to_unseen_three_arm_formal_comparison_design`。Runtime v6 继承 v5，在 `recipe_execution_failed` 的非终态
+  submit 拒绝后释放当前 Node 的 post-build phase，并只开放一个有界 repair window：一个 build 和一个后续
+  artifact-stage，随后必须再次 submit；普通 candidate-ready、无效合同、终态或不可解析响应仍不能解锁 Shell。
+- 资格结果：Runtime v5 旧语义确定性复现 submit 的受信 smoke 把 command count 从 `2` 改为 `3`，post-submit
+  frontier 上的 repair 仍被 `candidate_ready_requires_submit` 拒绝。真实 Docker Make 夹具复现 mjson 脏工作区陷阱：
+  首次 closure 为 `recipe_execution_failed`；Runtime v6 各执行一次 `make -C test test` 和重新 stage；第二次 closure
+  为 `passed`，expected/actual ELF 的路径、类型、大小和 SHA-256 一致，candidate 成功冻结。
+- 完整性与 Evidence：release `c28fae6f56760843cc36178efaf352bb77f3ed4a`；4 次脚本化请求、0 recorded tokens、
+  0 credential、0 Provider、0 Jev、0 formal effect attempt。Session 保持活动、正式 replay attempt 为 0、cleanup 后
+  0 managed resource。Evidence 位于
+  `.compile-sessions/benchmark-evidence-cpp-progress-aware-submit-rejection-recovery-gate-v1`，6 files / 18,677 bytes，
+  inventory canonical SHA-256 `f3b70746664547aea75d0b9e699032c0f09fc4672be3f298098dd248a76cd47c`；独立 audit
+  `valid=true`。报告位于 `benchmarks/reports/cpp-progress-aware-submit-rejection-recovery-gate-v1.{json,md}`。
+- 解释边界与下一步：本结果只证明已观察到的 submit-rejection 恢复死锁已被有界修复，不估计 H2 的成功率、成本、
+  token 或自然失败效果，也不改变 #447 canary 的描述性分母。下一阶段可冻结独立 18-arm H0/H1/H2 正式比较设计、
+  estimand、共同预算与停止规则；#447 canary observation 不进入正式分母，正式 identity 尚未创建或执行。
 - 状态：Issue #447 的独立 `cpp-progress-aware-h0-h1-h2-unseen-provider-canary-v1` 已完成 Q0/Q1、封存和独立审计。
   九臂 `9/9` 分类终结、`9/9` cleanup，全部生命周期、usage、预算、source/release/image 绑定、动作后观察、三臂
   instrumentation 和 evaluator coverage 硬门禁通过；正式决定为
@@ -25,10 +42,8 @@
   55,020,816 bytes，inventory canonical SHA-256
   `e911bb1d5d40fc270ede9921bbb4781bcd75d4851bf8fe4ef1f95d02f97e6696`；重复 audit `valid=true`、
   `zero_managed_resources=true`。
-- 下一步：正式 18-arm 比较设计前，先建立独立零 Provider 的 submit-rejection recovery 工程门禁。修复必须在 closure
-  拒绝后允许一次有界修复动作、保留普通 candidate-ready 的先提交约束，并用 mjson 脏工作区陷阱证明能够新增正确 build
-  命令后再次提交。门禁通过后再冻结新的 18-arm identity、estimand、预算和停止规则；当前 canary observation 不并入正式
-  分母。
+- 后续：该恢复缺口已由 Issue #449 的 Runtime v6 门禁修复并通过；下一 identity 才能冻结新的 18-arm estimand、共同预算
+  和停止规则。当前 canary observation 不并入正式分母。
 - 状态：Issue #445 的独立零 Provider `cpp-progress-aware-h0-h1-h2-unseen-qualification-v1` 已完成并通过，决定为
   `proceed_to_unseen_three_arm_provider_canary_design`。后续比较固定保留 H0/Runtime v3、H1/Runtime v4 与
   H2/Runtime v5 三臂，以分别观察原始受限 ReAct、进展感知 Harness 和增量 pre-freeze replay closure。
