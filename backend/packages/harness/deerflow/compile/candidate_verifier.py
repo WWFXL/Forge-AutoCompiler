@@ -37,6 +37,15 @@ class CandidateVerificationCode(StrEnum):
     TARGET_MAPPING_INVALID = "target_mapping_invalid"
     TARGET_PATH_MISMATCH = "target_path_mismatch"
     FUNCTIONAL_ORACLE_FAILED = "functional_oracle_failed"
+    MISSING_BOOTSTRAP_STEP = "missing_bootstrap_step"
+    MISSING_GENERATED_INPUT = "missing_generated_input"
+    RECIPE_EXECUTION_FAILED = "recipe_execution_failed"
+    REPLAY_ARTIFACT_SET_MISMATCH = "artifact_set_mismatch"
+    REPLAY_ARTIFACT_CONTENT_MISMATCH = "artifact_content_mismatch"
+    REPLAY_CLOSURE_TIMEOUT = "replay_closure_timeout"
+    REPLAY_CLOSURE_CLEANUP_FAILED = "replay_closure_cleanup_failed"
+    REPLAY_CLOSURE_INTERNAL_ERROR = "replay_closure_internal_error"
+    REPLAY_VERIFICATION_FAILED = "replay_verification_failed"
 
 
 @dataclass(frozen=True)
@@ -117,6 +126,7 @@ class CandidateVerificationFinding:
     expected: tuple[str, ...] = ()
     actual: tuple[str, ...] = ()
     oracle: FunctionalCheckEvidence | None = None
+    message: str | None = None
 
     def validate(self) -> None:
         if not self.code or self.total_count < 0:
@@ -125,6 +135,8 @@ class CandidateVerificationFinding:
             raise AgentWorkflowContractError("candidate verification finding is not bounded")
         if self.total_count < len(self.paths):
             raise AgentWorkflowContractError("candidate verification total_count is smaller than paths")
+        if self.message is not None and (not self.message or len(self.message) > 2000):
+            raise AgentWorkflowContractError("candidate verification message is invalid")
         for values in (self.paths, self.expected, self.actual):
             if tuple(sorted(set(values))) != values:
                 raise AgentWorkflowContractError("candidate verification values must be sorted and unique")
@@ -143,6 +155,8 @@ class CandidateVerificationFinding:
             payload["actual"] = list(self.actual)
         if self.oracle is not None:
             payload["oracle"] = asdict(self.oracle)
+        if self.message is not None:
+            payload["message"] = self.message
         return payload
 
 
