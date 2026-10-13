@@ -1615,6 +1615,33 @@
 - 决定：`ready_for_progress_aware_harness_v3_authorization_review`。下一步只能从已审阅 candidate 派生独立 authorized
   identity 并绑定 release revision；先执行 Q0，`9/9` strict 后才允许读取 credential 和执行 Q1/Q2。candidate 本身不得改写。
 
+# 2026-10-13 H2 replay closure 零 Provider 资格
+
+- Issue #442 / 分支 `yiwei/442-replay-closure-state-qualification`：建立独立
+  `cpp-progress-aware-replay-closure-qualification-v1`，release 为
+  `6ac2fea53a56a35ccab9b2ec7a737604a39240b1`。本阶段不调用 Provider、不读取 credential、不创建 formal effect
+  attempt，也不修改 H0/H1 v1-v3 冻结 evidence。
+- 机制：Runtime v5/H2 在 Runtime v4 的 `workspace_ready` 之外增加 `replay_closure_ready`。现有 contract、完整 delivery、
+  target mapping 和 functional oracle 通过后，preflight 复用正式 `build_replay_recipe()` 和相同 bundle 生成逻辑，在隔离
+  replay container 中从冻结 source archive 执行 recipe、verification recipe，并比较完整 delivery 的路径、类型、大小和
+  SHA-256。结果绑定 request、recipe、delivery、commit、image、source archive 与 parallel jobs；frontier 变化使旧结果失效。
+- 生命周期边界：preflight 不追加正式 `ReplayVerificationResult`，不改变 Compile Session 终态，不替代 external evaluator。
+  失败以 `missing_bootstrap_step`、`missing_generated_input`、`recipe_execution_failed`、artifact mismatch、timeout、cleanup 或
+  internal error 返回给 Agent；异常与 cleanup 不闭合全部 fail closed。临时 bind mount 内容在 replay container 内删除，
+  宿主 attempt 目录随后删除，避免 root-owned 文件残留。
+- 正式结果：CMake/Make/Autotools 完整 recipe `3/3` 通过；Make 遗漏 `generated.c` 生成步骤与 Autotools 遗漏
+  `autoreconf` 的两个负例 `2/2` 在 candidate freeze 前拒绝，分类分别为 `missing_generated_input` 和
+  `missing_bootstrap_step`。共 `5/5` 按预期终结，Session 状态保持、正式 replay attempt 为 0、cleanup 后受管容器为 0，
+  credential/Provider/model token/formal effect attempt 均为 0。
+- Evidence：`.compile-sessions/benchmark-evidence-cpp-progress-aware-replay-closure-qualification-v1` 为 8 files / 9,854
+  bytes，inventory canonical SHA-256 `0b13bf8a3ce869eb37a977246893aabf88172cc44a8828f4312c1076cd665fda`，独立
+  audit `valid=true`；JSON/Markdown report SHA-256 为
+  `ae5e20cc6c3cea9fb4d7b361a68ac11526f5b2dbe5d424a6ad728ae67206be8c` /
+  `5677efbf5ca479e3df11eb36f43040c660f5cb4043d0440b52f17b2d4c892164`。
+- 结论：决定为 `proceed_to_unseen_h0_h2_comparison_design`。只支持已知两类 closure 缺口的通用机制资格和三个最小正例
+  不误拦；不支持未见真实项目效果、Agent 修复能力、成功率或成本主张。下一阶段应使用未见项目族和独立 identity 比较
+  充足预算 H0 与 H2，不能复用本资格夹具估计 treatment effect。
+
 # 2026-10-13 H0/H1 v3 正式确认性复现
 
 - Issue #440 / 分支 `yiwei/440-h0-h1-v3-execution`：建立并执行独立

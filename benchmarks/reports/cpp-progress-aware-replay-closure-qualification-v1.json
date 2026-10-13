@@ -1,0 +1,51 @@
+{
+  "cases": [
+    {
+      "case_id": "cmake-complete",
+      "classification": "passed",
+      "observed_passed": true,
+      "passed": true
+    },
+    {
+      "case_id": "make-complete",
+      "classification": "passed",
+      "observed_passed": true,
+      "passed": true
+    },
+    {
+      "case_id": "make-missing-generated-input",
+      "classification": "missing_generated_input",
+      "observed_passed": false,
+      "passed": true
+    },
+    {
+      "case_id": "autotools-complete",
+      "classification": "passed",
+      "observed_passed": true,
+      "passed": true
+    },
+    {
+      "case_id": "autotools-missing-bootstrap",
+      "classification": "missing_bootstrap_step",
+      "observed_passed": false,
+      "passed": true
+    }
+  ],
+  "decision": "proceed_to_unseen_h0_h2_comparison_design",
+  "gates": {
+    "all_cases_completed": true,
+    "all_cases_expected": true,
+    "cleanup_closed": true,
+    "negative_cases_detected": true,
+    "positive_cases_accepted": true,
+    "session_state_preserved": true,
+    "zero_provider_boundary": true
+  },
+  "identity": "cpp-progress-aware-replay-closure-qualification-v1",
+  "interpretation_boundary": "known-defect engineering qualification; no treatment effect",
+  "inventory_canonical_sha256": "0b13bf8a3ce869eb37a977246893aabf88172cc44a8828f4312c1076cd665fda",
+  "inventory_file_count": 8,
+  "inventory_total_bytes": 9854,
+  "passed": true,
+  "release_revision": "6ac2fea53a56a35ccab9b2ec7a737604a39240b1"
+}

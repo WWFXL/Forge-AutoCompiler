@@ -4,6 +4,22 @@
 
 ## 当前阶段
 
+- 状态：Issue #442 的独立零 Provider `cpp-progress-aware-replay-closure-qualification-v1` 已完成并通过，决定为
+  `proceed_to_unseen_h0_h2_comparison_design`。Runtime v5/H2 将 `workspace_ready` 与 `replay_closure_ready` 分离；
+  candidate 在冻结前必须使用相同 recipe 生成逻辑、冻结 source archive 和不可变 image 在隔离容器中重建完整 delivery，
+  失败只返回结构化反馈并保持 Session 活动，正式 external evaluator 仍独立执行 S0-S5。
+- 资格结果：CMake、Make、Autotools 三个完整 recipe 均通过；Make 遗漏生成 `generated.c` 的步骤准确分类为
+  `missing_generated_input`，Autotools 遗漏 `autoreconf` 准确分类为 `missing_bootstrap_step`。`5/5` 案例按预期有界终结，
+  `3/3` 正例未误拦、`2/2` 负例在冻结前拒绝，Session 状态保持、正式 replay attempt 为 0、cleanup 后受管容器为 0，
+  credential、Provider、model token 和 formal effect attempt 均为 0。
+- Evidence：release `6ac2fea53a56a35ccab9b2ec7a737604a39240b1`；evidence 位于
+  `.compile-sessions/benchmark-evidence-cpp-progress-aware-replay-closure-qualification-v1`，8 files / 9,854 bytes，inventory
+  canonical SHA-256 `0b13bf8a3ce869eb37a977246893aabf88172cc44a8828f4312c1076cd665fda`，独立 audit
+  `valid=true`。报告位于 `benchmarks/reports/cpp-progress-aware-replay-closure-qualification-v1.{json,md}`。
+- 解释边界与下一步：这是针对两个 post-observation 已知缺陷和三个最小正例的工程机制资格，不是 H2 treatment effect，
+  不证明未见真实项目召回率、Agent 能修复被拒 recipe、严格成功率非劣或成本收益。下一阶段应冻结未见项目族的 H0/H2
+  小规模比较；H0 使用充足且相同预算，H2 只增加 replay-closure 状态与反馈，主要观察 H0 budget exhaustion 是否在增加预算后
+  转为 strict success，以及 H2 能否消除 replay failure 而不因额外 preflight 增加不可接受的墙钟。
 - 状态：Issue #440 的独立 `cpp-progress-aware-harness-comparison-v3-authorized` 已完成 Q0/Q1/Q2、审计、一次性封存和
   报告生成，正式决定为 `stop_progress_aware_harness_as_primary_mechanism`。该 post-observation 确认性复现复用 9 个
   exact-commit 项目族，但以冻结深度轮换选择了 9 个未进入 v2 effect arms 的 checkpoint；历史 outcome 未导入或池化。
