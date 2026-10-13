@@ -2535,8 +2535,15 @@ def build_replay_recipe(
     )
 
 
-def _write_repro_bundle(session: CompileSession, recipe: ReplayRecipe) -> Path:
-    repro_dir = Path(session.metadata_path).parent / "repro"
+def _write_repro_bundle(
+    session: CompileSession,
+    recipe: ReplayRecipe,
+    *,
+    repro_dir: Path | None = None,
+    source_archive_path: Path | None = None,
+) -> Path:
+    repro_dir = repro_dir or Path(session.metadata_path).parent / "repro"
+    repro_dir.mkdir(parents=True, exist_ok=True)
     build_path = repro_dir / "build.sh"
     verify_path = repro_dir / "verify.sh"
     build_path.unlink(missing_ok=True)
@@ -2565,11 +2572,14 @@ def _write_repro_bundle(session: CompileSession, recipe: ReplayRecipe) -> Path:
     if source_archive_sha256 is not None:
         if not re.fullmatch(r"[0-9a-f]{64}", source_archive_sha256):
             raise ValueError("Replay source archive SHA-256 must be a lowercase hexadecimal digest.")
-        source_archive = repro_dir / "source.tar"
+        source_archive = source_archive_path or repro_dir / "source.tar"
         if source_archive.is_symlink() or not source_archive.is_file():
             raise ValueError("Replay source archive must be a regular repro/source.tar file.")
         if _sha256_file(source_archive) != source_archive_sha256:
             raise ValueError("Replay source archive SHA-256 does not match the compile session identity.")
+        mounted_source_archive = repro_dir / "source.tar"
+        if source_archive.resolve() != mounted_source_archive.resolve():
+            shutil.copy2(source_archive, mounted_source_archive)
         build_lines.extend(
             [
                 "SOURCE_ARCHIVE=/repro/source.tar",
@@ -2625,7 +2635,6 @@ def _write_repro_bundle(session: CompileSession, recipe: ReplayRecipe) -> Path:
             ]
         )
 
-    repro_dir.mkdir(parents=True, exist_ok=True)
     temporary_path = repro_dir / f".build.sh.{uuid.uuid4().hex}.tmp"
     try:
         temporary_path.write_text("\n".join(build_lines) + "\n", encoding="utf-8")
