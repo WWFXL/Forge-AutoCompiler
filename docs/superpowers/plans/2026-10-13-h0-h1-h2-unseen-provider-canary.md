@@ -27,6 +27,6 @@
 
 - [x] 更新 `RESEARCH_STATUS.md` 与 `.claude/memory/project.md`。
 - [x] 更新知识库固定研究路线文档。
-- [ ] 回写 Issue #447，提交、推送并创建堆叠 PR。
+- [x] 回写 Issue #447，提交、推送并创建堆叠 PR。
 
 旧 evidence 全部只读；禁止 replacement、backfill、删除失败 observation 或在同 identity 重跑。
