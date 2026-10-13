@@ -1679,3 +1679,30 @@
   论文主创新机制；不得以相同项目族追加重复或事后修改阈值挽救。报告位于
   `benchmarks/reports/cpp-progress-aware-harness-comparison-v3-authorized.{json,md}`；在研究负责人核实前不进入
   Workflow+Agent+Jev 新链路实现。
+
+# 2026-10-13 H0/H1/H2 未见项目族零 Provider 资格
+
+- Issue #445 / 分支 `yiwei/445-h0-h1-h2-unseen-comparison-design`：建立独立
+  `cpp-progress-aware-h0-h1-h2-unseen-qualification-v1`，release revision
+  `d4333f955688884219933c88e5fbf659f6ded3a1`，manifest canonical SHA-256
+  `6c97e8fe3fc39601b3992555bcdfabea1548258d26b2a5ee7b5a1c61f02c2bb2`。本 identity 允许公开源码网络、Docker
+  和新的 create-once evidence；credential、Provider、Jev、model token 与 formal effect attempt 均为 0。
+- 预算依据：v3 的 27 个 H0 arms 中，6 个 `budget_exhausted` 的完整 recorded tokens 位于
+  `308,166-337,389`，H0 最大值 `337,389`；v3 全部 541 个响应的单响应最大值为 `52,297`。下一阶段三臂共同
+  冻结 `T=600,000`、`R=100,000`，最多 36 requests、96 steps、72 tools、48 commands，单臂授权上界 700,000
+  recorded tokens。该选择发生在新项目 Provider outcome 前，但属于观察 v3 后的设计。
+- 样本：CMake `leethomason/tinyxml2@8224e427`、Make `cesanta/mjson@696969cd`、Autotools
+  `rgamble/libcsv@b1d52128`，均未出现在此前 Forge benchmark。首轮 Autotools `libConfuse@d989cbd7` 因冻结镜像
+  缺少 `autopoint/config.rpath` 失败，记录为未合格来源筛查；没有在同一候选身份中替换。`libcsv` 的
+  `fix-timestamps.sh` 作为显式 dependency 动作处理 Git 导出同秒时间戳。
+- Q0/Q1：三份 `git archive | gzip -n` source archive `3/3` 精确匹配预注册哈希；三个构建系统的 reference
+  recipe、smoke、artifact stage 与真实 `ReplayClosureVerifier` 均通过。closure preflight 分别为 5.514s、6.822s、
+  10.353s，expected/actual delivery 的路径、类型、大小和 SHA-256 完全一致。Session 状态不变、正式 replay attempt
+  为 0、cleanup 后受管容器为 0。
+- Evidence：`.compile-sessions/benchmark-evidence-cpp-progress-aware-h0-h1-h2-unseen-qualification-v1`，414 files /
+  9,348,206 bytes，inventory canonical SHA-256
+  `63c9e7c9e0d55eb681ed7038aae295703fee0c7e3defea80329a859c472d97d8`；独立 audit `valid=true`。报告为
+  `benchmarks/reports/cpp-progress-aware-h0-h1-h2-unseen-qualification-v1.{json,md}`。
+- 决定：`proceed_to_unseen_three_arm_provider_canary_design`。本结果是工程与样本资格，不是 treatment effect；不回答
+  H0 的充分预算反事实，也不证明 H2 相对 H1 有成功率、成本或墙钟收益。下一身份先执行 3 项目 x 3 arms x 1 次的
+  9-arm canary，只检查闭合和方差；通过后再决定 18-arm 正式比较。

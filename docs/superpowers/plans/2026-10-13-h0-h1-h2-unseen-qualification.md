@@ -14,16 +14,16 @@
 
 ## B. 零 Provider 资格
 
-- [ ] 生成并验证 const manifest/schema。
-- [ ] Q0 重新获取 exact commit，并核对确定性 source archive SHA-256。
-- [ ] Q1 在真实 Docker 中完成三项目 recipe、smoke、artifact stage 和 H2 clean replay closure。
-- [ ] 验证 Session 状态、正式 replay attempt、容器 cleanup 和 0 credential/Provider/model token。
-- [ ] 生成 create-once marker、inventory、审计和报告。
+- [x] 生成并验证 const manifest/schema。
+- [x] Q0 重新获取 exact commit，并核对确定性 source archive SHA-256。
+- [x] Q1 在真实 Docker 中完成三项目 recipe、smoke、artifact stage 和 H2 clean replay closure。
+- [x] 验证 Session 状态、正式 replay attempt、容器 cleanup 和 0 credential/Provider/model token。
+- [x] 生成 create-once marker、inventory、审计和报告。
 
 ## C. 验证与交接
 
-- [ ] 运行聚焦测试、Runtime v3-v5 相邻回归、Ruff 和 format check。
-- [ ] 更新 `RESEARCH_STATUS.md` 与 `.claude/memory/project.md`。
+- [x] 运行聚焦测试、Runtime v5 相邻回归、Ruff 和 format check。
+- [x] 更新 `RESEARCH_STATUS.md` 与 `.claude/memory/project.md`。
 - [ ] 将结果回写 Issue #445，提交并推送分支，创建堆叠 PR。
 
 ## D. 后续阶段
