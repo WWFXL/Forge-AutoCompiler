@@ -1,0 +1,215 @@
+{
+  "$id": "forge-progress-aware-h0-h1-h2-unseen-qualification-v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "const": {
+    "$schema": "forge-progress-aware-h0-h1-h2-unseen-qualification-v1",
+    "authorization": {
+      "backfill": false,
+      "credential_read": false,
+      "docker": true,
+      "dynamic_budget_controller": false,
+      "formal_effect_attempts": 0,
+      "historical_evidence_write": false,
+      "jev_calls": false,
+      "model_tokens": 0,
+      "new_evidence_write": true,
+      "provider_calls": false,
+      "public_source_network": true,
+      "replacement": false
+    },
+    "branch": "yiwei/445-h0-h1-h2-unseen-comparison-design",
+    "components": {
+      "backend/packages/harness/deerflow/compile/agent_workflow_runtime_v3.py": "2d71383d011e943f78e9259b9f7ceec2c8e1f080d7609e86413ce188a841f65e",
+      "backend/packages/harness/deerflow/compile/agent_workflow_runtime_v4.py": "48593cfea3a5cd0512531332bec89bc16afddbdc190605e55d17c027a7769c66",
+      "backend/packages/harness/deerflow/compile/agent_workflow_runtime_v5.py": "44462a2e6cf26e3008743281c942604ce75955ac62125afcf676fa1882c1c92a",
+      "backend/packages/harness/deerflow/compile/external_evaluator_v4.py": "9009c400b1b54d9ad05411f1a64124423cf50d8ba49bfa2d13071d9bedad4613",
+      "backend/packages/harness/deerflow/compile/replay_closure_verifier.py": "01f8335ab0a586065803b34952b930adbf593624c611316b40ca2ccac685cd83"
+    },
+    "environment": {
+      "build_network": "none",
+      "compile_image": "autocompiler:gcc13",
+      "image_id": "sha256:d27a6ab733c7c3a9cbb5e4b32fb595aa5a422ff04bd212888d1041b90a2c4c2a",
+      "parallel_jobs": 2
+    },
+    "evidence_root": ".compile-sessions/benchmark-evidence-cpp-progress-aware-h0-h1-h2-unseen-qualification-v1",
+    "future_common_budget": {
+      "authorized_recorded_tokens_per_arm": 700000,
+      "cleanup_timeout_seconds": 120,
+      "command_timeout_seconds": 900,
+      "evaluator_timeout_seconds": 1800,
+      "max_agent_steps": 96,
+      "max_commands": 48,
+      "max_model_requests": 36,
+      "max_recorded_tokens": 600000,
+      "max_recorded_tokens_per_response": 100000,
+      "max_tool_calls": 72,
+      "node_timeout_seconds": 1800,
+      "replay_timeout_seconds": 1800
+    },
+    "future_effect_boundary": {
+      "formal_identity_required": true,
+      "planned_formal_arms": 18,
+      "provider_canary_arms": 9,
+      "provider_canary_enters_effect_estimate": false
+    },
+    "identity": "cpp-progress-aware-h0-h1-h2-unseen-qualification-v1",
+    "issue": 445,
+    "observed_basis": {
+      "h0_arms": 27,
+      "h0_budget_exhausted": 6,
+      "h0_budget_exhausted_range": [
+        308166,
+        337389
+      ],
+      "h0_max_recorded_tokens": 337389,
+      "h2_identity": "cpp-progress-aware-replay-closure-qualification-v1",
+      "h2_inventory_canonical_sha256": "0b13bf8a3ce869eb37a977246893aabf88172cc44a8828f4312c1076cd665fda",
+      "maximum_response_recorded_tokens": 52297,
+      "v3_decision": "stop_progress_aware_harness_as_primary_mechanism",
+      "v3_identity": "cpp-progress-aware-harness-comparison-v3-authorized"
+    },
+    "preregistration": {
+      "path": "benchmarks/preregistrations/cpp-progress-aware-h0-h1-h2-unseen-qualification-v1.md",
+      "sha256": "86dc30c30514fb12b94fe415d7ea93406542065b88c25685392346a9d4f4c1be"
+    },
+    "qualification": {
+      "fail_decision": "stop_before_unseen_three_arm_provider_canary",
+      "pass_decision": "proceed_to_unseen_three_arm_provider_canary_design",
+      "q0_source_archives": 3,
+      "q1_reference_closures": 3,
+      "required_build_systems": [
+        "cmake",
+        "make",
+        "autotools"
+      ]
+    },
+    "schema_version": "1.0.0",
+    "screening": {
+      "first_autotools_candidate": "github.com/libconfuse/libconfuse@d989cbd7e02406bd83c3fac5dfcd9e50853f9383",
+      "first_autotools_result": "excluded_missing_autopoint_config_rpath",
+      "replacement_within_first_candidate_identity": false,
+      "second_autotools_candidate_count": 1
+    },
+    "status": "authorized_zero_provider_qualification",
+    "tasks": [
+      {
+        "build_system": "cmake",
+        "commands": [
+          {
+            "command": "cmake -S . -B build -DBUILD_TESTING=OFF -Dtinyxml2_SHARED_LIBS=OFF",
+            "role": "configure",
+            "timeout_seconds": 900
+          },
+          {
+            "command": "cmake --build build --parallel 2",
+            "role": "build",
+            "timeout_seconds": 900
+          },
+          {
+            "command": "install -Dm644 build/libtinyxml2.a /artifacts/lib/libtinyxml2.a",
+            "role": "artifact_stage",
+            "timeout_seconds": 900
+          }
+        ],
+        "commit_sha": "8224e427b655b83dae5e2298f1e6919523a78737",
+        "project_family": "github.com/leethomason/tinyxml2",
+        "repository_url": "https://github.com/leethomason/tinyxml2.git",
+        "smoke": "printf '%s\\n' '#include <tinyxml2.h>' 'int main(){ tinyxml2::XMLDocument d; return d.Parse(\"<x/>\"); }' > /tmp/forge-tinyxml2.cc && c++ -std=c++17 -I/workspace/repo /tmp/forge-tinyxml2.cc /artifacts/lib/libtinyxml2.a -o /tmp/forge-tinyxml2 && /tmp/forge-tinyxml2",
+        "source_archive": {
+          "sha256": "d85f89cb6753a888d9008daf23f51e3360028d9ec2a7ee1cae2fe332b4f15f7d",
+          "size": 644073
+        },
+        "target": {
+          "artifact_path": "lib/libtinyxml2.a",
+          "artifact_type": "static_library",
+          "target_id": "tinyxml2-static"
+        },
+        "task_id": "cmake-tinyxml2"
+      },
+      {
+        "build_system": "make",
+        "commands": [
+          {
+            "command": "make -C test test",
+            "role": "build",
+            "timeout_seconds": 900
+          },
+          {
+            "command": "install -Dm755 test/unit_test /artifacts/bin/mjson-unit-test",
+            "role": "artifact_stage",
+            "timeout_seconds": 900
+          }
+        ],
+        "commit_sha": "696969cd0d35399cc66075f5ec7a96e23ba4a89b",
+        "project_family": "github.com/cesanta/mjson",
+        "repository_url": "https://github.com/cesanta/mjson.git",
+        "smoke": "/artifacts/bin/mjson-unit-test",
+        "source_archive": {
+          "sha256": "abe20784c4110f16d98738e4861beee622f51c1d1c6ab4feb7269e3669dbc26b",
+          "size": 183262
+        },
+        "target": {
+          "artifact_path": "bin/mjson-unit-test",
+          "artifact_type": "executable",
+          "target_id": "mjson-unit-test"
+        },
+        "task_id": "make-mjson"
+      },
+      {
+        "build_system": "autotools",
+        "commands": [
+          {
+            "command": "./fix-timestamps.sh",
+            "role": "dependency",
+            "timeout_seconds": 900
+          },
+          {
+            "command": "./configure --disable-shared --enable-static",
+            "role": "configure",
+            "timeout_seconds": 900
+          },
+          {
+            "command": "make -j2",
+            "role": "build",
+            "timeout_seconds": 900
+          },
+          {
+            "command": "install -Dm644 .libs/libcsv.a /artifacts/lib/libcsv.a",
+            "role": "artifact_stage",
+            "timeout_seconds": 900
+          }
+        ],
+        "commit_sha": "b1d5212831842ee5869d99bc208a21837e4037d5",
+        "project_family": "github.com/rgamble/libcsv",
+        "repository_url": "https://github.com/rgamble/libcsv.git",
+        "smoke": "printf '%s\\n' '#include <csv.h>' 'int main(void){ struct csv_parser p; if(csv_init(&p,0)!=0) return 1; csv_free(&p); return 0; }' > /tmp/forge-libcsv.c && cc -std=c11 -I/workspace/repo /tmp/forge-libcsv.c /artifacts/lib/libcsv.a -o /tmp/forge-libcsv && /tmp/forge-libcsv",
+        "source_archive": {
+          "sha256": "d4ac01bf59378e7db9680fa1eb99f859cae20d46d1cb6d00c7a97ee553b5359c",
+          "size": 378235
+        },
+        "target": {
+          "artifact_path": "lib/libcsv.a",
+          "artifact_type": "static_library",
+          "target_id": "libcsv-static"
+        },
+        "task_id": "autotools-libcsv"
+      }
+    ],
+    "treatments": {
+      "h0": {
+        "id": "h0_runtime_v3",
+        "runtime": "agent-workflow-runtime-v3"
+      },
+      "h1": {
+        "id": "h1_runtime_v4",
+        "runtime": "agent-workflow-runtime-v4"
+      },
+      "h2": {
+        "id": "h2_runtime_v5",
+        "increment_over_h1": "pre_freeze_replay_closure_only",
+        "runtime": "agent-workflow-runtime-v5"
+      }
+    }
+  },
+  "title": "Forge H0/H1/H2 unseen-project zero-provider qualification"
+}
