@@ -4,6 +4,31 @@
 
 ## 当前阶段
 
+- 状态：Issue #447 的独立 `cpp-progress-aware-h0-h1-h2-unseen-provider-canary-v1` 已完成 Q0/Q1、封存和独立审计。
+  九臂 `9/9` 分类终结、`9/9` cleanup，全部生命周期、usage、预算、source/release/image 绑定、动作后观察、三臂
+  instrumentation 和 evaluator coverage 硬门禁通过；正式决定为
+  `proceed_to_unseen_three_arm_formal_comparison_design`。
+- 描述性结果：strict 为 H0 `3/3`、H1 `3/3`、H2 `2/3`；三臂 Provider requests 为 `25/21/48`，recorded
+  tokens 为 `162,560/118,186/553,403`，费用为 `$0.056622/$0.042906/$0.269391`。九臂合计 94 requests、
+  834,149 recorded tokens、`$0.368919`；H2 共执行 9 次 replay closure。Canary 单次小样本不进入 treatment effect、
+  非劣、成本节省比例或成功率泛化估计。
+- Make-H2 失败审计：唯一 `no_candidate` arm 是 `mjson/H2`。首次 `make` 在生成可执行物后因额外 Docker 目标失败，
+  随后的 `make unit_test` 仅返回 up-to-date；7 次干净 closure 均以 `recipe_execution_failed` 拒绝该不完整 recipe。每次
+  submit 的受信 smoke 又改变 command frontier，使 progress guard 继续返回 `candidate_ready_requires_submit`，共拒绝 14 次
+  修复 Shell；Agent 无法新增正确的 `make -C test test`，最终在 31 requests、453,780 tokens 后触达 96-step 图预算。
+  这说明 H2 成功检出了工作区偶然成功，但暴露了拒绝后恢复状态缺口；增加 Token 预算不能单独修复。
+- 指标边界：主报告的 `replay_closure_rejections=0` 是冻结派生器遗漏 `recipe_execution_failed` 的计数缺口。Raw events
+  明确记录 7 个 failed closure 和 7 个对应 submit rejection，正式原始 evidence 与主报告不改写；只读 sidecar 位于
+  `benchmarks/reports/cpp-progress-aware-h0-h1-h2-unseen-provider-canary-v1-failure-analysis.md`。
+- Evidence：release `841405d82a2fd18227b6f85dc2139822630f90e9`；evidence 位于
+  `.compile-sessions/benchmark-evidence-cpp-progress-aware-h0-h1-h2-unseen-provider-canary-v1`，3,780 files /
+  55,020,816 bytes，inventory canonical SHA-256
+  `e911bb1d5d40fc270ede9921bbb4781bcd75d4851bf8fe4ef1f95d02f97e6696`；重复 audit `valid=true`、
+  `zero_managed_resources=true`。
+- 下一步：正式 18-arm 比较设计前，先建立独立零 Provider 的 submit-rejection recovery 工程门禁。修复必须在 closure
+  拒绝后允许一次有界修复动作、保留普通 candidate-ready 的先提交约束，并用 mjson 脏工作区陷阱证明能够新增正确 build
+  命令后再次提交。门禁通过后再冻结新的 18-arm identity、estimand、预算和停止规则；当前 canary observation 不并入正式
+  分母。
 - 状态：Issue #445 的独立零 Provider `cpp-progress-aware-h0-h1-h2-unseen-qualification-v1` 已完成并通过，决定为
   `proceed_to_unseen_three_arm_provider_canary_design`。后续比较固定保留 H0/Runtime v3、H1/Runtime v4 与
   H2/Runtime v5 三臂，以分别观察原始受限 ReAct、进展感知 Harness 和增量 pre-freeze replay closure。

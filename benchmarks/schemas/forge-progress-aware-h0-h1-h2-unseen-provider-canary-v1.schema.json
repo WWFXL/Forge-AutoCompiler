@@ -1,0 +1,263 @@
+{
+  "$id": "forge-progress-aware-h0-h1-h2-unseen-provider-canary-v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "const": {
+    "$schema": "forge-progress-aware-h0-h1-h2-unseen-provider-canary-v1",
+    "allowed_preexisting_untracked": [
+      "docs/research/2026-10-13-forge-research-progress-defense.html"
+    ],
+    "authorization": {
+      "backfill": false,
+      "docker": true,
+      "dynamic_budget_controller": false,
+      "historical_evidence_write": false,
+      "jev_calls": false,
+      "new_evidence_write": true,
+      "q0_credential_read": false,
+      "q0_provider_calls": false,
+      "q1_credential_read_after_q0": true,
+      "q1_provider_calls": true,
+      "replacement": false
+    },
+    "authorization_record": {
+      "authorized_at": "2026-10-13",
+      "authorized_by": "research_owner",
+      "maximum_provider_cost_usd": 7.56,
+      "maximum_provider_requests": 324,
+      "maximum_recorded_tokens": 6300000,
+      "tracking_issue": 447
+    },
+    "branch": "yiwei/447-h0-h1-h2-unseen-provider-canary",
+    "budget": {
+      "per_arm": {
+        "authorized_recorded_tokens_per_arm": 700000,
+        "cleanup_timeout_seconds": 120,
+        "command_timeout_seconds": 900,
+        "evaluator_timeout_seconds": 1800,
+        "max_agent_steps": 96,
+        "max_commands": 48,
+        "max_model_requests": 36,
+        "max_recorded_tokens": 600000,
+        "max_recorded_tokens_per_response": 100000,
+        "max_tool_calls": 72,
+        "node_timeout_seconds": 1800,
+        "replay_timeout_seconds": 1800
+      },
+      "provider_arms": 9,
+      "total_authorized_recorded_tokens": 6300000,
+      "total_provider_cost_usd_ceiling": 7.56,
+      "total_provider_requests": 324,
+      "total_recorded_tokens_stop_threshold": 5400000
+    },
+    "components": {
+      "backend/packages/harness/deerflow/compile/agent_workflow_runtime.py": "92277bf4b5568acb43523edb6344b2a6b6c70ce731cab62200295b3aa97d9931",
+      "backend/packages/harness/deerflow/compile/agent_workflow_runtime_v3.py": "2d71383d011e943f78e9259b9f7ceec2c8e1f080d7609e86413ce188a841f65e",
+      "backend/packages/harness/deerflow/compile/agent_workflow_runtime_v4.py": "48593cfea3a5cd0512531332bec89bc16afddbdc190605e55d17c027a7769c66",
+      "backend/packages/harness/deerflow/compile/agent_workflow_runtime_v5.py": "44462a2e6cf26e3008743281c942604ce75955ac62125afcf676fa1882c1c92a",
+      "backend/packages/harness/deerflow/compile/agent_workflow_schemas.py": "21a19f6d1a0421fce2c7807474db9eefe0e0be25042241ca121fbb9d5ec99706",
+      "backend/packages/harness/deerflow/compile/candidate_verifier.py": "595cec0fc909e2179fbcebc5428c6b5ae996d7442e90ece5ccbc8d57bef7ab89",
+      "backend/packages/harness/deerflow/compile/external_evaluator_v4.py": "9009c400b1b54d9ad05411f1a64124423cf50d8ba49bfa2d13071d9bedad4613",
+      "backend/packages/harness/deerflow/compile/operations.py": "8a275e76a30e4476d7e403120cc9e372b13eaa0ac8bd091d2786f6cbe1f0878a",
+      "backend/packages/harness/deerflow/compile/replay_closure_verifier.py": "01f8335ab0a586065803b34952b930adbf593624c611316b40ca2ccac685cd83",
+      "backend/packages/harness/deerflow/tools/bound_compile_tools.py": "735ec5c8daa34d66e4b1116987e281e861149a5273434ec200e403c3fe1ec758",
+      "benchmarks/preregistrations/cpp-progress-aware-h0-h1-h2-unseen-provider-canary-v1.md": "41cb970c875542d9fea38c11d1928ff257b290034d8dba50b38dacc377195ab4",
+      "docs/superpowers/specs/2026-10-13-h0-h1-h2-unseen-provider-canary-design.md": "64215656bad1bf75eef1d93aa26d81c2ad1cf0b44457d79d6a821145c6bcf565",
+      "scripts/forge_agent_continuation_qualification_v2.py": "efc4d75a0791ba3b8e614a920a018934d73476030c3ead3c7700568fe091ebac",
+      "scripts/forge_h0_h1_h2_unseen_provider_canary.py": "f1ad724c63b171afacbc2f78bf6484efd9d79c624194571052e297be2ce67a31",
+      "scripts/forge_progress_aware_harness_comparison_v3.py": "cefff6a9f0395e6a20fbc4fceee0a020e00698b46d40a1d14b28e3e1bfce104b"
+    },
+    "environment": {
+      "compile_image": "autocompiler:gcc13",
+      "image_id": "sha256:d27a6ab733c7c3a9cbb5e4b32fb595aa5a422ff04bd212888d1041b90a2c4c2a",
+      "network_policy": "offline_frozen_source",
+      "parallel_jobs": 4
+    },
+    "evidence_root": ".compile-sessions/benchmark-evidence-cpp-progress-aware-h0-h1-h2-unseen-provider-canary-v1",
+    "identity": "cpp-progress-aware-h0-h1-h2-unseen-provider-canary-v1",
+    "issue": 447,
+    "parent": {
+      "decision": "proceed_to_unseen_three_arm_provider_canary_design",
+      "evidence_root": ".compile-sessions/benchmark-evidence-cpp-progress-aware-h0-h1-h2-unseen-qualification-v1",
+      "identity": "cpp-progress-aware-h0-h1-h2-unseen-qualification-v1",
+      "inventory_canonical_sha256": "63c9e7c9e0d55eb681ed7038aae295703fee0c7e3defea80329a859c472d97d8",
+      "manifest_canonical_sha256": "6c97e8fe3fc39601b3992555bcdfabea1548258d26b2a5ee7b5a1c61f02c2bb2",
+      "manifest_path": "benchmarks/manifests/cpp-progress-aware-h0-h1-h2-unseen-qualification-v1.json",
+      "mutation_forbidden": true,
+      "release_revision": "d4333f955688884219933c88e5fbf659f6ded3a1",
+      "report_json_sha256": "55418058511e0a4d5a0943404d8fe9b44a77bc17f66fcae3f98ec80961ea23ef",
+      "report_md_sha256": "b1d08b236b79876f2813bca2bceca71162f5ab8ccd01eb2cc238f8dbeac595cc"
+    },
+    "preregistration": {
+      "path": "benchmarks/preregistrations/cpp-progress-aware-h0-h1-h2-unseen-provider-canary-v1.md",
+      "sha256": "41cb970c875542d9fea38c11d1928ff257b290034d8dba50b38dacc377195ab4"
+    },
+    "provider": {
+      "actual_model": "deepseek-flash",
+      "credential_env_name": "DEEPSEEK_API_KEY",
+      "endpoint": "https://api.deepseek.com",
+      "input_price_usd_per_million_tokens": 0.3,
+      "model_max_retries": 0,
+      "output_price_usd_per_million_tokens": 1.2,
+      "profile": "deepseek-flash",
+      "provider": "deepseek",
+      "request_timeout_seconds": 300,
+      "streaming": false,
+      "thinking_enabled": false
+    },
+    "qualification": {
+      "canary_enters_effect_estimate": false,
+      "fail_decision": "stop_before_unseen_three_arm_formal_comparison",
+      "minimum_evaluated_candidates_per_treatment": 1,
+      "minimum_h2_replay_closure_events": 1,
+      "pass_decision": "proceed_to_unseen_three_arm_formal_comparison_design",
+      "required_arms": 9
+    },
+    "release_revision": null,
+    "release_revision_policy": "clean_pushed_branch_head_recorded_by_q0_before_credential_read",
+    "schedule": [
+      {
+        "repetition": 1,
+        "sequence": 1,
+        "task_id": "cmake-tinyxml2",
+        "treatment": "h0_runtime_v3"
+      },
+      {
+        "repetition": 1,
+        "sequence": 2,
+        "task_id": "cmake-tinyxml2",
+        "treatment": "h1_runtime_v4"
+      },
+      {
+        "repetition": 1,
+        "sequence": 3,
+        "task_id": "cmake-tinyxml2",
+        "treatment": "h2_runtime_v5"
+      },
+      {
+        "repetition": 1,
+        "sequence": 4,
+        "task_id": "make-mjson",
+        "treatment": "h1_runtime_v4"
+      },
+      {
+        "repetition": 1,
+        "sequence": 5,
+        "task_id": "make-mjson",
+        "treatment": "h2_runtime_v5"
+      },
+      {
+        "repetition": 1,
+        "sequence": 6,
+        "task_id": "make-mjson",
+        "treatment": "h0_runtime_v3"
+      },
+      {
+        "repetition": 1,
+        "sequence": 7,
+        "task_id": "autotools-libcsv",
+        "treatment": "h2_runtime_v5"
+      },
+      {
+        "repetition": 1,
+        "sequence": 8,
+        "task_id": "autotools-libcsv",
+        "treatment": "h0_runtime_v3"
+      },
+      {
+        "repetition": 1,
+        "sequence": 9,
+        "task_id": "autotools-libcsv",
+        "treatment": "h1_runtime_v4"
+      }
+    ],
+    "schema_version": "forge-progress-aware-h0-h1-h2-unseen-provider-canary-1.0.0",
+    "status": "authorized_for_canary",
+    "tasks": [
+      {
+        "build_system": "cmake",
+        "commit_sha": "8224e427b655b83dae5e2298f1e6919523a78737",
+        "oracle": {
+          "command": "printf '%s\\n' '#include <tinyxml2.h>' 'int main(){ tinyxml2::XMLDocument d; return d.Parse(\"<x/>\"); }' > /tmp/forge-tinyxml2.cc && c++ -std=c++17 -I/workspace/repo /tmp/forge-tinyxml2.cc /artifacts/lib/libtinyxml2.a -o /tmp/forge-tinyxml2 && /tmp/forge-tinyxml2",
+          "timeout_seconds": 180,
+          "workdir": "/workspace/repo"
+        },
+        "project_family": "github.com/leethomason/tinyxml2",
+        "repository_url": "https://github.com/leethomason/tinyxml2.git",
+        "source_archive": {
+          "path": ".compile-sessions/benchmark-evidence-cpp-progress-aware-h0-h1-h2-unseen-qualification-v1/q0/sources/cmake-tinyxml2.tar.gz",
+          "sha256": "d85f89cb6753a888d9008daf23f51e3360028d9ec2a7ee1cae2fe332b4f15f7d",
+          "size": 644073
+        },
+        "source_state_id": "cmake-tinyxml2-state-0",
+        "target": {
+          "artifact_path": "lib/libtinyxml2.a",
+          "artifact_type": "static_library",
+          "target_id": "tinyxml2-static"
+        },
+        "task_id": "cmake-tinyxml2"
+      },
+      {
+        "build_system": "make",
+        "commit_sha": "696969cd0d35399cc66075f5ec7a96e23ba4a89b",
+        "oracle": {
+          "command": "/artifacts/bin/mjson-unit-test",
+          "timeout_seconds": 180,
+          "workdir": "/workspace/repo"
+        },
+        "project_family": "github.com/cesanta/mjson",
+        "repository_url": "https://github.com/cesanta/mjson.git",
+        "source_archive": {
+          "path": ".compile-sessions/benchmark-evidence-cpp-progress-aware-h0-h1-h2-unseen-qualification-v1/q0/sources/make-mjson.tar.gz",
+          "sha256": "abe20784c4110f16d98738e4861beee622f51c1d1c6ab4feb7269e3669dbc26b",
+          "size": 183262
+        },
+        "source_state_id": "make-mjson-state-0",
+        "target": {
+          "artifact_path": "bin/mjson-unit-test",
+          "artifact_type": "executable",
+          "target_id": "mjson-unit-test"
+        },
+        "task_id": "make-mjson"
+      },
+      {
+        "build_system": "autotools",
+        "commit_sha": "b1d5212831842ee5869d99bc208a21837e4037d5",
+        "oracle": {
+          "command": "printf '%s\\n' '#include <csv.h>' 'int main(void){ struct csv_parser p; if(csv_init(&p,0)!=0) return 1; csv_free(&p); return 0; }' > /tmp/forge-libcsv.c && cc -std=c11 -I/workspace/repo /tmp/forge-libcsv.c /artifacts/lib/libcsv.a -o /tmp/forge-libcsv && /tmp/forge-libcsv",
+          "timeout_seconds": 180,
+          "workdir": "/workspace/repo"
+        },
+        "project_family": "github.com/rgamble/libcsv",
+        "repository_url": "https://github.com/rgamble/libcsv.git",
+        "source_archive": {
+          "path": ".compile-sessions/benchmark-evidence-cpp-progress-aware-h0-h1-h2-unseen-qualification-v1/q0/sources/autotools-libcsv.tar.gz",
+          "sha256": "d4ac01bf59378e7db9680fa1eb99f859cae20d46d1cb6d00c7a97ee553b5359c",
+          "size": 378235
+        },
+        "source_state_id": "autotools-libcsv-state-0",
+        "target": {
+          "artifact_path": "lib/libcsv.a",
+          "artifact_type": "static_library",
+          "target_id": "libcsv-static"
+        },
+        "task_id": "autotools-libcsv"
+      }
+    ],
+    "treatments": {
+      "h0": {
+        "id": "h0_runtime_v3",
+        "runtime": "agent-workflow-runtime-v3"
+      },
+      "h1": {
+        "id": "h1_runtime_v4",
+        "runtime": "agent-workflow-runtime-v4"
+      },
+      "h2": {
+        "id": "h2_runtime_v5",
+        "increment_over_h1": "pre_freeze_replay_closure_only",
+        "runtime": "agent-workflow-runtime-v5"
+      }
+    }
+  },
+  "title": "Forge unseen H0/H1/H2 Provider canary"
+}

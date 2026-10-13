@@ -1706,3 +1706,35 @@
 - 决定：`proceed_to_unseen_three_arm_provider_canary_design`。本结果是工程与样本资格，不是 treatment effect；不回答
   H0 的充分预算反事实，也不证明 H2 相对 H1 有成功率、成本或墙钟收益。下一身份先执行 3 项目 x 3 arms x 1 次的
   9-arm canary，只检查闭合和方差；通过后再决定 18-arm 正式比较。
+
+# 2026-10-13 H0/H1/H2 未见项目族 Provider Canary
+
+- Issue #447 / 分支 `yiwei/447-h0-h1-h2-unseen-provider-canary`：建立并执行独立
+  `cpp-progress-aware-h0-h1-h2-unseen-provider-canary-v1`。冻结 release 为
+  `841405d82a2fd18227b6f85dc2139822630f90e9`，manifest canonical SHA-256 为
+  `ccd66bba742b7589ca93136f2eb39646b54a5fedeceb58fc0e05321b2791683c`。项目为 tinyxml2/mjson/libcsv，三臂为
+  Runtime v3/v4/v5，每臂一次；模型、顺序、600,000-token 停止阈值、700,000 授权上界和 96-step 上限均在 Q1 前冻结。
+- Q0/Q1：Q0 exact release、三份 source archive、Runtime dispatch、Docker image 和零资源门禁通过，0 credential read、
+  0 Provider。Q1 九臂 `9/9` 分类终结、cleanup 和计量闭合，0 infrastructure error；正式决定为
+  `proceed_to_unseen_three_arm_formal_comparison_design`。三臂 strict 为 `3/3、3/3、2/3`，requests 为
+  `25/21/48`，recorded tokens 为 `162,560/118,186/553,403`，费用为
+  `$0.056622/$0.042906/$0.269391`；总计 94 requests、834,149 tokens、`$0.368919`。这些只作 canary 描述，不进入
+  treatment effect、非劣或成本节省估计。
+- Make-H2 只读失败审计：首次 `make` 在成功生成并运行 `unit_test` 后，因 Makefile 的额外 Docker 目标不可用而 exit 2；
+  后续成功的 `make unit_test` 只是消费脏工作区的 up-to-date 文件。H2 七次 clean closure 都从 source archive 启动，均因
+  隐式规则只链接 `unit_test.c`、遗漏 `../src/mjson.c` 而分类为 `recipe_execution_failed`。七个 frontier 和 recipe
+  fingerprint 均不同，但已有成功 command 集中没有可复现 build。
+- 恢复死锁：每次 submit 的 functional smoke 会追加命令、改变 `command_count`；Runtime v4/v5 在 submit 前标记旧
+  frontier，submit 后的新 frontier 再次触发 `candidate_ready_requires_submit`。该 arm 有 10 次 submit、7 次 closure、
+  14 次 repair Shell 拒绝，最终在 31 requests、453,780 tokens 时达到 96 Agent steps；没有达到 Token 或 request 上限。
+  因此失败主因不是 Agent 不愿提交，也不是 Token 不足，而是 closure 正确拒绝后 Harness 没有可执行恢复状态。
+- 派生指标缺口：冻结 reporter 的 `replay_closure_rejections` 只识别 `replay_*`、`missing_bootstrap_step` 和
+  `missing_generated_input`，遗漏 `recipe_execution_failed`，所以主报告显示 0；raw events 实际有 7 个 failed closure
+  与 7 个对应 rejection。正式证据和主报告保持只读，解释保存在
+  `benchmarks/reports/cpp-progress-aware-h0-h1-h2-unseen-provider-canary-v1-failure-analysis.md`。
+- Evidence：3,780 files / 55,020,816 bytes，inventory canonical SHA-256
+  `e911bb1d5d40fc270ede9921bbb4781bcd75d4851bf8fe4ef1f95d02f97e6696`；封存后重复 audit `valid=true`、
+  `zero_managed_resources=true`。
+- 下一步：在正式 18-arm 比较设计前先建独立零 Provider submit-rejection recovery gate。修复应在被拒 submit 的当前
+  frontier 上允许一次有界 repair command，同时保持未提交候选必须先 submit 的约束；以 mjson 脏工作区陷阱验证新增
+  `make -C test test` 后可再次 closure/submit。通过后才能冻结新的正式比较 identity；canary observation 不并入正式分母。
