@@ -13,18 +13,18 @@
 
 ## B. 零 Provider 资格
 
-- [ ] 生成并验证 const manifest/schema。
-- [ ] 提交 candidate，使资格运行绑定干净 release revision。
-- [ ] Q0 重新获取三个 exact commit 并核对确定性 source archive。
-- [ ] Q1 完成三个禁网 Docker reference recipe、smoke、artifact stage 和 clean replay closure。
-- [ ] 验证 Session、正式 replay attempt、Runtime 绑定、cleanup 与零 credential/Provider/model token 边界。
-- [ ] create-once 封存 marker、inventory，完成独立 audit 和版本化报告。
+- [x] 生成并验证 const manifest/schema。
+- [x] 提交 candidate，使资格运行绑定干净 release revision。
+- [x] Q0 重新获取三个 exact commit 并核对确定性 source archive。
+- [x] Q1 完成三个禁网 Docker reference recipe、smoke、artifact stage 和 clean replay closure。
+- [x] 验证 Session、正式 replay attempt、Runtime 绑定、cleanup 与零 credential/Provider/model token 边界。
+- [x] create-once 封存 marker、inventory，完成独立 audit 和版本化报告。
 
 ## C. 验证与交接
 
-- [ ] 运行聚焦测试、Runtime v3/v4/v6 与 replay closure 相邻回归。
-- [ ] 运行 Ruff、format、manifest/schema check 和 `git diff --check`。
-- [ ] 更新 `RESEARCH_STATUS.md` 与 `.claude/memory/project.md`。
+- [x] 运行聚焦测试、Runtime v3/v4/v6 与 replay closure 相邻回归。
+- [x] 运行 Ruff、format、manifest/schema check 和 `git diff --check`。
+- [x] 更新 `RESEARCH_STATUS.md` 与 `.claude/memory/project.md`。
 - [ ] 将结果回写 Issue #451，提交、推送并创建堆叠 PR。
 
 ## D. 后续阶段

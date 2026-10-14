@@ -501,6 +501,28 @@
 
 <!-- 倒序，最新在上。 -->
 
+- 2026-10-14 — 完成 Issue #451 Runtime v6 的 H0/H1/H2 held-out 零 Provider 资格
+  - 工作类型与问题: 实验设计、零 Provider 数据采集和基础设施资格。Runtime v6 是观察旧 `mjson/H2` 死锁后开发的，
+    因此冻结全新 held-out 项目，检验 source/reference/replay/dispatch/evidence 生命周期是否足以支持独立正式比较。
+  - Identity 与 release: `cpp-progress-aware-h0-h1-h2-runtime-v6-qualification-v1`，release
+    `e9acb6e97e601bfe39cd528c8f135a3b4d6b047d`，manifest canonical SHA-256
+    `f0000fe9debd0c101d589ac7f98772b1eb5debab41e21344e1458a1761c558fb`。样本为 CMake
+    `commonmark/cmark@7e1e10c`、Make `orangeduck/mpc@1049534`、Autotools `libexpat/libexpat@ac140c2`；旧
+    `tinyxml2/mjson/libcsv` 不进入新分母。
+  - Q0/Q1: source archive `3/3` 精确匹配；reference recipe、smoke、artifact stage 与真实 clean replay closure
+    `3/3 passed`，preflight 为 8.330 / 6.168 / 24.200 秒。expected/actual 静态库 delivery 完全一致；Runtime bindings
+    精确为 v3/v4/v6，Session 保持活动、正式 replay attempt 为 0、cleanup 后 0 managed resource。
+  - Evidence 与验证: 668 files / 170,843,568 bytes，inventory canonical SHA-256
+    `bb48a02443a67ab36c93af0013f1811d6411dfef35b4ef8a30e242e4d2c52bd8`，独立 audit `valid=true`；相邻回归
+    `53 passed`，Ruff、format、manifest/schema 与 diff check 通过。全程 0 credential、0 Provider、0 Jev、0 model
+    token、0 formal effect attempt。
+  - 决定与边界: `proceed_to_runtime_v6_three_arm_formal_comparison_design`。后续冻结 18 arms，主要 estimand 为
+    `strict_success(H2)-strict_success(H1)`、非劣界 -0.10，共同预算 T=600,000/R=100,000。本资格不支持 H2
+    成功率、成本或泛化主张；Provider identity 尚未创建。
+  - 文件: `benchmarks/reports/cpp-progress-aware-h0-h1-h2-runtime-v6-qualification-v1.{json,md}`、
+    `scripts/forge_h0_h1_h2_runtime_v6_qualification.py`、
+    `.compile-sessions/benchmark-evidence-cpp-progress-aware-h0-h1-h2-runtime-v6-qualification-v1`
+
 - 2026-10-13 — 完成 Issue #449 submit 拒绝后的有界恢复工程门禁
   - 工作类型与问题: 工程修复、基础设施资格和零 Provider 数据采集。Issue #447 的 `mjson/H2` 中，CandidateVerifier 的
     functional smoke 在 submit 内追加命令，使 Runtime v4/v5 只记录的 submit 前 frontier 失效；14 次 repair Shell 均被
