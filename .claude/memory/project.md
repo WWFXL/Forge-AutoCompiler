@@ -6,6 +6,33 @@
 
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
+- 2026-10-14 — Issue #461 进展预算 Jev 校准 candidate 与零 Provider 门禁完成
+  - 工作类型与问题: 实验基础设施。把 Issue #459 已冻结的离线校准 spec 落成可机械审查的 candidate，解除未来独立
+    authorized calibration identity 的协议与执行前置阻塞；本阶段不产生 Jev、BudgetFit、controller 或端到端效果结论。
+  - 身份与父绑定: 新 identity `cpp-jev-progress-budget-calibration-candidate-v1` 逐文件审计 Issue #457 的 702-file evidence，
+    绑定父报告文件 SHA-256 `1ec00e9d...c1ccc`、父 manifest canonical SHA-256 `fed83243...bc76` 和 inventory canonical
+    SHA-256 `2e4209fb...38f5`。按父 source pool 冻结顺序机械划分 calibration/evaluation，各为 3 family、15 states、45
+    budget decisions；state、Provider state、action label、budget decision 和两套基线行分别冻结 canonical hash。
+  - Candidate 合同: 固定 `jev-1.13.0`、每状态一个请求、同请求正反顺序 Choice、30 秒 timeout、`max_retries=0`；Provider
+    state 只输出 build system、phase/progress facts 和原始失败日志。实现概率和 `0.005`、confidence、模型、usage、request
+    ID 的 fail-closed 解析，以及 45 行固定参数 Platt scaling、calibration-only 零错误最大覆盖阈值和三路 BudgetFit 纯函数。
+  - 冻结基线与 manifest: evaluation 重新机械复核 RuleGate 为 `27/45` joint correct、30 direct、18 wrong direct；
+    TF-IDF+BudgetFit 为 `39/45`、18 direct、0 wrong direct，三个系统均 `13/15`；Oracle 为 direct 24、escalate 3、stop 18。
+    Candidate manifest canonical SHA-256 为 `39b1438270768f63de515827c65bed1ad15e7dd1f4a4175ee9670ba6205cb9c5`。
+  - 零 Provider 验证: 聚焦与相邻回归 `25 passed, 1 skipped`，skip 为父 candidate 的 opt-in Docker gate；Ruff、format、
+    deterministic regeneration、runner validate、MockTransport 和 preflight、diff 与敏感信息扫描通过。Preflight 仅用 metadata
+    确认 `jev-apikey.txt` 存在、模式 `0600`、非 symlink；测试拦截 open/read，证明 0 credential content read。全阶段 0
+    Provider/Jev/Agent、0 token、0 formal attempt/evidence、0 historical evidence write。
+  - 权限与下一步: 未来上限冻结为 30 requests、200,000 input、50,000 output tokens、`$0.0084`，当前未授权。完成提交、
+    push、PR 与 CI 后，由研究负责人决定是否建立绑定 exact revision 的独立 authorized identity；授权前不得读取 credential
+    内容或调用 Provider，不实现 controller。
+  - 文件: `docs/research/2026-10-14-jev-progress-budget-calibration-plan.md`,
+    `scripts/forge_jev_progress_budget_calibration_candidate.py`,
+    `backend/tests/test_forge_jev_progress_budget_calibration_candidate.py`,
+    `benchmarks/manifests/cpp-jev-progress-budget-calibration-candidate-v1.json`,
+    `benchmarks/schemas/forge-jev-progress-budget-calibration-candidate-v1.schema.json`,
+    `benchmarks/preregistrations/cpp-jev-progress-budget-calibration-candidate-v1.md`, `RESEARCH_STATUS.md`
+
 - 2026-10-13 — Issue #440 H0/H1 v3 正式复现 authorized identity 已实现，等待发布与 Q0
   - 工作类型与问题: 正式数据采集前的协议实现。目标是在 v2 结果已观察的前提下，用同 9 个项目族、机械旋转到未进入
     v2 effect arms 的 checkpoint 深度，检验 H1 strict/cost 正向信号能否在完整后付费 Token 计量下复现。
