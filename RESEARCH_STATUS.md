@@ -4,19 +4,27 @@
 
 ## 当前阶段
 
-- 状态：Issue #453 的 `cpp-progress-aware-h0-h1-h2-runtime-v6-formal-comparison-v1` 已因宿主磁盘耗尽失败封口，决定为
-  `formal_execution_invalid_due_to_host_disk_exhaustion`。Q0 通过后 Q1 完成 8 个 arm，第 9 个
-  `autotools-expat/H1` 在模型请求前触发 `Errno 28`；第 10-18 个 arm 未启动。8 个完整 observation 永久排除于 effect
-  analysis，不计算 H2-H1 非劣或成本差异。
-- 封口与 Evidence：release `213f2f232bf96a59897ec053e0a2b4a143d4f04b`，manifest canonical SHA-256
-  `ab8be962280f9b4d93a85e2d1632540ab1dfd57f3a9b927731f7a5929180a4d4`；失败 evidence 为 4,595 files /
-  670,224,934 bytes，inventory canonical SHA-256
-  `cc640491c3c8ff40039bbe2b225596723b026d6ba6e9b91b8ae558cf372b16b8`，failure audit 有效、0 credential value match、
-  0 managed resource。零字节 arm/Q1 result 作为原始部分失败保留，不续跑、不补齐、不重分类。
-- 基础设施修复与下一步：未删除任何 experiment evidence；已清理 51.24 GB 可再生 Docker build cache，根分区从 0 恢复约
-  47 GB。若继续必须新建 identity，从头执行 18 arms，并在 Q0 与每个 arm 前冻结宿主可用空间硬门禁；v1 partial
-  observation 不进入新分母。失败报告位于
-  `benchmarks/reports/cpp-progress-aware-h0-h1-h2-runtime-v6-formal-comparison-v1.{json,md}`。
+- 状态：Issue #455 的独立 `cpp-progress-aware-h0-h1-h2-runtime-v6-formal-comparison-v2` 已完成 Q0、18-arm Q1、
+  独立审计和一次性封存，决定为 `runtime_v6_noninferior_but_mechanism_not_activated`。v2 从 sequence 1 全新执行，
+  Issue #453 v1 的 8 个完整 observation 与部分 attempt 永久排除于 v2 分母。
+- 正式结果：H0/H1/H2 strict success 均为 `6/6`。H2-H1 差值为 `0.000`，项目族 bootstrap 单侧 95% 下界为
+  `0.000`，通过 `-0.10` 非劣界。H0/H1/H2 分别使用 `59/45/44` 次请求、`452,060/249,376/249,229`
+  recorded tokens 和 `$0.158667/$0.088058/$0.087804`；三臂均无 budget exhaustion 或 no-candidate。
+- 机制边界：H2 的 6 个 pre-freeze replay closure 全部直接通过；H1 S5 external replay failure、H2 closure rejection、
+  repair window 和 permission consumption 均为 0。结果支持 Runtime v6 在这三个冻结项目族上没有成功率退化，且 Provider
+  资源与 H1 基本相同；不支持 closure/recovery 改善可靠性的正向机制主张。H2 总墙钟 `348,115 ms`，高于 H1 的
+  `271,519 ms`，说明直接通过的 closure 仍有运行时开销。
+- 完整性与 Evidence：release `09913e624314e9287bf661c55b8200b0527f402b`，manifest canonical SHA-256
+  `6c47c484b4ff1db073aaa79046c6986e3d236a3c34d3df5c3e6913fb19e6b33c`；18 个 storage observation、请求生命周期、
+  usage、预算、source/post-action binding、treatment instrumentation 和 cleanup 硬门禁全部通过。Evidence 为
+  10,813 files / 1,981,539,380 bytes，inventory canonical SHA-256
+  `372c395ffc36245be90327a01bd7a87c84491708fa507882738bf945c946f373`；重复 audit `valid=true`、0 managed
+  resource，封存后 API key 与 Bearer header 精确匹配均为 0。运行中的 `httpx.AsyncClient.aclose()` 后台告警未破坏任何
+  request/usage/cleanup 守恒，未构成预注册 infrastructure error。
+- 下一项决策：不在相同三个全成功项目上追加重复。若继续把 H2 作为研究机制，下一 identity 必须使用独立未见、具有
+  replay 缺陷暴露机会的激活型 benchmark，并把主张限定为缺陷检测与有界恢复；否则 H2 作为 Forge 工程安全层和消融项
+  保留，研究主线回到 Workflow+Agent+Jev 与动态预算组合。两条路线均需研究负责人审查后再建新 identity。报告位于
+  `benchmarks/reports/cpp-progress-aware-h0-h1-h2-runtime-v6-formal-comparison-v2.{json,md}`。
 
 - 状态：Issue #451 的独立零 Provider `cpp-progress-aware-h0-h1-h2-runtime-v6-qualification-v1` 已完成并通过，正式决定为
   `proceed_to_runtime_v6_three_arm_formal_comparison_design`。该 identity 排除 Runtime v6 已观察的 `mjson` 和旧三臂

@@ -501,6 +501,34 @@
 
 <!-- 倒序，最新在上。 -->
 
+- 2026-10-14 — Issue #455 Runtime v6 三臂正式比较 v2 完成，非劣通过但机制未激活
+  - 工作类型与问题: 正式 Provider 数据采集、结果分析与封存。Identity 为
+    `cpp-progress-aware-h0-h1-h2-runtime-v6-formal-comparison-v2`；在 v1 宿主磁盘耗尽后从头执行 `cmark/mpc/expat`、
+    H0 Runtime v3、H1 Runtime v4、H2 Runtime v6 的 18 arms，主要估计项目族聚类的
+    `strict_success(H2)-strict_success(H1)`，非劣界为 `-0.10`。v1 observation 不进入 v2 分母。
+  - 发布与基础设施: release `09913e624314e9287bf661c55b8200b0527f402b`，manifest canonical SHA-256
+    `6c47c484b4ff1db073aaa79046c6986e3d236a3c34d3df5c3e6913fb19e6b33c`。Q0 与每个 arm marker 前新增 20 GiB
+    可用空间硬门禁；18 个 storage observation 全部通过，最末 arm 启动前仍有 46,436,749,312 bytes 可用。Q0 为
+    0 credential read、0 Provider request；Q1 后 0 managed resource。
+  - 正式结果: 18/18 arms 分类、usage、预算和 cleanup 闭合，H0/H1/H2 strict 均为 `6/6`。H2-H1 差值与项目族
+    bootstrap 单侧 95% 下界均为 `0.000`，因此通过非劣门槛。三臂 requests 为 `59/45/44`，recorded tokens 为
+    `452,060/249,376/249,229`，费用为 `$0.158667/$0.088058/$0.087804`；总计 148 requests、950,665 tokens、
+    `$0.334529`。墙钟分别为 `345,029/271,519/348,115 ms`。
+  - 机制结论: H2 的 6 次 pre-freeze replay closure 全部直接通过；H1 S5 external replay failure、H2 closure rejection、
+    repair window、permission consumption 和 repair action 均为 0。决定为
+    `runtime_v6_noninferior_but_mechanism_not_activated`：只支持固定样本上的 H2 非退化，不支持 closure/recovery 提高
+    可靠性的主张。相同全成功样本不得通过追加重复来制造机制暴露。
+  - 完整性: 10/10 硬门禁通过。Evidence 为 10,813 files / 1,981,539,380 bytes，inventory canonical SHA-256
+    `372c395ffc36245be90327a01bd7a87c84491708fa507882738bf945c946f373`；封存前后 audit 均 `valid=true`、
+    `zero_managed_resources=true`，封存后 10,814 个实际文件中的 API key 原值和 Bearer header 精确匹配均为 0。运行中
+    出现已知 `httpx.AsyncClient.aclose()` event-loop 后台告警，但 18 arms 的 started/completed、usage、budget 和 cleanup
+    均守恒，未构成预注册 infrastructure error。
+  - 验证与下一步: candidate 前非 Docker 相关回归 `86 passed`，聚焦 `8 passed`，Ruff、format、manifest/schema 和
+    diff check 通过。下一步不在相同项目继续重复；研究负责人需在独立激活型 replay 缺陷 benchmark 与回到
+    Workflow+Agent+Jev / 动态预算组合之间选择。H2 可继续作为 Forge 工程安全层和论文消融项。
+  - 文件: `benchmarks/reports/cpp-progress-aware-h0-h1-h2-runtime-v6-formal-comparison-v2.{json,md}`、
+    `.compile-sessions/benchmark-evidence-cpp-progress-aware-h0-h1-h2-runtime-v6-formal-comparison-v2`
+
 - 2026-10-14 — Issue #453 Runtime v6 三臂正式比较 v1 因宿主磁盘耗尽失败封口
   - 工作类型与问题: 正式数据采集与基础设施失败分析。Identity 为
     `cpp-progress-aware-h0-h1-h2-runtime-v6-formal-comparison-v1`，计划用 `cmark/mpc/expat`、H0 Runtime v3、H1
