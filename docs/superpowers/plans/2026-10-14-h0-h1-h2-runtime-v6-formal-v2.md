@@ -15,23 +15,23 @@
 
 ## B. Q0 零 Provider 门禁
 
-- [ ] 核对父资格与 v1 failure manifest、report、inventory 和 source archive 哈希。
-- [ ] 核对 Runtime v3/v4/v6 binding、组件哈希、Docker image 和零 managed resource。
-- [ ] 核对 clean pushed branch、预算、至少 20 GiB 可用空间和尚未读取 credential/调用 Provider。
-- [ ] create-once 写入 Q0 证据并封口。
+- [x] 核对父资格与 v1 failure manifest、report、inventory 和 source archive 哈希。
+- [x] 核对 Runtime v3/v4/v6 binding、组件哈希、Docker image 和零 managed resource。
+- [x] 核对 clean pushed branch、预算、至少 20 GiB 可用空间和尚未读取 credential/调用 Provider。
+- [x] create-once 写入 Q0 证据并封口。
 
 ## C. 18-arm 正式数据采集
 
-- [ ] Q0 通过后读取 `DEEPSEEK_API_KEY`，按冻结顺序运行 18 arms。
-- [ ] 每臂启动前写入 storage observation，再保存 assignment、请求生命周期、usage、session、evaluator、Harness 事件与 cleanup 证据。
-- [ ] 每个 arm 后检查整批 request/token/费用上界；部分失败按协议保留并停止 replacement。
+- [x] Q0 通过后读取 `DEEPSEEK_API_KEY`，按冻结顺序运行 18 arms。
+- [x] 每臂启动前写入 storage observation，再保存 assignment、请求生命周期、usage、session、evaluator、Harness 事件与 cleanup 证据。
+- [x] 每个 arm 后检查整批 request/token/费用上界；部分失败按协议保留并停止 replacement。
 
 ## D. 分析、审计与交接
 
-- [ ] 计算 strict success 差值、项目族 bootstrap 下界、三臂资源指标和 Runtime v6 激活指标。
-- [ ] 完成 inventory、credential/header 扫描、独立 audit 和版本化报告。
-- [ ] 更新 `RESEARCH_STATUS.md` 与 `.claude/memory/project.md`。
-- [ ] 提交、推送、回写 Issue #455 并创建以 #453 分支为 base 的堆叠 PR。
+- [x] 计算 strict success 差值、项目族 bootstrap 下界、三臂资源指标和 Runtime v6 激活指标。
+- [x] 完成 inventory、credential/header 扫描、独立 audit 和版本化报告。
+- [x] 更新 `RESEARCH_STATUS.md` 与 `.claude/memory/project.md`。
+- [x] 提交、推送、回写 Issue #455 并创建以 #453 分支为 base 的堆叠 PR。
 
 历史 identity/evidence 永久只读；不合并 PR，不实现动态预算或 Jev 控制器。
 
