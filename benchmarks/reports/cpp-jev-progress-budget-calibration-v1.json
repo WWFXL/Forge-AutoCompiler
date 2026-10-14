@@ -1,0 +1,868 @@
+{
+  "budget": {
+    "completed_response_observations": 15,
+    "input_tokens": 14552,
+    "model_cost_usd": 0.000611184,
+    "output_tokens": 1557,
+    "physical_requests": 15,
+    "valid_normalized_responses": 15
+  },
+  "calibration": {
+    "action_analysis": {
+      "exact_optimal_action_count": 4,
+      "order_agreement_count": 7,
+      "per_build_system": {
+        "autotools": {
+          "exact_optimal_action_count": 1,
+          "order_agreement_count": 1,
+          "safe_action_count": 5,
+          "state_count": 5
+        },
+        "cmake": {
+          "exact_optimal_action_count": 2,
+          "order_agreement_count": 4,
+          "safe_action_count": 4,
+          "state_count": 5
+        },
+        "make": {
+          "exact_optimal_action_count": 1,
+          "order_agreement_count": 2,
+          "safe_action_count": 5,
+          "state_count": 5
+        }
+      },
+      "rows": [
+        {
+          "action_cost_regret": 0,
+          "build_system": "make",
+          "choice": "escalate_agent",
+          "confidence": 0.45,
+          "cost_usd": 3.6036e-05,
+          "exact_optimal": true,
+          "latency_ms": 524.6698618866503,
+          "optimal_action": "escalate_agent",
+          "optimal_action_cost": 6,
+          "order_agreement": true,
+          "order_sensitivity_choice": "escalate_agent",
+          "probabilities": {
+            "build": 0.04,
+            "configure": 0.36,
+            "dependency": 0.01,
+            "escalate_agent": 0.59
+          },
+          "project_family": "github.com/kgabis/parson",
+          "raw_probabilities": {
+            "build": 0.04,
+            "configure": 0.36,
+            "dependency": 0.01,
+            "escalate_agent": 0.59
+          },
+          "raw_probability_sum": 1.0,
+          "request_id": "req_01a13ac2b417769fa0d4d572c42e8cda",
+          "safe_action": true,
+          "safe_actions": [
+            "escalate_agent"
+          ],
+          "selected_action_cost": 6,
+          "state_id": "s-108f99789cb31e2be262",
+          "usage": {
+            "input_tokens": 858,
+            "output_tokens": 107
+          }
+        },
+        {
+          "action_cost_regret": 3,
+          "build_system": "make",
+          "choice": "escalate_agent",
+          "confidence": 0.17,
+          "cost_usd": 3.843e-05,
+          "exact_optimal": false,
+          "latency_ms": 324.0728587843478,
+          "optimal_action": "dependency",
+          "optimal_action_cost": 3,
+          "order_agreement": false,
+          "order_sensitivity_choice": "dependency",
+          "probabilities": {
+            "build": 0.09,
+            "configure": 0.16,
+            "dependency": 0.37,
+            "escalate_agent": 0.38
+          },
+          "project_family": "github.com/kgabis/parson",
+          "raw_probabilities": {
+            "build": 0.09,
+            "configure": 0.16,
+            "dependency": 0.37,
+            "escalate_agent": 0.38
+          },
+          "raw_probability_sum": 1.0,
+          "request_id": "req_01a13ac2b571741ca9c74d100f4fef09",
+          "safe_action": true,
+          "safe_actions": [
+            "dependency",
+            "escalate_agent"
+          ],
+          "selected_action_cost": 6,
+          "state_id": "s-173aba324d1d5eee8558",
+          "usage": {
+            "input_tokens": 915,
+            "output_tokens": 104
+          }
+        },
+        {
+          "action_cost_regret": 5,
+          "build_system": "make",
+          "choice": "escalate_agent",
+          "confidence": 0.32,
+          "cost_usd": 3.6330000000000006e-05,
+          "exact_optimal": false,
+          "latency_ms": 363.80455270409584,
+          "optimal_action": "build",
+          "optimal_action_cost": 1,
+          "order_agreement": false,
+          "order_sensitivity_choice": "configure",
+          "probabilities": {
+            "build": 0.04,
+            "configure": 0.34,
+            "dependency": 0.13,
+            "escalate_agent": 0.49
+          },
+          "project_family": "github.com/kgabis/parson",
+          "raw_probabilities": {
+            "build": 0.04,
+            "configure": 0.34,
+            "dependency": 0.13,
+            "escalate_agent": 0.49
+          },
+          "raw_probability_sum": 1.0,
+          "request_id": "req_01a13ac2b6c2796994ed64d17dddbaf1",
+          "safe_action": true,
+          "safe_actions": [
+            "dependency",
+            "configure",
+            "build",
+            "escalate_agent"
+          ],
+          "selected_action_cost": 6,
+          "state_id": "s-187c817b621899cfb3a8",
+          "usage": {
+            "input_tokens": 865,
+            "output_tokens": 104
+          }
+        },
+        {
+          "action_cost_regret": 3,
+          "build_system": "cmake",
+          "choice": "escalate_agent",
+          "confidence": 0.13,
+          "cost_usd": 6.031200000000001e-05,
+          "exact_optimal": false,
+          "latency_ms": 380.35103864967823,
+          "optimal_action": "dependency",
+          "optimal_action_cost": 3,
+          "order_agreement": false,
+          "order_sensitivity_choice": "dependency",
+          "probabilities": {
+            "build": 0.010000000000000002,
+            "configure": 0.35000000000000003,
+            "dependency": 0.29000000000000004,
+            "escalate_agent": 0.35000000000000003
+          },
+          "project_family": "github.com/p-ranav/argparse",
+          "raw_probabilities": {
+            "build": 0.01,
+            "configure": 0.35,
+            "dependency": 0.29,
+            "escalate_agent": 0.35
+          },
+          "raw_probability_sum": 0.9999999999999999,
+          "request_id": "req_01a13ac2b83573989af3cf64395e14a9",
+          "safe_action": true,
+          "safe_actions": [
+            "dependency",
+            "escalate_agent"
+          ],
+          "selected_action_cost": 6,
+          "state_id": "s-2a9f182bd8447384ef9a",
+          "usage": {
+            "input_tokens": 1436,
+            "output_tokens": 104
+          }
+        },
+        {
+          "action_cost_regret": 1,
+          "build_system": "cmake",
+          "choice": "configure",
+          "confidence": 0.2,
+          "cost_usd": 3.6414e-05,
+          "exact_optimal": false,
+          "latency_ms": 354.46440195664763,
+          "optimal_action": "build",
+          "optimal_action_cost": 1,
+          "order_agreement": true,
+          "order_sensitivity_choice": "configure",
+          "probabilities": {
+            "build": 0.03,
+            "configure": 0.4,
+            "dependency": 0.18,
+            "escalate_agent": 0.39
+          },
+          "project_family": "github.com/p-ranav/argparse",
+          "raw_probabilities": {
+            "build": 0.03,
+            "configure": 0.4,
+            "dependency": 0.18,
+            "escalate_agent": 0.39
+          },
+          "raw_probability_sum": 1.0,
+          "request_id": "req_01a13ac2b9bc73ae88bba15cec560b1a",
+          "safe_action": true,
+          "safe_actions": [
+            "dependency",
+            "configure",
+            "build",
+            "escalate_agent"
+          ],
+          "selected_action_cost": 2,
+          "state_id": "s-372d5a5ff2672d3566bf",
+          "usage": {
+            "input_tokens": 867,
+            "output_tokens": 101
+          }
+        },
+        {
+          "action_cost_regret": 4,
+          "build_system": "autotools",
+          "choice": "escalate_agent",
+          "confidence": 0.41,
+          "cost_usd": 3.5994e-05,
+          "exact_optimal": false,
+          "latency_ms": 438.7851511128247,
+          "optimal_action": "configure",
+          "optimal_action_cost": 2,
+          "order_agreement": false,
+          "order_sensitivity_choice": "configure",
+          "probabilities": {
+            "build": 0.09,
+            "configure": 0.34,
+            "dependency": 0.01,
+            "escalate_agent": 0.56
+          },
+          "project_family": "github.com/troglobit/libuev",
+          "raw_probabilities": {
+            "build": 0.09,
+            "configure": 0.34,
+            "dependency": 0.01,
+            "escalate_agent": 0.56
+          },
+          "raw_probability_sum": 1.0,
+          "request_id": "req_01a13ac2bb2d76d38d424d71cc01a66d",
+          "safe_action": true,
+          "safe_actions": [
+            "configure",
+            "escalate_agent"
+          ],
+          "selected_action_cost": 6,
+          "state_id": "s-50fd989cf249a841d78d",
+          "usage": {
+            "input_tokens": 857,
+            "output_tokens": 104
+          }
+        },
+        {
+          "action_cost_regret": 3,
+          "build_system": "autotools",
+          "choice": "escalate_agent",
+          "confidence": 0.25,
+          "cost_usd": 4.179e-05,
+          "exact_optimal": false,
+          "latency_ms": 391.1377498880029,
+          "optimal_action": "dependency",
+          "optimal_action_cost": 3,
+          "order_agreement": false,
+          "order_sensitivity_choice": "dependency",
+          "probabilities": {
+            "build": 0.01,
+            "configure": 0.19,
+            "dependency": 0.36,
+            "escalate_agent": 0.44
+          },
+          "project_family": "github.com/troglobit/libuev",
+          "raw_probabilities": {
+            "build": 0.01,
+            "configure": 0.19,
+            "dependency": 0.36,
+            "escalate_agent": 0.44
+          },
+          "raw_probability_sum": 1.0,
+          "request_id": "req_01a13ac2bce2735088a37c958305c144",
+          "safe_action": true,
+          "safe_actions": [
+            "dependency",
+            "escalate_agent"
+          ],
+          "selected_action_cost": 6,
+          "state_id": "s-6f537fcb91c181546f6d",
+          "usage": {
+            "input_tokens": 995,
+            "output_tokens": 104
+          }
+        },
+        {
+          "action_cost_regret": 5,
+          "build_system": "autotools",
+          "choice": "escalate_agent",
+          "confidence": 0.39,
+          "cost_usd": 3.6414e-05,
+          "exact_optimal": false,
+          "latency_ms": 380.4180696606636,
+          "optimal_action": "build",
+          "optimal_action_cost": 1,
+          "order_agreement": false,
+          "order_sensitivity_choice": "configure",
+          "probabilities": {
+            "build": 0.08,
+            "configure": 0.21,
+            "dependency": 0.17,
+            "escalate_agent": 0.54
+          },
+          "project_family": "github.com/troglobit/libuev",
+          "raw_probabilities": {
+            "build": 0.08,
+            "configure": 0.21,
+            "dependency": 0.17,
+            "escalate_agent": 0.54
+          },
+          "raw_probability_sum": 1.0,
+          "request_id": "req_01a13ac2be777b0d9705f6f02fdfb603",
+          "safe_action": true,
+          "safe_actions": [
+            "dependency",
+            "configure",
+            "build",
+            "escalate_agent"
+          ],
+          "selected_action_cost": 6,
+          "state_id": "s-7afc97382f81b68287c8",
+          "usage": {
+            "input_tokens": 867,
+            "output_tokens": 104
+          }
+        },
+        {
+          "action_cost_regret": 0,
+          "build_system": "cmake",
+          "choice": "configure",
+          "confidence": 0.43,
+          "cost_usd": 3.5952000000000004e-05,
+          "exact_optimal": true,
+          "latency_ms": 382.1817561984062,
+          "optimal_action": "configure",
+          "optimal_action_cost": 2,
+          "order_agreement": true,
+          "order_sensitivity_choice": "configure",
+          "probabilities": {
+            "build": 0.07000000000000002,
+            "configure": 0.5700000000000001,
+            "dependency": 0.010000000000000002,
+            "escalate_agent": 0.35000000000000003
+          },
+          "project_family": "github.com/p-ranav/argparse",
+          "raw_probabilities": {
+            "build": 0.07,
+            "configure": 0.57,
+            "dependency": 0.01,
+            "escalate_agent": 0.35
+          },
+          "raw_probability_sum": 0.9999999999999999,
+          "request_id": "req_01a13ac2bfff722697816899241f2ca2",
+          "safe_action": true,
+          "safe_actions": [
+            "configure",
+            "escalate_agent"
+          ],
+          "selected_action_cost": 2,
+          "state_id": "s-7cd96718ffd66e9cbaaa",
+          "usage": {
+            "input_tokens": 856,
+            "output_tokens": 101
+          }
+        },
+        {
+          "action_cost_regret": 0,
+          "build_system": "cmake",
+          "choice": "dependency",
+          "confidence": 0.85,
+          "cost_usd": 4.6578e-05,
+          "exact_optimal": true,
+          "latency_ms": 330.6362768635154,
+          "optimal_action": "dependency",
+          "optimal_action_cost": 3,
+          "order_agreement": true,
+          "order_sensitivity_choice": "dependency",
+          "probabilities": {
+            "build": 0.0,
+            "configure": 0.03,
+            "dependency": 0.89,
+            "escalate_agent": 0.08
+          },
+          "project_family": "github.com/p-ranav/argparse",
+          "raw_probabilities": {
+            "build": 0.0,
+            "configure": 0.03,
+            "dependency": 0.89,
+            "escalate_agent": 0.08
+          },
+          "raw_probability_sum": 1.0,
+          "request_id": "req_01a13ac2c17a7c27aa9af5d589b7f97b",
+          "safe_action": true,
+          "safe_actions": [
+            "dependency",
+            "escalate_agent"
+          ],
+          "selected_action_cost": 3,
+          "state_id": "s-8295b21fd13735a4e236",
+          "usage": {
+            "input_tokens": 1109,
+            "output_tokens": 101
+          }
+        },
+        {
+          "action_cost_regret": -4,
+          "build_system": "cmake",
+          "choice": "configure",
+          "confidence": 0.37,
+          "cost_usd": 3.6078e-05,
+          "exact_optimal": false,
+          "latency_ms": 315.2655581943691,
+          "optimal_action": "escalate_agent",
+          "optimal_action_cost": 6,
+          "order_agreement": true,
+          "order_sensitivity_choice": "configure",
+          "probabilities": {
+            "build": 0.05,
+            "configure": 0.53,
+            "dependency": 0.01,
+            "escalate_agent": 0.41
+          },
+          "project_family": "github.com/p-ranav/argparse",
+          "raw_probabilities": {
+            "build": 0.05,
+            "configure": 0.53,
+            "dependency": 0.01,
+            "escalate_agent": 0.41
+          },
+          "raw_probability_sum": 1.0,
+          "request_id": "req_01a13ac2c2c97ce3bea74f7b972af1a0",
+          "safe_action": false,
+          "safe_actions": [
+            "escalate_agent"
+          ],
+          "selected_action_cost": 2,
+          "state_id": "s-8c497827036fad492606",
+          "usage": {
+            "input_tokens": 859,
+            "output_tokens": 101
+          }
+        },
+        {
+          "action_cost_regret": 3,
+          "build_system": "autotools",
+          "choice": "escalate_agent",
+          "confidence": 0.56,
+          "cost_usd": 6.258e-05,
+          "exact_optimal": false,
+          "latency_ms": 338.50143710151315,
+          "optimal_action": "dependency",
+          "optimal_action_cost": 3,
+          "order_agreement": true,
+          "order_sensitivity_choice": "escalate_agent",
+          "probabilities": {
+            "build": 0.02,
+            "configure": 0.21,
+            "dependency": 0.1,
+            "escalate_agent": 0.67
+          },
+          "project_family": "github.com/troglobit/libuev",
+          "raw_probabilities": {
+            "build": 0.02,
+            "configure": 0.21,
+            "dependency": 0.1,
+            "escalate_agent": 0.67
+          },
+          "raw_probability_sum": 1.0,
+          "request_id": "req_01a13ac2c41378ba9bb326466f4b0ee0",
+          "safe_action": true,
+          "safe_actions": [
+            "dependency",
+            "escalate_agent"
+          ],
+          "selected_action_cost": 6,
+          "state_id": "s-9f47ec6543fe672a064e",
+          "usage": {
+            "input_tokens": 1490,
+            "output_tokens": 107
+          }
+        },
+        {
+          "action_cost_regret": 4,
+          "build_system": "make",
+          "choice": "escalate_agent",
+          "confidence": 0.43,
+          "cost_usd": 3.591000000000001e-05,
+          "exact_optimal": false,
+          "latency_ms": 389.27319506183267,
+          "optimal_action": "configure",
+          "optimal_action_cost": 2,
+          "order_agreement": true,
+          "order_sensitivity_choice": "escalate_agent",
+          "probabilities": {
+            "build": 0.09,
+            "configure": 0.33,
+            "dependency": 0.01,
+            "escalate_agent": 0.57
+          },
+          "project_family": "github.com/kgabis/parson",
+          "raw_probabilities": {
+            "build": 0.09,
+            "configure": 0.33,
+            "dependency": 0.01,
+            "escalate_agent": 0.57
+          },
+          "raw_probability_sum": 1.0,
+          "request_id": "req_01a13ac2c57675dd94b62fc65d64483a",
+          "safe_action": true,
+          "safe_actions": [
+            "configure",
+            "escalate_agent"
+          ],
+          "selected_action_cost": 6,
+          "state_id": "s-af9ae874a69966313e3d",
+          "usage": {
+            "input_tokens": 855,
+            "output_tokens": 107
+          }
+        },
+        {
+          "action_cost_regret": 0,
+          "build_system": "autotools",
+          "choice": "escalate_agent",
+          "confidence": 0.4,
+          "cost_usd": 3.6120000000000007e-05,
+          "exact_optimal": true,
+          "latency_ms": 348.2334981672466,
+          "optimal_action": "escalate_agent",
+          "optimal_action_cost": 6,
+          "order_agreement": false,
+          "order_sensitivity_choice": "configure",
+          "probabilities": {
+            "build": 0.09,
+            "configure": 0.35,
+            "dependency": 0.01,
+            "escalate_agent": 0.55
+          },
+          "project_family": "github.com/troglobit/libuev",
+          "raw_probabilities": {
+            "build": 0.09,
+            "configure": 0.35,
+            "dependency": 0.01,
+            "escalate_agent": 0.55
+          },
+          "raw_probability_sum": 1.0,
+          "request_id": "req_01a13ac2c6ff7210988ec953dc1cf0dd",
+          "safe_action": true,
+          "safe_actions": [
+            "escalate_agent"
+          ],
+          "selected_action_cost": 6,
+          "state_id": "s-b1c6837c123aced080c3",
+          "usage": {
+            "input_tokens": 860,
+            "output_tokens": 104
+          }
+        },
+        {
+          "action_cost_regret": 3,
+          "build_system": "make",
+          "choice": "escalate_agent",
+          "confidence": 0.29,
+          "cost_usd": 3.6246000000000005e-05,
+          "exact_optimal": false,
+          "latency_ms": 336.85845183208585,
+          "optimal_action": "dependency",
+          "optimal_action_cost": 3,
+          "order_agreement": false,
+          "order_sensitivity_choice": "dependency",
+          "probabilities": {
+            "build": 0.02,
+            "configure": 0.11,
+            "dependency": 0.4,
+            "escalate_agent": 0.47
+          },
+          "project_family": "github.com/kgabis/parson",
+          "raw_probabilities": {
+            "build": 0.02,
+            "configure": 0.11,
+            "dependency": 0.4,
+            "escalate_agent": 0.47
+          },
+          "raw_probability_sum": 1.0,
+          "request_id": "req_01a13ac2c86879bdac6b1444b68d7917",
+          "safe_action": true,
+          "safe_actions": [
+            "dependency",
+            "escalate_agent"
+          ],
+          "selected_action_cost": 6,
+          "state_id": "s-f844a28324d3b19ef215",
+          "usage": {
+            "input_tokens": 863,
+            "output_tokens": 104
+          }
+        }
+      ],
+      "safe_action_count": 14,
+      "split": "calibration",
+      "state_count": 15
+    },
+    "calibrated_threshold": {
+      "direct_state_count": 2,
+      "per_build_system_direct_state_count": {
+        "autotools": 0,
+        "cmake": 2,
+        "make": 0
+      },
+      "qualification_passed": false,
+      "selected_state_ids": [
+        "s-7cd96718ffd66e9cbaaa",
+        "s-8295b21fd13735a4e236"
+      ],
+      "threshold": 0.7483803833712858,
+      "unsafe_direct_count": 0
+    },
+    "created_at": "2026-10-14T14:13:43.197258+00:00",
+    "decision": "stop_before_progress_budget_evaluation",
+    "gates": {
+      "all_build_systems_direct": false,
+      "complete_valid_responses": true,
+      "minimum_direct_state_count": false,
+      "platt_rows": true,
+      "positive_and_negative_labels": true,
+      "zero_observed_unsafe_direct": true
+    },
+    "identity": "cpp-jev-progress-budget-calibration-v1",
+    "label_counts": {
+      "false": 27,
+      "true": 18
+    },
+    "model": {
+      "coefficient": 0.6898027733037281,
+      "intercept": 0.8955711869183631
+    },
+    "passed": false,
+    "raw_threshold": {
+      "direct_state_count": 2,
+      "per_build_system_direct_state_count": {
+        "autotools": 0,
+        "cmake": 2,
+        "make": 0
+      },
+      "qualification_passed": false,
+      "selected_state_ids": [
+        "s-7cd96718ffd66e9cbaaa",
+        "s-8295b21fd13735a4e236"
+      ],
+      "threshold": 0.5700000000000001,
+      "unsafe_direct_count": 0
+    },
+    "row_count": 45,
+    "threshold_rows": [
+      {
+        "build_system": "make",
+        "calibrated_probability": null,
+        "order_agreement": true,
+        "raw_probability": 0.59,
+        "safe": true,
+        "selected_action": "escalate_agent",
+        "state_id": "s-108f99789cb31e2be262"
+      },
+      {
+        "build_system": "make",
+        "calibrated_probability": null,
+        "order_agreement": false,
+        "raw_probability": 0.38,
+        "safe": true,
+        "selected_action": "escalate_agent",
+        "state_id": "s-173aba324d1d5eee8558"
+      },
+      {
+        "build_system": "make",
+        "calibrated_probability": null,
+        "order_agreement": false,
+        "raw_probability": 0.49,
+        "safe": true,
+        "selected_action": "escalate_agent",
+        "state_id": "s-187c817b621899cfb3a8"
+      },
+      {
+        "build_system": "cmake",
+        "calibrated_probability": null,
+        "order_agreement": false,
+        "raw_probability": 0.35000000000000003,
+        "safe": true,
+        "selected_action": "escalate_agent",
+        "state_id": "s-2a9f182bd8447384ef9a"
+      },
+      {
+        "build_system": "cmake",
+        "calibrated_probability": 0.6492809925085758,
+        "order_agreement": true,
+        "raw_probability": 0.4,
+        "safe": true,
+        "selected_action": "configure",
+        "state_id": "s-372d5a5ff2672d3566bf"
+      },
+      {
+        "build_system": "autotools",
+        "calibrated_probability": null,
+        "order_agreement": false,
+        "raw_probability": 0.56,
+        "safe": true,
+        "selected_action": "escalate_agent",
+        "state_id": "s-50fd989cf249a841d78d"
+      },
+      {
+        "build_system": "autotools",
+        "calibrated_probability": null,
+        "order_agreement": false,
+        "raw_probability": 0.44,
+        "safe": true,
+        "selected_action": "escalate_agent",
+        "state_id": "s-6f537fcb91c181546f6d"
+      },
+      {
+        "build_system": "autotools",
+        "calibrated_probability": null,
+        "order_agreement": false,
+        "raw_probability": 0.54,
+        "safe": true,
+        "selected_action": "escalate_agent",
+        "state_id": "s-7afc97382f81b68287c8"
+      },
+      {
+        "build_system": "cmake",
+        "calibrated_probability": 0.7483803833712858,
+        "order_agreement": true,
+        "raw_probability": 0.5700000000000001,
+        "safe": true,
+        "selected_action": "configure",
+        "state_id": "s-7cd96718ffd66e9cbaaa"
+      },
+      {
+        "build_system": "cmake",
+        "calibrated_probability": 0.9119572156225061,
+        "order_agreement": true,
+        "raw_probability": 0.89,
+        "safe": true,
+        "selected_action": "dependency",
+        "state_id": "s-8295b21fd13735a4e236"
+      },
+      {
+        "build_system": "cmake",
+        "calibrated_probability": 0.726799971724468,
+        "order_agreement": true,
+        "raw_probability": 0.53,
+        "safe": false,
+        "selected_action": "configure",
+        "state_id": "s-8c497827036fad492606"
+      },
+      {
+        "build_system": "autotools",
+        "calibrated_probability": null,
+        "order_agreement": true,
+        "raw_probability": 0.67,
+        "safe": true,
+        "selected_action": "escalate_agent",
+        "state_id": "s-9f47ec6543fe672a064e"
+      },
+      {
+        "build_system": "make",
+        "calibrated_probability": null,
+        "order_agreement": true,
+        "raw_probability": 0.57,
+        "safe": true,
+        "selected_action": "escalate_agent",
+        "state_id": "s-af9ae874a69966313e3d"
+      },
+      {
+        "build_system": "autotools",
+        "calibrated_probability": null,
+        "order_agreement": false,
+        "raw_probability": 0.55,
+        "safe": true,
+        "selected_action": "escalate_agent",
+        "state_id": "s-b1c6837c123aced080c3"
+      },
+      {
+        "build_system": "make",
+        "calibrated_probability": null,
+        "order_agreement": false,
+        "raw_probability": 0.47,
+        "safe": true,
+        "selected_action": "escalate_agent",
+        "state_id": "s-f844a28324d3b19ef215"
+      }
+    ]
+  },
+  "candidate_manifest_canonical_sha256": "39b1438270768f63de515827c65bed1ad15e7dd1f4a4175ee9670ba6205cb9c5",
+  "created_at": "2026-10-14T14:14:22.019834+00:00",
+  "decision": "stop_before_progress_budget_evaluation",
+  "document_type": "forge_jev_progress_budget_calibration_report",
+  "evaluation": null,
+  "evidence": {
+    "inventory_canonical_sha256": "83e6e5830ef551e4a2547666c98c4de8dcbeadd165c5f35cb876d25807482582",
+    "inventory_file_count": 51,
+    "inventory_total_bytes": 114705,
+    "marker": {
+      "completed_at": "2026-10-14T14:14:22.163414+00:00",
+      "credential_scan": {
+        "authorization_header_matches": 0,
+        "credential_content_reads_for_scan": 1,
+        "credential_exact_value_matches": 0,
+        "passed": true
+      },
+      "decision": "stop_before_progress_budget_evaluation",
+      "historical_evidence_modified": false,
+      "identity": "cpp-jev-progress-budget-calibration-v1",
+      "inventory_canonical_sha256": "83e6e5830ef551e4a2547666c98c4de8dcbeadd165c5f35cb876d25807482582",
+      "status": "completed",
+      "zero_managed_resources": true
+    },
+    "root": ".compile-sessions/benchmark-evidence-jev-progress-budget-calibration-v1"
+  },
+  "git_commit": "4e500e0bb2ebf7d2c42d7b98707b30d6ae55bd01",
+  "identity": "cpp-jev-progress-budget-calibration-v1",
+  "interpretation": {
+    "controller_effect_estimated": false,
+    "end_to_end_cost_effect_estimated": false,
+    "historical_evidence_modified": false,
+    "natural_failure_population_estimated": false,
+    "offline_action_selection_estimated": false,
+    "offline_progress_budget_routing_estimated": false,
+    "statistical_significance_estimated": false,
+    "strict_success_noninferiority_estimated": false,
+    "temporal_generalization_estimated": false
+  },
+  "issue_url": "https://github.com/WWFXL/Forge-AutoCompiler/issues/463",
+  "manifest_canonical_sha256": "ffbdc6dfd9f940d327214c5bb3060fc798b455a44b67d5e7240db67574975116",
+  "parent_raw_evidence": {
+    "file_count": 702,
+    "inventory_canonical_sha256": "2e4209fb52c07af949789ae7880db478f5a6d9326b4496de7fcff45ad64da9e9",
+    "total_bytes": 2851071,
+    "valid": true,
+    "zero_managed_resources": true
+  },
+  "passed": false,
+  "schema_version": "forge-jev-progress-budget-calibration-report-1.0.0",
+  "terminal_stage": "calibration"
+}
