@@ -265,3 +265,32 @@ def test_evidence_inventory_excludes_self_and_terminal_marker(
     rows = formal._evidence_inventory()
 
     assert [row["path"] for row in rows] == ["result.json"]
+
+
+def test_frozen_report_stops_before_evaluation_without_backfill() -> None:
+    report = formal.candidate.load_json(formal.JSON_REPORT)
+
+    assert report["identity"] == formal.IDENTITY
+    assert report["terminal_stage"] == "calibration"
+    assert report["decision"] == "stop_before_progress_budget_evaluation"
+    assert report["evaluation"] is None
+    assert report["budget"] == {
+        "physical_requests": 15,
+        "completed_response_observations": 15,
+        "valid_normalized_responses": 15,
+        "input_tokens": 14552,
+        "output_tokens": 1557,
+        "model_cost_usd": 0.000611184,
+    }
+    calibration = report["calibration"]
+    assert calibration["action_analysis"]["exact_optimal_action_count"] == 4
+    assert calibration["action_analysis"]["safe_action_count"] == 14
+    assert calibration["action_analysis"]["order_agreement_count"] == 7
+    assert calibration["calibrated_threshold"]["direct_state_count"] == 2
+    assert calibration["calibrated_threshold"]["per_build_system_direct_state_count"] == {
+        "cmake": 2,
+        "make": 0,
+        "autotools": 0,
+    }
+    assert calibration["gates"]["minimum_direct_state_count"] is False
+    assert calibration["gates"]["all_build_systems_direct"] is False

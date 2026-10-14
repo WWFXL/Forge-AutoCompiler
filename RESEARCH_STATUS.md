@@ -4,27 +4,25 @@
 
 ## 当前阶段
 
-- 状态：Issue #461 已把 Issue #459 的进展预算感知 Jev 离线校准 spec 实现为独立零 Provider candidate
-  `cpp-jev-progress-budget-calibration-candidate-v1`；当前仍未创建 Provider execution identity。Candidate manifest canonical
-  SHA-256 为 `39b1438270768f63de515827c65bed1ad15e7dd1f4a4175ee9670ba6205cb9c5`，只读绑定 Issue #457 的父报告、manifest、
-  completed marker 和 702-file inventory canonical SHA-256
-  `2e4209fb52c07af949789ae7880db478f5a6d9326b4496de7fcff45ad64da9e9`。
-- 隔离与模型合同：runner 按父 source pool 冻结顺序机械重建 calibration/evaluation，各含 CMake、Make、Autotools 一个
-  family、15 个状态和 45 个 route decisions；两个 split 的 state/provider-state/action-label/budget-decision/基线行均有独立
-  canonical hash。Provider state 只含构建系统、phase/progress facts 和原始失败日志；mock SDK 固定 `jev-1.13.0`、同请求
-  正反顺序 Choice、30 秒 timeout、`max_retries=0`，并 fail closed 校验模型、概率、confidence、usage 和 request ID。
-- 校准与预算合同：candidate 已将 `15 x 3` local-action Platt scaling、零 observed unsafe direct 最大覆盖阈值和确定性
-  BudgetFit 实现为纯函数；预算不进入 Jev，顺序不一致、低校准概率或 local action 预算不足时只可升级 Agent 或停止。
-  冻结 evaluation 基线重新机械复核为 RuleGate `27/45` joint correct、30 direct、18 wrong direct，TF-IDF+BudgetFit
-  `39/45`、18 direct、0 wrong direct，Oracle route 为 direct 24、escalate 3、stop 18。
-- 完整性、边界与下一步：聚焦与相邻回归 `25 passed, 1 skipped`，Ruff、format、确定性复生成、mock/preflight、diff 与
-  敏感信息扫描通过；skip 为父资格的 opt-in Docker gate。本阶段没有新增效果 evidence，0 credential content read、0
-  Provider/Jev/Agent、0 model token、0 formal attempt/evidence、0 历史 evidence write。未来 Provider 上限仍为 30 requests、
-  200,000 input tokens、50,000 output tokens、`$0.0084`，当前未授权；candidate 审查后必须另建绑定 exact revision 的
-  authorized identity，才能读取 credential 内容或调用 Provider。文件位于
-  `docs/research/2026-10-14-jev-progress-budget-calibration-{spec,plan}.md`、
-  `benchmarks/manifests/cpp-jev-progress-budget-calibration-candidate-v1.json` 和
-  `benchmarks/preregistrations/cpp-jev-progress-budget-calibration-candidate-v1.md`。
+- 状态：Issue #463 的正式 identity `cpp-jev-progress-budget-calibration-v1` 已完成 calibration 并按预注册停止，决定为
+  `stop_before_progress_budget_evaluation`。Implementation revision 为 `039f6226b93709d8065387a4a0ebdb3fe18c7eee`，
+  authorized manifest canonical SHA-256 为 `ffbdc6dfd9f940d327214c5bb3060fc798b455a44b67d5e7240db67574975116`；
+  Provider 前零调用 preflight、PR #464 和三项 CI 均通过。
+- Calibration 结果：15/15 attempt、observation 和有效 `jev-1.13.0` 响应闭合；动作精确最优为 `4/15`，安全动作
+  `14/15`，正反顺序一致 `7/15`。Primary Choice 为 `dependency=1/configure=3/build=0/escalate_agent=11`；高安全率主要
+  来自保守升级。45 行 Platt 数据含 18 个正类和 27 个负类；零 observed unsafe direct 的校准阈值
+  `0.7483803833712858` 只覆盖 `2/15`，均为 CMake，Make/Autotools 为 0，未达到 `5/15` 和三系统各 1 个门槛。
+- 停止与解释：evaluation 请求为 0，不能评价 holdout top-1、相对 RuleGate `27/45` 或 TF-IDF+BudgetFit `39/45` 的增量，
+  也不能评价 controller、严格成功率或端到端成本。该负结果停止当前 Jev typed Choice + calibration 路径，不否定 Issue #457
+  已证明可辨识的进展状态与确定性 BudgetFit；不得续跑、补齐、降低阈值或实现本 identity 的 controller。
+- 用量与 Evidence：15 requests、14,552 input、1,557 output tokens、费用 `$0.000611184`。Evidence 为 51 files /
+  114,705 bytes，inventory canonical SHA-256 `83e6e5830ef551e4a2547666c98c4de8dcbeadd165c5f35cb876d25807482582`；
+  独立 audit 通过，credential/header 0 命中、父 702-file inventory 未变、0 managed resources。报告位于
+  `benchmarks/reports/cpp-jev-progress-budget-calibration-v1.{json,md}`，审计位于
+  `benchmarks/reports/cpp-jev-progress-budget-calibration-v1-audit.md`。
+- 下一项决策：审阅 Jev 的保守升级与顺序敏感性负结果。若继续论文主线，优先保留进展状态 + BudgetFit benchmark 和
+  `TF-IDF+BudgetFit` 强零 Provider 基线，再决定是把 Jev 降为消融/负结果，还是另建全新问题分解；当前 identity 不进入
+  evaluation 或 controller。
 
 - 状态：Issue #457 的独立零 Provider `cpp-progress-budget-jev-identifiability-qualification-v1` 已完成并通过，正式决定为
   `proceed_to_jev_progress_budget_calibration_design`。该 benchmark 在 6 个全新项目族上覆盖 CMake、Make、Autotools，
