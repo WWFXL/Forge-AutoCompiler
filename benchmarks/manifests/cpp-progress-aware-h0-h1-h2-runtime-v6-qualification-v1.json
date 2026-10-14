@@ -1,0 +1,225 @@
+{
+  "$schema": "forge-progress-aware-h0-h1-h2-runtime-v6-qualification-v1",
+  "authorization": {
+    "backfill": false,
+    "credential_read": false,
+    "docker": true,
+    "dynamic_budget_controller": false,
+    "formal_effect_attempts": 0,
+    "historical_evidence_write": false,
+    "jev_calls": false,
+    "model_tokens": 0,
+    "new_evidence_write": true,
+    "provider_calls": false,
+    "public_source_network": true,
+    "replacement": false
+  },
+  "branch": "yiwei/451-h0-h1-h2-runtime-v6-qualification",
+  "components": {
+    "backend/packages/harness/deerflow/compile/agent_workflow_runtime_v3.py": "2d71383d011e943f78e9259b9f7ceec2c8e1f080d7609e86413ce188a841f65e",
+    "backend/packages/harness/deerflow/compile/agent_workflow_runtime_v4.py": "48593cfea3a5cd0512531332bec89bc16afddbdc190605e55d17c027a7769c66",
+    "backend/packages/harness/deerflow/compile/agent_workflow_runtime_v6.py": "70311ae3a598e183ba7450494629d8ee5a5e572c9e829f2d82a058122060406b",
+    "backend/packages/harness/deerflow/compile/external_evaluator_v4.py": "9009c400b1b54d9ad05411f1a64124423cf50d8ba49bfa2d13071d9bedad4613",
+    "backend/packages/harness/deerflow/compile/replay_closure_verifier.py": "01f8335ab0a586065803b34952b930adbf593624c611316b40ca2ccac685cd83"
+  },
+  "environment": {
+    "build_network": "none",
+    "compile_image": "autocompiler:gcc13",
+    "image_id": "sha256:d27a6ab733c7c3a9cbb5e4b32fb595aa5a422ff04bd212888d1041b90a2c4c2a",
+    "parallel_jobs": 2
+  },
+  "evidence_root": ".compile-sessions/benchmark-evidence-cpp-progress-aware-h0-h1-h2-runtime-v6-qualification-v1",
+  "future_common_budget": {
+    "authorized_recorded_tokens_per_arm": 700000,
+    "cleanup_timeout_seconds": 120,
+    "command_timeout_seconds": 900,
+    "evaluator_timeout_seconds": 1800,
+    "max_agent_steps": 96,
+    "max_commands": 48,
+    "max_model_requests": 36,
+    "max_recorded_tokens": 600000,
+    "max_recorded_tokens_per_response": 100000,
+    "max_tool_calls": 72,
+    "node_timeout_seconds": 1800,
+    "replay_timeout_seconds": 1800
+  },
+  "future_effect_boundary": {
+    "cluster_unit": "project_family",
+    "formal_identity_required": true,
+    "noninferiority_margin": -0.1,
+    "planned_formal_arms": 18,
+    "primary_estimand": "strict_success_risk_difference_h2_minus_h1",
+    "provider_canary_arms": 0,
+    "provider_canary_enters_effect_estimate": false,
+    "replications_per_cell": 2
+  },
+  "identity": "cpp-progress-aware-h0-h1-h2-runtime-v6-qualification-v1",
+  "issue": 451,
+  "observed_basis": {
+    "h0_arms": 27,
+    "h0_budget_exhausted": 6,
+    "h0_budget_exhausted_range": [
+      308166,
+      337389
+    ],
+    "h0_max_recorded_tokens": 337389,
+    "h2_identity": "cpp-progress-aware-replay-closure-qualification-v1",
+    "h2_inventory_canonical_sha256": "0b13bf8a3ce869eb37a977246893aabf88172cc44a8828f4312c1076cd665fda",
+    "maximum_response_recorded_tokens": 52297,
+    "runtime_v6_identity": "cpp-progress-aware-submit-rejection-recovery-gate-v1",
+    "runtime_v6_inventory_canonical_sha256": "f3b70746664547aea75d0b9e699032c0f09fc4672be3f298098dd248a76cd47c",
+    "runtime_v6_observed_project_excluded": "github.com/cesanta/mjson",
+    "v3_decision": "stop_progress_aware_harness_as_primary_mechanism",
+    "v3_identity": "cpp-progress-aware-harness-comparison-v3-authorized"
+  },
+  "preregistration": {
+    "path": "benchmarks/preregistrations/cpp-progress-aware-h0-h1-h2-runtime-v6-qualification-v1.md",
+    "sha256": "15f6fd6cf3fb419ed85f7eae5fa8f78dd19074a46ff9ede5ceba67ab73e7e856"
+  },
+  "qualification": {
+    "fail_decision": "stop_before_runtime_v6_three_arm_formal_comparison",
+    "pass_decision": "proceed_to_runtime_v6_three_arm_formal_comparison_design",
+    "q0_source_archives": 3,
+    "q1_reference_closures": 3,
+    "required_build_systems": [
+      "cmake",
+      "make",
+      "autotools"
+    ]
+  },
+  "schema_version": "1.0.0",
+  "screening": {
+    "cmake_source_only_exclusion": {
+      "project_family": "github.com/benhoyt/inih",
+      "reason": "no_root_cmake_entrypoint"
+    },
+    "make_source_only_exclusion": {
+      "project_family": "github.com/zserge/jsmn",
+      "reason": "header_only_primary_artifact"
+    },
+    "prior_runtime_v6_project_excluded": "github.com/cesanta/mjson",
+    "replacement_within_identity": false,
+    "selected_project_families_previously_absent_from_repository": true,
+    "selection_mode": "repository_history_exclusion_then_source_only_entrypoint_screen"
+  },
+  "status": "authorized_zero_provider_qualification",
+  "tasks": [
+    {
+      "build_system": "cmake",
+      "commands": [
+        {
+          "command": "cmake -S . -B build -DBUILD_TESTING=OFF -DBUILD_SHARED_LIBS=OFF",
+          "role": "configure",
+          "timeout_seconds": 900
+        },
+        {
+          "command": "cmake --build build --parallel 2",
+          "role": "build",
+          "timeout_seconds": 900
+        },
+        {
+          "command": "install -Dm644 build/src/libcmark.a /artifacts/lib/libcmark.a",
+          "role": "artifact_stage",
+          "timeout_seconds": 900
+        }
+      ],
+      "commit_sha": "7e1e10c32ca1275e387057606752123efc3e2793",
+      "project_family": "github.com/commonmark/cmark",
+      "repository_url": "https://github.com/commonmark/cmark.git",
+      "smoke": "printf '%s\\n' '#include <cmark.h>' 'int main(void){ char *s=cmark_markdown_to_html(\"# Forge\",7,0); if(!s)return 1; free(s); return 0; }' > /tmp/forge-cmark.c && cc -std=c11 -include stdlib.h -I/workspace/repo/src -I/workspace/repo/build/src /tmp/forge-cmark.c /artifacts/lib/libcmark.a -o /tmp/forge-cmark && /tmp/forge-cmark",
+      "source_archive": {
+        "sha256": "a150664a346a56651eedf8c8f5be0752b28a6d2b597b1686c045d87f86635118",
+        "size": 268315
+      },
+      "target": {
+        "artifact_path": "lib/libcmark.a",
+        "artifact_type": "static_library",
+        "target_id": "cmark-static"
+      },
+      "task_id": "cmake-cmark"
+    },
+    {
+      "build_system": "make",
+      "commands": [
+        {
+          "command": "make -j2 libs",
+          "role": "build",
+          "timeout_seconds": 900
+        },
+        {
+          "command": "install -Dm644 build/libmpc.a /artifacts/lib/libmpc.a",
+          "role": "artifact_stage",
+          "timeout_seconds": 900
+        }
+      ],
+      "commit_sha": "1049534fc56b1971345c7aaa792dea55d6f9b7bc",
+      "project_family": "github.com/orangeduck/mpc",
+      "repository_url": "https://github.com/orangeduck/mpc.git",
+      "smoke": "printf '%s\\n' '#include <mpc.h>' 'int main(void){mpc_parser_t *p=mpc_new(\"x\"); mpc_delete(p); return 0;}' > /tmp/forge-mpc.c && cc -std=c11 -I/workspace/repo /tmp/forge-mpc.c /artifacts/lib/libmpc.a -lm -o /tmp/forge-mpc && /tmp/forge-mpc",
+      "source_archive": {
+        "sha256": "233e05300c875a93c8eca8f34092943ea74982c8731e57ef057b51278783ed7c",
+        "size": 50683
+      },
+      "target": {
+        "artifact_path": "lib/libmpc.a",
+        "artifact_type": "static_library",
+        "target_id": "mpc-static"
+      },
+      "task_id": "make-mpc"
+    },
+    {
+      "build_system": "autotools",
+      "commands": [
+        {
+          "command": "cd expat && ./buildconf.sh",
+          "role": "dependency",
+          "timeout_seconds": 900
+        },
+        {
+          "command": "cd expat && ./configure --disable-shared --enable-static --without-xmlwf --without-docbook",
+          "role": "configure",
+          "timeout_seconds": 900
+        },
+        {
+          "command": "make -C expat/lib -j2",
+          "role": "build",
+          "timeout_seconds": 900
+        },
+        {
+          "command": "install -Dm644 expat/lib/.libs/libexpat.a /artifacts/lib/libexpat.a",
+          "role": "artifact_stage",
+          "timeout_seconds": 900
+        }
+      ],
+      "commit_sha": "ac140c2d34e0aafb1c6a126ca2917ff32d765518",
+      "project_family": "github.com/libexpat/libexpat",
+      "repository_url": "https://github.com/libexpat/libexpat.git",
+      "smoke": "printf '%s\\n' '#include <expat.h>' 'int main(void){XML_Parser p=XML_ParserCreate(0); if(!p)return 1; XML_ParserFree(p); return 0;}' > /tmp/forge-expat.c && cc -std=c11 -I/workspace/repo/expat/lib /tmp/forge-expat.c /artifacts/lib/libexpat.a -lm -o /tmp/forge-expat && /tmp/forge-expat",
+      "source_archive": {
+        "sha256": "0ef33f1788fb624635e5a72cec85adf72d5daa84b8d2a871295080713c558d22",
+        "size": 8487923
+      },
+      "target": {
+        "artifact_path": "lib/libexpat.a",
+        "artifact_type": "static_library",
+        "target_id": "expat-static"
+      },
+      "task_id": "autotools-expat"
+    }
+  ],
+  "treatments": {
+    "h0": {
+      "id": "h0_runtime_v3",
+      "runtime": "agent-workflow-runtime-v3"
+    },
+    "h1": {
+      "id": "h1_runtime_v4",
+      "runtime": "agent-workflow-runtime-v4"
+    },
+    "h2": {
+      "id": "h2_runtime_v6",
+      "increment_over_h1": "pre_freeze_replay_closure_and_bounded_submit_rejection_recovery",
+      "runtime": "agent-workflow-runtime-v6"
+    }
+  }
+}

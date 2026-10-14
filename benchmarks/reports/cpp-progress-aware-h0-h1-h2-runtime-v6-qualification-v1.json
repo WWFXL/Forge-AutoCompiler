@@ -1,0 +1,224 @@
+{
+  "authorization_observed": {
+    "credential_reads": 0,
+    "formal_effect_attempts": 0,
+    "jev_requests": 0,
+    "model_tokens": 0,
+    "provider_requests": 0
+  },
+  "budget_design": {
+    "authorized_recorded_tokens_per_arm": 700000,
+    "cleanup_timeout_seconds": 120,
+    "command_timeout_seconds": 900,
+    "evaluator_timeout_seconds": 1800,
+    "max_agent_steps": 96,
+    "max_commands": 48,
+    "max_model_requests": 36,
+    "max_recorded_tokens": 600000,
+    "max_recorded_tokens_per_response": 100000,
+    "max_tool_calls": 72,
+    "node_timeout_seconds": 1800,
+    "replay_timeout_seconds": 1800
+  },
+  "completed_at": "2026-10-14T07:19:18.045472+00:00",
+  "decision": "proceed_to_runtime_v6_three_arm_formal_comparison_design",
+  "evidence_inventory": {
+    "canonical_sha256": "bb48a02443a67ab36c93af0013f1811d6411dfef35b4ef8a30e242e4d2c52bd8",
+    "file_count": 668,
+    "total_bytes": 170843568
+  },
+  "identity": "cpp-progress-aware-h0-h1-h2-runtime-v6-qualification-v1",
+  "interpretation_boundary": {
+    "cost_claim": false,
+    "engineering_qualification_only": true,
+    "h0_sufficient_budget_answered": false,
+    "h2_incremental_effect_answered": false,
+    "held_out_population_generalization": false,
+    "success_rate_claim": false,
+    "treatment_effect": false
+  },
+  "manifest_sha256": "f0000fe9debd0c101d589ac7f98772b1eb5debab41e21344e1458a1761c558fb",
+  "passed": true,
+  "q0": {
+    "outcomes": [
+      {
+        "commit_sha": "7e1e10c32ca1275e387057606752123efc3e2793",
+        "project_family": "github.com/commonmark/cmark",
+        "sha256": "a150664a346a56651eedf8c8f5be0752b28a6d2b597b1686c045d87f86635118",
+        "size": 268315,
+        "task_id": "cmake-cmark"
+      },
+      {
+        "commit_sha": "1049534fc56b1971345c7aaa792dea55d6f9b7bc",
+        "project_family": "github.com/orangeduck/mpc",
+        "sha256": "233e05300c875a93c8eca8f34092943ea74982c8731e57ef057b51278783ed7c",
+        "size": 50683,
+        "task_id": "make-mpc"
+      },
+      {
+        "commit_sha": "ac140c2d34e0aafb1c6a126ca2917ff32d765518",
+        "project_family": "github.com/libexpat/libexpat",
+        "sha256": "0ef33f1788fb624635e5a72cec85adf72d5daa84b8d2a871295080713c558d22",
+        "size": 8487923,
+        "task_id": "autotools-expat"
+      }
+    ],
+    "passed": true,
+    "source_archives": 3
+  },
+  "q1": {
+    "outcomes": [
+      {
+        "build_system": "cmake",
+        "cleanup_succeeded": true,
+        "closure": {
+          "actual_delivery": [
+            {
+              "artifact_type": "static_library",
+              "relative_path": "lib/libcmark.a",
+              "sha256": "6d6e5c9f69074d89cee80123b036197983202dcd8e26e1c57cd9ad16d414e584",
+              "size_bytes": 258498
+            }
+          ],
+          "classification": "passed",
+          "cleanup_succeeded": true,
+          "duration_seconds": 8.330252,
+          "exit_code": 0,
+          "expected_delivery": [
+            {
+              "artifact_type": "static_library",
+              "relative_path": "lib/libcmark.a",
+              "sha256": "6d6e5c9f69074d89cee80123b036197983202dcd8e26e1c57cd9ad16d414e584",
+              "size_bytes": 258498
+            }
+          ],
+          "frontier_sha256": "642bc587c0281f7f90114ac56ee3105d2ec495380734dcafb00b4a7506f53c6a",
+          "output_excerpt": "CXX compiler ABI info - done\n-- Check for working CXX compiler: /usr/bin/g++-13 - skipped\n-- Detecting CXX compile features\n-- Detecting CXX compile features - done\n-- Performing Test COMPILER_HAS_HIDDEN_VISIBILITY\n-- Performing Test COMPILER_HAS_HIDDEN_VISIBILITY - Success\n-- Performing Test COMPILER_HAS_HIDDEN_INLINE_VISIBILITY\n-- Performing Test COMPILER_HAS_HIDDEN_INLINE_VISIBILITY - Success\n-- Performing Test COMPILER_HAS_DEPRECATED_ATTR\n-- Performing Test COMPILER_HAS_DEPRECATED_ATTR - Success\n-- Configuring done (1.2s)\n-- Generating done (0.0s)\n-- Build files have been written to: /workspace/repo/build\n[  4%] Building C object src/CMakeFiles/cmark.dir/blocks.c.o\n[  9%] Building C object src/CMakeFiles/cmark.dir/buffer.c.o\n[ 13%] Building C object src/CMakeFiles/cmark.dir/cmark.c.o\n[ 18%] Building C object src/CMakeFiles/cmark.dir/cmark_ctype.c.o\n[ 22%] Building C object src/CMakeFiles/cmark.dir/commonmark.c.o\n[ 27%] Building C object src/CMakeFiles/cmark.dir/houdini_href_e.c.o\n[ 31%] Building C object src/CMakeFiles/cmark.dir/houdini_html_e.c.o\n[ 36%] Building C object src/CMakeFiles/cmark.dir/houdini_html_u.c.o\n[ 40%] Building C object src/CMakeFiles/cmark.dir/html.c.o\n[ 45%] Building C object src/CMakeFiles/cmark.dir/inlines.c.o\n[ 50%] Building C object src/CMakeFiles/cmark.dir/iterator.c.o\n[ 54%] Building C object src/CMakeFiles/cmark.dir/latex.c.o\n[ 59%] Building C object src/CMakeFiles/cmark.dir/man.c.o\n[ 63%] Building C object src/CMakeFiles/cmark.dir/node.c.o\n[ 68%] Building C object src/CMakeFiles/cmark.dir/references.c.o\n[ 72%] Building C object src/CMakeFiles/cmark.dir/render.c.o\n[ 77%] Building C object src/CMakeFiles/cmark.dir/scanners.c.o\n[ 81%] Building C object src/CMakeFiles/cmark.dir/utf8.c.o\n[ 86%] Building C object src/CMakeFiles/cmark.dir/xml.c.o\n[ 90%] Linking C static library libcmark.a\n[ 90%] Built target cmark\n[ 95%] Building C object src/CMakeFiles/cmark_exe.dir/main.c.o\n[100%] Linking C executable cmark\n[100%] Built target cmark_exe\n",
+          "passed": true,
+          "recipe_fingerprint": "2609e1b467e96e4fd27afa9f8011bdd56b74d863fb773dd423bb10eac492e143",
+          "schema_version": "agent-workflow-replay-closure-v1"
+        },
+        "commands": 3,
+        "commit_sha": "7e1e10c32ca1275e387057606752123efc3e2793",
+        "credential_reads": 0,
+        "duration_milliseconds": 16965,
+        "formal_effect_attempts": 0,
+        "managed_containers_after_cleanup": [],
+        "model_tokens": 0,
+        "no_formal_replay_attempt": true,
+        "project_family": "github.com/commonmark/cmark",
+        "provider_requests": 0,
+        "source_archive": {
+          "sha256": "a150664a346a56651eedf8c8f5be0752b28a6d2b597b1686c045d87f86635118",
+          "size": 268315
+        },
+        "status_unchanged": true,
+        "task_id": "cmake-cmark"
+      },
+      {
+        "build_system": "make",
+        "cleanup_succeeded": true,
+        "closure": {
+          "actual_delivery": [
+            {
+              "artifact_type": "static_library",
+              "relative_path": "lib/libmpc.a",
+              "sha256": "33a887eb24f10d3703c273cd4af1ab4895fde065c67013441dcab6d9f6655975",
+              "size_bytes": 830074
+            }
+          ],
+          "classification": "passed",
+          "cleanup_succeeded": true,
+          "duration_seconds": 6.168308,
+          "exit_code": 0,
+          "expected_delivery": [
+            {
+              "artifact_type": "static_library",
+              "relative_path": "lib/libmpc.a",
+              "sha256": "33a887eb24f10d3703c273cd4af1ab4895fde065c67013441dcab6d9f6655975",
+              "size_bytes": 830074
+            }
+          ],
+          "frontier_sha256": "b730db2a58de19d34df0e50baa6e0c3e0720fc8a45b1b1084068ffefebac9a98",
+          "output_excerpt": "mkdir -p build\nmkdir -p build/examples\ntouch build/.dirstamp\ngcc-13 -ansi -pedantic -O3 -g -Wall -Werror -Wextra -Wformat=2 -Wshadow -Wno-long-long -Wno-overlength-strings -Wno-format-nonliteral -Wcast-align -Wwrite-strings -Wstrict-prototypes -Wold-style-definition -Wredundant-decls -Wnested-externs -Wmissing-include-dirs -Wswitch-default -fPIC -shared mpc.c -o build/libmpc.so\ngcc-13 -ansi -pedantic -O3 -g -Wall -Werror -Wextra -Wformat=2 -Wshadow -Wno-long-long -Wno-overlength-strings -Wno-format-nonliteral -Wcast-align -Wwrite-strings -Wstrict-prototypes -Wold-style-definition -Wredundant-decls -Wnested-externs -Wmissing-include-dirs -Wswitch-default -c mpc.c -o build/mpc.o\nar rcs build/libmpc.a build/mpc.o\n",
+          "passed": true,
+          "recipe_fingerprint": "84cef8c962b23ed4be8e36af180c7eb6804df6f74d17dd846587c35609176984",
+          "schema_version": "agent-workflow-replay-closure-v1"
+        },
+        "commands": 2,
+        "commit_sha": "1049534fc56b1971345c7aaa792dea55d6f9b7bc",
+        "credential_reads": 0,
+        "duration_milliseconds": 12492,
+        "formal_effect_attempts": 0,
+        "managed_containers_after_cleanup": [],
+        "model_tokens": 0,
+        "no_formal_replay_attempt": true,
+        "project_family": "github.com/orangeduck/mpc",
+        "provider_requests": 0,
+        "source_archive": {
+          "sha256": "233e05300c875a93c8eca8f34092943ea74982c8731e57ef057b51278783ed7c",
+          "size": 50683
+        },
+        "status_unchanged": true,
+        "task_id": "make-mpc"
+      },
+      {
+        "build_system": "autotools",
+        "cleanup_succeeded": true,
+        "closure": {
+          "actual_delivery": [
+            {
+              "artifact_type": "static_library",
+              "relative_path": "lib/libexpat.a",
+              "sha256": "78c5399770e37d4baca78cacceb188fb7ca2288309c1ae334bd0c41a4e74ed87",
+              "size_bytes": 1005534
+            }
+          ],
+          "classification": "passed",
+          "cleanup_succeeded": true,
+          "duration_seconds": 24.199739,
+          "exit_code": 0,
+          "expected_delivery": [
+            {
+              "artifact_type": "static_library",
+              "relative_path": "lib/libexpat.a",
+              "sha256": "78c5399770e37d4baca78cacceb188fb7ca2288309c1ae334bd0c41a4e74ed87",
+              "size_bytes": 1005534
+            }
+          ],
+          "frontier_sha256": "3a4d7eb82cd234846990507c328709d67e2b3d072a73fe7ab5eeb70ca2c63e8e",
+          "output_excerpt": "dom.o random_arc4random_buf.o random_dev_urandom.o random_getentropy.o random_getrandom.o\nlibtool: link: ar cr .libs/libtestpat.a  libtestpat_la-xcs.o libtestpat_la-xmlparse.o libtestpat_la-xmltok.o libtestpat_la-xmlrole.o libtestpat_la-random_arc4random.o libtestpat_la-random_arc4random_buf.o libtestpat_la-random_dev_urandom.o libtestpat_la-random_getentropy.o libtestpat_la-random_getrandom.o\nlibtool: link: ranlib .libs/libexpat.a\nlibtool: link: ranlib .libs/libtestpat.a\nlibtool: link: ( cd \".libs\" && rm -f \"libexpat.la\" && ln -s \"../libexpat.la\" \"libexpat.la\" )\nlibtool: link: ( cd \".libs\" && rm -f \"libtestpat.la\" && ln -s \"../libtestpat.la\" \"libtestpat.la\" )\nmake: Leaving directory '/workspace/repo/expat/lib'\nautoreconf: export WARNINGS=all\nautoreconf: Entering directory '.'\nautoreconf: configure.ac: not using Gettext\nautoreconf: running: aclocal -I m4\nconfigure.ac:88: warning: macro 'AM_OPTIONAL_AUTOMAKE' not found in library\nautoreconf: configure.ac: tracing\nautoreconf: running: libtoolize --copy\nautoreconf: configure.ac: not using Intltool\nautoreconf: configure.ac: not using Gtkdoc\nautoreconf: running: aclocal -I m4\nconfigure.ac:88: warning: macro 'AM_OPTIONAL_AUTOMAKE' not found in library\nautoreconf: running: /usr/bin/autoconf\nconfigure.ac:127: warning: The macro `AC_PROG_CC_C99' is obsolete.\nconfigure.ac:127: You should run autoupdate.\n./lib/autoconf/c.m4:1659: AC_PROG_CC_C99 is expanded from...\nconfigure.ac:127: the top level\nautoreconf: running: /usr/bin/autoheader\nautoreconf: running: automake --add-missing --copy --no-force\nconfigure.ac:115: installing 'conftools/ar-lib'\nconfigure.ac:115: installing 'conftools/compile'\nconfigure.ac:76: installing 'conftools/config.guess'\nconfigure.ac:76: installing 'conftools/config.sub'\nconfigure.ac:84: installing 'conftools/install-sh'\nconfigure.ac:84: installing 'conftools/missing'\nexamples/Makefile.am: installing 'conftools/depcomp'\nparallel-tests: installing 'conftools/test-driver'\nautoreconf: Leaving directory '.'\n",
+          "passed": true,
+          "recipe_fingerprint": "5efdd4b4a7f9b90179003b0cec1e4085930412e8d57fa50ee7dd44b0cb3e37a9",
+          "schema_version": "agent-workflow-replay-closure-v1"
+        },
+        "commands": 4,
+        "commit_sha": "ac140c2d34e0aafb1c6a126ca2917ff32d765518",
+        "credential_reads": 0,
+        "duration_milliseconds": 48422,
+        "formal_effect_attempts": 0,
+        "managed_containers_after_cleanup": [],
+        "model_tokens": 0,
+        "no_formal_replay_attempt": true,
+        "project_family": "github.com/libexpat/libexpat",
+        "provider_requests": 0,
+        "source_archive": {
+          "sha256": "0ef33f1788fb624635e5a72cec85adf72d5daa84b8d2a871295080713c558d22",
+          "size": 8487923
+        },
+        "status_unchanged": true,
+        "task_id": "autotools-expat"
+      }
+    ],
+    "passed": true,
+    "reference_closures": 3,
+    "runtime_bindings": {
+      "h0_runtime_v3": "run_agent_workflow_node_v3",
+      "h1_runtime_v4": "run_agent_workflow_node_v4",
+      "h2_runtime_v6": "run_agent_workflow_node_v6"
+    }
+  },
+  "release_revision": "e9acb6e97e601bfe39cd528c8f135a3b4d6b047d",
+  "schema_version": "1.0.0",
+  "status": "completed"
+}

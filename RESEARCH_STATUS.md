@@ -4,6 +4,29 @@
 
 ## 当前阶段
 
+- 状态：Issue #451 的独立零 Provider `cpp-progress-aware-h0-h1-h2-runtime-v6-qualification-v1` 已完成并通过，正式决定为
+  `proceed_to_runtime_v6_three_arm_formal_comparison_design`。该 identity 排除 Runtime v6 已观察的 `mjson` 和旧三臂
+  样本，固定新的 CMake `cmark@7e1e10c`、Make `mpc@1049534`、Autotools `expat@ac140c2` 三个项目族；后续
+  treatment 精确为 H0/Runtime v3、H1/Runtime v4、H2/Runtime v6。
+- 资格结果：Q0 三份 exact-commit `git archive | gzip -n` source archive `3/3` 匹配预冻结 SHA-256 与大小；Q1 三个
+  reference recipe、functional smoke、artifact stage 和真实 clean replay closure `3/3 passed`。preflight 墙钟分别为
+  `8.330s / 6.168s / 24.200s`，expected/actual 静态库的路径、类型、大小和 SHA-256 完全一致；Session 保持活动，
+  正式 replay attempt 为 0，cleanup 后 0 managed resource。
+- 冻结正式边界：下一 identity 计划 3 项目 x 3 arms x 2 次，共 18 arms；主要 estimand 为项目族聚类的
+  `strict_success(H2) - strict_success(H1)`，非劣界 `-0.10`。共同预算继续为 `T=600,000`、`R=100,000`，最多
+  36 requests、96 steps、72 tools 和 48 commands。H1 对 H0 作为结构化 Harness 消融，H2 对 H1 识别 replay
+  closure 与有界恢复的增量。
+- 完整性与 Evidence：release `e9acb6e97e601bfe39cd528c8f135a3b4d6b047d`，manifest canonical SHA-256
+  `f0000fe9debd0c101d589ac7f98772b1eb5debab41e21344e1458a1761c558fb`；0 credential、0 Provider、0 Jev、0 model
+  token、0 formal effect attempt。Evidence 位于
+  `.compile-sessions/benchmark-evidence-cpp-progress-aware-h0-h1-h2-runtime-v6-qualification-v1`，668 files /
+  170,843,568 bytes，inventory canonical SHA-256
+  `bb48a02443a67ab36c93af0013f1811d6411dfef35b4ef8a30e242e4d2c52bd8`；独立 audit `valid=true`。报告位于
+  `benchmarks/reports/cpp-progress-aware-h0-h1-h2-runtime-v6-qualification-v1.{json,md}`。
+- 解释边界与下一步：本结果只证明新 held-out 样本、严格 reference closure、Runtime v3/v4/v6 dispatch 和 evidence
+  生命周期合格，不估计 H2 的成功率、成本、token、墙钟或项目总体效果。下一阶段必须另建 18-arm Provider 正式比较
+  identity，在读取 credential 前冻结模型、release、顺序、总 request/token/费用上限和停止规则；本资格 observation 不进入
+  正式分母。
 - 状态：Issue #449 的独立零 Provider `cpp-progress-aware-submit-rejection-recovery-gate-v1` 已完成并通过，正式决定为
   `proceed_to_unseen_three_arm_formal_comparison_design`。Runtime v6 继承 v5，在 `recipe_execution_failed` 的非终态
   submit 拒绝后释放当前 Node 的 post-build phase，并只开放一个有界 repair window：一个 build 和一个后续
