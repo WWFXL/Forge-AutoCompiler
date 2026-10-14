@@ -1,0 +1,323 @@
+{
+  "$id": "forge-progress-aware-h0-h1-h2-runtime-v6-formal-comparison-v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "const": {
+    "$schema": "forge-progress-aware-h0-h1-h2-runtime-v6-formal-comparison-v1",
+    "allowed_preexisting_untracked": [
+      "docs/research/2026-10-13-forge-research-progress-defense.html"
+    ],
+    "analysis": {
+      "bootstrap_samples": 10000,
+      "bootstrap_seed": 45320261014,
+      "cluster_unit": "project_family",
+      "invalid_decision": "formal_execution_invalid",
+      "noninferior_without_activation_decision": "runtime_v6_noninferior_but_mechanism_not_activated",
+      "noninferiority_failure_decision": "reject_runtime_v6_due_to_success_noninferiority",
+      "noninferiority_margin": -0.1,
+      "one_sided_confidence_level": 0.95,
+      "positive_decision": "supports_runtime_v6_reliability_claim",
+      "primary_estimand": "strict_success_risk_difference_h2_minus_h1",
+      "replications_per_cell": 2,
+      "required_arms": 18
+    },
+    "authorization": {
+      "backfill": false,
+      "docker": true,
+      "dynamic_budget_controller": false,
+      "historical_evidence_write": false,
+      "jev_calls": false,
+      "new_evidence_write": true,
+      "q0_credential_read": false,
+      "q0_provider_calls": false,
+      "q1_credential_read_after_q0": true,
+      "q1_provider_calls": true,
+      "replacement": false
+    },
+    "authorization_record": {
+      "authorized_at": "2026-10-14",
+      "authorized_by": "research_owner",
+      "maximum_provider_cost_usd": 15.12,
+      "maximum_provider_requests": 648,
+      "maximum_recorded_tokens": 12600000,
+      "tracking_issue": 453
+    },
+    "branch": "yiwei/453-h0-h1-h2-runtime-v6-formal",
+    "budget": {
+      "per_arm": {
+        "authorized_recorded_tokens_per_arm": 700000,
+        "cleanup_timeout_seconds": 120,
+        "command_timeout_seconds": 900,
+        "evaluator_timeout_seconds": 1800,
+        "max_agent_steps": 96,
+        "max_commands": 48,
+        "max_model_requests": 36,
+        "max_recorded_tokens": 600000,
+        "max_recorded_tokens_per_response": 100000,
+        "max_tool_calls": 72,
+        "node_timeout_seconds": 1800,
+        "replay_timeout_seconds": 1800
+      },
+      "provider_arms": 18,
+      "total_authorized_recorded_tokens": 12600000,
+      "total_provider_cost_usd_ceiling": 15.12,
+      "total_provider_requests": 648,
+      "total_recorded_tokens_stop_threshold": 10800000
+    },
+    "components": {
+      "backend/packages/harness/deerflow/compile/agent_workflow_runtime.py": "92277bf4b5568acb43523edb6344b2a6b6c70ce731cab62200295b3aa97d9931",
+      "backend/packages/harness/deerflow/compile/agent_workflow_runtime_v3.py": "2d71383d011e943f78e9259b9f7ceec2c8e1f080d7609e86413ce188a841f65e",
+      "backend/packages/harness/deerflow/compile/agent_workflow_runtime_v4.py": "48593cfea3a5cd0512531332bec89bc16afddbdc190605e55d17c027a7769c66",
+      "backend/packages/harness/deerflow/compile/agent_workflow_runtime_v6.py": "70311ae3a598e183ba7450494629d8ee5a5e572c9e829f2d82a058122060406b",
+      "backend/packages/harness/deerflow/compile/agent_workflow_schemas.py": "21a19f6d1a0421fce2c7807474db9eefe0e0be25042241ca121fbb9d5ec99706",
+      "backend/packages/harness/deerflow/compile/candidate_verifier.py": "595cec0fc909e2179fbcebc5428c6b5ae996d7442e90ece5ccbc8d57bef7ab89",
+      "backend/packages/harness/deerflow/compile/external_evaluator_v4.py": "9009c400b1b54d9ad05411f1a64124423cf50d8ba49bfa2d13071d9bedad4613",
+      "backend/packages/harness/deerflow/compile/operations.py": "8a275e76a30e4476d7e403120cc9e372b13eaa0ac8bd091d2786f6cbe1f0878a",
+      "backend/packages/harness/deerflow/compile/replay_closure_verifier.py": "01f8335ab0a586065803b34952b930adbf593624c611316b40ca2ccac685cd83",
+      "backend/packages/harness/deerflow/tools/bound_compile_tools.py": "735ec5c8daa34d66e4b1116987e281e861149a5273434ec200e403c3fe1ec758",
+      "benchmarks/preregistrations/cpp-progress-aware-h0-h1-h2-runtime-v6-formal-comparison-v1.md": "2c417b6f8e98f60da4f040efa4c2fd983090a252713e2696559f8a7327d4f888",
+      "docs/superpowers/specs/2026-10-14-h0-h1-h2-runtime-v6-formal-design.md": "400c71449bc722397215a0679aa0c756c2da6961f5db4cfae10ecdca74d646b6",
+      "scripts/forge_agent_continuation_qualification_v2.py": "efc4d75a0791ba3b8e614a920a018934d73476030c3ead3c7700568fe091ebac",
+      "scripts/forge_h0_h1_h2_runtime_v6_formal_comparison.py": "359ff320eda9c6ca7069e63e38a0f163ecb403e4232154d0858fd2be5c0df4b9",
+      "scripts/forge_progress_aware_harness_comparison_v3.py": "cefff6a9f0395e6a20fbc4fceee0a020e00698b46d40a1d14b28e3e1bfce104b"
+    },
+    "environment": {
+      "compile_image": "autocompiler:gcc13",
+      "image_id": "sha256:d27a6ab733c7c3a9cbb5e4b32fb595aa5a422ff04bd212888d1041b90a2c4c2a",
+      "network_policy": "offline_frozen_source",
+      "parallel_jobs": 2
+    },
+    "evidence_root": ".compile-sessions/benchmark-evidence-cpp-progress-aware-h0-h1-h2-runtime-v6-formal-comparison-v1",
+    "identity": "cpp-progress-aware-h0-h1-h2-runtime-v6-formal-comparison-v1",
+    "issue": 453,
+    "parent": {
+      "decision": "proceed_to_runtime_v6_three_arm_formal_comparison_design",
+      "evidence_root": ".compile-sessions/benchmark-evidence-cpp-progress-aware-h0-h1-h2-runtime-v6-qualification-v1",
+      "identity": "cpp-progress-aware-h0-h1-h2-runtime-v6-qualification-v1",
+      "inventory_canonical_sha256": "bb48a02443a67ab36c93af0013f1811d6411dfef35b4ef8a30e242e4d2c52bd8",
+      "manifest_canonical_sha256": "f0000fe9debd0c101d589ac7f98772b1eb5debab41e21344e1458a1761c558fb",
+      "manifest_path": "benchmarks/manifests/cpp-progress-aware-h0-h1-h2-runtime-v6-qualification-v1.json",
+      "mutation_forbidden": true,
+      "release_revision": "e9acb6e97e601bfe39cd528c8f135a3b4d6b047d",
+      "report_json_sha256": "806da6216a80b8e677930579774889f9cc75ad36897d7c5543ea623eb075cf69",
+      "report_md_sha256": "1db3c1fffc7bdfec683b35480c0556dddec954983b02302549df1447028baf65"
+    },
+    "preregistration": {
+      "path": "benchmarks/preregistrations/cpp-progress-aware-h0-h1-h2-runtime-v6-formal-comparison-v1.md",
+      "sha256": "2c417b6f8e98f60da4f040efa4c2fd983090a252713e2696559f8a7327d4f888"
+    },
+    "provider": {
+      "actual_model": "deepseek-flash",
+      "credential_env_name": "DEEPSEEK_API_KEY",
+      "endpoint": "https://api.deepseek.com",
+      "input_price_usd_per_million_tokens": 0.3,
+      "model_max_retries": 0,
+      "output_price_usd_per_million_tokens": 1.2,
+      "profile": "deepseek-flash",
+      "provider": "deepseek",
+      "request_timeout_seconds": 300,
+      "streaming": false,
+      "thinking_enabled": false
+    },
+    "release_revision": null,
+    "release_revision_policy": "clean_pushed_branch_head_recorded_by_q0_before_credential_read",
+    "schedule": [
+      {
+        "repetition": 1,
+        "sequence": 1,
+        "task_id": "cmake-cmark",
+        "treatment": "h0_runtime_v3"
+      },
+      {
+        "repetition": 1,
+        "sequence": 2,
+        "task_id": "cmake-cmark",
+        "treatment": "h1_runtime_v4"
+      },
+      {
+        "repetition": 1,
+        "sequence": 3,
+        "task_id": "cmake-cmark",
+        "treatment": "h2_runtime_v6"
+      },
+      {
+        "repetition": 1,
+        "sequence": 4,
+        "task_id": "make-mpc",
+        "treatment": "h1_runtime_v4"
+      },
+      {
+        "repetition": 1,
+        "sequence": 5,
+        "task_id": "make-mpc",
+        "treatment": "h2_runtime_v6"
+      },
+      {
+        "repetition": 1,
+        "sequence": 6,
+        "task_id": "make-mpc",
+        "treatment": "h0_runtime_v3"
+      },
+      {
+        "repetition": 1,
+        "sequence": 7,
+        "task_id": "autotools-expat",
+        "treatment": "h2_runtime_v6"
+      },
+      {
+        "repetition": 1,
+        "sequence": 8,
+        "task_id": "autotools-expat",
+        "treatment": "h0_runtime_v3"
+      },
+      {
+        "repetition": 1,
+        "sequence": 9,
+        "task_id": "autotools-expat",
+        "treatment": "h1_runtime_v4"
+      },
+      {
+        "repetition": 2,
+        "sequence": 10,
+        "task_id": "cmake-cmark",
+        "treatment": "h2_runtime_v6"
+      },
+      {
+        "repetition": 2,
+        "sequence": 11,
+        "task_id": "cmake-cmark",
+        "treatment": "h1_runtime_v4"
+      },
+      {
+        "repetition": 2,
+        "sequence": 12,
+        "task_id": "cmake-cmark",
+        "treatment": "h0_runtime_v3"
+      },
+      {
+        "repetition": 2,
+        "sequence": 13,
+        "task_id": "make-mpc",
+        "treatment": "h0_runtime_v3"
+      },
+      {
+        "repetition": 2,
+        "sequence": 14,
+        "task_id": "make-mpc",
+        "treatment": "h2_runtime_v6"
+      },
+      {
+        "repetition": 2,
+        "sequence": 15,
+        "task_id": "make-mpc",
+        "treatment": "h1_runtime_v4"
+      },
+      {
+        "repetition": 2,
+        "sequence": 16,
+        "task_id": "autotools-expat",
+        "treatment": "h1_runtime_v4"
+      },
+      {
+        "repetition": 2,
+        "sequence": 17,
+        "task_id": "autotools-expat",
+        "treatment": "h0_runtime_v3"
+      },
+      {
+        "repetition": 2,
+        "sequence": 18,
+        "task_id": "autotools-expat",
+        "treatment": "h2_runtime_v6"
+      }
+    ],
+    "schema_version": "forge-progress-aware-h0-h1-h2-runtime-v6-formal-comparison-1.0.0",
+    "status": "authorized_for_formal_comparison",
+    "tasks": [
+      {
+        "build_system": "cmake",
+        "commit_sha": "7e1e10c32ca1275e387057606752123efc3e2793",
+        "oracle": {
+          "command": "printf '%s\\n' '#include <cmark.h>' 'int main(void){ char *s=cmark_markdown_to_html(\"# Forge\",7,0); if(!s)return 1; free(s); return 0; }' > /tmp/forge-cmark.c && cc -std=c11 -include stdlib.h -I/workspace/repo/src -I/workspace/repo/build/src /tmp/forge-cmark.c /artifacts/lib/libcmark.a -o /tmp/forge-cmark && /tmp/forge-cmark",
+          "timeout_seconds": 180,
+          "workdir": "/workspace/repo"
+        },
+        "project_family": "github.com/commonmark/cmark",
+        "repository_url": "https://github.com/commonmark/cmark.git",
+        "source_archive": {
+          "path": ".compile-sessions/benchmark-evidence-cpp-progress-aware-h0-h1-h2-runtime-v6-qualification-v1/q0/sources/cmake-cmark.tar.gz",
+          "sha256": "a150664a346a56651eedf8c8f5be0752b28a6d2b597b1686c045d87f86635118",
+          "size": 268315
+        },
+        "source_state_id": "cmake-cmark-state-0",
+        "target": {
+          "artifact_path": "lib/libcmark.a",
+          "artifact_type": "static_library",
+          "target_id": "cmark-static"
+        },
+        "task_id": "cmake-cmark"
+      },
+      {
+        "build_system": "make",
+        "commit_sha": "1049534fc56b1971345c7aaa792dea55d6f9b7bc",
+        "oracle": {
+          "command": "printf '%s\\n' '#include <mpc.h>' 'int main(void){mpc_parser_t *p=mpc_new(\"x\"); mpc_delete(p); return 0;}' > /tmp/forge-mpc.c && cc -std=c11 -I/workspace/repo /tmp/forge-mpc.c /artifacts/lib/libmpc.a -lm -o /tmp/forge-mpc && /tmp/forge-mpc",
+          "timeout_seconds": 180,
+          "workdir": "/workspace/repo"
+        },
+        "project_family": "github.com/orangeduck/mpc",
+        "repository_url": "https://github.com/orangeduck/mpc.git",
+        "source_archive": {
+          "path": ".compile-sessions/benchmark-evidence-cpp-progress-aware-h0-h1-h2-runtime-v6-qualification-v1/q0/sources/make-mpc.tar.gz",
+          "sha256": "233e05300c875a93c8eca8f34092943ea74982c8731e57ef057b51278783ed7c",
+          "size": 50683
+        },
+        "source_state_id": "make-mpc-state-0",
+        "target": {
+          "artifact_path": "lib/libmpc.a",
+          "artifact_type": "static_library",
+          "target_id": "mpc-static"
+        },
+        "task_id": "make-mpc"
+      },
+      {
+        "build_system": "autotools",
+        "commit_sha": "ac140c2d34e0aafb1c6a126ca2917ff32d765518",
+        "oracle": {
+          "command": "printf '%s\\n' '#include <expat.h>' 'int main(void){XML_Parser p=XML_ParserCreate(0); if(!p)return 1; XML_ParserFree(p); return 0;}' > /tmp/forge-expat.c && cc -std=c11 -I/workspace/repo/expat/lib /tmp/forge-expat.c /artifacts/lib/libexpat.a -lm -o /tmp/forge-expat && /tmp/forge-expat",
+          "timeout_seconds": 180,
+          "workdir": "/workspace/repo"
+        },
+        "project_family": "github.com/libexpat/libexpat",
+        "repository_url": "https://github.com/libexpat/libexpat.git",
+        "source_archive": {
+          "path": ".compile-sessions/benchmark-evidence-cpp-progress-aware-h0-h1-h2-runtime-v6-qualification-v1/q0/sources/autotools-expat.tar.gz",
+          "sha256": "0ef33f1788fb624635e5a72cec85adf72d5daa84b8d2a871295080713c558d22",
+          "size": 8487923
+        },
+        "source_state_id": "autotools-expat-state-0",
+        "target": {
+          "artifact_path": "lib/libexpat.a",
+          "artifact_type": "static_library",
+          "target_id": "expat-static"
+        },
+        "task_id": "autotools-expat"
+      }
+    ],
+    "treatments": {
+      "h0": {
+        "id": "h0_runtime_v3",
+        "runtime": "agent-workflow-runtime-v3"
+      },
+      "h1": {
+        "id": "h1_runtime_v4",
+        "runtime": "agent-workflow-runtime-v4"
+      },
+      "h2": {
+        "id": "h2_runtime_v6",
+        "increment_over_h1": "pre_freeze_replay_closure_and_bounded_submit_rejection_recovery",
+        "runtime": "agent-workflow-runtime-v6"
+      }
+    }
+  },
+  "title": "Forge Runtime v6 H0/H1/H2 formal Provider comparison"
+}
