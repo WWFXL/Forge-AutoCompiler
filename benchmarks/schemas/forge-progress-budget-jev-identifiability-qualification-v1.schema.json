@@ -1,0 +1,192 @@
+{
+  "$id": "https://github.com/WWFXL/Forge-AutoCompiler/benchmarks/schemas/forge-progress-budget-jev-identifiability-qualification-v1.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "const": {
+    "$schema": "../schemas/forge-progress-budget-jev-identifiability-qualification-v1.schema.json",
+    "authorization": {
+      "agent_calls": false,
+      "controller_implementation": false,
+      "credential_read": false,
+      "docker_execution": true,
+      "historical_evidence_write": false,
+      "jev_calls": false,
+      "model_tokens": 0,
+      "new_identity_evidence_write": true,
+      "provider_calls": false,
+      "public_source_network": true
+    },
+    "baselines": {
+      "log_tfidf_budgetfit": {
+        "budget_fit": true,
+        "input": "semantic_failure_log_only",
+        "max_features": 5000,
+        "ngram_range": [
+          1,
+          2
+        ],
+        "progress_history": false,
+        "solver": "liblinear_one_vs_rest",
+        "split": "leave_one_project_family_out"
+      },
+      "phase_budget_rule_gate": {
+        "progress_history": false,
+        "rule": "critical_stop_replay_dependency_else_build",
+        "semantic_log": false
+      }
+    },
+    "decision_rule": {
+      "backfill": false,
+      "fail": "stop_before_jev_calibration_and_controller_implementation",
+      "pass": "proceed_to_jev_progress_budget_calibration_design",
+      "replacement": false,
+      "retry": false,
+      "threshold_adjustment_after_results": false
+    },
+    "design": {
+      "action_costs": {
+        "build": 1,
+        "configure": 2,
+        "dependency": 3,
+        "escalate_agent": 6
+      },
+      "actions": [
+        "dependency",
+        "configure",
+        "build",
+        "escalate_agent"
+      ],
+      "agent_execution": "zero_provider_deterministic_recovery_surrogate",
+      "agent_reservation": {
+        "build_executions": 2,
+        "input_tokens": 150000,
+        "output_tokens": 15000,
+        "provider_cost_microusd": 60000,
+        "provider_requests": 12,
+        "wall_clock_milliseconds": 300000
+      },
+      "agent_reservation_is_observed_provider_usage": false,
+      "budget_profiles": {
+        "agent_capable": {
+          "build_executions": 3,
+          "input_tokens": 150000,
+          "output_tokens": 15000,
+          "provider_cost_microusd": 60000,
+          "provider_requests": 12,
+          "wall_clock_milliseconds": 360000
+        },
+        "critical": {
+          "build_executions": 1,
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "provider_cost_microusd": 0,
+          "provider_requests": 0,
+          "wall_clock_milliseconds": 30000
+        },
+        "local_only": {
+          "build_executions": 3,
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "provider_cost_microusd": 0,
+          "provider_requests": 0,
+          "wall_clock_milliseconds": 180000
+        }
+      },
+      "direct_route_charges": {
+        "build": {
+          "build_executions": 3,
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "provider_cost_microusd": 0,
+          "provider_requests": 0,
+          "wall_clock_milliseconds": 120000
+        },
+        "configure": {
+          "build_executions": 2,
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "provider_cost_microusd": 0,
+          "provider_requests": 0,
+          "wall_clock_milliseconds": 120000
+        },
+        "dependency": {
+          "build_executions": 2,
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "provider_cost_microusd": 0,
+          "provider_requests": 0,
+          "wall_clock_milliseconds": 120000
+        }
+      },
+      "fault_types": [
+        "missing_compile_input",
+        "invalid_build_state",
+        "wrong_build_target",
+        "compound_recovery",
+        "replay_recipe_gap"
+      ],
+      "label_rule": "two_replicate_strict_safety_then_budget_feasibility_then_frozen_cost",
+      "shell_generation_by_model": false,
+      "strict_checks": [
+        "candidate",
+        "functional",
+        "provenance",
+        "clean_replay"
+      ]
+    },
+    "document_type": "forge_progress_budget_jev_identifiability_qualification",
+    "documents": {
+      "must_be_committed_and_pushed_before_outcomes": true,
+      "plan": "docs/research/2026-10-14-progress-budget-jev-identifiability-plan.md",
+      "preregistration": "benchmarks/preregistrations/cpp-progress-budget-jev-identifiability-qualification-v1.md",
+      "spec": "docs/research/2026-10-14-progress-budget-jev-identifiability-spec.md"
+    },
+    "environment": {
+      "dockerfile_path": "docker/compile/Dockerfile.stage-c",
+      "expected_image_id": "sha256:adbef4a26de49e9cd2c361a50b5fe2a000073a343b072ed0e515cc67e6e758b1",
+      "image_tag": "autocompiler:stage-c-v1",
+      "network_during_action": false,
+      "network_during_clone": true,
+      "parallel_jobs": 4,
+      "per_action_timeout_seconds": 900,
+      "replicates": 2
+    },
+    "evidence": {
+      "attempt_limit": 1,
+      "create_once": true,
+      "inventory_excludes": [
+        "inventory.json",
+        "completed.json"
+      ],
+      "root": ".compile-sessions/benchmark-evidence-progress-budget-jev-identifiability-qualification-v1"
+    },
+    "identity": "cpp-progress-budget-jev-identifiability-qualification-v1",
+    "issue_url": "https://github.com/WWFXL/Forge-AutoCompiler/issues/457",
+    "outputs": {
+      "json_report": "benchmarks/reports/cpp-progress-budget-jev-identifiability-qualification-v1.json",
+      "markdown_report": "benchmarks/reports/cpp-progress-budget-jev-identifiability-qualification-v1.md"
+    },
+    "schema_version": "forge-progress-budget-jev-identifiability-qualification-1.0.0",
+    "source_pool": {
+      "canonical_sha256": "c456599744083aff9fe558742af08fa64e13930e23bb0cf0fbd7558d00df91f7",
+      "path": "benchmarks/fixtures/cpp-progress-budget-jev-identifiability-source-pool-v1.json",
+      "task_ids": [
+        "argparse",
+        "magic-enum",
+        "parson",
+        "sds",
+        "libuev",
+        "libatomic-ops"
+      ]
+    },
+    "status": "authorized_zero_provider_qualification",
+    "thresholds": {
+      "maximum_rule_gate_route_accuracy_exclusive": 0.75,
+      "maximum_tfidf_budgetfit_route_accuracy_exclusive": 0.95,
+      "minimum_replay_consistency": 0.95,
+      "minimum_states_with_budget_route_change": 30,
+      "required_replay_dependency_recoveries": 12,
+      "required_replay_rejections": 12
+    }
+  },
+  "title": "Forge progress budget Jev identifiability qualification v1"
+}

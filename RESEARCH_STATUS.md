@@ -4,6 +4,28 @@
 
 ## 当前阶段
 
+- 状态：Issue #457 的独立零 Provider `cpp-progress-budget-jev-identifiability-qualification-v1` 已完成并通过，正式决定为
+  `proceed_to_jev_progress_budget_calibration_design`。该 benchmark 在 6 个全新项目族上覆盖 CMake、Make、Autotools，
+  每个项目构造 5 类语义状态，并在隔离副本中把 `dependency/configure/build/escalate_agent` 四类候选动作各执行两次；
+  action outcome 与冻结预算可行性共同产生 `direct/escalate_agent/stop` 标签，不采用旧 Agent 行为或人工期望作真值。
+- 资格结果：30 个状态、240 个 action branches、90 个 matched budget decisions 全部闭合；120/120 个状态-动作对的
+  categorical replay 一致，30/30 个状态因 `critical/local_only/agent_capable` 预算变化而改变最优路由。最优动作分布为
+  `dependency=12/configure=6/build=6/escalate_agent=6`，最优路由为 `direct=48/escalate_agent=6/stop=36`；
+  replay rejection 后的 dependency recovery 为 `12/12`。三种构建系统均覆盖四类动作和三类路由。
+- 可辨识性：简单 `RuleGate` 的 route accuracy 为 `0.6000`，低于冻结上限 `0.75`；项目族隔离的
+  `TF-IDF+BudgetFit` action top-1 为 `0.8000`、route accuracy 为 `0.8667`，低于冻结上限 `0.95`。全部 13 项硬门禁
+  通过，阈值未在结果后调整，模型输入未泄漏 hidden fault 或直接标签。
+- 完整性与 Evidence：执行 revision `e26033ef83a159795bdb93b7bf9caf26deefb116`，manifest canonical SHA-256
+  `fed83243b439df16e10b9ef1940b0158ba269a4c03799e706dd1e2dcb290bc76`。Evidence 位于
+  `.compile-sessions/benchmark-evidence-progress-budget-jev-identifiability-qualification-v1`，702 files / 2,851,071 bytes，
+  inventory canonical SHA-256 `2e4209fb52c07af949789ae7880db478f5a6d9326b4496de7fcff45ad64da9e9`；独立 audit
+  `valid=true`，cleanup 后 0 managed resource。全阶段 0 credential read、0 Provider/Jev/Agent call、0 model token。
+- 解释边界与下一步：本结果证明联合 benchmark 具备进入 Jev 校准实验的可辨识性，不证明 Jev 能正确选择动作、置信度
+  可迁移、真实 Agent 成本下降或 controller 端到端有效。下一阶段应建立独立的 Jev 进展预算离线校准设计，冻结
+  design/calibration/evaluation 项目族、Jev 版本与问题 schema、Provider 预算、校准器、风险-覆盖判据和停止规则；在新
+  identity 获得授权前不得读取 credential 或调用 Provider。报告位于
+  `benchmarks/reports/cpp-progress-budget-jev-identifiability-qualification-v1.{json,md}`。
+
 - 状态：Issue #455 的独立 `cpp-progress-aware-h0-h1-h2-runtime-v6-formal-comparison-v2` 已完成 Q0、18-arm Q1、
   独立审计和一次性封存，决定为 `runtime_v6_noninferior_but_mechanism_not_activated`。v2 从 sequence 1 全新执行，
   Issue #453 v1 的 8 个完整 observation 与部分 attempt 永久排除于 v2 分母。

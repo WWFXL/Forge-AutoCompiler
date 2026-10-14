@@ -501,6 +501,28 @@
 
 <!-- 倒序，最新在上。 -->
 
+- 2026-10-14 — Issue #457 进展预算感知 Jev 联合 benchmark 可辨识性资格通过
+  - 工作类型与问题: 正式零 Provider 数据采集与结果分析。Identity 为
+    `cpp-progress-budget-jev-identifiability-qualification-v1`；目标是在全新 CMake、Make、Autotools 项目族上检验语义
+    失败日志、动作后进展、剩余预算和 replay closure 是否共同形成简单规则不能完全解出的 direct/escalate/stop 问题。
+  - 冻结设计: 6 个项目、每项目 5 个状态、4 个候选动作、每个状态-动作分支两次独立执行，共 30 个状态、240 个
+    action branches 和 90 个 matched budget decisions。标签来自真实 action outcome 与冻结预算可行性；旧 Agent 行为、
+    hidden fault 和人工期望均不作为模型输入或标签来源。执行 revision 为
+    `e26033ef83a159795bdb93b7bf9caf26deefb116`，manifest canonical SHA-256 为
+    `fed83243b439df16e10b9ef1940b0158ba269a4c03799e706dd1e2dcb290bc76`。
+  - 正式结果: 120/120 个状态-动作对重复一致，30/30 个状态随预算改变最优路由；最优动作计数为
+    `dependency=12/configure=6/build=6/escalate_agent=6`，路由计数为 `direct=48/escalate_agent=6/stop=36`，三种
+    构建系统均有完整动作和路由支持。RuleGate route accuracy 为 `0.6000`，TF-IDF+BudgetFit action top-1 / route
+    accuracy 为 `0.8000/0.8667`，均低于预注册 ceiling；replay dependency recovery 为 `12/12`，13 项硬门禁全通过。
+  - 完整性与边界: Evidence 为 702 files / 2,851,071 bytes，inventory canonical SHA-256
+    `2e4209fb52c07af949789ae7880db478f5a6d9326b4496de7fcff45ad64da9e9`；独立 audit `valid=true`、0 managed
+    resource。全阶段 0 credential、0 Provider/Jev/Agent、0 model token，阈值未后验调整，历史 evidence 未修改。
+    结果只支持 benchmark 可辨识，不估计 Jev、Agent 或 controller 效果。
+  - 决定与下一步: `proceed_to_jev_progress_budget_calibration_design`。另建独立 Jev 离线校准 identity，先冻结项目族
+    划分、模型版本、问题 schema、预算、风险-覆盖判据和停止规则；获得新授权前不读取 credential 或调用 Provider。
+  - 文件: `benchmarks/reports/cpp-progress-budget-jev-identifiability-qualification-v1.{json,md}`、
+    `.compile-sessions/benchmark-evidence-progress-budget-jev-identifiability-qualification-v1`、`RESEARCH_STATUS.md`
+
 - 2026-10-14 — Issue #455 Runtime v6 三臂正式比较 v2 完成，非劣通过但机制未激活
   - 工作类型与问题: 正式 Provider 数据采集、结果分析与封存。Identity 为
     `cpp-progress-aware-h0-h1-h2-runtime-v6-formal-comparison-v2`；在 v1 宿主磁盘耗尽后从头执行 `cmark/mpc/expat`、
