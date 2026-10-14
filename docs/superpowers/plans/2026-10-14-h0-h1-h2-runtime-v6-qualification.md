@@ -25,7 +25,7 @@
 - [x] 运行聚焦测试、Runtime v3/v4/v6 与 replay closure 相邻回归。
 - [x] 运行 Ruff、format、manifest/schema check 和 `git diff --check`。
 - [x] 更新 `RESEARCH_STATUS.md` 与 `.claude/memory/project.md`。
-- [ ] 将结果回写 Issue #451，提交、推送并创建堆叠 PR。
+- [x] 将结果回写 Issue #451，提交、推送并创建堆叠 PR。
 
 ## D. 后续阶段
 
