@@ -501,6 +501,30 @@
 
 <!-- 倒序，最新在上。 -->
 
+- 2026-10-14 — Issue #453 Runtime v6 三臂正式比较 v1 因宿主磁盘耗尽失败封口
+  - 工作类型与问题: 正式数据采集与基础设施失败分析。Identity 为
+    `cpp-progress-aware-h0-h1-h2-runtime-v6-formal-comparison-v1`，计划用 `cmark/mpc/expat`、H0 Runtime v3、H1
+    Runtime v4、H2 Runtime v6、每 cell 两次共 18 arms，估计项目族聚类的 `strict_success(H2)-strict_success(H1)`；
+    非劣界为 `-0.10`。
+  - 冻结合同: release `213f2f232bf96a59897ec053e0a2b4a143d4f04b`，manifest canonical SHA-256
+    `ab8be962280f9b4d93a85e2d1632540ab1dfd57f3a9b927731f7a5929180a4d4`。单臂最多 36 requests、T=600,000、
+    R=100,000、700,000 authorized tokens；全批 648 requests、12,600,000 authorized tokens、`$15.12`。
+  - Q0: 父资格 manifest/report/inventory、三份 source archive、image、Runtime v3/v4/v6 binding、clean pushed branch 与
+    0 managed resource 均通过；Q0 为 0 credential read、0 Provider request、0 model token。
+  - Q1 失败: 前 8 个 arm 完整分类且描述性均为 strict success，共 73 requests、490,354 recorded tokens、
+    `$0.174662`。第 9 个 `autotools-expat/H1` 在模型请求前因根分区 100% 写满触发
+    `OSError: [Errno 28] No space left on device`；其 arm result 和 Q1 result 的零字节部分文件原样保留，第 10-18 个 arm
+    未启动。8 个 observation 不形成平衡分母，禁止 effect/noninferiority/cost analysis。
+  - 封口与修复: arm 9 与 Q1 marker 已标记失败，orphan compile container 已清理。Evidence 4,595 files /
+    670,224,934 bytes，inventory canonical SHA-256
+    `cc640491c3c8ff40039bbe2b225596723b026d6ba6e9b91b8ae558cf372b16b8`；failure audit 有效、credential value/header
+    scan 为 0、0 managed resource。清理 51.24 GB 可再生 Docker build cache 后根分区约 47 GB 可用；未删除历史或当前
+    experiment evidence。
+  - 决定与下一步: `formal_execution_invalid_due_to_host_disk_exhaustion`。v1 永久只读，不续跑、不补齐、不池化。若继续，
+    必须用全新 identity 从头执行 18 arms，并在 Q0 与每个 arm 前增加宿主剩余空间硬门禁。
+  - 文件: `benchmarks/reports/cpp-progress-aware-h0-h1-h2-runtime-v6-formal-comparison-v1.{json,md}`、
+    `.compile-sessions/benchmark-evidence-cpp-progress-aware-h0-h1-h2-runtime-v6-formal-comparison-v1`
+
 - 2026-10-14 — 完成 Issue #451 Runtime v6 的 H0/H1/H2 held-out 零 Provider 资格
   - 工作类型与问题: 实验设计、零 Provider 数据采集和基础设施资格。Runtime v6 是观察旧 `mjson/H2` 死锁后开发的，
     因此冻结全新 held-out 项目，检验 source/reference/replay/dispatch/evidence 生命周期是否足以支持独立正式比较。
