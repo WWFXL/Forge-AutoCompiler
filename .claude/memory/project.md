@@ -501,6 +501,25 @@
 
 <!-- 倒序，最新在上。 -->
 
+- 2026-10-14 — Issue #459 冻结进展预算感知 Jev 离线校准实验 spec
+  - 工作类型与问题: 结果后的实验设计，不产生新的科研 observation。目标是在 Issue #457 合格的真实 action outcome 与
+    matched budget benchmark 上，检验固定 Jev 动作概率能否经项目族隔离校准后支持低风险 direct，并相对
+    TF-IDF+BudgetFit 提供足以进入 controller replay 的增量。
+  - 数据隔离: 按父 source pool 的冻结顺序，每系统第一个 family 用于 calibration，第二个用于一次性 evaluation；两侧
+    各 3 个 family、15 个状态、45 个 route decisions。没有 Provider design split，prompt/schema 必须在真实请求前由
+    mock 冻结；calibration 之后禁止修改模型、prompt、字段、动作描述或 evaluation threshold。
+  - 模型与校准: 固定 `jev-1.13.0`，每状态一次请求、同请求正反 Choice。输入只含 build system、phase/progress facts 和
+    原始失败日志；项目、fault、标签、bound command、预算和基线预测全部排除。对 `15 x 3` 个 local-action 概率拟合
+    Platt scaling，阈值按零 observed unsafe direct 的最大覆盖选择，顺序不一致一律拒绝 direct。
+  - 判据: 核心门槛要求 evaluation exact action 至少 12/15、每系统 4/5、safe action 14/15、顺序一致 14/15、direct
+    coverage 14/45、wrong-direct risk 不超过 10%、joint correct 32/45。随后还需每系统不低于 TF-IDF 的 13/15，并在
+    joint correct 或低风险 direct coverage 上至少增加 3 个决策；核心通过但无增量时停止 Jev 组件，保留语义预算方法。
+  - 预算与边界: 未来 authorized identity 上限拟为 30 requests、200,000 input、50,000 output tokens、`$0.0084`，retry=0。
+    当前为 spec-only：0 credential、0 Provider/Jev/Agent、0 model token、0 formal identity/attempt/evidence；父 evidence 只读。
+  - 下一步: 审查 spec 后再编写 plan、candidate manifest/schema/preregistration、runner 和零 Provider mock/preflight；真实执行
+    必须通过独立 authorized identity 绑定 exact revision、预算、停止规则和 create-once evidence。
+  - 文件: `docs/research/2026-10-14-jev-progress-budget-calibration-spec.md`, `RESEARCH_STATUS.md`
+
 - 2026-10-14 — Issue #457 进展预算感知 Jev 联合 benchmark 可辨识性资格通过
   - 工作类型与问题: 正式零 Provider 数据采集与结果分析。Identity 为
     `cpp-progress-budget-jev-identifiability-qualification-v1`；目标是在全新 CMake、Make、Autotools 项目族上检验语义
