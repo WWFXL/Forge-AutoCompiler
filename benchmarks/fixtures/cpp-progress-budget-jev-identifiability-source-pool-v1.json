@@ -1,0 +1,391 @@
+{
+  "future_evaluation_contract": {
+    "commit_must_be_later_than": "2026-10-05T19:05:16+04:00",
+    "project_families_must_be_disjoint": true
+  },
+  "identity": "cpp-progress-budget-jev-identifiability-qualification-v1",
+  "quotas": {
+    "project_count": 6,
+    "projects_per_build_system": 2
+  },
+  "role": "benchmark_design_and_qualification_only",
+  "schema_version": "forge-progress-budget-jev-identifiability-source-pool-1.0.0",
+  "selection_audit": {
+    "excluded_before_freeze": [
+      {
+        "formal_outcome_observed": false,
+        "project_family": "github.com/rxi/log.c",
+        "reason": "no_project_level_build_entrypoint"
+      },
+      {
+        "formal_outcome_observed": false,
+        "project_family": "github.com/tidwall/hashmap.c",
+        "reason": "no_project_level_build_entrypoint"
+      },
+      {
+        "formal_outcome_observed": false,
+        "project_family": "github.com/ebiggers/libdeflate",
+        "reason": "make_quota_filled_by_native_make_project"
+      }
+    ],
+    "included_project_ids": [
+      "argparse",
+      "magic-enum",
+      "parson",
+      "sds",
+      "libuev",
+      "libatomic-ops"
+    ]
+  },
+  "selection_status": "frozen_before_formal_outcomes",
+  "tasks": [
+    {
+      "artifact_stage_commands": [
+        "install -Dm755 build/samples/positional_argument /artifacts/positional_argument"
+      ],
+      "build_commands": [
+        "cmake --build build --target ARGPARSE_SAMPLE_positional_argument --parallel 4"
+      ],
+      "commit_committed_at": "2026-10-04T20:35:26-04:00",
+      "commit_sha": "7d093f8e1201db2dded2eee94de77665698ee9dc",
+      "configure_commands": [
+        "cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DARGPARSE_BUILD_TESTS=OFF -DARGPARSE_BUILD_SAMPLES=ON -DARGPARSE_INSTALL=OFF"
+      ],
+      "configure_repair_commands": [
+        "rm -rf build",
+        "cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DARGPARSE_BUILD_TESTS=OFF -DARGPARSE_BUILD_SAMPLES=ON -DARGPARSE_INSTALL=OFF"
+      ],
+      "fault_file": "include/argparse/argparse.hpp",
+      "license_path": "LICENSE",
+      "license_sha256": "a3a9e0dc669644b703773777503f73abff8dffacc4e697d8535be930766fa771",
+      "oracle": {
+        "argv": [
+          "/artifacts/positional_argument",
+          "7"
+        ],
+        "kind": "command"
+      },
+      "project_family": "github.com/p-ranav/argparse",
+      "replay_build_commands": [
+        "cmake --build build-replay --target ARGPARSE_SAMPLE_positional_argument --parallel 4",
+        "mkdir -p build/samples && cp build-replay/samples/positional_argument build/samples/positional_argument"
+      ],
+      "replay_configure_commands": [
+        "cmake -S . -B build-replay -DCMAKE_BUILD_TYPE=Release -DARGPARSE_BUILD_TESTS=OFF -DARGPARSE_BUILD_SAMPLES=ON -DARGPARSE_INSTALL=OFF '-DCMAKE_CXX_FLAGS=-include /workspace/repo/forge_replay_marker.h'"
+      ],
+      "replay_setup_commands": [
+        "printf '%s\\n' '#pragma once' > forge_replay_marker.h"
+      ],
+      "repository_url": "https://github.com/p-ranav/argparse.git",
+      "selected_build_system": "cmake",
+      "source_snapshot_sha256": "03e064de0c914c4b4fadc4eb40a3cfff57cff9364cfa4b6895730132e142eed9",
+      "submodule_commits": {},
+      "target": {
+        "artifact_types": [
+          "executable"
+        ],
+        "bitwise_required": false,
+        "required_artifacts": [
+          "positional_argument"
+        ]
+      },
+      "task_id": "argparse",
+      "tracked_file_count": 83
+    },
+    {
+      "artifact_stage_commands": [
+        "install -Dm755 build/example/example /artifacts/magic-enum-example"
+      ],
+      "build_commands": [
+        "cmake --build build --target example --parallel 4"
+      ],
+      "commit_committed_at": "2026-10-05T19:05:16+04:00",
+      "commit_sha": "5de969c9005938a27a34d3af3ea5923d18679ad8",
+      "configure_commands": [
+        "cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DMAGIC_ENUM_OPT_BUILD_EXAMPLES=ON -DMAGIC_ENUM_OPT_BUILD_TESTS=OFF -DMAGIC_ENUM_OPT_VERIFY_INTERFACE_HEADER_SETS=OFF -DMAGIC_ENUM_OPT_INSTALL=OFF"
+      ],
+      "configure_repair_commands": [
+        "rm -rf build",
+        "cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DMAGIC_ENUM_OPT_BUILD_EXAMPLES=ON -DMAGIC_ENUM_OPT_BUILD_TESTS=OFF -DMAGIC_ENUM_OPT_VERIFY_INTERFACE_HEADER_SETS=OFF -DMAGIC_ENUM_OPT_INSTALL=OFF"
+      ],
+      "fault_file": "include/magic_enum/magic_enum.hpp",
+      "license_path": "LICENSE",
+      "license_sha256": "7240d196079161cabea66b2b4e52d83d0946ab74900ea4dacd5e50d6bcac4510",
+      "oracle": {
+        "argv": [
+          "/artifacts/magic-enum-example"
+        ],
+        "kind": "command"
+      },
+      "project_family": "github.com/neargye/magic_enum",
+      "replay_build_commands": [
+        "cmake --build build-replay --target example --parallel 4",
+        "mkdir -p build/example && cp build-replay/example/example build/example/example"
+      ],
+      "replay_configure_commands": [
+        "cmake -S . -B build-replay -DCMAKE_BUILD_TYPE=Release -DMAGIC_ENUM_OPT_BUILD_EXAMPLES=ON -DMAGIC_ENUM_OPT_BUILD_TESTS=OFF -DMAGIC_ENUM_OPT_VERIFY_INTERFACE_HEADER_SETS=OFF -DMAGIC_ENUM_OPT_INSTALL=OFF '-DCMAKE_CXX_FLAGS=-include /workspace/repo/forge_replay_marker.h'"
+      ],
+      "replay_setup_commands": [
+        "printf '%s\\n' '#pragma once' > forge_replay_marker.h"
+      ],
+      "repository_url": "https://github.com/Neargye/magic_enum.git",
+      "selected_build_system": "cmake",
+      "source_snapshot_sha256": "26eb732eaa8f9dcc5c3e3998db4bcdcc2402b61bed3fdcf899c93276356ff5ed",
+      "submodule_commits": {},
+      "target": {
+        "artifact_types": [
+          "executable"
+        ],
+        "bitwise_required": false,
+        "required_artifacts": [
+          "magic-enum-example"
+        ]
+      },
+      "task_id": "magic-enum",
+      "tracked_file_count": 85
+    },
+    {
+      "artifact_stage_commands": [
+        "install -Dm755 test /artifacts/parson-test"
+      ],
+      "build_commands": [
+        "make test"
+      ],
+      "commit_committed_at": "2026-09-15T13:24:18+02:00",
+      "commit_sha": "ec53fb6528b45811df9db0db22cab96a94a96a11",
+      "configure_commands": [
+        "test -f Makefile"
+      ],
+      "configure_repair_commands": [
+        "git checkout HEAD -- Makefile",
+        "test -f Makefile"
+      ],
+      "fault_file": "parson.c",
+      "license_path": "LICENSE",
+      "license_sha256": "ea4347d6cdbf46b37f436d02150fc7c4167280e8d0c3269b5d61ef1d0a002542",
+      "oracle": {
+        "argv": [
+          "/artifacts/parson-test"
+        ],
+        "kind": "command"
+      },
+      "project_family": "github.com/kgabis/parson",
+      "replay_build_commands": [
+        "make CC=./forge-cc test"
+      ],
+      "replay_configure_commands": [
+        "test -f Makefile"
+      ],
+      "replay_setup_commands": [
+        "printf '%s\\n' '#pragma once' > forge_replay_marker.h",
+        "printf %s IyEvYmluL3NoCmV4ZWMgZ2NjLTEzIC1pbmNsdWRlIC93b3Jrc3BhY2UvcmVwby9mb3JnZV9yZXBsYXlfbWFya2VyLmggIiRAIg== | base64 -d > forge-cc",
+        "chmod +x forge-cc"
+      ],
+      "repository_url": "https://github.com/kgabis/parson.git",
+      "selected_build_system": "make",
+      "source_snapshot_sha256": "85f7c75728b1a7f73cbd68c614270f007ae8e8f2ce00f0c33e87879eae0687d1",
+      "submodule_commits": {},
+      "target": {
+        "artifact_types": [
+          "executable"
+        ],
+        "bitwise_required": false,
+        "required_artifacts": [
+          "parson-test"
+        ]
+      },
+      "task_id": "parson",
+      "tracked_file_count": 19
+    },
+    {
+      "artifact_stage_commands": [
+        "install -Dm755 sds-test /artifacts/sds-test"
+      ],
+      "build_commands": [
+        "make -j4"
+      ],
+      "commit_committed_at": "2025-04-18T12:59:31+02:00",
+      "commit_sha": "5347739b1581fcba74fd5cab1fc21d2aef317d71",
+      "configure_commands": [
+        "test -f Makefile"
+      ],
+      "configure_repair_commands": [
+        "git checkout HEAD -- Makefile",
+        "test -f Makefile"
+      ],
+      "fault_file": "sds.c",
+      "license_path": "LICENSE",
+      "license_sha256": "bb0d0d505009fdf584b0f44dbb62562eebada497d53d726cd2e940ada512dc16",
+      "oracle": {
+        "argv": [
+          "/artifacts/sds-test"
+        ],
+        "kind": "command"
+      },
+      "project_family": "github.com/antirez/sds",
+      "replay_build_commands": [
+        "make CC=./forge-cc -j4"
+      ],
+      "replay_configure_commands": [
+        "test -f Makefile"
+      ],
+      "replay_setup_commands": [
+        "printf '%s\\n' '#pragma once' > forge_replay_marker.h",
+        "printf %s IyEvYmluL3NoCmV4ZWMgZ2NjLTEzIC1pbmNsdWRlIC93b3Jrc3BhY2UvcmVwby9mb3JnZV9yZXBsYXlfbWFya2VyLmggIiRAIg== | base64 -d > forge-cc",
+        "chmod +x forge-cc"
+      ],
+      "repository_url": "https://github.com/antirez/sds.git",
+      "selected_build_system": "make",
+      "source_snapshot_sha256": "087af82e8d0993efb8cd283fb21f2eea467099bfeb07d87b3dd38fbb07b1fe9f",
+      "submodule_commits": {},
+      "target": {
+        "artifact_types": [
+          "executable"
+        ],
+        "bitwise_required": false,
+        "required_artifacts": [
+          "sds-test"
+        ]
+      },
+      "task_id": "sds",
+      "tracked_file_count": 9
+    },
+    {
+      "artifact_stage_commands": [
+        "make install"
+      ],
+      "build_commands": [
+        "make -j4"
+      ],
+      "commit_committed_at": "2025-04-28T08:35:10+02:00",
+      "commit_sha": "c964bbe8fb154db486d33369e3ad101992c50979",
+      "configure_commands": [
+        "./autogen.sh",
+        "./configure --prefix=/artifacts --disable-shared --enable-static --disable-examples"
+      ],
+      "configure_repair_commands": [
+        "./autogen.sh",
+        "./configure --prefix=/artifacts --disable-shared --enable-static --disable-examples"
+      ],
+      "fault_file": "src/uev.c",
+      "license_path": "LICENSE",
+      "license_sha256": "387d0d8e2aabf187751c8f1ebb9a4abaecaa7e0e05fead27f408193a0f0f17dd",
+      "oracle": {
+        "compile_argv": [
+          "cc",
+          "-std=c11",
+          "-I/artifacts/include",
+          "{source}",
+          "/artifacts/lib/libuev.a",
+          "-o",
+          "{executable}"
+        ],
+        "kind": "compile_and_run",
+        "language": "c11",
+        "run_argv": [
+          "{executable}"
+        ],
+        "source": "#include <uev/uev.h>\nint main(void){uev_ctx_t ctx; return uev_init(&ctx) < 0;}\n"
+      },
+      "project_family": "github.com/troglobit/libuev",
+      "replay_build_commands": [
+        "make -j4"
+      ],
+      "replay_configure_commands": [
+        "./autogen.sh",
+        "CC=/workspace/repo/forge-cc ./configure --prefix=/artifacts --disable-shared --enable-static --disable-examples"
+      ],
+      "replay_setup_commands": [
+        "printf '%s\\n' '#pragma once' > forge_replay_marker.h",
+        "printf %s IyEvYmluL3NoCmV4ZWMgZ2NjLTEzIC1pbmNsdWRlIC93b3Jrc3BhY2UvcmVwby9mb3JnZV9yZXBsYXlfbWFya2VyLmggIiRAIg== | base64 -d > forge-cc",
+        "chmod +x forge-cc"
+      ],
+      "repository_url": "https://github.com/troglobit/libuev.git",
+      "selected_build_system": "autotools",
+      "source_snapshot_sha256": "b24c7dbb30acf60b86bcebf040bfd3fca008c0b395d15b5efd487c408017ecc0",
+      "submodule_commits": {},
+      "target": {
+        "artifact_types": [
+          "support_file",
+          "static_library"
+        ],
+        "bitwise_required": true,
+        "required_artifacts": [
+          "include/uev/uev.h",
+          "lib/libuev.a"
+        ]
+      },
+      "task_id": "libuev",
+      "tracked_file_count": 66
+    },
+    {
+      "artifact_stage_commands": [
+        "make install"
+      ],
+      "build_commands": [
+        "make -j4"
+      ],
+      "commit_committed_at": "2026-09-25T14:17:28+03:00",
+      "commit_sha": "c7901207f871e80c973bfeae71f04f7b59c69636",
+      "configure_commands": [
+        "./autogen.sh",
+        "./configure --prefix=/artifacts --disable-shared --enable-static --disable-gpl"
+      ],
+      "configure_repair_commands": [
+        "./autogen.sh",
+        "./configure --prefix=/artifacts --disable-shared --enable-static --disable-gpl"
+      ],
+      "fault_file": "src/atomic_ops.c",
+      "license_path": "LICENSE",
+      "license_sha256": "969294c9324b2d360ae2a08edd5ca6f9cd754cb71b71e56bee15d2f10bb10496",
+      "oracle": {
+        "compile_argv": [
+          "cc",
+          "-std=c11",
+          "-I/artifacts/include",
+          "{source}",
+          "/artifacts/lib/libatomic_ops.a",
+          "-lpthread",
+          "-o",
+          "{executable}"
+        ],
+        "kind": "compile_and_run",
+        "language": "c11",
+        "run_argv": [
+          "{executable}"
+        ],
+        "source": "#include <atomic_ops.h>\nint main(void){volatile AO_t x=0; AO_store(&x,7); return AO_load(&x)==7 ? 0 : 1;}\n"
+      },
+      "project_family": "github.com/ivmai/libatomic_ops",
+      "replay_build_commands": [
+        "make -j4"
+      ],
+      "replay_configure_commands": [
+        "./autogen.sh",
+        "CC=/workspace/repo/forge-cc ./configure --prefix=/artifacts --disable-shared --enable-static --disable-gpl"
+      ],
+      "replay_setup_commands": [
+        "printf '%s\\n' '#pragma once' > forge_replay_marker.h",
+        "printf %s IyEvYmluL3NoCmV4ZWMgZ2NjLTEzIC1pbmNsdWRlIC93b3Jrc3BhY2UvcmVwby9mb3JnZV9yZXBsYXlfbWFya2VyLmggIiRAIg== | base64 -d > forge-cc",
+        "chmod +x forge-cc"
+      ],
+      "repository_url": "https://github.com/ivmai/libatomic_ops.git",
+      "selected_build_system": "autotools",
+      "source_snapshot_sha256": "d773731355a6ab226b1b86aa6b76af837cd53139675dd5fbdea109aa8624e314",
+      "submodule_commits": {},
+      "target": {
+        "artifact_types": [
+          "support_file",
+          "static_library"
+        ],
+        "bitwise_required": true,
+        "required_artifacts": [
+          "include/atomic_ops.h",
+          "lib/libatomic_ops.a"
+        ]
+      },
+      "task_id": "libatomic-ops",
+      "tracked_file_count": 119
+    }
+  ]
+}
