@@ -1,0 +1,35 @@
+{
+  "decision": "formal_execution_invalid_due_to_host_disk_exhaustion",
+  "effect_analysis_forbidden": true,
+  "evidence": {
+    "file_count": 4595,
+    "inventory_canonical_sha256": "cc640491c3c8ff40039bbe2b225596723b026d6ba6e9b91b8ae558cf372b16b8",
+    "total_bytes": 670224934,
+    "valid_failure_evidence": true,
+    "zero_managed_resources": true
+  },
+  "failure": {
+    "error_class": "OSErrorNoSpaceLeftOnDevice",
+    "failed_sequence": 9,
+    "failed_task_id": "autotools-expat",
+    "failed_treatment": "h1_runtime_v4",
+    "q1_zero_byte_result_preserved": true,
+    "unstarted_sequences": [10, 11, 12, 13, 14, 15, 16, 17, 18]
+  },
+  "identity": "cpp-progress-aware-h0-h1-h2-runtime-v6-formal-comparison-v1",
+  "manifest_sha256": "ab8be962280f9b4d93a85e2d1632540ab1dfd57f3a9b927731f7a5929180a4d4",
+  "partial_observations_descriptive_only": {
+    "arms": 8,
+    "provider_cost_microusd": 174662,
+    "provider_requests": 73,
+    "recorded_tokens": 490354,
+    "strict_success": 8
+  },
+  "q0": {
+    "credential_reads": 0,
+    "passed": true,
+    "provider_requests": 0
+  },
+  "release_revision": "213f2f232bf96a59897ec053e0a2b4a143d4f04b",
+  "status": "failed_closed"
+}

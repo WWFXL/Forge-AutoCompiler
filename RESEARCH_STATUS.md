@@ -4,6 +4,20 @@
 
 ## 当前阶段
 
+- 状态：Issue #453 的 `cpp-progress-aware-h0-h1-h2-runtime-v6-formal-comparison-v1` 已因宿主磁盘耗尽失败封口，决定为
+  `formal_execution_invalid_due_to_host_disk_exhaustion`。Q0 通过后 Q1 完成 8 个 arm，第 9 个
+  `autotools-expat/H1` 在模型请求前触发 `Errno 28`；第 10-18 个 arm 未启动。8 个完整 observation 永久排除于 effect
+  analysis，不计算 H2-H1 非劣或成本差异。
+- 封口与 Evidence：release `213f2f232bf96a59897ec053e0a2b4a143d4f04b`，manifest canonical SHA-256
+  `ab8be962280f9b4d93a85e2d1632540ab1dfd57f3a9b927731f7a5929180a4d4`；失败 evidence 为 4,595 files /
+  670,224,934 bytes，inventory canonical SHA-256
+  `cc640491c3c8ff40039bbe2b225596723b026d6ba6e9b91b8ae558cf372b16b8`，failure audit 有效、0 credential value match、
+  0 managed resource。零字节 arm/Q1 result 作为原始部分失败保留，不续跑、不补齐、不重分类。
+- 基础设施修复与下一步：未删除任何 experiment evidence；已清理 51.24 GB 可再生 Docker build cache，根分区从 0 恢复约
+  47 GB。若继续必须新建 identity，从头执行 18 arms，并在 Q0 与每个 arm 前冻结宿主可用空间硬门禁；v1 partial
+  observation 不进入新分母。失败报告位于
+  `benchmarks/reports/cpp-progress-aware-h0-h1-h2-runtime-v6-formal-comparison-v1.{json,md}`。
+
 - 状态：Issue #451 的独立零 Provider `cpp-progress-aware-h0-h1-h2-runtime-v6-qualification-v1` 已完成并通过，正式决定为
   `proceed_to_runtime_v6_three_arm_formal_comparison_design`。该 identity 排除 Runtime v6 已观察的 `mjson` 和旧三臂
   样本，固定新的 CMake `cmark@7e1e10c`、Make `mpc@1049534`、Autotools `expat@ac140c2` 三个项目族；后续
