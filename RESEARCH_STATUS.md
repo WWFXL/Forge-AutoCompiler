@@ -4,23 +4,26 @@
 
 ## 当前阶段
 
-- 状态：Issue #465 已建立全新候选 `cpp-jev-action-safety-decomposition-v1`，用于判断 #463 的保守升级主要来自
-  四选一问题结构、动作上下文不足，还是 Jev 本身能力不足。新机制把三个局部动作分别建模为 Noul 安全命题，
-  `escalate_agent` 改由 Forge 在无动作通过门禁时确定性触发；另设 `action_card_noul` 条件提供不含 Shell、outcome、
-  fault、标签或预算的规范化动作语义。历史四选一只读，不补齐其 evaluation。
-- 冻结设计：两个 Noul 条件各运行 15 个 calibration 与 15 个 evaluation 状态；每请求按正序和逆序重复三个问题，
-  动作分数固定为两次真概率的最小值。每个条件独立用 45 行拟合 Platt，在最终最低成本动作选择器上选择 calibration
-  零 observed unsafe direct、覆盖最大的阈值，再复用 Issue #457 的六维 BudgetFit。evaluation 项目族与 calibration
-  完全隔离，只分析一次。
-- 当前证据：零 Provider candidate preflight 已通过。90 张 ActionCard 全部可机械归纳，原生 Noul SDK mock、retry=0、
-  禁止字段排除、选择器级阈值与 BudgetFit 聚焦测试通过；父 outcome evidence 仍为 702 files / inventory
-  `2e4209fb52c07af949789ae7880db478f5a6d9326b4496de7fcff45ad64da9e9`，#463 Jev evidence 仍为 51 files /
-  inventory `83e6e5830ef551e4a2547666c98c4de8dcbeadd165c5f35cb876d25807482582`。当前 0 credential 内容读取、0 Provider、
-  0 formal attempt/evidence。
-- 执行边界与下一步：Provider 上限为 60 requests、400,000 input、100,000 output tokens、`$0.0168`，固定
-  `jev-1.13.0`、30 秒 timeout、SDK retry 0。先提交并推送 exact implementation revision，再生成 authorized
-  manifest 并完成零调用 preflight；只有这些门禁通过后才读取 `jev-apikey.txt` 并按固定顺序执行。当前不实现 controller。
-  Spec 与 plan 位于 `docs/research/2026-10-17-jev-action-safety-decomposition-{spec,plan}.md`。
+- 状态：Issue #465 的正式 identity `cpp-jev-action-safety-decomposition-v1` 已完成 60 个冻结请求、一次性 evaluation、
+  报告封存与独立审计，决定为 `stop_jev_action_safety_before_controller`。实验把 `dependency/configure/build` 分别建模为
+  Noul 安全命题，无动作通过时由 Forge 确定性升级；`action_card_noul` 另提供不含 Shell、outcome、fault、标签或预算的
+  规范化动作语义。历史 #463 四选一 calibration 只读，未补齐其 evaluation。
+- Calibration 与 holdout：plain 条件在 calibration 的零 observed unsafe direct 阈值为 `0.46622876194610735`，覆盖
+  `4/15`；ActionCard 条件阈值为 `0.683321629297147`，覆盖 `3/15` 且 CMake 为 0，两者均未通过 `5/15` 与跨系统门槛。
+  项目族隔离 evaluation 中，plain 的 ROC-AUC/Brier 为 `0.7747/0.3171`，直接 `3/15`、错误 0、精确最优 `6/15`；
+  ActionCard 为 `0.8282/0.2283`，直接 `2/15`、错误 0、精确最优 `5/15`。ActionCard 改善 action-level 区分，
+  但没有改善冻结门禁下的可用覆盖。
+- 预算路由结果：plain 的 BudgetFit 联合正确为 `27/45`、direct `6/45`、错误 direct 0；ActionCard 为 `25/45`、
+  direct `4/45`、错误 direct 0。冻结 TF-IDF+BudgetFit 基线为 `39/45`、direct `18/45`、错误 direct 0；两种 Jev 条件
+  均未匹配基线，也没有增量信号。结果说明四选一竞争与动作上下文不足不是保守升级的充分解释；当前 Jev 不进入 controller。
+- 用量与完整性：60/60 requests、95,472 input、7,320 output tokens、费用 `$0.004009824`。Evidence 为 196 files /
+  926,108 bytes，inventory canonical SHA-256 `375673ca1626b8890c0ec0246319c182bfab82ba0fc39faafd24b79a334fede4`；
+  audit `valid=true`，credential/header 0 命中，父 outcome 与 #463 Jev evidence hash 均未变化，0 managed resources。
+- 解释边界与下一步：本结果支持受控状态上的逐动作分解、ActionCard 诊断和项目族 holdout，不支持 controller treatment、
+  strict success 非劣、端到端成本下降、自然失败或开放世界泛化。保留 Issue #457 的进展状态 + BudgetFit benchmark，
+  Jev 降为消融/负结果；下一阶段应围绕更强的确定性或可学习动作选择器审查论文主线，不能降低本 identity 阈值或实现其
+  controller。报告位于 `benchmarks/reports/cpp-jev-action-safety-decomposition-v1.{json,md}`，独立审计位于
+  `benchmarks/reports/cpp-jev-action-safety-decomposition-v1-audit.md`。
 
 - 状态：Issue #463 的正式 identity `cpp-jev-progress-budget-calibration-v1` 已完成 calibration 并按预注册停止，决定为
   `stop_before_progress_budget_evaluation`。Implementation revision 为 `039f6226b93709d8065387a4a0ebdb3fe18c7eee`，
