@@ -6,6 +6,27 @@
 
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
+- 2026-10-17 — Issue #465 Jev 逐动作安全判断问题分解完成零 Provider 候选实现，等待冻结授权身份
+  - 工作类型与问题: 离线资格实验基础设施。目标是区分 #463 的 `escalate_agent=11/15` 究竟来自四选一竞争、
+    局部动作上下文不足或 Jev 能力不足；旧四选一 calibration 只读，旧 evaluation 不补齐。
+  - 设计: 比较 `action_noul` 与 `action_card_noul`。每状态在同一请求中按正序和逆序各问三个 Noul，动作分数取两次
+    真概率最小值；每个 condition 在 45 个 calibration action rows 上独立做一维 Platt，并在最终最低成本选择器上
+    选择零 observed unsafe direct、覆盖最大的阈值，随后复用父六维 BudgetFit。
+  - 边界: calibration/evaluation 各 3 个项目族、15 状态，项目族隔离；最多 60 requests、400,000 input、
+    100,000 output tokens、`$0.0168`。固定 `jev-1.13.0`、timeout 30 秒、retry 0；禁止 retry、replacement、
+    backfill 和结果后改规则。本阶段不实现 controller。
+  - 当前验证: 90 张 ActionCard 机械归纳、两个原生 Noul SDK mock、敏感字段排除、校准/阈值/BudgetFit 聚焦测试通过；
+    `13 passed`。父 702-file outcome inventory 与 #463 的 51-file Jev inventory 只读复核通过。0 credential 内容读取、
+    0 Provider、0 formal attempt/evidence。
+  - 下一步: 提交并推送 candidate runner/spec/plan/manifest，绑定 exact implementation revision 生成 authorized
+    manifest；零调用 preflight 通过后按冻结顺序执行四个 Provider stage、封存报告和独立审计。
+  - 文件: `docs/research/2026-10-17-jev-action-safety-decomposition-spec.md`,
+    `docs/research/2026-10-17-jev-action-safety-decomposition-plan.md`,
+    `scripts/forge_jev_action_safety_decomposition_candidate.py`,
+    `scripts/forge_jev_action_safety_decomposition_v1.py`,
+    `backend/tests/test_forge_jev_action_safety_decomposition_candidate.py`,
+    `backend/tests/test_forge_jev_action_safety_decomposition_v1.py`
+
 - 2026-10-13 — Issue #440 H0/H1 v3 正式复现 authorized identity 已实现，等待发布与 Q0
   - 工作类型与问题: 正式数据采集前的协议实现。目标是在 v2 结果已观察的前提下，用同 9 个项目族、机械旋转到未进入
     v2 effect arms 的 checkpoint 深度，检验 H1 strict/cost 正向信号能否在完整后付费 Token 计量下复现。

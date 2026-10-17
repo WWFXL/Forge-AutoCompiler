@@ -4,6 +4,24 @@
 
 ## 当前阶段
 
+- 状态：Issue #465 已建立全新候选 `cpp-jev-action-safety-decomposition-v1`，用于判断 #463 的保守升级主要来自
+  四选一问题结构、动作上下文不足，还是 Jev 本身能力不足。新机制把三个局部动作分别建模为 Noul 安全命题，
+  `escalate_agent` 改由 Forge 在无动作通过门禁时确定性触发；另设 `action_card_noul` 条件提供不含 Shell、outcome、
+  fault、标签或预算的规范化动作语义。历史四选一只读，不补齐其 evaluation。
+- 冻结设计：两个 Noul 条件各运行 15 个 calibration 与 15 个 evaluation 状态；每请求按正序和逆序重复三个问题，
+  动作分数固定为两次真概率的最小值。每个条件独立用 45 行拟合 Platt，在最终最低成本动作选择器上选择 calibration
+  零 observed unsafe direct、覆盖最大的阈值，再复用 Issue #457 的六维 BudgetFit。evaluation 项目族与 calibration
+  完全隔离，只分析一次。
+- 当前证据：零 Provider candidate preflight 已通过。90 张 ActionCard 全部可机械归纳，原生 Noul SDK mock、retry=0、
+  禁止字段排除、选择器级阈值与 BudgetFit 聚焦测试通过；父 outcome evidence 仍为 702 files / inventory
+  `2e4209fb52c07af949789ae7880db478f5a6d9326b4496de7fcff45ad64da9e9`，#463 Jev evidence 仍为 51 files /
+  inventory `83e6e5830ef551e4a2547666c98c4de8dcbeadd165c5f35cb876d25807482582`。当前 0 credential 内容读取、0 Provider、
+  0 formal attempt/evidence。
+- 执行边界与下一步：Provider 上限为 60 requests、400,000 input、100,000 output tokens、`$0.0168`，固定
+  `jev-1.13.0`、30 秒 timeout、SDK retry 0。先提交并推送 exact implementation revision，再生成 authorized
+  manifest 并完成零调用 preflight；只有这些门禁通过后才读取 `jev-apikey.txt` 并按固定顺序执行。当前不实现 controller。
+  Spec 与 plan 位于 `docs/research/2026-10-17-jev-action-safety-decomposition-{spec,plan}.md`。
+
 - 状态：Issue #463 的正式 identity `cpp-jev-progress-budget-calibration-v1` 已完成 calibration 并按预注册停止，决定为
   `stop_before_progress_budget_evaluation`。Implementation revision 为 `039f6226b93709d8065387a4a0ebdb3fe18c7eee`，
   authorized manifest canonical SHA-256 为 `ffbdc6dfd9f940d327214c5bb3060fc798b455a44b67d5e7240db67574975116`；
