@@ -1,0 +1,526 @@
+{
+  "$id": "https://github.com/WWFXL/Forge-AutoCompiler/benchmarks/schemas/forge-jev-action-safety-decomposition-candidate-v1.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "const": {
+    "$schema": "../schemas/forge-jev-action-safety-decomposition-candidate-v1.schema.json",
+    "authorization": {
+      "agent_calls_authorized": false,
+      "controller_implementation_authorized": false,
+      "credential_content_read_authorized": false,
+      "credential_presence_and_mode_check_authorized": true,
+      "formal_attempt_creation_authorized": false,
+      "formal_provider_evidence_write_authorized": false,
+      "historical_evidence_write_authorized": false,
+      "jev_calls_authorized": false,
+      "model_tokens_authorized": 0,
+      "provider_calls_authorized": false
+    },
+    "budget_fit_contract": {
+      "agent_reservation": {
+        "build_executions": 2,
+        "input_tokens": 150000,
+        "output_tokens": 15000,
+        "provider_cost_microusd": 60000,
+        "provider_requests": 12,
+        "wall_clock_milliseconds": 300000
+      },
+      "budget_not_sent_to_jev": true,
+      "budget_profiles": {
+        "agent_capable": {
+          "build_executions": 3,
+          "input_tokens": 150000,
+          "output_tokens": 15000,
+          "provider_cost_microusd": 60000,
+          "provider_requests": 12,
+          "wall_clock_milliseconds": 360000
+        },
+        "critical": {
+          "build_executions": 1,
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "provider_cost_microusd": 0,
+          "provider_requests": 0,
+          "wall_clock_milliseconds": 30000
+        },
+        "local_only": {
+          "build_executions": 3,
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "provider_cost_microusd": 0,
+          "provider_requests": 0,
+          "wall_clock_milliseconds": 180000
+        }
+      },
+      "direct_route_charges": {
+        "build": {
+          "build_executions": 3,
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "provider_cost_microusd": 0,
+          "provider_requests": 0,
+          "wall_clock_milliseconds": 120000
+        },
+        "configure": {
+          "build_executions": 2,
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "provider_cost_microusd": 0,
+          "provider_requests": 0,
+          "wall_clock_milliseconds": 120000
+        },
+        "dependency": {
+          "build_executions": 2,
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "provider_cost_microusd": 0,
+          "provider_requests": 0,
+          "wall_clock_milliseconds": 120000
+        }
+      },
+      "jev_request_cost_not_backfilled_into_parent_continuation_budget": true,
+      "route_order": [
+        "accepted_local_direct_if_fit",
+        "escalate_agent_if_fit",
+        "stop"
+      ]
+    },
+    "calibration_contract": {
+      "clip_epsilon": 1e-06,
+      "estimator": "LogisticRegression",
+      "input": "logit(clipped_min_of_two_noul_probabilities)",
+      "label": "parent_safe_actions_contains_local_action",
+      "parameters": {
+        "C": 1.0,
+        "max_iter": 1000,
+        "random_state": 465,
+        "solver": "liblinear"
+      },
+      "row_count_per_condition": 45,
+      "selector": "lowest_action_cost_then_action_name",
+      "threshold_rule": "maximum_selector_state_coverage_with_zero_observed_unsafe_direct_tie_higher_threshold"
+    },
+    "conditions": {
+      "action_card_noul": {
+        "action_cards": true,
+        "new_provider_requests": 30
+      },
+      "action_noul": {
+        "action_cards": false,
+        "new_provider_requests": 30
+      },
+      "four_way_choice_frozen_reference": {
+        "frozen_exact_optimal_action_count": 4,
+        "frozen_order_agreement_count": 7,
+        "frozen_primary_choice_counts": {
+          "configure": 3,
+          "dependency": 1,
+          "escalate_agent": 11
+        },
+        "interpretation": "posthoc_design_diagnostic_only",
+        "posthoc_local_exact_optimal_action_count": 7,
+        "posthoc_local_rows": [
+          {
+            "exact_optimal": false,
+            "local_choice": "configure",
+            "safe": false,
+            "state_id": "s-108f99789cb31e2be262"
+          },
+          {
+            "exact_optimal": true,
+            "local_choice": "dependency",
+            "safe": true,
+            "state_id": "s-173aba324d1d5eee8558"
+          },
+          {
+            "exact_optimal": false,
+            "local_choice": "configure",
+            "safe": true,
+            "state_id": "s-187c817b621899cfb3a8"
+          },
+          {
+            "exact_optimal": false,
+            "local_choice": "configure",
+            "safe": false,
+            "state_id": "s-2a9f182bd8447384ef9a"
+          },
+          {
+            "exact_optimal": false,
+            "local_choice": "configure",
+            "safe": true,
+            "state_id": "s-372d5a5ff2672d3566bf"
+          },
+          {
+            "exact_optimal": true,
+            "local_choice": "configure",
+            "safe": true,
+            "state_id": "s-50fd989cf249a841d78d"
+          },
+          {
+            "exact_optimal": true,
+            "local_choice": "dependency",
+            "safe": true,
+            "state_id": "s-6f537fcb91c181546f6d"
+          },
+          {
+            "exact_optimal": false,
+            "local_choice": "configure",
+            "safe": true,
+            "state_id": "s-7afc97382f81b68287c8"
+          },
+          {
+            "exact_optimal": true,
+            "local_choice": "configure",
+            "safe": true,
+            "state_id": "s-7cd96718ffd66e9cbaaa"
+          },
+          {
+            "exact_optimal": true,
+            "local_choice": "dependency",
+            "safe": true,
+            "state_id": "s-8295b21fd13735a4e236"
+          },
+          {
+            "exact_optimal": false,
+            "local_choice": "configure",
+            "safe": false,
+            "state_id": "s-8c497827036fad492606"
+          },
+          {
+            "exact_optimal": false,
+            "local_choice": "configure",
+            "safe": false,
+            "state_id": "s-9f47ec6543fe672a064e"
+          },
+          {
+            "exact_optimal": true,
+            "local_choice": "configure",
+            "safe": true,
+            "state_id": "s-af9ae874a69966313e3d"
+          },
+          {
+            "exact_optimal": false,
+            "local_choice": "configure",
+            "safe": false,
+            "state_id": "s-b1c6837c123aced080c3"
+          },
+          {
+            "exact_optimal": true,
+            "local_choice": "dependency",
+            "safe": true,
+            "state_id": "s-f844a28324d3b19ef215"
+          }
+        ],
+        "posthoc_local_safe_action_count": 10,
+        "provider_requests": 0
+      }
+    },
+    "data_contract": {
+      "action_card_fields": [
+        "action_family",
+        "operation_summary",
+        "bound_step_count",
+        "workspace_effect",
+        "expected_frontier_transition",
+        "expected_evidence"
+      ],
+      "base_model_input_fields": [
+        "build_system",
+        "phase_facts",
+        "progress_facts",
+        "semantic_failure_log"
+      ],
+      "calibration_only_for_fit_and_threshold": true,
+      "evaluation_single_analysis_only": true,
+      "excluded_model_input_fields": [
+        "state_id",
+        "project_id",
+        "project_family",
+        "commit",
+        "fault_name",
+        "bound_commands",
+        "safe_actions",
+        "optimal_action",
+        "action_outcome",
+        "action_cost",
+        "budget_profile",
+        "remaining_budget"
+      ],
+      "project_family_overlap_allowed": false,
+      "split": {
+        "calibration": {
+          "action_labels_canonical_sha256": "6e200beab7632b48e737887266b8303ae4f0cc9c370d2652846a008c8c050623",
+          "budget_decision_count": 45,
+          "budget_decisions_canonical_sha256": "96e54a64bd6003a15d9d7af3dcdbb2d61dc06fcd89513222f0d334fa82ed7d14",
+          "oracle_routes": {
+            "direct": 24,
+            "escalate_agent": 3,
+            "stop": 18
+          },
+          "project_families": {
+            "autotools": "github.com/troglobit/libuev",
+            "cmake": "github.com/p-ranav/argparse",
+            "make": "github.com/kgabis/parson"
+          },
+          "project_family_count": 3,
+          "provider_states_canonical_sha256": "fe995becc0b0e3491fc2a577bc6630dc18a0bd50ea0f1098fac5b6389cf97983",
+          "rule_gate": {
+            "decision_count": 45,
+            "direct_count": 30,
+            "joint_correct": 27,
+            "per_build_system_joint_correct": {
+              "autotools": 9,
+              "cmake": 9,
+              "make": 9
+            },
+            "wrong_direct_count": 18
+          },
+          "rule_gate_rows_canonical_sha256": "e153257271a5e897542df1cbc29b8c40fdc1bc76ae524bb0516cdb2523f42201",
+          "state_count": 15,
+          "state_ids": [
+            "s-108f99789cb31e2be262",
+            "s-173aba324d1d5eee8558",
+            "s-187c817b621899cfb3a8",
+            "s-2a9f182bd8447384ef9a",
+            "s-372d5a5ff2672d3566bf",
+            "s-50fd989cf249a841d78d",
+            "s-6f537fcb91c181546f6d",
+            "s-7afc97382f81b68287c8",
+            "s-7cd96718ffd66e9cbaaa",
+            "s-8295b21fd13735a4e236",
+            "s-8c497827036fad492606",
+            "s-9f47ec6543fe672a064e",
+            "s-af9ae874a69966313e3d",
+            "s-b1c6837c123aced080c3",
+            "s-f844a28324d3b19ef215"
+          ],
+          "states_canonical_sha256": "13f4cf9edd56181ca268b879f3070bcba83148e97dffd8978dfefa553b1679e5",
+          "tfidf_action_rows_canonical_sha256": "5b828927fedf9a9af9288dd932e826de93b28448c30aac4d34f1de25f57f7116",
+          "tfidf_budgetfit": {
+            "decision_count": 45,
+            "direct_count": 30,
+            "joint_correct": 39,
+            "per_build_system_joint_correct": {
+              "autotools": 13,
+              "cmake": 13,
+              "make": 13
+            },
+            "wrong_direct_count": 6
+          },
+          "tfidf_budgetfit_rows_canonical_sha256": "880a4a23ea6d1a42cd5c366bc5d7447ec024b9f82656319ec8261a7cb8b939e6"
+        },
+        "evaluation": {
+          "action_labels_canonical_sha256": "21f3c3fbd73b933e67131ebc35d63d930f90d3eb71c69d8eb9eaad8462108c5a",
+          "budget_decision_count": 45,
+          "budget_decisions_canonical_sha256": "08d5e3605846888534453701cb637b290e6d4dadc7f332eeadb1a96b6222f908",
+          "oracle_routes": {
+            "direct": 24,
+            "escalate_agent": 3,
+            "stop": 18
+          },
+          "project_families": {
+            "autotools": "github.com/ivmai/libatomic_ops",
+            "cmake": "github.com/neargye/magic_enum",
+            "make": "github.com/antirez/sds"
+          },
+          "project_family_count": 3,
+          "provider_states_canonical_sha256": "2545ccb8614c803b72008dbeb962bfb251a462b137b5d9486a26139370d797bb",
+          "rule_gate": {
+            "decision_count": 45,
+            "direct_count": 30,
+            "joint_correct": 27,
+            "per_build_system_joint_correct": {
+              "autotools": 9,
+              "cmake": 9,
+              "make": 9
+            },
+            "wrong_direct_count": 18
+          },
+          "rule_gate_rows_canonical_sha256": "e03a31a554a969d42231f6fbfa603b5ece532689041f7c3f7ce57254e230b94d",
+          "state_count": 15,
+          "state_ids": [
+            "s-101a63be0a5ac5b443f4",
+            "s-1324faef702bdd530bc9",
+            "s-43639f31f3646d0fd61e",
+            "s-4386ce3a02989c76b6b7",
+            "s-5c1cfd045c3fd8af67d7",
+            "s-6c5d27067173b7a0b9a3",
+            "s-74f21ac6fe0362e85fee",
+            "s-863361155c11eaf5e143",
+            "s-9dab2d6dee85829d9c37",
+            "s-9e865ceb5a7792ab7ea6",
+            "s-a6859746396115794421",
+            "s-ac84cad10ad591add183",
+            "s-c4d4ac0d0fd797402a5b",
+            "s-c74e3107e0c11a93eefd",
+            "s-ea848e80bf2032c28237"
+          ],
+          "states_canonical_sha256": "dc1c8a074de3efff8649bfac12fd166a383458402cb4c7bc453bfcc8227d1ed9",
+          "tfidf_action_rows_canonical_sha256": "7893ce6f33f186623c777f5ee969b6170dd8a07e8839d1da7a5f342bbaaa317b",
+          "tfidf_budgetfit": {
+            "decision_count": 45,
+            "direct_count": 18,
+            "joint_correct": 39,
+            "per_build_system_joint_correct": {
+              "autotools": 13,
+              "cmake": 13,
+              "make": 13
+            },
+            "wrong_direct_count": 0
+          },
+          "tfidf_budgetfit_rows_canonical_sha256": "524289ef6099f428124ff6339ab0c06c8dcb52be3937154972c788305f948868"
+        }
+      }
+    },
+    "decision_rule": {
+      "action_noul_core_pass": "supports_problem_decomposition_without_action_cards",
+      "both_core_fail": "stop_jev_action_safety_before_controller",
+      "core_pass_but_tfidf_not_matched": "keep_jev_as_implementation_or_ablation_only",
+      "only_action_card_core_pass": "supports_action_card_context_as_necessary",
+      "tfidf_increment": "supports_jev_action_safety_increment_candidate",
+      "tfidf_matched_without_increment": "no_increment_over_tfidf"
+    },
+    "document_type": "forge_jev_action_safety_decomposition_candidate",
+    "documents": {
+      "plan": {
+        "file_sha256": "01ac6659383d5e4f543311a21b161fc18aa183de2b240a13018084fa8ff9954c",
+        "path": "docs/research/2026-10-17-jev-action-safety-decomposition-plan.md"
+      },
+      "preregistration": {
+        "path": "benchmarks/preregistrations/cpp-jev-action-safety-decomposition-candidate-v1.md"
+      },
+      "spec": {
+        "file_sha256": "336e879115a41a7f9ae930e17afdfc2bdd78107f855ca607aa9cbce173942c5b",
+        "path": "docs/research/2026-10-17-jev-action-safety-decomposition-spec.md"
+      }
+    },
+    "formal_identity": "cpp-jev-action-safety-decomposition-v1",
+    "future_provider_budget": {
+      "currently_authorized": false,
+      "maximum_input_tokens": 400000,
+      "maximum_model_cost_usd": 0.0168,
+      "maximum_output_tokens": 100000,
+      "maximum_physical_requests": 60,
+      "requests_per_condition": 30
+    },
+    "identity": "cpp-jev-action-safety-decomposition-candidate-v1",
+    "issue_url": "https://github.com/WWFXL/Forge-AutoCompiler/issues/465",
+    "parent_contract": {
+      "historical_jev_identity": "cpp-jev-progress-budget-calibration-v1",
+      "historical_jev_inventory_canonical_sha256": "83e6e5830ef551e4a2547666c98c4de8dcbeadd165c5f35cb876d25807482582",
+      "historical_jev_report": {
+        "file_sha256": "fcda7993369100d51409c2595853c7f03439c6b5f31eb2d6020103e6e149c4d0",
+        "path": "benchmarks/reports/cpp-jev-progress-budget-calibration-v1.json"
+      },
+      "outcome_identity": "cpp-progress-budget-jev-identifiability-qualification-v1",
+      "outcome_inventory_canonical_sha256": "2e4209fb52c07af949789ae7880db478f5a6d9326b4496de7fcff45ad64da9e9",
+      "outcome_report": {
+        "file_sha256": "1ec00e9d9940ccabce5740a085da52b2f2dc82973b9c1554f026b3abeb4c1ccc",
+        "path": "benchmarks/reports/cpp-progress-budget-jev-identifiability-qualification-v1.json"
+      },
+      "read_only": true
+    },
+    "provider_contract": {
+      "aliases_forbidden": [
+        "jev-latest",
+        "jev-preview"
+      ],
+      "api_base_url": "https://api.typesafe.ai",
+      "credential_env": "TYPESAFE_API_KEY",
+      "credential_file": "jev-apikey.txt",
+      "endpoint": "/v1/systemone",
+      "input_price_usd_per_billion_tokens": 42.0,
+      "max_retries": 0,
+      "model": "jev-1.13.0",
+      "one_physical_request_per_condition_state": true,
+      "one_physical_request_per_state": true,
+      "output_tokens_free": true,
+      "provider": "TypeSafe AI",
+      "response_model_must_equal_request_model": true,
+      "sdk_default_max_retries": 2,
+      "sdk_distribution": "typesafe-sdk",
+      "sdk_log_level": "off",
+      "sdk_version": "0.7.3",
+      "timeout_seconds": 30.0
+    },
+    "publication_gate": {
+      "authorized_identity_must_bind_exact_git_revision": true,
+      "candidate_must_be_committed_and_pushed_before_credential_read": true,
+      "requires_authorized_execution_manifest": true
+    },
+    "qualification_thresholds": {
+      "calibration": {
+        "maximum_unsafe_direct": 0,
+        "minimum_direct_states": 5,
+        "minimum_direct_states_per_build_system": 1,
+        "rows": 45,
+        "valid_responses": 15
+      },
+      "evaluation_core": {
+        "maximum_wrong_direct_risk": 0.1,
+        "minimum_direct_states": 5,
+        "minimum_direct_states_per_build_system": 1,
+        "minimum_exact_optimal_actions": 10,
+        "minimum_joint_correct": 32,
+        "minimum_joint_correct_per_build_system": 10,
+        "valid_responses": 15
+      },
+      "incremental_over_tfidf": {
+        "option_action_exact": 13,
+        "option_coverage_direct_decisions_exclusive": 18,
+        "option_coverage_joint_correct": 39,
+        "option_joint_correct": 40
+      },
+      "match_tfidf": {
+        "maximum_wrong_direct": 0,
+        "minimum_exact_optimal_actions": 12,
+        "minimum_joint_correct": 39
+      }
+    },
+    "request_contract": {
+      "local_actions": [
+        "dependency",
+        "configure",
+        "build"
+      ],
+      "order_sensitivity_order": [
+        "build",
+        "configure",
+        "dependency"
+      ],
+      "primary_order": [
+        "dependency",
+        "configure",
+        "build"
+      ],
+      "question_count_per_request": 6,
+      "question_type": "noul",
+      "raw_action_score": "min(primary_noul, order_sensitivity_noul)",
+      "same_request": true,
+      "shell_generation_by_model": false
+    },
+    "response_contract": {
+      "answer_type": "noul",
+      "probability_range": [
+        0.0,
+        1.0
+      ],
+      "store_authorization_header": false,
+      "store_raw_credential": false,
+      "store_request_id_usage_latency_model_and_all_noul_probabilities": true
+    },
+    "schema_version": "forge-jev-action-safety-decomposition-candidate-1.0.0",
+    "status": "candidate_zero_provider",
+    "stopping_rules": {
+      "adjust_after_evaluation": false,
+      "backfill_failed_state": false,
+      "replace_failed_state": false,
+      "retry_failed_request": false,
+      "run_historical_four_way_evaluation": false,
+      "stop_on_credential_error": true,
+      "stop_on_http_401_or_403": true,
+      "stop_on_model_version_drift": true,
+      "stop_on_response_contract_drift": true
+    }
+  },
+  "title": "Forge Jev action safety decomposition candidate v1"
+}
