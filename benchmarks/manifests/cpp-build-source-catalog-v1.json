@@ -1,0 +1,90 @@
+{
+  "identity": "forge-build-source-catalog-v1",
+  "kind": "source_only_eligibility_no_build",
+  "provider_calls": 0,
+  "build_commands": 0,
+  "history_scope": {
+    "commits": [
+      "6a49ee26",
+      "915a6d67"
+    ],
+    "paths": [
+      "benchmarks",
+      "docs/research"
+    ],
+    "method": "git grep repository owner/name URLs, no matches; not all git history or model-training novelty"
+  },
+  "decisions": [
+    {
+      "repository": "richgel999/miniz",
+      "eligibility": "eligible_for_build_qualification",
+      "entry": "CMakeLists.txt",
+      "test_contract": "BUILD_TESTS=ON; ctest --test-dir build --output-on-failure; require registered catch_tests and nonzero test count",
+      "basis": "CMakeLists.txt:312-325, vendored tests/main.cpp and tests/catch_amalgamated.cpp; no submodules",
+      "commit_sha": "2948eebafc5b9f1c69bebed80333e403a09bd62d",
+      "source_archive_sha256": "21015e205cf0f642af68f9ae7842ebb70f5690eac271bcb3e40b5d1964880bd8",
+      "requested_build_system": "cmake"
+    },
+    {
+      "repository": "mity/md4c",
+      "eligibility": "eligible_with_explicit_python_oracle",
+      "entry": "CMakeLists.txt",
+      "test_contract": "cd build && python3 ../scripts/run-tests.py; upstream invocation, all *.txt suites and pathological inputs, preserve upstream allowed failures",
+      "basis": "scripts/run-tests.py reads program path from current build directory; root CMake has no add_test",
+      "commit_sha": "60e8065cfccd5d7ac561115f9a9bfbdf811f5cc9",
+      "source_archive_sha256": "0bd40edf0ccd879fc11feb363a5a97598b746dd59c82ca1d2d1b3d0f4b397d4b",
+      "requested_build_system": "cmake"
+    },
+    {
+      "repository": "madler/pigz",
+      "eligibility": "eligible_for_build_qualification",
+      "entry": "Makefile",
+      "test_contract": "make test; preserves upstream conditional compress test and upstream shell semantics, not exhaustive tests target",
+      "basis": "Makefile:80-97 exercises compression integrity and byte counts; requires zlib headers/libs; no submodules",
+      "commit_sha": "fe4894f57739e3039a2ffc2a2a360d35e19bacbe",
+      "source_archive_sha256": "d9ee650b74f5943a837c19fae2ca0ed1edbf9e8f7df0e19b9aa3f2b1d037d949",
+      "requested_build_system": "make"
+    },
+    {
+      "repository": "HardySimpson/zlog",
+      "eligibility": "defer_make_oracle_definition",
+      "entry": "Makefile",
+      "test_contract": null,
+      "basis": "root test target only runs make in test/; test/Makefile all builds executables without executing; CMake has separate curated tests, cannot silently switch requested Make system",
+      "commit_sha": "92b4ad0f60856ae92198d080327bd2c4ed10cd7d",
+      "source_archive_sha256": "732dc7cd6a01f99e09ec58c0102b4933edaf95139bf9568fbe7b12a62e9299f6",
+      "requested_build_system": "make"
+    },
+    {
+      "repository": "troglobit/libite",
+      "eligibility": "eligible_for_build_qualification",
+      "entry": "configure.ac, autogen.sh",
+      "test_contract": "make check; preserve all21 TESTS in test/Makefile.am; examine permission-sensitive tests before interpreting environment failure",
+      "basis": "autogen.sh uses autoreconf -W portability -visfm; m4 checked in, test/Makefile.am enumerates21 tests; no submodules",
+      "commit_sha": "b69d8a6013b50cbdfc7586cffd2f36c145e9e53a",
+      "source_archive_sha256": "633c9d5a9f3b804571152a32a143a03a0df74efbae0dd89cff28af4575f94269",
+      "requested_build_system": "autotools"
+    },
+    {
+      "repository": "libmaxmind/libmaxminddb",
+      "eligibility": "source_unavailable_404",
+      "entry": null,
+      "test_contract": null,
+      "basis": "frozen owner/name request404; likely clerical owner error, not a research failure. Any corrected repository belongs to a separate source identity",
+      "commit_sha": null,
+      "source_archive_sha256": null,
+      "requested_build_system": "autotools"
+    }
+  ],
+  "issue": 477,
+  "evidence_root": "/home/yiwei/.codex/outputs/forge-build-source-catalog-v1",
+  "seal": {
+    "identity": "forge-build-source-catalog-v1",
+    "files": 500,
+    "bytes": 5800000,
+    "inventory_canonical_sha256": "4f97f8b1f0963eec12d1e5df41464d46a0090458ea6bc80fa89e8ae5044c4705",
+    "unknown_usage_requests": 0,
+    "provider_calls": 0,
+    "build_commands": 0
+  }
+}
