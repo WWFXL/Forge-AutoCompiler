@@ -4,7 +4,6 @@
 
 ## 进行中 (In Progress)
 
-
 - 2026-10-13 — Issue #440 H0/H1 v3 正式复现 authorized identity 已实现，等待发布与 Q0
   - 工作类型与问题: 正式数据采集前的协议实现。目标是在 v2 结果已观察的前提下，用同 9 个项目族、机械旋转到未进入
     v2 effect arms 的 checkpoint 深度，检验 H1 strict/cost 正向信号能否在完整后付费 Token 计量下复现。
@@ -497,6 +496,13 @@
   - 下一步: 等待实验负责人确认当前网络接入介质，并决定是否授权只读 endpoint 诊断和新的 canary amendment；获得确认后必须另建中文 Issue/PR 和协议 identity，保留当前失败 marker。
 
 ## 最近变更 (Recent Changes)
+
+- 2026-10-20 — #498七槽状态/验证控制完整结束并封存
+  - release: 1052766e6e1712ddee9f1db90bec3fc1d302ded3；身份cpp-build-state-validation-controls-v1。
+  - 结果: 三正常strict completed，四负控制按空测试/check、遗漏bootstrap/recipe_execution_failed、交付漂移/size_mismatch、外部configure/PlanContractError拒绝，7/7预期成立。
+  - 证据: /home/yiwei/.codex/outputs/forge-build-state-controls-v1/；2458普通文件/21链接/63414830 bytes，inventory f013a79451c2630f0ffd8e532eacda46a371716d1397eb500eaca5cc1f51cc85；独立integrity和outcome审计均valid=true，0对应容器、0Provider。
+  - 边界: 仅四已知缺口资格，不证明P2或Agent恢复增量；下一步#500两Make资格，之后#502比较。#495已核验98236292三CI后merge72a4e631，#493关闭。
+  - 文件: docs/research/2026-10-20-build-state-validation-controls-results.md, RESEARCH_STATUS.md。
 
 - 2026-10-20 — #493十项参考资格终结，7合格/3未合格全部封存
   - 文件: docs/research/2026-10-20-build-reference-expansion-results.md, RESEARCH_STATUS.md
