@@ -4,6 +4,8 @@
 
 ## 当前阶段
 
+最新阶段#524零模型自然失败修复资格已封口：依赖安装60秒超时，未到configure/build/六测试，0修订/replay；包装层提前读取不存在测试日志而表层FileNotFoundError。源码与归档相同、cleanup实际成功、0模型请求/费用，独立audit valid=true。目标修复效果仍未知；不补跑或改验收。报告`docs/research/2026-10-20-build-libverto-natural-recovery-results.md`，raw `/home/yiwei/.codex/outputs/forge-libverto-natural-recovery-v1/`，inventory `e0f674f48fccecadf500fb17fb05a70b16a1e4303a91be594fe0a38974d30363`。下一身份先修包装层早期交接检查/测试，并在有效新时窗冻结足够依赖资源；当前无活动付费阶段。
+
 2026-10-20（北京时间）：#502固定六仓库/三系统/双重复/双臂的真实比较全部结束，24/24严格completed、12配对双方均成功，独立审计valid=true，0未知用量、源码不变、固定完整测试/精确交付/clean replay/cleanup闭合。143187普通文件/184链接/1193274172 bytes，inventory `2df552e2a26dac451b4d61690c4bc3eac59fee2fd0dcc0b3604f25c84905a91d`；raw `/home/yiwei/.codex/outputs/forge-plan-agent-paired-real-v1/`，报告`docs/research/2026-10-20-build-plan-agent-paired-comparison-results.md`。
 
 plan/tool分别60/105请求、765692/1082737 Token、$1.26334296/$1.62595884估算、52/66命令。固定任务合计费用少22.3%，但libsodium/libsndfile的plan更贵，五维护者关联组的费用差重采样范围跨0，不能声称跨项目稳定成本优势。12个plan交接/修订均0；11/12个tool臂共19次配方ID拒绝后自行纠正，4条失败Shell均diagnostic。不能把差异全部归于初始规划，也不证明RQ2状态适应、总体非劣、成熟Agent排名或P2增量。
@@ -14,9 +16,9 @@ plan/tool分别60/105请求、765692/1082737 Token、$1.26334296/$1.62595884估�
 
 ## 当前研究问题与已知边界
 
-#522只读核验#504 libverto-r2-plan自然失败：六测试均在test.h:74上下文创建断言退出134；实际配置disable-shared/enable-static、无builtin、仅静态库，与源码默认动态后端加载不匹配。19消费文件匹配父inventory、6源码与精确归档相等。报告`docs/research/2026-10-20-build-libverto-failure-analysis.md`及同名analysis登记，0新构建/Provider；未追踪确切运行分支、未验证最小配置修复，不算恢复成功或P2增量。下一次新身份才可做同源最小修订资格。
+#522只读核验#504 libverto-r2-plan自然失败：六测试均在test.h:74上下文创建断言退出134；实际配置disable-shared/enable-static、无builtin、仅静态库，与源码默认动态后端加载不匹配。19消费文件匹配父inventory、6源码与精确归档相等。报告`docs/research/2026-10-20-build-libverto-failure-analysis.md`及同名analysis登记，0新构建/Provider；未追踪确切运行分支、未验证最小配置修复，不算恢复成功或P2增量。PR523最终1421fcb2三CI后合并b1ea4874、#522关闭。下一次新身份才可做同源最小修订资格。
 
-#520完成固定18候选暴露/就绪回顾：两Git树限定范围225命中/79文件，#502/#504中6候选36真实模型臂，11已有人工参考资格/7尚缺前提；其余未见模型仅限指定队列，不能称全历史或训练未见。102文件/53091260 bytes，inventory `a5e0f8dcff639c91ba5fceb976130b241b0938c91c2a2f12d123f8b72e7e9b17`，独立audit valid=true、六测试通过、0新构建/Provider。报告`docs/research/2026-10-20-build-candidate-exposure-audit-results.md`，raw `/home/yiwei/.codex/outputs/forge-candidate-exposure-audit-v1/`。15同owner标签非代码亲缘/独立项目族，未指定holdout。
+#520完成固定18候选暴露/就绪回顾：两Git树限定范围225命中/79文件，#502/#504中6候选36真实模型臂，11已有人工参考资格/7尚缺前提；其余未见模型仅限指定队列，不能称全历史或训练未见。102文件/53091260 bytes，inventory `a5e0f8dcff639c91ba5fceb976130b241b0938c91c2a2f12d123f8b72e7e9b17`，独立audit valid=true、六测试通过、0新构建/Provider。报告`docs/research/2026-10-20-build-candidate-exposure-audit-results.md`，raw `/home/yiwei/.codex/outputs/forge-candidate-exposure-audit-v1/`。15同owner标签非代码亲缘/独立项目族，未指定holdout。PR521最终6f413163三CI后合并7ec0d427、#520关闭。
 
 #518完成主张证据矩阵与下一轮比较设计（0新构建/0Provider），六组冻结inventory、既有独立audit与报告hash登记一致。设计`docs/research/2026-10-20-build-evidence-claims-next-comparison.md`，登记`benchmarks/analyses/cpp-build-next-comparison-design-v1.json`。PR519最终7da3b633三CI后合并e0258443，#518关闭。不是效应预注册；下一项实质工作为项目族/时间暴露与同源动作分歧审计，再冻结强工具Agent/合理规则+Agent比较。保留完整初始规划、失败和恢复成本，未见分歧不增加P2，不承诺稳定低成本或两个创新点已成立。
 

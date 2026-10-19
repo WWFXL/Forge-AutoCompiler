@@ -2218,3 +2218,8 @@ v2补齐原第九次请求读取索引和最终三工具历史，原门禁拒绝
 # 2026-10-20 #522自然失败源码链分析
 
 #504 libverto-r2-plan六测试均test.h74上下文创建断言，disable-shared/enable-static、无BUILTIN_MODULE、src/.libs仅12静态/元文件；源码普通后端以动态加载，与静态-only配置不匹配。19消费文件匹配父inventory、6源码归档逐字相等，0新构建/Provider；未证明确切运行分支或最小修复成功，不回填504、不估自然恢复率/P2。报告2026-10-20-build-libverto-failure-analysis.md及analysis JSON。未来新身份固定只改configure后重新失效/完整测试/replay；已有493成功不是该单改动反事实。#519最终7da3b633三CI后mergee0258443/#518关闭。
+
+
+# 2026-10-20 #524自然恢复资格未观察目标状态
+
+运行2e60734f，唯一dep命令60.117s超时exit124，未进入configure/build/check；包装层先读不存在test-suite.log而表层FileNotFoundError，不能遮盖真实dep超时。0修订/replay/模型请求/Token，原源码与归档相同、cleanup实查通过。122文件/2062872 bytes，inventorye0f674f48fccecadf500fb17fb05a70b16a1e4303a91be594fe0a38974d30363，68组件，独立audit valid=true。首次独立审计错误假设0调用必有events.jsonl失败保留，v2处理合法空事件并核验无请求响应。7单元/Ruff通过未覆盖包装层dep交接，后续新身份先补早期阶段检查回归；不改冻结脚本/证据、不补跑。最小configure修复仍未知，60s安装不足不说明修复无效。报告2026-10-20-build-libverto-natural-recovery-results.md。#521最终6f413163三CI后merge7ec0d427/#520关闭；#523最终1421fcb2三CI后mergeb1ea4874/#522关闭。当前无新付费臂，估算5.806152+未知预留1，22:45后清理23:00停。
