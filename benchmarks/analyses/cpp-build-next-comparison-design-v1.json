@@ -1,0 +1,79 @@
+{
+  "identity": "cpp-build-next-comparison-design-v1",
+  "issue": 518,
+  "stage": "result_analysis_and_method_design",
+  "provider_calls": 0,
+  "new_build_runs": 0,
+  "effect_preregistration": false,
+  "sources": [
+    {
+      "issue": 502,
+      "identity": "cpp-build-plan-agent-paired-comparison-v1",
+      "raw": "/home/yiwei/.codex/outputs/forge-plan-agent-paired-real-v1",
+      "inventory_sha256": "2df552e2a26dac451b4d61690c4bc3eac59fee2fd0dcc0b3604f25c84905a91d",
+      "audit": "/home/yiwei/.codex/outputs/forge-continuous-research-2026-10-19/paired-real-v1-audit.json",
+      "audit_sha256": "21be146ddeaa1fb24a628c67b37166f62ce7e0d252b2dab9144d6c66582bb12e",
+      "report": "docs/research/2026-10-20-build-plan-agent-paired-comparison-results.md",
+      "report_sha256": "c9e14f5c6df3fc9d2ef89e5e7ae089aa4a6204ee19b3a21d4687134fa1eb6464"
+    },
+    {
+      "issue": 504,
+      "identity": "cpp-build-auto-provenance-probe-v1",
+      "raw": "/home/yiwei/.codex/outputs/forge-auto-provenance-real-v1",
+      "inventory_sha256": "d7bad477a8b355ffdbb21de127961c2f8f639798186d6c7d6ad0ecb27263e446",
+      "audit": "/home/yiwei/.codex/outputs/forge-continuous-research-2026-10-19/auto-provenance-real-v1-audit.json",
+      "audit_sha256": "32a45335fdcf1ff248f6d675824304f51bedc07c73dee1b28b1b0960b029b1d8",
+      "report": "docs/research/2026-10-20-build-auto-provenance-probe-results.md",
+      "report_sha256": "429f0e59033919a539b48274a6366a40c43ea2d84ce9a8f6c8ace055bac67978"
+    },
+    {
+      "issue": 506,
+      "identity": "cpp-build-plan-recovery-qualification-v1",
+      "raw": "/home/yiwei/.codex/outputs/forge-plan-recovery-real-v1",
+      "inventory_sha256": "a47d84aa86bde07f5dda19f492bf3c7be3834f7b52c1e6c433d32ddda24a9f67",
+      "audit": "/home/yiwei/.codex/outputs/forge-continuous-research-2026-10-19/recovery-real-v1-audit.json",
+      "audit_sha256": "5c65f263c6a077405166d569622faedcb9b17e0f73d41e96d9d5f39bf30fe9b9",
+      "report": "docs/research/2026-10-20-build-plan-recovery-qualification-results.md",
+      "report_sha256": "118f0fb559b4521581eefde3fd1c2794cd4ac36e2b0910aa76799ad4dac4e3e4"
+    },
+    {
+      "issue": 507,
+      "identity": "cpp-build-validation-evidence-audit-v1",
+      "raw": "/home/yiwei/.codex/outputs/forge-validation-evidence-audit-v1-attempt-002",
+      "inventory_sha256": "621a6d20ee695b0e4e7be3d818922c9b481f12ac4e65cf5a97da207baf7bf08f",
+      "audit": "/home/yiwei/.codex/outputs/forge-continuous-research-2026-10-19/validation-evidence-audit-v1-independent-v2.json",
+      "audit_sha256": "684d1208215b6a745259441f3d9524ce1a5bdc43553953edd3eb48430164aea3",
+      "report": "docs/research/2026-10-20-build-validation-evidence-audit-results.md",
+      "report_sha256": "75743857036b3ba07e273e58d48b36348c1b4fe8adfecba8f64844e25c5ed9e3"
+    },
+    {
+      "issue": 514,
+      "identity": "cpp-build-token-cost-attribution-audit-v1",
+      "raw": "/home/yiwei/.codex/outputs/forge-token-cost-attribution-audit-v1",
+      "inventory_sha256": "e542e906f7d67284bea488bb5392b7fa4ca2584b6812b3c84c4f6ef8ff284705",
+      "audit": "/home/yiwei/.codex/outputs/forge-continuous-research-2026-10-19/token-cost-audit-v1-independent.json",
+      "audit_sha256": "4bfa263ccaaa8af1391c5290dfac2a11633e649a53ee546b11c98e28e45924ac",
+      "report": "docs/research/2026-10-20-build-token-cost-attribution-audit-results.md",
+      "report_sha256": "ea21f817023a40edb0566a004c2fd25e33a11e92c76945fe6dab81ec04396c73"
+    },
+    {
+      "issue": 516,
+      "identity": "cpp-build-rule-recovery-qualification-v1",
+      "raw": "/home/yiwei/.codex/outputs/forge-rule-recovery-qualification-v1",
+      "inventory_sha256": "30b2117f520d571a293f2c9f082d6182786ce44d4d944e3964bc049e6d2e5f27",
+      "audit": "/home/yiwei/.codex/outputs/forge-continuous-research-2026-10-19/rule-recovery-v1-audit.json",
+      "audit_sha256": "c0c253a415504a4ecf2a9a593f3e9f3b52a085935d03be76223f722edfb15aa5",
+      "report": "docs/research/2026-10-20-build-rule-recovery-qualification-results.md",
+      "report_sha256": "d0d17007a3549c471df596b2cd6ef95e547f0b59111a48e2ba345980c55ae4a9"
+    }
+  ],
+  "decisions": [
+    "retain_domain_method_and_system_mainline",
+    "include_bounded_rules_in_future_strong_baseline",
+    "do_not_add_selector_without_action_disagreement",
+    "use_auto_provenance_for_future_tool_baseline",
+    "do_not_claim_uniform_cost_advantage",
+    "audit_family_and_temporal_exposure_before_role_freeze"
+  ],
+  "next_paid_run_status": "not_authorized_by_this_design; overnight new-arm admission closed"
+}
