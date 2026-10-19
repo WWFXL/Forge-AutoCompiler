@@ -2167,7 +2167,7 @@
 
 # 2026-10-20 #504真实探针终态
 
-12/12完整、plan/tool各5/6 strict，37/50请求、486546/508130 Token、$0.79509408/$0.71376360、总耗时1095.568/840.297秒。0未知用量、全部cleanup。libverto-tool预算停止未交付；libverto-r2-plan测试0/6后handoff一次，状态材料>50000字节在新恢复请求前停止，0修订。完整失败与费用均保留。inventory d7bad477a8b355ffdbb21de127961c2f8f639798186d6c7d6ad0ecb27263e446，独立audit valid=true。报告2026-10-20-build-auto-provenance-probe-results.md；不得把请求下降当成本优势或跨批差值当因果。下一独立#506受控恢复；状态上下文缺陷需独立修复身份。共享已知估算5.71180368+未知预留1=6.71180368美元。
+12/12完整、plan/tool各5/6 strict，37/50请求、486546/508130 Token、$0.79509408/$0.71376360、总耗时1095.568/840.297秒。0未知用量、全部cleanup。libverto-tool预算停止未交付；libverto-r2-plan测试0/6后handoff一次，状态材料>50000字节在第10次总请求前停止（此前已5次真实恢复，原交接解释已更正），0修订。完整失败与费用均保留。inventory d7bad477a8b355ffdbb21de127961c2f8f639798186d6c7d6ad0ecb27263e446，独立audit valid=true。报告2026-10-20-build-auto-provenance-probe-results.md；不得把请求下降当成本优势或跨批差值当因果。下一独立#506受控恢复；状态上下文缺陷需独立修复身份。共享已知估算5.71180368+未知预留1=6.71180368美元。
 
 
 # 2026-10-20 #507独立发布
@@ -2178,3 +2178,13 @@
 # 2026-10-20 #504解释更正与#511首资格失败
 
 逐请求审计发现libverto-r2-plan第1–4次为初始规划，第5–9次为真实恢复；第10次总请求才因50k消息门禁停止。原“恢复请求前停止”交接错误已在版本化报告/当前状态更正；0修订/总成本/strict结果不变。#511 v1新建meter未恢复此前读取索引，原/投影都准入（46410/32467字节），expected_observation=false，inventory1432f4cb545b272647d15363e2f8553d307c6a3891d66b0ec3d7836701c13ef3；不当修复成功，保留并用新v2重建最终请求历史。
+
+
+# 2026-10-20 #506受控恢复终态
+
+门禁9/9预期成立、真实3/3 strict，各一次handoff/revision2；6请求/61294Token/$0.09434832。独立audit valid=true，真实inventorya47d84aa86bde07f5dda19f492bf3c7be3834f7b52c1e6c433d32ddda24a9f67。源码/固定测试/后缀失效/replay/cleanup闭合；人工初始方案不进RQ1，不估自然恢复率/P2。共享估算5.806152+未知预留1=6.806152美元。#504逐请求更正：4初始+5真实恢复，门禁在第10次总请求前阻塞，并非未调用恢复模型。#505合并26b58e3a/#504关闭，#510合并ca01048a/#507关闭。
+
+
+# 2026-10-20 #508参考修复终态
+
+两项各一次：libpng正确stage、37/37测试；libzip BUILD_DOC=OFF、199/199测试，2/2qualified/Session completed。源码/完整测试/精确交付/replay/cleanup均过，两独立audit valid=true。inventory9eb4c2d336766e6c66aff742f771dcd93686aece0eac70d5e40b619cd2ba0e3c，6166文件/16链接/173305266bytes。0Provider，旧#493不回填、不替换libffi，不称模型效果/holdout。报告2026-10-20-build-reference-repair-qualification-results.md；PR512结果headCI后合并。#509的56ae3858三CI后已合并e89d80ca/#506关闭。
