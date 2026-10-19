@@ -4,11 +4,11 @@
 
 ## 当前阶段
 
-2026-10-20（北京时间）：#498七槽零Provider状态/验证控制已结束并封存。三个正常路径全部strict completed；空测试、遗漏bootstrap、交付漂移、外部configure四负控制均按预定原因拒绝，7/7预期观察成立。两份独立审计均valid=true，源码未改、cleanup闭合、对应容器0残留。2458普通文件/21链接/63,414,830 bytes，inventory `f013a79451c2630f0ffd8e532eacda46a371716d1397eb500eaca5cc1f51cc85`；报告`docs/research/2026-10-20-build-state-validation-controls-results.md`。
+2026-10-20（北京时间）：#500两项Make参考资格全部严格完成并封存，libhydrogen完整12自测、buffer完整18断言与clean replay通过，源码不变、cleanup闭合、对应容器0残留。独立审计valid=true；267普通文件/0链接/3,188,966 bytes，inventory `7a7ca99cbc89cb2754b66f418f73eeab75a67fc9bf6162b1ac70903113336a6a`；报告`docs/research/2026-10-20-build-make-reference-results.md`。0Provider。
 
-当前是结果分析与后续资格采集：这些控制支持已有规则/分层验证对四类已知缺口的辨识资格，不证明P2、Agent恢复效果或自然误接受率。下一步串行执行#500两项Make完整参考，再推进#502前瞻性配对比较。#493十项参考7/10合格、8个Forge completed，原三项失败保留；其结果已核验三CI并合入依赖分支（PR #495，merge72a4e631），#493关闭。
+#498七槽状态/验证控制已封存，三正常strict completed、四已知负控制均按预定原因拒绝，7/7预期成立，两独立审计通过。#493十项参考7/10合格、8个Forge completed，三项未合格保留；PR #495已核验三CI并合入依赖分支，#493关闭。
 
-uncrustify完整测试203.7s，#502设计需双方共同command300s/replay600s，完整测试/严格验收不变；等#500封存后再改共享组件，不能破坏运行中hash。
+下一阶段#502前瞻性配对比较：六仓库、三系统、双臂各两重复（24真实槽）；先同协议12臂零Provider门禁。新结果观察前共同冻结command300s/replay600s（uncrustify参考完整测试203.7s），完整测试/严格验收不变。#500已封存，可以修改后续共享组件；不得修改旧证据/manifest。当前尚无新模型效果观察。
 
 ## 当前研究问题与已知边界
 
@@ -29,7 +29,7 @@ uncrustify完整测试203.7s，#502设计需双方共同command300s/replay600s�
 | #493十项参考任务 | 7/10合格，8个Forge completed；inventory `34614ceaf61f45f383ea46bfacf4490e0e888417ea40c150b5bdee04b99ae011`；报告`docs/research/2026-10-20-build-reference-expansion-results.md` | 全部封存、0Provider，不替换三项未合格；已选定比较中的四项目均合格 |
 | #496第二批Make来源 | 六槽位5来源成功/1 metadata失败；41文件，inventory `1cd3b892a03273cf289fc36b823163b0c794f1c1bf988ab460840a19050288ee`；报告`docs/research/2026-10-20-build-make-source-catalog.md` | libhydrogen/buffer有完整自测；pico需固定子模块；commander仅演示暂缓；tinyAES已有开发暴露 |
 | #498状态/验证控制 | 七槽7/7预期成立，三正常strict、四已知负控制正确拒绝；inventory `f013a79451c2630f0ffd8e532eacda46a371716d1397eb500eaca5cc1f51cc85`；报告`docs/research/2026-10-20-build-state-validation-controls-results.md` | 已封存、两独立审计通过、0Provider；不新增P2，不估计自然误接受率 |
-| #500两项Make参考 | 协议`b9633c49`；固定libhydrogen完整12自测、buffer完整18断言；manifest/preregistration `cpp-build-make-reference-v1` | 尚未真实运行；排在#498后；完整测试/源码/精确交付/clean replay不放宽 |
+| #500两项Make参考 | 2/2严格completed；inventory `7a7ca99cbc89cb2754b66f418f73eeab75a67fc9bf6162b1ac70903113336a6a`；报告`docs/research/2026-10-20-build-make-reference-results.md` | 已封存、独立审计通过、0Provider；人工参考资格，不是模型结果 |
 | #502前瞻性比较 | 六仓库、三系统、双臂各两重复，24真实槽；libhydrogen/libsodium同维护者关联组，总五组；已提交执行器与预注册，manifest父证据尚未绑定 | 参考与七控制闭合后，先12臂零Provider门禁；再共享预算内最多$12真实采集，不把缺槽或失败成本藏掉 |
 
 所有新任务均为独立身份，旧失败、部分观察与冻结原始证据只读。#484四项目人工参考资格已全部通过，#486读取接口失败与#478 libusb响应合同停止等前序结果见各版本化报告；不能当新主线总体负结果，也不续跑旧身份。

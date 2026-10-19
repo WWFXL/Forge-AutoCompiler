@@ -497,6 +497,12 @@
 
 ## 最近变更 (Recent Changes)
 
+- 2026-10-20 — #500两项Make完整参考资格全部严格完成
+  - release ae879a75，身份cpp-build-make-reference-v1；libhydrogen完整12自测、buffer完整18断言；2/2源码不变、交付/replay/completed/cleanup闭合。
+  - 原始/home/yiwei/.codex/outputs/forge-make-reference-v1/，267普通文件/0链接/3188966 bytes，inventory 7a7ca99cbc89cb2754b66f418f73eeab75a67fc9bf6162b1ac70903113336a6a；独立审计valid=true，0对应容器，0Provider。
+  - 边界: 人工参考任务资格，不是模型/方法效果；下一步#502最终协议与共同300/600秒时限、12臂零Provider门禁。
+  - 文件: docs/research/2026-10-20-build-make-reference-results.md, RESEARCH_STATUS.md。
+
 - 2026-10-20 — #498七槽状态/验证控制完整结束并封存
   - release: 1052766e6e1712ddee9f1db90bec3fc1d302ded3；身份cpp-build-state-validation-controls-v1。
   - 结果: 三正常strict completed，四负控制按空测试/check、遗漏bootstrap/recipe_execution_failed、交付漂移/size_mismatch、外部configure/PlanContractError拒绝，7/7预期成立。
