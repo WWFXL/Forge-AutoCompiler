@@ -4,13 +4,9 @@
 
 ## 进行中 (In Progress)
 
-- 2026-10-20 — #486 双臂开发canary：8/8零Provider Docker门禁严格完成，独立审计通过，真实采集待启动。
-  - 文件: `backend/packages/harness/deerflow/compile/plan_agent_canary.py`, `scripts/forge_build_plan_agent_canary.py`, `scripts/forge_typed_evidence.py`
-  - 已通过8项真实图/预算/固定oracle/链接篡改测试，默认产品1875 passed/44 skipped及Ruff；LangChain结构化schema在middleware之后绑定，已显式计入请求材料上界。
-  - 工具基线允许一轮多工具但max_concurrency=1；验收成功before_model终止，配置/依赖/build使旧测试ID失效。
-  - 新身份以类型化inventory记录链接本身；旧证据不改。manifest冻结后运行期间不得修改components；先门禁后凭据。
-
-<!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
+- 2026-10-20 — #489只读接口与有界证据保留修复、#488已有方法核验/消融设计进行中。
+  - 新模块 `plan_agent_context.py` 与4项真实图/安全/证据保留测试已在本地起草；未参与#486运行或其冻结组件。
+  - #486已封存，不续跑；下一独立身份先做零ProviderDocker门禁、冻结协议和共享预算核验。
 
 - 2026-10-13 — Issue #440 H0/H1 v3 正式复现 authorized identity 已实现，等待发布与 Q0
   - 工作类型与问题: 正式数据采集前的协议实现。目标是在 v2 结果已观察的前提下，用同 9 个项目族、机械旋转到未进入
@@ -504,6 +500,11 @@
   - 下一步: 等待实验负责人确认当前网络接入介质，并决定是否授权只读 endpoint 诊断和新的 canary amendment；获得确认后必须另建中文 Issue/PR 和协议 identity，保留当前失败 marker。
 
 ## 最近变更 (Recent Changes)
+
+- 2026-10-20 — 封存#486八臂真实canary并明确读取接口缺陷使比较失效。
+  - 文件: `docs/research/2026-10-20-build-plan-agent-canary-v1-results.md`, `RESEARCH_STATUS.md`
+  - 证据: 3个plan strict completed；5个读取错误停止，所有tool均无编译尝试。30请求/228140tokens/$0.37096224估算；cleanup/inventory/独立审计通过。
+  - 动机: 不将基线接口缺陷误写为Workflow优势；共享新增已知$0.74375004，另$1预留，无未结阶段。
 
 - 2026-10-20 — 核验并合并前序五个科研PR，关闭对应Issue，保留失败与严格结论边界。
   - 文件: `RESEARCH_STATUS.md`, `docs/research/2026-10-20-build-plan-agent-canary-gate.md`

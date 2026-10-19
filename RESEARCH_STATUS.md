@@ -4,16 +4,18 @@
 
 ## 当前阶段
 
-- 2026-10-20：#486 公平双臂开发canary前置门禁8/8 strict completed，0Provider；
-  固定源码/测试、精确交付、同镜像重放、cleanup和独立审计全部通过。
-  新类型化inventory为3425普通文件/24链接，SHA
-  `accffb129476c01ea5a178b7044243f65ca9e973755f813376baf7a7bea42c15`。
-  默认产品1875 passed/44 skipped，8项新回归与Ruff通过。
-  报告：`docs/research/2026-10-20-build-plan-agent-canary-gate.md`。
-  下一步相同任务/模型/资源的真实plan/tool八臂，已授权阶段$12、共享$20；尚无本阶段真实调用。
-  预注册/manifest：`benchmarks/{preregistrations,manifests}/cpp-build-plan-agent-canary-v1.*`。
-  仅开发接线与描述，不支持总体、非劣、成本收益或选择器机制增量。
-  PR #479/#480/#481/#483/#485已逐项核验exact-head三项CI后合入依赖分支，相关Issue均关闭；未进入main。
+- 2026-10-20：#486真实canary已结束并封存，8/8分类终结、源码未变、cleanup及独立审计通过。
+  plan为3/4 strict，tool为0/4，但五个停止臂均由绝对路径/不存在目录的读取错误终止；
+  工具臂只有libite执行2条诊断，均无编译尝试，不能主张Workflow更优或Agent构建能力失败。
+  决定 `repair_read_tool_contract_before_comparative_claims`；报告
+  `docs/research/2026-10-20-build-plan-agent-canary-v1-results.md`。
+  30请求/228140 tokens/$0.37096224估算；inventory
+  `16c7f19f3c9b0b7f40284e3ff71b217b7bffcbe220810d85e419c84a025838f0`。
+  新增已知累计$0.74375004，另$1未知预留；无未结付费阶段。共享$20/07:00截止不变。
+  下一阶段：#489只读接口与有界证据保留工程修复，先零Provider真实图/Docker门禁，再独立身份；
+  #488已有规划执行方法核验及状态适应消融设计。本轮不作总体/非劣/成本收益或机制增量推断。
+  默认产品1875 passed/44 skipped、8项新回归与Ruff通过，前置脚本化Docker门禁8/8严格成功。
+  PR #479/#480/#481/#483/#485已核验CI并合入依赖分支，相关Issue关闭；#487待结果版本CI。
 
 - 2026-10-20：#482参考任务v1四项执行完成，但Autotools生成系统外链导致封存审计失败，原证据保留；
   #484独立v2采用工具辅助文件副本，miniz/md4c/pigz/libite固定四项均strict completed，
