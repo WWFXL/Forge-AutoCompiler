@@ -6,7 +6,7 @@
 
 2026-10-20（北京时间）：#502同协议十二臂零Provider门禁已全部strict completed并封存，独立审计valid=true。六仓库/三系统/双执行路径均通过完整固定测试、原始源码不变、精确交付、空源码clean replay与cleanup；0Token/0模型费用、0对应容器。72,368普通文件/92链接/578,913,379 bytes，inventory `9f304ea1a1a134e6d2dc491b9815e9a328f6c05e40173f018e44c99b4c13abc3`；报告`docs/research/2026-10-20-build-plan-agent-paired-comparison-gate.md`。
 
-当前进入真实数据采集准入：独立身份`cpp-build-plan-agent-paired-comparison-v1`，六仓库、两重复、双臂，共24真实槽/12配对，五维护者关联组；阶段最多$12，纳入共享$20。门禁不进入比较分母，真实模型不接收人工配方或个人知识库。完整固定测试与严格终点不变，共同command300s/replay600s，新臂/请求保留3600秒。只有24槽完整且usage闭合才作固定任务集整体配对描述；不作OSS总体、非劣、成熟Agent排名或P2增量主张。当前尚无本阶段真实模型outcome。
+当前进入真实数据采集准入：独立身份`cpp-build-plan-agent-paired-comparison-v1`，六仓库、两重复、双臂，共24真实槽/12配对，五维护者关联组；阶段最多$12，纳入共享$20。门禁不进入比较分母，真实模型不接收人工配方或个人知识库。完整固定测试与严格终点不变，共同command300s/replay600s，新臂/请求保留3600秒。只有24槽完整且usage闭合才作固定任务集整体配对描述；不作OSS总体、非劣、成熟Agent排名或P2增量主张。真实采集已于UTC19:08按release557a44c4启动，原始`/home/yiwei/.codex/outputs/forge-plan-agent-paired-real-v1/`；当前尚无完整阶段outcome。
 
 父#493十项参考7/10合格、#498七控制7/7预期成立、#500两Make2/2严格completed均已封存、独立审计通过并核验结果head三CI后合入依赖分支，相关Issue关闭；未进入main。#502协议54d1d893，manifest SHA-256 `5f2cc841c38b1ed8eaee5867d2491dfce060c539aa9c3c92170729bbc74f42f2`，59组件绑定，25相关回归、默认产品1920 passed/44 skipped、Ruff与协议head三项实际CI通过。
 
@@ -38,7 +38,7 @@
 
 用户已授权Issue→实现/实验/测试→commit/push→PR→最新head检查后合并→关闭Issue，并持续同步知识库。跟踪#470，协议`docs/research/2026-10-19-continuous-research-authorization.md`。
 
-- 各阶段共享新增Provider上限$20；已知公开价保守估算累计$1.31364420，另旧live测试未知费用预留$1，预算占用$2.31364420。当前无未结束付费阶段，无运行中Provider。
+- 各阶段共享新增Provider上限$20；已知公开价保守估算累计$1.31364420，另旧live测试未知费用预留$1，预算占用$2.31364420。当前真实比较已启用$12阶段预留，预算占用上界$14.31364420；预留不是实际支出，当前运行中用量以原始账本为准。
 - 估算不是账单，预留不是实际支出。共享账本`/home/yiwei/.codex/outputs/forge-continuous-research-2026-10-19/{authorization.json,budget-events.jsonl}`。
 - 绝对截止北京时间2026-10-20 07:00，即UTC2026-10-19 23:00；最后15分钟仅清理/交接，不能跨午夜顺延。各阶段可更早停止新槽位准入。
 - 预算耗尽后可做有效零支出工作。重大主线变更、超预算或需放宽科学主张边界时保存状态等待用户；普通阶段切换不需重新询问。

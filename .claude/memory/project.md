@@ -7,7 +7,7 @@
 - 2026-10-20 — #502六仓库双臂两重复比较进入最终协议冻结
   - 父#493/#498/#500全部封存；六仓库三系统各两项，12配对/24真实槽、五维护者关联组。
   - 共同command300s/replay600s与3600秒截止预留已冻结；完整测试不变，尚无新模型outcome。
-  - 规范化reference默认字段已修；manifest已绑定父证据与59组件，SHA5f2cc841c38b1ed8eaee5867d2491dfce060c539aa9c3c92170729bbc74f42f2。相关25回归、默认产品1920 passed/44 skipped、Ruff通过；十二臂门禁现已全部严格completed并封存，独立审计valid=true；下一步按共享预算预留$12真实24槽，不逐阶段重新确认。
+  - 规范化reference默认字段已修；manifest已绑定父证据与59组件，SHA5f2cc841c38b1ed8eaee5867d2491dfce060c539aa9c3c92170729bbc74f42f2。相关25回归、默认产品1920 passed/44 skipped、Ruff通过；十二臂门禁现已全部严格completed并封存，独立审计valid=true；已于UTC19:08按release557a44c4启动真实24槽，/home/yiwei/.codex/outputs/forge-plan-agent-paired-real-v1/；stage.started已保留$12，总占用上界$14.31364420。组件/manifest运行期间不改，不逐阶段重新确认。
 
 - 2026-10-13 — Issue #440 H0/H1 v3 正式复现 authorized identity 已实现，等待发布与 Q0
   - 工作类型与问题: 正式数据采集前的协议实现。目标是在 v2 结果已观察的前提下，用同 9 个项目族、机械旋转到未进入
