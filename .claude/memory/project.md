@@ -2213,3 +2213,8 @@ v2补齐原第九次请求读取索引和最终三工具历史，原门禁拒绝
 # 2026-10-20 #520候选暴露/就绪审计
 
 固定18候选，两完整Git树限定benchmarks/docs/research，225命中/79文件，独立匹配第二实现一致。指定502/504队列6候选36模型臂（失败保留），另12无臂仅限该范围；11已有参考资格/7尚缺前提，15同owner标签不是代码亲缘或独立样本。102文件/53091260 bytes，inventorya5e0f8dcff639c91ba5fceb976130b241b0938c91c2a2f12d123f8b72e7e9b17，9组件/消费收据/命中/模型臂独立audit valid=true；6测试/Ruff/format通过。0新构建/Provider，不指定holdout、不称全历史或训练未见；来源审阅可先于前瞻模型评估但须冻结角色且披露暴露。报告2026-10-20-build-candidate-exposure-audit-results.md。#517结果db7f3071三CI后merge4f2df457/#516关闭。
+
+
+# 2026-10-20 #522自然失败源码链分析
+
+#504 libverto-r2-plan六测试均test.h74上下文创建断言，disable-shared/enable-static、无BUILTIN_MODULE、src/.libs仅12静态/元文件；源码普通后端以动态加载，与静态-only配置不匹配。19消费文件匹配父inventory、6源码归档逐字相等，0新构建/Provider；未证明确切运行分支或最小修复成功，不回填504、不估自然恢复率/P2。报告2026-10-20-build-libverto-failure-analysis.md及analysis JSON。未来新身份固定只改configure后重新失效/完整测试/replay；已有493成功不是该单改动反事实。#519最终7da3b633三CI后mergee0258443/#518关闭。

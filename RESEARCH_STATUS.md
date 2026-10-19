@@ -14,9 +14,11 @@ plan/tool分别60/105请求、765692/1082737 Token、$1.26334296/$1.62595884估�
 
 ## 当前研究问题与已知边界
 
+#522只读核验#504 libverto-r2-plan自然失败：六测试均在test.h:74上下文创建断言退出134；实际配置disable-shared/enable-static、无builtin、仅静态库，与源码默认动态后端加载不匹配。19消费文件匹配父inventory、6源码与精确归档相等。报告`docs/research/2026-10-20-build-libverto-failure-analysis.md`及同名analysis登记，0新构建/Provider；未追踪确切运行分支、未验证最小配置修复，不算恢复成功或P2增量。下一次新身份才可做同源最小修订资格。
+
 #520完成固定18候选暴露/就绪回顾：两Git树限定范围225命中/79文件，#502/#504中6候选36真实模型臂，11已有人工参考资格/7尚缺前提；其余未见模型仅限指定队列，不能称全历史或训练未见。102文件/53091260 bytes，inventory `a5e0f8dcff639c91ba5fceb976130b241b0938c91c2a2f12d123f8b72e7e9b17`，独立audit valid=true、六测试通过、0新构建/Provider。报告`docs/research/2026-10-20-build-candidate-exposure-audit-results.md`，raw `/home/yiwei/.codex/outputs/forge-candidate-exposure-audit-v1/`。15同owner标签非代码亲缘/独立项目族，未指定holdout。
 
-#518完成主张证据矩阵与下一轮比较设计（0新构建/0Provider），六组冻结inventory、既有独立audit与报告hash登记一致。设计`docs/research/2026-10-20-build-evidence-claims-next-comparison.md`，登记`benchmarks/analyses/cpp-build-next-comparison-design-v1.json`。不是效应预注册；下一项实质工作为项目族/时间暴露与同源动作分歧审计，再冻结强工具Agent/合理规则+Agent比较。保留完整初始规划、失败和恢复成本，未见分歧不增加P2，不承诺稳定低成本或两个创新点已成立。
+#518完成主张证据矩阵与下一轮比较设计（0新构建/0Provider），六组冻结inventory、既有独立audit与报告hash登记一致。设计`docs/research/2026-10-20-build-evidence-claims-next-comparison.md`，登记`benchmarks/analyses/cpp-build-next-comparison-design-v1.json`。PR519最终7da3b633三CI后合并e0258443，#518关闭。不是效应预注册；下一项实质工作为项目族/时间暴露与同源动作分歧审计，再冻结强工具Agent/合理规则+Agent比较。保留完整初始规划、失败和恢复成本，未见分歧不增加P2，不承诺稳定低成本或两个创新点已成立。
 
 #516零模型强规则恢复资格已3/3 strict、各一次handoff/revision2，0模型请求/Token/Provider，16条Shell；独立audit valid=true。raw `/home/yiwei/.codex/outputs/forge-rule-recovery-qualification-v1/`，inventory `30b2117f520d571a293f2c9f082d6182786ce44d4d944e3964bc049e6d2e5f27`；报告`docs/research/2026-10-20-build-rule-recovery-qualification-results.md`。规则后验设计且资源不同，不与#506作因果比较；这三例不能再当语义选择器增量证据。PR517最终db7f3071三CI后合并4f2df457，#516关闭。下一步审计主张与未来强基线比较，先找同源动作分歧，不盲增复杂性。
 

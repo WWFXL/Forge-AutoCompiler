@@ -1,0 +1,155 @@
+{
+  "identity": "cpp-build-libverto-failure-analysis-v1",
+  "issue": 522,
+  "stage": "posthoc_read_only_result_analysis",
+  "provider_calls": 0,
+  "new_build_runs": 0,
+  "parent_identity": "cpp-build-auto-provenance-probe-v1",
+  "parent_root": "/home/yiwei/.codex/outputs/forge-auto-provenance-real-v1",
+  "parent_inventory_sha256": "d7bad477a8b355ffdbb21de127961c2f8f639798186d6c7d6ad0ecb27263e446",
+  "source_archive": "/home/yiwei/.codex/outputs/forge-reference-expansion-inputs-v1/libverto.tar",
+  "source_archive_sha256": "5c5e6010463e5dbb72c4bdee89fded022dc83905770fc1a68e72e971c5179be0",
+  "source_files_archive_equal": [
+    "tests/test.h",
+    "tests/Makefile.am",
+    "src/verto.c",
+    "src/module.c",
+    "src/Makefile.am",
+    "configure.ac"
+  ],
+  "consumed_files": [
+    {
+      "path": "libverto-r2-plan/.compile-sessions/plan-agent-canary/a3e997ddf706/session.json",
+      "sha256": "2f1110b0763e3fb8cd7d0ff7b382653867f0725ed9693121ca1636d7e0a47e76",
+      "bytes": 6123
+    },
+    {
+      "path": "protocol.json",
+      "sha256": "ffcfff4244c2446441a7d1e7a6f20296279faced52df645e46a3c0480fcf8ff3",
+      "bytes": 16338
+    },
+    {
+      "path": "result.json",
+      "sha256": "d3621db9621daf6eba7f2a403df58b4107f7a190ee652ce8640129f73aa0f041",
+      "bytes": 41357
+    },
+    {
+      "path": "libverto-r2-plan/.compile-sessions/plan-agent-canary/a3e997ddf706/workspace/repo/tests/test-suite.log",
+      "sha256": "aba44d76f065f1b7dffeaf84f3a79c1d7a9628ce4a567d81b5f964c0fd768300",
+      "bytes": 1158
+    },
+    {
+      "path": "libverto-r2-plan/.compile-sessions/plan-agent-canary/a3e997ddf706/workspace/repo/tests/test.h",
+      "sha256": "56a2c3ff6a08a78758641accb4077bfe90e327b300f17607f8329c656641c8a3",
+      "bytes": 2387
+    },
+    {
+      "path": "libverto-r2-plan/.compile-sessions/plan-agent-canary/a3e997ddf706/workspace/repo/tests/Makefile.am",
+      "sha256": "b49b16945f50d8e335dab5382578a62f0cebcd3250af12b9b49df274ce4c9da2",
+      "bytes": 446
+    },
+    {
+      "path": "libverto-r2-plan/.compile-sessions/plan-agent-canary/a3e997ddf706/workspace/repo/tests/Makefile",
+      "sha256": "b6fa871831748e51881b403569b0c988d02b30cb5ae04a63e48e8023ef4a71e6",
+      "bytes": 36385
+    },
+    {
+      "path": "libverto-r2-plan/.compile-sessions/plan-agent-canary/a3e997ddf706/workspace/repo/src/verto.c",
+      "sha256": "d7dd393bb802dcb4e0462dfed50dd0f47b6d52a68fdd26179bf2bd599aea1d5c",
+      "bytes": 26236
+    },
+    {
+      "path": "libverto-r2-plan/.compile-sessions/plan-agent-canary/a3e997ddf706/workspace/repo/src/module.c",
+      "sha256": "3922a6536865ddae69449108e279e64fe84ec31cee983dc549a57f0973217f2e",
+      "bytes": 5713
+    },
+    {
+      "path": "libverto-r2-plan/.compile-sessions/plan-agent-canary/a3e997ddf706/workspace/repo/src/Makefile.am",
+      "sha256": "433225e47ebd105a5d2171df80bebbdab9d005506bc462ab586174f5695a4fae",
+      "bytes": 1882
+    },
+    {
+      "path": "libverto-r2-plan/.compile-sessions/plan-agent-canary/a3e997ddf706/workspace/repo/configure.ac",
+      "sha256": "978a3cb383148123dea62ba970d431eeddb000561b11e707c70ff93e240ae30c",
+      "bytes": 5652
+    },
+    {
+      "path": "libverto-r2-plan/.compile-sessions/plan-agent-canary/a3e997ddf706/workspace/repo/config.log",
+      "sha256": "563cf94b303f54a25b3165cf47ac8e9b9d0fc2262a1aef3ada48a60a14ab57cd",
+      "bytes": 32119
+    },
+    {
+      "path": "libverto-r2-plan/.compile-sessions/plan-agent-canary/a3e997ddf706/workspace/repo/src/libverto.la",
+      "sha256": "6c487d644e4d32c563a7c2daf622128ae97383a380e37ff524dd8cff52aa636c",
+      "bytes": 892
+    },
+    {
+      "path": "libverto-r2-plan/.compile-sessions/plan-agent-canary/a3e997ddf706/workspace/repo/src/libverto-glib.la",
+      "sha256": "480c81b92b3084bca5b18b44bab447970660ccab742d5be5dfea20e5eee194bf",
+      "bytes": 950
+    },
+    {
+      "path": "libverto-r2-plan/.compile-sessions/plan-agent-canary/a3e997ddf706/logs/command_0234281222154e15b0b76a33e25dacdf.log",
+      "sha256": "8a34d8b0c2b2b2c21483c46895706d4fd307c659d126b84f554ac5567c8f23e7",
+      "bytes": 12509
+    },
+    {
+      "path": "libverto-r2-plan/.compile-sessions/plan-agent-canary/a3e997ddf706/logs/command_a23d693e620e4649aa1a7d20575f446f.log",
+      "sha256": "3172c52cc9ef48068bc33805ad374374a33780de63c62bb5851ec3de13041de9",
+      "bytes": 2066
+    },
+    {
+      "path": "libverto-r2-plan/.compile-sessions/plan-agent-canary/a3e997ddf706/logs/command_c8999eeed12a4e3aa3463f11b2d5da15.log",
+      "sha256": "759dbff2c81673ea3ba12504591301b7d3e26f7ae2cca867bcaed58fa5d90d44",
+      "bytes": 5055
+    },
+    {
+      "path": "libverto-r2-plan/.compile-sessions/plan-agent-canary/a3e997ddf706/logs/command_6f67dae2c08240b5994785ae546c07f5.log",
+      "sha256": "f5f4c98d463c2d0f2e4d5165f19f43f7e9aafb137e54df0934acdf62e93f0164",
+      "bytes": 2005
+    },
+    {
+      "path": "libverto-r2-plan/.compile-sessions/plan-agent-canary/a3e997ddf706/logs/command_b199f414b1024509acaf44298a7da8b6.log",
+      "sha256": "b4f1f7180f373af8f8b03db7727ad54fec90e6e6ecd3234a4144cdbd2f6ca1c9",
+      "bytes": 2160
+    }
+  ],
+  "frozen_library_entries": [
+    "libverto-r2-plan/.compile-sessions/plan-agent-canary/a3e997ddf706/workspace/repo/src/.libs/libverto-glib.a",
+    "libverto-r2-plan/.compile-sessions/plan-agent-canary/a3e997ddf706/workspace/repo/src/.libs/libverto-glib.la",
+    "libverto-r2-plan/.compile-sessions/plan-agent-canary/a3e997ddf706/workspace/repo/src/.libs/libverto-glib.lai",
+    "libverto-r2-plan/.compile-sessions/plan-agent-canary/a3e997ddf706/workspace/repo/src/.libs/libverto-libev.a",
+    "libverto-r2-plan/.compile-sessions/plan-agent-canary/a3e997ddf706/workspace/repo/src/.libs/libverto-libev.la",
+    "libverto-r2-plan/.compile-sessions/plan-agent-canary/a3e997ddf706/workspace/repo/src/.libs/libverto-libev.lai",
+    "libverto-r2-plan/.compile-sessions/plan-agent-canary/a3e997ddf706/workspace/repo/src/.libs/libverto-libevent.a",
+    "libverto-r2-plan/.compile-sessions/plan-agent-canary/a3e997ddf706/workspace/repo/src/.libs/libverto-libevent.la",
+    "libverto-r2-plan/.compile-sessions/plan-agent-canary/a3e997ddf706/workspace/repo/src/.libs/libverto-libevent.lai",
+    "libverto-r2-plan/.compile-sessions/plan-agent-canary/a3e997ddf706/workspace/repo/src/.libs/libverto.a",
+    "libverto-r2-plan/.compile-sessions/plan-agent-canary/a3e997ddf706/workspace/repo/src/.libs/libverto.la",
+    "libverto-r2-plan/.compile-sessions/plan-agent-canary/a3e997ddf706/workspace/repo/src/.libs/libverto.lai"
+  ],
+  "observations": {
+    "configure": "./configure --disable-shared --enable-static",
+    "command_exit_codes": [
+      0,
+      0,
+      0,
+      0,
+      2
+    ],
+    "tests_total": 6,
+    "tests_passed": 0,
+    "tests_failed": 6,
+    "same_context_creation_assertions": 6,
+    "builtin_module": "",
+    "shared_library_entries": 0
+  },
+  "interpretation": "静态-only且无builtin与默认动态后端加载不匹配，解释上下文创建失败；没有运行时分支追踪，未验证最小修复",
+  "not_claimed": [
+    "exact_runtime_branch",
+    "repair_success",
+    "model_incapability",
+    "natural_recovery_rate",
+    "selector_increment"
+  ]
+}
