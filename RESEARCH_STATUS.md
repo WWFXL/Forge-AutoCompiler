@@ -4,6 +4,14 @@
 
 ## 当前阶段
 
+- 2026-10-20：#489独立v2读取接口/证据工作集修复已通过同协议8臂零Provider真实Docker门禁。
+  每臂实际经过成功绝对路径读取与缺失目录拒绝反馈，之后strict completed；独立审计valid=true。
+  3445普通文件/24链接，inventory `6e76caae9f29916ad29f2036e382e8c8c7c77d07976466de4415713cfe2103dd`。
+  5项新回归、默认产品1880 passed/44 skipped、Ruff通过。报告
+  `docs/research/2026-10-20-build-plan-agent-context-gate.md`。
+  下一步按已有授权预留阶段$12并运行独立v2真实八臂；尚无v2Provider观察，不据修复前后作效果比较。
+  #487/#490均按各自最新head三项CI成功后合入依赖分支，#486/#488关闭；未进入main。
+
 - 2026-10-20：#486真实canary已结束并封存，8/8分类终结、源码未变、cleanup及独立审计通过。
   plan为3/4 strict，tool为0/4，但五个停止臂均由绝对路径/不存在目录的读取错误终止；
   工具臂只有libite执行2条诊断，均无编译尝试，不能主张Workflow更优或Agent构建能力失败。
