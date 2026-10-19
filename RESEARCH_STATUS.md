@@ -4,6 +4,11 @@
 
 ## 当前阶段
 
+- 2026-10-20：#482固定miniz/md4c/pigz/libite的零Provider参考方案资格已启动；
+  有完整测试入口和精确交付，每项目一次、失败不自动修复或替换。manifest
+  `cpp-build-plan-source-qualification-v1.json`，新边界/完整性测试3 passed，preflight valid=true。
+  #478真实v2的zstd已严格completed，libusb正在真实故障恢复；最终封存与分析待完成。
+
 - 2026-10-20（北京时间）：#476 真实跨系统 v1 已失败封存，完整性审计通过。
   zstd 首响应截断、无命令；libusb 初始方案完成依赖/配置/编译，固定四项测试stress_mt失败，
   恢复响应截断；两个Session失败终结、cleanup成功，未完成strict交付。
