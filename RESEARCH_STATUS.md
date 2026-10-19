@@ -4,11 +4,11 @@
 
 ## 当前阶段
 
-2026-10-20（北京时间）：#493十项零Provider完整参考资格已结束并封存，7/10合格、8个Forge completed；独立审计valid=true，10项cleanup成功且对应容器0残留。原始47,586文件/70链接，inventory `34614ceaf61f45f383ea46bfacf4490e0e888417ea40c150b5bdee04b99ae011`；报告`docs/research/2026-10-20-build-reference-expansion-results.md`。
+2026-10-20（北京时间）：#498七槽零Provider状态/验证控制已结束并封存。三个正常路径全部strict completed；空测试、遗漏bootstrap、交付漂移、外部configure四负控制均按预定原因拒绝，7/7预期观察成立。两份独立审计均valid=true，源码未改、cleanup闭合、对应容器0残留。2458普通文件/21链接/63,414,830 bytes，inventory `f013a79451c2630f0ffd8e532eacda46a371716d1397eb500eaca5cc1f51cc85`；报告`docs/research/2026-10-20-build-state-validation-controls-results.md`。
 
-未合格：libpng全部37测试通过但stage旧库名错误；libzip全部199测试和严格交付/replay通过，但文档生成改写110个原有HTML，违反额外原始文件合同；libffi在bootstrap缺LT_SYS_SYMBOL_USCORE宏，尚未编译/测试。三项保留原失败，不混作项目不可构建或方法负结果，不在本身份修正补跑。
+当前是结果分析与后续资格采集：这些控制支持已有规则/分层验证对四类已知缺口的辨识资格，不证明P2、Agent恢复效果或自然误接受率。下一步串行执行#500两项Make完整参考，再推进#502前瞻性配对比较。#493十项参考7/10合格、8个Forge completed，原三项失败保留；其结果已核验三CI并合入依赖分支（PR #495，merge72a4e631），#493关闭。
 
-下一步按证据自主执行#498七槽状态/验证控制、#500两项Make资格，再推进#502前瞻性配对比较；各阶段无需重新确认。当前仍为参考资格/控制数据采集，尚无新模型效果观察。uncrustify完整测试203.7s，#502设计需双方共同command300s/replay600s，完整测试/严格验收不变；须等全部父阶段封存后再改共享组件，不能破坏运行中hash。
+uncrustify完整测试203.7s，#502设计需双方共同command300s/replay600s，完整测试/严格验收不变；等#500封存后再改共享组件，不能破坏运行中hash。
 
 ## 当前研究问题与已知边界
 
@@ -28,7 +28,7 @@
 | #492扩展12来源 | 12精确来源成功；78文件，inventory `49214164eab150f68fe950975cc81e8b36f143534545068ce2751c4137f39c62`；报告`docs/research/2026-10-20-build-source-expansion.md` | FastLZ语料子模块、HDiffPatch相邻依赖/oracle未闭合，暂缓不替换 |
 | #493十项参考任务 | 7/10合格，8个Forge completed；inventory `34614ceaf61f45f383ea46bfacf4490e0e888417ea40c150b5bdee04b99ae011`；报告`docs/research/2026-10-20-build-reference-expansion-results.md` | 全部封存、0Provider，不替换三项未合格；已选定比较中的四项目均合格 |
 | #496第二批Make来源 | 六槽位5来源成功/1 metadata失败；41文件，inventory `1cd3b892a03273cf289fc36b823163b0c794f1c1bf988ab460840a19050288ee`；报告`docs/research/2026-10-20-build-make-source-catalog.md` | libhydrogen/buffer有完整自测；pico需固定子模块；commander仅演示暂缓；tinyAES已有开发暴露 |
-| #498状态/验证控制 | 协议/实现`939346a0`已提交；三正常+空测试/遗漏bootstrap/交付漂移/外部配置四负控制，共七槽；manifest/preregistration `cpp-build-state-validation-controls-v1` | 尚未真实运行；等#493终结；0Provider，不新增P2 |
+| #498状态/验证控制 | 七槽7/7预期成立，三正常strict、四已知负控制正确拒绝；inventory `f013a79451c2630f0ffd8e532eacda46a371716d1397eb500eaca5cc1f51cc85`；报告`docs/research/2026-10-20-build-state-validation-controls-results.md` | 已封存、两独立审计通过、0Provider；不新增P2，不估计自然误接受率 |
 | #500两项Make参考 | 协议`b9633c49`；固定libhydrogen完整12自测、buffer完整18断言；manifest/preregistration `cpp-build-make-reference-v1` | 尚未真实运行；排在#498后；完整测试/源码/精确交付/clean replay不放宽 |
 | #502前瞻性比较 | 六仓库、三系统、双臂各两重复，24真实槽；libhydrogen/libsodium同维护者关联组，总五组；已提交执行器与预注册，manifest父证据尚未绑定 | 参考与七控制闭合后，先12臂零Provider门禁；再共享预算内最多$12真实采集，不把缺槽或失败成本藏掉 |
 
@@ -45,7 +45,7 @@
 
 ## 发布与工作区
 
-#491/#494/#497均核验对应最新head的三项实际CI成功后合入依赖分支，#489/#492/#496关闭。#495已提交参考终态待最新CI，#499控制/#501两Make资格仍打开，等待实际结果版本；#503配对比较为draft，尚未开始模型采集。合入依赖开发分支不等于进入main；不把约176个历史未进main提交一并发布。用户未跟踪的`docs/research/2026-10-13-forge-research-progress-defense.html`不修改/提交。
+#491/#494/#497均核验对应最新head的三项实际CI成功后合入依赖分支，#489/#492/#496关闭。#495已核验98236292三CI并合入依赖分支，#493关闭；#499控制结果已封存待结果head检查，#501两Make资格仍打开；#503配对比较为draft，尚未开始模型采集。合入依赖开发分支不等于进入main；不把约176个历史未进main提交一并发布。用户未跟踪的`docs/research/2026-10-13-forge-research-progress-defense.html`不修改/提交。
 
 相关阶段本地回归与Ruff通过，检查以各自报告、PR和head为准；默认产品回归必须`CI=true FORGE_RUN_CLIENT_LIVE=0`，不得意外触发付费live测试。知识库固定入口为`01-研究/自动化编译/Forge-当前创新机制与实验路线.md`，只通过knowledge_base MCP维护，写前读取最新SHA、CAS写入后回读；不复制Vault或注入正式实验Agent。
 
