@@ -2173,3 +2173,13 @@
 # 2026-10-20 #507独立发布
 
 43行回顾分层审计实现/协议/报告在yiwei/507-validation-evidence-audit提交；10项测试及Ruff/format再次通过。冻结代码hash未改，独立核验valid=true，等待最终head三CI。范围仍仅消费文件/原分母终点/七案例，非全层第二实现，不估自然误接受率。
+
+
+# 2026-10-20 #506受控恢复终态
+
+门禁9/9预期成立、真实3/3 strict，各一次handoff/revision2；6请求/61294Token/$0.09434832。独立audit valid=true，真实inventorya47d84aa86bde07f5dda19f492bf3c7be3834f7b52c1e6c433d32ddda24a9f67。源码/固定测试/后缀失效/replay/cleanup闭合；人工初始方案不进RQ1，不估自然恢复率/P2。共享估算5.806152+未知预留1=6.806152美元。#504逐请求更正：4初始+5真实恢复，门禁在第10次总请求前阻塞，并非未调用恢复模型。#505合并26b58e3a/#504关闭，#510合并ca01048a/#507关闭。
+
+
+# 2026-10-20 #508参考修复终态
+
+两项各一次：libpng正确stage、37/37测试；libzip BUILD_DOC=OFF、199/199测试，2/2qualified/Session completed。源码/完整测试/精确交付/replay/cleanup均过，两独立audit valid=true。inventory9eb4c2d336766e6c66aff742f771dcd93686aece0eac70d5e40b619cd2ba0e3c，6166文件/16链接/173305266bytes。0Provider，旧#493不回填、不替换libffi，不称模型效果/holdout。报告2026-10-20-build-reference-repair-qualification-results.md；PR512结果headCI后合并。#509的56ae3858三CI后已合并e89d80ca/#506关闭。
