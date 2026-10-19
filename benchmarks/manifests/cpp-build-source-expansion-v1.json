@@ -1,0 +1,76 @@
+{
+  "identity": "cpp-build-source-expansion-v1",
+  "issue": 492,
+  "authorization_issue": 470,
+  "kind": "source_only_no_execution",
+  "provider_calls": 0,
+  "build_commands": 0,
+  "deadline_utc": "2026-10-19T22:45:00Z",
+  "candidates": [
+    {
+      "requested_build_system": "cmake",
+      "repository": "uncrustify/uncrustify"
+    },
+    {
+      "requested_build_system": "cmake",
+      "repository": "pnggroup/libpng"
+    },
+    {
+      "requested_build_system": "cmake",
+      "repository": "nih-at/libzip"
+    },
+    {
+      "requested_build_system": "cmake",
+      "repository": "erikd/libsndfile"
+    },
+    {
+      "requested_build_system": "make",
+      "repository": "libtom/libtommath"
+    },
+    {
+      "requested_build_system": "make",
+      "repository": "libtom/libtomcrypt"
+    },
+    {
+      "requested_build_system": "make",
+      "repository": "ariya/FastLZ"
+    },
+    {
+      "requested_build_system": "make",
+      "repository": "sisong/HDiffPatch"
+    },
+    {
+      "requested_build_system": "autotools",
+      "repository": "jedisct1/libsodium"
+    },
+    {
+      "requested_build_system": "autotools",
+      "repository": "latchset/libverto"
+    },
+    {
+      "requested_build_system": "autotools",
+      "repository": "libcheck/check"
+    },
+    {
+      "requested_build_system": "autotools",
+      "repository": "libffi/libffi"
+    }
+  ],
+  "history_revisions": [
+    "5512ff60d78dd6227169ca7186c930040a926377",
+    "915a6d678298ce64fefea752aa7d9e074c5e871f"
+  ],
+  "limits": {
+    "max_compressed_bytes": 67108864,
+    "max_uncompressed_bytes": 268435456,
+    "max_file_bytes": 16777216,
+    "max_entries": 40000,
+    "snippet_bytes": 24000
+  },
+  "components": {
+    "scripts/forge_build_source_expansion.py": "37472f1676a68653a08334de90f2ee43698f05d33e76900734e1c5fd70bb2387",
+    "scripts/forge_typed_evidence.py": "b3e798669389507dc605fcd73b2450921f0695bddccc564344fda88d5cb7a3c8",
+    "backend/tests/test_build_source_expansion.py": "760e070353859bd518d8c40f9277dc4debb08cba936f19918ad805c153565b5b",
+    "benchmarks/preregistrations/cpp-build-source-expansion-v1.md": "82fdfff86287e5e8081f417c12eeeb23dea1b6b0da0cccdeca5a98153682787b"
+  }
+}
