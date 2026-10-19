@@ -1,0 +1,218 @@
+{
+  "identity": "cpp-build-validation-evidence-audit-v1",
+  "issue": 507,
+  "kind": "retrospective_read_only_analysis",
+  "results_previously_observed": true,
+  "provider_calls": 0,
+  "docker_runs": 0,
+  "cohorts": [
+    {
+      "root": "/home/yiwei/.codex/outputs/forge-reference-expansion-v1",
+      "kind": "manual_reference",
+      "rows_key": "projects",
+      "identity": "cpp-build-reference-expansion-v1",
+      "inventory_sha256": "34614ceaf61f45f383ea46bfacf4490e0e888417ea40c150b5bdee04b99ae011",
+      "protocol_sha256": "d2e7ec92561a1f693bf4093c718ade807706f9f39b78d4f064c9579f6e4eaefc",
+      "result_sha256": "e12d920088f70e8e76de8462f2a8cb05dbd64ec00639fecadc75a4035c17eb72",
+      "rows": [
+        {
+          "name": "uncrustify"
+        },
+        {
+          "name": "libpng"
+        },
+        {
+          "name": "libzip"
+        },
+        {
+          "name": "libsndfile"
+        },
+        {
+          "name": "libtommath"
+        },
+        {
+          "name": "libtomcrypt"
+        },
+        {
+          "name": "libsodium"
+        },
+        {
+          "name": "libverto"
+        },
+        {
+          "name": "check"
+        },
+        {
+          "name": "libffi"
+        }
+      ]
+    },
+    {
+      "root": "/home/yiwei/.codex/outputs/forge-build-state-controls-v1",
+      "kind": "controlled_validation",
+      "rows_key": "cases",
+      "identity": "cpp-build-state-validation-controls-v1",
+      "inventory_sha256": "f013a79451c2630f0ffd8e532eacda46a371716d1397eb500eaca5cc1f51cc85",
+      "protocol_sha256": "60c7629b4782661bf8b5c2a1aee02ba45cd27b78a32fd46cfe51657bb9996cca",
+      "result_sha256": "9eeb634374352248fdc637ad1991de145d9ae694b2e36f7d8a2a201e863f2bdf",
+      "rows": [
+        {
+          "name": "miniz-normal"
+        },
+        {
+          "name": "miniz-empty_tests"
+        },
+        {
+          "name": "pigz-normal"
+        },
+        {
+          "name": "pigz-delivery_drift"
+        },
+        {
+          "name": "libite-normal"
+        },
+        {
+          "name": "libite-omit_bootstrap"
+        },
+        {
+          "name": "miniz-foreign_configure"
+        }
+      ]
+    },
+    {
+      "root": "/home/yiwei/.codex/outputs/forge-make-reference-v1",
+      "kind": "manual_reference",
+      "rows_key": "projects",
+      "identity": "cpp-build-make-reference-v1",
+      "inventory_sha256": "7a7ca99cbc89cb2754b66f418f73eeab75a67fc9bf6162b1ac70903113336a6a",
+      "protocol_sha256": "ea944105d2ffcf4e2a40e8d185a74706e7df5d9e0d90fb2f80be15b556b27204",
+      "result_sha256": "88a229b4f05e0c3099083c101932fdfef7adc04c098ab3f8665b9390d1d177db",
+      "rows": [
+        {
+          "name": "libhydrogen"
+        },
+        {
+          "name": "buffer"
+        }
+      ]
+    },
+    {
+      "root": "/home/yiwei/.codex/outputs/forge-plan-agent-paired-real-v1",
+      "kind": "real_model_comparison",
+      "rows_key": "arms",
+      "identity": "cpp-build-plan-agent-paired-comparison-v1",
+      "inventory_sha256": "2df552e2a26dac451b4d61690c4bc3eac59fee2fd0dcc0b3604f25c84905a91d",
+      "protocol_sha256": "5f2cc841c38b1ed8eaee5867d2491dfce060c539aa9c3c92170729bbc74f42f2",
+      "result_sha256": "7002004266e1e4a7c1887f24a3bc49eb37e54d63ba847fd035bae405cd016550",
+      "rows": [
+        {
+          "name": "uncrustify-r1",
+          "arm": "plan"
+        },
+        {
+          "name": "uncrustify-r1",
+          "arm": "tool"
+        },
+        {
+          "name": "libhydrogen-r1",
+          "arm": "tool"
+        },
+        {
+          "name": "libhydrogen-r1",
+          "arm": "plan"
+        },
+        {
+          "name": "libsodium-r1",
+          "arm": "plan"
+        },
+        {
+          "name": "libsodium-r1",
+          "arm": "tool"
+        },
+        {
+          "name": "libsndfile-r1",
+          "arm": "tool"
+        },
+        {
+          "name": "libsndfile-r1",
+          "arm": "plan"
+        },
+        {
+          "name": "buffer-r1",
+          "arm": "plan"
+        },
+        {
+          "name": "buffer-r1",
+          "arm": "tool"
+        },
+        {
+          "name": "libverto-r1",
+          "arm": "tool"
+        },
+        {
+          "name": "libverto-r1",
+          "arm": "plan"
+        },
+        {
+          "name": "uncrustify-r2",
+          "arm": "tool"
+        },
+        {
+          "name": "uncrustify-r2",
+          "arm": "plan"
+        },
+        {
+          "name": "libhydrogen-r2",
+          "arm": "plan"
+        },
+        {
+          "name": "libhydrogen-r2",
+          "arm": "tool"
+        },
+        {
+          "name": "libsodium-r2",
+          "arm": "tool"
+        },
+        {
+          "name": "libsodium-r2",
+          "arm": "plan"
+        },
+        {
+          "name": "libsndfile-r2",
+          "arm": "plan"
+        },
+        {
+          "name": "libsndfile-r2",
+          "arm": "tool"
+        },
+        {
+          "name": "buffer-r2",
+          "arm": "tool"
+        },
+        {
+          "name": "buffer-r2",
+          "arm": "plan"
+        },
+        {
+          "name": "libverto-r2",
+          "arm": "plan"
+        },
+        {
+          "name": "libverto-r2",
+          "arm": "tool"
+        }
+      ]
+    }
+  ],
+  "layer_states": [
+    "passed",
+    "failed",
+    "not_observed"
+  ],
+  "interpretation": "分层描述，未运行层不补通过/失败；不合并队列成功率，不估自然误接受、因果增量、总体效果",
+  "source_scope": "源归档中的原有普通文件内容，不将新增构建生成文件视为源码篡改",
+  "fixed_test_rule": "最近一次精确command/workdir/role匹配；exit0、未超时、固定输出全在完整日志，且其后没有dependency/configure/build记录",
+  "artifact_rule": "仅实际尝试artifact_stage或submit后核对完整文件/链接路径集合；未到达不判失败",
+  "replay_rule": "只读全部attempt及最后一次状态与checks，不隐藏先前失败",
+  "cleanup_rule": "原始cleanup.succeeded及Session最终状态，非实际新增Docker查询"
+}
