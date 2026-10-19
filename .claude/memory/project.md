@@ -4,7 +4,9 @@
 
 ## 进行中 (In Progress)
 
-<!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
+- 2026-10-20 — #489只读接口与有界证据保留修复、#488已有方法核验/消融设计进行中。
+  - 新模块 `plan_agent_context.py` 与4项真实图/安全/证据保留测试已在本地起草；未参与#486运行或其冻结组件。
+  - #486已封存，不续跑；下一独立身份先做零ProviderDocker门禁、冻结协议和共享预算核验。
 
 - 2026-10-13 — Issue #440 H0/H1 v3 正式复现 authorized identity 已实现，等待发布与 Q0
   - 工作类型与问题: 正式数据采集前的协议实现。目标是在 v2 结果已观察的前提下，用同 9 个项目族、机械旋转到未进入
@@ -498,6 +500,16 @@
   - 下一步: 等待实验负责人确认当前网络接入介质，并决定是否授权只读 endpoint 诊断和新的 canary amendment；获得确认后必须另建中文 Issue/PR 和协议 identity，保留当前失败 marker。
 
 ## 最近变更 (Recent Changes)
+
+- 2026-10-20 — 封存#486八臂真实canary并明确读取接口缺陷使比较失效。
+  - 文件: `docs/research/2026-10-20-build-plan-agent-canary-v1-results.md`, `RESEARCH_STATUS.md`
+  - 证据: 3个plan strict completed；5个读取错误停止，所有tool均无编译尝试。30请求/228140tokens/$0.37096224估算；cleanup/inventory/独立审计通过。
+  - 动机: 不将基线接口缺陷误写为Workflow优势；共享新增已知$0.74375004，另$1预留，无未结阶段。
+
+- 2026-10-20 — 核验并合并前序五个科研PR，关闭对应Issue，保留失败与严格结论边界。
+  - 文件: `RESEARCH_STATUS.md`, `docs/research/2026-10-20-build-plan-agent-canary-gate.md`
+  - 发布: #479/#480/#481/#483/#485各自exact-head三项CI均success后以merge方式合入依赖分支；未进入main。
+  - 动机: 完成科研协作发布闭环，PR #480/#483正文重写为最终结果，不再保留运行中描述。
 
 - 2026-10-20 — 完成 #484 自包含bootstrap的四项目严格资格
   - 文件: `scripts/forge_build_plan_source_qualification.py`、`backend/tests/test_plan_source_qualification.py`、`benchmarks/manifests/cpp-build-plan-source-qualification-v2.json`、对应预注册、`docs/research/2026-10-20-build-source-qualification-v2-results.md`、`RESEARCH_STATUS.md`。
