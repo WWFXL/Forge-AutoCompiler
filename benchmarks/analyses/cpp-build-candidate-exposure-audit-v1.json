@@ -1,0 +1,148 @@
+{
+  "identity": "cpp-build-candidate-exposure-audit-v1",
+  "issue": 520,
+  "provider_calls": 0,
+  "new_build_runs": 0,
+  "deadline_utc": "2026-10-19T22:45:00+00:00",
+  "history_revisions": [
+    "7da3b6331683f5858f051157193be365ece9856b",
+    "915a6d678298ce64fefea752aa7d9e074c5e871f"
+  ],
+  "search_paths": [
+    "benchmarks",
+    "docs/research"
+  ],
+  "candidates": [
+    {
+      "requested_build_system": "cmake",
+      "repository": "uncrustify/uncrustify",
+      "task_readiness": "qualified_seen_reference",
+      "readiness_source": "docs/research/2026-10-20-build-reference-expansion-results.md"
+    },
+    {
+      "requested_build_system": "cmake",
+      "repository": "pnggroup/libpng",
+      "task_readiness": "qualified_seen_reference",
+      "readiness_source": "docs/research/2026-10-20-build-reference-repair-qualification-results.md"
+    },
+    {
+      "requested_build_system": "cmake",
+      "repository": "nih-at/libzip",
+      "task_readiness": "qualified_seen_reference",
+      "readiness_source": "docs/research/2026-10-20-build-reference-repair-qualification-results.md"
+    },
+    {
+      "requested_build_system": "cmake",
+      "repository": "erikd/libsndfile",
+      "task_readiness": "qualified_seen_reference",
+      "readiness_source": "docs/research/2026-10-20-build-reference-expansion-results.md"
+    },
+    {
+      "requested_build_system": "make",
+      "repository": "libtom/libtommath",
+      "task_readiness": "qualified_seen_reference",
+      "readiness_source": "docs/research/2026-10-20-build-reference-expansion-results.md"
+    },
+    {
+      "requested_build_system": "make",
+      "repository": "libtom/libtomcrypt",
+      "task_readiness": "qualified_seen_reference",
+      "readiness_source": "docs/research/2026-10-20-build-reference-expansion-results.md"
+    },
+    {
+      "requested_build_system": "make",
+      "repository": "ariya/FastLZ",
+      "task_readiness": "corpus_submodule_not_frozen",
+      "readiness_source": "docs/research/2026-10-20-build-source-expansion.md"
+    },
+    {
+      "requested_build_system": "make",
+      "repository": "sisong/HDiffPatch",
+      "task_readiness": "adjacent_sources_and_oracle_not_frozen",
+      "readiness_source": "docs/research/2026-10-20-build-source-expansion.md"
+    },
+    {
+      "requested_build_system": "autotools",
+      "repository": "jedisct1/libsodium",
+      "task_readiness": "qualified_seen_reference",
+      "readiness_source": "docs/research/2026-10-20-build-reference-expansion-results.md"
+    },
+    {
+      "requested_build_system": "autotools",
+      "repository": "latchset/libverto",
+      "task_readiness": "qualified_seen_reference",
+      "readiness_source": "docs/research/2026-10-20-build-reference-expansion-results.md"
+    },
+    {
+      "requested_build_system": "autotools",
+      "repository": "libcheck/check",
+      "task_readiness": "qualified_seen_reference",
+      "readiness_source": "docs/research/2026-10-20-build-reference-expansion-results.md"
+    },
+    {
+      "requested_build_system": "autotools",
+      "repository": "libffi/libffi",
+      "task_readiness": "bootstrap_failed_later_build_unknown",
+      "readiness_source": "docs/research/2026-10-20-build-reference-expansion-results.md"
+    },
+    {
+      "repository": "kokke/tiny-AES-c",
+      "requested_build_system": "make",
+      "task_readiness": "legacy_development_exposure_new_task_qualification_not_run",
+      "readiness_source": "docs/research/2026-10-20-build-make-source-catalog.md"
+    },
+    {
+      "repository": "libcrc/libcrc",
+      "requested_build_system": "make",
+      "task_readiness": "metadata_failed",
+      "readiness_source": "docs/research/2026-10-20-build-make-source-catalog.md"
+    },
+    {
+      "repository": "h2o/picohttpparser",
+      "requested_build_system": "make",
+      "task_readiness": "picotest_submodule_not_frozen",
+      "readiness_source": "docs/research/2026-10-20-build-make-source-catalog.md"
+    },
+    {
+      "repository": "jedisct1/libhydrogen",
+      "requested_build_system": "make",
+      "task_readiness": "qualified_seen_reference",
+      "readiness_source": "docs/research/2026-10-20-build-make-reference-results.md"
+    },
+    {
+      "repository": "clibs/buffer",
+      "requested_build_system": "make",
+      "task_readiness": "qualified_seen_reference",
+      "readiness_source": "docs/research/2026-10-20-build-make-reference-results.md"
+    },
+    {
+      "repository": "clibs/commander",
+      "requested_build_system": "make",
+      "task_readiness": "full_functional_oracle_undefined",
+      "readiness_source": "docs/research/2026-10-20-build-make-source-catalog.md"
+    }
+  ],
+  "model_cohorts": [
+    {
+      "root": "/home/yiwei/.codex/outputs/forge-plan-agent-paired-real-v1",
+      "inventory_sha256": "2df552e2a26dac451b4d61690c4bc3eac59fee2fd0dcc0b3604f25c84905a91d",
+      "audit": "/home/yiwei/.codex/outputs/forge-continuous-research-2026-10-19/paired-real-v1-audit.json"
+    },
+    {
+      "root": "/home/yiwei/.codex/outputs/forge-auto-provenance-real-v1",
+      "inventory_sha256": "d7bad477a8b355ffdbb21de127961c2f8f639798186d6c7d6ad0ecb27263e446",
+      "audit": "/home/yiwei/.codex/outputs/forge-continuous-research-2026-10-19/auto-provenance-real-v1-audit.json"
+    }
+  ],
+  "components": {
+    "scripts/forge_build_candidate_exposure_audit.py": "8f2b677c8d15fb0aea4644f6012c8b959d4cdfb8a7cdf39b14ac2a9ba2060352",
+    "scripts/forge_typed_evidence.py": "b3e798669389507dc605fcd73b2450921f0695bddccc564344fda88d5cb7a3c8",
+    "backend/tests/test_build_candidate_exposure_audit.py": "019de9a7886581a13745737704191772fb73bfd444b1273c9e7cfe90e8d7c0b2",
+    "benchmarks/preregistrations/cpp-build-candidate-exposure-audit-v1.md": "9676302bd75b7de81001ee6f998de87c3da64fc38c2fe9e572322faea55d17f7",
+    "docs/research/2026-10-20-build-make-reference-results.md": "2c5403ccbc011d28094151f197665bf86ac0b6a126c9a81a2214fcc7c2f0bc2f",
+    "docs/research/2026-10-20-build-make-source-catalog.md": "c2c64eb5587e596b7419fc501d48881056a4312151f1f1d74bb19a7866ed25c8",
+    "docs/research/2026-10-20-build-reference-expansion-results.md": "9965dfe8c8ef276f979bd6fff075c837bf9d391c2146db2e695fe772e3838388",
+    "docs/research/2026-10-20-build-reference-repair-qualification-results.md": "58553c9e76b66439b50d5c034d0290ace57de0bb897bd4f89a5070a6e1efe382",
+    "docs/research/2026-10-20-build-source-expansion.md": "156d7f244da31632b0dce9645fdcbe5e401a225bc1cb06a433e0f39439e674d5"
+  }
+}
