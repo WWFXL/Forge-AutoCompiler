@@ -4,6 +4,12 @@
 
 ## 进行中 (In Progress)
 
+- 2026-10-20 — #502前瞻性配对比较执行器准备中，未调用Provider
+  - 文件: scripts/forge_build_plan_paired_comparison.py, backend/tests/test_build_plan_paired_comparison.py。
+  - 六项目/三系统/双重复/双臂，12臂无模型门禁，24真实槽位；每请求0.40/单臂1.50/整阶段12美元预留，等待参考与控制资格。
+  - 6项回归通过，覆盖费用准入/未知usage停止/未观察槽位/异常保留/失败成本纳入；manifest名单和父证据哈希尚未冻结，不能执行。
+  - #499/#501当前协议head三CI均成功，等实际结果后再提交结果并核验新CI；尚未合并。
+
 - 2026-10-20 — #500两项Make参考资格已准备，排在#493/#498之后
   - 文件: scripts/forge_build_make_reference.py, backend/tests/test_build_make_reference.py, 对应manifest/preregistration。
   - libhydrogen make check完整12自测、buffer make test完整18断言，固定源码/交付/clean replay；0Provider，预检与组合16回归通过。
