@@ -8,7 +8,7 @@
 
 plan/tool分别60/105请求、765692/1082737 Token、$1.26334296/$1.62595884估算、52/66命令。固定任务合计费用少22.3%，但libsodium/libsndfile的plan更贵，五维护者关联组的费用差重采样范围跨0，不能声称跨项目稳定成本优势。12个plan交接/修订均0；11/12个tool臂共19次配方ID拒绝后自行纠正，4条失败Shell均diagnostic。不能把差异全部归于初始规划，也不证明RQ2状态适应、总体非劣、成熟Agent排名或P2增量。
 
-#504强接口真实探针已12/12完整封存，plan/tool各5/6 strict：37/50请求、486546/508130 Token、$0.79509408/$0.71376360估算、1095.568/840.297秒，0未知用量、cleanup全部成功。请求少不等于费用低，本批plan费用高11.4%；0submit拒绝，五成功tool各一次自动配方submit。libverto-r1-tool请求用尽前build/6测试过但未交付；libverto-r2-plan固定测试0/6后真实handoff一次，因状态材料超过50000字节在恢复请求前停止，0修订。失败不补跑，不能称纯模型恢复失败。raw `/home/yiwei/.codex/outputs/forge-auto-provenance-real-v1/`，inventory `d7bad477a8b355ffdbb21de127961c2f8f639798186d6c7d6ad0ecb27263e446`，独立审计valid=true；报告`docs/research/2026-10-20-build-auto-provenance-probe-results.md`。65组件、后验选样和严格终点均保持；不作跨批因果/总体非劣/成熟Agent排名。下一步独立#506三系统受控恢复资格。
+#504强接口真实探针已12/12完整封存，plan/tool各5/6 strict：37/50请求、486546/508130 Token、$0.79509408/$0.71376360估算、1095.568/840.297秒，0未知用量、cleanup全部成功。请求少不等于费用低，本批plan费用高11.4%；0submit拒绝，五成功tool各一次自动配方submit。libverto-r1-tool请求用尽前build/6测试过但未交付；libverto-r2-plan固定测试0/6后真实handoff一次，因状态材料超过50000字节在第10次总请求前停止；此前已4次初始规划+5次真实恢复请求，0修订。失败不补跑，不能称纯模型恢复失败。raw `/home/yiwei/.codex/outputs/forge-auto-provenance-real-v1/`，inventory `d7bad477a8b355ffdbb21de127961c2f8f639798186d6c7d6ad0ecb27263e446`，独立审计valid=true；报告`docs/research/2026-10-20-build-auto-provenance-probe-results.md`。65组件、后验选样和严格终点均保持；不作跨批因果/总体非劣/成熟Agent排名。下一步独立#506三系统受控恢复资格。
 
 父#493十项参考7/10合格、#498七控制7/7预期成立、#500两Make2/2严格completed及#502十二臂零Provider门禁均封存、独立审计通过。前三阶段均核验结果head三CI后合入依赖分支并关闭Issue；#503结果adc54403的三项实际CI均SUCCESS后已合并（df830217），#502关闭，未进入main。#502协议54d1d893、运行release557a44c4，manifest SHA-256 `5f2cc841c38b1ed8eaee5867d2491dfce060c539aa9c3c92170729bbc74f42f2`。
 
