@@ -2208,3 +2208,8 @@ v2补齐原第九次请求读取索引和最终三工具历史，原门禁拒绝
 # 2026-10-20 #518主张矩阵与后续比较设计
 
 六组引用登记核对seal/inventory canonical hash、既有audit valid/无issues及报告hash一致，非重新执行全部原始实验。文件2026-10-20-build-evidence-claims-next-comparison.md及benchmarks/analyses/cpp-build-next-comparison-design-v1.json。RQ1保留强工具自动配方/批量能力及完整规划恢复费；RQ2先强规则与实际动作分歧，静态停只消融，无分歧不加P2；RQ3逐层拒绝不变自然误接受率。没有新增Provider/构建数据，不是效应预注册，不准入新付费。下一项项目族/时间暴露登记及同源动作分歧审计。
+
+
+# 2026-10-20 #520候选暴露/就绪审计
+
+固定18候选，两完整Git树限定benchmarks/docs/research，225命中/79文件，独立匹配第二实现一致。指定502/504队列6候选36模型臂（失败保留），另12无臂仅限该范围；11已有参考资格/7尚缺前提，15同owner标签不是代码亲缘或独立样本。102文件/53091260 bytes，inventorya5e0f8dcff639c91ba5fceb976130b241b0938c91c2a2f12d123f8b72e7e9b17，9组件/消费收据/命中/模型臂独立audit valid=true；6测试/Ruff/format通过。0新构建/Provider，不指定holdout、不称全历史或训练未见；来源审阅可先于前瞻模型评估但须冻结角色且披露暴露。报告2026-10-20-build-candidate-exposure-audit-results.md。#517结果db7f3071三CI后merge4f2df457/#516关闭。

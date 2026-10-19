@@ -14,9 +14,11 @@ plan/tool分别60/105请求、765692/1082737 Token、$1.26334296/$1.62595884估�
 
 ## 当前研究问题与已知边界
 
+#520完成固定18候选暴露/就绪回顾：两Git树限定范围225命中/79文件，#502/#504中6候选36真实模型臂，11已有人工参考资格/7尚缺前提；其余未见模型仅限指定队列，不能称全历史或训练未见。102文件/53091260 bytes，inventory `a5e0f8dcff639c91ba5fceb976130b241b0938c91c2a2f12d123f8b72e7e9b17`，独立audit valid=true、六测试通过、0新构建/Provider。报告`docs/research/2026-10-20-build-candidate-exposure-audit-results.md`，raw `/home/yiwei/.codex/outputs/forge-candidate-exposure-audit-v1/`。15同owner标签非代码亲缘/独立项目族，未指定holdout。
+
 #518完成主张证据矩阵与下一轮比较设计（0新构建/0Provider），六组冻结inventory、既有独立audit与报告hash登记一致。设计`docs/research/2026-10-20-build-evidence-claims-next-comparison.md`，登记`benchmarks/analyses/cpp-build-next-comparison-design-v1.json`。不是效应预注册；下一项实质工作为项目族/时间暴露与同源动作分歧审计，再冻结强工具Agent/合理规则+Agent比较。保留完整初始规划、失败和恢复成本，未见分歧不增加P2，不承诺稳定低成本或两个创新点已成立。
 
-#516零模型强规则恢复资格已3/3 strict、各一次handoff/revision2，0模型请求/Token/Provider，16条Shell；独立audit valid=true。raw `/home/yiwei/.codex/outputs/forge-rule-recovery-qualification-v1/`，inventory `30b2117f520d571a293f2c9f082d6182786ce44d4d944e3964bc049e6d2e5f27`；报告`docs/research/2026-10-20-build-rule-recovery-qualification-results.md`。规则后验设计且资源不同，不与#506作因果比较；这三例不能再当语义选择器增量证据。下一步审计主张与未来强基线比较，先找同源动作分歧，不盲增复杂性。
+#516零模型强规则恢复资格已3/3 strict、各一次handoff/revision2，0模型请求/Token/Provider，16条Shell；独立audit valid=true。raw `/home/yiwei/.codex/outputs/forge-rule-recovery-qualification-v1/`，inventory `30b2117f520d571a293f2c9f082d6182786ce44d4d944e3964bc049e6d2e5f27`；报告`docs/research/2026-10-20-build-rule-recovery-qualification-results.md`。规则后验设计且资源不同，不与#506作因果比较；这三例不能再当语义选择器增量证据。PR517最终db7f3071三CI后合并4f2df457，#516关闭。下一步审计主张与未来强基线比较，先找同源动作分歧，不盲增复杂性。
 
 #514费用归因回顾审计已完成36臂/252响应/544收据、独立audit valid=true，0Provider。#502输入费用差-$0.44644116+输出差$0.08382528=合计-$0.36261588；#504输入差-$0.08340156+输出差$0.16473204=合计+$0.08133048。不能以请求/总Token代费用；#504的plan32初始+5真实恢复，后者$0.12073644但未交付修订。raw `/home/yiwei/.codex/outputs/forge-token-cost-attribution-audit-v1/`，inventorye542e906f7d67284bea488bb5392b7fa4ca2584b6812b3c84c4f6ef8ff284705；报告`docs/research/2026-10-20-build-token-cost-attribution-audit-results.md`。6项测试通过，不作输出语义归因、跨批因果或总体优势。PR515最终af227c84三CI后合并1955a348，#514关闭。下一步同源失败状态/合理强规则动作分歧核查，不盲增选择器复杂性。
 
