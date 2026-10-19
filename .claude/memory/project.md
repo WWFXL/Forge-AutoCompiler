@@ -4,28 +4,10 @@
 
 ## 进行中 (In Progress)
 
-- 2026-10-20 — #502前瞻性配对比较执行器准备中，未调用Provider
-  - 文件: scripts/forge_build_plan_paired_comparison.py, backend/tests/test_build_plan_paired_comparison.py。
-  - 六项目/三系统/双重复/双臂，12臂无模型门禁，24真实槽位；每请求0.40/单臂1.50/整阶段12美元预留，等待参考与控制资格。
-  - 7项回归通过，覆盖费用准入/未知usage停止/未观察槽位/异常保留/失败成本与关联组分析；已固定六仓库名单及五关联组，manifest父证据哈希尚未绑定，不能执行。
-  - #499/#501当前协议head三CI均成功，等实际结果后再提交结果并核验新CI；尚未合并。
-
-- 2026-10-20 — #500两项Make参考资格已准备，排在#493/#498之后
-  - 文件: scripts/forge_build_make_reference.py, backend/tests/test_build_make_reference.py, 对应manifest/preregistration。
-  - libhydrogen make check完整12自测、buffer make test完整18断言，固定源码/交付/clean replay；0Provider，预检与组合16回归通过。
-  - 输入/home/yiwei/.codex/outputs/forge-make-reference-inputs-v1/；尚未运行，不能称构建成功。
-
-- 2026-10-20 — #498状态/验证七槽控制已准备，等待#493终结后执行
-  - 文件: scripts/forge_build_state_controls.py, backend/tests/test_build_state_controls.py, 对应manifest/preregistration。
-  - 0Provider；正常miniz/pigz/libite与空测试/遗漏bootstrap/交付漂移/外部configure四负控制；只检验已有规则与验证，不声称P2增量。
-  - 用户HTML不动；#497最新head a4b70785三CI通过后mergece6e1af9进入依赖分支，#496关闭；未进入main。
-
-- 2026-10-20 — #493十项完整参考任务资格运行中
-  - 文件: scripts/forge_build_reference_expansion.py, backend/tests/test_build_reference_expansion.py, 对应manifest/preregistration。
-  - 输入预检通过、归档规范化和失败/清理调度3测试通过；使用仓库Python3.12，0Provider。
-  - manifest d2e7ec92561a1f693bf4093c718ade807706f9f39b78d4f064c9579f6e4eaefc；运行中不可修改components。
-  - release21614b36，真实已启动；原始输出/home/yiwei/.codex/outputs/forge-reference-expansion-v1/，输入/home/yiwei/.codex/outputs/forge-reference-expansion-inputs-v1/。
-  - #491合入依赖开发分支，head47e8b852三CI成功，merge1a127519，#489关闭；未进入main。
+- 2026-10-20 — #502六仓库双臂两重复比较进入最终协议冻结
+  - 父#493/#498/#500全部封存；六仓库三系统各两项，12配对/24真实槽、五维护者关联组。
+  - 当前修改新比较共同command300s/replay600s与3600秒截止预留；完整测试不变，尚无新模型outcome。
+  - 下一步规范化reference默认字段、绑定manifest和最新组件；相关回归/产品测试/CI后12臂零Provider门禁，独立审计后才调用Provider。
 
 - 2026-10-13 — Issue #440 H0/H1 v3 正式复现 authorized identity 已实现，等待发布与 Q0
   - 工作类型与问题: 正式数据采集前的协议实现。目标是在 v2 结果已观察的前提下，用同 9 个项目族、机械旋转到未进入
@@ -519,6 +501,30 @@
   - 下一步: 等待实验负责人确认当前网络接入介质，并决定是否授权只读 endpoint 诊断和新的 canary amendment；获得确认后必须另建中文 Issue/PR 和协议 identity，保留当前失败 marker。
 
 ## 最近变更 (Recent Changes)
+
+- 2026-10-20 — #500两项Make完整参考资格全部严格完成
+  - release ae879a75，身份cpp-build-make-reference-v1；libhydrogen完整12自测、buffer完整18断言；2/2源码不变、交付/replay/completed/cleanup闭合。
+  - 原始/home/yiwei/.codex/outputs/forge-make-reference-v1/，267普通文件/0链接/3188966 bytes，inventory 7a7ca99cbc89cb2754b66f418f73eeab75a67fc9bf6162b1ac70903113336a6a；独立审计valid=true，0对应容器，0Provider。
+  - 边界: 人工参考任务资格，不是模型/方法效果；下一步#502最终协议与共同300/600秒时限、12臂零Provider门禁。
+  - 文件: docs/research/2026-10-20-build-make-reference-results.md, RESEARCH_STATUS.md。
+
+- 2026-10-20 — #498七槽状态/验证控制完整结束并封存
+  - release: 1052766e6e1712ddee9f1db90bec3fc1d302ded3；身份cpp-build-state-validation-controls-v1。
+  - 结果: 三正常strict completed，四负控制按空测试/check、遗漏bootstrap/recipe_execution_failed、交付漂移/size_mismatch、外部configure/PlanContractError拒绝，7/7预期成立。
+  - 证据: /home/yiwei/.codex/outputs/forge-build-state-controls-v1/；2458普通文件/21链接/63414830 bytes，inventory f013a79451c2630f0ffd8e532eacda46a371716d1397eb500eaca5cc1f51cc85；独立integrity和outcome审计均valid=true，0对应容器、0Provider。
+  - 边界: 仅四已知缺口资格，不证明P2或Agent恢复增量；下一步#500两Make资格，之后#502比较。#495已核验98236292三CI后merge72a4e631，#493关闭。
+  - 文件: docs/research/2026-10-20-build-state-validation-controls-results.md, RESEARCH_STATUS.md。
+
+- 2026-10-20 — #493十项参考资格终结，7合格/3未合格全部封存
+  - 文件: docs/research/2026-10-20-build-reference-expansion-results.md, RESEARCH_STATUS.md
+  - 原始47586文件/70链接/565838840 bytes；inventory34614ceaf61f45f383ea46bfacf4490e0e888417ea40c150b5bdee04b99ae011；独立audit valid=true，10项cleanup、0残留。
+  - libpng全37测试后stage路径错误；libzip全199测试及Forge completed但110个生成HTML改写；libffi bootstrap未定义宏。保留，不续跑、不改原分类；0Provider。
+  - 下一步#498七控制、#500两Make资格，再#502配对；新时限需依据uncrustify203.7s共同调整，先等父阶段封存。
+
+- 2026-10-20 — 将当前科研入口压缩为可核验状态与下一决策
+  - 文件: RESEARCH_STATUS.md
+  - 动机: 避免旧计划与现阶段竞争；原长时间线保留于ce6e1af9的Git版本和各冻结报告，不改历史证据。
+  - #493等待最终libffi，check已strict完成；uncrustify完整测试203.7s，#502新协议需双方共同command300s/replay600s，须等#493/#498/#500封存后再改共享组件，不能破坏运行中hash。
 
 - 2026-10-20 — #496独立Make来源保留六槽位并完成只读审计
   - 文件: scripts/forge_build_make_source_catalog.py, backend/tests/test_build_make_source_catalog.py, 对应manifest/preregistration, docs/research/2026-10-20-build-make-source-catalog.md。
