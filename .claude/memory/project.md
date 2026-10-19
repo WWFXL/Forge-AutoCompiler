@@ -7,7 +7,7 @@
 - 2026-10-20 — #504启动零费用自动配方溯源强基线接口设计
   - 在#502运行中观察到多个tool臂构建/固定测试成功后的ID提交拒绝；先创建并回读Issue504，再仅新增独立模块、五项测试和设计文档，不改#502 manifest/59组件，逐项hash核对全部未变。
   - `plan_agent_provenance.py`无参数submit从最新权威Session取最后成功build与有序成功recipe，然后委托原严格submit；不修改freshness、固定测试、精确交付、源码、clean replay或cleanup。5项针对性测试及Ruff通过；包括真实ToolBuildService仍拒绝缺固定测试/错交付集合，尚无新Docker/Provider观察。
-  - 另新增独立探针执行器、4项执行器测试与候选预注册；合计19项相关测试通过。候选固定libsndfile/buffer/libverto新鲜双臂两重复，共12槽，$6预留，尚无manifest/正式门禁或模型请求。UTC20:22:49已独立记录选样时点与预注册SHA705ccdc219a98a4796361f1ebfd8059e74309c53fa3fce28e6eacc0f13bcdd18，此时所选三项目第二重复结果均未产生；记录/home/yiwei/.codex/outputs/forge-continuous-research-2026-10-19/auto-provenance-candidate-selection.json。工具门禁设计为一轮批量构建/测试/暂存/无参数submit，独立审计器已正确拒绝旧手工ID门禁的负自检。新鲜配对探针待#502全24槽封存审计后按完整证据决定；当前新增文件未提交，须留给独立#504分支/PR，勿混入#503结果提交。
+  - 另新增独立探针执行器、4项执行器测试与候选预注册；合计19项相关测试通过。候选固定libsndfile/buffer/libverto新鲜双臂两重复，共12槽，$6预留，尚无manifest/正式门禁或模型请求。UTC20:22:49已独立记录选样时点与预注册SHA705ccdc219a98a4796361f1ebfd8059e74309c53fa3fce28e6eacc0f13bcdd18，此时所选三项目第二重复结果均未产生；记录/home/yiwei/.codex/outputs/forge-continuous-research-2026-10-19/auto-provenance-candidate-selection.json。工具门禁设计为一轮批量构建/测试/暂存/无参数submit，独立审计器已正确拒绝旧手工ID门禁的负自检。新鲜配对探针待#502全24槽封存审计后按完整证据决定；候选已采用并转独立分支yiwei/504-auto-provenance-probe；manifest绑定父封存/选样记录/65组件，SHAffcfff4244c2446441a7d1e7a6f20296279faced52df645e46a3c0480fcf8ff3，只读validate通过。当前准备提交release/六臂零Provider门禁，尚无新Provider请求；父结果adc54403已push、PR503正文已回读，待其最新head三CI后合并。
   - 文件: `backend/packages/harness/deerflow/compile/plan_agent_provenance.py`, `backend/tests/test_plan_agent_provenance.py`, `docs/research/2026-10-20-build-auto-provenance-baseline-design.md`。
 
 
@@ -509,7 +509,7 @@
   - plan/tool 60/105请求、765692/1082737Token、$1.26334296/$1.62595884估算、52/66命令；固定合计费用少22.3%，但libsodium/libsndfile的plan更贵，五关联组费用差范围跨0；不作总体、非劣、成熟Agent或初始规划纯因果主张。
   - 12plan均revision1、0交接/修订；11/12tool共19次元数据拒绝（supporting12/role6/order1），4失败Shell均diagnostic。下一阶段采用#504已固定三系统自动ID强工具接口探针；全部失败与父raw永久只读。
   - $12预留已结算$2.88930180，本轮已知累计$4.20294600+旧未知预留$1=占用$5.20294600，当前无活动付费阶段。运行release557a44c4，59组件与manifest未改。当前树全量产品1929 passed/44 skipped（含#504九项准备测试），后端全量Ruff与517文件格式检查通过。
-  - 文件: `docs/research/2026-10-20-build-plan-agent-paired-comparison-results.md`, `RESEARCH_STATUS.md`。本次结果待提交/推送并更新PR503、核验最新结果head三CI后合并，再关闭502并同步知识库；#504新增文件留独立分支，不混入结果提交。
+  - 文件: `docs/research/2026-10-20-build-plan-agent-paired-comparison-results.md`, `RESEARCH_STATUS.md`。结果adc54403已提交/推送并更新回读PR503，待核验该head三CI后合并，再关闭502并同步知识库；#504新增文件留独立分支，不混入结果提交。
 
 - 2026-10-20 — #502同协议十二臂零Provider真实Docker门禁全部通过
   - release54d1d893，manifest5f2cc841c38b1ed8eaee5867d2491dfce060c539aa9c3c92170729bbc74f42f2；两路径全部固定测试/源码/交付/clean replay/completed/cleanup通过。
