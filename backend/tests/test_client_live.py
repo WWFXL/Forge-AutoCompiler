@@ -3,7 +3,7 @@
 These tests require a working config.yaml with valid API credentials.
 They are skipped in CI and must be run explicitly:
 
-    PYTHONPATH=. uv run pytest tests/test_client_live.py -v -s
+    FORGE_RUN_CLIENT_LIVE=1 PYTHONPATH=. uv run pytest tests/test_client_live.py -v -s
 """
 
 import os
@@ -14,9 +14,11 @@ import pytest
 from deerflow.client import DeerFlowClient, StreamEvent
 from deerflow.uploads.manager import PathTraversalError
 
-# Skip entire module in CI or when no config.yaml exists
+# 即使本地已有凭据，默认回归也不得隐式调用真实 Provider。
 _skip_reason = None
-if os.environ.get("CI"):
+if os.environ.get("FORGE_RUN_CLIENT_LIVE") != "1":
+    _skip_reason = "Live tests require explicit FORGE_RUN_CLIENT_LIVE=1 and a Provider budget authorization"
+elif os.environ.get("CI"):
     _skip_reason = "Live tests skipped in CI"
 elif not Path(__file__).resolve().parents[2].joinpath("config.yaml").exists():
     _skip_reason = "No config.yaml found — live tests require valid API credentials"

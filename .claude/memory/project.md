@@ -499,6 +499,11 @@
 
 ## 最近变更 (Recent Changes)
 
+- 2026-10-19 — 为真实客户端测试增加显式 Provider 启用门禁（#471）
+  - 动机：旧live模块仅检查CI与config存在性，本地全量回归会隐式调用Provider。现须`FORGE_RUN_CLIENT_LIVE=1`才收集，并继续受CI/无配置拒绝；不切换模型或修改产品行为。
+  - 验证：实际模块收集边界5 passed/1 skipped，Ruff check/format通过；测试只定义fixture，不执行模型。
+  - 文件：`backend/tests/test_client_live.py`, `backend/tests/test_client_live_optin.py`。
+
 - 2026-10-19 — 登记持续科研授权并启动发布与预算门禁收口
   - 用户授权：围绕硕士论文主线跨阶段自主推进至北京时间2026-10-20 07:00；各新增阶段共享$20，允许Issue/commit/push/PR/merge/close与知识库维护。末15分钟预留清理，重大主线/预算/主张边界变化才等待用户。
   - 基础设施与验证：Docker门禁通过，相关组合含真实Docker为220 passed/2 skipped，CI模式全产品1846 passed/44 skipped；新增13文件Ruff check/format通过。首轮非CI回归意外触发旧live默认模型404，usage未知，外部账本保留$1；#471处理显式启用门禁，不作为科研数据。
