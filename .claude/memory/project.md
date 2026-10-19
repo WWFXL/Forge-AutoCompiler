@@ -4,17 +4,11 @@
 
 ## 进行中 (In Progress)
 
-- 2026-10-20 — #498状态/验证七槽控制已准备，等待#493终结后执行
+- 2026-10-20 — #498七槽零Provider状态/验证正负控制准备执行
   - 文件: scripts/forge_build_state_controls.py, backend/tests/test_build_state_controls.py, 对应manifest/preregistration。
-  - 0Provider；正常miniz/pigz/libite与空测试/遗漏bootstrap/交付漂移/外部configure四负控制；只检验已有规则与验证，不声称P2增量。
-  - 用户HTML不动；#497最新head a4b70785三CI通过后mergece6e1af9进入依赖分支，#496关闭；未进入main。
+  - 已合并#493终态；控制components与939346a0协议相同。正常miniz/pigz/libite及空测试/遗漏bootstrap/交付漂移/外部configure控制，不新增P2。
+  - 当前原始目录将为/home/yiwei/.codex/outputs/forge-build-state-controls-v1/；0Provider，共享截止不变。
 
-- 2026-10-20 — #493十项完整参考任务资格运行中
-  - 文件: scripts/forge_build_reference_expansion.py, backend/tests/test_build_reference_expansion.py, 对应manifest/preregistration。
-  - 输入预检通过、归档规范化和失败/清理调度3测试通过；使用仓库Python3.12，0Provider。
-  - manifest d2e7ec92561a1f693bf4093c718ade807706f9f39b78d4f064c9579f6e4eaefc；运行中不可修改components。
-  - release21614b36，真实已启动；原始输出/home/yiwei/.codex/outputs/forge-reference-expansion-v1/，输入/home/yiwei/.codex/outputs/forge-reference-expansion-inputs-v1/。
-  - #491合入依赖开发分支，head47e8b852三CI成功，merge1a127519，#489关闭；未进入main。
 
 - 2026-10-13 — Issue #440 H0/H1 v3 正式复现 authorized identity 已实现，等待发布与 Q0
   - 工作类型与问题: 正式数据采集前的协议实现。目标是在 v2 结果已观察的前提下，用同 9 个项目族、机械旋转到未进入
@@ -508,6 +502,17 @@
   - 下一步: 等待实验负责人确认当前网络接入介质，并决定是否授权只读 endpoint 诊断和新的 canary amendment；获得确认后必须另建中文 Issue/PR 和协议 identity，保留当前失败 marker。
 
 ## 最近变更 (Recent Changes)
+
+- 2026-10-20 — #493十项参考资格终结，7合格/3未合格全部封存
+  - 文件: docs/research/2026-10-20-build-reference-expansion-results.md, RESEARCH_STATUS.md
+  - 原始47586文件/70链接/565838840 bytes；inventory34614ceaf61f45f383ea46bfacf4490e0e888417ea40c150b5bdee04b99ae011；独立audit valid=true，10项cleanup、0残留。
+  - libpng全37测试后stage路径错误；libzip全199测试及Forge completed但110个生成HTML改写；libffi bootstrap未定义宏。保留，不续跑、不改原分类；0Provider。
+  - 下一步#498七控制、#500两Make资格，再#502配对；新时限需依据uncrustify203.7s共同调整，先等父阶段封存。
+
+- 2026-10-20 — 将当前科研入口压缩为可核验状态与下一决策
+  - 文件: RESEARCH_STATUS.md
+  - 动机: 避免旧计划与现阶段竞争；原长时间线保留于ce6e1af9的Git版本和各冻结报告，不改历史证据。
+  - #493等待最终libffi，check已strict完成；uncrustify完整测试203.7s，#502新协议需双方共同command300s/replay600s，须等#493/#498/#500封存后再改共享组件，不能破坏运行中hash。
 
 - 2026-10-20 — #496独立Make来源保留六槽位并完成只读审计
   - 文件: scripts/forge_build_make_source_catalog.py, backend/tests/test_build_make_source_catalog.py, 对应manifest/preregistration, docs/research/2026-10-20-build-make-source-catalog.md。
