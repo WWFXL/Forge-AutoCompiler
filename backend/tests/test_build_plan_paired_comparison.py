@@ -71,3 +71,20 @@ def test_failed_arms_are_included_in_cost_and_incomplete_schedule_blocks_contras
     assert analysis["observed_totals"]["plan"]["cost_usd"] == 0.7
     assert analysis["observed_totals"]["plan"]["strict_completed"] == 0
     assert not analysis["paired_comparison_permitted"] and "plan_minus_tool" not in analysis
+
+
+def test_complete_analysis_keeps_failure_cost_and_clusters_related_repositories():
+    specification = protocol()
+    specification["family_groups"] = {"related": ["project-1", "project-2"], **{f"group-{index}": [f"project-{index}"] for index in (0, 3, 4, 5)}}
+    rows = []
+    for slot in specification["schedule"]:
+        row = {**result("0.2" if slot["arm"] == "plan" else "0.1"), **slot, "arm_total_wall_seconds": 20}
+        row["agent_usage"].update(cost_and_usage_complete=True, model_requests=3, recorded_tokens=12000, commands=2)
+        row["strict_completed"] = not (slot["project"] == "project-0" and slot["arm"] == "plan")
+        rows.append(row)
+    analysis = paired.analyze(specification, {"arms": rows, "unobserved_schedule": []})
+    assert analysis["paired_comparison_permitted"]
+    assert analysis["pairs"]["tool_only_success"] == 2
+    assert analysis["observed_totals"]["plan"]["cost_usd"] == pytest.approx(2.4)
+    assert analysis["plan_minus_tool"]["strict_completed"]["mean_per_arm"] == pytest.approx(-1 / 6)
+    assert analysis["plan_minus_tool"]["cost_usd"]["mean_per_arm"] == pytest.approx(0.1)

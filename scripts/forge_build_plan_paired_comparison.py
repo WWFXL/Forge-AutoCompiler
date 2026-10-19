@@ -53,6 +53,9 @@ def validate(protocol):
     names = [item["name"] for item in projects]
     if len(set(names)) != 6 or Counter(item["task"]["build_system"] for item in projects) != Counter(cmake=2, make=2, autotools=2):
         raise PlanContractError("六项目三系统边界不符")
+    groups = list(protocol["family_groups"].values())
+    if len(groups) != 5 or Counter(name for group in groups for name in group) != Counter(names):
+        raise PlanContractError("维护者关联项目必须在同一重采样组，不能把重复当独立项目")
     if protocol["schedule"] != make_schedule(names) or protocol["gate_schedule"] != make_schedule(names, 1):
         raise PlanContractError("配对、重复或顺序被更改")
     control_root = Path(protocol["control_evidence"])
@@ -158,11 +161,16 @@ def analyze(protocol, payload):
     result["project_means"] = {project: {arm: {name: sum(value(row) for row in arms if row["project"] == project and row["arm"] == arm) / 2 for name, value in metrics.items()} for arm in ("plan", "tool")} for project in projects}
     result["plan_minus_tool"] = {}
     for name in metrics:
-        differences = [result["project_means"][project]["plan"][name] - result["project_means"][project]["tool"][name] for project in projects]
+        differences = {project: result["project_means"][project]["plan"][name] - result["project_means"][project]["tool"][name] for project in projects}
+        groups = list(protocol["family_groups"].values())
         rng = random.Random(20261020)
-        samples = sorted(sum(rng.choice(differences) for _ in projects) / 6 for _ in range(20000))
-        result["plan_minus_tool"][name] = {"mean_per_arm": sum(differences) / 6, "project_resampling_percentile_95": [samples[499], samples[19499]]}
-    result["resampling_scope"] = "仅六个固定项目族的配对重采样描述；非OSS总体置信区间，不作显著性、非劣或机制增量判断"
+        samples = []
+        for _ in range(20000):
+            selected = [project for group in (rng.choice(groups) for _ in groups) for project in group]
+            samples.append(sum(differences[project] for project in selected) / len(selected))
+        samples.sort()
+        result["plan_minus_tool"][name] = {"mean_per_arm": sum(differences.values()) / 6, "family_resampling_percentile_95": [samples[499], samples[19499]]}
+    result["resampling_scope"] = "仅固定六仓库/五维护者关联组的配对重采样描述；非OSS总体置信区间，不作显著性、非劣或机制增量判断"
     return result
 
 
