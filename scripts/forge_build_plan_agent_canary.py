@@ -75,13 +75,13 @@ def scripted_model(reference, arm, service=None, probe_reads=False):
     return GateModel(responses=responses)
 
 
-def run_arm(*, item, arm, protocol, root, model=None, reference=None, meter_factory=CanaryMeter, planner=propose, tool_runner=run_tool_agent, probe_reads=False):
+def run_arm(*, item, arm, protocol, root, model=None, reference=None, meter_factory=CanaryMeter, planner=propose, tool_runner=run_tool_agent, probe_reads=False, command_timeout_seconds=180, replay_timeout_seconds=300):
     folder = root / f"{item['name']}-{arm}"
     folder.mkdir(exist_ok=False)
     task = PlanTask.model_validate(item["task"])
     paths = Paths(base_dir=folder / "data", workspace_root=folder, host_workspace_root=str(folder))
     manager = CompileSessionManager(paths=paths, default_image=task.image_id, parallel_jobs=2)
-    runtime = CompileDockerRuntime(manager=manager, config=RuntimeConfig(image=task.image_id, parallel_jobs=2, replay_timeout_seconds=300))
+    runtime = CompileDockerRuntime(manager=manager, config=RuntimeConfig(image=task.image_id, parallel_jobs=2, replay_timeout_seconds=replay_timeout_seconds))
     session = manager.create_session("plan-agent-canary", task.repository_url, image=task.image_id)
     workspace, session_root = Path(session.leadagent_repo_dir), Path(session.metadata_path).parent
     original = operations._services
@@ -121,7 +121,9 @@ def run_arm(*, item, arm, protocol, root, model=None, reference=None, meter_fact
         if arm == "plan":
             active_model = scripted_model(reference, arm, probe_reads=probe_reads) if reference else model
             plan, _ = planner(model=active_model, task=task, source_root=workspace, session_root=session_root, meter=meter)
-            workflow = CanaryWorkflow(plan=plan, session=session, manager=manager, runtime=runtime, budget=PlanBudget(wall_clock_seconds=1200, command_timeout_seconds=180), meter=meter, source_root=workspace, frozen=frozen)
+            workflow = CanaryWorkflow(
+                plan=plan, session=session, manager=manager, runtime=runtime, budget=PlanBudget(wall_clock_seconds=1200, command_timeout_seconds=command_timeout_seconds), meter=meter, source_root=workspace, frozen=frozen
+            )
             while True:
                 state = workflow.run()
                 result["transitions"].append(state)

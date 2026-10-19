@@ -4,6 +4,13 @@
 
 ## 进行中 (In Progress)
 
+- 2026-10-20 — #504启动零费用自动配方溯源强基线接口设计
+  - 在#502运行中观察到多个tool臂构建/固定测试成功后的ID提交拒绝；先创建并回读Issue504，再仅新增独立模块、五项测试和设计文档，不改#502 manifest/59组件，逐项hash核对全部未变。
+  - `plan_agent_provenance.py`无参数submit从最新权威Session取最后成功build与有序成功recipe，然后委托原严格submit；不修改freshness、固定测试、精确交付、源码、clean replay或cleanup。5项针对性测试及Ruff通过；包括真实ToolBuildService仍拒绝缺固定测试/错交付集合，尚无新Docker/Provider观察。
+  - 另新增独立探针执行器、4项执行器测试与候选预注册；合计19项相关测试通过。候选固定libsndfile/buffer/libverto新鲜双臂两重复，共12槽，$6预留，尚无manifest/正式门禁或模型请求。UTC20:22:49已独立记录选样时点与预注册SHA705ccdc219a98a4796361f1ebfd8059e74309c53fa3fce28e6eacc0f13bcdd18，此时所选三项目第二重复结果均未产生；记录/home/yiwei/.codex/outputs/forge-continuous-research-2026-10-19/auto-provenance-candidate-selection.json。工具门禁设计为一轮批量构建/测试/暂存/无参数submit，独立审计器已正确拒绝旧手工ID门禁的负自检。新鲜配对探针待#502全24槽封存审计后按完整证据决定；当前新增文件未提交，须留给独立#504分支/PR，勿混入#503结果提交。
+  - 文件: `backend/packages/harness/deerflow/compile/plan_agent_provenance.py`, `backend/tests/test_plan_agent_provenance.py`, `docs/research/2026-10-20-build-auto-provenance-baseline-design.md`。
+
+
 - 2026-10-13 — Issue #440 H0/H1 v3 正式复现 authorized identity 已实现，等待发布与 Q0
   - 工作类型与问题: 正式数据采集前的协议实现。目标是在 v2 结果已观察的前提下，用同 9 个项目族、机械旋转到未进入
     v2 effect arms 的 checkpoint 深度，检验 H1 strict/cost 正向信号能否在完整后付费 Token 计量下复现。
@@ -496,6 +503,19 @@
   - 下一步: 等待实验负责人确认当前网络接入介质，并决定是否授权只读 endpoint 诊断和新的 canary amendment；获得确认后必须另建中文 Issue/PR 和协议 identity，保留当前失败 marker。
 
 ## 最近变更 (Recent Changes)
+
+- 2026-10-20 — 完成#502六仓库双重复24槽比较并独立审计
+  - 固定24/24 strict、12配对双方全成功；raw `/home/yiwei/.codex/outputs/forge-plan-agent-paired-real-v1/`，143187普通文件/184链接/1193274172 bytes，inventory2df552e2a26dac451b4d61690c4bc3eac59fee2fd0dcc0b3604f25c84905a91d。独立审计paired-real-v1-audit.json valid=true，原源码/固定测试/精确交付/replay/cleanup、请求生命周期和Token费用闭合，0未知/0容器残留。
+  - plan/tool 60/105请求、765692/1082737Token、$1.26334296/$1.62595884估算、52/66命令；固定合计费用少22.3%，但libsodium/libsndfile的plan更贵，五关联组费用差范围跨0；不作总体、非劣、成熟Agent或初始规划纯因果主张。
+  - 12plan均revision1、0交接/修订；11/12tool共19次元数据拒绝（supporting12/role6/order1），4失败Shell均diagnostic。下一阶段采用#504已固定三系统自动ID强工具接口探针；全部失败与父raw永久只读。
+  - $12预留已结算$2.88930180，本轮已知累计$4.20294600+旧未知预留$1=占用$5.20294600，当前无活动付费阶段。运行release557a44c4，59组件与manifest未改。当前树全量产品1929 passed/44 skipped（含#504九项准备测试），后端全量Ruff与517文件格式检查通过。
+  - 文件: `docs/research/2026-10-20-build-plan-agent-paired-comparison-results.md`, `RESEARCH_STATUS.md`。本次结果待提交/推送并更新PR503、核验最新结果head三CI后合并，再关闭502并同步知识库；#504新增文件留独立分支，不混入结果提交。
+
+- 2026-10-20 — #502同协议十二臂零Provider真实Docker门禁全部通过
+  - release54d1d893，manifest5f2cc841c38b1ed8eaee5867d2491dfce060c539aa9c3c92170729bbc74f42f2；两路径全部固定测试/源码/交付/clean replay/completed/cleanup通过。
+  - 原始/home/yiwei/.codex/outputs/forge-plan-agent-paired-gate-v1/，72368普通文件/92链接/578913379 bytes，inventory9f304ea1a1a134e6d2dc491b9815e9a328f6c05e40173f018e44c99b4c13abc3；独立paired-gate-v1-audit.json valid=true，0Token/0Provider/0对应容器。
+  - 只支持接线资格，不是模型结果；下一步真实24槽，预留$12并遵守共享$20/UTC23:00截止。#499/#501均已核验各自结果head三CI后合并，#498/#500关闭；未进main。
+  - 文件: docs/research/2026-10-20-build-plan-agent-paired-comparison-gate.md, RESEARCH_STATUS.md。
 
 - 2026-10-20 — #500两项Make完整参考资格全部严格完成
   - release ae879a75，身份cpp-build-make-reference-v1；libhydrogen完整12自测、buffer完整18断言；2/2源码不变、交付/replay/completed/cleanup闭合。
@@ -1813,6 +1833,8 @@
   - 动机: 统一服务可见路径与宿主 Docker 可见路径，补齐编译镜像、网络、配置模板和可复现的 WSL 启动流程
 
 ## 待办 (TODOs)
+
+- 2026-10-20 — #502终结后按证据评估自动配方ID强基线消融：两个tool臂出现supporting ID误用smoke，均自行恢复；这是候选因子，不能把整套Workflow潜在差异全归于初始规划。先审计完整24槽与原因，再冻结独立身份；不在运行中修改。指针: backend/packages/harness/deerflow/compile/plan_agent_canary.py:218；原始forge-plan-agent-paired-real-v1/{uncrustify-r1-tool,libsndfile-r1-tool}/agent/events.jsonl。
 
 <!-- 发现但未做的事。带 file:line 指针。 -->
 

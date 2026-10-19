@@ -139,3 +139,24 @@ def test_typed_seal_preserves_broken_external_links_and_detects_tampering(tmp_pa
     (root / "ordinary").write_text("changed")
     with pytest.raises(ValueError, match="封存"):
         module.audit(root)
+
+
+@pytest.mark.parametrize("limit", [180, 300])
+def test_tool_execution_honors_shared_command_limit(tmp_path, monkeypatch, limit):
+    from dataclasses import replace
+
+    from deerflow.compile import plan_agent_canary
+
+    usage = meter(tmp_path)
+    usage.tracker.limits = replace(usage.tracker.limits, command_timeout_seconds=limit)
+    service = ToolBuildService(task=original_task.__wrapped__(), session=None, manager=None, source_root=tmp_path, frozen={}, meter=usage)
+    monkeypatch.setattr(service, "current", lambda: SimpleNamespace())
+    observed = []
+
+    def execute(**kwargs):
+        observed.append(kwargs["timeout_seconds"])
+        return CommandResult(0, "ok", "", "ok", "unused"), None, SimpleNamespace(command_id="build-one")
+
+    monkeypatch.setattr(plan_agent_canary, "_run_system_oracle_bash_impl", execute)
+    service.execute("make", "build", "/workspace/repo")
+    assert observed == [limit]
