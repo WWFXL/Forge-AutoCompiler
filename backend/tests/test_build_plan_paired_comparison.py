@@ -88,3 +88,48 @@ def test_complete_analysis_keeps_failure_cost_and_clusters_related_repositories(
     assert analysis["observed_totals"]["plan"]["cost_usd"] == pytest.approx(2.4)
     assert analysis["plan_minus_tool"]["strict_completed"]["mean_per_arm"] == pytest.approx(-1 / 6)
     assert analysis["plan_minus_tool"]["cost_usd"]["mean_per_arm"] == pytest.approx(0.1)
+
+
+def test_reference_defaults_are_normalized_and_real_fixed_obligations_preserved():
+    from test_plan_agent import proposal
+    from test_plan_agent import task as task_fixture
+
+    task = task_fixture.__wrapped__()
+    full = {**task.model_dump(mode="json"), "steps": proposal(task).model_dump(mode="json")["steps"]}
+    full.pop("verification_steps")
+    minimal = paired.normalized_reference(full)
+    for step in minimal["steps"]:
+        step.pop("workdir", None)
+        step.pop("diagnostic_paths", None)
+    normalized = paired.normalized_reference(minimal)
+    assert normalized["steps"] == paired.normalized_reference(full)["steps"]
+    assert [row for row in normalized["steps"] if row["role"] == "smoke"] == task.model_dump(mode="json")["verification_steps"]
+
+
+def test_both_execution_paths_receive_same_runtime_limits(tmp_path):
+    received = []
+
+    def execute(**kwargs):
+        received.append((kwargs["arm"], kwargs["command_timeout_seconds"], kwargs["replay_timeout_seconds"], kwargs["meter_factory"]))
+        return result()
+
+    paired.execute_schedule(protocol(), tmp_path, None, {}, executor=execute)
+    assert {row[0] for row in received} == {"plan", "tool"}
+    assert all(row[1:] == (300, 600, paired.ComparisonMeter) for row in received)
+
+
+def test_comparison_meter_uses_common_limits_and_stops_before_request(tmp_path, monkeypatch):
+    from deerflow.compile.plan_agent import PlanAgentLedger
+
+    meter = paired.ComparisonMeter(PlanAgentLedger(tmp_path / "meter"), accepted_models=("test-model",), deadline="2099-01-01T00:00:00Z", packet=lambda: {})
+    assert (meter.tracker.limits.command_timeout_seconds, meter.tracker.limits.evaluator_timeout_seconds, meter.tracker.limits.replay_timeout_seconds) == (300, 600, 600)
+    reservations = []
+
+    def stop(deadline, seconds):
+        reservations.append(seconds)
+        raise paired.PlanContractError("截止保留")
+
+    monkeypatch.setattr(paired, "before_deadline", stop)
+    with pytest.raises(paired.PlanContractError, match="截止"):
+        meter._before_request()
+    assert reservations == [3600] and meter.summary()["model_requests"] == 0

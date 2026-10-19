@@ -11,6 +11,7 @@ import subprocess
 import sys
 import time
 from collections import Counter
+from dataclasses import replace
 from decimal import Decimal
 from pathlib import Path
 
@@ -24,7 +25,23 @@ from deerflow.compile.plan_agent import PlanTask  # noqa: E402
 from deerflow.compile.plan_agent_context import ContextCanaryMeter, propose_with_context, run_tool_agent_with_context  # noqa: E402
 from deerflow.compile.plan_agent_v2 import PlanThinkingDeepSeek  # noqa: E402
 from deerflow.compile.plan_cross_system import SharedResearchBudget, before_deadline  # noqa: E402
-from deerflow.compile.plan_workflow import PlanContractError  # noqa: E402
+from deerflow.compile.plan_workflow import BuildPlan, PlanContractError  # noqa: E402
+
+
+class ComparisonMeter(ContextCanaryMeter):
+    """双方使用同一新协议时限，不改旧canary默认合同。"""
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.tracker.limits = replace(self.tracker.limits, command_timeout_seconds=300, evaluator_timeout_seconds=600, replay_timeout_seconds=600)
+
+    def _before_request(self):
+        before_deadline(self.deadline, 3600)
+        return super()._before_request()
+
+
+def normalized_reference(plan):
+    return BuildPlan.model_validate(plan).model_dump(mode="json")
 
 
 def make_schedule(names, repeats=2):
@@ -48,7 +65,9 @@ def arm_admissible(rows, stage_cap=Decimal("12")):
 def validate(protocol):
     if protocol["identity"] != "cpp-build-plan-agent-paired-comparison-v1" or protocol["max_estimated_cost_usd"] != 12 or protocol["deadline_utc"] != "2026-10-19T23:00:00Z":
         raise PlanContractError("配对比较身份、预算或截止错误")
-    before_deadline(protocol["deadline_utc"], 1800)
+    before_deadline(protocol["deadline_utc"], 3600)
+    if protocol["runtime"] != {"command_timeout_seconds": 300, "replay_timeout_seconds": 600, "evaluator_timeout_seconds": 600, "new_request_reserve_seconds": 3600}:
+        raise PlanContractError("共同运行时限偏离冻结协议")
     projects = protocol["projects"]
     names = [item["name"] for item in projects]
     if len(set(names)) != 6 or Counter(item["task"]["build_system"] for item in projects) != Counter(cmake=2, make=2, autotools=2):
@@ -78,7 +97,7 @@ def validate(protocol):
             raise PlanContractError("比较项目未通过固定完整参考资格")
         reference = references[item["name"]]
         task = PlanTask.model_validate(item["task"])
-        original = reference["plan"]
+        original = normalized_reference(reference["plan"])
         for key in ("plan_id", "repository_url", "commit_sha", "image_id", "source_archive_sha256", "build_system", "artifact_paths"):
             if task.model_dump(mode="json")[key] != original[key]:
                 raise PlanContractError("比较任务偏离参考身份或交付")
@@ -99,7 +118,7 @@ def execute_schedule(protocol, root, model, references, *, qualify=False, execut
     stopping_reason = None
     for slot in schedule:
         try:
-            before_deadline(protocol["deadline_utc"], 1800)
+            before_deadline(protocol["deadline_utc"], 3600)
         except PlanContractError:
             stopping_reason = "deadline_reservation"
             break
@@ -114,11 +133,13 @@ def execute_schedule(protocol, root, model, references, *, qualify=False, execut
             protocol=protocol,
             root=root,
             model=model,
-            reference=references[slot["project"]]["plan"] if qualify else None,
-            meter_factory=ContextCanaryMeter,
+            reference=normalized_reference(references[slot["project"]]["plan"]) if qualify else None,
+            meter_factory=ComparisonMeter,
             planner=propose_with_context,
             tool_runner=run_tool_agent_with_context,
             probe_reads=qualify,
+            command_timeout_seconds=300,
+            replay_timeout_seconds=600,
         )
         # 原始单臂记录保留复用runner的kind；阶段role由冻结协议和此schedule定义。
         rows.append({**row, "project": slot["project"], "repetition": slot["repetition"], "arm_total_wall_seconds": time.monotonic() - started})

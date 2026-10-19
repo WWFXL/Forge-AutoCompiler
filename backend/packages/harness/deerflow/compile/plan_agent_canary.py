@@ -186,7 +186,7 @@ class ToolBuildService:
             raise PlanContractError("工作目录超出任务")
         self.meter.tracker.observe_elapsed(time.monotonic() - self.meter.started_monotonic)
         self.meter.tracker.consume(commands=1)
-        timeout = min(180, int(self.meter.tracker.remaining().node_seconds))
+        timeout = min(self.meter.tracker.limits.command_timeout_seconds, int(self.meter.tracker.remaining().node_seconds))
         if timeout <= 0:
             raise PlanContractError("节点执行时间不足")
         if role in ("dependency", "configure", "build"):

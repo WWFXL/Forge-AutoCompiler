@@ -8,7 +8,7 @@
 
 #498七槽状态/验证控制已封存，三正常strict completed、四已知负控制均按预定原因拒绝，7/7预期成立，两独立审计通过。#493十项参考7/10合格、8个Forge completed，三项未合格保留；PR #495已核验三CI并合入依赖分支，#493关闭。
 
-下一阶段#502前瞻性配对比较：六仓库、三系统、双臂各两重复（24真实槽）；先同协议12臂零Provider门禁。新结果观察前共同冻结command300s/replay600s（uncrustify参考完整测试203.7s），完整测试/严格验收不变。#500已封存，可以修改后续共享组件；不得修改旧证据/manifest。当前尚无新模型效果观察。
+下一阶段#502前瞻性配对比较：六仓库、三系统、双臂各两重复（24真实槽）；先同协议12臂零Provider门禁。新结果观察前共同冻结command300s/replay600s（uncrustify参考完整测试203.7s），完整测试/严格验收不变。#500已封存，可以修改后续共享组件；不得修改旧证据/manifest。共同运行时限/规范化已实现，相关25回归、默认产品1920 passed/44 skipped、Ruff通过；manifest SHA-256 `5f2cc841c38b1ed8eaee5867d2491dfce060c539aa9c3c92170729bbc74f42f2`。当前尚无新模型效果观察。
 
 ## 当前研究问题与已知边界
 
@@ -30,7 +30,7 @@
 | #496第二批Make来源 | 六槽位5来源成功/1 metadata失败；41文件，inventory `1cd3b892a03273cf289fc36b823163b0c794f1c1bf988ab460840a19050288ee`；报告`docs/research/2026-10-20-build-make-source-catalog.md` | libhydrogen/buffer有完整自测；pico需固定子模块；commander仅演示暂缓；tinyAES已有开发暴露 |
 | #498状态/验证控制 | 七槽7/7预期成立，三正常strict、四已知负控制正确拒绝；inventory `f013a79451c2630f0ffd8e532eacda46a371716d1397eb500eaca5cc1f51cc85`；报告`docs/research/2026-10-20-build-state-validation-controls-results.md` | 已封存、两独立审计通过、0Provider；不新增P2，不估计自然误接受率 |
 | #500两项Make参考 | 2/2严格completed；inventory `7a7ca99cbc89cb2754b66f418f73eeab75a67fc9bf6162b1ac70903113336a6a`；报告`docs/research/2026-10-20-build-make-reference-results.md` | 已封存、独立审计通过、0Provider；人工参考资格，不是模型结果 |
-| #502前瞻性比较 | 六仓库、三系统、双臂各两重复，24真实槽；libhydrogen/libsodium同维护者关联组，总五组；已提交执行器与预注册，manifest父证据尚未绑定 | 参考与七控制闭合后，先12臂零Provider门禁；再共享预算内最多$12真实采集，不把缺槽或失败成本藏掉 |
+| #502前瞻性比较 | 六仓库、三系统、双臂各两重复，24真实槽；libhydrogen/libsodium同维护者关联组，总五组；执行器/预注册/manifest已绑定#493/#498/#500父证据与59组件 | 参考与七控制已闭合，接着12臂零Provider门禁；再共享预算内最多$12真实采集，不把缺槽或失败成本藏掉 |
 
 所有新任务均为独立身份，旧失败、部分观察与冻结原始证据只读。#484四项目人工参考资格已全部通过，#486读取接口失败与#478 libusb响应合同停止等前序结果见各版本化报告；不能当新主线总体负结果，也不续跑旧身份。
 
