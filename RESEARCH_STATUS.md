@@ -15,7 +15,10 @@
   zstd严格completed、libusb相同stress_mt失败并清理。门禁inventory
   `b2ff203102f643f3f109adc9de7b8d911c3d5d5bc3a046817c61ea58cbbeda3e`；
   默认产品1864 passed/44 skipped、相关44 passed/2 skipped、Ruff通过。下一步独立v2真实运行，阶段保留$4。
-  不支持效果、泛化或成本收益；#477来源目录仅检索，尚无构建结果。
+  不支持效果、泛化或成本收益；#477来源目录已封存且审计通过，0构建/0Provider：miniz/md4c/pigz/libite可进入构建资格，
+  zlog的Make测试只编译而暂缓，libmaxmind来源404保留；尚无构建结果。
+  报告 `docs/research/2026-10-20-build-source-catalog.md`，catalog inventory
+  `4f97f8b1f0963eec12d1e5df41464d46a0090458ea6bc80fa89e8ae5044c4705`。
   PR #472/#473/#474/#475已逐项核验实际CI job并合入依赖开发分支，#468/#469/#471已关闭；
   尚未进入main。#479等待实际CI；知识库已同步v1，合并状态下一次同步。
 
