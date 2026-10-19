@@ -8,11 +8,17 @@
 
 plan/tool分别60/105请求、765692/1082737 Token、$1.26334296/$1.62595884估算、52/66命令。固定任务合计费用少22.3%，但libsodium/libsndfile的plan更贵，五维护者关联组的费用差重采样范围跨0，不能声称跨项目稳定成本优势。12个plan交接/修订均0；11/12个tool臂共19次配方ID拒绝后自行纠正，4条失败Shell均diagnostic。不能把差异全部归于初始规划，也不证明RQ2状态适应、总体非劣、成熟Agent排名或P2增量。
 
-下一阶段采用#504自动配方溯源强工具接口探针，属于排除归因混杂的独立资格与数据采集。候选在所选项目第二重复结果出现前固定：libsndfile/buffer/libverto三系统、新鲜双臂两重复12槽，先同协议六臂零Provider门禁，再最多$6预留；维持全部严格终点，后验选择明确披露。独立模块/执行器、9项新增测试/19项相关测试、当前产品1929 passed/44 skipped、全量后端Ruff及517文件格式检查通过；候选尚未提交/绑定manifest，没有新正式门禁或Provider请求，父59组件未改。
+#504强接口真实探针已12/12完整封存，plan/tool各5/6 strict：37/50请求、486546/508130 Token、$0.79509408/$0.71376360估算、1095.568/840.297秒，0未知用量、cleanup全部成功。请求少不等于费用低，本批plan费用高11.4%；0submit拒绝，五成功tool各一次自动配方submit。libverto-r1-tool请求用尽前build/6测试过但未交付；libverto-r2-plan固定测试0/6后真实handoff一次，因状态材料超过50000字节在恢复请求前停止，0修订。失败不补跑，不能称纯模型恢复失败。raw `/home/yiwei/.codex/outputs/forge-auto-provenance-real-v1/`，inventory `d7bad477a8b355ffdbb21de127961c2f8f639798186d6c7d6ad0ecb27263e446`，独立审计valid=true；报告`docs/research/2026-10-20-build-auto-provenance-probe-results.md`。65组件、后验选样和严格终点均保持；不作跨批因果/总体非劣/成熟Agent排名。下一步独立#506三系统受控恢复资格。
 
-父#493十项参考7/10合格、#498七控制7/7预期成立、#500两Make2/2严格completed及#502十二臂零Provider门禁均封存、独立审计通过。前三阶段均核验结果head三CI后合入依赖分支并关闭Issue；#503等待本次结果提交及最新head检查，未进入main。#502协议54d1d893、运行release557a44c4，manifest SHA-256 `5f2cc841c38b1ed8eaee5867d2491dfce060c539aa9c3c92170729bbc74f42f2`。
+父#493十项参考7/10合格、#498七控制7/7预期成立、#500两Make2/2严格completed及#502十二臂零Provider门禁均封存、独立审计通过。前三阶段均核验结果head三CI后合入依赖分支并关闭Issue；#503结果adc54403的三项实际CI均SUCCESS后已合并（df830217），#502关闭，未进入main。#502协议54d1d893、运行release557a44c4，manifest SHA-256 `5f2cc841c38b1ed8eaee5867d2491dfce060c539aa9c3c92170729bbc74f42f2`。
 
 ## 当前研究问题与已知边界
+
+#508准备零费用两项参考配方修复资格：libpng只修正暂存文件名，libzip只关闭非任务目标的文档生成（原完整回归测试/交付/源码不变/重放均不变）；不回填#493或当前比较，libffi仍未解决不替补。4项测试、Ruff/format、完整父封存只读validate通过；候选manifest64组件，SHAe839a2b65c3149c438d1518d5655d5312279bfd3b60080c3485d1d45c6603e71，未提交/运行。新身份每项一次、900秒方案/600秒replay，UTC22:45阶段截止且准入留1800秒；待当前付费/构建实验结束后按剩余时间决定，不并行。
+
+#507零Provider回顾分层验证覆盖审计完成全部43行并封存，inventory621a6d20ee695b0e4e7be3d818922c9b481f12ac4e65cf5a97da207baf7bf08f，消费文件/原分母终点/七关键案例独立核验valid=true；10项测试/Ruff/format通过。报告`docs/research/2026-10-20-build-validation-evidence-audit-results.md`，独立实现/协议/报告尚未提交，待后续独立分支，不混入#505。初次默认workdir提取失败和独立核验字段误用均保留，不改旧证据。libzip的110个man HTML重生成属操作合同拒绝，不是已证实语义错误；受控空测试、交付漂移、遗漏bootstrap与过期状态分开解释。不混队列成功率，不估自然误接受/因果增量，不宣布第二创新点。#504的65组件未变。
+
+#506已创建Issue，零费用准备三系统受控恢复资格：miniz错误target、pigz错误CC、libite跳过bootstrap；7项针对性测试与Ruff通过。仅新增独立文件，#504的65组件逐项hash未变；尚无该阶段manifest/正式门禁/Provider请求，须等#504封存后再决定并行度为0的后续采集。初始人工方案无LLM规划费用，不进入RQ1成本分母，也不声称自然失败、P2或状态适应增量。
 
 已识别混杂：原工具接口要求模型手工选择supporting/recipe ID，真实轨迹经常在构建与固定测试成功后因ID/顺序被拒。这不是项目不可编译。#504只自动选择权威记录中的最后成功build与有序成功配方，再委托原submit；固定测试freshness、源码、精确交付和重放不放宽。允许同轮批量构建/测试/暂存/提交，不人为限制强基线。后续比较是实际完整路径间的描述，不以跨批差值宣称自动ID因果效应。设计`docs/research/2026-10-20-build-auto-provenance-baseline-design.md`。
 
@@ -42,14 +48,14 @@ plan/tool分别60/105请求、765692/1082737 Token、$1.26334296/$1.62595884估�
 
 用户已授权Issue→实现/实验/测试→commit/push→PR→最新head检查后合并→关闭Issue，并持续同步知识库。跟踪#470，协议`docs/research/2026-10-19-continuous-research-authorization.md`。
 
-- 各阶段共享新增Provider上限$20；已知公开价保守估算累计$4.20294600，另旧live测试未知费用预留$1，预算占用$5.20294600。#502原$12阶段预留已按$2.88930180结算，当前无活动付费阶段；#504拟预留$6，尚未启用。预留不是实际支出。
+- 各阶段共享新增Provider上限$20；已知保守估算累计$5.71180368，另旧live未知费用预留$1，预算占用$6.71180368；#504的$6预留已按$1.50885768结算，无活动付费阶段。
 - 估算不是账单，预留不是实际支出。共享账本`/home/yiwei/.codex/outputs/forge-continuous-research-2026-10-19/{authorization.json,budget-events.jsonl}`。
 - 绝对截止北京时间2026-10-20 07:00，即UTC2026-10-19 23:00；最后15分钟仅清理/交接，不能跨午夜顺延。各阶段可更早停止新槽位准入。
 - 预算耗尽后可做有效零支出工作。重大主线变更、超预算或需放宽科学主张边界时保存状态等待用户；普通阶段切换不需重新询问。
 
 ## 发布与工作区
 
-#491/#494/#497均核验对应最新head的三项实际CI成功后合入依赖分支，#489/#492/#496关闭。#495已核验98236292三CI并合入依赖分支，#493关闭；#499控制结果6a69e738三CI通过后合并（f95f72d7），#498关闭；#501两Make结果bd9cb38e三CI通过后合并（72bdb55c），#500关闭。#503已ready，真实24槽已封存审计并完成分析；c293dcb8旧head三项实际CI均SUCCESS，须提交本次结果并核验最新结果head检查后才合并。合入依赖开发分支不等于进入main；不把约176个历史未进main提交一并发布。用户未跟踪的`docs/research/2026-10-13-forge-research-progress-defense.html`不修改/提交。
+#491/#494/#497均核验对应最新head的三项实际CI成功后合入依赖分支，#489/#492/#496关闭。#495已核验98236292三CI并合入依赖分支，#493关闭；#499控制结果6a69e738三CI通过后合并（f95f72d7），#498关闭；#501两Make结果bd9cb38e三CI通过后合并（72bdb55c），#500关闭。#503已核验adc54403三项实际CI全SUCCESS后合并（df830217），#502关闭；#505为#504独立探针PR，协议a598925a三项实际CI通过，门禁6/6严格通过且独立审计通过，待真实结果与最终head再检查后合并。合入依赖开发分支不等于进入main；不把约176个历史未进main提交一并发布。用户未跟踪的`docs/research/2026-10-13-forge-research-progress-defense.html`不修改/提交。
 
 相关阶段本地回归与Ruff通过，检查以各自报告、PR和head为准；默认产品回归必须`CI=true FORGE_RUN_CLIENT_LIVE=0`，不得意外触发付费live测试。知识库固定入口为`01-研究/自动化编译/Forge-当前创新机制与实验路线.md`，只通过knowledge_base MCP维护，写前读取最新SHA、CAS写入后回读；不复制Vault或注入正式实验Agent。
 

@@ -4,10 +4,27 @@
 
 ## 进行中 (In Progress)
 
+- 2026-10-20 — #508准备两项参考配方独立修复资格，尚未提交/运行
+  - 先创建回读Issue508，再新增独立runner/4项测试/预注册/候选manifest；libpng stage改cp build/libpng.a，libzip配置加BUILD_DOC=OFF，原任务不要求文档，完整回归/精确交付/源身份/源码不变/replay不动。libffi仍未核验修复，不替补。不是新holdout/方法效果，不回填旧493/502/504。
+  - 4项测试、Ruff/format及父完整封存validate通过，0Docker/Provider/凭据。manifest64组件SHAe839a2b65c3149c438d1518d5655d5312279bfd3b60080c3485d1d45c6603e71；相对父仅已有三处未使用Agent时限路径变化，已逐diff并AST核对unchanged函数不变，run_reference本身hash不变，manifest记录父/当前hash。准备脚本曾用系统Python3.10导入UTC失败，随后正确改uv；另一次把unchanged误定位到import脚本而非backend模块，AST选择失败，均在候选manifest创建前，未创建正式证据。
+  - 新身份cpp-build-reference-repair-qualification-v1，每项一次，900秒方案/300秒命令/600秒replay、2CPU、0交接；UTC22:45截止，新项目留1800秒，最后15分钟仅交接。待付费/配对实验结束再依剩余时间启动，不能修改#504的65组件。独立通用inventory/source/cleanup和额外合同/完整测试/replay输出审计器已准备。
+  - 文件: scripts/forge_build_reference_repair_qualification.py、backend/tests/test_build_reference_repair_qualification.py、benchmarks/preregistrations/cpp-build-reference-repair-qualification-v1.md、benchmarks/manifests/cpp-build-reference-repair-qualification-v1.json；不混入505/506/507的代码提交。
+
+- 2026-10-20 — #507完成零Provider回顾分层验证覆盖审计，尚未独立提交发布
+  - 已先创建回读Issue507，固定#493十参考/#498七控制/#500两参考/#502二十四真实臂全部43行、全部结果已见，回顾协议benchmarks/analyses/cpp-build-validation-evidence-audit-v1.json SHA9892ef239c35dc049126ee62152b5b9eb00aae96a4255ddd74e710d61dc6e1cb；不混队列估成功率或自然误接受。
+  - 新增独立stdlib提取器，首次运行因旧protocol省略默认workdir停止，保留失败输出后增加默认值回归，最终10项测试，exit0空测试/过期测试/最近失败/未观察层/历史replay失败/inventory消费文件被改均有回归；Ruff/format通过。全部43行分析已封存，raw forge-validation-evidence-audit-v1-attempt-002（首失败目录forge-validation-evidence-audit-v1保留），6文件/8567033 bytes，inventory621a6d20ee695b0e4e7be3d818922c9b481f12ac4e65cf5a97da207baf7bf08f；结果SHA2c80bd7b9501d545e09a246c65a04a9827ba20c816c32ec718dd7fc2e8a7ffb6。独立43014消费收据/全部原分母终点/七关键案例核验valid=true（validation-evidence-audit-v1-independent-v2.json；首核验字段用错的失败亦保留）。报告2026-10-20-build-validation-evidence-audit-results.md。尚未提交，不混入#505/#506。libzip运行completed但110个原man HTML重生成，属操作合同拒绝，不能当语义错误；各队列分别解释，不证明第二创新点。源不变比较仅原有普通文件内容，固定测试比较完整日志/精确命令/最新环境状态。
+  - 文件: scripts/forge_build_validation_evidence_audit.py、backend/tests/test_build_validation_evidence_audit.py、benchmarks/analyses/cpp-build-validation-evidence-audit-v1.json。
+
+- 2026-10-20 — #506准备三系统受控恢复路径资格，尚无正式运行
+  - 主#502的12plan均无交接，故先验证开发项目miniz错误target、pigz错误CC、libite跳过bootstrap三受控失效下的真实handoff/完整修订/后缀失效与strict终点；不包装自然失败、holdout或P2增量。
+  - 已先创建回读Issue506，再仅新增独立执行器、候选预注册、7项针对性测试；测试/Ruff通过。#504正在运行的65组件逐项hash一致，不并行Docker或付费阶段。
+  - 候选门禁为每项目正常/静态失败停止/脚本恢复，共9槽；通过并独立审计后最多3真实恢复资格，拟预留$3、仍共享$20及UTC23:00截止。初始方案人工提供，全部恢复请求计量但不进入RQ1全策略成本比较。
+  - 文件: `scripts/forge_build_plan_recovery_qualification.py`, `backend/tests/test_build_plan_recovery_qualification.py`, `benchmarks/preregistrations/cpp-build-plan-recovery-qualification-v1.md`；未提交，待#504封存及结果后独立分支/PR，不混入#505。
+
 - 2026-10-20 — #504启动零费用自动配方溯源强基线接口设计
   - 在#502运行中观察到多个tool臂构建/固定测试成功后的ID提交拒绝；先创建并回读Issue504，再仅新增独立模块、五项测试和设计文档，不改#502 manifest/59组件，逐项hash核对全部未变。
   - `plan_agent_provenance.py`无参数submit从最新权威Session取最后成功build与有序成功recipe，然后委托原严格submit；不修改freshness、固定测试、精确交付、源码、clean replay或cleanup。5项针对性测试及Ruff通过；包括真实ToolBuildService仍拒绝缺固定测试/错交付集合，尚无新Docker/Provider观察。
-  - 另新增独立探针执行器、4项执行器测试与候选预注册；合计19项相关测试通过。候选固定libsndfile/buffer/libverto新鲜双臂两重复，共12槽，$6预留，尚无manifest/正式门禁或模型请求。UTC20:22:49已独立记录选样时点与预注册SHA705ccdc219a98a4796361f1ebfd8059e74309c53fa3fce28e6eacc0f13bcdd18，此时所选三项目第二重复结果均未产生；记录/home/yiwei/.codex/outputs/forge-continuous-research-2026-10-19/auto-provenance-candidate-selection.json。工具门禁设计为一轮批量构建/测试/暂存/无参数submit，独立审计器已正确拒绝旧手工ID门禁的负自检。新鲜配对探针待#502全24槽封存审计后按完整证据决定；当前新增文件未提交，须留给独立#504分支/PR，勿混入#503结果提交。
+  - 另新增独立探针执行器、4项执行器测试与候选预注册；合计19项相关测试通过。候选固定libsndfile/buffer/libverto新鲜双臂两重复，共12槽，$6预留，尚无manifest/正式门禁或模型请求。UTC20:22:49已独立记录选样时点与预注册SHA705ccdc219a98a4796361f1ebfd8059e74309c53fa3fce28e6eacc0f13bcdd18，此时所选三项目第二重复结果均未产生；记录/home/yiwei/.codex/outputs/forge-continuous-research-2026-10-19/auto-provenance-candidate-selection.json。工具门禁设计为一轮批量构建/测试/暂存/无参数submit，独立审计器已正确拒绝旧手工ID门禁的负自检。新鲜配对探针待#502全24槽封存审计后按完整证据决定；候选已采用并转独立分支yiwei/504-auto-provenance-probe；manifest绑定父封存/选样记录/65组件，SHAffcfff4244c2446441a7d1e7a6f20296279faced52df645e46a3c0480fcf8ff3，只读validate通过。已按release a598925a执行六臂零Provider门禁（session53874，raw forge-auto-provenance-gate-v1）；PR505已创建回读，协议head三CI通过，尚无新Provider请求。六臂门禁已6/6 strict、0Token/0Provider封存，6940文件/48链接/250687526 bytes，inventory0f132d9575ceb771ae5dcfd7c25fa493bc4894ef22c1550d663c8e2fc2874afe；独立auto-provenance-gate-v1-audit.json valid=true，三tool均一次无参数submit与自动选择，报告2026-10-20-build-auto-provenance-gate-results.md。门禁报告已按6eef2029提交推送，真实12槽已启动（session2184，raw forge-auto-provenance-real-v1），$6阶段预留占用共享$20，整批终态尚未产生。UTC21:27第一重复六槽5strict/1失败：libverto-r1-tool共12请求/139916tokens/$0.20124984，构建及固定6测试通过，尚未stage/submit/replay即AgentWorkflowBudgetExceeded；10Shell中多次diagnostic失败，无未知usage、cleanup成功。按固定顺序继续第二重复，不补跑/加预算上限。父结果adc54403三CI全SUCCESS后已合并PR503（df830217），502关闭；CI原始回读证据paired-real-v1-result-head-ci.json。
   - 文件: `backend/packages/harness/deerflow/compile/plan_agent_provenance.py`, `backend/tests/test_plan_agent_provenance.py`, `docs/research/2026-10-20-build-auto-provenance-baseline-design.md`。
 
 
@@ -509,7 +526,7 @@
   - plan/tool 60/105请求、765692/1082737Token、$1.26334296/$1.62595884估算、52/66命令；固定合计费用少22.3%，但libsodium/libsndfile的plan更贵，五关联组费用差范围跨0；不作总体、非劣、成熟Agent或初始规划纯因果主张。
   - 12plan均revision1、0交接/修订；11/12tool共19次元数据拒绝（supporting12/role6/order1），4失败Shell均diagnostic。下一阶段采用#504已固定三系统自动ID强工具接口探针；全部失败与父raw永久只读。
   - $12预留已结算$2.88930180，本轮已知累计$4.20294600+旧未知预留$1=占用$5.20294600，当前无活动付费阶段。运行release557a44c4，59组件与manifest未改。当前树全量产品1929 passed/44 skipped（含#504九项准备测试），后端全量Ruff与517文件格式检查通过。
-  - 文件: `docs/research/2026-10-20-build-plan-agent-paired-comparison-results.md`, `RESEARCH_STATUS.md`。本次结果待提交/推送并更新PR503、核验最新结果head三CI后合并，再关闭502并同步知识库；#504新增文件留独立分支，不混入结果提交。
+  - 文件: `docs/research/2026-10-20-build-plan-agent-paired-comparison-results.md`, `RESEARCH_STATUS.md`。结果adc54403已提交/推送并更新回读PR503，该head三CI已全SUCCESS后合并PR503（df830217），502关闭，知识库已同步父结果和子门禁（b8b7bff4526e155ae558022bbc8df5c80c18720377f41f580ad8c0d2a043e672，完整回读一致）；#504新增文件留独立分支，不混入结果提交。
 
 - 2026-10-20 — #502同协议十二臂零Provider真实Docker门禁全部通过
   - release54d1d893，manifest5f2cc841c38b1ed8eaee5867d2491dfce060c539aa9c3c92170729bbc74f42f2；两路径全部固定测试/源码/交付/clean replay/completed/cleanup通过。
@@ -2146,3 +2163,8 @@
 - 下一步：在正式 18-arm 比较设计前先建独立零 Provider submit-rejection recovery gate。修复应在被拒 submit 的当前
   frontier 上允许一次有界 repair command，同时保持未提交候选必须先 submit 的约束；以 mjson 脏工作区陷阱验证新增
   `make -C test test` 后可再次 closure/submit。通过后才能冻结新的正式比较 identity；canary observation 不并入正式分母。
+
+
+# 2026-10-20 #504真实探针终态
+
+12/12完整、plan/tool各5/6 strict，37/50请求、486546/508130 Token、$0.79509408/$0.71376360、总耗时1095.568/840.297秒。0未知用量、全部cleanup。libverto-tool预算停止未交付；libverto-r2-plan测试0/6后handoff一次，状态材料>50000字节在新恢复请求前停止，0修订。完整失败与费用均保留。inventory d7bad477a8b355ffdbb21de127961c2f8f639798186d6c7d6ad0ecb27263e446，独立audit valid=true。报告2026-10-20-build-auto-provenance-probe-results.md；不得把请求下降当成本优势或跨批差值当因果。下一独立#506受控恢复；状态上下文缺陷需独立修复身份。共享已知估算5.71180368+未知预留1=6.71180368美元。
