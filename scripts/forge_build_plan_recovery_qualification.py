@@ -14,7 +14,7 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parents[1]
 sys.path[:0] = [str(REPO_ROOT / "backend/packages/harness"), str(REPO_ROOT / "scripts")]
 
-from forge_build_plan_agent_canary import run_arm  # noqa: E402
+from forge_build_plan_agent_canary import audit_frozen, run_arm  # noqa: E402
 from forge_build_plan_paired_comparison import ComparisonMeter, charged_cost, normalized_reference  # noqa: E402
 from forge_typed_evidence import audit, digest, seal, write_json  # noqa: E402
 
@@ -101,7 +101,7 @@ def validate(protocol):
     if len(probe["arms"]) != 12 or probe["unobserved_schedule"] or any(not row["agent_usage"]["cost_and_usage_complete"] for row in probe["arms"]):
         raise PlanContractError("上一阶段未完整结束，不并行影响配对耗时")
     source_root = Path(protocol["source_qualification_evidence"])
-    if audit(source_root)["inventory_canonical_sha256"] != protocol["source_inventory_sha256"]:
+    if audit_frozen(source_root)["inventory_canonical_sha256"] != protocol["source_inventory_sha256"]:
         raise PlanContractError("参考资格证据变化")
     qualified = {row["name"] for row in json.loads((source_root / "result.json").read_text())["projects"] if row["qualified"]}
     references = {row["name"]: row for row in json.loads((source_root / "protocol.json").read_text())["projects"]}

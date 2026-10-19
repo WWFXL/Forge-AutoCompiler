@@ -93,3 +93,18 @@ def test_gate_has_normal_static_and_repair_for_each_system_but_real_only_repairs
     assert len(gate) == 9 and len(real) == 3
     assert [row["mode"] for row in gate] == ["normal", "static", "repair"] * 3
     assert [row["project"] for row in real] == recovery.NAMES and all(row["mode"] == "repair" for row in real)
+
+
+def test_legacy_source_receipts_keep_original_seal_format_and_detect_tampering(tmp_path):
+    import hashlib
+
+    source = tmp_path / "source.json"
+    source.write_text("fixed source")
+    rows = [{"path": "source.json", "size": source.stat().st_size, "sha256": hashlib.sha256(source.read_bytes()).hexdigest()}]
+    canonical = hashlib.sha256(json.dumps(rows, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode()).hexdigest()
+    (tmp_path / "inventory.json").write_text(json.dumps(rows))
+    (tmp_path / "seal.json").write_text(json.dumps({"inventory_canonical_sha256": canonical}))
+    assert recovery.audit_frozen(tmp_path)["inventory_canonical_sha256"] == canonical
+    source.write_text("changed source")
+    with pytest.raises(recovery.PlanContractError, match="冻结文件已变化"):
+        recovery.audit_frozen(tmp_path)
