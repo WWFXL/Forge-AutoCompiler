@@ -2198,3 +2198,8 @@ v2补齐原第九次请求读取索引和最终三工具历史，原门禁拒绝
 # 2026-10-20 #514费用归因审计
 
 36臂/252原响应/544消费收据，独立audit valid=true。#502输入差-.44644116+输出差.08382528=-.36261588美元；#504输入差-.08340156+输出差.16473204=.08133048，输出3倍单价足以使请求/Token少而费用高。#504plan32初始/5恢复，恢复.12073644美元未修订。inventorye542e906f7d67284bea488bb5392b7fa4ca2584b6812b3c84c4f6ef8ff284705。6测试/标准Python3.10实跑/脚本Ruff py310及后端默认Ruff/format通过；冻结源码保持。下一同源状态强规则动作分歧，不推总体成本或跨批ID因果。报告2026-10-20-build-token-cost-attribution-audit-results.md。#512结果59b6ef18三CI后已merge dd9eacb2/#508关闭。
+
+
+# 2026-10-20 #516零模型规则资格终态
+
+3/3 strict completed，miniz/pigz/libite各一次实际预定失败、一次handoff/revision2；5/4/7命令，0模型请求/Token/Provider。规则只读坏方案/实际handoff/源文件名，未读正确参考/旧模型修订。固定完整测试、原源码、首变化失效、精确交付/replay/cleanup闭合；独立audit valid=true。1409文件/40链接/36515585 bytes，inventory30b2117f520d571a293f2c9f082d6182786ce44d4d944e3964bc049e6d2e5f27。manifest65组件，运行ffdcf98e，报告2026-10-20-build-rule-recovery-qualification-results.md。后验设计/资源与506不同，不能因果比；这些简单例不能证明语义选择器独有增量。PR517结果head三CI后合并。#515最终af227c84三CI后merge1955a348/#514关闭；#513最终def34c30三CI后merge237d27cf/#511关闭。下一阶段主张审计/强基线未来设计，UTC22:45后清理、23:00停，不再新增付费。
