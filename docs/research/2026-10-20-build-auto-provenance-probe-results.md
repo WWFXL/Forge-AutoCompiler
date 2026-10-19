@@ -33,7 +33,7 @@ plan请求少26.0%、Token少4.25%，费用却高约11.4%、耗时高约30.4%。
 ## 失败与轨迹解释
 
 - libverto-r1-tool：12请求/139916 Token/$0.20124984后请求预算停止。10条Shell中前6条为diagnostic、其中5失败；之后依赖、配置、构建和固定6测试通过，但尚未暂存/submit/replay。不能称项目无法编译。源码、用量、cleanup闭合。
-- libverto-r2-plan：初始`./configure --disable-shared --enable-static`后build成功，`make check`为0/6、exit2。真实触发1次handoff，但当前状态材料超过50000字节，`propose_with_context`在准备第10次总请求时抛PlanContractError；第1–4为初始规划，第5–9已真实恢复但未交付修订。9请求/137776 Token/$0.21852600，revision仍1、0修订、0 replay。功能测试失败与恢复上下文合同阻塞必须区分；未核验测试根因，不归为纯模型恢复失败。
+- libverto-r2-plan：初始`./configure --disable-shared --enable-static`后build成功，`make check`为0/6、exit2。真实触发1次handoff，但当前状态材料超过50000字节，`propose_with_context`在准备第10次总请求时抛PlanContractError；此前第1–4请求为初始规划、第5–9请求为真实恢复，共5次恢复请求，尚未交付修订。9请求/137776 Token/$0.21852600，revision仍1、0修订、0 replay。功能测试失败与恢复探索后上下文合同阻塞必须区分；未核验测试根因，不归为纯模型恢复失败。
 - 其余plan交接均0；本批总计1次plan交接、0修订，不能证明状态修订有效。
 - 五个成功tool臂各一次无参数submit/自动配方选择，无手工ID字段或额外参数、0 submit拒绝；失败tool无submit。全部成功plan也各一次submit，无拒绝。失败Shell合计8条，其中tool diagnostic7条、plan smoke1条；diagnostic失败不等于项目构建失败。
 
@@ -48,3 +48,5 @@ raw：`/home/yiwei/.codex/outputs/forge-auto-provenance-real-v1/`；13618普通�
 强接口下plan仍减少请求，但没有固定任务合计费用或耗时优势；不把跨批差值解释为自动ID的因果效应，不作总体CI、非劣、自然恢复率、成熟Agent排名或第二创新点主张。总估算$1.50885768，低于阶段$6预留；共享已知估算累计$5.71180368，另旧live未知费用永久预留$1，预算占用$6.71180368，估算不是账单。
 
 下一阶段为独立#506受控恢复资格，验证失败接管/修订/后缀失效在三系统真实执行中能否闭合。上下文50000字节问题保留为明确工程阻塞；如修复应另Issue/新身份，不回填本批成功。#507分层验证回顾分析独立发布，不用本批成功率替代其增量证据。
+
+解释更正（逐请求审计）：早期交接曾误写“接管前/新恢复请求前停止”。agent/events.jsonl明确有revision2 agent.started以及第5–9次真实恢复请求；现更正为恢复已启动但未交付修订，第10次总请求在门禁前被拒。总请求/Token/费用及strict计数均未改变，raw只读。
