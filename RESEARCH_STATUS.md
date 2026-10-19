@@ -4,6 +4,17 @@
 
 ## 当前阶段
 
+- 2026-10-20：#486 公平双臂开发canary前置门禁8/8 strict completed，0Provider；
+  固定源码/测试、精确交付、同镜像重放、cleanup和独立审计全部通过。
+  新类型化inventory为3425普通文件/24链接，SHA
+  `accffb129476c01ea5a178b7044243f65ca9e973755f813376baf7a7bea42c15`。
+  默认产品1875 passed/44 skipped，8项新回归与Ruff通过。
+  报告：`docs/research/2026-10-20-build-plan-agent-canary-gate.md`。
+  下一步相同任务/模型/资源的真实plan/tool八臂，已授权阶段$12、共享$20；尚无本阶段真实调用。
+  预注册/manifest：`benchmarks/{preregistrations,manifests}/cpp-build-plan-agent-canary-v1.*`。
+  仅开发接线与描述，不支持总体、非劣、成本收益或选择器机制增量。
+  PR #479/#480/#481/#483/#485已逐项核验exact-head三项CI后合入依赖分支，相关Issue均关闭；未进入main。
+
 - 2026-10-20：#482参考任务v1四项执行完成，但Autotools生成系统外链导致封存审计失败，原证据保留；
   #484独立v2采用工具辅助文件副本，miniz/md4c/pigz/libite固定四项均strict completed，
   原始源码哈希不变、全部测试与clean replay通过、cleanup成功、inventory审计valid=true。

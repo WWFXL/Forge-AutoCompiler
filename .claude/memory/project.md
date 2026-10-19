@@ -4,6 +4,12 @@
 
 ## 进行中 (In Progress)
 
+- 2026-10-20 — #486 双臂开发canary：8/8零Provider Docker门禁严格完成，独立审计通过，真实采集待启动。
+  - 文件: `backend/packages/harness/deerflow/compile/plan_agent_canary.py`, `scripts/forge_build_plan_agent_canary.py`, `scripts/forge_typed_evidence.py`
+  - 已通过8项真实图/预算/固定oracle/链接篡改测试，默认产品1875 passed/44 skipped及Ruff；LangChain结构化schema在middleware之后绑定，已显式计入请求材料上界。
+  - 工具基线允许一轮多工具但max_concurrency=1；验收成功before_model终止，配置/依赖/build使旧测试ID失效。
+  - 新身份以类型化inventory记录链接本身；旧证据不改。manifest冻结后运行期间不得修改components；先门禁后凭据。
+
 <!-- 跨 session 未完成的工作。完成后挪到「最近变更」。 -->
 
 - 2026-10-13 — Issue #440 H0/H1 v3 正式复现 authorized identity 已实现，等待发布与 Q0
@@ -498,6 +504,11 @@
   - 下一步: 等待实验负责人确认当前网络接入介质，并决定是否授权只读 endpoint 诊断和新的 canary amendment；获得确认后必须另建中文 Issue/PR 和协议 identity，保留当前失败 marker。
 
 ## 最近变更 (Recent Changes)
+
+- 2026-10-20 — 核验并合并前序五个科研PR，关闭对应Issue，保留失败与严格结论边界。
+  - 文件: `RESEARCH_STATUS.md`, `docs/research/2026-10-20-build-plan-agent-canary-gate.md`
+  - 发布: #479/#480/#481/#483/#485各自exact-head三项CI均success后以merge方式合入依赖分支；未进入main。
+  - 动机: 完成科研协作发布闭环，PR #480/#483正文重写为最终结果，不再保留运行中描述。
 
 - 2026-10-20 — 完成 #484 自包含bootstrap的四项目严格资格
   - 文件: `scripts/forge_build_plan_source_qualification.py`、`backend/tests/test_plan_source_qualification.py`、`benchmarks/manifests/cpp-build-plan-source-qualification-v2.json`、对应预注册、`docs/research/2026-10-20-build-source-qualification-v2-results.md`、`RESEARCH_STATUS.md`。
