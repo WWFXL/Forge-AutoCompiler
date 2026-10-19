@@ -4,13 +4,17 @@
 
 ## 当前阶段
 
-2026-10-20（北京时间）：#502同协议十二臂零Provider门禁已全部strict completed并封存，独立审计valid=true。六仓库/三系统/双执行路径均通过完整固定测试、原始源码不变、精确交付、空源码clean replay与cleanup；0Token/0模型费用、0对应容器。72,368普通文件/92链接/578,913,379 bytes，inventory `9f304ea1a1a134e6d2dc491b9815e9a328f6c05e40173f018e44c99b4c13abc3`；报告`docs/research/2026-10-20-build-plan-agent-paired-comparison-gate.md`。
+2026-10-20（北京时间）：#502固定六仓库/三系统/双重复/双臂的真实比较全部结束，24/24严格completed、12配对双方均成功，独立审计valid=true，0未知用量、源码不变、固定完整测试/精确交付/clean replay/cleanup闭合。143187普通文件/184链接/1193274172 bytes，inventory `2df552e2a26dac451b4d61690c4bc3eac59fee2fd0dcc0b3604f25c84905a91d`；raw `/home/yiwei/.codex/outputs/forge-plan-agent-paired-real-v1/`，报告`docs/research/2026-10-20-build-plan-agent-paired-comparison-results.md`。
 
-当前进入真实数据采集准入：独立身份`cpp-build-plan-agent-paired-comparison-v1`，六仓库、两重复、双臂，共24真实槽/12配对，五维护者关联组；阶段最多$12，纳入共享$20。门禁不进入比较分母，真实模型不接收人工配方或个人知识库。完整固定测试与严格终点不变，共同command300s/replay600s，新臂/请求保留3600秒。只有24槽完整且usage闭合才作固定任务集整体配对描述；不作OSS总体、非劣、成熟Agent排名或P2增量主张。真实采集已于UTC19:08按release557a44c4启动，原始`/home/yiwei/.codex/outputs/forge-plan-agent-paired-real-v1/`；当前尚无完整阶段outcome。
+plan/tool分别60/105请求、765692/1082737 Token、$1.26334296/$1.62595884估算、52/66命令。固定任务合计费用少22.3%，但libsodium/libsndfile的plan更贵，五维护者关联组的费用差重采样范围跨0，不能声称跨项目稳定成本优势。12个plan交接/修订均0；11/12个tool臂共19次配方ID拒绝后自行纠正，4条失败Shell均diagnostic。不能把差异全部归于初始规划，也不证明RQ2状态适应、总体非劣、成熟Agent排名或P2增量。
 
-父#493十项参考7/10合格、#498七控制7/7预期成立、#500两Make2/2严格completed均已封存、独立审计通过并核验结果head三CI后合入依赖分支，相关Issue关闭；未进入main。#502协议54d1d893，manifest SHA-256 `5f2cc841c38b1ed8eaee5867d2491dfce060c539aa9c3c92170729bbc74f42f2`，59组件绑定，25相关回归、默认产品1920 passed/44 skipped、Ruff与协议head三项实际CI通过。
+下一阶段采用#504自动配方溯源强工具接口探针，属于排除归因混杂的独立资格与数据采集。候选在所选项目第二重复结果出现前固定：libsndfile/buffer/libverto三系统、新鲜双臂两重复12槽，先同协议六臂零Provider门禁，再最多$6预留；维持全部严格终点，后验选择明确披露。独立模块/执行器、9项新增测试/19项相关测试、当前产品1929 passed/44 skipped、全量后端Ruff及517文件格式检查通过；候选尚未提交/绑定manifest，没有新正式门禁或Provider请求，父59组件未改。
+
+父#493十项参考7/10合格、#498七控制7/7预期成立、#500两Make2/2严格completed及#502十二臂零Provider门禁均封存、独立审计通过。前三阶段均核验结果head三CI后合入依赖分支并关闭Issue；#503等待本次结果提交及最新head检查，未进入main。#502协议54d1d893、运行release557a44c4，manifest SHA-256 `5f2cc841c38b1ed8eaee5867d2491dfce060c539aa9c3c92170729bbc74f42f2`。
 
 ## 当前研究问题与已知边界
+
+已识别混杂：原工具接口要求模型手工选择supporting/recipe ID，真实轨迹经常在构建与固定测试成功后因ID/顺序被拒。这不是项目不可编译。#504只自动选择权威记录中的最后成功build与有序成功配方，再委托原submit；固定测试freshness、源码、精确交付和重放不放宽。允许同轮批量构建/测试/暂存/提交，不人为限制强基线。后续比较是实际完整路径间的描述，不以跨批差值宣称自动ID因果效应。设计`docs/research/2026-10-20-build-auto-provenance-baseline-design.md`。
 
 主线为“面向C/C++仓库自动化构建的状态感知动作选择与验证方法研究”，目标是完整、可答辩、可复现的硕士论文。方法为初始方案生成、确定性Workflow、权威状态观察、合理失败接管、修订失效和严格验证；不将先规划、DAG或重规划称为通用首创。方法定位见`docs/research/2026-10-20-build-plan-method-positioning.md`。
 
@@ -30,7 +34,7 @@
 | #496第二批Make来源 | 六槽位5来源成功/1 metadata失败；41文件，inventory `1cd3b892a03273cf289fc36b823163b0c794f1c1bf988ab460840a19050288ee`；报告`docs/research/2026-10-20-build-make-source-catalog.md` | libhydrogen/buffer有完整自测；pico需固定子模块；commander仅演示暂缓；tinyAES已有开发暴露 |
 | #498状态/验证控制 | 七槽7/7预期成立，三正常strict、四已知负控制正确拒绝；inventory `f013a79451c2630f0ffd8e532eacda46a371716d1397eb500eaca5cc1f51cc85`；报告`docs/research/2026-10-20-build-state-validation-controls-results.md` | 已封存、两独立审计通过、0Provider；不新增P2，不估计自然误接受率 |
 | #500两项Make参考 | 2/2严格completed；inventory `7a7ca99cbc89cb2754b66f418f73eeab75a67fc9bf6162b1ac70903113336a6a`；报告`docs/research/2026-10-20-build-make-reference-results.md` | 已封存、独立审计通过、0Provider；人工参考资格，不是模型结果 |
-| #502前瞻性比较 | 六仓库、三系统、双臂各两重复，24真实槽；libhydrogen/libsodium同维护者关联组，总五组；执行器/预注册/manifest已绑定#493/#498/#500父证据与59组件 | 参考与七控制闭合，12/12零Provider门禁及独立审计已通过；再共享预算内最多$12真实采集，不把缺槽或失败成本藏掉 |
+| #502前瞻性比较 | 24/24 strict、12完整配对，inventory `2df552e2a26dac451b4d61690c4bc3eac59fee2fd0dcc0b3604f25c84905a91d`，独立审计通过、估算$2.88930180 | 请求/Token更少但费用项目异质且范围跨0；19次手工ID拒绝；0plan交接，下一步#504强接口探针 |
 
 所有新任务均为独立身份，旧失败、部分观察与冻结原始证据只读。#484四项目人工参考资格已全部通过，#486读取接口失败与#478 libusb响应合同停止等前序结果见各版本化报告；不能当新主线总体负结果，也不续跑旧身份。
 
@@ -38,14 +42,14 @@
 
 用户已授权Issue→实现/实验/测试→commit/push→PR→最新head检查后合并→关闭Issue，并持续同步知识库。跟踪#470，协议`docs/research/2026-10-19-continuous-research-authorization.md`。
 
-- 各阶段共享新增Provider上限$20；已知公开价保守估算累计$1.31364420，另旧live测试未知费用预留$1，预算占用$2.31364420。当前真实比较已启用$12阶段预留，预算占用上界$14.31364420；预留不是实际支出，当前运行中用量以原始账本为准。
+- 各阶段共享新增Provider上限$20；已知公开价保守估算累计$4.20294600，另旧live测试未知费用预留$1，预算占用$5.20294600。#502原$12阶段预留已按$2.88930180结算，当前无活动付费阶段；#504拟预留$6，尚未启用。预留不是实际支出。
 - 估算不是账单，预留不是实际支出。共享账本`/home/yiwei/.codex/outputs/forge-continuous-research-2026-10-19/{authorization.json,budget-events.jsonl}`。
 - 绝对截止北京时间2026-10-20 07:00，即UTC2026-10-19 23:00；最后15分钟仅清理/交接，不能跨午夜顺延。各阶段可更早停止新槽位准入。
 - 预算耗尽后可做有效零支出工作。重大主线变更、超预算或需放宽科学主张边界时保存状态等待用户；普通阶段切换不需重新询问。
 
 ## 发布与工作区
 
-#491/#494/#497均核验对应最新head的三项实际CI成功后合入依赖分支，#489/#492/#496关闭。#495已核验98236292三CI并合入依赖分支，#493关闭；#499控制结果已封存待结果head检查，#501两Make资格仍打开；#503配对比较为draft，尚未开始模型采集。合入依赖开发分支不等于进入main；不把约176个历史未进main提交一并发布。用户未跟踪的`docs/research/2026-10-13-forge-research-progress-defense.html`不修改/提交。
+#491/#494/#497均核验对应最新head的三项实际CI成功后合入依赖分支，#489/#492/#496关闭。#495已核验98236292三CI并合入依赖分支，#493关闭；#499控制结果6a69e738三CI通过后合并（f95f72d7），#498关闭；#501两Make结果bd9cb38e三CI通过后合并（72bdb55c），#500关闭。#503已ready，真实24槽已封存审计并完成分析；c293dcb8旧head三项实际CI均SUCCESS，须提交本次结果并核验最新结果head检查后才合并。合入依赖开发分支不等于进入main；不把约176个历史未进main提交一并发布。用户未跟踪的`docs/research/2026-10-13-forge-research-progress-defense.html`不修改/提交。
 
 相关阶段本地回归与Ruff通过，检查以各自报告、PR和head为准；默认产品回归必须`CI=true FORGE_RUN_CLIENT_LIVE=0`，不得意外触发付费live测试。知识库固定入口为`01-研究/自动化编译/Forge-当前创新机制与实验路线.md`，只通过knowledge_base MCP维护，写前读取最新SHA、CAS写入后回读；不复制Vault或注入正式实验Agent。
 
