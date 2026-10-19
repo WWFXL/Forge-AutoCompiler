@@ -1,0 +1,30 @@
+{
+  "identity": "cpp-build-token-cost-attribution-audit-v1",
+  "issue": 514,
+  "provider_calls": 0,
+  "deadline_utc": "2026-10-19T22:45:00Z",
+  "prices": {
+    "input_per_million_usd": "1.32",
+    "output_per_million_usd": "3.96"
+  },
+  "cohorts": [
+    {
+      "identity": "cpp-build-plan-agent-paired-comparison-v1",
+      "root": "/home/yiwei/.codex/outputs/forge-plan-agent-paired-real-v1",
+      "inventory_sha256": "2df552e2a26dac451b4d61690c4bc3eac59fee2fd0dcc0b3604f25c84905a91d",
+      "arms": 24
+    },
+    {
+      "identity": "cpp-build-auto-provenance-probe-v1",
+      "root": "/home/yiwei/.codex/outputs/forge-auto-provenance-real-v1",
+      "inventory_sha256": "d7bad477a8b355ffdbb21de127961c2f8f639798186d6c7d6ad0ecb27263e446",
+      "arms": 12
+    }
+  ],
+  "components": {
+    "scripts/forge_build_token_cost_audit.py": "8fdeda1414104476fd38ac0be48afad1046691ef42bc63361edbde22f77da426",
+    "scripts/forge_typed_evidence.py": "b3e798669389507dc605fcd73b2450921f0695bddccc564344fda88d5cb7a3c8",
+    "backend/tests/test_build_token_cost_audit.py": "496d1e6a165860d5c83cd9094701a9e46e01cf525614a63f76faa3d960802dff",
+    "benchmarks/preregistrations/cpp-build-token-cost-attribution-audit-v1.md": "c4377c80954313393177a916f132cc757d13adb5ef01282edb331527040ac477"
+  }
+}
