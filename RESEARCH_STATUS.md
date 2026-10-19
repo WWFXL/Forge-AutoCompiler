@@ -4,11 +4,13 @@
 
 ## 当前阶段
 
+本轮完整交接：`docs/research/2026-10-20-overnight-research-handoff.md`。新增采集已结束，按原时窗仅做最终CI/发布、资源费用与知识库交接；截止不跨日顺延，#470保留长期总跟踪。下一步在新的有效时窗执行显式接线新planner的libverto最小配置资格，再冻结有暴露登记的强基线完整策略比较。
+
 #528最后一项零Provider状态路由审计已完成：固定五个真实交接，冻结#516规则输出三个单步修订候选（原三受控例），对自然六断言失败/dep超时不覆盖；候选未应用，0新构建。79文件/1759276 bytes，inventory `be77e2db5221a451e91810e1b9372f97990879759ca19acab74e96fcc87aa26c`，独立audit valid=true。报告`docs/research/2026-10-20-build-observed-state-routing-audit.md`。这只支持合理有界规则/调查停止的路由，不能证明P2或自然覆盖率；本轮结束新增采集，接下来仅发布/资源/费用/知识库交接。
 
 #526早期交接读取缺陷已有新planner v2组件与11项相邻回归通过：先校验hash/阶段、非check不读日志、check缺诊断明确拒绝，保持原单项修订规则。文件`scripts/forge_build_libverto_recovery_planner_v2.py`，说明`docs/research/2026-10-20-build-recovery-diagnostic-guard.md`。旧v1与raw不变，后续新身份显式接线；不是已完成真实修复，也未解决60秒依赖预算。
 
-最新阶段#524零模型自然失败修复资格已封口：依赖安装60秒超时，未到configure/build/六测试，0修订/replay；包装层提前读取不存在测试日志而表层FileNotFoundError。源码与归档相同、cleanup实际成功、0模型请求/费用，独立audit valid=true。目标修复效果仍未知；不补跑或改验收。报告`docs/research/2026-10-20-build-libverto-natural-recovery-results.md`，raw `/home/yiwei/.codex/outputs/forge-libverto-natural-recovery-v1/`，inventory `e0f674f48fccecadf500fb17fb05a70b16a1e4303a91be594fe0a38974d30363`。下一身份先修包装层早期交接检查/测试，并在有效新时窗冻结足够依赖资源；当前无活动付费阶段。
+最新阶段#524零模型自然失败修复资格已封口：依赖安装60秒超时，未到configure/build/六测试，0修订/replay；包装层提前读取不存在测试日志而表层FileNotFoundError。源码与归档相同、cleanup实际成功、0模型请求/费用，独立audit valid=true。目标修复效果仍未知；不补跑或改验收。PR525最终675820d1三CI后合并fc0586e0、#524关闭。报告`docs/research/2026-10-20-build-libverto-natural-recovery-results.md`，raw `/home/yiwei/.codex/outputs/forge-libverto-natural-recovery-v1/`，inventory `e0f674f48fccecadf500fb17fb05a70b16a1e4303a91be594fe0a38974d30363`。下一身份先修包装层早期交接检查/测试，并在有效新时窗冻结足够依赖资源；当前无活动付费阶段。
 
 2026-10-20（北京时间）：#502固定六仓库/三系统/双重复/双臂的真实比较全部结束，24/24严格completed、12配对双方均成功，独立审计valid=true，0未知用量、源码不变、固定完整测试/精确交付/clean replay/cleanup闭合。143187普通文件/184链接/1193274172 bytes，inventory `2df552e2a26dac451b4d61690c4bc3eac59fee2fd0dcc0b3604f25c84905a91d`；raw `/home/yiwei/.codex/outputs/forge-plan-agent-paired-real-v1/`，报告`docs/research/2026-10-20-build-plan-agent-paired-comparison-results.md`。
 

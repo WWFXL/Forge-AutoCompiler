@@ -4,6 +4,9 @@
 
 ## 进行中 (In Progress)
 
+- 2026-10-20 — 本轮科研新增采集已结束，当前仅发布/清理/知识库交接；以RESEARCH_STATUS.md和最终交接为恢复入口，以下早期条目是历史过程，不视为待执行授权。
+  - 待后续新有效时窗：将新planner v2显式接线，冻结足够依赖资源，再执行libverto最小配置恢复资格；不补跑v1。
+
 - 2026-10-20 — #508准备两项参考配方独立修复资格，尚未提交/运行
   - 先创建回读Issue508，再新增独立runner/4项测试/预注册/候选manifest；libpng stage改cp build/libpng.a，libzip配置加BUILD_DOC=OFF，原任务不要求文档，完整回归/精确交付/源身份/源码不变/replay不动。libffi仍未核验修复，不替补。不是新holdout/方法效果，不回填旧493/502/504。
   - 4项测试、Ruff/format及父完整封存validate通过，0Docker/Provider/凭据。manifest64组件SHAe839a2b65c3149c438d1518d5655d5312279bfd3b60080c3485d1d45c6603e71；相对父仅已有三处未使用Agent时限路径变化，已逐diff并AST核对unchanged函数不变，run_reference本身hash不变，manifest记录父/当前hash。准备脚本曾用系统Python3.10导入UTC失败，随后正确改uv；另一次把unchanged误定位到import脚本而非backend模块，AST选择失败，均在候选manifest创建前，未创建正式证据。
@@ -520,6 +523,30 @@
   - 下一步: 等待实验负责人确认当前网络接入介质，并决定是否授权只读 endpoint 诊断和新的 canary amendment；获得确认后必须另建中文 Issue/PR 和协议 identity，保留当前失败 marker。
 
 ## 最近变更 (Recent Changes)
+
+- 2026-10-20 — 固化本轮科研最终交接与停止边界
+  - 文件: `docs/research/2026-10-20-overnight-research-handoff.md`, `RESEARCH_STATUS.md`。动机: 保留混合费用、规则覆盖、自然失败未观察与新planner接线边界，避免下一会话误恢复旧身份。7付费阶段已结算，已知估算5.806152+未知预留1，无活动付费；compile容器实查0，用户HTML不动。#525最终675820d1三CI后mergefc0586e0/#524关闭，剩余PR仅相关最终CI后合并。
+
+- 2026-10-20 — #528五个实际状态路由回顾
+  - 固定506三受控+504自然六断言+524dep超时，冻结516规则输出三修订/两不覆盖，不应用/不调用Agent，0新构建/Provider。三个候选单步变化、任务/完整测试不变；后两需调查或预算停止，不意味着必须模型。79文件/1759276 bytes，inventorybe77e2db5221a451e91810e1b9372f97990879759ca19acab74e96fcc87aa26c，65组件/收据/三动作/两空候选独立核验valid=true。非独立评估，不将516成功重复计数，合理强基线可覆盖前三，不支持P2/自然覆盖率。报告2026-10-20-build-observed-state-routing-audit.md。到此结束本轮新增科研采集，剩余时间仅发布/资源费用/知识库交接，UTC23:00绝对停止。
+
+- 2026-10-20 — #526新planner v2早期交接门禁
+  - 新文件scripts/forge_build_libverto_recovery_planner_v2.py先验证current revision/hash，再判check阶段，非check无source访问；check先查文件存在才复用冻结revise。四新增+七相邻11 passed，Ruff/format通过。旧v1/raw/manifest不变，后续新身份显式接线，当前未运行新构建/Provider；不是解决60s依赖上限或真实修复成功。说明2026-10-20-build-recovery-diagnostic-guard.md。pytest清理旧临时目录权限warning不影响exit0，不改旧目录。
+
+- 2026-10-20 — #524自然恢复资格未观察目标状态
+  - 运行2e60734f，唯一dep命令60.117s超时exit124，未进入configure/build/check；包装层先读不存在test-suite.log而表层FileNotFoundError，不能遮盖真实dep超时。0修订/replay/模型请求/Token，原源码与归档相同、cleanup实查通过。122文件/2062872 bytes，inventorye0f674f48fccecadf500fb17fb05a70b16a1e4303a91be594fe0a38974d30363，68组件，独立audit valid=true。首次独立审计错误假设0调用必有events.jsonl失败保留，v2处理合法空事件并核验无请求响应。7单元/Ruff通过未覆盖包装层dep交接，后续新身份先补早期阶段检查回归；不改冻结脚本/证据、不补跑。最小configure修复仍未知，60s安装不足不说明修复无效。报告2026-10-20-build-libverto-natural-recovery-results.md。#521最终6f413163三CI后merge7ec0d427/#520关闭；#523最终1421fcb2三CI后mergeb1ea4874/#522关闭。当前无新付费臂，估算5.806152+未知预留1，22:45后清理23:00停。
+
+- 2026-10-20 — #522自然失败源码链分析
+  - #504 libverto-r2-plan六测试均test.h74上下文创建断言，disable-shared/enable-static、无BUILTIN_MODULE、src/.libs仅12静态/元文件；源码普通后端以动态加载，与静态-only配置不匹配。19消费文件匹配父inventory、6源码归档逐字相等，0新构建/Provider；未证明确切运行分支或最小修复成功，不回填504、不估自然恢复率/P2。报告2026-10-20-build-libverto-failure-analysis.md及analysis JSON。未来新身份固定只改configure后重新失效/完整测试/replay；已有493成功不是该单改动反事实。#519最终7da3b633三CI后mergee0258443/#518关闭。
+
+- 2026-10-20 — #520候选暴露/就绪审计
+  - 固定18候选，两完整Git树限定benchmarks/docs/research，225命中/79文件，独立匹配第二实现一致。指定502/504队列6候选36模型臂（失败保留），另12无臂仅限该范围；11已有参考资格/7尚缺前提，15同owner标签不是代码亲缘或独立样本。102文件/53091260 bytes，inventorya5e0f8dcff639c91ba5fceb976130b241b0938c91c2a2f12d123f8b72e7e9b17，9组件/消费收据/命中/模型臂独立audit valid=true；6测试/Ruff/format通过。0新构建/Provider，不指定holdout、不称全历史或训练未见；来源审阅可先于前瞻模型评估但须冻结角色且披露暴露。报告2026-10-20-build-candidate-exposure-audit-results.md。#517结果db7f3071三CI后merge4f2df457/#516关闭。
+
+- 2026-10-20 — #518主张矩阵与后续比较设计
+  - 六组引用登记核对seal/inventory canonical hash、既有audit valid/无issues及报告hash一致，非重新执行全部原始实验。文件2026-10-20-build-evidence-claims-next-comparison.md及benchmarks/analyses/cpp-build-next-comparison-design-v1.json。RQ1保留强工具自动配方/批量能力及完整规划恢复费；RQ2先强规则与实际动作分歧，静态停只消融，无分歧不加P2；RQ3逐层拒绝不变自然误接受率。没有新增Provider/构建数据，不是效应预注册，不准入新付费。下一项项目族/时间暴露登记及同源动作分歧审计。
+
+- 2026-10-20 — #516零模型规则资格终态
+  - 3/3 strict completed，miniz/pigz/libite各一次实际预定失败、一次handoff/revision2；5/4/7命令，0模型请求/Token/Provider。规则只读坏方案/实际handoff/源文件名，未读正确参考/旧模型修订。固定完整测试、原源码、首变化失效、精确交付/replay/cleanup闭合；独立audit valid=true。1409文件/40链接/36515585 bytes，inventory30b2117f520d571a293f2c9f082d6182786ce44d4d944e3964bc049e6d2e5f27。manifest65组件，运行ffdcf98e，报告2026-10-20-build-rule-recovery-qualification-results.md。后验设计/资源与506不同，不能因果比；这些简单例不能证明语义选择器独有增量。PR517结果head三CI后合并。#515最终af227c84三CI后merge1955a348/#514关闭；#513最终def34c30三CI后merge237d27cf/#511关闭。下一阶段主张审计/强基线未来设计，UTC22:45后清理、23:00停，不再新增付费。
 
 - 2026-10-20 — 完成#502六仓库双重复24槽比较并独立审计
   - 固定24/24 strict、12配对双方全成功；raw `/home/yiwei/.codex/outputs/forge-plan-agent-paired-real-v1/`，143187普通文件/184链接/1193274172 bytes，inventory2df552e2a26dac451b4d61690c4bc3eac59fee2fd0dcc0b3604f25c84905a91d。独立审计paired-real-v1-audit.json valid=true，原源码/固定测试/精确交付/replay/cleanup、请求生命周期和Token费用闭合，0未知/0容器残留。
@@ -2198,38 +2225,3 @@ v2补齐原第九次请求读取索引和最终三工具历史，原门禁拒绝
 # 2026-10-20 #514费用归因审计
 
 36臂/252原响应/544消费收据，独立audit valid=true。#502输入差-.44644116+输出差.08382528=-.36261588美元；#504输入差-.08340156+输出差.16473204=.08133048，输出3倍单价足以使请求/Token少而费用高。#504plan32初始/5恢复，恢复.12073644美元未修订。inventorye542e906f7d67284bea488bb5392b7fa4ca2584b6812b3c84c4f6ef8ff284705。6测试/标准Python3.10实跑/脚本Ruff py310及后端默认Ruff/format通过；冻结源码保持。下一同源状态强规则动作分歧，不推总体成本或跨批ID因果。报告2026-10-20-build-token-cost-attribution-audit-results.md。#512结果59b6ef18三CI后已merge dd9eacb2/#508关闭。
-
-
-# 2026-10-20 #516零模型规则资格终态
-
-3/3 strict completed，miniz/pigz/libite各一次实际预定失败、一次handoff/revision2；5/4/7命令，0模型请求/Token/Provider。规则只读坏方案/实际handoff/源文件名，未读正确参考/旧模型修订。固定完整测试、原源码、首变化失效、精确交付/replay/cleanup闭合；独立audit valid=true。1409文件/40链接/36515585 bytes，inventory30b2117f520d571a293f2c9f082d6182786ce44d4d944e3964bc049e6d2e5f27。manifest65组件，运行ffdcf98e，报告2026-10-20-build-rule-recovery-qualification-results.md。后验设计/资源与506不同，不能因果比；这些简单例不能证明语义选择器独有增量。PR517结果head三CI后合并。#515最终af227c84三CI后merge1955a348/#514关闭；#513最终def34c30三CI后merge237d27cf/#511关闭。下一阶段主张审计/强基线未来设计，UTC22:45后清理、23:00停，不再新增付费。
-
-
-# 2026-10-20 #518主张矩阵与后续比较设计
-
-六组引用登记核对seal/inventory canonical hash、既有audit valid/无issues及报告hash一致，非重新执行全部原始实验。文件2026-10-20-build-evidence-claims-next-comparison.md及benchmarks/analyses/cpp-build-next-comparison-design-v1.json。RQ1保留强工具自动配方/批量能力及完整规划恢复费；RQ2先强规则与实际动作分歧，静态停只消融，无分歧不加P2；RQ3逐层拒绝不变自然误接受率。没有新增Provider/构建数据，不是效应预注册，不准入新付费。下一项项目族/时间暴露登记及同源动作分歧审计。
-
-
-# 2026-10-20 #520候选暴露/就绪审计
-
-固定18候选，两完整Git树限定benchmarks/docs/research，225命中/79文件，独立匹配第二实现一致。指定502/504队列6候选36模型臂（失败保留），另12无臂仅限该范围；11已有参考资格/7尚缺前提，15同owner标签不是代码亲缘或独立样本。102文件/53091260 bytes，inventorya5e0f8dcff639c91ba5fceb976130b241b0938c91c2a2f12d123f8b72e7e9b17，9组件/消费收据/命中/模型臂独立audit valid=true；6测试/Ruff/format通过。0新构建/Provider，不指定holdout、不称全历史或训练未见；来源审阅可先于前瞻模型评估但须冻结角色且披露暴露。报告2026-10-20-build-candidate-exposure-audit-results.md。#517结果db7f3071三CI后merge4f2df457/#516关闭。
-
-
-# 2026-10-20 #522自然失败源码链分析
-
-#504 libverto-r2-plan六测试均test.h74上下文创建断言，disable-shared/enable-static、无BUILTIN_MODULE、src/.libs仅12静态/元文件；源码普通后端以动态加载，与静态-only配置不匹配。19消费文件匹配父inventory、6源码归档逐字相等，0新构建/Provider；未证明确切运行分支或最小修复成功，不回填504、不估自然恢复率/P2。报告2026-10-20-build-libverto-failure-analysis.md及analysis JSON。未来新身份固定只改configure后重新失效/完整测试/replay；已有493成功不是该单改动反事实。#519最终7da3b633三CI后mergee0258443/#518关闭。
-
-
-# 2026-10-20 #524自然恢复资格未观察目标状态
-
-运行2e60734f，唯一dep命令60.117s超时exit124，未进入configure/build/check；包装层先读不存在test-suite.log而表层FileNotFoundError，不能遮盖真实dep超时。0修订/replay/模型请求/Token，原源码与归档相同、cleanup实查通过。122文件/2062872 bytes，inventorye0f674f48fccecadf500fb17fb05a70b16a1e4303a91be594fe0a38974d30363，68组件，独立audit valid=true。首次独立审计错误假设0调用必有events.jsonl失败保留，v2处理合法空事件并核验无请求响应。7单元/Ruff通过未覆盖包装层dep交接，后续新身份先补早期阶段检查回归；不改冻结脚本/证据、不补跑。最小configure修复仍未知，60s安装不足不说明修复无效。报告2026-10-20-build-libverto-natural-recovery-results.md。#521最终6f413163三CI后merge7ec0d427/#520关闭；#523最终1421fcb2三CI后mergeb1ea4874/#522关闭。当前无新付费臂，估算5.806152+未知预留1，22:45后清理23:00停。
-
-
-# 2026-10-20 #526新planner v2早期交接门禁
-
-新文件scripts/forge_build_libverto_recovery_planner_v2.py先验证current revision/hash，再判check阶段，非check无source访问；check先查文件存在才复用冻结revise。四新增+七相邻11 passed，Ruff/format通过。旧v1/raw/manifest不变，后续新身份显式接线，当前未运行新构建/Provider；不是解决60s依赖上限或真实修复成功。说明2026-10-20-build-recovery-diagnostic-guard.md。pytest清理旧临时目录权限warning不影响exit0，不改旧目录。
-
-
-# 2026-10-20 #528五个实际状态路由回顾
-
-固定506三受控+504自然六断言+524dep超时，冻结516规则输出三修订/两不覆盖，不应用/不调用Agent，0新构建/Provider。三个候选单步变化、任务/完整测试不变；后两需调查或预算停止，不意味着必须模型。79文件/1759276 bytes，inventorybe77e2db5221a451e91810e1b9372f97990879759ca19acab74e96fcc87aa26c，65组件/收据/三动作/两空候选独立核验valid=true。非独立评估，不将516成功重复计数，合理强基线可覆盖前三，不支持P2/自然覆盖率。报告2026-10-20-build-observed-state-routing-audit.md。到此结束本轮新增科研采集，剩余时间仅发布/资源费用/知识库交接，UTC23:00绝对停止。
