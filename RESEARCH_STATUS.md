@@ -4,6 +4,27 @@
 
 ## 当前阶段
 
+- 状态：Issue #465 的正式 identity `cpp-jev-action-safety-decomposition-v1` 已完成 60 个冻结请求、一次性 evaluation、
+  报告封存与独立审计，决定为 `stop_jev_action_safety_before_controller`。实验把 `dependency/configure/build` 分别建模为
+  Noul 安全命题，无动作通过时由 Forge 确定性升级；`action_card_noul` 另提供不含 Shell、outcome、fault、标签或预算的
+  规范化动作语义。历史 #463 四选一 calibration 只读，未补齐其 evaluation。
+- Calibration 与 holdout：plain 条件在 calibration 的零 observed unsafe direct 阈值为 `0.46622876194610735`，覆盖
+  `4/15`；ActionCard 条件阈值为 `0.683321629297147`，覆盖 `3/15` 且 CMake 为 0，两者均未通过 `5/15` 与跨系统门槛。
+  项目族隔离 evaluation 中，plain 的 ROC-AUC/Brier 为 `0.7747/0.3171`，直接 `3/15`、错误 0、精确最优 `6/15`；
+  ActionCard 为 `0.8282/0.2283`，直接 `2/15`、错误 0、精确最优 `5/15`。ActionCard 改善 action-level 区分，
+  但没有改善冻结门禁下的可用覆盖。
+- 预算路由结果：plain 的 BudgetFit 联合正确为 `27/45`、direct `6/45`、错误 direct 0；ActionCard 为 `25/45`、
+  direct `4/45`、错误 direct 0。冻结 TF-IDF+BudgetFit 基线为 `39/45`、direct `18/45`、错误 direct 0；两种 Jev 条件
+  均未匹配基线，也没有增量信号。结果说明四选一竞争与动作上下文不足不是保守升级的充分解释；当前 Jev 不进入 controller。
+- 用量与完整性：60/60 requests、95,472 input、7,320 output tokens、费用 `$0.004009824`。Evidence 为 196 files /
+  926,108 bytes，inventory canonical SHA-256 `375673ca1626b8890c0ec0246319c182bfab82ba0fc39faafd24b79a334fede4`；
+  audit `valid=true`，credential/header 0 命中，父 outcome 与 #463 Jev evidence hash 均未变化，0 managed resources。
+- 解释边界与下一步：本结果支持受控状态上的逐动作分解、ActionCard 诊断和项目族 holdout，不支持 controller treatment、
+  strict success 非劣、端到端成本下降、自然失败或开放世界泛化。保留 Issue #457 的进展状态 + BudgetFit benchmark，
+  Jev 降为消融/负结果；下一阶段应围绕更强的确定性或可学习动作选择器审查论文主线，不能降低本 identity 阈值或实现其
+  controller。报告位于 `benchmarks/reports/cpp-jev-action-safety-decomposition-v1.{json,md}`，独立审计位于
+  `benchmarks/reports/cpp-jev-action-safety-decomposition-v1-audit.md`。
+
 - 状态：Issue #463 的正式 identity `cpp-jev-progress-budget-calibration-v1` 已完成 calibration 并按预注册停止，决定为
   `stop_before_progress_budget_evaluation`。Implementation revision 为 `039f6226b93709d8065387a4a0ebdb3fe18c7eee`，
   authorized manifest canonical SHA-256 为 `ffbdc6dfd9f940d327214c5bb3060fc798b455a44b67d5e7240db67574975116`；
