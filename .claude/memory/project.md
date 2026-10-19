@@ -2203,3 +2203,8 @@ v2补齐原第九次请求读取索引和最终三工具历史，原门禁拒绝
 # 2026-10-20 #516零模型规则资格终态
 
 3/3 strict completed，miniz/pigz/libite各一次实际预定失败、一次handoff/revision2；5/4/7命令，0模型请求/Token/Provider。规则只读坏方案/实际handoff/源文件名，未读正确参考/旧模型修订。固定完整测试、原源码、首变化失效、精确交付/replay/cleanup闭合；独立audit valid=true。1409文件/40链接/36515585 bytes，inventory30b2117f520d571a293f2c9f082d6182786ce44d4d944e3964bc049e6d2e5f27。manifest65组件，运行ffdcf98e，报告2026-10-20-build-rule-recovery-qualification-results.md。后验设计/资源与506不同，不能因果比；这些简单例不能证明语义选择器独有增量。PR517结果head三CI后合并。#515最终af227c84三CI后merge1955a348/#514关闭；#513最终def34c30三CI后merge237d27cf/#511关闭。下一阶段主张审计/强基线未来设计，UTC22:45后清理、23:00停，不再新增付费。
+
+
+# 2026-10-20 #518主张矩阵与后续比较设计
+
+六组引用登记核对seal/inventory canonical hash、既有audit valid/无issues及报告hash一致，非重新执行全部原始实验。文件2026-10-20-build-evidence-claims-next-comparison.md及benchmarks/analyses/cpp-build-next-comparison-design-v1.json。RQ1保留强工具自动配方/批量能力及完整规划恢复费；RQ2先强规则与实际动作分歧，静态停只消融，无分歧不加P2；RQ3逐层拒绝不变自然误接受率。没有新增Provider/构建数据，不是效应预注册，不准入新付费。下一项项目族/时间暴露登记及同源动作分歧审计。
