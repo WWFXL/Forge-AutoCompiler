@@ -32,7 +32,7 @@ from deerflow.compile.plan_workflow import PlanBudget, PlanContractError  # noqa
 from deerflow.config.paths import Paths  # noqa: E402
 
 
-def scripted_model(reference, arm, service=None):
+def scripted_model(reference, arm, service=None, probe_reads=False):
     """仅零Provider接线使用人工配方；真实模型永远不进入本分支。"""
     from langchain_core.language_models.fake_chat_models import FakeMessagesListChatModel
     from langchain_core.messages import AIMessage
@@ -50,9 +50,9 @@ def scripted_model(reference, arm, service=None):
             return self
 
         def _generate(self, messages, stop=None, run_manager=None, **kwargs):
-            if arm == "tool" and self.i == 1:
+            if arm == "tool" and self.i == len(self.responses) - 1:
                 records = service.current().commands
-                self.responses[1] = reply(
+                self.responses[-1] = reply(
                     [
                         (
                             "submit_verified_build",
@@ -70,10 +70,12 @@ def scripted_model(reference, arm, service=None):
     else:
         calls = [("run_fixed_tests", {}) if step["role"] == "smoke" else ("run_build_command", {"command": step["command"], "command_role": step["role"], "workdir": step["workdir"]}) for step in reference["steps"]]
         responses = [reply(calls), reply([])]
+    if probe_reads:
+        responses.insert(0, reply([("list_source", {"directory": "/workspace/repo"}), ("list_source", {"directory": "forge_expected_absent_directory"})]))
     return GateModel(responses=responses)
 
 
-def run_arm(*, item, arm, protocol, root, model=None, reference=None):
+def run_arm(*, item, arm, protocol, root, model=None, reference=None, meter_factory=CanaryMeter, planner=propose, tool_runner=run_tool_agent, probe_reads=False):
     folder = root / f"{item['name']}-{arm}"
     folder.mkdir(exist_ok=False)
     task = PlanTask.model_validate(item["task"])
@@ -114,11 +116,11 @@ def run_arm(*, item, arm, protocol, root, model=None, reference=None):
         session.status = "inspected"
         manager.save_session(session)
         context["source_packet"] = source_packet(workspace, item["source_paths"])
-        meter = CanaryMeter(PlanAgentLedger(folder / "agent"), accepted_models=("scripted-gate",) if reference else tuple(protocol["provider"]["accepted_response_models"]), deadline=protocol["deadline_utc"], packet=packet)
+        meter = meter_factory(PlanAgentLedger(folder / "agent"), accepted_models=("scripted-gate",) if reference else tuple(protocol["provider"]["accepted_response_models"]), deadline=protocol["deadline_utc"], packet=packet)
         started = time.monotonic()
         if arm == "plan":
-            active_model = scripted_model(reference, arm) if reference else model
-            plan, _ = propose(model=active_model, task=task, source_root=workspace, session_root=session_root, meter=meter)
+            active_model = scripted_model(reference, arm, probe_reads=probe_reads) if reference else model
+            plan, _ = planner(model=active_model, task=task, source_root=workspace, session_root=session_root, meter=meter)
             workflow = CanaryWorkflow(plan=plan, session=session, manager=manager, runtime=runtime, budget=PlanBudget(wall_clock_seconds=1200, command_timeout_seconds=180), meter=meter, source_root=workspace, frozen=frozen)
             while True:
                 state = workflow.run()
@@ -134,13 +136,13 @@ def run_arm(*, item, arm, protocol, root, model=None, reference=None):
                     row["output_tail"] = row.get("output_tail", "")[-2000:]
                 handoff["diagnostic_logs"] = diagnostic_packet(session_root, handoff)
                 context["handoff"] = handoff
-                revised, reason = propose(model=active_model, task=task, source_root=workspace, session_root=session_root, meter=meter, current_plan=workflow.plan, handoff=handoff)
+                revised, reason = planner(model=active_model, task=task, source_root=workspace, session_root=session_root, meter=meter, current_plan=workflow.plan, handoff=handoff)
                 workflow.apply_revision(handoff_id=state["handoff"]["handoff_id"], plan=revised, reason=reason)
             result["status"] = state["status"]
         else:
             service = ToolBuildService(task=task, session=session, manager=manager, source_root=workspace, frozen=frozen, meter=meter)
-            active_model = scripted_model(reference, arm, service) if reference else model
-            run_tool_agent(model=active_model, service=service, source_root=workspace, session_root=session_root, meter=meter)
+            active_model = scripted_model(reference, arm, service, probe_reads=probe_reads) if reference else model
+            tool_runner(model=active_model, service=service, source_root=workspace, session_root=session_root, meter=meter)
             result["status"] = "verified" if service.verified else "no_verified_delivery"
         result["node_and_acceptance_seconds"] = time.monotonic() - started
         unchanged(workspace, frozen)

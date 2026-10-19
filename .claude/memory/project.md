@@ -4,10 +4,6 @@
 
 ## 进行中 (In Progress)
 
-- 2026-10-20 — #489只读接口与有界证据保留修复、#488已有方法核验/消融设计进行中。
-  - 新模块 `plan_agent_context.py` 与4项真实图/安全/证据保留测试已在本地起草；未参与#486运行或其冻结组件。
-  - #486已封存，不续跑；下一独立身份先做零ProviderDocker门禁、冻结协议和共享预算核验。
-
 - 2026-10-13 — Issue #440 H0/H1 v3 正式复现 authorized identity 已实现，等待发布与 Q0
   - 工作类型与问题: 正式数据采集前的协议实现。目标是在 v2 结果已观察的前提下，用同 9 个项目族、机械旋转到未进入
     v2 effect arms 的 checkpoint 深度，检验 H1 strict/cost 正向信号能否在完整后付费 Token 计量下复现。
@@ -500,6 +496,19 @@
   - 下一步: 等待实验负责人确认当前网络接入介质，并决定是否授权只读 endpoint 诊断和新的 canary amendment；获得确认后必须另建中文 Issue/PR 和协议 identity，保留当前失败 marker。
 
 ## 最近变更 (Recent Changes)
+
+- 2026-10-20 — #489独立v2真实双臂canary八臂严格完成并封存
+  - 运行5512ff60，manifest549dbbd1；固定测试/精确交付/clean replay/原始源码/cleanup与独立审计通过。
+  - 3436普通文件/96链接/86365971 bytes，inventory31652865251842eebb49f8582fb22c96610da21d6a4f5339b31daa08a5613663。
+  - plan/tool均4/4 completed，分别7/34请求、68950/291092 tokens、18/18命令；plan零交接/修订，不证明状态适应增量。
+  - 41请求/360042 tokens/$0.56989416估算；阶段$12预留结算，新增累计$1.31364420+$1未知预留，无未结付费阶段。
+  - 文件: docs/research/2026-10-20-build-plan-agent-canary-v2-results.md, RESEARCH_STATUS.md。
+  - 动机: 保留正常路径开发接线证据，转向#492来源和#493参考资格/状态变化问题，不重复全成功任务冒充恢复机制效果。
+
+- 2026-10-20 — 为#489加入安全读取反馈和有界证据工作集，完成修复门禁。
+  - 文件: `backend/packages/harness/deerflow/compile/plan_agent_context.py`, `backend/tests/test_plan_agent_context.py`, `scripts/forge_build_plan_agent_canary_v2.py`
+  - 动机: 读取错误应拒绝操作并给Agent纠正机会，旧证据在容量内保留，避免接口错误冒充构建失败。
+  - 验证: 新5项测试与真实Docker8/8；inventory `6e76caae...`，独立审计valid=true，0Provider。
 
 - 2026-10-20 — 核验ReAct/ReWOO/LLMCompiler原文，拆分规划收益、状态适应和分层验证问题。
   - 文件: `docs/research/2026-10-20-build-plan-method-positioning.md`

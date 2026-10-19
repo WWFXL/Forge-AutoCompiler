@@ -4,6 +4,22 @@
 
 ## 当前阶段
 
+- 2026-10-20：#489修复后真实v2已封存，8/8固定单元strict completed，固定完整测试、精确交付、clean replay、源码未变、cleanup和独立审计valid=true。
+  plan/tool分别7/34请求、68950/291092 tokens、$0.13283688/$0.43705728；均18命令，仅描述开发canary，不作效果或总体成本主张。
+  四plan臂交接/修订均0，不能证明状态适应增量。决定proceed_to_state_transition_and_reference_task_qualification。
+  报告 docs/research/2026-10-20-build-plan-agent-canary-v2-results.md；raw /home/yiwei/.codex/outputs/forge-plan-agent-canary-real-v2/。
+  3436普通文件/96链接，inventory 31652865251842eebb49f8582fb22c96610da21d6a4f5339b31daa08a5613663。
+  本阶段41请求/360042 tokens/$0.56989416估算；新增累计$1.31364420，另$1未知预留，无未结付费阶段。
+  下一步#492来源目录收口、#493十项完整参考任务资格及状态转移/分层验证正负控制；共享$20/北京时间07:00截止不变。
+
+- 2026-10-20：#489独立v2读取接口/证据工作集修复已通过同协议8臂零Provider真实Docker门禁。
+  每臂实际经过成功绝对路径读取与缺失目录拒绝反馈，之后strict completed；独立审计valid=true。
+  3445普通文件/24链接，inventory `6e76caae9f29916ad29f2036e382e8c8c7c77d07976466de4415713cfe2103dd`。
+  5项新回归、默认产品1880 passed/44 skipped、Ruff通过。报告
+  `docs/research/2026-10-20-build-plan-agent-context-gate.md`。
+  下一步按已有授权预留阶段$12并运行独立v2真实八臂；尚无v2Provider观察，不据修复前后作效果比较。
+  #487/#490均按各自最新head三项CI成功后合入依赖分支，#486/#488关闭；未进入main。
+
 - 2026-10-20：#486真实canary已结束并封存，8/8分类终结、源码未变、cleanup及独立审计通过。
   plan为3/4 strict，tool为0/4，但五个停止臂均由绝对路径/不存在目录的读取错误终止；
   工具臂只有libite执行2条诊断，均无编译尝试，不能主张Workflow更优或Agent构建能力失败。
