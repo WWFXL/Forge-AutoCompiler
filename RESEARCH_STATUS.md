@@ -4,10 +4,15 @@
 
 ## 当前阶段
 
-- 2026-10-20：#482固定miniz/md4c/pigz/libite的零Provider参考方案资格已启动；
-  有完整测试入口和精确交付，每项目一次、失败不自动修复或替换。manifest
-  `cpp-build-plan-source-qualification-v1.json`，新边界/完整性测试3 passed，preflight valid=true。
-  #478真实v2的zstd已严格completed，libusb正在真实故障恢复；最终封存与分析待完成。
+- 2026-10-20：#482参考任务v1四项执行完成，但Autotools生成系统外链导致封存审计失败，原证据保留；
+  #484独立v2采用工具辅助文件副本，miniz/md4c/pigz/libite固定四项均strict completed，
+  原始源码哈希不变、全部测试与clean replay通过、cleanup成功、inventory审计valid=true。
+  0Provider，1743 files/46440633 bytes，inventory
+  `8c5a6b46a83715fec922b8287acaa282b6225f367508715aaed87bb48d328bae`；
+  报告 `docs/research/2026-10-20-build-source-qualification-v2-results.md`。
+  下一步相同任务/模型/预算的完整方案+Workflow与工具型Agent开发canary设计；不作总体/效果推断。
+  #478真实v2已结束：zstd严格completed，libusb恢复响应51007 tokens超过50000合同并截断，
+  属工程停止、不能判为自然不可修或方法负结果。已知新模型估算累计$0.3727878，另$1未知预留。
 
 - 2026-10-20（北京时间）：#476 真实跨系统 v1 已失败封存，完整性审计通过。
   zstd 首响应截断、无命令；libusb 初始方案完成依赖/配置/编译，固定四项测试stress_mt失败，
