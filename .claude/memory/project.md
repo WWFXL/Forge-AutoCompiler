@@ -499,6 +499,18 @@
 
 ## 最近变更 (Recent Changes)
 
+- 2026-10-20 — 启动 #482 四项目零Provider完整测试与重建资格
+  - 文件: `scripts/forge_build_plan_source_qualification.py`、`backend/tests/test_plan_source_qualification.py`、`benchmarks/manifests/cpp-build-plan-source-qualification-v1.json`、对应预注册。
+  - 动机: 按miniz/md4c/pigz/libite固定顺序确认任务可执行，复用原型验收，不模型修复、不替换失败；原始源码逐文件哈希保留。3项边界/完整性回归与Ruff通过，manifest preflight valid=true，hash f5e4a17c2980e2191b3974592ba747ae8d8bbbf5901e7c3340cb76d1dc8a9c59。
+  - 进行中: 独立输出 `/home/yiwei/.codex/outputs/forge-source-qualification-v1/`；0Provider。#478真实v2也在独立进程运行，zstd已completed，libusb进入真实失败恢复；两阶段未混分母，不能作成本/墙钟处理效应。
+
+
+- 2026-10-20 — 封存 #477 六候选来源与测试oracle目录
+  - 文件: `benchmarks/manifests/cpp-build-source-catalog-v1.json`、`docs/research/2026-10-20-build-source-catalog.md`、`RESEARCH_STATUS.md`。
+  - 动机: 后续比较必须先知道真实测试入口，避免空CTest或只编译测试；miniz/md4c/pigz/libite可进入独立构建资格，zlog Make oracle暂缓，libmaxmind owner错误404保留不替换。未执行源码或调用模型。
+  - 证据: 外部source-only目录500 files/5800000 bytes，inventory 4f97f8b1f0963eec12d1e5df41464d46a0090458ea6bc80fa89e8ae5044c4705；审计通过。历史URL检索仅覆盖两个已知提交benchmarks/docs，不声称全部历史或训练未见。
+
+
 - 2026-10-20 — 按实际CI job核验合并本轮四个前序PR
   - 文件: `RESEARCH_STATUS.md`（发布状态）。
   - 动机: PR汇总状态缓存延迟，直接actions jobs查询确认三个job均success且head_sha匹配；#472/#473/#474/#475分别合入依赖分支，merge提交36364424/5444f342/798ddf48/890c449f；并手动关闭#468/#469/#471。未进入main，#470持续总任务保持开启，不把基础设施合并当新增科研证据。
