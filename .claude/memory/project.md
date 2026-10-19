@@ -6,8 +6,8 @@
 
 - 2026-10-20 — #502六仓库双臂两重复比较进入最终协议冻结
   - 父#493/#498/#500全部封存；六仓库三系统各两项，12配对/24真实槽、五维护者关联组。
-  - 当前修改新比较共同command300s/replay600s与3600秒截止预留；完整测试不变，尚无新模型outcome。
-  - 规范化reference默认字段已修；manifest已绑定父证据与59组件，SHA5f2cc841c38b1ed8eaee5867d2491dfce060c539aa9c3c92170729bbc74f42f2。相关25回归、默认产品1920 passed/44 skipped、Ruff通过；提交后12臂零Provider门禁，独立审计后才调用Provider。
+  - 共同command300s/replay600s与3600秒截止预留已冻结；完整测试不变，尚无新模型outcome。
+  - 规范化reference默认字段已修；manifest已绑定父证据与59组件，SHA5f2cc841c38b1ed8eaee5867d2491dfce060c539aa9c3c92170729bbc74f42f2。相关25回归、默认产品1920 passed/44 skipped、Ruff通过；十二臂门禁现已全部严格completed并封存，独立审计valid=true；下一步按共享预算预留$12真实24槽，不逐阶段重新确认。
 
 - 2026-10-13 — Issue #440 H0/H1 v3 正式复现 authorized identity 已实现，等待发布与 Q0
   - 工作类型与问题: 正式数据采集前的协议实现。目标是在 v2 结果已观察的前提下，用同 9 个项目族、机械旋转到未进入
@@ -501,6 +501,12 @@
   - 下一步: 等待实验负责人确认当前网络接入介质，并决定是否授权只读 endpoint 诊断和新的 canary amendment；获得确认后必须另建中文 Issue/PR 和协议 identity，保留当前失败 marker。
 
 ## 最近变更 (Recent Changes)
+
+- 2026-10-20 — #502同协议十二臂零Provider真实Docker门禁全部通过
+  - release54d1d893，manifest5f2cc841c38b1ed8eaee5867d2491dfce060c539aa9c3c92170729bbc74f42f2；两路径全部固定测试/源码/交付/clean replay/completed/cleanup通过。
+  - 原始/home/yiwei/.codex/outputs/forge-plan-agent-paired-gate-v1/，72368普通文件/92链接/578913379 bytes，inventory9f304ea1a1a134e6d2dc491b9815e9a328f6c05e40173f018e44c99b4c13abc3；独立paired-gate-v1-audit.json valid=true，0Token/0Provider/0对应容器。
+  - 只支持接线资格，不是模型结果；下一步真实24槽，预留$12并遵守共享$20/UTC23:00截止。#499/#501均已核验各自结果head三CI后合并，#498/#500关闭；未进main。
+  - 文件: docs/research/2026-10-20-build-plan-agent-paired-comparison-gate.md, RESEARCH_STATUS.md。
 
 - 2026-10-20 — #500两项Make完整参考资格全部严格完成
   - release ae879a75，身份cpp-build-make-reference-v1；libhydrogen完整12自测、buffer完整18断言；2/2源码不变、交付/replay/completed/cleanup闭合。
