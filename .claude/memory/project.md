@@ -4,6 +4,11 @@
 
 ## 进行中 (In Progress)
 
+- 2026-10-20 — #498状态/验证七槽控制已准备，等待#493终结后执行
+  - 文件: scripts/forge_build_state_controls.py, backend/tests/test_build_state_controls.py, 对应manifest/preregistration。
+  - 0Provider；正常miniz/pigz/libite与空测试/遗漏bootstrap/交付漂移/外部configure四负控制；只检验已有规则与验证，不声称P2增量。
+  - 用户HTML不动；#497最新head a4b70785三CI通过后mergece6e1af9进入依赖分支，#496关闭；未进入main。
+
 - 2026-10-20 — #493十项完整参考任务资格运行中
   - 文件: scripts/forge_build_reference_expansion.py, backend/tests/test_build_reference_expansion.py, 对应manifest/preregistration。
   - 输入预检通过、归档规范化和失败/清理调度3测试通过；使用仓库Python3.12，0Provider。
