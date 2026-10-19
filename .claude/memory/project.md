@@ -4,6 +4,13 @@
 
 ## 进行中 (In Progress)
 
+- 2026-10-20 — #493十项完整参考任务资格待运行
+  - 文件: scripts/forge_build_reference_expansion.py, backend/tests/test_build_reference_expansion.py, 对应manifest/preregistration。
+  - 输入预检通过、归档规范化和失败/清理调度3测试通过；使用仓库Python3.12，0Provider。
+  - manifest d2e7ec92561a1f693bf4093c718ade807706f9f39b78d4f064c9579f6e4eaefc；运行中不可修改components。
+  - 原始输出预定/home/yiwei/.codex/outputs/forge-reference-expansion-v1/，输入/home/yiwei/.codex/outputs/forge-reference-expansion-inputs-v1/。
+  - #491合入依赖开发分支，head47e8b852三CI成功，merge1a127519，#489关闭；未进入main。
+
 - 2026-10-13 — Issue #440 H0/H1 v3 正式复现 authorized identity 已实现，等待发布与 Q0
   - 工作类型与问题: 正式数据采集前的协议实现。目标是在 v2 结果已观察的前提下，用同 9 个项目族、机械旋转到未进入
     v2 effect arms 的 checkpoint 深度，检验 H1 strict/cost 正向信号能否在完整后付费 Token 计量下复现。

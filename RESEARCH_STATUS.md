@@ -4,6 +4,12 @@
 
 ## 当前阶段
 
+- 2026-10-20：#493十项零Provider完整参考任务协议/源码/功能oracle已冻结并通过输入预检，尚未开始构建。
+  identity cpp-build-reference-expansion-v1，manifest SHA d2e7ec92561a1f693bf4093c718ade807706f9f39b78d4f064c9579f6e4eaefc。
+  2CPU/方案1800s/命令600s/replay900s，逐项目一次，失败保留并继续，cleanup失败停止。
+  明确CMake功能选项、非空全量CTest、Make测试程序执行、Autotools完整check与libffi DejaGNU审计；不删测试。
+  参考任务不是模型效果；#491已核验47e8b852三项CI并合入依赖分支，merge1a127519，#489关闭；未进入main。
+
 - 2026-10-20：#492固定12候选来源全部采集，0Provider/0构建/0Docker，原始commit、tar.gz和成员内容独立审计valid=true。
   78普通文件/15914049 bytes，inventory49214164eab150f68fe950975cc81e8b36f143534545068ce2751c4137f39c62。
   10项可继续设计完整参考任务；FastLZ语料子模块及HDiffPatch相邻依赖/oracle未闭合，两项暂缓不替换。
