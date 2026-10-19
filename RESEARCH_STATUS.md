@@ -4,6 +4,8 @@
 
 ## 当前阶段
 
+#526早期交接读取缺陷已有新planner v2组件与11项相邻回归通过：先校验hash/阶段、非check不读日志、check缺诊断明确拒绝，保持原单项修订规则。文件`scripts/forge_build_libverto_recovery_planner_v2.py`，说明`docs/research/2026-10-20-build-recovery-diagnostic-guard.md`。旧v1与raw不变，后续新身份显式接线；不是已完成真实修复，也未解决60秒依赖预算。
+
 最新阶段#524零模型自然失败修复资格已封口：依赖安装60秒超时，未到configure/build/六测试，0修订/replay；包装层提前读取不存在测试日志而表层FileNotFoundError。源码与归档相同、cleanup实际成功、0模型请求/费用，独立audit valid=true。目标修复效果仍未知；不补跑或改验收。报告`docs/research/2026-10-20-build-libverto-natural-recovery-results.md`，raw `/home/yiwei/.codex/outputs/forge-libverto-natural-recovery-v1/`，inventory `e0f674f48fccecadf500fb17fb05a70b16a1e4303a91be594fe0a38974d30363`。下一身份先修包装层早期交接检查/测试，并在有效新时窗冻结足够依赖资源；当前无活动付费阶段。
 
 2026-10-20（北京时间）：#502固定六仓库/三系统/双重复/双臂的真实比较全部结束，24/24严格completed、12配对双方均成功，独立审计valid=true，0未知用量、源码不变、固定完整测试/精确交付/clean replay/cleanup闭合。143187普通文件/184链接/1193274172 bytes，inventory `2df552e2a26dac451b4d61690c4bc3eac59fee2fd0dcc0b3604f25c84905a91d`；raw `/home/yiwei/.codex/outputs/forge-plan-agent-paired-real-v1/`，报告`docs/research/2026-10-20-build-plan-agent-paired-comparison-results.md`。
