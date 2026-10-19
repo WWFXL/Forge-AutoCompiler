@@ -499,6 +499,90 @@
 
 ## 最近变更 (Recent Changes)
 
+- 2026-10-19 — 登记持续科研授权并启动发布与预算门禁收口
+  - 用户授权：围绕硕士论文主线跨阶段自主推进至北京时间2026-10-20 07:00；各新增阶段共享$20，允许Issue/commit/push/PR/merge/close与知识库维护。末15分钟预留清理，重大主线/预算/主张边界变化才等待用户。
+  - 基础设施与验证：Docker门禁通过，相关组合含真实Docker为220 passed/2 skipped，CI模式全产品1846 passed/44 skipped；新增13文件Ruff check/format通过。首轮非CI回归意外触发旧live默认模型404，usage未知，外部账本保留$1；#471处理显式启用门禁，不作为科研数据。
+  - 发布：#468原型commit `f769690c`，#469真实接入commit `a1e5620b`，均已推送；父链领先main176个提交，新增PR保持依赖边界，不把feature分支合并写成主干发布。
+  - 授权与账本：`docs/research/2026-10-19-continuous-research-authorization.md`，外部`/home/yiwei/.codex/outputs/forge-continuous-research-2026-10-19/`；#470已创建回读。用户原有HTML不入提交，旧证据只读。
+  - 文件：`RESEARCH_STATUS.md`, `.claude/memory/project.md`, `docs/research/2026-10-19-continuous-research-authorization.md`。
+
+- 2026-10-19 — 同步知识库科研入口并记录跨阶段工作闭环要求
+  - 类型：科研交接同步，不产生新实验数据。已搜索“Forge 科研进度”、完整读取权威笔记，核对本地报告、两份封存审计与 Git/GitHub 状态，再以最新 SHA-256 写回 Windows 真源；保留历史证据与停止决定。
+  - 知识库：`01-研究/自动化编译/Forge-当前创新机制与实验路线.md` 已补齐 #468/#469、当前主线、单项目接入边界、未提交/未发布状态及 evidence 指针；未把基线 HEAD 当结果提交。
+  - 用户约定：后续工作先建或确认 Issue，完成实现/实验、相关测试、提交/PR、合并与 Issue 关闭；阶段变化同步仓库入口与知识库，依证据选择下一问题，单阶段结束不自动停止。新增 Provider 累计预算和持续执行时限尚未确定。
+  - Git：#468/#469 回读仍 OPEN，现有实现尚未提交/推送/PR；用户原有 HTML 保持原样。本次未启动 Provider、未重开历史 identity、未修改 raw evidence。
+  - 文件：`RESEARCH_STATUS.md`, `.claude/memory/project.md`；外部知识库笔记经 MCP 更新。
+
+- 2026-10-19 — 完成 Issue #469 真实方案规划、受控恢复与可复现交付
+  - 类型与授权: 用户明确要求继续修复直到真实运行成功并完成整个实验；建立`cpp-build-plan-agent-repair-v1`，延续累计12请求、200000 Token设计上界、$2费用上限，失败先封存再修复，无SDK重试。
+  - 工程更正: 新`plan_agent_repair.py`明确相对读取路径、可纠正输入错误；attempt-001经6请求/68812 tokens后上下文触限，未构建。attempt-002改用带源码哈希的材料包及PlanProposal-only输出，1请求/17447 tokens，默认high思考占用8192输出上限导致参数截断，未构建。两次均独立封存。
+  - 成功设计: attempt-003同一DeepSeek Pro保持thinking开启、输出8192，显式reasoning_effort=low；补充日志文本marker与相对诊断路径语义，单响应上界收紧为25000。manifest SHA-256 `d5e34a7487ec8afc1c5496d3949e5eafd3033bf2431eee61be54b776928da873`。
+  - 真实结果: 成功轮2次请求、20946 input/2345 output/23291 total tokens、保守估算$0.03693492。正常Session`9335770708c5`4命令无交接，恢复Session`4211ebc9925f`保留target失败exit2并经1次模型修订完成；两条均19项CTest、精确交付、clean replay及重放测试通过，cleanup后completed。
+  - 交付与审计: 唯一共享库libcjson.so.1.7.19，50256 bytes，原始/重放SHA-256均`66aea1ae75dd1b7bc196f435f98a4b2b8eabaf1bd6c8bc1282bd4ca13c61286f`；失败命令未进入recipe。独立审计valid=true，v1/v2全部冻结文件未变，0匹配容器。成功轮2527 files/28353696 bytes，inventory `44099409b665f7275275d8600d6bfa5ae539971ecacc7526e554617648f02903`。
+  - 累计与封存: 全部v1/v2/repair共11次请求、10次完成响应、111260已知tokens，已知保守估算$0.19362024；v1仍有1次未知usage，预留50000 tokens/$0.198后161260/$0.39162024，不冒充实际账单。整个repair campaign封存3066 files/35034160 bytes，inventory `3be592ce87210c7ee5453802b6aaa95d6dbc198d0651f93243d0e787b8e373fb`。
+  - 验证: 相关回归219 passed/2 skipped；新runner真实Docker脚本化门禁10 passed；真实SDK离线验证low+thinking+auto及材料包结构化输出，Ruff/format/diff通过。这些工程测试不充当模型能力效果数据。
+  - 证据与边界: `/home/yiwei/.codex/outputs/forge-build-plan-agent-repair-v1/attempt-{001,002,003}`；外部授权/审计/脚本位于`/home/yiwei/.codex/outputs/forge-build-plan-agent-repair-2026-10-19/`。成功轮是材料包驱动规划/修订，没有交互式源码读取工具或任意终端Agent。仅支持已见CMake开发项目链路闭合，不估计自然失败、跨系统泛化、学习选择器增益或成本下降。
+  - 收尾: 本轮已完成，不追加Provider；建议下一阶段独立走读Make/Autotools及真实依赖/配置故障。未提交/推送/PR，不改用户HTML或知识库，不重开#463/#465/#467。详细结果入口`docs/research/2026-10-19-build-plan-agent-repair-results.md`。
+  - 文件: `backend/packages/harness/deerflow/compile/plan_agent_repair.py`, `backend/tests/test_plan_agent_repair.py`, `scripts/forge_build_plan_agent_repair.py`, `benchmarks/preregistrations/cpp-build-plan-agent-repair-v1.md`, `benchmarks/manifests/cpp-build-plan-agent-repair-v1*.json`, `docs/research/2026-10-19-build-plan-agent-repair-results.md`, `docs/research/2026-10-19-build-plan-agent-trial.md`, `RESEARCH_STATUS.md`
+
+- 2026-10-19 — 执行 Issue #469 独立v2真实试运行并封存路径契约失败
+  - 类型与授权: 探索性数据采集及失败分析。用户明确授权`cpp-build-plan-agent-trial-v2`，累计费用上限仍$2；协议SHA-256为`fd756eb789c0bd6780fbfefe8268c161ca9c278e9647bafd31ab8d75a5fb56c2`。
+  - 实际结果: 首个thinking请求返回，1,327 input/383 output/1,710 total tokens，保守估算$0.00326832，usage完整。模型提出4次绝对路径源码读取，实际启动2次均被相对路径合同拒绝；无工具完成、方案、构建Session或重试，决定`stop_before_build_for_source_tool_path_contract`。
+  - 根因与验证: 读取工具只接受规范相对路径，但源码工具描述未明确，system prompt给出容器路径；4项零Provider事后复现确认相对路径可读、相应绝对路径拒绝。仅支持接口已返回和接线缺陷判断，未检验规划/恢复/方法收益。
+  - 封存与审计: v2为238 files/2,424,212 bytes，inventory SHA-256 `6e0dbaef40b1d28ed986ab75f523498adc639022cb3098557e71fa7e571be59f`，独立只读audit通过。v1全量哈希未变，0匹配容器。两次身份累计2请求、v1仍有1次未知usage；不得宣称实际累计费用已核实。
+  - 证据: `/home/yiwei/.codex/outputs/forge-build-plan-agent-trial-v2/`；integration目录的`authorization-v2{,-context}.json`、`real-run-v2-console.log`、`v2-readonly-audit.json`、`v2-path-contract-reproduction.json`。
+  - 下一步与边界: 先做零Provider工具路径说明和可纠正输入错误反馈修复，再决定新试运行；本轮不自动派生v3、不改冻结运行依赖、不追加模型请求，不推送/PR或修改个人知识库。此前208 passed/1 skipped及Docker脚本化夹具1 passed不是模型能力证据。
+  - 文件: `docs/research/2026-10-19-build-plan-agent-trial.md`, `RESEARCH_STATUS.md`, `.claude/memory/project.md`
+
+- 2026-10-19 — Issue #469 接入方案 Agent，v1 Provider错误停止并准备独立v2接线修复
+  - 动机与类型: 基础设施与探索性数据采集，检验模型方案、交接修订和独立重建能否闭合，不是正式效果比较。
+  - 实现: `create_agent`/`ToolStrategy` 与受限源码/日志读取；任务作者固定 smoke、交付和环境，Agent 返回完整建议，Workflow 执行。
+    复用 AgentWorkflowBudgetTracker，请求原始响应在结构化解析前记录真实 usage，排除框架合成 ToolMessage 的重复计量；非法方案也保留费用。
+  - 验证: 相关回归 205 passed/1 skipped，最终控制代码的真实 Docker 脚本化夹具 1 passed；静态协议校验、Ruff 和 diff check 通过。
+    授权后发现 SDK 参数应为 base_url，调用前修正并做无网络客户端构造和 20 passed/1 skipped 定向回归，未改变预算或研究设计。
+  - 身份与授权: `cpp-build-plan-agent-trial-v1`；用户明确回复“同意，按该协议执行，费用上限 2 美元”。
+    DeepSeek Pro thinking，正常/受控恢复两条 cJSON 路径，最多12请求、Token准入150000/单响应50000/授权200000、估算$2、无重试。
+    最终候选协议 SHA-256 `52d12e759df2395b50aca26ac2d545b8c9c47d93e757f528eebeb01e794deeb7`，独立授权文件精确绑定它。
+  - 证据: 零调用门禁和授权位于 `/home/yiwei/.codex/outputs/forge-build-plan-agent-integration-2026-10-19/`；
+    实际请求与结果位于 `/home/yiwei/.codex/outputs/forge-build-plan-agent-trial-v1/`；v1首请求BadRequestError停止，无方案/Session/重试。
+    234 files/2,408,734 bytes，inventory SHA-256 `1bdce346628cc594fd6acd1acf756f4aa6307e9c06934b679e9afec69c24c115`，只读审计通过。
+    1个失败请求无usage，费用未知；原result中的0为已完成响应累计，不回填为零费用。v1错误正文未保存，v2已补诊断字段。
+  - 独立修复: 已安装ToolStrategy把any绑定成required，实际SDK HTTP离线测试与DeepSeek官方文档确认其不兼容thinking。
+    `plan_agent_v2.py`局部改为auto且保留结构化校验；SDK/图/错误计量门禁和相关回归208 passed/1 skipped，v2 CLI静态校验通过。
+    v2候选最多11请求、Token准入100000/单响应50000，为v1预留50000 tokens，累计估算费用仍最多$2；当前等待独立v2确认。
+  - Git 与边界: 本地分支 `yiwei/469-build-plan-agent-trial`，继承 #468 未提交工作，尚未提交/推送/PR；旧 evidence/用户 HTML 未修改。
+    #463/#465/#467 保持停止，个人知识库只读且不注入实验 Agent。不得在v1重试；下一步仅在用户确认v2后建立独立输出目录执行。
+  - 文件: `backend/packages/harness/deerflow/compile/plan_agent.py`, `scripts/forge_build_plan_agent_trial.py`,
+    `backend/tests/test_plan_agent.py`, `benchmarks/manifests/cpp-build-plan-agent-trial-v1-candidate.json`,
+    `benchmarks/preregistrations/cpp-build-plan-agent-trial-v1.md`, `backend/packages/harness/deerflow/compile/plan_agent_v2.py`,
+    `scripts/forge_build_plan_agent_trial_v2.py`, `backend/tests/test_plan_agent_v2.py`,
+    `benchmarks/manifests/cpp-build-plan-agent-trial-v2-candidate.json`, `benchmarks/preregistrations/cpp-build-plan-agent-trial-v2.md`,
+    `docs/research/2026-10-19-build-plan-agent-trial.md`, `RESEARCH_STATUS.md`
+
+- 2026-10-19 — Issue #468 跑通初始构建方案与规则 Workflow 最小原型
+  - 工作类型与动机: 基础设施与工程验证，解除后续真实方案生成/恢复试运行的执行、交接与证据审计障碍；不估计研究方法效果。
+  - 实现: 独立 opt-in `BuildPlan`/`PlanWorkflow` 与零 Provider CLI，复用 Session、Docker、成功配方和既有 submit/clean replay；
+    失败保留命令及指定内部日志，交接绑定方案哈希与命令 frontier；修订只保留相同执行前缀，后续 receipt 失效，固定验收不可降低。
+  - 验证: 相关回归 185 passed，最终代码 Docker 受控夹具 1 passed，新增四个 Python 文件 Ruff check/format 与 diff check 通过。
+    cJSON 正常与脚本化错误 target 恢复均 verified、Session completed；指定库与 clean replay 大小/哈希一致。
+    受控 Make 测试失败的内部日志在 cleanup 后保留，失败 receipt 排除在成功配方之外。
+  - 证据与边界: 输出 `/home/yiwei/.codex/outputs/forge-build-plan-prototype-2026-10-19/`；初始 scope 代码哈希与最终源码副本分开保存，
+    两次 cJSON 运行早于最后小修订，最终代码另经回归与 Docker 验证。前序走读封存 inventory 只读核验未变；不补填 libusb 日志。
+    零 credential/Provider/真实模型 Agent；修订由脚本提供，仅同进程暂停/返回，无进程重启恢复；工作区不自动回滚。
+  - Git 与下一步: 本地分支 `yiwei/468-build-plan-workflow` 基于 `6a49ee26`，Issue #468 已创建并回读，尚未提交/推送/PR。
+    下一阶段设计真实方案生成和恢复回复的小规模试运行，先明确模型、样本、调用/费用上限与停止规则；不续跑 #463/#465/#467。
+  - 文件: `backend/packages/harness/deerflow/compile/plan_workflow.py`, `scripts/forge_build_plan_prototype.py`,
+    `backend/tests/test_plan_workflow.py`, `backend/tests/test_plan_workflow_docker.py`,
+    `docs/research/2026-10-19-build-plan-prototype.md`, `RESEARCH_STATUS.md`
+
+- 2026-10-19 — 完成初始构建方案与状态执行的三项目探索性走读
+  - 类型与授权: 用户确认“面向 C/C++ 仓库自动化构建的状态感知动作选择与验证方法研究”，并授权上一轮提出的小规模流程走读；本轮零 Provider/运行时 Agent，无正式效果实验，不重开已停止 identity。
+  - 工作与事实: 从公开 tag 解析完整 commit，依据源码 README/CI/构建文件事前保存方案。cJSON CMake 构建及 19 项 CTest 通过；zstd Make 默认构建及 make check 通过（明确跳过大数据测试）；libusb Autotools 经 CI 已声明 libudev-dev 安装候选和复查后编译成功，make check 为 3/4，通过前不交付。
+  - 边界与缺口: 本轮顺序/条件脚本不是学习型选择器；9 个有日志来源的决策位置只是设计解释，合理规则基线也能处理，未证明选择器收益、独立规划质量、Agent 恢复、配方修订或严格重建。libusb stress_mt 失败的内部日志未在清理前导出，根因未知；不重跑补填，后续执行器必须保存失败内部日志。
+  - 证据与验证: 独立记录位于本机 outputs 下 forge-build-plan-walkthrough-2026-10-19，含 scope、源码身份/归档、初始方案、命令账本/日志、result、summary、decision-cases 和 audit；来源/命令/产物/清理核验 valid，0 本轮残留容器。已核对知识库固定入口和另一工作树 915a6d67 的 #467 停止决定，不改知识库、历史 raw 或用户 HTML。
+  - 下一步: 按报告限定实现项目方案输入、状态采集、规则 Workflow、交接/返回和配方/既有验证衔接的最小原型；用条件变化、方案失效与修复历史比较增量，不将本轮开发项目当未知 holdout。
+  - 文件: `docs/research/2026-10-19-build-plan-walkthrough.md`, `RESEARCH_STATUS.md`, `.claude/memory/project.md`
+
 <!-- 倒序，最新在上。 -->
 
 - 2026-10-17 — Issue #465 Jev 逐动作安全判断问题分解完成并停止 controller 路线
