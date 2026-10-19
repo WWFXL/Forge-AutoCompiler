@@ -4,11 +4,11 @@
 
 ## 进行中 (In Progress)
 
-- 2026-10-20 — #493十项完整参考任务资格待运行
+- 2026-10-20 — #493十项完整参考任务资格运行中
   - 文件: scripts/forge_build_reference_expansion.py, backend/tests/test_build_reference_expansion.py, 对应manifest/preregistration。
   - 输入预检通过、归档规范化和失败/清理调度3测试通过；使用仓库Python3.12，0Provider。
   - manifest d2e7ec92561a1f693bf4093c718ade807706f9f39b78d4f064c9579f6e4eaefc；运行中不可修改components。
-  - 原始输出预定/home/yiwei/.codex/outputs/forge-reference-expansion-v1/，输入/home/yiwei/.codex/outputs/forge-reference-expansion-inputs-v1/。
+  - release21614b36，真实已启动；原始输出/home/yiwei/.codex/outputs/forge-reference-expansion-v1/，输入/home/yiwei/.codex/outputs/forge-reference-expansion-inputs-v1/。
   - #491合入依赖开发分支，head47e8b852三CI成功，merge1a127519，#489关闭；未进入main。
 
 - 2026-10-13 — Issue #440 H0/H1 v3 正式复现 authorized identity 已实现，等待发布与 Q0
@@ -503,6 +503,14 @@
   - 下一步: 等待实验负责人确认当前网络接入介质，并决定是否授权只读 endpoint 诊断和新的 canary amendment；获得确认后必须另建中文 Issue/PR 和协议 identity，保留当前失败 marker。
 
 ## 最近变更 (Recent Changes)
+
+- 2026-10-20 — #496独立Make来源保留六槽位并完成只读审计
+  - 文件: scripts/forge_build_make_source_catalog.py, backend/tests/test_build_make_source_catalog.py, 对应manifest/preregistration, docs/research/2026-10-20-build-make-source-catalog.md。
+  - 动机: 补充完整Make任务来源，不替换#492暂缓项，不将已有开发项目伪装holdout。
+  - 五项来源成功，libcrc/libcrc metadata失败保留；41文件/228597 bytes，inventory1cd3b892a03273cf289fc36b823163b0c794f1c1bf988ab460840a19050288ee，独立审计通过。
+  - 原测试显式scripts路径后12/12通过；封存后仅补测试导入路径，默认孤立12/12亦通过，冻结证据/运行源码不变；Ruff通过。
+  - libhydrogen/buffer可继续任务设计，pico需picotest exact gitlink；commander无完整oracle暂缓，tinyAES已见。
+  - #493运行中不得修改components；#494已核验head26cd561a三CI并合入依赖分支，merge52f12d74，#492关闭。
 
 - 2026-10-20 — #492扩展12项固定来源并核验完整测试入口
   - 文件: scripts/forge_build_source_expansion.py, backend/tests/test_build_source_expansion.py, 对应manifest/preregistration, docs/research/2026-10-20-build-source-expansion.md。

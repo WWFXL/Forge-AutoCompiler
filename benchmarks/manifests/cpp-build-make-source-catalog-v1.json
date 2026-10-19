@@ -1,0 +1,52 @@
+{
+  "identity": "cpp-build-make-source-catalog-v1",
+  "issue": 496,
+  "authorization_issue": 470,
+  "provider_calls": 0,
+  "build_commands": 0,
+  "deadline_utc": "2026-10-19T22:45:00Z",
+  "candidates": [
+    {
+      "repository": "kokke/tiny-AES-c",
+      "requested_build_system": "make"
+    },
+    {
+      "repository": "libcrc/libcrc",
+      "requested_build_system": "make"
+    },
+    {
+      "repository": "h2o/picohttpparser",
+      "requested_build_system": "make"
+    },
+    {
+      "repository": "jedisct1/libhydrogen",
+      "requested_build_system": "make"
+    },
+    {
+      "repository": "clibs/buffer",
+      "requested_build_system": "make"
+    },
+    {
+      "repository": "clibs/commander",
+      "requested_build_system": "make"
+    }
+  ],
+  "history_revisions": [
+    "21614b36c94fc29dd6dabb6576592a7965ad5e3c",
+    "915a6d678298ce64fefea752aa7d9e074c5e871f"
+  ],
+  "limits": {
+    "max_compressed_bytes": 67108864,
+    "max_uncompressed_bytes": 268435456,
+    "max_file_bytes": 16777216,
+    "max_entries": 40000,
+    "snippet_bytes": 24000
+  },
+  "components": {
+    "scripts/forge_build_source_expansion.py": "37472f1676a68653a08334de90f2ee43698f05d33e76900734e1c5fd70bb2387",
+    "scripts/forge_build_make_source_catalog.py": "2d943c5b9807a2ca110c455c59b2e084ba4a4342b4701e7d2ed499ab2f535d51",
+    "scripts/forge_typed_evidence.py": "b3e798669389507dc605fcd73b2450921f0695bddccc564344fda88d5cb7a3c8",
+    "backend/tests/test_build_make_source_catalog.py": "208c9647f3bdc830bffa008ab24595c8d27bbd0ca9b4cafb0b61d92b3c1615e5",
+    "benchmarks/preregistrations/cpp-build-make-source-catalog-v1.md": "703982bbd94c5ff490a817dade15c43b27b7a06fc2d40321097c17461d33a9dd"
+  }
+}
