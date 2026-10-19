@@ -14,6 +14,8 @@ plan/tool分别60/105请求、765692/1082737 Token、$1.26334296/$1.62595884估�
 
 ## 当前研究问题与已知边界
 
+#514费用归因回顾审计已完成36臂/252响应/544收据、独立audit valid=true，0Provider。#502输入费用差-$0.44644116+输出差$0.08382528=合计-$0.36261588；#504输入差-$0.08340156+输出差$0.16473204=合计+$0.08133048。不能以请求/总Token代费用；#504的plan32初始+5真实恢复，后者$0.12073644但未交付修订。raw `/home/yiwei/.codex/outputs/forge-token-cost-attribution-audit-v1/`，inventorye542e906f7d67284bea488bb5392b7fa4ca2584b6812b3c84c4f6ef8ff284705；报告`docs/research/2026-10-20-build-token-cost-attribution-audit-results.md`。6项测试通过，不作输出语义归因、跨批因果或总体优势。下一步同源失败状态/合理强规则动作分歧核查，不盲增选择器复杂性。
+
 #511接管材料工程资格v2已通过且独立audit valid=true：原材料门禁拒绝（去掉源码片段仍至少50916字节），仅省重复日志预览后实际48515字节、schema2032，1次零Token脚本请求返回候选但不执行构建。raw `/home/yiwei/.codex/outputs/forge-handoff-context-qualification-v2/`，inventorydf52d2de72a886280bf298340736521194c707520794e29b36b285025139eb1f；v1遗漏历史而未复现，失败保留。新meter只用于后续新身份，不改旧runner；9针对性+5相邻测试通过，按仓库make test-product完整1960 passed/44 skipped。报告`docs/research/2026-10-20-build-handoff-context-qualification-results.md`，PR513待最终head三CI。
 
 #508两项参考配方独立修复已2/2 qualified/strict completed、独立两审计valid=true：libpng只修stage文件名且37/37测试，libzip仅BUILD_DOC=OFF且199/199测试，精确交付/原源码不变/clean replay/cleanup均过。raw `/home/yiwei/.codex/outputs/forge-reference-repair-qualification-v1/`，inventory9eb4c2d336766e6c66aff742f771dcd93686aece0eac70d5e40b619cd2ba0e3c；报告`docs/research/2026-10-20-build-reference-repair-qualification-results.md`。0Provider，各一次，旧#493不回填，libffi不替补；manifest64组件及父差异明示。PR512待结果head三CI后合并。
