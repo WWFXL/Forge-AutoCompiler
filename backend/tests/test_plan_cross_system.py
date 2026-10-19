@@ -5,6 +5,7 @@ from datetime import UTC, datetime, timedelta
 from decimal import Decimal
 
 import pytest
+from langchain_core.messages import AIMessage
 from test_plan_agent import ScriptedPlanModel, proposal, response
 from test_plan_agent import task as original_task
 
@@ -71,6 +72,34 @@ def test_project_reserves_entire_next_request_before_provider(tmp_path):
     with pytest.raises(PlanContractError, match="项目费用"):
         meter._before_request()
     assert meter.summary()["model_requests"] == 0
+
+
+@pytest.mark.parametrize("finish", ["length", "stop"])
+def test_nonproposal_stops_after_one_response_with_known_usage(tmp_path, finish):
+    task = original_task.__wrapped__().model_copy(update={"build_system": "make"})
+    truncated = AIMessage(
+        content="", additional_kwargs={"reasoning_content": "仅推理而无方案"}, response_metadata={"model_name": "test-model", "finish_reason": finish}, usage_metadata={"input_tokens": 3, "output_tokens": 8192, "total_tokens": 8195}
+    )
+    model = ScriptedPlanModel(responses=[truncated, response("PlanProposal", proposal(task).model_dump(mode="json"))])
+    meter = CrossSystemMeter(PlanAgentLedger(tmp_path / "agent"), accepted_models=("test-model",), deadline=(datetime.now(UTC) + timedelta(hours=2)).isoformat())
+    with pytest.raises(PlanContractError, match="不自动重试"):
+        propose_cross_system(model=model, task=task, source_root=tmp_path, meter=meter)
+    assert meter.summary()["model_requests"] == 1
+    assert meter.summary()["recorded_tokens"] == 8195
+    assert meter.summary()["unknown_usage_requests"] == 0
+    assert (tmp_path / "agent/response-1.json").exists()
+    assert not (tmp_path / "agent/request-2.json").exists()
+
+
+def test_malformed_proposal_is_not_implicitly_retried(tmp_path):
+    task = original_task.__wrapped__().model_copy(update={"build_system": "make"})
+    model = ScriptedPlanModel(responses=[response("PlanProposal", {"reason": "缺少步骤"}), response("PlanProposal", proposal(task).model_dump(mode="json"))])
+    meter = CrossSystemMeter(PlanAgentLedger(tmp_path / "agent"), accepted_models=("test-model",), deadline=(datetime.now(UTC) + timedelta(hours=2)).isoformat())
+    with pytest.raises(Exception, match="PlanProposal"):
+        propose_cross_system(model=model, task=task, source_root=tmp_path, meter=meter)
+    assert meter.summary()["model_requests"] == 1
+    assert meter.summary()["unknown_usage_requests"] == 0
+    assert not (tmp_path / "agent/request-2.json").exists()
 
 
 def test_handoff_carries_captured_failure_without_reading_outside_logs(tmp_path):

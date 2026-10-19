@@ -129,6 +129,17 @@ class CrossSystemMeter(PlanAgentMeterV2):
         super().__init__(*args, budget=replace(trial_budget(), max_recorded_tokens=400000, command_timeout_seconds=180), **kwargs)
         self.deadline = deadline
 
+    def capture_response(self, response, request_sequence):
+        # 先保存响应和完整用量，再停止；禁止图把截断推理拼入上下文后隐式续问。
+        super().capture_response(response, request_sequence)
+        for message in response.result:
+            if message.type != "ai":
+                continue
+            if message.response_metadata.get("finish_reason") == "length":
+                raise PlanContractError("方案响应达到输出上限，已保存用量并停止，不自动重试")
+            if not message.tool_calls:
+                raise PlanContractError("方案响应没有结构化工具调用，停止而不自动重试")
+
     def _before_request(self):
         before_deadline(self.deadline, 1800)
         if Decimal(str(self.cost_usd)) + Decimal("0.40") > Decimal("2"):
@@ -159,7 +170,7 @@ def propose_cross_system(*, model, task, source_root, meter, current_plan=None, 
         )
     )
     meter.ledger.append("agent.started", revision=revision, recovery=current_plan is not None)
-    agent = create_agent(model=model, tools=[], system_prompt=prompt, middleware=[meter], response_format=ToolStrategy(PlanProposal))
+    agent = create_agent(model=model, tools=[], system_prompt=prompt, middleware=[meter], response_format=ToolStrategy(PlanProposal, handle_errors=False))
     result = agent.invoke({"messages": [{"role": "user", "content": json.dumps(payload, ensure_ascii=False)}]}, config={"max_concurrency": 1, "recursion_limit": 64, "callbacks": [PlanResponseCapture(meter)]})
     proposal = result.get("structured_response")
     if not isinstance(proposal, PlanProposal):

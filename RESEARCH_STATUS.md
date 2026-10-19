@@ -4,18 +4,20 @@
 
 ## 当前阶段
 
-- 2026-10-19：#476 已进入跨系统开发走读的零Provider接线阶段。首轮独立门禁中，zstd
-  原始构建/测试、产物与clean replay、cleanup通过；libusb构建成功，stress_mt失败、3/4通过，
-  本次内部日志明确记录`LIBUSB_ERROR_NO_DEVICE`，不能回填旧走读的根因空白。
-  首轮封存2292 files/215175141 bytes，inventory SHA-256
-  `8e8cffd502f08e76443aa1bdc8e00091267e0ede13f0b32cc1189118ea149a38`；输出
-  `/home/yiwei/.codex/outputs/forge-cross-system-gate-v1/`。
-  已增加有界内部日志材料包与固定后端/测试检查，独立第二轮接线门禁完成，相同两项结果；
-  inventory为`d34f39d43d9168546c03c07f9ac3b2c7721f34a8b72dbbe192069f7a101e5d99`。
-  实际诊断材料的结构化图回放0 Provider、54801字节，五份内部日志可供恢复读取；尚未调用本阶段Provider。
-  真实阶段分配最多$4，计入#470共享额度；协议见`benchmarks/preregistrations/cpp-build-plan-cross-system-v1.md`。
-  #472/#473/#474/#475已创建，远端CI仍排队，未绕过检查合并。知识库已同步授权与研究提交；
-  默认回归显式门禁后1856 passed/44 skipped，全backend Ruff check/format通过。
+- 2026-10-20（北京时间）：#476 真实跨系统 v1 已失败封存，完整性审计通过。
+  zstd 首响应截断、无命令；libusb 初始方案完成依赖/配置/编译，固定四项测试stress_mt失败，
+  恢复响应截断；两个Session失败终结、cleanup成功，未完成strict交付。
+  3请求/65,244 tokens/已知保守估算$0.1432596，inventory
+  `2704868289b629da81532b0c8d91a15caf1d742b04cd41cede11c638a21dbc12`。
+  报告：`docs/research/2026-10-20-build-plan-cross-system-v1-results.md`；
+  原始：`/home/yiwei/.codex/outputs/forge-cross-system-model-v1/`，只读。
+  #478 独立v2修复输出余量与截断停止，源码/固定测试/严格验收不变；零Provider门禁完成，
+  zstd严格completed、libusb相同stress_mt失败并清理。门禁inventory
+  `b2ff203102f643f3f109adc9de7b8d911c3d5d5bc3a046817c61ea58cbbeda3e`；
+  默认产品1864 passed/44 skipped、相关44 passed/2 skipped、Ruff通过。下一步独立v2真实运行，阶段保留$4。
+  不支持效果、泛化或成本收益；#477来源目录仅检索，尚无构建结果。
+  PR #472/#473/#474/#475已逐项核验实际CI job并合入依赖开发分支，#468/#469/#471已关闭；
+  尚未进入main。#479等待实际CI；知识库已同步v1，合并状态下一次同步。
 
 - 2026-10-19 持续执行已授权：跟踪 #470，用户允许跨阶段自主推进、GitHub 发布闭环与知识库维护；
   各新阶段共享新增 Provider 上限 $20，截止北京时间 2026-10-20 07:00，预留最后15分钟清理交接。
