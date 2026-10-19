@@ -2193,3 +2193,8 @@
 # 2026-10-20 #511材料v2与回归
 
 v2补齐原第九次请求读取索引和最终三工具历史，原门禁拒绝、新meter消息48515/schema2032、一次零Token脚本候选；独立audit valid=true，inventorydf52d2de72a886280bf298340736521194c707520794e29b36b285025139eb1f。完整核心/日志收据保留，只新身份接线，不等于真实模型修复。v1失败不改。9针对性+5相邻通过；仓库make test-product为1960 passed/44 skipped。一次手写pytest漏排test_agent_workflow_stage_b_*导致旧冻结50失败，日志保留；须按Makefile正式入口隔离旧runtime，不改冻结测试解失败。报告2026-10-20-build-handoff-context-qualification-results.md。
+
+
+# 2026-10-20 #514费用归因审计
+
+36臂/252原响应/544消费收据，独立audit valid=true。#502输入差-.44644116+输出差.08382528=-.36261588美元；#504输入差-.08340156+输出差.16473204=.08133048，输出3倍单价足以使请求/Token少而费用高。#504plan32初始/5恢复，恢复.12073644美元未修订。inventorye542e906f7d67284bea488bb5392b7fa4ca2584b6812b3c84c4f6ef8ff284705。6测试/标准Python3.10实跑/脚本Ruff py310及后端默认Ruff/format通过；冻结源码保持。下一同源状态强规则动作分歧，不推总体成本或跨批ID因果。报告2026-10-20-build-token-cost-attribution-audit-results.md。#512结果59b6ef18三CI后已merge dd9eacb2/#508关闭。
