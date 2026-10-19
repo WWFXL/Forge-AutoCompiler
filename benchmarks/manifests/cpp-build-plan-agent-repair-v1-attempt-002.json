@@ -1,0 +1,109 @@
+{
+  "identity": "cpp-build-plan-agent-repair-v1",
+  "kind": "development_repair_campaign_not_effect_comparison",
+  "issue": 469,
+  "task": {
+    "plan_id": "cjson-agent-trial",
+    "repository_url": "https://github.com/DaveGamble/cJSON",
+    "commit_sha": "c859b25da02955fef659d658b8f324b5cde87be3",
+    "image_id": "sha256:d27a6ab733c7c3a9cbb5e4b32fb595aa5a422ff04bd212888d1041b90a2c4c2a",
+    "source_archive_sha256": "26da701f2cb689e042361a4bd8904595f2fa41409812e781fc8759ed54a0f734",
+    "build_system": "cmake",
+    "artifact_paths": [
+      "libcjson.so.1.7.19"
+    ],
+    "verification_steps": [
+      {
+        "step_id": "check",
+        "role": "smoke",
+        "command": "ctest --test-dir build --output-on-failure",
+        "source": "tests/CMakeLists.txt",
+        "expected": "19项测试通过",
+        "workdir": "/workspace/repo",
+        "requires": [
+          "build"
+        ],
+        "required_output": [
+          "100% tests passed, 0 tests failed out of 19"
+        ],
+        "diagnostic_paths": [
+          "build/Testing/Temporary/LastTest.log"
+        ]
+      }
+    ]
+  },
+  "provider": {
+    "model": "deepseek-v4-pro",
+    "base_url": "https://api.deepseek.com",
+    "thinking": true,
+    "max_output_tokens": 8192,
+    "max_retries": 0,
+    "timeout_seconds": 120,
+    "accepted_response_models": [
+      "DeepSeek-V4-Pro-0813",
+      "deepseek-v4-pro"
+    ],
+    "input_usd_per_million": 1.32,
+    "output_usd_per_million": 3.96
+  },
+  "cases": [
+    "normal",
+    "controlled-recovery"
+  ],
+  "aggregate_max_requests": 12,
+  "aggregate_token_design_upper_bound": 200000,
+  "max_estimated_cost_usd": 2,
+  "parents": [
+    {
+      "path": "/home/yiwei/.codex/outputs/forge-build-plan-agent-trial-v1",
+      "seal_sha256": "7aee3b7b95eb3e27b2b68a4d531df66aa5ca4c581445ac0a11a412d8c98646e1"
+    },
+    {
+      "path": "/home/yiwei/.codex/outputs/forge-build-plan-agent-trial-v2",
+      "seal_sha256": "c68f7a814c9db564bb254646d7f338f1f94e0e50924c781ec5e96cc0cbcba630"
+    }
+  ],
+  "components": {
+    "backend/packages/harness/deerflow/compile/__init__.py": "5c9b2cf4d1fbfb357cf07047b3eee93934d1e6a04b2d63ed26dc98071b9cd78c",
+    "backend/packages/harness/deerflow/compile/agent_workflow_node.py": "9fc296c5ac5586fbc25cd0d4c8c0c2bb3c0db03c89fa3cf924d3ff6873a29155",
+    "backend/packages/harness/deerflow/compile/agent_workflow_runtime.py": "92277bf4b5568acb43523edb6344b2a6b6c70ce731cab62200295b3aa97d9931",
+    "backend/packages/harness/deerflow/compile/agent_workflow_runtime_v2.py": "7358c8396a6eee7776f64f6645f0d516b1f4e6ed4743a249c1d8c32b4c1ecef5",
+    "backend/packages/harness/deerflow/compile/agent_workflow_runtime_v3.py": "2d71383d011e943f78e9259b9f7ceec2c8e1f080d7609e86413ce188a841f65e",
+    "backend/packages/harness/deerflow/compile/agent_workflow_runtime_v4.py": "48593cfea3a5cd0512531332bec89bc16afddbdc190605e55d17c027a7769c66",
+    "backend/packages/harness/deerflow/compile/agent_workflow_runtime_v5.py": "44462a2e6cf26e3008743281c942604ce75955ac62125afcf676fa1882c1c92a",
+    "backend/packages/harness/deerflow/compile/agent_workflow_runtime_v6.py": "70311ae3a598e183ba7450494629d8ee5a5e572c9e829f2d82a058122060406b",
+    "backend/packages/harness/deerflow/compile/agent_workflow_schemas.py": "21a19f6d1a0421fce2c7807474db9eefe0e0be25042241ca121fbb9d5ec99706",
+    "backend/packages/harness/deerflow/compile/artifact_display.py": "b6ae85f2b3c5dead9d631933714f318e29cfd562a6127f17003120218cb660e8",
+    "backend/packages/harness/deerflow/compile/candidate_verifier.py": "595cec0fc909e2179fbcebc5428c6b5ae996d7442e90ece5ccbc8d57bef7ab89",
+    "backend/packages/harness/deerflow/compile/docker_runtime.py": "e82999ab0a262ddd8e60241b70994cc99b495d5d7bb34f4b5247f3fe69c864da",
+    "backend/packages/harness/deerflow/compile/evidence.py": "a3923167f67a96ea4af4aaa4f3692d15baafea79cc0e5ee1b9dac08ab7eb9284",
+    "backend/packages/harness/deerflow/compile/evidence_ownership.py": "1609822180c1818988ef9ad8a4fa30ce21a901a5d9037f82d43bf00ba1ba0d92",
+    "backend/packages/harness/deerflow/compile/external_evaluator.py": "c4ac897de06ab91d1cd557dfc3b6427974cae99c2ca16c216e8880303c094c61",
+    "backend/packages/harness/deerflow/compile/external_evaluator_v2.py": "19044e161b321fe5afed8458c0138f1bcfbe41582af2d5f4efcdf6846c3d579b",
+    "backend/packages/harness/deerflow/compile/external_evaluator_v3.py": "cfb5e3baeff772e54051925e6b0504eea25b6ba9284d8a5c6ad7135355fde79c",
+    "backend/packages/harness/deerflow/compile/external_evaluator_v4.py": "9009c400b1b54d9ad05411f1a64124423cf50d8ba49bfa2d13071d9bedad4613",
+    "backend/packages/harness/deerflow/compile/hybrid_workflow.py": "73e215ebf2d0c3a53db7f8b44993a72c9d6a140091d5c78d5114fec578676d4e",
+    "backend/packages/harness/deerflow/compile/jev_controller.py": "f8c53aa301c60399aae33c052d7d3efd8d39c0827dc751d99cd823194a810e9f",
+    "backend/packages/harness/deerflow/compile/manager.py": "1f9726ff9375cb5fb271bc17b29310e17db6db274474b02112aaf61cead4536e",
+    "backend/packages/harness/deerflow/compile/operations.py": "8a275e76a30e4476d7e403120cc9e372b13eaa0ac8bd091d2786f6cbe1f0878a",
+    "backend/packages/harness/deerflow/compile/paths.py": "3872bdca3647a78407b422c00a72d9c62b38d5e9f2f0355cc78653fa15d1c332",
+    "backend/packages/harness/deerflow/compile/plan_agent.py": "76cf813285bd0d95ffd53e6d94d7fed09ddc4dcadfdcb13f6c37089170f5dd71",
+    "backend/packages/harness/deerflow/compile/plan_agent_repair.py": "11fd9bf0357c446a74c5a010666f54912b131d4fe5d03ce98af8fb59005ed45e",
+    "backend/packages/harness/deerflow/compile/plan_agent_v2.py": "8fb37e15af7739c32ab00002076e284d5599710c34d11ae1623f6f23ca922bad",
+    "backend/packages/harness/deerflow/compile/plan_workflow.py": "0c81c8bd4bf6f27a78fc76bd755bd64eeba1f0f0d0dd90e0e4227145826d9c6a",
+    "backend/packages/harness/deerflow/compile/replay_closure_verifier.py": "01f8335ab0a586065803b34952b930adbf593624c611316b40ca2ccac685cd83",
+    "backend/packages/harness/deerflow/compile/schemas.py": "8217a7514665fb5c271699b9f988bce227d861bfa607cec0ae1301f2827b9bc6",
+    "backend/packages/harness/deerflow/models/patched_deepseek.py": "e313c1b141799e268d9cc8ff548e45a339bf68b5a3b4f3b8865b2f7fa218477b",
+    "backend/tests/test_plan_agent_repair.py": "3ff4311e97d9a0baeb7ded6c8a8cedec5229f3f39e40ca5c6f799be8286ac5b7",
+    "backend/uv.lock": "1b5044aa16b583d3253bfbcc883a0afd5a4dec791cf766ba535d1635db136314",
+    "benchmarks/preregistrations/cpp-build-plan-agent-repair-v1.md": "2025bc82913a84f6a0b594a14349cc4b56ad804c9492d9a9f04d60a261dfcca0",
+    "benchmarks/preregistrations/cpp-build-plan-agent-trial-v1.md": "42a2326f9a6c44d241f5892bb50419975fdca791a84221152e58f4c7879a4857",
+    "scripts/forge_build_plan_agent_repair.py": "f7b504744fe82b1107e1d229a7fd9f82c804fb54c16ee3e81c38361fe036dde1",
+    "scripts/forge_build_plan_agent_trial.py": "cf4d7d2e74351e22e2ccbc8f5bc370f5e69ff3c0235be3312527a9f5c7948732",
+    "scripts/require-docker-runtime.sh": "50c7e21e6eb277f3c76849b88f62b4f5e30c449d27d526c0d1d0882b2e173958"
+  },
+  "authorization_scope": "user requested repair and continue until genuine completion within the existing aggregate budget; preserve every failed attempt",
+  "stop_rule": "each attempt stops on hard errors and is sealed; engineering repairs may continue in a new attempt within remaining aggregate budget; success or exhausted budget ends campaign; no SDK retries; fixed validation unchanged",
+  "attempt_design_revision": 2,
+  "engineering_amendment": "bounded deterministic source_packet and PlanProposal-only generation after attempt-001 context overflow; unchanged task/model/acceptance/aggregate budget"
+}
