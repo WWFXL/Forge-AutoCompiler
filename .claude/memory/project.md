@@ -4,6 +4,7 @@
 
 ## 进行中 (In Progress)
 
+
 - 2026-10-13 — Issue #440 H0/H1 v3 正式复现 authorized identity 已实现，等待发布与 Q0
   - 工作类型与问题: 正式数据采集前的协议实现。目标是在 v2 结果已观察的前提下，用同 9 个项目族、机械旋转到未进入
     v2 effect arms 的 checkpoint 深度，检验 H1 strict/cost 正向信号能否在完整后付费 Token 计量下复现。
@@ -496,6 +497,25 @@
   - 下一步: 等待实验负责人确认当前网络接入介质，并决定是否授权只读 endpoint 诊断和新的 canary amendment；获得确认后必须另建中文 Issue/PR 和协议 identity，保留当前失败 marker。
 
 ## 最近变更 (Recent Changes)
+
+- 2026-10-20 — #493十项参考资格终结，7合格/3未合格全部封存
+  - 文件: docs/research/2026-10-20-build-reference-expansion-results.md, RESEARCH_STATUS.md
+  - 原始47586文件/70链接/565838840 bytes；inventory34614ceaf61f45f383ea46bfacf4490e0e888417ea40c150b5bdee04b99ae011；独立audit valid=true，10项cleanup、0残留。
+  - libpng全37测试后stage路径错误；libzip全199测试及Forge completed但110个生成HTML改写；libffi bootstrap未定义宏。保留，不续跑、不改原分类；0Provider。
+  - 下一步#498七控制、#500两Make资格，再#502配对；新时限需依据uncrustify203.7s共同调整，先等父阶段封存。
+
+- 2026-10-20 — 将当前科研入口压缩为可核验状态与下一决策
+  - 文件: RESEARCH_STATUS.md
+  - 动机: 避免旧计划与现阶段竞争；原长时间线保留于ce6e1af9的Git版本和各冻结报告，不改历史证据。
+  - #493等待最终libffi，check已strict完成；uncrustify完整测试203.7s，#502新协议需双方共同command300s/replay600s，须等#493/#498/#500封存后再改共享组件，不能破坏运行中hash。
+
+- 2026-10-20 — #496独立Make来源保留六槽位并完成只读审计
+  - 文件: scripts/forge_build_make_source_catalog.py, backend/tests/test_build_make_source_catalog.py, 对应manifest/preregistration, docs/research/2026-10-20-build-make-source-catalog.md。
+  - 动机: 补充完整Make任务来源，不替换#492暂缓项，不将已有开发项目伪装holdout。
+  - 五项来源成功，libcrc/libcrc metadata失败保留；41文件/228597 bytes，inventory1cd3b892a03273cf289fc36b823163b0c794f1c1bf988ab460840a19050288ee，独立审计通过。
+  - 原测试显式scripts路径后12/12通过；封存后仅补测试导入路径，默认孤立12/12亦通过，冻结证据/运行源码不变；Ruff通过。
+  - libhydrogen/buffer可继续任务设计，pico需picotest exact gitlink；commander无完整oracle暂缓，tinyAES已见。
+  - #493运行中不得修改components；#494已核验head26cd561a三CI并合入依赖分支，merge52f12d74，#492关闭。
 
 - 2026-10-20 — #492扩展12项固定来源并核验完整测试入口
   - 文件: scripts/forge_build_source_expansion.py, backend/tests/test_build_source_expansion.py, 对应manifest/preregistration, docs/research/2026-10-20-build-source-expansion.md。
