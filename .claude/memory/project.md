@@ -501,6 +501,11 @@
 
 ## 最近变更 (Recent Changes)
 
+- 2026-10-20 — 核验ReAct/ReWOO/LLMCompiler原文，拆分规划收益、状态适应和分层验证问题。
+  - 文件: `docs/research/2026-10-20-build-plan-method-positioning.md`
+  - 动机: 按硕士领域方法/系统贡献定位，避免把先规划、DAG、重规划宣称通用首创；设计静态/合理规则/状态适应/工具Agent对照，不重开历史停止身份。
+  - 验证: 下载三篇原始PDF并读取方法章节，页码与公开URL已登记；0新增Provider，不产生效果观察。
+
 - 2026-10-20 — 封存#486八臂真实canary并明确读取接口缺陷使比较失效。
   - 文件: `docs/research/2026-10-20-build-plan-agent-canary-v1-results.md`, `RESEARCH_STATUS.md`
   - 证据: 3个plan strict completed；5个读取错误停止，所有tool均无编译尝试。30请求/228140tokens/$0.37096224估算；cleanup/inventory/独立审计通过。
