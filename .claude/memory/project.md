@@ -4,11 +4,6 @@
 
 ## 进行中 (In Progress)
 
-- 2026-10-20 — #500两项Make参考资格即将执行
-  - 文件: scripts/forge_build_make_reference.py, backend/tests/test_build_make_reference.py, 对应manifest/preregistration。
-  - libhydrogen完整12自测、buffer完整18断言，源码/交付/clean replay不放宽；0Provider。
-  - #493/#498已封存；输入/home/yiwei/.codex/outputs/forge-make-reference-inputs-v1/，输出将为/home/yiwei/.codex/outputs/forge-make-reference-v1/。
-
 - 2026-10-13 — Issue #440 H0/H1 v3 正式复现 authorized identity 已实现，等待发布与 Q0
   - 工作类型与问题: 正式数据采集前的协议实现。目标是在 v2 结果已观察的前提下，用同 9 个项目族、机械旋转到未进入
     v2 effect arms 的 checkpoint 深度，检验 H1 strict/cost 正向信号能否在完整后付费 Token 计量下复现。
@@ -501,6 +496,12 @@
   - 下一步: 等待实验负责人确认当前网络接入介质，并决定是否授权只读 endpoint 诊断和新的 canary amendment；获得确认后必须另建中文 Issue/PR 和协议 identity，保留当前失败 marker。
 
 ## 最近变更 (Recent Changes)
+
+- 2026-10-20 — #500两项Make完整参考资格全部严格完成
+  - release ae879a75，身份cpp-build-make-reference-v1；libhydrogen完整12自测、buffer完整18断言；2/2源码不变、交付/replay/completed/cleanup闭合。
+  - 原始/home/yiwei/.codex/outputs/forge-make-reference-v1/，267普通文件/0链接/3188966 bytes，inventory 7a7ca99cbc89cb2754b66f418f73eeab75a67fc9bf6162b1ac70903113336a6a；独立审计valid=true，0对应容器，0Provider。
+  - 边界: 人工参考任务资格，不是模型/方法效果；下一步#502最终协议与共同300/600秒时限、12臂零Provider门禁。
+  - 文件: docs/research/2026-10-20-build-make-reference-results.md, RESEARCH_STATUS.md。
 
 - 2026-10-20 — #498七槽状态/验证控制完整结束并封存
   - release: 1052766e6e1712ddee9f1db90bec3fc1d302ded3；身份cpp-build-state-validation-controls-v1。
