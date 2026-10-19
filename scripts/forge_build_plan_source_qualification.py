@@ -25,7 +25,7 @@ def sha(path):
 
 
 def validate(protocol):
-    if protocol["identity"] != "cpp-build-plan-source-qualification-v1" or protocol["provider_calls"] != 0:
+    if protocol["identity"] != "cpp-build-plan-source-qualification-v2" or protocol["provider_calls"] != 0:
         raise PlanContractError("来源资格身份或零Provider边界不匹配")
     before_deadline(protocol["deadline_utc"], 1800)
     seal = audit_frozen(Path(protocol["catalog_root"]))

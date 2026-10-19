@@ -35,4 +35,4 @@ def test_original_archive_and_later_source_change_reject_claimed_success(tmp_pat
 @pytest.mark.parametrize("changes", [{"provider_calls": 1}, {"identity": "other"}])
 def test_nonzero_provider_or_wrong_identity_stops_before_any_source_execution(changes):
     with pytest.raises(PlanContractError, match="边界"):
-        qualification.validate({"identity": "cpp-build-plan-source-qualification-v1", "provider_calls": 0, **changes})
+        qualification.validate({"identity": "cpp-build-plan-source-qualification-v2", "provider_calls": 0, **changes})

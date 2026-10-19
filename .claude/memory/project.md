@@ -499,6 +499,12 @@
 
 ## 最近变更 (Recent Changes)
 
+- 2026-10-20 — 完成 #484 自包含bootstrap的四项目严格资格
+  - 文件: `scripts/forge_build_plan_source_qualification.py`、`backend/tests/test_plan_source_qualification.py`、`benchmarks/manifests/cpp-build-plan-source-qualification-v2.json`、对应预注册、`docs/research/2026-10-20-build-source-qualification-v2-results.md`、`RESEARCH_STATUS.md`。
+  - 动机: v1执行4/4完成但28个生成外链使审计拒绝；v1原始/inventory/seal保留。v2仅将libite bootstrap去掉autoreconf -s，辅助文件成为副本，不放宽测试/审计；四项重新执行后全部completed、源码不变、clean replay和cleanup成功。0Provider，1743 files/46440633 bytes，inventory 8c5a6b46a83715fec922b8287acaa282b6225f367508715aaed87bb48d328bae，独立valid=true。相关3 passed，按backend/ruff.toml check/format通过；根目录默认Ruff配置不同，不将其默认格式输出当项目规则。
+  - 下一步: 同任务/模型/预算比较完整方案+Workflow与工具Agent的开发canary；四项目已开发暴露，不当holdout。#478真实v2另封存，zstd成功、libusb响应截断且单响应51007超50000合同，不能作为方法/能力负结果。
+
+
 - 2026-10-20 — 启动 #482 四项目零Provider完整测试与重建资格
   - 文件: `scripts/forge_build_plan_source_qualification.py`、`backend/tests/test_plan_source_qualification.py`、`benchmarks/manifests/cpp-build-plan-source-qualification-v1.json`、对应预注册。
   - 动机: 按miniz/md4c/pigz/libite固定顺序确认任务可执行，复用原型验收，不模型修复、不替换失败；原始源码逐文件哈希保留。3项边界/完整性回归与Ruff通过，manifest preflight valid=true，hash f5e4a17c2980e2191b3974592ba747ae8d8bbbf5901e7c3340cb76d1dc8a9c59。
