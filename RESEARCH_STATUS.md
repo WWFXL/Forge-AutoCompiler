@@ -14,6 +14,8 @@ plan/tool分别60/105请求、765692/1082737 Token、$1.26334296/$1.62595884估�
 
 ## 当前研究问题与已知边界
 
+#511接管材料工程资格v2已通过且独立audit valid=true：原材料门禁拒绝（去掉源码片段仍至少50916字节），仅省重复日志预览后实际48515字节、schema2032，1次零Token脚本请求返回候选但不执行构建。raw `/home/yiwei/.codex/outputs/forge-handoff-context-qualification-v2/`，inventorydf52d2de72a886280bf298340736521194c707520794e29b36b285025139eb1f；v1遗漏历史而未复现，失败保留。新meter只用于后续新身份，不改旧runner；9针对性+5相邻测试通过，按仓库make test-product完整1960 passed/44 skipped。报告`docs/research/2026-10-20-build-handoff-context-qualification-results.md`，PR513待最终head三CI。
+
 #508两项参考配方独立修复已2/2 qualified/strict completed、独立两审计valid=true：libpng只修stage文件名且37/37测试，libzip仅BUILD_DOC=OFF且199/199测试，精确交付/原源码不变/clean replay/cleanup均过。raw `/home/yiwei/.codex/outputs/forge-reference-repair-qualification-v1/`，inventory9eb4c2d336766e6c66aff742f771dcd93686aece0eac70d5e40b619cd2ba0e3c；报告`docs/research/2026-10-20-build-reference-repair-qualification-results.md`。0Provider，各一次，旧#493不回填，libffi不替补；manifest64组件及父差异明示。PR512待结果head三CI后合并。
 
 #507零Provider回顾分层验证覆盖审计完成全部43行并封存，inventory621a6d20ee695b0e4e7be3d818922c9b481f12ac4e65cf5a97da207baf7bf08f，消费文件/原分母终点/七关键案例独立核验valid=true；10项测试/Ruff/format通过。报告`docs/research/2026-10-20-build-validation-evidence-audit-results.md`，独立实现/协议/报告41c13664经最终三CI后由PR510合并ca01048a，#507关闭，不混入#505。初次默认workdir提取失败和独立核验字段误用均保留，不改旧证据。libzip的110个man HTML重生成属操作合同拒绝，不是已证实语义错误；受控空测试、交付漂移、遗漏bootstrap与过期状态分开解释。不混队列成功率，不估自然误接受/因果增量，不宣布第二创新点。#504的65组件未变。

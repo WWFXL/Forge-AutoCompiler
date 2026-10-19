@@ -2188,3 +2188,8 @@
 # 2026-10-20 #508参考修复终态
 
 两项各一次：libpng正确stage、37/37测试；libzip BUILD_DOC=OFF、199/199测试，2/2qualified/Session completed。源码/完整测试/精确交付/replay/cleanup均过，两独立audit valid=true。inventory9eb4c2d336766e6c66aff742f771dcd93686aece0eac70d5e40b619cd2ba0e3c，6166文件/16链接/173305266bytes。0Provider，旧#493不回填、不替换libffi，不称模型效果/holdout。报告2026-10-20-build-reference-repair-qualification-results.md；PR512结果headCI后合并。#509的56ae3858三CI后已合并e89d80ca/#506关闭。
+
+
+# 2026-10-20 #511材料v2与回归
+
+v2补齐原第九次请求读取索引和最终三工具历史，原门禁拒绝、新meter消息48515/schema2032、一次零Token脚本候选；独立audit valid=true，inventorydf52d2de72a886280bf298340736521194c707520794e29b36b285025139eb1f。完整核心/日志收据保留，只新身份接线，不等于真实模型修复。v1失败不改。9针对性+5相邻通过；仓库make test-product为1960 passed/44 skipped。一次手写pytest漏排test_agent_workflow_stage_b_*导致旧冻结50失败，日志保留；须按Makefile正式入口隔离旧runtime，不改冻结测试解失败。报告2026-10-20-build-handoff-context-qualification-results.md。
