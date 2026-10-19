@@ -4,6 +4,11 @@
 
 ## 进行中 (In Progress)
 
+- 2026-10-20 — #500两项Make参考资格已准备，排在#493/#498之后
+  - 文件: scripts/forge_build_make_reference.py, backend/tests/test_build_make_reference.py, 对应manifest/preregistration。
+  - libhydrogen make check完整12自测、buffer make test完整18断言，固定源码/交付/clean replay；0Provider，预检与组合16回归通过。
+  - 输入/home/yiwei/.codex/outputs/forge-make-reference-inputs-v1/；尚未运行，不能称构建成功。
+
 - 2026-10-20 — #498状态/验证七槽控制已准备，等待#493终结后执行
   - 文件: scripts/forge_build_state_controls.py, backend/tests/test_build_state_controls.py, 对应manifest/preregistration。
   - 0Provider；正常miniz/pigz/libite与空测试/遗漏bootstrap/交付漂移/外部configure四负控制；只检验已有规则与验证，不声称P2增量。
