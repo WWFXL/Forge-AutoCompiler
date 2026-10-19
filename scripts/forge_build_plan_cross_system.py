@@ -130,7 +130,7 @@ def run_project(*, item, protocol, root, model=None, qualify=False):
 
 
 def validate(protocol):
-    if protocol["identity"] != "cpp-build-plan-cross-system-v1" or protocol["max_estimated_cost_usd"] != 4:
+    if protocol["identity"] != "cpp-build-plan-cross-system-v2" or protocol["max_estimated_cost_usd"] != 4:
         raise PlanContractError("阶段身份或预算不符")
     before_deadline(protocol["request_deadline_utc"], 1800)
     for name, digest in protocol["components"].items():
@@ -174,7 +174,7 @@ def main():
             key = os.environ.get("DEEPSEEK_API_KEY")
             if not key:
                 raise PlanContractError("缺少授权Provider凭据")
-            model = PlanThinkingDeepSeek(model="deepseek-v4-pro", api_key=key, base_url="https://api.deepseek.com", max_tokens=8192, max_retries=0, timeout=120, reasoning_effort="low", extra_body={"thinking": {"type": "enabled"}})
+            model = PlanThinkingDeepSeek(model="deepseek-v4-pro", api_key=key, base_url="https://api.deepseek.com", max_tokens=32768, max_retries=0, timeout=240, reasoning_effort="low", extra_body={"thinking": {"type": "enabled"}})
         for item in protocol["projects"]:
             before_deadline(protocol["request_deadline_utc"], 1800)
             result = run_project(item=item, protocol=protocol, root=root, model=model, qualify=args.qualify)

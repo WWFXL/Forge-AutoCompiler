@@ -499,6 +499,17 @@
 
 ## 最近变更 (Recent Changes)
 
+- 2026-10-20 — 按实际CI job核验合并本轮四个前序PR
+  - 文件: `RESEARCH_STATUS.md`（发布状态）。
+  - 动机: PR汇总状态缓存延迟，直接actions jobs查询确认三个job均success且head_sha匹配；#472/#473/#474/#475分别合入依赖分支，merge提交36364424/5444f342/798ddf48/890c449f；并手动关闭#468/#469/#471。未进入main，#470持续总任务保持开启，不把基础设施合并当新增科研证据。
+
+
+- 2026-10-20 — 封存 #476 跨系统真实失败并进入 #478 独立截断修复
+  - 文件: `docs/research/2026-10-20-build-plan-cross-system-v1-results.md`、`backend/packages/harness/deerflow/compile/plan_cross_system.py`、`backend/tests/test_plan_cross_system.py`、`scripts/forge_build_plan_cross_system.py`、`benchmarks/preregistrations/cpp-build-plan-cross-system-v2.md`。
+  - 动机: zstd首次及libusb恢复响应8192tokens全部reasoning、无方案，隐式继续触发60KB上限；libusb此前实际完成编译并在stress_mt失败。新v2保留任务、增加32768输出、截断先计量再停止、schema错误不自动重试；相关44 passed/2 skipped，默认产品1864 passed/44 skipped，全backend Ruff check/format通过；独立Docker门禁zstd completed、libusb stress_mt失败后cleanup；封存2293 files/215184824 bytes，inventory b2ff203102f643f3f109adc9de7b8d911c3d5d5bc3a046817c61ea58cbbeda3e。下一步v2真实运行，阶段$4共享预留。
+  - 证据: v1 1006 files/34532560 bytes，inventory `2704868289b629da81532b0c8d91a15caf1d742b04cd41cede11c638a21dbc12`；独立审计valid=true。3请求/65244tokens/$0.1432596已知估算，另旧live测试$1未知预留。两个Session cleanup成功、strict未完成，不作效果结论。PR#479已创建回读，知识库已按SHA更新回读。
+
+
 - 2026-10-19 — 冻结跨系统走读问题并完成首轮零Provider门禁（#476）
   - 类型：基础设施与探索性工程门禁；zstd严格交付/clean replay完成，libusb保持全部四项测试、stress_mt失败且内部日志保存`LIBUSB_ERROR_NO_DEVICE`。不能补填旧缺失日志，也不把脚本化方案当模型结果。
   - 首轮证据：`/home/yiwei/.codex/outputs/forge-cross-system-gate-v1/`，2292 files/215175141 bytes，inventory `8e8cffd502f08e76443aa1bdc8e00091267e0ede13f0b32cc1189118ea149a38`；旧证据只读。
