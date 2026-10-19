@@ -499,6 +499,13 @@
 
 ## 最近变更 (Recent Changes)
 
+- 2026-10-19 — 冻结跨系统走读问题并完成首轮零Provider门禁（#476）
+  - 类型：基础设施与探索性工程门禁；zstd严格交付/clean replay完成，libusb保持全部四项测试、stress_mt失败且内部日志保存`LIBUSB_ERROR_NO_DEVICE`。不能补填旧缺失日志，也不把脚本化方案当模型结果。
+  - 首轮证据：`/home/yiwei/.codex/outputs/forge-cross-system-gate-v1/`，2292 files/215175141 bytes，inventory `8e8cffd502f08e76443aa1bdc8e00091267e0ede13f0b32cc1189118ea149a38`；旧证据只读。
+  - 实现：确定性Make/Autotools源码包、完整原始源码哈希检查、固定任务/后端限制、有界已采集内部日志、共享阶段费用预留与明确截止；首轮后新增诊断材料，独立gate-v2完成相同两项结果，inventory为`d34f39d43d9168546c03c07f9ac3b2c7721f34a8b72dbbe192069f7a101e5d99`。真实日志按runner压缩后零Provider图回放54801字节/五份内部日志，未压缩超限回放保留。按实际config.h核对`HAVE_LIBUDEV`宏，不误用Automake条件名。聚焦回归75 passed/2 skipped；显式live门禁后全产品1856 passed/44 skipped，backend Ruff通过。
+  - 发布：PR #472/#473为#468/#469，#474授权文档、#475 live测试门禁，均创建并回读；远端CI排队，不绕过合并。尚无本阶段Provider请求，$1意外live用量预留保留。
+  - 文件：`backend/packages/harness/deerflow/compile/plan_cross_system.py`, `backend/tests/test_plan_cross_system.py`, `scripts/forge_build_plan_cross_system.py`, `benchmarks/preregistrations/cpp-build-plan-cross-system-v1.md`, `benchmarks/manifests/cpp-build-plan-cross-system-v1.json`, `RESEARCH_STATUS.md`。
+
 - 2026-10-19 — 为真实客户端测试增加显式 Provider 启用门禁（#471）
   - 动机：旧live模块仅检查CI与config存在性，本地全量回归会隐式调用Provider。现须`FORGE_RUN_CLIENT_LIVE=1`才收集，并继续受CI/无配置拒绝；不切换模型或修改产品行为。
   - 验证：实际模块收集边界5 passed/1 skipped，Ruff check/format通过；测试只定义fixture，不执行模型。
