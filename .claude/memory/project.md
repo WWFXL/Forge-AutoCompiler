@@ -2228,3 +2228,8 @@ v2补齐原第九次请求读取索引和最终三工具历史，原门禁拒绝
 # 2026-10-20 #526新planner v2早期交接门禁
 
 新文件scripts/forge_build_libverto_recovery_planner_v2.py先验证current revision/hash，再判check阶段，非check无source访问；check先查文件存在才复用冻结revise。四新增+七相邻11 passed，Ruff/format通过。旧v1/raw/manifest不变，后续新身份显式接线，当前未运行新构建/Provider；不是解决60s依赖上限或真实修复成功。说明2026-10-20-build-recovery-diagnostic-guard.md。pytest清理旧临时目录权限warning不影响exit0，不改旧目录。
+
+
+# 2026-10-20 #528五个实际状态路由回顾
+
+固定506三受控+504自然六断言+524dep超时，冻结516规则输出三修订/两不覆盖，不应用/不调用Agent，0新构建/Provider。三个候选单步变化、任务/完整测试不变；后两需调查或预算停止，不意味着必须模型。79文件/1759276 bytes，inventorybe77e2db5221a451e91810e1b9372f97990879759ca19acab74e96fcc87aa26c，65组件/收据/三动作/两空候选独立核验valid=true。非独立评估，不将516成功重复计数，合理强基线可覆盖前三，不支持P2/自然覆盖率。报告2026-10-20-build-observed-state-routing-audit.md。到此结束本轮新增科研采集，剩余时间仅发布/资源费用/知识库交接，UTC23:00绝对停止。
