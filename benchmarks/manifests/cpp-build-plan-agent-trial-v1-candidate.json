@@ -1,0 +1,90 @@
+{
+  "identity": "cpp-build-plan-agent-trial-v1",
+  "kind": "development_trial_not_effect_comparison",
+  "authorization_state": "pending_user_provider_budget_approval",
+  "issue": 469,
+  "task": {
+    "plan_id": "cjson-agent-trial",
+    "repository_url": "https://github.com/DaveGamble/cJSON",
+    "commit_sha": "c859b25da02955fef659d658b8f324b5cde87be3",
+    "image_id": "sha256:d27a6ab733c7c3a9cbb5e4b32fb595aa5a422ff04bd212888d1041b90a2c4c2a",
+    "source_archive_sha256": "26da701f2cb689e042361a4bd8904595f2fa41409812e781fc8759ed54a0f734",
+    "build_system": "cmake",
+    "artifact_paths": [
+      "libcjson.so.1.7.19"
+    ],
+    "verification_steps": [
+      {
+        "step_id": "check",
+        "role": "smoke",
+        "command": "ctest --test-dir build --output-on-failure",
+        "source": "tests/CMakeLists.txt",
+        "expected": "19项测试通过",
+        "workdir": "/workspace/repo",
+        "requires": [
+          "build"
+        ],
+        "required_output": [
+          "100% tests passed, 0 tests failed out of 19"
+        ],
+        "diagnostic_paths": [
+          "build/Testing/Temporary/LastTest.log"
+        ]
+      }
+    ]
+  },
+  "provider": {
+    "model": "deepseek-v4-pro",
+    "base_url": "https://api.deepseek.com",
+    "thinking": true,
+    "max_output_tokens": 8192,
+    "max_retries": 0,
+    "timeout_seconds": 120,
+    "accepted_response_models": [
+      "DeepSeek-V4-Pro-0813",
+      "deepseek-v4-pro"
+    ],
+    "input_usd_per_million": 1.32,
+    "output_usd_per_million": 3.96
+  },
+  "agent_budget": {
+    "max_model_requests": 12,
+    "max_recorded_tokens": 150000,
+    "max_agent_steps": 36,
+    "max_tool_calls": 24,
+    "max_commands": 32,
+    "node_timeout_seconds": 1200,
+    "command_timeout_seconds": 120,
+    "evaluator_timeout_seconds": 180,
+    "replay_timeout_seconds": 180,
+    "cleanup_timeout_seconds": 60,
+    "max_recorded_tokens_per_response": 50000
+  },
+  "max_estimated_cost_usd": 2,
+  "pricing_source": {
+    "url": "https://api-docs.deepseek.com/quick_start/pricing",
+    "checked_date": "2026-10-19",
+    "snapshot_sha256": "b856a6e93fa4793ecc8f3fd03a01bb7d8f7572f78a4739da8ce6dbdb09328d66"
+  },
+  "cases": [
+    "normal",
+    "controlled-recovery"
+  ],
+  "components": {
+    "scripts/forge_build_plan_agent_trial.py": "cf4d7d2e74351e22e2ccbc8f5bc370f5e69ff3c0235be3312527a9f5c7948732",
+    "backend/packages/harness/deerflow/compile/plan_agent.py": "76cf813285bd0d95ffd53e6d94d7fed09ddc4dcadfdcb13f6c37089170f5dd71",
+    "backend/packages/harness/deerflow/compile/plan_workflow.py": "0c81c8bd4bf6f27a78fc76bd755bd64eeba1f0f0d0dd90e0e4227145826d9c6a",
+    "backend/packages/harness/deerflow/models/patched_deepseek.py": "e313c1b141799e268d9cc8ff548e45a339bf68b5a3b4f3b8865b2f7fa218477b",
+    "backend/packages/harness/deerflow/compile/agent_workflow_node.py": "9fc296c5ac5586fbc25cd0d4c8c0c2bb3c0db03c89fa3cf924d3ff6873a29155",
+    "backend/packages/harness/deerflow/compile/agent_workflow_runtime.py": "92277bf4b5568acb43523edb6344b2a6b6c70ce731cab62200295b3aa97d9931",
+    "backend/packages/harness/deerflow/compile/agent_workflow_schemas.py": "21a19f6d1a0421fce2c7807474db9eefe0e0be25042241ca121fbb9d5ec99706",
+    "backend/packages/harness/deerflow/compile/operations.py": "8a275e76a30e4476d7e403120cc9e372b13eaa0ac8bd091d2786f6cbe1f0878a",
+    "backend/packages/harness/deerflow/compile/docker_runtime.py": "e82999ab0a262ddd8e60241b70994cc99b495d5d7bb34f4b5247f3fe69c864da",
+    "backend/packages/harness/deerflow/compile/manager.py": "1f9726ff9375cb5fb271bc17b29310e17db6db274474b02112aaf61cead4536e",
+    "backend/packages/harness/deerflow/compile/schemas.py": "8217a7514665fb5c271699b9f988bce227d861bfa607cec0ae1301f2827b9bc6",
+    "backend/uv.lock": "1b5044aa16b583d3253bfbcc883a0afd5a4dec791cf766ba535d1635db136314",
+    "benchmarks/preregistrations/cpp-build-plan-agent-trial-v1.md": "42a2326f9a6c44d241f5892bb50419975fdca791a84221152e58f4c7879a4857"
+  },
+  "provenance": "read-only reuse of the already audited cJSON development source archive; no unseen-project claim",
+  "stop_rule": "stop on invalid proposal, identity or usage failure, exhausted budgets, normal-path failure, acceptance or cleanup failure; no retries or replacement"
+}
