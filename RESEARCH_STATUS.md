@@ -4,6 +4,12 @@
 
 ## 当前阶段
 
+- 2026-10-20：#492固定12候选来源全部采集，0Provider/0构建/0Docker，原始commit、tar.gz和成员内容独立审计valid=true。
+  78普通文件/15914049 bytes，inventory49214164eab150f68fe950975cc81e8b36f143534545068ce2751c4137f39c62。
+  10项可继续设计完整参考任务；FastLZ语料子模块及HDiffPatch相邻依赖/oracle未闭合，两项暂缓不替换。
+  多项已有实际开发/metadata暴露，不称最终holdout；来源可用不等于构建成功。
+  报告docs/research/2026-10-20-build-source-expansion.md；下一步#493十项零Provider任务资格，失败保留并继续其余。
+
 - 2026-10-20：#489修复后真实v2已封存，8/8固定单元strict completed，固定完整测试、精确交付、clean replay、源码未变、cleanup和独立审计valid=true。
   plan/tool分别7/34请求、68950/291092 tokens、$0.13283688/$0.43705728；均18命令，仅描述开发canary，不作效果或总体成本主张。
   四plan臂交接/修订均0，不能证明状态适应增量。决定proceed_to_state_transition_and_reference_task_qualification。

@@ -497,6 +497,13 @@
 
 ## 最近变更 (Recent Changes)
 
+- 2026-10-20 — #492扩展12项固定来源并核验完整测试入口
+  - 文件: scripts/forge_build_source_expansion.py, backend/tests/test_build_source_expansion.py, 对应manifest/preregistration, docs/research/2026-10-20-build-source-expansion.md。
+  - 动机: 为后续公平比较提供可核验源码和完整测试合同，避免只重复四个开发项目。
+  - 先冻结全部head，再只读下载/索引；不解包、不执行、不替换。78文件/15914049 bytes，inventory49214164eab150f68fe950975cc81e8b36f143534545068ce2751c4137f39c62，独立审计通过。
+  - 9项归档边界/失败保留回归通过、Ruff通过；10项可设计任务，两项外部源码不完整暂缓，0Provider/0Docker。
+  - 历史隔离只是两提交有限URL检索，区分metadata与实际开发；来源资格不等于构建成功。#493已创建并回读，后续任务需独立冻结。
+
 - 2026-10-20 — #489独立v2真实双臂canary八臂严格完成并封存
   - 运行5512ff60，manifest549dbbd1；固定测试/精确交付/clean replay/原始源码/cleanup与独立审计通过。
   - 3436普通文件/96链接/86365971 bytes，inventory31652865251842eebb49f8582fb22c96610da21d6a4f5339b31daa08a5613663。
