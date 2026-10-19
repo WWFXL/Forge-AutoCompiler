@@ -8,13 +8,13 @@
 
 plan/tool分别60/105请求、765692/1082737 Token、$1.26334296/$1.62595884估算、52/66命令。固定任务合计费用少22.3%，但libsodium/libsndfile的plan更贵，五维护者关联组的费用差重采样范围跨0，不能声称跨项目稳定成本优势。12个plan交接/修订均0；11/12个tool臂共19次配方ID拒绝后自行纠正，4条失败Shell均diagnostic。不能把差异全部归于初始规划，也不证明RQ2状态适应、总体非劣、成熟Agent排名或P2增量。
 
-#504强接口真实探针已12/12完整封存，plan/tool各5/6 strict：37/50请求、486546/508130 Token、$0.79509408/$0.71376360估算、1095.568/840.297秒，0未知用量、cleanup全部成功。请求少不等于费用低，本批plan费用高11.4%；0submit拒绝，五成功tool各一次自动配方submit。libverto-r1-tool请求用尽前build/6测试过但未交付；libverto-r2-plan固定测试0/6后真实handoff一次，因状态材料超过50000字节在第10次总请求前停止；此前4次初始规划+5次真实恢复，0修订。失败不补跑，不能称纯模型恢复失败。raw `/home/yiwei/.codex/outputs/forge-auto-provenance-real-v1/`，inventory `d7bad477a8b355ffdbb21de127961c2f8f639798186d6c7d6ad0ecb27263e446`，独立审计valid=true；报告`docs/research/2026-10-20-build-auto-provenance-probe-results.md`。65组件、后验选样和严格终点均保持；不作跨批因果/总体非劣/成熟Agent排名。下一步独立#506三系统受控恢复资格。
+#504强接口真实探针已12/12完整封存，plan/tool各5/6 strict：37/50请求、486546/508130 Token、$0.79509408/$0.71376360估算、1095.568/840.297秒，0未知用量、cleanup全部成功。请求少不等于费用低，本批plan费用高11.4%；0submit拒绝，五成功tool各一次自动配方submit。libverto-r1-tool请求用尽前build/6测试过但未交付；libverto-r2-plan固定测试0/6后真实handoff一次，因状态材料超过50000字节在第10次总请求前停止；此前4次初始规划+5次真实恢复，0修订。失败不补跑，不能称纯模型恢复失败。raw `/home/yiwei/.codex/outputs/forge-auto-provenance-real-v1/`，inventory `d7bad477a8b355ffdbb21de127961c2f8f639798186d6c7d6ad0ecb27263e446`，独立审计valid=true；报告`docs/research/2026-10-20-build-auto-provenance-probe-results.md`。65组件、后验选样和严格终点均保持；不作跨批因果/总体非劣/成熟Agent排名。后续#506三系统受控恢复已3/3闭合，#511处理接管材料重复预览阻塞。
 
 父#493十项参考7/10合格、#498七控制7/7预期成立、#500两Make2/2严格completed及#502十二臂零Provider门禁均封存、独立审计通过。前三阶段均核验结果head三CI后合入依赖分支并关闭Issue；#503结果adc54403的三项实际CI均SUCCESS后已合并（df830217），#502关闭，未进入main。#502协议54d1d893、运行release557a44c4，manifest SHA-256 `5f2cc841c38b1ed8eaee5867d2491dfce060c539aa9c3c92170729bbc74f42f2`。
 
 ## 当前研究问题与已知边界
 
-#508准备零费用两项参考配方修复资格：libpng只修正暂存文件名，libzip只关闭非任务目标的文档生成（原完整回归测试/交付/源码不变/重放均不变）；不回填#493或当前比较，libffi仍未解决不替补。4项测试、Ruff/format、完整父封存只读validate通过；候选manifest64组件，SHAe839a2b65c3149c438d1518d5655d5312279bfd3b60080c3485d1d45c6603e71，未提交/运行。新身份每项一次、900秒方案/600秒replay，UTC22:45阶段截止且准入留1800秒；待当前付费/构建实验结束后按剩余时间决定，不并行。
+#508两项参考配方独立修复已2/2 qualified/strict completed、独立两审计valid=true：libpng只修stage文件名且37/37测试，libzip仅BUILD_DOC=OFF且199/199测试，精确交付/原源码不变/clean replay/cleanup均过。raw `/home/yiwei/.codex/outputs/forge-reference-repair-qualification-v1/`，inventory9eb4c2d336766e6c66aff742f771dcd93686aece0eac70d5e40b619cd2ba0e3c；报告`docs/research/2026-10-20-build-reference-repair-qualification-results.md`。0Provider，各一次，旧#493不回填，libffi不替补；manifest64组件及父差异明示。PR512待结果head三CI后合并。
 
 #507零Provider回顾分层验证覆盖审计完成全部43行并封存，inventory621a6d20ee695b0e4e7be3d818922c9b481f12ac4e65cf5a97da207baf7bf08f，消费文件/原分母终点/七关键案例独立核验valid=true；10项测试/Ruff/format通过。报告`docs/research/2026-10-20-build-validation-evidence-audit-results.md`，独立实现/协议/报告41c13664经最终三CI后由PR510合并ca01048a，#507关闭，不混入#505。初次默认workdir提取失败和独立核验字段误用均保留，不改旧证据。libzip的110个man HTML重生成属操作合同拒绝，不是已证实语义错误；受控空测试、交付漂移、遗漏bootstrap与过期状态分开解释。不混队列成功率，不估自然误接受/因果增量，不宣布第二创新点。#504的65组件未变。
 
