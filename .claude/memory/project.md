@@ -2168,3 +2168,8 @@
 # 2026-10-20 #504真实探针终态
 
 12/12完整、plan/tool各5/6 strict，37/50请求、486546/508130 Token、$0.79509408/$0.71376360、总耗时1095.568/840.297秒。0未知用量、全部cleanup。libverto-tool预算停止未交付；libverto-r2-plan测试0/6后handoff一次，状态材料>50000字节在新恢复请求前停止，0修订。完整失败与费用均保留。inventory d7bad477a8b355ffdbb21de127961c2f8f639798186d6c7d6ad0ecb27263e446，独立audit valid=true。报告2026-10-20-build-auto-provenance-probe-results.md；不得把请求下降当成本优势或跨批差值当因果。下一独立#506受控恢复；状态上下文缺陷需独立修复身份。共享已知估算5.71180368+未知预留1=6.71180368美元。
+
+
+# 2026-10-20 #507独立发布
+
+43行回顾分层审计实现/协议/报告在yiwei/507-validation-evidence-audit提交；10项测试及Ruff/format再次通过。冻结代码hash未改，独立核验valid=true，等待最终head三CI。范围仍仅消费文件/原分母终点/七案例，非全层第二实现，不估自然误接受率。

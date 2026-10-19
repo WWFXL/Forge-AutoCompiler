@@ -16,7 +16,7 @@ plan/tool分别60/105请求、765692/1082737 Token、$1.26334296/$1.62595884估�
 
 #508准备零费用两项参考配方修复资格：libpng只修正暂存文件名，libzip只关闭非任务目标的文档生成（原完整回归测试/交付/源码不变/重放均不变）；不回填#493或当前比较，libffi仍未解决不替补。4项测试、Ruff/format、完整父封存只读validate通过；候选manifest64组件，SHAe839a2b65c3149c438d1518d5655d5312279bfd3b60080c3485d1d45c6603e71，未提交/运行。新身份每项一次、900秒方案/600秒replay，UTC22:45阶段截止且准入留1800秒；待当前付费/构建实验结束后按剩余时间决定，不并行。
 
-#507零Provider回顾分层验证覆盖审计完成全部43行并封存，inventory621a6d20ee695b0e4e7be3d818922c9b481f12ac4e65cf5a97da207baf7bf08f，消费文件/原分母终点/七关键案例独立核验valid=true；10项测试/Ruff/format通过。报告`docs/research/2026-10-20-build-validation-evidence-audit-results.md`，独立实现/协议/报告尚未提交，待后续独立分支，不混入#505。初次默认workdir提取失败和独立核验字段误用均保留，不改旧证据。libzip的110个man HTML重生成属操作合同拒绝，不是已证实语义错误；受控空测试、交付漂移、遗漏bootstrap与过期状态分开解释。不混队列成功率，不估自然误接受/因果增量，不宣布第二创新点。#504的65组件未变。
+#507零Provider回顾分层验证覆盖审计完成全部43行并封存，inventory621a6d20ee695b0e4e7be3d818922c9b481f12ac4e65cf5a97da207baf7bf08f，消费文件/原分母终点/七关键案例独立核验valid=true；10项测试/Ruff/format通过。报告`docs/research/2026-10-20-build-validation-evidence-audit-results.md`，独立实现/协议/报告现提交至#507独立分支，PR待最终head三CI后合并，不混入#505。初次默认workdir提取失败和独立核验字段误用均保留，不改旧证据。libzip的110个man HTML重生成属操作合同拒绝，不是已证实语义错误；受控空测试、交付漂移、遗漏bootstrap与过期状态分开解释。不混队列成功率，不估自然误接受/因果增量，不宣布第二创新点。#504的65组件未变。
 
 #506已创建Issue，零费用准备三系统受控恢复资格：miniz错误target、pigz错误CC、libite跳过bootstrap；7项针对性测试与Ruff通过。仅新增独立文件，#504的65组件逐项hash未变；尚无该阶段manifest/正式门禁/Provider请求，须等#504封存后再决定并行度为0的后续采集。初始人工方案无LLM规划费用，不进入RQ1成本分母，也不声称自然失败、P2或状态适应增量。
 
