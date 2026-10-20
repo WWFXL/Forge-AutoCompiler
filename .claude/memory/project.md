@@ -528,6 +528,9 @@
 
 ## 最近变更 (Recent Changes)
 
+- 2026-10-20 — #536完整13槽零Provider矩阵运行中，前5槽strict；先登记独立fallback资格以提前核验关键链路，不替代原矩阵或准入付费。
+  - 文件: scripts/forge_build_full_strategy_fallback_gate.py、backend/tests/test_build_full_strategy_fallback_gate.py、benchmarks/preregistrations/cpp-build-full-strategy-fallback-gate-v1.md。独立进程/根/身份，共同资源和3900秒请求余量不变；仅原最后一项规则后stage再失败转脚本Agent。并行资格耗时不用于效果比较。原矩阵及全部失败/未观察保留。
+
 - 2026-10-20 — 收敛本轮当前状态入口与发布边界
   - RESEARCH_STATUS改为本轮3阶段与下一准入的紧凑入口，旧时间线转由上一轮handoff/报告保留；本地产品2004 passed/44 skipped，全后端及新脚本Ruff/533格式通过。#531 merge7ba7e88a/#530关闭，#533 mergeb1fa880f/#532关闭，均最终head三CI全SUCCESS后合并；#535等待最终head检查，不进main，长期#470保留OPEN。本轮0Provider，旧费用授权截止不续用，拟议$12非已授权；用户HTML不动，单例容器已清理。
 
