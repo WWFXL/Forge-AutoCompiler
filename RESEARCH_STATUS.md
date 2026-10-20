@@ -1,6 +1,14 @@
 # Forge Research Status
 
-## 当前阶段（2026-10-20；#552充值后十二槽真实比较完整结束）
+## 当前阶段（2026-10-20；#554新增C++完整参考资格）
+
+本轮为零Provider样本资格/基础设施，不是方法效果。固定yaml-cpp/simdutf/snappy三个CMake原生C++候选，精确来源3/3保存；来源inventory a8c8936fe51abc525ce4076fe1ee1195ab20388e2ec6df6ffd4d16c43f186b7c。本机可达历史benchmarks/docs/research精确owner/name无命中，不证明训练/外部未见。来源及人工参考已对开发助手暴露，不注入真实实验Agent。
+
+完整来源图3/3准备封存，inventory8b4b6661314a9be96b5e30f73bdbe47fcea3932ffa8fc3e9cb1814adb1031734；snappy两个gitlink精确补齐，yaml-cpp自带GoogleTest；三者共享测试基础设施关联不能当完全独立家族。固定三项完整默认功能测试、非空CTest、精确静态库、原源码/同镜像clean replay/实际cleanup；132组件、参考manifest SHA33e3ff7ad9949b30ab3e2a533b124cc57bae474383fd2c6d4347f4f9117a5d22。参考执行目前未观察，不填通过/失败。
+
+协议cpp-build-cxx-{source-qualification,reference-inputs,reference-qualification}-v1；输出/home/yiwei/.codex/outputs/forge-cxx-{source-qualification,reference-inputs,reference-qualification}-v1。零凭据/Provider/Token/模型费，截止仍UTC18:19:33，单项目一次，不重试/替换；cleanup不闭合停批。后续审计并设计独立公平比较，不直接付费，不改#552、主线/P2/RQ3/验收，不把资格当成功率/成本收益。
+
+## 上一阶段（2026-10-20；#552充值后十二槽真实比较完整结束）
 
 cpp-build-observed-plan-comparison-v2完整12/12终结、10strict、0未观察、0新未知用量；原源码与实际cleanup全部通过。工具规划Workflow/模型规划Workflow/强工具分别3/4、4/4、3/4，请求21/24/37、记录Token274454/327788/404154、全估费0.44570064/0.54394032/0.56717496美元，累计臂秒1021.00/1395.33/785.88。模型多一个严格交付且估费略低，但耗时更长；接受这种条件性取舍，继续硕士主线，不推总体优势。
 

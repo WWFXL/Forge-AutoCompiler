@@ -572,6 +572,11 @@
 
 ## 最近变更 (Recent Changes)
 
+- 2026-10-20 — #554固定三个新增C++来源图及完整参考任务，准备执行零Provider资格。
+  - 分支yiwei/554-cxx-reference-qualification基于PR553 merge c411d52a；用户HTML未动。yaml-cpp/simdutf/snappy，全部CMake原生C++，有限精确owner/name历史无匹配，不称外部/训练未见。来源库存a8c8936f，组合来源图库存8b4b6661，snappy两个gitlink完整固定，不关闭测试。
+  - 新入口复用现有run_reference/PlanWorkflow/严格裁判，不改124历史组件。参考manifest33e3ff7a、132组件；完整CTest/静态ar/源码/clean replay/实际cleanup，零凭据/Provider/Token/费用，UTC18:19:33截止、3300秒启动预留，各一次不重试/替换。参考效果目前未观察，非方法效果/跨系统泛化；相关23测试与lint通过，最终整体检查/实际运行/独立审计待收尾。
+
+
 - 2026-10-20 — #552完成充值后独立十二槽比较与审计，保留条件性收益和失败。
   - 文件: `docs/research/2026-10-20-observed-plan-recharged-results.md`, `scripts/forge_build_observed_plan_comparison_v2.py`及v2候选/预注册/10新回归。原120不改、新124组件，候选9ec9a7c7ea7cb805d7f26cd6a2b1ed5c16289e099abeb2a575f7c89d5cca4279，运行f14c7200；v1停止证据保留不拼接。
   - 12/12完整10strict/0未观察/0新未知；工具/模型/强工具strict3/4、4/4、3/4，请求21/24/37，费0.44570064/0.54394032/0.56717496美元，臂秒1021.00/1395.33/785.88。模型少请求略省费多一个strict但更慢；工具libsodium0模型strict，其他三拒绝升级初始输入仅node_seconds差，不能把随机差归因于工具消除规划。
