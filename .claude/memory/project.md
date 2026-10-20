@@ -4,6 +4,10 @@
 
 ## 进行中 (In Progress)
 
+- 2026-10-20 — #536补齐三策略统一入口和13槽端到端零Provider门禁；新授权共享$20，UTC01:48:10至03:48:10，旧时窗不续用。
+  - 文件: scripts/forge_build_full_strategy_runtime.py、backend/tests/test_build_full_strategy_runtime.py、benchmarks/manifests/cpp-build-full-strategy-runtime-v1.json、同名preregistration。原#532任务/角色/36槽顺序/3900秒请求余量不变；gate开发3项目×3正常，加4条实际失败恢复链路；真实Agent不接收正确参考/知识库。新根create-once，失败保留，不改旧组件。
+  - 当前仅工程准备；门禁及付费尚未开始，授权原文和绝对时窗在 /home/yiwei/.codex/outputs/forge-three-strategy-session-2026-10-20/authorization.json。用户未跟踪HTML不动。
+
 - 2026-10-20 — 本轮科研新增采集已结束，当前仅发布/清理/知识库交接；以RESEARCH_STATUS.md和最终交接为恢复入口，以下早期条目是历史过程，不视为待执行授权。
   - 待后续新有效时窗：将新planner v2显式接线，冻结足够依赖资源，再执行libverto最小配置恢复资格；不补跑v1。
 
