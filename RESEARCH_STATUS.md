@@ -8,13 +8,25 @@
 
 **#536三策略入口与端到端门禁已完成（基础设施阶段）**：v2完整13槽strict完成、独立核验valid=true，涵盖三系统×三方法正常路径及纯Agent/规则/未覆盖接管/规则后二次失败接管；没有新增真实Provider调用。时间检查仅分离零Token脚本与真实Provider，正式请求3900秒余量及全部验收不变。v1中断7strict/1部分/5未启动、独立fallback1strict分别封存，不回填。
 
-本轮共享20美元、UTC2026-10-20T01:48:10Z至03:48:10Z；准入核验UTC03:15:51仅余1938.9秒，少于3900秒，因此真实36槽全部未观察，无正式比较attempt。费用/未知预留/预算占用均0。下一项是在新有效授权窗口内运行原完整36槽，不比较便利子集、不增加P2、不改RQ3原分母和主张。上一阶段#530/#532/#534的正负结果仍有效；科研主线不变。
+**#538完整36逻辑槽观察与结果分析已完成**：两个独立冻结身份，共26strict/36观察，0未观察逻辑槽；293真实请求/3650987 Token，保守估算$5.50500324、未知0、两个付费stage均关闭。原v1仍16观察/20未观察，不回填；新续段仅原20槽，14strict/20。用户原授权UTC03:47:40至07:47:40/$20保持，未续授或挪旧费用。最终运行于UTC06:33:28正常结束，未触发外层硬停止。
 
+| 方法 | strict/12 | 请求 | 保守估算USD |
+| --- | --- | --- | --- |
+| 强工具Agent | 9 | 109 | 1.67860968 |
+| 方案Workflow＋失败Agent | 9 | 99 | 2.09666952 |
+| 方案Workflow＋一次规则＋失败Agent | 8 | 85 | 1.72972404 |
+
+无规则方案少9.2%请求但费用高24.9%，总耗时也更长，**当前版本未证明整体成本优势**；check/libtommath有局部费用优势，libsodium两个方案方法2/2而工具1/2，保留这些条件性取舍，不因混合结果放弃硕士主线。8个方案槽真实交接/修订，7个最终strict；规则0次激活，不主张规则增量。10个最终未strict为6预算停止（4初始未交付方案/2工具未submit）、3原文件改写拒绝、1测试命令逐字合同拒绝。原RQ3固定分母不变，不加P2。
+
+分类修复仅将原源码拒绝与物理cleanup分开，严格失败未改成功。原逐臂结果保持，新续段两项分类独立审计通过，所有编译/replay容器实际不存在。单例测试命令拒绝经Python AST/其余Shell词元/其他字段核对等价，仅引号转写不同，不回填通过；未来可让系统装入固定测试。初始规划约占两方案方法费用88%，优先改进该接口和证据获取，再补C++资格；六归档为C库为主，不推大型C++/总体排名。保留主线与全部严格裁判，不直接转写论文正文。
+
+报告 `docs/research/2026-10-20-build-full-strategy-comparison-results.md`；授权/预算/两独立审计/逐响应与配对分析/最终发布收据统一在`/home/yiwei/.codex/outputs/forge-full-comparison-session-2026-10-20/`。两版本仅做明确披露修复的描述性组合，不称原v1完整闭合或单一冻结版本因果比较。发布通道PR539→依赖分支yiwei/534-rq3-natural-failures，最终headCI/merge/Issue状态以GitHub及final-publication-audit.json为准，未进main。
 
 ## 新证据与解释边界
 
 | 阶段 | 新观察 | 当前结论与下一步 |
 | --- | --- | --- |
+| #538真实比较与独立续段（均封存） | 原16/12strict＋新20/14strict，共36逻辑槽、26strict；293请求/$5.50500324/未知0；两独立audit及全请求复算通过 | 仅跨身份描述性汇总；请求少但整体费用未获优势，存在项目条件性收益；优先改初始规划接口，不加P2/不改RQ3 |
 | #536三策略统一入口与门禁v2 | 13/13 strict、16脚本请求/58Shell、0Token/Provider/费用；原源码/固定完整测试/精确交付/replay/实际cleanup及独立核验通过 | 接线资格已完成，真实36槽因窗口不足未准入；不能推断方法优劣或真实模型恢复率 |
 | #530 libverto同源最小配置恢复v2 | 依赖63.77秒通过，原六测试0/6；仅configure启用shared且保留static后make未重编译/链接，测试仍0/6；8命令、一次修订/revision2、两个失败交接；源码不变、实际cleanup通过、交付/replay未观察 | 单项配置修订不足以恢复，逻辑阶段失效不等于物理旧产物已重建；清理重建效果尚未知。本身份停止，原失败保留，不补跑、不回填成功 |
 | #532完整三策略科学设计/角色冻结 | 11已见合格任务分3开发/6评估/2未排期，6×2重复×3方法=36预定槽；libtom两项合为5保守组之一，非独立家族证明；规则未覆盖/一次修订后失败转同预算Agent组件及相邻17测试通过 | 科学任务/角色/顺序/共同资源/全成本口径已冻结；#536已落实执行入口/工程门禁，仍没有36槽真实比较结果 |
@@ -26,6 +38,8 @@
 
 | 身份 | 报告与协议 | 冻结证据 |
 | --- | --- | --- |
+| `cpp-build-full-strategy-comparison-v1` | 新三策略结果报告；同名manifest/preregistration | raw `/home/yiwei/.codex/outputs/forge-full-strategy-real-v1/`，inventory `f216c3930624768d6def984681af377d0ccb1e2427dd52a30b21c5d595692b72`；原16观察/20未观察永远保持 |
+| `cpp-build-full-strategy-cleanup-continuation-v1` | 同一结果报告；独立manifest/preregistration | raw `/home/yiwei/.codex/outputs/forge-full-strategy-real-continuation-v1/`，inventory `012476793e5a0a40ceaa532a0c6b953fcea682fba748a4e33554d277935bba92`；20/20观察14strict、42012文件/130链接/993270776 bytes、88组件 |
 | `cpp-build-full-strategy-runtime-v2` | `docs/research/2026-10-20-build-full-strategy-runtime-results.md`；同名manifest/preregistration | `/home/yiwei/.codex/outputs/forge-full-strategy-gate-v2/`，inventory `08286b1789beabeef814fda35d735da3575984a82d6489d189eb9ca9c13a841f`；140562文件/72链接/476924134 bytes、82组件、独立audit valid=true |
 | `cpp-build-libverto-natural-recovery-v2` | `docs/research/2026-10-20-build-libverto-natural-recovery-v2-results.md`；同名analyses/preregistration | `/home/yiwei/.codex/outputs/forge-libverto-natural-recovery-v2/`，inventory `c02679e3e789e4d17f9d0d737f84457c868d4dd31399d1e9120bde85110aba29`；236文件/4链接/7762235 bytes、73组件、独立audit valid=true |
 | `cpp-build-full-strategy-role-freeze-v1` | `docs/research/2026-10-20-build-full-strategy-comparison-design.md`；`benchmarks/analyses/cpp-build-full-strategy-comparison-v1.json` | `/home/yiwei/.codex/outputs/forge-full-strategy-role-freeze-v1/`，inventory `ab4ebcb6302337d0b432ef6b7c3dd51083cfc1e3f3e079b7466092b561952bd4`；35文件/15573646 bytes、独立audit valid=true；0新构建 |
@@ -44,19 +58,19 @@
 
 上一轮完整交接`docs/research/2026-10-20-overnight-research-handoff.md`及各版本化报告保留旧细节，旧“下一步”不代表当前授权。早期#489 canary是开发接线，不混入效果分母。
 
-## 下一轮比较的固定边界
+## 已执行比较的固定边界与后续
 
 开发：uncrustify/buffer/libverto；评估：libpng/libzip/libtomcrypt/libtommath/libsodium/check；libsndfile/libhydrogen不排期且不替补失败。所有项目来源/人工参考均已见，评估是前瞻方法结果角色，不称holdout。11归档源/头文件≥256字节的跨项目精确hash重合为0，不证明完整代码/依赖/测试亲缘独立。
 
-保留强工具Agent（自动权威配方、允许批量）、方案Workflow+失败Agent、方案Workflow+一次有界规则+失败Agent；固定源码/任务/模型资源/严格终点，全部初始规划/读取/输出/失败/恢复费用计入。每项目/重复配对，保守组描述；失败与未观察分别报告，不以全指标胜出为研究继续门槛。可执行协议与全部接线已由#536冻结验证；下一真实阶段须具备新有效费用/时间授权并核验代码/任务/资源/门禁的一致性。
+保留强工具Agent（自动权威配方、允许批量）、方案Workflow+失败Agent、方案Workflow+一次有界规则+失败Agent；固定源码/任务/模型资源/严格终点，全部初始规划/读取/输出/失败/恢复费用计入。每项目/重复配对，保守组描述；失败与未观察分别报告，不以全指标胜出为研究继续门槛。可执行协议与全部接线已由#536冻结验证，本轮原36逻辑槽已取得观察。下一新实验须先冻结新身份/修订与证据边界，付费调用核验当前明确授权、预算、截止及门禁的一致性，不能重开旧身份。
 
 ## 发布、检查与费用
 
 #531最终0053f5a2三项实际CI全SUCCESS后合并7ba7e88a，#530已关闭；#533最终01f74155三项实际CI全SUCCESS后合并b1fa880f，#532已关闭。#535最终6cc8f294三项实际CI全SUCCESS后合并fb0100f3，#534关闭，GitHub为发布真源。均仅合入依赖开发分支，未进main，不夹带历史提交。#536入口与结果经PR537发布到依赖分支yiwei/534-rq3-natural-failures，最终head三CI/merge/Issue关闭以GitHub和本轮final-publication-audit.json为准。#470长期总跟踪保持OPEN。
 
-当前本地产品回归2015 passed/44 skipped；15项相关测试，Ruff/536文件格式检查通过。检查是工程验证，不是科研效果。用户未跟踪HTML `docs/research/2026-10-13-forge-research-progress-defense.html`未改/未提交；三个新身份的compile/replay容器实际核验均已清理，其他用户服务不动。
+当前#538本地产品回归2033 passed/44 skipped；28项相关测试、Ruff及全后端/新入口536文件格式通过；两运行release6f986973/3965e5c2三CI全SUCCESS。检查是工程验证，不是科研效果。#536三个身份容器已实际核验清理；#538两个身份均已封存、用量/物理cleanup独立核验通过。用户未跟踪HTML `docs/research/2026-10-13-forge-research-progress-defense.html`未改/未提交，其他用户服务不动。
 
-本轮新增Provider请求/Token/费用/未知预留为0；含v1中断部分共26脚本请求，均为0Token。新授权20美元未使用，原绝对截止不延长，无活动付费阶段。上一轮已知保守估算$5.80615200+未知预留$1（预算占用$6.80615200）仍属旧窗口，不挪入本轮；重大主线变化、超预算或放宽科学主张交由用户决定。
+当前#538两付费阶段均已关闭；保守估算$5.50500324、未知0，无活动Provider或并行付费阶段，原共享20美元/UTC07:47:40截止保持。上一轮#536新增Provider/Token/费用/未知预留为0，含v1部分共26脚本请求，原20美元未使用；更早保守估算$5.80615200+未知预留$1（占用$6.80615200）仍属旧窗口，均不挪入本轮。各窗口绝对截止不自动延长；重大主线变化、超预算或放宽科学主张交由用户决定。
 
 知识库仅通过knowledge_base MCP对Windows真源CAS更新并回读，不复制Vault、不注入正式Forge实验Agent。
 

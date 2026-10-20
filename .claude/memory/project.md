@@ -4,6 +4,31 @@
 
 ## 进行中 (In Progress)
 
+- 2026-10-20 — #538三策略原36逻辑槽观察与分析已完成；无活动Provider，以下“运行中”为历史。
+  - 原v1保持16观察12strict/20未观察，inventory f216c3930624768d6def984681af377d0ccb1e2427dd52a30b21c5d595692b72；新续段20观察14strict/0未观察，inventory012476793e5a0a40ceaa532a0c6b953fcea682fba748a4e33554d277935bba92，88组件/42012文件130链接993270776bytes，原16不重跑不回填。运行release6f986973/3965e5c2，均三CI通过。
+  - 全部293请求3650987Token/$5.50500324保守估算，未知0，两stage.closed，原$20/UTC07:47:40截止不变，无额外付费授权或旧费混入。工具/方案/规则方案 strict9/9/8，各12；请求109/99/85；费用1.67860968/2.09666952/1.72972404。方案请求少9.2%但费高24.9%，当前不支持整体成本优势，保留check/math局部收益和sodium成功率取舍。
+  - 8实际handoff/8修订，7最终strict（check4/sodium3）、zip1后续源码拒绝；0规则，不宣称规则因果增量。6预算停止/3源码改写/1固定测试引号逐字合同拒绝，后者AST/词元/其他字段相同，非已证实删减测试。sodium-r2-plan初始autogen -b，恢复才加-s，纠正早期“初始-s-b”解释。初始规划占两方案费用约88%，下一步优先固定测试系统绑定/证据获取接口、C++资格，不加P2或改RQ3分母、不换主线。
+  - 两独立stdlib审计、两cleanup分类（strict未改）、负例到正式分类AST投影、全部请求生命周期/原响应用量/配对/保守组与共享账本复算均valid=true；所有compile/replay容器实际不存在。跨两身份只能描述性组合，不能称原v1完整或单一版本因果比较；read_source事后88精确重复不等于无用，工具Shell读取不在计数。
+  - 报告docs/research/2026-10-20-build-full-strategy-comparison-results.md；本轮授权目录forge-full-comparison-session-2026-10-20保留analysis-cross-identity.json、final-budget-audit.json和最终发布收据；发布通道PR539→依赖分支yiwei/534-rq3-natural-failures，最终headCI/merge/Issue真源GitHub/final-publication-audit.json，不进main。28相关测试/产品2033 passed44 skipped/Ruff536文件格式通过。用户HTML未动未提交；知识库最终同步状态以MCP CAS回读收据为准。
+
+
+- 2026-10-20 — #538独立续段已启动，原20未观察槽只执行一次。
+  - release3965e5c2e3ac7a616431594a7cbe536f180a56d1三CI全SUCCESS，协议5cf3c4181bee93ecded68bbef15c7431a2eaf0b5decf7c85e7c87efb48ec5d36；负例库存b4e99be9c79cca602552a7c2b37dfc3f7276d5dffd5876781c840a226f434d63、独立valid=true。28相关测试/产品2033 passed44 skipped/Ruff通过。原85组件不变新增3组件。
+  - UTC05:13:54新付费stage reserve10，shared仍20、截止仍07:47:40。launch_continuation.py/exec63880，raw forge-full-strategy-real-continuation-v1未封存，不得重启/并行付费。首libzip-tool源码拒绝有效、实际cleanup已分类成功后进入下一槽；strict失败保持。原v1仍16观察/20未观察。
+  - 事后派生分析脚本analyze_cross_identity.py/generate_cross_report.py/audit_read_patterns_cross_identity.py在本轮授权输出目录，须两身份独立审计后才运行完整汇总；不把两版本称单一冻结因果比较。
+
+
+- 2026-10-20 — #538原v1停止封存，当前清理分类工程修复，以下“运行中”为历史。
+  - 16观察12strict/3请求预算停止/1源码合同拒绝、20未观察；135请求/$2.54462076000000006/未知0，inventory f216c3930624768d6def984681af377d0ccb1e2427dd52a30b21c5d595692b72，独立audit valid=true，所有实际容器已删除、原stage.closed。
+  - libzip110原HTML改写拒绝有效，旧run_arm finally源码检查覆盖实际cleanup成功。Issue538已回读修复范围：新adapter保留旧逐臂result及strict失败，仅权威事件+实际Docker不存在+源码改变均核验时分开分类；零Provider真实负例后独立身份只跑原20未观察，不重试原16。
+  - 新阶段最多预留10美元，与已支出共享原20美元/UTC07:47:40截止；原85组件不动，原模型/资源/裁判保持，两队列分别审计，仅跨身份描述。不加P2、不改RQ3，不动用户HTML。
+
+
+- 2026-10-20 — #538完整三策略36槽真实比较已启动；用户新增明确授权“20美元、4小时”，UTC03:47:40至07:47:40，准备计入。
+  - 文件: scripts/forge_build_full_strategy_comparison.py、backend/tests/test_build_full_strategy_comparison.py、同名manifest/preregistration、RESEARCH_STATUS.md。新身份只绑定新授权，父82组件与策略/模型/任务/36槽/资源/裁判全保持；复核原完整v2门禁及独立audit，不重跑旧门禁。18相关测试/产品2023 passed/44 skipped/Ruff/535格式/非模型preflight通过。release6f986973已提交推送，PR539；UTC03:54:31真实attempt启动，已读取有效授权凭据/产生Provider请求，当前无整批终态，不能恢复此身份或并行付费。
+  - 前置工程调用一次因uv切到backend导致相对manifest缺失，一次make在根目录无test-product目标；均发生在正式输出根/凭据前，改为绝对manifest与make -C backend，保留工程日志/说明，不改实验身份。
+  - 授权/工程目录 /home/yiwei/.codex/outputs/forge-full-comparison-session-2026-10-20/，正式根forge-full-strategy-real-v1（正在采集，未封存）。唯一launch_real.py/exec session48186，UTC07:30:40外层INT、90秒强止，预留清理/封存；阶段预留20美元不是实际支出。每真实请求3900秒、每臂1.50美元、每请求0.40美元及未知usage/cleanup停止均不变；知识库MCP CAS已更新并完整回读，不加P2、不改RQ3，不触碰用户HTML。
+
 - 2026-10-20 — #536三策略完整零Provider门禁已结束；以RESEARCH_STATUS.md和最终交接为恢复入口，以下早期条目是历史过程，不视为待执行授权。
   - 待后续新有效时窗：执行原六评估项目×两重复×三方法36槽真实比较。新planner接线与libverto最小配置恢复资格已由#530完成，结果为修订不足以恢复；不补跑旧身份、不回填成功。
 
