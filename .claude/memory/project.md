@@ -572,6 +572,16 @@
 
 ## 最近变更 (Recent Changes)
 
+- 2026-10-21 — #554缓存资格完成，准备源码Git索引独立资格以实际运行跳过的上游检查。
+  - cache completed、428.679秒，原/replay CTest94注册中93通过1因.git缺失按上游142跳过；交付/源码/实际cleanup及独立audit过，库存c2573fa6。不写94全通过。
+  - 新metadata身份只追加git init/index，无伪commit/原源码或测试修改；138组件，manifest27a0429a，原预算/截止不变，要求原/replay macro检查真正Passed且无skip。独立新Session待观察，非模型恢复效果。产品2156passed44skipped、Ruff及2新增元数据边界测试通过；报告2026-10-21-cxx-reference-qualification-results.md，0Provider。
+
+
+- 2026-10-21 — #554保留原参考2/3资格，准备独立缓存类型修正单例。
+  - 原v1三槽完整，yaml-cpp1068默认GTest/CTest3项、snappy25默认GTest/CTest1项，原/replay均过；作者默认8/1disabled如实保留。simdutf编译过，BUILD_SHARED_LIBS:UNINITIALIZED=OFF被BOOL断言拒绝，CTest/交付/replay未观察；budget_exhausted是max_handoffs0停止分类，不是时间耗尽。库存b5701189、独立stdlibvalid、所有源码/实际cleanup过。
+  - 新cpp-build-cxx-reference-cache-qualification-v1只改configure参数显式:BOOL，原测试/来源/预算/截止不变；135组件、manifest eb56210d，各一次新Session，不续跑旧v1。6边界测试/lint/实际CLI preflight通过；下一步执行后独立审计/最终发布，不新增Provider。
+
+
 - 2026-10-20 — #554固定三个新增C++来源图及完整参考任务，准备执行零Provider资格。
   - 分支yiwei/554-cxx-reference-qualification基于PR553 merge c411d52a；用户HTML未动。yaml-cpp/simdutf/snappy，全部CMake原生C++，有限精确owner/name历史无匹配，不称外部/训练未见。来源库存a8c8936f，组合来源图库存8b4b6661，snappy两个gitlink完整固定，不关闭测试。
   - 新入口复用现有run_reference/PlanWorkflow/严格裁判，不改124历史组件。参考manifest33e3ff7a、132组件；完整CTest/静态ar/源码/clean replay/实际cleanup，零凭据/Provider/Token/费用，UTC18:19:33截止、3300秒启动预留，各一次不重试/替换。参考效果目前未观察，非方法效果/跨系统泛化；相关23测试与lint通过，最终整体检查/实际运行/独立审计待收尾。
