@@ -1,0 +1,468 @@
+{
+  "identity": "cpp-build-cxx-comparison-v1",
+  "issue": 558,
+  "kind": "prospective_common_prepared_cpp_comparison_candidate",
+  "frozen_at_utc": "2026-10-20T18:18:10.305272+00:00",
+  "provider_authorization": null,
+  "deadline_utc": null,
+  "proposed_max_new_provider_cost_usd": 20,
+  "parent_manifest_sha256": "af7be3c3eb9be2da8a10bfdce7efc6c371b8a0d6245b130fd84fc7f9aec17c96",
+  "common_input_evidence": {
+    "root": "/home/yiwei/.codex/outputs/forge-cxx-common-input-gate-v3",
+    "inventory_sha256": "41ec832da84f1ca2ec69d374f30182f89354c8747c28f380697ce8ca8cbc9ecf"
+  },
+  "provider": {
+    "model": "deepseek-v4-pro",
+    "thinking": true,
+    "reasoning_effort": "low",
+    "max_output_tokens": 32768,
+    "max_retries": 0,
+    "accepted_response_models": [
+      "DeepSeek-V4-Pro-0813",
+      "deepseek-v4-pro"
+    ]
+  },
+  "runtime": {
+    "parallel_jobs": 2,
+    "node_timeout_seconds": 1200,
+    "command_timeout_seconds": 600,
+    "evaluator_timeout_seconds": 900,
+    "replay_timeout_seconds": 900,
+    "cleanup_timeout_seconds": 120,
+    "max_commands": 32,
+    "max_model_requests": 12,
+    "max_recorded_tokens": 400000,
+    "max_recorded_tokens_per_response": 100000,
+    "max_handoffs_in_plan_arms": 2,
+    "message_limit_bytes": 50000,
+    "tool_schema_limit_bytes": 8000,
+    "new_request_reserve_seconds": 3900,
+    "per_arm_estimated_cost_cap_usd": 1.5,
+    "per_request_cost_reserve_usd": 0.4
+  },
+  "components": {
+    "backend/packages/harness/deerflow/compile/__init__.py": "5c9b2cf4d1fbfb357cf07047b3eee93934d1e6a04b2d63ed26dc98071b9cd78c",
+    "backend/packages/harness/deerflow/compile/agent_workflow_node.py": "9fc296c5ac5586fbc25cd0d4c8c0c2bb3c0db03c89fa3cf924d3ff6873a29155",
+    "backend/packages/harness/deerflow/compile/agent_workflow_runtime.py": "92277bf4b5568acb43523edb6344b2a6b6c70ce731cab62200295b3aa97d9931",
+    "backend/packages/harness/deerflow/compile/agent_workflow_runtime_v2.py": "7358c8396a6eee7776f64f6645f0d516b1f4e6ed4743a249c1d8c32b4c1ecef5",
+    "backend/packages/harness/deerflow/compile/agent_workflow_runtime_v3.py": "2d71383d011e943f78e9259b9f7ceec2c8e1f080d7609e86413ce188a841f65e",
+    "backend/packages/harness/deerflow/compile/agent_workflow_runtime_v4.py": "48593cfea3a5cd0512531332bec89bc16afddbdc190605e55d17c027a7769c66",
+    "backend/packages/harness/deerflow/compile/agent_workflow_runtime_v5.py": "44462a2e6cf26e3008743281c942604ce75955ac62125afcf676fa1882c1c92a",
+    "backend/packages/harness/deerflow/compile/agent_workflow_runtime_v6.py": "70311ae3a598e183ba7450494629d8ee5a5e572c9e829f2d82a058122060406b",
+    "backend/packages/harness/deerflow/compile/agent_workflow_schemas.py": "21a19f6d1a0421fce2c7807474db9eefe0e0be25042241ca121fbb9d5ec99706",
+    "backend/packages/harness/deerflow/compile/artifact_display.py": "b6ae85f2b3c5dead9d631933714f318e29cfd562a6127f17003120218cb660e8",
+    "backend/packages/harness/deerflow/compile/candidate_verifier.py": "595cec0fc909e2179fbcebc5428c6b5ae996d7442e90ece5ccbc8d57bef7ab89",
+    "backend/packages/harness/deerflow/compile/docker_runtime.py": "e82999ab0a262ddd8e60241b70994cc99b495d5d7bb34f4b5247f3fe69c864da",
+    "backend/packages/harness/deerflow/compile/evidence.py": "a3923167f67a96ea4af4aaa4f3692d15baafea79cc0e5ee1b9dac08ab7eb9284",
+    "backend/packages/harness/deerflow/compile/evidence_ownership.py": "1609822180c1818988ef9ad8a4fa30ce21a901a5d9037f82d43bf00ba1ba0d92",
+    "backend/packages/harness/deerflow/compile/external_evaluator.py": "c4ac897de06ab91d1cd557dfc3b6427974cae99c2ca16c216e8880303c094c61",
+    "backend/packages/harness/deerflow/compile/external_evaluator_v2.py": "19044e161b321fe5afed8458c0138f1bcfbe41582af2d5f4efcdf6846c3d579b",
+    "backend/packages/harness/deerflow/compile/external_evaluator_v3.py": "cfb5e3baeff772e54051925e6b0504eea25b6ba9284d8a5c6ad7135355fde79c",
+    "backend/packages/harness/deerflow/compile/external_evaluator_v4.py": "9009c400b1b54d9ad05411f1a64124423cf50d8ba49bfa2d13071d9bedad4613",
+    "backend/packages/harness/deerflow/compile/hybrid_workflow.py": "73e215ebf2d0c3a53db7f8b44993a72c9d6a140091d5c78d5114fec578676d4e",
+    "backend/packages/harness/deerflow/compile/jev_controller.py": "f8c53aa301c60399aae33c052d7d3efd8d39c0827dc751d99cd823194a810e9f",
+    "backend/packages/harness/deerflow/compile/manager.py": "1f9726ff9375cb5fb271bc17b29310e17db6db274474b02112aaf61cead4536e",
+    "backend/packages/harness/deerflow/compile/operations.py": "8a275e76a30e4476d7e403120cc9e372b13eaa0ac8bd091d2786f6cbe1f0878a",
+    "backend/packages/harness/deerflow/compile/paths.py": "3872bdca3647a78407b422c00a72d9c62b38d5e9f2f0355cc78653fa15d1c332",
+    "backend/packages/harness/deerflow/compile/plan_agent.py": "76cf813285bd0d95ffd53e6d94d7fed09ddc4dcadfdcb13f6c37089170f5dd71",
+    "backend/packages/harness/deerflow/compile/plan_agent_canary.py": "13c238db9fe5f69543a17b6e95871723e1c790687cb028c281b200aab8a17b6c",
+    "backend/packages/harness/deerflow/compile/plan_agent_context.py": "2620ddcc50e7da228d7af19073719508b649a9d360f71a94baf15ecbefd2dc37",
+    "backend/packages/harness/deerflow/compile/plan_agent_repair.py": "a934a770bfb8f6b45fe7e13b73f12cb7e30b42937a98fbd6dbb6213896a1c9f3",
+    "backend/packages/harness/deerflow/compile/plan_agent_v2.py": "8fb37e15af7739c32ab00002076e284d5599710c34d11ae1623f6f23ca922bad",
+    "backend/packages/harness/deerflow/compile/plan_cross_system.py": "754710b0e31badef4e317f83d350092232ef42cb55cc58398c21a254713fa174",
+    "backend/packages/harness/deerflow/compile/plan_delivery.py": "dce6cc81cd7e49e733216524976ee47303330d16d6e3410761d96396c68a0596",
+    "backend/packages/harness/deerflow/compile/plan_workflow.py": "0c81c8bd4bf6f27a78fc76bd755bd64eeba1f0f0d0dd90e0e4227145826d9c6a",
+    "backend/packages/harness/deerflow/compile/replay_closure_verifier.py": "01f8335ab0a586065803b34952b930adbf593624c611316b40ca2ccac685cd83",
+    "backend/packages/harness/deerflow/compile/schemas.py": "8217a7514665fb5c271699b9f988bce227d861bfa607cec0ae1301f2827b9bc6",
+    "backend/packages/harness/deerflow/compile/tool_plan.py": "64f00145f33a6a950901045324d1610808ec8940bde83bec33622346974ff008",
+    "backend/packages/harness/deerflow/compile/unified_plan.py": "1a7e840694bb5f2e24e5e7556e417b4a0ed1a5ddcf60e2a26e04bd451294cf71",
+    "backend/packages/harness/deerflow/compile/unified_plan_v2.py": "80522737e683f2c1ecb9a39ecb086bd3a9a1729ed519039f092d91ff1eb1c46f",
+    "backend/packages/harness/deerflow/models/patched_deepseek.py": "e313c1b141799e268d9cc8ff548e45a339bf68b5a3b4f3b8865b2f7fa218477b",
+    "backend/tests/test_analyze_unified_plan.py": "107b4c0888d7e74c4e73abde46070cf8f9d7dd2d1105be6b7794dc7f85f4f334",
+    "backend/tests/test_build_full_strategy_cleanup_continuation.py": "2536d0140cac7fb3d79a92f41b633c14f0e8cf9d18f699392396d653bfc051e4",
+    "backend/tests/test_build_full_strategy_comparison.py": "7ee17fc26f0978eccb52aa546c17ad49bdd36c85269e4490a57fd44edfb2f964",
+    "backend/tests/test_build_full_strategy_runtime.py": "b255e2d31ed439d065f80811bcdf435ba4ad51c6e063bd802795cf5eef08bb18",
+    "backend/tests/test_build_full_strategy_runtime_v2.py": "27a646777fadcd2d0269b174aaed017c1779a2d7542ce7b62b08556165315b1a",
+    "backend/tests/test_build_libverto_natural_recovery.py": "ef6c62f20a2c7b47d129a4da62375ba2f96d52fa86b63fc5ea109d986234cd4c",
+    "backend/tests/test_build_libverto_natural_recovery_v2.py": "e92686d6b7f17e8206c70f52f0f2b10469931f05ae5e25271b51ed2cf567a205",
+    "backend/tests/test_build_libverto_recovery_planner_v2.py": "199f53d2ab493a16e5bea0754da4d55df5f27c9060591f6fddf50c8be0258742",
+    "backend/tests/test_build_observed_plan_comparison.py": "6d33fe3fc4e53e4e426fc930b5453f1c85bdd90c60a4c8402bbcb69d0fef02c6",
+    "backend/tests/test_build_observed_plan_comparison_v2.py": "2ad9725f1e84f7aac3d2d1f1d3eaf63f4b8d89670efcff406e7210572c64b2fa",
+    "backend/tests/test_build_plan_paired_comparison.py": "d37caa5b1437099f66e7a403045f63085a17dd5195312d1a6a8c608eea46a412",
+    "backend/tests/test_build_plan_predicate_gate.py": "43193ae851243f8ea4a3a2dc00db061a724f4dcc2730fe8d1e07aa11f4d95eba",
+    "backend/tests/test_build_plan_recovery_qualification.py": "2d4a6d778ccf10a916156db4ae9fd7ad106d6da77cfe4d0975c4b32bfcf18747",
+    "backend/tests/test_build_rule_recovery_qualification.py": "c43229cfb9a22b3f33acebb01db767fecf6fa19a8b7a1fee95ab3431684c0a45",
+    "backend/tests/test_build_unified_plan.py": "31785ac505cb2219c0cb70ae6b2af173adffe9348207766c4605f947d83c3902",
+    "backend/tests/test_build_unified_plan_comparison.py": "60140a1ca2628c8dc3bc4bd590d771f2f1f15ed64073faa0cf69403b23bc2f3c",
+    "backend/tests/test_plan_agent_canary.py": "881c9ccb0cc9db2d95fbce744b4fcc6d034180b594cdd0cc6fa426cfdabfc85a",
+    "backend/tests/test_plan_agent_context.py": "7ac41717234738a10482fe78a0bc696d029a034575e5b9fe4f9bfcfce1e21e4f",
+    "backend/tests/test_plan_agent_repair.py": "23e12fc02c20ee7310401a65054f505ab5c3bbf4dcb6372ffa4b2e3e0d80a29b",
+    "backend/tests/test_plan_cross_system.py": "d1492bf73616785f5d2d292645a83e21c255b9a7fe69b269f1482f63dcd8765b",
+    "backend/tests/test_plan_delivery.py": "b9e706a662847ed2bfaf7acf668eb1b3807be7052bf442ff4ef4d3e2121c7fed",
+    "backend/tests/test_plan_source_qualification.py": "a942b18e066776b3cd0ded20602e42977cdec27549504b2cca673439ada22797",
+    "backend/tests/test_tool_plan.py": "1dd7ee5af121b8ebf9404472b9cd42854ccc44380c32f42d666451def7d76538",
+    "backend/tests/test_unified_plan.py": "0b64bed7ae821a2e982f57d0b3be2aa58bd6174a412d761abccab22cc2ac824c",
+    "backend/tests/test_unified_plan_v2.py": "13a4562ae76d36a382155773ce6900e7f043492a4f1baae37fdbb64247ddaa5c",
+    "backend/uv.lock": "1b5044aa16b583d3253bfbcc883a0afd5a4dec791cf766ba535d1635db136314",
+    "benchmarks/analyses/cpp-build-full-strategy-comparison-v1.json": "131eb25566c932dcff0693ed54fecda4826d928687ede1677b8aa2d917a60050",
+    "benchmarks/manifests/cpp-build-observed-plan-comparison-v1.json": "8a9310f8c89d657b29d9a1b7f56b967c17ba615a2717d2239fda139293bade2b",
+    "benchmarks/manifests/cpp-build-observed-plan-dispatch-gate-v1.json": "7dde8aa4c577ebfcfb377b30a3e8118d04fd801054e1ddd4faf0dc390caf9a52",
+    "benchmarks/preregistrations/cpp-build-cxx-reference-inputs-v1.md": "94f9dbfa1dd7ba608728b83c2939d24c060ef8ac14a1e25467464ff0d9bbda78",
+    "benchmarks/preregistrations/cpp-build-cxx-reference-qualification-v1.md": "dc3fd1c759a547f75326ebbe9665378c5b0f03a3920b9c962b7cf23f6f620586",
+    "benchmarks/preregistrations/cpp-build-full-strategy-cleanup-continuation-v1.md": "d62aaa0d7bf7c55a3072d419aa0a9447545cd8fceefb8082ce1d2173168c0859",
+    "benchmarks/preregistrations/cpp-build-full-strategy-comparison-v1.md": "ac2c73bc9259c1e15861ec5ab0509e943268db2272d13e28e01c1f5605d888d5",
+    "benchmarks/preregistrations/cpp-build-full-strategy-runtime-v1.md": "87cad19614d26c4191f2055b5a9509a30ccf7697d716dabd3af528d313a0aeae",
+    "benchmarks/preregistrations/cpp-build-full-strategy-runtime-v2.md": "cafdd201cafd696168ea0d3fc68a2ca1f8a1d2b3a4ed143d67bf24f5b7addd09",
+    "benchmarks/preregistrations/cpp-build-libverto-natural-recovery-v1.md": "d1c231afc9930f691b82e583dfd40bc42ea7d664309809f0d69ff83138f0f0ed",
+    "benchmarks/preregistrations/cpp-build-libverto-natural-recovery-v2.md": "d5631431eaf8d85325dad16e686ccc921c199d37f812149963d17df6a27697ed",
+    "benchmarks/preregistrations/cpp-build-observed-plan-comparison-v1.md": "d6a3fc29b2807c5467a2cfbbf736acbddf1496b0daa89cf1b6cc91e4293f15d6",
+    "benchmarks/preregistrations/cpp-build-observed-plan-comparison-v2.md": "1549a827373e6fe2f18a2d1ff81578c6d0ff254a2fa707f2dde981e55c111979",
+    "benchmarks/preregistrations/cpp-build-observed-plan-dispatch-gate-v1.md": "39e4ffc3f0a8f900e8c0e40107a6c0ccf3467e482bfc4b0f3069d091f3a50077",
+    "benchmarks/preregistrations/cpp-build-plan-agent-canary-v1.md": "6b485976c863d54ec3145277fb23735f34d723fb89da759c145f2404a6c2a0c9",
+    "benchmarks/preregistrations/cpp-build-plan-agent-canary-v2.md": "c4f8da14a95bc453d008b7409f340f086f3bde473642e24bbc39664039bc4052",
+    "benchmarks/preregistrations/cpp-build-plan-agent-paired-comparison-v1.md": "4e25526fe585befc30bf3d42200e7881c20fa73c4415183ebd3553eb267d3a2f",
+    "benchmarks/preregistrations/cpp-build-plan-agent-repair-v1.md": "6da5a8fa18ce718308e9e7bfbc010ed31dff7c5769ec1fef76bc214d3c118eca",
+    "benchmarks/preregistrations/cpp-build-plan-agent-trial-v1.md": "42a2326f9a6c44d241f5892bb50419975fdca791a84221152e58f4c7879a4857",
+    "benchmarks/preregistrations/cpp-build-plan-cross-system-v1.md": "0e520e59dfa05258c6e1b8254df13bb5008cd2396a8d64d0d832efb99120831e",
+    "benchmarks/preregistrations/cpp-build-plan-cross-system-v2.md": "d518706e6cd3a136ba65c1e9faafd1e6fe5344123f1481b36b01bfd0eee590ef",
+    "benchmarks/preregistrations/cpp-build-plan-predicate-qualification-v1.md": "f985fe214edfa3549d20ea2d01ca3bb1fe511fc75d861ba890e742e738eb5056",
+    "benchmarks/preregistrations/cpp-build-plan-predicate-qualification-v2.md": "fe83c40aeaaa3a79dbe33b0c7f9e0cc665f714d1ecfcdddfb517955513a95087",
+    "benchmarks/preregistrations/cpp-build-plan-recovery-qualification-v1.md": "f49df1da8d90827f33757a4e2dc1d6f0a57ee538b0a2d108f2312fd49d8bf009",
+    "benchmarks/preregistrations/cpp-build-plan-source-qualification-v1.md": "78814f4c3be99a4ccc260ce072b77fe3100e306eb5241883248e71e137b1873b",
+    "benchmarks/preregistrations/cpp-build-plan-source-qualification-v2.md": "5f832a159afbef6d78e311d9936d7e852d644806b07bdd7d0f3dcc5524edc99f",
+    "benchmarks/preregistrations/cpp-build-rule-recovery-qualification-v1.md": "44dac0c499269253069c2bc2dc8767da528cc4d1b78640532825aa4a95951f83",
+    "benchmarks/preregistrations/cpp-build-tool-plan-qualification-v1.md": "865c7201d4c227662928e8a4740ad2909af5c9dd734be006bf44d71465750363",
+    "benchmarks/preregistrations/cpp-build-unified-plan-comparison-v1.md": "11e701cbc6eef0960202dfdef4adf6b0aa7d3ce0c2871fc25851e663daf91439",
+    "benchmarks/preregistrations/cpp-build-unified-plan-gate-v1.md": "42e6472f0930aa4850e8383dc4f54f2d88025e43d47efe17b4c9267fd8d01c06",
+    "benchmarks/preregistrations/cpp-build-unified-plan-gate-v2.md": "2ed2f0859239cbe155c90a4f017dab0b6e9ec3090ef7c253fc2d7be6fe06aaed",
+    "docs/research/2026-10-20-tool-plan-tools-review.md": "fd6d9ddebb1d931ab90ff986e1f126785ca6ad81552b5b63b55148dd000bb91e",
+    "scripts/forge_analyze_unified_plan.py": "efcdb30766a412d1ea6608122deeb99a5096508de954365696450adcca27a747",
+    "scripts/forge_audit_observed_plan_dispatch.py": "2e32aff69ead763a35195d78abfd04392eb3995cb1ece8f8372132a26d18db69",
+    "scripts/forge_audit_plan_predicate_gate.py": "d919ecfaf09172e5d1b5283b174aa1478215111128b624a7b5f3ff658632d2f1",
+    "scripts/forge_build_auto_provenance_probe.py": "68ae0224d76b86316d73b5183df54fe9ff9567b6244a81d9dc6c7d831306d359",
+    "scripts/forge_build_cxx_reference_qualification.py": "4f306fee8a4b687b8384375a8beefce9a3d49232439e62363c242b1b011320e0",
+    "scripts/forge_build_cxx_source_qualification.py": "7700b1722b8d9bef0e29d0781dff4abf5d6d8a302f24b8065f6aacfb71fcb14f",
+    "scripts/forge_build_full_strategy_cleanup_continuation.py": "19241f17ae8fcda8df25c461422d303a74e0ff1d9229000ba4bdf6fc9ce12b8e",
+    "scripts/forge_build_full_strategy_comparison.py": "dac6bcbc9df50e0f5e58817764e37aa47e536b04692b650fea09097d2551b700",
+    "scripts/forge_build_full_strategy_components.py": "ce3f054c2919b4250e87455eff99cb34805450f3b86941af33d8e7e747ea76c6",
+    "scripts/forge_build_full_strategy_runtime.py": "68ff0bada8b9ae7bb93db23eef480493ae6d323f36ecd86305a83a3956383c3e",
+    "scripts/forge_build_full_strategy_runtime_v2.py": "368f1fa33885602d05ab418ce6b953b9c2173867d98b6275e7b24778ef1e6684",
+    "scripts/forge_build_libverto_natural_recovery.py": "e2600e8f2c7fb9d2fb1b4671e9cfc50c0a4756e97951908cd2668b888764b883",
+    "scripts/forge_build_libverto_natural_recovery_v2.py": "b6a0f0313bdfabae9f71047342ecd541605b0cc39daa63f64c5d37c6447194b6",
+    "scripts/forge_build_libverto_recovery_planner_v2.py": "79791b79729543e0dee9bdc54c11635f0cda31dc200fe1ea092df45ef70ebded",
+    "scripts/forge_build_observed_plan_comparison.py": "58be9a86ecf6541098f0f2cd53e05efee4384a471ef2dcda4d0bd23a99461ad6",
+    "scripts/forge_build_observed_plan_comparison_v2.py": "0debdba7d2596abbcaa34f046086819e170706b13e689710ebb04fc65ac96b1d",
+    "scripts/forge_build_plan_agent_canary.py": "d302c280d933483e27ff8cbd4971e3c70597f6c5adf9222ba6d7b1b8e0e2a49b",
+    "scripts/forge_build_plan_agent_canary_v2.py": "507ce7550fe643411f69441723627d90a82730a8078f80f329b2e1f7bc70e675",
+    "scripts/forge_build_plan_agent_repair.py": "4ae8ec3e0d8d8ebed1ef63eeb1272e064314786971b3f62f3a3f3471aa393952",
+    "scripts/forge_build_plan_agent_trial.py": "cf4d7d2e74351e22e2ccbc8f5bc370f5e69ff3c0235be3312527a9f5c7948732",
+    "scripts/forge_build_plan_cross_system.py": "6ca5e672bc8fc11722efae258eebbd317bb202859457a12b97984689bb231301",
+    "scripts/forge_build_plan_paired_comparison.py": "0c754ed84eda11285b4328b601cf556cfe446070cdd3f0c955c219575cc2bdf3",
+    "scripts/forge_build_plan_predicate_gate.py": "b90b65a3d2dcb421e3a4c5df969a8d48929b2b81e95d9812b6d6ebc3643f0242",
+    "scripts/forge_build_plan_prototype.py": "d2de7f17c292c7d4fa9cf282cf6f2e21106ff6fddfcb171ee30b2f4a409a432b",
+    "scripts/forge_build_plan_recovery_qualification.py": "e1193ae48ff7518454aa1d89f3935246035fba4227c87e5462cae756d1cc4b1c",
+    "scripts/forge_build_plan_source_qualification.py": "921b2a733a4bc8e26e261056bf71901bf7f8d47aa1b4412b6a2cb2423e41f949",
+    "scripts/forge_build_reference_expansion.py": "77df5e88f38efe0669af68e41b50477123ddbd8f5ee276266c0767d7cd9f9182",
+    "scripts/forge_build_reference_repair_qualification.py": "b33d40504db7934c4b880a23e53631e912cae0990eaee5083b1c5e9ae5571654",
+    "scripts/forge_build_rule_recovery_qualification.py": "f452a7790c33c24802769b3047046b3e732d0e9d2248cb28f7353d7f183de86e",
+    "scripts/forge_build_source_expansion.py": "37472f1676a68653a08334de90f2ee43698f05d33e76900734e1c5fd70bb2387",
+    "scripts/forge_build_tool_plan_qualification.py": "7d0ab6e62702bdb676fac8093f9c5fa1447979c23510ec7ff0a8d4bb5d46a0dd",
+    "scripts/forge_build_unified_plan.py": "d95fe5721a311bd1ccd606612ddc527b28358f186dae5cfecd3b759d80915e6e",
+    "scripts/forge_build_unified_plan_comparison.py": "eaf4fdbf0e45012d9fbc67a3ecea6136ef5c8c0286a64179a1ae7f57f8031b29",
+    "scripts/forge_build_unified_strong_gate.py": "cb54cc465691f59b9d58c8f8c0b111ce1fab08367b42a7b7b3ce1c003cdf29f9",
+    "scripts/forge_typed_evidence.py": "b3e798669389507dc605fcd73b2450921f0695bddccc564344fda88d5cb7a3c8",
+    "scripts/require-docker-runtime.sh": "50c7e21e6eb277f3c76849b88f62b4f5e30c449d27d526c0d1d0882b2e173958",
+    "backend/tests/test_build_cxx_reference_qualification.py": "68586604cb1147195cd3606e8a872fc9051ed2b31e0a5818326a83b5e306bc5f",
+    "scripts/forge_build_cxx_reference_cache_qualification.py": "92bd77d8f27c18a9a88d0c6c306894d160ff67714e82e390414c1434b128455f",
+    "backend/tests/test_build_cxx_reference_cache_qualification.py": "923afe89ccd61024de4fed9e44ac91f9acbbe0271f31d821d79730d0b58f8ae9",
+    "benchmarks/preregistrations/cpp-build-cxx-reference-cache-qualification-v1.md": "4febcb470f9a2aa5d5173b1a1396419723a5d031e0a945b37d7f189b61c43d28",
+    "scripts/forge_build_cxx_reference_metadata_qualification.py": "5c07b4afa7321d2a3daeeda78dc4988d674e2d5a4c6c8f268da9f19035e3a99b",
+    "backend/tests/test_build_cxx_reference_metadata_qualification.py": "91ce506d91d9e28784d212a7d1c8623ab43fabbef4f86dc354d1c952049c5afe",
+    "benchmarks/preregistrations/cpp-build-cxx-reference-metadata-qualification-v1.md": "d2c997eed353b1fb963a1cd41b3244f66310f9680430e546e3255d1eac1d2506",
+    "scripts/forge_build_cxx_reference_metadata_qualification_v2.py": "92af7b5201d8b3202b8979e5b652634647c273bae627f0018d2bdace80e58eae",
+    "backend/tests/test_build_cxx_reference_metadata_v2.py": "5ed83a63e46b5caada0c7511d240390fb12f6c1f66532762e4c71c862ae0ec22",
+    "benchmarks/preregistrations/cpp-build-cxx-reference-metadata-qualification-v2.md": "d1f7fa5cccb8fc50bc7ea0de7acd7ef000dc78b93b358fbbe7864198d193d910",
+    "backend/packages/harness/deerflow/compile/source_preparation.py": "cf5204d310719e56ac7ff23d4a66b54722ebf88bad7f206291ac38faf76adc7c",
+    "backend/packages/harness/deerflow/compile/build_task_checks.py": "4a302b338a9228e9e7928c48b21c046dac4eb8c95fe6de21dd60bb3544ab0b10",
+    "scripts/forge_build_prepared_arm.py": "557c6e3bbf7c1efb83279e547c54f4ea7af5c96ae24afb8410f367c336129d14",
+    "scripts/forge_build_cxx_common_input_gate.py": "3bd5a90d92b9ff32733d49aec74b77960fc6a1d653405e8a1e7d34c1f3c899d1",
+    "backend/tests/test_source_preparation.py": "149a14d3f3a887ca818a614e1d1c4596d83d01e8283e628d65bf3eb371d940ef",
+    "backend/tests/test_build_cxx_common_input_gate.py": "0a9e7113701e472dd1979243da7314389f5166bffc975fc22add4c747b328b71",
+    "benchmarks/preregistrations/cpp-build-cxx-common-input-gate-v1.md": "b2bf299041f7a44cb202066abd9b0a534258ddb4e6e1fbd2586d40ccef0d4539",
+    "backend/packages/harness/deerflow/compile/plan_delivery_equivalent.py": "67d48e2e44033a0551c84e0ff86092f7327adbd47eb9d0142b4ac1fb8321bab1",
+    "backend/tests/test_plan_delivery_equivalent.py": "47f5764da543aba9aed4d760d57316212e5e6d9408e1c7bb2ebe7a42e7e36768",
+    "scripts/forge_build_cxx_common_input_gate_v2.py": "7139fc42f63c264e64029ae73580c3b17ba7eead942b6ae05c28f686cd73d875",
+    "benchmarks/preregistrations/cpp-build-cxx-common-input-gate-v2.md": "868ecf5b46efa3245672506f8d12558e58481d18c087d30b5ea4f9a617baec8f",
+    "backend/packages/harness/deerflow/compile/unified_plan_equivalent.py": "6131f7f0584692a51523681f3e3c80a838b86ab92077460f07ce6f2c617fe53a",
+    "backend/packages/harness/deerflow/compile/unified_plan_equivalent_observed.py": "b5be5b232664600c3f14c7cf8f114f44c0424016b16cdffd8a5d39776624c175",
+    "backend/tests/test_unified_plan_equivalent.py": "00f3feed40f678bb44df0b55e84396a2ed1d208c6f44ff0b0bbb55a2bcb89ce1",
+    "scripts/forge_build_cxx_common_input_gate_v3.py": "d60f6d810b408cc838a0b6f38b58856a7f320c7b42e62215862d5fbe0b8a7a50",
+    "benchmarks/preregistrations/cpp-build-cxx-common-input-gate-v3.md": "35ed06c59f2ceea197b5b078092c9829c5cd25f1bedf8358608a69d1ff4e57f3",
+    "scripts/forge_build_cxx_comparison.py": "6b96a68c9eb4f1e2924185e5c9fab60041c203e80782d7fac247522da38d4fe0",
+    "backend/tests/test_build_cxx_comparison.py": "29be36d19e1bcb4d61cc9e9cf6c3ce523d43cd251a229801a717d95f81301096",
+    "benchmarks/preregistrations/cpp-build-cxx-comparison-dispatch-gate-v1.md": "e7a1f023654e429f21f53b810edd208662b997dabb583b3e38d571a7743f0057",
+    "benchmarks/preregistrations/cpp-build-cxx-comparison-v1.md": "e870c2154ba11b3f06fc6b4c3b1267c84a84526b92cea43fe8d1d53ce44c64dd",
+    "docs/research/2026-10-21-cxx-continuous-authorization.md": "c4fab4ba3059dbc82f36b819eeedd2c2ad22e4e3c5b2a7de854c1f38526905dd",
+    "benchmarks/manifests/cpp-build-cxx-common-input-gate-v3.json": "af7be3c3eb9be2da8a10bfdce7efc6c371b8a0d6245b130fd84fc7f9aec17c96",
+    "benchmarks/manifests/cpp-build-cxx-comparison-dispatch-gate-v1.json": "c0a564986e0e97cdb907981bd30aa0cd785c2e2bd6802a7f8297307f7bff9329",
+    "benchmarks/manifests/cpp-build-observed-plan-comparison-v2.json": "9ec9a7c7ea7cb805d7f26cd6a2b1ed5c16289e099abeb2a575f7c89d5cca4279"
+  },
+  "projects": [
+    {
+      "name": "yaml-cpp",
+      "task": {
+        "plan_id": "cxx-reference-yaml-cpp",
+        "repository_url": "https://github.com/jbeder/yaml-cpp",
+        "commit_sha": "c5e65360373d1d99d6b6848c991cd4fcee435009",
+        "image_id": "sha256:d27a6ab733c7c3a9cbb5e4b32fb595aa5a422ff04bd212888d1041b90a2c4c2a",
+        "source_archive_sha256": "c70bdecf87a72c0b0df29ff0d8b229df3eeeca99213f150aaee268edf955cc3b",
+        "build_system": "cmake",
+        "artifact_paths": [
+          "libyaml-cpp.a"
+        ],
+        "verification_steps": [
+          {
+            "step_id": "check",
+            "role": "smoke",
+            "command": "python3 -c 'from pathlib import Path\ncache={}\nfor line in Path('\"'\"'build/CMakeCache.txt'\"'\"').read_text().splitlines():\n if '\"'\"'='\"'\"' in line and '\"'\"':'\"'\"' in line and not line.startswith(('\"'\"'//'\"'\"','\"'\"'#'\"'\"')):\n  key,value=line.split('\"'\"'='\"'\"',1); name,_=key.split('\"'\"':'\"'\"',1); cache[name]=value\nfalse_values={'\"'\"''\"'\"','\"'\"'0'\"'\"','\"'\"'OFF'\"'\"','\"'\"'NO'\"'\"','\"'\"'FALSE'\"'\"','\"'\"'N'\"'\"','\"'\"'IGNORE'\"'\"','\"'\"'NOTFOUND'\"'\"'}\ndef enabled(value):\n return value.upper() not in false_values and not value.upper().endswith('\"'\"'-NOTFOUND'\"'\"')\nrequirements={'\"'\"'YAML_CPP_BUILD_TESTS'\"'\"': True, '\"'\"'BUILD_TESTING'\"'\"': True, '\"'\"'YAML_CPP_BUILD_CONTRIB'\"'\"': True, '\"'\"'YAML_CPP_BUILD_TOOLS'\"'\"': True, '\"'\"'YAML_BUILD_SHARED_LIBS'\"'\"': False, '\"'\"'YAML_USE_SYSTEM_GTEST'\"'\"': False}\nfor key,expected in requirements.items():\n assert key in cache, '\"'\"'缺少必要配置:'\"'\"'+key\n assert enabled(cache[key])==expected, '\"'\"'配置功能不符:'\"'\"'+key+'\"'\"'='\"'\"'+cache[key]\nif True:\n assert not enabled(cache.get('\"'\"'BUILD_SHARED_LIBS'\"'\"','\"'\"'OFF'\"'\"')), '\"'\"'必须使用默认静态库构建'\"'\"'\nprint('\"'\"'FORGE_TASK_CONFIGURATION_OK'\"'\"')\n' && python3 -c 'import hashlib,json,subprocess\nrows=subprocess.run(['\"'\"'git'\"'\"','\"'\"'ls-files'\"'\"','\"'\"'-z'\"'\"'],check=True,capture_output=True).stdout.decode().split('\"'\"'\\0'\"'\"')\nassert rows[-1]=='\"'\"''\"'\"', '\"'\"'Git索引输出不完整'\"'\"'\nnames=rows[:-1]\nactual=hashlib.sha256(json.dumps(sorted(names),ensure_ascii=True,separators=('\"'\"','\"'\"','\"'\"':'\"'\"')).encode()).hexdigest()\nassert actual=='\"'\"'8574ea1cf2058118afe50361cebf72862da4e1dcb4a3a370982663ac215599b5'\"'\"', '\"'\"'Git索引文件集合与固定原源码不同'\"'\"'\nassert subprocess.run(['\"'\"'git'\"'\"','\"'\"'rev-parse'\"'\"','\"'\"'--verify'\"'\"','\"'\"'HEAD'\"'\"'],capture_output=True).returncode!=0, '\"'\"'不允许伪造源码commit'\"'\"'\nprint('\"'\"'FORGE_SOURCE_INDEX_VERIFIED='\"'\"'+actual)\n' && ctest --test-dir build --output-on-failure --no-tests=error --verbose --output-junit /workspace/forge-ctest.xml && python3 -c 'import xml.etree.ElementTree as ET\nroot=ET.parse('\"'\"'/workspace/forge-ctest.xml'\"'\"').getroot()\ncases=list(root.iter('\"'\"'testcase'\"'\"'))\nassert len(cases)==3, '\"'\"'作者注册测试数不符'\"'\"'\nassert all(c.find('\"'\"'skipped'\"'\"') is None and c.find('\"'\"'failure'\"'\"') is None and c.find('\"'\"'error'\"'\"') is None for c in cases), '\"'\"'存在跳过或失败的作者测试'\"'\"'\nassert all(c.get('\"'\"'status'\"'\"','\"'\"'run'\"'\"')=='\"'\"'run'\"'\"' for c in cases), '\"'\"'存在未实际运行测试'\"'\"'\nprint('\"'\"'FORGE_CTEST_ACTUALLY_PASSED='\"'\"'+str(len(cases)))\n' && python3 -c 'import hashlib,json,subprocess\nrows=subprocess.run(['\"'\"'git'\"'\"','\"'\"'ls-files'\"'\"','\"'\"'-z'\"'\"'],check=True,capture_output=True).stdout.decode().split('\"'\"'\\0'\"'\"')\nassert rows[-1]=='\"'\"''\"'\"', '\"'\"'Git索引输出不完整'\"'\"'\nnames=rows[:-1]\nactual=hashlib.sha256(json.dumps(sorted(names),ensure_ascii=True,separators=('\"'\"','\"'\"','\"'\"':'\"'\"')).encode()).hexdigest()\nassert actual=='\"'\"'8574ea1cf2058118afe50361cebf72862da4e1dcb4a3a370982663ac215599b5'\"'\"', '\"'\"'Git索引文件集合与固定原源码不同'\"'\"'\nassert subprocess.run(['\"'\"'git'\"'\"','\"'\"'rev-parse'\"'\"','\"'\"'--verify'\"'\"','\"'\"'HEAD'\"'\"'],capture_output=True).returncode!=0, '\"'\"'不允许伪造源码commit'\"'\"'\nprint('\"'\"'FORGE_SOURCE_INDEX_VERIFIED='\"'\"'+actual)\n'",
+            "source": "新身份共同任务：原作者完整测试/功能语义/实际执行与来源索引核验",
+            "expected": "完整原测试与精确交付，不重试或替换失败",
+            "workdir": "/workspace/repo",
+            "requires": [
+              "build"
+            ],
+            "required_output": [
+              "FORGE_TASK_CONFIGURATION_OK",
+              "100% tests passed, 0 tests failed out of 3",
+              "FORGE_CTEST_ACTUALLY_PASSED=3",
+              "FORGE_SOURCE_INDEX_VERIFIED=8574ea1cf2058118afe50361cebf72862da4e1dcb4a3a370982663ac215599b5"
+            ],
+            "diagnostic_paths": []
+          }
+        ]
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-cxx-reference-inputs-v1/yaml-cpp/source.tar",
+      "source_paths": [
+        "README.md",
+        "CMakeLists.txt",
+        "Makefile"
+      ],
+      "source_paths_sha256": "8574ea1cf2058118afe50361cebf72862da4e1dcb4a3a370982663ac215599b5"
+    },
+    {
+      "name": "snappy",
+      "task": {
+        "plan_id": "cxx-reference-snappy",
+        "repository_url": "https://github.com/google/snappy",
+        "commit_sha": "9c28114a38866f6deeaa826db918293bc28ae410",
+        "image_id": "sha256:d27a6ab733c7c3a9cbb5e4b32fb595aa5a422ff04bd212888d1041b90a2c4c2a",
+        "source_archive_sha256": "93de014cc9070f6924a1a3f71d8a78620dd37c06ce4359247405e7e13b1901f2",
+        "build_system": "cmake",
+        "artifact_paths": [
+          "libsnappy.a"
+        ],
+        "verification_steps": [
+          {
+            "step_id": "check",
+            "role": "smoke",
+            "command": "python3 -c 'from pathlib import Path\ncache={}\nfor line in Path('\"'\"'build/CMakeCache.txt'\"'\"').read_text().splitlines():\n if '\"'\"'='\"'\"' in line and '\"'\"':'\"'\"' in line and not line.startswith(('\"'\"'//'\"'\"','\"'\"'#'\"'\"')):\n  key,value=line.split('\"'\"'='\"'\"',1); name,_=key.split('\"'\"':'\"'\"',1); cache[name]=value\nfalse_values={'\"'\"''\"'\"','\"'\"'0'\"'\"','\"'\"'OFF'\"'\"','\"'\"'NO'\"'\"','\"'\"'FALSE'\"'\"','\"'\"'N'\"'\"','\"'\"'IGNORE'\"'\"','\"'\"'NOTFOUND'\"'\"'}\ndef enabled(value):\n return value.upper() not in false_values and not value.upper().endswith('\"'\"'-NOTFOUND'\"'\"')\nrequirements={'\"'\"'SNAPPY_BUILD_TESTS'\"'\"': True, '\"'\"'SNAPPY_BUILD_BENCHMARKS'\"'\"': True, '\"'\"'HAVE_LIBZ'\"'\"': True, '\"'\"'HAVE_LIBLZO2'\"'\"': True, '\"'\"'HAVE_LIBLZ4'\"'\"': True}\nfor key,expected in requirements.items():\n assert key in cache, '\"'\"'缺少必要配置:'\"'\"'+key\n assert enabled(cache[key])==expected, '\"'\"'配置功能不符:'\"'\"'+key+'\"'\"'='\"'\"'+cache[key]\nif True:\n assert not enabled(cache.get('\"'\"'BUILD_SHARED_LIBS'\"'\"','\"'\"'OFF'\"'\"')), '\"'\"'必须使用默认静态库构建'\"'\"'\nprint('\"'\"'FORGE_TASK_CONFIGURATION_OK'\"'\"')\n' && python3 -c 'import hashlib,json,subprocess\nrows=subprocess.run(['\"'\"'git'\"'\"','\"'\"'ls-files'\"'\"','\"'\"'-z'\"'\"'],check=True,capture_output=True).stdout.decode().split('\"'\"'\\0'\"'\"')\nassert rows[-1]=='\"'\"''\"'\"', '\"'\"'Git索引输出不完整'\"'\"'\nnames=rows[:-1]\nactual=hashlib.sha256(json.dumps(sorted(names),ensure_ascii=True,separators=('\"'\"','\"'\"','\"'\"':'\"'\"')).encode()).hexdigest()\nassert actual=='\"'\"'06f95a3f1319f5ae5568c8b0811035eba215b9ceb2592c1cdfef6979b2a79bab'\"'\"', '\"'\"'Git索引文件集合与固定原源码不同'\"'\"'\nassert subprocess.run(['\"'\"'git'\"'\"','\"'\"'rev-parse'\"'\"','\"'\"'--verify'\"'\"','\"'\"'HEAD'\"'\"'],capture_output=True).returncode!=0, '\"'\"'不允许伪造源码commit'\"'\"'\nprint('\"'\"'FORGE_SOURCE_INDEX_VERIFIED='\"'\"'+actual)\n' && ctest --test-dir build --output-on-failure --no-tests=error --verbose --output-junit /workspace/forge-ctest.xml && python3 -c 'import xml.etree.ElementTree as ET\nroot=ET.parse('\"'\"'/workspace/forge-ctest.xml'\"'\"').getroot()\ncases=list(root.iter('\"'\"'testcase'\"'\"'))\nassert len(cases)==1, '\"'\"'作者注册测试数不符'\"'\"'\nassert all(c.find('\"'\"'skipped'\"'\"') is None and c.find('\"'\"'failure'\"'\"') is None and c.find('\"'\"'error'\"'\"') is None for c in cases), '\"'\"'存在跳过或失败的作者测试'\"'\"'\nassert all(c.get('\"'\"'status'\"'\"','\"'\"'run'\"'\"')=='\"'\"'run'\"'\"' for c in cases), '\"'\"'存在未实际运行测试'\"'\"'\nprint('\"'\"'FORGE_CTEST_ACTUALLY_PASSED='\"'\"'+str(len(cases)))\n' && python3 -c 'import hashlib,json,subprocess\nrows=subprocess.run(['\"'\"'git'\"'\"','\"'\"'ls-files'\"'\"','\"'\"'-z'\"'\"'],check=True,capture_output=True).stdout.decode().split('\"'\"'\\0'\"'\"')\nassert rows[-1]=='\"'\"''\"'\"', '\"'\"'Git索引输出不完整'\"'\"'\nnames=rows[:-1]\nactual=hashlib.sha256(json.dumps(sorted(names),ensure_ascii=True,separators=('\"'\"','\"'\"','\"'\"':'\"'\"')).encode()).hexdigest()\nassert actual=='\"'\"'06f95a3f1319f5ae5568c8b0811035eba215b9ceb2592c1cdfef6979b2a79bab'\"'\"', '\"'\"'Git索引文件集合与固定原源码不同'\"'\"'\nassert subprocess.run(['\"'\"'git'\"'\"','\"'\"'rev-parse'\"'\"','\"'\"'--verify'\"'\"','\"'\"'HEAD'\"'\"'],capture_output=True).returncode!=0, '\"'\"'不允许伪造源码commit'\"'\"'\nprint('\"'\"'FORGE_SOURCE_INDEX_VERIFIED='\"'\"'+actual)\n'",
+            "source": "新身份共同任务：原作者完整测试/功能语义/实际执行与来源索引核验",
+            "expected": "完整原测试与精确交付，不重试或替换失败",
+            "workdir": "/workspace/repo",
+            "requires": [
+              "build"
+            ],
+            "required_output": [
+              "FORGE_TASK_CONFIGURATION_OK",
+              "100% tests passed, 0 tests failed out of 1",
+              "FORGE_CTEST_ACTUALLY_PASSED=1",
+              "FORGE_SOURCE_INDEX_VERIFIED=06f95a3f1319f5ae5568c8b0811035eba215b9ceb2592c1cdfef6979b2a79bab"
+            ],
+            "diagnostic_paths": []
+          }
+        ]
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-cxx-reference-inputs-v1/snappy/source.tar",
+      "source_paths": [
+        "README.md",
+        "CMakeLists.txt",
+        "Makefile"
+      ],
+      "source_paths_sha256": "06f95a3f1319f5ae5568c8b0811035eba215b9ceb2592c1cdfef6979b2a79bab"
+    },
+    {
+      "name": "simdutf",
+      "task": {
+        "plan_id": "cxx-reference-simdutf",
+        "repository_url": "https://github.com/simdutf/simdutf",
+        "commit_sha": "8d82299606e675b50de8dc16fd118aae4b65bfde",
+        "image_id": "sha256:d27a6ab733c7c3a9cbb5e4b32fb595aa5a422ff04bd212888d1041b90a2c4c2a",
+        "source_archive_sha256": "69334680e1fca841dffbe8409a439b910086a0799a1ce76fd16d57072ebbe4a4",
+        "build_system": "cmake",
+        "artifact_paths": [
+          "libsimdutf.a"
+        ],
+        "verification_steps": [
+          {
+            "step_id": "check",
+            "role": "smoke",
+            "command": "python3 -c 'from pathlib import Path\ncache={}\nfor line in Path('\"'\"'build/CMakeCache.txt'\"'\"').read_text().splitlines():\n if '\"'\"'='\"'\"' in line and '\"'\"':'\"'\"' in line and not line.startswith(('\"'\"'//'\"'\"','\"'\"'#'\"'\"')):\n  key,value=line.split('\"'\"'='\"'\"',1); name,_=key.split('\"'\"':'\"'\"',1); cache[name]=value\nfalse_values={'\"'\"''\"'\"','\"'\"'0'\"'\"','\"'\"'OFF'\"'\"','\"'\"'NO'\"'\"','\"'\"'FALSE'\"'\"','\"'\"'N'\"'\"','\"'\"'IGNORE'\"'\"','\"'\"'NOTFOUND'\"'\"'}\ndef enabled(value):\n return value.upper() not in false_values and not value.upper().endswith('\"'\"'-NOTFOUND'\"'\"')\nrequirements={'\"'\"'SIMDUTF_TESTS'\"'\"': True, '\"'\"'BUILD_TESTING'\"'\"': True, '\"'\"'SIMDUTF_FAST_TESTS'\"'\"': False, '\"'\"'SIMDUTF_TOOLS'\"'\"': True}\nfor key,expected in requirements.items():\n assert key in cache, '\"'\"'缺少必要配置:'\"'\"'+key\n assert enabled(cache[key])==expected, '\"'\"'配置功能不符:'\"'\"'+key+'\"'\"'='\"'\"'+cache[key]\nif True:\n assert not enabled(cache.get('\"'\"'BUILD_SHARED_LIBS'\"'\"','\"'\"'OFF'\"'\"')), '\"'\"'必须使用默认静态库构建'\"'\"'\nprint('\"'\"'FORGE_TASK_CONFIGURATION_OK'\"'\"')\n' && python3 -c 'import hashlib,json,subprocess\nrows=subprocess.run(['\"'\"'git'\"'\"','\"'\"'ls-files'\"'\"','\"'\"'-z'\"'\"'],check=True,capture_output=True).stdout.decode().split('\"'\"'\\0'\"'\"')\nassert rows[-1]=='\"'\"''\"'\"', '\"'\"'Git索引输出不完整'\"'\"'\nnames=rows[:-1]\nactual=hashlib.sha256(json.dumps(sorted(names),ensure_ascii=True,separators=('\"'\"','\"'\"','\"'\"':'\"'\"')).encode()).hexdigest()\nassert actual=='\"'\"'efb8a0340eb270302aa3d730a2bb25a1db6a2af75f40c7c23da44e381cf8139d'\"'\"', '\"'\"'Git索引文件集合与固定原源码不同'\"'\"'\nassert subprocess.run(['\"'\"'git'\"'\"','\"'\"'rev-parse'\"'\"','\"'\"'--verify'\"'\"','\"'\"'HEAD'\"'\"'],capture_output=True).returncode!=0, '\"'\"'不允许伪造源码commit'\"'\"'\nprint('\"'\"'FORGE_SOURCE_INDEX_VERIFIED='\"'\"'+actual)\n' && ctest --test-dir build --output-on-failure --no-tests=error --verbose --output-junit /workspace/forge-ctest.xml && python3 -c 'import xml.etree.ElementTree as ET\nroot=ET.parse('\"'\"'/workspace/forge-ctest.xml'\"'\"').getroot()\ncases=list(root.iter('\"'\"'testcase'\"'\"'))\nassert len(cases)==94, '\"'\"'作者注册测试数不符'\"'\"'\nassert all(c.find('\"'\"'skipped'\"'\"') is None and c.find('\"'\"'failure'\"'\"') is None and c.find('\"'\"'error'\"'\"') is None for c in cases), '\"'\"'存在跳过或失败的作者测试'\"'\"'\nassert all(c.get('\"'\"'status'\"'\"','\"'\"'run'\"'\"')=='\"'\"'run'\"'\"' for c in cases), '\"'\"'存在未实际运行测试'\"'\"'\nprint('\"'\"'FORGE_CTEST_ACTUALLY_PASSED='\"'\"'+str(len(cases)))\n' && python3 -c 'import hashlib,json,subprocess\nrows=subprocess.run(['\"'\"'git'\"'\"','\"'\"'ls-files'\"'\"','\"'\"'-z'\"'\"'],check=True,capture_output=True).stdout.decode().split('\"'\"'\\0'\"'\"')\nassert rows[-1]=='\"'\"''\"'\"', '\"'\"'Git索引输出不完整'\"'\"'\nnames=rows[:-1]\nactual=hashlib.sha256(json.dumps(sorted(names),ensure_ascii=True,separators=('\"'\"','\"'\"','\"'\"':'\"'\"')).encode()).hexdigest()\nassert actual=='\"'\"'efb8a0340eb270302aa3d730a2bb25a1db6a2af75f40c7c23da44e381cf8139d'\"'\"', '\"'\"'Git索引文件集合与固定原源码不同'\"'\"'\nassert subprocess.run(['\"'\"'git'\"'\"','\"'\"'rev-parse'\"'\"','\"'\"'--verify'\"'\"','\"'\"'HEAD'\"'\"'],capture_output=True).returncode!=0, '\"'\"'不允许伪造源码commit'\"'\"'\nprint('\"'\"'FORGE_SOURCE_INDEX_VERIFIED='\"'\"'+actual)\n'",
+            "source": "新身份共同任务：原作者完整测试/功能语义/实际执行与来源索引核验",
+            "expected": "完整原测试与精确交付，不重试或替换失败",
+            "workdir": "/workspace/repo",
+            "requires": [
+              "build"
+            ],
+            "required_output": [
+              "FORGE_TASK_CONFIGURATION_OK",
+              "100% tests passed, 0 tests failed out of 94",
+              "FORGE_CTEST_ACTUALLY_PASSED=94",
+              "FORGE_SOURCE_INDEX_VERIFIED=efb8a0340eb270302aa3d730a2bb25a1db6a2af75f40c7c23da44e381cf8139d"
+            ],
+            "diagnostic_paths": []
+          }
+        ]
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-cxx-reference-inputs-v1/simdutf/source.tar",
+      "source_paths": [
+        "README.md",
+        "CMakeLists.txt",
+        "Makefile"
+      ],
+      "source_paths_sha256": "efb8a0340eb270302aa3d730a2bb25a1db6a2af75f40c7c23da44e381cf8139d"
+    }
+  ],
+  "schedule": [
+    {
+      "project": "yaml-cpp",
+      "repetition": 1,
+      "method": "tool_plan_workflow",
+      "case": "natural_unmodified"
+    },
+    {
+      "project": "yaml-cpp",
+      "repetition": 1,
+      "method": "model_plan_workflow",
+      "case": "natural_unmodified"
+    },
+    {
+      "project": "yaml-cpp",
+      "repetition": 1,
+      "method": "strong_tool_agent",
+      "case": "natural_unmodified"
+    },
+    {
+      "project": "yaml-cpp",
+      "repetition": 2,
+      "method": "strong_tool_agent",
+      "case": "natural_unmodified"
+    },
+    {
+      "project": "yaml-cpp",
+      "repetition": 2,
+      "method": "model_plan_workflow",
+      "case": "natural_unmodified"
+    },
+    {
+      "project": "yaml-cpp",
+      "repetition": 2,
+      "method": "tool_plan_workflow",
+      "case": "natural_unmodified"
+    },
+    {
+      "project": "simdutf",
+      "repetition": 1,
+      "method": "model_plan_workflow",
+      "case": "natural_unmodified"
+    },
+    {
+      "project": "simdutf",
+      "repetition": 1,
+      "method": "strong_tool_agent",
+      "case": "natural_unmodified"
+    },
+    {
+      "project": "simdutf",
+      "repetition": 1,
+      "method": "tool_plan_workflow",
+      "case": "natural_unmodified"
+    },
+    {
+      "project": "simdutf",
+      "repetition": 2,
+      "method": "tool_plan_workflow",
+      "case": "natural_unmodified"
+    },
+    {
+      "project": "simdutf",
+      "repetition": 2,
+      "method": "strong_tool_agent",
+      "case": "natural_unmodified"
+    },
+    {
+      "project": "simdutf",
+      "repetition": 2,
+      "method": "model_plan_workflow",
+      "case": "natural_unmodified"
+    },
+    {
+      "project": "snappy",
+      "repetition": 1,
+      "method": "strong_tool_agent",
+      "case": "natural_unmodified"
+    },
+    {
+      "project": "snappy",
+      "repetition": 1,
+      "method": "tool_plan_workflow",
+      "case": "natural_unmodified"
+    },
+    {
+      "project": "snappy",
+      "repetition": 1,
+      "method": "model_plan_workflow",
+      "case": "natural_unmodified"
+    },
+    {
+      "project": "snappy",
+      "repetition": 2,
+      "method": "model_plan_workflow",
+      "case": "natural_unmodified"
+    },
+    {
+      "project": "snappy",
+      "repetition": 2,
+      "method": "tool_plan_workflow",
+      "case": "natural_unmodified"
+    },
+    {
+      "project": "snappy",
+      "repetition": 2,
+      "method": "strong_tool_agent",
+      "case": "natural_unmodified"
+    }
+  ],
+  "exposure": {
+    "holdout": false,
+    "reference_seen_by_developer": true,
+    "reference_injected_into_real_agent": false,
+    "template_direct": [
+      "simdutf"
+    ],
+    "template_abstention": [
+      "yaml-cpp",
+      "snappy"
+    ],
+    "shared_test_infrastructure": [
+      "yaml-cpp",
+      "snappy"
+    ],
+    "all_cmake_cpp": true
+  },
+  "dispatch_gate": {
+    "root": "/home/yiwei/.codex/outputs/forge-cxx-comparison-dispatch-gate-v1",
+    "inventory_sha256": "6035d7da14db182216a6a858d752d22f4feb4436e8fb886585db0cfbf6e642d8",
+    "independent_audit_path": "/home/yiwei/.codex/outputs/forge-cxx-continuous-session-2026-10-21/gate-independent-audit.json",
+    "independent_audit_sha256": "050eaa80b00492592444c4dea9e5cc989478a2d641e680129ed87f3ab8503ce4"
+  }
+}
