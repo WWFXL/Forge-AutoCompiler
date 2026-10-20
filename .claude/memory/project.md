@@ -4,6 +4,8 @@
 
 ## 进行中 (In Progress)
 
+- 2026-10-21 — #568跨系统共同六槽零Provider门禁准备；192组件冻结，先实际门禁及独立审计，再冻结18槽真实候选。共享20美元/原UTC22:07:35截止，当前已花2.18434128美元/未知0；不并行Docker、不重跑旧身份、人工参考隔离。#567/PR569已通过最终三CI并合依赖分支，#565/PR566最终发布处理中。
+
 - 2026-10-21 — #560/#562真实六槽已封存并三独立审计通过，exec35697终态0，不重跑；#565跨系统参考在独立工作区release05503b2c/exec25843终结，原1/2合格：libconfig测试与replay通过但autoheader改写原模板，失败保留；独立header-v1原文件265项保持且1/1合格，inventoryc22ffdac，完整测试/交付/replay/cleanup均审计通过。raw forge-cxx-cross-system-reference-v1，不并行Docker。#568共同接口/比较为后续有条件计划，#567 RQ3固定18/6审计完成，PR569待最终三CI；共享20美元原UTC22:07:35截止不延长。最终结果HEAD三CI后仅合科研依赖分支，用户HTML不动。
 
 - 2026-10-20 — #542共享契约及新强工具调度资格已完整结束；本条以下“运行中”均为历史。
@@ -573,6 +575,10 @@
   - 下一步: 等待实验负责人确认当前网络接入介质，并决定是否授权只读 endpoint 诊断和新的 canary amendment；获得确认后必须另建中文 Issue/PR 和协议 identity，保留当前失败 marker。
 
 ## 最近变更 (Recent Changes)
+
+- 2026-10-21 — 补齐#568显式Make入口与共同三策略调度，保持固定验证和参考隔离。
+  - 文件: `backend/packages/harness/deerflow/compile/task_selected_make_plan.py`, `scripts/forge_build_cxx_cross_comparison.py`及两测试/协议。
+  - 动机: 为Make与Autotools C++任务的公平比较补齐共同工程资格，尚无新方法效果。新12回归通过；完整产品检查按Makefile排除历史冻结测试，直接混跑历史测试的13导入错误保留在会话cross-common-product-tests.log，不修旧runtime。
 
 - 2026-10-21 — #567完成独立固定C++队列的分层复核并保留18/6分母
   - 文件: `scripts/forge_audit_cxx_fixed_layers.py`, `backend/tests/test_audit_cxx_fixed_layers.py`, `benchmarks/analyses/cpp-build-cxx-fixed-cohort-validation-audit-v1.json`, `docs/research/2026-10-21-cxx-validation-layers-results.md`
