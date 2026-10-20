@@ -572,6 +572,13 @@
 
 ## 最近变更 (Recent Changes)
 
+- 2026-10-20 — #548准备新观察接口三策略小规模比较；尚未授权真实Provider。
+  - 已创建并回读Issue548，新分支yiwei/548-observed-plan-comparison从PR547 merge40ceb2fd建立，用户HTML不动。新独立slot_runner显式接observed_planner，真实入口拒绝人工reference，保留107旧组件/全部冻结证据。
+  - 新候选拟4已见项目×三方法×一次共12槽，定向开发暴露、顺序不完全平衡；完整测试/源码/交付/replay/预算保持，未知/失败保留。新调度buffer三策略零Provider门禁待运行，原14槽资格不重跑。
+  - 新16项回归及相邻合计49passed；首测试错误把全局os.environ替为None导致pytest连带报错，已改为只替本模块os命名空间，未访问Provider。历史pytest临时树权限警告保留，不清其他任务目录。
+  - 文件: scripts/forge_build_observed_plan_comparison.py、scripts/forge_audit_observed_plan_dispatch.py、backend/tests/test_build_observed_plan_comparison.py、cpp-build-observed-plan-*协议。免费准备不继承旧费用/时窗；真实调用前新SHA绑定授权，HTTP402原因仍未核验。
+
+
 - 2026-10-20 — #546规划观察接口v2资格完成，以下“待运行”为历史。
   - 14/14预期成立：13strict/1准确缺文件拒绝/0未观察槽，18脚本响应/55受计量命令、0真实Provider/Token/费用/未知。5正向恢复各handoff1/revision2，命令/前缀保留；三系统两来源正常完整测试/replay通过（CMake14/14，Autotools6/6且0skip）。负例后续层未观察，未改成功。
   - release3023a66771d4c5de1da1f6239966a95dfaaf8572；v2库存986b96ae1e601569aa0fc71ea78b96ed1f38a1d1289a024f7a67906d5bd40aa3，56924文件/30链接/230731928bytes、114组件。主stdlib audit及17正向路径原/重放AST日志审计valid=true，全部实际cleanup；原107组件不变。v1中断2strict/1部分/11未启动及库存9e8f9572保留，独立审计通过，不续跑/拼接。
