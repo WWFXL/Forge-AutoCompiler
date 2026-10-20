@@ -4,7 +4,7 @@
 
 ## 进行中 (In Progress)
 
-- 2026-10-21 — #560/#562真实六槽已封存并三独立审计通过，exec35697终态0，不重跑；#565跨系统参考在独立工作区release05503b2c/exec25843终结，原1/2合格：libconfig测试与replay通过但autoheader改写原模板，失败保留；新header-v1仅configure继承AUTOHEADER=true准备中。raw forge-cxx-cross-system-reference-v1，不并行Docker。#568共同接口/比较为后续有条件计划，#567 RQ3固定18/6审计进行中；共享20美元原UTC22:07:35截止不延长。最终结果HEAD三CI后仅合科研依赖分支，用户HTML不动。
+- 2026-10-21 — #560/#562真实六槽已封存并三独立审计通过，exec35697终态0，不重跑；#565跨系统参考在独立工作区release05503b2c/exec25843终结，原1/2合格：libconfig测试与replay通过但autoheader改写原模板，失败保留；独立header-v1原文件265项保持且1/1合格，inventoryc22ffdac，完整测试/交付/replay/cleanup均审计通过。raw forge-cxx-cross-system-reference-v1，不并行Docker。#568共同接口/比较为后续有条件计划，#567 RQ3固定18/6审计完成，PR569待最终三CI；共享20美元原UTC22:07:35截止不延长。最终结果HEAD三CI后仅合科研依赖分支，用户HTML不动。
 
 - 2026-10-20 — #542共享契约及新强工具调度资格已完整结束；本条以下“运行中”均为历史。
   - v2九槽9strict/0未观察，7脚本响应/38Shell，库存6617b2f862686ca5c8086d3ca1431182d8bc8576c365a8166bbbd9dbafdf24a5，56671文件30链接229021615bytes；独立stdlib audit valid=true。CMake两来源原/replay14/14、Auto各6/6（0skip/fail），Make完整自测；受控两失败各handoff/revision2并保留gate-configure，初始拒绝另记升级。无真实Provider/Token/费用/未知，不当效果或自然恢复率。
@@ -592,6 +592,10 @@
   - 文件: task_selected_tool_plan.py、shared_text_packet.py、forge_build_referenced_meter.py、forge_build_task_selected_gate.py、forge_build_task_selected_comparison.py及对应回归和两份预注册；仅新增文件，不改原18槽165冻结组件。
   - 资格: 新三项目零Provider身份已冻结，初始均必须工具生成，只有真实失败后用脚本参考恢复且清空build缓存；不当真实Agent效果，原50k消息/8k schema与完整严格裁判不变。真实六槽须该资格独立通过后另冻结，双方同材料meter/Workflow/恢复Agent，只改initial generator；不得跨批归因。
   - 检查: 41组合回归/产品2244passed44skipped27warnings/Ruff通过，三个实际失败状态后验最小包可逆复原约47k→30k（不是旧被拒报文）。下一步唯一启动launch_selected_gate.py，不并行付费/不延长共享UTC22:07:35窗口；代码发布仅依赖分支。
+- 2026-10-21 — #565原双项目参考1/2合格并保留libconfig模板改写失败，冻结独立header环境资格
+  - 文件: `docs/research/2026-10-21-cxx-cross-reference-results.md`, `scripts/forge_build_cxx_header_reference.py`及同名manifest/preregistration/test
+  - 动机: tinyxml2原/replay各508断言通过、strict；libconfig原/replay完整8PASS+1XFAIL及16 tinytest与交付/replay通过，但make重生成唯一原文件ac_config.h.in，原资格false。新header-v1只令configure继承AUTOHEADER=true，1/1严格资格闭合，原/replay原文件265项、8PASS+1XFAIL/16tinytest/两静态交付/replay/cleanup全通过独立审计。inventoryc22ffdac，releasec5d80fc3；新14回归/产品2225passed44skipped/Ruff通过。0Provider、原inventory9f68befd保留不重启。
+
 - 2026-10-21 — 封存#561双来源并独立重建Git树验证commit绑定。
   - 证据: cxx-cross-system-source-v1，tinyxml2 Make拟任务273文件/libconfig Autotools拟任务265文件，均0源链接；2/2来源逐blob/模式与归档归一化保持通过，0Provider/凭据/模型费/源码执行/Docker。库存89e09bc2267593695a0dae54f9eda9d764d0afcc3af7ad780850d92c4f6aff5f，186文件/15686794bytes；release575c74cd。
   - 审计: 首次将API按commit查询的回显sha误当tree SHA，失败收据保留；改为独立重建全部Git tree对象绑定commit.tree后valid，raw/identity不变、不重新下载。8新/产品2211passed44skipped27warnings、Ruff通过。
