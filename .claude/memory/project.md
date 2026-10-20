@@ -577,6 +577,12 @@
 
 ## 最近变更 (Recent Changes)
 
+- 2026-10-21 — 在独立工作区冻结#561 C++ Make/Autotools双来源资格。
+  - 动机: 当前新增C++真实比较全为CMake，先验证tinyxml2@10.0.0与libconfig@v1.8.2固定commit归档逐blob/链接/权限对应Git tree；不执行源码/不并行Docker，不当策略或构建效果。
+  - 文件: scripts/forge_build_cxx_cross_source.py、backend/tests/test_build_cxx_cross_source.py、同名cross-system-source-v1 manifest/preregistration。168组件，Provider/凭据/模型费/构建命令0，截止继承UTC22:07:35。
+  - 检查: 8新回归、产品2211passed44skipped27warnings及Ruff通过。工作区yiwei/561-cxx-cross-system-source基于PR559 merge8c73a01de；主工作区29784841正运行#560真实六槽，不改变其HEAD/冻结组件。来源采集与独立审计尚待唯一启动，不把已读作者构建/测试说明当实际完成。
+
+
 - 2026-10-21 — 封存#558完整18槽公平比较并报告条件收益与恢复材料阻塞。
   - 证据: cpp-build-cxx-comparison-v1，18观察/15strict/0未观察；工具/模型/强工具5/4/6各6槽，73请求975996Token/$1.45084632未知0，stage.completed。原源码/索引/no HEAD/实际cleanup全通过；15strict完整原/replay测试/精确交付通过，主/详情/初始输入独立audit valid，库存cdfe5ca87f1eae4b90fac2fb73f0ac0339b85414082b3b63ce1ad4d8c366520f。
   - 解释: simd工具两次0模型strict；工具请求/费较模型低但耗时长，相对强工具完成少1槽；3个snappy Workflow固定功能检查缺依赖后恢复触及50k，3handoff/2恢复请求/0修订，作者CTest/暂存/replay未观察。不是总体/跨系统/holdout或恢复收益。
