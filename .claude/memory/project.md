@@ -4,6 +4,11 @@
 
 ## 进行中 (In Progress)
 
+- 2026-10-20 — #542共享规划契约基础设施资格准备。
+  - 新unified_plan模块只接收BuildActions构建部分，系统装入作者固定测试及共同暂存；工具初始拒绝独立登记后转同预算Agent，执行失败同一权威恢复接口。历史93组件不改。
+  - 新门禁9槽/0Provider，66相关测试通过；尚无新Docker观察。manifest/preregistration为cpp-build-unified-plan-gate-v1；后续公平比较待门禁及新费用/时窗。新分支yiwei/542-unified-plan-interface基于PR541 merge3c2d191c，最终只合依赖分支，用户HTML不动。
+
+
 - 2026-10-20 — #538三策略原36逻辑槽观察与分析已完成；无活动Provider，以下“运行中”为历史。
   - 原v1保持16观察12strict/20未观察，inventory f216c3930624768d6def984681af377d0ccb1e2427dd52a30b21c5d595692b72；新续段20观察14strict/0未观察，inventory012476793e5a0a40ceaa532a0c6b953fcea682fba748a4e33554d277935bba92，88组件/42012文件130链接993270776bytes，原16不重跑不回填。运行release6f986973/3965e5c2，均三CI通过。
   - 全部293请求3650987Token/$5.50500324保守估算，未知0，两stage.closed，原$20/UTC07:47:40截止不变，无额外付费授权或旧费混入。工具/方案/规则方案 strict9/9/8，各12；请求109/99/85；费用1.67860968/2.09666952/1.72972404。方案请求少9.2%但费高24.9%，当前不支持整体成本优势，保留check/math局部收益和sodium成功率取舍。
