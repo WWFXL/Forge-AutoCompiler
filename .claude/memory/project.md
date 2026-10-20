@@ -4,6 +4,19 @@
 
 ## 进行中 (In Progress)
 
+- 2026-10-20 — #542共享契约及新强工具调度资格已完整结束；本条以下“运行中”均为历史。
+  - v2九槽9strict/0未观察，7脚本响应/38Shell，库存6617b2f862686ca5c8086d3ca1431182d8bc8576c365a8166bbbd9dbafdf24a5，56671文件30链接229021615bytes；独立stdlib audit valid=true。CMake两来源原/replay14/14、Auto各6/6（0skip/fail），Make完整自测；受控两失败各handoff/revision2并保留gate-configure，初始拒绝另记升级。无真实Provider/Token/费用/未知，不当效果或自然恢复率。
+  - 新强工具slot_runner实际补验buffer1strict/1脚本响应/3Shell、一次无参数submit，源码/原测试/精确交付/replay/实际cleanup及独立审计通过；库存bcdbdda48cd3f01464c33ee2ab7a6e1beb3cce86f8f3c21f70ea769a060d0a89，146文件2105347bytes。v1中断库存d0e7ce5f保留、独立审计valid，不续跑/回填。原93组件不变。
+  - 公平候选cpp-build-unified-plan-comparison-v1：107组件、SHA7ac195707008dd127719b808577a1e099dcd4675652664041de2928b0d03023e，36槽/原6已见评估×2×3（工具方案、模型方案、强工具）；前两者同装配/恢复/预算，全部初始/失败/恢复成本，静态2直接4拒绝，五保守组。新费用/有效时窗尚未授权，全部效果槽未观察；旧#538余额不续用。不加P2/不改RQ3/不改主线。
+  - 新增36回归/产品2088passed44skipped27warnings、Ruff/548格式及真实CLI preflight通过；报告2026-10-20-unified-plan-interface-results.md。运行release02014597，代码发布通道yiwei/542-unified-plan-interface→依赖yiwei/534-rq3-natural-failures，最终head三CI及merge/Issue542关闭以GitHub/final-publication-audit.json为准，不进main。新会话forge-unified-plan-session-2026-10-20收据完整，知识库经MCP CAS同步；用户HTML未动未提交。
+
+
+- 2026-10-20 — #542共享接口v2正在真实Docker门禁，严禁重启同身份。
+  - release02014597a9a5b384b8b3385dcbc56597389fa2bc已推送，exec session77194；raw /home/yiwei/.codex/outputs/forge-unified-plan-gate-v2尚未封存，日志forge-unified-plan-session-2026-10-20/gate-v2-launch.log。3strict（Make双来源/CMake工具），CMake模型replay运行中，后续Auto双来源及恢复/拒绝升级待观察。运行结束前不改HEAD，raw会记录最终HEAD；组件101不改。
+  - 新公平比较/费用分析/强工具新调度单槽入口和预注册未提交，全部0Provider。待共享9槽完整独立审计→单独strong dispatch gate及独立审计→会话freeze_candidate.py冻结36槽候选→最终整体检查/提交推送/PR三CI/依赖分支merge/关闭542/同步知识库；新付费须再核验20美元/4小时时窗，不继承旧授权。
+  - v1独立审计valid，源库存d0e7ce5f保留。预运行静态覆盖v2仍2直接/4拒绝升级；共享库宿主cc夹具旧拒绝/新通过、普通文件hash相同，不当效果。35新回归/产品2087passed44skipped已过，额外强工具调度回归单独通过，最终全量待确认。用户HTML不动。
+
+
 - 2026-10-20 — #542共享接口v1主动中断封存，v2共享库交付修复准备。
   - v1 3strict（Make双来源/CMake工具）、CMake模型槽部分中断、5未启动，均实际cleanup；库存d0e7ce5f81a85399ab9fae1dbc5cdcaba28294835ce3c5955ec93bdcdb556405，37524文件/154676154bytes。发现libzip任务交付libzip.so而常规产物为内部版本化链接，旧共同暂存器忽略链接属接口缺口，不称真实方法失败。
   - 新plan_delivery接受仓库内链接解析到真实ELF/ar并交付普通文件，拒绝越界/循环/悬空/歧义；6真实Shell回归通过。v2只修本轮新模块和入口，原93组件不改，旧v1 manifest/raw/snapshot保留，按原绝对工程截止独立九槽，不混结果。新增回归合计34项通过，0Provider。
