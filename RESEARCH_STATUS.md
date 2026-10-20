@@ -1,6 +1,14 @@
 # Forge Research Status
 
-## 当前阶段（2026-10-21；#558十八槽真实比较封存，进入#560/#562新资格准备）
+## 当前阶段（2026-10-21；#560/#562六槽真实消融闭合，#565跨系统参考运行中）
+
+cpp-build-task-selected-comparison-v1完整6观察/6strict/0未观察，旧/任务指定模板各3/3strict、各14请求；保守估费0.35033196/0.383163美元、累计臂秒848.636480/869.947990。新模板费增约9.37%、耗时增约2.51%，本批未见整体收益；yaml少1请求但费用高、snappy多1请求、simd双方0模型strict，保留条件性取舍，不因此否定硕士主线。3次真实恢复均revision2，仅保留共同源码准备、清空build并重走完整后缀，不宣称最小增量节省。后验snappy精确重复读取旧2/15、新11/19，是效率线索而非因果证据。
+
+28请求/466944Token/估费0.73349496美元、未知0；与原18槽1.45084632累计2.18434128美元，共享本轮20美元及原UTC22:07:35截止（北京时间06:07:35），不延长。双方共同新引用材料meter，22/28实际请求可逆编码并独立解码核验；源码/索引/no HEAD、原/replay完整测试和配置、精确交付及实际cleanup三审计valid。raw forge-task-selected-comparison-v1，inventory0aa0d9dddbfad8cf4a4d1b35fd9da4b73793eb00cc67774bd9c8174234d7d728（22294文件/4链接/916650977bytes），release29784841；报告2026-10-21-task-selected-template-results.md，主/详情/材料/费用/重复读取审计及授权终态在会话forge-cxx-continuous-session-2026-10-21/。新三项目零Provider资格仍3/3最终/1/3初始模板、2Fake，不能当真实效果。最终结果HEAD三CI后PR563仅合依赖分支，发布待GitHub核验。
+
+六槽仅已见CMake C++、单重复且位置不完全平衡；相对原18槽共同接口也变化，不作跨批因果/总体/跨系统/自然恢复率或显著性主张。#561 Make tinyxml2与Autotools libconfig来源2/2独立Git对象审计通过，PR564已合0aaa5dca、Issue561已关闭。#565完整参考cpp-build-cxx-cross-system-reference-v1已1/2合格、0未观察，inventory9f68befdd78f290de50110ec718bdb6668adebf10a33d4f41a983897991555ab、release05503b2c；tinyxml2合格，libconfig工程测试/交付/replay通过但make重生成ac_config.h.in，违反原SHA合同而不合格，不是已证实功能错误。独立审计valid，原身份不重启；新header-v1仅把既有AUTOHEADER=true延续到configure、完整原测试/来源/交付/预算不变，准备中，未运行；0Provider，原截止不延长。#568后续共同接口与比较仅条件计划，须参考及零Provider资格闭合，不直接付费。#567只读RQ3固定18/6队列分层审计中，不改历史14/43分母，不加P2、不换主线。用户HTML不动。
+
+## 上一阶段（2026-10-21；#558十八槽真实比较封存，进入#560/#562独立资格执行准备）
 
 本轮共享新增20美元/UTC18:07:35至22:07:35（北京时间06:07:35截止），准备计入。cpp-build-cxx-comparison-v1完整18观察、15strict、0未观察，三策略工具/模型Workflow/强工具分别5/6、4/6、6/6；请求16/18/39、保守估费0.33836088/0.38033424/0.73215120美元、累计臂秒1362.87/1255.42/1475.99。73请求/975996Token/$1.45084632、未知0，付费stage已关闭。工具费用较低但相对强工具严格完成少1槽，相对模型耗时更长；simd工具双重复0模型strict。仅已见CMake C++，不推总体或跨系统/三个独立家族/holdout。
 
@@ -8,7 +16,7 @@
 
 真实raw forge-cxx-comparison-v1，inventory cdfe5ca87f1eae4b90fac2fb73f0ac0339b85414082b3b63ce1ad4d8c366520f（62607文件/12链接/2582376097bytes），release8fff60a9ae6753b2dd0d75fc6479b54ae65b0529。独立四槽零Provider门禁4/4 strict、inventory6035d7da14db182216a6a858d752d22f4feb4436e8fb886585db0cfbf6e642d8。协议同名manifest/preregistration，报告2026-10-21-cxx-comparison-results.md；启动/授权/共享账本/终态/独立审计/分层费用在会话forge-cxx-continuous-session-2026-10-21/。结果HEAD三CI后仅合科研依赖分支，发布以GitHub及收据为准。
 
-下一步优先#562可逆去重材料和#560任务指定多入口模板的独立零Provider资格；新六槽消融双方共享同一新材料meter/Workflow/恢复Agent，只改initial generator，不能把跨批共同接口变化算模板收益。11编码/门禁测试、41组合回归/新产品2244passed44skipped27warnings已通过；三个实际失败状态后验最小包从约47k变为约30k并可逆，不是历史被拒完整报文或恢复效果。新Docker与付费尚未开始，须先冻结，继承同20美元与绝对截止；不改RQ3分母/主线/验收、不加P2。#561 Make/Autotools C++来源草案待后续，用户HTML不动。
+下一步优先#562可逆去重材料和#560任务指定多入口模板的独立零Provider资格；新六槽消融双方共享同一新材料meter/Workflow/恢复Agent，只改initial generator，不能把跨批共同接口变化算模板收益。11编码/门禁测试、41组合回归/新产品2244passed44skipped27warnings已通过；三个实际失败状态后验最小包从约47k变为约30k并可逆，不是历史被拒完整报文或恢复效果。新三项目零Provider资格cpp-build-task-selected-template-gate-v1已冻结（manifest SHA 7c82225a4692727f6ed11155374b8735ccca48babcf0d88050982280b6d3af5d；175组件），新Docker待启动、真实六槽尚未冻结；继承同20美元与绝对截止；不改RQ3分母/主线/验收、不加P2。#561 Make/Autotools C++来源草案待后续，用户HTML不动。
 
 ## 最近完成（2026-10-21；#556共同准备资格10槽完成、1槽未观察）
 
