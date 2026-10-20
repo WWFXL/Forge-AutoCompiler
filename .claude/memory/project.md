@@ -572,6 +572,14 @@
 
 ## 最近变更 (Recent Changes)
 
+- 2026-10-21 — #554封存三个新增C++任务的完整参考资格与下一阶段比较草案。
+  - 文件: docs/research/2026-10-21-cxx-reference-qualification-results.md、同日cxx-next-comparison-design.md、RESEARCH_STATUS.md。
+  - 最终池yaml/snappy取原三槽、simd取metadata-v2；后者release740d974f、141组件、SHAfbe4caa8928c0f442bf707394d6a8d1dda159fed0f1824cb2f21d12d3ede2055，原/replay94/94真Passed/0skip，430.917秒，库存2c0d214ce30a292e9b16599b4b4ff23cb26ed3a9db41fb18609f30eea4b3479b（6071文件2链接237461516bytes）。原源码/精确交付/实际cleanup及独立主/父链详情审计valid=true，所有旧失败和跳过保留，不能称原v1三项全过/方法效果。
+  - metadata-v1 Git所有权准备exit128；v2只容器确切目录信任，不改宿主/源码/测试/预算/截止。宿主详情审计亦先受Git保护，初版和失败收据保留，用单进程精确safe.directory读索引后通过，不动raw/裁判。0凭据/Provider/Token/费用/未知，UTC18:19:33不延长；禁止重启unique启动器。
+  - 新17/相关33测试，产品2158passed44skipped27warnings、Ruff通过；未改实现后不重复跑全量。最终逐hash/零容器/发布/知识库收据统一forge-cxx-qualification-session-2026-10-20，PR555仅依赖分支，最终headCI/merge/Issue554关闭以GitHub及final-publication-audit.json为准，#470保持OPEN、用户HTML未改未提交。
+  - 下一阶段18槽仅设计草案，平衡六排列；先免费共同Git元数据与replay准备门禁、配置检查含义审阅，再冻结新比较及核验新费用/时窗。yaml/snappy模板拒绝升级须分层，三项同CMake/共享测试关联不当独立家族；不注入人工参考/知识库、不加P2/不改RQ3/主线/验收，不借旧余额另开付费。
+
+
 - 2026-10-21 — #554保留metadata-v1所有权准备失败，冻结限定容器目录信任的新v2。
   - 原v1 dependency exit128 dubious ownership，后续全未观察、原源码/实际cleanup过；库存28ff9d2e，独立audit valid。不是模型失败或CTest失败。
   - 新metadata-v2仅在git init/add之间插入容器内safe.directory /workspace/repo，不用通配符、不写宿主Git配置；其他任务/测试/预算/截止原样，141组件，全新Session待观察。2边界测试/Ruff/CLI preflight通过，仍0Provider，不以工程准备算科研机制效果。

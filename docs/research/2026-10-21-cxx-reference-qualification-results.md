@@ -40,7 +40,15 @@ simdutf失败为**本轮人工参考检查错误**：configure传-DBUILD_SHARED_
 
 运行release 5d25c82573c3fa210f40d90a1cbfd546ee9543a3、135组件，manifest SHA256 eb56210d86936b3d6f9eabfa6c55b89cafc49f13b89683992c15b20a9cee3eb1。独立执行completed，428.679秒；原/replay交付、源码与实际cleanup均过，独立audit valid=true。两次CTest均94注册、93通过/0失败/1跳过：check_feature_macros调用git ls-files失败，因为来源归档无.git，按上游SKIP_RETURN_CODE=142跳过。CTest汇总100%不代表94项实际全通过，不将该项目直接列为无跳过完整测试资格。
 
-下一独立cpp-build-cxx-reference-metadata-qualification-v1只在最初dependency追加git init -q与git add --force --all，准备精确原源码的本地索引，不创建伪commit、不改原源码/配置/测试或SKIP_RETURN_CODE。要求该检查在原/replay真正Passed且无CTest跳过。138组件，manifest SHA256 27a0429ad9eb8f97685332821a97c9efd58d945f579573e50cbc6da39dc45881；此新单例仍待观察，不与父身份混算。
+下一独立cpp-build-cxx-reference-metadata-qualification-v1只在最初dependency追加git init -q与git add --force --all，准备精确原源码的本地索引，不创建伪commit、不改原源码/配置/测试或SKIP_RETURN_CODE。要求该检查在原/replay真正Passed且无CTest跳过。138组件，manifest SHA256 27a0429ad9eb8f97685332821a97c9efd58d945f579573e50cbc6da39dc45881；该身份dependency阶段Git exit128：root容器拒绝宿主用户拥有的挂载目录（dubious ownership），未进入configure/build/CTest/交付/replay；原源码和实际cleanup通过。库存28ff9d2e7d68dc8be1f2ae2db20ec4d3bb7a7f47e61f373e1b6b64ff75cd762e。此准备失败单独保留，不与父身份混算。
+
+## Git元数据资格v2与最终可用任务池
+
+新身份cpp-build-cxx-reference-metadata-qualification-v2只在v1的git init/add之间加入`git config --global --add safe.directory /workspace/repo`。仅信任临时原执行/replay容器的精确目录，不使用通配符、不改宿主Git配置、不创建伪commit；原源码、固定测试、预算和截止不变。
+
+运行release 740d974f786f9d0531bb14ef6bd0e512461c1e93，141组件，manifest SHA256 fbe4caa8928c0f442bf707394d6a8d1dda159fed0f1824cb2f21d12d3ede2055。独立执行completed，430.917秒；原工作区及clean replay均94/94 CTest实际Passed、0失败、0跳过，check_feature_macros真正Passed。原源码全部普通文件不变、Git索引集合与原来源hash索引相同、精确静态交付及原/replay hash相同、所有原与重放容器实际不存在，独立stdlib主审计及父链/测试详情审计均valid=true。宿主只读详情审计首次亦受Git所有权保护拒绝，保留失败脚本/收据后改用单进程精确`git -c safe.directory=<source>`读取；没有改raw、裁判或宿主配置。
+
+最终可用于下一阶段的参考任务为yaml-cpp/snappy（原三槽身份）及simdutf（metadata-v2）。这是跨明确修订身份的**任务资格池**，不是原v1三项全过，不合并为方法成功率。所有前序失败/跳过均保留。该结果支持固定来源和严格任务可复现，不支持真实模型策略效果。
 
 ## 统一边界与检查
 
@@ -48,13 +56,13 @@ simdutf失败为**本轮人工参考检查错误**：configure传-DBUILD_SHARED_
 
 原源码全部普通文件不变，精确交付至少真实ar，原/replay集合/类型/大小/hash一致，原与重放容器实际不存在才完成。引用“完整测试”均指该固定配置下作者注册的默认测试，不代表全部平台/可选feature矩阵。凭据读取、Provider、模型Token/估费/未知用量均0，不继承#552预算另开付费身份。参考v1入口exit0表示三槽完整终结，不能替代逐项目qualified判断。
 
-新增15项身份/来源图/类型修正边界回归；含旧来源/参考相关合计31项。产品2156 passed/44 skipped/27 warnings，Ruff通过。历史pytest临时目录权限清理告警保留，未清理其他任务目录。124个#552历史组件及132个首批组件逐hash保持；用户HTML SHA256 7722b81a4a3d6d52d5ddbc59ef9a67910ea1231f130c8e765cb584cff9790325未改。
+新增17项身份/来源图/类型修正边界回归；含旧来源/参考相关合计33项。产品2158 passed/44 skipped/27 warnings，Ruff通过。历史pytest临时目录权限清理告警保留，未清理其他任务目录。124个#552历史组件及132/135/138/141个各参考身份组件逐hash保持；用户HTML SHA256 7722b81a4a3d6d52d5ddbc59ef9a67910ea1231f130c8e765cb584cff9790325未改。
 
 ## 静态模板与下一步
 
 未执行模板、未调用模型的静态检查：yaml-cpp/snappy因并列BUILD.bazel/CMakeLists.txt被现有单根模板拒绝；simdutf生成构建候选。这是候选生成/拒答记录，不是构建成功、模板自然覆盖率或收益。后续若保留三策略，应单列初始拒绝升级与运行中失败恢复；两模板拒答项目工具路径会进入与模型路径相同的初始Agent，不能把随机轨迹差说成消除规划。
 
-保持当前实现作基线，不在本批优化并列构建入口或重复读取。参考资格结束后，再固定C++前瞻评估角色、关联组、方法顺序、共享测试/装配/恢复及全费用，准备独立公平比较；真实比较须有效新身份/预算/时窗，不自动调用Provider。未来检查若需改进必须在新结果前冻结同等任务，不按方法结果改裁判。不加P2、不改RQ3固定分母，不改研究主线。
+保持当前实现作基线，不在本批优化并列构建入口或重复读取。参考资格结束后，再固定C++前瞻评估角色、关联组、方法顺序、共享测试/装配/恢复及全费用，准备独立公平比较（18槽顺序草案见同日cxx-next-comparison-design.md，尚未冻结/准入）；真实比较须有效新身份/预算/时窗，不自动调用Provider。未来检查若需改进必须在新结果前冻结同等任务，不按方法结果改裁判。不加P2、不改RQ3固定分母，不改研究主线。
 
 ## 证据入口
 
@@ -66,7 +74,9 @@ simdutf失败为**本轮人工参考检查错误**：configure传-DBUILD_SHARED_
 | forge-cxx-reference-inputs-v1 | 8b4b6661314a9be96b5e30f73bdbe47fcea3932ffa8fc3e9cb1814adb1031734 | 149/0/29294221 |
 | forge-cxx-reference-qualification-v1 | b57011899a6ffae3c915c4203a0e488a109442519c1ddaa604e59f5ee3820501 | 5534/1/252845583 |
 | forge-cxx-reference-cache-qualification-v1 | c2573fa60ee4cbaf7c8b5695da1d07d3614ab01432cbb32a7fa8d6f0f3c48095 | 4519/2/231228645 |
+| forge-cxx-reference-metadata-qualification-v1 | 28ff9d2e7d68dc8be1f2ae2db20ec4d3bb7a7f47e61f373e1b6b64ff75cd762e | 929/0/23347816 |
+| forge-cxx-reference-metadata-qualification-v2 | 2c0d214ce30a292e9b16599b4b4ff23cb26ed3a9db41fb18609f30eea4b3479b | 6071/2/237461516 |
 
-独立来源/首批审计valid=true。执行/校验/静态模板/审计源码与收据统一在/home/yiwei/.codex/outputs/forge-cxx-qualification-session-2026-10-20/：independent_audit.py、independent-source-audit.json、independent-reference-v1-audit.json、frozen-component-audit.json、static_template_audit.py、static-template-audit.json、unique-launch.json与unique-cache-launch.json。协议均在benchmarks/manifests与preregistrations对应同名文件。
+独立来源、全部参考身份、最终父链与实际测试详情审计均valid=true。执行/校验/静态模板/审计源码与收据统一在/home/yiwei/.codex/outputs/forge-cxx-qualification-session-2026-10-20/：independent_audit.py、independent-source-audit.json、independent-reference-v1-audit.json、frozen-component-audit.json、static_template_audit.py、static-template-audit.json、unique-launch.json、unique-cache-launch.json、unique-metadata-launch.json、unique-metadata-v2-launch.json、independent-metadata-v1-audit.json、independent-metadata-v2-audit.json及completion-detail-audit.json。最终逐hash/实际零容器/零费用审计见final-qualification-boundary.json。协议均在benchmarks/manifests与preregistrations对应同名文件。
 
 最终结果HEAD三项CI、PR555合入科研依赖分支、Issue554关闭和知识库同步以GitHub及本会话最终发布/知识库收据为准，不进入main；#470长期总跟踪保持OPEN。
