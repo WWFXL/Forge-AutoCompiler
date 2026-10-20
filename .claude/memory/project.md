@@ -549,6 +549,10 @@
 
 ## 最近变更 (Recent Changes)
 
+- 2026-10-20 — 开始#540工具初始方案零Provider资格，冻结三已见开发项目，不继承旧付费授权
+  - 文件: `backend/packages/harness/deerflow/compile/tool_plan.py`, `scripts/forge_build_tool_plan_qualification.py`, `backend/tests/test_tool_plan.py`, `docs/research/2026-10-20-tool-plan-tools-review.md`, `benchmarks/manifests/cpp-build-tool-plan-qualification-v1.json`
+  - 动机: #538初始规划占约88%费用；参考论文中确定性候选提取与模型工具边界。19项单元测试通过；冻结组件93项、候选失败保留，实际资格尚未运行。不改用户HTML。
+
 - 2026-10-20 — 完成#536三策略入口与v2完整13槽零Provider门禁，保留旧v1中断与独立fallback资格，不改变真实比较分母。
   - 文件: scripts/forge_build_full_strategy_runtime.py、scripts/forge_build_full_strategy_runtime_v2.py、scripts/forge_build_full_strategy_fallback_gate.py、三个对应test、v1/v2 manifest/preregistration、docs/research/2026-10-20-build-full-strategy-runtime-results.md、RESEARCH_STATUS.md。
   - 动机: 解除完整三策略比较的执行与接管资格阻塞；v1误把3900秒真实Provider余量用于Fake零Token请求已复现/修复，v2仅分离零Provider时间检查，正式模型仍保留3900秒、全费用/资源与完整裁判。
