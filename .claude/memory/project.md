@@ -524,6 +524,9 @@
 
 ## 最近变更 (Recent Changes)
 
+- 2026-10-20 — 收敛本轮当前状态入口与发布边界
+  - RESEARCH_STATUS改为本轮3阶段与下一准入的紧凑入口，旧时间线转由上一轮handoff/报告保留；本地产品2004 passed/44 skipped，全后端及新脚本Ruff/533格式通过。#531 merge7ba7e88a/#530关闭，#533 mergeb1fa880f/#532关闭，均最终head三CI全SUCCESS后合并；#535等待最终head检查，不进main，长期#470保留OPEN。本轮0Provider，旧费用授权截止不续用，拟议$12非已授权；用户HTML不动，单例容器已清理。
+
 - 2026-10-20 — #534完成14行六层验证回顾与独立复算
   - release21e32d92，#504全12build通过/11测试通过/10交付replay通过；#524未到build；#530build通过测试失败；交付replay未执行均not_observed，不混分母。8文件/365839 bytes，inventory0ce4d5139af0d3d233c9278c48239e4901deba46e344b974b8d3156ff68c1275，1770消费hash与14行六层独立复算valid=true。16新增相邻测试/Ruff通过，0新构建/Provider。源码/失败旧raw不改，用户HTML不动；当前只剩三策略正式运行入口/零Provider门禁及新付费预算时窗待准入。
 

@@ -1,97 +1,65 @@
 # Forge Research Status
 
-> 当前科研入口；只概括现阶段、证据、解释边界与下一决策。原始观察以冻结raw/inventory为准，身份与解释以版本化manifest/preregistration/report为准；详细工程交接见`.claude/memory/project.md`，长期综合见个人知识库。此前长时间线保留在Git版本`ce6e1af9:RESEARCH_STATUS.md`与各历史报告，不作为现阶段执行指令。
+> 当前科研入口。冻结raw/inventory证明观察；版本化协议/报告定义身份和解释；Git/GitHub/CI证明代码与发布；`.claude/memory/project.md`保留工程交接，个人知识库保留长期综合。
 
-## 当前阶段
+## 当前阶段与决定（2026-10-20新一轮）
 
-#534完成新RQ3固定14行回顾：#504全部12臂build12通过/完整测试11通过1失败/交付和replay各10通过2未观察；#524 build及后续未观察；#530 build通过但测试失败、交付replay未观察。原源码/已记录cleanup均通过。1770消费文件、14行六层由独立第二实现复算valid=true，raw inventory `0ce4d5139af0d3d233c9278c48239e4901deba46e344b974b8d3156ff68c1275`；报告`docs/research/2026-10-20-build-validation-natural-audit-results.md`。0新构建/Provider，不合并自然误接受率、不宣布第二创新点。当前三阶段新费用均0，后续先补三策略新入口/端到端门禁再按新预算时窗准入付费。
+主线仍为“面向C/C++仓库自动化构建的状态感知动作选择与验证方法研究”，目标是完整、可答辩、可复现的硕士论文。利用构建阶段规律提前生成项目方案，Workflow依据权威执行记录推进，异常时规则或Agent修订，首变化后失效并重新验证。小幅改善、条件性优势和明确取舍都值得继续，不要求所有指标同时占优；不通过改裁判制造成功。
 
-#532已冻结完整三策略科学设计与角色：11项已见合格任务分3开发/6评估/2未排期，6评估×2重复×3方法=36预定槽；libtom合并为保守组，非独立家族证明。角色raw inventory `ab4ebcb6302337d0b432ef6b7c3dd51083cfc1e3f3e079b7466092b561952bd4`，独立audit valid=true；合理规则未覆盖/一次修订后失败转Agent组件17项回归通过。设计`docs/research/2026-10-20-build-full-strategy-comparison-design.md`及同名comparison-v1 JSON；0新构建/Provider，尚非可执行付费协议（新入口、三方法端到端门禁、新预算/时窗待完成）。小幅/条件性收益和取舍可继续，不设全指标占优门槛；下一项RQ3固定分母分析。
+用户本轮四项继续指令已执行：恢复知识库/版本；新身份单次验证libverto配置修订；冻结三策略科学设计及项目角色/暴露；扩展固定分母RQ3。三个阶段均0新增Provider支出。下一步先完成三策略新执行入口和端到端零Provider门禁，再按新Provider预算与绝对时窗准入真实比较；目前没有新付费attempt。无新的同源合理动作分歧，不加P2，不直接转写论文正文。
 
-2026-10-20新一轮用户继续指令下，#530新身份`cpp-build-libverto-natural-recovery-v2`已单次封存：依赖63.77秒成功，原六测试0/6；唯一configure enable-shared且保留static后，make未重编译/链接，六测试仍0/6，按一次修订边界停止。8命令/0模型/原源码不变/实际cleanup通过，交付与replay未观察。73组件、236文件/4链接/7762235 bytes，inventory `c02679e3e789e4d17f9d0d737f84457c868d4dd31399d1e9120bde85110aba29`，独立audit valid=true。报告`docs/research/2026-10-20-build-libverto-natural-recovery-v2-results.md`。逻辑后缀失效已发生，物理旧产物仍被make复用；清理重建效果尚未知，不继续本身份。接下来冻结有暴露登记的强基线完整比较和RQ3，新Provider预算/时窗尚未续授。
+## 新证据与解释边界
 
-本轮完整交接：`docs/research/2026-10-20-overnight-research-handoff.md`。新增采集已结束，按原时窗仅做最终CI/发布、资源费用与知识库交接；截止不跨日顺延，#470保留长期总跟踪。下一步在新的有效时窗执行显式接线新planner的libverto最小配置资格，再冻结有暴露登记的强基线完整策略比较。
-
-#528最后一项零Provider状态路由审计已完成：固定五个真实交接，冻结#516规则输出三个单步修订候选（原三受控例），对自然六断言失败/dep超时不覆盖；候选未应用，0新构建。79文件/1759276 bytes，inventory `be77e2db5221a451e91810e1b9372f97990879759ca19acab74e96fcc87aa26c`，独立audit valid=true。报告`docs/research/2026-10-20-build-observed-state-routing-audit.md`。这只支持合理有界规则/调查停止的路由，不能证明P2或自然覆盖率；本轮结束新增采集，接下来仅发布/资源/费用/知识库交接。
-
-#526早期交接读取缺陷已有新planner v2组件与11项相邻回归通过：先校验hash/阶段、非check不读日志、check缺诊断明确拒绝，保持原单项修订规则。文件`scripts/forge_build_libverto_recovery_planner_v2.py`，说明`docs/research/2026-10-20-build-recovery-diagnostic-guard.md`。旧v1与raw不变，后续新身份显式接线；不是已完成真实修复，也未解决60秒依赖预算。
-
-最新阶段#524零模型自然失败修复资格已封口：依赖安装60秒超时，未到configure/build/六测试，0修订/replay；包装层提前读取不存在测试日志而表层FileNotFoundError。源码与归档相同、cleanup实际成功、0模型请求/费用，独立audit valid=true。目标修复效果仍未知；不补跑或改验收。PR525最终675820d1三CI后合并fc0586e0、#524关闭。报告`docs/research/2026-10-20-build-libverto-natural-recovery-results.md`，raw `/home/yiwei/.codex/outputs/forge-libverto-natural-recovery-v1/`，inventory `e0f674f48fccecadf500fb17fb05a70b16a1e4303a91be594fe0a38974d30363`。下一身份先修包装层早期交接检查/测试，并在有效新时窗冻结足够依赖资源；当前无活动付费阶段。
-
-2026-10-20（北京时间）：#502固定六仓库/三系统/双重复/双臂的真实比较全部结束，24/24严格completed、12配对双方均成功，独立审计valid=true，0未知用量、源码不变、固定完整测试/精确交付/clean replay/cleanup闭合。143187普通文件/184链接/1193274172 bytes，inventory `2df552e2a26dac451b4d61690c4bc3eac59fee2fd0dcc0b3604f25c84905a91d`；raw `/home/yiwei/.codex/outputs/forge-plan-agent-paired-real-v1/`，报告`docs/research/2026-10-20-build-plan-agent-paired-comparison-results.md`。
-
-plan/tool分别60/105请求、765692/1082737 Token、$1.26334296/$1.62595884估算、52/66命令。固定任务合计费用少22.3%，但libsodium/libsndfile的plan更贵，五维护者关联组的费用差重采样范围跨0，不能声称跨项目稳定成本优势。12个plan交接/修订均0；11/12个tool臂共19次配方ID拒绝后自行纠正，4条失败Shell均diagnostic。不能把差异全部归于初始规划，也不证明RQ2状态适应、总体非劣、成熟Agent排名或P2增量。
-
-#504强接口真实探针已12/12完整封存，plan/tool各5/6 strict：37/50请求、486546/508130 Token、$0.79509408/$0.71376360估算、1095.568/840.297秒，0未知用量、cleanup全部成功。请求少不等于费用低，本批plan费用高11.4%；0submit拒绝，五成功tool各一次自动配方submit。libverto-r1-tool请求用尽前build/6测试过但未交付；libverto-r2-plan固定测试0/6后真实handoff一次，因状态材料超过50000字节在第10次总请求前停止；此前4次初始规划+5次真实恢复，0修订。失败不补跑，不能称纯模型恢复失败。raw `/home/yiwei/.codex/outputs/forge-auto-provenance-real-v1/`，inventory `d7bad477a8b355ffdbb21de127961c2f8f639798186d6c7d6ad0ecb27263e446`，独立审计valid=true；报告`docs/research/2026-10-20-build-auto-provenance-probe-results.md`。65组件、后验选样和严格终点均保持；不作跨批因果/总体非劣/成熟Agent排名。后续#506三系统受控恢复已3/3闭合，#511处理接管材料重复预览阻塞。
-
-父#493十项参考7/10合格、#498七控制7/7预期成立、#500两Make2/2严格completed及#502十二臂零Provider门禁均封存、独立审计通过。前三阶段均核验结果head三CI后合入依赖分支并关闭Issue；#503结果adc54403的三项实际CI均SUCCESS后已合并（df830217），#502关闭，未进入main。#502协议54d1d893、运行release557a44c4，manifest SHA-256 `5f2cc841c38b1ed8eaee5867d2491dfce060c539aa9c3c92170729bbc74f42f2`。
-
-## 当前研究问题与已知边界
-
-#522只读核验#504 libverto-r2-plan自然失败：六测试均在test.h:74上下文创建断言退出134；实际配置disable-shared/enable-static、无builtin、仅静态库，与源码默认动态后端加载不匹配。19消费文件匹配父inventory、6源码与精确归档相等。报告`docs/research/2026-10-20-build-libverto-failure-analysis.md`及同名analysis登记，0新构建/Provider；未追踪确切运行分支、未验证最小配置修复，不算恢复成功或P2增量。PR523最终1421fcb2三CI后合并b1ea4874、#522关闭。下一次新身份才可做同源最小修订资格。
-
-#520完成固定18候选暴露/就绪回顾：两Git树限定范围225命中/79文件，#502/#504中6候选36真实模型臂，11已有人工参考资格/7尚缺前提；其余未见模型仅限指定队列，不能称全历史或训练未见。102文件/53091260 bytes，inventory `a5e0f8dcff639c91ba5fceb976130b241b0938c91c2a2f12d123f8b72e7e9b17`，独立audit valid=true、六测试通过、0新构建/Provider。报告`docs/research/2026-10-20-build-candidate-exposure-audit-results.md`，raw `/home/yiwei/.codex/outputs/forge-candidate-exposure-audit-v1/`。15同owner标签非代码亲缘/独立项目族，未指定holdout。PR521最终6f413163三CI后合并7ec0d427、#520关闭。
-
-#518完成主张证据矩阵与下一轮比较设计（0新构建/0Provider），六组冻结inventory、既有独立audit与报告hash登记一致。设计`docs/research/2026-10-20-build-evidence-claims-next-comparison.md`，登记`benchmarks/analyses/cpp-build-next-comparison-design-v1.json`。PR519最终7da3b633三CI后合并e0258443，#518关闭。不是效应预注册；下一项实质工作为项目族/时间暴露与同源动作分歧审计，再冻结强工具Agent/合理规则+Agent比较。保留完整初始规划、失败和恢复成本，未见分歧不增加P2，不承诺稳定低成本或两个创新点已成立。
-
-#516零模型强规则恢复资格已3/3 strict、各一次handoff/revision2，0模型请求/Token/Provider，16条Shell；独立audit valid=true。raw `/home/yiwei/.codex/outputs/forge-rule-recovery-qualification-v1/`，inventory `30b2117f520d571a293f2c9f082d6182786ce44d4d944e3964bc049e6d2e5f27`；报告`docs/research/2026-10-20-build-rule-recovery-qualification-results.md`。规则后验设计且资源不同，不与#506作因果比较；这三例不能再当语义选择器增量证据。PR517最终db7f3071三CI后合并4f2df457，#516关闭。下一步审计主张与未来强基线比较，先找同源动作分歧，不盲增复杂性。
-
-#514费用归因回顾审计已完成36臂/252响应/544收据、独立audit valid=true，0Provider。#502输入费用差-$0.44644116+输出差$0.08382528=合计-$0.36261588；#504输入差-$0.08340156+输出差$0.16473204=合计+$0.08133048。不能以请求/总Token代费用；#504的plan32初始+5真实恢复，后者$0.12073644但未交付修订。raw `/home/yiwei/.codex/outputs/forge-token-cost-attribution-audit-v1/`，inventorye542e906f7d67284bea488bb5392b7fa4ca2584b6812b3c84c4f6ef8ff284705；报告`docs/research/2026-10-20-build-token-cost-attribution-audit-results.md`。6项测试通过，不作输出语义归因、跨批因果或总体优势。PR515最终af227c84三CI后合并1955a348，#514关闭。下一步同源失败状态/合理强规则动作分歧核查，不盲增选择器复杂性。
-
-#511接管材料工程资格v2已通过且独立audit valid=true：原材料门禁拒绝（去掉源码片段仍至少50916字节），仅省重复日志预览后实际48515字节、schema2032，1次零Token脚本请求返回候选但不执行构建。raw `/home/yiwei/.codex/outputs/forge-handoff-context-qualification-v2/`，inventorydf52d2de72a886280bf298340736521194c707520794e29b36b285025139eb1f；v1遗漏历史而未复现，失败保留。新meter只用于后续新身份，不改旧runner；9针对性+5相邻测试通过，按仓库make test-product完整1960 passed/44 skipped。报告`docs/research/2026-10-20-build-handoff-context-qualification-results.md`，PR513最终def34c30三CI后合并237d27cf，#511关闭。
-
-#508两项参考配方独立修复已2/2 qualified/strict completed、独立两审计valid=true：libpng只修stage文件名且37/37测试，libzip仅BUILD_DOC=OFF且199/199测试，精确交付/原源码不变/clean replay/cleanup均过。raw `/home/yiwei/.codex/outputs/forge-reference-repair-qualification-v1/`，inventory9eb4c2d336766e6c66aff742f771dcd93686aece0eac70d5e40b619cd2ba0e3c；报告`docs/research/2026-10-20-build-reference-repair-qualification-results.md`。0Provider，各一次，旧#493不回填，libffi不替补；manifest64组件及父差异明示。PR512最终59b6ef18三CI后合并dd9eacb2，#508关闭。
-
-#507零Provider回顾分层验证覆盖审计完成全部43行并封存，inventory621a6d20ee695b0e4e7be3d818922c9b481f12ac4e65cf5a97da207baf7bf08f，消费文件/原分母终点/七关键案例独立核验valid=true；10项测试/Ruff/format通过。报告`docs/research/2026-10-20-build-validation-evidence-audit-results.md`，独立实现/协议/报告41c13664经最终三CI后由PR510合并ca01048a，#507关闭，不混入#505。初次默认workdir提取失败和独立核验字段误用均保留，不改旧证据。libzip的110个man HTML重生成属操作合同拒绝，不是已证实语义错误；受控空测试、交付漂移、遗漏bootstrap与过期状态分开解释。不混队列成功率，不估自然误接受/因果增量，不宣布第二创新点。#504的65组件未变。
-
-#506受控恢复已完整封存：九槽零Provider门禁9/9预期成立，真实三系统3/3 strict、各一次handoff/revision2；6请求/61294 Token/$0.09434832估算。miniz保留configure前缀，pigz/libite从首变化失效重执行；旧失败和失效命令未进replay，源码/完整测试/精确交付/cleanup闭合，独立审计valid=true。raw `/home/yiwei/.codex/outputs/forge-plan-recovery-real-v1/`，inventory a47d84aa86bde07f5dda19f492bf3c7be3834f7b52c1e6c433d32ddda24a9f67；报告`docs/research/2026-10-20-build-plan-recovery-qualification-results.md`。初始人工方案不进入RQ1全策略成本，不当自然恢复率/P2增量。
-
-已识别混杂：原工具接口要求模型手工选择supporting/recipe ID，真实轨迹经常在构建与固定测试成功后因ID/顺序被拒。这不是项目不可编译。#504只自动选择权威记录中的最后成功build与有序成功配方，再委托原submit；固定测试freshness、源码、精确交付和重放不放宽。允许同轮批量构建/测试/暂存/提交，不人为限制强基线。后续比较是实际完整路径间的描述，不以跨批差值宣称自动ID因果效应。设计`docs/research/2026-10-20-build-auto-provenance-baseline-design.md`。
-
-主线为“面向C/C++仓库自动化构建的状态感知动作选择与验证方法研究”，目标是完整、可答辩、可复现的硕士论文。方法为初始方案生成、确定性Workflow、权威状态观察、合理失败接管、修订失效和严格验证；不将先规划、DAG或重规划称为通用首创。方法定位见`docs/research/2026-10-20-build-plan-method-positioning.md`。
-
-- RQ1：相同任务/材料/模型/资源/严格终点下，完整方案Workflow与允许批量操作的工具Agent，严格完成及全部成本如何变化？
-- RQ2：状态变化后的适应有何实际增量？先识别动作分歧，保留合理规则强基线；没有分歧或修订激活时不为复杂选择器制造理由。
-- RQ3：完整测试、精确交付与clean replay各能发现哪些表面成功？受控控制不能估计自然误接受率。
-
-#489真实v2开发canary为8/8 strict completed，双方均18命令；plan/tool为7/34请求、68950/291092 tokens、$0.13283688/$0.43705728估算。四个plan臂交接/修订均0，不能证明状态适应增量。只描述已见开发项目，不作总体效果、非劣、总体成本收益或成熟Agent排名；不以修复前v1到v2差值作因果比较。
-
-## 当前证据与后续执行入口
-
-| 阶段 | 状态与证据 | 边界/下一步 |
+| 阶段 | 新观察 | 当前结论与下一步 |
 | --- | --- | --- |
-| #489真实双臂v2 | 封存`/home/yiwei/.codex/outputs/forge-plan-agent-canary-real-v2/`；3436普通文件/96链接，inventory `31652865251842eebb49f8582fb22c96610da21d6a4f5339b31daa08a5613663`，独立审计valid=true；报告`docs/research/2026-10-20-build-plan-agent-canary-v2-results.md` | 严格接线闭合；不当正式效果分母 |
-| #492扩展12来源 | 12精确来源成功；78文件，inventory `49214164eab150f68fe950975cc81e8b36f143534545068ce2751c4137f39c62`；报告`docs/research/2026-10-20-build-source-expansion.md` | FastLZ语料子模块、HDiffPatch相邻依赖/oracle未闭合，暂缓不替换 |
-| #493十项参考任务 | 7/10合格，8个Forge completed；inventory `34614ceaf61f45f383ea46bfacf4490e0e888417ea40c150b5bdee04b99ae011`；报告`docs/research/2026-10-20-build-reference-expansion-results.md` | 全部封存、0Provider，不替换三项未合格；已选定比较中的四项目均合格 |
-| #496第二批Make来源 | 六槽位5来源成功/1 metadata失败；41文件，inventory `1cd3b892a03273cf289fc36b823163b0c794f1c1bf988ab460840a19050288ee`；报告`docs/research/2026-10-20-build-make-source-catalog.md` | libhydrogen/buffer有完整自测；pico需固定子模块；commander仅演示暂缓；tinyAES已有开发暴露 |
-| #498状态/验证控制 | 七槽7/7预期成立，三正常strict、四已知负控制正确拒绝；inventory `f013a79451c2630f0ffd8e532eacda46a371716d1397eb500eaca5cc1f51cc85`；报告`docs/research/2026-10-20-build-state-validation-controls-results.md` | 已封存、两独立审计通过、0Provider；不新增P2，不估计自然误接受率 |
-| #500两项Make参考 | 2/2严格completed；inventory `7a7ca99cbc89cb2754b66f418f73eeab75a67fc9bf6162b1ac70903113336a6a`；报告`docs/research/2026-10-20-build-make-reference-results.md` | 已封存、独立审计通过、0Provider；人工参考资格，不是模型结果 |
-| #502前瞻性比较 | 24/24 strict、12完整配对，inventory `2df552e2a26dac451b4d61690c4bc3eac59fee2fd0dcc0b3604f25c84905a91d`，独立审计通过、估算$2.88930180 | 请求/Token更少但费用项目异质且范围跨0；19次手工ID拒绝；0plan交接，下一步#504强接口探针 |
+| #530 libverto同源最小配置恢复v2 | 依赖63.77秒通过，原六测试0/6；仅configure启用shared且保留static后make未重编译/链接，测试仍0/6；8命令、一次修订/revision2、两个失败交接；源码不变、实际cleanup通过、交付/replay未观察 | 单项配置修订不足以恢复，逻辑阶段失效不等于物理旧产物已重建；清理重建效果尚未知。本身份停止，原失败保留，不补跑、不回填成功 |
+| #532完整三策略科学设计/角色冻结 | 11已见合格任务分3开发/6评估/2未排期，6×2重复×3方法=36预定槽；libtom两项合为5保守组之一，非独立家族证明；规则未覆盖/一次修订后失败转同预算Agent组件及相邻17测试通过 | 科学任务/角色/顺序/共同资源/全成本口径已冻结；尚待新运行器、三方法端到端门禁、新预算/时窗，不等于正式效果预注册或付费准入 |
+| #534 RQ3固定14行回顾 | #504全12臂：build12通过、测试11通过1失败、交付/replay各10通过2未观察；#524未到build；#530build通过但测试失败、交付/replay未观察；1770消费文件/14行六层独立复算通过 | 支持区分build、完整测试与可复现交付；队列分开，未观察不填失败/通过，不估自然误接受率，不宣称第二创新点成立 |
 
-所有新任务均为独立身份，旧失败、部分观察与冻结原始证据只读。#484四项目人工参考资格已全部通过，#486读取接口失败与#478 libusb响应合同停止等前序结果见各版本化报告；不能当新主线总体负结果，也不续跑旧身份。
+#530显式接线#526 planner v2，并冻结依赖600秒/节点1200秒/evaluator与replay各900秒/cleanup120秒，旧#524/v1/raw不改。#530不是一般恢复率、模型能力排名或复杂选择器增量证据。
 
-## 本轮授权、费用与停止
+## 当前证据入口
 
-用户已授权Issue→实现/实验/测试→commit/push→PR→最新head检查后合并→关闭Issue，并持续同步知识库。跟踪#470，协议`docs/research/2026-10-19-continuous-research-authorization.md`。
+| 身份 | 报告与协议 | 冻结证据 |
+| --- | --- | --- |
+| `cpp-build-libverto-natural-recovery-v2` | `docs/research/2026-10-20-build-libverto-natural-recovery-v2-results.md`；同名analyses/preregistration | `/home/yiwei/.codex/outputs/forge-libverto-natural-recovery-v2/`，inventory `c02679e3e789e4d17f9d0d737f84457c868d4dd31399d1e9120bde85110aba29`；236文件/4链接/7762235 bytes、73组件、独立audit valid=true |
+| `cpp-build-full-strategy-role-freeze-v1` | `docs/research/2026-10-20-build-full-strategy-comparison-design.md`；`benchmarks/analyses/cpp-build-full-strategy-comparison-v1.json` | `/home/yiwei/.codex/outputs/forge-full-strategy-role-freeze-v1/`，inventory `ab4ebcb6302337d0b432ef6b7c3dd51083cfc1e3f3e079b7466092b561952bd4`；35文件/15573646 bytes、独立audit valid=true；0新构建 |
+| `cpp-build-validation-natural-audit-v1` | `docs/research/2026-10-20-build-validation-natural-audit-results.md`；同名analyses/preregistration | `/home/yiwei/.codex/outputs/forge-validation-natural-audit-v1/`，inventory `0ce4d5139af0d3d233c9278c48239e4901deba46e344b974b8d3156ff68c1275`；8文件/365839 bytes、独立audit valid=true；0新构建 |
 
-- 各阶段共享新增Provider上限$20；已知保守估算累计$5.80615200，另旧live未知费用预留$1，预算占用$6.80615200；#504与#506预留已分别按$1.50885768/$0.09434832结算，无活动付费阶段。
-- 估算不是账单，预留不是实际支出。共享账本`/home/yiwei/.codex/outputs/forge-continuous-research-2026-10-19/{authorization.json,budget-events.jsonl}`。
-- 绝对截止北京时间2026-10-20 07:00，即UTC2026-10-19 23:00；最后15分钟仅清理/交接，不能跨午夜顺延。各阶段可更早停止新槽位准入。
-- 预算耗尽后可做有效零支出工作。重大主线变更、超预算或需放宽科学主张边界时保存状态等待用户；普通阶段切换不需重新询问。
+三个独立审计实现/结果在 `/home/yiwei/.codex/outputs/forge-research-continuation-2026-10-20/`。#530运行release3f9b143b；#534提取release21e32d92。旧封存、失败、部分观察与原模型费用全部保留。
 
-## 发布与工作区
+## 既有证据仍有效
 
-#491/#494/#497均核验对应最新head的三项实际CI成功后合入依赖分支，#489/#492/#496关闭。#495已核验98236292三CI并合入依赖分支，#493关闭；#499控制结果6a69e738三CI通过后合并（f95f72d7），#498关闭；#501两Make结果bd9cb38e三CI通过后合并（72bdb55c），#500关闭。#503已核验adc54403三项实际CI全SUCCESS后合并（df830217），#502关闭；#505为#504独立探针PR，协议a598925a三项实际CI通过，最终a5624a3e三CI后已合并26b58e3a，#504关闭。合入依赖开发分支不等于进入main；不把约176个历史未进main提交一并发布。用户未跟踪的`docs/research/2026-10-13-forge-research-progress-defense.html`不修改/提交。
+- RQ1：#502六项目双重复双方12/12 strict，方案/工具60/105请求、估算$1.26334296/$1.62595884；费用项目异质、关联组范围跨0，19次手选ID拒绝，0plan恢复。#504强接口三项目双重复双方5/6 strict，37/50请求、估算$0.79509408/$0.71376360，请求少26%但费用高11.4%；后验探针不能作跨批接口因果或成熟Agent排名。报告分别为`2026-10-20-build-plan-agent-paired-comparison-results.md`、`2026-10-20-build-auto-provenance-probe-results.md`。
+- RQ2：#506三系统真实受控恢复3/3严格完成，6请求/61294 Token/估算$0.09434832；#516同三已见错误规则也3/3、0模型。说明恢复链路与合理规则可运行，不能证明复杂选择器独有收益。#528五状态离线规则覆盖原三受控错误，不覆盖自然六断言或依赖超时；未应用候选，不估自然覆盖率。
+- RQ3：#507四队列全部43行回顾区分空测试、过期状态、交付漂移与遗漏bootstrap。libzip改写110个原HTML是操作合同拒绝，不是已证实功能错误。#508新参考修复libpng37/37、libzip199/199完整测试，2/2 strict，旧#493不回填。报告`2026-10-20-build-validation-evidence-audit-results.md`及`2026-10-20-build-reference-repair-qualification-results.md`。
+- #511 HandoffContextMeter材料投影资格仅证明原50k门禁下去除重复日志可返回脚本候选；未证明真实恢复效果。新比较须显式对所有方法接线，不改旧runner。#520固定18候选有限暴露登记只覆盖指定Git树/队列，不证明全历史/训练未见；维护者关联不等于独立家族。
 
-相关阶段本地回归与Ruff通过，检查以各自报告、PR和head为准；默认产品回归必须`CI=true FORGE_RUN_CLIENT_LIVE=0`，不得意外触发付费live测试。知识库固定入口为`01-研究/自动化编译/Forge-当前创新机制与实验路线.md`，只通过knowledge_base MCP维护，写前读取最新SHA、CAS写入后回读；不复制Vault或注入正式实验Agent。
+上一轮完整交接`docs/research/2026-10-20-overnight-research-handoff.md`及各版本化报告保留旧细节，旧“下一步”不代表当前授权。早期#489 canary是开发接线，不混入效果分母。
+
+## 下一轮比较的固定边界
+
+开发：uncrustify/buffer/libverto；评估：libpng/libzip/libtomcrypt/libtommath/libsodium/check；libsndfile/libhydrogen不排期且不替补失败。所有项目来源/人工参考均已见，评估是前瞻方法结果角色，不称holdout。11归档源/头文件≥256字节的跨项目精确hash重合为0，不证明完整代码/依赖/测试亲缘独立。
+
+保留强工具Agent（自动权威配方、允许批量）、方案Workflow+失败Agent、方案Workflow+一次有界规则+失败Agent；固定源码/任务/模型资源/严格终点，全部初始规划/读取/输出/失败/恢复费用计入。每项目/重复配对，保守组描述；失败与未观察分别报告，不以全指标胜出为研究继续门槛。正式模型前须冻结可执行协议、验证全部接线和新费用/时间授权。
+
+## 发布、检查与费用
+
+#531最终0053f5a2三项实际CI全SUCCESS后合并7ba7e88a，#530已关闭；#533最终01f74155三项实际CI全SUCCESS后合并b1fa880f，#532已关闭。#535为RQ3及本状态入口，须最终head的backend-unit-tests/frozen-benchmark-tests/frozen-stage-c-tests全SUCCESS后合并，GitHub为发布真源。均仅合入依赖开发分支，未进main，不夹带历史提交。#470长期总跟踪保持OPEN。
+
+当前本地产品回归2004 passed/44 skipped，全后端及三新增脚本Ruff/533文件格式检查通过；13恢复、17接管、16验证回归分别通过，检查不是科研效果。用户未跟踪HTML `docs/research/2026-10-13-forge-research-progress-defense.html`未改/未提交；本轮单例容器实查已清理，其他用户服务不动。
+
+本轮新增Provider为0。上一轮已知保守估算$5.80615200+未知预留$1（预算占用$6.80615200），不是账单；原$20/北京时间2026-10-20 07:00授权已结束。#532拟议$12并非已获授权，无活动付费阶段。重大主线变化、超预算或放宽科学主张边界交由用户决定。
+
+知识库仅通过knowledge_base MCP对Windows真源CAS更新并回读，不复制Vault、不注入正式Forge实验Agent。
 
 ## 历史停止决定仍有效
 
-| 历史身份 | 决定与边界 | 权威入口 |
-| --- | --- | --- |
-| #440 H0/H1 v3 | strict19/27→22/27、成本下降50%，但非劣下界-0.111未过-0.10且Make/Autotools退化；H1不再单独作为主创新 | `benchmarks/reports/cpp-progress-aware-harness-comparison-v3-authorized.md` |
-| #455 H0/H1/H2 v2 | 各6/6，无closure rejection/repair激活；不能证明H2可靠性增量，不追加相同全成功样本 | `benchmarks/reports/cpp-progress-aware-h0-h1-h2-runtime-v6-formal-comparison-v2.md` |
-| #463/#465 Jev | 校准覆盖不足，逐动作分解/ActionCard未转为有效覆盖；停止进入controller，不补跑或降阈值 | `benchmarks/reports/cpp-jev-progress-budget-calibration-v1.md`、`cpp-jev-action-safety-decomposition-v1.md` |
-| #467依赖/配置A0–A4 | 未得到至少3个强Agent后仍未解且有合法修复依据的残余难题；停止A5，不等于否定自动化编译硕士主线 | `benchmarks/reports/cpp-dependency-configuration-agent-investigation-v2.md` |
+| 身份 | 决定与范围 |
+| --- | --- |
+| #440 H0/H1 v3 | strict19/27→22/27、成本下降50%，非劣下界-0.111未过-0.10；H1不再单独为主创新，保留工程与消融 |
+| #455 H0/H1/H2 v2 | 各6/6，但0closure rejection/repair激活，不能主张H2增量，不追加相同全成功样本 |
+| #463/#465 Jev | 校准/逐动作安全未过门槛，停止controller，不降阈值或补跑 |
+| #467依赖/配置A0–A4 | 残余难题资格不足，停止A5，不否定自动化编译硕士主线 |
 
-历史#408受控失败正向结果、#457状态/BudgetFit benchmark与其他历史观察继续保留各自原主张范围；新路线不重写旧结论。
+不重开旧identity，不重写旧正负结论。原始证据/报告路径见上一轮交接及旧Git版本的状态入口。
