@@ -524,6 +524,12 @@
 
 ## 最近变更 (Recent Changes)
 
+- 2026-10-20 — #532冻结三策略角色与科学设计
+  - 11合格任务3开发/6评估/2未排期，36预定槽/5保守组（非独立证明）；角色raw35文件/15573646 bytes，inventoryab4ebcb6302337d0b432ef6b7c3dd51083cfc1e3f3e079b7466092b561952bd4，独立audit valid=true。四新增规则→Agent接管测试及相邻共17通过/Ruff通过。保留强工具、独立初始规划和全部失败恢复成本，无分歧不加P2；小幅收益可继续。0新构建/Provider；尚待新运行器、端到端门禁、新Provider预算/绝对时窗，不把设计冻结当运行准入。
+
+- 2026-10-20 — #530同源最小配置恢复v2真实失败封存
+  - release3f9b143b，依赖63.77秒通过；原六测试0/6，单项configure修订后增量make Nothing to be done、测试仍0/6；两个handoff/一次revision2/8命令，交付replay未观察，原源码不变、实际cleanup通过、0Provider。236文件/4链接/7762235 bytes，inventoryc02679e3e789e4d17f9d0d737f84457c868d4dd31399d1e9120bde85110aba29，73组件，独立audit valid=true。报告同名v2-results；逻辑后缀失效不保证清理物理缓存，不追加修订或改旧证据。13相关回归/Ruff通过。
+
 - 2026-10-20 — #530冻结新时窗libverto同源恢复v2
   - 新入口显式接线#526 planner v2，依赖命令600秒、节点1200秒、evaluator/replay各900秒、cleanup120秒；零Provider、一次尝试，仅configure enable-shared且保留static，六测试/交付合同不改。旧#524/v1不动；新增早期dep交接与实际meter资源回归。身份cpp-build-libverto-natural-recovery-v2，截止UTC03:30，3900秒准入保留；本轮用户已续办研究，旧付费时窗不自动续用。
 
