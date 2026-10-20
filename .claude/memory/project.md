@@ -4,7 +4,7 @@
 
 ## 进行中 (In Progress)
 
-- 2026-10-21 — #558十八槽已封存并独立审计，原exec52945已终止，不重跑；新#560/#562资格准备，Docker/新Provider尚未开始。41组合回归、新产品2244passed44skipped27warnings/Ruff通过；未跟踪新模板/可逆文本模块与协议留待独立分支，不混入#558结果提交。#561来源草稿暂存在会话cross-source-draft/。
+- 2026-10-21 — #558十八槽已封存并独立审计，原exec52945已终止，不重跑；新#560/#562三项目零Provider资格已3/3闭合，六槽真实候选已冻结、尚未启动。41组合回归、新产品2244passed44skipped27warnings/Ruff通过；未跟踪新模板/可逆文本模块与协议留待独立分支，不混入#558结果提交。#561来源草稿暂存在会话cross-source-draft/。
 
 - 2026-10-21 — #558连续科研轮：共享新增20美元/UTC18:07:35至22:07:35，准备计入。新四槽零Provider调度资格（buffer三策略+snappy强工具缺槽）通过并独立审计后冻结18槽C++比较；旧#556 v3保持10观察/1未观察，均不改冻结组件、验收或RQ3分母。最终HEAD三CI后仅合科研依赖分支，知识库持续同步。
 
@@ -576,6 +576,12 @@
   - 下一步: 等待实验负责人确认当前网络接入介质，并决定是否授权只读 endpoint 诊断和新的 canary amendment；获得确认后必须另建中文 Issue/PR 和协议 identity，保留当前失败 marker。
 
 ## 最近变更 (Recent Changes)
+
+- 2026-10-21 — 完成#560/#562三项目严格资格及实际可逆材料审计，冻结真实六槽消融。
+  - 证据: task-selected-template-gate-v1最终3strict，初始1strict/两次真实check失败+各1脚本恢复，0Provider/Token/费；主/详情/实际发送材料独立三审计valid，库存3da18bf369a6e659d4431bcda0eafe1dc1a17b2ae64d7c0a44b588a4c568045f。不是模型效果。
+  - 候选: task-selected-comparison-v1、177组件、旧/新模板六槽；两者共新meter/Workflow/恢复Agent，只改initial generator；真实尚未启动。阶段9美元预留共享本轮20美元/UTC22:07:35，原18槽1.45084632美元stage已闭合。
+  - 文件: docs/research/2026-10-21-task-selected-template-results.md、同名manifests/preregistrations；唯一启动launch_selected_paid.py必须绑定阶段授权/共享账本并禁止参考注入，不重跑旧身份。
+
 
 - 2026-10-21 — 冻结#560/#562任务指定多入口模板及可逆状态文本资格。
   - 文件: task_selected_tool_plan.py、shared_text_packet.py、forge_build_referenced_meter.py、forge_build_task_selected_gate.py、forge_build_task_selected_comparison.py及对应回归和两份预注册；仅新增文件，不改原18槽165冻结组件。

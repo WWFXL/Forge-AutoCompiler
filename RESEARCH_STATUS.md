@@ -1,6 +1,14 @@
 # Forge Research Status
 
-## 当前阶段（2026-10-21；#558十八槽真实比较封存，进入#560/#562独立资格执行准备）
+## 当前阶段（2026-10-21；#560/#562三项目资格闭合，真实六槽消融冻结待执行）
+
+新cpp-build-task-selected-template-gate-v1最终3/3strict，初始独立模板1/3（simd直接；yaml测试开关OFF、snappy缺功能依赖，各真实check失败后一次脚本恢复/revision2）；保留源准备前缀、清空build并重走后缀。2实际Fake请求的引用材料经独立stdlib解码及原包SHA/任务/方案/50k消息/8k schema核验；0真实Provider/凭据/Token/费用，不能当真实Agent效果或0模型方法3/3。源码/索引/no HEAD/固定完整测试/精确交付/同镜像replay/实际cleanup主、详情、材料三审计valid。inventory 3da18bf369a6e659d4431bcda0eafe1dc1a17b2ae64d7c0a44b588a4c568045f，原175组件、release6e29f6cd，raw forge-task-selected-template-gate-v1。
+
+独立六槽cpp-build-task-selected-comparison-v1已冻结（177组件、candidate SHA c6a732cba2e5a7b163d59a30e14d6373ac13fc84a89f0bbfcae58276f7d61595），真实尚未启动：yaml旧新/simd新旧/snappy旧新各一对，只改initial generator，两者共同新引用材料meter/Workflow/恢复Agent。simd负控制、起始位置旧2新1不平衡、均已见CMake C++；跨批共同接口变化不算模板收益。最多9美元阶段预留，连原18槽估费1.45084632共享本轮20美元/原UTC22:07:35截止，不延长；未知usage/cleanup失败停、无重试补槽、不改RQ3分母/主线/验收、不加P2。
+
+报告2026-10-21-task-selected-template-results.md，同名gate/comparison manifests与预注册；会话forge-cxx-continuous-session-2026-10-21/保存独立审计/授权/启动。41组合回归、产品2244passed44skipped27warnings/Ruff通过；最终结果HEAD三CI后PR563仅合依赖分支。#558结果PR559已合8c73a01de、558/556关闭、470保持OPEN；知识库CAS完整回读同步。#561独立工作区来源资格准备（无并行Docker），不改本运行HEAD/组件或用户HTML。
+
+## 上一阶段（2026-10-21；#558十八槽真实比较封存，进入#560/#562独立资格执行准备）
 
 本轮共享新增20美元/UTC18:07:35至22:07:35（北京时间06:07:35截止），准备计入。cpp-build-cxx-comparison-v1完整18观察、15strict、0未观察，三策略工具/模型Workflow/强工具分别5/6、4/6、6/6；请求16/18/39、保守估费0.33836088/0.38033424/0.73215120美元、累计臂秒1362.87/1255.42/1475.99。73请求/975996Token/$1.45084632、未知0，付费stage已关闭。工具费用较低但相对强工具严格完成少1槽，相对模型耗时更长；simd工具双重复0模型strict。仅已见CMake C++，不推总体或跨系统/三个独立家族/holdout。
 
