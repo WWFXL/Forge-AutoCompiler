@@ -4,6 +4,8 @@
 
 ## 当前阶段
 
+#534完成新RQ3固定14行回顾：#504全部12臂build12通过/完整测试11通过1失败/交付和replay各10通过2未观察；#524 build及后续未观察；#530 build通过但测试失败、交付replay未观察。原源码/已记录cleanup均通过。1770消费文件、14行六层由独立第二实现复算valid=true，raw inventory `0ce4d5139af0d3d233c9278c48239e4901deba46e344b974b8d3156ff68c1275`；报告`docs/research/2026-10-20-build-validation-natural-audit-results.md`。0新构建/Provider，不合并自然误接受率、不宣布第二创新点。当前三阶段新费用均0，后续先补三策略新入口/端到端门禁再按新预算时窗准入付费。
+
 #532已冻结完整三策略科学设计与角色：11项已见合格任务分3开发/6评估/2未排期，6评估×2重复×3方法=36预定槽；libtom合并为保守组，非独立家族证明。角色raw inventory `ab4ebcb6302337d0b432ef6b7c3dd51083cfc1e3f3e079b7466092b561952bd4`，独立audit valid=true；合理规则未覆盖/一次修订后失败转Agent组件17项回归通过。设计`docs/research/2026-10-20-build-full-strategy-comparison-design.md`及同名comparison-v1 JSON；0新构建/Provider，尚非可执行付费协议（新入口、三方法端到端门禁、新预算/时窗待完成）。小幅/条件性收益和取舍可继续，不设全指标占优门槛；下一项RQ3固定分母分析。
 
 2026-10-20新一轮用户继续指令下，#530新身份`cpp-build-libverto-natural-recovery-v2`已单次封存：依赖63.77秒成功，原六测试0/6；唯一configure enable-shared且保留static后，make未重编译/链接，六测试仍0/6，按一次修订边界停止。8命令/0模型/原源码不变/实际cleanup通过，交付与replay未观察。73组件、236文件/4链接/7762235 bytes，inventory `c02679e3e789e4d17f9d0d737f84457c868d4dd31399d1e9120bde85110aba29`，独立audit valid=true。报告`docs/research/2026-10-20-build-libverto-natural-recovery-v2-results.md`。逻辑后缀失效已发生，物理旧产物仍被make复用；清理重建效果尚未知，不继续本身份。接下来冻结有暴露登记的强基线完整比较和RQ3，新Provider预算/时窗尚未续授。
