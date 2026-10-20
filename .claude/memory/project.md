@@ -4,6 +4,10 @@
 
 ## 进行中 (In Progress)
 
+- 2026-10-20 — #544在新授权下执行共享接口公平比较。
+  - 用户授权cpp-build-unified-plan-comparison-v1，候选SHA7ac195707008dd127719b808577a1e099dcd4675652664041de2928b0d03023e；新20美元、UTC08:46:56至12:46:56绝对窗口，准备计入，无旧费混用。6×2×3=36槽、107组件不改；共享9/9、strong dispatch1/1及独立审计已通过。
+  - 会话授权/账本/启动/审计目录/home/yiwei/.codex/outputs/forge-unified-comparison-session-2026-10-20/；正式raw forge-unified-plan-comparison-v1，创建后不重启。全初始/升级/失败/恢复费计量；未知/物理cleanup/模型身份错误停止，3900秒准入、末15分钟仅清理。两Workflow同装配/恢复；strong为整策略参照，2直接4模板拒绝预分层，不删除项目。结果待实际观察，不加P2/不改RQ3/不降低裁判，用户HTML不动。
+
 - 2026-10-20 — #542共享契约及新强工具调度资格已完整结束；本条以下“运行中”均为历史。
   - v2九槽9strict/0未观察，7脚本响应/38Shell，库存6617b2f862686ca5c8086d3ca1431182d8bc8576c365a8166bbbd9dbafdf24a5，56671文件30链接229021615bytes；独立stdlib audit valid=true。CMake两来源原/replay14/14、Auto各6/6（0skip/fail），Make完整自测；受控两失败各handoff/revision2并保留gate-configure，初始拒绝另记升级。无真实Provider/Token/费用/未知，不当效果或自然恢复率。
   - 新强工具slot_runner实际补验buffer1strict/1脚本响应/3Shell、一次无参数submit，源码/原测试/精确交付/replay/实际cleanup及独立审计通过；库存bcdbdda48cd3f01464c33ee2ab7a6e1beb3cce86f8f3c21f70ea769a060d0a89，146文件2105347bytes。v1中断库存d0e7ce5f保留、独立审计valid，不续跑/回填。原93组件不变。

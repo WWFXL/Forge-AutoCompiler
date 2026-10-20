@@ -1,6 +1,12 @@
 # Forge Research Status
 
-## 当前科研进度（2026-10-20；#542共享接口与公平比较候选）
+## 当前科研进度（2026-10-20；#544共享接口公平比较已授权）
+
+数据采集阶段：用户明确授权cpp-build-unified-plan-comparison-v1，冻结候选SHA7ac195707008dd127719b808577a1e099dcd4675652664041de2928b0d03023e。新增模型费用上限20美元、UTC08:46:56至12:46:56（北京时间16:46:56至20:46:56），准备计入，不继承旧预算。六已见评估项目×两重复×三策略36槽；全初始/拒绝升级/失败/恢复成本计入，2直接/4模板拒绝分层已冻结，不删除项目。不加P2、不改RQ3、不降低裁判。
+
+共享9/9及强工具新入口1/1零Provider门禁及独立审计已通过，PR543三CI后合入依赖分支。执行入口scripts/forge_build_unified_plan_comparison.py；本轮唯一授权/账本/启动/独立审计目录/home/yiwei/.codex/outputs/forge-unified-comparison-session-2026-10-20/；正式raw计划/home/yiwei/.codex/outputs/forge-unified-plan-comparison-v1/，创建后不得重启同身份。未知用量、实际cleanup、模型身份错误停止，3900秒准入预留、最后15分钟仅清理交接。36槽结果未产生前不判断优劣。用户HTML不动，仅合依赖分支yiwei/534-rq3-natural-failures。
+
+## 上一阶段（#542共享接口与公平比较候选）
 
 当前完成基础设施资格，尚无新Provider效果数据。工具/模型初始规划共用BuildActions、系统固定测试与交付装配、同一Workflow/只读恢复Agent/预算/裁判。共享门禁v2九槽9strict、0未观察，7脚本响应/38Shell；强工具新入口1strict、1脚本响应/3Shell；均0真实Provider/Token/费用/未知、独立stdlib审计valid。CMake双来源原与replay14/14，Autotools均6/6（0skip/0fail），Make完整自测；两个真实受控失败各handoff/revision2并保留配置前缀，初始拒绝独立升级不混恢复率。
 
