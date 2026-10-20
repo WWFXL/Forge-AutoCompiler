@@ -1,6 +1,16 @@
 # Forge Research Status
 
-## 当前阶段（2026-10-21；#568跨系统18槽真实比较封存，进入解释与发布）
+## 当前阶段（2026-10-21；#571前瞻来源目录完成，进入任务定义与独立样本准备）
+
+免费基础设施/样本准备完成：cpp-build-cxx-prospective-source-catalog-v1按一次结果前固定检索排名，30/30元数据观察、0失败/未观察，0Provider/模型费/构建/Docker。30精确commit/根tree及841当前跟踪文件暴露范围独立Git对象重建审计valid；有限精确名4命中/26未命中，不声称全部历史/训练未见或holdout。根信号非互斥CMake19/Make2/Autotools1/Meson1，9项无这些普通根入口；不是跨系统平衡的最终队列，所有task_qualified=false，Linux/真实端点/测试/归档/构建仍未观察。REST commit原响应附带patch且未用于资格/方法调整，不能声称未取得任何代码字节。
+
+raw forge-cxx-prospective-source-catalog-v1，inventory88e23ea1b07465e613257ae57a2529086f4d427b557b50e470492ac95f5b1f9b（69文件/3313566bytes），运行release6a22459106cfc89afdbbca3ac8cd7ddac2a39a40；报告2026-10-21-cxx-prospective-source-catalog-results.md，版本化目录benchmarks/analyses同名results.json，会话forge-cxx-continuous-session-2026-10-21/保留独立实现、Git树/排名/暴露审计、启动/终态及发布收据。新5/产品2287passed44skipped27warnings/Ruff通过；PR572最终HEAD三CI后只合科研依赖分支，用户HTML不动。
+
+#568十八槽结果最终HEAD3552a76d三CI全成功后PR570已合57e19085a72be8860659c6e98496abc7023c7860，568关闭。保留tinyxml2三次工具0模型strict及libconfig九次build前源码合同拒绝；旧三个paid阶段全闭合，151请求1971514Token/估费3.06569736美元、未知0，未新增模型支出。原20美元及UTC22:07:35截止不延长，当前没有活动Provider/构建。
+
+下一项决策是原文件任务边界：A保持全部原文件SHA，或B在新任务/身份中预声明生成文件写权限、保留作者源码/测试与原严格测试/交付/replay。具体证据、不可推断事项及前瞻条件见docs/research/2026-10-21-source-contract-scope-decision.md；按用户要求不自动实施B、不回填旧九槽。可独立准备Linux/真实端点/测试可固定资格和最终前瞻角色，不按当前效果挑样本；现30项不能直接当最终holdout。不加P2、不改RQ3旧14/43、主线或旧验收，不将目录/代码量当方法进展。
+
+## 上一阶段（2026-10-21；#568跨系统18槽真实比较封存，进入解释与发布）
 
 数据采集完成、结果分析及发布阶段。cpp-build-cxx-cross-system-comparison-v1完整18观察/9strict/0未观察，tinyxml2 Make三策略各3/3strict，工具三次0模型；模型6请求/0.09291480美元，强工具11请求/0.10347216美元，但模型累计臂秒112.36高于强工具59.38，不声称全面更快。libconfig三策略各0/3，九槽均因autoreconf -f改写同一18原文件而在build前拒绝；完整测试/交付/replay未观察，不是九个功能失败。三个工具拒答/模型首次Agent输入仅归一化node_seconds逐字段相同，不把随机轨迹差归因为省规划。
 

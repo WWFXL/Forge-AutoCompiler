@@ -1,0 +1,20 @@
+{
+  "identity": "cpp-build-cxx-prospective-source-catalog-v1",
+  "issue": 571,
+  "query": "language:C++ archived:false fork:false stars:500..5000",
+  "limit": 30,
+  "deadline_utc": "2026-10-20T22:07:35Z",
+  "provider_calls": 0,
+  "credentials_read": false,
+  "model_cost_usd": 0,
+  "build_commands": 0,
+  "docker_calls": 0,
+  "user_authorization_path": "/home/yiwei/.codex/outputs/forge-cxx-continuous-session-2026-10-21/session-authorization.json",
+  "user_authorization_sha256": "3fa73a40e35717d2d8f09becb419a72d9394333ffba4b177b119a9b4a80a1d81",
+  "components": {
+    "scripts/forge_build_cxx_prospective_catalog.py": "369c4847a0dcdeea154a80679544372bc8377f96fa889fabf5eee86e814f0e4a",
+    "backend/tests/test_cxx_prospective_catalog.py": "0bbfdea615812fa70305d4c11ba481a21e3c6f016a5578f111a7191a5777991c",
+    "scripts/forge_typed_evidence.py": "b3e798669389507dc605fcd73b2450921f0695bddccc564344fda88d5cb7a3c8",
+    "benchmarks/preregistrations/cpp-build-cxx-prospective-source-catalog-v1.md": "77105000f74a34ec1b9213cb21ebe20375e521a2b93d186f47b5f3935a2f40a8"
+  }
+}
