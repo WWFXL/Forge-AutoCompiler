@@ -572,6 +572,34 @@
 
 ## 最近变更 (Recent Changes)
 
+- 2026-10-21 — #554封存三个新增C++任务的完整参考资格与下一阶段比较草案。
+  - 文件: docs/research/2026-10-21-cxx-reference-qualification-results.md、同日cxx-next-comparison-design.md、RESEARCH_STATUS.md。
+  - 最终池yaml/snappy取原三槽、simd取metadata-v2；后者release740d974f、141组件、SHAfbe4caa8928c0f442bf707394d6a8d1dda159fed0f1824cb2f21d12d3ede2055，原/replay94/94真Passed/0skip，430.917秒，库存2c0d214ce30a292e9b16599b4b4ff23cb26ed3a9db41fb18609f30eea4b3479b（6071文件2链接237461516bytes）。原源码/精确交付/实际cleanup及独立主/父链详情审计valid=true，所有旧失败和跳过保留，不能称原v1三项全过/方法效果。
+  - metadata-v1 Git所有权准备exit128；v2只容器确切目录信任，不改宿主/源码/测试/预算/截止。宿主详情审计亦先受Git保护，初版和失败收据保留，用单进程精确safe.directory读索引后通过，不动raw/裁判。0凭据/Provider/Token/费用/未知，UTC18:19:33不延长；禁止重启unique启动器。
+  - 新17/相关33测试，产品2158passed44skipped27warnings、Ruff通过；未改实现后不重复跑全量。最终逐hash/零容器/发布/知识库收据统一forge-cxx-qualification-session-2026-10-20，PR555仅依赖分支，最终headCI/merge/Issue554关闭以GitHub及final-publication-audit.json为准，#470保持OPEN、用户HTML未改未提交。
+  - 下一阶段18槽仅设计草案，平衡六排列；先免费共同Git元数据与replay准备门禁、配置检查含义审阅，再冻结新比较及核验新费用/时窗。yaml/snappy模板拒绝升级须分层，三项同CMake/共享测试关联不当独立家族；不注入人工参考/知识库、不加P2/不改RQ3/主线/验收，不借旧余额另开付费。
+
+
+- 2026-10-21 — #554保留metadata-v1所有权准备失败，冻结限定容器目录信任的新v2。
+  - 原v1 dependency exit128 dubious ownership，后续全未观察、原源码/实际cleanup过；库存28ff9d2e，独立audit valid。不是模型失败或CTest失败。
+  - 新metadata-v2仅在git init/add之间插入容器内safe.directory /workspace/repo，不用通配符、不写宿主Git配置；其他任务/测试/预算/截止原样，141组件，全新Session待观察。2边界测试/Ruff/CLI preflight通过，仍0Provider，不以工程准备算科研机制效果。
+
+
+- 2026-10-21 — #554缓存资格完成，准备源码Git索引独立资格以实际运行跳过的上游检查。
+  - cache completed、428.679秒，原/replay CTest94注册中93通过1因.git缺失按上游142跳过；交付/源码/实际cleanup及独立audit过，库存c2573fa6。不写94全通过。
+  - 新metadata身份只追加git init/index，无伪commit/原源码或测试修改；138组件，manifest27a0429a，原预算/截止不变，要求原/replay macro检查真正Passed且无skip。独立新Session待观察，非模型恢复效果。产品2156passed44skipped、Ruff及2新增元数据边界测试通过；报告2026-10-21-cxx-reference-qualification-results.md，0Provider。
+
+
+- 2026-10-21 — #554保留原参考2/3资格，准备独立缓存类型修正单例。
+  - 原v1三槽完整，yaml-cpp1068默认GTest/CTest3项、snappy25默认GTest/CTest1项，原/replay均过；作者默认8/1disabled如实保留。simdutf编译过，BUILD_SHARED_LIBS:UNINITIALIZED=OFF被BOOL断言拒绝，CTest/交付/replay未观察；budget_exhausted是max_handoffs0停止分类，不是时间耗尽。库存b5701189、独立stdlibvalid、所有源码/实际cleanup过。
+  - 新cpp-build-cxx-reference-cache-qualification-v1只改configure参数显式:BOOL，原测试/来源/预算/截止不变；135组件、manifest eb56210d，各一次新Session，不续跑旧v1。6边界测试/lint/实际CLI preflight通过；下一步执行后独立审计/最终发布，不新增Provider。
+
+
+- 2026-10-20 — #554固定三个新增C++来源图及完整参考任务，准备执行零Provider资格。
+  - 分支yiwei/554-cxx-reference-qualification基于PR553 merge c411d52a；用户HTML未动。yaml-cpp/simdutf/snappy，全部CMake原生C++，有限精确owner/name历史无匹配，不称外部/训练未见。来源库存a8c8936f，组合来源图库存8b4b6661，snappy两个gitlink完整固定，不关闭测试。
+  - 新入口复用现有run_reference/PlanWorkflow/严格裁判，不改124历史组件。参考manifest33e3ff7a、132组件；完整CTest/静态ar/源码/clean replay/实际cleanup，零凭据/Provider/Token/费用，UTC18:19:33截止、3300秒启动预留，各一次不重试/替换。参考效果目前未观察，非方法效果/跨系统泛化；相关23测试与lint通过，最终整体检查/实际运行/独立审计待收尾。
+
+
 - 2026-10-20 — #552完成充值后独立十二槽比较与审计，保留条件性收益和失败。
   - 文件: `docs/research/2026-10-20-observed-plan-recharged-results.md`, `scripts/forge_build_observed_plan_comparison_v2.py`及v2候选/预注册/10新回归。原120不改、新124组件，候选9ec9a7c7ea7cb805d7f26cd6a2b1ed5c16289e099abeb2a575f7c89d5cca4279，运行f14c7200；v1停止证据保留不拼接。
   - 12/12完整10strict/0未观察/0新未知；工具/模型/强工具strict3/4、4/4、3/4，请求21/24/37，费0.44570064/0.54394032/0.56717496美元，臂秒1021.00/1395.33/785.88。模型少请求略省费多一个strict但更慢；工具libsodium0模型strict，其他三拒绝升级初始输入仅node_seconds差，不能把随机差归因于工具消除规划。

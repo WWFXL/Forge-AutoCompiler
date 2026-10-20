@@ -1,0 +1,40 @@
+{
+  "identity": "cpp-build-cxx-source-qualification-v1",
+  "issue": 554,
+  "authorization_issue": 470,
+  "kind": "source_only_no_execution",
+  "provider_calls": 0,
+  "build_commands": 0,
+  "deadline_utc": "2026-10-20T18:19:33Z",
+  "candidates": [
+    {
+      "repository": "jbeder/yaml-cpp",
+      "requested_build_system": "cmake"
+    },
+    {
+      "repository": "simdutf/simdutf",
+      "requested_build_system": "cmake"
+    },
+    {
+      "repository": "google/snappy",
+      "requested_build_system": "cmake"
+    }
+  ],
+  "history_revisions": [
+    "c411d52a839111ac2fce22d12252ee7a2277c24a",
+    "915a6d678298ce64fefea752aa7d9e074c5e871f"
+  ],
+  "limits": {
+    "max_compressed_bytes": 67108864,
+    "max_uncompressed_bytes": 268435456,
+    "max_file_bytes": 16777216,
+    "max_entries": 40000,
+    "snippet_bytes": 24000
+  },
+  "components": {
+    "scripts/forge_build_cxx_source_qualification.py": "7700b1722b8d9bef0e29d0781dff4abf5d6d8a302f24b8065f6aacfb71fcb14f",
+    "scripts/forge_build_source_expansion.py": "37472f1676a68653a08334de90f2ee43698f05d33e76900734e1c5fd70bb2387",
+    "scripts/forge_typed_evidence.py": "b3e798669389507dc605fcd73b2450921f0695bddccc564344fda88d5cb7a3c8",
+    "benchmarks/preregistrations/cpp-build-cxx-source-qualification-v1.md": "2d5fca300c3bb5f9e479e912e9d78b51092464fb040327a5031aef7ed9877162"
+  }
+}

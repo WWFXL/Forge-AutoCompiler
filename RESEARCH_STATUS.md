@@ -1,6 +1,18 @@
 # Forge Research Status
 
-## 当前阶段（2026-10-20；#552充值后十二槽真实比较完整结束）
+## 当前阶段（2026-10-21；#554新增C++参考资格已完成）
+
+样本资格/基础设施完成，0Provider/凭据/模型Token/模型费/未知用量，无新策略效果。固定yaml-cpp/simdutf/snappy三个CMake C++项目，精确来源图3/3保存，snappy两个gitlink补齐。最终可用任务池：yaml/snappy来自原reference-v1，simd来自metadata-v2；不能称原v1三项全过或估方法成功率。yaml原/replay1068默认GoogleTest、CTest3/3，snappy25默认GoogleTest、CTest1/1；上游默认8/1禁用项保留不填通过。simd metadata-v2原/replay均94/94实际Passed、0skip，含check_feature_macros。原源码/精确静态交付/同镜像clean replay/实际cleanup全部通过，独立stdlib审计及父链/测试详情审计valid=true。
+
+原三槽simd因缓存UNINITIALIZED与BOOL检查不符在CTest前拒绝（非上游测试失败/时间耗尽）；独立cache-v1显式BOOL后completed，但原/replay均93通过1跳过；metadata-v1准备索引因Git所有权保护exit128、后续未观察；metadata-v2仅给临时原/replay容器信任确切/workspace/repo后索引准备完成，不动宿主配置、不改源码/测试/预算/截止。各身份与失败/跳过永久保留，不回填/重启。v2运行release740d974f786f9d0531bb14ef6bd0e512461c1e93，141组件，manifest SHAfbe4caa8928c0f442bf707394d6a8d1dda159fed0f1824cb2f21d12d3ede2055；430.917秒，inventory2c0d214ce30a292e9b16599b4b4ff23cb26ed3a9db41fb18609f30eea4b3479b（6071文件/2链接/237461516bytes）。
+
+来源/组合输入inventory为a8c8936fe51abc525ce4076fe1ee1195ab20388e2ec6df6ffd4d16c43f186b7c/8b4b6661314a9be96b5e30f73bdbe47fcea3932ffa8fc3e9cb1814adb1031734；原参考b57011899a6ffae3c915c4203a0e488a109442519c1ddaa604e59f5ee3820501；cache c2573fa60ee4cbaf7c8b5695da1d07d3614ab01432cbb32a7fa8d6f0f3c48095；metadata-v1 28ff9d2e7d68dc8be1f2ae2db20ec4d3bb7a7f47e61f373e1b6b64ff75cd762e。raw均在/home/yiwei/.codex/outputs/forge-cxx-{source-qualification,reference-inputs,reference-qualification,reference-cache-qualification,reference-metadata-qualification}-v1及reference-metadata-qualification-v2。报告docs/research/2026-10-21-cxx-reference-qualification-results.md；独立审计/完整测试/最终发布与知识库收据在forge-cxx-qualification-session-2026-10-20/。新17/相关33回归、产品2158passed44skipped27warnings、Ruff通过，历史pytest权限清理警告保留。旧124及各参考冻结组件不改、用户HTML不动；最终HEAD三CI/PR555合依赖分支/Issue554以GitHub及final-publication-audit.json为准，未进main、#470保持OPEN。
+
+本机有限可达历史精确owner/name无命中不证明训练/外部/全语义未见；人工参考和源码已对开发助手暴露，不注入实验Agent。三项均CMake，yaml/snappy共享GoogleTest，不能当三个独立家族或跨系统/大型C++效果。统一截止UTC18:19:33未延长，0handoff/32命令/2CPU/完整测试与严格终点不变。
+
+下一步是免费共同来源/Git索引与replay同等性门禁、配置检查领域含义审阅，再冻结独立18槽比较（3项目×2重复×3策略，六排列平衡草案见同日cxx-next-comparison-design.md）。现模板yaml/snappy拒答后升级、simd生成候选；静态资格不是成功/自然覆盖率。草案尚非预注册/授权；新付费先核验独立身份、有效新预算/时窗，不借#552余额直接运行。不加P2、不改RQ3固定分母/主线/验收，接受小幅或条件性收益与取舍。
+
+## 上一阶段（2026-10-20；#552充值后十二槽真实比较完整结束）
 
 cpp-build-observed-plan-comparison-v2完整12/12终结、10strict、0未观察、0新未知用量；原源码与实际cleanup全部通过。工具规划Workflow/模型规划Workflow/强工具分别3/4、4/4、3/4，请求21/24/37、记录Token274454/327788/404154、全估费0.44570064/0.54394032/0.56717496美元，累计臂秒1021.00/1395.33/785.88。模型多一个严格交付且估费略低，但耗时更长；接受这种条件性取舍，继续硕士主线，不推总体优势。
 
