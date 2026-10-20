@@ -4,7 +4,7 @@
 
 ## 当前阶段
 
-2026-10-20新一轮已获用户继续指令。#530准备新身份`cpp-build-libverto-natural-recovery-v2`：显式使用新planner，依赖600秒/节点1200秒/验收与重放各900秒，0Provider，一次原失败→仅configure修订→完整六测试/交付/replay/cleanup。协议`benchmarks/analyses/cpp-build-libverto-natural-recovery-v2.json`；旧时窗与证据不重开。后续冻结强基线完整策略比较及RQ3；新付费尚无有效预算/时窗。
+2026-10-20新一轮用户继续指令下，#530新身份`cpp-build-libverto-natural-recovery-v2`已单次封存：依赖63.77秒成功，原六测试0/6；唯一configure enable-shared且保留static后，make未重编译/链接，六测试仍0/6，按一次修订边界停止。8命令/0模型/原源码不变/实际cleanup通过，交付与replay未观察。73组件、236文件/4链接/7762235 bytes，inventory `c02679e3e789e4d17f9d0d737f84457c868d4dd31399d1e9120bde85110aba29`，独立audit valid=true。报告`docs/research/2026-10-20-build-libverto-natural-recovery-v2-results.md`。逻辑后缀失效已发生，物理旧产物仍被make复用；清理重建效果尚未知，不继续本身份。接下来冻结有暴露登记的强基线完整比较和RQ3，新Provider预算/时窗尚未续授。
 
 本轮完整交接：`docs/research/2026-10-20-overnight-research-handoff.md`。新增采集已结束，按原时窗仅做最终CI/发布、资源费用与知识库交接；截止不跨日顺延，#470保留长期总跟踪。下一步在新的有效时窗执行显式接线新planner的libverto最小配置资格，再冻结有暴露登记的强基线完整策略比较。
 
