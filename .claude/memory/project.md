@@ -572,6 +572,13 @@
 
 ## 最近变更 (Recent Changes)
 
+- 2026-10-21 — #556共同准备资格v3封存10strict/1未观察，整批资格仍未补齐。
+  - v3完整观察10槽均strict：buffer双来源恢复、yaml/simd三策略、snappy双Workflow；最后snappy强工具在UTC17:44:33后启动余量不足2100秒拒绝，未观察不是方法失败。原stop_reason泛化为initialization_not_completed、启动日志明确before_deadline；不回写raw。10脚本响应/59受计量命令/累计臂秒2146.0354，0凭据/Provider/Token/模型费/未知。
+  - release828b4504127370d078e262a4e4c0210370bfecb3，157组件manifest SHAaf7be3c3eb9be2da8a10bfdce7efc6c371b8a0d6245b130fd84fc7f9aec17c96；raw forge-cxx-common-input-gate-v3，inventory41ec832da84f1ca2ec69d374f30182f89354c8747c28f380697ce8ca8cbc9ecf，30910files/6links/1097122362bytes。原/replay源码与Git索引/noHEAD、准备时序/唯一/计量、完整CTest3/94/1及GoogleTest默认禁用、精确交付/replay、两恢复保留前缀/后缀失效、实际容器不存在独立stdlib审计valid；实际cache功能与零token脚本响应第二审计valid。初审计器误将响应list按dict读失败已保留，改读取后通过。
+  - 30相关回归、产品2188passed44skipped27warnings、Ruff570格式通过；运行release三CI全SUCCESS，报告最终head发布待核验。v1/v2各失败raw/组件及独立审计保留，不能拼为11/11；50k复杂恢复限制不改。PR557仅合依赖分支，去掉Closes避免关闭未完成556；556/470保持OPEN、不进main、用户HTML不动。
+  - 下一新有效免费窗独立补snappy强工具后再冻结18槽付费入口和新授权，不续v3/借552余额，不加P2/不改RQ3/主线或验收。会话forge-cxx-common-input-session-2026-10-21。文件: docs/research/2026-10-21-cxx-common-input-qualification-results.md、同日cxx-next-comparison-design.md、RESEARCH_STATUS.md。
+
+
 - 2026-10-21 — #556保留v2固定恢复装配拒绝，统一新v3初始/恢复装配。
   - v2首buffer受控build失败后因旧恢复装配重建旧stage而拒绝，模型请求前停止，1观察/0strict/10未观察；原源码/实际cleanup独立stdlib审计valid，库存9ba4e638105a1bc98ca83dff135aea975fdfa443fe5a4023ac79c82f77f9a573，205files/2316875bytes，release7ed4731f。旧152组件与raw不改。
   - v3新unified_plan_equivalent及observed模块让工具/模型/恢复全部使用相同副本同等性暂存，不在装配后替换；实际Fake Agent图两来源带准备前缀恢复及旧/篡改stage拒绝回归通过，合计30相关测试。157组件manifest SHAaf7be3c3eb9be2da8a10bfdce7efc6c371b8a0d6245b130fd84fc7f9aec17c96，唯一完整11槽未启动；绝对截止、0Provider/费/50k上限/原裁判不变。
