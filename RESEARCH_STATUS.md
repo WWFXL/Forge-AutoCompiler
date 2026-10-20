@@ -1,6 +1,18 @@
 # Forge Research Status
 
-## 当前科研进度（2026-10-20；#544公平比较停止封存，结果分析完成）
+## 当前阶段（2026-10-20；#546规划观察接口零Provider资格完成）
+
+工程修复/开发资格完成，未新增真实模型效果数据。新接口明确stdout文本/文件/目录，确定性检查进入原执行和replay；仅安全删除目录尾斜杠，不自动重排阶段，最多一次结构/装配/无执行变化纠错，Provider/预算异常不重试。两规划来源同作者完整测试、精确暂存及恢复，原107组件/源码/严格裁判不变。
+
+cpp-build-plan-predicate-qualification-v2完整14槽全部符合预期：13strict及1缺文件准确拒绝，0未观察槽；负例未执行的测试/交付/replay仍未观察。18本地脚本响应/55受计量执行命令，0真实Provider/Token/费用/未知。三系统两来源正常路径均通过；CMake原/重放14/14、Autotools6/6且0skip；5正向恢复各一次交接/修订，前缀保留与原命令保留均独立核验。主stdlib审计和17正向路径断言的原/重放审计均valid=true，原/重放容器实际不存在。只证明接口资格，不证明真实成功率/自然恢复/成本收益。
+
+v1夹具混用参考cc与工具make，主动中断封存2strict/1部分/11未启动，cleanup通过；v2仅修本轮新夹具来源，原接口模块不改，不拼接旧结果。旧16步只读回归准确区分14日志断言缺失/2命令失败；29旧建议显式同语义改名后28可解析（含4原路径拒绝），1阶段逆序仍拒绝，不回填旧构建成功。
+
+报告docs/research/2026-10-20-plan-predicate-qualification-results.md；协议同名cpp-build-plan-predicate-qualification-v2。raw /home/yiwei/.codex/outputs/forge-plan-predicate-qualification-v2/，inventory986b96ae1e601569aa0fc71ea78b96ed1f38a1d1289a024f7a67906d5bd40aa3（56924文件/30链接/230731928bytes、114组件），release3023a66771d4c5de1da1f6239966a95dfaaf8572。v1库存9e8f9572d26a5ca7a8886e1e0e6f05282a67865189cca66d667cbcbb9d102706保留；独立审计/旧失败回归/最终发布与知识库收据统一在forge-plan-predicate-session-2026-10-20输出目录。新针对性28通过、产品2116passed/44skipped、Ruff通过；最终HEAD三CI/PR547→依赖分支/Issue546状态以GitHub及发布收据为准，未进main，用户HTML不动。
+
+下一步冻结小规模新身份真实配对比较，观察无效交接、strict与全成本取舍，不要求全面领先；当前12槽草案仅设计、未冻结或授权。先解决HTTP402外部阻塞并核验新的身份/预算/有效时窗，不能续旧身份或挪旧余额。随后补C++效果样本；当前C++开发资格不扩大旧六C库结论。不加P2、不改RQ3、不换主线。
+
+## 上一轮科研进度（2026-10-20；#544公平比较停止封存，结果分析完成）
 
 cpp-build-unified-plan-comparison-v1固定36槽中35已观察、17strict、1未观察。check-r2模型首次请求Provider HTTP402，usage未知，按冻结规则停止，最后check-r2强工具未执行，不重试/回填。全部实际cleanup独立通过；不是20美元预算耗尽。UTC10:44:53结束、付费stage关闭；229请求、2866666已记录Token、已知保守估费4.61962512美元，未知1请求保留0.40美元，预算占用5.01962512美元。原新20美元/UTC08:46:56至12:46:56授权未延长，不借余额另开身份。
 

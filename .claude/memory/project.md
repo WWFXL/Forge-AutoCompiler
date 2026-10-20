@@ -572,6 +572,24 @@
 
 ## 最近变更 (Recent Changes)
 
+- 2026-10-20 — #546规划观察接口v2资格完成，以下“待运行”为历史。
+  - 14/14预期成立：13strict/1准确缺文件拒绝/0未观察槽，18脚本响应/55受计量命令、0真实Provider/Token/费用/未知。5正向恢复各handoff1/revision2，命令/前缀保留；三系统两来源正常完整测试/replay通过（CMake14/14，Autotools6/6且0skip）。负例后续层未观察，未改成功。
+  - release3023a66771d4c5de1da1f6239966a95dfaaf8572；v2库存986b96ae1e601569aa0fc71ea78b96ed1f38a1d1289a024f7a67906d5bd40aa3，56924文件/30链接/230731928bytes、114组件。主stdlib audit及17正向路径原/重放AST日志审计valid=true，全部实际cleanup；原107组件不变。v1中断2strict/1部分/11未启动及库存9e8f9572保留，独立审计通过，不续跑/拼接。
+  - 新回归28通过、产品2116passed/44skipped/Ruff通过。旧16步回归14断言/2非零，29旧建议同语义改名后28可解析/1顺序拒绝，不回填构建。报告docs/research/2026-10-20-plan-predicate-qualification-results.md；会话forge-plan-predicate-session-2026-10-20保留审计/测试/日志/最终发布收据。PR547只合依赖分支，最终CI/merge/Issue以GitHub为准，未进main，用户HTML不动。
+  - 下一小规模比较12槽仅草案、无新付费授权；先HTTP402外部核验、新身份/预算/时窗，不挪旧余额。不加P2、不改RQ3、不降低裁判；知识库仅MCP同步、不注入正式Agent。
+
+
+- 2026-10-20 — #546 v1恢复夹具命令不一致主动中断，v2只修本轮新夹具来源。
+  - v1 2strict/1部分中断/11未启动；aggregate 12未完成含该部分槽。9433文件/51462670bytes，inventory9e8f9572d26a5ca7a8886e1e0e6f05282a67865189cca66d667cbcbb9d102706，全部实际cleanup通过，旧manifest/raw不改。恢复前发现人工cc与工具make不同，不能声称只改断言；缺文件负例首次参考建议也并非无变化。
+  - v2工具夹具由本槽实际初始动作构造，新增回归；原接口模块及107历史组件不改，完整14槽独立执行，不拼接v1。0Provider，工程截止仍UTC14:10:23.810185，不延长。先前产品2115passed/44skipped，相关69通过；新回归后再核验。
+
+
+- 2026-10-20 — #546规划观察接口修复已实现，零Provider资格待运行。
+  - 文件: backend/packages/harness/deerflow/compile/unified_plan_v2.py、scripts/forge_build_plan_predicate_gate.py、scripts/forge_audit_plan_predicate_gate.py、对应新测试及cpp-build-plan-predicate-qualification-v1协议。
+  - 动机: #544中14次exit0却缺日志断言及路径/顺序/无变化建议暴露接口歧义。新类型区分stdout/文件/目录，文件检查随显式命令进入replay；严格子Shell保持原失败且exit/exec不能跳过检查；阶段不自动重排，最多一次结构纠错，全请求同预算，Provider异常不重试。
+  - 原107组件和冻结raw保持；新14槽预期13strict/1准确缺文件拒绝，不把工程资格算真实收益。不读取凭据/新增付费，旧HTTP402原因未核验；用户HTML不动，仅合依赖分支。先前测试临时目录权限警告与本轮无关，未清理用户数据。
+
+
 - 2026-10-20 — #544共享接口真实比较按未知用量规则停止封存，完成独立审计与结果分析。
   - 固定cpp-build-unified-plan-comparison-v1，运行release3455ec743376b56090d956e554625365cede2e8d、107组件全不变；35/36观察17strict、1未观察（check-r2强工具）。check-r2模型首次Provider HTTP402，原error event status_code402/usage未知；所有实际cleanup通过，不重试/回填，不续旧身份。UTC10:44:53结束、stage.completed，原20美元/UTC08:46:56至12:46:56不延长，无新付费身份。
   - 工具Workflow5/12、68请求、994543tokens/$1.75418628；模型3/12、76请求、959822记录tokens/已知$1.60195200+未知1；强工具9/11观察（计划12）、85请求912301tokens/$1.26348684。共229请求2866666记录Token、已知$4.61962512/未知预留$0.40、预算占用$5.01962512，未知不补0，不称完整全费用比较。
