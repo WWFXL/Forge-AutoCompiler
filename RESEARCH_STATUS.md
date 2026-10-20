@@ -6,7 +6,7 @@ cpp-build-task-selected-comparison-v1完整6观察/6strict/0未观察，旧/任�
 
 28请求/466944Token/估费0.73349496美元、未知0；与原18槽1.45084632累计2.18434128美元，共享本轮20美元及原UTC22:07:35截止（北京时间06:07:35），不延长。双方共同新引用材料meter，22/28实际请求可逆编码并独立解码核验；源码/索引/no HEAD、原/replay完整测试和配置、精确交付及实际cleanup三审计valid。raw forge-task-selected-comparison-v1，inventory0aa0d9dddbfad8cf4a4d1b35fd9da4b73793eb00cc67774bd9c8174234d7d728（22294文件/4链接/916650977bytes），release29784841；报告2026-10-21-task-selected-template-results.md，主/详情/材料/费用/重复读取审计及授权终态在会话forge-cxx-continuous-session-2026-10-21/。新三项目零Provider资格仍3/3最终/1/3初始模板、2Fake，不能当真实效果。最终结果HEAD三CI后PR563仅合依赖分支，发布待GitHub核验。
 
-六槽仅已见CMake C++、单重复且位置不完全平衡；相对原18槽共同接口也变化，不作跨批因果/总体/跨系统/自然恢复率或显著性主张。#561 Make tinyxml2与Autotools libconfig来源2/2独立Git对象审计通过，PR564已合0aaa5dca、Issue561已关闭。#565完整参考cpp-build-cxx-cross-system-reference-v1于UTC20:18后在独立工作区release05503b2c串行启动（exec25843），tinyxml2已strict、libconfig运行中，完整终态待核验，不续跑本身份；0Provider，原3300秒准入/截止、作者完整测试和上游XFAIL/原源码合同保持。#568后续共同接口与比较仅条件计划，须参考及零Provider资格闭合，不直接付费。#567只读RQ3固定18/6队列分层审计中，不改历史14/43分母，不加P2、不换主线。用户HTML不动。
+六槽仅已见CMake C++、单重复且位置不完全平衡；相对原18槽共同接口也变化，不作跨批因果/总体/跨系统/自然恢复率或显著性主张。#561 Make tinyxml2与Autotools libconfig来源2/2独立Git对象审计通过，PR564已合0aaa5dca、Issue561已关闭。#565完整参考cpp-build-cxx-cross-system-reference-v1已1/2合格、0未观察，inventory9f68befdd78f290de50110ec718bdb6668adebf10a33d4f41a983897991555ab、release05503b2c；tinyxml2合格，libconfig工程测试/交付/replay通过但make重生成ac_config.h.in，违反原SHA合同而不合格，不是已证实功能错误。独立审计valid，原身份不重启；新header-v1仅把既有AUTOHEADER=true延续到configure、完整原测试/来源/交付/预算不变，准备中，未运行；0Provider，原截止不延长。#568后续共同接口与比较仅条件计划，须参考及零Provider资格闭合，不直接付费。#567只读RQ3固定18/6队列分层审计中，不改历史14/43分母，不加P2、不换主线。用户HTML不动。
 
 ## 上一阶段（2026-10-21；#558十八槽真实比较封存，进入#560/#562独立资格执行准备）
 
