@@ -4,6 +4,8 @@
 
 ## 当前阶段
 
+2026-10-20新一轮已获用户继续指令。#530准备新身份`cpp-build-libverto-natural-recovery-v2`：显式使用新planner，依赖600秒/节点1200秒/验收与重放各900秒，0Provider，一次原失败→仅configure修订→完整六测试/交付/replay/cleanup。协议`benchmarks/analyses/cpp-build-libverto-natural-recovery-v2.json`；旧时窗与证据不重开。后续冻结强基线完整策略比较及RQ3；新付费尚无有效预算/时窗。
+
 本轮完整交接：`docs/research/2026-10-20-overnight-research-handoff.md`。新增采集已结束，按原时窗仅做最终CI/发布、资源费用与知识库交接；截止不跨日顺延，#470保留长期总跟踪。下一步在新的有效时窗执行显式接线新planner的libverto最小配置资格，再冻结有暴露登记的强基线完整策略比较。
 
 #528最后一项零Provider状态路由审计已完成：固定五个真实交接，冻结#516规则输出三个单步修订候选（原三受控例），对自然六断言失败/dep超时不覆盖；候选未应用，0新构建。79文件/1759276 bytes，inventory `be77e2db5221a451e91810e1b9372f97990879759ca19acab74e96fcc87aa26c`，独立audit valid=true。报告`docs/research/2026-10-20-build-observed-state-routing-audit.md`。这只支持合理有界规则/调查停止的路由，不能证明P2或自然覆盖率；本轮结束新增采集，接下来仅发布/资源/费用/知识库交接。

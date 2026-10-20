@@ -1,0 +1,235 @@
+{
+  "identity": "cpp-build-libverto-natural-recovery-v2",
+  "issue": 530,
+  "provider_calls": 0,
+  "deadline_utc": "2026-10-20T03:30:00Z",
+  "max_estimated_cost_usd": 0,
+  "parent_root": "/home/yiwei/.codex/outputs/forge-auto-provenance-real-v1",
+  "parent_inventory_sha256": "d7bad477a8b355ffdbb21de127961c2f8f639798186d6c7d6ad0ecb27263e446",
+  "projects": [
+    {
+      "name": "libverto",
+      "source_archive": "/home/yiwei/.codex/outputs/forge-reference-expansion-inputs-v1/libverto.tar",
+      "source_paths": [
+        "README",
+        "configure.ac",
+        "Makefile.am",
+        "tests/Makefile.am"
+      ],
+      "task": {
+        "plan_id": "reference-expansion-libverto",
+        "repository_url": "https://github.com/latchset/libverto",
+        "commit_sha": "8e944f22dcce2aa1f37c517e7881dd49d4d631ee",
+        "image_id": "sha256:d27a6ab733c7c3a9cbb5e4b32fb595aa5a422ff04bd212888d1041b90a2c4c2a",
+        "source_archive_sha256": "5c5e6010463e5dbb72c4bdee89fded022dc83905770fc1a68e72e971c5179be0",
+        "build_system": "autotools",
+        "artifact_paths": [
+          "libverto.a"
+        ],
+        "verification_steps": [
+          {
+            "step_id": "check",
+            "role": "smoke",
+            "command": "make check",
+            "source": "固定完整上游测试入口，不过滤用例或关闭测试",
+            "expected": "固定完整参考任务；保留原始日志，不替换失败",
+            "workdir": "/workspace/repo",
+            "requires": [
+              "build"
+            ],
+            "required_output": [
+              "PASS: timeout",
+              "PASS: write"
+            ],
+            "diagnostic_paths": []
+          }
+        ]
+      }
+    }
+  ],
+  "initial_plan_path": "libverto-r2-plan/.compile-sessions/plan-agent-canary/a3e997ddf706/build-plan/plan-1.json",
+  "initial_plan_sha256": "a39322f348b87cf4fd9045735602bd6fd1082a5eec4741065d2c4e67a7b946a6",
+  "initial_plan": {
+    "plan_id": "reference-expansion-libverto",
+    "revision": 1,
+    "repository_url": "https://github.com/latchset/libverto",
+    "commit_sha": "8e944f22dcce2aa1f37c517e7881dd49d4d631ee",
+    "image_id": "sha256:d27a6ab733c7c3a9cbb5e4b32fb595aa5a422ff04bd212888d1041b90a2c4c2a",
+    "source_archive_sha256": "5c5e6010463e5dbb72c4bdee89fded022dc83905770fc1a68e72e971c5179be0",
+    "build_system": "autotools",
+    "artifact_paths": [
+      "libverto.a"
+    ],
+    "steps": [
+      {
+        "step_id": "dep",
+        "role": "dependency",
+        "command": "set -e\nif [ -f /etc/debian_version ]; then\n  apt-get update\n  apt-get -y install autoconf automake libtool make gcc pkg-config libglib2.0-dev libev-dev libevent-dev\nelif [ -f /etc/fedora-release ]; then\n  dnf -y install autoconf automake libtool make gcc pkg-config glib2-devel libevent-devel libev-devel --nogpgcheck --skip-broken\nelif [ -f /etc/redhat-release ]; then\n  yum -y install autoconf automake libtool make gcc pkg-config glib2-devel libevent-devel\nelse\n  echo \"unsupported distro\" >&2\n  exit 1\nfi",
+        "source": "ci.sh:10-28 按发行版安装构建工具与模块开发库",
+        "expected": "安装 autoconf/automake/libtool/gcc/pkg-config 及 glib/libev/libevent 开发头库",
+        "workdir": "/workspace/repo",
+        "requires": [],
+        "required_output": [],
+        "diagnostic_paths": []
+      },
+      {
+        "step_id": "autoreconf",
+        "role": "configure",
+        "command": "autoreconf -fiv",
+        "source": "ci.sh:30",
+        "expected": "生成 configure 脚本与 Makefile.in",
+        "workdir": "/workspace/repo",
+        "requires": [
+          "dep"
+        ],
+        "required_output": [],
+        "diagnostic_paths": []
+      },
+      {
+        "step_id": "configure",
+        "role": "configure",
+        "command": "./configure --disable-shared --enable-static",
+        "source": "ci.sh:31 与 src/Makefile.am:8(lib_LTLIBRARIES 生成静态 .a)",
+        "expected": "配置完成，生成 Makefile，静态库使能",
+        "workdir": "/workspace/repo",
+        "requires": [
+          "autoreconf"
+        ],
+        "required_output": [],
+        "diagnostic_paths": []
+      },
+      {
+        "step_id": "build",
+        "role": "build",
+        "command": "make -j2",
+        "source": "Makefile.am:17(SUBDIRS=src tests) 与 ci.sh:32",
+        "expected": "编译 src 与 tests，产出 src/.libs/libverto.a",
+        "workdir": "/workspace/repo",
+        "requires": [
+          "configure"
+        ],
+        "required_output": [],
+        "diagnostic_paths": []
+      },
+      {
+        "step_id": "check",
+        "role": "smoke",
+        "command": "make check",
+        "source": "固定完整上游测试入口，不过滤用例或关闭测试",
+        "expected": "固定完整参考任务；保留原始日志，不替换失败",
+        "workdir": "/workspace/repo",
+        "requires": [
+          "build"
+        ],
+        "required_output": [
+          "PASS: timeout",
+          "PASS: write"
+        ],
+        "diagnostic_paths": []
+      },
+      {
+        "step_id": "stage",
+        "role": "artifact_stage",
+        "command": "mkdir -p /artifacts && cp src/.libs/libverto.a /artifacts/libverto.a",
+        "source": "src/Makefile.am:8(libtool 静态库位于 src/.libs) 与任务 artifact_paths",
+        "expected": "精确复制静态库到 /artifacts/libverto.a",
+        "workdir": "/workspace/repo",
+        "requires": [
+          "build"
+        ],
+        "required_output": [],
+        "diagnostic_paths": []
+      }
+    ]
+  },
+  "provider": {
+    "accepted_response_models": [
+      "scripted-gate"
+    ]
+  },
+  "components": {
+    "backend/packages/harness/deerflow/compile/__init__.py": "5c9b2cf4d1fbfb357cf07047b3eee93934d1e6a04b2d63ed26dc98071b9cd78c",
+    "backend/packages/harness/deerflow/compile/agent_workflow_node.py": "9fc296c5ac5586fbc25cd0d4c8c0c2bb3c0db03c89fa3cf924d3ff6873a29155",
+    "backend/packages/harness/deerflow/compile/agent_workflow_runtime.py": "92277bf4b5568acb43523edb6344b2a6b6c70ce731cab62200295b3aa97d9931",
+    "backend/packages/harness/deerflow/compile/agent_workflow_runtime_v2.py": "7358c8396a6eee7776f64f6645f0d516b1f4e6ed4743a249c1d8c32b4c1ecef5",
+    "backend/packages/harness/deerflow/compile/agent_workflow_runtime_v3.py": "2d71383d011e943f78e9259b9f7ceec2c8e1f080d7609e86413ce188a841f65e",
+    "backend/packages/harness/deerflow/compile/agent_workflow_runtime_v4.py": "48593cfea3a5cd0512531332bec89bc16afddbdc190605e55d17c027a7769c66",
+    "backend/packages/harness/deerflow/compile/agent_workflow_runtime_v5.py": "44462a2e6cf26e3008743281c942604ce75955ac62125afcf676fa1882c1c92a",
+    "backend/packages/harness/deerflow/compile/agent_workflow_runtime_v6.py": "70311ae3a598e183ba7450494629d8ee5a5e572c9e829f2d82a058122060406b",
+    "backend/packages/harness/deerflow/compile/agent_workflow_schemas.py": "21a19f6d1a0421fce2c7807474db9eefe0e0be25042241ca121fbb9d5ec99706",
+    "backend/packages/harness/deerflow/compile/artifact_display.py": "b6ae85f2b3c5dead9d631933714f318e29cfd562a6127f17003120218cb660e8",
+    "backend/packages/harness/deerflow/compile/candidate_verifier.py": "595cec0fc909e2179fbcebc5428c6b5ae996d7442e90ece5ccbc8d57bef7ab89",
+    "backend/packages/harness/deerflow/compile/docker_runtime.py": "e82999ab0a262ddd8e60241b70994cc99b495d5d7bb34f4b5247f3fe69c864da",
+    "backend/packages/harness/deerflow/compile/evidence.py": "a3923167f67a96ea4af4aaa4f3692d15baafea79cc0e5ee1b9dac08ab7eb9284",
+    "backend/packages/harness/deerflow/compile/evidence_ownership.py": "1609822180c1818988ef9ad8a4fa30ce21a901a5d9037f82d43bf00ba1ba0d92",
+    "backend/packages/harness/deerflow/compile/external_evaluator.py": "c4ac897de06ab91d1cd557dfc3b6427974cae99c2ca16c216e8880303c094c61",
+    "backend/packages/harness/deerflow/compile/external_evaluator_v2.py": "19044e161b321fe5afed8458c0138f1bcfbe41582af2d5f4efcdf6846c3d579b",
+    "backend/packages/harness/deerflow/compile/external_evaluator_v3.py": "cfb5e3baeff772e54051925e6b0504eea25b6ba9284d8a5c6ad7135355fde79c",
+    "backend/packages/harness/deerflow/compile/external_evaluator_v4.py": "9009c400b1b54d9ad05411f1a64124423cf50d8ba49bfa2d13071d9bedad4613",
+    "backend/packages/harness/deerflow/compile/hybrid_workflow.py": "73e215ebf2d0c3a53db7f8b44993a72c9d6a140091d5c78d5114fec578676d4e",
+    "backend/packages/harness/deerflow/compile/jev_controller.py": "f8c53aa301c60399aae33c052d7d3efd8d39c0827dc751d99cd823194a810e9f",
+    "backend/packages/harness/deerflow/compile/manager.py": "1f9726ff9375cb5fb271bc17b29310e17db6db274474b02112aaf61cead4536e",
+    "backend/packages/harness/deerflow/compile/operations.py": "8a275e76a30e4476d7e403120cc9e372b13eaa0ac8bd091d2786f6cbe1f0878a",
+    "backend/packages/harness/deerflow/compile/paths.py": "3872bdca3647a78407b422c00a72d9c62b38d5e9f2f0355cc78653fa15d1c332",
+    "backend/packages/harness/deerflow/compile/plan_agent.py": "76cf813285bd0d95ffd53e6d94d7fed09ddc4dcadfdcb13f6c37089170f5dd71",
+    "backend/packages/harness/deerflow/compile/plan_agent_canary.py": "13c238db9fe5f69543a17b6e95871723e1c790687cb028c281b200aab8a17b6c",
+    "backend/packages/harness/deerflow/compile/plan_agent_context.py": "2620ddcc50e7da228d7af19073719508b649a9d360f71a94baf15ecbefd2dc37",
+    "backend/packages/harness/deerflow/compile/plan_agent_repair.py": "a934a770bfb8f6b45fe7e13b73f12cb7e30b42937a98fbd6dbb6213896a1c9f3",
+    "backend/packages/harness/deerflow/compile/plan_agent_v2.py": "8fb37e15af7739c32ab00002076e284d5599710c34d11ae1623f6f23ca922bad",
+    "backend/packages/harness/deerflow/compile/plan_cross_system.py": "754710b0e31badef4e317f83d350092232ef42cb55cc58398c21a254713fa174",
+    "backend/packages/harness/deerflow/compile/plan_workflow.py": "0c81c8bd4bf6f27a78fc76bd755bd64eeba1f0f0d0dd90e0e4227145826d9c6a",
+    "backend/packages/harness/deerflow/compile/replay_closure_verifier.py": "01f8335ab0a586065803b34952b930adbf593624c611316b40ca2ccac685cd83",
+    "backend/packages/harness/deerflow/compile/schemas.py": "8217a7514665fb5c271699b9f988bce227d861bfa607cec0ae1301f2827b9bc6",
+    "backend/packages/harness/deerflow/models/patched_deepseek.py": "e313c1b141799e268d9cc8ff548e45a339bf68b5a3b4f3b8865b2f7fa218477b",
+    "backend/tests/test_build_plan_paired_comparison.py": "d37caa5b1437099f66e7a403045f63085a17dd5195312d1a6a8c608eea46a412",
+    "backend/tests/test_plan_agent_canary.py": "881c9ccb0cc9db2d95fbce744b4fcc6d034180b594cdd0cc6fa426cfdabfc85a",
+    "backend/tests/test_plan_agent_context.py": "7ac41717234738a10482fe78a0bc696d029a034575e5b9fe4f9bfcfce1e21e4f",
+    "backend/tests/test_plan_agent_repair.py": "23e12fc02c20ee7310401a65054f505ab5c3bbf4dcb6372ffa4b2e3e0d80a29b",
+    "backend/tests/test_plan_cross_system.py": "d1492bf73616785f5d2d292645a83e21c255b9a7fe69b269f1482f63dcd8765b",
+    "backend/tests/test_plan_source_qualification.py": "a942b18e066776b3cd0ded20602e42977cdec27549504b2cca673439ada22797",
+    "backend/uv.lock": "1b5044aa16b583d3253bfbcc883a0afd5a4dec791cf766ba535d1635db136314",
+    "benchmarks/preregistrations/cpp-build-plan-agent-canary-v1.md": "6b485976c863d54ec3145277fb23735f34d723fb89da759c145f2404a6c2a0c9",
+    "benchmarks/preregistrations/cpp-build-plan-agent-canary-v2.md": "c4f8da14a95bc453d008b7409f340f086f3bde473642e24bbc39664039bc4052",
+    "benchmarks/preregistrations/cpp-build-plan-agent-paired-comparison-v1.md": "4e25526fe585befc30bf3d42200e7881c20fa73c4415183ebd3553eb267d3a2f",
+    "benchmarks/preregistrations/cpp-build-plan-agent-repair-v1.md": "6da5a8fa18ce718308e9e7bfbc010ed31dff7c5769ec1fef76bc214d3c118eca",
+    "benchmarks/preregistrations/cpp-build-plan-agent-trial-v1.md": "42a2326f9a6c44d241f5892bb50419975fdca791a84221152e58f4c7879a4857",
+    "benchmarks/preregistrations/cpp-build-plan-cross-system-v1.md": "0e520e59dfa05258c6e1b8254df13bb5008cd2396a8d64d0d832efb99120831e",
+    "benchmarks/preregistrations/cpp-build-plan-cross-system-v2.md": "d518706e6cd3a136ba65c1e9faafd1e6fe5344123f1481b36b01bfd0eee590ef",
+    "benchmarks/preregistrations/cpp-build-plan-source-qualification-v1.md": "78814f4c3be99a4ccc260ce072b77fe3100e306eb5241883248e71e137b1873b",
+    "benchmarks/preregistrations/cpp-build-plan-source-qualification-v2.md": "5f832a159afbef6d78e311d9936d7e852d644806b07bdd7d0f3dcc5524edc99f",
+    "scripts/forge_build_plan_agent_canary.py": "d302c280d933483e27ff8cbd4971e3c70597f6c5adf9222ba6d7b1b8e0e2a49b",
+    "scripts/forge_build_plan_agent_canary_v2.py": "507ce7550fe643411f69441723627d90a82730a8078f80f329b2e1f7bc70e675",
+    "scripts/forge_build_plan_agent_repair.py": "4ae8ec3e0d8d8ebed1ef63eeb1272e064314786971b3f62f3a3f3471aa393952",
+    "scripts/forge_build_plan_agent_trial.py": "cf4d7d2e74351e22e2ccbc8f5bc370f5e69ff3c0235be3312527a9f5c7948732",
+    "scripts/forge_build_plan_cross_system.py": "6ca5e672bc8fc11722efae258eebbd317bb202859457a12b97984689bb231301",
+    "scripts/forge_build_plan_paired_comparison.py": "0c754ed84eda11285b4328b601cf556cfe446070cdd3f0c955c219575cc2bdf3",
+    "scripts/forge_build_plan_prototype.py": "d2de7f17c292c7d4fa9cf282cf6f2e21106ff6fddfcb171ee30b2f4a409a432b",
+    "scripts/forge_build_plan_source_qualification.py": "921b2a733a4bc8e26e261056bf71901bf7f8d47aa1b4412b6a2cb2423e41f949",
+    "scripts/forge_typed_evidence.py": "b3e798669389507dc605fcd73b2450921f0695bddccc564344fda88d5cb7a3c8",
+    "scripts/require-docker-runtime.sh": "50c7e21e6eb277f3c76849b88f62b4f5e30c449d27d526c0d1d0882b2e173958",
+    "scripts/forge_build_plan_recovery_qualification.py": "e1193ae48ff7518454aa1d89f3935246035fba4227c87e5462cae756d1cc4b1c",
+    "backend/tests/test_build_plan_recovery_qualification.py": "2d4a6d778ccf10a916156db4ae9fd7ad106d6da77cfe4d0975c4b32bfcf18747",
+    "benchmarks/preregistrations/cpp-build-plan-recovery-qualification-v1.md": "f49df1da8d90827f33757a4e2dc1d6f0a57ee538b0a2d108f2312fd49d8bf009",
+    "scripts/forge_build_rule_recovery_qualification.py": "f452a7790c33c24802769b3047046b3e732d0e9d2248cb28f7353d7f183de86e",
+    "backend/tests/test_build_rule_recovery_qualification.py": "c43229cfb9a22b3f33acebb01db767fecf6fa19a8b7a1fee95ab3431684c0a45",
+    "benchmarks/preregistrations/cpp-build-rule-recovery-qualification-v1.md": "44dac0c499269253069c2bc2dc8767da528cc4d1b78640532825aa4a95951f83",
+    "scripts/forge_build_libverto_natural_recovery.py": "e2600e8f2c7fb9d2fb1b4671e9cfc50c0a4756e97951908cd2668b888764b883",
+    "backend/tests/test_build_libverto_natural_recovery.py": "ef6c62f20a2c7b47d129a4da62375ba2f96d52fa86b63fc5ea109d986234cd4c",
+    "benchmarks/preregistrations/cpp-build-libverto-natural-recovery-v1.md": "d1c231afc9930f691b82e583dfd40bc42ea7d664309809f0d69ff83138f0f0ed",
+    "scripts/forge_build_libverto_recovery_planner_v2.py": "79791b79729543e0dee9bdc54c11635f0cda31dc200fe1ea092df45ef70ebded",
+    "scripts/forge_build_libverto_natural_recovery_v2.py": "b6a0f0313bdfabae9f71047342ecd541605b0cc39daa63f64c5d37c6447194b6",
+    "backend/tests/test_build_libverto_recovery_planner_v2.py": "199f53d2ab493a16e5bea0754da4d55df5f27c9060591f6fddf50c8be0258742",
+    "backend/tests/test_build_libverto_natural_recovery_v2.py": "e92686d6b7f17e8206c70f52f0f2b10469931f05ae5e25271b51ed2cf567a205",
+    "benchmarks/preregistrations/cpp-build-libverto-natural-recovery-v2.md": "d5631431eaf8d85325dad16e686ccc921c199d37f812149963d17df6a27697ed"
+  },
+  "authorization": "用户2026-10-20本轮四项继续指令；本身份零Provider，不续用过期付费授权",
+  "runtime": {
+    "node_timeout_seconds": 1200,
+    "command_timeout_seconds": 600,
+    "evaluator_timeout_seconds": 900,
+    "replay_timeout_seconds": 900,
+    "cleanup_timeout_seconds": 120
+  },
+  "admission_reserve_seconds": 3900,
+  "output_root": "/home/yiwei/.codex/outputs/forge-libverto-natural-recovery-v2"
+}

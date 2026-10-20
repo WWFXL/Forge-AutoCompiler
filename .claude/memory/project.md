@@ -524,6 +524,9 @@
 
 ## 最近变更 (Recent Changes)
 
+- 2026-10-20 — #530冻结新时窗libverto同源恢复v2
+  - 新入口显式接线#526 planner v2，依赖命令600秒、节点1200秒、evaluator/replay各900秒、cleanup120秒；零Provider、一次尝试，仅configure enable-shared且保留static，六测试/交付合同不改。旧#524/v1不动；新增早期dep交接与实际meter资源回归。身份cpp-build-libverto-natural-recovery-v2，截止UTC03:30，3900秒准入保留；本轮用户已续办研究，旧付费时窗不自动续用。
+
 - 2026-10-20 — 固化本轮科研最终交接与停止边界
   - 文件: `docs/research/2026-10-20-overnight-research-handoff.md`, `RESEARCH_STATUS.md`。动机: 保留混合费用、规则覆盖、自然失败未观察与新planner接线边界，避免下一会话误恢复旧身份。7付费阶段已结算，已知估算5.806152+未知预留1，无活动付费；compile容器实查0，用户HTML不动。#525最终675820d1三CI后mergefc0586e0/#524关闭，剩余PR仅相关最终CI后合并。
 
