@@ -4,6 +4,12 @@
 
 ## 进行中 (In Progress)
 
+- 2026-10-20 — #538独立续段已启动，原20未观察槽只执行一次。
+  - release3965e5c2e3ac7a616431594a7cbe536f180a56d1三CI全SUCCESS，协议5cf3c4181bee93ecded68bbef15c7431a2eaf0b5decf7c85e7c87efb48ec5d36；负例库存b4e99be9c79cca602552a7c2b37dfc3f7276d5dffd5876781c840a226f434d63、独立valid=true。28相关测试/产品2033 passed44 skipped/Ruff通过。原85组件不变新增3组件。
+  - UTC05:13:54新付费stage reserve10，shared仍20、截止仍07:47:40。launch_continuation.py/exec63880，raw forge-full-strategy-real-continuation-v1未封存，不得重启/并行付费。首libzip-tool源码拒绝有效、实际cleanup已分类成功后进入下一槽；strict失败保持。原v1仍16观察/20未观察。
+  - 事后派生分析脚本analyze_cross_identity.py/generate_cross_report.py/audit_read_patterns_cross_identity.py在本轮授权输出目录，须两身份独立审计后才运行完整汇总；不把两版本称单一冻结因果比较。
+
+
 - 2026-10-20 — #538原v1停止封存，当前清理分类工程修复，以下“运行中”为历史。
   - 16观察12strict/3请求预算停止/1源码合同拒绝、20未观察；135请求/$2.54462076000000006/未知0，inventory f216c3930624768d6def984681af377d0ccb1e2427dd52a30b21c5d595692b72，独立audit valid=true，所有实际容器已删除、原stage.closed。
   - libzip110原HTML改写拒绝有效，旧run_arm finally源码检查覆盖实际cleanup成功。Issue538已回读修复范围：新adapter保留旧逐臂result及strict失败，仅权威事件+实际Docker不存在+源码改变均核验时分开分类；零Provider真实负例后独立身份只跑原20未观察，不重试原16。
