@@ -4,6 +4,11 @@
 
 ## 进行中 (In Progress)
 
+- 2026-10-20 — #538准备完整三策略36槽真实比较；用户新增明确授权“20美元、4小时”，UTC03:47:40至07:47:40，准备计入。
+  - 文件: scripts/forge_build_full_strategy_comparison.py、backend/tests/test_build_full_strategy_comparison.py、同名manifest/preregistration、RESEARCH_STATUS.md。新身份只绑定新授权，父82组件与策略/模型/任务/36槽/资源/裁判全保持；复核原完整v2门禁及独立audit，不重跑旧门禁。18相关测试/Ruff通过，产品与非模型preflight进行中；尚无凭据/Provider/正式attempt。
+  - 前置工程调用一次因uv切到backend导致相对manifest缺失，一次make在根目录无test-product目标；均发生在正式输出根/凭据前，改为绝对manifest与make -C backend，保留工程日志/说明，不改实验身份。
+  - 授权/工程目录 /home/yiwei/.codex/outputs/forge-full-comparison-session-2026-10-20/，正式根预定forge-full-strategy-real-v1（尚未创建）。每真实请求3900秒、每臂1.50美元、每请求0.40美元及未知usage/cleanup停止均不变；不加P2、不改RQ3，不触碰用户HTML。
+
 - 2026-10-20 — #536三策略完整零Provider门禁已结束；以RESEARCH_STATUS.md和最终交接为恢复入口，以下早期条目是历史过程，不视为待执行授权。
   - 待后续新有效时窗：执行原六评估项目×两重复×三方法36槽真实比较。新planner接线与libverto最小配置恢复资格已由#530完成，结果为修订不足以恢复；不补跑旧身份、不回填成功。
 
