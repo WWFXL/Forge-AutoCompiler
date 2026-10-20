@@ -1,6 +1,14 @@
 # Forge Research Status
 
-## 当前阶段（2026-10-21；#554新增C++参考资格已完成）
+## 当前阶段（2026-10-21；#556共同源码准备零Provider资格待运行）
+
+基础设施/工程资格阶段：验证三策略首次规划前执行同一受计量源码索引准备，并在原执行与空环境replay中保持完整测试、功能配置和精确交付一致。新身份cpp-build-cxx-common-input-gate-v1固定11槽：buffer双Workflow受控恢复及yaml-cpp/simdutf/snappy各三策略正常路径。尚无本身份Docker观察或真实策略效果；本地18项新增回归、产品2176passed/44skipped/27warnings及Ruff通过，实际CTest JUnit格式已离线核验。
+
+manifest 148组件、SHA cd14ee7f2f8e1d2a50951986b217fc66c75b5019d5b2f4d51eb17073532d089a；原141组件不改。准备只在临时容器/workspace/repo建立无HEAD的原文件索引，不构造历史；前缀真实命令/时间计入并进入replay。CMake检查配置值语义，JUnit核验3/94/1项实际运行、0skip；上游GoogleTest默认DISABLED保留。任一预期失败即停、后续未观察、不续跑旧身份。0凭据/Provider/Token/新增模型费；UTC2026-10-20T18:19:33Z截止不延长、新槽留2100秒。运行后须独立stdlib审计/最终HEAD三CI再仅合科研依赖分支，详见同名预注册及Issue556。
+
+上一阶段三项参考已合格，但仅为定向开发资格、非holdout或策略收益。下一真实18槽须独立冻结及有效新预算/时窗，不借#552余额、不加P2/不改RQ3分母、主线或验收。
+
+## 上一阶段（2026-10-21；#554新增C++参考资格已完成）
 
 样本资格/基础设施完成，0Provider/凭据/模型Token/模型费/未知用量，无新策略效果。固定yaml-cpp/simdutf/snappy三个CMake C++项目，精确来源图3/3保存，snappy两个gitlink补齐。最终可用任务池：yaml/snappy来自原reference-v1，simd来自metadata-v2；不能称原v1三项全过或估方法成功率。yaml原/replay1068默认GoogleTest、CTest3/3，snappy25默认GoogleTest、CTest1/1；上游默认8/1禁用项保留不填通过。simd metadata-v2原/replay均94/94实际Passed、0skip，含check_feature_macros。原源码/精确静态交付/同镜像clean replay/实际cleanup全部通过，独立stdlib审计及父链/测试详情审计valid=true。
 

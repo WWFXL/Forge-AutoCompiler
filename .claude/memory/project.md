@@ -572,6 +572,13 @@
 
 ## 最近变更 (Recent Changes)
 
+- 2026-10-21 — #556冻结三策略共同源码准备与重放零Provider资格，尚未正式启动。
+  - 基线94c3637a，分支yiwei/556-common-source-preparation；Issue556已创建回读。新增source_preparation/build_task_checks及独立prepared_arm/gate，不改原141组件。共同Git索引准备在首次模板/模型之前受计量执行，Workflow复用成功前缀、全部clean replay重新执行；无伪commit，只保证原文件集合。配置按布尔语义检查，完整CTest JUnit核验实际3/94/1项、0skip，上游默认DISABLED不改。
+  - cpp-build-cxx-common-input-gate-v1固定11槽：buffer两受控恢复+三个CMake C++各三策略。148组件、manifest SHA cd14ee7f2f8e1d2a50951986b217fc66c75b5019d5b2f4d51eb17073532d089a。预检valid；新增18回归、产品2176passed44skipped27warnings、Ruff通过，CTest实际JUnit兼容。早期1测试shell转义断言失败已修测试并保留日志；系统Python3.10导入UTC失败在freeze前发生，后续用backend/.venv/bin/python3.12。
+  - 0凭据/Provider/Token/新增模型费，绝对截止UTC2026-10-20T18:19:33Z不延长；新槽留2100秒、外层120秒清理。会话forge-cxx-common-input-session-2026-10-21。先发布release再唯一运行/封存/独立审计；失败/未观察保留，新付费比较须另冻结授权。用户HTML未动，最终仅合yiwei/534-rq3-natural-failures，不进main。
+  - 文件: backend/packages/harness/deerflow/compile/source_preparation.py、build_task_checks.py；scripts/forge_build_prepared_arm.py、forge_build_cxx_common_input_gate.py；同名manifest/preregistration及两项测试文件。
+
+
 - 2026-10-21 — #554封存三个新增C++任务的完整参考资格与下一阶段比较草案。
   - 文件: docs/research/2026-10-21-cxx-reference-qualification-results.md、同日cxx-next-comparison-design.md、RESEARCH_STATUS.md。
   - 最终池yaml/snappy取原三槽、simd取metadata-v2；后者release740d974f、141组件、SHAfbe4caa8928c0f442bf707394d6a8d1dda159fed0f1824cb2f21d12d3ede2055，原/replay94/94真Passed/0skip，430.917秒，库存2c0d214ce30a292e9b16599b4b4ff23cb26ed3a9db41fb18609f30eea4b3479b（6071文件2链接237461516bytes）。原源码/精确交付/实际cleanup及独立主/父链详情审计valid=true，所有旧失败和跳过保留，不能称原v1三项全过/方法效果。
