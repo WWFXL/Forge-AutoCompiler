@@ -4,10 +4,6 @@
 
 ## 进行中 (In Progress)
 
-- 2026-10-20 — #544在新授权下执行共享接口公平比较。
-  - 用户授权cpp-build-unified-plan-comparison-v1，候选SHA7ac195707008dd127719b808577a1e099dcd4675652664041de2928b0d03023e；新20美元、UTC08:46:56至12:46:56绝对窗口，准备计入，无旧费混用。6×2×3=36槽、107组件不改；共享9/9、strong dispatch1/1及独立审计已通过。
-  - 会话授权/账本/启动/审计目录/home/yiwei/.codex/outputs/forge-unified-comparison-session-2026-10-20/；正式raw forge-unified-plan-comparison-v1，创建后不重启。全初始/升级/失败/恢复费计量；未知/物理cleanup/模型身份错误停止，3900秒准入、末15分钟仅清理。两Workflow同装配/恢复；strong为整策略参照，2直接4模板拒绝预分层，不删除项目。结果待实际观察，不加P2/不改RQ3/不降低裁判，用户HTML不动。
-
 - 2026-10-20 — #542共享契约及新强工具调度资格已完整结束；本条以下“运行中”均为历史。
   - v2九槽9strict/0未观察，7脚本响应/38Shell，库存6617b2f862686ca5c8086d3ca1431182d8bc8576c365a8166bbbd9dbafdf24a5，56671文件30链接229021615bytes；独立stdlib audit valid=true。CMake两来源原/replay14/14、Auto各6/6（0skip/fail），Make完整自测；受控两失败各handoff/revision2并保留gate-configure，初始拒绝另记升级。无真实Provider/Token/费用/未知，不当效果或自然恢复率。
   - 新强工具slot_runner实际补验buffer1strict/1脚本响应/3Shell、一次无参数submit，源码/原测试/精确交付/replay/实际cleanup及独立审计通过；库存bcdbdda48cd3f01464c33ee2ab7a6e1beb3cce86f8f3c21f70ea769a060d0a89，146文件2105347bytes。v1中断库存d0e7ce5f保留、独立审计valid，不续跑/回填。原93组件不变。
@@ -575,6 +571,15 @@
   - 下一步: 等待实验负责人确认当前网络接入介质，并决定是否授权只读 endpoint 诊断和新的 canary amendment；获得确认后必须另建中文 Issue/PR 和协议 identity，保留当前失败 marker。
 
 ## 最近变更 (Recent Changes)
+
+- 2026-10-20 — #544共享接口真实比较按未知用量规则停止封存，完成独立审计与结果分析。
+  - 固定cpp-build-unified-plan-comparison-v1，运行release3455ec743376b56090d956e554625365cede2e8d、107组件全不变；35/36观察17strict、1未观察（check-r2强工具）。check-r2模型首次Provider HTTP402，原error event status_code402/usage未知；所有实际cleanup通过，不重试/回填，不续旧身份。UTC10:44:53结束、stage.completed，原20美元/UTC08:46:56至12:46:56不延长，无新付费身份。
+  - 工具Workflow5/12、68请求、994543tokens/$1.75418628；模型3/12、76请求、959822记录tokens/已知$1.60195200+未知1；强工具9/11观察（计划12）、85请求912301tokens/$1.26348684。共229请求2866666记录Token、已知$4.61962512/未知预留$0.40、预算占用$5.01962512，未知不补0，不称完整全费用比较。
+  - libsodium工具2/2 strict、0模型；强工具同2/2但17请求/$0.24200880，总臂360.839/605.502秒仅本任务描述。工具模板4直接槽2strict/2libzip原110HTML拒绝；8拒绝升级槽3strict，模型对应3strict，初始8对仅归一化node_seconds全部一致（包含HTTP402无响应那一请求），不能把随机差归工具消除了规划。
+  - 9个Workflow槽真实交接、14handoff/7修订、0最终strict；16失败步骤中14exit0缺模型日志断言、2真实非零退出；原候选4路径schema和1装配顺序拒绝复现。终态18未strict互斥6预算/4原HTML合同/4路径schema/2无变化/1阶段顺序/1Provider未知。未执行固定测试等保持未观察，不改RQ3/不加P2/不降裁判。
+  - raw forge-unified-plan-comparison-v1，inventory1a327cf685d57430e070967bf036f0b2d622e8cab087afc259eb9b8d27abea23（65254普通文件/158链接/1166931435bytes）；纯stdlib独立audit valid=true，源码归档/原文件/完整测试/交付/replay hash/全部实际容器不存在通过。audit_budget及原分析交叉通过。metrics.json首版保留，新metrics-usage-aware.json明确未知行与完整费用配对：两Workflow12观察11费用完整，涉及strong各11对；不把未知当0费用。
+  - 报告docs/research/2026-10-20-unified-plan-comparison-results.md与同日authorization.md；RESEARCH_STATUS顶部已更新。会话forge-unified-comparison-session-2026-10-20保存授权/预算/独立审计/初始输入/输出断言/候选复现/最终发布及知识库收据。仅报告/授权/状态变更，冻结代码测试不动；三项最终HEAD实际CI成功后PR545仅合依赖yiwei/534-rq3-natural-failures，最终merge/Issue以GitHub/final-publication-audit.json为准，#470保持OPEN，未进main，用户HTML未改未提交。
+  - 后续优先字段语义/路径规范/恢复反馈的零Provider资格及C++样本资格；局部收益值得继续，未支持整体成本或自然恢复优势。Provider HTTP402原因未核验，新付费需解决外部阻塞及新身份/预算/时窗，不借剩余授权自动开v2。知识库仅MCP最新SHA CAS并回读，不复制Vault或注入正式Agent。
 
 - 2026-10-20 — 完成#540工具初始方案零Provider资格，三系统3/3严格闭合，不继承旧付费授权
   - 文件: `backend/packages/harness/deerflow/compile/tool_plan.py`, `scripts/forge_build_tool_plan_qualification.py`, `backend/tests/test_tool_plan.py`, `docs/research/2026-10-20-tool-plan-tools-review.md`, `benchmarks/manifests/cpp-build-tool-plan-qualification-v1.json`
