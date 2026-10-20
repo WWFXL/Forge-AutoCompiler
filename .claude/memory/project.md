@@ -572,6 +572,33 @@
 
 ## 最近变更 (Recent Changes)
 
+- 2026-10-21 — #556共同准备资格v3封存10strict/1未观察，整批资格仍未补齐。
+  - v3完整观察10槽均strict：buffer双来源恢复、yaml/simd三策略、snappy双Workflow；最后snappy强工具在UTC17:44:33后启动余量不足2100秒拒绝，未观察不是方法失败。原stop_reason泛化为initialization_not_completed、启动日志明确before_deadline；不回写raw。10脚本响应/59受计量命令/累计臂秒2146.0354，0凭据/Provider/Token/模型费/未知。
+  - release828b4504127370d078e262a4e4c0210370bfecb3，157组件manifest SHAaf7be3c3eb9be2da8a10bfdce7efc6c371b8a0d6245b130fd84fc7f9aec17c96；raw forge-cxx-common-input-gate-v3，inventory41ec832da84f1ca2ec69d374f30182f89354c8747c28f380697ce8ca8cbc9ecf，30910files/6links/1097122362bytes。原/replay源码与Git索引/noHEAD、准备时序/唯一/计量、完整CTest3/94/1及GoogleTest默认禁用、精确交付/replay、两恢复保留前缀/后缀失效、实际容器不存在独立stdlib审计valid；实际cache功能与零token脚本响应第二审计valid。初审计器误将响应list按dict读失败已保留，改读取后通过。
+  - 30相关回归、产品2188passed44skipped27warnings、Ruff570格式通过；运行release三CI全SUCCESS，报告最终head发布待核验。v1/v2各失败raw/组件及独立审计保留，不能拼为11/11；50k复杂恢复限制不改。PR557仅合依赖分支，去掉Closes避免关闭未完成556；556/470保持OPEN、不进main、用户HTML不动。
+  - 下一新有效免费窗独立补snappy强工具后再冻结18槽付费入口和新授权，不续v3/借552余额，不加P2/不改RQ3/主线或验收。会话forge-cxx-common-input-session-2026-10-21。文件: docs/research/2026-10-21-cxx-common-input-qualification-results.md、同日cxx-next-comparison-design.md、RESEARCH_STATUS.md。
+
+
+- 2026-10-21 — #556保留v2固定恢复装配拒绝，统一新v3初始/恢复装配。
+  - v2首buffer受控build失败后因旧恢复装配重建旧stage而拒绝，模型请求前停止，1观察/0strict/10未观察；原源码/实际cleanup独立stdlib审计valid，库存9ba4e638105a1bc98ca83dff135aea975fdfa443fe5a4023ac79c82f77f9a573，205files/2316875bytes，release7ed4731f。旧152组件与raw不改。
+  - v3新unified_plan_equivalent及observed模块让工具/模型/恢复全部使用相同副本同等性暂存，不在装配后替换；实际Fake Agent图两来源带准备前缀恢复及旧/篡改stage拒绝回归通过，合计30相关测试。157组件manifest SHAaf7be3c3eb9be2da8a10bfdce7efc6c371b8a0d6245b130fd84fc7f9aec17c96，唯一完整11槽未启动；绝对截止、0Provider/费/50k上限/原裁判不变。
+  - 文件: unified_plan_equivalent.py、unified_plan_equivalent_observed.py、test_unified_plan_equivalent.py、forge_build_cxx_common_input_gate_v3.py及同名manifest/preregistration。会话forge-cxx-common-input-session-2026-10-21；PR557/Issue556，不进main，用户HTML不动。
+
+
+- 2026-10-21 — #556保留v1暂存失败并冻结副本同等性修复v2。
+  - v1两buffer受控恢复strict、yaml原1068默认GoogleTest/CTest3全过后因两个同名字节相同/模式相同库暂存拒绝，随后50k恢复门禁阻断，后8未观察；原源码/实际cleanup独立stdlib审计通过。raw forge-cxx-common-input-gate-v1，库存7c4a2a1fe2d7912d7a58d84a52df61471d0f63e5d0fb066a7deec1e3ed01d7a0，1656files/48745321bytes，release8884314e。原身份不重启，旧148组件不改。
+  - 独立v2仅新增同字节/size/完整权限模式副本归一暂存器，两Workflow共同装配，其他歧义及不安全路径仍拒绝；50k门禁不扩额，最终精确交付/完整测试/replay不变。26相关回归通过；首测试因宿主Python3.10不支持file_digest失败，改为流式sha256后通过，日志保留。152组件manifest SHA8adbd6a7debc99cd55039472b0df8daf9a995cc0f386f53c0da6defcd1791568。
+  - v2全新11槽待唯一运行，0Provider/费，沿原UTC18:19:33截止；不混v1结果，不作策略收益。Issue556评论已回读，PR557仅合科研依赖分支。会话forge-cxx-common-input-session-2026-10-21；用户HTML不动。
+  - 文件: backend/packages/harness/deerflow/compile/plan_delivery_equivalent.py、backend/tests/test_plan_delivery_equivalent.py、scripts/forge_build_cxx_common_input_gate_v2.py及同名manifest/preregistration。
+
+
+- 2026-10-21 — #556冻结三策略共同源码准备与重放零Provider资格，尚未正式启动。
+  - 基线94c3637a，分支yiwei/556-common-source-preparation；Issue556已创建回读。新增source_preparation/build_task_checks及独立prepared_arm/gate，不改原141组件。共同Git索引准备在首次模板/模型之前受计量执行，Workflow复用成功前缀、全部clean replay重新执行；无伪commit，只保证原文件集合。配置按布尔语义检查，完整CTest JUnit核验实际3/94/1项、0skip，上游默认DISABLED不改。
+  - cpp-build-cxx-common-input-gate-v1固定11槽：buffer两受控恢复+三个CMake C++各三策略。148组件、manifest SHA cd14ee7f2f8e1d2a50951986b217fc66c75b5019d5b2f4d51eb17073532d089a。预检valid；新增18回归、产品2176passed44skipped27warnings、Ruff通过，CTest实际JUnit兼容。早期1测试shell转义断言失败已修测试并保留日志；系统Python3.10导入UTC失败在freeze前发生，后续用backend/.venv/bin/python3.12。
+  - 0凭据/Provider/Token/新增模型费，绝对截止UTC2026-10-20T18:19:33Z不延长；新槽留2100秒、外层120秒清理。会话forge-cxx-common-input-session-2026-10-21。先发布release再唯一运行/封存/独立审计；失败/未观察保留，新付费比较须另冻结授权。用户HTML未动，最终仅合yiwei/534-rq3-natural-failures，不进main。
+  - 文件: backend/packages/harness/deerflow/compile/source_preparation.py、build_task_checks.py；scripts/forge_build_prepared_arm.py、forge_build_cxx_common_input_gate.py；同名manifest/preregistration及两项测试文件。
+
+
 - 2026-10-21 — #554封存三个新增C++任务的完整参考资格与下一阶段比较草案。
   - 文件: docs/research/2026-10-21-cxx-reference-qualification-results.md、同日cxx-next-comparison-design.md、RESEARCH_STATUS.md。
   - 最终池yaml/snappy取原三槽、simd取metadata-v2；后者release740d974f、141组件、SHAfbe4caa8928c0f442bf707394d6a8d1dda159fed0f1824cb2f21d12d3ede2055，原/replay94/94真Passed/0skip，430.917秒，库存2c0d214ce30a292e9b16599b4b4ff23cb26ed3a9db41fb18609f30eea4b3479b（6071文件2链接237461516bytes）。原源码/精确交付/实际cleanup及独立主/父链详情审计valid=true，所有旧失败和跳过保留，不能称原v1三项全过/方法效果。

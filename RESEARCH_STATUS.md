@@ -1,6 +1,18 @@
 # Forge Research Status
 
-## 当前阶段（2026-10-21；#554新增C++参考资格已完成）
+## 当前阶段（2026-10-21；#556共同准备资格10槽完成、1槽未观察）
+
+基础设施/工程资格阶段，0凭据/真实Provider/模型Token/模型费/未知用量，无新策略效果。独立cpp-build-cxx-common-input-gate-v3已10槽观察、10strict，最后snappy强工具因启动前剩余时间<2100秒未观察；11槽完整资格未完成，不直接启动18槽付费比较。buffer两来源受控恢复各一次handoff/revision2，准备与configure成功原命令保留；yaml-cpp/simdutf三策略及snappy双Workflow完整通过。yaml原/replay1068默认GoogleTest/CTest3、snappy25/CTest1，上游8/1默认DISABLED保留；simd94/94实际Passed含宏检查、0skip。原/replay源码/索引、精确交付、镜像2CPU、完整重放与实际cleanup及独立stdlib主/功能计量审计均valid=true。
+
+v3共10脚本响应/59受计量命令、累计臂秒2146.0354；157组件、manifest SHAaf7be3c3eb9be2da8a10bfdce7efc6c371b8a0d6245b130fd84fc7f9aec17c96，release828b4504127370d078e262a4e4c0210370bfecb3。raw forge-cxx-common-input-gate-v3，inventory41ec832da84f1ca2ec69d374f30182f89354c8747c28f380697ce8ca8cbc9ecf（30910文件/6链接/1097122362bytes）。原runner stop_reason为initialization_not_completed，日志明确为before_deadline2100秒准入拒绝，不回写证据。原UTC18:19:33截止未延长，付费stage不续用。
+
+v1两buffer恢复strict、yaml完整测试后因同名副本暂存拒绝，恢复>50k门禁、8未观察，inventory7c4a2a1fe2d7912d7a58d84a52df61471d0f63e5d0fb066a7deec1e3ed01d7a0；v2首buffer旧恢复合同拒绝新stage，首次模型前停、10未观察，inventory9ba4e638105a1bc98ca83dff135aea975fdfa443fe5a4023ac79c82f77f9a573。各失败独立审计源码/cleanup通过，不重启/回填/与v3拼接。修复仅把同内容/大小/完整模式安全副本归同一交付身份，并让初始/恢复共用同一装配；不同内容/模式/不安全路径仍拒绝、完整测试/精确交付/replay不放宽。50k复杂恢复限制仍保留。
+
+报告docs/research/2026-10-21-cxx-common-input-qualification-results.md；协议common-input-gate-v1/v2/v3；独立审计/启动/终态/检查/发布及知识库收据在forge-cxx-common-input-session-2026-10-21/。30相关回归、产品2188passed44skipped27warnings、Ruff通过；最终HEAD三CI后PR557仅合依赖分支，Issue556保留OPEN以跟踪未观察槽、#470保持OPEN，未进main/用户HTML不动，最终发布以GitHub/final-publication-audit.json为准。
+
+下一有效免费窗口先新身份补snappy强工具完整资格，不续跑v3；然后冻结18槽真实比较及新有效预算/窗口，不借#552余额。均已见CMake C++、yaml/snappy共享GoogleTest，不作holdout、总体或跨系统收益；保留小幅/条件性收益，不加P2/不改RQ3固定分母、主线或验收。
+
+## 上一阶段（2026-10-21；#554新增C++参考资格已完成）
 
 样本资格/基础设施完成，0Provider/凭据/模型Token/模型费/未知用量，无新策略效果。固定yaml-cpp/simdutf/snappy三个CMake C++项目，精确来源图3/3保存，snappy两个gitlink补齐。最终可用任务池：yaml/snappy来自原reference-v1，simd来自metadata-v2；不能称原v1三项全过或估方法成功率。yaml原/replay1068默认GoogleTest、CTest3/3，snappy25默认GoogleTest、CTest1/1；上游默认8/1禁用项保留不填通过。simd metadata-v2原/replay均94/94实际Passed、0skip，含check_feature_macros。原源码/精确静态交付/同镜像clean replay/实际cleanup全部通过，独立stdlib审计及父链/测试详情审计valid=true。
 
