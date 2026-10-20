@@ -4,6 +4,12 @@
 
 ## 进行中 (In Progress)
 
+- 2026-10-20 — #550按用户新授权准备唯一十二槽真实比较，尚未启动。
+  - Issue550已创建回读，新分支yiwei/550-observed-plan-real从PR549 mergeecd623b1建立。候选身份cpp-build-observed-plan-comparison-v1，SHA8a9310f8c89d657b29d9a1b7f56b967c17ba615a2717d2239fda139293bade2b，120组件不改，用户HTML不动。
+  - 用户明确授权20美元/4小时，接收核验UTC14:19:33、截止UTC18:19:33，准备占窗，旧余额不续用。会话forge-observed-plan-real-session-2026-10-20，唯一raw forge-observed-plan-comparison-v1；启动前授权及门禁先于凭据，首真实请求核验旧402并全计量，未知/cleanup/模型身份立即停不重试/补槽。
+  - 不重跑旧资格，原完整测试/源码/交付/replay/资源保持。完成采集后独立审计、分阶段全成本与分层未观察分析，最终head三CI后仅合依赖分支/关闭Issue/知识库CAS同步；不加P2、不改RQ3/主线/主张，不把小样本描述推总体。
+
+
 - 2026-10-20 — #542共享契约及新强工具调度资格已完整结束；本条以下“运行中”均为历史。
   - v2九槽9strict/0未观察，7脚本响应/38Shell，库存6617b2f862686ca5c8086d3ca1431182d8bc8576c365a8166bbbd9dbafdf24a5，56671文件30链接229021615bytes；独立stdlib audit valid=true。CMake两来源原/replay14/14、Auto各6/6（0skip/fail），Make完整自测；受控两失败各handoff/revision2并保留gate-configure，初始拒绝另记升级。无真实Provider/Token/费用/未知，不当效果或自然恢复率。
   - 新强工具slot_runner实际补验buffer1strict/1脚本响应/3Shell、一次无参数submit，源码/原测试/精确交付/replay/实际cleanup及独立审计通过；库存bcdbdda48cd3f01464c33ee2ab7a6e1beb3cce86f8f3c21f70ea769a060d0a89，146文件2105347bytes。v1中断库存d0e7ce5f保留、独立审计valid，不续跑/回填。原93组件不变。

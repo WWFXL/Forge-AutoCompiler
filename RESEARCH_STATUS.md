@@ -1,6 +1,14 @@
 # Forge Research Status
 
-## 当前阶段（2026-10-20；#548新观察接口真实比较准入准备完成）
+## 当前阶段（2026-10-20；#550新授权十二槽真实比较准备启动）
+
+进入真实数据采集。用户已明确“授权20美元、4小时，按冻结协议执行”，接收核验UTC14:19:33，绝对截止UTC18:19:33（北京时间2026-10-21 02:19:33），准备计入。仅执行cpp-build-observed-plan-comparison-v1，候选SHA8a9310f8c89d657b29d9a1b7f56b967c17ba615a2717d2239fda139293bade2b，120组件/四已见项目×三方法12槽/原模型和完整裁判保持，旧余额不续用。
+
+先核验已发布PR549及十四槽/路径/三策略调度门禁，不重跑旧资格。首次新真实请求兼作HTTP402服务核验并全计量；未知usage/模型身份错误/实际cleanup失败立即停整批、不自动Provider重试/补槽。每请求及新槽3900秒余量、费用预留和最后15分钟清理保持。尚无本轮观察，启动及结果以新raw为准，不把准备算效果。
+
+授权登记docs/research/2026-10-20-observed-plan-comparison-authorization.md；唯一会话forge-observed-plan-real-session-2026-10-20、唯一raw /home/yiwei/.codex/outputs/forge-observed-plan-comparison-v1/。全部初始/失败/纠错/恢复费用计入，定向开发样本只作描述性配对，接受小幅/条件性取舍，不加P2、不改RQ3/裁判，不推总体/自然恢复率或跨批因果。Issue550跟踪，用户HTML不动。
+
+## 上一阶段（2026-10-20；#548新观察接口真实比较准入准备完成）
 
 基础设施阶段，尚无新真实模型效果或付费授权。新独立入口显式接observed_planner，两个Workflow同ObservedBuildActions/完整测试/暂存/恢复，强工具仍为整策略参照，原107与#546的114组件保持。新buffer三策略调度零Provider门禁3/3 strict、2脚本响应/9命令，0Provider/Token/费用/未知，原源码/完整测试/精确交付/clean replay及实际容器不存在独立stdlib审计valid=true；不把工程资格当效果收益。
 
