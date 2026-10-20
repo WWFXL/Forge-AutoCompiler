@@ -585,6 +585,9 @@
 - 2026-10-21 — #565原双项目参考1/2合格并保留libconfig模板改写失败，冻结独立header环境资格
   - 文件: `docs/research/2026-10-21-cxx-cross-reference-results.md`, `scripts/forge_build_cxx_header_reference.py`及同名manifest/preregistration/test
   - 动机: tinyxml2原/replay各508断言通过、strict；libconfig原/replay完整8PASS+1XFAIL及16 tinytest与交付/replay通过，但make重生成唯一原文件ac_config.h.in，原资格false。新header-v1只令configure继承AUTOHEADER=true，1/1严格资格闭合，原/replay原文件265项、8PASS+1XFAIL/16tinytest/两静态交付/replay/cleanup全通过独立审计。inventoryc22ffdac，releasec5d80fc3；新14回归/产品2225passed44skipped/Ruff通过。0Provider、原inventory9f68befd保留不重启。
+- 2026-10-21 — #567完成独立固定C++队列的分层复核并保留18/6分母
+  - 文件: `scripts/forge_audit_cxx_fixed_layers.py`, `backend/tests/test_audit_cxx_fixed_layers.py`, `benchmarks/analyses/cpp-build-cxx-fixed-cohort-validation-audit-v1.json`, `docs/research/2026-10-21-cxx-validation-layers-results.md`
+  - 动机: 原18均build通过但作者测试/交付/replay仅15通过+3未观察，新6各层全6；0Provider，原文件SHA和实际cleanup独立核验，不改历史14/43，不估自然误接受率或宣称第二创新点。反篡改/固定分母门禁4项测试通过，版本化实现另写新收据与首版逐字段比对，不覆盖原结果。
 
 - 2026-10-21 — 完成#560/#562六槽真实模板消融与独立分层费用核验
   - 文件: `docs/research/2026-10-21-task-selected-template-results.md`, `RESEARCH_STATUS.md`

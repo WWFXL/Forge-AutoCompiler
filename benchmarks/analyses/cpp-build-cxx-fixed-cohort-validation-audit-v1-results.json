@@ -1,0 +1,661 @@
+{
+  "valid": true,
+  "identity": "cpp-build-cxx-fixed-cohort-validation-audit-v1",
+  "rules_sha256": "9fd0d2ee716bcbd3ac461308ab3f57053b71635ada0b479b6800355140da49e9",
+  "implementation_sha256": "5466b5644190a28d5a5fea21fdfc5cd8a3f168fd29de687be56c7a42133ef733",
+  "cohorts": [
+    {
+      "identity": "cpp-build-cxx-comparison-v1",
+      "inventory_sha256": "cdfe5ca87f1eae4b90fac2fb73f0ac0339b85414082b3b63ce1ad4d8c366520f",
+      "denominator": 18,
+      "observed": 18,
+      "not_observed": 0,
+      "strict": 15,
+      "build_pass_without_strict": 3,
+      "layer_counts": {
+        "build": {
+          "passed": 18
+        },
+        "author_tests": {
+          "passed": 15,
+          "not_observed": 3
+        },
+        "stage": {
+          "passed": 15,
+          "not_observed": 3
+        },
+        "clean_replay": {
+          "passed": 15,
+          "not_observed": 3
+        },
+        "original_source": {
+          "passed": 18
+        },
+        "cleanup": {
+          "passed": 18
+        }
+      },
+      "rows": [
+        {
+          "project": "yaml-cpp",
+          "repetition": 1,
+          "method": "tool_plan_workflow",
+          "case": "natural_unmodified",
+          "build": "passed",
+          "fixed_task_oracle": [
+            "passed"
+          ],
+          "author_tests": {
+            "status": "passed",
+            "expected_count": 3,
+            "status_counts": {
+              "passed": 3
+            },
+            "actual_passed": 3,
+            "notrun": 0
+          },
+          "stage": "passed",
+          "clean_replay": "passed",
+          "original_source": "passed",
+          "cleanup": "passed",
+          "strict_completed": true,
+          "build_pass_without_strict": false
+        },
+        {
+          "project": "yaml-cpp",
+          "repetition": 1,
+          "method": "model_plan_workflow",
+          "case": "natural_unmodified",
+          "build": "passed",
+          "fixed_task_oracle": [
+            "passed"
+          ],
+          "author_tests": {
+            "status": "passed",
+            "expected_count": 3,
+            "status_counts": {
+              "passed": 3
+            },
+            "actual_passed": 3,
+            "notrun": 0
+          },
+          "stage": "passed",
+          "clean_replay": "passed",
+          "original_source": "passed",
+          "cleanup": "passed",
+          "strict_completed": true,
+          "build_pass_without_strict": false
+        },
+        {
+          "project": "yaml-cpp",
+          "repetition": 1,
+          "method": "strong_tool_agent",
+          "case": "natural_unmodified",
+          "build": "passed",
+          "fixed_task_oracle": [
+            "passed"
+          ],
+          "author_tests": {
+            "status": "passed",
+            "expected_count": 3,
+            "status_counts": {
+              "passed": 3
+            },
+            "actual_passed": 3,
+            "notrun": 0
+          },
+          "stage": "passed",
+          "clean_replay": "passed",
+          "original_source": "passed",
+          "cleanup": "passed",
+          "strict_completed": true,
+          "build_pass_without_strict": false
+        },
+        {
+          "project": "yaml-cpp",
+          "repetition": 2,
+          "method": "strong_tool_agent",
+          "case": "natural_unmodified",
+          "build": "passed",
+          "fixed_task_oracle": [
+            "passed"
+          ],
+          "author_tests": {
+            "status": "passed",
+            "expected_count": 3,
+            "status_counts": {
+              "passed": 3
+            },
+            "actual_passed": 3,
+            "notrun": 0
+          },
+          "stage": "passed",
+          "clean_replay": "passed",
+          "original_source": "passed",
+          "cleanup": "passed",
+          "strict_completed": true,
+          "build_pass_without_strict": false
+        },
+        {
+          "project": "yaml-cpp",
+          "repetition": 2,
+          "method": "model_plan_workflow",
+          "case": "natural_unmodified",
+          "build": "passed",
+          "fixed_task_oracle": [
+            "passed"
+          ],
+          "author_tests": {
+            "status": "passed",
+            "expected_count": 3,
+            "status_counts": {
+              "passed": 3
+            },
+            "actual_passed": 3,
+            "notrun": 0
+          },
+          "stage": "passed",
+          "clean_replay": "passed",
+          "original_source": "passed",
+          "cleanup": "passed",
+          "strict_completed": true,
+          "build_pass_without_strict": false
+        },
+        {
+          "project": "yaml-cpp",
+          "repetition": 2,
+          "method": "tool_plan_workflow",
+          "case": "natural_unmodified",
+          "build": "passed",
+          "fixed_task_oracle": [
+            "passed"
+          ],
+          "author_tests": {
+            "status": "passed",
+            "expected_count": 3,
+            "status_counts": {
+              "passed": 3
+            },
+            "actual_passed": 3,
+            "notrun": 0
+          },
+          "stage": "passed",
+          "clean_replay": "passed",
+          "original_source": "passed",
+          "cleanup": "passed",
+          "strict_completed": true,
+          "build_pass_without_strict": false
+        },
+        {
+          "project": "simdutf",
+          "repetition": 1,
+          "method": "model_plan_workflow",
+          "case": "natural_unmodified",
+          "build": "passed",
+          "fixed_task_oracle": [
+            "passed"
+          ],
+          "author_tests": {
+            "status": "passed",
+            "expected_count": 94,
+            "status_counts": {
+              "passed": 94
+            },
+            "actual_passed": 94,
+            "notrun": 0
+          },
+          "stage": "passed",
+          "clean_replay": "passed",
+          "original_source": "passed",
+          "cleanup": "passed",
+          "strict_completed": true,
+          "build_pass_without_strict": false
+        },
+        {
+          "project": "simdutf",
+          "repetition": 1,
+          "method": "strong_tool_agent",
+          "case": "natural_unmodified",
+          "build": "passed",
+          "fixed_task_oracle": [
+            "passed"
+          ],
+          "author_tests": {
+            "status": "passed",
+            "expected_count": 94,
+            "status_counts": {
+              "passed": 94
+            },
+            "actual_passed": 94,
+            "notrun": 0
+          },
+          "stage": "passed",
+          "clean_replay": "passed",
+          "original_source": "passed",
+          "cleanup": "passed",
+          "strict_completed": true,
+          "build_pass_without_strict": false
+        },
+        {
+          "project": "simdutf",
+          "repetition": 1,
+          "method": "tool_plan_workflow",
+          "case": "natural_unmodified",
+          "build": "passed",
+          "fixed_task_oracle": [
+            "passed"
+          ],
+          "author_tests": {
+            "status": "passed",
+            "expected_count": 94,
+            "status_counts": {
+              "passed": 94
+            },
+            "actual_passed": 94,
+            "notrun": 0
+          },
+          "stage": "passed",
+          "clean_replay": "passed",
+          "original_source": "passed",
+          "cleanup": "passed",
+          "strict_completed": true,
+          "build_pass_without_strict": false
+        },
+        {
+          "project": "simdutf",
+          "repetition": 2,
+          "method": "tool_plan_workflow",
+          "case": "natural_unmodified",
+          "build": "passed",
+          "fixed_task_oracle": [
+            "passed"
+          ],
+          "author_tests": {
+            "status": "passed",
+            "expected_count": 94,
+            "status_counts": {
+              "passed": 94
+            },
+            "actual_passed": 94,
+            "notrun": 0
+          },
+          "stage": "passed",
+          "clean_replay": "passed",
+          "original_source": "passed",
+          "cleanup": "passed",
+          "strict_completed": true,
+          "build_pass_without_strict": false
+        },
+        {
+          "project": "simdutf",
+          "repetition": 2,
+          "method": "strong_tool_agent",
+          "case": "natural_unmodified",
+          "build": "passed",
+          "fixed_task_oracle": [
+            "passed"
+          ],
+          "author_tests": {
+            "status": "passed",
+            "expected_count": 94,
+            "status_counts": {
+              "passed": 94
+            },
+            "actual_passed": 94,
+            "notrun": 0
+          },
+          "stage": "passed",
+          "clean_replay": "passed",
+          "original_source": "passed",
+          "cleanup": "passed",
+          "strict_completed": true,
+          "build_pass_without_strict": false
+        },
+        {
+          "project": "simdutf",
+          "repetition": 2,
+          "method": "model_plan_workflow",
+          "case": "natural_unmodified",
+          "build": "passed",
+          "fixed_task_oracle": [
+            "passed"
+          ],
+          "author_tests": {
+            "status": "passed",
+            "expected_count": 94,
+            "status_counts": {
+              "passed": 94
+            },
+            "actual_passed": 94,
+            "notrun": 0
+          },
+          "stage": "passed",
+          "clean_replay": "passed",
+          "original_source": "passed",
+          "cleanup": "passed",
+          "strict_completed": true,
+          "build_pass_without_strict": false
+        },
+        {
+          "project": "snappy",
+          "repetition": 1,
+          "method": "strong_tool_agent",
+          "case": "natural_unmodified",
+          "build": "passed",
+          "fixed_task_oracle": [
+            "passed"
+          ],
+          "author_tests": {
+            "status": "passed",
+            "expected_count": 1,
+            "status_counts": {
+              "passed": 1
+            },
+            "actual_passed": 1,
+            "notrun": 0
+          },
+          "stage": "passed",
+          "clean_replay": "passed",
+          "original_source": "passed",
+          "cleanup": "passed",
+          "strict_completed": true,
+          "build_pass_without_strict": false
+        },
+        {
+          "project": "snappy",
+          "repetition": 1,
+          "method": "tool_plan_workflow",
+          "case": "natural_unmodified",
+          "build": "passed",
+          "fixed_task_oracle": [
+            "failed"
+          ],
+          "author_tests": {
+            "status": "not_observed",
+            "actual_passed": null,
+            "notrun": null
+          },
+          "stage": "not_observed",
+          "clean_replay": "not_observed",
+          "original_source": "passed",
+          "cleanup": "passed",
+          "strict_completed": false,
+          "build_pass_without_strict": true
+        },
+        {
+          "project": "snappy",
+          "repetition": 1,
+          "method": "model_plan_workflow",
+          "case": "natural_unmodified",
+          "build": "passed",
+          "fixed_task_oracle": [
+            "failed"
+          ],
+          "author_tests": {
+            "status": "not_observed",
+            "actual_passed": null,
+            "notrun": null
+          },
+          "stage": "not_observed",
+          "clean_replay": "not_observed",
+          "original_source": "passed",
+          "cleanup": "passed",
+          "strict_completed": false,
+          "build_pass_without_strict": true
+        },
+        {
+          "project": "snappy",
+          "repetition": 2,
+          "method": "model_plan_workflow",
+          "case": "natural_unmodified",
+          "build": "passed",
+          "fixed_task_oracle": [
+            "failed"
+          ],
+          "author_tests": {
+            "status": "not_observed",
+            "actual_passed": null,
+            "notrun": null
+          },
+          "stage": "not_observed",
+          "clean_replay": "not_observed",
+          "original_source": "passed",
+          "cleanup": "passed",
+          "strict_completed": false,
+          "build_pass_without_strict": true
+        },
+        {
+          "project": "snappy",
+          "repetition": 2,
+          "method": "tool_plan_workflow",
+          "case": "natural_unmodified",
+          "build": "passed",
+          "fixed_task_oracle": [
+            "passed"
+          ],
+          "author_tests": {
+            "status": "passed",
+            "expected_count": 1,
+            "status_counts": {
+              "passed": 1
+            },
+            "actual_passed": 1,
+            "notrun": 0
+          },
+          "stage": "passed",
+          "clean_replay": "passed",
+          "original_source": "passed",
+          "cleanup": "passed",
+          "strict_completed": true,
+          "build_pass_without_strict": false
+        },
+        {
+          "project": "snappy",
+          "repetition": 2,
+          "method": "strong_tool_agent",
+          "case": "natural_unmodified",
+          "build": "passed",
+          "fixed_task_oracle": [
+            "passed"
+          ],
+          "author_tests": {
+            "status": "passed",
+            "expected_count": 1,
+            "status_counts": {
+              "passed": 1
+            },
+            "actual_passed": 1,
+            "notrun": 0
+          },
+          "stage": "passed",
+          "clean_replay": "passed",
+          "original_source": "passed",
+          "cleanup": "passed",
+          "strict_completed": true,
+          "build_pass_without_strict": false
+        }
+      ]
+    },
+    {
+      "identity": "cpp-build-task-selected-comparison-v1",
+      "inventory_sha256": "0aa0d9dddbfad8cf4a4d1b35fd9da4b73793eb00cc67774bd9c8174234d7d728",
+      "denominator": 6,
+      "observed": 6,
+      "not_observed": 0,
+      "strict": 6,
+      "build_pass_without_strict": 0,
+      "layer_counts": {
+        "build": {
+          "passed": 6
+        },
+        "author_tests": {
+          "passed": 6
+        },
+        "stage": {
+          "passed": 6
+        },
+        "clean_replay": {
+          "passed": 6
+        },
+        "original_source": {
+          "passed": 6
+        },
+        "cleanup": {
+          "passed": 6
+        }
+      },
+      "rows": [
+        {
+          "project": "yaml-cpp",
+          "repetition": 1,
+          "method": "original_tool_workflow",
+          "case": "natural_unmodified",
+          "build": "passed",
+          "fixed_task_oracle": [
+            "passed"
+          ],
+          "author_tests": {
+            "status": "passed",
+            "expected_count": 3,
+            "status_counts": {
+              "passed": 3
+            },
+            "actual_passed": 3,
+            "notrun": 0
+          },
+          "stage": "passed",
+          "clean_replay": "passed",
+          "original_source": "passed",
+          "cleanup": "passed",
+          "strict_completed": true,
+          "build_pass_without_strict": false
+        },
+        {
+          "project": "yaml-cpp",
+          "repetition": 1,
+          "method": "task_selected_tool_workflow",
+          "case": "natural_unmodified",
+          "build": "passed",
+          "fixed_task_oracle": [
+            "passed"
+          ],
+          "author_tests": {
+            "status": "passed",
+            "expected_count": 3,
+            "status_counts": {
+              "passed": 3
+            },
+            "actual_passed": 3,
+            "notrun": 0
+          },
+          "stage": "passed",
+          "clean_replay": "passed",
+          "original_source": "passed",
+          "cleanup": "passed",
+          "strict_completed": true,
+          "build_pass_without_strict": false
+        },
+        {
+          "project": "simdutf",
+          "repetition": 1,
+          "method": "task_selected_tool_workflow",
+          "case": "natural_unmodified",
+          "build": "passed",
+          "fixed_task_oracle": [
+            "passed"
+          ],
+          "author_tests": {
+            "status": "passed",
+            "expected_count": 94,
+            "status_counts": {
+              "passed": 94
+            },
+            "actual_passed": 94,
+            "notrun": 0
+          },
+          "stage": "passed",
+          "clean_replay": "passed",
+          "original_source": "passed",
+          "cleanup": "passed",
+          "strict_completed": true,
+          "build_pass_without_strict": false
+        },
+        {
+          "project": "simdutf",
+          "repetition": 1,
+          "method": "original_tool_workflow",
+          "case": "natural_unmodified",
+          "build": "passed",
+          "fixed_task_oracle": [
+            "passed"
+          ],
+          "author_tests": {
+            "status": "passed",
+            "expected_count": 94,
+            "status_counts": {
+              "passed": 94
+            },
+            "actual_passed": 94,
+            "notrun": 0
+          },
+          "stage": "passed",
+          "clean_replay": "passed",
+          "original_source": "passed",
+          "cleanup": "passed",
+          "strict_completed": true,
+          "build_pass_without_strict": false
+        },
+        {
+          "project": "snappy",
+          "repetition": 1,
+          "method": "original_tool_workflow",
+          "case": "natural_unmodified",
+          "build": "passed",
+          "fixed_task_oracle": [
+            "passed"
+          ],
+          "author_tests": {
+            "status": "passed",
+            "expected_count": 1,
+            "status_counts": {
+              "passed": 1
+            },
+            "actual_passed": 1,
+            "notrun": 0
+          },
+          "stage": "passed",
+          "clean_replay": "passed",
+          "original_source": "passed",
+          "cleanup": "passed",
+          "strict_completed": true,
+          "build_pass_without_strict": false
+        },
+        {
+          "project": "snappy",
+          "repetition": 1,
+          "method": "task_selected_tool_workflow",
+          "case": "natural_unmodified",
+          "build": "passed",
+          "fixed_task_oracle": [
+            "passed"
+          ],
+          "author_tests": {
+            "status": "passed",
+            "expected_count": 1,
+            "status_counts": {
+              "passed": 1
+            },
+            "actual_passed": 1,
+            "notrun": 0
+          },
+          "stage": "passed",
+          "clean_replay": "passed",
+          "original_source": "passed",
+          "cleanup": "passed",
+          "strict_completed": true,
+          "build_pass_without_strict": false
+        }
+      ]
+    }
+  ]
+}
