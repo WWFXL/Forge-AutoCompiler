@@ -4,6 +4,8 @@
 
 ## 进行中 (In Progress)
 
+- 2026-10-21 — #558十八槽已封存并独立审计，原exec52945已终止，不重跑；新#560/#562资格准备，Docker/新Provider尚未开始。41组合回归、新产品2244passed44skipped27warnings/Ruff通过；未跟踪新模板/可逆文本模块与协议留待独立分支，不混入#558结果提交。#561来源草稿暂存在会话cross-source-draft/。
+
 - 2026-10-21 — #558连续科研轮：共享新增20美元/UTC18:07:35至22:07:35，准备计入。新四槽零Provider调度资格（buffer三策略+snappy强工具缺槽）通过并独立审计后冻结18槽C++比较；旧#556 v3保持10观察/1未观察，均不改冻结组件、验收或RQ3分母。最终HEAD三CI后仅合科研依赖分支，知识库持续同步。
 
 
@@ -574,6 +576,12 @@
   - 下一步: 等待实验负责人确认当前网络接入介质，并决定是否授权只读 endpoint 诊断和新的 canary amendment；获得确认后必须另建中文 Issue/PR 和协议 identity，保留当前失败 marker。
 
 ## 最近变更 (Recent Changes)
+
+- 2026-10-21 — 封存#558完整18槽公平比较并报告条件收益与恢复材料阻塞。
+  - 证据: cpp-build-cxx-comparison-v1，18观察/15strict/0未观察；工具/模型/强工具5/4/6各6槽，73请求975996Token/$1.45084632未知0，stage.completed。原源码/索引/no HEAD/实际cleanup全通过；15strict完整原/replay测试/精确交付通过，主/详情/初始输入独立audit valid，库存cdfe5ca87f1eae4b90fac2fb73f0ac0339b85414082b3b63ce1ad4d8c366520f。
+  - 解释: simd工具两次0模型strict；工具请求/费较模型低但耗时长，相对强工具完成少1槽；3个snappy Workflow固定功能检查缺依赖后恢复触及50k，3handoff/2恢复请求/0修订，作者CTest/暂存/replay未观察。不是总体/跨系统/holdout或恢复收益。
+  - 文件: docs/research/2026-10-21-cxx-comparison-results.md、RESEARCH_STATUS.md；会话forge-cxx-continuous-session-2026-10-21/保存唯一启动/授权/原始费用及独立审计实现与收据。原release8fff60a9，用户HTML不动；最终HEAD三CI后PR559仅合依赖分支，关闭558/556，470保持OPEN。
+
 
 - 2026-10-21 — #556共同准备资格v3封存10strict/1未观察，整批资格仍未补齐。
   - v3完整观察10槽均strict：buffer双来源恢复、yaml/simd三策略、snappy双Workflow；最后snappy强工具在UTC17:44:33后启动余量不足2100秒拒绝，未观察不是方法失败。原stop_reason泛化为initialization_not_completed、启动日志明确before_deadline；不回写raw。10脚本响应/59受计量命令/累计臂秒2146.0354，0凭据/Provider/Token/模型费/未知。
