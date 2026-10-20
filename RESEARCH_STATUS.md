@@ -1,6 +1,16 @@
 # Forge Research Status
 
-## 当前阶段（2026-10-20；#546规划观察接口零Provider资格完成）
+## 当前阶段（2026-10-20；#548新观察接口真实比较准入准备完成）
+
+基础设施阶段，尚无新真实模型效果或付费授权。新独立入口显式接observed_planner，两个Workflow同ObservedBuildActions/完整测试/暂存/恢复，强工具仍为整策略参照，原107与#546的114组件保持。新buffer三策略调度零Provider门禁3/3 strict、2脚本响应/9命令，0Provider/Token/费用/未知，原源码/完整测试/精确交付/clean replay及实际容器不存在独立stdlib审计valid=true；不把工程资格当效果收益。
+
+候选cpp-build-observed-plan-comparison-v1固定libpng/check/libtommath/libsodium各一次×三策略=12槽，120组件、SHA8a9310f8c89d657b29d9a1b7f56b967c17ba615a2717d2239fda139293bade2b。定向开发暴露、非holdout，方法位置各1或2次非完全平衡；静态libsodium直接、其余拒绝升级，全费用仍计入。绑定#546十四槽及路径独立审计和本轮调度门禁，不重跑或拼接旧证据；未知/失败/未观察与完整裁判保持。
+
+新调度raw /home/yiwei/.codex/outputs/forge-observed-plan-dispatch-gate-v1/，inventory e178ed43c64313bbadef9f9c660b02238bd9612bd4f4097c5648399429ccb88a（253文件/0链接/2794095bytes），运行release daf67a8d；独立审计/静态覆盖/候选冻结/preflight/检查/发布收据统一在/home/yiwei/.codex/outputs/forge-observed-comparison-session-2026-10-20/。报告docs/research/2026-10-20-observed-plan-comparison-readiness.md。新15回归/相邻49passed、产品2131passed44skipped、Ruff/556格式通过；最终HEAD三CI/PR→依赖分支/Issue状态以GitHub与final-publication-audit.json为准，未进main、用户HTML不动。
+
+下一项须用户新明确费用/有效窗口授权（候选最高20美元/4小时），真实12槽仍全部未观察。HTTP402外部原因未核验，凭据/服务核验需在新授权内，首次新请求全计量，若再次未知即停不重试；不能续旧身份/挪旧余额/充值或擅换Provider。只作已见任务描述性配对、接受小幅/条件性取舍，不推总体/自然恢复率或跨批因果。不加P2、不改RQ3，后续补C++效果资格。
+
+## 上一阶段（2026-10-20；#546规划观察接口零Provider资格完成）
 
 工程修复/开发资格完成，未新增真实模型效果数据。新接口明确stdout文本/文件/目录，确定性检查进入原执行和replay；仅安全删除目录尾斜杠，不自动重排阶段，最多一次结构/装配/无执行变化纠错，Provider/预算异常不重试。两规划来源同作者完整测试、精确暂存及恢复，原107组件/源码/严格裁判不变。
 

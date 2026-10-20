@@ -572,6 +572,15 @@
 
 ## 最近变更 (Recent Changes)
 
+- 2026-10-20 — #548完成新观察接口三策略准入准备，未授权真实模型。
+  - Issue548先创建回读，分支yiwei/548-observed-plan-comparison从PR547 merge40ceb2fd建立，用户HTML不动。新独立slot_runner显式接observed_planner，真实入口拒绝reference，产品默认及107历史组件不改。
+  - 新调度cpp-build-observed-plan-dispatch-gate-v1实际3/3strict，2脚本响应/9命令，0Provider/Token/费用/未知，原源码/完整自测/精确交付/replay/实际cleanup独立stdlib核验valid=true；库存e178ed43c64313bbadef9f9c660b02238bd9612bd4f4097c5648399429ccb88a，253文件/2794095bytes、119组件，运行release daf67a8d。
+  - 候选cpp-build-observed-plan-comparison-v1：4已见项目×三方法×一次共12槽，120组件，SHA8a9310f8c89d657b29d9a1b7f56b967c17ba615a2717d2239fda139293bade2b；定向开发暴露、位置非完全平衡。静态libsodium直接其余拒绝，全初始/失败/恢复成本保持。绑定#546十四槽及路径独立审计，不重跑旧资格；授权/deadline null、真实12未观察。
+  - 新15回归/相邻49passed；产品2131passed/44skipped/27warnings，Ruff/556格式通过。首测试误替全局os.environ影响pytest，已修为本模块命名空间，未访问Provider；历史pytest清理权限警告保留，不清其他目录。报告2026-10-20-observed-plan-comparison-readiness.md；会话forge-observed-comparison-session-2026-10-20含独立审计/候选冻结/全量检查/最终发布与知识库收据。
+  - 下一项候选最高20美元/从新授权起4小时，准备占窗；HTTP402原因未核验，首次新请求计入服务核验，再次未知立即停不重试。不挪旧余额、不加P2、不改RQ3/主线/裁判，接受小幅条件性收益，之后补C++效果资格。发布仅合依赖分支，最终CI/merge/Issue以GitHub收据为准。
+  - 文件: scripts/forge_build_observed_plan_comparison.py、scripts/forge_audit_observed_plan_dispatch.py、backend/tests/test_build_observed_plan_comparison.py、cpp-build-observed-plan-*协议/manifest、RESEARCH_STATUS.md。
+
+
 - 2026-10-20 — #546规划观察接口v2资格完成，以下“待运行”为历史。
   - 14/14预期成立：13strict/1准确缺文件拒绝/0未观察槽，18脚本响应/55受计量命令、0真实Provider/Token/费用/未知。5正向恢复各handoff1/revision2，命令/前缀保留；三系统两来源正常完整测试/replay通过（CMake14/14，Autotools6/6且0skip）。负例后续层未观察，未改成功。
   - release3023a66771d4c5de1da1f6239966a95dfaaf8572；v2库存986b96ae1e601569aa0fc71ea78b96ed1f38a1d1289a024f7a67906d5bd40aa3，56924文件/30链接/230731928bytes、114组件。主stdlib audit及17正向路径原/重放AST日志审计valid=true，全部实际cleanup；原107组件不变。v1中断2strict/1部分/11未启动及库存9e8f9572保留，独立审计通过，不续跑/拼接。
