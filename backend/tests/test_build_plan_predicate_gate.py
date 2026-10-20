@@ -27,3 +27,13 @@ def test_gate_model_is_local_zero_usage():
     response = gate.fake_model([{"reason": "夹具", "steps": []}]).invoke("不访问网络")
     assert response.response_metadata["model_name"] == "scripted-gate"
     assert response.usage_metadata["total_tokens"] == 0
+
+
+def test_tool_recovery_fixture_keeps_actual_initial_command():
+    original = gate.reference_actions({"steps": [{"step_id": "build", "role": "build", "command": "make -j2", "source": "模板", "expected": "成功"}]})
+    values = gate.proposal_values(original, "stdout_path_repair", "tool")
+    assert values[0]["steps"][0]["command"] == "make -j2"
+    assert values[0]["steps"][0]["files_exist"] == ["test"]
+    negative = gate.proposal_values(original, "missing_path_rejected", "tool")
+    assert negative[0] == negative[1]
+    assert all(v["steps"][0]["command"] == "make -j2" for v in negative)

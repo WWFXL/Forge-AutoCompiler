@@ -23,7 +23,7 @@ from deerflow.compile.plan_cross_system import before_deadline  # noqa: E402
 from deerflow.compile.plan_workflow import PlanContractError  # noqa: E402
 from deerflow.compile.unified_plan_v2 import ObservedBuildActions, observed_planner, observed_tool_actions  # noqa: E402
 
-IDENTITY = "cpp-build-plan-predicate-qualification-v1"
+IDENTITY = "cpp-build-plan-predicate-qualification-v2"
 PARENT = "benchmarks/manifests/cpp-build-unified-plan-gate-v2.json"
 METHODS = ("tool_plan_workflow", "model_plan_workflow")
 
@@ -92,10 +92,8 @@ def fake_model(values):
     )
 
 
-def run_slot(protocol, root, slot, item, reference):
-    source = "tool" if slot["method"] == METHODS[0] else "model"
-    case = slot["case"]
-    good = qualify_paths(reference_actions(reference), item["task"]["build_system"])
+def proposal_values(good, case, source):
+    """恢复夹具必须来自本槽实际初始动作，不能换成人工参考命令。"""
     first = controlled_actions(good, case, initial=True)
     recovered = controlled_actions(good, case, initial=False)
     proposals = [first.model_dump(mode="json")] if source == "model" else []
@@ -112,11 +110,21 @@ def run_slot(protocol, root, slot, item, reference):
         proposals = [bad, first.model_dump(mode="json")]
     if case == "missing_path_rejected":
         proposals = [first.model_dump(mode="json")] * 2
+    return proposals
+
+
+def run_slot(protocol, root, slot, item, reference):
+    source = "tool" if slot["method"] == METHODS[0] else "model"
+    case = slot["case"]
+    good = qualify_paths(reference_actions(reference), item["task"]["build_system"])
+    proposals = proposal_values(good, case, source)
     active_model = fake_model(proposals)
 
     def generator(task, source_root):
         actions, receipt = observed_tool_actions(task, source_root)
-        return controlled_actions(qualify_paths(actions, task.build_system), case, initial=True), receipt
+        qualified = qualify_paths(actions, task.build_system)
+        active_model.responses = fake_model(proposal_values(qualified, case, source)).responses
+        return controlled_actions(qualified, case, initial=True), receipt
 
     base = observed_planner(source, generator=generator)
 

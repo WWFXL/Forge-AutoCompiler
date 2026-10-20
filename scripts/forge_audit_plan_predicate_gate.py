@@ -50,7 +50,7 @@ sealed = load(ROOT / "seal.json")
 assert rows == load(ROOT / "inventory.json")
 assert canonical(rows) == sealed["inventory_canonical_sha256"]
 protocol = load(ROOT / "protocol.json")
-assert sealed["identity"] == protocol["identity"] == "cpp-build-plan-predicate-qualification-v1"
+assert sealed["identity"] == protocol["identity"] == "cpp-build-plan-predicate-qualification-v2"
 assert protocol["provider_calls"] == protocol["max_new_provider_cost_usd"] == 0
 for name, expected in protocol["components"].items():
     assert sha(ROOT / "source-snapshot" / name) == expected, name
@@ -124,6 +124,10 @@ for slot, row in zip(protocol["schedule"], result["arms"]):
             assert any(c["role"] == "build" and c["exit_code"] != 0 for c in session["commands"])
         else:
             assert revisions[0]["retained_steps"] == []
+            before_build = next(s for s in plan["steps"] if s["role"] == "build")
+            after_build = next(s for s in second["steps"] if s["role"] == "build")
+            assert before_build["command"] == after_build["command"]
+            assert before_build["required_output"] == ["/workspace/repo/test"] and after_build["required_output"] == []
             failed_steps = [e for e in workflow_events if e["event"] == "plan.step" and not e["expected_satisfied"]]
             assert len(failed_steps) == 1
             failed = next(c for c in session["commands"] if c["command_id"] == failed_steps[0]["command_id"])
