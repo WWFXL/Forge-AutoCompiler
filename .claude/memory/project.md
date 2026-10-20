@@ -549,6 +549,10 @@
 
 ## 最近变更 (Recent Changes)
 
+- 2026-10-20 — 完成#540工具初始方案零Provider资格，三系统3/3严格闭合，不继承旧付费授权
+  - 文件: `backend/packages/harness/deerflow/compile/tool_plan.py`, `scripts/forge_build_tool_plan_qualification.py`, `backend/tests/test_tool_plan.py`, `docs/research/2026-10-20-tool-plan-tools-review.md`, `benchmarks/manifests/cpp-build-tool-plan-qualification-v1.json`
+  - 动机: #538初始规划占约88%费用；参考论文中确定性候选提取与模型工具边界。19项新测试、完整产品2052 passed/44 skipped、Ruff与538文件格式通过；93冻结组件。buffer/uncrustify/libverto全部strict，12Shell/0模型/0费用，独立audit valid=true；库存692cab463a48a263b8e3724f895b1ad92f668415f4a8d4eac7b1322d10d6bc5f。CMake14/14、Autotools6/6，原与重放均通过、实际容器不存在。生成毫秒不等于总运行耗时；无真实失败/恢复，不推效果/覆盖优势，不回填#530旧增量失败。报告`docs/research/2026-10-20-tool-plan-qualification-results.md`；PR541最终发布以GitHub及会话目录final-publication-audit.json为准，仅依赖分支不进main。不改用户HTML。
+
 - 2026-10-20 — 完成#536三策略入口与v2完整13槽零Provider门禁，保留旧v1中断与独立fallback资格，不改变真实比较分母。
   - 文件: scripts/forge_build_full_strategy_runtime.py、scripts/forge_build_full_strategy_runtime_v2.py、scripts/forge_build_full_strategy_fallback_gate.py、三个对应test、v1/v2 manifest/preregistration、docs/research/2026-10-20-build-full-strategy-runtime-results.md、RESEARCH_STATUS.md。
   - 动机: 解除完整三策略比较的执行与接管资格阻塞；v1误把3900秒真实Provider余量用于Fake零Token请求已复现/修复，v2仅分离零Provider时间检查，正式模型仍保留3900秒、全费用/资源与完整裁判。
