@@ -1,0 +1,25 @@
+{
+  "identity": "cpp-build-cxx-fixed-cohort-validation-audit-v1",
+  "issue": 567,
+  "kind": "posthoc_readonly_layer_audit",
+  "provider_calls": 0,
+  "credentials_read": false,
+  "fixed_cohorts": [
+    {"identity": "cpp-build-cxx-comparison-v1", "root": "/home/yiwei/.codex/outputs/forge-cxx-comparison-v1", "slots": 18, "inventory_sha256": "cdfe5ca87f1eae4b90fac2fb73f0ac0339b85414082b3b63ce1ad4d8c366520f"},
+    {"identity": "cpp-build-task-selected-comparison-v1", "root": "/home/yiwei/.codex/outputs/forge-task-selected-comparison-v1", "slots": 6, "inventory_sha256": null}
+  ],
+  "deadline_utc": "2026-10-20T22:07:35Z",
+  "states": ["passed", "failed", "not_observed", "observed_not_established"],
+  "rules": {
+    "build": "latest build command authoritative exit_code and timed_out",
+    "fixed_task_oracle": "latest exact fixed smoke command; absence is not_observed",
+    "author_tests": "original CTest XML must contain full fixed count and actual Passed statuses; no XML is not_observed unless log establishes execution began",
+    "stage": "latest artifact_stage command, exact delivery set and bytes against replay separately",
+    "replay": "latest actual attempt status/checks; absent is not_observed",
+    "source": "all frozen original regular files SHA-256; original and replay independently",
+    "cleanup": "actual named original/replay containers must be absent",
+    "interpretation": "build_pass_without_strict is an endpoint discrepancy, not an estimated natural false_acceptance rate"
+  },
+  "legacy_rq3_14_and_43_denominators_unchanged": true,
+  "pooling_cohorts_for_effect_estimation": false
+}

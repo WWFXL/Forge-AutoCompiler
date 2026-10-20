@@ -574,6 +574,10 @@
 
 ## 最近变更 (Recent Changes)
 
+- 2026-10-21 — #567完成独立固定C++队列的分层复核并保留18/6分母
+  - 文件: `scripts/forge_audit_cxx_fixed_layers.py`, `backend/tests/test_audit_cxx_fixed_layers.py`, `benchmarks/analyses/cpp-build-cxx-fixed-cohort-validation-audit-v1.json`, `docs/research/2026-10-21-cxx-validation-layers-results.md`
+  - 动机: 原18均build通过但作者测试/交付/replay仅15通过+3未观察，新6各层全6；0Provider，原文件SHA和实际cleanup独立核验，不改历史14/43，不估自然误接受率或宣称第二创新点。反篡改/固定分母门禁4项测试通过，版本化实现另写新收据与首版逐字段比对，不覆盖原结果。
+
 - 2026-10-21 — 完成#560/#562六槽真实模板消融与独立分层费用核验
   - 文件: `docs/research/2026-10-21-task-selected-template-results.md`, `RESEARCH_STATUS.md`
   - 动机: 新旧各3/3strict、各14请求；估费0.35033196/0.383163美元，累计臂秒848.636480/869.947990，新模板未见整体优势。三次真实恢复保留源码准备、清空build重走后缀，0未知；可逆材料22/28实际请求核验，原/replay完整测试/源码/精确交付/cleanup均valid。inventory0aa0d9dd，release29784841，全部28请求/$0.73349496，本轮累计$2.18434128；后验重复读取只当诊断，不作因果或总体结论。
