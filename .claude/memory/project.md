@@ -528,6 +528,9 @@
 
 ## 最近变更 (Recent Changes)
 
+- 2026-10-20 — #536复现零Provider脚本请求误用3900秒付费余量，冻结独立v2重新验证完整13槽矩阵。
+  - 文件: scripts/forge_build_full_strategy_runtime_v2.py、backend/tests/test_build_full_strategy_runtime_v2.py、benchmarks/manifests/cpp-build-full-strategy-runtime-v2.json及同名preregistration。仅scripted-gate且0用量时区分120秒工程检查；真实Provider3900秒余量、全成本、原资源/验收均不变。外层03:46:10 UTC SIGINT、90秒强止，原截止03:48:10不延长。v1/独立fallback均保留；并行工程资格耗时不用于效果比较。
+
 - 2026-10-20 — #536完整13槽零Provider矩阵运行中，前5槽strict；先登记独立fallback资格以提前核验关键链路，不替代原矩阵或准入付费。
   - 文件: scripts/forge_build_full_strategy_fallback_gate.py、backend/tests/test_build_full_strategy_fallback_gate.py、benchmarks/preregistrations/cpp-build-full-strategy-fallback-gate-v1.md。独立进程/根/身份，共同资源和3900秒请求余量不变；仅原最后一项规则后stage再失败转脚本Agent。并行资格耗时不用于效果比较。原矩阵及全部失败/未观察保留。
 
