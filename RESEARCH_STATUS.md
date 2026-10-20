@@ -1,12 +1,12 @@
 # Forge Research Status
 
-## 当前阶段（2026-10-21；#556共同源码准备零Provider资格待运行）
+## 当前阶段（2026-10-21；#556共同源码准备v1停止、v2待运行）
 
-基础设施/工程资格阶段：验证三策略首次规划前执行同一受计量源码索引准备，并在原执行与空环境replay中保持完整测试、功能配置和精确交付一致。新身份cpp-build-cxx-common-input-gate-v1固定11槽：buffer双Workflow受控恢复及yaml-cpp/simdutf/snappy各三策略正常路径。尚无本身份Docker观察或真实策略效果；本地18项新增回归、产品2176passed/44skipped/27warnings及Ruff通过，实际CTest JUnit格式已离线核验。
+基础设施/工程资格，0凭据/真实Provider/Token/模型费/未知用量，尚无新策略效果。cpp-build-cxx-common-input-gate-v1两buffer受控恢复strict，共同准备与configure原命令保留；yaml完整1068默认GoogleTest/CTest3实际通过、0skip，但共同暂存器因两个同名库拒绝，随后恢复材料超过50k门禁、未新增请求。后8槽未观察，yaml交付/replay未通过或未观察不可填成功。原源码/cleanup及独立stdlib审计通过；148组件不改，raw forge-cxx-common-input-gate-v1，inventory7c4a2a1fe2d7912d7a58d84a52df61471d0f63e5d0fb066a7deec1e3ed01d7a0，运行release8884314ec6b081283d8889da6f8a9e09c6f16de4，原身份永久停止。
 
-manifest 148组件、SHA cd14ee7f2f8e1d2a50951986b217fc66c75b5019d5b2f4d51eb17073532d089a；原141组件不改。准备只在临时容器/workspace/repo建立无HEAD的原文件索引，不构造历史；前缀真实命令/时间计入并进入replay。CMake检查配置值语义，JUnit核验3/94/1项实际运行、0skip；上游GoogleTest默认DISABLED保留。任一预期失败即停、后续未观察、不续跑旧身份。0凭据/Provider/Token/新增模型费；UTC2026-10-20T18:19:33Z截止不延长、新槽留2100秒。运行后须独立stdlib审计/最终HEAD三CI再仅合科研依赖分支，详见同名预注册及Issue556。
+新cpp-build-cxx-common-input-gate-v2仅把同名、相同大小/SHA256/权限模式的安全副本归为同一交付身份，真实内容/模式歧义、越界/悬空/循环仍拒绝；不改精确交付/测试/源码/replay裁判，50k恢复门禁仍保留限制。152组件，manifest SHA8adbd6a7debc99cd55039472b0df8daf9a995cc0f386f53c0da6defcd1791568。新身份完整11槽从头验证，不与v1拼接；原UTC2026-10-20T18:19:33Z截止不延长，新槽2100秒、外层120秒清理。共同受计量准备在首次规划前执行，原与replay索引文件集合一致；完整CTest3/94/1实际运行、默认DISABLED保留。尚未正式启动，相关26回归通过；产品/lint及发布检查见会话forge-cxx-common-input-session-2026-10-21。
 
-上一阶段三项参考已合格，但仅为定向开发资格、非holdout或策略收益。下一真实18槽须独立冻结及有效新预算/时窗，不借#552余额、不加P2/不改RQ3分母、主线或验收。
+下一真实18槽须新冻结及有效预算/窗口，不借#552余额、不加P2/不改RQ3分母、主线或验收。三项均已见CMake C++、yaml/snappy共享GoogleTest，不推holdout、总体或跨系统策略收益。
 
 ## 上一阶段（2026-10-21；#554新增C++参考资格已完成）
 

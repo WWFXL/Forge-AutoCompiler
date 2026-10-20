@@ -572,6 +572,13 @@
 
 ## 最近变更 (Recent Changes)
 
+- 2026-10-21 — #556保留v1暂存失败并冻结副本同等性修复v2。
+  - v1两buffer受控恢复strict、yaml原1068默认GoogleTest/CTest3全过后因两个同名字节相同/模式相同库暂存拒绝，随后50k恢复门禁阻断，后8未观察；原源码/实际cleanup独立stdlib审计通过。raw forge-cxx-common-input-gate-v1，库存7c4a2a1fe2d7912d7a58d84a52df61471d0f63e5d0fb066a7deec1e3ed01d7a0，1656files/48745321bytes，release8884314e。原身份不重启，旧148组件不改。
+  - 独立v2仅新增同字节/size/完整权限模式副本归一暂存器，两Workflow共同装配，其他歧义及不安全路径仍拒绝；50k门禁不扩额，最终精确交付/完整测试/replay不变。26相关回归通过；首测试因宿主Python3.10不支持file_digest失败，改为流式sha256后通过，日志保留。152组件manifest SHA8adbd6a7debc99cd55039472b0df8daf9a995cc0f386f53c0da6defcd1791568。
+  - v2全新11槽待唯一运行，0Provider/费，沿原UTC18:19:33截止；不混v1结果，不作策略收益。Issue556评论已回读，PR557仅合科研依赖分支。会话forge-cxx-common-input-session-2026-10-21；用户HTML不动。
+  - 文件: backend/packages/harness/deerflow/compile/plan_delivery_equivalent.py、backend/tests/test_plan_delivery_equivalent.py、scripts/forge_build_cxx_common_input_gate_v2.py及同名manifest/preregistration。
+
+
 - 2026-10-21 — #556冻结三策略共同源码准备与重放零Provider资格，尚未正式启动。
   - 基线94c3637a，分支yiwei/556-common-source-preparation；Issue556已创建回读。新增source_preparation/build_task_checks及独立prepared_arm/gate，不改原141组件。共同Git索引准备在首次模板/模型之前受计量执行，Workflow复用成功前缀、全部clean replay重新执行；无伪commit，只保证原文件集合。配置按布尔语义检查，完整CTest JUnit核验实际3/94/1项、0skip，上游默认DISABLED不改。
   - cpp-build-cxx-common-input-gate-v1固定11槽：buffer两受控恢复+三个CMake C++各三策略。148组件、manifest SHA cd14ee7f2f8e1d2a50951986b217fc66c75b5019d5b2f4d51eb17073532d089a。预检valid；新增18回归、产品2176passed44skipped27warnings、Ruff通过，CTest实际JUnit兼容。早期1测试shell转义断言失败已修测试并保留日志；系统Python3.10导入UTC失败在freeze前发生，后续用backend/.venv/bin/python3.12。
