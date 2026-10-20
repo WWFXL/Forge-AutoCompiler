@@ -4,7 +4,7 @@
 
 ## 当前阶段与决定（2026-10-20新一轮）
 
-**#540当前：工具生成初始方案零Provider资格准备完成**。先核对CXXCrafter/CompileAgent工具分工，生成单根三系统候选，系统装入原固定测试，按唯一真实编译文件暂存；不按项目名特判、不读正确参考。固定已见开发buffer/uncrustify/libverto，一次生成执行，失败仅保存交接不调用恢复模型。新身份`cpp-build-tool-plan-qualification-v1`、费用0，保留全部裁判与旧证据。协议/来源记录见同名manifest/preregistration及`docs/research/2026-10-20-tool-plan-tools-review.md`。本阶段不是效果比较，尚无新容器观察。
+**#540工具初始方案零Provider资格已完成**：固定已见开发buffer/Make、uncrustify/CMake、libverto/Autotools均3/3 strict，12 Shell，0模型请求/Token/费用、0未观察。仅源码单根入口模板，系统逐字段装入原固定测试，执行时唯一ELF/ar暂存；不读取正确参考、不按项目名特判。Make完整自测、CMake14/14、Autotools六测试6/6（0skip），原工作区与clean replay均通过；原源码、精确交付、实际cleanup独立核验valid=true。三生成耗时0.002663/0.021600/0.003239秒，总臂约620.769秒，不能混淆生成与执行耗时。raw库存`692cab463a48a263b8e3724f895b1ad92f668415f4a8d4eac7b1322d10d6bc5f`，93组件/28272文件/6链接；报告`docs/research/2026-10-20-tool-plan-qualification-results.md`。只证明三个开发任务可由工具完成初始方案；无本轮真实失败/恢复，不推效果优势、自然覆盖率或新C++效果。libverto干净默认配置成功不回填#530旧增量恢复失败。下一步固定共享测试装配/恢复接口与覆盖登记再设计比较，不新增Provider、不加P2、不改RQ3。发布以PR541→依赖分支及`/home/yiwei/.codex/outputs/forge-tool-plan-session-2026-10-20/final-publication-audit.json`为准，未进main。
 
 主线仍为“面向C/C++仓库自动化构建的状态感知动作选择与验证方法研究”，目标是完整、可答辩、可复现的硕士论文。利用构建阶段规律提前生成项目方案，Workflow依据权威执行记录推进，异常时规则或Agent修订，首变化后失效并重新验证。小幅改善、条件性优势和明确取舍都值得继续，不要求所有指标同时占优；不通过改裁判制造成功。
 
