@@ -19,4 +19,6 @@ raw /home/yiwei/.codex/outputs/forge-cxx-cross-system-reference-v1；inventory 9
 
 新cpp-build-cxx-cross-system-reference-header-v1仅原libconfig一槽。唯一变化为configure前缀AUTOHEADER=true，延续已冻结bootstrap的供应模板选择；来源、完整测试命令/输出要求、上游XFAIL、两静态交付、原文件SHA/索引/no HEAD与replay/cleanup逐字段保持。原configure明确AUTOHEADER=${AUTOHEADER-...autoheader}，修订不删除或更改模板、不忽略测试/编译失败。若仍改原文件照常拒绝。
 
-新174组件、同名manifest/preregistration；原171组件不改。新身份尚未运行，不填结果。未来有效参考池只能分别引用tinyxml2原身份与libconfig新身份，不称原双项目2/2；共同接口/真实三策略须资格实际闭合后另冻，不加P2或改RQ3历史分母。
+新174组件、同名manifest/preregistration；原171组件不改。独立header-v1已1/1qualified、0未观察，原/replay原文件265项全部保持；作者完整8PASS+1XFAIL、16/16 tinytest、两静态库精确交付、索引/no HEAD、同镜像2CPU重放与实际cleanup均独立审计valid。raw forge-cxx-cross-system-reference-header-v1，inventory c22ffdac89586ec8f7507d0d3a5a34c97ef84870bef422c9a7c70d3980b30a6c（1579文件/4链接/55427368bytes），运行releasec5d80fc33fd0341001bf74ebd6a88618ee215829。会话header-reference-independent-audit.json及其独立实现保留；新14组合测试/产品2225passed44skipped27warnings、Ruff通过。
+
+有效参考池分别引用tinyxml2原身份与libconfig新身份，不称原双项目2/2；共同接口/真实三策略仍须新资格闭合后另冻，不加P2或改RQ3历史分母。资格只证明这些已见任务可严格完成，不证明真实Agent效果或跨系统普遍成功率。

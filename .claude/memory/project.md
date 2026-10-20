@@ -4,7 +4,7 @@
 
 ## 进行中 (In Progress)
 
-- 2026-10-21 — #565准备C++ Make/Autotools完整参考资格，待活动六槽比较清理后串行运行
+- 2026-10-21 — #565跨系统参考与独立header环境资格均已终结，等待最终CI发布
   - 文件: `scripts/forge_build_cxx_cross_reference.py`, `benchmarks/manifests/cpp-build-cxx-cross-system-reference-v1.json`
   - 动机: #561来源2/2通过尚不代表完整作者测试/原源码/精确交付/replay闭合；0Provider，原UTC22:07:35截止，失败与未观察保留。libconfig保留8PASS+1XFAIL及所有原文件不变合同。
 
@@ -583,7 +583,7 @@
 
 - 2026-10-21 — #565原双项目参考1/2合格并保留libconfig模板改写失败，冻结独立header环境资格
   - 文件: `docs/research/2026-10-21-cxx-cross-reference-results.md`, `scripts/forge_build_cxx_header_reference.py`及同名manifest/preregistration/test
-  - 动机: tinyxml2原/replay各508断言通过、strict；libconfig原/replay完整8PASS+1XFAIL及16 tinytest与交付/replay通过，但make重生成唯一原文件ac_config.h.in，原资格false。新身份只令configure继承AUTOHEADER=true，完整测试/来源/交付/预算/截止保持，尚未运行；0Provider、原inventory9f68befd保留不重启。
+  - 动机: tinyxml2原/replay各508断言通过、strict；libconfig原/replay完整8PASS+1XFAIL及16 tinytest与交付/replay通过，但make重生成唯一原文件ac_config.h.in，原资格false。新header-v1只令configure继承AUTOHEADER=true，1/1严格资格闭合，原/replay原文件265项、8PASS+1XFAIL/16tinytest/两静态交付/replay/cleanup全通过独立审计。inventoryc22ffdac，releasec5d80fc3；新14回归/产品2225passed44skipped/Ruff通过。0Provider、原inventory9f68befd保留不重启。
 
 - 2026-10-21 — 封存#561双来源并独立重建Git树验证commit绑定。
   - 证据: cxx-cross-system-source-v1，tinyxml2 Make拟任务273文件/libconfig Autotools拟任务265文件，均0源链接；2/2来源逐blob/模式与归档归一化保持通过，0Provider/凭据/模型费/源码执行/Docker。库存89e09bc2267593695a0dae54f9eda9d764d0afcc3af7ad780850d92c4f6aff5f，186文件/15686794bytes；release575c74cd。
