@@ -1,6 +1,14 @@
 # Forge Research Status
 
-> 当前科研入口。冻结raw/inventory证明观察；版本化协议/报告定义身份和解释；Git/GitHub/CI证明代码与发布；`.claude/memory/project.md`保留工程交接，个人知识库保留长期综合。
+## 当前科研进度（2026-10-20；#542共享接口与公平比较候选）
+
+当前完成基础设施资格，尚无新Provider效果数据。工具/模型初始规划共用BuildActions、系统固定测试与交付装配、同一Workflow/只读恢复Agent/预算/裁判。共享门禁v2九槽9strict、0未观察，7脚本响应/38Shell；强工具新入口1strict、1脚本响应/3Shell；均0真实Provider/Token/费用/未知、独立stdlib审计valid。CMake双来源原与replay14/14，Autotools均6/6（0skip/0fail），Make完整自测；两个真实受控失败各handoff/revision2并保留配置前缀，初始拒绝独立升级不混恢复率。
+
+v1为修复本轮共享库链接暂存缺口主动中断，3strict/1部分/5未启动保留，不回填；v2只修本轮新增模块，原93历史组件不变。新共同暂存接受仓库内部版本化链接解析到真实ELF/ar再交付普通文件，越界/循环/悬空/歧义拒绝，严格裁判不变。工程门禁不能证明真实成本/成功率或自然恢复优势。
+
+公平比较候选cpp-build-unified-plan-comparison-v1已冻结107组件，SHA7ac195707008dd127719b808577a1e099dcd4675652664041de2928b0d03023e、真实CLI preflight通过；原六已见评估项目×2重复×3方法36槽，全部未观察。两规划来源同装配/恢复；强工具是整策略参照。全初始/拒绝升级/失败/恢复成本计入，六种排列及次重复反序；静态模板2直接/4保守拒绝已登记，不删除项目。新费用/有效时窗待用户决定，旧付费stage不续用。不加P2、不改RQ3分母、不放宽裁判，用户HTML不动。
+
+报告docs/research/2026-10-20-unified-plan-interface-results.md；v2 raw forge-unified-plan-gate-v2，inventory6617b2f862686ca5c8086d3ca1431182d8bc8576c365a8166bbbd9dbafdf24a5（56671文件/30链接/229021615bytes）；强工具补验库存bcdbdda48cd3f01464c33ee2ab7a6e1beb3cce86f8f3c21f70ea769a060d0a89。审计/完整测试/候选preflight/最终发布与知识库收据统一在/home/yiwei/.codex/outputs/forge-unified-plan-session-2026-10-20/。本轮36新测试、产品2088passed/44skipped、Ruff/548文件格式通过；仅合依赖分支yiwei/534-rq3-natural-failures，最终head三CI/merge/Issue以GitHub及final-publication-audit.json为准，未进main。
 
 ## 当前阶段与决定（2026-10-20新一轮）
 
