@@ -4,10 +4,7 @@
 
 ## 进行中 (In Progress)
 
-- 2026-10-21 — #558十八槽已封存并独立审计，原exec52945已终止，不重跑；新#560/#562资格准备，Docker/新Provider尚未开始。41组合回归、新产品2244passed44skipped27warnings/Ruff通过；未跟踪新模板/可逆文本模块与协议留待独立分支，不混入#558结果提交。#561来源草稿暂存在会话cross-source-draft/。
-
-- 2026-10-21 — #558连续科研轮：共享新增20美元/UTC18:07:35至22:07:35，准备计入。新四槽零Provider调度资格（buffer三策略+snappy强工具缺槽）通过并独立审计后冻结18槽C++比较；旧#556 v3保持10观察/1未观察，均不改冻结组件、验收或RQ3分母。最终HEAD三CI后仅合科研依赖分支，知识库持续同步。
-
+- 2026-10-21 — #560/#562真实六槽已封存并三独立审计通过，exec35697终态0，不重跑；#565跨系统参考在独立工作区release05503b2c/exec25843终结，原1/2合格：libconfig测试与replay通过但autoheader改写原模板，失败保留；新header-v1仅configure继承AUTOHEADER=true准备中。raw forge-cxx-cross-system-reference-v1，不并行Docker。#568共同接口/比较为后续有条件计划，#567 RQ3固定18/6审计进行中；共享20美元原UTC22:07:35截止不延长。最终结果HEAD三CI后仅合科研依赖分支，用户HTML不动。
 
 - 2026-10-20 — #542共享契约及新强工具调度资格已完整结束；本条以下“运行中”均为历史。
   - v2九槽9strict/0未观察，7脚本响应/38Shell，库存6617b2f862686ca5c8086d3ca1431182d8bc8576c365a8166bbbd9dbafdf24a5，56671文件30链接229021615bytes；独立stdlib audit valid=true。CMake两来源原/replay14/14、Auto各6/6（0skip/fail），Make完整自测；受控两失败各handoff/revision2并保留gate-configure，初始拒绝另记升级。无真实Provider/Token/费用/未知，不当效果或自然恢复率。
@@ -577,6 +574,20 @@
 
 ## 最近变更 (Recent Changes)
 
+- 2026-10-21 — 完成#560/#562六槽真实模板消融与独立分层费用核验
+  - 文件: `docs/research/2026-10-21-task-selected-template-results.md`, `RESEARCH_STATUS.md`
+  - 动机: 新旧各3/3strict、各14请求；估费0.35033196/0.383163美元，累计臂秒848.636480/869.947990，新模板未见整体优势。三次真实恢复保留源码准备、清空build重走后缀，0未知；可逆材料22/28实际请求核验，原/replay完整测试/源码/精确交付/cleanup均valid。inventory0aa0d9dd，release29784841，全部28请求/$0.73349496，本轮累计$2.18434128；后验重复读取只当诊断，不作因果或总体结论。
+
+- 2026-10-21 — 完成#560/#562三项目严格资格及实际可逆材料审计，冻结真实六槽消融。
+  - 证据: task-selected-template-gate-v1最终3strict，初始1strict/两次真实check失败+各1脚本恢复，0Provider/Token/费；主/详情/实际发送材料独立三审计valid，库存3da18bf369a6e659d4431bcda0eafe1dc1a17b2ae64d7c0a44b588a4c568045f。不是模型效果。
+  - 候选: task-selected-comparison-v1、177组件、旧/新模板六槽；两者共新meter/Workflow/恢复Agent，只改initial generator；真实尚未启动。阶段9美元预留共享本轮20美元/UTC22:07:35，原18槽1.45084632美元stage已闭合。
+  - 文件: docs/research/2026-10-21-task-selected-template-results.md、同名manifests/preregistrations；唯一启动launch_selected_paid.py必须绑定阶段授权/共享账本并禁止参考注入，不重跑旧身份。
+
+
+- 2026-10-21 — 冻结#560/#562任务指定多入口模板及可逆状态文本资格。
+  - 文件: task_selected_tool_plan.py、shared_text_packet.py、forge_build_referenced_meter.py、forge_build_task_selected_gate.py、forge_build_task_selected_comparison.py及对应回归和两份预注册；仅新增文件，不改原18槽165冻结组件。
+  - 资格: 新三项目零Provider身份已冻结，初始均必须工具生成，只有真实失败后用脚本参考恢复且清空build缓存；不当真实Agent效果，原50k消息/8k schema与完整严格裁判不变。真实六槽须该资格独立通过后另冻结，双方同材料meter/Workflow/恢复Agent，只改initial generator；不得跨批归因。
+  - 检查: 41组合回归/产品2244passed44skipped27warnings/Ruff通过，三个实际失败状态后验最小包可逆复原约47k→30k（不是旧被拒报文）。下一步唯一启动launch_selected_gate.py，不并行付费/不延长共享UTC22:07:35窗口；代码发布仅依赖分支。
 - 2026-10-21 — 封存#561双来源并独立重建Git树验证commit绑定。
   - 证据: cxx-cross-system-source-v1，tinyxml2 Make拟任务273文件/libconfig Autotools拟任务265文件，均0源链接；2/2来源逐blob/模式与归档归一化保持通过，0Provider/凭据/模型费/源码执行/Docker。库存89e09bc2267593695a0dae54f9eda9d764d0afcc3af7ad780850d92c4f6aff5f，186文件/15686794bytes；release575c74cd。
   - 审计: 首次将API按commit查询的回显sha误当tree SHA，失败收据保留；改为独立重建全部Git tree对象绑定commit.tree后valid，raw/identity不变、不重新下载。8新/产品2211passed44skipped27warnings、Ruff通过。
