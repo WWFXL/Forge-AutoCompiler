@@ -4,8 +4,8 @@
 
 ## 进行中 (In Progress)
 
-- 2026-10-20 — 本轮科研新增采集已结束，当前仅发布/清理/知识库交接；以RESEARCH_STATUS.md和最终交接为恢复入口，以下早期条目是历史过程，不视为待执行授权。
-  - 待后续新有效时窗：将新planner v2显式接线，冻结足够依赖资源，再执行libverto最小配置恢复资格；不补跑v1。
+- 2026-10-20 — #536三策略完整零Provider门禁已结束；以RESEARCH_STATUS.md和最终交接为恢复入口，以下早期条目是历史过程，不视为待执行授权。
+  - 待后续新有效时窗：执行原六评估项目×两重复×三方法36槽真实比较。新planner接线与libverto最小配置恢复资格已由#530完成，结果为修订不足以恢复；不补跑旧身份、不回填成功。
 
 - 2026-10-20 — #508准备两项参考配方独立修复资格，尚未提交/运行
   - 先创建回读Issue508，再新增独立runner/4项测试/预注册/候选manifest；libpng stage改cp build/libpng.a，libzip配置加BUILD_DOC=OFF，原任务不要求文档，完整回归/精确交付/源身份/源码不变/replay不动。libffi仍未核验修复，不替补。不是新holdout/方法效果，不回填旧493/502/504。
@@ -523,6 +523,21 @@
   - 下一步: 等待实验负责人确认当前网络接入介质，并决定是否授权只读 endpoint 诊断和新的 canary amendment；获得确认后必须另建中文 Issue/PR 和协议 identity，保留当前失败 marker。
 
 ## 最近变更 (Recent Changes)
+
+- 2026-10-20 — 完成#536三策略入口与v2完整13槽零Provider门禁，保留旧v1中断与独立fallback资格，不改变真实比较分母。
+  - 文件: scripts/forge_build_full_strategy_runtime.py、scripts/forge_build_full_strategy_runtime_v2.py、scripts/forge_build_full_strategy_fallback_gate.py、三个对应test、v1/v2 manifest/preregistration、docs/research/2026-10-20-build-full-strategy-runtime-results.md、RESEARCH_STATUS.md。
+  - 动机: 解除完整三策略比较的执行与接管资格阻塞；v1误把3900秒真实Provider余量用于Fake零Token请求已复现/修复，v2仅分离零Provider时间检查，正式模型仍保留3900秒、全费用/资源与完整裁判。
+  - v2 release f349ffd0、82组件、13/13 strict/16脚本请求/58Shell/0Token/Provider/费用，140562文件/72链接/476924134 bytes，inventory08286b1789beabeef814fda35d735da3575984a82d6489d189eb9ca9c13a841f，独立audit valid=true。最后规则后stage再失败由Agent返回revision3，仅重做stage，最终replay仍全配方。
+  - 独立fallback1strict/2脚本请求/6Shell/2handoff/revision3，库存bfb6a3b7；旧v1主动SIGINT后7strict/1中断部分/5未启动，含部分8脚本请求，库存0553b00b。原始label initialization_not_completed不替代外部中断收据真实原因；部分源码不变、实际cleanup通过，未计为效果失败。两独立实现核验通过，旧证据不回填。
+  - 新预算共享$20，UTC01:48:10至03:48:10；03:15:51门禁后余1938.9秒<3900，真实36槽全部not_observed，无正式attempt；本轮共26脚本请求/0实际Provider/0Token/0费用/0未知预留，未用20，不挪旧费用。预算/准入/审计/发布收据在 /home/yiwei/.codex/outputs/forge-three-strategy-session-2026-10-20/。所有新compile/replay容器实查已清理，后台采集已结束。
+  - 15相关测试、产品2015 passed/44 skipped、Ruff/536格式通过；PR537最终head三CI、merge与536关闭以GitHub/本轮final-publication-audit.json为准，目标依赖分支yiwei/534，未进main。用户HTML未改/未提交，知识库只MCP CAS更新回读。
+  - 下一步: 新有效授权窗口中执行原六评估×两重复×三方法36槽；不称holdout、不加P2、不改RQ3原固定分母/科学主张。门禁是基础设施证据，不是策略费用/成功率或真实模型能力效果。
+
+- 2026-10-20 — #536复现零Provider脚本请求误用3900秒付费余量，冻结独立v2重新验证完整13槽矩阵。
+  - 文件: scripts/forge_build_full_strategy_runtime_v2.py、backend/tests/test_build_full_strategy_runtime_v2.py、benchmarks/manifests/cpp-build-full-strategy-runtime-v2.json及同名preregistration。仅scripted-gate且0用量时区分120秒工程检查；真实Provider3900秒余量、全成本、原资源/验收均不变。外层03:46:10 UTC SIGINT、90秒强止，原截止03:48:10不延长。v1/独立fallback均保留；并行工程资格耗时不用于效果比较。
+
+- 2026-10-20 — #536完整13槽零Provider矩阵运行中，前5槽strict；先登记独立fallback资格以提前核验关键链路，不替代原矩阵或准入付费。
+  - 文件: scripts/forge_build_full_strategy_fallback_gate.py、backend/tests/test_build_full_strategy_fallback_gate.py、benchmarks/preregistrations/cpp-build-full-strategy-fallback-gate-v1.md。独立进程/根/身份，共同资源和3900秒请求余量不变；仅原最后一项规则后stage再失败转脚本Agent。并行资格耗时不用于效果比较。原矩阵及全部失败/未观察保留。
 
 - 2026-10-20 — 收敛本轮当前状态入口与发布边界
   - RESEARCH_STATUS改为本轮3阶段与下一准入的紧凑入口，旧时间线转由上一轮handoff/报告保留；本地产品2004 passed/44 skipped，全后端及新脚本Ruff/533格式通过。#531 merge7ba7e88a/#530关闭，#533 mergeb1fa880f/#532关闭，均最终head三CI全SUCCESS后合并；#535等待最终head检查，不进main，长期#470保留OPEN。本轮0Provider，旧费用授权截止不续用，拟议$12非已授权；用户HTML不动，单例容器已清理。
