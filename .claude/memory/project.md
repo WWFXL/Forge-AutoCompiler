@@ -572,6 +572,12 @@
 
 ## 最近变更 (Recent Changes)
 
+- 2026-10-20 — #546规划观察接口修复已实现，零Provider资格待运行。
+  - 文件: backend/packages/harness/deerflow/compile/unified_plan_v2.py、scripts/forge_build_plan_predicate_gate.py、scripts/forge_audit_plan_predicate_gate.py、对应新测试及cpp-build-plan-predicate-qualification-v1协议。
+  - 动机: #544中14次exit0却缺日志断言及路径/顺序/无变化建议暴露接口歧义。新类型区分stdout/文件/目录，文件检查随显式命令进入replay；严格子Shell保持原失败且exit/exec不能跳过检查；阶段不自动重排，最多一次结构纠错，全请求同预算，Provider异常不重试。
+  - 原107组件和冻结raw保持；新14槽预期13strict/1准确缺文件拒绝，不把工程资格算真实收益。不读取凭据/新增付费，旧HTTP402原因未核验；用户HTML不动，仅合依赖分支。先前测试临时目录权限警告与本轮无关，未清理用户数据。
+
+
 - 2026-10-20 — #544共享接口真实比较按未知用量规则停止封存，完成独立审计与结果分析。
   - 固定cpp-build-unified-plan-comparison-v1，运行release3455ec743376b56090d956e554625365cede2e8d、107组件全不变；35/36观察17strict、1未观察（check-r2强工具）。check-r2模型首次Provider HTTP402，原error event status_code402/usage未知；所有实际cleanup通过，不重试/回填，不续旧身份。UTC10:44:53结束、stage.completed，原20美元/UTC08:46:56至12:46:56不延长，无新付费身份。
   - 工具Workflow5/12、68请求、994543tokens/$1.75418628；模型3/12、76请求、959822记录tokens/已知$1.60195200+未知1；强工具9/11观察（计划12）、85请求912301tokens/$1.26348684。共229请求2866666记录Token、已知$4.61962512/未知预留$0.40、预算占用$5.01962512，未知不补0，不称完整全费用比较。
