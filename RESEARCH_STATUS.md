@@ -1,6 +1,24 @@
 # Forge Research Status
 
-## 当前科研进度（2026-10-20；#542共享接口与公平比较候选）
+## 当前科研进度（2026-10-20；#544公平比较停止封存，结果分析完成）
+
+cpp-build-unified-plan-comparison-v1固定36槽中35已观察、17strict、1未观察。check-r2模型首次请求Provider HTTP402，usage未知，按冻结规则停止，最后check-r2强工具未执行，不重试/回填。全部实际cleanup独立通过；不是20美元预算耗尽。UTC10:44:53结束、付费stage关闭；229请求、2866666已记录Token、已知保守估费4.61962512美元，未知1请求保留0.40美元，预算占用5.01962512美元。原新20美元/UTC08:46:56至12:46:56授权未延长，不借余额另开身份。
+
+| 方法 | strict/已观察（计划12） | 请求 | 已知估费USD | 未知请求 |
+| --- | --- | --- | --- | --- |
+| 工具规划Workflow＋失败Agent | 5/12 | 68 | 1.75418628 | 0 |
+| 模型规划Workflow＋失败Agent | 3/12 | 76 | 1.60195200 | 1 |
+| 强工具Agent | 9/11 | 85 | 1.26348684 | 0 |
+
+**局部收益与边界**：libsodium模板两次0模型strict，强工具同2/2但17请求/0.24200880美元；libzip模板两次0请求但原HTML重生成拒绝，不删除失败。工具总体少8请求但已知费用更高；模型另有未知、强工具缺1槽，不宣称完整成本优势或完整平衡排名。四个模板拒绝项目初始8对仅归一化node_seconds后输入一致，各Workflow3/8 strict，随机轨迹差异不能归为工具消除了模型规划。
+
+9个Workflow槽真实交接、14handoff/7修订、0最终strict；16次未满足预期中14次命令exit0但日志断言缺失，另2次真实非零退出。4路径schema/1阶段装配拒绝均复现；终态18未strict为6预算/4原HTML合同/4schema/2无变化修订/1阶段顺序/1Provider未知。原固定测试未执行层仍未观察，不通过改裁判制造成功，不加P2、不改RQ3。主要已见C库、五保守关联组，不推大型C++或总体排名，不据混合结果放弃硕士主线。
+
+报告docs/research/2026-10-20-unified-plan-comparison-results.md；授权登记同日unified-plan-comparison-authorization.md。raw /home/yiwei/.codex/outputs/forge-unified-plan-comparison-v1/，inventory1a327cf685d57430e070967bf036f0b2d622e8cab087afc259eb9b8d27abea23（65254文件/158链接/1166931435bytes），107冻结组件不变，运行release3455ec743376b56090d956e554625365cede2e8d。独立stdlib审计valid、原分析/费用/预算/初始输入核验闭合；未知原样保留。审计/metrics-usage-aware.json/最终CI与发布/知识库收据统一在/home/yiwei/.codex/outputs/forge-unified-comparison-session-2026-10-20/。发布记录PR545→依赖分支yiwei/534-rq3-natural-failures，最终完整HEAD三CI/merge/Issue544关闭以GitHub及final-publication-audit.json为准，未进main；#470保持OPEN，用户HTML不动。
+
+下一步先修规划字段语义、规范路径和恢复反馈的零Provider资格，再补C++样本资格；本轮不能主张自然恢复优势。新付费实验须先解决Provider HTTP402外部阻塞，并核验新身份/预算/有效时窗，不能续跑本轮或自动挪剩余额度。
+
+## 上一阶段（#542共享接口与公平比较候选）
 
 当前完成基础设施资格，尚无新Provider效果数据。工具/模型初始规划共用BuildActions、系统固定测试与交付装配、同一Workflow/只读恢复Agent/预算/裁判。共享门禁v2九槽9strict、0未观察，7脚本响应/38Shell；强工具新入口1strict、1脚本响应/3Shell；均0真实Provider/Token/费用/未知、独立stdlib审计valid。CMake双来源原与replay14/14，Autotools均6/6（0skip/0fail），Make完整自测；两个真实受控失败各handoff/revision2并保留配置前缀，初始拒绝独立升级不混恢复率。
 
