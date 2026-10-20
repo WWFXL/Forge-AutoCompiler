@@ -1,12 +1,14 @@
 # Forge Research Status
 
-## 当前阶段（2026-10-20；#550新授权十二槽真实比较准备启动）
+## 当前阶段（2026-10-20；#550真实比较因首次HTTP402停止封存）
 
-进入真实数据采集。用户已明确“授权20美元、4小时，按冻结协议执行”，接收核验UTC14:19:33，绝对截止UTC18:19:33（北京时间2026-10-21 02:19:33），准备计入。仅执行cpp-build-observed-plan-comparison-v1，候选SHA8a9310f8c89d657b29d9a1b7f56b967c17ba615a2717d2239fda139293bade2b，120组件/四已见项目×三方法12槽/原模型和完整裁判保持，旧余额不续用。
+本轮数据采集已终止，进入结果分析与发布收尾。用户新授权20美元/4小时，UTC14:19:33至18:19:33（北京时间2026-10-21 02:19:33），准备计入；cpp-build-observed-plan-comparison-v1于UTC14:22:18启动、14:22:23关闭。首槽libpng/tool_plan_workflow模板拒绝后，initial_abstention首次Agent请求再次HTTP402、usage未知，按冻结规则停止整批，无自动重试/补槽。1槽请求被观察、11槽未观察、0可比较项目对；build/完整测试/精确交付/clean replay全部未观察，不能作为构建方法失败或三策略效果。
 
-先核验已发布PR549及十四槽/路径/三策略调度门禁，不重跑旧资格。首次新真实请求兼作HTTP402服务核验并全计量；未知usage/模型身份错误/实际cleanup失败立即停整批、不自动Provider重试/补槽。每请求及新槽3900秒余量、费用预留和最后15分钟清理保持。尚无本轮观察，启动及结果以新raw为准，不把准备算效果。
+已知完成响应估费0.00美元、1未知请求预留0.40美元、预算占用0.40美元；实际模型总费用未知，不称免费或预算耗尽。原源码与实际容器清理通过，独立stdlib原始证据及预算审计valid=true，lifecycle闭合。120冻结组件和原裁判不变，候选SHA8a9310f8c89d657b29d9a1b7f56b967c17ba615a2717d2239fda139293bade2b，运行release86a7f59cacd12d3bfb0fcc059414e1852ab47c78。
 
-授权登记docs/research/2026-10-20-observed-plan-comparison-authorization.md；唯一会话forge-observed-plan-real-session-2026-10-20、唯一raw /home/yiwei/.codex/outputs/forge-observed-plan-comparison-v1/。全部初始/失败/纠错/恢复费用计入，定向开发样本只作描述性配对，接受小幅/条件性取舍，不加P2、不改RQ3/裁判，不推总体/自然恢复率或跨批因果。Issue550跟踪，用户HTML不动。
+报告docs/research/2026-10-20-observed-plan-comparison-results.md；授权登记同日observed-plan-comparison-authorization.md。raw /home/yiwei/.codex/outputs/forge-observed-plan-comparison-v1/，inventory0a859d724b8e37e2c683e5531397cf0135fbd499a416ec12dbf7ce43e424e778（698文件/0链接/11751288bytes）。独立审计、分层描述/预算、检查/最终CI/发布和知识库收据统一在/home/yiwei/.codex/outputs/forge-observed-plan-real-session-2026-10-20/。发布仅合依赖分支yiwei/534-rq3-natural-failures，最终HEAD三CI/merge/Issue550以GitHub及final-publication-audit.json为准，不进main；#470保持OPEN，用户HTML不动。
+
+下一步先处理Provider外部服务阻塞；HTTP402的账户/服务端原因尚未核验，不能声称余额不足或已恢复。本身份永久停止，不用剩余额度另开付费身份/探针、不充值或擅换Provider；服务恢复后另冻结身份并核验新授权。主线与硕士目标保持，接受小幅/条件性收益，不加P2、不改RQ3固定分母/验收，不将本次服务失败解释为方法负结果或跨批因果。
 
 ## 上一阶段（2026-10-20；#548新观察接口真实比较准入准备完成）
 

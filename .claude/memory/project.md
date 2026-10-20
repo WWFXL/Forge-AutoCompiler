@@ -4,12 +4,6 @@
 
 ## 进行中 (In Progress)
 
-- 2026-10-20 — #550按用户新授权准备唯一十二槽真实比较，尚未启动。
-  - Issue550已创建回读，新分支yiwei/550-observed-plan-real从PR549 mergeecd623b1建立。候选身份cpp-build-observed-plan-comparison-v1，SHA8a9310f8c89d657b29d9a1b7f56b967c17ba615a2717d2239fda139293bade2b，120组件不改，用户HTML不动。
-  - 用户明确授权20美元/4小时，接收核验UTC14:19:33、截止UTC18:19:33，准备占窗，旧余额不续用。会话forge-observed-plan-real-session-2026-10-20，唯一raw forge-observed-plan-comparison-v1；启动前授权及门禁先于凭据，首真实请求核验旧402并全计量，未知/cleanup/模型身份立即停不重试/补槽。
-  - 不重跑旧资格，原完整测试/源码/交付/replay/资源保持。完成采集后独立审计、分阶段全成本与分层未观察分析，最终head三CI后仅合依赖分支/关闭Issue/知识库CAS同步；不加P2、不改RQ3/主线/主张，不把小样本描述推总体。
-
-
 - 2026-10-20 — #542共享契约及新强工具调度资格已完整结束；本条以下“运行中”均为历史。
   - v2九槽9strict/0未观察，7脚本响应/38Shell，库存6617b2f862686ca5c8086d3ca1431182d8bc8576c365a8166bbbd9dbafdf24a5，56671文件30链接229021615bytes；独立stdlib audit valid=true。CMake两来源原/replay14/14、Auto各6/6（0skip/fail），Make完整自测；受控两失败各handoff/revision2并保留gate-configure，初始拒绝另记升级。无真实Provider/Token/费用/未知，不当效果或自然恢复率。
   - 新强工具slot_runner实际补验buffer1strict/1脚本响应/3Shell、一次无参数submit，源码/原测试/精确交付/replay/实际cleanup及独立审计通过；库存bcdbdda48cd3f01464c33ee2ab7a6e1beb3cce86f8f3c21f70ea769a060d0a89，146文件2105347bytes。v1中断库存d0e7ce5f保留、独立审计valid，不续跑/回填。原93组件不变。
@@ -577,6 +571,13 @@
   - 下一步: 等待实验负责人确认当前网络接入介质，并决定是否授权只读 endpoint 诊断和新的 canary amendment；获得确认后必须另建中文 Issue/PR 和协议 identity，保留当前失败 marker。
 
 ## 最近变更 (Recent Changes)
+
+- 2026-10-20 — #550按授权执行十二槽比较，首次HTTP402未知用量即停止封存。
+  - 文件: `docs/research/2026-10-20-observed-plan-comparison-results.md`, `RESEARCH_STATUS.md`；授权20美元/UTC14:19:33至18:19:33，运行release86a7f59c。1槽请求观察/11未观察/0可比对，libpng工具模板拒绝后initial_abstention首请求402；0完成响应/命令/Workflow修订/replay，build/完整测试/交付/replay均未观察，不当方法失败。
+  - raw forge-observed-plan-comparison-v1永久封存，inventory0a859d724b8e37e2c683e5531397cf0135fbd499a416ec12dbf7ce43e424e778，698文件/0链接/11751288bytes；120组件不改、源码及实际cleanup通过。会话forge-observed-plan-real-session-2026-10-20原始独立审计/预算审计valid=true；已知估费0、未知1预留0.40美元，实际总费用未知，付费stage关闭无重试/补槽。
+  - 服务具体原因未核验，不挪余额另开付费身份，不重启本身份；恢复后另冻结/授权，主线/P2/RQ3/完整裁判保持。收尾检查与最终HEAD三CI/PR合依赖分支/Issue关闭/知识库CAS，以会话final-publication-audit.json及GitHub/MCP收据为准，未进main，用户HTML不动。
+  - 本轮产品2131passed/44skipped/27warnings，Ruff/556格式通过、120组件与候选逐hash不变；pytest历史临时树清理权限警告保留，不删除其他任务目录。工程审计用系统Python3.10解析Z日期失败，未写结果；随后同脚本用backend/.venv Python3.12成功，不算Provider或实验重试。
+
 
 - 2026-10-20 — #548完成新观察接口三策略准入准备，未授权真实模型。
   - Issue548先创建回读，分支yiwei/548-observed-plan-comparison从PR547 merge40ceb2fd建立，用户HTML不动。新独立slot_runner显式接observed_planner，真实入口拒绝reference，产品默认及107历史组件不改。
