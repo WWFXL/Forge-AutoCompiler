@@ -572,6 +572,12 @@
 
 ## 最近变更 (Recent Changes)
 
+- 2026-10-21 — #556保留v2固定恢复装配拒绝，统一新v3初始/恢复装配。
+  - v2首buffer受控build失败后因旧恢复装配重建旧stage而拒绝，模型请求前停止，1观察/0strict/10未观察；原源码/实际cleanup独立stdlib审计valid，库存9ba4e638105a1bc98ca83dff135aea975fdfa443fe5a4023ac79c82f77f9a573，205files/2316875bytes，release7ed4731f。旧152组件与raw不改。
+  - v3新unified_plan_equivalent及observed模块让工具/模型/恢复全部使用相同副本同等性暂存，不在装配后替换；实际Fake Agent图两来源带准备前缀恢复及旧/篡改stage拒绝回归通过，合计30相关测试。157组件manifest SHAaf7be3c3eb9be2da8a10bfdce7efc6c371b8a0d6245b130fd84fc7f9aec17c96，唯一完整11槽未启动；绝对截止、0Provider/费/50k上限/原裁判不变。
+  - 文件: unified_plan_equivalent.py、unified_plan_equivalent_observed.py、test_unified_plan_equivalent.py、forge_build_cxx_common_input_gate_v3.py及同名manifest/preregistration。会话forge-cxx-common-input-session-2026-10-21；PR557/Issue556，不进main，用户HTML不动。
+
+
 - 2026-10-21 — #556保留v1暂存失败并冻结副本同等性修复v2。
   - v1两buffer受控恢复strict、yaml原1068默认GoogleTest/CTest3全过后因两个同名字节相同/模式相同库暂存拒绝，随后50k恢复门禁阻断，后8未观察；原源码/实际cleanup独立stdlib审计通过。raw forge-cxx-common-input-gate-v1，库存7c4a2a1fe2d7912d7a58d84a52df61471d0f63e5d0fb066a7deec1e3ed01d7a0，1656files/48745321bytes，release8884314e。原身份不重启，旧148组件不改。
   - 独立v2仅新增同字节/size/完整权限模式副本归一暂存器，两Workflow共同装配，其他歧义及不安全路径仍拒绝；50k门禁不扩额，最终精确交付/完整测试/replay不变。26相关回归通过；首测试因宿主Python3.10不支持file_digest失败，改为流式sha256后通过，日志保留。152组件manifest SHA8adbd6a7debc99cd55039472b0df8daf9a995cc0f386f53c0da6defcd1791568。
