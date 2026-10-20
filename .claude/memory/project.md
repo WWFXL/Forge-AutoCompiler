@@ -572,6 +572,13 @@
 
 ## 最近变更 (Recent Changes)
 
+- 2026-10-20 — #550按授权执行十二槽比较，首次HTTP402未知用量即停止封存。
+  - 文件: `docs/research/2026-10-20-observed-plan-comparison-results.md`, `RESEARCH_STATUS.md`；授权20美元/UTC14:19:33至18:19:33，运行release86a7f59c。1槽请求观察/11未观察/0可比对，libpng工具模板拒绝后initial_abstention首请求402；0完成响应/命令/Workflow修订/replay，build/完整测试/交付/replay均未观察，不当方法失败。
+  - raw forge-observed-plan-comparison-v1永久封存，inventory0a859d724b8e37e2c683e5531397cf0135fbd499a416ec12dbf7ce43e424e778，698文件/0链接/11751288bytes；120组件不改、源码及实际cleanup通过。会话forge-observed-plan-real-session-2026-10-20原始独立审计/预算审计valid=true；已知估费0、未知1预留0.40美元，实际总费用未知，付费stage关闭无重试/补槽。
+  - 服务具体原因未核验，不挪余额另开付费身份，不重启本身份；恢复后另冻结/授权，主线/P2/RQ3/完整裁判保持。收尾检查与最终HEAD三CI/PR合依赖分支/Issue关闭/知识库CAS，以会话final-publication-audit.json及GitHub/MCP收据为准，未进main，用户HTML不动。
+  - 本轮产品2131passed/44skipped/27warnings，Ruff/556格式通过、120组件与候选逐hash不变；pytest历史临时树清理权限警告保留，不删除其他任务目录。工程审计用系统Python3.10解析Z日期失败，未写结果；随后同脚本用backend/.venv Python3.12成功，不算Provider或实验重试。
+
+
 - 2026-10-20 — #548完成新观察接口三策略准入准备，未授权真实模型。
   - Issue548先创建回读，分支yiwei/548-observed-plan-comparison从PR547 merge40ceb2fd建立，用户HTML不动。新独立slot_runner显式接observed_planner，真实入口拒绝reference，产品默认及107历史组件不改。
   - 新调度cpp-build-observed-plan-dispatch-gate-v1实际3/3strict，2脚本响应/9命令，0Provider/Token/费用/未知，原源码/完整自测/精确交付/replay/实际cleanup独立stdlib核验valid=true；库存e178ed43c64313bbadef9f9c660b02238bd9612bd4f4097c5648399429ccb88a，253文件/2794095bytes、119组件，运行release daf67a8d。

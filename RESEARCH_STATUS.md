@@ -1,6 +1,16 @@
 # Forge Research Status
 
-## 当前阶段（2026-10-20；#548新观察接口真实比较准入准备完成）
+## 当前阶段（2026-10-20；#550真实比较因首次HTTP402停止封存）
+
+本轮数据采集已终止，进入结果分析与发布收尾。用户新授权20美元/4小时，UTC14:19:33至18:19:33（北京时间2026-10-21 02:19:33），准备计入；cpp-build-observed-plan-comparison-v1于UTC14:22:18启动、14:22:23关闭。首槽libpng/tool_plan_workflow模板拒绝后，initial_abstention首次Agent请求再次HTTP402、usage未知，按冻结规则停止整批，无自动重试/补槽。1槽请求被观察、11槽未观察、0可比较项目对；build/完整测试/精确交付/clean replay全部未观察，不能作为构建方法失败或三策略效果。
+
+已知完成响应估费0.00美元、1未知请求预留0.40美元、预算占用0.40美元；实际模型总费用未知，不称免费或预算耗尽。原源码与实际容器清理通过，独立stdlib原始证据及预算审计valid=true，lifecycle闭合。120冻结组件和原裁判不变，候选SHA8a9310f8c89d657b29d9a1b7f56b967c17ba615a2717d2239fda139293bade2b，运行release86a7f59cacd12d3bfb0fcc059414e1852ab47c78。
+
+报告docs/research/2026-10-20-observed-plan-comparison-results.md；授权登记同日observed-plan-comparison-authorization.md。raw /home/yiwei/.codex/outputs/forge-observed-plan-comparison-v1/，inventory0a859d724b8e37e2c683e5531397cf0135fbd499a416ec12dbf7ce43e424e778（698文件/0链接/11751288bytes）。独立审计、分层描述/预算、检查/最终CI/发布和知识库收据统一在/home/yiwei/.codex/outputs/forge-observed-plan-real-session-2026-10-20/。发布仅合依赖分支yiwei/534-rq3-natural-failures，最终HEAD三CI/merge/Issue550以GitHub及final-publication-audit.json为准，不进main；#470保持OPEN，用户HTML不动。
+
+下一步先处理Provider外部服务阻塞；HTTP402的账户/服务端原因尚未核验，不能声称余额不足或已恢复。本身份永久停止，不用剩余额度另开付费身份/探针、不充值或擅换Provider；服务恢复后另冻结身份并核验新授权。主线与硕士目标保持，接受小幅/条件性收益，不加P2、不改RQ3固定分母/验收，不将本次服务失败解释为方法负结果或跨批因果。
+
+## 上一阶段（2026-10-20；#548新观察接口真实比较准入准备完成）
 
 基础设施阶段，尚无新真实模型效果或付费授权。新独立入口显式接observed_planner，两个Workflow同ObservedBuildActions/完整测试/暂存/恢复，强工具仍为整策略参照，原107与#546的114组件保持。新buffer三策略调度零Provider门禁3/3 strict、2脚本响应/9命令，0Provider/Token/费用/未知，原源码/完整测试/精确交付/clean replay及实际容器不存在独立stdlib审计valid=true；不把工程资格当效果收益。
 
