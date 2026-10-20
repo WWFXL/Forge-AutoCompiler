@@ -1,12 +1,12 @@
 # Forge Research Status
 
-## 当前阶段（2026-10-21；#560/#562三项目资格闭合，真实六槽消融冻结待执行）
+## 当前阶段（2026-10-21；#560/#562六槽真实消融闭合，#565跨系统参考运行中）
 
-新cpp-build-task-selected-template-gate-v1最终3/3strict，初始独立模板1/3（simd直接；yaml测试开关OFF、snappy缺功能依赖，各真实check失败后一次脚本恢复/revision2）；保留源准备前缀、清空build并重走后缀。2实际Fake请求的引用材料经独立stdlib解码及原包SHA/任务/方案/50k消息/8k schema核验；0真实Provider/凭据/Token/费用，不能当真实Agent效果或0模型方法3/3。源码/索引/no HEAD/固定完整测试/精确交付/同镜像replay/实际cleanup主、详情、材料三审计valid。inventory 3da18bf369a6e659d4431bcda0eafe1dc1a17b2ae64d7c0a44b588a4c568045f，原175组件、release6e29f6cd，raw forge-task-selected-template-gate-v1。
+cpp-build-task-selected-comparison-v1完整6观察/6strict/0未观察，旧/任务指定模板各3/3strict、各14请求；保守估费0.35033196/0.383163美元、累计臂秒848.636480/869.947990。新模板费增约9.37%、耗时增约2.51%，本批未见整体收益；yaml少1请求但费用高、snappy多1请求、simd双方0模型strict，保留条件性取舍，不因此否定硕士主线。3次真实恢复均revision2，仅保留共同源码准备、清空build并重走完整后缀，不宣称最小增量节省。后验snappy精确重复读取旧2/15、新11/19，是效率线索而非因果证据。
 
-独立六槽cpp-build-task-selected-comparison-v1已冻结（177组件、candidate SHA c6a732cba2e5a7b163d59a30e14d6373ac13fc84a89f0bbfcae58276f7d61595），真实尚未启动：yaml旧新/simd新旧/snappy旧新各一对，只改initial generator，两者共同新引用材料meter/Workflow/恢复Agent。simd负控制、起始位置旧2新1不平衡、均已见CMake C++；跨批共同接口变化不算模板收益。最多9美元阶段预留，连原18槽估费1.45084632共享本轮20美元/原UTC22:07:35截止，不延长；未知usage/cleanup失败停、无重试补槽、不改RQ3分母/主线/验收、不加P2。
+28请求/466944Token/估费0.73349496美元、未知0；与原18槽1.45084632累计2.18434128美元，共享本轮20美元及原UTC22:07:35截止（北京时间06:07:35），不延长。双方共同新引用材料meter，22/28实际请求可逆编码并独立解码核验；源码/索引/no HEAD、原/replay完整测试和配置、精确交付及实际cleanup三审计valid。raw forge-task-selected-comparison-v1，inventory0aa0d9dddbfad8cf4a4d1b35fd9da4b73793eb00cc67774bd9c8174234d7d728（22294文件/4链接/916650977bytes），release29784841；报告2026-10-21-task-selected-template-results.md，主/详情/材料/费用/重复读取审计及授权终态在会话forge-cxx-continuous-session-2026-10-21/。新三项目零Provider资格仍3/3最终/1/3初始模板、2Fake，不能当真实效果。最终结果HEAD三CI后PR563仅合依赖分支，发布待GitHub核验。
 
-报告2026-10-21-task-selected-template-results.md，同名gate/comparison manifests与预注册；会话forge-cxx-continuous-session-2026-10-21/保存独立审计/授权/启动。41组合回归、产品2244passed44skipped27warnings/Ruff通过；最终结果HEAD三CI后PR563仅合依赖分支。#558结果PR559已合8c73a01de、558/556关闭、470保持OPEN；知识库CAS完整回读同步。#561独立工作区来源资格准备（无并行Docker），不改本运行HEAD/组件或用户HTML。
+六槽仅已见CMake C++、单重复且位置不完全平衡；相对原18槽共同接口也变化，不作跨批因果/总体/跨系统/自然恢复率或显著性主张。#561 Make tinyxml2与Autotools libconfig来源2/2独立Git对象审计通过，PR564已合0aaa5dca、Issue561已关闭。#565完整参考cpp-build-cxx-cross-system-reference-v1于UTC20:18后在独立工作区release05503b2c串行启动（exec25843），tinyxml2已strict、libconfig运行中，完整终态待核验，不续跑本身份；0Provider，原3300秒准入/截止、作者完整测试和上游XFAIL/原源码合同保持。#568后续共同接口与比较仅条件计划，须参考及零Provider资格闭合，不直接付费。#567只读RQ3固定18/6队列分层审计中，不改历史14/43分母，不加P2、不换主线。用户HTML不动。
 
 ## 上一阶段（2026-10-21；#558十八槽真实比较封存，进入#560/#562独立资格执行准备）
 

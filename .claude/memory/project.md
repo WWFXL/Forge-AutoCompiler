@@ -4,10 +4,7 @@
 
 ## 进行中 (In Progress)
 
-- 2026-10-21 — #558十八槽已封存并独立审计，原exec52945已终止，不重跑；新#560/#562三项目零Provider资格已3/3闭合，六槽真实候选已冻结、尚未启动。41组合回归、新产品2244passed44skipped27warnings/Ruff通过；未跟踪新模板/可逆文本模块与协议留待独立分支，不混入#558结果提交。#561来源草稿暂存在会话cross-source-draft/。
-
-- 2026-10-21 — #558连续科研轮：共享新增20美元/UTC18:07:35至22:07:35，准备计入。新四槽零Provider调度资格（buffer三策略+snappy强工具缺槽）通过并独立审计后冻结18槽C++比较；旧#556 v3保持10观察/1未观察，均不改冻结组件、验收或RQ3分母。最终HEAD三CI后仅合科研依赖分支，知识库持续同步。
-
+- 2026-10-21 — #560/#562真实六槽已封存并三独立审计通过，exec35697终态0，不重跑；#565跨系统参考在独立工作区release05503b2c/exec25843运行，raw forge-cxx-cross-system-reference-v1，不并行Docker。#568共同接口/比较为后续有条件计划，#567 RQ3固定18/6审计进行中；共享20美元原UTC22:07:35截止不延长。最终结果HEAD三CI后仅合科研依赖分支，用户HTML不动。
 
 - 2026-10-20 — #542共享契约及新强工具调度资格已完整结束；本条以下“运行中”均为历史。
   - v2九槽9strict/0未观察，7脚本响应/38Shell，库存6617b2f862686ca5c8086d3ca1431182d8bc8576c365a8166bbbd9dbafdf24a5，56671文件30链接229021615bytes；独立stdlib audit valid=true。CMake两来源原/replay14/14、Auto各6/6（0skip/fail），Make完整自测；受控两失败各handoff/revision2并保留gate-configure，初始拒绝另记升级。无真实Provider/Token/费用/未知，不当效果或自然恢复率。
@@ -576,6 +573,10 @@
   - 下一步: 等待实验负责人确认当前网络接入介质，并决定是否授权只读 endpoint 诊断和新的 canary amendment；获得确认后必须另建中文 Issue/PR 和协议 identity，保留当前失败 marker。
 
 ## 最近变更 (Recent Changes)
+
+- 2026-10-21 — 完成#560/#562六槽真实模板消融与独立分层费用核验
+  - 文件: `docs/research/2026-10-21-task-selected-template-results.md`, `RESEARCH_STATUS.md`
+  - 动机: 新旧各3/3strict、各14请求；估费0.35033196/0.383163美元，累计臂秒848.636480/869.947990，新模板未见整体优势。三次真实恢复保留源码准备、清空build重走后缀，0未知；可逆材料22/28实际请求核验，原/replay完整测试/源码/精确交付/cleanup均valid。inventory0aa0d9dd，release29784841，全部28请求/$0.73349496，本轮累计$2.18434128；后验重复读取只当诊断，不作因果或总体结论。
 
 - 2026-10-21 — 完成#560/#562三项目严格资格及实际可逆材料审计，冻结真实六槽消融。
   - 证据: task-selected-template-gate-v1最终3strict，初始1strict/两次真实check失败+各1脚本恢复，0Provider/Token/费；主/详情/实际发送材料独立三审计valid，库存3da18bf369a6e659d4431bcda0eafe1dc1a17b2ae64d7c0a44b588a4c568045f。不是模型效果。
