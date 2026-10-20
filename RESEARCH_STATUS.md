@@ -1,6 +1,18 @@
 # Forge Research Status
 
-## 当前阶段（2026-10-20；#550真实比较因首次HTTP402停止封存）
+## 当前阶段（2026-10-20；#552充值后十二槽真实比较完整结束）
+
+cpp-build-observed-plan-comparison-v2完整12/12终结、10strict、0未观察、0新未知用量；原源码与实际cleanup全部通过。工具规划Workflow/模型规划Workflow/强工具分别3/4、4/4、3/4，请求21/24/37、记录Token274454/327788/404154、全估费0.44570064/0.54394032/0.56717496美元，累计臂秒1021.00/1395.33/785.88。模型多一个严格交付且估费略低，但耗时更长；接受这种条件性取舍，继续硕士主线，不推总体优势。
+
+libsodium工具模板0模型strict（模型6请求/0.13864356美元、强工具12/0.186582美元）。前三项目模板拒绝后的首次Agent输入仅归一化node_seconds三对均一致，不能将随机轨迹差归因于工具消除规划。libpng工具12初始请求预算停止、0Shell；check强工具12请求停止，build/固定测试/暂存已过但未提交replay。三条Workflow恢复最终strict：check双来源禁用非必要文档，sodium模型修错误中间路径断言；原最终裁判保持。两个check均重跑依赖无前缀节省，sodium保留autogen命令并从configure继续；不估自然恢复率或最小增量收益。
+
+用户报告额度耗尽已充值并明确继续，首次正式响应实际恢复。原截止UTC18:19:33不延长，UTC15:35:10付费stage关闭；v2已知估费1.55681592美元、82请求/1006396Token/0未知，加v1未知0.40预留累计占用1.95681592美元，跨轮实际费用仍未知，非预算耗尽、不挪余额另开付费身份。原120不改、新124组件，候选SHA9ec9a7c7ea7cb805d7f26cd6a2b1ed5c16289e099abeb2a575f7c89d5cca4279，运行releasef14c7200c5ee2a6f8ea33fd5dd01fe348b296bd4。
+
+报告docs/research/2026-10-20-observed-plan-recharged-results.md；协议cpp-build-observed-plan-comparison-v2及同日recharged-authorization.md。raw /home/yiwei/.codex/outputs/forge-observed-plan-comparison-v2/，inventorye086c23a50fd55ab09e067ff4ef20e964bfabf1e61c96d2b081f0428e14c8d30（23937文件/125链接/403456835bytes）；原始/恢复/预算独立审计valid=true。会话forge-observed-plan-recharged-session-2026-10-20含分层/初始输入/费用/检查/最终CI/发布与知识库收据。产品2141passed44skipped、Ruff通过，最终HEAD三CI/PR553→依赖分支/Issue552以GitHub和final-publication-audit.json为准，未进main，长期470保持OPEN、用户HTML不动。
+
+下一步优先补未见C++项目的零Provider来源/参考/完整验证资格，再设计独立比较；初始材料重复读取和模板覆盖另列优化/消融，不在本批改实现挽救失败。不加P2、不改RQ3/主线/验收；只作已见定向开发任务描述，不作跨批因果、总体或自然恢复率主张。
+
+## 上一阶段（2026-10-20；#550真实比较因首次HTTP402停止封存）
 
 本轮数据采集已终止，进入结果分析与发布收尾。用户新授权20美元/4小时，UTC14:19:33至18:19:33（北京时间2026-10-21 02:19:33），准备计入；cpp-build-observed-plan-comparison-v1于UTC14:22:18启动、14:22:23关闭。首槽libpng/tool_plan_workflow模板拒绝后，initial_abstention首次Agent请求再次HTTP402、usage未知，按冻结规则停止整批，无自动重试/补槽。1槽请求被观察、11槽未观察、0可比较项目对；build/完整测试/精确交付/clean replay全部未观察，不能作为构建方法失败或三策略效果。
 

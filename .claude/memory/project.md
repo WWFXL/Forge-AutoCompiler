@@ -572,6 +572,15 @@
 
 ## 最近变更 (Recent Changes)
 
+- 2026-10-20 — #552完成充值后独立十二槽比较与审计，保留条件性收益和失败。
+  - 文件: `docs/research/2026-10-20-observed-plan-recharged-results.md`, `scripts/forge_build_observed_plan_comparison_v2.py`及v2候选/预注册/10新回归。原120不改、新124组件，候选9ec9a7c7ea7cb805d7f26cd6a2b1ed5c16289e099abeb2a575f7c89d5cca4279，运行f14c7200；v1停止证据保留不拼接。
+  - 12/12完整10strict/0未观察/0新未知；工具/模型/强工具strict3/4、4/4、3/4，请求21/24/37，费0.44570064/0.54394032/0.56717496美元，臂秒1021.00/1395.33/785.88。模型少请求略省费多一个strict但更慢；工具libsodium0模型strict，其他三拒绝升级初始输入仅node_seconds差，不能把随机差归因于工具消除规划。
+  - 失败: png工具初始12请求/23读取/10精确重复后预算停，无Shell；check强工具12请求预算停，build/完整测试/暂存已过、无replay。恢复三条均strict，check双来源--disable-build-docs无新装软件包、无保留前缀；sodium模型修多余中间路径断言，保留autogen命令，从configure继续，不改固定测试/交付裁判。
+  - 用户充值并明确继续，UTC14:36:26至原18:19:33不延长，15:35:10付费关闭。v2共82请求1006396Token/1.55681592美元；v1未知0.40保留累计占用1.95681592美元，实际跨轮账单未知，不借余额另开付费身份。raw forge-observed-plan-comparison-v2库存e086c23a50fd55ab09e067ff4ef20e964bfabf1e61c96d2b081f0428e14c8d30，23937文件/125链接/403456835bytes；原始/恢复/预算独立stdlib审计valid，实际cleanup与源码全过。
+  - 会话forge-observed-plan-recharged-session-2026-10-20含唯一启动/独立审计/初始输入/分层费用/最终检查发布/知识库CAS收据，禁止重启。新10/相邻25回归、产品2141passed44skipped27warnings/Ruff通过；首新测试mock掉原授权校验后误期望它拒绝，已删重复断言，由原测试覆盖，无产品放宽；历史pytest临时树权限警告保留。
+  - 继续硕士主线，下一步优先未见C++零Provider来源/参考/完整验证资格；不加P2、不改RQ3/验收，不作总体/自然恢复率或跨批因果。PR553最终HEAD三CI/合依赖分支/关闭552、长期470及知识库以GitHub/final-publication-audit.json和MCP收据为准，未进main、用户HTML不动。
+
+
 - 2026-10-20 — #550按授权执行十二槽比较，首次HTTP402未知用量即停止封存。
   - 文件: `docs/research/2026-10-20-observed-plan-comparison-results.md`, `RESEARCH_STATUS.md`；授权20美元/UTC14:19:33至18:19:33，运行release86a7f59c。1槽请求观察/11未观察/0可比对，libpng工具模板拒绝后initial_abstention首请求402；0完成响应/命令/Workflow修订/replay，build/完整测试/交付/replay均未观察，不当方法失败。
   - raw forge-observed-plan-comparison-v1永久封存，inventory0a859d724b8e37e2c683e5531397cf0135fbd499a416ec12dbf7ce43e424e778，698文件/0链接/11751288bytes；120组件不改、源码及实际cleanup通过。会话forge-observed-plan-real-session-2026-10-20原始独立审计/预算审计valid=true；已知估费0、未知1预留0.40美元，实际总费用未知，付费stage关闭无重试/补槽。
