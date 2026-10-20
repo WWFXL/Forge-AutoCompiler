@@ -1,0 +1,106 @@
+{
+  "identity": "cpp-build-validation-natural-audit-v1",
+  "issue": 534,
+  "provider_calls": 0,
+  "docker_runs": 0,
+  "results_previously_observed": true,
+  "cohorts": [
+    {
+      "root": "/home/yiwei/.codex/outputs/forge-auto-provenance-real-v1",
+      "identity": "cpp-build-auto-provenance-probe-v1",
+      "kind": "real_model_comparison_probe",
+      "inventory_sha256": "d7bad477a8b355ffdbb21de127961c2f8f639798186d6c7d6ad0ecb27263e446",
+      "protocol_sha256": "ffcfff4244c2446441a7d1e7a6f20296279faced52df645e46a3c0480fcf8ff3",
+      "result_sha256": "d3621db9621daf6eba7f2a403df58b4107f7a190ee652ce8640129f73aa0f041",
+      "rows_key": "arms",
+      "rows": [
+        {
+          "name": "libsndfile-r1",
+          "arm": "plan"
+        },
+        {
+          "name": "libsndfile-r1",
+          "arm": "tool"
+        },
+        {
+          "name": "buffer-r1",
+          "arm": "tool"
+        },
+        {
+          "name": "buffer-r1",
+          "arm": "plan"
+        },
+        {
+          "name": "libverto-r1",
+          "arm": "plan"
+        },
+        {
+          "name": "libverto-r1",
+          "arm": "tool"
+        },
+        {
+          "name": "libsndfile-r2",
+          "arm": "tool"
+        },
+        {
+          "name": "libsndfile-r2",
+          "arm": "plan"
+        },
+        {
+          "name": "buffer-r2",
+          "arm": "plan"
+        },
+        {
+          "name": "buffer-r2",
+          "arm": "tool"
+        },
+        {
+          "name": "libverto-r2",
+          "arm": "tool"
+        },
+        {
+          "name": "libverto-r2",
+          "arm": "plan"
+        }
+      ]
+    },
+    {
+      "root": "/home/yiwei/.codex/outputs/forge-libverto-natural-recovery-v1",
+      "identity": "cpp-build-libverto-natural-recovery-v1",
+      "kind": "posthoc_recovery_unobserved",
+      "inventory_sha256": "e0f674f48fccecadf500fb17fb05a70b16a1e4303a91be594fe0a38974d30363",
+      "protocol_sha256": "63d827ff5aa2204c666a08c68919ea6a9b3e853cc5198e810e04b8ee8782286b",
+      "result_sha256": "70d0f48ca1ab9c3aa4020bcd1efd6632f9e76f5a368027568668022bc16dd3a5",
+      "rows_key": "arms",
+      "rows": [
+        {
+          "name": "libverto",
+          "arm": "plan"
+        }
+      ]
+    },
+    {
+      "root": "/home/yiwei/.codex/outputs/forge-libverto-natural-recovery-v2",
+      "identity": "cpp-build-libverto-natural-recovery-v2",
+      "kind": "posthoc_recovery_failed",
+      "inventory_sha256": "c02679e3e789e4d17f9d0d737f84457c868d4dd31399d1e9120bde85110aba29",
+      "protocol_sha256": "d3a54339248fdc1ccd3adc801d6483047959638ce94f0bdccb39291dcc040769",
+      "result_sha256": "592b91d2c7084c864f3d2fb27da57c86c1690551eae449b020970df85b364631",
+      "rows_key": "arms",
+      "rows": [
+        {
+          "name": "libverto",
+          "arm": "plan"
+        }
+      ]
+    }
+  ],
+  "components": {
+    "scripts/forge_build_validation_natural_audit.py": "095c00b280688be08f34578253b88201070e876fedc366a4c4432f3d374dc8b1",
+    "scripts/forge_build_validation_evidence_audit.py": "9b63cc0f8c40668a08101dac00f542999ef1a736a77a23cb68497c11831ea014",
+    "scripts/forge_typed_evidence.py": "b3e798669389507dc605fcd73b2450921f0695bddccc564344fda88d5cb7a3c8",
+    "backend/tests/test_build_validation_natural_audit.py": "23317cd44432bca214450a2792b7dac9111b9515f31219139c74373c9f68720f",
+    "backend/tests/test_build_validation_evidence_audit.py": "a3a0977f9556348cbbbfa566edc1ea5076a6c9a5431aaf6881d5828588e3c676",
+    "benchmarks/preregistrations/cpp-build-validation-natural-audit-v1.md": "fedb6f1d2291d3cd70045f013c0cac277becb7dea6fb4d4483aed073c7209628"
+  }
+}
