@@ -4,6 +4,11 @@
 
 ## 进行中 (In Progress)
 
+- 2026-10-20 — #552充值后独立重采v2准备，尚无Provider观察。
+  - 用户明确继续，指示核验UTC14:36:26，原截止UTC18:19:33不延长；累计20美元扣留v1未知0.40后v2最多19.60美元，100元充值不当新预算。新cpp-build-observed-plan-comparison-v2完整12槽、124组件，原120/方法/模型/裁判不变。
+  - 新10项/相邻合计25项零Provider回归通过，产品2141passed/44skipped/27warnings、Ruff通过，实际CLI preflight valid=true、Docker就绪；原120逐hash不变。新入口显式复用旧策略，绑定v1停止库存，不续旧身份/补槽/拼接；凭据前新授权、门禁、Docker核验。raw forge-observed-plan-comparison-v2，会话forge-observed-plan-recharged-session-2026-10-20；唯一启动/审计/费用/发布收据在此，禁止重复启动。
+  - 完成后独立原始/全成本/配对/分层未观察审计，报告→最终HEAD三CI→仅合依赖分支→关闭552、长期470及知识库CAS。用户HTML不动，不加P2、不改RQ3/主线/验收。
+
 - 2026-10-20 — #542共享契约及新强工具调度资格已完整结束；本条以下“运行中”均为历史。
   - v2九槽9strict/0未观察，7脚本响应/38Shell，库存6617b2f862686ca5c8086d3ca1431182d8bc8576c365a8166bbbd9dbafdf24a5，56671文件30链接229021615bytes；独立stdlib audit valid=true。CMake两来源原/replay14/14、Auto各6/6（0skip/fail），Make完整自测；受控两失败各handoff/revision2并保留gate-configure，初始拒绝另记升级。无真实Provider/Token/费用/未知，不当效果或自然恢复率。
   - 新强工具slot_runner实际补验buffer1strict/1脚本响应/3Shell、一次无参数submit，源码/原测试/精确交付/replay/实际cleanup及独立审计通过；库存bcdbdda48cd3f01464c33ee2ab7a6e1beb3cce86f8f3c21f70ea769a060d0a89，146文件2105347bytes。v1中断库存d0e7ce5f保留、独立审计valid，不续跑/回填。原93组件不变。

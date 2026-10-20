@@ -1,6 +1,14 @@
 # Forge Research Status
 
-## 当前阶段（2026-10-20；#550真实比较因首次HTTP402停止封存）
+## 当前阶段（2026-10-20；#552充值后独立重采准备）
+
+用户报告DeepSeek额度耗尽、已充值100元，明确继续执行。新身份cpp-build-observed-plan-comparison-v2，候选SHA9ec9a7c7ea7cb805d7f26cd6a2b1ed5c16289e099abeb2a575f7c89d5cca4279，124组件（原120不改），原四项目×三策略12槽/方法/模型/资源/完整裁判保持，旧v1首次402及未知用量永久保留，不覆盖/重启/补槽或拼接效果。
+
+继续指示核验UTC14:36:26，沿用原截止UTC18:19:33（北京时间2026-10-21 02:19:33），准备计入、不重置窗口；累计20美元仍有效，v1未知预留0.40保留，v2最多19.60美元，不将充值额当新增授权。首次正式请求兼作服务恢复核验并全计量；再次未知/模型身份/实际cleanup失败即停，不自动Provider重试。此刻尚无v2模型观察。
+
+新入口显式复用已资格调度，仅增加身份/旧停止证据/累计预算门禁。授权docs/research/2026-10-20-observed-plan-recharged-authorization.md，协议cpp-build-observed-plan-comparison-v2；raw /home/yiwei/.codex/outputs/forge-observed-plan-comparison-v2/，会话forge-observed-plan-recharged-session-2026-10-20。本轮独立审计→结果分析→最终HEAD检查/合依赖分支/关闭Issue552→长期470与知识库CAS；不进main，用户HTML不动。不加P2、不改RQ3/主线/裁判，接受小幅/条件性收益，不作总体/自然恢复率或跨批因果。
+
+## 上一阶段（2026-10-20；#550真实比较因首次HTTP402停止封存）
 
 本轮数据采集已终止，进入结果分析与发布收尾。用户新授权20美元/4小时，UTC14:19:33至18:19:33（北京时间2026-10-21 02:19:33），准备计入；cpp-build-observed-plan-comparison-v1于UTC14:22:18启动、14:22:23关闭。首槽libpng/tool_plan_workflow模板拒绝后，initial_abstention首次Agent请求再次HTTP402、usage未知，按冻结规则停止整批，无自动重试/补槽。1槽请求被观察、11槽未观察、0可比较项目对；build/完整测试/精确交付/clean replay全部未观察，不能作为构建方法失败或三策略效果。
 
