@@ -4,6 +4,10 @@
 
 ## 进行中 (In Progress)
 
+- 2026-10-21 — #565准备C++ Make/Autotools完整参考资格，待活动六槽比较清理后串行运行
+  - 文件: `scripts/forge_build_cxx_cross_reference.py`, `benchmarks/manifests/cpp-build-cxx-cross-system-reference-v1.json`
+  - 动机: #561来源2/2通过尚不代表完整作者测试/原源码/精确交付/replay闭合；0Provider，原UTC22:07:35截止，失败与未观察保留。libconfig保留8PASS+1XFAIL及所有原文件不变合同。
+
 - 2026-10-21 — #558十八槽已封存并独立审计，原exec52945已终止，不重跑；新#560/#562资格准备，Docker/新Provider尚未开始。41组合回归、新产品2244passed44skipped27warnings/Ruff通过；未跟踪新模板/可逆文本模块与协议留待独立分支，不混入#558结果提交。#561来源草稿暂存在会话cross-source-draft/。
 
 - 2026-10-21 — #558连续科研轮：共享新增20美元/UTC18:07:35至22:07:35，准备计入。新四槽零Provider调度资格（buffer三策略+snappy强工具缺槽）通过并独立审计后冻结18槽C++比较；旧#556 v3保持10观察/1未观察，均不改冻结组件、验收或RQ3分母。最终HEAD三CI后仅合科研依赖分支，知识库持续同步。
