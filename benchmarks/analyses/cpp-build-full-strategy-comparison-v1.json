@@ -1,0 +1,897 @@
+{
+  "identity": "cpp-build-full-strategy-comparison-v1",
+  "issue": 532,
+  "scientific_design_frozen": true,
+  "execution_admission_ready": false,
+  "provider_authorization": null,
+  "absolute_deadline_utc": null,
+  "proposed_stage_cap_usd": 12,
+  "role_evidence": {
+    "root": "/home/yiwei/.codex/outputs/forge-full-strategy-role-freeze-v1",
+    "inventory_sha256": "ab4ebcb6302337d0b432ef6b7c3dd51083cfc1e3f3e079b7466092b561952bd4"
+  },
+  "exposure_revision": "0053f5a24317678c7eb6d38424774fd40bd4ca1a",
+  "all_project_roles": [
+    {
+      "name": "buffer",
+      "role": "design",
+      "repository_key": "clibs/buffer",
+      "historical_model_arms_in_two_cohorts": [
+        {
+          "identity": "cpp-build-plan-agent-paired-comparison-v1",
+          "repository": "clibs/buffer",
+          "name": "buffer-r1",
+          "arm": "plan",
+          "model_requests": 3,
+          "strict_completed": true
+        },
+        {
+          "identity": "cpp-build-plan-agent-paired-comparison-v1",
+          "repository": "clibs/buffer",
+          "name": "buffer-r1",
+          "arm": "tool",
+          "model_requests": 8,
+          "strict_completed": true
+        },
+        {
+          "identity": "cpp-build-plan-agent-paired-comparison-v1",
+          "repository": "clibs/buffer",
+          "name": "buffer-r2",
+          "arm": "tool",
+          "model_requests": 8,
+          "strict_completed": true
+        },
+        {
+          "identity": "cpp-build-plan-agent-paired-comparison-v1",
+          "repository": "clibs/buffer",
+          "name": "buffer-r2",
+          "arm": "plan",
+          "model_requests": 2,
+          "strict_completed": true
+        },
+        {
+          "identity": "cpp-build-auto-provenance-probe-v1",
+          "repository": "clibs/buffer",
+          "name": "buffer-r1",
+          "arm": "tool",
+          "model_requests": 4,
+          "strict_completed": true
+        },
+        {
+          "identity": "cpp-build-auto-provenance-probe-v1",
+          "repository": "clibs/buffer",
+          "name": "buffer-r1",
+          "arm": "plan",
+          "model_requests": 2,
+          "strict_completed": true
+        },
+        {
+          "identity": "cpp-build-auto-provenance-probe-v1",
+          "repository": "clibs/buffer",
+          "name": "buffer-r2",
+          "arm": "plan",
+          "model_requests": 2,
+          "strict_completed": true
+        },
+        {
+          "identity": "cpp-build-auto-provenance-probe-v1",
+          "repository": "clibs/buffer",
+          "name": "buffer-r2",
+          "arm": "tool",
+          "model_requests": 5,
+          "strict_completed": true
+        }
+      ],
+      "reference_and_design_seen": true
+    },
+    {
+      "name": "check",
+      "role": "evaluation",
+      "repository_key": "libcheck/check",
+      "historical_model_arms_in_two_cohorts": [],
+      "reference_and_design_seen": true
+    },
+    {
+      "name": "libhydrogen",
+      "role": "reserve_not_scheduled",
+      "repository_key": "jedisct1/libhydrogen",
+      "historical_model_arms_in_two_cohorts": [
+        {
+          "identity": "cpp-build-plan-agent-paired-comparison-v1",
+          "repository": "jedisct1/libhydrogen",
+          "name": "libhydrogen-r1",
+          "arm": "tool",
+          "model_requests": 5,
+          "strict_completed": true
+        },
+        {
+          "identity": "cpp-build-plan-agent-paired-comparison-v1",
+          "repository": "jedisct1/libhydrogen",
+          "name": "libhydrogen-r1",
+          "arm": "plan",
+          "model_requests": 1,
+          "strict_completed": true
+        },
+        {
+          "identity": "cpp-build-plan-agent-paired-comparison-v1",
+          "repository": "jedisct1/libhydrogen",
+          "name": "libhydrogen-r2",
+          "arm": "plan",
+          "model_requests": 1,
+          "strict_completed": true
+        },
+        {
+          "identity": "cpp-build-plan-agent-paired-comparison-v1",
+          "repository": "jedisct1/libhydrogen",
+          "name": "libhydrogen-r2",
+          "arm": "tool",
+          "model_requests": 6,
+          "strict_completed": true
+        }
+      ],
+      "reference_and_design_seen": true
+    },
+    {
+      "name": "libpng",
+      "role": "evaluation",
+      "repository_key": "pnggroup/libpng",
+      "historical_model_arms_in_two_cohorts": [],
+      "reference_and_design_seen": true
+    },
+    {
+      "name": "libsndfile",
+      "role": "reserve_not_scheduled",
+      "repository_key": "erikd/libsndfile",
+      "historical_model_arms_in_two_cohorts": [
+        {
+          "identity": "cpp-build-plan-agent-paired-comparison-v1",
+          "repository": "erikd/libsndfile",
+          "name": "libsndfile-r1",
+          "arm": "tool",
+          "model_requests": 10,
+          "strict_completed": true
+        },
+        {
+          "identity": "cpp-build-plan-agent-paired-comparison-v1",
+          "repository": "erikd/libsndfile",
+          "name": "libsndfile-r1",
+          "arm": "plan",
+          "model_requests": 6,
+          "strict_completed": true
+        },
+        {
+          "identity": "cpp-build-plan-agent-paired-comparison-v1",
+          "repository": "erikd/libsndfile",
+          "name": "libsndfile-r2",
+          "arm": "plan",
+          "model_requests": 10,
+          "strict_completed": true
+        },
+        {
+          "identity": "cpp-build-plan-agent-paired-comparison-v1",
+          "repository": "erikd/libsndfile",
+          "name": "libsndfile-r2",
+          "arm": "tool",
+          "model_requests": 9,
+          "strict_completed": true
+        },
+        {
+          "identity": "cpp-build-auto-provenance-probe-v1",
+          "repository": "erikd/libsndfile",
+          "name": "libsndfile-r1",
+          "arm": "plan",
+          "model_requests": 7,
+          "strict_completed": true
+        },
+        {
+          "identity": "cpp-build-auto-provenance-probe-v1",
+          "repository": "erikd/libsndfile",
+          "name": "libsndfile-r1",
+          "arm": "tool",
+          "model_requests": 8,
+          "strict_completed": true
+        },
+        {
+          "identity": "cpp-build-auto-provenance-probe-v1",
+          "repository": "erikd/libsndfile",
+          "name": "libsndfile-r2",
+          "arm": "tool",
+          "model_requests": 10,
+          "strict_completed": true
+        },
+        {
+          "identity": "cpp-build-auto-provenance-probe-v1",
+          "repository": "erikd/libsndfile",
+          "name": "libsndfile-r2",
+          "arm": "plan",
+          "model_requests": 6,
+          "strict_completed": true
+        }
+      ],
+      "reference_and_design_seen": true
+    },
+    {
+      "name": "libsodium",
+      "role": "evaluation",
+      "repository_key": "jedisct1/libsodium",
+      "historical_model_arms_in_two_cohorts": [
+        {
+          "identity": "cpp-build-plan-agent-paired-comparison-v1",
+          "repository": "jedisct1/libsodium",
+          "name": "libsodium-r1",
+          "arm": "plan",
+          "model_requests": 6,
+          "strict_completed": true
+        },
+        {
+          "identity": "cpp-build-plan-agent-paired-comparison-v1",
+          "repository": "jedisct1/libsodium",
+          "name": "libsodium-r1",
+          "arm": "tool",
+          "model_requests": 9,
+          "strict_completed": true
+        },
+        {
+          "identity": "cpp-build-plan-agent-paired-comparison-v1",
+          "repository": "jedisct1/libsodium",
+          "name": "libsodium-r2",
+          "arm": "tool",
+          "model_requests": 9,
+          "strict_completed": true
+        },
+        {
+          "identity": "cpp-build-plan-agent-paired-comparison-v1",
+          "repository": "jedisct1/libsodium",
+          "name": "libsodium-r2",
+          "arm": "plan",
+          "model_requests": 11,
+          "strict_completed": true
+        }
+      ],
+      "reference_and_design_seen": true
+    },
+    {
+      "name": "libtomcrypt",
+      "role": "evaluation",
+      "repository_key": "libtom/libtomcrypt",
+      "historical_model_arms_in_two_cohorts": [],
+      "reference_and_design_seen": true
+    },
+    {
+      "name": "libtommath",
+      "role": "evaluation",
+      "repository_key": "libtom/libtommath",
+      "historical_model_arms_in_two_cohorts": [],
+      "reference_and_design_seen": true
+    },
+    {
+      "name": "libverto",
+      "role": "design",
+      "repository_key": "latchset/libverto",
+      "historical_model_arms_in_two_cohorts": [
+        {
+          "identity": "cpp-build-plan-agent-paired-comparison-v1",
+          "repository": "latchset/libverto",
+          "name": "libverto-r1",
+          "arm": "tool",
+          "model_requests": 12,
+          "strict_completed": true
+        },
+        {
+          "identity": "cpp-build-plan-agent-paired-comparison-v1",
+          "repository": "latchset/libverto",
+          "name": "libverto-r1",
+          "arm": "plan",
+          "model_requests": 7,
+          "strict_completed": true
+        },
+        {
+          "identity": "cpp-build-plan-agent-paired-comparison-v1",
+          "repository": "latchset/libverto",
+          "name": "libverto-r2",
+          "arm": "plan",
+          "model_requests": 3,
+          "strict_completed": true
+        },
+        {
+          "identity": "cpp-build-plan-agent-paired-comparison-v1",
+          "repository": "latchset/libverto",
+          "name": "libverto-r2",
+          "arm": "tool",
+          "model_requests": 12,
+          "strict_completed": true
+        },
+        {
+          "identity": "cpp-build-auto-provenance-probe-v1",
+          "repository": "latchset/libverto",
+          "name": "libverto-r1",
+          "arm": "plan",
+          "model_requests": 11,
+          "strict_completed": true
+        },
+        {
+          "identity": "cpp-build-auto-provenance-probe-v1",
+          "repository": "latchset/libverto",
+          "name": "libverto-r1",
+          "arm": "tool",
+          "model_requests": 12,
+          "strict_completed": false
+        },
+        {
+          "identity": "cpp-build-auto-provenance-probe-v1",
+          "repository": "latchset/libverto",
+          "name": "libverto-r2",
+          "arm": "tool",
+          "model_requests": 11,
+          "strict_completed": true
+        },
+        {
+          "identity": "cpp-build-auto-provenance-probe-v1",
+          "repository": "latchset/libverto",
+          "name": "libverto-r2",
+          "arm": "plan",
+          "model_requests": 9,
+          "strict_completed": false
+        }
+      ],
+      "reference_and_design_seen": true
+    },
+    {
+      "name": "libzip",
+      "role": "evaluation",
+      "repository_key": "nih-at/libzip",
+      "historical_model_arms_in_two_cohorts": [],
+      "reference_and_design_seen": true
+    },
+    {
+      "name": "uncrustify",
+      "role": "design",
+      "repository_key": "uncrustify/uncrustify",
+      "historical_model_arms_in_two_cohorts": [
+        {
+          "identity": "cpp-build-plan-agent-paired-comparison-v1",
+          "repository": "uncrustify/uncrustify",
+          "name": "uncrustify-r1",
+          "arm": "plan",
+          "model_requests": 4,
+          "strict_completed": true
+        },
+        {
+          "identity": "cpp-build-plan-agent-paired-comparison-v1",
+          "repository": "uncrustify/uncrustify",
+          "name": "uncrustify-r1",
+          "arm": "tool",
+          "model_requests": 11,
+          "strict_completed": true
+        },
+        {
+          "identity": "cpp-build-plan-agent-paired-comparison-v1",
+          "repository": "uncrustify/uncrustify",
+          "name": "uncrustify-r2",
+          "arm": "tool",
+          "model_requests": 6,
+          "strict_completed": true
+        },
+        {
+          "identity": "cpp-build-plan-agent-paired-comparison-v1",
+          "repository": "uncrustify/uncrustify",
+          "name": "uncrustify-r2",
+          "arm": "plan",
+          "model_requests": 6,
+          "strict_completed": true
+        }
+      ],
+      "reference_and_design_seen": true
+    }
+  ],
+  "projects": [
+    {
+      "name": "check",
+      "task": {
+        "plan_id": "reference-expansion-check",
+        "repository_url": "https://github.com/libcheck/check",
+        "commit_sha": "35d9cc011faa0545bf56d5062ae90bbc2688eba7",
+        "image_id": "sha256:d27a6ab733c7c3a9cbb5e4b32fb595aa5a422ff04bd212888d1041b90a2c4c2a",
+        "source_archive_sha256": "d531ff09adefc81e7ce6a3303a7de160a7a7a0caf9496696594df1ad393cb2c9",
+        "build_system": "autotools",
+        "artifact_paths": [
+          "libcheck.a"
+        ],
+        "verification_steps": [
+          {
+            "step_id": "check",
+            "role": "smoke",
+            "command": "make check",
+            "source": "固定完整上游测试入口，不过滤用例或关闭测试",
+            "expected": "固定完整参考任务；保留原始日志，不替换失败",
+            "workdir": "/workspace/repo",
+            "requires": [
+              "build"
+            ],
+            "required_output": [
+              "Testsuite summary for",
+              "# TOTAL:"
+            ],
+            "diagnostic_paths": []
+          }
+        ]
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-reference-expansion-inputs-v1/check.tar",
+      "source_paths": [
+        "README.md",
+        "CMakeLists.txt",
+        "configure.ac",
+        "Makefile.am",
+        "tests/Makefile.am"
+      ],
+      "reference_root": "/home/yiwei/.codex/outputs/forge-reference-expansion-v1",
+      "reference_inventory_sha256": "34614ceaf61f45f383ea46bfacf4490e0e888417ea40c150b5bdee04b99ae011"
+    },
+    {
+      "name": "libpng",
+      "task": {
+        "plan_id": "reference-expansion-libpng",
+        "repository_url": "https://github.com/pnggroup/libpng",
+        "commit_sha": "18ea3e9404a09f42d92f952a4c0d1dd3d688182a",
+        "image_id": "sha256:d27a6ab733c7c3a9cbb5e4b32fb595aa5a422ff04bd212888d1041b90a2c4c2a",
+        "source_archive_sha256": "d6b86d57cbec9876cc34cf84cbf9a716d07fa59764d0bb85cfbc60d2a4c28f7f",
+        "build_system": "cmake",
+        "artifact_paths": [
+          "libpng.a"
+        ],
+        "verification_steps": [
+          {
+            "step_id": "check",
+            "role": "smoke",
+            "command": "python3 -c 'from pathlib import Path; c=Path('\"'\"'build/CMakeCache.txt'\"'\"').read_text(); assert '\"'\"'PNG_TESTS:BOOL=ON'\"'\"' in c; assert '\"'\"'PNG_SHARED:BOOL=ON'\"'\"' in c; assert '\"'\"'PNG_STATIC:BOOL=ON'\"'\"' in c; print('\"'\"'FORGE_TASK_CONFIGURATION_OK'\"'\"')' && ctest --test-dir build --output-on-failure --no-tests=error",
+            "source": "固定完整上游测试入口，不过滤用例或关闭测试",
+            "expected": "固定完整参考任务；保留原始日志，不替换失败",
+            "workdir": "/workspace/repo",
+            "requires": [
+              "build"
+            ],
+            "required_output": [
+              "FORGE_TASK_CONFIGURATION_OK",
+              "pngvalid-standard",
+              "100% tests passed"
+            ],
+            "diagnostic_paths": []
+          }
+        ]
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-reference-expansion-inputs-v1/libpng.tar",
+      "source_paths": [
+        "README.md",
+        "CMakeLists.txt",
+        "configure.ac",
+        "Makefile.am"
+      ],
+      "reference_root": "/home/yiwei/.codex/outputs/forge-reference-repair-qualification-v1",
+      "reference_inventory_sha256": "9eb4c2d336766e6c66aff742f771dcd93686aece0eac70d5e40b619cd2ba0e3c"
+    },
+    {
+      "name": "libsodium",
+      "task": {
+        "plan_id": "reference-expansion-libsodium",
+        "repository_url": "https://github.com/jedisct1/libsodium",
+        "commit_sha": "60b751cd14418fae2d17e6f1003e43622b3e5a25",
+        "image_id": "sha256:d27a6ab733c7c3a9cbb5e4b32fb595aa5a422ff04bd212888d1041b90a2c4c2a",
+        "source_archive_sha256": "3c109ee17b9c154edec232d9a0b2504ddfdf65384b8dbd6dccfffe5d6b6fa4fa",
+        "build_system": "autotools",
+        "artifact_paths": [
+          "libsodium.a"
+        ],
+        "verification_steps": [
+          {
+            "step_id": "check",
+            "role": "smoke",
+            "command": "make check",
+            "source": "固定完整上游测试入口，不过滤用例或关闭测试",
+            "expected": "固定完整参考任务；保留原始日志，不替换失败",
+            "workdir": "/workspace/repo",
+            "requires": [
+              "build"
+            ],
+            "required_output": [
+              "Testsuite summary for",
+              "# TOTAL:"
+            ],
+            "diagnostic_paths": []
+          }
+        ]
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-reference-expansion-inputs-v1/libsodium.tar",
+      "source_paths": [
+        "configure.ac",
+        "Makefile.am"
+      ],
+      "reference_root": "/home/yiwei/.codex/outputs/forge-reference-expansion-v1",
+      "reference_inventory_sha256": "34614ceaf61f45f383ea46bfacf4490e0e888417ea40c150b5bdee04b99ae011"
+    },
+    {
+      "name": "libtomcrypt",
+      "task": {
+        "plan_id": "reference-expansion-libtomcrypt",
+        "repository_url": "https://github.com/libtom/libtomcrypt",
+        "commit_sha": "6c6d5104de66f3ca0dfd7b68540ef86869982b07",
+        "image_id": "sha256:d27a6ab733c7c3a9cbb5e4b32fb595aa5a422ff04bd212888d1041b90a2c4c2a",
+        "source_archive_sha256": "3ac2a1f1918cb87a68d4fff2f62a9620a952b8b3af6440d21f839025f3bcd787",
+        "build_system": "make",
+        "artifact_paths": [
+          "libtomcrypt.a"
+        ],
+        "verification_steps": [
+          {
+            "step_id": "check",
+            "role": "smoke",
+            "command": "./test",
+            "source": "固定完整上游测试入口，不过滤用例或关闭测试",
+            "expected": "固定完整参考任务；保留原始日志，不替换失败",
+            "workdir": "/workspace/repo",
+            "requires": [
+              "build"
+            ],
+            "required_output": [
+              "SUCCESS: passed=",
+              "failed=0"
+            ],
+            "diagnostic_paths": []
+          }
+        ]
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-reference-expansion-inputs-v1/libtomcrypt.tar",
+      "source_paths": [
+        "README.md",
+        "CMakeLists.txt"
+      ],
+      "reference_root": "/home/yiwei/.codex/outputs/forge-reference-expansion-v1",
+      "reference_inventory_sha256": "34614ceaf61f45f383ea46bfacf4490e0e888417ea40c150b5bdee04b99ae011"
+    },
+    {
+      "name": "libtommath",
+      "task": {
+        "plan_id": "reference-expansion-libtommath",
+        "repository_url": "https://github.com/libtom/libtommath",
+        "commit_sha": "ae40a87a920099a7d9d00979570e0c8d917a1fd7",
+        "image_id": "sha256:d27a6ab733c7c3a9cbb5e4b32fb595aa5a422ff04bd212888d1041b90a2c4c2a",
+        "source_archive_sha256": "d92ab21c88ea95f04e2c5389600396372e0bc91a667a6d3f19576ca0ca020447",
+        "build_system": "make",
+        "artifact_paths": [
+          "libtommath.a"
+        ],
+        "verification_steps": [
+          {
+            "step_id": "check",
+            "role": "smoke",
+            "command": "./test",
+            "source": "固定完整上游测试入口，不过滤用例或关闭测试",
+            "expected": "固定完整参考任务；保留原始日志，不替换失败",
+            "workdir": "/workspace/repo",
+            "requires": [
+              "build"
+            ],
+            "required_output": [
+              "Tests OK/NOP/FAIL:"
+            ],
+            "diagnostic_paths": []
+          }
+        ]
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-reference-expansion-inputs-v1/libtommath.tar",
+      "source_paths": [
+        "README.md",
+        "CMakeLists.txt"
+      ],
+      "reference_root": "/home/yiwei/.codex/outputs/forge-reference-expansion-v1",
+      "reference_inventory_sha256": "34614ceaf61f45f383ea46bfacf4490e0e888417ea40c150b5bdee04b99ae011"
+    },
+    {
+      "name": "libzip",
+      "task": {
+        "plan_id": "reference-expansion-libzip",
+        "repository_url": "https://github.com/nih-at/libzip",
+        "commit_sha": "f3ff798f3d909a2713848601b1d76fdb2ff87632",
+        "image_id": "sha256:d27a6ab733c7c3a9cbb5e4b32fb595aa5a422ff04bd212888d1041b90a2c4c2a",
+        "source_archive_sha256": "b8275a525d4a1da19a8417c941bdb2c8e750cf527f6e38566f9bec810e4a0002",
+        "build_system": "cmake",
+        "artifact_paths": [
+          "libzip.so"
+        ],
+        "verification_steps": [
+          {
+            "step_id": "check",
+            "role": "smoke",
+            "command": "python3 -c 'from pathlib import Path; c=Path('\"'\"'build/CMakeCache.txt'\"'\"').read_text(); assert '\"'\"'BUILD_REGRESS:BOOL=ON'\"'\"' in c; assert '\"'\"'ENABLE_BZIP2:BOOL=ON'\"'\"' in c; assert '\"'\"'ENABLE_LZMA:BOOL=ON'\"'\"' in c; assert '\"'\"'ENABLE_ZSTD:BOOL=ON'\"'\"' in c; assert '\"'\"'ENABLE_OPENSSL:BOOL=ON'\"'\"' in c; print('\"'\"'FORGE_TASK_CONFIGURATION_OK'\"'\"')' && ctest --test-dir build --output-on-failure --no-tests=error",
+            "source": "固定完整上游测试入口，不过滤用例或关闭测试",
+            "expected": "固定完整参考任务；保留原始日志，不替换失败",
+            "workdir": "/workspace/repo",
+            "requires": [
+              "build"
+            ],
+            "required_output": [
+              "FORGE_TASK_CONFIGURATION_OK",
+              "100% tests passed"
+            ],
+            "diagnostic_paths": []
+          }
+        ]
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-reference-expansion-inputs-v1/libzip.tar",
+      "source_paths": [
+        "README.md",
+        "CMakeLists.txt"
+      ],
+      "reference_root": "/home/yiwei/.codex/outputs/forge-reference-repair-qualification-v1",
+      "reference_inventory_sha256": "9eb4c2d336766e6c66aff742f771dcd93686aece0eac70d5e40b619cd2ba0e3c"
+    }
+  ],
+  "conservative_analysis_groups": [
+    [
+      "libpng"
+    ],
+    [
+      "libzip"
+    ],
+    [
+      "libtomcrypt",
+      "libtommath"
+    ],
+    [
+      "libsodium"
+    ],
+    [
+      "check"
+    ]
+  ],
+  "independence_claim": false,
+  "methods": [
+    "strong_tool_agent",
+    "plan_workflow_failure_agent",
+    "plan_workflow_rules_failure_agent"
+  ],
+  "schedule": [
+    {
+      "project": "check",
+      "repetition": 1,
+      "method": "strong_tool_agent"
+    },
+    {
+      "project": "check",
+      "repetition": 1,
+      "method": "plan_workflow_failure_agent"
+    },
+    {
+      "project": "check",
+      "repetition": 1,
+      "method": "plan_workflow_rules_failure_agent"
+    },
+    {
+      "project": "libpng",
+      "repetition": 1,
+      "method": "plan_workflow_failure_agent"
+    },
+    {
+      "project": "libpng",
+      "repetition": 1,
+      "method": "plan_workflow_rules_failure_agent"
+    },
+    {
+      "project": "libpng",
+      "repetition": 1,
+      "method": "strong_tool_agent"
+    },
+    {
+      "project": "libsodium",
+      "repetition": 1,
+      "method": "plan_workflow_rules_failure_agent"
+    },
+    {
+      "project": "libsodium",
+      "repetition": 1,
+      "method": "strong_tool_agent"
+    },
+    {
+      "project": "libsodium",
+      "repetition": 1,
+      "method": "plan_workflow_failure_agent"
+    },
+    {
+      "project": "libtomcrypt",
+      "repetition": 1,
+      "method": "strong_tool_agent"
+    },
+    {
+      "project": "libtomcrypt",
+      "repetition": 1,
+      "method": "plan_workflow_failure_agent"
+    },
+    {
+      "project": "libtomcrypt",
+      "repetition": 1,
+      "method": "plan_workflow_rules_failure_agent"
+    },
+    {
+      "project": "libtommath",
+      "repetition": 1,
+      "method": "plan_workflow_failure_agent"
+    },
+    {
+      "project": "libtommath",
+      "repetition": 1,
+      "method": "plan_workflow_rules_failure_agent"
+    },
+    {
+      "project": "libtommath",
+      "repetition": 1,
+      "method": "strong_tool_agent"
+    },
+    {
+      "project": "libzip",
+      "repetition": 1,
+      "method": "plan_workflow_rules_failure_agent"
+    },
+    {
+      "project": "libzip",
+      "repetition": 1,
+      "method": "strong_tool_agent"
+    },
+    {
+      "project": "libzip",
+      "repetition": 1,
+      "method": "plan_workflow_failure_agent"
+    },
+    {
+      "project": "check",
+      "repetition": 2,
+      "method": "strong_tool_agent"
+    },
+    {
+      "project": "check",
+      "repetition": 2,
+      "method": "plan_workflow_rules_failure_agent"
+    },
+    {
+      "project": "check",
+      "repetition": 2,
+      "method": "plan_workflow_failure_agent"
+    },
+    {
+      "project": "libpng",
+      "repetition": 2,
+      "method": "plan_workflow_failure_agent"
+    },
+    {
+      "project": "libpng",
+      "repetition": 2,
+      "method": "strong_tool_agent"
+    },
+    {
+      "project": "libpng",
+      "repetition": 2,
+      "method": "plan_workflow_rules_failure_agent"
+    },
+    {
+      "project": "libsodium",
+      "repetition": 2,
+      "method": "plan_workflow_rules_failure_agent"
+    },
+    {
+      "project": "libsodium",
+      "repetition": 2,
+      "method": "plan_workflow_failure_agent"
+    },
+    {
+      "project": "libsodium",
+      "repetition": 2,
+      "method": "strong_tool_agent"
+    },
+    {
+      "project": "libtomcrypt",
+      "repetition": 2,
+      "method": "strong_tool_agent"
+    },
+    {
+      "project": "libtomcrypt",
+      "repetition": 2,
+      "method": "plan_workflow_rules_failure_agent"
+    },
+    {
+      "project": "libtomcrypt",
+      "repetition": 2,
+      "method": "plan_workflow_failure_agent"
+    },
+    {
+      "project": "libtommath",
+      "repetition": 2,
+      "method": "plan_workflow_failure_agent"
+    },
+    {
+      "project": "libtommath",
+      "repetition": 2,
+      "method": "strong_tool_agent"
+    },
+    {
+      "project": "libtommath",
+      "repetition": 2,
+      "method": "plan_workflow_rules_failure_agent"
+    },
+    {
+      "project": "libzip",
+      "repetition": 2,
+      "method": "plan_workflow_rules_failure_agent"
+    },
+    {
+      "project": "libzip",
+      "repetition": 2,
+      "method": "plan_workflow_failure_agent"
+    },
+    {
+      "project": "libzip",
+      "repetition": 2,
+      "method": "strong_tool_agent"
+    }
+  ],
+  "additional_selector_p2": false,
+  "common_runtime": {
+    "parallel_jobs": 2,
+    "node_timeout_seconds": 1200,
+    "command_timeout_seconds": 600,
+    "evaluator_timeout_seconds": 900,
+    "replay_timeout_seconds": 900,
+    "cleanup_timeout_seconds": 120,
+    "max_commands": 32,
+    "max_model_requests": 12,
+    "max_recorded_tokens": 400000,
+    "max_recorded_tokens_per_response": 100000,
+    "max_handoffs_in_plan_arms": 2,
+    "max_rule_revisions_per_run": 1,
+    "message_limit_bytes": 50000,
+    "tool_schema_limit_bytes": 8000,
+    "new_request_reserve_seconds": 3900,
+    "per_arm_estimated_cost_cap_usd": 1.5,
+    "per_request_cost_reserve_usd": 0.4
+  },
+  "meter": "HandoffContextMeter with identical frozen runtime for all methods",
+  "tool_runner": "run_tool_agent_automatic",
+  "rule_planner": "planner_with_rules; exact #516 three rules, no failed #530 configure rule",
+  "model_candidate": {
+    "model": "deepseek-v4-pro",
+    "thinking": true,
+    "reasoning_effort": "low",
+    "max_output_tokens": 32768,
+    "max_retries": 0,
+    "accepted_response_models": [
+      "DeepSeek-V4-Pro-0813",
+      "deepseek-v4-pro"
+    ]
+  },
+  "analysis": {
+    "primary_endpoint": "strict_completed",
+    "include_all_initial_planning_reads_outputs_failures_recovery_costs": true,
+    "not_observed_is_failure": false,
+    "report_metrics": [
+      "strict_completed",
+      "requests",
+      "input_tokens",
+      "output_tokens",
+      "estimated_usd",
+      "wall_seconds",
+      "shell_commands",
+      "handoffs",
+      "revisions",
+      "rule_coverage"
+    ],
+    "pair_by": [
+      "project",
+      "repetition"
+    ],
+    "cluster_by": "conservative_analysis_groups; no population inference",
+    "continuation_criterion": "small or conditional benefits and tradeoffs justify continuation; no all-metric-dominance threshold"
+  },
+  "execution_blockers": [
+    "new explicit Provider cost/time authorization",
+    "freeze executable runner and actual model identity before live outcome",
+    "zero-Provider end-to-end qualification for three strategies and rule-to-Agent fallback",
+    "pre-start revalidate source/reference/component hashes and ledger"
+  ]
+}
