@@ -577,6 +577,12 @@
 
 ## 最近变更 (Recent Changes)
 
+- 2026-10-21 — 封存#561双来源并独立重建Git树验证commit绑定。
+  - 证据: cxx-cross-system-source-v1，tinyxml2 Make拟任务273文件/libconfig Autotools拟任务265文件，均0源链接；2/2来源逐blob/模式与归档归一化保持通过，0Provider/凭据/模型费/源码执行/Docker。库存89e09bc2267593695a0dae54f9eda9d764d0afcc3af7ad780850d92c4f6aff5f，186文件/15686794bytes；release575c74cd。
+  - 审计: 首次将API按commit查询的回显sha误当tree SHA，失败收据保留；改为独立重建全部Git tree对象绑定commit.tree后valid，raw/identity不变、不重新下载。8新/产品2211passed44skipped27warnings、Ruff通过。
+  - 文件: docs/research/2026-10-21-cxx-cross-source-results.md；后续单独固定完整原测试/预期XFAIL/原源码/索引/交付/replay参考资格，尚无构建结果；主工作区#560仍在真实六槽，不并行Docker、不改其HEAD或冻结组件。最终HEAD三CI后仅合依赖分支，关闭561；source工作区为独立交接。
+
+
 - 2026-10-21 — 在独立工作区冻结#561 C++ Make/Autotools双来源资格。
   - 动机: 当前新增C++真实比较全为CMake，先验证tinyxml2@10.0.0与libconfig@v1.8.2固定commit归档逐blob/链接/权限对应Git tree；不执行源码/不并行Docker，不当策略或构建效果。
   - 文件: scripts/forge_build_cxx_cross_source.py、backend/tests/test_build_cxx_cross_source.py、同名cross-system-source-v1 manifest/preregistration。168组件，Provider/凭据/模型费/构建命令0，截止继承UTC22:07:35。
