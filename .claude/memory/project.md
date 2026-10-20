@@ -572,6 +572,11 @@
 
 ## 最近变更 (Recent Changes)
 
+- 2026-10-21 — #554保留metadata-v1所有权准备失败，冻结限定容器目录信任的新v2。
+  - 原v1 dependency exit128 dubious ownership，后续全未观察、原源码/实际cleanup过；库存28ff9d2e，独立audit valid。不是模型失败或CTest失败。
+  - 新metadata-v2仅在git init/add之间插入容器内safe.directory /workspace/repo，不用通配符、不写宿主Git配置；其他任务/测试/预算/截止原样，141组件，全新Session待观察。2边界测试/Ruff/CLI preflight通过，仍0Provider，不以工程准备算科研机制效果。
+
+
 - 2026-10-21 — #554缓存资格完成，准备源码Git索引独立资格以实际运行跳过的上游检查。
   - cache completed、428.679秒，原/replay CTest94注册中93通过1因.git缺失按上游142跳过；交付/源码/实际cleanup及独立audit过，库存c2573fa6。不写94全通过。
   - 新metadata身份只追加git init/index，无伪commit/原源码或测试修改；138组件，manifest27a0429a，原预算/截止不变，要求原/replay macro检查真正Passed且无skip。独立新Session待观察，非模型恢复效果。产品2156passed44skipped、Ruff及2新增元数据边界测试通过；报告2026-10-21-cxx-reference-qualification-results.md，0Provider。
