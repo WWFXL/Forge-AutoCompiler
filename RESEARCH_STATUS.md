@@ -1,6 +1,16 @@
 # Forge Research Status
 
-## 当前阶段（2026-10-21；#560/#562六槽真实消融闭合，#565跨系统参考运行中）
+## 当前阶段（2026-10-21；#568跨系统18槽真实比较封存，进入解释与发布）
+
+数据采集完成、结果分析及发布阶段。cpp-build-cxx-cross-system-comparison-v1完整18观察/9strict/0未观察，tinyxml2 Make三策略各3/3strict，工具三次0模型；模型6请求/0.09291480美元，强工具11请求/0.10347216美元，但模型累计臂秒112.36高于强工具59.38，不声称全面更快。libconfig三策略各0/3，九槽均因autoreconf -f改写同一18原文件而在build前拒绝；完整测试/交付/replay未观察，不是九个功能失败。三个工具拒答/模型首次Agent输入仅归一化node_seconds逐字段相同，不把随机轨迹差归因为省规划。
+
+三策略总strict各3/6，请求10/18/22、费用0.24117060/0.36655608/0.27362940美元、累计臂秒239.939251/327.523775/134.068338。50请求528574Token/$0.88135608、未知0，stage.completed；本轮三个paid阶段累计151请求1971514Token/估费3.06569736美元，低于共享20。不同批次不合并估效果。原UTC22:07:35截止及3900秒新槽准入不延长；本批无交接/修订，不新增RQ2效果/P2，不改RQ3旧14/43分母、主线或验收。
+
+raw forge-cxx-cross-system-comparison-v1，inventory7f93db80f09e2f46a78cac64df12d6df6b48fb7bbc99ce464ea76fb4de1b0745（15860文件/0链接/316652838bytes），运行release0eb4d96dffa899f33d32acde9db87625334714ee、192组件；主/完整作者源码详情/50实际请求材料/3对初始输入/源码拒绝五独立审计valid，9strict原/replay508断言及18cleanup通过。报告docs/research/2026-10-21-cxx-cross-comparison-results.md、版本化派生benchmarks/analyses/cpp-build-cxx-cross-system-comparison-v1-results.json，会话forge-cxx-continuous-session-2026-10-21保留全部授权/终态/费用/审计/发布收据。原六槽零Provider资格6/6strict不当效果，inventory81b830d1；原跨系统参考仍1/2，独立header1/1，PR566已合a1c75b54/565关闭。RQ3固定18/6复核PR569已合2110524e/567关闭；六槽模板消融PR563已合，560/562关闭，负费用取舍保持。
+
+当前只支持默认兼容任务局部零模型收益及任务合同失败诊断，不支持总体/holdout/大型C++/自然失败或通用规划机制创新。源码全部SHA保持可能与标准bootstrap更新供应模板冲突：是否未来明确声明生成文件可写是任务/主张边界决定，须用户另决，旧九槽不能回填。可继续免费来源目录准备，不能按结果挑优势项目。最终结果HEAD三CI后PR570仅合科研依赖分支、不进main，发布以GitHub/收据为准；用户HTML不动。
+
+## 上一阶段（2026-10-21；#560/#562六槽真实消融闭合，#565跨系统参考运行中）
 
 cpp-build-task-selected-comparison-v1完整6观察/6strict/0未观察，旧/任务指定模板各3/3strict、各14请求；保守估费0.35033196/0.383163美元、累计臂秒848.636480/869.947990。新模板费增约9.37%、耗时增约2.51%，本批未见整体收益；yaml少1请求但费用高、snappy多1请求、simd双方0模型strict，保留条件性取舍，不因此否定硕士主线。3次真实恢复均revision2，仅保留共同源码准备、清空build并重走完整后缀，不宣称最小增量节省。后验snappy精确重复读取旧2/15、新11/19，是效率线索而非因果证据。
 

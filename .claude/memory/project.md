@@ -4,12 +4,16 @@
 
 ## 进行中 (In Progress)
 
+- 2026-10-21 — #568真实18槽已终结，exec73490退出0、9strict/0未观察、50请求528574Token/$0.88135608/未知0；无活动Provider/Docker。tinyxml2九槽全过且工具三次0模型；libconfig九槽在build前因同18原文件改写而拒绝，不填功能失败。主/作者源码/请求材料/初始输入/源码拒绝五独立审计valid；raw forge-cxx-cross-system-comparison-v1、inventory7f93db80、release0eb4d96d。当前发布收尾，三paid阶段累计3.06569736美元，原截止不延长。以下运行中条目均为历史。
+
+- 2026-10-21 — #568零Provider六槽完整6strict，主/完整作者测试源码索引/可逆材料三审计valid；5Fake响应、0真实Provider/Token/费用，inventory81b830d1，运行release409cd41b。新18槽真实候选独立冻结，同192组件/固定验证/前瞻六排列，cap9计入本轮总20，原UTC22:07:35截止。原参考及门禁均永久只读，严禁续跑；真实启动后HEAD保持直至封存。
 - 2026-10-21 — #565跨系统参考与独立header环境资格均已终结，等待最终CI发布
   - 文件: `scripts/forge_build_cxx_cross_reference.py`, `benchmarks/manifests/cpp-build-cxx-cross-system-reference-v1.json`
   - 动机: #561来源2/2通过尚不代表完整作者测试/原源码/精确交付/replay闭合；0Provider，原UTC22:07:35截止，失败与未观察保留。libconfig保留8PASS+1XFAIL及所有原文件不变合同。
 
-- 2026-10-21 — #558十八槽已封存并独立审计，原exec52945已终止，不重跑；新#560/#562资格准备，Docker/新Provider尚未开始。41组合回归、新产品2244passed44skipped27warnings/Ruff通过；未跟踪新模板/可逆文本模块与协议留待独立分支，不混入#558结果提交。#561来源草稿暂存在会话cross-source-draft/。
+- 2026-10-21 — #568跨系统共同六槽零Provider门禁准备；192组件冻结，先实际门禁及独立审计，再冻结18槽真实候选。共享20美元/原UTC22:07:35截止，当前已花2.18434128美元/未知0；不并行Docker、不重跑旧身份、人工参考隔离。#567/PR569已通过最终三CI并合依赖分支，#565/PR566最终发布处理中。
 
+- 2026-10-21 — #560/#562真实六槽已封存并三独立审计通过，exec35697终态0，不重跑；#565跨系统参考在独立工作区release05503b2c/exec25843终结，原1/2合格：libconfig测试与replay通过但autoheader改写原模板，失败保留；独立header-v1原文件265项保持且1/1合格，inventoryc22ffdac，完整测试/交付/replay/cleanup均审计通过。raw forge-cxx-cross-system-reference-v1，不并行Docker。#568共同接口/比较为后续有条件计划，#567 RQ3固定18/6审计完成，PR569待最终三CI；共享20美元原UTC22:07:35截止不延长。最终结果HEAD三CI后仅合科研依赖分支，用户HTML不动。
 - 2026-10-21 — #558连续科研轮：共享新增20美元/UTC18:07:35至22:07:35，准备计入。新四槽零Provider调度资格（buffer三策略+snappy强工具缺槽）通过并独立审计后冻结18槽C++比较；旧#556 v3保持10观察/1未观察，均不改冻结组件、验收或RQ3分母。最终HEAD三CI后仅合科研依赖分支，知识库持续同步。
 
 - 2026-10-21 — #560/#562真实六槽已封存并三独立审计通过，exec35697终态0，不重跑；#565跨系统参考在独立工作区release05503b2c/exec25843终结，原1/2合格：libconfig测试与replay通过但autoheader改写原模板，失败保留；新header-v1仅configure继承AUTOHEADER=true准备中。raw forge-cxx-cross-system-reference-v1，不并行Docker。#568共同接口/比较为后续有条件计划，#567 RQ3固定18/6审计进行中；共享20美元原UTC22:07:35截止不延长。最终结果HEAD三CI后仅合科研依赖分支，用户HTML不动。
@@ -582,6 +586,14 @@
 
 ## 最近变更 (Recent Changes)
 
+- 2026-10-21 — 发布#568跨系统18槽真实比较与分层解释。
+  - 文件: `docs/research/2026-10-21-cxx-cross-comparison-results.md`, `benchmarks/analyses/cpp-build-cxx-cross-system-comparison-v1-results.json`, `RESEARCH_STATUS.md`。
+  - 动机: 区分默认Make局部收益与Autotools源码合同拒绝，全部费用/失败保留；不放宽验收、不宣称RQ2或总体优势。新12及产品2282passed44skipped27warnings/Ruff通过；最终结果HEAD三CI后PR570合依赖分支，用户HTML不动。
+
+- 2026-10-21 — 补齐#568显式Make入口与共同三策略调度，保持固定验证和参考隔离。
+  - 文件: `backend/packages/harness/deerflow/compile/task_selected_make_plan.py`, `scripts/forge_build_cxx_cross_comparison.py`及两测试/协议。
+  - 动机: 为Make与Autotools C++任务的公平比较补齐共同工程资格，尚无新方法效果。新12回归通过；完整产品检查按Makefile排除历史冻结测试，直接混跑历史测试的13导入错误保留在会话cross-common-product-tests.log，不修旧runtime。
+
 - 2026-10-21 — #565原双项目参考1/2合格并保留libconfig模板改写失败，冻结独立header环境资格
   - 文件: `docs/research/2026-10-21-cxx-cross-reference-results.md`, `scripts/forge_build_cxx_header_reference.py`及同名manifest/preregistration/test
   - 动机: tinyxml2原/replay各508断言通过、strict；libconfig原/replay完整8PASS+1XFAIL及16 tinytest与交付/replay通过，但make重生成唯一原文件ac_config.h.in，原资格false。新header-v1只令configure继承AUTOHEADER=true，1/1严格资格闭合，原/replay原文件265项、8PASS+1XFAIL/16tinytest/两静态交付/replay/cleanup全通过独立审计。inventoryc22ffdac，releasec5d80fc3；新14回归/产品2225passed44skipped/Ruff通过。0Provider、原inventory9f68befd保留不重启。
@@ -603,6 +615,10 @@
   - 文件: task_selected_tool_plan.py、shared_text_packet.py、forge_build_referenced_meter.py、forge_build_task_selected_gate.py、forge_build_task_selected_comparison.py及对应回归和两份预注册；仅新增文件，不改原18槽165冻结组件。
   - 资格: 新三项目零Provider身份已冻结，初始均必须工具生成，只有真实失败后用脚本参考恢复且清空build缓存；不当真实Agent效果，原50k消息/8k schema与完整严格裁判不变。真实六槽须该资格独立通过后另冻结，双方同材料meter/Workflow/恢复Agent，只改initial generator；不得跨批归因。
   - 检查: 41组合回归/产品2244passed44skipped27warnings/Ruff通过，三个实际失败状态后验最小包可逆复原约47k→30k（不是旧被拒报文）。下一步唯一启动launch_selected_gate.py，不并行付费/不延长共享UTC22:07:35窗口；代码发布仅依赖分支。
+- 2026-10-21 — #565原双项目参考1/2合格并保留libconfig模板改写失败，冻结独立header环境资格
+  - 文件: `docs/research/2026-10-21-cxx-cross-reference-results.md`, `scripts/forge_build_cxx_header_reference.py`及同名manifest/preregistration/test
+  - 动机: tinyxml2原/replay各508断言通过、strict；libconfig原/replay完整8PASS+1XFAIL及16 tinytest与交付/replay通过，但make重生成唯一原文件ac_config.h.in，原资格false。新header-v1只令configure继承AUTOHEADER=true，1/1严格资格闭合，原/replay原文件265项、8PASS+1XFAIL/16tinytest/两静态交付/replay/cleanup全通过独立审计。inventoryc22ffdac，releasec5d80fc3；新14回归/产品2225passed44skipped/Ruff通过。0Provider、原inventory9f68befd保留不重启。
+
 - 2026-10-21 — 封存#561双来源并独立重建Git树验证commit绑定。
   - 证据: cxx-cross-system-source-v1，tinyxml2 Make拟任务273文件/libconfig Autotools拟任务265文件，均0源链接；2/2来源逐blob/模式与归档归一化保持通过，0Provider/凭据/模型费/源码执行/Docker。库存89e09bc2267593695a0dae54f9eda9d764d0afcc3af7ad780850d92c4f6aff5f，186文件/15686794bytes；release575c74cd。
   - 审计: 首次将API按commit查询的回显sha误当tree SHA，失败收据保留；改为独立重建全部Git tree对象绑定commit.tree后valid，raw/identity不变、不重新下载。8新/产品2211passed44skipped27warnings、Ruff通过。
