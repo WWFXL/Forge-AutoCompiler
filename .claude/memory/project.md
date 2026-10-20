@@ -4,6 +4,8 @@
 
 ## 进行中 (In Progress)
 
+- 2026-10-21 — #571目录30/30元数据终结、0失败/未观察、0Provider/费/构建/Docker；30根Git树SHA及841跟踪文件暴露范围独立审计valid，有限精确名4命中/26未命中、全部task未资格/非holdout。raw forge-cxx-prospective-source-catalog-v1，inventory88e23ea1，release6a224591；PR572待结果HEAD三CI与发布。#568/PR570已合57e19085、568关闭；全部paid stage闭合，累计3.06569736美元/未知0，无活动实验。源码/生成文件边界A/B决策包已保存，B不自动实施。
+
 - 2026-10-21 — #571前瞻30项C++来源元数据目录准备；固定GitHub检索排名后只取精确commit/根tree，不读源码或构建，不按方法结果替换；0Provider/费用/Docker。单独source工作区、原UTC22:07:35截止，候选非构建资格/holdout，完整产品检查中。#568真实结果封存，PR570等待最终三CI，当前无活动Provider。
 
 - 2026-10-21 — #568真实18槽已终结，exec73490退出0、9strict/0未观察、50请求528574Token/$0.88135608/未知0；无活动Provider/Docker。tinyxml2九槽全过且工具三次0模型；libconfig九槽在build前因同18原文件改写而拒绝，不填功能失败。主/作者源码/请求材料/初始输入/源码拒绝五独立审计valid；raw forge-cxx-cross-system-comparison-v1、inventory7f93db80、release0eb4d96d。当前发布收尾，三paid阶段累计3.06569736美元，原截止不延长。以下运行中条目均为历史。
@@ -587,6 +589,10 @@
   - 下一步: 等待实验负责人确认当前网络接入介质，并决定是否授权只读 endpoint 诊断和新的 canary amendment；获得确认后必须另建中文 Issue/PR 和协议 identity，保留当前失败 marker。
 
 ## 最近变更 (Recent Changes)
+
+- 2026-10-21 — 发布#571前瞻来源目录和源码合同边界复核包。
+  - 文件: `docs/research/2026-10-21-cxx-prospective-source-catalog-results.md`, `docs/research/2026-10-21-source-contract-scope-decision.md`, `benchmarks/analyses/cpp-build-cxx-prospective-source-catalog-v1-results.json`。
+  - 动机: 区分元数据/最终任务资格、源码合同拒绝/功能失败及初始/恢复费用；REST commit附带patch未作资格或方法调整，明确不能声称无代码字节或盲持出。旧证据与分母不改，产品2287passed44skipped/Ruff通过，待最终CI。
 
 - 2026-10-21 — 为后续独立评估补齐#571前瞻来源目录入口。
   - 文件: `scripts/forge_build_cxx_prospective_catalog.py`, `backend/tests/test_cxx_prospective_catalog.py`及同名manifest/preregistration。
