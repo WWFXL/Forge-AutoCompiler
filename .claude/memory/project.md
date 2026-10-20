@@ -4,6 +4,8 @@
 
 ## 进行中 (In Progress)
 
+- 2026-10-21 — #568真实18槽已终结，exec73490退出0、9strict/0未观察、50请求528574Token/$0.88135608/未知0；无活动Provider/Docker。tinyxml2九槽全过且工具三次0模型；libconfig九槽在build前因同18原文件改写而拒绝，不填功能失败。主/作者源码/请求材料/初始输入/源码拒绝五独立审计valid；raw forge-cxx-cross-system-comparison-v1、inventory7f93db80、release0eb4d96d。当前发布收尾，三paid阶段累计3.06569736美元，原截止不延长。以下运行中条目均为历史。
+
 - 2026-10-21 — #568零Provider六槽完整6strict，主/完整作者测试源码索引/可逆材料三审计valid；5Fake响应、0真实Provider/Token/费用，inventory81b830d1，运行release409cd41b。新18槽真实候选独立冻结，同192组件/固定验证/前瞻六排列，cap9计入本轮总20，原UTC22:07:35截止。原参考及门禁均永久只读，严禁续跑；真实启动后HEAD保持直至封存。
 - 2026-10-21 — #565跨系统参考与独立header环境资格均已终结，等待最终CI发布
   - 文件: `scripts/forge_build_cxx_cross_reference.py`, `benchmarks/manifests/cpp-build-cxx-cross-system-reference-v1.json`
@@ -583,6 +585,10 @@
   - 下一步: 等待实验负责人确认当前网络接入介质，并决定是否授权只读 endpoint 诊断和新的 canary amendment；获得确认后必须另建中文 Issue/PR 和协议 identity，保留当前失败 marker。
 
 ## 最近变更 (Recent Changes)
+
+- 2026-10-21 — 发布#568跨系统18槽真实比较与分层解释。
+  - 文件: `docs/research/2026-10-21-cxx-cross-comparison-results.md`, `benchmarks/analyses/cpp-build-cxx-cross-system-comparison-v1-results.json`, `RESEARCH_STATUS.md`。
+  - 动机: 区分默认Make局部收益与Autotools源码合同拒绝，全部费用/失败保留；不放宽验收、不宣称RQ2或总体优势。新12及产品2282passed44skipped27warnings/Ruff通过；最终结果HEAD三CI后PR570合依赖分支，用户HTML不动。
 
 - 2026-10-21 — 补齐#568显式Make入口与共同三策略调度，保持固定验证和参考隔离。
   - 文件: `backend/packages/harness/deerflow/compile/task_selected_make_plan.py`, `scripts/forge_build_cxx_cross_comparison.py`及两测试/协议。

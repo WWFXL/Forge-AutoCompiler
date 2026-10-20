@@ -1,0 +1,543 @@
+{
+  "kind": "descriptive_frozen_slot_metrics_not_population_effect",
+  "valid": true,
+  "identity": "cpp-build-cxx-cross-system-comparison-v1",
+  "inventory_sha256": "7f93db80f09e2f46a78cac64df12d6df6b48fb7bbc99ce464ea76fb4de1b0745",
+  "independent_audit_sha256": "897ec859029c32d76288ccb144f75cf432d76904a6807010049c216b681375bf",
+  "observed": 18,
+  "not_observed": 0,
+  "strict": 9,
+  "requests": 50,
+  "known_estimated_usd": "0.88135608",
+  "unknown_requests": 0,
+  "methods": {
+    "tool_plan_workflow": {
+      "observed": 6,
+      "strict": 3,
+      "requests": 10,
+      "tokens": 131865,
+      "known_estimated_usd": "0.24117060",
+      "total_arm_seconds": 239.9392512086779,
+      "strict_arm_seconds": 32.60893014911562,
+      "handoffs": 0,
+      "revisions": 0,
+      "phases": {
+        "initial_abstention": {
+          "requests": 10,
+          "known_estimated_usd": "0.24117060"
+        }
+      }
+    },
+    "model_plan_workflow": {
+      "observed": 6,
+      "strict": 3,
+      "requests": 18,
+      "tokens": 204422,
+      "known_estimated_usd": "0.36655608",
+      "total_arm_seconds": 327.52377467416227,
+      "strict_arm_seconds": 112.36406980920583,
+      "handoffs": 0,
+      "revisions": 0,
+      "phases": {
+        "initial": {
+          "requests": 18,
+          "known_estimated_usd": "0.36655608"
+        }
+      }
+    },
+    "strong_tool_agent": {
+      "observed": 6,
+      "strict": 3,
+      "requests": 22,
+      "tokens": 192287,
+      "known_estimated_usd": "0.27362940",
+      "total_arm_seconds": 134.06833817902952,
+      "strict_arm_seconds": 59.38418911397457,
+      "handoffs": 0,
+      "revisions": 0,
+      "phases": {
+        "agent_control": {
+          "requests": 22,
+          "known_estimated_usd": "0.27362940"
+        }
+      }
+    }
+  },
+  "pairs": [
+    {
+      "project": "libconfig",
+      "repetition": 1,
+      "rows": [
+        {
+          "method": "strong_tool_agent",
+          "strict_completed": false,
+          "requests": 4,
+          "tokens": 45447,
+          "known_estimated_cost_usd": "0.06450972",
+          "arm_total_wall_seconds": 25.28238510293886,
+          "handoffs": 0,
+          "revisions": 0,
+          "observed_layers": {
+            "author_complete_execution": "not_observed",
+            "build_execution": "not_observed",
+            "fixed_task_oracle": [
+              "not_observed"
+            ],
+            "fixed_test_fresh_after_latest_build": [
+              null
+            ],
+            "stage_execution": "not_observed",
+            "strict_delivery_and_replay": "not_established",
+            "original_source": "failed",
+            "cleanup": "passed"
+          }
+        },
+        {
+          "method": "model_plan_workflow",
+          "strict_completed": false,
+          "requests": 4,
+          "tokens": 51151,
+          "known_estimated_cost_usd": "0.08867628",
+          "arm_total_wall_seconds": 69.91010649176314,
+          "handoffs": 0,
+          "revisions": 0,
+          "observed_layers": {
+            "author_complete_execution": "not_observed",
+            "build_execution": "not_observed",
+            "fixed_task_oracle": [
+              "not_observed"
+            ],
+            "fixed_test_fresh_after_latest_build": [
+              null
+            ],
+            "stage_execution": "not_observed",
+            "strict_delivery_and_replay": "not_established",
+            "original_source": "failed",
+            "cleanup": "passed"
+          }
+        },
+        {
+          "method": "tool_plan_workflow",
+          "strict_completed": false,
+          "requests": 4,
+          "tokens": 56007,
+          "known_estimated_cost_usd": "0.10739916",
+          "arm_total_wall_seconds": 97.81695995572954,
+          "handoffs": 0,
+          "revisions": 0,
+          "observed_layers": {
+            "author_complete_execution": "not_observed",
+            "build_execution": "not_observed",
+            "fixed_task_oracle": [
+              "not_observed"
+            ],
+            "fixed_test_fresh_after_latest_build": [
+              null
+            ],
+            "stage_execution": "not_observed",
+            "strict_delivery_and_replay": "not_established",
+            "original_source": "failed",
+            "cleanup": "passed"
+          }
+        }
+      ],
+      "all_strict": false
+    },
+    {
+      "project": "libconfig",
+      "repetition": 2,
+      "rows": [
+        {
+          "method": "model_plan_workflow",
+          "strict_completed": false,
+          "requests": 4,
+          "tokens": 52713,
+          "known_estimated_cost_usd": "0.09316692",
+          "arm_total_wall_seconds": 74.18797138519585,
+          "handoffs": 0,
+          "revisions": 0,
+          "observed_layers": {
+            "author_complete_execution": "not_observed",
+            "build_execution": "not_observed",
+            "fixed_task_oracle": [
+              "not_observed"
+            ],
+            "fixed_test_fresh_after_latest_build": [
+              null
+            ],
+            "stage_execution": "not_observed",
+            "strict_delivery_and_replay": "not_established",
+            "original_source": "failed",
+            "cleanup": "passed"
+          }
+        },
+        {
+          "method": "tool_plan_workflow",
+          "strict_completed": false,
+          "requests": 3,
+          "tokens": 38765,
+          "known_estimated_cost_usd": "0.0703494",
+          "arm_total_wall_seconds": 62.39367365790531,
+          "handoffs": 0,
+          "revisions": 0,
+          "observed_layers": {
+            "author_complete_execution": "not_observed",
+            "build_execution": "not_observed",
+            "fixed_task_oracle": [
+              "not_observed"
+            ],
+            "fixed_test_fresh_after_latest_build": [
+              null
+            ],
+            "stage_execution": "not_observed",
+            "strict_delivery_and_replay": "not_established",
+            "original_source": "failed",
+            "cleanup": "passed"
+          }
+        },
+        {
+          "method": "strong_tool_agent",
+          "strict_completed": false,
+          "requests": 2,
+          "tokens": 19188,
+          "known_estimated_cost_usd": "0.02633928",
+          "arm_total_wall_seconds": 14.636895527131855,
+          "handoffs": 0,
+          "revisions": 0,
+          "observed_layers": {
+            "author_complete_execution": "not_observed",
+            "build_execution": "not_observed",
+            "fixed_task_oracle": [
+              "not_observed"
+            ],
+            "fixed_test_fresh_after_latest_build": [
+              null
+            ],
+            "stage_execution": "not_observed",
+            "strict_delivery_and_replay": "not_established",
+            "original_source": "failed",
+            "cleanup": "passed"
+          }
+        }
+      ],
+      "all_strict": false
+    },
+    {
+      "project": "libconfig",
+      "repetition": 3,
+      "rows": [
+        {
+          "method": "tool_plan_workflow",
+          "strict_completed": false,
+          "requests": 3,
+          "tokens": 37093,
+          "known_estimated_cost_usd": "0.06342204",
+          "arm_total_wall_seconds": 47.11968744592741,
+          "handoffs": 0,
+          "revisions": 0,
+          "observed_layers": {
+            "author_complete_execution": "not_observed",
+            "build_execution": "not_observed",
+            "fixed_task_oracle": [
+              "not_observed"
+            ],
+            "fixed_test_fresh_after_latest_build": [
+              null
+            ],
+            "stage_execution": "not_observed",
+            "strict_delivery_and_replay": "not_established",
+            "original_source": "failed",
+            "cleanup": "passed"
+          }
+        },
+        {
+          "method": "strong_tool_agent",
+          "strict_completed": false,
+          "requests": 5,
+          "tokens": 54164,
+          "known_estimated_cost_usd": "0.07930824",
+          "arm_total_wall_seconds": 34.76486843498424,
+          "handoffs": 0,
+          "revisions": 0,
+          "observed_layers": {
+            "author_complete_execution": "not_observed",
+            "build_execution": "not_observed",
+            "fixed_task_oracle": [
+              "not_observed"
+            ],
+            "fixed_test_fresh_after_latest_build": [
+              null
+            ],
+            "stage_execution": "not_observed",
+            "strict_delivery_and_replay": "not_established",
+            "original_source": "failed",
+            "cleanup": "passed"
+          }
+        },
+        {
+          "method": "model_plan_workflow",
+          "strict_completed": false,
+          "requests": 4,
+          "tokens": 51962,
+          "known_estimated_cost_usd": "0.09179808",
+          "arm_total_wall_seconds": 71.06162698799744,
+          "handoffs": 0,
+          "revisions": 0,
+          "observed_layers": {
+            "author_complete_execution": "not_observed",
+            "build_execution": "not_observed",
+            "fixed_task_oracle": [
+              "not_observed"
+            ],
+            "fixed_test_fresh_after_latest_build": [
+              null
+            ],
+            "stage_execution": "not_observed",
+            "strict_delivery_and_replay": "not_established",
+            "original_source": "failed",
+            "cleanup": "passed"
+          }
+        }
+      ],
+      "all_strict": false
+    },
+    {
+      "project": "tinyxml2",
+      "repetition": 1,
+      "rows": [
+        {
+          "method": "tool_plan_workflow",
+          "strict_completed": true,
+          "requests": 0,
+          "tokens": 0,
+          "known_estimated_cost_usd": "0.00",
+          "arm_total_wall_seconds": 10.897092562168837,
+          "handoffs": 0,
+          "revisions": 0,
+          "observed_layers": {
+            "author_complete_execution": "passed_recorded",
+            "build_execution": "passed",
+            "fixed_task_oracle": [
+              "passed"
+            ],
+            "fixed_test_fresh_after_latest_build": [
+              true
+            ],
+            "stage_execution": "passed",
+            "strict_delivery_and_replay": "passed",
+            "original_source": "passed",
+            "cleanup": "passed"
+          }
+        },
+        {
+          "method": "model_plan_workflow",
+          "strict_completed": true,
+          "requests": 2,
+          "tokens": 13457,
+          "known_estimated_cost_usd": "0.02262876",
+          "arm_total_wall_seconds": 26.874232517089695,
+          "handoffs": 0,
+          "revisions": 0,
+          "observed_layers": {
+            "author_complete_execution": "passed_recorded",
+            "build_execution": "passed",
+            "fixed_task_oracle": [
+              "passed"
+            ],
+            "fixed_test_fresh_after_latest_build": [
+              true
+            ],
+            "stage_execution": "passed",
+            "strict_delivery_and_replay": "passed",
+            "original_source": "passed",
+            "cleanup": "passed"
+          }
+        },
+        {
+          "method": "strong_tool_agent",
+          "strict_completed": true,
+          "requests": 4,
+          "tokens": 27481,
+          "known_estimated_cost_usd": "0.03873804",
+          "arm_total_wall_seconds": 22.16229787003249,
+          "handoffs": 0,
+          "revisions": 0,
+          "observed_layers": {
+            "author_complete_execution": "passed_recorded",
+            "build_execution": "passed",
+            "fixed_task_oracle": [
+              "passed"
+            ],
+            "fixed_test_fresh_after_latest_build": [
+              true
+            ],
+            "stage_execution": "passed",
+            "strict_delivery_and_replay": "passed",
+            "original_source": "passed",
+            "cleanup": "passed"
+          }
+        }
+      ],
+      "all_strict": true
+    },
+    {
+      "project": "tinyxml2",
+      "repetition": 2,
+      "rows": [
+        {
+          "method": "model_plan_workflow",
+          "strict_completed": true,
+          "requests": 2,
+          "tokens": 12838,
+          "known_estimated_cost_usd": "0.02017488",
+          "arm_total_wall_seconds": 19.41510936198756,
+          "handoffs": 0,
+          "revisions": 0,
+          "observed_layers": {
+            "author_complete_execution": "passed_recorded",
+            "build_execution": "passed",
+            "fixed_task_oracle": [
+              "passed"
+            ],
+            "fixed_test_fresh_after_latest_build": [
+              true
+            ],
+            "stage_execution": "passed",
+            "strict_delivery_and_replay": "passed",
+            "original_source": "passed",
+            "cleanup": "passed"
+          }
+        },
+        {
+          "method": "strong_tool_agent",
+          "strict_completed": true,
+          "requests": 4,
+          "tokens": 26638,
+          "known_estimated_cost_usd": "0.03731112",
+          "arm_total_wall_seconds": 19.247141600120813,
+          "handoffs": 0,
+          "revisions": 0,
+          "observed_layers": {
+            "author_complete_execution": "passed_recorded",
+            "build_execution": "passed",
+            "fixed_task_oracle": [
+              "passed"
+            ],
+            "fixed_test_fresh_after_latest_build": [
+              true
+            ],
+            "stage_execution": "passed",
+            "strict_delivery_and_replay": "passed",
+            "original_source": "passed",
+            "cleanup": "passed"
+          }
+        },
+        {
+          "method": "tool_plan_workflow",
+          "strict_completed": true,
+          "requests": 0,
+          "tokens": 0,
+          "known_estimated_cost_usd": "0.00",
+          "arm_total_wall_seconds": 10.854490108322352,
+          "handoffs": 0,
+          "revisions": 0,
+          "observed_layers": {
+            "author_complete_execution": "passed_recorded",
+            "build_execution": "passed",
+            "fixed_task_oracle": [
+              "passed"
+            ],
+            "fixed_test_fresh_after_latest_build": [
+              true
+            ],
+            "stage_execution": "passed",
+            "strict_delivery_and_replay": "passed",
+            "original_source": "passed",
+            "cleanup": "passed"
+          }
+        }
+      ],
+      "all_strict": true
+    },
+    {
+      "project": "tinyxml2",
+      "repetition": 3,
+      "rows": [
+        {
+          "method": "strong_tool_agent",
+          "strict_completed": true,
+          "requests": 3,
+          "tokens": 19369,
+          "known_estimated_cost_usd": "0.027423",
+          "arm_total_wall_seconds": 17.97474964382127,
+          "handoffs": 0,
+          "revisions": 0,
+          "observed_layers": {
+            "author_complete_execution": "passed_recorded",
+            "build_execution": "passed",
+            "fixed_task_oracle": [
+              "passed"
+            ],
+            "fixed_test_fresh_after_latest_build": [
+              true
+            ],
+            "stage_execution": "passed",
+            "strict_delivery_and_replay": "passed",
+            "original_source": "passed",
+            "cleanup": "passed"
+          }
+        },
+        {
+          "method": "tool_plan_workflow",
+          "strict_completed": true,
+          "requests": 0,
+          "tokens": 0,
+          "known_estimated_cost_usd": "0.00",
+          "arm_total_wall_seconds": 10.857347478624433,
+          "handoffs": 0,
+          "revisions": 0,
+          "observed_layers": {
+            "author_complete_execution": "passed_recorded",
+            "build_execution": "passed",
+            "fixed_task_oracle": [
+              "passed"
+            ],
+            "fixed_test_fresh_after_latest_build": [
+              true
+            ],
+            "stage_execution": "passed",
+            "strict_delivery_and_replay": "passed",
+            "original_source": "passed",
+            "cleanup": "passed"
+          }
+        },
+        {
+          "method": "model_plan_workflow",
+          "strict_completed": true,
+          "requests": 2,
+          "tokens": 22301,
+          "known_estimated_cost_usd": "0.05011116",
+          "arm_total_wall_seconds": 66.07472793012857,
+          "handoffs": 0,
+          "revisions": 0,
+          "observed_layers": {
+            "author_complete_execution": "passed_recorded",
+            "build_execution": "passed",
+            "fixed_task_oracle": [
+              "passed"
+            ],
+            "fixed_test_fresh_after_latest_build": [
+              true
+            ],
+            "stage_execution": "passed",
+            "strict_delivery_and_replay": "passed",
+            "original_source": "passed",
+            "cleanup": "passed"
+          }
+        }
+      ],
+      "all_strict": true
+    }
+  ],
+  "implementation_sha256": "7def414c32284dd056d898759ad9a793a25963d026d4dd1850e752b6d2671ba6"
+}

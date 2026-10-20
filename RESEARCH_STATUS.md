@@ -1,10 +1,14 @@
 # Forge Research Status
 
-## 当前阶段（2026-10-21；#568六槽资格闭合，跨系统真实比较准备）
+## 当前阶段（2026-10-21；#568跨系统18槽真实比较封存，进入解释与发布）
 
-零Provider基础设施资格已闭合，正在转入真实数据采集，尚无新的跨系统策略效果。tinyxml2原Make参考合格；libconfig原参考因autoheader改写原文件而拒绝，独立header-v1保留265原文件、完整8PASS+1XFAIL和16/16 tinytest、精确双静态库交付、clean replay及cleanup，1/1合格。两个合格任务进入共同六槽零Provider门禁，再决定是否启动18槽三策略真实比较；人工参考不进入真实Agent。
+数据采集完成、结果分析及发布阶段。cpp-build-cxx-cross-system-comparison-v1完整18观察/9strict/0未观察，tinyxml2 Make三策略各3/3strict，工具三次0模型；模型6请求/0.09291480美元，强工具11请求/0.10347216美元，但模型累计臂秒112.36高于强工具59.38，不声称全面更快。libconfig三策略各0/3，九槽均因autoreconf -f改写同一18原文件而在build前拒绝；完整测试/交付/replay未观察，不是九个功能失败。三个工具拒答/模型首次Agent输入仅归一化node_seconds逐字段相同，不把随机轨迹差归因为省规划。
 
-#560/#562六槽结果已PR563合依赖分支，560/562关闭；#567固定18/6队列RQ3审计三CI通过并PR569合依赖分支，不改变旧14/43分母。新Make模板仅接受task显式系统与唯一普通根入口，Autotools无法可靠选候选仍拒答升级；三策略共用固定完整测试、来源准备、精确交付/replay及全费用接口。门禁cpp-build-cxx-cross-system-common-gate-v1已6/6 strict，0真实Provider/5脚本响应/0Token及费用；inventory81b830d1892963bd978f342ca7ecdcc5a0abf68f70adb187dae517ca902dcf99、release409cd41b，主/源码作者测试/请求材料三独立审计valid。付费cpp-build-cxx-cross-system-comparison-v1固定两项目×三重复×三策略18槽、192组件，前瞻角色暴露与六排列保持，阶段最多预留9美元。共享累计估费2.18434128美元/未知0，用户总20美元和原UTC22:07:35截止不延长，新付费槽3900秒预留，无重试补槽，不加P2/不换主线/不降验收。用户HTML不动。
+三策略总strict各3/6，请求10/18/22、费用0.24117060/0.36655608/0.27362940美元、累计臂秒239.939251/327.523775/134.068338。50请求528574Token/$0.88135608、未知0，stage.completed；本轮三个paid阶段累计151请求1971514Token/估费3.06569736美元，低于共享20。不同批次不合并估效果。原UTC22:07:35截止及3900秒新槽准入不延长；本批无交接/修订，不新增RQ2效果/P2，不改RQ3旧14/43分母、主线或验收。
+
+raw forge-cxx-cross-system-comparison-v1，inventory7f93db80f09e2f46a78cac64df12d6df6b48fb7bbc99ce464ea76fb4de1b0745（15860文件/0链接/316652838bytes），运行release0eb4d96dffa899f33d32acde9db87625334714ee、192组件；主/完整作者源码详情/50实际请求材料/3对初始输入/源码拒绝五独立审计valid，9strict原/replay508断言及18cleanup通过。报告docs/research/2026-10-21-cxx-cross-comparison-results.md、版本化派生benchmarks/analyses/cpp-build-cxx-cross-system-comparison-v1-results.json，会话forge-cxx-continuous-session-2026-10-21保留全部授权/终态/费用/审计/发布收据。原六槽零Provider资格6/6strict不当效果，inventory81b830d1；原跨系统参考仍1/2，独立header1/1，PR566已合a1c75b54/565关闭。RQ3固定18/6复核PR569已合2110524e/567关闭；六槽模板消融PR563已合，560/562关闭，负费用取舍保持。
+
+当前只支持默认兼容任务局部零模型收益及任务合同失败诊断，不支持总体/holdout/大型C++/自然失败或通用规划机制创新。源码全部SHA保持可能与标准bootstrap更新供应模板冲突：是否未来明确声明生成文件可写是任务/主张边界决定，须用户另决，旧九槽不能回填。可继续免费来源目录准备，不能按结果挑优势项目。最终结果HEAD三CI后PR570仅合科研依赖分支、不进main，发布以GitHub/收据为准；用户HTML不动。
 
 ## 上一阶段（2026-10-21；#560/#562六槽真实消融闭合，#565跨系统参考运行中）
 
