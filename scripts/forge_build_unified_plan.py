@@ -29,7 +29,7 @@ from deerflow.compile.plan_workflow import PlanContractError  # noqa: E402
 from deerflow.compile.tool_plan import ToolPlanNeedsAgent  # noqa: E402
 from deerflow.compile.unified_plan import BuildActions, tool_actions, unified_planner  # noqa: E402
 
-IDENTITY = "cpp-build-unified-plan-gate-v1"
+IDENTITY = "cpp-build-unified-plan-gate-v2"
 METHODS = ("tool_plan_workflow", "model_plan_workflow", "strong_tool_agent")
 
 

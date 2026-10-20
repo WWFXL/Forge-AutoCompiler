@@ -4,6 +4,11 @@
 
 ## 进行中 (In Progress)
 
+- 2026-10-20 — #542共享接口v1主动中断封存，v2共享库交付修复准备。
+  - v1 3strict（Make双来源/CMake工具）、CMake模型槽部分中断、5未启动，均实际cleanup；库存d0e7ce5f81a85399ab9fae1dbc5cdcaba28294835ce3c5955ec93bdcdb556405，37524文件/154676154bytes。发现libzip任务交付libzip.so而常规产物为内部版本化链接，旧共同暂存器忽略链接属接口缺口，不称真实方法失败。
+  - 新plan_delivery接受仓库内链接解析到真实ELF/ar并交付普通文件，拒绝越界/循环/悬空/歧义；6真实Shell回归通过。v2只修本轮新模块和入口，原93组件不改，旧v1 manifest/raw/snapshot保留，按原绝对工程截止独立九槽，不混结果。新增回归合计34项通过，0Provider。
+
+
 - 2026-10-20 — #542共享规划契约基础设施资格准备。
   - 新unified_plan模块只接收BuildActions构建部分，系统装入作者固定测试及共同暂存；工具初始拒绝独立登记后转同预算Agent，执行失败同一权威恢复接口。历史93组件不改。
   - 新门禁9槽/0Provider，66相关测试通过；尚无新Docker观察。manifest/preregistration为cpp-build-unified-plan-gate-v1；后续公平比较待门禁及新费用/时窗。新分支yiwei/542-unified-plan-interface基于PR541 merge3c2d191c，最终只合依赖分支，用户HTML不动。

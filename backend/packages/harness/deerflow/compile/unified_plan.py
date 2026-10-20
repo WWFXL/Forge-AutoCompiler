@@ -12,8 +12,9 @@ from pydantic import BaseModel, ConfigDict, Field
 
 from deerflow.compile.plan_agent import PlanProposal, PlanResponseCapture
 from deerflow.compile.plan_agent_context import CONTEXT_PROMPT, safe_readonly_tools
+from deerflow.compile.plan_delivery import delivery_command
 from deerflow.compile.plan_workflow import PlanContractError, PlanStep
-from deerflow.compile.tool_plan import ToolPlanNeedsAgent, artifact_stage_command, generate_tool_plan
+from deerflow.compile.tool_plan import ToolPlanNeedsAgent, generate_tool_plan
 
 
 class BuildAction(PlanStep):
@@ -40,9 +41,9 @@ def assemble_plan(task, proposal: BuildActions, *, revision: int):
         PlanStep(
             step_id="stage",
             role="artifact_stage",
-            command=artifact_stage_command(task.artifact_paths, "."),
+            command=delivery_command(task.artifact_paths),
             requires=tuple(s.step_id for s in task.verification_steps),
-            source="unified-plan-v1：系统精确交付装配，仓库内唯一ELF/ar候选",
+            source="unified-plan-v2：系统精确交付装配，仓库内唯一ELF/ar候选及内部链接",
             expected="固定完整测试、精确交付及同镜像clean replay通过",
         )
     )
@@ -61,7 +62,7 @@ PROMPT = (
 只读工具用于分析原README、构建文件、必要测试配置和失败日志，不执行Shell、不读取个人知识库或宿主文件。
 返回BuildActions，仅含dependency/configure/build动作。每条命令一个逻辑阶段，按依赖、配置、编译排序；最后的编译步骤step_id必须是build。
 固定verification_steps和精确artifact_paths由系统装入原完整测试及同一暂存脚本；不要复制、改写测试或生成artifact_stage。
-系统暂存从/workspace/repo内查找与交付basename一致的唯一ELF/ar普通文件，拒绝缺失/歧义。构建应生成这些原始目标文件。
+系统暂存从/workspace/repo内查找与交付basename一致的唯一ELF/ar文件（可经仓库内部符号链接定位），拒绝缺失/歧义/越界。构建应生成这些原始目标文件。
 使用/workspace/repo容器路径，最多2并行，保持严格Shell；禁止改原源码/测试、忽略失败或伪造输出。source注明实际证据。
 恢复时返回全部构建动作及具体理由；依赖/配置变化应显式清理缓存及旧产物，不能仅假定逻辑失效已物理重建。
 Workflow持有状态与验收权，首次变化后的步骤重新执行；不改变任务、源码身份、预算或裁判。准备完成后立即交付。
