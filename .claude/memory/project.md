@@ -5,10 +5,16 @@
 ## 进行中 (In Progress)
 
 - 2026-10-21 — #568零Provider六槽完整6strict，主/完整作者测试源码索引/可逆材料三审计valid；5Fake响应、0真实Provider/Token/费用，inventory81b830d1，运行release409cd41b。新18槽真实候选独立冻结，同192组件/固定验证/前瞻六排列，cap9计入本轮总20，原UTC22:07:35截止。原参考及门禁均永久只读，严禁续跑；真实启动后HEAD保持直至封存。
+- 2026-10-21 — #565跨系统参考与独立header环境资格均已终结，等待最终CI发布
+  - 文件: `scripts/forge_build_cxx_cross_reference.py`, `benchmarks/manifests/cpp-build-cxx-cross-system-reference-v1.json`
+  - 动机: #561来源2/2通过尚不代表完整作者测试/原源码/精确交付/replay闭合；0Provider，原UTC22:07:35截止，失败与未观察保留。libconfig保留8PASS+1XFAIL及所有原文件不变合同。
 
 - 2026-10-21 — #568跨系统共同六槽零Provider门禁准备；192组件冻结，先实际门禁及独立审计，再冻结18槽真实候选。共享20美元/原UTC22:07:35截止，当前已花2.18434128美元/未知0；不并行Docker、不重跑旧身份、人工参考隔离。#567/PR569已通过最终三CI并合依赖分支，#565/PR566最终发布处理中。
 
 - 2026-10-21 — #560/#562真实六槽已封存并三独立审计通过，exec35697终态0，不重跑；#565跨系统参考在独立工作区release05503b2c/exec25843终结，原1/2合格：libconfig测试与replay通过但autoheader改写原模板，失败保留；独立header-v1原文件265项保持且1/1合格，inventoryc22ffdac，完整测试/交付/replay/cleanup均审计通过。raw forge-cxx-cross-system-reference-v1，不并行Docker。#568共同接口/比较为后续有条件计划，#567 RQ3固定18/6审计完成，PR569待最终三CI；共享20美元原UTC22:07:35截止不延长。最终结果HEAD三CI后仅合科研依赖分支，用户HTML不动。
+- 2026-10-21 — #558连续科研轮：共享新增20美元/UTC18:07:35至22:07:35，准备计入。新四槽零Provider调度资格（buffer三策略+snappy强工具缺槽）通过并独立审计后冻结18槽C++比较；旧#556 v3保持10观察/1未观察，均不改冻结组件、验收或RQ3分母。最终HEAD三CI后仅合科研依赖分支，知识库持续同步。
+
+- 2026-10-21 — #560/#562真实六槽已封存并三独立审计通过，exec35697终态0，不重跑；#565跨系统参考在独立工作区release05503b2c/exec25843终结，原1/2合格：libconfig测试与replay通过但autoheader改写原模板，失败保留；新header-v1仅configure继承AUTOHEADER=true准备中。raw forge-cxx-cross-system-reference-v1，不并行Docker。#568共同接口/比较为后续有条件计划，#567 RQ3固定18/6审计进行中；共享20美元原UTC22:07:35截止不延长。最终结果HEAD三CI后仅合科研依赖分支，用户HTML不动。
 
 - 2026-10-20 — #542共享契约及新强工具调度资格已完整结束；本条以下“运行中”均为历史。
   - v2九槽9strict/0未观察，7脚本响应/38Shell，库存6617b2f862686ca5c8086d3ca1431182d8bc8576c365a8166bbbd9dbafdf24a5，56671文件30链接229021615bytes；独立stdlib audit valid=true。CMake两来源原/replay14/14、Auto各6/6（0skip/fail），Make完整自测；受控两失败各handoff/revision2并保留gate-configure，初始拒绝另记升级。无真实Provider/Token/费用/未知，不当效果或自然恢复率。
@@ -582,6 +588,9 @@
   - 文件: `backend/packages/harness/deerflow/compile/task_selected_make_plan.py`, `scripts/forge_build_cxx_cross_comparison.py`及两测试/协议。
   - 动机: 为Make与Autotools C++任务的公平比较补齐共同工程资格，尚无新方法效果。新12回归通过；完整产品检查按Makefile排除历史冻结测试，直接混跑历史测试的13导入错误保留在会话cross-common-product-tests.log，不修旧runtime。
 
+- 2026-10-21 — #565原双项目参考1/2合格并保留libconfig模板改写失败，冻结独立header环境资格
+  - 文件: `docs/research/2026-10-21-cxx-cross-reference-results.md`, `scripts/forge_build_cxx_header_reference.py`及同名manifest/preregistration/test
+  - 动机: tinyxml2原/replay各508断言通过、strict；libconfig原/replay完整8PASS+1XFAIL及16 tinytest与交付/replay通过，但make重生成唯一原文件ac_config.h.in，原资格false。新header-v1只令configure继承AUTOHEADER=true，1/1严格资格闭合，原/replay原文件265项、8PASS+1XFAIL/16tinytest/两静态交付/replay/cleanup全通过独立审计。inventoryc22ffdac，releasec5d80fc3；新14回归/产品2225passed44skipped/Ruff通过。0Provider、原inventory9f68befd保留不重启。
 - 2026-10-21 — #567完成独立固定C++队列的分层复核并保留18/6分母
   - 文件: `scripts/forge_audit_cxx_fixed_layers.py`, `backend/tests/test_audit_cxx_fixed_layers.py`, `benchmarks/analyses/cpp-build-cxx-fixed-cohort-validation-audit-v1.json`, `docs/research/2026-10-21-cxx-validation-layers-results.md`
   - 动机: 原18均build通过但作者测试/交付/replay仅15通过+3未观察，新6各层全6；0Provider，原文件SHA和实际cleanup独立核验，不改历史14/43，不估自然误接受率或宣称第二创新点。反篡改/固定分母门禁4项测试通过，版本化实现另写新收据与首版逐字段比对，不覆盖原结果。
