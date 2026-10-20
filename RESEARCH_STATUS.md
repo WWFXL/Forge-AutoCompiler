@@ -1,10 +1,10 @@
 # Forge Research Status
 
-## 当前阶段（2026-10-21；#568跨系统共同接口资格准备）
+## 当前阶段（2026-10-21；#568六槽资格闭合，跨系统真实比较准备）
 
-基础设施阶段，尚无新的跨系统策略效果。tinyxml2原Make参考合格；libconfig原参考因autoheader改写原文件而拒绝，独立header-v1保留265原文件、完整8PASS+1XFAIL和16/16 tinytest、精确双静态库交付、clean replay及cleanup，1/1合格。两个合格任务进入共同六槽零Provider门禁，再决定是否启动18槽三策略真实比较；人工参考不进入真实Agent。
+零Provider基础设施资格已闭合，正在转入真实数据采集，尚无新的跨系统策略效果。tinyxml2原Make参考合格；libconfig原参考因autoheader改写原文件而拒绝，独立header-v1保留265原文件、完整8PASS+1XFAIL和16/16 tinytest、精确双静态库交付、clean replay及cleanup，1/1合格。两个合格任务进入共同六槽零Provider门禁，再决定是否启动18槽三策略真实比较；人工参考不进入真实Agent。
 
-#560/#562六槽结果已PR563合依赖分支，560/562关闭；#567固定18/6队列RQ3审计三CI通过并PR569合依赖分支，不改变旧14/43分母。新Make模板仅接受task显式系统与唯一普通根入口，Autotools无法可靠选候选仍拒答升级；三策略共用固定完整测试、来源准备、精确交付/replay及全费用接口。门禁manifest cpp-build-cxx-cross-system-common-gate-v1，192冻结组件、6槽；通过独立审计后才冻结付费身份。共享累计估费2.18434128美元/未知0，用户总20美元和原UTC22:07:35截止不延长，新付费槽3900秒预留，无重试补槽，不加P2/不换主线/不降验收。用户HTML不动。
+#560/#562六槽结果已PR563合依赖分支，560/562关闭；#567固定18/6队列RQ3审计三CI通过并PR569合依赖分支，不改变旧14/43分母。新Make模板仅接受task显式系统与唯一普通根入口，Autotools无法可靠选候选仍拒答升级；三策略共用固定完整测试、来源准备、精确交付/replay及全费用接口。门禁cpp-build-cxx-cross-system-common-gate-v1已6/6 strict，0真实Provider/5脚本响应/0Token及费用；inventory81b830d1892963bd978f342ca7ecdcc5a0abf68f70adb187dae517ca902dcf99、release409cd41b，主/源码作者测试/请求材料三独立审计valid。付费cpp-build-cxx-cross-system-comparison-v1固定两项目×三重复×三策略18槽、192组件，前瞻角色暴露与六排列保持，阶段最多预留9美元。共享累计估费2.18434128美元/未知0，用户总20美元和原UTC22:07:35截止不延长，新付费槽3900秒预留，无重试补槽，不加P2/不换主线/不降验收。用户HTML不动。
 
 ## 上一阶段（2026-10-21；#560/#562六槽真实消融闭合，#565跨系统参考运行中）
 
