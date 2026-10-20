@@ -4,6 +4,12 @@
 
 ## 进行中 (In Progress)
 
+- 2026-10-20 — #538原v1停止封存，当前清理分类工程修复，以下“运行中”为历史。
+  - 16观察12strict/3请求预算停止/1源码合同拒绝、20未观察；135请求/$2.54462076000000006/未知0，inventory f216c3930624768d6def984681af377d0ccb1e2427dd52a30b21c5d595692b72，独立audit valid=true，所有实际容器已删除、原stage.closed。
+  - libzip110原HTML改写拒绝有效，旧run_arm finally源码检查覆盖实际cleanup成功。Issue538已回读修复范围：新adapter保留旧逐臂result及strict失败，仅权威事件+实际Docker不存在+源码改变均核验时分开分类；零Provider真实负例后独立身份只跑原20未观察，不重试原16。
+  - 新阶段最多预留10美元，与已支出共享原20美元/UTC07:47:40截止；原85组件不动，原模型/资源/裁判保持，两队列分别审计，仅跨身份描述。不加P2、不改RQ3，不动用户HTML。
+
+
 - 2026-10-20 — #538完整三策略36槽真实比较已启动；用户新增明确授权“20美元、4小时”，UTC03:47:40至07:47:40，准备计入。
   - 文件: scripts/forge_build_full_strategy_comparison.py、backend/tests/test_build_full_strategy_comparison.py、同名manifest/preregistration、RESEARCH_STATUS.md。新身份只绑定新授权，父82组件与策略/模型/任务/36槽/资源/裁判全保持；复核原完整v2门禁及独立audit，不重跑旧门禁。18相关测试/产品2023 passed/44 skipped/Ruff/535格式/非模型preflight通过。release6f986973已提交推送，PR539；UTC03:54:31真实attempt启动，已读取有效授权凭据/产生Provider请求，当前无整批终态，不能恢复此身份或并行付费。
   - 前置工程调用一次因uv切到backend导致相对manifest缺失，一次make在根目录无test-product目标；均发生在正式输出根/凭据前，改为绝对manifest与make -C backend，保留工程日志/说明，不改实验身份。
