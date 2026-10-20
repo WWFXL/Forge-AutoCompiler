@@ -1,6 +1,10 @@
 # Forge Research Status
 
-## 当前阶段（2026-10-21；#556共同准备资格10槽完成、1槽未观察）
+## 当前阶段（2026-10-21；#558独立资格补齐与比较准备）
+
+用户新授权本轮共享新增20美元、UTC18:07:35至22:07:35（北京时间06:07:35截止），准备计入。当前基础设施阶段：新四槽零Provider门禁检验buffer三策略新调度及snappy强工具缺槽；完整审计后才冻结18槽真实比较。没有新真实Provider结果；旧身份不续用、不拼接为完整11槽。
+
+## 最近完成（2026-10-21；#556共同准备资格10槽完成、1槽未观察）
 
 基础设施/工程资格阶段，0凭据/真实Provider/模型Token/模型费/未知用量，无新策略效果。独立cpp-build-cxx-common-input-gate-v3已10槽观察、10strict，最后snappy强工具因启动前剩余时间<2100秒未观察；11槽完整资格未完成，不直接启动18槽付费比较。buffer两来源受控恢复各一次handoff/revision2，准备与configure成功原命令保留；yaml-cpp/simdutf三策略及snappy双Workflow完整通过。yaml原/replay1068默认GoogleTest/CTest3、snappy25/CTest1，上游8/1默认DISABLED保留；simd94/94实际Passed含宏检查、0skip。原/replay源码/索引、精确交付、镜像2CPU、完整重放与实际cleanup及独立stdlib主/功能计量审计均valid=true。
 
