@@ -1,0 +1,251 @@
+{
+  "valid": true,
+  "identity": "cpp-build-rtorrent-multiturn-material-gate-v1",
+  "inventory": {
+    "format": "forge-typed-evidence-v1",
+    "identity": "cpp-build-rtorrent-multiturn-material-gate-v1",
+    "entries": 463,
+    "files": 463,
+    "symlinks": 0,
+    "bytes": 14554111,
+    "inventory_canonical_sha256": "2174ec7e96f6949c74013f6a9aa5d08a8275e38be3f47104722cc2af0158f36f",
+    "unknown_usage_requests": 0
+  },
+  "source_inventory_sha256": "271bcecbd2d17abae1c5358beffcf43b54d223a62d228e20a5ca330599b0d2be",
+  "release": "0cddecf7d32e75845901b7c958df426b28628300",
+  "cases": 30,
+  "actual_historical_requests": 28,
+  "stopped_materials": 2,
+  "scripted_responses": 30,
+  "provider_calls": 0,
+  "provider_cost_usd": 0,
+  "recorded_tokens": 0,
+  "unknown_requests": 0,
+  "max_messages_bytes": 48877,
+  "rows": [
+    {
+      "case": "slot-1-request-1",
+      "kind": "actual_request",
+      "messages_bytes": 46363,
+      "schema_bytes": 2725,
+      "exact_values_restored": true
+    },
+    {
+      "case": "slot-1-stopped",
+      "kind": "stopped_material",
+      "messages_bytes": 48475,
+      "schema_bytes": 2725,
+      "exact_values_restored": true
+    },
+    {
+      "case": "slot-2-request-1",
+      "kind": "actual_request",
+      "messages_bytes": 38200,
+      "schema_bytes": 2725,
+      "exact_values_restored": true
+    },
+    {
+      "case": "slot-2-request-2",
+      "kind": "actual_request",
+      "messages_bytes": 45876,
+      "schema_bytes": 2725,
+      "exact_values_restored": true
+    },
+    {
+      "case": "slot-2-request-3",
+      "kind": "actual_request",
+      "messages_bytes": 44579,
+      "schema_bytes": 2725,
+      "exact_values_restored": true
+    },
+    {
+      "case": "slot-2-request-4",
+      "kind": "actual_request",
+      "messages_bytes": 45063,
+      "schema_bytes": 2725,
+      "exact_values_restored": true
+    },
+    {
+      "case": "slot-2-request-5",
+      "kind": "actual_request",
+      "messages_bytes": 46250,
+      "schema_bytes": 2725,
+      "exact_values_restored": true
+    },
+    {
+      "case": "slot-2-request-6",
+      "kind": "actual_request",
+      "messages_bytes": 46217,
+      "schema_bytes": 2725,
+      "exact_values_restored": true
+    },
+    {
+      "case": "slot-2-request-7",
+      "kind": "actual_request",
+      "messages_bytes": 44867,
+      "schema_bytes": 2725,
+      "exact_values_restored": true
+    },
+    {
+      "case": "slot-2-request-8",
+      "kind": "actual_request",
+      "messages_bytes": 46879,
+      "schema_bytes": 2725,
+      "exact_values_restored": true
+    },
+    {
+      "case": "slot-2-request-9",
+      "kind": "actual_request",
+      "messages_bytes": 45285,
+      "schema_bytes": 2725,
+      "exact_values_restored": true
+    },
+    {
+      "case": "slot-2-request-10",
+      "kind": "actual_request",
+      "messages_bytes": 44362,
+      "schema_bytes": 2725,
+      "exact_values_restored": true
+    },
+    {
+      "case": "slot-2-request-11",
+      "kind": "actual_request",
+      "messages_bytes": 44829,
+      "schema_bytes": 2725,
+      "exact_values_restored": true
+    },
+    {
+      "case": "slot-2-request-12",
+      "kind": "actual_request",
+      "messages_bytes": 46825,
+      "schema_bytes": 2725,
+      "exact_values_restored": true
+    },
+    {
+      "case": "slot-2-request-13",
+      "kind": "actual_request",
+      "messages_bytes": 46748,
+      "schema_bytes": 2725,
+      "exact_values_restored": true
+    },
+    {
+      "case": "slot-2-request-14",
+      "kind": "actual_request",
+      "messages_bytes": 47602,
+      "schema_bytes": 2725,
+      "exact_values_restored": true
+    },
+    {
+      "case": "slot-2-request-15",
+      "kind": "actual_request",
+      "messages_bytes": 46751,
+      "schema_bytes": 2725,
+      "exact_values_restored": true
+    },
+    {
+      "case": "slot-2-request-16",
+      "kind": "actual_request",
+      "messages_bytes": 46449,
+      "schema_bytes": 2725,
+      "exact_values_restored": true
+    },
+    {
+      "case": "slot-3-request-1",
+      "kind": "actual_request",
+      "messages_bytes": 38140,
+      "schema_bytes": 2023,
+      "exact_values_restored": true
+    },
+    {
+      "case": "slot-3-request-2",
+      "kind": "actual_request",
+      "messages_bytes": 40015,
+      "schema_bytes": 2023,
+      "exact_values_restored": true
+    },
+    {
+      "case": "slot-3-request-3",
+      "kind": "actual_request",
+      "messages_bytes": 42804,
+      "schema_bytes": 2023,
+      "exact_values_restored": true
+    },
+    {
+      "case": "slot-3-request-4",
+      "kind": "actual_request",
+      "messages_bytes": 45744,
+      "schema_bytes": 2023,
+      "exact_values_restored": true
+    },
+    {
+      "case": "slot-3-request-5",
+      "kind": "actual_request",
+      "messages_bytes": 39896,
+      "schema_bytes": 2023,
+      "exact_values_restored": true
+    },
+    {
+      "case": "slot-3-request-6",
+      "kind": "actual_request",
+      "messages_bytes": 43102,
+      "schema_bytes": 2023,
+      "exact_values_restored": true
+    },
+    {
+      "case": "slot-3-request-7",
+      "kind": "actual_request",
+      "messages_bytes": 41857,
+      "schema_bytes": 2023,
+      "exact_values_restored": true
+    },
+    {
+      "case": "slot-3-request-8",
+      "kind": "actual_request",
+      "messages_bytes": 43337,
+      "schema_bytes": 2023,
+      "exact_values_restored": true
+    },
+    {
+      "case": "slot-3-request-9",
+      "kind": "actual_request",
+      "messages_bytes": 46804,
+      "schema_bytes": 2023,
+      "exact_values_restored": true
+    },
+    {
+      "case": "slot-3-request-10",
+      "kind": "actual_request",
+      "messages_bytes": 43594,
+      "schema_bytes": 2023,
+      "exact_values_restored": true
+    },
+    {
+      "case": "slot-3-request-11",
+      "kind": "actual_request",
+      "messages_bytes": 44921,
+      "schema_bytes": 2023,
+      "exact_values_restored": true
+    },
+    {
+      "case": "slot-3-stopped",
+      "kind": "stopped_material",
+      "messages_bytes": 48877,
+      "schema_bytes": 2023,
+      "exact_values_restored": true
+    }
+  ],
+  "claim_boundary": "表示和middleware资格，不是新真实模型请求或完整构建成功",
+  "kind": "zero_provider_historical_material_qualification",
+  "independent_audit_path": "/home/yiwei/.codex/outputs/forge-rtorrent-real-session-2026-10-21/independent-material-gate-audit.json",
+  "independent_audit_sha256": "b2bec24f5bc7f4e8b2df96b406bbfa2ee6911c504057bf25f75ff793544ec0ce",
+  "raw": "/home/yiwei/.codex/outputs/forge-rtorrent-multiturn-material-gate-v1",
+  "claims_supported": [
+    "固定30历史材料完整值保留及原50k/8k门禁资格"
+  ],
+  "claims_not_supported": [
+    "真实模型理解新表示",
+    "完整新构建成功",
+    "前后工程版本因果效果",
+    "策略总体排名"
+  ]
+}

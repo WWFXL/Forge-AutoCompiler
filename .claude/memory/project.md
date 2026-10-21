@@ -4,7 +4,7 @@
 
 ## 进行中 (In Progress)
 
-- 2026-10-22 — #591免费多轮材料资格准备：scripts/forge_build_rtorrent_shared_values.py与material_gate.py，固定28真实请求+2停止材料/62来源文件/270组件，旧raw不改。14回归通过，完整检查中，正式30例尚未运行；原50k/8k及完整任务保持，0Provider/费用。#589最终HEAD0318434e三CI成功，PR590于UTC16:14:58合科研依赖分支9e42c000594bb214ac1e3293f164a428ab0ca394，Issue589关闭，知识库CAS/全读回/搜索已验证。原10美元/19:30:52截止/无自动重试，已花0.82323780美元，当前无活动Provider/Docker。
+
 
 
 
@@ -1123,6 +1123,11 @@
   - 文件: `docs/research/2026-10-19-build-plan-walkthrough.md`, `RESEARCH_STATUS.md`, `.claude/memory/project.md`
 
 <!-- 倒序，最新在上。 -->
+
+- 2026-10-22 — #591多轮材料完整30例零Provider资格及独立审计完成。
+  - 文件: `scripts/forge_build_rtorrent_shared_values.py`, `scripts/forge_build_rtorrent_material_gate.py`, `backend/tests/test_rtorrent_shared_values.py`, `docs/research/2026-10-22-rtorrent-multiturn-material-results.md`
+  - 动机: 真实多轮材料超50k阻塞后续请求；完整JSON值可逆共享保留任务/状态/源码工作集/反馈/预算，原50k/8k及资源不变。固定28实际请求+2停止材料全部30资格/0未观察，最大48877bytes；停止elapsed为末snapshot重建，不冒充原请求精确字节。原release0cddecf7/270组件，raw forge-rtorrent-multiturn-material-gate-v1，inventory2174ec7e96f6949c74013f6a9aa5d08a8275e38be3f47104722cc2af0158f36f（463文件14554111bytes）。独立清单/来源/Git父链/完整还原/大小/schema/脚本生命周期审计valid；14新回归及产品2469passed44skipped27warnings/Ruff614格式通过。0凭据/Provider/真实Token/费用/未知，无Docker运行。下一步仅独立新canary，原10美元/19:30:52截止扣已花0.82323780；无自动重试、不补旧槽。#589已合9e42c000/Issue关闭/知识库CAS已验证；最终HEAD三CI后仅合科研依赖分支，用户HTML保持。
+
 
 - 2026-10-22 — #589真实三策略canary终结并独立审计；下一步#591免费多轮材料资格。
   - 文件: `docs/research/2026-10-22-rtorrent-common-canary-results.md`, `benchmarks/analyses/cpp-build-rtorrent-common-canary-v2-results.json`, `RESEARCH_STATUS.md`
