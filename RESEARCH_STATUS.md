@@ -1,6 +1,16 @@
 # Forge Research Status
 
-## 当前阶段（2026-10-21；#579五项根源码/任务义务与同版本依赖复核完成）
+## 当前阶段（2026-10-21；#581rtorrent完整任务参考资格完成）
+
+任务资格数据采集/工程修复/独立审计完成，0Provider/凭据/Token/模型费用。cpp-build-rtorrent-reference-v5已qualified、Session completed：原及空目录replay均完整12原程序323叶（主三102+源依赖九221）、818原文件保护、40bootstrap精确生成SHA、交付rtorrent/libtorrent.so.53的集合/类型/大小/SHA及CLI、实际cleanup全部通过。固定同0.16.25主源d316b21/依赖c395f0af，254系统包版本清单bb3d977e，镜像8f3ef0a3，2CPU无网络；系统包以二进制镜像固定，不声称全部源码重建/跨主机复现。
+
+v5运行released212fe7717dea52aadbd9a5cbe6a77092ab87aea；原命令522.760秒/replay547.342秒；inventoryc8521d231dfabfe2353eaf0f4172837f60780f12ad43b2cd058a377996ac9066（4388文件/14链接/2153162027bytes）。标准库清单/Git组件/父链/逐叶日志/源与生成/真实ELF字节/CLI及容器不存在独立audit valid。报告docs/research/2026-10-21-rtorrent-reference-results.md，派生benchmarks/analyses/cpp-build-rtorrent-reference-v1-results.json；raw forge-rtorrent-reference-v5，会话forge-rtorrent-reference-session-2026-10-21保留全部独立审计、工程日志及最终发布/知识库CAS收据。
+
+四个失败独立保留、不续跑/回填：v1/v2原19叶后解析拒绝；v3原323叶/CLI通过但生成脚本汇总缺json导入；v4原与replay均323叶/CLI且build/verify退出0，最终产物smoke误绑整套测试导致20秒短时限超时，非1200秒总上限耗尽。v5保留全测试verify，另以独立CLI记录绑定产物短smoke，不延长验收。五身份均实际cleanup、独立audit valid；未观察仍未观察。32针对性及产品2380passed44skipped27warnings/Ruff通过，历史pytest临时目录清理告警保留。
+
+这只新增一个开发助手已暴露的C++任务资格，不是模型效果、自然恢复或holdout。下一步先冻结角色/项目族暴露并接入三策略共同装配/测试/恢复/验收零Provider门禁，再冻结公平比较；不按方法outcome选样。其他候选/旧libconfig九槽/RQ3/P2/主线/用户HTML不改。原免费UTC05:26:27至07:26:27不延长，v5原/replay各1200秒、准入2700秒；无活动Provider/构建，旧paid不续用，后续付费需新有效身份/预算/时窗。最终结果HEAD三CI后仅合科研依赖分支，实际发布以GitHub及会话final-publication-audit.json为准。
+
+## 上一阶段（2026-10-21；#579五项根源码/任务义务与同版本依赖复核完成）
 
 数据采集/静态合同分析及工程解析修复完成，0Provider/模型凭据/Token/费用/上游构建。固定9/10/14/21/30五项均观察：4根归档通过、Yosys1失败、0未观察；全部task/contract未资格、build not_observed。Yosys仅.gitcommit export-subst差异，原失败不改判且8gitlink未闭合。独立503树/7003blob审计valid。raw forge-prospective-task-contract-sources-v1，inventory4e439bbc，release d5764567；49处原文及逐项义务在benchmarks/analyses/cpp-build-prospective-task-contract-sources-v1-results.json，报告docs/research/2026-10-21-prospective-task-contract-results.md。
 

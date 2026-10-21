@@ -4,6 +4,8 @@
 
 ## 进行中 (In Progress)
 
+
+
 - 2026-10-21 — #571目录30/30元数据终结、0失败/未观察、0Provider/费/构建/Docker；30根Git树SHA及841跟踪文件暴露范围独立审计valid，有限精确名4命中/26未命中、全部task未资格/非holdout。raw forge-cxx-prospective-source-catalog-v1，inventory88e23ea1，release6a224591；发布通道为PR572→科研依赖分支；最终HEAD三CI及GitHub实际状态以会话发布收据为准。#568/PR570已合57e19085、568关闭；全部paid stage闭合，累计3.06569736美元/未知0，无活动实验。源码/生成文件边界A/B决策包已保存，B不自动实施。
 
 - 2026-10-21 — #571前瞻30项C++来源元数据目录准备；固定GitHub检索排名后只取精确commit/根tree，不读源码或构建，不按方法结果替换；0Provider/费用/Docker。单独source工作区、原UTC22:07:35截止，候选非构建资格/holdout，完整产品检查中。#568真实结果封存，PR570等待最终三CI，当前无活动Provider。
@@ -589,6 +591,13 @@
   - 下一步: 等待实验负责人确认当前网络接入介质，并决定是否授权只读 endpoint 诊断和新的 canary amendment；获得确认后必须另建中文 Issue/PR 和协议 identity，保留当前失败 marker。
 
 ## 最近变更 (Recent Changes)
+
+- 2026-10-21 — 完成#581 rtorrent完整任务冻结及独立参考v5原测试/精确交付/干净重放资格
+  - 文件: `scripts/forge_build_rtorrent_{prepare,contract,reference}*.py`、`backend/tests/test_rtorrent_reference*.py`、同名manifest/preregistration、`benchmarks/analyses/cpp-build-rtorrent-reference-v1-results.json`、`docs/research/2026-10-21-rtorrent-reference-results.md`、`RESEARCH_STATUS.md`。
+  - 动机与证据: 固定0.16.25两源码/254包镜像8f3ef0a3/818原文件/40生成输出；v5原及replay12程序323叶、CLI、精确两ELF字节及实际cleanup通过，独立audit valid，inventoryc8521d23、released212fe77，原522.760/replay547.342秒。0Provider/凭据/Token/模型费，非方法效果/holdout。
+  - 失败保留: v1/v2原19叶后解析拒绝；v3原323叶/CLI后汇总缺json；v4原/replay323叶/CLI及build/verify0但最终产物smoke误绑整套测试20秒超时，四失败不回填。v5完整测试留verify、短smoke独立绑定CLI，不延长任何时限。五独立audit valid，真实容器均清理。
+  - 验证与边界: 32针对性、产品2380passed44skipped27warnings/Ruff；原免费UTC07:26:27不延长，无活动Provider/构建，无新paid授权。下一步角色/项目族暴露登记及三策略共同接口零Provider门禁，不改旧libconfig九槽/RQ3/P2/主线/用户HTML。最终结果HEAD三CI→科研依赖分支merge/581关闭→知识库CAS，实际发布以GitHub和forge-rtorrent-reference-session-2026-10-21/final-publication-audit.json为准，不进main。
+
 
 - 2026-10-21 — 完成#579五候选根来源及任务义务分析，并独立离线修复同版本依赖解析
   - 文件: `scripts/forge_build_task_contract_sources.py`, `scripts/forge_build_rtorrent_dependency_source.py`, `scripts/forge_build_rtorrent_dependency_recheck.py`, `docs/research/2026-10-21-prospective-task-contract-results.md`及三份manifest/preregistration、对应测试、49引用派生JSON。

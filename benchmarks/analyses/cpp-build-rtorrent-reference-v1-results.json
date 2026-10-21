@@ -1,0 +1,776 @@
+{
+  "identity": "cpp-build-rtorrent-reference-derived-results-v1",
+  "issue": 581,
+  "classification": "independent_reference_task_qualification_not_method_effect",
+  "task_qualified": true,
+  "developer_exposed": true,
+  "holdout": false,
+  "provider_calls": 0,
+  "credentials_read": false,
+  "model_cost_usd": 0,
+  "main_commit": "d316b21cf02ae923d0cb1b6e75064a05016238bd",
+  "dependency_commit": "c395f0af3924bb4c8514cfa3b0c46c78787ddc64",
+  "version": "0.16.25",
+  "image_id": "sha256:8f3ef0a3b83948b454563ee89f5ff941d91e1034a5ba1c08696e2a11ced64e10",
+  "system_dependencies": "immutable binary image and complete installed package versions; not all system package sources rebuilt",
+  "package_manifest_sha256": "bb3d977ee427e7427f82ef6bbad05d67aab26eb1c6bd1ccb29d9a4d312aa7b88",
+  "installed_package_count": 254,
+  "combined_source_archive_sha256": "f85e5968162b13452efff1dc86c3d8d616dee2952232b539810a4c500418f0b4",
+  "original_author_files": 818,
+  "generated_output_count": 40,
+  "test_programs": {
+    "build-libtorrent": {
+      "LibTorrent_Test_Protocol": 2,
+      "LibTorrent_Test_Torrent_Net": 17,
+      "LibTorrent_Test_Torrent_Runtime": 4,
+      "LibTorrent_Test_Torrent_Utils": 40,
+      "LibTorrent_Test_Torrent": 108,
+      "LibTorrent_Test_Data": 21,
+      "LibTorrent_Test_Net": 9,
+      "LibTorrent_Test_Tracker": 3,
+      "LibTorrent_Test": 17
+    },
+    "build-rtorrent": {
+      "rtorrent_Test_Core": 1,
+      "rtorrent_Test_Rpc": 36,
+      "rtorrent_Test_Src": 65
+    }
+  },
+  "test_total": 323,
+  "cpu_jobs": 2,
+  "network": "none",
+  "exact_artifacts": [
+    "rtorrent",
+    "libtorrent.so.53"
+  ],
+  "preparation_inventory": {
+    "format": "forge-typed-evidence-v1",
+    "identity": "cpp-build-rtorrent-reference-preparation-v1",
+    "entries": 897,
+    "files": 897,
+    "symlinks": 0,
+    "bytes": 22264798,
+    "inventory_canonical_sha256": "068a733046409120a4dbddd7e0405076c7808d5be43e809b1ff662580d12c0f5",
+    "unknown_usage_requests": 0
+  },
+  "attempts": [
+    {
+      "identity": "cpp-build-rtorrent-reference-v1",
+      "raw": "/home/yiwei/.codex/outputs/forge-rtorrent-reference-v1",
+      "inventory": {
+        "format": "forge-typed-evidence-v1",
+        "identity": "cpp-build-rtorrent-reference-v1",
+        "entries": 2291,
+        "files": 2284,
+        "symlinks": 7,
+        "bytes": 1078475045,
+        "inventory_canonical_sha256": "37fba75a47d6ff13e194a5fbd6a7025e57ce0cfbf30bad32392261383329b4a5",
+        "unknown_usage_requests": 0
+      },
+      "release": "c10129aac47b410109e3ed33722c4b25963753a0",
+      "qualified": false,
+      "reported_status": "budget_exhausted",
+      "session_status": "failed",
+      "author_files_unchanged": true,
+      "tests": "not_observed",
+      "replay": "not_observed",
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "observations": [
+        {
+          "phase": "compile",
+          "author_files": 818,
+          "exact_generated_outputs_observed": 40,
+          "test_programs": [
+            {
+              "program": "LibTorrent_Test_Protocol",
+              "passed": 2,
+              "expected": 2,
+              "log_sha256": "9b06dffa75cfb602f7d2baeb02acf9f556c1931ffc31b11c8e6d61fc5d61ccde"
+            },
+            {
+              "program": "LibTorrent_Test_Torrent_Net",
+              "passed": 17,
+              "expected": 17,
+              "log_sha256": "b9eeb2a491ef8df73c8cf265c43a21b7c3ac47cd2cc07a2c2b4ad13e1daf8ee5"
+            }
+          ],
+          "leaf_passed": 19
+        }
+      ],
+      "artifacts": [],
+      "command_count": 9,
+      "replay_attempt_summary": [],
+      "original_command_seconds": 449.83931809151545,
+      "replay_seconds": 0,
+      "remaining_workflow_seconds": 1948,
+      "independent_audit": "/home/yiwei/.codex/outputs/forge-rtorrent-reference-session-2026-10-21/independent-reference-v1-audit.json",
+      "independent_audit_sha256": "5a5f08b5c7fa8d50fa11f1e166495dc7c1c26b97de3cbb284c6f00a1ca467494"
+    },
+    {
+      "identity": "cpp-build-rtorrent-reference-v2",
+      "raw": "/home/yiwei/.codex/outputs/forge-rtorrent-reference-v2",
+      "inventory": {
+        "format": "forge-typed-evidence-v1",
+        "identity": "cpp-build-rtorrent-reference-v2",
+        "entries": 2295,
+        "files": 2288,
+        "symlinks": 7,
+        "bytes": 1078494592,
+        "inventory_canonical_sha256": "25c21eb1fe9a6db60bafc9284fc2cfa1394063732b5dcfbb6480b71c6769afc4",
+        "unknown_usage_requests": 0
+      },
+      "release": "217f51f2deea003bf0bdc54e4513e0c387ca310e",
+      "qualified": false,
+      "reported_status": "budget_exhausted",
+      "session_status": "failed",
+      "author_files_unchanged": true,
+      "tests": "not_observed",
+      "replay": "not_observed",
+      "cleanup": {
+        "succeeded": true,
+        "stopped": false,
+        "removed": true
+      },
+      "observations": [
+        {
+          "phase": "compile",
+          "author_files": 818,
+          "exact_generated_outputs_observed": 40,
+          "test_programs": [
+            {
+              "program": "LibTorrent_Test_Protocol",
+              "passed": 2,
+              "expected": 2,
+              "log_sha256": "9b06dffa75cfb602f7d2baeb02acf9f556c1931ffc31b11c8e6d61fc5d61ccde"
+            },
+            {
+              "program": "LibTorrent_Test_Torrent_Net",
+              "passed": 17,
+              "expected": 17,
+              "log_sha256": "b9eeb2a491ef8df73c8cf265c43a21b7c3ac47cd2cc07a2c2b4ad13e1daf8ee5"
+            }
+          ],
+          "leaf_passed": 19
+        }
+      ],
+      "artifacts": [],
+      "command_count": 9,
+      "replay_attempt_summary": [],
+      "original_command_seconds": 449.14934177231044,
+      "replay_seconds": 0,
+      "remaining_workflow_seconds": 1949,
+      "independent_audit": "/home/yiwei/.codex/outputs/forge-rtorrent-reference-session-2026-10-21/independent-reference-v2-audit.json",
+      "independent_audit_sha256": "08845704b404a65a95162d3b0cfff757d2b95f4856f2868277f09b2c8d7f4dd7"
+    },
+    {
+      "identity": "cpp-build-rtorrent-reference-v3",
+      "raw": "/home/yiwei/.codex/outputs/forge-rtorrent-reference-v3",
+      "inventory": {
+        "format": "forge-typed-evidence-v1",
+        "identity": "cpp-build-rtorrent-reference-v3",
+        "entries": 2310,
+        "files": 2303,
+        "symlinks": 7,
+        "bytes": 1078534589,
+        "inventory_canonical_sha256": "0e2db9e4dddaa681b29b4334c977f9eeda75cabe1336b6ce6b1227282aab7047",
+        "unknown_usage_requests": 0
+      },
+      "release": "e390b56701f1ebaf69d80c9daef14dca372f04b1",
+      "qualified": false,
+      "reported_status": "budget_exhausted",
+      "session_status": "failed",
+      "author_files_unchanged": true,
+      "tests": "not_observed",
+      "replay": "not_observed",
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "observations": [
+        {
+          "cli_log_sha256": "11f179be20ab07edbbf2755cb90ea983624101f74e3728baaaf81a56b8836e7b",
+          "phase": "compile",
+          "author_files": 818,
+          "exact_generated_outputs_observed": 40,
+          "test_programs": [
+            {
+              "program": "LibTorrent_Test_Protocol",
+              "passed": 2,
+              "expected": 2,
+              "log_sha256": "9b06dffa75cfb602f7d2baeb02acf9f556c1931ffc31b11c8e6d61fc5d61ccde"
+            },
+            {
+              "program": "LibTorrent_Test_Torrent_Net",
+              "passed": 17,
+              "expected": 17,
+              "log_sha256": "b9eeb2a491ef8df73c8cf265c43a21b7c3ac47cd2cc07a2c2b4ad13e1daf8ee5"
+            },
+            {
+              "program": "LibTorrent_Test_Torrent_Runtime",
+              "passed": 4,
+              "expected": 4,
+              "log_sha256": "9f6b3ba95582addb49a58ee36823c25b382dc748720c7deca1fb22ee1632e22c"
+            },
+            {
+              "program": "LibTorrent_Test_Torrent_Utils",
+              "passed": 40,
+              "expected": 40,
+              "log_sha256": "e710b496079515d9bcff04ac5f44fda32ecc6f203fea7af7fa09d517ae1bfdd8"
+            },
+            {
+              "program": "LibTorrent_Test_Torrent",
+              "passed": 108,
+              "expected": 108,
+              "log_sha256": "444c37dedb819f7ea8b38c900c05b7db4f5599fa0b4c7d3f34fa9a4b2807712b"
+            },
+            {
+              "program": "LibTorrent_Test_Data",
+              "passed": 21,
+              "expected": 21,
+              "log_sha256": "c8dfd553e52ccd449c9afa4476259c5060c0db5e4c6e5170264b34b7b73f1604"
+            },
+            {
+              "program": "LibTorrent_Test_Net",
+              "passed": 9,
+              "expected": 9,
+              "log_sha256": "8d66404ae709c2c46c8f4a05c03daa848e7f3ae4430256c9a65083affaa27a73"
+            },
+            {
+              "program": "LibTorrent_Test_Tracker",
+              "passed": 3,
+              "expected": 3,
+              "log_sha256": "203d16d2c7453dc7022d0bb06f188f894cab445c58906582aab55f2e06380b56"
+            },
+            {
+              "program": "LibTorrent_Test",
+              "passed": 17,
+              "expected": 17,
+              "log_sha256": "a28ca5973758081cee8a19458a1ac3920874f1161d11fd664b58a8a4a76b0db9"
+            },
+            {
+              "program": "rtorrent_Test_Core",
+              "passed": 1,
+              "expected": 1,
+              "log_sha256": "2cce1608f595d1ebd1aa28e6ffb345f6ef570c203e3239d57ed233a179557343"
+            },
+            {
+              "program": "rtorrent_Test_Rpc",
+              "passed": 36,
+              "expected": 36,
+              "log_sha256": "ede224d6aa61529a6efbcd9850c76b51f251c09645f58c97bb6c95bbc2c20b41"
+            },
+            {
+              "program": "rtorrent_Test_Src",
+              "passed": 65,
+              "expected": 65,
+              "log_sha256": "45d1f3d1a11dd476d24e2a42b319862baae27c417d53fdd1894eb65521a36ca4"
+            }
+          ],
+          "leaf_passed": 323
+        }
+      ],
+      "artifacts": [],
+      "command_count": 9,
+      "replay_attempt_summary": [],
+      "original_command_seconds": 517.5191299435683,
+      "replay_seconds": 0,
+      "remaining_workflow_seconds": 680,
+      "independent_audit": "/home/yiwei/.codex/outputs/forge-rtorrent-reference-session-2026-10-21/independent-reference-v3-audit.json",
+      "independent_audit_sha256": "641112f7d89802bf140f860265078ba70187ed4ce1c2c14e4778943722bb6904"
+    },
+    {
+      "identity": "cpp-build-rtorrent-reference-v4",
+      "raw": "/home/yiwei/.codex/outputs/forge-rtorrent-reference-v4",
+      "inventory": {
+        "format": "forge-typed-evidence-v1",
+        "identity": "cpp-build-rtorrent-reference-v4",
+        "entries": 4398,
+        "files": 4384,
+        "symlinks": 14,
+        "bytes": 2152375683,
+        "inventory_canonical_sha256": "a8525457265bad00a5ea65006624dbe6e29f16ebf88f42f0e4f91b3d0f2b4022",
+        "unknown_usage_requests": 0
+      },
+      "release": "ca45693cfd12606296bcab0689360e27cf4e1500",
+      "qualified": false,
+      "reported_status": "verification_failed",
+      "session_status": "failed",
+      "author_files_unchanged": true,
+      "tests": "passed",
+      "replay": "timed_out",
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "observations": [
+        {
+          "cli_log_sha256": "11f179be20ab07edbbf2755cb90ea983624101f74e3728baaaf81a56b8836e7b",
+          "phase": "compile",
+          "author_files": 818,
+          "exact_generated_outputs_observed": 40,
+          "test_programs": [
+            {
+              "program": "LibTorrent_Test_Protocol",
+              "passed": 2,
+              "expected": 2,
+              "log_sha256": "9b06dffa75cfb602f7d2baeb02acf9f556c1931ffc31b11c8e6d61fc5d61ccde"
+            },
+            {
+              "program": "LibTorrent_Test_Torrent_Net",
+              "passed": 17,
+              "expected": 17,
+              "log_sha256": "b9eeb2a491ef8df73c8cf265c43a21b7c3ac47cd2cc07a2c2b4ad13e1daf8ee5"
+            },
+            {
+              "program": "LibTorrent_Test_Torrent_Runtime",
+              "passed": 4,
+              "expected": 4,
+              "log_sha256": "9f6b3ba95582addb49a58ee36823c25b382dc748720c7deca1fb22ee1632e22c"
+            },
+            {
+              "program": "LibTorrent_Test_Torrent_Utils",
+              "passed": 40,
+              "expected": 40,
+              "log_sha256": "e710b496079515d9bcff04ac5f44fda32ecc6f203fea7af7fa09d517ae1bfdd8"
+            },
+            {
+              "program": "LibTorrent_Test_Torrent",
+              "passed": 108,
+              "expected": 108,
+              "log_sha256": "444c37dedb819f7ea8b38c900c05b7db4f5599fa0b4c7d3f34fa9a4b2807712b"
+            },
+            {
+              "program": "LibTorrent_Test_Data",
+              "passed": 21,
+              "expected": 21,
+              "log_sha256": "c8dfd553e52ccd449c9afa4476259c5060c0db5e4c6e5170264b34b7b73f1604"
+            },
+            {
+              "program": "LibTorrent_Test_Net",
+              "passed": 9,
+              "expected": 9,
+              "log_sha256": "8d66404ae709c2c46c8f4a05c03daa848e7f3ae4430256c9a65083affaa27a73"
+            },
+            {
+              "program": "LibTorrent_Test_Tracker",
+              "passed": 3,
+              "expected": 3,
+              "log_sha256": "203d16d2c7453dc7022d0bb06f188f894cab445c58906582aab55f2e06380b56"
+            },
+            {
+              "program": "LibTorrent_Test",
+              "passed": 17,
+              "expected": 17,
+              "log_sha256": "a28ca5973758081cee8a19458a1ac3920874f1161d11fd664b58a8a4a76b0db9"
+            },
+            {
+              "program": "rtorrent_Test_Core",
+              "passed": 1,
+              "expected": 1,
+              "log_sha256": "2cce1608f595d1ebd1aa28e6ffb345f6ef570c203e3239d57ed233a179557343"
+            },
+            {
+              "program": "rtorrent_Test_Rpc",
+              "passed": 36,
+              "expected": 36,
+              "log_sha256": "ede224d6aa61529a6efbcd9850c76b51f251c09645f58c97bb6c95bbc2c20b41"
+            },
+            {
+              "program": "rtorrent_Test_Src",
+              "passed": 65,
+              "expected": 65,
+              "log_sha256": "45d1f3d1a11dd476d24e2a42b319862baae27c417d53fdd1894eb65521a36ca4"
+            }
+          ],
+          "leaf_passed": 323
+        },
+        {
+          "cli_log_sha256": "11f179be20ab07edbbf2755cb90ea983624101f74e3728baaaf81a56b8836e7b",
+          "phase": "replay",
+          "author_files": 818,
+          "exact_generated_outputs_observed": 40,
+          "test_programs": [
+            {
+              "program": "LibTorrent_Test_Protocol",
+              "passed": 2,
+              "expected": 2,
+              "log_sha256": "9b06dffa75cfb602f7d2baeb02acf9f556c1931ffc31b11c8e6d61fc5d61ccde"
+            },
+            {
+              "program": "LibTorrent_Test_Torrent_Net",
+              "passed": 17,
+              "expected": 17,
+              "log_sha256": "b9eeb2a491ef8df73c8cf265c43a21b7c3ac47cd2cc07a2c2b4ad13e1daf8ee5"
+            },
+            {
+              "program": "LibTorrent_Test_Torrent_Runtime",
+              "passed": 4,
+              "expected": 4,
+              "log_sha256": "9f6b3ba95582addb49a58ee36823c25b382dc748720c7deca1fb22ee1632e22c"
+            },
+            {
+              "program": "LibTorrent_Test_Torrent_Utils",
+              "passed": 40,
+              "expected": 40,
+              "log_sha256": "e710b496079515d9bcff04ac5f44fda32ecc6f203fea7af7fa09d517ae1bfdd8"
+            },
+            {
+              "program": "LibTorrent_Test_Torrent",
+              "passed": 108,
+              "expected": 108,
+              "log_sha256": "444c37dedb819f7ea8b38c900c05b7db4f5599fa0b4c7d3f34fa9a4b2807712b"
+            },
+            {
+              "program": "LibTorrent_Test_Data",
+              "passed": 21,
+              "expected": 21,
+              "log_sha256": "c8dfd553e52ccd449c9afa4476259c5060c0db5e4c6e5170264b34b7b73f1604"
+            },
+            {
+              "program": "LibTorrent_Test_Net",
+              "passed": 9,
+              "expected": 9,
+              "log_sha256": "8d66404ae709c2c46c8f4a05c03daa848e7f3ae4430256c9a65083affaa27a73"
+            },
+            {
+              "program": "LibTorrent_Test_Tracker",
+              "passed": 3,
+              "expected": 3,
+              "log_sha256": "203d16d2c7453dc7022d0bb06f188f894cab445c58906582aab55f2e06380b56"
+            },
+            {
+              "program": "LibTorrent_Test",
+              "passed": 17,
+              "expected": 17,
+              "log_sha256": "a28ca5973758081cee8a19458a1ac3920874f1161d11fd664b58a8a4a76b0db9"
+            },
+            {
+              "program": "rtorrent_Test_Core",
+              "passed": 1,
+              "expected": 1,
+              "log_sha256": "2cce1608f595d1ebd1aa28e6ffb345f6ef570c203e3239d57ed233a179557343"
+            },
+            {
+              "program": "rtorrent_Test_Rpc",
+              "passed": 36,
+              "expected": 36,
+              "log_sha256": "ede224d6aa61529a6efbcd9850c76b51f251c09645f58c97bb6c95bbc2c20b41"
+            },
+            {
+              "program": "rtorrent_Test_Src",
+              "passed": 65,
+              "expected": 65,
+              "log_sha256": "45d1f3d1a11dd476d24e2a42b319862baae27c417d53fdd1894eb65521a36ca4"
+            }
+          ],
+          "leaf_passed": 323
+        }
+      ],
+      "artifacts": [],
+      "command_count": 9,
+      "replay_attempt_summary": [
+        {
+          "status": "timed_out",
+          "timeout_seconds": 1200,
+          "duration_seconds": 569.788269,
+          "exit_code": 0,
+          "verification_exit_code": 0,
+          "cleanup_succeeded": true,
+          "notes": [
+            "Smoke test for 'rtorrent' timed out."
+          ]
+        }
+      ],
+      "original_command_seconds": 527.0405835625716,
+      "replay_seconds": 569.788269,
+      "remaining_workflow_seconds": 671,
+      "independent_audit": "/home/yiwei/.codex/outputs/forge-rtorrent-reference-session-2026-10-21/independent-reference-v4-audit.json",
+      "independent_audit_sha256": "d468c88365a17e1ceef3915f08c6deb08e8668cb2397d1ffc75eb6ca90cf3eeb"
+    },
+    {
+      "identity": "cpp-build-rtorrent-reference-v5",
+      "raw": "/home/yiwei/.codex/outputs/forge-rtorrent-reference-v5",
+      "inventory": {
+        "format": "forge-typed-evidence-v1",
+        "identity": "cpp-build-rtorrent-reference-v5",
+        "entries": 4402,
+        "files": 4388,
+        "symlinks": 14,
+        "bytes": 2153162027,
+        "inventory_canonical_sha256": "c8521d231dfabfe2353eaf0f4172837f60780f12ad43b2cd058a377996ac9066",
+        "unknown_usage_requests": 0
+      },
+      "release": "d212fe7717dea52aadbd9a5cbe6a77092ab87aea",
+      "qualified": true,
+      "reported_status": "verified",
+      "session_status": "completed",
+      "author_files_unchanged": true,
+      "tests": "passed",
+      "replay": "passed",
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "observations": [
+        {
+          "cli_log_sha256": "11f179be20ab07edbbf2755cb90ea983624101f74e3728baaaf81a56b8836e7b",
+          "phase": "compile",
+          "author_files": 818,
+          "exact_generated_outputs_observed": 40,
+          "test_programs": [
+            {
+              "program": "LibTorrent_Test_Protocol",
+              "passed": 2,
+              "expected": 2,
+              "log_sha256": "9b06dffa75cfb602f7d2baeb02acf9f556c1931ffc31b11c8e6d61fc5d61ccde"
+            },
+            {
+              "program": "LibTorrent_Test_Torrent_Net",
+              "passed": 17,
+              "expected": 17,
+              "log_sha256": "b9eeb2a491ef8df73c8cf265c43a21b7c3ac47cd2cc07a2c2b4ad13e1daf8ee5"
+            },
+            {
+              "program": "LibTorrent_Test_Torrent_Runtime",
+              "passed": 4,
+              "expected": 4,
+              "log_sha256": "9f6b3ba95582addb49a58ee36823c25b382dc748720c7deca1fb22ee1632e22c"
+            },
+            {
+              "program": "LibTorrent_Test_Torrent_Utils",
+              "passed": 40,
+              "expected": 40,
+              "log_sha256": "e710b496079515d9bcff04ac5f44fda32ecc6f203fea7af7fa09d517ae1bfdd8"
+            },
+            {
+              "program": "LibTorrent_Test_Torrent",
+              "passed": 108,
+              "expected": 108,
+              "log_sha256": "444c37dedb819f7ea8b38c900c05b7db4f5599fa0b4c7d3f34fa9a4b2807712b"
+            },
+            {
+              "program": "LibTorrent_Test_Data",
+              "passed": 21,
+              "expected": 21,
+              "log_sha256": "c8dfd553e52ccd449c9afa4476259c5060c0db5e4c6e5170264b34b7b73f1604"
+            },
+            {
+              "program": "LibTorrent_Test_Net",
+              "passed": 9,
+              "expected": 9,
+              "log_sha256": "8d66404ae709c2c46c8f4a05c03daa848e7f3ae4430256c9a65083affaa27a73"
+            },
+            {
+              "program": "LibTorrent_Test_Tracker",
+              "passed": 3,
+              "expected": 3,
+              "log_sha256": "203d16d2c7453dc7022d0bb06f188f894cab445c58906582aab55f2e06380b56"
+            },
+            {
+              "program": "LibTorrent_Test",
+              "passed": 17,
+              "expected": 17,
+              "log_sha256": "a28ca5973758081cee8a19458a1ac3920874f1161d11fd664b58a8a4a76b0db9"
+            },
+            {
+              "program": "rtorrent_Test_Core",
+              "passed": 1,
+              "expected": 1,
+              "log_sha256": "2cce1608f595d1ebd1aa28e6ffb345f6ef570c203e3239d57ed233a179557343"
+            },
+            {
+              "program": "rtorrent_Test_Rpc",
+              "passed": 36,
+              "expected": 36,
+              "log_sha256": "ede224d6aa61529a6efbcd9850c76b51f251c09645f58c97bb6c95bbc2c20b41"
+            },
+            {
+              "program": "rtorrent_Test_Src",
+              "passed": 65,
+              "expected": 65,
+              "log_sha256": "45d1f3d1a11dd476d24e2a42b319862baae27c417d53fdd1894eb65521a36ca4"
+            }
+          ],
+          "leaf_passed": 323
+        },
+        {
+          "cli_log_sha256": "11f179be20ab07edbbf2755cb90ea983624101f74e3728baaaf81a56b8836e7b",
+          "phase": "replay",
+          "author_files": 818,
+          "exact_generated_outputs_observed": 40,
+          "test_programs": [
+            {
+              "program": "LibTorrent_Test_Protocol",
+              "passed": 2,
+              "expected": 2,
+              "log_sha256": "9b06dffa75cfb602f7d2baeb02acf9f556c1931ffc31b11c8e6d61fc5d61ccde"
+            },
+            {
+              "program": "LibTorrent_Test_Torrent_Net",
+              "passed": 17,
+              "expected": 17,
+              "log_sha256": "b9eeb2a491ef8df73c8cf265c43a21b7c3ac47cd2cc07a2c2b4ad13e1daf8ee5"
+            },
+            {
+              "program": "LibTorrent_Test_Torrent_Runtime",
+              "passed": 4,
+              "expected": 4,
+              "log_sha256": "9f6b3ba95582addb49a58ee36823c25b382dc748720c7deca1fb22ee1632e22c"
+            },
+            {
+              "program": "LibTorrent_Test_Torrent_Utils",
+              "passed": 40,
+              "expected": 40,
+              "log_sha256": "e710b496079515d9bcff04ac5f44fda32ecc6f203fea7af7fa09d517ae1bfdd8"
+            },
+            {
+              "program": "LibTorrent_Test_Torrent",
+              "passed": 108,
+              "expected": 108,
+              "log_sha256": "444c37dedb819f7ea8b38c900c05b7db4f5599fa0b4c7d3f34fa9a4b2807712b"
+            },
+            {
+              "program": "LibTorrent_Test_Data",
+              "passed": 21,
+              "expected": 21,
+              "log_sha256": "c8dfd553e52ccd449c9afa4476259c5060c0db5e4c6e5170264b34b7b73f1604"
+            },
+            {
+              "program": "LibTorrent_Test_Net",
+              "passed": 9,
+              "expected": 9,
+              "log_sha256": "8d66404ae709c2c46c8f4a05c03daa848e7f3ae4430256c9a65083affaa27a73"
+            },
+            {
+              "program": "LibTorrent_Test_Tracker",
+              "passed": 3,
+              "expected": 3,
+              "log_sha256": "203d16d2c7453dc7022d0bb06f188f894cab445c58906582aab55f2e06380b56"
+            },
+            {
+              "program": "LibTorrent_Test",
+              "passed": 17,
+              "expected": 17,
+              "log_sha256": "a28ca5973758081cee8a19458a1ac3920874f1161d11fd664b58a8a4a76b0db9"
+            },
+            {
+              "program": "rtorrent_Test_Core",
+              "passed": 1,
+              "expected": 1,
+              "log_sha256": "2cce1608f595d1ebd1aa28e6ffb345f6ef570c203e3239d57ed233a179557343"
+            },
+            {
+              "program": "rtorrent_Test_Rpc",
+              "passed": 36,
+              "expected": 36,
+              "log_sha256": "ede224d6aa61529a6efbcd9850c76b51f251c09645f58c97bb6c95bbc2c20b41"
+            },
+            {
+              "program": "rtorrent_Test_Src",
+              "passed": 65,
+              "expected": 65,
+              "log_sha256": "45d1f3d1a11dd476d24e2a42b319862baae27c417d53fdd1894eb65521a36ca4"
+            }
+          ],
+          "leaf_passed": 323
+        }
+      ],
+      "artifacts": [
+        {
+          "path": "libtorrent.so.53",
+          "size": 36557648,
+          "sha256": "e1fb5e3cc780a0ab55c061876ae9b7f9590573516584184f38447f20bc845236",
+          "replay_identical": true
+        },
+        {
+          "path": "rtorrent",
+          "size": 45339592,
+          "sha256": "aa53e2cdeb02f8b525cea709bfa6a8411731bf5709a5fb10aca6ded3c7368c18",
+          "replay_identical": true
+        }
+      ],
+      "command_count": 10,
+      "replay_attempt_summary": [
+        {
+          "status": "passed",
+          "timeout_seconds": 1200,
+          "duration_seconds": 547.341709,
+          "exit_code": 0,
+          "verification_exit_code": 0,
+          "cleanup_succeeded": true,
+          "notes": []
+        }
+      ],
+      "original_command_seconds": 522.7599997133948,
+      "replay_seconds": 547.341709,
+      "remaining_workflow_seconds": 675,
+      "independent_audit": "/home/yiwei/.codex/outputs/forge-rtorrent-reference-session-2026-10-21/independent-reference-v5-audit.json",
+      "independent_audit_sha256": "f6bfac3da4c591f608746a659481ae136a6eddcff37b485986adf6bb5193c775"
+    }
+  ],
+  "interpretation": [
+    "v1/v2 test parser rejection is engineering failure, not observed upstream test failure; each observed2 programs19 leaves, other10 programs/CLI/replay unobserved",
+    "budget_exhausted in v1/v2 results is max_handoffs=0 after parser rejection, not actual Token or wall clock exhaustion",
+    "v3 reached original323 leaves/CLI but failed summary with missing local import json, replay unobserved; v4 makes emitted script self-contained",
+    "v4 build/verify/replay author tests and CLI passed but final artifact smoke reexecuted the full suite under20seconds and timed out, strict failure retained; v5 preserves full verify and binds artifact smoke to separate quick CLI",
+    "v3/v4/v5 permit diagnostic lines between exact author start/end events, no change to source/tests/count/acceptance",
+    "all passing means frozen author tests passed locally without network; no live BitTorrent/swarm integration or cross-host reproduction claim",
+    "qualification alone does not show method success rate, lower model cost, natural recovery, or population effect"
+  ],
+  "elf_dependency_inspection": {
+    "identity": "cpp-build-rtorrent-reference-v5",
+    "inspection": "static readelf only; CLI/real linkage verified in frozen task",
+    "artifacts": [
+      {
+        "artifact": "rtorrent",
+        "needed": [
+          "libncursesw.so.6",
+          "libtinfo.so.6",
+          "libz.so.1",
+          "libtorrent.so.53",
+          "libstdc++.so.6",
+          "libm.so.6",
+          "libgcc_s.so.1",
+          "libc.so.6"
+        ],
+        "soname": [],
+        "runpath": [
+          "/workspace/prefix/lib"
+        ]
+      },
+      {
+        "artifact": "libtorrent.so.53",
+        "needed": [
+          "libcurl.so.4",
+          "libz.so.1",
+          "libcrypto.so.3",
+          "libstdc++.so.6",
+          "libc.so.6",
+          "ld-linux-x86-64.so.2",
+          "libgcc_s.so.1"
+        ],
+        "soname": [
+          "libtorrent.so.53"
+        ],
+        "runpath": []
+      }
+    ]
+  },
+  "elf_dependency_inspection_sha256": "1b1755bb32b45c4f3315288fd8e271bccd0274388b7b053b18ecee3df34c0b2f",
+  "next_step": "freeze prospective task role/family exposure and common three-strategy assembly/recovery/verification interface gate; paid comparison requires new valid identity/budget/window",
+  "unchanged": [
+    "old libconfig9 slots",
+    "RQ3 fixed denominators",
+    "P2",
+    "main research direction",
+    "other25 pending sources",
+    "user HTML"
+  ]
+}
