@@ -592,6 +592,11 @@
 
 ## 最近变更 (Recent Changes)
 
+- 2026-10-21 — #585完整reset-v1共同准备失败封存，v2修正容器Git全局配置
+  - 文件: `scripts/forge_build_rtorrent_template_reset_gate_v2.py`, `backend/tests/test_rtorrent_template_reset_runtime_v2.py`
+  - 证据: reset-v1在首次模板前因非root git --global写//.gitconfig权限失败停止，0模板/脚本/构建；818源SHA/边界/cleanup和独立清单审计通过，inventoryc107acf6，1095文件/14586387bytes，release43adb341。旧身份不改/不续跑。
+  - 下一: v2共同compile/replay只增GIT_CONFIG_GLOBAL=/tmp/forge-global.gitconfig，保持UID/GID/镜像/任务/完整验证，独立Docker短检查实际写读通过。冻结251组件、先提交再运行，原UTC11:50:30截止、0Provider/费用；HEAD运行中保持、用户HTML不动。
+
 - 2026-10-21 — #585原失败封存后继续独立生成重置与完整恢复资格
   - 文件: `scripts/forge_build_rtorrent_reset_gate.py`, `scripts/forge_build_rtorrent_template_reset_gate.py`, `backend/tests/test_rtorrent_reset_gate.py`, `backend/tests/test_rtorrent_template_reset_runtime.py`
   - 证据: 生成reset-v1单case主先生成→清理40声明输出→依赖优先重建，通过818原文件/40原SHA/cleanup与独立审计；release7004722c、inventory978ddf5e，1127文件/19299820bytes。不是完整构建或真实模型效果，旧实际模板v1失败不改。
