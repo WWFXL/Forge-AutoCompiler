@@ -1,12 +1,20 @@
 # Forge Research Status
 
-## 当前阶段（2026-10-22；#589真实canary终结，#591多轮材料资格待执行）
+## 当前阶段（2026-10-22；#591多轮材料零Provider资格完成）
+
+基础设施/工程修复完成，0Provider/模型Token/费用/未知。cpp-build-rtorrent-multiturn-material-gate-v1固定28实际请求+2停止材料全部30/30资格、0未观察；经真实SharedValueMeter/ContextCanaryMeter/CanaryMeter及usage0脚本handler，完整task/current_plan/state/source工作集/read_index/recent反馈/预算逐值还原，系统提示与工具schema不变，原50k/8k通过。新表示只共享完全相同JSON对象/列表，先原文本因子再共享值还原；旧证据不改。最大消息48877bytes，两停止包48475/48877。停止包elapsed由末snapshot重建，不称原未发送请求的精确字节；30脚本响应不当真实模型响应或完整构建成功。
+
+运行release0cddecf7d32e75845901b7c958df426b28628300，270组件；raw forge-rtorrent-multiturn-material-gate-v1；inventory2174ec7e96f6949c74013f6a9aa5d08a8275e38be3f47104722cc2af0158f36f（463文件/0链接/14554111bytes）。独立stdlib清单/来源62SHA/父链/Git组件/真实middleware材料逐值还原/大小/schema/脚本零Token生命周期审计valid。14针对性、产品2469passed44skipped27warnings及Ruff/614格式通过。报告docs/research/2026-10-22-rtorrent-multiturn-material-results.md；派生benchmarks/analyses/cpp-build-rtorrent-multiturn-material-gate-v1-results.json；会话forge-rtorrent-real-session-2026-10-21保留审计/运行/检查/发布及知识库收据。
+
+下一步冻结独立新版本真实canary，保持原模型/共同执行验证/任务/资源，先全量免费校验再调用；旧v2失败不补，不混版本分母或据前后工程差异主张因果收益。用户原10美元/UTC2026-10-21T15:30:52–19:30:52四小时（准备计入）/请求不限/无自动重试；已花0.82323780美元、剩余9.17676220美元，新阶段将显式扣旧费并保持绝对截止。#589/PR590最终三CI成功后已合科研依赖分支9e42c000、Issue589关闭、知识库同步已验证。无活动Provider/Docker；RQ3/P2/主线/用户HTML保持。最终HEAD三CI后只合科研依赖分支，实际发布以GitHub及final-material-publication-audit.json为准。
+
+## 上一阶段（2026-10-22；#589真实canary终结）
 
 真实数据采集及独立结果审计完成。cpp-build-rtorrent-common-canary-v2三槽均观察、0/3strict、0未观察槽，固定顺序正常结束；28真实请求/535471Token（输入491374、输出44097），估费0.82323780美元、未知用量0。工具Workflow1请求/0.02638416美元，初始规划模型费0，真实configure缺libtorrent后恢复第二请求前材料>50k；模型Workflow16请求/0.51499008美元均初始规划，48只读工具耗尽且重复read31次；强工具11请求/0.28186356美元后续材料>50k。三槽build未执行，完整测试/交付/replay均未观察，不填功能失败；818原作者文件及实际cleanup通过。单族已见development，不支持策略排名、规划净收益或holdout主张。
 
 运行release3aa16e6c2bb8600c93122d2b24022cd60e2f2be6，候选480057ef，raw forge-rtorrent-common-canary-v2；inventory271bcecbd2d17abae1c5358beffcf43b54d223a62d228e20a5ca330599b0d2be（5437文件/0链接/66339801bytes）。独立全量清单/Git父链/实际请求可逆还原/原响应逐Token费用生命周期/源码与未观察层审计valid，三个实际compile资源及六ID/name不存在审计valid；两份审计解释修正及原失败保留，raw未改。报告docs/research/2026-10-22-rtorrent-common-canary-results.md，派生benchmarks/analyses/cpp-build-rtorrent-common-canary-v2-results.json；会话forge-rtorrent-real-session-2026-10-21。30授权与相邻回归、产品2455passed44skipped27warnings、Ruff/613格式通过。最终HEAD三CI后仅合科研依赖分支，实际发布见GitHub及final-publication-audit.json。
 
-下一步#591先做零Provider多轮材料资格，保持50k/8k和完整任务/裁判，不删源码任务或扩大验收。后验共享JSON值原型离线两停止包48475/48877bytes，尚未正式资格或真实请求。资格后才冻结独立新版本canary，不补旧槽或据前后工程版本宣称因果收益。用户本轮10美元/UTC2026-10-21T15:30:52–19:30:52四小时（准备计入）、请求次数不限、无自动重试继续有效，剩余9.17676220美元，后续阶段绑定旧费与原绝对截止。无活动Provider/构建。RQ3/P2/主线/用户HTML保持。
+当前#591实施零Provider多轮材料资格，保持50k/8k和完整任务/裁判，不删源码任务或扩大验收。新增共享JSON值表示、30历史材料固定来源与真实middleware重放入口，14针对性回归通过，完整检查中；未正式运行，不称资格通过。后验原型离线两停止包48475/48877bytes仍不是真实请求。资格后才冻结独立新版本canary，不补旧槽或据前后工程版本宣称因果收益。用户本轮10美元/UTC2026-10-21T15:30:52–19:30:52四小时（准备计入）、请求次数不限、无自动重试继续有效，剩余9.17676220美元，后续阶段绑定旧费与原绝对截止。无活动Provider/构建。RQ3/P2/主线/用户HTML保持。
 
 ## 上一阶段（2026-10-21；#587共同三策略资格完成，真实canary待新授权）
 

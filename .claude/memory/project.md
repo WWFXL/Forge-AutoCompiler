@@ -9,6 +9,9 @@
 
 
 
+
+
+
 - 2026-10-21 — #571目录30/30元数据终结、0失败/未观察、0Provider/费/构建/Docker；30根Git树SHA及841跟踪文件暴露范围独立审计valid，有限精确名4命中/26未命中、全部task未资格/非holdout。raw forge-cxx-prospective-source-catalog-v1，inventory88e23ea1，release6a224591；发布通道为PR572→科研依赖分支；最终HEAD三CI及GitHub实际状态以会话发布收据为准。#568/PR570已合57e19085、568关闭；全部paid stage闭合，累计3.06569736美元/未知0，无活动实验。源码/生成文件边界A/B决策包已保存，B不自动实施。
 
 - 2026-10-21 — #571前瞻30项C++来源元数据目录准备；固定GitHub检索排名后只取精确commit/根tree，不读源码或构建，不按方法结果替换；0Provider/费用/Docker。单独source工作区、原UTC22:07:35截止，候选非构建资格/holdout，完整产品检查中。#568真实结果封存，PR570等待最终三CI，当前无活动Provider。
@@ -1120,6 +1123,11 @@
   - 文件: `docs/research/2026-10-19-build-plan-walkthrough.md`, `RESEARCH_STATUS.md`, `.claude/memory/project.md`
 
 <!-- 倒序，最新在上。 -->
+
+- 2026-10-22 — #591多轮材料完整30例零Provider资格及独立审计完成。
+  - 文件: `scripts/forge_build_rtorrent_shared_values.py`, `scripts/forge_build_rtorrent_material_gate.py`, `backend/tests/test_rtorrent_shared_values.py`, `docs/research/2026-10-22-rtorrent-multiturn-material-results.md`
+  - 动机: 真实多轮材料超50k阻塞后续请求；完整JSON值可逆共享保留任务/状态/源码工作集/反馈/预算，原50k/8k及资源不变。固定28实际请求+2停止材料全部30资格/0未观察，最大48877bytes；停止elapsed为末snapshot重建，不冒充原请求精确字节。原release0cddecf7/270组件，raw forge-rtorrent-multiturn-material-gate-v1，inventory2174ec7e96f6949c74013f6a9aa5d08a8275e38be3f47104722cc2af0158f36f（463文件14554111bytes）。独立清单/来源/Git父链/完整还原/大小/schema/脚本生命周期审计valid；14新回归及产品2469passed44skipped27warnings/Ruff614格式通过。0凭据/Provider/真实Token/费用/未知，无Docker运行。下一步仅独立新canary，原10美元/19:30:52截止扣已花0.82323780；无自动重试、不补旧槽。#589已合9e42c000/Issue关闭/知识库CAS已验证；最终HEAD三CI后仅合科研依赖分支，用户HTML保持。
+
 
 - 2026-10-22 — #589真实三策略canary终结并独立审计；下一步#591免费多轮材料资格。
   - 文件: `docs/research/2026-10-22-rtorrent-common-canary-results.md`, `benchmarks/analyses/cpp-build-rtorrent-common-canary-v2-results.json`, `RESEARCH_STATUS.md`
