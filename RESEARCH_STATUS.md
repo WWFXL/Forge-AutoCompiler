@@ -1,6 +1,14 @@
 # Forge Research Status
 
-## 当前阶段（2026-10-22；#595合同引用免费资格完成，#597独立真实canary待准备）
+## 当前阶段（2026-10-22；#597独立固定合同真实canary准备）
+
+真实数据采集准备。cpp-build-rtorrent-common-canary-v4候选8352b0a68437c93036fd1ce1a32410b35ae8b57820d65adcb2e3810a5232cbe2、279组件冻结；52授权/合同/相邻回归、产品2521passed44skipped27warnings及Ruff617格式、实际CLI/候选SHA/原授权和两个旧闭合账本免费校验通过。三策略共同ContractMeter/固定验证脚本非执行引用及只读全文工具，原已见development单族/任务/模型/资源/完整验收保持，旧v2/v3失败不补，不把不同工程版本当因果效果。尚未正式启动，不提前填模型或构建结果。
+
+新独立阶段cap4.50美元，绑定用户原总10美元/UTC2026-10-21T15:30:52–19:30:52四小时（准备计入）、请求不限/无自动重试；完整核验v2 0.82323780+v3原账本0.85067004000000006美元及各自原inventory/ledger，名义最坏累计6.17390784<10，原截止/3900秒新槽与请求预留不降。新v4-budget不改旧账本；未知/cleanup/身份/资源异常停整批，方法失败保留后继续固定下一槽。正式启动后HEAD及组件保持到封存，终态独立材料/原脚本/逐请求费用/源码分层/实际容器资源清理审计。
+
+#595/PR596最终HEAD23ab8cfe三CI成功，已合科研依赖分支27bd1d74884cdc9b512d200c5d71fb4a0781beb3、Issue595关闭、final-contract-publication-audit valid；知识库SHA8f2eafb9完整回读/检索一致。62历史材料免费资格只支持局部接口，不保证所有未来准入或模型成功。无活动Provider/Docker；RQ3/P2/主线/用户HTML保持。
+
+## 上一阶段（2026-10-22；#595合同引用免费资格完成，#597独立真实canary待准备）
 
 基础设施/工程修复完成，0凭据/Provider/真实模型Token/费用/未知。cpp-build-rtorrent-fixed-contract-material-gate-v1固定v2全部28请求2停止包+v3全部31请求1停止包，62/62资格、0未观察。三策略共同read_fixed_contract及非执行SHA引用，真实middleware/usage0脚本handler下完整原task/current_plan/state/源码工作集/read_index/反馈/预算逐值还原；另逐段只读完整原脚本并核验SHA，不冒充模型主动读取。原50k/8k保持，最大消息38098。执行器仍持原全文，全部源码/测试/40生成SHA/双ELF/CLI/replay/cleanup裁判不改，本身份未新执行完整构建层，不当模型成功或工程版本因果效果；历史62例不保证任意未来准入。
 
