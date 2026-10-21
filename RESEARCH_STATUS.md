@@ -1,10 +1,12 @@
 # Forge Research Status
 
-## 当前阶段（2026-10-21；#579五项根来源封存，补rtorrent版本依赖）
+## 当前阶段（2026-10-21；#579五项根源码/任务义务与同版本依赖复核完成）
 
-cpp-build-prospective-task-contract-sources-v1完整5项观察，4根归档核验通过、Yosys1失败、0未观察；全部task未资格。Yosys仅.gitcommit与Git字节不同，.gitattributes声明export-subst，失败不重跑/改判；其8个gitlink仍未补齐。独立stdlib清单+真实Git503树/7003blob审计valid，raw forge-prospective-task-contract-sources-v1，inventory4e439bbc（46文件/11313923bytes），release d5764567；9项回归/产品2331passed44skipped/Ruff通过，0Provider/模型费/上游执行。
+数据采集/静态合同分析及工程解析修复完成，0Provider/模型凭据/Token/费用/上游构建。固定9/10/14/21/30五项均观察：4根归档通过、Yosys1失败、0未观察；全部task/contract未资格、build not_observed。Yosys仅.gitcommit export-subst差异，原失败不改判且8gitlink未闭合。独立503树/7003blob审计valid。raw forge-prospective-task-contract-sources-v1，inventory4e439bbc，release d5764567；49处原文及逐项义务在benchmarks/analyses/cpp-build-prospective-task-contract-sources-v1-results.json，报告docs/research/2026-10-21-prospective-task-contract-results.md。
 
-完整源码显示Dobby仿真测试引用缺失的PlatformUnifiedInterface/MemoryAllocator.h，native含dyld/_execve假设；未实际编译，不填功能失败。rtorrent三原测试及断言入口较明确，先以新cpp-build-rtorrent-dependency-source-v1冻结默认分支精确commit且强制同0.16.25版本核验，不换主commit或版本；当前依赖采集未运行，系统包/生成/测试/交付/replay仍待独立参考。其他候选保持原顺序/待解项，不按策略outcome补位。无付费/构建，原免费截止不延长，旧paid不续用，用户HTML/旧九槽/RQ3/P2/主线保持。
+rtorrent同版本libtorrent精确commit c395f0af3924bb4c8514cfa3b0c46c78787ddc64、实际0.16.25。依赖source-v1误拒合法双层M4引用，保留inventory0e729614失败，不能解释成上游版本不匹配；新离线recheck-v2零网络复核通过，inventorya1bf9d7a、40树/493blob独立审计valid。只是依赖根来源，不是系统依赖图/完整任务合格。Dobby缺头路径/native平台假设、ArrayFire移动依赖/数据、IWYU精确Clang、Yosyscanonical源图等仍待解，不填未运行功能失败。
+
+下一步优先为rtorrent固定系统依赖/镜像/完整三测试/生成关系/精确交付与资源，再另建零Provider参考构建→原测试→源码保护→同镜像clean replay→cleanup身份；本轮没有参考执行。其他25项仍pending、不补位。新26针对性/产品2348passed44skipped27warnings及Ruff验证，收据在forge-task-contract-session-2026-10-21。最终HEAD三CI后仅合科研依赖分支，实际发布以GitHub/会话final-publication-audit为准。材料仅开发助手暴露、不注入Agent/不称holdout；用户B已定不再询问，旧九槽/RQ3/P2/主线/用户HTML保持。无活动Provider/构建，原免费截止不延长，旧paid不续用；未来付费需新有效预算/时窗。
 
 ## 上一阶段（2026-10-21；#577固定30项新任务合同材料审阅完成）
 

@@ -4,13 +4,6 @@
 
 ## 进行中 (In Progress)
 
-- 2026-10-21 — #579根来源封存4通过/1Yosys失败（.gitcommit export-subst），0未观察，inventory4e439bbc；独立503树/7003blob审计valid。新身份cpp-build-rtorrent-dependency-source-v1准备，严格0.16.25同版本，不换主源码/删测试；依赖未运行，后续资格以实际证据为准，所有旧身份不续跑。
-
-- 2026-10-21 — #579五候选完整来源与任务合同准备；9项Git/归档回归通过，新身份cpp-build-prospective-task-contract-sources-v1冻结后单次只读采集9/10/14/21/30精确commit，0Provider/费用/构建/Docker。原30分母/未资格和旧失败保持；采集封存后审阅完整测试、主产物、源图及生成/资源阻塞，不在采集身份执行。
-
-
-
-
 - 2026-10-21 — #571目录30/30元数据终结、0失败/未观察、0Provider/费/构建/Docker；30根Git树SHA及841跟踪文件暴露范围独立审计valid，有限精确名4命中/26未命中、全部task未资格/非holdout。raw forge-cxx-prospective-source-catalog-v1，inventory88e23ea1，release6a224591；发布通道为PR572→科研依赖分支；最终HEAD三CI及GitHub实际状态以会话发布收据为准。#568/PR570已合57e19085、568关闭；全部paid stage闭合，累计3.06569736美元/未知0，无活动实验。源码/生成文件边界A/B决策包已保存，B不自动实施。
 
 - 2026-10-21 — #571前瞻30项C++来源元数据目录准备；固定GitHub检索排名后只取精确commit/根tree，不读源码或构建，不按方法结果替换；0Provider/费用/Docker。单独source工作区、原UTC22:07:35截止，候选非构建资格/holdout，完整产品检查中。#568真实结果封存，PR570等待最终三CI，当前无活动Provider。
@@ -596,6 +589,13 @@
   - 下一步: 等待实验负责人确认当前网络接入介质，并决定是否授权只读 endpoint 诊断和新的 canary amendment；获得确认后必须另建中文 Issue/PR 和协议 identity，保留当前失败 marker。
 
 ## 最近变更 (Recent Changes)
+
+- 2026-10-21 — 完成#579五候选根来源及任务义务分析，并独立离线修复同版本依赖解析
+  - 文件: `scripts/forge_build_task_contract_sources.py`, `scripts/forge_build_rtorrent_dependency_source.py`, `scripts/forge_build_rtorrent_dependency_recheck.py`, `docs/research/2026-10-21-prospective-task-contract-results.md`及三份manifest/preregistration、对应测试、49引用派生JSON。
+  - 动机: 在公平比较前固定精确来源、完整原测试与交付/生成义务，不按方法outcome选样。固定9/10/14/21/30五项4根通过/1Yosys失败/0未观察，task均未资格；Yosys.gitcommit export-subst及8gitlink保持失败/未闭合。独立503树7003blob审计valid，raw forge-prospective-task-contract-sources-v1、inventory4e439bbc、release d5764567。
+  - 依赖: rtorrent所需libtorrent c395f0af/0.16.25；source-v1误拒合法双层M4引用，失败inventory0e729614保留，不是实际版本不符。recheck-v2先测试提交后零网络复核，inventorya1bf9d7a，独立40树493blob/ref→commit→tree/组件/清单审计valid；只根来源合格，不是完整任务。Dobby缺头路径/平台、ArrayFire数据/移动源、IWYU精确Clang及Yosyscanonical源图义务均保留。
+  - 验证/边界: 新26针对性、产品2348passed44skipped27warnings/Ruff通过；历史pytest权限清理告警及根make目标误调用日志保留。0Provider/凭据/Token/费用/上游构建，Docker仅只读gate/镜像。原免费截止05:26:06UTC不延长/旧paid不续用。源码分析是开发助手暴露，不注入Agent、不称holdout；剩余25pending，旧九槽/RQ3/P2/主线/用户HTML不动。下一独立免费rtorrent参考先冻结完整三测试/系统依赖/B生成关系/交付及资源，不在来源身份执行。最终结果HEAD三CI后仅合依赖分支，发布/关闭579及KB以forge-task-contract-session-2026-10-21会话收据为准。
+
 
 - 2026-10-21 — #577完成固定30项任务合同只读采集与审阅；原30排名/commit全部观察，0失败/未观察/Provider/费用/构建/Docker。
   - 文件: `scripts/forge_build_task_source_screen.py`, `backend/tests/test_task_source_screen.py`, `benchmarks/preregistrations/cpp-build-prospective-task-source-screen-v1.md`, `benchmarks/manifests/cpp-build-prospective-task-source-screen-v1.json`, `benchmarks/analyses/cpp-build-prospective-task-source-screen-v1-results.json`, `docs/research/2026-10-21-prospective-task-source-screen-results.md`。
