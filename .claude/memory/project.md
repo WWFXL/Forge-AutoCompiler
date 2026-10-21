@@ -4,7 +4,6 @@
 
 ## 进行中 (In Progress)
 
-- 2026-10-21 — #573用户已选择B，任务边界确认完成；新共同接口及真实项目零Provider资格尚待实现。三策略统一允许预声明标准生成物，作者源码/测试及构建语义输入保持，完整固定测试/精确交付/replay不变。以下A/B待决表述均为历史，不再索要相同确认；旧付费预算/窗口不续用，旧九槽不改。定义及夹具记录见`docs/research/2026-10-21-generated-file-boundary-b.md`。
 
 - 2026-10-21 — #571目录30/30元数据终结、0失败/未观察、0Provider/费/构建/Docker；30根Git树SHA及841跟踪文件暴露范围独立审计valid，有限精确名4命中/26未命中、全部task未资格/非holdout。raw forge-cxx-prospective-source-catalog-v1，inventory88e23ea1，release6a224591；发布通道为PR572→科研依赖分支；最终HEAD三CI及GitHub实际状态以会话发布收据为准。#568/PR570已合57e19085、568关闭；全部paid stage闭合，累计3.06569736美元/未知0，无活动实验。源码/生成文件边界A/B决策包已保存，B不自动实施。
 
@@ -591,6 +590,13 @@
   - 下一步: 等待实验负责人确认当前网络接入介质，并决定是否授权只读 endpoint 诊断和新的 canary amendment；获得确认后必须另建中文 Issue/PR 和协议 identity，保留当前失败 marker。
 
 ## 最近变更 (Recent Changes)
+
+- 2026-10-21 — #575完成生成文件边界B共同接口及libconfig独立五槽资格。
+  - 文件: `backend/packages/harness/deerflow/compile/generated_file_boundary.py`、`boundary_execution.py`、`scripts/forge_build_boundary_{arm,gate}{,_v2}.py`、三测试文件、同名manifest/preregistration、派生结果和`docs/research/2026-10-21-generated-file-interface-results.md`。
+  - 动机: 三策略与replay统一允许精确标准生成物，保护作者源码/测试/语义输入；Linux事件识别先改后恢复，生成关系/输出SHA预审，拒绝权限扩展；不是恶意root通用安全沙箱。
+  - 证据: v1三正常strict，恢复首槽因状态内包装SHA与顶层可读SHA不一致在模型前拒绝、末槽未观察；原失败保留。v2新增投影修复保留guarded SHA，五槽5strict/0未观察，原/replay264保护、8PASS+1XFAIL/内16测试、精确两静态库SHA及实际cleanup通过；双恢复实际false后revision2，三前缀ID保留。v2 inventory4a345e39、manifest9be86a57，独立stdlib审计v1/v2均valid，0Provider/凭据/模型Token/费用/未知。旧199组件不动，不回填旧九槽/RQ3、不加P2；29相关/产品2316passed44skipped27warnings及Ruff通过。
+  - 运行/发布区别: 基线14c563b1+未提交新文件，原始source-snapshot与组件SHA是准确实现；封存后仅新回归测试改tmp审阅收据，消除CI私有路径依赖，差异收据保留，不改运行时/任务/raw。v1/v2本机manifest需对应快照，不能用后来测试冒充运行前代码。报告和会话forge-boundary-interface-session-2026-10-21/含审阅/审计/检查/最终发布/KB收据。用户HTML不动，最终三CI后仅合科研依赖分支。
+  - 下一步: 新任务资格与结果前暴露/角色登记，然后独立比较；libconfig已见输出许可不能照搬。旧20美元/四小时不续用，付费须新有效授权；仅工程资格不是模型效果。以RESEARCH_STATUS.md及GitHub最终核验为当前状态，以下旧进行中记录为历史。
 
 - 2026-10-21 — 固化用户选择B的生成文件任务边界并验证真实Autotools微型夹具。
   - 文件: `docs/research/2026-10-21-generated-file-boundary-b.md`, `docs/research/2026-10-21-source-contract-scope-decision.md`, `RESEARCH_STATUS.md`。

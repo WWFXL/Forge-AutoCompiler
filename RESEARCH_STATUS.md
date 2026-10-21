@@ -1,6 +1,14 @@
 # Forge Research Status
 
-## 当前阶段（2026-10-21；用户确认生成文件边界B，进入共同接口准备）
+## 当前阶段（2026-10-21；#575共同文件边界与三策略零Provider资格完成）
+
+基础设施/工程资格完成，0Provider/凭据/模型Token/费用/未知用量。新共同B接口在已见libconfig上完成三策略正常及双Workflow受控恢复：独立cpp-build-generated-file-boundary-gate-v2五槽5/5strict、0未观察。原/replay均保护264原文件，仅预声明autoheader命令更新ac_config.h.in至独立核验SHA；完整作者8PASS+1上游XFAIL、tinytest16/16、原功能配置、精确两静态库/产物SHA一致及实际cleanup通过。两个恢复各实际build=false失败→revision2，保留准备/生成/configure命令ID，只重跑build后缀。
+
+v1原三正常strict，第四恢复在模型前因可读/包装计划身份不一致拒绝，第五未观察；封存失败不补槽。v2仅新增接口修复同一投影身份并保留guarded SHA，旧199组件不动。v1/v2独立stdlib清单/实际包装/源码/完整测试/产物/恢复前缀/容器不存在审计均valid；v2 inventory4a345e396f5b3b1308376fbdabb71f831661f81d135da91d41fed9214d1cca93（7272文件/20链接/275813150bytes），manifest9be86a57。运行基线14c563b1+未提交新文件，以原始source-snapshot/逐组件SHA为真实运行身份；封存后仅新回归测试改临时收据以便CI，不改运行时代码/任务或raw。29相关回归、产品2316passed44skipped27warnings及Ruff通过。详见docs/research/2026-10-21-generated-file-interface-results.md、benchmarks/analyses同名资格结果及会话forge-boundary-interface-session-2026-10-21/。
+
+这证明共同接口及受控接线资格，不是模型效果/自然恢复率/holdout或总体排名。libconfig生成关系及111精确新输出来自已见开发参考，不能照搬为新项目授权。下一步先做新任务独立资格/暴露登记，再冻结三策略公平比较；用户B决定已完成不再索要，不回填旧libconfig九槽、不改RQ3分母/主线、不加P2。旧付费窗口不续用；本轮无Provider，未来付费须新有效预算/时窗。代码发布按最终HEAD三CI后仅合科研依赖分支；当前发布事实以GitHub及会话final-publication-audit.json为准，用户HTML不动。
+
+## 上一阶段（2026-10-21；用户确认生成文件边界B，进入共同接口准备）
 
 用户已明确选择B：允许Autotools等标准构建过程生成配置模板和辅助文件，但作者源码和测试不得修改。A/B选择已完成，不再等待同一边界确认。保护范围也包含作者构建语义输入（如configure.ac、Makefile.am、手写宏/模板）；精确生成路径、命令、来源与新输出范围在新任务执行前声明，三策略和clean replay采用同一规则，完整测试/功能配置/精确交付及产物一致性保持。决定见docs/research/2026-10-21-source-contract-scope-decision.md，具体定义及可行性见docs/research/2026-10-21-generated-file-boundary-b.md，跟踪#573。
 

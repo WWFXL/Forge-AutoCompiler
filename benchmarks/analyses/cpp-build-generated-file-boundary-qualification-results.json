@@ -1,0 +1,181 @@
+{
+  "kind": "engineering_qualification_not_treatment_effect",
+  "issue": 575,
+  "provider_calls": 0,
+  "model_cost_usd": 0,
+  "author_sources_tests_and_semantic_inputs_unchanged": true,
+  "versions": [
+    {
+      "identity": "cpp-build-generated-file-boundary-gate-v1",
+      "raw_root": "/home/yiwei/.codex/outputs/forge-generated-file-boundary-gate-v1",
+      "manifest_sha256": "017043e7b765045eff5d3fe0a762ea4a201aa0f1dfbc1c43a8545861559ab202",
+      "seal": {
+        "format": "forge-typed-evidence-v1",
+        "identity": "cpp-build-generated-file-boundary-gate-v1",
+        "entries": 5066,
+        "files": 5054,
+        "symlinks": 12,
+        "bytes": 185733894,
+        "inventory_canonical_sha256": "b712244558525d077221a0e3c5e38c381b60ee00c5951b26389c02078f339136",
+        "unknown_usage_requests": 0
+      },
+      "rows": [
+        {
+          "method": "tool_plan_workflow",
+          "case": "normal",
+          "strict_completed": true,
+          "status": "verified",
+          "error_class": null,
+          "error_message": null,
+          "scripted_responses": 1,
+          "commands": 6,
+          "source_unchanged": true,
+          "boundary_passed": true,
+          "cleanup_succeeded": true
+        },
+        {
+          "method": "model_plan_workflow",
+          "case": "normal",
+          "strict_completed": true,
+          "status": "verified",
+          "error_class": null,
+          "error_message": null,
+          "scripted_responses": 1,
+          "commands": 6,
+          "source_unchanged": true,
+          "boundary_passed": true,
+          "cleanup_succeeded": true
+        },
+        {
+          "method": "strong_tool_agent",
+          "case": "normal",
+          "strict_completed": true,
+          "status": "verified",
+          "error_class": null,
+          "error_message": null,
+          "scripted_responses": 1,
+          "commands": 6,
+          "source_unchanged": true,
+          "boundary_passed": true,
+          "cleanup_succeeded": true
+        },
+        {
+          "method": "tool_plan_workflow",
+          "case": "controlled_recovery",
+          "strict_completed": false,
+          "status": "stopped",
+          "error_class": "PlanContractError",
+          "error_message": "接管材料与权威状态身份不一致",
+          "scripted_responses": 1,
+          "commands": 4,
+          "source_unchanged": true,
+          "boundary_passed": true,
+          "cleanup_succeeded": true
+        }
+      ],
+      "unobserved_schedule": [
+        {
+          "project": "libconfig",
+          "method": "model_plan_workflow",
+          "case": "controlled_recovery",
+          "repetition": 1
+        }
+      ],
+      "stop_reason": "qualification_failed",
+      "independent_audit": "/home/yiwei/.codex/outputs/forge-boundary-interface-session-2026-10-21/gate-v1-independent-audit.json",
+      "independent_audit_sha256": "e3874e33e31514144d323e786f31dcb4b8178ffbf774eb6ef41dfe48b47bee8b"
+    },
+    {
+      "identity": "cpp-build-generated-file-boundary-gate-v2",
+      "raw_root": "/home/yiwei/.codex/outputs/forge-generated-file-boundary-gate-v2",
+      "manifest_sha256": "9be86a5794300a9360f451b22de2a5847268fb5480278d84d79d5ea21475001f",
+      "seal": {
+        "format": "forge-typed-evidence-v1",
+        "identity": "cpp-build-generated-file-boundary-gate-v2",
+        "entries": 7292,
+        "files": 7272,
+        "symlinks": 20,
+        "bytes": 275813150,
+        "inventory_canonical_sha256": "4a345e396f5b3b1308376fbdabb71f831661f81d135da91d41fed9214d1cca93",
+        "unknown_usage_requests": 0
+      },
+      "rows": [
+        {
+          "method": "tool_plan_workflow",
+          "case": "normal",
+          "strict_completed": true,
+          "status": "verified",
+          "error_class": null,
+          "error_message": null,
+          "scripted_responses": 1,
+          "commands": 6,
+          "source_unchanged": true,
+          "boundary_passed": true,
+          "cleanup_succeeded": true
+        },
+        {
+          "method": "model_plan_workflow",
+          "case": "normal",
+          "strict_completed": true,
+          "status": "verified",
+          "error_class": null,
+          "error_message": null,
+          "scripted_responses": 1,
+          "commands": 6,
+          "source_unchanged": true,
+          "boundary_passed": true,
+          "cleanup_succeeded": true
+        },
+        {
+          "method": "strong_tool_agent",
+          "case": "normal",
+          "strict_completed": true,
+          "status": "verified",
+          "error_class": null,
+          "error_message": null,
+          "scripted_responses": 1,
+          "commands": 6,
+          "source_unchanged": true,
+          "boundary_passed": true,
+          "cleanup_succeeded": true
+        },
+        {
+          "method": "tool_plan_workflow",
+          "case": "controlled_recovery",
+          "strict_completed": true,
+          "status": "verified",
+          "error_class": null,
+          "error_message": null,
+          "scripted_responses": 2,
+          "commands": 7,
+          "source_unchanged": true,
+          "boundary_passed": true,
+          "cleanup_succeeded": true
+        },
+        {
+          "method": "model_plan_workflow",
+          "case": "controlled_recovery",
+          "strict_completed": true,
+          "status": "verified",
+          "error_class": null,
+          "error_message": null,
+          "scripted_responses": 2,
+          "commands": 7,
+          "source_unchanged": true,
+          "boundary_passed": true,
+          "cleanup_succeeded": true
+        }
+      ],
+      "unobserved_schedule": [],
+      "stop_reason": null,
+      "independent_audit": "/home/yiwei/.codex/outputs/forge-boundary-interface-session-2026-10-21/gate-v2-independent-audit.json",
+      "independent_audit_sha256": "9b91a51df0892a5985f0622fc14cb3188668c629411adc87e726c869d4b9bd76"
+    }
+  ],
+  "claim_boundaries": [
+    "已见libconfig单项目与人工脚本响应，仅资格，不估策略效果/自然失败恢复率/总体",
+    "不改旧libconfig九槽或RQ3固定分母",
+    "运行checkout为14c563b11e6e02339a20727045b256f531452dd4加未提交新文件，原始source-snapshot及component SHA才是运行实现身份",
+    "v2封存后仅新回归测试改临时收据以独立于私有目录；全部运行时代码保持冻结，差异收据位于会话test-portability-revision.json"
+  ]
+}
