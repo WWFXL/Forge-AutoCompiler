@@ -1,0 +1,1791 @@
+{
+  "identity": "cpp-build-prospective-task-source-screen-v1",
+  "kind": "post_collection_manual_static_review",
+  "raw_root": "/home/yiwei/.codex/outputs/forge-prospective-task-source-screen-v1",
+  "collection_release": "d5c354647ddb1a8dfdd00fda244680c4abad2279",
+  "manifest_sha256": "3324f12fd9c1a066076e62fd0d33ebf8d5c1ec5feb6022767143051456ba7ad6",
+  "inventory_canonical_sha256": "2facd675892ed07d7e98043a387e1e21c8e5956f0910f3d52a7f757bc050b967",
+  "observed": 30,
+  "failed": 0,
+  "unobserved": 0,
+  "qualified_tasks": 0,
+  "material_paths": 120,
+  "trees_verified_with_git": 82,
+  "provider_calls": 0,
+  "model_cost_usd": 0,
+  "build_commands": 0,
+  "docker_calls": 0,
+  "reference_definition_queue": [
+    9,
+    10,
+    14,
+    21,
+    30
+  ],
+  "queue_rule": "封存后按Linux原生编译产品线索、作者测试程序/注册或完整测试目标的直接证据及待闭合依赖形成定义工作队列；队列内按原排名。不是结果前冻结的最终样本、跨系统平衡或实际资格；其他25项保留pending，后续可补材料，不按方法结果补位。",
+  "queue_notes": "9后端/数据、10版本依赖、14真实断言、21源图/完整测试、30工具链主干各自仍有高风险；21已有暴露。6仅见测试子目录委派且README超限、11渲染/LFS合同及端点在子目录、22主库header-only交付身份待解，均不是失败/永久排除。",
+  "claim_boundary": [
+    "来源审阅与任务定义准备，不是实际构建实验或方法效果",
+    "不声称任何候选为holdout或训练/历史未见",
+    "不减少原测试换资格、不修改旧九槽/RQ3分母/P2/主线",
+    "原材料不注入正式实验Agent，后续任务披露内容须前瞻公平冻结"
+  ],
+  "rows": [
+    {
+      "rank": 1,
+      "repository": "Nukem9/dlssg-to-fsr3",
+      "commit_sha": "0e253f63c3c66ee7582406bfa3dec698df7ab2c1",
+      "root_tree_sha": "2353424e3f175d4321b2398a6e8abbcaf51f9d86",
+      "source_material_status": "observed",
+      "materials_count": 2,
+      "skipped_materials": [],
+      "task_qualified": false,
+      "holdout": false,
+      "build_result": "not_observed",
+      "role": "task_definition_pending",
+      "development_exposure": "bounded_contract_materials_read",
+      "prior_current_tracked_exact_name_matches": [],
+      "fact_summary": "根CMake将主体委派给maindll目录。",
+      "citations": [
+        {
+          "path": "CMakeLists.txt",
+          "line": 26,
+          "quote": "add_subdirectory(\"${PROJECT_SOURCE_PATH}/maindll\")",
+          "git_blob_sha": "516090073650b33b09ebeaf93bb8020e942beab2",
+          "sha256": "370a905a1b5c7dc734fcd30dddb628b1e1252cb47a97e785e47f7a043b042686",
+          "raw_text": "01/blob-516090073650b33b09ebeaf93bb8020e942beab2.txt"
+        }
+      ],
+      "pending_obligations": "需读取主体端点的平台条件、依赖与原测试；当前不能确定Linux任务。",
+      "common_pending": [
+        "完整源图与固定依赖来源",
+        "完整作者测试分母、断言及实际运行",
+        "精确主产物与功能配置",
+        "任务专属B生成文件来源/路径/命令",
+        "同镜像clean replay与实际cleanup"
+      ],
+      "reference_definition_queue_position": null
+    },
+    {
+      "rank": 2,
+      "repository": "paolo-projects/auto-unlocker",
+      "commit_sha": "ddc03aa4a5609cc59922e760834496c76fe1a700",
+      "root_tree_sha": "318867c3a6530d163adddcf0e59eafab784a1c01",
+      "source_material_status": "observed",
+      "materials_count": 3,
+      "skipped_materials": [],
+      "task_qualified": false,
+      "holdout": false,
+      "build_result": "not_observed",
+      "role": "task_definition_pending",
+      "development_exposure": "bounded_contract_materials_read",
+      "prior_current_tracked_exact_name_matches": [],
+      "fact_summary": "文档给出Linux脚本，CMake声明Unlocker及TestPatch可执行目标。",
+      "citations": [
+        {
+          "path": "README.md",
+          "line": 20,
+          "quote": "For the linux target, it is still shell-based, given the better-instructed user base running",
+          "git_blob_sha": "d3211b8b310afc16fd6c311c24a0ec1fb6ae912b",
+          "sha256": "23b9e6c30969acb1587656b4f9dbcd9d82955e7ee93fd07b499ca014668665cf",
+          "raw_text": "02/blob-d3211b8b310afc16fd6c311c24a0ec1fb6ae912b.txt"
+        },
+        {
+          "path": "CMakeLists.txt",
+          "line": 98,
+          "quote": "\tadd_executable(Unlocker ${SOURCE_FILES})",
+          "git_blob_sha": "eea886454143beae14854d0e12a07037f8576186",
+          "sha256": "e5a0d10492f0fd21c8c9e49453d197b8c2eb0ef0a9493a26329bca95fb214399",
+          "raw_text": "02/blob-eea886454143beae14854d0e12a07037f8576186.txt"
+        },
+        {
+          "path": "CMakeLists.txt",
+          "line": 145,
+          "quote": "add_executable( TestPatch ${TEST_SOURCES})",
+          "git_blob_sha": "eea886454143beae14854d0e12a07037f8576186",
+          "sha256": "e5a0d10492f0fd21c8c9e49453d197b8c2eb0ef0a9493a26329bca95fb214399",
+          "raw_text": "02/blob-eea886454143beae14854d0e12a07037f8576186.txt"
+        }
+      ],
+      "pending_obligations": "需核验TestPatch原断言、夹具和依赖；构建测试不能调用修改VMware安装的运行操作。",
+      "common_pending": [
+        "完整源图与固定依赖来源",
+        "完整作者测试分母、断言及实际运行",
+        "精确主产物与功能配置",
+        "任务专属B生成文件来源/路径/命令",
+        "同镜像clean replay与实际cleanup"
+      ],
+      "reference_definition_queue_position": null
+    },
+    {
+      "rank": 3,
+      "repository": "Chlumsky/msdfgen",
+      "commit_sha": "1c106ed8117893bf943e577f62eb0665fb271e46",
+      "root_tree_sha": "0d49d43088f82e4712040787490bd29bd8971cf1",
+      "source_material_status": "observed",
+      "materials_count": 2,
+      "skipped_materials": [],
+      "task_qualified": false,
+      "holdout": false,
+      "build_result": "not_observed",
+      "role": "task_definition_pending",
+      "development_exposure": "bounded_contract_materials_read",
+      "prior_current_tracked_exact_name_matches": [],
+      "fact_summary": "CMake声明核心库、扩展库和msdfgen可执行端点。",
+      "citations": [
+        {
+          "path": "CMakeLists.txt",
+          "line": 101,
+          "quote": "add_library(msdfgen-core \"${CMAKE_CURRENT_SOURCE_DIR}/msdfgen.h\" ${MSDFGEN_CORE_HEADERS} ${MSDFGEN_CORE_SOURCES})",
+          "git_blob_sha": "d2218395af52feb60a97e5257a0f549ddc66edab",
+          "sha256": "7c686b85196bfe9b1466d5712f4cadc16a378910202ee75daaedef5323a12c70",
+          "raw_text": "03/blob-d2218395af52feb60a97e5257a0f549ddc66edab.txt"
+        },
+        {
+          "path": "CMakeLists.txt",
+          "line": 140,
+          "quote": "        find_package(Freetype REQUIRED)",
+          "git_blob_sha": "d2218395af52feb60a97e5257a0f549ddc66edab",
+          "sha256": "7c686b85196bfe9b1466d5712f4cadc16a378910202ee75daaedef5323a12c70",
+          "raw_text": "03/blob-d2218395af52feb60a97e5257a0f549ddc66edab.txt"
+        },
+        {
+          "path": "CMakeLists.txt",
+          "line": 217,
+          "quote": "    add_executable(msdfgen ${MSDFGEN_STANDALONE_SOURCES})",
+          "git_blob_sha": "d2218395af52feb60a97e5257a0f549ddc66edab",
+          "sha256": "7c686b85196bfe9b1466d5712f4cadc16a378910202ee75daaedef5323a12c70",
+          "raw_text": "03/blob-d2218395af52feb60a97e5257a0f549ddc66edab.txt"
+        }
+      ],
+      "pending_obligations": "需闭合Freetype/tinyxml2/PNG及作者测试或可信功能裁判；有界材料未显示完整测试不等于无测试。",
+      "common_pending": [
+        "完整源图与固定依赖来源",
+        "完整作者测试分母、断言及实际运行",
+        "精确主产物与功能配置",
+        "任务专属B生成文件来源/路径/命令",
+        "同镜像clean replay与实际cleanup"
+      ],
+      "reference_definition_queue_position": null
+    },
+    {
+      "rank": 4,
+      "repository": "TixiaoShan/LIO-SAM",
+      "commit_sha": "0be1fbe6275fb8366d5b800af4fc8c76a885c869",
+      "root_tree_sha": "7d95b6f544e097323bcbc87b322501aed7fd45e1",
+      "source_material_status": "observed",
+      "materials_count": 2,
+      "skipped_materials": [],
+      "task_qualified": false,
+      "holdout": false,
+      "build_result": "not_observed",
+      "role": "task_definition_pending",
+      "development_exposure": "bounded_contract_materials_read",
+      "prior_current_tracked_exact_name_matches": [],
+      "fact_summary": "文档给出catkin构建路线，CMake依赖ROS/PCL/OpenCV/GTSAM。",
+      "citations": [
+        {
+          "path": "README.md",
+          "line": 75,
+          "quote": "cd ~/catkin_ws/src",
+          "git_blob_sha": "99aff57f210658d9396df0935fb4166c74ad316d",
+          "sha256": "0526d61870f3be2c58cd029a51803159f150356bc08cdcf82dbe6739bfc03793",
+          "raw_text": "04/blob-99aff57f210658d9396df0935fb4166c74ad316d.txt"
+        },
+        {
+          "path": "CMakeLists.txt",
+          "line": 8,
+          "quote": "find_package(catkin REQUIRED COMPONENTS",
+          "git_blob_sha": "f96b004c7fe787b1b165e9f900b903309496bbe0",
+          "sha256": "343d7eb28382332c707fbfa25292c06e3d0f28dee1510cdf8c4a2753b846a404",
+          "raw_text": "04/blob-f96b004c7fe787b1b165e9f900b903309496bbe0.txt"
+        },
+        {
+          "path": "CMakeLists.txt",
+          "line": 27,
+          "quote": "find_package(GTSAM REQUIRED QUIET)",
+          "git_blob_sha": "f96b004c7fe787b1b165e9f900b903309496bbe0",
+          "sha256": "343d7eb28382332c707fbfa25292c06e3d0f28dee1510cdf8c4a2753b846a404",
+          "raw_text": "04/blob-f96b004c7fe787b1b165e9f900b903309496bbe0.txt"
+        }
+      ],
+      "pending_obligations": "需固定ROS环境、源图、数据和完整测试/功能裁判。",
+      "common_pending": [
+        "完整源图与固定依赖来源",
+        "完整作者测试分母、断言及实际运行",
+        "精确主产物与功能配置",
+        "任务专属B生成文件来源/路径/命令",
+        "同镜像clean replay与实际cleanup"
+      ],
+      "reference_definition_queue_position": null
+    },
+    {
+      "rank": 5,
+      "repository": "gameplay3d/gameplay",
+      "commit_sha": "70c90a49dffda3b287487d261ada9c7f889c8eb0",
+      "root_tree_sha": "b85ce4f192c0a883090c131f851cdc2fd22f15d0",
+      "source_material_status": "observed",
+      "materials_count": 2,
+      "skipped_materials": [],
+      "task_qualified": false,
+      "holdout": false,
+      "build_result": "not_observed",
+      "role": "task_definition_pending",
+      "development_exposure": "bounded_contract_materials_read",
+      "prior_current_tracked_exact_name_matches": [],
+      "fact_summary": "根CMake委派gameplay和samples，README把Linux说明指向外部wiki。",
+      "citations": [
+        {
+          "path": "README.md",
+          "line": 15,
+          "quote": "- [Linux](https://github.com/gameplay3d/GamePlay/wiki/CMake-Linux-Setup)",
+          "git_blob_sha": "af474829498a9601acc3f813d1d4d552653231b0",
+          "sha256": "c9f9aeacddbd00d2dbf2015b405593724dd1568b4079fba6ce243b671a3843c6",
+          "raw_text": "05/blob-af474829498a9601acc3f813d1d4d552653231b0.txt"
+        },
+        {
+          "path": "CMakeLists.txt",
+          "line": 22,
+          "quote": "add_subdirectory(gameplay)",
+          "git_blob_sha": "5372ae9bbc402c4514156b51e462a1d10737434a",
+          "sha256": "44eb3ccb0d1f1665c1111db420ddeef3b31c57be5d4b79753750945fa08ef540",
+          "raw_text": "05/blob-5372ae9bbc402c4514156b51e462a1d10737434a.txt"
+        },
+        {
+          "path": "CMakeLists.txt",
+          "line": 25,
+          "quote": "add_subdirectory(samples)",
+          "git_blob_sha": "5372ae9bbc402c4514156b51e462a1d10737434a",
+          "sha256": "44eb3ccb0d1f1665c1111db420ddeef3b31c57be5d4b79753750945fa08ef540",
+          "raw_text": "05/blob-5372ae9bbc402c4514156b51e462a1d10737434a.txt"
+        }
+      ],
+      "pending_obligations": "需另行取得确切Linux端点、原测试及依赖，不能仅由目录名定资格。",
+      "common_pending": [
+        "完整源图与固定依赖来源",
+        "完整作者测试分母、断言及实际运行",
+        "精确主产物与功能配置",
+        "任务专属B生成文件来源/路径/命令",
+        "同镜像clean replay与实际cleanup"
+      ],
+      "reference_definition_queue_position": null
+    },
+    {
+      "rank": 6,
+      "repository": "alandefreitas/matplotplusplus",
+      "commit_sha": "2ccbb7ff86295bb4d3aca2938dce09ca3accb1ef",
+      "root_tree_sha": "70735261269f658c3e1163cd6d1a2c11d669f287",
+      "source_material_status": "observed",
+      "materials_count": 3,
+      "skipped_materials": [
+        {
+          "path": "README.md",
+          "reason": "predeclared_size_or_file_cap",
+          "sha": "830042d2eab5bcfef3ecfd67370a6db0586f9fdb",
+          "size": 351588
+        }
+      ],
+      "task_qualified": false,
+      "holdout": false,
+      "build_result": "not_observed",
+      "role": "task_definition_pending",
+      "development_exposure": "bounded_contract_materials_read",
+      "prior_current_tracked_exact_name_matches": [],
+      "fact_summary": "根CMake有测试选项，test入口再委派generate_examples与backends；README超262144字节未采集。",
+      "citations": [
+        {
+          "path": "CMakeLists.txt",
+          "line": 38,
+          "quote": "    option(MATPLOTPP_BUILD_TESTS \"Build tests\" ON)",
+          "git_blob_sha": "ef44b3eb629ed8e460f185a98643fba3d6e9a8d1",
+          "sha256": "5a103e2d3e7793f7fc0d8e810a634eb9c8dca99251e9aae7f5e8dbfe07fdf4a9",
+          "raw_text": "06/blob-ef44b3eb629ed8e460f185a98643fba3d6e9a8d1.txt"
+        },
+        {
+          "path": "test/CMakeLists.txt",
+          "line": 1,
+          "quote": "add_subdirectory(generate_examples)",
+          "git_blob_sha": "976b8c6c0c802e5dde57214e7b5e8bbae287a61a",
+          "sha256": "adf304d5da2804ed3aff94a21739a7437e4a046126fa38e246ed15865ad28096",
+          "raw_text": "06/blob-976b8c6c0c802e5dde57214e7b5e8bbae287a61a.txt"
+        },
+        {
+          "path": "test/CMakeLists.txt",
+          "line": 2,
+          "quote": "add_subdirectory(backends)",
+          "git_blob_sha": "976b8c6c0c802e5dde57214e7b5e8bbae287a61a",
+          "sha256": "adf304d5da2804ed3aff94a21739a7437e4a046126fa38e246ed15865ad28096",
+          "raw_text": "06/blob-976b8c6c0c802e5dde57214e7b5e8bbae287a61a.txt"
+        }
+      ],
+      "pending_obligations": "需在新材料身份查阅实际测试注册、headless后端和依赖/主产物；不把超限文档当已审阅。",
+      "common_pending": [
+        "完整源图与固定依赖来源",
+        "完整作者测试分母、断言及实际运行",
+        "精确主产物与功能配置",
+        "任务专属B生成文件来源/路径/命令",
+        "同镜像clean replay与实际cleanup"
+      ],
+      "reference_definition_queue_position": null
+    },
+    {
+      "rank": 7,
+      "repository": "begeekmyfriend/yasea",
+      "commit_sha": "ed16739a83538db8b68126c4ce4b6f2b6236f359",
+      "root_tree_sha": "f263c1dd3955433da3be921c73d388f6549a8e5a",
+      "source_material_status": "observed",
+      "materials_count": 1,
+      "skipped_materials": [],
+      "task_qualified": false,
+      "holdout": false,
+      "build_result": "not_observed",
+      "role": "task_definition_pending",
+      "development_exposure": "bounded_contract_materials_read",
+      "prior_current_tracked_exact_name_matches": [],
+      "fact_summary": "README将项目描述为Android流媒体客户端并注明API21要求。",
+      "citations": [
+        {
+          "path": "README.md",
+          "line": 5,
+          "quote": "Yet Another Stream Encoder for Android",
+          "git_blob_sha": "2cbcb32d88949c7786e852238899f9ed4f2900e3",
+          "sha256": "ebfa0968f59ee300bbacb5f79ee49993b5b4fbfbc599491f51160aec8be9dd61",
+          "raw_text": "07/blob-2cbcb32d88949c7786e852238899f9ed4f2900e3.txt"
+        },
+        {
+          "path": "README.md",
+          "line": 25,
+          "quote": "- [x] Android mini API 21.",
+          "git_blob_sha": "2cbcb32d88949c7786e852238899f9ed4f2900e3",
+          "sha256": "ebfa0968f59ee300bbacb5f79ee49993b5b4fbfbc599491f51160aec8be9dd61",
+          "raw_text": "07/blob-2cbcb32d88949c7786e852238899f9ed4f2900e3.txt"
+        }
+      ],
+      "pending_obligations": "当前尚未建立原生Linux编译端点；需确认任务范围，不判项目构建失败。",
+      "common_pending": [
+        "完整源图与固定依赖来源",
+        "完整作者测试分母、断言及实际运行",
+        "精确主产物与功能配置",
+        "任务专属B生成文件来源/路径/命令",
+        "同镜像clean replay与实际cleanup"
+      ],
+      "reference_definition_queue_position": null
+    },
+    {
+      "rank": 8,
+      "repository": "anyrtcIO-Community/anyRTC-RTMP-OpenSource",
+      "commit_sha": "18e5314a52732fd019823f0052e43d8a44c2c919",
+      "root_tree_sha": "f100f7a961b5c6f6a916be75d813866a2b639254",
+      "source_material_status": "observed",
+      "materials_count": 1,
+      "skipped_materials": [],
+      "task_qualified": false,
+      "holdout": false,
+      "build_result": "not_observed",
+      "role": "task_definition_pending",
+      "development_exposure": "bounded_contract_materials_read",
+      "prior_current_tracked_exact_name_matches": [],
+      "fact_summary": "README平台描述含Ubuntu，但展示的平台表列Android/iOS/Windows。",
+      "citations": [
+        {
+          "path": "README.md",
+          "line": 5,
+          "quote": "anyLive 是 [anyRTC](https://www.anyrtc.io/) 开源的推拉流项目。采用跨平台架构设计（采用WebRTC(93)版本为基础框架），一套代码支持Android、iOS、Windows、Mac、Ubuntu等平台。",
+          "git_blob_sha": "ab471836c52a3803685a91d155a40705ac7feed8",
+          "sha256": "e7a6e2913cef981749fe66cc1984d05dbd09d07fb31135f6d86f9c9809506f55",
+          "raw_text": "08/blob-ab471836c52a3803685a91d155a40705ac7feed8.txt"
+        },
+        {
+          "path": "README.md",
+          "line": 33,
+          "quote": "| Android 4.4及以上 | Android Studio、NDK | armeabi-v7a、arm64-v8a |",
+          "git_blob_sha": "ab471836c52a3803685a91d155a40705ac7feed8",
+          "sha256": "e7a6e2913cef981749fe66cc1984d05dbd09d07fb31135f6d86f9c9809506f55",
+          "raw_text": "08/blob-ab471836c52a3803685a91d155a40705ac7feed8.txt"
+        },
+        {
+          "path": "README.md",
+          "line": 34,
+          "quote": "| iOS 9.0及以上     | Xcode14             | arm64 |",
+          "git_blob_sha": "ab471836c52a3803685a91d155a40705ac7feed8",
+          "sha256": "e7a6e2913cef981749fe66cc1984d05dbd09d07fb31135f6d86f9c9809506f55",
+          "raw_text": "08/blob-ab471836c52a3803685a91d155a40705ac7feed8.txt"
+        },
+        {
+          "path": "README.md",
+          "line": 35,
+          "quote": "| Windows 7及以上   | VS2015,VS2017       | x86、x86-64            |",
+          "git_blob_sha": "ab471836c52a3803685a91d155a40705ac7feed8",
+          "sha256": "e7a6e2913cef981749fe66cc1984d05dbd09d07fb31135f6d86f9c9809506f55",
+          "raw_text": "08/blob-ab471836c52a3803685a91d155a40705ac7feed8.txt"
+        }
+      ],
+      "pending_obligations": "需取得Ubuntu实际编译、测试、WebRTC93依赖和交付路线；表中未列不等于无Linux。",
+      "common_pending": [
+        "完整源图与固定依赖来源",
+        "完整作者测试分母、断言及实际运行",
+        "精确主产物与功能配置",
+        "任务专属B生成文件来源/路径/命令",
+        "同镜像clean replay与实际cleanup"
+      ],
+      "reference_definition_queue_position": null
+    },
+    {
+      "rank": 9,
+      "repository": "arrayfire/arrayfire",
+      "commit_sha": "ab4a5063c92512dd65ab2b418cf81e4b3c46299b",
+      "root_tree_sha": "c56aaecaedf8bcea43f12ea65a4992c3d287bcdd",
+      "source_material_status": "observed",
+      "materials_count": 7,
+      "skipped_materials": [],
+      "task_qualified": false,
+      "holdout": false,
+      "build_result": "not_observed",
+      "role": "task_definition_pending",
+      "development_exposure": "bounded_contract_materials_read",
+      "prior_current_tracked_exact_name_matches": [],
+      "fact_summary": "README明确native CPU/Linux，测试CMake具有后端测试注册与数据依赖。",
+      "citations": [
+        {
+          "path": "README.md",
+          "line": 26,
+          "quote": "  native CPU on Windows, Mac, and Linux",
+          "git_blob_sha": "b0297c417726161d5b1e7c198ada1a0734a5d17d",
+          "sha256": "81e8b180ef9df19cd592f56728b238ce165c5fb9ba218581efde4d2d0c91f15e",
+          "raw_text": "09/blob-b0297c417726161d5b1e7c198ada1a0734a5d17d.txt"
+        },
+        {
+          "path": "test/CMakeLists.txt",
+          "line": 71,
+          "quote": "function(af_add_test target backend is_serial)",
+          "git_blob_sha": "64e1feb777c68cd93ea54b2319d4e5af34013b55",
+          "sha256": "aed3c2e0422b5c3eaf31d4e14777ea0522df01e403dfccff4a7bbc8a2d80bf92",
+          "raw_text": "09/blob-64e1feb777c68cd93ea54b2319d4e5af34013b55.txt"
+        },
+        {
+          "path": "test/CMakeLists.txt",
+          "line": 100,
+          "quote": "  af_dep_check_and_populate(${testdata_prefix}",
+          "git_blob_sha": "64e1feb777c68cd93ea54b2319d4e5af34013b55",
+          "sha256": "aed3c2e0422b5c3eaf31d4e14777ea0522df01e403dfccff4a7bbc8a2d80bf92",
+          "raw_text": "09/blob-64e1feb777c68cd93ea54b2319d4e5af34013b55.txt"
+        }
+      ],
+      "pending_obligations": "须先固定真实CPU库端点、后端配置、完整作者测试分母、数据及FFTW/BLAS/LAPACK/外部源图；不能因预算不足后验关闭测试。",
+      "common_pending": [
+        "完整源图与固定依赖来源",
+        "完整作者测试分母、断言及实际运行",
+        "精确主产物与功能配置",
+        "任务专属B生成文件来源/路径/命令",
+        "同镜像clean replay与实际cleanup"
+      ],
+      "reference_definition_queue_position": 1
+    },
+    {
+      "rank": 10,
+      "repository": "rakshasa/rtorrent",
+      "commit_sha": "d316b21cf02ae923d0cb1b6e75064a05016238bd",
+      "root_tree_sha": "3a903f13fe9882bb978769b326283dcf9aa555c2",
+      "source_material_status": "observed",
+      "materials_count": 9,
+      "skipped_materials": [],
+      "task_qualified": false,
+      "holdout": false,
+      "build_result": "not_observed",
+      "role": "task_definition_pending",
+      "development_exposure": "bounded_contract_materials_read",
+      "prior_current_tracked_exact_name_matches": [],
+      "fact_summary": "Autotools输入声明C++20、libtorrent>=0.16.25，原测试明确列出三个测试程序。",
+      "citations": [
+        {
+          "path": "README.md",
+          "line": 44,
+          "quote": "Install [libtorrent](https://github.com/rakshasa/libtorrent) with the same version rTorrent.",
+          "git_blob_sha": "c011bd85e49fc0ecc83e0a1b941e44522be527f4",
+          "sha256": "d60e47c59fc895ccc7290669c7e1ead5fb19834d6142b84895dede3d002fa669",
+          "raw_text": "10/blob-c011bd85e49fc0ecc83e0a1b941e44522be527f4.txt"
+        },
+        {
+          "path": "README.md",
+          "line": 49,
+          "quote": "autoreconf -ivf",
+          "git_blob_sha": "c011bd85e49fc0ecc83e0a1b941e44522be527f4",
+          "sha256": "d60e47c59fc895ccc7290669c7e1ead5fb19834d6142b84895dede3d002fa669",
+          "raw_text": "10/blob-c011bd85e49fc0ecc83e0a1b941e44522be527f4.txt"
+        },
+        {
+          "path": "configure.ac",
+          "line": 13,
+          "quote": "AX_CXX_COMPILE_STDCXX(20, noext, mandatory)",
+          "git_blob_sha": "b6e03066a867492f0a3c46ac5536a611646adf25",
+          "sha256": "85f139b88adb984a66f450d61661ecf2afa7280015f63fbe2ba440c41d492309",
+          "raw_text": "10/blob-b6e03066a867492f0a3c46ac5536a611646adf25.txt"
+        },
+        {
+          "path": "configure.ac",
+          "line": 50,
+          "quote": "PKG_CHECK_MODULES([CPPUNIT], [cppunit],, [no_cppunit=\"yes\"])",
+          "git_blob_sha": "b6e03066a867492f0a3c46ac5536a611646adf25",
+          "sha256": "85f139b88adb984a66f450d61661ecf2afa7280015f63fbe2ba440c41d492309",
+          "raw_text": "10/blob-b6e03066a867492f0a3c46ac5536a611646adf25.txt"
+        },
+        {
+          "path": "configure.ac",
+          "line": 52,
+          "quote": "PKG_CHECK_MODULES([DEPENDENCIES], [libtorrent >= 0.16.25])",
+          "git_blob_sha": "b6e03066a867492f0a3c46ac5536a611646adf25",
+          "sha256": "85f139b88adb984a66f450d61661ecf2afa7280015f63fbe2ba440c41d492309",
+          "raw_text": "10/blob-b6e03066a867492f0a3c46ac5536a611646adf25.txt"
+        },
+        {
+          "path": "test/Makefile.am",
+          "line": 2,
+          "quote": "\trtorrent_Test_Core \\",
+          "git_blob_sha": "d756bd1cc1014ef75377e1eeca2fd5217d60c099",
+          "sha256": "2664a6acd430107d7aa29079edb049577967a74cb726cf217bf7a90efa87f1cb",
+          "raw_text": "10/blob-d756bd1cc1014ef75377e1eeca2fd5217d60c099.txt"
+        },
+        {
+          "path": "test/Makefile.am",
+          "line": 3,
+          "quote": "\trtorrent_Test_Rpc \\",
+          "git_blob_sha": "d756bd1cc1014ef75377e1eeca2fd5217d60c099",
+          "sha256": "2664a6acd430107d7aa29079edb049577967a74cb726cf217bf7a90efa87f1cb",
+          "raw_text": "10/blob-d756bd1cc1014ef75377e1eeca2fd5217d60c099.txt"
+        },
+        {
+          "path": "test/Makefile.am",
+          "line": 4,
+          "quote": "\trtorrent_Test_Src",
+          "git_blob_sha": "d756bd1cc1014ef75377e1eeca2fd5217d60c099",
+          "sha256": "2664a6acd430107d7aa29079edb049577967a74cb726cf217bf7a90efa87f1cb",
+          "raw_text": "10/blob-d756bd1cc1014ef75377e1eeca2fd5217d60c099.txt"
+        }
+      ],
+      "pending_obligations": "须精确闭合libtorrent和其他依赖来源，确保CppUnit实际存在；审阅主程序/测试断言及标准生成关系，完整运行三套而非可选测试空通过。",
+      "common_pending": [
+        "完整源图与固定依赖来源",
+        "完整作者测试分母、断言及实际运行",
+        "精确主产物与功能配置",
+        "任务专属B生成文件来源/路径/命令",
+        "同镜像clean replay与实际cleanup"
+      ],
+      "reference_definition_queue_position": 2
+    },
+    {
+      "rank": 11,
+      "repository": "f3d-app/f3d",
+      "commit_sha": "c6246720acf3dc6549fe43a8b226d9a13589a81e",
+      "root_tree_sha": "302d3ca8e83c8150e2c009c9c53e5810ae4b7bfd",
+      "source_material_status": "observed",
+      "materials_count": 6,
+      "skipped_materials": [],
+      "task_qualified": false,
+      "holdout": false,
+      "build_result": "not_observed",
+      "role": "task_definition_pending",
+      "development_exposure": "bounded_contract_materials_read",
+      "prior_current_tracked_exact_name_matches": [
+        "benchmarks/reports/cpp-jev-natural-failure-linux-applicability-v4.json"
+      ],
+      "fact_summary": "CMake要求VTK9.4并声明渲染/GLX等测试选项，Linux GLX需要X server。",
+      "citations": [
+        {
+          "path": "CMakeLists.txt",
+          "line": 58,
+          "quote": "find_package(VTK 9.4.0 REQUIRED",
+          "git_blob_sha": "2b4a4cb5fe95c09442884e24f5beee042887e9be",
+          "sha256": "9438ee5de1ab47d5dfc915ab5b07ebd9cec72721e3a90757b51515e6861e6463",
+          "raw_text": "11/blob-2b4a4cb5fe95c09442884e24f5beee042887e9be.txt"
+        },
+        {
+          "path": "CMakeLists.txt",
+          "line": 224,
+          "quote": "cmake_dependent_option(F3D_TESTING_ENABLE_RENDERING_TESTS \"Enable rendering tests\" ON \"BUILD_TESTING\" OFF)",
+          "git_blob_sha": "2b4a4cb5fe95c09442884e24f5beee042887e9be",
+          "sha256": "9438ee5de1ab47d5dfc915ab5b07ebd9cec72721e3a90757b51515e6861e6463",
+          "raw_text": "11/blob-2b4a4cb5fe95c09442884e24f5beee042887e9be.txt"
+        },
+        {
+          "path": "CMakeLists.txt",
+          "line": 227,
+          "quote": "cmake_dependent_option(F3D_TESTING_ENABLE_GLX_TESTS \"Enable tests that require a X server running on Linux\" ON \"F3D_TESTING_ENABLE_RENDERING_TESTS AND UNIX AND NOT APPLE\" OFF)",
+          "git_blob_sha": "2b4a4cb5fe95c09442884e24f5beee042887e9be",
+          "sha256": "9438ee5de1ab47d5dfc915ab5b07ebd9cec72721e3a90757b51515e6861e6463",
+          "raw_text": "11/blob-2b4a4cb5fe95c09442884e24f5beee042887e9be.txt"
+        },
+        {
+          "path": "CMakeLists.txt",
+          "line": 332,
+          "quote": "    message(FATAL_ERROR \"Building tests without git LFS data will result in non functioning tests, please fetch LFS data (git lfs pull) or disable BUILD_TESTING. Aborting.\")",
+          "git_blob_sha": "2b4a4cb5fe95c09442884e24f5beee042887e9be",
+          "sha256": "9438ee5de1ab47d5dfc915ab5b07ebd9cec72721e3a90757b51515e6861e6463",
+          "raw_text": "11/blob-2b4a4cb5fe95c09442884e24f5beee042887e9be.txt"
+        }
+      ],
+      "pending_obligations": "须固定作者默认测试和LFS数据/渲染后端及完整源图；已暴露角色登记，不以关掉渲染测试取得资格。",
+      "common_pending": [
+        "完整源图与固定依赖来源",
+        "完整作者测试分母、断言及实际运行",
+        "精确主产物与功能配置",
+        "任务专属B生成文件来源/路径/命令",
+        "同镜像clean replay与实际cleanup"
+      ],
+      "reference_definition_queue_position": null
+    },
+    {
+      "rank": 12,
+      "repository": "spaceandtimefdn/blitzar",
+      "commit_sha": "1f0989de029a5bf2299881983394c50f31455227",
+      "root_tree_sha": "0f93891e08552fb2199ee8f6c4d48ba649665d52",
+      "source_material_status": "observed",
+      "materials_count": 4,
+      "skipped_materials": [],
+      "task_qualified": false,
+      "holdout": false,
+      "build_result": "not_observed",
+      "role": "task_definition_pending",
+      "development_exposure": "bounded_contract_materials_read",
+      "prior_current_tracked_exact_name_matches": [],
+      "fact_summary": "README包含x86_64 Linux平台要求。",
+      "citations": [
+        {
+          "path": "README.md",
+          "line": 167,
+          "quote": "* `x86_64` Linux instance.",
+          "git_blob_sha": "eeec0869a759598fad34d0ca4a4a1dc7e74b16a1",
+          "sha256": "8df1856b0c598feb4fa2ca681f72eb9db23bb9c31f25eacca9eadc88cc94bdc7",
+          "raw_text": "12/blob-eeec0869a759598fad34d0ca4a4a1dc7e74b16a1.txt"
+        }
+      ],
+      "pending_obligations": "需定位实际构建系统、GPU/SDK条件、完整测试与交付路线；根系统无普通入口不是不可编译。",
+      "common_pending": [
+        "完整源图与固定依赖来源",
+        "完整作者测试分母、断言及实际运行",
+        "精确主产物与功能配置",
+        "任务专属B生成文件来源/路径/命令",
+        "同镜像clean replay与实际cleanup"
+      ],
+      "reference_definition_queue_position": null
+    },
+    {
+      "rank": 13,
+      "repository": "wjakob/nanogui",
+      "commit_sha": "e9ec8a1a9861cf578d9c6e85a6420080aa715c03",
+      "root_tree_sha": "6f61cd386f0bc8504ecab9b209138b1c50b028da",
+      "source_material_status": "observed",
+      "materials_count": 3,
+      "skipped_materials": [],
+      "task_qualified": false,
+      "holdout": false,
+      "build_result": "not_observed",
+      "role": "task_definition_pending",
+      "development_exposure": "bounded_contract_materials_read",
+      "prior_current_tracked_exact_name_matches": [],
+      "fact_summary": "README明确Linux工具链，CMake依赖ext/glfw且定义nanogui库与example1。",
+      "citations": [
+        {
+          "path": "README.rst",
+          "line": 60,
+          "quote": "NanoGUI currently works on Mac OS X (Clang) Linux (GCC or Clang) and Windows (Visual",
+          "git_blob_sha": "131bf359e33e55c6207a62f646079e6a567b4af1",
+          "sha256": "638724993f6af57be6cfadcb063aaef6d3f197f879ac0592ecd57db53a91a5c5",
+          "raw_text": "13/blob-131bf359e33e55c6207a62f646079e6a567b4af1.txt"
+        },
+        {
+          "path": "CMakeLists.txt",
+          "line": 81,
+          "quote": "add_subdirectory(\"${CMAKE_CURRENT_SOURCE_DIR}/ext/glfw\" \"ext_build/glfw\")",
+          "git_blob_sha": "8c59277df16ad96e43c6fba1ff4330a25cb57e35",
+          "sha256": "42d97af8d0c827b92f062fdc7ec286090c7fa9df3ba6f47b2bcea15f2a08d0e9",
+          "raw_text": "13/blob-8c59277df16ad96e43c6fba1ff4330a25cb57e35.txt"
+        },
+        {
+          "path": "CMakeLists.txt",
+          "line": 363,
+          "quote": "  add_library(nanogui ${NANOGUI_LIBRARY_TYPE}",
+          "git_blob_sha": "8c59277df16ad96e43c6fba1ff4330a25cb57e35",
+          "sha256": "42d97af8d0c827b92f062fdc7ec286090c7fa9df3ba6f47b2bcea15f2a08d0e9",
+          "raw_text": "13/blob-8c59277df16ad96e43c6fba1ff4330a25cb57e35.txt"
+        },
+        {
+          "path": "CMakeLists.txt",
+          "line": 425,
+          "quote": "  add_executable(example1      src/example1.cpp)",
+          "git_blob_sha": "8c59277df16ad96e43c6fba1ff4330a25cb57e35",
+          "sha256": "42d97af8d0c827b92f062fdc7ec286090c7fa9df3ba6f47b2bcea15f2a08d0e9",
+          "raw_text": "13/blob-8c59277df16ad96e43c6fba1ff4330a25cb57e35.txt"
+        }
+      ],
+      "pending_obligations": "需闭合子模块及Linux图形/显示条件和作者测试或功能裁判；不能用GLFW测试开关替代本项目验证。",
+      "common_pending": [
+        "完整源图与固定依赖来源",
+        "完整作者测试分母、断言及实际运行",
+        "精确主产物与功能配置",
+        "任务专属B生成文件来源/路径/命令",
+        "同镜像clean replay与实际cleanup"
+      ],
+      "reference_definition_queue_position": null
+    },
+    {
+      "rank": 14,
+      "repository": "jmpews/Dobby",
+      "commit_sha": "5dfc8546954ce3b3198132ab13fddb89ee92cdd7",
+      "root_tree_sha": "bbc80377266af7b3dff35bd1ca59f4161f44f0c5",
+      "source_material_status": "observed",
+      "materials_count": 4,
+      "skipped_materials": [],
+      "task_qualified": false,
+      "holdout": false,
+      "build_result": "not_observed",
+      "role": "task_definition_pending",
+      "development_exposure": "bounded_contract_materials_read",
+      "prior_current_tracked_exact_name_matches": [],
+      "fact_summary": "README明确Linux，CMake声明dobby共享/静态库，测试输入列四个测试可执行目标。",
+      "citations": [
+        {
+          "path": "README.md",
+          "line": 8,
+          "quote": "- Multi-platform support(Windows/macOS/iOS/Android/Linux)",
+          "git_blob_sha": "c0c0195fc51c3abb4c252a69881a26d46a7aeb3c",
+          "sha256": "04e37f1438ecac7779fcafb29005097474b2be140f5a4b768fc58a57b6686d64",
+          "raw_text": "14/blob-c0c0195fc51c3abb4c252a69881a26d46a7aeb3c.txt"
+        },
+        {
+          "path": "CMakeLists.txt",
+          "line": 292,
+          "quote": "add_library(dobby SHARED",
+          "git_blob_sha": "5328d187236801b3409a8937e87e2a9de235b9e5",
+          "sha256": "065cbf9ed872e3672bf41e2e4b2e6c6c068b422152a191447350a3393f1c2f53",
+          "raw_text": "14/blob-5328d187236801b3409a8937e87e2a9de235b9e5.txt"
+        },
+        {
+          "path": "CMakeLists.txt",
+          "line": 302,
+          "quote": "add_library(dobby_static STATIC",
+          "git_blob_sha": "5328d187236801b3409a8937e87e2a9de235b9e5",
+          "sha256": "065cbf9ed872e3672bf41e2e4b2e6c6c068b422152a191447350a3393f1c2f53",
+          "raw_text": "14/blob-5328d187236801b3409a8937e87e2a9de235b9e5.txt"
+        },
+        {
+          "path": "tests/CMakeLists.txt",
+          "line": 3,
+          "quote": "pkg_check_modules(CAPSTONE REQUIRED capstone)",
+          "git_blob_sha": "8cb2454bf7832944fbb13697e53f2480dd330cc2",
+          "sha256": "594ab4fa88272da00ea5a1925697750cb71aeb6412fa74a751d73631a565d0af",
+          "raw_text": "14/blob-8cb2454bf7832944fbb13697e53f2480dd330cc2.txt"
+        },
+        {
+          "path": "tests/CMakeLists.txt",
+          "line": 7,
+          "quote": "pkg_check_modules(UNICORN REQUIRED unicorn)",
+          "git_blob_sha": "8cb2454bf7832944fbb13697e53f2480dd330cc2",
+          "sha256": "594ab4fa88272da00ea5a1925697750cb71aeb6412fa74a751d73631a565d0af",
+          "raw_text": "14/blob-8cb2454bf7832944fbb13697e53f2480dd330cc2.txt"
+        },
+        {
+          "path": "tests/CMakeLists.txt",
+          "line": 25,
+          "quote": "add_executable(test_insn_relo_arm64",
+          "git_blob_sha": "8cb2454bf7832944fbb13697e53f2480dd330cc2",
+          "sha256": "594ab4fa88272da00ea5a1925697750cb71aeb6412fa74a751d73631a565d0af",
+          "raw_text": "14/blob-8cb2454bf7832944fbb13697e53f2480dd330cc2.txt"
+        },
+        {
+          "path": "tests/CMakeLists.txt",
+          "line": 55,
+          "quote": "add_executable(test_insn_relo_arm",
+          "git_blob_sha": "8cb2454bf7832944fbb13697e53f2480dd330cc2",
+          "sha256": "594ab4fa88272da00ea5a1925697750cb71aeb6412fa74a751d73631a565d0af",
+          "raw_text": "14/blob-8cb2454bf7832944fbb13697e53f2480dd330cc2.txt"
+        },
+        {
+          "path": "tests/CMakeLists.txt",
+          "line": 85,
+          "quote": "add_executable(test_insn_relo_x64",
+          "git_blob_sha": "8cb2454bf7832944fbb13697e53f2480dd330cc2",
+          "sha256": "594ab4fa88272da00ea5a1925697750cb71aeb6412fa74a751d73631a565d0af",
+          "raw_text": "14/blob-8cb2454bf7832944fbb13697e53f2480dd330cc2.txt"
+        },
+        {
+          "path": "tests/CMakeLists.txt",
+          "line": 116,
+          "quote": "add_executable(test_native",
+          "git_blob_sha": "8cb2454bf7832944fbb13697e53f2480dd330cc2",
+          "sha256": "594ab4fa88272da00ea5a1925697750cb71aeb6412fa74a751d73631a565d0af",
+          "raw_text": "14/blob-8cb2454bf7832944fbb13697e53f2480dd330cc2.txt"
+        }
+      ],
+      "pending_obligations": "需核验Capstone/Unicorn及源码图、四个测试真实断言和运行命令；ARM仿真目标不能因宿主x86而直接跳过，生成权限须单独声明。",
+      "common_pending": [
+        "完整源图与固定依赖来源",
+        "完整作者测试分母、断言及实际运行",
+        "精确主产物与功能配置",
+        "任务专属B生成文件来源/路径/命令",
+        "同镜像clean replay与实际cleanup"
+      ],
+      "reference_definition_queue_position": 3
+    },
+    {
+      "rank": 15,
+      "repository": "clangen/musikcube",
+      "commit_sha": "9bc1234c8c36e40e255bc3878c0eba2c82b9cdeb",
+      "root_tree_sha": "0bf7554e958f987f115eeeffec7089ed97bc41c0",
+      "source_material_status": "observed",
+      "materials_count": 3,
+      "skipped_materials": [],
+      "task_qualified": false,
+      "holdout": false,
+      "build_result": "not_observed",
+      "role": "task_definition_pending",
+      "development_exposure": "bounded_contract_materials_read",
+      "prior_current_tracked_exact_name_matches": [],
+      "fact_summary": "README标注Linux，CMake委派musikcore、演示、musikcube与musikcubed。",
+      "citations": [
+        {
+          "path": "README.md",
+          "line": 5,
+          "quote": "musikcube compiles and runs easily on windows, macos and linux. it also runs well on a raspberry pi with raspbian, and can be setup as a streaming audio server.",
+          "git_blob_sha": "32acd768af58e3ce3de9c2f330db198c32deeb33",
+          "sha256": "838f2a9da2c7c7d396e608a56c10c0494fae7dc357370a4c99c9d8434b32a9a1",
+          "raw_text": "15/blob-32acd768af58e3ce3de9c2f330db198c32deeb33.txt"
+        },
+        {
+          "path": "CMakeLists.txt",
+          "line": 114,
+          "quote": "add_subdirectory(src/musikcore)",
+          "git_blob_sha": "b3077b52c0996f6688b49c7c413edde930861442",
+          "sha256": "d8674563d35ed9170aa4ca78e47ed7a0c4e786cdc2c4b24173c66fd8acd6c316",
+          "raw_text": "15/blob-b3077b52c0996f6688b49c7c413edde930861442.txt"
+        },
+        {
+          "path": "CMakeLists.txt",
+          "line": 117,
+          "quote": "add_subdirectory(src/musikcubed)",
+          "git_blob_sha": "b3077b52c0996f6688b49c7c413edde930861442",
+          "sha256": "d8674563d35ed9170aa4ca78e47ed7a0c4e786cdc2c4b24173c66fd8acd6c316",
+          "raw_text": "15/blob-b3077b52c0996f6688b49c7c413edde930861442.txt"
+        }
+      ],
+      "pending_obligations": "需固定音频库依赖、终端/音频环境、完整测试与非交互功能裁判。",
+      "common_pending": [
+        "完整源图与固定依赖来源",
+        "完整作者测试分母、断言及实际运行",
+        "精确主产物与功能配置",
+        "任务专属B生成文件来源/路径/命令",
+        "同镜像clean replay与实际cleanup"
+      ],
+      "reference_definition_queue_position": null
+    },
+    {
+      "rank": 16,
+      "repository": "gatieme/CodingInterviews",
+      "commit_sha": "a7fa3956c2b656805644a43903aa201aa6dbb014",
+      "root_tree_sha": "f36542b21d0f4a787b730f1b7e06d97cb8dc5136",
+      "source_material_status": "observed",
+      "materials_count": 2,
+      "skipped_materials": [],
+      "task_qualified": false,
+      "holdout": false,
+      "build_result": "not_observed",
+      "role": "task_definition_pending",
+      "development_exposure": "bounded_contract_materials_read",
+      "prior_current_tracked_exact_name_matches": [],
+      "fact_summary": "根Makefile默认all:github，github目标执行git add、commit和push；不是编译配方。",
+      "citations": [
+        {
+          "path": "Makefile",
+          "line": 58,
+          "quote": "all:github",
+          "git_blob_sha": "259ba3c6b2c894709ee8a8ddc057b73e7771a5d2",
+          "sha256": "1874818dd87f54dc43b53c4640259dcbe87dccb475dd7dc2b8d3f5c9e32db6d8",
+          "raw_text": "16/blob-259ba3c6b2c894709ee8a8ddc057b73e7771a5d2.txt"
+        },
+        {
+          "path": "Makefile",
+          "line": 61,
+          "quote": "github:",
+          "git_blob_sha": "259ba3c6b2c894709ee8a8ddc057b73e7771a5d2",
+          "sha256": "1874818dd87f54dc43b53c4640259dcbe87dccb475dd7dc2b8d3f5c9e32db6d8",
+          "raw_text": "16/blob-259ba3c6b2c894709ee8a8ddc057b73e7771a5d2.txt"
+        },
+        {
+          "path": "Makefile",
+          "line": 62,
+          "quote": "\tgit add -A",
+          "git_blob_sha": "259ba3c6b2c894709ee8a8ddc057b73e7771a5d2",
+          "sha256": "1874818dd87f54dc43b53c4640259dcbe87dccb475dd7dc2b8d3f5c9e32db6d8",
+          "raw_text": "16/blob-259ba3c6b2c894709ee8a8ddc057b73e7771a5d2.txt"
+        },
+        {
+          "path": "Makefile",
+          "line": 63,
+          "quote": "\tgit commit -m $(GITHUB_COMMIT)",
+          "git_blob_sha": "259ba3c6b2c894709ee8a8ddc057b73e7771a5d2",
+          "sha256": "1874818dd87f54dc43b53c4640259dcbe87dccb475dd7dc2b8d3f5c9e32db6d8",
+          "raw_text": "16/blob-259ba3c6b2c894709ee8a8ddc057b73e7771a5d2.txt"
+        },
+        {
+          "path": "Makefile",
+          "line": 64,
+          "quote": "\tgit push origin master",
+          "git_blob_sha": "259ba3c6b2c894709ee8a8ddc057b73e7771a5d2",
+          "sha256": "1874818dd87f54dc43b53c4640259dcbe87dccb475dd7dc2b8d3f5c9e32db6d8",
+          "raw_text": "16/blob-259ba3c6b2c894709ee8a8ddc057b73e7771a5d2.txt"
+        }
+      ],
+      "pending_obligations": "禁止将此根Makefile当自动编译入口执行；更深层题目可能有独立编译任务，但本轮未读取，整个项目构建能力未裁决。",
+      "common_pending": [
+        "完整源图与固定依赖来源",
+        "完整作者测试分母、断言及实际运行",
+        "精确主产物与功能配置",
+        "任务专属B生成文件来源/路径/命令",
+        "同镜像clean replay与实际cleanup"
+      ],
+      "reference_definition_queue_position": null
+    },
+    {
+      "rank": 17,
+      "repository": "ros-navigation/navigation2",
+      "commit_sha": "cea9ed9d2e55b4e084be705a495a721368021f19",
+      "root_tree_sha": "2e009bf478a7601516cc429422c952256c3d71fa",
+      "source_material_status": "observed",
+      "materials_count": 5,
+      "skipped_materials": [],
+      "task_qualified": false,
+      "holdout": false,
+      "build_result": "not_observed",
+      "role": "task_definition_pending",
+      "development_exposure": "bounded_contract_materials_read",
+      "prior_current_tracked_exact_name_matches": [],
+      "fact_summary": "README列ROS发行版并指向外部构建说明。",
+      "citations": [
+        {
+          "path": "README.md",
+          "line": 13,
+          "quote": "- [ROS Distribution Statuses](https://docs.nav2.org/#distributions)",
+          "git_blob_sha": "dc2b63b8bf8d9ea18053f546595456a41b14a034",
+          "sha256": "8c570b97f6821ac29b83178af9a83d5c569c4ff63dc15b862e2ce80f5d77ea26",
+          "raw_text": "17/blob-dc2b63b8bf8d9ea18053f546595456a41b14a034.txt"
+        },
+        {
+          "path": "README.md",
+          "line": 14,
+          "quote": "- [Build & Install](https://docs.nav2.org/development_guides/build_docs/index.html#build) and [Docker Containers](https://github.com/orgs/ros-navigation/packages/container/package/navigation2)",
+          "git_blob_sha": "dc2b63b8bf8d9ea18053f546595456a41b14a034",
+          "sha256": "8c570b97f6821ac29b83178af9a83d5c569c4ff63dc15b862e2ce80f5d77ea26",
+          "raw_text": "17/blob-dc2b63b8bf8d9ea18053f546595456a41b14a034.txt"
+        }
+      ],
+      "pending_obligations": "需固定ROS工作区的真实包、依赖图、完整测试和交付端点，不能拿根无普通入口判失败。",
+      "common_pending": [
+        "完整源图与固定依赖来源",
+        "完整作者测试分母、断言及实际运行",
+        "精确主产物与功能配置",
+        "任务专属B生成文件来源/路径/命令",
+        "同镜像clean replay与实际cleanup"
+      ],
+      "reference_definition_queue_position": null
+    },
+    {
+      "rank": 18,
+      "repository": "chromiumembedded/cef",
+      "commit_sha": "7f8a5ec28e932aa62b583c8248e3df2e4dfe4807",
+      "root_tree_sha": "7bff083f6e2919753add43d5dfcd42cfe0d5f02e",
+      "source_material_status": "observed",
+      "materials_count": 2,
+      "skipped_materials": [],
+      "task_qualified": false,
+      "holdout": false,
+      "build_result": "not_observed",
+      "role": "task_definition_pending",
+      "development_exposure": "bounded_contract_materials_read",
+      "prior_current_tracked_exact_name_matches": [],
+      "fact_summary": "tests/README描述ceftests使用gtest，cefclient的部分测试为手工交互。",
+      "citations": [
+        {
+          "path": "tests/README.md",
+          "line": 29,
+          "quote": "- **Purpose:** Feature demonstration and manual testing",
+          "git_blob_sha": "2697294e82ae2d95bf82a0e027fb4504c002544b",
+          "sha256": "e51f8396d92601c5389334c5293779bda33fb36cd29112959275fdd121363c10",
+          "raw_text": "18/blob-2697294e82ae2d95bf82a0e027fb4504c002544b.txt"
+        },
+        {
+          "path": "tests/README.md",
+          "line": 36,
+          "quote": "### [ceftests](ceftests/)",
+          "git_blob_sha": "2697294e82ae2d95bf82a0e027fb4504c002544b",
+          "sha256": "e51f8396d92601c5389334c5293779bda33fb36cd29112959275fdd121363c10",
+          "raw_text": "18/blob-2697294e82ae2d95bf82a0e027fb4504c002544b.txt"
+        },
+        {
+          "path": "tests/README.md",
+          "line": 41,
+          "quote": "- **Framework:** Google Test (gtest)",
+          "git_blob_sha": "2697294e82ae2d95bf82a0e027fb4504c002544b",
+          "sha256": "e51f8396d92601c5389334c5293779bda33fb36cd29112959275fdd121363c10",
+          "raw_text": "18/blob-2697294e82ae2d95bf82a0e027fb4504c002544b.txt"
+        },
+        {
+          "path": "tests/README.md",
+          "line": 42,
+          "quote": "- **Coverage:** Comprehensive CEF API testing across all platforms",
+          "git_blob_sha": "2697294e82ae2d95bf82a0e027fb4504c002544b",
+          "sha256": "e51f8396d92601c5389334c5293779bda33fb36cd29112959275fdd121363c10",
+          "raw_text": "18/blob-2697294e82ae2d95bf82a0e027fb4504c002544b.txt"
+        }
+      ],
+      "pending_obligations": "须闭合Chromium/CEF版本、源图、工具链和自动/手工测试边界；未证明可在本资源窗完成。",
+      "common_pending": [
+        "完整源图与固定依赖来源",
+        "完整作者测试分母、断言及实际运行",
+        "精确主产物与功能配置",
+        "任务专属B生成文件来源/路径/命令",
+        "同镜像clean replay与实际cleanup"
+      ],
+      "reference_definition_queue_position": null
+    },
+    {
+      "rank": 19,
+      "repository": "fritzing/fritzing-app",
+      "commit_sha": "5aa56a510183c23084990a6b4481708cad24c15b",
+      "root_tree_sha": "1b09b29459df447cd18802f7dd2dae7a56013e2f",
+      "source_material_status": "observed",
+      "materials_count": 1,
+      "skipped_materials": [],
+      "task_qualified": false,
+      "holdout": false,
+      "build_result": "not_observed",
+      "role": "task_definition_pending",
+      "development_exposure": "bounded_contract_materials_read",
+      "prior_current_tracked_exact_name_matches": [],
+      "fact_summary": "README将构建指向外部wiki，另有parts仓库及Qt依赖。",
+      "citations": [
+        {
+          "path": "README.md",
+          "line": 19,
+          "quote": "Some of those don't need C++ skills, like reproducing an issue on a certain platform, or verifying translations of languages we don't speak. If there is something for you, you might want to check the [developer instructions](https://github.com/fritzing/fritzing-app/wiki) next. This includes information about how to compile and run the Fritzing app.",
+          "git_blob_sha": "43dd1addf7f60df09a0d187cb018d03aea719e1f",
+          "sha256": "8244dc9d000a8e3293022a0a67b76a47d903f7fe6ff3efc9da4ea28adb10ab4c",
+          "raw_text": "19/blob-43dd1addf7f60df09a0d187cb018d03aea719e1f.txt"
+        },
+        {
+          "path": "README.md",
+          "line": 25,
+          "quote": "* **parts** - All the part definitions, including meta data (.fzp) and graphics (.svg), as well as some utility tools. They are kept in a separate repository at [https://github.com/fritzing/fritzing-parts](http://github.com/fritzing/fritzing-parts) and only linked from here.",
+          "git_blob_sha": "43dd1addf7f60df09a0d187cb018d03aea719e1f",
+          "sha256": "8244dc9d000a8e3293022a0a67b76a47d903f7fe6ff3efc9da4ea28adb10ab4c",
+          "raw_text": "19/blob-43dd1addf7f60df09a0d187cb018d03aea719e1f.txt"
+        },
+        {
+          "path": "README.md",
+          "line": 27,
+          "quote": "* **pri** - Submodule definitions for Qt",
+          "git_blob_sha": "43dd1addf7f60df09a0d187cb018d03aea719e1f",
+          "sha256": "8244dc9d000a8e3293022a0a67b76a47d903f7fe6ff3efc9da4ea28adb10ab4c",
+          "raw_text": "19/blob-43dd1addf7f60df09a0d187cb018d03aea719e1f.txt"
+        }
+      ],
+      "pending_obligations": "需固定Linux实际任务、外部来源、图形环境、完整作者测试与精确交付。",
+      "common_pending": [
+        "完整源图与固定依赖来源",
+        "完整作者测试分母、断言及实际运行",
+        "精确主产物与功能配置",
+        "任务专属B生成文件来源/路径/命令",
+        "同镜像clean replay与实际cleanup"
+      ],
+      "reference_definition_queue_position": null
+    },
+    {
+      "rank": 20,
+      "repository": "boostorg/beast",
+      "commit_sha": "b4160b21f8aa9e5305d8befd5051bbfbda5eaef8",
+      "root_tree_sha": "ee61134e0012a8f03fa1c81bdad2735ecf45fe0f",
+      "source_material_status": "observed",
+      "materials_count": 5,
+      "skipped_materials": [],
+      "task_qualified": false,
+      "holdout": false,
+      "build_result": "not_observed",
+      "role": "task_definition_pending",
+      "development_exposure": "bounded_contract_materials_read",
+      "prior_current_tracked_exact_name_matches": [],
+      "fact_summary": "README给出非Windows的bjam构建入口，根CMake主要库为INTERFACE，测试目录有编译支持库与多层测试。",
+      "citations": [
+        {
+          "path": "README.md",
+          "line": 123,
+          "quote": "\"bjam\" is used to build Beast and the Boost libraries. On a non-Windows",
+          "git_blob_sha": "1fc1fae918a4e879c04d4958e7b4d992a652ce76",
+          "sha256": "a13b664fb569adacefc1649d849e3cb8858b6105d92b8bad416fa6a99478972d",
+          "raw_text": "20/blob-1fc1fae918a4e879c04d4958e7b4d992a652ce76.txt"
+        },
+        {
+          "path": "CMakeLists.txt",
+          "line": 145,
+          "quote": "add_library(boost_beast INTERFACE)",
+          "git_blob_sha": "c9a140906f3f58d90f2cf764f5eb6c025dbe6d00",
+          "sha256": "e2861257ddf77852f8ce02f286e0e0a0263f96ec0b6e3dc5fb7b8dd79fe4e6cd",
+          "raw_text": "20/blob-c9a140906f3f58d90f2cf764f5eb6c025dbe6d00.txt"
+        },
+        {
+          "path": "test/CMakeLists.txt",
+          "line": 88,
+          "quote": "add_subdirectory(beast)",
+          "git_blob_sha": "406e279dd1fafecc05012c4964a8f4bc6d9ae2d4",
+          "sha256": "fa4aed47d2990c4a1cd2f85e15d52b5884ada9b12b8c0591ce3b6e1d00e5fc32",
+          "raw_text": "20/blob-406e279dd1fafecc05012c4964a8f4bc6d9ae2d4.txt"
+        }
+      ],
+      "pending_obligations": "需固定Boost来源、Linux完整测试和真实编译交付的任务身份；不能将辅助支持库冒充主库编译产物。",
+      "common_pending": [
+        "完整源图与固定依赖来源",
+        "完整作者测试分母、断言及实际运行",
+        "精确主产物与功能配置",
+        "任务专属B生成文件来源/路径/命令",
+        "同镜像clean replay与实际cleanup"
+      ],
+      "reference_definition_queue_position": null
+    },
+    {
+      "rank": 21,
+      "repository": "YosysHQ/yosys",
+      "commit_sha": "3718f7f135dc25381c50f18e550bdc5f48663ec3",
+      "root_tree_sha": "1401cee392967033f159d2f9ce1dd91e90557ad1",
+      "source_material_status": "observed",
+      "materials_count": 8,
+      "skipped_materials": [],
+      "task_qualified": false,
+      "holdout": false,
+      "build_result": "not_observed",
+      "role": "task_definition_pending",
+      "development_exposure": "bounded_contract_materials_read",
+      "prior_current_tracked_exact_name_matches": [
+        "benchmarks/reports/cpp-jev-natural-failure-linux-applicability-v4.json"
+      ],
+      "fact_summary": "README给Ubuntu依赖和vanilla-test路线，CMake提供unit和vanilla测试目标。",
+      "citations": [
+        {
+          "path": "README.md",
+          "line": 68,
+          "quote": "The following libraries are required, this command will install them on Ubuntu Linux 22.04 LTS based systems:",
+          "git_blob_sha": "aff05327b64b22452c27f8f5c36ea8f7d38e0241",
+          "sha256": "7e4161dd2e13500af83ec88a201f68951af5db14ddc67e4ba6ddfd4aa1bf9f5f",
+          "raw_text": "21/blob-aff05327b64b22452c27f8f5c36ea8f7d38e0241.txt"
+        },
+        {
+          "path": "README.md",
+          "line": 88,
+          "quote": "  $ export BUILD_DIR=$(realpath build-rel) && make -C tests -j\"$(nproc)\" vanilla-test",
+          "git_blob_sha": "aff05327b64b22452c27f8f5c36ea8f7d38e0241",
+          "sha256": "7e4161dd2e13500af83ec88a201f68951af5db14ddc67e4ba6ddfd4aa1bf9f5f",
+          "raw_text": "21/blob-aff05327b64b22452c27f8f5c36ea8f7d38e0241.txt"
+        },
+        {
+          "path": "CMakeLists.txt",
+          "line": 433,
+          "quote": "\tyosys_cxx_executable(yosys",
+          "git_blob_sha": "b35ce688e32de04964a955af39c77ed29af690ca",
+          "sha256": "e16d6d612a2941f5ef96ea3c1cd34487e3c59127e727642bcfa8e67df7a61ba1",
+          "raw_text": "21/blob-b35ce688e32de04964a955af39c77ed29af690ca.txt"
+        },
+        {
+          "path": "CMakeLists.txt",
+          "line": 567,
+          "quote": "\tadd_custom_target(test-unit",
+          "git_blob_sha": "b35ce688e32de04964a955af39c77ed29af690ca",
+          "sha256": "e16d6d612a2941f5ef96ea3c1cd34487e3c59127e727642bcfa8e67df7a61ba1",
+          "raw_text": "21/blob-b35ce688e32de04964a955af39c77ed29af690ca.txt"
+        },
+        {
+          "path": "CMakeLists.txt",
+          "line": 573,
+          "quote": "\tadd_custom_target(test-vanilla",
+          "git_blob_sha": "b35ce688e32de04964a955af39c77ed29af690ca",
+          "sha256": "e16d6d612a2941f5ef96ea3c1cd34487e3c59127e727642bcfa8e67df7a61ba1",
+          "raw_text": "21/blob-b35ce688e32de04964a955af39c77ed29af690ca.txt"
+        },
+        {
+          "path": "CMakeLists.txt",
+          "line": 591,
+          "quote": "\tadd_custom_target(test",
+          "git_blob_sha": "b35ce688e32de04964a955af39c77ed29af690ca",
+          "sha256": "e16d6d612a2941f5ef96ea3c1cd34487e3c59127e727642bcfa8e67df7a61ba1",
+          "raw_text": "21/blob-b35ce688e32de04964a955af39c77ed29af690ca.txt"
+        }
+      ],
+      "pending_obligations": "须闭合ABC/源图、FLEX/BISON/GTest及所有约定测试；声明各层实际执行和未观察，保留既往暴露角色。",
+      "common_pending": [
+        "完整源图与固定依赖来源",
+        "完整作者测试分母、断言及实际运行",
+        "精确主产物与功能配置",
+        "任务专属B生成文件来源/路径/命令",
+        "同镜像clean replay与实际cleanup"
+      ],
+      "reference_definition_queue_position": 4
+    },
+    {
+      "rank": 22,
+      "repository": "jarro2783/cxxopts",
+      "commit_sha": "bb791540908e3dc623f54b34898c6ad3e47292ab",
+      "root_tree_sha": "d6439e6afb73e03552bc454c548d58dda3636716",
+      "source_material_status": "observed",
+      "materials_count": 10,
+      "skipped_materials": [],
+      "task_qualified": false,
+      "holdout": false,
+      "build_result": "not_observed",
+      "role": "task_definition_pending",
+      "development_exposure": "bounded_contract_materials_read",
+      "prior_current_tracked_exact_name_matches": [
+        "benchmarks/manifests/cpp-agent-continuation-qualification-v1.json",
+        "benchmarks/manifests/cpp-agent-continuation-qualification-v2.json",
+        "benchmarks/manifests/cpp-dynamic-budget-trajectory-benchmark-qualification-v1.json",
+        "benchmarks/manifests/cpp-dynamic-budget-trajectory-benchmark-qualification-v2.json",
+        "benchmarks/manifests/cpp-dynamic-budget-trajectory-benchmark-qualification-v3.json",
+        "benchmarks/manifests/cpp-dynamic-budget-trajectory-benchmark-qualification-v4.json",
+        "benchmarks/manifests/cpp-dynamic-budget-trajectory-benchmark-qualification-v5.json",
+        "benchmarks/manifests/cpp-progress-aware-harness-comparison-v1.json",
+        "benchmarks/manifests/cpp-progress-aware-harness-comparison-v2.json",
+        "benchmarks/manifests/cpp-progress-aware-harness-comparison-v3-authorized.json",
+        "benchmarks/manifests/cpp-progress-aware-harness-comparison-v3-candidate.json",
+        "benchmarks/manifests/cpp-progress-aware-harness-qualification-v1.json",
+        "benchmarks/manifests/cpp-progress-aware-harness-qualification-v2.json",
+        "benchmarks/reports/cpp-dynamic-budget-trajectory-benchmark-qualification-v3.json",
+        "benchmarks/reports/cpp-dynamic-budget-trajectory-benchmark-qualification-v4.json",
+        "benchmarks/reports/cpp-dynamic-budget-trajectory-benchmark-qualification-v5.json",
+        "benchmarks/schemas/forge-progress-aware-harness-comparison-v3-authorized.schema.json",
+        "benchmarks/schemas/forge-progress-aware-harness-comparison-v3-candidate.schema.json",
+        "benchmarks/schemas/forge-progress-aware-harness-qualification-v1.schema.json",
+        "benchmarks/schemas/forge-progress-aware-harness-qualification-v2.schema.json"
+      ],
+      "fact_summary": "cxxopts为INTERFACE主库；原测试包含正常/无正则/无异常、包集成和链接检查。",
+      "citations": [
+        {
+          "path": "CMakeLists.txt",
+          "line": 60,
+          "quote": "add_library(cxxopts INTERFACE)",
+          "git_blob_sha": "110d3dd795efa8b144b683bb5964fbb827557dc9",
+          "sha256": "df12665ce0cf35052057bbc54adf33db1896f8d59604ee1792ed021789bdbfb5",
+          "raw_text": "22/blob-110d3dd795efa8b144b683bb5964fbb827557dc9.txt"
+        },
+        {
+          "path": "test/CMakeLists.txt",
+          "line": 21,
+          "quote": "add_executable(options_test main.cpp options.cpp)",
+          "git_blob_sha": "d1d968d43d9aa7084205fae6fb2195a0e3de7275",
+          "sha256": "1169ffcbf9a111bbc8b5a7e0f8935dca95c88febcffafd7bb545daf6e14d4925",
+          "raw_text": "22/blob-d1d968d43d9aa7084205fae6fb2195a0e3de7275.txt"
+        },
+        {
+          "path": "test/CMakeLists.txt",
+          "line": 34,
+          "quote": "        add_executable(${test_target} no_exceptions.cpp)",
+          "git_blob_sha": "d1d968d43d9aa7084205fae6fb2195a0e3de7275",
+          "sha256": "1169ffcbf9a111bbc8b5a7e0f8935dca95c88febcffafd7bb545daf6e14d4925",
+          "raw_text": "22/blob-d1d968d43d9aa7084205fae6fb2195a0e3de7275.txt"
+        },
+        {
+          "path": "test/CMakeLists.txt",
+          "line": 87,
+          "quote": "    add_test(pkg-config-${includedir}-test ${CMAKE_CTEST_COMMAND}",
+          "git_blob_sha": "d1d968d43d9aa7084205fae6fb2195a0e3de7275",
+          "sha256": "1169ffcbf9a111bbc8b5a7e0f8935dca95c88febcffafd7bb545daf6e14d4925",
+          "raw_text": "22/blob-d1d968d43d9aa7084205fae6fb2195a0e3de7275.txt"
+        },
+        {
+          "path": "test/CMakeLists.txt",
+          "line": 101,
+          "quote": "add_executable(link_test link_a.cpp link_b.cpp)",
+          "git_blob_sha": "d1d968d43d9aa7084205fae6fb2195a0e3de7275",
+          "sha256": "1169ffcbf9a111bbc8b5a7e0f8935dca95c88febcffafd7bb545daf6e14d4925",
+          "raw_text": "22/blob-d1d968d43d9aa7084205fae6fb2195a0e3de7275.txt"
+        }
+      ],
+      "pending_obligations": "需明确header-only项目真实交付合同，不能以临时示例替代主库；保留20处当前精确名匹配记录，并固定完整测试/编译器条件。",
+      "common_pending": [
+        "完整源图与固定依赖来源",
+        "完整作者测试分母、断言及实际运行",
+        "精确主产物与功能配置",
+        "任务专属B生成文件来源/路径/命令",
+        "同镜像clean replay与实际cleanup"
+      ],
+      "reference_definition_queue_position": null
+    },
+    {
+      "rank": 23,
+      "repository": "CloudCompare/CloudCompare",
+      "commit_sha": "dcc0fc41942ef2a455513eb4f1f254740444567d",
+      "root_tree_sha": "b13c296c842b6c559d28d10be35c5ee1fb70965e",
+      "source_material_status": "observed",
+      "materials_count": 7,
+      "skipped_materials": [],
+      "task_qualified": false,
+      "holdout": false,
+      "build_result": "not_observed",
+      "role": "task_definition_pending",
+      "development_exposure": "bounded_contract_materials_read",
+      "prior_current_tracked_exact_name_matches": [
+        "benchmarks/reports/cpp-jev-natural-failure-linux-applicability-v4.json"
+      ],
+      "fact_summary": "README/BUILD给Linux Qt构建，CMake测试默认OFF且委派libs/plugins/qCC。",
+      "citations": [
+        {
+          "path": "README.md",
+          "line": 38,
+          "quote": "Linux:",
+          "git_blob_sha": "2a8a6029139d82c67dcb1b97d5c4b9c3c9e7065a",
+          "sha256": "3e298b073187a3982ce7ab0cb53230667c15fc1872c1f84faf4683aa0e285485",
+          "raw_text": "23/blob-2a8a6029139d82c67dcb1b97d5c4b9c3c9e7065a.txt"
+        },
+        {
+          "path": "BUILD.md",
+          "line": 11,
+          "quote": "- On Linux it is recommended to use your distribution's package manager:",
+          "git_blob_sha": "5ca87196ba850a61070e979aaa80b7ab2f57f402",
+          "sha256": "bd06d3b50ad707700d4fde2bf53fcbbaf4c8816561840873f0bba6b523116eb9",
+          "raw_text": "23/blob-5ca87196ba850a61070e979aaa80b7ab2f57f402.txt"
+        },
+        {
+          "path": "CMakeLists.txt",
+          "line": 30,
+          "quote": "option( BUILD_TESTING \"Build tests for CC\" OFF )",
+          "git_blob_sha": "68aa48b761db78beb020fda89e3394b496f50562",
+          "sha256": "cbb85db8f691c7fee2ebdbf5507a42cbd6b652a733d7bf05141a6dbc08693503",
+          "raw_text": "23/blob-68aa48b761db78beb020fda89e3394b496f50562.txt"
+        },
+        {
+          "path": "CMakeLists.txt",
+          "line": 77,
+          "quote": "add_subdirectory( qCC )",
+          "git_blob_sha": "68aa48b761db78beb020fda89e3394b496f50562",
+          "sha256": "cbb85db8f691c7fee2ebdbf5507a42cbd6b652a733d7bf05141a6dbc08693503",
+          "raw_text": "23/blob-68aa48b761db78beb020fda89e3394b496f50562.txt"
+        }
+      ],
+      "pending_obligations": "需固定完整源码/子模块、Qt与headless测试、精确产物；保留既往暴露，不通过默认关闭测试声称完整验证。",
+      "common_pending": [
+        "完整源图与固定依赖来源",
+        "完整作者测试分母、断言及实际运行",
+        "精确主产物与功能配置",
+        "任务专属B生成文件来源/路径/命令",
+        "同镜像clean replay与实际cleanup"
+      ],
+      "reference_definition_queue_position": null
+    },
+    {
+      "rank": 24,
+      "repository": "MegEngine/MegEngine",
+      "commit_sha": "47952c075d868665e1116214bea760d786144081",
+      "root_tree_sha": "4b4311acb7cf331ab9082e6c06c2078beaeb22db",
+      "source_material_status": "observed",
+      "materials_count": 5,
+      "skipped_materials": [],
+      "task_qualified": false,
+      "holdout": false,
+      "build_result": "not_observed",
+      "role": "task_definition_pending",
+      "development_exposure": "bounded_contract_materials_read",
+      "prior_current_tracked_exact_name_matches": [],
+      "fact_summary": "README包含Linux，测试入口声明megbrain_test；源图包含LLVM子模块。",
+      "citations": [
+        {
+          "path": "README.md",
+          "line": 20,
+          "quote": "    * Supports Linux, Windows, iOS, Android, TEE, etc.",
+          "git_blob_sha": "14954f47588b8e330f4d398db944f7047e0126d2",
+          "sha256": "94e72f9cba6a7a5b2f55bbc53114d55625e07f378ddfb7485b03e96f17da20db",
+          "raw_text": "24/blob-14954f47588b8e330f4d398db944f7047e0126d2.txt"
+        },
+        {
+          "path": "test/CMakeLists.txt",
+          "line": 26,
+          "quote": "add_executable(megbrain_test ${SOURCES})",
+          "git_blob_sha": "2b47908dc7c8bea63c6f790726f428bd11dab98f",
+          "sha256": "7cb1ed579116b16dd263e1e639613a5219b2bc05e36d0242633e78429751c622",
+          "raw_text": "24/blob-2b47908dc7c8bea63c6f790726f428bd11dab98f.txt"
+        },
+        {
+          "path": ".gitmodules",
+          "line": 34,
+          "quote": "[submodule \"third_party/llvm-project\"]",
+          "git_blob_sha": "be977c0ab45755d1083b76178ad1ca7a6fd8ef6c",
+          "sha256": "712bd572dd4a3fb2fe893806b41dbac68f0d79b09b01c70a957842b54b999e4a",
+          "raw_text": "24/blob-be977c0ab45755d1083b76178ad1ca7a6fd8ef6c.txt"
+        }
+      ],
+      "pending_obligations": "需前瞻固定CPU/GPU任务与全部原测试、工具链/数据/资源，不能观察结果后换后端或减测试。",
+      "common_pending": [
+        "完整源图与固定依赖来源",
+        "完整作者测试分母、断言及实际运行",
+        "精确主产物与功能配置",
+        "任务专属B生成文件来源/路径/命令",
+        "同镜像clean replay与实际cleanup"
+      ],
+      "reference_definition_queue_position": null
+    },
+    {
+      "rank": 25,
+      "repository": "maximegmd/CyberEngineTweaks",
+      "commit_sha": "81d097e249d4f92665df2d46df5c05ed282419c9",
+      "root_tree_sha": "83ee70804fdd31074aa0211c0c4d96d8701771a8",
+      "source_material_status": "observed",
+      "materials_count": 5,
+      "skipped_materials": [],
+      "task_qualified": false,
+      "holdout": false,
+      "build_result": "not_observed",
+      "role": "task_definition_pending",
+      "development_exposure": "bounded_contract_materials_read",
+      "prior_current_tracked_exact_name_matches": [],
+      "fact_summary": "根xmake构建含WIN32定义，项目为游戏插件。",
+      "citations": [
+        {
+          "path": "xmake.lua",
+          "line": 60,
+          "quote": "    add_defines(\"WIN32_LEAN_AND_MEAN\", \"NOMINMAX\", \"WINVER=0x0601\", \"SOL_ALL_SAFETIES_ON\", \"SOL_LUAJIT=1\", \"SOL_EXCEPTIONS_SAFE_PROPAGATION\", \"SPDLOG_WCHAR_TO_UTF8_SUPPORT\", \"SPDLOG_WCHAR_FILENAMES\", \"SPDLOG_WCHAR_SUPPORT\", \"IMGUI_USER_CONFIG=\\\"\"..imguiUserConfig..\"\\\"\") -- WINVER=0x0601 == Windows 7xmake",
+          "git_blob_sha": "20de082f0333e565b256c094d097a7cf38ac2482",
+          "sha256": "a5cff0c7457ec475efbb84922180afd0bb829b9340dc64f147da36a5659b6df7",
+          "raw_text": "25/blob-20de082f0333e565b256c094d097a7cf38ac2482.txt"
+        },
+        {
+          "path": "BUILD.md",
+          "line": 15,
+          "quote": "3. Run `git submodule update --init` to pull in vendored dependencies",
+          "git_blob_sha": "a80ae42f04e7209dac5f1697563f14b2ee4bff2a",
+          "sha256": "bf8b70d8293d7d0d243d4f09a4a6196fc54bb90343fb57f2ccaaf6524c9b381b",
+          "raw_text": "25/blob-a80ae42f04e7209dac5f1697563f14b2ee4bff2a.txt"
+        }
+      ],
+      "pending_obligations": "需建立符合当前研究范围的原生Linux真实端点；当前未建立，不是实际失败。",
+      "common_pending": [
+        "完整源图与固定依赖来源",
+        "完整作者测试分母、断言及实际运行",
+        "精确主产物与功能配置",
+        "任务专属B生成文件来源/路径/命令",
+        "同镜像clean replay与实际cleanup"
+      ],
+      "reference_definition_queue_position": null
+    },
+    {
+      "rank": 26,
+      "repository": "dfranx/SHADERed",
+      "commit_sha": "780e96791fd8ac48f1f656309211660d78ff9095",
+      "root_tree_sha": "8fd2465cc8da1639be6d6fe3545daea4359ea553",
+      "source_material_status": "observed",
+      "materials_count": 5,
+      "skipped_materials": [],
+      "task_qualified": false,
+      "holdout": false,
+      "build_result": "not_observed",
+      "role": "task_definition_pending",
+      "development_exposure": "bounded_contract_materials_read",
+      "prior_current_tracked_exact_name_matches": [],
+      "fact_summary": "README给Linux构建，CMake包含图形与多项着色器依赖，并将assimp自身测试设OFF。",
+      "citations": [
+        {
+          "path": "README.md",
+          "line": 149,
+          "quote": "### Linux",
+          "git_blob_sha": "a828b00c73fb4973bbb984d5a100f46ebc995bda",
+          "sha256": "b8e9b791707e87cf45a36f1dfa0d8b0e2e73f4f5d84ecc6143861ab647148d9c",
+          "raw_text": "26/blob-a828b00c73fb4973bbb984d5a100f46ebc995bda.txt"
+        },
+        {
+          "path": "CMakeLists.txt",
+          "line": 165,
+          "quote": "add_subdirectory(libs/SpvGenTwo)",
+          "git_blob_sha": "55eb05c7d4fa87960692e00a09f717c65b07b7d3",
+          "sha256": "f7f3589bb5c01f393d473730c7501fd700e3f87d8feea2d39407495ddead91e0",
+          "raw_text": "26/blob-55eb05c7d4fa87960692e00a09f717c65b07b7d3.txt"
+        },
+        {
+          "path": "CMakeLists.txt",
+          "line": 170,
+          "quote": "set(ASSIMP_BUILD_TESTS OFF CACHE BOOL \"Build tests\" FORCE)",
+          "git_blob_sha": "55eb05c7d4fa87960692e00a09f717c65b07b7d3",
+          "sha256": "f7f3589bb5c01f393d473730c7501fd700e3f87d8feea2d39407495ddead91e0",
+          "raw_text": "26/blob-55eb05c7d4fa87960692e00a09f717c65b07b7d3.txt"
+        },
+        {
+          "path": "CMakeLists.txt",
+          "line": 177,
+          "quote": "add_subdirectory(libs/glslang)",
+          "git_blob_sha": "55eb05c7d4fa87960692e00a09f717c65b07b7d3",
+          "sha256": "f7f3589bb5c01f393d473730c7501fd700e3f87d8feea2d39407495ddead91e0",
+          "raw_text": "26/blob-55eb05c7d4fa87960692e00a09f717c65b07b7d3.txt"
+        }
+      ],
+      "pending_obligations": "需闭合所有依赖、项目自己的完整测试及headless裁判；第三方测试设置不代表本项目已验证。",
+      "common_pending": [
+        "完整源图与固定依赖来源",
+        "完整作者测试分母、断言及实际运行",
+        "精确主产物与功能配置",
+        "任务专属B生成文件来源/路径/命令",
+        "同镜像clean replay与实际cleanup"
+      ],
+      "reference_definition_queue_position": null
+    },
+    {
+      "rank": 27,
+      "repository": "NVIDIA-Omniverse/PhysX",
+      "commit_sha": "b97365c6ddb32fda8469bc788ec18024862b0368",
+      "root_tree_sha": "3ab209d194b903d935904bec8a81a08eb0e9e2cf",
+      "source_material_status": "observed",
+      "materials_count": 1,
+      "skipped_materials": [],
+      "task_qualified": false,
+      "holdout": false,
+      "build_result": "not_observed",
+      "role": "task_definition_pending",
+      "development_exposure": "bounded_contract_materials_read",
+      "prior_current_tracked_exact_name_matches": [],
+      "fact_summary": "根README列ovphysx与physx两部分。",
+      "citations": [
+        {
+          "path": "README.md",
+          "line": 38,
+          "quote": "This repo contains:",
+          "git_blob_sha": "b875b240a95080cfe05e2bf41e971fee5432e553",
+          "sha256": "af32e07810117e00790d741ce1ce8a5b775e972e2cacf97b170134f3ba0f52e8",
+          "raw_text": "27/blob-b875b240a95080cfe05e2bf41e971fee5432e553.txt"
+        },
+        {
+          "path": "README.md",
+          "line": 43,
+          "quote": "| [`physx/`](physx/) | PhysX SDK — real-time physics simulation engine |",
+          "git_blob_sha": "b875b240a95080cfe05e2bf41e971fee5432e553",
+          "sha256": "af32e07810117e00790d741ce1ce8a5b775e972e2cacf97b170134f3ba0f52e8",
+          "raw_text": "27/blob-b875b240a95080cfe05e2bf41e971fee5432e553.txt"
+        }
+      ],
+      "pending_obligations": "实际构建/测试入口在更深目录，本轮有界范围未到达；须另定义端点和源图，不判断平台不支持。",
+      "common_pending": [
+        "完整源图与固定依赖来源",
+        "完整作者测试分母、断言及实际运行",
+        "精确主产物与功能配置",
+        "任务专属B生成文件来源/路径/命令",
+        "同镜像clean replay与实际cleanup"
+      ],
+      "reference_definition_queue_position": null
+    },
+    {
+      "rank": 28,
+      "repository": "ydb-platform/ydb",
+      "commit_sha": "87722879c952213153e2cb32b32363b6f95a9f61",
+      "root_tree_sha": "402fb71575fd3069a08c40d86384f198ee8f22ac",
+      "source_material_status": "observed",
+      "materials_count": 6,
+      "skipped_materials": [],
+      "task_qualified": false,
+      "holdout": false,
+      "build_result": "not_observed",
+      "role": "task_definition_pending",
+      "development_exposure": "bounded_contract_materials_read",
+      "prior_current_tracked_exact_name_matches": [],
+      "fact_summary": "README给Linux运行，BUILD规定Yatool编译server/CLI，并要求至少80GB空间。",
+      "citations": [
+        {
+          "path": "README.md",
+          "line": 64,
+          "quote": "In most production environments, YDB runs on 64-bit x86 machines working under Ubuntu Linux.",
+          "git_blob_sha": "b7637c6c423ad52e0b241a2d8c6cc04cd3319d3a",
+          "sha256": "897f9963c0b922de83029c59208592e526b33cfeee55dcc5a13f582bdc2b0757",
+          "raw_text": "28/blob-b7637c6c423ad52e0b241a2d8c6cc04cd3319d3a.txt"
+        },
+        {
+          "path": "BUILD.md",
+          "line": 5,
+          "quote": "[Yatool](https://github.com/yandex/yatool) is the multilanguage build/test system being used to [build and test YDB](https://ydb.tech/docs/en/development/build-ya). You need to use Yatool and follow the [YDB development process](https://ydb.tech/docs/en/development/suggest-change) to make contributions to the YDB project.",
+          "git_blob_sha": "be1739e9db045627dcbc4d8057e290c71579cfbe",
+          "sha256": "0002cd5ee9e0a0c0b0f9fe829d80a259ed31320a05bc1d88f7fb4e5281c1a514",
+          "raw_text": "28/blob-be1739e9db045627dcbc4d8057e290c71579cfbe.txt"
+        },
+        {
+          "path": "BUILD.md",
+          "line": 8,
+          "quote": "> :warning: Please make sure you have at least 80Gb of free space. We also recommend placing this directory on SSD to reduce build times.",
+          "git_blob_sha": "be1739e9db045627dcbc4d8057e290c71579cfbe",
+          "sha256": "0002cd5ee9e0a0c0b0f9fe829d80a259ed31320a05bc1d88f7fb4e5281c1a514",
+          "raw_text": "28/blob-be1739e9db045627dcbc4d8057e290c71579cfbe.txt"
+        },
+        {
+          "path": "BUILD.md",
+          "line": 69,
+          "quote": "./ya make ydb/apps/ydbd --build relwithdebinfo",
+          "git_blob_sha": "be1739e9db045627dcbc4d8057e290c71579cfbe",
+          "sha256": "0002cd5ee9e0a0c0b0f9fe829d80a259ed31320a05bc1d88f7fb4e5281c1a514",
+          "raw_text": "28/blob-be1739e9db045627dcbc4d8057e290c71579cfbe.txt"
+        },
+        {
+          "path": "BUILD.md",
+          "line": 75,
+          "quote": "./ya make ydb/apps/ydb --build relwithdebinfo",
+          "git_blob_sha": "be1739e9db045627dcbc4d8057e290c71579cfbe",
+          "sha256": "0002cd5ee9e0a0c0b0f9fe829d80a259ed31320a05bc1d88f7fb4e5281c1a514",
+          "raw_text": "28/blob-be1739e9db045627dcbc4d8057e290c71579cfbe.txt"
+        }
+      ],
+      "pending_obligations": "需固定Ya工具链/下载缓存/完整测试与资源合同；本轮只读不执行，不能由无普通根入口判不可编译。",
+      "common_pending": [
+        "完整源图与固定依赖来源",
+        "完整作者测试分母、断言及实际运行",
+        "精确主产物与功能配置",
+        "任务专属B生成文件来源/路径/命令",
+        "同镜像clean replay与实际cleanup"
+      ],
+      "reference_definition_queue_position": null
+    },
+    {
+      "rank": 29,
+      "repository": "hku-mars/FAST-LIVO2",
+      "commit_sha": "0d2c0346107b75b59934975adec9a6eeeb913c64",
+      "root_tree_sha": "1ac06084dea7f8124aa2a0cb074546271e131ea6",
+      "source_material_status": "observed",
+      "materials_count": 2,
+      "skipped_materials": [],
+      "task_qualified": false,
+      "holdout": false,
+      "build_result": "not_observed",
+      "role": "task_definition_pending",
+      "development_exposure": "bounded_contract_materials_read",
+      "prior_current_tracked_exact_name_matches": [],
+      "fact_summary": "README指定Ubuntu/ROS和catkin_make，CMake有fastlivo_mapping及多个库。",
+      "citations": [
+        {
+          "path": "README.md",
+          "line": 53,
+          "quote": "Ubuntu 18.04~20.04.  [ROS Installation](http://wiki.ros.org/ROS/Installation).",
+          "git_blob_sha": "8f16e30bd3d8924be9c2b79a1a93889abd61e23b",
+          "sha256": "7fc5afe386436a169c57df0a9d57aeed0b60d07de419d18be293f81103accdcb",
+          "raw_text": "29/blob-8f16e30bd3d8924be9c2b79a1a93889abd61e23b.txt"
+        },
+        {
+          "path": "README.md",
+          "line": 70,
+          "quote": "git checkout a621ff",
+          "git_blob_sha": "8f16e30bd3d8924be9c2b79a1a93889abd61e23b",
+          "sha256": "7fc5afe386436a169c57df0a9d57aeed0b60d07de419d18be293f81103accdcb",
+          "raw_text": "29/blob-8f16e30bd3d8924be9c2b79a1a93889abd61e23b.txt"
+        },
+        {
+          "path": "README.md",
+          "line": 94,
+          "quote": "catkin_make",
+          "git_blob_sha": "8f16e30bd3d8924be9c2b79a1a93889abd61e23b",
+          "sha256": "7fc5afe386436a169c57df0a9d57aeed0b60d07de419d18be293f81103accdcb",
+          "raw_text": "29/blob-8f16e30bd3d8924be9c2b79a1a93889abd61e23b.txt"
+        },
+        {
+          "path": "CMakeLists.txt",
+          "line": 128,
+          "quote": "add_executable(fastlivo_mapping src/main.cpp)",
+          "git_blob_sha": "0652aab6cc0eddeed397514929e19799132d7ebd",
+          "sha256": "a9a01369a04fd1e773a23ad294a2a723d244f419c3de27e9c98fd827e1464d9f",
+          "raw_text": "29/blob-0652aab6cc0eddeed397514929e19799132d7ebd.txt"
+        }
+      ],
+      "pending_obligations": "须固定Sophus/Vikit等来源、ROS工具链、数据和完整测试/功能裁判，不能用启动roslaunch替代有效断言。",
+      "common_pending": [
+        "完整源图与固定依赖来源",
+        "完整作者测试分母、断言及实际运行",
+        "精确主产物与功能配置",
+        "任务专属B生成文件来源/路径/命令",
+        "同镜像clean replay与实际cleanup"
+      ],
+      "reference_definition_queue_position": null
+    },
+    {
+      "rank": 30,
+      "repository": "include-what-you-use/include-what-you-use",
+      "commit_sha": "c5625966cad25073a40901f9c4c91eace382e919",
+      "root_tree_sha": "41a0705ded459513bda10b0155daba8ff39a5535",
+      "source_material_status": "observed",
+      "materials_count": 4,
+      "skipped_materials": [],
+      "task_qualified": false,
+      "holdout": false,
+      "build_result": "not_observed",
+      "role": "task_definition_pending",
+      "development_exposure": "bounded_contract_materials_read",
+      "prior_current_tracked_exact_name_matches": [],
+      "fact_summary": "CMake有include-what-you-use主程序、原单元测试与Python驱动测试；CI为Ubuntu。",
+      "citations": [
+        {
+          "path": "README.md",
+          "line": 42,
+          "quote": "NOTE: the IWYU master branch follows Clang main branch.",
+          "git_blob_sha": "0f11dd3fcbc57b15a2c9241a49ea35f078ba798b",
+          "sha256": "246267b235939782e9e348ce9a2bb66d0a49e88463148ddebd4e924bc48fab75",
+          "raw_text": "30/blob-0f11dd3fcbc57b15a2c9241a49ea35f078ba798b.txt"
+        },
+        {
+          "path": "CMakeLists.txt",
+          "line": 19,
+          "quote": "  find_package(LLVM CONFIG REQUIRED)",
+          "git_blob_sha": "c5f9863f780cda2322d80b6b01bd366fc92b285f",
+          "sha256": "3b491d582b03d2ebe7b49705d43937e4a2fa070be2b1a3010e7c9a4bd1c8801c",
+          "raw_text": "30/blob-c5f9863f780cda2322d80b6b01bd366fc92b285f.txt"
+        },
+        {
+          "path": "CMakeLists.txt",
+          "line": 229,
+          "quote": "add_llvm_executable(include-what-you-use",
+          "git_blob_sha": "c5f9863f780cda2322d80b6b01bd366fc92b285f",
+          "sha256": "3b491d582b03d2ebe7b49705d43937e4a2fa070be2b1a3010e7c9a4bd1c8801c",
+          "raw_text": "30/blob-c5f9863f780cda2322d80b6b01bd366fc92b285f.txt"
+        },
+        {
+          "path": "CMakeLists.txt",
+          "line": 297,
+          "quote": "add_llvm_executable(iwyu-unittests",
+          "git_blob_sha": "c5f9863f780cda2322d80b6b01bd366fc92b285f",
+          "sha256": "3b491d582b03d2ebe7b49705d43937e4a2fa070be2b1a3010e7c9a4bd1c8801c",
+          "raw_text": "30/blob-c5f9863f780cda2322d80b6b01bd366fc92b285f.txt"
+        },
+        {
+          "path": "CMakeLists.txt",
+          "line": 380,
+          "quote": "    COMMAND ${Python3_EXECUTABLE} run_iwyu_tests.py --list-test-files",
+          "git_blob_sha": "c5f9863f780cda2322d80b6b01bd366fc92b285f",
+          "sha256": "3b491d582b03d2ebe7b49705d43937e4a2fa070be2b1a3010e7c9a4bd1c8801c",
+          "raw_text": "30/blob-c5f9863f780cda2322d80b6b01bd366fc92b285f.txt"
+        },
+        {
+          "path": ".github/workflows/ci.yml",
+          "line": 16,
+          "quote": "    runs-on: ubuntu-24.04",
+          "git_blob_sha": "e3a7c1f4eaf188b327a0026f9484059b81be4a96",
+          "sha256": "bc85ca0913d901bba43427111743d3a893fa212dc15b6edbd9ca2a299f05dfd2",
+          "raw_text": "30/blob-e3a7c1f4eaf188b327a0026f9484059b81be4a96.txt"
+        },
+        {
+          "path": ".github/workflows/ci.yml",
+          "line": 90,
+          "quote": "          ./iwyu-run-stdin-tests.bash ./build/bin/include-what-you-use",
+          "git_blob_sha": "e3a7c1f4eaf188b327a0026f9484059b81be4a96",
+          "sha256": "bc85ca0913d901bba43427111743d3a893fa212dc15b6edbd9ca2a299f05dfd2",
+          "raw_text": "30/blob-e3a7c1f4eaf188b327a0026f9484059b81be4a96.txt"
+        },
+        {
+          "path": ".github/workflows/ci.yml",
+          "line": 94,
+          "quote": "          ./run_iwyu_tests.py --extra-suite=bugs bugs -- ./build/bin/include-what-you-use",
+          "git_blob_sha": "e3a7c1f4eaf188b327a0026f9484059b81be4a96",
+          "sha256": "bc85ca0913d901bba43427111743d3a893fa212dc15b6edbd9ca2a299f05dfd2",
+          "raw_text": "30/blob-e3a7c1f4eaf188b327a0026f9484059b81be4a96.txt"
+        }
+      ],
+      "pending_obligations": "master随Clang主干，须冻结匹配LLVM/Clang来源和资源目录、所有测试脚本/skip语义、stdin及bugs等CI测试边界和交付；不能只跑单元层称完整。",
+      "common_pending": [
+        "完整源图与固定依赖来源",
+        "完整作者测试分母、断言及实际运行",
+        "精确主产物与功能配置",
+        "任务专属B生成文件来源/路径/命令",
+        "同镜像clean replay与实际cleanup"
+      ],
+      "reference_definition_queue_position": 5
+    }
+  ]
+}
