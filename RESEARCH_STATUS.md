@@ -1,6 +1,12 @@
 # Forge Research Status
 
-## 当前阶段（2026-10-21；#577固定30项新任务合同材料审阅完成）
+## 当前阶段（2026-10-21；#579五个C++候选完整源码与任务合同准备）
+
+新身份cpp-build-prospective-task-contract-sources-v1准备，0Provider/模型凭据/Token/费用/构建/Docker；仅9/10/14/21/30原commit完整根归档/递归树，不换版本/补位。每项一次300秒worker、严格归档限额，无重试，先提交后采集及封存；当前未采集，不写根源码或任务资格成功。9项真实Git/归档篡改/遗漏/权限回归通过。
+
+采集后审阅完整原测试/断言、主产物、依赖/gitlink/动态下载、正常生成关系与资源；来源图/合同闭合后另立免费参考身份，不在采集身份执行上游代码。task_qualified=false/非holdout，其他25项pending；不降低原测试，不复制libconfig权限。旧九槽/RQ3/P2/主线/用户HTML不变，旧paid不续用。Issue579、同名manifest/preregistration；当前状态只在后续实际证据改变时更新。
+
+## 上一阶段（2026-10-21；#577固定30项新任务合同材料审阅完成）
 
 样本准备/只读数据采集与静态分析完成，0Provider/模型凭据/Token/费用/构建/Docker。cpp-build-prospective-task-source-screen-v1保持原30排名/精确commit，30/30采集、0失败/未观察，120材料路径；Matplot++ README351588字节超过262144上限，明确未读取。独立stdlib清单及真实Git mktree/hash-object审计82树/120blob、父链/路径/组件/规则valid；359文件/2715186bytes，inventory2facd675892ed07d7e98043a387e1e21c8e5956f0910f3d52a7f757bc050b967，release d5c354647ddb1a8dfdd00fda244680c4abad2279。首审计序列化比较错误保留，原raw未改。新增6项/产品2322passed44skipped27warnings/Ruff通过。
 

@@ -4,6 +4,8 @@
 
 ## 进行中 (In Progress)
 
+- 2026-10-21 — #579五候选完整来源与任务合同准备；9项Git/归档回归通过，新身份cpp-build-prospective-task-contract-sources-v1冻结后单次只读采集9/10/14/21/30精确commit，0Provider/费用/构建/Docker。原30分母/未资格和旧失败保持；采集封存后审阅完整测试、主产物、源图及生成/资源阻塞，不在采集身份执行。
+
 
 
 
