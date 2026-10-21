@@ -4,7 +4,7 @@
 
 ## 进行中 (In Progress)
 
-- 2026-10-22 — #601共同原生材料资格准备：固定v4全部55实际请求+3负例，165输入SHA/283组件、候选dfcd7d8a。新NativeRoundMeter保留最近完整AI/Tool与reasoning_content，完整原包/脚本可还原；共同100k/8k/200k单响应/0.80美元预留，原72步48工具400k/1.50美元/3900秒及验收保持。12针对性含实际Agent图usage0双轮、产品2543passed44skipped27warnings/Ruff611后端+两新脚本格式/CLI通过；三例开发原型不是正式资格，待提交冻结→单次55+3→独立审计。0新Provider/费/构建，旧失败不补、无活动Provider/Docker，原UTC19:30:52/10美元/无自动重试不续期。#599已合e360c870并关闭/发布审计valid，知识库6edd5077核验，RQ3/P2/用户HTML保持。
+- 2026-10-22 — #601原生材料资格已封存：55/55全v4实际材料+3/3负例，0未观察；3首轮/52完整原生AI-Tool及reasoning_content，最大80570/3139bytes。0真实Provider/Token/费用/构建，55仅usage0脚本响应；原完整包还原/序列化/源与新清单/Git/负例/零用量独立审计valid。raw forge-build-native-round-material-gate-v1、inventory85c48c80、release d5677913、283组件；12针对性/产品2543passed44skipped27warnings/Ruff611后端+两新脚本/CLI通过。最终HEAD三CI后只合依赖分支，证据forge-rtorrent-real-session-2026-10-21/independent-native-audit.json与final-native-publication-audit.json。下一步免费完整三策略端到端，再新Provider授权与0.80未知预留账本资格；本fixture不能当付费准入/完整构建成功，不沿用旧0.40未知预留。原总10美元/UTC19:30:52不续期、三paid累计3.27044256，无活动Provider/Docker；#599已合e360c870/关闭/知识库6edd5077核验，RQ3/P2/用户HTML保持。
 
 
 

@@ -1,12 +1,14 @@
 # Forge Research Status
 
-## 当前阶段（2026-10-22；#601三策略共同原生轮次材料资格准备）
+## 当前阶段（2026-10-22；#601共同原生完整轮次材料资格完成）
 
-基础设施/工程修复准备，0新Provider/真实Token/模型费/构建/Docker。新独立cpp-build-native-round-material-gate-v1固定v4全部55实际请求（52后继/3首轮）+orphan/material/schema三负例，165输入SHA/283组件，候选dfcd7d8ab7555b05c740478bf777b7a4a372358ce2f63e458e8c256239a16a18。三策略同NativeRoundMeter/装配执行恢复入口，权威Human包加完整最近AI/Tool轮次及reasoning_content；移除独立最近三反馈副本，不承诺全历史，原任务/脚本/方案/权威状态/源码工作集和预算fixture逐值还原。当前仅材料资格，不称真实理解/完整新端到端或规划收益。
+基础设施/工程修复完成，0新凭据/Provider/真实Token/模型费/构建/Docker。cpp-build-native-round-material-gate-v1固定v4全55实际请求+3负例，55/55材料、3/3负例通过，0未观察；3首轮仅Human，52后继完整保留原AI/Tool/reasoning_content。真实middleware下原任务/脚本/方案/权威状态/源码工作集/read_index与历史预算fixture逐值还原，离线DeepSeek序列化核验；不是模型或完整新端到端成功。
 
-新资源前瞻共同100k消息/8k schema、200k单响应/0.80美元完整响应预留；原72步/48工具/32命令/400k累计停止阈值/1.50美元单臂/3900秒付费预留及完整原验收不降。不同于旧50k版本，不作前后因果效果，只允许新身份内公平比较。12针对性含真实Agent图usage0双轮、产品2543passed44skipped27warnings、Ruff611后端+两新脚本格式/CLI通过，三已见开发原型接线通过但不当正式资格。先提交冻结再单次正式55+3资格及独立审计，不补槽。
+release d56779138a129aac3a39ee733d1227bd3cdb035d，候选dfcd7d8ab7555b05c740478bf777b7a4a372358ce2f63e458e8c256239a16a18，165输入SHA/283组件；raw forge-build-native-round-material-gate-v1，inventory85c48c8081dcdba495a481305637d85cb0fefef9869715ba0c6ca3c7c406c194（624文件/0链接/20044938bytes）。独立stdlib全部来源/新清单/Git组件/完整原包与原生轮次/API序列化/3负例/逐请求零用量审计valid；隔离namespace漏Path的原审计脚本与失败日志保留，修正审计依赖后重算，raw未改。12针对性含真实Agent图双轮、产品2543passed44skipped27warnings、Ruff611后端+两新脚本格式/CLI通过。报告docs/research/2026-10-22-native-round-material-results.md；派生benchmarks/analyses/cpp-build-native-round-material-gate-v1-results.json；最终结果HEAD三CI后只合依赖分支，发布以GitHub/final-native-publication-audit.json为准。
 
-免费ScriptedNativeMeter仅闭合usage0 handler历史fixture，明确不资格验证付费墙钟/0.80预留，不能当付费授权；付费路径截止/预留独立回归已过。本轮三paid闭合累计3.27044256美元，原UTC2026-10-21T19:30:52/总10美元/无自动重试不续期；18:25:52后无新付费请求。#599/PR600已合e360c870/关闭/独立发布审计valid，知识库6edd5077完整核验。RQ3/P2/主线/用户HTML保持。
+共同新100k消息/8k schema，实测最大80570/3139bytes；200k单响应/0.80美元完整响应预留，原72步/48工具/32命令/400k累计停止阈值/1.50美元单臂/3900秒付费预留及原验收保持。移除独立最近三反馈副本，较早原文留raw可重读，不承诺全历史或信息超集。与旧50k版本不同，只允许未来新版本内公平比较，不作前后因果效果。
+
+下一步先免费三策略完整端到端门禁；付费入口还需按0.80美元处理未知请求预留并重新绑定授权/旧费用/停止，不能复用旧v4的0.40未知预留或本免费fixture。当前paid_authorization_qualified=false，新完整构建/模型效果未观察，不盲目追加付费压缩版本。原总10美元/UTC2026-10-21T15:30:52–19:30:52/无自动重试不续期，三paid闭合累计3.27044256美元，18:25:52后无新付费请求；无活动Provider/Docker。#599/PR600已合e360c870并关闭/发布审计valid，知识库6edd5077完整核验。RQ3/P2/主线/用户HTML保持。
 
 ## 上一阶段（2026-10-22；#599会话普查已发布）
 
