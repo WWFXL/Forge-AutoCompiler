@@ -1,6 +1,12 @@
 # Forge Research Status
 
-## 当前阶段（2026-10-22；#591多轮材料零Provider资格完成）
+## 当前阶段（2026-10-22；#593独立共享值真实canary准备）
+
+工程准备，尚未发新Provider请求。cpp-build-rtorrent-common-canary-v3继承已资格SharedValueMeter及原共同任务/三策略/模型/全部验收/资源，固定单个已见development族三槽各一次；不是补v2旧失败或版本前后因果比较。候选272组件、实际CLI免费校验与授权绑定通过，43授权/共享值/相邻回归、产品2486passed44skipped27warnings及Ruff/615格式通过；#591最终三CI成功，PR592已合科研依赖分支fc7c77685fb39443188c8fb350a9b03ecb9ba049、Issue591关闭。
+
+新阶段最多预留4.50美元，绑定原用户授权SHA、原UTC2026-10-21T15:30:52–19:30:52（准备计入）四小时、请求不限/无自动重试，验证旧v2已闭合账本及完整0.82323780美元；最坏共享累计5.32323780美元，保持总10美元。新独立预算v3-budget，不修改旧授权或账本；未知用量/cleanup/身份/资源异常停整批，方法失败保留后继续下一固定槽，不补槽。原任务/作者源码/完整12程序323叶/40生成SHA/双ELF/CLI/干净重放及cleanup保持，50k/8k不提高。无活动Provider/Docker；不提前填成功，RQ3/P2/主线/用户HTML不变。
+
+## 上一阶段（2026-10-22；#591多轮材料零Provider资格完成）
 
 基础设施/工程修复完成，0Provider/模型Token/费用/未知。cpp-build-rtorrent-multiturn-material-gate-v1固定28实际请求+2停止材料全部30/30资格、0未观察；经真实SharedValueMeter/ContextCanaryMeter/CanaryMeter及usage0脚本handler，完整task/current_plan/state/source工作集/read_index/recent反馈/预算逐值还原，系统提示与工具schema不变，原50k/8k通过。新表示只共享完全相同JSON对象/列表，先原文本因子再共享值还原；旧证据不改。最大消息48877bytes，两停止包48475/48877。停止包elapsed由末snapshot重建，不称原未发送请求的精确字节；30脚本响应不当真实模型响应或完整构建成功。
 
