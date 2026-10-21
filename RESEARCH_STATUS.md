@@ -1,10 +1,10 @@
 # Forge Research Status
 
-## 当前阶段（2026-10-21；#579五个C++候选完整源码与任务合同准备）
+## 当前阶段（2026-10-21；#579五项根来源封存，补rtorrent版本依赖）
 
-新身份cpp-build-prospective-task-contract-sources-v1准备，0Provider/模型凭据/Token/费用/构建/Docker；仅9/10/14/21/30原commit完整根归档/递归树，不换版本/补位。每项一次300秒worker、严格归档限额，无重试，先提交后采集及封存；当前未采集，不写根源码或任务资格成功。9项真实Git/归档篡改/遗漏/权限回归通过。
+cpp-build-prospective-task-contract-sources-v1完整5项观察，4根归档核验通过、Yosys1失败、0未观察；全部task未资格。Yosys仅.gitcommit与Git字节不同，.gitattributes声明export-subst，失败不重跑/改判；其8个gitlink仍未补齐。独立stdlib清单+真实Git503树/7003blob审计valid，raw forge-prospective-task-contract-sources-v1，inventory4e439bbc（46文件/11313923bytes），release d5764567；9项回归/产品2331passed44skipped/Ruff通过，0Provider/模型费/上游执行。
 
-采集后审阅完整原测试/断言、主产物、依赖/gitlink/动态下载、正常生成关系与资源；来源图/合同闭合后另立免费参考身份，不在采集身份执行上游代码。task_qualified=false/非holdout，其他25项pending；不降低原测试，不复制libconfig权限。旧九槽/RQ3/P2/主线/用户HTML不变，旧paid不续用。Issue579、同名manifest/preregistration；当前状态只在后续实际证据改变时更新。
+完整源码显示Dobby仿真测试引用缺失的PlatformUnifiedInterface/MemoryAllocator.h，native含dyld/_execve假设；未实际编译，不填功能失败。rtorrent三原测试及断言入口较明确，先以新cpp-build-rtorrent-dependency-source-v1冻结默认分支精确commit且强制同0.16.25版本核验，不换主commit或版本；当前依赖采集未运行，系统包/生成/测试/交付/replay仍待独立参考。其他候选保持原顺序/待解项，不按策略outcome补位。无付费/构建，原免费截止不延长，旧paid不续用，用户HTML/旧九槽/RQ3/P2/主线保持。
 
 ## 上一阶段（2026-10-21；#577固定30项新任务合同材料审阅完成）
 

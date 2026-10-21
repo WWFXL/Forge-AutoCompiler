@@ -1,0 +1,31 @@
+{
+  "identity": "cpp-build-rtorrent-dependency-source-v1",
+  "repository": "rakshasa/libtorrent",
+  "required_version": "0.16.25",
+  "parent_raw": "/home/yiwei/.codex/outputs/forge-prospective-task-contract-sources-v1",
+  "parent_inventory_sha256": "4e439bbc667c7c6e48fc5026678b20fe96fc29fc7c9d4d52fe492b1d7474dbbc",
+  "deadline_utc": "2026-10-21T05:26:06.280620+00:00",
+  "provider_calls": 0,
+  "model_cost_usd": 0,
+  "provider_credentials_read": false,
+  "build_commands": 0,
+  "docker_calls": 0,
+  "limits": {
+    "max_compressed_bytes": 134217728,
+    "max_uncompressed_bytes": 536870912,
+    "max_entries": 30000,
+    "max_file_bytes": 33554432,
+    "snippet_bytes": 8192
+  },
+  "components": {
+    "scripts/forge_build_task_contract_sources.py": "acafc6023612026f8b0b091bdd21358918816c877b29df490da5a17eed24e361",
+    "scripts/forge_build_source_expansion.py": "37472f1676a68653a08334de90f2ee43698f05d33e76900734e1c5fd70bb2387",
+    "scripts/forge_build_task_source_screen.py": "8f98c35f228dcda7be513d8bc45fe55cdeb8bd974bfae85f76671bbf0526ba43",
+    "scripts/forge_typed_evidence.py": "b3e798669389507dc605fcd73b2450921f0695bddccc564344fda88d5cb7a3c8",
+    "backend/tests/test_task_contract_sources.py": "2ac75e33778c2333760dd9454944852dfb9dcbf73f059c6c58c15c66f45c67ed",
+    "benchmarks/preregistrations/cpp-build-prospective-task-contract-sources-v1.md": "40f392caac8eddcabdd2a82cc5ab29f91aa978b3feb2a68d1f87d78505b45d0a",
+    "scripts/forge_build_rtorrent_dependency_source.py": "e5e070a9653ccf646684704c8691af6973431601e4c4bc3726eaca797132dfce",
+    "backend/tests/test_rtorrent_dependency_source.py": "d8a8a5777f5438fb14bc6e5e26233adb4767b9f8811407ba02e3d2069178ef46",
+    "benchmarks/preregistrations/cpp-build-rtorrent-dependency-source-v1.md": "3684a076c95949ee69776dbfa57eba31b12433f3fcca86944f155ee31e4efc18"
+  }
+}
