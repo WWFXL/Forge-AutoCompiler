@@ -1,6 +1,18 @@
 # Forge Research Status
 
-## 当前阶段（2026-10-21；#585实际模板失败后精确重置恢复资格完成）
+## 当前阶段（2026-10-21；#587共同三策略资格完成，真实canary待新授权）
+
+基础设施/零Provider工程资格完成。新独立cpp-build-rtorrent-common-entry-gate-v2为3/3strict、0未观察：工具实际通用模板configure真实缺libtorrent→一次脚本恢复；模型Workflow及强工具正常脚本方案。每槽原/replay各完整12原程序323叶、818原作者文件/40原生成SHA、双普通ELF精确集合/类型/大小/SHA、CLI、索引/no HEAD及实际cleanup均通过。原执行与验收/重放实际完成，不代表真实模型能力或规划收益。
+
+运行release5895f35cf8005c3d223e26002f381d19e450a0c9，inventory591bf6cd7e1b6b63b714f84eb10f7f7dc9e20d90fc192f31485c4e37db82cc77（17713文件/42链接/6468842154bytes）。全量清单/Git组件/父链/实际材料逐字还原/测试叶/源码/生成/ELF独立审计valid；六新容器实际镜像/1010:1010/2CPU/禁网/临时Git配置核验通过，旧新18容器标识实际不存在。首版审计Docker错误文本大小写误拒绝的失败/修正收据保留。
+
+v1旧失败单列：1strict/2观察/1未观察，第二槽初始材料超50k在首次响应前拒绝、0模型请求；inventorye13e869b9de1ebe214b22bea8cfe2fb9b89daefcc001a919d81cf66ab74fc0ab。v2将既有可读可逆因子扩展全部阶段，未删任务/测试、未提高50k/8k，三槽新身份重新资格，不拼分母或回填。实际消息49283/40209/40149bytes；工具恢复工作集移出源码预览，另两槽保留README/configure.ac，不宣称动态请求逐字段相同。实际400k累计/100k单响应资源与v1文字笔误单独勘误，旧冻结文本不改。
+
+报告docs/research/2026-10-21-rtorrent-common-entry-results.md；派生benchmarks/analyses/cpp-build-rtorrent-common-entry-qualification-results-v1.json；raw forge-rtorrent-common-entry-gate-v1/v2；会话forge-rtorrent-common-session-2026-10-21。8入口/3材料/18canary新回归，产品2443passed44skipped27warnings、Ruff/612后端格式通过，历史pytest权限warning保留。本轮共4脚本响应，0凭据/Provider/真实Token/模型费/未知，全部运行已终态，免费原UTC13:40–16:40不延长。
+
+下一步候选cpp-build-rtorrent-common-canary-v1已冻结并实际CLI免费验证，SHA bcee5cad2a8f7bdc1a928925aa9cb9614665fa13fd5910b2af19e14bada0c4e8；同一个已见development族×三策略×一次。拟新5美元/确认起3小时，最多36请求/1.5M设计Token，全部初始/读取/失败/恢复费用计入，未知/cleanup/身份/资源异常停批，方法失败保留后继续固定槽、不补槽/重试。授权/截止目前null，旧paid不续用；待新明确授权才能读凭据。接受局部优势和取舍，不要求全胜。最终HEAD三CI后仅合科研依赖分支；发布真源为GitHub及final-publication-audit.json。旧RQ3/P2/主线/用户HTML不动。
+
+## 上一阶段（2026-10-21；#585实际模板失败后精确重置恢复资格完成）
 
 零Provider工程资格完成。cpp-build-rtorrent-actual-template-reset-gate-v2完整1/1strict、0未观察槽：实际通用模板初始0脚本/无拒答，autoreconf-fi成功、根configure真实缺libtorrent失败→权威交接→一次脚本revision2→清理config.log和原40声明生成输出、依赖优先标准生成→完整构建/测试/交付/replay/cleanup。原与重放均12程序323叶、818原作者文件/原40生成SHA、双普通ELF精确集合/类型/大小/SHA、CLI、索引/no HEAD通过；仅保留共同准备，不主张最小增量节省、真实模型理解/恢复能力或规划成本收益。
 
