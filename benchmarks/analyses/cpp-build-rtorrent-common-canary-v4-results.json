@@ -1,0 +1,241 @@
+{
+  "identity": "cpp-build-rtorrent-common-canary-v4-results",
+  "kind": "real_model_seen_development_canary",
+  "issue": 597,
+  "raw": "/home/yiwei/.codex/outputs/forge-rtorrent-common-canary-v4",
+  "release": "456737d9960d3810ac9fe819cab861d976abbdad",
+  "inventory": {
+    "format": "forge-typed-evidence-v1",
+    "identity": "cpp-build-rtorrent-common-canary-v4",
+    "entries": 5624,
+    "files": 5624,
+    "symlinks": 0,
+    "bytes": 99579993,
+    "inventory_canonical_sha256": "3c95b530dedda691bc1d7d665b176cc08abd522e5fa46307f72eaa277bd56674",
+    "unknown_usage_requests": 0
+  },
+  "strict_completed": 0,
+  "observed": 3,
+  "unobserved": 0,
+  "requests": 55,
+  "input_tokens": 914965,
+  "output_tokens": 98177,
+  "recorded_tokens": 1013142,
+  "estimated_cost_usd": "1.59653472",
+  "unknown_requests": 0,
+  "rows": [
+    {
+      "method": "tool_plan_workflow",
+      "strict_completed": false,
+      "error_class": "AgentWorkflowBudgetExceeded",
+      "error_message": null,
+      "requests": 17,
+      "input_tokens": 291352,
+      "output_tokens": 12990,
+      "recorded_tokens": 304342,
+      "estimated_cost_usd": "0.43602504",
+      "wall_seconds": 776.533684627153,
+      "commands": 3,
+      "layers": {
+        "build_observed": false,
+        "test_programs_observed": 0,
+        "complete_test_programs": 0,
+        "passed_test_leaves": 0,
+        "delivery_verified": false,
+        "clean_replay_observed": false
+      },
+      "read_source_calls": 39,
+      "unique_read_source_arguments": 11,
+      "repeat_read_source_calls": 28,
+      "read_fixed_contract_calls": 1,
+      "phase_costs": {
+        "recovery": {
+          "requests": 17,
+          "cost_usd": "0.43602504"
+        }
+      },
+      "initial_planning_model_cost_usd": "0",
+      "protected_author_files_unchanged": true,
+      "cleanup": true
+    },
+    {
+      "method": "model_plan_workflow",
+      "strict_completed": false,
+      "error_class": "AgentWorkflowBudgetExceeded",
+      "error_message": null,
+      "requests": 17,
+      "input_tokens": 283618,
+      "output_tokens": 49412,
+      "recorded_tokens": 333030,
+      "estimated_cost_usd": "0.57004728",
+      "wall_seconds": 720.184829168953,
+      "commands": 1,
+      "layers": {
+        "build_observed": false,
+        "test_programs_observed": 0,
+        "complete_test_programs": 0,
+        "passed_test_leaves": 0,
+        "delivery_verified": false,
+        "clean_replay_observed": false
+      },
+      "read_source_calls": 37,
+      "unique_read_source_arguments": 12,
+      "repeat_read_source_calls": 25,
+      "read_fixed_contract_calls": 6,
+      "phase_costs": {
+        "initial": {
+          "requests": 17,
+          "cost_usd": "0.57004728"
+        }
+      },
+      "initial_planning_model_cost_usd": "0.57004728",
+      "protected_author_files_unchanged": true,
+      "cleanup": true
+    },
+    {
+      "method": "strong_tool_agent",
+      "strict_completed": false,
+      "error_class": "AgentWorkflowBudgetExceeded",
+      "error_message": null,
+      "requests": 21,
+      "input_tokens": 339995,
+      "output_tokens": 35775,
+      "recorded_tokens": 375770,
+      "estimated_cost_usd": "0.5904624",
+      "wall_seconds": 584.0675291242078,
+      "commands": 6,
+      "layers": {
+        "build_observed": false,
+        "test_programs_observed": 0,
+        "complete_test_programs": 0,
+        "passed_test_leaves": 0,
+        "delivery_verified": false,
+        "clean_replay_observed": false
+      },
+      "read_source_calls": 16,
+      "unique_read_source_arguments": 8,
+      "repeat_read_source_calls": 8,
+      "read_fixed_contract_calls": 12,
+      "phase_costs": {
+        "tool_agent_run": {
+          "requests": 21,
+          "cost_usd": "0.59046240"
+        }
+      },
+      "initial_planning_model_cost_usd": null,
+      "protected_author_files_unchanged": true,
+      "cleanup": true
+    }
+  ],
+  "stop_reason": null,
+  "prior_failed_slots_retried": false,
+  "automatic_retry": false,
+  "shared_authorization": {
+    "total_cap_usd": "10",
+    "deadline_utc": "2026-10-21T19:30:52+00:00",
+    "prior_v2_v3_nominal_usd": "1.67390784",
+    "total_nominal_usd": "3.27044256",
+    "total_original_ledger_charged_usd": "3.27044256000000009",
+    "remaining_original_ledger_usd": "6.72955743999999991"
+  },
+  "audit_receipts": {
+    "independent-real-audit-v4.json": {
+      "path": "/home/yiwei/.codex/outputs/forge-rtorrent-real-session-2026-10-21/independent-real-audit-v4.json",
+      "sha256": "c9151a937b19cd522b62dcf16b83d529f9ae79463b988e8a53b33a86a1635df5"
+    },
+    "independent-runtime-audit-v4.json": {
+      "path": "/home/yiwei/.codex/outputs/forge-rtorrent-real-session-2026-10-21/independent-runtime-audit-v4.json",
+      "sha256": "6aca12b890a8bfaff43aa2caf70df711bb9f79f0786f70952ec287a8cc3de230"
+    }
+  },
+  "claim_boundary": "已见单项目族单次真实执行与接口可用性；不作holdout、总体成功率、策略排名、规划净收益、显著性或工程版本前后因果效果",
+  "posthoc_context_retention": {
+    "kind": "posthoc_read_only_retention_diagnostic",
+    "sealed": true,
+    "boundary": "仅证实请求材料可用性/保留形式与读取建议；不证明因果、模型理解或某种修复的效果。最近工具反馈可能保留部分文本；建议工具可能因预算未执行。",
+    "slots": [
+      {
+        "slot": "slot-1",
+        "requests": 17,
+        "empty_working_set_requests": 5,
+        "single_human_packet_requests": 17,
+        "repeat_proposed_source_reads": 32,
+        "repeat_paths": {
+          "vendor-libtorrent/configure.ac": 6,
+          "vendor-libtorrent/src/Makefile.am": 3,
+          "Makefile.am": 6,
+          "src/Makefile.am": 4,
+          "configure.ac": 7,
+          "README.md": 2,
+          "INSTALL": 0,
+          "vendor-libtorrent/Makefile.am": 4
+        }
+      },
+      {
+        "slot": "slot-2",
+        "requests": 17,
+        "empty_working_set_requests": 0,
+        "single_human_packet_requests": 17,
+        "repeat_proposed_source_reads": 27,
+        "repeat_paths": {
+          "Makefile.am": 4,
+          "src/Makefile.am": 4,
+          "vendor-libtorrent/Makefile.am": 2,
+          "vendor-libtorrent/configure.ac": 5,
+          "vendor-libtorrent/test/Makefile.am": 3,
+          "vendor-libtorrent/src/Makefile.am": 3,
+          "configure.ac": 5,
+          "test/Makefile.am": 1,
+          "vendor-libtorrent/src/torrent/Makefile.am": 0
+        }
+      },
+      {
+        "slot": "slot-3",
+        "requests": 21,
+        "empty_working_set_requests": 0,
+        "single_human_packet_requests": 21,
+        "repeat_proposed_source_reads": 8,
+        "repeat_paths": {
+          "Makefile.am": 1,
+          "src/Makefile.am": 1,
+          "test/Makefile.am": 1,
+          "vendor-libtorrent/test/Makefile.am": 1,
+          "configure.ac": 2,
+          "vendor-libtorrent/configure.ac": 2,
+          "vendor-libtorrent/src/Makefile.am": 0,
+          "scripts/common.m4": 0
+        }
+      }
+    ],
+    "source_read_availability": [
+      {
+        "slot": "slot-1",
+        "proposed_source_reads": 40,
+        "same_range_already_available": 0,
+        "complete_file_already_available": 0
+      },
+      {
+        "slot": "slot-2",
+        "proposed_source_reads": 37,
+        "same_range_already_available": 0,
+        "complete_file_already_available": 0
+      },
+      {
+        "slot": "slot-3",
+        "proposed_source_reads": 16,
+        "same_range_already_available": 0,
+        "complete_file_already_available": 0
+      }
+    ],
+    "receipts": {
+      "v4-retention-diagnostic.json": {
+        "path": "/home/yiwei/.codex/outputs/forge-rtorrent-real-session-2026-10-21/v4-retention-diagnostic.json",
+        "sha256": "720d51b0cb509c04129d8e375c14b4991d5512ac2d7774fcf2d722b44eb4d932"
+      },
+      "v4-context-reuse-diagnostic.json": {
+        "path": "/home/yiwei/.codex/outputs/forge-rtorrent-real-session-2026-10-21/v4-context-reuse-diagnostic.json",
+        "sha256": "530bb3f80ce193497d40662398b9a051f18b9a52af1390eae484eb28505d70e8"
+      }
+    }
+  }
+}
