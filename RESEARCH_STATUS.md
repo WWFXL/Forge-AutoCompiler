@@ -1,12 +1,14 @@
 # Forge Research Status
 
-## 当前阶段（2026-10-21；#581rtorrent完整任务已冻结，进入独立参考）
+## 当前阶段（2026-10-21；#581rtorrent完整任务参考资格完成）
 
-用户明确要求冻结完整依赖/三原测试/生成/交付并执行参考。cpp-build-rtorrent-reference-preparation-v1已通过，818原作者文件保持、40精确生成输出+18缓存文件，依赖镜像8f3ef0a3、完整包清单bb3d977e；独立来源/装配/清单/生成审计valid，inventory068a7330。系统依赖以二进制镜像/完整dpkg版本固定，不声称所有系统包源码可重建。一次包查询Shell格式误调用失败保留后独立v2读查询通过；首次独立准备审计路径排序错误保留后按规范路径字符串修正，raw不动。
+任务资格数据采集/工程修复/独立审计完成，0Provider/凭据/Token/模型费用。cpp-build-rtorrent-reference-v5已qualified、Session completed：原及空目录replay均完整12原程序323叶（主三102+源依赖九221）、818原文件保护、40bootstrap精确生成SHA、交付rtorrent/libtorrent.so.53的集合/类型/大小/SHA及CLI、实际cleanup全部通过。固定同0.16.25主源d316b21/依赖c395f0af，254系统包版本清单bb3d977e，镜像8f3ef0a3，2CPU无网络；系统包以二进制镜像固定，不声称全部源码重建/跨主机复现。
 
-新cpp-build-rtorrent-reference-v1固定主源d316b21/libtorrent c395f0af同0.16.25、原归档f85e5968、2CPU/无网络、原及replay同镜像。全部818原文件保护，任务专属两autoreconf生成规则；主三程序1/36/65共102叶，源依赖九程序共221叶，unset TEST_NAME，逐程序退出/总数/叶身份全核验。交付rtorrent及libtorrent.so.53，原完整323叶+交付-h绑定既有显式成功命令policy，不改产品默认长选项。尚无参考构建结果，不能填资格通过。
+v5运行released212fe7717dea52aadbd9a5cbe6a77092ab87aea；原命令522.760秒/replay547.342秒；inventoryc8521d231dfabfe2353eaf0f4172837f60780f12ad43b2cd058a377996ac9066（4388文件/14链接/2153162027bytes）。标准库清单/Git组件/父链/逐叶日志/源与生成/真实ELF字节/CLI及容器不存在独立audit valid。报告docs/research/2026-10-21-rtorrent-reference-results.md，派生benchmarks/analyses/cpp-build-rtorrent-reference-v1-results.json；raw forge-rtorrent-reference-v5，会话forge-rtorrent-reference-session-2026-10-21保留全部独立审计、工程日志及最终发布/知识库CAS收据。
 
-新免费窗UTC05:26:27至07:26:27、准备计入；0Provider/凭据/模型费、不续旧paid。计划2400秒/单命令1200/replay2400/新运行准入5100秒，只一次、不重试/补位，失败和未观察保留。10针对性及Ruff/非模型validate通过；正式manifest/preregistration已冻结，结果以raw forge-rtorrent-reference-v1及会话forge-rtorrent-reference-session-2026-10-21收据为准。其他候选/旧九槽/RQ3/P2/主线/用户HTML保持。最终HEAD三CI后仅合科研依赖分支并CAS同步知识库。
+四个失败独立保留、不续跑/回填：v1/v2原19叶后解析拒绝；v3原323叶/CLI通过但生成脚本汇总缺json导入；v4原与replay均323叶/CLI且build/verify退出0，最终产物smoke误绑整套测试导致20秒短时限超时，非1200秒总上限耗尽。v5保留全测试verify，另以独立CLI记录绑定产物短smoke，不延长验收。五身份均实际cleanup、独立audit valid；未观察仍未观察。32针对性及产品2380passed44skipped27warnings/Ruff通过，历史pytest临时目录清理告警保留。
+
+这只新增一个开发助手已暴露的C++任务资格，不是模型效果、自然恢复或holdout。下一步先冻结角色/项目族暴露并接入三策略共同装配/测试/恢复/验收零Provider门禁，再冻结公平比较；不按方法outcome选样。其他候选/旧libconfig九槽/RQ3/P2/主线/用户HTML不改。原免费UTC05:26:27至07:26:27不延长，v5原/replay各1200秒、准入2700秒；无活动Provider/构建，旧paid不续用，后续付费需新有效身份/预算/时窗。最终结果HEAD三CI后仅合科研依赖分支，实际发布以GitHub及会话final-publication-audit.json为准。
 
 ## 上一阶段（2026-10-21；#579五项根源码/任务义务与同版本依赖复核完成）
 
