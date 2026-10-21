@@ -1,6 +1,12 @@
 # Forge Research Status
 
-## 当前阶段（2026-10-21；#585实际模板失败后精确重置恢复资格完成）
+## 当前阶段（2026-10-21；#587共同三策略入口与实际材料资格）
+
+基础设施/零Provider工程资格。新独立cpp-build-rtorrent-common-entry-gate-v1已冻结三槽：实际工具模板真实缺依赖后脚本恢复、模型Workflow参考初始动作、强工具参考工具调用。统一最新任务/源码/生成重置边界/宿主身份/原测试/交付/恢复和实际材料收据；先接口回归，再真实构建与clean replay，尚无新结果或模型效果。原818文件/40生成SHA、12程序323叶、双ELF精确交付保持。
+
+跟踪#587；manifest/preregistration同名，入口scripts/forge_build_rtorrent_common.py与common_gate.py。免费UTC13:40–16:40、每槽准入2700秒、原/replay各1200秒/cleanup120秒；0凭据/Provider/模型费用，失败/未观察保留、不续跑旧身份。完成后独立审计、冻结真实canary候选，未来付费需具体新身份/有效预算时窗。旧RQ3/P2/主线/用户HTML不动。
+
+## 上一阶段（2026-10-21；#585实际模板失败后精确重置恢复资格完成）
 
 零Provider工程资格完成。cpp-build-rtorrent-actual-template-reset-gate-v2完整1/1strict、0未观察槽：实际通用模板初始0脚本/无拒答，autoreconf-fi成功、根configure真实缺libtorrent失败→权威交接→一次脚本revision2→清理config.log和原40声明生成输出、依赖优先标准生成→完整构建/测试/交付/replay/cleanup。原与重放均12程序323叶、818原作者文件/原40生成SHA、双普通ELF精确集合/类型/大小/SHA、CLI、索引/no HEAD通过；仅保留共同准备，不主张最小增量节省、真实模型理解/恢复能力或规划成本收益。
 

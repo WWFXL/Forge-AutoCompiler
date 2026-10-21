@@ -592,6 +592,11 @@
 
 ## 最近变更 (Recent Changes)
 
+- 2026-10-21 — 冻结#587共同三策略入口与实际材料零Provider资格。
+  - 文件: `scripts/forge_build_rtorrent_common.py`, `scripts/forge_build_rtorrent_common_gate.py`, `backend/tests/test_rtorrent_common_entry.py`，同名manifest/preregistration。
+  - 动机: 将#585最新生成重置/宿主身份统一用于三策略，保存编码前后实际材料，消除公平canary接线阻塞。8接口回归通过；运行尚未开始。0凭据/Provider/费用，免费UTC13:40–16:40，三槽独立新身份，原验收与旧证据不动。
+
+
 - 2026-10-21 — #585完成实际工具模板依赖失败后的精确生成重置恢复资格
   - 文件: `scripts/forge_build_rtorrent_{template_gate,reset_gate,template_reset_gate,template_reset_gate_v2}.py`, `docs/research/2026-10-21-rtorrent-actual-template-results.md`, `docs/research/2026-10-21-rtorrent-fair-canary-design.md`
   - 新证据: 独立actual-template-reset-gate-v2为1/1strict，实际模板0初始脚本、autoreconf成功/configure缺libtorrent真实失败，权威交接后一次脚本revision2，显式日志/40生成清理及依赖优先重建。原/replay均完整12程序323叶、818原文件/40原SHA、双普通ELF精确集合/类型/大小/SHA/CLI、索引/no HEAD/cleanup。仅准备前缀保留，不推最小增量或真实Agent/自然恢复/成本效果。
