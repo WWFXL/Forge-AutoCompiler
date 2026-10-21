@@ -1,0 +1,57 @@
+{
+  "identity": "cpp-build-rtorrent-reference-preparation-v1",
+  "issue": 581,
+  "provider_calls": 0,
+  "credentials_read": false,
+  "model_cost_usd": 0,
+  "build_commands": 0,
+  "deadline_utc": "2026-10-21T07:26:27Z",
+  "base_image_id": "sha256:d27a6ab733c7c3a9cbb5e4b32fb595aa5a422ff04bd212888d1041b90a2c4c2a",
+  "dockerfile": "benchmarks/recipes/rtorrent/environment.Dockerfile",
+  "parents": [
+    {
+      "path": "/home/yiwei/.codex/outputs/forge-prospective-task-contract-sources-v1",
+      "sha256": "4e439bbc667c7c6e48fc5026678b20fe96fc29fc7c9d4d52fe492b1d7474dbbc"
+    },
+    {
+      "path": "/home/yiwei/.codex/outputs/forge-rtorrent-dependency-source-v1",
+      "sha256": "0e7296144f4a3ae8f3b79791ea88d6d476d188c44bd4429dcb096501f65d03b8"
+    },
+    {
+      "path": "/home/yiwei/.codex/outputs/forge-rtorrent-dependency-recheck-v2",
+      "sha256": "a1bf9d7a6997f0fde9d39f7bb0aab0efbcbd01d7182c82bb0bcd3ce455ee2a1c"
+    }
+  ],
+  "sources": [
+    {
+      "repository": "rakshasa/rtorrent",
+      "commit": "d316b21cf02ae923d0cb1b6e75064a05016238bd",
+      "tree": "/home/yiwei/.codex/outputs/forge-prospective-task-contract-sources-v1/10/git-tree.json",
+      "tree_sha": "3a903f13fe9882bb978769b326283dcf9aa555c2",
+      "archive": "/home/yiwei/.codex/outputs/forge-prospective-task-contract-sources-v1/10/source.tar.gz",
+      "prefix": ""
+    },
+    {
+      "repository": "rakshasa/libtorrent",
+      "commit": "c395f0af3924bb4c8514cfa3b0c46c78787ddc64",
+      "tree": "/home/yiwei/.codex/outputs/forge-rtorrent-dependency-source-v1/git-tree.json",
+      "tree_sha": "7d0d5fa1a7784a6a6c10008647b33df7c1852375",
+      "archive": "/home/yiwei/.codex/outputs/forge-rtorrent-dependency-source-v1/source.tar.gz",
+      "prefix": "vendor-libtorrent/"
+    }
+  ],
+  "bootstrap_commands": [
+    "cd vendor-libtorrent && autoreconf -ivf",
+    "autoreconf -ivf"
+  ],
+  "components": {
+    "scripts/forge_build_rtorrent_prepare.py": "33e502c2b6c974c772b54105dbc9b1b8b1c4ef3d86c7b39baa470370472f0ff7",
+    "backend/tests/test_rtorrent_reference_prepare.py": "c02d19837d4131b70c64e866345badf7b6ab96ace73b9a1bbc6184dd7397f6f8",
+    "benchmarks/recipes/rtorrent/environment.Dockerfile": "2d65a3c802ed4b72cd56926ec01b09e2f1bfa83c0cb6c9ad6863b02fcc732e9d",
+    "benchmarks/preregistrations/cpp-build-rtorrent-reference-preparation-v1.md": "288165f7be5d9c1806dd7c9b2bc55bf1e1c2e724e2da33990edcee4bbdedba2e",
+    "scripts/forge_build_task_contract_sources.py": "acafc6023612026f8b0b091bdd21358918816c877b29df490da5a17eed24e361",
+    "scripts/forge_build_source_expansion.py": "37472f1676a68653a08334de90f2ee43698f05d33e76900734e1c5fd70bb2387",
+    "scripts/forge_build_task_source_screen.py": "8f98c35f228dcda7be513d8bc45fe55cdeb8bd974bfae85f76671bbf0526ba43",
+    "scripts/forge_typed_evidence.py": "b3e798669389507dc605fcd73b2450921f0695bddccc564344fda88d5cb7a3c8"
+  }
+}
