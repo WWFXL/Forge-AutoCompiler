@@ -4,7 +4,7 @@
 
 ## 进行中 (In Progress)
 
-- 2026-10-22 — #595固定验证合同引用资格待实施；仅会话目录原型/完整分母冻结器/独立审计草稿，20真实图与原脚本执行边界回归通过、0Provider，未正式资格。先等#593最终结果HEAD三CI发布，再从依赖分支实施；原10美元/UTC19:30:52/无自动重试，后继完整扣v2+v3，旧失败不补。
+- 2026-10-22 — #595合同引用免费资格准备；62例（v2 28请求2停止+v3 31请求1停止）、276组件、候选8a820e4d，44相关/产品2506passed44skipped27warnings/Ruff616格式和CLI校验通过。提交固定release后才正式create-once运行，尚未资格；原脚本/全部验收/50k8k保持。#593最终HEAD90c473f5三CI后已合a5fd7cc2、593关闭、知识库SHA eb537b35完整回读/搜索一致。原10美元/UTC19:30:52/无自动重试，后继完整扣v2+v3，旧失败不补。
 
 
 
@@ -2278,6 +2278,8 @@
 - 当前 `backend/packages/harness/deerflow/compile/manager.py` 的 lifecycle lock 是进程内锁；部署多个后端进程前，需要改为文件锁/数据库事务或带版本号的 CAS，并增加跨进程竞态测试。
 
 ## 已知问题 (Known Issues / Pitfalls)
+
+- 2026-10-22 — 需要导入当前研究运行器的冻结/资格工具使用backend/.venv/bin/python（3.12）；系统python3为3.10，导入已有datetime.UTC会在formal/Provider前失败。独立stdlib审计可继续系统Python，未重跑旧身份。
 
 <!-- 工作中踩过的坑、限制或意外行为。 -->
 
