@@ -1,6 +1,14 @@
 # Forge Research Status
 
-## 当前阶段（2026-10-21；#579五项根源码/任务义务与同版本依赖复核完成）
+## 当前阶段（2026-10-21；#581rtorrent完整任务已冻结，进入独立参考）
+
+用户明确要求冻结完整依赖/三原测试/生成/交付并执行参考。cpp-build-rtorrent-reference-preparation-v1已通过，818原作者文件保持、40精确生成输出+18缓存文件，依赖镜像8f3ef0a3、完整包清单bb3d977e；独立来源/装配/清单/生成审计valid，inventory068a7330。系统依赖以二进制镜像/完整dpkg版本固定，不声称所有系统包源码可重建。一次包查询Shell格式误调用失败保留后独立v2读查询通过；首次独立准备审计路径排序错误保留后按规范路径字符串修正，raw不动。
+
+新cpp-build-rtorrent-reference-v1固定主源d316b21/libtorrent c395f0af同0.16.25、原归档f85e5968、2CPU/无网络、原及replay同镜像。全部818原文件保护，任务专属两autoreconf生成规则；主三程序1/36/65共102叶，源依赖九程序共221叶，unset TEST_NAME，逐程序退出/总数/叶身份全核验。交付rtorrent及libtorrent.so.53，原完整323叶+交付-h绑定既有显式成功命令policy，不改产品默认长选项。尚无参考构建结果，不能填资格通过。
+
+新免费窗UTC05:26:27至07:26:27、准备计入；0Provider/凭据/模型费、不续旧paid。计划2400秒/单命令1200/replay2400/新运行准入5100秒，只一次、不重试/补位，失败和未观察保留。10针对性及Ruff/非模型validate通过；正式manifest/preregistration已冻结，结果以raw forge-rtorrent-reference-v1及会话forge-rtorrent-reference-session-2026-10-21收据为准。其他候选/旧九槽/RQ3/P2/主线/用户HTML保持。最终HEAD三CI后仅合科研依赖分支并CAS同步知识库。
+
+## 上一阶段（2026-10-21；#579五项根源码/任务义务与同版本依赖复核完成）
 
 数据采集/静态合同分析及工程解析修复完成，0Provider/模型凭据/Token/费用/上游构建。固定9/10/14/21/30五项均观察：4根归档通过、Yosys1失败、0未观察；全部task/contract未资格、build not_observed。Yosys仅.gitcommit export-subst差异，原失败不改判且8gitlink未闭合。独立503树/7003blob审计valid。raw forge-prospective-task-contract-sources-v1，inventory4e439bbc，release d5764567；49处原文及逐项义务在benchmarks/analyses/cpp-build-prospective-task-contract-sources-v1-results.json，报告docs/research/2026-10-21-prospective-task-contract-results.md。
 
