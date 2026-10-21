@@ -1,0 +1,661 @@
+{
+  "identity": "cpp-build-rtorrent-fixed-contract-material-gate-v1-results",
+  "issue": 595,
+  "kind": "zero_provider_fixed_verifier_contract_qualification",
+  "raw": "/home/yiwei/.codex/outputs/forge-rtorrent-fixed-contract-material-gate-v1",
+  "release": "5e7f553d31387f0ddeff5e9f8cbbaeab8f50dbc2",
+  "inventory": {
+    "format": "forge-typed-evidence-v1",
+    "identity": "cpp-build-rtorrent-fixed-contract-material-gate-v1",
+    "entries": 694,
+    "files": 694,
+    "symlinks": 0,
+    "bytes": 21551437,
+    "inventory_canonical_sha256": "c5bbad5e1e93b7ad72f5d978076cd84cd149388f51523cfabd19417880effbb0",
+    "unknown_usage_requests": 0
+  },
+  "qualified": 62,
+  "unobserved": 0,
+  "provider_calls": 0,
+  "recorded_tokens": 0,
+  "provider_cost_usd": 0,
+  "unknown_requests": 0,
+  "max_messages_bytes": 38098,
+  "source_counts": {
+    "v2": {
+      "actual_requests": 28,
+      "stopped_materials": 2
+    },
+    "v3": {
+      "actual_requests": 31,
+      "stopped_materials": 1
+    }
+  },
+  "rows": [
+    {
+      "case": "v2-slot-1-request-1",
+      "source_id": "v2",
+      "kind": "actual_request",
+      "messages_bytes": 32853,
+      "schema_bytes": 3139,
+      "registry_sha256": "890a9f0ebd452b2fdf147d0aa0a7855d2eb680f65f43ec8ba2b78fdf06ab00c8",
+      "all_original_values_restored": true,
+      "complete_fixed_script_readback": true
+    },
+    {
+      "case": "v2-slot-1-stopped",
+      "source_id": "v2",
+      "kind": "stopped_material",
+      "messages_bytes": 34965,
+      "schema_bytes": 3139,
+      "registry_sha256": "890a9f0ebd452b2fdf147d0aa0a7855d2eb680f65f43ec8ba2b78fdf06ab00c8",
+      "all_original_values_restored": true,
+      "complete_fixed_script_readback": true
+    },
+    {
+      "case": "v2-slot-2-request-1",
+      "source_id": "v2",
+      "kind": "actual_request",
+      "messages_bytes": 24715,
+      "schema_bytes": 3139,
+      "registry_sha256": "890a9f0ebd452b2fdf147d0aa0a7855d2eb680f65f43ec8ba2b78fdf06ab00c8",
+      "all_original_values_restored": true,
+      "complete_fixed_script_readback": true
+    },
+    {
+      "case": "v2-slot-2-request-2",
+      "source_id": "v2",
+      "kind": "actual_request",
+      "messages_bytes": 32359,
+      "schema_bytes": 3139,
+      "registry_sha256": "890a9f0ebd452b2fdf147d0aa0a7855d2eb680f65f43ec8ba2b78fdf06ab00c8",
+      "all_original_values_restored": true,
+      "complete_fixed_script_readback": true
+    },
+    {
+      "case": "v2-slot-2-request-3",
+      "source_id": "v2",
+      "kind": "actual_request",
+      "messages_bytes": 30992,
+      "schema_bytes": 3139,
+      "registry_sha256": "890a9f0ebd452b2fdf147d0aa0a7855d2eb680f65f43ec8ba2b78fdf06ab00c8",
+      "all_original_values_restored": true,
+      "complete_fixed_script_readback": true
+    },
+    {
+      "case": "v2-slot-2-request-4",
+      "source_id": "v2",
+      "kind": "actual_request",
+      "messages_bytes": 31544,
+      "schema_bytes": 3139,
+      "registry_sha256": "890a9f0ebd452b2fdf147d0aa0a7855d2eb680f65f43ec8ba2b78fdf06ab00c8",
+      "all_original_values_restored": true,
+      "complete_fixed_script_readback": true
+    },
+    {
+      "case": "v2-slot-2-request-5",
+      "source_id": "v2",
+      "kind": "actual_request",
+      "messages_bytes": 32701,
+      "schema_bytes": 3139,
+      "registry_sha256": "890a9f0ebd452b2fdf147d0aa0a7855d2eb680f65f43ec8ba2b78fdf06ab00c8",
+      "all_original_values_restored": true,
+      "complete_fixed_script_readback": true
+    },
+    {
+      "case": "v2-slot-2-request-6",
+      "source_id": "v2",
+      "kind": "actual_request",
+      "messages_bytes": 32702,
+      "schema_bytes": 3139,
+      "registry_sha256": "890a9f0ebd452b2fdf147d0aa0a7855d2eb680f65f43ec8ba2b78fdf06ab00c8",
+      "all_original_values_restored": true,
+      "complete_fixed_script_readback": true
+    },
+    {
+      "case": "v2-slot-2-request-7",
+      "source_id": "v2",
+      "kind": "actual_request",
+      "messages_bytes": 31318,
+      "schema_bytes": 3139,
+      "registry_sha256": "890a9f0ebd452b2fdf147d0aa0a7855d2eb680f65f43ec8ba2b78fdf06ab00c8",
+      "all_original_values_restored": true,
+      "complete_fixed_script_readback": true
+    },
+    {
+      "case": "v2-slot-2-request-8",
+      "source_id": "v2",
+      "kind": "actual_request",
+      "messages_bytes": 33363,
+      "schema_bytes": 3139,
+      "registry_sha256": "890a9f0ebd452b2fdf147d0aa0a7855d2eb680f65f43ec8ba2b78fdf06ab00c8",
+      "all_original_values_restored": true,
+      "complete_fixed_script_readback": true
+    },
+    {
+      "case": "v2-slot-2-request-9",
+      "source_id": "v2",
+      "kind": "actual_request",
+      "messages_bytes": 31702,
+      "schema_bytes": 3139,
+      "registry_sha256": "890a9f0ebd452b2fdf147d0aa0a7855d2eb680f65f43ec8ba2b78fdf06ab00c8",
+      "all_original_values_restored": true,
+      "complete_fixed_script_readback": true
+    },
+    {
+      "case": "v2-slot-2-request-10",
+      "source_id": "v2",
+      "kind": "actual_request",
+      "messages_bytes": 30813,
+      "schema_bytes": 3139,
+      "registry_sha256": "890a9f0ebd452b2fdf147d0aa0a7855d2eb680f65f43ec8ba2b78fdf06ab00c8",
+      "all_original_values_restored": true,
+      "complete_fixed_script_readback": true
+    },
+    {
+      "case": "v2-slot-2-request-11",
+      "source_id": "v2",
+      "kind": "actual_request",
+      "messages_bytes": 31280,
+      "schema_bytes": 3139,
+      "registry_sha256": "890a9f0ebd452b2fdf147d0aa0a7855d2eb680f65f43ec8ba2b78fdf06ab00c8",
+      "all_original_values_restored": true,
+      "complete_fixed_script_readback": true
+    },
+    {
+      "case": "v2-slot-2-request-12",
+      "source_id": "v2",
+      "kind": "actual_request",
+      "messages_bytes": 33276,
+      "schema_bytes": 3139,
+      "registry_sha256": "890a9f0ebd452b2fdf147d0aa0a7855d2eb680f65f43ec8ba2b78fdf06ab00c8",
+      "all_original_values_restored": true,
+      "complete_fixed_script_readback": true
+    },
+    {
+      "case": "v2-slot-2-request-13",
+      "source_id": "v2",
+      "kind": "actual_request",
+      "messages_bytes": 33191,
+      "schema_bytes": 3139,
+      "registry_sha256": "890a9f0ebd452b2fdf147d0aa0a7855d2eb680f65f43ec8ba2b78fdf06ab00c8",
+      "all_original_values_restored": true,
+      "complete_fixed_script_readback": true
+    },
+    {
+      "case": "v2-slot-2-request-14",
+      "source_id": "v2",
+      "kind": "actual_request",
+      "messages_bytes": 34053,
+      "schema_bytes": 3139,
+      "registry_sha256": "890a9f0ebd452b2fdf147d0aa0a7855d2eb680f65f43ec8ba2b78fdf06ab00c8",
+      "all_original_values_restored": true,
+      "complete_fixed_script_readback": true
+    },
+    {
+      "case": "v2-slot-2-request-15",
+      "source_id": "v2",
+      "kind": "actual_request",
+      "messages_bytes": 33286,
+      "schema_bytes": 3139,
+      "registry_sha256": "890a9f0ebd452b2fdf147d0aa0a7855d2eb680f65f43ec8ba2b78fdf06ab00c8",
+      "all_original_values_restored": true,
+      "complete_fixed_script_readback": true
+    },
+    {
+      "case": "v2-slot-2-request-16",
+      "source_id": "v2",
+      "kind": "actual_request",
+      "messages_bytes": 32900,
+      "schema_bytes": 3139,
+      "registry_sha256": "890a9f0ebd452b2fdf147d0aa0a7855d2eb680f65f43ec8ba2b78fdf06ab00c8",
+      "all_original_values_restored": true,
+      "complete_fixed_script_readback": true
+    },
+    {
+      "case": "v2-slot-3-request-1",
+      "source_id": "v2",
+      "kind": "actual_request",
+      "messages_bytes": 24655,
+      "schema_bytes": 2437,
+      "registry_sha256": "890a9f0ebd452b2fdf147d0aa0a7855d2eb680f65f43ec8ba2b78fdf06ab00c8",
+      "all_original_values_restored": true,
+      "complete_fixed_script_readback": true
+    },
+    {
+      "case": "v2-slot-3-request-2",
+      "source_id": "v2",
+      "kind": "actual_request",
+      "messages_bytes": 26530,
+      "schema_bytes": 2437,
+      "registry_sha256": "890a9f0ebd452b2fdf147d0aa0a7855d2eb680f65f43ec8ba2b78fdf06ab00c8",
+      "all_original_values_restored": true,
+      "complete_fixed_script_readback": true
+    },
+    {
+      "case": "v2-slot-3-request-3",
+      "source_id": "v2",
+      "kind": "actual_request",
+      "messages_bytes": 29315,
+      "schema_bytes": 2437,
+      "registry_sha256": "890a9f0ebd452b2fdf147d0aa0a7855d2eb680f65f43ec8ba2b78fdf06ab00c8",
+      "all_original_values_restored": true,
+      "complete_fixed_script_readback": true
+    },
+    {
+      "case": "v2-slot-3-request-4",
+      "source_id": "v2",
+      "kind": "actual_request",
+      "messages_bytes": 32125,
+      "schema_bytes": 2437,
+      "registry_sha256": "890a9f0ebd452b2fdf147d0aa0a7855d2eb680f65f43ec8ba2b78fdf06ab00c8",
+      "all_original_values_restored": true,
+      "complete_fixed_script_readback": true
+    },
+    {
+      "case": "v2-slot-3-request-5",
+      "source_id": "v2",
+      "kind": "actual_request",
+      "messages_bytes": 26277,
+      "schema_bytes": 2437,
+      "registry_sha256": "890a9f0ebd452b2fdf147d0aa0a7855d2eb680f65f43ec8ba2b78fdf06ab00c8",
+      "all_original_values_restored": true,
+      "complete_fixed_script_readback": true
+    },
+    {
+      "case": "v2-slot-3-request-6",
+      "source_id": "v2",
+      "kind": "actual_request",
+      "messages_bytes": 29553,
+      "schema_bytes": 2437,
+      "registry_sha256": "890a9f0ebd452b2fdf147d0aa0a7855d2eb680f65f43ec8ba2b78fdf06ab00c8",
+      "all_original_values_restored": true,
+      "complete_fixed_script_readback": true
+    },
+    {
+      "case": "v2-slot-3-request-7",
+      "source_id": "v2",
+      "kind": "actual_request",
+      "messages_bytes": 28436,
+      "schema_bytes": 2437,
+      "registry_sha256": "890a9f0ebd452b2fdf147d0aa0a7855d2eb680f65f43ec8ba2b78fdf06ab00c8",
+      "all_original_values_restored": true,
+      "complete_fixed_script_readback": true
+    },
+    {
+      "case": "v2-slot-3-request-8",
+      "source_id": "v2",
+      "kind": "actual_request",
+      "messages_bytes": 29788,
+      "schema_bytes": 2437,
+      "registry_sha256": "890a9f0ebd452b2fdf147d0aa0a7855d2eb680f65f43ec8ba2b78fdf06ab00c8",
+      "all_original_values_restored": true,
+      "complete_fixed_script_readback": true
+    },
+    {
+      "case": "v2-slot-3-request-9",
+      "source_id": "v2",
+      "kind": "actual_request",
+      "messages_bytes": 33319,
+      "schema_bytes": 2437,
+      "registry_sha256": "890a9f0ebd452b2fdf147d0aa0a7855d2eb680f65f43ec8ba2b78fdf06ab00c8",
+      "all_original_values_restored": true,
+      "complete_fixed_script_readback": true
+    },
+    {
+      "case": "v2-slot-3-request-10",
+      "source_id": "v2",
+      "kind": "actual_request",
+      "messages_bytes": 30109,
+      "schema_bytes": 2437,
+      "registry_sha256": "890a9f0ebd452b2fdf147d0aa0a7855d2eb680f65f43ec8ba2b78fdf06ab00c8",
+      "all_original_values_restored": true,
+      "complete_fixed_script_readback": true
+    },
+    {
+      "case": "v2-slot-3-request-11",
+      "source_id": "v2",
+      "kind": "actual_request",
+      "messages_bytes": 31448,
+      "schema_bytes": 2437,
+      "registry_sha256": "890a9f0ebd452b2fdf147d0aa0a7855d2eb680f65f43ec8ba2b78fdf06ab00c8",
+      "all_original_values_restored": true,
+      "complete_fixed_script_readback": true
+    },
+    {
+      "case": "v2-slot-3-stopped",
+      "source_id": "v2",
+      "kind": "stopped_material",
+      "messages_bytes": 35374,
+      "schema_bytes": 2437,
+      "registry_sha256": "890a9f0ebd452b2fdf147d0aa0a7855d2eb680f65f43ec8ba2b78fdf06ab00c8",
+      "all_original_values_restored": true,
+      "complete_fixed_script_readback": true
+    },
+    {
+      "case": "v3-slot-1-request-1",
+      "source_id": "v3",
+      "kind": "actual_request",
+      "messages_bytes": 32823,
+      "schema_bytes": 3139,
+      "registry_sha256": "890a9f0ebd452b2fdf147d0aa0a7855d2eb680f65f43ec8ba2b78fdf06ab00c8",
+      "all_original_values_restored": true,
+      "complete_fixed_script_readback": true
+    },
+    {
+      "case": "v3-slot-1-stopped",
+      "source_id": "v3",
+      "kind": "stopped_material",
+      "messages_bytes": 38098,
+      "schema_bytes": 3139,
+      "registry_sha256": "890a9f0ebd452b2fdf147d0aa0a7855d2eb680f65f43ec8ba2b78fdf06ab00c8",
+      "all_original_values_restored": true,
+      "complete_fixed_script_readback": true
+    },
+    {
+      "case": "v3-slot-2-request-1",
+      "source_id": "v3",
+      "kind": "actual_request",
+      "messages_bytes": 24714,
+      "schema_bytes": 3139,
+      "registry_sha256": "890a9f0ebd452b2fdf147d0aa0a7855d2eb680f65f43ec8ba2b78fdf06ab00c8",
+      "all_original_values_restored": true,
+      "complete_fixed_script_readback": true
+    },
+    {
+      "case": "v3-slot-2-request-2",
+      "source_id": "v3",
+      "kind": "actual_request",
+      "messages_bytes": 26590,
+      "schema_bytes": 3139,
+      "registry_sha256": "890a9f0ebd452b2fdf147d0aa0a7855d2eb680f65f43ec8ba2b78fdf06ab00c8",
+      "all_original_values_restored": true,
+      "complete_fixed_script_readback": true
+    },
+    {
+      "case": "v3-slot-2-request-3",
+      "source_id": "v3",
+      "kind": "actual_request",
+      "messages_bytes": 31522,
+      "schema_bytes": 3139,
+      "registry_sha256": "890a9f0ebd452b2fdf147d0aa0a7855d2eb680f65f43ec8ba2b78fdf06ab00c8",
+      "all_original_values_restored": true,
+      "complete_fixed_script_readback": true
+    },
+    {
+      "case": "v3-slot-2-request-4",
+      "source_id": "v3",
+      "kind": "actual_request",
+      "messages_bytes": 33600,
+      "schema_bytes": 3139,
+      "registry_sha256": "890a9f0ebd452b2fdf147d0aa0a7855d2eb680f65f43ec8ba2b78fdf06ab00c8",
+      "all_original_values_restored": true,
+      "complete_fixed_script_readback": true
+    },
+    {
+      "case": "v3-slot-2-request-5",
+      "source_id": "v3",
+      "kind": "actual_request",
+      "messages_bytes": 32679,
+      "schema_bytes": 3139,
+      "registry_sha256": "890a9f0ebd452b2fdf147d0aa0a7855d2eb680f65f43ec8ba2b78fdf06ab00c8",
+      "all_original_values_restored": true,
+      "complete_fixed_script_readback": true
+    },
+    {
+      "case": "v3-slot-2-request-6",
+      "source_id": "v3",
+      "kind": "actual_request",
+      "messages_bytes": 33141,
+      "schema_bytes": 3139,
+      "registry_sha256": "890a9f0ebd452b2fdf147d0aa0a7855d2eb680f65f43ec8ba2b78fdf06ab00c8",
+      "all_original_values_restored": true,
+      "complete_fixed_script_readback": true
+    },
+    {
+      "case": "v3-slot-2-request-7",
+      "source_id": "v3",
+      "kind": "actual_request",
+      "messages_bytes": 35440,
+      "schema_bytes": 3139,
+      "registry_sha256": "890a9f0ebd452b2fdf147d0aa0a7855d2eb680f65f43ec8ba2b78fdf06ab00c8",
+      "all_original_values_restored": true,
+      "complete_fixed_script_readback": true
+    },
+    {
+      "case": "v3-slot-2-request-8",
+      "source_id": "v3",
+      "kind": "actual_request",
+      "messages_bytes": 33737,
+      "schema_bytes": 3139,
+      "registry_sha256": "890a9f0ebd452b2fdf147d0aa0a7855d2eb680f65f43ec8ba2b78fdf06ab00c8",
+      "all_original_values_restored": true,
+      "complete_fixed_script_readback": true
+    },
+    {
+      "case": "v3-slot-2-request-9",
+      "source_id": "v3",
+      "kind": "actual_request",
+      "messages_bytes": 35011,
+      "schema_bytes": 3139,
+      "registry_sha256": "890a9f0ebd452b2fdf147d0aa0a7855d2eb680f65f43ec8ba2b78fdf06ab00c8",
+      "all_original_values_restored": true,
+      "complete_fixed_script_readback": true
+    },
+    {
+      "case": "v3-slot-2-request-10",
+      "source_id": "v3",
+      "kind": "actual_request",
+      "messages_bytes": 32847,
+      "schema_bytes": 3139,
+      "registry_sha256": "890a9f0ebd452b2fdf147d0aa0a7855d2eb680f65f43ec8ba2b78fdf06ab00c8",
+      "all_original_values_restored": true,
+      "complete_fixed_script_readback": true
+    },
+    {
+      "case": "v3-slot-2-request-11",
+      "source_id": "v3",
+      "kind": "actual_request",
+      "messages_bytes": 31974,
+      "schema_bytes": 3139,
+      "registry_sha256": "890a9f0ebd452b2fdf147d0aa0a7855d2eb680f65f43ec8ba2b78fdf06ab00c8",
+      "all_original_values_restored": true,
+      "complete_fixed_script_readback": true
+    },
+    {
+      "case": "v3-slot-2-request-12",
+      "source_id": "v3",
+      "kind": "actual_request",
+      "messages_bytes": 33824,
+      "schema_bytes": 3139,
+      "registry_sha256": "890a9f0ebd452b2fdf147d0aa0a7855d2eb680f65f43ec8ba2b78fdf06ab00c8",
+      "all_original_values_restored": true,
+      "complete_fixed_script_readback": true
+    },
+    {
+      "case": "v3-slot-2-request-13",
+      "source_id": "v3",
+      "kind": "actual_request",
+      "messages_bytes": 32468,
+      "schema_bytes": 3139,
+      "registry_sha256": "890a9f0ebd452b2fdf147d0aa0a7855d2eb680f65f43ec8ba2b78fdf06ab00c8",
+      "all_original_values_restored": true,
+      "complete_fixed_script_readback": true
+    },
+    {
+      "case": "v3-slot-3-request-1",
+      "source_id": "v3",
+      "kind": "actual_request",
+      "messages_bytes": 24655,
+      "schema_bytes": 2437,
+      "registry_sha256": "890a9f0ebd452b2fdf147d0aa0a7855d2eb680f65f43ec8ba2b78fdf06ab00c8",
+      "all_original_values_restored": true,
+      "complete_fixed_script_readback": true
+    },
+    {
+      "case": "v3-slot-3-request-2",
+      "source_id": "v3",
+      "kind": "actual_request",
+      "messages_bytes": 26530,
+      "schema_bytes": 2437,
+      "registry_sha256": "890a9f0ebd452b2fdf147d0aa0a7855d2eb680f65f43ec8ba2b78fdf06ab00c8",
+      "all_original_values_restored": true,
+      "complete_fixed_script_readback": true
+    },
+    {
+      "case": "v3-slot-3-request-3",
+      "source_id": "v3",
+      "kind": "actual_request",
+      "messages_bytes": 29790,
+      "schema_bytes": 2437,
+      "registry_sha256": "890a9f0ebd452b2fdf147d0aa0a7855d2eb680f65f43ec8ba2b78fdf06ab00c8",
+      "all_original_values_restored": true,
+      "complete_fixed_script_readback": true
+    },
+    {
+      "case": "v3-slot-3-request-4",
+      "source_id": "v3",
+      "kind": "actual_request",
+      "messages_bytes": 31434,
+      "schema_bytes": 2437,
+      "registry_sha256": "890a9f0ebd452b2fdf147d0aa0a7855d2eb680f65f43ec8ba2b78fdf06ab00c8",
+      "all_original_values_restored": true,
+      "complete_fixed_script_readback": true
+    },
+    {
+      "case": "v3-slot-3-request-5",
+      "source_id": "v3",
+      "kind": "actual_request",
+      "messages_bytes": 32838,
+      "schema_bytes": 2437,
+      "registry_sha256": "890a9f0ebd452b2fdf147d0aa0a7855d2eb680f65f43ec8ba2b78fdf06ab00c8",
+      "all_original_values_restored": true,
+      "complete_fixed_script_readback": true
+    },
+    {
+      "case": "v3-slot-3-request-6",
+      "source_id": "v3",
+      "kind": "actual_request",
+      "messages_bytes": 32488,
+      "schema_bytes": 2437,
+      "registry_sha256": "890a9f0ebd452b2fdf147d0aa0a7855d2eb680f65f43ec8ba2b78fdf06ab00c8",
+      "all_original_values_restored": true,
+      "complete_fixed_script_readback": true
+    },
+    {
+      "case": "v3-slot-3-request-7",
+      "source_id": "v3",
+      "kind": "actual_request",
+      "messages_bytes": 34131,
+      "schema_bytes": 2437,
+      "registry_sha256": "890a9f0ebd452b2fdf147d0aa0a7855d2eb680f65f43ec8ba2b78fdf06ab00c8",
+      "all_original_values_restored": true,
+      "complete_fixed_script_readback": true
+    },
+    {
+      "case": "v3-slot-3-request-8",
+      "source_id": "v3",
+      "kind": "actual_request",
+      "messages_bytes": 32945,
+      "schema_bytes": 2437,
+      "registry_sha256": "890a9f0ebd452b2fdf147d0aa0a7855d2eb680f65f43ec8ba2b78fdf06ab00c8",
+      "all_original_values_restored": true,
+      "complete_fixed_script_readback": true
+    },
+    {
+      "case": "v3-slot-3-request-9",
+      "source_id": "v3",
+      "kind": "actual_request",
+      "messages_bytes": 34906,
+      "schema_bytes": 2437,
+      "registry_sha256": "890a9f0ebd452b2fdf147d0aa0a7855d2eb680f65f43ec8ba2b78fdf06ab00c8",
+      "all_original_values_restored": true,
+      "complete_fixed_script_readback": true
+    },
+    {
+      "case": "v3-slot-3-request-10",
+      "source_id": "v3",
+      "kind": "actual_request",
+      "messages_bytes": 32758,
+      "schema_bytes": 2437,
+      "registry_sha256": "890a9f0ebd452b2fdf147d0aa0a7855d2eb680f65f43ec8ba2b78fdf06ab00c8",
+      "all_original_values_restored": true,
+      "complete_fixed_script_readback": true
+    },
+    {
+      "case": "v3-slot-3-request-11",
+      "source_id": "v3",
+      "kind": "actual_request",
+      "messages_bytes": 35312,
+      "schema_bytes": 2437,
+      "registry_sha256": "890a9f0ebd452b2fdf147d0aa0a7855d2eb680f65f43ec8ba2b78fdf06ab00c8",
+      "all_original_values_restored": true,
+      "complete_fixed_script_readback": true
+    },
+    {
+      "case": "v3-slot-3-request-12",
+      "source_id": "v3",
+      "kind": "actual_request",
+      "messages_bytes": 34004,
+      "schema_bytes": 2437,
+      "registry_sha256": "890a9f0ebd452b2fdf147d0aa0a7855d2eb680f65f43ec8ba2b78fdf06ab00c8",
+      "all_original_values_restored": true,
+      "complete_fixed_script_readback": true
+    },
+    {
+      "case": "v3-slot-3-request-13",
+      "source_id": "v3",
+      "kind": "actual_request",
+      "messages_bytes": 31507,
+      "schema_bytes": 2437,
+      "registry_sha256": "890a9f0ebd452b2fdf147d0aa0a7855d2eb680f65f43ec8ba2b78fdf06ab00c8",
+      "all_original_values_restored": true,
+      "complete_fixed_script_readback": true
+    },
+    {
+      "case": "v3-slot-3-request-14",
+      "source_id": "v3",
+      "kind": "actual_request",
+      "messages_bytes": 33782,
+      "schema_bytes": 2437,
+      "registry_sha256": "890a9f0ebd452b2fdf147d0aa0a7855d2eb680f65f43ec8ba2b78fdf06ab00c8",
+      "all_original_values_restored": true,
+      "complete_fixed_script_readback": true
+    },
+    {
+      "case": "v3-slot-3-request-15",
+      "source_id": "v3",
+      "kind": "actual_request",
+      "messages_bytes": 31279,
+      "schema_bytes": 2437,
+      "registry_sha256": "890a9f0ebd452b2fdf147d0aa0a7855d2eb680f65f43ec8ba2b78fdf06ab00c8",
+      "all_original_values_restored": true,
+      "complete_fixed_script_readback": true
+    },
+    {
+      "case": "v3-slot-3-request-16",
+      "source_id": "v3",
+      "kind": "actual_request",
+      "messages_bytes": 34461,
+      "schema_bytes": 2437,
+      "registry_sha256": "890a9f0ebd452b2fdf147d0aa0a7855d2eb680f65f43ec8ba2b78fdf06ab00c8",
+      "all_original_values_restored": true,
+      "complete_fixed_script_readback": true
+    },
+    {
+      "case": "v3-slot-3-request-17",
+      "source_id": "v3",
+      "kind": "actual_request",
+      "messages_bytes": 31950,
+      "schema_bytes": 2437,
+      "registry_sha256": "890a9f0ebd452b2fdf147d0aa0a7855d2eb680f65f43ec8ba2b78fdf06ab00c8",
+      "all_original_values_restored": true,
+      "complete_fixed_script_readback": true
+    }
+  ],
+  "independent_audit": {
+    "path": "/home/yiwei/.codex/outputs/forge-rtorrent-real-session-2026-10-21/independent-contract-gate-audit.json",
+    "sha256": "7516c99f40cb5fa5d5326e7d621a32eb267fafcbc2475c023f3a76b4ef33615e"
+  },
+  "claim_boundary": "共同固定验证合同表示、全文取回与middleware资格，不是模型理解或完整新构建成功"
+}

@@ -1,6 +1,14 @@
 # Forge Research Status
 
-## 当前阶段（2026-10-22；#593真实v3已终结审计，#595合同引用资格待实施）
+## 当前阶段（2026-10-22；#595合同引用免费资格完成，#597独立真实canary待准备）
+
+基础设施/工程修复完成，0凭据/Provider/真实模型Token/费用/未知。cpp-build-rtorrent-fixed-contract-material-gate-v1固定v2全部28请求2停止包+v3全部31请求1停止包，62/62资格、0未观察。三策略共同read_fixed_contract及非执行SHA引用，真实middleware/usage0脚本handler下完整原task/current_plan/state/源码工作集/read_index/反馈/预算逐值还原；另逐段只读完整原脚本并核验SHA，不冒充模型主动读取。原50k/8k保持，最大消息38098。执行器仍持原全文，全部源码/测试/40生成SHA/双ELF/CLI/replay/cleanup裁判不改，本身份未新执行完整构建层，不当模型成功或工程版本因果效果；历史62例不保证任意未来准入。
+
+release5e7f553d31387f0ddeff5e9f8cbbaeab8f50dbc2，276组件，候选8a820e4d；raw forge-rtorrent-fixed-contract-material-gate-v1；inventoryc5bbad5e1e93b7ad72f5d978076cd84cd149388f51523cfabd19417880effbb0（694文件/0链接/21551437bytes）。独立stdlib两来源全量清单/逐输入SHA/Git组件/完整原脚本与原包还原/共同提示和工具/预算/材料门禁/零Token脚本生命周期审计valid。20新增/44相关回归、产品2506passed44skipped27warnings及Ruff/616格式/CLI通过。报告docs/research/2026-10-22-rtorrent-fixed-contract-material-results.md；派生benchmarks/analyses/cpp-build-rtorrent-fixed-contract-material-gate-v1-results.json；会话forge-rtorrent-real-session-2026-10-21保留收据。最终结果HEAD三CI后仅合依赖分支，发布以GitHub及final-contract-publication-audit.json为准。
+
+下一步#597冻结独立cpp-build-rtorrent-common-canary-v4，保持原三策略/模型/任务/资源/完整验收。新阶段拟cap4.50美元，原用户10美元/UTC2026-10-21T15:30:52–19:30:52四小时（准备计入）/请求不限/无自动重试；完整扣v2+v3名义1.67390784美元及原账本浮点尾数，最坏累计6.17390784<10，3900秒新槽/请求预留不降。真实两个旧闭合账本免费授权绑定检查及15新增授权草稿回归通过，尚未正式新候选或调用，不提前填结果。无活动Provider/Docker；RQ3/P2/主线/用户HTML不变；#593/PR594已合a5fd7cc2并关闭，知识库已完整核验。
+
+## 上一阶段（2026-10-22；#593真实v3已终结审计，#595合同引用资格待实施）
 
 真实数据采集与独立审计完成。cpp-build-rtorrent-common-canary-v3固定三策略各一次，3观察/0strict/0未观察槽；31真实请求、568231Token（输入530123/输出38108），保守估费0.85067004美元、未知0。工具Workflow1请求/$0.02423388后续材料超50k；模型Workflow13请求/$0.39892512未提交方案、40次read_source/13种参数/27重复后预算停止；强工具17请求/$0.42751104、23次read_source/8种参数/15重复后预算停止。三槽正式build均未执行，完整作者测试/交付/replay均未观察，不填功能失败；818作者文件与实际cleanup通过。单族已见development，不支持策略排名、规划净收益或主线无效。
 
