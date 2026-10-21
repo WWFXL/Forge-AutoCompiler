@@ -8,7 +8,7 @@
 
 实际bootstrap退出0；根configure退出1，明确报告 `Package 'libtorrent', required by 'virtual:world', not found`，同一日志的文件边界检查通过。Workflow从权威执行记录触发configure阶段交接。这建立了本任务通用单根模板的具体局限：它未安排仓库附带libtorrent源码依赖的构建/安装，而不是仅命令形式不符导致拒答。
 
-仅在交接后提供一次明确标记的脚本完整参考修订，revision2真实执行 `rm -f -- config.log` 成功，随后 `cd vendor-libtorrent && autoreconf -ivf` 被原生成SHA规则拒绝。日志显示libtoolize选择父目录 `..` 为辅助目录。独立对照四个生成文件：`vendor-libtorrent/{Makefile.in,src/Makefile.in,test/Makefile.in,configure}` 的辅助路径从本目录转到父目录（具体逐行diff在派生结果）。这支持生成顺序/既有父目录辅助文件影响实际输出的诊断；没有运行独立顺序反事实，因此不声称已完整定位因果或该差异导致功能错误。
+仅在交接后提供一次明确标记的脚本完整参考修订，revision2真实执行 `rm -f -- config.log` 成功，随后 `cd vendor-libtorrent && autoreconf -ivf` 被原生成SHA规则拒绝。日志显示libtoolize选择父目录 `..` 为辅助目录。独立对照四个生成文件：`vendor-libtorrent/{Makefile.in,src/Makefile.in,test/Makefile.in,src/torrent/Makefile.in}` 的辅助路径从本目录转到父目录（具体逐行diff在派生结果）。这支持生成顺序/既有父目录辅助文件影响实际输出的诊断；没有运行独立顺序反事实，因此不声称已完整定位因果或该差异导致功能错误。
 
 依赖bootstrap失败后第二次交接进入一次恢复门禁，被停止；只有一次agent.started和一次脚本响应，不存在第二次模型调用。首方案成功bootstrap未作为修订成功前缀保留，只保留共同源码准备，不主张增量恢复节省。
 
