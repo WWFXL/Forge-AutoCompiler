@@ -1,6 +1,12 @@
 # Forge Research Status
 
-## 当前阶段（2026-10-21；#575共同文件边界与三策略零Provider资格完成）
+## 当前阶段（2026-10-21；#577固定30项新任务合同材料采集）
+
+基础设施/样本准备，0Provider/模型凭据/费用/构建/Docker。承接B共同接口五槽资格，先冻结#571原30排名/精确commit和有界README、构建/测试入口、CI材料采集规则；当前未采集、未审阅，全部task_qualified=false，不是正式评估或holdout。材料按Git对象身份核验，一次空输出根，无自动重试/替换；源材料只作开发助手审阅，不注入实验Agent。完整来源图、实际完整测试/产物/replay仍须后续独立资格。
+
+下一步采集并独立审计，再按Linux真实端点/完整测试/依赖闭合及原排名登记参考资格候选；不按工具覆盖或策略效果选样。Issue577、协议cpp-build-prospective-task-source-screen-v1；用户HTML/旧证据/旧九槽/RQ3分母/主线不动，旧付费授权不续用，只在科研依赖分支发布。
+
+## 上一阶段（2026-10-21；#575共同文件边界与三策略零Provider资格完成）
 
 基础设施/工程资格完成，0Provider/凭据/模型Token/费用/未知用量。新共同B接口在已见libconfig上完成三策略正常及双Workflow受控恢复：独立cpp-build-generated-file-boundary-gate-v2五槽5/5strict、0未观察。原/replay均保护264原文件，仅预声明autoheader命令更新ac_config.h.in至独立核验SHA；完整作者8PASS+1上游XFAIL、tinytest16/16、原功能配置、精确两静态库/产物SHA一致及实际cleanup通过。两个恢复各实际build=false失败→revision2，保留准备/生成/configure命令ID，只重跑build后缀。
 
