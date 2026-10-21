@@ -1,6 +1,12 @@
 # Forge Research Status
 
-## 当前阶段（2026-10-21；#583 rtorrent三策略共同接口与恢复资格完成）
+## 当前阶段（2026-10-21；#585实际通用模板执行资格准备）
+
+本轮零Provider工程资格：新身份cpp-build-rtorrent-actual-template-gate-v1接纳已校准的-fi/-ivf生成形式，实际模板生成初始方案，不以人工参考替代。真实失败后仅允许一次明确标记的脚本参考恢复；初始模板拒答直接停止。仍保留818原文件/40生成SHA、完整12程序323叶、双普通ELF/CLI、clean replay和实际cleanup；精确增加标准configure的config.log新诊断输出及恢复清理。开发助手已见同一强关联项目族，非holdout，不新增真实模型能力或策略效果。
+
+协议/manifest冻结242组件；相关检查后提交独立运行release，再执行唯一槽，失败不重试/补槽、不回填旧身份。免费窗UTC09:50:30–11:50:30，2700秒准入、原/节点/replay各1200秒、cleanup120秒，凭据/Provider/真实Token/模型费用上限0，不续用旧paid。下一步以实际路由/失败记录决定公平canary准备；付费仍须新具体身份/有效预算时窗。用户HTML及旧RQ3/P2/主线不变。
+
+## 上一阶段（2026-10-21；#583 rtorrent三策略共同接口与恢复资格完成）
 
 基础设施/工程资格完成，0凭据/Provider/真实Token/模型费用。three-strategy-gate-v2三种正常路径strict；新独立recovery-interface-gate-v1两Workflow受控恢复2/2strict，均真实build=false→权威handoff→revision2，仅build改变，七个成功前缀原command_id保留。每个strict槽原/replay完整12原程序323叶、818原文件/40生成SHA、双ELF精确集合/类型/大小/SHA、CLI、源码索引/no HEAD及实际cleanup通过；不证明坏中间产物物理清理或自然恢复率。多个身份组合接线资格，不称单身份5/5、真实模型效果或holdout。
 

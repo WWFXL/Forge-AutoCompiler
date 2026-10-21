@@ -592,6 +592,11 @@
 
 ## 最近变更 (Recent Changes)
 
+- 2026-10-21 — #585准备实际工具模板独立零Provider资格
+  - 文件: `scripts/forge_build_rtorrent_template_gate.py`, `backend/tests/test_rtorrent_actual_template.py`, `benchmarks/manifests/cpp-build-rtorrent-actual-template-gate-v1.json`
+  - 动机: #583仅生成别名校准，不代表完整模板可执行。本轮初始必须实际通用模板、不得脚本回退；真实失败后最多一次脚本参考恢复。前瞻接纳-fi并只增加config.log诊断新文件权限/显式清理，818原文件/40输出SHA/完整323叶/精确双ELF/replay/cleanup不变。
+  - 边界: 免费UTC09:50:30–11:50:30、2700秒准入、原/节点/replay1200秒，0凭据/Provider/真实Token/模型费，无付费入口。242组件先提交再运行；失败/未观察保留、不补槽。仅合科研依赖分支，用户HTML不动。
+
 - 2026-10-21 — 完成 #583 rtorrent共同接口/受控恢复与生成形式校准
   - 文件: `backend/packages/harness/deerflow/compile/staged_verification.py`, `backend/packages/harness/deerflow/compile/recovery_text_factors.py`, `scripts/forge_build_rtorrent_*`, `docs/research/2026-10-21-rtorrent-three-strategy-interface-results.md`
   - 动机/证据: gate-v2三正常strict；recovery-v1双Workflow两恢复strict，真实false→revision2，七前缀command_id保留，仅build改变；原/replay均12程序323叶/818原文件/40生成SHA/双ELF/CLI/cleanup通过。恢复消息47353/47362、schema2725，原50k/8k不变，完整既有投影包逐字还原。release94253c06、inventory46bd8ba5，11882文件/28链接/4313990739bytes；全部独立audit valid。
