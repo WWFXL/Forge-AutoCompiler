@@ -4,6 +4,9 @@
 
 ## 进行中 (In Progress)
 
+- 2026-10-22 — #591免费多轮材料资格准备：scripts/forge_build_rtorrent_shared_values.py与material_gate.py，固定28真实请求+2停止材料/62来源文件/270组件，旧raw不改。14回归通过，完整检查中，正式30例尚未运行；原50k/8k及完整任务保持，0Provider/费用。#589最终HEAD0318434e三CI成功，PR590于UTC16:14:58合科研依赖分支9e42c000594bb214ac1e3293f164a428ab0ca394，Issue589关闭，知识库CAS/全读回/搜索已验证。原10美元/19:30:52截止/无自动重试，已花0.82323780美元，当前无活动Provider/Docker。
+
+
 
 
 
