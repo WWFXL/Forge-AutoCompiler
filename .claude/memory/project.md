@@ -4,6 +4,8 @@
 
 ## 进行中 (In Progress)
 
+- 2026-10-21 — #573用户已选择B，任务边界确认完成；新共同接口及真实项目零Provider资格尚待实现。三策略统一允许预声明标准生成物，作者源码/测试及构建语义输入保持，完整固定测试/精确交付/replay不变。以下A/B待决表述均为历史，不再索要相同确认；旧付费预算/窗口不续用，旧九槽不改。定义及夹具记录见`docs/research/2026-10-21-generated-file-boundary-b.md`。
+
 - 2026-10-21 — #571目录30/30元数据终结、0失败/未观察、0Provider/费/构建/Docker；30根Git树SHA及841跟踪文件暴露范围独立审计valid，有限精确名4命中/26未命中、全部task未资格/非holdout。raw forge-cxx-prospective-source-catalog-v1，inventory88e23ea1，release6a224591；发布通道为PR572→科研依赖分支；最终HEAD三CI及GitHub实际状态以会话发布收据为准。#568/PR570已合57e19085、568关闭；全部paid stage闭合，累计3.06569736美元/未知0，无活动实验。源码/生成文件边界A/B决策包已保存，B不自动实施。
 
 - 2026-10-21 — #571前瞻30项C++来源元数据目录准备；固定GitHub检索排名后只取精确commit/根tree，不读源码或构建，不按方法结果替换；0Provider/费用/Docker。单独source工作区、原UTC22:07:35截止，候选非构建资格/holdout，完整产品检查中。#568真实结果封存，PR570等待最终三CI，当前无活动Provider。
@@ -589,6 +591,10 @@
   - 下一步: 等待实验负责人确认当前网络接入介质，并决定是否授权只读 endpoint 诊断和新的 canary amendment；获得确认后必须另建中文 Issue/PR 和协议 identity，保留当前失败 marker。
 
 ## 最近变更 (Recent Changes)
+
+- 2026-10-21 — 固化用户选择B的生成文件任务边界并验证真实Autotools微型夹具。
+  - 文件: `docs/research/2026-10-21-generated-file-boundary-b.md`, `docs/research/2026-10-21-source-contract-scope-decision.md`, `RESEARCH_STATUS.md`。
+  - 动机: 接受正常bootstrap生成物，同时保护作者源码/测试/语义输入；0Provider/费用/Docker，原v1因调试目录使ELF哈希不同而失败保留，新v2预先固定编译参数后原/replay生成、测试、四项保护与四负例、ELF哈希均通过，清单逐项复核。仅基础设施可行性，未实现共享权限检查器，不能当真实项目/策略效果。Issue573及PR发布按实际GitHub核验，用户HTML不动。
 
 - 2026-10-21 — 发布#571前瞻来源目录和源码合同边界复核包。
   - 文件: `docs/research/2026-10-21-cxx-prospective-source-catalog-results.md`, `docs/research/2026-10-21-source-contract-scope-decision.md`, `benchmarks/analyses/cpp-build-cxx-prospective-source-catalog-v1-results.json`。
