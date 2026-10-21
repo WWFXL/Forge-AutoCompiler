@@ -1,0 +1,518 @@
+{
+  "identity": "cpp-build-rtorrent-three-strategy-qualification-results-v1",
+  "kind": "engineering_interface_qualification_not_treatment_effect",
+  "reference_identity": "cpp-build-rtorrent-reference-v5",
+  "coverage_qualified": true,
+  "coverage_statement": "三种正常路径来自gate-v2，两Workflow恢复来自新recovery-v1；多个独立身份组合资格，不是单身份5/5",
+  "identities": [
+    {
+      "identity": "cpp-build-rtorrent-three-strategy-gate-v1",
+      "strict_completed": 0,
+      "observed": 1,
+      "unobserved_schedule": [
+        {
+          "project": "rtorrent",
+          "method": "model_plan_workflow",
+          "case": "normal",
+          "repetition": 1
+        },
+        {
+          "project": "rtorrent",
+          "method": "strong_tool_agent",
+          "case": "normal",
+          "repetition": 1
+        },
+        {
+          "project": "rtorrent",
+          "method": "tool_plan_workflow",
+          "case": "controlled_recovery",
+          "repetition": 1
+        },
+        {
+          "project": "rtorrent",
+          "method": "model_plan_workflow",
+          "case": "controlled_recovery",
+          "repetition": 1
+        }
+      ],
+      "stop_reason": "qualification_failed",
+      "rows": [
+        {
+          "project": "rtorrent",
+          "method": "tool_plan_workflow",
+          "case": "normal",
+          "strict_completed": false,
+          "status": "stopped",
+          "session_status": "failed",
+          "error": "共同源码准备失败：停止于首次模型/模板操作之前",
+          "scripted_model_requests": 0,
+          "provider_requests": 0,
+          "recorded_tokens": 0,
+          "model_cost_usd": 0,
+          "commands": 1,
+          "original_command_seconds": 0.71534,
+          "programs_per_phase": [
+            0
+          ],
+          "leaves_per_phase": [
+            0
+          ],
+          "recovery": null,
+          "artifacts": [],
+          "cleanup_verified": true
+        }
+      ],
+      "release": "2064849ffb7e8d267a3cce76dab5137396011106",
+      "inventory": {
+        "format": "forge-typed-evidence-v1",
+        "identity": "cpp-build-rtorrent-three-strategy-gate-v1",
+        "entries": 1881,
+        "files": 1881,
+        "symlinks": 0,
+        "bytes": 15967400,
+        "inventory_canonical_sha256": "3dee8c8eff808a82f2186565ba2ffa17399844e302839c32d34524d70c456a38",
+        "unknown_usage_requests": 0
+      },
+      "evidence_root": "/home/yiwei/.codex/outputs/forge-rtorrent-three-strategy-gate-v1",
+      "independent_audit": "/home/yiwei/.codex/outputs/forge-rtorrent-interface-session-2026-10-21/independent-v1-audit.json"
+    },
+    {
+      "identity": "cpp-build-rtorrent-three-strategy-gate-v2",
+      "strict_completed": 3,
+      "observed": 4,
+      "unobserved_schedule": [
+        {
+          "project": "rtorrent",
+          "method": "model_plan_workflow",
+          "case": "controlled_recovery",
+          "repetition": 1
+        }
+      ],
+      "stop_reason": "qualification_failed",
+      "rows": [
+        {
+          "project": "rtorrent",
+          "method": "tool_plan_workflow",
+          "case": "normal",
+          "strict_completed": true,
+          "status": "verified",
+          "session_status": "completed",
+          "error": null,
+          "scripted_model_requests": 1,
+          "provider_requests": 0,
+          "recorded_tokens": 0,
+          "model_cost_usd": 0,
+          "commands": 11,
+          "original_command_seconds": 527.3955583292484,
+          "programs_per_phase": [
+            12,
+            12
+          ],
+          "leaves_per_phase": [
+            323,
+            323
+          ],
+          "recovery": null,
+          "artifacts": [
+            {
+              "path": "libtorrent.so.53",
+              "size": 36557648,
+              "sha256": "e1fb5e3cc780a0ab55c061876ae9b7f9590573516584184f38447f20bc845236",
+              "replay_identical": true
+            },
+            {
+              "path": "rtorrent",
+              "size": 45339592,
+              "sha256": "aa53e2cdeb02f8b525cea709bfa6a8411731bf5709a5fb10aca6ded3c7368c18",
+              "replay_identical": true
+            }
+          ],
+          "cleanup_verified": true
+        },
+        {
+          "project": "rtorrent",
+          "method": "model_plan_workflow",
+          "case": "normal",
+          "strict_completed": true,
+          "status": "verified",
+          "session_status": "completed",
+          "error": null,
+          "scripted_model_requests": 1,
+          "provider_requests": 0,
+          "recorded_tokens": 0,
+          "model_cost_usd": 0,
+          "commands": 11,
+          "original_command_seconds": 548.6902798466942,
+          "programs_per_phase": [
+            12,
+            12
+          ],
+          "leaves_per_phase": [
+            323,
+            323
+          ],
+          "recovery": null,
+          "artifacts": [
+            {
+              "path": "libtorrent.so.53",
+              "size": 36557648,
+              "sha256": "e1fb5e3cc780a0ab55c061876ae9b7f9590573516584184f38447f20bc845236",
+              "replay_identical": true
+            },
+            {
+              "path": "rtorrent",
+              "size": 45339592,
+              "sha256": "aa53e2cdeb02f8b525cea709bfa6a8411731bf5709a5fb10aca6ded3c7368c18",
+              "replay_identical": true
+            }
+          ],
+          "cleanup_verified": true
+        },
+        {
+          "project": "rtorrent",
+          "method": "strong_tool_agent",
+          "case": "normal",
+          "strict_completed": true,
+          "status": "verified",
+          "session_status": "completed",
+          "error": null,
+          "scripted_model_requests": 1,
+          "provider_requests": 0,
+          "recorded_tokens": 0,
+          "model_cost_usd": 0,
+          "commands": 11,
+          "original_command_seconds": 528.2110620000001,
+          "programs_per_phase": [
+            12,
+            12
+          ],
+          "leaves_per_phase": [
+            323,
+            323
+          ],
+          "recovery": null,
+          "artifacts": [
+            {
+              "path": "libtorrent.so.53",
+              "size": 36557648,
+              "sha256": "e1fb5e3cc780a0ab55c061876ae9b7f9590573516584184f38447f20bc845236",
+              "replay_identical": true
+            },
+            {
+              "path": "rtorrent",
+              "size": 45339592,
+              "sha256": "aa53e2cdeb02f8b525cea709bfa6a8411731bf5709a5fb10aca6ded3c7368c18",
+              "replay_identical": true
+            }
+          ],
+          "cleanup_verified": true
+        },
+        {
+          "project": "rtorrent",
+          "method": "tool_plan_workflow",
+          "case": "controlled_recovery",
+          "strict_completed": false,
+          "status": "stopped",
+          "session_status": "failed",
+          "error": "当前状态材料超过50000字节，不调用Provider",
+          "scripted_model_requests": 1,
+          "provider_requests": 0,
+          "recorded_tokens": 0,
+          "model_cost_usd": 0,
+          "commands": 8,
+          "original_command_seconds": 303.556429217782,
+          "programs_per_phase": [
+            0
+          ],
+          "leaves_per_phase": [
+            0
+          ],
+          "recovery": null,
+          "artifacts": [],
+          "cleanup_verified": true
+        }
+      ],
+      "release": "fa79b0df2663287436cd99e4826f9ac3177ea889",
+      "inventory": {
+        "format": "forge-typed-evidence-v1",
+        "identity": "cpp-build-rtorrent-three-strategy-gate-v2",
+        "entries": 20439,
+        "files": 20390,
+        "symlinks": 49,
+        "bytes": 6987939790,
+        "inventory_canonical_sha256": "1bdb253e5c58eb246231310e368d667ea7202073c75e11e8d708589da9a15717",
+        "unknown_usage_requests": 0
+      },
+      "evidence_root": "/home/yiwei/.codex/outputs/forge-rtorrent-three-strategy-gate-v2",
+      "independent_audit": "/home/yiwei/.codex/outputs/forge-rtorrent-interface-session-2026-10-21/independent-v2-audit.json"
+    },
+    {
+      "identity": "cpp-build-rtorrent-recovery-interface-gate-v1",
+      "strict_completed": 2,
+      "observed": 2,
+      "unobserved_schedule": [],
+      "stop_reason": null,
+      "rows": [
+        {
+          "project": "rtorrent",
+          "method": "tool_plan_workflow",
+          "case": "controlled_recovery",
+          "strict_completed": true,
+          "status": "verified",
+          "session_status": "completed",
+          "error": null,
+          "scripted_model_requests": 2,
+          "provider_requests": 0,
+          "recorded_tokens": 0,
+          "model_cost_usd": 0,
+          "commands": 12,
+          "original_command_seconds": 532.5307553526964,
+          "programs_per_phase": [
+            12,
+            12
+          ],
+          "leaves_per_phase": [
+            323,
+            323
+          ],
+          "recovery": {
+            "actual_failed_build": 1,
+            "revisions": 1,
+            "retained_prefix_commands": 7,
+            "successful_main_builds": 1,
+            "revised_event": {
+              "ts": "2026-10-21T08:56:21.841249+00:00",
+              "event": "plan.revised",
+              "session_id": "4bd1244dc343",
+              "thread_id": "plan-agent-canary",
+              "run_id": null,
+              "revision": 2,
+              "reason": "零Provider参考脚本，仅工程资格",
+              "retained_steps": [
+                "bootstrap-libtorrent",
+                "bootstrap-rtorrent",
+                "build-libtorrent",
+                "configure-libtorrent",
+                "configure-rtorrent",
+                "forge-source-prepare",
+                "install-libtorrent"
+              ]
+            }
+          },
+          "artifacts": [
+            {
+              "path": "libtorrent.so.53",
+              "size": 36557648,
+              "sha256": "e1fb5e3cc780a0ab55c061876ae9b7f9590573516584184f38447f20bc845236",
+              "replay_identical": true
+            },
+            {
+              "path": "rtorrent",
+              "size": 45339592,
+              "sha256": "aa53e2cdeb02f8b525cea709bfa6a8411731bf5709a5fb10aca6ded3c7368c18",
+              "replay_identical": true
+            }
+          ],
+          "cleanup_verified": true
+        },
+        {
+          "project": "rtorrent",
+          "method": "model_plan_workflow",
+          "case": "controlled_recovery",
+          "strict_completed": true,
+          "status": "verified",
+          "session_status": "completed",
+          "error": null,
+          "scripted_model_requests": 2,
+          "provider_requests": 0,
+          "recorded_tokens": 0,
+          "model_cost_usd": 0,
+          "commands": 12,
+          "original_command_seconds": 517.5549761774791,
+          "programs_per_phase": [
+            12,
+            12
+          ],
+          "leaves_per_phase": [
+            323,
+            323
+          ],
+          "recovery": {
+            "actual_failed_build": 1,
+            "revisions": 1,
+            "retained_prefix_commands": 7,
+            "successful_main_builds": 1,
+            "revised_event": {
+              "ts": "2026-10-21T09:14:56.693085+00:00",
+              "event": "plan.revised",
+              "session_id": "00920e662a28",
+              "thread_id": "plan-agent-canary",
+              "run_id": null,
+              "revision": 2,
+              "reason": "零Provider参考脚本，仅工程资格",
+              "retained_steps": [
+                "bootstrap-libtorrent",
+                "bootstrap-rtorrent",
+                "build-libtorrent",
+                "configure-libtorrent",
+                "configure-rtorrent",
+                "forge-source-prepare",
+                "install-libtorrent"
+              ]
+            }
+          },
+          "artifacts": [
+            {
+              "path": "libtorrent.so.53",
+              "size": 36557648,
+              "sha256": "e1fb5e3cc780a0ab55c061876ae9b7f9590573516584184f38447f20bc845236",
+              "replay_identical": true
+            },
+            {
+              "path": "rtorrent",
+              "size": 45339592,
+              "sha256": "aa53e2cdeb02f8b525cea709bfa6a8411731bf5709a5fb10aca6ded3c7368c18",
+              "replay_identical": true
+            }
+          ],
+          "cleanup_verified": true
+        }
+      ],
+      "release": "94253c061dd4063c3c25d42b50bb03048882eafb",
+      "inventory": {
+        "format": "forge-typed-evidence-v1",
+        "identity": "cpp-build-rtorrent-recovery-interface-gate-v1",
+        "entries": 11910,
+        "files": 11882,
+        "symlinks": 28,
+        "bytes": 4313990739,
+        "inventory_canonical_sha256": "46bd8ba50bf36e6d75b392f9d1b1dc561890afcd921fb04bb472b68a6fa580eb",
+        "unknown_usage_requests": 0
+      },
+      "evidence_root": "/home/yiwei/.codex/outputs/forge-rtorrent-recovery-interface-gate-v1",
+      "independent_audit": "/home/yiwei/.codex/outputs/forge-rtorrent-interface-session-2026-10-21/independent-recovery-audit.json"
+    }
+  ],
+  "provider_calls": 0,
+  "model_cost_usd": 0,
+  "initial_input_audit": {
+    "valid": true,
+    "actual_initial_materials_equal": true,
+    "normalization": [
+      "remaining_budget.node_seconds"
+    ],
+    "requests": [
+      {
+        "slot": 1,
+        "request_sha256": "1e1beef393b73c1d926e96c758e70c9c707e453cf3b6960b72c376b2aa224c58",
+        "messages_utf8_bytes": 45889,
+        "schema_utf8_bytes": 2725,
+        "restored_payload_sha256": "3cb9775c401a5ef49b5244137a2db401611c3300074ea346631672491548fca4",
+        "normalized_material_sha256": "b46e1356c5e966c464e99ecf48445315867380696c546323c110c3e65936936e"
+      },
+      {
+        "slot": 2,
+        "request_sha256": "f5cb156e07376bed2c9561b9b049e46b2f22691b9dfc0e1f29c57ffd928e9a19",
+        "messages_utf8_bytes": 45890,
+        "schema_utf8_bytes": 2725,
+        "restored_payload_sha256": "a5627c4cbaa882fd418fa9b0555ea6d73faa582b95bfb5cc97fab6f4fad0c9e4",
+        "normalized_material_sha256": "b46e1356c5e966c464e99ecf48445315867380696c546323c110c3e65936936e"
+      }
+    ],
+    "interpretation": "工具模板拒答后两者实际初始Agent输入一致，本任务不能归因省掉模型初始规划；未来随机结果差不构成模板收益"
+  },
+  "actual_recovery_materials_audit": {
+    "valid": true,
+    "kind": "independent_actual_request_roundtrip_audit",
+    "rows": [
+      {
+        "slot": 1,
+        "method": "tool_plan_workflow",
+        "requests": [
+          {
+            "request": "request-1.json",
+            "recovery": false,
+            "messages_bytes": 45890,
+            "schema_bytes": 2725,
+            "full_task_roundtrip": true,
+            "request_sha256": "03cd879bd0b0c42fe3c399f55e586f9ac4f6ddd8e44f7f9711c03f243d6390c9"
+          },
+          {
+            "request": "request-2.json",
+            "recovery": true,
+            "messages_bytes": 47353,
+            "schema_bytes": 2725,
+            "full_task_roundtrip": true,
+            "request_sha256": "1ac256bba5c43fb49a815bc3679405e258436c4188a8a95a11f7756673c1d186"
+          }
+        ]
+      },
+      {
+        "slot": 2,
+        "method": "model_plan_workflow",
+        "requests": [
+          {
+            "request": "request-1.json",
+            "recovery": false,
+            "messages_bytes": 45889,
+            "schema_bytes": 2725,
+            "full_task_roundtrip": true,
+            "request_sha256": "3716b75bb38eaa87ec9b510ba3b8b6d4e1ad9fd18137729bb28dfebdb0c71546"
+          },
+          {
+            "request": "request-2.json",
+            "recovery": true,
+            "messages_bytes": 47362,
+            "schema_bytes": 2725,
+            "full_task_roundtrip": true,
+            "request_sha256": "7bc78da07dc12f9e4efc4c389a4bf35331b54232f8e5bc6e96529dc6a61ffd5b"
+          }
+        ]
+      }
+    ],
+    "provider_calls": 0
+  },
+  "bootstrap_alias": {
+    "valid": true,
+    "qualified": true,
+    "inventory": {
+      "format": "forge-typed-evidence-v1",
+      "identity": "cpp-build-rtorrent-bootstrap-alias-qualification-v1",
+      "entries": 1988,
+      "files": 1988,
+      "symlinks": 0,
+      "bytes": 35572619,
+      "inventory_canonical_sha256": "954be4d2443d802c9fee1e452d49b26929b0bea3f8c2483a04b53b7d4cb19fcd",
+      "unknown_usage_requests": 0
+    },
+    "release": "dbe6d67a868e8034f8eccac2d46ceb134873bd0e",
+    "cases": [
+      {
+        "case": "fi",
+        "qualified": true,
+        "author_files_unchanged": 818,
+        "generated_outputs_observed": 40,
+        "actual_containers_absent": true
+      },
+      {
+        "case": "ivf",
+        "qualified": true,
+        "author_files_unchanged": 818,
+        "generated_outputs_observed": 40,
+        "actual_containers_absent": true
+      }
+    ],
+    "scope": "仅当前固定版本/镜像的标准生成内容一致，build/作者测试/交付/replay均not_observed；不回填原gate拒答",
+    "provider_calls": 0,
+    "evidence_root": "/home/yiwei/.codex/outputs/forge-rtorrent-bootstrap-alias-qualification-v1"
+  },
+  "limitations": [
+    "脚本响应仅资格，不证明真实Agent成本/成功率/恢复率或文本因子对真实模型理解无影响",
+    "false在主构建前退出，未验证已有坏中间产物的物理清理；旧libverto失败不变",
+    "rtorrent和源码libtorrent作为一个已见强关联项目族，非holdout",
+    "工具模板声明不匹配后升级，不能称本任务免费完成初始规划",
+    "fi/ivf即使同40生成SHA也不证明完整模板可构建源码依赖或可以省去模型",
+    "系统包冻结二进制镜像，不主张全部源码重建或跨主机复现",
+    "不回填旧失败/未观察，不改RQ3固定分母/P2/主线"
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "identity": "cpp-build-rtorrent-role-exposure-v1",
+  "frozen_utc": "2026-10-21T07:30:59.253248+00:00",
+  "checkout_base": "2eb367c05654fe79ad8404b7d71921d92543e837",
+  "family_group": [
+    "rtorrent",
+    "rakshasa-libtorrent"
+  ],
+  "family_reason": "同维护者、同版本、直接源码构建/链接依赖，保守作为一个强关联组",
+  "holdout": false,
+  "task_role": "seen_development_interface_qualification",
+  "developer_seen": [
+    "source catalog/screens/contracts",
+    "rtorrent reference-v1..v5 outcomes and complete recipes",
+    "libtorrent dependency root and 323 author test identities",
+    "offline template/bootstrap mismatch before this freeze"
+  ],
+  "strategy_roles": [
+    "tool_plan_workflow",
+    "model_plan_workflow",
+    "strong_tool_agent"
+  ],
+  "provider_outcomes_observed_before_freeze": false,
+  "scripted_reference_is_engineering_only": true,
+  "real_agent_context_rule": "正式模型不得读取人工参考/知识库/开发助手记录；固定任务、声明生成关系、原源码与实际日志三者共同可见",
+  "prior_paid_authorization_reused": false
+}
