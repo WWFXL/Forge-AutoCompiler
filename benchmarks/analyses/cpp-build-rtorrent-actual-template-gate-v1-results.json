@@ -1,0 +1,135 @@
+{
+  "valid": true,
+  "identity": "cpp-build-rtorrent-actual-template-gate-v1",
+  "release": "55c637f61d4725a70959147b3bd12deda33056f2",
+  "inventory_sha256": "cfbe2d431f815f0a8773c7fcf845544ea1e137474f4e59e1aaaaf8d74fbcb0a3",
+  "author_files_unchanged": 818,
+  "strict_completed": 0,
+  "observed": 1,
+  "unobserved": 0,
+  "provider_calls": 0,
+  "scripted_initial_requests": 0,
+  "scripted_recovery_requests": 1,
+  "recorded_tokens": 0,
+  "model_cost_usd": 0,
+  "unknown_usage": 0,
+  "commands": [
+    {
+      "command_id": "command_5a388c7e20c644bb9b1fec6d2e3fe4f9",
+      "command": "python3 -c 'from pathlib import Path\nimport subprocess\nassert str(Path.cwd())=='\"'\"'/workspace/repo'\"'\"', '\"'\"'准备目录必须是容器仓库根'\"'\"'\nassert not Path('\"'\"'.git'\"'\"').exists(), '\"'\"'归档源码不得包含既有Git身份'\"'\"'\nsubprocess.run(['\"'\"'git'\"'\"','\"'\"'init'\"'\"','\"'\"'-q'\"'\"'],check=True)\nsubprocess.run(['\"'\"'git'\"'\"','\"'\"'config'\"'\"','\"'\"'--global'\"'\"','\"'\"'--add'\"'\"','\"'\"'safe.directory'\"'\"','\"'\"'/workspace/repo'\"'\"'],check=True)\nsubprocess.run(['\"'\"'git'\"'\"','\"'\"'add'\"'\"','\"'\"'--force'\"'\"','\"'\"'--all'\"'\"'],check=True)\nimport hashlib,json,subprocess\nrows=subprocess.run(['\"'\"'git'\"'\"','\"'\"'ls-files'\"'\"','\"'\"'-z'\"'\"'],check=True,capture_output=True).stdout.decode().split('\"'\"'\\0'\"'\"')\nassert rows[-1]=='\"'\"''\"'\"', '\"'\"'Git索引输出不完整'\"'\"'\nnames=rows[:-1]\nactual=hashlib.sha256(json.dumps(sorted(names),ensure_ascii=True,separators=('\"'\"','\"'\"','\"'\"':'\"'\"')).encode()).hexdigest()\nassert actual=='\"'\"'e16d22ef1506d3bd751d382ee4e41c35c20f1137e81e0ac72993008a5c074f9f'\"'\"', '\"'\"'Git索引文件集合与固定原源码不同'\"'\"'\nassert subprocess.run(['\"'\"'git'\"'\"','\"'\"'rev-parse'\"'\"','\"'\"'--verify'\"'\"','\"'\"'HEAD'\"'\"'],capture_output=True).returncode!=0, '\"'\"'不允许伪造源码commit'\"'\"'\nprint('\"'\"'FORGE_SOURCE_INDEX_VERIFIED='\"'\"'+actual)\n'",
+      "role": "dependency",
+      "exit_code": 0,
+      "log_sha256": "d7292be64c2b30df4f3aba8fc4f0c4d0dcc841e2b81268e883132361b81dfa5f"
+    },
+    {
+      "command_id": "command_4013c1b4f2d14dd499367dcec53f176c",
+      "command": "autoreconf -fi",
+      "role": "configure",
+      "exit_code": 0,
+      "log_sha256": "02ccfa0b925d9673e46ab99fc8d5bb6f49f4306251f994525439e1e9af79946d"
+    },
+    {
+      "command_id": "command_ac733bb7fdbd4026a2ae8c879d9b79ac",
+      "command": "sh ./configure",
+      "role": "configure",
+      "exit_code": 1,
+      "log_sha256": "5a5c1f9e86a280a318925ecb1526c4adae6ce5a4cbc6d959dcb285409498cdf5"
+    },
+    {
+      "command_id": "command_32a9b4dd8409460f8b69c6558b1c79f7",
+      "command": "rm -f -- config.log",
+      "role": "dependency",
+      "exit_code": 0,
+      "log_sha256": "210ada5fd33d2a663c8717fc0d6c97b0f7ccb155b7b590a779dcdb439beacb9f"
+    },
+    {
+      "command_id": "command_52fd0d24d5794f77adf9cae2ba8e9252",
+      "command": "cd vendor-libtorrent && autoreconf -ivf",
+      "role": "dependency",
+      "exit_code": 1,
+      "log_sha256": "5d725796ebf2d5b642ccd0621b8d3488cbf1ae49430a1d328dcb8f00c2a86bbf"
+    }
+  ],
+  "generated_differences": [
+    {
+      "path": "vendor-libtorrent/Makefile.in",
+      "expected_sha256": "feae3d1566ba598f1b52ef8513811e92bbd8faf2c58028f03db70951860fa91a",
+      "actual_sha256": "92046863087d865dc489b1612d4bfcabeae7ed31d89f0069310a2cf8b947689b",
+      "unified_diff": "--- reference/vendor-libtorrent/Makefile.in\n+++ failed/vendor-libtorrent/Makefile.in\n@@ -197,8 +197,10 @@\n   done | $(am__uniquify_input)`\n DIST_SUBDIRS = $(SUBDIRS)\n am__DIST_COMMON = $(srcdir)/Makefile.in $(srcdir)/config.h.in \\\n-\t$(srcdir)/libtorrent.pc.in AUTHORS COPYING INSTALL README.md \\\n-\tcompile config.guess config.sub install-sh ltmain.sh missing\n+\t$(srcdir)/libtorrent.pc.in $(top_srcdir)/../compile \\\n+\t$(top_srcdir)/../config.guess $(top_srcdir)/../config.sub \\\n+\t$(top_srcdir)/../install-sh $(top_srcdir)/../ltmain.sh \\\n+\t$(top_srcdir)/../missing AUTHORS COPYING INSTALL README.md\n DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)\n distdir = $(PACKAGE)-$(VERSION)\n top_distdir = $(distdir)\n"
+    },
+    {
+      "path": "vendor-libtorrent/test/Makefile.in",
+      "expected_sha256": "0fb48f9aaf92ab9952f333d5d67359a677b36072e6527594d22c2b71fde0f365",
+      "actual_sha256": "4b94f0a6f9c5a882f25637bc23e6cb362a4291d5304462deda4e6b2fa7230607",
+      "unified_diff": "--- reference/vendor-libtorrent/test/Makefile.in\n+++ failed/vendor-libtorrent/test/Makefile.in\n@@ -345,7 +345,7 @@\n am__v_at_0 = @\n am__v_at_1 = \n DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)\n-depcomp = $(SHELL) $(top_srcdir)/depcomp\n+depcomp = $(SHELL) $(top_srcdir)/../depcomp\n am__maybe_remake_depfiles = depfiles\n am__depfiles_remade =  \\\n \t../src/data/$(DEPDIR)/LibTorrent_Test_Protocol-socket_file.Po \\\n@@ -574,7 +574,7 @@\n     std='\u001b[m'; \\\n   fi; \\\n }\n-am__DIST_COMMON = $(srcdir)/Makefile.in $(top_srcdir)/depcomp\n+am__DIST_COMMON = $(srcdir)/Makefile.in $(top_srcdir)/../depcomp\n DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)\n ACLOCAL = @ACLOCAL@\n AMTAR = @AMTAR@\n"
+    },
+    {
+      "path": "vendor-libtorrent/src/Makefile.in",
+      "expected_sha256": "928c4986c258a662f42e83a22c3316abf271ce99183613f4f4bc2bc2a0b2d4d6",
+      "actual_sha256": "3f8d7a257f0556417e70ebdf236d4b3467c3375859c8efe012dd3187895df663",
+      "unified_diff": "--- reference/vendor-libtorrent/src/Makefile.in\n+++ failed/vendor-libtorrent/src/Makefile.in\n@@ -199,7 +199,7 @@\n am__v_at_0 = @\n am__v_at_1 = \n DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)\n-depcomp = $(SHELL) $(top_srcdir)/depcomp\n+depcomp = $(SHELL) $(top_srcdir)/../depcomp\n am__maybe_remake_depfiles = depfiles\n am__depfiles_remade = ./$(DEPDIR)/manager.Plo \\\n \t./$(DEPDIR)/runtime_manager.Plo ./$(DEPDIR)/thread_main.Plo \\\n@@ -334,7 +334,7 @@\n     if test -f \"$$i\"; then echo $$i; else echo $(srcdir)/$$i; fi; \\\n   done | $(am__uniquify_input)`\n DIST_SUBDIRS = $(SUBDIRS)\n-am__DIST_COMMON = $(srcdir)/Makefile.in $(top_srcdir)/depcomp\n+am__DIST_COMMON = $(srcdir)/Makefile.in $(top_srcdir)/../depcomp\n DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)\n am__relativize = \\\n   dir0=`pwd`; \\\n"
+    },
+    {
+      "path": "vendor-libtorrent/src/torrent/Makefile.in",
+      "expected_sha256": "f4ed624c063a4a00e95c0b516c59c9e4ee13f0aeb6fa812e6cead271d66fa5b6",
+      "actual_sha256": "7e5a7f5c2a64d35e811eb4e447053faec106c3a4705f6bcf7cbe801aa45e07cd",
+      "unified_diff": "--- reference/vendor-libtorrent/src/torrent/Makefile.in\n+++ failed/vendor-libtorrent/src/torrent/Makefile.in\n@@ -166,7 +166,7 @@\n am__v_at_0 = @\n am__v_at_1 = \n DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)\n-depcomp = $(SHELL) $(top_srcdir)/depcomp\n+depcomp = $(SHELL) $(top_srcdir)/../depcomp\n am__maybe_remake_depfiles = depfiles\n am__depfiles_remade = ./$(DEPDIR)/bitfield.Plo \\\n \t./$(DEPDIR)/download.Plo ./$(DEPDIR)/exceptions.Plo \\\n@@ -320,7 +320,7 @@\n   unique=`for i in $$list; do \\\n     if test -f \"$$i\"; then echo $$i; else echo $(srcdir)/$$i; fi; \\\n   done | $(am__uniquify_input)`\n-am__DIST_COMMON = $(srcdir)/Makefile.in $(top_srcdir)/depcomp\n+am__DIST_COMMON = $(srcdir)/Makefile.in $(top_srcdir)/../depcomp\n DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)\n ACLOCAL = @ACLOCAL@\n AMTAR = @AMTAR@\n"
+    }
+  ],
+  "physical_config_log_removed": true,
+  "full_build": "not_observed",
+  "author_tests": "not_observed",
+  "delivery": "not_observed",
+  "replay": "not_observed",
+  "cleanup": {
+    "succeeded": true,
+    "stopped": true,
+    "removed": true
+  },
+  "containers": [
+    "33f94018ac0f432e6b3ca87761d5d80ffd17cb2477a5f56199eb846d3e1083a4",
+    "deerflow-compile-plan-age-71bb6f82"
+  ],
+  "raw_permission_failure_preserved": true,
+  "scope": "实际模板路由与失败/脚本恢复失败，未证明真实模型能力；未改变旧生成SHA边界",
+  "evidence_root": "/home/yiwei/.codex/outputs/forge-rtorrent-actual-template-gate-v1",
+  "kind": "engineering_qualification_not_method_effect",
+  "tracking_issue": 585,
+  "family_group": [
+    "rtorrent",
+    "rakshasa-libtorrent"
+  ],
+  "holdout": false,
+  "role": "development",
+  "decision": "stop_this_identity_before_full_build_preserve_failure_prepare_generation_order_qualification",
+  "interpretation": {
+    "supported": [
+      "实际工具模板初始0脚本响应并执行标准bootstrap",
+      "真实根configure因libtorrent缺失失败后触发权威交接",
+      "一次脚本恢复真实执行日志清理，但依赖生成出现四处辅助路径变化并被固定SHA拒绝",
+      "818原作者文件保持、实际容器清理完成"
+    ],
+    "not_supported": [
+      "真实Agent恢复能力",
+      "完整模板或恢复严格成功",
+      "自然恢复率或规划成本收益",
+      "该生成差异具有功能错误或不可构建性",
+      "原参考生成形式等价可跨顺序推广"
+    ]
+  },
+  "checks": {
+    "related_tests_passed": 27,
+    "product_passed": 2409,
+    "product_skipped": 44,
+    "product_warnings": 27,
+    "backend_lint": true,
+    "backend_format_files": 606
+  },
+  "failure_preservation": {
+    "initial_seal_failed": "PermissionError: root-owned generated config.guess with mode0600",
+    "readonly_root_capture": "原raw只读挂载，独立inventory/seal写到会话收据，再仅追加缺失的两份封存元数据；没有更改原作者/生成/日志/结果字节或权限",
+    "independent_first_audit_error": "误将第二次被门禁拒绝的路由事件当成第二次模型调用；修正审计后通过，原脚本/收据保留",
+    "no_retry": true
+  },
+  "next_step": "先新身份验证root-first生成关系/干净恢复配方及宿主身份绑定，再完整资格；不直接进入付费比较"
+}
