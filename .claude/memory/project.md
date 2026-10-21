@@ -4,7 +4,7 @@
 
 ## 进行中 (In Progress)
 
-- 2026-10-22 — #597真实v4已封存，exec67467终态0，不续跑。三观察/0strict/0未观察，55请求1013142Token/$1.59653472/未知0；工具17/模型17/强工具21请求，均48工具预算停止。强工具完成40生成SHA，三槽正式build/12程序323叶/交付/replay均未观察，818作者文件/cleanup通过。raw forge-rtorrent-common-canary-v4、inventory3c95b530、release456737d；主独立审计及三实际容器六ID/name资源审计valid。55请求单Human包/93读建议区间均已不在工作集的只读诊断不等于模型浪费或因果结论；#599已开，准备免费全三版会话连续性/50k容纳边界审计。原总10美元/UTC19:30:52/无自动重试不续期，三paid闭合名义累计3.27044256，原浮点尾数保留；18:25:52后无新请求。52相关/产品2521passed44skipped27warnings/Ruff617格式已过，最终HEAD三CI后只合依赖分支；发布真源GitHub/final-v4-publication-audit.json，知识库待CAS同步。无活动Provider/Docker，用户HTML/RQ3/P2保持。
+- 2026-10-22 — #599后验免费会话审计准备：固定v2/v3/v4全114实际请求/105后继转换及原inventory/独立审计SHA，候选0501dc39/8组件，先提交冻结再正式执行。10针对性/产品2531passed44skipped27warnings/Ruff610后端+新脚本格式/CLI通过，LangChain完整工具配对及既有DeepSeek原生序列化已离线核验。尚无新raw/Provider/费/构建；原总10美元/UTC19:30:52/无自动重试不续期，三paid闭合名义3.27044256。#597最终4a83af33三CI成功，PR598已合77ddef20、Issue597显式关闭、发布审计valid；知识库10d34c75完整CAS回读/搜索通过。RQ3/P2/用户HTML保持。
 
 
 
@@ -604,6 +604,8 @@
   - 下一步: 等待实验负责人确认当前网络接入介质，并决定是否授权只读 endpoint 诊断和新的 canary amendment；获得确认后必须另建中文 Issue/PR 和协议 identity，保留当前失败 marker。
 
 ## 最近变更 (Recent Changes)
+
+- 2026-10-22 — #597真实v4已封存，exec67467终态0，不续跑。三观察/0strict/0未观察，55请求1013142Token/$1.59653472/未知0；工具17/模型17/强工具21请求，均48工具预算停止。强工具完成40生成SHA，三槽正式build/12程序323叶/交付/replay均未观察，818作者文件/cleanup通过。raw forge-rtorrent-common-canary-v4、inventory3c95b530、release456737d；主独立审计及三实际容器六ID/name资源审计valid。55请求单Human包/93读建议区间均已不在工作集的只读诊断不等于模型浪费或因果结论；#599已开，准备免费全三版会话连续性/50k容纳边界审计。原总10美元/UTC19:30:52/无自动重试不续期，三paid闭合名义累计3.27044256，原浮点尾数保留；18:25:52后无新请求。52相关/产品2521passed44skipped27warnings/Ruff617格式已过，最终HEAD三CI后只合依赖分支；已合77ddef20/597关闭/final-v4-publication-audit valid，知识库10d34c75已同步。无活动Provider/Docker，用户HTML/RQ3/P2保持。
 
 - 2026-10-22 — 完成#595固定验证合同共同引用的62例免费资格
   - 文件: `scripts/forge_build_rtorrent_fixed_contract.py`, `scripts/forge_build_rtorrent_fixed_contract_material_gate.py`, `backend/tests/test_rtorrent_fixed_contract.py`, `docs/research/2026-10-22-rtorrent-fixed-contract-material-results.md`

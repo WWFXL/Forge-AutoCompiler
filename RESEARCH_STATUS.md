@@ -1,14 +1,20 @@
 # Forge Research Status
 
-## 当前阶段（2026-10-22；#597固定合同真实canary已封存，#599免费会话审计准备）
+## 当前阶段（2026-10-22；#599全三版请求免费会话连续性审计准备）
+
+结果分析准备，0新增Provider/模型Token/费用/构建。cpp-build-rtorrent-context-continuity-audit-v1固定已闭合v2/v3/v4全部114实际请求及来源inventory/独立审计SHA，候选0501dc39544ffcdde6e554503748b2c22f455f5962974055bd04a6aba2d80265、8组件。核验105后继转换的原AI/完整工具唯一配对与原生会话保留；按原50k口径测量原样追加完整上一轮的字节开销，不称实际发送或完整新接口资格。已明确为后验完整普查，不假称结果盲预注册。10针对性回归、产品2531passed44skipped27warnings、Ruff610后端及新脚本格式/CLI通过；尚未正式写新raw或填结果。
+
+成熟LangChain完整AI/Tool配对及现有DeepSeek reasoning_content序列化只读核验，后者离线占位测试通过；不调用摘要模型，不修改旧组件、v4失败或原验收。先冻结提交再正式审计/独立重算，完成后设计共享会话与证据保留资格，不盲目追加付费压缩版本。原总10美元/UTC19:30:52/无自动重试不续期；三paid已闭合名义3.27044256美元，无活动Provider/Docker，18:25:52后不发新请求。#597/PR598已合77ddef20并关闭、最终发布审计valid；知识库10d34c75完整CAS回读/搜索一致。RQ3/P2/主线/用户HTML保持。
+
+## 上一阶段（2026-10-22；#597固定合同真实canary已发布）
 
 真实数据采集与结果分析完成。cpp-build-rtorrent-common-canary-v4三槽均观察、0strict/0未观察，55真实请求/1013142Token/$1.59653472估费/未知0，三槽均48工具后AgentWorkflowBudgetExceeded，整批固定顺序正常结束。工具Workflow17请求/$0.43602504（初始规划0模型）；模型Workflow17请求/$0.57004728全在初始规划；强工具21请求/$0.59046240，完成40声明生成输出但尚未正式build。三槽完整测试/交付/replay均未观察，不能填功能失败；818作者文件及实际cleanup通过。
 
-release456737d9960d3810ac9fe819cab861d976abbdad，279组件；raw forge-rtorrent-common-canary-v4，inventory3c95b530dedda691bc1d7d665b176cc08abd522e5fa46307f72eaa277bd56674（5624文件/0链接/99579993bytes）。独立stdlib全量清单/Git父链/实际请求和完整原合同还原/系统提示工具/原响应逐Token费用/两旧账本/源码与未观察层审计valid；三实际容器/六ID-name资源清理审计valid。报告docs/research/2026-10-22-rtorrent-fixed-contract-canary-results.md，派生benchmarks/analyses/cpp-build-rtorrent-common-canary-v4-results.json；会话forge-rtorrent-real-session-2026-10-21保留全部收据。52相关回归、产品2521passed44skipped27warnings及Ruff617格式/CLI/真实旧费绑定检查已通过；最终结果HEAD三CI后只合科研依赖分支，实际发布以GitHub/final-v4-publication-audit.json为准。
+release456737d9960d3810ac9fe819cab861d976abbdad，279组件；raw forge-rtorrent-common-canary-v4，inventory3c95b530dedda691bc1d7d665b176cc08abd522e5fa46307f72eaa277bd56674（5624文件/0链接/99579993bytes）。独立stdlib全量清单/Git父链/实际请求和完整原合同还原/系统提示工具/原响应逐Token费用/两旧账本/源码与未观察层审计valid；三实际容器/六ID-name资源清理审计valid。报告docs/research/2026-10-22-rtorrent-fixed-contract-canary-results.md，派生benchmarks/analyses/cpp-build-rtorrent-common-canary-v4-results.json；会话forge-rtorrent-real-session-2026-10-21保留全部收据。52相关回归、产品2521passed44skipped27warnings及Ruff617格式/CLI/真实旧费绑定检查已通过；最终HEAD4a83af33三CI成功，PR598已合科研依赖分支77ddef2042935d27c75ed9535647d3a0dba10c4c、Issue597显式关闭，final-v4-publication-audit valid。
 
 事后只读解码：55请求全为单Human状态包，没有原生传回旧助手/完整工具配对；93次read_source建议的目标区间均未仍在源码工作集中（最近反馈可能含部分文本），不支持直接归因于模型浪费或据单族失败否定规划/硕士主线。下一步#599先固定v2/v3/v4全部真实请求，零Provider审计会话连续性与“原样追加完整上一轮”的50k容纳边界；不继续盲加压缩版本或提前称修复有效。单族已见development，各一次，不作总体/排名/因果/规划净收益。
 
-原用户总10美元/UTC2026-10-21T15:30:52–19:30:52（准备计入）/请求不限/无自动重试不延长；v2+v3+v4名义累计3.27044256美元，原账本3.27044256000000009、余额6.72955743999999991。三paid stage均已闭合，原3900秒新槽/请求预留保持；UTC18:25:52后不开始新模型请求。全部失败保留，不续跑/补槽，无活动Provider/Docker。#595/PR596已合27bd1d74并关闭，知识库8f2eafb9已核验；RQ3/P2/主线/用户HTML保持。
+原用户总10美元/UTC2026-10-21T15:30:52–19:30:52（准备计入）/请求不限/无自动重试不延长；v2+v3+v4名义累计3.27044256美元，原账本3.27044256000000009、余额6.72955743999999991。三paid stage均已闭合，原3900秒新槽/请求预留保持；UTC18:25:52后不开始新模型请求。全部失败保留，不续跑/补槽，无活动Provider/Docker。#595/PR596已合27bd1d74并关闭，知识库10d34c75完整回读/检索通过；RQ3/P2/主线/用户HTML保持。
 
 ## 上一阶段（2026-10-22；#595合同引用免费资格完成，#597独立真实canary待准备）
 

@@ -1,0 +1,56 @@
+{
+  "identity": "cpp-build-rtorrent-context-continuity-audit-v1",
+  "kind": "retrospective_complete_request_census",
+  "issue": 599,
+  "deadline_utc": "2026-10-21T19:30:52+00:00",
+  "max_new_provider_cost_usd": 0,
+  "sources": [
+    {
+      "identity": "cpp-build-rtorrent-common-canary-v2",
+      "root": "/home/yiwei/.codex/outputs/forge-rtorrent-common-canary-v2",
+      "inventory_sha256": "271bcecbd2d17abae1c5358beffcf43b54d223a62d228e20a5ca330599b0d2be",
+      "actual_requests": 28,
+      "independent_audit": {
+        "path": "/home/yiwei/.codex/outputs/forge-rtorrent-real-session-2026-10-21/independent-real-audit.json",
+        "sha256": "90c6876b5fc29fce5a0f228249538196d6b1991171988bc9c22fa2edff9ebcf4"
+      }
+    },
+    {
+      "identity": "cpp-build-rtorrent-common-canary-v3",
+      "root": "/home/yiwei/.codex/outputs/forge-rtorrent-common-canary-v3",
+      "inventory_sha256": "1f6a689afa36ca842fa7c2952622ec0e1e613a49368bbbff7282e1c43d9c0518",
+      "actual_requests": 31,
+      "independent_audit": {
+        "path": "/home/yiwei/.codex/outputs/forge-rtorrent-real-session-2026-10-21/independent-real-audit-v3.json",
+        "sha256": "8fbee71e15329c4869cfbd18dfa9bf9eae2b6de68c48b8659f2ef52e395748d5"
+      }
+    },
+    {
+      "identity": "cpp-build-rtorrent-common-canary-v4",
+      "root": "/home/yiwei/.codex/outputs/forge-rtorrent-common-canary-v4",
+      "inventory_sha256": "3c95b530dedda691bc1d7d665b176cc08abd522e5fa46307f72eaa277bd56674",
+      "actual_requests": 55,
+      "independent_audit": {
+        "path": "/home/yiwei/.codex/outputs/forge-rtorrent-real-session-2026-10-21/independent-real-audit-v4.json",
+        "sha256": "c9151a937b19cd522b62dcf16b83d529f9ae79463b988e8a53b33a86a1635df5"
+      }
+    }
+  ],
+  "reference_implementations": [
+    {
+      "path": "/home/yiwei/work/Forge-AutoCompiler/backend/.venv/lib/python3.12/site-packages/langchain/agents/middleware/summarization.py",
+      "sha256": "103b116a46e1aa19bfffef4091fdbeaf1008e7fbfdb052b9ccea997a6de76fb5",
+      "scope": "说明和_find_safe_cutoff_point，只读参考、不调用摘要模型"
+    }
+  ],
+  "components": {
+    "scripts/forge_build_context_continuity_audit.py": "16628f793c4f939f8f774e0a26b91612495b7a9784482137fd65f8b3c17ea197",
+    "scripts/forge_typed_evidence.py": "b3e798669389507dc605fcd73b2450921f0695bddccc564344fda88d5cb7a3c8",
+    "backend/tests/test_context_continuity_audit.py": "4707a914978681117e3288ce74969fd4ab193fdb6e5f93175acb9cd43b731448",
+    "backend/packages/harness/deerflow/compile/plan_agent_context.py": "2620ddcc50e7da228d7af19073719508b649a9d360f71a94baf15ecbefd2dc37",
+    "backend/packages/harness/deerflow/compile/plan_agent_canary.py": "13c238db9fe5f69543a17b6e95871723e1c790687cb028c281b200aab8a17b6c",
+    "backend/packages/harness/deerflow/models/patched_deepseek.py": "e313c1b141799e268d9cc8ff548e45a339bf68b5a3b4f3b8865b2f7fa218477b",
+    "backend/packages/harness/deerflow/compile/plan_agent_v2.py": "8fb37e15af7739c32ab00002076e284d5599710c34d11ae1623f6f23ca922bad",
+    "benchmarks/preregistrations/cpp-build-rtorrent-context-continuity-audit-v1.md": "2cc3948cfb8878407b18be67c7b4e63ecc7e250f3eb6e3a2d5a6ff18a5a5d529"
+  }
+}
