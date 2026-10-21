@@ -1,12 +1,16 @@
 # Forge Research Status
 
-## 当前阶段（2026-10-21；#587 v1材料失败已封存，进入全阶段编码v2资格）
+## 当前阶段（2026-10-21；#587共同三策略资格完成，真实canary待新授权）
 
-基础设施/零Provider工程资格。cpp-build-rtorrent-common-entry-gate-v1终态：工具实际模板缺依赖后一次脚本恢复strict，原/replay各12程序323叶/818源40生成/双ELF/cleanup通过；模型初始包超50k、0模型请求，第三强工具未观察。inventorye13e869b9de1ebe214b22bea8cfe2fb9b89daefcc001a919d81cf66ab74fc0ab；独立审计valid。旧成功/失败不回填、不拼分母。
+基础设施/零Provider工程资格完成。新独立cpp-build-rtorrent-common-entry-gate-v2为3/3strict、0未观察：工具实际通用模板configure真实缺libtorrent→一次脚本恢复；模型Workflow及强工具正常脚本方案。每槽原/replay各完整12原程序323叶、818原作者文件/40原生成SHA、双普通ELF精确集合/类型/大小/SHA、CLI、索引/no HEAD及实际cleanup均通过。原执行与验收/重放实际完成，不代表真实模型能力或规划收益。
 
-新独立common-entry-gate-v2将原可读可逆子串字典用于全部阶段，不伪造handoff、不删原任务/状态/测试、不提高50k/schema8k；同三槽从空源重新资格。完整任务/生成权限/验收保持。离线原失败初始包50665→34761编码字节、完整原包还原通过；不是实际请求或模型效果。实际冻结计量为400000累计/100000单响应、12请求/72steps/48tools/32commands；v1文字150000/50000笔误单独勘误、原文保留。
+运行release5895f35cf8005c3d223e26002f381d19e450a0c9，inventory591bf6cd7e1b6b63b714f84eb10f7f7dc9e20d90fc192f31485c4e37db82cc77（17713文件/42链接/6468842154bytes）。全量清单/Git组件/父链/实际材料逐字还原/测试叶/源码/生成/ELF独立审计valid；六新容器实际镜像/1010:1010/2CPU/禁网/临时Git配置核验通过，旧新18容器标识实际不存在。首版审计Docker错误文本大小写误拒绝的失败/修正收据保留。
 
-免费原UTC13:40–16:40不延长、每槽准入2700秒、原/replay各1200秒/cleanup120秒；0凭据/Provider/模型费。完成后冻结真实三策略canary候选（拟5美元/确认起3小时），只有共同资格和新具体授权通过才可读凭据/付费。旧RQ3/P2/主线/用户HTML不动。原失败/检查/审计在forge-rtorrent-common-session-2026-10-21；新入口common_v2.py/common_gate_v2.py。
+v1旧失败单列：1strict/2观察/1未观察，第二槽初始材料超50k在首次响应前拒绝、0模型请求；inventorye13e869b9de1ebe214b22bea8cfe2fb9b89daefcc001a919d81cf66ab74fc0ab。v2将既有可读可逆因子扩展全部阶段，未删任务/测试、未提高50k/8k，三槽新身份重新资格，不拼分母或回填。实际消息49283/40209/40149bytes；工具恢复工作集移出源码预览，另两槽保留README/configure.ac，不宣称动态请求逐字段相同。实际400k累计/100k单响应资源与v1文字笔误单独勘误，旧冻结文本不改。
+
+报告docs/research/2026-10-21-rtorrent-common-entry-results.md；派生benchmarks/analyses/cpp-build-rtorrent-common-entry-qualification-results-v1.json；raw forge-rtorrent-common-entry-gate-v1/v2；会话forge-rtorrent-common-session-2026-10-21。8入口/3材料/18canary新回归，产品2443passed44skipped27warnings、Ruff/612后端格式通过，历史pytest权限warning保留。本轮共4脚本响应，0凭据/Provider/真实Token/模型费/未知，全部运行已终态，免费原UTC13:40–16:40不延长。
+
+下一步候选cpp-build-rtorrent-common-canary-v1已冻结并实际CLI免费验证，SHA bcee5cad2a8f7bdc1a928925aa9cb9614665fa13fd5910b2af19e14bada0c4e8；同一个已见development族×三策略×一次。拟新5美元/确认起3小时，最多36请求/1.5M设计Token，全部初始/读取/失败/恢复费用计入，未知/cleanup/身份/资源异常停批，方法失败保留后继续固定槽、不补槽/重试。授权/截止目前null，旧paid不续用；待新明确授权才能读凭据。接受局部优势和取舍，不要求全胜。最终HEAD三CI后仅合科研依赖分支；发布真源为GitHub及final-publication-audit.json。旧RQ3/P2/主线/用户HTML不动。
 
 ## 上一阶段（2026-10-21；#585实际模板失败后精确重置恢复资格完成）
 

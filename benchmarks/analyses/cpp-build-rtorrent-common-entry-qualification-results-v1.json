@@ -1,0 +1,148 @@
+{
+  "identity": "cpp-build-rtorrent-common-entry-qualification-results-v1",
+  "kind": "zero_provider_engineering_qualification",
+  "issue": 587,
+  "attempts_separate_denominators": [
+    {
+      "identity": "cpp-build-rtorrent-common-entry-gate-v1",
+      "root": "/home/yiwei/.codex/outputs/forge-rtorrent-common-entry-gate-v1",
+      "release": "0c52fcbc475635f8b99212382019d7bf538fb95d",
+      "inventory": {
+        "format": "forge-typed-evidence-v1",
+        "identity": "cpp-build-rtorrent-common-entry-gate-v1",
+        "entries": 7747,
+        "files": 7733,
+        "symlinks": 14,
+        "bytes": 2172465838,
+        "inventory_canonical_sha256": "e13e869b9de1ebe214b22bea8cfe2fb9b89daefcc001a919d81cf66ab74fc0ab",
+        "unknown_usage_requests": 0
+      },
+      "strict_completed": 1,
+      "observed_slots": 2,
+      "unobserved_slots": 1,
+      "stop_reason": "qualification_failed",
+      "provider_calls": 0,
+      "new_model_cost_usd": 0
+    },
+    {
+      "identity": "cpp-build-rtorrent-common-entry-gate-v2",
+      "root": "/home/yiwei/.codex/outputs/forge-rtorrent-common-entry-gate-v2",
+      "release": "5895f35cf8005c3d223e26002f381d19e450a0c9",
+      "inventory": {
+        "format": "forge-typed-evidence-v1",
+        "identity": "cpp-build-rtorrent-common-entry-gate-v2",
+        "entries": 17755,
+        "files": 17713,
+        "symlinks": 42,
+        "bytes": 6468842154,
+        "inventory_canonical_sha256": "591bf6cd7e1b6b63b714f84eb10f7f7dc9e20d90fc192f31485c4e37db82cc77",
+        "unknown_usage_requests": 0
+      },
+      "strict_completed": 3,
+      "observed_slots": 3,
+      "unobserved_slots": 0,
+      "stop_reason": null,
+      "provider_calls": 0,
+      "new_model_cost_usd": 0
+    }
+  ],
+  "current_rows": [
+    {
+      "method": "tool_plan_workflow",
+      "strict_completed": true,
+      "scripted_responses": 1,
+      "actual_messages_bytes": 49283,
+      "actual_schema_bytes": 2725,
+      "actual_source_packet_paths": [],
+      "commands": 13,
+      "arm_total_wall_seconds": 1127.7486563040875,
+      "node_and_acceptance_seconds": 1117.8719111671671,
+      "replay_seconds": 550.335233,
+      "author_programs_per_execution": 12,
+      "leaf_tests_per_execution": 323,
+      "protected_author_files": 818,
+      "final_generated_files": 40,
+      "exact_delivery": [
+        "rtorrent",
+        "libtorrent.so.53"
+      ],
+      "provider_calls": 0,
+      "new_model_cost_usd": 0
+    },
+    {
+      "method": "model_plan_workflow",
+      "strict_completed": true,
+      "scripted_responses": 1,
+      "actual_messages_bytes": 40209,
+      "actual_schema_bytes": 2725,
+      "actual_source_packet_paths": [
+        "README.md",
+        "configure.ac"
+      ],
+      "commands": 11,
+      "arm_total_wall_seconds": 1092.2086163931526,
+      "node_and_acceptance_seconds": 1082.3057830929756,
+      "replay_seconds": 527.640319,
+      "author_programs_per_execution": 12,
+      "leaf_tests_per_execution": 323,
+      "protected_author_files": 818,
+      "final_generated_files": 40,
+      "exact_delivery": [
+        "rtorrent",
+        "libtorrent.so.53"
+      ],
+      "provider_calls": 0,
+      "new_model_cost_usd": 0
+    },
+    {
+      "method": "strong_tool_agent",
+      "strict_completed": true,
+      "scripted_responses": 1,
+      "actual_messages_bytes": 40149,
+      "actual_schema_bytes": 2023,
+      "actual_source_packet_paths": [
+        "README.md",
+        "configure.ac"
+      ],
+      "commands": 11,
+      "arm_total_wall_seconds": 1127.1730600506999,
+      "node_and_acceptance_seconds": 1117.380309258122,
+      "replay_seconds": 561.716536,
+      "author_programs_per_execution": 12,
+      "leaf_tests_per_execution": 323,
+      "protected_author_files": 818,
+      "final_generated_files": 40,
+      "exact_delivery": [
+        "rtorrent",
+        "libtorrent.so.53"
+      ],
+      "provider_calls": 0,
+      "new_model_cost_usd": 0
+    }
+  ],
+  "decision": "ready_for_rtorrent_common_canary_authorization",
+  "independent_audit": {
+    "path": "/home/yiwei/.codex/outputs/forge-rtorrent-common-session-2026-10-21/independent-common-audit.json",
+    "sha256": "fc8ecceec31229d2d0a3d6a4c36a3bbe90086e636d401860c3057452be4b7185"
+  },
+  "runtime_audit": {
+    "path": "/home/yiwei/.codex/outputs/forge-rtorrent-common-session-2026-10-21/final-runtime-cleanup-audit.json",
+    "sha256": "cef3531559c35f97b3868de150a06efc0559232d635ecd2ee9b496d3e4ab0586"
+  },
+  "provider_calls": 0,
+  "credentials_read": false,
+  "model_tokens": 0,
+  "new_model_cost_usd": 0,
+  "claims_supported": [
+    "共同三策略执行接口及实际请求大小/可逆材料资格",
+    "真实依赖失败后的脚本恢复闭环",
+    "每槽原/replay完整测试/源码/生成/精确交付/实际cleanup"
+  ],
+  "claims_not_supported": [
+    "真实模型修订能力",
+    "规划来源费用/成功率或时间优势",
+    "自然恢复率",
+    "holdout效果或总体模型排名",
+    "跨主机/架构复现"
+  ]
+}

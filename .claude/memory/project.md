@@ -592,6 +592,13 @@
 
 ## 最近变更 (Recent Changes)
 
+- 2026-10-21 — 完成#587共同三槽零Provider资格并冻结待授权真实canary。
+  - 文件: `scripts/forge_build_rtorrent_canary.py`, `backend/tests/test_rtorrent_canary.py`，同名canary manifest/preregistration、共同资格analysis/report、`RESEARCH_STATUS.md`。
+  - 新证据: 新v2独立3/3strict、0未观察，每槽原/replay完整12程序323叶/818源40生成SHA/双ELF/CLI/索引无HEAD/实际cleanup；工具实际configure缺libtorrent后一次脚本精确重置恢复，另两策略各一次正常初始脚本。release5895f35c、inventory591bf6cd（17713文件42链接6468842154bytes）。独立全量清单/Git父链/两层材料逐字还原/完整测试/交付及六新运行环境、旧新18容器标识不存在均valid。审计首版Docker错误小写识别误判原脚本/日志保留，新审计仅修正匹配大小写、raw未改。
+  - 保留/解释: 旧v1为1strict/2观察/1未观察，模型初始材料超50k在响应前拒绝、第三未观察，inventorye13e869b不改/不拼分母。v2不增50k/8k或删任务，将原可逆因子用于全部阶段；实际消息49283/40209/40149bytes，工具恢复预览被共同工作集移出、另两槽保留README/configure.ac，不能称动态请求逐字段相同。400k/100k实际资源与旧文字笔误独立勘误，0真实Token。只证明工程闭环，不证明真实模型/规划收益/自然恢复率/holdout/跨机器。
+  - 检查/后续: 8入口+3材料+18canary回归，产品2443passed44skipped27warnings及Ruff/612后端格式通过，历史pytest权限warning保留。真实候选SHA bcee5cad2a8f7bdc1a928925aa9cb9614665fa13fd5910b2af19e14bada0c4e8、实际--validate-only通过，无人工reference/recovery_actions。拟新5美元/确认起3小时/三策略一次；候选授权截止null，旧paid不复用，0凭据/Provider/费用/未知、全程4脚本响应、无活动构建。原免费UTC13:40–16:40不延长；最终HEAD三CI后仅合依赖分支，GitHub及会话final-publication-audit/知识库CAS收据为真源；旧RQ3/P2/主线/用户HTML不动。
+
+
 - 2026-10-21 — 保留#587 v1材料失败并冻结新全阶段编码v2资格。
   - 文件: `scripts/forge_build_rtorrent_common_v2.py`, `scripts/forge_build_rtorrent_common_gate_v2.py`，同名manifest/preregistration和材料回归。
   - 动机: v1第一槽strict、第二槽初始材料超50k/0模型请求、第三未观察，独立inventory e13e869b已封存；恢复专用因子未覆盖初始阶段。新v2同算法/格式扩展至所有真实阶段，不虚构handoff或删任务，原50k/8k不变。原失败包50665→34761编码字节完整还原通过。原UTC16:40截止不延长，新三槽重新资格；0Provider/费用，原证据不改。
