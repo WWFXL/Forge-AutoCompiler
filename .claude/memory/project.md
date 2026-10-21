@@ -592,6 +592,12 @@
 
 ## 最近变更 (Recent Changes)
 
+- 2026-10-21 — #585实际模板真实执行完成，恢复资格失败并保留
+  - 文件: `docs/research/2026-10-21-rtorrent-actual-template-results.md`, `benchmarks/analyses/cpp-build-rtorrent-actual-template-gate-v1-results.json`
+  - 证据: 初始实际模板0脚本/无拒答，autoreconf-fi成功、configure因libtorrent缺失失败且边界通过；一次脚本revision2清理config.log成功，依赖autoreconf-ivf选择父辅助目录，四个生成文件SHA偏离而拒绝，第二交接门禁停止（无第二响应）。1观察/0strict/0未观察槽，完整build/测试/交付/replay未观察。818原文件保持、实际cleanup通过，不推真实模型能力/模型必需/策略优劣。
+  - 封存: 原seal因root0600文件不可读失败；Docker只读raw采集清单/封存收据，仅追加缺失元数据，不改原文件字节/权限/结果/日志、不重跑。inventorycfbe2d431f815f0a8773c7fcf845544ea1e137474f4e59e1aaaaf8d74fbcb0a3，1962文件/29862397bytes，release55c637f6。独立审计初版路由/模型响应混淆失败保留，v2逐项清单/Git/父链/初始模板/五命令/818源码/生成diff/计量valid，宿主inspect均不存在。
+  - 验证: 27相关、产品2409passed44skipped27warnings、Ruff/606格式通过；历史pytest权限warning保留。会话forge-rtorrent-template-session-2026-10-21保存全部审计/发布/知识库CAS收据。0Provider/费用，原免费UTC11:50:30截止不延长、无活动构建；用户HTML不动。下一新身份先生成顺序资格与显式恢复/宿主UID-GID，再公平canary，旧RQ3/P2/主线不变。
+
 - 2026-10-21 — #585准备实际工具模板独立零Provider资格
   - 文件: `scripts/forge_build_rtorrent_template_gate.py`, `backend/tests/test_rtorrent_actual_template.py`, `benchmarks/manifests/cpp-build-rtorrent-actual-template-gate-v1.json`
   - 动机: #583仅生成别名校准，不代表完整模板可执行。本轮初始必须实际通用模板、不得脚本回退；真实失败后最多一次脚本参考恢复。前瞻接纳-fi并只增加config.log诊断新文件权限/显式清理，818原文件/40输出SHA/完整323叶/精确双ELF/replay/cleanup不变。

@@ -1,10 +1,14 @@
 # Forge Research Status
 
-## 当前阶段（2026-10-21；#585实际通用模板执行资格准备）
+## 当前阶段（2026-10-21；#585实际模板执行已观察，恢复资格未通过）
 
-本轮零Provider工程资格：新身份cpp-build-rtorrent-actual-template-gate-v1接纳已校准的-fi/-ivf生成形式，实际模板生成初始方案，不以人工参考替代。真实失败后仅允许一次明确标记的脚本参考恢复；初始模板拒答直接停止。仍保留818原文件/40生成SHA、完整12程序323叶、双普通ELF/CLI、clean replay和实际cleanup；精确增加标准configure的config.log新诊断输出及恢复清理。开发助手已见同一强关联项目族，非holdout，不新增真实模型能力或策略效果。
+零Provider工程资格cpp-build-rtorrent-actual-template-gate-v1已停止封存，1观察/0strict/0未观察槽。实际模板初始0脚本响应，无拒答，执行autoreconf-fi成功；根configure真实缺libtorrent>=0.16.25失败，文件边界通过，触发权威交接。一次脚本参考修订revision2，清理config.log成功；随后依赖autoreconf-ivf选择父辅助目录，四个生成文件偏离固定SHA而被拒绝。第二交接被一次恢复门禁阻止，0第二响应。不称模型必需/完整模板合格/真实Agent效果；完整build/12程序323叶/交付/replay均未观察。
 
-协议/manifest冻结242组件；相关检查后提交独立运行release，再执行唯一槽，失败不重试/补槽、不回填旧身份。免费窗UTC09:50:30–11:50:30，2700秒准入、原/节点/replay各1200秒、cleanup120秒，凭据/Provider/真实Token/模型费用上限0，不续用旧paid。下一步以实际路由/失败记录决定公平canary准备；付费仍须新具体身份/有效预算时窗。用户HTML及旧RQ3/P2/主线不变。
+818原作者文件保持、compile容器实际removed且独立inspect不存在；生成顺序差异不是已证实功能错误。原seal因root生成0600文件PermissionError失败；只读root采集完整inventory后仅追加缺失seal元数据，不改原文件/权限/日志/结果、未重跑。独立stdlib清单/Git组件/父参考/初始模板/五命令/计量/差异审计valid；首版审计误把第二路由当第二模型请求，失败实现与收据保留，raw未改。
+
+运行release55c637f61d4725a70959147b3bd12deda33056f2、242组件；inventorycfbe2d431f815f0a8773c7fcf845544ea1e137474f4e59e1aaaaf8d74fbcb0a3（1962文件/29862397bytes）。报告docs/research/2026-10-21-rtorrent-actual-template-results.md；派生benchmarks/analyses/cpp-build-rtorrent-actual-template-gate-v1-results.json；raw forge-rtorrent-actual-template-gate-v1；会话forge-rtorrent-template-session-2026-10-21保留原异常/审计/检查/发布与知识库收据。27相关回归、产品2409passed44skipped27warnings、Ruff/606文件格式通过。
+
+下一步先新免费身份独立验证root-first标准生成关系/顺序对照及显式恢复配方，再完整原测试/交付/replay资格；启动绑定宿主UID/GID。不能只改生成SHA裁判制造通过。之后才冻结公平真实canary/比较，付费需新具体身份/有效预算时窗。免费UTC09:50:30–11:50:30不延长，0凭据/Provider/真实Token/模型费，旧paid不续用，无活动构建。rtorrent+libtorrent仍已见强关联development组、非holdout；旧libconfig九槽/RQ3分母/P2/主线/用户HTML不变。最终HEAD三CI成功后仅合科研依赖分支，GitHub及final-publication-audit.json为发布真源。
 
 ## 上一阶段（2026-10-21；#583 rtorrent三策略共同接口与恢复资格完成）
 
