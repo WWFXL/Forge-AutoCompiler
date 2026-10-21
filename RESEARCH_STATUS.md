@@ -1,12 +1,14 @@
 # Forge Research Status
 
-## 当前阶段（2026-10-22；#597独立固定合同真实canary准备）
+## 当前阶段（2026-10-22；#597固定合同真实canary已封存，#599免费会话审计准备）
 
-真实数据采集准备。cpp-build-rtorrent-common-canary-v4候选8352b0a68437c93036fd1ce1a32410b35ae8b57820d65adcb2e3810a5232cbe2、279组件冻结；52授权/合同/相邻回归、产品2521passed44skipped27warnings及Ruff617格式、实际CLI/候选SHA/原授权和两个旧闭合账本免费校验通过。三策略共同ContractMeter/固定验证脚本非执行引用及只读全文工具，原已见development单族/任务/模型/资源/完整验收保持，旧v2/v3失败不补，不把不同工程版本当因果效果。尚未正式启动，不提前填模型或构建结果。
+真实数据采集与结果分析完成。cpp-build-rtorrent-common-canary-v4三槽均观察、0strict/0未观察，55真实请求/1013142Token/$1.59653472估费/未知0，三槽均48工具后AgentWorkflowBudgetExceeded，整批固定顺序正常结束。工具Workflow17请求/$0.43602504（初始规划0模型）；模型Workflow17请求/$0.57004728全在初始规划；强工具21请求/$0.59046240，完成40声明生成输出但尚未正式build。三槽完整测试/交付/replay均未观察，不能填功能失败；818作者文件及实际cleanup通过。
 
-新独立阶段cap4.50美元，绑定用户原总10美元/UTC2026-10-21T15:30:52–19:30:52四小时（准备计入）、请求不限/无自动重试；完整核验v2 0.82323780+v3原账本0.85067004000000006美元及各自原inventory/ledger，名义最坏累计6.17390784<10，原截止/3900秒新槽与请求预留不降。新v4-budget不改旧账本；未知/cleanup/身份/资源异常停整批，方法失败保留后继续固定下一槽。正式启动后HEAD及组件保持到封存，终态独立材料/原脚本/逐请求费用/源码分层/实际容器资源清理审计。
+release456737d9960d3810ac9fe819cab861d976abbdad，279组件；raw forge-rtorrent-common-canary-v4，inventory3c95b530dedda691bc1d7d665b176cc08abd522e5fa46307f72eaa277bd56674（5624文件/0链接/99579993bytes）。独立stdlib全量清单/Git父链/实际请求和完整原合同还原/系统提示工具/原响应逐Token费用/两旧账本/源码与未观察层审计valid；三实际容器/六ID-name资源清理审计valid。报告docs/research/2026-10-22-rtorrent-fixed-contract-canary-results.md，派生benchmarks/analyses/cpp-build-rtorrent-common-canary-v4-results.json；会话forge-rtorrent-real-session-2026-10-21保留全部收据。52相关回归、产品2521passed44skipped27warnings及Ruff617格式/CLI/真实旧费绑定检查已通过；最终结果HEAD三CI后只合科研依赖分支，实际发布以GitHub/final-v4-publication-audit.json为准。
 
-#595/PR596最终HEAD23ab8cfe三CI成功，已合科研依赖分支27bd1d74884cdc9b512d200c5d71fb4a0781beb3、Issue595关闭、final-contract-publication-audit valid；知识库SHA8f2eafb9完整回读/检索一致。62历史材料免费资格只支持局部接口，不保证所有未来准入或模型成功。无活动Provider/Docker；RQ3/P2/主线/用户HTML保持。
+事后只读解码：55请求全为单Human状态包，没有原生传回旧助手/完整工具配对；93次read_source建议的目标区间均未仍在源码工作集中（最近反馈可能含部分文本），不支持直接归因于模型浪费或据单族失败否定规划/硕士主线。下一步#599先固定v2/v3/v4全部真实请求，零Provider审计会话连续性与“原样追加完整上一轮”的50k容纳边界；不继续盲加压缩版本或提前称修复有效。单族已见development，各一次，不作总体/排名/因果/规划净收益。
+
+原用户总10美元/UTC2026-10-21T15:30:52–19:30:52（准备计入）/请求不限/无自动重试不延长；v2+v3+v4名义累计3.27044256美元，原账本3.27044256000000009、余额6.72955743999999991。三paid stage均已闭合，原3900秒新槽/请求预留保持；UTC18:25:52后不开始新模型请求。全部失败保留，不续跑/补槽，无活动Provider/Docker。#595/PR596已合27bd1d74并关闭，知识库8f2eafb9已核验；RQ3/P2/主线/用户HTML保持。
 
 ## 上一阶段（2026-10-22；#595合同引用免费资格完成，#597独立真实canary待准备）
 
