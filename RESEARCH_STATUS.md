@@ -1,6 +1,14 @@
 # Forge Research Status
 
-## 当前阶段（2026-10-21；#577固定30项新任务合同材料审阅完成）
+## 当前阶段（2026-10-21；#579五项根源码/任务义务与同版本依赖复核完成）
+
+数据采集/静态合同分析及工程解析修复完成，0Provider/模型凭据/Token/费用/上游构建。固定9/10/14/21/30五项均观察：4根归档通过、Yosys1失败、0未观察；全部task/contract未资格、build not_observed。Yosys仅.gitcommit export-subst差异，原失败不改判且8gitlink未闭合。独立503树/7003blob审计valid。raw forge-prospective-task-contract-sources-v1，inventory4e439bbc，release d5764567；49处原文及逐项义务在benchmarks/analyses/cpp-build-prospective-task-contract-sources-v1-results.json，报告docs/research/2026-10-21-prospective-task-contract-results.md。
+
+rtorrent同版本libtorrent精确commit c395f0af3924bb4c8514cfa3b0c46c78787ddc64、实际0.16.25。依赖source-v1误拒合法双层M4引用，保留inventory0e729614失败，不能解释成上游版本不匹配；新离线recheck-v2零网络复核通过，inventorya1bf9d7a、40树/493blob独立审计valid。只是依赖根来源，不是系统依赖图/完整任务合格。Dobby缺头路径/native平台假设、ArrayFire移动依赖/数据、IWYU精确Clang、Yosyscanonical源图等仍待解，不填未运行功能失败。
+
+下一步优先为rtorrent固定系统依赖/镜像/完整三测试/生成关系/精确交付与资源，再另建零Provider参考构建→原测试→源码保护→同镜像clean replay→cleanup身份；本轮没有参考执行。其他25项仍pending、不补位。新26针对性/产品2348passed44skipped27warnings及Ruff验证，收据在forge-task-contract-session-2026-10-21。最终HEAD三CI后仅合科研依赖分支，实际发布以GitHub/会话final-publication-audit为准。材料仅开发助手暴露、不注入Agent/不称holdout；用户B已定不再询问，旧九槽/RQ3/P2/主线/用户HTML保持。无活动Provider/构建，原免费截止不延长，旧paid不续用；未来付费需新有效预算/时窗。
+
+## 上一阶段（2026-10-21；#577固定30项新任务合同材料审阅完成）
 
 样本准备/只读数据采集与静态分析完成，0Provider/模型凭据/Token/费用/构建/Docker。cpp-build-prospective-task-source-screen-v1保持原30排名/精确commit，30/30采集、0失败/未观察，120材料路径；Matplot++ README351588字节超过262144上限，明确未读取。独立stdlib清单及真实Git mktree/hash-object审计82树/120blob、父链/路径/组件/规则valid；359文件/2715186bytes，inventory2facd675892ed07d7e98043a387e1e21c8e5956f0910f3d52a7f757bc050b967，release d5c354647ddb1a8dfdd00fda244680c4abad2279。首审计序列化比较错误保留，原raw未改。新增6项/产品2322passed44skipped27warnings/Ruff通过。
 

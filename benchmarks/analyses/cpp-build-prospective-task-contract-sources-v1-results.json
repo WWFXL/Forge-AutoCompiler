@@ -1,0 +1,691 @@
+{
+  "identity": "cpp-build-prospective-task-contract-sources-v1-derived-contracts",
+  "classification": "source_collection_and_static_contract_analysis",
+  "parent_inventory_sha256": "4e439bbc667c7c6e48fc5026678b20fe96fc29fc7c9d4d52fe492b1d7474dbbc",
+  "rows": [
+    {
+      "rank": 9,
+      "repository": "arrayfire/arrayfire",
+      "commit_sha": "ab4a5063c92512dd65ab2b418cf81e4b3c46299b",
+      "root_tree_sha": "c56aaecaedf8bcea43f12ea65a4992c3d287bcdd",
+      "task_qualified": false,
+      "holdout": false,
+      "build_result": "not_observed",
+      "role": "development_contract_review_only",
+      "root_archive_verified": true,
+      "root_blobs": 2085,
+      "root_subtrees": 67,
+      "gitlinks": [],
+      "dependency_graph_complete": false,
+      "archive_sha256": "d79bcdc02045506a55358603c9a9e718cdc82c0056df8652ede852f334494d75",
+      "archive_bytes": 2009260,
+      "uncompressed_bytes": 11360695,
+      "source_status": "observed",
+      "contract": {
+        "product": "CPU afcpu主库；需结果前明确是否包含unified及共享/静态交付集合",
+        "tests": "完整已选后端作者测试与数据；不能用AF_SKIP_UNSUPPORTED_TESTS消除失败",
+        "blockers": [
+          "CPU及unified范围须事前定义",
+          "threads/glad/span-lite/spdlog/assets/GTest及测试数据完整固定来源；main/master/短ref不能充当精确身份",
+          "FFTW/CBLAS/LAPACKE/FreeImage等系统包、资源与完整测试计数未固定"
+        ]
+      },
+      "citations": [
+        {
+          "path": "CMakeLists.txt",
+          "start_line": 73,
+          "end_line": 97,
+          "quote": "find_package(FreeImage)\nfind_package(Threads)\nfind_package(FFTW)\nfind_package(CBLAS)\nfind_package(LAPACKE)\nfind_package(Doxygen)\nfind_package(AF_MKL)\nfind_package(spdlog QUIET ${AF_REQUIRED} NO_CMAKE_PACKAGE_REGISTRY)\nfind_package(fmt QUIET ${AF_REQUIRED})\nfind_package(span-lite QUIET)\nfind_package(GTest)\nfind_package(CLBlast QUIET)\nfind_package(Boost 1.70 ${AF_REQUIRED})\n\n# CLFFT used in ArrayFire requires a specific fork\n#find_package(clFFT QUIET)\n\ninclude(boost_package)\ninclude(config_ccache)\n\noption(AF_BUILD_CPU      \"Build ArrayFire with a CPU backend\"        ON)\noption(AF_BUILD_CUDA     \"Build ArrayFire with a CUDA backend\"       ${CUDA_FOUND})\noption(AF_BUILD_OPENCL   \"Build ArrayFire with a OpenCL backend\"     ${OpenCL_FOUND})\noption(AF_BUILD_ONEAPI   \"Build ArrayFire with a oneAPI backend\"     OFF)\noption(AF_BUILD_UNIFIED  \"Build Backend-Independent ArrayFire API\"   ON)",
+          "git_blob_sha": "21bc48d39eaf28c477ee87e9c5b6ed2d31ef892d",
+          "archive_blob_sha": "21bc48d39eaf28c477ee87e9c5b6ed2d31ef892d",
+          "archive_matches_git": true,
+          "file_sha256": "bceef8e16277eba08a24e7b3884b6ddd801411859bf63b2fd6932c083109a916"
+        },
+        {
+          "path": "CMakeLists.txt",
+          "start_line": 270,
+          "end_line": 273,
+          "quote": "  add_library(af_spdlog INTERFACE)\n  af_dep_check_and_populate(${spdlog_prefix}\n    URI https://github.com/gabime/spdlog.git\n    REF v1.9.2",
+          "git_blob_sha": "21bc48d39eaf28c477ee87e9c5b6ed2d31ef892d",
+          "archive_blob_sha": "21bc48d39eaf28c477ee87e9c5b6ed2d31ef892d",
+          "archive_matches_git": true,
+          "file_sha256": "bceef8e16277eba08a24e7b3884b6ddd801411859bf63b2fd6932c083109a916"
+        },
+        {
+          "path": "CMakeLists.txt",
+          "start_line": 300,
+          "end_line": 303,
+          "quote": "if(NOT TARGET glad::glad)\n  af_dep_check_and_populate(${glad_prefix}\n    URI https://github.com/arrayfire/glad.git\n    REF main",
+          "git_blob_sha": "21bc48d39eaf28c477ee87e9c5b6ed2d31ef892d",
+          "archive_blob_sha": "21bc48d39eaf28c477ee87e9c5b6ed2d31ef892d",
+          "archive_matches_git": true,
+          "file_sha256": "bceef8e16277eba08a24e7b3884b6ddd801411859bf63b2fd6932c083109a916"
+        },
+        {
+          "path": "CMakeLists.txt",
+          "start_line": 314,
+          "end_line": 317,
+          "quote": "if(NOT TARGET nonstd::span-lite)\n  af_dep_check_and_populate(span-lite\n    URI https://github.com/martinmoene/span-lite\n    REF \"ccf2351\"",
+          "git_blob_sha": "21bc48d39eaf28c477ee87e9c5b6ed2d31ef892d",
+          "archive_blob_sha": "21bc48d39eaf28c477ee87e9c5b6ed2d31ef892d",
+          "archive_matches_git": true,
+          "file_sha256": "bceef8e16277eba08a24e7b3884b6ddd801411859bf63b2fd6932c083109a916"
+        },
+        {
+          "path": "CMakeLists.txt",
+          "start_line": 329,
+          "end_line": 332,
+          "quote": "\naf_dep_check_and_populate(${assets_prefix}\n  URI https://github.com/arrayfire/assets.git\n  REF master",
+          "git_blob_sha": "21bc48d39eaf28c477ee87e9c5b6ed2d31ef892d",
+          "archive_blob_sha": "21bc48d39eaf28c477ee87e9c5b6ed2d31ef892d",
+          "archive_matches_git": true,
+          "file_sha256": "bceef8e16277eba08a24e7b3884b6ddd801411859bf63b2fd6932c083109a916"
+        },
+        {
+          "path": "CMakeLists.txt",
+          "start_line": 666,
+          "end_line": 668,
+          "quote": "conditional_directory(BUILD_TESTING test)\n\nconditional_directory(AF_BUILD_EXAMPLES examples)",
+          "git_blob_sha": "21bc48d39eaf28c477ee87e9c5b6ed2d31ef892d",
+          "archive_blob_sha": "21bc48d39eaf28c477ee87e9c5b6ed2d31ef892d",
+          "archive_matches_git": true,
+          "file_sha256": "bceef8e16277eba08a24e7b3884b6ddd801411859bf63b2fd6932c083109a916"
+        },
+        {
+          "path": "src/backend/cpu/CMakeLists.txt",
+          "start_line": 15,
+          "end_line": 17,
+          "quote": "add_library(afcpu \"\")\nadd_library(ArrayFire::afcpu ALIAS afcpu)\n",
+          "git_blob_sha": "8a83a55894f368e780e6f7bab30722c180fcc136",
+          "archive_blob_sha": "8a83a55894f368e780e6f7bab30722c180fcc136",
+          "archive_matches_git": true,
+          "file_sha256": "06a9e2f9c945ce1b5a104ebc7d70210b2b9b6e1f2601bb05c63c5360709a948b"
+        },
+        {
+          "path": "src/backend/cpu/CMakeLists.txt",
+          "start_line": 278,
+          "end_line": 283,
+          "quote": "\naf_dep_check_and_populate(${threads_prefix}\n  URI https://github.com/arrayfire/threads.git\n  REF 4d4a4f0384d1ac2f25b2c4fc1d57b9e25f4d6818\n)\n",
+          "git_blob_sha": "8a83a55894f368e780e6f7bab30722c180fcc136",
+          "archive_blob_sha": "8a83a55894f368e780e6f7bab30722c180fcc136",
+          "archive_matches_git": true,
+          "file_sha256": "06a9e2f9c945ce1b5a104ebc7d70210b2b9b6e1f2601bb05c63c5360709a948b"
+        },
+        {
+          "path": "test/CMakeLists.txt",
+          "start_line": 24,
+          "end_line": 28,
+          "quote": "elseif(NOT TARGET GTest::gtest)\n  af_dep_check_and_populate(${gtest_prefix}\n    URI https://github.com/google/googletest.git\n    REF v1.16.0\n  )",
+          "git_blob_sha": "64e1feb777c68cd93ea54b2319d4e5af34013b55",
+          "archive_blob_sha": "64e1feb777c68cd93ea54b2319d4e5af34013b55",
+          "archive_matches_git": true,
+          "file_sha256": "aed3c2e0422b5c3eaf31d4e14777ea0522df01e403dfccff4a7bbc8a2d80bf92"
+        },
+        {
+          "path": "test/CMakeLists.txt",
+          "start_line": 98,
+          "end_line": 125,
+          "quote": "  set(TESTDATA_SOURCE_DIR ${RELATIVE_TEST_DATA_DIR})\nelse(${AF_USE_RELATIVE_TEST_DIR})\n  af_dep_check_and_populate(${testdata_prefix}\n    URI https://github.com/arrayfire/arrayfire-data.git\n    #Add test file for SSAS_LinearSteps\n    REF 05703a4897c8b89b7a0ece1dbe21ede33d226f44\n  )\n  set(TESTDATA_SOURCE_DIR \"${${testdata_prefix}_SOURCE_DIR}\")\nendif(${AF_USE_RELATIVE_TEST_DIR})\n\nif(AF_BUILD_CPU)\n  list(APPEND enabled_backends \"cpu\")\nendif(AF_BUILD_CPU)\n\nif(AF_BUILD_CUDA)\n  list(APPEND enabled_backends \"cuda\")\nendif(AF_BUILD_CUDA)\n\nif(AF_BUILD_OPENCL)\n  list(APPEND enabled_backends \"opencl\")\nendif(AF_BUILD_OPENCL)\n\nif(AF_BUILD_ONEAPI)\n  list(APPEND enabled_backends \"oneapi\")\nendif(AF_BUILD_ONEAPI)\n\nif(AF_BUILD_UNIFIED)\n  list(APPEND enabled_backends \"unified\")",
+          "git_blob_sha": "64e1feb777c68cd93ea54b2319d4e5af34013b55",
+          "archive_blob_sha": "64e1feb777c68cd93ea54b2319d4e5af34013b55",
+          "archive_matches_git": true,
+          "file_sha256": "aed3c2e0422b5c3eaf31d4e14777ea0522df01e403dfccff4a7bbc8a2d80bf92"
+        },
+        {
+          "path": "test/CMakeLists.txt",
+          "start_line": 192,
+          "end_line": 205,
+          "quote": "function(make_test)\n  set(options CXX11 SERIAL USE_MMIO NO_ARRAYFIRE_TEST)\n  set(single_args SRC)\n  set(multi_args LIBRARIES DEFINITIONS BACKENDS)\n  cmake_parse_arguments(mt_args \"${options}\" \"${single_args}\" \"${multi_args}\" ${ARGN})\n\n  get_filename_component(src_name ${mt_args_SRC} NAME_WE)\n  foreach(backend ${enabled_backends})\n    if(NOT \"${mt_args_BACKENDS}\" STREQUAL \"\" AND\n       NOT ${backend} IN_LIST mt_args_BACKENDS)\n      continue()\n    endif()\n    set(target \"test_${src_name}_${backend}\")\n",
+          "git_blob_sha": "64e1feb777c68cd93ea54b2319d4e5af34013b55",
+          "archive_blob_sha": "64e1feb777c68cd93ea54b2319d4e5af34013b55",
+          "archive_matches_git": true,
+          "file_sha256": "aed3c2e0422b5c3eaf31d4e14777ea0522df01e403dfccff4a7bbc8a2d80bf92"
+        },
+        {
+          "path": "test/CMakeLists.txt",
+          "start_line": 260,
+          "end_line": 267,
+          "quote": "        )\n    endif()\n    if(AF_SKIP_UNSUPPORTED_TESTS)\n      target_compile_definitions(${target}\n        PRIVATE\n          SKIP_UNSUPPORTED_TESTS)\n    endif()\n    if(WIN32)",
+          "git_blob_sha": "64e1feb777c68cd93ea54b2319d4e5af34013b55",
+          "archive_blob_sha": "64e1feb777c68cd93ea54b2319d4e5af34013b55",
+          "archive_matches_git": true,
+          "file_sha256": "aed3c2e0422b5c3eaf31d4e14777ea0522df01e403dfccff4a7bbc8a2d80bf92"
+        }
+      ],
+      "contract_complete": false
+    },
+    {
+      "rank": 10,
+      "repository": "rakshasa/rtorrent",
+      "commit_sha": "d316b21cf02ae923d0cb1b6e75064a05016238bd",
+      "root_tree_sha": "3a903f13fe9882bb978769b326283dcf9aa555c2",
+      "task_qualified": false,
+      "holdout": false,
+      "build_result": "not_observed",
+      "role": "development_contract_review_only",
+      "root_archive_verified": true,
+      "root_blobs": 325,
+      "root_subtrees": 27,
+      "gitlinks": [],
+      "dependency_graph_complete": false,
+      "archive_sha256": "958beec96c7bd0a567a667328a10e61dd51f2a9d98c6a4fc4b2a7dfe5f77233a",
+      "archive_bytes": 499613,
+      "uncompressed_bytes": 2644454,
+      "source_status": "observed",
+      "contract": {
+        "product": "src/Makefile.am的rtorrent真实可执行文件；交付集合/功能oracle待冻结",
+        "tests": "保留Core/Rpc/Src三个check_PROGRAMS、CppUnit与完整注册断言；TEST_NAME不能过滤分母",
+        "blockers": [
+          "libtorrent同0.16.25根源码在独立v2复核通过；其系统依赖与完整作者测试仍待定义",
+          "CppUnit必需，不能让缺失库降级为空测试通过",
+          "ncurses/curl/zlib/OpenSSL等系统包及Autotools宏版本/生成路径、新输出和B关系待固定",
+          "原三测试、交付与同镜像clean replay尚未执行"
+        ]
+      },
+      "citations": [
+        {
+          "path": "README.md",
+          "start_line": 41,
+          "end_line": 50,
+          "quote": "\n## Install build dependencies\n\nInstall [libtorrent](https://github.com/rakshasa/libtorrent) with the same version rTorrent.\n\nGenerate configure scripts:\n\n```\nautoreconf -ivf\n```",
+          "git_blob_sha": "c011bd85e49fc0ecc83e0a1b941e44522be527f4",
+          "archive_blob_sha": "c011bd85e49fc0ecc83e0a1b941e44522be527f4",
+          "archive_matches_git": true,
+          "file_sha256": "d60e47c59fc895ccc7290669c7e1ead5fb19834d6142b84895dede3d002fa669"
+        },
+        {
+          "path": "configure.ac",
+          "start_line": 1,
+          "end_line": 15,
+          "quote": "m4_pattern_allow([PKG_CHECK_EXISTS])\n\nAC_INIT([rtorrent],[0.16.25],[sundell.software@gmail.com])\n\nAC_CONFIG_HEADERS([config.h])\nAC_CONFIG_MACRO_DIRS([scripts])\nAM_INIT_AUTOMAKE([foreign subdir-objects])\nAM_PROG_AR\n\nLT_INIT\n\nAC_PROG_CXX\nAX_CXX_COMPILE_STDCXX(20, noext, mandatory)\n\nPKG_PROG_PKG_CONFIG",
+          "git_blob_sha": "b6e03066a867492f0a3c46ac5536a611646adf25",
+          "archive_blob_sha": "b6e03066a867492f0a3c46ac5536a611646adf25",
+          "archive_matches_git": true,
+          "file_sha256": "85f139b88adb984a66f450d61661ecf2afa7280015f63fbe2ba440c41d492309"
+        },
+        {
+          "path": "configure.ac",
+          "start_line": 45,
+          "end_line": 57,
+          "quote": "  if test \"x$ax_cv_ncursesw\" != xyes && test \"x$ax_cv_ncurses\" != xyes; then\n    AC_MSG_ERROR([requires either NcursesW or Ncurses library])\n  fi\nfi\n\nPKG_CHECK_MODULES([CPPUNIT], [cppunit],, [no_cppunit=\"yes\"])\nPKG_CHECK_MODULES([ZLIB], [zlib])\nPKG_CHECK_MODULES([DEPENDENCIES], [libtorrent >= 0.16.25])\n\nAC_LANG_PUSH(C++)\nTORRENT_WITH_XMLRPC_C\nAC_LANG_POP(C++)\n",
+          "git_blob_sha": "b6e03066a867492f0a3c46ac5536a611646adf25",
+          "archive_blob_sha": "b6e03066a867492f0a3c46ac5536a611646adf25",
+          "archive_matches_git": true,
+          "file_sha256": "85f139b88adb984a66f450d61661ecf2afa7280015f63fbe2ba440c41d492309"
+        },
+        {
+          "path": "configure.ac",
+          "start_line": 77,
+          "end_line": 86,
+          "quote": "TORRENT_CHECK_CACHELINE\nTORRENT_CHECK_POSIX_SPAWN_ADDCLOSEFROM_NP\n\nAC_CONFIG_FILES([\n  Makefile\n  doc/Makefile\n  src/Makefile\n  test/Makefile\n])\n",
+          "git_blob_sha": "b6e03066a867492f0a3c46ac5536a611646adf25",
+          "archive_blob_sha": "b6e03066a867492f0a3c46ac5536a611646adf25",
+          "archive_matches_git": true,
+          "file_sha256": "85f139b88adb984a66f450d61661ecf2afa7280015f63fbe2ba440c41d492309"
+        },
+        {
+          "path": "src/Makefile.am",
+          "start_line": 1,
+          "end_line": 5,
+          "quote": "noinst_LIBRARIES = libsub_root.a\nbin_PROGRAMS = rtorrent\n\nrtorrent_LDADD = libsub_root.a @PTHREAD_LIBS@\nrtorrent_SOURCES = main.cc",
+          "git_blob_sha": "b21edc62e6b7059776581fd990ef719b72be7591",
+          "archive_blob_sha": "b21edc62e6b7059776581fd990ef719b72be7591",
+          "archive_matches_git": true,
+          "file_sha256": "f0bba47a331c2e1275614b3dfd6ac9e7f53e127a0b8ca82485be09dd71dc6e97"
+        },
+        {
+          "path": "test/Makefile.am",
+          "start_line": 1,
+          "end_line": 10,
+          "quote": "TESTS = \\\n\trtorrent_Test_Core \\\n\trtorrent_Test_Rpc \\\n\trtorrent_Test_Src\n\ncheck_PROGRAMS = $(TESTS)\n\nrtorrent_Test_LDADD = \\\n\t../src/libsub_root.a\n",
+          "git_blob_sha": "d756bd1cc1014ef75377e1eeca2fd5217d60c099",
+          "archive_blob_sha": "d756bd1cc1014ef75377e1eeca2fd5217d60c099",
+          "archive_matches_git": true,
+          "file_sha256": "2664a6acd430107d7aa29079edb049577967a74cb726cf217bf7a90efa87f1cb"
+        },
+        {
+          "path": "test/Makefile.am",
+          "start_line": 90,
+          "end_line": 100,
+          "quote": "\tsrc/test_watch_ready_queue.cc \\\n\tsrc/test_watch_ready_queue.h\n\nrtorrent_Test_Core_CXXFLAGS = $(CPPUNIT_CFLAGS)\nrtorrent_Test_Core_LDFLAGS = $(CPPUNIT_LIBS) -ldl\nrtorrent_Test_Rpc_CXXFLAGS = $(CPPUNIT_CFLAGS)\nrtorrent_Test_Rpc_LDFLAGS = $(CPPUNIT_LIBS) -ldl\nrtorrent_Test_Src_CXXFLAGS = $(CPPUNIT_CFLAGS)\nrtorrent_Test_Src_LDFLAGS = $(CPPUNIT_LIBS) -ldl\n\nAM_CPPFLAGS = -I$(srcdir) -I$(top_srcdir) -I$(top_srcdir)/src",
+          "git_blob_sha": "d756bd1cc1014ef75377e1eeca2fd5217d60c099",
+          "archive_blob_sha": "d756bd1cc1014ef75377e1eeca2fd5217d60c099",
+          "archive_matches_git": true,
+          "file_sha256": "2664a6acd430107d7aa29079edb049577967a74cb726cf217bf7a90efa87f1cb"
+        },
+        {
+          "path": "test/main.cc",
+          "start_line": 65,
+          "end_line": 97,
+          "quote": "  register_signal_handlers();\n\n  CppUnit::TestResult controller;\n  CppUnit::TestResultCollector result;\n  progress_listener progress;\n\n  controller.addListener(&result);\n  controller.addListener(&progress);\n\n  controller.popProtector();\n  controller.pushProtector(new ExceptionProtector());\n\n  CppUnit::TextUi::TestRunner runner;\n  add_tests(runner, std::getenv(\"TEST_NAME\"));\n\n  try {\n    std::cout << \"Running \";\n    runner.run( controller );\n\n    // TODO: Make outputter.\n    dump_failures(progress.failures());\n\n    // Print test in a compiler compatible format.\n    CppUnit::CompilerOutputter outputter( &result, std::cerr );\n    outputter.write();\n\n  } catch ( std::invalid_argument &e ) { // Test path not resolved\n    std::cerr  <<  std::endl <<  \"ERROR: \"  <<  e.what() << std::endl;\n    return 1;\n  }\n\n  return result.wasSuccessful() ? 0 : 1;\n}",
+          "git_blob_sha": "e87fdc999c3f971f0431bc6caf03d740a36477a7",
+          "archive_blob_sha": "e87fdc999c3f971f0431bc6caf03d740a36477a7",
+          "archive_matches_git": true,
+          "file_sha256": "aaddab1e7c51d5ceccbcfcdf88d8aa40709140d711baeba2f739503859e20fbf"
+        }
+      ],
+      "contract_complete": false
+    },
+    {
+      "rank": 14,
+      "repository": "jmpews/Dobby",
+      "commit_sha": "5dfc8546954ce3b3198132ab13fddb89ee92cdd7",
+      "root_tree_sha": "bbc80377266af7b3dff35bd1ca59f4161f44f0c5",
+      "task_qualified": false,
+      "holdout": false,
+      "build_result": "not_observed",
+      "role": "development_contract_review_only",
+      "root_archive_verified": true,
+      "root_blobs": 237,
+      "root_subtrees": 83,
+      "gitlinks": [],
+      "dependency_graph_complete": false,
+      "archive_sha256": "01a417233c40929aa21098c8a9724c00f6f05b5cde3f11abcac84b8e00053748",
+      "archive_bytes": 153939,
+      "uncompressed_bytes": 744341,
+      "source_status": "observed",
+      "contract": {
+        "product": "dobby共享/静态库；编译日期字符串影响精确重放，需事前冻结时间输入",
+        "tests": "启用原DOBBY_BUILD_TEST；ARM/ARM64/x64仿真及native原测试均保留，不按宿主架构直接删减",
+        "blockers": [
+          "Capstone/Unicorn、Clang Blocks与BlocksRuntime来源/工具链未固定",
+          "tests/UniconEmulator.cpp包含PlatformUnifiedInterface/MemoryAllocator.h，但完整树无此路径；存在source/MemoryAllocator/MemoryAllocator.h，不得补shim或改测试",
+          "native测试含dyld/_execve假设且return0不能单独证明hook断言完整",
+          "以上是静态合同障碍，未实际运行，不认定项目整体不可编译"
+        ]
+      },
+      "citations": [
+        {
+          "path": "CMakeLists.txt",
+          "start_line": 30,
+          "end_line": 35,
+          "quote": "\noption(DOBBY_BUILD_EXAMPLE \"Build example\" OFF)\n\noption(DOBBY_BUILD_TEST \"Build test\" OFF)\n\n# --- private",
+          "git_blob_sha": "5328d187236801b3409a8937e87e2a9de235b9e5",
+          "archive_blob_sha": "5328d187236801b3409a8937e87e2a9de235b9e5",
+          "archive_matches_git": true,
+          "file_sha256": "065cbf9ed872e3672bf41e2e4b2e6c6c068b422152a191447350a3393f1c2f53"
+        },
+        {
+          "path": "CMakeLists.txt",
+          "start_line": 260,
+          "end_line": 278,
+          "quote": "# ---\n\n# add build version\nstring(TIMESTAMP TODAY \"%Y%m%d\")\nset(VERSION_REVISION \"-${TODAY}\")\nif (EXISTS \"${CMAKE_SOURCE_DIR}/.git\")\n  execute_process(\n    COMMAND git rev-parse --short --verify HEAD\n    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}\n    OUTPUT_VARIABLE VERSION_COMMIT_HASH\n    OUTPUT_STRIP_TRAILING_WHITESPACE\n  )\n  if (VERSION_COMMIT_HASH)\n    set(VERSION_REVISION \"${VERSION_REVISION}-${VERSION_COMMIT_HASH}\")\n  endif ()\nendif ()\nset(DOBBY_BUILD_VERSION \"Dobby${VERSION_REVISION}\")\nset(compile_definitions \"${compile_definitions} -D__DOBBY_BUILD_VERSION__=\\\"${DOBBY_BUILD_VERSION}\\\"\")\nmessage(STATUS \"[Dobby] ${DOBBY_BUILD_VERSION}\")",
+          "git_blob_sha": "5328d187236801b3409a8937e87e2a9de235b9e5",
+          "archive_blob_sha": "5328d187236801b3409a8937e87e2a9de235b9e5",
+          "archive_matches_git": true,
+          "file_sha256": "065cbf9ed872e3672bf41e2e4b2e6c6c068b422152a191447350a3393f1c2f53"
+        },
+        {
+          "path": "CMakeLists.txt",
+          "start_line": 290,
+          "end_line": 312,
+          "quote": "set(SOURCE_FILE_LIST ${SOURCE_FILE_LIST_})\n\nadd_library(dobby SHARED\n  ${SOURCE_FILE_LIST}\n  )\n\ntarget_include_directories(dobby PUBLIC\n  include\n  )\n\n# ---\n\nadd_library(dobby_static STATIC\n  ${SOURCE_FILE_LIST}\n  )\n\ntarget_include_directories(dobby_static PUBLIC\n  include\n  )\n\nset_target_properties(dobby_static\n  PROPERTIES OUTPUT_NAME \"dobby\"\n  )",
+          "git_blob_sha": "5328d187236801b3409a8937e87e2a9de235b9e5",
+          "archive_blob_sha": "5328d187236801b3409a8937e87e2a9de235b9e5",
+          "archive_matches_git": true,
+          "file_sha256": "065cbf9ed872e3672bf41e2e4b2e6c6c068b422152a191447350a3393f1c2f53"
+        },
+        {
+          "path": "tests/CMakeLists.txt",
+          "start_line": 1,
+          "end_line": 9,
+          "quote": "\nfind_package(PkgConfig REQUIRED)\npkg_check_modules(CAPSTONE REQUIRED capstone)\nmessage(STATUS \"Capstone libraries: \" ${CAPSTONE_LIBRARY_DIRS})\nmessage(STATUS \"Capstone includes: \" ${CAPSTONE_INCLUDE_DIRS})\n\npkg_check_modules(UNICORN REQUIRED unicorn)\nmessage(STATUS \"unicorn libraries: \" ${UNICORN_LIBRARY_DIRS})\nmessage(STATUS \"unicorn includes: \" ${UNICORN_INCLUDE_DIRS})",
+          "git_blob_sha": "8cb2454bf7832944fbb13697e53f2480dd330cc2",
+          "archive_blob_sha": "8cb2454bf7832944fbb13697e53f2480dd330cc2",
+          "archive_matches_git": true,
+          "file_sha256": "594ab4fa88272da00ea5a1925697750cb71aeb6412fa74a751d73631a565d0af"
+        },
+        {
+          "path": "tests/CMakeLists.txt",
+          "start_line": 24,
+          "end_line": 27,
+          "quote": "\nadd_executable(test_insn_relo_arm64\n  test_insn_relo_arm64.cpp\n  UniconEmulator.cpp",
+          "git_blob_sha": "8cb2454bf7832944fbb13697e53f2480dd330cc2",
+          "archive_blob_sha": "8cb2454bf7832944fbb13697e53f2480dd330cc2",
+          "archive_matches_git": true,
+          "file_sha256": "594ab4fa88272da00ea5a1925697750cb71aeb6412fa74a751d73631a565d0af"
+        },
+        {
+          "path": "tests/CMakeLists.txt",
+          "start_line": 54,
+          "end_line": 57,
+          "quote": "\nadd_executable(test_insn_relo_arm\n  test_insn_relo_arm.cpp\n  UniconEmulator.cpp",
+          "git_blob_sha": "8cb2454bf7832944fbb13697e53f2480dd330cc2",
+          "archive_blob_sha": "8cb2454bf7832944fbb13697e53f2480dd330cc2",
+          "archive_matches_git": true,
+          "file_sha256": "594ab4fa88272da00ea5a1925697750cb71aeb6412fa74a751d73631a565d0af"
+        },
+        {
+          "path": "tests/CMakeLists.txt",
+          "start_line": 84,
+          "end_line": 87,
+          "quote": "\nadd_executable(test_insn_relo_x64\n  test_insn_relo_x64.cpp\n  UniconEmulator.cpp",
+          "git_blob_sha": "8cb2454bf7832944fbb13697e53f2480dd330cc2",
+          "archive_blob_sha": "8cb2454bf7832944fbb13697e53f2480dd330cc2",
+          "archive_matches_git": true,
+          "file_sha256": "594ab4fa88272da00ea5a1925697750cb71aeb6412fa74a751d73631a565d0af"
+        },
+        {
+          "path": "tests/CMakeLists.txt",
+          "start_line": 115,
+          "end_line": 119,
+          "quote": "\nadd_executable(test_native\n  test_native.cpp)\n\ntarget_link_libraries(test_native",
+          "git_blob_sha": "8cb2454bf7832944fbb13697e53f2480dd330cc2",
+          "archive_blob_sha": "8cb2454bf7832944fbb13697e53f2480dd330cc2",
+          "archive_matches_git": true,
+          "file_sha256": "594ab4fa88272da00ea5a1925697750cb71aeb6412fa74a751d73631a565d0af"
+        },
+        {
+          "path": "tests/UniconEmulator.cpp",
+          "start_line": 1,
+          "end_line": 4,
+          "quote": "#include \"UniconEmulator.h\"\n#include \"PlatformUnifiedInterface/MemoryAllocator.h\"\n#include \"InstructionRelocation/InstructionRelocation.h\"\n",
+          "git_blob_sha": "a0848ca5c796a377760e0ff79660b9ca52d00166",
+          "archive_blob_sha": "a0848ca5c796a377760e0ff79660b9ca52d00166",
+          "archive_matches_git": true,
+          "file_sha256": "df3347881972a87785b9ba852c7534a3777856c9f1fc3d0524c3f5153f2d6b33"
+        },
+        {
+          "path": "tests/UniconEmulator.cpp",
+          "start_line": 205,
+          "end_line": 214,
+          "quote": "\n  //  dism->disassemble((uintptr_t)relocate_addr, (char *)relocated->addr, relocated->size);\n  //  printf(\"\\n\");\n\n  if (check_fault_addr) {\n    assert(orig_ue->getFaultAddr() == relo_ue->getFaultAddr());\n  } else if (check_reg_id != -1) {\n    assert(orig_ue->readRegister(check_reg_id) == relo_ue->readRegister(check_reg_id));\n  } else if (callback) {\n    callback(orig_ue, relo_ue);",
+          "git_blob_sha": "a0848ca5c796a377760e0ff79660b9ca52d00166",
+          "archive_blob_sha": "a0848ca5c796a377760e0ff79660b9ca52d00166",
+          "archive_matches_git": true,
+          "file_sha256": "df3347881972a87785b9ba852c7534a3777856c9f1fc3d0524c3f5153f2d6b33"
+        },
+        {
+          "path": "tests/UniconEmulator.h",
+          "start_line": 68,
+          "end_line": 73,
+          "quote": "};\n\nvoid set_global_arch(std::string arch);\n\nvoid check_insn_relo(char *buffer, size_t buffer_size, bool check_fault_addr, int check_reg_id,\n                     void (^callback)(UniconEmulator *orig, UniconEmulator *relo), uintptr_t relo_stop_size = 0);",
+          "git_blob_sha": "414618b7d3a8fbbf7b909cf32fad9e44d3c48e15",
+          "archive_blob_sha": "414618b7d3a8fbbf7b909cf32fad9e44d3c48e15",
+          "archive_matches_git": true,
+          "file_sha256": "54a559356fe59f979875c83c3fa2067f5fd9020c18bc3aeda6dfaee18d1686d7"
+        },
+        {
+          "path": "tests/test_native.cpp",
+          "start_line": 40,
+          "end_line": 46,
+          "quote": "  LOG(\"test dlopen\");\n\n  {\n    auto sym_addr = DobbySymbolResolver(\"dyld\", \"_dlopen\");\n    LOG(\"dlopen: %p\", sym_addr);\n    install_hook_dlopen(sym_addr);\n  }",
+          "git_blob_sha": "b310ee199eaf59dbf72b07979dac49386fe9a1e4",
+          "archive_blob_sha": "b310ee199eaf59dbf72b07979dac49386fe9a1e4",
+          "archive_matches_git": true,
+          "file_sha256": "36c009bb2c4b24bb344d999653b9a9a5e4353d56a18f5c09ccbd8c021e579288"
+        },
+        {
+          "path": "tests/test_native.cpp",
+          "start_line": 57,
+          "end_line": 72,
+          "quote": "  LOG(\"test execve\");\n\n  {\n    auto sym_addr = DobbySymbolResolver(NULL, \"_execve\");\n    LOG(\"execve: %p\", sym_addr);\n    DobbyInstrument(sym_addr, [](void *, DobbyRegisterContext *ctx) {\n      auto path = (char *)get_arg(ctx, 0);\n      LOG(\"execve: %s\", path);\n      return;\n    });\n  }\n\n  execve(\"ls\", argv, envp);\n\n  return;\n}",
+          "git_blob_sha": "b310ee199eaf59dbf72b07979dac49386fe9a1e4",
+          "archive_blob_sha": "b310ee199eaf59dbf72b07979dac49386fe9a1e4",
+          "archive_matches_git": true,
+          "file_sha256": "36c009bb2c4b24bb344d999653b9a9a5e4353d56a18f5c09ccbd8c021e579288"
+        },
+        {
+          "path": "tests/test_native.cpp",
+          "start_line": 77,
+          "end_line": 86,
+          "quote": "\nint main(int argc, char *argv[]) {\n  test_execve();\n\n  test_dlopen();\n\n  test_end();\n\n  return 0;\n}",
+          "git_blob_sha": "b310ee199eaf59dbf72b07979dac49386fe9a1e4",
+          "archive_blob_sha": "b310ee199eaf59dbf72b07979dac49386fe9a1e4",
+          "archive_matches_git": true,
+          "file_sha256": "36c009bb2c4b24bb344d999653b9a9a5e4353d56a18f5c09ccbd8c021e579288"
+        }
+      ],
+      "contract_complete": false
+    },
+    {
+      "rank": 21,
+      "repository": "YosysHQ/yosys",
+      "commit_sha": "3718f7f135dc25381c50f18e550bdc5f48663ec3",
+      "root_tree_sha": "1401cee392967033f159d2f9ce1dd91e90557ad1",
+      "task_qualified": false,
+      "holdout": false,
+      "build_result": "not_observed",
+      "role": "development_contract_review_only",
+      "source_status": "failed",
+      "error_class": "CalledProcessError",
+      "retry": false,
+      "contract": {
+        "product": "yosys主程序；精确交付集合与功能oracle待完整来源图后定义",
+        "tests": "原vanilla-test/functional/makefile-tests与配置条件须逐层解析，不能仅跑缩小unit目标",
+        "blockers": [
+          "codeload对.gitcommit执行export-subst，导致原v1严格字节校验失败；不改判，不在此放宽校验器",
+          "8个gitlink精确commit尚未获取，不能声称源码图完整",
+          "未来需新身份取Git原始blob或canonical Git对象归档，先验证全部对象/子模块再定义完整测试与资源"
+        ]
+      },
+      "citations": [
+        {
+          "path": ".gitattributes",
+          "start_line": 1,
+          "end_line": 2,
+          "quote": "*.v linguist-language=Verilog\n/.gitcommit export-subst",
+          "git_blob_sha": "5e568606e6e29d390658b143d9abe912bd7bc8fd",
+          "archive_blob_sha": "5e568606e6e29d390658b143d9abe912bd7bc8fd",
+          "archive_matches_git": true,
+          "file_sha256": "383d2775a0cd7162541ba43415632996a308135c4a3309c477f8dcb4e559a0ed"
+        },
+        {
+          "path": ".gitcommit",
+          "start_line": 1,
+          "end_line": 1,
+          "quote": "3718f7f135dc25381c50f18e550bdc5f48663ec3",
+          "git_blob_sha": "6828f88dcb0e88b8cd738ad6044ce74d7a9a13c8",
+          "archive_blob_sha": "f3e83338bb83fc24c13452ed23948f74120fb66e",
+          "archive_matches_git": false,
+          "file_sha256": "2b578581cc8d0aaca007cffc7febf1e64968ff97f1f241c8970ce3ea7069639c"
+        },
+        {
+          "path": ".gitmodules",
+          "start_line": 1,
+          "end_line": 26,
+          "quote": "[submodule \"abc\"]\n\tpath = abc\n\turl = https://github.com/YosysHQ/abc\n# Don't use paths as names to avoid git archive problems\n[submodule \"cxxopts\"]\n\tpath = libs/cxxopts\n\turl = https://github.com/jarro2783/cxxopts\n[submodule \"fmt\"]\n\tpath = libs/fmt\n\turl = https://github.com/fmtlib/fmt\n[submodule \"tomlplusplus\"]\n\tpath = libs/tomlplusplus\n\turl = https://github.com/marzer/tomlplusplus\n[submodule \"boost_regex\"]\n\tpath = libs/boost_regex\n\turl = https://github.com/MikePopoloski/regex\n[submodule \"slang\"]\n\tpath = libs/slang\n\turl = https://github.com/MikePopoloski/slang\n[submodule \"sv-elab\"]\n\tpath = frontends/slang/lib\n\turl = https://github.com/povik/sv-elab\n[submodule \"symfpu\"]\n\tpath = libs/symfpu\n\turl = https://github.com/YosysHQ/symfpu\n\tbranch = floatWithStatusFlags",
+          "git_blob_sha": "d951c8d0162cd2ea22f62949c5a5e2f6452a6019",
+          "archive_blob_sha": "d951c8d0162cd2ea22f62949c5a5e2f6452a6019",
+          "archive_matches_git": true,
+          "file_sha256": "b62f1f969ffcaed52ad652636681350c812eedcdbb543f128a049c9268999ee5"
+        },
+        {
+          "path": "tests/Makefile",
+          "start_line": 82,
+          "end_line": 86,
+          "quote": "MK_TEST_DIRS += ./symfpu\n\nall: vanilla-test\n\n# makefile-./ is a dummy string, not a directory",
+          "git_blob_sha": "5575db5ebc6108195feae41a511cd0a1f1865a41",
+          "archive_blob_sha": "5575db5ebc6108195feae41a511cd0a1f1865a41",
+          "archive_matches_git": true,
+          "file_sha256": "c95d83fc59f2514756acb58fa96ee52998d1eb61d3fd38d6d7c805ada75c2375"
+        },
+        {
+          "path": "tests/Makefile",
+          "start_line": 101,
+          "end_line": 114,
+          "quote": "\n.PHONY: functional\nfunctional:\nifeq ($(ENABLE_FUNCTIONAL_TESTS),1)\n\t-@cd functional && ./run-test.sh\nendif\n\nvanilla-test: prep makefile-tests functional\n\t@echo \"\"\n\t@echo \"  Passed \\\"make vanilla-test\\\".\"\nifeq ($(ENABLE_VERIFIC),1)\nifeq ($(YOSYS_NOVERIFIC),1)\n\t@echo \"  Ran tests without verific support due to YOSYS_NOVERIFIC=1.\"\nendif",
+          "git_blob_sha": "5575db5ebc6108195feae41a511cd0a1f1865a41",
+          "archive_blob_sha": "5575db5ebc6108195feae41a511cd0a1f1865a41",
+          "archive_matches_git": true,
+          "file_sha256": "c95d83fc59f2514756acb58fa96ee52998d1eb61d3fd38d6d7c805ada75c2375"
+        }
+      ],
+      "contract_complete": false
+    },
+    {
+      "rank": 30,
+      "repository": "include-what-you-use/include-what-you-use",
+      "commit_sha": "c5625966cad25073a40901f9c4c91eace382e919",
+      "root_tree_sha": "41a0705ded459513bda10b0155daba8ff39a5535",
+      "task_qualified": false,
+      "holdout": false,
+      "build_result": "not_observed",
+      "role": "development_contract_review_only",
+      "root_archive_verified": true,
+      "root_blobs": 1040,
+      "root_subtrees": 75,
+      "gitlinks": [],
+      "dependency_graph_complete": false,
+      "archive_sha256": "444226323ad258e35ccad2b28db1ae3f2240d56c7c473e64b9676931510aaef1",
+      "archive_bytes": 1201128,
+      "uncompressed_bytes": 10308243,
+      "source_status": "observed",
+      "contract": {
+        "product": "include-what-you-use真实可执行程序，不能只构建unit目标",
+        "tests": "完整CTest注册、原Python测试、stdin/bugs等CI额外范围与prerequisite skip/expected-fail语义需结果前定义",
+        "blockers": [
+          "IWYU0.28主干跟随Clang主干，需匹配的精确LLVM/Clang源码/工具链/资源目录，不能静默降版本",
+          "完整Python/CTest/CI测试分母和skip条件未闭合；exit77不能当原断言通过",
+          "完整工具链体积、内存、构建时限及精确交付/replay需单独参考身份"
+        ]
+      },
+      "citations": [
+        {
+          "path": "iwyu_version.h",
+          "start_line": 10,
+          "end_line": 15,
+          "quote": "#ifndef INCLUDE_WHAT_YOU_USE_IWYU_VERSION_H_\n#define INCLUDE_WHAT_YOU_USE_IWYU_VERSION_H_\n\n#define IWYU_VERSION_STRING \"0.28\"\n\n#endif  // INCLUDE_WHAT_YOU_USE_IWYU_VERSION_H_",
+          "git_blob_sha": "42288ac7be33bec8c9bddc58dbc9dbd292b5b112",
+          "archive_blob_sha": "42288ac7be33bec8c9bddc58dbc9dbd292b5b112",
+          "archive_matches_git": true,
+          "file_sha256": "d40836c09ea9d9c1d1584bfbcd498f7700467771d165e890fe8b132a8b4b8cd0"
+        },
+        {
+          "path": "README.md",
+          "start_line": 39,
+          "end_line": 44,
+          "quote": "break when Clang is updated. We build IWYU regularly against Clang mainline to\ndetect and fix such compatibility breaks as soon as possible.\n\nNOTE: the IWYU master branch follows Clang main branch.\n\nWe also have convenience tags and branches for released versions of Clang",
+          "git_blob_sha": "0f11dd3fcbc57b15a2c9241a49ea35f078ba798b",
+          "archive_blob_sha": "0f11dd3fcbc57b15a2c9241a49ea35f078ba798b",
+          "archive_matches_git": true,
+          "file_sha256": "246267b235939782e9e348ce9a2bb66d0a49e88463148ddebd4e924bc48fab75"
+        },
+        {
+          "path": "CMakeLists.txt",
+          "start_line": 17,
+          "end_line": 23,
+          "quote": "  project(include-what-you-use)\n\n  find_package(LLVM CONFIG REQUIRED)\n  find_package(Clang CONFIG REQUIRED)\n\n  list(APPEND CMAKE_MODULE_PATH ${LLVM_DIR})\n  include(AddLLVM)",
+          "git_blob_sha": "c5f9863f780cda2322d80b6b01bd366fc92b285f",
+          "archive_blob_sha": "c5f9863f780cda2322d80b6b01bd366fc92b285f",
+          "archive_matches_git": true,
+          "file_sha256": "3b491d582b03d2ebe7b49705d43937e4a2fa070be2b1a3010e7c9a4bd1c8801c"
+        },
+        {
+          "path": "CMakeLists.txt",
+          "start_line": 227,
+          "end_line": 232,
+          "quote": "\n# Add main IWYU executable target.\nadd_llvm_executable(include-what-you-use\n  iwyu_main.cc\n)\n",
+          "git_blob_sha": "c5f9863f780cda2322d80b6b01bd366fc92b285f",
+          "archive_blob_sha": "c5f9863f780cda2322d80b6b01bd366fc92b285f",
+          "archive_matches_git": true,
+          "file_sha256": "3b491d582b03d2ebe7b49705d43937e4a2fa070be2b1a3010e7c9a4bd1c8801c"
+        },
+        {
+          "path": "CMakeLists.txt",
+          "start_line": 295,
+          "end_line": 300,
+          "quote": "\n# Add unittest target.\nadd_llvm_executable(iwyu-unittests\n  unittests/iwyu_lexer_util_test.cc\n  unittests/iwyu_path_util_test.cc\n  unittests/iwyu_regex_test.cc",
+          "git_blob_sha": "c5f9863f780cda2322d80b6b01bd366fc92b285f",
+          "archive_blob_sha": "c5f9863f780cda2322d80b6b01bd366fc92b285f",
+          "archive_matches_git": true,
+          "file_sha256": "3b491d582b03d2ebe7b49705d43937e4a2fa070be2b1a3010e7c9a4bd1c8801c"
+        },
+        {
+          "path": "CMakeLists.txt",
+          "start_line": 365,
+          "end_line": 396,
+          "quote": "endif()  \n\nfind_package(Python3 COMPONENTS Interpreter)\nif (Python3_Interpreter_FOUND)\n  # Map the various IWYU test scripts to CTest tests.\n  function(iwyu_add_test name file)\n    add_test(NAME ${name}\n      COMMAND ${Python3_EXECUTABLE} run_iwyu_tests.py --run-test-file=${file}\n      -- $<TARGET_FILE:include-what-you-use>\n      WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}\n    )\n    set_tests_properties(${name} PROPERTIES SKIP_RETURN_CODE 77)\n  endfunction()\n\n  execute_process(\n    COMMAND ${Python3_EXECUTABLE} run_iwyu_tests.py --list-test-files\n    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}\n    OUTPUT_VARIABLE test_names_and_files\n  )\n  string(REPLACE \"\\n\" \";\" test_names_list ${test_names_and_files})\n  foreach (test_name_and_file IN ITEMS ${test_names_list})\n    string(REPLACE \":\" \";\" test_name_and_file ${test_name_and_file})\n    iwyu_add_test(${test_name_and_file})\n  endforeach()\n\n  add_test(NAME fix_includes_test\n    COMMAND ${Python3_EXECUTABLE} fix_includes_test.py\n    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}\n  )\n  add_test(NAME iwyu_tool_test\n    COMMAND ${Python3_EXECUTABLE} iwyu_tool_test.py\n    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}",
+          "git_blob_sha": "c5f9863f780cda2322d80b6b01bd366fc92b285f",
+          "archive_blob_sha": "c5f9863f780cda2322d80b6b01bd366fc92b285f",
+          "archive_matches_git": true,
+          "file_sha256": "3b491d582b03d2ebe7b49705d43937e4a2fa070be2b1a3010e7c9a4bd1c8801c"
+        },
+        {
+          "path": "run_iwyu_tests.py",
+          "start_line": 120,
+          "end_line": 138,
+          "quote": "def RunTestFile(cc_file):\n  \"\"\" Executes the test for cc_file, independent of unittest infra.\n  Returns an appropriate exit code for the process. 0 for success, 1\n  for failure, 77 if the test was skipped. If the test failed, an\n  exception will have been raised (causing a non-zero exit code).\n  \"\"\"\n  xfail = iwyu_test_util.IsTestExpectedToFail(cc_file)\n  try:\n    TestIwyuOnRelevantFiles(cc_file)\n  except unittest.SkipTest as e:\n    # Catch the skip test exception that unittest would normally handle and\n    # set an exit code that informs the test runner that test is being\n    # skipped. It's an almost-convention to use exit code 77, and some build\n    # systems natively report such failures as skipped, see e.g.\n    # https://mesonbuild.com/Unit-tests.html#skipped-tests-and-hard-errors\n    print('Skipped %s: %s' % (cc_file, e))\n    return 77\n  except AssertionError as e:\n    if xfail:",
+          "git_blob_sha": "c70bf514b3e279339edf2f46608eb8319471c80a",
+          "archive_blob_sha": "c70bf514b3e279339edf2f46608eb8319471c80a",
+          "archive_matches_git": true,
+          "file_sha256": "13fb24c5f580e7e977251652bf2e32b39937b85755553c43430950fc4dbfc3bb"
+        },
+        {
+          "path": "run_iwyu_tests.py",
+          "start_line": 178,
+          "end_line": 189,
+          "quote": "  if runner_args.run_test_file:\n    exit(RunTestFile(runner_args.run_test_file))\n\n  RegisterTestSuite('c', 'tests/c', patterns=['*.c'])\n  RegisterTestSuite('cxx', 'tests/cxx', patterns=['*.cc'])\n  RegisterTestSuite('driver', 'tests/driver', patterns=['*.c'])\n\n  for suite in runner_args.extra_suites:\n    RegisterTestSuite(suite, 'tests/' + suite, patterns=['*.c', '*.cc'])\n\n  if runner_args.list_tests:\n    exit(PrintLoadedTests())",
+          "git_blob_sha": "c70bf514b3e279339edf2f46608eb8319471c80a",
+          "archive_blob_sha": "c70bf514b3e279339edf2f46608eb8319471c80a",
+          "archive_matches_git": true,
+          "file_sha256": "13fb24c5f580e7e977251652bf2e32b39937b85755553c43430950fc4dbfc3bb"
+        },
+        {
+          "path": "iwyu_test_util.py",
+          "start_line": 638,
+          "end_line": 655,
+          "quote": "\n\ndef _CheckPrerequisites(cc_file):\n  \"\"\" Raises a SkipTest exception if any prerequisites in cc_file fail. \"\"\"\n  prerequisites = _ParsePrerequisites(cc_file)\n\n  failed = []\n  for prerequisite, desc in prerequisites:\n    if not prerequisite():\n      failed.append(desc)\n\n  if failed:\n    raise unittest.SkipTest(', '.join(failed))\n\n\ndef _ParseExpectedFailures(cc_file):\n  \"\"\" Parses expected failure conditions out of cc_file. \"\"\"\n  conditions = []",
+          "git_blob_sha": "24a8d2a9eca4213579d172f33864c701adeb45a5",
+          "archive_blob_sha": "24a8d2a9eca4213579d172f33864c701adeb45a5",
+          "archive_matches_git": true,
+          "file_sha256": "d679b200261e5ceff8bb4b4d46758d5405b487bd589f7125cc5224d8cd022f24"
+        },
+        {
+          "path": "iwyu_test_util.py",
+          "start_line": 678,
+          "end_line": 690,
+          "quote": "\n\ndef IsTestExpectedToFail(cc_file):\n  \"\"\" Checks if a test is expected to fail. \"\"\"\n  xfail_conditions = _ParseExpectedFailures(cc_file)\n  return any(condition() for condition in xfail_conditions)\n\n\ndef TestIwyuOnRelativeFile(cc_file, cpp_files_to_check, verbose=False):\n  \"\"\"Checks running IWYU on the given .cc file.\n\n  Args:\n    cc_file: The name of the file to test, relative to the current dir.",
+          "git_blob_sha": "24a8d2a9eca4213579d172f33864c701adeb45a5",
+          "archive_blob_sha": "24a8d2a9eca4213579d172f33864c701adeb45a5",
+          "archive_matches_git": true,
+          "file_sha256": "d679b200261e5ceff8bb4b4d46758d5405b487bd589f7125cc5224d8cd022f24"
+        }
+      ],
+      "contract_complete": false
+    }
+  ],
+  "root_verified": 4,
+  "root_failed": 1,
+  "not_observed": 0,
+  "tasks_qualified": 0,
+  "actual_builds": 0,
+  "provider_calls": 0,
+  "model_cost_usd": 0,
+  "definition_queue_only": true,
+  "remaining_25": "pending_unchanged",
+  "dependency_v1": {
+    "identity": "cpp-build-rtorrent-dependency-source-v1",
+    "repository": "rakshasa/libtorrent",
+    "source_qualified": false,
+    "task_qualified": false,
+    "build_result": "not_observed",
+    "provider_calls": 0,
+    "retry": false,
+    "commit_sha": "c395f0af3924bb4c8514cfa3b0c46c78787ddc64",
+    "root_tree_sha": "7d0d5fa1a7784a6a6c10008647b33df7c1852375",
+    "error_class": "ValueError",
+    "error": "默认分支libtorrent不是所需精确版本；保留但不换版本"
+  },
+  "dependency_v2": {
+    "identity": "cpp-build-rtorrent-dependency-recheck-v2",
+    "source_qualified": true,
+    "task_qualified": false,
+    "build_result": "not_observed",
+    "retry_parent": false,
+    "network_calls": 0,
+    "provider_calls": 0,
+    "repository": "rakshasa/libtorrent",
+    "branch": "master",
+    "commit_sha": "c395f0af3924bb4c8514cfa3b0c46c78787ddc64",
+    "root_tree_sha": "7d0d5fa1a7784a6a6c10008647b33df7c1852375",
+    "root_archive_verified": true,
+    "root_blobs": 493,
+    "root_subtrees": 40,
+    "gitlinks": [],
+    "dependency_graph_complete": false,
+    "version": "0.16.25",
+    "source_archive_sha256": "041c71d60632a988dbddc72c849b74a4879697065a192a0b517e3df3394c47eb",
+    "note": "仅同版本依赖根来源资格；系统依赖、完整任务与真实构建未资格"
+  }
+}
