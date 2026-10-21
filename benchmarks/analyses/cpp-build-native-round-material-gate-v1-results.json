@@ -1,0 +1,57 @@
+{
+  "valid": true,
+  "identity": "cpp-build-native-round-material-gate-v1",
+  "release": "d56779138a129aac3a39ee733d1227bd3cdb035d",
+  "inventory": {
+    "format": "forge-typed-evidence-v1",
+    "identity": "cpp-build-native-round-material-gate-v1",
+    "entries": 624,
+    "files": 624,
+    "symlinks": 0,
+    "bytes": 20044938,
+    "inventory_canonical_sha256": "85c48c8081dcdba495a481305637d85cb0fefef9869715ba0c6ca3c7c406c194",
+    "unknown_usage_requests": 0
+  },
+  "cases": 55,
+  "negative_cases": 3,
+  "initial_packets": 3,
+  "complete_native_rounds": 52,
+  "scripted_responses": 55,
+  "provider_calls": 0,
+  "recorded_tokens": 0,
+  "estimated_cost_usd": "0",
+  "max_messages_bytes": 80570,
+  "max_schema_bytes": 3139,
+  "paid_authorization_qualified": false,
+  "method": "独立stdlib全部来源/新清单/Git组件/完整原包还原/原生轮次与离线API序列化/负例与零用量",
+  "kind": "zero_provider_native_material_qualification",
+  "raw": "/home/yiwei/.codex/outputs/forge-build-native-round-material-gate-v1",
+  "methods": {
+    "tool_plan_workflow": {
+      "cases": 17,
+      "initial_packets": 1,
+      "complete_native_rounds": 16,
+      "max_messages_bytes": 62520
+    },
+    "model_plan_workflow": {
+      "cases": 17,
+      "initial_packets": 1,
+      "complete_native_rounds": 16,
+      "max_messages_bytes": 80570
+    },
+    "strong_tool_agent": {
+      "cases": 21,
+      "initial_packets": 1,
+      "complete_native_rounds": 20,
+      "max_messages_bytes": 71764
+    }
+  },
+  "candidate_sha256": "dfcd7d8ab7555b05c740478bf777b7a4a372358ce2f63e458e8c256239a16a18",
+  "source_files": 165,
+  "components": 283,
+  "independent_audit": {
+    "path": "/home/yiwei/.codex/outputs/forge-rtorrent-real-session-2026-10-21/independent-native-audit.json",
+    "sha256": "5800e26baffea44d604f3837ef5aa3114f263c790621e124c833a84f103626cf"
+  },
+  "claim_boundary": "有限已见材料/真实middleware与离线序列化资格；不代表真实模型理解、完整新端到端构建、付费授权/账本资格或规划收益"
+}

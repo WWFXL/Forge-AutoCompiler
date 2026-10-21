@@ -1,10 +1,20 @@
 # Forge Research Status
 
-## 当前阶段（2026-10-22；#599全三版请求免费会话连续性审计完成）
+## 当前阶段（2026-10-22；#601共同原生完整轮次材料资格完成）
+
+基础设施/工程修复完成，0新凭据/Provider/真实Token/模型费/构建/Docker。cpp-build-native-round-material-gate-v1固定v4全55实际请求+3负例，55/55材料、3/3负例通过，0未观察；3首轮仅Human，52后继完整保留原AI/Tool/reasoning_content。真实middleware下原任务/脚本/方案/权威状态/源码工作集/read_index与历史预算fixture逐值还原，离线DeepSeek序列化核验；不是模型或完整新端到端成功。
+
+release d56779138a129aac3a39ee733d1227bd3cdb035d，候选dfcd7d8ab7555b05c740478bf777b7a4a372358ce2f63e458e8c256239a16a18，165输入SHA/283组件；raw forge-build-native-round-material-gate-v1，inventory85c48c8081dcdba495a481305637d85cb0fefef9869715ba0c6ca3c7c406c194（624文件/0链接/20044938bytes）。独立stdlib全部来源/新清单/Git组件/完整原包与原生轮次/API序列化/3负例/逐请求零用量审计valid；隔离namespace漏Path的原审计脚本与失败日志保留，修正审计依赖后重算，raw未改。12针对性含真实Agent图双轮、产品2543passed44skipped27warnings、Ruff611后端+两新脚本格式/CLI通过。报告docs/research/2026-10-22-native-round-material-results.md；派生benchmarks/analyses/cpp-build-native-round-material-gate-v1-results.json；最终结果HEAD三CI后只合依赖分支，发布以GitHub/final-native-publication-audit.json为准。
+
+共同新100k消息/8k schema，实测最大80570/3139bytes；200k单响应/0.80美元完整响应预留，原72步/48工具/32命令/400k累计停止阈值/1.50美元单臂/3900秒付费预留及原验收保持。移除独立最近三反馈副本，较早原文留raw可重读，不承诺全历史或信息超集。与旧50k版本不同，只允许未来新版本内公平比较，不作前后因果效果。
+
+下一步先免费三策略完整端到端门禁；付费入口还需按0.80美元处理未知请求预留并重新绑定授权/旧费用/停止，不能复用旧v4的0.40未知预留或本免费fixture。当前paid_authorization_qualified=false，新完整构建/模型效果未观察，不盲目追加付费压缩版本。原总10美元/UTC2026-10-21T15:30:52–19:30:52/无自动重试不续期，三paid闭合累计3.27044256美元，18:25:52后无新付费请求；无活动Provider/Docker。#599/PR600已合e360c870并关闭/发布审计valid，知识库6edd5077完整核验。RQ3/P2/主线/用户HTML保持。
+
+## 上一阶段（2026-10-22；#599会话普查已发布）
 
 结果分析完成，0新凭据/Provider/真实Token/费用/构建/Docker。cpp-build-rtorrent-context-continuity-audit-v1固定v2/v3/v4全部114实际请求/105后继转换，114全为单Human包，前一原生AI与完整ToolMessage保留均0/105；当前工作集/最近反馈仍可能包含部分信息，不等同模型毫无相关信息。原样追加完整前轮后14/105满足原50k、91/105超限，最大92271bytes；这是未发送的机械测量，没有去重已有证据，不是新接口资格、Token预测或失败因果。
 
-releasef6e59a969069b1286effb9143b38294e86c304bd、8组件，候选0501dc39；raw forge-rtorrent-context-continuity-audit-v1，inventoryf3128a16f5d740e88571c2254d07d7ed72cce66eab2ed84d09ba2219178bac4a（11文件/156948bytes/0链接）。独立stdlib全量来源与新清单/Git提交组件/114请求105完整唯一配对/逐字段字节重算valid。10针对性/产品2531passed44skipped27warnings/Ruff610后端与新脚本格式/CLI通过，历史临时目录权限告警保留。报告docs/research/2026-10-22-rtorrent-context-continuity-audit-results.md；派生benchmarks/analyses/cpp-build-rtorrent-context-continuity-audit-v1-results.json；会话forge-rtorrent-real-session-2026-10-21保留收据。最终结果HEAD三CI成功后仅合科研依赖分支，以GitHub/final-context-publication-audit.json为发布真源。
+releasef6e59a969069b1286effb9143b38294e86c304bd、8组件，候选0501dc39；raw forge-rtorrent-context-continuity-audit-v1，inventoryf3128a16f5d740e88571c2254d07d7ed72cce66eab2ed84d09ba2219178bac4a（11文件/156948bytes/0链接）。独立stdlib全量来源与新清单/Git提交组件/114请求105完整唯一配对/逐字段字节重算valid。10针对性/产品2531passed44skipped27warnings/Ruff610后端与新脚本格式/CLI通过，历史临时目录权限告警保留。报告docs/research/2026-10-22-rtorrent-context-continuity-audit-results.md；派生benchmarks/analyses/cpp-build-rtorrent-context-continuity-audit-v1-results.json；会话forge-rtorrent-real-session-2026-10-21保留收据。最终HEADbafb46c1三CI成功，PR600已合科研依赖分支e360c8701e15eef4b6881229f66cf16f3cf2736b、599关闭/发布审计valid，知识库6edd5077完整CAS回读/检索通过。
 
 下一步三策略共同原生会话与证据保留接口免费资格：完整AI/Tool配对、DeepSeek reasoning_content、准确请求原文/原任务及执行器边界/全费用计量；成熟LangChain配对和既有DeepSeek序列化已离线核验，不调用摘要模型。新材料/响应资源须前瞻共同冻结，不按方法结果回调；新真实结果只在独立新身份内部解释，不把工程版本前后当因果效果。当前未实现新接口、不提前称成功，不盲目追加付费压缩版本。
 
