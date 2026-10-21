@@ -1,0 +1,13 @@
+# rtorrent 三版真实请求的后验会话连续性审计
+
+Issue #599；这是结果分析，非模型效果实验或修复资格。先前草稿已观察v2/v3和v4暂态材料，本协议明确为后验完整普查，不假称结果盲预注册。固定三份已闭合真实身份v2/v3/v4，全部实际请求28/31/55共114；三策略各版均保留，不挑成功片段，不补槽或改原raw。
+
+正式计算前冻结来源inventory、已有独立真实审计SHA、代码组件与成熟实现来源SHA。以model.request_started为实际分母，另列仅保存而未开始的文件。每个非首请求读取前一原始AI响应及事件中ToolMessage，要求tool_call_id完整唯一配对；原返回顺序不同时按调用顺序匹配，不删除思考或元数据。核验当前消息是否原样保留AI和全部工具返回。首请求没有“前一轮”分母，不填失败。
+
+材料测量固定为：在实际原请求消息后直接追加完整上一AI（含原reasoning_content及metadata）与全部配对ToolMessage；system_message保持，工具schema按原门禁独立计量、不并入消息50k口径；使用原ensure_ascii=False/json默认序列化口径计算字节。记录是否<=50000与最大值。这只是未发送的机械测量，不是运行器实现、Token估计、完整新接口资格或真实模型响应。没有删除旧recent_tool_results/source_packet或反复调整保留轮数，不能用它证明原生保留必然不可行。
+
+现有依赖能力先核验：LangChain SummarizationMiddleware说明保留近期AI/Tool完整配对，_find_safe_cutoff_point避免从ToolMessage中间切开；它的模型摘要会新增费用，本身份不调用。项目PatchedChatDeepSeek/PlanThinkingDeepSeek能把已有AI的reasoning_content序列化回请求，离线占位消息测试核验，不读取真实凭据、不调用网络。该能力不等同当前middleware已保留历史。
+
+全过程0新凭据/Provider/真实Token/模型费/构建/Docker，原UTC2026-10-21T19:30:52截止不延长。来源变化、请求遗漏或配对不完整立即停止审计，保留日志，不修改来源。独立实现重算全部114请求与105后继转换，核验新raw全清单、Git组件、来源和未变inventory后才报告。产品回归、Ruff、最终三CI成功后仅合科研依赖分支，知识库CAS同步。
+
+结论仅限已见development单族的三版共同Harness材料形式和边界；不识别失败因果、模型理解、策略排名、规划净收益或某种修复有效。不改变原源码/生成/测试/交付/replay裁判、RQ3分母、P2、主线或旧费用。完成后先设计共享会话与证据保留的零Provider接口资格，不继续盲目付费追加压缩版本。

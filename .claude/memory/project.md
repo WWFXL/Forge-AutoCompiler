@@ -4,7 +4,7 @@
 
 ## 进行中 (In Progress)
 
-- 2026-10-22 — #597真实v4已封存，exec67467终态0，不续跑。三观察/0strict/0未观察，55请求1013142Token/$1.59653472/未知0；工具17/模型17/强工具21请求，均48工具预算停止。强工具完成40生成SHA，三槽正式build/12程序323叶/交付/replay均未观察，818作者文件/cleanup通过。raw forge-rtorrent-common-canary-v4、inventory3c95b530、release456737d；主独立审计及三实际容器六ID/name资源审计valid。55请求单Human包/93读建议区间均已不在工作集的只读诊断不等于模型浪费或因果结论；#599已开，准备免费全三版会话连续性/50k容纳边界审计。原总10美元/UTC19:30:52/无自动重试不续期，三paid闭合名义累计3.27044256，原浮点尾数保留；18:25:52后无新请求。52相关/产品2521passed44skipped27warnings/Ruff617格式已过，最终HEAD三CI后只合依赖分支；发布真源GitHub/final-v4-publication-audit.json，知识库待CAS同步。无活动Provider/Docker，用户HTML/RQ3/P2保持。
+- 2026-10-22 — #599免费会话普查已终结：114实际请求/105后继转换，原生前AI/完整工具保留均0，原样追加14满足50k/91超限、最大92271bytes。0新凭据/Provider/Token/费/构建，原raw未改；releasef6e59a96、inventoryf3128a16、8组件，独立全来源/新清单/Git/逐请求完整工具配对/字节重算valid。10针对性/产品2531passed44skipped27warnings/Ruff610后端+新脚本格式/CLI通过，最终结果HEAD三CI后只合依赖分支。下一步共同原生会话/证据接口免费资格，尚未实现；不称因果或效果。三paid累计3.27044256、原UTC19:30:52/10美元/无自动重试不续期，无活动Provider/Docker。#597已合77ddef20/关闭/发布审计valid、知识库10d34c75核验；RQ3/P2/用户HTML保持。
 
 
 
@@ -604,6 +604,8 @@
   - 下一步: 等待实验负责人确认当前网络接入介质，并决定是否授权只读 endpoint 诊断和新的 canary amendment；获得确认后必须另建中文 Issue/PR 和协议 identity，保留当前失败 marker。
 
 ## 最近变更 (Recent Changes)
+
+- 2026-10-22 — #597真实v4已封存，exec67467终态0，不续跑。三观察/0strict/0未观察，55请求1013142Token/$1.59653472/未知0；工具17/模型17/强工具21请求，均48工具预算停止。强工具完成40生成SHA，三槽正式build/12程序323叶/交付/replay均未观察，818作者文件/cleanup通过。raw forge-rtorrent-common-canary-v4、inventory3c95b530、release456737d；主独立审计及三实际容器六ID/name资源审计valid。55请求单Human包/93读建议区间均已不在工作集的只读诊断不等于模型浪费或因果结论；#599已开，准备免费全三版会话连续性/50k容纳边界审计。原总10美元/UTC19:30:52/无自动重试不续期，三paid闭合名义累计3.27044256，原浮点尾数保留；18:25:52后无新请求。52相关/产品2521passed44skipped27warnings/Ruff617格式已过，最终HEAD三CI后只合依赖分支；已合77ddef20/597关闭/final-v4-publication-audit valid，知识库10d34c75已同步。无活动Provider/Docker，用户HTML/RQ3/P2保持。
 
 - 2026-10-22 — 完成#595固定验证合同共同引用的62例免费资格
   - 文件: `scripts/forge_build_rtorrent_fixed_contract.py`, `scripts/forge_build_rtorrent_fixed_contract_material_gate.py`, `backend/tests/test_rtorrent_fixed_contract.py`, `docs/research/2026-10-22-rtorrent-fixed-contract-material-results.md`

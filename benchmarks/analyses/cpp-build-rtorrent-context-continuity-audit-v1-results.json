@@ -1,0 +1,62 @@
+{
+  "valid": true,
+  "release": "f6e59a969069b1286effb9143b38294e86c304bd",
+  "inventory": {
+    "format": "forge-typed-evidence-v1",
+    "identity": "cpp-build-rtorrent-context-continuity-audit-v1",
+    "entries": 11,
+    "files": 11,
+    "symlinks": 0,
+    "bytes": 156948,
+    "inventory_canonical_sha256": "f3128a16f5d740e88571c2254d07d7ed72cce66eab2ed84d09ba2219178bac4a",
+    "unknown_usage_requests": 0
+  },
+  "requests": 114,
+  "transitions": 105,
+  "sources": [
+    {
+      "identity": "cpp-build-rtorrent-common-canary-v2",
+      "requests": 28,
+      "transitions": 25,
+      "single_human_packets": 28,
+      "previous_ai_preserved": 0,
+      "previous_tools_preserved": 0,
+      "naive_append_fits": 3,
+      "max_naive_append_bytes": 81575
+    },
+    {
+      "identity": "cpp-build-rtorrent-common-canary-v3",
+      "requests": 31,
+      "transitions": 28,
+      "single_human_packets": 31,
+      "previous_ai_preserved": 0,
+      "previous_tools_preserved": 0,
+      "naive_append_fits": 4,
+      "max_naive_append_bytes": 76154
+    },
+    {
+      "identity": "cpp-build-rtorrent-common-canary-v4",
+      "requests": 55,
+      "transitions": 52,
+      "single_human_packets": 55,
+      "previous_ai_preserved": 0,
+      "previous_tools_preserved": 0,
+      "naive_append_fits": 7,
+      "max_naive_append_bytes": 92271
+    }
+  ],
+  "method": "独立stdlib全量来源/新清单/Git组件/实际请求和完整工具配对/逐字段字节口径重算",
+  "new_provider_calls": 0,
+  "identity": "cpp-build-rtorrent-context-continuity-audit-v1-results",
+  "raw": "/home/yiwei/.codex/outputs/forge-rtorrent-context-continuity-audit-v1",
+  "new_model_tokens": 0,
+  "new_model_cost_usd": "0",
+  "naive_append_fits": 14,
+  "previous_ai_preserved": 0,
+  "previous_tools_preserved": 0,
+  "independent_audit": {
+    "path": "/home/yiwei/.codex/outputs/forge-rtorrent-real-session-2026-10-21/independent-context-audit.json",
+    "sha256": "9fd5619866f6c86a28d9ceb19a3a531e177cc82469f03d328121213b2b171f38"
+  },
+  "claim_boundary": "后验完整请求/材料形式审计，不识别失败因果或修复效果，不是原生新接口资格"
+}
