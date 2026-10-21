@@ -1,6 +1,12 @@
 # Forge Research Status
 
-## 当前阶段（2026-10-21；#587共同三策略资格完成，真实canary待新授权）
+## 当前阶段（2026-10-21；#589新授权真实三策略canary准备）
+
+数据采集准备。用户最终授权新增模型费用10美元，UTC2026-10-21T15:30:52至19:30:52（准备计入），请求次数不限、无自动重试；覆盖被中断的自动重试消息。新独立cpp-build-rtorrent-common-canary-v2绑定已通过的共同三槽v2资格与原任务/源码/测试/生成/交付/重放/cleanup，不续跑旧身份。取消旧12请求独立上限，仍共同72steps；新meter技术请求上界73严格大于step上界，不能先触发。其余400k累计/100k单响应/每臂500k设计Token、每臂1.50美元/未知预留0.40、48工具32命令/原超时及消息大小保持。免费门禁已准入第13请求并验证先触发step预算。
+
+跟踪#589，入口scripts/forge_build_rtorrent_canary_v2.py；三固定槽工具方案Workflow→模型方案Workflow→强工具Agent各一次，已见development单族非holdout。全部初始/读取/输出/失败/恢复计费，未知用量/cleanup/身份/资源异常停整批，方法失败保留后继续固定下一槽，不补槽/自动重试。先冻结候选与release/授权账本，完整免费核验后才读凭据；此刻0新Provider/费用。原v1候选及所有冻结失败不改。阶段完成后独立审计、最终HEAD三CI、仅合科研依赖分支及知识库同步。RQ3/P2/主线/用户HTML不动。
+
+## 上一阶段（2026-10-21；#587共同三策略资格完成，真实canary待新授权）
 
 基础设施/零Provider工程资格完成。新独立cpp-build-rtorrent-common-entry-gate-v2为3/3strict、0未观察：工具实际通用模板configure真实缺libtorrent→一次脚本恢复；模型Workflow及强工具正常脚本方案。每槽原/replay各完整12原程序323叶、818原作者文件/40原生成SHA、双普通ELF精确集合/类型/大小/SHA、CLI、索引/no HEAD及实际cleanup均通过。原执行与验收/重放实际完成，不代表真实模型能力或规划收益。
 

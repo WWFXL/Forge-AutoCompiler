@@ -4,6 +4,10 @@
 
 ## 进行中 (In Progress)
 
+- 2026-10-21 — #589按最终10美元/四小时/请求次数不限/无自动重试授权准备真实三策略canary。
+  - 新身份cpp-build-rtorrent-common-canary-v2，UTC15:30:52–19:30:52准备计入；旧5美元/三小时/12请求v1候选不改。新meter只取消独立12请求限制，技术请求上界73严格大于72step，先触发step而非请求计数；其他Token/工具/命令/费用/任务/验收保持。新授权与相邻30回归通过，0凭据/Provider/费用，候选冻结后启动；报告/证据/检查/发布/知识库收据统一forge-rtorrent-real-session-2026-10-21。用户HTML原SHA及未跟踪保持。
+
+
 
 
 - 2026-10-21 — #571目录30/30元数据终结、0失败/未观察、0Provider/费/构建/Docker；30根Git树SHA及841跟踪文件暴露范围独立审计valid，有限精确名4命中/26未命中、全部task未资格/非holdout。raw forge-cxx-prospective-source-catalog-v1，inventory88e23ea1，release6a224591；发布通道为PR572→科研依赖分支；最终HEAD三CI及GitHub实际状态以会话发布收据为准。#568/PR570已合57e19085、568关闭；全部paid stage闭合，累计3.06569736美元/未知0，无活动实验。源码/生成文件边界A/B决策包已保存，B不自动实施。
