@@ -4,6 +4,8 @@
 
 ## 进行中 (In Progress)
 
+- 2026-10-21 — #583 rtorrent三策略共同接口资格准备完成，冻结v1五槽、230组件，0Provider；新免费UTC07:30:59.253248–10:30:59.253248，原/replay各1200秒、准入2700秒，失败停止不补槽。新StagedVerificationTask共用先暂存再固定测试/CLI的装配，原完整323叶/818源码/40生成输出保持，模板bootstrap不符声明明确升级。13新测试及产品2393passed44skipped通过。代码分支yiwei/583-rtorrent-common-interface，仅合科研依赖分支；raw forge-rtorrent-three-strategy-gate-v1；会话forge-rtorrent-interface-session-2026-10-21。运行时HEAD保持至封存，旧paid不续用、用户HTML不动。
+
 
 
 - 2026-10-21 — #571目录30/30元数据终结、0失败/未观察、0Provider/费/构建/Docker；30根Git树SHA及841跟踪文件暴露范围独立审计valid，有限精确名4命中/26未命中、全部task未资格/非holdout。raw forge-cxx-prospective-source-catalog-v1，inventory88e23ea1，release6a224591；发布通道为PR572→科研依赖分支；最终HEAD三CI及GitHub实际状态以会话发布收据为准。#568/PR570已合57e19085、568关闭；全部paid stage闭合，累计3.06569736美元/未知0，无活动实验。源码/生成文件边界A/B决策包已保存，B不自动实施。
