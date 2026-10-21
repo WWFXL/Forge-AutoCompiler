@@ -4,7 +4,7 @@
 
 ## 进行中 (In Progress)
 
-- 2026-10-22 — #599免费会话普查已终结：114实际请求/105后继转换，原生前AI/完整工具保留均0，原样追加14满足50k/91超限、最大92271bytes。0新凭据/Provider/Token/费/构建，原raw未改；releasef6e59a96、inventoryf3128a16、8组件，独立全来源/新清单/Git/逐请求完整工具配对/字节重算valid。10针对性/产品2531passed44skipped27warnings/Ruff610后端+新脚本格式/CLI通过，最终结果HEAD三CI后只合依赖分支。下一步共同原生会话/证据接口免费资格，尚未实现；不称因果或效果。三paid累计3.27044256、原UTC19:30:52/10美元/无自动重试不续期，无活动Provider/Docker。#597已合77ddef20/关闭/发布审计valid、知识库10d34c75核验；RQ3/P2/用户HTML保持。
+- 2026-10-22 — #601共同原生材料资格准备：固定v4全部55实际请求+3负例，165输入SHA/283组件、候选dfcd7d8a。新NativeRoundMeter保留最近完整AI/Tool与reasoning_content，完整原包/脚本可还原；共同100k/8k/200k单响应/0.80美元预留，原72步48工具400k/1.50美元/3900秒及验收保持。12针对性含实际Agent图usage0双轮、产品2543passed44skipped27warnings/Ruff611后端+两新脚本格式/CLI通过；三例开发原型不是正式资格，待提交冻结→单次55+3→独立审计。0新Provider/费/构建，旧失败不补、无活动Provider/Docker，原UTC19:30:52/10美元/无自动重试不续期。#599已合e360c870并关闭/发布审计valid，知识库6edd5077核验，RQ3/P2/用户HTML保持。
 
 
 

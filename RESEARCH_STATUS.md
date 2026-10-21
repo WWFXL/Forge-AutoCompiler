@@ -1,10 +1,18 @@
 # Forge Research Status
 
-## 当前阶段（2026-10-22；#599全三版请求免费会话连续性审计完成）
+## 当前阶段（2026-10-22；#601三策略共同原生轮次材料资格准备）
+
+基础设施/工程修复准备，0新Provider/真实Token/模型费/构建/Docker。新独立cpp-build-native-round-material-gate-v1固定v4全部55实际请求（52后继/3首轮）+orphan/material/schema三负例，165输入SHA/283组件，候选dfcd7d8ab7555b05c740478bf777b7a4a372358ce2f63e458e8c256239a16a18。三策略同NativeRoundMeter/装配执行恢复入口，权威Human包加完整最近AI/Tool轮次及reasoning_content；移除独立最近三反馈副本，不承诺全历史，原任务/脚本/方案/权威状态/源码工作集和预算fixture逐值还原。当前仅材料资格，不称真实理解/完整新端到端或规划收益。
+
+新资源前瞻共同100k消息/8k schema、200k单响应/0.80美元完整响应预留；原72步/48工具/32命令/400k累计停止阈值/1.50美元单臂/3900秒付费预留及完整原验收不降。不同于旧50k版本，不作前后因果效果，只允许新身份内公平比较。12针对性含真实Agent图usage0双轮、产品2543passed44skipped27warnings、Ruff611后端+两新脚本格式/CLI通过，三已见开发原型接线通过但不当正式资格。先提交冻结再单次正式55+3资格及独立审计，不补槽。
+
+免费ScriptedNativeMeter仅闭合usage0 handler历史fixture，明确不资格验证付费墙钟/0.80预留，不能当付费授权；付费路径截止/预留独立回归已过。本轮三paid闭合累计3.27044256美元，原UTC2026-10-21T19:30:52/总10美元/无自动重试不续期；18:25:52后无新付费请求。#599/PR600已合e360c870/关闭/独立发布审计valid，知识库6edd5077完整核验。RQ3/P2/主线/用户HTML保持。
+
+## 上一阶段（2026-10-22；#599会话普查已发布）
 
 结果分析完成，0新凭据/Provider/真实Token/费用/构建/Docker。cpp-build-rtorrent-context-continuity-audit-v1固定v2/v3/v4全部114实际请求/105后继转换，114全为单Human包，前一原生AI与完整ToolMessage保留均0/105；当前工作集/最近反馈仍可能包含部分信息，不等同模型毫无相关信息。原样追加完整前轮后14/105满足原50k、91/105超限，最大92271bytes；这是未发送的机械测量，没有去重已有证据，不是新接口资格、Token预测或失败因果。
 
-releasef6e59a969069b1286effb9143b38294e86c304bd、8组件，候选0501dc39；raw forge-rtorrent-context-continuity-audit-v1，inventoryf3128a16f5d740e88571c2254d07d7ed72cce66eab2ed84d09ba2219178bac4a（11文件/156948bytes/0链接）。独立stdlib全量来源与新清单/Git提交组件/114请求105完整唯一配对/逐字段字节重算valid。10针对性/产品2531passed44skipped27warnings/Ruff610后端与新脚本格式/CLI通过，历史临时目录权限告警保留。报告docs/research/2026-10-22-rtorrent-context-continuity-audit-results.md；派生benchmarks/analyses/cpp-build-rtorrent-context-continuity-audit-v1-results.json；会话forge-rtorrent-real-session-2026-10-21保留收据。最终结果HEAD三CI成功后仅合科研依赖分支，以GitHub/final-context-publication-audit.json为发布真源。
+releasef6e59a969069b1286effb9143b38294e86c304bd、8组件，候选0501dc39；raw forge-rtorrent-context-continuity-audit-v1，inventoryf3128a16f5d740e88571c2254d07d7ed72cce66eab2ed84d09ba2219178bac4a（11文件/156948bytes/0链接）。独立stdlib全量来源与新清单/Git提交组件/114请求105完整唯一配对/逐字段字节重算valid。10针对性/产品2531passed44skipped27warnings/Ruff610后端与新脚本格式/CLI通过，历史临时目录权限告警保留。报告docs/research/2026-10-22-rtorrent-context-continuity-audit-results.md；派生benchmarks/analyses/cpp-build-rtorrent-context-continuity-audit-v1-results.json；会话forge-rtorrent-real-session-2026-10-21保留收据。最终HEADbafb46c1三CI成功，PR600已合科研依赖分支e360c8701e15eef4b6881229f66cf16f3cf2736b、599关闭/发布审计valid，知识库6edd5077完整CAS回读/检索通过。
 
 下一步三策略共同原生会话与证据保留接口免费资格：完整AI/Tool配对、DeepSeek reasoning_content、准确请求原文/原任务及执行器边界/全费用计量；成熟LangChain配对和既有DeepSeek序列化已离线核验，不调用摘要模型。新材料/响应资源须前瞻共同冻结，不按方法结果回调；新真实结果只在独立新身份内部解释，不把工程版本前后当因果效果。当前未实现新接口、不提前称成功，不盲目追加付费压缩版本。
 
