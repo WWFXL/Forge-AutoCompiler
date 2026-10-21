@@ -4,7 +4,8 @@
 
 ## 进行中 (In Progress)
 
-- 2026-10-22 — #595合同引用免费资格准备；62例（v2 28请求2停止+v3 31请求1停止）、276组件、候选8a820e4d，44相关/产品2506passed44skipped27warnings/Ruff616格式和CLI校验通过。提交固定release后才正式create-once运行，尚未资格；原脚本/全部验收/50k8k保持。#593最终HEAD90c473f5三CI后已合a5fd7cc2、593关闭、知识库SHA eb537b35完整回读/搜索一致。原10美元/UTC19:30:52/无自动重试，后继完整扣v2+v3，旧失败不补。
+- 2026-10-22 — #595完成62/62资格与独立审计，PR596待最终结果HEAD三CI后发布；#597独立真实v4仅会话草稿，15授权回归和真实v2/v3闭合旧费免费绑定检查通过，需#595发布后冻结候选。原10美元/UTC19:30:52/无自动重试/3900秒预留，完整扣旧费及原浮点尾数，不补失败。
+
 
 
 
@@ -602,6 +603,10 @@
   - 下一步: 等待实验负责人确认当前网络接入介质，并决定是否授权只读 endpoint 诊断和新的 canary amendment；获得确认后必须另建中文 Issue/PR 和协议 identity，保留当前失败 marker。
 
 ## 最近变更 (Recent Changes)
+
+- 2026-10-22 — 完成#595固定验证合同共同引用的62例免费资格
+  - 文件: `scripts/forge_build_rtorrent_fixed_contract.py`, `scripts/forge_build_rtorrent_fixed_contract_material_gate.py`, `backend/tests/test_rtorrent_fixed_contract.py`, `docs/research/2026-10-22-rtorrent-fixed-contract-material-results.md`
+  - 动机: 全部v2/v3请求和材料停止包62/62、0未观察，原脚本全文取回、原包/反馈/预算完整还原、原50k/8k最大38098bytes；真实middleware/62脚本usage0，0真实Provider/Token/费。独立stdlib来源/Git/清单/原文/工具提示/门禁/生命周期audit valid；release5e7f553d、inventoryc5bbad5e、694文件21551437bytes。20新/44相关、产品2506passed44skipped27warnings、Ruff616格式及CLI通过；不当完整新构建或模型效果。最终三CI后仅合科研依赖分支。
 
 - 2026-10-22 — 封存#593独立真实v3并完成两项独立审计
   - 文件: `docs/research/2026-10-22-rtorrent-shared-value-canary-results.md`, `benchmarks/analyses/cpp-build-rtorrent-common-canary-v3-results.json`, `RESEARCH_STATUS.md`
