@@ -4,13 +4,6 @@
 
 ## 进行中 (In Progress)
 
-- 2026-10-21 — #583 v2已封存：三正常strict、第四槽实际false后恢复材料>50k拒绝（0恢复请求/修订）、第五未观察；inventory1bdb253e，独立audit valid，源码/cleanup通过。新恢复文本因子保留全文可读字典/完整原包SHA，正常请求不变；事后只读重建actual middleware47507/2725字节准入、完整还原。25相关回归通过。独立recovery-interface-gate-v1两恢复槽冻结，238组件、原UTC10:30:59.253248截止不变，实际结果待观察。v1/v2失败与未观察不改；原三正常+新两恢复只能跨身份组合。模板生成形式等价校准准备未运行，不称模型必要或真实效果。0Provider；当前分支仅合科研依赖分支。
-
-
-- 2026-10-21 — #583 v1首槽共同索引.git权限缺口在任何模型/模板之前拒绝；0脚本响应/1失败/4未观察，cleanup与独立审计通过，inventory3dee8c8e。新独立v2追加系统.git目录、233组件，运行fa79b0df（已推分支，HEAD保持），原UTC10:30:59.253248截止不延长。首槽原完整测试/CLI已执行，clean replay运行中；未提前写全批通过。知识库MCP已CAS更新并完整回读，SHAe0df4b06；以下v1运行条目是历史。
-
-- 2026-10-21 — #583 rtorrent三策略共同接口资格准备完成，冻结v1五槽、230组件，0Provider；新免费UTC07:30:59.253248–10:30:59.253248，原/replay各1200秒、准入2700秒，失败停止不补槽。新StagedVerificationTask共用先暂存再固定测试/CLI的装配，原完整323叶/818源码/40生成输出保持，模板bootstrap不符声明明确升级。13新测试及产品2393passed44skipped通过。代码分支yiwei/583-rtorrent-common-interface，仅合科研依赖分支；raw forge-rtorrent-three-strategy-gate-v1；会话forge-rtorrent-interface-session-2026-10-21。运行时HEAD保持至封存，旧paid不续用、用户HTML不动。
-
 
 
 - 2026-10-21 — #571目录30/30元数据终结、0失败/未观察、0Provider/费/构建/Docker；30根Git树SHA及841跟踪文件暴露范围独立审计valid，有限精确名4命中/26未命中、全部task未资格/非holdout。raw forge-cxx-prospective-source-catalog-v1，inventory88e23ea1，release6a224591；发布通道为PR572→科研依赖分支；最终HEAD三CI及GitHub实际状态以会话发布收据为准。#568/PR570已合57e19085、568关闭；全部paid stage闭合，累计3.06569736美元/未知0，无活动实验。源码/生成文件边界A/B决策包已保存，B不自动实施。
@@ -598,6 +591,22 @@
   - 下一步: 等待实验负责人确认当前网络接入介质，并决定是否授权只读 endpoint 诊断和新的 canary amendment；获得确认后必须另建中文 Issue/PR 和协议 identity，保留当前失败 marker。
 
 ## 最近变更 (Recent Changes)
+
+- 2026-10-21 — 完成 #583 rtorrent共同接口/受控恢复与生成形式校准
+  - 文件: `backend/packages/harness/deerflow/compile/staged_verification.py`, `backend/packages/harness/deerflow/compile/recovery_text_factors.py`, `scripts/forge_build_rtorrent_*`, `docs/research/2026-10-21-rtorrent-three-strategy-interface-results.md`
+  - 动机/证据: gate-v2三正常strict；recovery-v1双Workflow两恢复strict，真实false→revision2，七前缀command_id保留，仅build改变；原/replay均12程序323叶/818原文件/40生成SHA/双ELF/CLI/cleanup通过。恢复消息47353/47362、schema2725，原50k/8k不变，完整既有投影包逐字还原。release94253c06、inventory46bd8ba5，11882文件/28链接/4313990739bytes；全部独立audit valid。
+  - 保留: v1索引权限失败1/4未观察inventory3dee8c8e；v2三正常后第四恢复材料超限（0恢复响应/修订）、第五未观察inventory1bdb253e。跨身份组合接线资格，不称单身份5/5、真实模型效果/自然恢复或坏中间产物清理；旧libverto失败/RQ3/P2/主线不改。
+  - 公平性: 初始两Workflow材料仅归一化node_seconds后一致，模板fi/ivf形式拒答不能称模型必需。独立alias-v1两case仅生成合格，818原文件/40输出SHA/cleanup，inventory954be4d2、release dbe6d67a；完整构建/测试/交付/replay未观察。未来接纳fi须新身份重新资格实际模板路由，不回填旧权限/拒答。
+  - 验证/发布: 25相关回归/产品2405passed44skipped27warnings/Ruff通过；一项独立多行Shell解析错误及历史pytest权限清理告警保留，raw不改。0凭据/Provider/费用；原UTC10:30:59.253248截止不延长，无活动构建；最终HEAD三CI后仅合科研依赖分支。会话forge-rtorrent-interface-session-2026-10-21保留所有审计/检查/最终发布与知识库CAS收据。用户HTML原SHA/未跟踪保持。
+  - 下一步: 新身份接纳标准生成别名后资格实际通用模板路由，再冻结三策略全成本真实canary/比较；付费需新有效预算/时窗。
+<!-- 以下三条保留本轮执行中历史；当前结论以上方完成条目及RESEARCH_STATUS.md为准。 -->
+
+- 2026-10-21 — #583 v2已封存：三正常strict、第四槽实际false后恢复材料>50k拒绝（0恢复请求/修订）、第五未观察；inventory1bdb253e，独立audit valid，源码/cleanup通过。新恢复文本因子保留全文可读字典/完整原包SHA，正常请求不变；事后只读重建actual middleware47507/2725字节准入、完整还原。25相关回归通过。独立recovery-interface-gate-v1两恢复槽冻结，238组件、原UTC10:30:59.253248截止不变，首槽strict/Session completed及独立恢复前缀/后缀审计通过，第二槽原323叶/CLI通过、空目录replay运行中；整批未封存。v1/v2失败与未观察不改；原三正常+新两恢复只能跨身份组合。模板生成形式等价校准准备未运行，不称模型必要或真实效果。0Provider；当前分支仅合科研依赖分支。
+
+
+- 2026-10-21 — #583 v1首槽共同索引.git权限缺口在任何模型/模板之前拒绝；0脚本响应/1失败/4未观察，cleanup与独立审计通过，inventory3dee8c8e。新独立v2追加系统.git目录、233组件，运行fa79b0df（已推分支，HEAD保持），原UTC10:30:59.253248截止不延长。首槽原完整测试/CLI已执行，clean replay运行中；未提前写全批通过。知识库MCP已CAS更新并完整回读，SHAe0df4b06；以下v1运行条目是历史。
+
+- 2026-10-21 — #583 rtorrent三策略共同接口资格准备完成，冻结v1五槽、230组件，0Provider；新免费UTC07:30:59.253248–10:30:59.253248，原/replay各1200秒、准入2700秒，失败停止不补槽。新StagedVerificationTask共用先暂存再固定测试/CLI的装配，原完整323叶/818源码/40生成输出保持，模板bootstrap不符声明明确升级。13新测试及产品2393passed44skipped通过。代码分支yiwei/583-rtorrent-common-interface，仅合科研依赖分支；raw forge-rtorrent-three-strategy-gate-v1；会话forge-rtorrent-interface-session-2026-10-21。运行时HEAD保持至封存，旧paid不续用、用户HTML不动。
 
 - 2026-10-21 — 完成#581 rtorrent完整任务冻结及独立参考v5原测试/精确交付/干净重放资格
   - 文件: `scripts/forge_build_rtorrent_{prepare,contract,reference}*.py`、`backend/tests/test_rtorrent_reference*.py`、同名manifest/preregistration、`benchmarks/analyses/cpp-build-rtorrent-reference-v1-results.json`、`docs/research/2026-10-21-rtorrent-reference-results.md`、`RESEARCH_STATUS.md`。
