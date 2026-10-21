@@ -592,6 +592,11 @@
 
 ## 最近变更 (Recent Changes)
 
+- 2026-10-21 — 保留#587 v1材料失败并冻结新全阶段编码v2资格。
+  - 文件: `scripts/forge_build_rtorrent_common_v2.py`, `scripts/forge_build_rtorrent_common_gate_v2.py`，同名manifest/preregistration和材料回归。
+  - 动机: v1第一槽strict、第二槽初始材料超50k/0模型请求、第三未观察，独立inventory e13e869b已封存；恢复专用因子未覆盖初始阶段。新v2同算法/格式扩展至所有真实阶段，不虚构handoff或删任务，原50k/8k不变。原失败包50665→34761编码字节完整还原通过。原UTC16:40截止不延长，新三槽重新资格；0Provider/费用，原证据不改。
+
+
 - 2026-10-21 — 冻结#587共同三策略入口与实际材料零Provider资格。
   - 文件: `scripts/forge_build_rtorrent_common.py`, `scripts/forge_build_rtorrent_common_gate.py`, `backend/tests/test_rtorrent_common_entry.py`，同名manifest/preregistration。
   - 动机: 将#585最新生成重置/宿主身份统一用于三策略，保存编码前后实际材料，消除公平canary接线阻塞。8接口回归通过；运行尚未开始。0凭据/Provider/费用，免费UTC13:40–16:40，三槽独立新身份，原验收与旧证据不动。

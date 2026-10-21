@@ -1,10 +1,12 @@
 # Forge Research Status
 
-## 当前阶段（2026-10-21；#587共同三策略入口与实际材料资格）
+## 当前阶段（2026-10-21；#587 v1材料失败已封存，进入全阶段编码v2资格）
 
-基础设施/零Provider工程资格。新独立cpp-build-rtorrent-common-entry-gate-v1已冻结三槽：实际工具模板真实缺依赖后脚本恢复、模型Workflow参考初始动作、强工具参考工具调用。统一最新任务/源码/生成重置边界/宿主身份/原测试/交付/恢复和实际材料收据；先接口回归，再真实构建与clean replay，尚无新结果或模型效果。原818文件/40生成SHA、12程序323叶、双ELF精确交付保持。
+基础设施/零Provider工程资格。cpp-build-rtorrent-common-entry-gate-v1终态：工具实际模板缺依赖后一次脚本恢复strict，原/replay各12程序323叶/818源40生成/双ELF/cleanup通过；模型初始包超50k、0模型请求，第三强工具未观察。inventorye13e869b9de1ebe214b22bea8cfe2fb9b89daefcc001a919d81cf66ab74fc0ab；独立审计valid。旧成功/失败不回填、不拼分母。
 
-跟踪#587；manifest/preregistration同名，入口scripts/forge_build_rtorrent_common.py与common_gate.py。免费UTC13:40–16:40、每槽准入2700秒、原/replay各1200秒/cleanup120秒；0凭据/Provider/模型费用，失败/未观察保留、不续跑旧身份。完成后独立审计、冻结真实canary候选，未来付费需具体新身份/有效预算时窗。旧RQ3/P2/主线/用户HTML不动。
+新独立common-entry-gate-v2将原可读可逆子串字典用于全部阶段，不伪造handoff、不删原任务/状态/测试、不提高50k/schema8k；同三槽从空源重新资格。完整任务/生成权限/验收保持。离线原失败初始包50665→34761编码字节、完整原包还原通过；不是实际请求或模型效果。实际冻结计量为400000累计/100000单响应、12请求/72steps/48tools/32commands；v1文字150000/50000笔误单独勘误、原文保留。
+
+免费原UTC13:40–16:40不延长、每槽准入2700秒、原/replay各1200秒/cleanup120秒；0凭据/Provider/模型费。完成后冻结真实三策略canary候选（拟5美元/确认起3小时），只有共同资格和新具体授权通过才可读凭据/付费。旧RQ3/P2/主线/用户HTML不动。原失败/检查/审计在forge-rtorrent-common-session-2026-10-21；新入口common_v2.py/common_gate_v2.py。
 
 ## 上一阶段（2026-10-21；#585实际模板失败后精确重置恢复资格完成）
 
