@@ -592,6 +592,14 @@
 
 ## 最近变更 (Recent Changes)
 
+- 2026-10-21 — #585完成实际工具模板依赖失败后的精确生成重置恢复资格
+  - 文件: `scripts/forge_build_rtorrent_{template_gate,reset_gate,template_reset_gate,template_reset_gate_v2}.py`, `docs/research/2026-10-21-rtorrent-actual-template-results.md`, `docs/research/2026-10-21-rtorrent-fair-canary-design.md`
+  - 新证据: 独立actual-template-reset-gate-v2为1/1strict，实际模板0初始脚本、autoreconf成功/configure缺libtorrent真实失败，权威交接后一次脚本revision2，显式日志/40生成清理及依赖优先重建。原/replay均完整12程序323叶、818原文件/40原SHA、双普通ELF精确集合/类型/大小/SHA/CLI、索引/no HEAD/cleanup。仅准备前缀保留，不推最小增量或真实Agent/自然恢复/成本效果。
+  - 身份/审计: release5ff21ed7，251组件；inventorya6aac54f74eae5a2deff53b4676f8f33291f48360264a9245f09c6c5436bdd64，6073文件/14链接/2158603670bytes。原+验收1129.931s、replay537.043s，消息49253/schema2725原门禁保持，完整材料还原通过；原/重放实际UID/GID/Git配置/2CPU/镜像/禁网inspect通过，四身份独立audit valid，10已知容器身份不存在。
+  - 保留: actual-template-v1四个生成Makefile辅助路径差异拒绝inventorycfbe2d43；原seal root0600不可读后只读采集清单仅补缺失元数据，文件/权限/日志/结果不改。独立reset生成资格inventory978ddf5e保持818/40；完整reset-v1共同Git准备权限失败inventoryc107acf6、0模板/脚本/构建。所有旧失败/未观察不改，不合并身份分母；审计首版路由/响应混淆收据保留。
+  - 检查/后续: 32相关、产品2414passed44skipped27warnings、Ruff/609后端格式及新脚本检查通过。免费UTC09:50:30–11:50:30不延长，0凭据/Provider/Token/模型费/未知，两个恢复仅脚本，当前无活动构建。下一共同三策略材料/入口门禁后才冻真实canary及新有效paid预算/窗口；公平草案已准备。仅合科研依赖分支，最终HEAD三CI/发布/知识库CAS收据在会话forge-rtorrent-template-session-2026-10-21；用户HTML/旧RQ3/P2/主线不动。
+<!-- 以下#585条目为本轮过程，当前结论以上方完成条目与RESEARCH_STATUS.md为准。 -->
+
 - 2026-10-21 — #585完整reset-v1共同准备失败封存，v2修正容器Git全局配置
   - 文件: `scripts/forge_build_rtorrent_template_reset_gate_v2.py`, `backend/tests/test_rtorrent_template_reset_runtime_v2.py`
   - 证据: reset-v1在首次模板前因非root git --global写//.gitconfig权限失败停止，0模板/脚本/构建；818源SHA/边界/cleanup和独立清单审计通过，inventoryc107acf6，1095文件/14586387bytes，release43adb341。旧身份不改/不续跑。

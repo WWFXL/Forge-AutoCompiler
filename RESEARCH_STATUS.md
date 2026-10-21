@@ -1,10 +1,16 @@
 # Forge Research Status
 
-## 当前执行（2026-10-21；#585精确生成重置资格已通过，完整恢复准备）
+## 当前阶段（2026-10-21；#585实际模板失败后精确重置恢复资格完成）
 
-bootstrap-reset-qualification-v1实际主先生成→只清理原40声明输出→依赖优先重建，818原作者文件及原40最终SHA保持、实际cleanup/独立审计valid。inventory978ddf5e6841d224c9eddb43b8e58e63b40378658d25d593fe7b3b148c8cf55e，release7004722c；只执行生成，完整build/测试/交付/replay未观察。
+零Provider工程资格完成。cpp-build-rtorrent-actual-template-reset-gate-v2完整1/1strict、0未观察槽：实际通用模板初始0脚本/无拒答，autoreconf-fi成功、根configure真实缺libtorrent失败→权威交接→一次脚本revision2→清理config.log和原40声明生成输出、依赖优先标准生成→完整构建/测试/交付/replay/cleanup。原与重放均12程序323叶、818原作者文件/原40生成SHA、双普通ELF精确集合/类型/大小/SHA、CLI、索引/no HEAD通过；仅保留共同准备，不主张最小增量节省、真实模型理解/恢复能力或规划成本收益。
 
-独立cpp-build-rtorrent-actual-template-reset-gate-v1冻结248组件，同一实际模板与真实依赖失败后一次脚本恢复，新增精确生成清理/顺序重建，保留原最终SHA及全部严格任务；compile/replay共同绑定宿主UID/GID，旧运行器不改。本身份先提交再执行、运行中HEAD保持，原失败保留；完整结果尚未观察。仍0Provider/费用、原免费UTC11:50:30截止，不改RQ3/P2/主线/用户HTML。
+旧失败分别保留：实际模板v1依赖生成选择父辅助目录，四个Makefile模板SHA拒绝，完整build后续未观察（inventorycfbe2d43）；reset-v1非root共同Git准备权限失败，0模板/脚本/构建（inventoryc107acf6）。独立bootstrap-reset-v1已验证主先生成后只清理40输出、依赖优先重建仍满足原40SHA/818源/cleanup（inventory978ddf5e）；没有放宽SHA裁判。新完整v2共同compile/replay宿主UID/GID及容器GIT_CONFIG_GLOBAL=/tmp/forge-global.gitconfig实际inspect通过，旧运行器/证据不改。
+
+最新运行release5ff21ed7eaf4abe041feb3a2619b9a8f50b7dfd3、251组件；inventorya6aac54f74eae5a2deff53b4676f8f33291f48360264a9245f09c6c5436bdd64（6073文件/14链接/2158603670bytes）。原加验收1129.931秒、replay537.043秒；单脚本恢复消息49253/schema2725字节，原50k/8k保持、完整还原审计valid。四身份清单/Git组件/父链/源码/全部测试/ELF/失败与恢复/材料独立审计及10个已知容器身份不存在全部通过。原v1 seal权限失败只读root采集后仅补缺失元数据；未改原文件字节/权限/结果/日志、不重跑。
+
+报告docs/research/2026-10-21-rtorrent-actual-template-results.md；派生benchmarks/analyses/cpp-build-rtorrent-actual-template-qualification-results-v1.json；raw forge-rtorrent-actual-template-reset-gate-v2及各旧身份；会话forge-rtorrent-template-session-2026-10-21保留异常/审计/检查/发布及知识库CAS收据。32相关、产品2414passed44skipped27warnings、Ruff/609后端格式通过，历史pytest权限warning保留。0凭据/Provider/真实Token/模型费/未知，本轮两次仅脚本恢复响应，无活动构建，原免费UTC11:50:30截止不延长，旧paid不续用。
+
+下一步先新共同三策略入口/实际材料零Provider门禁，再冻结真实canary运行包及有效费用/时窗；公平草案docs/research/2026-10-21-rtorrent-fair-canary-design.md已准备，全部初始/读取/输出/纠错/失败/恢复费用计入，接受局部优势/取舍。rtorrent+libtorrent仍已见强关联development组、非holdout，不改RQ3分母/P2/主线/用户HTML。最终HEAD三CI全SUCCESS后仅合科研依赖分支；GitHub及final-publication-audit.json为发布真源。
 
 ## 已封存阶段（2026-10-21；#585实际模板执行已观察，恢复资格未通过）
 

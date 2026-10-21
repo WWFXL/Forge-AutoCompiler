@@ -1,0 +1,132 @@
+{
+  "kind": "zero_provider_engineering_qualification",
+  "issue": 585,
+  "current_identity": "cpp-build-rtorrent-actual-template-reset-gate-v2",
+  "decision": "actual_template_and_scripted_reset_recovery_qualified_prepare_common_three_strategy_canary",
+  "identities": [
+    {
+      "identity": "cpp-build-rtorrent-actual-template-gate-v1",
+      "raw": "/home/yiwei/.codex/outputs/forge-rtorrent-actual-template-gate-v1",
+      "seal": {
+        "format": "forge-typed-evidence-v1",
+        "identity": "cpp-build-rtorrent-actual-template-gate-v1",
+        "entries": 1962,
+        "files": 1962,
+        "symlinks": 0,
+        "bytes": 29862397,
+        "inventory_canonical_sha256": "cfbe2d431f815f0a8773c7fcf845544ea1e137474f4e59e1aaaaf8d74fbcb0a3",
+        "unknown_usage_requests": 0
+      },
+      "release": "55c637f61d4725a70959147b3bd12deda33056f2",
+      "qualified": null,
+      "strict_completed": false,
+      "scope": "完整路径工程资格"
+    },
+    {
+      "identity": "cpp-build-rtorrent-bootstrap-reset-qualification-v1",
+      "raw": "/home/yiwei/.codex/outputs/forge-rtorrent-bootstrap-reset-qualification-v1",
+      "seal": {
+        "format": "forge-typed-evidence-v1",
+        "identity": "cpp-build-rtorrent-bootstrap-reset-qualification-v1",
+        "entries": 1127,
+        "files": 1127,
+        "symlinks": 0,
+        "bytes": 19299820,
+        "inventory_canonical_sha256": "978ddf5e6841d224c9eddb43b8e58e63b40378658d25d593fe7b3b148c8cf55e",
+        "unknown_usage_requests": 0
+      },
+      "release": "7004722c5e7bb90efbaf9ab7fd8dbde4d24606c3",
+      "qualified": true,
+      "strict_completed": null,
+      "scope": "生成顺序资格"
+    },
+    {
+      "identity": "cpp-build-rtorrent-actual-template-reset-gate-v1",
+      "raw": "/home/yiwei/.codex/outputs/forge-rtorrent-actual-template-reset-gate-v1",
+      "seal": {
+        "format": "forge-typed-evidence-v1",
+        "identity": "cpp-build-rtorrent-actual-template-reset-gate-v1",
+        "entries": 1095,
+        "files": 1095,
+        "symlinks": 0,
+        "bytes": 14586387,
+        "inventory_canonical_sha256": "c107acf622c065c626fb2638a6af58510ffb9c84b8145764d7ba1c3970a3e66f",
+        "unknown_usage_requests": 0
+      },
+      "release": "43adb341019454a12df24f855a06a2866ffbbe77",
+      "qualified": null,
+      "strict_completed": false,
+      "scope": "完整路径工程资格"
+    },
+    {
+      "identity": "cpp-build-rtorrent-actual-template-reset-gate-v2",
+      "raw": "/home/yiwei/.codex/outputs/forge-rtorrent-actual-template-reset-gate-v2",
+      "seal": {
+        "format": "forge-typed-evidence-v1",
+        "identity": "cpp-build-rtorrent-actual-template-reset-gate-v2",
+        "entries": 6087,
+        "files": 6073,
+        "symlinks": 14,
+        "bytes": 2158603670,
+        "inventory_canonical_sha256": "a6aac54f74eae5a2deff53b4676f8f33291f48360264a9245f09c6c5436bdd64",
+        "unknown_usage_requests": 0
+      },
+      "release": "5ff21ed7eaf4abe041feb3a2619b9a8f50b7dfd3",
+      "qualified": null,
+      "strict_completed": true,
+      "scope": "完整路径工程资格"
+    }
+  ],
+  "latest": {
+    "strict_completed": 1,
+    "observed": 1,
+    "unobserved_slots": 0,
+    "original_and_replay_programs": 12,
+    "original_and_replay_leaf_tests": 323,
+    "original_files_unchanged": 818,
+    "exact_generated_outputs": 40,
+    "delivery": [
+      "rtorrent",
+      "libtorrent.so.53"
+    ],
+    "node_and_acceptance_seconds": 1129.9314815336838,
+    "replay_seconds": 537.043279,
+    "scripted_initial_requests": 0,
+    "scripted_recovery_requests": 1,
+    "original_shell_commands": 13,
+    "messages_bytes": 49253,
+    "schema_bytes": 2725,
+    "retained_steps": [
+      "forge-source-prepare"
+    ],
+    "physical_generated_output_reset": true
+  },
+  "provider_calls": 0,
+  "credentials_read": false,
+  "recorded_tokens": 0,
+  "unknown_usage": 0,
+  "new_model_cost_usd": 0,
+  "total_scripted_recovery_responses": 2,
+  "checks": {
+    "valid": true,
+    "related_tests": 32,
+    "product_passed": 2414,
+    "product_skipped": 44,
+    "product_warnings": 27,
+    "backend_lint": true,
+    "backend_formatted_files": 609
+  },
+  "supported": [
+    "实际通用模板执行及依赖缺失升级",
+    "精确生成清理/依赖优先重建后一次脚本修订达到完整严格交付",
+    "原输出SHA不放宽、原/replay完整测试与交付一致"
+  ],
+  "not_supported": [
+    "真实模型理解或恢复能力",
+    "自然恢复率或规划成本收益",
+    "最小增量执行节省",
+    "holdout或策略排名"
+  ],
+  "next_design": "docs/research/2026-10-21-rtorrent-fair-canary-design.md",
+  "next_required": "新共同三策略材料/入口门禁，再具体真实canary身份和有效付费授权"
+}
