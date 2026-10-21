@@ -1,10 +1,12 @@
 # Forge Research Status
 
-## 当前阶段（2026-10-21；#583rtorrent三策略共同接口资格执行）
+## 当前阶段（2026-10-21；#583 rtorrent恢复接口资格）
 
-本轮为基础设施/接口资格，不新增真实模型效果。新身份cpp-build-rtorrent-three-strategy-gate-v1冻结五槽（三策略正常＋双Workflow受控build=false恢复），230组件及开发助手/角色/rtorrent+libtorrent强关联暴露已登记，非holdout。新免费窗口UTC07:30:59.253248至10:30:59.253248、0凭据/Provider/费用；不续用旧授权，无付费分支。各槽完整323叶/12原程序、818原文件/40生成输出、共同源码索引、双ELF精确交付/CLI、原replay各1200秒/2CPU/无网络和实际cleanup保持；准入2700秒，任一失败停止并保留未观察。
+基础设施/工程修复，0凭据/Provider/真实Token/模型费用，不新增策略效果。three-strategy-gate-v1首槽系统Git索引权限拒绝（1失败/4未观察，inventory3dee8c8e）；新v2三正常策略strict，第四槽真实build=false产生handoff后，恢复请求前因50k材料超限停止，0修订，第五槽未观察（inventory1bdb253e）。两独立audit valid，所有cleanup与源码边界闭合，不续跑/回填。
 
-新增StagedVerificationTask让两来源共用build→stage→原完整测试→独立CLI装配；强工具同一固定验证/可信提交。模板bootstrap不符预声明生成关系时明确升级，不猜依赖或注入人工配方。13接口回归、产品2393passed44skipped27warnings/Ruff通过；运行前检查已过，当前五槽尚未观察，不提前写通过。协议benchmarks/manifests/cpp-build-rtorrent-three-strategy-gate-v1.json及同名preregistration；暴露benchmarks/analyses/cpp-build-rtorrent-role-exposure-v1.json；会话forge-rtorrent-interface-session-2026-10-21。上一参考仍有效如下，旧失败/RQ3/P2/主线及用户HTML不改。
+恢复材料事后只读重建发现原测试长文本与记录叠加；新可读文本因子逐字还原完整原包，actual middleware脚本资格47507消息字节/2725schema字节，原50k/8k门禁不变，正常请求表示不变，25相关回归通过。独立cpp-build-rtorrent-recovery-interface-gate-v1冻结两Workflow恢复槽；任务/12程序323叶/818原文件/40生成SHA/双ELF/CLI/replay/2CPU无网络/cleanup及原UTC10:30:59.253248截止保持。此次只修表示、不删测试、不增权限；新身份实际恢复尚待观察。此前三正常与新两恢复只可明确披露为跨身份组合资格。
+
+协议benchmarks/manifests/cpp-build-rtorrent-recovery-interface-gate-v1.json，raw forge-rtorrent-recovery-interface-gate-v1；会话forge-rtorrent-interface-session-2026-10-21含只读重建/审计/检查。暴露rtorrent+rakshasa-libtorrent同一强关联组，development、非holdout。模板autoreconf-fi与声明-ivf形式差异不能解释为模型必需；另有输出等价校准准备，尚未执行。旧libconfig/RQ3/P2/主线/用户HTML不变；未授权付费，最终HEAD三CI后只合科研依赖分支。
 
 ## 上一阶段（2026-10-21；#581rtorrent完整任务参考资格完成）
 

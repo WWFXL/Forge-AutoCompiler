@@ -4,6 +4,11 @@
 
 ## 进行中 (In Progress)
 
+- 2026-10-21 — #583 v2已封存：三正常strict、第四槽实际false后恢复材料>50k拒绝（0恢复请求/修订）、第五未观察；inventory1bdb253e，独立audit valid，源码/cleanup通过。新恢复文本因子保留全文可读字典/完整原包SHA，正常请求不变；事后只读重建actual middleware47507/2725字节准入、完整还原。25相关回归通过。独立recovery-interface-gate-v1两恢复槽冻结，238组件、原UTC10:30:59.253248截止不变，实际结果待观察。v1/v2失败与未观察不改；原三正常+新两恢复只能跨身份组合。模板生成形式等价校准准备未运行，不称模型必要或真实效果。0Provider；当前分支仅合科研依赖分支。
+
+
+- 2026-10-21 — #583 v1首槽共同索引.git权限缺口在任何模型/模板之前拒绝；0脚本响应/1失败/4未观察，cleanup与独立审计通过，inventory3dee8c8e。新独立v2追加系统.git目录、233组件，运行fa79b0df（已推分支，HEAD保持），原UTC10:30:59.253248截止不延长。首槽原完整测试/CLI已执行，clean replay运行中；未提前写全批通过。知识库MCP已CAS更新并完整回读，SHAe0df4b06；以下v1运行条目是历史。
+
 - 2026-10-21 — #583 rtorrent三策略共同接口资格准备完成，冻结v1五槽、230组件，0Provider；新免费UTC07:30:59.253248–10:30:59.253248，原/replay各1200秒、准入2700秒，失败停止不补槽。新StagedVerificationTask共用先暂存再固定测试/CLI的装配，原完整323叶/818源码/40生成输出保持，模板bootstrap不符声明明确升级。13新测试及产品2393passed44skipped通过。代码分支yiwei/583-rtorrent-common-interface，仅合科研依赖分支；raw forge-rtorrent-three-strategy-gate-v1；会话forge-rtorrent-interface-session-2026-10-21。运行时HEAD保持至封存，旧paid不续用、用户HTML不动。
 
 
