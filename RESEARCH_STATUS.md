@@ -1,6 +1,14 @@
 # Forge Research Status
 
-## 当前阶段（2026-10-21；#575共同文件边界与三策略零Provider资格完成）
+## 当前阶段（2026-10-21；#577固定30项新任务合同材料审阅完成）
+
+样本准备/只读数据采集与静态分析完成，0Provider/模型凭据/Token/费用/构建/Docker。cpp-build-prospective-task-source-screen-v1保持原30排名/精确commit，30/30采集、0失败/未观察，120材料路径；Matplot++ README351588字节超过262144上限，明确未读取。独立stdlib清单及真实Git mktree/hash-object审计82树/120blob、父链/路径/组件/规则valid；359文件/2715186bytes，inventory2facd675892ed07d7e98043a387e1e21c8e5956f0910f3d52a7f757bc050b967，release d5c354647ddb1a8dfdd00fda244680c4abad2279。首审计序列化比较错误保留，原raw未改。新增6项/产品2322passed44skipped27warnings/Ruff通过。
+
+30项全部task_qualified=false、build not_observed、非holdout。排名16根Makefile默认git add/commit/push而非编译入口，不执行；不是全仓库不可编译结论。封存后按Linux产品/直接作者测试/依赖线索形成9 ArrayFire→10 rtorrent→14 Dobby→21 Yosys→30 IWYU的定义工作队列，各有数据/版本/断言/工具链/资源待解，其他25仍pending，不是结果前最终样本或策略效果。逐项事实/原文行号/待解见benchmarks/analyses/cpp-build-prospective-task-source-screen-v1-results.json及docs/research/2026-10-21-prospective-task-source-screen-results.md；raw forge-prospective-task-source-screen-v1，会话forge-task-screening-session-2026-10-21保留审计/检查/发布收据。
+
+下一步新身份补任务源码/依赖图、完整作者测试、精确真实产物及专属B生成关系，再独立参考构建/完整验证/replay/cleanup；资格后才冻公平比较。材料是开发助手新增暴露，不自动注入Agent，不声称训练/历史未见；保留原4项有限名命中。用户B已决定不重复询问；不改旧九槽/RQ3分母/P2/主线/用户HTML。无活动Provider或构建，旧付费窗口不续用；未来付费需新有效预算/时窗。结果HEAD三CI后仅合科研依赖分支，实际发布以GitHub/会话收据为准。
+
+## 上一阶段（2026-10-21；#575共同文件边界与三策略零Provider资格完成）
 
 基础设施/工程资格完成，0Provider/凭据/模型Token/费用/未知用量。新共同B接口在已见libconfig上完成三策略正常及双Workflow受控恢复：独立cpp-build-generated-file-boundary-gate-v2五槽5/5strict、0未观察。原/replay均保护264原文件，仅预声明autoheader命令更新ac_config.h.in至独立核验SHA；完整作者8PASS+1上游XFAIL、tinytest16/16、原功能配置、精确两静态库/产物SHA一致及实际cleanup通过。两个恢复各实际build=false失败→revision2，保留准备/生成/configure命令ID，只重跑build后缀。
 

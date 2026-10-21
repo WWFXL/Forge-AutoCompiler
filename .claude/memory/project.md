@@ -5,6 +5,8 @@
 ## 进行中 (In Progress)
 
 
+
+
 - 2026-10-21 — #571目录30/30元数据终结、0失败/未观察、0Provider/费/构建/Docker；30根Git树SHA及841跟踪文件暴露范围独立审计valid，有限精确名4命中/26未命中、全部task未资格/非holdout。raw forge-cxx-prospective-source-catalog-v1，inventory88e23ea1，release6a224591；发布通道为PR572→科研依赖分支；最终HEAD三CI及GitHub实际状态以会话发布收据为准。#568/PR570已合57e19085、568关闭；全部paid stage闭合，累计3.06569736美元/未知0，无活动实验。源码/生成文件边界A/B决策包已保存，B不自动实施。
 
 - 2026-10-21 — #571前瞻30项C++来源元数据目录准备；固定GitHub检索排名后只取精确commit/根tree，不读源码或构建，不按方法结果替换；0Provider/费用/Docker。单独source工作区、原UTC22:07:35截止，候选非构建资格/holdout，完整产品检查中。#568真实结果封存，PR570等待最终三CI，当前无活动Provider。
@@ -590,6 +592,11 @@
   - 下一步: 等待实验负责人确认当前网络接入介质，并决定是否授权只读 endpoint 诊断和新的 canary amendment；获得确认后必须另建中文 Issue/PR 和协议 identity，保留当前失败 marker。
 
 ## 最近变更 (Recent Changes)
+
+- 2026-10-21 — #577完成固定30项任务合同只读采集与审阅；原30排名/commit全部观察，0失败/未观察/Provider/费用/构建/Docker。
+  - 文件: `scripts/forge_build_task_source_screen.py`, `backend/tests/test_task_source_screen.py`, `benchmarks/preregistrations/cpp-build-prospective-task-source-screen-v1.md`, `benchmarks/manifests/cpp-build-prospective-task-source-screen-v1.json`, `benchmarks/analyses/cpp-build-prospective-task-source-screen-v1-results.json`, `docs/research/2026-10-21-prospective-task-source-screen-results.md`。
+  - 动机: 为B共同接口后的公平比较准备可明确完整测试/真实端点的新任务；静态审阅不是实际构建资格或方法效果。120材料、1超限README未读；独立stdlib+真实Git82树/120blob/父链/规则审计valid，首审计格式化JSON字节比较错误保留后改结构/Git对象比较，raw未改。inventory2facd675（359文件/2715186bytes），release d5c354647ddb1a8dfdd00fda244680c4abad2279。
+  - 结果: 30项全部未资格/非holdout；根Makefile16为Git发布而非编译，禁止当编译执行。封存后定义队列9/10/14/21/30，各自依赖/完整测试/资源仍待解，其他25保留pending。下一步新身份补源图/原测试/精确产物/专属生成关系，再独立参考及共享资格。新增6回归、产品2322passed44skipped27warnings和Ruff通过；不改旧九槽/RQ3/P2/主线/用户HTML，不续用过期paid授权。结果最终HEAD三CI后仅合依赖分支，发布以GitHub/会话final-publication-audit.json为准；知识库由MCP CAS同步。
 
 - 2026-10-21 — #575完成生成文件边界B共同接口及libconfig独立五槽资格。
   - 文件: `backend/packages/harness/deerflow/compile/generated_file_boundary.py`、`boundary_execution.py`、`scripts/forge_build_boundary_{arm,gate}{,_v2}.py`、三测试文件、同名manifest/preregistration、派生结果和`docs/research/2026-10-21-generated-file-interface-results.md`。
