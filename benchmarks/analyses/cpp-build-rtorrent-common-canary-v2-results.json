@@ -1,0 +1,134 @@
+{
+  "identity": "cpp-build-rtorrent-common-canary-v2-results",
+  "kind": "real_model_development_canary",
+  "issue": 589,
+  "raw": "/home/yiwei/.codex/outputs/forge-rtorrent-common-canary-v2",
+  "release": "3aa16e6c2bb8600c93122d2b24022cd60e2f2be6",
+  "inventory": {
+    "format": "forge-typed-evidence-v1",
+    "identity": "cpp-build-rtorrent-common-canary-v2",
+    "entries": 5437,
+    "files": 5437,
+    "symlinks": 0,
+    "bytes": 66339801,
+    "inventory_canonical_sha256": "271bcecbd2d17abae1c5358beffcf43b54d223a62d228e20a5ca330599b0d2be",
+    "unknown_usage_requests": 0
+  },
+  "strict_completed": 0,
+  "observed": 3,
+  "unobserved": 0,
+  "requests": 28,
+  "input_tokens": 491374,
+  "output_tokens": 44097,
+  "recorded_tokens": 535471,
+  "estimated_cost_usd": "0.82323780",
+  "unknown_requests": 0,
+  "prior_failed_slots_retried": false,
+  "rows": [
+    {
+      "method": "tool_plan_workflow",
+      "strict_completed": false,
+      "error_class": "PlanContractError",
+      "error_message": "当前状态材料超过50000字节，不调用Provider",
+      "requests": 1,
+      "recorded_tokens": 18938,
+      "estimated_cost_usd": "0.02638416",
+      "wall_seconds": 84.28748422069475,
+      "commands": 3,
+      "layers": {
+        "build_observed": false,
+        "test_programs_observed": 0,
+        "delivery_verified": false,
+        "clean_replay_observed": false
+      },
+      "read_source_calls": 0,
+      "unique_read_source_arguments": 0,
+      "repeat_read_source_calls": 0,
+      "phase_costs": {
+        "recovery": {
+          "requests": 1,
+          "cost_usd": "0.02638416"
+        }
+      },
+      "protected_author_files_unchanged": true,
+      "cleanup": true
+    },
+    {
+      "method": "model_plan_workflow",
+      "strict_completed": false,
+      "error_class": "AgentWorkflowBudgetExceeded",
+      "error_message": null,
+      "requests": 16,
+      "recorded_tokens": 320512,
+      "estimated_cost_usd": "0.51499008",
+      "wall_seconds": 823.3850361229852,
+      "commands": 1,
+      "layers": {
+        "build_observed": false,
+        "test_programs_observed": 0,
+        "delivery_verified": false,
+        "clean_replay_observed": false
+      },
+      "read_source_calls": 44,
+      "unique_read_source_arguments": 13,
+      "repeat_read_source_calls": 31,
+      "phase_costs": {
+        "initial": {
+          "requests": 16,
+          "cost_usd": "0.51499008"
+        }
+      },
+      "protected_author_files_unchanged": true,
+      "cleanup": true
+    },
+    {
+      "method": "strong_tool_agent",
+      "strict_completed": false,
+      "error_class": "PlanContractError",
+      "error_message": "当前状态材料超过50000字节，不调用Provider",
+      "requests": 11,
+      "recorded_tokens": 196021,
+      "estimated_cost_usd": "0.28186356",
+      "wall_seconds": 366.23995783319697,
+      "commands": 5,
+      "layers": {
+        "build_observed": false,
+        "test_programs_observed": 0,
+        "delivery_verified": false,
+        "clean_replay_observed": false
+      },
+      "read_source_calls": 12,
+      "unique_read_source_arguments": 7,
+      "repeat_read_source_calls": 5,
+      "phase_costs": {
+        "tool_agent_run": {
+          "requests": 11,
+          "cost_usd": "0.28186356"
+        }
+      },
+      "protected_author_files_unchanged": true,
+      "cleanup": true
+    }
+  ],
+  "claims_supported": [
+    "真实多轮交互存在原单响应门禁未覆盖的材料超限",
+    "当前模型方案存在重复读取及预算耗尽",
+    "全部请求费用与失败保留，严格终点未观察"
+  ],
+  "claims_not_supported": [
+    "三策略构建能力排名",
+    "规划来源净收益或没有论文价值",
+    "测试或交付功能失败",
+    "holdout/总体成功率/统计显著性"
+  ],
+  "audit_receipts": {
+    "independent-real-audit.json": {
+      "path": "/home/yiwei/.codex/outputs/forge-rtorrent-real-session-2026-10-21/independent-real-audit.json",
+      "sha256": "90c6876b5fc29fce5a0f228249538196d6b1991171988bc9c22fa2edff9ebcf4"
+    },
+    "independent-runtime-audit.json": {
+      "path": "/home/yiwei/.codex/outputs/forge-rtorrent-real-session-2026-10-21/independent-runtime-audit.json",
+      "sha256": "6aca12b890a8bfaff43aa2caf70df711bb9f79f0786f70952ec287a8cc3de230"
+    }
+  }
+}

@@ -4,8 +4,7 @@
 
 ## 进行中 (In Progress)
 
-- 2026-10-21 — #589按最终10美元/四小时/请求次数不限/无自动重试授权准备真实三策略canary。
-  - 新身份cpp-build-rtorrent-common-canary-v2，UTC15:30:52–19:30:52准备计入；旧5美元/三小时/12请求v1候选不改。新meter只取消独立12请求限制，技术请求上界73严格大于72step，先触发step而非请求计数；其他Token/工具/命令/费用/任务/验收保持。新授权与相邻30回归通过，0凭据/Provider/费用，候选冻结后启动；报告/证据/检查/发布/知识库收据统一forge-rtorrent-real-session-2026-10-21。用户HTML原SHA及未跟踪保持。
+
 
 
 
@@ -1121,6 +1120,12 @@
   - 文件: `docs/research/2026-10-19-build-plan-walkthrough.md`, `RESEARCH_STATUS.md`, `.claude/memory/project.md`
 
 <!-- 倒序，最新在上。 -->
+
+- 2026-10-22 — #589真实三策略canary终结并独立审计；下一步#591免费多轮材料资格。
+  - 文件: `docs/research/2026-10-22-rtorrent-common-canary-results.md`, `benchmarks/analyses/cpp-build-rtorrent-common-canary-v2-results.json`, `RESEARCH_STATUS.md`
+  - 动机: 真实多轮暴露旧单响应资格未覆盖的材料上限及重复读取，不把未观察测试写成失败。v2三槽0strict/3观察/0未观察，28请求535471Token/$0.82323780/未知0；各818原作者文件及实际cleanup通过。raw forge-rtorrent-common-canary-v2，inventory271bcecbd2d17abae1c5358beffcf43b54d223a62d228e20a5ca330599b0d2be，release3aa16e6c。独立清单/Git父链/真实材料逐字还原/费用生命周期/未观察层/实际容器资源审计valid；两旧审计误判及勘误保留。30相关回归、产品2455passed44skipped27warnings、Ruff/613格式通过。原10美元授权UTC15:30:52–19:30:52准备计入、请求不限/无自动重试；剩余9.17676220美元，后续新身份不延长截止、不补旧槽、不混版本分母。当前无活动Provider/Docker。最终HEAD三CI后仅合科研依赖分支；用户HTML未改未提交。#591后验原型仅离线共享同JSON值，两停止材料48475/48877bytes，须正式零Provider资格后才可新canary。
+
+
 
 - 2026-10-17 — Issue #465 Jev 逐动作安全判断问题分解完成并停止 controller 路线
   - 工作类型与问题: 正式数据采集与结果分析。目标是区分 #463 的 `escalate_agent=11/15` 究竟来自四选一竞争、

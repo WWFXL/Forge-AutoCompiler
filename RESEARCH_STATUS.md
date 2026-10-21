@@ -1,10 +1,12 @@
 # Forge Research Status
 
-## 当前阶段（2026-10-21；#589新授权真实三策略canary准备）
+## 当前阶段（2026-10-22；#589真实canary终结，#591多轮材料资格待执行）
 
-数据采集准备。用户最终授权新增模型费用10美元，UTC2026-10-21T15:30:52至19:30:52（准备计入），请求次数不限、无自动重试；覆盖被中断的自动重试消息。新独立cpp-build-rtorrent-common-canary-v2绑定已通过的共同三槽v2资格与原任务/源码/测试/生成/交付/重放/cleanup，不续跑旧身份。取消旧12请求独立上限，仍共同72steps；新meter技术请求上界73严格大于step上界，不能先触发。其余400k累计/100k单响应/每臂500k设计Token、每臂1.50美元/未知预留0.40、48工具32命令/原超时及消息大小保持。免费门禁已准入第13请求并验证先触发step预算。
+真实数据采集及独立结果审计完成。cpp-build-rtorrent-common-canary-v2三槽均观察、0/3strict、0未观察槽，固定顺序正常结束；28真实请求/535471Token（输入491374、输出44097），估费0.82323780美元、未知用量0。工具Workflow1请求/0.02638416美元，初始规划模型费0，真实configure缺libtorrent后恢复第二请求前材料>50k；模型Workflow16请求/0.51499008美元均初始规划，48只读工具耗尽且重复read31次；强工具11请求/0.28186356美元后续材料>50k。三槽build未执行，完整测试/交付/replay均未观察，不填功能失败；818原作者文件及实际cleanup通过。单族已见development，不支持策略排名、规划净收益或holdout主张。
 
-跟踪#589，入口scripts/forge_build_rtorrent_canary_v2.py；三固定槽工具方案Workflow→模型方案Workflow→强工具Agent各一次，已见development单族非holdout。全部初始/读取/输出/失败/恢复计费，未知用量/cleanup/身份/资源异常停整批，方法失败保留后继续固定下一槽，不补槽/自动重试。先冻结候选与release/授权账本，完整免费核验后才读凭据；此刻0新Provider/费用。原v1候选及所有冻结失败不改。阶段完成后独立审计、最终HEAD三CI、仅合科研依赖分支及知识库同步。RQ3/P2/主线/用户HTML不动。
+运行release3aa16e6c2bb8600c93122d2b24022cd60e2f2be6，候选480057ef，raw forge-rtorrent-common-canary-v2；inventory271bcecbd2d17abae1c5358beffcf43b54d223a62d228e20a5ca330599b0d2be（5437文件/0链接/66339801bytes）。独立全量清单/Git父链/实际请求可逆还原/原响应逐Token费用生命周期/源码与未观察层审计valid，三个实际compile资源及六ID/name不存在审计valid；两份审计解释修正及原失败保留，raw未改。报告docs/research/2026-10-22-rtorrent-common-canary-results.md，派生benchmarks/analyses/cpp-build-rtorrent-common-canary-v2-results.json；会话forge-rtorrent-real-session-2026-10-21。30授权与相邻回归、产品2455passed44skipped27warnings、Ruff/613格式通过。最终HEAD三CI后仅合科研依赖分支，实际发布见GitHub及final-publication-audit.json。
+
+下一步#591先做零Provider多轮材料资格，保持50k/8k和完整任务/裁判，不删源码任务或扩大验收。后验共享JSON值原型离线两停止包48475/48877bytes，尚未正式资格或真实请求。资格后才冻结独立新版本canary，不补旧槽或据前后工程版本宣称因果收益。用户本轮10美元/UTC2026-10-21T15:30:52–19:30:52四小时（准备计入）、请求次数不限、无自动重试继续有效，剩余9.17676220美元，后续阶段绑定旧费与原绝对截止。无活动Provider/构建。RQ3/P2/主线/用户HTML保持。
 
 ## 上一阶段（2026-10-21；#587共同三策略资格完成，真实canary待新授权）
 
