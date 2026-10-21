@@ -1,10 +1,14 @@
 # Forge Research Status
 
-## 当前阶段（2026-10-22；#599全三版请求免费会话连续性审计准备）
+## 当前阶段（2026-10-22；#599全三版请求免费会话连续性审计完成）
 
-结果分析准备，0新增Provider/模型Token/费用/构建。cpp-build-rtorrent-context-continuity-audit-v1固定已闭合v2/v3/v4全部114实际请求及来源inventory/独立审计SHA，候选0501dc39544ffcdde6e554503748b2c22f455f5962974055bd04a6aba2d80265、8组件。核验105后继转换的原AI/完整工具唯一配对与原生会话保留；按原50k口径测量原样追加完整上一轮的字节开销，不称实际发送或完整新接口资格。已明确为后验完整普查，不假称结果盲预注册。10针对性回归、产品2531passed44skipped27warnings、Ruff610后端及新脚本格式/CLI通过；尚未正式写新raw或填结果。
+结果分析完成，0新凭据/Provider/真实Token/费用/构建/Docker。cpp-build-rtorrent-context-continuity-audit-v1固定v2/v3/v4全部114实际请求/105后继转换，114全为单Human包，前一原生AI与完整ToolMessage保留均0/105；当前工作集/最近反馈仍可能包含部分信息，不等同模型毫无相关信息。原样追加完整前轮后14/105满足原50k、91/105超限，最大92271bytes；这是未发送的机械测量，没有去重已有证据，不是新接口资格、Token预测或失败因果。
 
-成熟LangChain完整AI/Tool配对及现有DeepSeek reasoning_content序列化只读核验，后者离线占位测试通过；不调用摘要模型，不修改旧组件、v4失败或原验收。先冻结提交再正式审计/独立重算，完成后设计共享会话与证据保留资格，不盲目追加付费压缩版本。原总10美元/UTC19:30:52/无自动重试不续期；三paid已闭合名义3.27044256美元，无活动Provider/Docker，18:25:52后不发新请求。#597/PR598已合77ddef20并关闭、最终发布审计valid；知识库10d34c75完整CAS回读/搜索一致。RQ3/P2/主线/用户HTML保持。
+releasef6e59a969069b1286effb9143b38294e86c304bd、8组件，候选0501dc39；raw forge-rtorrent-context-continuity-audit-v1，inventoryf3128a16f5d740e88571c2254d07d7ed72cce66eab2ed84d09ba2219178bac4a（11文件/156948bytes/0链接）。独立stdlib全量来源与新清单/Git提交组件/114请求105完整唯一配对/逐字段字节重算valid。10针对性/产品2531passed44skipped27warnings/Ruff610后端与新脚本格式/CLI通过，历史临时目录权限告警保留。报告docs/research/2026-10-22-rtorrent-context-continuity-audit-results.md；派生benchmarks/analyses/cpp-build-rtorrent-context-continuity-audit-v1-results.json；会话forge-rtorrent-real-session-2026-10-21保留收据。最终结果HEAD三CI成功后仅合科研依赖分支，以GitHub/final-context-publication-audit.json为发布真源。
+
+下一步三策略共同原生会话与证据保留接口免费资格：完整AI/Tool配对、DeepSeek reasoning_content、准确请求原文/原任务及执行器边界/全费用计量；成熟LangChain配对和既有DeepSeek序列化已离线核验，不调用摘要模型。新材料/响应资源须前瞻共同冻结，不按方法结果回调；新真实结果只在独立新身份内部解释，不把工程版本前后当因果效果。当前未实现新接口、不提前称成功，不盲目追加付费压缩版本。
+
+原总10美元/UTC2026-10-21T15:30:52–19:30:52/请求不限/无自动重试不续期；三paid已闭合名义3.27044256美元，无活动Provider/Docker，18:25:52后不发新请求。#597/PR598最终4a83af33三CI后已合77ddef20，597显式关闭/发布审计valid，知识库10d34c75完整CAS回读/搜索一致。单一已见development族，旧失败/原验收/RQ3/P2/主线/用户HTML保持。
 
 ## 上一阶段（2026-10-22；#597固定合同真实canary已发布）
 
