@@ -1,6 +1,12 @@
 # Forge Research Status
 
-## 当前阶段（2026-10-21；#585实际模板执行已观察，恢复资格未通过）
+## 当前执行（2026-10-21；#585精确生成重置资格已通过，完整恢复准备）
+
+bootstrap-reset-qualification-v1实际主先生成→只清理原40声明输出→依赖优先重建，818原作者文件及原40最终SHA保持、实际cleanup/独立审计valid。inventory978ddf5e6841d224c9eddb43b8e58e63b40378658d25d593fe7b3b148c8cf55e，release7004722c；只执行生成，完整build/测试/交付/replay未观察。
+
+独立cpp-build-rtorrent-actual-template-reset-gate-v1冻结248组件，同一实际模板与真实依赖失败后一次脚本恢复，新增精确生成清理/顺序重建，保留原最终SHA及全部严格任务；compile/replay共同绑定宿主UID/GID，旧运行器不改。本身份先提交再执行、运行中HEAD保持，原失败保留；完整结果尚未观察。仍0Provider/费用、原免费UTC11:50:30截止，不改RQ3/P2/主线/用户HTML。
+
+## 已封存阶段（2026-10-21；#585实际模板执行已观察，恢复资格未通过）
 
 零Provider工程资格cpp-build-rtorrent-actual-template-gate-v1已停止封存，1观察/0strict/0未观察槽。实际模板初始0脚本响应，无拒答，执行autoreconf-fi成功；根configure真实缺libtorrent>=0.16.25失败，文件边界通过，触发权威交接。一次脚本参考修订revision2，清理config.log成功；随后依赖autoreconf-ivf选择父辅助目录，四个生成文件偏离固定SHA而被拒绝。第二交接被一次恢复门禁阻止，0第二响应。不称模型必需/完整模板合格/真实Agent效果；完整build/12程序323叶/交付/replay均未观察。
 

@@ -592,6 +592,11 @@
 
 ## 最近变更 (Recent Changes)
 
+- 2026-10-21 — #585原失败封存后继续独立生成重置与完整恢复资格
+  - 文件: `scripts/forge_build_rtorrent_reset_gate.py`, `scripts/forge_build_rtorrent_template_reset_gate.py`, `backend/tests/test_rtorrent_reset_gate.py`, `backend/tests/test_rtorrent_template_reset_runtime.py`
+  - 证据: 生成reset-v1单case主先生成→清理40声明输出→依赖优先重建，通过818原文件/40原SHA/cleanup与独立审计；release7004722c、inventory978ddf5e，1127文件/19299820bytes。不是完整构建或真实模型效果，旧实际模板v1失败不改。
+  - 下一: 完整actual-template-reset-gate-v1冻结248组件，初始仍实际模板，真实失败后一次脚本恢复。新组合精确生成规则最终SHA不变、compile/replay共同宿主UID/GID；提交后执行，原UTC11:50:30截止、0Provider/费用。最终结果尚未观察，用户HTML不动。
+
 - 2026-10-21 — #585实际模板真实执行完成，恢复资格失败并保留
   - 文件: `docs/research/2026-10-21-rtorrent-actual-template-results.md`, `benchmarks/analyses/cpp-build-rtorrent-actual-template-gate-v1-results.json`
   - 证据: 初始实际模板0脚本/无拒答，autoreconf-fi成功、configure因libtorrent缺失失败且边界通过；一次脚本revision2清理config.log成功，依赖autoreconf-ivf选择父辅助目录，四个生成文件SHA偏离而拒绝，第二交接门禁停止（无第二响应）。1观察/0strict/0未观察槽，完整build/测试/交付/replay未观察。818原文件保持、实际cleanup通过，不推真实模型能力/模型必需/策略优劣。
