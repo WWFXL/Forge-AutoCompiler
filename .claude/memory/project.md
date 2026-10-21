@@ -4,6 +4,11 @@
 
 ## 进行中 (In Progress)
 
+- 2026-10-22 — #595固定验证合同引用资格待实施；仅会话目录原型/完整分母冻结器/独立审计草稿，20真实图与原脚本执行边界回归通过、0Provider，未正式资格。先等#593最终结果HEAD三CI发布，再从依赖分支实施；原10美元/UTC19:30:52/无自动重试，后继完整扣v2+v3，旧失败不补。
+
+
+
+
 
 
 
@@ -597,6 +602,10 @@
   - 下一步: 等待实验负责人确认当前网络接入介质，并决定是否授权只读 endpoint 诊断和新的 canary amendment；获得确认后必须另建中文 Issue/PR 和协议 identity，保留当前失败 marker。
 
 ## 最近变更 (Recent Changes)
+
+- 2026-10-22 — 封存#593独立真实v3并完成两项独立审计
+  - 文件: `docs/research/2026-10-22-rtorrent-shared-value-canary-results.md`, `benchmarks/analyses/cpp-build-rtorrent-common-canary-v3-results.json`, `RESEARCH_STATUS.md`
+  - 动机: 3观察/0strict/0未观察、31请求568231Token/$0.85067004/未知0；工具后续材料超50k，模型与强工具预算停止，均未到build/完整测试/交付/replay，保留未观察。模型40读/13参数/27重复，强工具23读/8参数/15重复；818作者文件及实际cleanup通过。release97775a7e，inventory1f6a689a，5618文件87134604bytes，独立stdlib来源/材料/计量及实际容器资源/不存在audit valid；0请求错误启动器与勘误保留。最终三CI后仅合依赖分支，原总10美元名义累计1.67390784、原截止不延长。
 
 - 2026-10-21 — 完成#587共同三槽零Provider资格并冻结待授权真实canary。
   - 文件: `scripts/forge_build_rtorrent_canary.py`, `backend/tests/test_rtorrent_canary.py`，同名canary manifest/preregistration、共同资格analysis/report、`RESEARCH_STATUS.md`。

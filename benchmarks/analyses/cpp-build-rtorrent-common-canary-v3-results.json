@@ -1,0 +1,151 @@
+{
+  "identity": "cpp-build-rtorrent-common-canary-v3-results",
+  "kind": "real_model_development_canary",
+  "issue": 593,
+  "raw": "/home/yiwei/.codex/outputs/forge-rtorrent-common-canary-v3",
+  "release": "97775a7ecd47870eff9a36ab1eaafc72a3d20d18",
+  "inventory": {
+    "format": "forge-typed-evidence-v1",
+    "identity": "cpp-build-rtorrent-common-canary-v3",
+    "entries": 5618,
+    "files": 5618,
+    "symlinks": 0,
+    "bytes": 87134604,
+    "inventory_canonical_sha256": "1f6a689afa36ca842fa7c2952622ec0e1e613a49368bbbff7282e1c43d9c0518",
+    "unknown_usage_requests": 0
+  },
+  "strict_completed": 0,
+  "observed": 3,
+  "unobserved": 0,
+  "requests": 31,
+  "input_tokens": 530123,
+  "output_tokens": 38108,
+  "recorded_tokens": 568231,
+  "estimated_cost_usd": "0.85067004",
+  "unknown_requests": 0,
+  "prior_failed_slots_retried": false,
+  "rows": [
+    {
+      "method": "tool_plan_workflow",
+      "strict_completed": false,
+      "error_class": "PlanContractError",
+      "error_message": "当前状态材料超过50000字节，不调用Provider",
+      "requests": 1,
+      "input_tokens": 17249,
+      "output_tokens": 370,
+      "recorded_tokens": 17619,
+      "estimated_cost_usd": "0.02423388",
+      "wall_seconds": 161.7178491167724,
+      "commands": 3,
+      "layers": {
+        "build_observed": false,
+        "test_programs_observed": 0,
+        "complete_test_programs": 0,
+        "delivery_verified": false,
+        "clean_replay_observed": false
+      },
+      "read_source_calls": 2,
+      "unique_read_source_arguments": 2,
+      "repeat_read_source_calls": 0,
+      "phase_costs": {
+        "recovery": {
+          "requests": 1,
+          "cost_usd": "0.02423388"
+        }
+      },
+      "protected_author_files_unchanged": true,
+      "cleanup": true
+    },
+    {
+      "method": "model_plan_workflow",
+      "strict_completed": false,
+      "error_class": "AgentWorkflowBudgetExceeded",
+      "error_message": null,
+      "requests": 13,
+      "input_tokens": 221204,
+      "output_tokens": 27004,
+      "recorded_tokens": 248208,
+      "estimated_cost_usd": "0.39892512",
+      "wall_seconds": 1305.5908359140158,
+      "commands": 1,
+      "layers": {
+        "build_observed": false,
+        "test_programs_observed": 0,
+        "complete_test_programs": 0,
+        "delivery_verified": false,
+        "clean_replay_observed": false
+      },
+      "read_source_calls": 40,
+      "unique_read_source_arguments": 13,
+      "repeat_read_source_calls": 27,
+      "phase_costs": {
+        "initial": {
+          "requests": 13,
+          "cost_usd": "0.39892512"
+        }
+      },
+      "protected_author_files_unchanged": true,
+      "cleanup": true
+    },
+    {
+      "method": "strong_tool_agent",
+      "strict_completed": false,
+      "error_class": "AgentWorkflowBudgetExceeded",
+      "error_message": null,
+      "requests": 17,
+      "input_tokens": 291670,
+      "output_tokens": 10734,
+      "recorded_tokens": 302404,
+      "estimated_cost_usd": "0.42751104",
+      "wall_seconds": 1241.7031523059122,
+      "commands": 10,
+      "layers": {
+        "build_observed": false,
+        "test_programs_observed": 0,
+        "complete_test_programs": 0,
+        "delivery_verified": false,
+        "clean_replay_observed": false
+      },
+      "read_source_calls": 23,
+      "unique_read_source_arguments": 8,
+      "repeat_read_source_calls": 15,
+      "phase_costs": {
+        "tool_agent_run": {
+          "requests": 17,
+          "cost_usd": "0.42751104"
+        }
+      },
+      "protected_author_files_unchanged": true,
+      "cleanup": true
+    }
+  ],
+  "shared_authorization": {
+    "total_cap_usd": "10",
+    "deadline_utc": "2026-10-21T19:30:52+00:00",
+    "prior_v2_usd": "0.82323780",
+    "v2_plus_v3_usd": "1.67390784",
+    "remaining_usd": "8.32609216",
+    "automatic_retry": false
+  },
+  "audit_receipts": {
+    "independent-real-audit-v3.json": {
+      "path": "/home/yiwei/.codex/outputs/forge-rtorrent-real-session-2026-10-21/independent-real-audit-v3.json",
+      "sha256": "8fbee71e15329c4869cfbd18dfa9bf9eae2b6de68c48b8659f2ef52e395748d5"
+    },
+    "independent-runtime-audit-v3.json": {
+      "path": "/home/yiwei/.codex/outputs/forge-rtorrent-real-session-2026-10-21/independent-runtime-audit-v3.json",
+      "sha256": "6aca12b890a8bfaff43aa2caf70df711bb9f79f0786f70952ec287a8cc3de230"
+    }
+  },
+  "claims_supported": [
+    "历史材料资格不能保证所有未来材料均准入",
+    "实际多轮模型读取及预算停止可定位工程瓶颈",
+    "原作者文件、费用和cleanup可独立核验"
+  ],
+  "claims_not_supported": [
+    "三策略能力排名/规划净收益/无收益",
+    "不同工程版本的因果处理效果",
+    "未观察的完整测试/交付/重放通过或功能失败",
+    "holdout、总体成功率、统计显著性"
+  ]
+}
