@@ -1,6 +1,14 @@
 # Forge Research Status
 
-## 当前阶段（2026-10-22；#608真实开发诊断完成，#610反馈修复待冻结）
+## 当前阶段（2026-10-22；#610反馈修复已冻结，直接单Workflow真实探针）
+
+工程修复转真实数据采集。cpp-build-rtorrent-feedback-repair-probe-v1只有一个model_plan_workflow槽：逐字保留当前Agent Human/结构纠错反馈进入实际100k报文，以agent.started事件定义整次规划8轮，内部结构纠错不重置，新恢复才重置。原排序/最终ID/Shell/818作者文件/40生成SHA/12程序323叶/双ELF/CLI/replay验收和1M资源保持，不注入参考。生产propose_observed一项针对性检查1.35秒通过，Ruff/格式/CLI通过；不重复免费完整构建或本地全量产品测试，不把工程修复当研究效果。
+
+候选d3d0fec7f8e4a3c679298c1d5c73b318221212e559f1dd4ebbcce4229adb8725/298组件，旧295保持；manifest/preregistration同身份，raw forge-rtorrent-feedback-repair-probe-v1，会话forge-feedback-repair-session-2026-10-22。当前直接费用授权继续，自设共享12美元和原UTC03:33:28–07:33:28不重置，前六事件6.6039745199999999美元先完整计入，本stage最多3美元，未知预留0.80，无自动重试/未知身份清理异常停。尚无新终态或成功结论，仅单族开发探针，不是三策略比较。
+
+#608最终HEAD eb963080三CI全部SUCCESS，PR611仅合科研依赖分支bd69d7335b5670cbb16e859a21af62cef93cf586，608关闭/独立发布audit valid；其8轮范围偏差与反馈缺失完整保留。RQ3/P2/硕士主线和用户HTML保持。
+
+## 上一阶段（2026-10-22；#608真实开发诊断完成并发布）
 
 真实数据采集与分析完成：cpp-build-rtorrent-bounded-planning-canary-v1三观察/0strict/0未观察槽，48请求1002853Token/$1.59469068/未知0，闭合/cleanup/stop_reason=null。工具Workflow9恢复请求，提交响应32768输出Token截断未交动作；模型Workflow19初始请求，第9/19次两份候选均被结构排序拒绝，未执行；强工具20请求/5实际命令，末响应含set +e而被严格Shell拒绝。三套818作者文件不变，生成21/0/40已出现SHA均匹配；作者测试/正式交付/replay全部未观察，不填功能失败。
 

@@ -610,6 +610,10 @@
 
 ## 最近变更 (Recent Changes)
 
+- 2026-10-22 — 冻结 #610 单模型 Workflow 反馈修复真实探针，直接采集而不重复工程门禁
+  - 文件: `scripts/forge_build_rtorrent_feedback_repair_probe.py`, `backend/tests/test_rtorrent_feedback_repair_probe.py`, `benchmarks/manifests/cpp-build-rtorrent-feedback-repair-probe-v1.json`, `benchmarks/preregistrations/cpp-build-rtorrent-feedback-repair-probe-v1.md`, `RESEARCH_STATUS.md`
+  - 动机: #608生产结构纠错反馈被Human替换丢失且内部图计数重置。原文进入agent_human_messages实际报文；整次按agent.started计数，恢复才重置。一项生产propose_observed回归1.35秒/Ruff/CLI通过。原排序/权限/作者测试/验收保持。298组件/d3d0fec7，前3stage6.60397452美元先计入原共享12美元/UTC07:33:28，本stage3美元/无自动重试。单族单臂开发探针不作比较效果，raw和会话独立。#608 PR611三CI成功后已合bd69d733/608关闭/发布审计valid，旧范围偏差不掩盖。
+
 - 2026-10-22 — 完成#605原生轮次三策略真实实验及结果核验，避免重复工程资格。
   - 文件: `scripts/forge_build_rtorrent_native_canary.py`, `backend/tests/test_rtorrent_native_canary.py`, `docs/research/2026-10-22-rtorrent-native-canary-results.md`, `benchmarks/analyses/cpp-build-rtorrent-native-canary-v1-results.json`
   - 动机: 用户明确要求科研优先并授权本次模型支出。复用#603完整3/3资格，仅4费用/停止回归和Ruff/CLI检查通过，未重复免费构建、旧树全量扫描或本地全量产品测试。新候选19eb230e/289组件、release057fead2；主exec52406/观察50813均终态0，raw forge-rtorrent-native-canary-v1已封存，禁止重启。
