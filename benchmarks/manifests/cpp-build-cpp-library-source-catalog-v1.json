@@ -1,0 +1,25 @@
+{
+  "identity": "cpp-build-cpp-library-source-catalog-v1",
+  "query": "language:C++ archived:false fork:false topic:cpp-library stars:100..5000",
+  "limit": 20,
+  "sort": "stars",
+  "order": "desc",
+  "page": 1,
+  "deadline_utc": "2026-10-22T19:37:37+00:00",
+  "provider_calls": 0,
+  "model_cost_usd": 0,
+  "provider_credentials_read": false,
+  "build_commands": 0,
+  "docker_calls": 0,
+  "automatic_retry": false,
+  "issue": 621,
+  "components": {
+    "scripts/forge_build_cpp_library_catalog.py": "be576242d78e7470f0da81870a166f3939021106005ed8601ab5e8be0eb1d6d8",
+    "scripts/forge_build_cxx_prospective_catalog.py": "369c4847a0dcdeea154a80679544372bc8377f96fa889fabf5eee86e814f0e4a",
+    "scripts/forge_typed_evidence.py": "b3e798669389507dc605fcd73b2450921f0695bddccc564344fda88d5cb7a3c8",
+    "backend/tests/test_cpp_library_catalog.py": "c05f56d68598020cc34180de7d644c1d17c88340cbbe35214e12e871d38356c8",
+    "benchmarks/preregistrations/cpp-build-cpp-library-source-catalog-v1.md": "e443f38211663b881ddd5e4105dd96ca3f67ac89674baf2143a91769d4a78fa7"
+  },
+  "authorization": "用户本轮下一阶段4小时/全部权限及既有科研/发布/知识库授权；零模型元数据阶段，原共享窗口不延长",
+  "claim_boundary": "20项固定来源，不是任务资格/holdout/新构建结果"
+}
