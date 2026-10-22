@@ -1,6 +1,16 @@
 # Forge Research Status
 
-## 当前阶段（2026-10-22；#603原生接口三策略免费完整端到端资格完成）
+## 当前阶段（2026-10-22；#605原生轮次三策略真实实验结束）
+
+真实数据采集与结果分析完成。cpp-build-rtorrent-native-canary-v1固定已见rtorrent开发族三策略各一次，3观察/0strict/0未观察槽；61真实请求、1226081Token、保守估费1.76572836美元、未知0，stage闭合，整批stop_reason=null，无自动重试。工具Workflow17请求/0.58352976美元均恢复，未提交修订；模型Workflow22请求/0.60325320美元均初始规划，未提交方案；强工具22请求/0.57894540美元，已成功编译安装libtorrent并配置编译rtorrent，封存树可只读核验双ELF。三槽均触发400k累计Token停止阈值（404006/420288/401787）；完整作者测试、正式交付和clean replay均未观察，不能写功能失败，也不填strict成功。
+
+818作者文件三槽全部不变，允许生成输出21/0/40且已出现输出SHA全部匹配，三实际容器cleanup及新结果独立审计通过。强工具三次准备被“生成文件被非声明命令写入”拒绝，改为声明完整形式后成功；此前40输出SHA与参考一致，拒绝含动作写法限制成本，不能混称源码编译失败。该单次任务中未观察到规划收益，强工具执行进展更远；不作总体排名、工程版本因果效果或否定硕士主线。
+
+release057fead2f3361540e0b22048533721ac8e4892d3，候选19eb230e/289组件；raw forge-rtorrent-native-canary-v1，inventory2e61330b6558646777575da35914b7e42805a0863a6fdb0fdc5fcb6992443377（6484文件/7链接/810323206bytes）。新结果全量清单/Git组件/全部请求原包与原生配对/原响应逐Token费用及stage闭合/源码测试和实际cleanup独立审计valid；不重扫旧构建树。报告docs/research/2026-10-22-rtorrent-native-canary-results.md，派生benchmarks/analyses/cpp-build-rtorrent-native-canary-v1-results.json；会话forge-native-real-session-2026-10-22含独立核验、运行、双ELF只读观察及发布收据。仅4针对性检查+Ruff/CLI，未重复免费构建或本地全量产品测试；最终HEAD所需CI后仅合科研依赖分支，发布真源GitHub/final-publication-audit.json。
+
+用户当前直接授权新模型实验并要求科研优先，本次与旧过期10美元授权独立；执行器自设4.50美元/UTC03:33:28–07:33:28窗口，准备计入，非用户指定限额。旧三paid3.27044256美元单独保留，不混本次支出。下一步应直接准备小规模读取约束消融与三策略统一Token预算敏感性，区分准备不收敛与交付被截断；同时审视生成内容/路径保护之外的命令形式限制。无需再重复整套免费构建资格；新动作权限/资源版本独立登记、旧失败不回填，原源码/测试/交付验收与RQ3/P2/主线、用户HTML保持，无活动Provider/Docker。
+
+## 上一阶段（2026-10-22；#603原生接口三策略免费完整端到端资格完成）
 
 基础设施阶段完成。独立cpp-build-native-round-e2e-gate-v1固定rtorrent已见development族三策略各一次，3/3 strict、0未观察、stop_reason=null。6次本地固定脚本响应，0凭据/Provider/真实Token/模型费；每槽真实Agent图完整保留一次原生AI/Tool及reasoning_content后继轮次。工具Workflow真实autoreconf成功→configure缺libtorrent→恢复revision2；模型Workflow和强工具使用原合格参考，不当模型能力或规划收益。
 

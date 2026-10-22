@@ -1,0 +1,463 @@
+{
+  "identity": "cpp-build-rtorrent-native-canary-v1",
+  "kind": "real_model_seen_development_canary_result",
+  "release": "057fead2f3361540e0b22048533721ac8e4892d3",
+  "inventory_sha256": "2e61330b6558646777575da35914b7e42805a0863a6fdb0fdc5fcb6992443377",
+  "observed": 3,
+  "strict_completed": 0,
+  "unobserved": 0,
+  "provider_requests": 61,
+  "recorded_tokens": 1226081,
+  "estimated_cost_usd": "1.76572836",
+  "unknown_requests": 0,
+  "rows": [
+    {
+      "method": "tool_plan_workflow",
+      "strict_completed": false,
+      "requests": 17,
+      "recorded_tokens": 404006,
+      "estimated_cost_usd": "0.58352976",
+      "phases": {
+        "recovery": {
+          "requests": 17,
+          "input_tokens": 384975,
+          "output_tokens": 19031,
+          "estimated_cost_usd": "0.58352976"
+        }
+      },
+      "executed_tool_calls": {
+        "list_source": 5,
+        "read_source": 17,
+        "read_fixed_contract": 7
+      },
+      "executed_commands": 3,
+      "successful_commands": 2,
+      "error_class": "AgentWorkflowBudgetExceeded",
+      "arm_total_wall_seconds": 479.1349149122834,
+      "observations": [
+        {
+          "phase": "compile",
+          "protected_count": 818,
+          "changed_author_files": [],
+          "generated_present": 21,
+          "generated_mismatches": [],
+          "programs": [
+            {
+              "build": "build-libtorrent",
+              "program": "LibTorrent_Test_Protocol",
+              "observed": false,
+              "complete_expected_leaves": false,
+              "passed_leaf_count": null,
+              "log_sha256": null
+            },
+            {
+              "build": "build-libtorrent",
+              "program": "LibTorrent_Test_Torrent_Net",
+              "observed": false,
+              "complete_expected_leaves": false,
+              "passed_leaf_count": null,
+              "log_sha256": null
+            },
+            {
+              "build": "build-libtorrent",
+              "program": "LibTorrent_Test_Torrent_Runtime",
+              "observed": false,
+              "complete_expected_leaves": false,
+              "passed_leaf_count": null,
+              "log_sha256": null
+            },
+            {
+              "build": "build-libtorrent",
+              "program": "LibTorrent_Test_Torrent_Utils",
+              "observed": false,
+              "complete_expected_leaves": false,
+              "passed_leaf_count": null,
+              "log_sha256": null
+            },
+            {
+              "build": "build-libtorrent",
+              "program": "LibTorrent_Test_Torrent",
+              "observed": false,
+              "complete_expected_leaves": false,
+              "passed_leaf_count": null,
+              "log_sha256": null
+            },
+            {
+              "build": "build-libtorrent",
+              "program": "LibTorrent_Test_Data",
+              "observed": false,
+              "complete_expected_leaves": false,
+              "passed_leaf_count": null,
+              "log_sha256": null
+            },
+            {
+              "build": "build-libtorrent",
+              "program": "LibTorrent_Test_Net",
+              "observed": false,
+              "complete_expected_leaves": false,
+              "passed_leaf_count": null,
+              "log_sha256": null
+            },
+            {
+              "build": "build-libtorrent",
+              "program": "LibTorrent_Test_Tracker",
+              "observed": false,
+              "complete_expected_leaves": false,
+              "passed_leaf_count": null,
+              "log_sha256": null
+            },
+            {
+              "build": "build-libtorrent",
+              "program": "LibTorrent_Test",
+              "observed": false,
+              "complete_expected_leaves": false,
+              "passed_leaf_count": null,
+              "log_sha256": null
+            },
+            {
+              "build": "build-rtorrent",
+              "program": "rtorrent_Test_Core",
+              "observed": false,
+              "complete_expected_leaves": false,
+              "passed_leaf_count": null,
+              "log_sha256": null
+            },
+            {
+              "build": "build-rtorrent",
+              "program": "rtorrent_Test_Rpc",
+              "observed": false,
+              "complete_expected_leaves": false,
+              "passed_leaf_count": null,
+              "log_sha256": null
+            },
+            {
+              "build": "build-rtorrent",
+              "program": "rtorrent_Test_Src",
+              "observed": false,
+              "complete_expected_leaves": false,
+              "passed_leaf_count": null,
+              "log_sha256": null
+            }
+          ],
+          "observed_programs": 0,
+          "complete_programs": 0,
+          "passed_leaf_count": 0
+        }
+      ],
+      "artifacts": [],
+      "cleanup": true,
+      "stop_resource": "recorded_tokens",
+      "initial_or_recovery_actions_submitted": false,
+      "full_author_tests": "not_observed",
+      "formal_delivery": "not_observed",
+      "clean_replay": "not_observed"
+    },
+    {
+      "method": "model_plan_workflow",
+      "strict_completed": false,
+      "requests": 22,
+      "recorded_tokens": 420288,
+      "estimated_cost_usd": "0.6032532",
+      "phases": {
+        "initial": {
+          "requests": 22,
+          "input_tokens": 401927,
+          "output_tokens": 18361,
+          "estimated_cost_usd": "0.60325320"
+        }
+      },
+      "executed_tool_calls": {
+        "list_source": 3,
+        "read_source": 28,
+        "read_fixed_contract": 17
+      },
+      "executed_commands": 1,
+      "successful_commands": 1,
+      "error_class": "AgentWorkflowBudgetExceeded",
+      "arm_total_wall_seconds": 359.8128644442186,
+      "observations": [
+        {
+          "phase": "compile",
+          "protected_count": 818,
+          "changed_author_files": [],
+          "generated_present": 0,
+          "generated_mismatches": [],
+          "programs": [
+            {
+              "build": "build-libtorrent",
+              "program": "LibTorrent_Test_Protocol",
+              "observed": false,
+              "complete_expected_leaves": false,
+              "passed_leaf_count": null,
+              "log_sha256": null
+            },
+            {
+              "build": "build-libtorrent",
+              "program": "LibTorrent_Test_Torrent_Net",
+              "observed": false,
+              "complete_expected_leaves": false,
+              "passed_leaf_count": null,
+              "log_sha256": null
+            },
+            {
+              "build": "build-libtorrent",
+              "program": "LibTorrent_Test_Torrent_Runtime",
+              "observed": false,
+              "complete_expected_leaves": false,
+              "passed_leaf_count": null,
+              "log_sha256": null
+            },
+            {
+              "build": "build-libtorrent",
+              "program": "LibTorrent_Test_Torrent_Utils",
+              "observed": false,
+              "complete_expected_leaves": false,
+              "passed_leaf_count": null,
+              "log_sha256": null
+            },
+            {
+              "build": "build-libtorrent",
+              "program": "LibTorrent_Test_Torrent",
+              "observed": false,
+              "complete_expected_leaves": false,
+              "passed_leaf_count": null,
+              "log_sha256": null
+            },
+            {
+              "build": "build-libtorrent",
+              "program": "LibTorrent_Test_Data",
+              "observed": false,
+              "complete_expected_leaves": false,
+              "passed_leaf_count": null,
+              "log_sha256": null
+            },
+            {
+              "build": "build-libtorrent",
+              "program": "LibTorrent_Test_Net",
+              "observed": false,
+              "complete_expected_leaves": false,
+              "passed_leaf_count": null,
+              "log_sha256": null
+            },
+            {
+              "build": "build-libtorrent",
+              "program": "LibTorrent_Test_Tracker",
+              "observed": false,
+              "complete_expected_leaves": false,
+              "passed_leaf_count": null,
+              "log_sha256": null
+            },
+            {
+              "build": "build-libtorrent",
+              "program": "LibTorrent_Test",
+              "observed": false,
+              "complete_expected_leaves": false,
+              "passed_leaf_count": null,
+              "log_sha256": null
+            },
+            {
+              "build": "build-rtorrent",
+              "program": "rtorrent_Test_Core",
+              "observed": false,
+              "complete_expected_leaves": false,
+              "passed_leaf_count": null,
+              "log_sha256": null
+            },
+            {
+              "build": "build-rtorrent",
+              "program": "rtorrent_Test_Rpc",
+              "observed": false,
+              "complete_expected_leaves": false,
+              "passed_leaf_count": null,
+              "log_sha256": null
+            },
+            {
+              "build": "build-rtorrent",
+              "program": "rtorrent_Test_Src",
+              "observed": false,
+              "complete_expected_leaves": false,
+              "passed_leaf_count": null,
+              "log_sha256": null
+            }
+          ],
+          "observed_programs": 0,
+          "complete_programs": 0,
+          "passed_leaf_count": 0
+        }
+      ],
+      "artifacts": [],
+      "cleanup": true,
+      "stop_resource": "recorded_tokens",
+      "initial_or_recovery_actions_submitted": false,
+      "full_author_tests": "not_observed",
+      "formal_delivery": "not_observed",
+      "clean_replay": "not_observed"
+    },
+    {
+      "method": "strong_tool_agent",
+      "strict_completed": false,
+      "requests": 22,
+      "recorded_tokens": 401787,
+      "estimated_cost_usd": "0.5789454",
+      "phases": {
+        "tool_agent_run": {
+          "requests": 22,
+          "input_tokens": 383383,
+          "output_tokens": 18404,
+          "estimated_cost_usd": "0.57894540"
+        }
+      },
+      "executed_tool_calls": {
+        "list_source": 5,
+        "read_source": 10,
+        "read_fixed_contract": 5,
+        "run_build_command": 12
+      },
+      "executed_commands": 13,
+      "successful_commands": 8,
+      "error_class": "AgentWorkflowBudgetExceeded",
+      "arm_total_wall_seconds": 753.861014240887,
+      "observations": [
+        {
+          "phase": "compile",
+          "protected_count": 818,
+          "changed_author_files": [],
+          "generated_present": 40,
+          "generated_mismatches": [],
+          "programs": [
+            {
+              "build": "build-libtorrent",
+              "program": "LibTorrent_Test_Protocol",
+              "observed": false,
+              "complete_expected_leaves": false,
+              "passed_leaf_count": null,
+              "log_sha256": null
+            },
+            {
+              "build": "build-libtorrent",
+              "program": "LibTorrent_Test_Torrent_Net",
+              "observed": false,
+              "complete_expected_leaves": false,
+              "passed_leaf_count": null,
+              "log_sha256": null
+            },
+            {
+              "build": "build-libtorrent",
+              "program": "LibTorrent_Test_Torrent_Runtime",
+              "observed": false,
+              "complete_expected_leaves": false,
+              "passed_leaf_count": null,
+              "log_sha256": null
+            },
+            {
+              "build": "build-libtorrent",
+              "program": "LibTorrent_Test_Torrent_Utils",
+              "observed": false,
+              "complete_expected_leaves": false,
+              "passed_leaf_count": null,
+              "log_sha256": null
+            },
+            {
+              "build": "build-libtorrent",
+              "program": "LibTorrent_Test_Torrent",
+              "observed": false,
+              "complete_expected_leaves": false,
+              "passed_leaf_count": null,
+              "log_sha256": null
+            },
+            {
+              "build": "build-libtorrent",
+              "program": "LibTorrent_Test_Data",
+              "observed": false,
+              "complete_expected_leaves": false,
+              "passed_leaf_count": null,
+              "log_sha256": null
+            },
+            {
+              "build": "build-libtorrent",
+              "program": "LibTorrent_Test_Net",
+              "observed": false,
+              "complete_expected_leaves": false,
+              "passed_leaf_count": null,
+              "log_sha256": null
+            },
+            {
+              "build": "build-libtorrent",
+              "program": "LibTorrent_Test_Tracker",
+              "observed": false,
+              "complete_expected_leaves": false,
+              "passed_leaf_count": null,
+              "log_sha256": null
+            },
+            {
+              "build": "build-libtorrent",
+              "program": "LibTorrent_Test",
+              "observed": false,
+              "complete_expected_leaves": false,
+              "passed_leaf_count": null,
+              "log_sha256": null
+            },
+            {
+              "build": "build-rtorrent",
+              "program": "rtorrent_Test_Core",
+              "observed": false,
+              "complete_expected_leaves": false,
+              "passed_leaf_count": null,
+              "log_sha256": null
+            },
+            {
+              "build": "build-rtorrent",
+              "program": "rtorrent_Test_Rpc",
+              "observed": false,
+              "complete_expected_leaves": false,
+              "passed_leaf_count": null,
+              "log_sha256": null
+            },
+            {
+              "build": "build-rtorrent",
+              "program": "rtorrent_Test_Src",
+              "observed": false,
+              "complete_expected_leaves": false,
+              "passed_leaf_count": null,
+              "log_sha256": null
+            }
+          ],
+          "observed_programs": 0,
+          "complete_programs": 0,
+          "passed_leaf_count": 0
+        }
+      ],
+      "artifacts": [],
+      "cleanup": true,
+      "stop_resource": "recorded_tokens",
+      "initial_or_recovery_actions_submitted": null,
+      "full_author_tests": "not_observed",
+      "formal_delivery": "not_observed",
+      "clean_replay": "not_observed",
+      "compiled_outputs_readonly_observation": {
+        "valid": true,
+        "kind": "posthoc_readonly_observation_of_frozen_compile_outputs",
+        "compiled_elf_files": [
+          {
+            "path": "build-rtorrent/src/rtorrent",
+            "resolved_path": "build-rtorrent/src/rtorrent",
+            "size": 59058560,
+            "sha256": "26f5bbaf2c3cd7b8637833ce6f55e37391ad005a58330866b36377b2ddfde3c4",
+            "readelf_header": "ELF 头：\n  Magic：   7f 45 4c 46 02 01 01 03 00 00 00 00 00 00 00 00 \n  类别:                              ELF64\n  数据:                              2 补码，小端序 (little endian)\n  Version:                           1 (current)\n  OS/ABI:                            UNIX - GNU\n  ABI 版本:                          0\n  类型:                              DYN (Position-Independent Executable file)\n  系统架构:                          Advanced Micro Devices X86-64\n  版本:                              0x1\n  入口点地址：               0x60b40\n  程序头起点：          64 (bytes into file)\n  Start of section headers:          59055936 (bytes into file)\n  标志：             0x0\n  Size of this header:               64 (bytes)\n  Size of program headers:           56 (bytes)\n  Number of program headers:         13\n  Size of section headers:           64 (bytes)\n  Number of section headers:         41\n  Section header string table index: 40\n"
+          },
+          {
+            "path": "build-libtorrent/src/.libs/libtorrent.so.53",
+            "resolved_path": "build-libtorrent/src/.libs/libtorrent.so.53.0.0",
+            "size": 43671680,
+            "sha256": "ad00234354c80e91d6eef4c50b4dac6f83b5d7e1455c07af057b0563f260b7ce",
+            "readelf_header": "ELF 头：\n  Magic：   7f 45 4c 46 02 01 01 03 00 00 00 00 00 00 00 00 \n  类别:                              ELF64\n  数据:                              2 补码，小端序 (little endian)\n  Version:                           1 (current)\n  OS/ABI:                            UNIX - GNU\n  ABI 版本:                          0\n  类型:                              DYN (共享目标文件)\n  系统架构:                          Advanced Micro Devices X86-64\n  版本:                              0x1\n  入口点地址：               0x0\n  程序头起点：          64 (bytes into file)\n  Start of section headers:          43669056 (bytes into file)\n  标志：             0x0\n  Size of this header:               64 (bytes)\n  Size of program headers:           56 (bytes)\n  Number of program headers:         12\n  Size of section headers:           64 (bytes)\n  Number of section headers:         41\n  Section header string table index: 40\n"
+          }
+        ],
+        "not_formal_delivery_or_test_or_replay": true
+      }
+    }
+  ],
+  "stop_reason": null,
+  "claim_boundary": "已见单族/每策略一次；不作总体排名、规划净收益、工程版本前后因果效果；未执行验证层记未观察",
+  "next_research_question": "限制无效材料读取和统一Token预算敏感性是否改善从规划到执行及交付的转换；不继续重复完整免费工程资格"
+}
