@@ -4,29 +4,6 @@
 
 ## 进行中 (In Progress)
 
-- 2026-10-22 — #617 v3十八槽比较结束，独立check完整源码索引probe准备；以下旧运行条目为历史。
-  - v3 18槽/15strict/各5/6/0未知/$2.21244144，三check均首次模型/模板前共同准备失败0Provider；其余5项目15strict。完整typed清单/按release组件/真实usage费用/原源码/实际cleanup独立audit valid；raw forge-test-preparation-comparison-v3，inventory8df8b315，releasef1779887。v3实际方法比较CMake/Make，不能称Autotools已观察。
-  - check原262普通文件+2悬空链接，Git索引264；新adapter计入原链接并检查原执行/replay目标，不改原check PlanTask/make check/源码/交付、不改旧组件。新独立check三策略probe不补v3旧分母/不合并效果；只两局部回归+一次实际Git准备，不全免费构建/本地产品测试。
-  - 前known4.57057920+旧unknown0.80=5.37057920，新stage9共享原20/UTC11:03:54，budget-index完整复制闭合前账本和SHA；未知/身份/cleanup异常停，无自动重试。用户直接费用/发布授权持续，新raw forge-check-source-index-probe-v1待启动，主线/RQ3/P2/用户HTML保持，只合科研依赖分支。
-
-
-- 2026-10-22 — #617 v2宿主ownership环境诊断封存，v3恢复原generic宿主模式准备；以下旧In Progress为历史。
-  - v2两yaml Workflow完整测试/精确交付/replay过但finalize chown root文件失败，strict false保持；SIGINT被槽级吞掉，已知响应后SIGTERM停止。3progress/4启动/14未启动，15请求15响应/$0.29805996/未知0，标准result不存在；operator-terminal及operator-v2-budget-reconciliation记录，剩余实际容器按managed/session/thread核验后移除，不改Session。
-  - v3未配置host identity同原generic，容器仍root/原网络，整批停止标记/ownership停批；真实root写文件/原manager/finalize/移除微检查通过，7局部检查1.17秒/Ruff。旧v1/v2独立环境诊断，不拼新18槽比较，旧源码/验收和raw保持；不再重复免费完整构建/本地全量产品检查。
-  - 原共享20/UTC11:03:54，前probe/v1/v2含旧未知先占3.15813776，stage16.50最坏19.65813776，budget-v3完整复制闭合前账本及SHA，不延长；新未知/身份/cleanup异常停。当前新raw forge-test-preparation-comparison-v3尚未启动，只合科研依赖分支，RQ3/P2/用户HTML保持。
-
-
-- 2026-10-22 — #617 v1环境诊断/操作者中断已封存，v2恢复原资格依赖权限准备；上项“待真实probe”已过期。
-  - probe9请求/222963Token/$0.40385532/0strict，末响应32768截断，原818文件与cleanup；v1 generic误用HostIdentityRuntime非root/禁网，snappy原apt依赖不可获取。v1四完整+一中断+13未启动，不作策略排名。原root4rows/14未观察/lifecyclefalse/unknown0保持；中断第五槽8请求/7响应，操作者SIGINT未及时阻止下一请求且BaseException路径漏计未知。
-  - 独立逐响应所有v1已知1.65622248+未知0.80=2.45622248，实际5容器cleanup；operator-budget-reconciliation.json及账本显式operator_reconciled关闭。先占总2.86007780，旧未知不重发，不冒充全已知。
-  - 新v2同18槽/原任务/模型/资源/顺序/裁判，恢复generic原默认root和compile_network_wwf_v1；312组件/候选b90da918，source snapshots及旧releasef613保持。当前单测改临时tar不依赖研究机归档，加取消及权限两个检查，5passed/1.07秒，实际root/apt/DNS入口核验，不重复免费全构建或本地全量产品检查。新取消已发无用量计unknown。
-  - budget-v2逐字带入旧完整账本+来源SHA；新stage17+旧占用共享原20/UTC11:03:54，最坏19.86007780，不延长、不补旧槽。raw forge-test-preparation-comparison-v2未启动；用户明确1234/直接费用与发布授权持续，新未知/身份/cleanup异常停。只合科研依赖分支，RQ3/P2/主线与用户HTML保持。
-
-- 2026-10-22 — #617按用户要求执行1234，前两步完成，待真实probe与跨项目18槽。
-  - 新时间门禁/共同测试准备只新增OperationWindow与新独立runner，旧309组件父链保持；3新局部回归+原生成真实Shell回归4passed/1.30秒，脚本路径bootstrap E402按显式忽略检查，不重复全量本地产品或免费构建。请求600秒、命令剩余-300、重放完整1200+300、新槽3900；HTTP240传输超时和外层watchdog区分。
-  - 新身份cpp-build-rtorrent-test-preparation-probe-v1单模型Workflow，及cpp-build-test-preparation-comparison-v1固定yaml/snappy/simd/tinyxml2/check/libtommath×3×1；4C++/2C、三系统、全部已见，不能称holdout/六独立C++家族。原任务不改，原源码提取共同测试声明，9+3/323叶测试不放宽，不注入人工参考或KB。全初始/失败/恢复费用，未知/清理/身份异常停，无自动重试。
-  - 用户当前明确全部步骤/直接费用与发布授权，执行器自设共享20美元/UTC07:03:54–11:03:54，probe3/比较17，每臂3、下一响应0.80。会话forge-test-preparation-session-2026-10-22；两个raw新目录、当前尚无模型结果。只合科研依赖分支，用户HTML不改，RQ3/P2/主线保持。
-
 - 2026-10-22 — #608真实开发诊断已封存，#610必要反馈修复已建Issue并回读，待冻结。
   - #608: 三观察0strict，48请求1002853Token/$1.59469068/未知0；工具9请求输出截断，模型19请求两份候选被阶段顺序拒绝，强工具20请求/5命令末set+e诊断被拒绝。三套818原文件不变、生成21/0/40 SHA匹配、实际cleanup；测试/交付/replay全未观察。releasebad83b7f、295组件，raw forge-rtorrent-bounded-planning-canary-v1、inventoryedab32d5；独立数据audit valid，但整次规划8轮协议验证false（实际结构纠错新图也重计），原证据不改。
   - 新发现: 两候选requires均后向无环，但configure依赖/build依赖/configure主项目违反全局角色排序；第二份最终ID也不为build，权限/测试目录未执行。原propose_observed已造结构纠错反馈，Native覆盖Human导致请求10没有错误前缀/类别/详情；一次隐藏合同读取实际计量拒绝。planning-contract-analysis.json在forge-bounded-planning-session-2026-10-22，不能归因全部失败或声称改排序就成功。
@@ -632,6 +609,37 @@
   - 下一步: 等待实验负责人确认当前网络接入介质，并决定是否授权只读 endpoint 诊断和新的 canary amendment；获得确认后必须另建中文 Issue/PR 和协议 identity，保留当前失败 marker。
 
 ## 最近变更 (Recent Changes)
+
+- 2026-10-22 — #617完成1234与独立结果审计，保存两组独立结果及环境事故。
+  - 文件: `docs/research/2026-10-22-test-preparation-comparison-results.md`, `benchmarks/analyses/cpp-build-test-preparation-comparison-v3-results.json`, `RESEARCH_STATUS.md`。
+  - 动机: 从反复接口准备回到可解释策略比较。v3 18槽15strict/各5/6，check三槽共同前置失败0Provider；工具/模型/强工具11/31/58请求，费用0.37093584/0.86618796/0.97531764，工具约省62%且时间接近，模型省11%但慢34%，不作总体排名。两工具项目零模型严格完成；初始模型17请求/0.35427876，恢复14/0.51190920。
+  - 独立check探针3strict/3，15请求/0.40943232，原任务/make check/源和链接/精确交付/replay/cleanup核验通过，inventory945b308a；不回填v3。rtorrent0strict/9请求/0.40385532未交方案；v1/v2环境事故、原结果缺失和未知1保留。全部已知4.98001152+未知0.80=5.78001152，budget-index逐字承前账本，原20美元/UTC11:03:54不延长。
+  - 三份独立audit及组合valid；源/组件/raw typed inventory/原usage/财务/实际cleanup均核验，原数据不改。仅必要局部检查和微检查，不重复免费全构建/本地全量产品测试；最终HEAD三CI后仅PR618合科研依赖分支，实际发布见会话final-publication-audit。下一科研工作为更广来源/重复比较及恢复贡献；RQ3/P2/主线/用户HTML保持。
+
+- 2026-10-22 — #617 v3十八槽比较结束，独立check完整源码索引probe准备；以下旧运行条目为历史。
+  - v3 18槽/15strict/各5/6/0未知/$2.21244144，三check均首次模型/模板前共同准备失败0Provider；其余5项目15strict。完整typed清单/按release组件/真实usage费用/原源码/实际cleanup独立audit valid；raw forge-test-preparation-comparison-v3，inventory8df8b315，releasef1779887。v3实际方法比较CMake/Make，不能称Autotools已观察。
+  - check原262普通文件+2悬空链接，Git索引264；新adapter计入原链接并检查原执行/replay目标，不改原check PlanTask/make check/源码/交付、不改旧组件。新独立check三策略probe不补v3旧分母/不合并效果；只两局部回归+一次实际Git准备，不全免费构建/本地产品测试。
+  - 前known4.57057920+旧unknown0.80=5.37057920，新stage9共享原20/UTC11:03:54，budget-index完整复制闭合前账本和SHA；未知/身份/cleanup异常停，无自动重试。用户直接费用/发布授权持续，新raw forge-check-source-index-probe-v1待启动，主线/RQ3/P2/用户HTML保持，只合科研依赖分支。
+
+
+- 2026-10-22 — #617 v2宿主ownership环境诊断封存，v3恢复原generic宿主模式准备；以下旧In Progress为历史。
+  - v2两yaml Workflow完整测试/精确交付/replay过但finalize chown root文件失败，strict false保持；SIGINT被槽级吞掉，已知响应后SIGTERM停止。3progress/4启动/14未启动，15请求15响应/$0.29805996/未知0，标准result不存在；operator-terminal及operator-v2-budget-reconciliation记录，剩余实际容器按managed/session/thread核验后移除，不改Session。
+  - v3未配置host identity同原generic，容器仍root/原网络，整批停止标记/ownership停批；真实root写文件/原manager/finalize/移除微检查通过，7局部检查1.17秒/Ruff。旧v1/v2独立环境诊断，不拼新18槽比较，旧源码/验收和raw保持；不再重复免费完整构建/本地全量产品检查。
+  - 原共享20/UTC11:03:54，前probe/v1/v2含旧未知先占3.15813776，stage16.50最坏19.65813776，budget-v3完整复制闭合前账本及SHA，不延长；新未知/身份/cleanup异常停。当前新raw forge-test-preparation-comparison-v3尚未启动，只合科研依赖分支，RQ3/P2/用户HTML保持。
+
+
+- 2026-10-22 — #617 v1环境诊断/操作者中断已封存，v2恢复原资格依赖权限准备；上项“待真实probe”已过期。
+  - probe9请求/222963Token/$0.40385532/0strict，末响应32768截断，原818文件与cleanup；v1 generic误用HostIdentityRuntime非root/禁网，snappy原apt依赖不可获取。v1四完整+一中断+13未启动，不作策略排名。原root4rows/14未观察/lifecyclefalse/unknown0保持；中断第五槽8请求/7响应，操作者SIGINT未及时阻止下一请求且BaseException路径漏计未知。
+  - 独立逐响应所有v1已知1.65622248+未知0.80=2.45622248，实际5容器cleanup；operator-budget-reconciliation.json及账本显式operator_reconciled关闭。先占总2.86007780，旧未知不重发，不冒充全已知。
+  - 新v2同18槽/原任务/模型/资源/顺序/裁判，恢复generic原默认root和compile_network_wwf_v1；312组件/候选b90da918，source snapshots及旧releasef613保持。当前单测改临时tar不依赖研究机归档，加取消及权限两个检查，5passed/1.07秒，实际root/apt/DNS入口核验，不重复免费全构建或本地全量产品检查。新取消已发无用量计unknown。
+  - budget-v2逐字带入旧完整账本+来源SHA；新stage17+旧占用共享原20/UTC11:03:54，最坏19.86007780，不延长、不补旧槽。raw forge-test-preparation-comparison-v2未启动；用户明确1234/直接费用与发布授权持续，新未知/身份/cleanup异常停。只合科研依赖分支，RQ3/P2/主线与用户HTML保持。
+
+- 2026-10-22 — #617按用户要求执行1234，前两步完成，待真实probe与跨项目18槽。
+  - 新时间门禁/共同测试准备只新增OperationWindow与新独立runner，旧309组件父链保持；3新局部回归+原生成真实Shell回归4passed/1.30秒，脚本路径bootstrap E402按显式忽略检查，不重复全量本地产品或免费构建。请求600秒、命令剩余-300、重放完整1200+300、新槽3900；HTTP240传输超时和外层watchdog区分。
+  - 新身份cpp-build-rtorrent-test-preparation-probe-v1单模型Workflow，及cpp-build-test-preparation-comparison-v1固定yaml/snappy/simd/tinyxml2/check/libtommath×3×1；4C++/2C、三系统、全部已见，不能称holdout/六独立C++家族。原任务不改，原源码提取共同测试声明，9+3/323叶测试不放宽，不注入人工参考或KB。全初始/失败/恢复费用，未知/清理/身份异常停，无自动重试。
+  - 用户当前明确全部步骤/直接费用与发布授权，执行器自设共享20美元/UTC07:03:54–11:03:54，probe3/比较17，每臂3、下一响应0.80。会话forge-test-preparation-session-2026-10-22；两个raw新目录、当前尚无模型结果。只合科研依赖分支，用户HTML不改，RQ3/P2/主线保持。
+
+
 
 - 2026-10-22 — 封存 #614 真实生成装配修复探针：双树C++编译与双ELF暂存成功，测试准备缺失/恢复时间预留停止
   - 文件: `docs/research/2026-10-22-rtorrent-generation-observation-results.md`, `benchmarks/analyses/cpp-build-rtorrent-generation-observation-probe-v1-results.json`, `RESEARCH_STATUS.md`

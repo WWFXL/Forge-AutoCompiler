@@ -1,6 +1,18 @@
 # Forge Research Status
 
-## 当前阶段（2026-10-22；#617十八槽比较结束，独立check源码索引开发验证准备）
+## 当前阶段（2026-10-22；#617执行1234完成，转策略适用范围与恢复贡献研究）
+
+真实采集与独立结果审计已完成。v3六项目×三策略×一次18槽，15strict、各5/6；check三槽共同源码索引前置失败、0Provider，不能解释为策略不会Autotools。其余五项目15/15严格完成，实际方法比较覆盖CMake/Make。工具/模型/强工具请求11/31/58，估费$0.37093584/$0.86618796/$0.97531764，总槽分钟21.37/28.02/20.98。工具相对强工具费用低61.97%、耗时高1.84%；模型费用低11.19%、耗时高33.53%。均为已见单次描述，不作总体排名或纯规划因果。simdutf/tinyxml2工具零模型严格完成；模型初始17请求/$0.35427876、五项目均$0.070855752，恢复另计。允许条件性收益与成本取舍，足以继续硕士主线。
+
+独立check源码索引probe为3/3 strict，15请求/$0.40943232/未知0，原make check/源码/精确交付/replay/cleanup通过；原262普通文件+2链接纳入Git264索引，普通文件与链接目标独立核验。不补v3三失败槽、不合成功率或称工程修复因果收益。raw forge-check-source-index-probe-v1，release526c69c5，inventory945b308a1050e9ef5e45cb87bcb0a6c03d88cb71bebc9538417aad57f752bae1。原rtorrent独立probe仍0strict/9请求/$0.40385532、截断未交方案；v1/v2环境诊断及旧未知1完整保留。
+
+前两步分层时间准入与共同测试准备已完成：请求600秒/新槽3900秒/命令剩余减300/完整replay1200+300；HTTP240仅传输超时。共同说明只取原源码，所有被调用Agent相同，确定性模板仍原task-selected逻辑；两Workflow共用装配/恢复，强工具保留完整能力，不称工具完全相同。未单独估计共同测试准备或时间门禁的独立收益。
+
+全本轮已知估费$4.98001152，旧未知1按$0.80保留，保守占用$5.78001152；各阶段财务闭合，原自设$20/UTC07:03:54–11:03:54不延长，未重发未知/补槽。报告docs/research/2026-10-22-test-preparation-comparison-results.md；版本化analyses同v3身份。会话forge-test-preparation-session-2026-10-22含三份独立audit及组合、派生与budget-index账本；v3 inventory8df8b315、releasef1779887。发布通道PR618仅合yiwei/534-rq3-natural-failures，最终HEAD三CI和实际merge/Issue关闭以会话final-publication-audit及GitHub为准，不进main。
+
+下一步优先更广C++来源/暴露登记与重复比较，验证工具方案适用范围及失败升级贡献，保留模型规划/强工具基线；rtorrent单独有界诊断准备不收敛，不继续只堆预算。无须为局部收益变更主线；RQ3旧分母/P2/用户HTML保持。当前无新增Provider采集计划，不新增无需研究依据的全量工程测试。
+
+## 上一阶段（运行收尾前快照）（2026-10-22；#617十八槽比较结束，独立check源码索引开发验证准备）
 
 v3完整18槽已封存：15strict，三策略各5/6；全部用量已知，估费2.21244144美元。check三个槽均在首次模型/模板操作前共同源码索引失败、0Provider，不能归因策略不会Autotools；其余五项目15/15严格完成。v3方法比较实际覆盖CMake/Make，Autotools未激活，固定原18分母保持。源/组件/原响应费用/完整inventory/实际cleanup独立audit valid，raw forge-test-preparation-comparison-v3，inventory8df8b315，releasef1779887。
 
