@@ -4,10 +4,6 @@
 
 ## 进行中 (In Progress)
 
-- 2026-10-22 — #603原生接口三策略免费完整端到端资格准备。
-  - 文件: `scripts/forge_build_native_round_e2e.py`, `backend/tests/test_native_round_e2e.py`, `benchmarks/preregistrations/cpp-build-native-round-e2e-gate-v1.md`
-  - 动机: #601仅材料资格，下一项需验证真实Agent图/完整构建/实际模板恢复/clean replay；0Provider且不用旧付费授权，工程UTC02:18:56–05:18:56，原验收保持。初版测试工具夹具返回非JSON被真实工作集拒绝，修正夹具契约后回归，未创建正式attempt。#601/PR602已三CI后合6b607be4/关闭/发布审计valid，知识库bbc05551核验。
-
 - 2026-10-22 — #601原生材料资格已封存：55/55全v4实际材料+3/3负例，0未观察；3首轮/52完整原生AI-Tool及reasoning_content，最大80570/3139bytes。0真实Provider/Token/费用/构建，55仅usage0脚本响应；原完整包还原/序列化/源与新清单/Git/负例/零用量独立审计valid。raw forge-build-native-round-material-gate-v1、inventory85c48c80、release d5677913、283组件；12针对性/产品2543passed44skipped27warnings/Ruff611后端+两新脚本/CLI通过。最终HEAD三CI后只合依赖分支，证据forge-rtorrent-real-session-2026-10-21/independent-native-audit.json与final-native-publication-audit.json。下一步免费完整三策略端到端，再新Provider授权与0.80未知预留账本资格；本fixture不能当付费准入/完整构建成功，不沿用旧0.40未知预留。原总10美元/UTC19:30:52不续期、三paid累计3.27044256，无活动Provider/Docker；#599已合e360c870/关闭/知识库6edd5077核验，RQ3/P2/用户HTML保持。
 
 
@@ -608,6 +604,13 @@
   - 下一步: 等待实验负责人确认当前网络接入介质，并决定是否授权只读 endpoint 诊断和新的 canary amendment；获得确认后必须另建中文 Issue/PR 和协议 identity，保留当前失败 marker。
 
 ## 最近变更 (Recent Changes)
+
+- 2026-10-22 — 完成#603原生完整轮次三策略零Provider端到端资格与独立审计。
+  - 文件: `scripts/forge_build_native_round_e2e.py`, `backend/tests/test_native_round_e2e.py`, `docs/research/2026-10-22-native-round-e2e-results.md`, `benchmarks/analyses/cpp-build-native-round-e2e-gate-v1-results.json`
+  - 动机: 材料资格需补真实Agent图/构建/恢复/clean replay接线，固定脚本使用合格参考，不当模型或规划效果。3/3 strict、0未观察、6脚本响应/0真实Provider/Token/费；原/replay各818作者文件、40生成SHA、12程序323叶、双ELF/CLI及六实际容器cleanup全部审计valid。工具真实缺libtorrent后revision2；强工具无参数submit与一次固定测试通过。release3a06daeb/a6673899/286组件，raw forge-native-round-e2e-gate-v1，inventory2911d077e7d3caa2f6c733d2b860091fe99769a71a3f27a7d907ef8db86a98ed。相关23/产品2554passed44skipped27warnings/Ruff/CLI通过。
+  - 会话: forge-native-e2e-session-2026-10-22；exec65284与观察30271均终态0，不重启；独立审计ToolMessage.id的null→LangGraph UUID假设勘误保留，其他原生字段逐字一致，raw未改。最终HEAD三CI后仅合yiwei/534-rq3-natural-failures，发布以GitHub/final-publication-audit.json为准；Issue603合并后显式关闭/知识库CAS同步。用户HTML原SHA/未跟踪保持。
+  - 后继: 先0.80美元未知请求预留与新有效授权绑定的零Provider资格，不能复用旧0.40或本fixture；paid_authorization_qualified=false。旧10美元/四小时时窗过期、三paid累计3.27044256美元闭合，无活动Provider/Docker，不回填旧失败、不改RQ3/P2/主线。
+
 
 - 2026-10-22 — #597真实v4已封存，exec67467终态0，不续跑。三观察/0strict/0未观察，55请求1013142Token/$1.59653472/未知0；工具17/模型17/强工具21请求，均48工具预算停止。强工具完成40生成SHA，三槽正式build/12程序323叶/交付/replay均未观察，818作者文件/cleanup通过。raw forge-rtorrent-common-canary-v4、inventory3c95b530、release456737d；主独立审计及三实际容器六ID/name资源审计valid。55请求单Human包/93读建议区间均已不在工作集的只读诊断不等于模型浪费或因果结论；#599已开，准备免费全三版会话连续性/50k容纳边界审计。原总10美元/UTC19:30:52/无自动重试不续期，三paid闭合名义累计3.27044256，原浮点尾数保留；18:25:52后无新请求。52相关/产品2521passed44skipped27warnings/Ruff617格式已过，最终HEAD三CI后只合依赖分支；已合77ddef20/597关闭/final-v4-publication-audit valid，知识库10d34c75已同步。无活动Provider/Docker，用户HTML/RQ3/P2保持。
 
