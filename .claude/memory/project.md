@@ -4,10 +4,10 @@
 
 ## 进行中 (In Progress)
 
-- 2026-10-22 — #608有界规划真实身份已冻结，直接三槽采集；#607真实批次已封存发布。
-  - 目的: 两Workflow每次初始/恢复最多8读取轮次，再保留原BuildActions提交；强工具原能力不变，固定任务/1M共同资源/原源码和完整验收不变。只做新增接口小范围检查，随后直接真实实验，不重复免费三策略构建/本地全量产品测试。候选4e57a911/295组件，原292不变；新scripts/forge_build_rtorrent_bounded_planning_canary.py、相应3真实图检查（1.09秒）/Ruff/CLI通过。当前没有新方法结果，不称收益。raw forge-rtorrent-bounded-planning-canary-v1，会话forge-bounded-planning-session-2026-10-22；启动后不重启、运行中HEAD保持。
-  - 前轮: #607三观察0strict、113请求2261371Token/$3.24355548/未知0；工具17恢复因100k材料门禁停止，模型47初始/96工具未提交，强工具49请求/144步骤未行动。12程序323叶/交付/replay全部未观察；818作者文件三槽不变，允许生成21/0/0且SHA匹配，三个实际容器cleanup。新独立audit valid，未发送材料更小对象104155bytes下界；raw forge-rtorrent-native-budget-canary-v1、inventory8230356e、release767a15d4/292组件。报告2026-10-22-rtorrent-native-budget-canary-results.md，发布以final-publication-audit.json/GitHub为准。
-  - 费用: 当前直接授权两stage累计174请求3487452Token/$5.00928384（旧过期$3.27044256单列）。共享自设12美元/原UTC07:33:28截止不重置，#608已逐字先计完整四事件闭合账本，新预留6.60美元，最坏11.60928384<12；单槽仍3美元预留，不足则后槽未观察，不补槽。#607/PR609最终ba3e71fe三CI后已合6c81e6f0/关闭，独立发布审计valid。#607只2新增费用/资源检查+Ruff/CLI，无重复完整免费资格。#605已合7c7d2ef9/知识库e96f8f61核验。所有失败及未观察保留，不把单次波动当资源因果，RQ3/P2/主线/用户HTML保持。
+- 2026-10-22 — #608真实开发诊断已封存，#610必要反馈修复已建Issue并回读，待冻结。
+  - #608: 三观察0strict，48请求1002853Token/$1.59469068/未知0；工具9请求输出截断，模型19请求两份候选被阶段顺序拒绝，强工具20请求/5命令末set+e诊断被拒绝。三套818原文件不变、生成21/0/40 SHA匹配、实际cleanup；测试/交付/replay全未观察。releasebad83b7f、295组件，raw forge-rtorrent-bounded-planning-canary-v1、inventoryedab32d5；独立数据audit valid，但整次规划8轮协议验证false（实际结构纠错新图也重计），原证据不改。
+  - 新发现: 两候选requires均后向无环，但configure依赖/build依赖/configure主项目违反全局角色排序；第二份最终ID也不为build，权限/测试目录未执行。原propose_observed已造结构纠错反馈，Native覆盖Human导致请求10没有错误前缀/类别/详情；一次隐藏合同读取实际计量拒绝。planning-contract-analysis.json在forge-bounded-planning-session-2026-10-22，不能归因全部失败或声称改排序就成功。
+  - 下一: #610新cpp-build-rtorrent-feedback-repair-probe-v1只修复真实Human反馈送达及以agent.started整次规划计数，保留原排序/模型/共同资源/完整验收。生产propose_observed真实纠错路径针对性检查后只1模型Workflow真实探针，不重复免费三策略构建/本地全量产品测试，不当创新效果。当前三stage222请求4490305Token/$6.60397452/全闭合，自设共享12美元与原UTC07:33:28不重置，旧过期$3.27044256单列，最多再预留3美元；未知/身份/cleanup异常停止，无自动重试。#607已合6c81e6f0/独立发布audit valid，#608发布以最终HEAD三CI/GitHub及final-publication-audit.json为准。当前无活动Provider/Docker，RQ3/P2/主线/用户HTML保持。
 
 - 2026-10-22 — #601原生材料资格已封存：55/55全v4实际材料+3/3负例，0未观察；3首轮/52完整原生AI-Tool及reasoning_content，最大80570/3139bytes。0真实Provider/Token/费用/构建，55仅usage0脚本响应；原完整包还原/序列化/源与新清单/Git/负例/零用量独立审计valid。raw forge-build-native-round-material-gate-v1、inventory85c48c80、release d5677913、283组件；12针对性/产品2543passed44skipped27warnings/Ruff611后端+两新脚本/CLI通过。最终HEAD三CI后只合依赖分支，证据forge-rtorrent-real-session-2026-10-21/independent-native-audit.json与final-native-publication-audit.json。下一步免费完整三策略端到端，再新Provider授权与0.80未知预留账本资格；本fixture不能当付费准入/完整构建成功，不沿用旧0.40未知预留。原总10美元/UTC19:30:52不续期、三paid累计3.27044256，无活动Provider/Docker；#599已合e360c870/关闭/知识库6edd5077核验，RQ3/P2/用户HTML保持。
 
