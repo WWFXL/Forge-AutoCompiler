@@ -4,10 +4,7 @@
 
 ## 进行中 (In Progress)
 
-- 2026-10-22 — #619冻结已见六项目三策略独立重复比较，待真实运行。
-  - 文件: `scripts/forge_build_strategy_replication.py`, `backend/tests/test_strategy_replication.py`, `benchmarks/manifests/cpp-build-strategy-replication-v1.json`, 同名预注册及`RESEARCH_STATUS.md`。
-  - 动机: 单次成本正向信号仍需新鲜重复与恢复费用分层，不按样本结果改变任务。36槽/六已见/每策略2次，原父任务逐字保持，六排列各两次/长任务每轮先入，所有项目统一原归档索引/原链接核验；check复用真实开发资格，不重复免费全构建。4局部检查1.00秒/Ruff/真实CLI validate-only通过，0Provider；历史pytest权限清理告警保持。
-  - 授权: 用户下一阶段4小时/全部权限及既有持续费用/发布授权，自设共享20美元/比较18；UTC15:37:37–19:37:37准备计入，原费用独立、不续窗。原600请求/3900槽/完整replay与模型/资源/源码/测试/交付保持，未知/身份/cleanup异常停、无自动重试/补槽；未观察不填失败。candidate b656366f/324组件。新会话forge-replication-session-2026-10-22，新raw forge-strategy-replication-v1尚未启动。最终三CI后只合科研依赖分支，用户HTML/RQ3/P2/主线保持。
+
 
 
 - 2026-10-22 — #608真实开发诊断已封存，#610必要反馈修复已建Issue并回读，待冻结。
@@ -615,6 +612,12 @@
   - 下一步: 等待实验负责人确认当前网络接入介质，并决定是否授权只读 endpoint 诊断和新的 canary amendment；获得确认后必须另建中文 Issue/PR 和协议 identity，保留当前失败 marker。
 
 ## 最近变更 (Recent Changes)
+
+- 2026-10-23 — #619独立36槽重复比较及只读审计完成，转扩大C++来源。
+  - 文件: `scripts/forge_build_strategy_replication.py`、同名manifest/预注册、`docs/research/2026-10-23-strategy-replication-results.md`、同名analyses、`RESEARCH_STATUS.md`。
+  - 动机/证据: 六已见×2×3全部36strict，工具/模型/强工具26/46/115请求，估费0.68970924/1.16324472/1.80520164，总分钟44.70/52.67/48.81；工具对强工具低费61.79%/时间低8.43%，模型低费35.56%/时间高7.91%，两轮方向均保持。无成功率差/总体排名/显著性/纯规划因果；四C++均CMake，另两C，全已见。工具4零模型、2初始拒答、6handoff；模型初始38请求0.73806216、恢复8请求0.42518256，4handoff后strict；强工具内部纠错保留。
+  - 核验/边界: release a3fc348c/324组件/candidate b656366f，inventory68ddf187；raw forge-strategy-replication-v1，会话forge-replication-session-2026-10-22独立完整inventory/Git组件与snapshot/原响应费用及缓存/原与replay源码链接/固定任务/实际cleanup审计valid。已知3.65815560/未知0/财务闭合，原自设20美元/UTC15:37:37–19:37:37不延期，0重试/补槽。4局部检查1秒/Ruff/CLI，无重复免费全构建/本地全量测试。PR620最终HEAD三CI后仅合科研依赖分支，actual merge/619关闭以final-publication-audit为准。下一零模型固定C++库元数据来源目录非构建资格；RQ3/P2/主线/用户HTML保持。
+
 
 - 2026-10-22 — #617完成1234与独立结果审计，保存两组独立结果及环境事故。
   - 文件: `docs/research/2026-10-22-test-preparation-comparison-results.md`, `benchmarks/analyses/cpp-build-test-preparation-comparison-v3-results.json`, `RESEARCH_STATUS.md`。
