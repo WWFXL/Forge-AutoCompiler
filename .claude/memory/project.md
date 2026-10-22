@@ -4,6 +4,12 @@
 
 ## 进行中 (In Progress)
 
+- 2026-10-22 — #617 v2宿主ownership环境诊断封存，v3恢复原generic宿主模式准备；以下旧In Progress为历史。
+  - v2两yaml Workflow完整测试/精确交付/replay过但finalize chown root文件失败，strict false保持；SIGINT被槽级吞掉，已知响应后SIGTERM停止。3progress/4启动/14未启动，15请求15响应/$0.29805996/未知0，标准result不存在；operator-terminal及operator-v2-budget-reconciliation记录，剩余实际容器按managed/session/thread核验后移除，不改Session。
+  - v3未配置host identity同原generic，容器仍root/原网络，整批停止标记/ownership停批；真实root写文件/原manager/finalize/移除微检查通过，7局部检查1.17秒/Ruff。旧v1/v2独立环境诊断，不拼新18槽比较，旧源码/验收和raw保持；不再重复免费完整构建/本地全量产品检查。
+  - 原共享20/UTC11:03:54，前probe/v1/v2含旧未知先占3.15813776，stage16.50最坏19.65813776，budget-v3完整复制闭合前账本及SHA，不延长；新未知/身份/cleanup异常停。当前新raw forge-test-preparation-comparison-v3尚未启动，只合科研依赖分支，RQ3/P2/用户HTML保持。
+
+
 - 2026-10-22 — #617 v1环境诊断/操作者中断已封存，v2恢复原资格依赖权限准备；上项“待真实probe”已过期。
   - probe9请求/222963Token/$0.40385532/0strict，末响应32768截断，原818文件与cleanup；v1 generic误用HostIdentityRuntime非root/禁网，snappy原apt依赖不可获取。v1四完整+一中断+13未启动，不作策略排名。原root4rows/14未观察/lifecyclefalse/unknown0保持；中断第五槽8请求/7响应，操作者SIGINT未及时阻止下一请求且BaseException路径漏计未知。
   - 独立逐响应所有v1已知1.65622248+未知0.80=2.45622248，实际5容器cleanup；operator-budget-reconciliation.json及账本显式operator_reconciled关闭。先占总2.86007780，旧未知不重发，不冒充全已知。

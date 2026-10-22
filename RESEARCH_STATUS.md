@@ -1,14 +1,14 @@
 # Forge Research Status
 
-## 当前阶段（2026-10-22；#617环境诊断已封存与费用补核，恢复原依赖权限的v2十八槽准备）
+## 当前阶段（2026-10-22；#617两项环境诊断封存，v3恢复原generic宿主模式准备）
 
-rtorrent独立probe已结束：1槽0strict，9请求222963Token/0.40385532美元，末32768输出截断未交方案，作者测试/编译/replay未观察；清理及计量闭合。v1比较发现generic误继承rtorrent非root/禁网模式，snappy原资格依赖apt安装开发包，因此本v1只作环境诊断，不能作公平策略排名。
+前两步分层时间准入/共同测试准备完成；rtorrent独立真实probe 9请求/222963Token/$0.40385532/未知0/0strict，末响应截断未交方案，后续编译/测试/交付/replay未观察。v1误非root/禁网只环境诊断，四完整+一中断，全部已知1.65622248+旧未知0.80=2.45622248，独立补核/5容器清理，旧root低估不改。
 
-v1实际4完整槽+1中断槽+13未启动，原root写4rows/14unobserved/lifecycle=false不改。中断第五槽已有8请求/7完整响应，SIGINT时原未知计数漏记、root未包含该槽费用。独立逐响应补核全v1已知1.65622248美元+未知1×0.80预留=2.45622248，真实5容器cleanup均成功；原账本显式operator_reconciled闭合，receipt在会话operator-budget-reconciliation.json，不称用量全已知或补齐旧分母。总先占2.86007780美元。
+v2恢复root/网络但仍注入host identity，非root宿主finalize chown root文件失败。yaml两Workflow原完整测试/精确交付/clean replay已过，原strict=false保持，不归因规划无效。SIGINT槽级吞掉后下一槽启动，已知响应后SIGTERM停止：3 progress/4启动/14未启动、15请求15响应/$0.29805996/未知0，标准result不存在；operator-terminal及独立reconciliation/实际清理封存，不伪造完整lifecycle。
 
-新cpp-build-test-preparation-comparison-v2恢复generic原默认root/compile_network_wwf_v1，三策略相同可安装依赖说明；原任务/完整测试/源/模型/资源/顺序不改。前瞻重冻六项目18槽，已见且新增旧v1四完整一中断暴露，不并入v2效应。312组件/candidate b90da918，旧release f613dc7e和raw保持；原单测已改自包含tar夹具，两个取消/权限检查加入，5局部检查1.07秒及实际root/apt/DNS入口通过，不重复免费完整构建或本地全量产品测试。
+新cpp-build-test-preparation-comparison-v3恢复原generic未配置host ownership模式，容器仍root/原网络。原六项目18槽/顺序/任务/模型/测试/源码/精确交付/replay保持，不改变产品归一化或测试裁判；整批停止标记及ownership错误停批。真实root文件→原manager模式→finalize/容器移除微检查通过；7局部检查1.17秒/Ruff，不重复免费完整构建或本地全量产品测试。旧v1/v2仅环境诊断，不拼新比较分母；4C++/2C三系统、全已见，v2暴露前瞻登记，非holdout。
 
-用户明确执行1234与直接费用/发布授权持续；新stage17美元与前费/未知共享原20美元、UTC07:03:54–11:03:54不延长，最坏19.86007780。budget-v2逐字带入原完整闭合账本和SHA，旧未知预留不重发，新未知/身份/cleanup异常停。600请求/3900新槽/命令剩余-300/完整重放1200+300保持；新取消计unknown。当前新v2模型效果尚未观察，相关raw forge-test-preparation-comparison-v2。只合科研依赖分支；RQ3/P2/主线/用户HTML不改。
+用户1234/直接费用与发布授权持续，执行器自设共享原20美元/UTC07:03:54–11:03:54不延长。probe/v1/v2先占3.15813776，新stage16.50，最坏19.65813776；budget-v3逐字带入全部已闭合前账本与SHA，旧未知不重发，新未知/身份/cleanup异常停，无自动重试。600请求/3900新槽/命令剩余-300/完整replay1200+300保持。新raw forge-test-preparation-comparison-v3待启动，运行期间HEAD保持。只合科研依赖分支；RQ3/P2/主线/用户HTML不改。
 
 ## 上一阶段（2026-10-22；#617共同测试准备与分层时间门禁，进入真实开发验证及18槽比较）
 
