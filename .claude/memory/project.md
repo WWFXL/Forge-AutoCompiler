@@ -4,6 +4,12 @@
 
 ## 进行中 (In Progress)
 
+- 2026-10-22 — #619冻结已见六项目三策略独立重复比较，待真实运行。
+  - 文件: `scripts/forge_build_strategy_replication.py`, `backend/tests/test_strategy_replication.py`, `benchmarks/manifests/cpp-build-strategy-replication-v1.json`, 同名预注册及`RESEARCH_STATUS.md`。
+  - 动机: 单次成本正向信号仍需新鲜重复与恢复费用分层，不按样本结果改变任务。36槽/六已见/每策略2次，原父任务逐字保持，六排列各两次/长任务每轮先入，所有项目统一原归档索引/原链接核验；check复用真实开发资格，不重复免费全构建。4局部检查1.00秒/Ruff/真实CLI validate-only通过，0Provider；历史pytest权限清理告警保持。
+  - 授权: 用户下一阶段4小时/全部权限及既有持续费用/发布授权，自设共享20美元/比较18；UTC15:37:37–19:37:37准备计入，原费用独立、不续窗。原600请求/3900槽/完整replay与模型/资源/源码/测试/交付保持，未知/身份/cleanup异常停、无自动重试/补槽；未观察不填失败。candidate b656366f/324组件。新会话forge-replication-session-2026-10-22，新raw forge-strategy-replication-v1尚未启动。最终三CI后只合科研依赖分支，用户HTML/RQ3/P2/主线保持。
+
+
 - 2026-10-22 — #608真实开发诊断已封存，#610必要反馈修复已建Issue并回读，待冻结。
   - #608: 三观察0strict，48请求1002853Token/$1.59469068/未知0；工具9请求输出截断，模型19请求两份候选被阶段顺序拒绝，强工具20请求/5命令末set+e诊断被拒绝。三套818原文件不变、生成21/0/40 SHA匹配、实际cleanup；测试/交付/replay全未观察。releasebad83b7f、295组件，raw forge-rtorrent-bounded-planning-canary-v1、inventoryedab32d5；独立数据audit valid，但整次规划8轮协议验证false（实际结构纠错新图也重计），原证据不改。
   - 新发现: 两候选requires均后向无环，但configure依赖/build依赖/configure主项目违反全局角色排序；第二份最终ID也不为build，权限/测试目录未执行。原propose_observed已造结构纠错反馈，Native覆盖Human导致请求10没有错误前缀/类别/详情；一次隐藏合同读取实际计量拒绝。planning-contract-analysis.json在forge-bounded-planning-session-2026-10-22，不能归因全部失败或声称改排序就成功。
