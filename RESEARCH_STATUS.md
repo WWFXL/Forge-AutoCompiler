@@ -1,6 +1,6 @@
 # Forge Research Status
 
-## 当前阶段（2026-10-23；#619独立36槽重复比较完成，转扩大C++来源）
+## 当前阶段（2026-10-23；36槽重复比较与20项新来源登记完成，转任务资格）
 
 真实数据采集和独立结果审计完成。cpp-build-strategy-replication-v1六已见项目×2新鲜重复×3策略36槽全部观察/strict，三策略各12/12，无未知用量/未观察。工具/模型/强工具请求26/46/115，统一保守估费$0.68970924/$1.16324472/$1.80520164，总槽分钟44.70/52.67/48.81。工具相对强工具估费低61.79%、时间低8.43%；模型估费低35.56%、时间高7.91%。两轮费用方向均保持，支持工具候选＋状态触发升级主线，保留模型/强工具参照；没有成功率优势，不作总体排名/显著性或纯规划因果。
 
@@ -8,7 +8,9 @@
 
 本轮北京时间2026-10-22 23:37:37至2026-10-23 03:37:37，准备计入，不延期；自设共享20美元/比较18，实际已知$3.65815560、未知0、阶段财务闭合，无自动重试/补槽。release a3fc348c48269f9515551dc027c57cf826be49ee/324组件/candidate b656366f，inventory68ddf187317a716f6eb4b98de9a234b948b3c93d927705bc6885e83f1fdeb9f7。raw forge-strategy-replication-v1；会话forge-replication-session-2026-10-22含授权/账本/独立audit/派生/采样就绪性复核/最终发布收据。报告docs/research/2026-10-23-strategy-replication-results.md及同名analyses。4局部检查1秒/Ruff/CLI，未重复免费全构建或本地全量产品测试。最终HEAD三CI后PR620仅合科研依赖分支，实际发布以GitHub/final-publication-audit为准。
 
-下一项是在原窗口内另立固定C++库来源目录，仅元数据/角色暴露登记、零模型，不按本批效果选项目、不改原30分母或称新资格；完整源码/作者测试/交付资格后再实验。RQ3/P2/主线/用户HTML保持，KB只MCP且不注入Agent。
+#621独立固定主题C++库目录20/20元数据终结，0失败/未观察/模型费/构建/Docker；17项有CMake根标记、1项也有Meson，3项无根标记（均不是适用性判定）。983跟踪研究文件有限精确名暴露2命中/18未命中，全部task未资格、非holdout；原30分母不改。20根Git tree重构/ref/commit/检索排名/完整源与inventory独立审计valid，release2b5a1328、inventorya6a5e454，raw forge-cpp-library-source-catalog-v1；报告2026-10-23-cpp-library-source-catalog-results.md及同名analyses。两局部检查0.08秒/Ruff/CLI，不追加全构建。下一阶段按固定排名逐项审阅Linux端点、依赖源码图和完整测试/交付义务，资格后再比较，不按方法结果挑样本。
+
+PR620已合154d34e4/619关闭/最终三CI及本地包含和用户HTML核验一致，实际final-publication-audit已保存；本目录结果最终HEAD三CI后仅合科研依赖分支。RQ3/P2/主线/用户HTML保持，KB只MCP且不注入Agent。
 
 ## 上一阶段（2026-10-22；#617执行1234完成，转策略适用范围与恢复贡献研究）
 

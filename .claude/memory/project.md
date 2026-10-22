@@ -4,9 +4,7 @@
 
 ## 进行中 (In Progress)
 
-- 2026-10-23 — #621固定20项C++库元数据来源目录准备，0模型/构建。
-  - 文件: `scripts/forge_build_cpp_library_catalog.py`、`backend/tests/test_cpp_library_catalog.py`、同名manifest/预注册。
-  - 动机: 原30来源多外部环境要求，另立topic:cpp-library/stars100..5000固定第一页20项；先冻结排名再Git ref/commit/root tree，无patch/blob/源码执行。旧30分母不改、全部task未资格、有限精确名暴露非holdout。2局部检查0.08秒，原截止UTC19:37:37不延期，0Provider/费用/Docker/构建。等冻结发布后真实元数据采集，独立Git树/完整清单审计；PR620主36槽已封存、结果HEAD afbf10e1三CI待全完成，不改变原raw。
+
 
 
 
@@ -617,6 +615,12 @@
   - 下一步: 等待实验负责人确认当前网络接入介质，并决定是否授权只读 endpoint 诊断和新的 canary amendment；获得确认后必须另建中文 Issue/PR 和协议 identity，保留当前失败 marker。
 
 ## 最近变更 (Recent Changes)
+
+- 2026-10-23 — #621固定20项C++主题库来源元数据及独立审计完成。
+  - 文件: `scripts/forge_build_cpp_library_catalog.py`、两局部测试、同名manifest/预注册/analyses、`docs/research/2026-10-23-cpp-library-source-catalog-results.md`、`RESEARCH_STATUS.md`。
+  - 动机/证据: 固定topic:cpp-library/stars100..5000降序第一页20项全部元数据终结，无失败/未观察/Provider/模型费用/源码执行/Docker；先排名再Git ref→commit对象→根tree，不取patch/blob/README。983跟踪研究文件精确名2命中/18未命中非holdout，全部task未资格；原30分母不改，不按方法效果选样。独立重构20Git根tree并核对完整源码snapshot/Git/清单/排名/暴露，valid；release2b5a1328，raw forge-cpp-library-source-catalog-v1，inventorya6a5e454（90文件468842bytes），会话forge-replication-session-2026-10-22/independent-library-catalog-audit.json。
+  - 检查/边界: 2检查0.08秒/Ruff/CLI --help，0新模型/完整构建。原UTC19:37:37不续窗，主36槽已知3.65815560/未知0保持。PR620最终afbf10e1三CI成功，仅合154d34e4/619关闭/本地包含与用户HTML核验，final-publication-audit valid。下一按固定排名审阅Linux目标、依赖源码图及作者完整测试/交付再资格；当前17CMake根标记不授予适用性，全部task未观察。目录最终HEAD三CI后仅合科研依赖分支，RQ3/P2/主线保持。
+
 
 - 2026-10-23 — #619独立36槽重复比较及只读审计完成，转扩大C++来源。
   - 文件: `scripts/forge_build_strategy_replication.py`、同名manifest/预注册、`docs/research/2026-10-23-strategy-replication-results.md`、同名analyses、`RESEARCH_STATUS.md`。
