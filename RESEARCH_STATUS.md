@@ -1,14 +1,12 @@
 # Forge Research Status
 
-## 当前阶段（2026-10-22；#617两项环境诊断封存，v3恢复原generic宿主模式准备）
+## 当前阶段（2026-10-22；#617十八槽比较结束，独立check源码索引开发验证准备）
 
-前两步分层时间准入/共同测试准备完成；rtorrent独立真实probe 9请求/222963Token/$0.40385532/未知0/0strict，末响应截断未交方案，后续编译/测试/交付/replay未观察。v1误非root/禁网只环境诊断，四完整+一中断，全部已知1.65622248+旧未知0.80=2.45622248，独立补核/5容器清理，旧root低估不改。
+v3完整18槽已封存：15strict，三策略各5/6；全部用量已知，估费2.21244144美元。check三个槽均在首次模型/模板操作前共同源码索引失败、0Provider，不能归因策略不会Autotools；其余五项目15/15严格完成。v3方法比较实际覆盖CMake/Make，Autotools未激活，固定原18分母保持。源/组件/原响应费用/完整inventory/实际cleanup独立audit valid，raw forge-test-preparation-comparison-v3，inventory8df8b315，releasef1779887。
 
-v2恢复root/网络但仍注入host identity，非root宿主finalize chown root文件失败。yaml两Workflow原完整测试/精确交付/clean replay已过，原strict=false保持，不归因规划无效。SIGINT槽级吞掉后下一槽启动，已知响应后SIGTERM停止：3 progress/4启动/14未启动、15请求15响应/$0.29805996/未知0，标准result不存在；operator-terminal及独立reconciliation/实际清理封存，不伪造完整lifecycle。
+只读定位check原归档262普通文件+两个悬空链接，旧is_file哈希集合漏链接，Git正确索引264。原任务/固定make check/源码/交付完全不改，新typed source-index适配器计入原链接并核验原执行/replay链接目标未变；旧组件/raw不动。两局部检查和原check归档实际Git准备微检查后，独立cpp-build-check-source-index-probe-v1三个策略各一次，只作已见Autotools开发验证，不补入v3/不拼接成功率/不称跨版本因果。未重复免费完整构建或本地全量产品测试。
 
-新cpp-build-test-preparation-comparison-v3恢复原generic未配置host ownership模式，容器仍root/原网络。原六项目18槽/顺序/任务/模型/测试/源码/精确交付/replay保持，不改变产品归一化或测试裁判；整批停止标记及ownership错误停批。真实root文件→原manager模式→finalize/容器移除微检查通过；7局部检查1.17秒/Ruff，不重复免费完整构建或本地全量产品测试。旧v1/v2仅环境诊断，不拼新比较分母；4C++/2C三系统、全已见，v2暴露前瞻登记，非holdout。
-
-用户1234/直接费用与发布授权持续，执行器自设共享原20美元/UTC07:03:54–11:03:54不延长。probe/v1/v2先占3.15813776，新stage16.50，最坏19.65813776；budget-v3逐字带入全部已闭合前账本与SHA，旧未知不重发，新未知/身份/cleanup异常停，无自动重试。600请求/3900新槽/命令剩余-300/完整replay1200+300保持。新raw forge-test-preparation-comparison-v3待启动，运行期间HEAD保持。只合科研依赖分支；RQ3/P2/主线/用户HTML不改。
+原rtorrent probe0strict/9请求/$0.40385532；v1环境诊断已知1.65622248+未知0.80，v2ownership诊断0.29805996/未知0，全部独立保留/财务闭合。v3后前费已知4.57057920+未知0.80=5.37057920，budget-index完整带入原闭合账本及SHA，新stage9，最坏14.37057920，共享原自设20美元/UTC07:03:54–11:03:54不延期。新未知/身份/cleanup异常停，无自动重试；600请求/3900新槽/命令剩余-300/完整replay1200+300保持。用户1234/直接费用及发布授权持续。RQ3旧分母/P2/主线/用户HTML不改，仅合科研依赖分支。
 
 ## 上一阶段（2026-10-22；#617共同测试准备与分层时间门禁，进入真实开发验证及18槽比较）
 
