@@ -4,6 +4,9 @@
 
 ## 进行中 (In Progress)
 
+
+
+
 - 2026-10-22 — #608真实开发诊断已封存，#610必要反馈修复已建Issue并回读，待冻结。
   - #608: 三观察0strict，48请求1002853Token/$1.59469068/未知0；工具9请求输出截断，模型19请求两份候选被阶段顺序拒绝，强工具20请求/5命令末set+e诊断被拒绝。三套818原文件不变、生成21/0/40 SHA匹配、实际cleanup；测试/交付/replay全未观察。releasebad83b7f、295组件，raw forge-rtorrent-bounded-planning-canary-v1、inventoryedab32d5；独立数据audit valid，但整次规划8轮协议验证false（实际结构纠错新图也重计），原证据不改。
   - 新发现: 两候选requires均后向无环，但configure依赖/build依赖/configure主项目违反全局角色排序；第二份最终ID也不为build，权限/测试目录未执行。原propose_observed已造结构纠错反馈，Native覆盖Human导致请求10没有错误前缀/类别/详情；一次隐藏合同读取实际计量拒绝。planning-contract-analysis.json在forge-bounded-planning-session-2026-10-22，不能归因全部失败或声称改排序就成功。
@@ -609,6 +612,12 @@
   - 下一步: 等待实验负责人确认当前网络接入介质，并决定是否授权只读 endpoint 诊断和新的 canary amendment；获得确认后必须另建中文 Issue/PR 和协议 identity，保留当前失败 marker。
 
 ## 最近变更 (Recent Changes)
+
+- 2026-10-23 — #619独立36槽重复比较及只读审计完成，转扩大C++来源。
+  - 文件: `scripts/forge_build_strategy_replication.py`、同名manifest/预注册、`docs/research/2026-10-23-strategy-replication-results.md`、同名analyses、`RESEARCH_STATUS.md`。
+  - 动机/证据: 六已见×2×3全部36strict，工具/模型/强工具26/46/115请求，估费0.68970924/1.16324472/1.80520164，总分钟44.70/52.67/48.81；工具对强工具低费61.79%/时间低8.43%，模型低费35.56%/时间高7.91%，两轮方向均保持。无成功率差/总体排名/显著性/纯规划因果；四C++均CMake，另两C，全已见。工具4零模型、2初始拒答、6handoff；模型初始38请求0.73806216、恢复8请求0.42518256，4handoff后strict；强工具内部纠错保留。
+  - 核验/边界: release a3fc348c/324组件/candidate b656366f，inventory68ddf187；raw forge-strategy-replication-v1，会话forge-replication-session-2026-10-22独立完整inventory/Git组件与snapshot/原响应费用及缓存/原与replay源码链接/固定任务/实际cleanup审计valid。已知3.65815560/未知0/财务闭合，原自设20美元/UTC15:37:37–19:37:37不延期，0重试/补槽。4局部检查1秒/Ruff/CLI，无重复免费全构建/本地全量测试。PR620最终HEAD三CI后仅合科研依赖分支，actual merge/619关闭以final-publication-audit为准。下一零模型固定C++库元数据来源目录非构建资格；RQ3/P2/主线/用户HTML保持。
+
 
 - 2026-10-22 — #617完成1234与独立结果审计，保存两组独立结果及环境事故。
   - 文件: `docs/research/2026-10-22-test-preparation-comparison-results.md`, `benchmarks/analyses/cpp-build-test-preparation-comparison-v3-results.json`, `RESEARCH_STATUS.md`。
