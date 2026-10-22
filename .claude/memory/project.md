@@ -610,6 +610,10 @@
 
 ## 最近变更 (Recent Changes)
 
+- 2026-10-22 — 封存 #613 真实候选反馈探针，定位生成命令与路径观察的装配冲突
+  - 文件: `docs/research/2026-10-22-rtorrent-candidate-feedback-probe-results.md`, `benchmarks/analyses/cpp-build-rtorrent-candidate-feedback-probe-v1-results.json`, `RESEARCH_STATUS.md`
+  - 动机: 11请求/265823Token/$0.54237348，plan revision1已实际执行，原生成命令匹配generation4，编译追加6文件检查导致active=None而拒绝；40生成SHA/818原文件保持。新恢复第11全思考截断，作者测试/交付/replay未观察，0strict。数据/反馈/组合错误独立audit valid，inventory9d2399aa。累计243请求/4981882Token/$7.62355440，原12美元/UTC07:33:28不重置。#614仅修复组合顺序并保留检查，不放宽权限/验收，一项真实Shell回归后若时间允许直接独立真实探针。
+
 - 2026-10-22 — 冻结 #613 被拒候选+错误反馈单模型Workflow真实探针
   - 文件: `scripts/forge_build_rtorrent_candidate_feedback_probe.py`, `backend/tests/test_rtorrent_candidate_feedback_probe.py`, `benchmarks/manifests/cpp-build-rtorrent-candidate-feedback-probe-v1.json`, `benchmarks/preregistrations/cpp-build-rtorrent-candidate-feedback-probe-v1.md`, `RESEARCH_STATUS.md`
   - 动机: #610错误送达但候选丢失。只携带本槽实际拒绝前原tool_call/响应SHA和错误，恢复隔离；通用角色和精确生成接口说明不带项目专用配方。原校验/源码/作者测试/交付/资源保持。一项生产回归1.38秒/Ruff/CLI；301组件/595a5209，前4stage7.08118092先计入原12美元/UTC07:33:28，本stage3美元/无自动重试。单臂开发探针非比较效果，旧失败不改，不重复完整免费构建或本地全量测试。
