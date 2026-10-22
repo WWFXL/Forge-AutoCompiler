@@ -10,6 +10,9 @@
 
 
 
+
+
+
 - 2026-10-22 — #608真实开发诊断已封存，#610必要反馈修复已建Issue并回读，待冻结。
   - #608: 三观察0strict，48请求1002853Token/$1.59469068/未知0；工具9请求输出截断，模型19请求两份候选被阶段顺序拒绝，强工具20请求/5命令末set+e诊断被拒绝。三套818原文件不变、生成21/0/40 SHA匹配、实际cleanup；测试/交付/replay全未观察。releasebad83b7f、295组件，raw forge-rtorrent-bounded-planning-canary-v1、inventoryedab32d5；独立数据audit valid，但整次规划8轮协议验证false（实际结构纠错新图也重计），原证据不改。
   - 新发现: 两候选requires均后向无环，但configure依赖/build依赖/configure主项目违反全局角色排序；第二份最终ID也不为build，权限/测试目录未执行。原propose_observed已造结构纠错反馈，Native覆盖Human导致请求10没有错误前缀/类别/详情；一次隐藏合同读取实际计量拒绝。planning-contract-analysis.json在forge-bounded-planning-session-2026-10-22，不能归因全部失败或声称改排序就成功。
@@ -615,6 +618,12 @@
   - 下一步: 等待实验负责人确认当前网络接入介质，并决定是否授权只读 endpoint 诊断和新的 canary amendment；获得确认后必须另建中文 Issue/PR 和协议 identity，保留当前失败 marker。
 
 ## 最近变更 (Recent Changes)
+
+- 2026-10-23 — #623固定20项C++来源合同材料和逐项义务审阅完成。
+  - 文件: `scripts/forge_build_cpp_library_task_materials.py`、父分母测试、同名manifest/预注册/analyses、`docs/research/2026-10-23-cpp-library-task-materials-results.md`、`RESEARCH_STATUS.md`。
+  - 动机/证据: 原固定20排名/commit/root保持，复用原collect规则采92路径/62Git tree/92blob/620831bytes，20/20采集终结，0失败/未观察/Provider/费/源码执行/Docker。独立Git对象字节/父25文件/完整候选与路径映射/冻结组件及typed inventory、逐字合同引文审计valid；全部task/参考构建/方法结果未观察。releasef9ab0c4c，raw forge-cpp-library-task-materials-v1，inventory8e5ea8a1（274文件2101588bytes）；会话forge-replication-session-2026-10-22/independent-library-materials-audit.json与library-materials-reviewed.json。
+  - 检查/下一: 2局部检查0.10秒/Ruff/CLI，无免费完整构建/本地全量产品测试。准备系统Python3.10导入UTC失败已改项目Python，正式raw仅一次。下一rang/doctest/原程序交付、ELFIO/GoogleTest/fixture和bit7z/7-Zip任务草案；header-only需原编译端点不伪造.a。未采大小写/深层文件不等于不存在，原20/30分母与RQ3/P2/主线保持。主36槽费用3.65815560/未知0，原UTC19:37:37不延期；PR620已合154d34e4/619关闭，PR622已合1be4653e/621关闭，各最终三CI及发布audit valid。材料最终HEAD三CI后仅合科研依赖分支，用户HTML保持。
+
 
 - 2026-10-23 — #621固定20项C++主题库来源元数据及独立审计完成。
   - 文件: `scripts/forge_build_cpp_library_catalog.py`、两局部测试、同名manifest/预注册/analyses、`docs/research/2026-10-23-cpp-library-source-catalog-results.md`、`RESEARCH_STATUS.md`。
