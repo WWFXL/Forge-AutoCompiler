@@ -610,6 +610,10 @@
 
 ## 最近变更 (Recent Changes)
 
+- 2026-10-22 — 封存 #610 真实反馈探针：10请求/225754Token/$0.47720640，反馈和整次计数修复已观察，构建未观察
+  - 文件: `docs/research/2026-10-22-rtorrent-feedback-repair-probe-results.md`, `benchmarks/analyses/cpp-build-rtorrent-feedback-repair-probe-v1-results.json`, `RESEARCH_STATUS.md`
+  - 动机: 第9候选排序拒绝，第10实际逐字完整错误且无读取重置，仍32769全思考输出截断；上一候选未入下一报文，不能称唯一原因。818作者文件/清理保持，生成/作者测试/交付/replay未观察。数据/反馈独立audit valid，inventorydc9e956f。累计四stage232请求/4716059Token/$7.08118092，原12美元/UTC07:33:28不重置。下一独立改进候选+错误反馈和通用角色说明，不改裁判，不重复全免费构建或本地全量程序测试。
+
 - 2026-10-22 — 冻结 #610 单模型 Workflow 反馈修复真实探针，直接采集而不重复工程门禁
   - 文件: `scripts/forge_build_rtorrent_feedback_repair_probe.py`, `backend/tests/test_rtorrent_feedback_repair_probe.py`, `benchmarks/manifests/cpp-build-rtorrent-feedback-repair-probe-v1.json`, `benchmarks/preregistrations/cpp-build-rtorrent-feedback-repair-probe-v1.md`, `RESEARCH_STATUS.md`
   - 动机: #608生产结构纠错反馈被Human替换丢失且内部图计数重置。原文进入agent_human_messages实际报文；整次按agent.started计数，恢复才重置。一项生产propose_observed回归1.35秒/Ruff/CLI通过。原排序/权限/作者测试/验收保持。298组件/d3d0fec7，前3stage6.60397452美元先计入原共享12美元/UTC07:33:28，本stage3美元/无自动重试。单族单臂开发探针不作比较效果，raw和会话独立。#608 PR611三CI成功后已合bd69d733/608关闭/发布审计valid，旧范围偏差不掩盖。

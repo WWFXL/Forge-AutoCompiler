@@ -1,12 +1,12 @@
 # Forge Research Status
 
-## 当前阶段（2026-10-22；#610反馈修复已冻结，直接单Workflow真实探针）
+## 当前阶段（2026-10-22；#610真实反馈修复探针完成）
 
-工程修复转真实数据采集。cpp-build-rtorrent-feedback-repair-probe-v1只有一个model_plan_workflow槽：逐字保留当前Agent Human/结构纠错反馈进入实际100k报文，以agent.started事件定义整次规划8轮，内部结构纠错不重置，新恢复才重置。原排序/最终ID/Shell/818作者文件/40生成SHA/12程序323叶/双ELF/CLI/replay验收和1M资源保持，不注入参考。生产propose_observed一项针对性检查1.35秒通过，Ruff/格式/CLI通过；不重复免费完整构建或本地全量产品测试，不把工程修复当研究效果。
+真实采集与结果分析完成。cpp-build-rtorrent-feedback-repair-probe-v1一个模型Workflow槽，1观察/0strict/0未观察，10请求/225754Token/$0.47720640/未知0，闭合/cleanup通过。第9响应有9步候选，被原全局角色排序拒绝；第10请求已逐字带完整错误且计数9/仍仅结构出口，真实反馈/整次8轮修复成立，但第10输出32769全思考Token/length截断，未交修订。Provider名义max_tokens32768的1Token差保留，未越200k记录边界。
 
-候选d3d0fec7f8e4a3c679298c1d5c73b318221212e559f1dd4ebbcce4229adb8725/298组件，旧295保持；manifest/preregistration同身份，raw forge-rtorrent-feedback-repair-probe-v1，会话forge-feedback-repair-session-2026-10-22。当前直接费用授权继续，自设共享12美元和原UTC03:33:28–07:33:28不重置，前六事件6.6039745199999999美元先完整计入，本stage最多3美元，未知预留0.80，无自动重试/未知身份清理异常停。尚无新终态或成功结论，仅单族开发探针，不是三策略比较。
+实际只有源码准备1条exit0，818原文件保持、生成0，原作者12程序323叶/正式交付/replay未观察，不记功能失败。下一请求没有被拒候选本身，不能据此称唯一原因或方法有效。后续将候选原文与错误一起交回，并澄清任务无关的角色范围/声明生成命令，原排序/最终ID/Shell/作者测试/验收不改，不注入参考；相关小范围检查后新身份直接真实探针，不重复免费全构建或本地全量产品测试。
 
-#608最终HEAD eb963080三CI全部SUCCESS，PR611仅合科研依赖分支bd69d7335b5670cbb16e859a21af62cef93cf586，608关闭/独立发布audit valid；其8轮范围偏差与反馈缺失完整保留。RQ3/P2/硕士主线和用户HTML保持。
+release27236a7cee13d88f7ae619089fd108a28bf71e09，候选d3d0fec7/298组件，inventorydc9e956fff7c532f4c351f722ad6017b2b7e79f6cc9f74611b86565f709f528e（1992文件/18905838bytes）。报告docs/research/2026-10-22-rtorrent-feedback-repair-probe-results.md；派生benchmarks/analyses/cpp-build-rtorrent-feedback-repair-probe-v1-results.json；会话forge-feedback-repair-session-2026-10-22含独立数据和反馈audit valid。只一项生产图回归1.35秒/Ruff/CLI。当前直接授权四stage232请求/4716059Token/7.08118092美元，原自设共享12美元/UTC07:33:28不重置，旧过期3.27044256单列。无活动Provider/Docker；单族单臂非效果比较，RQ3/P2/主线/用户HTML保持。最终HEAD三CI后只合科研依赖分支，以GitHub发布审计为准。
 
 ## 上一阶段（2026-10-22；#608真实开发诊断完成并发布）
 
