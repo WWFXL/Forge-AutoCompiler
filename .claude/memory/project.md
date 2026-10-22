@@ -4,9 +4,7 @@
 
 ## 进行中 (In Progress)
 
-- 2026-10-23 — #623固定20项C++来源合同材料采集准备。
-  - 文件: `scripts/forge_build_cpp_library_task_materials.py`、一项父分母测试、同名manifest/预注册。
-  - 动机: 仅根标记不能授予Linux/完整测试/交付资格；复用原collect固定文档/测试/CI规则，20项不变，0模型/费用/源码执行/Docker。新分母/父snapshot检查及已有真实Git blob完整性共2项0.10秒；不重复全构建或本地全量测试。沿原UTC19:37:37与60秒封存预留，不续窗/重试/补位。PR622最终dcea6a3b三CI成功，仅合1be4653e/621关闭/本地包含；catalog-final-publication-audit valid。准备命令曾误用系统Python3.10导入UTC失败，已改项目Python3.12，未创建正式raw/Provider。新raw封存前HEAD与五组件保持。
+
 
 
 
@@ -620,6 +618,12 @@
   - 下一步: 等待实验负责人确认当前网络接入介质，并决定是否授权只读 endpoint 诊断和新的 canary amendment；获得确认后必须另建中文 Issue/PR 和协议 identity，保留当前失败 marker。
 
 ## 最近变更 (Recent Changes)
+
+- 2026-10-23 — #623固定20项C++来源合同材料和逐项义务审阅完成。
+  - 文件: `scripts/forge_build_cpp_library_task_materials.py`、父分母测试、同名manifest/预注册/analyses、`docs/research/2026-10-23-cpp-library-task-materials-results.md`、`RESEARCH_STATUS.md`。
+  - 动机/证据: 原固定20排名/commit/root保持，复用原collect规则采92路径/62Git tree/92blob/620831bytes，20/20采集终结，0失败/未观察/Provider/费/源码执行/Docker。独立Git对象字节/父25文件/完整候选与路径映射/冻结组件及typed inventory、逐字合同引文审计valid；全部task/参考构建/方法结果未观察。releasef9ab0c4c，raw forge-cpp-library-task-materials-v1，inventory8e5ea8a1（274文件2101588bytes）；会话forge-replication-session-2026-10-22/independent-library-materials-audit.json与library-materials-reviewed.json。
+  - 检查/下一: 2局部检查0.10秒/Ruff/CLI，无免费完整构建/本地全量产品测试。准备系统Python3.10导入UTC失败已改项目Python，正式raw仅一次。下一rang/doctest/原程序交付、ELFIO/GoogleTest/fixture和bit7z/7-Zip任务草案；header-only需原编译端点不伪造.a。未采大小写/深层文件不等于不存在，原20/30分母与RQ3/P2/主线保持。主36槽费用3.65815560/未知0，原UTC19:37:37不延期；PR620已合154d34e4/619关闭，PR622已合1be4653e/621关闭，各最终三CI及发布audit valid。材料最终HEAD三CI后仅合科研依赖分支，用户HTML保持。
+
 
 - 2026-10-23 — #621固定20项C++主题库来源元数据及独立审计完成。
   - 文件: `scripts/forge_build_cpp_library_catalog.py`、两局部测试、同名manifest/预注册/analyses、`docs/research/2026-10-23-cpp-library-source-catalog-results.md`、`RESEARCH_STATUS.md`。
