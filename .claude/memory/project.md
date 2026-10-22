@@ -4,6 +4,10 @@
 
 ## 进行中 (In Progress)
 
+- 2026-10-22 — #603原生接口三策略免费完整端到端资格准备。
+  - 文件: `scripts/forge_build_native_round_e2e.py`, `backend/tests/test_native_round_e2e.py`, `benchmarks/preregistrations/cpp-build-native-round-e2e-gate-v1.md`
+  - 动机: #601仅材料资格，下一项需验证真实Agent图/完整构建/实际模板恢复/clean replay；0Provider且不用旧付费授权，工程UTC02:18:56–05:18:56，原验收保持。初版测试工具夹具返回非JSON被真实工作集拒绝，修正夹具契约后回归，未创建正式attempt。#601/PR602已三CI后合6b607be4/关闭/发布审计valid，知识库bbc05551核验。
+
 - 2026-10-22 — #601原生材料资格已封存：55/55全v4实际材料+3/3负例，0未观察；3首轮/52完整原生AI-Tool及reasoning_content，最大80570/3139bytes。0真实Provider/Token/费用/构建，55仅usage0脚本响应；原完整包还原/序列化/源与新清单/Git/负例/零用量独立审计valid。raw forge-build-native-round-material-gate-v1、inventory85c48c80、release d5677913、283组件；12针对性/产品2543passed44skipped27warnings/Ruff611后端+两新脚本/CLI通过。最终HEAD三CI后只合依赖分支，证据forge-rtorrent-real-session-2026-10-21/independent-native-audit.json与final-native-publication-audit.json。下一步免费完整三策略端到端，再新Provider授权与0.80未知预留账本资格；本fixture不能当付费准入/完整构建成功，不沿用旧0.40未知预留。原总10美元/UTC19:30:52不续期、三paid累计3.27044256，无活动Provider/Docker；#599已合e360c870/关闭/知识库6edd5077核验，RQ3/P2/用户HTML保持。
 
 

@@ -1,5 +1,13 @@
 # Forge Research Status
 
+## 当前阶段（2026-10-22；#603原生接口三策略免费完整端到端资格准备）
+
+基础设施阶段。#601/PR602最终b43e474f三CI成功后已合科研依赖分支6b607be449784f1e523ef62890486d476c0fc767、601关闭/独立发布审计valid；知识库bbc05551完整CAS回读检索一致。材料资格55/55+3/3只证明接口接线，完整新构建仍未观察。
+
+用户明确继续免费下一步。本项独立cpp-build-native-round-e2e-gate-v1固定rtorrent三策略各一次，工具实际模板失败后脚本恢复、模型方案及强工具走原合格参考；共同先读configure.ac确保真实Agent图原生后继轮次。原818作者文件/40生成SHA/12程序323叶/精确双ELF/CLI/clean replay/cleanup保持。固定脚本响应且用尽即停止，0凭据/Provider/真实Token/费用，paid_authorization_qualified=false。工程窗口UTC2026-10-22T02:18:56–05:18:56、每新槽2700秒/脚本请求及清理120秒预留，不续用旧10美元授权。先相关回归/冻结/preflight再新输出目录实际三槽，失败封存/未观察不回填。
+
+本项不支持规划收益或模型成功率；新Provider入口0.80未知预留及有效授权仍是独立待办，不能复用旧0.40入口。旧三paid累计3.27044256美元已闭合，原截止不延长；RQ3/P2/主线及用户HTML保持。
+
 ## 当前阶段（2026-10-22；#601共同原生完整轮次材料资格完成）
 
 基础设施/工程修复完成，0新凭据/Provider/真实Token/模型费/构建/Docker。cpp-build-native-round-material-gate-v1固定v4全55实际请求+3负例，55/55材料、3/3负例通过，0未观察；3首轮仅Human，52后继完整保留原AI/Tool/reasoning_content。真实middleware下原任务/脚本/方案/权威状态/源码工作集/read_index与历史预算fixture逐值还原，离线DeepSeek序列化核验；不是模型或完整新端到端成功。
