@@ -1,6 +1,14 @@
 # Forge Research Status
 
-## 当前阶段（2026-10-22；#610真实反馈修复探针完成）
+## 当前阶段（2026-10-22；#613真实候选反馈探针完成，#614生成装配组合修复）
+
+真实采集与分析完成。cpp-build-rtorrent-candidate-feedback-probe-v1模型Workflow1观察/0strict/0未观察，11请求/265823Token/$0.54237348/未知0/闭合/cleanup通过。第9响应4隐藏读取实际拒绝，第10提交plan revision1并实际执行生成，第11新恢复输出32768全思考Token截断，未修订。无真实结构拒绝，候选共同反馈能力仅回归检查，不称真实效果。
+
+关键证据：第10 bootstrap原始command/workdir精确匹配generation索引4，但compile_action把6文件观察拼入命令，guard_main精确匹配失效，生成后被拒。40生成SHA均匹配、818原文件保持，不是Agent提交未声明原命令或项目功能失败。实际2命令/1成功；作者12程序323叶/交付/CLI/replay未观察。#614新版本将生成与观察分别执行，保留全部原检查和原权限，单个真实guard_main回归后直接新独立探针；不足原3900秒预留不启动，不重跑旧身份，不重复全免费构建/本地全量程序测试。
+
+release18e392c9/301组件/候选595a5209；inventory9d2399aad2bdc0d0add5becd398d27730e5974759bbe68ccf4a804183474b105（2074文件/31808613bytes）；报告docs/research/2026-10-22-rtorrent-candidate-feedback-probe-results.md及同身份analyses；会话forge-candidate-feedback-session-2026-10-22含独立数据/反馈/生成冲突audit valid。当前五stage243请求/4981882Token/$7.62355440，原自设12美元/UTC07:33:28不重置，旧过期三paid3.27044256单列。无活动Provider/Docker，单族单臂非比较效果；RQ3/P2/主线和用户HTML保持。最终HEAD三CI后仅合科研依赖分支，以实际发布审计为准。
+
+## 上一阶段（2026-10-22；#610真实反馈修复探针完成）
 
 真实采集与结果分析完成。cpp-build-rtorrent-feedback-repair-probe-v1一个模型Workflow槽，1观察/0strict/0未观察，10请求/225754Token/$0.47720640/未知0，闭合/cleanup通过。第9响应有9步候选，被原全局角色排序拒绝；第10请求已逐字带完整错误且计数9/仍仅结构出口，真实反馈/整次8轮修复成立，但第10输出32769全思考Token/length截断，未交修订。Provider名义max_tokens32768的1Token差保留，未越200k记录边界。
 

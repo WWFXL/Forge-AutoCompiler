@@ -1,0 +1,1334 @@
+{
+  "valid": true,
+  "preregistered_whole_planning_bound_verified": true,
+  "actual_planning_bound_scope": "agent.started episode including internal structural correction; new recovery resets",
+  "identity": "cpp-build-rtorrent-candidate-feedback-probe-v1",
+  "inventory": {
+    "format": "forge-typed-evidence-v1",
+    "identity": "cpp-build-rtorrent-candidate-feedback-probe-v1",
+    "entries": 2074,
+    "files": 2074,
+    "symlinks": 0,
+    "bytes": 31808613,
+    "inventory_canonical_sha256": "9d2399aad2bdc0d0add5becd398d27730e5974759bbe68ccf4a804183474b105",
+    "unknown_usage_requests": 0
+  },
+  "release": "18e392c9eea60e5bddcd59217b58843f93887d5d",
+  "rows": [
+    {
+      "slot": 1,
+      "method": "model_plan_workflow",
+      "strict_completed": false,
+      "error_class": "PlanContractError",
+      "error_message": "响应截断，保留usage并停止，不自动重试",
+      "requests": [
+        {
+          "sequence": 1,
+          "phase": "initial",
+          "known_usage": true,
+          "input_tokens": 10281,
+          "output_tokens": 1233,
+          "recorded_tokens": 11514,
+          "cost_usd": "0.0184536",
+          "messages_bytes": 26353,
+          "schema_bytes": 3139,
+          "source_packet_paths": [
+            "README.md",
+            "configure.ac"
+          ],
+          "models": [
+            "deepseek-v4-pro"
+          ],
+          "request_sha256": "11b64c7669aeb84c41a667d00389ef9ae32609cf94e8be4f3be9659b8c9ea2c7",
+          "response_sha256": "a7d33823838123d938ee17bb296b56520267933cd1cdffd73e73711e27ceed16",
+          "proposed_source_reads": [],
+          "retained_message_types": [
+            "human"
+          ],
+          "bounded_submit_state": false,
+          "representation_requires_text_factor_decode": true
+        },
+        {
+          "sequence": 2,
+          "phase": "initial",
+          "known_usage": true,
+          "input_tokens": 12032,
+          "output_tokens": 146,
+          "recorded_tokens": 12178,
+          "cost_usd": "0.0164604",
+          "messages_bytes": 34270,
+          "schema_bytes": 3139,
+          "source_packet_paths": [
+            "README.md",
+            "configure.ac",
+            null,
+            null
+          ],
+          "models": [
+            "deepseek-v4-pro"
+          ],
+          "request_sha256": "cf5e5e00d74ba243ed8378c399e7bb2b605c19b5818f27d8d393a208e15e2b3c",
+          "response_sha256": "1e338430aeb0de4cb0787524834d4795a677c6428b27e81a2aa2404d8c2cadb2",
+          "proposed_source_reads": [
+            {
+              "args": {
+                "path": "vendor-libtorrent/configure.ac"
+              },
+              "same_range_already_in_decoded_working_set": false,
+              "complete_file_already_in_decoded_working_set": false
+            },
+            {
+              "args": {
+                "path": "Makefile.am"
+              },
+              "same_range_already_in_decoded_working_set": false,
+              "complete_file_already_in_decoded_working_set": false
+            },
+            {
+              "args": {
+                "path": "src/Makefile.am"
+              },
+              "same_range_already_in_decoded_working_set": false,
+              "complete_file_already_in_decoded_working_set": false
+            }
+          ],
+          "retained_message_types": [
+            "human",
+            "ai",
+            "tool",
+            "tool"
+          ],
+          "bounded_submit_state": false,
+          "representation_requires_text_factor_decode": true
+        },
+        {
+          "sequence": 3,
+          "phase": "initial",
+          "known_usage": true,
+          "input_tokens": 17260,
+          "output_tokens": 84,
+          "recorded_tokens": 17344,
+          "cost_usd": "0.02311584",
+          "messages_bytes": 46731,
+          "schema_bytes": 3139,
+          "source_packet_paths": [
+            "README.md",
+            "configure.ac",
+            null,
+            null,
+            "vendor-libtorrent/configure.ac",
+            "Makefile.am",
+            "src/Makefile.am"
+          ],
+          "models": [
+            "deepseek-v4-pro"
+          ],
+          "request_sha256": "b068454033ea15b04b67a18e47cfb4327592d4a718b89210e16ea3a8289faf1c",
+          "response_sha256": "02f2da079e559e93feeb8d35f7aa832ca55f8275d8f106d8f2f9323baa6b9982",
+          "proposed_source_reads": [
+            {
+              "args": {
+                "path": "src/Makefile.am",
+                "start_line": 120
+              },
+              "same_range_already_in_decoded_working_set": false,
+              "complete_file_already_in_decoded_working_set": false
+            }
+          ],
+          "retained_message_types": [
+            "human",
+            "ai",
+            "tool",
+            "tool",
+            "tool"
+          ],
+          "bounded_submit_state": false,
+          "representation_requires_text_factor_decode": true
+        },
+        {
+          "sequence": 4,
+          "phase": "initial",
+          "known_usage": true,
+          "input_tokens": 16393,
+          "output_tokens": 3815,
+          "recorded_tokens": 20208,
+          "cost_usd": "0.03674616",
+          "messages_bytes": 44126,
+          "schema_bytes": 3139,
+          "source_packet_paths": [
+            "README.md",
+            "configure.ac",
+            null,
+            null,
+            "vendor-libtorrent/configure.ac",
+            "Makefile.am",
+            "src/Makefile.am",
+            "src/Makefile.am"
+          ],
+          "models": [
+            "deepseek-v4-pro"
+          ],
+          "request_sha256": "674a0ecaba23b2c66b851c187f1eb920c6c7bab0a8ac605e75f333ba34d6140f",
+          "response_sha256": "e34ac8207efbe8af0688752b2a43174705eb92761e9d69b0aacab95bb00351b1",
+          "proposed_source_reads": [],
+          "retained_message_types": [
+            "human",
+            "ai",
+            "tool"
+          ],
+          "bounded_submit_state": false,
+          "representation_requires_text_factor_decode": true
+        },
+        {
+          "sequence": 5,
+          "phase": "initial",
+          "known_usage": true,
+          "input_tokens": 21934,
+          "output_tokens": 532,
+          "recorded_tokens": 22466,
+          "cost_usd": "0.0310596",
+          "messages_bytes": 64473,
+          "schema_bytes": 3139,
+          "source_packet_paths": [
+            "README.md",
+            "configure.ac",
+            null,
+            null,
+            "vendor-libtorrent/configure.ac",
+            "Makefile.am",
+            "src/Makefile.am",
+            "src/Makefile.am",
+            null
+          ],
+          "models": [
+            "deepseek-v4-pro"
+          ],
+          "request_sha256": "0055dbed550f88191bb0827ae47292b9cf695855edb65f47681071dd6eef9a10",
+          "response_sha256": "517938d6d46c076cec396c0ca724971db1c33153d697f15b2498e4cc37b618e0",
+          "proposed_source_reads": [],
+          "retained_message_types": [
+            "human",
+            "ai",
+            "tool"
+          ],
+          "bounded_submit_state": false,
+          "representation_requires_text_factor_decode": true
+        },
+        {
+          "sequence": 6,
+          "phase": "initial",
+          "known_usage": true,
+          "input_tokens": 17645,
+          "output_tokens": 302,
+          "recorded_tokens": 17947,
+          "cost_usd": "0.02448732",
+          "messages_bytes": 49438,
+          "schema_bytes": 3139,
+          "source_packet_paths": [
+            null,
+            null,
+            "vendor-libtorrent/configure.ac",
+            "Makefile.am",
+            "src/Makefile.am",
+            "src/Makefile.am",
+            null,
+            null
+          ],
+          "models": [
+            "deepseek-v4-pro"
+          ],
+          "request_sha256": "9f8755fbb3fcbe3db683885b1f8c2f88ab751ebb7c73e8569060835ce1ea0456",
+          "response_sha256": "d932f232172551897d04d1f670f6f38882ca7512a161c733c8e75db82b6765e7",
+          "proposed_source_reads": [],
+          "retained_message_types": [
+            "human",
+            "ai",
+            "tool"
+          ],
+          "bounded_submit_state": false,
+          "representation_requires_text_factor_decode": true
+        },
+        {
+          "sequence": 7,
+          "phase": "initial",
+          "known_usage": true,
+          "input_tokens": 16739,
+          "output_tokens": 3698,
+          "recorded_tokens": 20437,
+          "cost_usd": "0.03673956",
+          "messages_bytes": 47124,
+          "schema_bytes": 3139,
+          "source_packet_paths": [
+            "Makefile.am",
+            "src/Makefile.am",
+            "src/Makefile.am",
+            null,
+            null,
+            null
+          ],
+          "models": [
+            "deepseek-v4-pro"
+          ],
+          "request_sha256": "899f957ae75b773f66d6cf1ff68eaeff571b166e74865439b8de1b95c9cf40bf",
+          "response_sha256": "951deba381d544604cb2e991c07a5dff9879c71c6b1a86605812debfe6ff0a05",
+          "proposed_source_reads": [
+            {
+              "args": {
+                "path": "configure.ac"
+              },
+              "same_range_already_in_decoded_working_set": false,
+              "complete_file_already_in_decoded_working_set": false
+            },
+            {
+              "args": {
+                "path": "vendor-libtorrent/configure.ac"
+              },
+              "same_range_already_in_decoded_working_set": false,
+              "complete_file_already_in_decoded_working_set": false
+            }
+          ],
+          "retained_message_types": [
+            "human",
+            "ai",
+            "tool"
+          ],
+          "bounded_submit_state": false,
+          "representation_requires_text_factor_decode": true
+        },
+        {
+          "sequence": 8,
+          "phase": "initial",
+          "known_usage": true,
+          "input_tokens": 22189,
+          "output_tokens": 5376,
+          "recorded_tokens": 27565,
+          "cost_usd": "0.05057844",
+          "messages_bytes": 64381,
+          "schema_bytes": 3139,
+          "source_packet_paths": [
+            "src/Makefile.am",
+            null,
+            null,
+            null,
+            "configure.ac",
+            "vendor-libtorrent/configure.ac"
+          ],
+          "models": [
+            "deepseek-v4-pro"
+          ],
+          "request_sha256": "701de4166ffba173d781b82921af499e523a2dc51e244e15edff34569c609de2",
+          "response_sha256": "dbd273cae928b19333ec2335e8fc3eff141f0b70b51b38a99ce65891f4107d12",
+          "proposed_source_reads": [
+            {
+              "args": {
+                "path": "Makefile.am"
+              },
+              "same_range_already_in_decoded_working_set": false,
+              "complete_file_already_in_decoded_working_set": false
+            },
+            {
+              "args": {
+                "path": "vendor-libtorrent/Makefile.am"
+              },
+              "same_range_already_in_decoded_working_set": false,
+              "complete_file_already_in_decoded_working_set": false
+            }
+          ],
+          "retained_message_types": [
+            "human",
+            "ai",
+            "tool",
+            "tool"
+          ],
+          "bounded_submit_state": false,
+          "representation_requires_text_factor_decode": true
+        },
+        {
+          "sequence": 9,
+          "phase": "initial",
+          "known_usage": true,
+          "input_tokens": 21089,
+          "output_tokens": 808,
+          "recorded_tokens": 21897,
+          "cost_usd": "0.03103716",
+          "messages_bytes": 64202,
+          "schema_bytes": 1738,
+          "source_packet_paths": [
+            null,
+            null,
+            null,
+            "configure.ac",
+            "vendor-libtorrent/configure.ac",
+            "Makefile.am",
+            "vendor-libtorrent/Makefile.am",
+            null
+          ],
+          "models": [
+            "deepseek-v4-pro"
+          ],
+          "request_sha256": "061e3a921c2be70fb1aa4ee4e235bc84a816ab65bb7e91b4454cd4adb4feeb31",
+          "response_sha256": "79203bb60c1b44bc4f45a76df7caf379393a4d5a9af9af3789a3109ddff8206e",
+          "proposed_source_reads": [
+            {
+              "args": {
+                "path": "test/Makefile.am"
+              },
+              "same_range_already_in_decoded_working_set": false,
+              "complete_file_already_in_decoded_working_set": false
+            },
+            {
+              "args": {
+                "path": "vendor-libtorrent/test/Makefile.am"
+              },
+              "same_range_already_in_decoded_working_set": false,
+              "complete_file_already_in_decoded_working_set": false
+            },
+            {
+              "args": {
+                "path": "src/Makefile.am"
+              },
+              "same_range_already_in_decoded_working_set": false,
+              "complete_file_already_in_decoded_working_set": false
+            },
+            {
+              "args": {
+                "path": "vendor-libtorrent/src/Makefile.am"
+              },
+              "same_range_already_in_decoded_working_set": false,
+              "complete_file_already_in_decoded_working_set": false
+            }
+          ],
+          "retained_message_types": [
+            "human",
+            "ai",
+            "tool",
+            "tool",
+            "tool"
+          ],
+          "bounded_submit_state": true,
+          "representation_requires_text_factor_decode": true
+        },
+        {
+          "sequence": 10,
+          "phase": "initial",
+          "known_usage": true,
+          "input_tokens": 16253,
+          "output_tokens": 23771,
+          "recorded_tokens": 40024,
+          "cost_usd": "0.11558712",
+          "messages_bytes": 46912,
+          "schema_bytes": 1738,
+          "source_packet_paths": [
+            null,
+            null,
+            null,
+            "configure.ac",
+            "vendor-libtorrent/configure.ac",
+            "Makefile.am",
+            "vendor-libtorrent/Makefile.am",
+            null
+          ],
+          "models": [
+            "deepseek-v4-pro"
+          ],
+          "request_sha256": "96966c8a6bf51521277b951e57c78255296c2cfe0f66098831dab6aa414db3ff",
+          "response_sha256": "d11f790613dd6e6926ec2e0417535bd225b5dd31fbe89fc804fb065627ec2cca",
+          "proposed_source_reads": [],
+          "retained_message_types": [
+            "human",
+            "ai",
+            "tool",
+            "tool",
+            "tool",
+            "tool"
+          ],
+          "bounded_submit_state": true,
+          "representation_requires_text_factor_decode": true
+        },
+        {
+          "sequence": 11,
+          "phase": "recovery",
+          "known_usage": true,
+          "input_tokens": 21475,
+          "output_tokens": 32768,
+          "recorded_tokens": 54243,
+          "cost_usd": "0.15810828",
+          "messages_bytes": 57465,
+          "schema_bytes": 3139,
+          "source_packet_paths": [
+            null,
+            null,
+            null,
+            "configure.ac",
+            "vendor-libtorrent/configure.ac",
+            "Makefile.am",
+            "vendor-libtorrent/Makefile.am",
+            null
+          ],
+          "models": [
+            "deepseek-v4-pro"
+          ],
+          "request_sha256": "b91a383efc3d5aff4510070ef65707ca13b2b9583bcb1c0cfc65aae0ff049981",
+          "response_sha256": "2c7569d8384980e662bbee3384754f06a14954269a742d2da3630a5d5798d7af",
+          "proposed_source_reads": [],
+          "retained_message_types": [
+            "human"
+          ],
+          "bounded_submit_state": false,
+          "representation_requires_text_factor_decode": true
+        }
+      ],
+      "proposed_reads_with_same_range_already_available": 0,
+      "proposed_reads_with_complete_file_already_available": 0,
+      "input_tokens": 193290,
+      "output_tokens": 72533,
+      "recorded_tokens": 265823,
+      "cost_usd": "0.54237348",
+      "unknown_requests": 0,
+      "commands": [
+        {
+          "command_id": "command_0979e5a820e240f69a6daf15a476fa7f",
+          "command": "python3 -c 'from pathlib import Path\nimport subprocess\nassert str(Path.cwd())=='\"'\"'/workspace/repo'\"'\"', '\"'\"'准备目录必须是容器仓库根'\"'\"'\nassert not Path('\"'\"'.git'\"'\"').exists(), '\"'\"'归档源码不得包含既有Git身份'\"'\"'\nsubprocess.run(['\"'\"'git'\"'\"','\"'\"'init'\"'\"','\"'\"'-q'\"'\"'],check=True)\nsubprocess.run(['\"'\"'git'\"'\"','\"'\"'config'\"'\"','\"'\"'--global'\"'\"','\"'\"'--add'\"'\"','\"'\"'safe.directory'\"'\"','\"'\"'/workspace/repo'\"'\"'],check=True)\nsubprocess.run(['\"'\"'git'\"'\"','\"'\"'add'\"'\"','\"'\"'--force'\"'\"','\"'\"'--all'\"'\"'],check=True)\nimport hashlib,json,subprocess\nrows=subprocess.run(['\"'\"'git'\"'\"','\"'\"'ls-files'\"'\"','\"'\"'-z'\"'\"'],check=True,capture_output=True).stdout.decode().split('\"'\"'\\0'\"'\"')\nassert rows[-1]=='\"'\"''\"'\"', '\"'\"'Git索引输出不完整'\"'\"'\nnames=rows[:-1]\nactual=hashlib.sha256(json.dumps(sorted(names),ensure_ascii=True,separators=('\"'\"','\"'\"','\"'\"':'\"'\"')).encode()).hexdigest()\nassert actual=='\"'\"'e16d22ef1506d3bd751d382ee4e41c35c20f1137e81e0ac72993008a5c074f9f'\"'\"', '\"'\"'Git索引文件集合与固定原源码不同'\"'\"'\nassert subprocess.run(['\"'\"'git'\"'\"','\"'\"'rev-parse'\"'\"','\"'\"'--verify'\"'\"','\"'\"'HEAD'\"'\"'],capture_output=True).returncode!=0, '\"'\"'不允许伪造源码commit'\"'\"'\nprint('\"'\"'FORGE_SOURCE_INDEX_VERIFIED='\"'\"'+actual)\n'",
+          "role": "dependency",
+          "exit_code": 0,
+          "timed_out": false,
+          "duration_seconds": 0.738469
+        },
+        {
+          "command_id": "command_7d6503bc62b04e9697b330bf61bfd2f4",
+          "command": "(\nrm -f -- Makefile.in aclocal.m4 ar-lib compile config.guess config.h.in config.sub configure depcomp doc/Makefile.in install-sh ltmain.sh missing scripts/libtool.m4 scripts/ltoptions.m4 scripts/ltsugar.m4 scripts/ltversion.m4 'scripts/lt~obsolete.m4' src/Makefile.in test-driver test/Makefile.in vendor-libtorrent/Makefile.in vendor-libtorrent/aclocal.m4 vendor-libtorrent/compile vendor-libtorrent/config.guess vendor-libtorrent/config.h.in vendor-libtorrent/config.sub vendor-libtorrent/configure vendor-libtorrent/depcomp vendor-libtorrent/install-sh vendor-libtorrent/ltmain.sh vendor-libtorrent/missing vendor-libtorrent/scripts/libtool.m4 vendor-libtorrent/scripts/ltoptions.m4 vendor-libtorrent/scripts/ltsugar.m4 vendor-libtorrent/scripts/ltversion.m4 'vendor-libtorrent/scripts/lt~obsolete.m4' vendor-libtorrent/src/Makefile.in vendor-libtorrent/src/torrent/Makefile.in vendor-libtorrent/test/Makefile.in\n(cd vendor-libtorrent && autoreconf -ivf)\nautoreconf -ivf\n)\npython3 -c 'import json,pathlib,sys\nroot=pathlib.Path.cwd().resolve(); rows=[]\nfor kind,name in [('\"'\"'file'\"'\"', '\"'\"'configure'\"'\"'), ('\"'\"'file'\"'\"', '\"'\"'Makefile.in'\"'\"'), ('\"'\"'file'\"'\"', '\"'\"'vendor-libtorrent/configure'\"'\"'), ('\"'\"'file'\"'\"', '\"'\"'vendor-libtorrent/Makefile.in'\"'\"'), ('\"'\"'file'\"'\"', '\"'\"'vendor-libtorrent/src/torrent/Makefile.in'\"'\"'), ('\"'\"'file'\"'\"', '\"'\"'vendor-libtorrent/libtorrent.pc.in'\"'\"')]:\n p=(root/name).resolve(); inside=p.is_relative_to(root)\n passed=inside and (p.is_file() if kind=='\"'\"'file'\"'\"' else p.is_dir())\n rows.append({'\"'\"'kind'\"'\"':kind,'\"'\"'path'\"'\"':name,'\"'\"'passed'\"'\"':passed,'\"'\"'inside_workdir'\"'\"':inside})\nprint('\"'\"'FORGE_PATH_OBSERVATIONS='\"'\"'+json.dumps(rows,sort_keys=True))\nsys.exit(0 if all(r['\"'\"'passed'\"'\"'] for r in rows) else 86)\n'",
+          "role": "dependency",
+          "exit_code": 1,
+          "timed_out": false,
+          "duration_seconds": 22.78291962109506
+        }
+      ],
+      "observations": [
+        {
+          "phase": "compile",
+          "protected_count": 818,
+          "changed_author_files": [],
+          "generated_present": 40,
+          "generated_mismatches": [],
+          "programs": [
+            {
+              "build": "build-libtorrent",
+              "program": "LibTorrent_Test_Protocol",
+              "observed": false,
+              "complete_expected_leaves": false,
+              "passed_leaf_count": null,
+              "log_sha256": null
+            },
+            {
+              "build": "build-libtorrent",
+              "program": "LibTorrent_Test_Torrent_Net",
+              "observed": false,
+              "complete_expected_leaves": false,
+              "passed_leaf_count": null,
+              "log_sha256": null
+            },
+            {
+              "build": "build-libtorrent",
+              "program": "LibTorrent_Test_Torrent_Runtime",
+              "observed": false,
+              "complete_expected_leaves": false,
+              "passed_leaf_count": null,
+              "log_sha256": null
+            },
+            {
+              "build": "build-libtorrent",
+              "program": "LibTorrent_Test_Torrent_Utils",
+              "observed": false,
+              "complete_expected_leaves": false,
+              "passed_leaf_count": null,
+              "log_sha256": null
+            },
+            {
+              "build": "build-libtorrent",
+              "program": "LibTorrent_Test_Torrent",
+              "observed": false,
+              "complete_expected_leaves": false,
+              "passed_leaf_count": null,
+              "log_sha256": null
+            },
+            {
+              "build": "build-libtorrent",
+              "program": "LibTorrent_Test_Data",
+              "observed": false,
+              "complete_expected_leaves": false,
+              "passed_leaf_count": null,
+              "log_sha256": null
+            },
+            {
+              "build": "build-libtorrent",
+              "program": "LibTorrent_Test_Net",
+              "observed": false,
+              "complete_expected_leaves": false,
+              "passed_leaf_count": null,
+              "log_sha256": null
+            },
+            {
+              "build": "build-libtorrent",
+              "program": "LibTorrent_Test_Tracker",
+              "observed": false,
+              "complete_expected_leaves": false,
+              "passed_leaf_count": null,
+              "log_sha256": null
+            },
+            {
+              "build": "build-libtorrent",
+              "program": "LibTorrent_Test",
+              "observed": false,
+              "complete_expected_leaves": false,
+              "passed_leaf_count": null,
+              "log_sha256": null
+            },
+            {
+              "build": "build-rtorrent",
+              "program": "rtorrent_Test_Core",
+              "observed": false,
+              "complete_expected_leaves": false,
+              "passed_leaf_count": null,
+              "log_sha256": null
+            },
+            {
+              "build": "build-rtorrent",
+              "program": "rtorrent_Test_Rpc",
+              "observed": false,
+              "complete_expected_leaves": false,
+              "passed_leaf_count": null,
+              "log_sha256": null
+            },
+            {
+              "build": "build-rtorrent",
+              "program": "rtorrent_Test_Src",
+              "observed": false,
+              "complete_expected_leaves": false,
+              "passed_leaf_count": null,
+              "log_sha256": null
+            }
+          ],
+          "observed_programs": 0,
+          "complete_programs": 0,
+          "passed_leaf_count": 0
+        }
+      ],
+      "artifacts": [],
+      "arm_total_wall_seconds": 811.1437460859306,
+      "cleanup": true
+    }
+  ],
+  "requests": [
+    {
+      "slot": 1,
+      "method": "model_plan_workflow",
+      "sequence": 1,
+      "phase": "initial",
+      "known_usage": true,
+      "input_tokens": 10281,
+      "output_tokens": 1233,
+      "recorded_tokens": 11514,
+      "cost_usd": "0.0184536",
+      "messages_bytes": 26353,
+      "schema_bytes": 3139,
+      "source_packet_paths": [
+        "README.md",
+        "configure.ac"
+      ],
+      "models": [
+        "deepseek-v4-pro"
+      ],
+      "request_sha256": "11b64c7669aeb84c41a667d00389ef9ae32609cf94e8be4f3be9659b8c9ea2c7",
+      "response_sha256": "a7d33823838123d938ee17bb296b56520267933cd1cdffd73e73711e27ceed16",
+      "proposed_source_reads": [],
+      "retained_message_types": [
+        "human"
+      ],
+      "bounded_submit_state": false,
+      "representation_requires_text_factor_decode": true
+    },
+    {
+      "slot": 1,
+      "method": "model_plan_workflow",
+      "sequence": 2,
+      "phase": "initial",
+      "known_usage": true,
+      "input_tokens": 12032,
+      "output_tokens": 146,
+      "recorded_tokens": 12178,
+      "cost_usd": "0.0164604",
+      "messages_bytes": 34270,
+      "schema_bytes": 3139,
+      "source_packet_paths": [
+        "README.md",
+        "configure.ac",
+        null,
+        null
+      ],
+      "models": [
+        "deepseek-v4-pro"
+      ],
+      "request_sha256": "cf5e5e00d74ba243ed8378c399e7bb2b605c19b5818f27d8d393a208e15e2b3c",
+      "response_sha256": "1e338430aeb0de4cb0787524834d4795a677c6428b27e81a2aa2404d8c2cadb2",
+      "proposed_source_reads": [
+        {
+          "args": {
+            "path": "vendor-libtorrent/configure.ac"
+          },
+          "same_range_already_in_decoded_working_set": false,
+          "complete_file_already_in_decoded_working_set": false
+        },
+        {
+          "args": {
+            "path": "Makefile.am"
+          },
+          "same_range_already_in_decoded_working_set": false,
+          "complete_file_already_in_decoded_working_set": false
+        },
+        {
+          "args": {
+            "path": "src/Makefile.am"
+          },
+          "same_range_already_in_decoded_working_set": false,
+          "complete_file_already_in_decoded_working_set": false
+        }
+      ],
+      "retained_message_types": [
+        "human",
+        "ai",
+        "tool",
+        "tool"
+      ],
+      "bounded_submit_state": false,
+      "representation_requires_text_factor_decode": true
+    },
+    {
+      "slot": 1,
+      "method": "model_plan_workflow",
+      "sequence": 3,
+      "phase": "initial",
+      "known_usage": true,
+      "input_tokens": 17260,
+      "output_tokens": 84,
+      "recorded_tokens": 17344,
+      "cost_usd": "0.02311584",
+      "messages_bytes": 46731,
+      "schema_bytes": 3139,
+      "source_packet_paths": [
+        "README.md",
+        "configure.ac",
+        null,
+        null,
+        "vendor-libtorrent/configure.ac",
+        "Makefile.am",
+        "src/Makefile.am"
+      ],
+      "models": [
+        "deepseek-v4-pro"
+      ],
+      "request_sha256": "b068454033ea15b04b67a18e47cfb4327592d4a718b89210e16ea3a8289faf1c",
+      "response_sha256": "02f2da079e559e93feeb8d35f7aa832ca55f8275d8f106d8f2f9323baa6b9982",
+      "proposed_source_reads": [
+        {
+          "args": {
+            "path": "src/Makefile.am",
+            "start_line": 120
+          },
+          "same_range_already_in_decoded_working_set": false,
+          "complete_file_already_in_decoded_working_set": false
+        }
+      ],
+      "retained_message_types": [
+        "human",
+        "ai",
+        "tool",
+        "tool",
+        "tool"
+      ],
+      "bounded_submit_state": false,
+      "representation_requires_text_factor_decode": true
+    },
+    {
+      "slot": 1,
+      "method": "model_plan_workflow",
+      "sequence": 4,
+      "phase": "initial",
+      "known_usage": true,
+      "input_tokens": 16393,
+      "output_tokens": 3815,
+      "recorded_tokens": 20208,
+      "cost_usd": "0.03674616",
+      "messages_bytes": 44126,
+      "schema_bytes": 3139,
+      "source_packet_paths": [
+        "README.md",
+        "configure.ac",
+        null,
+        null,
+        "vendor-libtorrent/configure.ac",
+        "Makefile.am",
+        "src/Makefile.am",
+        "src/Makefile.am"
+      ],
+      "models": [
+        "deepseek-v4-pro"
+      ],
+      "request_sha256": "674a0ecaba23b2c66b851c187f1eb920c6c7bab0a8ac605e75f333ba34d6140f",
+      "response_sha256": "e34ac8207efbe8af0688752b2a43174705eb92761e9d69b0aacab95bb00351b1",
+      "proposed_source_reads": [],
+      "retained_message_types": [
+        "human",
+        "ai",
+        "tool"
+      ],
+      "bounded_submit_state": false,
+      "representation_requires_text_factor_decode": true
+    },
+    {
+      "slot": 1,
+      "method": "model_plan_workflow",
+      "sequence": 5,
+      "phase": "initial",
+      "known_usage": true,
+      "input_tokens": 21934,
+      "output_tokens": 532,
+      "recorded_tokens": 22466,
+      "cost_usd": "0.0310596",
+      "messages_bytes": 64473,
+      "schema_bytes": 3139,
+      "source_packet_paths": [
+        "README.md",
+        "configure.ac",
+        null,
+        null,
+        "vendor-libtorrent/configure.ac",
+        "Makefile.am",
+        "src/Makefile.am",
+        "src/Makefile.am",
+        null
+      ],
+      "models": [
+        "deepseek-v4-pro"
+      ],
+      "request_sha256": "0055dbed550f88191bb0827ae47292b9cf695855edb65f47681071dd6eef9a10",
+      "response_sha256": "517938d6d46c076cec396c0ca724971db1c33153d697f15b2498e4cc37b618e0",
+      "proposed_source_reads": [],
+      "retained_message_types": [
+        "human",
+        "ai",
+        "tool"
+      ],
+      "bounded_submit_state": false,
+      "representation_requires_text_factor_decode": true
+    },
+    {
+      "slot": 1,
+      "method": "model_plan_workflow",
+      "sequence": 6,
+      "phase": "initial",
+      "known_usage": true,
+      "input_tokens": 17645,
+      "output_tokens": 302,
+      "recorded_tokens": 17947,
+      "cost_usd": "0.02448732",
+      "messages_bytes": 49438,
+      "schema_bytes": 3139,
+      "source_packet_paths": [
+        null,
+        null,
+        "vendor-libtorrent/configure.ac",
+        "Makefile.am",
+        "src/Makefile.am",
+        "src/Makefile.am",
+        null,
+        null
+      ],
+      "models": [
+        "deepseek-v4-pro"
+      ],
+      "request_sha256": "9f8755fbb3fcbe3db683885b1f8c2f88ab751ebb7c73e8569060835ce1ea0456",
+      "response_sha256": "d932f232172551897d04d1f670f6f38882ca7512a161c733c8e75db82b6765e7",
+      "proposed_source_reads": [],
+      "retained_message_types": [
+        "human",
+        "ai",
+        "tool"
+      ],
+      "bounded_submit_state": false,
+      "representation_requires_text_factor_decode": true
+    },
+    {
+      "slot": 1,
+      "method": "model_plan_workflow",
+      "sequence": 7,
+      "phase": "initial",
+      "known_usage": true,
+      "input_tokens": 16739,
+      "output_tokens": 3698,
+      "recorded_tokens": 20437,
+      "cost_usd": "0.03673956",
+      "messages_bytes": 47124,
+      "schema_bytes": 3139,
+      "source_packet_paths": [
+        "Makefile.am",
+        "src/Makefile.am",
+        "src/Makefile.am",
+        null,
+        null,
+        null
+      ],
+      "models": [
+        "deepseek-v4-pro"
+      ],
+      "request_sha256": "899f957ae75b773f66d6cf1ff68eaeff571b166e74865439b8de1b95c9cf40bf",
+      "response_sha256": "951deba381d544604cb2e991c07a5dff9879c71c6b1a86605812debfe6ff0a05",
+      "proposed_source_reads": [
+        {
+          "args": {
+            "path": "configure.ac"
+          },
+          "same_range_already_in_decoded_working_set": false,
+          "complete_file_already_in_decoded_working_set": false
+        },
+        {
+          "args": {
+            "path": "vendor-libtorrent/configure.ac"
+          },
+          "same_range_already_in_decoded_working_set": false,
+          "complete_file_already_in_decoded_working_set": false
+        }
+      ],
+      "retained_message_types": [
+        "human",
+        "ai",
+        "tool"
+      ],
+      "bounded_submit_state": false,
+      "representation_requires_text_factor_decode": true
+    },
+    {
+      "slot": 1,
+      "method": "model_plan_workflow",
+      "sequence": 8,
+      "phase": "initial",
+      "known_usage": true,
+      "input_tokens": 22189,
+      "output_tokens": 5376,
+      "recorded_tokens": 27565,
+      "cost_usd": "0.05057844",
+      "messages_bytes": 64381,
+      "schema_bytes": 3139,
+      "source_packet_paths": [
+        "src/Makefile.am",
+        null,
+        null,
+        null,
+        "configure.ac",
+        "vendor-libtorrent/configure.ac"
+      ],
+      "models": [
+        "deepseek-v4-pro"
+      ],
+      "request_sha256": "701de4166ffba173d781b82921af499e523a2dc51e244e15edff34569c609de2",
+      "response_sha256": "dbd273cae928b19333ec2335e8fc3eff141f0b70b51b38a99ce65891f4107d12",
+      "proposed_source_reads": [
+        {
+          "args": {
+            "path": "Makefile.am"
+          },
+          "same_range_already_in_decoded_working_set": false,
+          "complete_file_already_in_decoded_working_set": false
+        },
+        {
+          "args": {
+            "path": "vendor-libtorrent/Makefile.am"
+          },
+          "same_range_already_in_decoded_working_set": false,
+          "complete_file_already_in_decoded_working_set": false
+        }
+      ],
+      "retained_message_types": [
+        "human",
+        "ai",
+        "tool",
+        "tool"
+      ],
+      "bounded_submit_state": false,
+      "representation_requires_text_factor_decode": true
+    },
+    {
+      "slot": 1,
+      "method": "model_plan_workflow",
+      "sequence": 9,
+      "phase": "initial",
+      "known_usage": true,
+      "input_tokens": 21089,
+      "output_tokens": 808,
+      "recorded_tokens": 21897,
+      "cost_usd": "0.03103716",
+      "messages_bytes": 64202,
+      "schema_bytes": 1738,
+      "source_packet_paths": [
+        null,
+        null,
+        null,
+        "configure.ac",
+        "vendor-libtorrent/configure.ac",
+        "Makefile.am",
+        "vendor-libtorrent/Makefile.am",
+        null
+      ],
+      "models": [
+        "deepseek-v4-pro"
+      ],
+      "request_sha256": "061e3a921c2be70fb1aa4ee4e235bc84a816ab65bb7e91b4454cd4adb4feeb31",
+      "response_sha256": "79203bb60c1b44bc4f45a76df7caf379393a4d5a9af9af3789a3109ddff8206e",
+      "proposed_source_reads": [
+        {
+          "args": {
+            "path": "test/Makefile.am"
+          },
+          "same_range_already_in_decoded_working_set": false,
+          "complete_file_already_in_decoded_working_set": false
+        },
+        {
+          "args": {
+            "path": "vendor-libtorrent/test/Makefile.am"
+          },
+          "same_range_already_in_decoded_working_set": false,
+          "complete_file_already_in_decoded_working_set": false
+        },
+        {
+          "args": {
+            "path": "src/Makefile.am"
+          },
+          "same_range_already_in_decoded_working_set": false,
+          "complete_file_already_in_decoded_working_set": false
+        },
+        {
+          "args": {
+            "path": "vendor-libtorrent/src/Makefile.am"
+          },
+          "same_range_already_in_decoded_working_set": false,
+          "complete_file_already_in_decoded_working_set": false
+        }
+      ],
+      "retained_message_types": [
+        "human",
+        "ai",
+        "tool",
+        "tool",
+        "tool"
+      ],
+      "bounded_submit_state": true,
+      "representation_requires_text_factor_decode": true
+    },
+    {
+      "slot": 1,
+      "method": "model_plan_workflow",
+      "sequence": 10,
+      "phase": "initial",
+      "known_usage": true,
+      "input_tokens": 16253,
+      "output_tokens": 23771,
+      "recorded_tokens": 40024,
+      "cost_usd": "0.11558712",
+      "messages_bytes": 46912,
+      "schema_bytes": 1738,
+      "source_packet_paths": [
+        null,
+        null,
+        null,
+        "configure.ac",
+        "vendor-libtorrent/configure.ac",
+        "Makefile.am",
+        "vendor-libtorrent/Makefile.am",
+        null
+      ],
+      "models": [
+        "deepseek-v4-pro"
+      ],
+      "request_sha256": "96966c8a6bf51521277b951e57c78255296c2cfe0f66098831dab6aa414db3ff",
+      "response_sha256": "d11f790613dd6e6926ec2e0417535bd225b5dd31fbe89fc804fb065627ec2cca",
+      "proposed_source_reads": [],
+      "retained_message_types": [
+        "human",
+        "ai",
+        "tool",
+        "tool",
+        "tool",
+        "tool"
+      ],
+      "bounded_submit_state": true,
+      "representation_requires_text_factor_decode": true
+    },
+    {
+      "slot": 1,
+      "method": "model_plan_workflow",
+      "sequence": 11,
+      "phase": "recovery",
+      "known_usage": true,
+      "input_tokens": 21475,
+      "output_tokens": 32768,
+      "recorded_tokens": 54243,
+      "cost_usd": "0.15810828",
+      "messages_bytes": 57465,
+      "schema_bytes": 3139,
+      "source_packet_paths": [
+        null,
+        null,
+        null,
+        "configure.ac",
+        "vendor-libtorrent/configure.ac",
+        "Makefile.am",
+        "vendor-libtorrent/Makefile.am",
+        null
+      ],
+      "models": [
+        "deepseek-v4-pro"
+      ],
+      "request_sha256": "b91a383efc3d5aff4510070ef65707ca13b2b9583bcb1c0cfc65aae0ff049981",
+      "response_sha256": "2c7569d8384980e662bbee3384754f06a14954269a742d2da3630a5d5798d7af",
+      "proposed_source_reads": [],
+      "retained_message_types": [
+        "human"
+      ],
+      "bounded_submit_state": false,
+      "representation_requires_text_factor_decode": true
+    }
+  ],
+  "prior_current_authorization_charged_usd": "7.08118091999999993",
+  "cumulative_estimated_cost_usd": "7.62355439999999993",
+  "strict_completed": 0,
+  "observed": 1,
+  "unobserved": 0,
+  "input_tokens": 193290,
+  "output_tokens": 72533,
+  "recorded_tokens": 265823,
+  "provider_requests": 11,
+  "unknown_requests": 0,
+  "estimated_cost_usd": "0.54237348",
+  "common_pre_trim_material_equal": true,
+  "actual_containers_absent": true,
+  "method": "新结果全量清单/Git组件/原始请求响应与原生轮次/逐Token费用和阶段闭合/源码测试/交付重放/实际cleanup；不重扫旧构建树",
+  "feedback_analysis": {
+    "valid": true,
+    "identity": "cpp-build-rtorrent-candidate-feedback-probe-v1",
+    "whole_planning_episode_bound_verified": true,
+    "exact_correction_feedback": [],
+    "episodes": [
+      {
+        "slot": 1,
+        "event_index": 6,
+        "revision": 1,
+        "recovery": false
+      },
+      {
+        "slot": 1,
+        "event_index": 67,
+        "revision": 2,
+        "recovery": true
+      }
+    ],
+    "candidates": [
+      {
+        "sequence": 10,
+        "steps": [
+          {
+            "step_id": "bootstrap",
+            "role": "dependency",
+            "command": "rm -f -- Makefile.in aclocal.m4 ar-lib compile config.guess config.h.in config.sub configure depcomp doc/Makefile.in install-sh ltmain.sh missing scripts/libtool.m4 scripts/ltoptions.m4 scripts/ltsugar.m4 scripts/ltversion.m4 'scripts/lt~obsolete.m4' src/Makefile.in test-driver test/Makefile.in vendor-libtorrent/Makefile.in vendor-libtorrent/aclocal.m4 vendor-libtorrent/compile vendor-libtorrent/config.guess vendor-libtorrent/config.h.in vendor-libtorrent/config.sub vendor-libtorrent/configure vendor-libtorrent/depcomp vendor-libtorrent/install-sh vendor-libtorrent/ltmain.sh vendor-libtorrent/missing vendor-libtorrent/scripts/libtool.m4 vendor-libtorrent/scripts/ltoptions.m4 vendor-libtorrent/scripts/ltsugar.m4 vendor-libtorrent/scripts/ltversion.m4 'vendor-libtorrent/scripts/lt~obsolete.m4' vendor-libtorrent/src/Makefile.in vendor-libtorrent/src/torrent/Makefile.in vendor-libtorrent/test/Makefile.in\n(cd vendor-libtorrent && autoreconf -ivf)\nautoreconf -ivf",
+            "workdir": "/workspace/repo",
+            "source": "file_boundary.generations#5(唯一覆盖清理+依赖→主项目顺序的精确引导命令，保持原40最终SHA)",
+            "expected": "两棵树生成configure与Makefile.in，供后续出树配置",
+            "files_exist": [
+              "configure",
+              "Makefile.in",
+              "vendor-libtorrent/configure",
+              "vendor-libtorrent/Makefile.in",
+              "vendor-libtorrent/src/torrent/Makefile.in",
+              "vendor-libtorrent/libtorrent.pc.in"
+            ],
+            "stdout_contains": [],
+            "directories_exist": [],
+            "diagnostic_paths": []
+          },
+          {
+            "step_id": "configure-libtorrent",
+            "role": "dependency",
+            "command": "mkdir -p build-libtorrent && cd build-libtorrent && ../vendor-libtorrent/configure --prefix=/workspace/prefix",
+            "workdir": "/workspace/repo",
+            "requires": [
+              "bootstrap"
+            ],
+            "source": "vendor-libtorrent/configure.ac(LT_INIT disable-static、LIBTORRENT_CURRENT=53)与固定验证器LD_LIBRARY_PATH=/workspace/prefix/lib",
+            "expected": "libtorrent出树配置成功，生成Makefile/config.h/libtorrent.pc",
+            "files_exist": [
+              "build-libtorrent/Makefile",
+              "build-libtorrent/config.h",
+              "build-libtorrent/libtorrent.pc",
+              "build-libtorrent/src/Makefile",
+              "build-libtorrent/test/Makefile"
+            ],
+            "stdout_contains": [
+              "config.status: creating"
+            ],
+            "directories_exist": [
+              "build-libtorrent/"
+            ],
+            "diagnostic_paths": [
+              "build-libtorrent/config.log"
+            ]
+          },
+          {
+            "step_id": "build-libtorrent",
+            "role": "dependency",
+            "command": "make -C build-libtorrent -j2",
+            "workdir": "/workspace/repo",
+            "requires": [
+              "configure-libtorrent"
+            ],
+            "source": "vendor-libtorrent/src/Makefile.am生成libtorrent共享库(.so.53)",
+            "expected": "编译libtorrent共享库",
+            "files_exist": [
+              "build-libtorrent/src/libtorrent.la"
+            ],
+            "stdout_contains": [],
+            "directories_exist": [
+              "build-libtorrent/src/.libs/"
+            ],
+            "diagnostic_paths": []
+          },
+          {
+            "step_id": "build-libtorrent-tests",
+            "role": "dependency",
+            "command": "make -C build-libtorrent/test -j2 LibTorrent_Test_Protocol LibTorrent_Test_Torrent_Net LibTorrent_Test_Torrent_Runtime LibTorrent_Test_Torrent_Utils LibTorrent_Test_Torrent",
+            "workdir": "/workspace/repo",
+            "requires": [
+              "build-libtorrent"
+            ],
+            "source": "固定验证器在build-libtorrent/test下直接运行这5个check_PROGRAMS",
+            "expected": "编译libtorrent全部CppUnit测试程序",
+            "files_exist": [
+              "build-libtorrent/test/LibTorrent_Test_Protocol",
+              "build-libtorrent/test/LibTorrent_Test_Torrent_Net",
+              "build-libtorrent/test/LibTorrent_Test_Torrent_Runtime",
+              "build-libtorrent/test/LibTorrent_Test_Torrent_Utils",
+              "build-libtorrent/test/LibTorrent_Test_Torrent"
+            ],
+            "stdout_contains": [],
+            "directories_exist": [
+              "build-libtorrent/test/"
+            ],
+            "diagnostic_paths": []
+          },
+          {
+            "step_id": "install-libtorrent",
+            "role": "dependency",
+            "command": "make -C build-libtorrent install",
+            "workdir": "/workspace/repo",
+            "requires": [
+              "build-libtorrent"
+            ],
+            "source": "固定验证器LD_LIBRARY_PATH=/workspace/prefix/lib，且rtorrent配置需libtorrent.pc",
+            "expected": "安装libtorrent到/workspace/prefix(lib与pkgconfig)",
+            "files_exist": [],
+            "stdout_contains": [
+              "Libraries have been installed in"
+            ],
+            "directories_exist": [],
+            "diagnostic_paths": []
+          },
+          {
+            "step_id": "configure-rtorrent",
+            "role": "configure",
+            "command": "mkdir -p build-rtorrent && cd build-rtorrent && PKG_CONFIG_PATH=/workspace/prefix/lib/pkgconfig ../configure --prefix=/workspace/prefix",
+            "workdir": "/workspace/repo",
+            "requires": [
+              "install-libtorrent"
+            ],
+            "source": "configure.ac:PKG_CHECK_MODULES([DEPENDENCIES],[libtorrent >= 0.16.25])",
+            "expected": "主项目出树配置成功，通过pkg-config解析libtorrent",
+            "files_exist": [
+              "build-rtorrent/Makefile",
+              "build-rtorrent/config.h",
+              "build-rtorrent/src/Makefile",
+              "build-rtorrent/test/Makefile"
+            ],
+            "stdout_contains": [
+              "config.status: creating"
+            ],
+            "directories_exist": [
+              "build-rtorrent/"
+            ],
+            "diagnostic_paths": [
+              "build-rtorrent/config.log"
+            ]
+          },
+          {
+            "step_id": "build",
+            "role": "build",
+            "command": "make -C build-rtorrent -j2 && make -C build-rtorrent/test rtorrent_Test_Src",
+            "workdir": "/workspace/repo",
+            "requires": [
+              "configure-rtorrent"
+            ],
+            "source": "src/Makefile.am生成rtorrent可执行文件；固定验证器在build-rtorrent/test运行rtorrent_Test_Src",
+            "expected": "编译主程序rtorrent及CppUnit测试程序",
+            "files_exist": [
+              "build-rtorrent/src/rtorrent",
+              "build-rtorrent/test/rtorrent_Test_Src"
+            ],
+            "stdout_contains": [],
+            "directories_exist": [],
+            "diagnostic_paths": []
+          }
+        ],
+        "reason": "两棵Autotools树需按依赖→主项目顺序引导。file_boundary.generations#5是唯一覆盖清理旧产物并按vendor-libtorrent→主项目顺序生成configure/Makefile.in的精确标准引导命令(保持原40最终SHA)。libtorrent(0.16.25, LIBTORRENT_CURRENT=53)先出树配置到build-libtorrent、编译并安装到/workspace/prefix(固定验证器用LD_LIBRARY_PATH=/workspace/prefix/lib，且rtorrent通过pkg-config查找libtorrent>=0.16.25)。随后主项目出树配置到build-rtorrent(PKG_CONFIG_PATH指向prefix)并编译，产出rtorrent与libtorrent.so.53以及固定验证器运行的测试二进制(build-libtorrent/test与build-rtorrent/test)。",
+        "response_sha256": "d11f790613dd6e6926ec2e0417535bd225b5dd31fbe89fc804fb065627ec2cca"
+      }
+    ],
+    "hidden_read_denials": [
+      {
+        "slot": 1,
+        "sequence": 9,
+        "tool": "read_source"
+      },
+      {
+        "slot": 1,
+        "sequence": 9,
+        "tool": "read_source"
+      },
+      {
+        "slot": 1,
+        "sequence": 9,
+        "tool": "read_source"
+      },
+      {
+        "slot": 1,
+        "sequence": 9,
+        "tool": "read_source"
+      }
+    ],
+    "boundary": "只验证反馈及8轮执行路径；单族单臂开发探针不估总体或因果效果，未执行层不填成功或失败。"
+  },
+  "generation_observation_conflict": {
+    "valid": true,
+    "response_file": "response-10.json",
+    "response_sha256": "d11f790613dd6e6926ec2e0417535bd225b5dd31fbe89fc804fb065627ec2cca",
+    "raw_generation_match_indices": [
+      4
+    ],
+    "raw_files_exist": [
+      "configure",
+      "Makefile.in",
+      "vendor-libtorrent/configure",
+      "vendor-libtorrent/Makefile.in",
+      "vendor-libtorrent/src/torrent/Makefile.in",
+      "vendor-libtorrent/libtorrent.pc.in"
+    ],
+    "assembled_command_changed": true,
+    "compiler_composition_conflict": true,
+    "guard_unchanged": true
+  }
+}
