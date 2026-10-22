@@ -1,0 +1,527 @@
+{
+  "identity": "cpp-build-rtorrent-native-budget-canary-v1",
+  "kind": "real_model_seen_development_common_resource_sensitivity_result",
+  "release": "767a15d43e796301ca02a11596fd8a3a3ed63f33",
+  "inventory_sha256": "8230356e08730cc93cc572a1163bc506edde89315d5983fce85d04578b936864",
+  "observed": 3,
+  "strict_completed": 0,
+  "unobserved": 0,
+  "provider_requests": 113,
+  "recorded_tokens": 2261371,
+  "estimated_cost_usd": "3.24355548",
+  "unknown_requests": 0,
+  "prior_current_authorization_charged_usd": "1.7657283599999999",
+  "cumulative_estimated_cost_usd": "5.0092838399999999",
+  "rows": [
+    {
+      "method": "tool_plan_workflow",
+      "strict_completed": false,
+      "requests": 17,
+      "recorded_tokens": 427793,
+      "estimated_cost_usd": "0.65297892",
+      "phases": {
+        "recovery": {
+          "requests": 17,
+          "input_tokens": 394349,
+          "output_tokens": 33444,
+          "estimated_cost_usd": "0.65297892"
+        }
+      },
+      "executed_tool_calls": {
+        "list_source": 3,
+        "read_source": 20,
+        "read_fixed_contract": 8
+      },
+      "proposed_tool_calls": {
+        "list_source": 3,
+        "read_source": 20,
+        "read_fixed_contract": 8
+      },
+      "proposed_source_reads": 20,
+      "distinct_source_ranges": 9,
+      "proposed_contract_reads": 8,
+      "distinct_contract_ranges": 4,
+      "same_source_range_already_in_current_working_set": 0,
+      "executed_commands": 3,
+      "successful_commands": 2,
+      "error_class": "PlanContractError",
+      "error_message": "原生状态及完整上一轮超过100000字节，不调用Provider",
+      "arm_total_wall_seconds": 575.527657744009,
+      "model_action_proposals": 0,
+      "plan_revisions": [
+        "plan-1.json"
+      ],
+      "observations": [
+        {
+          "phase": "compile",
+          "protected_count": 818,
+          "changed_author_files": [],
+          "generated_present": 21,
+          "generated_mismatches": [],
+          "programs": [
+            {
+              "build": "build-libtorrent",
+              "program": "LibTorrent_Test_Protocol",
+              "observed": false,
+              "complete_expected_leaves": false,
+              "passed_leaf_count": null,
+              "log_sha256": null
+            },
+            {
+              "build": "build-libtorrent",
+              "program": "LibTorrent_Test_Torrent_Net",
+              "observed": false,
+              "complete_expected_leaves": false,
+              "passed_leaf_count": null,
+              "log_sha256": null
+            },
+            {
+              "build": "build-libtorrent",
+              "program": "LibTorrent_Test_Torrent_Runtime",
+              "observed": false,
+              "complete_expected_leaves": false,
+              "passed_leaf_count": null,
+              "log_sha256": null
+            },
+            {
+              "build": "build-libtorrent",
+              "program": "LibTorrent_Test_Torrent_Utils",
+              "observed": false,
+              "complete_expected_leaves": false,
+              "passed_leaf_count": null,
+              "log_sha256": null
+            },
+            {
+              "build": "build-libtorrent",
+              "program": "LibTorrent_Test_Torrent",
+              "observed": false,
+              "complete_expected_leaves": false,
+              "passed_leaf_count": null,
+              "log_sha256": null
+            },
+            {
+              "build": "build-libtorrent",
+              "program": "LibTorrent_Test_Data",
+              "observed": false,
+              "complete_expected_leaves": false,
+              "passed_leaf_count": null,
+              "log_sha256": null
+            },
+            {
+              "build": "build-libtorrent",
+              "program": "LibTorrent_Test_Net",
+              "observed": false,
+              "complete_expected_leaves": false,
+              "passed_leaf_count": null,
+              "log_sha256": null
+            },
+            {
+              "build": "build-libtorrent",
+              "program": "LibTorrent_Test_Tracker",
+              "observed": false,
+              "complete_expected_leaves": false,
+              "passed_leaf_count": null,
+              "log_sha256": null
+            },
+            {
+              "build": "build-libtorrent",
+              "program": "LibTorrent_Test",
+              "observed": false,
+              "complete_expected_leaves": false,
+              "passed_leaf_count": null,
+              "log_sha256": null
+            },
+            {
+              "build": "build-rtorrent",
+              "program": "rtorrent_Test_Core",
+              "observed": false,
+              "complete_expected_leaves": false,
+              "passed_leaf_count": null,
+              "log_sha256": null
+            },
+            {
+              "build": "build-rtorrent",
+              "program": "rtorrent_Test_Rpc",
+              "observed": false,
+              "complete_expected_leaves": false,
+              "passed_leaf_count": null,
+              "log_sha256": null
+            },
+            {
+              "build": "build-rtorrent",
+              "program": "rtorrent_Test_Src",
+              "observed": false,
+              "complete_expected_leaves": false,
+              "passed_leaf_count": null,
+              "log_sha256": null
+            }
+          ],
+          "observed_programs": 0,
+          "complete_programs": 0,
+          "passed_leaf_count": 0
+        }
+      ],
+      "artifacts": [],
+      "partial_compiled_elf_files": [],
+      "cleanup": true
+    },
+    {
+      "method": "model_plan_workflow",
+      "strict_completed": false,
+      "requests": 47,
+      "recorded_tokens": 947174,
+      "estimated_cost_usd": "1.35991416",
+      "phases": {
+        "initial": {
+          "requests": 47,
+          "input_tokens": 905642,
+          "output_tokens": 41532,
+          "estimated_cost_usd": "1.35991416"
+        }
+      },
+      "executed_tool_calls": {
+        "read_source": 62,
+        "list_source": 7,
+        "read_fixed_contract": 27
+      },
+      "proposed_tool_calls": {
+        "read_source": 62,
+        "list_source": 7,
+        "read_fixed_contract": 28
+      },
+      "proposed_source_reads": 62,
+      "distinct_source_ranges": 13,
+      "proposed_contract_reads": 28,
+      "distinct_contract_ranges": 6,
+      "same_source_range_already_in_current_working_set": 3,
+      "executed_commands": 1,
+      "successful_commands": 1,
+      "error_class": "AgentWorkflowBudgetExceeded",
+      "error_message": null,
+      "arm_total_wall_seconds": 757.4352980409749,
+      "model_action_proposals": 0,
+      "plan_revisions": [],
+      "observations": [
+        {
+          "phase": "compile",
+          "protected_count": 818,
+          "changed_author_files": [],
+          "generated_present": 0,
+          "generated_mismatches": [],
+          "programs": [
+            {
+              "build": "build-libtorrent",
+              "program": "LibTorrent_Test_Protocol",
+              "observed": false,
+              "complete_expected_leaves": false,
+              "passed_leaf_count": null,
+              "log_sha256": null
+            },
+            {
+              "build": "build-libtorrent",
+              "program": "LibTorrent_Test_Torrent_Net",
+              "observed": false,
+              "complete_expected_leaves": false,
+              "passed_leaf_count": null,
+              "log_sha256": null
+            },
+            {
+              "build": "build-libtorrent",
+              "program": "LibTorrent_Test_Torrent_Runtime",
+              "observed": false,
+              "complete_expected_leaves": false,
+              "passed_leaf_count": null,
+              "log_sha256": null
+            },
+            {
+              "build": "build-libtorrent",
+              "program": "LibTorrent_Test_Torrent_Utils",
+              "observed": false,
+              "complete_expected_leaves": false,
+              "passed_leaf_count": null,
+              "log_sha256": null
+            },
+            {
+              "build": "build-libtorrent",
+              "program": "LibTorrent_Test_Torrent",
+              "observed": false,
+              "complete_expected_leaves": false,
+              "passed_leaf_count": null,
+              "log_sha256": null
+            },
+            {
+              "build": "build-libtorrent",
+              "program": "LibTorrent_Test_Data",
+              "observed": false,
+              "complete_expected_leaves": false,
+              "passed_leaf_count": null,
+              "log_sha256": null
+            },
+            {
+              "build": "build-libtorrent",
+              "program": "LibTorrent_Test_Net",
+              "observed": false,
+              "complete_expected_leaves": false,
+              "passed_leaf_count": null,
+              "log_sha256": null
+            },
+            {
+              "build": "build-libtorrent",
+              "program": "LibTorrent_Test_Tracker",
+              "observed": false,
+              "complete_expected_leaves": false,
+              "passed_leaf_count": null,
+              "log_sha256": null
+            },
+            {
+              "build": "build-libtorrent",
+              "program": "LibTorrent_Test",
+              "observed": false,
+              "complete_expected_leaves": false,
+              "passed_leaf_count": null,
+              "log_sha256": null
+            },
+            {
+              "build": "build-rtorrent",
+              "program": "rtorrent_Test_Core",
+              "observed": false,
+              "complete_expected_leaves": false,
+              "passed_leaf_count": null,
+              "log_sha256": null
+            },
+            {
+              "build": "build-rtorrent",
+              "program": "rtorrent_Test_Rpc",
+              "observed": false,
+              "complete_expected_leaves": false,
+              "passed_leaf_count": null,
+              "log_sha256": null
+            },
+            {
+              "build": "build-rtorrent",
+              "program": "rtorrent_Test_Src",
+              "observed": false,
+              "complete_expected_leaves": false,
+              "passed_leaf_count": null,
+              "log_sha256": null
+            }
+          ],
+          "observed_programs": 0,
+          "complete_programs": 0,
+          "passed_leaf_count": 0
+        }
+      ],
+      "artifacts": [],
+      "partial_compiled_elf_files": [],
+      "cleanup": true
+    },
+    {
+      "method": "strong_tool_agent",
+      "strict_completed": false,
+      "requests": 49,
+      "recorded_tokens": 886404,
+      "estimated_cost_usd": "1.2306624",
+      "phases": {
+        "tool_agent_run": {
+          "requests": 49,
+          "input_tokens": 863446,
+          "output_tokens": 22958,
+          "estimated_cost_usd": "1.23066240"
+        }
+      },
+      "executed_tool_calls": {
+        "list_source": 13,
+        "read_source": 47,
+        "read_fixed_contract": 35
+      },
+      "proposed_tool_calls": {
+        "list_source": 13,
+        "read_source": 47,
+        "read_fixed_contract": 35
+      },
+      "proposed_source_reads": 47,
+      "distinct_source_ranges": 8,
+      "proposed_contract_reads": 35,
+      "distinct_contract_ranges": 6,
+      "same_source_range_already_in_current_working_set": 0,
+      "executed_commands": 1,
+      "successful_commands": 1,
+      "error_class": "AgentWorkflowBudgetExceeded",
+      "error_message": null,
+      "arm_total_wall_seconds": 599.9102174337022,
+      "model_action_proposals": 0,
+      "plan_revisions": [],
+      "observations": [
+        {
+          "phase": "compile",
+          "protected_count": 818,
+          "changed_author_files": [],
+          "generated_present": 0,
+          "generated_mismatches": [],
+          "programs": [
+            {
+              "build": "build-libtorrent",
+              "program": "LibTorrent_Test_Protocol",
+              "observed": false,
+              "complete_expected_leaves": false,
+              "passed_leaf_count": null,
+              "log_sha256": null
+            },
+            {
+              "build": "build-libtorrent",
+              "program": "LibTorrent_Test_Torrent_Net",
+              "observed": false,
+              "complete_expected_leaves": false,
+              "passed_leaf_count": null,
+              "log_sha256": null
+            },
+            {
+              "build": "build-libtorrent",
+              "program": "LibTorrent_Test_Torrent_Runtime",
+              "observed": false,
+              "complete_expected_leaves": false,
+              "passed_leaf_count": null,
+              "log_sha256": null
+            },
+            {
+              "build": "build-libtorrent",
+              "program": "LibTorrent_Test_Torrent_Utils",
+              "observed": false,
+              "complete_expected_leaves": false,
+              "passed_leaf_count": null,
+              "log_sha256": null
+            },
+            {
+              "build": "build-libtorrent",
+              "program": "LibTorrent_Test_Torrent",
+              "observed": false,
+              "complete_expected_leaves": false,
+              "passed_leaf_count": null,
+              "log_sha256": null
+            },
+            {
+              "build": "build-libtorrent",
+              "program": "LibTorrent_Test_Data",
+              "observed": false,
+              "complete_expected_leaves": false,
+              "passed_leaf_count": null,
+              "log_sha256": null
+            },
+            {
+              "build": "build-libtorrent",
+              "program": "LibTorrent_Test_Net",
+              "observed": false,
+              "complete_expected_leaves": false,
+              "passed_leaf_count": null,
+              "log_sha256": null
+            },
+            {
+              "build": "build-libtorrent",
+              "program": "LibTorrent_Test_Tracker",
+              "observed": false,
+              "complete_expected_leaves": false,
+              "passed_leaf_count": null,
+              "log_sha256": null
+            },
+            {
+              "build": "build-libtorrent",
+              "program": "LibTorrent_Test",
+              "observed": false,
+              "complete_expected_leaves": false,
+              "passed_leaf_count": null,
+              "log_sha256": null
+            },
+            {
+              "build": "build-rtorrent",
+              "program": "rtorrent_Test_Core",
+              "observed": false,
+              "complete_expected_leaves": false,
+              "passed_leaf_count": null,
+              "log_sha256": null
+            },
+            {
+              "build": "build-rtorrent",
+              "program": "rtorrent_Test_Rpc",
+              "observed": false,
+              "complete_expected_leaves": false,
+              "passed_leaf_count": null,
+              "log_sha256": null
+            },
+            {
+              "build": "build-rtorrent",
+              "program": "rtorrent_Test_Src",
+              "observed": false,
+              "complete_expected_leaves": false,
+              "passed_leaf_count": null,
+              "log_sha256": null
+            }
+          ],
+          "observed_programs": 0,
+          "complete_programs": 0,
+          "passed_leaf_count": 0
+        }
+      ],
+      "artifacts": [],
+      "partial_compiled_elf_files": [],
+      "cleanup": true
+    }
+  ],
+  "comparisons": [
+    {
+      "method": "tool_plan_workflow",
+      "previous": {
+        "strict_completed": false,
+        "requests": 17,
+        "recorded_tokens": 404006,
+        "estimated_cost_usd": "0.58352976",
+        "executed_commands": 3
+      },
+      "current": {
+        "strict_completed": false,
+        "requests": 17,
+        "recorded_tokens": 427793,
+        "estimated_cost_usd": "0.65297892",
+        "executed_commands": 3
+      },
+      "interpretation": "已见单族各一次、共同资源包多项变化，描述性敏感性观察，不作单因素因果或总体排名"
+    },
+    {
+      "method": "model_plan_workflow",
+      "previous": {
+        "strict_completed": false,
+        "requests": 22,
+        "recorded_tokens": 420288,
+        "estimated_cost_usd": "0.6032532",
+        "executed_commands": 1
+      },
+      "current": {
+        "strict_completed": false,
+        "requests": 47,
+        "recorded_tokens": 947174,
+        "estimated_cost_usd": "1.35991416",
+        "executed_commands": 1
+      },
+      "interpretation": "已见单族各一次、共同资源包多项变化，描述性敏感性观察，不作单因素因果或总体排名"
+    },
+    {
+      "method": "strong_tool_agent",
+      "previous": {
+        "strict_completed": false,
+        "requests": 22,
+        "recorded_tokens": 401787,
+        "estimated_cost_usd": "0.5789454",
+        "executed_commands": 13
+      },
+      "current": {
+        "strict_completed": false,
+        "requests": 49,
+        "recorded_tokens": 886404,
+        "estimated_cost_usd": "1.2306624",
+        "executed_commands": 1
+      },
+      "interpretation": "已见单族各一次、共同资源包多项变化，描述性敏感性观察，不作单因素因果或总体排名"
+    }
+  ],
+  "stop_reason": null,
+  "claim_boundary": "已见单族/每策略一次；共同资源包变化，不作单一Token因素因果、总体排名或规划净收益；未执行验证层记未观察"
+}

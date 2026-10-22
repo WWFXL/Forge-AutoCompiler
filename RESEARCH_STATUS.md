@@ -1,12 +1,14 @@
 # Forge Research Status
 
-## 当前阶段（2026-10-22；#607共同Agent资源包敏感性真实实验）
+## 当前阶段（2026-10-22；#607真实资源敏感性完成，#608有界规划待冻结）
 
-真实数据采集，直接推进科研。#605三槽均400kToken截断但强工具已编译rtorrent，现直接复用#603完整资格，不再新增免费三策略构建。新cpp-build-rtorrent-native-budget-canary-v1同已见任务三策略各一次，模型、100k/8k材料及全部源码/测试/生成命令权限/交付/replay验收不变；共同Agent资源扩大为1M累计Token阈值、144步/96工具/64命令、145技术请求上界、3美元每臂，单响应200k/未知0.80预留保持。原node/命令/replay1200秒、Workflow内部32命令/1200秒、图递归100/150和3900秒准入保持，不能将Agent64误称Workflow也是64。
+真实采集与结果分析。cpp-build-rtorrent-native-budget-canary-v1三策略各一次，3观察/0strict/0未观察槽；113真实请求、2261371Token、3.24355548美元、未知0，全部闭合/cleanup，stop_reason=null。工具Workflow17恢复请求/427793Token后因100k消息门禁停止，未提交修订；模型Workflow47初始请求/947174Token、143步骤/96工具调用，未交方案；强工具49请求/886404Token、144步骤/95工具调用，未执行模型命令。后三层测试/交付/replay全部未观察，不填功能失败。三套818作者文件不变，允许生成21/0/0且已出现SHA全部匹配。
 
-候选a889d620/292组件；仅2针对性资源/费用检查、Ruff/格式和实际CLI准入通过，不重扫旧构建树或跑本地全量产品测试。本次继续绑定当前用户直接费用授权；执行器自设共享12美元/原UTC03:33:28–07:33:28窗口（准备计入、不延长，非用户指定上限），共享账本逐字先计#605已闭合1.76572836美元，新阶段预留9美元，最坏累计10.76572836。无自动重试、不续跑旧身份，方法失败保留后继续固定槽，未知/身份/清理异常停整批。
+扩大共同资源后strict仍0/3，费用高于#605的1.76572836美元；上轮强工具已编译而本轮未启动，保留单次波动，不作资源单因素因果/总体排名。真正新增观察是准备不收敛及接口/步骤边界，不能据此否定硕士主线。仅2新资源检查/Ruff/CLI，未重复免费完整构建或本地全量产品测试。
 
-raw forge-rtorrent-native-budget-canary-v1，会话forge-native-budget-session-2026-10-22；启动后禁止重启，运行中HEAD保持。当前新结果未观察，变化是共同资源包，不作单一Token因素因果解释或总体排名。#605/PR606最终32333242三CI后已合7c7d2ef9/关闭/独立发布审计valid，知识库e96f8f61完整CAS回读检索一致；新费用计入本次共享账本，旧过期三paid3.27044256美元单独保留。RQ3/P2/主线与用户HTML保持。
+release767a15d43e796301ca02a11596fd8a3a3ed63f33，候选a889d620/292组件；raw forge-rtorrent-native-budget-canary-v1，inventory8230356e08730cc93cc572a1163bc506edde89315d5983fce85d04578b936864（5626文件/0链接/78494748bytes）；新证据/请求原包原生轮次/用量和两stage账本/作者文件/实际cleanup独立audit valid。未发送材料即使省略剩余预算/工具UUID仍104155bytes，仅为下界。报告docs/research/2026-10-22-rtorrent-native-budget-canary-results.md；派生benchmarks/analyses/cpp-build-rtorrent-native-budget-canary-v1-results.json；会话forge-native-budget-session-2026-10-22保留核验及发布收据。最终HEAD三CI后仅合科研依赖分支，实际发布以GitHub/final-publication-audit.json为准。
+
+用户当前直接费用授权下两stage共174请求/3487452Token/5.00928384美元，旧过期三paid3.27044256单列。执行器自设共享12美元与原UTC03:33:28–07:33:28不重置，非用户指定限额。下一#608直接小规模验证两Workflow每次规划8读取轮次后进入原BuildActions提交、失败走原恢复；强工具完整能力保留，任务/模型/1M共同资源与完整验收保持。新身份/预算/候选冻结后才采集，不新增免费三策略构建资格。当前无活动Provider/Docker；RQ3/P2/主线、用户HTML保持。
 
 ## 上一阶段（2026-10-22；#605原生轮次三策略真实实验结束）
 
