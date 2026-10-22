@@ -4,6 +4,11 @@
 
 ## 进行中 (In Progress)
 
+- 2026-10-22 — #607直接执行共同Agent资源包敏感性真实三策略实验。
+  - 文件: `scripts/forge_build_rtorrent_native_budget_canary.py`, `backend/tests/test_rtorrent_native_budget_canary.py`, `benchmarks/manifests/cpp-build-rtorrent-native-budget-canary-v1.json`
+  - 动机: #605均400kToken截断且强工具已编译主程序，用户要求科研优先/直接支出；复用已资格入口，只2新资源/费用回归与Ruff/CLI通过。新a889d620/292组件；1MToken、144步/96工具/64Agent命令、145技术请求、每臂3美元；node/命令/replay1200秒、Workflow32命令/1200秒及图100/150保持，原任务和验收不变。
+  - 运行: raw forge-rtorrent-native-budget-canary-v1，会话forge-native-budget-session-2026-10-22；当前新用户费用授权继续，执行器自设共享12美元/原UTC03:33:28–07:33:28不延长，已逐字计#605闭合1.76572836、新阶段预留9，最坏累计10.76572836；非用户指定上限。无自动重试，运行中HEAD保持，不重启同身份，不重跑免费完整资格。#605/PR606已合7c7d2ef9/关闭/发布审计valid，知识库e96f8f61完整核验。
+
 - 2026-10-22 — #601原生材料资格已封存：55/55全v4实际材料+3/3负例，0未观察；3首轮/52完整原生AI-Tool及reasoning_content，最大80570/3139bytes。0真实Provider/Token/费用/构建，55仅usage0脚本响应；原完整包还原/序列化/源与新清单/Git/负例/零用量独立审计valid。raw forge-build-native-round-material-gate-v1、inventory85c48c80、release d5677913、283组件；12针对性/产品2543passed44skipped27warnings/Ruff611后端+两新脚本/CLI通过。最终HEAD三CI后只合依赖分支，证据forge-rtorrent-real-session-2026-10-21/independent-native-audit.json与final-native-publication-audit.json。下一步免费完整三策略端到端，再新Provider授权与0.80未知预留账本资格；本fixture不能当付费准入/完整构建成功，不沿用旧0.40未知预留。原总10美元/UTC19:30:52不续期、三paid累计3.27044256，无活动Provider/Docker；#599已合e360c870/关闭/知识库6edd5077核验，RQ3/P2/用户HTML保持。
 
 
