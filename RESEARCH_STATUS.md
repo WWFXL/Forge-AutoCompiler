@@ -1,6 +1,16 @@
 # Forge Research Status
 
-## 当前阶段（2026-10-22；#607真实资源敏感性完成，#608有界规划待冻结）
+## 当前阶段（2026-10-22；#608真实开发诊断完成，#610反馈修复待冻结）
+
+真实数据采集与分析完成：cpp-build-rtorrent-bounded-planning-canary-v1三观察/0strict/0未观察槽，48请求1002853Token/$1.59469068/未知0，闭合/cleanup/stop_reason=null。工具Workflow9恢复请求，提交响应32768输出Token截断未交动作；模型Workflow19初始请求，第9/19次两份候选均被结构排序拒绝，未执行；强工具20请求/5实际命令，末响应含set +e而被严格Shell拒绝。三套818作者文件不变，生成21/0/40已出现SHA均匹配；作者测试/正式交付/replay全部未观察，不填功能失败。
+
+关键新证据：候选requires只引用更早步骤，但依赖编译后配置主项目违反全局角色单调顺序，其他权限/测试目录/最终ID也未证明满足。第一次结构拒绝反馈已由原propose_observed构造，却未进入请求10，Native覆盖Human导致信息丢失；隐藏读取实际拒绝1次。另8轮实际按每次Agent.invoke重计，内部结构纠错也重计，资格遗漏该生产路径；preregistered_whole_planning_bound_verified=false，保留为开发诊断，不声称严格8轮方法有效。新数据独立audit valid不等于协议条件满足，不将全部失败归因单一缺陷。
+
+releasebad83b7f7c0d51dc4f05a4f2294a4ea9d08fb3f6，候选4e57a911/295组件；raw forge-rtorrent-bounded-planning-canary-v1，inventoryedab32d5f37467ce5d61dba955a02a94a1cb8a45473efceb3f25ba202d22ee42（5493文件/0链接/74919549bytes）。报告docs/research/2026-10-22-rtorrent-bounded-planning-canary-results.md；派生benchmarks/analyses/cpp-build-rtorrent-bounded-planning-canary-v1-results.json；会话forge-bounded-planning-session-2026-10-22含独立数据核验、planning-contract-analysis及发布收据。仅3新增Agent图检查1.09秒/Ruff/CLI，未重复免费完整构建或本地全量产品测试。最终HEAD三CI后仅合科研依赖分支，GitHub/final-publication-audit.json为发布真源。
+
+当前用户直接实验/费用授权下三stage累计222请求4490305Token/$6.60397452，旧过期三paid$3.27044256单列；自设共享12美元/原UTC03:33:28–07:33:28不重置，非用户指定限额。下一#610保留真实Human说明/纠错反馈，以原agent.started定义整次规划8轮，内部纠错不重置，新恢复才重置；生产propose_observed针对性检查后直接新单模型Workflow真实探针，最多预留3美元，原排序/验收/模型/资源不改。不再免费三策略构建或全量本地产品测试，不将工程修复当创新效果。当前无活动Provider/Docker。#607已合6c81e6f0/发布audit valid；RQ3/P2/主线/用户HTML保持。
+
+## 上一阶段（2026-10-22；#607真实资源敏感性完成）
 
 真实采集与结果分析。cpp-build-rtorrent-native-budget-canary-v1三策略各一次，3观察/0strict/0未观察槽；113真实请求、2261371Token、3.24355548美元、未知0，全部闭合/cleanup，stop_reason=null。工具Workflow17恢复请求/427793Token后因100k消息门禁停止，未提交修订；模型Workflow47初始请求/947174Token、143步骤/96工具调用，未交方案；强工具49请求/886404Token、144步骤/95工具调用，未执行模型命令。后三层测试/交付/replay全部未观察，不填功能失败。三套818作者文件不变，允许生成21/0/0且已出现SHA全部匹配。
 
