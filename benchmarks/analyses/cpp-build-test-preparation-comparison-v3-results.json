@@ -1,0 +1,1903 @@
+{
+  "kind": "descriptive_seen_development_environment_diagnostics_and_seen_strategy_comparison",
+  "stages": [
+    {
+      "identity": "cpp-build-rtorrent-test-preparation-probe-v1",
+      "release": "f613dc7e696b887cae9637f306f190cc756fea55",
+      "diagnostic_only": false,
+      "inventory_sha256": "4c751a5e8ce2169a338c64176dbd03d0cf053690124b06ac9dd41aee720cf523",
+      "summary": {
+        "model_plan_workflow": {
+          "started": 1,
+          "progress_rows": 1,
+          "strict": 0,
+          "requests": 9,
+          "tokens": 222963,
+          "input_tokens": 181469,
+          "output_tokens": 41494,
+          "cost": "0.40385532",
+          "wall_seconds": 595.9052806780674,
+          "phases": {
+            "initial": {
+              "requests": 9,
+              "cost": "0.40385532"
+            }
+          },
+          "handoffs": 0,
+          "revisions": 0,
+          "tool_direct": 0,
+          "tool_abstention": 0,
+          "median_cost_usd": "0.40385532",
+          "median_wall_seconds": 595.9052806780674
+        }
+      },
+      "rows": [
+        {
+          "project": "rtorrent",
+          "method": "model_plan_workflow",
+          "slot": 1,
+          "progress_row_present": true,
+          "strict": false,
+          "requests": 9,
+          "known_responses": 9,
+          "unknown_sequences": [],
+          "tokens": 222963,
+          "input_tokens": 181469,
+          "output_tokens": 41494,
+          "cost": "0.40385532",
+          "phases": {
+            "initial": {
+              "requests": 9,
+              "cost": "0.40385532"
+            }
+          },
+          "commands": 1,
+          "commands_succeeded": 1,
+          "original_files": 818,
+          "changed_original_paths": [],
+          "tool_direct": false,
+          "tool_abstention": false,
+          "handoffs": 0,
+          "applied_revisions": 0,
+          "fixed_checks": [],
+          "replays": [],
+          "wall_seconds": 595.9052806780674,
+          "error": "响应截断，保留usage并停止，不自动重试",
+          "session_status": "failed",
+          "session_error": "Compile session finalized before artifact verification passed.",
+          "verification_status": null,
+          "cleanup_absent": true
+        }
+      ],
+      "not_started": 0,
+      "unobserved": 0,
+      "unknown_requests": 0,
+      "stop": null
+    },
+    {
+      "identity": "cpp-build-test-preparation-comparison-v1",
+      "release": "f613dc7e696b887cae9637f306f190cc756fea55",
+      "diagnostic_only": true,
+      "inventory_sha256": "7f8446a1ca67d6cb38913482518ed7011f826b05a0a1f18d9e3ca79932e0450f",
+      "summary": {
+        "tool_plan_workflow": {
+          "started": 1,
+          "progress_rows": 1,
+          "strict": 0,
+          "requests": 5,
+          "tokens": 118978,
+          "input_tokens": 81554,
+          "output_tokens": 37424,
+          "cost": "0.25585032",
+          "wall_seconds": 488.8549061352387,
+          "phases": {
+            "recovery": {
+              "requests": 5,
+              "cost": "0.25585032"
+            }
+          },
+          "handoffs": 1,
+          "revisions": 0,
+          "tool_direct": 1,
+          "tool_abstention": 0,
+          "median_cost_usd": "0.25585032",
+          "median_wall_seconds": 488.8549061352387
+        },
+        "model_plan_workflow": {
+          "started": 2,
+          "progress_rows": 1,
+          "strict": 1,
+          "requests": 10,
+          "tokens": 119899,
+          "input_tokens": 112639,
+          "output_tokens": 7260,
+          "cost": "0.17743308",
+          "wall_seconds": 123.16420091222972,
+          "phases": {
+            "initial": {
+              "requests": 9,
+              "cost": "0.17743308"
+            }
+          },
+          "handoffs": 0,
+          "revisions": 0,
+          "tool_direct": 0,
+          "tool_abstention": 0,
+          "median_cost_usd": "0.08871654",
+          "median_wall_seconds": 123.16420091222972
+        },
+        "strong_tool_agent": {
+          "started": 2,
+          "progress_rows": 2,
+          "strict": 1,
+          "requests": 58,
+          "tokens": 857893,
+          "input_tokens": 823605,
+          "output_tokens": 34288,
+          "cost": "1.22293908",
+          "wall_seconds": 858.0206351592205,
+          "phases": {
+            "agent_control": {
+              "requests": 58,
+              "cost": "1.22293908"
+            }
+          },
+          "handoffs": 0,
+          "revisions": 0,
+          "tool_direct": 0,
+          "tool_abstention": 0,
+          "median_cost_usd": "0.61146954",
+          "median_wall_seconds": 429.0103175796103
+        }
+      },
+      "rows": [
+        {
+          "project": "yaml-cpp",
+          "method": "tool_plan_workflow",
+          "slot": 1,
+          "progress_row_present": true,
+          "strict": false,
+          "requests": 5,
+          "known_responses": 5,
+          "unknown_sequences": [],
+          "tokens": 118978,
+          "input_tokens": 81554,
+          "output_tokens": 37424,
+          "cost": "0.25585032",
+          "phases": {
+            "recovery": {
+              "requests": 5,
+              "cost": "0.25585032"
+            }
+          },
+          "commands": 4,
+          "commands_succeeded": 3,
+          "original_files": 404,
+          "changed_original_paths": [],
+          "tool_direct": true,
+          "tool_abstention": false,
+          "handoffs": 1,
+          "applied_revisions": 0,
+          "fixed_checks": [
+            {
+              "exit_code": 1,
+              "timed_out": false,
+              "log_sha256": "e3ab7ae539626fe483f0d61bbdd2e00a1fb985ecec8fe34e832fc5a1c6f043ce",
+              "output_tail": ""
+            }
+          ],
+          "replays": [],
+          "wall_seconds": 488.8549061352387,
+          "error": "响应截断，保留usage并停止，不自动重试",
+          "session_status": "failed",
+          "session_error": "Compile session finalized before artifact verification passed.",
+          "verification_status": null,
+          "cleanup_absent": true
+        },
+        {
+          "project": "yaml-cpp",
+          "method": "model_plan_workflow",
+          "slot": 2,
+          "progress_row_present": true,
+          "strict": true,
+          "requests": 2,
+          "known_responses": 2,
+          "unknown_sequences": [],
+          "tokens": 24012,
+          "input_tokens": 21442,
+          "output_tokens": 2570,
+          "cost": "0.03848064",
+          "phases": {
+            "initial": {
+              "requests": 2,
+              "cost": "0.03848064"
+            }
+          },
+          "commands": 5,
+          "commands_succeeded": 5,
+          "original_files": 404,
+          "changed_original_paths": [],
+          "tool_direct": false,
+          "tool_abstention": false,
+          "handoffs": 0,
+          "applied_revisions": 0,
+          "fixed_checks": [
+            {
+              "exit_code": 0,
+              "timed_out": false,
+              "log_sha256": "7aeec25ec3b985a43cd3a4227154ac8b816e831da81322f04a87294df67abab7",
+              "output_tail": ""
+            }
+          ],
+          "replays": [
+            "passed"
+          ],
+          "wall_seconds": 123.16420091222972,
+          "error": null,
+          "session_status": "completed",
+          "session_error": null,
+          "verification_status": "passed",
+          "cleanup_absent": true
+        },
+        {
+          "project": "yaml-cpp",
+          "method": "strong_tool_agent",
+          "slot": 3,
+          "progress_row_present": true,
+          "strict": true,
+          "requests": 8,
+          "known_responses": 8,
+          "unknown_sequences": [],
+          "tokens": 90285,
+          "input_tokens": 88483,
+          "output_tokens": 1802,
+          "cost": "0.12393348",
+          "phases": {
+            "agent_control": {
+              "requests": 8,
+              "cost": "0.12393348"
+            }
+          },
+          "commands": 5,
+          "commands_succeeded": 5,
+          "original_files": 404,
+          "changed_original_paths": [],
+          "tool_direct": false,
+          "tool_abstention": false,
+          "handoffs": 0,
+          "applied_revisions": 0,
+          "fixed_checks": [
+            {
+              "exit_code": 0,
+              "timed_out": false,
+              "log_sha256": "043c175d1d908c416b9cb7b09bb3c4dd1b541b9cbfa00adbf2f0496d2ab3304b",
+              "output_tail": ""
+            }
+          ],
+          "replays": [
+            "passed"
+          ],
+          "wall_seconds": 221.24393689306453,
+          "error": null,
+          "session_status": "completed",
+          "session_error": null,
+          "verification_status": "passed",
+          "cleanup_absent": true
+        },
+        {
+          "project": "snappy",
+          "method": "strong_tool_agent",
+          "slot": 4,
+          "progress_row_present": true,
+          "strict": false,
+          "requests": 50,
+          "known_responses": 50,
+          "unknown_sequences": [],
+          "tokens": 767608,
+          "input_tokens": 735122,
+          "output_tokens": 32486,
+          "cost": "1.09900560",
+          "phases": {
+            "agent_control": {
+              "requests": 50,
+              "cost": "1.09900560"
+            }
+          },
+          "commands": 22,
+          "commands_succeeded": 5,
+          "original_files": 489,
+          "changed_original_paths": [],
+          "tool_direct": false,
+          "tool_abstention": false,
+          "handoffs": 0,
+          "applied_revisions": 0,
+          "fixed_checks": [
+            {
+              "exit_code": 1,
+              "timed_out": false,
+              "log_sha256": "93ea2f361688fda16359abeb830737d18deb4a221f81d84139553e9250d848c6",
+              "output_tail": ""
+            }
+          ],
+          "replays": [],
+          "wall_seconds": 636.776698266156,
+          "error": null,
+          "session_status": "failed",
+          "session_error": "Compile session finalized before artifact verification passed.",
+          "verification_status": null,
+          "cleanup_absent": true
+        },
+        {
+          "project": "snappy",
+          "method": "model_plan_workflow",
+          "slot": 5,
+          "progress_row_present": false,
+          "strict": null,
+          "requests": 8,
+          "known_responses": 7,
+          "unknown_sequences": [
+            8
+          ],
+          "tokens": 95887,
+          "input_tokens": 91197,
+          "output_tokens": 4690,
+          "cost": "0.13895244",
+          "phases": {
+            "initial": {
+              "requests": 7,
+              "cost": "0.13895244"
+            }
+          },
+          "commands": 4,
+          "commands_succeeded": 3,
+          "original_files": 489,
+          "changed_original_paths": [],
+          "tool_direct": false,
+          "tool_abstention": false,
+          "handoffs": null,
+          "applied_revisions": 0,
+          "fixed_checks": [
+            {
+              "exit_code": 1,
+              "timed_out": false,
+              "log_sha256": "93ea2f361688fda16359abeb830737d18deb4a221f81d84139553e9250d848c6",
+              "output_tail": ""
+            }
+          ],
+          "replays": [],
+          "wall_seconds": null,
+          "error": "operator_interrupted_no_progress_row",
+          "session_status": "failed",
+          "session_error": "Compile session finalized before artifact verification passed.",
+          "verification_status": null,
+          "cleanup_absent": true
+        }
+      ],
+      "not_started": 13,
+      "unobserved": 14,
+      "unknown_requests": 1,
+      "stop": "initialization_not_completed"
+    },
+    {
+      "identity": "cpp-build-test-preparation-comparison-v2",
+      "release": "506b8c71c5b58b88e8e6d6b191a6f34a2beb965a",
+      "diagnostic_only": true,
+      "inventory_sha256": "28956f271998fb990c480b7422d518b9cc995a997a8f041c45124e8c30f8fb4e",
+      "summary": {
+        "tool_plan_workflow": {
+          "started": 1,
+          "progress_rows": 1,
+          "strict": 0,
+          "requests": 3,
+          "tokens": 52108,
+          "input_tokens": 47841,
+          "output_tokens": 4267,
+          "cost": "0.08004744",
+          "wall_seconds": 157.18743502907455,
+          "phases": {
+            "recovery": {
+              "requests": 3,
+              "cost": "0.08004744"
+            }
+          },
+          "handoffs": 1,
+          "revisions": 1,
+          "tool_direct": 1,
+          "tool_abstention": 0,
+          "median_cost_usd": "0.08004744",
+          "median_wall_seconds": 157.18743502907455
+        },
+        "model_plan_workflow": {
+          "started": 1,
+          "progress_rows": 1,
+          "strict": 0,
+          "requests": 3,
+          "tokens": 38958,
+          "input_tokens": 34037,
+          "output_tokens": 4921,
+          "cost": "0.06441600",
+          "wall_seconds": 153.18929844303057,
+          "phases": {
+            "initial": {
+              "requests": 3,
+              "cost": "0.06441600"
+            }
+          },
+          "handoffs": 0,
+          "revisions": 0,
+          "tool_direct": 0,
+          "tool_abstention": 0,
+          "median_cost_usd": "0.06441600",
+          "median_wall_seconds": 153.18929844303057
+        },
+        "strong_tool_agent": {
+          "started": 2,
+          "progress_rows": 1,
+          "strict": 0,
+          "requests": 9,
+          "tokens": 109777,
+          "input_tokens": 106485,
+          "output_tokens": 3292,
+          "cost": "0.15359652",
+          "wall_seconds": 47.66266612196341,
+          "phases": {
+            "agent_control": {
+              "requests": 9,
+              "cost": "0.15359652"
+            }
+          },
+          "handoffs": 0,
+          "revisions": 0,
+          "tool_direct": 0,
+          "tool_abstention": 0,
+          "median_cost_usd": "0.07679826",
+          "median_wall_seconds": 47.66266612196341
+        }
+      },
+      "rows": [
+        {
+          "project": "yaml-cpp",
+          "method": "tool_plan_workflow",
+          "slot": 1,
+          "progress_row_present": true,
+          "strict": false,
+          "requests": 3,
+          "known_responses": 3,
+          "unknown_sequences": [],
+          "tokens": 52108,
+          "input_tokens": 47841,
+          "output_tokens": 4267,
+          "cost": "0.08004744",
+          "phases": {
+            "recovery": {
+              "requests": 3,
+              "cost": "0.08004744"
+            }
+          },
+          "commands": 8,
+          "commands_succeeded": 7,
+          "original_files": 404,
+          "changed_original_paths": [],
+          "tool_direct": true,
+          "tool_abstention": false,
+          "handoffs": 1,
+          "applied_revisions": 1,
+          "fixed_checks": [
+            {
+              "exit_code": 1,
+              "timed_out": false,
+              "log_sha256": "e3ab7ae539626fe483f0d61bbdd2e00a1fb985ecec8fe34e832fc5a1c6f043ce",
+              "output_tail": ""
+            },
+            {
+              "exit_code": 0,
+              "timed_out": false,
+              "log_sha256": "4460814c8faff813e21dfc55dac97555885b0c25ca27a539273da0d027f47e50",
+              "output_tail": ""
+            }
+          ],
+          "replays": [
+            "passed"
+          ],
+          "wall_seconds": 157.18743502907455,
+          "error": null,
+          "session_status": "failed",
+          "session_error": "Host session ownership normalization failed: [Errno 1] Operation not permitted: '/home/yiwei/.codex/outputs/forge-test-preparation-comparison-v2/slot-1/yaml-cpp-plan/.compile-sessions/plan-agent-canary/0adb2659b949/replay/replay_4212022c76764a6e842c32f1bcb9222c/workspace/forge-ctest.xml'",
+          "verification_status": "passed",
+          "cleanup_absent": true
+        },
+        {
+          "project": "yaml-cpp",
+          "method": "model_plan_workflow",
+          "slot": 2,
+          "progress_row_present": true,
+          "strict": false,
+          "requests": 3,
+          "known_responses": 3,
+          "unknown_sequences": [],
+          "tokens": 38958,
+          "input_tokens": 34037,
+          "output_tokens": 4921,
+          "cost": "0.06441600",
+          "phases": {
+            "initial": {
+              "requests": 3,
+              "cost": "0.06441600"
+            }
+          },
+          "commands": 5,
+          "commands_succeeded": 5,
+          "original_files": 404,
+          "changed_original_paths": [],
+          "tool_direct": false,
+          "tool_abstention": false,
+          "handoffs": 0,
+          "applied_revisions": 0,
+          "fixed_checks": [
+            {
+              "exit_code": 0,
+              "timed_out": false,
+              "log_sha256": "f2f35f368817ced5d687a42c531b9e58d9bb9fced7d8f0d43a478b8873b2dc4f",
+              "output_tail": ""
+            }
+          ],
+          "replays": [
+            "passed"
+          ],
+          "wall_seconds": 153.18929844303057,
+          "error": null,
+          "session_status": "failed",
+          "session_error": "Host session ownership normalization failed: [Errno 1] Operation not permitted: '/home/yiwei/.codex/outputs/forge-test-preparation-comparison-v2/slot-2/yaml-cpp-plan/.compile-sessions/plan-agent-canary/b7f0858f79b4/replay/replay_a78bb73cc7cf49c9b4144410f47df503/workspace/forge-ctest.xml'",
+          "verification_status": "passed",
+          "cleanup_absent": true
+        },
+        {
+          "project": "yaml-cpp",
+          "method": "strong_tool_agent",
+          "slot": 3,
+          "progress_row_present": true,
+          "strict": false,
+          "requests": 5,
+          "known_responses": 5,
+          "unknown_sequences": [],
+          "tokens": 57353,
+          "input_tokens": 55110,
+          "output_tokens": 2243,
+          "cost": "0.08162748",
+          "phases": {
+            "agent_control": {
+              "requests": 5,
+              "cost": "0.08162748"
+            }
+          },
+          "commands": 2,
+          "commands_succeeded": 2,
+          "original_files": 404,
+          "changed_original_paths": [],
+          "tool_direct": false,
+          "tool_abstention": false,
+          "handoffs": 0,
+          "applied_revisions": 0,
+          "fixed_checks": [],
+          "replays": [],
+          "wall_seconds": 47.66266612196341,
+          "error": "operator_or_deadline_stop",
+          "session_status": "failed",
+          "session_error": "Host session ownership normalization failed: [Errno 1] Operation not permitted: '/home/yiwei/.codex/outputs/forge-test-preparation-comparison-v2/slot-3/yaml-cpp-tool/.compile-sessions/plan-agent-canary/fec69ca24609/workspace/repo/.git/info/exclude'",
+          "verification_status": null,
+          "cleanup_absent": true
+        },
+        {
+          "project": "snappy",
+          "method": "strong_tool_agent",
+          "slot": 4,
+          "progress_row_present": false,
+          "strict": null,
+          "requests": 4,
+          "known_responses": 4,
+          "unknown_sequences": [],
+          "tokens": 52424,
+          "input_tokens": 51375,
+          "output_tokens": 1049,
+          "cost": "0.07196904",
+          "phases": {
+            "agent_control": {
+              "requests": 4,
+              "cost": "0.07196904"
+            }
+          },
+          "commands": 2,
+          "commands_succeeded": 2,
+          "original_files": 489,
+          "changed_original_paths": [],
+          "tool_direct": false,
+          "tool_abstention": false,
+          "handoffs": null,
+          "applied_revisions": 0,
+          "fixed_checks": [],
+          "replays": [],
+          "wall_seconds": null,
+          "error": "operator_interrupted_no_progress_row",
+          "session_status": "inspected",
+          "session_error": null,
+          "verification_status": null,
+          "cleanup_absent": true
+        }
+      ],
+      "not_started": 14,
+      "unobserved": null,
+      "unknown_requests": 0,
+      "stop": "operator_stop_no_standard_result"
+    },
+    {
+      "identity": "cpp-build-test-preparation-comparison-v3",
+      "release": "f1779887ab1f0fbfb49b0b6cf6ca02d8fecba03f",
+      "diagnostic_only": false,
+      "inventory_sha256": "8df8b315c670b306f833b0c4d8e8811cd1e3d7f4ee0e11745318d6952f24c661",
+      "summary": {
+        "tool_plan_workflow": {
+          "started": 6,
+          "progress_rows": 6,
+          "strict": 5,
+          "requests": 11,
+          "tokens": 222520,
+          "input_tokens": 193274,
+          "output_tokens": 29246,
+          "cost": "0.37093584",
+          "wall_seconds": 1282.178838159889,
+          "phases": {
+            "recovery": {
+              "requests": 11,
+              "cost": "0.37093584"
+            }
+          },
+          "handoffs": 4,
+          "revisions": 4,
+          "tool_direct": 5,
+          "tool_abstention": 0,
+          "median_cost_usd": "0.04726788",
+          "median_wall_seconds": 211.75158917112276
+        },
+        "model_plan_workflow": {
+          "started": 6,
+          "progress_rows": 6,
+          "strict": 5,
+          "requests": 31,
+          "tokens": 541381,
+          "input_tokens": 483970,
+          "output_tokens": 57411,
+          "cost": "0.86618796",
+          "wall_seconds": 1681.2762000923976,
+          "phases": {
+            "initial": {
+              "requests": 17,
+              "cost": "0.35427876"
+            },
+            "recovery": {
+              "requests": 14,
+              "cost": "0.51190920"
+            }
+          },
+          "handoffs": 2,
+          "revisions": 2,
+          "tool_direct": 0,
+          "tool_abstention": 0,
+          "median_cost_usd": "0.08146842",
+          "median_wall_seconds": 127.80619030352682
+        },
+        "strong_tool_agent": {
+          "started": 6,
+          "progress_rows": 6,
+          "strict": 5,
+          "requests": 58,
+          "tokens": 695329,
+          "input_tokens": 673555,
+          "output_tokens": 21774,
+          "cost": "0.97531764",
+          "wall_seconds": 1259.0655272696167,
+          "phases": {
+            "agent_control": {
+              "requests": 58,
+              "cost": "0.97531764"
+            }
+          },
+          "handoffs": 0,
+          "revisions": 0,
+          "tool_direct": 0,
+          "tool_abstention": 0,
+          "median_cost_usd": "0.12826770",
+          "median_wall_seconds": 168.21636065235361
+        }
+      },
+      "rows": [
+        {
+          "project": "yaml-cpp",
+          "method": "tool_plan_workflow",
+          "slot": 1,
+          "progress_row_present": true,
+          "strict": true,
+          "requests": 4,
+          "known_responses": 4,
+          "unknown_sequences": [],
+          "tokens": 83782,
+          "input_tokens": 71678,
+          "output_tokens": 12104,
+          "cost": "0.14254680",
+          "phases": {
+            "recovery": {
+              "requests": 4,
+              "cost": "0.14254680"
+            }
+          },
+          "commands": 9,
+          "commands_succeeded": 8,
+          "original_files": 404,
+          "changed_original_paths": [],
+          "tool_direct": true,
+          "tool_abstention": false,
+          "handoffs": 1,
+          "applied_revisions": 1,
+          "revision_details": [
+            {
+              "revision": 2,
+              "reason": "固定验证脚本(4d28f853…)要求 CMakeCache 中 YAML_CPP_BUILD_TESTS=ON、BUILD_TESTING=ON、YAML_CPP_BUILD_CONTRIB=ON、YAML_CPP_BUILD_TOOLS=ON、YAML_BUILD_SHARED_LIBS=OFF、YAML_USE_SYSTEM_GTEST=OFF。先前 configure 仅设 BUILD_TESTING=ON，导致 CMakeDependentOption YAML_CPP_BUILD_TESTS 默认 OFF，check 失败(配置功能不符:YAML_CPP_BUILD_TESTS=OFF)。恢复动作：先清除旧 build 缓存与产物，再以 -DBUILD_TESTING=ON -DYAML_CPP_BUILD_TESTS=ON 重新配置(其余要求均为默认值)，最后编译生成 libyaml-cpp.a 与测试程序 yaml-cpp-tests。",
+              "retained_steps": [
+                "forge-source-prepare"
+              ]
+            }
+          ],
+          "fixed_checks": [
+            {
+              "exit_code": 1,
+              "timed_out": false,
+              "log_sha256": "e3ab7ae539626fe483f0d61bbdd2e00a1fb985ecec8fe34e832fc5a1c6f043ce",
+              "output_tail": ""
+            },
+            {
+              "exit_code": 0,
+              "timed_out": false,
+              "log_sha256": "b010f6c53ddcf567f83fbec9973f503b4346f0b877479059902844869eb2e973",
+              "output_tail": ""
+            }
+          ],
+          "replays": [
+            "passed"
+          ],
+          "wall_seconds": 256.9526471621357,
+          "error": null,
+          "session_status": "completed",
+          "session_error": null,
+          "verification_status": "passed",
+          "cleanup_absent": true
+        },
+        {
+          "project": "yaml-cpp",
+          "method": "model_plan_workflow",
+          "slot": 2,
+          "progress_row_present": true,
+          "strict": true,
+          "requests": 4,
+          "known_responses": 4,
+          "unknown_sequences": [],
+          "tokens": 52143,
+          "input_tokens": 47434,
+          "output_tokens": 4709,
+          "cost": "0.08126052",
+          "phases": {
+            "initial": {
+              "requests": 4,
+              "cost": "0.08126052"
+            }
+          },
+          "commands": 5,
+          "commands_succeeded": 5,
+          "original_files": 404,
+          "changed_original_paths": [],
+          "tool_direct": false,
+          "tool_abstention": false,
+          "handoffs": 0,
+          "applied_revisions": 0,
+          "revision_details": [],
+          "fixed_checks": [
+            {
+              "exit_code": 0,
+              "timed_out": false,
+              "log_sha256": "66c1445ea4b6917c96541697ee7389329af44f0609750bb3a18ef1ff0ce43d07",
+              "output_tail": ""
+            }
+          ],
+          "replays": [
+            "passed"
+          ],
+          "wall_seconds": 152.64002528320998,
+          "error": null,
+          "session_status": "completed",
+          "session_error": null,
+          "verification_status": "passed",
+          "cleanup_absent": true
+        },
+        {
+          "project": "yaml-cpp",
+          "method": "strong_tool_agent",
+          "slot": 3,
+          "progress_row_present": true,
+          "strict": true,
+          "requests": 11,
+          "known_responses": 11,
+          "unknown_sequences": [],
+          "tokens": 143886,
+          "input_tokens": 134195,
+          "output_tokens": 9691,
+          "cost": "0.21551376",
+          "phases": {
+            "agent_control": {
+              "requests": 11,
+              "cost": "0.21551376"
+            }
+          },
+          "commands": 7,
+          "commands_succeeded": 7,
+          "original_files": 404,
+          "changed_original_paths": [],
+          "tool_direct": false,
+          "tool_abstention": false,
+          "handoffs": 0,
+          "applied_revisions": 0,
+          "revision_details": [],
+          "fixed_checks": [
+            {
+              "exit_code": 0,
+              "timed_out": false,
+              "log_sha256": "d5c6cc41d775d2f4a3c950da8a21c853e7f4b29a459ec8b02209c12c4f73ee7e",
+              "output_tail": ""
+            },
+            {
+              "exit_code": 0,
+              "timed_out": false,
+              "log_sha256": "e8c34a613b09da8b6af57a3996cc975a66b76d7e51b510a11abccd1fd0f725aa",
+              "output_tail": ""
+            }
+          ],
+          "replays": [
+            "passed"
+          ],
+          "wall_seconds": 248.7080090190284,
+          "error": null,
+          "session_status": "completed",
+          "session_error": null,
+          "verification_status": "passed",
+          "cleanup_absent": true
+        },
+        {
+          "project": "snappy",
+          "method": "strong_tool_agent",
+          "slot": 4,
+          "progress_row_present": true,
+          "strict": true,
+          "requests": 23,
+          "known_responses": 23,
+          "unknown_sequences": [],
+          "tokens": 305654,
+          "input_tokens": 298415,
+          "output_tokens": 7239,
+          "cost": "0.42257424",
+          "phases": {
+            "agent_control": {
+              "requests": 23,
+              "cost": "0.42257424"
+            }
+          },
+          "commands": 19,
+          "commands_succeeded": 14,
+          "original_files": 489,
+          "changed_original_paths": [],
+          "tool_direct": false,
+          "tool_abstention": false,
+          "handoffs": 0,
+          "applied_revisions": 0,
+          "revision_details": [],
+          "fixed_checks": [
+            {
+              "exit_code": 1,
+              "timed_out": false,
+              "log_sha256": "93ea2f361688fda16359abeb830737d18deb4a221f81d84139553e9250d848c6",
+              "output_tail": ""
+            },
+            {
+              "exit_code": 1,
+              "timed_out": false,
+              "log_sha256": "93ea2f361688fda16359abeb830737d18deb4a221f81d84139553e9250d848c6",
+              "output_tail": ""
+            },
+            {
+              "exit_code": 0,
+              "timed_out": false,
+              "log_sha256": "99b06996e11a81aaeffaf82377c6b301156d97af50e37dd0634eb66f2786bd72",
+              "output_tail": ""
+            }
+          ],
+          "replays": [
+            "passed"
+          ],
+          "wall_seconds": 410.08286552876234,
+          "error": null,
+          "session_status": "completed",
+          "session_error": null,
+          "verification_status": "passed",
+          "cleanup_absent": true
+        },
+        {
+          "project": "snappy",
+          "method": "model_plan_workflow",
+          "slot": 5,
+          "progress_row_present": true,
+          "strict": true,
+          "requests": 11,
+          "known_responses": 11,
+          "unknown_sequences": [],
+          "tokens": 211775,
+          "input_tokens": 184763,
+          "output_tokens": 27012,
+          "cost": "0.35085468",
+          "phases": {
+            "initial": {
+              "requests": 4,
+              "cost": "0.08695764"
+            },
+            "recovery": {
+              "requests": 7,
+              "cost": "0.26389704"
+            }
+          },
+          "commands": 9,
+          "commands_succeeded": 8,
+          "original_files": 489,
+          "changed_original_paths": [],
+          "tool_direct": false,
+          "tool_abstention": false,
+          "handoffs": 1,
+          "applied_revisions": 1,
+          "revision_details": [
+            {
+              "revision": 2,
+              "reason": "固定验证器check断言requirements={SNAPPY_BUILD_TESTS:True, SNAPPY_BUILD_BENCHMARKS:True, HAVE_LIBZ:True, HAVE_LIBLZO2:True, HAVE_LIBLZ4:True}且BUILD_SHARED_LIBS必须为关闭。上次失败根因是configure步骤传入了-DSNAPPY_BUILD_BENCHMARKS=OFF，与验证器要求冲突(日志AssertionError:配置功能不符:SNAPPY_BUILD_BENCHMARKS=OFF)。同时HAVE_LIBZ/HAVE_LIBLZO2/HAVE_LIBLZ4依赖check_library_exists(z/lzo2/lz4)，需要dev库头文件与.so符号链接，必须安装dev包以保证检测通过。配置变化须显式清理旧build缓存。",
+              "retained_steps": [
+                "forge-source-prepare"
+              ]
+            }
+          ],
+          "fixed_checks": [
+            {
+              "exit_code": 1,
+              "timed_out": false,
+              "log_sha256": "93ea2f361688fda16359abeb830737d18deb4a221f81d84139553e9250d848c6",
+              "output_tail": ""
+            },
+            {
+              "exit_code": 0,
+              "timed_out": false,
+              "log_sha256": "8b069f53ae2ca1456a2012e7f3686690b39224f1e1d9a3b335086a75ad897656",
+              "output_tail": ""
+            }
+          ],
+          "replays": [
+            "passed"
+          ],
+          "wall_seconds": 622.7466242606752,
+          "error": null,
+          "session_status": "completed",
+          "session_error": null,
+          "verification_status": "passed",
+          "cleanup_absent": true
+        },
+        {
+          "project": "snappy",
+          "method": "tool_plan_workflow",
+          "slot": 6,
+          "progress_row_present": true,
+          "strict": true,
+          "requests": 4,
+          "known_responses": 4,
+          "unknown_sequences": [],
+          "tokens": 82276,
+          "input_tokens": 72712,
+          "output_tokens": 9564,
+          "cost": "0.13385328",
+          "phases": {
+            "recovery": {
+              "requests": 4,
+              "cost": "0.13385328"
+            }
+          },
+          "commands": 9,
+          "commands_succeeded": 8,
+          "original_files": 489,
+          "changed_original_paths": [],
+          "tool_direct": true,
+          "tool_abstention": false,
+          "handoffs": 1,
+          "applied_revisions": 1,
+          "revision_details": [
+            {
+              "revision": 2,
+              "reason": "固定验证脚本要求 CMakeCache.txt 中 HAVE_LIBZ、HAVE_LIBLZO2、HAVE_LIBLZ4 均为真值，且 SNAPPY_BUILD_TESTS/SNAPPY_BUILD_BENCHMARKS 为 ON、BUILD_SHARED_LIBS 为 OFF。上次 configure 仅传了未被项目使用的 BUILD_TESTING，且容器缺少 lzo2/lz4 开发库，导致 HAVE_LIBLZO2 为空而断言失败。需先安装 dev 库，再清理旧缓存后重新配置并编译。",
+              "retained_steps": [
+                "forge-source-prepare"
+              ]
+            }
+          ],
+          "fixed_checks": [
+            {
+              "exit_code": 1,
+              "timed_out": false,
+              "log_sha256": "2197727e07afd65635ba1d28246840ef802379f72eb2a7b685fbc12ec68da791",
+              "output_tail": ""
+            },
+            {
+              "exit_code": 0,
+              "timed_out": false,
+              "log_sha256": "246059eb35bf8327427212eaaef2ef143ed52e0e4f3545312d290de60ef92fa5",
+              "output_tail": ""
+            }
+          ],
+          "replays": [
+            "passed"
+          ],
+          "wall_seconds": 418.95563572691754,
+          "error": null,
+          "session_status": "completed",
+          "session_error": null,
+          "verification_status": "passed",
+          "cleanup_absent": true
+        },
+        {
+          "project": "simdutf",
+          "method": "model_plan_workflow",
+          "slot": 7,
+          "progress_row_present": true,
+          "strict": true,
+          "requests": 10,
+          "known_responses": 10,
+          "unknown_sequences": [],
+          "tokens": 195767,
+          "input_tokens": 178898,
+          "output_tokens": 16869,
+          "cost": "0.30294660",
+          "phases": {
+            "initial": {
+              "requests": 3,
+              "cost": "0.05493444"
+            },
+            "recovery": {
+              "requests": 7,
+              "cost": "0.24801216"
+            }
+          },
+          "commands": 6,
+          "commands_succeeded": 5,
+          "original_files": 763,
+          "changed_original_paths": [],
+          "tool_direct": false,
+          "tool_abstention": false,
+          "handoffs": 1,
+          "applied_revisions": 1,
+          "revision_details": [
+            {
+              "revision": 2,
+              "reason": "构建本身已 100% 成功（94 个测试目标与 libsimdutf.a 全部编译完成），上轮失败仅因文件检查路径写错：simdutf 库目标定义于 src/CMakeLists.txt（add_library(simdutf STATIC simdutf.cpp)），CMake 默认将归档产物输出到定义目录对应的构建目录 build/src/，故库文件实为 build/src/libsimdutf.a，而非 build/libsimdutf.a。list_source 确认 build/src/libsimdutf.a 存在。恢复仅需将 build 步骤 files_exist 修正为 build/src/libsimdutf.a；配置与编译命令本身无误，无需清理。",
+              "retained_steps": [
+                "configure",
+                "forge-source-prepare"
+              ]
+            }
+          ],
+          "fixed_checks": [
+            {
+              "exit_code": 0,
+              "timed_out": false,
+              "log_sha256": "989c66218d1f93cacf939f885237950e3cd262b4b67bdc46a1257a639c033f95",
+              "output_tail": ""
+            }
+          ],
+          "replays": [
+            "passed"
+          ],
+          "wall_seconds": 707.2080023991875,
+          "error": null,
+          "session_status": "completed",
+          "session_error": null,
+          "verification_status": "passed",
+          "cleanup_absent": true
+        },
+        {
+          "project": "simdutf",
+          "method": "strong_tool_agent",
+          "slot": 8,
+          "progress_row_present": true,
+          "strict": true,
+          "requests": 7,
+          "known_responses": 7,
+          "unknown_sequences": [],
+          "tokens": 69807,
+          "input_tokens": 68241,
+          "output_tokens": 1566,
+          "cost": "0.09627948",
+          "phases": {
+            "agent_control": {
+              "requests": 7,
+              "cost": "0.09627948"
+            }
+          },
+          "commands": 5,
+          "commands_succeeded": 5,
+          "original_files": 763,
+          "changed_original_paths": [],
+          "tool_direct": false,
+          "tool_abstention": false,
+          "handoffs": 0,
+          "applied_revisions": 0,
+          "revision_details": [],
+          "fixed_checks": [
+            {
+              "exit_code": 0,
+              "timed_out": false,
+              "log_sha256": "18273cf2ab9b76c04069c3099389e9cf80fc8076b7bd077107ce8745d6197952",
+              "output_tail": ""
+            }
+          ],
+          "replays": [
+            "passed"
+          ],
+          "wall_seconds": 464.3411476612091,
+          "error": null,
+          "session_status": "completed",
+          "session_error": null,
+          "verification_status": "passed",
+          "cleanup_absent": true
+        },
+        {
+          "project": "simdutf",
+          "method": "tool_plan_workflow",
+          "slot": 9,
+          "progress_row_present": true,
+          "strict": true,
+          "requests": 0,
+          "known_responses": 0,
+          "unknown_sequences": [],
+          "tokens": 0,
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "cost": "0",
+          "phases": {},
+          "commands": 5,
+          "commands_succeeded": 5,
+          "original_files": 763,
+          "changed_original_paths": [],
+          "tool_direct": true,
+          "tool_abstention": false,
+          "handoffs": 0,
+          "applied_revisions": 0,
+          "revision_details": [],
+          "fixed_checks": [
+            {
+              "exit_code": 0,
+              "timed_out": false,
+              "log_sha256": "28e65413028975700b876b3a38785875a209ac283c6ad4175eb52836e9f48587",
+              "output_tail": ""
+            }
+          ],
+          "replays": [
+            "passed"
+          ],
+          "wall_seconds": 424.5777551648207,
+          "error": null,
+          "session_status": "completed",
+          "session_error": null,
+          "verification_status": "passed",
+          "cleanup_absent": true
+        },
+        {
+          "project": "tinyxml2",
+          "method": "tool_plan_workflow",
+          "slot": 10,
+          "progress_row_present": true,
+          "strict": true,
+          "requests": 0,
+          "known_responses": 0,
+          "unknown_sequences": [],
+          "tokens": 0,
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "cost": "0",
+          "phases": {},
+          "commands": 4,
+          "commands_succeeded": 4,
+          "original_files": 273,
+          "changed_original_paths": [],
+          "tool_direct": true,
+          "tool_abstention": false,
+          "handoffs": 0,
+          "applied_revisions": 0,
+          "revision_details": [],
+          "fixed_checks": [
+            {
+              "exit_code": 0,
+              "timed_out": false,
+              "log_sha256": "21aa0a361b44dab59f854c268ef8b0286368a8a75f7c709f0ef4ae88c2697b02",
+              "output_tail": ""
+            }
+          ],
+          "replays": [
+            "passed"
+          ],
+          "wall_seconds": 10.949076737742871,
+          "error": null,
+          "session_status": "completed",
+          "session_error": null,
+          "verification_status": "passed",
+          "cleanup_absent": true
+        },
+        {
+          "project": "tinyxml2",
+          "method": "strong_tool_agent",
+          "slot": 11,
+          "progress_row_present": true,
+          "strict": true,
+          "requests": 7,
+          "known_responses": 7,
+          "unknown_sequences": [],
+          "tokens": 58170,
+          "input_tokens": 56689,
+          "output_tokens": 1481,
+          "cost": "0.08069424",
+          "phases": {
+            "agent_control": {
+              "requests": 7,
+              "cost": "0.08069424"
+            }
+          },
+          "commands": 4,
+          "commands_succeeded": 4,
+          "original_files": 273,
+          "changed_original_paths": [],
+          "tool_direct": false,
+          "tool_abstention": false,
+          "handoffs": 0,
+          "applied_revisions": 0,
+          "revision_details": [],
+          "fixed_checks": [
+            {
+              "exit_code": 0,
+              "timed_out": false,
+              "log_sha256": "5445b70c77c91524b0aa40127b50175071a9e7f5ac1b97f687ef63147ae0888e",
+              "output_tail": ""
+            }
+          ],
+          "replays": [
+            "passed"
+          ],
+          "wall_seconds": 44.05530143296346,
+          "error": null,
+          "session_status": "completed",
+          "session_error": null,
+          "verification_status": "passed",
+          "cleanup_absent": true
+        },
+        {
+          "project": "tinyxml2",
+          "method": "model_plan_workflow",
+          "slot": 12,
+          "progress_row_present": true,
+          "strict": true,
+          "requests": 2,
+          "known_responses": 2,
+          "unknown_sequences": [],
+          "tokens": 25288,
+          "input_tokens": 19201,
+          "output_tokens": 6087,
+          "cost": "0.04944984",
+          "phases": {
+            "initial": {
+              "requests": 2,
+              "cost": "0.04944984"
+            }
+          },
+          "commands": 6,
+          "commands_succeeded": 6,
+          "original_files": 273,
+          "changed_original_paths": [],
+          "tool_direct": false,
+          "tool_abstention": false,
+          "handoffs": 0,
+          "applied_revisions": 0,
+          "revision_details": [],
+          "fixed_checks": [
+            {
+              "exit_code": 0,
+              "timed_out": false,
+              "log_sha256": "f65664192645e24d7210f177d1720e378e38bded8725da0ce32a0208fac2c3ab",
+              "output_tail": ""
+            }
+          ],
+          "replays": [
+            "passed"
+          ],
+          "wall_seconds": 102.97235532384366,
+          "error": null,
+          "session_status": "completed",
+          "session_error": null,
+          "verification_status": "passed",
+          "cleanup_absent": true
+        },
+        {
+          "project": "check",
+          "method": "strong_tool_agent",
+          "slot": 13,
+          "progress_row_present": true,
+          "strict": false,
+          "requests": 0,
+          "known_responses": 0,
+          "unknown_sequences": [],
+          "tokens": 0,
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "cost": "0",
+          "phases": {},
+          "commands": 1,
+          "commands_succeeded": 0,
+          "original_files": 262,
+          "changed_original_paths": [],
+          "tool_direct": false,
+          "tool_abstention": false,
+          "handoffs": 0,
+          "applied_revisions": 0,
+          "revision_details": [],
+          "fixed_checks": [],
+          "replays": [],
+          "wall_seconds": 4.153491341974586,
+          "error": "共同源码准备失败：停止于首次模型/模板操作之前",
+          "session_status": "failed",
+          "session_error": "Compile session finalized before artifact verification passed.",
+          "verification_status": null,
+          "cleanup_absent": true
+        },
+        {
+          "project": "check",
+          "method": "tool_plan_workflow",
+          "slot": 14,
+          "progress_row_present": true,
+          "strict": false,
+          "requests": 0,
+          "known_responses": 0,
+          "unknown_sequences": [],
+          "tokens": 0,
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "cost": "0",
+          "phases": {},
+          "commands": 1,
+          "commands_succeeded": 0,
+          "original_files": 262,
+          "changed_original_paths": [],
+          "tool_direct": false,
+          "tool_abstention": false,
+          "handoffs": 0,
+          "applied_revisions": 0,
+          "revision_details": [],
+          "fixed_checks": [],
+          "replays": [],
+          "wall_seconds": 4.193192188162357,
+          "error": "共同源码准备失败：停止于首次模型/模板操作之前",
+          "session_status": "failed",
+          "session_error": "Compile session finalized before artifact verification passed.",
+          "verification_status": null,
+          "cleanup_absent": true
+        },
+        {
+          "project": "check",
+          "method": "model_plan_workflow",
+          "slot": 15,
+          "progress_row_present": true,
+          "strict": false,
+          "requests": 0,
+          "known_responses": 0,
+          "unknown_sequences": [],
+          "tokens": 0,
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "cost": "0",
+          "phases": {},
+          "commands": 1,
+          "commands_succeeded": 0,
+          "original_files": 262,
+          "changed_original_paths": [],
+          "tool_direct": false,
+          "tool_abstention": false,
+          "handoffs": 0,
+          "applied_revisions": 0,
+          "revision_details": [],
+          "fixed_checks": [],
+          "replays": [],
+          "wall_seconds": 4.612331221811473,
+          "error": "共同源码准备失败：停止于首次模型/模板操作之前",
+          "session_status": "failed",
+          "session_error": "Compile session finalized before artifact verification passed.",
+          "verification_status": null,
+          "cleanup_absent": true
+        },
+        {
+          "project": "libtommath",
+          "method": "model_plan_workflow",
+          "slot": 16,
+          "progress_row_present": true,
+          "strict": true,
+          "requests": 4,
+          "known_responses": 4,
+          "unknown_sequences": [],
+          "tokens": 56408,
+          "input_tokens": 53674,
+          "output_tokens": 2734,
+          "cost": "0.08167632",
+          "phases": {
+            "initial": {
+              "requests": 4,
+              "cost": "0.08167632"
+            }
+          },
+          "commands": 5,
+          "commands_succeeded": 5,
+          "original_files": 225,
+          "changed_original_paths": [],
+          "tool_direct": false,
+          "tool_abstention": false,
+          "handoffs": 0,
+          "applied_revisions": 0,
+          "revision_details": [],
+          "fixed_checks": [
+            {
+              "exit_code": 0,
+              "timed_out": false,
+              "log_sha256": "2fbb8cccd6392fbca01111a5fe92ab16d6da8e7476d767f9495a7e8511fa6f74",
+              "output_tail": ""
+            }
+          ],
+          "replays": [
+            "passed"
+          ],
+          "wall_seconds": 91.09686160366982,
+          "error": null,
+          "session_status": "completed",
+          "session_error": null,
+          "verification_status": "passed",
+          "cleanup_absent": true
+        },
+        {
+          "project": "libtommath",
+          "method": "tool_plan_workflow",
+          "slot": 17,
+          "progress_row_present": true,
+          "strict": true,
+          "requests": 3,
+          "known_responses": 3,
+          "unknown_sequences": [],
+          "tokens": 56462,
+          "input_tokens": 48884,
+          "output_tokens": 7578,
+          "cost": "0.09453576",
+          "phases": {
+            "recovery": {
+              "requests": 3,
+              "cost": "0.09453576"
+            }
+          },
+          "commands": 8,
+          "commands_succeeded": 7,
+          "original_files": 225,
+          "changed_original_paths": [],
+          "tool_direct": true,
+          "tool_abstention": false,
+          "handoffs": 2,
+          "applied_revisions": 2,
+          "revision_details": [
+            {
+              "revision": 2,
+              "reason": "失败原因：`make -j2` 仅构建静态库 libtommath.a，未构建固定 check 步骤所需的 `./test` 二进制（exit 127: No such file or directory）。README 第 49 行与 makefile 第 91-98 行（DEMOS=test ...）表明 `make test` 是作者标准目标，会编译 demo/test.o、demo/shared.o 并链接生成根目录 `test` 二进制。恢复方案在库构建后追加 `make test` 目标，生成固定测试所需入口；最终主构建动作保留 step_id=build。",
+              "retained_steps": [
+                "forge-source-prepare"
+              ]
+            },
+            {
+              "revision": 3,
+              "reason": "恢复 build-lib 步骤：原命令 `make -j2` 在库已存在时是 no-op（日志无 \"ar: creating libtommath.a\"），但编译本身 exit 0。按恢复说明改为用 files_exist 断言库产物，而非 stdout 字面断言；并保留 make test 构建固定 check 所需的 ./test 二进制。",
+              "retained_steps": [
+                "forge-source-prepare"
+              ]
+            }
+          ],
+          "fixed_checks": [
+            {
+              "exit_code": 127,
+              "timed_out": false,
+              "log_sha256": "539eb51e6f9683573bd2bb69539ecda055d74ba15a18665e1e523cb064cd7474",
+              "output_tail": ""
+            },
+            {
+              "exit_code": 0,
+              "timed_out": false,
+              "log_sha256": "fbf61a85f57178424200628b7eb1e15427ea50b3cf13594537e29043ad597c68",
+              "output_tail": ""
+            }
+          ],
+          "replays": [
+            "passed"
+          ],
+          "wall_seconds": 166.55053118010983,
+          "error": null,
+          "session_status": "completed",
+          "session_error": null,
+          "verification_status": "passed",
+          "cleanup_absent": true
+        },
+        {
+          "project": "libtommath",
+          "method": "strong_tool_agent",
+          "slot": 18,
+          "progress_row_present": true,
+          "strict": true,
+          "requests": 10,
+          "known_responses": 10,
+          "unknown_sequences": [],
+          "tokens": 117812,
+          "input_tokens": 116015,
+          "output_tokens": 1797,
+          "cost": "0.16025592",
+          "phases": {
+            "agent_control": {
+              "requests": 10,
+              "cost": "0.16025592"
+            }
+          },
+          "commands": 5,
+          "commands_succeeded": 5,
+          "original_files": 225,
+          "changed_original_paths": [],
+          "tool_direct": false,
+          "tool_abstention": false,
+          "handoffs": 0,
+          "applied_revisions": 0,
+          "revision_details": [],
+          "fixed_checks": [
+            {
+              "exit_code": 0,
+              "timed_out": false,
+              "log_sha256": "20897359c80ace84e46f6d97f75b85f4a73125b6b108761398a04b4f2e130933",
+              "output_tail": ""
+            },
+            {
+              "exit_code": 0,
+              "timed_out": false,
+              "log_sha256": "4938458a75959f163a6d187460fe9d863867f45fe889d27f8b5fdbc6fd9ea46d",
+              "output_tail": ""
+            }
+          ],
+          "replays": [
+            "passed"
+          ],
+          "wall_seconds": 87.72471228567883,
+          "error": null,
+          "session_status": "completed",
+          "session_error": null,
+          "verification_status": "passed",
+          "cleanup_absent": true
+        }
+      ],
+      "not_started": 0,
+      "unobserved": 0,
+      "unknown_requests": 0,
+      "stop": null
+    },
+    {
+      "identity": "cpp-build-check-source-index-probe-v1",
+      "release": "526c69c58812824c0fd12fe1342d323bea8b0911",
+      "diagnostic_only": false,
+      "inventory_sha256": "945b308a1050e9ef5e45cb87bcb0a6c03d88cb71bebc9538417aad57f752bae1",
+      "summary": {
+        "strong_tool_agent": {
+          "started": 1,
+          "progress_rows": 1,
+          "strict": 1,
+          "requests": 10,
+          "tokens": 131532,
+          "input_tokens": 129363,
+          "output_tokens": 2169,
+          "cost": "0.17934840",
+          "wall_seconds": 626.889222400263,
+          "phases": {
+            "agent_control": {
+              "requests": 10,
+              "cost": "0.17934840"
+            }
+          },
+          "handoffs": 0,
+          "revisions": 0,
+          "tool_direct": 0,
+          "tool_abstention": 0,
+          "median_cost_usd": "0.17934840",
+          "median_wall_seconds": 626.889222400263
+        },
+        "tool_plan_workflow": {
+          "started": 1,
+          "progress_rows": 1,
+          "strict": 1,
+          "requests": 2,
+          "tokens": 44817,
+          "input_tokens": 32217,
+          "output_tokens": 12600,
+          "cost": "0.09242244",
+          "wall_seconds": 600.6367458817549,
+          "phases": {
+            "initial_abstention": {
+              "requests": 1,
+              "cost": "0.0259446"
+            },
+            "recovery": {
+              "requests": 1,
+              "cost": "0.06647784"
+            }
+          },
+          "handoffs": 1,
+          "revisions": 1,
+          "tool_direct": 0,
+          "tool_abstention": 1,
+          "median_cost_usd": "0.09242244",
+          "median_wall_seconds": 600.6367458817549
+        },
+        "model_plan_workflow": {
+          "started": 1,
+          "progress_rows": 1,
+          "strict": 1,
+          "requests": 3,
+          "tokens": 69915,
+          "input_tokens": 52728,
+          "output_tokens": 17187,
+          "cost": "0.13766148",
+          "wall_seconds": 640.9995011580177,
+          "phases": {
+            "initial": {
+              "requests": 2,
+              "cost": "0.08963592"
+            },
+            "recovery": {
+              "requests": 1,
+              "cost": "0.04802556"
+            }
+          },
+          "handoffs": 1,
+          "revisions": 1,
+          "tool_direct": 0,
+          "tool_abstention": 0,
+          "median_cost_usd": "0.13766148",
+          "median_wall_seconds": 640.9995011580177
+        }
+      },
+      "rows": [
+        {
+          "project": "check",
+          "method": "strong_tool_agent",
+          "slot": 1,
+          "progress_row_present": true,
+          "strict": true,
+          "requests": 10,
+          "known_responses": 10,
+          "unknown_sequences": [],
+          "tokens": 131532,
+          "input_tokens": 129363,
+          "output_tokens": 2169,
+          "cost": "0.17934840",
+          "phases": {
+            "agent_control": {
+              "requests": 10,
+              "cost": "0.17934840"
+            }
+          },
+          "commands": 9,
+          "commands_succeeded": 8,
+          "original_files": 262,
+          "changed_original_paths": [],
+          "tool_direct": false,
+          "tool_abstention": false,
+          "handoffs": 0,
+          "applied_revisions": 0,
+          "revision_details": [],
+          "fixed_checks": [
+            {
+              "exit_code": 0,
+              "timed_out": false,
+              "log_sha256": "b40dfe271df52731003b2f0c98d550f39ed3de88f94a9af137f582af3ba40fc0",
+              "output_tail": ""
+            }
+          ],
+          "replays": [
+            "passed"
+          ],
+          "wall_seconds": 626.889222400263,
+          "error": null,
+          "session_status": "completed",
+          "session_error": null,
+          "verification_status": "passed",
+          "cleanup_absent": true
+        },
+        {
+          "project": "check",
+          "method": "tool_plan_workflow",
+          "slot": 2,
+          "progress_row_present": true,
+          "strict": true,
+          "requests": 2,
+          "known_responses": 2,
+          "unknown_sequences": [],
+          "tokens": 44817,
+          "input_tokens": 32217,
+          "output_tokens": 12600,
+          "cost": "0.09242244",
+          "phases": {
+            "initial_abstention": {
+              "requests": 1,
+              "cost": "0.0259446"
+            },
+            "recovery": {
+              "requests": 1,
+              "cost": "0.06647784"
+            }
+          },
+          "commands": 8,
+          "commands_succeeded": 7,
+          "original_files": 262,
+          "changed_original_paths": [],
+          "tool_direct": false,
+          "tool_abstention": true,
+          "handoffs": 1,
+          "applied_revisions": 1,
+          "revision_details": [
+            {
+              "revision": 2,
+              "reason": "build步骤失败于doc目录：`make -j2`在构建文档时调用makeinfo，但系统未安装texinfo（日志尾 `makeinfo: command not found`，`check.info] Error 127`，`make[1]: ... Error 2`）。configure.ac第80-82行提供`--enable-build-docs`（默认yes），Makefile.am中`if MAKE_DOCS`把doc加入SUBDIRS。交付物仅libcheck.a且固定make check只跑tests/，无需文档。因此修订configure为`./configure --disable-build-docs`（物理重新生成Makefile，使SUBDIRS不含doc），其余动作保持原契约。",
+              "retained_steps": [
+                "autoreconf",
+                "forge-source-prepare"
+              ]
+            }
+          ],
+          "fixed_checks": [
+            {
+              "exit_code": 0,
+              "timed_out": false,
+              "log_sha256": "999e1c7b5d67ff9cde7c98ea945874f8373c67b43270eb301049a75a9f0aa832",
+              "output_tail": ""
+            }
+          ],
+          "replays": [
+            "passed"
+          ],
+          "wall_seconds": 600.6367458817549,
+          "error": null,
+          "session_status": "completed",
+          "session_error": null,
+          "verification_status": "passed",
+          "cleanup_absent": true
+        },
+        {
+          "project": "check",
+          "method": "model_plan_workflow",
+          "slot": 3,
+          "progress_row_present": true,
+          "strict": true,
+          "requests": 3,
+          "known_responses": 3,
+          "unknown_sequences": [],
+          "tokens": 69915,
+          "input_tokens": 52728,
+          "output_tokens": 17187,
+          "cost": "0.13766148",
+          "phases": {
+            "initial": {
+              "requests": 2,
+              "cost": "0.08963592"
+            },
+            "recovery": {
+              "requests": 1,
+              "cost": "0.04802556"
+            }
+          },
+          "commands": 8,
+          "commands_succeeded": 7,
+          "original_files": 262,
+          "changed_original_paths": [],
+          "tool_direct": false,
+          "tool_abstention": false,
+          "handoffs": 1,
+          "applied_revisions": 1,
+          "revision_details": [
+            {
+              "revision": 2,
+              "reason": "Build (make -j2) failed with exit 2: makeinfo/texinfo is missing, and configure detected 'build docs ... yes', so 'make all' recursed into doc/ and failed at check.info (Error 127). Reconfigure with --disable-build-docs (configure.ac AC_ARG_ENABLE([build-docs])) so Makefile.am's MAKE_DOCS conditional sets OPTIONAL_DOC_TARGET empty and doc/ is dropped from SUBDIRS, then rebuild the library and noinst test programs.",
+              "retained_steps": [
+                "autoreconf",
+                "forge-source-prepare"
+              ]
+            }
+          ],
+          "fixed_checks": [
+            {
+              "exit_code": 0,
+              "timed_out": false,
+              "log_sha256": "15d108680577a520b68039ca9d129c56af9c82659de83b6f0850b6d018f192fd",
+              "output_tail": ""
+            }
+          ],
+          "replays": [
+            "passed"
+          ],
+          "wall_seconds": 640.9995011580177,
+          "error": null,
+          "session_status": "completed",
+          "session_error": null,
+          "verification_status": "passed",
+          "cleanup_absent": true
+        }
+      ],
+      "not_started": 0,
+      "unobserved": 0,
+      "unknown_requests": 0,
+      "stop": null
+    }
+  ],
+  "budget": {
+    "valid": true,
+    "known_estimated_cost_usd": "4.98001152",
+    "unknown_requests": 1,
+    "unknown_reserved_usd": "0.80",
+    "conservative_occupied_usd": "5.78001152",
+    "ledger_charged_usd": "5.780011520000000125",
+    "decimal_tolerance_usd": "0.000000001",
+    "cap_usd": "20.00",
+    "deadline_utc": "2026-10-22T11:03:54+00:00",
+    "all_stages_financially_closed": true,
+    "ledger_sha256": "1a43f4d5d6298dc115380aecdba109f7ceae124a9aebfacb8610c8aa152ce8f6",
+    "not_a_provider_bill": true
+  },
+  "provenance": {
+    "independent_audit": {
+      "path": "/home/yiwei/.codex/outputs/forge-test-preparation-session-2026-10-22/independent-result-audit.json",
+      "sha256": "eae11dd6d1968d0b43da71c43365519bbdcafa24d921fa1e65925683595cdcc2"
+    },
+    "audit_sources": [
+      {
+        "path": "/home/yiwei/.codex/outputs/forge-test-preparation-session-2026-10-22/independent-prior-stages-audit.json",
+        "sha256": "bdca7e5ecb670fe04690d3a16509274a93e391136587afd28c9107f69e283b9a"
+      },
+      {
+        "path": "/home/yiwei/.codex/outputs/forge-test-preparation-session-2026-10-22/independent-v3-audit.json",
+        "sha256": "70dba88d247b97a0aa5376dcf64e1208ba68451a63ab03689f1c7907b0c4d0d2"
+      },
+      {
+        "path": "/home/yiwei/.codex/outputs/forge-test-preparation-session-2026-10-22/independent-index-audit.json",
+        "sha256": "d9cfba0165489cbfdf8b94ce7b1b804747fc2b983d95ee2318769595b0fb5ee7"
+      }
+    ],
+    "scripts": [
+      {
+        "path": "/home/yiwei/.codex/outputs/forge-test-preparation-session-2026-10-22/audit_results.py",
+        "sha256": "78d6f442f06ab3067f8d2daad7e9756bfb0ae87550ba80a12fb83ccb6a7cc02f"
+      },
+      {
+        "path": "/home/yiwei/.codex/outputs/forge-test-preparation-session-2026-10-22/derive_results.py",
+        "sha256": "c2d0ba131c1c8d192767a4e4ae2f48b9c9aab816586f2be450bc2fdfcc4ccb18"
+      },
+      {
+        "path": "/home/yiwei/.codex/outputs/forge-test-preparation-session-2026-10-22/render_report.py",
+        "sha256": "bb64348179ccb56a7491f46c7b85dd10b5d6cd34aec7f21e6ffe2e3037514149"
+      }
+    ]
+  }
+}

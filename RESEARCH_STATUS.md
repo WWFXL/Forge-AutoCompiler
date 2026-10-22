@@ -1,6 +1,34 @@
 # Forge Research Status
 
-## 当前阶段（2026-10-22；本批真实开发实验结束，转共同测试准备与公平比较设计）
+## 当前阶段（2026-10-22；#617执行1234完成，转策略适用范围与恢复贡献研究）
+
+真实采集与独立结果审计已完成。v3六项目×三策略×一次18槽，15strict、各5/6；check三槽共同源码索引前置失败、0Provider，不能解释为策略不会Autotools。其余五项目15/15严格完成，实际方法比较覆盖CMake/Make。工具/模型/强工具请求11/31/58，估费$0.37093584/$0.86618796/$0.97531764，总槽分钟21.37/28.02/20.98。工具相对强工具费用低61.97%、耗时高1.84%；模型费用低11.19%、耗时高33.53%。均为已见单次描述，不作总体排名或纯规划因果。simdutf/tinyxml2工具零模型严格完成；模型初始17请求/$0.35427876、五项目均$0.070855752，恢复另计。允许条件性收益与成本取舍，足以继续硕士主线。
+
+独立check源码索引probe为3/3 strict，15请求/$0.40943232/未知0，原make check/源码/精确交付/replay/cleanup通过；原262普通文件+2链接纳入Git264索引，普通文件与链接目标独立核验。不补v3三失败槽、不合成功率或称工程修复因果收益。raw forge-check-source-index-probe-v1，release526c69c5，inventory945b308a1050e9ef5e45cb87bcb0a6c03d88cb71bebc9538417aad57f752bae1。原rtorrent独立probe仍0strict/9请求/$0.40385532、截断未交方案；v1/v2环境诊断及旧未知1完整保留。
+
+前两步分层时间准入与共同测试准备已完成：请求600秒/新槽3900秒/命令剩余减300/完整replay1200+300；HTTP240仅传输超时。共同说明只取原源码，所有被调用Agent相同，确定性模板仍原task-selected逻辑；两Workflow共用装配/恢复，强工具保留完整能力，不称工具完全相同。未单独估计共同测试准备或时间门禁的独立收益。
+
+全本轮已知估费$4.98001152，旧未知1按$0.80保留，保守占用$5.78001152；各阶段财务闭合，原自设$20/UTC07:03:54–11:03:54不延长，未重发未知/补槽。报告docs/research/2026-10-22-test-preparation-comparison-results.md；版本化analyses同v3身份。会话forge-test-preparation-session-2026-10-22含三份独立audit及组合、派生与budget-index账本；v3 inventory8df8b315、releasef1779887。发布通道PR618仅合yiwei/534-rq3-natural-failures，最终HEAD三CI和实际merge/Issue关闭以会话final-publication-audit及GitHub为准，不进main。
+
+下一步优先更广C++来源/暴露登记与重复比较，验证工具方案适用范围及失败升级贡献，保留模型规划/强工具基线；rtorrent单独有界诊断准备不收敛，不继续只堆预算。无须为局部收益变更主线；RQ3旧分母/P2/用户HTML保持。当前无新增Provider采集计划，不新增无需研究依据的全量工程测试。
+
+## 上一阶段（运行收尾前快照）（2026-10-22；#617十八槽比较结束，独立check源码索引开发验证准备）
+
+v3完整18槽已封存：15strict，三策略各5/6；全部用量已知，估费2.21244144美元。check三个槽均在首次模型/模板操作前共同源码索引失败、0Provider，不能归因策略不会Autotools；其余五项目15/15严格完成。v3方法比较实际覆盖CMake/Make，Autotools未激活，固定原18分母保持。源/组件/原响应费用/完整inventory/实际cleanup独立audit valid，raw forge-test-preparation-comparison-v3，inventory8df8b315，releasef1779887。
+
+只读定位check原归档262普通文件+两个悬空链接，旧is_file哈希集合漏链接，Git正确索引264。原任务/固定make check/源码/交付完全不改，新typed source-index适配器计入原链接并核验原执行/replay链接目标未变；旧组件/raw不动。两局部检查和原check归档实际Git准备微检查后，独立cpp-build-check-source-index-probe-v1三个策略各一次，只作已见Autotools开发验证，不补入v3/不拼接成功率/不称跨版本因果。未重复免费完整构建或本地全量产品测试。
+
+原rtorrent probe0strict/9请求/$0.40385532；v1环境诊断已知1.65622248+未知0.80，v2ownership诊断0.29805996/未知0，全部独立保留/财务闭合。v3后前费已知4.57057920+未知0.80=5.37057920，budget-index完整带入原闭合账本及SHA，新stage9，最坏14.37057920，共享原自设20美元/UTC07:03:54–11:03:54不延期。新未知/身份/cleanup异常停，无自动重试；600请求/3900新槽/命令剩余-300/完整replay1200+300保持。用户1234/直接费用及发布授权持续。RQ3旧分母/P2/主线/用户HTML不改，仅合科研依赖分支。
+
+## 上一阶段（2026-10-22；#617共同测试准备与分层时间门禁，进入真实开发验证及18槽比较）
+
+基础设施前两步完成，真实数据待采集。新OperationWindow将请求准入从3900拆为600秒；命令按剩余时间扣300秒清理，clean replay须完整1200+300秒。新槽仍3900秒准入。三个新局部回归及已有真实生成回归4passed/1.30秒，不重复完整免费构建或全量本地产品测试。HTTP240是传输超时，外层截止watchdog另行约束，不能声称单次绝对总时长已由HTTP保证。
+
+用户明确执行1234及此前直接实验费用授权；执行器自设共享20美元/UTC07:03:54–11:03:54（准备计入），probe3/比较17、每臂3/下一响应与未知0.80，无自动重试。先cpp-build-rtorrent-test-preparation-probe-v1单模型Workflow，再cpp-build-test-preparation-comparison-v1六项目×三策略×一次18槽。样本yaml-cpp/snappy/simdutf/tinyxml2/check/libtommath，4C++与2C、全已见非holdout/前瞻六排列，不与旧数据拼接效果。源码/完整测试/交付/replay/cleanup保持，rtorrent测试准备明确两个树check_PROGRAMS/9+3程序323叶；共同说明只取原源码，不注入正确参考或知识库。失败不拦后续有效比较；未知/身份/cleanup异常停。当前无新模型结果，不提前称strict或规划收益。
+
+新manifest各309组件，candidate probe2fd70d14/比较ce45549d；协议benchmarks/preregistrations/cpp-build-test-preparation-comparison-v1.md。授权/后续启动审计在forge-test-preparation-session-2026-10-22，raw分别forge-rtorrent-test-preparation-probe-v1与forge-test-preparation-comparison-v1。仅合科研依赖分支，RQ3/P2/主线与用户HTML保持。旧#614结果及以下历史不修改。
+
+## 上一阶段（2026-10-22；本批真实开发实验结束，转共同测试准备与公平比较设计）
 
 真实采集与分析完成。最新cpp-build-rtorrent-generation-observation-probe-v1单模型Workflow1观察/0strict/0未观察，9请求/165768Token/$0.26768016/未知0、闭合/cleanup。模型交plan revision1；精确生成执行+4文件观察分别exit0，原命令/全部检查保持，40生成SHA/818原文件保持。libtorrent和rtorrent均编译成功，精确双普通ELF已暂存并只读核验SHA/来源。实际10命令/9成功，完整测试门禁因首个测试程序缺失exit1；12测试程序全部未构建，0作者测试叶/CLI/replay未观察，不记功能用例失败或strict成功。
 

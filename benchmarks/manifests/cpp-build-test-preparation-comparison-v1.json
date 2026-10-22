@@ -1,0 +1,873 @@
+{
+  "issue": 617,
+  "provider": {
+    "model": "deepseek-v4-pro",
+    "thinking": true,
+    "reasoning_effort": "low",
+    "max_output_tokens": 32768,
+    "max_retries": 0,
+    "accepted_response_models": [
+      "DeepSeek-V4-Pro-0813",
+      "deepseek-v4-pro"
+    ]
+  },
+  "runtime": {
+    "parallel_jobs": 2,
+    "node_timeout_seconds": 1200,
+    "command_timeout_seconds": 1200,
+    "evaluator_timeout_seconds": 900,
+    "replay_timeout_seconds": 1200,
+    "cleanup_timeout_seconds": 120,
+    "max_model_requests": 145,
+    "max_recorded_tokens": 1000000,
+    "max_recorded_tokens_per_response": 200000,
+    "max_agent_steps": 144,
+    "max_tool_calls": 96,
+    "max_commands": 64,
+    "max_handoffs": 2,
+    "message_limit_bytes": 100000,
+    "tool_schema_limit_bytes": 8000,
+    "new_request_reserve_seconds": 600,
+    "per_arm_cost_cap_usd": "3.00",
+    "unknown_request_reserve_usd": "0.80",
+    "planner_graph_recursion_limit": 100,
+    "tool_graph_recursion_limit": 150,
+    "workflow_command_limit": 32,
+    "workflow_wall_clock_seconds": 1200,
+    "planning_exploration_round_limit": 8,
+    "planning_bound_scope": "agent.started episode including internal correction",
+    "preserve_agent_human_messages": true,
+    "preserve_rejected_candidate": true,
+    "clarify_main_project_roles": true,
+    "separate_exact_generation_and_observation": true,
+    "cleanup_reserve_seconds": 300,
+    "new_slot_reserve_seconds": 3900,
+    "provider_http_timeout_seconds": 240
+  },
+  "components": {
+    "backend/packages/harness/deerflow/compile/__init__.py": "5c9b2cf4d1fbfb357cf07047b3eee93934d1e6a04b2d63ed26dc98071b9cd78c",
+    "backend/packages/harness/deerflow/compile/agent_workflow_node.py": "9fc296c5ac5586fbc25cd0d4c8c0c2bb3c0db03c89fa3cf924d3ff6873a29155",
+    "backend/packages/harness/deerflow/compile/agent_workflow_runtime.py": "92277bf4b5568acb43523edb6344b2a6b6c70ce731cab62200295b3aa97d9931",
+    "backend/packages/harness/deerflow/compile/agent_workflow_runtime_v2.py": "7358c8396a6eee7776f64f6645f0d516b1f4e6ed4743a249c1d8c32b4c1ecef5",
+    "backend/packages/harness/deerflow/compile/agent_workflow_runtime_v3.py": "2d71383d011e943f78e9259b9f7ceec2c8e1f080d7609e86413ce188a841f65e",
+    "backend/packages/harness/deerflow/compile/agent_workflow_runtime_v4.py": "48593cfea3a5cd0512531332bec89bc16afddbdc190605e55d17c027a7769c66",
+    "backend/packages/harness/deerflow/compile/agent_workflow_runtime_v5.py": "44462a2e6cf26e3008743281c942604ce75955ac62125afcf676fa1882c1c92a",
+    "backend/packages/harness/deerflow/compile/agent_workflow_runtime_v6.py": "70311ae3a598e183ba7450494629d8ee5a5e572c9e829f2d82a058122060406b",
+    "backend/packages/harness/deerflow/compile/agent_workflow_schemas.py": "21a19f6d1a0421fce2c7807474db9eefe0e0be25042241ca121fbb9d5ec99706",
+    "backend/packages/harness/deerflow/compile/artifact_display.py": "b6ae85f2b3c5dead9d631933714f318e29cfd562a6127f17003120218cb660e8",
+    "backend/packages/harness/deerflow/compile/candidate_verifier.py": "595cec0fc909e2179fbcebc5428c6b5ae996d7442e90ece5ccbc8d57bef7ab89",
+    "backend/packages/harness/deerflow/compile/docker_runtime.py": "e82999ab0a262ddd8e60241b70994cc99b495d5d7bb34f4b5247f3fe69c864da",
+    "backend/packages/harness/deerflow/compile/evidence.py": "a3923167f67a96ea4af4aaa4f3692d15baafea79cc0e5ee1b9dac08ab7eb9284",
+    "backend/packages/harness/deerflow/compile/evidence_ownership.py": "1609822180c1818988ef9ad8a4fa30ce21a901a5d9037f82d43bf00ba1ba0d92",
+    "backend/packages/harness/deerflow/compile/external_evaluator.py": "c4ac897de06ab91d1cd557dfc3b6427974cae99c2ca16c216e8880303c094c61",
+    "backend/packages/harness/deerflow/compile/external_evaluator_v2.py": "19044e161b321fe5afed8458c0138f1bcfbe41582af2d5f4efcdf6846c3d579b",
+    "backend/packages/harness/deerflow/compile/external_evaluator_v3.py": "cfb5e3baeff772e54051925e6b0504eea25b6ba9284d8a5c6ad7135355fde79c",
+    "backend/packages/harness/deerflow/compile/external_evaluator_v4.py": "9009c400b1b54d9ad05411f1a64124423cf50d8ba49bfa2d13071d9bedad4613",
+    "backend/packages/harness/deerflow/compile/hybrid_workflow.py": "73e215ebf2d0c3a53db7f8b44993a72c9d6a140091d5c78d5114fec578676d4e",
+    "backend/packages/harness/deerflow/compile/jev_controller.py": "f8c53aa301c60399aae33c052d7d3efd8d39c0827dc751d99cd823194a810e9f",
+    "backend/packages/harness/deerflow/compile/manager.py": "1f9726ff9375cb5fb271bc17b29310e17db6db274474b02112aaf61cead4536e",
+    "backend/packages/harness/deerflow/compile/operations.py": "8a275e76a30e4476d7e403120cc9e372b13eaa0ac8bd091d2786f6cbe1f0878a",
+    "backend/packages/harness/deerflow/compile/paths.py": "3872bdca3647a78407b422c00a72d9c62b38d5e9f2f0355cc78653fa15d1c332",
+    "backend/packages/harness/deerflow/compile/plan_agent.py": "76cf813285bd0d95ffd53e6d94d7fed09ddc4dcadfdcb13f6c37089170f5dd71",
+    "backend/packages/harness/deerflow/compile/plan_agent_canary.py": "13c238db9fe5f69543a17b6e95871723e1c790687cb028c281b200aab8a17b6c",
+    "backend/packages/harness/deerflow/compile/plan_agent_context.py": "2620ddcc50e7da228d7af19073719508b649a9d360f71a94baf15ecbefd2dc37",
+    "backend/packages/harness/deerflow/compile/plan_agent_repair.py": "a934a770bfb8f6b45fe7e13b73f12cb7e30b42937a98fbd6dbb6213896a1c9f3",
+    "backend/packages/harness/deerflow/compile/plan_agent_v2.py": "8fb37e15af7739c32ab00002076e284d5599710c34d11ae1623f6f23ca922bad",
+    "backend/packages/harness/deerflow/compile/plan_cross_system.py": "754710b0e31badef4e317f83d350092232ef42cb55cc58398c21a254713fa174",
+    "backend/packages/harness/deerflow/compile/plan_delivery.py": "dce6cc81cd7e49e733216524976ee47303330d16d6e3410761d96396c68a0596",
+    "backend/packages/harness/deerflow/compile/plan_workflow.py": "0c81c8bd4bf6f27a78fc76bd755bd64eeba1f0f0d0dd90e0e4227145826d9c6a",
+    "backend/packages/harness/deerflow/compile/replay_closure_verifier.py": "01f8335ab0a586065803b34952b930adbf593624c611316b40ca2ccac685cd83",
+    "backend/packages/harness/deerflow/compile/schemas.py": "8217a7514665fb5c271699b9f988bce227d861bfa607cec0ae1301f2827b9bc6",
+    "backend/packages/harness/deerflow/compile/tool_plan.py": "64f00145f33a6a950901045324d1610808ec8940bde83bec33622346974ff008",
+    "backend/packages/harness/deerflow/compile/unified_plan.py": "1a7e840694bb5f2e24e5e7556e417b4a0ed1a5ddcf60e2a26e04bd451294cf71",
+    "backend/packages/harness/deerflow/compile/unified_plan_v2.py": "80522737e683f2c1ecb9a39ecb086bd3a9a1729ed519039f092d91ff1eb1c46f",
+    "backend/packages/harness/deerflow/models/patched_deepseek.py": "e313c1b141799e268d9cc8ff548e45a339bf68b5a3b4f3b8865b2f7fa218477b",
+    "backend/tests/test_analyze_unified_plan.py": "107b4c0888d7e74c4e73abde46070cf8f9d7dd2d1105be6b7794dc7f85f4f334",
+    "backend/tests/test_build_full_strategy_cleanup_continuation.py": "2536d0140cac7fb3d79a92f41b633c14f0e8cf9d18f699392396d653bfc051e4",
+    "backend/tests/test_build_full_strategy_comparison.py": "7ee17fc26f0978eccb52aa546c17ad49bdd36c85269e4490a57fd44edfb2f964",
+    "backend/tests/test_build_full_strategy_runtime.py": "b255e2d31ed439d065f80811bcdf435ba4ad51c6e063bd802795cf5eef08bb18",
+    "backend/tests/test_build_full_strategy_runtime_v2.py": "27a646777fadcd2d0269b174aaed017c1779a2d7542ce7b62b08556165315b1a",
+    "backend/tests/test_build_libverto_natural_recovery.py": "ef6c62f20a2c7b47d129a4da62375ba2f96d52fa86b63fc5ea109d986234cd4c",
+    "backend/tests/test_build_libverto_natural_recovery_v2.py": "e92686d6b7f17e8206c70f52f0f2b10469931f05ae5e25271b51ed2cf567a205",
+    "backend/tests/test_build_libverto_recovery_planner_v2.py": "199f53d2ab493a16e5bea0754da4d55df5f27c9060591f6fddf50c8be0258742",
+    "backend/tests/test_build_observed_plan_comparison.py": "6d33fe3fc4e53e4e426fc930b5453f1c85bdd90c60a4c8402bbcb69d0fef02c6",
+    "backend/tests/test_build_observed_plan_comparison_v2.py": "2ad9725f1e84f7aac3d2d1f1d3eaf63f4b8d89670efcff406e7210572c64b2fa",
+    "backend/tests/test_build_plan_paired_comparison.py": "d37caa5b1437099f66e7a403045f63085a17dd5195312d1a6a8c608eea46a412",
+    "backend/tests/test_build_plan_predicate_gate.py": "43193ae851243f8ea4a3a2dc00db061a724f4dcc2730fe8d1e07aa11f4d95eba",
+    "backend/tests/test_build_plan_recovery_qualification.py": "2d4a6d778ccf10a916156db4ae9fd7ad106d6da77cfe4d0975c4b32bfcf18747",
+    "backend/tests/test_build_rule_recovery_qualification.py": "c43229cfb9a22b3f33acebb01db767fecf6fa19a8b7a1fee95ab3431684c0a45",
+    "backend/tests/test_build_unified_plan.py": "31785ac505cb2219c0cb70ae6b2af173adffe9348207766c4605f947d83c3902",
+    "backend/tests/test_build_unified_plan_comparison.py": "60140a1ca2628c8dc3bc4bd590d771f2f1f15ed64073faa0cf69403b23bc2f3c",
+    "backend/tests/test_plan_agent_canary.py": "881c9ccb0cc9db2d95fbce744b4fcc6d034180b594cdd0cc6fa426cfdabfc85a",
+    "backend/tests/test_plan_agent_context.py": "7ac41717234738a10482fe78a0bc696d029a034575e5b9fe4f9bfcfce1e21e4f",
+    "backend/tests/test_plan_agent_repair.py": "23e12fc02c20ee7310401a65054f505ab5c3bbf4dcb6372ffa4b2e3e0d80a29b",
+    "backend/tests/test_plan_cross_system.py": "d1492bf73616785f5d2d292645a83e21c255b9a7fe69b269f1482f63dcd8765b",
+    "backend/tests/test_plan_delivery.py": "b9e706a662847ed2bfaf7acf668eb1b3807be7052bf442ff4ef4d3e2121c7fed",
+    "backend/tests/test_plan_source_qualification.py": "a942b18e066776b3cd0ded20602e42977cdec27549504b2cca673439ada22797",
+    "backend/tests/test_tool_plan.py": "1dd7ee5af121b8ebf9404472b9cd42854ccc44380c32f42d666451def7d76538",
+    "backend/tests/test_unified_plan.py": "0b64bed7ae821a2e982f57d0b3be2aa58bd6174a412d761abccab22cc2ac824c",
+    "backend/tests/test_unified_plan_v2.py": "13a4562ae76d36a382155773ce6900e7f043492a4f1baae37fdbb64247ddaa5c",
+    "backend/uv.lock": "1b5044aa16b583d3253bfbcc883a0afd5a4dec791cf766ba535d1635db136314",
+    "benchmarks/analyses/cpp-build-full-strategy-comparison-v1.json": "131eb25566c932dcff0693ed54fecda4826d928687ede1677b8aa2d917a60050",
+    "benchmarks/manifests/cpp-build-observed-plan-comparison-v1.json": "8a9310f8c89d657b29d9a1b7f56b967c17ba615a2717d2239fda139293bade2b",
+    "benchmarks/manifests/cpp-build-observed-plan-dispatch-gate-v1.json": "7dde8aa4c577ebfcfb377b30a3e8118d04fd801054e1ddd4faf0dc390caf9a52",
+    "benchmarks/preregistrations/cpp-build-cxx-reference-inputs-v1.md": "94f9dbfa1dd7ba608728b83c2939d24c060ef8ac14a1e25467464ff0d9bbda78",
+    "benchmarks/preregistrations/cpp-build-cxx-reference-qualification-v1.md": "dc3fd1c759a547f75326ebbe9665378c5b0f03a3920b9c962b7cf23f6f620586",
+    "benchmarks/preregistrations/cpp-build-full-strategy-cleanup-continuation-v1.md": "d62aaa0d7bf7c55a3072d419aa0a9447545cd8fceefb8082ce1d2173168c0859",
+    "benchmarks/preregistrations/cpp-build-full-strategy-comparison-v1.md": "ac2c73bc9259c1e15861ec5ab0509e943268db2272d13e28e01c1f5605d888d5",
+    "benchmarks/preregistrations/cpp-build-full-strategy-runtime-v1.md": "87cad19614d26c4191f2055b5a9509a30ccf7697d716dabd3af528d313a0aeae",
+    "benchmarks/preregistrations/cpp-build-full-strategy-runtime-v2.md": "cafdd201cafd696168ea0d3fc68a2ca1f8a1d2b3a4ed143d67bf24f5b7addd09",
+    "benchmarks/preregistrations/cpp-build-libverto-natural-recovery-v1.md": "d1c231afc9930f691b82e583dfd40bc42ea7d664309809f0d69ff83138f0f0ed",
+    "benchmarks/preregistrations/cpp-build-libverto-natural-recovery-v2.md": "d5631431eaf8d85325dad16e686ccc921c199d37f812149963d17df6a27697ed",
+    "benchmarks/preregistrations/cpp-build-observed-plan-comparison-v1.md": "d6a3fc29b2807c5467a2cfbbf736acbddf1496b0daa89cf1b6cc91e4293f15d6",
+    "benchmarks/preregistrations/cpp-build-observed-plan-comparison-v2.md": "1549a827373e6fe2f18a2d1ff81578c6d0ff254a2fa707f2dde981e55c111979",
+    "benchmarks/preregistrations/cpp-build-observed-plan-dispatch-gate-v1.md": "39e4ffc3f0a8f900e8c0e40107a6c0ccf3467e482bfc4b0f3069d091f3a50077",
+    "benchmarks/preregistrations/cpp-build-plan-agent-canary-v1.md": "6b485976c863d54ec3145277fb23735f34d723fb89da759c145f2404a6c2a0c9",
+    "benchmarks/preregistrations/cpp-build-plan-agent-canary-v2.md": "c4f8da14a95bc453d008b7409f340f086f3bde473642e24bbc39664039bc4052",
+    "benchmarks/preregistrations/cpp-build-plan-agent-paired-comparison-v1.md": "4e25526fe585befc30bf3d42200e7881c20fa73c4415183ebd3553eb267d3a2f",
+    "benchmarks/preregistrations/cpp-build-plan-agent-repair-v1.md": "6da5a8fa18ce718308e9e7bfbc010ed31dff7c5769ec1fef76bc214d3c118eca",
+    "benchmarks/preregistrations/cpp-build-plan-agent-trial-v1.md": "42a2326f9a6c44d241f5892bb50419975fdca791a84221152e58f4c7879a4857",
+    "benchmarks/preregistrations/cpp-build-plan-cross-system-v1.md": "0e520e59dfa05258c6e1b8254df13bb5008cd2396a8d64d0d832efb99120831e",
+    "benchmarks/preregistrations/cpp-build-plan-cross-system-v2.md": "d518706e6cd3a136ba65c1e9faafd1e6fe5344123f1481b36b01bfd0eee590ef",
+    "benchmarks/preregistrations/cpp-build-plan-predicate-qualification-v1.md": "f985fe214edfa3549d20ea2d01ca3bb1fe511fc75d861ba890e742e738eb5056",
+    "benchmarks/preregistrations/cpp-build-plan-predicate-qualification-v2.md": "fe83c40aeaaa3a79dbe33b0c7f9e0cc665f714d1ecfcdddfb517955513a95087",
+    "benchmarks/preregistrations/cpp-build-plan-recovery-qualification-v1.md": "f49df1da8d90827f33757a4e2dc1d6f0a57ee538b0a2d108f2312fd49d8bf009",
+    "benchmarks/preregistrations/cpp-build-plan-source-qualification-v1.md": "78814f4c3be99a4ccc260ce072b77fe3100e306eb5241883248e71e137b1873b",
+    "benchmarks/preregistrations/cpp-build-plan-source-qualification-v2.md": "5f832a159afbef6d78e311d9936d7e852d644806b07bdd7d0f3dcc5524edc99f",
+    "benchmarks/preregistrations/cpp-build-rule-recovery-qualification-v1.md": "44dac0c499269253069c2bc2dc8767da528cc4d1b78640532825aa4a95951f83",
+    "benchmarks/preregistrations/cpp-build-tool-plan-qualification-v1.md": "865c7201d4c227662928e8a4740ad2909af5c9dd734be006bf44d71465750363",
+    "benchmarks/preregistrations/cpp-build-unified-plan-comparison-v1.md": "11e701cbc6eef0960202dfdef4adf6b0aa7d3ce0c2871fc25851e663daf91439",
+    "benchmarks/preregistrations/cpp-build-unified-plan-gate-v1.md": "42e6472f0930aa4850e8383dc4f54f2d88025e43d47efe17b4c9267fd8d01c06",
+    "benchmarks/preregistrations/cpp-build-unified-plan-gate-v2.md": "2ed2f0859239cbe155c90a4f017dab0b6e9ec3090ef7c253fc2d7be6fe06aaed",
+    "docs/research/2026-10-20-tool-plan-tools-review.md": "fd6d9ddebb1d931ab90ff986e1f126785ca6ad81552b5b63b55148dd000bb91e",
+    "scripts/forge_analyze_unified_plan.py": "efcdb30766a412d1ea6608122deeb99a5096508de954365696450adcca27a747",
+    "scripts/forge_audit_observed_plan_dispatch.py": "2e32aff69ead763a35195d78abfd04392eb3995cb1ece8f8372132a26d18db69",
+    "scripts/forge_audit_plan_predicate_gate.py": "d919ecfaf09172e5d1b5283b174aa1478215111128b624a7b5f3ff658632d2f1",
+    "scripts/forge_build_auto_provenance_probe.py": "68ae0224d76b86316d73b5183df54fe9ff9567b6244a81d9dc6c7d831306d359",
+    "scripts/forge_build_cxx_reference_qualification.py": "4f306fee8a4b687b8384375a8beefce9a3d49232439e62363c242b1b011320e0",
+    "scripts/forge_build_cxx_source_qualification.py": "7700b1722b8d9bef0e29d0781dff4abf5d6d8a302f24b8065f6aacfb71fcb14f",
+    "scripts/forge_build_full_strategy_cleanup_continuation.py": "19241f17ae8fcda8df25c461422d303a74e0ff1d9229000ba4bdf6fc9ce12b8e",
+    "scripts/forge_build_full_strategy_comparison.py": "dac6bcbc9df50e0f5e58817764e37aa47e536b04692b650fea09097d2551b700",
+    "scripts/forge_build_full_strategy_components.py": "ce3f054c2919b4250e87455eff99cb34805450f3b86941af33d8e7e747ea76c6",
+    "scripts/forge_build_full_strategy_runtime.py": "68ff0bada8b9ae7bb93db23eef480493ae6d323f36ecd86305a83a3956383c3e",
+    "scripts/forge_build_full_strategy_runtime_v2.py": "368f1fa33885602d05ab418ce6b953b9c2173867d98b6275e7b24778ef1e6684",
+    "scripts/forge_build_libverto_natural_recovery.py": "e2600e8f2c7fb9d2fb1b4671e9cfc50c0a4756e97951908cd2668b888764b883",
+    "scripts/forge_build_libverto_natural_recovery_v2.py": "b6a0f0313bdfabae9f71047342ecd541605b0cc39daa63f64c5d37c6447194b6",
+    "scripts/forge_build_libverto_recovery_planner_v2.py": "79791b79729543e0dee9bdc54c11635f0cda31dc200fe1ea092df45ef70ebded",
+    "scripts/forge_build_observed_plan_comparison.py": "58be9a86ecf6541098f0f2cd53e05efee4384a471ef2dcda4d0bd23a99461ad6",
+    "scripts/forge_build_observed_plan_comparison_v2.py": "0debdba7d2596abbcaa34f046086819e170706b13e689710ebb04fc65ac96b1d",
+    "scripts/forge_build_plan_agent_canary.py": "d302c280d933483e27ff8cbd4971e3c70597f6c5adf9222ba6d7b1b8e0e2a49b",
+    "scripts/forge_build_plan_agent_canary_v2.py": "507ce7550fe643411f69441723627d90a82730a8078f80f329b2e1f7bc70e675",
+    "scripts/forge_build_plan_agent_repair.py": "4ae8ec3e0d8d8ebed1ef63eeb1272e064314786971b3f62f3a3f3471aa393952",
+    "scripts/forge_build_plan_agent_trial.py": "cf4d7d2e74351e22e2ccbc8f5bc370f5e69ff3c0235be3312527a9f5c7948732",
+    "scripts/forge_build_plan_cross_system.py": "6ca5e672bc8fc11722efae258eebbd317bb202859457a12b97984689bb231301",
+    "scripts/forge_build_plan_paired_comparison.py": "0c754ed84eda11285b4328b601cf556cfe446070cdd3f0c955c219575cc2bdf3",
+    "scripts/forge_build_plan_predicate_gate.py": "b90b65a3d2dcb421e3a4c5df969a8d48929b2b81e95d9812b6d6ebc3643f0242",
+    "scripts/forge_build_plan_prototype.py": "d2de7f17c292c7d4fa9cf282cf6f2e21106ff6fddfcb171ee30b2f4a409a432b",
+    "scripts/forge_build_plan_recovery_qualification.py": "e1193ae48ff7518454aa1d89f3935246035fba4227c87e5462cae756d1cc4b1c",
+    "scripts/forge_build_plan_source_qualification.py": "921b2a733a4bc8e26e261056bf71901bf7f8d47aa1b4412b6a2cb2423e41f949",
+    "scripts/forge_build_reference_expansion.py": "77df5e88f38efe0669af68e41b50477123ddbd8f5ee276266c0767d7cd9f9182",
+    "scripts/forge_build_reference_repair_qualification.py": "b33d40504db7934c4b880a23e53631e912cae0990eaee5083b1c5e9ae5571654",
+    "scripts/forge_build_rule_recovery_qualification.py": "f452a7790c33c24802769b3047046b3e732d0e9d2248cb28f7353d7f183de86e",
+    "scripts/forge_build_source_expansion.py": "37472f1676a68653a08334de90f2ee43698f05d33e76900734e1c5fd70bb2387",
+    "scripts/forge_build_tool_plan_qualification.py": "7d0ab6e62702bdb676fac8093f9c5fa1447979c23510ec7ff0a8d4bb5d46a0dd",
+    "scripts/forge_build_unified_plan.py": "d95fe5721a311bd1ccd606612ddc527b28358f186dae5cfecd3b759d80915e6e",
+    "scripts/forge_build_unified_plan_comparison.py": "eaf4fdbf0e45012d9fbc67a3ecea6136ef5c8c0286a64179a1ae7f57f8031b29",
+    "scripts/forge_build_unified_strong_gate.py": "cb54cc465691f59b9d58c8f8c0b111ce1fab08367b42a7b7b3ce1c003cdf29f9",
+    "scripts/forge_typed_evidence.py": "b3e798669389507dc605fcd73b2450921f0695bddccc564344fda88d5cb7a3c8",
+    "scripts/require-docker-runtime.sh": "50c7e21e6eb277f3c76849b88f62b4f5e30c449d27d526c0d1d0882b2e173958",
+    "backend/tests/test_build_cxx_reference_qualification.py": "68586604cb1147195cd3606e8a872fc9051ed2b31e0a5818326a83b5e306bc5f",
+    "scripts/forge_build_cxx_reference_cache_qualification.py": "92bd77d8f27c18a9a88d0c6c306894d160ff67714e82e390414c1434b128455f",
+    "backend/tests/test_build_cxx_reference_cache_qualification.py": "923afe89ccd61024de4fed9e44ac91f9acbbe0271f31d821d79730d0b58f8ae9",
+    "benchmarks/preregistrations/cpp-build-cxx-reference-cache-qualification-v1.md": "4febcb470f9a2aa5d5173b1a1396419723a5d031e0a945b37d7f189b61c43d28",
+    "scripts/forge_build_cxx_reference_metadata_qualification.py": "5c07b4afa7321d2a3daeeda78dc4988d674e2d5a4c6c8f268da9f19035e3a99b",
+    "backend/tests/test_build_cxx_reference_metadata_qualification.py": "91ce506d91d9e28784d212a7d1c8623ab43fabbef4f86dc354d1c952049c5afe",
+    "benchmarks/preregistrations/cpp-build-cxx-reference-metadata-qualification-v1.md": "d2c997eed353b1fb963a1cd41b3244f66310f9680430e546e3255d1eac1d2506",
+    "scripts/forge_build_cxx_reference_metadata_qualification_v2.py": "92af7b5201d8b3202b8979e5b652634647c273bae627f0018d2bdace80e58eae",
+    "backend/tests/test_build_cxx_reference_metadata_v2.py": "5ed83a63e46b5caada0c7511d240390fb12f6c1f66532762e4c71c862ae0ec22",
+    "benchmarks/preregistrations/cpp-build-cxx-reference-metadata-qualification-v2.md": "d1f7fa5cccb8fc50bc7ea0de7acd7ef000dc78b93b358fbbe7864198d193d910",
+    "backend/packages/harness/deerflow/compile/source_preparation.py": "cf5204d310719e56ac7ff23d4a66b54722ebf88bad7f206291ac38faf76adc7c",
+    "backend/packages/harness/deerflow/compile/build_task_checks.py": "4a302b338a9228e9e7928c48b21c046dac4eb8c95fe6de21dd60bb3544ab0b10",
+    "scripts/forge_build_prepared_arm.py": "557c6e3bbf7c1efb83279e547c54f4ea7af5c96ae24afb8410f367c336129d14",
+    "scripts/forge_build_cxx_common_input_gate.py": "3bd5a90d92b9ff32733d49aec74b77960fc6a1d653405e8a1e7d34c1f3c899d1",
+    "backend/tests/test_source_preparation.py": "149a14d3f3a887ca818a614e1d1c4596d83d01e8283e628d65bf3eb371d940ef",
+    "backend/tests/test_build_cxx_common_input_gate.py": "0a9e7113701e472dd1979243da7314389f5166bffc975fc22add4c747b328b71",
+    "benchmarks/preregistrations/cpp-build-cxx-common-input-gate-v1.md": "b2bf299041f7a44cb202066abd9b0a534258ddb4e6e1fbd2586d40ccef0d4539",
+    "backend/packages/harness/deerflow/compile/plan_delivery_equivalent.py": "67d48e2e44033a0551c84e0ff86092f7327adbd47eb9d0142b4ac1fb8321bab1",
+    "backend/tests/test_plan_delivery_equivalent.py": "47f5764da543aba9aed4d760d57316212e5e6d9408e1c7bb2ebe7a42e7e36768",
+    "scripts/forge_build_cxx_common_input_gate_v2.py": "7139fc42f63c264e64029ae73580c3b17ba7eead942b6ae05c28f686cd73d875",
+    "benchmarks/preregistrations/cpp-build-cxx-common-input-gate-v2.md": "868ecf5b46efa3245672506f8d12558e58481d18c087d30b5ea4f9a617baec8f",
+    "backend/packages/harness/deerflow/compile/unified_plan_equivalent.py": "6131f7f0584692a51523681f3e3c80a838b86ab92077460f07ce6f2c617fe53a",
+    "backend/packages/harness/deerflow/compile/unified_plan_equivalent_observed.py": "b5be5b232664600c3f14c7cf8f114f44c0424016b16cdffd8a5d39776624c175",
+    "backend/tests/test_unified_plan_equivalent.py": "00f3feed40f678bb44df0b55e84396a2ed1d208c6f44ff0b0bbb55a2bcb89ce1",
+    "scripts/forge_build_cxx_common_input_gate_v3.py": "d60f6d810b408cc838a0b6f38b58856a7f320c7b42e62215862d5fbe0b8a7a50",
+    "benchmarks/preregistrations/cpp-build-cxx-common-input-gate-v3.md": "35ed06c59f2ceea197b5b078092c9829c5cd25f1bedf8358608a69d1ff4e57f3",
+    "scripts/forge_build_cxx_comparison.py": "6b96a68c9eb4f1e2924185e5c9fab60041c203e80782d7fac247522da38d4fe0",
+    "backend/tests/test_build_cxx_comparison.py": "29be36d19e1bcb4d61cc9e9cf6c3ce523d43cd251a229801a717d95f81301096",
+    "benchmarks/preregistrations/cpp-build-cxx-comparison-dispatch-gate-v1.md": "e7a1f023654e429f21f53b810edd208662b997dabb583b3e38d571a7743f0057",
+    "benchmarks/preregistrations/cpp-build-cxx-comparison-v1.md": "e870c2154ba11b3f06fc6b4c3b1267c84a84526b92cea43fe8d1d53ce44c64dd",
+    "docs/research/2026-10-21-cxx-continuous-authorization.md": "c4fab4ba3059dbc82f36b819eeedd2c2ad22e4e3c5b2a7de854c1f38526905dd",
+    "benchmarks/manifests/cpp-build-cxx-common-input-gate-v3.json": "af7be3c3eb9be2da8a10bfdce7efc6c371b8a0d6245b130fd84fc7f9aec17c96",
+    "benchmarks/manifests/cpp-build-cxx-comparison-dispatch-gate-v1.json": "c0a564986e0e97cdb907981bd30aa0cd785c2e2bd6802a7f8297307f7bff9329",
+    "benchmarks/manifests/cpp-build-observed-plan-comparison-v2.json": "9ec9a7c7ea7cb805d7f26cd6a2b1ed5c16289e099abeb2a575f7c89d5cca4279",
+    "backend/packages/harness/deerflow/compile/shared_text_packet.py": "43ea2391dffd78c8bf273af430a14926bf4fd255fc0e001ef72e222c570d8b28",
+    "backend/tests/test_shared_text_packet.py": "8a27646d3add6d5c88930404ae3878a282ee668d9b7c646dc4cf42f8fb1b2c4d",
+    "scripts/forge_build_referenced_meter.py": "674d7c3ac5b76c2eb6ca13375e9063b5af78d8c6a180fdcd9a9f5f270069f758",
+    "backend/packages/harness/deerflow/compile/task_selected_tool_plan.py": "6d2857174e8767f210dccb0cf000f660833c69f2de0611b775a2e13ee55c7c1a",
+    "backend/tests/test_task_selected_tool_plan.py": "5753c3e92311bfcd563249f257f5089b568be2be5e5bc8edb107d7a2edcb4f03",
+    "backend/tests/test_build_task_selected_comparison.py": "6281d12252ad2c2300abba612c160607ca740011735b4ede58855648c73df21d",
+    "scripts/forge_build_task_selected_gate.py": "27bae91685dd1ee7f88b8a7a269ef0222010bb594aeb27e616b27f10a2b3fca5",
+    "scripts/forge_build_task_selected_comparison.py": "50dfc3cc1dd82469fd5a9c5bbb5836f32413c12b61744edfba8ffc6019031ec3",
+    "benchmarks/manifests/cpp-build-cxx-comparison-v1.json": "da904435583d0a754a0608f8b7d962b25012313747c9d1e2d7e0e1bc52e27ece",
+    "benchmarks/preregistrations/cpp-build-task-selected-template-gate-v1.md": "f29f46be97f7dbc73f817fadacd57ff4cec31e1ac6aa55763882cc8558c15549",
+    "benchmarks/manifests/cpp-build-task-selected-template-gate-v1.json": "7c82225a4692727f6ed11155374b8735ccca48babcf0d88050982280b6d3af5d",
+    "benchmarks/preregistrations/cpp-build-task-selected-comparison-v1.md": "323a6b417ba31b407b412d3b2b5ce29170de4519e649dbbefb8d85e6e5e79d70",
+    "scripts/forge_build_cxx_cross_source.py": "12ea5b790147c5fa80dd775db7a248cbd91c172da9fc4c7f78733c5e3dfd2ee8",
+    "backend/tests/test_build_cxx_cross_source.py": "b21e761c298e39ac435a6eacb73056e2b49c747f227e330005adbcf5e3578fc2",
+    "benchmarks/preregistrations/cpp-build-cxx-cross-system-source-v1.md": "4b3e7483ad3a1a2c5dbb38fbfae51a277ac1d914c620c926427199501babb53c",
+    "scripts/forge_build_cxx_cross_reference.py": "dc3c1ccd1f9ec591388973e621362bf86099f3861ead1be6dc8e63bca7bca453",
+    "backend/tests/test_build_cxx_cross_reference.py": "428e7674ae282bcf2af9092ad1fd86ccda1a633a24e9aa2d4f7667bdc1587e4f",
+    "benchmarks/preregistrations/cpp-build-cxx-cross-system-reference-v1.md": "d1d888393e3e9f2dee688db76c12cbee81d4bee3e364f3caf2174ed907009eaa",
+    "scripts/forge_build_cxx_header_reference.py": "844bbff02ab7905a77f1e244e7e814e34dc4920b5181e275a6060895b6d17a56",
+    "backend/tests/test_build_cxx_header_reference.py": "fddba17e0a48065baf6337fcf6a349b8aa1482d6a6a878f8debb62f24cac5b2b",
+    "benchmarks/preregistrations/cpp-build-cxx-cross-system-reference-header-v1.md": "18d7fe79ed1fe5552de2bec62b92c49780674de1f24f0c8fdf10287bb396fb05",
+    "backend/packages/harness/deerflow/compile/task_selected_make_plan.py": "be2758362d67d8878faddf087224e4bcf07bebda3f2bbd582e038407c3e7211c",
+    "backend/tests/test_task_selected_make_plan.py": "e49094b4be036734cc19345f55eea003d6bde6d620cb7feb9097b6777547de09",
+    "scripts/forge_build_cxx_cross_comparison.py": "69a2b24cfb411ca093df136e07e237b6a41e0cd20e870ddfaca1bd3db28ffe66",
+    "backend/tests/test_build_cxx_cross_comparison.py": "95ea381fe124d464c000a500adb9e5a60e142f80807170ababc931d5dac3afb1",
+    "benchmarks/preregistrations/cpp-build-cxx-cross-system-common-gate-v1.md": "8f6f31ccc17a50bce9993ccea037d20a840c051bcf7402404d0c638a465ed891",
+    "benchmarks/preregistrations/cpp-build-cxx-cross-system-comparison-v1.md": "85378732354325f0647a9b99c55ed124b50423ce590b4d2c68827cc6c4651ce2",
+    "backend/packages/harness/deerflow/compile/generated_file_boundary.py": "81fdee664be7526a1d4ddf864d97571dd0118979340f6eb8cb01700aa05d9ef6",
+    "backend/packages/harness/deerflow/compile/boundary_execution.py": "9f62e5912d7f548649c29b991a117fddda5a2633bdbf20b38bae7db3b6895c3c",
+    "scripts/forge_build_boundary_arm.py": "cba767262262875ebe0813f0a840d715947913bf6d3ed5f255606a6ccad1cab5",
+    "scripts/forge_build_boundary_gate.py": "aa86b7f5e68f620e6c6f591dba26201c8c93122f0362c2cf042fcc8383a9b44e",
+    "backend/tests/test_generated_file_boundary.py": "a5d9d4b038c7ac70d77563ffe5cfac5238a28b03993bcae3f7310d5c8a7dca2c",
+    "backend/tests/test_build_boundary_gate.py": "730fd7335ae28a703cceabf197e925462834875b6de2700acd88c2e7a7c895e5",
+    "benchmarks/preregistrations/cpp-build-generated-file-boundary-gate-v1.md": "f2229cf32dd9831c6bc20ddeb6d49dbb650e8f082900b7c1b972b354d18ae955",
+    "scripts/forge_build_boundary_arm_v2.py": "a472efc1dbd60bba1bd70d002c4e289f5b91391b24e6510fd944de94b943c353",
+    "scripts/forge_build_boundary_gate_v2.py": "e4ba21dd448a3ff86407e258d1d36a8cf363115a9879ad4b1bf6f56921a05808",
+    "backend/tests/test_build_boundary_recovery.py": "0b9d24236b4541a08cae68113092945f13f4f85eb13f449b0908b01b325264ff",
+    "benchmarks/preregistrations/cpp-build-generated-file-boundary-gate-v2.md": "52ef2bf9d200826de0c5e55df0e4533866ff7328f09d9f9bb616146a6759c875",
+    "backend/tests/test_rtorrent_reference_contract.py": "6cd38d89e20e8fc6da5b675f606f81dbefb639dcf9cd34f369663491f1fd6895",
+    "backend/tests/test_rtorrent_reference_prepare.py": "c02d19837d4131b70c64e866345badf7b6ab96ace73b9a1bbc6184dd7397f6f8",
+    "benchmarks/preregistrations/cpp-build-rtorrent-reference-v1.md": "3884f7c18ad6b244f292b01ad8a5270c3844cc6044d721d272365f7db11413ba",
+    "scripts/forge_build_rtorrent_contract.py": "9784ae76ab5a7515b5fdbe7bd29a6d3624d5919b066bf54cd29ab0c215368f83",
+    "scripts/forge_build_rtorrent_prepare.py": "33e502c2b6c974c772b54105dbc9b1b8b1c4ef3d86c7b39baa470370472f0ff7",
+    "scripts/forge_build_rtorrent_reference.py": "ae67db8802720ff88e2518e57dd2a1262f1b0b144b4896bab6d0d3c80a509a63",
+    "scripts/forge_build_rtorrent_contract_v2.py": "8c76b58dc4a20897360f001822d56e06fa5535d3a13ca9f507ce9b51a707a583",
+    "scripts/forge_build_rtorrent_reference_v2.py": "014eadf75817feb9d6c2a975963e91fd9c2639371d5d4b8d3822400a73f2013b",
+    "backend/tests/test_rtorrent_reference_contract_v2.py": "58ad5cd9d3a7c983961260c91be38abaf92ef4981dafaa46f6e410aedfb0c96c",
+    "benchmarks/preregistrations/cpp-build-rtorrent-reference-v2.md": "ce656f2b1620420ec7db5dc2a28e4004886681f8d02558726ea8ddf9a24b045f",
+    "scripts/forge_build_rtorrent_contract_v3.py": "9df1fa7cf9b69090c6169febc616327ba1bd001d6e357b615189cedc7fca25dd",
+    "scripts/forge_build_rtorrent_reference_v3.py": "59ade7684989492c7c0089a3076accf39930d53762e4de467029727923618f15",
+    "backend/tests/test_rtorrent_reference_contract_v3.py": "0f90b18b9cb1c0cf9c0bc4426f7b0c9100706d676b8020df68333f18ab9b9bab",
+    "benchmarks/preregistrations/cpp-build-rtorrent-reference-v3.md": "949ce06565b4829651975b36d602a6f2d2939362a015707c0e1ef11fcf05a7d7",
+    "scripts/forge_build_rtorrent_contract_v4.py": "6a330347ff8fdcb3e7df82453b16752e982b67f8028c60fa8beea2042734ceca",
+    "scripts/forge_build_rtorrent_reference_v4.py": "06c7bbcfa48975bc03cba44de2732950da46c708d081fe402d1acba73eeafc90",
+    "backend/tests/test_rtorrent_reference_contract_v4.py": "53a31755eb6c9a370b51ff7d5d0c38bec232ec11783d31ca8133470a4ac6b057",
+    "benchmarks/preregistrations/cpp-build-rtorrent-reference-v4.md": "d05b77a26ec36ab3d3f44dff366b27a878b8d2e8de462dfc3334495cea3e44b0",
+    "scripts/forge_build_rtorrent_reference_v5.py": "85e0f2f12e7af22d797318b7bc3af4b916d5308c42f9ee7e6d907519ebe98317",
+    "backend/tests/test_rtorrent_reference_contract_v5.py": "f7a2659724e1aa98ff206821def13b359361d4568d75ee6ca5b1ece08c6ac7da",
+    "benchmarks/preregistrations/cpp-build-rtorrent-reference-v5.md": "7dd7bccc10532018155c8151204505c873587391f01b6b887999b9a1851a7796",
+    "backend/packages/harness/deerflow/compile/staged_verification.py": "b4fc6b2ab4b1436a178657c62412ae71e8f9c7ae5c90b8301be18b5664e01741",
+    "scripts/forge_build_rtorrent_arm.py": "60cbe66f58ba35d6536918cef7b72c9a98c537b107b9b18c4d6b9e8991d8e6ab",
+    "scripts/forge_build_rtorrent_gate.py": "010d27831b8408a55e6f6dafb8c2249148a4e7fb5ce1b24bc0e3aa4697c74506",
+    "backend/tests/test_rtorrent_common_interface.py": "7e0690bf52a13a1523cfc572cf867a3ab045297508ffddf10376613e7840bb1d",
+    "benchmarks/analyses/cpp-build-rtorrent-role-exposure-v1.json": "996f6f0b280388f69f099da76a835f0523e6c12813b2dfed0472d10850ad56fe",
+    "benchmarks/preregistrations/cpp-build-rtorrent-three-strategy-gate-v1.md": "dcffd3d4f3c344c317d1f222e1056e02f0b7178b36a534b7fb9542132f97769e",
+    "scripts/forge_build_rtorrent_gate_v2.py": "725df5bf5508cca42eab9be7f0de455b59eb838ddc2f2f6741352e11259e2b60",
+    "backend/tests/test_rtorrent_index_boundary.py": "7688a79ae1b26dd81ee89361b812f2527497900eb5a8ddc49144ec1743dcdbb1",
+    "benchmarks/preregistrations/cpp-build-rtorrent-three-strategy-gate-v2.md": "c1df9e7a59a0b83c9b4d1b4ba91d9c14b3ac003f43d42d10fdbdbb0c1de069d4",
+    "backend/packages/harness/deerflow/compile/recovery_text_factors.py": "d81ac40026703d926149ba1b410eb46fca246c9772b63a20672f792a1987efa8",
+    "scripts/forge_build_rtorrent_recovery_meter.py": "b0092fc0076e4a68e97394fe52570cc711f4062c38daa5294a1fdc312e6a4631",
+    "scripts/forge_build_rtorrent_recovery_gate.py": "0831fe4a2463207f1838fabf39b5a426674f56452fe60b5de65abb5c62796701",
+    "backend/tests/test_recovery_text_factors.py": "1a36d1f07f10ec5671661b2a9abd4a175d7467f323e192a14608907041d1059d",
+    "benchmarks/preregistrations/cpp-build-rtorrent-recovery-interface-gate-v1.md": "16933917bf1f58e0739bce0d4a84215f3dcc9914999938e48140f27a433a17fc",
+    "scripts/forge_build_rtorrent_template_gate.py": "5e22829a76acbdcafbfee76ca88a0a1bd6820c26a554c7b0158e2d8bdc63ab12",
+    "scripts/forge_build_rtorrent_bootstrap_alias.py": "80951ab007362f34b285c3338e85c057b7c9671996dcee2c41c2128538a2e97d",
+    "backend/tests/test_rtorrent_actual_template.py": "1a5fdd2e8a1fac52b9574c57b6fbf50a6aa3de02a31dbc1bad887c55048a595d",
+    "benchmarks/preregistrations/cpp-build-rtorrent-actual-template-gate-v1.md": "ac837f060b1ef5270ca3d09e5d6178777e604396881dc12394f6959cc64fbd3e",
+    "scripts/forge_build_rtorrent_reset_gate.py": "32a61850f887f0fd6e7fafdb512cb7a037117c67266a52b55c66af32ae438368",
+    "backend/tests/test_rtorrent_reset_gate.py": "8752cdcd0474025ae31079c20204e4c74b4cf1a5707b327087994c4af9572659",
+    "benchmarks/preregistrations/cpp-build-rtorrent-bootstrap-reset-qualification-v1.md": "a3301162fae6bc6d7f639e11c1a7c61faccc4f127d1ead0393d6d3a4a02a189d",
+    "scripts/forge_build_rtorrent_template_reset_gate.py": "47f54cc8310b1110d2629ca3dc3a22f1bc4ce8cc1f539b58a076f1a2e611ee03",
+    "backend/tests/test_rtorrent_template_reset_runtime.py": "c0d947a525731f7de40280fcd33156a3e6b7d349c4fa79a684138cff0de14a38",
+    "benchmarks/preregistrations/cpp-build-rtorrent-actual-template-reset-gate-v1.md": "7729d34a0a5fa91faec1fb53a03e36d359e10cee402c7649ce782357fc591d60",
+    "scripts/forge_build_rtorrent_template_reset_gate_v2.py": "5f9b149c1bc24914d7f6adce9f5d41c2eb2173516811f4dfe7f1d9a8f5f5586d",
+    "backend/tests/test_rtorrent_template_reset_runtime_v2.py": "931ec0520fa3a68950edab6e340b4a09c1afa32cd5668799fc983dc6a740a9a4",
+    "benchmarks/preregistrations/cpp-build-rtorrent-actual-template-reset-gate-v2.md": "d6a24eeb094024152ba7c0fae74a81292b170a299eb1384016654f173f52173e",
+    "scripts/forge_build_rtorrent_common.py": "4bed9f95b2f286238d560a5feb94affd103c6e082113b69a1141940ec4b76197",
+    "scripts/forge_build_rtorrent_common_gate.py": "a6591d3ce72eae4a6e3b6881e0e6930ebc9abc08de56f53710275d7c7e532ae4",
+    "backend/tests/test_rtorrent_common_entry.py": "c2c517aaf463bd4a4c7f67900422fec9ab429294c9268561b9dab373b4abb5a9",
+    "benchmarks/preregistrations/cpp-build-rtorrent-common-entry-gate-v1.md": "ca93d94e64a4a0dc7e248cd1b018d8c870f828c025618d4d50f9c895c20fec55",
+    "scripts/forge_build_rtorrent_common_v2.py": "ee1e39c3e6440c5d6c8eca8d6c131198d2d75bf2e24adf7e5a4ff6e9c0c9ee7d",
+    "scripts/forge_build_rtorrent_common_gate_v2.py": "c8bc3ac47b271dc6231794d7a32701ba094c61a6eb6edc89b228ed223e5f24b4",
+    "backend/tests/test_rtorrent_common_material_v2.py": "bfc4d4ec0f771b4fbc303cdcf9ae3e48afbd62f898b01f1aa412392d5c4116c5",
+    "benchmarks/preregistrations/cpp-build-rtorrent-common-entry-gate-v2.md": "7999bfd5e854d5e2f7894e3ba065650d4b7aa2911b8b51e2756643a9f8ce4adb",
+    "scripts/forge_build_rtorrent_canary.py": "b3d35b04809419290f430afc8628a22ecfc9d1a65601571eb5f348deacaa6519",
+    "backend/tests/test_rtorrent_canary.py": "b4c6574c816273390d47f0810e798a21f2314e343fd6d45af0bbed35d3f884d3",
+    "benchmarks/preregistrations/cpp-build-rtorrent-common-canary-v1.md": "9e29dc8b2ca8cddaa5ac57755bc77dbf097a7d88f7d5e4c8ad5bdb6dee1f5f8d",
+    "docs/research/2026-10-21-rtorrent-common-resource-erratum.md": "cbbf672a95a1c6598ce3688ebf28ecc5649a6878c058f8ced3d36a52fe83e764",
+    "scripts/forge_build_rtorrent_canary_v2.py": "648e218c54b238b19270ae0366c406cb04ba5caa20f52f20958a6fe929e2110b",
+    "backend/tests/test_rtorrent_canary_v2.py": "2e371bb040cb5273c97963f7857a11b9fbc2f26595693427e514e771ba03767b",
+    "benchmarks/preregistrations/cpp-build-rtorrent-common-canary-v2.md": "3782545d137f91f89ebebac434ef0b68bf6074c6f2128a50bb8a25a8b7570134",
+    "benchmarks/manifests/cpp-build-rtorrent-common-canary-v1.json": "bcee5cad2a8f7bdc1a928925aa9cb9614665fa13fd5910b2af19e14bada0c4e8",
+    "scripts/forge_build_rtorrent_material_gate.py": "d70644475605e57ea84713019d1718b299541eb30f278598914859ae4f402cdb",
+    "scripts/forge_build_rtorrent_shared_values.py": "8d9f98507548fb5b5a832f0e4d7da95ec1fd01a09b70102886cd69f3ab2cc09b",
+    "backend/tests/test_rtorrent_shared_values.py": "e71c2ca66ab789d1e230e6306787d49148e97a5fe9016bcd044464ca9cd0c0ed",
+    "scripts/forge_build_rtorrent_canary_v3.py": "9e8b78431dd22bcdfd024eef5ee4bc9e7506a8650774c7f499d976946fdea78a",
+    "backend/tests/test_rtorrent_canary_v3.py": "d8f775ee9e52514f72ca3c28201fb9ff596a8190e8c65e63c3f51a91b17d507c",
+    "scripts/forge_build_rtorrent_fixed_contract.py": "b31d4ecc216017b16edf1ead691a8b755f26c7cd61232155717a2c47eb5add8a",
+    "scripts/forge_build_rtorrent_fixed_contract_material_gate.py": "407fb936138ed1f25ae90109e958894837661e3c93d18615d6fb3516a252dbd6",
+    "backend/tests/test_rtorrent_fixed_contract.py": "3bb83817d6331a557fed5cc5e8f8bc9b334f99f55378ef1fb322957f94a90073",
+    "benchmarks/preregistrations/cpp-build-rtorrent-fixed-contract-material-gate-v1.md": "2bc95e90c403974bb1cfbd14b33907dd13ffb4315eae45533b06635b0c1a3120",
+    "scripts/forge_build_rtorrent_canary_v4.py": "b3652705237a060997faf69bc90a18d34250d4146f3e0a022ed9ee182abeb62d",
+    "backend/tests/test_rtorrent_canary_v4.py": "fc025a1d184dd9cc4d757084a6aa6f1f2fcf437e5b83d164462daa7f853080d4",
+    "benchmarks/preregistrations/cpp-build-rtorrent-common-canary-v4.md": "0f7b680d28c80b7f8f17cedb9e75cabc41e61b538ef7ef764e03e14c7334bd48",
+    "scripts/forge_build_native_round.py": "49a3092934b05df81cce05ac485acc2a7f4181b643b836d8c95c95cebd63d4a2",
+    "scripts/forge_build_native_round_gate.py": "d79cf673d572560e988701ca10a4a66660380cf1deddfd5bc8bf7c38f78823b0",
+    "backend/tests/test_native_round.py": "799688b9aa171079054a7c1c48df0392ef2caee196911368c8036ce61a962e0d",
+    "benchmarks/preregistrations/cpp-build-native-round-material-gate-v1.md": "d6239151a1e242448ed4d7afad60a61d86d91cc23a43cfdea2976164598a4874",
+    "scripts/forge_build_native_round_e2e.py": "1bd4d69ccf3954de7a8e7d8fe33c0e71ed439979416aa4db84bb540b3c674a23",
+    "backend/tests/test_native_round_e2e.py": "4767ca6d333faabcb02930e8f05790fb03831b2e2f13be7b548ebb515addbeb3",
+    "benchmarks/preregistrations/cpp-build-native-round-e2e-gate-v1.md": "75f02ae1ed011bb6c774b5aa99aeea06a4bc4d42975339087abe7d3953241ada",
+    "scripts/forge_build_rtorrent_native_canary.py": "ca6103159695f17b7e248fbbc99c97b20f332c535451fc91d55f73cfb4642614",
+    "backend/tests/test_rtorrent_native_canary.py": "1e0f128bc4c058d8b28e070130b97df3ba68e7494148b534f3ff959dab1a34a9",
+    "benchmarks/preregistrations/cpp-build-rtorrent-native-canary-v1.md": "e4c46a1f56a6688042b37531a4e9e341c7a9c6108b1b7641b1d00e9066a25d37",
+    "scripts/forge_build_rtorrent_native_budget_canary.py": "a3b4d8959a2ee4d9f16ed7046d3991e64a6c39e2a01e7fdb5a95c8507a410e64",
+    "backend/tests/test_rtorrent_native_budget_canary.py": "0cfdfbf2a293dcb445e8bc45df9a81fc739d32e646a2025455e86f8baeb5d44c",
+    "benchmarks/preregistrations/cpp-build-rtorrent-native-budget-canary-v1.md": "7221b328c7b7ae058e752120d97c7d7e4d440a89e94e6509d3220478bf46d458",
+    "scripts/forge_build_rtorrent_bounded_planning_canary.py": "497ff5c830cbe4837e49f724e3001a8674f537c5782de2f1860d70924ce0327f",
+    "backend/tests/test_rtorrent_bounded_planning_canary.py": "bf5fec64fd0197d030513cebbbbfb4d85178dd8b6a5b7cde8610222278f5a7c6",
+    "benchmarks/preregistrations/cpp-build-rtorrent-bounded-planning-canary-v1.md": "de1f80b57667cfaaf431ed8ea84de742b6c4f8e633544122850e2800fc4935db",
+    "scripts/forge_build_rtorrent_feedback_repair_probe.py": "fb10120837126fcd9bf755c9c98c919f689a6daca3b0523daae59c3a08bf3568",
+    "backend/tests/test_rtorrent_feedback_repair_probe.py": "c2b9cdfe04487792df8e0961ce8f9670cf5e6a61c16e85b5b8f7d78db55eed2d",
+    "benchmarks/preregistrations/cpp-build-rtorrent-feedback-repair-probe-v1.md": "0337f4ad03009ec309055e86041a973e1917496952399dceccf571aa7e3498b1",
+    "scripts/forge_build_rtorrent_candidate_feedback_probe.py": "2be68b5788082e0071a10293561088ad19f34a8b215aff8fb4ed5a107fe740f3",
+    "backend/tests/test_rtorrent_candidate_feedback_probe.py": "45d3524012b296c3d4158855cd77001412ff481e0ffa8ad8d61943306a907834",
+    "benchmarks/preregistrations/cpp-build-rtorrent-candidate-feedback-probe-v1.md": "839a4b5430e3441d17baba7ff6f51114b06199bf541da9dd21594ef18948ed28",
+    "backend/packages/harness/deerflow/compile/generation_observation_actions.py": "6137bcd634d9df7e79ee6b60b73f103dfbc5807aa72af01d98c6d4bcc616c0bd",
+    "scripts/forge_build_rtorrent_generation_observation_probe.py": "c60a9386bb2798bc0f717f334aec52f5b1722f00b446e119af29d90df0838202",
+    "backend/tests/test_generation_observation_actions.py": "164d20e6c320863619742c722e8dc344a765ea5409aadcb16f10f3e6ccc125db",
+    "benchmarks/preregistrations/cpp-build-rtorrent-generation-observation-probe-v1.md": "12b14df5ae4e2c58614f4004d66d8991b8f08b7c82bc9e2b24c046c45fcb957c",
+    "scripts/forge_build_test_preparation_comparison.py": "3b7e0f20305001cda07e6e623cb01c9a03535dc143ef72cdb0896308afd25445",
+    "backend/packages/harness/deerflow/compile/operation_window.py": "f44b2e1d2e702c6b50b6d2e5713b670862d1430d460f83d32a531c7852b7c507",
+    "backend/tests/test_test_preparation_comparison.py": "817d8cf9a66673f45c3afc9f4b3b9e08fa74fcee7cda971c04e647aa49ff9794",
+    "benchmarks/preregistrations/cpp-build-test-preparation-comparison-v1.md": "afc2e60d359cd507cf8fc13d14108b24f64bd4601b6b6a0374b7594487a93578"
+  },
+  "holdout": false,
+  "exposure": {
+    "all_sources_seen_by_developer": true,
+    "prior_method_results_seen": true,
+    "reference_injected_into_agent": false,
+    "rtorrent_development_excluded_from_comparison": true
+  },
+  "prior_qualification": {
+    "rtorrent": {
+      "root": "/home/yiwei/.codex/outputs/forge-native-round-e2e-gate-v1",
+      "inventory_sha256": "2911d077e7d3caa2f6c733d2b860091fe99769a71a3f27a7d907ef8db86a98ed",
+      "independent_audit_path": "/home/yiwei/.codex/outputs/forge-native-e2e-session-2026-10-22/independent-e2e-audit.json",
+      "independent_audit_sha256": "92597f3036ee7dbf775276915922774a938abc79965a599093fd742527bc3daf"
+    },
+    "source_manifests": [
+      "cpp-build-cxx-comparison-v1",
+      "cpp-build-cxx-cross-system-comparison-v1",
+      "cpp-build-observed-plan-comparison-v2"
+    ]
+  },
+  "identity": "cpp-build-test-preparation-comparison-v1",
+  "projects": [
+    {
+      "name": "yaml-cpp",
+      "task": {
+        "plan_id": "cxx-reference-yaml-cpp",
+        "repository_url": "https://github.com/jbeder/yaml-cpp",
+        "commit_sha": "c5e65360373d1d99d6b6848c991cd4fcee435009",
+        "image_id": "sha256:d27a6ab733c7c3a9cbb5e4b32fb595aa5a422ff04bd212888d1041b90a2c4c2a",
+        "source_archive_sha256": "c70bdecf87a72c0b0df29ff0d8b229df3eeeca99213f150aaee268edf955cc3b",
+        "build_system": "cmake",
+        "artifact_paths": [
+          "libyaml-cpp.a"
+        ],
+        "verification_steps": [
+          {
+            "step_id": "check",
+            "role": "smoke",
+            "command": "python3 -c 'from pathlib import Path\ncache={}\nfor line in Path('\"'\"'build/CMakeCache.txt'\"'\"').read_text().splitlines():\n if '\"'\"'='\"'\"' in line and '\"'\"':'\"'\"' in line and not line.startswith(('\"'\"'//'\"'\"','\"'\"'#'\"'\"')):\n  key,value=line.split('\"'\"'='\"'\"',1); name,_=key.split('\"'\"':'\"'\"',1); cache[name]=value\nfalse_values={'\"'\"''\"'\"','\"'\"'0'\"'\"','\"'\"'OFF'\"'\"','\"'\"'NO'\"'\"','\"'\"'FALSE'\"'\"','\"'\"'N'\"'\"','\"'\"'IGNORE'\"'\"','\"'\"'NOTFOUND'\"'\"'}\ndef enabled(value):\n return value.upper() not in false_values and not value.upper().endswith('\"'\"'-NOTFOUND'\"'\"')\nrequirements={'\"'\"'YAML_CPP_BUILD_TESTS'\"'\"': True, '\"'\"'BUILD_TESTING'\"'\"': True, '\"'\"'YAML_CPP_BUILD_CONTRIB'\"'\"': True, '\"'\"'YAML_CPP_BUILD_TOOLS'\"'\"': True, '\"'\"'YAML_BUILD_SHARED_LIBS'\"'\"': False, '\"'\"'YAML_USE_SYSTEM_GTEST'\"'\"': False}\nfor key,expected in requirements.items():\n assert key in cache, '\"'\"'缺少必要配置:'\"'\"'+key\n assert enabled(cache[key])==expected, '\"'\"'配置功能不符:'\"'\"'+key+'\"'\"'='\"'\"'+cache[key]\nif True:\n assert not enabled(cache.get('\"'\"'BUILD_SHARED_LIBS'\"'\"','\"'\"'OFF'\"'\"')), '\"'\"'必须使用默认静态库构建'\"'\"'\nprint('\"'\"'FORGE_TASK_CONFIGURATION_OK'\"'\"')\n' && python3 -c 'import hashlib,json,subprocess\nrows=subprocess.run(['\"'\"'git'\"'\"','\"'\"'ls-files'\"'\"','\"'\"'-z'\"'\"'],check=True,capture_output=True).stdout.decode().split('\"'\"'\\0'\"'\"')\nassert rows[-1]=='\"'\"''\"'\"', '\"'\"'Git索引输出不完整'\"'\"'\nnames=rows[:-1]\nactual=hashlib.sha256(json.dumps(sorted(names),ensure_ascii=True,separators=('\"'\"','\"'\"','\"'\"':'\"'\"')).encode()).hexdigest()\nassert actual=='\"'\"'8574ea1cf2058118afe50361cebf72862da4e1dcb4a3a370982663ac215599b5'\"'\"', '\"'\"'Git索引文件集合与固定原源码不同'\"'\"'\nassert subprocess.run(['\"'\"'git'\"'\"','\"'\"'rev-parse'\"'\"','\"'\"'--verify'\"'\"','\"'\"'HEAD'\"'\"'],capture_output=True).returncode!=0, '\"'\"'不允许伪造源码commit'\"'\"'\nprint('\"'\"'FORGE_SOURCE_INDEX_VERIFIED='\"'\"'+actual)\n' && ctest --test-dir build --output-on-failure --no-tests=error --verbose --output-junit /workspace/forge-ctest.xml && python3 -c 'import xml.etree.ElementTree as ET\nroot=ET.parse('\"'\"'/workspace/forge-ctest.xml'\"'\"').getroot()\ncases=list(root.iter('\"'\"'testcase'\"'\"'))\nassert len(cases)==3, '\"'\"'作者注册测试数不符'\"'\"'\nassert all(c.find('\"'\"'skipped'\"'\"') is None and c.find('\"'\"'failure'\"'\"') is None and c.find('\"'\"'error'\"'\"') is None for c in cases), '\"'\"'存在跳过或失败的作者测试'\"'\"'\nassert all(c.get('\"'\"'status'\"'\"','\"'\"'run'\"'\"')=='\"'\"'run'\"'\"' for c in cases), '\"'\"'存在未实际运行测试'\"'\"'\nprint('\"'\"'FORGE_CTEST_ACTUALLY_PASSED='\"'\"'+str(len(cases)))\n' && python3 -c 'import hashlib,json,subprocess\nrows=subprocess.run(['\"'\"'git'\"'\"','\"'\"'ls-files'\"'\"','\"'\"'-z'\"'\"'],check=True,capture_output=True).stdout.decode().split('\"'\"'\\0'\"'\"')\nassert rows[-1]=='\"'\"''\"'\"', '\"'\"'Git索引输出不完整'\"'\"'\nnames=rows[:-1]\nactual=hashlib.sha256(json.dumps(sorted(names),ensure_ascii=True,separators=('\"'\"','\"'\"','\"'\"':'\"'\"')).encode()).hexdigest()\nassert actual=='\"'\"'8574ea1cf2058118afe50361cebf72862da4e1dcb4a3a370982663ac215599b5'\"'\"', '\"'\"'Git索引文件集合与固定原源码不同'\"'\"'\nassert subprocess.run(['\"'\"'git'\"'\"','\"'\"'rev-parse'\"'\"','\"'\"'--verify'\"'\"','\"'\"'HEAD'\"'\"'],capture_output=True).returncode!=0, '\"'\"'不允许伪造源码commit'\"'\"'\nprint('\"'\"'FORGE_SOURCE_INDEX_VERIFIED='\"'\"'+actual)\n'",
+            "source": "新身份共同任务：原作者完整测试/功能语义/实际执行与来源索引核验",
+            "expected": "完整原测试与精确交付，不重试或替换失败",
+            "workdir": "/workspace/repo",
+            "requires": [
+              "build"
+            ],
+            "required_output": [
+              "FORGE_TASK_CONFIGURATION_OK",
+              "100% tests passed, 0 tests failed out of 3",
+              "FORGE_CTEST_ACTUALLY_PASSED=3",
+              "FORGE_SOURCE_INDEX_VERIFIED=8574ea1cf2058118afe50361cebf72862da4e1dcb4a3a370982663ac215599b5"
+            ],
+            "diagnostic_paths": []
+          }
+        ]
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-cxx-reference-inputs-v1/yaml-cpp/source.tar",
+      "source_paths": [
+        "README.md",
+        "CMakeLists.txt",
+        "Makefile"
+      ],
+      "source_paths_sha256": "8574ea1cf2058118afe50361cebf72862da4e1dcb4a3a370982663ac215599b5",
+      "common_test_preparation": {
+        "required": "构建并运行固定任务要求的全部原作者测试；不能仅完成默认make/cmake build。构建测试程序和判断测试结果为两个阶段。",
+        "fixed_verification_steps": [
+          {
+            "step_id": "check",
+            "workdir": "/workspace/repo",
+            "required_output": [
+              "FORGE_TASK_CONFIGURATION_OK",
+              "100% tests passed, 0 tests failed out of 3",
+              "FORGE_CTEST_ACTUALLY_PASSED=3",
+              "FORGE_SOURCE_INDEX_VERIFIED=8574ea1cf2058118afe50361cebf72862da4e1dcb4a3a370982663ac215599b5"
+            ]
+          }
+        ],
+        "author_build_declarations": [
+          {
+            "path": "CMakeLists.txt",
+            "sha256": "34686e0a1f040f9eea27d8d57d6381153328f398b1847c98a8fbe5377a4c5c51",
+            "excerpt": "25: \n26: cmake_dependent_option(YAML_CPP_BUILD_TESTS\n27:   \"Enable yaml-cpp tests\" OFF\n28:   \"BUILD_TESTING;YAML_CPP_MAIN_PROJECT\" OFF)\n29: cmake_dependent_option(YAML_MSVC_SHARED_RT\n30:   \"MSVC: Build yaml-cpp with shared runtime libs (/MD). When building a static library, leave OFF for /MT to match statically-linked apps.\"\n31:   ${YAML_BUILD_SHARED_LIBS}\n32:   \"CMAKE_SYSTEM_NAME MATCHES Windows\" OFF)\n33: set(YAML_CPP_INSTALL_CMAKEDIR \"${CMAKE_INSTALL_LIBDIR}/cmake/yaml-cpp\"\n34:   CACHE STRING \"Path to install the CMake package to\")\n35: \n36: if (YAML_CPP_FORMAT_SOURCE)\n37:     find_program(YAML_CPP_CLANG_FORMAT_EXE NAMES clang-format)\n38: endif()\n39: \n40: if (YAML_BUILD_SHARED_LIBS)\n41:   set(yaml-cpp-type SHARED)\n171: \n172: if(YAML_CPP_BUILD_TESTS)\n173:   add_subdirectory(test)\n174: endif()\n175: \n176: if(YAML_CPP_BUILD_TOOLS)\n177:   add_subdirectory(util)\n178: endif()\n179: \n180: if (YAML_CPP_FORMAT_SOURCE AND YAML_CPP_CLANG_FORMAT_EXE)\n181:   add_custom_target(format\n182:     COMMAND clang-format --style=file -i $<TARGET_PROPERTY:yaml-cpp,SOURCES>\n183:     COMMAND_EXPAND_LISTS\n184:     COMMENT \"Running clang-format\"\n185:     WORKING_DIRECTORY \"${PROJECT_SOURCE_DIR}\"",
+            "excerpt_is_partial": true
+          }
+        ],
+        "extra_rtorrent_obligation": null,
+        "generated_from": "frozen_source_archive_only",
+        "correct_reference_injected": false
+      }
+    },
+    {
+      "name": "snappy",
+      "task": {
+        "plan_id": "cxx-reference-snappy",
+        "repository_url": "https://github.com/google/snappy",
+        "commit_sha": "9c28114a38866f6deeaa826db918293bc28ae410",
+        "image_id": "sha256:d27a6ab733c7c3a9cbb5e4b32fb595aa5a422ff04bd212888d1041b90a2c4c2a",
+        "source_archive_sha256": "93de014cc9070f6924a1a3f71d8a78620dd37c06ce4359247405e7e13b1901f2",
+        "build_system": "cmake",
+        "artifact_paths": [
+          "libsnappy.a"
+        ],
+        "verification_steps": [
+          {
+            "step_id": "check",
+            "role": "smoke",
+            "command": "python3 -c 'from pathlib import Path\ncache={}\nfor line in Path('\"'\"'build/CMakeCache.txt'\"'\"').read_text().splitlines():\n if '\"'\"'='\"'\"' in line and '\"'\"':'\"'\"' in line and not line.startswith(('\"'\"'//'\"'\"','\"'\"'#'\"'\"')):\n  key,value=line.split('\"'\"'='\"'\"',1); name,_=key.split('\"'\"':'\"'\"',1); cache[name]=value\nfalse_values={'\"'\"''\"'\"','\"'\"'0'\"'\"','\"'\"'OFF'\"'\"','\"'\"'NO'\"'\"','\"'\"'FALSE'\"'\"','\"'\"'N'\"'\"','\"'\"'IGNORE'\"'\"','\"'\"'NOTFOUND'\"'\"'}\ndef enabled(value):\n return value.upper() not in false_values and not value.upper().endswith('\"'\"'-NOTFOUND'\"'\"')\nrequirements={'\"'\"'SNAPPY_BUILD_TESTS'\"'\"': True, '\"'\"'SNAPPY_BUILD_BENCHMARKS'\"'\"': True, '\"'\"'HAVE_LIBZ'\"'\"': True, '\"'\"'HAVE_LIBLZO2'\"'\"': True, '\"'\"'HAVE_LIBLZ4'\"'\"': True}\nfor key,expected in requirements.items():\n assert key in cache, '\"'\"'缺少必要配置:'\"'\"'+key\n assert enabled(cache[key])==expected, '\"'\"'配置功能不符:'\"'\"'+key+'\"'\"'='\"'\"'+cache[key]\nif True:\n assert not enabled(cache.get('\"'\"'BUILD_SHARED_LIBS'\"'\"','\"'\"'OFF'\"'\"')), '\"'\"'必须使用默认静态库构建'\"'\"'\nprint('\"'\"'FORGE_TASK_CONFIGURATION_OK'\"'\"')\n' && python3 -c 'import hashlib,json,subprocess\nrows=subprocess.run(['\"'\"'git'\"'\"','\"'\"'ls-files'\"'\"','\"'\"'-z'\"'\"'],check=True,capture_output=True).stdout.decode().split('\"'\"'\\0'\"'\"')\nassert rows[-1]=='\"'\"''\"'\"', '\"'\"'Git索引输出不完整'\"'\"'\nnames=rows[:-1]\nactual=hashlib.sha256(json.dumps(sorted(names),ensure_ascii=True,separators=('\"'\"','\"'\"','\"'\"':'\"'\"')).encode()).hexdigest()\nassert actual=='\"'\"'06f95a3f1319f5ae5568c8b0811035eba215b9ceb2592c1cdfef6979b2a79bab'\"'\"', '\"'\"'Git索引文件集合与固定原源码不同'\"'\"'\nassert subprocess.run(['\"'\"'git'\"'\"','\"'\"'rev-parse'\"'\"','\"'\"'--verify'\"'\"','\"'\"'HEAD'\"'\"'],capture_output=True).returncode!=0, '\"'\"'不允许伪造源码commit'\"'\"'\nprint('\"'\"'FORGE_SOURCE_INDEX_VERIFIED='\"'\"'+actual)\n' && ctest --test-dir build --output-on-failure --no-tests=error --verbose --output-junit /workspace/forge-ctest.xml && python3 -c 'import xml.etree.ElementTree as ET\nroot=ET.parse('\"'\"'/workspace/forge-ctest.xml'\"'\"').getroot()\ncases=list(root.iter('\"'\"'testcase'\"'\"'))\nassert len(cases)==1, '\"'\"'作者注册测试数不符'\"'\"'\nassert all(c.find('\"'\"'skipped'\"'\"') is None and c.find('\"'\"'failure'\"'\"') is None and c.find('\"'\"'error'\"'\"') is None for c in cases), '\"'\"'存在跳过或失败的作者测试'\"'\"'\nassert all(c.get('\"'\"'status'\"'\"','\"'\"'run'\"'\"')=='\"'\"'run'\"'\"' for c in cases), '\"'\"'存在未实际运行测试'\"'\"'\nprint('\"'\"'FORGE_CTEST_ACTUALLY_PASSED='\"'\"'+str(len(cases)))\n' && python3 -c 'import hashlib,json,subprocess\nrows=subprocess.run(['\"'\"'git'\"'\"','\"'\"'ls-files'\"'\"','\"'\"'-z'\"'\"'],check=True,capture_output=True).stdout.decode().split('\"'\"'\\0'\"'\"')\nassert rows[-1]=='\"'\"''\"'\"', '\"'\"'Git索引输出不完整'\"'\"'\nnames=rows[:-1]\nactual=hashlib.sha256(json.dumps(sorted(names),ensure_ascii=True,separators=('\"'\"','\"'\"','\"'\"':'\"'\"')).encode()).hexdigest()\nassert actual=='\"'\"'06f95a3f1319f5ae5568c8b0811035eba215b9ceb2592c1cdfef6979b2a79bab'\"'\"', '\"'\"'Git索引文件集合与固定原源码不同'\"'\"'\nassert subprocess.run(['\"'\"'git'\"'\"','\"'\"'rev-parse'\"'\"','\"'\"'--verify'\"'\"','\"'\"'HEAD'\"'\"'],capture_output=True).returncode!=0, '\"'\"'不允许伪造源码commit'\"'\"'\nprint('\"'\"'FORGE_SOURCE_INDEX_VERIFIED='\"'\"'+actual)\n'",
+            "source": "新身份共同任务：原作者完整测试/功能语义/实际执行与来源索引核验",
+            "expected": "完整原测试与精确交付，不重试或替换失败",
+            "workdir": "/workspace/repo",
+            "requires": [
+              "build"
+            ],
+            "required_output": [
+              "FORGE_TASK_CONFIGURATION_OK",
+              "100% tests passed, 0 tests failed out of 1",
+              "FORGE_CTEST_ACTUALLY_PASSED=1",
+              "FORGE_SOURCE_INDEX_VERIFIED=06f95a3f1319f5ae5568c8b0811035eba215b9ceb2592c1cdfef6979b2a79bab"
+            ],
+            "diagnostic_paths": []
+          }
+        ]
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-cxx-reference-inputs-v1/snappy/source.tar",
+      "source_paths": [
+        "README.md",
+        "CMakeLists.txt",
+        "Makefile"
+      ],
+      "source_paths_sha256": "06f95a3f1319f5ae5568c8b0811035eba215b9ceb2592c1cdfef6979b2a79bab",
+      "common_test_preparation": {
+        "required": "构建并运行固定任务要求的全部原作者测试；不能仅完成默认make/cmake build。构建测试程序和判断测试结果为两个阶段。",
+        "fixed_verification_steps": [
+          {
+            "step_id": "check",
+            "workdir": "/workspace/repo",
+            "required_output": [
+              "FORGE_TASK_CONFIGURATION_OK",
+              "100% tests passed, 0 tests failed out of 1",
+              "FORGE_CTEST_ACTUALLY_PASSED=1",
+              "FORGE_SOURCE_INDEX_VERIFIED=06f95a3f1319f5ae5568c8b0811035eba215b9ceb2592c1cdfef6979b2a79bab"
+            ]
+          }
+        ],
+        "author_build_declarations": [
+          {
+            "path": "CMakeLists.txt",
+            "sha256": "39118531e38b664caeac0ba37e54fe50fbc7884b1d1822c63b8d1097f3db45a3",
+            "excerpt": "113: \n114: option(SNAPPY_BUILD_TESTS \"Build Snappy's own tests.\" ON)\n115: \n116: option(SNAPPY_BUILD_BENCHMARKS \"Build Snappy's benchmarks\" ON)\n117: \n118: option(SNAPPY_FUZZING_BUILD \"Build Snappy for fuzzing.\" OFF)\n119: \n120: option(SNAPPY_REQUIRE_AVX \"Target processors with AVX support.\" OFF)\n121: \n122: option(SNAPPY_REQUIRE_AVX2 \"Target processors with AVX2 support.\" OFF)\n123: \n124: option(SNAPPY_INSTALL \"Install Snappy's header and library\" ON)\n125: \n126: include(TestBigEndian)\n127: test_big_endian(SNAPPY_IS_BIG_ENDIAN)\n345: \n346: if(SNAPPY_BUILD_TESTS OR SNAPPY_BUILD_BENCHMARKS)\n347:   add_library(snappy_test_support \"\")\n348:   target_sources(snappy_test_support\n349:     PRIVATE\n350:       \"snappy-test.cc\"\n351:       \"snappy-test.h\"\n352:       \"snappy_test_data.cc\"\n353:       \"snappy_test_data.h\"\n354:       \"${PROJECT_BINARY_DIR}/config.h\"\n355:   )\n356: \n357:   # Test files include snappy-test.h, HAVE_CONFIG_H must be defined.\n358:   target_compile_definitions(snappy_test_support PUBLIC -DHAVE_CONFIG_H)\n359:   if(BUILD_SHARED_LIBS)\n378:   )\n379: endif(SNAPPY_BUILD_TESTS OR SNAPPY_BUILD_BENCHMARKS)\n380: \n381: if(SNAPPY_BUILD_TESTS)\n382:   enable_testing()\n383: \n384:   # Prevent overriding the parent project's compiler/linker settings on Windows.\n385:   set(gtest_force_shared_crt ON CACHE BOOL \"\" FORCE)\n386:   set(install_gtest OFF)\n387:   set(install_gmock OFF)\n388:   set(build_gmock ON)\n389: \n390:   # This project is tested using GoogleTest.\n391:   add_subdirectory(\"third_party/googletest\")\n392: \n393:   # GoogleTest triggers a missing field initializers warning.\n394:   if(SNAPPY_HAVE_NO_MISSING_FIELD_INITIALIZERS)\n395:     set_property(TARGET gtest\n412: \n413:   add_test(\n414:     NAME snappy_unittest\n415:     WORKING_DIRECTORY \"${PROJECT_SOURCE_DIR}\"\n416:     COMMAND \"${PROJECT_BINARY_DIR}/snappy_unittest\")\n417: \n418:   add_executable(snappy_test_tool \"\")\n419:   target_sources(snappy_test_tool\n420:     PRIVATE\n421:       \"snappy_test_tool.cc\"\n422:   )\n423:   target_link_libraries(snappy_test_tool snappy_test_support)\n424: endif(SNAPPY_BUILD_TESTS)\n425: \n426: if(SNAPPY_BUILD_BENCHMARKS)\n427:   add_executable(snappy_benchmark \"\")\n428:   target_sources(snappy_benchmark\n429:     PRIVATE\n430:       \"snappy_benchmark.cc\"\n431:   )\n432:   target_link_libraries(snappy_benchmark snappy_test_support benchmark_main)\n433: \n434:   # This project uses Google benchmark for benchmarking.\n435:   set(BENCHMARK_ENABLE_TESTING OFF CACHE BOOL \"\" FORCE)\n436:   set(BENCHMARK_ENABLE_EXCEPTIONS OFF CACHE BOOL \"\" FORCE)\n437:   add_subdirectory(\"third_party/benchmark\")\n438: endif(SNAPPY_BUILD_BENCHMARKS)\n439: \n440: if(SNAPPY_FUZZING_BUILD)\n441:   add_executable(snappy_compress_fuzzer \"\")\n442:   target_sources(snappy_compress_fuzzer\n443:     PRIVATE \"snappy_compress_fuzzer.cc\"\n444:   )\n445:   target_link_libraries(snappy_compress_fuzzer snappy)\n446:   set_target_properties(snappy_compress_fuzzer\n447:     PROPERTIES LINK_FLAGS \"-fsanitize=fuzzer\"\n448:   )",
+            "excerpt_is_partial": true
+          }
+        ],
+        "extra_rtorrent_obligation": null,
+        "generated_from": "frozen_source_archive_only",
+        "correct_reference_injected": false
+      }
+    },
+    {
+      "name": "simdutf",
+      "task": {
+        "plan_id": "cxx-reference-simdutf",
+        "repository_url": "https://github.com/simdutf/simdutf",
+        "commit_sha": "8d82299606e675b50de8dc16fd118aae4b65bfde",
+        "image_id": "sha256:d27a6ab733c7c3a9cbb5e4b32fb595aa5a422ff04bd212888d1041b90a2c4c2a",
+        "source_archive_sha256": "69334680e1fca841dffbe8409a439b910086a0799a1ce76fd16d57072ebbe4a4",
+        "build_system": "cmake",
+        "artifact_paths": [
+          "libsimdutf.a"
+        ],
+        "verification_steps": [
+          {
+            "step_id": "check",
+            "role": "smoke",
+            "command": "python3 -c 'from pathlib import Path\ncache={}\nfor line in Path('\"'\"'build/CMakeCache.txt'\"'\"').read_text().splitlines():\n if '\"'\"'='\"'\"' in line and '\"'\"':'\"'\"' in line and not line.startswith(('\"'\"'//'\"'\"','\"'\"'#'\"'\"')):\n  key,value=line.split('\"'\"'='\"'\"',1); name,_=key.split('\"'\"':'\"'\"',1); cache[name]=value\nfalse_values={'\"'\"''\"'\"','\"'\"'0'\"'\"','\"'\"'OFF'\"'\"','\"'\"'NO'\"'\"','\"'\"'FALSE'\"'\"','\"'\"'N'\"'\"','\"'\"'IGNORE'\"'\"','\"'\"'NOTFOUND'\"'\"'}\ndef enabled(value):\n return value.upper() not in false_values and not value.upper().endswith('\"'\"'-NOTFOUND'\"'\"')\nrequirements={'\"'\"'SIMDUTF_TESTS'\"'\"': True, '\"'\"'BUILD_TESTING'\"'\"': True, '\"'\"'SIMDUTF_FAST_TESTS'\"'\"': False, '\"'\"'SIMDUTF_TOOLS'\"'\"': True}\nfor key,expected in requirements.items():\n assert key in cache, '\"'\"'缺少必要配置:'\"'\"'+key\n assert enabled(cache[key])==expected, '\"'\"'配置功能不符:'\"'\"'+key+'\"'\"'='\"'\"'+cache[key]\nif True:\n assert not enabled(cache.get('\"'\"'BUILD_SHARED_LIBS'\"'\"','\"'\"'OFF'\"'\"')), '\"'\"'必须使用默认静态库构建'\"'\"'\nprint('\"'\"'FORGE_TASK_CONFIGURATION_OK'\"'\"')\n' && python3 -c 'import hashlib,json,subprocess\nrows=subprocess.run(['\"'\"'git'\"'\"','\"'\"'ls-files'\"'\"','\"'\"'-z'\"'\"'],check=True,capture_output=True).stdout.decode().split('\"'\"'\\0'\"'\"')\nassert rows[-1]=='\"'\"''\"'\"', '\"'\"'Git索引输出不完整'\"'\"'\nnames=rows[:-1]\nactual=hashlib.sha256(json.dumps(sorted(names),ensure_ascii=True,separators=('\"'\"','\"'\"','\"'\"':'\"'\"')).encode()).hexdigest()\nassert actual=='\"'\"'efb8a0340eb270302aa3d730a2bb25a1db6a2af75f40c7c23da44e381cf8139d'\"'\"', '\"'\"'Git索引文件集合与固定原源码不同'\"'\"'\nassert subprocess.run(['\"'\"'git'\"'\"','\"'\"'rev-parse'\"'\"','\"'\"'--verify'\"'\"','\"'\"'HEAD'\"'\"'],capture_output=True).returncode!=0, '\"'\"'不允许伪造源码commit'\"'\"'\nprint('\"'\"'FORGE_SOURCE_INDEX_VERIFIED='\"'\"'+actual)\n' && ctest --test-dir build --output-on-failure --no-tests=error --verbose --output-junit /workspace/forge-ctest.xml && python3 -c 'import xml.etree.ElementTree as ET\nroot=ET.parse('\"'\"'/workspace/forge-ctest.xml'\"'\"').getroot()\ncases=list(root.iter('\"'\"'testcase'\"'\"'))\nassert len(cases)==94, '\"'\"'作者注册测试数不符'\"'\"'\nassert all(c.find('\"'\"'skipped'\"'\"') is None and c.find('\"'\"'failure'\"'\"') is None and c.find('\"'\"'error'\"'\"') is None for c in cases), '\"'\"'存在跳过或失败的作者测试'\"'\"'\nassert all(c.get('\"'\"'status'\"'\"','\"'\"'run'\"'\"')=='\"'\"'run'\"'\"' for c in cases), '\"'\"'存在未实际运行测试'\"'\"'\nprint('\"'\"'FORGE_CTEST_ACTUALLY_PASSED='\"'\"'+str(len(cases)))\n' && python3 -c 'import hashlib,json,subprocess\nrows=subprocess.run(['\"'\"'git'\"'\"','\"'\"'ls-files'\"'\"','\"'\"'-z'\"'\"'],check=True,capture_output=True).stdout.decode().split('\"'\"'\\0'\"'\"')\nassert rows[-1]=='\"'\"''\"'\"', '\"'\"'Git索引输出不完整'\"'\"'\nnames=rows[:-1]\nactual=hashlib.sha256(json.dumps(sorted(names),ensure_ascii=True,separators=('\"'\"','\"'\"','\"'\"':'\"'\"')).encode()).hexdigest()\nassert actual=='\"'\"'efb8a0340eb270302aa3d730a2bb25a1db6a2af75f40c7c23da44e381cf8139d'\"'\"', '\"'\"'Git索引文件集合与固定原源码不同'\"'\"'\nassert subprocess.run(['\"'\"'git'\"'\"','\"'\"'rev-parse'\"'\"','\"'\"'--verify'\"'\"','\"'\"'HEAD'\"'\"'],capture_output=True).returncode!=0, '\"'\"'不允许伪造源码commit'\"'\"'\nprint('\"'\"'FORGE_SOURCE_INDEX_VERIFIED='\"'\"'+actual)\n'",
+            "source": "新身份共同任务：原作者完整测试/功能语义/实际执行与来源索引核验",
+            "expected": "完整原测试与精确交付，不重试或替换失败",
+            "workdir": "/workspace/repo",
+            "requires": [
+              "build"
+            ],
+            "required_output": [
+              "FORGE_TASK_CONFIGURATION_OK",
+              "100% tests passed, 0 tests failed out of 94",
+              "FORGE_CTEST_ACTUALLY_PASSED=94",
+              "FORGE_SOURCE_INDEX_VERIFIED=efb8a0340eb270302aa3d730a2bb25a1db6a2af75f40c7c23da44e381cf8139d"
+            ],
+            "diagnostic_paths": []
+          }
+        ]
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-cxx-reference-inputs-v1/simdutf/source.tar",
+      "source_paths": [
+        "README.md",
+        "CMakeLists.txt",
+        "Makefile"
+      ],
+      "source_paths_sha256": "efb8a0340eb270302aa3d730a2bb25a1db6a2af75f40c7c23da44e381cf8139d",
+      "common_test_preparation": {
+        "required": "构建并运行固定任务要求的全部原作者测试；不能仅完成默认make/cmake build。构建测试程序和判断测试结果为两个阶段。",
+        "fixed_verification_steps": [
+          {
+            "step_id": "check",
+            "workdir": "/workspace/repo",
+            "required_output": [
+              "FORGE_TASK_CONFIGURATION_OK",
+              "100% tests passed, 0 tests failed out of 94",
+              "FORGE_CTEST_ACTUALLY_PASSED=94",
+              "FORGE_SOURCE_INDEX_VERIFIED=efb8a0340eb270302aa3d730a2bb25a1db6a2af75f40c7c23da44e381cf8139d"
+            ]
+          }
+        ],
+        "author_build_declarations": [
+          {
+            "path": "CMakeLists.txt",
+            "sha256": "4feb48de6aee0f0d5f154ffb42a11c6d20e8ff89ab3794ec610c9058084a4e9d",
+            "excerpt": "191:   else()\n192:     add_test(\n193:       NAME \"avoid_abort\"\n194:       # Under FreeBSD, the __cxa_guard_abort symbol may appear but it is fine.\n195:       # So we want to look for <space><possibly _>abort as a test.\n196:       COMMAND sh -c \"${NM}  $<TARGET_FILE_NAME:simdutf> |  ${GREP} ' _*abort' || exit 0  && exit 1\"\n197:       WORKING_DIRECTORY ${PROJECT_BINARY_DIR}\n198:     )\n199:     add_test(\n200:       NAME \"avoid_cout\"\n201:       COMMAND sh -c \"${NM}  $<TARGET_FILE_NAME:simdutf> |  ${GREP} ' _*cout' || exit 0  && exit 1\"\n202:       WORKING_DIRECTORY ${PROJECT_BINARY_DIR}\n203:     )\n204:     add_test(\n205:       NAME \"avoid_cerr\"\n206:       COMMAND sh -c \"${NM}  $<TARGET_FILE_NAME:simdutf> |  ${GREP} ' _*cerr' || exit 0  && exit 1\"\n207:       WORKING_DIRECTORY ${PROJECT_BINARY_DIR}\n208:     )\n209:     add_test(\n210:       NAME \"avoid_printf\"\n211:       COMMAND sh -c \"${NM}  $<TARGET_FILE_NAME:simdutf> |  ${GREP} ' _*printf' || exit 0  && exit 1\"\n212:       WORKING_DIRECTORY ${PROJECT_BINARY_DIR}\n213:     )\n214:     add_test(\n215:       NAME \"avoid_stdout\"\n216:       COMMAND sh -c \"${NM}  $<TARGET_FILE_NAME:simdutf> |  ${GREP} stdout || exit 0 && exit 1\"\n217:       WORKING_DIRECTORY ${PROJECT_BINARY_DIR}\n218:     )\n219:     add_test(\n220:       NAME \"avoid_stderr\"\n221:       COMMAND sh -c \"${NM}  $<TARGET_FILE_NAME:simdutf> |  ${GREP} stderr || exit 0 && exit 1\"\n222:       WORKING_DIRECTORY ${PROJECT_BINARY_DIR}\n223:     )\n224:   endif()\n225: endif()\n226: \n227: if(SIMDUTF_FUZZERS)\n228:     add_subdirectory(fuzz)\n229: endif()",
+            "excerpt_is_partial": true
+          }
+        ],
+        "extra_rtorrent_obligation": null,
+        "generated_from": "frozen_source_archive_only",
+        "correct_reference_injected": false
+      }
+    },
+    {
+      "name": "tinyxml2",
+      "task": {
+        "plan_id": "cxx-cross-reference-tinyxml2",
+        "repository_url": "https://github.com/leethomason/tinyxml2",
+        "commit_sha": "321ea883b7190d4e85cae5512a12e5eaa8f8731f",
+        "image_id": "sha256:d27a6ab733c7c3a9cbb5e4b32fb595aa5a422ff04bd212888d1041b90a2c4c2a",
+        "source_archive_sha256": "dd7ae034bc5b62a48642d0619e6f7fc4fc8431be6fc0b1d4b992e0a7b757d223",
+        "build_system": "make",
+        "artifact_paths": [
+          "libtinyxml2.a"
+        ],
+        "verification_steps": [
+          {
+            "step_id": "check",
+            "role": "smoke",
+            "command": "python3 -c 'import subprocess,re,sys\nr=subprocess.run(['\"'\"'make'\"'\"','\"'\"'check'\"'\"'],capture_output=True,text=True)\nsys.stdout.write(r.stdout);sys.stderr.write(r.stderr)\nassert r.returncode==0, '\"'\"'作者make check未通过'\"'\"'\nm=re.search(r'\"'\"'Pass\\s+(\\d+),\\s*Fail\\s+(\\d+)'\"'\"',r.stdout)\nassert m and int(m[1])>0 and int(m[2])==0, '\"'\"'未观察到完整非空自测通过'\"'\"'\nprint('\"'\"'FORGE_AUTHOR_TESTS_VERIFIED'\"'\"')\n' && python3 -c 'import hashlib,json,subprocess\nrows=subprocess.run(['\"'\"'git'\"'\"','\"'\"'ls-files'\"'\"','\"'\"'-z'\"'\"'],check=True,capture_output=True).stdout.decode().split('\"'\"'\\0'\"'\"')\nassert rows[-1]=='\"'\"''\"'\"', '\"'\"'Git索引输出不完整'\"'\"'\nnames=rows[:-1]\nactual=hashlib.sha256(json.dumps(sorted(names),ensure_ascii=True,separators=('\"'\"','\"'\"','\"'\"':'\"'\"')).encode()).hexdigest()\nassert actual=='\"'\"'20fcd3c92c2bab3347748e69f596a175b6e87c60f0402abc2eacc0e36f1b6ef3'\"'\"', '\"'\"'Git索引文件集合与固定原源码不同'\"'\"'\nassert subprocess.run(['\"'\"'git'\"'\"','\"'\"'rev-parse'\"'\"','\"'\"'--verify'\"'\"','\"'\"'HEAD'\"'\"'],capture_output=True).returncode!=0, '\"'\"'不允许伪造源码commit'\"'\"'\nprint('\"'\"'FORGE_SOURCE_INDEX_VERIFIED='\"'\"'+actual)\n'",
+            "source": "冻结作者构建入口及完整测试；参考资格非模型方案",
+            "expected": "完整原测试/原源码/精确交付/重放均不放宽",
+            "workdir": "/workspace/repo",
+            "requires": [
+              "build"
+            ],
+            "required_output": [
+              "FORGE_AUTHOR_TESTS_VERIFIED",
+              "FORGE_SOURCE_INDEX_VERIFIED=20fcd3c92c2bab3347748e69f596a175b6e87c60f0402abc2eacc0e36f1b6ef3"
+            ],
+            "diagnostic_paths": []
+          }
+        ]
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-cxx-cross-system-source-v1/tinyxml2/source.tar",
+      "source_paths": [
+        "README.md",
+        "Makefile",
+        "CMakeLists.txt"
+      ],
+      "common_test_preparation": {
+        "required": "构建并运行固定任务要求的全部原作者测试；不能仅完成默认make/cmake build。构建测试程序和判断测试结果为两个阶段。",
+        "fixed_verification_steps": [
+          {
+            "step_id": "check",
+            "workdir": "/workspace/repo",
+            "required_output": [
+              "FORGE_AUTHOR_TESTS_VERIFIED",
+              "FORGE_SOURCE_INDEX_VERIFIED=20fcd3c92c2bab3347748e69f596a175b6e87c60f0402abc2eacc0e36f1b6ef3"
+            ]
+          }
+        ],
+        "author_build_declarations": [
+          {
+            "path": "CMakeLists.txt",
+            "sha256": "c83b6309167e679aafa936416d958e0ba6b4bb59a0a3bbd72bfab8a5f2fdbc5e",
+            "excerpt": "4: include(CTest)\n5: option(tinyxml2_BUILD_TESTING \"Build tests for tinyxml2\" \"${BUILD_TESTING}\")\n6: \n7: ##\n8: ## Honor tinyxml2_SHARED_LIBS to match install interface\n9: ##\n10: \n11: if (DEFINED tinyxml2_SHARED_LIBS)\n12:     set(BUILD_SHARED_LIBS \"${tinyxml2_SHARED_LIBS}\")\n13: endif ()\n14: \n15: ##\n16: ## Main library build\n17: ##\n18: \n44: \n45: if (tinyxml2_BUILD_TESTING)\n46:     add_executable(xmltest xmltest.cpp)\n47:     target_link_libraries(xmltest PRIVATE tinyxml2::tinyxml2)\n48: \n49:     add_test(\n50:         NAME xmltest\n51:         COMMAND xmltest\n52:         WORKING_DIRECTORY \"${CMAKE_CURRENT_SOURCE_DIR}\"\n53:     )\n54: \n55:     set_tests_properties(xmltest PROPERTIES PASS_REGULAR_EXPRESSION \", Fail 0\")\n56: endif ()\n57: \n58: ##\n59: ## Installation\n60: ##\n61: \n62: ## Standard modules",
+            "excerpt_is_partial": true
+          },
+          {
+            "path": "Makefile",
+            "sha256": "877523e22440669b2ee524abad26776ce3d68eb471d1467d4bc0838278598101",
+            "excerpt": "4: # 'mkdir -p' is non-portable, but it is widely supported. A portable solution\n5: # is elusive due to race conditions on testing the directory and creating it.\n6: # Anemic toolchain users can sidestep the problem using MKDIR=\"mkdir\".\n7: \n8: AR = ar\n9: ARFLAGS = cr\n10: RM = rm -f\n11: RANLIB = ranlib\n12: MKDIR = mkdir -p\n13: CXXFLAGS = -D_FILE_OFFSET_BITS=64 -fPIC\n14: \n15: INSTALL = install\n16: INSTALL_PROGRAM = $(INSTALL)\n17: INSTALL_DATA = $(INSTALL) -m 644\n18: \n27: \n28: xmltest: xmltest.cpp libtinyxml2.a\n29: \n30: effc:\n31: \tgcc -Werror -Wall -Wextra -Wshadow -Wpedantic -Wformat-nonliteral \\\n32:         -Wformat-security -Wswitch-default -Wuninitialized -Wundef \\\n33:         -Wpointer-arith -Woverloaded-virtual -Wctor-dtor-privacy \\\n34:         -Wnon-virtual-dtor -Woverloaded-virtual -Wsign-promo \\\n35:         -Wno-unused-parameter -Weffc++ xmltest.cpp tinyxml2.cpp -o xmltest\n36: \n37: clean:\n38: \t-$(RM) *.o xmltest libtinyxml2.a\n39: \n40: # Standard GNU target\n41: distclean:\n43: \n44: test: xmltest\n45: \t./xmltest\n46: \n47: # Standard GNU target\n48: check: xmltest\n49: \t./xmltest\n50: \n51: staticlib: libtinyxml2.a\n52: \n53: libtinyxml2.a: tinyxml2.o\n54: \t$(AR) $(ARFLAGS) $@ $^\n55: \t$(RANLIB) $@\n56: \n57: tinyxml2.o: tinyxml2.cpp tinyxml2.h\n58: \n59: directories:\n60: \t$(MKDIR) $(DESTDIR)$(prefix)\n61: \t$(MKDIR) $(DESTDIR)$(bindir)",
+            "excerpt_is_partial": true
+          }
+        ],
+        "extra_rtorrent_obligation": null,
+        "generated_from": "frozen_source_archive_only",
+        "correct_reference_injected": false
+      }
+    },
+    {
+      "name": "check",
+      "task": {
+        "plan_id": "reference-expansion-check",
+        "repository_url": "https://github.com/libcheck/check",
+        "commit_sha": "35d9cc011faa0545bf56d5062ae90bbc2688eba7",
+        "image_id": "sha256:d27a6ab733c7c3a9cbb5e4b32fb595aa5a422ff04bd212888d1041b90a2c4c2a",
+        "source_archive_sha256": "d531ff09adefc81e7ce6a3303a7de160a7a7a0caf9496696594df1ad393cb2c9",
+        "build_system": "autotools",
+        "artifact_paths": [
+          "libcheck.a"
+        ],
+        "verification_steps": [
+          {
+            "step_id": "check",
+            "role": "smoke",
+            "command": "make check",
+            "source": "固定完整上游测试入口，不过滤用例或关闭测试",
+            "expected": "固定完整参考任务；保留原始日志，不替换失败",
+            "workdir": "/workspace/repo",
+            "requires": [
+              "build"
+            ],
+            "required_output": [
+              "Testsuite summary for",
+              "# TOTAL:"
+            ],
+            "diagnostic_paths": []
+          }
+        ]
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-reference-expansion-inputs-v1/check.tar",
+      "source_paths": [
+        "README.md",
+        "CMakeLists.txt",
+        "configure.ac",
+        "Makefile.am",
+        "tests/Makefile.am"
+      ],
+      "common_test_preparation": {
+        "required": "构建并运行固定任务要求的全部原作者测试；不能仅完成默认make/cmake build。构建测试程序和判断测试结果为两个阶段。",
+        "fixed_verification_steps": [
+          {
+            "step_id": "check",
+            "workdir": "/workspace/repo",
+            "required_output": [
+              "Testsuite summary for",
+              "# TOTAL:"
+            ]
+          }
+        ],
+        "author_build_declarations": [
+          {
+            "path": "CMakeLists.txt",
+            "sha256": "45f22e6afbe76d945bb266c79ea7be7850ebd6773175b8f9144d26903c5b9e30",
+            "excerpt": "1: #\n2: # Check: a unit test framework for C\n3: #\n4: # Copyright (C) 2011 Mateusz Loskot\n5: # Copyright (C) 2001, 2002 Arien Malec\n6: # Copyright (C) 2020 Mikko Koivunalho\n7: #\n8: # This library is free software; you can redistribute it and/or\n9: # modify it under the terms of the GNU Lesser General Public\n10: # License as published by the Free Software Foundation; either\n11: # version 2.1 of the License, or (at your option) any later version.\n12: #\n13: # This library is distributed in the hope that it will be useful,\n14: # but WITHOUT ANY WARRANTY; without even the implied warranty of\n15: # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU\n44: project(Check\n45:   DESCRIPTION \"Unit Testing Framework for C\"\n46:   LANGUAGES C)\n47: \n48: list(APPEND CMAKE_MODULE_PATH \"${CMAKE_CURRENT_LIST_DIR}/cmake\")\n49: \n50: ###############################################################################\n51: # Set build features\n52: \n53: # Set CMAKE_BUILD_TYPE to Debug if source directory is a Git repository\n54: # or user does not override on the command line\n55: include(BuildType)\n56: \n57: ###############################################################################\n58: # Configure a project for testing with CTest/CDash\n59: include(CTest)\n60: \n61: macro(extract_version file setting_name)\n62:   file(STRINGS ${file} VERSION_NUMBER REGEX \"^${setting_name}\")\n63:   string(REPLACE \"=\" \";\" VERSION_NUMBER_LIST ${VERSION_NUMBER})\n64:   list(GET VERSION_NUMBER_LIST 1 ${setting_name})\n65: endmacro(extract_version)\n66: \n67: extract_version(configure.ac CHECK_MAJOR_VERSION)\n68: extract_version(configure.ac CHECK_MINOR_VERSION)\n69: extract_version(configure.ac CHECK_MICRO_VERSION)\n70: \n71: set(PROJECT_VERSION_MAJOR ${CHECK_MAJOR_VERSION})\n90: if(NOT CHECK_ENABLE_TESTS)\n91:   message(DEPRECATION \"The option CHECK_ENABLE_TESTS is deprecated. Use option BUILD_TESTING.\")\n92:   # TODO Remove this option by Check 0.15.0!\n93: endif(NOT CHECK_ENABLE_TESTS)\n94: \n95: option(CHECK_ENABLE_GCOV\n96:   \"Turn on test coverage\" OFF)\n97: if (CHECK_ENABLE_GCOV AND NOT ${CMAKE_C_COMPILER_ID} MATCHES \"GNU\")\n98:   message(FATAL_ERROR \"Code Coverage (gcov) only works if GNU compiler is used!\")\n99: endif (CHECK_ENABLE_GCOV AND NOT ${CMAKE_C_COMPILER_ID} MATCHES \"GNU\")\n100: \n101: option(ENABLE_MEMORY_LEAKING_TESTS\n102:   \"Enable certain memory leaking tests only if valgrind is not used in testing\" ON)\n103: \n104: option(CHECK_ENABLE_TIMEOUT_TESTS\n105:   \"Enable Check's timeout related unit tests\" ON)\n106: if(CHECK_ENABLE_TIMEOUT_TESTS)\n107:   add_definitions(-DTIMEOUT_TESTS_ENABLED=1)\n108: else(CHECK_ENABLE_TIMEOUT_TESTS)\n109:   add_definitions(-DTIMEOUT_TESTS_ENABLED=0)\n110: endif(CHECK_ENABLE_TIMEOUT_TESTS)\n111: ###############################################################################\n112: # Check system and architecture\n113: if(WIN32)\n114:   if(MSVC60)\n115:   set(WINVER 0x0400)\n501: # Unit tests\n502: if(BUILD_TESTING AND NOT THIS_IS_SUBPROJECT)\n503:   add_subdirectory(tests)\n504:   add_test(NAME check_check COMMAND check_check)\n505:   add_test(NAME check_check_export COMMAND check_check_export)\n506: \n507:   # Only offer to run shell scripts if we may have a working interpreter\n508:   if(UNIX OR MINGW OR MSYS)\n509:     add_test(NAME test_output.sh\n510:       WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/tests\n511:       COMMAND sh ${CMAKE_CURRENT_SOURCE_DIR}/tests/test_output.sh)\n512:     add_test(NAME test_log_output.sh\n513:       WORKING_DIRECTORY ${CMAKE_CURRENT_BIN",
+            "excerpt_is_partial": true
+          },
+          {
+            "path": "tests/Makefile.am",
+            "sha256": "dbfbc4cd9b29a286d868756b4344ce7dd94a43d88ec7d4a76de625bb004e032e",
+            "excerpt": "2: \n3: TESTS = \\\n4: \tcheck_check_export\t\\\n5: \tcheck_check\t\t\\\n6: \ttest_output.sh\t\t\\\n7: \ttest_check_nofork.sh    \\\n8: \ttest_check_nofork_teardown.sh    \\\n9: \ttest_xml_output.sh\t\\\n10: \ttest_log_output.sh      \\\n11: \ttest_set_max_msg_size.sh\t\\\n12: \ttest_tap_output.sh\n13: \n14: # check_thread_stress is kind of slow.\n15: # add this line back to TESTS to enable check_thread_stress\n16: # \tcheck_thread_stress     \\\n18: # uncomment if check_thread_stress enabled\n19: # XFAIL_TESTS = \\\n20: # \tcheck_thread_stress\n21: \n22: noinst_PROGRAMS =\t\t\\\n23: \tcheck_check_export\t\\\n24: \tcheck_check\t\t\\\n25: \tcheck_stress\t\t\\\n26: \tcheck_thread_stress\t\\\n27: \tcheck_nofork\t\t\\\n28: \tcheck_nofork_teardown \\\n29: \tcheck_mem_leaks\t\t\\\n30: \tcheck_set_max_msg_size\t\\\n31: \tex_output\n32: ",
+            "excerpt_is_partial": true
+          }
+        ],
+        "extra_rtorrent_obligation": null,
+        "generated_from": "frozen_source_archive_only",
+        "correct_reference_injected": false
+      }
+    },
+    {
+      "name": "libtommath",
+      "task": {
+        "plan_id": "reference-expansion-libtommath",
+        "repository_url": "https://github.com/libtom/libtommath",
+        "commit_sha": "ae40a87a920099a7d9d00979570e0c8d917a1fd7",
+        "image_id": "sha256:d27a6ab733c7c3a9cbb5e4b32fb595aa5a422ff04bd212888d1041b90a2c4c2a",
+        "source_archive_sha256": "d92ab21c88ea95f04e2c5389600396372e0bc91a667a6d3f19576ca0ca020447",
+        "build_system": "make",
+        "artifact_paths": [
+          "libtommath.a"
+        ],
+        "verification_steps": [
+          {
+            "step_id": "check",
+            "role": "smoke",
+            "command": "./test",
+            "source": "固定完整上游测试入口，不过滤用例或关闭测试",
+            "expected": "固定完整参考任务；保留原始日志，不替换失败",
+            "workdir": "/workspace/repo",
+            "requires": [
+              "build"
+            ],
+            "required_output": [
+              "Tests OK/NOP/FAIL:"
+            ],
+            "diagnostic_paths": []
+          }
+        ]
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-reference-expansion-inputs-v1/libtommath.tar",
+      "source_paths": [
+        "README.md",
+        "CMakeLists.txt"
+      ],
+      "common_test_preparation": {
+        "required": "构建并运行固定任务要求的全部原作者测试；不能仅完成默认make/cmake build。构建测试程序和判断测试结果为两个阶段。",
+        "fixed_verification_steps": [
+          {
+            "step_id": "check",
+            "workdir": "/workspace/repo",
+            "required_output": [
+              "Tests OK/NOP/FAIL:"
+            ]
+          }
+        ],
+        "author_build_declarations": [
+          {
+            "path": "CMakeLists.txt",
+            "sha256": "61a2231955d6e8a24aefb999eebeef330b8d0f4f5643809bf9b366b4b1f9085f",
+            "excerpt": "28: # default is \"No tests\"\n29: option(BUILD_TESTING \"\" OFF)\n30: include(CTest)\n31: include(sources.cmake)\n32: \n33: #-----------------------------------------------------------------------------\n34: # Options\n35: #-----------------------------------------------------------------------------\n36: option(BUILD_SHARED_LIBS \"Build shared library and only the shared library if \\\"ON\\\", default is static\" OFF)\n37: \n38: #-----------------------------------------------------------------------------\n39: # Compose CFLAGS\n40: #-----------------------------------------------------------------------------\n41: \n42: # Some information ported from makefile_include.mk\n146: \n147: if(BUILD_TESTING)\n148:     enable_testing()\n149:     add_subdirectory(demo)\n150: endif()\n151: \n152: #-----------------------------------------------------------------------------\n153: # Install/export targets and files\n154: #-----------------------------------------------------------------------------\n155: set(CONFIG_INSTALL_DIR \"${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}\")\n156: set(PROJECT_VERSION_FILE \"${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}-config-version.cmake\")\n157: set(PROJECT_CONFIG_FILE \"${PROJECT_NAME}-config.cmake\")\n158: set(TARGETS_EXPORT_NAME \"${PROJECT_NAME}Targets\")\n159: \n160: install(TARGETS ${PROJECT_NAME}\n161:     EXPORT ${TARGETS_EXPORT_NAME}",
+            "excerpt_is_partial": true
+          }
+        ],
+        "extra_rtorrent_obligation": null,
+        "generated_from": "frozen_source_archive_only",
+        "correct_reference_injected": false
+      }
+    }
+  ],
+  "schedule": [
+    {
+      "project": "yaml-cpp",
+      "method": "tool_plan_workflow",
+      "repetition": 1
+    },
+    {
+      "project": "yaml-cpp",
+      "method": "model_plan_workflow",
+      "repetition": 1
+    },
+    {
+      "project": "yaml-cpp",
+      "method": "strong_tool_agent",
+      "repetition": 1
+    },
+    {
+      "project": "snappy",
+      "method": "strong_tool_agent",
+      "repetition": 1
+    },
+    {
+      "project": "snappy",
+      "method": "model_plan_workflow",
+      "repetition": 1
+    },
+    {
+      "project": "snappy",
+      "method": "tool_plan_workflow",
+      "repetition": 1
+    },
+    {
+      "project": "simdutf",
+      "method": "model_plan_workflow",
+      "repetition": 1
+    },
+    {
+      "project": "simdutf",
+      "method": "strong_tool_agent",
+      "repetition": 1
+    },
+    {
+      "project": "simdutf",
+      "method": "tool_plan_workflow",
+      "repetition": 1
+    },
+    {
+      "project": "tinyxml2",
+      "method": "tool_plan_workflow",
+      "repetition": 1
+    },
+    {
+      "project": "tinyxml2",
+      "method": "strong_tool_agent",
+      "repetition": 1
+    },
+    {
+      "project": "tinyxml2",
+      "method": "model_plan_workflow",
+      "repetition": 1
+    },
+    {
+      "project": "check",
+      "method": "strong_tool_agent",
+      "repetition": 1
+    },
+    {
+      "project": "check",
+      "method": "tool_plan_workflow",
+      "repetition": 1
+    },
+    {
+      "project": "check",
+      "method": "model_plan_workflow",
+      "repetition": 1
+    },
+    {
+      "project": "libtommath",
+      "method": "model_plan_workflow",
+      "repetition": 1
+    },
+    {
+      "project": "libtommath",
+      "method": "tool_plan_workflow",
+      "repetition": 1
+    },
+    {
+      "project": "libtommath",
+      "method": "strong_tool_agent",
+      "repetition": 1
+    }
+  ],
+  "stage_max_cost_usd": "17.00",
+  "kind": "prospective_seen_cross_project_strategy_comparison"
+}
