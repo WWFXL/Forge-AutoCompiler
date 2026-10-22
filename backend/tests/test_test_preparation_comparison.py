@@ -1,7 +1,9 @@
 """生产规划接口在旧65分钟拒绝区仍能纠错，并保持共同测试义务。"""
 
+import io
 import json
 import sys
+import tarfile
 from datetime import UTC, datetime, timedelta
 from pathlib import Path
 
@@ -37,7 +39,15 @@ def test_time_window_preserves_short_request_and_full_replay():
 def test_real_production_correction_carries_obligation_inside_old_blocked_hour(tmp_path):
     repo = Path(__file__).resolve().parents[2]
     spec = json.loads((repo / "benchmarks/manifests/cpp-build-rtorrent-generation-observation-probe-v1.json").read_text())
-    item = spec["project"]
+    item = {**spec["project"], "source_archive": str(tmp_path / "source.tar")}
+    # 自包含作者声明夹具，远端CI不依赖研究机的正式source.tar。
+    with tarfile.open(item["source_archive"], "w") as archive:
+        for name, prefix, count in (("test/Makefile.am", "Main", 3), ("vendor-libtorrent/test/Makefile.am", "Dependency", 9)):
+            text = "TESTS = " + " ".join(f"{prefix}_Test_{i}" for i in range(count)) + "\ncheck_PROGRAMS = $(TESTS)\n"
+            raw = text.encode()
+            member = tarfile.TarInfo(name)
+            member.size = len(raw)
+            archive.addfile(member, io.BytesIO(raw))
     task = StagedVerificationTask.model_validate(item["task"])
     obligation = preparation_obligation(item)
     assert len(obligation["author_build_declarations"]) == 2

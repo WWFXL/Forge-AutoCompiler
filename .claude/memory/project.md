@@ -4,6 +4,12 @@
 
 ## 进行中 (In Progress)
 
+- 2026-10-22 — #617 v1环境诊断/操作者中断已封存，v2恢复原资格依赖权限准备；上项“待真实probe”已过期。
+  - probe9请求/222963Token/$0.40385532/0strict，末响应32768截断，原818文件与cleanup；v1 generic误用HostIdentityRuntime非root/禁网，snappy原apt依赖不可获取。v1四完整+一中断+13未启动，不作策略排名。原root4rows/14未观察/lifecyclefalse/unknown0保持；中断第五槽8请求/7响应，操作者SIGINT未及时阻止下一请求且BaseException路径漏计未知。
+  - 独立逐响应所有v1已知1.65622248+未知0.80=2.45622248，实际5容器cleanup；operator-budget-reconciliation.json及账本显式operator_reconciled关闭。先占总2.86007780，旧未知不重发，不冒充全已知。
+  - 新v2同18槽/原任务/模型/资源/顺序/裁判，恢复generic原默认root和compile_network_wwf_v1；312组件/候选b90da918，source snapshots及旧releasef613保持。当前单测改临时tar不依赖研究机归档，加取消及权限两个检查，5passed/1.07秒，实际root/apt/DNS入口核验，不重复免费全构建或本地全量产品检查。新取消已发无用量计unknown。
+  - budget-v2逐字带入旧完整账本+来源SHA；新stage17+旧占用共享原20/UTC11:03:54，最坏19.86007780，不延长、不补旧槽。raw forge-test-preparation-comparison-v2未启动；用户明确1234/直接费用与发布授权持续，新未知/身份/cleanup异常停。只合科研依赖分支，RQ3/P2/主线与用户HTML保持。
+
 - 2026-10-22 — #617按用户要求执行1234，前两步完成，待真实probe与跨项目18槽。
   - 新时间门禁/共同测试准备只新增OperationWindow与新独立runner，旧309组件父链保持；3新局部回归+原生成真实Shell回归4passed/1.30秒，脚本路径bootstrap E402按显式忽略检查，不重复全量本地产品或免费构建。请求600秒、命令剩余-300、重放完整1200+300、新槽3900；HTTP240传输超时和外层watchdog区分。
   - 新身份cpp-build-rtorrent-test-preparation-probe-v1单模型Workflow，及cpp-build-test-preparation-comparison-v1固定yaml/snappy/simd/tinyxml2/check/libtommath×3×1；4C++/2C、三系统、全部已见，不能称holdout/六独立C++家族。原任务不改，原源码提取共同测试声明，9+3/323叶测试不放宽，不注入人工参考或KB。全初始/失败/恢复费用，未知/清理/身份异常停，无自动重试。
