@@ -4,6 +4,11 @@
 
 ## 进行中 (In Progress)
 
+- 2026-10-23 — #623固定20项C++来源合同材料采集准备。
+  - 文件: `scripts/forge_build_cpp_library_task_materials.py`、一项父分母测试、同名manifest/预注册。
+  - 动机: 仅根标记不能授予Linux/完整测试/交付资格；复用原collect固定文档/测试/CI规则，20项不变，0模型/费用/源码执行/Docker。新分母/父snapshot检查及已有真实Git blob完整性共2项0.10秒；不重复全构建或本地全量测试。沿原UTC19:37:37与60秒封存预留，不续窗/重试/补位。PR622最终dcea6a3b三CI成功，仅合1be4653e/621关闭/本地包含；catalog-final-publication-audit valid。准备命令曾误用系统Python3.10导入UTC失败，已改项目Python3.12，未创建正式raw/Provider。新raw封存前HEAD与五组件保持。
+
+
 
 
 
