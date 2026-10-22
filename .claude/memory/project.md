@@ -4,11 +4,6 @@
 
 ## 进行中 (In Progress)
 
-- 2026-10-22 — #605直接执行原生轮次三策略真实rtorrent开发实验。
-  - 文件: `scripts/forge_build_rtorrent_native_canary.py`, `backend/tests/test_rtorrent_native_canary.py`, `benchmarks/manifests/cpp-build-rtorrent-native-canary-v1.json`
-  - 动机: 用户明确要求科研优先并授权本次支出；复用#603完整3/3资格，仅4费用/停止回归与Ruff/CLI检查通过，不重复免费构建或本地全量测试。新候选19eb230e/289组件，无参考注入，未知0.80预留/停止，原验收保持。
-  - 运行: raw forge-rtorrent-native-canary-v1，会话forge-native-real-session-2026-10-22；执行器自设4.50美元/UTC03:33:28–07:33:28四小时（准备计入，非用户指定上限），本次授权独立于旧过期10美元。方法失败保留继续、无自动重试，运行期间HEAD不变，不重启同身份。
-
 - 2026-10-22 — #601原生材料资格已封存：55/55全v4实际材料+3/3负例，0未观察；3首轮/52完整原生AI-Tool及reasoning_content，最大80570/3139bytes。0真实Provider/Token/费用/构建，55仅usage0脚本响应；原完整包还原/序列化/源与新清单/Git/负例/零用量独立审计valid。raw forge-build-native-round-material-gate-v1、inventory85c48c80、release d5677913、283组件；12针对性/产品2543passed44skipped27warnings/Ruff611后端+两新脚本/CLI通过。最终HEAD三CI后只合依赖分支，证据forge-rtorrent-real-session-2026-10-21/independent-native-audit.json与final-native-publication-audit.json。下一步免费完整三策略端到端，再新Provider授权与0.80未知预留账本资格；本fixture不能当付费准入/完整构建成功，不沿用旧0.40未知预留。原总10美元/UTC19:30:52不续期、三paid累计3.27044256，无活动Provider/Docker；#599已合e360c870/关闭/知识库6edd5077核验，RQ3/P2/用户HTML保持。
 
 
@@ -609,6 +604,13 @@
   - 下一步: 等待实验负责人确认当前网络接入介质，并决定是否授权只读 endpoint 诊断和新的 canary amendment；获得确认后必须另建中文 Issue/PR 和协议 identity，保留当前失败 marker。
 
 ## 最近变更 (Recent Changes)
+
+- 2026-10-22 — 完成#605原生轮次三策略真实实验及结果核验，避免重复工程资格。
+  - 文件: `scripts/forge_build_rtorrent_native_canary.py`, `backend/tests/test_rtorrent_native_canary.py`, `docs/research/2026-10-22-rtorrent-native-canary-results.md`, `benchmarks/analyses/cpp-build-rtorrent-native-canary-v1-results.json`
+  - 动机: 用户明确要求科研优先并授权本次模型支出。复用#603完整3/3资格，仅4费用/停止回归和Ruff/CLI检查通过，未重复免费构建、旧树全量扫描或本地全量产品测试。新候选19eb230e/289组件、release057fead2；主exec52406/观察50813均终态0，raw forge-rtorrent-native-canary-v1已封存，禁止重启。
+  - 证据: 3观察/0strict/0未观察；61请求1226081Token/$1.76572836/未知0/stage闭合。工具Workflow17/$0.58352976未交恢复、模型Workflow22/$0.60325320未交初始、强工具22/$0.57894540已编译依赖和rtorrent双ELF；均400k累计Token停止，原测试/正式交付/replay未观察。三套818作者文件/已出现21/0/40生成SHA/实际cleanup通过，三次生成命令表达拒绝单列。inventory2e61330b6558646777575da35914b7e42805a0863a6fdb0fdc5fcb6992443377；会话forge-native-real-session-2026-10-22含independent-result-audit.json及partial-compiled-elf-observation.json，独立审计valid。
+  - 边界: 用户当前消息独立授权支出，执行器自设$4.50/UTC03:33:28–07:33:28、准备计入，非用户指定上限；不复用旧过期授权，旧$3.27044256不混本次费用。真实负例不作总体排名/版本因果，下一步直接小规模读取消融和统一预算敏感性，不再重复整套免费资格；原源码/测试/交付/RQ3/P2/主线保持。最终HEAD所需CI后仅合依赖分支，GitHub/final-publication-audit.json为发布真源，Issue605显式关闭、知识库CAS同步；用户HTML不动。
+
 
 - 2026-10-22 — 完成#603原生完整轮次三策略零Provider端到端资格与独立审计。
   - 文件: `scripts/forge_build_native_round_e2e.py`, `backend/tests/test_native_round_e2e.py`, `docs/research/2026-10-22-native-round-e2e-results.md`, `benchmarks/analyses/cpp-build-native-round-e2e-gate-v1-results.json`
