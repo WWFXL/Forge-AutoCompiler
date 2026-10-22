@@ -1,6 +1,14 @@
 # Forge Research Status
 
-## 当前阶段（2026-10-22；#603原生接口三策略免费完整端到端资格完成）
+## 当前阶段（2026-10-22；#605原生轮次三策略真实实验）
+
+真实数据采集。用户明确要求直接实验、减少重复工程测试，并授权本次Provider支出；不续用旧过期授权。直接复用#603三策略完整3/3资格，独立cpp-build-rtorrent-native-canary-v1固定已见rtorrent族三策略各一次，无人工正确参考。原源码/测试/允许生成/交付/replay保持；仅4个新增费用与停止回归、Ruff及真实CLI准入检查，均通过，不重复免费构建/历史全量扫描/本地全量产品测试。
+
+新候选19eb230e/289组件；本批执行器自设4.50美元/UTC2026-10-22T03:33:28–07:33:28边界（准备计入，不是用户指定上限），保留原单臂1.50美元/3900秒预留及共同原生接口资源，未知用量按0.80美元预留并停整批、无自动重试。完整初始/失败/恢复成本计入；方法失败继续固定下一槽，未观察不回填。raw forge-rtorrent-native-canary-v1、会话forge-native-real-session-2026-10-22；创建后禁止重启身份，运行期间HEAD保持。
+
+本轮只解释新版本内已见单族开发canary，不能作旧新工程版本因果效果。旧paid三阶段3.27044256美元单独闭合不混本次支出。原验收/RQ3/P2/硕士主线与用户HTML保持，运行结果以新raw为准。
+
+## 上一阶段（2026-10-22；#603原生接口三策略免费完整端到端资格完成）
 
 基础设施阶段完成。独立cpp-build-native-round-e2e-gate-v1固定rtorrent已见development族三策略各一次，3/3 strict、0未观察、stop_reason=null。6次本地固定脚本响应，0凭据/Provider/真实Token/模型费；每槽真实Agent图完整保留一次原生AI/Tool及reasoning_content后继轮次。工具Workflow真实autoreconf成功→configure缺libtorrent→恢复revision2；模型Workflow和强工具使用原合格参考，不当模型能力或规划收益。
 
