@@ -1,6 +1,14 @@
 # Forge Research Status
 
-## 当前阶段（2026-10-22；本批真实开发实验结束，转共同测试准备与公平比较设计）
+## 当前阶段（2026-10-22；#617共同测试准备与分层时间门禁，进入真实开发验证及18槽比较）
+
+基础设施前两步完成，真实数据待采集。新OperationWindow将请求准入从3900拆为600秒；命令按剩余时间扣300秒清理，clean replay须完整1200+300秒。新槽仍3900秒准入。三个新局部回归及已有真实生成回归4passed/1.30秒，不重复完整免费构建或全量本地产品测试。HTTP240是传输超时，外层截止watchdog另行约束，不能声称单次绝对总时长已由HTTP保证。
+
+用户明确执行1234及此前直接实验费用授权；执行器自设共享20美元/UTC07:03:54–11:03:54（准备计入），probe3/比较17、每臂3/下一响应与未知0.80，无自动重试。先cpp-build-rtorrent-test-preparation-probe-v1单模型Workflow，再cpp-build-test-preparation-comparison-v1六项目×三策略×一次18槽。样本yaml-cpp/snappy/simdutf/tinyxml2/check/libtommath，4C++与2C、全已见非holdout/前瞻六排列，不与旧数据拼接效果。源码/完整测试/交付/replay/cleanup保持，rtorrent测试准备明确两个树check_PROGRAMS/9+3程序323叶；共同说明只取原源码，不注入正确参考或知识库。失败不拦后续有效比较；未知/身份/cleanup异常停。当前无新模型结果，不提前称strict或规划收益。
+
+新manifest各309组件，candidate probe2fd70d14/比较ce45549d；协议benchmarks/preregistrations/cpp-build-test-preparation-comparison-v1.md。授权/后续启动审计在forge-test-preparation-session-2026-10-22，raw分别forge-rtorrent-test-preparation-probe-v1与forge-test-preparation-comparison-v1。仅合科研依赖分支，RQ3/P2/主线与用户HTML保持。旧#614结果及以下历史不修改。
+
+## 上一阶段（2026-10-22；本批真实开发实验结束，转共同测试准备与公平比较设计）
 
 真实采集与分析完成。最新cpp-build-rtorrent-generation-observation-probe-v1单模型Workflow1观察/0strict/0未观察，9请求/165768Token/$0.26768016/未知0、闭合/cleanup。模型交plan revision1；精确生成执行+4文件观察分别exit0，原命令/全部检查保持，40生成SHA/818原文件保持。libtorrent和rtorrent均编译成功，精确双普通ELF已暂存并只读核验SHA/来源。实际10命令/9成功，完整测试门禁因首个测试程序缺失exit1；12测试程序全部未构建，0作者测试叶/CLI/replay未观察，不记功能用例失败或strict成功。
 

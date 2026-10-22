@@ -4,6 +4,11 @@
 
 ## 进行中 (In Progress)
 
+- 2026-10-22 — #617按用户要求执行1234，前两步完成，待真实probe与跨项目18槽。
+  - 新时间门禁/共同测试准备只新增OperationWindow与新独立runner，旧309组件父链保持；3新局部回归+原生成真实Shell回归4passed/1.30秒，脚本路径bootstrap E402按显式忽略检查，不重复全量本地产品或免费构建。请求600秒、命令剩余-300、重放完整1200+300、新槽3900；HTTP240传输超时和外层watchdog区分。
+  - 新身份cpp-build-rtorrent-test-preparation-probe-v1单模型Workflow，及cpp-build-test-preparation-comparison-v1固定yaml/snappy/simd/tinyxml2/check/libtommath×3×1；4C++/2C、三系统、全部已见，不能称holdout/六独立C++家族。原任务不改，原源码提取共同测试声明，9+3/323叶测试不放宽，不注入人工参考或KB。全初始/失败/恢复费用，未知/清理/身份异常停，无自动重试。
+  - 用户当前明确全部步骤/直接费用与发布授权，执行器自设共享20美元/UTC07:03:54–11:03:54，probe3/比较17，每臂3、下一响应0.80。会话forge-test-preparation-session-2026-10-22；两个raw新目录、当前尚无模型结果。只合科研依赖分支，用户HTML不改，RQ3/P2/主线保持。
+
 - 2026-10-22 — #608真实开发诊断已封存，#610必要反馈修复已建Issue并回读，待冻结。
   - #608: 三观察0strict，48请求1002853Token/$1.59469068/未知0；工具9请求输出截断，模型19请求两份候选被阶段顺序拒绝，强工具20请求/5命令末set+e诊断被拒绝。三套818原文件不变、生成21/0/40 SHA匹配、实际cleanup；测试/交付/replay全未观察。releasebad83b7f、295组件，raw forge-rtorrent-bounded-planning-canary-v1、inventoryedab32d5；独立数据audit valid，但整次规划8轮协议验证false（实际结构纠错新图也重计），原证据不改。
   - 新发现: 两候选requires均后向无环，但configure依赖/build依赖/configure主项目违反全局角色排序；第二份最终ID也不为build，权限/测试目录未执行。原propose_observed已造结构纠错反馈，Native覆盖Human导致请求10没有错误前缀/类别/详情；一次隐藏合同读取实际计量拒绝。planning-contract-analysis.json在forge-bounded-planning-session-2026-10-22，不能归因全部失败或声称改排序就成功。
