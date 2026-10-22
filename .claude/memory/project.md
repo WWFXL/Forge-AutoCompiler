@@ -4,6 +4,11 @@
 
 ## 进行中 (In Progress)
 
+- 2026-10-23 — #621固定20项C++库元数据来源目录准备，0模型/构建。
+  - 文件: `scripts/forge_build_cpp_library_catalog.py`、`backend/tests/test_cpp_library_catalog.py`、同名manifest/预注册。
+  - 动机: 原30来源多外部环境要求，另立topic:cpp-library/stars100..5000固定第一页20项；先冻结排名再Git ref/commit/root tree，无patch/blob/源码执行。旧30分母不改、全部task未资格、有限精确名暴露非holdout。2局部检查0.08秒，原截止UTC19:37:37不延期，0Provider/费用/Docker/构建。等冻结发布后真实元数据采集，独立Git树/完整清单审计；PR620主36槽已封存、结果HEAD afbf10e1三CI待全完成，不改变原raw。
+
+
 
 
 
