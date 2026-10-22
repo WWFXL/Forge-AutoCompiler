@@ -1,0 +1,1230 @@
+{
+  "valid": true,
+  "preregistered_whole_planning_bound_verified": true,
+  "actual_planning_bound_scope": "agent.started episode including internal structural correction; new recovery resets",
+  "identity": "cpp-build-rtorrent-generation-observation-probe-v1",
+  "inventory": {
+    "format": "forge-typed-evidence-v1",
+    "identity": "cpp-build-rtorrent-generation-observation-probe-v1",
+    "entries": 3047,
+    "files": 3040,
+    "symlinks": 7,
+    "bytes": 866021630,
+    "inventory_canonical_sha256": "66281f818e4665a2ec1873de499883e2677765a6507356991ea3dd31745b91e3",
+    "unknown_usage_requests": 0
+  },
+  "release": "c5e051d660403e98edc610ad36b345a1ffa945ed",
+  "rows": [
+    {
+      "slot": 1,
+      "method": "model_plan_workflow",
+      "strict_completed": false,
+      "error_class": "PlanContractError",
+      "error_message": "累计执行时限不足，保留清理交接时间",
+      "requests": [
+        {
+          "sequence": 1,
+          "phase": "initial",
+          "known_usage": true,
+          "input_tokens": 10283,
+          "output_tokens": 1459,
+          "recorded_tokens": 11742,
+          "cost_usd": "0.0193512",
+          "messages_bytes": 26361,
+          "schema_bytes": 3139,
+          "source_packet_paths": [
+            "README.md",
+            "configure.ac"
+          ],
+          "models": [
+            "deepseek-v4-pro"
+          ],
+          "request_sha256": "14b8e45638577e9965d32e8c7165116b203ccf6022c705038464838ef68d31c7",
+          "response_sha256": "b708f903443a8d80eee25d58c154677ae14bb064661166a518af1b28437d1f00",
+          "proposed_source_reads": [],
+          "retained_message_types": [
+            "human"
+          ],
+          "bounded_submit_state": false,
+          "representation_requires_text_factor_decode": true
+        },
+        {
+          "sequence": 2,
+          "phase": "initial",
+          "known_usage": true,
+          "input_tokens": 15032,
+          "output_tokens": 712,
+          "recorded_tokens": 15744,
+          "cost_usd": "0.02266176",
+          "messages_bytes": 44474,
+          "schema_bytes": 3139,
+          "source_packet_paths": [
+            "README.md",
+            "configure.ac",
+            null,
+            null
+          ],
+          "models": [
+            "deepseek-v4-pro"
+          ],
+          "request_sha256": "fe8e2b6e8ec5ad5e4893e7046d4bd3c4281cf624bb0708c7130b3113bf780c71",
+          "response_sha256": "b08fa08c2139387ef4356080ac5642c0bd3ce6f2de1c08f896f881db53795085",
+          "proposed_source_reads": [],
+          "retained_message_types": [
+            "human",
+            "ai",
+            "tool",
+            "tool"
+          ],
+          "bounded_submit_state": false,
+          "representation_requires_text_factor_decode": true
+        },
+        {
+          "sequence": 3,
+          "phase": "initial",
+          "known_usage": true,
+          "input_tokens": 15550,
+          "output_tokens": 1502,
+          "recorded_tokens": 17052,
+          "cost_usd": "0.02647392",
+          "messages_bytes": 44474,
+          "schema_bytes": 3139,
+          "source_packet_paths": [
+            "README.md",
+            "configure.ac",
+            null,
+            null,
+            null,
+            null
+          ],
+          "models": [
+            "deepseek-v4-pro"
+          ],
+          "request_sha256": "0e141b8f54373387e49a4c5e6cdb14e8aabb7fbe659b65f9e5ee351320d6a241",
+          "response_sha256": "925cd3e4d120c438733c33c41ab14bbe61dc7bea6984b8904e6cb3ded55d7b07",
+          "proposed_source_reads": [
+            {
+              "args": {
+                "path": "Makefile.am"
+              },
+              "same_range_already_in_decoded_working_set": false,
+              "complete_file_already_in_decoded_working_set": false
+            },
+            {
+              "args": {
+                "path": "src/Makefile.am"
+              },
+              "same_range_already_in_decoded_working_set": false,
+              "complete_file_already_in_decoded_working_set": false
+            }
+          ],
+          "retained_message_types": [
+            "human",
+            "ai",
+            "tool",
+            "tool"
+          ],
+          "bounded_submit_state": false,
+          "representation_requires_text_factor_decode": true
+        },
+        {
+          "sequence": 4,
+          "phase": "initial",
+          "known_usage": true,
+          "input_tokens": 19581,
+          "output_tokens": 326,
+          "recorded_tokens": 19907,
+          "cost_usd": "0.02713788",
+          "messages_bytes": 56191,
+          "schema_bytes": 3139,
+          "source_packet_paths": [
+            "configure.ac",
+            null,
+            null,
+            null,
+            null,
+            null,
+            "Makefile.am",
+            "src/Makefile.am"
+          ],
+          "models": [
+            "deepseek-v4-pro"
+          ],
+          "request_sha256": "224e49a1399aef32df069dd00a9ed6f11962289a32e73267a5fe5aea2a390811",
+          "response_sha256": "26b7abc2dcadd2e708f5275dd982dc4de62aa4671223a0590cc06485b3f2e1db",
+          "proposed_source_reads": [],
+          "retained_message_types": [
+            "human",
+            "ai",
+            "tool",
+            "tool",
+            "tool"
+          ],
+          "bounded_submit_state": false,
+          "representation_requires_text_factor_decode": true
+        },
+        {
+          "sequence": 5,
+          "phase": "initial",
+          "known_usage": true,
+          "input_tokens": 18300,
+          "output_tokens": 142,
+          "recorded_tokens": 18442,
+          "cost_usd": "0.02471832",
+          "messages_bytes": 51035,
+          "schema_bytes": 3139,
+          "source_packet_paths": [
+            null,
+            null,
+            null,
+            "Makefile.am",
+            "src/Makefile.am",
+            null,
+            null
+          ],
+          "models": [
+            "deepseek-v4-pro"
+          ],
+          "request_sha256": "87a4ece427bbdf402d7f828cf5c7d9e35d6327792dfef4b06967955e6ec4ee01",
+          "response_sha256": "9d8fd83ad0ca15120d89d153246b4933c26b6ddb8c9c47280eeb5604cea17f19",
+          "proposed_source_reads": [],
+          "retained_message_types": [
+            "human",
+            "ai",
+            "tool",
+            "tool"
+          ],
+          "bounded_submit_state": false,
+          "representation_requires_text_factor_decode": true
+        },
+        {
+          "sequence": 6,
+          "phase": "initial",
+          "known_usage": true,
+          "input_tokens": 15133,
+          "output_tokens": 139,
+          "recorded_tokens": 15272,
+          "cost_usd": "0.020526",
+          "messages_bytes": 41229,
+          "schema_bytes": 3139,
+          "source_packet_paths": [
+            null,
+            null,
+            "Makefile.am",
+            "src/Makefile.am",
+            null,
+            null,
+            null
+          ],
+          "models": [
+            "deepseek-v4-pro"
+          ],
+          "request_sha256": "a52ef45bd34b5b55368d4a5059119eaffe5a1fec977ba79a161d9b9e231de6be",
+          "response_sha256": "7f27f5f7352cbdc0c89fc7deadcc8103b39366f76facbb3220912277eee868a4",
+          "proposed_source_reads": [],
+          "retained_message_types": [
+            "human",
+            "ai",
+            "tool"
+          ],
+          "bounded_submit_state": false,
+          "representation_requires_text_factor_decode": true
+        },
+        {
+          "sequence": 7,
+          "phase": "initial",
+          "known_usage": true,
+          "input_tokens": 16241,
+          "output_tokens": 313,
+          "recorded_tokens": 16554,
+          "cost_usd": "0.0226776",
+          "messages_bytes": 45679,
+          "schema_bytes": 3139,
+          "source_packet_paths": [
+            "Makefile.am",
+            "src/Makefile.am",
+            null,
+            null,
+            null,
+            null
+          ],
+          "models": [
+            "deepseek-v4-pro"
+          ],
+          "request_sha256": "c96d12872ce1a3f8655f24515cdae8373ef56df1e2210b4ea34adf933f269855",
+          "response_sha256": "305cebfa72ed2ff507c27e1cfddc6fc2545f6e4ad0adf6419d1da9ae87ecdfae",
+          "proposed_source_reads": [
+            {
+              "args": {
+                "path": "configure.ac"
+              },
+              "same_range_already_in_decoded_working_set": false,
+              "complete_file_already_in_decoded_working_set": false
+            }
+          ],
+          "retained_message_types": [
+            "human",
+            "ai",
+            "tool"
+          ],
+          "bounded_submit_state": false,
+          "representation_requires_text_factor_decode": true
+        },
+        {
+          "sequence": 8,
+          "phase": "initial",
+          "known_usage": true,
+          "input_tokens": 15789,
+          "output_tokens": 398,
+          "recorded_tokens": 16187,
+          "cost_usd": "0.02241756",
+          "messages_bytes": 43886,
+          "schema_bytes": 3139,
+          "source_packet_paths": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            "configure.ac"
+          ],
+          "models": [
+            "deepseek-v4-pro"
+          ],
+          "request_sha256": "0377d55e1705b6a04ccd810e1a1fab6a7ad39517c5753ea7470e9120effbf722",
+          "response_sha256": "7e921e98fabf64eee8e47dba87aa18914832950052bac26d673472723de80e7b",
+          "proposed_source_reads": [
+            {
+              "args": {
+                "path": "vendor-libtorrent/configure.ac"
+              },
+              "same_range_already_in_decoded_working_set": false,
+              "complete_file_already_in_decoded_working_set": false
+            },
+            {
+              "args": {
+                "path": "Makefile.am"
+              },
+              "same_range_already_in_decoded_working_set": false,
+              "complete_file_already_in_decoded_working_set": false
+            },
+            {
+              "args": {
+                "path": "src/Makefile.am"
+              },
+              "same_range_already_in_decoded_working_set": false,
+              "complete_file_already_in_decoded_working_set": false
+            },
+            {
+              "args": {
+                "path": "test/Makefile.am"
+              },
+              "same_range_already_in_decoded_working_set": false,
+              "complete_file_already_in_decoded_working_set": false
+            }
+          ],
+          "retained_message_types": [
+            "human",
+            "ai",
+            "tool",
+            "tool"
+          ],
+          "bounded_submit_state": false,
+          "representation_requires_text_factor_decode": true
+        },
+        {
+          "sequence": 9,
+          "phase": "initial",
+          "known_usage": true,
+          "input_tokens": 21349,
+          "output_tokens": 13519,
+          "recorded_tokens": 34868,
+          "cost_usd": "0.08171592",
+          "messages_bytes": 59852,
+          "schema_bytes": 1738,
+          "source_packet_paths": [
+            null,
+            null,
+            null,
+            "configure.ac",
+            "vendor-libtorrent/configure.ac",
+            "Makefile.am",
+            "src/Makefile.am",
+            "test/Makefile.am"
+          ],
+          "models": [
+            "deepseek-v4-pro"
+          ],
+          "request_sha256": "cf88e1d5b4789752b38ab00ab64ded2d1b6923aea217d803e8f03fb201e086a8",
+          "response_sha256": "99ea89a9adf3b30774c457ede75e8ac70324638b15811b1000f8edb677b0f618",
+          "proposed_source_reads": [],
+          "retained_message_types": [
+            "human",
+            "ai",
+            "tool",
+            "tool",
+            "tool",
+            "tool"
+          ],
+          "bounded_submit_state": true,
+          "representation_requires_text_factor_decode": true
+        }
+      ],
+      "proposed_reads_with_same_range_already_available": 0,
+      "proposed_reads_with_complete_file_already_available": 0,
+      "input_tokens": 147258,
+      "output_tokens": 18510,
+      "recorded_tokens": 165768,
+      "cost_usd": "0.26768016",
+      "unknown_requests": 0,
+      "commands": [
+        {
+          "command_id": "command_7e299af99a404756a8ac867600615e44",
+          "command": "python3 -c 'from pathlib import Path\nimport subprocess\nassert str(Path.cwd())=='\"'\"'/workspace/repo'\"'\"', '\"'\"'准备目录必须是容器仓库根'\"'\"'\nassert not Path('\"'\"'.git'\"'\"').exists(), '\"'\"'归档源码不得包含既有Git身份'\"'\"'\nsubprocess.run(['\"'\"'git'\"'\"','\"'\"'init'\"'\"','\"'\"'-q'\"'\"'],check=True)\nsubprocess.run(['\"'\"'git'\"'\"','\"'\"'config'\"'\"','\"'\"'--global'\"'\"','\"'\"'--add'\"'\"','\"'\"'safe.directory'\"'\"','\"'\"'/workspace/repo'\"'\"'],check=True)\nsubprocess.run(['\"'\"'git'\"'\"','\"'\"'add'\"'\"','\"'\"'--force'\"'\"','\"'\"'--all'\"'\"'],check=True)\nimport hashlib,json,subprocess\nrows=subprocess.run(['\"'\"'git'\"'\"','\"'\"'ls-files'\"'\"','\"'\"'-z'\"'\"'],check=True,capture_output=True).stdout.decode().split('\"'\"'\\0'\"'\"')\nassert rows[-1]=='\"'\"''\"'\"', '\"'\"'Git索引输出不完整'\"'\"'\nnames=rows[:-1]\nactual=hashlib.sha256(json.dumps(sorted(names),ensure_ascii=True,separators=('\"'\"','\"'\"','\"'\"':'\"'\"')).encode()).hexdigest()\nassert actual=='\"'\"'e16d22ef1506d3bd751d382ee4e41c35c20f1137e81e0ac72993008a5c074f9f'\"'\"', '\"'\"'Git索引文件集合与固定原源码不同'\"'\"'\nassert subprocess.run(['\"'\"'git'\"'\"','\"'\"'rev-parse'\"'\"','\"'\"'--verify'\"'\"','\"'\"'HEAD'\"'\"'],capture_output=True).returncode!=0, '\"'\"'不允许伪造源码commit'\"'\"'\nprint('\"'\"'FORGE_SOURCE_INDEX_VERIFIED='\"'\"'+actual)\n'",
+          "role": "dependency",
+          "exit_code": 0,
+          "timed_out": false,
+          "duration_seconds": 0.71424
+        },
+        {
+          "command_id": "command_13ec0de0acfe4a198cb31a307e05a7e4",
+          "command": "rm -f -- Makefile.in aclocal.m4 ar-lib compile config.guess config.h.in config.sub configure depcomp doc/Makefile.in install-sh ltmain.sh missing scripts/libtool.m4 scripts/ltoptions.m4 scripts/ltsugar.m4 scripts/ltversion.m4 'scripts/lt~obsolete.m4' src/Makefile.in test-driver test/Makefile.in vendor-libtorrent/Makefile.in vendor-libtorrent/aclocal.m4 vendor-libtorrent/compile vendor-libtorrent/config.guess vendor-libtorrent/config.h.in vendor-libtorrent/config.sub vendor-libtorrent/configure vendor-libtorrent/depcomp vendor-libtorrent/install-sh vendor-libtorrent/ltmain.sh vendor-libtorrent/missing vendor-libtorrent/scripts/libtool.m4 vendor-libtorrent/scripts/ltoptions.m4 vendor-libtorrent/scripts/ltsugar.m4 vendor-libtorrent/scripts/ltversion.m4 'vendor-libtorrent/scripts/lt~obsolete.m4' vendor-libtorrent/src/Makefile.in vendor-libtorrent/src/torrent/Makefile.in vendor-libtorrent/test/Makefile.in\n(cd vendor-libtorrent && autoreconf -ivf)\nautoreconf -ivf",
+          "role": "dependency",
+          "exit_code": 0,
+          "timed_out": false,
+          "duration_seconds": 22.664702487178147
+        },
+        {
+          "command_id": "command_72e7cbed9d4749e981104f95e84b406b",
+          "command": "python3 -c 'import json,pathlib,sys\nroot=pathlib.Path.cwd().resolve(); rows=[]\nfor kind,name in [('\"'\"'file'\"'\"', '\"'\"'configure'\"'\"'), ('\"'\"'file'\"'\"', '\"'\"'vendor-libtorrent/configure'\"'\"'), ('\"'\"'file'\"'\"', '\"'\"'Makefile.in'\"'\"'), ('\"'\"'file'\"'\"', '\"'\"'vendor-libtorrent/Makefile.in'\"'\"')]:\n p=(root/name).resolve(); inside=p.is_relative_to(root)\n passed=inside and (p.is_file() if kind=='\"'\"'file'\"'\"' else p.is_dir())\n rows.append({'\"'\"'kind'\"'\"':kind,'\"'\"'path'\"'\"':name,'\"'\"'passed'\"'\"':passed,'\"'\"'inside_workdir'\"'\"':inside})\nprint('\"'\"'FORGE_PATH_OBSERVATIONS='\"'\"'+json.dumps(rows,sort_keys=True))\nsys.exit(0 if all(r['\"'\"'passed'\"'\"'] for r in rows) else 86)\n'",
+          "role": "dependency",
+          "exit_code": 0,
+          "timed_out": false,
+          "duration_seconds": 0.6521131042391062
+        },
+        {
+          "command_id": "command_b4291385586b4f5d82c2d9477b7d7ced",
+          "command": "(\nmkdir -p build-libtorrent && cd build-libtorrent && ../vendor-libtorrent/configure --prefix=/workspace/prefix\n)\npython3 -c 'import json,pathlib,sys\nroot=pathlib.Path.cwd().resolve(); rows=[]\nfor kind,name in [('\"'\"'file'\"'\"', '\"'\"'build-libtorrent/Makefile'\"'\"'), ('\"'\"'file'\"'\"', '\"'\"'build-libtorrent/config.status'\"'\"'), ('\"'\"'directory'\"'\"', '\"'\"'build-libtorrent'\"'\"')]:\n p=(root/name).resolve(); inside=p.is_relative_to(root)\n passed=inside and (p.is_file() if kind=='\"'\"'file'\"'\"' else p.is_dir())\n rows.append({'\"'\"'kind'\"'\"':kind,'\"'\"'path'\"'\"':name,'\"'\"'passed'\"'\"':passed,'\"'\"'inside_workdir'\"'\"':inside})\nprint('\"'\"'FORGE_PATH_OBSERVATIONS='\"'\"'+json.dumps(rows,sort_keys=True))\nsys.exit(0 if all(r['\"'\"'passed'\"'\"'] for r in rows) else 86)\n'",
+          "role": "dependency",
+          "exit_code": 0,
+          "timed_out": false,
+          "duration_seconds": 10.071819299831986
+        },
+        {
+          "command_id": "command_5e7ea11113984947a6a28274bcfa2a25",
+          "command": "(\ncd build-libtorrent && make -j2\n)\npython3 -c 'import json,pathlib,sys\nroot=pathlib.Path.cwd().resolve(); rows=[]\nfor kind,name in [('\"'\"'directory'\"'\"', '\"'\"'build-libtorrent/src/.libs'\"'\"')]:\n p=(root/name).resolve(); inside=p.is_relative_to(root)\n passed=inside and (p.is_file() if kind=='\"'\"'file'\"'\"' else p.is_dir())\n rows.append({'\"'\"'kind'\"'\"':kind,'\"'\"'path'\"'\"':name,'\"'\"'passed'\"'\"':passed,'\"'\"'inside_workdir'\"'\"':inside})\nprint('\"'\"'FORGE_PATH_OBSERVATIONS='\"'\"'+json.dumps(rows,sort_keys=True))\nsys.exit(0 if all(r['\"'\"'passed'\"'\"'] for r in rows) else 86)\n'",
+          "role": "dependency",
+          "exit_code": 0,
+          "timed_out": false,
+          "duration_seconds": 142.48044571699575
+        },
+        {
+          "command_id": "command_24476b1a99d242a094f58df4d2029717",
+          "command": "cd build-libtorrent && make install",
+          "role": "dependency",
+          "exit_code": 0,
+          "timed_out": false,
+          "duration_seconds": 3.0632337303832173
+        },
+        {
+          "command_id": "command_e8141c20705c4596b61ddafd82d947d4",
+          "command": "(\nmkdir -p build-rtorrent && cd build-rtorrent && PKG_CONFIG_PATH=/workspace/prefix/lib/pkgconfig ../configure --prefix=/workspace/prefix\n)\npython3 -c 'import json,pathlib,sys\nroot=pathlib.Path.cwd().resolve(); rows=[]\nfor kind,name in [('\"'\"'file'\"'\"', '\"'\"'build-rtorrent/Makefile'\"'\"'), ('\"'\"'file'\"'\"', '\"'\"'build-rtorrent/config.status'\"'\"'), ('\"'\"'directory'\"'\"', '\"'\"'build-rtorrent'\"'\"')]:\n p=(root/name).resolve(); inside=p.is_relative_to(root)\n passed=inside and (p.is_file() if kind=='\"'\"'file'\"'\"' else p.is_dir())\n rows.append({'\"'\"'kind'\"'\"':kind,'\"'\"'path'\"'\"':name,'\"'\"'passed'\"'\"':passed,'\"'\"'inside_workdir'\"'\"':inside})\nprint('\"'\"'FORGE_PATH_OBSERVATIONS='\"'\"'+json.dumps(rows,sort_keys=True))\nsys.exit(0 if all(r['\"'\"'passed'\"'\"'] for r in rows) else 86)\n'",
+          "role": "configure",
+          "exit_code": 0,
+          "timed_out": false,
+          "duration_seconds": 9.682612243108451
+        },
+        {
+          "command_id": "command_ac978a032f544fae8d16b1cd5d387f72",
+          "command": "(\ncd build-rtorrent && make -j2\n)\npython3 -c 'import json,pathlib,sys\nroot=pathlib.Path.cwd().resolve(); rows=[]\nfor kind,name in [('\"'\"'file'\"'\"', '\"'\"'build-rtorrent/src/rtorrent'\"'\"'), ('\"'\"'directory'\"'\"', '\"'\"'build-rtorrent/test'\"'\"')]:\n p=(root/name).resolve(); inside=p.is_relative_to(root)\n passed=inside and (p.is_file() if kind=='\"'\"'file'\"'\"' else p.is_dir())\n rows.append({'\"'\"'kind'\"'\"':kind,'\"'\"'path'\"'\"':name,'\"'\"'passed'\"'\"':passed,'\"'\"'inside_workdir'\"'\"':inside})\nprint('\"'\"'FORGE_PATH_OBSERVATIONS='\"'\"'+json.dumps(rows,sort_keys=True))\nsys.exit(0 if all(r['\"'\"'passed'\"'\"'] for r in rows) else 86)\n'",
+          "role": "build",
+          "exit_code": 0,
+          "timed_out": false,
+          "duration_seconds": 141.78799047786742
+        },
+        {
+          "command_id": "command_1402861ae8ca4f72b330a4918032b904",
+          "command": "python3 -c 'import hashlib, json, shutil\nfrom pathlib import Path\nroot = Path.cwd().resolve()\nartifacts = ('\"'\"'rtorrent'\"'\"', '\"'\"'libtorrent.so.53'\"'\"')\nselected = []\nfor target in artifacts:\n    matches = []\n    for path in root.rglob(Path(target).name):\n        if not path.is_file() and not path.is_symlink():\n            continue\n        try:\n            resolved = path.resolve(strict=True)\n        except (OSError, RuntimeError) as exc:\n            raise RuntimeError('\"'\"'交付候选链接无效: '\"'\"' + str(path)) from exc\n        if not resolved.is_relative_to(root) or not resolved.is_file():\n            raise RuntimeError('\"'\"'交付候选越界或不是普通文件: '\"'\"' + str(path))\n        with resolved.open('\"'\"'rb'\"'\"') as stream:\n            magic = stream.read(8)\n        if magic.startswith(b'\"'\"'\\x7fELF'\"'\"') or magic == b'\"'\"'!<arch>\\n'\"'\"':\n            matches.append(resolved)\n    identities = {}\n    for candidate in sorted(set(matches)):\n        stat = candidate.stat()\n        fingerprint = hashlib.sha256()\n        with candidate.open('\"'\"'rb'\"'\"') as stream:\n            for block in iter(lambda: stream.read(1048576), b'\"'\"''\"'\"'):\n                fingerprint.update(block)\n        content_sha256 = fingerprint.hexdigest()\n        identity = (stat.st_size, content_sha256, stat.st_mode & 0o777)\n        identities.setdefault(identity, candidate)\n    if len(identities) != 1:\n        raise RuntimeError('\"'\"'交付源必须唯一: '\"'\"' + target + '\"'\"' candidates='\"'\"' + str(matches))\n    selected.append((next(iter(identities.values())), Path('\"'\"'/artifacts'\"'\"') / target))\nfor source, destination in selected:\n    destination.parent.mkdir(parents=True, exist_ok=True)\n    shutil.copyfile(source, destination)\n    shutil.copymode(source, destination)\nprint('\"'\"'FORGE_UNIFIED_STAGED'\"'\"', json.dumps(artifacts))\n'",
+          "role": "artifact_stage",
+          "exit_code": 0,
+          "timed_out": false,
+          "duration_seconds": 4.784129234030843
+        },
+        {
+          "command_id": "command_5f43c12c13c44854b6edb3bda6bd780c",
+          "command": "python3 -c 'def validate_cppunit_output(output, expected):\n    \"\"\"既核对原退出码，又校验全部叶测试身份及CppUnit总数，不能空测试通过。\"\"\"\n    import re\n\n    names = []\n    pending = None\n    for line in output.splitlines():\n        match = re.fullmatch(r\"([A-Za-z_][A-Za-z0-9_/]*(?:::\\w+)+)(.*)\", line)\n        if match and match[2] != \":\":\n            if pending is not None or match[1] not in expected:\n                raise ValueError(\"原测试开始身份未知或前叶尚未结束\")\n            pending = match[1]\n            if match[2].strip() == \": OK\":\n                names.append(pending)\n                pending = None\n            elif match[2].strip():\n                raise ValueError(\"原测试开始行格式不明确\")\n        elif line.strip() == \": OK\":\n            if pending is None:\n                raise ValueError(\"原测试成功标记没有开始身份\")\n            names.append(pending)\n            pending = None\n        elif re.search(r\" : (?:assertion|error)(?:$|\\s)\", line):\n            raise ValueError(\"原测试含失败标记\")\n    if pending is not None:\n        raise ValueError(\"原测试开始后缺少结束标记\")\n    summaries = re.findall(r\"(?m)^OK \\((\\d+)(?: tests?)?\\)\\s*$\", output)\n    if len(summaries) != 1 or int(summaries[0]) != len(expected) or sorted(names) != sorted(expected):\n        raise ValueError(\"原测试总数/叶身份缺失、重复或未全通过\")\n    return len(names)\n\ndef verification_main(groups):\n    import json\n    import os\n    import pathlib\n    import subprocess\n\n    results = []\n    environment = os.environ.copy()\n    environment.pop(\"TEST_NAME\", None)\n    environment[\"LC_ALL\"] = \"C\"\n    environment[\"LD_LIBRARY_PATH\"] = \"/workspace/prefix/lib\"\n    for build, programs in groups.items():\n        cwd = pathlib.Path(\"/workspace/repo\") / build / \"test\"\n        for name, expected in programs.items():\n            run = subprocess.run([str(cwd / name)], cwd=cwd, env=environment, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, timeout=120, text=True)\n            (cwd / (name + \".forge-full.log\")).write_text(run.stdout)\n            if run.returncode != 0:\n                raise ValueError(\"原作者测试失败:\" + name + \":\" + str(run.returncode))\n            count = validate_cppunit_output(run.stdout, expected)\n            results.append({\"program\": name, \"passed\": count, \"expected\": len(expected)})\n    environment[\"LD_LIBRARY_PATH\"] = \"/artifacts\"\n    run = subprocess.run([\"/artifacts/rtorrent\", \"-h\"], env=environment, capture_output=True, text=True, timeout=20)\n    pathlib.Path(\"/workspace/repo/build-rtorrent/rtorrent-help.log\").write_text(run.stdout + run.stderr)\n    if run.returncode != 0 or \"Rakshasa'\"'\"'s BitTorrent client version 0.16.25.\" not in run.stdout or \"Usage: rtorrent\" not in run.stdout:\n        raise ValueError(\"精确交付的CLI/同版本库验证失败\")\n    print(\"FORGE_RTORRENT_FULL_TESTS=\" + json.dumps({\"programs\": results, \"cli_version\": \"0.16.25\", \"test_name_filter\": False}, sort_keys=True), flush=True)\n\nverification_main({'\"'\"'build-libtorrent'\"'\"': {'\"'\"'LibTorrent_Test_Protocol'\"'\"': ['\"'\"'TestExtensions::test_pex_count_not_released_twice'\"'\"', '\"'\"'TestExtensions::test_pex_count_released_on_destroy'\"'\"'], '\"'\"'LibTorrent_Test_Torrent_Net'\"'\"': ['\"'\"'torrent/net::test_address_info::test_basic'\"'\"', '\"'\"'torrent/net::test_address_info::test_helpers'\"'\"', '\"'\"'torrent/net::test_address_info::test_numericserv'\"'\"', '\"'\"'torrent/net::test_fd::test_valid_flags'\"'\"', '\"'\"'torrent/net::test_socket_address::test_make'\"'\"', '\"'\"'torrent/net::test_socket_address::test_sa_copy'\"'\"', '\"'\"'torrent/net::test_socket_address::test_sa_copy_addr'\"'\"', '\"'\"'torrent/net::test_socket_address::test_sa_equal'\"'\"', '\"'\"'torrent/net::test_socket_address::test_sa_equal_addr'\"'\"', '\"'\"'torrent/net::test_socket_address::test_sa_from_v4mapped'\"'\"', '\"'\"'torrent/net::test_socket_address::test_sa_is_any'\"'\"', '\"'\"'torrent/net::test_socket_address::test_sa_is_broadcast'\"'\"', '\"'\"'torrent/net::test_socket_address::test_sa_is_link_local'\"'\"', '\"'\"'torrent/net::test_socket_address::test_sa_is_loopback'\"'\"', '\"'\"'torrent/net::test_socket_address::test_sa_to_v4mapped'\"'\"', '\"'\"'torrent/net::test_socket_address::test_sin6_from_sa'\"'\"', '\"'\"'torrent/net::test_socket_address::test_sin_from_sa'\"'\"'], '\"'\"'LibTorrent_Test_Torrent_Runtime'\"'\"': ['\"'\"'torrent/runtime::test_network_config::test_destroy_with_pending_notification'\"'\"', '\"'\"'torrent/runtime::test_socket_manager::test_adjust_allocation_over_budget'\"'\"', '\"'\"'torrent/runtime::test_socket_manager::test_adjust_allocation_staged_min_alloc'\"'\"', '\"'\"'torrent/runtime::test_socket_manager::test_basic'\"'\"'], '\"'\"'LibTorrent_Test_Torrent_Utils'\"'\"': ['\"'\"'torrent/utils::test_extents::test_basic'\"'\"', '\"'\"'torrent/utils::test_extents::test_empty'\"'\"', '\"'\"'torrent/utils::test_log::test_basic'\"'\"', '\"'\"'torrent/utils::test_log::test_children'\"'\"', '\"'\"'torrent/utils::test_log::test_dump'\"'\"', '\"'\"'torrent/utils::test_log::test_file_output'\"'\"', '\"'\"'torrent/utils::test_log::test_file_output_append'\"'\"', '\"'\"'torrent/utils::test_log::test_output_open'\"'\"', '\"'\"'torrent/utils::test_log::test_print'\"'\"', '\"'\"'torrent/utils::test_log::test_print_long_line'\"'\"', '\"'\"'torrent/utils::test_log_buffer::test_basic'\"'\"', '\"'\"'torrent/utils::test_log_buffer::test_close_output_on_delete'\"'\"', '\"'\"'torrent/utils::test_log_buffer::test_timestamps'\"'\"', '\"'\"'torrent/utils::test_option_strings::test_entries'\"'\"', '\"'\"'torrent/utils::test_queue_buckets::test_basic'\"'\"', '\"'\"'torrent/utils::test_queue_buckets::test_destroy_range'\"'\"', '\"'\"'torrent/utils::test_queue_buckets::test_erase'\"'\"', '\"'\"'torrent/utils::test_queue_buckets::test_find'\"'\"', '\"'\"'torrent/utils::test_queue_buckets::test_move_range'\"'\"', '\"'\"'torrent/utils::test_rate::test_clock_rollback_resets_rate'\"'\"', '\"'\"'torrent/utils::test_rate::test_rate_decays_after_span'\"'\"', '\"'\"'torrent/utils::test_rate::test_restart_after_idle'\"'\"', '\"'\"'torrent/utils::test_rate::test_startup_and_filling_window'\"'\"', '\"'\"'torrent/utils::test_rate::test_startup_span'\"'\"', '\"'\"'torrent/utils::test_rate::test_zero_bytes_do_not_discard_samples'\"'\"', '\"'\"'torrent/utils::test_rate::test_zero_bytes_do_not_prevent_idle_restart'\"'\"', '\"'\"'torrent/utils::test_thread_base::test_basic'\"'\"', '\"'\"'torrent/utils::test_thread_base::test_interrupt'\"'\"', '\"'\"'torrent/utils::test_thread_base::test_lifecycle'\"'\"', '\"'\"'torrent/utils::test_thread_base::test_stop'\"'\"', '\"'\"'torrent/utils::test_uri_parser::test_basic'\"'\"', '\"'\"'torrent/utils::test_uri_parser::test_basic_magnet'\"'\"', '\"'\"'torrent/utils::test_uri_parser::test_query_magnet'\"'\"', '\"'\"'torrent/utils::utils_directory_events_test::test_added_allows_ready_parent'\"'\"', '\"'\"'torrent/utils::utils_directory_events_test::test_added_conflicts_with_ready_same_directory_normalized'\"'\"', '\"'\"'torrent/utils::utils_directory_events_test::test_ready_allows_added_child'\"'\"', '\"'\"'torrent/utils::utils_directory_events_test::test_ready_allows_added_sibling'\"'\"', '\"'\"'torrent/utils::utils_directory_events_test::test_ready_conflicts_with_added_same_directory'\"'\"', '\"'\"'torrent/utils::utils_directory_events_test::test_symlink_watch_uses_configured_callback_path'\"'\"', '\"'\"'torrent/utils::utils_directory_events_test::test_unnamed_event_does_not_drop_rest_of_batch'\"'\"'], '\"'\"'LibTorrent_Test_Torrent'\"'\"': ['\"'\"'ObjectStaticMapTest::test_basics'\"'\"', '\"'\"'ObjectStaticMapTest::test_read'\"'\"', '\"'\"'ObjectStaticMapTest::test_read_dict'\"'\"', '\"'\"'ObjectStaticMapTest::test_read_dict_depth'\"'\"', '\"'\"'ObjectStaticMapTest::test_read_empty'\"'\"', '\"'\"'ObjectStaticMapTest::test_read_extensions'\"'\"', '\"'\"'ObjectStaticMapTest::test_read_multiple'\"'\"', '\"'\"'ObjectStaticMapTest::test_read_raw_types'\"'\"', '\"'\"'ObjectStaticMapTest::test_read_single'\"'\"', '\"'\"'ObjectStaticMapTest::test_read_single_raw'\"'\"', '\"'\"'ObjectStaticMapTest::test_read_unknown_truncated_value'\"'\"', '\"'\"'ObjectStaticMapTest::test_write'\"'\"', '\"'\"'ObjectStaticMapTest::test_write_empty'\"'\"', '\"'\"'ObjectStaticMapTest::test_write_multiple'\"'\"', '\"'\"'ObjectStaticMapTest::test_write_single'\"'\"', '\"'\"'ObjectStreamTest::testBuffer'\"'\"', '\"'\"'ObjectStreamTest::testInputNullKey'\"'\"', '\"'\"'ObjectStreamTest::testInputOrdered'\"'\"', '\"'\"'ObjectStreamTest::testOutputMask'\"'\"', '\"'\"'ObjectStreamTest::testReadBencodeC'\"'\"', '\"'\"'ObjectStreamTest::test_read_skip'\"'\"', '\"'\"'ObjectStreamTest::test_read_skip_invalid'\"'\"', '\"'\"'ObjectStreamTest::test_read_string_length'\"'\"', '\"'\"'ObjectStreamTest::test_read_value_bounds'\"'\"', '\"'\"'ObjectStreamTest::test_write'\"'\"', '\"'\"'ObjectTest::test_basic'\"'\"', '\"'\"'ObjectTest::test_create_normal'\"'\"', '\"'\"'ObjectTest::test_flags'\"'\"', '\"'\"'ObjectTest::test_swap_and_move'\"'\"', '\"'\"'TestTrackerController::test_basic'\"'\"', '\"'\"'TestTrackerController::test_disable_tracker'\"'\"', '\"'\"'TestTrackerController::test_enable'\"'\"', '\"'\"'TestTrackerController::test_multiple_cycle'\"'\"', '\"'\"'TestTrackerController::test_multiple_cycle_second_group'\"'\"', '\"'\"'TestTrackerController::test_multiple_failure'\"'\"', '\"'\"'TestTrackerController::test_multiple_send_stop'\"'\"', '\"'\"'TestTrackerController::test_multiple_success'\"'\"', '\"'\"'TestTrackerController::test_new_peers'\"'\"', '\"'\"'TestTrackerController::test_requesting'\"'\"', '\"'\"'TestTrackerController::test_send_close_on_enable'\"'\"', '\"'\"'TestTrackerController::test_send_completed_no_success'\"'\"', '\"'\"'TestTrackerController::test_send_completed_normal'\"'\"', '\"'\"'TestTrackerController::test_send_start'\"'\"', '\"'\"'TestTrackerController::test_send_stop_normal'\"'\"', '\"'\"'TestTrackerController::test_send_task_timeout'\"'\"', '\"'\"'TestTrackerController::test_send_update_failure'\"'\"', '\"'\"'TestTrackerController::test_send_update_normal'\"'\"', '\"'\"'TestTrackerController::test_single_disable'\"'\"', '\"'\"'TestTrackerController::test_single_failure'\"'\"', '\"'\"'TestTrackerController::test_single_success'\"'\"', '\"'\"'TestTrackerController::test_success_with_active_scrape_reschedules_timeout'\"'\"', '\"'\"'TestTrackerController::test_timeout'\"'\"', '\"'\"'TestTrackerController::test_timeout_lacking_usable'\"'\"', '\"'\"'TestTrackerControllerRequesting::test_hammering_basic_failure'\"'\"', '\"'\"'TestTrackerControllerRequesting::test_hammering_basic_failure_long_timeout'\"'\"', '\"'\"'TestTrackerControllerRequesting::test_hammering_basic_failure_short_timeout'\"'\"', '\"'\"'TestTrackerControllerRequesting::test_hammering_basic_success'\"'\"', '\"'\"'TestTrackerControllerRequesting::test_hammering_basic_success_long_timeout'\"'\"', '\"'\"'TestTrackerControllerRequesting::test_hammering_basic_success_short_timeout'\"'\"', '\"'\"'TestTrackerControllerRequesting::test_hammering_multi_failure'\"'\"', '\"'\"'TestTrackerControllerRequesting::test_hammering_multi_success'\"'\"', '\"'\"'TestTrackerControllerRequesting::test_hammering_multi_success_long_timeout'\"'\"', '\"'\"'TestTrackerControllerRequesting::test_hammering_multi_success_short_timeout'\"'\"', '\"'\"'TestTrackerList::test_basic'\"'\"', '\"'\"'TestTrackerList::test_can_scrape'\"'\"', '\"'\"'TestTrackerList::test_close'\"'\"', '\"'\"'TestTrackerList::test_enable'\"'\"', '\"'\"'TestTrackerList::test_failure_message_sanitized'\"'\"', '\"'\"'TestTrackerList::test_find_url'\"'\"', '\"'\"'TestTrackerList::test_has_active'\"'\"', '\"'\"'TestTrackerList::test_multiple_success'\"'\"', '\"'\"'TestTrackerList::test_scrape_failure'\"'\"', '\"'\"'TestTrackerList::test_scrape_failure_message_sanitized'\"'\"', '\"'\"'TestTrackerList::test_scrape_success'\"'\"', '\"'\"'TestTrackerList::test_single_closing'\"'\"', '\"'\"'TestTrackerList::test_single_failure'\"'\"', '\"'\"'TestTrackerList::test_single_success'\"'\"', '\"'\"'TestTrackerList::test_tracker_flags'\"'\"', '\"'\"'TestTrackerListFeatures::test_count_active'\"'\"', '\"'\"'TestTrackerListFeatures::test_find_next_to_request'\"'\"', '\"'\"'TestTrackerListFeatures::test_find_next_to_request_groups'\"'\"', '\"'\"'TestTrackerListFeatures::test_has_active'\"'\"', '\"'\"'TestTrackerListFeatures::test_new_peers'\"'\"', '\"'\"'TestTrackerListFeatures::test_request_safeguard'\"'\"', '\"'\"'TestTrackerTimeout::test_set_timeout'\"'\"', '\"'\"'TestTrackerTimeout::test_timeout_requesting'\"'\"', '\"'\"'TestTrackerTimeout::test_timeout_tracker'\"'\"', '\"'\"'TestTrackerTimeout::test_timeout_update'\"'\"', '\"'\"'test_tracker_controller_features::test_groups_requesting'\"'\"', '\"'\"'test_tracker_controller_features::test_groups_scrape'\"'\"', '\"'\"'test_tracker_controller_features::test_promiscious_failed'\"'\"', '\"'\"'test_tracker_controller_features::test_promiscious_timeout'\"'\"', '\"'\"'test_tracker_controller_features::test_requesting_basic'\"'\"', '\"'\"'test_tracker_controller_features::test_requesting_timeout'\"'\"', '\"'\"'test_tracker_controller_features::test_scrape_basic'\"'\"', '\"'\"'test_tracker_controller_features::test_scrape_priority'\"'\"', '\"'\"'torrent::test_connection_list::test_basic'\"'\"', '\"'\"'torrent::test_connection_list::test_erase_missing'\"'\"', '\"'\"'torrent::test_connection_list::test_set_difference'\"'\"', '\"'\"'torrent::test_connection_list::test_set_size'\"'\"', '\"'\"'torrent::test_dht_controller::test_add_peer_node_after_bootstrap'\"'\"', '\"'\"'torrent::test_dht_controller::test_add_peer_node_while_bootstrapping'\"'\"', '\"'\"'torrent::test_dht_controller::test_add_peer_stores_compact_port_in_network_order'\"'\"', '\"'\"'torrent::test_dht_router::test_full_table_evicts_stale_trackers'\"'\"', '\"'\"'torrent::test_dht_router::test_tracker_count_is_capped'\"'\"', '\"'\"'torrent::test_torrent::test_download_add_zero_info_hash'\"'\"', '\"'\"'torrent::test_torrent::test_download_find_unknown_hash'\"'\"', '\"'\"'torrent::test_torrent::test_download_find_wrong_size'\"'\"'], '\"'\"'LibTorrent_Test_Data'\"'\"': ['\"'\"'data::test_block::test_completed_skips_erased_not_stalled_accounting'\"'\"', '\"'\"'data::test_block::test_invalidate_transfer_without_connection'\"'\"', '\"'\"'data::test_chunk::test_buffer_rejects_wrapping_range'\"'\"', '\"'\"'data::test_chunk::test_from_buffer_bus_error_keeps_signal_mask'\"'\"', '\"'\"'data::test_chunk_list::test_basic'\"'\"', '\"'\"'data::test_chunk_list::test_blocking'\"'\"', '\"'\"'data::test_chunk_list::test_find_address'\"'\"', '\"'\"'data::test_chunk_list::test_get_release'\"'\"', '\"'\"'data::test_file_list::test_initialize_rejects_just_below_wrap_boundary'\"'\"', '\"'\"'data::test_file_list::test_initialize_rejects_max_u64'\"'\"', '\"'\"'data::test_file_list::test_initialize_rejects_wrap_boundary'\"'\"', '\"'\"'data::test_file_manager::test_evict_closes_requested_count'\"'\"', '\"'\"'data::test_file_manager::test_evict_uses_least_active_cache'\"'\"', '\"'\"'data::test_hash_check_queue::test_erase'\"'\"', '\"'\"'data::test_hash_check_queue::test_multiple'\"'\"', '\"'\"'data::test_hash_check_queue::test_single'\"'\"', '\"'\"'data::test_hash_check_queue::test_thread_interrupt'\"'\"', '\"'\"'data::test_hash_queue::test_erase'\"'\"', '\"'\"'data::test_hash_queue::test_erase_stress'\"'\"', '\"'\"'data::test_hash_queue::test_multiple'\"'\"', '\"'\"'data::test_hash_queue::test_single'\"'\"'], '\"'\"'LibTorrent_Test_Net'\"'\"': ['\"'\"'net::test_curl_get::test_slots_do_not_retain_stream'\"'\"', '\"'\"'net::test_curl_get::test_start_get_after_close'\"'\"', '\"'\"'net::test_udns_parse::test_getdn_max_length_name'\"'\"', '\"'\"'net::test_udns_parse::test_getdn_oversized_name'\"'\"', '\"'\"'net::test_udns_resolver::test_random32_exceeds_microsecond_range'\"'\"', '\"'\"'net::test_udns_resolver::test_reply_with_qr_flag_is_accepted'\"'\"', '\"'\"'net::test_udns_resolver::test_reply_without_qr_flag_is_rejected'\"'\"', '\"'\"'net::test_udns_stdrr::test_compressed_question_name'\"'\"', '\"'\"'net::test_udns_stdrr::test_compressed_question_name_with_cname'\"'\"'], '\"'\"'LibTorrent_Test_Tracker'\"'\"': ['\"'\"'tracker::test_tracker_http::test_basic'\"'\"', '\"'\"'tracker::test_udp_router::test_random_engine_seeding'\"'\"', '\"'\"'tracker::test_udp_router::test_random_engine_state'\"'\"'], '\"'\"'LibTorrent_Test'\"'\"': ['\"'\"'RangesTest::test_basic'\"'\"', '\"'\"'RangesTest::test_create_union'\"'\"', '\"'\"'RangesTest::test_intersect'\"'\"', '\"'\"'TestDhtBucket::test_empty_bucket_has_no_candidate'\"'\"', '\"'\"'TestDhtBucket::test_full_bucket_of_max_last_seen_nodes_has_a_candidate'\"'\"', '\"'\"'TestDhtBucket::test_oldest_node_is_the_candidate'\"'\"', '\"'\"'TestRequestList::test_basic'\"'\"', '\"'\"'TestRequestList::test_choke_normal'\"'\"', '\"'\"'TestRequestList::test_choke_stalled'\"'\"', '\"'\"'TestRequestList::test_choke_unchoke_discard'\"'\"', '\"'\"'TestRequestList::test_choke_unchoke_transfer'\"'\"', '\"'\"'TestRequestList::test_pipe_size_limit'\"'\"', '\"'\"'TestRequestList::test_single_canceled'\"'\"', '\"'\"'TestRequestList::test_single_request'\"'\"', '\"'\"'test_protocol_buffer::test_consume_negative_is_rejected'\"'\"', '\"'\"'test_protocol_buffer::test_consume_past_end_is_rejected'\"'\"', '\"'\"'test_protocol_buffer::test_consume_within_range'\"'\"']}, '\"'\"'build-rtorrent'\"'\"': {'\"'\"'rtorrent_Test_Core'\"'\"': ['\"'\"'TestView::test_filter_dispatches_events_to_the_right_downloads'\"'\"'], '\"'\"'rtorrent_Test_Rpc'\"'\"': ['\"'\"'TestCommand::test_parse_command_object'\"'\"', '\"'\"'TestCommand::test_preparsed_commands'\"'\"', '\"'\"'TestCommand::test_stack'\"'\"', '\"'\"'TestCommand::test_stack_double'\"'\"', '\"'\"'TestCommandMap::test_basics'\"'\"', '\"'\"'TestCommandScheduler::test_find_locates_a_scheduled_key'\"'\"', '\"'\"'TestCommandScheduler::test_parse_rearms_existing_key'\"'\"', '\"'\"'TestCommandSlot::test_basics'\"'\"', '\"'\"'TestCommandSlot::test_convert_return'\"'\"', '\"'\"'TestCommandSlot::test_type_validity'\"'\"', '\"'\"'TestJsonrpc::test_basics'\"'\"', '\"'\"'TestJsonrpc::test_depth_limit'\"'\"', '\"'\"'TestJsonrpc::test_response_size_limit'\"'\"', '\"'\"'TestJsonrpc::test_size_limit'\"'\"', '\"'\"'TestObjectStorage::test_access'\"'\"', '\"'\"'TestObjectStorage::test_basics'\"'\"', '\"'\"'TestObjectStorage::test_conversions'\"'\"', '\"'\"'TestObjectStorage::test_validate_keys'\"'\"', '\"'\"'TestParse::test_whole_value_bases'\"'\"', '\"'\"'TestParse::test_whole_value_in_range'\"'\"', '\"'\"'TestParse::test_whole_value_out_of_range'\"'\"', '\"'\"'TestParse::test_whole_value_prefixes'\"'\"', '\"'\"'TestParseOptions::test_flag_basic'\"'\"', '\"'\"'TestParseOptions::test_flag_error'\"'\"', '\"'\"'TestParseOptions::test_flag_libtorrent'\"'\"', '\"'\"'TestParseOptions::test_flags_basic'\"'\"', '\"'\"'TestParseOptions::test_flags_complex'\"'\"', '\"'\"'TestParseOptions::test_flags_error'\"'\"', '\"'\"'TestParseOptions::test_flags_print_flags'\"'\"', '\"'\"'TestParseOptions::test_flags_print_vector'\"'\"', '\"'\"'TestRpcManager::test_size_limit_bounds'\"'\"', '\"'\"'TestXmlrpc::test_basics'\"'\"', '\"'\"'TestXmlrpc::test_invalid_utf8'\"'\"', '\"'\"'TestXmlrpc::test_multicall_member_order'\"'\"', '\"'\"'TestXmlrpc::test_response_size_limit'\"'\"', '\"'\"'TestXmlrpc::test_size_limit'\"'\"'], '\"'\"'rtorrent_Test_Src'\"'\"': ['\"'\"'TestCommandDynamic::test_basics'\"'\"', '\"'\"'TestCommandDynamic::test_get_set'\"'\"', '\"'\"'TestCommandDynamic::test_insert_list'\"'\"', '\"'\"'TestCommandDynamic::test_old_style'\"'\"', '\"'\"'TestCommandDynamic::test_value_base'\"'\"', '\"'\"'TestCommandGroups::test_max_unchoked_in_range'\"'\"', '\"'\"'TestCommandGroups::test_max_unchoked_out_of_range'\"'\"', '\"'\"'TestCommandIp::test_cidr'\"'\"', '\"'\"'TestCommandIp::test_cidr_full_mask'\"'\"', '\"'\"'TestCommandIp::test_cidr_zero_mask'\"'\"', '\"'\"'TestCommandIp::test_explicit_range'\"'\"', '\"'\"'TestCommandIp::test_single_address'\"'\"', '\"'\"'TestCommandPath::test_commands'\"'\"', '\"'\"'TestCommandPath::test_expands_tilde'\"'\"', '\"'\"'TestCommandPath::test_missing_path_is_empty'\"'\"', '\"'\"'TestCommandPath::test_missing_path_throws'\"'\"', '\"'\"'TestCommandPath::test_removes_relative_components'\"'\"', '\"'\"'TestCommandPath::test_resolves_symlink'\"'\"', '\"'\"'TestCommandString::test_config_syntax'\"'\"', '\"'\"'TestCommandString::test_contains'\"'\"', '\"'\"'TestCommandString::test_ends_with'\"'\"', '\"'\"'TestCommandString::test_equals'\"'\"', '\"'\"'TestCommandString::test_invalid_arguments'\"'\"', '\"'\"'TestCommandString::test_join'\"'\"', '\"'\"'TestCommandString::test_length'\"'\"', '\"'\"'TestCommandString::test_map'\"'\"', '\"'\"'TestCommandString::test_pad'\"'\"', '\"'\"'TestCommandString::test_replace'\"'\"', '\"'\"'TestCommandString::test_split'\"'\"', '\"'\"'TestCommandString::test_starts_with'\"'\"', '\"'\"'TestCommandString::test_strip'\"'\"', '\"'\"'TestCommandString::test_substr'\"'\"', '\"'\"'TestCommandSystem::test_socket_category_commands'\"'\"', '\"'\"'TestCommandThrottle::test_global_rate_bytes_out_of_range'\"'\"', '\"'\"'TestCommandThrottle::test_global_rate_in_range'\"'\"', '\"'\"'TestCommandThrottle::test_global_rate_kb_out_of_range'\"'\"', '\"'\"'TestCommandThrottle::test_global_rate_negative'\"'\"', '\"'\"'TestCommandThrottle::test_named_rate_in_range'\"'\"', '\"'\"'TestCommandThrottle::test_named_rate_out_of_range'\"'\"', '\"'\"'TestCommandTracker::test_checked_port_value'\"'\"', '\"'\"'TestCommandTracker::test_dht_override_port_in_range'\"'\"', '\"'\"'TestCommandTracker::test_dht_override_port_out_of_range'\"'\"', '\"'\"'TestDownloadList::test_find_hex'\"'\"', '\"'\"'TestDownloadList::test_find_hex_wrong_length'\"'\"', '\"'\"'TestInputPathInput::test_complete_at_end'\"'\"', '\"'\"'TestInputPathInput::test_complete_mid_line'\"'\"', '\"'\"'TestInputPathInput::test_cursor_on_separator'\"'\"', '\"'\"'TestSessionCommit::test_commit_publishes_all_three_files'\"'\"', '\"'\"'TestSessionCommit::test_commit_with_fsync_publishes_all_three_files'\"'\"', '\"'\"'TestSessionStorer::test_saved_files_are_owner_only'\"'\"', '\"'\"'TestSessionStorer::test_saved_files_use_configured_mode'\"'\"', '\"'\"'TestSessionStorer::test_symlinked_entry_is_not_a_file'\"'\"', '\"'\"'TestSessionStorer::test_temp_file_symlink_is_not_followed'\"'\"', '\"'\"'TestSetup::test_config_comment_log_add_output'\"'\"', '\"'\"'TestSetup::test_config_comment_log_add_output_no_args'\"'\"', '\"'\"'TestSetup::test_config_comment_log_add_output_one_arg'\"'\"', '\"'\"'TestSetup::test_config_comment_log_add_output_too_many_args'\"'\"', '\"'\"'TestUiDownloadList::test_filter_command'\"'\"', '\"'\"'TestUiDownloadList::test_filter_command_does_not_inject'\"'\"', '\"'\"'TestUiDownloadList::test_filter_pattern'\"'\"', '\"'\"'TestWatchReadyQueue::test_missing_paths_expire_without_dispatch'\"'\"', '\"'\"'TestWatchReadyQueue::test_repeated_events_reset_quiet_time'\"'\"', '\"'\"'TestWatchReadyQueue::test_retry_restats_zero_length_file_without_new_event'\"'\"', '\"'\"'TestWatchReadyQueue::test_shutdown_discards_pending_loads'\"'\"', '\"'\"'TestWatchReadyQueue::test_unrelated_events_do_not_delay_missing_retry'\"'\"']}})\n'",
+          "role": "smoke",
+          "exit_code": 1,
+          "timed_out": false,
+          "duration_seconds": 4.426637222990394
+        }
+      ],
+      "observations": [
+        {
+          "phase": "compile",
+          "protected_count": 818,
+          "changed_author_files": [],
+          "generated_present": 40,
+          "generated_mismatches": [],
+          "programs": [
+            {
+              "build": "build-libtorrent",
+              "program": "LibTorrent_Test_Protocol",
+              "observed": false,
+              "complete_expected_leaves": false,
+              "passed_leaf_count": null,
+              "log_sha256": null
+            },
+            {
+              "build": "build-libtorrent",
+              "program": "LibTorrent_Test_Torrent_Net",
+              "observed": false,
+              "complete_expected_leaves": false,
+              "passed_leaf_count": null,
+              "log_sha256": null
+            },
+            {
+              "build": "build-libtorrent",
+              "program": "LibTorrent_Test_Torrent_Runtime",
+              "observed": false,
+              "complete_expected_leaves": false,
+              "passed_leaf_count": null,
+              "log_sha256": null
+            },
+            {
+              "build": "build-libtorrent",
+              "program": "LibTorrent_Test_Torrent_Utils",
+              "observed": false,
+              "complete_expected_leaves": false,
+              "passed_leaf_count": null,
+              "log_sha256": null
+            },
+            {
+              "build": "build-libtorrent",
+              "program": "LibTorrent_Test_Torrent",
+              "observed": false,
+              "complete_expected_leaves": false,
+              "passed_leaf_count": null,
+              "log_sha256": null
+            },
+            {
+              "build": "build-libtorrent",
+              "program": "LibTorrent_Test_Data",
+              "observed": false,
+              "complete_expected_leaves": false,
+              "passed_leaf_count": null,
+              "log_sha256": null
+            },
+            {
+              "build": "build-libtorrent",
+              "program": "LibTorrent_Test_Net",
+              "observed": false,
+              "complete_expected_leaves": false,
+              "passed_leaf_count": null,
+              "log_sha256": null
+            },
+            {
+              "build": "build-libtorrent",
+              "program": "LibTorrent_Test_Tracker",
+              "observed": false,
+              "complete_expected_leaves": false,
+              "passed_leaf_count": null,
+              "log_sha256": null
+            },
+            {
+              "build": "build-libtorrent",
+              "program": "LibTorrent_Test",
+              "observed": false,
+              "complete_expected_leaves": false,
+              "passed_leaf_count": null,
+              "log_sha256": null
+            },
+            {
+              "build": "build-rtorrent",
+              "program": "rtorrent_Test_Core",
+              "observed": false,
+              "complete_expected_leaves": false,
+              "passed_leaf_count": null,
+              "log_sha256": null
+            },
+            {
+              "build": "build-rtorrent",
+              "program": "rtorrent_Test_Rpc",
+              "observed": false,
+              "complete_expected_leaves": false,
+              "passed_leaf_count": null,
+              "log_sha256": null
+            },
+            {
+              "build": "build-rtorrent",
+              "program": "rtorrent_Test_Src",
+              "observed": false,
+              "complete_expected_leaves": false,
+              "passed_leaf_count": null,
+              "log_sha256": null
+            }
+          ],
+          "observed_programs": 0,
+          "complete_programs": 0,
+          "passed_leaf_count": 0
+        }
+      ],
+      "artifacts": [],
+      "arm_total_wall_seconds": 622.9440958891064,
+      "cleanup": true
+    }
+  ],
+  "requests": [
+    {
+      "slot": 1,
+      "method": "model_plan_workflow",
+      "sequence": 1,
+      "phase": "initial",
+      "known_usage": true,
+      "input_tokens": 10283,
+      "output_tokens": 1459,
+      "recorded_tokens": 11742,
+      "cost_usd": "0.0193512",
+      "messages_bytes": 26361,
+      "schema_bytes": 3139,
+      "source_packet_paths": [
+        "README.md",
+        "configure.ac"
+      ],
+      "models": [
+        "deepseek-v4-pro"
+      ],
+      "request_sha256": "14b8e45638577e9965d32e8c7165116b203ccf6022c705038464838ef68d31c7",
+      "response_sha256": "b708f903443a8d80eee25d58c154677ae14bb064661166a518af1b28437d1f00",
+      "proposed_source_reads": [],
+      "retained_message_types": [
+        "human"
+      ],
+      "bounded_submit_state": false,
+      "representation_requires_text_factor_decode": true
+    },
+    {
+      "slot": 1,
+      "method": "model_plan_workflow",
+      "sequence": 2,
+      "phase": "initial",
+      "known_usage": true,
+      "input_tokens": 15032,
+      "output_tokens": 712,
+      "recorded_tokens": 15744,
+      "cost_usd": "0.02266176",
+      "messages_bytes": 44474,
+      "schema_bytes": 3139,
+      "source_packet_paths": [
+        "README.md",
+        "configure.ac",
+        null,
+        null
+      ],
+      "models": [
+        "deepseek-v4-pro"
+      ],
+      "request_sha256": "fe8e2b6e8ec5ad5e4893e7046d4bd3c4281cf624bb0708c7130b3113bf780c71",
+      "response_sha256": "b08fa08c2139387ef4356080ac5642c0bd3ce6f2de1c08f896f881db53795085",
+      "proposed_source_reads": [],
+      "retained_message_types": [
+        "human",
+        "ai",
+        "tool",
+        "tool"
+      ],
+      "bounded_submit_state": false,
+      "representation_requires_text_factor_decode": true
+    },
+    {
+      "slot": 1,
+      "method": "model_plan_workflow",
+      "sequence": 3,
+      "phase": "initial",
+      "known_usage": true,
+      "input_tokens": 15550,
+      "output_tokens": 1502,
+      "recorded_tokens": 17052,
+      "cost_usd": "0.02647392",
+      "messages_bytes": 44474,
+      "schema_bytes": 3139,
+      "source_packet_paths": [
+        "README.md",
+        "configure.ac",
+        null,
+        null,
+        null,
+        null
+      ],
+      "models": [
+        "deepseek-v4-pro"
+      ],
+      "request_sha256": "0e141b8f54373387e49a4c5e6cdb14e8aabb7fbe659b65f9e5ee351320d6a241",
+      "response_sha256": "925cd3e4d120c438733c33c41ab14bbe61dc7bea6984b8904e6cb3ded55d7b07",
+      "proposed_source_reads": [
+        {
+          "args": {
+            "path": "Makefile.am"
+          },
+          "same_range_already_in_decoded_working_set": false,
+          "complete_file_already_in_decoded_working_set": false
+        },
+        {
+          "args": {
+            "path": "src/Makefile.am"
+          },
+          "same_range_already_in_decoded_working_set": false,
+          "complete_file_already_in_decoded_working_set": false
+        }
+      ],
+      "retained_message_types": [
+        "human",
+        "ai",
+        "tool",
+        "tool"
+      ],
+      "bounded_submit_state": false,
+      "representation_requires_text_factor_decode": true
+    },
+    {
+      "slot": 1,
+      "method": "model_plan_workflow",
+      "sequence": 4,
+      "phase": "initial",
+      "known_usage": true,
+      "input_tokens": 19581,
+      "output_tokens": 326,
+      "recorded_tokens": 19907,
+      "cost_usd": "0.02713788",
+      "messages_bytes": 56191,
+      "schema_bytes": 3139,
+      "source_packet_paths": [
+        "configure.ac",
+        null,
+        null,
+        null,
+        null,
+        null,
+        "Makefile.am",
+        "src/Makefile.am"
+      ],
+      "models": [
+        "deepseek-v4-pro"
+      ],
+      "request_sha256": "224e49a1399aef32df069dd00a9ed6f11962289a32e73267a5fe5aea2a390811",
+      "response_sha256": "26b7abc2dcadd2e708f5275dd982dc4de62aa4671223a0590cc06485b3f2e1db",
+      "proposed_source_reads": [],
+      "retained_message_types": [
+        "human",
+        "ai",
+        "tool",
+        "tool",
+        "tool"
+      ],
+      "bounded_submit_state": false,
+      "representation_requires_text_factor_decode": true
+    },
+    {
+      "slot": 1,
+      "method": "model_plan_workflow",
+      "sequence": 5,
+      "phase": "initial",
+      "known_usage": true,
+      "input_tokens": 18300,
+      "output_tokens": 142,
+      "recorded_tokens": 18442,
+      "cost_usd": "0.02471832",
+      "messages_bytes": 51035,
+      "schema_bytes": 3139,
+      "source_packet_paths": [
+        null,
+        null,
+        null,
+        "Makefile.am",
+        "src/Makefile.am",
+        null,
+        null
+      ],
+      "models": [
+        "deepseek-v4-pro"
+      ],
+      "request_sha256": "87a4ece427bbdf402d7f828cf5c7d9e35d6327792dfef4b06967955e6ec4ee01",
+      "response_sha256": "9d8fd83ad0ca15120d89d153246b4933c26b6ddb8c9c47280eeb5604cea17f19",
+      "proposed_source_reads": [],
+      "retained_message_types": [
+        "human",
+        "ai",
+        "tool",
+        "tool"
+      ],
+      "bounded_submit_state": false,
+      "representation_requires_text_factor_decode": true
+    },
+    {
+      "slot": 1,
+      "method": "model_plan_workflow",
+      "sequence": 6,
+      "phase": "initial",
+      "known_usage": true,
+      "input_tokens": 15133,
+      "output_tokens": 139,
+      "recorded_tokens": 15272,
+      "cost_usd": "0.020526",
+      "messages_bytes": 41229,
+      "schema_bytes": 3139,
+      "source_packet_paths": [
+        null,
+        null,
+        "Makefile.am",
+        "src/Makefile.am",
+        null,
+        null,
+        null
+      ],
+      "models": [
+        "deepseek-v4-pro"
+      ],
+      "request_sha256": "a52ef45bd34b5b55368d4a5059119eaffe5a1fec977ba79a161d9b9e231de6be",
+      "response_sha256": "7f27f5f7352cbdc0c89fc7deadcc8103b39366f76facbb3220912277eee868a4",
+      "proposed_source_reads": [],
+      "retained_message_types": [
+        "human",
+        "ai",
+        "tool"
+      ],
+      "bounded_submit_state": false,
+      "representation_requires_text_factor_decode": true
+    },
+    {
+      "slot": 1,
+      "method": "model_plan_workflow",
+      "sequence": 7,
+      "phase": "initial",
+      "known_usage": true,
+      "input_tokens": 16241,
+      "output_tokens": 313,
+      "recorded_tokens": 16554,
+      "cost_usd": "0.0226776",
+      "messages_bytes": 45679,
+      "schema_bytes": 3139,
+      "source_packet_paths": [
+        "Makefile.am",
+        "src/Makefile.am",
+        null,
+        null,
+        null,
+        null
+      ],
+      "models": [
+        "deepseek-v4-pro"
+      ],
+      "request_sha256": "c96d12872ce1a3f8655f24515cdae8373ef56df1e2210b4ea34adf933f269855",
+      "response_sha256": "305cebfa72ed2ff507c27e1cfddc6fc2545f6e4ad0adf6419d1da9ae87ecdfae",
+      "proposed_source_reads": [
+        {
+          "args": {
+            "path": "configure.ac"
+          },
+          "same_range_already_in_decoded_working_set": false,
+          "complete_file_already_in_decoded_working_set": false
+        }
+      ],
+      "retained_message_types": [
+        "human",
+        "ai",
+        "tool"
+      ],
+      "bounded_submit_state": false,
+      "representation_requires_text_factor_decode": true
+    },
+    {
+      "slot": 1,
+      "method": "model_plan_workflow",
+      "sequence": 8,
+      "phase": "initial",
+      "known_usage": true,
+      "input_tokens": 15789,
+      "output_tokens": 398,
+      "recorded_tokens": 16187,
+      "cost_usd": "0.02241756",
+      "messages_bytes": 43886,
+      "schema_bytes": 3139,
+      "source_packet_paths": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        "configure.ac"
+      ],
+      "models": [
+        "deepseek-v4-pro"
+      ],
+      "request_sha256": "0377d55e1705b6a04ccd810e1a1fab6a7ad39517c5753ea7470e9120effbf722",
+      "response_sha256": "7e921e98fabf64eee8e47dba87aa18914832950052bac26d673472723de80e7b",
+      "proposed_source_reads": [
+        {
+          "args": {
+            "path": "vendor-libtorrent/configure.ac"
+          },
+          "same_range_already_in_decoded_working_set": false,
+          "complete_file_already_in_decoded_working_set": false
+        },
+        {
+          "args": {
+            "path": "Makefile.am"
+          },
+          "same_range_already_in_decoded_working_set": false,
+          "complete_file_already_in_decoded_working_set": false
+        },
+        {
+          "args": {
+            "path": "src/Makefile.am"
+          },
+          "same_range_already_in_decoded_working_set": false,
+          "complete_file_already_in_decoded_working_set": false
+        },
+        {
+          "args": {
+            "path": "test/Makefile.am"
+          },
+          "same_range_already_in_decoded_working_set": false,
+          "complete_file_already_in_decoded_working_set": false
+        }
+      ],
+      "retained_message_types": [
+        "human",
+        "ai",
+        "tool",
+        "tool"
+      ],
+      "bounded_submit_state": false,
+      "representation_requires_text_factor_decode": true
+    },
+    {
+      "slot": 1,
+      "method": "model_plan_workflow",
+      "sequence": 9,
+      "phase": "initial",
+      "known_usage": true,
+      "input_tokens": 21349,
+      "output_tokens": 13519,
+      "recorded_tokens": 34868,
+      "cost_usd": "0.08171592",
+      "messages_bytes": 59852,
+      "schema_bytes": 1738,
+      "source_packet_paths": [
+        null,
+        null,
+        null,
+        "configure.ac",
+        "vendor-libtorrent/configure.ac",
+        "Makefile.am",
+        "src/Makefile.am",
+        "test/Makefile.am"
+      ],
+      "models": [
+        "deepseek-v4-pro"
+      ],
+      "request_sha256": "cf88e1d5b4789752b38ab00ab64ded2d1b6923aea217d803e8f03fb201e086a8",
+      "response_sha256": "99ea89a9adf3b30774c457ede75e8ac70324638b15811b1000f8edb677b0f618",
+      "proposed_source_reads": [],
+      "retained_message_types": [
+        "human",
+        "ai",
+        "tool",
+        "tool",
+        "tool",
+        "tool"
+      ],
+      "bounded_submit_state": true,
+      "representation_requires_text_factor_decode": true
+    }
+  ],
+  "prior_current_authorization_charged_usd": "7.62355439999999993",
+  "cumulative_estimated_cost_usd": "7.89123455999999993",
+  "strict_completed": 0,
+  "observed": 1,
+  "unobserved": 0,
+  "input_tokens": 147258,
+  "output_tokens": 18510,
+  "recorded_tokens": 165768,
+  "provider_requests": 9,
+  "unknown_requests": 0,
+  "estimated_cost_usd": "0.26768016",
+  "common_pre_trim_material_equal": true,
+  "actual_containers_absent": true,
+  "method": "新结果全量清单/Git组件/原始请求响应与原生轮次/逐Token费用和阶段闭合/源码测试/交付重放/实际cleanup；不重扫旧构建树",
+  "feedback_analysis": {
+    "valid": true,
+    "identity": "cpp-build-rtorrent-generation-observation-probe-v1",
+    "whole_planning_episode_bound_verified": true,
+    "exact_correction_feedback": [],
+    "episodes": [
+      {
+        "slot": 1,
+        "event_index": 6,
+        "revision": 1,
+        "recovery": false
+      },
+      {
+        "slot": 1,
+        "event_index": 62,
+        "revision": 2,
+        "recovery": true
+      }
+    ],
+    "candidates": [
+      {
+        "sequence": 9,
+        "steps": [
+          {
+            "step_id": "bootstrap",
+            "role": "dependency",
+            "command": "rm -f -- Makefile.in aclocal.m4 ar-lib compile config.guess config.h.in config.sub configure depcomp doc/Makefile.in install-sh ltmain.sh missing scripts/libtool.m4 scripts/ltoptions.m4 scripts/ltsugar.m4 scripts/ltversion.m4 'scripts/lt~obsolete.m4' src/Makefile.in test-driver test/Makefile.in vendor-libtorrent/Makefile.in vendor-libtorrent/aclocal.m4 vendor-libtorrent/compile vendor-libtorrent/config.guess vendor-libtorrent/config.h.in vendor-libtorrent/config.sub vendor-libtorrent/configure vendor-libtorrent/depcomp vendor-libtorrent/install-sh vendor-libtorrent/ltmain.sh vendor-libtorrent/missing vendor-libtorrent/scripts/libtool.m4 vendor-libtorrent/scripts/ltoptions.m4 vendor-libtorrent/scripts/ltsugar.m4 vendor-libtorrent/scripts/ltversion.m4 'vendor-libtorrent/scripts/lt~obsolete.m4' vendor-libtorrent/src/Makefile.in vendor-libtorrent/src/torrent/Makefile.in vendor-libtorrent/test/Makefile.in\n(cd vendor-libtorrent && autoreconf -ivf)\nautoreconf -ivf",
+            "workdir": "/workspace/repo",
+            "requires": [],
+            "stdout_contains": [],
+            "files_exist": [
+              "configure",
+              "vendor-libtorrent/configure",
+              "Makefile.in",
+              "vendor-libtorrent/Makefile.in"
+            ],
+            "directories_exist": [],
+            "diagnostic_paths": [],
+            "source": "file_boundary.generations 精确生成命令（清理原生成集合后按依赖→主项目顺序 autoreconf）",
+            "expected": "生成两树 configure/Makefile.in 等构建文件，保持原 40 个输出 SHA"
+          },
+          {
+            "step_id": "configure-libtorrent",
+            "role": "dependency",
+            "command": "mkdir -p build-libtorrent && cd build-libtorrent && ../vendor-libtorrent/configure --prefix=/workspace/prefix",
+            "workdir": "/workspace/repo",
+            "requires": [
+              "bootstrap"
+            ],
+            "stdout_contains": [],
+            "files_exist": [
+              "build-libtorrent/Makefile",
+              "build-libtorrent/config.status"
+            ],
+            "directories_exist": [
+              "build-libtorrent/"
+            ],
+            "diagnostic_paths": [
+              "build-libtorrent/config.log"
+            ],
+            "source": "vendor-libtorrent/configure.ac（LT_INIT, LIBTORRENT_CURRENT=53）",
+            "expected": "出树配置 libtorrent，prefix 指向 /workspace/prefix 以便安装 .so 与 .pc"
+          },
+          {
+            "step_id": "build-libtorrent",
+            "role": "dependency",
+            "command": "cd build-libtorrent && make -j2",
+            "workdir": "/workspace/repo",
+            "requires": [
+              "configure-libtorrent"
+            ],
+            "stdout_contains": [],
+            "files_exist": [],
+            "directories_exist": [
+              "build-libtorrent/src/.libs/"
+            ],
+            "diagnostic_paths": [
+              "build-libtorrent/config.log"
+            ],
+            "source": "vendor-libtorrent/src/Makefile.am（libtorrent.la）",
+            "expected": "编译 libtorrent 共享库，产生 .libs/libtorrent.so.53"
+          },
+          {
+            "step_id": "install-libtorrent",
+            "role": "dependency",
+            "command": "cd build-libtorrent && make install",
+            "workdir": "/workspace/repo",
+            "requires": [
+              "build-libtorrent"
+            ],
+            "stdout_contains": [],
+            "files_exist": [],
+            "directories_exist": [],
+            "diagnostic_paths": [],
+            "source": "固定验证器 LD_LIBRARY_PATH=/workspace/prefix/lib；主项目需 libtorrent.pc",
+            "expected": "安装 libtorrent.so.53 与 libtorrent.pc 到 /workspace/prefix/lib 及 pkgconfig"
+          },
+          {
+            "step_id": "configure-rtorrent",
+            "role": "configure",
+            "command": "mkdir -p build-rtorrent && cd build-rtorrent && PKG_CONFIG_PATH=/workspace/prefix/lib/pkgconfig ../configure --prefix=/workspace/prefix",
+            "workdir": "/workspace/repo",
+            "requires": [
+              "install-libtorrent"
+            ],
+            "stdout_contains": [],
+            "files_exist": [
+              "build-rtorrent/Makefile",
+              "build-rtorrent/config.status"
+            ],
+            "directories_exist": [
+              "build-rtorrent/"
+            ],
+            "diagnostic_paths": [
+              "build-rtorrent/config.log"
+            ],
+            "source": "configure.ac（PKG_CHECK_MODULES libtorrent>=0.16.25, CPPUNIT, ZLIB, ncurses）",
+            "expected": "出树配置 rtorrent，找到已安装的 libtorrent.pc"
+          },
+          {
+            "step_id": "build",
+            "role": "build",
+            "command": "cd build-rtorrent && make -j2",
+            "workdir": "/workspace/repo",
+            "requires": [
+              "configure-rtorrent"
+            ],
+            "stdout_contains": [],
+            "files_exist": [
+              "build-rtorrent/src/rtorrent"
+            ],
+            "directories_exist": [
+              "build-rtorrent/test/"
+            ],
+            "diagnostic_paths": [
+              "build-rtorrent/config.log"
+            ],
+            "source": "src/Makefile.am（bin_PROGRAMS=rtorrent）；test/Makefile.am（check_PROGRAMS 三测试）",
+            "expected": "编译 rtorrent 二进制与全部 CppUnit 测试程序，供系统暂存 rtorrent 与 libtorrent.so.53 交付"
+          }
+        ],
+        "reason": "双树 Autotools 项目：vendor-libtorrent（LIBTORRENT_CURRENT=53 → libtorrent.so.53）须先 bootstrap/configure/build/install 到 /workspace/prefix，再以 PKG_CONFIG_PATH 指向其 libtorrent.pc 配置主 rtorrent。固定验证器硬编码 build-libtorrent/test 与 build-rtorrent/test 出树目录、测试用 LD_LIBRARY_PATH=/workspace/prefix/lib、CLI 用 /artifacts。bootstrap 采用 file_boundary.generations 精确生成命令（清理→依赖→主项目 autoreconf）。",
+        "response_sha256": "99ea89a9adf3b30774c457ede75e8ac70324638b15811b1000f8edb677b0f618"
+      }
+    ],
+    "hidden_read_denials": [],
+    "boundary": "只验证反馈及8轮执行路径；单族单臂开发探针不估总体或因果效果，未执行层不填成功或失败。"
+  },
+  "generation_assembly_analysis": {
+    "valid": true,
+    "identity": "cpp-build-rtorrent-generation-observation-probe-v1",
+    "split_actions": [
+      {
+        "slot": 1,
+        "revision": 1,
+        "source_proposal": "observed-actions-1-0.json",
+        "original_step_id": "bootstrap",
+        "generation_execution_id": "generation-333c04dd151a2a6831c0",
+        "exact_original_command_preserved": true,
+        "all_path_checks_preserved": true,
+        "stdout_checks_preserved": true,
+        "execution_observed": true,
+        "execution_exit_codes": [
+          0
+        ],
+        "observation_observed": true,
+        "observation_exit_codes": [
+          0
+        ]
+      }
+    ],
+    "observed_split_count": 1,
+    "observed_successful_generation_and_observation": 1,
+    "boundary": "组合核验不等于作者测试/完整交付成功；未实际执行不填通过/失败，单槽开发不作因果效果。"
+  },
+  "partial_build_test_preparation_analysis": {
+    "valid": true,
+    "kind": "posthoc_partial_build_and_test_preparation_observation",
+    "artifacts": [
+      {
+        "path": "libtorrent.so.53",
+        "size": 43671680,
+        "sha256": "ad00234354c80e91d6eef4c50b4dac6f83b5d7e1455c07af057b0563f260b7ce",
+        "source_matches": [
+          "build-libtorrent/src/.libs/libtorrent.so.53"
+        ],
+        "regular_elf": true,
+        "replay_observed": false
+      },
+      {
+        "path": "rtorrent",
+        "size": 59058560,
+        "sha256": "26f5bbaf2c3cd7b8637833ce6f55e37391ad005a58330866b36377b2ddfde3c4",
+        "source_matches": [
+          "build-rtorrent/src/rtorrent"
+        ],
+        "regular_elf": true,
+        "replay_observed": false
+      }
+    ],
+    "required_test_programs": [
+      {
+        "build": "build-libtorrent",
+        "program": "LibTorrent_Test_Protocol",
+        "exists": false
+      },
+      {
+        "build": "build-libtorrent",
+        "program": "LibTorrent_Test_Torrent_Net",
+        "exists": false
+      },
+      {
+        "build": "build-libtorrent",
+        "program": "LibTorrent_Test_Torrent_Runtime",
+        "exists": false
+      },
+      {
+        "build": "build-libtorrent",
+        "program": "LibTorrent_Test_Torrent_Utils",
+        "exists": false
+      },
+      {
+        "build": "build-libtorrent",
+        "program": "LibTorrent_Test_Torrent",
+        "exists": false
+      },
+      {
+        "build": "build-libtorrent",
+        "program": "LibTorrent_Test_Data",
+        "exists": false
+      },
+      {
+        "build": "build-libtorrent",
+        "program": "LibTorrent_Test_Net",
+        "exists": false
+      },
+      {
+        "build": "build-libtorrent",
+        "program": "LibTorrent_Test_Tracker",
+        "exists": false
+      },
+      {
+        "build": "build-libtorrent",
+        "program": "LibTorrent_Test",
+        "exists": false
+      },
+      {
+        "build": "build-rtorrent",
+        "program": "rtorrent_Test_Core",
+        "exists": false
+      },
+      {
+        "build": "build-rtorrent",
+        "program": "rtorrent_Test_Rpc",
+        "exists": false
+      },
+      {
+        "build": "build-rtorrent",
+        "program": "rtorrent_Test_Src",
+        "exists": false
+      }
+    ],
+    "observed_author_test_leaves": 0,
+    "test_gate_exit_code": 1,
+    "test_gate_first_missing_program": "LibTorrent_Test_Protocol",
+    "test_gate_log_sha256": "d2a826e78af5343a05342d86f6acf4f8597fc1195f9e20560db12da28da03c80",
+    "strict_completed": false,
+    "replay_observed": false,
+    "recovery_provider_request_observed": false,
+    "stop": "original 3900-second request reserve; new request cutoff 2026-10-22T06:28:28+00:00",
+    "boundary": "编译和暂存均有真实证据，但测试程序未构建、作者测试叶和CLI/重放未观察，不能填strict；不估方法因果效果。"
+  }
+}

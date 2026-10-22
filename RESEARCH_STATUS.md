@@ -1,6 +1,16 @@
 # Forge Research Status
 
-## 当前阶段（2026-10-22；#613真实候选反馈探针完成，#614生成装配组合修复）
+## 当前阶段（2026-10-22；本批真实开发实验结束，转共同测试准备与公平比较设计）
+
+真实采集与分析完成。最新cpp-build-rtorrent-generation-observation-probe-v1单模型Workflow1观察/0strict/0未观察，9请求/165768Token/$0.26768016/未知0、闭合/cleanup。模型交plan revision1；精确生成执行+4文件观察分别exit0，原命令/全部检查保持，40生成SHA/818原文件保持。libtorrent和rtorrent均编译成功，精确双普通ELF已暂存并只读核验SHA/来源。实际10命令/9成功，完整测试门禁因首个测试程序缺失exit1；12测试程序全部未构建，0作者测试叶/CLI/replay未观察，不记功能用例失败或strict成功。
+
+随后真实handoff已发生，新恢复Provider请求在原3900秒预留准入前停止（UTC07:33:28截止→06:28:28后不能新请求），不是用户费用不足或模型恢复失败。窗口/旧失败不延长回填。下一步明确共同测试准备义务，让两规划来源/强工具获取相同原测试目标及标准入口，区分构建测试程序与运行裁判；新协议前瞻核对新槽/新请求时间预留，保持完整源码/测试/交付/replay验收，然后回到跨项目三策略比较。rtorrent保留困难development任务，不继续仅靠堆预算，不加P2、不改RQ3旧分母或硕士主线。
+
+六独立stage共12观察槽/0strict/0未观察槽（只作流水，不合并估效果），252请求/5147650Token/$7.89123456/未知0，全部闭合/cleanup，原自设共享12美元/UTC03:33:28–07:33:28不重置；旧过期三paid3.27044256单列。已有CMake C++18槽15strict和5/4/6策略结果仍有效，不据困难单族否定路线；本批没有新增端到端收益或公平总体排名。当前无活动Provider/Docker，用户HTML保持。
+
+最新releasec5e051d660403e98edc610ad36b345a1ffa945ed，候选3ba1d882/305组件；inventory66281f818e4665a2ec1873de499883e2677765a6507356991ea3dd31745b91e3（3040文件/7链接/866021630bytes）。报告docs/research/2026-10-22-rtorrent-generation-observation-results.md及同身份analyses；会话forge-generation-observation-session-2026-10-22含独立数据/反馈/装配/部分ELF与测试准备audit valid。只一个真实Shell回归1.01秒/Ruff/CLI，不重复免费全构建或本地全量程序测试。#613 PR615已合df2bfdfd/613关闭；本结果最终HEAD三CI后只合科研依赖分支，发布以GitHub/final-publication-audit为准，知识库只MCP。
+
+## 上一阶段（2026-10-22；#613真实候选反馈探针完成）
 
 真实采集与分析完成。cpp-build-rtorrent-candidate-feedback-probe-v1模型Workflow1观察/0strict/0未观察，11请求/265823Token/$0.54237348/未知0/闭合/cleanup通过。第9响应4隐藏读取实际拒绝，第10提交plan revision1并实际执行生成，第11新恢复输出32768全思考Token截断，未修订。无真实结构拒绝，候选共同反馈能力仅回归检查，不称真实效果。
 
