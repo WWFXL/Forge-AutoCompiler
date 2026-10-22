@@ -1,6 +1,12 @@
 # Forge Research Status
 
-## 当前阶段（2026-10-22；#613真实候选反馈探针完成，#614生成装配组合修复）
+## 当前阶段（2026-10-22；#614生成执行与观察分离已冻结，直接真实探针）
+
+必要工程修复转真实采集。cpp-build-rtorrent-generation-observation-probe-v1单模型Workflow：精确声明生成命令带路径观察时拆成生成执行（唯一派生ID，原命令/requires/stdout）和后继观察（原ID，原文件/目录检查），后继依赖自然等待全部成立。原guard_main/生成SHA/作者源码测试/交付/replay不改，非精确生成动作沿用旧装配，新增观察消耗原命令额度。一个真实严格Linux guard_main/Shell回归1.01秒复现旧拒绝、新拆分通过、缺失观察exit86，作者文件保持；Ruff/CLI通过，不重复免费完整构建或本地全量程序测试。
+
+候选3ba1d882733190d4dc102166dfe8f5d43596808c5a9765d8012eaa80ca55f6f3/305组件，旧301不变；raw forge-rtorrent-generation-observation-probe-v1，会话forge-generation-observation-session-2026-10-22。沿原DeepSeek/1M资源/8轮/完整验收与当前直接授权，前五stage十事件7.62355440美元先逐字计入，stage最多3美元，原自设12美元/UTC03:33:28–07:33:28不重置，3900秒新槽/请求预留，无自动重试/未知身份清理异常停。当前新终态尚未观察，修复回归不是模型或完整构建效果；RQ3/P2/主线和用户HTML保持。
+
+## 上一阶段（2026-10-22；#613真实候选反馈探针完成）
 
 真实采集与分析完成。cpp-build-rtorrent-candidate-feedback-probe-v1模型Workflow1观察/0strict/0未观察，11请求/265823Token/$0.54237348/未知0/闭合/cleanup通过。第9响应4隐藏读取实际拒绝，第10提交plan revision1并实际执行生成，第11新恢复输出32768全思考Token截断，未修订。无真实结构拒绝，候选共同反馈能力仅回归检查，不称真实效果。
 

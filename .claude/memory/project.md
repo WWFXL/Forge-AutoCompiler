@@ -610,6 +610,10 @@
 
 ## 最近变更 (Recent Changes)
 
+- 2026-10-22 — 冻结 #614 精确生成执行与附加观察分离的单模型真实探针
+  - 文件: `backend/packages/harness/deerflow/compile/generation_observation_actions.py`, `backend/tests/test_generation_observation_actions.py`, `scripts/forge_build_rtorrent_generation_observation_probe.py`, `benchmarks/manifests/cpp-build-rtorrent-generation-observation-probe-v1.json`, `benchmarks/preregistrations/cpp-build-rtorrent-generation-observation-probe-v1.md`, `RESEARCH_STATUS.md`
+  - 动机: #613真实原命令匹配但编译附加检查破坏精确生成身份。只拆系统装配两个显式动作，原ID代表观察完成，保持stdout/路径检查和原guard权限/作者测试/完整验收。真实guard_main回归1.01秒旧拒绝/新通过/缺文件仍86，Ruff/CLI；305组件/3ba1d882，前5stage7.62355440先计入原12美元/UTC07:33:28，本stage3美元，无自动重试。直接真实探针，不重复全免费构建/本地全量程序测试，不将工程修复当方法效果。
+
 - 2026-10-22 — 封存 #613 真实候选反馈探针，定位生成命令与路径观察的装配冲突
   - 文件: `docs/research/2026-10-22-rtorrent-candidate-feedback-probe-results.md`, `benchmarks/analyses/cpp-build-rtorrent-candidate-feedback-probe-v1-results.json`, `RESEARCH_STATUS.md`
   - 动机: 11请求/265823Token/$0.54237348，plan revision1已实际执行，原生成命令匹配generation4，编译追加6文件检查导致active=None而拒绝；40生成SHA/818原文件保持。新恢复第11全思考截断，作者测试/交付/replay未观察，0strict。数据/反馈/组合错误独立audit valid，inventory9d2399aa。累计243请求/4981882Token/$7.62355440，原12美元/UTC07:33:28不重置。#614仅修复组合顺序并保留检查，不放宽权限/验收，一项真实Shell回归后若时间允许直接独立真实探针。
