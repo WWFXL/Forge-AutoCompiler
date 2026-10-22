@@ -1,6 +1,12 @@
 # Forge Research Status
 
-## 当前阶段（2026-10-22；#610真实反馈修复探针完成）
+## 当前阶段（2026-10-22；#613被拒候选与错误反馈探针已冻结）
+
+工程修复转单槽真实采集。cpp-build-rtorrent-candidate-feedback-probe-v1只一个模型Workflow：拒绝后把本槽实际原始ObservedBuildActions/tool_call和完整错误一起交回，标记未执行并绑定响应SHA，接受原100k字节门禁；新恢复不带旧候选。补充通用主项目/依赖子项目角色范围与声明生成命令语义，不含项目专用配方。原排序/最终ID/Shell/源码/完整测试/交付/replay/模型和1M资源不改。
+
+301组件/候选595a5209a67eb0deac3480039e40b3eb4328e1933467b8152f77cca737452b92，旧298保持；一项生产纠错回归1.38秒/Ruff/CLI通过，不重复免费完整构建或本地全量程序测试。raw forge-rtorrent-candidate-feedback-probe-v1，会话forge-candidate-feedback-session-2026-10-22。当前直接费用授权下前四stage完整八事件先计7.08118092美元，本stage最多3美元，原自设共享12美元/UTC03:33:28–07:33:28不重置，无自动重试/未知身份清理异常停。尚无新终态/方法收益，单族单臂非公平效果比较；RQ3/P2/主线/用户HTML保持。#610最终结果提交d413768d三CI全部SUCCESS，PR612仅合科研依赖分支3781e2808f96fd43daac4e452a4f03adb2436100，610关闭/发布audit valid；运行release与发布版本分开。
+
+## 上一阶段（2026-10-22；#610真实反馈修复探针完成）
 
 真实采集与结果分析完成。cpp-build-rtorrent-feedback-repair-probe-v1一个模型Workflow槽，1观察/0strict/0未观察，10请求/225754Token/$0.47720640/未知0，闭合/cleanup通过。第9响应有9步候选，被原全局角色排序拒绝；第10请求已逐字带完整错误且计数9/仍仅结构出口，真实反馈/整次8轮修复成立，但第10输出32769全思考Token/length截断，未交修订。Provider名义max_tokens32768的1Token差保留，未越200k记录边界。
 

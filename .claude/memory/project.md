@@ -610,6 +610,10 @@
 
 ## 最近变更 (Recent Changes)
 
+- 2026-10-22 — 冻结 #613 被拒候选+错误反馈单模型Workflow真实探针
+  - 文件: `scripts/forge_build_rtorrent_candidate_feedback_probe.py`, `backend/tests/test_rtorrent_candidate_feedback_probe.py`, `benchmarks/manifests/cpp-build-rtorrent-candidate-feedback-probe-v1.json`, `benchmarks/preregistrations/cpp-build-rtorrent-candidate-feedback-probe-v1.md`, `RESEARCH_STATUS.md`
+  - 动机: #610错误送达但候选丢失。只携带本槽实际拒绝前原tool_call/响应SHA和错误，恢复隔离；通用角色和精确生成接口说明不带项目专用配方。原校验/源码/作者测试/交付/资源保持。一项生产回归1.38秒/Ruff/CLI；301组件/595a5209，前4stage7.08118092先计入原12美元/UTC07:33:28，本stage3美元/无自动重试。单臂开发探针非比较效果，旧失败不改，不重复完整免费构建或本地全量测试。
+
 - 2026-10-22 — 封存 #610 真实反馈探针：10请求/225754Token/$0.47720640，反馈和整次计数修复已观察，构建未观察
   - 文件: `docs/research/2026-10-22-rtorrent-feedback-repair-probe-results.md`, `benchmarks/analyses/cpp-build-rtorrent-feedback-repair-probe-v1-results.json`, `RESEARCH_STATUS.md`
   - 动机: 第9候选排序拒绝，第10实际逐字完整错误且无读取重置，仍32769全思考输出截断；上一候选未入下一报文，不能称唯一原因。818作者文件/清理保持，生成/作者测试/交付/replay未观察。数据/反馈独立audit valid，inventorydc9e956f。累计四stage232请求/4716059Token/$7.08118092，原12美元/UTC07:33:28不重置。下一独立改进候选+错误反馈和通用角色说明，不改裁判，不重复全免费构建或本地全量程序测试。
