@@ -1,16 +1,18 @@
 # Forge Research Status
 
-## 当前阶段（2026-10-23；#625八小时新库资格与扩样科研轮）
+## 当前阶段（2026-10-23；#625真实比较封存，Provider402停止新增付费，继续零模型科研）
 
-用户确认8小时/新增模型累计20美元，UTC01:27:52–09:27:52（北京时间09:27:52–17:27:52），准备计入，无自动重试/补槽；未知用量/身份/cleanup异常停新增付费。比较10/恢复消融5/有界补充3/未知预留2共享不重置。Issue625先开回读，先cpp-build-library-full-sources-v1沿旧目录rank8/16/18精确commit补rang/ELFIO/bit7z完整来源，0Provider/源码执行。再固定完整依赖/原测试/交付，独立参考与replay；资格后冻结三策略先一轮再第二轮，不按结果加项目专用规则。约两小时评估准备阻塞，必要时转固定旧任务消融/RQ3分析。完成以真实数据/费用/报告为准，不重复免费全构建或本地全量程序测试。发布仅科研依赖分支，旧分母/失败/P2/用户HTML不动。
+用户本轮8小时/新增模型累计20美元，UTC01:27:52–09:27:52（北京时间09:27:52–17:27:52），准备计入不延期，无自动重试/补槽/旧身份续跑。共享阶段比较10/恢复5/有界补充3/未知预留2。cpp-build-library-strategy-comparison-v1最后slot12首次请求HTTP402/无完整usage，按未知用量条款停止全部新增付费；已知$1.55561604+未知预留$0.80=保守$2.35561604，账本闭合，不能推定402免费或自动重试。停止收据见会话shared-budget/provider-stop.json。恢复消融十槽与修正比较均未调用Provider，不把未观察记失败。
 
-本轮资格证据：完整来源3/3（inventory7cff5414）、依赖输入3/3（456cd805），独立原字节/tree/依赖归档审计valid，0Provider。cpp-build-library-reference-v1封存：rang完整qualified；ELFIO实际73测试/74CTest全通过但裁判误计82/83，旧失败保留；bit7z编译通过、首程序572case中571过/1失败（13断言），root用户目录父目录为/的路径边界问题，后两程序/交付/replay未观察，不跳过或改源码。参考inventory2f28ae85。独立cpp-build-library-elfio-qualification-v1仅更正注释误计73/74，完整测试/原源码/精确ELFIOTest/clean replay/cleanup均通过，inventoryed7d103e。四次参考行原/replay全文件、精确产物与实际容器不存在独立审计valid。
+完整来源3/3（7cff5414）及依赖输入3/3（456cd805）独立原字节/tree/归档审计valid，0Provider。rang完整参考qualified；ELFIO旧参考原73测试/74CTest通过但裁判误计注释内9TEST，原失败保留；独立cpp-build-library-elfio-qualification-v1仅修正计数后完整测试/源码/精确ELFIOTest/replay/cleanup通过，inventoryed7d103e。bit7z原root参考编译成功，首程序572case中1失败（13断言）、后两程序/交付/replay未观察；原参考inventory2f28ae85。独立四行原/replay源、产物和实际cleanup审计valid。
 
-已冻结cpp-build-library-strategy-comparison-v1：rang/ELFIO×三策略×两重复12槽，先全第一轮再第二轮、比较最多10美元；共同固定依赖源码资源/原构建材料，原task-selected通用工具模板，不注入人工正确命令。header-only原编译端点/指定CMake/开发助手已见非holdout，不冒称完整安装包/无辅助依赖/自主多系统识别或纯规划因果。1局部拒绝删测试检查0.86秒/Ruff/CLI，未重复免费全构建或本地全量程序测试。真实比较已启动，第一轮6槽全部strict；工具/模型/强工具请求9/10/23、估费0.29182824/0.19682784/0.40362828美元，第二轮尚未完成，不能当最终排名。ELFIO工具原build成功但测试未启用，固定检查拒绝后真实恢复通过。原预算/截止不重置。
+v1两header-only原编译端点×三策略×两重复12槽均有尝试，11工程strict/1Provider停止；文字完整范围独立审计为10完成/1漏默认示例/1方法执行未观察。ELFIO模型slot5关闭示例仍过工程oracle：原文字要求十默认示例，但接口未显式通知且未检查，不称完整任务公平比较或总体排名。原raw/11布尔不改、不降协议标准；rang两重复未受此义务遗漏影响。工具/模型/强工具18/17/43请求（模型含1未知）、已知估费0.52818876/0.30659904/0.72082824，总槽秒644.11/295.56/415.83；模型含范围不一致及402，不能据全表作公平费用排名。raw forge-library-strategy-comparison-v1，inventorycb30b094，releasef50834ac；会话independent-comparison-audit/independent-protocol-scope-audit和derived-comparison-reviewed.json。四工具槽均真实失败恢复后完成，无零模型完成；不能在没有反事实臂时称恢复因果。
 
-恢复消融已在新结果前冻结cpp-build-tool-recovery-ablation-v1：固定已见snappy/simdutf/yaml-cpp/libtommath/tinyxml2×失败即停/允许同失败Agent恢复10槽；离线原工具初始方案5/5准入、0Provider/源码执行。check初始拒答不在执行后恢复估计对象内。1局部开关检查0.87秒/Ruff，原源码/测试/交付/资源不改，阶段5美元共享总20美元。待当前比较闭合后执行；两臂plan1及失败前前缀须核对，非总体因果/显著性。
+工程修复已冻结cpp-build-library-strategy-comparison-v2：共同显式完整编译义务+ELFIO十真实示例ELF/配置检查，原73测试/74CTest/精确交付/源码/replay/资源保持，工具模板不改。原参考原/重放产物只读新oracle实际均通过，旧slot5实际反例被拒绝，不重复免费构建。候选12槽、阶段8美元余量，无新增付费绑定，当前未执行；原结果已见非holdout，不作跨版本修复因果。
 
-bit7z仅新增普通用户测试上下文独立资格协议cpp-build-library-bit7z-user-reference-v1，0Provider：同镜像已有ubuntu(uid1000/home/ubuntu)，原完整三个程序均由runuser运行，构建仍root，源/测试字节不改；记录UID/真实用户目录，不覆盖HOME变量。旧root失败/当前12分母不回填；为避免CPU竞争，待付费比较结束后再单独参考与replay，当前结果未观察。
+恢复cpp-build-tool-recovery-ablation-v1固定五已见工具可规划任务×失败停/失败Agent十槽已冻结，0/10观察；离线初始5/5准入，0Provider/源码执行。check初始拒答不在执行后恢复对象内，不按新结果选任务。新增独立cpp-build-tool-no-recovery-observation-v1只采五项no_recovery基线，0Provider/凭据，首次实际失败即停、未失败则完整验收；这是实验数据而非免费回归，不冒充十槽配对，后续不续旧身份。bit7z另cpp-build-library-bit7z-user-reference-v1普通用户上下文原三程序完整参考正在运行；同镜像原ubuntu uid1000/home，不覆盖HOME、不改源/测试字节，旧root失败不回填。实际构建串行，避免CPU竞争。
+
+Issue625/分支yiwei/625-library-expansion；会话/home/yiwei/.codex/outputs/forge-library-expansion-session-2026-10-23保存授权/共享账本/来源输入参考/费用/范围审计。优先完成零模型数据和固定分母RQ3分析、结果报告、最终HEAD三CI后仅合科研依赖分支，再KB CAS同步。旧RQ3分母/主线/P2/用户HTML保持；不以代码/测试/文档数代替科研进展。后续付费恢复需要用户决定Provider可用性及停止解除；不因原总时窗尚余就自行继续。
 
 ## 上一阶段（2026-10-23；36槽比较及20项新来源/合同材料完成，转任务资格）
 

@@ -3,6 +3,10 @@
 跨 Claude Code session 的项目状态流水。按 CLAUDE.md §7 维护。
 
 ## 进行中 (In Progress)
+- 2026-10-23 — #625主批封存：11工程strict但仅10完整协议完成；slot5漏示例、slot12HTTP402未知1，已停全部新增付费。
+  - 文件: `scripts/forge_build_library_comparison_v2.py`, `scripts/forge_build_no_recovery_observation.py`、同名manifest/prereg、`RESEARCH_STATUS.md`。
+  - 动机: 不放宽原示例范围，补齐共同任务义务/真实十ELF裁判并准备未运行v2；0Provider独立五项首次失败即停基线是数据、不是配对效果。bit7z普通用户参考运行中，结束后串行基线。已知1.55561604+未知0.80=2.35561604，阶段账本闭合；原UTC09:27:52不延期、不重试。
+
 - 2026-10-23 — #625主比较第一轮6槽strict，冻结后续恢复开关消融10槽及bit7z普通用户独立资格。
   - 文件: `scripts/forge_build_recovery_ablation.py`, `scripts/forge_build_library_bit7z_user_reference.py`、同名manifest/prereg。
   - 动机: 五已见工具可规划任务估计执行失败后恢复贡献；bit7z原root测试失败不能删测试，普通用户上下文一次独立资格不回填。不要并行实际构建干扰比较耗时；新授权仍原总窗/20美元，主比较闭合后才新付费阶段。
