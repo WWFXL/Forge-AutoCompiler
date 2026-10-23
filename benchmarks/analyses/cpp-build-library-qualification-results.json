@@ -1,0 +1,104 @@
+{
+  "kind": "separate_identity_library_task_qualification_summary",
+  "issue": 625,
+  "provider_calls": 0,
+  "catalog_denominator_20_unchanged": true,
+  "initial_fixed_candidates": 3,
+  "initial_reference_qualified": 1,
+  "later_separate_qualifications": [
+    {
+      "name": "rang",
+      "identity": "cpp-build-library-reference-v1",
+      "scope": "三个原编译测试程序",
+      "user": "image_default_root"
+    },
+    {
+      "name": "ELFIO",
+      "identity": "cpp-build-library-elfio-qualification-v1",
+      "scope": "十默认示例+73有效原测试/74CTest+原ELFIOTest精确交付",
+      "correction": "块注释九TEST误计纠正",
+      "original_failed_attempt_preserved": true
+    },
+    {
+      "name": "bit7z",
+      "identity": "cpp-build-library-bit7z-user-reference-v1",
+      "scope": "原默认库+三完整程序572/342/342case+精确libbit7z64.a",
+      "test_user": "image_existing_ubuntu_uid1000",
+      "build_user": "image_default_root",
+      "source_and_tests_unchanged": true,
+      "original_root_failure_preserved": true
+    }
+  ],
+  "header_only_is_author_compilation_endpoint_not_installation_package": true,
+  "all_three_use_specified_cmake": true,
+  "holdout": false,
+  "method_treatment_effect_claim": false,
+  "evidence": [
+    {
+      "identity": "cpp-build-library-full-sources-v1",
+      "root": "/home/yiwei/.codex/outputs/forge-library-full-sources-v1",
+      "inventory_sha256": "7cff54145a8d5867136e8b8a6264b0a9b655ee9c72b51db744698d0302ea79cf",
+      "release": {
+        "revision": "04cee16824c3bbc9559639d6c3cfd32ff8ca02a7"
+      }
+    },
+    {
+      "identity": "cpp-build-library-inputs-v1",
+      "root": "/home/yiwei/.codex/outputs/forge-library-inputs-v1",
+      "inventory_sha256": "456cd80553a39d1a5f2fbd2c9df505591a9072da8cdd5aa2304399ff4b55e449",
+      "release": {
+        "revision": "a787ac205c623c86fdb2f83787b7702e4f525b1e"
+      }
+    },
+    {
+      "identity": "cpp-build-library-reference-v1",
+      "root": "/home/yiwei/.codex/outputs/forge-library-reference-v1",
+      "inventory_sha256": "2f28ae859043255cd62ec3cc286627ee542361aa1d5df6ac639f1c488923874e",
+      "release": {
+        "revision": "ddb47c83132f5aede02939a9799063c4065f8fb0"
+      }
+    },
+    {
+      "identity": "cpp-build-library-elfio-qualification-v1",
+      "root": "/home/yiwei/.codex/outputs/forge-library-elfio-qualification-v1",
+      "inventory_sha256": "ed7d103e7287c204ed634c60abad7ec625ca42f3e2caa95552d2b9a62347e6e3",
+      "release": {
+        "revision": "020c749a9ad26cd9fd5192f47724cfeb22107ee2"
+      }
+    },
+    {
+      "identity": "cpp-build-library-bit7z-user-reference-v1",
+      "root": "/home/yiwei/.codex/outputs/forge-library-bit7z-user-reference-v1",
+      "inventory_sha256": "48025086b5b2cfaddf29c2e6c982951dcfed5554e8f82f3c1908196a95e5ce0c",
+      "release": {
+        "revision": "051c1a04b2b6ed513effb7890f4ba69b05c51674"
+      }
+    }
+  ],
+  "independent_audits": [
+    {
+      "path": "/home/yiwei/.codex/outputs/forge-library-expansion-session-2026-10-23/independent-source-audit.json",
+      "sha256": "1ab0570e077a430e460f09937fa18e56864f655ce9de05ac766bf78d0bf32563"
+    },
+    {
+      "path": "/home/yiwei/.codex/outputs/forge-library-expansion-session-2026-10-23/independent-input-audit.json",
+      "sha256": "7ab0cd83405b730ad216913f6a49cfc599790b772f07c0c5e902aa80cda4643f"
+    },
+    {
+      "path": "/home/yiwei/.codex/outputs/forge-library-expansion-session-2026-10-23/independent-reference-audit.json",
+      "sha256": "da006f41c91c6a2008a10f4c9b557a7854214ca493a61bfc9b34f0574ec6ed52"
+    },
+    {
+      "path": "/home/yiwei/.codex/outputs/forge-library-expansion-session-2026-10-23/independent-bit7z-user-reference-audit.json",
+      "sha256": "020d23709453003ce41f0a31c8d745503616cd8489c122169dcad18defb7f55c"
+    },
+    {
+      "path": "/home/yiwei/.codex/outputs/forge-library-expansion-session-2026-10-23/elfio-count-diagnosis.json",
+      "sha256": "75d1936ab52f7be911983974c3d6957e8aedf6064d8af2a683053e65baee62a5"
+    },
+    {
+      "path": "/home/yiwei/.codex/outputs/forge-library-expansion-session-2026-10-23/full-reference-scope-audit.json",
+      "sha256": "3dd334f682fe61814ee3dfb7b1d01c1596c431b0a04e0a1446844f3c06fbd7a1"
+    }
+  ]
+}
