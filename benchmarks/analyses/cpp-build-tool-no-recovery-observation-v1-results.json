@@ -1,0 +1,213 @@
+{
+  "identity": "cpp-build-tool-no-recovery-observation-v1",
+  "kind": "independent_zero_provider_baseline_empirical_observation",
+  "release": "2e0ce7039543b48822d716867f400a1f93ac1403",
+  "inventory": {
+    "format": "forge-typed-evidence-v1",
+    "identity": "cpp-build-tool-no-recovery-observation-v1",
+    "entries": 10513,
+    "files": 10511,
+    "symlinks": 2,
+    "bytes": 319541460,
+    "inventory_canonical_sha256": "21be3340801fca99c2856f33ec7ef82460d9ab7151bf6cabfa3fd450fcd49626",
+    "unknown_usage_requests": 0
+  },
+  "fixed_denominator": 5,
+  "summary": {
+    "planned": 5,
+    "observed": 5,
+    "unobserved": 0,
+    "strict": 2,
+    "requests": 0,
+    "tokens": 0,
+    "cost_usd": "0",
+    "wall_seconds": 471.97354972269386,
+    "zero_model_strict": 2,
+    "handoffs": 3,
+    "strict_after_handoff": 0,
+    "initial_abstentions": 0,
+    "phases": {}
+  },
+  "rows": [
+    {
+      "project": "snappy",
+      "slot": 1,
+      "strict": false,
+      "requests": 0,
+      "cost_usd": "0",
+      "wall_seconds": 29.8998337010853,
+      "layers": {
+        "build": "passed",
+        "fixed_author_test_oracle": "failed",
+        "stage": "not_observed",
+        "replay": "not_observed",
+        "source": "passed",
+        "cleanup": "passed",
+        "strict": "failed"
+      },
+      "first_failure_role": "smoke",
+      "first_failure": "原必需配置HAVE_LIBLZO2未满足；作者完整CTest尚未执行",
+      "handoffs": 1,
+      "recovery_called": false,
+      "source_unchanged": true,
+      "actual_cleanup_absent": true
+    },
+    {
+      "project": "simdutf",
+      "slot": 2,
+      "strict": true,
+      "requests": 0,
+      "cost_usd": "0",
+      "wall_seconds": 408.847385766916,
+      "layers": {
+        "build": "passed",
+        "fixed_author_test_oracle": "passed",
+        "stage": "passed",
+        "replay": "passed",
+        "source": "passed",
+        "cleanup": "passed",
+        "strict": "passed"
+      },
+      "first_failure_role": null,
+      "first_failure": null,
+      "handoffs": 0,
+      "recovery_called": false,
+      "source_unchanged": true,
+      "actual_cleanup_absent": true
+    },
+    {
+      "project": "yaml-cpp",
+      "slot": 3,
+      "strict": false,
+      "requests": 0,
+      "cost_usd": "0",
+      "wall_seconds": 13.67399196093902,
+      "layers": {
+        "build": "passed",
+        "fixed_author_test_oracle": "failed",
+        "stage": "not_observed",
+        "replay": "not_observed",
+        "source": "passed",
+        "cleanup": "passed",
+        "strict": "failed"
+      },
+      "first_failure_role": "smoke",
+      "first_failure": "YAML_CPP_BUILD_TESTS=OFF；作者完整CTest尚未执行",
+      "handoffs": 1,
+      "recovery_called": false,
+      "source_unchanged": true,
+      "actual_cleanup_absent": true
+    },
+    {
+      "project": "libtommath",
+      "slot": 4,
+      "strict": false,
+      "requests": 0,
+      "cost_usd": "0",
+      "wall_seconds": 9.004071770701557,
+      "layers": {
+        "build": "passed",
+        "fixed_author_test_oracle": "failed",
+        "stage": "not_observed",
+        "replay": "not_observed",
+        "source": "passed",
+        "cleanup": "passed",
+        "strict": "failed"
+      },
+      "first_failure_role": "smoke",
+      "first_failure": "原./test尚未构建，执行失败；未观察作者测试用例运行",
+      "handoffs": 1,
+      "recovery_called": false,
+      "source_unchanged": true,
+      "actual_cleanup_absent": true
+    },
+    {
+      "project": "tinyxml2",
+      "slot": 5,
+      "strict": true,
+      "requests": 0,
+      "cost_usd": "0",
+      "wall_seconds": 10.548266523052007,
+      "layers": {
+        "build": "passed",
+        "fixed_author_test_oracle": "passed",
+        "stage": "passed",
+        "replay": "passed",
+        "source": "passed",
+        "cleanup": "passed",
+        "strict": "passed"
+      },
+      "first_failure_role": null,
+      "first_failure": null,
+      "handoffs": 0,
+      "recovery_called": false,
+      "source_unchanged": true,
+      "actual_cleanup_absent": true
+    }
+  ],
+  "validation_layers_counts": {
+    "build": {
+      "passed": 5,
+      "failed": 0,
+      "not_observed": 0
+    },
+    "fixed_author_test_oracle": {
+      "passed": 2,
+      "failed": 3,
+      "not_observed": 0
+    },
+    "stage": {
+      "passed": 2,
+      "failed": 0,
+      "not_observed": 3
+    },
+    "replay": {
+      "passed": 2,
+      "failed": 0,
+      "not_observed": 3
+    },
+    "source": {
+      "passed": 5,
+      "failed": 0,
+      "not_observed": 0
+    },
+    "cleanup": {
+      "passed": 5,
+      "failed": 0,
+      "not_observed": 0
+    },
+    "strict": {
+      "passed": 2,
+      "failed": 3,
+      "not_observed": 0
+    }
+  },
+  "paid_paired_ablation_observed": 0,
+  "paid_paired_ablation_planned": 10,
+  "paired_recovery_effect_established": false,
+  "prior_recovery_success_not_pooled": true,
+  "all_sources_seen": true,
+  "holdout": false,
+  "legacy_rq3_denominators_unchanged": true,
+  "provider_requests": 0,
+  "credentials_read": false,
+  "financial_cost_usd": "0",
+  "provenance": [
+    {
+      "path": "/home/yiwei/.codex/outputs/forge-library-expansion-session-2026-10-23/independent-no-recovery-audit.json",
+      "sha256": "db2c424461755d7a9655cb9024f44af7f09ea1d9271c16afaf59b1b5aff9c08e"
+    },
+    {
+      "path": "/home/yiwei/.codex/outputs/forge-library-expansion-session-2026-10-23/audit_no_recovery.py",
+      "sha256": "92f61594183161acbc91db1e3a673d3909d63a6bfb2afb65b3554bb82588e79a"
+    },
+    {
+      "path": "/home/yiwei/.codex/outputs/forge-library-expansion-session-2026-10-23/derive_results.py",
+      "sha256": "8fa9cad16df2423f7c304e6fab9efda19d763ee1b292f166303584836b7c4e4e"
+    },
+    {
+      "path": "/home/yiwei/.codex/outputs/forge-library-expansion-session-2026-10-23/derive_no_recovery.py",
+      "sha256": "1cb88876b8a493e793848648d885bc0453aa74ec2aa06980a340b85a21bd27de"
+    }
+  ]
+}

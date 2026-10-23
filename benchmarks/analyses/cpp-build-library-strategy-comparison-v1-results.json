@@ -1,0 +1,382 @@
+{
+  "identity": "cpp-build-library-strategy-comparison-v1",
+  "release": "f50834ac89f7cf5856bbc093cc08212a94934c30",
+  "inventory": {
+    "format": "forge-typed-evidence-v1",
+    "identity": "cpp-build-library-strategy-comparison-v1",
+    "entries": 23744,
+    "files": 23744,
+    "symlinks": 0,
+    "bytes": 1039619655,
+    "inventory_canonical_sha256": "cb30b094b747c21a124d0212c3ce013be82205bbba09cd0a155ab7a3efe7dc36",
+    "unknown_usage_requests": 1
+  },
+  "known_estimated_cost_usd": "1.55561604",
+  "unknown_requests": 1,
+  "not_observed": 0,
+  "stop": "cleanup_or_unknown_usage",
+  "summary": {
+    "tool_plan_workflow": {
+      "planned": 4,
+      "observed": 4,
+      "unobserved": 0,
+      "requests": 18,
+      "tokens": 330717,
+      "cost_usd": "0.52818876",
+      "wall_seconds": 644.1066585252993,
+      "zero_model_strict": 0,
+      "handoffs": 4,
+      "strict_after_handoff": 4,
+      "initial_abstentions": 0,
+      "phases": {
+        "recovery": {
+          "requests": 18,
+          "cost_usd": "0.52818876"
+        }
+      },
+      "engineering_strict": 4,
+      "full_protocol_completed": 4,
+      "protocol_scope_failed": 0,
+      "protocol_scope_not_observed": 0
+    },
+    "model_plan_workflow": {
+      "planned": 4,
+      "observed": 4,
+      "unobserved": 0,
+      "requests": 17,
+      "tokens": 199024,
+      "cost_usd": "0.30659904",
+      "wall_seconds": 295.5612879032269,
+      "zero_model_strict": 0,
+      "handoffs": 0,
+      "strict_after_handoff": 0,
+      "initial_abstentions": 0,
+      "phases": {
+        "initial": {
+          "requests": 16,
+          "cost_usd": "0.30659904"
+        }
+      },
+      "engineering_strict": 3,
+      "full_protocol_completed": 2,
+      "protocol_scope_failed": 1,
+      "protocol_scope_not_observed": 1
+    },
+    "strong_tool_agent": {
+      "planned": 4,
+      "observed": 4,
+      "unobserved": 0,
+      "requests": 43,
+      "tokens": 519310,
+      "cost_usd": "0.72082824",
+      "wall_seconds": 415.8342105601914,
+      "zero_model_strict": 0,
+      "handoffs": 0,
+      "strict_after_handoff": 0,
+      "initial_abstentions": 0,
+      "phases": {
+        "agent_control": {
+          "requests": 43,
+          "cost_usd": "0.72082824"
+        }
+      },
+      "engineering_strict": 4,
+      "full_protocol_completed": 4,
+      "protocol_scope_failed": 0,
+      "protocol_scope_not_observed": 0
+    }
+  },
+  "scope_unaffected_rang_only": {
+    "tool_plan_workflow": {
+      "planned": 2,
+      "observed": 2,
+      "unobserved": 0,
+      "strict": 2,
+      "requests": 12,
+      "tokens": 202760,
+      "cost_usd": "0.30800880",
+      "wall_seconds": 277.1388054252602,
+      "zero_model_strict": 0,
+      "handoffs": 2,
+      "strict_after_handoff": 2,
+      "initial_abstentions": 0,
+      "phases": {
+        "recovery": {
+          "requests": 12,
+          "cost_usd": "0.30800880"
+        }
+      }
+    },
+    "model_plan_workflow": {
+      "planned": 2,
+      "observed": 2,
+      "unobserved": 0,
+      "strict": 2,
+      "requests": 12,
+      "tokens": 144938,
+      "cost_usd": "0.21993840",
+      "wall_seconds": 174.3881737436168,
+      "zero_model_strict": 0,
+      "handoffs": 0,
+      "strict_after_handoff": 0,
+      "initial_abstentions": 0,
+      "phases": {
+        "initial": {
+          "requests": 12,
+          "cost_usd": "0.21993840"
+        }
+      }
+    },
+    "strong_tool_agent": {
+      "planned": 2,
+      "observed": 2,
+      "unobserved": 0,
+      "strict": 2,
+      "requests": 23,
+      "tokens": 271576,
+      "cost_usd": "0.37654320",
+      "wall_seconds": 178.06287096533924,
+      "zero_model_strict": 0,
+      "handoffs": 0,
+      "strict_after_handoff": 0,
+      "initial_abstentions": 0,
+      "phases": {
+        "agent_control": {
+          "requests": 23,
+          "cost_usd": "0.37654320"
+        }
+      }
+    }
+  },
+  "claims": {
+    "holdout": false,
+    "specified_cmake": true,
+    "fixed_dependency_sources": true,
+    "header_only_author_compilation_endpoints": true,
+    "library_installation_package": false,
+    "complete_strategy_comparison": false,
+    "pure_planning_causal_effect": false,
+    "earlier_results_not_pooled": true,
+    "statistical_significance": false,
+    "general_model_ranking": false,
+    "fair_full_protocol_comparison_established": false,
+    "engineering_strict_not_full_protocol_strict": true,
+    "provider_402_is_not_method_failure": true
+  },
+  "provenance": [
+    {
+      "path": "/home/yiwei/.codex/outputs/forge-library-expansion-session-2026-10-23/independent-comparison-audit.json",
+      "sha256": "7122f5fc5c24fed35c94ba4bba2866b149bd304a58eff7c38f0a077992618d30"
+    },
+    {
+      "path": "/home/yiwei/.codex/outputs/forge-library-expansion-session-2026-10-23/audit_results.py",
+      "sha256": "f3e14dd02ca7e113cc52dcbbcf9d2427bf8e1149399a653b29ddf92ec7e556f1"
+    },
+    {
+      "path": "/home/yiwei/.codex/outputs/forge-library-expansion-session-2026-10-23/derive_results.py",
+      "sha256": "8fa9cad16df2423f7c304e6fab9efda19d763ee1b292f166303584836b7c4e4e"
+    },
+    {
+      "path": "/home/yiwei/.codex/outputs/forge-library-expansion-session-2026-10-23/independent-protocol-scope-audit.json",
+      "sha256": "8193ad216f2cd2b8b3361bc31aa427910b9c50ff209972184d3ac0375c607983"
+    },
+    {
+      "path": "/home/yiwei/.codex/outputs/forge-library-expansion-session-2026-10-23/audit_scope.py",
+      "sha256": "e4def0ca98907493a5a1f55d1585bf10df27b66425eab7409ace9235b685df79"
+    },
+    {
+      "path": "/home/yiwei/.codex/outputs/forge-library-expansion-session-2026-10-23/derived-comparison-reviewed.json",
+      "sha256": "e2fe3a519045ee3a2de52bfca751fa6e437075728c16a625d2f045117b3ce02a"
+    },
+    {
+      "path": "/home/yiwei/.codex/outputs/forge-library-expansion-session-2026-10-23/shared-budget/budget-events.jsonl",
+      "sha256": "85b8e09c25b60c02a057443eb08519e9f07848a4e03c73094f5f3d5264713675"
+    },
+    {
+      "path": "/home/yiwei/.codex/outputs/forge-library-expansion-session-2026-10-23/shared-budget/provider-stop.json",
+      "sha256": "7fa4fd241d21918e95c33f49abc8f26516ca56a0e9954a9e74c647dbe158f3ec"
+    }
+  ],
+  "kind": "descriptive_results_with_protocol_scope_defect_and_provider_stop",
+  "fixed_attempt_denominator": 12,
+  "engineering_strict": 11,
+  "original_protocol_scope": {
+    "completed": 10,
+    "failed": 1,
+    "not_observed": 1,
+    "failed_slot": 5,
+    "provider_stopped_slot": 12
+  },
+  "unknown_request_reservation_usd": "0.80",
+  "conservative_occupied_usd": "2.35561604",
+  "fee_not_provider_bill": true,
+  "all_stages_share_original_budget": true,
+  "legacy_rq3_denominators_unchanged": true,
+  "validation_layers_counts": {
+    "build": {
+      "passed": 11,
+      "failed": 0,
+      "not_observed": 1
+    },
+    "fixed_author_test_oracle": {
+      "passed": 11,
+      "failed": 0,
+      "not_observed": 1
+    },
+    "stage": {
+      "passed": 11,
+      "failed": 0,
+      "not_observed": 1
+    },
+    "replay": {
+      "passed": 11,
+      "failed": 0,
+      "not_observed": 1
+    },
+    "source": {
+      "passed": 12,
+      "failed": 0,
+      "not_observed": 0
+    },
+    "cleanup": {
+      "passed": 12,
+      "failed": 0,
+      "not_observed": 0
+    },
+    "strict": {
+      "passed": 11,
+      "failed": 1,
+      "not_observed": 0
+    },
+    "original_protocol_scope": {
+      "passed": 10,
+      "failed": 1,
+      "not_observed": 1
+    }
+  },
+  "model_initial_complete_usage_episodes": 3,
+  "model_initial_average_known_cost_usd": "0.10219968",
+  "scope_defect_comparison_not_used_as_full_three_way_ranking": true,
+  "matched_tool_vs_strong_description": {
+    "projects": [
+      "rang",
+      "ELFIO"
+    ],
+    "repetitions": 2,
+    "each_arm_full_protocol_completed": 4,
+    "cost_reduction_percent": "26.72474097",
+    "wall_increase_percent": "54.89506206",
+    "posthoc_scope_audit_applied_to_all_slots": true,
+    "not_population_or_significance_claim": true
+  },
+  "rows": [
+    {
+      "slot": 1,
+      "project": "rang",
+      "method": "tool_plan_workflow",
+      "repetition": 1,
+      "engineering_strict": true,
+      "full_protocol_strict": true,
+      "protocol_scope": "completed"
+    },
+    {
+      "slot": 2,
+      "project": "rang",
+      "method": "model_plan_workflow",
+      "repetition": 1,
+      "engineering_strict": true,
+      "full_protocol_strict": true,
+      "protocol_scope": "completed"
+    },
+    {
+      "slot": 3,
+      "project": "rang",
+      "method": "strong_tool_agent",
+      "repetition": 1,
+      "engineering_strict": true,
+      "full_protocol_strict": true,
+      "protocol_scope": "completed"
+    },
+    {
+      "slot": 4,
+      "project": "ELFIO",
+      "method": "strong_tool_agent",
+      "repetition": 1,
+      "engineering_strict": true,
+      "full_protocol_strict": true,
+      "protocol_scope": "completed"
+    },
+    {
+      "slot": 5,
+      "project": "ELFIO",
+      "method": "model_plan_workflow",
+      "repetition": 1,
+      "engineering_strict": true,
+      "full_protocol_strict": false,
+      "protocol_scope": "missing_original_default_examples"
+    },
+    {
+      "slot": 6,
+      "project": "ELFIO",
+      "method": "tool_plan_workflow",
+      "repetition": 1,
+      "engineering_strict": true,
+      "full_protocol_strict": true,
+      "protocol_scope": "completed"
+    },
+    {
+      "slot": 7,
+      "project": "rang",
+      "method": "tool_plan_workflow",
+      "repetition": 2,
+      "engineering_strict": true,
+      "full_protocol_strict": true,
+      "protocol_scope": "completed"
+    },
+    {
+      "slot": 8,
+      "project": "rang",
+      "method": "strong_tool_agent",
+      "repetition": 2,
+      "engineering_strict": true,
+      "full_protocol_strict": true,
+      "protocol_scope": "completed"
+    },
+    {
+      "slot": 9,
+      "project": "rang",
+      "method": "model_plan_workflow",
+      "repetition": 2,
+      "engineering_strict": true,
+      "full_protocol_strict": true,
+      "protocol_scope": "completed"
+    },
+    {
+      "slot": 10,
+      "project": "ELFIO",
+      "method": "strong_tool_agent",
+      "repetition": 2,
+      "engineering_strict": true,
+      "full_protocol_strict": true,
+      "protocol_scope": "completed"
+    },
+    {
+      "slot": 11,
+      "project": "ELFIO",
+      "method": "tool_plan_workflow",
+      "repetition": 2,
+      "engineering_strict": true,
+      "full_protocol_strict": true,
+      "protocol_scope": "completed"
+    },
+    {
+      "slot": 12,
+      "project": "ELFIO",
+      "method": "model_plan_workflow",
+      "repetition": 2,
+      "engineering_strict": false,
+      "full_protocol_strict": null,
+      "protocol_scope": "not_observed_provider_402"
+    }
+  ]
+}

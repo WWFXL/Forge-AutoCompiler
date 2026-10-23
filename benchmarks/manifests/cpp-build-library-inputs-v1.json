@@ -1,0 +1,82 @@
+{
+  "identity": "cpp-build-library-inputs-v1",
+  "issue": 625,
+  "deadline_utc": "2026-10-23T09:27:52Z",
+  "provider_calls": 0,
+  "credentials_read": false,
+  "automatic_retry": false,
+  "build_commands": 0,
+  "parent_raw": "/home/yiwei/.codex/outputs/forge-library-full-sources-v1",
+  "parent_inventory_sha256": "7cff54145a8d5867136e8b8a6264b0a9b655ee9c72b51db744698d0302ea79cf",
+  "projects": [
+    {
+      "repository": "agauniyal/rang",
+      "commit_sha": "56419fe3348a475c8dd83852d907794cec0ec798",
+      "name": "rang",
+      "dependencies": [
+        {
+          "name": "doctest",
+          "repository": "doctest/doctest",
+          "ref": "v2.4.11"
+        }
+      ]
+    },
+    {
+      "repository": "serge1/ELFIO",
+      "commit_sha": "660e90514a2e80fba1c55f2cee07bbeda3d1c601",
+      "name": "ELFIO",
+      "dependencies": [
+        {
+          "name": "googletest",
+          "repository": "google/googletest",
+          "ref": "v1.16.0"
+        }
+      ]
+    },
+    {
+      "repository": "rikyoz/bit7z",
+      "commit_sha": "3c7cbbf2c7258ef45dd325842dc23aaa92a56570",
+      "name": "bit7z",
+      "dependencies": [
+        {
+          "name": "7zip",
+          "repository": "rikyoz/7-Zip",
+          "ref": "v26.01"
+        },
+        {
+          "name": "ghc_filesystem",
+          "repository": "rikyoz/filesystem",
+          "ref": "b99c2aebd5ddd6fb2f190731ba80b949fc3842b5"
+        },
+        {
+          "name": "Catch2",
+          "repository": "rikyoz/Catch2",
+          "ref": "27d8db1770dd5cd3688656095f242474431584a1"
+        },
+        {
+          "name": "bit7z_test_data",
+          "repository": "rikyoz/bit7z-test-data",
+          "ref": "v1.18.2"
+        }
+      ],
+      "cpm": {
+        "url": "https://github.com/cpm-cmake/CPM.cmake/releases/download/v0.42.3/CPM.cmake",
+        "sha256": "a609e875fd532b067174250f6abbc3dac22fe2d64869783fb1e80bda1625c844"
+      }
+    }
+  ],
+  "limits": {
+    "max_compressed_bytes": 268435456,
+    "max_uncompressed_bytes": 1073741824,
+    "max_file_bytes": 67108864,
+    "max_entries": 100000,
+    "snippet_bytes": 64000
+  },
+  "components": {
+    "scripts/forge_build_library_inputs.py": "f5833dfa6e6f8c39ad2dd9cb1d1d9a274bf59ad92417d992276dbe4da71e207c",
+    "scripts/forge_build_reference_expansion.py": "77df5e88f38efe0669af68e41b50477123ddbd8f5ee276266c0767d7cd9f9182",
+    "scripts/forge_build_source_expansion.py": "37472f1676a68653a08334de90f2ee43698f05d33e76900734e1c5fd70bb2387",
+    "scripts/forge_typed_evidence.py": "b3e798669389507dc605fcd73b2450921f0695bddccc564344fda88d5cb7a3c8",
+    "backend/tests/test_library_inputs.py": "c0ff63b7a12ed2a05b13324c85cf1a39bb9f02f4fb871cd892f58f380fece6f1"
+  }
+}

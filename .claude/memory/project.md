@@ -3,15 +3,9 @@
 跨 Claude Code session 的项目状态流水。按 CLAUDE.md §7 维护。
 
 ## 进行中 (In Progress)
-
-
-
-
-
-
-
-
-
+- 2026-10-23 — #626等待用户确认Provider恢复及解除未知usage停止，下一付费阶段未启动。
+  - 文件: `benchmarks/manifests/cpp-build-library-strategy-comparison-v2.json`, `benchmarks/manifests/cpp-build-tool-recovery-ablation-v1.json`, `RESEARCH_STATUS.md`。
+  - 边界: 原总窗UTC09:27:52若有效不重置，总20美元已保守占用2.35561604；过期另给有效授权。v2完整义务十二槽/恢复配对十槽均未观察，不续#625旧身份。bit7z已有普通用户资格但方法比较未观察。
 
 - 2026-10-22 — #608真实开发诊断已封存，#610必要反馈修复已建Issue并回读，待冻结。
   - #608: 三观察0strict，48请求1002853Token/$1.59469068/未知0；工具9请求输出截断，模型19请求两份候选被阶段顺序拒绝，强工具20请求/5命令末set+e诊断被拒绝。三套818原文件不变、生成21/0/40 SHA匹配、实际cleanup；测试/交付/replay全未观察。releasebad83b7f、295组件，raw forge-rtorrent-bounded-planning-canary-v1、inventoryedab32d5；独立数据audit valid，但整次规划8轮协议验证false（实际结构纠错新图也重计），原证据不改。
@@ -618,6 +612,11 @@
   - 下一步: 等待实验负责人确认当前网络接入介质，并决定是否授权只读 endpoint 诊断和新的 canary amendment；获得确认后必须另建中文 Issue/PR 和协议 identity，保留当前失败 marker。
 
 ## 最近变更 (Recent Changes)
+- 2026-10-23 — #625完成新库完整来源/输入与独立资格、真实比较及零模型基线，保留范围遗漏和HTTP402停止证据。
+  - 文件: `docs/research/2026-10-23-library-expansion-results.md`, `benchmarks/analyses/cpp-build-library-qualification-results.json`, `benchmarks/analyses/cpp-build-library-strategy-comparison-v1-results.json`, `benchmarks/analyses/cpp-build-tool-no-recovery-observation-v1-results.json`、对应runner/manifest/prereg和局部回归。
+  - 动机: 原12槽11工程strict但10满足完整协议/1漏示例/1Provider未观察，完整三方排名不成立；工具对强工具4配对低费26.72%/慢54.90%，rang模型规划更便宜。bit7z原三程序/重放在普通用户上下文全过，原字节保持；独立零模型基线2/5strict/0费，不作恢复因果。旧原始失败/未观察不回填。
+  - 证据: 会话forge-library-expansion-session-2026-10-23独立来源/输入/参考/bit7z/比较/范围/基线审计valid，raw对照报告完整SHA；主已知1.55561604+未知0.80=2.35561604，所有后续付费停止，0模型数据继续完成。原RQ3/P2/主线/HTML保持，仅科研依赖分支发布，GitHub/final-publication-audit为实际发布权威。
+
 
 - 2026-10-23 — #623固定20项C++来源合同材料和逐项义务审阅完成。
   - 文件: `scripts/forge_build_cpp_library_task_materials.py`、父分母测试、同名manifest/预注册/analyses、`docs/research/2026-10-23-cpp-library-task-materials-results.md`、`RESEARCH_STATUS.md`。
