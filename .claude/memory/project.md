@@ -3,6 +3,14 @@
 跨 Claude Code session 的项目状态流水。按 CLAUDE.md §7 维护。
 
 ## 进行中 (In Progress)
+- 2026-10-23 — #625主比较第一轮6槽strict，冻结后续恢复开关消融10槽及bit7z普通用户独立资格。
+  - 文件: `scripts/forge_build_recovery_ablation.py`, `scripts/forge_build_library_bit7z_user_reference.py`、同名manifest/prereg。
+  - 动机: 五已见工具可规划任务估计执行失败后恢复贡献；bit7z原root测试失败不能删测试，普通用户上下文一次独立资格不回填。不要并行实际构建干扰比较耗时；新授权仍原总窗/20美元，主比较闭合后才新付费阶段。
+
+- 2026-10-23 — #625已完成完整来源/输入及独立参考，准备12槽付费比较；保留ELFIO旧误计失败和bit7z原测试失败。
+  - 文件: `scripts/forge_build_library_comparison.py`, `benchmarks/manifests/cpp-build-library-strategy-comparison-v1.json`
+  - 动机: rang/ELFIO资格完成后检验新来源上的请求/费用收益；原8小时/20美元共享不重置，仅合科研依赖分支。会话forge-library-expansion-session-2026-10-23含独立审计；不能用代码量代替结果。
+
 
 - 2026-10-23 — #625八小时新库资格、比较与恢复消融已授权启动。
   - 文件: scripts/forge_build_library_sources.py、benchmarks/manifests/cpp-build-library-full-sources-v1.json。

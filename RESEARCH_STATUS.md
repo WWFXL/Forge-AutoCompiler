@@ -6,7 +6,11 @@
 
 本轮资格证据：完整来源3/3（inventory7cff5414）、依赖输入3/3（456cd805），独立原字节/tree/依赖归档审计valid，0Provider。cpp-build-library-reference-v1封存：rang完整qualified；ELFIO实际73测试/74CTest全通过但裁判误计82/83，旧失败保留；bit7z编译通过、首程序572case中571过/1失败（13断言），root用户目录父目录为/的路径边界问题，后两程序/交付/replay未观察，不跳过或改源码。参考inventory2f28ae85。独立cpp-build-library-elfio-qualification-v1仅更正注释误计73/74，完整测试/原源码/精确ELFIOTest/clean replay/cleanup均通过，inventoryed7d103e。四次参考行原/replay全文件、精确产物与实际容器不存在独立审计valid。
 
-已冻结cpp-build-library-strategy-comparison-v1：rang/ELFIO×三策略×两重复12槽，先全第一轮再第二轮、比较最多10美元；共同固定依赖源码资源/原构建材料，原task-selected通用工具模板，不注入人工正确命令。header-only原编译端点/指定CMake/开发助手已见非holdout，不冒称完整安装包/无辅助依赖/自主多系统识别或纯规划因果。1局部拒绝删测试检查0.86秒/Ruff/CLI，未重复免费全构建或本地全量程序测试。真实比较随后启动；截至启动前本轮模型费0，原预算/截止不重置。
+已冻结cpp-build-library-strategy-comparison-v1：rang/ELFIO×三策略×两重复12槽，先全第一轮再第二轮、比较最多10美元；共同固定依赖源码资源/原构建材料，原task-selected通用工具模板，不注入人工正确命令。header-only原编译端点/指定CMake/开发助手已见非holdout，不冒称完整安装包/无辅助依赖/自主多系统识别或纯规划因果。1局部拒绝删测试检查0.86秒/Ruff/CLI，未重复免费全构建或本地全量程序测试。真实比较已启动，第一轮6槽全部strict；工具/模型/强工具请求9/10/23、估费0.29182824/0.19682784/0.40362828美元，第二轮尚未完成，不能当最终排名。ELFIO工具原build成功但测试未启用，固定检查拒绝后真实恢复通过。原预算/截止不重置。
+
+恢复消融已在新结果前冻结cpp-build-tool-recovery-ablation-v1：固定已见snappy/simdutf/yaml-cpp/libtommath/tinyxml2×失败即停/允许同失败Agent恢复10槽；离线原工具初始方案5/5准入、0Provider/源码执行。check初始拒答不在执行后恢复估计对象内。1局部开关检查0.87秒/Ruff，原源码/测试/交付/资源不改，阶段5美元共享总20美元。待当前比较闭合后执行；两臂plan1及失败前前缀须核对，非总体因果/显著性。
+
+bit7z仅新增普通用户测试上下文独立资格协议cpp-build-library-bit7z-user-reference-v1，0Provider：同镜像已有ubuntu(uid1000/home/ubuntu)，原完整三个程序均由runuser运行，构建仍root，源/测试字节不改；记录UID/真实用户目录，不覆盖HOME变量。旧root失败/当前12分母不回填；为避免CPU竞争，待付费比较结束后再单独参考与replay，当前结果未观察。
 
 ## 上一阶段（2026-10-23；36槽比较及20项新来源/合同材料完成，转任务资格）
 
