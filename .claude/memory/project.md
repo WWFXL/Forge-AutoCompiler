@@ -4,6 +4,12 @@
 
 ## 进行中 (In Progress)
 
+- 2026-10-23 — #625八小时新库资格、比较与恢复消融已授权启动。
+  - 文件: scripts/forge_build_library_sources.py、benchmarks/manifests/cpp-build-library-full-sources-v1.json。
+  - 窗口: UTC01:27:52–09:27:52，准备计入，共享新增20美元（比较10/消融5/补充3/未知2），无自动重试/未知身份cleanup异常停，发布仅科研依赖分支。
+  - 先沿旧目录rang/ELFIO/bit7z精确版本收集完整来源，0Provider；后续依赖/原测试/交付固定及独立参考/replay后再比较，不按效果补特例。约两小时评估阻塞，必要时转固定旧任务消融/RQ3。用户HTML原SHA保持，旧分母/P2不改。会话forge-library-expansion-session-2026-10-23保存授权及审计。
+
+
 
 
 

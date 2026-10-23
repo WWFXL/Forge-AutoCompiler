@@ -1,0 +1,133 @@
+{
+  "identity": "cpp-build-library-full-sources-v1",
+  "deadline_utc": "2026-10-23T09:27:52Z",
+  "provider_calls": 0,
+  "model_cost_usd": 0,
+  "build_commands": 0,
+  "provider_credentials_read": false,
+  "automatic_retry": false,
+  "issue": 625,
+  "authorization": "/home/yiwei/.codex/outputs/forge-library-expansion-session-2026-10-23/budget/authorization.json",
+  "parent_raw": "/home/yiwei/.codex/outputs/forge-cpp-library-source-catalog-v1",
+  "parent_files": {
+    "result.json": "78eb38f79804f125395e8bc4de54ee11dd5ac8dcfeb6afc27084998618f14068",
+    "protocol.json": "2fb21318dcb1050a845c8244a4b445a25c3e4cbba6037a664fa0a29d2f38c1db",
+    "inventory.json": "a9eb0f1e205e14f77e5da4b23bdb34567257b1c70290f9f9039367f57d8b53c9",
+    "seal.json": "34317b78ccb59c2e3005f692358953cbe86373f7610b1e93e61489d996e61d03"
+  },
+  "candidates": [
+    {
+      "rank": 8,
+      "repository": "agauniyal/rang",
+      "repository_id": 52766460,
+      "stars": 1595,
+      "role": "source_metadata_only",
+      "task_qualified": false,
+      "holdout": false,
+      "build_result": "not_observed",
+      "current_tracked_exact_name_matches": [],
+      "commit_sha": "56419fe3348a475c8dd83852d907794cec0ec798",
+      "root_tree_sha": "1f48f341ab2483f64de0d7709e93aada91de3cef",
+      "root_entry_names": [
+        ".clang-format",
+        ".editorconfig",
+        ".github",
+        ".gitignore",
+        "CMakeLists.txt",
+        "LICENSE",
+        "README.md",
+        "cmake",
+        "conanfile.py",
+        "include",
+        "meson.build",
+        "test",
+        "test_package"
+      ],
+      "candidate_build_systems": [
+        "cmake",
+        "meson"
+      ],
+      "linux_target_applicability": "not_observed",
+      "status": "metadata_observed"
+    },
+    {
+      "rank": 16,
+      "repository": "serge1/ELFIO",
+      "repository_id": 5455346,
+      "stars": 897,
+      "role": "source_metadata_only",
+      "task_qualified": false,
+      "holdout": false,
+      "build_result": "not_observed",
+      "current_tracked_exact_name_matches": [],
+      "commit_sha": "660e90514a2e80fba1c55f2cee07bbeda3d1c601",
+      "root_tree_sha": "54d98268e428d7f785c35c1a92ca046a8ecf315e",
+      "root_entry_names": [
+        ".clang-format",
+        ".gitattributes",
+        ".github",
+        ".gitignore",
+        ".vscode",
+        "CMakeLists.txt",
+        "LICENSE.txt",
+        "README.md",
+        "ario",
+        "cmake",
+        "doc",
+        "elfio",
+        "examples",
+        "tests"
+      ],
+      "candidate_build_systems": [
+        "cmake"
+      ],
+      "linux_target_applicability": "not_observed",
+      "status": "metadata_observed"
+    },
+    {
+      "rank": 18,
+      "repository": "rikyoz/bit7z",
+      "repository_id": 28002069,
+      "stars": 858,
+      "role": "source_metadata_only",
+      "task_qualified": false,
+      "holdout": false,
+      "build_result": "not_observed",
+      "current_tracked_exact_name_matches": [],
+      "commit_sha": "3c7cbbf2c7258ef45dd325842dc23aaa92a56570",
+      "root_tree_sha": "ad4529e84f0dec12f49d6115c502f946a6dad062",
+      "root_entry_names": [
+        ".github",
+        ".gitignore",
+        "CMakeLists.txt",
+        "CODE_OF_CONDUCT.md",
+        "LICENSE",
+        "README.md",
+        "appveyor.yml",
+        "cmake",
+        "docs",
+        "include",
+        "src",
+        "tests"
+      ],
+      "candidate_build_systems": [
+        "cmake"
+      ],
+      "linux_target_applicability": "not_observed",
+      "status": "metadata_observed"
+    }
+  ],
+  "limits": {
+    "max_compressed_bytes": 67108864,
+    "max_uncompressed_bytes": 268435456,
+    "max_file_bytes": 16777216,
+    "max_entries": 40000,
+    "snippet_bytes": 64000
+  },
+  "components": {
+    "scripts/forge_build_library_sources.py": "bb4cdee2b71d93ff141f94a6d229ea6f678a8d4192bebb0d341587dcbfd5d1bc",
+    "scripts/forge_build_source_expansion.py": "37472f1676a68653a08334de90f2ee43698f05d33e76900734e1c5fd70bb2387",
+    "scripts/forge_typed_evidence.py": "b3e798669389507dc605fcd73b2450921f0695bddccc564344fda88d5cb7a3c8",
+    "backend/tests/test_library_full_sources.py": "05f071fbfff06d31e99f91068809e31b0ce8051f842a4000ab20e4148bbefea2"
+  }
+}
