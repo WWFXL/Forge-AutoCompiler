@@ -1,0 +1,657 @@
+{
+  "identity": "cpp-build-tool-recovery-ablation-flash-v1",
+  "provider": {
+    "model": "deepseek-flash",
+    "thinking": true,
+    "reasoning_effort": "low",
+    "max_output_tokens": 32768,
+    "max_retries": 0,
+    "accepted_response_models": [
+      "DeepSeek-V4.1-Flash-1017",
+      "deepseek-flash"
+    ]
+  },
+  "pricing": {
+    "input_per_million_usd": "0.30",
+    "output_per_million_usd": "1.20",
+    "basis": "2026-10-27官方高峰、全部输入按缓存未命中估费；不是账单",
+    "source": "https://api-docs.deepseek.com/quick_start/pricing"
+  },
+  "release": "57f999ae92981628160c9c3636540b7c20a2800c",
+  "raw_root": "/home/yiwei/.codex/outputs/forge-tool-recovery-ablation-flash-v1",
+  "inventory": {
+    "format": "forge-typed-evidence-v1",
+    "identity": "cpp-build-tool-recovery-ablation-flash-v1",
+    "entries": 23402,
+    "files": 23398,
+    "symlinks": 4,
+    "bytes": 795386334,
+    "inventory_canonical_sha256": "6b7785602cabe6ed4eb6499e3717f31b0aa58ef7edce6449425be0cee09b4c33",
+    "unknown_usage_requests": 0
+  },
+  "planned": 10,
+  "observed": 10,
+  "unobserved": 0,
+  "stop_reason": null,
+  "lifecycle_complete": true,
+  "summary": {
+    "no_recovery": {
+      "planned": 5,
+      "observed": 5,
+      "unobserved": 0,
+      "strict_completed": 2,
+      "model_requests": 0,
+      "recorded_tokens": 0,
+      "cost_usd": "0",
+      "wall_seconds": 489.7907159020251,
+      "zero_model_strict": 2,
+      "handoffs": 3,
+      "applied_revisions": 0,
+      "phases": {}
+    },
+    "failure_agent_recovery": {
+      "planned": 5,
+      "observed": 5,
+      "unobserved": 0,
+      "strict_completed": 4,
+      "model_requests": 10,
+      "recorded_tokens": 172171,
+      "cost_usd": "0.0590439",
+      "wall_seconds": 829.2720204469806,
+      "zero_model_strict": 2,
+      "handoffs": 3,
+      "applied_revisions": 2,
+      "phases": {
+        "recovery": {
+          "requests": 10,
+          "cost_usd": "0.0590439"
+        }
+      }
+    }
+  },
+  "rows": [
+    {
+      "slot": 1,
+      "project": "snappy",
+      "method": "no_recovery",
+      "repetition": 1,
+      "strict_completed": false,
+      "model_requests": 0,
+      "recorded_tokens": 0,
+      "cost_usd": "0",
+      "unknown_requests": 0,
+      "wall_seconds": 31.238994918996468,
+      "handoffs": 1,
+      "applied_revisions": 0,
+      "phases": {},
+      "responses": [],
+      "layers": {
+        "build": "passed",
+        "fixed_task_checks": "failed",
+        "artifact_stage": "not_observed",
+        "clean_replay": "not_observed",
+        "source_preservation": "passed",
+        "cleanup": "passed"
+      },
+      "failures": [
+        {
+          "role": "smoke",
+          "command": "python3 -c 'from pathlib import Path\ncache={}\nfor line in Path('\"'\"'build/CMakeCache.txt'\"'\"').read_text().splitlines():\n if '\"'\"'='\"'\"' in line and '\"'\"':'\"'\"' in line and not line.startswith(('\"'\"'//'\"'\"','\"'\"'#'\"'\"')):\n  key,value=line.split('\"'\"'='\"'\"',1); name,_=key.split('\"'\"':'\"'\"',1); cache[name]=value\nfalse_values={'\"'\"''\"'\"','\"'\"'0'\"'\"','\"'\"'OFF'\"'\"','\"'\"'NO'\"'\"','\"'\"'FALSE'\"'\"','\"'\"'N'\"'\"','\"'\"'IGNORE'\"'\"','\"'\"'NOTFOUND'\"'\"'}\ndef enabled(value):\n return value.upper() not in false_values and not value.upper().endswith('\"'\"'-NOTFOUND'\"'\"')\nrequirements={'\"'\"'SNAPPY_BUILD_TESTS'\"'\"': True, '\"'\"'SNAPPY_BUILD_BENCHMARKS'\"'\"': True, '\"'\"'HAVE_LIBZ'\"'\"': True, '\"'\"'HAVE_LIBLZO2'\"'\"': True, '\"'\"'HAVE_LIBLZ4'\"'\"': True}\nfor key,expected in requirements.items():\n assert key in cache, '\"'\"'缺少必要配置:'\"'\"'+key\n assert enabled(cache[key])==expected, '\"'\"'配置功能不符:'\"'\"'+key+'\"'\"'='\"'\"'+cache[key]\nif True:\n assert not enabled(cache.get('\"'\"'BUILD_SHARED_LIBS'\"'\"','\"'\"'OFF'\"'\"')), '\"'\"'必须使用默认静态库构建'\"'\"'\nprint('\"'\"'FORGE_TASK_CONFIGURATION_OK'\"'\"')\n' && python3 -c 'import hashlib,json,subprocess\nrows=subprocess.run(['\"'\"'git'\"'\"','\"'\"'ls-files'\"'\"','\"'\"'-z'\"'\"'],check=True,capture_output=True).stdout.decode().split('\"'\"'\\0'\"'\"')\nassert rows[-1]=='\"'\"''\"'\"', '\"'\"'Git索引输出不完整'\"'\"'\nnames=rows[:-1]\nactual=hashlib.sha256(json.dumps(sorted(names),ensure_ascii=True,separators=('\"'\"','\"'\"','\"'\"':'\"'\"')).encode()).hexdigest()\nassert actual=='\"'\"'06f95a3f1319f5ae5568c8b0811035eba215b9ceb2592c1cdfef6979b2a79bab'\"'\"', '\"'\"'Git索引文件集合与固定原源码不同'\"'\"'\nassert subprocess.run(['\"'\"'git'\"'\"','\"'\"'rev-parse'\"'\"','\"'\"'--verify'\"'\"','\"'\"'HEAD'\"'\"'],capture_output=True).returncode!=0, '\"'\"'不允许伪造源码commit'\"'\"'\nprint('\"'\"'FORGE_SOURCE_INDEX_VERIFIED='\"'\"'+actual)\n' && ctest --test-dir build --output-on-failure --no-tests=error --verbose --output-junit /workspace/forge-ctest.xml && python3 -c 'import xml.etree.ElementTree as ET\nroot=ET.parse('\"'\"'/workspace/forge-ctest.xml'\"'\"').getroot()\ncases=list(root.iter('\"'\"'testcase'\"'\"'))\nassert len(cases)==1, '\"'\"'作者注册测试数不符'\"'\"'\nassert all(c.find('\"'\"'skipped'\"'\"') is None and c.find('\"'\"'failure'\"'\"') is None and c.find('\"'\"'error'\"'\"') is None for c in cases), '\"'\"'存在跳过或失败的作者测试'\"'\"'\nassert all(c.get('\"'\"'status'\"'\"','\"'\"'run'\"'\"')=='\"'\"'run'\"'\"' for c in cases), '\"'\"'存在未实际运行测试'\"'\"'\nprint('\"'\"'FORGE_CTEST_ACTUALLY_PASSED='\"'\"'+str(len(cases)))\n' && python3 -c 'import hashlib,json,subprocess\nrows=subprocess.run(['\"'\"'git'\"'\"','\"'\"'ls-files'\"'\"','\"'\"'-z'\"'\"'],check=True,capture_output=True).stdout.decode().split('\"'\"'\\0'\"'\"')\nassert rows[-1]=='\"'\"''\"'\"', '\"'\"'Git索引输出不完整'\"'\"'\nnames=rows[:-1]\nactual=hashlib.sha256(json.dumps(sorted(names),ensure_ascii=True,separators=('\"'\"','\"'\"','\"'\"':'\"'\"')).encode()).hexdigest()\nassert actual=='\"'\"'06f95a3f1319f5ae5568c8b0811035eba215b9ceb2592c1cdfef6979b2a79bab'\"'\"', '\"'\"'Git索引文件集合与固定原源码不同'\"'\"'\nassert subprocess.run(['\"'\"'git'\"'\"','\"'\"'rev-parse'\"'\"','\"'\"'--verify'\"'\"','\"'\"'HEAD'\"'\"'],capture_output=True).returncode!=0, '\"'\"'不允许伪造源码commit'\"'\"'\nprint('\"'\"'FORGE_SOURCE_INDEX_VERIFIED='\"'\"'+actual)\n'",
+          "exit_code": 1,
+          "timed_out": false,
+          "log_path": "/home/yiwei/.codex/outputs/forge-tool-recovery-ablation-flash-v1/slot-1/snappy-plan/.compile-sessions/plan-agent-canary/ceea938d79d2/logs/command_223c690c6d7641e683d41745839217a9.log",
+          "log_sha256": "2197727e07afd65635ba1d28246840ef802379f72eb2a7b685fbc12ec68da791",
+          "output_tail": ""
+        }
+      ],
+      "error": "ablation_stop_on_first_failure：不调用Agent，保留首次失败和未观察后缀",
+      "session_state": "failed",
+      "session_path": "/home/yiwei/.codex/outputs/forge-tool-recovery-ablation-flash-v1/slot-1/snappy-plan/.compile-sessions/plan-agent-canary/ceea938d79d2/session.json",
+      "agent_path": "/home/yiwei/.codex/outputs/forge-tool-recovery-ablation-flash-v1/slot-1/snappy-plan/agent"
+    },
+    {
+      "slot": 2,
+      "project": "snappy",
+      "method": "failure_agent_recovery",
+      "repetition": 1,
+      "strict_completed": true,
+      "model_requests": 2,
+      "recorded_tokens": 37570,
+      "cost_usd": "0.0141366",
+      "unknown_requests": 0,
+      "wall_seconds": 235.422266959009,
+      "handoffs": 1,
+      "applied_revisions": 1,
+      "phases": {
+        "recovery": {
+          "requests": 2,
+          "cost_usd": "0.0141366"
+        }
+      },
+      "responses": [
+        {
+          "sequence": 1,
+          "phase": "recovery",
+          "input_tokens": 16994,
+          "output_tokens": 416,
+          "cost_usd": "0.0055974",
+          "actual_models": [
+            "deepseek-flash"
+          ]
+        },
+        {
+          "sequence": 2,
+          "phase": "recovery",
+          "input_tokens": 17392,
+          "output_tokens": 2768,
+          "cost_usd": "0.0085392",
+          "actual_models": [
+            "deepseek-flash"
+          ]
+        }
+      ],
+      "layers": {
+        "build": "passed",
+        "fixed_task_checks": "passed",
+        "artifact_stage": "passed",
+        "clean_replay": "passed",
+        "source_preservation": "passed",
+        "cleanup": "passed"
+      },
+      "failures": [
+        {
+          "role": "smoke",
+          "command": "python3 -c 'from pathlib import Path\ncache={}\nfor line in Path('\"'\"'build/CMakeCache.txt'\"'\"').read_text().splitlines():\n if '\"'\"'='\"'\"' in line and '\"'\"':'\"'\"' in line and not line.startswith(('\"'\"'//'\"'\"','\"'\"'#'\"'\"')):\n  key,value=line.split('\"'\"'='\"'\"',1); name,_=key.split('\"'\"':'\"'\"',1); cache[name]=value\nfalse_values={'\"'\"''\"'\"','\"'\"'0'\"'\"','\"'\"'OFF'\"'\"','\"'\"'NO'\"'\"','\"'\"'FALSE'\"'\"','\"'\"'N'\"'\"','\"'\"'IGNORE'\"'\"','\"'\"'NOTFOUND'\"'\"'}\ndef enabled(value):\n return value.upper() not in false_values and not value.upper().endswith('\"'\"'-NOTFOUND'\"'\"')\nrequirements={'\"'\"'SNAPPY_BUILD_TESTS'\"'\"': True, '\"'\"'SNAPPY_BUILD_BENCHMARKS'\"'\"': True, '\"'\"'HAVE_LIBZ'\"'\"': True, '\"'\"'HAVE_LIBLZO2'\"'\"': True, '\"'\"'HAVE_LIBLZ4'\"'\"': True}\nfor key,expected in requirements.items():\n assert key in cache, '\"'\"'缺少必要配置:'\"'\"'+key\n assert enabled(cache[key])==expected, '\"'\"'配置功能不符:'\"'\"'+key+'\"'\"'='\"'\"'+cache[key]\nif True:\n assert not enabled(cache.get('\"'\"'BUILD_SHARED_LIBS'\"'\"','\"'\"'OFF'\"'\"')), '\"'\"'必须使用默认静态库构建'\"'\"'\nprint('\"'\"'FORGE_TASK_CONFIGURATION_OK'\"'\"')\n' && python3 -c 'import hashlib,json,subprocess\nrows=subprocess.run(['\"'\"'git'\"'\"','\"'\"'ls-files'\"'\"','\"'\"'-z'\"'\"'],check=True,capture_output=True).stdout.decode().split('\"'\"'\\0'\"'\"')\nassert rows[-1]=='\"'\"''\"'\"', '\"'\"'Git索引输出不完整'\"'\"'\nnames=rows[:-1]\nactual=hashlib.sha256(json.dumps(sorted(names),ensure_ascii=True,separators=('\"'\"','\"'\"','\"'\"':'\"'\"')).encode()).hexdigest()\nassert actual=='\"'\"'06f95a3f1319f5ae5568c8b0811035eba215b9ceb2592c1cdfef6979b2a79bab'\"'\"', '\"'\"'Git索引文件集合与固定原源码不同'\"'\"'\nassert subprocess.run(['\"'\"'git'\"'\"','\"'\"'rev-parse'\"'\"','\"'\"'--verify'\"'\"','\"'\"'HEAD'\"'\"'],capture_output=True).returncode!=0, '\"'\"'不允许伪造源码commit'\"'\"'\nprint('\"'\"'FORGE_SOURCE_INDEX_VERIFIED='\"'\"'+actual)\n' && ctest --test-dir build --output-on-failure --no-tests=error --verbose --output-junit /workspace/forge-ctest.xml && python3 -c 'import xml.etree.ElementTree as ET\nroot=ET.parse('\"'\"'/workspace/forge-ctest.xml'\"'\"').getroot()\ncases=list(root.iter('\"'\"'testcase'\"'\"'))\nassert len(cases)==1, '\"'\"'作者注册测试数不符'\"'\"'\nassert all(c.find('\"'\"'skipped'\"'\"') is None and c.find('\"'\"'failure'\"'\"') is None and c.find('\"'\"'error'\"'\"') is None for c in cases), '\"'\"'存在跳过或失败的作者测试'\"'\"'\nassert all(c.get('\"'\"'status'\"'\"','\"'\"'run'\"'\"')=='\"'\"'run'\"'\"' for c in cases), '\"'\"'存在未实际运行测试'\"'\"'\nprint('\"'\"'FORGE_CTEST_ACTUALLY_PASSED='\"'\"'+str(len(cases)))\n' && python3 -c 'import hashlib,json,subprocess\nrows=subprocess.run(['\"'\"'git'\"'\"','\"'\"'ls-files'\"'\"','\"'\"'-z'\"'\"'],check=True,capture_output=True).stdout.decode().split('\"'\"'\\0'\"'\"')\nassert rows[-1]=='\"'\"''\"'\"', '\"'\"'Git索引输出不完整'\"'\"'\nnames=rows[:-1]\nactual=hashlib.sha256(json.dumps(sorted(names),ensure_ascii=True,separators=('\"'\"','\"'\"','\"'\"':'\"'\"')).encode()).hexdigest()\nassert actual=='\"'\"'06f95a3f1319f5ae5568c8b0811035eba215b9ceb2592c1cdfef6979b2a79bab'\"'\"', '\"'\"'Git索引文件集合与固定原源码不同'\"'\"'\nassert subprocess.run(['\"'\"'git'\"'\"','\"'\"'rev-parse'\"'\"','\"'\"'--verify'\"'\"','\"'\"'HEAD'\"'\"'],capture_output=True).returncode!=0, '\"'\"'不允许伪造源码commit'\"'\"'\nprint('\"'\"'FORGE_SOURCE_INDEX_VERIFIED='\"'\"'+actual)\n'",
+          "exit_code": 1,
+          "timed_out": false,
+          "log_path": "/home/yiwei/.codex/outputs/forge-tool-recovery-ablation-flash-v1/slot-2/snappy-plan/.compile-sessions/plan-agent-canary/dd0c9c47c6c7/logs/command_5dc6c0add5744164868b523b7f36efc7.log",
+          "log_sha256": "2197727e07afd65635ba1d28246840ef802379f72eb2a7b685fbc12ec68da791",
+          "output_tail": ""
+        }
+      ],
+      "error": null,
+      "session_state": "completed",
+      "session_path": "/home/yiwei/.codex/outputs/forge-tool-recovery-ablation-flash-v1/slot-2/snappy-plan/.compile-sessions/plan-agent-canary/dd0c9c47c6c7/session.json",
+      "agent_path": "/home/yiwei/.codex/outputs/forge-tool-recovery-ablation-flash-v1/slot-2/snappy-plan/agent"
+    },
+    {
+      "slot": 3,
+      "project": "simdutf",
+      "method": "failure_agent_recovery",
+      "repetition": 1,
+      "strict_completed": true,
+      "model_requests": 0,
+      "recorded_tokens": 0,
+      "cost_usd": "0",
+      "unknown_requests": 0,
+      "wall_seconds": 424.52613691499573,
+      "handoffs": 0,
+      "applied_revisions": 0,
+      "phases": {},
+      "responses": [],
+      "layers": {
+        "build": "passed",
+        "fixed_task_checks": "passed",
+        "artifact_stage": "passed",
+        "clean_replay": "passed",
+        "source_preservation": "passed",
+        "cleanup": "passed"
+      },
+      "failures": [],
+      "error": null,
+      "session_state": "completed",
+      "session_path": "/home/yiwei/.codex/outputs/forge-tool-recovery-ablation-flash-v1/slot-3/simdutf-plan/.compile-sessions/plan-agent-canary/cac78995299c/session.json",
+      "agent_path": "/home/yiwei/.codex/outputs/forge-tool-recovery-ablation-flash-v1/slot-3/simdutf-plan/agent"
+    },
+    {
+      "slot": 4,
+      "project": "simdutf",
+      "method": "no_recovery",
+      "repetition": 1,
+      "strict_completed": true,
+      "model_requests": 0,
+      "recorded_tokens": 0,
+      "cost_usd": "0",
+      "unknown_requests": 0,
+      "wall_seconds": 424.65263090099324,
+      "handoffs": 0,
+      "applied_revisions": 0,
+      "phases": {},
+      "responses": [],
+      "layers": {
+        "build": "passed",
+        "fixed_task_checks": "passed",
+        "artifact_stage": "passed",
+        "clean_replay": "passed",
+        "source_preservation": "passed",
+        "cleanup": "passed"
+      },
+      "failures": [],
+      "error": null,
+      "session_state": "completed",
+      "session_path": "/home/yiwei/.codex/outputs/forge-tool-recovery-ablation-flash-v1/slot-4/simdutf-plan/.compile-sessions/plan-agent-canary/b77892defe56/session.json",
+      "agent_path": "/home/yiwei/.codex/outputs/forge-tool-recovery-ablation-flash-v1/slot-4/simdutf-plan/agent"
+    },
+    {
+      "slot": 5,
+      "project": "yaml-cpp",
+      "method": "no_recovery",
+      "repetition": 1,
+      "strict_completed": false,
+      "model_requests": 0,
+      "recorded_tokens": 0,
+      "cost_usd": "0",
+      "unknown_requests": 0,
+      "wall_seconds": 14.151803998014657,
+      "handoffs": 1,
+      "applied_revisions": 0,
+      "phases": {},
+      "responses": [],
+      "layers": {
+        "build": "passed",
+        "fixed_task_checks": "failed",
+        "artifact_stage": "not_observed",
+        "clean_replay": "not_observed",
+        "source_preservation": "passed",
+        "cleanup": "passed"
+      },
+      "failures": [
+        {
+          "role": "smoke",
+          "command": "python3 -c 'from pathlib import Path\ncache={}\nfor line in Path('\"'\"'build/CMakeCache.txt'\"'\"').read_text().splitlines():\n if '\"'\"'='\"'\"' in line and '\"'\"':'\"'\"' in line and not line.startswith(('\"'\"'//'\"'\"','\"'\"'#'\"'\"')):\n  key,value=line.split('\"'\"'='\"'\"',1); name,_=key.split('\"'\"':'\"'\"',1); cache[name]=value\nfalse_values={'\"'\"''\"'\"','\"'\"'0'\"'\"','\"'\"'OFF'\"'\"','\"'\"'NO'\"'\"','\"'\"'FALSE'\"'\"','\"'\"'N'\"'\"','\"'\"'IGNORE'\"'\"','\"'\"'NOTFOUND'\"'\"'}\ndef enabled(value):\n return value.upper() not in false_values and not value.upper().endswith('\"'\"'-NOTFOUND'\"'\"')\nrequirements={'\"'\"'YAML_CPP_BUILD_TESTS'\"'\"': True, '\"'\"'BUILD_TESTING'\"'\"': True, '\"'\"'YAML_CPP_BUILD_CONTRIB'\"'\"': True, '\"'\"'YAML_CPP_BUILD_TOOLS'\"'\"': True, '\"'\"'YAML_BUILD_SHARED_LIBS'\"'\"': False, '\"'\"'YAML_USE_SYSTEM_GTEST'\"'\"': False}\nfor key,expected in requirements.items():\n assert key in cache, '\"'\"'缺少必要配置:'\"'\"'+key\n assert enabled(cache[key])==expected, '\"'\"'配置功能不符:'\"'\"'+key+'\"'\"'='\"'\"'+cache[key]\nif True:\n assert not enabled(cache.get('\"'\"'BUILD_SHARED_LIBS'\"'\"','\"'\"'OFF'\"'\"')), '\"'\"'必须使用默认静态库构建'\"'\"'\nprint('\"'\"'FORGE_TASK_CONFIGURATION_OK'\"'\"')\n' && python3 -c 'import hashlib,json,subprocess\nrows=subprocess.run(['\"'\"'git'\"'\"','\"'\"'ls-files'\"'\"','\"'\"'-z'\"'\"'],check=True,capture_output=True).stdout.decode().split('\"'\"'\\0'\"'\"')\nassert rows[-1]=='\"'\"''\"'\"', '\"'\"'Git索引输出不完整'\"'\"'\nnames=rows[:-1]\nactual=hashlib.sha256(json.dumps(sorted(names),ensure_ascii=True,separators=('\"'\"','\"'\"','\"'\"':'\"'\"')).encode()).hexdigest()\nassert actual=='\"'\"'8574ea1cf2058118afe50361cebf72862da4e1dcb4a3a370982663ac215599b5'\"'\"', '\"'\"'Git索引文件集合与固定原源码不同'\"'\"'\nassert subprocess.run(['\"'\"'git'\"'\"','\"'\"'rev-parse'\"'\"','\"'\"'--verify'\"'\"','\"'\"'HEAD'\"'\"'],capture_output=True).returncode!=0, '\"'\"'不允许伪造源码commit'\"'\"'\nprint('\"'\"'FORGE_SOURCE_INDEX_VERIFIED='\"'\"'+actual)\n' && ctest --test-dir build --output-on-failure --no-tests=error --verbose --output-junit /workspace/forge-ctest.xml && python3 -c 'import xml.etree.ElementTree as ET\nroot=ET.parse('\"'\"'/workspace/forge-ctest.xml'\"'\"').getroot()\ncases=list(root.iter('\"'\"'testcase'\"'\"'))\nassert len(cases)==3, '\"'\"'作者注册测试数不符'\"'\"'\nassert all(c.find('\"'\"'skipped'\"'\"') is None and c.find('\"'\"'failure'\"'\"') is None and c.find('\"'\"'error'\"'\"') is None for c in cases), '\"'\"'存在跳过或失败的作者测试'\"'\"'\nassert all(c.get('\"'\"'status'\"'\"','\"'\"'run'\"'\"')=='\"'\"'run'\"'\"' for c in cases), '\"'\"'存在未实际运行测试'\"'\"'\nprint('\"'\"'FORGE_CTEST_ACTUALLY_PASSED='\"'\"'+str(len(cases)))\n' && python3 -c 'import hashlib,json,subprocess\nrows=subprocess.run(['\"'\"'git'\"'\"','\"'\"'ls-files'\"'\"','\"'\"'-z'\"'\"'],check=True,capture_output=True).stdout.decode().split('\"'\"'\\0'\"'\"')\nassert rows[-1]=='\"'\"''\"'\"', '\"'\"'Git索引输出不完整'\"'\"'\nnames=rows[:-1]\nactual=hashlib.sha256(json.dumps(sorted(names),ensure_ascii=True,separators=('\"'\"','\"'\"','\"'\"':'\"'\"')).encode()).hexdigest()\nassert actual=='\"'\"'8574ea1cf2058118afe50361cebf72862da4e1dcb4a3a370982663ac215599b5'\"'\"', '\"'\"'Git索引文件集合与固定原源码不同'\"'\"'\nassert subprocess.run(['\"'\"'git'\"'\"','\"'\"'rev-parse'\"'\"','\"'\"'--verify'\"'\"','\"'\"'HEAD'\"'\"'],capture_output=True).returncode!=0, '\"'\"'不允许伪造源码commit'\"'\"'\nprint('\"'\"'FORGE_SOURCE_INDEX_VERIFIED='\"'\"'+actual)\n'",
+          "exit_code": 1,
+          "timed_out": false,
+          "log_path": "/home/yiwei/.codex/outputs/forge-tool-recovery-ablation-flash-v1/slot-5/yaml-cpp-plan/.compile-sessions/plan-agent-canary/c1f0a65e690e/logs/command_7e666c6eebe14dd58e9f376b1f0b523f.log",
+          "log_sha256": "e3ab7ae539626fe483f0d61bbdd2e00a1fb985ecec8fe34e832fc5a1c6f043ce",
+          "output_tail": ""
+        }
+      ],
+      "error": "ablation_stop_on_first_failure：不调用Agent，保留首次失败和未观察后缀",
+      "session_state": "failed",
+      "session_path": "/home/yiwei/.codex/outputs/forge-tool-recovery-ablation-flash-v1/slot-5/yaml-cpp-plan/.compile-sessions/plan-agent-canary/c1f0a65e690e/session.json",
+      "agent_path": "/home/yiwei/.codex/outputs/forge-tool-recovery-ablation-flash-v1/slot-5/yaml-cpp-plan/agent"
+    },
+    {
+      "slot": 6,
+      "project": "yaml-cpp",
+      "method": "failure_agent_recovery",
+      "repetition": 1,
+      "strict_completed": true,
+      "model_requests": 4,
+      "recorded_tokens": 64643,
+      "cost_usd": "0.0229866",
+      "unknown_requests": 0,
+      "wall_seconds": 128.23134313698392,
+      "handoffs": 1,
+      "applied_revisions": 1,
+      "phases": {
+        "recovery": {
+          "requests": 4,
+          "cost_usd": "0.0229866"
+        }
+      },
+      "responses": [
+        {
+          "sequence": 1,
+          "phase": "recovery",
+          "input_tokens": 13681,
+          "output_tokens": 314,
+          "cost_usd": "0.0044811",
+          "actual_models": [
+            "deepseek-flash"
+          ]
+        },
+        {
+          "sequence": 2,
+          "phase": "recovery",
+          "input_tokens": 16125,
+          "output_tokens": 118,
+          "cost_usd": "0.0049791",
+          "actual_models": [
+            "deepseek-flash"
+          ]
+        },
+        {
+          "sequence": 3,
+          "phase": "recovery",
+          "input_tokens": 14443,
+          "output_tokens": 43,
+          "cost_usd": "0.0043845",
+          "actual_models": [
+            "deepseek-flash"
+          ]
+        },
+        {
+          "sequence": 4,
+          "phase": "recovery",
+          "input_tokens": 16401,
+          "output_tokens": 3518,
+          "cost_usd": "0.0091419",
+          "actual_models": [
+            "deepseek-flash"
+          ]
+        }
+      ],
+      "layers": {
+        "build": "passed",
+        "fixed_task_checks": "passed",
+        "artifact_stage": "passed",
+        "clean_replay": "passed",
+        "source_preservation": "passed",
+        "cleanup": "passed"
+      },
+      "failures": [
+        {
+          "role": "smoke",
+          "command": "python3 -c 'from pathlib import Path\ncache={}\nfor line in Path('\"'\"'build/CMakeCache.txt'\"'\"').read_text().splitlines():\n if '\"'\"'='\"'\"' in line and '\"'\"':'\"'\"' in line and not line.startswith(('\"'\"'//'\"'\"','\"'\"'#'\"'\"')):\n  key,value=line.split('\"'\"'='\"'\"',1); name,_=key.split('\"'\"':'\"'\"',1); cache[name]=value\nfalse_values={'\"'\"''\"'\"','\"'\"'0'\"'\"','\"'\"'OFF'\"'\"','\"'\"'NO'\"'\"','\"'\"'FALSE'\"'\"','\"'\"'N'\"'\"','\"'\"'IGNORE'\"'\"','\"'\"'NOTFOUND'\"'\"'}\ndef enabled(value):\n return value.upper() not in false_values and not value.upper().endswith('\"'\"'-NOTFOUND'\"'\"')\nrequirements={'\"'\"'YAML_CPP_BUILD_TESTS'\"'\"': True, '\"'\"'BUILD_TESTING'\"'\"': True, '\"'\"'YAML_CPP_BUILD_CONTRIB'\"'\"': True, '\"'\"'YAML_CPP_BUILD_TOOLS'\"'\"': True, '\"'\"'YAML_BUILD_SHARED_LIBS'\"'\"': False, '\"'\"'YAML_USE_SYSTEM_GTEST'\"'\"': False}\nfor key,expected in requirements.items():\n assert key in cache, '\"'\"'缺少必要配置:'\"'\"'+key\n assert enabled(cache[key])==expected, '\"'\"'配置功能不符:'\"'\"'+key+'\"'\"'='\"'\"'+cache[key]\nif True:\n assert not enabled(cache.get('\"'\"'BUILD_SHARED_LIBS'\"'\"','\"'\"'OFF'\"'\"')), '\"'\"'必须使用默认静态库构建'\"'\"'\nprint('\"'\"'FORGE_TASK_CONFIGURATION_OK'\"'\"')\n' && python3 -c 'import hashlib,json,subprocess\nrows=subprocess.run(['\"'\"'git'\"'\"','\"'\"'ls-files'\"'\"','\"'\"'-z'\"'\"'],check=True,capture_output=True).stdout.decode().split('\"'\"'\\0'\"'\"')\nassert rows[-1]=='\"'\"''\"'\"', '\"'\"'Git索引输出不完整'\"'\"'\nnames=rows[:-1]\nactual=hashlib.sha256(json.dumps(sorted(names),ensure_ascii=True,separators=('\"'\"','\"'\"','\"'\"':'\"'\"')).encode()).hexdigest()\nassert actual=='\"'\"'8574ea1cf2058118afe50361cebf72862da4e1dcb4a3a370982663ac215599b5'\"'\"', '\"'\"'Git索引文件集合与固定原源码不同'\"'\"'\nassert subprocess.run(['\"'\"'git'\"'\"','\"'\"'rev-parse'\"'\"','\"'\"'--verify'\"'\"','\"'\"'HEAD'\"'\"'],capture_output=True).returncode!=0, '\"'\"'不允许伪造源码commit'\"'\"'\nprint('\"'\"'FORGE_SOURCE_INDEX_VERIFIED='\"'\"'+actual)\n' && ctest --test-dir build --output-on-failure --no-tests=error --verbose --output-junit /workspace/forge-ctest.xml && python3 -c 'import xml.etree.ElementTree as ET\nroot=ET.parse('\"'\"'/workspace/forge-ctest.xml'\"'\"').getroot()\ncases=list(root.iter('\"'\"'testcase'\"'\"'))\nassert len(cases)==3, '\"'\"'作者注册测试数不符'\"'\"'\nassert all(c.find('\"'\"'skipped'\"'\"') is None and c.find('\"'\"'failure'\"'\"') is None and c.find('\"'\"'error'\"'\"') is None for c in cases), '\"'\"'存在跳过或失败的作者测试'\"'\"'\nassert all(c.get('\"'\"'status'\"'\"','\"'\"'run'\"'\"')=='\"'\"'run'\"'\"' for c in cases), '\"'\"'存在未实际运行测试'\"'\"'\nprint('\"'\"'FORGE_CTEST_ACTUALLY_PASSED='\"'\"'+str(len(cases)))\n' && python3 -c 'import hashlib,json,subprocess\nrows=subprocess.run(['\"'\"'git'\"'\"','\"'\"'ls-files'\"'\"','\"'\"'-z'\"'\"'],check=True,capture_output=True).stdout.decode().split('\"'\"'\\0'\"'\"')\nassert rows[-1]=='\"'\"''\"'\"', '\"'\"'Git索引输出不完整'\"'\"'\nnames=rows[:-1]\nactual=hashlib.sha256(json.dumps(sorted(names),ensure_ascii=True,separators=('\"'\"','\"'\"','\"'\"':'\"'\"')).encode()).hexdigest()\nassert actual=='\"'\"'8574ea1cf2058118afe50361cebf72862da4e1dcb4a3a370982663ac215599b5'\"'\"', '\"'\"'Git索引文件集合与固定原源码不同'\"'\"'\nassert subprocess.run(['\"'\"'git'\"'\"','\"'\"'rev-parse'\"'\"','\"'\"'--verify'\"'\"','\"'\"'HEAD'\"'\"'],capture_output=True).returncode!=0, '\"'\"'不允许伪造源码commit'\"'\"'\nprint('\"'\"'FORGE_SOURCE_INDEX_VERIFIED='\"'\"'+actual)\n'",
+          "exit_code": 1,
+          "timed_out": false,
+          "log_path": "/home/yiwei/.codex/outputs/forge-tool-recovery-ablation-flash-v1/slot-6/yaml-cpp-plan/.compile-sessions/plan-agent-canary/7c73656adb53/logs/command_2b1c90d2c13146c0a254a7d46e070089.log",
+          "log_sha256": "e3ab7ae539626fe483f0d61bbdd2e00a1fb985ecec8fe34e832fc5a1c6f043ce",
+          "output_tail": ""
+        }
+      ],
+      "error": null,
+      "session_state": "completed",
+      "session_path": "/home/yiwei/.codex/outputs/forge-tool-recovery-ablation-flash-v1/slot-6/yaml-cpp-plan/.compile-sessions/plan-agent-canary/7c73656adb53/session.json",
+      "agent_path": "/home/yiwei/.codex/outputs/forge-tool-recovery-ablation-flash-v1/slot-6/yaml-cpp-plan/agent"
+    },
+    {
+      "slot": 7,
+      "project": "libtommath",
+      "method": "failure_agent_recovery",
+      "repetition": 1,
+      "strict_completed": false,
+      "model_requests": 4,
+      "recorded_tokens": 69958,
+      "cost_usd": "0.0219207",
+      "unknown_requests": 0,
+      "wall_seconds": 30.294746291008778,
+      "handoffs": 1,
+      "applied_revisions": 0,
+      "phases": {
+        "recovery": {
+          "requests": 4,
+          "cost_usd": "0.0219207"
+        }
+      },
+      "responses": [
+        {
+          "sequence": 1,
+          "phase": "recovery",
+          "input_tokens": 13372,
+          "output_tokens": 127,
+          "cost_usd": "0.004164",
+          "actual_models": [
+            "deepseek-flash"
+          ]
+        },
+        {
+          "sequence": 2,
+          "phase": "recovery",
+          "input_tokens": 19526,
+          "output_tokens": 523,
+          "cost_usd": "0.0064854",
+          "actual_models": [
+            "deepseek-flash"
+          ]
+        },
+        {
+          "sequence": 3,
+          "phase": "recovery",
+          "input_tokens": 18857,
+          "output_tokens": 296,
+          "cost_usd": "0.0060123",
+          "actual_models": [
+            "deepseek-flash"
+          ]
+        },
+        {
+          "sequence": 4,
+          "phase": "recovery",
+          "input_tokens": 17166,
+          "output_tokens": 91,
+          "cost_usd": "0.005259",
+          "actual_models": [
+            "deepseek-flash"
+          ]
+        }
+      ],
+      "layers": {
+        "build": "passed",
+        "fixed_task_checks": "failed",
+        "artifact_stage": "not_observed",
+        "clean_replay": "not_observed",
+        "source_preservation": "passed",
+        "cleanup": "passed"
+      },
+      "failures": [
+        {
+          "role": "smoke",
+          "command": "./test",
+          "exit_code": 127,
+          "timed_out": false,
+          "log_path": "/home/yiwei/.codex/outputs/forge-tool-recovery-ablation-flash-v1/slot-7/libtommath-plan/.compile-sessions/plan-agent-canary/7b1f09a9a6e8/logs/command_778f597cb5384a6a8cc3447e2ebec4d8.log",
+          "log_sha256": "539eb51e6f9683573bd2bb69539ecda055d74ba15a18665e1e523cb064cd7474",
+          "output_tail": ""
+        }
+      ],
+      "error": "共同材料含保留因子标记",
+      "session_state": "failed",
+      "session_path": "/home/yiwei/.codex/outputs/forge-tool-recovery-ablation-flash-v1/slot-7/libtommath-plan/.compile-sessions/plan-agent-canary/7b1f09a9a6e8/session.json",
+      "agent_path": "/home/yiwei/.codex/outputs/forge-tool-recovery-ablation-flash-v1/slot-7/libtommath-plan/agent"
+    },
+    {
+      "slot": 8,
+      "project": "libtommath",
+      "method": "no_recovery",
+      "repetition": 1,
+      "strict_completed": false,
+      "model_requests": 0,
+      "recorded_tokens": 0,
+      "cost_usd": "0",
+      "unknown_requests": 0,
+      "wall_seconds": 8.94225481900503,
+      "handoffs": 1,
+      "applied_revisions": 0,
+      "phases": {},
+      "responses": [],
+      "layers": {
+        "build": "passed",
+        "fixed_task_checks": "failed",
+        "artifact_stage": "not_observed",
+        "clean_replay": "not_observed",
+        "source_preservation": "passed",
+        "cleanup": "passed"
+      },
+      "failures": [
+        {
+          "role": "smoke",
+          "command": "./test",
+          "exit_code": 127,
+          "timed_out": false,
+          "log_path": "/home/yiwei/.codex/outputs/forge-tool-recovery-ablation-flash-v1/slot-8/libtommath-plan/.compile-sessions/plan-agent-canary/5402676e9540/logs/command_0abd7340a463496c99f99a93e9b3ec42.log",
+          "log_sha256": "539eb51e6f9683573bd2bb69539ecda055d74ba15a18665e1e523cb064cd7474",
+          "output_tail": ""
+        }
+      ],
+      "error": "ablation_stop_on_first_failure：不调用Agent，保留首次失败和未观察后缀",
+      "session_state": "failed",
+      "session_path": "/home/yiwei/.codex/outputs/forge-tool-recovery-ablation-flash-v1/slot-8/libtommath-plan/.compile-sessions/plan-agent-canary/5402676e9540/session.json",
+      "agent_path": "/home/yiwei/.codex/outputs/forge-tool-recovery-ablation-flash-v1/slot-8/libtommath-plan/agent"
+    },
+    {
+      "slot": 9,
+      "project": "tinyxml2",
+      "method": "no_recovery",
+      "repetition": 1,
+      "strict_completed": true,
+      "model_requests": 0,
+      "recorded_tokens": 0,
+      "cost_usd": "0",
+      "unknown_requests": 0,
+      "wall_seconds": 10.805031265015714,
+      "handoffs": 0,
+      "applied_revisions": 0,
+      "phases": {},
+      "responses": [],
+      "layers": {
+        "build": "passed",
+        "fixed_task_checks": "passed",
+        "artifact_stage": "passed",
+        "clean_replay": "passed",
+        "source_preservation": "passed",
+        "cleanup": "passed"
+      },
+      "failures": [],
+      "error": null,
+      "session_state": "completed",
+      "session_path": "/home/yiwei/.codex/outputs/forge-tool-recovery-ablation-flash-v1/slot-9/tinyxml2-plan/.compile-sessions/plan-agent-canary/70d500e1e541/session.json",
+      "agent_path": "/home/yiwei/.codex/outputs/forge-tool-recovery-ablation-flash-v1/slot-9/tinyxml2-plan/agent"
+    },
+    {
+      "slot": 10,
+      "project": "tinyxml2",
+      "method": "failure_agent_recovery",
+      "repetition": 1,
+      "strict_completed": true,
+      "model_requests": 0,
+      "recorded_tokens": 0,
+      "cost_usd": "0",
+      "unknown_requests": 0,
+      "wall_seconds": 10.797527144983178,
+      "handoffs": 0,
+      "applied_revisions": 0,
+      "phases": {},
+      "responses": [],
+      "layers": {
+        "build": "passed",
+        "fixed_task_checks": "passed",
+        "artifact_stage": "passed",
+        "clean_replay": "passed",
+        "source_preservation": "passed",
+        "cleanup": "passed"
+      },
+      "failures": [],
+      "error": null,
+      "session_state": "completed",
+      "session_path": "/home/yiwei/.codex/outputs/forge-tool-recovery-ablation-flash-v1/slot-10/tinyxml2-plan/.compile-sessions/plan-agent-canary/7ad94556d8e0/session.json",
+      "agent_path": "/home/yiwei/.codex/outputs/forge-tool-recovery-ablation-flash-v1/slot-10/tinyxml2-plan/agent"
+    }
+  ],
+  "recovery_pairs": [
+    {
+      "project": "snappy",
+      "complete": true,
+      "initial_plan_equal": true,
+      "baseline_prefix_equal": true,
+      "strict_without_recovery": false,
+      "strict_with_recovery": true,
+      "strict_difference": 1,
+      "additional_requests": 2,
+      "additional_cost_usd": "0.0141366",
+      "wall_difference_seconds": 204.18327204001253
+    },
+    {
+      "project": "simdutf",
+      "complete": true,
+      "initial_plan_equal": true,
+      "baseline_prefix_equal": true,
+      "strict_without_recovery": true,
+      "strict_with_recovery": true,
+      "strict_difference": 0,
+      "additional_requests": 0,
+      "additional_cost_usd": "0",
+      "wall_difference_seconds": -0.12649398599751294
+    },
+    {
+      "project": "yaml-cpp",
+      "complete": true,
+      "initial_plan_equal": true,
+      "baseline_prefix_equal": true,
+      "strict_without_recovery": false,
+      "strict_with_recovery": true,
+      "strict_difference": 1,
+      "additional_requests": 4,
+      "additional_cost_usd": "0.0229866",
+      "wall_difference_seconds": 114.07953913896927
+    },
+    {
+      "project": "libtommath",
+      "complete": true,
+      "initial_plan_equal": true,
+      "baseline_prefix_equal": true,
+      "strict_without_recovery": false,
+      "strict_with_recovery": false,
+      "strict_difference": 0,
+      "additional_requests": 4,
+      "additional_cost_usd": "0.0219207",
+      "wall_difference_seconds": 21.35249147200375
+    },
+    {
+      "project": "tinyxml2",
+      "complete": true,
+      "initial_plan_equal": true,
+      "baseline_prefix_equal": true,
+      "strict_without_recovery": true,
+      "strict_with_recovery": true,
+      "strict_difference": 0,
+      "additional_requests": 0,
+      "additional_cost_usd": "0",
+      "wall_difference_seconds": -0.007504120032535866
+    }
+  ],
+  "layers": {
+    "build": {
+      "passed": 10,
+      "failed": 0,
+      "not_observed": 0
+    },
+    "fixed_task_checks": {
+      "passed": 6,
+      "failed": 4,
+      "not_observed": 0
+    },
+    "artifact_stage": {
+      "passed": 6,
+      "failed": 0,
+      "not_observed": 4
+    },
+    "clean_replay": {
+      "passed": 6,
+      "failed": 0,
+      "not_observed": 4
+    },
+    "source_preservation": {
+      "passed": 10,
+      "failed": 0,
+      "not_observed": 0
+    },
+    "cleanup": {
+      "passed": 10,
+      "failed": 0,
+      "not_observed": 0
+    }
+  },
+  "known_cost_usd": "0.0590439",
+  "unknown_reservation_usd": "0.00",
+  "analysis_scope": "本轮已见项目描述与同批恢复配对；不估计总体显著性、不混旧Pro/旧RQ3分母",
+  "provenance": [
+    {
+      "path": "/home/yiwei/.codex/outputs/forge-tool-recovery-ablation-flash-v1/protocol.json",
+      "sha256": "cc45b2c2461b96fd82ee4603696a650e80af8ffd5e9a69de4afdaf55d61e900e"
+    },
+    {
+      "path": "/home/yiwei/.codex/outputs/forge-tool-recovery-ablation-flash-v1/result.json",
+      "sha256": "a0ab377b173efe09d62eeb982adb1e283e52a8e0363d9dd39aaf50e7fb659474"
+    },
+    {
+      "path": "/home/yiwei/.codex/outputs/forge-tool-recovery-ablation-flash-v1/seal.json",
+      "sha256": "c816563cdf125295b6d4a25a1e410033715f6d095b8afa499be2610cd10671ee"
+    },
+    {
+      "path": "/home/yiwei/.codex/outputs/forge-flash-paper-session-2026-10-27/analyze_results.py",
+      "sha256": "c1ff4dae4440420b99e06bfa9916a3adab7974b44a8e883744470efa5fc53f07"
+    }
+  ]
+}
