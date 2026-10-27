@@ -1,0 +1,205 @@
+{
+  "identity": "cpp-build-common-harness-repair-v1",
+  "kind": "engineering_repair_and_experiment_preparation",
+  "date": "2026-10-28",
+  "tracking_issue": 633,
+  "next_issue": 635,
+  "provider_calls": 0,
+  "new_provider_cost_usd": "0",
+  "historical_results_unchanged": true,
+  "original_inventory": "3bd0284e1cb15bdd4facc4da5ebd8f7dacbc0aedf819a1021264be1d17bdc9e0",
+  "preserved_parent_components": 328,
+  "original_response_replay": [
+    {
+      "slot": 7,
+      "project": "yaml-cpp",
+      "source_response": "/home/yiwei/.codex/outputs/forge-goal-state-paired-flash-v1/slot-7/yaml-cpp-plan/agent/response-4.json",
+      "source_sha256": "338a71dc3cf3954bd95a05a5626e290dca412cfdff55cfe5287f9300bf003246",
+      "content_sha256": "bfe9226cc842f6af00374c98301527e2996b29c6688429b32ae6e0d577b50764",
+      "source_content_unchanged": true,
+      "accepted": true,
+      "plan_sha256": "b39a04161b1c3d58d958aaa82f56e7924e634fe4d9e75c5c79c39427357caeba",
+      "expected": true,
+      "expected_observation": true,
+      "scripted_usage": {
+        "model_requests": 1,
+        "recorded_tokens": 0,
+        "agent_steps": 1,
+        "tool_calls": 0,
+        "commands": 0,
+        "elapsed_seconds": 0.027755810995586216,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "estimated_cost_usd": 0.0,
+        "unknown_usage_requests": 0,
+        "cost_and_usage_complete": true,
+        "estimated_cost_usd_completed_responses": 0.0
+      }
+    },
+    {
+      "slot": 11,
+      "project": "tinyxml2",
+      "source_response": "/home/yiwei/.codex/outputs/forge-goal-state-paired-flash-v1/slot-11/tinyxml2-plan/agent/response-4.json",
+      "source_sha256": "6d5a9f47f2c50be0d067b5d4bb2f8bcb6ad0b9bf65d6a43b4d8ec3ef423b96e8",
+      "content_sha256": "ca6e7ace277dec7a313153cfc7123095a50b3a2df33b8089d382bc6548ea53bc",
+      "source_content_unchanged": true,
+      "accepted": true,
+      "plan_sha256": "400a87d24aa8808d821e6259245d4773e5d942a905c70f1ff6a206346955e8ba",
+      "expected": true,
+      "expected_observation": true,
+      "scripted_usage": {
+        "model_requests": 1,
+        "recorded_tokens": 0,
+        "agent_steps": 1,
+        "tool_calls": 0,
+        "commands": 0,
+        "elapsed_seconds": 0.025448550994042307,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "estimated_cost_usd": 0.0,
+        "unknown_usage_requests": 0,
+        "cost_and_usage_complete": true,
+        "estimated_cost_usd_completed_responses": 0.0
+      }
+    },
+    {
+      "slot": 14,
+      "project": "check",
+      "source_response": "/home/yiwei/.codex/outputs/forge-goal-state-paired-flash-v1/slot-14/check-plan/agent/response-3.json",
+      "source_sha256": "c04557c2fe55ef04f72ff9df175f6a26e7084640bee597582a60396d6b533273",
+      "content_sha256": "a0dfad52d2e3f37e446657e118d60e255174cd229de1c32657427a3c474a0613",
+      "source_content_unchanged": true,
+      "accepted": false,
+      "error": "未交付唯一完整JSON候选；不从自由说明中猜测方案",
+      "expected": false,
+      "expected_observation": true,
+      "scripted_usage": {
+        "model_requests": 1,
+        "recorded_tokens": 0,
+        "agent_steps": 1,
+        "tool_calls": 0,
+        "commands": 0,
+        "elapsed_seconds": 0.020522390987025574,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "estimated_cost_usd": 0.0,
+        "unknown_usage_requests": 0,
+        "cost_and_usage_complete": true,
+        "estimated_cost_usd_completed_responses": 0.0
+      }
+    },
+    {
+      "slot": 18,
+      "project": "snappy",
+      "source_response": "/home/yiwei/.codex/outputs/forge-goal-state-paired-flash-v1/slot-18/snappy-plan/agent/response-17.json",
+      "source_sha256": "ff0ca4dc6d85f4bed2574b984c23eb936d93679e318d5b4b627461629bc4f05c",
+      "content_sha256": "eaaef0626afe27368c0c2a082073c0894f2d92394e478377c73d8eab2b2abfc5",
+      "source_content_unchanged": true,
+      "accepted": true,
+      "plan_sha256": "3fbb16ea5f5fd1dfc82dfe4b75c08684a4f71707d733e8311b0a9d80ec61a012",
+      "expected": true,
+      "expected_observation": true,
+      "scripted_usage": {
+        "model_requests": 1,
+        "recorded_tokens": 0,
+        "agent_steps": 1,
+        "tool_calls": 0,
+        "commands": 0,
+        "elapsed_seconds": 0.023734524002065882,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "estimated_cost_usd": 0.0,
+        "unknown_usage_requests": 0,
+        "cost_and_usage_complete": true,
+        "estimated_cost_usd_completed_responses": 0.0
+      }
+    }
+  ],
+  "tinyxml2_scripted_complete": {
+    "strict_completed": true,
+    "source_links_unchanged": true,
+    "agent_usage": {
+      "model_requests": 1,
+      "recorded_tokens": 0,
+      "agent_steps": 1,
+      "tool_calls": 0,
+      "commands": 4,
+      "elapsed_seconds": 2.1649729550117627,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "estimated_cost_usd": 0.0,
+      "unknown_usage_requests": 0,
+      "cost_and_usage_complete": true,
+      "estimated_cost_usd_completed_responses": 0.0
+    },
+    "cleanup": {
+      "succeeded": true,
+      "stopped": true,
+      "removed": true
+    },
+    "resource_check": {
+      "resources": [
+        {
+          "id": "36ebde8771fa2a55a9337b8c161a63db78d77fa99436de8c0768420a4c6c5f41",
+          "absent": true
+        },
+        {
+          "id": "8fe9ebd5dafa5924cb8722f68ed124c732dc3a9a1b35eca15d8ba09a472a5b4a",
+          "absent": true
+        }
+      ],
+      "all_absent": true
+    },
+    "original_response_sha256": "6d5a9f47f2c50be0d067b5d4bb2f8bcb6ad0b9bf65d6a43b4d8ec3ef423b96e8",
+    "result_path": "/home/yiwei/.codex/outputs/forge-common-harness-session-2026-10-28/original-case-replay-v1/tinyxml2-complete-result.json",
+    "result_sha256": "6e4ed5502d012da7be08747ff98fdb23a73c55ad1bd138560ebe25fb7fc5d077"
+  },
+  "checks": {
+    "targeted_and_adjacent_tests": 53,
+    "ruff_check": true,
+    "ruff_format": true,
+    "candidate_cli_prepared": true,
+    "test_log_path": "/home/yiwei/.codex/outputs/forge-common-harness-session-2026-10-28/final-targeted-tests.log",
+    "test_log_sha256": "bdbfaf74741a5c07f098dfa3b984a9d5d4a1781ce02cb363c2acd90c28647739"
+  },
+  "candidate": {
+    "identity": "cpp-build-goal-state-component-ablation-flash-v1",
+    "path": "benchmarks/manifests/cpp-build-goal-state-component-ablation-flash-v1.json",
+    "sha256": "87fd9cf72bef05c23dd9d38f6a92a895079731c8a03abc1b5f915beaaf205ca1",
+    "slots": 18,
+    "methods": [
+      "common_model_workflow",
+      "goals_only_model_workflow",
+      "goals_state_model_workflow"
+    ],
+    "provider": {
+      "model": "deepseek-flash",
+      "thinking": true,
+      "reasoning_effort": "low",
+      "max_output_tokens": 32768,
+      "max_retries": 0,
+      "accepted_response_models": [
+        "DeepSeek-V4.1-Flash-1017",
+        "deepseek-flash"
+      ]
+    },
+    "design_cost_cap_usd": "10.00",
+    "authorization_state": "requires_new_budget_and_valid_time_window",
+    "formal_attempt_created": false
+  },
+  "provenance": [
+    {
+      "path": "/home/yiwei/.codex/outputs/forge-common-harness-session-2026-10-28/replay_original_cases.py",
+      "sha256": "87084a383e69ed8ec6120b3beb0648026450e35dd6886db787c7307b3fed0457"
+    },
+    {
+      "path": "/home/yiwei/.codex/outputs/forge-common-harness-session-2026-10-28/original-case-replay-v1/summary.json",
+      "sha256": "f46b9f8f1e599cd859016423ca3a8af49d048608b0b861813455dcf70d669b8f"
+    },
+    {
+      "path": "/home/yiwei/.codex/outputs/forge-common-harness-session-2026-10-28/original-case-replay-v1/resource-check.json",
+      "sha256": "79af833d6d30f1f1c7056af4bdfad622397030501ac74d7b18d12cd47aa71117"
+    }
+  ],
+  "boundary": "原响应的脚本工程回放不是新Provider效果；旧失败不回填，三个静态可装配候选中只有tinyxml2完整构建已观察，18槽真实消融尚未运行。"
+}

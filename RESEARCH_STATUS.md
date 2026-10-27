@@ -1,6 +1,16 @@
 # Forge Research Status
 
-## 当前阶段（2026-10-27；#631配置状态增强24槽配对完成，转共同Harness修复与闭环消融）
+## 当前阶段（2026-10-28；#633共同Harness修复完成，#635三臂18槽组件消融待新授权）
+
+工程修复/实验准备完成，真实Provider0、新增费用0。新共同接口支持工具调用、完整JSON、带可选schema标题的单JSON围栏，共用原ObservedBuildActions/装配/一次结构纠错及完整验收；原始响应和被拒候选来源保持。非法read_source参数中的字面~数字~保留原文，包改用既有整串共享，原保留字段/哈希/还原/消息门槛保持，不自动修正路径。只接新入口，原328冻结组件及旧24槽结果不改。
+
+原案例真实接收链回放：yaml-cpp/tinyxml2原样JSON及snappy单围栏JSON三份均可装配，check自由说明仍拒绝。原tinyxml2候选另立脚本身份实际构建/原测试/源码链接/精确交付/clean replay/cleanup完整通过，1脚本响应0Token0Provider、两个容器实际不存在。只能证明该候选的接口阻断已解除，不称新模型效果或回填旧失败。错误路径→保留反馈→下一脚本请求纠正也通过；53相关回归、Ruff及CLI通过，未重复产品全量/参考构建。报告[共同修复与组件消融](docs/research/2026-10-28-common-harness-repair-and-ablation.md)，analysis cpp-build-common-harness-repair-v1.json；会话forge-common-harness-session-2026-10-28保留回放脚本、原响应SHA、新Session/资源收据及测试日志。
+
+下一项[Issue635](https://github.com/WWFXL/Forge-AutoCompiler/issues/635)：cpp-build-goal-state-component-ablation-flash-v1，simdutf/snappy/yaml-cpp×2重复×共同当前/仅目标/目标＋状态三臂18槽，六种顺序预先固定。两目标臂材料相同，全部共用修复、Flash low、原资源与验收；独立初始方案，不称固定方案反事实。主要比较目标呈现与状态观察/选择增量，若直接动作未触发不得主张其效果。新分母18独立，全部已见非holdout，不据小幅取舍换主线。
+
+候选SHA87fd9cf72bef05c23dd9d38f6a92a895079731c8a03abc1b5f915beaaf205ca1，脚本forge_build_goal_state_ablation.py已可prepare/check/analyze/授权运行。设计最多10美元/建议新4小时，准备计入；旧UTC2026-10-27 17:49:38已过期，本18槽无新有效支出授权，未创建正式attempt/读取凭据/调用Provider。原node1200/replay1200/cleanup余量300/新槽2700/请求准入600/无自动重试及未知/身份/清理停止保持。Issue633结果PR经最终相关CI后只合科研依赖分支；用户memory/HTML保留、知识库只MCP同步，不注入实验Agent。
+
+## 上一阶段（2026-10-27；#631配置状态增强24槽配对完成，转共同Harness修复与闭环消融）
 
 真实采集与独立结果分析完成。cpp-build-goal-state-paired-flash-v1六已见任务×两版×两重复24/24终结，19完整、5未完成、0未观察；当前模型Workflow 9/12、增强版10/12。请求88/95，recorded Token 1331741/1478487，保守估费0.4510923/0.5063022美元，总槽分钟42.72/52.06。增强整体多完成1槽，但费用高12.2%、时间高21.8%；提前失败的短费用/时间不当效率收益，不作总体优势或统计显著性。
 
