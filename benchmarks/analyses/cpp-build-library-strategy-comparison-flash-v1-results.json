@@ -1,0 +1,1472 @@
+{
+  "identity": "cpp-build-library-strategy-comparison-flash-v1",
+  "provider": {
+    "model": "deepseek-flash",
+    "thinking": true,
+    "reasoning_effort": "low",
+    "max_output_tokens": 32768,
+    "max_retries": 0,
+    "accepted_response_models": [
+      "DeepSeek-V4.1-Flash-1017",
+      "deepseek-flash"
+    ]
+  },
+  "pricing": {
+    "input_per_million_usd": "0.30",
+    "output_per_million_usd": "1.20",
+    "basis": "2026-10-27官方高峰、全部输入按缓存未命中估费；不是账单",
+    "source": "https://api-docs.deepseek.com/quick_start/pricing"
+  },
+  "release": "57f999ae92981628160c9c3636540b7c20a2800c",
+  "raw_root": "/home/yiwei/.codex/outputs/forge-library-strategy-comparison-flash-v1",
+  "inventory": {
+    "format": "forge-typed-evidence-v1",
+    "identity": "cpp-build-library-strategy-comparison-flash-v1",
+    "entries": 25653,
+    "files": 25653,
+    "symlinks": 0,
+    "bytes": 1066478126,
+    "inventory_canonical_sha256": "4e29253cddd262a91533846131efd533d77dd4a55653695eea5cca01168846c6",
+    "unknown_usage_requests": 0
+  },
+  "planned": 12,
+  "observed": 12,
+  "unobserved": 0,
+  "stop_reason": null,
+  "lifecycle_complete": true,
+  "summary": {
+    "tool_plan_workflow": {
+      "planned": 4,
+      "observed": 4,
+      "unobserved": 0,
+      "strict_completed": 4,
+      "model_requests": 20,
+      "recorded_tokens": 342886,
+      "cost_usd": "0.1204590",
+      "wall_seconds": 454.59972294900217,
+      "zero_model_strict": 0,
+      "handoffs": 4,
+      "applied_revisions": 4,
+      "phases": {
+        "recovery": {
+          "requests": 20,
+          "cost_usd": "0.1204590"
+        }
+      }
+    },
+    "model_plan_workflow": {
+      "planned": 4,
+      "observed": 4,
+      "unobserved": 0,
+      "strict_completed": 4,
+      "model_requests": 19,
+      "recorded_tokens": 241153,
+      "cost_usd": "0.0886800",
+      "wall_seconds": 327.17001425198396,
+      "zero_model_strict": 0,
+      "handoffs": 0,
+      "applied_revisions": 0,
+      "phases": {
+        "initial": {
+          "requests": 19,
+          "cost_usd": "0.0886800"
+        }
+      }
+    },
+    "strong_tool_agent": {
+      "planned": 4,
+      "observed": 4,
+      "unobserved": 0,
+      "strict_completed": 4,
+      "model_requests": 44,
+      "recorded_tokens": 532279,
+      "cost_usd": "0.1684407",
+      "wall_seconds": 377.8667136429867,
+      "zero_model_strict": 0,
+      "handoffs": 0,
+      "applied_revisions": 0,
+      "phases": {
+        "agent_control": {
+          "requests": 44,
+          "cost_usd": "0.1684407"
+        }
+      }
+    }
+  },
+  "rows": [
+    {
+      "slot": 1,
+      "project": "rang",
+      "method": "tool_plan_workflow",
+      "repetition": 1,
+      "strict_completed": true,
+      "model_requests": 6,
+      "recorded_tokens": 95548,
+      "cost_usd": "0.0321456",
+      "unknown_requests": 0,
+      "wall_seconds": 84.94908006701735,
+      "handoffs": 1,
+      "applied_revisions": 1,
+      "phases": {
+        "recovery": {
+          "requests": 6,
+          "cost_usd": "0.0321456"
+        }
+      },
+      "responses": [
+        {
+          "sequence": 1,
+          "phase": "recovery",
+          "input_tokens": 13120,
+          "output_tokens": 183,
+          "cost_usd": "0.0041556",
+          "actual_models": [
+            "deepseek-flash"
+          ]
+        },
+        {
+          "sequence": 2,
+          "phase": "recovery",
+          "input_tokens": 14121,
+          "output_tokens": 49,
+          "cost_usd": "0.0042951",
+          "actual_models": [
+            "deepseek-flash"
+          ]
+        },
+        {
+          "sequence": 3,
+          "phase": "recovery",
+          "input_tokens": 13672,
+          "output_tokens": 61,
+          "cost_usd": "0.0041748",
+          "actual_models": [
+            "deepseek-flash"
+          ]
+        },
+        {
+          "sequence": 4,
+          "phase": "recovery",
+          "input_tokens": 13933,
+          "output_tokens": 177,
+          "cost_usd": "0.0043923",
+          "actual_models": [
+            "deepseek-flash"
+          ]
+        },
+        {
+          "sequence": 5,
+          "phase": "recovery",
+          "input_tokens": 20273,
+          "output_tokens": 242,
+          "cost_usd": "0.0063723",
+          "actual_models": [
+            "deepseek-flash"
+          ]
+        },
+        {
+          "sequence": 6,
+          "phase": "recovery",
+          "input_tokens": 16561,
+          "output_tokens": 3156,
+          "cost_usd": "0.0087555",
+          "actual_models": [
+            "deepseek-flash"
+          ]
+        }
+      ],
+      "layers": {
+        "build": "passed",
+        "fixed_task_checks": "passed",
+        "artifact_stage": "passed",
+        "clean_replay": "passed",
+        "source_preservation": "passed",
+        "cleanup": "passed"
+      },
+      "failures": [
+        {
+          "role": "smoke",
+          "command": "python3 -c 'import subprocess,sys,re,json\np=subprocess.run(['\"'\"'ctest'\"'\"','\"'\"'--test-dir'\"'\"','\"'\"'build'\"'\"','\"'\"'--output-on-failure'\"'\"','\"'\"'-V'\"'\"'],stdout=subprocess.PIPE,stderr=subprocess.STDOUT,text=True)\nprint(p.stdout,end='\"'\"''\"'\"');p.check_returncode()\nassert re.search(r'\"'\"'test cases:\\s*6\\s*\\|\\s*6 passed\\s*\\|\\s*0 failed\\s*\\|\\s*0 skipped'\"'\"',p.stdout)\nassert '\"'\"'100% tests passed'\"'\"' in p.stdout\nfor program,marker in [('\"'\"'colorTest'\"'\"','\"'\"'Text Style Test:'\"'\"'),('\"'\"'envTermMissing'\"'\"','\"'\"'===NO COLORS AS FALLBACK==='\"'\"')]:\n q=subprocess.run(['\"'\"'build/test/'\"'\"'+program],stdout=subprocess.PIPE,stderr=subprocess.STDOUT,text=True)\n print(q.stdout,end='\"'\"''\"'\"');q.check_returncode();assert marker in q.stdout\nprint('\"'\"'FORGE_LIBRARY_ORIGINAL_TESTS rang 6cases 15subcases 3programs'\"'\"')\n'",
+          "exit_code": 1,
+          "timed_out": false,
+          "log_path": "/home/yiwei/.codex/outputs/forge-library-strategy-comparison-flash-v1/slot-1/rang-plan/.compile-sessions/plan-agent-canary/3d5edc5c1494/logs/command_972106526bfc4bc3a81fc9ebf400df1e.log",
+          "log_sha256": "54bd19bd625a8f8a64cc80e7bd150654fd3d5582af7778e38bfa53a9699d474f",
+          "output_tail": ""
+        }
+      ],
+      "error": null,
+      "session_state": "completed",
+      "session_path": "/home/yiwei/.codex/outputs/forge-library-strategy-comparison-flash-v1/slot-1/rang-plan/.compile-sessions/plan-agent-canary/3d5edc5c1494/session.json",
+      "agent_path": "/home/yiwei/.codex/outputs/forge-library-strategy-comparison-flash-v1/slot-1/rang-plan/agent"
+    },
+    {
+      "slot": 2,
+      "project": "rang",
+      "method": "model_plan_workflow",
+      "repetition": 1,
+      "strict_completed": true,
+      "model_requests": 5,
+      "recorded_tokens": 56828,
+      "cost_usd": "0.0200391",
+      "unknown_requests": 0,
+      "wall_seconds": 51.35157295098179,
+      "handoffs": 0,
+      "applied_revisions": 0,
+      "phases": {
+        "initial": {
+          "requests": 5,
+          "cost_usd": "0.0200391"
+        }
+      },
+      "responses": [
+        {
+          "sequence": 1,
+          "phase": "initial",
+          "input_tokens": 8484,
+          "output_tokens": 159,
+          "cost_usd": "0.002736",
+          "actual_models": [
+            "deepseek-flash"
+          ]
+        },
+        {
+          "sequence": 2,
+          "phase": "initial",
+          "input_tokens": 8962,
+          "output_tokens": 88,
+          "cost_usd": "0.0027942",
+          "actual_models": [
+            "deepseek-flash"
+          ]
+        },
+        {
+          "sequence": 3,
+          "phase": "initial",
+          "input_tokens": 9172,
+          "output_tokens": 225,
+          "cost_usd": "0.0030216",
+          "actual_models": [
+            "deepseek-flash"
+          ]
+        },
+        {
+          "sequence": 4,
+          "phase": "initial",
+          "input_tokens": 15484,
+          "output_tokens": 80,
+          "cost_usd": "0.0047412",
+          "actual_models": [
+            "deepseek-flash"
+          ]
+        },
+        {
+          "sequence": 5,
+          "phase": "initial",
+          "input_tokens": 11403,
+          "output_tokens": 2771,
+          "cost_usd": "0.0067461",
+          "actual_models": [
+            "deepseek-flash"
+          ]
+        }
+      ],
+      "layers": {
+        "build": "passed",
+        "fixed_task_checks": "passed",
+        "artifact_stage": "passed",
+        "clean_replay": "passed",
+        "source_preservation": "passed",
+        "cleanup": "passed"
+      },
+      "failures": [],
+      "error": null,
+      "session_state": "completed",
+      "session_path": "/home/yiwei/.codex/outputs/forge-library-strategy-comparison-flash-v1/slot-2/rang-plan/.compile-sessions/plan-agent-canary/59d94b488001/session.json",
+      "agent_path": "/home/yiwei/.codex/outputs/forge-library-strategy-comparison-flash-v1/slot-2/rang-plan/agent"
+    },
+    {
+      "slot": 3,
+      "project": "rang",
+      "method": "strong_tool_agent",
+      "repetition": 1,
+      "strict_completed": true,
+      "model_requests": 10,
+      "recorded_tokens": 94731,
+      "cost_usd": "0.0296406",
+      "unknown_requests": 0,
+      "wall_seconds": 47.22656845499296,
+      "handoffs": 0,
+      "applied_revisions": 0,
+      "phases": {
+        "agent_control": {
+          "requests": 10,
+          "cost_usd": "0.0296406"
+        }
+      },
+      "responses": [
+        {
+          "sequence": 1,
+          "phase": "agent_control",
+          "input_tokens": 8351,
+          "output_tokens": 170,
+          "cost_usd": "0.0027093",
+          "actual_models": [
+            "deepseek-flash"
+          ]
+        },
+        {
+          "sequence": 2,
+          "phase": "agent_control",
+          "input_tokens": 8832,
+          "output_tokens": 90,
+          "cost_usd": "0.0027576",
+          "actual_models": [
+            "deepseek-flash"
+          ]
+        },
+        {
+          "sequence": 3,
+          "phase": "agent_control",
+          "input_tokens": 9037,
+          "output_tokens": 386,
+          "cost_usd": "0.0031743",
+          "actual_models": [
+            "deepseek-flash"
+          ]
+        },
+        {
+          "sequence": 4,
+          "phase": "agent_control",
+          "input_tokens": 9536,
+          "output_tokens": 95,
+          "cost_usd": "0.0029748",
+          "actual_models": [
+            "deepseek-flash"
+          ]
+        },
+        {
+          "sequence": 5,
+          "phase": "agent_control",
+          "input_tokens": 9353,
+          "output_tokens": 117,
+          "cost_usd": "0.0029463",
+          "actual_models": [
+            "deepseek-flash"
+          ]
+        },
+        {
+          "sequence": 6,
+          "phase": "agent_control",
+          "input_tokens": 9391,
+          "output_tokens": 107,
+          "cost_usd": "0.0029457",
+          "actual_models": [
+            "deepseek-flash"
+          ]
+        },
+        {
+          "sequence": 7,
+          "phase": "agent_control",
+          "input_tokens": 9416,
+          "output_tokens": 25,
+          "cost_usd": "0.0028548",
+          "actual_models": [
+            "deepseek-flash"
+          ]
+        },
+        {
+          "sequence": 8,
+          "phase": "agent_control",
+          "input_tokens": 10269,
+          "output_tokens": 131,
+          "cost_usd": "0.0032379",
+          "actual_models": [
+            "deepseek-flash"
+          ]
+        },
+        {
+          "sequence": 9,
+          "phase": "agent_control",
+          "input_tokens": 9444,
+          "output_tokens": 208,
+          "cost_usd": "0.0030828",
+          "actual_models": [
+            "deepseek-flash"
+          ]
+        },
+        {
+          "sequence": 10,
+          "phase": "agent_control",
+          "input_tokens": 9745,
+          "output_tokens": 28,
+          "cost_usd": "0.0029571",
+          "actual_models": [
+            "deepseek-flash"
+          ]
+        }
+      ],
+      "layers": {
+        "build": "passed",
+        "fixed_task_checks": "passed",
+        "artifact_stage": "passed",
+        "clean_replay": "passed",
+        "source_preservation": "passed",
+        "cleanup": "passed"
+      },
+      "failures": [],
+      "error": null,
+      "session_state": "completed",
+      "session_path": "/home/yiwei/.codex/outputs/forge-library-strategy-comparison-flash-v1/slot-3/rang-tool/.compile-sessions/plan-agent-canary/d71b05083bfd/session.json",
+      "agent_path": "/home/yiwei/.codex/outputs/forge-library-strategy-comparison-flash-v1/slot-3/rang-tool/agent"
+    },
+    {
+      "slot": 4,
+      "project": "ELFIO",
+      "method": "strong_tool_agent",
+      "repetition": 1,
+      "strict_completed": true,
+      "model_requests": 11,
+      "recorded_tokens": 147309,
+      "cost_usd": "0.0481977",
+      "unknown_requests": 0,
+      "wall_seconds": 162.085869750008,
+      "handoffs": 0,
+      "applied_revisions": 0,
+      "phases": {
+        "agent_control": {
+          "requests": 11,
+          "cost_usd": "0.0481977"
+        }
+      },
+      "responses": [
+        {
+          "sequence": 1,
+          "phase": "agent_control",
+          "input_tokens": 11175,
+          "output_tokens": 294,
+          "cost_usd": "0.0037053",
+          "actual_models": [
+            "deepseek-flash"
+          ]
+        },
+        {
+          "sequence": 2,
+          "phase": "agent_control",
+          "input_tokens": 12828,
+          "output_tokens": 305,
+          "cost_usd": "0.0042144",
+          "actual_models": [
+            "deepseek-flash"
+          ]
+        },
+        {
+          "sequence": 3,
+          "phase": "agent_control",
+          "input_tokens": 12180,
+          "output_tokens": 462,
+          "cost_usd": "0.0042084",
+          "actual_models": [
+            "deepseek-flash"
+          ]
+        },
+        {
+          "sequence": 4,
+          "phase": "agent_control",
+          "input_tokens": 13081,
+          "output_tokens": 1346,
+          "cost_usd": "0.0055395",
+          "actual_models": [
+            "deepseek-flash"
+          ]
+        },
+        {
+          "sequence": 5,
+          "phase": "agent_control",
+          "input_tokens": 13334,
+          "output_tokens": 295,
+          "cost_usd": "0.0043542",
+          "actual_models": [
+            "deepseek-flash"
+          ]
+        },
+        {
+          "sequence": 6,
+          "phase": "agent_control",
+          "input_tokens": 12567,
+          "output_tokens": 712,
+          "cost_usd": "0.0046245",
+          "actual_models": [
+            "deepseek-flash"
+          ]
+        },
+        {
+          "sequence": 7,
+          "phase": "agent_control",
+          "input_tokens": 13793,
+          "output_tokens": 255,
+          "cost_usd": "0.0044439",
+          "actual_models": [
+            "deepseek-flash"
+          ]
+        },
+        {
+          "sequence": 8,
+          "phase": "agent_control",
+          "input_tokens": 12818,
+          "output_tokens": 115,
+          "cost_usd": "0.0039834",
+          "actual_models": [
+            "deepseek-flash"
+          ]
+        },
+        {
+          "sequence": 9,
+          "phase": "agent_control",
+          "input_tokens": 13305,
+          "output_tokens": 222,
+          "cost_usd": "0.0042579",
+          "actual_models": [
+            "deepseek-flash"
+          ]
+        },
+        {
+          "sequence": 10,
+          "phase": "agent_control",
+          "input_tokens": 13430,
+          "output_tokens": 414,
+          "cost_usd": "0.0045258",
+          "actual_models": [
+            "deepseek-flash"
+          ]
+        },
+        {
+          "sequence": 11,
+          "phase": "agent_control",
+          "input_tokens": 14348,
+          "output_tokens": 30,
+          "cost_usd": "0.0043404",
+          "actual_models": [
+            "deepseek-flash"
+          ]
+        }
+      ],
+      "layers": {
+        "build": "passed",
+        "fixed_task_checks": "passed",
+        "artifact_stage": "passed",
+        "clean_replay": "passed",
+        "source_preservation": "passed",
+        "cleanup": "passed"
+      },
+      "failures": [
+        {
+          "role": "diagnostic",
+          "command": "cmake --version; ninja --version 2>/dev/null; g++ --version | head -1; ls .forge-deps/googletest/CMakeLists.txt; ls .forge-deps/googletest/googletest",
+          "exit_code": 126,
+          "timed_out": false,
+          "log_path": "/home/yiwei/.codex/outputs/forge-library-strategy-comparison-flash-v1/slot-4/ELFIO-tool/.compile-sessions/plan-agent-canary/c419c49de43d/logs/command_644ae4953a1642378f57730044f3c82a.log",
+          "log_sha256": "d3331d58a425542be299fded50d3e83af576e1c1c1384c835ea1a570109b648c",
+          "output_tail": ""
+        }
+      ],
+      "error": null,
+      "session_state": "completed",
+      "session_path": "/home/yiwei/.codex/outputs/forge-library-strategy-comparison-flash-v1/slot-4/ELFIO-tool/.compile-sessions/plan-agent-canary/c419c49de43d/session.json",
+      "agent_path": "/home/yiwei/.codex/outputs/forge-library-strategy-comparison-flash-v1/slot-4/ELFIO-tool/agent"
+    },
+    {
+      "slot": 5,
+      "project": "ELFIO",
+      "method": "model_plan_workflow",
+      "repetition": 1,
+      "strict_completed": true,
+      "model_requests": 4,
+      "recorded_tokens": 57221,
+      "cost_usd": "0.0196674",
+      "unknown_requests": 0,
+      "wall_seconds": 77.89366025399067,
+      "handoffs": 0,
+      "applied_revisions": 0,
+      "phases": {
+        "initial": {
+          "requests": 4,
+          "cost_usd": "0.0196674"
+        }
+      },
+      "responses": [
+        {
+          "sequence": 1,
+          "phase": "initial",
+          "input_tokens": 11324,
+          "output_tokens": 155,
+          "cost_usd": "0.0035832",
+          "actual_models": [
+            "deepseek-flash"
+          ]
+        },
+        {
+          "sequence": 2,
+          "phase": "initial",
+          "input_tokens": 12231,
+          "output_tokens": 210,
+          "cost_usd": "0.0039213",
+          "actual_models": [
+            "deepseek-flash"
+          ]
+        },
+        {
+          "sequence": 3,
+          "phase": "initial",
+          "input_tokens": 15707,
+          "output_tokens": 289,
+          "cost_usd": "0.0050589",
+          "actual_models": [
+            "deepseek-flash"
+          ]
+        },
+        {
+          "sequence": 4,
+          "phase": "initial",
+          "input_tokens": 15180,
+          "output_tokens": 2125,
+          "cost_usd": "0.007104",
+          "actual_models": [
+            "deepseek-flash"
+          ]
+        }
+      ],
+      "layers": {
+        "build": "passed",
+        "fixed_task_checks": "passed",
+        "artifact_stage": "passed",
+        "clean_replay": "passed",
+        "source_preservation": "passed",
+        "cleanup": "passed"
+      },
+      "failures": [],
+      "error": null,
+      "session_state": "completed",
+      "session_path": "/home/yiwei/.codex/outputs/forge-library-strategy-comparison-flash-v1/slot-5/ELFIO-plan/.compile-sessions/plan-agent-canary/40bf14d967e4/session.json",
+      "agent_path": "/home/yiwei/.codex/outputs/forge-library-strategy-comparison-flash-v1/slot-5/ELFIO-plan/agent"
+    },
+    {
+      "slot": 6,
+      "project": "ELFIO",
+      "method": "tool_plan_workflow",
+      "repetition": 1,
+      "strict_completed": true,
+      "model_requests": 3,
+      "recorded_tokens": 53330,
+      "cost_usd": "0.0182112",
+      "unknown_requests": 0,
+      "wall_seconds": 93.7220629400108,
+      "handoffs": 1,
+      "applied_revisions": 1,
+      "phases": {
+        "recovery": {
+          "requests": 3,
+          "cost_usd": "0.0182112"
+        }
+      },
+      "responses": [
+        {
+          "sequence": 1,
+          "phase": "recovery",
+          "input_tokens": 16063,
+          "output_tokens": 205,
+          "cost_usd": "0.0050649",
+          "actual_models": [
+            "deepseek-flash"
+          ]
+        },
+        {
+          "sequence": 2,
+          "phase": "recovery",
+          "input_tokens": 16932,
+          "output_tokens": 131,
+          "cost_usd": "0.0052368",
+          "actual_models": [
+            "deepseek-flash"
+          ]
+        },
+        {
+          "sequence": 3,
+          "phase": "recovery",
+          "input_tokens": 17877,
+          "output_tokens": 2122,
+          "cost_usd": "0.0079095",
+          "actual_models": [
+            "deepseek-flash"
+          ]
+        }
+      ],
+      "layers": {
+        "build": "passed",
+        "fixed_task_checks": "passed",
+        "artifact_stage": "passed",
+        "clean_replay": "passed",
+        "source_preservation": "passed",
+        "cleanup": "passed"
+      },
+      "failures": [
+        {
+          "role": "smoke",
+          "command": "python3 -c 'import subprocess,sys,re,json\np=subprocess.run(['\"'\"'ctest'\"'\"','\"'\"'--test-dir'\"'\"','\"'\"'build'\"'\"','\"'\"'--output-on-failure'\"'\"','\"'\"'-V'\"'\"'],stdout=subprocess.PIPE,stderr=subprocess.STDOUT,text=True)\nprint(p.stdout,end='\"'\"''\"'\"');p.check_returncode()\nassert '\"'\"'100% tests passed'\"'\"' in p.stdout\nassert re.search(r'\"'\"'0 tests failed out of 74\\b'\"'\"',p.stdout)\nassert re.search(r'\"'\"'\\[==========\\] Running 73 tests from 2 test suites'\"'\"',p.stdout)\nassert re.search(r'\"'\"'\\[  PASSED  \\] 73 tests'\"'\"',p.stdout)\nprint('\"'\"'FORGE_LIBRARY_ORIGINAL_TESTS ELFIO 73leaves 74ctest_registrations'\"'\"')\n'\npython3 -c 'from pathlib import Path; import json,hashlib\ncache=Path('\"'\"'build/CMakeCache.txt'\"'\"').read_text().splitlines()\nassert '\"'\"'ELFIO_BUILD_EXAMPLES:BOOL=ON'\"'\"' in cache\nrows=[]\nfor name in ('\"'\"'add_section/add_section'\"'\"', '\"'\"'anonymizer/anonymizer'\"'\"', '\"'\"'arion/arion'\"'\"', '\"'\"'arioso/arioso'\"'\"', '\"'\"'elfdump/elfdump'\"'\"', '\"'\"'elfio_ldd/elfio-ldd'\"'\"', '\"'\"'proc_mem/proc_mem'\"'\"', '\"'\"'tutorial/tutorial'\"'\"', '\"'\"'write_obj/write_obj'\"'\"', '\"'\"'writer/writer'\"'\"'):\n p=Path('\"'\"'build/examples'\"'\"')/name\n assert p.is_file() and p.read_bytes()[:4]==b'\"'\"'\\x7fELF'\"'\"',str(p)\n rows.append(dict(path=str(p),sha256=hashlib.sha256(p.read_bytes()).hexdigest()))\nprint('\"'\"'FORGE_ELFIO_ORIGINAL_EXAMPLES 10'\"'\"',json.dumps(rows,sort_keys=True))\n'",
+          "exit_code": 1,
+          "timed_out": false,
+          "log_path": "/home/yiwei/.codex/outputs/forge-library-strategy-comparison-flash-v1/slot-6/ELFIO-plan/.compile-sessions/plan-agent-canary/e4067d269ea2/logs/command_bb76d5deccf646a19350e3ad72d2af1e.log",
+          "log_sha256": "bdd62165f95215354e56717e11f71588fb62e7036cea7d28dbe558402bb34460",
+          "output_tail": ""
+        }
+      ],
+      "error": null,
+      "session_state": "completed",
+      "session_path": "/home/yiwei/.codex/outputs/forge-library-strategy-comparison-flash-v1/slot-6/ELFIO-plan/.compile-sessions/plan-agent-canary/e4067d269ea2/session.json",
+      "agent_path": "/home/yiwei/.codex/outputs/forge-library-strategy-comparison-flash-v1/slot-6/ELFIO-plan/agent"
+    },
+    {
+      "slot": 7,
+      "project": "rang",
+      "method": "tool_plan_workflow",
+      "repetition": 2,
+      "strict_completed": true,
+      "model_requests": 7,
+      "recorded_tokens": 114707,
+      "cost_usd": "0.0387348",
+      "unknown_requests": 0,
+      "wall_seconds": 103.76152790497872,
+      "handoffs": 1,
+      "applied_revisions": 1,
+      "phases": {
+        "recovery": {
+          "requests": 7,
+          "cost_usd": "0.0387348"
+        }
+      },
+      "responses": [
+        {
+          "sequence": 1,
+          "phase": "recovery",
+          "input_tokens": 13123,
+          "output_tokens": 205,
+          "cost_usd": "0.0041829",
+          "actual_models": [
+            "deepseek-flash"
+          ]
+        },
+        {
+          "sequence": 2,
+          "phase": "recovery",
+          "input_tokens": 14137,
+          "output_tokens": 41,
+          "cost_usd": "0.0042903",
+          "actual_models": [
+            "deepseek-flash"
+          ]
+        },
+        {
+          "sequence": 3,
+          "phase": "recovery",
+          "input_tokens": 13674,
+          "output_tokens": 188,
+          "cost_usd": "0.0043278",
+          "actual_models": [
+            "deepseek-flash"
+          ]
+        },
+        {
+          "sequence": 4,
+          "phase": "recovery",
+          "input_tokens": 14073,
+          "output_tokens": 78,
+          "cost_usd": "0.0043155",
+          "actual_models": [
+            "deepseek-flash"
+          ]
+        },
+        {
+          "sequence": 5,
+          "phase": "recovery",
+          "input_tokens": 17578,
+          "output_tokens": 249,
+          "cost_usd": "0.0055722",
+          "actual_models": [
+            "deepseek-flash"
+          ]
+        },
+        {
+          "sequence": 6,
+          "phase": "recovery",
+          "input_tokens": 19029,
+          "output_tokens": 1534,
+          "cost_usd": "0.0075495",
+          "actual_models": [
+            "deepseek-flash"
+          ]
+        },
+        {
+          "sequence": 7,
+          "phase": "recovery",
+          "input_tokens": 18290,
+          "output_tokens": 2508,
+          "cost_usd": "0.0084966",
+          "actual_models": [
+            "deepseek-flash"
+          ]
+        }
+      ],
+      "layers": {
+        "build": "passed",
+        "fixed_task_checks": "passed",
+        "artifact_stage": "passed",
+        "clean_replay": "passed",
+        "source_preservation": "passed",
+        "cleanup": "passed"
+      },
+      "failures": [
+        {
+          "role": "smoke",
+          "command": "python3 -c 'import subprocess,sys,re,json\np=subprocess.run(['\"'\"'ctest'\"'\"','\"'\"'--test-dir'\"'\"','\"'\"'build'\"'\"','\"'\"'--output-on-failure'\"'\"','\"'\"'-V'\"'\"'],stdout=subprocess.PIPE,stderr=subprocess.STDOUT,text=True)\nprint(p.stdout,end='\"'\"''\"'\"');p.check_returncode()\nassert re.search(r'\"'\"'test cases:\\s*6\\s*\\|\\s*6 passed\\s*\\|\\s*0 failed\\s*\\|\\s*0 skipped'\"'\"',p.stdout)\nassert '\"'\"'100% tests passed'\"'\"' in p.stdout\nfor program,marker in [('\"'\"'colorTest'\"'\"','\"'\"'Text Style Test:'\"'\"'),('\"'\"'envTermMissing'\"'\"','\"'\"'===NO COLORS AS FALLBACK==='\"'\"')]:\n q=subprocess.run(['\"'\"'build/test/'\"'\"'+program],stdout=subprocess.PIPE,stderr=subprocess.STDOUT,text=True)\n print(q.stdout,end='\"'\"''\"'\"');q.check_returncode();assert marker in q.stdout\nprint('\"'\"'FORGE_LIBRARY_ORIGINAL_TESTS rang 6cases 15subcases 3programs'\"'\"')\n'",
+          "exit_code": 1,
+          "timed_out": false,
+          "log_path": "/home/yiwei/.codex/outputs/forge-library-strategy-comparison-flash-v1/slot-7/rang-plan/.compile-sessions/plan-agent-canary/bc07bbeee202/logs/command_8aa211741a834c17b47d43500deba23d.log",
+          "log_sha256": "54bd19bd625a8f8a64cc80e7bd150654fd3d5582af7778e38bfa53a9699d474f",
+          "output_tail": ""
+        }
+      ],
+      "error": null,
+      "session_state": "completed",
+      "session_path": "/home/yiwei/.codex/outputs/forge-library-strategy-comparison-flash-v1/slot-7/rang-plan/.compile-sessions/plan-agent-canary/bc07bbeee202/session.json",
+      "agent_path": "/home/yiwei/.codex/outputs/forge-library-strategy-comparison-flash-v1/slot-7/rang-plan/agent"
+    },
+    {
+      "slot": 8,
+      "project": "rang",
+      "method": "strong_tool_agent",
+      "repetition": 2,
+      "strict_completed": true,
+      "model_requests": 13,
+      "recorded_tokens": 162758,
+      "cost_usd": "0.0506598",
+      "unknown_requests": 0,
+      "wall_seconds": 75.40873284899862,
+      "handoffs": 0,
+      "applied_revisions": 0,
+      "phases": {
+        "agent_control": {
+          "requests": 13,
+          "cost_usd": "0.0506598"
+        }
+      },
+      "responses": [
+        {
+          "sequence": 1,
+          "phase": "agent_control",
+          "input_tokens": 8347,
+          "output_tokens": 320,
+          "cost_usd": "0.0028881",
+          "actual_models": [
+            "deepseek-flash"
+          ]
+        },
+        {
+          "sequence": 2,
+          "phase": "agent_control",
+          "input_tokens": 9114,
+          "output_tokens": 75,
+          "cost_usd": "0.0028242",
+          "actual_models": [
+            "deepseek-flash"
+          ]
+        },
+        {
+          "sequence": 3,
+          "phase": "agent_control",
+          "input_tokens": 11568,
+          "output_tokens": 234,
+          "cost_usd": "0.0037512",
+          "actual_models": [
+            "deepseek-flash"
+          ]
+        },
+        {
+          "sequence": 4,
+          "phase": "agent_control",
+          "input_tokens": 14240,
+          "output_tokens": 542,
+          "cost_usd": "0.0049224",
+          "actual_models": [
+            "deepseek-flash"
+          ]
+        },
+        {
+          "sequence": 5,
+          "phase": "agent_control",
+          "input_tokens": 12841,
+          "output_tokens": 147,
+          "cost_usd": "0.0040287",
+          "actual_models": [
+            "deepseek-flash"
+          ]
+        },
+        {
+          "sequence": 6,
+          "phase": "agent_control",
+          "input_tokens": 12710,
+          "output_tokens": 78,
+          "cost_usd": "0.0039066",
+          "actual_models": [
+            "deepseek-flash"
+          ]
+        },
+        {
+          "sequence": 7,
+          "phase": "agent_control",
+          "input_tokens": 12856,
+          "output_tokens": 128,
+          "cost_usd": "0.0040104",
+          "actual_models": [
+            "deepseek-flash"
+          ]
+        },
+        {
+          "sequence": 8,
+          "phase": "agent_control",
+          "input_tokens": 12850,
+          "output_tokens": 90,
+          "cost_usd": "0.003963",
+          "actual_models": [
+            "deepseek-flash"
+          ]
+        },
+        {
+          "sequence": 9,
+          "phase": "agent_control",
+          "input_tokens": 12860,
+          "output_tokens": 85,
+          "cost_usd": "0.00396",
+          "actual_models": [
+            "deepseek-flash"
+          ]
+        },
+        {
+          "sequence": 10,
+          "phase": "agent_control",
+          "input_tokens": 13065,
+          "output_tokens": 33,
+          "cost_usd": "0.0039591",
+          "actual_models": [
+            "deepseek-flash"
+          ]
+        },
+        {
+          "sequence": 11,
+          "phase": "agent_control",
+          "input_tokens": 13777,
+          "output_tokens": 110,
+          "cost_usd": "0.0042651",
+          "actual_models": [
+            "deepseek-flash"
+          ]
+        },
+        {
+          "sequence": 12,
+          "phase": "agent_control",
+          "input_tokens": 13268,
+          "output_tokens": 117,
+          "cost_usd": "0.0041208",
+          "actual_models": [
+            "deepseek-flash"
+          ]
+        },
+        {
+          "sequence": 13,
+          "phase": "agent_control",
+          "input_tokens": 13226,
+          "output_tokens": 77,
+          "cost_usd": "0.0040602",
+          "actual_models": [
+            "deepseek-flash"
+          ]
+        }
+      ],
+      "layers": {
+        "build": "passed",
+        "fixed_task_checks": "passed",
+        "artifact_stage": "passed",
+        "clean_replay": "passed",
+        "source_preservation": "passed",
+        "cleanup": "passed"
+      },
+      "failures": [
+        {
+          "role": "dependency",
+          "command": "cmake -S .forge-deps/doctest -B .forge-deps/build -DDOCTEST_WITH_TESTS=OFF -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/workspace/repo/.forge-prefix && cmake --build .forge-deps/build --target install -j 2",
+          "exit_code": 126,
+          "timed_out": false,
+          "log_path": "/home/yiwei/.codex/outputs/forge-library-strategy-comparison-flash-v1/slot-8/rang-tool/.compile-sessions/plan-agent-canary/91fb3b99f4eb/logs/command_446c6912d53f4225b78a18b5813e3841.log",
+          "log_sha256": "d3331d58a425542be299fded50d3e83af576e1c1c1384c835ea1a570109b648c",
+          "output_tail": ""
+        }
+      ],
+      "error": null,
+      "session_state": "completed",
+      "session_path": "/home/yiwei/.codex/outputs/forge-library-strategy-comparison-flash-v1/slot-8/rang-tool/.compile-sessions/plan-agent-canary/91fb3b99f4eb/session.json",
+      "agent_path": "/home/yiwei/.codex/outputs/forge-library-strategy-comparison-flash-v1/slot-8/rang-tool/agent"
+    },
+    {
+      "slot": 9,
+      "project": "rang",
+      "method": "model_plan_workflow",
+      "repetition": 2,
+      "strict_completed": true,
+      "model_requests": 5,
+      "recorded_tokens": 56232,
+      "cost_usd": "0.0195246",
+      "unknown_requests": 0,
+      "wall_seconds": 44.45059356201091,
+      "handoffs": 0,
+      "applied_revisions": 0,
+      "phases": {
+        "initial": {
+          "requests": 5,
+          "cost_usd": "0.0195246"
+        }
+      },
+      "responses": [
+        {
+          "sequence": 1,
+          "phase": "initial",
+          "input_tokens": 8484,
+          "output_tokens": 148,
+          "cost_usd": "0.0027228",
+          "actual_models": [
+            "deepseek-flash"
+          ]
+        },
+        {
+          "sequence": 2,
+          "phase": "initial",
+          "input_tokens": 8951,
+          "output_tokens": 73,
+          "cost_usd": "0.0027729",
+          "actual_models": [
+            "deepseek-flash"
+          ]
+        },
+        {
+          "sequence": 3,
+          "phase": "initial",
+          "input_tokens": 9157,
+          "output_tokens": 211,
+          "cost_usd": "0.0030003",
+          "actual_models": [
+            "deepseek-flash"
+          ]
+        },
+        {
+          "sequence": 4,
+          "phase": "initial",
+          "input_tokens": 13092,
+          "output_tokens": 684,
+          "cost_usd": "0.0047484",
+          "actual_models": [
+            "deepseek-flash"
+          ]
+        },
+        {
+          "sequence": 5,
+          "phase": "initial",
+          "input_tokens": 13598,
+          "output_tokens": 1834,
+          "cost_usd": "0.0062802",
+          "actual_models": [
+            "deepseek-flash"
+          ]
+        }
+      ],
+      "layers": {
+        "build": "passed",
+        "fixed_task_checks": "passed",
+        "artifact_stage": "passed",
+        "clean_replay": "passed",
+        "source_preservation": "passed",
+        "cleanup": "passed"
+      },
+      "failures": [],
+      "error": null,
+      "session_state": "completed",
+      "session_path": "/home/yiwei/.codex/outputs/forge-library-strategy-comparison-flash-v1/slot-9/rang-plan/.compile-sessions/plan-agent-canary/5f4c26b32a10/session.json",
+      "agent_path": "/home/yiwei/.codex/outputs/forge-library-strategy-comparison-flash-v1/slot-9/rang-plan/agent"
+    },
+    {
+      "slot": 10,
+      "project": "ELFIO",
+      "method": "strong_tool_agent",
+      "repetition": 2,
+      "strict_completed": true,
+      "model_requests": 10,
+      "recorded_tokens": 127481,
+      "cost_usd": "0.0399426",
+      "unknown_requests": 0,
+      "wall_seconds": 93.14554258898715,
+      "handoffs": 0,
+      "applied_revisions": 0,
+      "phases": {
+        "agent_control": {
+          "requests": 10,
+          "cost_usd": "0.0399426"
+        }
+      },
+      "responses": [
+        {
+          "sequence": 1,
+          "phase": "agent_control",
+          "input_tokens": 11180,
+          "output_tokens": 251,
+          "cost_usd": "0.0036552",
+          "actual_models": [
+            "deepseek-flash"
+          ]
+        },
+        {
+          "sequence": 2,
+          "phase": "agent_control",
+          "input_tokens": 11744,
+          "output_tokens": 162,
+          "cost_usd": "0.0037176",
+          "actual_models": [
+            "deepseek-flash"
+          ]
+        },
+        {
+          "sequence": 3,
+          "phase": "agent_control",
+          "input_tokens": 12056,
+          "output_tokens": 154,
+          "cost_usd": "0.0038016",
+          "actual_models": [
+            "deepseek-flash"
+          ]
+        },
+        {
+          "sequence": 4,
+          "phase": "agent_control",
+          "input_tokens": 12123,
+          "output_tokens": 240,
+          "cost_usd": "0.0039249",
+          "actual_models": [
+            "deepseek-flash"
+          ]
+        },
+        {
+          "sequence": 5,
+          "phase": "agent_control",
+          "input_tokens": 13048,
+          "output_tokens": 306,
+          "cost_usd": "0.0042816",
+          "actual_models": [
+            "deepseek-flash"
+          ]
+        },
+        {
+          "sequence": 6,
+          "phase": "agent_control",
+          "input_tokens": 12671,
+          "output_tokens": 97,
+          "cost_usd": "0.0039177",
+          "actual_models": [
+            "deepseek-flash"
+          ]
+        },
+        {
+          "sequence": 7,
+          "phase": "agent_control",
+          "input_tokens": 13087,
+          "output_tokens": 244,
+          "cost_usd": "0.0042189",
+          "actual_models": [
+            "deepseek-flash"
+          ]
+        },
+        {
+          "sequence": 8,
+          "phase": "agent_control",
+          "input_tokens": 13241,
+          "output_tokens": 378,
+          "cost_usd": "0.0044259",
+          "actual_models": [
+            "deepseek-flash"
+          ]
+        },
+        {
+          "sequence": 9,
+          "phase": "agent_control",
+          "input_tokens": 12773,
+          "output_tokens": 30,
+          "cost_usd": "0.0038679",
+          "actual_models": [
+            "deepseek-flash"
+          ]
+        },
+        {
+          "sequence": 10,
+          "phase": "agent_control",
+          "input_tokens": 13671,
+          "output_tokens": 25,
+          "cost_usd": "0.0041313",
+          "actual_models": [
+            "deepseek-flash"
+          ]
+        }
+      ],
+      "layers": {
+        "build": "passed",
+        "fixed_task_checks": "passed",
+        "artifact_stage": "passed",
+        "clean_replay": "passed",
+        "source_preservation": "passed",
+        "cleanup": "passed"
+      },
+      "failures": [
+        {
+          "role": "diagnostic",
+          "command": "cmake --version; ninja --version 2>/dev/null; gcc --version | head -1; ls -la; ls -la .forge-deps/googletest 2>/dev/null | head",
+          "exit_code": 126,
+          "timed_out": false,
+          "log_path": "/home/yiwei/.codex/outputs/forge-library-strategy-comparison-flash-v1/slot-10/ELFIO-tool/.compile-sessions/plan-agent-canary/14a5df5d3ac4/logs/command_df8be344dd534054a825ac0f264ecb1b.log",
+          "log_sha256": "d3331d58a425542be299fded50d3e83af576e1c1c1384c835ea1a570109b648c",
+          "output_tail": ""
+        }
+      ],
+      "error": null,
+      "session_state": "completed",
+      "session_path": "/home/yiwei/.codex/outputs/forge-library-strategy-comparison-flash-v1/slot-10/ELFIO-tool/.compile-sessions/plan-agent-canary/14a5df5d3ac4/session.json",
+      "agent_path": "/home/yiwei/.codex/outputs/forge-library-strategy-comparison-flash-v1/slot-10/ELFIO-tool/agent"
+    },
+    {
+      "slot": 11,
+      "project": "ELFIO",
+      "method": "tool_plan_workflow",
+      "repetition": 2,
+      "strict_completed": true,
+      "model_requests": 4,
+      "recorded_tokens": 79301,
+      "cost_usd": "0.0313674",
+      "unknown_requests": 0,
+      "wall_seconds": 172.1670520369953,
+      "handoffs": 1,
+      "applied_revisions": 1,
+      "phases": {
+        "recovery": {
+          "requests": 4,
+          "cost_usd": "0.0313674"
+        }
+      },
+      "responses": [
+        {
+          "sequence": 1,
+          "phase": "recovery",
+          "input_tokens": 16129,
+          "output_tokens": 464,
+          "cost_usd": "0.0053955",
+          "actual_models": [
+            "deepseek-flash"
+          ]
+        },
+        {
+          "sequence": 2,
+          "phase": "recovery",
+          "input_tokens": 17988,
+          "output_tokens": 63,
+          "cost_usd": "0.005472",
+          "actual_models": [
+            "deepseek-flash"
+          ]
+        },
+        {
+          "sequence": 3,
+          "phase": "recovery",
+          "input_tokens": 16651,
+          "output_tokens": 2637,
+          "cost_usd": "0.0081597",
+          "actual_models": [
+            "deepseek-flash"
+          ]
+        },
+        {
+          "sequence": 4,
+          "phase": "recovery",
+          "input_tokens": 20114,
+          "output_tokens": 5255,
+          "cost_usd": "0.0123402",
+          "actual_models": [
+            "deepseek-flash"
+          ]
+        }
+      ],
+      "layers": {
+        "build": "passed",
+        "fixed_task_checks": "passed",
+        "artifact_stage": "passed",
+        "clean_replay": "passed",
+        "source_preservation": "passed",
+        "cleanup": "passed"
+      },
+      "failures": [
+        {
+          "role": "smoke",
+          "command": "python3 -c 'import subprocess,sys,re,json\np=subprocess.run(['\"'\"'ctest'\"'\"','\"'\"'--test-dir'\"'\"','\"'\"'build'\"'\"','\"'\"'--output-on-failure'\"'\"','\"'\"'-V'\"'\"'],stdout=subprocess.PIPE,stderr=subprocess.STDOUT,text=True)\nprint(p.stdout,end='\"'\"''\"'\"');p.check_returncode()\nassert '\"'\"'100% tests passed'\"'\"' in p.stdout\nassert re.search(r'\"'\"'0 tests failed out of 74\\b'\"'\"',p.stdout)\nassert re.search(r'\"'\"'\\[==========\\] Running 73 tests from 2 test suites'\"'\"',p.stdout)\nassert re.search(r'\"'\"'\\[  PASSED  \\] 73 tests'\"'\"',p.stdout)\nprint('\"'\"'FORGE_LIBRARY_ORIGINAL_TESTS ELFIO 73leaves 74ctest_registrations'\"'\"')\n'\npython3 -c 'from pathlib import Path; import json,hashlib\ncache=Path('\"'\"'build/CMakeCache.txt'\"'\"').read_text().splitlines()\nassert '\"'\"'ELFIO_BUILD_EXAMPLES:BOOL=ON'\"'\"' in cache\nrows=[]\nfor name in ('\"'\"'add_section/add_section'\"'\"', '\"'\"'anonymizer/anonymizer'\"'\"', '\"'\"'arion/arion'\"'\"', '\"'\"'arioso/arioso'\"'\"', '\"'\"'elfdump/elfdump'\"'\"', '\"'\"'elfio_ldd/elfio-ldd'\"'\"', '\"'\"'proc_mem/proc_mem'\"'\"', '\"'\"'tutorial/tutorial'\"'\"', '\"'\"'write_obj/write_obj'\"'\"', '\"'\"'writer/writer'\"'\"'):\n p=Path('\"'\"'build/examples'\"'\"')/name\n assert p.is_file() and p.read_bytes()[:4]==b'\"'\"'\\x7fELF'\"'\"',str(p)\n rows.append(dict(path=str(p),sha256=hashlib.sha256(p.read_bytes()).hexdigest()))\nprint('\"'\"'FORGE_ELFIO_ORIGINAL_EXAMPLES 10'\"'\"',json.dumps(rows,sort_keys=True))\n'",
+          "exit_code": 1,
+          "timed_out": false,
+          "log_path": "/home/yiwei/.codex/outputs/forge-library-strategy-comparison-flash-v1/slot-11/ELFIO-plan/.compile-sessions/plan-agent-canary/aa8cf1ab1e33/logs/command_ecc738f622d0406a9bed0e61a0eb9ca6.log",
+          "log_sha256": "bdd62165f95215354e56717e11f71588fb62e7036cea7d28dbe558402bb34460",
+          "output_tail": ""
+        }
+      ],
+      "error": null,
+      "session_state": "completed",
+      "session_path": "/home/yiwei/.codex/outputs/forge-library-strategy-comparison-flash-v1/slot-11/ELFIO-plan/.compile-sessions/plan-agent-canary/aa8cf1ab1e33/session.json",
+      "agent_path": "/home/yiwei/.codex/outputs/forge-library-strategy-comparison-flash-v1/slot-11/ELFIO-plan/agent"
+    },
+    {
+      "slot": 12,
+      "project": "ELFIO",
+      "method": "model_plan_workflow",
+      "repetition": 2,
+      "strict_completed": true,
+      "model_requests": 5,
+      "recorded_tokens": 70872,
+      "cost_usd": "0.0294489",
+      "unknown_requests": 0,
+      "wall_seconds": 153.47418748500058,
+      "handoffs": 0,
+      "applied_revisions": 0,
+      "phases": {
+        "initial": {
+          "requests": 5,
+          "cost_usd": "0.0294489"
+        }
+      },
+      "responses": [
+        {
+          "sequence": 1,
+          "phase": "initial",
+          "input_tokens": 11323,
+          "output_tokens": 137,
+          "cost_usd": "0.0035613",
+          "actual_models": [
+            "deepseek-flash"
+          ]
+        },
+        {
+          "sequence": 2,
+          "phase": "initial",
+          "input_tokens": 11788,
+          "output_tokens": 108,
+          "cost_usd": "0.003666",
+          "actual_models": [
+            "deepseek-flash"
+          ]
+        },
+        {
+          "sequence": 3,
+          "phase": "initial",
+          "input_tokens": 13212,
+          "output_tokens": 310,
+          "cost_usd": "0.0043356",
+          "actual_models": [
+            "deepseek-flash"
+          ]
+        },
+        {
+          "sequence": 4,
+          "phase": "initial",
+          "input_tokens": 13108,
+          "output_tokens": 5270,
+          "cost_usd": "0.0102564",
+          "actual_models": [
+            "deepseek-flash"
+          ]
+        },
+        {
+          "sequence": 5,
+          "phase": "initial",
+          "input_tokens": 12344,
+          "output_tokens": 3272,
+          "cost_usd": "0.0076296",
+          "actual_models": [
+            "deepseek-flash"
+          ]
+        }
+      ],
+      "layers": {
+        "build": "passed",
+        "fixed_task_checks": "passed",
+        "artifact_stage": "passed",
+        "clean_replay": "passed",
+        "source_preservation": "passed",
+        "cleanup": "passed"
+      },
+      "failures": [],
+      "error": null,
+      "session_state": "completed",
+      "session_path": "/home/yiwei/.codex/outputs/forge-library-strategy-comparison-flash-v1/slot-12/ELFIO-plan/.compile-sessions/plan-agent-canary/ae0a36a271df/session.json",
+      "agent_path": "/home/yiwei/.codex/outputs/forge-library-strategy-comparison-flash-v1/slot-12/ELFIO-plan/agent"
+    }
+  ],
+  "recovery_pairs": [],
+  "layers": {
+    "build": {
+      "passed": 12,
+      "failed": 0,
+      "not_observed": 0
+    },
+    "fixed_task_checks": {
+      "passed": 12,
+      "failed": 0,
+      "not_observed": 0
+    },
+    "artifact_stage": {
+      "passed": 12,
+      "failed": 0,
+      "not_observed": 0
+    },
+    "clean_replay": {
+      "passed": 12,
+      "failed": 0,
+      "not_observed": 0
+    },
+    "source_preservation": {
+      "passed": 12,
+      "failed": 0,
+      "not_observed": 0
+    },
+    "cleanup": {
+      "passed": 12,
+      "failed": 0,
+      "not_observed": 0
+    }
+  },
+  "known_cost_usd": "0.3775797",
+  "unknown_reservation_usd": "0.00",
+  "analysis_scope": "本轮已见项目描述与同批恢复配对；不估计总体显著性、不混旧Pro/旧RQ3分母",
+  "provenance": [
+    {
+      "path": "/home/yiwei/.codex/outputs/forge-library-strategy-comparison-flash-v1/protocol.json",
+      "sha256": "44aee86b741c79a5e47e65e5e05831b640346faf56c274aa5f081e926d74f307"
+    },
+    {
+      "path": "/home/yiwei/.codex/outputs/forge-library-strategy-comparison-flash-v1/result.json",
+      "sha256": "1dc1f758907a425fb388aa5e76257d0ddda1ac4c66ccb39f971e8caae0f8892f"
+    },
+    {
+      "path": "/home/yiwei/.codex/outputs/forge-library-strategy-comparison-flash-v1/seal.json",
+      "sha256": "e7531fd912762b9ef1e80623ac43fda0391bff05fb1e9d9e5643139aa961998b"
+    },
+    {
+      "path": "/home/yiwei/.codex/outputs/forge-flash-paper-session-2026-10-27/analyze_results.py",
+      "sha256": "c1ff4dae4440420b99e06bfa9916a3adab7974b44a8e883744470efa5fc53f07"
+    }
+  ]
+}

@@ -3,10 +3,11 @@
 跨 Claude Code session 的项目状态流水。按 CLAUDE.md §7 维护。
 
 ## 进行中 (In Progress)
-- 2026-10-27 — #626在新Flash身份完成12槽三策略比较和10槽恢复配对，复用既有执行器与完整验收。
-  - 文件: `scripts/forge_build_flash_paper_experiments.py`, `benchmarks/preregistrations/cpp-build-flash-paper-experiments-v1.md`, `RESEARCH_STATUS.md`, `AGENTS.md`。
-  - 授权: 用户明确10美元/4小时，UTC08:44:30–12:44:30，准备计入，无自动重试；允许新身份检查服务。旧402与未知预留不改，新旧模型结果不拼接。
-  - 交付: 完整策略结果表、五对恢复消融、分层验证和报告；仅必要局部检查，不重复参考构建或全量产品测试。当前准备清单，尚无Provider调用。用户未跟踪HTML保护不动。
+- 2026-10-27 — #626两组Flash实验结束，PR628待最终HEAD CI与科研依赖分支合并，接续更广项目/CXXCrafter比较。
+  - 文件: `scripts/forge_build_flash_paper_experiments.py`, `docs/research/2026-10-27-flash-thesis-experiment-results.md`, 两份同名Flash analyses, `RESEARCH_STATUS.md`, `AGENTS.md`。
+  - 授权: 用户10美元/4小时，UTC08:44:30–12:44:30准备计入/无自动重试。22槽全部观察且封存，release57f999ae；总费0.4366236美元/本轮未知0，无活动Provider/Docker，不将剩余预算扩展到新付费范围。
+  - 结果: 三策略各4/4 strict，请求20/19/44、费0.1204590/0.0886800/0.1684407美元、分钟7.58/5.45/6.30。恢复消融五对初始/失败前缀相同，2/5到4/5、10请求/0.0590439美元；libtommath引用~22~.mk进入工具回显触发保留因子拒绝，4请求/0.0219207美元失败保留，0修订/后缀未观察。不补槽/混Pro/旧RQ3分母，不推总体排名。
+  - 会话: /home/yiwei/.codex/outputs/forge-flash-paper-session-2026-10-27，run_experiments.py/exec33915已exit0；原始inventory4e29253c/6b778560。仅3局部检查/Ruff，不重复参考或全量产品测试；论文优先偏好写入AGENTS。用户HTML保护。
 - 2026-10-23 — #626等待用户确认Provider恢复及解除未知usage停止，下一付费阶段未启动。
   - 文件: `benchmarks/manifests/cpp-build-library-strategy-comparison-v2.json`, `benchmarks/manifests/cpp-build-tool-recovery-ablation-v1.json`, `RESEARCH_STATUS.md`。
   - 边界: 原总窗UTC09:27:52若有效不重置，总20美元已保守占用2.35561604；过期另给有效授权。v2完整义务十二槽/恢复配对十槽均未观察，不续#625旧身份。bit7z已有普通用户资格但方法比较未观察。

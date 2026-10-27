@@ -1,12 +1,18 @@
 # Forge Research Status
 
-## 当前阶段（2026-10-27；#626切换Flash，直接完成论文比较与恢复消融）
+## 当前阶段（2026-10-27；#626两组Flash实验已完成，转结果发布与更广系统比较）
 
 用户要求以论文结果为首要交付，避免重复资格、接口、审计及工程检查；该偏好已写入AGENTS.md。新增明确授权：10美元、确认起4小时，UTC08:44:30–12:44:30（北京时间16:44:30–20:44:30），准备计入，无自动重试，允许新身份重新检查Provider。旧402/未知预留和原始证据保留，不续旧身份。
 
-本轮统一deepseek-flash（官方当前DeepSeek-V4.1-Flash-1017，thinking low），保守按输入0.30/输出1.20美元/M计量。直接复用原完整任务与运行器，新身份cpp-build-library-strategy-comparison-flash-v1（12槽）及cpp-build-tool-recovery-ablation-flash-v1（10槽）；原测试、十示例义务、源码、精确交付、clean replay及调度不变。旧Pro结果与本轮分开，全部已见任务、不主张holdout或模型排名。首个实际实验请求同时检查服务；当前准备新清单与授权绑定，尚未调用Provider。
+本轮统一deepseek-flash（官方当前DeepSeek-V4.1-Flash-1017，thinking low），保守按输入0.30/输出1.20美元/M计量。原测试、十示例义务、源码、精确交付、clean replay及调度不变。旧Pro结果与本轮分开，全部已见任务、不主张holdout或模型排名。Provider已在实际实验请求中恢复，模型身份与用量正常。
 
-完成标准：三策略完整结果表、五对恢复消融表、失败分类、固定候选分层验证及可引用报告。只做模型身份/价格与恢复开关相关检查，不重复参考构建或本地全量产品测试。费用或时窗耗尽、未知用量、模型身份异常和cleanup失败按协议停止；旧冻结分母与证据不改。
+第一项cpp-build-library-strategy-comparison-flash-v1完整12/12 strict，三方各4/4，已封存。工具/模型/强工具请求20/19/44，估费0.1204590/0.0886800/0.1684407美元，总槽分钟7.58/5.45/6.30；工具低费28.49%但耗时高20.31%，模型低费47.35%且耗时低13.42%。工具4次恢复后完成，模型全部初始方案完成、0handoff；本组支持模型初始规划的条件性价值，不推总体排名或纯规划因果。强工具3槽有阶段混合工具拒绝，随后均完成，全部费用保留。
+
+第二项cpp-build-tool-recovery-ablation-flash-v1完整观察10/10，五对初始方案和失败前执行前缀相同；无恢复2/5、有恢复4/5。snappy/yaml-cpp新增完成，simdutf/tinyxml2两臂均0模型完成，libtommath两臂均未完成。恢复10请求/172171Token/0.0590439美元，包含libtommath失败4请求/0.0219207美元：模型将共享引用~22~.mk作为read_source路径，下一轮材料编码器因保留因子标记拒绝，0修订、完整测试/交付/replay未观察。只支持所选已见工具可规划任务，不以旧成功补齐、重跑或推总体恢复率。
+
+22槽全部观察、无补槽或未知用量；两组已知估费合计0.4366236美元，未使用预算不追加本轮范围外Provider。RQ3新12/10分开：build分别12/10通过，固定检查12通过与6过4败，交付/replay12过与6过4未观察，源码/cleanup分别12/10通过；旧14/43与18/6保持。原始forge-library-strategy-comparison-flash-v1 inventory4e29253c、forge-tool-recovery-ablation-flash-v1 inventory6b778560，release57f999ae；版本化analyses各同名-results.json，报告[Flash论文实验结果](docs/research/2026-10-27-flash-thesis-experiment-results.md)。会话/home/yiwei/.codex/outputs/forge-flash-paper-session-2026-10-27保留授权/账本/启动/原响应费用复算/分析及报告生成脚本。
+
+本轮已产出完整策略表、五对消融、失败案例和分层验证；只3项必要局部检查及Ruff，不重复参考或全量产品测试，沿现有一次封存与结果分析。当前无活动实验；PR628最终HEAD CI后仅合科研依赖分支。下一重点为更广项目与CXXCrafter统一条件系统比较；共享引用故障保留为独立有限修复，不再开启长资格链。学习分类器/递归Harness等仍是候选，不能当已完成贡献；主线和源码/测试标准不改。
 
 ## 当前阶段（2026-10-23；#625数据采集与分析完成，Provider402后续付费停止，转#626待决定）
 
