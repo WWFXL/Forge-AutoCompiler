@@ -12,9 +12,9 @@
 
 22槽全部观察、无补槽或未知用量；两组已知估费合计0.4366236美元，未使用预算不追加本轮范围外Provider。RQ3新12/10分开：build分别12/10通过，固定检查12通过与6过4败，交付/replay12过与6过4未观察，源码/cleanup分别12/10通过；旧14/43与18/6保持。原始forge-library-strategy-comparison-flash-v1 inventory4e29253c、forge-tool-recovery-ablation-flash-v1 inventory6b778560，release57f999ae；版本化analyses各同名-results.json，报告[Flash论文实验结果](docs/research/2026-10-27-flash-thesis-experiment-results.md)。会话/home/yiwei/.codex/outputs/forge-flash-paper-session-2026-10-27保留授权/账本/启动/原响应费用复算/分析及报告生成脚本。
 
-本轮已产出完整策略表、五对消融、失败案例和分层验证；只3项必要局部检查及Ruff，不重复参考或全量产品测试，沿现有一次封存与结果分析。当前无活动实验；PR628最终HEAD CI后仅合科研依赖分支。下一重点为更广项目与CXXCrafter统一条件系统比较；共享引用故障保留为独立有限修复，不再开启长资格链。学习分类器/递归Harness等仍是候选，不能当已完成贡献；主线和源码/测试标准不改。
+本轮已产出完整策略表、五对消融、失败案例和分层验证；只3项必要局部检查及Ruff，不重复参考或全量产品测试，沿现有一次封存与结果分析。当前无活动实验；[PR628](https://github.com/WWFXL/Forge-AutoCompiler/pull/628)仅合科研依赖分支，实际发布以GitHub为准。下一重点为[Issue629](https://github.com/WWFXL/Forge-AutoCompiler/issues/629)更广项目与CXXCrafter统一条件系统比较；共享引用故障保留为独立有限修复，不再开启长资格链。学习分类器/递归Harness等仍是候选，不能当已完成贡献；主线和源码/测试标准不改。
 
-## 当前阶段（2026-10-23；#625数据采集与分析完成，Provider402后续付费停止，转#626待决定）
+## 上一阶段（2026-10-23；#625数据采集与分析完成，Provider402后续付费停止，转#626待决定）
 
 本轮用户8小时/新增模型累计20美元，UTC01:27:52–09:27:52（北京时间09:27:52–17:27:52），准备计入不延期，无自动重试/补槽/旧身份续跑。最后slot12首次请求HTTP402且无完整usage，按原未知停止条款停止全部新增付费。已知估费$1.55561604+未知预留$0.80=保守占用$2.35561604，账本闭合；不能推定402免费、重置费用/截止或因还有预算自行继续。shared-budget/provider-stop.json记录停止，当前无活动实验。原后续十槽配对恢复和完整义务v2比较均未调用模型。
 
