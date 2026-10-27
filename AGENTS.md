@@ -87,6 +87,14 @@ Read and follow `CLAUDE.md` before changing this repository. Files below
   by `CLAUDE.md`. The personal knowledge base holds long-term synthesis. Do not
   copy full timelines into `RESEARCH_STATUS.md`.
 
+### Thesis Execution Priority
+
+- Prioritize complete system comparisons, component ablations, and result
+  analysis. Reuse working interfaces and existing qualification; add checks
+  only when needed for the current change or experiment validity. Repeated
+  qualification, auditing, and product engineering must not replace collecting
+  and explaining complete thesis results.
+
 ### Research Visibility
 
 - At task start, tell the user the current research phase, the question for
