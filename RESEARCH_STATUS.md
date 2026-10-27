@@ -1,12 +1,16 @@
 # Forge Research Status
 
-## 当前阶段（2026-10-27；#631配置状态增强已实现，24槽配对实验准备中）
+## 当前阶段（2026-10-27；#631配置状态增强24槽配对完成，转共同Harness修复与闭环消融）
 
-用户已要求执行下一阶段。新增独立goal_state模块与配对入口，不改旧冻结组件：从双方公开任务的固定脚本静态解释显式布尔配置要求，持续携带目标，在最后configure后和首次build前读取实际CMakeCache；保存值/类型/原字节SHA及命令前沿。满足、不满足和未知分开。仅对原作者声明的BOOL开关提供一次直接configure修订并重执行后缀；HAVE_*依赖探测、缺证据和复杂配置交原Agent，最终源码/原测试/交付/replay标准保持。
+真实采集与独立结果分析完成。cpp-build-goal-state-paired-flash-v1六已见任务×两版×两重复24/24终结，19完整、5未完成、0未观察；当前模型Workflow 9/12、增强版10/12。请求88/95，recorded Token 1331741/1478487，保守估费0.4510923/0.5063022美元，总槽分钟42.72/52.06。增强整体多完成1槽，但费用高12.2%、时间高21.8%；提前失败的短费用/时间不当效率收益，不作总体优势或统计显著性。
 
-这是方法实现与实验准备阶段，尚无新增真实Provider效果。24项相关检查通过，其中真实Docker受控夹具完成“关闭测试→编译前发现→直接配置修订→一次build→原测试/精确静态库/clean replay/cleanup”，0模型请求/费用；该夹具不是自然模型错误或方法成功率。原324组件逐文件未变。当前早期可解释范围仅为CMake显式配置；Make/Autotools没有可解析目标时保留原流程，不声称已实现跨系统语义诊断。
+预注册显式CMake目标作用范围simdutf/snappy/yaml-cpp：两版均5/6完整，当前/增强61/51请求、0.3144888/0.2459772美元、31.08/28.71槽分钟；增强估费低21.8%、时间低7.6%，恢复episode 3→1/恢复请求21→4，初始请求40→47。支持本组的初始开销与恢复代价取舍。实际配置观测12次全部satisfied，直接规则修订0，不能证明闭环修订独立效果；处理为目标呈现/保持/观察/选择组合，全部已见非holdout。无目标的Make/Autotools仍原流程，不推跨系统语义增强。
 
-新候选cpp-build-goal-state-paired-flash-v1：check/simdutf/snappy/yaml-cpp/libtommath/tinyxml2×当前版/增强版×2重复共24槽，统一Flash low、相同任务/资源/原验收，顺序前瞻交替，全部已见非holdout。增强为目标呈现/观察/动作选择组合，不作单模块因果。统一node1200+replay1200+cleanup300，新槽需2700秒，原600秒请求准入保持。准备设计上限10美元，真实付费尚未授权；旧UTC12:44:30窗口不续用，无活动Provider。下一步仅需新的预算/时窗绑定后采集，不另扩资格链。实现及检查记录见[配置状态增强准备](docs/research/2026-10-27-goal-state-implementation.md)，manifest/preregistration同identity；Issue631仍跟踪完整配对结果。
+5项未完成：增强yaml-cpp/tinyxml2首重复、当前check次重复初始规划与当前snappy次重复恢复均无工具提交；当前libtommath次重复将~6~.mk共享引用当read_source路径，后续材料保留标记拒绝。事后0Provider静态复核两份原样JSON、另1份去单个代码围栏后可通过原结构/装配；未执行，不能改为成功。check当前为非JSON说明。源码/cleanup均24通过，build20过4未观察、固定任务检查19过1败4未观察、交付/replay各19过5未观察；新RQ3分母24独立，旧分母不变。
+
+本轮新授权10美元/UTC2026-10-27 13:49:38–17:49:38，准备计入，无自动重试/补槽；183请求2810228Token，已知保守估费0.9573945美元、未知0/账本闭合。24构建+19重放容器实际inspect均不存在；当前无活动Provider。raw forge-goal-state-paired-flash-v1，inventory3bd0284e1cb15bdd4facc4da5ebd8f7dacbc0aedf819a1021264be1d17bdc9e0；运行release d24b5e53与PR632/e95e7abb完整tree相同。候选2f7e57a7，冻结组件/原任务/源码测试标准未改。报告[配置状态配对结果](docs/research/2026-10-27-goal-state-paired-results.md)，analyses同identity-results.json；会话forge-goal-state-session-2026-10-27含授权/账本、原响应复算、只读独立核验与静态失败复核。方法开发检查仅见[实现准备](docs/research/2026-10-27-goal-state-implementation.md)，不混为本轮效果。
+
+下一研究工作由[Issue633](https://github.com/WWFXL/Forge-AutoCompiler/issues/633)跟踪，保持原硕士主线：修复双方共有的合法JSON候选接收和非法共享引用回显问题，原校验/源码/测试/交付保持；随后将目标呈现单独臂与目标＋执行状态核对分离，或固定相同初始工具方案，直接估计闭环增量。当前结果不能据以停止主线，也不需要先扩分类器/规则大全。CXXCrafter新比较在组件边界清楚后独立安排；不回填旧参考、不重跑本批，新的付费范围须单独绑定有效授权。本批结果发布以Issue631及GitHub实际PR/CI为准，未进main；用户HTML及既有memory保留，知识库仅MCP维护，不注入实验Agent。
 
 ## 上一阶段（2026-10-27；#629当前CXXCrafter参考终结，转#631目标约束与配置状态增强）
 
