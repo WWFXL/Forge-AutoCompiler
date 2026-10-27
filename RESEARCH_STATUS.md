@@ -1,6 +1,14 @@
 # Forge Research Status
 
-## 当前阶段（2026-10-27；#629当前CXXCrafter参考终结，转#631目标约束与配置状态增强）
+## 当前阶段（2026-10-27；#631配置状态增强已实现，24槽配对实验准备中）
+
+用户已要求执行下一阶段。新增独立goal_state模块与配对入口，不改旧冻结组件：从双方公开任务的固定脚本静态解释显式布尔配置要求，持续携带目标，在最后configure后和首次build前读取实际CMakeCache；保存值/类型/原字节SHA及命令前沿。满足、不满足和未知分开。仅对原作者声明的BOOL开关提供一次直接configure修订并重执行后缀；HAVE_*依赖探测、缺证据和复杂配置交原Agent，最终源码/原测试/交付/replay标准保持。
+
+这是方法实现与实验准备阶段，尚无新增真实Provider效果。24项相关检查通过，其中真实Docker受控夹具完成“关闭测试→编译前发现→直接配置修订→一次build→原测试/精确静态库/clean replay/cleanup”，0模型请求/费用；该夹具不是自然模型错误或方法成功率。原324组件逐文件未变。当前早期可解释范围仅为CMake显式配置；Make/Autotools没有可解析目标时保留原流程，不声称已实现跨系统语义诊断。
+
+新候选cpp-build-goal-state-paired-flash-v1：check/simdutf/snappy/yaml-cpp/libtommath/tinyxml2×当前版/增强版×2重复共24槽，统一Flash low、相同任务/资源/原验收，顺序前瞻交替，全部已见非holdout。增强为目标呈现/观察/动作选择组合，不作单模块因果。统一node1200+replay1200+cleanup300，新槽需2700秒，原600秒请求准入保持。准备设计上限10美元，真实付费尚未授权；旧UTC12:44:30窗口不续用，无活动Provider。下一步仅需新的预算/时窗绑定后采集，不另扩资格链。实现及检查记录见[配置状态增强准备](docs/research/2026-10-27-goal-state-implementation.md)，manifest/preregistration同identity；Issue631仍跟踪完整配对结果。
+
+## 上一阶段（2026-10-27；#629当前CXXCrafter参考终结，转#631目标约束与配置状态增强）
 
 用户明确CXXCrafter只作当前系统阶段性参考，不据此裁定最终系统。已完成两项独立身份的真实采集/结果分析：原cpp-build-current-cxx-reference-flash-v1保持2观察/6计划、4未观察；之后新cpp-build-current-cxx-short-reference-flash-v1固定两个原未观察项目4/4终结，不续旧身份、不回填分母或重跑simdutf失败。三个已见项目CMake/Make/Autotools共六个实际策略槽，只作当前社区版探索性参考，不能当公平整体排名或状态感知因果。
 
