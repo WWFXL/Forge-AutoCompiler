@@ -3,10 +3,10 @@
 跨 Claude Code session 的项目状态流水。按 CLAUDE.md §7 维护。
 
 ## 进行中 (In Progress)
-- 2026-10-27 — #629推进更广项目与CXXCrafter统一系统比较，尚未新增付费实验。
+- 2026-10-27 — #629准备当前CXXCrafter阶段性参考六槽，用户已明确继续，沿原10美元/UTC12:44:30截止，新阶段自限4美元。
   - 文件: `docs/research/2026-10-27-flash-thesis-experiment-results.md`, `RESEARCH_STATUS.md`。
   - 下一步: 优先复用已有任务与参考，保护CXXCrafter目录的用户修改，固定当前实际版本与共同任务/模型/资源/外部验收；bit7z仅有参考资格。libtommath共享引用故障仅做必要有限修复，不重跑本轮。论文优先，不先扩展分类器或递归Harness。
-  - 边界: 本轮22槽授权范围已完成，无活动Provider；新付费范围另需有效身份/预算/时窗。以下早期进行中条目保留历史，不代表当前授权或待执行清单。
+  - 边界: cpp-build-current-cxx-reference-flash-v1；simdutf/tinyxml2/check×模型Workflow/原生社区版，明确只作阶段性参考，不能评价最终系统或纯算法；未知usage/清理失败停止，无自动重试。准备已完成3局部检查和Ruff，尚无新Provider结果。以下早期进行中仅历史。
 
 - 2026-10-23 — #626等待用户确认Provider恢复及解除未知usage停止，下一付费阶段未启动。
   - 文件: `benchmarks/manifests/cpp-build-library-strategy-comparison-v2.json`, `benchmarks/manifests/cpp-build-tool-recovery-ablation-v1.json`, `RESEARCH_STATUS.md`。
@@ -617,6 +617,10 @@
   - 下一步: 等待实验负责人确认当前网络接入介质，并决定是否授权只读 endpoint 诊断和新的 canary amendment；获得确认后必须另建中文 Issue/PR 和协议 identity，保留当前失败 marker。
 
 ## 最近变更 (Recent Changes)
+
+- 2026-10-27 — #629接线当前社区版六槽参考，保留原生Parser/Generator/Review/Judge/Modifier及完整用量，独立外部原测试/源码/精确交付/无缓存重建；只3项必要局部检查，不重复全量构建资格。
+  - 文件: `scripts/forge_cxx_current_reference.py`, `backend/tests/test_cxx_current_reference.py`, `benchmarks/preregistrations/cpp-build-current-cxx-reference-flash-v1.md`。
+  - 动机: 当前系统比较定位后续状态与目标分析增强空间，不据单批否定主线。
 - 2026-10-27 — #626完成两组Flash论文实验与结果发布材料，PR628仅合科研依赖分支，实际发布以GitHub为准。
   - 文件: `scripts/forge_build_flash_paper_experiments.py`, `docs/research/2026-10-27-flash-thesis-experiment-results.md`, 两份同名Flash analyses, `RESEARCH_STATUS.md`, `AGENTS.md`。
   - 授权: 用户10美元/4小时，UTC08:44:30–12:44:30准备计入/无自动重试。22槽全部观察且封存，release57f999ae；总费0.4366236美元/本轮未知0，无活动Provider/Docker，不将剩余预算扩展到新付费范围。

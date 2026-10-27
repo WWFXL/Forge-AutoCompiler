@@ -1,6 +1,8 @@
 # Forge Research Status
 
-## 当前阶段（2026-10-27；#626两组Flash实验已完成，转结果发布与更广系统比较）
+## 当前阶段（2026-10-27；#629当前版本CXXCrafter阶段性参考比较）
+
+用户明确同意继续后续实验，并指定CXXCrafter只作当前系统阶段性参考、用于定位增强空间。#629新cpp-build-current-cxx-reference-flash-v1准备simdutf/CMake、tinyxml2/Make、check/Autotools×模型规划Workflow/原生社区版共6槽，各一次；原源码/测试/交付不变，社区版实际src快照含既有修复、保护原工作树。统一Flash low/固定镜像/2CPU，外部验收不反馈基线额外修复，内部Judge与工具/材料差异明确保留，不能当纯状态感知因果或最终排名。沿原累计10美元/UTC12:44:30截止，已花0.4366236美元、新阶段自限4美元，无自动重试；未知usage、清理或身份异常停止整批，时限不足余槽未观察。当前仅必要运行接线及3项计量/源码局部检查，未新增Provider结果；版本化预注册benchmarks/preregistrations/cpp-build-current-cxx-reference-flash-v1.md，完成后以新结果报告为准。
 
 用户要求以论文结果为首要交付，避免重复资格、接口、审计及工程检查；该偏好已写入AGENTS.md。新增明确授权：10美元、确认起4小时，UTC08:44:30–12:44:30（北京时间16:44:30–20:44:30），准备计入，无自动重试，允许新身份重新检查Provider。旧402/未知预留和原始证据保留，不续旧身份。
 
