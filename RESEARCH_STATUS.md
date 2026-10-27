@@ -1,6 +1,18 @@
 # Forge Research Status
 
-## 当前阶段（2026-10-27；#626两组Flash实验已完成，转结果发布与更广系统比较）
+## 当前阶段（2026-10-27；#629当前CXXCrafter参考终结，转#631目标约束与配置状态增强）
+
+用户明确CXXCrafter只作当前系统阶段性参考，不据此裁定最终系统。已完成两项独立身份的真实采集/结果分析：原cpp-build-current-cxx-reference-flash-v1保持2观察/6计划、4未观察；之后新cpp-build-current-cxx-short-reference-flash-v1固定两个原未观察项目4/4终结，不续旧身份、不回填分母或重跑simdutf失败。三个已见项目CMake/Make/Autotools共六个实际策略槽，只作当前社区版探索性参考，不能当公平整体排名或状态感知因果。
+
+simdutf：Forge初始FAST_TESTS=ON/TOOLS=OFF不满足目标，两次恢复仍未完整完成，三版/8命令/28请求/0.1955703美元；源码和cleanup通过，完整作者测试/交付/replay未观察。CXXCrafter一次Dockerfile、6请求/0.0334317美元，原/重建均94/94测试及精确静态库/源码/字节重现通过。tinyxml2：CXXCrafter完整完成，6请求/0.0127209美元；Forge构建/原测试/交付通过，2请求/0.0066777美元，replay未观察。check：Forge构建/make check/交付通过，9请求/0.0547884美元，replay未观察；CXXCrafter第一版缺makeinfo、第二版补texinfo后缺libcompat.la，5请求/0.0159006美元，再修订前被请求时间门槛截断，完整测试/交付/replay未观察。
+
+六观察为2完整完成/1方法未完成/3时窗截断；后者不能计方法失败。缩短外层新槽预留未同步Forge内部replay1200+cleanup300秒门槛，是本轮调度设计遗漏，原strict=false保持、独立解释为删失。基线直接收完整脚本而Forge按需引用，内部Judge/验证反馈和测试并行环境仍有差异，不据费用、时间或布尔作整体胜负。当前可运行社区版含既有修复，非论文原版；原目录Git状态和src哈希保持。
+
+新增56请求/827958Token/0.3190896美元、未知0；加原22槽本轮累计0.7557132美元。仍沿原10美元/UTC12:44:30截止，没有重置；两项付费已终结、当前无活动实验，本阶段不追加模型。全部六槽cleanup、任务容器和tag清理实际核验通过；仅CXX两个成功槽的任务内源码完整验证已观察，check基线该项未观察。原始usage逐响应复算及两个typed inventory只读核验通过。报告[当前CXXCrafter参考](docs/research/2026-10-27-current-cxx-reference-results.md)，两份同名-results.json分析；raw forge-cxx-current-reference-v1 inventory f88f5ca0、forge-cxx-short-reference-v1 52c32ed1，release分别a26dbe21/374b6198，会话forge-cxx-current-reference-session-2026-10-27保留授权/源码快照/日志/独立费用与资源核验/分析脚本。
+
+[PR630](https://github.com/WWFXL/Forge-AutoCompiler/pull/630)最终HEAD三CI实际通过后只合科研依赖分支，发布以GitHub为准。下一项[Issue631](https://github.com/WWFXL/Forge-AutoCompiler/issues/631)：显式目标约束保持、configure后配置状态/测试准备/产物覆盖核对，当前版/增强版配对增量实验；先修正统一时间预留，在完整有效窗口前段采集，不扩大资格链、不改变源码/测试标准。此为有证据的候选，尚无增强版效果、学习状态模型或新通用算法主张。旧22槽完整比较/五对消融及RQ3旧分母保持，用户HTML不动。
+
+## 上一阶段（2026-10-27；#626两组Flash论文实验完成）
 
 用户要求以论文结果为首要交付，避免重复资格、接口、审计及工程检查；该偏好已写入AGENTS.md。新增明确授权：10美元、确认起4小时，UTC08:44:30–12:44:30（北京时间16:44:30–20:44:30），准备计入，无自动重试，允许新身份重新检查Provider。旧402/未知预留和原始证据保留，不续旧身份。
 

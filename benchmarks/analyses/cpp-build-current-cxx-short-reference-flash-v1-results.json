@@ -1,0 +1,257 @@
+{
+  "identity": "cpp-build-current-cxx-short-reference-flash-v1",
+  "rows": [
+    {
+      "slot": 1,
+      "project": "tinyxml2",
+      "method": "cxxcrafter_community_reference",
+      "strict_completed": true,
+      "reported_success": true,
+      "requests": 6,
+      "input_tokens": 26879,
+      "output_tokens": 3881,
+      "total_tokens": 30760,
+      "estimated_cost_usd": "0.0127209",
+      "wall_seconds": 55.42850996198831,
+      "cleanup": true,
+      "error_class": null,
+      "error_message": null,
+      "versions": 1,
+      "evaluations": [
+        {
+          "source_unchanged": true,
+          "fixed_tests": true,
+          "artifact_stage": true,
+          "artifacts": {
+            "libtinyxml2.a": {
+              "sha256": "6b97e173344d2e8341d7247bbb4d809fd4e540605eb469879ca7db2115a85c9f",
+              "size": 207050,
+              "artifact_type": "static_library"
+            }
+          },
+          "cleanup": true
+        },
+        {
+          "source_unchanged": true,
+          "fixed_tests": true,
+          "artifact_stage": true,
+          "artifacts": {
+            "libtinyxml2.a": {
+              "sha256": "6b97e173344d2e8341d7247bbb4d809fd4e540605eb469879ca7db2115a85c9f",
+              "size": 207050,
+              "artifact_type": "static_library"
+            }
+          },
+          "cleanup": true
+        }
+      ],
+      "forge_states": [],
+      "forge_episodes": [],
+      "fixed_sources_unchanged": null,
+      "transitions": []
+    },
+    {
+      "slot": 2,
+      "project": "tinyxml2",
+      "method": "model_plan_workflow",
+      "strict_completed": false,
+      "reported_success": null,
+      "requests": 2,
+      "input_tokens": 15471,
+      "output_tokens": 1697,
+      "total_tokens": 17168,
+      "estimated_cost_usd": "0.0066777",
+      "wall_seconds": 18.297677939990535,
+      "cleanup": true,
+      "error_class": "PlanContractError",
+      "error_message": "operation_window:clean_replay剩余时间不足",
+      "versions": null,
+      "evaluations": null,
+      "forge_states": [
+        {
+          "status": "failed",
+          "commands": [
+            {
+              "role": "dependency",
+              "exit_code": 0,
+              "command_id": "command_e916ffc5dba445cbba0d78a8c606dd34",
+              "command": "python3 -c 'from pathlib import Path\nimport subprocess\nassert str(Path.cwd())=='\"'\"'/workspace/repo'\"'\"', '\"'\"'准备目录必须是容器仓库根'\"'\"'\nassert not Path('\"'\"'.git'\"'\"').exists(), '\"'\"'归档源码不得包含既有Git身份'\"'\"'\nsubprocess.run(['\"'\"'git'\"'\"','\"'\"'init'\"'\"','\"'\"'-q'\"'\"'],check=True)\nsubprocess.run(['\"'\"'git'\"'\"','\"'\"'config'\"'\"','\"'\"'--global'\"'\"','\"'\"'--add'\"'\"','\"'\"'safe.directory'\"'\"','\"'\"'/workspace/repo'\"'\"'],check=True)\nsubprocess.run(['\"'\"'git'\"'\"','\"'\"'add'\"'\"','\"'\"'--force'\"'\"','\"'\"'--all'\"'\"'],check=True)\nimport hashlib,json,subprocess\nrows=subprocess.run(['\"'\"'git'\"'\"','\"'\"'ls-files'\"'\"','\"'\"'-z'\"'\"'],check=True,capture_output=True).stdout.decode().split('\"'\"'\\0'\"'\"')\nassert rows[-1]=='\"'\"''\"'\"', '\"'\"'Git索引输出不完整'\"'\"'\nnames=rows[:-1]\nactual=hashlib.sha256(json.dumps(sorted(names),ensure_ascii=True,separators=('\"'\"','\"'\"','\"'\"':'\"'\"')).encode()).hexdigest()\nassert actual=='\"'\"'20fcd3c92c2bab3347748e69f596a175b6e87c60f0402abc2eacc0e36f1b6ef3'\"'\"', '\"'\"'Git索引文件集合与固定原源码不同'\"'\"'\nassert subprocess.run(['\"'\"'git'\"'\"','\"'\"'rev-parse'\"'\"','\"'\"'--verify'\"'\"','\"'\"'HEAD'\"'\"'],capture_output=True).returncode!=0, '\"'\"'不允许伪造源码commit'\"'\"'\nprint('\"'\"'FORGE_SOURCE_INDEX_VERIFIED='\"'\"'+actual)\n'"
+            },
+            {
+              "role": "build",
+              "exit_code": 0,
+              "command_id": "command_094a751530614452bf81117833c72e7d",
+              "command": "(\nmake -j2 xmltest staticlib\n)\npython3 -c 'import json,pathlib,sys\nroot=pathlib.Path.cwd().resolve(); rows=[]\nfor kind,name in [('\"'\"'file'\"'\"', '\"'\"'libtinyxml2.a'\"'\"'), ('\"'\"'file'\"'\"', '\"'\"'tinyxml2.o'\"'\"'), ('\"'\"'file'\"'\"', '\"'\"'xmltest'\"'\"')]:\n p=(root/name).resolve(); inside=p.is_relative_to(root)\n passed=inside and (p.is_file() if kind=='\"'\"'file'\"'\"' else p.is_dir())\n rows.append({'\"'\"'kind'\"'\"':kind,'\"'\"'path'\"'\"':name,'\"'\"'passed'\"'\"':passed,'\"'\"'inside_workdir'\"'\"':inside})\nprint('\"'\"'FORGE_PATH_OBSERVATIONS='\"'\"'+json.dumps(rows,sort_keys=True))\nsys.exit(0 if all(r['\"'\"'passed'\"'\"'] for r in rows) else 86)\n'"
+            },
+            {
+              "role": "smoke",
+              "exit_code": 0,
+              "command_id": "command_60fd0da01dac4533958bc90774cbc743",
+              "command": "python3 -c 'import subprocess,re,sys\nr=subprocess.run(['\"'\"'make'\"'\"','\"'\"'check'\"'\"'],capture_output=True,text=True)\nsys.stdout.write(r.stdout);sys.stderr.write(r.stderr)\nassert r.returncode==0, '\"'\"'作者make check未通过'\"'\"'\nm=re.search(r'\"'\"'Pass\\s+(\\d+),\\s*Fail\\s+(\\d+)'\"'\"',r.stdout)\nassert m and int(m[1])>0 and int(m[2])==0, '\"'\"'未观察到完整非空自测通过'\"'\"'\nprint('\"'\"'FORGE_AUTHOR_TESTS_VERIFIED'\"'\"')\n' && python3 -c 'import hashlib,json,subprocess\nrows=subprocess.run(['\"'\"'git'\"'\"','\"'\"'ls-files'\"'\"','\"'\"'-z'\"'\"'],check=True,capture_output=True).stdout.decode().split('\"'\"'\\0'\"'\"')\nassert rows[-1]=='\"'\"''\"'\"', '\"'\"'Git索引输出不完整'\"'\"'\nnames=rows[:-1]\nactual=hashlib.sha256(json.dumps(sorted(names),ensure_ascii=True,separators=('\"'\"','\"'\"','\"'\"':'\"'\"')).encode()).hexdigest()\nassert actual=='\"'\"'20fcd3c92c2bab3347748e69f596a175b6e87c60f0402abc2eacc0e36f1b6ef3'\"'\"', '\"'\"'Git索引文件集合与固定原源码不同'\"'\"'\nassert subprocess.run(['\"'\"'git'\"'\"','\"'\"'rev-parse'\"'\"','\"'\"'--verify'\"'\"','\"'\"'HEAD'\"'\"'],capture_output=True).returncode!=0, '\"'\"'不允许伪造源码commit'\"'\"'\nprint('\"'\"'FORGE_SOURCE_INDEX_VERIFIED='\"'\"'+actual)\n'"
+            },
+            {
+              "role": "artifact_stage",
+              "exit_code": 0,
+              "command_id": "command_0f682abe32ef48aea561cb71e4aae9f6",
+              "command": "python3 -c 'import hashlib, json, shutil\nfrom pathlib import Path\nroot = Path.cwd().resolve()\nartifacts = ('\"'\"'libtinyxml2.a'\"'\"',)\nselected = []\nfor target in artifacts:\n    matches = []\n    for path in root.rglob(Path(target).name):\n        if not path.is_file() and not path.is_symlink():\n            continue\n        try:\n            resolved = path.resolve(strict=True)\n        except (OSError, RuntimeError) as exc:\n            raise RuntimeError('\"'\"'交付候选链接无效: '\"'\"' + str(path)) from exc\n        if not resolved.is_relative_to(root) or not resolved.is_file():\n            raise RuntimeError('\"'\"'交付候选越界或不是普通文件: '\"'\"' + str(path))\n        with resolved.open('\"'\"'rb'\"'\"') as stream:\n            magic = stream.read(8)\n        if magic.startswith(b'\"'\"'\\x7fELF'\"'\"') or magic == b'\"'\"'!<arch>\\n'\"'\"':\n            matches.append(resolved)\n    identities = {}\n    for candidate in sorted(set(matches)):\n        stat = candidate.stat()\n        fingerprint = hashlib.sha256()\n        with candidate.open('\"'\"'rb'\"'\"') as stream:\n            for block in iter(lambda: stream.read(1048576), b'\"'\"''\"'\"'):\n                fingerprint.update(block)\n        content_sha256 = fingerprint.hexdigest()\n        identity = (stat.st_size, content_sha256, stat.st_mode & 0o777)\n        identities.setdefault(identity, candidate)\n    if len(identities) != 1:\n        raise RuntimeError('\"'\"'交付源必须唯一: '\"'\"' + target + '\"'\"' candidates='\"'\"' + str(matches))\n    selected.append((next(iter(identities.values())), Path('\"'\"'/artifacts'\"'\"') / target))\nfor source, destination in selected:\n    destination.parent.mkdir(parents=True, exist_ok=True)\n    shutil.copyfile(source, destination)\n    shutil.copymode(source, destination)\nprint('\"'\"'FORGE_UNIFIED_STAGED'\"'\"', json.dumps(artifacts))\n'"
+            }
+          ],
+          "replay_attempts": []
+        }
+      ],
+      "forge_episodes": [
+        {
+          "revision": 1,
+          "recovery": false,
+          "requests": 2,
+          "input_tokens": 15471,
+          "output_tokens": 1697,
+          "tools": {
+            "read_fixed_contract": 1
+          },
+          "estimated_cost_usd": "0.0066777"
+        }
+      ],
+      "fixed_sources_unchanged": true,
+      "transitions": [
+        {
+          "status": "ready_for_verification",
+          "revision": 1,
+          "commands_used": 4,
+          "handoffs_used": 0
+        }
+      ]
+    },
+    {
+      "slot": 3,
+      "project": "check",
+      "method": "model_plan_workflow",
+      "strict_completed": false,
+      "reported_success": null,
+      "requests": 9,
+      "input_tokens": 140280,
+      "output_tokens": 10587,
+      "total_tokens": 150867,
+      "estimated_cost_usd": "0.0547884",
+      "wall_seconds": 331.5989969270013,
+      "cleanup": true,
+      "error_class": "PlanContractError",
+      "error_message": "operation_window:clean_replay剩余时间不足",
+      "versions": null,
+      "evaluations": null,
+      "forge_states": [
+        {
+          "status": "failed",
+          "commands": [
+            {
+              "role": "dependency",
+              "exit_code": 0,
+              "command_id": "command_3db44319f9d744f890b568d4d023bea7",
+              "command": "python3 -c 'from pathlib import Path\nimport subprocess\nassert str(Path.cwd())=='\"'\"'/workspace/repo'\"'\"', '\"'\"'准备目录必须是容器仓库根'\"'\"'\nassert not Path('\"'\"'.git'\"'\"').exists(), '\"'\"'归档源码不得包含既有Git身份'\"'\"'\nsubprocess.run(['\"'\"'git'\"'\"','\"'\"'init'\"'\"','\"'\"'-q'\"'\"'],check=True)\nsubprocess.run(['\"'\"'git'\"'\"','\"'\"'config'\"'\"','\"'\"'--global'\"'\"','\"'\"'--add'\"'\"','\"'\"'safe.directory'\"'\"','\"'\"'/workspace/repo'\"'\"'],check=True)\nsubprocess.run(['\"'\"'git'\"'\"','\"'\"'add'\"'\"','\"'\"'--force'\"'\"','\"'\"'--all'\"'\"'],check=True)\nimport hashlib,json,subprocess\nrows=subprocess.run(['\"'\"'git'\"'\"','\"'\"'ls-files'\"'\"','\"'\"'-z'\"'\"'],check=True,capture_output=True).stdout.decode().split('\"'\"'\\0'\"'\"')\nassert rows[-1]=='\"'\"''\"'\"', '\"'\"'Git索引输出不完整'\"'\"'\nnames=rows[:-1]\nactual=hashlib.sha256(json.dumps(sorted(names),ensure_ascii=True,separators=('\"'\"','\"'\"','\"'\"':'\"'\"')).encode()).hexdigest()\nassert actual=='\"'\"'38c1d85ff1699bf38a4f65905edc10293fc899a8094fb4bb80b97b5f7418e2b4'\"'\"', '\"'\"'Git索引文件集合与固定原源码不同'\"'\"'\nassert subprocess.run(['\"'\"'git'\"'\"','\"'\"'rev-parse'\"'\"','\"'\"'--verify'\"'\"','\"'\"'HEAD'\"'\"'],capture_output=True).returncode!=0, '\"'\"'不允许伪造源码commit'\"'\"'\nprint('\"'\"'FORGE_SOURCE_INDEX_VERIFIED='\"'\"'+actual)\n'"
+            },
+            {
+              "role": "dependency",
+              "exit_code": 0,
+              "command_id": "command_cbdcc6a45d5d4c3580e1a321457ee986",
+              "command": "apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends autoconf automake libtool pkg-config build-essential"
+            },
+            {
+              "role": "configure",
+              "exit_code": 0,
+              "command_id": "command_e750c6cc26034caabda7eb78c6dc3486",
+              "command": "(\nautoreconf -fi\n)\npython3 -c 'import json,pathlib,sys\nroot=pathlib.Path.cwd().resolve(); rows=[]\nfor kind,name in [('\"'\"'file'\"'\"', '\"'\"'configure'\"'\"'), ('\"'\"'file'\"'\"', '\"'\"'Makefile.in'\"'\"'), ('\"'\"'file'\"'\"', '\"'\"'src/Makefile.in'\"'\"'), ('\"'\"'file'\"'\"', '\"'\"'tests/Makefile.in'\"'\"')]:\n p=(root/name).resolve(); inside=p.is_relative_to(root)\n passed=inside and (p.is_file() if kind=='\"'\"'file'\"'\"' else p.is_dir())\n rows.append({'\"'\"'kind'\"'\"':kind,'\"'\"'path'\"'\"':name,'\"'\"'passed'\"'\"':passed,'\"'\"'inside_workdir'\"'\"':inside})\nprint('\"'\"'FORGE_PATH_OBSERVATIONS='\"'\"'+json.dumps(rows,sort_keys=True))\nsys.exit(0 if all(r['\"'\"'passed'\"'\"'] for r in rows) else 86)\n'"
+            },
+            {
+              "role": "configure",
+              "exit_code": 0,
+              "command_id": "command_bdf9fe8f92334d9ebce562fe5354494b",
+              "command": "(\n./configure --disable-build-docs --disable-shared --enable-static\n)\npython3 -c 'import json,pathlib,sys\nroot=pathlib.Path.cwd().resolve(); rows=[]\nfor kind,name in [('\"'\"'file'\"'\"', '\"'\"'config.h'\"'\"'), ('\"'\"'file'\"'\"', '\"'\"'Makefile'\"'\"'), ('\"'\"'file'\"'\"', '\"'\"'src/Makefile'\"'\"'), ('\"'\"'file'\"'\"', '\"'\"'tests/Makefile'\"'\"'), ('\"'\"'file'\"'\"', '\"'\"'src/check.h'\"'\"'), ('\"'\"'file'\"'\"', '\"'\"'tests/test_vars'\"'\"')]:\n p=(root/name).resolve(); inside=p.is_relative_to(root)\n passed=inside and (p.is_file() if kind=='\"'\"'file'\"'\"' else p.is_dir())\n rows.append({'\"'\"'kind'\"'\"':kind,'\"'\"'path'\"'\"':name,'\"'\"'passed'\"'\"':passed,'\"'\"'inside_workdir'\"'\"':inside})\nprint('\"'\"'FORGE_PATH_OBSERVATIONS='\"'\"'+json.dumps(rows,sort_keys=True))\nsys.exit(0 if all(r['\"'\"'passed'\"'\"'] for r in rows) else 86)\n'"
+            },
+            {
+              "role": "build",
+              "exit_code": 0,
+              "command_id": "command_3d296789f0cc422bb1351ad4d6ea3e94",
+              "command": "(\nmake -j2\n)\npython3 -c 'import json,pathlib,sys\nroot=pathlib.Path.cwd().resolve(); rows=[]\nfor kind,name in [('\"'\"'file'\"'\"', '\"'\"'src/.libs/libcheck.a'\"'\"'), ('\"'\"'file'\"'\"', '\"'\"'src/check.h'\"'\"'), ('\"'\"'directory'\"'\"', '\"'\"'src/.libs'\"'\"'), ('\"'\"'directory'\"'\"', '\"'\"'tests'\"'\"')]:\n p=(root/name).resolve(); inside=p.is_relative_to(root)\n passed=inside and (p.is_file() if kind=='\"'\"'file'\"'\"' else p.is_dir())\n rows.append({'\"'\"'kind'\"'\"':kind,'\"'\"'path'\"'\"':name,'\"'\"'passed'\"'\"':passed,'\"'\"'inside_workdir'\"'\"':inside})\nprint('\"'\"'FORGE_PATH_OBSERVATIONS='\"'\"'+json.dumps(rows,sort_keys=True))\nsys.exit(0 if all(r['\"'\"'passed'\"'\"'] for r in rows) else 86)\n'"
+            },
+            {
+              "role": "smoke",
+              "exit_code": 0,
+              "command_id": "command_95f60ce2a31e4f608b8d0c9a8bfbfda5",
+              "command": "make check"
+            },
+            {
+              "role": "artifact_stage",
+              "exit_code": 0,
+              "command_id": "command_999f28a9384f4ce3a6cd573aa9e4643e",
+              "command": "python3 -c 'import hashlib, json, shutil\nfrom pathlib import Path\nroot = Path.cwd().resolve()\nartifacts = ('\"'\"'libcheck.a'\"'\"',)\nselected = []\nfor target in artifacts:\n    matches = []\n    for path in root.rglob(Path(target).name):\n        if not path.is_file() and not path.is_symlink():\n            continue\n        try:\n            resolved = path.resolve(strict=True)\n        except (OSError, RuntimeError) as exc:\n            raise RuntimeError('\"'\"'交付候选链接无效: '\"'\"' + str(path)) from exc\n        if not resolved.is_relative_to(root) or not resolved.is_file():\n            raise RuntimeError('\"'\"'交付候选越界或不是普通文件: '\"'\"' + str(path))\n        with resolved.open('\"'\"'rb'\"'\"') as stream:\n            magic = stream.read(8)\n        if magic.startswith(b'\"'\"'\\x7fELF'\"'\"') or magic == b'\"'\"'!<arch>\\n'\"'\"':\n            matches.append(resolved)\n    identities = {}\n    for candidate in sorted(set(matches)):\n        stat = candidate.stat()\n        fingerprint = hashlib.sha256()\n        with candidate.open('\"'\"'rb'\"'\"') as stream:\n            for block in iter(lambda: stream.read(1048576), b'\"'\"''\"'\"'):\n                fingerprint.update(block)\n        content_sha256 = fingerprint.hexdigest()\n        identity = (stat.st_size, content_sha256, stat.st_mode & 0o777)\n        identities.setdefault(identity, candidate)\n    if len(identities) != 1:\n        raise RuntimeError('\"'\"'交付源必须唯一: '\"'\"' + target + '\"'\"' candidates='\"'\"' + str(matches))\n    selected.append((next(iter(identities.values())), Path('\"'\"'/artifacts'\"'\"') / target))\nfor source, destination in selected:\n    destination.parent.mkdir(parents=True, exist_ok=True)\n    shutil.copyfile(source, destination)\n    shutil.copymode(source, destination)\nprint('\"'\"'FORGE_UNIFIED_STAGED'\"'\"', json.dumps(artifacts))\n'"
+            }
+          ],
+          "replay_attempts": []
+        }
+      ],
+      "forge_episodes": [
+        {
+          "revision": 1,
+          "recovery": false,
+          "requests": 9,
+          "input_tokens": 140280,
+          "output_tokens": 10587,
+          "tools": {
+            "list_source": 6,
+            "read_source": 11
+          },
+          "estimated_cost_usd": "0.0547884"
+        }
+      ],
+      "fixed_sources_unchanged": true,
+      "transitions": [
+        {
+          "status": "ready_for_verification",
+          "revision": 1,
+          "commands_used": 7,
+          "handoffs_used": 0
+        }
+      ]
+    },
+    {
+      "slot": 4,
+      "project": "check",
+      "method": "cxxcrafter_community_reference",
+      "strict_completed": false,
+      "reported_success": false,
+      "requests": 5,
+      "input_tokens": 5782,
+      "output_tokens": 11805,
+      "total_tokens": 17587,
+      "estimated_cost_usd": "0.0159006",
+      "wall_seconds": 249.22783688700292,
+      "cleanup": true,
+      "error_class": "StopPaid",
+      "error_message": "付费停止或请求时间不足",
+      "versions": 2,
+      "evaluations": [],
+      "forge_states": [],
+      "forge_episodes": [],
+      "fixed_sources_unchanged": null,
+      "transitions": []
+    }
+  ],
+  "unobserved_schedule": [],
+  "stop_reason": null,
+  "known_estimated_cost_usd": "0.0900876",
+  "cumulative_known_cost_usd": "0.7557132",
+  "seal": {
+    "format": "forge-typed-evidence-v1",
+    "identity": "cpp-build-current-cxx-short-reference-flash-v1",
+    "entries": 4101,
+    "files": 4092,
+    "symlinks": 9,
+    "bytes": 44871066,
+    "inventory_canonical_sha256": "52c32ed1a54bf3c50b2b46185efdba1657d26aedca90fd56ebd855befc3b9227",
+    "unknown_usage_requests": 0
+  },
+  "provider_response_usage_independent_check": true,
+  "raw": "/home/yiwei/.codex/outputs/forge-cxx-short-reference-v1",
+  "release": "374b6198f823846d29aa8c58afee966b4a1e16e4",
+  "analysis_script_sha256": "3d18851eb9176388d4a97a33c96add8f91b1888287ed83c04550779d804ff40a"
+}

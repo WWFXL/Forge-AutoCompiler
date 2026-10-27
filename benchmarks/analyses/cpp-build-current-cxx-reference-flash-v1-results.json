@@ -1,0 +1,231 @@
+{
+  "identity": "cpp-build-current-cxx-reference-flash-v1",
+  "rows": [
+    {
+      "slot": 1,
+      "project": "simdutf",
+      "method": "model_plan_workflow",
+      "strict_completed": false,
+      "reported_success": null,
+      "requests": 28,
+      "input_tokens": 500177,
+      "output_tokens": 37931,
+      "total_tokens": 538108,
+      "estimated_cost_usd": "0.1955703",
+      "wall_seconds": 518.6069743609987,
+      "cleanup": true,
+      "error_class": null,
+      "error_message": null,
+      "versions": null,
+      "evaluations": null,
+      "forge_states": [
+        {
+          "status": "failed",
+          "commands": [
+            {
+              "role": "dependency",
+              "exit_code": 0,
+              "command_id": "command_6f5f324d940f4737b0252fabbb73489f",
+              "command": "python3 -c 'from pathlib import Path\nimport subprocess\nassert str(Path.cwd())=='\"'\"'/workspace/repo'\"'\"', '\"'\"'准备目录必须是容器仓库根'\"'\"'\nassert not Path('\"'\"'.git'\"'\"').exists(), '\"'\"'归档源码不得包含既有Git身份'\"'\"'\nsubprocess.run(['\"'\"'git'\"'\"','\"'\"'init'\"'\"','\"'\"'-q'\"'\"'],check=True)\nsubprocess.run(['\"'\"'git'\"'\"','\"'\"'config'\"'\"','\"'\"'--global'\"'\"','\"'\"'--add'\"'\"','\"'\"'safe.directory'\"'\"','\"'\"'/workspace/repo'\"'\"'],check=True)\nsubprocess.run(['\"'\"'git'\"'\"','\"'\"'add'\"'\"','\"'\"'--force'\"'\"','\"'\"'--all'\"'\"'],check=True)\nimport hashlib,json,subprocess\nrows=subprocess.run(['\"'\"'git'\"'\"','\"'\"'ls-files'\"'\"','\"'\"'-z'\"'\"'],check=True,capture_output=True).stdout.decode().split('\"'\"'\\0'\"'\"')\nassert rows[-1]=='\"'\"''\"'\"', '\"'\"'Git索引输出不完整'\"'\"'\nnames=rows[:-1]\nactual=hashlib.sha256(json.dumps(sorted(names),ensure_ascii=True,separators=('\"'\"','\"'\"','\"'\"':'\"'\"')).encode()).hexdigest()\nassert actual=='\"'\"'efb8a0340eb270302aa3d730a2bb25a1db6a2af75f40c7c23da44e381cf8139d'\"'\"', '\"'\"'Git索引文件集合与固定原源码不同'\"'\"'\nassert subprocess.run(['\"'\"'git'\"'\"','\"'\"'rev-parse'\"'\"','\"'\"'--verify'\"'\"','\"'\"'HEAD'\"'\"'],capture_output=True).returncode!=0, '\"'\"'不允许伪造源码commit'\"'\"'\nprint('\"'\"'FORGE_SOURCE_INDEX_VERIFIED='\"'\"'+actual)\n'"
+            },
+            {
+              "role": "configure",
+              "exit_code": 0,
+              "command_id": "command_952a5be4421e4662a12f6b8dbd87ef15",
+              "command": "(\nrm -rf build && cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=OFF -DSIMDUTF_TESTS=ON -DSIMDUTF_FAST_TESTS=ON -DSIMDUTF_BENCHMARKS=OFF -DSIMDUTF_TOOLS=OFF -DSIMDUTF_FUZZERS=OFF\n)\npython3 -c 'import json,pathlib,sys\nroot=pathlib.Path.cwd().resolve(); rows=[]\nfor kind,name in [('\"'\"'file'\"'\"', '\"'\"'build/CMakeCache.txt'\"'\"'), ('\"'\"'directory'\"'\"', '\"'\"'build'\"'\"')]:\n p=(root/name).resolve(); inside=p.is_relative_to(root)\n passed=inside and (p.is_file() if kind=='\"'\"'file'\"'\"' else p.is_dir())\n rows.append({'\"'\"'kind'\"'\"':kind,'\"'\"'path'\"'\"':name,'\"'\"'passed'\"'\"':passed,'\"'\"'inside_workdir'\"'\"':inside})\nprint('\"'\"'FORGE_PATH_OBSERVATIONS='\"'\"'+json.dumps(rows,sort_keys=True))\nsys.exit(0 if all(r['\"'\"'passed'\"'\"'] for r in rows) else 86)\n'"
+            },
+            {
+              "role": "build",
+              "exit_code": 0,
+              "command_id": "command_0e63ec220dd846acbea9beb14cae2c7e",
+              "command": "(\ncmake --build build -j2\n)\npython3 -c 'import json,pathlib,sys\nroot=pathlib.Path.cwd().resolve(); rows=[]\nfor kind,name in [('\"'\"'directory'\"'\"', '\"'\"'build/tests'\"'\"')]:\n p=(root/name).resolve(); inside=p.is_relative_to(root)\n passed=inside and (p.is_file() if kind=='\"'\"'file'\"'\"' else p.is_dir())\n rows.append({'\"'\"'kind'\"'\"':kind,'\"'\"'path'\"'\"':name,'\"'\"'passed'\"'\"':passed,'\"'\"'inside_workdir'\"'\"':inside})\nprint('\"'\"'FORGE_PATH_OBSERVATIONS='\"'\"'+json.dumps(rows,sort_keys=True))\nsys.exit(0 if all(r['\"'\"'passed'\"'\"'] for r in rows) else 86)\n'"
+            },
+            {
+              "role": "smoke",
+              "exit_code": 1,
+              "command_id": "command_c0e80747ee5f46e8969083f54fad43e4",
+              "command": "python3 -c 'from pathlib import Path\ncache={}\nfor line in Path('\"'\"'build/CMakeCache.txt'\"'\"').read_text().splitlines():\n if '\"'\"'='\"'\"' in line and '\"'\"':'\"'\"' in line and not line.startswith(('\"'\"'//'\"'\"','\"'\"'#'\"'\"')):\n  key,value=line.split('\"'\"'='\"'\"',1); name,_=key.split('\"'\"':'\"'\"',1); cache[name]=value\nfalse_values={'\"'\"''\"'\"','\"'\"'0'\"'\"','\"'\"'OFF'\"'\"','\"'\"'NO'\"'\"','\"'\"'FALSE'\"'\"','\"'\"'N'\"'\"','\"'\"'IGNORE'\"'\"','\"'\"'NOTFOUND'\"'\"'}\ndef enabled(value):\n return value.upper() not in false_values and not value.upper().endswith('\"'\"'-NOTFOUND'\"'\"')\nrequirements={'\"'\"'SIMDUTF_TESTS'\"'\"': True, '\"'\"'BUILD_TESTING'\"'\"': True, '\"'\"'SIMDUTF_FAST_TESTS'\"'\"': False, '\"'\"'SIMDUTF_TOOLS'\"'\"': True}\nfor key,expected in requirements.items():\n assert key in cache, '\"'\"'缺少必要配置:'\"'\"'+key\n assert enabled(cache[key])==expected, '\"'\"'配置功能不符:'\"'\"'+key+'\"'\"'='\"'\"'+cache[key]\nif True:\n assert not enabled(cache.get('\"'\"'BUILD_SHARED_LIBS'\"'\"','\"'\"'OFF'\"'\"')), '\"'\"'必须使用默认静态库构建'\"'\"'\nprint('\"'\"'FORGE_TASK_CONFIGURATION_OK'\"'\"')\n' && python3 -c 'import hashlib,json,subprocess\nrows=subprocess.run(['\"'\"'git'\"'\"','\"'\"'ls-files'\"'\"','\"'\"'-z'\"'\"'],check=True,capture_output=True).stdout.decode().split('\"'\"'\\0'\"'\"')\nassert rows[-1]=='\"'\"''\"'\"', '\"'\"'Git索引输出不完整'\"'\"'\nnames=rows[:-1]\nactual=hashlib.sha256(json.dumps(sorted(names),ensure_ascii=True,separators=('\"'\"','\"'\"','\"'\"':'\"'\"')).encode()).hexdigest()\nassert actual=='\"'\"'efb8a0340eb270302aa3d730a2bb25a1db6a2af75f40c7c23da44e381cf8139d'\"'\"', '\"'\"'Git索引文件集合与固定原源码不同'\"'\"'\nassert subprocess.run(['\"'\"'git'\"'\"','\"'\"'rev-parse'\"'\"','\"'\"'--verify'\"'\"','\"'\"'HEAD'\"'\"'],capture_output=True).returncode!=0, '\"'\"'不允许伪造源码commit'\"'\"'\nprint('\"'\"'FORGE_SOURCE_INDEX_VERIFIED='\"'\"'+actual)\n' && ctest --test-dir build --output-on-failure --no-tests=error --verbose --output-junit /workspace/forge-ctest.xml && python3 -c 'import xml.etree.ElementTree as ET\nroot=ET.parse('\"'\"'/workspace/forge-ctest.xml'\"'\"').getroot()\ncases=list(root.iter('\"'\"'testcase'\"'\"'))\nassert len(cases)==94, '\"'\"'作者注册测试数不符'\"'\"'\nassert all(c.find('\"'\"'skipped'\"'\"') is None and c.find('\"'\"'failure'\"'\"') is None and c.find('\"'\"'error'\"'\"') is None for c in cases), '\"'\"'存在跳过或失败的作者测试'\"'\"'\nassert all(c.get('\"'\"'status'\"'\"','\"'\"'run'\"'\"')=='\"'\"'run'\"'\"' for c in cases), '\"'\"'存在未实际运行测试'\"'\"'\nprint('\"'\"'FORGE_CTEST_ACTUALLY_PASSED='\"'\"'+str(len(cases)))\n' && python3 -c 'import hashlib,json,subprocess\nrows=subprocess.run(['\"'\"'git'\"'\"','\"'\"'ls-files'\"'\"','\"'\"'-z'\"'\"'],check=True,capture_output=True).stdout.decode().split('\"'\"'\\0'\"'\"')\nassert rows[-1]=='\"'\"''\"'\"', '\"'\"'Git索引输出不完整'\"'\"'\nnames=rows[:-1]\nactual=hashlib.sha256(json.dumps(sorted(names),ensure_ascii=True,separators=('\"'\"','\"'\"','\"'\"':'\"'\"')).encode()).hexdigest()\nassert actual=='\"'\"'efb8a0340eb270302aa3d730a2bb25a1db6a2af75f40c7c23da44e381cf8139d'\"'\"', '\"'\"'Git索引文件集合与固定原源码不同'\"'\"'\nassert subprocess.run(['\"'\"'git'\"'\"','\"'\"'rev-parse'\"'\"','\"'\"'--verify'\"'\"','\"'\"'HEAD'\"'\"'],capture_output=True).returncode!=0, '\"'\"'不允许伪造源码commit'\"'\"'\nprint('\"'\"'FORGE_SOURCE_INDEX_VERIFIED='\"'\"'+actual)\n'"
+            },
+            {
+              "role": "configure",
+              "exit_code": 0,
+              "command_id": "command_f01a5c02fce3412bb5e3f82fafeef97c",
+              "command": "(\n(\nrm -rf build && cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS:BOOL=OFF -DSIMDUTF_TESTS:BOOL=ON -DSIMDUTF_ATOMIC_BASE64_TESTS:BOOL=ON -DSIMDUTF_BENCHMARKS:BOOL=OFF -DSIMDUTF_TOOLS:BOOL=OFF -DSIMDUTF_FUZZERS:BOOL=OFF\n)\ngrep -q '^SIMDUTF_TESTS:BOOL=ON$' build/CMakeCache.txt\n)\npython3 -c 'import json,pathlib,sys\nroot=pathlib.Path.cwd().resolve(); rows=[]\nfor kind,name in [('\"'\"'file'\"'\"', '\"'\"'build/CMakeCache.txt'\"'\"'), ('\"'\"'directory'\"'\"', '\"'\"'build'\"'\"')]:\n p=(root/name).resolve(); inside=p.is_relative_to(root)\n passed=inside and (p.is_file() if kind=='\"'\"'file'\"'\"' else p.is_dir())\n rows.append({'\"'\"'kind'\"'\"':kind,'\"'\"'path'\"'\"':name,'\"'\"'passed'\"'\"':passed,'\"'\"'inside_workdir'\"'\"':inside})\nprint('\"'\"'FORGE_PATH_OBSERVATIONS='\"'\"'+json.dumps(rows,sort_keys=True))\nsys.exit(0 if all(r['\"'\"'passed'\"'\"'] for r in rows) else 86)\n'"
+            },
+            {
+              "role": "build",
+              "exit_code": 1,
+              "command_id": "command_cf08a7b8f46643a1beea4f3e61d7148f",
+              "command": "(\n(\ncmake --build build -j2\n)\ntest \"$(cd build && ctest -N | awk '/^Total Tests: /{print $3}')\" = \"94\"\n)\npython3 -c 'import json,pathlib,sys\nroot=pathlib.Path.cwd().resolve(); rows=[]\nfor kind,name in [('\"'\"'directory'\"'\"', '\"'\"'build/tests'\"'\"')]:\n p=(root/name).resolve(); inside=p.is_relative_to(root)\n passed=inside and (p.is_file() if kind=='\"'\"'file'\"'\"' else p.is_dir())\n rows.append({'\"'\"'kind'\"'\"':kind,'\"'\"'path'\"'\"':name,'\"'\"'passed'\"'\"':passed,'\"'\"'inside_workdir'\"'\"':inside})\nprint('\"'\"'FORGE_PATH_OBSERVATIONS='\"'\"'+json.dumps(rows,sort_keys=True))\nsys.exit(0 if all(r['\"'\"'passed'\"'\"'] for r in rows) else 86)\n'"
+            },
+            {
+              "role": "configure",
+              "exit_code": 0,
+              "command_id": "command_8d456b03998c409983bed9ecc24cf63d",
+              "command": "(\n(\nrm -rf build\ncmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DSIMDUTF_TESTS:BOOL=ON -DSIMDUTF_FAST_TESTS:BOOL=ON -DSIMDUTF_ATOMIC_BASE64_TESTS:BOOL=ON -DSIMDUTF_TOOLS:BOOL=OFF -DSIMDUTF_FUZZERS:BOOL=OFF\n)\ngrep -q '^SIMDUTF_TESTS:BOOL=ON$' build/CMakeCache.txt\n)\npython3 -c 'import json,pathlib,sys\nroot=pathlib.Path.cwd().resolve(); rows=[]\nfor kind,name in [('\"'\"'file'\"'\"', '\"'\"'build/CMakeCache.txt'\"'\"'), ('\"'\"'directory'\"'\"', '\"'\"'build'\"'\"')]:\n p=(root/name).resolve(); inside=p.is_relative_to(root)\n passed=inside and (p.is_file() if kind=='\"'\"'file'\"'\"' else p.is_dir())\n rows.append({'\"'\"'kind'\"'\"':kind,'\"'\"'path'\"'\"':name,'\"'\"'passed'\"'\"':passed,'\"'\"'inside_workdir'\"'\"':inside})\nprint('\"'\"'FORGE_PATH_OBSERVATIONS='\"'\"'+json.dumps(rows,sort_keys=True))\nsys.exit(0 if all(r['\"'\"'passed'\"'\"'] for r in rows) else 86)\n'"
+            },
+            {
+              "role": "build",
+              "exit_code": 1,
+              "command_id": "command_7f25cb384e7746378334e2824fb4945d",
+              "command": "(\nset -euo pipefail\ncmake --build build -j2 --target simdutf\ncmake --build build --target help > build/target-help.txt\n(cd build && ctest -N -V) > build/ctest-verbose.txt\npython3 - <<'PY'\nimport pathlib, re, subprocess, sys\nvalid = set()\nfor line in pathlib.Path('build/target-help.txt').read_text(errors='replace').splitlines():\n    m = re.match(r'^\\.\\.\\. (\\S+)', line.strip())\n    if m:\n        valid.add(m.group(1))\ntargets = set()\nfor line in pathlib.Path('build/ctest-verbose.txt').read_text(errors='replace').splitlines():\n    m = re.match(r'^\\s*Test command:\\s*(\\S+)', line)\n    if m:\n        name = pathlib.Path(m.group(1)).name\n        if name in valid:\n            targets.add(name)\ntargets = sorted(targets)\nif not targets:\n    sys.exit('no author test executable targets discovered')\nprint('FORGE_TEST_TARGETS=' + str(len(targets)))\nsubprocess.run(['cmake', '--build', 'build', '-j2', '--target', *targets], check=True)\nPY\ntest \"$(cd build && ctest -N | awk '/^Total Tests: /{print $3}')\" = \"94\"\n)\npython3 -c 'import json,pathlib,sys\nroot=pathlib.Path.cwd().resolve(); rows=[]\nfor kind,name in [('\"'\"'file'\"'\"', '\"'\"'build/target-help.txt'\"'\"'), ('\"'\"'file'\"'\"', '\"'\"'build/ctest-verbose.txt'\"'\"')]:\n p=(root/name).resolve(); inside=p.is_relative_to(root)\n passed=inside and (p.is_file() if kind=='\"'\"'file'\"'\"' else p.is_dir())\n rows.append({'\"'\"'kind'\"'\"':kind,'\"'\"'path'\"'\"':name,'\"'\"'passed'\"'\"':passed,'\"'\"'inside_workdir'\"'\"':inside})\nprint('\"'\"'FORGE_PATH_OBSERVATIONS='\"'\"'+json.dumps(rows,sort_keys=True))\nsys.exit(0 if all(r['\"'\"'passed'\"'\"'] for r in rows) else 86)\n'"
+            }
+          ],
+          "replay_attempts": []
+        }
+      ],
+      "forge_episodes": [
+        {
+          "revision": 1,
+          "recovery": false,
+          "requests": 9,
+          "input_tokens": 115666,
+          "output_tokens": 3517,
+          "tools": {
+            "read_fixed_contract": 3,
+            "list_source": 3,
+            "read_source": 7
+          },
+          "estimated_cost_usd": "0.0389202"
+        },
+        {
+          "revision": 2,
+          "recovery": true,
+          "requests": 9,
+          "input_tokens": 171830,
+          "output_tokens": 13616,
+          "tools": {
+            "read_fixed_contract": 3,
+            "read_failure_log": 1,
+            "read_source": 8,
+            "list_source": 1
+          },
+          "estimated_cost_usd": "0.0678882"
+        },
+        {
+          "revision": 3,
+          "recovery": true,
+          "requests": 10,
+          "input_tokens": 212681,
+          "output_tokens": 20798,
+          "tools": {
+            "read_failure_log": 5,
+            "list_source": 4,
+            "read_source": 9,
+            "read_fixed_contract": 1
+          },
+          "estimated_cost_usd": "0.0887619"
+        }
+      ],
+      "fixed_sources_unchanged": true,
+      "transitions": [
+        {
+          "status": "needs_handoff",
+          "revision": 1,
+          "commands_used": 4,
+          "handoffs_used": 1
+        },
+        {
+          "status": "needs_handoff",
+          "revision": 2,
+          "commands_used": 6,
+          "handoffs_used": 2
+        },
+        {
+          "status": "budget_exhausted",
+          "revision": 3,
+          "commands_used": 8,
+          "handoffs_used": 2
+        }
+      ]
+    },
+    {
+      "slot": 2,
+      "project": "simdutf",
+      "method": "cxxcrafter_community_reference",
+      "strict_completed": true,
+      "reported_success": true,
+      "requests": 6,
+      "input_tokens": 60811,
+      "output_tokens": 12657,
+      "total_tokens": 73468,
+      "estimated_cost_usd": "0.0334317",
+      "wall_seconds": 763.9189202729904,
+      "cleanup": true,
+      "error_class": null,
+      "error_message": null,
+      "versions": 1,
+      "evaluations": [
+        {
+          "source_unchanged": true,
+          "fixed_tests": true,
+          "artifact_stage": true,
+          "artifacts": {
+            "libsimdutf.a": {
+              "sha256": "1ee79296241da3fdc07fe141811275c8a7100b329105b383de068c1d526a3d1d",
+              "size": 925092,
+              "artifact_type": "static_library"
+            }
+          },
+          "cleanup": true
+        },
+        {
+          "source_unchanged": true,
+          "fixed_tests": true,
+          "artifact_stage": true,
+          "artifacts": {
+            "libsimdutf.a": {
+              "sha256": "1ee79296241da3fdc07fe141811275c8a7100b329105b383de068c1d526a3d1d",
+              "size": 925092,
+              "artifact_type": "static_library"
+            }
+          },
+          "cleanup": true
+        }
+      ],
+      "forge_states": [],
+      "forge_episodes": [],
+      "fixed_sources_unchanged": null,
+      "transitions": []
+    }
+  ],
+  "unobserved_schedule": [
+    {
+      "project": "tinyxml2",
+      "method": "cxxcrafter_community_reference",
+      "repetition": 1
+    },
+    {
+      "project": "tinyxml2",
+      "method": "model_plan_workflow",
+      "repetition": 1
+    },
+    {
+      "project": "check",
+      "method": "model_plan_workflow",
+      "repetition": 1
+    },
+    {
+      "project": "check",
+      "method": "cxxcrafter_community_reference",
+      "repetition": 1
+    }
+  ],
+  "stop_reason": "remaining_time_or_budget",
+  "known_estimated_cost_usd": "0.2290020",
+  "cumulative_known_cost_usd": "0.6656256",
+  "seal": {
+    "format": "forge-typed-evidence-v1",
+    "identity": "cpp-build-current-cxx-reference-flash-v1",
+    "entries": 6216,
+    "files": 6216,
+    "symlinks": 0,
+    "bytes": 68078448,
+    "inventory_canonical_sha256": "f88f5ca0978887593b6c3600b7433965d73ffe509199d953b2aff50e686f287b",
+    "unknown_usage_requests": 0
+  },
+  "provider_response_usage_independent_check": true,
+  "raw": "/home/yiwei/.codex/outputs/forge-cxx-current-reference-v1",
+  "release": "a26dbe21564012abeb5647e7ccaa1792a18e54e8",
+  "analysis_script_sha256": "3d18851eb9176388d4a97a33c96add8f91b1888287ed83c04550779d804ff40a"
+}
