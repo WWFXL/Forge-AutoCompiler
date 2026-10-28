@@ -86,6 +86,10 @@ Read and follow `CLAUDE.md` before changing this repository. Files below
 - `.claude/memory/project.md` remains the detailed engineering handoff required
   by `CLAUDE.md`. The personal knowledge base holds long-term synthesis. Do not
   copy full timelines into `RESEARCH_STATUS.md`.
+- 发布科研结果时，简短更新 `docs/research/THESIS_EVIDENCE_INDEX.md` 及其历史材料目录：
+  登记论文用途、实验身份/分母、关键结果、结论边界及报告和原始证据指针。
+  保留负面结果，注明再分析与原运行的重叠；工程检查不计为模型效果。
+  登记复用已有报告，无需为此重跑实验、旧证据审计或产品全测。
 
 ### Thesis Execution Priority
 
