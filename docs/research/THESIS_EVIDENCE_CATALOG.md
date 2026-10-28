@@ -8,6 +8,12 @@
 
 用途解释、关键结果和结论边界只维护在[论文证据索引](THESIS_EVIDENCE_INDEX.md)；此处只做文件导航。原报告与冻结证据保持原位。后续新增结果时追加文件并链接对应稳定条目，无需重跑实验。
 
+## 基线登记后的新增材料
+
+|文件|论文登记|
+|---|---|
+|[2026-10-29-unified-system-comparison-design.md](2026-10-29-unified-system-comparison-design.md)|[E29](THESIS_EVIDENCE_INDEX.md#e29)：实验设置/工程检查，48槽真实效果未观察|
+
 ## 研究报告与设计材料（116份）
 
 | 文件 | 原标题 | 论文登记 |

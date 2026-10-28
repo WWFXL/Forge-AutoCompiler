@@ -1,0 +1,41 @@
+{
+  "identity": "cpp-build-unified-system-dispatch-check-v1",
+  "kind": "engineering_dispatch_check_not_method_effect",
+  "planned": 3,
+  "observed": 3,
+  "completed": 3,
+  "real_provider_requests": 0,
+  "synthetic_model_responses": 8,
+  "recorded_tokens": 0,
+  "new_model_cost_usd": "0",
+  "credentials_read": false,
+  "rows": [
+    {
+      "method": "forge_state_workflow",
+      "project": "tinyxml2",
+      "completed": true,
+      "wall_seconds": 11.40909602100146,
+      "cleanup": true
+    },
+    {
+      "method": "strong_tool_agent",
+      "project": "tinyxml2",
+      "completed": true,
+      "wall_seconds": 11.463587289006682,
+      "cleanup": true
+    },
+    {
+      "method": "cxxcrafter_community_reference",
+      "project": "tinyxml2",
+      "completed": true,
+      "wall_seconds": 41.16304870600288,
+      "cleanup": true
+    }
+  ],
+  "raw": "/home/yiwei/.codex/outputs/forge-unified-system-preparation-2026-10-29/dispatch-check-v1",
+  "inventory": "2a1346e5975b3d516b790c73bf30be04758bf95098c0a3d61dac55038502ae72",
+  "cleanup_all_absent": true,
+  "boundary": "脚本模型与原生六响应回放，证明本次适配可实际端到端执行；不估方法效果、真实成本或泛化。",
+  "development_candidate_sha256": "c1954635d2e75746234f9069ac73b138db89efe9b5529fdc2413fe9cfaefc34e",
+  "formal_candidate_scope_note": "正式候选以发布manifest为准；开发草稿及其代码快照保留，不将其SHA当新Provider授权绑定。"
+}

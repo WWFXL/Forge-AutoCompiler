@@ -19,7 +19,7 @@
 | 历史Harness/选择器研究 | [E21](#e21)至[E23](#e23) | 过去观察到哪些收益，又为何没有直接成为当前主线结论？ |
 | 系统实现与任务可执行性 | [E26](#e26)至[E28](#e28) | 接口、状态分派和参考任务是否实际可运行？ |
 
-**当前仍需补充的主要结果**：在统一目标、构建类型、依赖资源和完整验收下扩大Forge、强工具Agent、CXXCrafter系统比较，由[Issue #640](https://github.com/WWFXL/Forge-AutoCompiler/issues/640)跟踪。已有小样本完整实验可用于论文，不必等到所有指标占优才开始组织结果。
+**当前仍需补充的主要结果**：在统一目标、构建类型、依赖资源和完整验收下扩大Forge、强工具Agent、CXXCrafter系统比较，由[Issue #640](https://github.com/WWFXL/Forge-AutoCompiler/issues/640)跟踪。48槽方案与执行准备见[E29](#e29)，尚无该批真实效果。已有小样本完整实验可用于论文，不必等到所有指标占优才开始组织结果。
 
 ## 阅读和取数约定
 
@@ -237,6 +237,13 @@
 - **观察**：独立reference-v5原构建和重放均执行12原程序/323叶测试、精确两ELF交付；保护818作者文件，40生成文件SHA满足声明，0模型费用。前四个失败参考分别保留。
 - **用途/边界**：任务/依赖/生成文件边界及验收可执行性的依据，可进入实验设置；人工参考通过不代表模型方法成功。用户起初的主项目三个程序与依赖九个程序合计12个，不能遗漏依赖测试。
 - **定位**：[完整参考报告](2026-10-21-rtorrent-reference-results.md)。各独立参考身份、协议、raw和inventory见该报告的身份表及证据部分，不合成旧身份全部通过。
+
+<a id="e29"></a>
+### E29 统一条件三系统比较的执行准备（工程检查）
+
+- **设计/用途**：固定八个已见项目×两重复×Forge状态Workflow/强工具Agent/CXX社区版，共48槽；统一完整目标、CMake Release、依赖、并行环境和完整验收。用于论文实验设置，尚无48槽真实效果。
+- **开发检查**：独立tinyxml2三个入口均实际构建、原测试、精确交付、完整replay及cleanup通过，8脚本响应、0真实Provider/Token/模型费。只证明新适配可执行，不能把脚本响应耗时当方法优势。代码、候选草稿和原始证据保留，未重跑旧参考链。
+- **边界/定位**：全部已见，CXX原生反馈与工具权限不同，不称同Harness或论文原版。[设计与开发结果](2026-10-29-unified-system-comparison-design.md)、[预注册](../../benchmarks/preregistrations/cpp-build-unified-system-comparison-flash-v1.md)、[开发分析](../../benchmarks/analyses/cpp-build-unified-system-dispatch-check-v1.json)。raw：`/home/yiwei/.codex/outputs/forge-unified-system-preparation-2026-10-29/dispatch-check-v1`；inventory `2a1346e5975b3d516b790c73bf30be04758bf95098c0a3d61dac55038502ae72`。新Provider须新授权，不续旧30槽。
 
 ## 写作时的图表取材
 
