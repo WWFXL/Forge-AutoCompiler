@@ -1,0 +1,2497 @@
+{
+  "identity": "cpp-build-goal-state-component-ablation-flash-v1",
+  "candidate_sha256": "87fd9cf72bef05c23dd9d38f6a92a895079731c8a03abc1b5f915beaaf205ca1",
+  "run_release": "28cb0c3712bd3a3f3e2e66e1956a9d8f39bd1dcc",
+  "summary": {
+    "common_model_workflow": {
+      "observed": 6,
+      "completed": 6,
+      "requests": 54,
+      "recorded_tokens": 815825,
+      "input_tokens": 788198,
+      "output_tokens": 27627,
+      "known_cost": "0.2696118",
+      "total_seconds": 2065.5624927909994,
+      "initial_requests": 42,
+      "recovery_requests": 12,
+      "initial_cost": "0.1891392",
+      "recovery_cost": "0.0804726",
+      "recovery_episodes": 3,
+      "direct_revisions": 0,
+      "build_commands": 9,
+      "build_seconds": 542.5472582489999,
+      "unknown_usage": 0
+    },
+    "goals_only_model_workflow": {
+      "observed": 6,
+      "completed": 6,
+      "requests": 42,
+      "recorded_tokens": 589990,
+      "input_tokens": 561806,
+      "output_tokens": 28184,
+      "known_cost": "0.2023626",
+      "total_seconds": 1659.640018834,
+      "initial_requests": 42,
+      "recovery_requests": 0,
+      "initial_cost": "0.2023626",
+      "recovery_cost": "0",
+      "recovery_episodes": 0,
+      "direct_revisions": 0,
+      "build_commands": 7,
+      "build_seconds": 282.107974045,
+      "unknown_usage": 0
+    },
+    "goals_state_model_workflow": {
+      "observed": 6,
+      "completed": 6,
+      "requests": 46,
+      "recorded_tokens": 699651,
+      "input_tokens": 668706,
+      "output_tokens": 30945,
+      "known_cost": "0.2377458",
+      "total_seconds": 1957.7111898809999,
+      "initial_requests": 35,
+      "recovery_requests": 11,
+      "initial_cost": "0.1598376",
+      "recovery_cost": "0.0779082",
+      "recovery_episodes": 2,
+      "direct_revisions": 1,
+      "build_commands": 8,
+      "build_seconds": 442.9418602259989,
+      "unknown_usage": 0
+    }
+  },
+  "unobserved_schedule": [],
+  "stop_reason": null,
+  "lifecycle_complete": true,
+  "raw_response_model_names": {
+    "deepseek-flash": 142
+  },
+  "total_known_cost": "0.7097202",
+  "raw_usage_verification_issues": [],
+  "analysis_mode": "descriptive_component_ablation_seen_cmake_tasks_no_significance_or_population_claim",
+  "details": [
+    {
+      "project": "simdutf",
+      "repetition": 1,
+      "method": "common_model_workflow",
+      "strict_completed": true,
+      "error_class": null,
+      "error_message": null,
+      "status": "verified",
+      "session_status": "completed",
+      "arm_total_wall_seconds": 559.719985577,
+      "fixed_sources_unchanged": true,
+      "source_links_unchanged": true,
+      "slot": 1,
+      "phases": {
+        "initial": {
+          "requests": 10,
+          "input_tokens": 132316,
+          "output_tokens": 3687,
+          "cost": "0.0441192"
+        },
+        "recovery": {
+          "requests": 2,
+          "input_tokens": 36839,
+          "output_tokens": 1777,
+          "cost": "0.0131841"
+        }
+      },
+      "usage": {
+        "model_requests": 12,
+        "recorded_tokens": 174619,
+        "agent_steps": 34,
+        "tool_calls": 22,
+        "commands": 8,
+        "elapsed_seconds": 348.74703431500006,
+        "input_tokens": 169155,
+        "output_tokens": 5464,
+        "estimated_cost_usd": 0.0573033,
+        "unknown_usage_requests": 0,
+        "cost_and_usage_complete": true,
+        "estimated_cost_usd_completed_responses": 0.0573033
+      },
+      "recovery_episodes": 1,
+      "candidate_presentations": {
+        "tool_call": 2
+      },
+      "goal_actions": [],
+      "build_commands": 2,
+      "build_seconds": 166.22388974399996,
+      "smoke_exits": [
+        1,
+        0
+      ],
+      "replay_states": [
+        "passed"
+      ],
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "configuration_observations": [],
+      "final_verification_status": "passed",
+      "final_verification_failed_checks": 0
+    },
+    {
+      "project": "simdutf",
+      "repetition": 1,
+      "method": "goals_only_model_workflow",
+      "strict_completed": true,
+      "error_class": null,
+      "error_message": null,
+      "status": "verified",
+      "session_status": "completed",
+      "arm_total_wall_seconds": 464.22330203199976,
+      "fixed_sources_unchanged": true,
+      "source_links_unchanged": true,
+      "slot": 2,
+      "phases": {
+        "initial": {
+          "requests": 9,
+          "input_tokens": 135437,
+          "output_tokens": 4834,
+          "cost": "0.0464319"
+        },
+        "recovery": {
+          "requests": 0,
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "cost": "0"
+        }
+      },
+      "usage": {
+        "model_requests": 9,
+        "recorded_tokens": 140271,
+        "agent_steps": 30,
+        "tool_calls": 21,
+        "commands": 5,
+        "elapsed_seconds": 253.85599807100016,
+        "input_tokens": 135437,
+        "output_tokens": 4834,
+        "estimated_cost_usd": 0.0464319,
+        "unknown_usage_requests": 0,
+        "cost_and_usage_complete": true,
+        "estimated_cost_usd_completed_responses": 0.0464319
+      },
+      "recovery_episodes": 0,
+      "candidate_presentations": {
+        "tool_call": 1
+      },
+      "goal_actions": [],
+      "build_commands": 1,
+      "build_seconds": 83.79181935099996,
+      "smoke_exits": [
+        0
+      ],
+      "replay_states": [
+        "passed"
+      ],
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "configuration_observations": [],
+      "final_verification_status": "passed",
+      "final_verification_failed_checks": 0
+    },
+    {
+      "project": "simdutf",
+      "repetition": 1,
+      "method": "goals_state_model_workflow",
+      "strict_completed": true,
+      "error_class": null,
+      "error_message": null,
+      "status": "verified",
+      "session_status": "completed",
+      "arm_total_wall_seconds": 454.8627991190001,
+      "fixed_sources_unchanged": true,
+      "source_links_unchanged": true,
+      "slot": 3,
+      "phases": {
+        "initial": {
+          "requests": 10,
+          "input_tokens": 126237,
+          "output_tokens": 4039,
+          "cost": "0.0427179"
+        },
+        "recovery": {
+          "requests": 0,
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "cost": "0"
+        }
+      },
+      "usage": {
+        "model_requests": 10,
+        "recorded_tokens": 130276,
+        "agent_steps": 22,
+        "tool_calls": 12,
+        "commands": 5,
+        "elapsed_seconds": 245.64728623600013,
+        "input_tokens": 126237,
+        "output_tokens": 4039,
+        "estimated_cost_usd": 0.0427179,
+        "unknown_usage_requests": 0,
+        "cost_and_usage_complete": true,
+        "estimated_cost_usd_completed_responses": 0.0427179
+      },
+      "recovery_episodes": 0,
+      "candidate_presentations": {
+        "tool_call": 1
+      },
+      "goal_actions": [
+        {
+          "event": "goal_state.action",
+          "action": "agent",
+          "phase": "initial"
+        }
+      ],
+      "build_commands": 1,
+      "build_seconds": 83.77241415700018,
+      "smoke_exits": [
+        0
+      ],
+      "replay_states": [
+        "passed"
+      ],
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "configuration_observations": [
+        {
+          "ts": "2026-10-28T07:46:14.671528+00:00",
+          "status": "satisfied",
+          "after_step_id": "configure",
+          "revision": 1,
+          "command_frontier": "462ceb7a72ece8b48bf78680b868665ef6bf0671c5ee14ccb56ff1f87bcfee46",
+          "goals": [
+            {
+              "key": "SIMDUTF_TESTS",
+              "expected": true,
+              "actual": "ON",
+              "status": "satisfied",
+              "cache_type": "BOOL",
+              "evidence_sha256": "d2bddab6bee5619fb4e32ae5452f5a5536951d7666e7c64d5d9406e262ab7efe",
+              "evidence_path": "logs/goal-state/d2bddab6bee5619fb4e32ae5452f5a5536951d7666e7c64d5d9406e262ab7efe.txt"
+            },
+            {
+              "key": "BUILD_TESTING",
+              "expected": true,
+              "actual": "ON",
+              "status": "satisfied",
+              "cache_type": "BOOL",
+              "evidence_sha256": "d2bddab6bee5619fb4e32ae5452f5a5536951d7666e7c64d5d9406e262ab7efe",
+              "evidence_path": "logs/goal-state/d2bddab6bee5619fb4e32ae5452f5a5536951d7666e7c64d5d9406e262ab7efe.txt"
+            },
+            {
+              "key": "SIMDUTF_FAST_TESTS",
+              "expected": false,
+              "actual": "OFF",
+              "status": "satisfied",
+              "cache_type": "BOOL",
+              "evidence_sha256": "d2bddab6bee5619fb4e32ae5452f5a5536951d7666e7c64d5d9406e262ab7efe",
+              "evidence_path": "logs/goal-state/d2bddab6bee5619fb4e32ae5452f5a5536951d7666e7c64d5d9406e262ab7efe.txt"
+            },
+            {
+              "key": "SIMDUTF_TOOLS",
+              "expected": true,
+              "actual": "ON",
+              "status": "satisfied",
+              "cache_type": "BOOL",
+              "evidence_sha256": "d2bddab6bee5619fb4e32ae5452f5a5536951d7666e7c64d5d9406e262ab7efe",
+              "evidence_path": "logs/goal-state/d2bddab6bee5619fb4e32ae5452f5a5536951d7666e7c64d5d9406e262ab7efe.txt"
+            },
+            {
+              "key": "BUILD_SHARED_LIBS",
+              "expected": false,
+              "actual": "OFF",
+              "status": "satisfied",
+              "cache_type": "UNINITIALIZED",
+              "evidence_sha256": "d2bddab6bee5619fb4e32ae5452f5a5536951d7666e7c64d5d9406e262ab7efe",
+              "evidence_path": "logs/goal-state/d2bddab6bee5619fb4e32ae5452f5a5536951d7666e7c64d5d9406e262ab7efe.txt"
+            }
+          ]
+        },
+        {
+          "ts": "2026-10-28T07:46:14.673316+00:00",
+          "status": "satisfied",
+          "after_step_id": "build",
+          "revision": 1,
+          "command_frontier": "462ceb7a72ece8b48bf78680b868665ef6bf0671c5ee14ccb56ff1f87bcfee46",
+          "goals": [
+            {
+              "key": "SIMDUTF_TESTS",
+              "expected": true,
+              "actual": "ON",
+              "status": "satisfied",
+              "cache_type": "BOOL",
+              "evidence_sha256": "d2bddab6bee5619fb4e32ae5452f5a5536951d7666e7c64d5d9406e262ab7efe",
+              "evidence_path": "logs/goal-state/d2bddab6bee5619fb4e32ae5452f5a5536951d7666e7c64d5d9406e262ab7efe.txt"
+            },
+            {
+              "key": "BUILD_TESTING",
+              "expected": true,
+              "actual": "ON",
+              "status": "satisfied",
+              "cache_type": "BOOL",
+              "evidence_sha256": "d2bddab6bee5619fb4e32ae5452f5a5536951d7666e7c64d5d9406e262ab7efe",
+              "evidence_path": "logs/goal-state/d2bddab6bee5619fb4e32ae5452f5a5536951d7666e7c64d5d9406e262ab7efe.txt"
+            },
+            {
+              "key": "SIMDUTF_FAST_TESTS",
+              "expected": false,
+              "actual": "OFF",
+              "status": "satisfied",
+              "cache_type": "BOOL",
+              "evidence_sha256": "d2bddab6bee5619fb4e32ae5452f5a5536951d7666e7c64d5d9406e262ab7efe",
+              "evidence_path": "logs/goal-state/d2bddab6bee5619fb4e32ae5452f5a5536951d7666e7c64d5d9406e262ab7efe.txt"
+            },
+            {
+              "key": "SIMDUTF_TOOLS",
+              "expected": true,
+              "actual": "ON",
+              "status": "satisfied",
+              "cache_type": "BOOL",
+              "evidence_sha256": "d2bddab6bee5619fb4e32ae5452f5a5536951d7666e7c64d5d9406e262ab7efe",
+              "evidence_path": "logs/goal-state/d2bddab6bee5619fb4e32ae5452f5a5536951d7666e7c64d5d9406e262ab7efe.txt"
+            },
+            {
+              "key": "BUILD_SHARED_LIBS",
+              "expected": false,
+              "actual": "OFF",
+              "status": "satisfied",
+              "cache_type": "UNINITIALIZED",
+              "evidence_sha256": "d2bddab6bee5619fb4e32ae5452f5a5536951d7666e7c64d5d9406e262ab7efe",
+              "evidence_path": "logs/goal-state/d2bddab6bee5619fb4e32ae5452f5a5536951d7666e7c64d5d9406e262ab7efe.txt"
+            }
+          ]
+        }
+      ],
+      "final_verification_status": "passed",
+      "final_verification_failed_checks": 0
+    },
+    {
+      "project": "snappy",
+      "repetition": 1,
+      "method": "goals_state_model_workflow",
+      "strict_completed": true,
+      "error_class": null,
+      "error_message": null,
+      "status": "verified",
+      "session_status": "completed",
+      "arm_total_wall_seconds": 224.9872542539997,
+      "fixed_sources_unchanged": true,
+      "source_links_unchanged": true,
+      "slot": 4,
+      "phases": {
+        "initial": {
+          "requests": 3,
+          "input_tokens": 42479,
+          "output_tokens": 3440,
+          "cost": "0.0168717"
+        },
+        "recovery": {
+          "requests": 0,
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "cost": "0"
+        }
+      },
+      "usage": {
+        "model_requests": 3,
+        "recorded_tokens": 45919,
+        "agent_steps": 10,
+        "tool_calls": 7,
+        "commands": 6,
+        "elapsed_seconds": 123.24663252600021,
+        "input_tokens": 42479,
+        "output_tokens": 3440,
+        "estimated_cost_usd": 0.0168717,
+        "unknown_usage_requests": 0,
+        "cost_and_usage_complete": true,
+        "estimated_cost_usd_completed_responses": 0.0168717
+      },
+      "recovery_episodes": 0,
+      "candidate_presentations": {
+        "tool_call": 1
+      },
+      "goal_actions": [
+        {
+          "event": "goal_state.action",
+          "action": "agent",
+          "phase": "initial"
+        }
+      ],
+      "build_commands": 1,
+      "build_seconds": 20.88858314700019,
+      "smoke_exits": [
+        0
+      ],
+      "replay_states": [
+        "passed"
+      ],
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "configuration_observations": [
+        {
+          "ts": "2026-10-28T07:54:40.059973+00:00",
+          "status": "satisfied",
+          "after_step_id": "configure",
+          "revision": 1,
+          "command_frontier": "05a9928473c1d24b193851695a30baeca0f68d9f668ad7069a06022ac5715f8e",
+          "goals": [
+            {
+              "key": "SNAPPY_BUILD_TESTS",
+              "expected": true,
+              "actual": "ON",
+              "status": "satisfied",
+              "cache_type": "BOOL",
+              "evidence_sha256": "2b91ae7252ee9a8565d73014bb7bf16eb46a7b17029381c4d11f1b066bd68804",
+              "evidence_path": "logs/goal-state/2b91ae7252ee9a8565d73014bb7bf16eb46a7b17029381c4d11f1b066bd68804.txt"
+            },
+            {
+              "key": "SNAPPY_BUILD_BENCHMARKS",
+              "expected": true,
+              "actual": "ON",
+              "status": "satisfied",
+              "cache_type": "BOOL",
+              "evidence_sha256": "2b91ae7252ee9a8565d73014bb7bf16eb46a7b17029381c4d11f1b066bd68804",
+              "evidence_path": "logs/goal-state/2b91ae7252ee9a8565d73014bb7bf16eb46a7b17029381c4d11f1b066bd68804.txt"
+            },
+            {
+              "key": "HAVE_LIBZ",
+              "expected": true,
+              "actual": "1",
+              "status": "satisfied",
+              "cache_type": "INTERNAL",
+              "evidence_sha256": "2b91ae7252ee9a8565d73014bb7bf16eb46a7b17029381c4d11f1b066bd68804",
+              "evidence_path": "logs/goal-state/2b91ae7252ee9a8565d73014bb7bf16eb46a7b17029381c4d11f1b066bd68804.txt"
+            },
+            {
+              "key": "HAVE_LIBLZO2",
+              "expected": true,
+              "actual": "1",
+              "status": "satisfied",
+              "cache_type": "INTERNAL",
+              "evidence_sha256": "2b91ae7252ee9a8565d73014bb7bf16eb46a7b17029381c4d11f1b066bd68804",
+              "evidence_path": "logs/goal-state/2b91ae7252ee9a8565d73014bb7bf16eb46a7b17029381c4d11f1b066bd68804.txt"
+            },
+            {
+              "key": "HAVE_LIBLZ4",
+              "expected": true,
+              "actual": "1",
+              "status": "satisfied",
+              "cache_type": "INTERNAL",
+              "evidence_sha256": "2b91ae7252ee9a8565d73014bb7bf16eb46a7b17029381c4d11f1b066bd68804",
+              "evidence_path": "logs/goal-state/2b91ae7252ee9a8565d73014bb7bf16eb46a7b17029381c4d11f1b066bd68804.txt"
+            },
+            {
+              "key": "BUILD_SHARED_LIBS",
+              "expected": false,
+              "actual": "OFF",
+              "status": "satisfied",
+              "cache_type": "BOOL",
+              "evidence_sha256": "2b91ae7252ee9a8565d73014bb7bf16eb46a7b17029381c4d11f1b066bd68804",
+              "evidence_path": "logs/goal-state/2b91ae7252ee9a8565d73014bb7bf16eb46a7b17029381c4d11f1b066bd68804.txt"
+            }
+          ]
+        },
+        {
+          "ts": "2026-10-28T07:54:40.062067+00:00",
+          "status": "satisfied",
+          "after_step_id": "build",
+          "revision": 1,
+          "command_frontier": "05a9928473c1d24b193851695a30baeca0f68d9f668ad7069a06022ac5715f8e",
+          "goals": [
+            {
+              "key": "SNAPPY_BUILD_TESTS",
+              "expected": true,
+              "actual": "ON",
+              "status": "satisfied",
+              "cache_type": "BOOL",
+              "evidence_sha256": "2b91ae7252ee9a8565d73014bb7bf16eb46a7b17029381c4d11f1b066bd68804",
+              "evidence_path": "logs/goal-state/2b91ae7252ee9a8565d73014bb7bf16eb46a7b17029381c4d11f1b066bd68804.txt"
+            },
+            {
+              "key": "SNAPPY_BUILD_BENCHMARKS",
+              "expected": true,
+              "actual": "ON",
+              "status": "satisfied",
+              "cache_type": "BOOL",
+              "evidence_sha256": "2b91ae7252ee9a8565d73014bb7bf16eb46a7b17029381c4d11f1b066bd68804",
+              "evidence_path": "logs/goal-state/2b91ae7252ee9a8565d73014bb7bf16eb46a7b17029381c4d11f1b066bd68804.txt"
+            },
+            {
+              "key": "HAVE_LIBZ",
+              "expected": true,
+              "actual": "1",
+              "status": "satisfied",
+              "cache_type": "INTERNAL",
+              "evidence_sha256": "2b91ae7252ee9a8565d73014bb7bf16eb46a7b17029381c4d11f1b066bd68804",
+              "evidence_path": "logs/goal-state/2b91ae7252ee9a8565d73014bb7bf16eb46a7b17029381c4d11f1b066bd68804.txt"
+            },
+            {
+              "key": "HAVE_LIBLZO2",
+              "expected": true,
+              "actual": "1",
+              "status": "satisfied",
+              "cache_type": "INTERNAL",
+              "evidence_sha256": "2b91ae7252ee9a8565d73014bb7bf16eb46a7b17029381c4d11f1b066bd68804",
+              "evidence_path": "logs/goal-state/2b91ae7252ee9a8565d73014bb7bf16eb46a7b17029381c4d11f1b066bd68804.txt"
+            },
+            {
+              "key": "HAVE_LIBLZ4",
+              "expected": true,
+              "actual": "1",
+              "status": "satisfied",
+              "cache_type": "INTERNAL",
+              "evidence_sha256": "2b91ae7252ee9a8565d73014bb7bf16eb46a7b17029381c4d11f1b066bd68804",
+              "evidence_path": "logs/goal-state/2b91ae7252ee9a8565d73014bb7bf16eb46a7b17029381c4d11f1b066bd68804.txt"
+            },
+            {
+              "key": "BUILD_SHARED_LIBS",
+              "expected": false,
+              "actual": "OFF",
+              "status": "satisfied",
+              "cache_type": "BOOL",
+              "evidence_sha256": "2b91ae7252ee9a8565d73014bb7bf16eb46a7b17029381c4d11f1b066bd68804",
+              "evidence_path": "logs/goal-state/2b91ae7252ee9a8565d73014bb7bf16eb46a7b17029381c4d11f1b066bd68804.txt"
+            }
+          ]
+        }
+      ],
+      "final_verification_status": "passed",
+      "final_verification_failed_checks": 0
+    },
+    {
+      "project": "snappy",
+      "repetition": 1,
+      "method": "goals_only_model_workflow",
+      "strict_completed": true,
+      "error_class": null,
+      "error_message": null,
+      "status": "verified",
+      "session_status": "completed",
+      "arm_total_wall_seconds": 248.34163573800015,
+      "fixed_sources_unchanged": true,
+      "source_links_unchanged": true,
+      "slot": 5,
+      "phases": {
+        "initial": {
+          "requests": 8,
+          "input_tokens": 106408,
+          "output_tokens": 4367,
+          "cost": "0.0371628"
+        },
+        "recovery": {
+          "requests": 0,
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "cost": "0"
+        }
+      },
+      "usage": {
+        "model_requests": 8,
+        "recorded_tokens": 110775,
+        "agent_steps": 19,
+        "tool_calls": 11,
+        "commands": 6,
+        "elapsed_seconds": 144.65298264800003,
+        "input_tokens": 106408,
+        "output_tokens": 4367,
+        "estimated_cost_usd": 0.0371628,
+        "unknown_usage_requests": 0,
+        "cost_and_usage_complete": true,
+        "estimated_cost_usd_completed_responses": 0.0371628
+      },
+      "recovery_episodes": 0,
+      "candidate_presentations": {
+        "tool_call": 1
+      },
+      "goal_actions": [],
+      "build_commands": 1,
+      "build_seconds": 21.593778917000236,
+      "smoke_exits": [
+        0
+      ],
+      "replay_states": [
+        "passed"
+      ],
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "configuration_observations": [],
+      "final_verification_status": "passed",
+      "final_verification_failed_checks": 0
+    },
+    {
+      "project": "snappy",
+      "repetition": 1,
+      "method": "common_model_workflow",
+      "strict_completed": true,
+      "error_class": null,
+      "error_message": null,
+      "status": "verified",
+      "session_status": "completed",
+      "arm_total_wall_seconds": 215.47116745899984,
+      "fixed_sources_unchanged": true,
+      "source_links_unchanged": true,
+      "slot": 6,
+      "phases": {
+        "initial": {
+          "requests": 4,
+          "input_tokens": 53190,
+          "output_tokens": 3153,
+          "cost": "0.0197406"
+        },
+        "recovery": {
+          "requests": 0,
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "cost": "0"
+        }
+      },
+      "usage": {
+        "model_requests": 4,
+        "recorded_tokens": 56343,
+        "agent_steps": 10,
+        "tool_calls": 6,
+        "commands": 6,
+        "elapsed_seconds": 117.98497058799967,
+        "input_tokens": 53190,
+        "output_tokens": 3153,
+        "estimated_cost_usd": 0.0197406,
+        "unknown_usage_requests": 0,
+        "cost_and_usage_complete": true,
+        "estimated_cost_usd_completed_responses": 0.0197406
+      },
+      "recovery_episodes": 0,
+      "candidate_presentations": {
+        "tool_call": 1
+      },
+      "goal_actions": [],
+      "build_commands": 1,
+      "build_seconds": 15.883294796999962,
+      "smoke_exits": [
+        0
+      ],
+      "replay_states": [
+        "passed"
+      ],
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "configuration_observations": [],
+      "final_verification_status": "passed",
+      "final_verification_failed_checks": 0
+    },
+    {
+      "project": "yaml-cpp",
+      "repetition": 1,
+      "method": "goals_only_model_workflow",
+      "strict_completed": true,
+      "error_class": null,
+      "error_message": null,
+      "status": "verified",
+      "session_status": "completed",
+      "arm_total_wall_seconds": 98.57249416200011,
+      "fixed_sources_unchanged": true,
+      "source_links_unchanged": true,
+      "slot": 7,
+      "phases": {
+        "initial": {
+          "requests": 4,
+          "input_tokens": 45802,
+          "output_tokens": 2199,
+          "cost": "0.0163794"
+        },
+        "recovery": {
+          "requests": 0,
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "cost": "0"
+        }
+      },
+      "usage": {
+        "model_requests": 4,
+        "recorded_tokens": 48001,
+        "agent_steps": 10,
+        "tool_calls": 6,
+        "commands": 5,
+        "elapsed_seconds": 54.27947666099999,
+        "input_tokens": 45802,
+        "output_tokens": 2199,
+        "estimated_cost_usd": 0.0163794,
+        "unknown_usage_requests": 0,
+        "cost_and_usage_complete": true,
+        "estimated_cost_usd_completed_responses": 0.0163794
+      },
+      "recovery_episodes": 0,
+      "candidate_presentations": {
+        "tool_call": 1
+      },
+      "goal_actions": [],
+      "build_commands": 1,
+      "build_seconds": 32.74158700099997,
+      "smoke_exits": [
+        0
+      ],
+      "replay_states": [
+        "passed"
+      ],
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "configuration_observations": [],
+      "final_verification_status": "passed",
+      "final_verification_failed_checks": 0
+    },
+    {
+      "project": "yaml-cpp",
+      "repetition": 1,
+      "method": "goals_state_model_workflow",
+      "strict_completed": true,
+      "error_class": null,
+      "error_message": null,
+      "status": "verified",
+      "session_status": "completed",
+      "arm_total_wall_seconds": 203.69195610799989,
+      "fixed_sources_unchanged": true,
+      "source_links_unchanged": true,
+      "slot": 8,
+      "phases": {
+        "initial": {
+          "requests": 6,
+          "input_tokens": 70925,
+          "output_tokens": 2676,
+          "cost": "0.0244887"
+        },
+        "recovery": {
+          "requests": 0,
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "cost": "0"
+        }
+      },
+      "usage": {
+        "model_requests": 6,
+        "recorded_tokens": 73601,
+        "agent_steps": 14,
+        "tool_calls": 8,
+        "commands": 5,
+        "elapsed_seconds": 111.7266449130002,
+        "input_tokens": 70925,
+        "output_tokens": 2676,
+        "estimated_cost_usd": 0.0244887,
+        "unknown_usage_requests": 0,
+        "cost_and_usage_complete": true,
+        "estimated_cost_usd_completed_responses": 0.0244887
+      },
+      "recovery_episodes": 0,
+      "candidate_presentations": {
+        "tool_call": 1
+      },
+      "goal_actions": [
+        {
+          "event": "goal_state.action",
+          "action": "agent",
+          "phase": "initial"
+        }
+      ],
+      "build_commands": 1,
+      "build_seconds": 82.79133625999975,
+      "smoke_exits": [
+        0
+      ],
+      "replay_states": [
+        "passed"
+      ],
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "configuration_observations": [
+        {
+          "ts": "2026-10-28T08:06:37.982606+00:00",
+          "status": "satisfied",
+          "after_step_id": "configure",
+          "revision": 1,
+          "command_frontier": "e40154e63c377ccd6ab0e1ac43fd9008dfe394ef4b352dcf8bd6cf7c6f3790d9",
+          "goals": [
+            {
+              "key": "YAML_CPP_BUILD_TESTS",
+              "expected": true,
+              "actual": "ON",
+              "status": "satisfied",
+              "cache_type": "BOOL",
+              "evidence_sha256": "f905b5726938682c11cf77ab3d1f315d25b808950e96e47f72458bc260146075",
+              "evidence_path": "logs/goal-state/f905b5726938682c11cf77ab3d1f315d25b808950e96e47f72458bc260146075.txt"
+            },
+            {
+              "key": "BUILD_TESTING",
+              "expected": true,
+              "actual": "ON",
+              "status": "satisfied",
+              "cache_type": "BOOL",
+              "evidence_sha256": "f905b5726938682c11cf77ab3d1f315d25b808950e96e47f72458bc260146075",
+              "evidence_path": "logs/goal-state/f905b5726938682c11cf77ab3d1f315d25b808950e96e47f72458bc260146075.txt"
+            },
+            {
+              "key": "YAML_CPP_BUILD_CONTRIB",
+              "expected": true,
+              "actual": "ON",
+              "status": "satisfied",
+              "cache_type": "BOOL",
+              "evidence_sha256": "f905b5726938682c11cf77ab3d1f315d25b808950e96e47f72458bc260146075",
+              "evidence_path": "logs/goal-state/f905b5726938682c11cf77ab3d1f315d25b808950e96e47f72458bc260146075.txt"
+            },
+            {
+              "key": "YAML_CPP_BUILD_TOOLS",
+              "expected": true,
+              "actual": "ON",
+              "status": "satisfied",
+              "cache_type": "BOOL",
+              "evidence_sha256": "f905b5726938682c11cf77ab3d1f315d25b808950e96e47f72458bc260146075",
+              "evidence_path": "logs/goal-state/f905b5726938682c11cf77ab3d1f315d25b808950e96e47f72458bc260146075.txt"
+            },
+            {
+              "key": "YAML_BUILD_SHARED_LIBS",
+              "expected": false,
+              "actual": "OFF",
+              "status": "satisfied",
+              "cache_type": "BOOL",
+              "evidence_sha256": "f905b5726938682c11cf77ab3d1f315d25b808950e96e47f72458bc260146075",
+              "evidence_path": "logs/goal-state/f905b5726938682c11cf77ab3d1f315d25b808950e96e47f72458bc260146075.txt"
+            },
+            {
+              "key": "YAML_USE_SYSTEM_GTEST",
+              "expected": false,
+              "actual": "OFF",
+              "status": "satisfied",
+              "cache_type": "BOOL",
+              "evidence_sha256": "f905b5726938682c11cf77ab3d1f315d25b808950e96e47f72458bc260146075",
+              "evidence_path": "logs/goal-state/f905b5726938682c11cf77ab3d1f315d25b808950e96e47f72458bc260146075.txt"
+            },
+            {
+              "key": "BUILD_SHARED_LIBS",
+              "expected": false,
+              "actual": "OFF",
+              "status": "satisfied",
+              "cache_type": null,
+              "evidence_sha256": "f905b5726938682c11cf77ab3d1f315d25b808950e96e47f72458bc260146075",
+              "evidence_path": "logs/goal-state/f905b5726938682c11cf77ab3d1f315d25b808950e96e47f72458bc260146075.txt"
+            }
+          ]
+        },
+        {
+          "ts": "2026-10-28T08:06:37.984483+00:00",
+          "status": "satisfied",
+          "after_step_id": "build",
+          "revision": 1,
+          "command_frontier": "e40154e63c377ccd6ab0e1ac43fd9008dfe394ef4b352dcf8bd6cf7c6f3790d9",
+          "goals": [
+            {
+              "key": "YAML_CPP_BUILD_TESTS",
+              "expected": true,
+              "actual": "ON",
+              "status": "satisfied",
+              "cache_type": "BOOL",
+              "evidence_sha256": "f905b5726938682c11cf77ab3d1f315d25b808950e96e47f72458bc260146075",
+              "evidence_path": "logs/goal-state/f905b5726938682c11cf77ab3d1f315d25b808950e96e47f72458bc260146075.txt"
+            },
+            {
+              "key": "BUILD_TESTING",
+              "expected": true,
+              "actual": "ON",
+              "status": "satisfied",
+              "cache_type": "BOOL",
+              "evidence_sha256": "f905b5726938682c11cf77ab3d1f315d25b808950e96e47f72458bc260146075",
+              "evidence_path": "logs/goal-state/f905b5726938682c11cf77ab3d1f315d25b808950e96e47f72458bc260146075.txt"
+            },
+            {
+              "key": "YAML_CPP_BUILD_CONTRIB",
+              "expected": true,
+              "actual": "ON",
+              "status": "satisfied",
+              "cache_type": "BOOL",
+              "evidence_sha256": "f905b5726938682c11cf77ab3d1f315d25b808950e96e47f72458bc260146075",
+              "evidence_path": "logs/goal-state/f905b5726938682c11cf77ab3d1f315d25b808950e96e47f72458bc260146075.txt"
+            },
+            {
+              "key": "YAML_CPP_BUILD_TOOLS",
+              "expected": true,
+              "actual": "ON",
+              "status": "satisfied",
+              "cache_type": "BOOL",
+              "evidence_sha256": "f905b5726938682c11cf77ab3d1f315d25b808950e96e47f72458bc260146075",
+              "evidence_path": "logs/goal-state/f905b5726938682c11cf77ab3d1f315d25b808950e96e47f72458bc260146075.txt"
+            },
+            {
+              "key": "YAML_BUILD_SHARED_LIBS",
+              "expected": false,
+              "actual": "OFF",
+              "status": "satisfied",
+              "cache_type": "BOOL",
+              "evidence_sha256": "f905b5726938682c11cf77ab3d1f315d25b808950e96e47f72458bc260146075",
+              "evidence_path": "logs/goal-state/f905b5726938682c11cf77ab3d1f315d25b808950e96e47f72458bc260146075.txt"
+            },
+            {
+              "key": "YAML_USE_SYSTEM_GTEST",
+              "expected": false,
+              "actual": "OFF",
+              "status": "satisfied",
+              "cache_type": "BOOL",
+              "evidence_sha256": "f905b5726938682c11cf77ab3d1f315d25b808950e96e47f72458bc260146075",
+              "evidence_path": "logs/goal-state/f905b5726938682c11cf77ab3d1f315d25b808950e96e47f72458bc260146075.txt"
+            },
+            {
+              "key": "BUILD_SHARED_LIBS",
+              "expected": false,
+              "actual": "OFF",
+              "status": "satisfied",
+              "cache_type": null,
+              "evidence_sha256": "f905b5726938682c11cf77ab3d1f315d25b808950e96e47f72458bc260146075",
+              "evidence_path": "logs/goal-state/f905b5726938682c11cf77ab3d1f315d25b808950e96e47f72458bc260146075.txt"
+            }
+          ]
+        }
+      ],
+      "final_verification_status": "passed",
+      "final_verification_failed_checks": 0
+    },
+    {
+      "project": "yaml-cpp",
+      "repetition": 1,
+      "method": "common_model_workflow",
+      "strict_completed": true,
+      "error_class": null,
+      "error_message": null,
+      "status": "verified",
+      "session_status": "completed",
+      "arm_total_wall_seconds": 191.8841838620001,
+      "fixed_sources_unchanged": true,
+      "source_links_unchanged": true,
+      "slot": 9,
+      "phases": {
+        "initial": {
+          "requests": 3,
+          "input_tokens": 32730,
+          "output_tokens": 1773,
+          "cost": "0.0119466"
+        },
+        "recovery": {
+          "requests": 0,
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "cost": "0"
+        }
+      },
+      "usage": {
+        "model_requests": 3,
+        "recorded_tokens": 34503,
+        "agent_steps": 8,
+        "tool_calls": 5,
+        "commands": 5,
+        "elapsed_seconds": 99.1436925400003,
+        "input_tokens": 32730,
+        "output_tokens": 1773,
+        "estimated_cost_usd": 0.0119466,
+        "unknown_usage_requests": 0,
+        "cost_and_usage_complete": true,
+        "estimated_cost_usd_completed_responses": 0.0119466
+      },
+      "recovery_episodes": 0,
+      "candidate_presentations": {
+        "tool_call": 1
+      },
+      "goal_actions": [],
+      "build_commands": 1,
+      "build_seconds": 82.29662926599985,
+      "smoke_exits": [
+        0
+      ],
+      "replay_states": [
+        "passed"
+      ],
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "configuration_observations": [],
+      "final_verification_status": "passed",
+      "final_verification_failed_checks": 0
+    },
+    {
+      "project": "simdutf",
+      "repetition": 2,
+      "method": "common_model_workflow",
+      "strict_completed": true,
+      "error_class": null,
+      "error_message": null,
+      "status": "verified",
+      "session_status": "completed",
+      "arm_total_wall_seconds": 585.029285823,
+      "fixed_sources_unchanged": true,
+      "source_links_unchanged": true,
+      "slot": 10,
+      "phases": {
+        "initial": {
+          "requests": 10,
+          "input_tokens": 141405,
+          "output_tokens": 4134,
+          "cost": "0.0473823"
+        },
+        "recovery": {
+          "requests": 5,
+          "input_tokens": 95865,
+          "output_tokens": 3146,
+          "cost": "0.0325347"
+        }
+      },
+      "usage": {
+        "model_requests": 15,
+        "recorded_tokens": 244550,
+        "agent_steps": 44,
+        "tool_calls": 29,
+        "commands": 8,
+        "elapsed_seconds": 374.0629606170005,
+        "input_tokens": 237270,
+        "output_tokens": 7280,
+        "estimated_cost_usd": 0.079917,
+        "unknown_usage_requests": 0,
+        "cost_and_usage_complete": true,
+        "estimated_cost_usd_completed_responses": 0.079917
+      },
+      "recovery_episodes": 1,
+      "candidate_presentations": {
+        "tool_call": 2
+      },
+      "goal_actions": [],
+      "build_commands": 2,
+      "build_seconds": 160.0373745880006,
+      "smoke_exits": [
+        1,
+        0
+      ],
+      "replay_states": [
+        "passed"
+      ],
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "configuration_observations": [],
+      "final_verification_status": "passed",
+      "final_verification_failed_checks": 0
+    },
+    {
+      "project": "simdutf",
+      "repetition": 2,
+      "method": "goals_state_model_workflow",
+      "strict_completed": true,
+      "error_class": null,
+      "error_message": null,
+      "status": "verified",
+      "session_status": "completed",
+      "arm_total_wall_seconds": 633.1344437690004,
+      "fixed_sources_unchanged": true,
+      "source_links_unchanged": true,
+      "slot": 11,
+      "phases": {
+        "initial": {
+          "requests": 3,
+          "input_tokens": 38022,
+          "output_tokens": 1839,
+          "cost": "0.0136134"
+        },
+        "recovery": {
+          "requests": 9,
+          "input_tokens": 178121,
+          "output_tokens": 4267,
+          "cost": "0.0585567"
+        }
+      },
+      "usage": {
+        "model_requests": 12,
+        "recorded_tokens": 222249,
+        "agent_steps": 26,
+        "tool_calls": 14,
+        "commands": 7,
+        "elapsed_seconds": 422.3972826930003,
+        "input_tokens": 216143,
+        "output_tokens": 6106,
+        "estimated_cost_usd": 0.0721701,
+        "unknown_usage_requests": 0,
+        "cost_and_usage_complete": true,
+        "estimated_cost_usd_completed_responses": 0.0721701
+      },
+      "recovery_episodes": 1,
+      "candidate_presentations": {
+        "tool_call": 2
+      },
+      "goal_actions": [
+        {
+          "event": "goal_state.action",
+          "action": "agent",
+          "phase": "initial"
+        },
+        {
+          "event": "goal_state.action",
+          "action": "agent",
+          "phase": "recovery"
+        }
+      ],
+      "build_commands": 2,
+      "build_seconds": 168.3640915299993,
+      "smoke_exits": [
+        0
+      ],
+      "replay_states": [
+        "passed"
+      ],
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "configuration_observations": [
+        {
+          "ts": "2026-10-28T08:22:49.233221+00:00",
+          "status": "satisfied",
+          "after_step_id": "configure",
+          "revision": 1,
+          "command_frontier": "d0f9c6484bdecb48c6c5407b048753ed25c23d004000dff1339f87f3f6ac1ca6",
+          "goals": [
+            {
+              "key": "SIMDUTF_TESTS",
+              "expected": true,
+              "actual": "ON",
+              "status": "satisfied",
+              "cache_type": "BOOL",
+              "evidence_sha256": "b6586c720a05428704bca378874ec6d86a78f93b3b36e92f543db2990d85760c",
+              "evidence_path": "logs/goal-state/b6586c720a05428704bca378874ec6d86a78f93b3b36e92f543db2990d85760c.txt"
+            },
+            {
+              "key": "BUILD_TESTING",
+              "expected": true,
+              "actual": "ON",
+              "status": "satisfied",
+              "cache_type": "BOOL",
+              "evidence_sha256": "b6586c720a05428704bca378874ec6d86a78f93b3b36e92f543db2990d85760c",
+              "evidence_path": "logs/goal-state/b6586c720a05428704bca378874ec6d86a78f93b3b36e92f543db2990d85760c.txt"
+            },
+            {
+              "key": "SIMDUTF_FAST_TESTS",
+              "expected": false,
+              "actual": "OFF",
+              "status": "satisfied",
+              "cache_type": "BOOL",
+              "evidence_sha256": "b6586c720a05428704bca378874ec6d86a78f93b3b36e92f543db2990d85760c",
+              "evidence_path": "logs/goal-state/b6586c720a05428704bca378874ec6d86a78f93b3b36e92f543db2990d85760c.txt"
+            },
+            {
+              "key": "SIMDUTF_TOOLS",
+              "expected": true,
+              "actual": "ON",
+              "status": "satisfied",
+              "cache_type": "BOOL",
+              "evidence_sha256": "b6586c720a05428704bca378874ec6d86a78f93b3b36e92f543db2990d85760c",
+              "evidence_path": "logs/goal-state/b6586c720a05428704bca378874ec6d86a78f93b3b36e92f543db2990d85760c.txt"
+            },
+            {
+              "key": "BUILD_SHARED_LIBS",
+              "expected": false,
+              "actual": "OFF",
+              "status": "satisfied",
+              "cache_type": "UNINITIALIZED",
+              "evidence_sha256": "b6586c720a05428704bca378874ec6d86a78f93b3b36e92f543db2990d85760c",
+              "evidence_path": "logs/goal-state/b6586c720a05428704bca378874ec6d86a78f93b3b36e92f543db2990d85760c.txt"
+            }
+          ]
+        },
+        {
+          "ts": "2026-10-28T08:22:49.235006+00:00",
+          "status": "satisfied",
+          "after_step_id": "build",
+          "revision": 1,
+          "command_frontier": "d0f9c6484bdecb48c6c5407b048753ed25c23d004000dff1339f87f3f6ac1ca6",
+          "goals": [
+            {
+              "key": "SIMDUTF_TESTS",
+              "expected": true,
+              "actual": "ON",
+              "status": "satisfied",
+              "cache_type": "BOOL",
+              "evidence_sha256": "b6586c720a05428704bca378874ec6d86a78f93b3b36e92f543db2990d85760c",
+              "evidence_path": "logs/goal-state/b6586c720a05428704bca378874ec6d86a78f93b3b36e92f543db2990d85760c.txt"
+            },
+            {
+              "key": "BUILD_TESTING",
+              "expected": true,
+              "actual": "ON",
+              "status": "satisfied",
+              "cache_type": "BOOL",
+              "evidence_sha256": "b6586c720a05428704bca378874ec6d86a78f93b3b36e92f543db2990d85760c",
+              "evidence_path": "logs/goal-state/b6586c720a05428704bca378874ec6d86a78f93b3b36e92f543db2990d85760c.txt"
+            },
+            {
+              "key": "SIMDUTF_FAST_TESTS",
+              "expected": false,
+              "actual": "OFF",
+              "status": "satisfied",
+              "cache_type": "BOOL",
+              "evidence_sha256": "b6586c720a05428704bca378874ec6d86a78f93b3b36e92f543db2990d85760c",
+              "evidence_path": "logs/goal-state/b6586c720a05428704bca378874ec6d86a78f93b3b36e92f543db2990d85760c.txt"
+            },
+            {
+              "key": "SIMDUTF_TOOLS",
+              "expected": true,
+              "actual": "ON",
+              "status": "satisfied",
+              "cache_type": "BOOL",
+              "evidence_sha256": "b6586c720a05428704bca378874ec6d86a78f93b3b36e92f543db2990d85760c",
+              "evidence_path": "logs/goal-state/b6586c720a05428704bca378874ec6d86a78f93b3b36e92f543db2990d85760c.txt"
+            },
+            {
+              "key": "BUILD_SHARED_LIBS",
+              "expected": false,
+              "actual": "OFF",
+              "status": "satisfied",
+              "cache_type": "UNINITIALIZED",
+              "evidence_sha256": "b6586c720a05428704bca378874ec6d86a78f93b3b36e92f543db2990d85760c",
+              "evidence_path": "logs/goal-state/b6586c720a05428704bca378874ec6d86a78f93b3b36e92f543db2990d85760c.txt"
+            }
+          ]
+        },
+        {
+          "ts": "2026-10-28T08:26:13.363188+00:00",
+          "status": "satisfied",
+          "after_step_id": "configure",
+          "revision": 2,
+          "command_frontier": "df77194712b4cfdfdaaee8cbaa5b2bb72812763aca5aed087b39da551286487e",
+          "goals": [
+            {
+              "key": "SIMDUTF_TESTS",
+              "expected": true,
+              "actual": "ON",
+              "status": "satisfied",
+              "cache_type": "BOOL",
+              "evidence_sha256": "a55ada514151c6718d4b334ab0329171498f28f34b2932fb7b67f6f07966f329",
+              "evidence_path": "logs/goal-state/a55ada514151c6718d4b334ab0329171498f28f34b2932fb7b67f6f07966f329.txt"
+            },
+            {
+              "key": "BUILD_TESTING",
+              "expected": true,
+              "actual": "ON",
+              "status": "satisfied",
+              "cache_type": "BOOL",
+              "evidence_sha256": "a55ada514151c6718d4b334ab0329171498f28f34b2932fb7b67f6f07966f329",
+              "evidence_path": "logs/goal-state/a55ada514151c6718d4b334ab0329171498f28f34b2932fb7b67f6f07966f329.txt"
+            },
+            {
+              "key": "SIMDUTF_FAST_TESTS",
+              "expected": false,
+              "actual": "OFF",
+              "status": "satisfied",
+              "cache_type": "BOOL",
+              "evidence_sha256": "a55ada514151c6718d4b334ab0329171498f28f34b2932fb7b67f6f07966f329",
+              "evidence_path": "logs/goal-state/a55ada514151c6718d4b334ab0329171498f28f34b2932fb7b67f6f07966f329.txt"
+            },
+            {
+              "key": "SIMDUTF_TOOLS",
+              "expected": true,
+              "actual": "ON",
+              "status": "satisfied",
+              "cache_type": "BOOL",
+              "evidence_sha256": "a55ada514151c6718d4b334ab0329171498f28f34b2932fb7b67f6f07966f329",
+              "evidence_path": "logs/goal-state/a55ada514151c6718d4b334ab0329171498f28f34b2932fb7b67f6f07966f329.txt"
+            },
+            {
+              "key": "BUILD_SHARED_LIBS",
+              "expected": false,
+              "actual": "OFF",
+              "status": "satisfied",
+              "cache_type": null,
+              "evidence_sha256": "a55ada514151c6718d4b334ab0329171498f28f34b2932fb7b67f6f07966f329",
+              "evidence_path": "logs/goal-state/a55ada514151c6718d4b334ab0329171498f28f34b2932fb7b67f6f07966f329.txt"
+            }
+          ]
+        },
+        {
+          "ts": "2026-10-28T08:26:13.365092+00:00",
+          "status": "satisfied",
+          "after_step_id": "build",
+          "revision": 2,
+          "command_frontier": "df77194712b4cfdfdaaee8cbaa5b2bb72812763aca5aed087b39da551286487e",
+          "goals": [
+            {
+              "key": "SIMDUTF_TESTS",
+              "expected": true,
+              "actual": "ON",
+              "status": "satisfied",
+              "cache_type": "BOOL",
+              "evidence_sha256": "a55ada514151c6718d4b334ab0329171498f28f34b2932fb7b67f6f07966f329",
+              "evidence_path": "logs/goal-state/a55ada514151c6718d4b334ab0329171498f28f34b2932fb7b67f6f07966f329.txt"
+            },
+            {
+              "key": "BUILD_TESTING",
+              "expected": true,
+              "actual": "ON",
+              "status": "satisfied",
+              "cache_type": "BOOL",
+              "evidence_sha256": "a55ada514151c6718d4b334ab0329171498f28f34b2932fb7b67f6f07966f329",
+              "evidence_path": "logs/goal-state/a55ada514151c6718d4b334ab0329171498f28f34b2932fb7b67f6f07966f329.txt"
+            },
+            {
+              "key": "SIMDUTF_FAST_TESTS",
+              "expected": false,
+              "actual": "OFF",
+              "status": "satisfied",
+              "cache_type": "BOOL",
+              "evidence_sha256": "a55ada514151c6718d4b334ab0329171498f28f34b2932fb7b67f6f07966f329",
+              "evidence_path": "logs/goal-state/a55ada514151c6718d4b334ab0329171498f28f34b2932fb7b67f6f07966f329.txt"
+            },
+            {
+              "key": "SIMDUTF_TOOLS",
+              "expected": true,
+              "actual": "ON",
+              "status": "satisfied",
+              "cache_type": "BOOL",
+              "evidence_sha256": "a55ada514151c6718d4b334ab0329171498f28f34b2932fb7b67f6f07966f329",
+              "evidence_path": "logs/goal-state/a55ada514151c6718d4b334ab0329171498f28f34b2932fb7b67f6f07966f329.txt"
+            },
+            {
+              "key": "BUILD_SHARED_LIBS",
+              "expected": false,
+              "actual": "OFF",
+              "status": "satisfied",
+              "cache_type": null,
+              "evidence_sha256": "a55ada514151c6718d4b334ab0329171498f28f34b2932fb7b67f6f07966f329",
+              "evidence_path": "logs/goal-state/a55ada514151c6718d4b334ab0329171498f28f34b2932fb7b67f6f07966f329.txt"
+            }
+          ]
+        }
+      ],
+      "final_verification_status": "passed",
+      "final_verification_failed_checks": 0
+    },
+    {
+      "project": "simdutf",
+      "repetition": 2,
+      "method": "goals_only_model_workflow",
+      "strict_completed": true,
+      "error_class": null,
+      "error_message": null,
+      "status": "verified",
+      "session_status": "completed",
+      "arm_total_wall_seconds": 481.66832953000085,
+      "fixed_sources_unchanged": true,
+      "source_links_unchanged": true,
+      "slot": 12,
+      "phases": {
+        "initial": {
+          "requests": 9,
+          "input_tokens": 121296,
+          "output_tokens": 5764,
+          "cost": "0.0433056"
+        },
+        "recovery": {
+          "requests": 0,
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "cost": "0"
+        }
+      },
+      "usage": {
+        "model_requests": 9,
+        "recorded_tokens": 127060,
+        "agent_steps": 24,
+        "tool_calls": 15,
+        "commands": 6,
+        "elapsed_seconds": 264.11841711099987,
+        "input_tokens": 121296,
+        "output_tokens": 5764,
+        "estimated_cost_usd": 0.0433056,
+        "unknown_usage_requests": 0,
+        "cost_and_usage_complete": true,
+        "estimated_cost_usd_completed_responses": 0.0433056
+      },
+      "recovery_episodes": 0,
+      "candidate_presentations": {
+        "tool_call": 1
+      },
+      "goal_actions": [],
+      "build_commands": 2,
+      "build_seconds": 91.39383933000045,
+      "smoke_exits": [
+        0
+      ],
+      "replay_states": [
+        "passed"
+      ],
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "configuration_observations": [],
+      "final_verification_status": "passed",
+      "final_verification_failed_checks": 0
+    },
+    {
+      "project": "snappy",
+      "repetition": 2,
+      "method": "goals_state_model_workflow",
+      "strict_completed": true,
+      "error_class": null,
+      "error_message": null,
+      "status": "verified",
+      "session_status": "completed",
+      "arm_total_wall_seconds": 258.1756374609995,
+      "fixed_sources_unchanged": true,
+      "source_links_unchanged": true,
+      "slot": 13,
+      "phases": {
+        "initial": {
+          "requests": 9,
+          "input_tokens": 125026,
+          "output_tokens": 6676,
+          "cost": "0.0455190"
+        },
+        "recovery": {
+          "requests": 0,
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "cost": "0"
+        }
+      },
+      "usage": {
+        "model_requests": 9,
+        "recorded_tokens": 131702,
+        "agent_steps": 23,
+        "tool_calls": 14,
+        "commands": 7,
+        "elapsed_seconds": 155.58891821500038,
+        "input_tokens": 125026,
+        "output_tokens": 6676,
+        "estimated_cost_usd": 0.045519,
+        "unknown_usage_requests": 0,
+        "cost_and_usage_complete": true,
+        "estimated_cost_usd_completed_responses": 0.045519
+      },
+      "recovery_episodes": 0,
+      "candidate_presentations": {
+        "tool_call": 1
+      },
+      "goal_actions": [
+        {
+          "event": "goal_state.action",
+          "action": "agent",
+          "phase": "initial"
+        },
+        {
+          "event": "goal_state.action",
+          "action": "direct_configuration_revision",
+          "revision": 2,
+          "observation": {
+            "status": "violated",
+            "goals": [
+              {
+                "cache_path": "build/CMakeCache.txt",
+                "key": "SNAPPY_BUILD_TESTS",
+                "expected": true,
+                "verifier_sha256": "ae1e8cf732b348af45968529af0130e569bba9c6e7469db0d32c1a4529597ec2",
+                "default": null,
+                "actual": "ON",
+                "cache_type": "BOOL",
+                "status": "satisfied",
+                "evidence_sha256": "8c815d02ec94e5fe6bf0363057e0c8cd5ac86f65a4a17b6b1c110ab9f8135966",
+                "source_directory": "/workspace/repo",
+                "evidence_path": "logs/goal-state/8c815d02ec94e5fe6bf0363057e0c8cd5ac86f65a4a17b6b1c110ab9f8135966.txt"
+              },
+              {
+                "cache_path": "build/CMakeCache.txt",
+                "key": "SNAPPY_BUILD_BENCHMARKS",
+                "expected": true,
+                "verifier_sha256": "ae1e8cf732b348af45968529af0130e569bba9c6e7469db0d32c1a4529597ec2",
+                "default": null,
+                "actual": "OFF",
+                "cache_type": "BOOL",
+                "status": "violated",
+                "evidence_sha256": "8c815d02ec94e5fe6bf0363057e0c8cd5ac86f65a4a17b6b1c110ab9f8135966",
+                "source_directory": "/workspace/repo",
+                "evidence_path": "logs/goal-state/8c815d02ec94e5fe6bf0363057e0c8cd5ac86f65a4a17b6b1c110ab9f8135966.txt"
+              },
+              {
+                "cache_path": "build/CMakeCache.txt",
+                "key": "HAVE_LIBZ",
+                "expected": true,
+                "verifier_sha256": "ae1e8cf732b348af45968529af0130e569bba9c6e7469db0d32c1a4529597ec2",
+                "default": null,
+                "actual": "1",
+                "cache_type": "INTERNAL",
+                "status": "satisfied",
+                "evidence_sha256": "8c815d02ec94e5fe6bf0363057e0c8cd5ac86f65a4a17b6b1c110ab9f8135966",
+                "source_directory": "/workspace/repo",
+                "evidence_path": "logs/goal-state/8c815d02ec94e5fe6bf0363057e0c8cd5ac86f65a4a17b6b1c110ab9f8135966.txt"
+              },
+              {
+                "cache_path": "build/CMakeCache.txt",
+                "key": "HAVE_LIBLZO2",
+                "expected": true,
+                "verifier_sha256": "ae1e8cf732b348af45968529af0130e569bba9c6e7469db0d32c1a4529597ec2",
+                "default": null,
+                "actual": "1",
+                "cache_type": "INTERNAL",
+                "status": "satisfied",
+                "evidence_sha256": "8c815d02ec94e5fe6bf0363057e0c8cd5ac86f65a4a17b6b1c110ab9f8135966",
+                "source_directory": "/workspace/repo",
+                "evidence_path": "logs/goal-state/8c815d02ec94e5fe6bf0363057e0c8cd5ac86f65a4a17b6b1c110ab9f8135966.txt"
+              },
+              {
+                "cache_path": "build/CMakeCache.txt",
+                "key": "HAVE_LIBLZ4",
+                "expected": true,
+                "verifier_sha256": "ae1e8cf732b348af45968529af0130e569bba9c6e7469db0d32c1a4529597ec2",
+                "default": null,
+                "actual": "1",
+                "cache_type": "INTERNAL",
+                "status": "satisfied",
+                "evidence_sha256": "8c815d02ec94e5fe6bf0363057e0c8cd5ac86f65a4a17b6b1c110ab9f8135966",
+                "source_directory": "/workspace/repo",
+                "evidence_path": "logs/goal-state/8c815d02ec94e5fe6bf0363057e0c8cd5ac86f65a4a17b6b1c110ab9f8135966.txt"
+              },
+              {
+                "cache_path": "build/CMakeCache.txt",
+                "key": "BUILD_SHARED_LIBS",
+                "expected": false,
+                "verifier_sha256": "ae1e8cf732b348af45968529af0130e569bba9c6e7469db0d32c1a4529597ec2",
+                "default": "OFF",
+                "actual": "OFF",
+                "cache_type": "BOOL",
+                "status": "satisfied",
+                "evidence_sha256": "8c815d02ec94e5fe6bf0363057e0c8cd5ac86f65a4a17b6b1c110ab9f8135966",
+                "source_directory": "/workspace/repo",
+                "evidence_path": "logs/goal-state/8c815d02ec94e5fe6bf0363057e0c8cd5ac86f65a4a17b6b1c110ab9f8135966.txt"
+              }
+            ],
+            "scope": "explicit_cmake_configuration_only",
+            "after_step_id": "configure",
+            "revision": 1,
+            "command_frontier": "58680db83f522adea8bd74ea63699730603d573ee8909c65c8a0e4a2aab9b752"
+          }
+        }
+      ],
+      "build_commands": 1,
+      "build_seconds": 20.92120576599973,
+      "smoke_exits": [
+        0
+      ],
+      "replay_states": [
+        "passed"
+      ],
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "configuration_observations": [
+        {
+          "ts": "2026-10-28T08:43:08.828780+00:00",
+          "status": "violated",
+          "after_step_id": "configure",
+          "revision": 1,
+          "command_frontier": "58680db83f522adea8bd74ea63699730603d573ee8909c65c8a0e4a2aab9b752",
+          "goals": [
+            {
+              "key": "SNAPPY_BUILD_TESTS",
+              "expected": true,
+              "actual": "ON",
+              "status": "satisfied",
+              "cache_type": "BOOL",
+              "evidence_sha256": "8c815d02ec94e5fe6bf0363057e0c8cd5ac86f65a4a17b6b1c110ab9f8135966",
+              "evidence_path": "logs/goal-state/8c815d02ec94e5fe6bf0363057e0c8cd5ac86f65a4a17b6b1c110ab9f8135966.txt"
+            },
+            {
+              "key": "SNAPPY_BUILD_BENCHMARKS",
+              "expected": true,
+              "actual": "OFF",
+              "status": "violated",
+              "cache_type": "BOOL",
+              "evidence_sha256": "8c815d02ec94e5fe6bf0363057e0c8cd5ac86f65a4a17b6b1c110ab9f8135966",
+              "evidence_path": "logs/goal-state/8c815d02ec94e5fe6bf0363057e0c8cd5ac86f65a4a17b6b1c110ab9f8135966.txt"
+            },
+            {
+              "key": "HAVE_LIBZ",
+              "expected": true,
+              "actual": "1",
+              "status": "satisfied",
+              "cache_type": "INTERNAL",
+              "evidence_sha256": "8c815d02ec94e5fe6bf0363057e0c8cd5ac86f65a4a17b6b1c110ab9f8135966",
+              "evidence_path": "logs/goal-state/8c815d02ec94e5fe6bf0363057e0c8cd5ac86f65a4a17b6b1c110ab9f8135966.txt"
+            },
+            {
+              "key": "HAVE_LIBLZO2",
+              "expected": true,
+              "actual": "1",
+              "status": "satisfied",
+              "cache_type": "INTERNAL",
+              "evidence_sha256": "8c815d02ec94e5fe6bf0363057e0c8cd5ac86f65a4a17b6b1c110ab9f8135966",
+              "evidence_path": "logs/goal-state/8c815d02ec94e5fe6bf0363057e0c8cd5ac86f65a4a17b6b1c110ab9f8135966.txt"
+            },
+            {
+              "key": "HAVE_LIBLZ4",
+              "expected": true,
+              "actual": "1",
+              "status": "satisfied",
+              "cache_type": "INTERNAL",
+              "evidence_sha256": "8c815d02ec94e5fe6bf0363057e0c8cd5ac86f65a4a17b6b1c110ab9f8135966",
+              "evidence_path": "logs/goal-state/8c815d02ec94e5fe6bf0363057e0c8cd5ac86f65a4a17b6b1c110ab9f8135966.txt"
+            },
+            {
+              "key": "BUILD_SHARED_LIBS",
+              "expected": false,
+              "actual": "OFF",
+              "status": "satisfied",
+              "cache_type": "BOOL",
+              "evidence_sha256": "8c815d02ec94e5fe6bf0363057e0c8cd5ac86f65a4a17b6b1c110ab9f8135966",
+              "evidence_path": "logs/goal-state/8c815d02ec94e5fe6bf0363057e0c8cd5ac86f65a4a17b6b1c110ab9f8135966.txt"
+            }
+          ]
+        },
+        {
+          "ts": "2026-10-28T08:43:15.063744+00:00",
+          "status": "satisfied",
+          "after_step_id": "goal-configure-2",
+          "revision": 2,
+          "command_frontier": "9c149798f26ab85a78c5c63a9039bc0cb2c2e3d4634519496ca005303c1b498c",
+          "goals": [
+            {
+              "key": "SNAPPY_BUILD_TESTS",
+              "expected": true,
+              "actual": "ON",
+              "status": "satisfied",
+              "cache_type": "BOOL",
+              "evidence_sha256": "1d0ba418a74807b8c18685c487a33f0d66b8e879b4660c01eb11e13d3e5c9f13",
+              "evidence_path": "logs/goal-state/1d0ba418a74807b8c18685c487a33f0d66b8e879b4660c01eb11e13d3e5c9f13.txt"
+            },
+            {
+              "key": "SNAPPY_BUILD_BENCHMARKS",
+              "expected": true,
+              "actual": "ON",
+              "status": "satisfied",
+              "cache_type": "BOOL",
+              "evidence_sha256": "1d0ba418a74807b8c18685c487a33f0d66b8e879b4660c01eb11e13d3e5c9f13",
+              "evidence_path": "logs/goal-state/1d0ba418a74807b8c18685c487a33f0d66b8e879b4660c01eb11e13d3e5c9f13.txt"
+            },
+            {
+              "key": "HAVE_LIBZ",
+              "expected": true,
+              "actual": "1",
+              "status": "satisfied",
+              "cache_type": "INTERNAL",
+              "evidence_sha256": "1d0ba418a74807b8c18685c487a33f0d66b8e879b4660c01eb11e13d3e5c9f13",
+              "evidence_path": "logs/goal-state/1d0ba418a74807b8c18685c487a33f0d66b8e879b4660c01eb11e13d3e5c9f13.txt"
+            },
+            {
+              "key": "HAVE_LIBLZO2",
+              "expected": true,
+              "actual": "1",
+              "status": "satisfied",
+              "cache_type": "INTERNAL",
+              "evidence_sha256": "1d0ba418a74807b8c18685c487a33f0d66b8e879b4660c01eb11e13d3e5c9f13",
+              "evidence_path": "logs/goal-state/1d0ba418a74807b8c18685c487a33f0d66b8e879b4660c01eb11e13d3e5c9f13.txt"
+            },
+            {
+              "key": "HAVE_LIBLZ4",
+              "expected": true,
+              "actual": "1",
+              "status": "satisfied",
+              "cache_type": "INTERNAL",
+              "evidence_sha256": "1d0ba418a74807b8c18685c487a33f0d66b8e879b4660c01eb11e13d3e5c9f13",
+              "evidence_path": "logs/goal-state/1d0ba418a74807b8c18685c487a33f0d66b8e879b4660c01eb11e13d3e5c9f13.txt"
+            },
+            {
+              "key": "BUILD_SHARED_LIBS",
+              "expected": false,
+              "actual": "OFF",
+              "status": "satisfied",
+              "cache_type": "BOOL",
+              "evidence_sha256": "1d0ba418a74807b8c18685c487a33f0d66b8e879b4660c01eb11e13d3e5c9f13",
+              "evidence_path": "logs/goal-state/1d0ba418a74807b8c18685c487a33f0d66b8e879b4660c01eb11e13d3e5c9f13.txt"
+            }
+          ]
+        },
+        {
+          "ts": "2026-10-28T08:43:15.065705+00:00",
+          "status": "satisfied",
+          "after_step_id": "build",
+          "revision": 2,
+          "command_frontier": "9c149798f26ab85a78c5c63a9039bc0cb2c2e3d4634519496ca005303c1b498c",
+          "goals": [
+            {
+              "key": "SNAPPY_BUILD_TESTS",
+              "expected": true,
+              "actual": "ON",
+              "status": "satisfied",
+              "cache_type": "BOOL",
+              "evidence_sha256": "1d0ba418a74807b8c18685c487a33f0d66b8e879b4660c01eb11e13d3e5c9f13",
+              "evidence_path": "logs/goal-state/1d0ba418a74807b8c18685c487a33f0d66b8e879b4660c01eb11e13d3e5c9f13.txt"
+            },
+            {
+              "key": "SNAPPY_BUILD_BENCHMARKS",
+              "expected": true,
+              "actual": "ON",
+              "status": "satisfied",
+              "cache_type": "BOOL",
+              "evidence_sha256": "1d0ba418a74807b8c18685c487a33f0d66b8e879b4660c01eb11e13d3e5c9f13",
+              "evidence_path": "logs/goal-state/1d0ba418a74807b8c18685c487a33f0d66b8e879b4660c01eb11e13d3e5c9f13.txt"
+            },
+            {
+              "key": "HAVE_LIBZ",
+              "expected": true,
+              "actual": "1",
+              "status": "satisfied",
+              "cache_type": "INTERNAL",
+              "evidence_sha256": "1d0ba418a74807b8c18685c487a33f0d66b8e879b4660c01eb11e13d3e5c9f13",
+              "evidence_path": "logs/goal-state/1d0ba418a74807b8c18685c487a33f0d66b8e879b4660c01eb11e13d3e5c9f13.txt"
+            },
+            {
+              "key": "HAVE_LIBLZO2",
+              "expected": true,
+              "actual": "1",
+              "status": "satisfied",
+              "cache_type": "INTERNAL",
+              "evidence_sha256": "1d0ba418a74807b8c18685c487a33f0d66b8e879b4660c01eb11e13d3e5c9f13",
+              "evidence_path": "logs/goal-state/1d0ba418a74807b8c18685c487a33f0d66b8e879b4660c01eb11e13d3e5c9f13.txt"
+            },
+            {
+              "key": "HAVE_LIBLZ4",
+              "expected": true,
+              "actual": "1",
+              "status": "satisfied",
+              "cache_type": "INTERNAL",
+              "evidence_sha256": "1d0ba418a74807b8c18685c487a33f0d66b8e879b4660c01eb11e13d3e5c9f13",
+              "evidence_path": "logs/goal-state/1d0ba418a74807b8c18685c487a33f0d66b8e879b4660c01eb11e13d3e5c9f13.txt"
+            },
+            {
+              "key": "BUILD_SHARED_LIBS",
+              "expected": false,
+              "actual": "OFF",
+              "status": "satisfied",
+              "cache_type": "BOOL",
+              "evidence_sha256": "1d0ba418a74807b8c18685c487a33f0d66b8e879b4660c01eb11e13d3e5c9f13",
+              "evidence_path": "logs/goal-state/1d0ba418a74807b8c18685c487a33f0d66b8e879b4660c01eb11e13d3e5c9f13.txt"
+            }
+          ]
+        }
+      ],
+      "final_verification_status": "passed",
+      "final_verification_failed_checks": 0
+    },
+    {
+      "project": "snappy",
+      "repetition": 2,
+      "method": "common_model_workflow",
+      "strict_completed": true,
+      "error_class": null,
+      "error_message": null,
+      "status": "verified",
+      "session_status": "completed",
+      "arm_total_wall_seconds": 304.4779550939993,
+      "fixed_sources_unchanged": true,
+      "source_links_unchanged": true,
+      "slot": 14,
+      "phases": {
+        "initial": {
+          "requests": 9,
+          "input_tokens": 124629,
+          "output_tokens": 2543,
+          "cost": "0.0404403"
+        },
+        "recovery": {
+          "requests": 5,
+          "input_tokens": 100118,
+          "output_tokens": 3932,
+          "cost": "0.0347538"
+        }
+      },
+      "usage": {
+        "model_requests": 14,
+        "recorded_tokens": 231222,
+        "agent_steps": 39,
+        "tool_calls": 25,
+        "commands": 9,
+        "elapsed_seconds": 202.7230672810001,
+        "input_tokens": 224747,
+        "output_tokens": 6475,
+        "estimated_cost_usd": 0.0751941,
+        "unknown_usage_requests": 0,
+        "cost_and_usage_complete": true,
+        "estimated_cost_usd_completed_responses": 0.0751941
+      },
+      "recovery_episodes": 1,
+      "candidate_presentations": {
+        "tool_call": 2
+      },
+      "goal_actions": [],
+      "build_commands": 2,
+      "build_seconds": 35.85083652499998,
+      "smoke_exits": [
+        1,
+        0
+      ],
+      "replay_states": [
+        "passed"
+      ],
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "configuration_observations": [],
+      "final_verification_status": "passed",
+      "final_verification_failed_checks": 0
+    },
+    {
+      "project": "snappy",
+      "repetition": 2,
+      "method": "goals_only_model_workflow",
+      "strict_completed": true,
+      "error_class": null,
+      "error_message": null,
+      "status": "verified",
+      "session_status": "completed",
+      "arm_total_wall_seconds": 276.08753609299947,
+      "fixed_sources_unchanged": true,
+      "source_links_unchanged": true,
+      "slot": 15,
+      "phases": {
+        "initial": {
+          "requests": 9,
+          "input_tokens": 120025,
+          "output_tokens": 9708,
+          "cost": "0.0476571"
+        },
+        "recovery": {
+          "requests": 0,
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "cost": "0"
+        }
+      },
+      "usage": {
+        "model_requests": 9,
+        "recorded_tokens": 129733,
+        "agent_steps": 22,
+        "tool_calls": 13,
+        "commands": 6,
+        "elapsed_seconds": 166.57001424200007,
+        "input_tokens": 120025,
+        "output_tokens": 9708,
+        "estimated_cost_usd": 0.0476571,
+        "unknown_usage_requests": 0,
+        "cost_and_usage_complete": true,
+        "estimated_cost_usd_completed_responses": 0.0476571
+      },
+      "recovery_episodes": 0,
+      "candidate_presentations": {
+        "tool_call": 1
+      },
+      "goal_actions": [],
+      "build_commands": 1,
+      "build_seconds": 21.22764913299943,
+      "smoke_exits": [
+        0
+      ],
+      "replay_states": [
+        "passed"
+      ],
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "configuration_observations": [],
+      "final_verification_status": "passed",
+      "final_verification_failed_checks": 0
+    },
+    {
+      "project": "yaml-cpp",
+      "repetition": 2,
+      "method": "goals_only_model_workflow",
+      "strict_completed": true,
+      "error_class": null,
+      "error_message": null,
+      "status": "verified",
+      "session_status": "completed",
+      "arm_total_wall_seconds": 90.74672127899976,
+      "fixed_sources_unchanged": true,
+      "source_links_unchanged": true,
+      "slot": 16,
+      "phases": {
+        "initial": {
+          "requests": 3,
+          "input_tokens": 32838,
+          "output_tokens": 1312,
+          "cost": "0.0114258"
+        },
+        "recovery": {
+          "requests": 0,
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "cost": "0"
+        }
+      },
+      "usage": {
+        "model_requests": 3,
+        "recorded_tokens": 34150,
+        "agent_steps": 6,
+        "tool_calls": 3,
+        "commands": 5,
+        "elapsed_seconds": 47.95835202900071,
+        "input_tokens": 32838,
+        "output_tokens": 1312,
+        "estimated_cost_usd": 0.0114258,
+        "unknown_usage_requests": 0,
+        "cost_and_usage_complete": true,
+        "estimated_cost_usd_completed_responses": 0.0114258
+      },
+      "recovery_episodes": 0,
+      "candidate_presentations": {
+        "tool_call": 1
+      },
+      "goal_actions": [],
+      "build_commands": 1,
+      "build_seconds": 31.35930031299995,
+      "smoke_exits": [
+        0
+      ],
+      "replay_states": [
+        "passed"
+      ],
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "configuration_observations": [],
+      "final_verification_status": "passed",
+      "final_verification_failed_checks": 0
+    },
+    {
+      "project": "yaml-cpp",
+      "repetition": 2,
+      "method": "common_model_workflow",
+      "strict_completed": true,
+      "error_class": null,
+      "error_message": null,
+      "status": "verified",
+      "session_status": "completed",
+      "arm_total_wall_seconds": 208.97991497600015,
+      "fixed_sources_unchanged": true,
+      "source_links_unchanged": true,
+      "slot": 17,
+      "phases": {
+        "initial": {
+          "requests": 6,
+          "input_tokens": 71106,
+          "output_tokens": 3482,
+          "cost": "0.0255102"
+        },
+        "recovery": {
+          "requests": 0,
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "cost": "0"
+        }
+      },
+      "usage": {
+        "model_requests": 6,
+        "recorded_tokens": 74588,
+        "agent_steps": 15,
+        "tool_calls": 9,
+        "commands": 5,
+        "elapsed_seconds": 115.69866438399913,
+        "input_tokens": 71106,
+        "output_tokens": 3482,
+        "estimated_cost_usd": 0.0255102,
+        "unknown_usage_requests": 0,
+        "cost_and_usage_complete": true,
+        "estimated_cost_usd_completed_responses": 0.0255102
+      },
+      "recovery_episodes": 0,
+      "candidate_presentations": {
+        "tool_call": 1
+      },
+      "goal_actions": [],
+      "build_commands": 1,
+      "build_seconds": 82.25523332899957,
+      "smoke_exits": [
+        0
+      ],
+      "replay_states": [
+        "passed"
+      ],
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "configuration_observations": [],
+      "final_verification_status": "passed",
+      "final_verification_failed_checks": 0
+    },
+    {
+      "project": "yaml-cpp",
+      "repetition": 2,
+      "method": "goals_state_model_workflow",
+      "strict_completed": true,
+      "error_class": null,
+      "error_message": null,
+      "status": "verified",
+      "session_status": "completed",
+      "arm_total_wall_seconds": 182.85909917000026,
+      "fixed_sources_unchanged": true,
+      "source_links_unchanged": true,
+      "slot": 18,
+      "phases": {
+        "initial": {
+          "requests": 4,
+          "input_tokens": 45811,
+          "output_tokens": 2403,
+          "cost": "0.0166269"
+        },
+        "recovery": {
+          "requests": 2,
+          "input_tokens": 42085,
+          "output_tokens": 5605,
+          "cost": "0.0193515"
+        }
+      },
+      "usage": {
+        "model_requests": 6,
+        "recorded_tokens": 95904,
+        "agent_steps": 13,
+        "tool_calls": 7,
+        "commands": 7,
+        "elapsed_seconds": 137.98199553599989,
+        "input_tokens": 87896,
+        "output_tokens": 8008,
+        "estimated_cost_usd": 0.0359784,
+        "unknown_usage_requests": 0,
+        "cost_and_usage_complete": true,
+        "estimated_cost_usd_completed_responses": 0.0359784
+      },
+      "recovery_episodes": 1,
+      "candidate_presentations": {
+        "tool_call": 2
+      },
+      "goal_actions": [
+        {
+          "event": "goal_state.action",
+          "action": "agent",
+          "phase": "initial"
+        },
+        {
+          "event": "goal_state.action",
+          "action": "agent",
+          "phase": "recovery"
+        }
+      ],
+      "build_commands": 2,
+      "build_seconds": 66.20422936599971,
+      "smoke_exits": [
+        0
+      ],
+      "replay_states": [
+        "passed"
+      ],
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "configuration_observations": [
+        {
+          "ts": "2026-10-28T09:00:25.566321+00:00",
+          "status": "satisfied",
+          "after_step_id": "configure",
+          "revision": 1,
+          "command_frontier": "60b05de2123bdbf44bb1c9acd7d2e59dd3b9cb2f9a105f10dbc64fba3931cc47",
+          "goals": [
+            {
+              "key": "YAML_CPP_BUILD_TESTS",
+              "expected": true,
+              "actual": "ON",
+              "status": "satisfied",
+              "cache_type": "BOOL",
+              "evidence_sha256": "c10879fc88d970d9d27017750815d144a8e430f4168e55dabe8ee42babcf4bb7",
+              "evidence_path": "logs/goal-state/c10879fc88d970d9d27017750815d144a8e430f4168e55dabe8ee42babcf4bb7.txt"
+            },
+            {
+              "key": "BUILD_TESTING",
+              "expected": true,
+              "actual": "ON",
+              "status": "satisfied",
+              "cache_type": "BOOL",
+              "evidence_sha256": "c10879fc88d970d9d27017750815d144a8e430f4168e55dabe8ee42babcf4bb7",
+              "evidence_path": "logs/goal-state/c10879fc88d970d9d27017750815d144a8e430f4168e55dabe8ee42babcf4bb7.txt"
+            },
+            {
+              "key": "YAML_CPP_BUILD_CONTRIB",
+              "expected": true,
+              "actual": "ON",
+              "status": "satisfied",
+              "cache_type": "BOOL",
+              "evidence_sha256": "c10879fc88d970d9d27017750815d144a8e430f4168e55dabe8ee42babcf4bb7",
+              "evidence_path": "logs/goal-state/c10879fc88d970d9d27017750815d144a8e430f4168e55dabe8ee42babcf4bb7.txt"
+            },
+            {
+              "key": "YAML_CPP_BUILD_TOOLS",
+              "expected": true,
+              "actual": "ON",
+              "status": "satisfied",
+              "cache_type": "BOOL",
+              "evidence_sha256": "c10879fc88d970d9d27017750815d144a8e430f4168e55dabe8ee42babcf4bb7",
+              "evidence_path": "logs/goal-state/c10879fc88d970d9d27017750815d144a8e430f4168e55dabe8ee42babcf4bb7.txt"
+            },
+            {
+              "key": "YAML_BUILD_SHARED_LIBS",
+              "expected": false,
+              "actual": "OFF",
+              "status": "satisfied",
+              "cache_type": "BOOL",
+              "evidence_sha256": "c10879fc88d970d9d27017750815d144a8e430f4168e55dabe8ee42babcf4bb7",
+              "evidence_path": "logs/goal-state/c10879fc88d970d9d27017750815d144a8e430f4168e55dabe8ee42babcf4bb7.txt"
+            },
+            {
+              "key": "YAML_USE_SYSTEM_GTEST",
+              "expected": false,
+              "actual": "OFF",
+              "status": "satisfied",
+              "cache_type": "BOOL",
+              "evidence_sha256": "c10879fc88d970d9d27017750815d144a8e430f4168e55dabe8ee42babcf4bb7",
+              "evidence_path": "logs/goal-state/c10879fc88d970d9d27017750815d144a8e430f4168e55dabe8ee42babcf4bb7.txt"
+            },
+            {
+              "key": "BUILD_SHARED_LIBS",
+              "expected": false,
+              "actual": "OFF",
+              "status": "satisfied",
+              "cache_type": null,
+              "evidence_sha256": "c10879fc88d970d9d27017750815d144a8e430f4168e55dabe8ee42babcf4bb7",
+              "evidence_path": "logs/goal-state/c10879fc88d970d9d27017750815d144a8e430f4168e55dabe8ee42babcf4bb7.txt"
+            }
+          ]
+        },
+        {
+          "ts": "2026-10-28T09:00:25.568302+00:00",
+          "status": "satisfied",
+          "after_step_id": "build",
+          "revision": 1,
+          "command_frontier": "60b05de2123bdbf44bb1c9acd7d2e59dd3b9cb2f9a105f10dbc64fba3931cc47",
+          "goals": [
+            {
+              "key": "YAML_CPP_BUILD_TESTS",
+              "expected": true,
+              "actual": "ON",
+              "status": "satisfied",
+              "cache_type": "BOOL",
+              "evidence_sha256": "c10879fc88d970d9d27017750815d144a8e430f4168e55dabe8ee42babcf4bb7",
+              "evidence_path": "logs/goal-state/c10879fc88d970d9d27017750815d144a8e430f4168e55dabe8ee42babcf4bb7.txt"
+            },
+            {
+              "key": "BUILD_TESTING",
+              "expected": true,
+              "actual": "ON",
+              "status": "satisfied",
+              "cache_type": "BOOL",
+              "evidence_sha256": "c10879fc88d970d9d27017750815d144a8e430f4168e55dabe8ee42babcf4bb7",
+              "evidence_path": "logs/goal-state/c10879fc88d970d9d27017750815d144a8e430f4168e55dabe8ee42babcf4bb7.txt"
+            },
+            {
+              "key": "YAML_CPP_BUILD_CONTRIB",
+              "expected": true,
+              "actual": "ON",
+              "status": "satisfied",
+              "cache_type": "BOOL",
+              "evidence_sha256": "c10879fc88d970d9d27017750815d144a8e430f4168e55dabe8ee42babcf4bb7",
+              "evidence_path": "logs/goal-state/c10879fc88d970d9d27017750815d144a8e430f4168e55dabe8ee42babcf4bb7.txt"
+            },
+            {
+              "key": "YAML_CPP_BUILD_TOOLS",
+              "expected": true,
+              "actual": "ON",
+              "status": "satisfied",
+              "cache_type": "BOOL",
+              "evidence_sha256": "c10879fc88d970d9d27017750815d144a8e430f4168e55dabe8ee42babcf4bb7",
+              "evidence_path": "logs/goal-state/c10879fc88d970d9d27017750815d144a8e430f4168e55dabe8ee42babcf4bb7.txt"
+            },
+            {
+              "key": "YAML_BUILD_SHARED_LIBS",
+              "expected": false,
+              "actual": "OFF",
+              "status": "satisfied",
+              "cache_type": "BOOL",
+              "evidence_sha256": "c10879fc88d970d9d27017750815d144a8e430f4168e55dabe8ee42babcf4bb7",
+              "evidence_path": "logs/goal-state/c10879fc88d970d9d27017750815d144a8e430f4168e55dabe8ee42babcf4bb7.txt"
+            },
+            {
+              "key": "YAML_USE_SYSTEM_GTEST",
+              "expected": false,
+              "actual": "OFF",
+              "status": "satisfied",
+              "cache_type": "BOOL",
+              "evidence_sha256": "c10879fc88d970d9d27017750815d144a8e430f4168e55dabe8ee42babcf4bb7",
+              "evidence_path": "logs/goal-state/c10879fc88d970d9d27017750815d144a8e430f4168e55dabe8ee42babcf4bb7.txt"
+            },
+            {
+              "key": "BUILD_SHARED_LIBS",
+              "expected": false,
+              "actual": "OFF",
+              "status": "satisfied",
+              "cache_type": null,
+              "evidence_sha256": "c10879fc88d970d9d27017750815d144a8e430f4168e55dabe8ee42babcf4bb7",
+              "evidence_path": "logs/goal-state/c10879fc88d970d9d27017750815d144a8e430f4168e55dabe8ee42babcf4bb7.txt"
+            }
+          ]
+        },
+        {
+          "ts": "2026-10-28T09:01:46.698168+00:00",
+          "status": "satisfied",
+          "after_step_id": "configure",
+          "revision": 2,
+          "command_frontier": "fc636a5e99bd059a80d1f78df1a38e7e54d59fc4175f1e79da8f87c8efaeea9d",
+          "goals": [
+            {
+              "key": "YAML_CPP_BUILD_TESTS",
+              "expected": true,
+              "actual": "ON",
+              "status": "satisfied",
+              "cache_type": "BOOL",
+              "evidence_sha256": "c10879fc88d970d9d27017750815d144a8e430f4168e55dabe8ee42babcf4bb7",
+              "evidence_path": "logs/goal-state/c10879fc88d970d9d27017750815d144a8e430f4168e55dabe8ee42babcf4bb7.txt"
+            },
+            {
+              "key": "BUILD_TESTING",
+              "expected": true,
+              "actual": "ON",
+              "status": "satisfied",
+              "cache_type": "BOOL",
+              "evidence_sha256": "c10879fc88d970d9d27017750815d144a8e430f4168e55dabe8ee42babcf4bb7",
+              "evidence_path": "logs/goal-state/c10879fc88d970d9d27017750815d144a8e430f4168e55dabe8ee42babcf4bb7.txt"
+            },
+            {
+              "key": "YAML_CPP_BUILD_CONTRIB",
+              "expected": true,
+              "actual": "ON",
+              "status": "satisfied",
+              "cache_type": "BOOL",
+              "evidence_sha256": "c10879fc88d970d9d27017750815d144a8e430f4168e55dabe8ee42babcf4bb7",
+              "evidence_path": "logs/goal-state/c10879fc88d970d9d27017750815d144a8e430f4168e55dabe8ee42babcf4bb7.txt"
+            },
+            {
+              "key": "YAML_CPP_BUILD_TOOLS",
+              "expected": true,
+              "actual": "ON",
+              "status": "satisfied",
+              "cache_type": "BOOL",
+              "evidence_sha256": "c10879fc88d970d9d27017750815d144a8e430f4168e55dabe8ee42babcf4bb7",
+              "evidence_path": "logs/goal-state/c10879fc88d970d9d27017750815d144a8e430f4168e55dabe8ee42babcf4bb7.txt"
+            },
+            {
+              "key": "YAML_BUILD_SHARED_LIBS",
+              "expected": false,
+              "actual": "OFF",
+              "status": "satisfied",
+              "cache_type": "BOOL",
+              "evidence_sha256": "c10879fc88d970d9d27017750815d144a8e430f4168e55dabe8ee42babcf4bb7",
+              "evidence_path": "logs/goal-state/c10879fc88d970d9d27017750815d144a8e430f4168e55dabe8ee42babcf4bb7.txt"
+            },
+            {
+              "key": "YAML_USE_SYSTEM_GTEST",
+              "expected": false,
+              "actual": "OFF",
+              "status": "satisfied",
+              "cache_type": "BOOL",
+              "evidence_sha256": "c10879fc88d970d9d27017750815d144a8e430f4168e55dabe8ee42babcf4bb7",
+              "evidence_path": "logs/goal-state/c10879fc88d970d9d27017750815d144a8e430f4168e55dabe8ee42babcf4bb7.txt"
+            },
+            {
+              "key": "BUILD_SHARED_LIBS",
+              "expected": false,
+              "actual": "OFF",
+              "status": "satisfied",
+              "cache_type": null,
+              "evidence_sha256": "c10879fc88d970d9d27017750815d144a8e430f4168e55dabe8ee42babcf4bb7",
+              "evidence_path": "logs/goal-state/c10879fc88d970d9d27017750815d144a8e430f4168e55dabe8ee42babcf4bb7.txt"
+            }
+          ]
+        },
+        {
+          "ts": "2026-10-28T09:01:46.700107+00:00",
+          "status": "satisfied",
+          "after_step_id": "build",
+          "revision": 2,
+          "command_frontier": "fc636a5e99bd059a80d1f78df1a38e7e54d59fc4175f1e79da8f87c8efaeea9d",
+          "goals": [
+            {
+              "key": "YAML_CPP_BUILD_TESTS",
+              "expected": true,
+              "actual": "ON",
+              "status": "satisfied",
+              "cache_type": "BOOL",
+              "evidence_sha256": "c10879fc88d970d9d27017750815d144a8e430f4168e55dabe8ee42babcf4bb7",
+              "evidence_path": "logs/goal-state/c10879fc88d970d9d27017750815d144a8e430f4168e55dabe8ee42babcf4bb7.txt"
+            },
+            {
+              "key": "BUILD_TESTING",
+              "expected": true,
+              "actual": "ON",
+              "status": "satisfied",
+              "cache_type": "BOOL",
+              "evidence_sha256": "c10879fc88d970d9d27017750815d144a8e430f4168e55dabe8ee42babcf4bb7",
+              "evidence_path": "logs/goal-state/c10879fc88d970d9d27017750815d144a8e430f4168e55dabe8ee42babcf4bb7.txt"
+            },
+            {
+              "key": "YAML_CPP_BUILD_CONTRIB",
+              "expected": true,
+              "actual": "ON",
+              "status": "satisfied",
+              "cache_type": "BOOL",
+              "evidence_sha256": "c10879fc88d970d9d27017750815d144a8e430f4168e55dabe8ee42babcf4bb7",
+              "evidence_path": "logs/goal-state/c10879fc88d970d9d27017750815d144a8e430f4168e55dabe8ee42babcf4bb7.txt"
+            },
+            {
+              "key": "YAML_CPP_BUILD_TOOLS",
+              "expected": true,
+              "actual": "ON",
+              "status": "satisfied",
+              "cache_type": "BOOL",
+              "evidence_sha256": "c10879fc88d970d9d27017750815d144a8e430f4168e55dabe8ee42babcf4bb7",
+              "evidence_path": "logs/goal-state/c10879fc88d970d9d27017750815d144a8e430f4168e55dabe8ee42babcf4bb7.txt"
+            },
+            {
+              "key": "YAML_BUILD_SHARED_LIBS",
+              "expected": false,
+              "actual": "OFF",
+              "status": "satisfied",
+              "cache_type": "BOOL",
+              "evidence_sha256": "c10879fc88d970d9d27017750815d144a8e430f4168e55dabe8ee42babcf4bb7",
+              "evidence_path": "logs/goal-state/c10879fc88d970d9d27017750815d144a8e430f4168e55dabe8ee42babcf4bb7.txt"
+            },
+            {
+              "key": "YAML_USE_SYSTEM_GTEST",
+              "expected": false,
+              "actual": "OFF",
+              "status": "satisfied",
+              "cache_type": "BOOL",
+              "evidence_sha256": "c10879fc88d970d9d27017750815d144a8e430f4168e55dabe8ee42babcf4bb7",
+              "evidence_path": "logs/goal-state/c10879fc88d970d9d27017750815d144a8e430f4168e55dabe8ee42babcf4bb7.txt"
+            },
+            {
+              "key": "BUILD_SHARED_LIBS",
+              "expected": false,
+              "actual": "OFF",
+              "status": "satisfied",
+              "cache_type": null,
+              "evidence_sha256": "c10879fc88d970d9d27017750815d144a8e430f4168e55dabe8ee42babcf4bb7",
+              "evidence_path": "logs/goal-state/c10879fc88d970d9d27017750815d144a8e430f4168e55dabe8ee42babcf4bb7.txt"
+            }
+          ]
+        }
+      ],
+      "final_verification_status": "passed",
+      "final_verification_failed_checks": 0
+    }
+  ],
+  "raw_evidence": "/home/yiwei/.codex/outputs/forge-goal-state-component-ablation-flash-v1",
+  "inventory": {
+    "format": "forge-typed-evidence-v1",
+    "identity": "cpp-build-goal-state-component-ablation-flash-v1",
+    "entries": 67080,
+    "files": 67068,
+    "symlinks": 12,
+    "bytes": 2467517952,
+    "inventory_canonical_sha256": "8e1b481aa8a059e46e4ef325a2a8fadeb6db27b482d9d723d4cfe3d66273955d",
+    "unknown_usage_requests": 0
+  },
+  "configuration_observation_counts": {
+    "satisfied": 16,
+    "violated": 1
+  },
+  "verification": {
+    "valid": true,
+    "issues": [],
+    "identity": "cpp-build-goal-state-component-ablation-flash-v1",
+    "inventory_canonical_sha256": "8e1b481aa8a059e46e4ef325a2a8fadeb6db27b482d9d723d4cfe3d66273955d",
+    "entries": 67080,
+    "files": 67068,
+    "symlinks": 12,
+    "bytes": 2467517952,
+    "candidate_sha256": "87fd9cf72bef05c23dd9d38f6a92a895079731c8a03abc1b5f915beaaf205ca1",
+    "release": "28cb0c3712bd3a3f3e2e66e1956a9d8f39bd1dcc",
+    "model_response_usage_verified": true,
+    "frozen_components_verified": 332,
+    "observed": 18,
+    "unobserved": 0,
+    "complete": 18,
+    "sources_unchanged": true,
+    "cleanup": true,
+    "resource_inspections_count": 72
+  },
+  "rq3_fixed_denominator": 18,
+  "rq3_levels": {
+    "final_build_role_command": {
+      "passed": 18,
+      "failed": 0,
+      "unobserved": 0
+    },
+    "fixed_task_checks": {
+      "passed": 18,
+      "failed": 0,
+      "unobserved": 0
+    },
+    "exact_delivery": {
+      "passed": 18,
+      "failed": 0,
+      "unobserved": 0
+    },
+    "complete_clean_replay": {
+      "passed": 18,
+      "failed": 0,
+      "unobserved": 0
+    },
+    "original_sources_and_links": {
+      "passed": 18,
+      "failed": 0,
+      "unobserved": 0
+    },
+    "cleanup": {
+      "passed": 18,
+      "failed": 0,
+      "unobserved": 0
+    }
+  },
+  "interpretation_boundary": "三个已见CMake任务、各两重复；各臂独立初始规划。描述组件取舍及一例自然直接修订，不估直接动作平均因果收益、自然恢复率、统计显著性或未见泛化。旧分母保持。",
+  "next_issue": "https://github.com/WWFXL/Forge-AutoCompiler/issues/637"
+}
