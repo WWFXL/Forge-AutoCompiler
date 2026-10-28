@@ -12,7 +12,8 @@
 
 |文件|论文登记|
 |---|---|
-|[2026-10-29-unified-system-comparison-design.md](2026-10-29-unified-system-comparison-design.md)|[E29](THESIS_EVIDENCE_INDEX.md#e29)：实验设置/工程检查，48槽真实效果未观察|
+|[2026-10-29-unified-system-comparison-results.md](2026-10-29-unified-system-comparison-results.md)|[E30](THESIS_EVIDENCE_INDEX.md#e30)：正文候选，48次真实系统比较及分层结果|
+|[2026-10-29-unified-system-comparison-design.md](2026-10-29-unified-system-comparison-design.md)|[E29](THESIS_EVIDENCE_INDEX.md#e29)：实验设置/工程检查，后续真实结果单列E30|
 
 ## 研究报告与设计材料（116份）
 

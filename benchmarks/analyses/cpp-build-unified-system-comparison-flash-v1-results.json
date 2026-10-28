@@ -1,0 +1,3655 @@
+{
+  "identity": "cpp-build-unified-system-comparison-flash-v1",
+  "raw": "/home/yiwei/.codex/outputs/forge-unified-system-comparison-flash-v1",
+  "candidate_sha256": "d529095ef62e2127050c69936074169d41bf1eff6e470165fd48b4a5b494879c",
+  "inventory": {
+    "format": "forge-typed-evidence-v1",
+    "identity": "cpp-build-unified-system-comparison-flash-v1",
+    "entries": 107050,
+    "files": 106976,
+    "symlinks": 74,
+    "bytes": 2736977979,
+    "inventory_canonical_sha256": "138294da578cc3ab326e546bf678d4f81fef770830e2de71fb90b1637f500582",
+    "unknown_usage_requests": 0
+  },
+  "summary": {
+    "forge_state_workflow": {
+      "planned": 16,
+      "observed": 16,
+      "complete": 16,
+      "not_complete": 0,
+      "unobserved": 0,
+      "requests": 84,
+      "input_tokens": 1411011,
+      "output_tokens": 74037,
+      "cost_usd": "0.5121477",
+      "seconds": 3642.112001521993,
+      "missing_timing": 0,
+      "unknown_requests": 0
+    },
+    "strong_tool_agent": {
+      "planned": 16,
+      "observed": 16,
+      "complete": 16,
+      "not_complete": 0,
+      "unobserved": 0,
+      "requests": 145,
+      "input_tokens": 2116713,
+      "output_tokens": 24093,
+      "cost_usd": "0.6639255",
+      "seconds": 3743.1400766910083,
+      "missing_timing": 0,
+      "unknown_requests": 0
+    },
+    "cxxcrafter_community_reference": {
+      "planned": 16,
+      "observed": 16,
+      "complete": 13,
+      "not_complete": 3,
+      "unobserved": 0,
+      "requests": 109,
+      "input_tokens": 796979,
+      "output_tokens": 263594,
+      "cost_usd": "0.5554065",
+      "seconds": 5791.112769987994,
+      "missing_timing": 0,
+      "unknown_requests": 0
+    }
+  },
+  "per_project": {
+    "check": {
+      "forge_state_workflow": {
+        "planned": 2,
+        "observed": 2,
+        "complete": 2,
+        "not_complete": 0,
+        "unobserved": 0,
+        "requests": 22,
+        "input_tokens": 413973,
+        "output_tokens": 36267,
+        "cost_usd": "0.1677123",
+        "seconds": 1356.0281380769957,
+        "missing_timing": 0,
+        "unknown_requests": 0
+      },
+      "strong_tool_agent": {
+        "planned": 2,
+        "observed": 2,
+        "complete": 2,
+        "not_complete": 0,
+        "unobserved": 0,
+        "requests": 23,
+        "input_tokens": 357447,
+        "output_tokens": 4626,
+        "cost_usd": "0.1127853",
+        "seconds": 1444.2155307860085,
+        "missing_timing": 0,
+        "unknown_requests": 0
+      },
+      "cxxcrafter_community_reference": {
+        "planned": 2,
+        "observed": 2,
+        "complete": 0,
+        "not_complete": 2,
+        "unobserved": 0,
+        "requests": 18,
+        "input_tokens": 207428,
+        "output_tokens": 28443,
+        "cost_usd": "0.0963600",
+        "seconds": 1109.052996655002,
+        "missing_timing": 0,
+        "unknown_requests": 0
+      }
+    },
+    "simdutf": {
+      "forge_state_workflow": {
+        "planned": 2,
+        "observed": 2,
+        "complete": 2,
+        "not_complete": 0,
+        "unobserved": 0,
+        "requests": 20,
+        "input_tokens": 407689,
+        "output_tokens": 14426,
+        "cost_usd": "0.1396179",
+        "seconds": 1100.6417413939998,
+        "missing_timing": 0,
+        "unknown_requests": 0
+      },
+      "strong_tool_agent": {
+        "planned": 2,
+        "observed": 2,
+        "complete": 2,
+        "not_complete": 0,
+        "unobserved": 0,
+        "requests": 20,
+        "input_tokens": 315707,
+        "output_tokens": 3402,
+        "cost_usd": "0.0987945",
+        "seconds": 1012.7424714799927,
+        "missing_timing": 0,
+        "unknown_requests": 0
+      },
+      "cxxcrafter_community_reference": {
+        "planned": 2,
+        "observed": 2,
+        "complete": 2,
+        "not_complete": 0,
+        "unobserved": 0,
+        "requests": 14,
+        "input_tokens": 174355,
+        "output_tokens": 21944,
+        "cost_usd": "0.0786393",
+        "seconds": 1564.7982910529972,
+        "missing_timing": 0,
+        "unknown_requests": 0
+      }
+    },
+    "snappy": {
+      "forge_state_workflow": {
+        "planned": 2,
+        "observed": 2,
+        "complete": 2,
+        "not_complete": 0,
+        "unobserved": 0,
+        "requests": 6,
+        "input_tokens": 101497,
+        "output_tokens": 4309,
+        "cost_usd": "0.0356199",
+        "seconds": 361.7576279379937,
+        "missing_timing": 0,
+        "unknown_requests": 0
+      },
+      "strong_tool_agent": {
+        "planned": 2,
+        "observed": 2,
+        "complete": 2,
+        "not_complete": 0,
+        "unobserved": 0,
+        "requests": 19,
+        "input_tokens": 330820,
+        "output_tokens": 2882,
+        "cost_usd": "0.1027044",
+        "seconds": 405.91098897199845,
+        "missing_timing": 0,
+        "unknown_requests": 0
+      },
+      "cxxcrafter_community_reference": {
+        "planned": 2,
+        "observed": 2,
+        "complete": 1,
+        "not_complete": 1,
+        "unobserved": 0,
+        "requests": 12,
+        "input_tokens": 88684,
+        "output_tokens": 35209,
+        "cost_usd": "0.0688560",
+        "seconds": 573.1981594540048,
+        "missing_timing": 0,
+        "unknown_requests": 0
+      }
+    },
+    "yaml-cpp": {
+      "forge_state_workflow": {
+        "planned": 2,
+        "observed": 2,
+        "complete": 2,
+        "not_complete": 0,
+        "unobserved": 0,
+        "requests": 5,
+        "input_tokens": 70750,
+        "output_tokens": 3955,
+        "cost_usd": "0.0259710",
+        "seconds": 365.9870061430047,
+        "missing_timing": 0,
+        "unknown_requests": 0
+      },
+      "strong_tool_agent": {
+        "planned": 2,
+        "observed": 2,
+        "complete": 2,
+        "not_complete": 0,
+        "unobserved": 0,
+        "requests": 17,
+        "input_tokens": 251033,
+        "output_tokens": 2561,
+        "cost_usd": "0.0783831",
+        "seconds": 384.1871536469989,
+        "missing_timing": 0,
+        "unknown_requests": 0
+      },
+      "cxxcrafter_community_reference": {
+        "planned": 2,
+        "observed": 2,
+        "complete": 2,
+        "not_complete": 0,
+        "unobserved": 0,
+        "requests": 12,
+        "input_tokens": 75422,
+        "output_tokens": 37483,
+        "cost_usd": "0.0676062",
+        "seconds": 747.0093224769953,
+        "missing_timing": 0,
+        "unknown_requests": 0
+      }
+    },
+    "libtommath": {
+      "forge_state_workflow": {
+        "planned": 2,
+        "observed": 2,
+        "complete": 2,
+        "not_complete": 0,
+        "unobserved": 0,
+        "requests": 11,
+        "input_tokens": 156499,
+        "output_tokens": 3545,
+        "cost_usd": "0.0512037",
+        "seconds": 110.99894063299143,
+        "missing_timing": 0,
+        "unknown_requests": 0
+      },
+      "strong_tool_agent": {
+        "planned": 2,
+        "observed": 2,
+        "complete": 2,
+        "not_complete": 0,
+        "unobserved": 0,
+        "requests": 18,
+        "input_tokens": 240162,
+        "output_tokens": 3028,
+        "cost_usd": "0.0756822",
+        "seconds": 121.82817669600627,
+        "missing_timing": 0,
+        "unknown_requests": 0
+      },
+      "cxxcrafter_community_reference": {
+        "planned": 2,
+        "observed": 2,
+        "complete": 2,
+        "not_complete": 0,
+        "unobserved": 0,
+        "requests": 16,
+        "input_tokens": 51188,
+        "output_tokens": 64466,
+        "cost_usd": "0.0927156",
+        "seconds": 534.5474161899983,
+        "missing_timing": 0,
+        "unknown_requests": 0
+      }
+    },
+    "tinyxml2": {
+      "forge_state_workflow": {
+        "planned": 2,
+        "observed": 2,
+        "complete": 2,
+        "not_complete": 0,
+        "unobserved": 0,
+        "requests": 3,
+        "input_tokens": 30946,
+        "output_tokens": 3468,
+        "cost_usd": "0.0134454",
+        "seconds": 44.91120607200719,
+        "missing_timing": 0,
+        "unknown_requests": 0
+      },
+      "strong_tool_agent": {
+        "planned": 2,
+        "observed": 2,
+        "complete": 2,
+        "not_complete": 0,
+        "unobserved": 0,
+        "requests": 13,
+        "input_tokens": 132104,
+        "output_tokens": 2243,
+        "cost_usd": "0.0423228",
+        "seconds": 47.027063832996646,
+        "missing_timing": 0,
+        "unknown_requests": 0
+      },
+      "cxxcrafter_community_reference": {
+        "planned": 2,
+        "observed": 2,
+        "complete": 2,
+        "not_complete": 0,
+        "unobserved": 0,
+        "requests": 12,
+        "input_tokens": 69706,
+        "output_tokens": 20602,
+        "cost_usd": "0.0456342",
+        "seconds": 339.3492668359977,
+        "missing_timing": 0,
+        "unknown_requests": 0
+      }
+    },
+    "rang": {
+      "forge_state_workflow": {
+        "planned": 2,
+        "observed": 2,
+        "complete": 2,
+        "not_complete": 0,
+        "unobserved": 0,
+        "requests": 11,
+        "input_tokens": 137650,
+        "output_tokens": 4497,
+        "cost_usd": "0.0466914",
+        "seconds": 90.38823452099314,
+        "missing_timing": 0,
+        "unknown_requests": 0
+      },
+      "strong_tool_agent": {
+        "planned": 2,
+        "observed": 2,
+        "complete": 2,
+        "not_complete": 0,
+        "unobserved": 0,
+        "requests": 21,
+        "input_tokens": 267218,
+        "output_tokens": 3173,
+        "cost_usd": "0.0839730",
+        "seconds": 101.5655027890025,
+        "missing_timing": 0,
+        "unknown_requests": 0
+      },
+      "cxxcrafter_community_reference": {
+        "planned": 2,
+        "observed": 2,
+        "complete": 2,
+        "not_complete": 0,
+        "unobserved": 0,
+        "requests": 12,
+        "input_tokens": 50755,
+        "output_tokens": 30630,
+        "cost_usd": "0.0519825",
+        "seconds": 426.53521717200056,
+        "missing_timing": 0,
+        "unknown_requests": 0
+      }
+    },
+    "ELFIO": {
+      "forge_state_workflow": {
+        "planned": 2,
+        "observed": 2,
+        "complete": 2,
+        "not_complete": 0,
+        "unobserved": 0,
+        "requests": 6,
+        "input_tokens": 92007,
+        "output_tokens": 3570,
+        "cost_usd": "0.0318861",
+        "seconds": 211.39910674400744,
+        "missing_timing": 0,
+        "unknown_requests": 0
+      },
+      "strong_tool_agent": {
+        "planned": 2,
+        "observed": 2,
+        "complete": 2,
+        "not_complete": 0,
+        "unobserved": 0,
+        "requests": 14,
+        "input_tokens": 222222,
+        "output_tokens": 2178,
+        "cost_usd": "0.0692802",
+        "seconds": 225.66318848800438,
+        "missing_timing": 0,
+        "unknown_requests": 0
+      },
+      "cxxcrafter_community_reference": {
+        "planned": 2,
+        "observed": 2,
+        "complete": 2,
+        "not_complete": 0,
+        "unobserved": 0,
+        "requests": 13,
+        "input_tokens": 79441,
+        "output_tokens": 24817,
+        "cost_usd": "0.0536127",
+        "seconds": 496.62210015099845,
+        "missing_timing": 0,
+        "unknown_requests": 0
+      }
+    }
+  },
+  "by_build_system": {
+    "autotools": {
+      "forge_state_workflow": {
+        "planned": 2,
+        "observed": 2,
+        "complete": 2,
+        "not_complete": 0,
+        "unobserved": 0,
+        "requests": 22,
+        "input_tokens": 413973,
+        "output_tokens": 36267,
+        "cost_usd": "0.1677123",
+        "seconds": 1356.0281380769957,
+        "missing_timing": 0,
+        "unknown_requests": 0
+      },
+      "strong_tool_agent": {
+        "planned": 2,
+        "observed": 2,
+        "complete": 2,
+        "not_complete": 0,
+        "unobserved": 0,
+        "requests": 23,
+        "input_tokens": 357447,
+        "output_tokens": 4626,
+        "cost_usd": "0.1127853",
+        "seconds": 1444.2155307860085,
+        "missing_timing": 0,
+        "unknown_requests": 0
+      },
+      "cxxcrafter_community_reference": {
+        "planned": 2,
+        "observed": 2,
+        "complete": 0,
+        "not_complete": 2,
+        "unobserved": 0,
+        "requests": 18,
+        "input_tokens": 207428,
+        "output_tokens": 28443,
+        "cost_usd": "0.0963600",
+        "seconds": 1109.052996655002,
+        "missing_timing": 0,
+        "unknown_requests": 0
+      }
+    },
+    "cmake": {
+      "forge_state_workflow": {
+        "planned": 10,
+        "observed": 10,
+        "complete": 10,
+        "not_complete": 0,
+        "unobserved": 0,
+        "requests": 48,
+        "input_tokens": 809593,
+        "output_tokens": 30757,
+        "cost_usd": "0.2797863",
+        "seconds": 2130.173716739999,
+        "missing_timing": 0,
+        "unknown_requests": 0
+      },
+      "strong_tool_agent": {
+        "planned": 10,
+        "observed": 10,
+        "complete": 10,
+        "not_complete": 0,
+        "unobserved": 0,
+        "requests": 91,
+        "input_tokens": 1387000,
+        "output_tokens": 14196,
+        "cost_usd": "0.4331352",
+        "seconds": 2130.069305375997,
+        "missing_timing": 0,
+        "unknown_requests": 0
+      },
+      "cxxcrafter_community_reference": {
+        "planned": 10,
+        "observed": 10,
+        "complete": 9,
+        "not_complete": 1,
+        "unobserved": 0,
+        "requests": 63,
+        "input_tokens": 468657,
+        "output_tokens": 150083,
+        "cost_usd": "0.3206967",
+        "seconds": 3808.1630903069963,
+        "missing_timing": 0,
+        "unknown_requests": 0
+      }
+    },
+    "make": {
+      "forge_state_workflow": {
+        "planned": 4,
+        "observed": 4,
+        "complete": 4,
+        "not_complete": 0,
+        "unobserved": 0,
+        "requests": 14,
+        "input_tokens": 187445,
+        "output_tokens": 7013,
+        "cost_usd": "0.0646491",
+        "seconds": 155.91014670499862,
+        "missing_timing": 0,
+        "unknown_requests": 0
+      },
+      "strong_tool_agent": {
+        "planned": 4,
+        "observed": 4,
+        "complete": 4,
+        "not_complete": 0,
+        "unobserved": 0,
+        "requests": 31,
+        "input_tokens": 372266,
+        "output_tokens": 5271,
+        "cost_usd": "0.1180050",
+        "seconds": 168.8552405290029,
+        "missing_timing": 0,
+        "unknown_requests": 0
+      },
+      "cxxcrafter_community_reference": {
+        "planned": 4,
+        "observed": 4,
+        "complete": 4,
+        "not_complete": 0,
+        "unobserved": 0,
+        "requests": 28,
+        "input_tokens": 120894,
+        "output_tokens": 85068,
+        "cost_usd": "0.1383498",
+        "seconds": 873.896683025996,
+        "missing_timing": 0,
+        "unknown_requests": 0
+      }
+    }
+  },
+  "common_completed": {
+    "n": 13,
+    "keys": [
+      {
+        "project": "simdutf",
+        "repetition": 1
+      },
+      {
+        "project": "yaml-cpp",
+        "repetition": 1
+      },
+      {
+        "project": "libtommath",
+        "repetition": 1
+      },
+      {
+        "project": "tinyxml2",
+        "repetition": 1
+      },
+      {
+        "project": "rang",
+        "repetition": 1
+      },
+      {
+        "project": "ELFIO",
+        "repetition": 1
+      },
+      {
+        "project": "simdutf",
+        "repetition": 2
+      },
+      {
+        "project": "snappy",
+        "repetition": 2
+      },
+      {
+        "project": "yaml-cpp",
+        "repetition": 2
+      },
+      {
+        "project": "libtommath",
+        "repetition": 2
+      },
+      {
+        "project": "tinyxml2",
+        "repetition": 2
+      },
+      {
+        "project": "rang",
+        "repetition": 2
+      },
+      {
+        "project": "ELFIO",
+        "repetition": 2
+      }
+    ],
+    "summary": {
+      "forge_state_workflow": {
+        "planned": 13,
+        "observed": 13,
+        "complete": 13,
+        "not_complete": 0,
+        "unobserved": 0,
+        "requests": 59,
+        "input_tokens": 946830,
+        "output_tokens": 35782,
+        "cost_usd": "0.3269874",
+        "seconds": 2105.118811362001,
+        "missing_timing": 0,
+        "unknown_requests": 0
+      },
+      "strong_tool_agent": {
+        "planned": 13,
+        "observed": 13,
+        "complete": 13,
+        "not_complete": 0,
+        "unobserved": 0,
+        "requests": 112,
+        "input_tokens": 1586122,
+        "output_tokens": 17832,
+        "cost_usd": "0.4972350",
+        "seconds": 2090.6168365850026,
+        "missing_timing": 0,
+        "unknown_requests": 0
+      },
+      "cxxcrafter_community_reference": {
+        "planned": 13,
+        "observed": 13,
+        "complete": 13,
+        "not_complete": 0,
+        "unobserved": 0,
+        "requests": 85,
+        "input_tokens": 545145,
+        "output_tokens": 215643,
+        "cost_usd": "0.4223151",
+        "seconds": 4451.72711032199,
+        "missing_timing": 0,
+        "unknown_requests": 0
+      }
+    },
+    "boundary": "按三方共同完成结果条件化，仅辅助描述效率，不能替代48槽主表"
+  },
+  "unobserved": [],
+  "stop_reason": null,
+  "known_cost_usd": "1.7314797",
+  "unknown_cost_reservation_usd": "0.00",
+  "boundary": "完整系统比较，非规划或状态单变量因果；CXX社区原生Parser/Generator/Modifier/Judge保留，外部验收不回送其Modifier；全部项目已见，重复不当独立项目。",
+  "release": "e09410b24fd15f481cf8104848013f8fa47f8b56",
+  "phases": {
+    "forge_state_workflow": {
+      "initial_planning": {
+        "requests": 71,
+        "input_tokens": 1106932,
+        "output_tokens": 46164,
+        "cost_usd": "0.3874764"
+      },
+      "recovery": {
+        "requests": 13,
+        "input_tokens": 304079,
+        "output_tokens": 27873,
+        "cost_usd": "0.1246713"
+      }
+    },
+    "strong_tool_agent": {
+      "interaction": {
+        "requests": 145,
+        "input_tokens": 2116713,
+        "output_tokens": 24093,
+        "cost_usd": "0.6639255"
+      }
+    },
+    "cxxcrafter_community_reference": {
+      "native_all": {
+        "requests": 109,
+        "input_tokens": 796979,
+        "output_tokens": 263594,
+        "cost_usd": "0.5554065"
+      }
+    }
+  },
+  "validation_denominator": 48,
+  "validation": {
+    "fixed_task_checks": {
+      "passed": 46,
+      "failed": 2,
+      "unobserved": 0
+    },
+    "complete_author_tests": {
+      "passed": 46,
+      "failed": 0,
+      "unobserved": 2
+    },
+    "exact_delivery": {
+      "passed": 45,
+      "failed": 1,
+      "unobserved": 2
+    },
+    "clean_replay": {
+      "passed": 45,
+      "failed": 0,
+      "unobserved": 3
+    },
+    "original_sources_and_links": {
+      "passed": 48,
+      "failed": 0,
+      "unobserved": 0
+    },
+    "cleanup": {
+      "passed": 48,
+      "failed": 0,
+      "unobserved": 0
+    }
+  },
+  "rows": [
+    {
+      "slot": 1,
+      "project": "check",
+      "repetition": 1,
+      "method": "forge_state_workflow",
+      "strict_completed": true,
+      "requests": 12,
+      "input_tokens": 232360,
+      "output_tokens": 23926,
+      "cost_usd": "0.0984192",
+      "seconds": 836.3156421359963,
+      "unknown_requests": 0,
+      "build_system": "autotools",
+      "status": "verified",
+      "error_class": null,
+      "error_message": null,
+      "provider_stop": false,
+      "cleanup": true,
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "phases": {
+        "initial_planning": {
+          "requests": 9,
+          "input_tokens": 159650,
+          "output_tokens": 6297,
+          "cost_usd": "0.0554514"
+        },
+        "recovery": {
+          "requests": 3,
+          "input_tokens": 72710,
+          "output_tokens": 17629,
+          "cost_usd": "0.0429678"
+        }
+      },
+      "recovery_episodes": 2,
+      "candidate_rejections": {},
+      "handoffs": [
+        {
+          "reason": "step_failed_or_expectation_missing",
+          "step_id": "build"
+        },
+        {
+          "reason": "acceptance_failed",
+          "step_id": null
+        }
+      ],
+      "session_files": [
+        "slot-1/check-plan/.compile-sessions/plan-agent-canary/7c48b1d4ce59/session.json"
+      ],
+      "time_censored": false,
+      "raw_slot": "slot-1",
+      "configuration_observation_statuses": {},
+      "direct_configuration_revisions": 0,
+      "replay_attempt_statuses": [
+        "failed",
+        "passed"
+      ],
+      "external_evaluations": null,
+      "validation": {
+        "fixed_task_checks": "passed",
+        "complete_author_tests": "passed",
+        "exact_delivery": "passed",
+        "clean_replay": "passed",
+        "original_sources_and_links": "passed",
+        "cleanup": "passed"
+      }
+    },
+    {
+      "slot": 2,
+      "project": "check",
+      "repetition": 1,
+      "method": "strong_tool_agent",
+      "strict_completed": true,
+      "requests": 10,
+      "input_tokens": 161185,
+      "output_tokens": 1800,
+      "cost_usd": "0.0505155",
+      "seconds": 631.9622540440032,
+      "unknown_requests": 0,
+      "build_system": "autotools",
+      "status": "verified",
+      "error_class": null,
+      "error_message": null,
+      "provider_stop": false,
+      "cleanup": true,
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "phases": {
+        "interaction": {
+          "requests": 10,
+          "input_tokens": 161185,
+          "output_tokens": 1800,
+          "cost_usd": "0.0505155"
+        }
+      },
+      "recovery_episodes": 0,
+      "candidate_rejections": {},
+      "handoffs": [],
+      "session_files": [
+        "slot-2/check-tool/.compile-sessions/plan-agent-canary/cbff3464b391/session.json"
+      ],
+      "time_censored": false,
+      "raw_slot": "slot-2",
+      "configuration_observation_statuses": {},
+      "direct_configuration_revisions": 0,
+      "replay_attempt_statuses": [
+        "passed"
+      ],
+      "external_evaluations": null,
+      "validation": {
+        "fixed_task_checks": "passed",
+        "complete_author_tests": "passed",
+        "exact_delivery": "passed",
+        "clean_replay": "passed",
+        "original_sources_and_links": "passed",
+        "cleanup": "passed"
+      }
+    },
+    {
+      "slot": 3,
+      "project": "check",
+      "repetition": 1,
+      "method": "cxxcrafter_community_reference",
+      "strict_completed": false,
+      "requests": 9,
+      "input_tokens": 72785,
+      "output_tokens": 15865,
+      "cost_usd": "0.0408735",
+      "seconds": 503.45893528300076,
+      "unknown_requests": 0,
+      "build_system": "autotools",
+      "status": null,
+      "error_class": null,
+      "error_message": null,
+      "provider_stop": false,
+      "cleanup": true,
+      "source_unchanged": true,
+      "source_links_unchanged": null,
+      "reported_success": true,
+      "dockerfile_versions": 2,
+      "phases": {
+        "native_all": {
+          "requests": 9,
+          "input_tokens": 72785,
+          "output_tokens": 15865,
+          "cost_usd": "0.0408735"
+        }
+      },
+      "recovery_episodes": 0,
+      "candidate_rejections": {},
+      "handoffs": [],
+      "session_files": [],
+      "time_censored": false,
+      "raw_slot": "slot-3",
+      "configuration_observation_statuses": {},
+      "direct_configuration_revisions": 0,
+      "replay_attempt_statuses": [],
+      "external_evaluations": [
+        {
+          "source_unchanged": true,
+          "fixed_tests": true,
+          "artifact_stage": false,
+          "artifacts": {},
+          "cleanup": true
+        }
+      ],
+      "validation": {
+        "fixed_task_checks": "passed",
+        "complete_author_tests": "passed",
+        "exact_delivery": "failed",
+        "clean_replay": "unobserved",
+        "original_sources_and_links": "passed",
+        "cleanup": "passed"
+      }
+    },
+    {
+      "slot": 4,
+      "project": "simdutf",
+      "repetition": 1,
+      "method": "cxxcrafter_community_reference",
+      "strict_completed": true,
+      "requests": 6,
+      "input_tokens": 81838,
+      "output_tokens": 7439,
+      "cost_usd": "0.0334782",
+      "seconds": 556.4547271859992,
+      "unknown_requests": 0,
+      "build_system": "cmake",
+      "status": null,
+      "error_class": null,
+      "error_message": null,
+      "provider_stop": false,
+      "cleanup": true,
+      "source_unchanged": true,
+      "source_links_unchanged": null,
+      "reported_success": true,
+      "dockerfile_versions": 1,
+      "phases": {
+        "native_all": {
+          "requests": 6,
+          "input_tokens": 81838,
+          "output_tokens": 7439,
+          "cost_usd": "0.0334782"
+        }
+      },
+      "recovery_episodes": 0,
+      "candidate_rejections": {},
+      "handoffs": [],
+      "session_files": [],
+      "time_censored": false,
+      "raw_slot": "slot-4",
+      "configuration_observation_statuses": {},
+      "direct_configuration_revisions": 0,
+      "replay_attempt_statuses": [],
+      "external_evaluations": [
+        {
+          "source_unchanged": true,
+          "fixed_tests": true,
+          "artifact_stage": true,
+          "artifacts": {
+            "libsimdutf.a": {
+              "sha256": "1ee79296241da3fdc07fe141811275c8a7100b329105b383de068c1d526a3d1d",
+              "size": 925092,
+              "artifact_type": "static_library"
+            }
+          },
+          "cleanup": true
+        },
+        {
+          "source_unchanged": true,
+          "fixed_tests": true,
+          "artifact_stage": true,
+          "artifacts": {
+            "libsimdutf.a": {
+              "sha256": "1ee79296241da3fdc07fe141811275c8a7100b329105b383de068c1d526a3d1d",
+              "size": 925092,
+              "artifact_type": "static_library"
+            }
+          },
+          "cleanup": true
+        }
+      ],
+      "validation": {
+        "fixed_task_checks": "passed",
+        "complete_author_tests": "passed",
+        "exact_delivery": "passed",
+        "clean_replay": "passed",
+        "original_sources_and_links": "passed",
+        "cleanup": "passed"
+      }
+    },
+    {
+      "slot": 5,
+      "project": "simdutf",
+      "repetition": 1,
+      "method": "strong_tool_agent",
+      "strict_completed": true,
+      "requests": 11,
+      "input_tokens": 176416,
+      "output_tokens": 1671,
+      "cost_usd": "0.05493",
+      "seconds": 449.63227292499505,
+      "unknown_requests": 0,
+      "build_system": "cmake",
+      "status": "verified",
+      "error_class": null,
+      "error_message": null,
+      "provider_stop": false,
+      "cleanup": true,
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "phases": {
+        "interaction": {
+          "requests": 11,
+          "input_tokens": 176416,
+          "output_tokens": 1671,
+          "cost_usd": "0.0549300"
+        }
+      },
+      "recovery_episodes": 0,
+      "candidate_rejections": {},
+      "handoffs": [],
+      "session_files": [
+        "slot-5/simdutf-tool/.compile-sessions/plan-agent-canary/7b70c167b983/session.json"
+      ],
+      "time_censored": false,
+      "raw_slot": "slot-5",
+      "configuration_observation_statuses": {},
+      "direct_configuration_revisions": 0,
+      "replay_attempt_statuses": [
+        "passed"
+      ],
+      "external_evaluations": null,
+      "validation": {
+        "fixed_task_checks": "passed",
+        "complete_author_tests": "passed",
+        "exact_delivery": "passed",
+        "clean_replay": "passed",
+        "original_sources_and_links": "passed",
+        "cleanup": "passed"
+      }
+    },
+    {
+      "slot": 6,
+      "project": "simdutf",
+      "repetition": 1,
+      "method": "forge_state_workflow",
+      "strict_completed": true,
+      "requests": 8,
+      "input_tokens": 149852,
+      "output_tokens": 4871,
+      "cost_usd": "0.0508008",
+      "seconds": 467.6455587180026,
+      "unknown_requests": 0,
+      "build_system": "cmake",
+      "status": "verified",
+      "error_class": null,
+      "error_message": null,
+      "provider_stop": false,
+      "cleanup": true,
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "phases": {
+        "initial_planning": {
+          "requests": 7,
+          "input_tokens": 128546,
+          "output_tokens": 2738,
+          "cost_usd": "0.0418494"
+        },
+        "recovery": {
+          "requests": 1,
+          "input_tokens": 21306,
+          "output_tokens": 2133,
+          "cost_usd": "0.0089514"
+        }
+      },
+      "recovery_episodes": 1,
+      "candidate_rejections": {},
+      "handoffs": [
+        {
+          "reason": "step_failed_or_expectation_missing",
+          "step_id": "configure"
+        }
+      ],
+      "session_files": [
+        "slot-6/simdutf-plan/.compile-sessions/plan-agent-canary/a4d561d09903/session.json"
+      ],
+      "time_censored": false,
+      "raw_slot": "slot-6",
+      "configuration_observation_statuses": {
+        "satisfied": 2
+      },
+      "direct_configuration_revisions": 0,
+      "replay_attempt_statuses": [
+        "passed"
+      ],
+      "external_evaluations": null,
+      "validation": {
+        "fixed_task_checks": "passed",
+        "complete_author_tests": "passed",
+        "exact_delivery": "passed",
+        "clean_replay": "passed",
+        "original_sources_and_links": "passed",
+        "cleanup": "passed"
+      }
+    },
+    {
+      "slot": 7,
+      "project": "snappy",
+      "repetition": 1,
+      "method": "strong_tool_agent",
+      "strict_completed": true,
+      "requests": 10,
+      "input_tokens": 173144,
+      "output_tokens": 1635,
+      "cost_usd": "0.0539052",
+      "seconds": 208.30770931999723,
+      "unknown_requests": 0,
+      "build_system": "cmake",
+      "status": "verified",
+      "error_class": null,
+      "error_message": null,
+      "provider_stop": false,
+      "cleanup": true,
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "phases": {
+        "interaction": {
+          "requests": 10,
+          "input_tokens": 173144,
+          "output_tokens": 1635,
+          "cost_usd": "0.0539052"
+        }
+      },
+      "recovery_episodes": 0,
+      "candidate_rejections": {},
+      "handoffs": [],
+      "session_files": [
+        "slot-7/snappy-tool/.compile-sessions/plan-agent-canary/3414d18e2b61/session.json"
+      ],
+      "time_censored": false,
+      "raw_slot": "slot-7",
+      "configuration_observation_statuses": {},
+      "direct_configuration_revisions": 0,
+      "replay_attempt_statuses": [
+        "passed"
+      ],
+      "external_evaluations": null,
+      "validation": {
+        "fixed_task_checks": "passed",
+        "complete_author_tests": "passed",
+        "exact_delivery": "passed",
+        "clean_replay": "passed",
+        "original_sources_and_links": "passed",
+        "cleanup": "passed"
+      }
+    },
+    {
+      "slot": 8,
+      "project": "snappy",
+      "repetition": 1,
+      "method": "cxxcrafter_community_reference",
+      "strict_completed": false,
+      "requests": 6,
+      "input_tokens": 44406,
+      "output_tokens": 19508,
+      "cost_usd": "0.0367314",
+      "seconds": 230.3326630110023,
+      "unknown_requests": 0,
+      "build_system": "cmake",
+      "status": null,
+      "error_class": null,
+      "error_message": null,
+      "provider_stop": false,
+      "cleanup": true,
+      "source_unchanged": true,
+      "source_links_unchanged": null,
+      "reported_success": true,
+      "dockerfile_versions": 1,
+      "phases": {
+        "native_all": {
+          "requests": 6,
+          "input_tokens": 44406,
+          "output_tokens": 19508,
+          "cost_usd": "0.0367314"
+        }
+      },
+      "recovery_episodes": 0,
+      "candidate_rejections": {},
+      "handoffs": [],
+      "session_files": [],
+      "time_censored": false,
+      "raw_slot": "slot-8",
+      "configuration_observation_statuses": {},
+      "direct_configuration_revisions": 0,
+      "replay_attempt_statuses": [],
+      "external_evaluations": [
+        {
+          "source_unchanged": true,
+          "fixed_tests": false,
+          "artifact_stage": null,
+          "artifacts": null,
+          "cleanup": true
+        }
+      ],
+      "validation": {
+        "fixed_task_checks": "failed",
+        "complete_author_tests": "unobserved",
+        "exact_delivery": "unobserved",
+        "clean_replay": "unobserved",
+        "original_sources_and_links": "passed",
+        "cleanup": "passed"
+      }
+    },
+    {
+      "slot": 9,
+      "project": "snappy",
+      "repetition": 1,
+      "method": "forge_state_workflow",
+      "strict_completed": true,
+      "requests": 3,
+      "input_tokens": 50208,
+      "output_tokens": 1988,
+      "cost_usd": "0.017448",
+      "seconds": 180.9650520829964,
+      "unknown_requests": 0,
+      "build_system": "cmake",
+      "status": "verified",
+      "error_class": null,
+      "error_message": null,
+      "provider_stop": false,
+      "cleanup": true,
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "phases": {
+        "initial_planning": {
+          "requests": 3,
+          "input_tokens": 50208,
+          "output_tokens": 1988,
+          "cost_usd": "0.0174480"
+        }
+      },
+      "recovery_episodes": 0,
+      "candidate_rejections": {},
+      "handoffs": [],
+      "session_files": [
+        "slot-9/snappy-plan/.compile-sessions/plan-agent-canary/fa876d81567f/session.json"
+      ],
+      "time_censored": false,
+      "raw_slot": "slot-9",
+      "configuration_observation_statuses": {
+        "satisfied": 2
+      },
+      "direct_configuration_revisions": 0,
+      "replay_attempt_statuses": [
+        "passed"
+      ],
+      "external_evaluations": null,
+      "validation": {
+        "fixed_task_checks": "passed",
+        "complete_author_tests": "passed",
+        "exact_delivery": "passed",
+        "clean_replay": "passed",
+        "original_sources_and_links": "passed",
+        "cleanup": "passed"
+      }
+    },
+    {
+      "slot": 10,
+      "project": "yaml-cpp",
+      "repetition": 1,
+      "method": "forge_state_workflow",
+      "strict_completed": true,
+      "requests": 2,
+      "input_tokens": 28099,
+      "output_tokens": 1932,
+      "cost_usd": "0.0107481",
+      "seconds": 183.68682565400377,
+      "unknown_requests": 0,
+      "build_system": "cmake",
+      "status": "verified",
+      "error_class": null,
+      "error_message": null,
+      "provider_stop": false,
+      "cleanup": true,
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "phases": {
+        "initial_planning": {
+          "requests": 2,
+          "input_tokens": 28099,
+          "output_tokens": 1932,
+          "cost_usd": "0.0107481"
+        }
+      },
+      "recovery_episodes": 0,
+      "candidate_rejections": {},
+      "handoffs": [],
+      "session_files": [
+        "slot-10/yaml-cpp-plan/.compile-sessions/plan-agent-canary/b9fab57b6f1e/session.json"
+      ],
+      "time_censored": false,
+      "raw_slot": "slot-10",
+      "configuration_observation_statuses": {
+        "satisfied": 2
+      },
+      "direct_configuration_revisions": 0,
+      "replay_attempt_statuses": [
+        "passed"
+      ],
+      "external_evaluations": null,
+      "validation": {
+        "fixed_task_checks": "passed",
+        "complete_author_tests": "passed",
+        "exact_delivery": "passed",
+        "clean_replay": "passed",
+        "original_sources_and_links": "passed",
+        "cleanup": "passed"
+      }
+    },
+    {
+      "slot": 11,
+      "project": "yaml-cpp",
+      "repetition": 1,
+      "method": "cxxcrafter_community_reference",
+      "strict_completed": true,
+      "requests": 6,
+      "input_tokens": 36205,
+      "output_tokens": 11368,
+      "cost_usd": "0.0245031",
+      "seconds": 266.7671240819982,
+      "unknown_requests": 0,
+      "build_system": "cmake",
+      "status": null,
+      "error_class": null,
+      "error_message": null,
+      "provider_stop": false,
+      "cleanup": true,
+      "source_unchanged": true,
+      "source_links_unchanged": null,
+      "reported_success": true,
+      "dockerfile_versions": 1,
+      "phases": {
+        "native_all": {
+          "requests": 6,
+          "input_tokens": 36205,
+          "output_tokens": 11368,
+          "cost_usd": "0.0245031"
+        }
+      },
+      "recovery_episodes": 0,
+      "candidate_rejections": {},
+      "handoffs": [],
+      "session_files": [],
+      "time_censored": false,
+      "raw_slot": "slot-11",
+      "configuration_observation_statuses": {},
+      "direct_configuration_revisions": 0,
+      "replay_attempt_statuses": [],
+      "external_evaluations": [
+        {
+          "source_unchanged": true,
+          "fixed_tests": true,
+          "artifact_stage": true,
+          "artifacts": {
+            "libyaml-cpp.a": {
+              "sha256": "4c34cb22eb78b70ae7039938696a451e22ec1d1f69528554c6c326a4f3c975f5",
+              "size": 1151348,
+              "artifact_type": "static_library"
+            }
+          },
+          "cleanup": true
+        },
+        {
+          "source_unchanged": true,
+          "fixed_tests": true,
+          "artifact_stage": true,
+          "artifacts": {
+            "libyaml-cpp.a": {
+              "sha256": "4c34cb22eb78b70ae7039938696a451e22ec1d1f69528554c6c326a4f3c975f5",
+              "size": 1151348,
+              "artifact_type": "static_library"
+            }
+          },
+          "cleanup": true
+        }
+      ],
+      "validation": {
+        "fixed_task_checks": "passed",
+        "complete_author_tests": "passed",
+        "exact_delivery": "passed",
+        "clean_replay": "passed",
+        "original_sources_and_links": "passed",
+        "cleanup": "passed"
+      }
+    },
+    {
+      "slot": 12,
+      "project": "yaml-cpp",
+      "repetition": 1,
+      "method": "strong_tool_agent",
+      "strict_completed": true,
+      "requests": 9,
+      "input_tokens": 134469,
+      "output_tokens": 1554,
+      "cost_usd": "0.0422055",
+      "seconds": 196.79201907099923,
+      "unknown_requests": 0,
+      "build_system": "cmake",
+      "status": "verified",
+      "error_class": null,
+      "error_message": null,
+      "provider_stop": false,
+      "cleanup": true,
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "phases": {
+        "interaction": {
+          "requests": 9,
+          "input_tokens": 134469,
+          "output_tokens": 1554,
+          "cost_usd": "0.0422055"
+        }
+      },
+      "recovery_episodes": 0,
+      "candidate_rejections": {},
+      "handoffs": [],
+      "session_files": [
+        "slot-12/yaml-cpp-tool/.compile-sessions/plan-agent-canary/8fd280d844a6/session.json"
+      ],
+      "time_censored": false,
+      "raw_slot": "slot-12",
+      "configuration_observation_statuses": {},
+      "direct_configuration_revisions": 0,
+      "replay_attempt_statuses": [
+        "passed"
+      ],
+      "external_evaluations": null,
+      "validation": {
+        "fixed_task_checks": "passed",
+        "complete_author_tests": "passed",
+        "exact_delivery": "passed",
+        "clean_replay": "passed",
+        "original_sources_and_links": "passed",
+        "cleanup": "passed"
+      }
+    },
+    {
+      "slot": 13,
+      "project": "libtommath",
+      "repetition": 1,
+      "method": "cxxcrafter_community_reference",
+      "strict_completed": true,
+      "requests": 10,
+      "input_tokens": 30464,
+      "output_tokens": 55481,
+      "cost_usd": "0.0757164",
+      "seconds": 417.2701392770032,
+      "unknown_requests": 0,
+      "build_system": "make",
+      "status": null,
+      "error_class": null,
+      "error_message": null,
+      "provider_stop": false,
+      "cleanup": true,
+      "source_unchanged": true,
+      "source_links_unchanged": null,
+      "reported_success": true,
+      "dockerfile_versions": 5,
+      "phases": {
+        "native_all": {
+          "requests": 10,
+          "input_tokens": 30464,
+          "output_tokens": 55481,
+          "cost_usd": "0.0757164"
+        }
+      },
+      "recovery_episodes": 0,
+      "candidate_rejections": {},
+      "handoffs": [],
+      "session_files": [],
+      "time_censored": false,
+      "raw_slot": "slot-13",
+      "configuration_observation_statuses": {},
+      "direct_configuration_revisions": 0,
+      "replay_attempt_statuses": [],
+      "external_evaluations": [
+        {
+          "source_unchanged": true,
+          "fixed_tests": true,
+          "artifact_stage": true,
+          "artifacts": {
+            "libtommath.a": {
+              "sha256": "0a63046ce738d43cb6e169148832a64a4644008bb05826a888e7822eecbd7be9",
+              "size": 386392,
+              "artifact_type": "static_library"
+            }
+          },
+          "cleanup": true
+        },
+        {
+          "source_unchanged": true,
+          "fixed_tests": true,
+          "artifact_stage": true,
+          "artifacts": {
+            "libtommath.a": {
+              "sha256": "0a63046ce738d43cb6e169148832a64a4644008bb05826a888e7822eecbd7be9",
+              "size": 386392,
+              "artifact_type": "static_library"
+            }
+          },
+          "cleanup": true
+        }
+      ],
+      "validation": {
+        "fixed_task_checks": "passed",
+        "complete_author_tests": "passed",
+        "exact_delivery": "passed",
+        "clean_replay": "passed",
+        "original_sources_and_links": "passed",
+        "cleanup": "passed"
+      }
+    },
+    {
+      "slot": 14,
+      "project": "libtommath",
+      "repetition": 1,
+      "method": "forge_state_workflow",
+      "strict_completed": true,
+      "requests": 5,
+      "input_tokens": 72023,
+      "output_tokens": 2130,
+      "cost_usd": "0.0241629",
+      "seconds": 57.366711946997384,
+      "unknown_requests": 0,
+      "build_system": "make",
+      "status": "verified",
+      "error_class": null,
+      "error_message": null,
+      "provider_stop": false,
+      "cleanup": true,
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "phases": {
+        "initial_planning": {
+          "requests": 5,
+          "input_tokens": 72023,
+          "output_tokens": 2130,
+          "cost_usd": "0.0241629"
+        }
+      },
+      "recovery_episodes": 0,
+      "candidate_rejections": {},
+      "handoffs": [],
+      "session_files": [
+        "slot-14/libtommath-plan/.compile-sessions/plan-agent-canary/dc16d0b18a96/session.json"
+      ],
+      "time_censored": false,
+      "raw_slot": "slot-14",
+      "configuration_observation_statuses": {},
+      "direct_configuration_revisions": 0,
+      "replay_attempt_statuses": [
+        "passed"
+      ],
+      "external_evaluations": null,
+      "validation": {
+        "fixed_task_checks": "passed",
+        "complete_author_tests": "passed",
+        "exact_delivery": "passed",
+        "clean_replay": "passed",
+        "original_sources_and_links": "passed",
+        "cleanup": "passed"
+      }
+    },
+    {
+      "slot": 15,
+      "project": "libtommath",
+      "repetition": 1,
+      "method": "strong_tool_agent",
+      "strict_completed": true,
+      "requests": 5,
+      "input_tokens": 67999,
+      "output_tokens": 1113,
+      "cost_usd": "0.0217353",
+      "seconds": 48.46329270700517,
+      "unknown_requests": 0,
+      "build_system": "make",
+      "status": "verified",
+      "error_class": null,
+      "error_message": null,
+      "provider_stop": false,
+      "cleanup": true,
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "phases": {
+        "interaction": {
+          "requests": 5,
+          "input_tokens": 67999,
+          "output_tokens": 1113,
+          "cost_usd": "0.0217353"
+        }
+      },
+      "recovery_episodes": 0,
+      "candidate_rejections": {},
+      "handoffs": [],
+      "session_files": [
+        "slot-15/libtommath-tool/.compile-sessions/plan-agent-canary/d4f34c03ea0c/session.json"
+      ],
+      "time_censored": false,
+      "raw_slot": "slot-15",
+      "configuration_observation_statuses": {},
+      "direct_configuration_revisions": 0,
+      "replay_attempt_statuses": [
+        "passed"
+      ],
+      "external_evaluations": null,
+      "validation": {
+        "fixed_task_checks": "passed",
+        "complete_author_tests": "passed",
+        "exact_delivery": "passed",
+        "clean_replay": "passed",
+        "original_sources_and_links": "passed",
+        "cleanup": "passed"
+      }
+    },
+    {
+      "slot": 16,
+      "project": "tinyxml2",
+      "repetition": 1,
+      "method": "strong_tool_agent",
+      "strict_completed": true,
+      "requests": 9,
+      "input_tokens": 91995,
+      "output_tokens": 1769,
+      "cost_usd": "0.0297213",
+      "seconds": 30.517233204998774,
+      "unknown_requests": 0,
+      "build_system": "make",
+      "status": "verified",
+      "error_class": null,
+      "error_message": null,
+      "provider_stop": false,
+      "cleanup": true,
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "phases": {
+        "interaction": {
+          "requests": 9,
+          "input_tokens": 91995,
+          "output_tokens": 1769,
+          "cost_usd": "0.0297213"
+        }
+      },
+      "recovery_episodes": 0,
+      "candidate_rejections": {},
+      "handoffs": [],
+      "session_files": [
+        "slot-16/tinyxml2-tool/.compile-sessions/plan-agent-canary/2d499bb44886/session.json"
+      ],
+      "time_censored": false,
+      "raw_slot": "slot-16",
+      "configuration_observation_statuses": {},
+      "direct_configuration_revisions": 0,
+      "replay_attempt_statuses": [
+        "passed"
+      ],
+      "external_evaluations": null,
+      "validation": {
+        "fixed_task_checks": "passed",
+        "complete_author_tests": "passed",
+        "exact_delivery": "passed",
+        "clean_replay": "passed",
+        "original_sources_and_links": "passed",
+        "cleanup": "passed"
+      }
+    },
+    {
+      "slot": 17,
+      "project": "tinyxml2",
+      "repetition": 1,
+      "method": "forge_state_workflow",
+      "strict_completed": true,
+      "requests": 2,
+      "input_tokens": 21329,
+      "output_tokens": 2379,
+      "cost_usd": "0.0092535",
+      "seconds": 26.811150594003266,
+      "unknown_requests": 0,
+      "build_system": "make",
+      "status": "verified",
+      "error_class": null,
+      "error_message": null,
+      "provider_stop": false,
+      "cleanup": true,
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "phases": {
+        "initial_planning": {
+          "requests": 2,
+          "input_tokens": 21329,
+          "output_tokens": 2379,
+          "cost_usd": "0.0092535"
+        }
+      },
+      "recovery_episodes": 0,
+      "candidate_rejections": {},
+      "handoffs": [],
+      "session_files": [
+        "slot-17/tinyxml2-plan/.compile-sessions/plan-agent-canary/812e2aa0314d/session.json"
+      ],
+      "time_censored": false,
+      "raw_slot": "slot-17",
+      "configuration_observation_statuses": {},
+      "direct_configuration_revisions": 0,
+      "replay_attempt_statuses": [
+        "passed"
+      ],
+      "external_evaluations": null,
+      "validation": {
+        "fixed_task_checks": "passed",
+        "complete_author_tests": "passed",
+        "exact_delivery": "passed",
+        "clean_replay": "passed",
+        "original_sources_and_links": "passed",
+        "cleanup": "passed"
+      }
+    },
+    {
+      "slot": 18,
+      "project": "tinyxml2",
+      "repetition": 1,
+      "method": "cxxcrafter_community_reference",
+      "strict_completed": true,
+      "requests": 6,
+      "input_tokens": 44176,
+      "output_tokens": 7602,
+      "cost_usd": "0.0223752",
+      "seconds": 159.1603274279987,
+      "unknown_requests": 0,
+      "build_system": "make",
+      "status": null,
+      "error_class": null,
+      "error_message": null,
+      "provider_stop": false,
+      "cleanup": true,
+      "source_unchanged": true,
+      "source_links_unchanged": null,
+      "reported_success": true,
+      "dockerfile_versions": 1,
+      "phases": {
+        "native_all": {
+          "requests": 6,
+          "input_tokens": 44176,
+          "output_tokens": 7602,
+          "cost_usd": "0.0223752"
+        }
+      },
+      "recovery_episodes": 0,
+      "candidate_rejections": {},
+      "handoffs": [],
+      "session_files": [],
+      "time_censored": false,
+      "raw_slot": "slot-18",
+      "configuration_observation_statuses": {},
+      "direct_configuration_revisions": 0,
+      "replay_attempt_statuses": [],
+      "external_evaluations": [
+        {
+          "source_unchanged": true,
+          "fixed_tests": true,
+          "artifact_stage": true,
+          "artifacts": {
+            "libtinyxml2.a": {
+              "sha256": "6b97e173344d2e8341d7247bbb4d809fd4e540605eb469879ca7db2115a85c9f",
+              "size": 207050,
+              "artifact_type": "static_library"
+            }
+          },
+          "cleanup": true
+        },
+        {
+          "source_unchanged": true,
+          "fixed_tests": true,
+          "artifact_stage": true,
+          "artifacts": {
+            "libtinyxml2.a": {
+              "sha256": "6b97e173344d2e8341d7247bbb4d809fd4e540605eb469879ca7db2115a85c9f",
+              "size": 207050,
+              "artifact_type": "static_library"
+            }
+          },
+          "cleanup": true
+        }
+      ],
+      "validation": {
+        "fixed_task_checks": "passed",
+        "complete_author_tests": "passed",
+        "exact_delivery": "passed",
+        "clean_replay": "passed",
+        "original_sources_and_links": "passed",
+        "cleanup": "passed"
+      }
+    },
+    {
+      "slot": 19,
+      "project": "rang",
+      "repetition": 1,
+      "method": "forge_state_workflow",
+      "strict_completed": true,
+      "requests": 5,
+      "input_tokens": 61709,
+      "output_tokens": 2343,
+      "cost_usd": "0.0213243",
+      "seconds": 44.38126910599385,
+      "unknown_requests": 0,
+      "build_system": "cmake",
+      "status": "verified",
+      "error_class": null,
+      "error_message": null,
+      "provider_stop": false,
+      "cleanup": true,
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "phases": {
+        "initial_planning": {
+          "requests": 5,
+          "input_tokens": 61709,
+          "output_tokens": 2343,
+          "cost_usd": "0.0213243"
+        }
+      },
+      "recovery_episodes": 0,
+      "candidate_rejections": {},
+      "handoffs": [],
+      "session_files": [
+        "slot-19/rang-plan/.compile-sessions/plan-agent-canary/a33020b29037/session.json"
+      ],
+      "time_censored": false,
+      "raw_slot": "slot-19",
+      "configuration_observation_statuses": {},
+      "direct_configuration_revisions": 0,
+      "replay_attempt_statuses": [
+        "passed"
+      ],
+      "external_evaluations": null,
+      "validation": {
+        "fixed_task_checks": "passed",
+        "complete_author_tests": "passed",
+        "exact_delivery": "passed",
+        "clean_replay": "passed",
+        "original_sources_and_links": "passed",
+        "cleanup": "passed"
+      }
+    },
+    {
+      "slot": 20,
+      "project": "rang",
+      "repetition": 1,
+      "method": "strong_tool_agent",
+      "strict_completed": true,
+      "requests": 12,
+      "input_tokens": 163647,
+      "output_tokens": 1962,
+      "cost_usd": "0.0514485",
+      "seconds": 59.76217978999921,
+      "unknown_requests": 0,
+      "build_system": "cmake",
+      "status": "verified",
+      "error_class": null,
+      "error_message": null,
+      "provider_stop": false,
+      "cleanup": true,
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "phases": {
+        "interaction": {
+          "requests": 12,
+          "input_tokens": 163647,
+          "output_tokens": 1962,
+          "cost_usd": "0.0514485"
+        }
+      },
+      "recovery_episodes": 0,
+      "candidate_rejections": {},
+      "handoffs": [],
+      "session_files": [
+        "slot-20/rang-tool/.compile-sessions/plan-agent-canary/20ed7626678a/session.json"
+      ],
+      "time_censored": false,
+      "raw_slot": "slot-20",
+      "configuration_observation_statuses": {},
+      "direct_configuration_revisions": 0,
+      "replay_attempt_statuses": [
+        "passed"
+      ],
+      "external_evaluations": null,
+      "validation": {
+        "fixed_task_checks": "passed",
+        "complete_author_tests": "passed",
+        "exact_delivery": "passed",
+        "clean_replay": "passed",
+        "original_sources_and_links": "passed",
+        "cleanup": "passed"
+      }
+    },
+    {
+      "slot": 21,
+      "project": "rang",
+      "repetition": 1,
+      "method": "cxxcrafter_community_reference",
+      "strict_completed": true,
+      "requests": 6,
+      "input_tokens": 25154,
+      "output_tokens": 9639,
+      "cost_usd": "0.0191130",
+      "seconds": 178.23053331700066,
+      "unknown_requests": 0,
+      "build_system": "cmake",
+      "status": null,
+      "error_class": null,
+      "error_message": null,
+      "provider_stop": false,
+      "cleanup": true,
+      "source_unchanged": true,
+      "source_links_unchanged": null,
+      "reported_success": true,
+      "dockerfile_versions": 1,
+      "phases": {
+        "native_all": {
+          "requests": 6,
+          "input_tokens": 25154,
+          "output_tokens": 9639,
+          "cost_usd": "0.019113"
+        }
+      },
+      "recovery_episodes": 0,
+      "candidate_rejections": {},
+      "handoffs": [],
+      "session_files": [],
+      "time_censored": false,
+      "raw_slot": "slot-21",
+      "configuration_observation_statuses": {},
+      "direct_configuration_revisions": 0,
+      "replay_attempt_statuses": [],
+      "external_evaluations": [
+        {
+          "source_unchanged": true,
+          "fixed_tests": true,
+          "artifact_stage": true,
+          "artifacts": {
+            "envTermMissing": {
+              "sha256": "9f242728eaad4fb9eb7d74ce6157bd5b1cf9fd676062280a174b07140bb74a13",
+              "size": 17928,
+              "artifact_type": "executable"
+            },
+            "all_rang_tests": {
+              "sha256": "6b81628a7119a474e4a6a816a66c263d6e0e140e8a6bcd3e31ad004d75364e14",
+              "size": 277680,
+              "artifact_type": "executable"
+            },
+            "colorTest": {
+              "sha256": "259043d98696cc4cf7a2ce3aa2efdd77e2218f1e1f0e3ab53482fdd96807ecbe",
+              "size": 27888,
+              "artifact_type": "executable"
+            }
+          },
+          "cleanup": true
+        },
+        {
+          "source_unchanged": true,
+          "fixed_tests": true,
+          "artifact_stage": true,
+          "artifacts": {
+            "envTermMissing": {
+              "sha256": "9f242728eaad4fb9eb7d74ce6157bd5b1cf9fd676062280a174b07140bb74a13",
+              "size": 17928,
+              "artifact_type": "executable"
+            },
+            "all_rang_tests": {
+              "sha256": "6b81628a7119a474e4a6a816a66c263d6e0e140e8a6bcd3e31ad004d75364e14",
+              "size": 277680,
+              "artifact_type": "executable"
+            },
+            "colorTest": {
+              "sha256": "259043d98696cc4cf7a2ce3aa2efdd77e2218f1e1f0e3ab53482fdd96807ecbe",
+              "size": 27888,
+              "artifact_type": "executable"
+            }
+          },
+          "cleanup": true
+        }
+      ],
+      "validation": {
+        "fixed_task_checks": "passed",
+        "complete_author_tests": "passed",
+        "exact_delivery": "passed",
+        "clean_replay": "passed",
+        "original_sources_and_links": "passed",
+        "cleanup": "passed"
+      }
+    },
+    {
+      "slot": 22,
+      "project": "ELFIO",
+      "repetition": 1,
+      "method": "cxxcrafter_community_reference",
+      "strict_completed": true,
+      "requests": 6,
+      "input_tokens": 34631,
+      "output_tokens": 6497,
+      "cost_usd": "0.0181857",
+      "seconds": 169.4539959829999,
+      "unknown_requests": 0,
+      "build_system": "cmake",
+      "status": null,
+      "error_class": null,
+      "error_message": null,
+      "provider_stop": false,
+      "cleanup": true,
+      "source_unchanged": true,
+      "source_links_unchanged": null,
+      "reported_success": true,
+      "dockerfile_versions": 1,
+      "phases": {
+        "native_all": {
+          "requests": 6,
+          "input_tokens": 34631,
+          "output_tokens": 6497,
+          "cost_usd": "0.0181857"
+        }
+      },
+      "recovery_episodes": 0,
+      "candidate_rejections": {},
+      "handoffs": [],
+      "session_files": [],
+      "time_censored": false,
+      "raw_slot": "slot-22",
+      "configuration_observation_statuses": {},
+      "direct_configuration_revisions": 0,
+      "replay_attempt_statuses": [],
+      "external_evaluations": [
+        {
+          "source_unchanged": true,
+          "fixed_tests": true,
+          "artifact_stage": true,
+          "artifacts": {
+            "ELFIOTest": {
+              "sha256": "c0c0fe90efd19952487122b2469b6f71278dc12f564d7edce9ed7bcb60670f80",
+              "size": 1350200,
+              "artifact_type": "executable"
+            }
+          },
+          "cleanup": true
+        },
+        {
+          "source_unchanged": true,
+          "fixed_tests": true,
+          "artifact_stage": true,
+          "artifacts": {
+            "ELFIOTest": {
+              "sha256": "c0c0fe90efd19952487122b2469b6f71278dc12f564d7edce9ed7bcb60670f80",
+              "size": 1350200,
+              "artifact_type": "executable"
+            }
+          },
+          "cleanup": true
+        }
+      ],
+      "validation": {
+        "fixed_task_checks": "passed",
+        "complete_author_tests": "passed",
+        "exact_delivery": "passed",
+        "clean_replay": "passed",
+        "original_sources_and_links": "passed",
+        "cleanup": "passed"
+      }
+    },
+    {
+      "slot": 23,
+      "project": "ELFIO",
+      "repetition": 1,
+      "method": "strong_tool_agent",
+      "strict_completed": true,
+      "requests": 7,
+      "input_tokens": 110889,
+      "output_tokens": 923,
+      "cost_usd": "0.0343743",
+      "seconds": 113.6626859340031,
+      "unknown_requests": 0,
+      "build_system": "cmake",
+      "status": "verified",
+      "error_class": null,
+      "error_message": null,
+      "provider_stop": false,
+      "cleanup": true,
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "phases": {
+        "interaction": {
+          "requests": 7,
+          "input_tokens": 110889,
+          "output_tokens": 923,
+          "cost_usd": "0.0343743"
+        }
+      },
+      "recovery_episodes": 0,
+      "candidate_rejections": {},
+      "handoffs": [],
+      "session_files": [
+        "slot-23/ELFIO-tool/.compile-sessions/plan-agent-canary/41f1e6ada949/session.json"
+      ],
+      "time_censored": false,
+      "raw_slot": "slot-23",
+      "configuration_observation_statuses": {},
+      "direct_configuration_revisions": 0,
+      "replay_attempt_statuses": [
+        "passed"
+      ],
+      "external_evaluations": null,
+      "validation": {
+        "fixed_task_checks": "passed",
+        "complete_author_tests": "passed",
+        "exact_delivery": "passed",
+        "clean_replay": "passed",
+        "original_sources_and_links": "passed",
+        "cleanup": "passed"
+      }
+    },
+    {
+      "slot": 24,
+      "project": "ELFIO",
+      "repetition": 1,
+      "method": "forge_state_workflow",
+      "strict_completed": true,
+      "requests": 3,
+      "input_tokens": 45983,
+      "output_tokens": 1742,
+      "cost_usd": "0.0158853",
+      "seconds": 105.84313494900562,
+      "unknown_requests": 0,
+      "build_system": "cmake",
+      "status": "verified",
+      "error_class": null,
+      "error_message": null,
+      "provider_stop": false,
+      "cleanup": true,
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "phases": {
+        "initial_planning": {
+          "requests": 3,
+          "input_tokens": 45983,
+          "output_tokens": 1742,
+          "cost_usd": "0.0158853"
+        }
+      },
+      "recovery_episodes": 0,
+      "candidate_rejections": {},
+      "handoffs": [],
+      "session_files": [
+        "slot-24/ELFIO-plan/.compile-sessions/plan-agent-canary/1134f8e94d0c/session.json"
+      ],
+      "time_censored": false,
+      "raw_slot": "slot-24",
+      "configuration_observation_statuses": {},
+      "direct_configuration_revisions": 0,
+      "replay_attempt_statuses": [
+        "passed"
+      ],
+      "external_evaluations": null,
+      "validation": {
+        "fixed_task_checks": "passed",
+        "complete_author_tests": "passed",
+        "exact_delivery": "passed",
+        "clean_replay": "passed",
+        "original_sources_and_links": "passed",
+        "cleanup": "passed"
+      }
+    },
+    {
+      "slot": 25,
+      "project": "check",
+      "repetition": 2,
+      "method": "forge_state_workflow",
+      "strict_completed": true,
+      "requests": 10,
+      "input_tokens": 181613,
+      "output_tokens": 12341,
+      "cost_usd": "0.0692931",
+      "seconds": 519.7124959409994,
+      "unknown_requests": 0,
+      "build_system": "autotools",
+      "status": "verified",
+      "error_class": null,
+      "error_message": null,
+      "provider_stop": false,
+      "cleanup": true,
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "phases": {
+        "initial_planning": {
+          "requests": 10,
+          "input_tokens": 181613,
+          "output_tokens": 12341,
+          "cost_usd": "0.0692931"
+        }
+      },
+      "recovery_episodes": 0,
+      "candidate_rejections": {
+        "observed.proposal_rejected": 1
+      },
+      "handoffs": [],
+      "session_files": [
+        "slot-25/check-plan/.compile-sessions/plan-agent-canary/d1093d837630/session.json"
+      ],
+      "time_censored": false,
+      "raw_slot": "slot-25",
+      "configuration_observation_statuses": {},
+      "direct_configuration_revisions": 0,
+      "replay_attempt_statuses": [
+        "passed"
+      ],
+      "external_evaluations": null,
+      "validation": {
+        "fixed_task_checks": "passed",
+        "complete_author_tests": "passed",
+        "exact_delivery": "passed",
+        "clean_replay": "passed",
+        "original_sources_and_links": "passed",
+        "cleanup": "passed"
+      }
+    },
+    {
+      "slot": 26,
+      "project": "check",
+      "repetition": 2,
+      "method": "cxxcrafter_community_reference",
+      "strict_completed": false,
+      "requests": 9,
+      "input_tokens": 134643,
+      "output_tokens": 12578,
+      "cost_usd": "0.0554865",
+      "seconds": 605.5940613720013,
+      "unknown_requests": 0,
+      "build_system": "autotools",
+      "status": null,
+      "error_class": null,
+      "error_message": null,
+      "provider_stop": false,
+      "cleanup": true,
+      "source_unchanged": true,
+      "source_links_unchanged": null,
+      "reported_success": true,
+      "dockerfile_versions": 2,
+      "phases": {
+        "native_all": {
+          "requests": 9,
+          "input_tokens": 134643,
+          "output_tokens": 12578,
+          "cost_usd": "0.0554865"
+        }
+      },
+      "recovery_episodes": 0,
+      "candidate_rejections": {},
+      "handoffs": [],
+      "session_files": [],
+      "time_censored": false,
+      "raw_slot": "slot-26",
+      "configuration_observation_statuses": {},
+      "direct_configuration_revisions": 0,
+      "replay_attempt_statuses": [],
+      "external_evaluations": [
+        {
+          "source_unchanged": true,
+          "fixed_tests": false,
+          "artifact_stage": null,
+          "artifacts": null,
+          "cleanup": true
+        }
+      ],
+      "validation": {
+        "fixed_task_checks": "failed",
+        "complete_author_tests": "unobserved",
+        "exact_delivery": "unobserved",
+        "clean_replay": "unobserved",
+        "original_sources_and_links": "passed",
+        "cleanup": "passed"
+      }
+    },
+    {
+      "slot": 27,
+      "project": "check",
+      "repetition": 2,
+      "method": "strong_tool_agent",
+      "strict_completed": true,
+      "requests": 13,
+      "input_tokens": 196262,
+      "output_tokens": 2826,
+      "cost_usd": "0.0622698",
+      "seconds": 812.2532767420053,
+      "unknown_requests": 0,
+      "build_system": "autotools",
+      "status": "verified",
+      "error_class": null,
+      "error_message": null,
+      "provider_stop": false,
+      "cleanup": true,
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "phases": {
+        "interaction": {
+          "requests": 13,
+          "input_tokens": 196262,
+          "output_tokens": 2826,
+          "cost_usd": "0.0622698"
+        }
+      },
+      "recovery_episodes": 0,
+      "candidate_rejections": {},
+      "handoffs": [],
+      "session_files": [
+        "slot-27/check-tool/.compile-sessions/plan-agent-canary/83c6a201fcf9/session.json"
+      ],
+      "time_censored": false,
+      "raw_slot": "slot-27",
+      "configuration_observation_statuses": {},
+      "direct_configuration_revisions": 0,
+      "replay_attempt_statuses": [
+        "passed"
+      ],
+      "external_evaluations": null,
+      "validation": {
+        "fixed_task_checks": "passed",
+        "complete_author_tests": "passed",
+        "exact_delivery": "passed",
+        "clean_replay": "passed",
+        "original_sources_and_links": "passed",
+        "cleanup": "passed"
+      }
+    },
+    {
+      "slot": 28,
+      "project": "simdutf",
+      "repetition": 2,
+      "method": "cxxcrafter_community_reference",
+      "strict_completed": true,
+      "requests": 8,
+      "input_tokens": 92517,
+      "output_tokens": 14505,
+      "cost_usd": "0.0451611",
+      "seconds": 1008.343563866998,
+      "unknown_requests": 0,
+      "build_system": "cmake",
+      "status": null,
+      "error_class": null,
+      "error_message": null,
+      "provider_stop": false,
+      "cleanup": true,
+      "source_unchanged": true,
+      "source_links_unchanged": null,
+      "reported_success": true,
+      "dockerfile_versions": 3,
+      "phases": {
+        "native_all": {
+          "requests": 8,
+          "input_tokens": 92517,
+          "output_tokens": 14505,
+          "cost_usd": "0.0451611"
+        }
+      },
+      "recovery_episodes": 0,
+      "candidate_rejections": {},
+      "handoffs": [],
+      "session_files": [],
+      "time_censored": false,
+      "raw_slot": "slot-28",
+      "configuration_observation_statuses": {},
+      "direct_configuration_revisions": 0,
+      "replay_attempt_statuses": [],
+      "external_evaluations": [
+        {
+          "source_unchanged": true,
+          "fixed_tests": true,
+          "artifact_stage": true,
+          "artifacts": {
+            "libsimdutf.a": {
+              "sha256": "1ee79296241da3fdc07fe141811275c8a7100b329105b383de068c1d526a3d1d",
+              "size": 925092,
+              "artifact_type": "static_library"
+            }
+          },
+          "cleanup": true
+        },
+        {
+          "source_unchanged": true,
+          "fixed_tests": true,
+          "artifact_stage": true,
+          "artifacts": {
+            "libsimdutf.a": {
+              "sha256": "1ee79296241da3fdc07fe141811275c8a7100b329105b383de068c1d526a3d1d",
+              "size": 925092,
+              "artifact_type": "static_library"
+            }
+          },
+          "cleanup": true
+        }
+      ],
+      "validation": {
+        "fixed_task_checks": "passed",
+        "complete_author_tests": "passed",
+        "exact_delivery": "passed",
+        "clean_replay": "passed",
+        "original_sources_and_links": "passed",
+        "cleanup": "passed"
+      }
+    },
+    {
+      "slot": 29,
+      "project": "simdutf",
+      "repetition": 2,
+      "method": "forge_state_workflow",
+      "strict_completed": true,
+      "requests": 12,
+      "input_tokens": 257837,
+      "output_tokens": 9555,
+      "cost_usd": "0.0888171",
+      "seconds": 632.9961826759973,
+      "unknown_requests": 0,
+      "build_system": "cmake",
+      "status": "verified",
+      "error_class": null,
+      "error_message": null,
+      "provider_stop": false,
+      "cleanup": true,
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "phases": {
+        "initial_planning": {
+          "requests": 3,
+          "input_tokens": 47774,
+          "output_tokens": 1444,
+          "cost_usd": "0.0160650"
+        },
+        "recovery": {
+          "requests": 9,
+          "input_tokens": 210063,
+          "output_tokens": 8111,
+          "cost_usd": "0.0727521"
+        }
+      },
+      "recovery_episodes": 1,
+      "candidate_rejections": {
+        "observed.proposal_rejected": 1
+      },
+      "handoffs": [
+        {
+          "reason": "step_failed_or_expectation_missing",
+          "step_id": "build"
+        }
+      ],
+      "session_files": [
+        "slot-29/simdutf-plan/.compile-sessions/plan-agent-canary/fa5ddce51af5/session.json"
+      ],
+      "time_censored": false,
+      "raw_slot": "slot-29",
+      "configuration_observation_statuses": {
+        "satisfied": 4
+      },
+      "direct_configuration_revisions": 0,
+      "replay_attempt_statuses": [
+        "passed"
+      ],
+      "external_evaluations": null,
+      "validation": {
+        "fixed_task_checks": "passed",
+        "complete_author_tests": "passed",
+        "exact_delivery": "passed",
+        "clean_replay": "passed",
+        "original_sources_and_links": "passed",
+        "cleanup": "passed"
+      }
+    },
+    {
+      "slot": 30,
+      "project": "simdutf",
+      "repetition": 2,
+      "method": "strong_tool_agent",
+      "strict_completed": true,
+      "requests": 9,
+      "input_tokens": 139291,
+      "output_tokens": 1731,
+      "cost_usd": "0.0438645",
+      "seconds": 563.1101985549976,
+      "unknown_requests": 0,
+      "build_system": "cmake",
+      "status": "verified",
+      "error_class": null,
+      "error_message": null,
+      "provider_stop": false,
+      "cleanup": true,
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "phases": {
+        "interaction": {
+          "requests": 9,
+          "input_tokens": 139291,
+          "output_tokens": 1731,
+          "cost_usd": "0.0438645"
+        }
+      },
+      "recovery_episodes": 0,
+      "candidate_rejections": {},
+      "handoffs": [],
+      "session_files": [
+        "slot-30/simdutf-tool/.compile-sessions/plan-agent-canary/4239e119f037/session.json"
+      ],
+      "time_censored": false,
+      "raw_slot": "slot-30",
+      "configuration_observation_statuses": {},
+      "direct_configuration_revisions": 0,
+      "replay_attempt_statuses": [
+        "passed"
+      ],
+      "external_evaluations": null,
+      "validation": {
+        "fixed_task_checks": "passed",
+        "complete_author_tests": "passed",
+        "exact_delivery": "passed",
+        "clean_replay": "passed",
+        "original_sources_and_links": "passed",
+        "cleanup": "passed"
+      }
+    },
+    {
+      "slot": 31,
+      "project": "snappy",
+      "repetition": 2,
+      "method": "strong_tool_agent",
+      "strict_completed": true,
+      "requests": 9,
+      "input_tokens": 157676,
+      "output_tokens": 1247,
+      "cost_usd": "0.0487992",
+      "seconds": 197.60327965200122,
+      "unknown_requests": 0,
+      "build_system": "cmake",
+      "status": "verified",
+      "error_class": null,
+      "error_message": null,
+      "provider_stop": false,
+      "cleanup": true,
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "phases": {
+        "interaction": {
+          "requests": 9,
+          "input_tokens": 157676,
+          "output_tokens": 1247,
+          "cost_usd": "0.0487992"
+        }
+      },
+      "recovery_episodes": 0,
+      "candidate_rejections": {},
+      "handoffs": [],
+      "session_files": [
+        "slot-31/snappy-tool/.compile-sessions/plan-agent-canary/940f976b6ae4/session.json"
+      ],
+      "time_censored": false,
+      "raw_slot": "slot-31",
+      "configuration_observation_statuses": {},
+      "direct_configuration_revisions": 0,
+      "replay_attempt_statuses": [
+        "passed"
+      ],
+      "external_evaluations": null,
+      "validation": {
+        "fixed_task_checks": "passed",
+        "complete_author_tests": "passed",
+        "exact_delivery": "passed",
+        "clean_replay": "passed",
+        "original_sources_and_links": "passed",
+        "cleanup": "passed"
+      }
+    },
+    {
+      "slot": 32,
+      "project": "snappy",
+      "repetition": 2,
+      "method": "forge_state_workflow",
+      "strict_completed": true,
+      "requests": 3,
+      "input_tokens": 51289,
+      "output_tokens": 2321,
+      "cost_usd": "0.0181719",
+      "seconds": 180.79257585499727,
+      "unknown_requests": 0,
+      "build_system": "cmake",
+      "status": "verified",
+      "error_class": null,
+      "error_message": null,
+      "provider_stop": false,
+      "cleanup": true,
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "phases": {
+        "initial_planning": {
+          "requests": 3,
+          "input_tokens": 51289,
+          "output_tokens": 2321,
+          "cost_usd": "0.0181719"
+        }
+      },
+      "recovery_episodes": 0,
+      "candidate_rejections": {},
+      "handoffs": [],
+      "session_files": [
+        "slot-32/snappy-plan/.compile-sessions/plan-agent-canary/bfe45f48a03a/session.json"
+      ],
+      "time_censored": false,
+      "raw_slot": "slot-32",
+      "configuration_observation_statuses": {
+        "satisfied": 2
+      },
+      "direct_configuration_revisions": 0,
+      "replay_attempt_statuses": [
+        "passed"
+      ],
+      "external_evaluations": null,
+      "validation": {
+        "fixed_task_checks": "passed",
+        "complete_author_tests": "passed",
+        "exact_delivery": "passed",
+        "clean_replay": "passed",
+        "original_sources_and_links": "passed",
+        "cleanup": "passed"
+      }
+    },
+    {
+      "slot": 33,
+      "project": "snappy",
+      "repetition": 2,
+      "method": "cxxcrafter_community_reference",
+      "strict_completed": true,
+      "requests": 6,
+      "input_tokens": 44278,
+      "output_tokens": 15701,
+      "cost_usd": "0.0321246",
+      "seconds": 342.8654964430025,
+      "unknown_requests": 0,
+      "build_system": "cmake",
+      "status": null,
+      "error_class": null,
+      "error_message": null,
+      "provider_stop": false,
+      "cleanup": true,
+      "source_unchanged": true,
+      "source_links_unchanged": null,
+      "reported_success": true,
+      "dockerfile_versions": 1,
+      "phases": {
+        "native_all": {
+          "requests": 6,
+          "input_tokens": 44278,
+          "output_tokens": 15701,
+          "cost_usd": "0.0321246"
+        }
+      },
+      "recovery_episodes": 0,
+      "candidate_rejections": {},
+      "handoffs": [],
+      "session_files": [],
+      "time_censored": false,
+      "raw_slot": "slot-33",
+      "configuration_observation_statuses": {},
+      "direct_configuration_revisions": 0,
+      "replay_attempt_statuses": [],
+      "external_evaluations": [
+        {
+          "source_unchanged": true,
+          "fixed_tests": true,
+          "artifact_stage": true,
+          "artifacts": {
+            "libsnappy.a": {
+              "sha256": "a14123af79acb80659b18f73fca8336e75f809d81939cb1b17c7e91c3c7697b1",
+              "size": 74318,
+              "artifact_type": "static_library"
+            }
+          },
+          "cleanup": true
+        },
+        {
+          "source_unchanged": true,
+          "fixed_tests": true,
+          "artifact_stage": true,
+          "artifacts": {
+            "libsnappy.a": {
+              "sha256": "a14123af79acb80659b18f73fca8336e75f809d81939cb1b17c7e91c3c7697b1",
+              "size": 74318,
+              "artifact_type": "static_library"
+            }
+          },
+          "cleanup": true
+        }
+      ],
+      "validation": {
+        "fixed_task_checks": "passed",
+        "complete_author_tests": "passed",
+        "exact_delivery": "passed",
+        "clean_replay": "passed",
+        "original_sources_and_links": "passed",
+        "cleanup": "passed"
+      }
+    },
+    {
+      "slot": 34,
+      "project": "yaml-cpp",
+      "repetition": 2,
+      "method": "forge_state_workflow",
+      "strict_completed": true,
+      "requests": 3,
+      "input_tokens": 42651,
+      "output_tokens": 2023,
+      "cost_usd": "0.0152229",
+      "seconds": 182.30018048900092,
+      "unknown_requests": 0,
+      "build_system": "cmake",
+      "status": "verified",
+      "error_class": null,
+      "error_message": null,
+      "provider_stop": false,
+      "cleanup": true,
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "phases": {
+        "initial_planning": {
+          "requests": 3,
+          "input_tokens": 42651,
+          "output_tokens": 2023,
+          "cost_usd": "0.0152229"
+        }
+      },
+      "recovery_episodes": 0,
+      "candidate_rejections": {},
+      "handoffs": [],
+      "session_files": [
+        "slot-34/yaml-cpp-plan/.compile-sessions/plan-agent-canary/bc9e6f0a0c79/session.json"
+      ],
+      "time_censored": false,
+      "raw_slot": "slot-34",
+      "configuration_observation_statuses": {
+        "satisfied": 2
+      },
+      "direct_configuration_revisions": 0,
+      "replay_attempt_statuses": [
+        "passed"
+      ],
+      "external_evaluations": null,
+      "validation": {
+        "fixed_task_checks": "passed",
+        "complete_author_tests": "passed",
+        "exact_delivery": "passed",
+        "clean_replay": "passed",
+        "original_sources_and_links": "passed",
+        "cleanup": "passed"
+      }
+    },
+    {
+      "slot": 35,
+      "project": "yaml-cpp",
+      "repetition": 2,
+      "method": "strong_tool_agent",
+      "strict_completed": true,
+      "requests": 8,
+      "input_tokens": 116564,
+      "output_tokens": 1007,
+      "cost_usd": "0.0361776",
+      "seconds": 187.3951345759997,
+      "unknown_requests": 0,
+      "build_system": "cmake",
+      "status": "verified",
+      "error_class": null,
+      "error_message": null,
+      "provider_stop": false,
+      "cleanup": true,
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "phases": {
+        "interaction": {
+          "requests": 8,
+          "input_tokens": 116564,
+          "output_tokens": 1007,
+          "cost_usd": "0.0361776"
+        }
+      },
+      "recovery_episodes": 0,
+      "candidate_rejections": {},
+      "handoffs": [],
+      "session_files": [
+        "slot-35/yaml-cpp-tool/.compile-sessions/plan-agent-canary/ec96c06e2ce5/session.json"
+      ],
+      "time_censored": false,
+      "raw_slot": "slot-35",
+      "configuration_observation_statuses": {},
+      "direct_configuration_revisions": 0,
+      "replay_attempt_statuses": [
+        "passed"
+      ],
+      "external_evaluations": null,
+      "validation": {
+        "fixed_task_checks": "passed",
+        "complete_author_tests": "passed",
+        "exact_delivery": "passed",
+        "clean_replay": "passed",
+        "original_sources_and_links": "passed",
+        "cleanup": "passed"
+      }
+    },
+    {
+      "slot": 36,
+      "project": "yaml-cpp",
+      "repetition": 2,
+      "method": "cxxcrafter_community_reference",
+      "strict_completed": true,
+      "requests": 6,
+      "input_tokens": 39217,
+      "output_tokens": 26115,
+      "cost_usd": "0.0431031",
+      "seconds": 480.2421983949971,
+      "unknown_requests": 0,
+      "build_system": "cmake",
+      "status": null,
+      "error_class": null,
+      "error_message": null,
+      "provider_stop": false,
+      "cleanup": true,
+      "source_unchanged": true,
+      "source_links_unchanged": null,
+      "reported_success": true,
+      "dockerfile_versions": 1,
+      "phases": {
+        "native_all": {
+          "requests": 6,
+          "input_tokens": 39217,
+          "output_tokens": 26115,
+          "cost_usd": "0.0431031"
+        }
+      },
+      "recovery_episodes": 0,
+      "candidate_rejections": {},
+      "handoffs": [],
+      "session_files": [],
+      "time_censored": false,
+      "raw_slot": "slot-36",
+      "configuration_observation_statuses": {},
+      "direct_configuration_revisions": 0,
+      "replay_attempt_statuses": [],
+      "external_evaluations": [
+        {
+          "source_unchanged": true,
+          "fixed_tests": true,
+          "artifact_stage": true,
+          "artifacts": {
+            "libyaml-cpp.a": {
+              "sha256": "4c34cb22eb78b70ae7039938696a451e22ec1d1f69528554c6c326a4f3c975f5",
+              "size": 1151348,
+              "artifact_type": "static_library"
+            }
+          },
+          "cleanup": true
+        },
+        {
+          "source_unchanged": true,
+          "fixed_tests": true,
+          "artifact_stage": true,
+          "artifacts": {
+            "libyaml-cpp.a": {
+              "sha256": "4c34cb22eb78b70ae7039938696a451e22ec1d1f69528554c6c326a4f3c975f5",
+              "size": 1151348,
+              "artifact_type": "static_library"
+            }
+          },
+          "cleanup": true
+        }
+      ],
+      "validation": {
+        "fixed_task_checks": "passed",
+        "complete_author_tests": "passed",
+        "exact_delivery": "passed",
+        "clean_replay": "passed",
+        "original_sources_and_links": "passed",
+        "cleanup": "passed"
+      }
+    },
+    {
+      "slot": 37,
+      "project": "libtommath",
+      "repetition": 2,
+      "method": "cxxcrafter_community_reference",
+      "strict_completed": true,
+      "requests": 6,
+      "input_tokens": 20724,
+      "output_tokens": 8985,
+      "cost_usd": "0.0169992",
+      "seconds": 117.27727691299515,
+      "unknown_requests": 0,
+      "build_system": "make",
+      "status": null,
+      "error_class": null,
+      "error_message": null,
+      "provider_stop": false,
+      "cleanup": true,
+      "source_unchanged": true,
+      "source_links_unchanged": null,
+      "reported_success": true,
+      "dockerfile_versions": 1,
+      "phases": {
+        "native_all": {
+          "requests": 6,
+          "input_tokens": 20724,
+          "output_tokens": 8985,
+          "cost_usd": "0.0169992"
+        }
+      },
+      "recovery_episodes": 0,
+      "candidate_rejections": {},
+      "handoffs": [],
+      "session_files": [],
+      "time_censored": false,
+      "raw_slot": "slot-37",
+      "configuration_observation_statuses": {},
+      "direct_configuration_revisions": 0,
+      "replay_attempt_statuses": [],
+      "external_evaluations": [
+        {
+          "source_unchanged": true,
+          "fixed_tests": true,
+          "artifact_stage": true,
+          "artifacts": {
+            "libtommath.a": {
+              "sha256": "0a63046ce738d43cb6e169148832a64a4644008bb05826a888e7822eecbd7be9",
+              "size": 386392,
+              "artifact_type": "static_library"
+            }
+          },
+          "cleanup": true
+        },
+        {
+          "source_unchanged": true,
+          "fixed_tests": true,
+          "artifact_stage": true,
+          "artifacts": {
+            "libtommath.a": {
+              "sha256": "0a63046ce738d43cb6e169148832a64a4644008bb05826a888e7822eecbd7be9",
+              "size": 386392,
+              "artifact_type": "static_library"
+            }
+          },
+          "cleanup": true
+        }
+      ],
+      "validation": {
+        "fixed_task_checks": "passed",
+        "complete_author_tests": "passed",
+        "exact_delivery": "passed",
+        "clean_replay": "passed",
+        "original_sources_and_links": "passed",
+        "cleanup": "passed"
+      }
+    },
+    {
+      "slot": 38,
+      "project": "libtommath",
+      "repetition": 2,
+      "method": "strong_tool_agent",
+      "strict_completed": true,
+      "requests": 13,
+      "input_tokens": 172163,
+      "output_tokens": 1915,
+      "cost_usd": "0.0539469",
+      "seconds": 73.3648839890011,
+      "unknown_requests": 0,
+      "build_system": "make",
+      "status": "verified",
+      "error_class": null,
+      "error_message": null,
+      "provider_stop": false,
+      "cleanup": true,
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "phases": {
+        "interaction": {
+          "requests": 13,
+          "input_tokens": 172163,
+          "output_tokens": 1915,
+          "cost_usd": "0.0539469"
+        }
+      },
+      "recovery_episodes": 0,
+      "candidate_rejections": {},
+      "handoffs": [],
+      "session_files": [
+        "slot-38/libtommath-tool/.compile-sessions/plan-agent-canary/d225dbf2aba7/session.json"
+      ],
+      "time_censored": false,
+      "raw_slot": "slot-38",
+      "configuration_observation_statuses": {},
+      "direct_configuration_revisions": 0,
+      "replay_attempt_statuses": [
+        "passed"
+      ],
+      "external_evaluations": null,
+      "validation": {
+        "fixed_task_checks": "passed",
+        "complete_author_tests": "passed",
+        "exact_delivery": "passed",
+        "clean_replay": "passed",
+        "original_sources_and_links": "passed",
+        "cleanup": "passed"
+      }
+    },
+    {
+      "slot": 39,
+      "project": "libtommath",
+      "repetition": 2,
+      "method": "forge_state_workflow",
+      "strict_completed": true,
+      "requests": 6,
+      "input_tokens": 84476,
+      "output_tokens": 1415,
+      "cost_usd": "0.0270408",
+      "seconds": 53.63222868599405,
+      "unknown_requests": 0,
+      "build_system": "make",
+      "status": "verified",
+      "error_class": null,
+      "error_message": null,
+      "provider_stop": false,
+      "cleanup": true,
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "phases": {
+        "initial_planning": {
+          "requests": 6,
+          "input_tokens": 84476,
+          "output_tokens": 1415,
+          "cost_usd": "0.0270408"
+        }
+      },
+      "recovery_episodes": 0,
+      "candidate_rejections": {},
+      "handoffs": [],
+      "session_files": [
+        "slot-39/libtommath-plan/.compile-sessions/plan-agent-canary/5d87e1282196/session.json"
+      ],
+      "time_censored": false,
+      "raw_slot": "slot-39",
+      "configuration_observation_statuses": {},
+      "direct_configuration_revisions": 0,
+      "replay_attempt_statuses": [
+        "passed"
+      ],
+      "external_evaluations": null,
+      "validation": {
+        "fixed_task_checks": "passed",
+        "complete_author_tests": "passed",
+        "exact_delivery": "passed",
+        "clean_replay": "passed",
+        "original_sources_and_links": "passed",
+        "cleanup": "passed"
+      }
+    },
+    {
+      "slot": 40,
+      "project": "tinyxml2",
+      "repetition": 2,
+      "method": "strong_tool_agent",
+      "strict_completed": true,
+      "requests": 4,
+      "input_tokens": 40109,
+      "output_tokens": 474,
+      "cost_usd": "0.0126015",
+      "seconds": 16.50983062799787,
+      "unknown_requests": 0,
+      "build_system": "make",
+      "status": "verified",
+      "error_class": null,
+      "error_message": null,
+      "provider_stop": false,
+      "cleanup": true,
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "phases": {
+        "interaction": {
+          "requests": 4,
+          "input_tokens": 40109,
+          "output_tokens": 474,
+          "cost_usd": "0.0126015"
+        }
+      },
+      "recovery_episodes": 0,
+      "candidate_rejections": {},
+      "handoffs": [],
+      "session_files": [
+        "slot-40/tinyxml2-tool/.compile-sessions/plan-agent-canary/386cac1c16ae/session.json"
+      ],
+      "time_censored": false,
+      "raw_slot": "slot-40",
+      "configuration_observation_statuses": {},
+      "direct_configuration_revisions": 0,
+      "replay_attempt_statuses": [
+        "passed"
+      ],
+      "external_evaluations": null,
+      "validation": {
+        "fixed_task_checks": "passed",
+        "complete_author_tests": "passed",
+        "exact_delivery": "passed",
+        "clean_replay": "passed",
+        "original_sources_and_links": "passed",
+        "cleanup": "passed"
+      }
+    },
+    {
+      "slot": 41,
+      "project": "tinyxml2",
+      "repetition": 2,
+      "method": "cxxcrafter_community_reference",
+      "strict_completed": true,
+      "requests": 6,
+      "input_tokens": 25530,
+      "output_tokens": 13000,
+      "cost_usd": "0.0232590",
+      "seconds": 180.188939407999,
+      "unknown_requests": 0,
+      "build_system": "make",
+      "status": null,
+      "error_class": null,
+      "error_message": null,
+      "provider_stop": false,
+      "cleanup": true,
+      "source_unchanged": true,
+      "source_links_unchanged": null,
+      "reported_success": true,
+      "dockerfile_versions": 1,
+      "phases": {
+        "native_all": {
+          "requests": 6,
+          "input_tokens": 25530,
+          "output_tokens": 13000,
+          "cost_usd": "0.023259"
+        }
+      },
+      "recovery_episodes": 0,
+      "candidate_rejections": {},
+      "handoffs": [],
+      "session_files": [],
+      "time_censored": false,
+      "raw_slot": "slot-41",
+      "configuration_observation_statuses": {},
+      "direct_configuration_revisions": 0,
+      "replay_attempt_statuses": [],
+      "external_evaluations": [
+        {
+          "source_unchanged": true,
+          "fixed_tests": true,
+          "artifact_stage": true,
+          "artifacts": {
+            "libtinyxml2.a": {
+              "sha256": "6b97e173344d2e8341d7247bbb4d809fd4e540605eb469879ca7db2115a85c9f",
+              "size": 207050,
+              "artifact_type": "static_library"
+            }
+          },
+          "cleanup": true
+        },
+        {
+          "source_unchanged": true,
+          "fixed_tests": true,
+          "artifact_stage": true,
+          "artifacts": {
+            "libtinyxml2.a": {
+              "sha256": "6b97e173344d2e8341d7247bbb4d809fd4e540605eb469879ca7db2115a85c9f",
+              "size": 207050,
+              "artifact_type": "static_library"
+            }
+          },
+          "cleanup": true
+        }
+      ],
+      "validation": {
+        "fixed_task_checks": "passed",
+        "complete_author_tests": "passed",
+        "exact_delivery": "passed",
+        "clean_replay": "passed",
+        "original_sources_and_links": "passed",
+        "cleanup": "passed"
+      }
+    },
+    {
+      "slot": 42,
+      "project": "tinyxml2",
+      "repetition": 2,
+      "method": "forge_state_workflow",
+      "strict_completed": true,
+      "requests": 1,
+      "input_tokens": 9617,
+      "output_tokens": 1089,
+      "cost_usd": "0.0041919",
+      "seconds": 18.100055478003924,
+      "unknown_requests": 0,
+      "build_system": "make",
+      "status": "verified",
+      "error_class": null,
+      "error_message": null,
+      "provider_stop": false,
+      "cleanup": true,
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "phases": {
+        "initial_planning": {
+          "requests": 1,
+          "input_tokens": 9617,
+          "output_tokens": 1089,
+          "cost_usd": "0.0041919"
+        }
+      },
+      "recovery_episodes": 0,
+      "candidate_rejections": {},
+      "handoffs": [],
+      "session_files": [
+        "slot-42/tinyxml2-plan/.compile-sessions/plan-agent-canary/3df4b2101e93/session.json"
+      ],
+      "time_censored": false,
+      "raw_slot": "slot-42",
+      "configuration_observation_statuses": {},
+      "direct_configuration_revisions": 0,
+      "replay_attempt_statuses": [
+        "passed"
+      ],
+      "external_evaluations": null,
+      "validation": {
+        "fixed_task_checks": "passed",
+        "complete_author_tests": "passed",
+        "exact_delivery": "passed",
+        "clean_replay": "passed",
+        "original_sources_and_links": "passed",
+        "cleanup": "passed"
+      }
+    },
+    {
+      "slot": 43,
+      "project": "rang",
+      "repetition": 2,
+      "method": "forge_state_workflow",
+      "strict_completed": true,
+      "requests": 6,
+      "input_tokens": 75941,
+      "output_tokens": 2154,
+      "cost_usd": "0.0253671",
+      "seconds": 46.006965414999286,
+      "unknown_requests": 0,
+      "build_system": "cmake",
+      "status": "verified",
+      "error_class": null,
+      "error_message": null,
+      "provider_stop": false,
+      "cleanup": true,
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "phases": {
+        "initial_planning": {
+          "requests": 6,
+          "input_tokens": 75941,
+          "output_tokens": 2154,
+          "cost_usd": "0.0253671"
+        }
+      },
+      "recovery_episodes": 0,
+      "candidate_rejections": {},
+      "handoffs": [],
+      "session_files": [
+        "slot-43/rang-plan/.compile-sessions/plan-agent-canary/7c48b85e4497/session.json"
+      ],
+      "time_censored": false,
+      "raw_slot": "slot-43",
+      "configuration_observation_statuses": {},
+      "direct_configuration_revisions": 0,
+      "replay_attempt_statuses": [
+        "passed"
+      ],
+      "external_evaluations": null,
+      "validation": {
+        "fixed_task_checks": "passed",
+        "complete_author_tests": "passed",
+        "exact_delivery": "passed",
+        "clean_replay": "passed",
+        "original_sources_and_links": "passed",
+        "cleanup": "passed"
+      }
+    },
+    {
+      "slot": 44,
+      "project": "rang",
+      "repetition": 2,
+      "method": "cxxcrafter_community_reference",
+      "strict_completed": true,
+      "requests": 6,
+      "input_tokens": 25601,
+      "output_tokens": 20991,
+      "cost_usd": "0.0328695",
+      "seconds": 248.3046838549999,
+      "unknown_requests": 0,
+      "build_system": "cmake",
+      "status": null,
+      "error_class": null,
+      "error_message": null,
+      "provider_stop": false,
+      "cleanup": true,
+      "source_unchanged": true,
+      "source_links_unchanged": null,
+      "reported_success": true,
+      "dockerfile_versions": 1,
+      "phases": {
+        "native_all": {
+          "requests": 6,
+          "input_tokens": 25601,
+          "output_tokens": 20991,
+          "cost_usd": "0.0328695"
+        }
+      },
+      "recovery_episodes": 0,
+      "candidate_rejections": {},
+      "handoffs": [],
+      "session_files": [],
+      "time_censored": false,
+      "raw_slot": "slot-44",
+      "configuration_observation_statuses": {},
+      "direct_configuration_revisions": 0,
+      "replay_attempt_statuses": [],
+      "external_evaluations": [
+        {
+          "source_unchanged": true,
+          "fixed_tests": true,
+          "artifact_stage": true,
+          "artifacts": {
+            "envTermMissing": {
+              "sha256": "9f242728eaad4fb9eb7d74ce6157bd5b1cf9fd676062280a174b07140bb74a13",
+              "size": 17928,
+              "artifact_type": "executable"
+            },
+            "all_rang_tests": {
+              "sha256": "d504a8bd3840af03724731ed909327d72b06c2c5c60989d954bed800e2a3b997",
+              "size": 277680,
+              "artifact_type": "executable"
+            },
+            "colorTest": {
+              "sha256": "259043d98696cc4cf7a2ce3aa2efdd77e2218f1e1f0e3ab53482fdd96807ecbe",
+              "size": 27888,
+              "artifact_type": "executable"
+            }
+          },
+          "cleanup": true
+        },
+        {
+          "source_unchanged": true,
+          "fixed_tests": true,
+          "artifact_stage": true,
+          "artifacts": {
+            "envTermMissing": {
+              "sha256": "9f242728eaad4fb9eb7d74ce6157bd5b1cf9fd676062280a174b07140bb74a13",
+              "size": 17928,
+              "artifact_type": "executable"
+            },
+            "all_rang_tests": {
+              "sha256": "d504a8bd3840af03724731ed909327d72b06c2c5c60989d954bed800e2a3b997",
+              "size": 277680,
+              "artifact_type": "executable"
+            },
+            "colorTest": {
+              "sha256": "259043d98696cc4cf7a2ce3aa2efdd77e2218f1e1f0e3ab53482fdd96807ecbe",
+              "size": 27888,
+              "artifact_type": "executable"
+            }
+          },
+          "cleanup": true
+        }
+      ],
+      "validation": {
+        "fixed_task_checks": "passed",
+        "complete_author_tests": "passed",
+        "exact_delivery": "passed",
+        "clean_replay": "passed",
+        "original_sources_and_links": "passed",
+        "cleanup": "passed"
+      }
+    },
+    {
+      "slot": 45,
+      "project": "rang",
+      "repetition": 2,
+      "method": "strong_tool_agent",
+      "strict_completed": true,
+      "requests": 9,
+      "input_tokens": 103571,
+      "output_tokens": 1211,
+      "cost_usd": "0.0325245",
+      "seconds": 41.803322999003285,
+      "unknown_requests": 0,
+      "build_system": "cmake",
+      "status": "verified",
+      "error_class": null,
+      "error_message": null,
+      "provider_stop": false,
+      "cleanup": true,
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "phases": {
+        "interaction": {
+          "requests": 9,
+          "input_tokens": 103571,
+          "output_tokens": 1211,
+          "cost_usd": "0.0325245"
+        }
+      },
+      "recovery_episodes": 0,
+      "candidate_rejections": {},
+      "handoffs": [],
+      "session_files": [
+        "slot-45/rang-tool/.compile-sessions/plan-agent-canary/c85239a82336/session.json"
+      ],
+      "time_censored": false,
+      "raw_slot": "slot-45",
+      "configuration_observation_statuses": {},
+      "direct_configuration_revisions": 0,
+      "replay_attempt_statuses": [
+        "passed"
+      ],
+      "external_evaluations": null,
+      "validation": {
+        "fixed_task_checks": "passed",
+        "complete_author_tests": "passed",
+        "exact_delivery": "passed",
+        "clean_replay": "passed",
+        "original_sources_and_links": "passed",
+        "cleanup": "passed"
+      }
+    },
+    {
+      "slot": 46,
+      "project": "ELFIO",
+      "repetition": 2,
+      "method": "cxxcrafter_community_reference",
+      "strict_completed": true,
+      "requests": 7,
+      "input_tokens": 44810,
+      "output_tokens": 18320,
+      "cost_usd": "0.0354270",
+      "seconds": 327.16810416799854,
+      "unknown_requests": 0,
+      "build_system": "cmake",
+      "status": null,
+      "error_class": null,
+      "error_message": null,
+      "provider_stop": false,
+      "cleanup": true,
+      "source_unchanged": true,
+      "source_links_unchanged": null,
+      "reported_success": true,
+      "dockerfile_versions": 2,
+      "phases": {
+        "native_all": {
+          "requests": 7,
+          "input_tokens": 44810,
+          "output_tokens": 18320,
+          "cost_usd": "0.035427"
+        }
+      },
+      "recovery_episodes": 0,
+      "candidate_rejections": {},
+      "handoffs": [],
+      "session_files": [],
+      "time_censored": false,
+      "raw_slot": "slot-46",
+      "configuration_observation_statuses": {},
+      "direct_configuration_revisions": 0,
+      "replay_attempt_statuses": [],
+      "external_evaluations": [
+        {
+          "source_unchanged": true,
+          "fixed_tests": true,
+          "artifact_stage": true,
+          "artifacts": {
+            "ELFIOTest": {
+              "sha256": "c0c0fe90efd19952487122b2469b6f71278dc12f564d7edce9ed7bcb60670f80",
+              "size": 1350200,
+              "artifact_type": "executable"
+            }
+          },
+          "cleanup": true
+        },
+        {
+          "source_unchanged": true,
+          "fixed_tests": true,
+          "artifact_stage": true,
+          "artifacts": {
+            "ELFIOTest": {
+              "sha256": "c0c0fe90efd19952487122b2469b6f71278dc12f564d7edce9ed7bcb60670f80",
+              "size": 1350200,
+              "artifact_type": "executable"
+            }
+          },
+          "cleanup": true
+        }
+      ],
+      "validation": {
+        "fixed_task_checks": "passed",
+        "complete_author_tests": "passed",
+        "exact_delivery": "passed",
+        "clean_replay": "passed",
+        "original_sources_and_links": "passed",
+        "cleanup": "passed"
+      }
+    },
+    {
+      "slot": 47,
+      "project": "ELFIO",
+      "repetition": 2,
+      "method": "forge_state_workflow",
+      "strict_completed": true,
+      "requests": 3,
+      "input_tokens": 46024,
+      "output_tokens": 1828,
+      "cost_usd": "0.0160008",
+      "seconds": 105.55597179500182,
+      "unknown_requests": 0,
+      "build_system": "cmake",
+      "status": "verified",
+      "error_class": null,
+      "error_message": null,
+      "provider_stop": false,
+      "cleanup": true,
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "phases": {
+        "initial_planning": {
+          "requests": 3,
+          "input_tokens": 46024,
+          "output_tokens": 1828,
+          "cost_usd": "0.0160008"
+        }
+      },
+      "recovery_episodes": 0,
+      "candidate_rejections": {},
+      "handoffs": [],
+      "session_files": [
+        "slot-47/ELFIO-plan/.compile-sessions/plan-agent-canary/d02dfef601a1/session.json"
+      ],
+      "time_censored": false,
+      "raw_slot": "slot-47",
+      "configuration_observation_statuses": {},
+      "direct_configuration_revisions": 0,
+      "replay_attempt_statuses": [
+        "passed"
+      ],
+      "external_evaluations": null,
+      "validation": {
+        "fixed_task_checks": "passed",
+        "complete_author_tests": "passed",
+        "exact_delivery": "passed",
+        "clean_replay": "passed",
+        "original_sources_and_links": "passed",
+        "cleanup": "passed"
+      }
+    },
+    {
+      "slot": 48,
+      "project": "ELFIO",
+      "repetition": 2,
+      "method": "strong_tool_agent",
+      "strict_completed": true,
+      "requests": 7,
+      "input_tokens": 111333,
+      "output_tokens": 1255,
+      "cost_usd": "0.0349059",
+      "seconds": 112.00050255400129,
+      "unknown_requests": 0,
+      "build_system": "cmake",
+      "status": "verified",
+      "error_class": null,
+      "error_message": null,
+      "provider_stop": false,
+      "cleanup": true,
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "phases": {
+        "interaction": {
+          "requests": 7,
+          "input_tokens": 111333,
+          "output_tokens": 1255,
+          "cost_usd": "0.0349059"
+        }
+      },
+      "recovery_episodes": 0,
+      "candidate_rejections": {},
+      "handoffs": [],
+      "session_files": [
+        "slot-48/ELFIO-tool/.compile-sessions/plan-agent-canary/fb4552cef8eb/session.json"
+      ],
+      "time_censored": false,
+      "raw_slot": "slot-48",
+      "configuration_observation_statuses": {},
+      "direct_configuration_revisions": 0,
+      "replay_attempt_statuses": [
+        "passed"
+      ],
+      "external_evaluations": null,
+      "validation": {
+        "fixed_task_checks": "passed",
+        "complete_author_tests": "passed",
+        "exact_delivery": "passed",
+        "clean_replay": "passed",
+        "original_sources_and_links": "passed",
+        "cleanup": "passed"
+      }
+    }
+  ],
+  "case_observations": [
+    {
+      "slot": 1,
+      "project": "check",
+      "method": "forge_state_workflow",
+      "classification": "恢复后完整完成",
+      "observed": "初次make缺makeinfo；修订禁用非任务文档后完整原测试通过；第一次clean replay因make distclean在空构建中无目标而失败；第二次修订去掉旧构建依赖后原测试、交付和clean replay完整通过。",
+      "boundary": "允许的非任务文档配置变更；原源码/原测试未改。12请求和两次handoff全计。"
+    },
+    {
+      "slot": 3,
+      "project": "check",
+      "method": "cxxcrafter_community_reference",
+      "classification": "原测试通过，外部交付定位拒绝，重放未观察",
+      "observed": "原生reported_success=true；original.fixed_tests/source_unchanged/cleanup均true。Dockerfile先Autotools再CMake；root/libcheck.a与build/src/libcheck.a来自CMake路径，src/.libs/libcheck.a来自Autotools路径。equivalent_delivery_command要求唯一内容/模式身份，出现按大小/哈希/模式不能归并的多身份而拒绝；日志未逐项输出具体指纹，不能进一步断言是哪一属性不同。",
+      "evidence": "slot-3/original/stage.log；resource-adaptations.json中两项replay均false，对应两版Dockerfile。",
+      "boundary": "不可写作编译或作者测试失败，不可写作重放失败；CXX外部反馈不回送原生Modifier的既定适配差异要披露。早先过程commentary误读第二版为重放，已及时更正。"
+    },
+    {
+      "slot": 8,
+      "project": "snappy",
+      "method": "cxxcrafter_community_reference",
+      "classification": "共同配置通过，Git索引核验中止，完整原测试/交付/重放未观察",
+      "observed": "reported_success=true，原源码/链接检查true，Release及配置目标通过；original/test-1.log中git ls-files -z返回128。native Dockerfile明确rm -f /workspace/repo/.git/HEAD，使本来unborn HEAD的Git仓库无效。自身Dockerfile已ctest，但不能替代完整固定原测试。",
+      "boundary": "不能写作作者测试失败或编译失败。包含额外索引准备要求的模型误解；既定CXX外部失败不回送Modifier的反馈差异必须披露。原文件不能被后续修复回填。"
+    },
+    {
+      "slot": 26,
+      "project": "check",
+      "method": "cxxcrafter_community_reference",
+      "classification": "指定测试入口不存在",
+      "observed": "reported_success=true，source_unchanged=true；original/test-0.log为make: No rule to make target check。fixed_tests=false，artifact_stage=null，只有首次evaluation，交付与replay未观察。",
+      "boundary": "指定Autotools/make check任务未完成；不能当作作者测试用例实际失败，不能据此断言社区版不能构建check。外部失败不再反馈给原生Modifier的差异保留。"
+    }
+  ],
+  "analysis_boundary": "完整系统比较；CXX保留原生反馈差异；8个已见任务与两次重复不支持未见总体或纯状态组件因果。",
+  "verification": {
+    "raw_response_checks": 48,
+    "raw_model_response_count": 338,
+    "frozen_components": 343,
+    "actual_container_inspections": 635,
+    "inventory_audit_valid": true
+  },
+  "non_cmake_profile_scan": {
+    "slots": 18,
+    "explicit_cflags_cxxflags_cppflags_or_optimization_overrides_found": 0,
+    "scope": "Forge与强工具全部dependency/configure/build命令、CXX最终Dockerfile；保留作者默认，不证明不同构建系统旗标逐字一致"
+  }
+}

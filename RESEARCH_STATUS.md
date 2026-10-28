@@ -1,14 +1,18 @@
 # Forge Research Status
 
-论文选材固定入口：[硕士论文实验与证据索引](docs/research/THESIS_EVIDENCE_INDEX.md)，按正文候选、补充分析/案例和工程检查说明用途、结果、边界及原始证据；[历史材料目录](docs/research/THESIS_EVIDENCE_CATALOG.md)登记存量材料。后续结果发布时简短更新，不另行重跑实验。#640统一条件三系统比较已完成免费执行准备，尚无本批真实模型效果。
+论文选材固定入口：[硕士论文实验与证据索引](docs/research/THESIS_EVIDENCE_INDEX.md)，按正文候选、补充分析/案例和工程检查说明用途、结果、边界及原始证据；[历史材料目录](docs/research/THESIS_EVIDENCE_CATALOG.md)登记存量材料。后续结果发布时简短更新，不另行重跑实验。#640统一条件48次真实系统比较已完整采集并封存；最新正文候选见E30。
 
-## 当前阶段（2026-10-29；#640统一条件48槽系统比较入口完成，待新授权采集）
+## 当前阶段（2026-10-29；#640统一条件48次系统比较完成，结果分析与发布）
 
-用户确认推进下一阶段。本轮为基础设施/实验准备，复用已有任务及可运行入口，完成cpp-build-unified-system-comparison-flash-v1：check/simdutf/snappy/yaml-cpp/libtommath/tinyxml2/rang/ELFIO八个已见任务×两重复×Forge状态Workflow/强工具Agent/CXXCrafter社区版，共48槽；项目族暴露和顺序前瞻固定。全部请求得到同一完整公开任务，统一CMake Release、原源码/测试/依赖、2作业、精确交付及同镜像完整replay。CXX保留原生循环/10版Dockerfile与外部失败不反馈的差异，不称论文原版、同Harness或纯状态因果；Make/Autotools不冒称已用CMake语义增强。
+真实数据采集与结果分析完成：cpp-build-unified-system-comparison-flash-v1八已见任务×两重复×三系统，48/48观察、45完整、3未完整、0未观察。Forge/强工具Agent/CXX社区版完整16/16、16/16、13/16；请求84/145/109，保守估费0.5121477/0.6639255/0.5554065美元，累计60.70/62.39/96.52分钟。Forge相对强工具估费低22.9%、请求少42.1%，时间低2.7%；CMake层时间几乎相同，check/simdutf估费更高，不主张每项占优。CXX三个未完整为交付歧义、索引核验拒绝、原测试入口缺失，不统称编译或作者测试失败。
 
-13相关检查/Ruff/候选CLI通过。独立cpp-build-unified-system-dispatch-check-v1三入口tinyxml2脚本响应实跑均完整构建/原测试/交付/replay/cleanup通过，8脚本响应、0真实Provider/Token/费用、未读真实凭据，实际容器均不存在。仅证明新适配可运行，不当方法效果。raw forge-unified-system-preparation-2026-10-29/dispatch-check-v1，inventory 2a1346e5975b3d516b790c73bf30be04758bf95098c0a3d61dac55038502ae72；analysis benchmarks/analyses/cpp-build-unified-system-dispatch-check-v1.json。开发草稿/原证据保留，未重跑旧参考资格链或本地产品全测。
+Forge初始71请求/0.3874764美元、恢复13请求/0.1246713美元；13初始无恢复完成、3任务共4个Agent恢复episode后完整。14次配置状态观测全部满足，直接配置修订0；本轮是完整系统比较，不证明直接动作增量，组件解释仍看E01固定方案消融。全48固定分母：固定任务复合检查46过2拒绝，完整原测试46过0实际失败2未观察，精确交付45过1拒绝2未观察，replay45过3未观察，原源码/链接与清理48过。Forge首check的前序replay失败保留。
 
-设计与执行见[统一系统比较准备](docs/research/2026-10-29-unified-system-comparison-design.md)，入口scripts/forge_build_system_comparison.py及同名manifest/preregistration。每槽2700秒、最后300秒清理，请求准入600秒、完整重放1200＋300秒，修复旧内外时间安排不一致；并行环境进入CXX外部测试。新正式48槽尚未启动，无新付费授权、不读凭据；候选设计10美元/建议确认起8小时，无自动重试，未知/身份/清理异常停止。旧30槽授权及余额不扩用。#640保持OPEN，发布只合科研依赖分支；用户memory/HTML保留，知识库只MCP同步。下一项是绑定新预算/时窗后直接真实采集与论文系统表分析。
+统一Flash thinking low、完整公开任务、CMake Release、同源依赖、2作业与原验收；CXX保留社区原生循环/外部失败不反馈等差异，2CPU affinity与Forge quota实现不同，不称论文原版排名、同Harness或纯状态因果。全部已开发暴露，两重复非独立项目；共同成功13配对只作辅助。Make/Autotools不冒称使用CMake配置增强，18槽实际命令/最终Dockerfile未见显式优化覆盖。
+
+用户授权10美元/UTC2026-10-28 18:20:34至2026-10-29 02:20:34，真实18:23:54至22:04:08完成唯一封存/账本闭合，338请求4686427Token、保守估费1.7314797美元、未知0，无自动重试/补槽/整批停止。运行release e09410b24fd15f481cf8104848013f8fa47f8b56，候选d529095e；raw forge-unified-system-comparison-flash-v1，inventory138294da578cc3ab326e546bf678d4f81fef770830e2de71fb90b1637f500582（106976普通文件/74链接/2736977979字节）。一次终态只读核验、338原响应身份/用量/费用、343组件及635实际容器name/ID不存在均通过，提取复算一致。无活动实验，不扩余额或重跑资格/产品全测。
+
+完整论文结果见[48次系统报告](docs/research/2026-10-29-unified-system-comparison-results.md)，analysis/逐槽CSV/只读提取位于benchmarks/analyses同身份results/slots/extract；论文索引新增E30，E29继续工程准备。会话forge-unified-system-comparison-session-2026-10-29保存授权/运行/账本/独立核验/发布收据。结果PR检查后仅合科研依赖分支，不进main，用户memory/HTML不夹带。下一优先组织E30＋E01＋E04完整论文结果，再扩未用于开发项目；新付费范围另行授权，个人知识库不注入实验Agent。
 
 ## 上一阶段（2026-10-29；#637固定方案30槽实验与结果分析完成，转#640统一条件系统比较）
 
