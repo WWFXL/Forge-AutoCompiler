@@ -1,0 +1,90 @@
+{
+  "plan_id": "cxx-reference-snappy",
+  "revision": 1,
+  "repository_url": "https://github.com/google/snappy",
+  "commit_sha": "9c28114a38866f6deeaa826db918293bc28ae410",
+  "image_id": "sha256:d27a6ab733c7c3a9cbb5e4b32fb595aa5a422ff04bd212888d1041b90a2c4c2a",
+  "source_archive_sha256": "93de014cc9070f6924a1a3f71d8a78620dd37c06ce4359247405e7e13b1901f2",
+  "build_system": "cmake",
+  "artifact_paths": [
+    "libsnappy.a"
+  ],
+  "steps": [
+    {
+      "step_id": "deps",
+      "role": "dependency",
+      "command": "apt-get update && apt-get install -y --no-install-recommends zlib1g-dev liblzo2-dev liblz4-dev cmake g++ make",
+      "source": "CMakeLists.txt 通过 check_library_exists 探测 zlib/lzo2/lz4，snappy-test.cc 依赖对应 dev 库；dependency_runtime 允许 root 包管理安装",
+      "expected": "真实 zlib/lzo2/lz4 开发库就绪，供 CMake 探测 HAVE_LIBZ/HAVE_LIBLZO2/HAVE_LIBLZ4",
+      "workdir": "/workspace/repo",
+      "requires": [],
+      "required_output": [],
+      "diagnostic_paths": []
+    },
+    {
+      "step_id": "configure",
+      "role": "configure",
+      "command": "(\nrm -rf build && cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTS=ON -DSNAPPY_BUILD_TESTS=ON -DSNAPPY_BUILD_BENCHMARKS=OFF -DBUILD_BENCHMARKS=OFF -DBUILD_SHARED_LIBS=OFF -DSNAPPY_INSTALL=OFF\n)\npython3 -c 'import json,pathlib,sys\nroot=pathlib.Path.cwd().resolve(); rows=[]\nfor kind,name in [('\"'\"'file'\"'\"', '\"'\"'build/CMakeCache.txt'\"'\"'), ('\"'\"'directory'\"'\"', '\"'\"'build'\"'\"')]:\n p=(root/name).resolve(); inside=p.is_relative_to(root)\n passed=inside and (p.is_file() if kind=='\"'\"'file'\"'\"' else p.is_dir())\n rows.append({'\"'\"'kind'\"'\"':kind,'\"'\"'path'\"'\"':name,'\"'\"'passed'\"'\"':passed,'\"'\"'inside_workdir'\"'\"':inside})\nprint('\"'\"'FORGE_PATH_OBSERVATIONS='\"'\"'+json.dumps(rows,sort_keys=True))\nsys.exit(0 if all(r['\"'\"'passed'\"'\"'] for r in rows) else 86)\n'",
+      "source": "CMakeLists.txt: option(BUILD_TESTS ... ON)、SNAPPY_BUILD_TESTS；BUILD_SHARED_LIBS 默认 OFF；测试用内置 third_party/googletest，不引入额外依赖",
+      "expected": "配置完成并生成缓存与构建规则",
+      "workdir": "/workspace/repo",
+      "requires": [
+        "deps"
+      ],
+      "required_output": [
+        "Configuring done"
+      ],
+      "diagnostic_paths": [
+        "build/CMakeCache.txt",
+        "build/CMakeFiles/CMakeError.log",
+        "build/CMakeFiles/CMakeOutput.log"
+      ]
+    },
+    {
+      "step_id": "build",
+      "role": "build",
+      "command": "(\ncmake --build build --parallel 2\n)\npython3 -c 'import json,pathlib,sys\nroot=pathlib.Path.cwd().resolve(); rows=[]\nfor kind,name in [('\"'\"'file'\"'\"', '\"'\"'build/libsnappy.a'\"'\"'), ('\"'\"'file'\"'\"', '\"'\"'build/snappy_unittest'\"'\"')]:\n p=(root/name).resolve(); inside=p.is_relative_to(root)\n passed=inside and (p.is_file() if kind=='\"'\"'file'\"'\"' else p.is_dir())\n rows.append({'\"'\"'kind'\"'\"':kind,'\"'\"'path'\"'\"':name,'\"'\"'passed'\"'\"':passed,'\"'\"'inside_workdir'\"'\"':inside})\nprint('\"'\"'FORGE_PATH_OBSERVATIONS='\"'\"'+json.dumps(rows,sort_keys=True))\nsys.exit(0 if all(r['\"'\"'passed'\"'\"'] for r in rows) else 86)\n'",
+      "source": "CMakeLists.txt: add_library(snappy static) 产出 libsnappy.a；BUILD_TESTS 下 add_executable(snappy_unittest) 与 add_test(snappy_unittest)，固定测试前须构建作者测试程序",
+      "expected": "静态库与作者单元测试程序编译链接成功",
+      "workdir": "/workspace/repo",
+      "requires": [
+        "configure"
+      ],
+      "required_output": [],
+      "diagnostic_paths": [
+        "build/CMakeFiles/CMakeError.log"
+      ]
+    },
+    {
+      "step_id": "check",
+      "role": "smoke",
+      "command": "python3 -c 'from pathlib import Path\ncache={}\nfor line in Path('\"'\"'build/CMakeCache.txt'\"'\"').read_text().splitlines():\n if '\"'\"'='\"'\"' in line and '\"'\"':'\"'\"' in line and not line.startswith(('\"'\"'//'\"'\"','\"'\"'#'\"'\"')):\n  key,value=line.split('\"'\"'='\"'\"',1); name,_=key.split('\"'\"':'\"'\"',1); cache[name]=value\nfalse_values={'\"'\"''\"'\"','\"'\"'0'\"'\"','\"'\"'OFF'\"'\"','\"'\"'NO'\"'\"','\"'\"'FALSE'\"'\"','\"'\"'N'\"'\"','\"'\"'IGNORE'\"'\"','\"'\"'NOTFOUND'\"'\"'}\ndef enabled(value):\n return value.upper() not in false_values and not value.upper().endswith('\"'\"'-NOTFOUND'\"'\"')\nrequirements={'\"'\"'SNAPPY_BUILD_TESTS'\"'\"': True, '\"'\"'SNAPPY_BUILD_BENCHMARKS'\"'\"': True, '\"'\"'HAVE_LIBZ'\"'\"': True, '\"'\"'HAVE_LIBLZO2'\"'\"': True, '\"'\"'HAVE_LIBLZ4'\"'\"': True}\nfor key,expected in requirements.items():\n assert key in cache, '\"'\"'缺少必要配置:'\"'\"'+key\n assert enabled(cache[key])==expected, '\"'\"'配置功能不符:'\"'\"'+key+'\"'\"'='\"'\"'+cache[key]\nif True:\n assert not enabled(cache.get('\"'\"'BUILD_SHARED_LIBS'\"'\"','\"'\"'OFF'\"'\"')), '\"'\"'必须使用默认静态库构建'\"'\"'\nprint('\"'\"'FORGE_TASK_CONFIGURATION_OK'\"'\"')\n' && python3 -c 'import hashlib,json,subprocess\nrows=subprocess.run(['\"'\"'git'\"'\"','\"'\"'ls-files'\"'\"','\"'\"'-z'\"'\"'],check=True,capture_output=True).stdout.decode().split('\"'\"'\\0'\"'\"')\nassert rows[-1]=='\"'\"''\"'\"', '\"'\"'Git索引输出不完整'\"'\"'\nnames=rows[:-1]\nactual=hashlib.sha256(json.dumps(sorted(names),ensure_ascii=True,separators=('\"'\"','\"'\"','\"'\"':'\"'\"')).encode()).hexdigest()\nassert actual=='\"'\"'06f95a3f1319f5ae5568c8b0811035eba215b9ceb2592c1cdfef6979b2a79bab'\"'\"', '\"'\"'Git索引文件集合与固定原源码不同'\"'\"'\nassert subprocess.run(['\"'\"'git'\"'\"','\"'\"'rev-parse'\"'\"','\"'\"'--verify'\"'\"','\"'\"'HEAD'\"'\"'],capture_output=True).returncode!=0, '\"'\"'不允许伪造源码commit'\"'\"'\nprint('\"'\"'FORGE_SOURCE_INDEX_VERIFIED='\"'\"'+actual)\n' && ctest --test-dir build --output-on-failure --no-tests=error --verbose --output-junit /workspace/forge-ctest.xml && python3 -c 'import xml.etree.ElementTree as ET\nroot=ET.parse('\"'\"'/workspace/forge-ctest.xml'\"'\"').getroot()\ncases=list(root.iter('\"'\"'testcase'\"'\"'))\nassert len(cases)==1, '\"'\"'作者注册测试数不符'\"'\"'\nassert all(c.find('\"'\"'skipped'\"'\"') is None and c.find('\"'\"'failure'\"'\"') is None and c.find('\"'\"'error'\"'\"') is None for c in cases), '\"'\"'存在跳过或失败的作者测试'\"'\"'\nassert all(c.get('\"'\"'status'\"'\"','\"'\"'run'\"'\"')=='\"'\"'run'\"'\"' for c in cases), '\"'\"'存在未实际运行测试'\"'\"'\nprint('\"'\"'FORGE_CTEST_ACTUALLY_PASSED='\"'\"'+str(len(cases)))\n' && python3 -c 'import hashlib,json,subprocess\nrows=subprocess.run(['\"'\"'git'\"'\"','\"'\"'ls-files'\"'\"','\"'\"'-z'\"'\"'],check=True,capture_output=True).stdout.decode().split('\"'\"'\\0'\"'\"')\nassert rows[-1]=='\"'\"''\"'\"', '\"'\"'Git索引输出不完整'\"'\"'\nnames=rows[:-1]\nactual=hashlib.sha256(json.dumps(sorted(names),ensure_ascii=True,separators=('\"'\"','\"'\"','\"'\"':'\"'\"')).encode()).hexdigest()\nassert actual=='\"'\"'06f95a3f1319f5ae5568c8b0811035eba215b9ceb2592c1cdfef6979b2a79bab'\"'\"', '\"'\"'Git索引文件集合与固定原源码不同'\"'\"'\nassert subprocess.run(['\"'\"'git'\"'\"','\"'\"'rev-parse'\"'\"','\"'\"'--verify'\"'\"','\"'\"'HEAD'\"'\"'],capture_output=True).returncode!=0, '\"'\"'不允许伪造源码commit'\"'\"'\nprint('\"'\"'FORGE_SOURCE_INDEX_VERIFIED='\"'\"'+actual)\n'",
+      "source": "新身份共同任务：原作者完整测试/功能语义/实际执行与来源索引核验",
+      "expected": "完整原测试与精确交付，不重试或替换失败",
+      "workdir": "/workspace/repo",
+      "requires": [
+        "build"
+      ],
+      "required_output": [
+        "FORGE_TASK_CONFIGURATION_OK",
+        "100% tests passed, 0 tests failed out of 1",
+        "FORGE_CTEST_ACTUALLY_PASSED=1",
+        "FORGE_SOURCE_INDEX_VERIFIED=06f95a3f1319f5ae5568c8b0811035eba215b9ceb2592c1cdfef6979b2a79bab"
+      ],
+      "diagnostic_paths": []
+    },
+    {
+      "step_id": "stage",
+      "role": "artifact_stage",
+      "command": "python3 -c 'import hashlib, json, shutil\nfrom pathlib import Path\nroot = Path.cwd().resolve()\nartifacts = ('\"'\"'libsnappy.a'\"'\"',)\nselected = []\nfor target in artifacts:\n    matches = []\n    for path in root.rglob(Path(target).name):\n        if not path.is_file() and not path.is_symlink():\n            continue\n        try:\n            resolved = path.resolve(strict=True)\n        except (OSError, RuntimeError) as exc:\n            raise RuntimeError('\"'\"'交付候选链接无效: '\"'\"' + str(path)) from exc\n        if not resolved.is_relative_to(root) or not resolved.is_file():\n            raise RuntimeError('\"'\"'交付候选越界或不是普通文件: '\"'\"' + str(path))\n        with resolved.open('\"'\"'rb'\"'\"') as stream:\n            magic = stream.read(8)\n        if magic.startswith(b'\"'\"'\\x7fELF'\"'\"') or magic == b'\"'\"'!<arch>\\n'\"'\"':\n            matches.append(resolved)\n    identities = {}\n    for candidate in sorted(set(matches)):\n        stat = candidate.stat()\n        fingerprint = hashlib.sha256()\n        with candidate.open('\"'\"'rb'\"'\"') as stream:\n            for block in iter(lambda: stream.read(1048576), b'\"'\"''\"'\"'):\n                fingerprint.update(block)\n        content_sha256 = fingerprint.hexdigest()\n        identity = (stat.st_size, content_sha256, stat.st_mode & 0o777)\n        identities.setdefault(identity, candidate)\n    if len(identities) != 1:\n        raise RuntimeError('\"'\"'交付源必须唯一: '\"'\"' + target + '\"'\"' candidates='\"'\"' + str(matches))\n    selected.append((next(iter(identities.values())), Path('\"'\"'/artifacts'\"'\"') / target))\nfor source, destination in selected:\n    destination.parent.mkdir(parents=True, exist_ok=True)\n    shutil.copyfile(source, destination)\n    shutil.copymode(source, destination)\nprint('\"'\"'FORGE_UNIFIED_STAGED'\"'\"', json.dumps(artifacts))\n'",
+      "source": "unified-plan-v2：系统精确交付装配，仓库内唯一内容/模式ELF/ar交付身份及内部链接",
+      "expected": "固定完整测试、精确交付及同镜像clean replay通过",
+      "workdir": "/workspace/repo",
+      "requires": [
+        "check"
+      ],
+      "required_output": [],
+      "diagnostic_paths": []
+    }
+  ]
+}

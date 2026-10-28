@@ -1,6 +1,14 @@
 # Forge Research Status
 
-## 当前阶段（2026-10-28；#635三臂18槽组件实验完成，转#637固定方案状态增量与系统比较）
+## 当前阶段（2026-10-28；#637固定自然方案三臂入口完成，待新授权采集）
+
+本阶段是实验准备与零Provider实际分派检查，尚无新模型效果结果。用户要求开始执行下一计划；#637已确认OPEN并登记范围，分支yiwei/637-fixed-plan-state-increment。新身份cpp-build-fixed-plan-state-increment-flash-v1复用原18槽自然初始方案，按每项目/配置状态最早槽固定五案例（simdutf1/2、snappy13/4、yaml-cpp7）×两重复×编译后Agent/编译前Agent/编译前直接动作＋Agent三臂，共30槽。原方案字节、依赖/编译参数、源码/测试/交付和共同Flash Harness保持，不混入产物定位增强。历史规划费相同计入配对分析总费、新预算仅扣新请求；按偏离/满足分层，不估自然发生率或未见泛化。
+
+入口scripts/forge_build_fixed_plan_state_increment.py、同名manifest/preregistration及benchmarks/fixtures/fixed-plan-state-increment-v1/selection.json已固定；23项必要及相邻回归/Ruff、候选CLI通过。独立cpp-build-fixed-plan-state-dispatch-check-v1六槽按约完成：snappy后置组先build约14.20秒再交接、前置Agent组configure后交接，两组在Provider前主动停止；直接组修订约6.23秒后完整原测试/交付/重放通过，三个正常yaml-cpp均完整通过且无额外交接。0Provider/新增费；开发检查不计真实Agent恢复率。raw forge-fixed-plan-state-dispatch-check-v1，inventoryeedaccbf78ef544d88f8d466bb34fea0263aad350d8cb06bc4c93e5de8d1a5c9；一次库存核验通过，六构建/四重放name及ID共20项实际inspect不存在。analysis cpp-build-fixed-plan-state-dispatch-check-v1.json对无交接时间记null、原分析不覆盖；旧18槽不变。
+
+上一授权UTC2026-10-28 11:25:46已结束。当前没有新付费授权、未读取凭据/创建正式30槽attempt；正式候选SHA c6fb97907d2562365400937978d3ef058fc3d912191aa03f8b656c760c975737，设计10美元/新4小时。每臂历史初始规划费相同0.3386424美元，不重复扣新预算。下一直接绑定新授权并真实采集，无需重复检查链。完整设计见[固定方案状态增量](docs/research/2026-10-28-fixed-plan-state-increment-design.md)，发布以本轮PR最终HEAD三CI/GitHub为准；后续更广系统比较独立，用户memory/HTML保留。
+
+## 上一阶段（2026-10-28；#635三臂18槽组件实验完成，转#637固定方案状态增量与系统比较）
 
 真实采集和结果分析完成：cpp-build-goal-state-component-ablation-flash-v1三个已见CMake任务simdutf/snappy/yaml-cpp×两重复×共同当前/仅持续目标/目标＋配置状态三臂18/18全部完整，0未观察。三臂均6/6；请求54/42/46、recorded Token815825/589990/699651、保守估费0.2696118/0.2023626/0.2377458美元，总槽分钟34.43/27.66/32.63。仅目标相对当前费用低24.9%、时间低19.7%；状态臂相对当前低11.8%/5.2%，相对仅目标高17.5%/18.0%。全部独立初始方案、已见非holdout，不作显著性或纯闭环因果；构建类型等采样差异影响时间。
 

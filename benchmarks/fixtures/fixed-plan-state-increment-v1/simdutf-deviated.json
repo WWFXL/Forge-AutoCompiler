@@ -1,0 +1,69 @@
+{
+  "plan_id": "cxx-reference-simdutf",
+  "revision": 1,
+  "repository_url": "https://github.com/simdutf/simdutf",
+  "commit_sha": "8d82299606e675b50de8dc16fd118aae4b65bfde",
+  "image_id": "sha256:d27a6ab733c7c3a9cbb5e4b32fb595aa5a422ff04bd212888d1041b90a2c4c2a",
+  "source_archive_sha256": "69334680e1fca841dffbe8409a439b910086a0799a1ce76fd16d57072ebbe4a4",
+  "build_system": "cmake",
+  "artifact_paths": [
+    "libsimdutf.a"
+  ],
+  "steps": [
+    {
+      "step_id": "configure",
+      "role": "configure",
+      "command": "(\ncmake -S /workspace/repo -B /workspace/repo/build -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=OFF -DSIMDUTF_TESTS=ON -DSIMDUTF_TOOLS_TESTS=OFF -DSIMDUTF_BENCHMARKS=OFF -DSIMDUTF_FUZZERS=OFF -DSIMDUTF_FAST_TESTS=ON\n)\npython3 -c 'import json,pathlib,sys\nroot=pathlib.Path.cwd().resolve(); rows=[]\nfor kind,name in [('\"'\"'file'\"'\"', '\"'\"'build/CMakeCache.txt'\"'\"'), ('\"'\"'directory'\"'\"', '\"'\"'build'\"'\"')]:\n p=(root/name).resolve(); inside=p.is_relative_to(root)\n passed=inside and (p.is_file() if kind=='\"'\"'file'\"'\"' else p.is_dir())\n rows.append({'\"'\"'kind'\"'\"':kind,'\"'\"'path'\"'\"':name,'\"'\"'passed'\"'\"':passed,'\"'\"'inside_workdir'\"'\"':inside})\nprint('\"'\"'FORGE_PATH_OBSERVATIONS='\"'\"'+json.dumps(rows,sort_keys=True))\nsys.exit(0 if all(r['\"'\"'passed'\"'\"'] for r in rows) else 86)\n'",
+      "source": "CMakeLists.txt:3-7 定义主项目；23 include(CTest)；28 SIMDUTF_TESTS 默认 ON；30 SIMDUTF_TOOLS_TESTS 默认 OFF；32-35 基准与 fuzzer 默认 OFF；47-52 在 SIMDUTF_TESTS 开启时 add_subdirectory(tests)。",
+      "expected": "CMake 在 build/ 生成构建系统，启用测试并生成主静态库配置。",
+      "workdir": "/workspace/repo",
+      "requires": [],
+      "required_output": [],
+      "diagnostic_paths": []
+    },
+    {
+      "step_id": "build",
+      "role": "build",
+      "command": "(\ncmake --build /workspace/repo/build --parallel 2\n)\npython3 -c 'import json,pathlib,sys\nroot=pathlib.Path.cwd().resolve(); rows=[]\nfor kind,name in [('\"'\"'file'\"'\"', '\"'\"'build/src/libsimdutf.a'\"'\"'), ('\"'\"'directory'\"'\"', '\"'\"'build'\"'\"')]:\n p=(root/name).resolve(); inside=p.is_relative_to(root)\n passed=inside and (p.is_file() if kind=='\"'\"'file'\"'\"' else p.is_dir())\n rows.append({'\"'\"'kind'\"'\"':kind,'\"'\"'path'\"'\"':name,'\"'\"'passed'\"'\"':passed,'\"'\"'inside_workdir'\"'\"':inside})\nprint('\"'\"'FORGE_PATH_OBSERVATIONS='\"'\"'+json.dumps(rows,sort_keys=True))\nsys.exit(0 if all(r['\"'\"'passed'\"'\"'] for r in rows) else 86)\n'",
+      "source": "CMakeLists.txt 的 add_library(simdutf) 与 tests/CMakeLists.txt 的 add_cpp_test 目标；固定验证要求原测试实际执行 94 项，必须先由作者标准构建生成库和全部测试可执行文件。",
+      "expected": "编译生成 libsimdutf.a 及 tests/ 下全部默认测试目标。",
+      "workdir": "/workspace/repo",
+      "requires": [
+        "configure"
+      ],
+      "required_output": [],
+      "diagnostic_paths": []
+    },
+    {
+      "step_id": "check",
+      "role": "smoke",
+      "command": "python3 -c 'from pathlib import Path\ncache={}\nfor line in Path('\"'\"'build/CMakeCache.txt'\"'\"').read_text().splitlines():\n if '\"'\"'='\"'\"' in line and '\"'\"':'\"'\"' in line and not line.startswith(('\"'\"'//'\"'\"','\"'\"'#'\"'\"')):\n  key,value=line.split('\"'\"'='\"'\"',1); name,_=key.split('\"'\"':'\"'\"',1); cache[name]=value\nfalse_values={'\"'\"''\"'\"','\"'\"'0'\"'\"','\"'\"'OFF'\"'\"','\"'\"'NO'\"'\"','\"'\"'FALSE'\"'\"','\"'\"'N'\"'\"','\"'\"'IGNORE'\"'\"','\"'\"'NOTFOUND'\"'\"'}\ndef enabled(value):\n return value.upper() not in false_values and not value.upper().endswith('\"'\"'-NOTFOUND'\"'\"')\nrequirements={'\"'\"'SIMDUTF_TESTS'\"'\"': True, '\"'\"'BUILD_TESTING'\"'\"': True, '\"'\"'SIMDUTF_FAST_TESTS'\"'\"': False, '\"'\"'SIMDUTF_TOOLS'\"'\"': True}\nfor key,expected in requirements.items():\n assert key in cache, '\"'\"'缺少必要配置:'\"'\"'+key\n assert enabled(cache[key])==expected, '\"'\"'配置功能不符:'\"'\"'+key+'\"'\"'='\"'\"'+cache[key]\nif True:\n assert not enabled(cache.get('\"'\"'BUILD_SHARED_LIBS'\"'\"','\"'\"'OFF'\"'\"')), '\"'\"'必须使用默认静态库构建'\"'\"'\nprint('\"'\"'FORGE_TASK_CONFIGURATION_OK'\"'\"')\n' && python3 -c 'import hashlib,json,subprocess\nrows=subprocess.run(['\"'\"'git'\"'\"','\"'\"'ls-files'\"'\"','\"'\"'-z'\"'\"'],check=True,capture_output=True).stdout.decode().split('\"'\"'\\0'\"'\"')\nassert rows[-1]=='\"'\"''\"'\"', '\"'\"'Git索引输出不完整'\"'\"'\nnames=rows[:-1]\nactual=hashlib.sha256(json.dumps(sorted(names),ensure_ascii=True,separators=('\"'\"','\"'\"','\"'\"':'\"'\"')).encode()).hexdigest()\nassert actual=='\"'\"'efb8a0340eb270302aa3d730a2bb25a1db6a2af75f40c7c23da44e381cf8139d'\"'\"', '\"'\"'Git索引文件集合与固定原源码不同'\"'\"'\nassert subprocess.run(['\"'\"'git'\"'\"','\"'\"'rev-parse'\"'\"','\"'\"'--verify'\"'\"','\"'\"'HEAD'\"'\"'],capture_output=True).returncode!=0, '\"'\"'不允许伪造源码commit'\"'\"'\nprint('\"'\"'FORGE_SOURCE_INDEX_VERIFIED='\"'\"'+actual)\n' && ctest --test-dir build --output-on-failure --no-tests=error --verbose --output-junit /workspace/forge-ctest.xml && python3 -c 'import xml.etree.ElementTree as ET\nroot=ET.parse('\"'\"'/workspace/forge-ctest.xml'\"'\"').getroot()\ncases=list(root.iter('\"'\"'testcase'\"'\"'))\nassert len(cases)==94, '\"'\"'作者注册测试数不符'\"'\"'\nassert all(c.find('\"'\"'skipped'\"'\"') is None and c.find('\"'\"'failure'\"'\"') is None and c.find('\"'\"'error'\"'\"') is None for c in cases), '\"'\"'存在跳过或失败的作者测试'\"'\"'\nassert all(c.get('\"'\"'status'\"'\"','\"'\"'run'\"'\"')=='\"'\"'run'\"'\"' for c in cases), '\"'\"'存在未实际运行测试'\"'\"'\nprint('\"'\"'FORGE_CTEST_ACTUALLY_PASSED='\"'\"'+str(len(cases)))\n' && python3 -c 'import hashlib,json,subprocess\nrows=subprocess.run(['\"'\"'git'\"'\"','\"'\"'ls-files'\"'\"','\"'\"'-z'\"'\"'],check=True,capture_output=True).stdout.decode().split('\"'\"'\\0'\"'\"')\nassert rows[-1]=='\"'\"''\"'\"', '\"'\"'Git索引输出不完整'\"'\"'\nnames=rows[:-1]\nactual=hashlib.sha256(json.dumps(sorted(names),ensure_ascii=True,separators=('\"'\"','\"'\"','\"'\"':'\"'\"')).encode()).hexdigest()\nassert actual=='\"'\"'efb8a0340eb270302aa3d730a2bb25a1db6a2af75f40c7c23da44e381cf8139d'\"'\"', '\"'\"'Git索引文件集合与固定原源码不同'\"'\"'\nassert subprocess.run(['\"'\"'git'\"'\"','\"'\"'rev-parse'\"'\"','\"'\"'--verify'\"'\"','\"'\"'HEAD'\"'\"'],capture_output=True).returncode!=0, '\"'\"'不允许伪造源码commit'\"'\"'\nprint('\"'\"'FORGE_SOURCE_INDEX_VERIFIED='\"'\"'+actual)\n'",
+      "source": "新身份共同任务：原作者完整测试/功能语义/实际执行与来源索引核验",
+      "expected": "完整原测试与精确交付，不重试或替换失败",
+      "workdir": "/workspace/repo",
+      "requires": [
+        "build"
+      ],
+      "required_output": [
+        "FORGE_TASK_CONFIGURATION_OK",
+        "100% tests passed, 0 tests failed out of 94",
+        "FORGE_CTEST_ACTUALLY_PASSED=94",
+        "FORGE_SOURCE_INDEX_VERIFIED=efb8a0340eb270302aa3d730a2bb25a1db6a2af75f40c7c23da44e381cf8139d"
+      ],
+      "diagnostic_paths": []
+    },
+    {
+      "step_id": "stage",
+      "role": "artifact_stage",
+      "command": "python3 -c 'import hashlib, json, shutil\nfrom pathlib import Path\nroot = Path.cwd().resolve()\nartifacts = ('\"'\"'libsimdutf.a'\"'\"',)\nselected = []\nfor target in artifacts:\n    matches = []\n    for path in root.rglob(Path(target).name):\n        if not path.is_file() and not path.is_symlink():\n            continue\n        try:\n            resolved = path.resolve(strict=True)\n        except (OSError, RuntimeError) as exc:\n            raise RuntimeError('\"'\"'交付候选链接无效: '\"'\"' + str(path)) from exc\n        if not resolved.is_relative_to(root) or not resolved.is_file():\n            raise RuntimeError('\"'\"'交付候选越界或不是普通文件: '\"'\"' + str(path))\n        with resolved.open('\"'\"'rb'\"'\"') as stream:\n            magic = stream.read(8)\n        if magic.startswith(b'\"'\"'\\x7fELF'\"'\"') or magic == b'\"'\"'!<arch>\\n'\"'\"':\n            matches.append(resolved)\n    identities = {}\n    for candidate in sorted(set(matches)):\n        stat = candidate.stat()\n        fingerprint = hashlib.sha256()\n        with candidate.open('\"'\"'rb'\"'\"') as stream:\n            for block in iter(lambda: stream.read(1048576), b'\"'\"''\"'\"'):\n                fingerprint.update(block)\n        content_sha256 = fingerprint.hexdigest()\n        identity = (stat.st_size, content_sha256, stat.st_mode & 0o777)\n        identities.setdefault(identity, candidate)\n    if len(identities) != 1:\n        raise RuntimeError('\"'\"'交付源必须唯一: '\"'\"' + target + '\"'\"' candidates='\"'\"' + str(matches))\n    selected.append((next(iter(identities.values())), Path('\"'\"'/artifacts'\"'\"') / target))\nfor source, destination in selected:\n    destination.parent.mkdir(parents=True, exist_ok=True)\n    shutil.copyfile(source, destination)\n    shutil.copymode(source, destination)\nprint('\"'\"'FORGE_UNIFIED_STAGED'\"'\"', json.dumps(artifacts))\n'",
+      "source": "unified-plan-v2：系统精确交付装配，仓库内唯一内容/模式ELF/ar交付身份及内部链接",
+      "expected": "固定完整测试、精确交付及同镜像clean replay通过",
+      "workdir": "/workspace/repo",
+      "requires": [
+        "check"
+      ],
+      "required_output": [],
+      "diagnostic_paths": []
+    }
+  ]
+}

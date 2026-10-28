@@ -1,0 +1,77 @@
+{
+  "plan_id": "cxx-reference-yaml-cpp",
+  "revision": 1,
+  "repository_url": "https://github.com/jbeder/yaml-cpp",
+  "commit_sha": "c5e65360373d1d99d6b6848c991cd4fcee435009",
+  "image_id": "sha256:d27a6ab733c7c3a9cbb5e4b32fb595aa5a422ff04bd212888d1041b90a2c4c2a",
+  "source_archive_sha256": "c70bdecf87a72c0b0df29ff0d8b229df3eeeca99213f150aaee268edf955cc3b",
+  "build_system": "cmake",
+  "artifact_paths": [
+    "libyaml-cpp.a"
+  ],
+  "steps": [
+    {
+      "step_id": "configure",
+      "role": "configure",
+      "command": "(\nset -euo pipefail; rm -rf build; cmake -S . -B build -DYAML_CPP_BUILD_TESTS=ON -DBUILD_TESTING=ON -DYAML_CPP_BUILD_CONTRIB=ON -DYAML_CPP_BUILD_TOOLS=ON -DYAML_BUILD_SHARED_LIBS=OFF -DYAML_USE_SYSTEM_GTEST=OFF -DBUILD_SHARED_LIBS=OFF\n)\npython3 -c 'import json,pathlib,sys\nroot=pathlib.Path.cwd().resolve(); rows=[]\nfor kind,name in [('\"'\"'file'\"'\"', '\"'\"'build/CMakeCache.txt'\"'\"'), ('\"'\"'directory'\"'\"', '\"'\"'build'\"'\"')]:\n p=(root/name).resolve(); inside=p.is_relative_to(root)\n passed=inside and (p.is_file() if kind=='\"'\"'file'\"'\"' else p.is_dir())\n rows.append({'\"'\"'kind'\"'\"':kind,'\"'\"'path'\"'\"':name,'\"'\"'passed'\"'\"':passed,'\"'\"'inside_workdir'\"'\"':inside})\nprint('\"'\"'FORGE_PATH_OBSERVATIONS='\"'\"'+json.dumps(rows,sort_keys=True))\nsys.exit(0 if all(r['\"'\"'passed'\"'\"'] for r in rows) else 86)\n'",
+      "source": "CMakeLists.txt:16-32 选项定义与 test/CMakeLists.txt 的 CMake 选项/目标；固定验证脚本对 build/CMakeCache.txt 的配置断言",
+      "expected": "清空旧 build 后重新配置成功，生成包含所需选项的 build/CMakeCache.txt 与构建系统文件",
+      "workdir": "/workspace/repo",
+      "requires": [],
+      "required_output": [
+        "Configuring done"
+      ],
+      "diagnostic_paths": [
+        "build/CMakeCache.txt",
+        "build/CMakeFiles/CMakeOutput.log",
+        "build/CMakeFiles/CMakeError.log"
+      ]
+    },
+    {
+      "step_id": "build",
+      "role": "build",
+      "command": "(\nset -euo pipefail; cmake --build build --parallel 2\n)\npython3 -c 'import json,pathlib,sys\nroot=pathlib.Path.cwd().resolve(); rows=[]\nfor kind,name in [('\"'\"'file'\"'\"', '\"'\"'build/libyaml-cpp.a'\"'\"'), ('\"'\"'file'\"'\"', '\"'\"'build/test/yaml-cpp-tests'\"'\"'), ('\"'\"'file'\"'\"', '\"'\"'build/yaml-cpp.pc'\"'\"'), ('\"'\"'directory'\"'\"', '\"'\"'build/test'\"'\"')]:\n p=(root/name).resolve(); inside=p.is_relative_to(root)\n passed=inside and (p.is_file() if kind=='\"'\"'file'\"'\"' else p.is_dir())\n rows.append({'\"'\"'kind'\"'\"':kind,'\"'\"'path'\"'\"':name,'\"'\"'passed'\"'\"':passed,'\"'\"'inside_workdir'\"'\"':inside})\nprint('\"'\"'FORGE_PATH_OBSERVATIONS='\"'\"'+json.dumps(rows,sort_keys=True))\nsys.exit(0 if all(r['\"'\"'passed'\"'\"'] for r in rows) else 86)\n'",
+      "source": "CMakeLists.txt:69 add_library(yaml-cpp) 与 test/CMakeLists.txt:22 add_executable(yaml-cpp-tests)（默认 all 目标编译库和作者测试程序）",
+      "expected": "编译生成静态库 libyaml-cpp.a 与作者测试可执行文件 yaml-cpp-tests，供固定 ctest 的 3 个测试使用",
+      "workdir": "/workspace/repo",
+      "requires": [
+        "configure"
+      ],
+      "required_output": [],
+      "diagnostic_paths": [
+        "build/CMakeFiles/CMakeError.log"
+      ]
+    },
+    {
+      "step_id": "check",
+      "role": "smoke",
+      "command": "python3 -c 'from pathlib import Path\ncache={}\nfor line in Path('\"'\"'build/CMakeCache.txt'\"'\"').read_text().splitlines():\n if '\"'\"'='\"'\"' in line and '\"'\"':'\"'\"' in line and not line.startswith(('\"'\"'//'\"'\"','\"'\"'#'\"'\"')):\n  key,value=line.split('\"'\"'='\"'\"',1); name,_=key.split('\"'\"':'\"'\"',1); cache[name]=value\nfalse_values={'\"'\"''\"'\"','\"'\"'0'\"'\"','\"'\"'OFF'\"'\"','\"'\"'NO'\"'\"','\"'\"'FALSE'\"'\"','\"'\"'N'\"'\"','\"'\"'IGNORE'\"'\"','\"'\"'NOTFOUND'\"'\"'}\ndef enabled(value):\n return value.upper() not in false_values and not value.upper().endswith('\"'\"'-NOTFOUND'\"'\"')\nrequirements={'\"'\"'YAML_CPP_BUILD_TESTS'\"'\"': True, '\"'\"'BUILD_TESTING'\"'\"': True, '\"'\"'YAML_CPP_BUILD_CONTRIB'\"'\"': True, '\"'\"'YAML_CPP_BUILD_TOOLS'\"'\"': True, '\"'\"'YAML_BUILD_SHARED_LIBS'\"'\"': False, '\"'\"'YAML_USE_SYSTEM_GTEST'\"'\"': False}\nfor key,expected in requirements.items():\n assert key in cache, '\"'\"'缺少必要配置:'\"'\"'+key\n assert enabled(cache[key])==expected, '\"'\"'配置功能不符:'\"'\"'+key+'\"'\"'='\"'\"'+cache[key]\nif True:\n assert not enabled(cache.get('\"'\"'BUILD_SHARED_LIBS'\"'\"','\"'\"'OFF'\"'\"')), '\"'\"'必须使用默认静态库构建'\"'\"'\nprint('\"'\"'FORGE_TASK_CONFIGURATION_OK'\"'\"')\n' && python3 -c 'import hashlib,json,subprocess\nrows=subprocess.run(['\"'\"'git'\"'\"','\"'\"'ls-files'\"'\"','\"'\"'-z'\"'\"'],check=True,capture_output=True).stdout.decode().split('\"'\"'\\0'\"'\"')\nassert rows[-1]=='\"'\"''\"'\"', '\"'\"'Git索引输出不完整'\"'\"'\nnames=rows[:-1]\nactual=hashlib.sha256(json.dumps(sorted(names),ensure_ascii=True,separators=('\"'\"','\"'\"','\"'\"':'\"'\"')).encode()).hexdigest()\nassert actual=='\"'\"'8574ea1cf2058118afe50361cebf72862da4e1dcb4a3a370982663ac215599b5'\"'\"', '\"'\"'Git索引文件集合与固定原源码不同'\"'\"'\nassert subprocess.run(['\"'\"'git'\"'\"','\"'\"'rev-parse'\"'\"','\"'\"'--verify'\"'\"','\"'\"'HEAD'\"'\"'],capture_output=True).returncode!=0, '\"'\"'不允许伪造源码commit'\"'\"'\nprint('\"'\"'FORGE_SOURCE_INDEX_VERIFIED='\"'\"'+actual)\n' && ctest --test-dir build --output-on-failure --no-tests=error --verbose --output-junit /workspace/forge-ctest.xml && python3 -c 'import xml.etree.ElementTree as ET\nroot=ET.parse('\"'\"'/workspace/forge-ctest.xml'\"'\"').getroot()\ncases=list(root.iter('\"'\"'testcase'\"'\"'))\nassert len(cases)==3, '\"'\"'作者注册测试数不符'\"'\"'\nassert all(c.find('\"'\"'skipped'\"'\"') is None and c.find('\"'\"'failure'\"'\"') is None and c.find('\"'\"'error'\"'\"') is None for c in cases), '\"'\"'存在跳过或失败的作者测试'\"'\"'\nassert all(c.get('\"'\"'status'\"'\"','\"'\"'run'\"'\"')=='\"'\"'run'\"'\"' for c in cases), '\"'\"'存在未实际运行测试'\"'\"'\nprint('\"'\"'FORGE_CTEST_ACTUALLY_PASSED='\"'\"'+str(len(cases)))\n' && python3 -c 'import hashlib,json,subprocess\nrows=subprocess.run(['\"'\"'git'\"'\"','\"'\"'ls-files'\"'\"','\"'\"'-z'\"'\"'],check=True,capture_output=True).stdout.decode().split('\"'\"'\\0'\"'\"')\nassert rows[-1]=='\"'\"''\"'\"', '\"'\"'Git索引输出不完整'\"'\"'\nnames=rows[:-1]\nactual=hashlib.sha256(json.dumps(sorted(names),ensure_ascii=True,separators=('\"'\"','\"'\"','\"'\"':'\"'\"')).encode()).hexdigest()\nassert actual=='\"'\"'8574ea1cf2058118afe50361cebf72862da4e1dcb4a3a370982663ac215599b5'\"'\"', '\"'\"'Git索引文件集合与固定原源码不同'\"'\"'\nassert subprocess.run(['\"'\"'git'\"'\"','\"'\"'rev-parse'\"'\"','\"'\"'--verify'\"'\"','\"'\"'HEAD'\"'\"'],capture_output=True).returncode!=0, '\"'\"'不允许伪造源码commit'\"'\"'\nprint('\"'\"'FORGE_SOURCE_INDEX_VERIFIED='\"'\"'+actual)\n'",
+      "source": "新身份共同任务：原作者完整测试/功能语义/实际执行与来源索引核验",
+      "expected": "完整原测试与精确交付，不重试或替换失败",
+      "workdir": "/workspace/repo",
+      "requires": [
+        "build"
+      ],
+      "required_output": [
+        "FORGE_TASK_CONFIGURATION_OK",
+        "100% tests passed, 0 tests failed out of 3",
+        "FORGE_CTEST_ACTUALLY_PASSED=3",
+        "FORGE_SOURCE_INDEX_VERIFIED=8574ea1cf2058118afe50361cebf72862da4e1dcb4a3a370982663ac215599b5"
+      ],
+      "diagnostic_paths": []
+    },
+    {
+      "step_id": "stage",
+      "role": "artifact_stage",
+      "command": "python3 -c 'import hashlib, json, shutil\nfrom pathlib import Path\nroot = Path.cwd().resolve()\nartifacts = ('\"'\"'libyaml-cpp.a'\"'\"',)\nselected = []\nfor target in artifacts:\n    matches = []\n    for path in root.rglob(Path(target).name):\n        if not path.is_file() and not path.is_symlink():\n            continue\n        try:\n            resolved = path.resolve(strict=True)\n        except (OSError, RuntimeError) as exc:\n            raise RuntimeError('\"'\"'交付候选链接无效: '\"'\"' + str(path)) from exc\n        if not resolved.is_relative_to(root) or not resolved.is_file():\n            raise RuntimeError('\"'\"'交付候选越界或不是普通文件: '\"'\"' + str(path))\n        with resolved.open('\"'\"'rb'\"'\"') as stream:\n            magic = stream.read(8)\n        if magic.startswith(b'\"'\"'\\x7fELF'\"'\"') or magic == b'\"'\"'!<arch>\\n'\"'\"':\n            matches.append(resolved)\n    identities = {}\n    for candidate in sorted(set(matches)):\n        stat = candidate.stat()\n        fingerprint = hashlib.sha256()\n        with candidate.open('\"'\"'rb'\"'\"') as stream:\n            for block in iter(lambda: stream.read(1048576), b'\"'\"''\"'\"'):\n                fingerprint.update(block)\n        content_sha256 = fingerprint.hexdigest()\n        identity = (stat.st_size, content_sha256, stat.st_mode & 0o777)\n        identities.setdefault(identity, candidate)\n    if len(identities) != 1:\n        raise RuntimeError('\"'\"'交付源必须唯一: '\"'\"' + target + '\"'\"' candidates='\"'\"' + str(matches))\n    selected.append((next(iter(identities.values())), Path('\"'\"'/artifacts'\"'\"') / target))\nfor source, destination in selected:\n    destination.parent.mkdir(parents=True, exist_ok=True)\n    shutil.copyfile(source, destination)\n    shutil.copymode(source, destination)\nprint('\"'\"'FORGE_UNIFIED_STAGED'\"'\"', json.dumps(artifacts))\n'",
+      "source": "unified-plan-v2：系统精确交付装配，仓库内唯一内容/模式ELF/ar交付身份及内部链接",
+      "expected": "固定完整测试、精确交付及同镜像clean replay通过",
+      "workdir": "/workspace/repo",
+      "requires": [
+        "check"
+      ],
+      "required_output": [],
+      "diagnostic_paths": []
+    }
+  ]
+}

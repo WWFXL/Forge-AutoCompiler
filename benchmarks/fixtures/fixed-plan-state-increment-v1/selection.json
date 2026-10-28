@@ -1,0 +1,234 @@
+{
+  "source_identity": "cpp-build-goal-state-component-ablation-flash-v1",
+  "source_root": "/home/yiwei/.codex/outputs/forge-goal-state-component-ablation-flash-v1",
+  "source_inventory_sha256": "8e1b481aa8a059e46e4ef325a2a8fadeb6db27b482d9d723d4cfe3d66273955d",
+  "selection_rule": "each_project_first_slot_per_prior_configuration_class",
+  "all_candidates": [
+    {
+      "slot": 1,
+      "project": "simdutf",
+      "original_method": "common_model_workflow",
+      "configuration_class": "deviated"
+    },
+    {
+      "slot": 2,
+      "project": "simdutf",
+      "original_method": "goals_only_model_workflow",
+      "configuration_class": "satisfied"
+    },
+    {
+      "slot": 3,
+      "project": "simdutf",
+      "original_method": "goals_state_model_workflow",
+      "configuration_class": "satisfied"
+    },
+    {
+      "slot": 4,
+      "project": "snappy",
+      "original_method": "goals_state_model_workflow",
+      "configuration_class": "satisfied"
+    },
+    {
+      "slot": 5,
+      "project": "snappy",
+      "original_method": "goals_only_model_workflow",
+      "configuration_class": "satisfied"
+    },
+    {
+      "slot": 6,
+      "project": "snappy",
+      "original_method": "common_model_workflow",
+      "configuration_class": "satisfied"
+    },
+    {
+      "slot": 7,
+      "project": "yaml-cpp",
+      "original_method": "goals_only_model_workflow",
+      "configuration_class": "satisfied"
+    },
+    {
+      "slot": 8,
+      "project": "yaml-cpp",
+      "original_method": "goals_state_model_workflow",
+      "configuration_class": "satisfied"
+    },
+    {
+      "slot": 9,
+      "project": "yaml-cpp",
+      "original_method": "common_model_workflow",
+      "configuration_class": "satisfied"
+    },
+    {
+      "slot": 10,
+      "project": "simdutf",
+      "original_method": "common_model_workflow",
+      "configuration_class": "deviated"
+    },
+    {
+      "slot": 11,
+      "project": "simdutf",
+      "original_method": "goals_state_model_workflow",
+      "configuration_class": "other_initial_failure"
+    },
+    {
+      "slot": 12,
+      "project": "simdutf",
+      "original_method": "goals_only_model_workflow",
+      "configuration_class": "satisfied"
+    },
+    {
+      "slot": 13,
+      "project": "snappy",
+      "original_method": "goals_state_model_workflow",
+      "configuration_class": "deviated"
+    },
+    {
+      "slot": 14,
+      "project": "snappy",
+      "original_method": "common_model_workflow",
+      "configuration_class": "deviated"
+    },
+    {
+      "slot": 15,
+      "project": "snappy",
+      "original_method": "goals_only_model_workflow",
+      "configuration_class": "satisfied"
+    },
+    {
+      "slot": 16,
+      "project": "yaml-cpp",
+      "original_method": "goals_only_model_workflow",
+      "configuration_class": "satisfied"
+    },
+    {
+      "slot": 17,
+      "project": "yaml-cpp",
+      "original_method": "common_model_workflow",
+      "configuration_class": "satisfied"
+    },
+    {
+      "slot": 18,
+      "project": "yaml-cpp",
+      "original_method": "goals_state_model_workflow",
+      "configuration_class": "other_initial_failure"
+    }
+  ],
+  "cases": [
+    {
+      "slot": 1,
+      "project": "simdutf",
+      "original_method": "common_model_workflow",
+      "configuration_class": "deviated",
+      "case_id": "simdutf-deviated",
+      "plan_path": "benchmarks/fixtures/fixed-plan-state-increment-v1/simdutf-deviated.json",
+      "plan_sha256": "d5b5fcc72b2aa341f5fadafca6fdbc799dea7989088703e1ffedbdda92a32dae",
+      "original_plan_path": "slot-1/simdutf-plan/agent/plan-1.json",
+      "original_events_path": "slot-1/simdutf-plan/agent/events.jsonl",
+      "original_events_sha256": "b69cb176b46eb320a2a62987d5e40b267768b2d84fbd0996cce8de9ebf6b3206",
+      "original_session_path": "slot-1/simdutf-plan/.compile-sessions/plan-agent-canary/2188aa9dcb9f/session.json",
+      "original_session_sha256": "b0e7d5ef7d589a391e910bceaeb8d62e4cc40b4c68090d99d36f1001d30ef7f8",
+      "historical_initial_planning": {
+        "model_requests": 10,
+        "input_tokens": 132316,
+        "output_tokens": 3687,
+        "recorded_tokens": 136003,
+        "estimated_cost_usd": "0.0441192",
+        "historical_planning_boundary_seconds": 41.590096
+      },
+      "plan_fingerprint": "04c1e5bce0269bd31a8b404c5cd585f20992ab1b0797219e58ccced929c262a1"
+    },
+    {
+      "slot": 2,
+      "project": "simdutf",
+      "original_method": "goals_only_model_workflow",
+      "configuration_class": "satisfied",
+      "case_id": "simdutf-satisfied",
+      "plan_path": "benchmarks/fixtures/fixed-plan-state-increment-v1/simdutf-satisfied.json",
+      "plan_sha256": "082df7c3595550191584d0e5b25ac15b1bf2a398e6967eb09b05c0a6fd9b65a9",
+      "original_plan_path": "slot-2/simdutf-plan/agent/plan-1.json",
+      "original_events_path": "slot-2/simdutf-plan/agent/events.jsonl",
+      "original_events_sha256": "bc19e0f191908cf714e3a74edeaf4e257b3502a827ad2e2005302a3785f5114c",
+      "original_session_path": "slot-2/simdutf-plan/.compile-sessions/plan-agent-canary/a2777bbc6f69/session.json",
+      "original_session_sha256": "8929dca9e61a654ef3aa1b8ef86ab596bd91aa1eddf78c5799310ef6b0bfc89a",
+      "historical_initial_planning": {
+        "model_requests": 9,
+        "input_tokens": 135437,
+        "output_tokens": 4834,
+        "recorded_tokens": 140271,
+        "estimated_cost_usd": "0.0464319",
+        "historical_planning_boundary_seconds": 51.997897
+      },
+      "plan_fingerprint": "0d57348ff57f91037888c7d6db4e809786467497233b82f7403140d0daf2705c"
+    },
+    {
+      "slot": 13,
+      "project": "snappy",
+      "original_method": "goals_state_model_workflow",
+      "configuration_class": "deviated",
+      "case_id": "snappy-deviated",
+      "plan_path": "benchmarks/fixtures/fixed-plan-state-increment-v1/snappy-deviated.json",
+      "plan_sha256": "f3dac38fa8bf7aebb129329b82797a409172b4f20ec66f816714ee5452ce33c6",
+      "original_plan_path": "slot-13/snappy-plan/agent/plan-1.json",
+      "original_events_path": "slot-13/snappy-plan/agent/events.jsonl",
+      "original_events_sha256": "4c4507ec9655322d6c10db7722deefbf89a58bef55120af0e6273e5b45e654eb",
+      "original_session_path": "slot-13/snappy-plan/.compile-sessions/plan-agent-canary/abb5f295bf99/session.json",
+      "original_session_sha256": "ec3ae81bcfc2b44eaa6b0915dbc58761c88ba2ed4830bce634825f437d9edae2",
+      "historical_initial_planning": {
+        "model_requests": 9,
+        "input_tokens": 125026,
+        "output_tokens": 6676,
+        "recorded_tokens": 131702,
+        "estimated_cost_usd": "0.045519",
+        "historical_planning_boundary_seconds": 63.113969
+      },
+      "plan_fingerprint": "20fcb0a6bea920fa8e8fb548e92db6d0e2bcea880f4656c631625e5955202d38"
+    },
+    {
+      "slot": 4,
+      "project": "snappy",
+      "original_method": "goals_state_model_workflow",
+      "configuration_class": "satisfied",
+      "case_id": "snappy-satisfied",
+      "plan_path": "benchmarks/fixtures/fixed-plan-state-increment-v1/snappy-satisfied.json",
+      "plan_sha256": "be4ecf7e5dc5046d19412f0ab461523ca161d434c1f29c00756759aa46a1cacd",
+      "original_plan_path": "slot-4/snappy-plan/agent/plan-1.json",
+      "original_events_path": "slot-4/snappy-plan/agent/events.jsonl",
+      "original_events_sha256": "e0cc9bde3cdb60d5c88009ec7aeecde0e242cd210e42f0ba94dd9ef0e426fb47",
+      "original_session_path": "slot-4/snappy-plan/.compile-sessions/plan-agent-canary/db4d32e600f0/session.json",
+      "original_session_sha256": "ff97d0a22cc0e6ce53385d7f94e0766aeb9c14d45e53fd3e4ae50afb590335e4",
+      "historical_initial_planning": {
+        "model_requests": 3,
+        "input_tokens": 42479,
+        "output_tokens": 3440,
+        "recorded_tokens": 45919,
+        "estimated_cost_usd": "0.0168717",
+        "historical_planning_boundary_seconds": 25.610331
+      },
+      "plan_fingerprint": "0f43cdd7a7bfd066fe8d49f9e6b149d529d0ff022cf644c6bb912956b9da59d2"
+    },
+    {
+      "slot": 7,
+      "project": "yaml-cpp",
+      "original_method": "goals_only_model_workflow",
+      "configuration_class": "satisfied",
+      "case_id": "yaml-cpp-satisfied",
+      "plan_path": "benchmarks/fixtures/fixed-plan-state-increment-v1/yaml-cpp-satisfied.json",
+      "plan_sha256": "179e59dcc7b1b70b90e4fe82d6502852f38e9e0039a9dc4c92c7ef3ab26a0760",
+      "original_plan_path": "slot-7/yaml-cpp-plan/agent/plan-1.json",
+      "original_events_path": "slot-7/yaml-cpp-plan/agent/events.jsonl",
+      "original_events_sha256": "8be73aac5682cd25002e5647891cec0f62e6630e20c2a7f99659704962078cba",
+      "original_session_path": "slot-7/yaml-cpp-plan/.compile-sessions/plan-agent-canary/12a299530fd8/session.json",
+      "original_session_sha256": "6002023e15ff62f00779914bb80c97a2ccb584f6c95e12bc37b042342b64a960",
+      "historical_initial_planning": {
+        "model_requests": 4,
+        "input_tokens": 45802,
+        "output_tokens": 2199,
+        "recorded_tokens": 48001,
+        "estimated_cost_usd": "0.0163794",
+        "historical_planning_boundary_seconds": 17.894183
+      },
+      "plan_fingerprint": "bef1efbd77698848d1c5b26cceb36efcfd61aab46b6bc68b2b5b2b8654259ff2"
+    }
+  ],
+  "boundary": "事后按已观察配置状态分层的机制案例；不是自然发生率、未见任务或总体效果样本"
+}
