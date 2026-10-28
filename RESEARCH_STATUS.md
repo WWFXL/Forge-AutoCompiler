@@ -1,8 +1,16 @@
 # Forge Research Status
 
-论文选材固定入口：[硕士论文实验与证据索引](docs/research/THESIS_EVIDENCE_INDEX.md)，按正文候选、补充分析/案例和工程检查说明用途、结果、边界及原始证据；[历史材料目录](docs/research/THESIS_EVIDENCE_CATALOG.md)登记存量材料。后续结果发布时简短更新，不另行重跑实验。2026-10-29本次仅整理已有证据，无新模型效果，下一系统比较仍由#640跟踪。
+论文选材固定入口：[硕士论文实验与证据索引](docs/research/THESIS_EVIDENCE_INDEX.md)，按正文候选、补充分析/案例和工程检查说明用途、结果、边界及原始证据；[历史材料目录](docs/research/THESIS_EVIDENCE_CATALOG.md)登记存量材料。后续结果发布时简短更新，不另行重跑实验。#640统一条件三系统比较已完成免费执行准备，尚无本批真实模型效果。
 
-## 当前阶段（2026-10-29；#637固定方案30槽实验与结果分析完成，转#640统一条件系统比较）
+## 当前阶段（2026-10-29；#640统一条件48槽系统比较入口完成，待新授权采集）
+
+用户确认推进下一阶段。本轮为基础设施/实验准备，复用已有任务及可运行入口，完成cpp-build-unified-system-comparison-flash-v1：check/simdutf/snappy/yaml-cpp/libtommath/tinyxml2/rang/ELFIO八个已见任务×两重复×Forge状态Workflow/强工具Agent/CXXCrafter社区版，共48槽；项目族暴露和顺序前瞻固定。全部请求得到同一完整公开任务，统一CMake Release、原源码/测试/依赖、2作业、精确交付及同镜像完整replay。CXX保留原生循环/10版Dockerfile与外部失败不反馈的差异，不称论文原版、同Harness或纯状态因果；Make/Autotools不冒称已用CMake语义增强。
+
+13相关检查/Ruff/候选CLI通过。独立cpp-build-unified-system-dispatch-check-v1三入口tinyxml2脚本响应实跑均完整构建/原测试/交付/replay/cleanup通过，8脚本响应、0真实Provider/Token/费用、未读真实凭据，实际容器均不存在。仅证明新适配可运行，不当方法效果。raw forge-unified-system-preparation-2026-10-29/dispatch-check-v1，inventory 2a1346e5975b3d516b790c73bf30be04758bf95098c0a3d61dac55038502ae72；analysis benchmarks/analyses/cpp-build-unified-system-dispatch-check-v1.json。开发草稿/原证据保留，未重跑旧参考资格链或本地产品全测。
+
+设计与执行见[统一系统比较准备](docs/research/2026-10-29-unified-system-comparison-design.md)，入口scripts/forge_build_system_comparison.py及同名manifest/preregistration。每槽2700秒、最后300秒清理，请求准入600秒、完整重放1200＋300秒，修复旧内外时间安排不一致；并行环境进入CXX外部测试。新正式48槽尚未启动，无新付费授权、不读凭据；候选设计10美元/建议确认起8小时，无自动重试，未知/身份/清理异常停止。旧30槽授权及余额不扩用。#640保持OPEN，发布只合科研依赖分支；用户memory/HTML保留，知识库只MCP同步。下一项是绑定新预算/时窗后直接真实采集与论文系统表分析。
+
+## 上一阶段（2026-10-29；#637固定方案30槽实验与结果分析完成，转#640统一条件系统比较）
 
 真实数据采集/结果分析完成：cpp-build-fixed-plan-state-increment-flash-v1，五份自然固定初始方案×两重复×后置Agent/前置Agent/前置直接修订＋Agent，共30/30终结，29完整、1未完成、0未观察。三组9/10、10/10、10/10；新增23/27/0请求、462184/542287/0Token、0.1716330/0.1827354/0美元，含相同历史规划费后0.5102754/0.5213778/0.3386424美元，总槽45.58/48.92/42.28分钟。失败短时不当效率优势；三组共同完成9配对辅助分析中，直接组相对后置/前置Agent时间低12.8%/11.3%、含历史规划估费低28.1%/29.1%。该子集按结果条件化，不替代全部30槽或当总体效应。
 
