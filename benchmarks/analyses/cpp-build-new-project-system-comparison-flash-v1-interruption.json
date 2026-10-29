@@ -1,0 +1,1525 @@
+{
+  "identity": "cpp-build-new-project-system-comparison-flash-v1",
+  "kind": "complete_system_comparison_new_method_projects",
+  "rows": [
+    {
+      "name": "jsoncpp",
+      "arm": "plan",
+      "kind": "real_model_development_canary",
+      "status": "verified",
+      "transitions": [
+        {
+          "status": "ready_for_verification",
+          "plan_sha256": "76b89ab1f72221f33393363b60e994c18c60871a50859b90753c288fe3d08140",
+          "revision": 1,
+          "completed": {
+            "forge-source-prepare": "command_6d35328fee6744b2b2dfc85e9063aec0",
+            "configure": "command_832c42b4608c49b280f5219237537a2c",
+            "build": "command_a68756229c094752bc3d257751e807a6",
+            "build-profile": "command_7e4eb9c1c7bd4f2ab0807b333436fd7d",
+            "check": "command_ecf4a13d614749f0b8a879b908eca855",
+            "stage": "command_fa845b63713b4950ae1bf29454b6c4ec"
+          },
+          "commands_used": 6,
+          "handoffs_used": 0,
+          "remaining_seconds": 1163,
+          "handoff": null,
+          "configuration_state": {
+            "status": "satisfied",
+            "goals": [
+              {
+                "cache_path": "build/CMakeCache.txt",
+                "key": "JSONCPP_WITH_TESTS",
+                "expected": true,
+                "verifier_sha256": "52570447bae63546ce183477abe13e6fd99697e269dedbbf716d18be17355ecf",
+                "default": null,
+                "actual": "ON",
+                "cache_type": "BOOL",
+                "status": "satisfied",
+                "evidence_sha256": "253e337ceefd6f4cb2e63ed764c5af57435fd9a6e0e94fb09677dda01e34ef40",
+                "source_directory": "/workspace/repo",
+                "evidence_path": "logs/goal-state/253e337ceefd6f4cb2e63ed764c5af57435fd9a6e0e94fb09677dda01e34ef40.txt"
+              },
+              {
+                "cache_path": "build/CMakeCache.txt",
+                "key": "JSONCPP_WITH_POST_BUILD_UNITTEST",
+                "expected": true,
+                "verifier_sha256": "52570447bae63546ce183477abe13e6fd99697e269dedbbf716d18be17355ecf",
+                "default": null,
+                "actual": "ON",
+                "cache_type": "BOOL",
+                "status": "satisfied",
+                "evidence_sha256": "253e337ceefd6f4cb2e63ed764c5af57435fd9a6e0e94fb09677dda01e34ef40",
+                "source_directory": "/workspace/repo",
+                "evidence_path": "logs/goal-state/253e337ceefd6f4cb2e63ed764c5af57435fd9a6e0e94fb09677dda01e34ef40.txt"
+              },
+              {
+                "cache_path": "build/CMakeCache.txt",
+                "key": "BUILD_STATIC_LIBS",
+                "expected": true,
+                "verifier_sha256": "52570447bae63546ce183477abe13e6fd99697e269dedbbf716d18be17355ecf",
+                "default": null,
+                "actual": "ON",
+                "cache_type": "BOOL",
+                "status": "satisfied",
+                "evidence_sha256": "253e337ceefd6f4cb2e63ed764c5af57435fd9a6e0e94fb09677dda01e34ef40",
+                "source_directory": "/workspace/repo",
+                "evidence_path": "logs/goal-state/253e337ceefd6f4cb2e63ed764c5af57435fd9a6e0e94fb09677dda01e34ef40.txt"
+              },
+              {
+                "cache_path": "build/CMakeCache.txt",
+                "key": "BUILD_SHARED_LIBS",
+                "expected": false,
+                "verifier_sha256": "52570447bae63546ce183477abe13e6fd99697e269dedbbf716d18be17355ecf",
+                "default": null,
+                "actual": "OFF",
+                "cache_type": "BOOL",
+                "status": "satisfied",
+                "evidence_sha256": "253e337ceefd6f4cb2e63ed764c5af57435fd9a6e0e94fb09677dda01e34ef40",
+                "source_directory": "/workspace/repo",
+                "evidence_path": "logs/goal-state/253e337ceefd6f4cb2e63ed764c5af57435fd9a6e0e94fb09677dda01e34ef40.txt"
+              }
+            ],
+            "scope": "explicit_cmake_configuration_only",
+            "after_step_id": "build",
+            "revision": 1,
+            "command_frontier": "bbf886f6389fe828cdfa2f08e555031eca318aeea08fbedc803eae4d707c5e57"
+          }
+        },
+        {
+          "status": "verified",
+          "plan_sha256": "76b89ab1f72221f33393363b60e994c18c60871a50859b90753c288fe3d08140",
+          "revision": 1,
+          "completed": {
+            "forge-source-prepare": "command_6d35328fee6744b2b2dfc85e9063aec0",
+            "configure": "command_832c42b4608c49b280f5219237537a2c",
+            "build": "command_a68756229c094752bc3d257751e807a6",
+            "build-profile": "command_7e4eb9c1c7bd4f2ab0807b333436fd7d",
+            "check": "command_ecf4a13d614749f0b8a879b908eca855",
+            "stage": "command_fa845b63713b4950ae1bf29454b6c4ec"
+          },
+          "commands_used": 6,
+          "handoffs_used": 0,
+          "remaining_seconds": 1139,
+          "handoff": null,
+          "configuration_state": {
+            "status": "satisfied",
+            "goals": [
+              {
+                "cache_path": "build/CMakeCache.txt",
+                "key": "JSONCPP_WITH_TESTS",
+                "expected": true,
+                "verifier_sha256": "52570447bae63546ce183477abe13e6fd99697e269dedbbf716d18be17355ecf",
+                "default": null,
+                "actual": "ON",
+                "cache_type": "BOOL",
+                "status": "satisfied",
+                "evidence_sha256": "253e337ceefd6f4cb2e63ed764c5af57435fd9a6e0e94fb09677dda01e34ef40",
+                "source_directory": "/workspace/repo",
+                "evidence_path": "logs/goal-state/253e337ceefd6f4cb2e63ed764c5af57435fd9a6e0e94fb09677dda01e34ef40.txt"
+              },
+              {
+                "cache_path": "build/CMakeCache.txt",
+                "key": "JSONCPP_WITH_POST_BUILD_UNITTEST",
+                "expected": true,
+                "verifier_sha256": "52570447bae63546ce183477abe13e6fd99697e269dedbbf716d18be17355ecf",
+                "default": null,
+                "actual": "ON",
+                "cache_type": "BOOL",
+                "status": "satisfied",
+                "evidence_sha256": "253e337ceefd6f4cb2e63ed764c5af57435fd9a6e0e94fb09677dda01e34ef40",
+                "source_directory": "/workspace/repo",
+                "evidence_path": "logs/goal-state/253e337ceefd6f4cb2e63ed764c5af57435fd9a6e0e94fb09677dda01e34ef40.txt"
+              },
+              {
+                "cache_path": "build/CMakeCache.txt",
+                "key": "BUILD_STATIC_LIBS",
+                "expected": true,
+                "verifier_sha256": "52570447bae63546ce183477abe13e6fd99697e269dedbbf716d18be17355ecf",
+                "default": null,
+                "actual": "ON",
+                "cache_type": "BOOL",
+                "status": "satisfied",
+                "evidence_sha256": "253e337ceefd6f4cb2e63ed764c5af57435fd9a6e0e94fb09677dda01e34ef40",
+                "source_directory": "/workspace/repo",
+                "evidence_path": "logs/goal-state/253e337ceefd6f4cb2e63ed764c5af57435fd9a6e0e94fb09677dda01e34ef40.txt"
+              },
+              {
+                "cache_path": "build/CMakeCache.txt",
+                "key": "BUILD_SHARED_LIBS",
+                "expected": false,
+                "verifier_sha256": "52570447bae63546ce183477abe13e6fd99697e269dedbbf716d18be17355ecf",
+                "default": null,
+                "actual": "OFF",
+                "cache_type": "BOOL",
+                "status": "satisfied",
+                "evidence_sha256": "253e337ceefd6f4cb2e63ed764c5af57435fd9a6e0e94fb09677dda01e34ef40",
+                "source_directory": "/workspace/repo",
+                "evidence_path": "logs/goal-state/253e337ceefd6f4cb2e63ed764c5af57435fd9a6e0e94fb09677dda01e34ef40.txt"
+              }
+            ],
+            "scope": "explicit_cmake_configuration_only",
+            "after_step_id": "build",
+            "revision": 1,
+            "command_frontier": "bbf886f6389fe828cdfa2f08e555031eca318aeea08fbedc803eae4d707c5e57"
+          }
+        }
+      ],
+      "source_preparation": {
+        "command_id": "command_6d35328fee6744b2b2dfc85e9063aec0",
+        "role": "dependency",
+        "exit_code": 0,
+        "output_tail": "FORGE_SOURCE_INDEX_VERIFIED=5489b9755902e5a69ebed68af6bff37a13546797ef2e7cf12bc9e2687757bee8\n",
+        "log_path": "logs/command_6d35328fee6744b2b2dfc85e9063aec0.log",
+        "expected_paths_sha256": "5489b9755902e5a69ebed68af6bff37a13546797ef2e7cf12bc9e2687757bee8",
+        "wall_seconds": 0.30937242999789305
+      },
+      "node_and_acceptance_seconds": 60.37192817000323,
+      "fixed_sources_unchanged": true,
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "session_status": "completed",
+      "session_id": "dd15e14198a1",
+      "agent_usage": {
+        "model_requests": 3,
+        "recorded_tokens": 44465,
+        "agent_steps": 8,
+        "tool_calls": 5,
+        "commands": 6,
+        "elapsed_seconds": 36.205832697000005,
+        "input_tokens": 42637,
+        "output_tokens": 1828,
+        "estimated_cost_usd": 0.0149847,
+        "unknown_usage_requests": 0,
+        "cost_and_usage_complete": true,
+        "estimated_cost_usd_completed_responses": 0.0149847
+      },
+      "strict_completed": true,
+      "project": "jsoncpp",
+      "repetition": 1,
+      "method": "forge_state_workflow",
+      "arm_total_wall_seconds": 64.32854063500417,
+      "source_links_unchanged": true
+    },
+    {
+      "name": "jsoncpp",
+      "arm": "tool",
+      "kind": "real_model_development_canary",
+      "status": "verified",
+      "transitions": [],
+      "source_preparation": {
+        "command_id": "command_ccbfb9c24c3a49bdbaa5ebd9f0fff536",
+        "role": "dependency",
+        "exit_code": 0,
+        "output_tail": "FORGE_SOURCE_INDEX_VERIFIED=5489b9755902e5a69ebed68af6bff37a13546797ef2e7cf12bc9e2687757bee8\n",
+        "log_path": "logs/command_ccbfb9c24c3a49bdbaa5ebd9f0fff536.log",
+        "expected_paths_sha256": "5489b9755902e5a69ebed68af6bff37a13546797ef2e7cf12bc9e2687757bee8",
+        "wall_seconds": 0.31812547700246796
+      },
+      "node_and_acceptance_seconds": 58.520552300004056,
+      "fixed_sources_unchanged": true,
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "session_status": "completed",
+      "session_id": "cfb7314680b4",
+      "agent_usage": {
+        "model_requests": 5,
+        "recorded_tokens": 64257,
+        "agent_steps": 11,
+        "tool_calls": 6,
+        "commands": 6,
+        "elapsed_seconds": 34.85812638499192,
+        "input_tokens": 63473,
+        "output_tokens": 784,
+        "estimated_cost_usd": 0.0199827,
+        "unknown_usage_requests": 0,
+        "cost_and_usage_complete": true,
+        "estimated_cost_usd_completed_responses": 0.0199827
+      },
+      "strict_completed": true,
+      "project": "jsoncpp",
+      "repetition": 1,
+      "method": "strong_tool_agent",
+      "arm_total_wall_seconds": 62.44365013099741,
+      "source_links_unchanged": true
+    },
+    {
+      "name": "jsoncpp",
+      "method": "cxxcrafter_community_reference",
+      "reported_success": true,
+      "strict_completed": true,
+      "evaluations": [
+        {
+          "source_unchanged": true,
+          "fixed_tests": true,
+          "artifact_stage": true,
+          "artifacts": {
+            "libjsoncpp.a": {
+              "sha256": "78678a39ddd9b620b2c120fba04b893abc68cf89837bfdd03e322d982a801385",
+              "size": 518018,
+              "artifact_type": "static_library"
+            }
+          },
+          "cleanup": true
+        },
+        {
+          "source_unchanged": true,
+          "fixed_tests": true,
+          "artifact_stage": true,
+          "artifacts": {
+            "libjsoncpp.a": {
+              "sha256": "78678a39ddd9b620b2c120fba04b893abc68cf89837bfdd03e322d982a801385",
+              "size": 518018,
+              "artifact_type": "static_library"
+            }
+          },
+          "cleanup": true
+        }
+      ],
+      "agent_usage": {
+        "provider_requests": 6,
+        "input_tokens": 31121,
+        "output_tokens": 7041,
+        "total_tokens": 38162,
+        "estimated_cost_usd_completed_responses": "0.0177855",
+        "unknown_usage_requests": 0
+      },
+      "cleanup": {
+        "succeeded": true
+      },
+      "versions": 1,
+      "arm_total_wall_seconds": 238.37676261700108,
+      "provider_stop": false,
+      "project": "jsoncpp",
+      "repetition": 1,
+      "common_task_sha256": "db7d39dbfefbaafea7555492a33e729e54fe5271fdd48839decf2c1a93c3e20c"
+    },
+    {
+      "name": "pegtl",
+      "method": "cxxcrafter_community_reference",
+      "reported_success": true,
+      "strict_completed": true,
+      "evaluations": [
+        {
+          "source_unchanged": true,
+          "fixed_tests": true,
+          "artifact_stage": true,
+          "artifacts": {
+            "pegtl-test-ascii_forty_two": {
+              "sha256": "b423c2fda8f2002421712a228e3a06c88448df8d2964408d66c5fc4695ed4940",
+              "size": 69528,
+              "artifact_type": "executable"
+            }
+          },
+          "cleanup": true
+        },
+        {
+          "source_unchanged": true,
+          "fixed_tests": true,
+          "artifact_stage": true,
+          "artifacts": {
+            "pegtl-test-ascii_forty_two": {
+              "sha256": "b423c2fda8f2002421712a228e3a06c88448df8d2964408d66c5fc4695ed4940",
+              "size": 69528,
+              "artifact_type": "executable"
+            }
+          },
+          "cleanup": true
+        }
+      ],
+      "agent_usage": {
+        "provider_requests": 6,
+        "input_tokens": 55865,
+        "output_tokens": 15982,
+        "total_tokens": 71847,
+        "estimated_cost_usd_completed_responses": "0.0359379",
+        "unknown_usage_requests": 0
+      },
+      "cleanup": {
+        "succeeded": true
+      },
+      "versions": 1,
+      "arm_total_wall_seconds": 577.0615301439975,
+      "provider_stop": false,
+      "project": "pegtl",
+      "repetition": 1,
+      "common_task_sha256": "0ae1fc32840557ee31fccaed246f3f9e21a191e0c4e6a8f398d464c6e59a147c"
+    },
+    {
+      "name": "pegtl",
+      "arm": "tool",
+      "kind": "real_model_development_canary",
+      "status": "verified",
+      "transitions": [],
+      "source_preparation": {
+        "command_id": "command_2a4b9dbab6cf423b9ac147387b7c0eac",
+        "role": "dependency",
+        "exit_code": 0,
+        "output_tail": "FORGE_SOURCE_INDEX_VERIFIED=c5b22bee79ff51352e6c5d63c8340dc75db58dab16604fe14fe5fa133fce26c6\n",
+        "log_path": "logs/command_2a4b9dbab6cf423b9ac147387b7c0eac.log",
+        "expected_paths_sha256": "c5b22bee79ff51352e6c5d63c8340dc75db58dab16604fe14fe5fa133fce26c6",
+        "wall_seconds": 0.34055526000156533
+      },
+      "node_and_acceptance_seconds": 437.39866871299455,
+      "fixed_sources_unchanged": true,
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "session_status": "completed",
+      "session_id": "c6611d4acc21",
+      "agent_usage": {
+        "model_requests": 18,
+        "recorded_tokens": 344099,
+        "agent_steps": 37,
+        "tool_calls": 19,
+        "commands": 10,
+        "elapsed_seconds": 250.7171517740062,
+        "input_tokens": 341049,
+        "output_tokens": 3050,
+        "estimated_cost_usd": 0.1059747,
+        "unknown_usage_requests": 0,
+        "cost_and_usage_complete": true,
+        "estimated_cost_usd_completed_responses": 0.1059747
+      },
+      "strict_completed": true,
+      "project": "pegtl",
+      "repetition": 1,
+      "method": "strong_tool_agent",
+      "arm_total_wall_seconds": 441.4473363300058,
+      "source_links_unchanged": true
+    },
+    {
+      "name": "pegtl",
+      "arm": "plan",
+      "kind": "real_model_development_canary",
+      "status": "verified",
+      "transitions": [
+        {
+          "status": "ready_for_verification",
+          "plan_sha256": "c0565efd1cf84a16ce98e4505eadfc4e61040222eb415e0f9f5f75c811593594",
+          "revision": 1,
+          "completed": {
+            "forge-source-prepare": "command_86c3ec41dd5d4efba9f6a2f2bd686125",
+            "configure-release": "command_ff39796c09bd48b0a3e5e83fc707bfbd",
+            "build": "command_baaabc3446864008a184844f8220f8ec",
+            "build-profile": "command_e4b30a3e327e4a66a4d7a9dc162ee748",
+            "check": "command_1d324d92aebd4be88e92502c660950e7",
+            "stage": "command_22fa772f4f254d7095cf696b81311fc8"
+          },
+          "commands_used": 6,
+          "handoffs_used": 0,
+          "remaining_seconds": 1001,
+          "handoff": null,
+          "configuration_state": {
+            "status": "satisfied",
+            "goals": [
+              {
+                "cache_path": "build/CMakeCache.txt",
+                "key": "PEGTL_BUILD_TESTS",
+                "expected": true,
+                "verifier_sha256": "42072ea0e463c5cc4b582db0d9dd21c6e4af0d94bbf819285e9ea7af04c920b2",
+                "default": null,
+                "actual": "ON",
+                "cache_type": "BOOL",
+                "status": "satisfied",
+                "evidence_sha256": "959a7534c2f67f0ea145fef4e0456fbb8c4d09d907d33735cc78c1ad50b48221",
+                "source_directory": "/workspace/repo",
+                "evidence_path": "logs/goal-state/959a7534c2f67f0ea145fef4e0456fbb8c4d09d907d33735cc78c1ad50b48221.txt"
+              },
+              {
+                "cache_path": "build/CMakeCache.txt",
+                "key": "PEGTL_BUILD_EXAMPLES",
+                "expected": true,
+                "verifier_sha256": "42072ea0e463c5cc4b582db0d9dd21c6e4af0d94bbf819285e9ea7af04c920b2",
+                "default": null,
+                "actual": "ON",
+                "cache_type": "BOOL",
+                "status": "satisfied",
+                "evidence_sha256": "959a7534c2f67f0ea145fef4e0456fbb8c4d09d907d33735cc78c1ad50b48221",
+                "source_directory": "/workspace/repo",
+                "evidence_path": "logs/goal-state/959a7534c2f67f0ea145fef4e0456fbb8c4d09d907d33735cc78c1ad50b48221.txt"
+              }
+            ],
+            "scope": "explicit_cmake_configuration_only",
+            "after_step_id": "build",
+            "revision": 1,
+            "command_frontier": "42207b4de0fcbd7f2b3ab520114fa0691e21a5036c592e15cdc9cfaacdc004bf"
+          }
+        },
+        {
+          "status": "verified",
+          "plan_sha256": "c0565efd1cf84a16ce98e4505eadfc4e61040222eb415e0f9f5f75c811593594",
+          "revision": 1,
+          "completed": {
+            "forge-source-prepare": "command_86c3ec41dd5d4efba9f6a2f2bd686125",
+            "configure-release": "command_ff39796c09bd48b0a3e5e83fc707bfbd",
+            "build": "command_baaabc3446864008a184844f8220f8ec",
+            "build-profile": "command_e4b30a3e327e4a66a4d7a9dc162ee748",
+            "check": "command_1d324d92aebd4be88e92502c660950e7",
+            "stage": "command_22fa772f4f254d7095cf696b81311fc8"
+          },
+          "commands_used": 6,
+          "handoffs_used": 0,
+          "remaining_seconds": 817,
+          "handoff": null,
+          "configuration_state": {
+            "status": "satisfied",
+            "goals": [
+              {
+                "cache_path": "build/CMakeCache.txt",
+                "key": "PEGTL_BUILD_TESTS",
+                "expected": true,
+                "verifier_sha256": "42072ea0e463c5cc4b582db0d9dd21c6e4af0d94bbf819285e9ea7af04c920b2",
+                "default": null,
+                "actual": "ON",
+                "cache_type": "BOOL",
+                "status": "satisfied",
+                "evidence_sha256": "959a7534c2f67f0ea145fef4e0456fbb8c4d09d907d33735cc78c1ad50b48221",
+                "source_directory": "/workspace/repo",
+                "evidence_path": "logs/goal-state/959a7534c2f67f0ea145fef4e0456fbb8c4d09d907d33735cc78c1ad50b48221.txt"
+              },
+              {
+                "cache_path": "build/CMakeCache.txt",
+                "key": "PEGTL_BUILD_EXAMPLES",
+                "expected": true,
+                "verifier_sha256": "42072ea0e463c5cc4b582db0d9dd21c6e4af0d94bbf819285e9ea7af04c920b2",
+                "default": null,
+                "actual": "ON",
+                "cache_type": "BOOL",
+                "status": "satisfied",
+                "evidence_sha256": "959a7534c2f67f0ea145fef4e0456fbb8c4d09d907d33735cc78c1ad50b48221",
+                "source_directory": "/workspace/repo",
+                "evidence_path": "logs/goal-state/959a7534c2f67f0ea145fef4e0456fbb8c4d09d907d33735cc78c1ad50b48221.txt"
+              }
+            ],
+            "scope": "explicit_cmake_configuration_only",
+            "after_step_id": "build",
+            "revision": 1,
+            "command_frontier": "42207b4de0fcbd7f2b3ab520114fa0691e21a5036c592e15cdc9cfaacdc004bf"
+          }
+        }
+      ],
+      "source_preparation": {
+        "command_id": "command_86c3ec41dd5d4efba9f6a2f2bd686125",
+        "role": "dependency",
+        "exit_code": 0,
+        "output_tail": "FORGE_SOURCE_INDEX_VERIFIED=c5b22bee79ff51352e6c5d63c8340dc75db58dab16604fe14fe5fa133fce26c6\n",
+        "log_path": "logs/command_86c3ec41dd5d4efba9f6a2f2bd686125.log",
+        "expected_paths_sha256": "c5b22bee79ff51352e6c5d63c8340dc75db58dab16604fe14fe5fa133fce26c6",
+        "wall_seconds": 0.3507434190105414
+      },
+      "node_and_acceptance_seconds": 382.82013490400277,
+      "fixed_sources_unchanged": true,
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "session_status": "completed",
+      "session_id": "5c8d3f5766ef",
+      "agent_usage": {
+        "model_requests": 3,
+        "recorded_tokens": 56008,
+        "agent_steps": 7,
+        "tool_calls": 4,
+        "commands": 6,
+        "elapsed_seconds": 198.4533540320117,
+        "input_tokens": 54230,
+        "output_tokens": 1778,
+        "estimated_cost_usd": 0.0184026,
+        "unknown_usage_requests": 0,
+        "cost_and_usage_complete": true,
+        "estimated_cost_usd_completed_responses": 0.0184026
+      },
+      "strict_completed": true,
+      "project": "pegtl",
+      "repetition": 1,
+      "method": "forge_state_workflow",
+      "arm_total_wall_seconds": 386.8028909860004,
+      "source_links_unchanged": true
+    },
+    {
+      "name": "inja",
+      "arm": "tool",
+      "kind": "real_model_development_canary",
+      "status": "verified",
+      "transitions": [],
+      "source_preparation": {
+        "command_id": "command_2fe40c2e5307473a90301a9e6f7fdaae",
+        "role": "dependency",
+        "exit_code": 0,
+        "output_tail": "FORGE_SOURCE_INDEX_VERIFIED=ddf47d028aeb4c324d34e4ba08ad5543a16e6a646c8ea360574bd1ee571036ea\n",
+        "log_path": "logs/command_2fe40c2e5307473a90301a9e6f7fdaae.log",
+        "expected_paths_sha256": "ddf47d028aeb4c324d34e4ba08ad5543a16e6a646c8ea360574bd1ee571036ea",
+        "wall_seconds": 0.30501976699451916
+      },
+      "node_and_acceptance_seconds": 101.89907174800464,
+      "fixed_sources_unchanged": true,
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "session_status": "completed",
+      "session_id": "fe51b3791416",
+      "agent_usage": {
+        "model_requests": 8,
+        "recorded_tokens": 122395,
+        "agent_steps": 16,
+        "tool_calls": 8,
+        "commands": 7,
+        "elapsed_seconds": 65.62674735199835,
+        "input_tokens": 120284,
+        "output_tokens": 2111,
+        "estimated_cost_usd": 0.0386184,
+        "unknown_usage_requests": 0,
+        "cost_and_usage_complete": true,
+        "estimated_cost_usd_completed_responses": 0.0386184
+      },
+      "strict_completed": true,
+      "project": "inja",
+      "repetition": 1,
+      "method": "strong_tool_agent",
+      "arm_total_wall_seconds": 105.7489437010081,
+      "source_links_unchanged": true
+    },
+    {
+      "name": "inja",
+      "method": "cxxcrafter_community_reference",
+      "reported_success": true,
+      "strict_completed": true,
+      "evaluations": [
+        {
+          "source_unchanged": true,
+          "fixed_tests": true,
+          "artifact_stage": true,
+          "artifacts": {
+            "single_inja_test": {
+              "sha256": "709375292de9f398bf621094cd839d4e2589a6b2a74138cdf0d9889d79fa0e62",
+              "size": 999384,
+              "artifact_type": "executable"
+            },
+            "inja_test": {
+              "sha256": "709375292de9f398bf621094cd839d4e2589a6b2a74138cdf0d9889d79fa0e62",
+              "size": 999384,
+              "artifact_type": "executable"
+            }
+          },
+          "cleanup": true
+        },
+        {
+          "source_unchanged": true,
+          "fixed_tests": true,
+          "artifact_stage": true,
+          "artifacts": {
+            "single_inja_test": {
+              "sha256": "709375292de9f398bf621094cd839d4e2589a6b2a74138cdf0d9889d79fa0e62",
+              "size": 999384,
+              "artifact_type": "executable"
+            },
+            "inja_test": {
+              "sha256": "709375292de9f398bf621094cd839d4e2589a6b2a74138cdf0d9889d79fa0e62",
+              "size": 999384,
+              "artifact_type": "executable"
+            }
+          },
+          "cleanup": true
+        }
+      ],
+      "agent_usage": {
+        "provider_requests": 11,
+        "input_tokens": 69809,
+        "output_tokens": 49228,
+        "total_tokens": 119037,
+        "estimated_cost_usd_completed_responses": "0.0800163",
+        "unknown_usage_requests": 0
+      },
+      "cleanup": {
+        "succeeded": true
+      },
+      "versions": 6,
+      "arm_total_wall_seconds": 954.6679542829952,
+      "provider_stop": false,
+      "project": "inja",
+      "repetition": 1,
+      "common_task_sha256": "1f2260812a4ed85b16f615646d58a7a06764f111722c8a9d4118da761f7de235"
+    },
+    {
+      "name": "inja",
+      "arm": "plan",
+      "kind": "real_model_development_canary",
+      "status": "verified",
+      "transitions": [
+        {
+          "status": "ready_for_verification",
+          "plan_sha256": "24d45d7cc4207ff509a0168e9569d1c9d2cf2e949d0d134468af614fcb342e9f",
+          "revision": 1,
+          "completed": {
+            "forge-source-prepare": "command_4ca40670e02544beb6bc7c5ec97e7b88",
+            "configure": "command_5f96dbd347654646b61be436b80b9b73",
+            "build": "command_f46c97b07749445480292ce1efe56135",
+            "build-profile": "command_f1af073d73124d4f8886395009608188",
+            "check": "command_5f0d0d4dd73a426ba2bc08a4d412cc5c",
+            "stage": "command_0c9cf7c8049043fe9c6f6ad964132d2e"
+          },
+          "commands_used": 6,
+          "handoffs_used": 0,
+          "remaining_seconds": 1122,
+          "handoff": null,
+          "configuration_state": {
+            "status": "satisfied",
+            "goals": [
+              {
+                "cache_path": "build/CMakeCache.txt",
+                "key": "BUILD_TESTING",
+                "expected": true,
+                "verifier_sha256": "34cc09faeac286e5056c30ca7f323ea2e276b3288a7cc3705c8ec897157cc6d8",
+                "default": null,
+                "actual": "ON",
+                "cache_type": "BOOL",
+                "status": "satisfied",
+                "evidence_sha256": "b9063beeecdd06b6508956d9dc10d38fe8ab0c5f86fa5298439a97965360eaf5",
+                "source_directory": "/workspace/repo",
+                "evidence_path": "logs/goal-state/b9063beeecdd06b6508956d9dc10d38fe8ab0c5f86fa5298439a97965360eaf5.txt"
+              },
+              {
+                "cache_path": "build/CMakeCache.txt",
+                "key": "INJA_BUILD_TESTS",
+                "expected": true,
+                "verifier_sha256": "34cc09faeac286e5056c30ca7f323ea2e276b3288a7cc3705c8ec897157cc6d8",
+                "default": null,
+                "actual": "ON",
+                "cache_type": "BOOL",
+                "status": "satisfied",
+                "evidence_sha256": "b9063beeecdd06b6508956d9dc10d38fe8ab0c5f86fa5298439a97965360eaf5",
+                "source_directory": "/workspace/repo",
+                "evidence_path": "logs/goal-state/b9063beeecdd06b6508956d9dc10d38fe8ab0c5f86fa5298439a97965360eaf5.txt"
+              },
+              {
+                "cache_path": "build/CMakeCache.txt",
+                "key": "INJA_USE_EMBEDDED_JSON",
+                "expected": true,
+                "verifier_sha256": "34cc09faeac286e5056c30ca7f323ea2e276b3288a7cc3705c8ec897157cc6d8",
+                "default": null,
+                "actual": "ON",
+                "cache_type": "BOOL",
+                "status": "satisfied",
+                "evidence_sha256": "b9063beeecdd06b6508956d9dc10d38fe8ab0c5f86fa5298439a97965360eaf5",
+                "source_directory": "/workspace/repo",
+                "evidence_path": "logs/goal-state/b9063beeecdd06b6508956d9dc10d38fe8ab0c5f86fa5298439a97965360eaf5.txt"
+              },
+              {
+                "cache_path": "build/CMakeCache.txt",
+                "key": "BUILD_BENCHMARK",
+                "expected": true,
+                "verifier_sha256": "34cc09faeac286e5056c30ca7f323ea2e276b3288a7cc3705c8ec897157cc6d8",
+                "default": null,
+                "actual": "ON",
+                "cache_type": "BOOL",
+                "status": "satisfied",
+                "evidence_sha256": "b9063beeecdd06b6508956d9dc10d38fe8ab0c5f86fa5298439a97965360eaf5",
+                "source_directory": "/workspace/repo",
+                "evidence_path": "logs/goal-state/b9063beeecdd06b6508956d9dc10d38fe8ab0c5f86fa5298439a97965360eaf5.txt"
+              }
+            ],
+            "scope": "explicit_cmake_configuration_only",
+            "after_step_id": "build",
+            "revision": 1,
+            "command_frontier": "d37d9fd4464804c07c047c257773957672a3bf92ec8ff2518b634fe2312eae76"
+          }
+        },
+        {
+          "status": "verified",
+          "plan_sha256": "24d45d7cc4207ff509a0168e9569d1c9d2cf2e949d0d134468af614fcb342e9f",
+          "revision": 1,
+          "completed": {
+            "forge-source-prepare": "command_4ca40670e02544beb6bc7c5ec97e7b88",
+            "configure": "command_5f96dbd347654646b61be436b80b9b73",
+            "build": "command_f46c97b07749445480292ce1efe56135",
+            "build-profile": "command_f1af073d73124d4f8886395009608188",
+            "check": "command_5f0d0d4dd73a426ba2bc08a4d412cc5c",
+            "stage": "command_0c9cf7c8049043fe9c6f6ad964132d2e"
+          },
+          "commands_used": 6,
+          "handoffs_used": 0,
+          "remaining_seconds": 1067,
+          "handoff": null,
+          "configuration_state": {
+            "status": "satisfied",
+            "goals": [
+              {
+                "cache_path": "build/CMakeCache.txt",
+                "key": "BUILD_TESTING",
+                "expected": true,
+                "verifier_sha256": "34cc09faeac286e5056c30ca7f323ea2e276b3288a7cc3705c8ec897157cc6d8",
+                "default": null,
+                "actual": "ON",
+                "cache_type": "BOOL",
+                "status": "satisfied",
+                "evidence_sha256": "b9063beeecdd06b6508956d9dc10d38fe8ab0c5f86fa5298439a97965360eaf5",
+                "source_directory": "/workspace/repo",
+                "evidence_path": "logs/goal-state/b9063beeecdd06b6508956d9dc10d38fe8ab0c5f86fa5298439a97965360eaf5.txt"
+              },
+              {
+                "cache_path": "build/CMakeCache.txt",
+                "key": "INJA_BUILD_TESTS",
+                "expected": true,
+                "verifier_sha256": "34cc09faeac286e5056c30ca7f323ea2e276b3288a7cc3705c8ec897157cc6d8",
+                "default": null,
+                "actual": "ON",
+                "cache_type": "BOOL",
+                "status": "satisfied",
+                "evidence_sha256": "b9063beeecdd06b6508956d9dc10d38fe8ab0c5f86fa5298439a97965360eaf5",
+                "source_directory": "/workspace/repo",
+                "evidence_path": "logs/goal-state/b9063beeecdd06b6508956d9dc10d38fe8ab0c5f86fa5298439a97965360eaf5.txt"
+              },
+              {
+                "cache_path": "build/CMakeCache.txt",
+                "key": "INJA_USE_EMBEDDED_JSON",
+                "expected": true,
+                "verifier_sha256": "34cc09faeac286e5056c30ca7f323ea2e276b3288a7cc3705c8ec897157cc6d8",
+                "default": null,
+                "actual": "ON",
+                "cache_type": "BOOL",
+                "status": "satisfied",
+                "evidence_sha256": "b9063beeecdd06b6508956d9dc10d38fe8ab0c5f86fa5298439a97965360eaf5",
+                "source_directory": "/workspace/repo",
+                "evidence_path": "logs/goal-state/b9063beeecdd06b6508956d9dc10d38fe8ab0c5f86fa5298439a97965360eaf5.txt"
+              },
+              {
+                "cache_path": "build/CMakeCache.txt",
+                "key": "BUILD_BENCHMARK",
+                "expected": true,
+                "verifier_sha256": "34cc09faeac286e5056c30ca7f323ea2e276b3288a7cc3705c8ec897157cc6d8",
+                "default": null,
+                "actual": "ON",
+                "cache_type": "BOOL",
+                "status": "satisfied",
+                "evidence_sha256": "b9063beeecdd06b6508956d9dc10d38fe8ab0c5f86fa5298439a97965360eaf5",
+                "source_directory": "/workspace/repo",
+                "evidence_path": "logs/goal-state/b9063beeecdd06b6508956d9dc10d38fe8ab0c5f86fa5298439a97965360eaf5.txt"
+              }
+            ],
+            "scope": "explicit_cmake_configuration_only",
+            "after_step_id": "build",
+            "revision": 1,
+            "command_frontier": "d37d9fd4464804c07c047c257773957672a3bf92ec8ff2518b634fe2312eae76"
+          }
+        }
+      ],
+      "source_preparation": {
+        "command_id": "command_4ca40670e02544beb6bc7c5ec97e7b88",
+        "role": "dependency",
+        "exit_code": 0,
+        "output_tail": "FORGE_SOURCE_INDEX_VERIFIED=ddf47d028aeb4c324d34e4ba08ad5543a16e6a646c8ea360574bd1ee571036ea\n",
+        "log_path": "logs/command_4ca40670e02544beb6bc7c5ec97e7b88.log",
+        "expected_paths_sha256": "ddf47d028aeb4c324d34e4ba08ad5543a16e6a646c8ea360574bd1ee571036ea",
+        "wall_seconds": 0.3176984400051879
+      },
+      "node_and_acceptance_seconds": 132.7691862280044,
+      "fixed_sources_unchanged": true,
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "session_status": "completed",
+      "session_id": "07f23eae4f2f",
+      "agent_usage": {
+        "model_requests": 3,
+        "recorded_tokens": 49436,
+        "agent_steps": 6,
+        "tool_calls": 3,
+        "commands": 6,
+        "elapsed_seconds": 77.69805155499489,
+        "input_tokens": 46040,
+        "output_tokens": 3396,
+        "estimated_cost_usd": 0.0178872,
+        "unknown_usage_requests": 0,
+        "cost_and_usage_complete": true,
+        "estimated_cost_usd_completed_responses": 0.0178872
+      },
+      "strict_completed": true,
+      "project": "inja",
+      "repetition": 1,
+      "method": "forge_state_workflow",
+      "arm_total_wall_seconds": 136.66834342900256,
+      "source_links_unchanged": true
+    },
+    {
+      "name": "highwayhash",
+      "arm": "plan",
+      "kind": "real_model_development_canary",
+      "status": "verified",
+      "transitions": [
+        {
+          "status": "ready_for_verification",
+          "plan_sha256": "db71977dfecf37b83ec955b63aa5ecffc6d1886ceab29cf6af3f2ea81eef882d",
+          "revision": 1,
+          "completed": {
+            "forge-source-prepare": "command_8846929c451f4c1d97565e390278d0b4",
+            "build": "command_cbd96ee2d344491097feeff1493efc18",
+            "check": "command_5b257c541ea44302bdeac470dd8ffbb2",
+            "stage": "command_32ed4a86d6af4510b5385903fe59acb4"
+          },
+          "commands_used": 4,
+          "handoffs_used": 0,
+          "remaining_seconds": 1184,
+          "handoff": null,
+          "configuration_state": {
+            "status": "unknown",
+            "goals": [],
+            "scope": "not_yet_observed"
+          }
+        },
+        {
+          "status": "verified",
+          "plan_sha256": "db71977dfecf37b83ec955b63aa5ecffc6d1886ceab29cf6af3f2ea81eef882d",
+          "revision": 1,
+          "completed": {
+            "forge-source-prepare": "command_8846929c451f4c1d97565e390278d0b4",
+            "build": "command_cbd96ee2d344491097feeff1493efc18",
+            "check": "command_5b257c541ea44302bdeac470dd8ffbb2",
+            "stage": "command_32ed4a86d6af4510b5385903fe59acb4"
+          },
+          "commands_used": 4,
+          "handoffs_used": 0,
+          "remaining_seconds": 1172,
+          "handoff": null,
+          "configuration_state": {
+            "status": "unknown",
+            "goals": [],
+            "scope": "not_yet_observed"
+          }
+        }
+      ],
+      "source_preparation": {
+        "command_id": "command_8846929c451f4c1d97565e390278d0b4",
+        "role": "dependency",
+        "exit_code": 0,
+        "output_tail": "FORGE_SOURCE_INDEX_VERIFIED=f8ed3ca18342bf3b245612224aebcd054c5bbeab2ef830b12a098bdace8ed172\n",
+        "log_path": "logs/command_8846929c451f4c1d97565e390278d0b4.log",
+        "expected_paths_sha256": "f8ed3ca18342bf3b245612224aebcd054c5bbeab2ef830b12a098bdace8ed172",
+        "wall_seconds": 0.2747752900031628
+      },
+      "node_and_acceptance_seconds": 27.05020508400048,
+      "fixed_sources_unchanged": true,
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "session_status": "completed",
+      "session_id": "bdcd3f45ccb7",
+      "agent_usage": {
+        "model_requests": 1,
+        "recorded_tokens": 14415,
+        "agent_steps": 1,
+        "tool_calls": 0,
+        "commands": 4,
+        "elapsed_seconds": 15.241562807001173,
+        "input_tokens": 13570,
+        "output_tokens": 845,
+        "estimated_cost_usd": 0.005085,
+        "unknown_usage_requests": 0,
+        "cost_and_usage_complete": true,
+        "estimated_cost_usd_completed_responses": 0.005085
+      },
+      "strict_completed": true,
+      "project": "highwayhash",
+      "repetition": 1,
+      "method": "forge_state_workflow",
+      "arm_total_wall_seconds": 30.893851832996006,
+      "source_links_unchanged": true
+    },
+    {
+      "name": "highwayhash",
+      "method": "cxxcrafter_community_reference",
+      "reported_success": true,
+      "strict_completed": true,
+      "evaluations": [
+        {
+          "source_unchanged": true,
+          "fixed_tests": true,
+          "artifact_stage": true,
+          "artifacts": {
+            "libhighwayhash.a": {
+              "sha256": "019fa7b46294af2b0f3c51649bf0d0a5f3b138ea12851fd7945d6fa5734d3c79",
+              "size": 166344,
+              "artifact_type": "static_library"
+            }
+          },
+          "cleanup": true
+        },
+        {
+          "source_unchanged": true,
+          "fixed_tests": true,
+          "artifact_stage": true,
+          "artifacts": {
+            "libhighwayhash.a": {
+              "sha256": "019fa7b46294af2b0f3c51649bf0d0a5f3b138ea12851fd7945d6fa5734d3c79",
+              "size": 166344,
+              "artifact_type": "static_library"
+            }
+          },
+          "cleanup": true
+        }
+      ],
+      "agent_usage": {
+        "provider_requests": 6,
+        "input_tokens": 29757,
+        "output_tokens": 6328,
+        "total_tokens": 36085,
+        "estimated_cost_usd_completed_responses": "0.0165207",
+        "unknown_usage_requests": 0
+      },
+      "cleanup": {
+        "succeeded": true
+      },
+      "versions": 1,
+      "arm_total_wall_seconds": 165.52941392399953,
+      "provider_stop": false,
+      "project": "highwayhash",
+      "repetition": 1,
+      "common_task_sha256": "9eccb447257cc75a72a495c4b0b20983ecc8017a9b9543d8d9997537ecf7dc16"
+    },
+    {
+      "name": "highwayhash",
+      "arm": "tool",
+      "kind": "real_model_development_canary",
+      "status": "verified",
+      "transitions": [],
+      "source_preparation": {
+        "command_id": "command_018bb8be13f543da953bd757151eb916",
+        "role": "dependency",
+        "exit_code": 0,
+        "output_tail": "FORGE_SOURCE_INDEX_VERIFIED=f8ed3ca18342bf3b245612224aebcd054c5bbeab2ef830b12a098bdace8ed172\n",
+        "log_path": "logs/command_018bb8be13f543da953bd757151eb916.log",
+        "expected_paths_sha256": "f8ed3ca18342bf3b245612224aebcd054c5bbeab2ef830b12a098bdace8ed172",
+        "wall_seconds": 0.2743669509945903
+      },
+      "node_and_acceptance_seconds": 36.83246554499783,
+      "fixed_sources_unchanged": true,
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "session_status": "completed",
+      "session_id": "3a2e0c2089fc",
+      "agent_usage": {
+        "model_requests": 4,
+        "recorded_tokens": 57958,
+        "agent_steps": 8,
+        "tool_calls": 4,
+        "commands": 4,
+        "elapsed_seconds": 25.205550471990136,
+        "input_tokens": 56747,
+        "output_tokens": 1211,
+        "estimated_cost_usd": 0.0184773,
+        "unknown_usage_requests": 0,
+        "cost_and_usage_complete": true,
+        "estimated_cost_usd_completed_responses": 0.0184773
+      },
+      "strict_completed": true,
+      "project": "highwayhash",
+      "repetition": 1,
+      "method": "strong_tool_agent",
+      "arm_total_wall_seconds": 40.740629006002564,
+      "source_links_unchanged": true
+    },
+    {
+      "name": "libsigcplusplus",
+      "method": "cxxcrafter_community_reference",
+      "reported_success": true,
+      "strict_completed": true,
+      "evaluations": [
+        {
+          "source_unchanged": true,
+          "fixed_tests": true,
+          "artifact_stage": true,
+          "artifacts": {
+            "libsigc-2.0.a": {
+              "sha256": "904f535f924f835bf603a41086fdf95f7d589db3160abc7d8010a67549b694dd",
+              "size": 525436,
+              "artifact_type": "static_library"
+            }
+          },
+          "cleanup": true
+        },
+        {
+          "source_unchanged": true,
+          "fixed_tests": true,
+          "artifact_stage": true,
+          "artifacts": {
+            "libsigc-2.0.a": {
+              "sha256": "904f535f924f835bf603a41086fdf95f7d589db3160abc7d8010a67549b694dd",
+              "size": 525436,
+              "artifact_type": "static_library"
+            }
+          },
+          "cleanup": true
+        }
+      ],
+      "agent_usage": {
+        "provider_requests": 7,
+        "input_tokens": 27750,
+        "output_tokens": 19937,
+        "total_tokens": 47687,
+        "estimated_cost_usd_completed_responses": "0.0322494",
+        "unknown_usage_requests": 0
+      },
+      "cleanup": {
+        "succeeded": true
+      },
+      "versions": 2,
+      "arm_total_wall_seconds": 536.3066846209986,
+      "provider_stop": false,
+      "project": "libsigcplusplus",
+      "repetition": 1,
+      "common_task_sha256": "c8e33bedc2e0606baee3d7560c5551c59e3d8f15a34e8a7b3356dd6865a1ed69"
+    },
+    {
+      "name": "libsigcplusplus",
+      "arm": "plan",
+      "kind": "real_model_development_canary",
+      "status": "verified",
+      "transitions": [
+        {
+          "status": "ready_for_verification",
+          "plan_sha256": "b4a5b8911efac6112d6be796b7428c12e1d459cb0dc3c599d7d4b43a3c4f59c4",
+          "revision": 1,
+          "completed": {
+            "forge-source-prepare": "command_4ad8d2f45d1c404b8d4e6755b8b1ab3d",
+            "install_deps": "command_facec31ed0b6442a9adfc35eba97979f",
+            "bootstrap": "command_bea34aa1cb10445bae6d61528d491439",
+            "configure": "command_7c48e39a82f943db85faee22778de4ed",
+            "build_library": "command_82a916a1872345b0b979e51e75c5d6e1",
+            "build": "command_862c6d8c824d4a1880096c8718b513fe",
+            "check": "command_279d72348fd5461ebd7dad1db0b843af",
+            "stage": "command_bc8053226f0f4cdaa4cf8ac0c2c2b8cb"
+          },
+          "commands_used": 8,
+          "handoffs_used": 0,
+          "remaining_seconds": 898,
+          "handoff": null,
+          "configuration_state": {
+            "status": "unknown",
+            "goals": [],
+            "scope": "not_yet_observed"
+          }
+        },
+        {
+          "status": "verified",
+          "plan_sha256": "b4a5b8911efac6112d6be796b7428c12e1d459cb0dc3c599d7d4b43a3c4f59c4",
+          "revision": 1,
+          "completed": {
+            "forge-source-prepare": "command_4ad8d2f45d1c404b8d4e6755b8b1ab3d",
+            "install_deps": "command_facec31ed0b6442a9adfc35eba97979f",
+            "bootstrap": "command_bea34aa1cb10445bae6d61528d491439",
+            "configure": "command_7c48e39a82f943db85faee22778de4ed",
+            "build_library": "command_82a916a1872345b0b979e51e75c5d6e1",
+            "build": "command_862c6d8c824d4a1880096c8718b513fe",
+            "check": "command_279d72348fd5461ebd7dad1db0b843af",
+            "stage": "command_bc8053226f0f4cdaa4cf8ac0c2c2b8cb"
+          },
+          "commands_used": 8,
+          "handoffs_used": 0,
+          "remaining_seconds": 809,
+          "handoff": null,
+          "configuration_state": {
+            "status": "unknown",
+            "goals": [],
+            "scope": "not_yet_observed"
+          }
+        }
+      ],
+      "source_preparation": {
+        "command_id": "command_4ad8d2f45d1c404b8d4e6755b8b1ab3d",
+        "role": "dependency",
+        "exit_code": 0,
+        "output_tail": "FORGE_SOURCE_INDEX_VERIFIED=0e223bfa746d9f2a1e55f1f54ad0eebb1524fba4e809702b91f8c2868620c500\n",
+        "log_path": "logs/command_4ad8d2f45d1c404b8d4e6755b8b1ab3d.log",
+        "expected_paths_sha256": "0e223bfa746d9f2a1e55f1f54ad0eebb1524fba4e809702b91f8c2868620c500",
+        "wall_seconds": 0.29639174600015394
+      },
+      "node_and_acceptance_seconds": 390.5643540559977,
+      "fixed_sources_unchanged": true,
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "session_status": "completed",
+      "session_id": "eea711fad41e",
+      "agent_usage": {
+        "model_requests": 4,
+        "recorded_tokens": 95565,
+        "agent_steps": 12,
+        "tool_calls": 8,
+        "commands": 8,
+        "elapsed_seconds": 301.4047622539947,
+        "input_tokens": 59956,
+        "output_tokens": 35609,
+        "estimated_cost_usd": 0.0607176,
+        "unknown_usage_requests": 0,
+        "cost_and_usage_complete": true,
+        "estimated_cost_usd_completed_responses": 0.0607176
+      },
+      "strict_completed": true,
+      "project": "libsigcplusplus",
+      "repetition": 1,
+      "method": "forge_state_workflow",
+      "arm_total_wall_seconds": 394.5082050009951,
+      "source_links_unchanged": true
+    },
+    {
+      "name": "libsigcplusplus",
+      "arm": "tool",
+      "kind": "real_model_development_canary",
+      "status": "stopped",
+      "transitions": [],
+      "source_preparation": {
+        "command_id": "command_a89ee4828fd849f89729149381970853",
+        "role": "dependency",
+        "exit_code": 0,
+        "output_tail": "FORGE_SOURCE_INDEX_VERIFIED=0e223bfa746d9f2a1e55f1f54ad0eebb1524fba4e809702b91f8c2868620c500\n",
+        "log_path": "logs/command_a89ee4828fd849f89729149381970853.log",
+        "expected_paths_sha256": "0e223bfa746d9f2a1e55f1f54ad0eebb1524fba4e809702b91f8c2868620c500",
+        "wall_seconds": 0.2986676750006154
+      },
+      "error_class": "GraphRecursionError",
+      "error_message": null,
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "session_status": "failed",
+      "session_id": "a1e7958964d0",
+      "fixed_sources_unchanged": true,
+      "agent_usage": {
+        "model_requests": 50,
+        "recorded_tokens": 791773,
+        "agent_steps": 108,
+        "tool_calls": 58,
+        "commands": 43,
+        "elapsed_seconds": 545.2017684399907,
+        "input_tokens": 773347,
+        "output_tokens": 18426,
+        "estimated_cost_usd": 0.2541153,
+        "unknown_usage_requests": 0,
+        "cost_and_usage_complete": true,
+        "estimated_cost_usd_completed_responses": 0.2541153
+      },
+      "strict_completed": false,
+      "project": "libsigcplusplus",
+      "repetition": 1,
+      "method": "strong_tool_agent",
+      "arm_total_wall_seconds": 549.1966399520024,
+      "source_links_unchanged": true
+    },
+    {
+      "name": "libsrtp",
+      "arm": "tool",
+      "kind": "real_model_development_canary",
+      "status": "verified",
+      "transitions": [],
+      "source_preparation": {
+        "command_id": "command_213904723b8143408e3f95f9b629cd2f",
+        "role": "dependency",
+        "exit_code": 0,
+        "output_tail": "FORGE_SOURCE_INDEX_VERIFIED=b7914416e0b6b7b98581286f323abb15254ffbf52c85d154066f0c3116a06a17\n",
+        "log_path": "logs/command_213904723b8143408e3f95f9b629cd2f.log",
+        "expected_paths_sha256": "b7914416e0b6b7b98581286f323abb15254ffbf52c85d154066f0c3116a06a17",
+        "wall_seconds": 0.6530517079954734
+      },
+      "node_and_acceptance_seconds": 99.25508671799616,
+      "fixed_sources_unchanged": true,
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "session_status": "completed",
+      "session_id": "766aec6f2f10",
+      "agent_usage": {
+        "model_requests": 9,
+        "recorded_tokens": 134761,
+        "agent_steps": 19,
+        "tool_calls": 10,
+        "commands": 7,
+        "elapsed_seconds": 72.08956612300244,
+        "input_tokens": 133259,
+        "output_tokens": 1502,
+        "estimated_cost_usd": 0.0417801,
+        "unknown_usage_requests": 0,
+        "cost_and_usage_complete": true,
+        "estimated_cost_usd_completed_responses": 0.0417801
+      },
+      "strict_completed": true,
+      "project": "libsrtp",
+      "repetition": 1,
+      "method": "strong_tool_agent",
+      "arm_total_wall_seconds": 103.96288250600628,
+      "source_links_unchanged": true
+    },
+    {
+      "name": "libsrtp",
+      "arm": "plan",
+      "kind": "real_model_development_canary",
+      "status": "verified",
+      "transitions": [
+        {
+          "status": "ready_for_verification",
+          "plan_sha256": "2f61a83433f5202ca19dad415763269665bcfabe4b866f979c63b7b697956b23",
+          "revision": 1,
+          "completed": {
+            "forge-source-prepare": "command_9f5d7e4f5554461f90db3e00203bee59",
+            "configure": "command_64491b2f42d74a3b931752f506a023a8",
+            "build": "command_280ee083c9524b5da2b2801b21abcdc0",
+            "check": "command_33c7f891c8cf4771b0b83fedcc9cc769",
+            "stage": "command_69fd18a9235c4cc5844c0d85fee2b477"
+          },
+          "commands_used": 5,
+          "handoffs_used": 0,
+          "remaining_seconds": 1131,
+          "handoff": null,
+          "configuration_state": {
+            "status": "unknown",
+            "goals": [],
+            "scope": "not_yet_observed"
+          }
+        },
+        {
+          "status": "verified",
+          "plan_sha256": "2f61a83433f5202ca19dad415763269665bcfabe4b866f979c63b7b697956b23",
+          "revision": 1,
+          "completed": {
+            "forge-source-prepare": "command_9f5d7e4f5554461f90db3e00203bee59",
+            "configure": "command_64491b2f42d74a3b931752f506a023a8",
+            "build": "command_280ee083c9524b5da2b2801b21abcdc0",
+            "check": "command_33c7f891c8cf4771b0b83fedcc9cc769",
+            "stage": "command_69fd18a9235c4cc5844c0d85fee2b477"
+          },
+          "commands_used": 5,
+          "handoffs_used": 0,
+          "remaining_seconds": 1104,
+          "handoff": null,
+          "configuration_state": {
+            "status": "unknown",
+            "goals": [],
+            "scope": "not_yet_observed"
+          }
+        }
+      ],
+      "source_preparation": {
+        "command_id": "command_9f5d7e4f5554461f90db3e00203bee59",
+        "role": "dependency",
+        "exit_code": 0,
+        "output_tail": "FORGE_SOURCE_INDEX_VERIFIED=b7914416e0b6b7b98581286f323abb15254ffbf52c85d154066f0c3116a06a17\n",
+        "log_path": "logs/command_9f5d7e4f5554461f90db3e00203bee59.log",
+        "expected_paths_sha256": "b7914416e0b6b7b98581286f323abb15254ffbf52c85d154066f0c3116a06a17",
+        "wall_seconds": 0.6597325509937946
+      },
+      "node_and_acceptance_seconds": 95.21861786300724,
+      "fixed_sources_unchanged": true,
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "session_status": "completed",
+      "session_id": "ef7ddd93a73d",
+      "agent_usage": {
+        "model_requests": 9,
+        "recorded_tokens": 158617,
+        "agent_steps": 20,
+        "tool_calls": 11,
+        "commands": 5,
+        "elapsed_seconds": 67.95894054199744,
+        "input_tokens": 156128,
+        "output_tokens": 2489,
+        "estimated_cost_usd": 0.0498252,
+        "unknown_usage_requests": 0,
+        "cost_and_usage_complete": true,
+        "estimated_cost_usd_completed_responses": 0.0498252
+      },
+      "strict_completed": true,
+      "project": "libsrtp",
+      "repetition": 1,
+      "method": "forge_state_workflow",
+      "arm_total_wall_seconds": 99.90699726299499,
+      "source_links_unchanged": true
+    },
+    {
+      "project": "libsrtp",
+      "repetition": 1,
+      "method": "cxxcrafter_community_reference",
+      "status": "runtime_interrupted",
+      "interrupted": true,
+      "strict_completed": false,
+      "reported_success": null,
+      "evaluations": [],
+      "agent_usage": {
+        "provider_requests": 7,
+        "input_tokens": 39772,
+        "output_tokens": 9469,
+        "total_tokens": 49241,
+        "estimated_cost_usd_completed_responses": "0.0232944",
+        "unknown_usage_requests": 0
+      },
+      "cleanup": {
+        "succeeded": true,
+        "mode": "post_interruption_recovery",
+        "original_cleanup_observed": false
+      },
+      "error_class": "RuntimeInterruption",
+      "error_message": "原进程丢失，后续主机重启已观察；原生Docker构建中止，没有原最终结果。精确原因及终止时刻未知。",
+      "arm_total_wall_seconds": null,
+      "versions": 2,
+      "provider_stop": false,
+      "time_censored": true,
+      "derived_from_interruption_receipt": true
+    }
+  ],
+  "unobserved_schedule": [
+    {
+      "project": "fse",
+      "repetition": 1,
+      "method": "forge_state_workflow"
+    },
+    {
+      "project": "fse",
+      "repetition": 1,
+      "method": "strong_tool_agent"
+    },
+    {
+      "project": "fse",
+      "repetition": 1,
+      "method": "cxxcrafter_community_reference"
+    },
+    {
+      "project": "jsoncpp",
+      "repetition": 2,
+      "method": "forge_state_workflow"
+    },
+    {
+      "project": "jsoncpp",
+      "repetition": 2,
+      "method": "cxxcrafter_community_reference"
+    },
+    {
+      "project": "jsoncpp",
+      "repetition": 2,
+      "method": "strong_tool_agent"
+    },
+    {
+      "project": "pegtl",
+      "repetition": 2,
+      "method": "cxxcrafter_community_reference"
+    },
+    {
+      "project": "pegtl",
+      "repetition": 2,
+      "method": "forge_state_workflow"
+    },
+    {
+      "project": "pegtl",
+      "repetition": 2,
+      "method": "strong_tool_agent"
+    },
+    {
+      "project": "inja",
+      "repetition": 2,
+      "method": "strong_tool_agent"
+    },
+    {
+      "project": "inja",
+      "repetition": 2,
+      "method": "forge_state_workflow"
+    },
+    {
+      "project": "inja",
+      "repetition": 2,
+      "method": "cxxcrafter_community_reference"
+    },
+    {
+      "project": "highwayhash",
+      "repetition": 2,
+      "method": "forge_state_workflow"
+    },
+    {
+      "project": "highwayhash",
+      "repetition": 2,
+      "method": "strong_tool_agent"
+    },
+    {
+      "project": "highwayhash",
+      "repetition": 2,
+      "method": "cxxcrafter_community_reference"
+    },
+    {
+      "project": "libsigcplusplus",
+      "repetition": 2,
+      "method": "cxxcrafter_community_reference"
+    },
+    {
+      "project": "libsigcplusplus",
+      "repetition": 2,
+      "method": "strong_tool_agent"
+    },
+    {
+      "project": "libsigcplusplus",
+      "repetition": 2,
+      "method": "forge_state_workflow"
+    },
+    {
+      "project": "libsrtp",
+      "repetition": 2,
+      "method": "strong_tool_agent"
+    },
+    {
+      "project": "libsrtp",
+      "repetition": 2,
+      "method": "cxxcrafter_community_reference"
+    },
+    {
+      "project": "libsrtp",
+      "repetition": 2,
+      "method": "forge_state_workflow"
+    },
+    {
+      "project": "fse",
+      "repetition": 2,
+      "method": "forge_state_workflow"
+    },
+    {
+      "project": "fse",
+      "repetition": 2,
+      "method": "cxxcrafter_community_reference"
+    },
+    {
+      "project": "fse",
+      "repetition": 2,
+      "method": "strong_tool_agent"
+    }
+  ],
+  "stop_reason": "runtime_interruption_detected_after_host_restarts",
+  "lifecycle_complete": false,
+  "recovery_closure_completed": true,
+  "known_estimated_cost_usd": "0.8516550",
+  "unknown_usage_reservation_usd": "0",
+  "derived": true,
+  "derived_at_utc": "2026-10-29T14:19:20.495964+00:00",
+  "boundary": "17原始终态逐字消费；第18槽仅作显式事后中断登记，不补写原progress/result；24槽未观察。中断不当方法失败，原身份不续跑。",
+  "raw_inventory": "1ae33f4c1a05edf5af8db01c58ee8498f10183382e82faa48e971a6e4a42d79c"
+}

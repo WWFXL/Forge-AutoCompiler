@@ -4,7 +4,7 @@
 
 本文回答“哪些结果可以写进论文、放在哪一部分、能够说明什么、到哪里取数”。它是论文选材入口；数值以链接的版本化报告/分析及冻结原始证据为准，当前研究阶段以 [RESEARCH_STATUS.md](../../RESEARCH_STATUS.md) 为准。
 
-方法章节的实际实现图及“阶段—观测—状态—动作”表见[当前方法说明](2026-10-29-state-action-method.md)。最新新增[E31](#e31)为新项目比较准备，0新增模型效果；E30仍是最新完整系统结果。
+方法章节的实际实现图及“阶段—观测—状态—动作”表见[当前方法说明](2026-10-29-state-action-method.md)。最新新增[E32](#e32)为新项目真实比较的中断后部分结果：17原终态＋1运行中断、24未观察；E30仍是最新完整系统结果。[E31](#e31)继续仅作准备。
 
 首版整理已有结果，新增实验和模型调用均为零；后续真实结果按稳定编号追加。以下用途是写作建议，不代表必须全部纳入论文，也不把工程检查重新命名为效果实验。负面结果、未完成和未观察一并保留。
 
@@ -16,7 +16,7 @@
 | 失败恢复消融 | [E04](#e04) | 相同初始工具方案，允许失败后恢复是否增加完整完成？ |
 | 配置状态与动作选择消融 | [E01](#e01)、[E02](#e02)，辅以[E06](#e06) | 目标保持、提前观察、直接修订各起什么作用？ |
 | 完整任务验证与案例 | [E16](#e16)至[E19](#e19)，以及各批自己的分层表 | 构建退出0为何还不等于满足任务、测试和可复现交付？ |
-| 外部方法参考与局限 | [E30](#e30)，辅以[E07](#e07) | 当前Forge与可运行CXXCrafter社区版有什么差异和失败案例？ |
+| 外部方法参考与局限 | [E30](#e30)，辅以[E32](#e32)、[E07](#e07) | 当前Forge与可运行CXXCrafter社区版有什么差异和失败案例？ |
 | 成本解释与负面结果 | [E09](#e09)、[E10](#e10)、[E13](#e13)、[E20](#e20) | 为何请求少未必便宜，模板覆盖扩大未必提高效率？ |
 | 历史Harness/选择器研究 | [E21](#e21)至[E23](#e23) | 过去观察到哪些收益，又为何没有直接成为当前主线结论？ |
 | 系统实现与任务可执行性 | [E26](#e26)至[E28](#e28)、[E31](#e31) | 接口、状态分派和参考任务是否实际可运行？ |
@@ -85,6 +85,16 @@
 - **定位**：`cpp-build-strategy-replication-v1`；[报告](2026-10-23-strategy-replication-results.md)、[分析](../../benchmarks/analyses/cpp-build-strategy-replication-v1-results.json)、[预注册](../../benchmarks/preregistrations/cpp-build-strategy-replication-v1.md)。raw：`/home/yiwei/.codex/outputs/forge-strategy-replication-v1`；inventory `68ddf187317a716f6eb4b98de9a234b948b3c93d927705bc6885e83f1fdeb9f7`。
 
 ## 补充分析与案例：保留收益、代价和失败
+
+<a id="e32"></a>
+### E32 新项目系统比较的部分观察与运行中断（固定42分母）
+
+- **问题/设计**：七个新于当前方法调试的项目×两重复×原三系统，固定42槽、每方14。实际17原终态（16完整、1未完整）＋第18槽运行中断＋24未观察；不写成42次全部完成，不把中断当方法失败。
+- **主要结果**：Forge完整6、强工具完整5/未完整1、CXX社区版完整5/中断1，各另8未观察；全部请求23/94/43、估费$0.1669023/$0.4789485/$0.2058042。三方共同完整的四配对仅辅助，Forge相对强工具估费低69.2%、时间低4.9%；该子集按结果条件化，不替代42分母。libsrtp的Forge费用高于强工具，保留取舍。
+- **可写结论/案例**：六份Forge初始方案均完整，无Agent恢复或配置直接修订；6次配置观测均满足，不提供状态动作因果。强工具libsigcplusplus原32测试/交付通过，带apt副作用的复合依赖命令整体exit1被配方排除，clean replay缺mm-common-prepare，最终GraphRecursionError；50请求费用全部保留。这是新项目补充观察和可复现交付案例。
+- **边界/中断**：旧进程丢失与后续主机重启已观察，精确终止时刻/原因未知。slot18的7组请求/响应齐全，原最终结果文件保持缺失，仅显式事后登记；没有重试或续原身份。主表160请求/2295808 Token/$0.8516550、未知0，原验收17测试过、17交付过、16replay过1失败，其余25未观察；原尝试清理17过，另1为恢复清理。CXX原生工具/反馈/CPU差异保持，不称论文原版排名；E30、E01及本批不池化分母。
+- **定位**：`cpp-build-new-project-system-comparison-flash-v1`；[报告](2026-10-29-new-project-system-comparison-results.md)、[分析](../../benchmarks/analyses/cpp-build-new-project-system-comparison-flash-v1-results.json)、[逐槽CSV](../../benchmarks/analyses/cpp-build-new-project-system-comparison-flash-v1-slots.csv)、[显式中断登记](../../benchmarks/analyses/cpp-build-new-project-system-comparison-flash-v1-interruption.json)、[只读提取](../../benchmarks/analyses/cpp-build-new-project-system-comparison-flash-v1-extract.py)。raw `/home/yiwei/.codex/outputs/forge-new-project-system-comparison-flash-v1`，inventory `1ae33f4c1a05edf5af8db01c58ee8498f10183382e82faa48e971a6e4a42d79c`；操作会话forge-new-project-system-session-2026-10-29/closure-v1保留恢复收据。不是独立于原运行的新实验数据，不扩为完整队列效果。
+
 
 <a id="e06"></a>
 ### E06 配置目标与状态增强首轮配对（24槽）
