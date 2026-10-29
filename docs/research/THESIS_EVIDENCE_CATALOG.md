@@ -12,6 +12,7 @@
 
 |文件|论文登记|
 |---|---|
+|[2026-10-29-new-project-continuation-preparation.md](2026-10-29-new-project-continuation-preparation.md)|[E31](THESIS_EVIDENCE_INDEX.md#e31)：原未启动24槽独立续段的工程准备，0新增模型效果；原E32分母不变|
 |[2026-10-29-new-project-system-comparison-results.md](2026-10-29-new-project-system-comparison-results.md)|[E32](THESIS_EVIDENCE_INDEX.md#e32)：真实部分观察与运行中断，17原终态＋1中断／24未观察；同原运行再分析|
 |[2026-10-29-state-action-method.md](2026-10-29-state-action-method.md)|方法章节与已有证据联系；无新增模型效果|
 |[2026-10-29-new-project-comparison-preparation.md](2026-10-29-new-project-comparison-preparation.md)|[E31](THESIS_EVIDENCE_INDEX.md#e31)：实验设置／参考准备，七项目比较的准备记录，后续部分真实结果单列E32|

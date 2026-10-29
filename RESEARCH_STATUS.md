@@ -2,7 +2,15 @@
 
 论文选材固定入口：[硕士论文实验与证据索引](docs/research/THESIS_EVIDENCE_INDEX.md)，按正文候选、补充分析/案例和工程检查说明用途、结果、边界及原始证据；[历史材料目录](docs/research/THESIS_EVIDENCE_CATALOG.md)登记存量材料。后续结果发布时简短更新，不另行重跑实验。#640统一条件48次真实系统比较已完整采集并封存；最新正文候选见E30。
 
-## 当前阶段（2026-10-29；#648新项目比较运行中断，已保留部分证据并转结果发布）
+## 当前阶段（2026-10-29；#650原未启动24槽独立续段已准备，待新预算／时窗绑定）
+
+本阶段为实验准备，0新增Provider／费用，尚未读真实模型凭据或创建正式attempt。新身份cpp-build-new-project-system-continuation-flash-v1精确复用原schedule[18:]：FSE第一重复三方＋七项目第二重复三方，共24槽、每方法8。新槽1–24映射原19–42，原失败及第18中断不重试，旧42分母／缺失文件／raw库存保持。旧结果已见，不称盲holdout；跨身份仅描述性合列，不回填旧身份。
+
+入口scripts/forge_build_new_project_continuation.py复用原三系统execute与动态分析；347父组件、方法／Flash low／任务／资源／计费／原源码测试／精确交付／完整replay／cleanup全部保持。新候选350组件、SHA182cd9bad1a59d96c8a43dde590e402c6ea296cd858676203bddedb4cb94f661。8相关与相邻检查、Ruff及prepare/check-prepared通过；没有新构建、重复参考资格链或本地产品全测。见[续段准备](docs/research/2026-10-29-new-project-continuation-preparation.md)及同身份manifest/preregistration。论文索引沿E31记录准备，E32／E30／E01效果边界不变。
+
+下一项为这24槽真实采集。拟新增最多10美元／确认起8小时，无自动重试，未知用量／身份／清理异常停止；需明确绑定新候选与有效预算／时窗，旧授权账本已闭合，不自动扩用余额或延长。raw拟forge-new-project-system-continuation-flash-v1，必须为新目录；当前无活动Provider。Issue650／准备PR检查后只合科研依赖分支、不进main，用户memory／HTML不夹带；个人知识库仅MCP同步，不注入实验Agent。
+
+## 上一阶段（2026-10-29；#648新项目比较运行中断，已保留部分证据并转结果发布）
 
 真实采集部分完成：cpp-build-new-project-system-comparison-flash-v1固定七项目×两重复×三系统=42槽。17原终态（16完整、1未完整）＋第18槽运行中断＋24未观察；没有重启旧身份或重试。Forge6完整，强工具5完整1未完整，CXX社区版5完整1中断，各另8未观察。请求23/94/43、估费0.1669023/0.4789485/0.2058042美元；CXX中断槽耗时缺失，不填0。三方共同完整四配对仅辅助：Forge相对强工具估费低69.2%、时间低4.9%，不能当完整42槽效果。
 
