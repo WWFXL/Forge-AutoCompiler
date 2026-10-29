@@ -12,8 +12,9 @@
 
 |文件|论文登记|
 |---|---|
+|[2026-10-29-new-project-system-comparison-results.md](2026-10-29-new-project-system-comparison-results.md)|[E32](THESIS_EVIDENCE_INDEX.md#e32)：真实部分观察与运行中断，17原终态＋1中断／24未观察；同原运行再分析|
 |[2026-10-29-state-action-method.md](2026-10-29-state-action-method.md)|方法章节与已有证据联系；无新增模型效果|
-|[2026-10-29-new-project-comparison-preparation.md](2026-10-29-new-project-comparison-preparation.md)|[E31](THESIS_EVIDENCE_INDEX.md#e31)：实验设置／参考准备，七项目42次真实比较尚未启动|
+|[2026-10-29-new-project-comparison-preparation.md](2026-10-29-new-project-comparison-preparation.md)|[E31](THESIS_EVIDENCE_INDEX.md#e31)：实验设置／参考准备，七项目比较的准备记录，后续部分真实结果单列E32|
 |[2026-10-29-unified-system-comparison-results.md](2026-10-29-unified-system-comparison-results.md)|[E30](THESIS_EVIDENCE_INDEX.md#e30)：正文候选，48次真实系统比较及分层结果|
 |[2026-10-29-unified-system-comparison-design.md](2026-10-29-unified-system-comparison-design.md)|[E29](THESIS_EVIDENCE_INDEX.md#e29)：实验设置/工程检查，后续真实结果单列E30|
 
