@@ -1,0 +1,380 @@
+{
+  "kind": "manual_reference_and_task_preparation_not_method_effect",
+  "provider_calls": 0,
+  "model_cost_usd": "0",
+  "selected_candidates": 8,
+  "scheduled_projects": 7,
+  "source_receipts": {
+    "jsoncpp": {
+      "name": "jsoncpp",
+      "commit_sha": "5defb4ed1a4293b8e2bf641e16b156fb9de498cc",
+      "archive": "/home/yiwei/.codex/outputs/forge-new-project-preparation-2026-10-29/jsoncpp/source.tar",
+      "archive_sha256": "bf07b3031052f56a67c2dee8b32107fdc57429734fe8dcb48ed4b8bbe698a83b",
+      "file_count": 250
+    },
+    "pegtl": {
+      "name": "pegtl",
+      "commit_sha": "be527327653e94b02e711f7eff59285ad13e1db0",
+      "archive": "/home/yiwei/.codex/outputs/forge-new-project-preparation-2026-10-29/pegtl/source.tar",
+      "archive_sha256": "1c1878696b1a68095c93ce8f9633319de703a30289949c7146cffcd2a9f58d47",
+      "file_count": 461
+    },
+    "inja": {
+      "name": "inja",
+      "commit_sha": "b2276440be8334aeba9cd5d628c2731d0f6a5809",
+      "archive": "/home/yiwei/.codex/outputs/forge-new-project-preparation-2026-10-29/inja/source.tar",
+      "archive_sha256": "cd884369511c859b703ac9627ba8ade18e1c42ee71f4cc31b8955cc13874cf5e",
+      "file_count": 99
+    },
+    "highwayhash": {
+      "name": "highwayhash",
+      "commit_sha": "f8381f3331d9c56a9792f9b4a35f61c41108c39e",
+      "archive": "/home/yiwei/.codex/outputs/forge-new-project-preparation-2026-10-29/highwayhash/source.tar",
+      "archive_sha256": "f49c09f0adb93597f3ab85d49c2b9673a32247608fa43d7416776040f930a339",
+      "file_count": 92
+    },
+    "libsigcplusplus": {
+      "name": "libsigcplusplus",
+      "commit_sha": "6bef4e0005f00f0844d917866aec7e3b2d829fdf",
+      "archive": "/home/yiwei/.codex/outputs/forge-new-project-preparation-2026-10-29/libsigcplusplus/source.tar",
+      "archive_sha256": "aa42b6bc901649d2c02c6898389de46d10b88ff1c59def39558578b3764268a9",
+      "file_count": 165
+    },
+    "libxcrypt": {
+      "name": "libxcrypt",
+      "commit_sha": "f531a36aa916a22ef2ce7d270ba381e264250cbf",
+      "archive": "/home/yiwei/.codex/outputs/forge-new-project-preparation-2026-10-29/libxcrypt/source.tar",
+      "archive_sha256": "11b928df650351a664f32aad7d4b949d0f6d640d829a765a8f38e05af5220852",
+      "file_count": 162
+    },
+    "libsrtp": {
+      "name": "libsrtp",
+      "commit_sha": "a566a9cfcd619e8327784aa7cff4a1276dc1e895",
+      "archive": "/home/yiwei/.codex/outputs/forge-new-project-preparation-2026-10-29/libsrtp/source.tar",
+      "archive_sha256": "16897cf222293c2f99e370df96a0cb918b9e7599fe13e97df448d3bfeb2f242b",
+      "file_count": 2382
+    },
+    "fse": {
+      "name": "fse",
+      "commit_sha": "9f30e0918f87bd835fa040d922a208d7b219e50b",
+      "archive": "/home/yiwei/.codex/outputs/forge-new-project-preparation-2026-10-29/fse/source.tar",
+      "archive_sha256": "47a5377f4474654efbd8e3926af247a012dfa02209a5e3764f060706d2edc35c",
+      "file_count": 57
+    }
+  },
+  "reference_observations": [
+    {
+      "project": "jsoncpp",
+      "kind": "manual_reference_task_preparation_not_method_effect",
+      "provider_calls": 0,
+      "stages": [
+        {
+          "role": "configure",
+          "command": "cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=OFF -DBUILD_STATIC_LIBS=ON -DJSONCPP_WITH_TESTS=ON",
+          "exit_code": 0,
+          "seconds": 1.9704147669981467
+        },
+        {
+          "role": "build",
+          "command": "cmake --build build -j2",
+          "exit_code": 0,
+          "seconds": 15.459623856993858
+        },
+        {
+          "role": "test",
+          "command": "ctest --test-dir build --output-on-failure --no-tests=error --verbose --output-junit /workspace/tests.xml",
+          "exit_code": 8,
+          "seconds": 1.6188566700002411
+        }
+      ],
+      "all_stages_passed": false,
+      "original_file_changes": [],
+      "cleanup": true,
+      "seconds": 19.761087979000877,
+      "path": "/home/yiwei/.codex/outputs/forge-new-project-preparation-2026-10-29/jsoncpp/reference-1/result.json",
+      "sha256": "7dd5a7ad8f94de420f60fece7722ee6e49ab82537ebd8b5619e5b188e784a58e"
+    },
+    {
+      "project": "jsoncpp",
+      "kind": "manual_reference_task_preparation_not_method_effect",
+      "provider_calls": 0,
+      "stages": [
+        {
+          "role": "configure",
+          "command": "cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=OFF -DBUILD_STATIC_LIBS=ON -DJSONCPP_WITH_TESTS=ON",
+          "exit_code": 0,
+          "seconds": 1.9700213049945887
+        },
+        {
+          "role": "build",
+          "command": "cmake --build build -j2",
+          "exit_code": 0,
+          "seconds": 15.117589815999963
+        },
+        {
+          "role": "test",
+          "command": "ctest --test-dir build -j1 --output-on-failure --no-tests=error --verbose --output-junit /workspace/tests.xml",
+          "exit_code": 0,
+          "seconds": 2.6215131279896013
+        }
+      ],
+      "all_stages_passed": true,
+      "original_file_changes": [],
+      "cleanup": true,
+      "seconds": 20.40171846000885,
+      "path": "/home/yiwei/.codex/outputs/forge-new-project-preparation-2026-10-29/jsoncpp/reference-2/result.json",
+      "sha256": "731e3b7945e9cfed18aff3f2dd923ffcfbacccd1ef47faa681aea4e384a6fbdf"
+    },
+    {
+      "project": "pegtl",
+      "kind": "manual_reference_task_preparation_not_method_effect",
+      "provider_calls": 0,
+      "stages": [
+        {
+          "role": "configure",
+          "command": "cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DPEGTL_BUILD_TESTS=ON -DPEGTL_BUILD_EXAMPLES=ON",
+          "exit_code": 0,
+          "seconds": 1.2675371610093862
+        },
+        {
+          "role": "build",
+          "command": "cmake --build build -j2",
+          "exit_code": 0,
+          "seconds": 183.37278642700403
+        },
+        {
+          "role": "test",
+          "command": "ctest --test-dir build --output-on-failure --no-tests=error --verbose --output-junit /workspace/tests.xml",
+          "exit_code": 0,
+          "seconds": 0.4656673480058089
+        }
+      ],
+      "all_stages_passed": true,
+      "original_file_changes": [],
+      "cleanup": true,
+      "seconds": 185.7283941450005,
+      "path": "/home/yiwei/.codex/outputs/forge-new-project-preparation-2026-10-29/pegtl/reference-1/result.json",
+      "sha256": "0ef70c92e32b27781d62bf028ec8dd34090ad22b8db25afc4fcec6ccab06f646"
+    },
+    {
+      "project": "inja",
+      "kind": "manual_reference_task_preparation_not_method_effect",
+      "provider_calls": 0,
+      "stages": [
+        {
+          "role": "configure",
+          "command": "cmake -S . -B build -DCMAKE_BUILD_TYPE=Release",
+          "exit_code": 0,
+          "seconds": 0.616067976996419
+        },
+        {
+          "role": "build",
+          "command": "cmake --build build -j2",
+          "exit_code": 0,
+          "seconds": 31.961427968999487
+        },
+        {
+          "role": "test",
+          "command": "ctest --test-dir build --output-on-failure --no-tests=error --verbose --output-junit /workspace/tests.xml",
+          "exit_code": 0,
+          "seconds": 0.1648689579888014
+        }
+      ],
+      "all_stages_passed": true,
+      "original_file_changes": [],
+      "cleanup": true,
+      "seconds": 33.432084404994384,
+      "path": "/home/yiwei/.codex/outputs/forge-new-project-preparation-2026-10-29/inja/reference-1/result.json",
+      "sha256": "6fe2036ac816bca9d9382415ec1c6c1513adbcfd0691a1ff9b1ba1dad663e726"
+    },
+    {
+      "project": "highwayhash",
+      "kind": "manual_reference_task_preparation_not_method_effect",
+      "provider_calls": 0,
+      "stages": [
+        {
+          "role": "build",
+          "command": "make -j2",
+          "exit_code": 0,
+          "seconds": 7.486865818995284
+        },
+        {
+          "role": "test",
+          "command": "bin/highwayhash_test && bin/vector_test && bin/sip_hash_test",
+          "exit_code": 0,
+          "seconds": 0.3153429289959604
+        }
+      ],
+      "all_stages_passed": true,
+      "original_file_changes": [],
+      "cleanup": true,
+      "seconds": 8.455388253001729,
+      "path": "/home/yiwei/.codex/outputs/forge-new-project-preparation-2026-10-29/highwayhash/reference-1/result.json",
+      "sha256": "84b13ba9f18096883a88c18c4ba1809566805b3bb44dc6a6b91b4446f472d793"
+    },
+    {
+      "project": "libsigcplusplus",
+      "kind": "manual_reference_task_preparation_not_method_effect",
+      "provider_calls": 0,
+      "stages": [
+        {
+          "role": "dependency",
+          "command": "apt-get update -qq && apt-get install -y --no-install-recommends mm-common",
+          "exit_code": 0,
+          "seconds": 18.823196044002543
+        },
+        {
+          "role": "configure",
+          "command": "NOCONFIGURE=1 ./autogen.sh && ./configure --disable-documentation --enable-static",
+          "exit_code": 0,
+          "seconds": 11.599571685990668
+        },
+        {
+          "role": "build",
+          "command": "make -j2",
+          "exit_code": 0,
+          "seconds": 2.8228655709972372
+        },
+        {
+          "role": "test",
+          "command": "make check",
+          "exit_code": 0,
+          "seconds": 14.509152195998468
+        }
+      ],
+      "all_stages_passed": true,
+      "original_file_changes": [],
+      "cleanup": true,
+      "seconds": 48.417218014001264,
+      "path": "/home/yiwei/.codex/outputs/forge-new-project-preparation-2026-10-29/libsigcplusplus/reference-1/result.json",
+      "sha256": "a73d20ab76898474cb21499e5f9946126a7b5abf812088a1bf583a686999d4b5"
+    },
+    {
+      "project": "libxcrypt",
+      "kind": "manual_reference_task_preparation_not_method_effect",
+      "provider_calls": 0,
+      "stages": [
+        {
+          "role": "configure",
+          "command": "autoreconf -fiv && ./configure --enable-static",
+          "exit_code": 1,
+          "seconds": 4.778977098001633
+        }
+      ],
+      "all_stages_passed": false,
+      "original_file_changes": [],
+      "cleanup": true,
+      "seconds": 5.45509519900952,
+      "path": "/home/yiwei/.codex/outputs/forge-new-project-preparation-2026-10-29/libxcrypt/reference-1/result.json",
+      "sha256": "4c94b94daff7a7a943b9271f675934636ba1610e36e8dd22f52c41491c6396d7"
+    },
+    {
+      "project": "libxcrypt",
+      "kind": "manual_reference_task_preparation_not_method_effect",
+      "provider_calls": 0,
+      "stages": [
+        {
+          "role": "dependency",
+          "command": "apt-get update -qq && apt-get install -y --no-install-recommends libltdl-dev",
+          "exit_code": 0,
+          "seconds": 18.67029228800675
+        },
+        {
+          "role": "configure",
+          "command": "autoreconf -fiv && ./configure --enable-static",
+          "exit_code": 0,
+          "seconds": 14.10700862800877
+        },
+        {
+          "role": "build",
+          "command": "make -j2",
+          "exit_code": 0,
+          "seconds": 7.638135519999196
+        },
+        {
+          "role": "test",
+          "command": "make check",
+          "exit_code": 0,
+          "seconds": 31.805749974999344
+        }
+      ],
+      "all_stages_passed": true,
+      "original_file_changes": [],
+      "cleanup": true,
+      "seconds": 72.90164893800102,
+      "path": "/home/yiwei/.codex/outputs/forge-new-project-preparation-2026-10-29/libxcrypt/reference-2/result.json",
+      "sha256": "1157722015d98b6474a9201c559d39aee608065751487ff24a6fa9257588fbcf"
+    },
+    {
+      "project": "libsrtp",
+      "kind": "manual_reference_task_preparation_not_method_effect",
+      "provider_calls": 0,
+      "stages": [
+        {
+          "role": "configure",
+          "command": "./configure",
+          "exit_code": 0,
+          "seconds": 4.97715526400134
+        },
+        {
+          "role": "build",
+          "command": "make -j2",
+          "exit_code": 0,
+          "seconds": 3.3736403719958616
+        },
+        {
+          "role": "test",
+          "command": "make runtest",
+          "exit_code": 0,
+          "seconds": 14.610738185991067
+        }
+      ],
+      "all_stages_passed": true,
+      "original_file_changes": [],
+      "cleanup": true,
+      "seconds": 23.862559702,
+      "path": "/home/yiwei/.codex/outputs/forge-new-project-preparation-2026-10-29/libsrtp/reference-1/result.json",
+      "sha256": "89ef3f3acdbe426d217d9b7017c3f926701bdd91a039c442d457f25f27403bec"
+    },
+    {
+      "project": "fse",
+      "kind": "manual_reference_task_preparation_not_method_effect",
+      "provider_calls": 0,
+      "stages": [
+        {
+          "role": "build",
+          "command": "make -j2 all",
+          "exit_code": 0,
+          "seconds": 6.6871998959977645
+        },
+        {
+          "role": "test",
+          "command": "make test",
+          "exit_code": 0,
+          "seconds": 188.86441494800965
+        }
+      ],
+      "all_stages_passed": true,
+      "original_file_changes": [],
+      "cleanup": true,
+      "seconds": 196.2126534859999,
+      "path": "/home/yiwei/.codex/outputs/forge-new-project-preparation-2026-10-29/fse/reference-1/result.json",
+      "sha256": "9a17845abc95e85f86ad74d34847894c8c276a1080581599621417a675eb4280"
+    }
+  ],
+  "scope": "八候选完整参考观察；七项原测试实际通过进入42槽准备，libxcrypt原生条件跳过仅参考；不是方法成功率、未见总体或正式效果数据。",
+  "session_root": "/home/yiwei/.codex/outputs/forge-new-project-preparation-2026-10-29",
+  "scripted_new_task_check": {
+    "identity": "cpp-build-new-project-task-check-v1",
+    "project": "inja",
+    "complete": true,
+    "source_unchanged": true,
+    "provider_calls": 0,
+    "scripted_responses": 1,
+    "recorded_tokens": 0,
+    "path": "/home/yiwei/.codex/outputs/forge-new-project-preparation-2026-10-29/inja-task-end-to-end-check-v1/result.json",
+    "sha256": "343aac5f5c95127a0bbd230fee0d55b53977e8754ed5bebbf95fad8df44deae8",
+    "scope": "仅人工脚本装配与完整重放；原子runner类别real_model_development_canary不可当真实模型效果",
+    "cleanup_receipt": "/home/yiwei/.codex/outputs/forge-new-project-preparation-2026-10-29/task-check-cleanup-receipt.json"
+  }
+}

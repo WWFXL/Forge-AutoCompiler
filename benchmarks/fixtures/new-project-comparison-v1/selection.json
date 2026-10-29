@@ -1,0 +1,191 @@
+{
+  "identity": "cpp-build-new-project-selection-v1",
+  "selected_at_utc": "2026-10-29T04:53:40.899221+00:00",
+  "base_revision": "e0b7eac682807facc890488cc10de55ae4767f79",
+  "policy": "先固定八候选，再只检查源码、原测试、任务和执行可行性；全部排除或失败保留，无新策略结果选样。历史匹配仅当前Git树文本检索，不证明训练未见或全历史未见。",
+  "projects": [
+    {
+      "name": "jsoncpp",
+      "repository": "open-source-parsers/jsoncpp",
+      "requested_ref": "1.9.5",
+      "commit_sha": "5defb4ed1a4293b8e2bf641e16b156fb9de498cc",
+      "build_system": "cmake",
+      "language": "C++",
+      "prior_tracked_matches": {
+        "open-source-parsers/jsoncpp": [],
+        "jsoncpp": []
+      },
+      "role": "prospective_new_method_evaluation",
+      "selection_basis": "固定八个Linux库/解析器/散列项目；不读取新方法输出后换样",
+      "holdout": false
+    },
+    {
+      "name": "pegtl",
+      "repository": "taocpp/PEGTL",
+      "requested_ref": "3.2.8",
+      "commit_sha": "be527327653e94b02e711f7eff59285ad13e1db0",
+      "build_system": "cmake",
+      "language": "C++",
+      "prior_tracked_matches": {
+        "taocpp/PEGTL": [],
+        "PEGTL": [],
+        "pegtl": []
+      },
+      "role": "prospective_new_method_evaluation",
+      "selection_basis": "固定八个Linux库/解析器/散列项目；不读取新方法输出后换样",
+      "holdout": false
+    },
+    {
+      "name": "inja",
+      "repository": "pantor/inja",
+      "requested_ref": "v3.4.0",
+      "commit_sha": "b2276440be8334aeba9cd5d628c2731d0f6a5809",
+      "build_system": "cmake",
+      "language": "C++",
+      "prior_tracked_matches": {
+        "pantor/inja": [],
+        "inja": [
+          "HEAD:benchmarks/analyses/cpp-build-library-strategy-comparison-flash-v1-results.json",
+          "HEAD:benchmarks/fixtures/cpp-jev-linux-applicability-v4-regressions.json",
+          "HEAD:benchmarks/manifests/cpp-build-library-strategy-comparison-flash-v1.json",
+          "HEAD:benchmarks/manifests/cpp-build-library-strategy-comparison-v1.json",
+          "HEAD:benchmarks/manifests/cpp-build-library-strategy-comparison-v2.json",
+          "HEAD:benchmarks/manifests/cpp-build-unified-system-comparison-flash-v1.json",
+          "HEAD:benchmarks/preregistrations/cpp-opaque-build-provenance-lifecycle-zero-provider-gate.md",
+          "HEAD:benchmarks/preregistrations/cpp-opaque-build-provenance-real-docker-zero-provider-gate.md",
+          "HEAD:benchmarks/preregistrations/cpp-opaque-build-provenance-zero-provider-gate.md",
+          "HEAD:benchmarks/preregistrations/cpp-opaque-provenance-confirmatory-lifecycle-zero-provider-gate.md",
+          "HEAD:benchmarks/preregistrations/cpp-opaque-provenance-minimal-canary-execution.md",
+          "HEAD:benchmarks/preregistrations/cpp-runtime-v3-three-arm-zero-provider-qualification.md",
+          "HEAD:benchmarks/reports/cpp-agent-continuation-qualification-v2.json",
+          "HEAD:benchmarks/reports/cpp-jev-natural-failure-linux-applicability-v3-construct-audit.json",
+          "HEAD:benchmarks/reports/cpp-jev-natural-failure-linux-applicability-v3-construct-audit.md",
+          "HEAD:benchmarks/reports/cpp-jev-natural-failure-linux-applicability-v3.json",
+          "HEAD:benchmarks/reports/cpp-jev-natural-failure-source-catalog-v2.json",
+          "HEAD:benchmarks/reports/cpp-progress-aware-harness-comparison-v3-authorized.json",
+          "HEAD:docs/research/2026-10-29-unified-system-comparison-results.md",
+          "HEAD:scripts/forge_jev_natural_failure_linux_applicability_v4.py",
+          "HEAD:scripts/forge_opaque_build_provenance_gate.py",
+          "HEAD:scripts/forge_opaque_build_provenance_lifecycle_gate.py",
+          "HEAD:scripts/forge_opaque_build_provenance_real_docker_gate.py",
+          "HEAD:scripts/forge_opaque_provenance_confirmatory_lifecycle_gate.py",
+          "HEAD:scripts/forge_opaque_provenance_minimal_canary_execution_runner.py",
+          "HEAD:scripts/forge_opaque_provenance_r1_checkpoint_gate.py",
+          "HEAD:scripts/forge_progress_state_qualification.py"
+        ]
+      },
+      "role": "prospective_new_method_evaluation",
+      "selection_basis": "固定八个Linux库/解析器/散列项目；不读取新方法输出后换样",
+      "holdout": false
+    },
+    {
+      "name": "highwayhash",
+      "repository": "google/highwayhash",
+      "requested_ref": "master",
+      "commit_sha": "f8381f3331d9c56a9792f9b4a35f61c41108c39e",
+      "build_system": "make",
+      "language": "C++",
+      "prior_tracked_matches": {
+        "google/highwayhash": [],
+        "highwayhash": []
+      },
+      "role": "prospective_new_method_evaluation",
+      "selection_basis": "固定八个Linux库/解析器/散列项目；不读取新方法输出后换样",
+      "holdout": false
+    },
+    {
+      "name": "libsigcplusplus",
+      "repository": "libsigcplusplus/libsigcplusplus",
+      "requested_ref": "2.12.1",
+      "commit_sha": "6bef4e0005f00f0844d917866aec7e3b2d829fdf",
+      "build_system": "autotools",
+      "language": "C++",
+      "prior_tracked_matches": {
+        "libsigcplusplus/libsigcplusplus": [],
+        "libsigcplusplus": []
+      },
+      "role": "prospective_new_method_evaluation",
+      "selection_basis": "固定八个Linux库/解析器/散列项目；不读取新方法输出后换样",
+      "holdout": false
+    },
+    {
+      "name": "libxcrypt",
+      "repository": "besser82/libxcrypt",
+      "requested_ref": "v4.4.36",
+      "commit_sha": "f531a36aa916a22ef2ce7d270ba381e264250cbf",
+      "build_system": "autotools",
+      "language": "C",
+      "prior_tracked_matches": {
+        "besser82/libxcrypt": [],
+        "libxcrypt": []
+      },
+      "role": "reference_only_upstream_conditional_skip",
+      "selection_basis": "固定八个Linux库/解析器/散列项目；不读取新方法输出后换样",
+      "holdout": false,
+      "reason": "原作者在具备arc4random_buf的平台将getrandom-fallbacks返回77；47 PASS/1 SKIP，未改源码测试。不以人工关闭功能制造48实际通过。"
+    },
+    {
+      "name": "libsrtp",
+      "repository": "cisco/libsrtp",
+      "requested_ref": "v2.5.0",
+      "commit_sha": "a566a9cfcd619e8327784aa7cff4a1276dc1e895",
+      "build_system": "autotools",
+      "language": "C",
+      "prior_tracked_matches": {
+        "cisco/libsrtp": [],
+        "libsrtp": []
+      },
+      "role": "prospective_new_method_evaluation",
+      "selection_basis": "固定八个Linux库/解析器/散列项目；不读取新方法输出后换样",
+      "holdout": false
+    },
+    {
+      "name": "fse",
+      "repository": "Cyan4973/FiniteStateEntropy",
+      "requested_ref": "dev",
+      "commit_sha": "9f30e0918f87bd835fa040d922a208d7b219e50b",
+      "build_system": "make",
+      "language": "C",
+      "prior_tracked_matches": {
+        "Cyan4973/FiniteStateEntropy": [],
+        "FiniteStateEntropy": [],
+        "fse": [
+          "HEAD:benchmarks/manifests/cpp-build-current-cxx-reference-flash-v1.json",
+          "HEAD:benchmarks/manifests/cpp-build-current-cxx-short-reference-flash-v1.json",
+          "HEAD:benchmarks/manifests/cpp-build-goal-state-paired-flash-v1.json",
+          "HEAD:benchmarks/manifests/cpp-build-strategy-replication-v1.json",
+          "HEAD:benchmarks/manifests/cpp-build-test-preparation-comparison-v1.json",
+          "HEAD:benchmarks/manifests/cpp-build-test-preparation-comparison-v2.json",
+          "HEAD:benchmarks/manifests/cpp-build-test-preparation-comparison-v3.json",
+          "HEAD:benchmarks/manifests/cpp-build-tool-no-recovery-observation-v1.json",
+          "HEAD:benchmarks/manifests/cpp-build-tool-recovery-ablation-flash-v1.json",
+          "HEAD:benchmarks/manifests/cpp-build-tool-recovery-ablation-v1.json",
+          "HEAD:benchmarks/manifests/cpp-build-unified-system-comparison-flash-v1.json",
+          "HEAD:benchmarks/reports/cpp-jev-formal-comparison-v6.json",
+          "HEAD:benchmarks/reports/cpp-typed-action-benchmark-qualification-v1.json",
+          "HEAD:benchmarks/reports/cpp-typed-semantic-routing-pilot-v2.json",
+          "HEAD:docs/research/2026-09-29-contract-guided-repair-defense.html",
+          "HEAD:docs/research/2026-10-06-automated-compilation-innovation-landscape.md",
+          "HEAD:scripts/forge_audit_cxx_fixed_layers.py",
+          "HEAD:scripts/forge_audit_observed_plan_dispatch.py",
+          "HEAD:scripts/forge_audit_plan_predicate_gate.py",
+          "HEAD:scripts/forge_budget_checkpoint_prototype.py",
+          "HEAD:scripts/forge_build_handoff_context_qualification_v2.py",
+          "HEAD:scripts/forge_jev_natural_failure_default_path_qualification_v1.py",
+          "HEAD:scripts/forge_linux_build_closure_qualification_v5.py",
+          "HEAD:scripts/forge_progress_aware_harness_comparison_v1.py",
+          "HEAD:scripts/forge_typed_evidence.py"
+        ]
+      },
+      "role": "prospective_new_method_evaluation",
+      "selection_basis": "固定八个Linux库/解析器/散列项目；不读取新方法输出后换样",
+      "holdout": false
+    }
+  ],
+  "alias_review": {
+    "inja": "精确词查询无命中；子串命中来自Ninja等词，不据此认定项目暴露。",
+    "fse": "精确词查询仅为论文会议FSE，不是FiniteStateEntropy项目；仓库和全名无命中。"
+  },
+  "exposure_boundary": "仅当前跟踪树和指定目录的有限文本记录；未证明全历史/训练未见。任务准备和参考构建属于开发助手暴露，未用于当前方法调试；不称严格holdout。",
+  "selection_disposition_at_task_preparation": "八个预先候选，七项主比较；libxcrypt原生条件跳过保留为参考，不补新项目，不改旧验收。"
+}

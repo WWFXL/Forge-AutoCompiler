@@ -2,7 +2,21 @@
 
 论文选材固定入口：[硕士论文实验与证据索引](docs/research/THESIS_EVIDENCE_INDEX.md)，按正文候选、补充分析/案例和工程检查说明用途、结果、边界及原始证据；[历史材料目录](docs/research/THESIS_EVIDENCE_CATALOG.md)登记存量材料。后续结果发布时简短更新，不另行重跑实验。#640统一条件48次真实系统比较已完整采集并封存；最新正文候选见E30。
 
-## 当前阶段（2026-10-29；#640统一条件48次系统比较完成，结果分析与发布）
+## 当前阶段（2026-10-29；#646方法梳理与新项目42次比较准备完成，待新授权）
+
+本阶段为方法整理、已有结果分析与实验准备，0真实Provider／新增模型费；不计新模型效果。已按实际代码完成[状态—观测—动作模型](docs/research/2026-10-29-state-action-method.md)，连接E30系统表、E01状态消融、E04恢复开关和分层验证。当前语义增强只覆盖显式CMake BOOL目标；依赖异常主要交Agent，Make／Autotools仍普通Workflow。旧方法与冻结证据不改。
+
+先固定八个候选，再作原作者任务参考：jsoncpp／PEGTL／inja／highwayhash／libsigcplusplus／libxcrypt／libsrtp／FiniteStateEntropy。七项原测试完整通过，原文件内容均保持；libxcrypt补libltdl-dev后47 PASS＋1作者定义的条件SKIP（平台有arc4random_buf，不使用回退路径），保留为参考、不进效果分母、不换样。jsoncpp两readerwriter共享输出导致并行参考失败，新鲜全套串行-j1通过，固定为三方共同任务；两份失败与新参考全部保存。新于当前方法调试仅由有限基线检索支持，不称全历史／训练未见或完全盲holdout。
+
+新身份cpp-build-new-project-system-comparison-flash-v1：七项目（五C++／二C，三CMake／二Make／二Autotools）×两重复×原三系统=42槽，每方14。仅替换任务和身份，复用E30方法、Flash low、资源、全部计费与原源码／测试／交付／完整replay标准；CXX保留社区原生工具／外部反馈／CPU实现差异，只作实现参考。入口scripts/forge_build_new_project_comparison.py及同名manifest/preregistration已准备，候选SHA2b88330c1e748b9fe43bd54dfb41941eacf929985492ba961dc5589c74aafef4；10必要及相邻检查、Ruff／CLI／固定Shell语法通过。未重复旧资格链／本地产品全测。
+
+inja新任务另用一次脚本方案实际完整执行原2CTest（30case／500assertions）／benchmark／精确双程序交付／同镜像完整replay／源码链接及cleanup；1脚本响应、0Provider／Token／费用，构建及重放name／ID四项实际不存在。它只说明新任务装配可用，不是新模型效果；七项参考中均观察到要求的ELF/ar交付文件，其余正式精确交付与replay尚未观察。
+
+[准备报告](docs/research/2026-10-29-new-project-comparison-preparation.md)、benchmarks/analyses/cpp-build-new-project-preparation-v1.json及fixtures/new-project-comparison-v1/保存选样、全部参考终态和原始指针；会话forge-new-project-preparation-2026-10-29保存源码／失败／完整日志与脚本实跑。论文导航新增E31仅工程／参考，E30仍最新完整系统效果。Issue646跟踪，发布只合科研依赖分支，不进main，用户原memory／HTML不夹带。
+
+下一项为新42槽真实比较，建议新增10美元／确认起8小时，无自动重试，未知用量／身份／清理异常停止。当前未读取真实模型凭据、未创建正式attempt／付费阶段；E30旧授权不续用。新范围确认后直接采集，不重复参考或三入口检查；结果后登记全部自然初始方案准备独立同方案三臂消融，不只挑能修复偏差。个人知识库仅MCP同步、不注入正式实验Agent。
+
+## 上一阶段（2026-10-29；#640统一条件48次系统比较完成，结果分析与发布）
 
 真实数据采集与结果分析完成：cpp-build-unified-system-comparison-flash-v1八已见任务×两重复×三系统，48/48观察、45完整、3未完整、0未观察。Forge/强工具Agent/CXX社区版完整16/16、16/16、13/16；请求84/145/109，保守估费0.5121477/0.6639255/0.5554065美元，累计60.70/62.39/96.52分钟。Forge相对强工具估费低22.9%、请求少42.1%，时间低2.7%；CMake层时间几乎相同，check/simdutf估费更高，不主张每项占优。CXX三个未完整为交付歧义、索引核验拒绝、原测试入口缺失，不统称编译或作者测试失败。
 
