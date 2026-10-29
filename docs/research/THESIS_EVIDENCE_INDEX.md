@@ -4,6 +4,8 @@
 
 本文回答“哪些结果可以写进论文、放在哪一部分、能够说明什么、到哪里取数”。它是论文选材入口；数值以链接的版本化报告/分析及冻结原始证据为准，当前研究阶段以 [RESEARCH_STATUS.md](../../RESEARCH_STATUS.md) 为准。
 
+方法章节的实际实现图及“阶段—观测—状态—动作”表见[当前方法说明](2026-10-29-state-action-method.md)。最新新增[E31](#e31)为新项目比较准备，0新增模型效果；E30仍是最新完整系统结果。
+
 首版整理已有结果，新增实验和模型调用均为零；后续真实结果按稳定编号追加。以下用途是写作建议，不代表必须全部纳入论文，也不把工程检查重新命名为效果实验。负面结果、未完成和未观察一并保留。
 
 ## 先看哪些材料
@@ -17,7 +19,7 @@
 | 外部方法参考与局限 | [E30](#e30)，辅以[E07](#e07) | 当前Forge与可运行CXXCrafter社区版有什么差异和失败案例？ |
 | 成本解释与负面结果 | [E09](#e09)、[E10](#e10)、[E13](#e13)、[E20](#e20) | 为何请求少未必便宜，模板覆盖扩大未必提高效率？ |
 | 历史Harness/选择器研究 | [E21](#e21)至[E23](#e23) | 过去观察到哪些收益，又为何没有直接成为当前主线结论？ |
-| 系统实现与任务可执行性 | [E26](#e26)至[E28](#e28) | 接口、状态分派和参考任务是否实际可运行？ |
+| 系统实现与任务可执行性 | [E26](#e26)至[E28](#e28)、[E31](#e31) | 接口、状态分派和参考任务是否实际可运行？ |
 
 **最新完整结果**：[E30](#e30)完成统一条件八项目×两重复×三系统48次真实比较，Forge/强工具/CXX社区版完整16/16、16/16、13/16；Forge相对强工具估费低22.9%，累计时间低2.7%。已有系统表、组件消融和恢复实验可用于论文；下一缺口是未用于开发项目的外部有效性，不必等到所有指标占优才组织结果。准备记录[E29](#e29)继续只作工程检查。
 
@@ -253,6 +255,14 @@
 - **设计/用途**：固定八个已见项目×两重复×Forge状态Workflow/强工具Agent/CXX社区版，共48槽；统一完整目标、CMake Release、依赖、并行环境和完整验收。用于论文实验设置；后续48次真实效果单列[E30](#e30)，不升级本条开发检查。
 - **开发检查**：独立tinyxml2三个入口均实际构建、原测试、精确交付、完整replay及cleanup通过，8脚本响应、0真实Provider/Token/模型费。只证明新适配可执行，不能把脚本响应耗时当方法优势。代码、候选草稿和原始证据保留，未重跑旧参考链。
 - **边界/定位**：全部已见，CXX原生反馈与工具权限不同，不称同Harness或论文原版。[设计与开发结果](2026-10-29-unified-system-comparison-design.md)、[预注册](../../benchmarks/preregistrations/cpp-build-unified-system-comparison-flash-v1.md)、[开发分析](../../benchmarks/analyses/cpp-build-unified-system-dispatch-check-v1.json)。raw：`/home/yiwei/.codex/outputs/forge-unified-system-preparation-2026-10-29/dispatch-check-v1`；inventory `2a1346e5975b3d516b790c73bf30be04758bf95098c0a3d61dac55038502ae72`。新Provider须新授权，不续旧30槽。
+
+<a id="e31"></a>
+### E31 新项目任务与扩展系统比较准备（工程／参考）
+
+- **问题／设计**：补充E30开发样本之外的外部有效性。先登记八候选，五C++、三C，覆盖三种构建系统；固定当前方法，不以新策略成绩选样。
+- **准备观察**：七项目原作者完整测试通过，原文件均不变；jsoncpp并行共享输出失败与新鲜串行全套通过保留，三方固定-j1。libxcrypt补真实宏依赖后47 PASS＋1作者平台条件SKIP，仅作参考，不改为48实际通过，也不另选替补。新主比较七项目×两重复×三系统=42次，每方14，尚未启动。
+- **必要执行检查**：inja人工脚本方案真实走通新任务、两原测试程序共30 case／500 assertions、benchmark、双程序精确交付、完整同镜像replay、原文件／链接和cleanup，1脚本响应0Provider／Token／费用；不是模型效果。10相关检查与CLI通过，不重复旧资格链。
+- **用途／定位**：用于方法章节和实验设置；[状态—观测—动作模型](2026-10-29-state-action-method.md)、[准备报告](2026-10-29-new-project-comparison-preparation.md)、[准备分析](../../benchmarks/analyses/cpp-build-new-project-preparation-v1.json)、[任务／选样](../../benchmarks/fixtures/new-project-comparison-v1/tasks.json)、[预注册](../../benchmarks/preregistrations/cpp-build-new-project-system-comparison-flash-v1.md)。原始会话`/home/yiwei/.codex/outputs/forge-new-project-preparation-2026-10-29/`保留全部参考成功／失败及脚本实跑，结果SHA在分析中；不当新方法成功率、完全盲holdout或直接状态动作因果。后续真实效果另列新条目，E30／E01／E04仍为现有效果证据。
 
 ## 写作时的图表取材
 
