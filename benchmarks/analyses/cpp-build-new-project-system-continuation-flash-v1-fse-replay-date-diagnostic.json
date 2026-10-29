@@ -1,0 +1,24 @@
+{
+  "kind": "posthoc_read_only_replay_diagnostic",
+  "original_artifact": "/home/yiwei/.codex/outputs/forge-new-project-system-continuation-flash-v1/slot-3/original/artifacts/fse",
+  "replay_artifact": "/home/yiwei/.codex/outputs/forge-new-project-system-continuation-flash-v1/slot-3/replay/artifacts/fse",
+  "original_sha256": "e4b0522b0c4a9bbae6c36492bc2d2a7d517e4bfb8b2fc36405e8543bb2b8f6b0",
+  "replay_sha256": "13eeb469beea05bda9a6c257c4ac05b69bb60281a55f9f754f6bece9f64098e6",
+  "sizes": [
+    145008,
+    145008
+  ],
+  "different_bytes": 22,
+  "embedded_dates": {
+    "original": [
+      "Oct 29 2026"
+    ],
+    "replay": [
+      "Oct 30 2026"
+    ]
+  },
+  "source_support": "固定源码programs/commandline.c:73 WELCOME_MESSAGE使用__DATE__",
+  "same_original_sha_as_forge_smoke_diagnostic": true,
+  "provider_calls": 0,
+  "boundary": "解释原CXX判定失败；不修改源码/环境/原验收或回填结果，不将字节不同写成原功能测试失败。"
+}
