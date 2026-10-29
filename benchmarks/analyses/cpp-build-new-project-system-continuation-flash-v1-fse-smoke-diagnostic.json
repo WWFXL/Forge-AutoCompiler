@@ -1,0 +1,41 @@
+{
+  "kind": "posthoc_read_only_acceptance_diagnostic",
+  "provider_calls": 0,
+  "model_cost_usd": "0",
+  "raw_artifact": "/home/yiwei/.codex/outputs/forge-new-project-system-continuation-flash-v1/slot-1/fse-plan/.compile-sessions/plan-agent-canary/afe6f624d964/artifacts/fse",
+  "sha256": "e4b0522b0c4a9bbae6c36492bc2d2a7d517e4bfb8b2fc36405e8543bb2b8f6b0",
+  "runs": [
+    {
+      "argument": "-version",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "FSE : Finite State Entropy, 64-bits demo by Yann Collet (Oct 29 2026)\nIncorrect parameters\nUsage :\n/home/yiwei/.codex/outputs/forge-new-project-system-continuation-flash-v1/slot-1/fse-plan/.compile-sessions/plan-agent-canary/afe6f624d964/artifacts/fse [arg] inputFilename [outputFilename]\nArguments :\n(default): fse core loop timing tests\n -e : use FSE (default)\n -h : use HUF\n -z : use zlib's huffman\n -d : decompression (default for .fse extension)\n -b : benchmark mode\n -i#: iteration loops [1-9](default : 4), benchmark mode only\n -B#: block size (default : 32768), benchmark mode only\n -H : display help and exit\n"
+    },
+    {
+      "argument": "--version",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "FSE : Finite State Entropy, 64-bits demo by Yann Collet (Oct 29 2026)\nIncorrect parameters\nUsage :\n/home/yiwei/.codex/outputs/forge-new-project-system-continuation-flash-v1/slot-1/fse-plan/.compile-sessions/plan-agent-canary/afe6f624d964/artifacts/fse [arg] inputFilename [outputFilename]\nArguments :\n(default): fse core loop timing tests\n -e : use FSE (default)\n -h : use HUF\n -z : use zlib's huffman\n -d : decompression (default for .fse extension)\n -b : benchmark mode\n -i#: iteration loops [1-9](default : 4), benchmark mode only\n -B#: block size (default : 32768), benchmark mode only\n -H : display help and exit\n"
+    },
+    {
+      "argument": "--help",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "FSE : Finite State Entropy, 64-bits demo by Yann Collet (Oct 29 2026)\nIncorrect parameters\nUsage :\n/home/yiwei/.codex/outputs/forge-new-project-system-continuation-flash-v1/slot-1/fse-plan/.compile-sessions/plan-agent-canary/afe6f624d964/artifacts/fse [arg] inputFilename [outputFilename]\nArguments :\n(default): fse core loop timing tests\n -e : use FSE (default)\n -h : use HUF\n -z : use zlib's huffman\n -d : decompression (default for .fse extension)\n -b : benchmark mode\n -i#: iteration loops [1-9](default : 4), benchmark mode only\n -B#: block size (default : 32768), benchmark mode only\n -H : display help and exit\n"
+    },
+    {
+      "argument": "-V",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "FSE : Finite State Entropy, 64-bits demo by Yann Collet (Oct 29 2026)\nFSE : Finite State Entropy, 64-bits demo by Yann Collet (Oct 29 2026)\n"
+    },
+    {
+      "argument": "-H",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "FSE : Finite State Entropy, 64-bits demo by Yann Collet (Oct 29 2026)\nUsage :\n/home/yiwei/.codex/outputs/forge-new-project-system-continuation-flash-v1/slot-1/fse-plan/.compile-sessions/plan-agent-canary/afe6f624d964/artifacts/fse [arg] inputFilename [outputFilename]\nArguments :\n(default): fse core loop timing tests\n -e : use FSE (default)\n -h : use HUF\n -z : use zlib's huffman\n -d : decompression (default for .fse extension)\n -b : benchmark mode\n -i#: iteration loops [1-9](default : 4), benchmark mode only\n -B#: block size (default : 32768), benchmark mode only\n -H : display help and exit\n"
+    }
+  ],
+  "boundary": "仅解释已运行FSE交付程序的CLI参数；不改原验收或旧失败，不当新方法成功；未注入正式Agent。",
+  "source_support": "固定源码programs/commandline.c:165版本-V、166帮助-H"
+}

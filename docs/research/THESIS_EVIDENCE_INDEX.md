@@ -1,10 +1,10 @@
 # 硕士论文实验与证据索引
 
-核对日期：2026-10-29。研究主线：面向 C/C++ 仓库自动化构建的状态感知动作选择与验证方法研究。跟踪：[Issue #642](https://github.com/WWFXL/Forge-AutoCompiler/issues/642)。
+核对日期：2026-10-30。研究主线：面向 C/C++ 仓库自动化构建的状态感知动作选择与验证方法研究。跟踪：[Issue #642](https://github.com/WWFXL/Forge-AutoCompiler/issues/642)。
 
 本文回答“哪些结果可以写进论文、放在哪一部分、能够说明什么、到哪里取数”。它是论文选材入口；数值以链接的版本化报告/分析及冻结原始证据为准，当前研究阶段以 [RESEARCH_STATUS.md](../../RESEARCH_STATUS.md) 为准。
 
-方法章节的实际实现图及“阶段—观测—状态—动作”表见[当前方法说明](2026-10-29-state-action-method.md)。最新新增[E32](#e32)为新项目真实比较的中断后部分结果：17原终态＋1运行中断、24未观察；E30仍是最新完整系统结果。[E31](#e31)继续仅作准备。
+方法章节的实际实现图及“阶段—观测—状态—动作”表见[当前方法说明](2026-10-29-state-action-method.md)。最新[E33](#e33)为原未启动24槽的完整独立续段，Forge／强工具为主要同判定比较；CXX仅作实现参考。[E32](#e32)原中断与42分母保持，[E31](#e31)仅作准备。
 
 首版整理已有结果，新增实验和模型调用均为零；后续真实结果按稳定编号追加。以下用途是写作建议，不代表必须全部纳入论文，也不把工程检查重新命名为效果实验。负面结果、未完成和未观察一并保留。
 
@@ -12,16 +12,16 @@
 
 | 论文用途 | 优先条目 | 能回答的问题 |
 | --- | --- | --- |
-| 完整系统比较 | [E30](#e30)，辅以[E03](#e03)、[E05](#e05) | 工具规划/模型规划＋Workflow＋失败Agent，与强工具Agent有何完成、费用和时间取舍？ |
+| 完整系统比较 | [E33](#e33)、[E30](#e30)，辅以[E03](#e03)、[E05](#e05) | 工具规划/模型规划＋Workflow＋失败Agent，与强工具Agent有何完成、费用和时间取舍？ |
 | 失败恢复消融 | [E04](#e04) | 相同初始工具方案，允许失败后恢复是否增加完整完成？ |
 | 配置状态与动作选择消融 | [E01](#e01)、[E02](#e02)，辅以[E06](#e06) | 目标保持、提前观察、直接修订各起什么作用？ |
 | 完整任务验证与案例 | [E16](#e16)至[E19](#e19)，以及各批自己的分层表 | 构建退出0为何还不等于满足任务、测试和可复现交付？ |
-| 外部方法参考与局限 | [E30](#e30)，辅以[E32](#e32)、[E07](#e07) | 当前Forge与可运行CXXCrafter社区版有什么差异和失败案例？ |
+| 外部方法参考与局限 | [E33](#e33)、[E30](#e30)，辅以[E32](#e32)、[E07](#e07) | 当前Forge与可运行CXXCrafter社区版有什么差异和失败案例？ |
 | 成本解释与负面结果 | [E09](#e09)、[E10](#e10)、[E13](#e13)、[E20](#e20) | 为何请求少未必便宜，模板覆盖扩大未必提高效率？ |
 | 历史Harness/选择器研究 | [E21](#e21)至[E23](#e23) | 过去观察到哪些收益，又为何没有直接成为当前主线结论？ |
 | 系统实现与任务可执行性 | [E26](#e26)至[E28](#e28)、[E31](#e31) | 接口、状态分派和参考任务是否实际可运行？ |
 
-**最新完整结果**：[E30](#e30)完成统一条件八项目×两重复×三系统48次真实比较，Forge/强工具/CXX社区版完整16/16、16/16、13/16；Forge相对强工具估费低22.9%，累计时间低2.7%。已有系统表、组件消融和恢复实验可用于论文；下一缺口是未用于开发项目的外部有效性，不必等到所有指标占优才组织结果。准备记录[E29](#e29)继续只作工程检查。
+**最新独立续段结果**：[E33](#e33)完成24/24真实槽，Forge/强工具/CXX参考完整6/8、5/8、6/8；五组Forge/强工具共同完成任务中，Forge估费低15.4%、时间高3.4%，保留取舍。CXX默认smoke差异与裁判启动错误限制三方排名。此前[E30](#e30)48次系统比较、[E01](#e01)30槽组件消融和[E04](#e04)恢复消融继续各自使用，不合并分母。
 
 ## 阅读和取数约定
 
@@ -34,13 +34,22 @@
 
 ## 正文候选：完整比较与组件消融
 
+<a id="e33"></a>
+### E33 新项目未启动24槽的完整独立续段
+
+- **问题/设计**：`cpp-build-new-project-system-continuation-flash-v1`精确原19–42未启动槽，三方各8，FSE两次、其余六项目各一次；原方法／Flash low／任务／资源不变。24/24终结、17完整、7未完整、0中断／未观察，不重试旧失败／中断，不回填E32。
+- **主要结果**：Forge／强工具／CXX参考完整6/8、5/8、6/8；请求38/175/55，保守估费$0.2411922/$0.8869458/$0.2542455，累计31.23/54.70/77.45分钟。固定主表Forge费低72.8%、时间低42.9%，但完整数不同且失败开销占比高。主要两方法共同成功五组中费$0.1406295/$0.1662762、时间12.15/11.76分钟，即费低15.4%、时间高3.4%；该子集按结果条件化，仅辅助效率解释。highwayhash／libsrtp有反向费用取舍。
+- **规划／状态**：全部8份自然初始方案登记，初始33请求/$0.1859694、恢复5请求/$0.0552228；六槽无需恢复完成，两个FSE共3恢复episode均未完整。6次配置观察全满足、直接动作0，不当状态组件增量；组件因果仍看E01。
+- **失败与边界**：默认smoke误拒FSE原生CLI；强工具libsigcplusplus两次replay缺依赖后GraphRecursionError；FSE/CXX跨日期因__DATE__字节不一致；libsrtp/CXX源码清单324179字节单参数触发OSError，外部测试等未观察。CXX未执行Forge额外默认smoke，仅实现参考；该解释更正也适用于E30/E32，原数字不改。旧结果与准备已见、重复非独立项目，不称盲holdout／总体显著／论文原版排名，分层不估自然误接受率。
+- **定位**：[报告](2026-10-30-new-project-continuation-results.md)、[分析](../../benchmarks/analyses/cpp-build-new-project-system-continuation-flash-v1-results.json)、[逐槽CSV](../../benchmarks/analyses/cpp-build-new-project-system-continuation-flash-v1-slots.csv)、[提取器](../../benchmarks/analyses/cpp-build-new-project-system-continuation-flash-v1-extract.py)与同身份预注册／manifest。raw `/home/yiwei/.codex/outputs/forge-new-project-system-continuation-flash-v1`，inventory `91c1763a49a3568a6c2c2d7ea5925437c05d70d62cc922a14fa10af6bf089480`；268请求/3888815 Token/$1.3823835、未知0，账本闭合。三项0Provider事后诊断在报告中单列，不改原终态；与E32仅描述性合列，不制造原42槽全部完成。
+
 <a id="e30"></a>
 ### E30 统一条件三系统完整比较（48次）
 
 - **问题/设计**：八个已见任务×两重复×Forge状态Workflow/强工具Agent/CXXCrafter社区版，统一Flash、完整公开任务、CMake Release、依赖资源及原测试/精确交付/完整同镜像重放，共48/48实际运行，0未观察。
 - **主要结果**：完整16/16、16/16、13/16；请求84/145/109，保守估费$0.5121477/$0.6639255/$0.5554065，累计60.70/62.39/96.52分钟。Forge相对强工具估费低22.9%、请求少42.1%，累计时间低2.7%；CMake层时间几乎相同。check/simdutf的Forge估费更高，另外六项更低。
 - **可写结论**：本批完整系统在相同完成数下有费用收益、时间接近；三次Forge任务经四个Agent恢复episode最终完整。初始规划71请求/$0.3874764、恢复13请求/$0.1246713，全计入。
-- **边界/失败**：全部已见，两重复非独立项目；14次配置观测均满足、直接修订0，不能把本批收益当直接动作因果。CXX外部反馈不回原生Modifier、工具循环/CPU约束实现不同，不称同Harness或论文原版排名。三项CXX未完整分别为交付歧义、Git索引核验拒绝、指定测试入口缺失；完整原测试46通过/0实际失败/2未观察，交付45通过1拒绝2未观察，replay45通过3未观察。三方共同成功13配对仅辅助，按结果条件化。
+- **边界/失败**：全部已见，两重复非独立项目；14次配置观测均满足、直接修订0，不能把本批收益当直接动作因果。CXX额外默认smoke未执行，见[E33判定更正](#e33)；外部反馈不回原生Modifier、工具循环/CPU约束实现不同，不称同Harness或论文原版排名。三项CXX未完整分别为交付歧义、Git索引核验拒绝、指定测试入口缺失；完整原测试46通过/0实际失败/2未观察，交付45通过1拒绝2未观察，replay45通过3未观察。三方共同成功13配对仅辅助，按结果条件化。
 - **定位**：`cpp-build-unified-system-comparison-flash-v1`；[结果报告](2026-10-29-unified-system-comparison-results.md)、[版本化分析](../../benchmarks/analyses/cpp-build-unified-system-comparison-flash-v1-results.json)、[逐槽CSV](../../benchmarks/analyses/cpp-build-unified-system-comparison-flash-v1-slots.csv)、[只读提取](../../benchmarks/analyses/cpp-build-unified-system-comparison-flash-v1-extract.py)、[预注册](../../benchmarks/preregistrations/cpp-build-unified-system-comparison-flash-v1.md)。raw `/home/yiwei/.codex/outputs/forge-unified-system-comparison-flash-v1`；inventory `138294da578cc3ab326e546bf678d4f81fef770830e2de71fb90b1637f500582`。系统结果与E01组件消融分开解释，不合并分母。
 
 <a id="e01"></a>
@@ -92,7 +101,7 @@
 - **问题/设计**：七个新于当前方法调试的项目×两重复×原三系统，固定42槽、每方14。实际17原终态（16完整、1未完整）＋第18槽运行中断＋24未观察；不写成42次全部完成，不把中断当方法失败。
 - **主要结果**：Forge完整6、强工具完整5/未完整1、CXX社区版完整5/中断1，各另8未观察；全部请求23/94/43、估费$0.1669023/$0.4789485/$0.2058042。三方共同完整的四配对仅辅助，Forge相对强工具估费低69.2%、时间低4.9%；该子集按结果条件化，不替代42分母。libsrtp的Forge费用高于强工具，保留取舍。
 - **可写结论/案例**：六份Forge初始方案均完整，无Agent恢复或配置直接修订；6次配置观测均满足，不提供状态动作因果。强工具libsigcplusplus原32测试/交付通过，带apt副作用的复合依赖命令整体exit1被配方排除，clean replay缺mm-common-prepare，最终GraphRecursionError；50请求费用全部保留。这是新项目补充观察和可复现交付案例。
-- **边界/中断**：旧进程丢失与后续主机重启已观察，精确终止时刻/原因未知。slot18的7组请求/响应齐全，原最终结果文件保持缺失，仅显式事后登记；没有重试或续原身份。主表160请求/2295808 Token/$0.8516550、未知0，原验收17测试过、17交付过、16replay过1失败，其余25未观察；原尝试清理17过，另1为恢复清理。CXX原生工具/反馈/CPU差异保持，不称论文原版排名；E30、E01及本批不池化分母。
+- **边界/中断**：旧进程丢失与后续主机重启已观察，精确终止时刻/原因未知。slot18的7组请求/响应齐全，原最终结果文件保持缺失，仅显式事后登记；没有重试或续原身份。主表160请求/2295808 Token/$0.8516550、未知0，原验收17测试过、17交付过、16replay过1失败，其余25未观察；原尝试清理17过，另1为恢复清理。CXX额外默认smoke未执行，见[E33判定更正](#e33)；原生工具/反馈/CPU差异保持，不称论文原版排名；E30、E01及本批不池化分母。
 - **定位**：`cpp-build-new-project-system-comparison-flash-v1`；[报告](2026-10-29-new-project-system-comparison-results.md)、[分析](../../benchmarks/analyses/cpp-build-new-project-system-comparison-flash-v1-results.json)、[逐槽CSV](../../benchmarks/analyses/cpp-build-new-project-system-comparison-flash-v1-slots.csv)、[显式中断登记](../../benchmarks/analyses/cpp-build-new-project-system-comparison-flash-v1-interruption.json)、[只读提取](../../benchmarks/analyses/cpp-build-new-project-system-comparison-flash-v1-extract.py)。raw `/home/yiwei/.codex/outputs/forge-new-project-system-comparison-flash-v1`，inventory `1ae33f4c1a05edf5af8db01c58ee8498f10183382e82faa48e971a6e4a42d79c`；操作会话forge-new-project-system-session-2026-10-29/closure-v1保留恢复收据。不是独立于原运行的新实验数据，不扩为完整队列效果。
 
 
@@ -272,7 +281,7 @@
 - **问题／设计**：补充E30开发样本之外的外部有效性。先登记八候选，五C++、三C，覆盖三种构建系统；固定当前方法，不以新策略成绩选样。
 - **准备观察**：七项目原作者完整测试通过，原文件均不变；jsoncpp并行共享输出失败与新鲜串行全套通过保留，三方固定-j1。libxcrypt补真实宏依赖后47 PASS＋1作者平台条件SKIP，仅作参考，不改为48实际通过，也不另选替补。原准备七项目×两重复×三系统=42次，每方14；后续真实部分观察另列E32。
 - **必要执行检查**：inja人工脚本方案真实走通新任务、两原测试程序共30 case／500 assertions、benchmark、双程序精确交付、完整同镜像replay、原文件／链接和cleanup，1脚本响应0Provider／Token／费用；不是模型效果。10相关检查与CLI通过，不重复旧资格链。
-- **后续续段准备**：[原未启动24槽的独立续段](2026-10-29-new-project-continuation-preparation.md)，身份`cpp-build-new-project-system-continuation-flash-v1`，每方8槽；精确取原19–42，不重试旧失败／中断，方法与验收不变。8相关检查／Ruff／CLI通过，0新增Provider／费用；尚无续段效果结果，不回填E32。
+- **后续续段准备**：[原未启动24槽的独立续段](2026-10-29-new-project-continuation-preparation.md)，身份`cpp-build-new-project-system-continuation-flash-v1`，每方8槽；精确取原19–42，不重试旧失败／中断，方法与验收不变。8相关检查／Ruff／CLI通过，0新增Provider／费用；准备本身不计效果；真实续段见[E33](#e33)，不回填E32。
 - **用途／定位**：用于方法章节和实验设置；[状态—观测—动作模型](2026-10-29-state-action-method.md)、[准备报告](2026-10-29-new-project-comparison-preparation.md)、[准备分析](../../benchmarks/analyses/cpp-build-new-project-preparation-v1.json)、[任务／选样](../../benchmarks/fixtures/new-project-comparison-v1/tasks.json)、[预注册](../../benchmarks/preregistrations/cpp-build-new-project-system-comparison-flash-v1.md)。原始会话`/home/yiwei/.codex/outputs/forge-new-project-preparation-2026-10-29/`保留全部参考成功／失败及脚本实跑，结果SHA在分析中；不当新方法成功率、完全盲holdout或直接状态动作因果。后续真实效果另列新条目，E30／E01／E04仍为现有效果证据。
 
 ## 写作时的图表取材

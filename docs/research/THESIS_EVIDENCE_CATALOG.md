@@ -1,6 +1,6 @@
 # 历史研究材料目录
 
-登记日期：2026-10-29；存量基线：`b659064ca0ea3c83ae30482f8bb4397008974def`。
+登记日期：2026-10-30；存量基线：`b659064ca0ea3c83ae30482f8bb4397008974def`。
 
 本次完整登记Git中`docs/research/`与`benchmarks/reports/`两处的211份既有Markdown材料（不含本索引/目录本身、HTML展示稿、协议目录和原始大文件）。其中28份已在[论文证据索引](THESIS_EVIDENCE_INDEX.md)说明用途，其余183份保持“待逐项复核”。文件数不是实验数；一份报告可能涉及多个身份，一次运行也可能被多个分析消费。
 
@@ -12,6 +12,7 @@
 
 |文件|论文登记|
 |---|---|
+|[2026-10-30-new-project-continuation-results.md](2026-10-30-new-project-continuation-results.md)|[E33](THESIS_EVIDENCE_INDEX.md#e33)：24槽真实独立续段，Forge/强工具主要比较，CXX参考及裁判边界；含原轨迹再分析与0Provider事后诊断|
 |[2026-10-29-new-project-continuation-preparation.md](2026-10-29-new-project-continuation-preparation.md)|[E31](THESIS_EVIDENCE_INDEX.md#e31)：原未启动24槽独立续段的工程准备，0新增模型效果；原E32分母不变|
 |[2026-10-29-new-project-system-comparison-results.md](2026-10-29-new-project-system-comparison-results.md)|[E32](THESIS_EVIDENCE_INDEX.md#e32)：真实部分观察与运行中断，17原终态＋1中断／24未观察；同原运行再分析|
 |[2026-10-29-state-action-method.md](2026-10-29-state-action-method.md)|方法章节与已有证据联系；无新增模型效果|
