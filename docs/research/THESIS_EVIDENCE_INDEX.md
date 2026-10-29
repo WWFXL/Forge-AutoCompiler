@@ -270,8 +270,9 @@
 ### E31 新项目任务与扩展系统比较准备（工程／参考）
 
 - **问题／设计**：补充E30开发样本之外的外部有效性。先登记八候选，五C++、三C，覆盖三种构建系统；固定当前方法，不以新策略成绩选样。
-- **准备观察**：七项目原作者完整测试通过，原文件均不变；jsoncpp并行共享输出失败与新鲜串行全套通过保留，三方固定-j1。libxcrypt补真实宏依赖后47 PASS＋1作者平台条件SKIP，仅作参考，不改为48实际通过，也不另选替补。新主比较七项目×两重复×三系统=42次，每方14，尚未启动。
+- **准备观察**：七项目原作者完整测试通过，原文件均不变；jsoncpp并行共享输出失败与新鲜串行全套通过保留，三方固定-j1。libxcrypt补真实宏依赖后47 PASS＋1作者平台条件SKIP，仅作参考，不改为48实际通过，也不另选替补。原准备七项目×两重复×三系统=42次，每方14；后续真实部分观察另列E32。
 - **必要执行检查**：inja人工脚本方案真实走通新任务、两原测试程序共30 case／500 assertions、benchmark、双程序精确交付、完整同镜像replay、原文件／链接和cleanup，1脚本响应0Provider／Token／费用；不是模型效果。10相关检查与CLI通过，不重复旧资格链。
+- **后续续段准备**：[原未启动24槽的独立续段](2026-10-29-new-project-continuation-preparation.md)，身份`cpp-build-new-project-system-continuation-flash-v1`，每方8槽；精确取原19–42，不重试旧失败／中断，方法与验收不变。8相关检查／Ruff／CLI通过，0新增Provider／费用；尚无续段效果结果，不回填E32。
 - **用途／定位**：用于方法章节和实验设置；[状态—观测—动作模型](2026-10-29-state-action-method.md)、[准备报告](2026-10-29-new-project-comparison-preparation.md)、[准备分析](../../benchmarks/analyses/cpp-build-new-project-preparation-v1.json)、[任务／选样](../../benchmarks/fixtures/new-project-comparison-v1/tasks.json)、[预注册](../../benchmarks/preregistrations/cpp-build-new-project-system-comparison-flash-v1.md)。原始会话`/home/yiwei/.codex/outputs/forge-new-project-preparation-2026-10-29/`保留全部参考成功／失败及脚本实跑，结果SHA在分析中；不当新方法成功率、完全盲holdout或直接状态动作因果。后续真实效果另列新条目，E30／E01／E04仍为现有效果证据。
 
 ## 写作时的图表取材
