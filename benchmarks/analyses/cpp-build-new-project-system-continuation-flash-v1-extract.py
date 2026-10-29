@@ -312,7 +312,7 @@ def main():
         "error_message",
     )
     with (SESSION / "slot-table.csv").open("w") as f:
-        writer = csv.DictWriter(f, fieldnames=fields)
+        writer = csv.DictWriter(f, fieldnames=fields, lineterminator="\n")
         writer.writeheader()
         for x in rows:
             writer.writerow({k: x.get(k) for k in fields})
