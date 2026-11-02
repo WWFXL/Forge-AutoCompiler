@@ -23,7 +23,7 @@ def headings(text: str) -> list[tuple[int, str]]:
     return result
 
 
-def make_docx(rendered: str, target: Path, title: str) -> dict:
+def make_docx(rendered: str, target: Path, title: str, version: str) -> dict:
     from docx import Document
     from docx.enum.table import WD_TABLE_ALIGNMENT
     from docx.enum.text import WD_ALIGN_PARAGRAPH
@@ -38,7 +38,7 @@ def make_docx(rendered: str, target: Path, title: str) -> dict:
     section.top_margin, section.bottom_margin = Cm(2.3), Cm(2.3)
     section.left_margin, section.right_margin = Cm(2.5), Cm(2.3)
     document.core_properties.title = title
-    document.core_properties.subject = "硕士论文阶段初稿v0.1，2026-11-02"
+    document.core_properties.subject = f"硕士论文阶段初稿{version}，2026-11-02"
     document.core_properties.author = ""
 
     def font(style, name, size):
@@ -50,14 +50,19 @@ def make_docx(rendered: str, target: Path, title: str) -> dict:
     normal = document.styles["Normal"].paragraph_format
     normal.line_spacing = 1.35
     normal.space_after = Pt(6)
-    for name, size in [("Title", 20), ("Heading 1", 17), ("Heading 2", 14), ("Heading 3", 12)]:
+    for name, size in [
+        ("Title", 20),
+        ("Heading 1", 17),
+        ("Heading 2", 14),
+        ("Heading 3", 12),
+    ]:
         font(document.styles[name], "Noto Sans CJK SC", size)
         fmt = document.styles[name].paragraph_format
         fmt.keep_with_next = True
         fmt.space_before, fmt.space_after = Pt(12), Pt(7)
 
     header = section.header.paragraphs[0]
-    header.text = "Forge · 硕士论文阶段初稿 v0.1 · 2026-11-02"
+    header.text = f"Forge · 硕士论文阶段初稿 {version} · 2026-11-02"
     header.style = document.styles["Normal"]
     for run in header.runs:
         run.font.size = Pt(8)
@@ -94,8 +99,13 @@ def make_docx(rendered: str, target: Path, title: str) -> dict:
             elif child.tag == "br":
                 paragraph.add_run().add_break()
             else:
-                inline(paragraph, child, bold or child.tag in {"strong", "b"},
-                       italic or child.tag in {"em", "i"}, code or child.tag == "code")
+                inline(
+                    paragraph,
+                    child,
+                    bold or child.tag in {"strong", "b"},
+                    italic or child.tag in {"em", "i"},
+                    code or child.tag == "code",
+                )
             text_run(paragraph, child.tail, bold, italic, code)
 
     title_seen = False
@@ -139,6 +149,7 @@ def make_docx(rendered: str, target: Path, title: str) -> dict:
         elif tag == "pre":
             paragraph = document.add_paragraph()
             paragraph.paragraph_format.line_spacing = 1.1
+            paragraph.paragraph_format.keep_together = True
             text_run(paragraph, element.text_content(), code=True)
         elif tag in {"ul", "ol"}:
             for index, item in enumerate(element, 1):
@@ -156,15 +167,22 @@ def make_docx(rendered: str, target: Path, title: str) -> dict:
             inline(paragraph, element)
 
     document.save(target)
-    return {"paragraphs": len(document.paragraphs), "tables": len(document.tables),
-            "images": len(document.inline_shapes)}
+    return {
+        "paragraphs": len(document.paragraphs),
+        "tables": len(document.tables),
+        "images": len(document.inline_shapes),
+    }
 
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output-dir", type=Path, required=True)
     parser.add_argument("--deps-dir", type=Path)
+    parser.add_argument("--version", default="v0.1")
     args = parser.parse_args()
+    if not re.fullmatch(r"v[0-9]+(?:\.[0-9]+)+", args.version):
+        parser.error("版本使用v0.1等数字格式")
+    filename = f"Forge-硕士论文阶段初稿-{args.version}"
     if args.deps_dir:
         sys.path.insert(0, str(args.deps_dir.resolve()))
 
@@ -173,7 +191,12 @@ def main() -> None:
     output.mkdir(parents=True, exist_ok=True)
     chapters = sorted((source_root / "chapters").glob("*.md"))
     texts = [(path, path.read_text(encoding="utf-8")) for path in chapters]
-    contents = ["# 七章目录与章节入口", "", "由分章源稿标题生成；修改章节后重新生成。", ""]
+    contents = [
+        "# 七章目录与章节入口",
+        "",
+        "由分章源稿标题生成；修改章节后重新生成。",
+        "",
+    ]
     reading_toc = ["# 目录", "", "阶段阅读目录；最终页码以学校模板排版为准。", ""]
     for path, text in texts[1:]:
         for level, label in headings(text):
@@ -181,20 +204,29 @@ def main() -> None:
                 continue
             contents.append(f"{'  ' * (level - 1)}- [{label}](chapters/{path.name})")
             reading_toc.extend([("## " if level == 1 else "") + label, ""])
-    (source_root / "CONTENTS.md").write_text("\n".join(contents) + "\n", encoding="utf-8")
+    (source_root / "CONTENTS.md").write_text(
+        "\n".join(contents) + "\n", encoding="utf-8"
+    )
 
     combined = texts[0][1] + "\n\n" + "\n".join(reading_toc)
     combined += "\n\n" + "\n\n".join(text for _, text in texts[1:])
     combined = combined.replace("../figures/", "figures/")
-    markdown_path = output / "Forge-硕士论文阶段初稿-v0.1.md"
+    markdown_path = output / f"{filename}.md"
     markdown_path.write_text(combined, encoding="utf-8")
     shutil.copytree(source_root / "figures", output / "figures", dirs_exist_ok=True)
-    summary = {"version": "v0.1", "date": "2026-11-02", "source": str(source_root),
-               "chapters": [path.name for path, _ in texts],
-               "main_chapters": 7,
-               "source_characters": sum(len(text) for _, text in texts),
-               "source_chinese_characters": sum(len(re.findall(r"[\u4e00-\u9fff]", text)) for _, text in texts),
-               "new_experiments": 0, "provider_calls": 0}
+    summary = {
+        "version": args.version,
+        "date": "2026-11-02",
+        "source": str(source_root),
+        "chapters": [path.name for path, _ in texts],
+        "main_chapters": 7,
+        "source_characters": sum(len(text) for _, text in texts),
+        "source_chinese_characters": sum(
+            len(re.findall(r"[\u4e00-\u9fff]", text)) for _, text in texts
+        ),
+        "new_experiments": 0,
+        "provider_calls": 0,
+    }
 
     try:
         import markdown
@@ -202,7 +234,9 @@ def main() -> None:
     except ImportError as error:
         summary["export_warning"] = f"已生成Markdown与目录；Word/HTML依赖缺失：{error}"
     else:
-        rendered = markdown.markdown(combined, extensions=["tables", "fenced_code", "sane_lists"])
+        rendered = markdown.markdown(
+            combined, extensions=["tables", "fenced_code", "sane_lists"]
+        )
         css = """
 body{font-family:'Noto Serif CJK SC',serif;max-width:1050px;margin:40px auto;padding:0 28px;color:#20262e;line-height:1.8}
 h1,h2,h3{font-family:'Noto Sans CJK SC',sans-serif;line-height:1.4;color:#17365a}
@@ -214,13 +248,20 @@ code{overflow-wrap:anywhere}blockquote{border-left:4px solid #a7b9d0;margin-left
 @media print{body{margin:0;max-width:none;font-size:10.5pt}h1{break-before:page}h1:first-child{break-before:auto}tr,img{break-inside:avoid}}
 """
         title = "面向C/C++仓库自动化构建的状态感知动作选择与验证方法研究"
-        html_path = output / "Forge-硕士论文阶段初稿-v0.1.html"
-        html_path.write_text(f'<!doctype html>\n<html lang="zh-CN"><meta charset="utf-8"><title>{title}</title>'
-                             f"<style>{css}</style><body>{rendered}</body></html>\n", encoding="utf-8")
+        html_path = output / f"{filename}.html"
+        html_path.write_text(
+            f'<!doctype html>\n<html lang="zh-CN"><meta charset="utf-8"><title>{title}</title>'
+            f"<style>{css}</style><body>{rendered}</body></html>\n",
+            encoding="utf-8",
+        )
         # Word图片使用绝对路径，HTML/Markdown图片仍相对输出目录。
         word_html = rendered.replace('src="figures/', f'src="{output}/figures/')
-        summary["word"] = make_docx(word_html, output / "Forge-硕士论文阶段初稿-v0.1.docx", title)
-    (output / "build-summary.json").write_text(json.dumps(summary, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        summary["word"] = make_docx(
+            word_html, output / f"{filename}.docx", title, args.version
+        )
+    (output / "build-summary.json").write_text(
+        json.dumps(summary, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+    )
     print(json.dumps(summary, ensure_ascii=False, indent=2))
 
 

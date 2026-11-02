@@ -1,0 +1,666 @@
+{
+  "identity": "cpp-build-local-recovery-material-repair-flash-v1",
+  "summary": {
+    "plan_return": {
+      "observed": 4,
+      "complete": 4,
+      "requests": 25,
+      "tokens": 517520,
+      "new_cost_usd": "0.1780323",
+      "total_with_historical_cost_usd": "0.3573087",
+      "wall_seconds": 1599.5130272549577,
+      "recovery_episodes": 4,
+      "local_returns": 0,
+      "local_commands": 0,
+      "build_executions": 4,
+      "repeated_build_executions": 0,
+      "configure_executions": 8,
+      "repeated_configure_executions": 4,
+      "planned": 4,
+      "unobserved": 0
+    },
+    "local_tools": {
+      "observed": 4,
+      "complete": 4,
+      "requests": 44,
+      "tokens": 891288,
+      "new_cost_usd": "0.2966580",
+      "total_with_historical_cost_usd": "0.4759344",
+      "wall_seconds": 1832.0953965299414,
+      "recovery_episodes": 4,
+      "local_returns": 4,
+      "local_commands": 4,
+      "build_executions": 4,
+      "repeated_build_executions": 0,
+      "configure_executions": 8,
+      "repeated_configure_executions": 4,
+      "planned": 4,
+      "unobserved": 0
+    }
+  },
+  "slots": [
+    {
+      "project": "simdutf",
+      "case_id": "simdutf-deviated",
+      "method": "plan_return",
+      "repetition": 1,
+      "strict_completed": true,
+      "arm_total_wall_seconds": 538.5431427480071,
+      "agent_usage": {
+        "model_requests": 9,
+        "recorded_tokens": 177681,
+        "agent_steps": 24,
+        "tool_calls": 15,
+        "commands": 6,
+        "elapsed_seconds": 320.84627968998393,
+        "input_tokens": 171718,
+        "output_tokens": 5963,
+        "estimated_cost_usd": 0.058671,
+        "unknown_usage_requests": 0,
+        "cost_and_usage_complete": true,
+        "estimated_cost_usd_completed_responses": 0.058671
+      },
+      "comparable_total_estimated_cost_usd": "0.1027902",
+      "recovery_episodes": 1,
+      "local_returns": 0,
+      "local_revisions": 0,
+      "local_commands": 0,
+      "input_rejections": 0,
+      "command_counts": {
+        "dependency": 1,
+        "configure": 2,
+        "build": 1,
+        "smoke": 1,
+        "artifact_stage": 1
+      },
+      "repeated_build_executions": 0,
+      "repeated_configure_executions": 1,
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "replay_status": "passed",
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "error": null,
+      "workflow_log_events": 83,
+      "slot": 1,
+      "configuration_class": "deviated",
+      "command_seconds_by_role": {
+        "dependency": 0.478273,
+        "configure": 4.0912902589770965,
+        "build": 87.19171833398286,
+        "smoke": 119.67148803698365,
+        "artifact_stage": 0.17526906600687653
+      },
+      "replay_seconds": 213.166387,
+      "local_target_roles": [],
+      "failure_category": "completed"
+    },
+    {
+      "project": "simdutf",
+      "case_id": "simdutf-deviated",
+      "method": "local_tools",
+      "repetition": 1,
+      "strict_completed": true,
+      "arm_total_wall_seconds": 660.8283255309798,
+      "agent_usage": {
+        "model_requests": 17,
+        "recorded_tokens": 326511,
+        "agent_steps": 39,
+        "tool_calls": 22,
+        "commands": 6,
+        "elapsed_seconds": 442.42477224598406,
+        "input_tokens": 313247,
+        "output_tokens": 13264,
+        "estimated_cost_usd": 0.1098909,
+        "unknown_usage_requests": 0,
+        "cost_and_usage_complete": true,
+        "estimated_cost_usd_completed_responses": 0.1098909
+      },
+      "comparable_total_estimated_cost_usd": "0.1540101",
+      "recovery_episodes": 1,
+      "local_returns": 1,
+      "local_revisions": 1,
+      "local_commands": 1,
+      "input_rejections": 1,
+      "command_counts": {
+        "dependency": 1,
+        "configure": 2,
+        "build": 1,
+        "smoke": 1,
+        "artifact_stage": 1
+      },
+      "repeated_build_executions": 0,
+      "repeated_configure_executions": 1,
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "replay_status": "passed",
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "error": null,
+      "workflow_log_events": 77,
+      "slot": 2,
+      "configuration_class": "deviated",
+      "command_seconds_by_role": {
+        "dependency": 0.455665,
+        "configure": 4.068397627968807,
+        "build": 87.56697694101604,
+        "smoke": 120.03866734402254,
+        "artifact_stage": 0.1882040550117381
+      },
+      "replay_seconds": 213.839036,
+      "local_target_roles": [
+        "configure"
+      ],
+      "failure_category": "completed"
+    },
+    {
+      "project": "snappy",
+      "case_id": "snappy-deviated",
+      "method": "local_tools",
+      "repetition": 1,
+      "strict_completed": true,
+      "arm_total_wall_seconds": 308.9365694319713,
+      "agent_usage": {
+        "model_requests": 9,
+        "recorded_tokens": 186609,
+        "agent_steps": 22,
+        "tool_calls": 13,
+        "commands": 7,
+        "elapsed_seconds": 227.72533888102043,
+        "input_tokens": 176299,
+        "output_tokens": 10310,
+        "estimated_cost_usd": 0.0652617,
+        "unknown_usage_requests": 0,
+        "cost_and_usage_complete": true,
+        "estimated_cost_usd_completed_responses": 0.0652617
+      },
+      "comparable_total_estimated_cost_usd": "0.1107807",
+      "recovery_episodes": 1,
+      "local_returns": 1,
+      "local_revisions": 1,
+      "local_commands": 1,
+      "input_rejections": 3,
+      "command_counts": {
+        "dependency": 2,
+        "configure": 2,
+        "build": 1,
+        "smoke": 1,
+        "artifact_stage": 1
+      },
+      "repeated_build_executions": 0,
+      "repeated_configure_executions": 1,
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "replay_status": "passed",
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "error": null,
+      "workflow_log_events": 95,
+      "slot": 3,
+      "configuration_class": "deviated",
+      "command_seconds_by_role": {
+        "dependency": 34.4224288090221,
+        "configure": 17.920536693010945,
+        "build": 22.427906426019035,
+        "smoke": 4.789316399022937,
+        "artifact_stage": 0.17469304095720872
+      },
+      "replay_seconds": 76.861924,
+      "local_target_roles": [
+        "configure"
+      ],
+      "failure_category": "completed"
+    },
+    {
+      "project": "snappy",
+      "case_id": "snappy-deviated",
+      "method": "plan_return",
+      "repetition": 1,
+      "strict_completed": true,
+      "arm_total_wall_seconds": 240.23302562598838,
+      "agent_usage": {
+        "model_requests": 3,
+        "recorded_tokens": 66347,
+        "agent_steps": 8,
+        "tool_calls": 5,
+        "commands": 8,
+        "elapsed_seconds": 155.3816818019841,
+        "input_tokens": 60766,
+        "output_tokens": 5581,
+        "estimated_cost_usd": 0.024927,
+        "unknown_usage_requests": 0,
+        "cost_and_usage_complete": true,
+        "estimated_cost_usd_completed_responses": 0.024927
+      },
+      "comparable_total_estimated_cost_usd": "0.070446",
+      "recovery_episodes": 1,
+      "local_returns": 0,
+      "local_revisions": 0,
+      "local_commands": 0,
+      "input_rejections": 0,
+      "command_counts": {
+        "dependency": 3,
+        "configure": 2,
+        "build": 1,
+        "smoke": 1,
+        "artifact_stage": 1
+      },
+      "repeated_build_executions": 0,
+      "repeated_configure_executions": 1,
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "replay_status": "passed",
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "error": null,
+      "workflow_log_events": 99,
+      "slot": 4,
+      "configuration_class": "deviated",
+      "command_seconds_by_role": {
+        "dependency": 37.85780284701072,
+        "configure": 17.68883119302336,
+        "build": 22.65531701699365,
+        "smoke": 4.923276493034791,
+        "artifact_stage": 0.17326490895356983
+      },
+      "replay_seconds": 80.463425,
+      "local_target_roles": [],
+      "failure_category": "completed"
+    },
+    {
+      "project": "simdutf",
+      "case_id": "simdutf-deviated",
+      "method": "local_tools",
+      "repetition": 2,
+      "strict_completed": true,
+      "arm_total_wall_seconds": 485.2389456980163,
+      "agent_usage": {
+        "model_requests": 5,
+        "recorded_tokens": 87594,
+        "agent_steps": 11,
+        "tool_calls": 6,
+        "commands": 6,
+        "elapsed_seconds": 267.03274281101767,
+        "input_tokens": 85140,
+        "output_tokens": 2454,
+        "estimated_cost_usd": 0.0284868,
+        "unknown_usage_requests": 0,
+        "cost_and_usage_complete": true,
+        "estimated_cost_usd_completed_responses": 0.0284868
+      },
+      "comparable_total_estimated_cost_usd": "0.0726060",
+      "recovery_episodes": 1,
+      "local_returns": 1,
+      "local_revisions": 1,
+      "local_commands": 1,
+      "input_rejections": 0,
+      "command_counts": {
+        "dependency": 1,
+        "configure": 2,
+        "build": 1,
+        "smoke": 1,
+        "artifact_stage": 1
+      },
+      "repeated_build_executions": 0,
+      "repeated_configure_executions": 1,
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "replay_status": "passed",
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "error": null,
+      "workflow_log_events": 85,
+      "slot": 5,
+      "configuration_class": "deviated",
+      "command_seconds_by_role": {
+        "dependency": 0.462198,
+        "configure": 2.8082802499993704,
+        "build": 86.96918531204574,
+        "smoke": 119.69397788797505,
+        "artifact_stage": 0.18572187703102827
+      },
+      "replay_seconds": 213.687854,
+      "local_target_roles": [
+        "configure"
+      ],
+      "failure_category": "completed"
+    },
+    {
+      "project": "simdutf",
+      "case_id": "simdutf-deviated",
+      "method": "plan_return",
+      "repetition": 2,
+      "strict_completed": true,
+      "arm_total_wall_seconds": 578.7253261609585,
+      "agent_usage": {
+        "model_requests": 10,
+        "recorded_tokens": 210102,
+        "agent_steps": 31,
+        "tool_calls": 21,
+        "commands": 6,
+        "elapsed_seconds": 360.6507796330261,
+        "input_tokens": 199907,
+        "output_tokens": 10195,
+        "estimated_cost_usd": 0.0722061,
+        "unknown_usage_requests": 0,
+        "cost_and_usage_complete": true,
+        "estimated_cost_usd_completed_responses": 0.0722061
+      },
+      "comparable_total_estimated_cost_usd": "0.1163253",
+      "recovery_episodes": 1,
+      "local_returns": 0,
+      "local_revisions": 0,
+      "local_commands": 0,
+      "input_rejections": 0,
+      "command_counts": {
+        "dependency": 1,
+        "configure": 2,
+        "build": 1,
+        "smoke": 1,
+        "artifact_stage": 1
+      },
+      "repeated_build_executions": 0,
+      "repeated_configure_executions": 1,
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "replay_status": "passed",
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "error": null,
+      "workflow_log_events": 83,
+      "slot": 6,
+      "configuration_class": "deviated",
+      "command_seconds_by_role": {
+        "dependency": 0.450992,
+        "configure": 4.085500845045317,
+        "build": 86.79386436200002,
+        "smoke": 119.93712109600892,
+        "artifact_stage": 0.18527544400421903
+      },
+      "replay_seconds": 213.556222,
+      "local_target_roles": [],
+      "failure_category": "completed"
+    },
+    {
+      "project": "snappy",
+      "case_id": "snappy-deviated",
+      "method": "plan_return",
+      "repetition": 2,
+      "strict_completed": true,
+      "arm_total_wall_seconds": 242.01153272000374,
+      "agent_usage": {
+        "model_requests": 3,
+        "recorded_tokens": 63390,
+        "agent_steps": 7,
+        "tool_calls": 4,
+        "commands": 8,
+        "elapsed_seconds": 154.51035597198643,
+        "input_tokens": 59822,
+        "output_tokens": 3568,
+        "estimated_cost_usd": 0.0222282,
+        "unknown_usage_requests": 0,
+        "cost_and_usage_complete": true,
+        "estimated_cost_usd_completed_responses": 0.0222282
+      },
+      "comparable_total_estimated_cost_usd": "0.0677472",
+      "recovery_episodes": 1,
+      "local_returns": 0,
+      "local_revisions": 0,
+      "local_commands": 0,
+      "input_rejections": 0,
+      "command_counts": {
+        "dependency": 3,
+        "configure": 2,
+        "build": 1,
+        "smoke": 1,
+        "artifact_stage": 1
+      },
+      "repeated_build_executions": 0,
+      "repeated_configure_executions": 1,
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "replay_status": "passed",
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "error": null,
+      "workflow_log_events": 99,
+      "slot": 7,
+      "configuration_class": "deviated",
+      "command_seconds_by_role": {
+        "dependency": 45.21101742096828,
+        "configure": 17.93821036402369,
+        "build": 22.362442992976867,
+        "smoke": 4.712693707959261,
+        "artifact_stage": 0.17354473198065534
+      },
+      "replay_seconds": 83.115705,
+      "local_target_roles": [],
+      "failure_category": "completed"
+    },
+    {
+      "project": "snappy",
+      "case_id": "snappy-deviated",
+      "method": "local_tools",
+      "repetition": 2,
+      "strict_completed": true,
+      "arm_total_wall_seconds": 377.09155586897396,
+      "agent_usage": {
+        "model_requests": 13,
+        "recorded_tokens": 290574,
+        "agent_steps": 38,
+        "tool_calls": 25,
+        "commands": 7,
+        "elapsed_seconds": 301.74612278095447,
+        "input_tokens": 284078,
+        "output_tokens": 6496,
+        "estimated_cost_usd": 0.0930186,
+        "unknown_usage_requests": 0,
+        "cost_and_usage_complete": true,
+        "estimated_cost_usd_completed_responses": 0.0930186
+      },
+      "comparable_total_estimated_cost_usd": "0.1385376",
+      "recovery_episodes": 1,
+      "local_returns": 1,
+      "local_revisions": 1,
+      "local_commands": 1,
+      "input_rejections": 0,
+      "command_counts": {
+        "dependency": 2,
+        "configure": 2,
+        "build": 1,
+        "smoke": 1,
+        "artifact_stage": 1
+      },
+      "repeated_build_executions": 0,
+      "repeated_configure_executions": 1,
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "replay_status": "passed",
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "error": null,
+      "workflow_log_events": 95,
+      "slot": 8,
+      "configuration_class": "deviated",
+      "command_seconds_by_role": {
+        "dependency": 34.46326235401288,
+        "configure": 17.625176484056283,
+        "build": 16.81583606597269,
+        "smoke": 4.695781085989438,
+        "artifact_stage": 0.17259936599293724
+      },
+      "replay_seconds": 70.814161,
+      "local_target_roles": [
+        "configure"
+      ],
+      "failure_category": "completed"
+    }
+  ],
+  "unobserved": [],
+  "stop_reason": null,
+  "raw_root": "/home/yiwei/.codex/outputs/forge-local-recovery-material-repair-flash-v1",
+  "release": "13c89fb5126dfac1ed0804b59465a508b6af7ffc",
+  "inventory": {
+    "format": "forge-typed-evidence-v1",
+    "identity": "cpp-build-local-recovery-material-repair-flash-v1",
+    "entries": 34514,
+    "files": 34506,
+    "symlinks": 8,
+    "bytes": 1176120351,
+    "inventory_canonical_sha256": "c164e9f81087323d9a9f4a2b9eac9157a2b6e19a384eb2db9cad2e138d83f1ab",
+    "unknown_usage_requests": 0
+  },
+  "interpretation_boundary": "沿用原五方案中全部两份偏离方案，不按修复后效果选样；八槽为新运行，与原20槽分开报告，不替换失败。正常路径复用原观察及工程检查，不宣称新版本全系统效果。新材料仅移除共同权威包已有的重复方案/状态，工具反馈改为收据，完整命令输出和原始响应保留。",
+  "strata": {
+    "deviated": {
+      "plan_return": {
+        "observed": 4,
+        "complete": 4,
+        "requests": 25,
+        "tokens": 517520,
+        "new_cost_usd": "0.1780323",
+        "total_with_historical_cost_usd": "0.3573087",
+        "wall_seconds": 1599.5130272549577,
+        "recovery_episodes": 4,
+        "local_returns": 0,
+        "local_commands": 0,
+        "build_executions": 4,
+        "repeated_build_executions": 0,
+        "configure_executions": 8,
+        "repeated_configure_executions": 4
+      },
+      "local_tools": {
+        "observed": 4,
+        "complete": 4,
+        "requests": 44,
+        "tokens": 891288,
+        "new_cost_usd": "0.2966580",
+        "total_with_historical_cost_usd": "0.4759344",
+        "wall_seconds": 1832.0953965299414,
+        "recovery_episodes": 4,
+        "local_returns": 4,
+        "local_commands": 4,
+        "build_executions": 4,
+        "repeated_build_executions": 0,
+        "configure_executions": 8,
+        "repeated_configure_executions": 4
+      }
+    },
+    "satisfied": {
+      "plan_return": {
+        "observed": 0,
+        "complete": 0,
+        "requests": 0,
+        "tokens": 0,
+        "new_cost_usd": "0",
+        "total_with_historical_cost_usd": "0",
+        "wall_seconds": 0,
+        "recovery_episodes": 0,
+        "local_returns": 0,
+        "local_commands": 0,
+        "build_executions": 0,
+        "repeated_build_executions": 0,
+        "configure_executions": 0,
+        "repeated_configure_executions": 0
+      },
+      "local_tools": {
+        "observed": 0,
+        "complete": 0,
+        "requests": 0,
+        "tokens": 0,
+        "new_cost_usd": "0",
+        "total_with_historical_cost_usd": "0",
+        "wall_seconds": 0,
+        "recovery_episodes": 0,
+        "local_returns": 0,
+        "local_commands": 0,
+        "build_executions": 0,
+        "repeated_build_executions": 0,
+        "configure_executions": 0,
+        "repeated_configure_executions": 0
+      }
+    }
+  },
+  "pairs": [
+    {
+      "case_id": "simdutf-deviated",
+      "repetition": 1,
+      "plan_return": {
+        "wall_seconds": 538.5431427480071,
+        "new_cost_usd": 0.058671,
+        "total_with_historical_cost_usd": "0.1027902"
+      },
+      "local_tools": {
+        "wall_seconds": 660.8283255309798,
+        "new_cost_usd": 0.1098909,
+        "total_with_historical_cost_usd": "0.1540101"
+      }
+    },
+    {
+      "case_id": "simdutf-deviated",
+      "repetition": 2,
+      "local_tools": {
+        "wall_seconds": 485.2389456980163,
+        "new_cost_usd": 0.0284868,
+        "total_with_historical_cost_usd": "0.0726060"
+      },
+      "plan_return": {
+        "wall_seconds": 578.7253261609585,
+        "new_cost_usd": 0.0722061,
+        "total_with_historical_cost_usd": "0.1163253"
+      }
+    },
+    {
+      "case_id": "snappy-deviated",
+      "repetition": 1,
+      "local_tools": {
+        "wall_seconds": 308.9365694319713,
+        "new_cost_usd": 0.0652617,
+        "total_with_historical_cost_usd": "0.1107807"
+      },
+      "plan_return": {
+        "wall_seconds": 240.23302562598838,
+        "new_cost_usd": 0.024927,
+        "total_with_historical_cost_usd": "0.070446"
+      }
+    },
+    {
+      "case_id": "snappy-deviated",
+      "repetition": 2,
+      "plan_return": {
+        "wall_seconds": 242.01153272000374,
+        "new_cost_usd": 0.0222282,
+        "total_with_historical_cost_usd": "0.0677472"
+      },
+      "local_tools": {
+        "wall_seconds": 377.09155586897396,
+        "new_cost_usd": 0.0930186,
+        "total_with_historical_cost_usd": "0.1385376"
+      }
+    }
+  ]
+}

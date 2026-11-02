@@ -1,8 +1,22 @@
 # Forge Research Status
 
-论文选材固定入口：[硕士论文实验与证据索引](docs/research/THESIS_EVIDENCE_INDEX.md)，按正文候选、补充分析/案例和工程检查说明用途、结果、边界及原始证据；[历史材料目录](docs/research/THESIS_EVIDENCE_CATALOG.md)登记存量材料。后续结果发布时简短更新，不另行重跑实验。最新正文候选E33为24槽独立续段；E30的48次系统比较和E01组件消融仍各自保留。
+论文选材固定入口：[硕士论文实验与证据索引](docs/research/THESIS_EVIDENCE_INDEX.md)，按正文候选、补充分析/案例和工程检查说明用途、结果、边界及原始证据；[历史材料目录](docs/research/THESIS_EVIDENCE_CATALOG.md)登记存量材料。后续结果发布时简短更新，不另行重跑实验。最新正文候选E34为两批独立恢复接口比较；E33的24槽续段、E30的48次系统比较和E01组件消融仍各自保留。
 
-## 当前阶段（2026-11-02；#654论文阶段初稿与研究共识整理）
+## 当前阶段（2026-11-02；#655三项完成，转论文交付与汇报后停止）
+
+用户要求的三项已完成：第3/4/6章审阅并保存v0.1基础稿（PR656）；实现工具辅助局部恢复；完成独立恢复比较并更新v0.2。局部Agent可修订方案、执行目标及前置动作，凭真实成功记录交还Workflow，保留有效进展；原测试/交付/重放继续由Workflow执行。相关回归、实际Docker及脚本工具链通过，均为工程验证，不计模型效果。
+
+[E34结果报告](docs/research/2026-11-02-local-tool-recovery-comparison-results.md)：原20槽A批方案式10/10完整，原局部工具6/10；四次偏离案例均因重复材料触及100KB上限，在实际修复执行前停止。原失败/费用和未观察保留，不能把短时停止当效率优势。A运行release1f3863b4，raw forge-local-tool-recovery-comparison-flash-v1，inventory76efb78d230c02025e23b651dc5113ed106bbcbe9aa2ac71e154bbac1cf8cb09。
+
+用户独立批准的B批8槽已全部完成：只去重复材料/工具全文回传，完整方案、状态、日志和原100KB上限保持。两方式各4/4完整，方案式25请求/$0.1780323/26.66分钟，局部工具44请求/$0.2966580/30.53分钟；含相同历史规划费$0.3573087/$0.4759344，局部费高33.2%、时间高14.5%。四次局部实际configure及交还均成功，完整原测试/源码链接/精确交付/replay/cleanup全过；两边各4恢复episode，每槽恰好1次build、2次configure，无重复build收益。simdutf第二重复局部更好，其余三对更贵更慢，全部保留。B运行release13c89fb5，raw forge-local-recovery-material-repair-flash-v1，inventoryc164e9f81087323d9a9f4a2b9eac9157a2b6e19a384eb2db9cad2e138d83f1ab。
+
+A/B分别报告，不合成28槽成功率，不回填旧失败或冒充新版正常层结果。比较恢复接口组合，方案式最多8轮探索且可提前提交，局部连续交互，非完全同Harness/纯控制器因果；仅已见两类CMake配置偏差，不推复杂依赖、未见泛化或总体显著性。当前支持保留方案式为基础选择、局部工具为可选能力，不把能力跑通等同效率提升，也不否定E01/E30/E33基础版本证据。
+
+两阶段账本均completed，无活动Provider；合计126请求/2833619 Token/新增保守估费0.9468375美元，未知0。共享原10美元及UTC2026-11-02 12:30–16:30（北京时间11月3日00:30截止），B最多5美元；无自动重试/补槽，不延长预算时窗。共享授权、scope-extension及账本在forge-local-recovery-session-2026-11-02，分析在benchmarks/analyses同身份目录。
+
+[论文v0.2源稿](docs/thesis/README.md)已补第4章工具/算法与第6章表6-8/6-9及总结、摘要、证据映射；Word/PDF/HTML/Markdown派生稿位于`/home/yiwei/.codex/outputs/forge-thesis-local-recovery-2026-11-02/`，v0.1保留。结果由Issue655及结果PR跟踪，只合科研集成分支、不进main。完成发布和知识库同步后按用户要求停下，本轮不推进经验、联网、分类器、跨模型或新增付费实验；第5章经验仍为待验证设计，下一阶段由用户决定。
+
+## 上一阶段（2026-11-02；#654论文阶段初稿与研究共识整理）
 
 本轮为已有结果分析与论文写作，0新增实验／Provider费用。已建立[论文源稿入口](docs/thesis/README.md)、[七章目录](docs/thesis/CONTENTS.md)、[正文—证据映射](docs/thesis/EVIDENCE_MAP.md)和[待补内容](docs/thesis/TODO.md)。第3、4章按现有方法写入任务、状态、动作及后缀重执行；第6章组织E30/E33系统结果、E01/E02/E04消融及分层验证，保留负向结果和判定限制。Word／Markdown／HTML／PDF由分章真源派生，不作为新的实验事实源。
 
