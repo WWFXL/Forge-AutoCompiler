@@ -1,0 +1,9 @@
+slot,project,case_id,repetition,method,strict_completed,requests,tokens,new_cost_usd,total_with_historical_cost_usd,wall_seconds,recovery_episodes,local_returns,local_revisions,local_commands,build_executions,repeated_build_executions,configure_executions,repeated_configure_executions,source_unchanged,source_links_unchanged,replay_status,cleanup,failure_category,error
+1,simdutf,simdutf-deviated,1,plan_return,True,9,177681,0.058671,0.1027902,538.5431427480071,1,0,0,0,1,0,2,1,True,True,passed,True,completed,
+2,simdutf,simdutf-deviated,1,local_tools,True,17,326511,0.1098909,0.1540101,660.8283255309798,1,1,1,1,1,0,2,1,True,True,passed,True,completed,
+3,snappy,snappy-deviated,1,local_tools,True,9,186609,0.0652617,0.1107807,308.9365694319713,1,1,1,1,1,0,2,1,True,True,passed,True,completed,
+4,snappy,snappy-deviated,1,plan_return,True,3,66347,0.024927,0.070446,240.23302562598838,1,0,0,0,1,0,2,1,True,True,passed,True,completed,
+5,simdutf,simdutf-deviated,2,local_tools,True,5,87594,0.0284868,0.0726060,485.2389456980163,1,1,1,1,1,0,2,1,True,True,passed,True,completed,
+6,simdutf,simdutf-deviated,2,plan_return,True,10,210102,0.0722061,0.1163253,578.7253261609585,1,0,0,0,1,0,2,1,True,True,passed,True,completed,
+7,snappy,snappy-deviated,2,plan_return,True,3,63390,0.0222282,0.0677472,242.01153272000374,1,0,0,0,1,0,2,1,True,True,passed,True,completed,
+8,snappy,snappy-deviated,2,local_tools,True,13,290574,0.0930186,0.1385376,377.09155586897396,1,1,1,1,1,0,2,1,True,True,passed,True,completed,
