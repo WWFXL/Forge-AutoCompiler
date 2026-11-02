@@ -1,0 +1,1205 @@
+{
+  "identity": "cpp-build-experience-route-update-flash-v1",
+  "layer_semantics": "原测试状态为固定原命令的最后实际观察；不替代后续状态变化后的有效性，完整完成按strict_completed",
+  "summary": {
+    "updating_bank": {
+      "planned": 6,
+      "observed": 6,
+      "complete": 5,
+      "unobserved": 0,
+      "requests": 28,
+      "cost_usd": "0.1871886",
+      "wall_minutes": 13.003507344532409,
+      "recorded_command_minutes": 4.603694483148532,
+      "replay_minutes": 4.893769933333333,
+      "other_wall_minutes": 3.5060429280505434,
+      "initial_requests": 28,
+      "recovery_requests": 0,
+      "recovery_episodes": 0,
+      "direct_actions": 0,
+      "retrieval_with_material": 28,
+      "retrieval_events": 28,
+      "retrieval_material_bytes": 261775,
+      "slots_with_updated_material": 2,
+      "slots_with_available_updated_material": 3,
+      "original_tests": {
+        "passed": 5,
+        "unobserved": 1
+      },
+      "verification": {
+        "passed": 5,
+        "unobserved": 1
+      },
+      "replay": {
+        "passed": 5,
+        "unobserved": 1
+      },
+      "statuses": {
+        "verified": 5,
+        "stopped": 1
+      },
+      "recorded_tokens": 561541,
+      "input_tokens": 540734,
+      "output_tokens": 20807
+    },
+    "fixed_bank": {
+      "planned": 6,
+      "observed": 6,
+      "complete": 5,
+      "unobserved": 0,
+      "requests": 40,
+      "cost_usd": "0.2622588",
+      "wall_minutes": 16.188270723448174,
+      "recorded_command_minutes": 5.93163779583374,
+      "replay_minutes": 5.247899883333333,
+      "other_wall_minutes": 5.0087330442811,
+      "initial_requests": 37,
+      "recovery_requests": 3,
+      "recovery_episodes": 1,
+      "direct_actions": 0,
+      "retrieval_with_material": 41,
+      "retrieval_events": 41,
+      "retrieval_material_bytes": 324430,
+      "slots_with_updated_material": 0,
+      "slots_with_available_updated_material": 0,
+      "original_tests": {
+        "passed": 5,
+        "unobserved": 1
+      },
+      "verification": {
+        "passed": 5,
+        "unobserved": 1
+      },
+      "replay": {
+        "passed": 5,
+        "unobserved": 1
+      },
+      "statuses": {
+        "verified": 5,
+        "stopped": 1
+      },
+      "recorded_tokens": 781691,
+      "input_tokens": 750856,
+      "output_tokens": 30835
+    }
+  },
+  "paired_descriptive": [
+    {
+      "left": "updating_bank",
+      "right": "fixed_bank",
+      "matched": 6,
+      "left_only_complete": 0,
+      "right_only_complete": 0,
+      "common_complete": 5,
+      "common_complete_left_cost_usd": "0.1530255",
+      "common_complete_right_cost_usd": "0.2010399",
+      "common_complete_left_wall_seconds": 718.8813770969864,
+      "common_complete_right_wall_seconds": 800.4820709399064
+    }
+  ],
+  "slots": [
+    {
+      "slot": 1,
+      "project": "jsoncpp",
+      "method": "updating_bank",
+      "repetition": 1,
+      "complete": true,
+      "status": "verified",
+      "requests": 5,
+      "cost_usd": "0.0307257",
+      "wall_seconds": 71.71688988397364,
+      "recorded_command_seconds": 20.772418796951577,
+      "role_seconds": {
+        "dependency": 0.242303,
+        "configure": 2.0258265580050647,
+        "build": 15.370700492989272,
+        "smoke": 2.9547943079960532,
+        "artifact_stage": 0.1787944379611872
+      },
+      "replay_total_seconds": 23.949001,
+      "other_wall_seconds": 26.99547008702206,
+      "initial_requests": 5,
+      "recovery_requests": 0,
+      "initial_cost_usd": "0.0307257",
+      "recovery_cost_usd": "0",
+      "response_cost_matches_ledger": true,
+      "response_tokens": {
+        "input": 91827,
+        "output": 2648
+      },
+      "response_models": {
+        "deepseek-flash": 5
+      },
+      "recovery_episodes": 0,
+      "direct_actions": 0,
+      "retrieval_events": 5,
+      "retrieval_with_material": 5,
+      "retrieval_with_updated_material": 0,
+      "retrieval_bytes": 52110,
+      "retrieved_source_ids": [
+        "E30-slot-10",
+        "E30-slot-6"
+      ],
+      "available_updated_source_ids": [],
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "original_test_observations": [
+        {
+          "step_id": "check",
+          "attempts": 1,
+          "status": "passed"
+        }
+      ],
+      "smoke_command_observations": 2,
+      "original_tests_status": "passed",
+      "verification_status": "passed",
+      "replay_status": "passed",
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "error_class": null,
+      "error": null,
+      "proposal_rejections": [],
+      "command_counts": {
+        "dependency": 1,
+        "configure": 1,
+        "build": 1,
+        "smoke": 2,
+        "artifact_stage": 1
+      },
+      "failed_commands": []
+    },
+    {
+      "slot": 2,
+      "project": "jsoncpp",
+      "method": "fixed_bank",
+      "repetition": 1,
+      "complete": true,
+      "status": "verified",
+      "requests": 5,
+      "cost_usd": "0.0309447",
+      "wall_seconds": 71.64500118599972,
+      "recorded_command_seconds": 19.050547955969932,
+      "role_seconds": {
+        "dependency": 0.252522,
+        "configure": 2.014820674958173,
+        "build": 13.721399593981914,
+        "smoke": 2.9070505180279724,
+        "artifact_stage": 0.15475516900187358
+      },
+      "replay_total_seconds": 22.612591,
+      "other_wall_seconds": 29.981862230029787,
+      "initial_requests": 5,
+      "recovery_requests": 0,
+      "initial_cost_usd": "0.0309447",
+      "recovery_cost_usd": "0",
+      "response_cost_matches_ledger": true,
+      "response_tokens": {
+        "input": 92253,
+        "output": 2724
+      },
+      "response_models": {
+        "deepseek-flash": 5
+      },
+      "recovery_episodes": 0,
+      "direct_actions": 0,
+      "retrieval_events": 5,
+      "retrieval_with_material": 5,
+      "retrieval_with_updated_material": 0,
+      "retrieval_bytes": 52110,
+      "retrieved_source_ids": [
+        "E30-slot-10",
+        "E30-slot-6"
+      ],
+      "available_updated_source_ids": [],
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "original_test_observations": [
+        {
+          "step_id": "check",
+          "attempts": 1,
+          "status": "passed"
+        }
+      ],
+      "smoke_command_observations": 2,
+      "original_tests_status": "passed",
+      "verification_status": "passed",
+      "replay_status": "passed",
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "error_class": null,
+      "error": null,
+      "proposal_rejections": [],
+      "command_counts": {
+        "dependency": 1,
+        "configure": 1,
+        "build": 1,
+        "smoke": 2,
+        "artifact_stage": 1
+      },
+      "failed_commands": []
+    },
+    {
+      "slot": 3,
+      "project": "pegtl",
+      "method": "fixed_bank",
+      "repetition": 1,
+      "complete": true,
+      "status": "verified",
+      "requests": 5,
+      "cost_usd": "0.0364203",
+      "wall_seconds": 414.47904644097434,
+      "recorded_command_seconds": 190.712651180018,
+      "role_seconds": {
+        "dependency": 0.283845,
+        "configure": 1.2951747989864089,
+        "build": 188.15734567603795,
+        "smoke": 0.7949750649859197,
+        "artifact_stage": 0.18131064000772312
+      },
+      "replay_total_seconds": 194.492015,
+      "other_wall_seconds": 29.27438026095632,
+      "initial_requests": 5,
+      "recovery_requests": 0,
+      "initial_cost_usd": "0.0364203",
+      "recovery_cost_usd": "0",
+      "response_cost_matches_ledger": true,
+      "response_tokens": {
+        "input": 111973,
+        "output": 2357
+      },
+      "response_models": {
+        "deepseek-flash": 5
+      },
+      "recovery_episodes": 0,
+      "direct_actions": 0,
+      "retrieval_events": 5,
+      "retrieval_with_material": 5,
+      "retrieval_with_updated_material": 0,
+      "retrieval_bytes": 51965,
+      "retrieved_source_ids": [
+        "E30-slot-6",
+        "E30-slot-9"
+      ],
+      "available_updated_source_ids": [],
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "original_test_observations": [
+        {
+          "step_id": "check",
+          "attempts": 1,
+          "status": "passed"
+        }
+      ],
+      "smoke_command_observations": 2,
+      "original_tests_status": "passed",
+      "verification_status": "passed",
+      "replay_status": "passed",
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "error_class": null,
+      "error": null,
+      "proposal_rejections": [],
+      "command_counts": {
+        "dependency": 1,
+        "configure": 1,
+        "build": 1,
+        "smoke": 2,
+        "artifact_stage": 1
+      },
+      "failed_commands": []
+    },
+    {
+      "slot": 4,
+      "project": "pegtl",
+      "method": "updating_bank",
+      "repetition": 1,
+      "complete": true,
+      "status": "verified",
+      "requests": 3,
+      "cost_usd": "0.0238731",
+      "wall_seconds": 414.9898332550074,
+      "recorded_command_seconds": 190.36839209490657,
+      "role_seconds": {
+        "dependency": 0.286036,
+        "configure": 1.3534266239730641,
+        "build": 187.7222984120017,
+        "smoke": 0.8256155719282106,
+        "artifact_stage": 0.1810154870036058
+      },
+      "replay_total_seconds": 194.232724,
+      "other_wall_seconds": 30.38871716010084,
+      "initial_requests": 3,
+      "recovery_requests": 0,
+      "initial_cost_usd": "0.0238731",
+      "recovery_cost_usd": "0",
+      "response_cost_matches_ledger": true,
+      "response_tokens": {
+        "input": 66517,
+        "output": 3265
+      },
+      "response_models": {
+        "deepseek-flash": 3
+      },
+      "recovery_episodes": 0,
+      "direct_actions": 0,
+      "retrieval_events": 3,
+      "retrieval_with_material": 3,
+      "retrieval_with_updated_material": 0,
+      "retrieval_bytes": 31179,
+      "retrieved_source_ids": [
+        "E30-slot-6",
+        "E30-slot-9"
+      ],
+      "available_updated_source_ids": [
+        "update-task-1"
+      ],
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "original_test_observations": [
+        {
+          "step_id": "check",
+          "attempts": 1,
+          "status": "passed"
+        }
+      ],
+      "smoke_command_observations": 2,
+      "original_tests_status": "passed",
+      "verification_status": "passed",
+      "replay_status": "passed",
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "error_class": null,
+      "error": null,
+      "proposal_rejections": [
+        {
+          "event": "observed.proposal_rejected",
+          "detail": "Failed to parse structured output for tool 'ObservedBuildActions': Failed to parse data to ObservedBuildActions: 2 validation errors for ObservedBuildActions\nreason\n  Field required [type=missing, input_value={}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.12/v/missing\nsteps\n  Field required [type=missing, input_value={}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.12/v/missing."
+        }
+      ],
+      "command_counts": {
+        "dependency": 1,
+        "configure": 1,
+        "build": 1,
+        "smoke": 2,
+        "artifact_stage": 1
+      },
+      "failed_commands": []
+    },
+    {
+      "slot": 5,
+      "project": "inja",
+      "method": "updating_bank",
+      "repetition": 1,
+      "complete": true,
+      "status": "verified",
+      "requests": 5,
+      "cost_usd": "0.031599",
+      "wall_seconds": 100.61912149604177,
+      "recorded_command_seconds": 34.08904241402137,
+      "role_seconds": {
+        "dependency": 0.258732,
+        "configure": 0.6399453110061586,
+        "build": 32.48743973003002,
+        "smoke": 0.5245197989861481,
+        "artifact_stage": 0.17840557399904355
+      },
+      "replay_total_seconds": 37.370319,
+      "other_wall_seconds": 29.15976008202039,
+      "initial_requests": 5,
+      "recovery_requests": 0,
+      "initial_cost_usd": "0.0315990",
+      "recovery_cost_usd": "0",
+      "response_cost_matches_ledger": true,
+      "response_tokens": {
+        "input": 94690,
+        "output": 2660
+      },
+      "response_models": {
+        "deepseek-flash": 5
+      },
+      "recovery_episodes": 0,
+      "direct_actions": 0,
+      "retrieval_events": 5,
+      "retrieval_with_material": 5,
+      "retrieval_with_updated_material": 5,
+      "retrieval_bytes": 53205,
+      "retrieved_source_ids": [
+        "E30-slot-6",
+        "update-task-4"
+      ],
+      "available_updated_source_ids": [
+        "update-task-1",
+        "update-task-4"
+      ],
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "original_test_observations": [
+        {
+          "step_id": "check",
+          "attempts": 1,
+          "status": "passed"
+        }
+      ],
+      "smoke_command_observations": 2,
+      "original_tests_status": "passed",
+      "verification_status": "passed",
+      "replay_status": "passed",
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "error_class": null,
+      "error": null,
+      "proposal_rejections": [],
+      "command_counts": {
+        "dependency": 1,
+        "configure": 1,
+        "build": 1,
+        "smoke": 2,
+        "artifact_stage": 1
+      },
+      "failed_commands": []
+    },
+    {
+      "slot": 6,
+      "project": "inja",
+      "method": "fixed_bank",
+      "repetition": 1,
+      "complete": true,
+      "status": "verified",
+      "requests": 6,
+      "cost_usd": "0.0349974",
+      "wall_seconds": 147.74417654698482,
+      "recorded_command_seconds": 54.57487236697031,
+      "role_seconds": {
+        "dependency": 0.251475,
+        "configure": 0.6257540810038336,
+        "build": 53.01407469599508,
+        "smoke": 0.5201051509357058,
+        "artifact_stage": 0.16346343903569505
+      },
+      "replay_total_seconds": 58.370351,
+      "other_wall_seconds": 34.79895318001451,
+      "initial_requests": 6,
+      "recovery_requests": 0,
+      "initial_cost_usd": "0.0349974",
+      "recovery_cost_usd": "0",
+      "response_cost_matches_ledger": true,
+      "response_tokens": {
+        "input": 102570,
+        "output": 3522
+      },
+      "response_models": {
+        "deepseek-flash": 6
+      },
+      "recovery_episodes": 0,
+      "direct_actions": 0,
+      "retrieval_events": 6,
+      "retrieval_with_material": 6,
+      "retrieval_with_updated_material": 0,
+      "retrieval_bytes": 62532,
+      "retrieved_source_ids": [
+        "E30-slot-10",
+        "E30-slot-6"
+      ],
+      "available_updated_source_ids": [],
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "original_test_observations": [
+        {
+          "step_id": "check",
+          "attempts": 1,
+          "status": "passed"
+        }
+      ],
+      "smoke_command_observations": 2,
+      "original_tests_status": "passed",
+      "verification_status": "passed",
+      "replay_status": "passed",
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "error_class": null,
+      "error": null,
+      "proposal_rejections": [],
+      "command_counts": {
+        "dependency": 1,
+        "configure": 1,
+        "build": 1,
+        "smoke": 2,
+        "artifact_stage": 1
+      },
+      "failed_commands": []
+    },
+    {
+      "slot": 7,
+      "project": "highwayhash",
+      "method": "fixed_bank",
+      "repetition": 1,
+      "complete": true,
+      "status": "verified",
+      "requests": 6,
+      "cost_usd": "0.0377892",
+      "wall_seconds": 62.18119445099728,
+      "recorded_command_seconds": 8.513374835026433,
+      "role_seconds": {
+        "dependency": 0.245145,
+        "build": 7.6417980280239135,
+        "smoke": 0.45493123499909416,
+        "artifact_stage": 0.17150057200342417
+      },
+      "replay_total_seconds": 11.987315,
+      "other_wall_seconds": 41.68050461597085,
+      "initial_requests": 6,
+      "recovery_requests": 0,
+      "initial_cost_usd": "0.0377892",
+      "recovery_cost_usd": "0",
+      "response_cost_matches_ledger": true,
+      "response_tokens": {
+        "input": 106976,
+        "output": 4747
+      },
+      "response_models": {
+        "deepseek-flash": 6
+      },
+      "recovery_episodes": 0,
+      "direct_actions": 0,
+      "retrieval_events": 6,
+      "retrieval_with_material": 6,
+      "retrieval_with_updated_material": 0,
+      "retrieval_bytes": 52848,
+      "retrieved_source_ids": [
+        "E30-slot-14",
+        "E30-slot-17"
+      ],
+      "available_updated_source_ids": [],
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "original_test_observations": [
+        {
+          "step_id": "check",
+          "attempts": 1,
+          "status": "passed"
+        }
+      ],
+      "smoke_command_observations": 1,
+      "original_tests_status": "passed",
+      "verification_status": "passed",
+      "replay_status": "passed",
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "error_class": null,
+      "error": null,
+      "proposal_rejections": [],
+      "command_counts": {
+        "dependency": 1,
+        "build": 1,
+        "smoke": 1,
+        "artifact_stage": 1
+      },
+      "failed_commands": []
+    },
+    {
+      "slot": 8,
+      "project": "highwayhash",
+      "method": "updating_bank",
+      "repetition": 1,
+      "complete": true,
+      "status": "verified",
+      "requests": 1,
+      "cost_usd": "0.0062355",
+      "wall_seconds": 30.164811779977754,
+      "recorded_command_seconds": 6.98009067101939,
+      "role_seconds": {
+        "dependency": 0.248956,
+        "build": 6.146185975987464,
+        "smoke": 0.4194159010075964,
+        "artifact_stage": 0.16553279402432963
+      },
+      "replay_total_seconds": 10.54688,
+      "other_wall_seconds": 12.637841108958364,
+      "initial_requests": 1,
+      "recovery_requests": 0,
+      "initial_cost_usd": "0.0062355",
+      "recovery_cost_usd": "0",
+      "response_cost_matches_ledger": true,
+      "response_tokens": {
+        "input": 16301,
+        "output": 1121
+      },
+      "response_models": {
+        "deepseek-flash": 1
+      },
+      "recovery_episodes": 0,
+      "direct_actions": 0,
+      "retrieval_events": 1,
+      "retrieval_with_material": 1,
+      "retrieval_with_updated_material": 0,
+      "retrieval_bytes": 8808,
+      "retrieved_source_ids": [
+        "E30-slot-14",
+        "E30-slot-17"
+      ],
+      "available_updated_source_ids": [],
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "original_test_observations": [
+        {
+          "step_id": "check",
+          "attempts": 1,
+          "status": "passed"
+        }
+      ],
+      "smoke_command_observations": 1,
+      "original_tests_status": "passed",
+      "verification_status": "passed",
+      "replay_status": "passed",
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "error_class": null,
+      "error": null,
+      "proposal_rejections": [],
+      "command_counts": {
+        "dependency": 1,
+        "build": 1,
+        "smoke": 1,
+        "artifact_stage": 1
+      },
+      "failed_commands": []
+    },
+    {
+      "slot": 9,
+      "project": "libsigcplusplus",
+      "method": "updating_bank",
+      "repetition": 1,
+      "complete": false,
+      "status": "stopped",
+      "requests": 5,
+      "cost_usd": "0.0341631",
+      "wall_seconds": 61.32906357495813,
+      "recorded_command_seconds": 0.261827,
+      "role_seconds": {
+        "dependency": 0.261827
+      },
+      "replay_total_seconds": 0,
+      "other_wall_seconds": 61.06723657495813,
+      "initial_requests": 5,
+      "recovery_requests": 0,
+      "initial_cost_usd": "0.0341631",
+      "recovery_cost_usd": "0",
+      "response_cost_matches_ledger": true,
+      "response_tokens": {
+        "input": 81297,
+        "output": 8145
+      },
+      "response_models": {
+        "deepseek-flash": 5
+      },
+      "recovery_episodes": 0,
+      "direct_actions": 0,
+      "retrieval_events": 5,
+      "retrieval_with_material": 5,
+      "retrieval_with_updated_material": 0,
+      "retrieval_bytes": 27625,
+      "retrieved_source_ids": [
+        "E30-slot-1"
+      ],
+      "available_updated_source_ids": [],
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "original_test_observations": [
+        {
+          "step_id": "check",
+          "attempts": 0,
+          "status": "unobserved"
+        }
+      ],
+      "smoke_command_observations": 0,
+      "original_tests_status": "unobserved",
+      "verification_status": "unobserved",
+      "replay_status": "unobserved",
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "error_class": "PlanContractError",
+      "error": "步骤不能关闭严格 Shell 或混合多个逻辑阶段",
+      "proposal_rejections": [],
+      "command_counts": {
+        "dependency": 1
+      },
+      "failed_commands": []
+    },
+    {
+      "slot": 10,
+      "project": "libsigcplusplus",
+      "method": "fixed_bank",
+      "repetition": 1,
+      "complete": false,
+      "status": "stopped",
+      "requests": 8,
+      "cost_usd": "0.0612189",
+      "wall_seconds": 170.81417246698402,
+      "recorded_command_seconds": 59.09456780200996,
+      "role_seconds": {
+        "dependency": 35.87704960102853,
+        "configure": 6.323527164000552,
+        "build": 16.89399103698088
+      },
+      "replay_total_seconds": 0,
+      "other_wall_seconds": 111.71960466497406,
+      "initial_requests": 5,
+      "recovery_requests": 3,
+      "initial_cost_usd": "0.0299424",
+      "recovery_cost_usd": "0.0312765",
+      "response_cost_matches_ledger": true,
+      "response_tokens": {
+        "input": 146663,
+        "output": 14350
+      },
+      "response_models": {
+        "deepseek-flash": 8
+      },
+      "recovery_episodes": 1,
+      "direct_actions": 0,
+      "retrieval_events": 9,
+      "retrieval_with_material": 9,
+      "retrieval_with_updated_material": 0,
+      "retrieval_bytes": 49725,
+      "retrieved_source_ids": [
+        "E30-slot-1"
+      ],
+      "available_updated_source_ids": [],
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "original_test_observations": [
+        {
+          "step_id": "check",
+          "attempts": 0,
+          "status": "unobserved"
+        }
+      ],
+      "smoke_command_observations": 0,
+      "original_tests_status": "unobserved",
+      "verification_status": "unobserved",
+      "replay_status": "unobserved",
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "error_class": "PlanContractError",
+      "error": "原生状态及完整上一轮超过100000字节，不调用Provider",
+      "proposal_rejections": [],
+      "command_counts": {
+        "dependency": 3,
+        "configure": 1,
+        "build": 1
+      },
+      "failed_commands": [
+        {
+          "role": "build",
+          "command_id": "command_737b1b62f2ff4f8cb1aae6115f277cf7",
+          "exit_code": 86,
+          "timed_out": false
+        }
+      ]
+    },
+    {
+      "slot": 11,
+      "project": "libsrtp",
+      "method": "fixed_bank",
+      "repetition": 1,
+      "complete": true,
+      "status": "verified",
+      "requests": 10,
+      "cost_usd": "0.0608883",
+      "wall_seconds": 104.43265231495025,
+      "recorded_command_seconds": 23.952253610029736,
+      "role_seconds": {
+        "dependency": 0.509813,
+        "configure": 5.124433499993756,
+        "build": 3.376468720030971,
+        "smoke": 14.754272482998203,
+        "artifact_stage": 0.1872659070068039
+      },
+      "replay_total_seconds": 27.411721,
+      "other_wall_seconds": 53.0686777049205,
+      "initial_requests": 10,
+      "recovery_requests": 0,
+      "initial_cost_usd": "0.0608883",
+      "recovery_cost_usd": "0",
+      "response_cost_matches_ledger": true,
+      "response_tokens": {
+        "input": 190421,
+        "output": 3135
+      },
+      "response_models": {
+        "deepseek-flash": 10
+      },
+      "recovery_episodes": 0,
+      "direct_actions": 0,
+      "retrieval_events": 10,
+      "retrieval_with_material": 10,
+      "retrieval_with_updated_material": 0,
+      "retrieval_bytes": 55250,
+      "retrieved_source_ids": [
+        "E30-slot-1"
+      ],
+      "available_updated_source_ids": [],
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "original_test_observations": [
+        {
+          "step_id": "check",
+          "attempts": 1,
+          "status": "passed"
+        }
+      ],
+      "smoke_command_observations": 1,
+      "original_tests_status": "passed",
+      "verification_status": "passed",
+      "replay_status": "passed",
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "error_class": null,
+      "error": null,
+      "proposal_rejections": [],
+      "command_counts": {
+        "dependency": 1,
+        "configure": 1,
+        "build": 1,
+        "smoke": 1,
+        "artifact_stage": 1
+      },
+      "failed_commands": []
+    },
+    {
+      "slot": 12,
+      "project": "libsrtp",
+      "method": "updating_bank",
+      "repetition": 1,
+      "complete": true,
+      "status": "verified",
+      "requests": 9,
+      "cost_usd": "0.0605922",
+      "wall_seconds": 101.39072068198584,
+      "recorded_command_seconds": 23.749898012013023,
+      "role_seconds": {
+        "dependency": 0.502089,
+        "configure": 5.094822090002708,
+        "build": 3.356164882017765,
+        "smoke": 14.619411532999948,
+        "artifact_stage": 0.17741050699260086
+      },
+      "replay_total_seconds": 27.527272,
+      "other_wall_seconds": 50.113550669972824,
+      "initial_requests": 9,
+      "recovery_requests": 0,
+      "initial_cost_usd": "0.0605922",
+      "recovery_cost_usd": "0",
+      "response_cost_matches_ledger": true,
+      "response_tokens": {
+        "input": 190102,
+        "output": 2968
+      },
+      "response_models": {
+        "deepseek-flash": 9
+      },
+      "recovery_episodes": 0,
+      "direct_actions": 0,
+      "retrieval_events": 9,
+      "retrieval_with_material": 9,
+      "retrieval_with_updated_material": 9,
+      "retrieval_bytes": 88848,
+      "retrieved_source_ids": [
+        "E30-slot-1",
+        "update-task-9"
+      ],
+      "available_updated_source_ids": [
+        "update-task-9"
+      ],
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "original_test_observations": [
+        {
+          "step_id": "check",
+          "attempts": 1,
+          "status": "passed"
+        }
+      ],
+      "smoke_command_observations": 1,
+      "original_tests_status": "passed",
+      "verification_status": "passed",
+      "replay_status": "passed",
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "error_class": null,
+      "error": null,
+      "proposal_rejections": [],
+      "command_counts": {
+        "dependency": 1,
+        "configure": 1,
+        "build": 1,
+        "smoke": 1,
+        "artifact_stage": 1
+      },
+      "failed_commands": []
+    }
+  ],
+  "updates": [
+    {
+      "after_slot": 1,
+      "entries": 2,
+      "usage": {
+        "requested_model": "gpt-6-astra",
+        "response_model": "gpt-5.6",
+        "backend_identity_verified": false,
+        "input_tokens": 7723,
+        "output_tokens": 2473,
+        "total_tokens": 10196,
+        "cost_usd": "0.010196",
+        "wall_seconds": 29.160915717016906,
+        "price_basis": {
+          "astra_input_per_million_usd": "1",
+          "astra_output_per_million_usd": "1",
+          "basis": "用户2026-11-02明确提供每百万Token1美元，输入输出均按该费率估计，非服务商账单"
+        }
+      }
+    },
+    {
+      "after_slot": 4,
+      "entries": 2,
+      "usage": {
+        "requested_model": "gpt-6-astra",
+        "response_model": "gpt-5.6",
+        "backend_identity_verified": false,
+        "input_tokens": 13399,
+        "output_tokens": 1560,
+        "total_tokens": 14959,
+        "cost_usd": "0.014959",
+        "wall_seconds": 20.356096943025477,
+        "price_basis": {
+          "astra_input_per_million_usd": "1",
+          "astra_output_per_million_usd": "1",
+          "basis": "用户2026-11-02明确提供每百万Token1美元，输入输出均按该费率估计，非服务商账单"
+        }
+      }
+    },
+    {
+      "after_slot": 5,
+      "entries": 2,
+      "usage": {
+        "requested_model": "gpt-6-astra",
+        "response_model": "gpt-5.6",
+        "backend_identity_verified": false,
+        "input_tokens": 7780,
+        "output_tokens": 1515,
+        "total_tokens": 9295,
+        "cost_usd": "0.009295",
+        "wall_seconds": 18.769256594008766,
+        "price_basis": {
+          "astra_input_per_million_usd": "1",
+          "astra_output_per_million_usd": "1",
+          "basis": "用户2026-11-02明确提供每百万Token1美元，输入输出均按该费率估计，非服务商账单"
+        }
+      }
+    },
+    {
+      "after_slot": 8,
+      "entries": 2,
+      "usage": {
+        "requested_model": "gpt-6-astra",
+        "response_model": "gpt-5.6",
+        "backend_identity_verified": false,
+        "input_tokens": 5158,
+        "output_tokens": 1340,
+        "total_tokens": 6498,
+        "cost_usd": "0.006498",
+        "wall_seconds": 19.427470838010777,
+        "price_basis": {
+          "astra_input_per_million_usd": "1",
+          "astra_output_per_million_usd": "1",
+          "basis": "用户2026-11-02明确提供每百万Token1美元，输入输出均按该费率估计，非服务商账单"
+        }
+      }
+    },
+    {
+      "after_slot": 9,
+      "entries": 2,
+      "usage": {
+        "requested_model": "gpt-6-astra",
+        "response_model": "gpt-5.6",
+        "backend_identity_verified": false,
+        "input_tokens": 2598,
+        "output_tokens": 1097,
+        "total_tokens": 3695,
+        "cost_usd": "0.003695",
+        "wall_seconds": 15.477172941027675,
+        "price_basis": {
+          "astra_input_per_million_usd": "1",
+          "astra_output_per_million_usd": "1",
+          "basis": "用户2026-11-02明确提供每百万Token1美元，输入输出均按该费率估计，非服务商账单"
+        }
+      }
+    },
+    {
+      "after_slot": 12,
+      "entries": 2,
+      "usage": {
+        "requested_model": "gpt-6-astra",
+        "response_model": "gpt-5.6",
+        "backend_identity_verified": false,
+        "input_tokens": 6226,
+        "output_tokens": 1371,
+        "total_tokens": 7597,
+        "cost_usd": "0.007597",
+        "wall_seconds": 17.28124907804886,
+        "price_basis": {
+          "astra_input_per_million_usd": "1",
+          "astra_output_per_million_usd": "1",
+          "basis": "用户2026-11-02明确提供每百万Token1美元，输入输出均按该费率估计，非服务商账单"
+        }
+      }
+    }
+  ],
+  "update_cost_usd": "0.052240",
+  "update_request_wall_seconds": 120.47216211113846,
+  "update_cost_in_original_result_usd": "0.052240",
+  "update_receipts": [
+    {
+      "folder": "update-1",
+      "requested_model": "gpt-6-astra",
+      "response_model": "gpt-5.6",
+      "backend_identity_verified": false,
+      "input_tokens": 7723,
+      "output_tokens": 2473,
+      "total_tokens": 10196,
+      "cost_usd": "0.010196",
+      "wall_seconds": 29.160915717016906,
+      "price_basis": {
+        "astra_input_per_million_usd": "1",
+        "astra_output_per_million_usd": "1",
+        "basis": "用户2026-11-02明确提供每百万Token1美元，输入输出均按该费率估计，非服务商账单"
+      }
+    },
+    {
+      "folder": "update-12",
+      "requested_model": "gpt-6-astra",
+      "response_model": "gpt-5.6",
+      "backend_identity_verified": false,
+      "input_tokens": 6226,
+      "output_tokens": 1371,
+      "total_tokens": 7597,
+      "cost_usd": "0.007597",
+      "wall_seconds": 17.28124907804886,
+      "price_basis": {
+        "astra_input_per_million_usd": "1",
+        "astra_output_per_million_usd": "1",
+        "basis": "用户2026-11-02明确提供每百万Token1美元，输入输出均按该费率估计，非服务商账单"
+      }
+    },
+    {
+      "folder": "update-4",
+      "requested_model": "gpt-6-astra",
+      "response_model": "gpt-5.6",
+      "backend_identity_verified": false,
+      "input_tokens": 13399,
+      "output_tokens": 1560,
+      "total_tokens": 14959,
+      "cost_usd": "0.014959",
+      "wall_seconds": 20.356096943025477,
+      "price_basis": {
+        "astra_input_per_million_usd": "1",
+        "astra_output_per_million_usd": "1",
+        "basis": "用户2026-11-02明确提供每百万Token1美元，输入输出均按该费率估计，非服务商账单"
+      }
+    },
+    {
+      "folder": "update-5",
+      "requested_model": "gpt-6-astra",
+      "response_model": "gpt-5.6",
+      "backend_identity_verified": false,
+      "input_tokens": 7780,
+      "output_tokens": 1515,
+      "total_tokens": 9295,
+      "cost_usd": "0.009295",
+      "wall_seconds": 18.769256594008766,
+      "price_basis": {
+        "astra_input_per_million_usd": "1",
+        "astra_output_per_million_usd": "1",
+        "basis": "用户2026-11-02明确提供每百万Token1美元，输入输出均按该费率估计，非服务商账单"
+      }
+    },
+    {
+      "folder": "update-8",
+      "requested_model": "gpt-6-astra",
+      "response_model": "gpt-5.6",
+      "backend_identity_verified": false,
+      "input_tokens": 5158,
+      "output_tokens": 1340,
+      "total_tokens": 6498,
+      "cost_usd": "0.006498",
+      "wall_seconds": 19.427470838010777,
+      "price_basis": {
+        "astra_input_per_million_usd": "1",
+        "astra_output_per_million_usd": "1",
+        "basis": "用户2026-11-02明确提供每百万Token1美元，输入输出均按该费率估计，非服务商账单"
+      }
+    },
+    {
+      "folder": "update-9",
+      "requested_model": "gpt-6-astra",
+      "response_model": "gpt-5.6",
+      "backend_identity_verified": false,
+      "input_tokens": 2598,
+      "output_tokens": 1097,
+      "total_tokens": 3695,
+      "cost_usd": "0.003695",
+      "wall_seconds": 15.477172941027675,
+      "price_basis": {
+        "astra_input_per_million_usd": "1",
+        "astra_output_per_million_usd": "1",
+        "basis": "用户2026-11-02明确提供每百万Token1美元，输入输出均按该费率估计，非服务商账单"
+      }
+    }
+  ],
+  "update_unknown_usage": 0,
+  "update_cost_matches_original": true,
+  "unobserved": [],
+  "stop_reason": null,
+  "cost_recomputed": true,
+  "provenance": {
+    "result.json": "2583085d69d6b42bbfe4ed7fbb0264e9f466561fb61b6e713a19730d318f3432",
+    "protocol.json": "d72ab1c0830bf3b303aec48104bc843ff419f3eef24af56580acbf4877c7ed9b",
+    "execution.json": "775b7104829614a3ad276905acc3df60e63ecd2a42f7471c4d916913257ce138"
+  }
+}

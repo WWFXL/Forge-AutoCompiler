@@ -1,10 +1,10 @@
 # 硕士论文实验与证据索引
 
-核对日期：2026-11-02。研究主线：面向 C/C++ 仓库自动化构建的状态感知动作选择与验证方法研究。跟踪：[Issue #642](https://github.com/WWFXL/Forge-AutoCompiler/issues/642)。
+核对日期：2026-11-03。研究主线：面向 C/C++ 仓库自动化构建的状态感知动作选择与验证方法研究。跟踪：[Issue #642](https://github.com/WWFXL/Forge-AutoCompiler/issues/642)。
 
 本文回答“哪些结果可以写进论文、放在哪一部分、能够说明什么、到哪里取数”。它是论文选材入口；数值以链接的版本化报告/分析及冻结原始证据为准，当前研究阶段以 [RESEARCH_STATUS.md](../../RESEARCH_STATUS.md) 为准。
 
-2026-11-02已建立[七章阶段初稿](../thesis/README.md)及[正文证据对应](../thesis/EVIDENCE_MAP.md)，复用下述结果，不新增实验编号或分母。第4章工具局部恢复已实现并由E34独立比较；第5章经验方法仍为拟研究内容。
+已建立[七章阶段初稿](../thesis/README.md)及[正文证据对应](../thesis/EVIDENCE_MAP.md)，复用下述结果，不因写作增加实验分母。第4章工具局部恢复由E34独立比较；第5章经验提炼、检索、注入和追加已实现，新增效果由E35及独立更新比较分别回答。
 
 方法章节的实际实现图及“阶段—观测—状态—动作”表见[当前方法说明](2026-10-29-state-action-method.md)。[E33](#e33)为原未启动24槽的完整独立续段，Forge／强工具为主要同判定比较；CXX仅作实现参考。[E32](#e32)原中断与42分母保持，[E31](#e31)仅作准备。
 
@@ -21,9 +21,12 @@
 | 外部方法参考与局限 | [E33](#e33)、[E30](#e30)，辅以[E32](#e32)、[E07](#e07) | 当前Forge与可运行CXXCrafter社区版有什么差异和失败案例？ |
 | 成本解释与负面结果 | [E09](#e09)、[E10](#e10)、[E13](#e13)、[E20](#e20) | 为何请求少未必便宜，模板覆盖扩大未必提高效率？ |
 | 历史Harness/选择器研究 | [E21](#e21)至[E23](#e23) | 过去观察到哪些收益，又为何没有直接成为当前主线结论？ |
+| 构建经验复用与更新 | [E35](#e35)、[E36](#e36) | 三经验处理及独立固定/更新库有何完成、费用和时间取舍？ |
 | 系统实现与任务可执行性 | [E26](#e26)至[E28](#e28)、[E31](#e31) | 接口、状态分派和参考任务是否实际可运行？ |
 
 **最新恢复接口结果**：[E34](#e34)原20槽及独立修复后8槽已完成；局部工具真实交还跑通，但修复后同等完成时费用/时间总体更高。两批分别保留。
+
+**最新经验结果**：[E35](#e35)主36槽已完整采集，结构化不支持总体优势，保留inja局部节约；[E36](#e36)独立12槽两库各5/6，更新组含提炼费后费用低8.7%、累计时间低7.3%，但仅两任务实际检索新来源，属于探索性线索。两批不合并估效果。
 
 **独立续段结果**：[E33](#e33)完成24/24真实槽，Forge/强工具/CXX参考完整6/8、5/8、6/8；五组Forge/强工具共同完成任务中，Forge估费低15.4%、时间高3.4%，保留取舍。CXX默认smoke差异与裁判启动错误限制三方排名。此前[E30](#e30)48次系统比较、[E01](#e01)30槽组件消融和[E04](#e04)恢复消融继续各自使用，不合并分母。
 
@@ -37,6 +40,14 @@
 重复次数不等于独立项目数；各批模型、接口和任务版本不同，不把不同批次合成一个成功率或以跨批相减估计组件效果。分层分析会重复消费原运行，不能再算一份独立实验数据。费用使用各批冻结费率的估算，包含失败和恢复，不能当作实际账单；零恢复费用不代表初始规划免费。所有失败/未完成保留，未运行的测试、交付或重放记未观察。
 
 ## 正文候选：完整比较与组件消融
+
+<a id="e35"></a>
+### E35 状态关联构建经验的36次完整比较
+
+- **问题/设计**：`cpp-build-state-experience-route-comparison-flash-v1`，六项目×两重复×无经验/原轨迹片段/结构化经验=36/36终结。Flash、GoalStateWorkflow、方案式恢复、原测试/源码/精确交付/完整replay保持；种子来自另8族12条历史轨迹，不读私人知识库或正确参考配方。
+- **主要结果**：完整12/12、12/12、8/12；请求57/68/55，在线估费$0.3537090/$0.4819332/$0.4076562，累计35.69/37.65/30.89分钟。结构化加一次新种子$0.095129后为$0.5027852；原停止请求$0.014068另计。原轨迹比无经验费高36.3%、时间高5.5%；结构化不支持总体优势，四次早停不能当加速。inja结构化两次各4请求、无经验9/7，在线费低39.8%、时间一优一劣，保留局部现象。
+- **论文用途/边界**：第5章实际经验表示、检索/更新算法；第6章表6-12/6-13及图6-2的完整负向/条件性比较。结构化四次未完整涉及路径、修订格式和两次工具探测角色误判，原测试/交付/replay均未观察；不能全归为经验有害。评价已开发暴露、两重复非独立项目；上下文实际Token/来源不同，非纯格式或状态匹配单因素因果。复用历史轨迹不包含其原始采集成本，不证明一般自进化。
+- **模型披露/定位**：提炼请求RichLab gpt-6-astra但响应gpt-5.6；用户接受披露后以独立身份继续，不能证明实际后端为Astra或更强。见[报告](2026-11-03-state-experience-comparison-results.md)、[分析](../../benchmarks/analyses/cpp-build-state-experience-route-comparison-flash-v1/analysis.json)/[CSV](../../benchmarks/analyses/cpp-build-state-experience-route-comparison-flash-v1/slots.csv)、[提取器](../../scripts/forge_analyze_experience.py)、[两次角色误判](../../benchmarks/analyses/cpp-build-state-experience-route-comparison-flash-v1/plan-guard-cases.json)，同身份manifest及路由披露preregistration。raw `/home/yiwei/.codex/outputs/forge-state-experience-route-comparison-flash-v1`，release bb08aaaa，inventory d86251aa674f4dec07b28dc81d572c83b2e9ac643b3ccb472688d35c578d55dd。180在线请求/3526682 Token/$1.2432984，用量已知、源码链接/cleanup全过；准备费用另列在报告。
 
 <a id="e34"></a>
 ### E34 同初始方案的返回方案／工具局部恢复比较
@@ -107,6 +118,14 @@
 - **定位**：`cpp-build-strategy-replication-v1`；[报告](2026-10-23-strategy-replication-results.md)、[分析](../../benchmarks/analyses/cpp-build-strategy-replication-v1-results.json)、[预注册](../../benchmarks/preregistrations/cpp-build-strategy-replication-v1.md)。raw：`/home/yiwei/.codex/outputs/forge-strategy-replication-v1`；inventory `68ddf187317a716f6eb4b98de9a234b948b3c93d927705bc6885e83f1fdeb9f7`。
 
 ## 补充分析与案例：保留收益、代价和失败
+
+<a id="e36"></a>
+### E36 同种子固定库／任务后更新的独立12次比较
+
+- **问题/设计**：`cpp-build-experience-route-update-flash-v1`，同六项目×固定/更新库各一次，12/12终结。共同原种子、Flash和基础Workflow/方案式恢复；不消费E35结果，任务后追加仅供后续不同项目使用，顺序预先固定、两方法位置交错。
+- **主要结果**：双方5/6完整；固定/更新在线40/28请求、$0.2622588/$0.1871886、累计16.19/13.00分钟。全部6次任务后提炼新增12条，$0.052240、120.472秒，含末任务；更新边际总费$0.2394286、加提炼15.01分钟，相对固定低8.7%/7.3%。共同5完整对在线费用/时间低23.9%/10.2%，仅辅助且不含更新分摊，不替代主表。
+- **用途/边界**：第6章表6-14/6-15及图6-3，作为探索性更新结果及失败经验形成案例。3任务有先前同系统新来源，仅inja/libsrtp实际检索；highwayhash差异发生于无新Make来源时，不能归为学习。libsigcplusplus两边均未完整但原因不同：更新工具探测误判、固定错误路径后恢复材料超限；原完整测试/交付/replay未观察。每项目一次、顺序固定、评价已暴露，不能证明一般持续学习或将全部差异归于新经验；失败经验还存在建议与实际拒绝步骤未对齐的案例。正向信号可继续研究，不把检索命中等同因果改善。
+- **定位**：[报告](2026-11-03-state-experience-comparison-results.md)、[分析](../../benchmarks/analyses/cpp-build-experience-route-update-flash-v1/analysis.json)/[CSV](../../benchmarks/analyses/cpp-build-experience-route-update-flash-v1/slots.csv)、[工具探测案例](../../benchmarks/analyses/cpp-build-experience-route-update-flash-v1/plan-guard-cases.json)。raw `/home/yiwei/.codex/outputs/forge-experience-route-update-flash-v1`，release bb08aaaa，inventory7d4109a790df0ee480bfb851db1cb207a2e7fd4a74df55700ae6d07f5d178045。68在线＋6提炼请求、所有用量已知、源码/链接及cleanup通过，完整10槽原测试/交付/replay通过；同报告保存与E35不同的固定分母及所有失败。
 
 <a id="e32"></a>
 ### E32 新项目系统比较的部分观察与运行中断（固定42分母）

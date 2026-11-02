@@ -1,6 +1,6 @@
 # 历史研究材料目录
 
-登记日期：2026-11-02；存量基线：`b659064ca0ea3c83ae30482f8bb4397008974def`。
+登记日期：2026-11-03；存量基线：`b659064ca0ea3c83ae30482f8bb4397008974def`。
 
 本次完整登记Git中`docs/research/`与`benchmarks/reports/`两处的211份既有Markdown材料（不含本索引/目录本身、HTML展示稿、协议目录和原始大文件）。其中28份已在[论文证据索引](THESIS_EVIDENCE_INDEX.md)说明用途，其余183份保持“待逐项复核”。文件数不是实验数；一份报告可能涉及多个身份，一次运行也可能被多个分析消费。
 
@@ -12,6 +12,7 @@
 
 |文件|论文登记|
 |---|---|
+|[2026-11-03-state-experience-comparison-results.md](2026-11-03-state-experience-comparison-results.md)|[E35](THESIS_EVIDENCE_INDEX.md#e35)完整36次经验复用；[E36](THESIS_EVIDENCE_INDEX.md#e36)独立12次任务后更新。两个分母分开；保留局部/探索性收益、总体未占优及失败归因案例|
 |[2026-11-02-local-tool-recovery-comparison-results.md](2026-11-02-local-tool-recovery-comparison-results.md)|[E34](THESIS_EVIDENCE_INDEX.md#e34)：原20槽与独立材料修复后8槽恢复接口比较；保留失败、费用/时间负向结果及交还轨迹|
 |[2026-10-30-new-project-continuation-results.md](2026-10-30-new-project-continuation-results.md)|[E33](THESIS_EVIDENCE_INDEX.md#e33)：24槽真实独立续段，Forge/强工具主要比较，CXX参考及裁判边界；含原轨迹再分析与0Provider事后诊断|
 |[2026-10-29-new-project-continuation-preparation.md](2026-10-29-new-project-continuation-preparation.md)|[E31](THESIS_EVIDENCE_INDEX.md#e31)：原未启动24槽独立续段的工程准备，0新增模型效果；原E32分母不变|
