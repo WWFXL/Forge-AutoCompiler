@@ -16,7 +16,7 @@ flowchart TB
     V -->|可恢复且资源允许| A
     S -->|运行资源不足或不可恢复| X[停止并保留实际结果]
 
-    subgraph E[拟研究：跨任务经验驱动Harness改进，尚未接入]
+    subgraph E[跨任务经验改进：已接入研究入口，虚线为经验数据流]
         H[历次构建轨迹＋各层验证结果] -.-> Q[提炼经验：触发条件、动作、结果与适用边界]
         Q -.-> K[经验库：有效方案、局部线索与无效尝试]
         K -.-> M[结合后续任务目标和状态检索，判断适用性]
@@ -29,11 +29,11 @@ flowchart TB
     classDef existing fill:#edf4ff,stroke:#3d66a5,color:#172c48;
     classDef direct fill:#e9f5ed,stroke:#38875b,color:#174a2e;
     classDef agent fill:#fff1e6,stroke:#ba6b2b,color:#6d3510;
-    classDef future fill:#f5efff,stroke:#9270b4,color:#493169,stroke-dasharray:5 4;
+    classDef experience fill:#f5efff,stroke:#9270b4,color:#493169,stroke-dasharray:5 4;
     class T,P,B,W,O,S,N,R,V,F,X existing;
     class D direct;
     class A agent;
-    class H,Q,K,M future;
+    class H,Q,K,M experience;
 
 %% 当前配置语义主要覆盖显式CMake BOOL目标；Make/Autotools主要为阶段Workflow＋失败Agent。
 %% Agent修订不改变源码、原测试或验收；经验检索不自动成为直接执行规则。

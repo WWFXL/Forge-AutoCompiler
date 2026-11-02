@@ -8,6 +8,7 @@ import json
 import re
 import shutil
 import sys
+from datetime import date
 from pathlib import Path
 
 
@@ -23,7 +24,9 @@ def headings(text: str) -> list[tuple[int, str]]:
     return result
 
 
-def make_docx(rendered: str, target: Path, title: str, version: str) -> dict:
+def make_docx(
+    rendered: str, target: Path, title: str, version: str, export_date: str
+) -> dict:
     from docx import Document
     from docx.enum.table import WD_TABLE_ALIGNMENT
     from docx.enum.text import WD_ALIGN_PARAGRAPH
@@ -38,7 +41,7 @@ def make_docx(rendered: str, target: Path, title: str, version: str) -> dict:
     section.top_margin, section.bottom_margin = Cm(2.3), Cm(2.3)
     section.left_margin, section.right_margin = Cm(2.5), Cm(2.3)
     document.core_properties.title = title
-    document.core_properties.subject = f"硕士论文阶段初稿{version}，2026-11-02"
+    document.core_properties.subject = f"硕士论文阶段初稿{version}，{export_date}"
     document.core_properties.author = ""
 
     def font(style, name, size):
@@ -62,7 +65,7 @@ def make_docx(rendered: str, target: Path, title: str, version: str) -> dict:
         fmt.space_before, fmt.space_after = Pt(12), Pt(7)
 
     header = section.header.paragraphs[0]
-    header.text = f"Forge · 硕士论文阶段初稿 {version} · 2026-11-02"
+    header.text = f"Forge · 硕士论文阶段初稿 {version} · {export_date}"
     header.style = document.styles["Normal"]
     for run in header.runs:
         run.font.size = Pt(8)
@@ -179,6 +182,7 @@ def main() -> None:
     parser.add_argument("--output-dir", type=Path, required=True)
     parser.add_argument("--deps-dir", type=Path)
     parser.add_argument("--version", default="v0.1")
+    parser.add_argument("--date", default=date.today().isoformat())
     args = parser.parse_args()
     if not re.fullmatch(r"v[0-9]+(?:\.[0-9]+)+", args.version):
         parser.error("版本使用v0.1等数字格式")
@@ -216,8 +220,9 @@ def main() -> None:
     shutil.copytree(source_root / "figures", output / "figures", dirs_exist_ok=True)
     summary = {
         "version": args.version,
-        "date": "2026-11-02",
+        "date": args.date,
         "source": str(source_root),
+        "operation": "仅生成阅读副本；以下新增调用数不表示正文的历史实验数量",
         "chapters": [path.name for path, _ in texts],
         "main_chapters": 7,
         "source_characters": sum(len(text) for _, text in texts),
@@ -257,7 +262,7 @@ code{overflow-wrap:anywhere}blockquote{border-left:4px solid #a7b9d0;margin-left
         # Word图片使用绝对路径，HTML/Markdown图片仍相对输出目录。
         word_html = rendered.replace('src="figures/', f'src="{output}/figures/')
         summary["word"] = make_docx(
-            word_html, output / f"{filename}.docx", title, args.version
+            word_html, output / f"{filename}.docx", title, args.version, args.date
         )
     (output / "build-summary.json").write_text(
         json.dumps(summary, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"

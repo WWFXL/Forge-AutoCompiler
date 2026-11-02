@@ -1,0 +1,17 @@
+[
+  {
+    "slot": 9,
+    "plan": "/home/yiwei/.codex/outputs/forge-experience-route-update-flash-v1/slot-9/libsigcplusplus-plan/agent/plan-1.json",
+    "plan_sha256": "67af09189936e8d60e683cf1f4cdd792bb72c1ac19b228220e1031d4148c9bd3",
+    "step_id": "deps-toolchain",
+    "declared_role": "dependency",
+    "command": "command -v mm-common-prepare >/dev/null 2>&1 && command -v autoreconf >/dev/null 2>&1 && command -v automake >/dev/null 2>&1 && command -v libtoolize >/dev/null 2>&1 && command -v m4 >/dev/null 2>&1 && command -v g++ >/dev/null 2>&1 && command -v make >/dev/null 2>&1 || (apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y mm-common autoconf automake libtool m4 g++ make pkg-config)",
+    "inferred_roles": [
+      "build",
+      "configure",
+      "dependency_setup"
+    ],
+    "disables_strict_shell": false,
+    "operation": "posthoc_static_check_no_execution"
+  }
+]

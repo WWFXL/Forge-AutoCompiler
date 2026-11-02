@@ -1,0 +1,31 @@
+[
+  {
+    "slot": 30,
+    "plan": "/home/yiwei/.codex/outputs/forge-state-experience-route-comparison-flash-v1/slot-30/highwayhash-plan/agent/plan-1.json",
+    "plan_sha256": "734abcc9aaf4a42f2a610278f0ddf828a07d34a1de536c4585b35b9f5e6f4cf1",
+    "step_id": "toolchain",
+    "declared_role": "dependency",
+    "command": "set -e; if ! command -v g++ >/dev/null 2>&1 || ! command -v make >/dev/null 2>&1 || ! command -v ar >/dev/null 2>&1; then apt-get update && apt-get install -y --no-install-recommends build-essential; fi; command -v g++; command -v make; command -v ar",
+    "inferred_roles": [
+      "build",
+      "dependency_setup"
+    ],
+    "disables_strict_shell": false,
+    "operation": "posthoc_static_check_no_execution"
+  },
+  {
+    "slot": 31,
+    "plan": "/home/yiwei/.codex/outputs/forge-state-experience-route-comparison-flash-v1/slot-31/libsigcplusplus-plan/agent/plan-1.json",
+    "plan_sha256": "87c5ad5a7b4ec35435186be66fbb5b10bcd25351d2d61a84333f17b1bd9a7b56",
+    "step_id": "dep-tools",
+    "declared_role": "dependency",
+    "command": "sh -c 'command -v mm-common-prepare >/dev/null && command -v autoreconf >/dev/null && command -v libtoolize >/dev/null && command -v automake >/dev/null && command -v autoconf >/dev/null && command -v m4 >/dev/null && command -v make >/dev/null && command -v g++ >/dev/null || (apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y mm-common autoconf automake libtool m4 make g++ pkg-config)'",
+    "inferred_roles": [
+      "build",
+      "configure",
+      "dependency_setup"
+    ],
+    "disables_strict_shell": false,
+    "operation": "posthoc_static_check_no_execution"
+  }
+]

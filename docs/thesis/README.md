@@ -1,51 +1,47 @@
 # Forge 硕士论文阶段初稿
 
-日期：2026-11-02；版本：v0.2；跟踪：[Issue #654基础稿](https://github.com/WWFXL/Forge-AutoCompiler/issues/654)、[Issue #655局部恢复及比较](https://github.com/WWFXL/Forge-AutoCompiler/issues/655)。
+日期：2026-11-03；版本：v0.3；本轮跟踪：[Issue #658](https://github.com/WWFXL/Forge-AutoCompiler/issues/658)、[PR #659](https://github.com/WWFXL/Forge-AutoCompiler/pull/659)。
 
 暂定题目：**面向C/C++仓库自动化构建的状态感知动作选择与验证方法研究**。
 
-本目录保存可持续修改的论文源稿。它已经包含正文与已有结果分析；第5章的经验方法尚未完成；工具辅助局部恢复已实现，新增比较独立登记。当前不是可直接送审的定稿，也未套用尚未取得的学校正式模板。
+本目录保存按章维护的论文真源。第3/4章基础方法、第5章经验实现及第6章独立比较分别对应证据，不把新增组件写进旧实验条件。当前是可供审阅的阶段正文；学校正式模板、封面、声明和最终文献格式尚待补齐。
 
 ## 从哪里阅读
 
-- [完整目录](CONTENTS.md)：由当前正文标题生成。
-- `chapters/`：按章维护的Markdown正文，是后续修改真源。
-- [当前方法与系统图](figures/system-overview.png)：实线为已有研究主链，紫色虚线为拟研究经验模块；不表示所有研究控制器已统一进入Web产品入口。
-- [引用与证据映射](EVIDENCE_MAP.md)：实验、正文表格与权威报告的对应，以及版本边界。
-- [待补内容](TODO.md)：集中保存后续实现、实验和写作任务。
-- [参考文献BibTeX](references.bib)：已核验的六篇构建论文；其余暂按正文文献表中的官方网页/预印本入口引用，待最终格式化补全。
+- [完整目录](CONTENTS.md)与`chapters/`：正文修改真源，目录由导出程序生成。
+- [系统图](figures/system-overview.png)：实线为在线构建控制，紫色虚线为已实现的任务后经验与上下文数据流；虚线不表示效果已经证明，也不表示所有研究入口均已进入Web产品。
+- [正文—证据映射](EVIDENCE_MAP.md)：定位每张实验表的版本、分母与权威报告。
+- [本轮经验报告](../research/2026-11-03-state-experience-comparison-results.md)：完整主比较、独立更新、费用、失败及原始指针。
+- [待补清单](TODO.md)与[文献BibTeX](references.bib)：后续写作与正式著录入口。
 
-合并Markdown、Word和HTML阅读副本生成到Codex输出目录 `/home/yiwei/.codex/outputs/forge-thesis-local-recovery-2026-11-02/`，本轮另生成PDF阅读副本；v0.1基础稿保留在原导出目录及提交f35e7fd4/c4ee58bf。当前文件名前缀为`Forge-硕士论文阶段初稿-v0.2`。修改应回到本目录源稿，再生成副本。它们是同一稿件的派生格式，不维护为独立正文。
+v0.3派生Word/PDF/HTML/Markdown位置为`/home/yiwei/.codex/outputs/forge-thesis-experience-2026-11-03/`，文件名前缀`Forge-硕士论文阶段初稿-v0.3`。已实检52页PDF、25表3图，正文源稿约2.79万汉字；导出摘要与文件指纹见该目录的`build-summary.json`及`export-verification.json`。v0.2保留在`forge-thesis-local-recovery-2026-11-02/`，v0.1及其旧提交也保留。各格式都是同一正文的阅读副本，修改应回到本目录。
 
 ## 当前完成范围
 
-| 部分 | v0.2状态 |
+| 部分 | v0.3内容 |
 |---|---|
-| 摘要、绪论、相关研究 | 已形成阶段正文，摘要尚需随最终贡献调整；相关研究不是穷尽性综述 |
-| 第3章任务建模与框架 | 已写正文、符号说明、阶段与验证条件、架构图 |
-| 第4章状态与动作方法 | 已按现有代码写正文和伪代码，补充局部工具恢复实现、工具及交还条件 |
-| 第5章经验方法 | 已写研究设计与待验证假设；没有写成已完成方法或效果 |
-| 第6章实验 | 已组织E30/E33、E01/E02/E04、E34两批恢复比较与分层验证；保留失败和负向结果，经验实验待补 |
-| 第7章总结与展望 | 已写阶段性总结，最终结论待新增研究收束 |
-| 学校格式、封面、声明、致谢 | 未完成；需取得正式模板后处理，不虚构学校要求 |
+| 摘要、绪论、相关研究 | 按实际完成范围组织问题、贡献与文献定位，不称通用机制首创 |
+| 第3章 | 任务、阶段、目标、观测、验证条件与新系统数据流 |
+| 第4章 | 状态选择、直接动作、方案修订、后缀重执行及工具局部恢复 |
+| 第5章 | 实际经验schema、来源绑定、阶段/词项检索、上下文注入、任务后追加及两个算法 |
+| 第6章 | E30/E33系统结果、E01/E02/E04组件、E34恢复接口、E35/E36经验比较与独立更新、分层验证及正负案例 |
+| 第7章 | 根据对应版本的结果总结，区分方法可运行与效果成立 |
+| 附录 | 版本、主要运行参数、六项目源码版本及实验身份 |
+| 学校格式与个人信息 | 尚待正式模板及用户提供，不推断填写 |
 
 ## 编辑与生成
 
-按章编辑后执行：
-
 ```bash
 python3 docs/thesis/tools/build_draft.py \
-  --version v0.2 \
-  --output-dir /home/yiwei/.codex/outputs/forge-thesis-local-recovery-2026-11-02 \
+  --version v0.3 --date 2026-11-03 \
+  --output-dir /home/yiwei/.codex/outputs/forge-thesis-experience-2026-11-03 \
   --deps-dir /home/yiwei/.codex/outputs/forge-thesis-draft-2026-11-02/.doc-libs
 ```
 
-Markdown和目录可使用标准库生成；生成Word/HTML还需可用的`python-docx`与`Markdown`包。本轮只安装在外部输出目录的`.doc-libs`中，没有改动Forge依赖。其他环境中若已安装这两个包，可省略`--deps-dir`；PDF可再由LibreOffice转换Word生成。无需运行编译容器、调用Provider或产品全测。
+Word/HTML使用外部目录的`python-docx`、`Markdown`依赖；有系统安装可省略`--deps-dir`。PDF由LibreOffice从Word转换。图表由`render_system.py`和`scripts/plot_experience_results.py`生成PNG/SVG/PDF。文稿导出本身0 Provider，不代表本轮真实实验没有支出；无需为导出运行产品全测或编译容器。
 
-## 证据和能力边界
+## 证据与能力边界
 
-本稿基于研究revision `b0fc72a7bfd705fa4b5493038852e5ec29f5178f`指向的历史实验，以及2026-11-02新增E34两批局部恢复比较（运行release分别1f3863b4、13c89fb5）。各实验实际运行revision、任务和判定以其报告/清单为准，本稿不替换它们。
+基础系统继续使用E30/E33，配置增量用E01/E02解释；E34工具局部恢复和E35/E36经验比较各自独立。经验实验运行release bb08aaaa与公开准备提交6745dc5a的完整Git tree相同，源revision映射与最终发布以报告和PR为准。写作revision不替换实际实验revision。
 
-基础版本恢复返回修订方案，由Workflow执行；新增工具局部恢复已实现并独立比较，联网检索和经验改进仍为后续研究。E30/E33的系统收益不能全部归于未触发的直接配置动作；CXXCrafter社区实现仅作外部参考，不能声称完全同裁判论文原版排名。
-
-本轮已完成原20次及独立材料修复后8次真实比较，分别报告，不合成28次成功率。修复后两方式各4/4完整，局部工具含规划估费高33.2%、时间高14.5%；新增支出合计0.9468375美元。详见E34报告和第6章表6-8/6-9。导出程序自身不调用Provider，其摘要中的0调用不表示整轮没有实验。负向结果、原失败与未观察保留。知识库共识通过MCP维护，未在服务器复制私人Vault，也不注入实验Agent。
+E35无经验/原轨迹/结构化完整12/12、12/12、8/12，结构化不支持总体优势，保留inja局部节约和底座误判等失败原因。提炼请求RichLab gpt-6-astra、响应gpt-5.6已按用户确认披露，不能证明后端为Astra或更强。固定经验与任务后更新分别评价，不能由检索命中推出自进化。全部负向结果和未观察保留；私人知识库通过MCP同步，不复制Vault或注入实验Agent。

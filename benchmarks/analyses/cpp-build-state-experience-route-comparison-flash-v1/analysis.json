@@ -1,0 +1,2812 @@
+{
+  "identity": "cpp-build-state-experience-route-comparison-flash-v1",
+  "layer_semantics": "原测试状态为固定原命令的最后实际观察；不替代后续状态变化后的有效性，完整完成按strict_completed",
+  "summary": {
+    "no_experience": {
+      "planned": 12,
+      "observed": 12,
+      "complete": 12,
+      "unobserved": 0,
+      "requests": 57,
+      "cost_usd": "0.3537090",
+      "wall_minutes": 35.69129058106725,
+      "recorded_command_minutes": 12.934222883049133,
+      "replay_minutes": 13.592689483333334,
+      "other_wall_minutes": 9.164378214684781,
+      "initial_requests": 55,
+      "recovery_requests": 2,
+      "recovery_episodes": 1,
+      "direct_actions": 0,
+      "retrieval_with_material": 0,
+      "retrieval_events": 57,
+      "retrieval_material_bytes": 0,
+      "slots_with_updated_material": 0,
+      "slots_with_available_updated_material": 0,
+      "original_tests": {
+        "passed": 12
+      },
+      "verification": {
+        "passed": 12
+      },
+      "replay": {
+        "passed": 12
+      },
+      "statuses": {
+        "verified": 12
+      },
+      "recorded_tokens": 993900,
+      "input_tokens": 932190,
+      "output_tokens": 61710
+    },
+    "raw_trajectory": {
+      "planned": 12,
+      "observed": 12,
+      "complete": 12,
+      "unobserved": 0,
+      "requests": 68,
+      "cost_usd": "0.4819332",
+      "wall_minutes": 37.64829787183359,
+      "recorded_command_minutes": 13.167173720231334,
+      "replay_minutes": 13.560457583333335,
+      "other_wall_minutes": 10.920666568268922,
+      "initial_requests": 57,
+      "recovery_requests": 11,
+      "recovery_episodes": 3,
+      "direct_actions": 0,
+      "retrieval_with_material": 68,
+      "retrieval_events": 68,
+      "retrieval_material_bytes": 422524,
+      "slots_with_updated_material": 0,
+      "slots_with_available_updated_material": 0,
+      "original_tests": {
+        "passed": 12
+      },
+      "verification": {
+        "passed": 12
+      },
+      "replay": {
+        "passed": 12
+      },
+      "statuses": {
+        "verified": 12
+      },
+      "recorded_tokens": 1391848,
+      "input_tokens": 1320316,
+      "output_tokens": 71532
+    },
+    "structured_experience": {
+      "planned": 12,
+      "observed": 12,
+      "complete": 8,
+      "unobserved": 0,
+      "requests": 55,
+      "cost_usd": "0.4076562",
+      "wall_minutes": 30.890193218934776,
+      "recorded_command_minutes": 10.478829292101986,
+      "replay_minutes": 10.430300016666667,
+      "other_wall_minutes": 9.981063910166123,
+      "initial_requests": 44,
+      "recovery_requests": 11,
+      "recovery_episodes": 3,
+      "direct_actions": 1,
+      "retrieval_with_material": 55,
+      "retrieval_events": 55,
+      "retrieval_material_bytes": 436088,
+      "slots_with_updated_material": 0,
+      "slots_with_available_updated_material": 0,
+      "original_tests": {
+        "unobserved": 4,
+        "passed": 8
+      },
+      "verification": {
+        "unobserved": 4,
+        "passed": 8
+      },
+      "replay": {
+        "unobserved": 4,
+        "passed": 8
+      },
+      "statuses": {
+        "budget_exhausted": 1,
+        "verified": 8,
+        "stopped": 3
+      },
+      "recorded_tokens": 1140934,
+      "input_tokens": 1068294,
+      "output_tokens": 72640
+    }
+  },
+  "paired_descriptive": [
+    {
+      "left": "no_experience",
+      "right": "raw_trajectory",
+      "matched": 12,
+      "left_only_complete": 0,
+      "right_only_complete": 0,
+      "common_complete": 12,
+      "common_complete_left_cost_usd": "0.3537090",
+      "common_complete_right_cost_usd": "0.4819332",
+      "common_complete_left_wall_seconds": 2141.477434864035,
+      "common_complete_right_wall_seconds": 2258.8978723100154
+    },
+    {
+      "left": "no_experience",
+      "right": "structured_experience",
+      "matched": 12,
+      "left_only_complete": 4,
+      "right_only_complete": 0,
+      "common_complete": 8,
+      "common_complete_left_cost_usd": "0.2525577",
+      "common_complete_right_cost_usd": "0.2930241",
+      "common_complete_left_wall_seconds": 1510.963958200009,
+      "common_complete_right_wall_seconds": 1650.834305088094
+    },
+    {
+      "left": "raw_trajectory",
+      "right": "structured_experience",
+      "matched": 12,
+      "left_only_complete": 4,
+      "right_only_complete": 0,
+      "common_complete": 8,
+      "common_complete_left_cost_usd": "0.3240969",
+      "common_complete_right_cost_usd": "0.2930241",
+      "common_complete_left_wall_seconds": 1780.4358037700295,
+      "common_complete_right_wall_seconds": 1650.834305088094
+    }
+  ],
+  "slots": [
+    {
+      "slot": 1,
+      "project": "jsoncpp",
+      "method": "no_experience",
+      "repetition": 1,
+      "complete": true,
+      "status": "verified",
+      "requests": 6,
+      "cost_usd": "0.0382662",
+      "wall_seconds": 112.25820405501872,
+      "recorded_command_seconds": 21.26489812492785,
+      "role_seconds": {
+        "dependency": 0.264942,
+        "configure": 2.02411233499879,
+        "build": 15.83272066799691,
+        "smoke": 2.967662553943228,
+        "artifact_stage": 0.17546056798892096
+      },
+      "replay_total_seconds": 24.238108,
+      "other_wall_seconds": 66.75519793009087,
+      "initial_requests": 4,
+      "recovery_requests": 2,
+      "initial_cost_usd": "0.0200058",
+      "recovery_cost_usd": "0.0182604",
+      "response_cost_matches_ledger": true,
+      "response_tokens": {
+        "input": 101038,
+        "output": 6629
+      },
+      "response_models": {
+        "deepseek-flash": 6
+      },
+      "recovery_episodes": 1,
+      "direct_actions": 0,
+      "retrieval_events": 6,
+      "retrieval_with_material": 0,
+      "retrieval_with_updated_material": 0,
+      "retrieval_bytes": 0,
+      "retrieved_source_ids": [],
+      "available_updated_source_ids": [],
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "original_test_observations": [
+        {
+          "step_id": "check",
+          "attempts": 1,
+          "status": "passed"
+        }
+      ],
+      "smoke_command_observations": 2,
+      "original_tests_status": "passed",
+      "verification_status": "passed",
+      "replay_status": "passed",
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "error_class": null,
+      "error": null,
+      "proposal_rejections": [],
+      "command_counts": {
+        "dependency": 1,
+        "configure": 1,
+        "build": 2,
+        "smoke": 2,
+        "artifact_stage": 1
+      },
+      "failed_commands": [
+        {
+          "role": "build",
+          "command_id": "command_c5f8f31c009c49a6bf4701b96765c992",
+          "exit_code": 86,
+          "timed_out": false
+        }
+      ]
+    },
+    {
+      "slot": 2,
+      "project": "jsoncpp",
+      "method": "raw_trajectory",
+      "repetition": 1,
+      "complete": true,
+      "status": "verified",
+      "requests": 6,
+      "cost_usd": "0.0381216",
+      "wall_seconds": 85.64533336396562,
+      "recorded_command_seconds": 21.056184075030767,
+      "role_seconds": {
+        "dependency": 0.42972798000861706,
+        "configure": 2.0135102799977176,
+        "build": 15.484951903985348,
+        "smoke": 2.953704708022997,
+        "artifact_stage": 0.1742892030160874
+      },
+      "replay_total_seconds": 24.187864,
+      "other_wall_seconds": 40.401285288934844,
+      "initial_requests": 6,
+      "recovery_requests": 0,
+      "initial_cost_usd": "0.0381216",
+      "recovery_cost_usd": "0",
+      "response_cost_matches_ledger": true,
+      "response_tokens": {
+        "input": 111256,
+        "output": 3954
+      },
+      "response_models": {
+        "deepseek-flash": 6
+      },
+      "recovery_episodes": 0,
+      "direct_actions": 0,
+      "retrieval_events": 6,
+      "retrieval_with_material": 6,
+      "retrieval_with_updated_material": 0,
+      "retrieval_bytes": 54882,
+      "retrieved_source_ids": [
+        "E30-slot-10",
+        "E30-slot-6",
+        "E30-slot-9"
+      ],
+      "available_updated_source_ids": [],
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "original_test_observations": [
+        {
+          "step_id": "check",
+          "attempts": 1,
+          "status": "passed"
+        }
+      ],
+      "smoke_command_observations": 2,
+      "original_tests_status": "passed",
+      "verification_status": "passed",
+      "replay_status": "passed",
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "error_class": null,
+      "error": null,
+      "proposal_rejections": [],
+      "command_counts": {
+        "dependency": 2,
+        "configure": 1,
+        "build": 1,
+        "smoke": 2,
+        "artifact_stage": 1
+      },
+      "failed_commands": []
+    },
+    {
+      "slot": 3,
+      "project": "jsoncpp",
+      "method": "structured_experience",
+      "repetition": 1,
+      "complete": false,
+      "status": "budget_exhausted",
+      "requests": 7,
+      "cost_usd": "0.0493284",
+      "wall_seconds": 88.81151945801685,
+      "recorded_command_seconds": 20.835148196044273,
+      "role_seconds": {
+        "dependency": 0.271012,
+        "configure": 4.40624432900222,
+        "build": 16.157891867042053
+      },
+      "replay_total_seconds": 0,
+      "other_wall_seconds": 67.97637126197257,
+      "initial_requests": 5,
+      "recovery_requests": 2,
+      "initial_cost_usd": "0.0285570",
+      "recovery_cost_usd": "0.0207714",
+      "response_cost_matches_ledger": true,
+      "response_tokens": {
+        "input": 134756,
+        "output": 7418
+      },
+      "response_models": {
+        "deepseek-flash": 7
+      },
+      "recovery_episodes": 1,
+      "direct_actions": 1,
+      "retrieval_events": 7,
+      "retrieval_with_material": 7,
+      "retrieval_with_updated_material": 0,
+      "retrieval_bytes": 72954,
+      "retrieved_source_ids": [
+        "E30-slot-10",
+        "E30-slot-6"
+      ],
+      "available_updated_source_ids": [],
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "original_test_observations": [
+        {
+          "step_id": "check",
+          "attempts": 0,
+          "status": "unobserved"
+        }
+      ],
+      "smoke_command_observations": 0,
+      "original_tests_status": "unobserved",
+      "verification_status": "unobserved",
+      "replay_status": "unobserved",
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "error_class": null,
+      "error": null,
+      "proposal_rejections": [],
+      "command_counts": {
+        "dependency": 1,
+        "configure": 3,
+        "build": 2
+      },
+      "failed_commands": [
+        {
+          "role": "build",
+          "command_id": "command_891345596cd94481846c367b03263a2d",
+          "exit_code": 86,
+          "timed_out": false
+        },
+        {
+          "role": "build",
+          "command_id": "command_01ed826865e7429eb78eeacc52be46be",
+          "exit_code": 86,
+          "timed_out": false
+        }
+      ]
+    },
+    {
+      "slot": 4,
+      "project": "pegtl",
+      "method": "structured_experience",
+      "repetition": 1,
+      "complete": true,
+      "status": "verified",
+      "requests": 2,
+      "cost_usd": "0.0156708",
+      "wall_seconds": 409.2729077609838,
+      "recorded_command_seconds": 193.19692840597742,
+      "role_seconds": {
+        "dependency": 0.293792,
+        "configure": 1.3033525699866004,
+        "build": 190.6198710820172,
+        "smoke": 0.794508948980365,
+        "artifact_stage": 0.18540380499325693
+      },
+      "replay_total_seconds": 195.266075,
+      "other_wall_seconds": 20.80990435500638,
+      "initial_requests": 2,
+      "recovery_requests": 0,
+      "initial_cost_usd": "0.0156708",
+      "recovery_cost_usd": "0",
+      "response_cost_matches_ledger": true,
+      "response_tokens": {
+        "input": 44480,
+        "output": 1939
+      },
+      "response_models": {
+        "deepseek-flash": 2
+      },
+      "recovery_episodes": 0,
+      "direct_actions": 0,
+      "retrieval_events": 2,
+      "retrieval_with_material": 2,
+      "retrieval_with_updated_material": 0,
+      "retrieval_bytes": 20786,
+      "retrieved_source_ids": [
+        "E30-slot-6",
+        "E30-slot-9"
+      ],
+      "available_updated_source_ids": [],
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "original_test_observations": [
+        {
+          "step_id": "check",
+          "attempts": 1,
+          "status": "passed"
+        }
+      ],
+      "smoke_command_observations": 2,
+      "original_tests_status": "passed",
+      "verification_status": "passed",
+      "replay_status": "passed",
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "error_class": null,
+      "error": null,
+      "proposal_rejections": [],
+      "command_counts": {
+        "dependency": 1,
+        "configure": 1,
+        "build": 1,
+        "smoke": 2,
+        "artifact_stage": 1
+      },
+      "failed_commands": []
+    },
+    {
+      "slot": 5,
+      "project": "pegtl",
+      "method": "raw_trajectory",
+      "repetition": 1,
+      "complete": true,
+      "status": "verified",
+      "requests": 4,
+      "cost_usd": "0.0343242",
+      "wall_seconds": 437.8412359309732,
+      "recorded_command_seconds": 191.93268071392203,
+      "role_seconds": {
+        "dependency": 0.26799,
+        "configure": 2.6509263530024327,
+        "build": 188.0454025209765,
+        "smoke": 0.8061451419489458,
+        "artifact_stage": 0.16221669799415395
+      },
+      "replay_total_seconds": 195.299292,
+      "other_wall_seconds": 50.609263217051165,
+      "initial_requests": 3,
+      "recovery_requests": 1,
+      "initial_cost_usd": "0.0237399",
+      "recovery_cost_usd": "0.0105843",
+      "response_cost_matches_ledger": true,
+      "response_tokens": {
+        "input": 94638,
+        "output": 4944
+      },
+      "response_models": {
+        "deepseek-flash": 4
+      },
+      "recovery_episodes": 1,
+      "direct_actions": 0,
+      "retrieval_events": 4,
+      "retrieval_with_material": 4,
+      "retrieval_with_updated_material": 0,
+      "retrieval_bytes": 36323,
+      "retrieved_source_ids": [
+        "E04-slot-5",
+        "E30-slot-10",
+        "E30-slot-6",
+        "E30-slot-9"
+      ],
+      "available_updated_source_ids": [],
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "original_test_observations": [
+        {
+          "step_id": "check",
+          "attempts": 1,
+          "status": "passed"
+        }
+      ],
+      "smoke_command_observations": 2,
+      "original_tests_status": "passed",
+      "verification_status": "passed",
+      "replay_status": "passed",
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "error_class": null,
+      "error": null,
+      "proposal_rejections": [],
+      "command_counts": {
+        "dependency": 1,
+        "configure": 2,
+        "build": 1,
+        "smoke": 2,
+        "artifact_stage": 1
+      },
+      "failed_commands": [
+        {
+          "role": "configure",
+          "command_id": "command_08980cfe13e54b00a8f00f01d0e34f0f",
+          "exit_code": 86,
+          "timed_out": false
+        }
+      ]
+    },
+    {
+      "slot": 6,
+      "project": "pegtl",
+      "method": "no_experience",
+      "repetition": 1,
+      "complete": true,
+      "status": "verified",
+      "requests": 1,
+      "cost_usd": "0.0080166",
+      "wall_seconds": 403.3902836519992,
+      "recorded_command_seconds": 190.64610449299607,
+      "role_seconds": {
+        "dependency": 0.289354,
+        "configure": 1.3309477029833943,
+        "build": 188.04952904203674,
+        "smoke": 0.8097590950201266,
+        "artifact_stage": 0.16651465295581147
+      },
+      "replay_total_seconds": 193.899218,
+      "other_wall_seconds": 18.844961159003134,
+      "initial_requests": 1,
+      "recovery_requests": 0,
+      "initial_cost_usd": "0.0080166",
+      "recovery_cost_usd": "0",
+      "response_cost_matches_ledger": true,
+      "response_tokens": {
+        "input": 18350,
+        "output": 2093
+      },
+      "response_models": {
+        "deepseek-flash": 1
+      },
+      "recovery_episodes": 0,
+      "direct_actions": 0,
+      "retrieval_events": 1,
+      "retrieval_with_material": 0,
+      "retrieval_with_updated_material": 0,
+      "retrieval_bytes": 0,
+      "retrieved_source_ids": [],
+      "available_updated_source_ids": [],
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "original_test_observations": [
+        {
+          "step_id": "check",
+          "attempts": 1,
+          "status": "passed"
+        }
+      ],
+      "smoke_command_observations": 2,
+      "original_tests_status": "passed",
+      "verification_status": "passed",
+      "replay_status": "passed",
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "error_class": null,
+      "error": null,
+      "proposal_rejections": [],
+      "command_counts": {
+        "dependency": 1,
+        "configure": 1,
+        "build": 1,
+        "smoke": 2,
+        "artifact_stage": 1
+      },
+      "failed_commands": []
+    },
+    {
+      "slot": 7,
+      "project": "inja",
+      "method": "raw_trajectory",
+      "repetition": 1,
+      "complete": true,
+      "status": "verified",
+      "requests": 4,
+      "cost_usd": "0.025101",
+      "wall_seconds": 96.81463669304503,
+      "recorded_command_seconds": 34.0809716340411,
+      "role_seconds": {
+        "dependency": 0.260477,
+        "configure": 0.6488858729717322,
+        "build": 32.46287016401766,
+        "smoke": 0.5471079010167159,
+        "artifact_stage": 0.16163069603499025
+      },
+      "replay_total_seconds": 37.402763,
+      "other_wall_seconds": 25.330902059003932,
+      "initial_requests": 4,
+      "recovery_requests": 0,
+      "initial_cost_usd": "0.0251010",
+      "recovery_cost_usd": "0",
+      "response_cost_matches_ledger": true,
+      "response_tokens": {
+        "input": 75470,
+        "output": 2050
+      },
+      "response_models": {
+        "deepseek-flash": 4
+      },
+      "recovery_episodes": 0,
+      "direct_actions": 0,
+      "retrieval_events": 4,
+      "retrieval_with_material": 4,
+      "retrieval_with_updated_material": 0,
+      "retrieval_bytes": 36588,
+      "retrieved_source_ids": [
+        "E30-slot-10",
+        "E30-slot-6",
+        "E30-slot-9"
+      ],
+      "available_updated_source_ids": [],
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "original_test_observations": [
+        {
+          "step_id": "check",
+          "attempts": 1,
+          "status": "passed"
+        }
+      ],
+      "smoke_command_observations": 2,
+      "original_tests_status": "passed",
+      "verification_status": "passed",
+      "replay_status": "passed",
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "error_class": null,
+      "error": null,
+      "proposal_rejections": [],
+      "command_counts": {
+        "dependency": 1,
+        "configure": 1,
+        "build": 1,
+        "smoke": 2,
+        "artifact_stage": 1
+      },
+      "failed_commands": []
+    },
+    {
+      "slot": 8,
+      "project": "inja",
+      "method": "structured_experience",
+      "repetition": 1,
+      "complete": true,
+      "status": "verified",
+      "requests": 4,
+      "cost_usd": "0.0267105",
+      "wall_seconds": 102.45201671100222,
+      "recorded_command_seconds": 34.117442354029315,
+      "role_seconds": {
+        "dependency": 0.250987,
+        "configure": 0.6274469040217809,
+        "build": 32.55678382801125,
+        "smoke": 0.5128828849992715,
+        "artifact_stage": 0.16934173699701205
+      },
+      "replay_total_seconds": 37.481103,
+      "other_wall_seconds": 30.853471356972896,
+      "initial_requests": 4,
+      "recovery_requests": 0,
+      "initial_cost_usd": "0.0267105",
+      "recovery_cost_usd": "0",
+      "response_cost_matches_ledger": true,
+      "response_tokens": {
+        "input": 76887,
+        "output": 3037
+      },
+      "response_models": {
+        "deepseek-flash": 4
+      },
+      "recovery_episodes": 0,
+      "direct_actions": 0,
+      "retrieval_events": 4,
+      "retrieval_with_material": 4,
+      "retrieval_with_updated_material": 0,
+      "retrieval_bytes": 41688,
+      "retrieved_source_ids": [
+        "E30-slot-10",
+        "E30-slot-6"
+      ],
+      "available_updated_source_ids": [],
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "original_test_observations": [
+        {
+          "step_id": "check",
+          "attempts": 1,
+          "status": "passed"
+        }
+      ],
+      "smoke_command_observations": 2,
+      "original_tests_status": "passed",
+      "verification_status": "passed",
+      "replay_status": "passed",
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "error_class": null,
+      "error": null,
+      "proposal_rejections": [],
+      "command_counts": {
+        "dependency": 1,
+        "configure": 1,
+        "build": 1,
+        "smoke": 2,
+        "artifact_stage": 1
+      },
+      "failed_commands": []
+    },
+    {
+      "slot": 9,
+      "project": "inja",
+      "method": "no_experience",
+      "repetition": 1,
+      "complete": true,
+      "status": "verified",
+      "requests": 9,
+      "cost_usd": "0.0524892",
+      "wall_seconds": 138.8391375070205,
+      "recorded_command_seconds": 34.28929299408117,
+      "role_seconds": {
+        "dependency": 0.261664,
+        "configure": 0.6254410050460137,
+        "build": 32.70090198604157,
+        "smoke": 0.5253051029867493,
+        "artifact_stage": 0.17598090000683442
+      },
+      "replay_total_seconds": 37.994978,
+      "other_wall_seconds": 66.55486651293933,
+      "initial_requests": 9,
+      "recovery_requests": 0,
+      "initial_cost_usd": "0.0524892",
+      "recovery_cost_usd": "0",
+      "response_cost_matches_ledger": true,
+      "response_tokens": {
+        "input": 144288,
+        "output": 7669
+      },
+      "response_models": {
+        "deepseek-flash": 9
+      },
+      "recovery_episodes": 0,
+      "direct_actions": 0,
+      "retrieval_events": 9,
+      "retrieval_with_material": 0,
+      "retrieval_with_updated_material": 0,
+      "retrieval_bytes": 0,
+      "retrieved_source_ids": [],
+      "available_updated_source_ids": [],
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "original_test_observations": [
+        {
+          "step_id": "check",
+          "attempts": 1,
+          "status": "passed"
+        }
+      ],
+      "smoke_command_observations": 2,
+      "original_tests_status": "passed",
+      "verification_status": "passed",
+      "replay_status": "passed",
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "error_class": null,
+      "error": null,
+      "proposal_rejections": [],
+      "command_counts": {
+        "dependency": 1,
+        "configure": 1,
+        "build": 1,
+        "smoke": 2,
+        "artifact_stage": 1
+      },
+      "failed_commands": []
+    },
+    {
+      "slot": 10,
+      "project": "highwayhash",
+      "method": "no_experience",
+      "repetition": 1,
+      "complete": true,
+      "status": "verified",
+      "requests": 1,
+      "cost_usd": "0.0058965",
+      "wall_seconds": 35.479955660004634,
+      "recorded_command_seconds": 8.397227273993193,
+      "role_seconds": {
+        "dependency": 0.233125,
+        "build": 7.603884879965335,
+        "smoke": 0.3952042310265824,
+        "artifact_stage": 0.16501316300127655
+      },
+      "replay_total_seconds": 12.155614,
+      "other_wall_seconds": 14.92711438601144,
+      "initial_requests": 1,
+      "recovery_requests": 0,
+      "initial_cost_usd": "0.0058965",
+      "recovery_cost_usd": "0",
+      "response_cost_matches_ledger": true,
+      "response_tokens": {
+        "input": 13719,
+        "output": 1484
+      },
+      "response_models": {
+        "deepseek-flash": 1
+      },
+      "recovery_episodes": 0,
+      "direct_actions": 0,
+      "retrieval_events": 1,
+      "retrieval_with_material": 0,
+      "retrieval_with_updated_material": 0,
+      "retrieval_bytes": 0,
+      "retrieved_source_ids": [],
+      "available_updated_source_ids": [],
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "original_test_observations": [
+        {
+          "step_id": "check",
+          "attempts": 1,
+          "status": "passed"
+        }
+      ],
+      "smoke_command_observations": 1,
+      "original_tests_status": "passed",
+      "verification_status": "passed",
+      "replay_status": "passed",
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "error_class": null,
+      "error": null,
+      "proposal_rejections": [],
+      "command_counts": {
+        "dependency": 1,
+        "build": 1,
+        "smoke": 1,
+        "artifact_stage": 1
+      },
+      "failed_commands": []
+    },
+    {
+      "slot": 11,
+      "project": "highwayhash",
+      "method": "structured_experience",
+      "repetition": 1,
+      "complete": false,
+      "status": "stopped",
+      "requests": 5,
+      "cost_usd": "0.0366339",
+      "wall_seconds": 53.488813943986315,
+      "recorded_command_seconds": 1.3172675189749896,
+      "role_seconds": {
+        "dependency": 0.23159,
+        "build": 1.0856775189749897
+      },
+      "replay_total_seconds": 0,
+      "other_wall_seconds": 52.17154642501133,
+      "initial_requests": 1,
+      "recovery_requests": 4,
+      "initial_cost_usd": "0.0065772",
+      "recovery_cost_usd": "0.0300567",
+      "response_cost_matches_ledger": true,
+      "response_tokens": {
+        "input": 98505,
+        "output": 5902
+      },
+      "response_models": {
+        "deepseek-flash": 5
+      },
+      "recovery_episodes": 1,
+      "direct_actions": 0,
+      "retrieval_events": 5,
+      "retrieval_with_material": 5,
+      "retrieval_with_updated_material": 0,
+      "retrieval_bytes": 44040,
+      "retrieved_source_ids": [
+        "E30-slot-14",
+        "E30-slot-17"
+      ],
+      "available_updated_source_ids": [],
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "original_test_observations": [
+        {
+          "step_id": "check",
+          "attempts": 0,
+          "status": "unobserved"
+        }
+      ],
+      "smoke_command_observations": 0,
+      "original_tests_status": "unobserved",
+      "verification_status": "unobserved",
+      "replay_status": "unobserved",
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "error_class": "StructuredOutputValidationError",
+      "error": null,
+      "proposal_rejections": [
+        {
+          "event": "observed.proposal_rejected",
+          "detail": "Failed to parse structured output for tool 'ObservedBuildActions': Failed to parse data to ObservedBuildActions: 2 validation errors for ObservedBuildActions\nreason\n  Field required [type=missing, input_value={}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.12/v/missing\nsteps\n  Field required [type=missing, input_value={}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.12/v/missing."
+        },
+        {
+          "event": "observed.proposal_rejected",
+          "detail": "Failed to parse structured output for tool 'ObservedBuildActions': Failed to parse data to ObservedBuildActions: 1 validation error for ObservedBuildActions\nsteps.0.diagnostic_paths_note\n  Extra inputs are not permitted [type=extra_forbidden, input_value=None, input_type=NoneType]\n    For further information visit https://errors.pydantic.dev/2.12/v/extra_forbidden."
+        }
+      ],
+      "command_counts": {
+        "dependency": 1,
+        "build": 1
+      },
+      "failed_commands": [
+        {
+          "role": "build",
+          "command_id": "command_814a44ff63444bffa1fab5662d956389",
+          "exit_code": 2,
+          "timed_out": false
+        }
+      ]
+    },
+    {
+      "slot": 12,
+      "project": "highwayhash",
+      "method": "raw_trajectory",
+      "repetition": 1,
+      "complete": true,
+      "status": "verified",
+      "requests": 2,
+      "cost_usd": "0.0151389",
+      "wall_seconds": 49.22214231401449,
+      "recorded_command_seconds": 7.373654756954763,
+      "role_seconds": {
+        "dependency": 0.231566,
+        "build": 6.538336341967806,
+        "smoke": 0.4391084850067273,
+        "artifact_stage": 0.1646439299802296
+      },
+      "replay_total_seconds": 10.83328,
+      "other_wall_seconds": 31.015207557059725,
+      "initial_requests": 2,
+      "recovery_requests": 0,
+      "initial_cost_usd": "0.0151389",
+      "recovery_cost_usd": "0",
+      "response_cost_matches_ledger": true,
+      "response_tokens": {
+        "input": 34399,
+        "output": 4016
+      },
+      "response_models": {
+        "deepseek-flash": 2
+      },
+      "recovery_episodes": 0,
+      "direct_actions": 0,
+      "retrieval_events": 2,
+      "retrieval_with_material": 2,
+      "retrieval_with_updated_material": 0,
+      "retrieval_bytes": 15310,
+      "retrieved_source_ids": [
+        "E04-slot-7",
+        "E30-slot-14",
+        "E30-slot-17"
+      ],
+      "available_updated_source_ids": [],
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "original_test_observations": [
+        {
+          "step_id": "check",
+          "attempts": 1,
+          "status": "passed"
+        }
+      ],
+      "smoke_command_observations": 1,
+      "original_tests_status": "passed",
+      "verification_status": "passed",
+      "replay_status": "passed",
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "error_class": null,
+      "error": null,
+      "proposal_rejections": [],
+      "command_counts": {
+        "dependency": 1,
+        "build": 2,
+        "smoke": 1,
+        "artifact_stage": 1
+      },
+      "failed_commands": []
+    },
+    {
+      "slot": 13,
+      "project": "libsigcplusplus",
+      "method": "structured_experience",
+      "repetition": 1,
+      "complete": true,
+      "status": "verified",
+      "requests": 3,
+      "cost_usd": "0.0392091",
+      "wall_seconds": 226.61331678600982,
+      "recorded_command_seconds": 58.64873059908621,
+      "role_seconds": {
+        "dependency": 29.250606796003357,
+        "configure": 12.106061558064539,
+        "build": 16.294424873020034,
+        "smoke": 0.8310720599838533,
+        "artifact_stage": 0.16656531201442704
+      },
+      "replay_total_seconds": 61.428574,
+      "other_wall_seconds": 106.53601218692361,
+      "initial_requests": 3,
+      "recovery_requests": 0,
+      "initial_cost_usd": "0.0392091",
+      "recovery_cost_usd": "0",
+      "response_cost_matches_ledger": true,
+      "response_tokens": {
+        "input": 55813,
+        "output": 18721
+      },
+      "response_models": {
+        "deepseek-flash": 3
+      },
+      "recovery_episodes": 0,
+      "direct_actions": 0,
+      "retrieval_events": 3,
+      "retrieval_with_material": 3,
+      "retrieval_with_updated_material": 0,
+      "retrieval_bytes": 16575,
+      "retrieved_source_ids": [
+        "E30-slot-1"
+      ],
+      "available_updated_source_ids": [],
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "original_test_observations": [
+        {
+          "step_id": "check",
+          "attempts": 1,
+          "status": "passed"
+        }
+      ],
+      "smoke_command_observations": 1,
+      "original_tests_status": "passed",
+      "verification_status": "passed",
+      "replay_status": "passed",
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "error_class": null,
+      "error": null,
+      "proposal_rejections": [],
+      "command_counts": {
+        "dependency": 2,
+        "configure": 2,
+        "build": 2,
+        "smoke": 1,
+        "artifact_stage": 1
+      },
+      "failed_commands": []
+    },
+    {
+      "slot": 14,
+      "project": "libsigcplusplus",
+      "method": "no_experience",
+      "repetition": 1,
+      "complete": true,
+      "status": "verified",
+      "requests": 3,
+      "cost_usd": "0.0220686",
+      "wall_seconds": 177.35620374500286,
+      "recorded_command_seconds": 58.78013519897554,
+      "role_seconds": {
+        "dependency": 29.86800085999035,
+        "configure": 11.980740537983365,
+        "build": 15.161869074974675,
+        "smoke": 1.5928495060070418,
+        "artifact_stage": 0.17667522002011538
+      },
+      "replay_total_seconds": 62.536898,
+      "other_wall_seconds": 56.039170546027314,
+      "initial_requests": 3,
+      "recovery_requests": 0,
+      "initial_cost_usd": "0.0220686",
+      "recovery_cost_usd": "0",
+      "response_cost_matches_ledger": true,
+      "response_tokens": {
+        "input": 40486,
+        "output": 8269
+      },
+      "response_models": {
+        "deepseek-flash": 3
+      },
+      "recovery_episodes": 0,
+      "direct_actions": 0,
+      "retrieval_events": 3,
+      "retrieval_with_material": 0,
+      "retrieval_with_updated_material": 0,
+      "retrieval_bytes": 0,
+      "retrieved_source_ids": [],
+      "available_updated_source_ids": [],
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "original_test_observations": [
+        {
+          "step_id": "check",
+          "attempts": 1,
+          "status": "passed"
+        }
+      ],
+      "smoke_command_observations": 1,
+      "original_tests_status": "passed",
+      "verification_status": "passed",
+      "replay_status": "passed",
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "error_class": null,
+      "error": null,
+      "proposal_rejections": [],
+      "command_counts": {
+        "dependency": 2,
+        "configure": 1,
+        "build": 1,
+        "smoke": 1,
+        "artifact_stage": 1
+      },
+      "failed_commands": []
+    },
+    {
+      "slot": 15,
+      "project": "libsigcplusplus",
+      "method": "raw_trajectory",
+      "repetition": 1,
+      "complete": true,
+      "status": "verified",
+      "requests": 3,
+      "cost_usd": "0.0177558",
+      "wall_seconds": 358.25927968200995,
+      "recorded_command_seconds": 160.38901866102694,
+      "role_seconds": {
+        "dependency": 131.04747518097153,
+        "configure": 12.058129307988565,
+        "build": 16.29407263104804,
+        "smoke": 0.8253444280126132,
+        "artifact_stage": 0.16399711300618947
+      },
+      "replay_total_seconds": 163.67357,
+      "other_wall_seconds": 34.196691020982996,
+      "initial_requests": 3,
+      "recovery_requests": 0,
+      "initial_cost_usd": "0.0177558",
+      "recovery_cost_usd": "0",
+      "response_cost_matches_ledger": true,
+      "response_tokens": {
+        "input": 42018,
+        "output": 4292
+      },
+      "response_models": {
+        "deepseek-flash": 3
+      },
+      "recovery_episodes": 0,
+      "direct_actions": 0,
+      "retrieval_events": 3,
+      "retrieval_with_material": 3,
+      "retrieval_with_updated_material": 0,
+      "retrieval_bytes": 9318,
+      "retrieved_source_ids": [
+        "E30-slot-1"
+      ],
+      "available_updated_source_ids": [],
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "original_test_observations": [
+        {
+          "step_id": "check",
+          "attempts": 1,
+          "status": "passed"
+        }
+      ],
+      "smoke_command_observations": 1,
+      "original_tests_status": "passed",
+      "verification_status": "passed",
+      "replay_status": "passed",
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "error_class": null,
+      "error": null,
+      "proposal_rejections": [],
+      "command_counts": {
+        "dependency": 2,
+        "configure": 2,
+        "build": 1,
+        "smoke": 1,
+        "artifact_stage": 1
+      },
+      "failed_commands": []
+    },
+    {
+      "slot": 16,
+      "project": "libsrtp",
+      "method": "raw_trajectory",
+      "repetition": 1,
+      "complete": true,
+      "status": "verified",
+      "requests": 17,
+      "cost_usd": "0.1221366",
+      "wall_seconds": 195.11474039801396,
+      "recorded_command_seconds": 28.912360877941087,
+      "role_seconds": {
+        "dependency": 0.490371,
+        "configure": 10.217373468971346,
+        "build": 3.362086013017688,
+        "smoke": 14.657164878968615,
+        "artifact_stage": 0.18536551698343828
+      },
+      "replay_total_seconds": 27.513942,
+      "other_wall_seconds": 138.68843752007285,
+      "initial_requests": 9,
+      "recovery_requests": 8,
+      "initial_cost_usd": "0.0538158",
+      "recovery_cost_usd": "0.0683208",
+      "response_cost_matches_ledger": true,
+      "response_tokens": {
+        "input": 365154,
+        "output": 10492
+      },
+      "response_models": {
+        "deepseek-flash": 17
+      },
+      "recovery_episodes": 1,
+      "direct_actions": 0,
+      "retrieval_events": 17,
+      "retrieval_with_material": 17,
+      "retrieval_with_updated_material": 0,
+      "retrieval_bytes": 52802,
+      "retrieved_source_ids": [
+        "E30-slot-1"
+      ],
+      "available_updated_source_ids": [],
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "original_test_observations": [
+        {
+          "step_id": "check",
+          "attempts": 1,
+          "status": "passed"
+        }
+      ],
+      "smoke_command_observations": 1,
+      "original_tests_status": "passed",
+      "verification_status": "passed",
+      "replay_status": "passed",
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "error_class": null,
+      "error": null,
+      "proposal_rejections": [
+        {
+          "event": "observed.proposal_rejected",
+          "detail": "Failed to parse structured output for tool 'ObservedBuildActions': Failed to parse data to ObservedBuildActions: 2 validation errors for ObservedBuildActions\nreason\n  Field required [type=missing, input_value={}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.12/v/missing\nsteps\n  Field required [type=missing, input_value={}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.12/v/missing."
+        }
+      ],
+      "command_counts": {
+        "dependency": 1,
+        "configure": 2,
+        "build": 1,
+        "smoke": 1,
+        "artifact_stage": 1
+      },
+      "failed_commands": [
+        {
+          "role": "configure",
+          "command_id": "command_40f18f51f55c44a994b3cdcc7b1b2b2d",
+          "exit_code": 86,
+          "timed_out": false
+        }
+      ]
+    },
+    {
+      "slot": 17,
+      "project": "libsrtp",
+      "method": "no_experience",
+      "repetition": 1,
+      "complete": true,
+      "status": "verified",
+      "requests": 9,
+      "cost_usd": "0.049479",
+      "wall_seconds": 100.57640981196892,
+      "recorded_command_seconds": 23.84013025102722,
+      "role_seconds": {
+        "dependency": 0.514156,
+        "configure": 5.075830361980479,
+        "build": 3.3853025570278987,
+        "smoke": 14.703150664980058,
+        "artifact_stage": 0.16169066703878343
+      },
+      "replay_total_seconds": 27.397344,
+      "other_wall_seconds": 49.33893556094169,
+      "initial_requests": 9,
+      "recovery_requests": 0,
+      "initial_cost_usd": "0.0494790",
+      "recovery_cost_usd": "0",
+      "response_cost_matches_ledger": true,
+      "response_tokens": {
+        "input": 151746,
+        "output": 3296
+      },
+      "response_models": {
+        "deepseek-flash": 9
+      },
+      "recovery_episodes": 0,
+      "direct_actions": 0,
+      "retrieval_events": 9,
+      "retrieval_with_material": 0,
+      "retrieval_with_updated_material": 0,
+      "retrieval_bytes": 0,
+      "retrieved_source_ids": [],
+      "available_updated_source_ids": [],
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "original_test_observations": [
+        {
+          "step_id": "check",
+          "attempts": 1,
+          "status": "passed"
+        }
+      ],
+      "smoke_command_observations": 1,
+      "original_tests_status": "passed",
+      "verification_status": "passed",
+      "replay_status": "passed",
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "error_class": null,
+      "error": null,
+      "proposal_rejections": [
+        {
+          "event": "observed.proposal_rejected",
+          "detail": "Failed to parse structured output for tool 'ObservedBuildActions': Failed to parse data to ObservedBuildActions: 2 validation errors for ObservedBuildActions\nreason\n  Field required [type=missing, input_value={}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.12/v/missing\nsteps\n  Field required [type=missing, input_value={}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.12/v/missing."
+        }
+      ],
+      "command_counts": {
+        "dependency": 1,
+        "configure": 1,
+        "build": 1,
+        "smoke": 1,
+        "artifact_stage": 1
+      },
+      "failed_commands": []
+    },
+    {
+      "slot": 18,
+      "project": "libsrtp",
+      "method": "structured_experience",
+      "repetition": 1,
+      "complete": true,
+      "status": "verified",
+      "requests": 11,
+      "cost_usd": "0.0824955",
+      "wall_seconds": 164.12569322501076,
+      "recorded_command_seconds": 29.316341318009293,
+      "role_seconds": {
+        "dependency": 0.503586,
+        "configure": 10.235353294934612,
+        "build": 3.5845290159923024,
+        "smoke": 14.81127715704497,
+        "artifact_stage": 0.18159585003741086
+      },
+      "replay_total_seconds": 27.386577,
+      "other_wall_seconds": 107.42277490700148,
+      "initial_requests": 6,
+      "recovery_requests": 5,
+      "initial_cost_usd": "0.0361044",
+      "recovery_cost_usd": "0.0463911",
+      "response_cost_matches_ledger": true,
+      "response_tokens": {
+        "input": 226857,
+        "output": 12032
+      },
+      "response_models": {
+        "deepseek-flash": 11
+      },
+      "recovery_episodes": 1,
+      "direct_actions": 0,
+      "retrieval_events": 11,
+      "retrieval_with_material": 11,
+      "retrieval_with_updated_material": 0,
+      "retrieval_bytes": 60775,
+      "retrieved_source_ids": [
+        "E30-slot-1"
+      ],
+      "available_updated_source_ids": [],
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "original_test_observations": [
+        {
+          "step_id": "check",
+          "attempts": 1,
+          "status": "passed"
+        }
+      ],
+      "smoke_command_observations": 1,
+      "original_tests_status": "passed",
+      "verification_status": "passed",
+      "replay_status": "passed",
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "error_class": null,
+      "error": null,
+      "proposal_rejections": [
+        {
+          "event": "observed.proposal_rejected",
+          "detail": "Failed to parse structured output for tool 'ObservedBuildActions': Failed to parse data to ObservedBuildActions: 1 validation error for ObservedBuildActions\nsteps.0.command\n  Input should be a valid string [type=string_type, input_value={'__forge_shared_text_sha...16e204bd501acc00fcf87b'}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.12/v/string_type."
+        }
+      ],
+      "command_counts": {
+        "dependency": 1,
+        "configure": 2,
+        "build": 2,
+        "smoke": 1,
+        "artifact_stage": 1
+      },
+      "failed_commands": [
+        {
+          "role": "build",
+          "command_id": "command_cc267eaa9eb74f249d277a350b4a75fd",
+          "exit_code": 86,
+          "timed_out": false
+        }
+      ]
+    },
+    {
+      "slot": 19,
+      "project": "jsoncpp",
+      "method": "no_experience",
+      "repetition": 2,
+      "complete": true,
+      "status": "verified",
+      "requests": 3,
+      "cost_usd": "0.0159444",
+      "wall_seconds": 68.02717518102145,
+      "recorded_command_seconds": 21.181989611996936,
+      "role_seconds": {
+        "dependency": 0.263806,
+        "configure": 2.018344258016441,
+        "build": 15.801457955967635,
+        "smoke": 2.925564953999128,
+        "artifact_stage": 0.17281644401373342
+      },
+      "replay_total_seconds": 24.100851,
+      "other_wall_seconds": 22.74433456902451,
+      "initial_requests": 3,
+      "recovery_requests": 0,
+      "initial_cost_usd": "0.0159444",
+      "recovery_cost_usd": "0",
+      "response_cost_matches_ledger": true,
+      "response_tokens": {
+        "input": 43904,
+        "output": 2311
+      },
+      "response_models": {
+        "deepseek-flash": 3
+      },
+      "recovery_episodes": 0,
+      "direct_actions": 0,
+      "retrieval_events": 3,
+      "retrieval_with_material": 0,
+      "retrieval_with_updated_material": 0,
+      "retrieval_bytes": 0,
+      "retrieved_source_ids": [],
+      "available_updated_source_ids": [],
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "original_test_observations": [
+        {
+          "step_id": "check",
+          "attempts": 1,
+          "status": "passed"
+        }
+      ],
+      "smoke_command_observations": 2,
+      "original_tests_status": "passed",
+      "verification_status": "passed",
+      "replay_status": "passed",
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "error_class": null,
+      "error": null,
+      "proposal_rejections": [],
+      "command_counts": {
+        "dependency": 1,
+        "configure": 1,
+        "build": 1,
+        "smoke": 2,
+        "artifact_stage": 1
+      },
+      "failed_commands": []
+    },
+    {
+      "slot": 20,
+      "project": "jsoncpp",
+      "method": "structured_experience",
+      "repetition": 2,
+      "complete": true,
+      "status": "verified",
+      "requests": 4,
+      "cost_usd": "0.0248061",
+      "wall_seconds": 71.96595728001557,
+      "recorded_command_seconds": 20.66450122790196,
+      "role_seconds": {
+        "dependency": 0.263783,
+        "configure": 2.018606149998959,
+        "build": 15.267189971986227,
+        "smoke": 2.9624345539486967,
+        "artifact_stage": 0.15248755196807906
+      },
+      "replay_total_seconds": 24.057011,
+      "other_wall_seconds": 27.24444505211361,
+      "initial_requests": 4,
+      "recovery_requests": 0,
+      "initial_cost_usd": "0.0248061",
+      "recovery_cost_usd": "0",
+      "response_cost_matches_ledger": true,
+      "response_tokens": {
+        "input": 71743,
+        "output": 2736
+      },
+      "response_models": {
+        "deepseek-flash": 4
+      },
+      "recovery_episodes": 0,
+      "direct_actions": 0,
+      "retrieval_events": 4,
+      "retrieval_with_material": 4,
+      "retrieval_with_updated_material": 0,
+      "retrieval_bytes": 41688,
+      "retrieved_source_ids": [
+        "E30-slot-10",
+        "E30-slot-6"
+      ],
+      "available_updated_source_ids": [],
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "original_test_observations": [
+        {
+          "step_id": "check",
+          "attempts": 1,
+          "status": "passed"
+        }
+      ],
+      "smoke_command_observations": 2,
+      "original_tests_status": "passed",
+      "verification_status": "passed",
+      "replay_status": "passed",
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "error_class": null,
+      "error": null,
+      "proposal_rejections": [],
+      "command_counts": {
+        "dependency": 1,
+        "configure": 1,
+        "build": 1,
+        "smoke": 2,
+        "artifact_stage": 1
+      },
+      "failed_commands": []
+    },
+    {
+      "slot": 21,
+      "project": "jsoncpp",
+      "method": "raw_trajectory",
+      "repetition": 2,
+      "complete": true,
+      "status": "verified",
+      "requests": 4,
+      "cost_usd": "0.0247578",
+      "wall_seconds": 68.5149769220152,
+      "recorded_command_seconds": 20.789373204988298,
+      "role_seconds": {
+        "dependency": 0.25214,
+        "configure": 2.0397341980133206,
+        "build": 15.400339452957269,
+        "smoke": 2.918880639015697,
+        "artifact_stage": 0.17827891500201076
+      },
+      "replay_total_seconds": 23.996653,
+      "other_wall_seconds": 23.7289507170269,
+      "initial_requests": 4,
+      "recovery_requests": 0,
+      "initial_cost_usd": "0.0247578",
+      "recovery_cost_usd": "0",
+      "response_cost_matches_ledger": true,
+      "response_tokens": {
+        "input": 73650,
+        "output": 2219
+      },
+      "response_models": {
+        "deepseek-flash": 4
+      },
+      "recovery_episodes": 0,
+      "direct_actions": 0,
+      "retrieval_events": 4,
+      "retrieval_with_material": 4,
+      "retrieval_with_updated_material": 0,
+      "retrieval_bytes": 36588,
+      "retrieved_source_ids": [
+        "E30-slot-10",
+        "E30-slot-6",
+        "E30-slot-9"
+      ],
+      "available_updated_source_ids": [],
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "original_test_observations": [
+        {
+          "step_id": "check",
+          "attempts": 1,
+          "status": "passed"
+        }
+      ],
+      "smoke_command_observations": 2,
+      "original_tests_status": "passed",
+      "verification_status": "passed",
+      "replay_status": "passed",
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "error_class": null,
+      "error": null,
+      "proposal_rejections": [],
+      "command_counts": {
+        "dependency": 1,
+        "configure": 1,
+        "build": 1,
+        "smoke": 2,
+        "artifact_stage": 1
+      },
+      "failed_commands": []
+    },
+    {
+      "slot": 22,
+      "project": "pegtl",
+      "method": "structured_experience",
+      "repetition": 2,
+      "complete": true,
+      "status": "verified",
+      "requests": 2,
+      "cost_usd": "0.0159753",
+      "wall_seconds": 407.18195900699357,
+      "recorded_command_seconds": 190.8683694090469,
+      "role_seconds": {
+        "dependency": 0.284592,
+        "configure": 1.294624702015426,
+        "build": 188.32846870500362,
+        "smoke": 0.7773872540565208,
+        "artifact_stage": 0.1832967479713261
+      },
+      "replay_total_seconds": 194.452509,
+      "other_wall_seconds": 21.861080597946682,
+      "initial_requests": 2,
+      "recovery_requests": 0,
+      "initial_cost_usd": "0.0159753",
+      "recovery_cost_usd": "0",
+      "response_cost_matches_ledger": true,
+      "response_tokens": {
+        "input": 44483,
+        "output": 2192
+      },
+      "response_models": {
+        "deepseek-flash": 2
+      },
+      "recovery_episodes": 0,
+      "direct_actions": 0,
+      "retrieval_events": 2,
+      "retrieval_with_material": 2,
+      "retrieval_with_updated_material": 0,
+      "retrieval_bytes": 20786,
+      "retrieved_source_ids": [
+        "E30-slot-6",
+        "E30-slot-9"
+      ],
+      "available_updated_source_ids": [],
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "original_test_observations": [
+        {
+          "step_id": "check",
+          "attempts": 1,
+          "status": "passed"
+        }
+      ],
+      "smoke_command_observations": 2,
+      "original_tests_status": "passed",
+      "verification_status": "passed",
+      "replay_status": "passed",
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "error_class": null,
+      "error": null,
+      "proposal_rejections": [],
+      "command_counts": {
+        "dependency": 1,
+        "configure": 1,
+        "build": 1,
+        "smoke": 2,
+        "artifact_stage": 1
+      },
+      "failed_commands": []
+    },
+    {
+      "slot": 23,
+      "project": "pegtl",
+      "method": "no_experience",
+      "repetition": 2,
+      "complete": true,
+      "status": "verified",
+      "requests": 2,
+      "cost_usd": "0.0148137",
+      "wall_seconds": 410.0086055669817,
+      "recorded_command_seconds": 190.3459853940696,
+      "role_seconds": {
+        "dependency": 0.281948,
+        "configure": 1.2980517300311476,
+        "build": 187.74424781900598,
+        "smoke": 0.8405806589871645,
+        "artifact_stage": 0.1811571860453114
+      },
+      "replay_total_seconds": 194.198977,
+      "other_wall_seconds": 25.4636431729121,
+      "initial_requests": 2,
+      "recovery_requests": 0,
+      "initial_cost_usd": "0.0148137",
+      "recovery_cost_usd": "0",
+      "response_cost_matches_ledger": true,
+      "response_tokens": {
+        "input": 37863,
+        "output": 2879
+      },
+      "response_models": {
+        "deepseek-flash": 2
+      },
+      "recovery_episodes": 0,
+      "direct_actions": 0,
+      "retrieval_events": 2,
+      "retrieval_with_material": 0,
+      "retrieval_with_updated_material": 0,
+      "retrieval_bytes": 0,
+      "retrieved_source_ids": [],
+      "available_updated_source_ids": [],
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "original_test_observations": [
+        {
+          "step_id": "check",
+          "attempts": 1,
+          "status": "passed"
+        }
+      ],
+      "smoke_command_observations": 2,
+      "original_tests_status": "passed",
+      "verification_status": "passed",
+      "replay_status": "passed",
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "error_class": null,
+      "error": null,
+      "proposal_rejections": [],
+      "command_counts": {
+        "dependency": 1,
+        "configure": 1,
+        "build": 1,
+        "smoke": 2,
+        "artifact_stage": 1
+      },
+      "failed_commands": []
+    },
+    {
+      "slot": 24,
+      "project": "pegtl",
+      "method": "raw_trajectory",
+      "repetition": 2,
+      "complete": true,
+      "status": "verified",
+      "requests": 2,
+      "cost_usd": "0.0177954",
+      "wall_seconds": 413.25532287399983,
+      "recorded_command_seconds": 190.7857818289903,
+      "role_seconds": {
+        "dependency": 0.267221,
+        "configure": 1.3337385469931178,
+        "build": 188.17688452196307,
+        "smoke": 0.8269451550440863,
+        "artifact_stage": 0.18099260499002412
+      },
+      "replay_total_seconds": 193.940956,
+      "other_wall_seconds": 28.52858504500952,
+      "initial_requests": 2,
+      "recovery_requests": 0,
+      "initial_cost_usd": "0.0177954",
+      "recovery_cost_usd": "0",
+      "response_cost_matches_ledger": true,
+      "response_tokens": {
+        "input": 46346,
+        "output": 3243
+      },
+      "response_models": {
+        "deepseek-flash": 2
+      },
+      "recovery_episodes": 0,
+      "direct_actions": 0,
+      "retrieval_events": 2,
+      "retrieval_with_material": 2,
+      "retrieval_with_updated_material": 0,
+      "retrieval_bytes": 18294,
+      "retrieved_source_ids": [
+        "E30-slot-10",
+        "E30-slot-6",
+        "E30-slot-9"
+      ],
+      "available_updated_source_ids": [],
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "original_test_observations": [
+        {
+          "step_id": "check",
+          "attempts": 1,
+          "status": "passed"
+        }
+      ],
+      "smoke_command_observations": 2,
+      "original_tests_status": "passed",
+      "verification_status": "passed",
+      "replay_status": "passed",
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "error_class": null,
+      "error": null,
+      "proposal_rejections": [],
+      "command_counts": {
+        "dependency": 1,
+        "configure": 1,
+        "build": 1,
+        "smoke": 2,
+        "artifact_stage": 1
+      },
+      "failed_commands": []
+    },
+    {
+      "slot": 25,
+      "project": "inja",
+      "method": "raw_trajectory",
+      "repetition": 2,
+      "complete": true,
+      "status": "verified",
+      "requests": 9,
+      "cost_usd": "0.0569589",
+      "wall_seconds": 128.55063978699036,
+      "recorded_command_seconds": 33.9711684449967,
+      "role_seconds": {
+        "dependency": 0.261125,
+        "configure": 0.6420807489776053,
+        "build": 32.3936860570102,
+        "smoke": 0.49417874799109995,
+        "artifact_stage": 0.1800978910177946
+      },
+      "replay_total_seconds": 37.584745,
+      "other_wall_seconds": 56.99472634199367,
+      "initial_requests": 9,
+      "recovery_requests": 0,
+      "initial_cost_usd": "0.0569589",
+      "recovery_cost_usd": "0",
+      "response_cost_matches_ledger": true,
+      "response_tokens": {
+        "input": 163775,
+        "output": 6522
+      },
+      "response_models": {
+        "deepseek-flash": 9
+      },
+      "recovery_episodes": 0,
+      "direct_actions": 0,
+      "retrieval_events": 9,
+      "retrieval_with_material": 9,
+      "retrieval_with_updated_material": 0,
+      "retrieval_bytes": 82323,
+      "retrieved_source_ids": [
+        "E30-slot-10",
+        "E30-slot-6",
+        "E30-slot-9"
+      ],
+      "available_updated_source_ids": [],
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "original_test_observations": [
+        {
+          "step_id": "check",
+          "attempts": 1,
+          "status": "passed"
+        }
+      ],
+      "smoke_command_observations": 2,
+      "original_tests_status": "passed",
+      "verification_status": "passed",
+      "replay_status": "passed",
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "error_class": null,
+      "error": null,
+      "proposal_rejections": [],
+      "command_counts": {
+        "dependency": 1,
+        "configure": 1,
+        "build": 1,
+        "smoke": 2,
+        "artifact_stage": 1
+      },
+      "failed_commands": []
+    },
+    {
+      "slot": 26,
+      "project": "inja",
+      "method": "no_experience",
+      "repetition": 2,
+      "complete": true,
+      "status": "verified",
+      "requests": 7,
+      "cost_usd": "0.036966",
+      "wall_seconds": 112.94689592299983,
+      "recorded_command_seconds": 34.06505207694702,
+      "role_seconds": {
+        "dependency": 0.254991,
+        "configure": 0.6322946189902723,
+        "build": 32.482808667991776,
+        "smoke": 0.5132929219398648,
+        "artifact_stage": 0.18166486802510917
+      },
+      "replay_total_seconds": 37.450332,
+      "other_wall_seconds": 41.431511846052814,
+      "initial_requests": 7,
+      "recovery_requests": 0,
+      "initial_cost_usd": "0.0369660",
+      "recovery_cost_usd": "0",
+      "response_cost_matches_ledger": true,
+      "response_tokens": {
+        "input": 108088,
+        "output": 3783
+      },
+      "response_models": {
+        "deepseek-flash": 7
+      },
+      "recovery_episodes": 0,
+      "direct_actions": 0,
+      "retrieval_events": 7,
+      "retrieval_with_material": 0,
+      "retrieval_with_updated_material": 0,
+      "retrieval_bytes": 0,
+      "retrieved_source_ids": [],
+      "available_updated_source_ids": [],
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "original_test_observations": [
+        {
+          "step_id": "check",
+          "attempts": 1,
+          "status": "passed"
+        }
+      ],
+      "smoke_command_observations": 2,
+      "original_tests_status": "passed",
+      "verification_status": "passed",
+      "replay_status": "passed",
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "error_class": null,
+      "error": null,
+      "proposal_rejections": [],
+      "command_counts": {
+        "dependency": 1,
+        "configure": 1,
+        "build": 1,
+        "smoke": 2,
+        "artifact_stage": 1
+      },
+      "failed_commands": []
+    },
+    {
+      "slot": 27,
+      "project": "inja",
+      "method": "structured_experience",
+      "repetition": 2,
+      "complete": true,
+      "status": "verified",
+      "requests": 4,
+      "cost_usd": "0.027153",
+      "wall_seconds": 145.4113525710418,
+      "recorded_command_seconds": 55.32891480000496,
+      "role_seconds": {
+        "dependency": 0.257455,
+        "configure": 0.6167758060037158,
+        "build": 53.758875588013325,
+        "smoke": 0.5261825940106064,
+        "artifact_stage": 0.16962581197731197
+      },
+      "replay_total_seconds": 58.350997,
+      "other_wall_seconds": 31.731440771036837,
+      "initial_requests": 4,
+      "recovery_requests": 0,
+      "initial_cost_usd": "0.0271530",
+      "recovery_cost_usd": "0",
+      "response_cost_matches_ledger": true,
+      "response_tokens": {
+        "input": 77818,
+        "output": 3173
+      },
+      "response_models": {
+        "deepseek-flash": 4
+      },
+      "recovery_episodes": 0,
+      "direct_actions": 0,
+      "retrieval_events": 4,
+      "retrieval_with_material": 4,
+      "retrieval_with_updated_material": 0,
+      "retrieval_bytes": 41688,
+      "retrieved_source_ids": [
+        "E30-slot-10",
+        "E30-slot-6"
+      ],
+      "available_updated_source_ids": [],
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "original_test_observations": [
+        {
+          "step_id": "check",
+          "attempts": 1,
+          "status": "passed"
+        }
+      ],
+      "smoke_command_observations": 2,
+      "original_tests_status": "passed",
+      "verification_status": "passed",
+      "replay_status": "passed",
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "error_class": null,
+      "error": null,
+      "proposal_rejections": [],
+      "command_counts": {
+        "dependency": 1,
+        "configure": 1,
+        "build": 1,
+        "smoke": 2,
+        "artifact_stage": 1
+      },
+      "failed_commands": []
+    },
+    {
+      "slot": 28,
+      "project": "highwayhash",
+      "method": "no_experience",
+      "repetition": 2,
+      "complete": true,
+      "status": "verified",
+      "requests": 1,
+      "cost_usd": "0.0054285",
+      "wall_seconds": 32.559342219959944,
+      "recorded_command_seconds": 8.360144084962775,
+      "role_seconds": {
+        "dependency": 0.243135,
+        "build": 7.54574401298305,
+        "smoke": 0.4076084829866886,
+        "artifact_stage": 0.16365658899303526
+      },
+      "replay_total_seconds": 12.118213,
+      "other_wall_seconds": 12.080985134997167,
+      "initial_requests": 1,
+      "recovery_requests": 0,
+      "initial_cost_usd": "0.0054285",
+      "recovery_cost_usd": "0",
+      "response_cost_matches_ledger": true,
+      "response_tokens": {
+        "input": 13719,
+        "output": 1094
+      },
+      "response_models": {
+        "deepseek-flash": 1
+      },
+      "recovery_episodes": 0,
+      "direct_actions": 0,
+      "retrieval_events": 1,
+      "retrieval_with_material": 0,
+      "retrieval_with_updated_material": 0,
+      "retrieval_bytes": 0,
+      "retrieved_source_ids": [],
+      "available_updated_source_ids": [],
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "original_test_observations": [
+        {
+          "step_id": "check",
+          "attempts": 1,
+          "status": "passed"
+        }
+      ],
+      "smoke_command_observations": 1,
+      "original_tests_status": "passed",
+      "verification_status": "passed",
+      "replay_status": "passed",
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "error_class": null,
+      "error": null,
+      "proposal_rejections": [],
+      "command_counts": {
+        "dependency": 1,
+        "build": 1,
+        "smoke": 1,
+        "artifact_stage": 1
+      },
+      "failed_commands": []
+    },
+    {
+      "slot": 29,
+      "project": "highwayhash",
+      "method": "raw_trajectory",
+      "repetition": 2,
+      "complete": true,
+      "status": "verified",
+      "requests": 6,
+      "cost_usd": "0.0339849",
+      "wall_seconds": 48.89315524301492,
+      "recorded_command_seconds": 6.957539908934012,
+      "role_seconds": {
+        "dependency": 0.23965,
+        "build": 6.148294698970858,
+        "smoke": 0.40462121495511383,
+        "artifact_stage": 0.16497399500804022
+      },
+      "replay_total_seconds": 10.474418,
+      "other_wall_seconds": 31.461197334080907,
+      "initial_requests": 6,
+      "recovery_requests": 0,
+      "initial_cost_usd": "0.0339849",
+      "recovery_cost_usd": "0",
+      "response_cost_matches_ledger": true,
+      "response_tokens": {
+        "input": 102555,
+        "output": 2682
+      },
+      "response_models": {
+        "deepseek-flash": 6
+      },
+      "recovery_episodes": 0,
+      "direct_actions": 0,
+      "retrieval_events": 6,
+      "retrieval_with_material": 6,
+      "retrieval_with_updated_material": 0,
+      "retrieval_bytes": 45930,
+      "retrieved_source_ids": [
+        "E04-slot-7",
+        "E30-slot-14",
+        "E30-slot-17"
+      ],
+      "available_updated_source_ids": [],
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "original_test_observations": [
+        {
+          "step_id": "check",
+          "attempts": 1,
+          "status": "passed"
+        }
+      ],
+      "smoke_command_observations": 1,
+      "original_tests_status": "passed",
+      "verification_status": "passed",
+      "replay_status": "passed",
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "error_class": null,
+      "error": null,
+      "proposal_rejections": [],
+      "command_counts": {
+        "dependency": 1,
+        "build": 1,
+        "smoke": 1,
+        "artifact_stage": 1
+      },
+      "failed_commands": []
+    },
+    {
+      "slot": 30,
+      "project": "highwayhash",
+      "method": "structured_experience",
+      "repetition": 2,
+      "complete": false,
+      "status": "stopped",
+      "requests": 1,
+      "cost_usd": "0.0075519",
+      "wall_seconds": 18.15513687900966,
+      "recorded_command_seconds": 0.216751,
+      "role_seconds": {
+        "dependency": 0.216751
+      },
+      "replay_total_seconds": 0,
+      "other_wall_seconds": 17.93838587900966,
+      "initial_requests": 1,
+      "recovery_requests": 0,
+      "initial_cost_usd": "0.0075519",
+      "recovery_cost_usd": "0",
+      "response_cost_matches_ledger": true,
+      "response_tokens": {
+        "input": 16301,
+        "output": 2218
+      },
+      "response_models": {
+        "deepseek-flash": 1
+      },
+      "recovery_episodes": 0,
+      "direct_actions": 0,
+      "retrieval_events": 1,
+      "retrieval_with_material": 1,
+      "retrieval_with_updated_material": 0,
+      "retrieval_bytes": 8808,
+      "retrieved_source_ids": [
+        "E30-slot-14",
+        "E30-slot-17"
+      ],
+      "available_updated_source_ids": [],
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "original_test_observations": [
+        {
+          "step_id": "check",
+          "attempts": 0,
+          "status": "unobserved"
+        }
+      ],
+      "smoke_command_observations": 0,
+      "original_tests_status": "unobserved",
+      "verification_status": "unobserved",
+      "replay_status": "unobserved",
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "error_class": "PlanContractError",
+      "error": "步骤不能关闭严格 Shell 或混合多个逻辑阶段",
+      "proposal_rejections": [],
+      "command_counts": {
+        "dependency": 1
+      },
+      "failed_commands": []
+    },
+    {
+      "slot": 31,
+      "project": "libsigcplusplus",
+      "method": "structured_experience",
+      "repetition": 2,
+      "complete": false,
+      "status": "stopped",
+      "requests": 3,
+      "cost_usd": "0.0211179",
+      "wall_seconds": 42.1218177669798,
+      "recorded_command_seconds": 0.249151,
+      "role_seconds": {
+        "dependency": 0.249151
+      },
+      "replay_total_seconds": 0,
+      "other_wall_seconds": 41.872666766979805,
+      "initial_requests": 3,
+      "recovery_requests": 0,
+      "initial_cost_usd": "0.0211179",
+      "recovery_cost_usd": "0",
+      "response_cost_matches_ledger": true,
+      "response_tokens": {
+        "input": 46809,
+        "output": 5896
+      },
+      "response_models": {
+        "deepseek-flash": 3
+      },
+      "recovery_episodes": 0,
+      "direct_actions": 0,
+      "retrieval_events": 3,
+      "retrieval_with_material": 3,
+      "retrieval_with_updated_material": 0,
+      "retrieval_bytes": 16575,
+      "retrieved_source_ids": [
+        "E30-slot-1"
+      ],
+      "available_updated_source_ids": [],
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "original_test_observations": [
+        {
+          "step_id": "check",
+          "attempts": 0,
+          "status": "unobserved"
+        }
+      ],
+      "smoke_command_observations": 0,
+      "original_tests_status": "unobserved",
+      "verification_status": "unobserved",
+      "replay_status": "unobserved",
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "error_class": "PlanContractError",
+      "error": "步骤不能关闭严格 Shell 或混合多个逻辑阶段",
+      "proposal_rejections": [],
+      "command_counts": {
+        "dependency": 1
+      },
+      "failed_commands": []
+    },
+    {
+      "slot": 32,
+      "project": "libsigcplusplus",
+      "method": "raw_trajectory",
+      "repetition": 2,
+      "complete": true,
+      "status": "verified",
+      "requests": 7,
+      "cost_usd": "0.0705909",
+      "wall_seconds": 294.7014376189909,
+      "recorded_command_seconds": 69.82036214103084,
+      "role_seconds": {
+        "dependency": 28.821064379963552,
+        "configure": 23.447703825018834,
+        "build": 15.785663082031533,
+        "smoke": 1.6137509319814853,
+        "artifact_stage": 0.15217992203542963
+      },
+      "replay_total_seconds": 61.386626,
+      "other_wall_seconds": 163.49444947796005,
+      "initial_requests": 5,
+      "recovery_requests": 2,
+      "initial_cost_usd": "0.0400455",
+      "recovery_cost_usd": "0.0305454",
+      "response_cost_matches_ledger": true,
+      "response_tokens": {
+        "input": 135311,
+        "output": 24998
+      },
+      "response_models": {
+        "deepseek-flash": 7
+      },
+      "recovery_episodes": 1,
+      "direct_actions": 0,
+      "retrieval_events": 7,
+      "retrieval_with_material": 7,
+      "retrieval_with_updated_material": 0,
+      "retrieval_bytes": 21742,
+      "retrieved_source_ids": [
+        "E30-slot-1"
+      ],
+      "available_updated_source_ids": [],
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "original_test_observations": [
+        {
+          "step_id": "check",
+          "attempts": 1,
+          "status": "passed"
+        }
+      ],
+      "smoke_command_observations": 1,
+      "original_tests_status": "passed",
+      "verification_status": "passed",
+      "replay_status": "passed",
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "error_class": null,
+      "error": null,
+      "proposal_rejections": [],
+      "command_counts": {
+        "dependency": 2,
+        "configure": 4,
+        "build": 4,
+        "smoke": 1,
+        "artifact_stage": 1
+      },
+      "failed_commands": [
+        {
+          "role": "build",
+          "command_id": "command_0dce7b4cc0ac4ac2b66106904ea670f5",
+          "exit_code": 2,
+          "timed_out": false
+        }
+      ]
+    },
+    {
+      "slot": 33,
+      "project": "libsigcplusplus",
+      "method": "no_experience",
+      "repetition": 2,
+      "complete": true,
+      "status": "verified",
+      "requests": 6,
+      "cost_usd": "0.0515601",
+      "wall_seconds": 450.2159747290425,
+      "recorded_command_seconds": 161.16861458597222,
+      "role_seconds": {
+        "dependency": 131.51295178299287,
+        "configure": 11.891023283009417,
+        "build": 16.762705092027318,
+        "smoke": 0.8326159799471498,
+        "artifact_stage": 0.16931844799546525
+      },
+      "replay_total_seconds": 162.091805,
+      "other_wall_seconds": 126.95555514307026,
+      "initial_requests": 6,
+      "recovery_requests": 0,
+      "initial_cost_usd": "0.0515601",
+      "recovery_cost_usd": "0",
+      "response_cost_matches_ledger": true,
+      "response_tokens": {
+        "input": 93851,
+        "output": 19504
+      },
+      "response_models": {
+        "deepseek-flash": 6
+      },
+      "recovery_episodes": 0,
+      "direct_actions": 0,
+      "retrieval_events": 6,
+      "retrieval_with_material": 0,
+      "retrieval_with_updated_material": 0,
+      "retrieval_bytes": 0,
+      "retrieved_source_ids": [],
+      "available_updated_source_ids": [],
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "original_test_observations": [
+        {
+          "step_id": "check",
+          "attempts": 1,
+          "status": "passed"
+        }
+      ],
+      "smoke_command_observations": 1,
+      "original_tests_status": "passed",
+      "verification_status": "passed",
+      "replay_status": "passed",
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "error_class": null,
+      "error": null,
+      "proposal_rejections": [],
+      "command_counts": {
+        "dependency": 2,
+        "configure": 1,
+        "build": 2,
+        "smoke": 1,
+        "artifact_stage": 1
+      },
+      "failed_commands": []
+    },
+    {
+      "slot": 34,
+      "project": "libsrtp",
+      "method": "raw_trajectory",
+      "repetition": 2,
+      "complete": true,
+      "status": "verified",
+      "requests": 4,
+      "cost_usd": "0.0252672",
+      "wall_seconds": 82.08497148298193,
+      "recorded_command_seconds": 23.961326966023154,
+      "role_seconds": {
+        "dependency": 0.519437,
+        "configure": 5.0971760239917785,
+        "build": 3.3331571460003033,
+        "smoke": 14.833755523024593,
+        "artifact_stage": 0.1778012730064802
+      },
+      "replay_total_seconds": 27.333346,
+      "other_wall_seconds": 30.790298516958778,
+      "initial_requests": 4,
+      "recovery_requests": 0,
+      "initial_cost_usd": "0.0252672",
+      "recovery_cost_usd": "0",
+      "response_cost_matches_ledger": true,
+      "response_tokens": {
+        "input": 75744,
+        "output": 2120
+      },
+      "response_models": {
+        "deepseek-flash": 4
+      },
+      "recovery_episodes": 0,
+      "direct_actions": 0,
+      "retrieval_events": 4,
+      "retrieval_with_material": 4,
+      "retrieval_with_updated_material": 0,
+      "retrieval_bytes": 12424,
+      "retrieved_source_ids": [
+        "E30-slot-1"
+      ],
+      "available_updated_source_ids": [],
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "original_test_observations": [
+        {
+          "step_id": "check",
+          "attempts": 1,
+          "status": "passed"
+        }
+      ],
+      "smoke_command_observations": 1,
+      "original_tests_status": "passed",
+      "verification_status": "passed",
+      "replay_status": "passed",
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "error_class": null,
+      "error": null,
+      "proposal_rejections": [],
+      "command_counts": {
+        "dependency": 1,
+        "configure": 1,
+        "build": 1,
+        "smoke": 1,
+        "artifact_stage": 1
+      },
+      "failed_commands": []
+    },
+    {
+      "slot": 35,
+      "project": "libsrtp",
+      "method": "structured_experience",
+      "repetition": 2,
+      "complete": true,
+      "status": "verified",
+      "requests": 9,
+      "cost_usd": "0.0610038",
+      "wall_seconds": 123.81110174703645,
+      "recorded_command_seconds": 23.970211697043897,
+      "role_seconds": {
+        "dependency": 0.506727,
+        "configure": 5.169897520041559,
+        "build": 3.3327127369702794,
+        "smoke": 14.787524054001551,
+        "artifact_stage": 0.17335038603050634
+      },
+      "replay_total_seconds": 27.395155,
+      "other_wall_seconds": 72.44573504999255,
+      "initial_requests": 9,
+      "recovery_requests": 0,
+      "initial_cost_usd": "0.0610038",
+      "recovery_cost_usd": "0",
+      "response_cost_matches_ledger": true,
+      "response_tokens": {
+        "input": 173842,
+        "output": 7376
+      },
+      "response_models": {
+        "deepseek-flash": 9
+      },
+      "recovery_episodes": 0,
+      "direct_actions": 0,
+      "retrieval_events": 9,
+      "retrieval_with_material": 9,
+      "retrieval_with_updated_material": 0,
+      "retrieval_bytes": 49725,
+      "retrieved_source_ids": [
+        "E30-slot-1"
+      ],
+      "available_updated_source_ids": [],
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "original_test_observations": [
+        {
+          "step_id": "check",
+          "attempts": 1,
+          "status": "passed"
+        }
+      ],
+      "smoke_command_observations": 1,
+      "original_tests_status": "passed",
+      "verification_status": "passed",
+      "replay_status": "passed",
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "error_class": null,
+      "error": null,
+      "proposal_rejections": [],
+      "command_counts": {
+        "dependency": 1,
+        "configure": 1,
+        "build": 1,
+        "smoke": 1,
+        "artifact_stage": 1
+      },
+      "failed_commands": []
+    },
+    {
+      "slot": 36,
+      "project": "libsrtp",
+      "method": "no_experience",
+      "repetition": 2,
+      "complete": true,
+      "status": "verified",
+      "requests": 9,
+      "cost_usd": "0.0527802",
+      "wall_seconds": 99.81924681301462,
+      "recorded_command_seconds": 23.71379889299831,
+      "role_seconds": {
+        "dependency": 0.494516,
+        "configure": 5.065392830991186,
+        "build": 3.2940106079913676,
+        "smoke": 14.687490347016137,
+        "artifact_stage": 0.17238910699961707
+      },
+      "replay_total_seconds": 27.379031,
+      "other_wall_seconds": 48.726416920016305,
+      "initial_requests": 9,
+      "recovery_requests": 0,
+      "initial_cost_usd": "0.0527802",
+      "recovery_cost_usd": "0",
+      "response_cost_matches_ledger": true,
+      "response_tokens": {
+        "input": 165138,
+        "output": 2699
+      },
+      "response_models": {
+        "deepseek-flash": 9
+      },
+      "recovery_episodes": 0,
+      "direct_actions": 0,
+      "retrieval_events": 9,
+      "retrieval_with_material": 0,
+      "retrieval_with_updated_material": 0,
+      "retrieval_bytes": 0,
+      "retrieved_source_ids": [],
+      "available_updated_source_ids": [],
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "original_test_observations": [
+        {
+          "step_id": "check",
+          "attempts": 1,
+          "status": "passed"
+        }
+      ],
+      "smoke_command_observations": 1,
+      "original_tests_status": "passed",
+      "verification_status": "passed",
+      "replay_status": "passed",
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "error_class": null,
+      "error": null,
+      "proposal_rejections": [],
+      "command_counts": {
+        "dependency": 1,
+        "configure": 1,
+        "build": 1,
+        "smoke": 1,
+        "artifact_stage": 1
+      },
+      "failed_commands": []
+    }
+  ],
+  "updates": [],
+  "update_cost_usd": "0",
+  "update_request_wall_seconds": 0,
+  "update_cost_in_original_result_usd": "0",
+  "update_receipts": [],
+  "update_unknown_usage": 0,
+  "update_cost_matches_original": true,
+  "unobserved": [],
+  "stop_reason": null,
+  "cost_recomputed": true,
+  "provenance": {
+    "result.json": "797563b65593d71b9047fd37e42d8f298418ea444b4388f970e6a12ffa44ab41",
+    "protocol.json": "abc7b5fa9bbb60e6714de10ac3d1953f79ce36044538d766052a340df8270fde",
+    "execution.json": "d1fedbe684bfc130055de9008e6a56d4eb6ff66040709afc963f05f96d183f90"
+  }
+}

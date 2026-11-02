@@ -1,0 +1,41 @@
+{
+  "identity": "cpp-build-state-experience-distillation-richlab-route-v1",
+  "sources": 12,
+  "families": [
+    "ELFIO",
+    "check",
+    "libtommath",
+    "rang",
+    "simdutf",
+    "snappy",
+    "tinyxml2",
+    "yaml-cpp"
+  ],
+  "sources_by_system": {
+    "autotools": 1,
+    "cmake": 7,
+    "make": 4
+  },
+  "entries": 24,
+  "outcomes": {
+    "effective": 19,
+    "ineffective": 4,
+    "hypothesis": 1
+  },
+  "stages": {
+    "dependency": 5,
+    "configure": 7,
+    "verification": 9,
+    "build": 3
+  },
+  "response_models": [
+    "gpt-5.6"
+  ],
+  "preparation_cost_usd": "0.095129",
+  "original_stopped_cost_usd": "0.014068",
+  "all_preparation_cost_usd": "0.109197",
+  "source_unchanged_label_null": 12,
+  "seed_bank_sha256": "18500dad3e10f59fbea1810f33f028d6c531f44a94657d50edb02ae1207ad317",
+  "request_wall_seconds": 249.00612683710642,
+  "request_time_scope": "12次新种子提炼调用累计，不含原停止18.892546秒或其他离线CPU/IO；不重复计作E36新增支出"
+}
