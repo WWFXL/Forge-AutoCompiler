@@ -185,3 +185,9 @@ def test_actual_agent_tools_and_meter_return_without_extra_model_request(local_s
     request = json.loads((accounting.ledger.directory / "request-3.json").read_text())
     assert "local_recovery" in request["messages"][0]["content"]
     assert str(wf.directory.parent) not in json.dumps(request)
+    packet = json.loads(request["messages"][0]["content"])
+    assert packet["current_plan"]["revision"] == 2
+    assert "current_plan" not in packet["local_recovery"] and "state" not in packet["local_recovery"]
+    receipt = next(e["result"]["content"] for e in events if e["event"] == "tool.completed" and e["name"] == "revise_recovery_plan")
+    assert json.loads(receipt)["revision"] == 2
+    assert len(receipt.encode()) < 1000 and "current_plan" not in receipt
