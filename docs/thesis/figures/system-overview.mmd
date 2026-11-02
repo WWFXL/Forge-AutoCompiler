@@ -1,0 +1,40 @@
+flowchart TB
+    T[任务输入：仓库版本、环境、构建与测试目标] --> P[模型规划：只读分析仓库并生成阶段指令]
+    P --> B[装配方案：依赖、配置、编译＋固定测试和交付]
+    B --> W[Workflow：执行当前就绪步骤]
+    W --> O[状态观测：退出码、日志、阶段记录、适用的配置缓存]
+    O --> S{结合任务目标选择动作}
+    S -->|当前步骤成功，目标满足或无适用配置目标| N[推进下一步]
+    N --> W
+    S -->|显式BOOL偏离且满足直接修订条件| D[一次直接配置修订：不调用模型]
+    S -->|失败、未知或超出直接修订范围| A[恢复Agent：依据实际证据返回修订方案]
+    D --> R[比较新旧方案：保留成功且未变的前缀，重执行变化后缀]
+    A --> R
+    R --> W
+    W -->|方案全部步骤完成| V[完整验证：原任务与源码、测试、精确交付、干净重放]
+    V -->|通过且清理完成| F[完整完成：交付产物、复现脚本和运行记录]
+    V -->|可恢复且资源允许| A
+    S -->|运行资源不足或不可恢复| X[停止并保留实际结果]
+
+    subgraph E[拟研究：跨任务经验驱动Harness改进，尚未接入]
+        H[历次构建轨迹＋各层验证结果] -.-> Q[提炼经验：触发条件、动作、结果与适用边界]
+        Q -.-> K[经验库：有效方案、局部线索与无效尝试]
+        K -.-> M[结合后续任务目标和状态检索，判断适用性]
+    end
+    F -.-> H
+    X -.-> H
+    M -.->|辅助后续任务规划| P
+    M -.->|辅助后续任务恢复| A
+
+    classDef existing fill:#edf4ff,stroke:#3d66a5,color:#172c48;
+    classDef direct fill:#e9f5ed,stroke:#38875b,color:#174a2e;
+    classDef agent fill:#fff1e6,stroke:#ba6b2b,color:#6d3510;
+    classDef future fill:#f5efff,stroke:#9270b4,color:#493169,stroke-dasharray:5 4;
+    class T,P,B,W,O,S,N,R,V,F,X existing;
+    class D direct;
+    class A agent;
+    class H,Q,K,M future;
+
+%% 当前配置语义主要覆盖显式CMake BOOL目标；Make/Autotools主要为阶段Workflow＋失败Agent。
+%% Agent修订不改变源码、原测试或验收；经验检索不自动成为直接执行规则。
+%% 本图只描述研究主链，不表示Web产品入口已经统一采用所有实验控制器。
