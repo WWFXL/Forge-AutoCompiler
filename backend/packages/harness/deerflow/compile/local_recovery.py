@@ -174,6 +174,18 @@ def run_local_agent(*, model, workflow, task, session_root):
     def feedback(operation):
         try:
             value = operation()
+            if "current_plan" in value:
+                # 完整方案与状态已在下一轮权威包中；工具只返回操作收据。
+                value = {"accepted": True, "revision": value["state"]["revision"], "plan_sha256": value["state"]["plan_sha256"], "completed": value["state"]["completed"], "target_role": value["target_role"], "returned": value["returned"]}
+            else:
+                # 完整输出保留在ledger及local_recovery.last_result，避免同轮复制两次。
+                value = {
+                    "accepted": True,
+                    "step_id": value["step_id"],
+                    "passed": value["passed"],
+                    "commands": [{k: row.get(k) for k in ("command_id", "exit_code", "timed_out", "log_path")} for row in value["commands"]],
+                    "configuration_status": value["configuration_state"]["status"],
+                }
             # 模型只看容器日志路径，不暴露宿主Session路径。
             rendered = json.dumps(value, ensure_ascii=False, default=str)
             rendered = rendered.replace(str(session_root), "")
@@ -202,7 +214,14 @@ def run_local_agent(*, model, workflow, task, session_root):
 
     def packet():
         # 状态仍绑定真实命令；模型收到的路径统一为Session内相对路径。
-        value = {**original_packet(), "local_recovery": recovery.observe()}
+        original = original_packet()
+        if "current_plan" not in original or "state" not in original:
+            raise PlanContractError("局部恢复需要包含完整方案与状态的共同权威包")
+        local = recovery.observe()
+        # 共同材料已经包含这两项并进行无损引用；不在局部字段再次发送全文。
+        local.pop("current_plan")
+        local.pop("state")
+        value = {**original, "local_recovery": local}
         return json.loads(json.dumps(value, ensure_ascii=False).replace(str(session_root) + "/", ""))
 
     meter.packet = packet
