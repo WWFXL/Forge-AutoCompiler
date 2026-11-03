@@ -12,6 +12,8 @@
 
 |文件|论文登记|
 |---|---|
+|[2026-11-03-transfer-action-experience-results.md](2026-11-03-transfer-action-experience-results.md)|[E39](THESIS_EVIDENCE_INDEX.md#e39)独立36次；初始读取节约与恢复／部署成本取舍；原E38不回填|
+|[2026-11-03-transfer-action-experience-preparation.md](2026-11-03-transfer-action-experience-preparation.md)|E39来源事实与迁移候选分离设计；11相关检查仅工程验证|
 |[2026-11-03-action-experience-stopped-and-repair.md](2026-11-03-action-experience-stopped-and-repair.md)|[E38](THESIS_EVIDENCE_INDEX.md#e38)12次提炼13条；36比较全未观察及初始覆盖0/6，不计方法效果|
 |[2026-11-03-experience-exploration-reanalysis.md](2026-11-03-experience-exploration-reanalysis.md)|[E37](THESIS_EVIDENCE_INDEX.md#e37)初始/恢复探索补充分析；与原48次完全重叠，不新增分母|
 |[2026-11-03-action-experience-preparation.md](2026-11-03-action-experience-preparation.md)|短动作经验及每任务一次选择的实现与36槽比较准备；零Provider工程检查不计效果|

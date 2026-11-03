@@ -1,0 +1,1285 @@
+{
+  "initial_coverage": {
+    "kind": "pre_run_material_coverage_not_effect",
+    "projects": [
+      {
+        "project": "jsoncpp",
+        "mode": "structured",
+        "sources": [
+          "E30-slot-19",
+          "E30-slot-9"
+        ],
+        "items": [
+          {
+            "source_id": "E30-slot-19",
+            "source_family": "rang",
+            "source_validation": {
+              "full_completed": true,
+              "source_unchanged": true,
+              "source_links_unchanged": true,
+              "tests": [
+                {
+                  "command_id": "command_4efe4ab109874db389b09309ab945ebb",
+                  "exit_code": 0,
+                  "timed_out": false
+                },
+                {
+                  "command_id": "command_d67e4b8f0dc140eaad89df4d59eb093e",
+                  "exit_code": 0,
+                  "timed_out": false
+                }
+              ],
+              "replay": [
+                {
+                  "status": "passed"
+                }
+              ],
+              "cleanup": {
+                "succeeded": true,
+                "stopped": true,
+                "removed": true
+              },
+              "error": null
+            },
+            "material": [
+              {
+                "conditions": [
+                  "离线源码随附可独立配置、安装的 doctest，且主测试通过 CMake 包查找并链接其导出目标"
+                ],
+                "stage": "dependency",
+                "state": "随附依赖先生成并安装包配置，主项目随后完成 Release 配置、构建和作者测试。",
+                "action": "存在随附 doctest 且测试声明依赖其 CMake 导出目标时→核对测试侧包查找/链接声明与依赖侧安装导出规则→优先在独立目录构建依赖并安装到仓库内前缀，再把生成的包目录交给主配置→应看到包配置文件生成，主配置完成且测试目标可构建。",
+                "outcome": "effective",
+                "not_applicable": [
+                  "源码未随附可安装的 doctest 工程",
+                  "测试声明不同时包含包查找和导出目标链接"
+                ],
+                "command_ids": [
+                  "command_4ec28b32b758403b882cb7f0c849060c",
+                  "command_155088bc758240c9b700f1a2521ddcd7",
+                  "command_b9352125391e4d10ada6ad9d98816520",
+                  "command_2e7f3a09cefe4fe1a7eabcc99f35b0bb",
+                  "command_d67e4b8f0dc140eaad89df4d59eb093e"
+                ],
+                "verification_scope": "仅对该源码的本地 doctest 包消费链有效；后续构建及作者测试通过，不据此扩大到其他依赖布局。",
+                "evidence_ids": [
+                  "plan:plan-1.json"
+                ],
+                "failed_attempt": null,
+                "feedback": "依赖安装输出包含 doctestConfig.cmake；主配置完成，三个程序构建成功，作者测试报告全部通过。",
+                "observed_revision": null,
+                "source_id": "E30-slot-19",
+                "check_before_action": [
+                  "核对测试 CMake 声明同时含 find_package(doctest) 与 doctest::doctest",
+                  "核对随附依赖 CMake 确有安装包配置或导出规则"
+                ],
+                "expected_observation": "仓库内安装前缀出现 doctest 包配置；主 CMake 配置不再需要联网获取依赖，并能生成测试构建规则。",
+                "experience_id": "ce12fd45a73bdff0655857a8db3a15d9d71c139eac64c707442b12886d24cd79",
+                "source_applicability_examples": {
+                  "required_files": [
+                    "CMakeLists.txt"
+                  ],
+                  "declaration_terms": [
+                    "find_package(doctest)",
+                    "doctest::doctest",
+                    "install(",
+                    "EXPORT"
+                  ],
+                  "error_markers": []
+                }
+              }
+            ],
+            "applicability_checks": [
+              {
+                "kind": "build_input",
+                "value": "CMakeLists.txt",
+                "confirmed": true
+              },
+              {
+                "kind": "cmake_command",
+                "value": "find_package",
+                "confirmed": true
+              },
+              {
+                "kind": "cmake_command",
+                "value": "install",
+                "confirmed": true
+              }
+            ],
+            "remaining_conditions": "仅为可迁移候选，尚未证明适用。来源专名/路径/选项均为实例；依据当前源码核对自然语言前提并实例化动作，不得照搬或改变任务要求。核对不满足就忽略，优先复用已有证据。"
+          },
+          {
+            "source_id": "E30-slot-9",
+            "source_family": "snappy",
+            "source_validation": {
+              "full_completed": true,
+              "source_unchanged": true,
+              "source_links_unchanged": true,
+              "tests": [
+                {
+                  "command_id": "command_f1c8206274074f999ac9f576f2750db7",
+                  "exit_code": 0,
+                  "timed_out": false
+                },
+                {
+                  "command_id": "command_2d03af9d53084e22af7516882682982c",
+                  "exit_code": 0,
+                  "timed_out": false
+                }
+              ],
+              "replay": [
+                {
+                  "status": "passed"
+                }
+              ],
+              "cleanup": {
+                "succeeded": true,
+                "stopped": true,
+                "removed": true
+              },
+              "error": null
+            },
+            "material": [
+              {
+                "conditions": [
+                  "CMakeLists.txt将单个测试可执行程序注册为一个CTest用例",
+                  "测试程序内部再运行多条GoogleTest用例"
+                ],
+                "stage": "verification",
+                "state": "CTest用例数与程序内部GoogleTest数量不是同一层级，控制台出现disabled提示也不等于CTest跳过。",
+                "action": "核对单一CTest注册关系；优先用CTest生成JUnit并解析外层testcase的数量、status及skip/failure/error节点，同时对照控制台汇总；观察外层用例是否确实运行并通过。",
+                "outcome": "effective",
+                "not_applicable": [
+                  "每条GoogleTest均被独立注册为CTest用例",
+                  "验证只要求直接运行测试二进制"
+                ],
+                "command_ids": [
+                  "command_2d03af9d53084e22af7516882682982c"
+                ],
+                "verification_scope": "证明一个已注册CTest实际运行且外层无跳过或失败；内部25条测试的结果来自同次程序输出。",
+                "evidence_ids": [
+                  "plan:plan-1.json"
+                ],
+                "failed_attempt": null,
+                "feedback": "CTest报告1/1通过，JUnit只有一个已运行且无失败节点的外层用例；程序内部报告25条通过并提示1条disabled。",
+                "observed_revision": null,
+                "source_id": "E30-slot-9",
+                "check_before_action": [
+                  "确认测试注册命令指向该单一测试程序",
+                  "复用现有JUnit时先确认它来自当前构建的本次CTest运行"
+                ],
+                "expected_observation": "JUnit仅含已运行且无skip、failure、error的外层用例，控制台同时显示内部测试通过汇总。",
+                "experience_id": "d6b5a1561681df95332ef1ac1fd2f0f6c3b19059ffa20c7aa3e01c5e33e372e9",
+                "source_applicability_examples": {
+                  "required_files": [
+                    "CMakeLists.txt"
+                  ],
+                  "declaration_terms": [
+                    "add_test",
+                    "snappy_unittest"
+                  ],
+                  "error_markers": []
+                }
+              }
+            ],
+            "applicability_checks": [
+              {
+                "kind": "build_input",
+                "value": "CMakeLists.txt",
+                "confirmed": true
+              },
+              {
+                "kind": "cmake_command",
+                "value": "add_test",
+                "confirmed": true
+              }
+            ],
+            "remaining_conditions": "仅为可迁移候选，尚未证明适用。来源专名/路径/选项均为实例；依据当前源码核对自然语言前提并实例化动作，不得照搬或改变任务要求。核对不满足就忽略，优先复用已有证据。"
+          }
+        ],
+        "bytes": 5596,
+        "maximum_bytes": 6000,
+        "top_k": 2
+      },
+      {
+        "project": "pegtl",
+        "mode": "structured",
+        "sources": [
+          "E30-slot-19",
+          "E30-slot-9"
+        ],
+        "items": [
+          {
+            "source_id": "E30-slot-19",
+            "source_family": "rang",
+            "source_validation": {
+              "full_completed": true,
+              "source_unchanged": true,
+              "source_links_unchanged": true,
+              "tests": [
+                {
+                  "command_id": "command_4efe4ab109874db389b09309ab945ebb",
+                  "exit_code": 0,
+                  "timed_out": false
+                },
+                {
+                  "command_id": "command_d67e4b8f0dc140eaad89df4d59eb093e",
+                  "exit_code": 0,
+                  "timed_out": false
+                }
+              ],
+              "replay": [
+                {
+                  "status": "passed"
+                }
+              ],
+              "cleanup": {
+                "succeeded": true,
+                "stopped": true,
+                "removed": true
+              },
+              "error": null
+            },
+            "material": [
+              {
+                "conditions": [
+                  "离线源码随附可独立配置、安装的 doctest，且主测试通过 CMake 包查找并链接其导出目标"
+                ],
+                "stage": "dependency",
+                "state": "随附依赖先生成并安装包配置，主项目随后完成 Release 配置、构建和作者测试。",
+                "action": "存在随附 doctest 且测试声明依赖其 CMake 导出目标时→核对测试侧包查找/链接声明与依赖侧安装导出规则→优先在独立目录构建依赖并安装到仓库内前缀，再把生成的包目录交给主配置→应看到包配置文件生成，主配置完成且测试目标可构建。",
+                "outcome": "effective",
+                "not_applicable": [
+                  "源码未随附可安装的 doctest 工程",
+                  "测试声明不同时包含包查找和导出目标链接"
+                ],
+                "command_ids": [
+                  "command_4ec28b32b758403b882cb7f0c849060c",
+                  "command_155088bc758240c9b700f1a2521ddcd7",
+                  "command_b9352125391e4d10ada6ad9d98816520",
+                  "command_2e7f3a09cefe4fe1a7eabcc99f35b0bb",
+                  "command_d67e4b8f0dc140eaad89df4d59eb093e"
+                ],
+                "verification_scope": "仅对该源码的本地 doctest 包消费链有效；后续构建及作者测试通过，不据此扩大到其他依赖布局。",
+                "evidence_ids": [
+                  "plan:plan-1.json"
+                ],
+                "failed_attempt": null,
+                "feedback": "依赖安装输出包含 doctestConfig.cmake；主配置完成，三个程序构建成功，作者测试报告全部通过。",
+                "observed_revision": null,
+                "source_id": "E30-slot-19",
+                "check_before_action": [
+                  "核对测试 CMake 声明同时含 find_package(doctest) 与 doctest::doctest",
+                  "核对随附依赖 CMake 确有安装包配置或导出规则"
+                ],
+                "expected_observation": "仓库内安装前缀出现 doctest 包配置；主 CMake 配置不再需要联网获取依赖，并能生成测试构建规则。",
+                "experience_id": "ce12fd45a73bdff0655857a8db3a15d9d71c139eac64c707442b12886d24cd79",
+                "source_applicability_examples": {
+                  "required_files": [
+                    "CMakeLists.txt"
+                  ],
+                  "declaration_terms": [
+                    "find_package(doctest)",
+                    "doctest::doctest",
+                    "install(",
+                    "EXPORT"
+                  ],
+                  "error_markers": []
+                }
+              }
+            ],
+            "applicability_checks": [
+              {
+                "kind": "build_input",
+                "value": "CMakeLists.txt",
+                "confirmed": true
+              },
+              {
+                "kind": "cmake_command",
+                "value": "find_package",
+                "confirmed": true
+              },
+              {
+                "kind": "cmake_command",
+                "value": "install",
+                "confirmed": true
+              }
+            ],
+            "remaining_conditions": "仅为可迁移候选，尚未证明适用。来源专名/路径/选项均为实例；依据当前源码核对自然语言前提并实例化动作，不得照搬或改变任务要求。核对不满足就忽略，优先复用已有证据。"
+          },
+          {
+            "source_id": "E30-slot-9",
+            "source_family": "snappy",
+            "source_validation": {
+              "full_completed": true,
+              "source_unchanged": true,
+              "source_links_unchanged": true,
+              "tests": [
+                {
+                  "command_id": "command_f1c8206274074f999ac9f576f2750db7",
+                  "exit_code": 0,
+                  "timed_out": false
+                },
+                {
+                  "command_id": "command_2d03af9d53084e22af7516882682982c",
+                  "exit_code": 0,
+                  "timed_out": false
+                }
+              ],
+              "replay": [
+                {
+                  "status": "passed"
+                }
+              ],
+              "cleanup": {
+                "succeeded": true,
+                "stopped": true,
+                "removed": true
+              },
+              "error": null
+            },
+            "material": [
+              {
+                "conditions": [
+                  "CMakeLists.txt将单个测试可执行程序注册为一个CTest用例",
+                  "测试程序内部再运行多条GoogleTest用例"
+                ],
+                "stage": "verification",
+                "state": "CTest用例数与程序内部GoogleTest数量不是同一层级，控制台出现disabled提示也不等于CTest跳过。",
+                "action": "核对单一CTest注册关系；优先用CTest生成JUnit并解析外层testcase的数量、status及skip/failure/error节点，同时对照控制台汇总；观察外层用例是否确实运行并通过。",
+                "outcome": "effective",
+                "not_applicable": [
+                  "每条GoogleTest均被独立注册为CTest用例",
+                  "验证只要求直接运行测试二进制"
+                ],
+                "command_ids": [
+                  "command_2d03af9d53084e22af7516882682982c"
+                ],
+                "verification_scope": "证明一个已注册CTest实际运行且外层无跳过或失败；内部25条测试的结果来自同次程序输出。",
+                "evidence_ids": [
+                  "plan:plan-1.json"
+                ],
+                "failed_attempt": null,
+                "feedback": "CTest报告1/1通过，JUnit只有一个已运行且无失败节点的外层用例；程序内部报告25条通过并提示1条disabled。",
+                "observed_revision": null,
+                "source_id": "E30-slot-9",
+                "check_before_action": [
+                  "确认测试注册命令指向该单一测试程序",
+                  "复用现有JUnit时先确认它来自当前构建的本次CTest运行"
+                ],
+                "expected_observation": "JUnit仅含已运行且无skip、failure、error的外层用例，控制台同时显示内部测试通过汇总。",
+                "experience_id": "d6b5a1561681df95332ef1ac1fd2f0f6c3b19059ffa20c7aa3e01c5e33e372e9",
+                "source_applicability_examples": {
+                  "required_files": [
+                    "CMakeLists.txt"
+                  ],
+                  "declaration_terms": [
+                    "add_test",
+                    "snappy_unittest"
+                  ],
+                  "error_markers": []
+                }
+              }
+            ],
+            "applicability_checks": [
+              {
+                "kind": "build_input",
+                "value": "CMakeLists.txt",
+                "confirmed": true
+              },
+              {
+                "kind": "cmake_command",
+                "value": "add_test",
+                "confirmed": true
+              }
+            ],
+            "remaining_conditions": "仅为可迁移候选，尚未证明适用。来源专名/路径/选项均为实例；依据当前源码核对自然语言前提并实例化动作，不得照搬或改变任务要求。核对不满足就忽略，优先复用已有证据。"
+          }
+        ],
+        "bytes": 5596,
+        "maximum_bytes": 6000,
+        "top_k": 2
+      },
+      {
+        "project": "inja",
+        "mode": "structured",
+        "sources": [
+          "E30-slot-19",
+          "E30-slot-9"
+        ],
+        "items": [
+          {
+            "source_id": "E30-slot-19",
+            "source_family": "rang",
+            "source_validation": {
+              "full_completed": true,
+              "source_unchanged": true,
+              "source_links_unchanged": true,
+              "tests": [
+                {
+                  "command_id": "command_4efe4ab109874db389b09309ab945ebb",
+                  "exit_code": 0,
+                  "timed_out": false
+                },
+                {
+                  "command_id": "command_d67e4b8f0dc140eaad89df4d59eb093e",
+                  "exit_code": 0,
+                  "timed_out": false
+                }
+              ],
+              "replay": [
+                {
+                  "status": "passed"
+                }
+              ],
+              "cleanup": {
+                "succeeded": true,
+                "stopped": true,
+                "removed": true
+              },
+              "error": null
+            },
+            "material": [
+              {
+                "conditions": [
+                  "离线源码随附可独立配置、安装的 doctest，且主测试通过 CMake 包查找并链接其导出目标"
+                ],
+                "stage": "dependency",
+                "state": "随附依赖先生成并安装包配置，主项目随后完成 Release 配置、构建和作者测试。",
+                "action": "存在随附 doctest 且测试声明依赖其 CMake 导出目标时→核对测试侧包查找/链接声明与依赖侧安装导出规则→优先在独立目录构建依赖并安装到仓库内前缀，再把生成的包目录交给主配置→应看到包配置文件生成，主配置完成且测试目标可构建。",
+                "outcome": "effective",
+                "not_applicable": [
+                  "源码未随附可安装的 doctest 工程",
+                  "测试声明不同时包含包查找和导出目标链接"
+                ],
+                "command_ids": [
+                  "command_4ec28b32b758403b882cb7f0c849060c",
+                  "command_155088bc758240c9b700f1a2521ddcd7",
+                  "command_b9352125391e4d10ada6ad9d98816520",
+                  "command_2e7f3a09cefe4fe1a7eabcc99f35b0bb",
+                  "command_d67e4b8f0dc140eaad89df4d59eb093e"
+                ],
+                "verification_scope": "仅对该源码的本地 doctest 包消费链有效；后续构建及作者测试通过，不据此扩大到其他依赖布局。",
+                "evidence_ids": [
+                  "plan:plan-1.json"
+                ],
+                "failed_attempt": null,
+                "feedback": "依赖安装输出包含 doctestConfig.cmake；主配置完成，三个程序构建成功，作者测试报告全部通过。",
+                "observed_revision": null,
+                "source_id": "E30-slot-19",
+                "check_before_action": [
+                  "核对测试 CMake 声明同时含 find_package(doctest) 与 doctest::doctest",
+                  "核对随附依赖 CMake 确有安装包配置或导出规则"
+                ],
+                "expected_observation": "仓库内安装前缀出现 doctest 包配置；主 CMake 配置不再需要联网获取依赖，并能生成测试构建规则。",
+                "experience_id": "ce12fd45a73bdff0655857a8db3a15d9d71c139eac64c707442b12886d24cd79",
+                "source_applicability_examples": {
+                  "required_files": [
+                    "CMakeLists.txt"
+                  ],
+                  "declaration_terms": [
+                    "find_package(doctest)",
+                    "doctest::doctest",
+                    "install(",
+                    "EXPORT"
+                  ],
+                  "error_markers": []
+                }
+              }
+            ],
+            "applicability_checks": [
+              {
+                "kind": "build_input",
+                "value": "CMakeLists.txt",
+                "confirmed": true
+              },
+              {
+                "kind": "cmake_command",
+                "value": "find_package",
+                "confirmed": true
+              },
+              {
+                "kind": "cmake_command",
+                "value": "install",
+                "confirmed": true
+              }
+            ],
+            "remaining_conditions": "仅为可迁移候选，尚未证明适用。来源专名/路径/选项均为实例；依据当前源码核对自然语言前提并实例化动作，不得照搬或改变任务要求。核对不满足就忽略，优先复用已有证据。"
+          },
+          {
+            "source_id": "E30-slot-9",
+            "source_family": "snappy",
+            "source_validation": {
+              "full_completed": true,
+              "source_unchanged": true,
+              "source_links_unchanged": true,
+              "tests": [
+                {
+                  "command_id": "command_f1c8206274074f999ac9f576f2750db7",
+                  "exit_code": 0,
+                  "timed_out": false
+                },
+                {
+                  "command_id": "command_2d03af9d53084e22af7516882682982c",
+                  "exit_code": 0,
+                  "timed_out": false
+                }
+              ],
+              "replay": [
+                {
+                  "status": "passed"
+                }
+              ],
+              "cleanup": {
+                "succeeded": true,
+                "stopped": true,
+                "removed": true
+              },
+              "error": null
+            },
+            "material": [
+              {
+                "conditions": [
+                  "CMakeLists.txt将单个测试可执行程序注册为一个CTest用例",
+                  "测试程序内部再运行多条GoogleTest用例"
+                ],
+                "stage": "verification",
+                "state": "CTest用例数与程序内部GoogleTest数量不是同一层级，控制台出现disabled提示也不等于CTest跳过。",
+                "action": "核对单一CTest注册关系；优先用CTest生成JUnit并解析外层testcase的数量、status及skip/failure/error节点，同时对照控制台汇总；观察外层用例是否确实运行并通过。",
+                "outcome": "effective",
+                "not_applicable": [
+                  "每条GoogleTest均被独立注册为CTest用例",
+                  "验证只要求直接运行测试二进制"
+                ],
+                "command_ids": [
+                  "command_2d03af9d53084e22af7516882682982c"
+                ],
+                "verification_scope": "证明一个已注册CTest实际运行且外层无跳过或失败；内部25条测试的结果来自同次程序输出。",
+                "evidence_ids": [
+                  "plan:plan-1.json"
+                ],
+                "failed_attempt": null,
+                "feedback": "CTest报告1/1通过，JUnit只有一个已运行且无失败节点的外层用例；程序内部报告25条通过并提示1条disabled。",
+                "observed_revision": null,
+                "source_id": "E30-slot-9",
+                "check_before_action": [
+                  "确认测试注册命令指向该单一测试程序",
+                  "复用现有JUnit时先确认它来自当前构建的本次CTest运行"
+                ],
+                "expected_observation": "JUnit仅含已运行且无skip、failure、error的外层用例，控制台同时显示内部测试通过汇总。",
+                "experience_id": "d6b5a1561681df95332ef1ac1fd2f0f6c3b19059ffa20c7aa3e01c5e33e372e9",
+                "source_applicability_examples": {
+                  "required_files": [
+                    "CMakeLists.txt"
+                  ],
+                  "declaration_terms": [
+                    "add_test",
+                    "snappy_unittest"
+                  ],
+                  "error_markers": []
+                }
+              }
+            ],
+            "applicability_checks": [
+              {
+                "kind": "build_input",
+                "value": "CMakeLists.txt",
+                "confirmed": true
+              },
+              {
+                "kind": "cmake_command",
+                "value": "add_test",
+                "confirmed": true
+              }
+            ],
+            "remaining_conditions": "仅为可迁移候选，尚未证明适用。来源专名/路径/选项均为实例；依据当前源码核对自然语言前提并实例化动作，不得照搬或改变任务要求。核对不满足就忽略，优先复用已有证据。"
+          }
+        ],
+        "bytes": 5596,
+        "maximum_bytes": 6000,
+        "top_k": 2
+      },
+      {
+        "project": "highwayhash",
+        "mode": "structured",
+        "sources": [],
+        "items": [],
+        "bytes": 0,
+        "maximum_bytes": 6000,
+        "top_k": 2
+      },
+      {
+        "project": "libsigcplusplus",
+        "mode": "structured",
+        "sources": [],
+        "items": [],
+        "bytes": 0,
+        "maximum_bytes": 6000,
+        "top_k": 2
+      },
+      {
+        "project": "libsrtp",
+        "mode": "structured",
+        "sources": [],
+        "items": [],
+        "bytes": 0,
+        "maximum_bytes": 6000,
+        "top_k": 2
+      }
+    ],
+    "nonempty": 3
+  },
+  "selections": [
+    {
+      "slot": 1,
+      "project": "jsoncpp",
+      "method": "no_experience",
+      "event": "experience.task_selected",
+      "episode": 1,
+      "stage": "initial",
+      "mode": "none",
+      "source_ids": [],
+      "bytes": 0,
+      "bank_sha256": "dc1586c6c292c13c9f15b58f6969a1a1abb071d835738ec8eefd8ce998d90c5c",
+      "context_sha256": "ef914a4105196466e7e48ba7b384abcf13fe7671853d60355aeeead699acf15f"
+    },
+    {
+      "slot": 2,
+      "project": "jsoncpp",
+      "method": "source_experience",
+      "event": "experience.task_selected",
+      "episode": 1,
+      "stage": "initial",
+      "mode": "structured",
+      "source_ids": [
+        "E30-slot-6",
+        "E30-slot-10"
+      ],
+      "bytes": 10422,
+      "bank_sha256": "dc1586c6c292c13c9f15b58f6969a1a1abb071d835738ec8eefd8ce998d90c5c",
+      "context_sha256": "15c48ea87e5c94e6cf1f76f2e13aae8aeba3851ffcd914535fd9c293336f27d3"
+    },
+    {
+      "slot": 3,
+      "project": "jsoncpp",
+      "method": "action_experience",
+      "event": "experience.task_selected",
+      "episode": 1,
+      "stage": "initial",
+      "mode": "structured",
+      "source_ids": [
+        "E30-slot-19",
+        "E30-slot-9"
+      ],
+      "bytes": 5596,
+      "bank_sha256": "196104a5e227779b724b4d419bdb8490aaf9f01b36f4689af5d550d16ff57588",
+      "context_sha256": "31cb2d00173040679303d8468764e8ac593c42b24b1d25d97b0869ec9a1d94ea"
+    },
+    {
+      "slot": 4,
+      "project": "pegtl",
+      "method": "source_experience",
+      "event": "experience.task_selected",
+      "episode": 1,
+      "stage": "initial",
+      "mode": "structured",
+      "source_ids": [
+        "E30-slot-6",
+        "E30-slot-9"
+      ],
+      "bytes": 10393,
+      "bank_sha256": "dc1586c6c292c13c9f15b58f6969a1a1abb071d835738ec8eefd8ce998d90c5c",
+      "context_sha256": "4e13b7148c861f5c62b51f3c6aa1608628dd4cbf6abf138fb62e0a712c729611"
+    },
+    {
+      "slot": 5,
+      "project": "pegtl",
+      "method": "action_experience",
+      "event": "experience.task_selected",
+      "episode": 1,
+      "stage": "initial",
+      "mode": "structured",
+      "source_ids": [
+        "E30-slot-19",
+        "E30-slot-9"
+      ],
+      "bytes": 5596,
+      "bank_sha256": "196104a5e227779b724b4d419bdb8490aaf9f01b36f4689af5d550d16ff57588",
+      "context_sha256": "31cb2d00173040679303d8468764e8ac593c42b24b1d25d97b0869ec9a1d94ea"
+    },
+    {
+      "slot": 6,
+      "project": "pegtl",
+      "method": "no_experience",
+      "event": "experience.task_selected",
+      "episode": 1,
+      "stage": "initial",
+      "mode": "none",
+      "source_ids": [],
+      "bytes": 0,
+      "bank_sha256": "dc1586c6c292c13c9f15b58f6969a1a1abb071d835738ec8eefd8ce998d90c5c",
+      "context_sha256": "ef914a4105196466e7e48ba7b384abcf13fe7671853d60355aeeead699acf15f"
+    },
+    {
+      "slot": 7,
+      "project": "inja",
+      "method": "action_experience",
+      "event": "experience.task_selected",
+      "episode": 1,
+      "stage": "initial",
+      "mode": "structured",
+      "source_ids": [
+        "E30-slot-19",
+        "E30-slot-9"
+      ],
+      "bytes": 5596,
+      "bank_sha256": "196104a5e227779b724b4d419bdb8490aaf9f01b36f4689af5d550d16ff57588",
+      "context_sha256": "31cb2d00173040679303d8468764e8ac593c42b24b1d25d97b0869ec9a1d94ea"
+    },
+    {
+      "slot": 8,
+      "project": "inja",
+      "method": "no_experience",
+      "event": "experience.task_selected",
+      "episode": 1,
+      "stage": "initial",
+      "mode": "none",
+      "source_ids": [],
+      "bytes": 0,
+      "bank_sha256": "dc1586c6c292c13c9f15b58f6969a1a1abb071d835738ec8eefd8ce998d90c5c",
+      "context_sha256": "ef914a4105196466e7e48ba7b384abcf13fe7671853d60355aeeead699acf15f"
+    },
+    {
+      "slot": 9,
+      "project": "inja",
+      "method": "source_experience",
+      "event": "experience.task_selected",
+      "episode": 1,
+      "stage": "initial",
+      "mode": "structured",
+      "source_ids": [
+        "E30-slot-6",
+        "E30-slot-10"
+      ],
+      "bytes": 10422,
+      "bank_sha256": "dc1586c6c292c13c9f15b58f6969a1a1abb071d835738ec8eefd8ce998d90c5c",
+      "context_sha256": "15c48ea87e5c94e6cf1f76f2e13aae8aeba3851ffcd914535fd9c293336f27d3"
+    },
+    {
+      "slot": 10,
+      "project": "highwayhash",
+      "method": "no_experience",
+      "event": "experience.task_selected",
+      "episode": 1,
+      "stage": "initial",
+      "mode": "none",
+      "source_ids": [],
+      "bytes": 0,
+      "bank_sha256": "dc1586c6c292c13c9f15b58f6969a1a1abb071d835738ec8eefd8ce998d90c5c",
+      "context_sha256": "ef914a4105196466e7e48ba7b384abcf13fe7671853d60355aeeead699acf15f"
+    },
+    {
+      "slot": 11,
+      "project": "highwayhash",
+      "method": "source_experience",
+      "event": "experience.task_selected",
+      "episode": 1,
+      "stage": "initial",
+      "mode": "structured",
+      "source_ids": [
+        "E30-slot-14",
+        "E30-slot-17"
+      ],
+      "bytes": 8808,
+      "bank_sha256": "dc1586c6c292c13c9f15b58f6969a1a1abb071d835738ec8eefd8ce998d90c5c",
+      "context_sha256": "62d08efe81a3675c89dedc7a3fd60f3e3aed74957ecbe3b47ae0dcab5daed9a6"
+    },
+    {
+      "slot": 12,
+      "project": "highwayhash",
+      "method": "action_experience",
+      "event": "experience.task_selected",
+      "episode": 1,
+      "stage": "initial",
+      "mode": "structured",
+      "source_ids": [],
+      "bytes": 0,
+      "bank_sha256": "196104a5e227779b724b4d419bdb8490aaf9f01b36f4689af5d550d16ff57588",
+      "context_sha256": "6fab90ed70893bdf57d96694e46ec78dea75ababdc362648486ed92e231841f4"
+    },
+    {
+      "slot": 13,
+      "project": "libsigcplusplus",
+      "method": "source_experience",
+      "event": "experience.task_selected",
+      "episode": 1,
+      "stage": "initial",
+      "mode": "structured",
+      "source_ids": [
+        "E30-slot-1"
+      ],
+      "bytes": 5525,
+      "bank_sha256": "dc1586c6c292c13c9f15b58f6969a1a1abb071d835738ec8eefd8ce998d90c5c",
+      "context_sha256": "100e637d564e13ed32d5bc36f339a208895b0401dbd5d044af5b462a030f86bd"
+    },
+    {
+      "slot": 13,
+      "project": "libsigcplusplus",
+      "method": "source_experience",
+      "event": "experience.task_selected",
+      "episode": 2,
+      "stage": "build",
+      "mode": "structured",
+      "source_ids": [
+        "E30-slot-1"
+      ],
+      "bytes": 5525,
+      "bank_sha256": "dc1586c6c292c13c9f15b58f6969a1a1abb071d835738ec8eefd8ce998d90c5c",
+      "context_sha256": "100e637d564e13ed32d5bc36f339a208895b0401dbd5d044af5b462a030f86bd"
+    },
+    {
+      "slot": 14,
+      "project": "libsigcplusplus",
+      "method": "action_experience",
+      "event": "experience.task_selected",
+      "episode": 1,
+      "stage": "initial",
+      "mode": "structured",
+      "source_ids": [],
+      "bytes": 0,
+      "bank_sha256": "196104a5e227779b724b4d419bdb8490aaf9f01b36f4689af5d550d16ff57588",
+      "context_sha256": "6fab90ed70893bdf57d96694e46ec78dea75ababdc362648486ed92e231841f4"
+    },
+    {
+      "slot": 15,
+      "project": "libsigcplusplus",
+      "method": "no_experience",
+      "event": "experience.task_selected",
+      "episode": 1,
+      "stage": "initial",
+      "mode": "none",
+      "source_ids": [],
+      "bytes": 0,
+      "bank_sha256": "dc1586c6c292c13c9f15b58f6969a1a1abb071d835738ec8eefd8ce998d90c5c",
+      "context_sha256": "ef914a4105196466e7e48ba7b384abcf13fe7671853d60355aeeead699acf15f"
+    },
+    {
+      "slot": 16,
+      "project": "libsrtp",
+      "method": "action_experience",
+      "event": "experience.task_selected",
+      "episode": 1,
+      "stage": "initial",
+      "mode": "structured",
+      "source_ids": [],
+      "bytes": 0,
+      "bank_sha256": "196104a5e227779b724b4d419bdb8490aaf9f01b36f4689af5d550d16ff57588",
+      "context_sha256": "6fab90ed70893bdf57d96694e46ec78dea75ababdc362648486ed92e231841f4"
+    },
+    {
+      "slot": 17,
+      "project": "libsrtp",
+      "method": "no_experience",
+      "event": "experience.task_selected",
+      "episode": 1,
+      "stage": "initial",
+      "mode": "none",
+      "source_ids": [],
+      "bytes": 0,
+      "bank_sha256": "dc1586c6c292c13c9f15b58f6969a1a1abb071d835738ec8eefd8ce998d90c5c",
+      "context_sha256": "ef914a4105196466e7e48ba7b384abcf13fe7671853d60355aeeead699acf15f"
+    },
+    {
+      "slot": 18,
+      "project": "libsrtp",
+      "method": "source_experience",
+      "event": "experience.task_selected",
+      "episode": 1,
+      "stage": "initial",
+      "mode": "structured",
+      "source_ids": [
+        "E30-slot-1"
+      ],
+      "bytes": 5525,
+      "bank_sha256": "dc1586c6c292c13c9f15b58f6969a1a1abb071d835738ec8eefd8ce998d90c5c",
+      "context_sha256": "100e637d564e13ed32d5bc36f339a208895b0401dbd5d044af5b462a030f86bd"
+    },
+    {
+      "slot": 19,
+      "project": "jsoncpp",
+      "method": "source_experience",
+      "event": "experience.task_selected",
+      "episode": 1,
+      "stage": "initial",
+      "mode": "structured",
+      "source_ids": [
+        "E30-slot-6",
+        "E30-slot-10"
+      ],
+      "bytes": 10422,
+      "bank_sha256": "dc1586c6c292c13c9f15b58f6969a1a1abb071d835738ec8eefd8ce998d90c5c",
+      "context_sha256": "15c48ea87e5c94e6cf1f76f2e13aae8aeba3851ffcd914535fd9c293336f27d3"
+    },
+    {
+      "slot": 20,
+      "project": "jsoncpp",
+      "method": "action_experience",
+      "event": "experience.task_selected",
+      "episode": 1,
+      "stage": "initial",
+      "mode": "structured",
+      "source_ids": [
+        "E30-slot-19",
+        "E30-slot-9"
+      ],
+      "bytes": 5596,
+      "bank_sha256": "196104a5e227779b724b4d419bdb8490aaf9f01b36f4689af5d550d16ff57588",
+      "context_sha256": "31cb2d00173040679303d8468764e8ac593c42b24b1d25d97b0869ec9a1d94ea"
+    },
+    {
+      "slot": 20,
+      "project": "jsoncpp",
+      "method": "action_experience",
+      "event": "experience.task_selected",
+      "episode": 2,
+      "stage": "build",
+      "mode": "structured",
+      "source_ids": [],
+      "bytes": 0,
+      "bank_sha256": "196104a5e227779b724b4d419bdb8490aaf9f01b36f4689af5d550d16ff57588",
+      "context_sha256": "6fab90ed70893bdf57d96694e46ec78dea75ababdc362648486ed92e231841f4"
+    },
+    {
+      "slot": 20,
+      "project": "jsoncpp",
+      "method": "action_experience",
+      "event": "experience.task_selected",
+      "episode": 3,
+      "stage": "build",
+      "mode": "structured",
+      "source_ids": [],
+      "bytes": 0,
+      "bank_sha256": "196104a5e227779b724b4d419bdb8490aaf9f01b36f4689af5d550d16ff57588",
+      "context_sha256": "6fab90ed70893bdf57d96694e46ec78dea75ababdc362648486ed92e231841f4"
+    },
+    {
+      "slot": 21,
+      "project": "jsoncpp",
+      "method": "no_experience",
+      "event": "experience.task_selected",
+      "episode": 1,
+      "stage": "initial",
+      "mode": "none",
+      "source_ids": [],
+      "bytes": 0,
+      "bank_sha256": "dc1586c6c292c13c9f15b58f6969a1a1abb071d835738ec8eefd8ce998d90c5c",
+      "context_sha256": "ef914a4105196466e7e48ba7b384abcf13fe7671853d60355aeeead699acf15f"
+    },
+    {
+      "slot": 21,
+      "project": "jsoncpp",
+      "method": "no_experience",
+      "event": "experience.task_selected",
+      "episode": 2,
+      "stage": "configure",
+      "mode": "none",
+      "source_ids": [],
+      "bytes": 0,
+      "bank_sha256": "dc1586c6c292c13c9f15b58f6969a1a1abb071d835738ec8eefd8ce998d90c5c",
+      "context_sha256": "ef914a4105196466e7e48ba7b384abcf13fe7671853d60355aeeead699acf15f"
+    },
+    {
+      "slot": 21,
+      "project": "jsoncpp",
+      "method": "no_experience",
+      "event": "experience.task_selected",
+      "episode": 3,
+      "stage": "build",
+      "mode": "none",
+      "source_ids": [],
+      "bytes": 0,
+      "bank_sha256": "dc1586c6c292c13c9f15b58f6969a1a1abb071d835738ec8eefd8ce998d90c5c",
+      "context_sha256": "ef914a4105196466e7e48ba7b384abcf13fe7671853d60355aeeead699acf15f"
+    },
+    {
+      "slot": 22,
+      "project": "pegtl",
+      "method": "action_experience",
+      "event": "experience.task_selected",
+      "episode": 1,
+      "stage": "initial",
+      "mode": "structured",
+      "source_ids": [
+        "E30-slot-19",
+        "E30-slot-9"
+      ],
+      "bytes": 5596,
+      "bank_sha256": "196104a5e227779b724b4d419bdb8490aaf9f01b36f4689af5d550d16ff57588",
+      "context_sha256": "31cb2d00173040679303d8468764e8ac593c42b24b1d25d97b0869ec9a1d94ea"
+    },
+    {
+      "slot": 23,
+      "project": "pegtl",
+      "method": "no_experience",
+      "event": "experience.task_selected",
+      "episode": 1,
+      "stage": "initial",
+      "mode": "none",
+      "source_ids": [],
+      "bytes": 0,
+      "bank_sha256": "dc1586c6c292c13c9f15b58f6969a1a1abb071d835738ec8eefd8ce998d90c5c",
+      "context_sha256": "ef914a4105196466e7e48ba7b384abcf13fe7671853d60355aeeead699acf15f"
+    },
+    {
+      "slot": 24,
+      "project": "pegtl",
+      "method": "source_experience",
+      "event": "experience.task_selected",
+      "episode": 1,
+      "stage": "initial",
+      "mode": "structured",
+      "source_ids": [
+        "E30-slot-6",
+        "E30-slot-9"
+      ],
+      "bytes": 10393,
+      "bank_sha256": "dc1586c6c292c13c9f15b58f6969a1a1abb071d835738ec8eefd8ce998d90c5c",
+      "context_sha256": "4e13b7148c861f5c62b51f3c6aa1608628dd4cbf6abf138fb62e0a712c729611"
+    },
+    {
+      "slot": 25,
+      "project": "inja",
+      "method": "no_experience",
+      "event": "experience.task_selected",
+      "episode": 1,
+      "stage": "initial",
+      "mode": "none",
+      "source_ids": [],
+      "bytes": 0,
+      "bank_sha256": "dc1586c6c292c13c9f15b58f6969a1a1abb071d835738ec8eefd8ce998d90c5c",
+      "context_sha256": "ef914a4105196466e7e48ba7b384abcf13fe7671853d60355aeeead699acf15f"
+    },
+    {
+      "slot": 26,
+      "project": "inja",
+      "method": "source_experience",
+      "event": "experience.task_selected",
+      "episode": 1,
+      "stage": "initial",
+      "mode": "structured",
+      "source_ids": [
+        "E30-slot-6",
+        "E30-slot-10"
+      ],
+      "bytes": 10422,
+      "bank_sha256": "dc1586c6c292c13c9f15b58f6969a1a1abb071d835738ec8eefd8ce998d90c5c",
+      "context_sha256": "15c48ea87e5c94e6cf1f76f2e13aae8aeba3851ffcd914535fd9c293336f27d3"
+    },
+    {
+      "slot": 27,
+      "project": "inja",
+      "method": "action_experience",
+      "event": "experience.task_selected",
+      "episode": 1,
+      "stage": "initial",
+      "mode": "structured",
+      "source_ids": [
+        "E30-slot-19",
+        "E30-slot-9"
+      ],
+      "bytes": 5596,
+      "bank_sha256": "196104a5e227779b724b4d419bdb8490aaf9f01b36f4689af5d550d16ff57588",
+      "context_sha256": "31cb2d00173040679303d8468764e8ac593c42b24b1d25d97b0869ec9a1d94ea"
+    },
+    {
+      "slot": 28,
+      "project": "highwayhash",
+      "method": "source_experience",
+      "event": "experience.task_selected",
+      "episode": 1,
+      "stage": "initial",
+      "mode": "structured",
+      "source_ids": [
+        "E30-slot-14",
+        "E30-slot-17"
+      ],
+      "bytes": 8808,
+      "bank_sha256": "dc1586c6c292c13c9f15b58f6969a1a1abb071d835738ec8eefd8ce998d90c5c",
+      "context_sha256": "62d08efe81a3675c89dedc7a3fd60f3e3aed74957ecbe3b47ae0dcab5daed9a6"
+    },
+    {
+      "slot": 29,
+      "project": "highwayhash",
+      "method": "action_experience",
+      "event": "experience.task_selected",
+      "episode": 1,
+      "stage": "initial",
+      "mode": "structured",
+      "source_ids": [],
+      "bytes": 0,
+      "bank_sha256": "196104a5e227779b724b4d419bdb8490aaf9f01b36f4689af5d550d16ff57588",
+      "context_sha256": "6fab90ed70893bdf57d96694e46ec78dea75ababdc362648486ed92e231841f4"
+    },
+    {
+      "slot": 30,
+      "project": "highwayhash",
+      "method": "no_experience",
+      "event": "experience.task_selected",
+      "episode": 1,
+      "stage": "initial",
+      "mode": "none",
+      "source_ids": [],
+      "bytes": 0,
+      "bank_sha256": "dc1586c6c292c13c9f15b58f6969a1a1abb071d835738ec8eefd8ce998d90c5c",
+      "context_sha256": "ef914a4105196466e7e48ba7b384abcf13fe7671853d60355aeeead699acf15f"
+    },
+    {
+      "slot": 31,
+      "project": "libsigcplusplus",
+      "method": "action_experience",
+      "event": "experience.task_selected",
+      "episode": 1,
+      "stage": "initial",
+      "mode": "structured",
+      "source_ids": [],
+      "bytes": 0,
+      "bank_sha256": "196104a5e227779b724b4d419bdb8490aaf9f01b36f4689af5d550d16ff57588",
+      "context_sha256": "6fab90ed70893bdf57d96694e46ec78dea75ababdc362648486ed92e231841f4"
+    },
+    {
+      "slot": 32,
+      "project": "libsigcplusplus",
+      "method": "no_experience",
+      "event": "experience.task_selected",
+      "episode": 1,
+      "stage": "initial",
+      "mode": "none",
+      "source_ids": [],
+      "bytes": 0,
+      "bank_sha256": "dc1586c6c292c13c9f15b58f6969a1a1abb071d835738ec8eefd8ce998d90c5c",
+      "context_sha256": "ef914a4105196466e7e48ba7b384abcf13fe7671853d60355aeeead699acf15f"
+    },
+    {
+      "slot": 32,
+      "project": "libsigcplusplus",
+      "method": "no_experience",
+      "event": "experience.task_selected",
+      "episode": 2,
+      "stage": "build",
+      "mode": "none",
+      "source_ids": [],
+      "bytes": 0,
+      "bank_sha256": "dc1586c6c292c13c9f15b58f6969a1a1abb071d835738ec8eefd8ce998d90c5c",
+      "context_sha256": "ef914a4105196466e7e48ba7b384abcf13fe7671853d60355aeeead699acf15f"
+    },
+    {
+      "slot": 33,
+      "project": "libsigcplusplus",
+      "method": "source_experience",
+      "event": "experience.task_selected",
+      "episode": 1,
+      "stage": "initial",
+      "mode": "structured",
+      "source_ids": [
+        "E30-slot-1"
+      ],
+      "bytes": 5525,
+      "bank_sha256": "dc1586c6c292c13c9f15b58f6969a1a1abb071d835738ec8eefd8ce998d90c5c",
+      "context_sha256": "100e637d564e13ed32d5bc36f339a208895b0401dbd5d044af5b462a030f86bd"
+    },
+    {
+      "slot": 34,
+      "project": "libsrtp",
+      "method": "no_experience",
+      "event": "experience.task_selected",
+      "episode": 1,
+      "stage": "initial",
+      "mode": "none",
+      "source_ids": [],
+      "bytes": 0,
+      "bank_sha256": "dc1586c6c292c13c9f15b58f6969a1a1abb071d835738ec8eefd8ce998d90c5c",
+      "context_sha256": "ef914a4105196466e7e48ba7b384abcf13fe7671853d60355aeeead699acf15f"
+    },
+    {
+      "slot": 35,
+      "project": "libsrtp",
+      "method": "source_experience",
+      "event": "experience.task_selected",
+      "episode": 1,
+      "stage": "initial",
+      "mode": "structured",
+      "source_ids": [
+        "E30-slot-1"
+      ],
+      "bytes": 5525,
+      "bank_sha256": "dc1586c6c292c13c9f15b58f6969a1a1abb071d835738ec8eefd8ce998d90c5c",
+      "context_sha256": "100e637d564e13ed32d5bc36f339a208895b0401dbd5d044af5b462a030f86bd"
+    },
+    {
+      "slot": 36,
+      "project": "libsrtp",
+      "method": "action_experience",
+      "event": "experience.task_selected",
+      "episode": 1,
+      "stage": "initial",
+      "mode": "structured",
+      "source_ids": [],
+      "bytes": 0,
+      "bank_sha256": "196104a5e227779b724b4d419bdb8490aaf9f01b36f4689af5d550d16ff57588",
+      "context_sha256": "6fab90ed70893bdf57d96694e46ec78dea75ababdc362648486ed92e231841f4"
+    }
+  ],
+  "selected_experience_counts": {
+    "d6b5a1561681df95332ef1ac1fd2f0f6c3b19059ffa20c7aa3e01c5e33e372e9": 6,
+    "ce12fd45a73bdff0655857a8db3a15d9d71c139eac64c707442b12886d24cd79": 6
+  },
+  "conditioned_boundary": "候选/出处/上下文使用不等于采用或因果；没有当前材料时差异不可直接归于经验",
+  "strata_exploration": {
+    "explicit_configuration": {
+      "no_experience": {
+        "initial_requests": 26,
+        "initial_source_reads": 24,
+        "initial_cost_usd": "0.1437771",
+        "recovery_cost_usd": "0.0339051",
+        "wall_minutes": 22.623531063833312
+      },
+      "source_experience": {
+        "initial_requests": 31,
+        "initial_source_reads": 28,
+        "initial_cost_usd": "0.2004453",
+        "recovery_cost_usd": "0",
+        "wall_minutes": 20.376110274984967
+      },
+      "action_experience": {
+        "initial_requests": 30,
+        "initial_source_reads": 22,
+        "initial_cost_usd": "0.1824708",
+        "recovery_cost_usd": "0.0515226",
+        "wall_minutes": 23.579154198915543
+      }
+    },
+    "make_or_bootstrap": {
+      "no_experience": {
+        "initial_requests": 27,
+        "initial_source_reads": 24,
+        "initial_cost_usd": "0.1989243",
+        "recovery_cost_usd": "0.0396087",
+        "wall_minutes": 15.295102833999165
+      },
+      "source_experience": {
+        "initial_requests": 35,
+        "initial_source_reads": 38,
+        "initial_cost_usd": "0.2231400",
+        "recovery_cost_usd": "0.0114207",
+        "wall_minutes": 12.442796722149554
+      },
+      "action_experience": {
+        "initial_requests": 31,
+        "initial_source_reads": 22,
+        "initial_cost_usd": "0.1995312",
+        "recovery_cost_usd": "0",
+        "wall_minutes": 12.745505518099526
+      }
+    }
+  }
+}

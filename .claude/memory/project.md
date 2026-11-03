@@ -618,6 +618,15 @@
 
 ## 最近变更 (Recent Changes)
 
+- 2026-11-03 — #664完成独立36次迁移候选经验比较与论文v0.5，保留初始收益和全程取舍。
+  - 文件: `docs/research/2026-11-03-transfer-action-experience-results.md`、`benchmarks/analyses/cpp-build-transfer-action-experience-flash-v1/`、`docs/thesis/`、`RESEARCH_STATUS.md`；论文证据登记E39，原E38中止/36未观察及v2未启保持。
+  - 实际: A无经验/B旧来源/C短动作完整10/12、12/12、12/12；60/67/67请求、在线$0.4162152/$0.4350060/$0.4335246、37.92/32.82/36.32分钟。C/B初始源码44/66、费低9.8%，恢复几乎抵消；全程费仅低0.34%、时间高10.7%、含一次库费更贵，不默认替换B。
+  - 边界: 三组每任务一次选择，C6初始非空/2恢复空；全局少读22中16发生于空材料层。A失败为路径/语法及共同角色扫描限制，make distclean＋bootstrap/configure被判build/configure，strict Shell三步false；原测试/交付/replay各34过/2未观察，36源码/链接及cleanup过、70容器实际不存在。非纯因果/盲holdout，直接配置动作0仍引用E01。
+  - 费用: 在线194请求/3654763Token/$1.2847458，加原12提炼共享206请求/3818980Token/$1.4489628/未知0；原$10/UTC17:52:44截止不重置，无重试/补槽，不用余额扩批。唯一PID1740129于UTC10:57:44–12:45:31正常结束，无活动本轮Provider。
+  - 证据: raw forge-transfer-action-experience-flash-v1，seal b2b855282637b8c353f4390c4417a29a5033761e99919c69305cf2e209738c3f，run0d78f589/preparefbfc7376/candidate3512ab70；操作及最终发布forge-transfer-action-experience-session-v1。11准备检查不计效果，未重复旧资格/本地产品全测。
+  - 交付: v0.5 Word/PDF/HTML/Markdown在forge-thesis-transfer-action-2026-11-03，66页/33表6图、31/52–55页实读；只合科研集成分支、不进main，实际CI/merge见最终发布收据。知识库只MCP同步、不注入Agent；下一优先论文审阅、模板和文献，用户原memory/HTML/uv.lock不夹带。
+
+
 - 2026-10-27 — #629接线当前社区版六槽参考，保留原生Parser/Generator/Review/Judge/Modifier及完整用量，独立外部原测试/源码/精确交付/无缓存重建；只3项必要局部检查，不重复全量构建资格。
   - 文件: `scripts/forge_cxx_current_reference.py`, `backend/tests/test_cxx_current_reference.py`, `benchmarks/preregistrations/cpp-build-current-cxx-reference-flash-v1.md`。
   - 动机: 当前系统比较定位后续状态与目标分析增强空间，不据单批否定主线。

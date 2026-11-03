@@ -1,0 +1,44 @@
+{
+  "identity": "cpp-build-transfer-action-experience-flash-v1",
+  "observed": 36,
+  "planned": 36,
+  "unobserved": 0,
+  "complete": 34,
+  "schedule_matches": true,
+  "cost_recomputed": true,
+  "build_requests": 194,
+  "build_recorded_tokens": 3654763,
+  "build_estimated_cost_usd": "1.2847458",
+  "reused_paid_distillation_usd": "0.164217",
+  "shared_cost_usd": "1.4489628",
+  "remaining_shared_budget_usd": "8.5510372",
+  "shared_recorded_tokens": 3818980,
+  "shared_requests": 206,
+  "unknown_usage": 0,
+  "response_models": {
+    "deepseek-flash": 194
+  },
+  "source_unchanged": 36,
+  "source_links_unchanged": 36,
+  "cleanup_success": 36,
+  "recorded_container_ids": 70,
+  "containers_existing_or_unconfirmed": [],
+  "seed_bank_equal": true,
+  "seal": {
+    "format": "forge-typed-evidence-v1",
+    "identity": "cpp-build-transfer-action-experience-flash-v1",
+    "entries": 119855,
+    "files": 119844,
+    "symlinks": 11,
+    "bytes": 1475915937,
+    "inventory_canonical_sha256": "b2b855282637b8c353f4390c4417a29a5033761e99919c69305cf2e209738c3f",
+    "unknown_usage_requests": 0
+  },
+  "launcher": {
+    "started_at_utc": "2026-11-03T10:57:44.248721+00:00",
+    "release": "0d78f5890f99ae797fcade4b87140f911b4da15f",
+    "status": "completed",
+    "finished_at_utc": "2026-11-03T12:45:31.077201+00:00",
+    "wall_seconds": 6466.828506349993
+  }
+}
