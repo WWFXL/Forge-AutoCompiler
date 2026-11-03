@@ -2,7 +2,17 @@
 
 论文选材固定入口：[硕士论文实验与证据索引](docs/research/THESIS_EVIDENCE_INDEX.md)，按正文候选、补充分析/案例和工程检查说明用途、结果、边界及原始证据；[历史材料目录](docs/research/THESIS_EVIDENCE_CATALOG.md)登记存量材料。最新正文候选E37为48次过程提炼/逐条选择比较，E35为36次经验比较，E36为独立12次更新探索；E34恢复接口、E33续段、E30系统比较与E01组件消融仍各自保留，升级不改写旧版本结果。
 
-## 当前阶段（2026-11-03；#660四组48次完成，论文v0.4与结果发布）
+## 当前阶段（2026-11-03；#662短动作经验与任务快照已准备，待新付费授权）
+
+用户同意推进下一阶段；本轮为已有结果分析和实验准备，0新增Provider/Token/模型费，未创建正式运行或读取凭据。[E37探索补充](docs/research/2026-11-03-experience-exploration-reanalysis.md)只读复用旧48次：初始A/B/C/D请求66/53/66/58、源码读取53/46/63/52，支持保留旧B减少探索的局部依据，新过程未减少初始请求；不新增分母或声称单因素因果。
+
+[实现及准备报告](docs/research/2026-11-03-action-experience-preparation.md)：经验改为适用前提/最小证据核对/优先动作/预期观察，保留真实失败、修订和出处；每次规划或新恢复任务开始只选择一次，空结果固定，任务内工具交互和结构纠错复用，动态状态/预算/反馈继续更新。36相关及相邻检查通过；一个小C项目经新槽入口实际配置失败→Agent脚本修订→编译/原测试/精确交付/完整replay/源码链接/cleanup通过，2脚本响应0Provider，仅为工程检查。材料在forge-task-action-experience-preparation-v1，不计效果。
+
+新比较`cpp-build-task-action-experience-flash-v1`固定原六项目×两重复×无经验/旧B/短动作经验=36槽，另12次固定来源离线提炼。相同Flash/工具/验收及每任务快照，C/B是材料/选择/额度组合；作者构建流程分层，不当难度真值或盲holdout。候选SHA `fe24c108675e64c31d62e901734fad9b49a509fc71c7d40f8707decb2c6226be`、355组件，prepare/check-prepared通过。[协议](benchmarks/preregistrations/cpp-build-task-action-experience-flash-v1.md)与同名manifest已备妥。
+
+下一项为12次RichLab提炼＋36次Flash比较，拟新增10美元硬上限/确认起8小时，预计约1–3美元但非保证；无自动重试，未知用量/模型身份/cleanup异常停止。RichLab拟沿用gpt-6-astra路由及已接受gpt-5.6响应披露、输入输出各1美元/百万Token。旧48次授权已完成，不扩余额；新authorization与正式raw目录均未创建。Issue662/准备PR完成CI后只合科研集成分支，不进main；持续MCP同步知识库，不注入正式Agent。
+
+## 上一阶段（2026-11-03；#660四组48次完成，论文v0.4与结果发布）
 
 [结果报告](docs/research/2026-11-03-conditioned-experience-results.md)及[E37](docs/research/THESIS_EVIDENCE_INDEX.md#e37)：六项目×两重复×无经验/旧结构化来源检索/新过程来源检索/同新库逐条选择，48/48终结、46完整、2未完整、0未观察槽。完整11/12、12/12、12/12、11/12；请求70/58/66/69，在线估费0.4104441/0.3855114/0.4614723/0.4577916美元，累计32.21/32.22/35.48/37.96分钟。B在线费低6.1%、时间接近，含一次制库后更贵；C/B同完整但费高19.7%；D/C费低0.8%伴随少完成一次，不当效率优势。保留jsoncpp/highwayhash局部节约，不因总体未占优删除有利观察。
 

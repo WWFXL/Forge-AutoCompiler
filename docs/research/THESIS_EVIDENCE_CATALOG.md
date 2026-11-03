@@ -12,6 +12,8 @@
 
 |文件|论文登记|
 |---|---|
+|[2026-11-03-experience-exploration-reanalysis.md](2026-11-03-experience-exploration-reanalysis.md)|[E37](THESIS_EVIDENCE_INDEX.md#e37)初始/恢复探索补充分析；与原48次完全重叠，不新增分母|
+|[2026-11-03-action-experience-preparation.md](2026-11-03-action-experience-preparation.md)|短动作经验及每任务一次选择的实现与36槽比较准备；零Provider工程检查不计效果|
 |[2026-11-03-conditioned-experience-results.md](2026-11-03-conditioned-experience-results.md)|[E37](THESIS_EVIDENCE_INDEX.md#e37)完整48次过程提炼/逐条选择，含实际采用、原文件误删及成本反例；不与E35/E36合分母|
 |[2026-11-03-conditioned-experience-preparation.md](2026-11-03-conditioned-experience-preparation.md)|E37实验设置与工程准备；182回归及共同探测修复不计模型效果|
 |[2026-11-03-state-experience-comparison-results.md](2026-11-03-state-experience-comparison-results.md)|[E35](THESIS_EVIDENCE_INDEX.md#e35)完整36次经验复用；[E36](THESIS_EVIDENCE_INDEX.md#e36)独立12次任务后更新。两个分母分开；保留局部/探索性收益、总体未占优及失败归因案例|
