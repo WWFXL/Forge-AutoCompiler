@@ -1,0 +1,21 @@
+{
+  "kind": "scripted_engineering_check_not_model_effect",
+  "provider_requests": 0,
+  "scripted_responses": 2,
+  "strict_completed": true,
+  "source_unchanged": true,
+  "source_links_unchanged": true,
+  "cleanup": {
+    "succeeded": true,
+    "stopped": true,
+    "removed": true
+  },
+  "replay_status": "passed",
+  "script_sha256": "072afb66acc7ca61053983679333b9bc37a1d43cf5cbe324c56602d9c10a9a5d",
+  "original_test_command": [
+    "python3 -c 'from pathlib import Path\ncache={}\nfor line in Path('\"'\"'build/CMakeCache.txt'\"'\"').read_text().splitlines():\n if '\"'\"'='\"'\"' in line and '\"'\"':'\"'\"' in line and not line.startswith(('\"'\"'//'\"'\"','\"'\"'#'\"'\"')):\n  key,value=line.split('\"'\"'='\"'\"',1); name,_=key.split('\"'\"':'\"'\"',1); cache[name]=value\nfalse_values={'\"'\"''\"'\"','\"'\"'0'\"'\"','\"'\"'OFF'\"'\"','\"'\"'NO'\"'\"','\"'\"'FALSE'\"'\"','\"'\"'N'\"'\"','\"'\"'IGNORE'\"'\"','\"'\"'NOTFOUND'\"'\"'}\ndef enabled(value):\n return value.upper() not in false_values and not value.upper().endswith('\"'\"'-NOTFOUND'\"'\"')\nrequirements={'\"'\"'BUILD_TESTS'\"'\"': True}\nfor key,expected in requirements.items():\n assert key in cache, '\"'\"'缺少必要配置:'\"'\"'+key\n assert enabled(cache[key])==expected, '\"'\"'配置功能不符:'\"'\"'+key+'\"'\"'='\"'\"'+cache[key]\nif True:\n assert not enabled(cache.get('\"'\"'BUILD_SHARED_LIBS'\"'\"','\"'\"'OFF'\"'\"')), '\"'\"'必须使用默认静态库构建'\"'\"'\nprint('\"'\"'FORGE_TASK_CONFIGURATION_OK'\"'\"')\n' && ctest --test-dir build --output-on-failure --no-tests=error"
+  ],
+  "generated_at_utc": "2026-11-03T09:15:31.005516+00:00",
+  "raw": "/home/yiwei/.codex/outputs/forge-task-action-experience-preparation-v1",
+  "original_execution_root": "/tmp/forge-662-action-smoke-v1"
+}

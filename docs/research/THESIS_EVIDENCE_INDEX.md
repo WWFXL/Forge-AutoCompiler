@@ -49,6 +49,7 @@
 - **论文用途**：第5章过程字段与逐条算法/图5-1，第6章表6-16/17/18及图6-4，状态触发采用与动作实例化反例。jsoncpp的C/D在线费相对A低32.8%/40.7%，highwayhash/D低76.1%，各两重复，未分摊制库。D69次查询24空，材料比C低68.9%但总输入Token只低1.7%，重复工具12/6/7/16，不支持整体减少重复探索。
 - **失败与边界**：A槽8是工具参数多余右括号、实际构建前失败；D槽42引用清理经验后递归误删原有docs/website/Makefile。后者原行源码保持字段缺失不补写，独立差分确认删除；物理cleanup成功。原测试/交付/replay各46通过/2未观察，非两次测试失败。D槽36按当前Ninja路径错误检索、明确引用E30-slot-6并恢复，支持实际采用，不证明因果或效率；D槽23零经验但恢复更贵，也不直接归为经验负迁移。B-C材料/表示组合、C-D选择/信号组合，非等Token纯因果、盲holdout或总体显著。
 - **定位**：[结果报告](2026-11-03-conditioned-experience-results.md)、[分析JSON](../../benchmarks/analyses/cpp-build-evidence-conditioned-experience-flash-v1/analysis.json)/[CSV](../../benchmarks/analyses/cpp-build-evidence-conditioned-experience-flash-v1/slots.csv)、[提取器](../../scripts/forge_analyze_conditioned_experience.py)、[固定协议](../../benchmarks/preregistrations/cpp-build-evidence-conditioned-experience-flash-v1.md)，同名manifest。raw `/home/yiwei/.codex/outputs/forge-evidence-conditioned-experience-flash-v1`，release893559c0，candidate5cf09d04，inventory `0af10f4cc4606fa0bba63d8a0f204179e61bfae13d4886c0aa402ce21696dbc0`。12次新提炼加263次在线共275请求/5136403 Token/新增估费1.8737874美元/未知0；C/D共用0.158568提炼只实际支付一次，B旧费0.095129不是本轮新增。RichLab路由gpt-6-astra/响应gpt-5.6按已接受披露，不证明真实后端。准备182回归不计模型效果。
+- **后续重叠再分析与准备（#662）**：[规划探索补充](2026-11-03-experience-exploration-reanalysis.md)复用同48次，初始源码读取A/B/C/D为53/46/63/52、请求66/53/66/58；可用于第6章解释初始规划成本，不增加分母或声称纯因果。[短动作经验准备](2026-11-03-action-experience-preparation.md)已实现每规划/恢复任务一次选择及短动作表示，36相关检查和一次C构建/原测试/交付/replay/cleanup仅为零Provider工程验证；三组36槽尚待新付费授权，不预填效果。
 
 <a id="e35"></a>
 ### E35 状态关联构建经验的36次完整比较
