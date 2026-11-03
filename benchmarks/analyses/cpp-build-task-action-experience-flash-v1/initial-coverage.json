@@ -1,0 +1,62 @@
+{
+  "kind": "post_hoc_static_material_analysis_not_online_effect",
+  "frozen_seed_sha256": "79e13efe2b454746ec9207a500d80f0d6818816515d81923928da32540ad06e8",
+  "projects": [
+    {
+      "project": "jsoncpp",
+      "mode": "structured",
+      "sources": [],
+      "items": [],
+      "bytes": 0,
+      "maximum_bytes": 6000,
+      "top_k": 2
+    },
+    {
+      "project": "pegtl",
+      "mode": "structured",
+      "sources": [],
+      "items": [],
+      "bytes": 0,
+      "maximum_bytes": 6000,
+      "top_k": 2
+    },
+    {
+      "project": "inja",
+      "mode": "structured",
+      "sources": [],
+      "items": [],
+      "bytes": 0,
+      "maximum_bytes": 6000,
+      "top_k": 2
+    },
+    {
+      "project": "highwayhash",
+      "mode": "structured",
+      "sources": [],
+      "items": [],
+      "bytes": 0,
+      "maximum_bytes": 6000,
+      "top_k": 2
+    },
+    {
+      "project": "libsigcplusplus",
+      "mode": "structured",
+      "sources": [],
+      "items": [],
+      "bytes": 0,
+      "maximum_bytes": 6000,
+      "top_k": 2
+    },
+    {
+      "project": "libsrtp",
+      "mode": "structured",
+      "sources": [],
+      "items": [],
+      "bytes": 0,
+      "maximum_bytes": 6000,
+      "top_k": 2
+    }
+  ],
+  "nonempty": 0,
+  "boundary": "只评估固定初始任务可用静态信号，不加入未来错误、不改库、不估恢复检索或完整成功。"
+}
