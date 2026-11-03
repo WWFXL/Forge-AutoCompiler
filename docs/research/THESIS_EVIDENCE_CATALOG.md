@@ -12,6 +12,8 @@
 
 |文件|论文登记|
 |---|---|
+|[2026-11-04-two-level-experience-results.md](2026-11-04-two-level-experience-results.md)|[E40](THESIS_EVIDENCE_INDEX.md#e40)24次同项目方案复用、[E41](THESIS_EVIDENCE_INDEX.md#e41)独立36次固定库检索；分别报告收益、失败及成本/时间取舍|
+|[2026-11-03-two-level-experience-preparation.md](2026-11-03-two-level-experience-preparation.md)|两层匹配/目标试用与状态目标评分实现、16相关检查及零Provider真实复用/恢复；不计模型效果|
 |[2026-11-03-transfer-action-experience-results.md](2026-11-03-transfer-action-experience-results.md)|[E39](THESIS_EVIDENCE_INDEX.md#e39)独立36次；初始读取节约与恢复／部署成本取舍；原E38不回填|
 |[2026-11-03-transfer-action-experience-preparation.md](2026-11-03-transfer-action-experience-preparation.md)|E39来源事实与迁移候选分离设计；11相关检查仅工程验证|
 |[2026-11-03-action-experience-stopped-and-repair.md](2026-11-03-action-experience-stopped-and-repair.md)|[E38](THESIS_EVIDENCE_INDEX.md#e38)12次提炼13条；36比较全未观察及初始覆盖0/6，不计方法效果|

@@ -1,0 +1,491 @@
+{
+  "identity": "cpp-build-project-recipe-reuse-flash-v1",
+  "groups": {
+    "replan": {
+      "phases": {
+        "initial": {
+          "selections": 12,
+          "material_selections": 0,
+          "tasks": 12,
+          "requests": 37,
+          "context_uses": 37,
+          "context_bytes": 0,
+          "tool_calls": 43,
+          "read_source": 15,
+          "exact_repeated_tools_within_task": 0,
+          "list_source": 28
+        },
+        "recovery": {
+          "selections": 4,
+          "material_selections": 0,
+          "tasks": 4,
+          "requests": 21,
+          "context_uses": 21,
+          "context_bytes": 0,
+          "tool_calls": 25,
+          "read_failure_log": 14,
+          "list_source": 8,
+          "read_source": 3,
+          "exact_repeated_tools_within_task": 2
+        }
+      },
+      "context_uses": 58,
+      "nonempty_context_uses": 0,
+      "context_bytes": 0,
+      "selection_sources": [
+        {
+          "slot": 1,
+          "project": "simdutf",
+          "repetition": 1,
+          "stage": "initial",
+          "sources": [],
+          "bytes": 0
+        },
+        {
+          "slot": 1,
+          "project": "simdutf",
+          "repetition": 1,
+          "stage": "build",
+          "sources": [],
+          "bytes": 0
+        },
+        {
+          "slot": 1,
+          "project": "simdutf",
+          "repetition": 1,
+          "stage": "configure",
+          "sources": [],
+          "bytes": 0
+        },
+        {
+          "slot": 4,
+          "project": "snappy",
+          "repetition": 1,
+          "stage": "initial",
+          "sources": [],
+          "bytes": 0
+        },
+        {
+          "slot": 5,
+          "project": "yaml-cpp",
+          "repetition": 1,
+          "stage": "initial",
+          "sources": [],
+          "bytes": 0
+        },
+        {
+          "slot": 8,
+          "project": "tinyxml2",
+          "repetition": 1,
+          "stage": "initial",
+          "sources": [],
+          "bytes": 0
+        },
+        {
+          "slot": 9,
+          "project": "rang",
+          "repetition": 1,
+          "stage": "initial",
+          "sources": [],
+          "bytes": 0
+        },
+        {
+          "slot": 12,
+          "project": "ELFIO",
+          "repetition": 1,
+          "stage": "initial",
+          "sources": [],
+          "bytes": 0
+        },
+        {
+          "slot": 12,
+          "project": "ELFIO",
+          "repetition": 1,
+          "stage": "configure",
+          "sources": [],
+          "bytes": 0
+        },
+        {
+          "slot": 14,
+          "project": "simdutf",
+          "repetition": 2,
+          "stage": "initial",
+          "sources": [],
+          "bytes": 0
+        },
+        {
+          "slot": 14,
+          "project": "simdutf",
+          "repetition": 2,
+          "stage": "build",
+          "sources": [],
+          "bytes": 0
+        },
+        {
+          "slot": 15,
+          "project": "snappy",
+          "repetition": 2,
+          "stage": "initial",
+          "sources": [],
+          "bytes": 0
+        },
+        {
+          "slot": 18,
+          "project": "yaml-cpp",
+          "repetition": 2,
+          "stage": "initial",
+          "sources": [],
+          "bytes": 0
+        },
+        {
+          "slot": 19,
+          "project": "tinyxml2",
+          "repetition": 2,
+          "stage": "initial",
+          "sources": [],
+          "bytes": 0
+        },
+        {
+          "slot": 22,
+          "project": "rang",
+          "repetition": 2,
+          "stage": "initial",
+          "sources": [],
+          "bytes": 0
+        },
+        {
+          "slot": 23,
+          "project": "ELFIO",
+          "repetition": 2,
+          "stage": "initial",
+          "sources": [],
+          "bytes": 0
+        }
+      ],
+      "recipe_matches": {},
+      "cleanup": {
+        "true": 12
+      },
+      "validation": {
+        "original_tests_status": {
+          "observed_failure": 2,
+          "passed": 10
+        },
+        "verification_status": {
+          "unobserved": 2,
+          "passed": 10
+        },
+        "replay_status": {
+          "unobserved": 2,
+          "passed": 10
+        },
+        "source_unchanged": {
+          "True": 12
+        },
+        "source_links_unchanged": {
+          "True": 12
+        }
+      },
+      "online_plus_existing_library_cost_usd": "0.3521313"
+    },
+    "recipe_reuse": {
+      "phases": {
+        "initial": {
+          "exact_repeated_tools_within_task": 0
+        },
+        "recovery": {
+          "selections": 8,
+          "material_selections": 0,
+          "tasks": 8,
+          "requests": 11,
+          "context_uses": 11,
+          "context_bytes": 0,
+          "tool_calls": 4,
+          "read_failure_log": 1,
+          "list_source": 3,
+          "exact_repeated_tools_within_task": 0
+        }
+      },
+      "context_uses": 11,
+      "nonempty_context_uses": 0,
+      "context_bytes": 0,
+      "selection_sources": [
+        {
+          "slot": 2,
+          "project": "simdutf",
+          "repetition": 1,
+          "stage": "recovery",
+          "sources": [],
+          "bytes": 0
+        },
+        {
+          "slot": 2,
+          "project": "simdutf",
+          "repetition": 1,
+          "stage": "configure",
+          "sources": [],
+          "bytes": 0
+        },
+        {
+          "slot": 10,
+          "project": "rang",
+          "repetition": 1,
+          "stage": "smoke",
+          "sources": [],
+          "bytes": 0
+        },
+        {
+          "slot": 11,
+          "project": "ELFIO",
+          "repetition": 1,
+          "stage": "smoke",
+          "sources": [],
+          "bytes": 0
+        },
+        {
+          "slot": 13,
+          "project": "simdutf",
+          "repetition": 2,
+          "stage": "recovery",
+          "sources": [],
+          "bytes": 0
+        },
+        {
+          "slot": 13,
+          "project": "simdutf",
+          "repetition": 2,
+          "stage": "configure",
+          "sources": [],
+          "bytes": 0
+        },
+        {
+          "slot": 21,
+          "project": "rang",
+          "repetition": 2,
+          "stage": "smoke",
+          "sources": [],
+          "bytes": 0
+        },
+        {
+          "slot": 24,
+          "project": "ELFIO",
+          "repetition": 2,
+          "stage": "smoke",
+          "sources": [],
+          "bytes": 0
+        }
+      ],
+      "recipe_matches": {
+        "goal_changed_trial": 6,
+        "exact": 6
+      },
+      "cleanup": {
+        "true": 12
+      },
+      "validation": {
+        "original_tests_status": {
+          "observed_failure": 2,
+          "passed": 10
+        },
+        "verification_status": {
+          "unobserved": 2,
+          "passed": 10
+        },
+        "replay_status": {
+          "unobserved": 2,
+          "passed": 10
+        },
+        "source_unchanged": {
+          "True": 12
+        },
+        "source_links_unchanged": {
+          "True": 12
+        }
+      },
+      "online_plus_existing_library_cost_usd": "0.0937218"
+    }
+  },
+  "checks": [
+    {
+      "slot": 1,
+      "one_selection_per_episode": true,
+      "fixed_context": true,
+      "costs_match": true
+    },
+    {
+      "slot": 4,
+      "one_selection_per_episode": true,
+      "fixed_context": true,
+      "costs_match": true
+    },
+    {
+      "slot": 5,
+      "one_selection_per_episode": true,
+      "fixed_context": true,
+      "costs_match": true
+    },
+    {
+      "slot": 8,
+      "one_selection_per_episode": true,
+      "fixed_context": true,
+      "costs_match": true
+    },
+    {
+      "slot": 9,
+      "one_selection_per_episode": true,
+      "fixed_context": true,
+      "costs_match": true
+    },
+    {
+      "slot": 12,
+      "one_selection_per_episode": true,
+      "fixed_context": true,
+      "costs_match": true
+    },
+    {
+      "slot": 14,
+      "one_selection_per_episode": true,
+      "fixed_context": true,
+      "costs_match": true
+    },
+    {
+      "slot": 15,
+      "one_selection_per_episode": true,
+      "fixed_context": true,
+      "costs_match": true
+    },
+    {
+      "slot": 18,
+      "one_selection_per_episode": true,
+      "fixed_context": true,
+      "costs_match": true
+    },
+    {
+      "slot": 19,
+      "one_selection_per_episode": true,
+      "fixed_context": true,
+      "costs_match": true
+    },
+    {
+      "slot": 22,
+      "one_selection_per_episode": true,
+      "fixed_context": true,
+      "costs_match": true
+    },
+    {
+      "slot": 23,
+      "one_selection_per_episode": true,
+      "fixed_context": true,
+      "costs_match": true
+    },
+    {
+      "slot": 2,
+      "one_selection_per_episode": true,
+      "fixed_context": true,
+      "costs_match": true
+    },
+    {
+      "slot": 3,
+      "one_selection_per_episode": true,
+      "fixed_context": true,
+      "costs_match": true
+    },
+    {
+      "slot": 6,
+      "one_selection_per_episode": true,
+      "fixed_context": true,
+      "costs_match": true
+    },
+    {
+      "slot": 7,
+      "one_selection_per_episode": true,
+      "fixed_context": true,
+      "costs_match": true
+    },
+    {
+      "slot": 10,
+      "one_selection_per_episode": true,
+      "fixed_context": true,
+      "costs_match": true
+    },
+    {
+      "slot": 11,
+      "one_selection_per_episode": true,
+      "fixed_context": true,
+      "costs_match": true
+    },
+    {
+      "slot": 13,
+      "one_selection_per_episode": true,
+      "fixed_context": true,
+      "costs_match": true
+    },
+    {
+      "slot": 16,
+      "one_selection_per_episode": true,
+      "fixed_context": true,
+      "costs_match": true
+    },
+    {
+      "slot": 17,
+      "one_selection_per_episode": true,
+      "fixed_context": true,
+      "costs_match": true
+    },
+    {
+      "slot": 20,
+      "one_selection_per_episode": true,
+      "fixed_context": true,
+      "costs_match": true
+    },
+    {
+      "slot": 21,
+      "one_selection_per_episode": true,
+      "fixed_context": true,
+      "costs_match": true
+    },
+    {
+      "slot": 24,
+      "one_selection_per_episode": true,
+      "fixed_context": true,
+      "costs_match": true
+    }
+  ],
+  "all_snapshot_and_cost_checks": true,
+  "partial_test_observations": [
+    {
+      "slot": 1,
+      "method": "replan",
+      "completed_passed_entries": 25,
+      "completed_failed_entries": 0,
+      "log": "/home/yiwei/.codex/outputs/forge-project-recipe-reuse-flash-v1/slot-1/simdutf-plan/.compile-sessions/plan-agent-canary/c31bc555152d/workspace/repo/build/Testing/Temporary/LastTest.log.tmp",
+      "semantics": "部分日志中的完成条目；不是完整测试通过，不推断其余用例。"
+    },
+    {
+      "slot": 2,
+      "method": "recipe_reuse",
+      "completed_passed_entries": 25,
+      "completed_failed_entries": 0,
+      "log": "/home/yiwei/.codex/outputs/forge-project-recipe-reuse-flash-v1/slot-2/simdutf-plan/.compile-sessions/plan-agent-canary/c2dc139e5af3/workspace/repo/build/Testing/Temporary/LastTest.log.tmp",
+      "semantics": "部分日志中的完成条目；不是完整测试通过，不推断其余用例。"
+    },
+    {
+      "slot": 13,
+      "method": "recipe_reuse",
+      "completed_passed_entries": 25,
+      "completed_failed_entries": 0,
+      "log": "/home/yiwei/.codex/outputs/forge-project-recipe-reuse-flash-v1/slot-13/simdutf-plan/.compile-sessions/plan-agent-canary/a9efdd6cd2ea/workspace/repo/build/Testing/Temporary/LastTest.log.tmp",
+      "semantics": "部分日志中的完成条目；不是完整测试通过，不推断其余用例。"
+    },
+    {
+      "slot": 14,
+      "method": "replan",
+      "completed_passed_entries": 25,
+      "completed_failed_entries": 0,
+      "log": "/home/yiwei/.codex/outputs/forge-project-recipe-reuse-flash-v1/slot-14/simdutf-plan/.compile-sessions/plan-agent-canary/f66939347c11/workspace/repo/build/Testing/Temporary/LastTest.log.tmp",
+      "semantics": "部分日志中的完成条目；不是完整测试通过，不推断其余用例。"
+    }
+  ],
+  "note": "本文件重复消费原运行；不增加分母，选择和固定快照不是方法效果。",
+  "cost_semantics": "只加既有跨项目库一次制库费；同项目源方案的历史构建获取费另见会话historical-recipe-source-costs.json，未在本字段计入。"
+}

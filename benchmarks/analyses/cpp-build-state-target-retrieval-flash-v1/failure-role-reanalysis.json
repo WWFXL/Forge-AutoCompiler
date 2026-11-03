@@ -1,0 +1,56 @@
+{
+  "scope": "仅重分析E41 slot13已保存恢复方案；不执行命令，不增加实验分母",
+  "runtime_revision": "8a1d570f2c3ff052eb0083e6fb0f87014b7049d3",
+  "source": "/home/yiwei/.codex/outputs/forge-state-target-retrieval-flash-v1/slot-13/libsigcplusplus-plan/agent/plan-2.json",
+  "source_sha256": "f83357cb74f051eff8ee0ce6f3a826df347ab56803fe317f89f606b77afa2c6d",
+  "steps": [
+    {
+      "step": "prepare-deps",
+      "roles": [
+        "dependency_setup"
+      ],
+      "disables_strict_shell": false
+    },
+    {
+      "step": "bootstrap",
+      "roles": [
+        "configure"
+      ],
+      "disables_strict_shell": false
+    },
+    {
+      "step": "configure",
+      "roles": [
+        "configure"
+      ],
+      "disables_strict_shell": false
+    },
+    {
+      "step": "build_library",
+      "roles": [
+        "build",
+        "housekeeping"
+      ],
+      "disables_strict_shell": false
+    },
+    {
+      "step": "build",
+      "roles": [
+        "build"
+      ],
+      "disables_strict_shell": false
+    },
+    {
+      "step": "check",
+      "roles": [
+        "build"
+      ],
+      "disables_strict_shell": false
+    },
+    {
+      "step": "stage",
+      "roles": [],
+      "disables_strict_shell": false
+    }
+  ]
+}
