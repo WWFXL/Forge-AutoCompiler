@@ -1,0 +1,39 @@
+{
+  "identity": "cpp-build-evidence-conditioned-distillation-richlab-v1",
+  "sources": 12,
+  "entries": 19,
+  "by_stage": {
+    "build": 4,
+    "configure": 4,
+    "dependency": 5,
+    "verification": 6
+  },
+  "old_by_stage": {
+    "dependency": 5,
+    "configure": 7,
+    "verification": 9,
+    "build": 3
+  },
+  "by_outcome": {
+    "effective": 14,
+    "ineffective": 5
+  },
+  "entries_with_failed_attempt": 8,
+  "entries_with_observed_revision": 3,
+  "entries_with_error_markers": 7,
+  "entries_with_declaration_terms": 12,
+  "requested_model": "gpt-6-astra",
+  "actual_response_models": {
+    "gpt-5.6": 12
+  },
+  "backend_identity_verified": false,
+  "input_tokens": 141276,
+  "output_tokens": 17292,
+  "total_tokens": 158568,
+  "cost_usd": "0.158568",
+  "wall_seconds": 246.24990020692348,
+  "unknown_usage": 0,
+  "source_sha256": "3191e22ee2d69333355b86c36e3b9c3df14dde7c1556ea551a510230c0ef80ca",
+  "seed_bank_sha256": "bf9d6e1d469d5e95cdab4f1ec841f88e9016c8cd35003812863ac4e02d563cfd",
+  "interpretation": "统计是提炼内容分布，不证明经验正确、适用或改善构建。"
+}

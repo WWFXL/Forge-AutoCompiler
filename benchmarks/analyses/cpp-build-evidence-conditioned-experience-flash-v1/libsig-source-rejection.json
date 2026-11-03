@@ -1,0 +1,71 @@
+{
+  "slot": 42,
+  "project": "libsigcplusplus",
+  "method": "conditioned_experience",
+  "repetition": 2,
+  "original_hashes_path": "/home/yiwei/.codex/outputs/forge-evidence-conditioned-experience-flash-v1/slot-42/libsigcplusplus-plan/original-source-hashes.json",
+  "original_hashes_sha256": "cadf365ea0a6c89210855efc81db1b188c83964d13a6064ac37754519b0875f3",
+  "workspace": "/home/yiwei/.codex/outputs/forge-evidence-conditioned-experience-flash-v1/slot-42/libsigcplusplus-plan/.compile-sessions/plan-agent-canary/c62bbe256fc7/workspace/repo",
+  "missing_original_files": [
+    "docs/website/Makefile"
+  ],
+  "changed_original_files": [],
+  "row": {
+    "name": "libsigcplusplus",
+    "arm": "plan",
+    "kind": "real_model_development_canary",
+    "status": "stopped",
+    "transitions": [],
+    "source_preparation": {
+      "command_id": "command_7a3af4699a7048d5865ed71b2c771fa6",
+      "role": "dependency",
+      "exit_code": 0,
+      "output_tail": "FORGE_SOURCE_INDEX_VERIFIED=0e223bfa746d9f2a1e55f1f54ad0eebb1524fba4e809702b91f8c2868620c500\n",
+      "log_path": "logs/command_7a3af4699a7048d5865ed71b2c771fa6.log",
+      "expected_paths_sha256": "0e223bfa746d9f2a1e55f1f54ad0eebb1524fba4e809702b91f8c2868620c500",
+      "wall_seconds": 0.28396615403471515
+    },
+    "error_class": "PlanContractError",
+    "error_message": "原始源码或测试被修改",
+    "cleanup": {
+      "succeeded": true
+    },
+    "session_status": "failed",
+    "session_id": "c62bbe256fc7",
+    "cleanup_error_class": "PlanContractError",
+    "agent_usage": {
+      "model_requests": 9,
+      "recorded_tokens": 184026,
+      "agent_steps": 32,
+      "tool_calls": 23,
+      "commands": 3,
+      "elapsed_seconds": 176.1553082980099,
+      "input_tokens": 163911,
+      "output_tokens": 20115,
+      "estimated_cost_usd": 0.0733113,
+      "unknown_usage_requests": 0,
+      "cost_and_usage_complete": true,
+      "estimated_cost_usd_completed_responses": 0.0733113
+    },
+    "strict_completed": false,
+    "legacy_cleanup": {
+      "succeeded": false
+    },
+    "cleanup_classification": "source_rejected_physical_cleanup_verified",
+    "project": "libsigcplusplus",
+    "repetition": 2,
+    "method": "conditioned_experience",
+    "arm_total_wall_seconds": 180.2783300919691,
+    "source_links_unchanged": true,
+    "experience_mode": "structured"
+  },
+  "source_field_in_original_row": null,
+  "interpretation": "实际删除源码归档原有docs/website/Makefile（文档构建脚本），不是本次正常生成物。候选理由明确参考E30清理经验，执行时把项目生成物清单扩成递归删除同名文件；证明该次采用后的动作越界，未隔离经验的反事实因果。原row未填写fixed_sources_unchanged，保持原字段缺失；原完整测试/交付/replay未观察，物理cleanup已通过。",
+  "proposal_reasons": [
+    {
+      "path": "/home/yiwei/.codex/outputs/forge-evidence-conditioned-experience-flash-v1/slot-42/libsigcplusplus-plan/agent/response-9.json",
+      "sha256": "312aa2218b51ef8d9e6799bc37cdd06f16d5dcd260ebf8815adedff0267e7fbe",
+      "reason": "依据固定任务（Autotools、32 个原作者 check_PROGRAMS、交付 libsigc-2.0.a）和源码证据：autogen.sh 需要 mm-common-prepare/autoreconf；configure.ac 通过 AC_DISABLE_STATIC 默认不建静态库，因此需显式 --enable-static 才能生成交付 .a；tests/Makefile.am 的 check_PROGRAMS 正是 32 个测试程序。先安装标准 Autotools/mm-common 依赖，再用不依赖旧 Makefile 的存在即删清理（参考 E30 历史经验，避免 make distclean 在初始树失败），然后按作者脚本引导、配置并构建全部测试程序；固定验证器随后执行 make check 和交付。"
+    }
+  ]
+}
