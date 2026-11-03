@@ -377,7 +377,7 @@ def run():
                         facts,
                         folder / "selection.jsonl",
                     )
-                    if slot["method"] == METHODS[3]
+                    if slot["method"] == "conditioned_experience"
                     else ExperienceBank(data["sources"], data["entries"])
                 )
                 selected = {

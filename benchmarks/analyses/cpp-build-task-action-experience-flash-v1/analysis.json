@@ -1,0 +1,282 @@
+{
+  "identity": "cpp-build-task-action-experience-flash-v1",
+  "status": "pre_slot_dispatch_exception",
+  "planned": 36,
+  "observed_slots": 0,
+  "unobserved_slots": 36,
+  "observed_build_failures": 0,
+  "build_model_requests": 0,
+  "build_model_cost_usd": "0",
+  "closure": {
+    "started_at_utc": "2026-11-03T09:55:32.030436+00:00",
+    "release": "ec536e2197bd26e78fdfc51463f08d58020f8a33",
+    "status": "stopped",
+    "last_stage": "comparison",
+    "error_class": "IndexError",
+    "error": "tuple index out of range",
+    "finished_at_utc": "2026-11-03T10:01:37.932669+00:00",
+    "wall_seconds": 365.9022492460208
+  },
+  "raw_stop_reason": null,
+  "interpretation": "原result.stop_reason为null，但launcher记录IndexError；null不能解释成实验成功。全部36槽未观察，不估方法成功率或效率。",
+  "method_denominators": {
+    "no_experience": {
+      "planned": 12,
+      "observed": 0,
+      "unobserved": 12
+    },
+    "source_experience": {
+      "planned": 12,
+      "observed": 0,
+      "unobserved": 12
+    },
+    "action_experience": {
+      "planned": 12,
+      "observed": 0,
+      "unobserved": 12
+    }
+  },
+  "distillation": {
+    "identity": "cpp-build-task-action-distillation-richlab-v1",
+    "requests": 12,
+    "entries": 13,
+    "input_tokens": 141936,
+    "output_tokens": 22281,
+    "recorded_tokens": 164217,
+    "cost_usd": "0.164217",
+    "request_wall_seconds": 364.9329641830409,
+    "outcomes": {
+      "effective": 9,
+      "hypothesis": 4
+    },
+    "stages": {
+      "build": 3,
+      "configure": 3,
+      "dependency": 4,
+      "verification": 3
+    },
+    "response_models": {
+      "gpt-5.6": 12
+    },
+    "requested_model": "gpt-6-astra",
+    "backend_identity_verified": false,
+    "unknown_usage": 0,
+    "content_rejections": 0,
+    "receipts": [
+      {
+        "source_folder": "source-1",
+        "usage_sha256": "2806c3686e4b07e323c650beb2a16b06b0ea1d5c232c2307c3a759b927682faa",
+        "requested_model": "gpt-6-astra",
+        "response_model": "gpt-5.6",
+        "backend_identity_verified": false,
+        "input_tokens": 27820,
+        "output_tokens": 2624,
+        "total_tokens": 30444,
+        "cost_usd": "0.030444",
+        "wall_seconds": 38.63927852199413,
+        "price_basis": {
+          "input_usd_per_million": "1",
+          "output_usd_per_million": "1"
+        }
+      },
+      {
+        "source_folder": "source-10",
+        "usage_sha256": "bcc911ec4accda159bc7871758bc3da19b24ccbc5aebe2ea5000f70592544956",
+        "requested_model": "gpt-6-astra",
+        "response_model": "gpt-5.6",
+        "backend_identity_verified": false,
+        "input_tokens": 10731,
+        "output_tokens": 1556,
+        "total_tokens": 12287,
+        "cost_usd": "0.012287",
+        "wall_seconds": 25.632375708024483,
+        "price_basis": {
+          "input_usd_per_million": "1",
+          "output_usd_per_million": "1"
+        }
+      },
+      {
+        "source_folder": "source-11",
+        "usage_sha256": "8a39ae3098c9de39a59076b739a9ec52877cebba03be88f7c06aa656b9fffa34",
+        "requested_model": "gpt-6-astra",
+        "response_model": "gpt-5.6",
+        "backend_identity_verified": false,
+        "input_tokens": 6422,
+        "output_tokens": 1444,
+        "total_tokens": 7866,
+        "cost_usd": "0.007866",
+        "wall_seconds": 23.304245416016784,
+        "price_basis": {
+          "input_usd_per_million": "1",
+          "output_usd_per_million": "1"
+        }
+      },
+      {
+        "source_folder": "source-12",
+        "usage_sha256": "b3732bf84812cdd1ac61b1e0ef023050b56b251da1d41209b215716a1d359e05",
+        "requested_model": "gpt-6-astra",
+        "response_model": "gpt-5.6",
+        "backend_identity_verified": false,
+        "input_tokens": 6531,
+        "output_tokens": 2399,
+        "total_tokens": 8930,
+        "cost_usd": "0.00893",
+        "wall_seconds": 41.39044968900271,
+        "price_basis": {
+          "input_usd_per_million": "1",
+          "output_usd_per_million": "1"
+        }
+      },
+      {
+        "source_folder": "source-2",
+        "usage_sha256": "88993d055628acddb299184ba90371311cb2a5f09a844e9ffa7861e671937c19",
+        "requested_model": "gpt-6-astra",
+        "response_model": "gpt-5.6",
+        "backend_identity_verified": false,
+        "input_tokens": 17762,
+        "output_tokens": 1549,
+        "total_tokens": 19311,
+        "cost_usd": "0.019311",
+        "wall_seconds": 28.295714658044744,
+        "price_basis": {
+          "input_usd_per_million": "1",
+          "output_usd_per_million": "1"
+        }
+      },
+      {
+        "source_folder": "source-3",
+        "usage_sha256": "a552d799bc30871a1a7fcacd5eb3cf102be730fad1414147234c22d1ac14595f",
+        "requested_model": "gpt-6-astra",
+        "response_model": "gpt-5.6",
+        "backend_identity_verified": false,
+        "input_tokens": 13035,
+        "output_tokens": 2231,
+        "total_tokens": 15266,
+        "cost_usd": "0.015266",
+        "wall_seconds": 36.30698819999816,
+        "price_basis": {
+          "input_usd_per_million": "1",
+          "output_usd_per_million": "1"
+        }
+      },
+      {
+        "source_folder": "source-4",
+        "usage_sha256": "d70327187122a3ea90dec3f285b31fe18c358367f3ca776525ab4576f79356ce",
+        "requested_model": "gpt-6-astra",
+        "response_model": "gpt-5.6",
+        "backend_identity_verified": false,
+        "input_tokens": 12118,
+        "output_tokens": 1531,
+        "total_tokens": 13649,
+        "cost_usd": "0.013649",
+        "wall_seconds": 26.119439740024973,
+        "price_basis": {
+          "input_usd_per_million": "1",
+          "output_usd_per_million": "1"
+        }
+      },
+      {
+        "source_folder": "source-5",
+        "usage_sha256": "ff389e09e48a2e8dedaf17e80e9609997e1c1df798309dce25e02c84ed96d8af",
+        "requested_model": "gpt-6-astra",
+        "response_model": "gpt-5.6",
+        "backend_identity_verified": false,
+        "input_tokens": 7171,
+        "output_tokens": 1348,
+        "total_tokens": 8519,
+        "cost_usd": "0.008519",
+        "wall_seconds": 21.474458886950742,
+        "price_basis": {
+          "input_usd_per_million": "1",
+          "output_usd_per_million": "1"
+        }
+      },
+      {
+        "source_folder": "source-6",
+        "usage_sha256": "d5d166b3dc9ae2aed35e2c1738e22930338bb94de3d2d57c7dd1a5be7b22de0f",
+        "requested_model": "gpt-6-astra",
+        "response_model": "gpt-5.6",
+        "backend_identity_verified": false,
+        "input_tokens": 7441,
+        "output_tokens": 1504,
+        "total_tokens": 8945,
+        "cost_usd": "0.008945",
+        "wall_seconds": 24.612333059019875,
+        "price_basis": {
+          "input_usd_per_million": "1",
+          "output_usd_per_million": "1"
+        }
+      },
+      {
+        "source_folder": "source-7",
+        "usage_sha256": "78b62e1a91afced418495838088f6053b56b49eb3598a5375579b6948dfdfd8c",
+        "requested_model": "gpt-6-astra",
+        "response_model": "gpt-5.6",
+        "backend_identity_verified": false,
+        "input_tokens": 10816,
+        "output_tokens": 1567,
+        "total_tokens": 12383,
+        "cost_usd": "0.012383",
+        "wall_seconds": 26.62819697195664,
+        "price_basis": {
+          "input_usd_per_million": "1",
+          "output_usd_per_million": "1"
+        }
+      },
+      {
+        "source_folder": "source-8",
+        "usage_sha256": "81b7052a7b7c3b7da5a01e3b14708d553605a568acc93454810f7833df22a8c3",
+        "requested_model": "gpt-6-astra",
+        "response_model": "gpt-5.6",
+        "backend_identity_verified": false,
+        "input_tokens": 10087,
+        "output_tokens": 2981,
+        "total_tokens": 13068,
+        "cost_usd": "0.013068",
+        "wall_seconds": 47.27291827701265,
+        "price_basis": {
+          "input_usd_per_million": "1",
+          "output_usd_per_million": "1"
+        }
+      },
+      {
+        "source_folder": "source-9",
+        "usage_sha256": "d016d20a762919babc472b3a795d394768e3cdacb03237409526f4cd705cfb14",
+        "requested_model": "gpt-6-astra",
+        "response_model": "gpt-5.6",
+        "backend_identity_verified": false,
+        "input_tokens": 12002,
+        "output_tokens": 1547,
+        "total_tokens": 13549,
+        "cost_usd": "0.013549",
+        "wall_seconds": 25.256565054995008,
+        "price_basis": {
+          "input_usd_per_million": "1",
+          "output_usd_per_million": "1"
+        }
+      }
+    ]
+  },
+  "evidence": {
+    "raw": "/home/yiwei/.codex/outputs/forge-task-action-experience-flash-v1",
+    "session": "/home/yiwei/.codex/outputs/forge-task-action-experience-session-v1",
+    "seal": {
+      "format": "forge-typed-evidence-v1",
+      "identity": "cpp-build-task-action-experience-flash-v1",
+      "entries": 360,
+      "files": 360,
+      "symlinks": 0,
+      "bytes": 4153624,
+      "inventory_canonical_sha256": "ac54095a90219e3c6dd0ed6945e2bb6ab70f93b24ed169b2bd0cd8c1fb4c0d36",
+      "unknown_usage_requests": 0
+    },
+    "hashes": {
+      "/home/yiwei/.codex/outputs/forge-task-action-experience-flash-v1/result.json": "9a5b4d11c5c8dac57249b361511e16863f8762d1b2f08eaa612558091b32ad2e",
+      "/home/yiwei/.codex/outputs/forge-task-action-experience-flash-v1/execution.json": "b1fd953406fb4f7432e30d5a5670b1c9310be5028514f0735ff3978971f3a431",
+      "/home/yiwei/.codex/outputs/forge-task-action-experience-flash-v1/protocol.json": "7c5337ea836b6310d1e1397f17bdcb3e87ff875b54bb0f666e37eb4072a98fab",
+      "/home/yiwei/.codex/outputs/forge-task-action-experience-session-v1/launcher-final.json": "4a7ce54250e4c12f7b602db98967b673c9be330c55d2d317494b35e394f8931a",
+      "/home/yiwei/.codex/outputs/forge-task-action-experience-session-v1/seed-bank.json": "79e13efe2b454746ec9207a500d80f0d6818816515d81923928da32540ad06e8",
+      "/home/yiwei/.codex/outputs/forge-task-action-experience-session-v1/distillation/result.json": "84e3f06e4160e9fd03b0d9c873a96eb24b52603c90ce54dfabc22b9e220b1beb"
+    }
+  }
+}

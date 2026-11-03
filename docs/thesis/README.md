@@ -1,6 +1,6 @@
 # Forge 硕士论文阶段初稿
 
-日期：2026-11-03；版本：v0.4；本轮跟踪：[Issue #660](https://github.com/WWFXL/Forge-AutoCompiler/issues/660)、[PR #661](https://github.com/WWFXL/Forge-AutoCompiler/pull/661)。
+日期：2026-11-03；版本：v0.4.1；本轮跟踪：[Issue #664](https://github.com/WWFXL/Forge-AutoCompiler/issues/664)；历史完整比较：[Issue #660](https://github.com/WWFXL/Forge-AutoCompiler/issues/660)、[PR #661](https://github.com/WWFXL/Forge-AutoCompiler/pull/661)。
 
 暂定题目：**面向C/C++仓库自动化构建的状态感知动作选择与验证方法研究**。
 
@@ -15,7 +15,9 @@
 - [前版经验报告](../research/2026-11-03-state-experience-comparison-results.md)：独立36次经验复用及12次更新，分母和旧失败保持。
 - [待补清单](TODO.md)与[文献BibTeX](references.bib)：后续写作与正式著录入口。
 
-v0.4派生Word/PDF/HTML/Markdown位置为`/home/yiwei/.codex/outputs/forge-thesis-conditioned-experience-2026-11-03/`，文件名前缀`Forge-硕士论文阶段初稿-v0.4`。已实检61页PDF、31表5图，正文约3.27万汉字；文件指纹与新增页阅读核验见该目录build-summary.json及export-verification.json。v0.3保留在forge-thesis-experience-2026-11-03，v0.1/v0.2亦保留。各格式是同一正文的阅读副本，修改应回到本目录。
+v0.4.1仅补短动作/任务快照方法及E38中止与初始覆盖局限，不增加效果表。新派生Word/PDF/HTML/Markdown在`/home/yiwei/.codex/outputs/forge-thesis-task-action-2026-11-03/`，前缀`Forge-硕士论文阶段初稿-v0.4.1`；已核对62页PDF、31表5图及新增第30/51页；导出统计与文件指纹见该目录收据。
+
+历史v0.4派生Word/PDF/HTML/Markdown位置为`/home/yiwei/.codex/outputs/forge-thesis-conditioned-experience-2026-11-03/`，文件名前缀`Forge-硕士论文阶段初稿-v0.4`。已实检61页PDF、31表5图，正文约3.27万汉字；文件指纹与新增页阅读核验见该目录build-summary.json及export-verification.json。v0.3保留在forge-thesis-experience-2026-11-03，v0.1/v0.2亦保留。各格式是同一正文的阅读副本，修改应回到本目录。
 
 ## 当前完成范围
 
@@ -34,8 +36,8 @@ v0.4派生Word/PDF/HTML/Markdown位置为`/home/yiwei/.codex/outputs/forge-thesi
 
 ```bash
 python3 docs/thesis/tools/build_draft.py \
-  --version v0.4 --date 2026-11-03 \
-  --output-dir /home/yiwei/.codex/outputs/forge-thesis-conditioned-experience-2026-11-03 \
+  --version v0.4.1 --date 2026-11-03 \
+  --output-dir /home/yiwei/.codex/outputs/forge-thesis-task-action-2026-11-03 \
   --deps-dir /home/yiwei/.codex/outputs/forge-thesis-draft-2026-11-02/.doc-libs
 ```
 
@@ -48,3 +50,5 @@ Word/HTML使用外部目录的`python-docx`、`Markdown`依赖；有系统安装
 E35无经验/原轨迹/结构化完整12/12、12/12、8/12，结构化不支持总体优势，保留inja局部节约和底座误判等失败原因。提炼请求RichLab gpt-6-astra、响应gpt-5.6已按用户确认披露，不能证明后端为Astra或更强。固定经验与任务后更新分别评价，不能由检索命中推出自进化。全部负向结果和未观察保留；私人知识库通过MCP同步，不复制Vault或注入实验Agent。
 
 E37四组完整11/12、12/12、12/12、11/12，旧经验在线费用低6.1%、时间接近，但含制库更贵。新过程和逐条选择未整体占优，保留局部节约、当前状态触发经验引用及误删原有文档Makefile的反例。旧实验不回写，导出文稿不改变运行release。
+
+E38已完成13条短动作提炼，但36比较槽均未观察；固定六项目初始选择全部为空。见[本轮报告](../research/2026-11-03-action-experience-stopped-and-repair.md)，不将调度修复或空经验比较写成方法效果。

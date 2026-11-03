@@ -26,6 +26,8 @@
 
 **最新恢复接口结果**：[E34](#e34)原20槽及独立修复后8槽已完成；局部工具真实交还跑通，但修复后同等完成时费用/时间总体更高。两批分别保留。
 
+**本轮补充**：[E38](#e38)提炼已完成，但36比较槽均未观察，六项目初始短经验覆盖0/6；只记录材料/失败与方法局限，不替代下述完整效果。
+
 **最新经验结果**：[E37](#e37)完整48次四组比较为11/12、12/12、12/12、11/12；旧经验在线费低6.1%、时间接近，但含制库更贵。新过程与逐条选择未取得整体优势，保留jsoncpp/highwayhash局部节约、实际状态触发采用和越界清理反例。旧[E35](#e35)36次及[E36](#e36)12次更新分别保留，不合并分母或跨批估经验增益。
 
 **独立续段结果**：[E33](#e33)完成24/24真实槽，Forge/强工具/CXX参考完整6/8、5/8、6/8；五组Forge/强工具共同完成任务中，Forge估费低15.4%、时间高3.4%，保留取舍。CXX默认smoke差异与裁判启动错误限制三方排名。此前[E30](#e30)48次系统比较、[E01](#e01)30槽组件消融和[E04](#e04)恢复消融继续各自使用，不合并分母。
@@ -49,7 +51,7 @@
 - **论文用途**：第5章过程字段与逐条算法/图5-1，第6章表6-16/17/18及图6-4，状态触发采用与动作实例化反例。jsoncpp的C/D在线费相对A低32.8%/40.7%，highwayhash/D低76.1%，各两重复，未分摊制库。D69次查询24空，材料比C低68.9%但总输入Token只低1.7%，重复工具12/6/7/16，不支持整体减少重复探索。
 - **失败与边界**：A槽8是工具参数多余右括号、实际构建前失败；D槽42引用清理经验后递归误删原有docs/website/Makefile。后者原行源码保持字段缺失不补写，独立差分确认删除；物理cleanup成功。原测试/交付/replay各46通过/2未观察，非两次测试失败。D槽36按当前Ninja路径错误检索、明确引用E30-slot-6并恢复，支持实际采用，不证明因果或效率；D槽23零经验但恢复更贵，也不直接归为经验负迁移。B-C材料/表示组合、C-D选择/信号组合，非等Token纯因果、盲holdout或总体显著。
 - **定位**：[结果报告](2026-11-03-conditioned-experience-results.md)、[分析JSON](../../benchmarks/analyses/cpp-build-evidence-conditioned-experience-flash-v1/analysis.json)/[CSV](../../benchmarks/analyses/cpp-build-evidence-conditioned-experience-flash-v1/slots.csv)、[提取器](../../scripts/forge_analyze_conditioned_experience.py)、[固定协议](../../benchmarks/preregistrations/cpp-build-evidence-conditioned-experience-flash-v1.md)，同名manifest。raw `/home/yiwei/.codex/outputs/forge-evidence-conditioned-experience-flash-v1`，release893559c0，candidate5cf09d04，inventory `0af10f4cc4606fa0bba63d8a0f204179e61bfae13d4886c0aa402ce21696dbc0`。12次新提炼加263次在线共275请求/5136403 Token/新增估费1.8737874美元/未知0；C/D共用0.158568提炼只实际支付一次，B旧费0.095129不是本轮新增。RichLab路由gpt-6-astra/响应gpt-5.6按已接受披露，不证明真实后端。准备182回归不计模型效果。
-- **后续重叠再分析与准备（#662）**：[规划探索补充](2026-11-03-experience-exploration-reanalysis.md)复用同48次，初始源码读取A/B/C/D为53/46/63/52、请求66/53/66/58；可用于第6章解释初始规划成本，不增加分母或声称纯因果。[短动作经验准备](2026-11-03-action-experience-preparation.md)已实现每规划/恢复任务一次选择及短动作表示，36相关检查和一次C构建/原测试/交付/replay/cleanup仅为零Provider工程验证；三组36槽尚待新付费授权，不预填效果。
+- **后续重叠再分析与准备（#662）**：[规划探索补充](2026-11-03-experience-exploration-reanalysis.md)复用同48次，初始源码读取A/B/C/D为53/46/63/52、请求66/53/66/58；可用于第6章解释初始规划成本，不增加分母或声称纯因果。[短动作经验准备](2026-11-03-action-experience-preparation.md)已实现每规划/恢复任务一次选择及短动作表示，36相关检查和一次C构建/原测试/交付/replay/cleanup仅为零Provider工程验证；三组v1已获授权但批入口越界，36槽全未观察；提炼及覆盖局限另见[E38](#e38)，不预填效果。
 
 <a id="e35"></a>
 ### E35 状态关联构建经验的36次完整比较
@@ -288,6 +290,14 @@
 - **定位**：`cpp-build-rtorrent-generation-observation-probe-v1`；[报告](2026-10-22-rtorrent-generation-observation-results.md)。raw：`/home/yiwei/.codex/outputs/forge-rtorrent-generation-observation-probe-v1`。
 
 ## 工程与参考检查：支持实现说明
+
+<a id="e38"></a>
+### E38 短动作经验材料、36槽未观察与初始覆盖局限
+
+- **身份/分母**：cpp-build-task-action-distillation-richlab-v1完成12/12次提炼，13条、164217 Token、估费0.164217美元；cpp-build-task-action-experience-flash-v1计划36槽，每方法12，首槽批分派METHODS[3]越界，全部36未观察、0构建模型请求，不能计0/36成功率或36次构建失败。原stop_reason为null不掩盖launcher的IndexError。
+- **用途与边界**：第5章短动作表示/每任务快照、6.5.8材料局限，不作为完整效果比较。固定库在原六项目初始实际选择0/6有材料，因来源专用必要信号或错误/生成缓存前提；此为只读静态再分析，不是模型负效应，也不推恢复必空。9条effective仅为局部来源观察、4条hypothesis未执行。未知用量0、RichLab路由/响应差异按原接受披露。
+- **定位**：[报告](2026-11-03-action-experience-stopped-and-repair.md)、[分析](../../benchmarks/analyses/cpp-build-task-action-experience-flash-v1/analysis.json)/[覆盖](../../benchmarks/analyses/cpp-build-task-action-experience-flash-v1/initial-coverage.json)。原raw forge-task-action-experience-flash-v1、seal ac54095a90219e3c6dd0ed6945e2bb6ab70f93b24ed169b2bd0cd8c1fb4c0d36；提炼/失败/授权在forge-task-action-experience-session-v1，运行ec536e21。修复后v2只备未启，复用原种子，不重提炼；8相关检查及36/48脚本分派只是工程验证。E37及全部旧分母保持。
+
 
 <a id="e26"></a>
 ### E26 固定方案三处理六槽分派检查

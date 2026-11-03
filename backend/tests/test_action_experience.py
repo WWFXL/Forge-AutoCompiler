@@ -6,6 +6,7 @@ import sys
 from datetime import UTC, datetime, timedelta
 from pathlib import Path
 
+import dotenv
 import pytest
 from langchain_core.messages import AIMessage
 from test_conditioned_experience import entry, trace
@@ -128,4 +129,64 @@ def test_missing_new_authorization_stops_before_paid_runner(tmp_path, monkeypatc
     monkeypatch.setattr(runner.previous, "extract", lambda: pytest.fail("不能进入付费入口"))
     with pytest.raises(FileNotFoundError):
         runner.extract()
+    assert list(tmp_path.iterdir()) == []
+
+
+@pytest.mark.parametrize("methods", [runner.METHODS, runner.previous.METHODS])
+def test_real_batch_dispatch_accepts_three_and_four_methods_without_provider(tmp_path, monkeypatch, methods):
+    """走真实整批循环，覆盖槽内部验证曾遗漏的选库与分派边界。"""
+    previous = runner.previous
+    schedule = [dict(project=f"project-{i}", repetition=r, method=m) for r in (1, 2) for i in range(6) for m in methods]
+    protocol = dict(identity="scripted-batch", schedule=schedule)
+    old = dict(sources=[dict(source_id="old")], entries=[])
+    new = dict(sources=[dict(source_id="new")], entries=[])
+    session, output = tmp_path / "session", tmp_path / "batch"
+    (session / "distillation").mkdir(parents=True)
+    for path, value in [
+        (session / "authorization.json", dict(deadline_utc=(datetime.now(UTC) + timedelta(hours=3)).isoformat())),
+        (session / "distillation/result.json", dict(unknown_usage=0, error=None, observed=12, cost_usd="0.164217")),
+        (session / "seed-bank.json", new),
+        (session / "archive-facts.json", {}),
+        (tmp_path / "old.json", old),
+        (tmp_path / "manifest.json", protocol),
+    ]:
+        path.write_text(json.dumps(value))
+    monkeypatch.setattr(previous, "SESSION", session)
+    monkeypatch.setattr(previous, "OUTPUT", output)
+    monkeypatch.setattr(previous, "MANIFEST", tmp_path / "manifest.json")
+    monkeypatch.setattr(previous, "OLD_BANK", tmp_path / "old.json")
+    monkeypatch.setattr(previous, "METHODS", methods)
+    monkeypatch.setattr(previous, "check_prepared", lambda: copy.deepcopy(protocol))
+    monkeypatch.setattr(dotenv, "load_dotenv", lambda *a, **kw: None)
+    monkeypatch.setenv("DEEPSEEK_API_KEY", "scripted-unused")
+    monkeypatch.setattr(previous.subprocess, "run", lambda *a, **kw: None)
+    monkeypatch.setattr(previous.subprocess, "check_output", lambda *a, **kw: "scripted-release")
+    monkeypatch.setattr(previous.base, "PlanThinkingDeepSeek", lambda **kw: object())
+    monkeypatch.setattr(previous.base, "seal", lambda *a: None)
+    visited = []
+
+    def slot_run(selected, slot, folder, model, bank):
+        expected = "old" if slot["method"] in methods[:2] else "new"
+        assert set(bank.sources) == {expected}
+        assert isinstance(bank, previous.ConditionedBank) == (slot["method"] == "conditioned_experience")
+        visited.append(slot)
+        return dict(**slot, strict_completed=True, cleanup=dict(succeeded=True), agent_usage=dict(model_requests=0, estimated_cost_usd_completed_responses="0", unknown_usage_requests=0))
+
+    monkeypatch.setattr(previous.original, "run_slot", slot_run)
+    previous.run()
+    result = json.loads((output / "result.json").read_text())
+    assert visited == schedule and len(result["rows"]) == 12 * len(methods)
+    assert result["unobserved_schedule"] == [] and result["stop_reason"] is None
+    assert result["shared_cost_usd"] == "0.164217" and result["known_estimated_cost_usd"] == "0.000000"
+
+
+def test_v2_without_scope_extension_does_not_copy_seed_or_enter_paid_runner(tmp_path, monkeypatch):
+    import forge_build_action_experience_v2 as repaired
+
+    monkeypatch.setattr(repaired, "SESSION", tmp_path)
+    monkeypatch.setattr(repaired, "check_prepared", lambda: {})
+    monkeypatch.setattr(runner, "check_prepared", lambda: {})
+    monkeypatch.setattr(runner, "run", lambda: pytest.fail("不得进入真实Provider入口"))
+    with pytest.raises(FileNotFoundError):
+        repaired.run()
     assert list(tmp_path.iterdir()) == []
