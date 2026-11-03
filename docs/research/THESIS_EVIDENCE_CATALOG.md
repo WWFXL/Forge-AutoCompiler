@@ -12,6 +12,8 @@
 
 |文件|论文登记|
 |---|---|
+|[2026-11-03-conditioned-experience-results.md](2026-11-03-conditioned-experience-results.md)|[E37](THESIS_EVIDENCE_INDEX.md#e37)完整48次过程提炼/逐条选择，含实际采用、原文件误删及成本反例；不与E35/E36合分母|
+|[2026-11-03-conditioned-experience-preparation.md](2026-11-03-conditioned-experience-preparation.md)|E37实验设置与工程准备；182回归及共同探测修复不计模型效果|
 |[2026-11-03-state-experience-comparison-results.md](2026-11-03-state-experience-comparison-results.md)|[E35](THESIS_EVIDENCE_INDEX.md#e35)完整36次经验复用；[E36](THESIS_EVIDENCE_INDEX.md#e36)独立12次任务后更新。两个分母分开；保留局部/探索性收益、总体未占优及失败归因案例|
 |[2026-11-02-local-tool-recovery-comparison-results.md](2026-11-02-local-tool-recovery-comparison-results.md)|[E34](THESIS_EVIDENCE_INDEX.md#e34)：原20槽与独立材料修复后8槽恢复接口比较；保留失败、费用/时间负向结果及交还轨迹|
 |[2026-10-30-new-project-continuation-results.md](2026-10-30-new-project-continuation-results.md)|[E33](THESIS_EVIDENCE_INDEX.md#e33)：24槽真实独立续段，Forge/强工具主要比较，CXX参考及裁判边界；含原轨迹再分析与0Provider事后诊断|

@@ -1,0 +1,84 @@
+[
+  {
+    "slot": 17,
+    "method": "no_experience",
+    "wall_seconds": 394.4785297109629,
+    "requests": 3,
+    "dependency_seconds": 139.390871451993,
+    "dependency_log": "/home/yiwei/.codex/outputs/forge-evidence-conditioned-experience-flash-v1/slot-17/libsigcplusplus-plan/.compile-sessions/plan-agent-canary/f72d8a5d0f69/logs/command_0fc7f1da44894e95aedbe3b331b86dff.log",
+    "install_without_recommends": false,
+    "apt_summary": [
+      "Fetched 33.7 MB in 26s (1315 kB/s)",
+      "0 upgraded, 71 newly installed, 0 to remove and 35 not upgraded.",
+      "Need to get 69.7 MB of archives.",
+      "After this operation, 289 MB of additional disk space will be used.",
+      "Fetched 69.7 MB in 1min 43s (674 kB/s)"
+    ],
+    "replay_seconds": 188.66398,
+    "cleanup_commands": []
+  },
+  {
+    "slot": 18,
+    "method": "source_experience",
+    "wall_seconds": 186.48617100599222,
+    "requests": 4,
+    "dependency_seconds": 34.53336278098868,
+    "dependency_log": "/home/yiwei/.codex/outputs/forge-evidence-conditioned-experience-flash-v1/slot-18/libsigcplusplus-plan/.compile-sessions/plan-agent-canary/8f98f5cf9c47/logs/command_7ef23796da5444a288ca940dbe96c1e5.log",
+    "install_without_recommends": true,
+    "apt_summary": [
+      "Fetched 33.7 MB in 29s (1163 kB/s)",
+      "0 upgraded, 2 newly installed, 0 to remove and 35 not upgraded.",
+      "Need to get 351 kB of archives.",
+      "After this operation, 4439 kB of additional disk space will be used.",
+      "Fetched 351 kB in 3s (121 kB/s)"
+    ],
+    "replay_seconds": 65.849115,
+    "cleanup_commands": []
+  },
+  {
+    "slot": 19,
+    "method": "process_experience",
+    "wall_seconds": 219.25464341102634,
+    "requests": 5,
+    "dependency_seconds": 37.76441377698211,
+    "dependency_log": "/home/yiwei/.codex/outputs/forge-evidence-conditioned-experience-flash-v1/slot-19/libsigcplusplus-plan/.compile-sessions/plan-agent-canary/6556ca8b0942/logs/command_e74a19b4b00e4d9897e37a66e1de165b.log",
+    "install_without_recommends": true,
+    "apt_summary": [
+      "Fetched 33.7 MB in 28s (1222 kB/s)",
+      "2 upgraded, 1 newly installed, 0 to remove and 33 not upgraded.",
+      "Need to get 5049 kB of archives.",
+      "After this operation, 4046 kB of additional disk space will be used.",
+      "Fetched 5049 kB in 7s (714 kB/s)"
+    ],
+    "replay_seconds": 73.061945,
+    "cleanup_commands": [
+      {
+        "command_id": "command_4b9a01f123fa406e9364bd3973e29e34",
+        "seconds": 5.840145546011627
+      }
+    ]
+  },
+  {
+    "slot": 20,
+    "method": "conditioned_experience",
+    "wall_seconds": 457.7958815469756,
+    "requests": 6,
+    "dependency_seconds": 147.67973349394742,
+    "dependency_log": "/home/yiwei/.codex/outputs/forge-evidence-conditioned-experience-flash-v1/slot-20/libsigcplusplus-plan/.compile-sessions/plan-agent-canary/a301eb34115f/logs/command_3b663923853743b5b4a35bf8778221e9.log",
+    "install_without_recommends": false,
+    "apt_summary": [
+      "Fetched 33.7 MB in 29s (1148 kB/s)",
+      "0 upgraded, 71 newly installed, 0 to remove and 35 not upgraded.",
+      "Need to get 69.7 MB of archives.",
+      "After this operation, 289 MB of additional disk space will be used.",
+      "Fetched 69.7 MB in 1min 48s (647 kB/s)"
+    ],
+    "replay_seconds": 189.00229,
+    "cleanup_commands": [
+      {
+        "command_id": "command_23aa4d0996874e85bcf52f996d0f184c",
+        "seconds": 0.11825181503081694
+      }
+    ]
+  }
+]

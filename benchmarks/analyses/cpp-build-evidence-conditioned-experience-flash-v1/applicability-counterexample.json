@@ -1,0 +1,67 @@
+{
+  "experience": {
+    "conditions": [
+      "测试由CTest启动且内部输出GoogleTest汇总",
+      "验收分别要求CTest注册数与GoogleTest叶测试数"
+    ],
+    "stage": "verification",
+    "state": "同一次测试运行存在两层计数：CTest注册74项，而测试程序内部运行73个GoogleTest用例；此前没有失败修订。",
+    "action": "使用ctest --test-dir build --output-on-failure -V保留完整输出，同时校验CTest的100%通过和“0 tests failed out of 74”，再独立校验内部GoogleTest的“Running 73 tests”与“PASSED 73 tests”。",
+    "outcome": "effective",
+    "not_applicable": [
+      "测试程序不输出GoogleTest汇总",
+      "验收只关心CTest退出码而不区分两层计数"
+    ],
+    "command_ids": [
+      "command_2a07fe7ca9d341aabbbbe8281c05dfef"
+    ],
+    "verification_scope": "覆盖CTest调度层的74个注册项以及测试二进制内部的73个叶用例；命令退出码为0并输出两层预期标记。",
+    "evidence_ids": [
+      "command_2a07fe7ca9d341aabbbbe8281c05dfef"
+    ],
+    "failed_attempt": null,
+    "feedback": "实际输出同时满足“0 tests failed out of 74”和GoogleTest“PASSED 73 tests”，说明两种计数并不矛盾，不能互相替代。",
+    "observed_revision": null,
+    "applicability": {
+      "required_files": [
+        "CMakeLists.txt"
+      ],
+      "declaration_terms": [],
+      "error_markers": []
+    },
+    "source_id": "E30-slot-24",
+    "source_family": "ELFIO",
+    "build_system": "cmake",
+    "observed_validation": {
+      "full_completed": true,
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "tests": [
+        {
+          "command_id": "command_658b4ccf72c14b0f98aa3bff6332c433",
+          "exit_code": 0,
+          "timed_out": false
+        },
+        {
+          "command_id": "command_2a07fe7ca9d341aabbbbe8281c05dfef",
+          "exit_code": 0,
+          "timed_out": false
+        }
+      ],
+      "replay": [
+        {
+          "status": "passed"
+        }
+      ],
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "error": null
+    },
+    "experience_id": "87cdfc09cee6e0333cde4ffedfa4aff2f2c7017a1bb43520f1f6e102c5b86fc9"
+  },
+  "observation": "自然语言前提包含CTest与GoogleTest两层，程序必要信号仅检查CMakeLists.txt。已观察CMake任务选择该条；不证明Agent采用、效果受损或全部必要前提成立。",
+  "interpretation": "必要信号确认与语义适用性的差距；来源局部有效不能直接作为迁移有效。"
+}
