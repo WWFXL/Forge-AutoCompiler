@@ -1,0 +1,31 @@
+{
+  "kind": "post_hoc_same_code_read_only_classification_not_rerun",
+  "source": "/home/yiwei/.codex/outputs/forge-transfer-action-experience-flash-v1/slot-32/libsigcplusplus-plan/agent/response-7.json",
+  "checks": [
+    {
+      "step": "deps",
+      "role": "dependency",
+      "inferred_roles": [
+        "dependency_setup"
+      ],
+      "disables_strict_shell": false
+    },
+    {
+      "step": "bootstrap-configure",
+      "role": "configure",
+      "inferred_roles": [
+        "build",
+        "configure"
+      ],
+      "disables_strict_shell": false
+    },
+    {
+      "step": "build",
+      "role": "build",
+      "inferred_roles": [
+        "build"
+      ],
+      "disables_strict_shell": false
+    }
+  ]
+}
