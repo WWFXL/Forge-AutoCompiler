@@ -1,14 +1,22 @@
 # Forge Research Status
 
-论文选材固定入口：[硕士论文实验与证据索引](docs/research/THESIS_EVIDENCE_INDEX.md)，按正文候选、补充分析/案例和工程检查说明用途、结果、边界及原始证据；[历史材料目录](docs/research/THESIS_EVIDENCE_CATALOG.md)登记存量材料。最新正文候选E39为36次短动作迁移比较，E37为48次过程提炼/逐条选择比较，E35为36次经验比较，E36为独立12次更新探索；E34恢复接口、E33续段、E30系统比较与E01组件消融仍各自保留，升级不改写旧版本结果。
+论文选材固定入口：[硕士论文实验与证据索引](docs/research/THESIS_EVIDENCE_INDEX.md)，[历史材料目录](docs/research/THESIS_EVIDENCE_CATALOG.md)保留存量导航。当前完整稿为[论文v0.6](docs/thesis/README.md)；E40/E41新增两层经验结果，E39及此前基础系统、组件与恢复实验按原版本和分母继续使用。
 
-## 当前阶段（2026-11-03；#668两层经验复用实现与60次比较准备）
+## 当前阶段（2026-11-04；#668两层经验60次完成，论文v0.6与结果发布）
 
-用户明确批准四步计划及本阶段全部预算。新增两独立身份：`cpp-build-project-recipe-reuse-flash-v1`，六任务×两重复×重新规划/配方复用=24；`cpp-build-state-target-retrieval-flash-v1`，六项目×两重复×无经验/原检索/状态目标检索=36。内部自设共享20美元、准备起12小时，实际收据在`/home/yiwei/.codex/outputs/forge-two-level-experience-session-v1/authorization.json`，不续旧授权余额，无自动重试。
+本阶段为真实数据采集、结果分析及论文写作，已完成用户批准的两层经验实现与两个独立比较：[结果报告](docs/research/2026-11-04-two-level-experience-results.md)。两身份分别24/24、36/36终态，0未观察槽，无自动重试或补槽，不合并成功率。运行release `8a1d570f2c3ff052eb0083e6fb0f87014b7049d3`，准备PR669；结果仅合科研集成分支，不进main，最终CI/merge以会话final-publication.json和GitHub为准。
 
-配方由E30最终成功方案程序提取，当前测试/交付重新装配；三项目原条件，另三项前瞻Release→Debug，来源/镜像/产物不变，目标变化显式试用后原恢复。新版只存本槽，不泄漏到后续比较。跨项目共用原24条库、同12000字节/top3来源、相同Flash/工具/Workflow/原验收，只改选择；零新增提炼。详见[协议](benchmarks/preregistrations/cpp-build-two-level-experience-v1.md)。
+[E40](docs/research/THESIS_EVIDENCE_INDEX.md#e40)同项目重新规划/已验证方案复用各10/12完整；请求58/11、在线美元0.3521313/0.0937218（复用低73.4%）、57.82/57.89分钟。原条件6次复用零模型并完整；Debug变化需恢复。四simdutf均编译及profile检查通过，94项完整CTest命令预算超时，部分日志各25项通过，交付/replay未观察；不是94项全部失败。源码/链接/cleanup24过。历史源方案获取费0.1254600美元另列，不称首次免费；成功新版仅存本槽、不供后续重复。
 
-当前为必要实现及实验准备，16相关检查已通过，零费用实跑进行中；尚无本轮正式效果数据。完成直接执行与真实恢复链后开启已授权60次比较，随后分析并更新论文第5/6章及证据索引。旧E39及v0.5保持。用户原memory/HTML/uv.lock不夹带。
+[E41](docs/research/THESIS_EVIDENCE_INDEX.md#e41)同24条库、无经验/原来源/状态目标选择三组完整11/12、10/12、11/12；请求63/61/55、在线美元0.4067718/0.3968769/0.3812430、累计32.87/28.30/34.77分钟。新/旧费用低3.9%、多完整一次、时间高22.9%；新/无经验费低6.3%、时间高5.8%，含一次既有库费仍更贵。原测试/交付/replay32过/4未观察，源码/链接/cleanup36过。反例包括额外路径/输出断言、共同阶段识别与结构格式，不能全归原测试失败或经验负迁移。
+
+两层实际区分同项目可执行方案与跨项目条件建议；默认仅精确任务匹配直接执行，目标变化仅显式试用；每规划/新恢复任务一次选择，任务内固定。跨项目原文字/额度相同，查询词项及排序组合改变，不是等Token纯阶段因果。来源/评价族隔离但评价已开发暴露；未测跨版本、混合负载、普遍持续学习或更强模型效果。
+
+用户批准本阶段全部预算，执行者自设共享20美元/准备起12小时，UTC2026-11-03 15:17:07至11月4日03:17:07。唯一PID1991111正常exit0，新增248请求/4711184 recorded Token/估费1.6307448美元/未知0，0新增提炼，全部付费账本已闭合，无活动本轮Provider。记录cleanup60/60，112容器的224个ID/名称只读检查全部不存在。未因余额扩批，失败及旧E39/v0.5保持。
+
+raw为`/home/yiwei/.codex/outputs/forge-project-recipe-reuse-flash-v1`（inventory0784faec）和`forge-state-target-retrieval-flash-v1`（inventory55039233）；派生分析在benchmarks/analyses同身份目录。授权、历史成本、启动、最终费用及发布在forge-two-level-experience-session-v1。准备16相关检查/三CI及零Provider真实复用与Debug恢复仅支持实现，不计模型效果；不重复产品全测或旧资格链。
+
+论文v0.6补第5章两层方法/图5-2、第6章表6-21–24/图6-6–7、正反案例及获取成本，摘要/总结/附录/证据映射同步。Word/PDF/HTML/Markdown在forge-thesis-two-level-2026-11-04，已实检77页PDF、39表9图和新增页。下一优先审阅完整稿，确定贡献与篇幅，补学校模板和文献著录；不为追求所有指标胜出自动继续调参。个人知识库仅MCP同步，不注入正式Agent；用户原memory/HTML/uv.lock不夹带提交。
 
 ## 上一阶段（2026-11-03；#664独立36次完成，论文v0.5与结果发布）
 

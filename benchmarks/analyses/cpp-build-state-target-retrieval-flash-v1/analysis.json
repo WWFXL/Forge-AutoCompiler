@@ -1,0 +1,6154 @@
+{
+  "identity": "cpp-build-state-target-retrieval-flash-v1",
+  "layer_semantics": "原测试状态为固定原命令的最后实际观察；不替代后续状态变化后的有效性，完整完成按strict_completed",
+  "summary": {
+    "no_experience": {
+      "planned": 12,
+      "observed": 12,
+      "complete": 11,
+      "unobserved": 0,
+      "requests": 63,
+      "cost_usd": "0.4067718",
+      "wall_minutes": 32.874901560450475,
+      "recorded_command_minutes": 10.46041672432046,
+      "replay_minutes": 10.882053633333333,
+      "other_wall_minutes": 11.532431202796685,
+      "initial_requests": 51,
+      "recovery_requests": 12,
+      "recovery_episodes": 3,
+      "direct_actions": 0,
+      "retrieval_with_material": 0,
+      "retrieval_events": 0,
+      "retrieval_material_bytes": 0,
+      "slots_with_updated_material": 0,
+      "slots_with_available_updated_material": 0,
+      "original_tests": {
+        "passed": 11,
+        "unobserved": 1
+      },
+      "verification": {
+        "passed": 11,
+        "unobserved": 1
+      },
+      "replay": {
+        "passed": 11,
+        "unobserved": 1
+      },
+      "statuses": {
+        "verified": 11,
+        "stopped": 1
+      },
+      "recorded_tokens": 1134101,
+      "input_tokens": 1060166,
+      "output_tokens": 73935
+    },
+    "source_retrieval": {
+      "planned": 12,
+      "observed": 12,
+      "complete": 10,
+      "unobserved": 0,
+      "requests": 61,
+      "cost_usd": "0.3968769",
+      "wall_minutes": 28.303919933417152,
+      "recorded_command_minutes": 9.894860563103546,
+      "replay_minutes": 9.9616688,
+      "other_wall_minutes": 8.447390570313607,
+      "initial_requests": 60,
+      "recovery_requests": 1,
+      "recovery_episodes": 1,
+      "direct_actions": 0,
+      "retrieval_with_material": 0,
+      "retrieval_events": 0,
+      "retrieval_material_bytes": 0,
+      "slots_with_updated_material": 0,
+      "slots_with_available_updated_material": 0,
+      "original_tests": {
+        "passed": 10,
+        "unobserved": 2
+      },
+      "verification": {
+        "passed": 10,
+        "unobserved": 2
+      },
+      "replay": {
+        "passed": 10,
+        "unobserved": 2
+      },
+      "statuses": {
+        "verified": 10,
+        "stopped": 2
+      },
+      "recorded_tokens": 1178521,
+      "input_tokens": 1130387,
+      "output_tokens": 48134
+    },
+    "state_target_retrieval": {
+      "planned": 12,
+      "observed": 12,
+      "complete": 11,
+      "unobserved": 0,
+      "requests": 55,
+      "cost_usd": "0.3812430",
+      "wall_minutes": 34.77403776223364,
+      "recorded_command_minutes": 12.67289422698015,
+      "replay_minutes": 12.595403883333335,
+      "other_wall_minutes": 9.505739651920155,
+      "initial_requests": 50,
+      "recovery_requests": 5,
+      "recovery_episodes": 2,
+      "direct_actions": 0,
+      "retrieval_with_material": 0,
+      "retrieval_events": 0,
+      "retrieval_material_bytes": 0,
+      "slots_with_updated_material": 0,
+      "slots_with_available_updated_material": 0,
+      "original_tests": {
+        "passed": 11,
+        "unobserved": 1
+      },
+      "verification": {
+        "passed": 11,
+        "unobserved": 1
+      },
+      "replay": {
+        "passed": 11,
+        "unobserved": 1
+      },
+      "statuses": {
+        "verified": 11,
+        "stopped": 1
+      },
+      "recorded_tokens": 1092889,
+      "input_tokens": 1033582,
+      "output_tokens": 59307
+    }
+  },
+  "paired_descriptive": [
+    {
+      "left": "no_experience",
+      "right": "source_retrieval",
+      "matched": 12,
+      "left_only_complete": 2,
+      "right_only_complete": 1,
+      "common_complete": 9,
+      "common_complete_left_cost_usd": "0.3009546",
+      "common_complete_right_cost_usd": "0.2620680",
+      "common_complete_left_wall_seconds": 1487.210771277023,
+      "common_complete_right_wall_seconds": 1323.177632864972
+    },
+    {
+      "left": "no_experience",
+      "right": "state_target_retrieval",
+      "matched": 12,
+      "left_only_complete": 1,
+      "right_only_complete": 1,
+      "common_complete": 10,
+      "common_complete_left_cost_usd": "0.3347907",
+      "common_complete_right_cost_usd": "0.2798085",
+      "common_complete_left_wall_seconds": 1636.8128655130276,
+      "common_complete_right_wall_seconds": 1482.9783448760281
+    },
+    {
+      "left": "source_retrieval",
+      "right": "state_target_retrieval",
+      "matched": 12,
+      "left_only_complete": 0,
+      "right_only_complete": 1,
+      "common_complete": 10,
+      "common_complete_left_cost_usd": "0.2874402",
+      "common_complete_right_cost_usd": "0.2781999",
+      "common_complete_left_wall_seconds": 1504.5203696439858,
+      "common_complete_right_wall_seconds": 1749.4577988360543
+    }
+  ],
+  "slots": [
+    {
+      "slot": 1,
+      "project": "jsoncpp",
+      "method": "no_experience",
+      "repetition": 1,
+      "complete": true,
+      "status": "verified",
+      "requests": 4,
+      "cost_usd": "0.0195729",
+      "wall_seconds": 64.47948425699724,
+      "recorded_command_seconds": 20.157393734902207,
+      "role_seconds": {
+        "dependency": 0.260832,
+        "configure": 1.9471251879585907,
+        "build": 14.73248245101422,
+        "smoke": 3.0383646239642985,
+        "artifact_stage": 0.1785894719650969
+      },
+      "replay_total_seconds": 23.585287,
+      "other_wall_seconds": 20.73680352209503,
+      "initial_requests": 4,
+      "recovery_requests": 0,
+      "initial_cost_usd": "0.0195729",
+      "recovery_cost_usd": "0",
+      "response_cost_matches_ledger": true,
+      "response_tokens": {
+        "input": 58531,
+        "output": 1678
+      },
+      "response_models": {
+        "deepseek-flash": 4
+      },
+      "recovery_episodes": 0,
+      "direct_actions": 0,
+      "retrieval_events": 0,
+      "retrieval_with_material": 0,
+      "retrieval_with_updated_material": 0,
+      "retrieval_bytes": 0,
+      "retrieved_source_ids": [],
+      "available_updated_source_ids": [],
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "original_test_observations": [
+        {
+          "step_id": "check",
+          "attempts": 1,
+          "status": "passed"
+        }
+      ],
+      "smoke_command_observations": 2,
+      "original_tests_status": "passed",
+      "verification_status": "passed",
+      "replay_status": "passed",
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "error_class": null,
+      "error": null,
+      "proposal_rejections": [],
+      "command_counts": {
+        "dependency": 1,
+        "configure": 1,
+        "build": 1,
+        "smoke": 2,
+        "artifact_stage": 1
+      },
+      "failed_commands": [],
+      "exploration": {
+        "phases": {
+          "initial": {
+            "selections": 1,
+            "material_selections": 0,
+            "tasks": 1,
+            "requests": 4,
+            "context_uses": 4,
+            "context_bytes": 0,
+            "tool_calls": 11,
+            "list_source": 5,
+            "read_source": 6,
+            "exact_repeated_tools_within_task": 0
+          },
+          "recovery": {
+            "exact_repeated_tools_within_task": 0
+          }
+        },
+        "selections": [
+          {
+            "event": "experience.task_selected",
+            "episode": 1,
+            "stage": "initial",
+            "mode": "none",
+            "source_ids": [],
+            "bytes": 0,
+            "bank_sha256": "dc1586c6c292c13c9f15b58f6969a1a1abb071d835738ec8eefd8ce998d90c5c",
+            "context_sha256": "ef914a4105196466e7e48ba7b384abcf13fe7671853d60355aeeead699acf15f"
+          }
+        ],
+        "context_uses": [
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 1,
+            "context_sha256": "ef914a4105196466e7e48ba7b384abcf13fe7671853d60355aeeead699acf15f",
+            "bytes": 0
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 2,
+            "context_sha256": "ef914a4105196466e7e48ba7b384abcf13fe7671853d60355aeeead699acf15f",
+            "bytes": 0
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 3,
+            "context_sha256": "ef914a4105196466e7e48ba7b384abcf13fe7671853d60355aeeead699acf15f",
+            "bytes": 0
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 4,
+            "context_sha256": "ef914a4105196466e7e48ba7b384abcf13fe7671853d60355aeeead699acf15f",
+            "bytes": 0
+          }
+        ],
+        "request_phases": {
+          "1": "initial",
+          "2": "initial",
+          "3": "initial",
+          "4": "initial"
+        }
+      },
+      "recipe_selections": [],
+      "recipe_abstentions": [],
+      "verified_update": false,
+      "scenario": "cross_project"
+    },
+    {
+      "slot": 2,
+      "project": "jsoncpp",
+      "method": "source_retrieval",
+      "repetition": 1,
+      "complete": true,
+      "status": "verified",
+      "requests": 5,
+      "cost_usd": "0.0308664",
+      "wall_seconds": 74.80607746302849,
+      "recorded_command_seconds": 20.137477882022957,
+      "role_seconds": {
+        "dependency": 0.263287,
+        "configure": 2.0030950999935158,
+        "build": 14.661146479018498,
+        "smoke": 3.0364960790029727,
+        "artifact_stage": 0.17345322400797158
+      },
+      "replay_total_seconds": 23.444462,
+      "other_wall_seconds": 31.22413758100553,
+      "initial_requests": 5,
+      "recovery_requests": 0,
+      "initial_cost_usd": "0.0308664",
+      "recovery_cost_usd": "0",
+      "response_cost_matches_ledger": true,
+      "response_tokens": {
+        "input": 91212,
+        "output": 2919
+      },
+      "response_models": {
+        "deepseek-flash": 5
+      },
+      "recovery_episodes": 0,
+      "direct_actions": 0,
+      "retrieval_events": 0,
+      "retrieval_with_material": 0,
+      "retrieval_with_updated_material": 0,
+      "retrieval_bytes": 0,
+      "retrieved_source_ids": [],
+      "available_updated_source_ids": [],
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "original_test_observations": [
+        {
+          "step_id": "check",
+          "attempts": 1,
+          "status": "passed"
+        }
+      ],
+      "smoke_command_observations": 2,
+      "original_tests_status": "passed",
+      "verification_status": "passed",
+      "replay_status": "passed",
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "error_class": null,
+      "error": null,
+      "proposal_rejections": [
+        {
+          "event": "observed.proposal_rejected",
+          "detail": "Failed to parse structured output for tool 'ObservedBuildActions': Failed to parse data to ObservedBuildActions: 1 validation error for ObservedBuildActions\nsteps\n  Field required [type=missing, input_value={'reason': '源码显示 ...les/CMakeError.log\"]}]'}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.12/v/missing."
+        }
+      ],
+      "command_counts": {
+        "dependency": 1,
+        "configure": 1,
+        "build": 1,
+        "smoke": 2,
+        "artifact_stage": 1
+      },
+      "failed_commands": [],
+      "exploration": {
+        "phases": {
+          "initial": {
+            "selections": 1,
+            "material_selections": 1,
+            "tasks": 1,
+            "requests": 5,
+            "context_uses": 5,
+            "context_bytes": 52110,
+            "tool_calls": 5,
+            "list_source": 1,
+            "read_source": 4,
+            "exact_repeated_tools_within_task": 0
+          },
+          "recovery": {
+            "exact_repeated_tools_within_task": 0
+          }
+        },
+        "selections": [
+          {
+            "event": "experience.task_selected",
+            "episode": 1,
+            "stage": "initial",
+            "mode": "structured",
+            "source_ids": [
+              "E30-slot-6",
+              "E30-slot-10"
+            ],
+            "bytes": 10422,
+            "bank_sha256": "dc1586c6c292c13c9f15b58f6969a1a1abb071d835738ec8eefd8ce998d90c5c",
+            "context_sha256": "15c48ea87e5c94e6cf1f76f2e13aae8aeba3851ffcd914535fd9c293336f27d3"
+          }
+        ],
+        "context_uses": [
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 1,
+            "context_sha256": "15c48ea87e5c94e6cf1f76f2e13aae8aeba3851ffcd914535fd9c293336f27d3",
+            "bytes": 10422
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 2,
+            "context_sha256": "15c48ea87e5c94e6cf1f76f2e13aae8aeba3851ffcd914535fd9c293336f27d3",
+            "bytes": 10422
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 3,
+            "context_sha256": "15c48ea87e5c94e6cf1f76f2e13aae8aeba3851ffcd914535fd9c293336f27d3",
+            "bytes": 10422
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 4,
+            "context_sha256": "15c48ea87e5c94e6cf1f76f2e13aae8aeba3851ffcd914535fd9c293336f27d3",
+            "bytes": 10422
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 5,
+            "context_sha256": "15c48ea87e5c94e6cf1f76f2e13aae8aeba3851ffcd914535fd9c293336f27d3",
+            "bytes": 10422
+          }
+        ],
+        "request_phases": {
+          "1": "initial",
+          "2": "initial",
+          "3": "initial",
+          "4": "initial",
+          "5": "initial"
+        }
+      },
+      "recipe_selections": [],
+      "recipe_abstentions": [],
+      "verified_update": false,
+      "scenario": "cross_project"
+    },
+    {
+      "slot": 3,
+      "project": "jsoncpp",
+      "method": "state_target_retrieval",
+      "repetition": 1,
+      "complete": true,
+      "status": "verified",
+      "requests": 7,
+      "cost_usd": "0.048066",
+      "wall_seconds": 127.06355446699308,
+      "recorded_command_seconds": 22.96586735795635,
+      "role_seconds": {
+        "dependency": 0.255238,
+        "configure": 4.038374916010071,
+        "build": 15.466653966985177,
+        "smoke": 3.0336071960045956,
+        "artifact_stage": 0.1719932789565064
+      },
+      "replay_total_seconds": 23.613432,
+      "other_wall_seconds": 80.48425510903674,
+      "initial_requests": 4,
+      "recovery_requests": 3,
+      "initial_cost_usd": "0.0232671",
+      "recovery_cost_usd": "0.0247989",
+      "response_cost_matches_ledger": true,
+      "response_tokens": {
+        "input": 134988,
+        "output": 6308
+      },
+      "response_models": {
+        "deepseek-flash": 7
+      },
+      "recovery_episodes": 1,
+      "direct_actions": 0,
+      "retrieval_events": 0,
+      "retrieval_with_material": 0,
+      "retrieval_with_updated_material": 0,
+      "retrieval_bytes": 0,
+      "retrieved_source_ids": [],
+      "available_updated_source_ids": [],
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "original_test_observations": [
+        {
+          "step_id": "check",
+          "attempts": 1,
+          "status": "passed"
+        }
+      ],
+      "smoke_command_observations": 2,
+      "original_tests_status": "passed",
+      "verification_status": "passed",
+      "replay_status": "passed",
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "error_class": null,
+      "error": null,
+      "proposal_rejections": [],
+      "command_counts": {
+        "dependency": 1,
+        "configure": 2,
+        "build": 2,
+        "smoke": 2,
+        "artifact_stage": 1
+      },
+      "failed_commands": [
+        {
+          "role": "build",
+          "command_id": "command_3d84a3deb1064990acd0835128803a83",
+          "exit_code": 86,
+          "timed_out": false
+        }
+      ],
+      "exploration": {
+        "phases": {
+          "initial": {
+            "selections": 1,
+            "material_selections": 1,
+            "tasks": 1,
+            "requests": 4,
+            "context_uses": 4,
+            "context_bytes": 40712,
+            "tool_calls": 6,
+            "read_source": 6,
+            "exact_repeated_tools_within_task": 0
+          },
+          "recovery": {
+            "selections": 1,
+            "material_selections": 0,
+            "tasks": 1,
+            "requests": 3,
+            "context_uses": 3,
+            "context_bytes": 0,
+            "tool_calls": 3,
+            "list_source": 1,
+            "read_source": 1,
+            "read_failure_log": 1,
+            "exact_repeated_tools_within_task": 0
+          }
+        },
+        "selections": [
+          {
+            "event": "experience.task_selected",
+            "episode": 1,
+            "stage": "initial",
+            "mode": "structured",
+            "source_ids": [
+              "E30-slot-6",
+              "E30-slot-19"
+            ],
+            "bytes": 10178,
+            "bank_sha256": "dc1586c6c292c13c9f15b58f6969a1a1abb071d835738ec8eefd8ce998d90c5c",
+            "context_sha256": "383d92b44f16279bce4676a495d50abe18532bc401346b32d933061fd59298cd"
+          },
+          {
+            "event": "experience.task_selected",
+            "episode": 2,
+            "stage": "build",
+            "mode": "structured",
+            "source_ids": [],
+            "bytes": 0,
+            "bank_sha256": "dc1586c6c292c13c9f15b58f6969a1a1abb071d835738ec8eefd8ce998d90c5c",
+            "context_sha256": "7ebbf84cc195d68a4aad11df3da711e9f4cb17dfd70d362794d257339ecfcfc3"
+          }
+        ],
+        "context_uses": [
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 1,
+            "context_sha256": "383d92b44f16279bce4676a495d50abe18532bc401346b32d933061fd59298cd",
+            "bytes": 10178
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 2,
+            "context_sha256": "383d92b44f16279bce4676a495d50abe18532bc401346b32d933061fd59298cd",
+            "bytes": 10178
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 3,
+            "context_sha256": "383d92b44f16279bce4676a495d50abe18532bc401346b32d933061fd59298cd",
+            "bytes": 10178
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 4,
+            "context_sha256": "383d92b44f16279bce4676a495d50abe18532bc401346b32d933061fd59298cd",
+            "bytes": 10178
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 2,
+            "request_sequence": 5,
+            "context_sha256": "7ebbf84cc195d68a4aad11df3da711e9f4cb17dfd70d362794d257339ecfcfc3",
+            "bytes": 0
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 2,
+            "request_sequence": 6,
+            "context_sha256": "7ebbf84cc195d68a4aad11df3da711e9f4cb17dfd70d362794d257339ecfcfc3",
+            "bytes": 0
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 2,
+            "request_sequence": 7,
+            "context_sha256": "7ebbf84cc195d68a4aad11df3da711e9f4cb17dfd70d362794d257339ecfcfc3",
+            "bytes": 0
+          }
+        ],
+        "request_phases": {
+          "1": "initial",
+          "2": "initial",
+          "3": "initial",
+          "4": "initial",
+          "5": "recovery",
+          "6": "recovery",
+          "7": "recovery"
+        }
+      },
+      "recipe_selections": [],
+      "recipe_abstentions": [],
+      "verified_update": false,
+      "scenario": "cross_project"
+    },
+    {
+      "slot": 4,
+      "project": "pegtl",
+      "method": "state_target_retrieval",
+      "repetition": 1,
+      "complete": true,
+      "status": "verified",
+      "requests": 1,
+      "cost_usd": "0.0073938",
+      "wall_seconds": 388.72559985599946,
+      "recorded_command_seconds": 185.4481945100283,
+      "role_seconds": {
+        "dependency": 0.289886,
+        "configure": 1.2903181440196931,
+        "build": 182.9024083359982,
+        "smoke": 0.7953250790014863,
+        "artifact_stage": 0.17025695100892335
+      },
+      "replay_total_seconds": 189.214591,
+      "other_wall_seconds": 14.062814345971162,
+      "initial_requests": 1,
+      "recovery_requests": 0,
+      "initial_cost_usd": "0.0073938",
+      "recovery_cost_usd": "0",
+      "response_cost_matches_ledger": true,
+      "response_tokens": {
+        "input": 21438,
+        "output": 802
+      },
+      "response_models": {
+        "deepseek-flash": 1
+      },
+      "recovery_episodes": 0,
+      "direct_actions": 0,
+      "retrieval_events": 0,
+      "retrieval_with_material": 0,
+      "retrieval_with_updated_material": 0,
+      "retrieval_bytes": 0,
+      "retrieved_source_ids": [],
+      "available_updated_source_ids": [],
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "original_test_observations": [
+        {
+          "step_id": "check",
+          "attempts": 1,
+          "status": "passed"
+        }
+      ],
+      "smoke_command_observations": 2,
+      "original_tests_status": "passed",
+      "verification_status": "passed",
+      "replay_status": "passed",
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "error_class": null,
+      "error": null,
+      "proposal_rejections": [],
+      "command_counts": {
+        "dependency": 1,
+        "configure": 1,
+        "build": 1,
+        "smoke": 2,
+        "artifact_stage": 1
+      },
+      "failed_commands": [],
+      "exploration": {
+        "phases": {
+          "initial": {
+            "selections": 1,
+            "material_selections": 1,
+            "tasks": 1,
+            "requests": 1,
+            "context_uses": 1,
+            "context_bytes": 10178,
+            "exact_repeated_tools_within_task": 0
+          },
+          "recovery": {
+            "exact_repeated_tools_within_task": 0
+          }
+        },
+        "selections": [
+          {
+            "event": "experience.task_selected",
+            "episode": 1,
+            "stage": "initial",
+            "mode": "structured",
+            "source_ids": [
+              "E30-slot-6",
+              "E30-slot-19"
+            ],
+            "bytes": 10178,
+            "bank_sha256": "dc1586c6c292c13c9f15b58f6969a1a1abb071d835738ec8eefd8ce998d90c5c",
+            "context_sha256": "383d92b44f16279bce4676a495d50abe18532bc401346b32d933061fd59298cd"
+          }
+        ],
+        "context_uses": [
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 1,
+            "context_sha256": "383d92b44f16279bce4676a495d50abe18532bc401346b32d933061fd59298cd",
+            "bytes": 10178
+          }
+        ],
+        "request_phases": {
+          "1": "initial"
+        }
+      },
+      "recipe_selections": [],
+      "recipe_abstentions": [],
+      "verified_update": false,
+      "scenario": "cross_project"
+    },
+    {
+      "slot": 5,
+      "project": "pegtl",
+      "method": "source_retrieval",
+      "repetition": 1,
+      "complete": true,
+      "status": "verified",
+      "requests": 2,
+      "cost_usd": "0.0150696",
+      "wall_seconds": 394.161984484992,
+      "recorded_command_seconds": 185.6995498529632,
+      "role_seconds": {
+        "dependency": 0.280718,
+        "configure": 1.247120084008202,
+        "build": 183.19108659494668,
+        "smoke": 0.8107825189945288,
+        "artifact_stage": 0.16984265501378104
+      },
+      "replay_total_seconds": 189.272845,
+      "other_wall_seconds": 19.1895896320288,
+      "initial_requests": 2,
+      "recovery_requests": 0,
+      "initial_cost_usd": "0.0150696",
+      "recovery_cost_usd": "0",
+      "response_cost_matches_ledger": true,
+      "response_tokens": {
+        "input": 44324,
+        "output": 1477
+      },
+      "response_models": {
+        "deepseek-flash": 2
+      },
+      "recovery_episodes": 0,
+      "direct_actions": 0,
+      "retrieval_events": 0,
+      "retrieval_with_material": 0,
+      "retrieval_with_updated_material": 0,
+      "retrieval_bytes": 0,
+      "retrieved_source_ids": [],
+      "available_updated_source_ids": [],
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "original_test_observations": [
+        {
+          "step_id": "check",
+          "attempts": 1,
+          "status": "passed"
+        }
+      ],
+      "smoke_command_observations": 2,
+      "original_tests_status": "passed",
+      "verification_status": "passed",
+      "replay_status": "passed",
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "error_class": null,
+      "error": null,
+      "proposal_rejections": [],
+      "command_counts": {
+        "dependency": 1,
+        "configure": 1,
+        "build": 1,
+        "smoke": 2,
+        "artifact_stage": 1
+      },
+      "failed_commands": [],
+      "exploration": {
+        "phases": {
+          "initial": {
+            "selections": 1,
+            "material_selections": 1,
+            "tasks": 1,
+            "requests": 2,
+            "context_uses": 2,
+            "context_bytes": 20786,
+            "tool_calls": 2,
+            "read_source": 2,
+            "exact_repeated_tools_within_task": 0
+          },
+          "recovery": {
+            "exact_repeated_tools_within_task": 0
+          }
+        },
+        "selections": [
+          {
+            "event": "experience.task_selected",
+            "episode": 1,
+            "stage": "initial",
+            "mode": "structured",
+            "source_ids": [
+              "E30-slot-6",
+              "E30-slot-9"
+            ],
+            "bytes": 10393,
+            "bank_sha256": "dc1586c6c292c13c9f15b58f6969a1a1abb071d835738ec8eefd8ce998d90c5c",
+            "context_sha256": "4e13b7148c861f5c62b51f3c6aa1608628dd4cbf6abf138fb62e0a712c729611"
+          }
+        ],
+        "context_uses": [
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 1,
+            "context_sha256": "4e13b7148c861f5c62b51f3c6aa1608628dd4cbf6abf138fb62e0a712c729611",
+            "bytes": 10393
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 2,
+            "context_sha256": "4e13b7148c861f5c62b51f3c6aa1608628dd4cbf6abf138fb62e0a712c729611",
+            "bytes": 10393
+          }
+        ],
+        "request_phases": {
+          "1": "initial",
+          "2": "initial"
+        }
+      },
+      "recipe_selections": [],
+      "recipe_abstentions": [],
+      "verified_update": false,
+      "scenario": "cross_project"
+    },
+    {
+      "slot": 6,
+      "project": "pegtl",
+      "method": "no_experience",
+      "repetition": 1,
+      "complete": true,
+      "status": "verified",
+      "requests": 3,
+      "cost_usd": "0.01869",
+      "wall_seconds": 397.45015156199224,
+      "recorded_command_seconds": 185.60476531906662,
+      "role_seconds": {
+        "dependency": 0.284051,
+        "configure": 1.2795892390422523,
+        "build": 183.04096594901057,
+        "smoke": 0.8244786339928396,
+        "artifact_stage": 0.17568049702094868
+      },
+      "replay_total_seconds": 189.251766,
+      "other_wall_seconds": 22.593620242925624,
+      "initial_requests": 3,
+      "recovery_requests": 0,
+      "initial_cost_usd": "0.0186900",
+      "recovery_cost_usd": "0",
+      "response_cost_matches_ledger": true,
+      "response_tokens": {
+        "input": 55212,
+        "output": 1772
+      },
+      "response_models": {
+        "deepseek-flash": 3
+      },
+      "recovery_episodes": 0,
+      "direct_actions": 0,
+      "retrieval_events": 0,
+      "retrieval_with_material": 0,
+      "retrieval_with_updated_material": 0,
+      "retrieval_bytes": 0,
+      "retrieved_source_ids": [],
+      "available_updated_source_ids": [],
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "original_test_observations": [
+        {
+          "step_id": "check",
+          "attempts": 1,
+          "status": "passed"
+        }
+      ],
+      "smoke_command_observations": 2,
+      "original_tests_status": "passed",
+      "verification_status": "passed",
+      "replay_status": "passed",
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "error_class": null,
+      "error": null,
+      "proposal_rejections": [],
+      "command_counts": {
+        "dependency": 1,
+        "configure": 1,
+        "build": 1,
+        "smoke": 2,
+        "artifact_stage": 1
+      },
+      "failed_commands": [],
+      "exploration": {
+        "phases": {
+          "initial": {
+            "selections": 1,
+            "material_selections": 0,
+            "tasks": 1,
+            "requests": 3,
+            "context_uses": 3,
+            "context_bytes": 0,
+            "tool_calls": 3,
+            "read_source": 2,
+            "list_source": 1,
+            "exact_repeated_tools_within_task": 0
+          },
+          "recovery": {
+            "exact_repeated_tools_within_task": 0
+          }
+        },
+        "selections": [
+          {
+            "event": "experience.task_selected",
+            "episode": 1,
+            "stage": "initial",
+            "mode": "none",
+            "source_ids": [],
+            "bytes": 0,
+            "bank_sha256": "dc1586c6c292c13c9f15b58f6969a1a1abb071d835738ec8eefd8ce998d90c5c",
+            "context_sha256": "ef914a4105196466e7e48ba7b384abcf13fe7671853d60355aeeead699acf15f"
+          }
+        ],
+        "context_uses": [
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 1,
+            "context_sha256": "ef914a4105196466e7e48ba7b384abcf13fe7671853d60355aeeead699acf15f",
+            "bytes": 0
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 2,
+            "context_sha256": "ef914a4105196466e7e48ba7b384abcf13fe7671853d60355aeeead699acf15f",
+            "bytes": 0
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 3,
+            "context_sha256": "ef914a4105196466e7e48ba7b384abcf13fe7671853d60355aeeead699acf15f",
+            "bytes": 0
+          }
+        ],
+        "request_phases": {
+          "1": "initial",
+          "2": "initial",
+          "3": "initial"
+        }
+      },
+      "recipe_selections": [],
+      "recipe_abstentions": [],
+      "verified_update": false,
+      "scenario": "cross_project"
+    },
+    {
+      "slot": 7,
+      "project": "inja",
+      "method": "source_retrieval",
+      "repetition": 1,
+      "complete": false,
+      "status": "stopped",
+      "requests": 7,
+      "cost_usd": "0.0483897",
+      "wall_seconds": 102.01690357201733,
+      "recorded_command_seconds": 31.833403381993584,
+      "role_seconds": {
+        "dependency": 0.259065,
+        "configure": 0.629161718999967,
+        "build": 30.945176662993617
+      },
+      "replay_total_seconds": 0,
+      "other_wall_seconds": 70.18350019002375,
+      "initial_requests": 6,
+      "recovery_requests": 1,
+      "initial_cost_usd": "0.0386481",
+      "recovery_cost_usd": "0.0097416",
+      "response_cost_matches_ledger": true,
+      "response_tokens": {
+        "input": 138463,
+        "output": 5709
+      },
+      "response_models": {
+        "deepseek-flash": 7
+      },
+      "recovery_episodes": 1,
+      "direct_actions": 0,
+      "retrieval_events": 0,
+      "retrieval_with_material": 0,
+      "retrieval_with_updated_material": 0,
+      "retrieval_bytes": 0,
+      "retrieved_source_ids": [],
+      "available_updated_source_ids": [],
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "original_test_observations": [
+        {
+          "step_id": "check",
+          "attempts": 0,
+          "status": "unobserved"
+        }
+      ],
+      "smoke_command_observations": 0,
+      "original_tests_status": "unobserved",
+      "verification_status": "unobserved",
+      "replay_status": "unobserved",
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "error_class": "PlanContractError",
+      "error": "未交付唯一完整JSON候选；不从自由说明中猜测方案",
+      "proposal_rejections": [],
+      "command_counts": {
+        "dependency": 1,
+        "configure": 1,
+        "build": 1
+      },
+      "failed_commands": [],
+      "exploration": {
+        "phases": {
+          "initial": {
+            "selections": 1,
+            "material_selections": 1,
+            "tasks": 1,
+            "requests": 6,
+            "context_uses": 6,
+            "context_bytes": 62532,
+            "tool_calls": 10,
+            "list_source": 8,
+            "read_source": 2,
+            "exact_repeated_tools_within_task": 0
+          },
+          "recovery": {
+            "selections": 1,
+            "material_selections": 1,
+            "tasks": 1,
+            "requests": 1,
+            "context_uses": 1,
+            "context_bytes": 10422,
+            "exact_repeated_tools_within_task": 0
+          }
+        },
+        "selections": [
+          {
+            "event": "experience.task_selected",
+            "episode": 1,
+            "stage": "initial",
+            "mode": "structured",
+            "source_ids": [
+              "E30-slot-6",
+              "E30-slot-10"
+            ],
+            "bytes": 10422,
+            "bank_sha256": "dc1586c6c292c13c9f15b58f6969a1a1abb071d835738ec8eefd8ce998d90c5c",
+            "context_sha256": "15c48ea87e5c94e6cf1f76f2e13aae8aeba3851ffcd914535fd9c293336f27d3"
+          },
+          {
+            "event": "experience.task_selected",
+            "episode": 2,
+            "stage": "build",
+            "mode": "structured",
+            "source_ids": [
+              "E30-slot-10",
+              "E30-slot-6"
+            ],
+            "bytes": 10422,
+            "bank_sha256": "dc1586c6c292c13c9f15b58f6969a1a1abb071d835738ec8eefd8ce998d90c5c",
+            "context_sha256": "1f0e1e3423500a4d481b20f9493d0bff19d1411d9c382beeb4a6bce71880bf40"
+          }
+        ],
+        "context_uses": [
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 1,
+            "context_sha256": "15c48ea87e5c94e6cf1f76f2e13aae8aeba3851ffcd914535fd9c293336f27d3",
+            "bytes": 10422
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 2,
+            "context_sha256": "15c48ea87e5c94e6cf1f76f2e13aae8aeba3851ffcd914535fd9c293336f27d3",
+            "bytes": 10422
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 3,
+            "context_sha256": "15c48ea87e5c94e6cf1f76f2e13aae8aeba3851ffcd914535fd9c293336f27d3",
+            "bytes": 10422
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 4,
+            "context_sha256": "15c48ea87e5c94e6cf1f76f2e13aae8aeba3851ffcd914535fd9c293336f27d3",
+            "bytes": 10422
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 5,
+            "context_sha256": "15c48ea87e5c94e6cf1f76f2e13aae8aeba3851ffcd914535fd9c293336f27d3",
+            "bytes": 10422
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 6,
+            "context_sha256": "15c48ea87e5c94e6cf1f76f2e13aae8aeba3851ffcd914535fd9c293336f27d3",
+            "bytes": 10422
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 2,
+            "request_sequence": 7,
+            "context_sha256": "1f0e1e3423500a4d481b20f9493d0bff19d1411d9c382beeb4a6bce71880bf40",
+            "bytes": 10422
+          }
+        ],
+        "request_phases": {
+          "1": "initial",
+          "2": "initial",
+          "3": "initial",
+          "4": "initial",
+          "5": "initial",
+          "6": "initial",
+          "7": "recovery"
+        }
+      },
+      "recipe_selections": [],
+      "recipe_abstentions": [],
+      "verified_update": false,
+      "scenario": "cross_project"
+    },
+    {
+      "slot": 8,
+      "project": "inja",
+      "method": "state_target_retrieval",
+      "repetition": 1,
+      "complete": true,
+      "status": "verified",
+      "requests": 6,
+      "cost_usd": "0.0382704",
+      "wall_seconds": 147.35102358000586,
+      "recorded_command_seconds": 51.29511105499948,
+      "role_seconds": {
+        "dependency": 0.258121,
+        "configure": 0.6219118069857359,
+        "build": 49.749591938976664,
+        "smoke": 0.49369350099004805,
+        "artifact_stage": 0.17179280804703012
+      },
+      "replay_total_seconds": 54.880202,
+      "other_wall_seconds": 41.17571052500638,
+      "initial_requests": 6,
+      "recovery_requests": 0,
+      "initial_cost_usd": "0.0382704",
+      "recovery_cost_usd": "0",
+      "response_cost_matches_ledger": true,
+      "response_tokens": {
+        "input": 110752,
+        "output": 4204
+      },
+      "response_models": {
+        "deepseek-flash": 6
+      },
+      "recovery_episodes": 0,
+      "direct_actions": 0,
+      "retrieval_events": 0,
+      "retrieval_with_material": 0,
+      "retrieval_with_updated_material": 0,
+      "retrieval_bytes": 0,
+      "retrieved_source_ids": [],
+      "available_updated_source_ids": [],
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "original_test_observations": [
+        {
+          "step_id": "check",
+          "attempts": 1,
+          "status": "passed"
+        }
+      ],
+      "smoke_command_observations": 2,
+      "original_tests_status": "passed",
+      "verification_status": "passed",
+      "replay_status": "passed",
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "error_class": null,
+      "error": null,
+      "proposal_rejections": [],
+      "command_counts": {
+        "dependency": 1,
+        "configure": 1,
+        "build": 1,
+        "smoke": 2,
+        "artifact_stage": 1
+      },
+      "failed_commands": [],
+      "exploration": {
+        "phases": {
+          "initial": {
+            "selections": 1,
+            "material_selections": 1,
+            "tasks": 1,
+            "requests": 6,
+            "context_uses": 6,
+            "context_bytes": 61068,
+            "tool_calls": 10,
+            "list_source": 7,
+            "read_source": 3,
+            "exact_repeated_tools_within_task": 0
+          },
+          "recovery": {
+            "exact_repeated_tools_within_task": 0
+          }
+        },
+        "selections": [
+          {
+            "event": "experience.task_selected",
+            "episode": 1,
+            "stage": "initial",
+            "mode": "structured",
+            "source_ids": [
+              "E30-slot-6",
+              "E30-slot-19"
+            ],
+            "bytes": 10178,
+            "bank_sha256": "dc1586c6c292c13c9f15b58f6969a1a1abb071d835738ec8eefd8ce998d90c5c",
+            "context_sha256": "383d92b44f16279bce4676a495d50abe18532bc401346b32d933061fd59298cd"
+          }
+        ],
+        "context_uses": [
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 1,
+            "context_sha256": "383d92b44f16279bce4676a495d50abe18532bc401346b32d933061fd59298cd",
+            "bytes": 10178
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 2,
+            "context_sha256": "383d92b44f16279bce4676a495d50abe18532bc401346b32d933061fd59298cd",
+            "bytes": 10178
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 3,
+            "context_sha256": "383d92b44f16279bce4676a495d50abe18532bc401346b32d933061fd59298cd",
+            "bytes": 10178
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 4,
+            "context_sha256": "383d92b44f16279bce4676a495d50abe18532bc401346b32d933061fd59298cd",
+            "bytes": 10178
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 5,
+            "context_sha256": "383d92b44f16279bce4676a495d50abe18532bc401346b32d933061fd59298cd",
+            "bytes": 10178
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 6,
+            "context_sha256": "383d92b44f16279bce4676a495d50abe18532bc401346b32d933061fd59298cd",
+            "bytes": 10178
+          }
+        ],
+        "request_phases": {
+          "1": "initial",
+          "2": "initial",
+          "3": "initial",
+          "4": "initial",
+          "5": "initial",
+          "6": "initial"
+        }
+      },
+      "recipe_selections": [],
+      "recipe_abstentions": [],
+      "verified_update": false,
+      "scenario": "cross_project"
+    },
+    {
+      "slot": 9,
+      "project": "inja",
+      "method": "no_experience",
+      "repetition": 1,
+      "complete": true,
+      "status": "verified",
+      "requests": 6,
+      "cost_usd": "0.0338361",
+      "wall_seconds": 149.60209423600463,
+      "recorded_command_seconds": 51.478132242983335,
+      "role_seconds": {
+        "dependency": 0.253485,
+        "configure": 0.6047312130103819,
+        "build": 49.95559569098987,
+        "smoke": 0.4885360419866629,
+        "artifact_stage": 0.17578429699642584
+      },
+      "replay_total_seconds": 54.826357,
+      "other_wall_seconds": 43.297604993021295,
+      "initial_requests": 6,
+      "recovery_requests": 0,
+      "initial_cost_usd": "0.0338361",
+      "recovery_cost_usd": "0",
+      "response_cost_matches_ledger": true,
+      "response_tokens": {
+        "input": 95579,
+        "output": 4302
+      },
+      "response_models": {
+        "deepseek-flash": 6
+      },
+      "recovery_episodes": 0,
+      "direct_actions": 0,
+      "retrieval_events": 0,
+      "retrieval_with_material": 0,
+      "retrieval_with_updated_material": 0,
+      "retrieval_bytes": 0,
+      "retrieved_source_ids": [],
+      "available_updated_source_ids": [],
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "original_test_observations": [
+        {
+          "step_id": "check",
+          "attempts": 1,
+          "status": "passed"
+        }
+      ],
+      "smoke_command_observations": 2,
+      "original_tests_status": "passed",
+      "verification_status": "passed",
+      "replay_status": "passed",
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "error_class": null,
+      "error": null,
+      "proposal_rejections": [],
+      "command_counts": {
+        "dependency": 1,
+        "configure": 1,
+        "build": 1,
+        "smoke": 2,
+        "artifact_stage": 1
+      },
+      "failed_commands": [],
+      "exploration": {
+        "phases": {
+          "initial": {
+            "selections": 1,
+            "material_selections": 0,
+            "tasks": 1,
+            "requests": 6,
+            "context_uses": 6,
+            "context_bytes": 0,
+            "tool_calls": 12,
+            "read_source": 5,
+            "list_source": 6,
+            "read_fixed_contract": 1,
+            "exact_repeated_tools_within_task": 1
+          },
+          "recovery": {
+            "exact_repeated_tools_within_task": 0
+          }
+        },
+        "selections": [
+          {
+            "event": "experience.task_selected",
+            "episode": 1,
+            "stage": "initial",
+            "mode": "none",
+            "source_ids": [],
+            "bytes": 0,
+            "bank_sha256": "dc1586c6c292c13c9f15b58f6969a1a1abb071d835738ec8eefd8ce998d90c5c",
+            "context_sha256": "ef914a4105196466e7e48ba7b384abcf13fe7671853d60355aeeead699acf15f"
+          }
+        ],
+        "context_uses": [
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 1,
+            "context_sha256": "ef914a4105196466e7e48ba7b384abcf13fe7671853d60355aeeead699acf15f",
+            "bytes": 0
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 2,
+            "context_sha256": "ef914a4105196466e7e48ba7b384abcf13fe7671853d60355aeeead699acf15f",
+            "bytes": 0
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 3,
+            "context_sha256": "ef914a4105196466e7e48ba7b384abcf13fe7671853d60355aeeead699acf15f",
+            "bytes": 0
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 4,
+            "context_sha256": "ef914a4105196466e7e48ba7b384abcf13fe7671853d60355aeeead699acf15f",
+            "bytes": 0
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 5,
+            "context_sha256": "ef914a4105196466e7e48ba7b384abcf13fe7671853d60355aeeead699acf15f",
+            "bytes": 0
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 6,
+            "context_sha256": "ef914a4105196466e7e48ba7b384abcf13fe7671853d60355aeeead699acf15f",
+            "bytes": 0
+          }
+        ],
+        "request_phases": {
+          "1": "initial",
+          "2": "initial",
+          "3": "initial",
+          "4": "initial",
+          "5": "initial",
+          "6": "initial"
+        }
+      },
+      "recipe_selections": [],
+      "recipe_abstentions": [],
+      "verified_update": false,
+      "scenario": "cross_project"
+    },
+    {
+      "slot": 10,
+      "project": "highwayhash",
+      "method": "no_experience",
+      "repetition": 1,
+      "complete": true,
+      "status": "verified",
+      "requests": 9,
+      "cost_usd": "0.0573363",
+      "wall_seconds": 121.92847619205713,
+      "recorded_command_seconds": 16.232991503048922,
+      "role_seconds": {
+        "dependency": 0.235473,
+        "configure": 0.34084772603819147,
+        "build": 14.868624631024431,
+        "smoke": 0.6093109489884228,
+        "artifact_stage": 0.1787351969978772
+      },
+      "replay_total_seconds": 11.879865,
+      "other_wall_seconds": 93.81561968900822,
+      "initial_requests": 3,
+      "recovery_requests": 6,
+      "initial_cost_usd": "0.0166968",
+      "recovery_cost_usd": "0.0406395",
+      "response_cost_matches_ledger": true,
+      "response_tokens": {
+        "input": 148841,
+        "output": 10570
+      },
+      "response_models": {
+        "deepseek-flash": 9
+      },
+      "recovery_episodes": 1,
+      "direct_actions": 0,
+      "retrieval_events": 0,
+      "retrieval_with_material": 0,
+      "retrieval_with_updated_material": 0,
+      "retrieval_bytes": 0,
+      "retrieved_source_ids": [],
+      "available_updated_source_ids": [],
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "original_test_observations": [
+        {
+          "step_id": "check",
+          "attempts": 2,
+          "status": "passed"
+        }
+      ],
+      "smoke_command_observations": 2,
+      "original_tests_status": "passed",
+      "verification_status": "passed",
+      "replay_status": "passed",
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "error_class": null,
+      "error": null,
+      "proposal_rejections": [
+        {
+          "event": "observed.proposal_rejected",
+          "detail": "Failed to parse structured output for tool 'ObservedBuildActions': Failed to parse data to ObservedBuildActions: 2 validation errors for ObservedBuildActions\nreason\n  Field required [type=missing, input_value={}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.12/v/missing\nsteps\n  Field required [type=missing, input_value={}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.12/v/missing."
+        }
+      ],
+      "command_counts": {
+        "dependency": 1,
+        "configure": 2,
+        "build": 2,
+        "smoke": 2,
+        "artifact_stage": 1
+      },
+      "failed_commands": [
+        {
+          "role": "smoke",
+          "command_id": "command_d8bb85bb3cd94bc883c041e4c78e690d",
+          "exit_code": 127,
+          "timed_out": false
+        }
+      ],
+      "exploration": {
+        "phases": {
+          "initial": {
+            "selections": 1,
+            "material_selections": 0,
+            "tasks": 1,
+            "requests": 3,
+            "context_uses": 3,
+            "context_bytes": 0,
+            "tool_calls": 3,
+            "list_source": 2,
+            "read_source": 1,
+            "exact_repeated_tools_within_task": 0
+          },
+          "recovery": {
+            "selections": 1,
+            "material_selections": 0,
+            "tasks": 1,
+            "requests": 6,
+            "context_uses": 6,
+            "context_bytes": 0,
+            "tool_calls": 7,
+            "read_failure_log": 7,
+            "exact_repeated_tools_within_task": 3
+          }
+        },
+        "selections": [
+          {
+            "event": "experience.task_selected",
+            "episode": 1,
+            "stage": "initial",
+            "mode": "none",
+            "source_ids": [],
+            "bytes": 0,
+            "bank_sha256": "dc1586c6c292c13c9f15b58f6969a1a1abb071d835738ec8eefd8ce998d90c5c",
+            "context_sha256": "ef914a4105196466e7e48ba7b384abcf13fe7671853d60355aeeead699acf15f"
+          },
+          {
+            "event": "experience.task_selected",
+            "episode": 2,
+            "stage": "smoke",
+            "mode": "none",
+            "source_ids": [],
+            "bytes": 0,
+            "bank_sha256": "dc1586c6c292c13c9f15b58f6969a1a1abb071d835738ec8eefd8ce998d90c5c",
+            "context_sha256": "ef914a4105196466e7e48ba7b384abcf13fe7671853d60355aeeead699acf15f"
+          }
+        ],
+        "context_uses": [
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 1,
+            "context_sha256": "ef914a4105196466e7e48ba7b384abcf13fe7671853d60355aeeead699acf15f",
+            "bytes": 0
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 2,
+            "context_sha256": "ef914a4105196466e7e48ba7b384abcf13fe7671853d60355aeeead699acf15f",
+            "bytes": 0
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 3,
+            "context_sha256": "ef914a4105196466e7e48ba7b384abcf13fe7671853d60355aeeead699acf15f",
+            "bytes": 0
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 2,
+            "request_sequence": 4,
+            "context_sha256": "ef914a4105196466e7e48ba7b384abcf13fe7671853d60355aeeead699acf15f",
+            "bytes": 0
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 2,
+            "request_sequence": 5,
+            "context_sha256": "ef914a4105196466e7e48ba7b384abcf13fe7671853d60355aeeead699acf15f",
+            "bytes": 0
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 2,
+            "request_sequence": 6,
+            "context_sha256": "ef914a4105196466e7e48ba7b384abcf13fe7671853d60355aeeead699acf15f",
+            "bytes": 0
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 2,
+            "request_sequence": 7,
+            "context_sha256": "ef914a4105196466e7e48ba7b384abcf13fe7671853d60355aeeead699acf15f",
+            "bytes": 0
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 2,
+            "request_sequence": 8,
+            "context_sha256": "ef914a4105196466e7e48ba7b384abcf13fe7671853d60355aeeead699acf15f",
+            "bytes": 0
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 2,
+            "request_sequence": 9,
+            "context_sha256": "ef914a4105196466e7e48ba7b384abcf13fe7671853d60355aeeead699acf15f",
+            "bytes": 0
+          }
+        ],
+        "request_phases": {
+          "1": "initial",
+          "2": "initial",
+          "3": "initial",
+          "4": "recovery",
+          "5": "recovery",
+          "6": "recovery",
+          "7": "recovery",
+          "8": "recovery",
+          "9": "recovery"
+        }
+      },
+      "recipe_selections": [],
+      "recipe_abstentions": [],
+      "verified_update": false,
+      "scenario": "cross_project"
+    },
+    {
+      "slot": 11,
+      "project": "highwayhash",
+      "method": "state_target_retrieval",
+      "repetition": 1,
+      "complete": true,
+      "status": "verified",
+      "requests": 4,
+      "cost_usd": "0.0222633",
+      "wall_seconds": 42.27647835598327,
+      "recorded_command_seconds": 6.792444461963304,
+      "role_seconds": {
+        "dependency": 0.232249,
+        "build": 5.92520447896095,
+        "smoke": 0.4688155109761283,
+        "artifact_stage": 0.16617547202622518
+      },
+      "replay_total_seconds": 10.453139,
+      "other_wall_seconds": 25.030894894019966,
+      "initial_requests": 4,
+      "recovery_requests": 0,
+      "initial_cost_usd": "0.0222633",
+      "recovery_cost_usd": "0",
+      "response_cost_matches_ledger": true,
+      "response_tokens": {
+        "input": 66623,
+        "output": 1897
+      },
+      "response_models": {
+        "deepseek-flash": 4
+      },
+      "recovery_episodes": 0,
+      "direct_actions": 0,
+      "retrieval_events": 0,
+      "retrieval_with_material": 0,
+      "retrieval_with_updated_material": 0,
+      "retrieval_bytes": 0,
+      "retrieved_source_ids": [],
+      "available_updated_source_ids": [],
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "original_test_observations": [
+        {
+          "step_id": "check",
+          "attempts": 1,
+          "status": "passed"
+        }
+      ],
+      "smoke_command_observations": 1,
+      "original_tests_status": "passed",
+      "verification_status": "passed",
+      "replay_status": "passed",
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "error_class": null,
+      "error": null,
+      "proposal_rejections": [],
+      "command_counts": {
+        "dependency": 1,
+        "build": 1,
+        "smoke": 1,
+        "artifact_stage": 1
+      },
+      "failed_commands": [],
+      "exploration": {
+        "phases": {
+          "initial": {
+            "selections": 1,
+            "material_selections": 1,
+            "tasks": 1,
+            "requests": 4,
+            "context_uses": 4,
+            "context_bytes": 34024,
+            "tool_calls": 4,
+            "read_source": 3,
+            "list_source": 1,
+            "exact_repeated_tools_within_task": 0
+          },
+          "recovery": {
+            "exact_repeated_tools_within_task": 0
+          }
+        },
+        "selections": [
+          {
+            "event": "experience.task_selected",
+            "episode": 1,
+            "stage": "initial",
+            "mode": "structured",
+            "source_ids": [
+              "E30-slot-14",
+              "E04-slot-7"
+            ],
+            "bytes": 8506,
+            "bank_sha256": "dc1586c6c292c13c9f15b58f6969a1a1abb071d835738ec8eefd8ce998d90c5c",
+            "context_sha256": "8f9dda83adc9654c7e87357f40a92d7262d68165f291dc40053548e686e6b8ea"
+          }
+        ],
+        "context_uses": [
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 1,
+            "context_sha256": "8f9dda83adc9654c7e87357f40a92d7262d68165f291dc40053548e686e6b8ea",
+            "bytes": 8506
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 2,
+            "context_sha256": "8f9dda83adc9654c7e87357f40a92d7262d68165f291dc40053548e686e6b8ea",
+            "bytes": 8506
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 3,
+            "context_sha256": "8f9dda83adc9654c7e87357f40a92d7262d68165f291dc40053548e686e6b8ea",
+            "bytes": 8506
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 4,
+            "context_sha256": "8f9dda83adc9654c7e87357f40a92d7262d68165f291dc40053548e686e6b8ea",
+            "bytes": 8506
+          }
+        ],
+        "request_phases": {
+          "1": "initial",
+          "2": "initial",
+          "3": "initial",
+          "4": "initial"
+        }
+      },
+      "recipe_selections": [],
+      "recipe_abstentions": [],
+      "verified_update": false,
+      "scenario": "cross_project"
+    },
+    {
+      "slot": 12,
+      "project": "highwayhash",
+      "method": "source_retrieval",
+      "repetition": 1,
+      "complete": true,
+      "status": "verified",
+      "requests": 2,
+      "cost_usd": "0.0122412",
+      "wall_seconds": 39.37742074299604,
+      "recorded_command_seconds": 6.786050974058736,
+      "role_seconds": {
+        "dependency": 0.238646,
+        "build": 5.991436866985168,
+        "smoke": 0.39477068604901433,
+        "artifact_stage": 0.16119742102455348
+      },
+      "replay_total_seconds": 10.397427,
+      "other_wall_seconds": 22.193942768937298,
+      "initial_requests": 2,
+      "recovery_requests": 0,
+      "initial_cost_usd": "0.0122412",
+      "recovery_cost_usd": "0",
+      "response_cost_matches_ledger": true,
+      "response_tokens": {
+        "input": 32908,
+        "output": 1974
+      },
+      "response_models": {
+        "deepseek-flash": 2
+      },
+      "recovery_episodes": 0,
+      "direct_actions": 0,
+      "retrieval_events": 0,
+      "retrieval_with_material": 0,
+      "retrieval_with_updated_material": 0,
+      "retrieval_bytes": 0,
+      "retrieved_source_ids": [],
+      "available_updated_source_ids": [],
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "original_test_observations": [
+        {
+          "step_id": "check",
+          "attempts": 1,
+          "status": "passed"
+        }
+      ],
+      "smoke_command_observations": 1,
+      "original_tests_status": "passed",
+      "verification_status": "passed",
+      "replay_status": "passed",
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "error_class": null,
+      "error": null,
+      "proposal_rejections": [],
+      "command_counts": {
+        "dependency": 1,
+        "build": 1,
+        "smoke": 1,
+        "artifact_stage": 1
+      },
+      "failed_commands": [],
+      "exploration": {
+        "phases": {
+          "initial": {
+            "selections": 1,
+            "material_selections": 1,
+            "tasks": 1,
+            "requests": 2,
+            "context_uses": 2,
+            "context_bytes": 17616,
+            "tool_calls": 2,
+            "read_source": 1,
+            "list_source": 1,
+            "exact_repeated_tools_within_task": 0
+          },
+          "recovery": {
+            "exact_repeated_tools_within_task": 0
+          }
+        },
+        "selections": [
+          {
+            "event": "experience.task_selected",
+            "episode": 1,
+            "stage": "initial",
+            "mode": "structured",
+            "source_ids": [
+              "E30-slot-14",
+              "E30-slot-17"
+            ],
+            "bytes": 8808,
+            "bank_sha256": "dc1586c6c292c13c9f15b58f6969a1a1abb071d835738ec8eefd8ce998d90c5c",
+            "context_sha256": "62d08efe81a3675c89dedc7a3fd60f3e3aed74957ecbe3b47ae0dcab5daed9a6"
+          }
+        ],
+        "context_uses": [
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 1,
+            "context_sha256": "62d08efe81a3675c89dedc7a3fd60f3e3aed74957ecbe3b47ae0dcab5daed9a6",
+            "bytes": 8808
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 2,
+            "context_sha256": "62d08efe81a3675c89dedc7a3fd60f3e3aed74957ecbe3b47ae0dcab5daed9a6",
+            "bytes": 8808
+          }
+        ],
+        "request_phases": {
+          "1": "initial",
+          "2": "initial"
+        }
+      },
+      "recipe_selections": [],
+      "recipe_abstentions": [],
+      "verified_update": false,
+      "scenario": "cross_project"
+    },
+    {
+      "slot": 13,
+      "project": "libsigcplusplus",
+      "method": "state_target_retrieval",
+      "repetition": 1,
+      "complete": false,
+      "status": "stopped",
+      "requests": 7,
+      "cost_usd": "0.0647727",
+      "wall_seconds": 189.63344331795815,
+      "recorded_command_seconds": 41.40429087994278,
+      "role_seconds": {
+        "dependency": 35.149271036946516,
+        "configure": 6.255019842996262
+      },
+      "replay_total_seconds": 0,
+      "other_wall_seconds": 148.22915243801538,
+      "initial_requests": 5,
+      "recovery_requests": 2,
+      "initial_cost_usd": "0.0407370",
+      "recovery_cost_usd": "0.0240357",
+      "response_cost_matches_ledger": true,
+      "response_tokens": {
+        "input": 133745,
+        "output": 20541
+      },
+      "response_models": {
+        "deepseek-flash": 7
+      },
+      "recovery_episodes": 1,
+      "direct_actions": 0,
+      "retrieval_events": 0,
+      "retrieval_with_material": 0,
+      "retrieval_with_updated_material": 0,
+      "retrieval_bytes": 0,
+      "retrieved_source_ids": [],
+      "available_updated_source_ids": [],
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "original_test_observations": [
+        {
+          "step_id": "check",
+          "attempts": 0,
+          "status": "unobserved"
+        }
+      ],
+      "smoke_command_observations": 0,
+      "original_tests_status": "unobserved",
+      "verification_status": "unobserved",
+      "replay_status": "unobserved",
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "error_class": "PlanContractError",
+      "error": "步骤不能关闭严格 Shell 或混合多个逻辑阶段",
+      "proposal_rejections": [],
+      "command_counts": {
+        "dependency": 4,
+        "configure": 1
+      },
+      "failed_commands": [
+        {
+          "role": "dependency",
+          "command_id": "command_7dd6064a89304bbfa4b3da52a839f62c",
+          "exit_code": 127,
+          "timed_out": false
+        }
+      ],
+      "exploration": {
+        "phases": {
+          "initial": {
+            "selections": 1,
+            "material_selections": 1,
+            "tasks": 1,
+            "requests": 5,
+            "context_uses": 5,
+            "context_bytes": 27625,
+            "tool_calls": 10,
+            "list_source": 2,
+            "read_source": 8,
+            "exact_repeated_tools_within_task": 0
+          },
+          "recovery": {
+            "selections": 1,
+            "material_selections": 1,
+            "tasks": 1,
+            "requests": 2,
+            "context_uses": 2,
+            "context_bytes": 11050,
+            "tool_calls": 2,
+            "read_failure_log": 1,
+            "list_source": 1,
+            "exact_repeated_tools_within_task": 0
+          }
+        },
+        "selections": [
+          {
+            "event": "experience.task_selected",
+            "episode": 1,
+            "stage": "initial",
+            "mode": "structured",
+            "source_ids": [
+              "E30-slot-1"
+            ],
+            "bytes": 5525,
+            "bank_sha256": "dc1586c6c292c13c9f15b58f6969a1a1abb071d835738ec8eefd8ce998d90c5c",
+            "context_sha256": "100e637d564e13ed32d5bc36f339a208895b0401dbd5d044af5b462a030f86bd"
+          },
+          {
+            "event": "experience.task_selected",
+            "episode": 2,
+            "stage": "dependency",
+            "mode": "structured",
+            "source_ids": [
+              "E30-slot-1"
+            ],
+            "bytes": 5525,
+            "bank_sha256": "dc1586c6c292c13c9f15b58f6969a1a1abb071d835738ec8eefd8ce998d90c5c",
+            "context_sha256": "100e637d564e13ed32d5bc36f339a208895b0401dbd5d044af5b462a030f86bd"
+          }
+        ],
+        "context_uses": [
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 1,
+            "context_sha256": "100e637d564e13ed32d5bc36f339a208895b0401dbd5d044af5b462a030f86bd",
+            "bytes": 5525
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 2,
+            "context_sha256": "100e637d564e13ed32d5bc36f339a208895b0401dbd5d044af5b462a030f86bd",
+            "bytes": 5525
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 3,
+            "context_sha256": "100e637d564e13ed32d5bc36f339a208895b0401dbd5d044af5b462a030f86bd",
+            "bytes": 5525
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 4,
+            "context_sha256": "100e637d564e13ed32d5bc36f339a208895b0401dbd5d044af5b462a030f86bd",
+            "bytes": 5525
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 5,
+            "context_sha256": "100e637d564e13ed32d5bc36f339a208895b0401dbd5d044af5b462a030f86bd",
+            "bytes": 5525
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 2,
+            "request_sequence": 6,
+            "context_sha256": "100e637d564e13ed32d5bc36f339a208895b0401dbd5d044af5b462a030f86bd",
+            "bytes": 5525
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 2,
+            "request_sequence": 7,
+            "context_sha256": "100e637d564e13ed32d5bc36f339a208895b0401dbd5d044af5b462a030f86bd",
+            "bytes": 5525
+          }
+        ],
+        "request_phases": {
+          "1": "initial",
+          "2": "initial",
+          "3": "initial",
+          "4": "initial",
+          "5": "initial",
+          "6": "recovery",
+          "7": "recovery"
+        }
+      },
+      "recipe_selections": [],
+      "recipe_abstentions": [],
+      "verified_update": false,
+      "scenario": "cross_project"
+    },
+    {
+      "slot": 14,
+      "project": "libsigcplusplus",
+      "method": "no_experience",
+      "repetition": 1,
+      "complete": true,
+      "status": "verified",
+      "requests": 3,
+      "cost_usd": "0.0278847",
+      "wall_seconds": 198.6871996410191,
+      "recorded_command_seconds": 56.88913805211041,
+      "role_seconds": {
+        "dependency": 28.35166405500922,
+        "configure": 11.937760698026977,
+        "build": 15.604194194020238,
+        "smoke": 0.8173964720335789,
+        "artifact_stage": 0.17812263302039355
+      },
+      "replay_total_seconds": 60.264437,
+      "other_wall_seconds": 81.5336245889087,
+      "initial_requests": 3,
+      "recovery_requests": 0,
+      "initial_cost_usd": "0.0278847",
+      "recovery_cost_usd": "0",
+      "response_cost_matches_ledger": true,
+      "response_tokens": {
+        "input": 43433,
+        "output": 12379
+      },
+      "response_models": {
+        "deepseek-flash": 3
+      },
+      "recovery_episodes": 0,
+      "direct_actions": 0,
+      "retrieval_events": 0,
+      "retrieval_with_material": 0,
+      "retrieval_with_updated_material": 0,
+      "retrieval_bytes": 0,
+      "retrieved_source_ids": [],
+      "available_updated_source_ids": [],
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "original_test_observations": [
+        {
+          "step_id": "check",
+          "attempts": 1,
+          "status": "passed"
+        }
+      ],
+      "smoke_command_observations": 1,
+      "original_tests_status": "passed",
+      "verification_status": "passed",
+      "replay_status": "passed",
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "error_class": null,
+      "error": null,
+      "proposal_rejections": [],
+      "command_counts": {
+        "dependency": 2,
+        "configure": 3,
+        "build": 1,
+        "smoke": 1,
+        "artifact_stage": 1
+      },
+      "failed_commands": [],
+      "exploration": {
+        "phases": {
+          "initial": {
+            "selections": 1,
+            "material_selections": 0,
+            "tasks": 1,
+            "requests": 3,
+            "context_uses": 3,
+            "context_bytes": 0,
+            "tool_calls": 8,
+            "list_source": 4,
+            "read_source": 4,
+            "exact_repeated_tools_within_task": 0
+          },
+          "recovery": {
+            "exact_repeated_tools_within_task": 0
+          }
+        },
+        "selections": [
+          {
+            "event": "experience.task_selected",
+            "episode": 1,
+            "stage": "initial",
+            "mode": "none",
+            "source_ids": [],
+            "bytes": 0,
+            "bank_sha256": "dc1586c6c292c13c9f15b58f6969a1a1abb071d835738ec8eefd8ce998d90c5c",
+            "context_sha256": "ef914a4105196466e7e48ba7b384abcf13fe7671853d60355aeeead699acf15f"
+          }
+        ],
+        "context_uses": [
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 1,
+            "context_sha256": "ef914a4105196466e7e48ba7b384abcf13fe7671853d60355aeeead699acf15f",
+            "bytes": 0
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 2,
+            "context_sha256": "ef914a4105196466e7e48ba7b384abcf13fe7671853d60355aeeead699acf15f",
+            "bytes": 0
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 3,
+            "context_sha256": "ef914a4105196466e7e48ba7b384abcf13fe7671853d60355aeeead699acf15f",
+            "bytes": 0
+          }
+        ],
+        "request_phases": {
+          "1": "initial",
+          "2": "initial",
+          "3": "initial"
+        }
+      },
+      "recipe_selections": [],
+      "recipe_abstentions": [],
+      "verified_update": false,
+      "scenario": "cross_project"
+    },
+    {
+      "slot": 15,
+      "project": "libsigcplusplus",
+      "method": "source_retrieval",
+      "repetition": 1,
+      "complete": false,
+      "status": "stopped",
+      "requests": 9,
+      "cost_usd": "0.061047",
+      "wall_seconds": 91.69792278902605,
+      "recorded_command_seconds": 0.242989,
+      "role_seconds": {
+        "dependency": 0.242989
+      },
+      "replay_total_seconds": 0,
+      "other_wall_seconds": 91.45493378902606,
+      "initial_requests": 9,
+      "recovery_requests": 0,
+      "initial_cost_usd": "0.0610470",
+      "recovery_cost_usd": "0",
+      "response_cost_matches_ledger": true,
+      "response_tokens": {
+        "input": 156970,
+        "output": 11630
+      },
+      "response_models": {
+        "deepseek-flash": 9
+      },
+      "recovery_episodes": 0,
+      "direct_actions": 0,
+      "retrieval_events": 0,
+      "retrieval_with_material": 0,
+      "retrieval_with_updated_material": 0,
+      "retrieval_bytes": 0,
+      "retrieved_source_ids": [],
+      "available_updated_source_ids": [],
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "original_test_observations": [
+        {
+          "step_id": "check",
+          "attempts": 0,
+          "status": "unobserved"
+        }
+      ],
+      "smoke_command_observations": 0,
+      "original_tests_status": "unobserved",
+      "verification_status": "unobserved",
+      "replay_status": "unobserved",
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "error_class": "StructuredOutputValidationError",
+      "error": null,
+      "proposal_rejections": [
+        {
+          "event": "observed.proposal_rejected",
+          "detail": "Failed to parse structured output for tool 'ObservedBuildActions': Failed to parse data to ObservedBuildActions: 2 validation errors for ObservedBuildActions\nreason\n  Field required [type=missing, input_value={}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.12/v/missing\nsteps\n  Field required [type=missing, input_value={}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.12/v/missing."
+        },
+        {
+          "event": "observed.proposal_rejected",
+          "detail": "Failed to parse structured output for tool 'ObservedBuildActions': Failed to parse data to ObservedBuildActions: 1 validation error for ObservedBuildActions\nsteps.0.directories_exist\n  Value error, 必须使用工作目录内的规范POSIX相对路径；目录仅允许省略尾斜杠 [type=value_error, input_value=['/workspace/repo'], input_type=list]\n    For further information visit https://errors.pydantic.dev/2.12/v/value_error."
+        }
+      ],
+      "command_counts": {
+        "dependency": 1
+      },
+      "failed_commands": [],
+      "exploration": {
+        "phases": {
+          "initial": {
+            "selections": 1,
+            "material_selections": 1,
+            "tasks": 1,
+            "requests": 9,
+            "context_uses": 9,
+            "context_bytes": 49725,
+            "tool_calls": 20,
+            "list_source": 8,
+            "read_source": 12,
+            "exact_repeated_tools_within_task": 6
+          },
+          "recovery": {
+            "exact_repeated_tools_within_task": 0
+          }
+        },
+        "selections": [
+          {
+            "event": "experience.task_selected",
+            "episode": 1,
+            "stage": "initial",
+            "mode": "structured",
+            "source_ids": [
+              "E30-slot-1"
+            ],
+            "bytes": 5525,
+            "bank_sha256": "dc1586c6c292c13c9f15b58f6969a1a1abb071d835738ec8eefd8ce998d90c5c",
+            "context_sha256": "100e637d564e13ed32d5bc36f339a208895b0401dbd5d044af5b462a030f86bd"
+          }
+        ],
+        "context_uses": [
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 1,
+            "context_sha256": "100e637d564e13ed32d5bc36f339a208895b0401dbd5d044af5b462a030f86bd",
+            "bytes": 5525
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 2,
+            "context_sha256": "100e637d564e13ed32d5bc36f339a208895b0401dbd5d044af5b462a030f86bd",
+            "bytes": 5525
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 3,
+            "context_sha256": "100e637d564e13ed32d5bc36f339a208895b0401dbd5d044af5b462a030f86bd",
+            "bytes": 5525
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 4,
+            "context_sha256": "100e637d564e13ed32d5bc36f339a208895b0401dbd5d044af5b462a030f86bd",
+            "bytes": 5525
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 5,
+            "context_sha256": "100e637d564e13ed32d5bc36f339a208895b0401dbd5d044af5b462a030f86bd",
+            "bytes": 5525
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 6,
+            "context_sha256": "100e637d564e13ed32d5bc36f339a208895b0401dbd5d044af5b462a030f86bd",
+            "bytes": 5525
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 7,
+            "context_sha256": "100e637d564e13ed32d5bc36f339a208895b0401dbd5d044af5b462a030f86bd",
+            "bytes": 5525
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 8,
+            "context_sha256": "100e637d564e13ed32d5bc36f339a208895b0401dbd5d044af5b462a030f86bd",
+            "bytes": 5525
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 9,
+            "context_sha256": "100e637d564e13ed32d5bc36f339a208895b0401dbd5d044af5b462a030f86bd",
+            "bytes": 5525
+          }
+        ],
+        "request_phases": {
+          "1": "initial",
+          "2": "initial",
+          "3": "initial",
+          "4": "initial",
+          "5": "initial",
+          "6": "initial",
+          "7": "initial",
+          "8": "initial",
+          "9": "initial"
+        }
+      },
+      "recipe_selections": [],
+      "recipe_abstentions": [],
+      "verified_update": false,
+      "scenario": "cross_project"
+    },
+    {
+      "slot": 16,
+      "project": "libsrtp",
+      "method": "source_retrieval",
+      "repetition": 1,
+      "complete": true,
+      "status": "verified",
+      "requests": 10,
+      "cost_usd": "0.0615174",
+      "wall_seconds": 112.87718809896614,
+      "recorded_command_seconds": 23.425427795994434,
+      "role_seconds": {
+        "dependency": 0.511211,
+        "configure": 5.103581507981289,
+        "build": 3.2745003860327415,
+        "smoke": 14.362650270981248,
+        "artifact_stage": 0.17348463099915534
+      },
+      "replay_total_seconds": 26.933597,
+      "other_wall_seconds": 62.51816330297171,
+      "initial_requests": 10,
+      "recovery_requests": 0,
+      "initial_cost_usd": "0.0615174",
+      "recovery_cost_usd": "0",
+      "response_cost_matches_ledger": true,
+      "response_tokens": {
+        "input": 189234,
+        "output": 3956
+      },
+      "response_models": {
+        "deepseek-flash": 10
+      },
+      "recovery_episodes": 0,
+      "direct_actions": 0,
+      "retrieval_events": 0,
+      "retrieval_with_material": 0,
+      "retrieval_with_updated_material": 0,
+      "retrieval_bytes": 0,
+      "retrieved_source_ids": [],
+      "available_updated_source_ids": [],
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "original_test_observations": [
+        {
+          "step_id": "check",
+          "attempts": 1,
+          "status": "passed"
+        }
+      ],
+      "smoke_command_observations": 1,
+      "original_tests_status": "passed",
+      "verification_status": "passed",
+      "replay_status": "passed",
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "error_class": null,
+      "error": null,
+      "proposal_rejections": [],
+      "command_counts": {
+        "dependency": 1,
+        "configure": 1,
+        "build": 1,
+        "smoke": 1,
+        "artifact_stage": 1
+      },
+      "failed_commands": [],
+      "exploration": {
+        "phases": {
+          "initial": {
+            "selections": 1,
+            "material_selections": 1,
+            "tasks": 1,
+            "requests": 10,
+            "context_uses": 10,
+            "context_bytes": 55250,
+            "tool_calls": 12,
+            "list_source": 3,
+            "read_fixed_contract": 1,
+            "read_source": 8,
+            "exact_repeated_tools_within_task": 2
+          },
+          "recovery": {
+            "exact_repeated_tools_within_task": 0
+          }
+        },
+        "selections": [
+          {
+            "event": "experience.task_selected",
+            "episode": 1,
+            "stage": "initial",
+            "mode": "structured",
+            "source_ids": [
+              "E30-slot-1"
+            ],
+            "bytes": 5525,
+            "bank_sha256": "dc1586c6c292c13c9f15b58f6969a1a1abb071d835738ec8eefd8ce998d90c5c",
+            "context_sha256": "100e637d564e13ed32d5bc36f339a208895b0401dbd5d044af5b462a030f86bd"
+          }
+        ],
+        "context_uses": [
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 1,
+            "context_sha256": "100e637d564e13ed32d5bc36f339a208895b0401dbd5d044af5b462a030f86bd",
+            "bytes": 5525
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 2,
+            "context_sha256": "100e637d564e13ed32d5bc36f339a208895b0401dbd5d044af5b462a030f86bd",
+            "bytes": 5525
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 3,
+            "context_sha256": "100e637d564e13ed32d5bc36f339a208895b0401dbd5d044af5b462a030f86bd",
+            "bytes": 5525
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 4,
+            "context_sha256": "100e637d564e13ed32d5bc36f339a208895b0401dbd5d044af5b462a030f86bd",
+            "bytes": 5525
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 5,
+            "context_sha256": "100e637d564e13ed32d5bc36f339a208895b0401dbd5d044af5b462a030f86bd",
+            "bytes": 5525
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 6,
+            "context_sha256": "100e637d564e13ed32d5bc36f339a208895b0401dbd5d044af5b462a030f86bd",
+            "bytes": 5525
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 7,
+            "context_sha256": "100e637d564e13ed32d5bc36f339a208895b0401dbd5d044af5b462a030f86bd",
+            "bytes": 5525
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 8,
+            "context_sha256": "100e637d564e13ed32d5bc36f339a208895b0401dbd5d044af5b462a030f86bd",
+            "bytes": 5525
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 9,
+            "context_sha256": "100e637d564e13ed32d5bc36f339a208895b0401dbd5d044af5b462a030f86bd",
+            "bytes": 5525
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 10,
+            "context_sha256": "100e637d564e13ed32d5bc36f339a208895b0401dbd5d044af5b462a030f86bd",
+            "bytes": 5525
+          }
+        ],
+        "request_phases": {
+          "1": "initial",
+          "2": "initial",
+          "3": "initial",
+          "4": "initial",
+          "5": "initial",
+          "6": "initial",
+          "7": "initial",
+          "8": "initial",
+          "9": "initial",
+          "10": "initial"
+        }
+      },
+      "recipe_selections": [],
+      "recipe_abstentions": [],
+      "verified_update": false,
+      "scenario": "cross_project"
+    },
+    {
+      "slot": 17,
+      "project": "libsrtp",
+      "method": "no_experience",
+      "repetition": 1,
+      "complete": true,
+      "status": "verified",
+      "requests": 9,
+      "cost_usd": "0.0499884",
+      "wall_seconds": 102.62281070498284,
+      "recorded_command_seconds": 23.48438676298956,
+      "role_seconds": {
+        "dependency": 0.483086,
+        "configure": 5.141145375033375,
+        "build": 3.2897570679779164,
+        "smoke": 14.396517508954275,
+        "artifact_stage": 0.17388081102399155
+      },
+      "replay_total_seconds": 27.100603,
+      "other_wall_seconds": 52.03782094199328,
+      "initial_requests": 9,
+      "recovery_requests": 0,
+      "initial_cost_usd": "0.0499884",
+      "recovery_cost_usd": "0",
+      "response_cost_matches_ledger": true,
+      "response_tokens": {
+        "input": 155304,
+        "output": 2831
+      },
+      "response_models": {
+        "deepseek-flash": 9
+      },
+      "recovery_episodes": 0,
+      "direct_actions": 0,
+      "retrieval_events": 0,
+      "retrieval_with_material": 0,
+      "retrieval_with_updated_material": 0,
+      "retrieval_bytes": 0,
+      "retrieved_source_ids": [],
+      "available_updated_source_ids": [],
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "original_test_observations": [
+        {
+          "step_id": "check",
+          "attempts": 1,
+          "status": "passed"
+        }
+      ],
+      "smoke_command_observations": 1,
+      "original_tests_status": "passed",
+      "verification_status": "passed",
+      "replay_status": "passed",
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "error_class": null,
+      "error": null,
+      "proposal_rejections": [],
+      "command_counts": {
+        "dependency": 1,
+        "configure": 1,
+        "build": 1,
+        "smoke": 1,
+        "artifact_stage": 1
+      },
+      "failed_commands": [],
+      "exploration": {
+        "phases": {
+          "initial": {
+            "selections": 1,
+            "material_selections": 0,
+            "tasks": 1,
+            "requests": 9,
+            "context_uses": 9,
+            "context_bytes": 0,
+            "tool_calls": 9,
+            "list_source": 2,
+            "read_source": 7,
+            "exact_repeated_tools_within_task": 2
+          },
+          "recovery": {
+            "exact_repeated_tools_within_task": 0
+          }
+        },
+        "selections": [
+          {
+            "event": "experience.task_selected",
+            "episode": 1,
+            "stage": "initial",
+            "mode": "none",
+            "source_ids": [],
+            "bytes": 0,
+            "bank_sha256": "dc1586c6c292c13c9f15b58f6969a1a1abb071d835738ec8eefd8ce998d90c5c",
+            "context_sha256": "ef914a4105196466e7e48ba7b384abcf13fe7671853d60355aeeead699acf15f"
+          }
+        ],
+        "context_uses": [
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 1,
+            "context_sha256": "ef914a4105196466e7e48ba7b384abcf13fe7671853d60355aeeead699acf15f",
+            "bytes": 0
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 2,
+            "context_sha256": "ef914a4105196466e7e48ba7b384abcf13fe7671853d60355aeeead699acf15f",
+            "bytes": 0
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 3,
+            "context_sha256": "ef914a4105196466e7e48ba7b384abcf13fe7671853d60355aeeead699acf15f",
+            "bytes": 0
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 4,
+            "context_sha256": "ef914a4105196466e7e48ba7b384abcf13fe7671853d60355aeeead699acf15f",
+            "bytes": 0
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 5,
+            "context_sha256": "ef914a4105196466e7e48ba7b384abcf13fe7671853d60355aeeead699acf15f",
+            "bytes": 0
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 6,
+            "context_sha256": "ef914a4105196466e7e48ba7b384abcf13fe7671853d60355aeeead699acf15f",
+            "bytes": 0
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 7,
+            "context_sha256": "ef914a4105196466e7e48ba7b384abcf13fe7671853d60355aeeead699acf15f",
+            "bytes": 0
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 8,
+            "context_sha256": "ef914a4105196466e7e48ba7b384abcf13fe7671853d60355aeeead699acf15f",
+            "bytes": 0
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 9,
+            "context_sha256": "ef914a4105196466e7e48ba7b384abcf13fe7671853d60355aeeead699acf15f",
+            "bytes": 0
+          }
+        ],
+        "request_phases": {
+          "1": "initial",
+          "2": "initial",
+          "3": "initial",
+          "4": "initial",
+          "5": "initial",
+          "6": "initial",
+          "7": "initial",
+          "8": "initial",
+          "9": "initial"
+        }
+      },
+      "recipe_selections": [],
+      "recipe_abstentions": [],
+      "verified_update": false,
+      "scenario": "cross_project"
+    },
+    {
+      "slot": 18,
+      "project": "libsrtp",
+      "method": "state_target_retrieval",
+      "repetition": 1,
+      "complete": true,
+      "status": "verified",
+      "requests": 7,
+      "cost_usd": "0.04416",
+      "wall_seconds": 93.04404981603147,
+      "recorded_command_seconds": 23.64182338495961,
+      "role_seconds": {
+        "dependency": 0.499512,
+        "configure": 4.979634321003687,
+        "build": 3.3441915569710545,
+        "smoke": 14.642149639956187,
+        "artifact_stage": 0.17633586702868342
+      },
+      "replay_total_seconds": 26.960045,
+      "other_wall_seconds": 42.442181431071866,
+      "initial_requests": 7,
+      "recovery_requests": 0,
+      "initial_cost_usd": "0.0441600",
+      "recovery_cost_usd": "0",
+      "response_cost_matches_ledger": true,
+      "response_tokens": {
+        "input": 137564,
+        "output": 2409
+      },
+      "response_models": {
+        "deepseek-flash": 7
+      },
+      "recovery_episodes": 0,
+      "direct_actions": 0,
+      "retrieval_events": 0,
+      "retrieval_with_material": 0,
+      "retrieval_with_updated_material": 0,
+      "retrieval_bytes": 0,
+      "retrieved_source_ids": [],
+      "available_updated_source_ids": [],
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "original_test_observations": [
+        {
+          "step_id": "check",
+          "attempts": 1,
+          "status": "passed"
+        }
+      ],
+      "smoke_command_observations": 1,
+      "original_tests_status": "passed",
+      "verification_status": "passed",
+      "replay_status": "passed",
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "error_class": null,
+      "error": null,
+      "proposal_rejections": [],
+      "command_counts": {
+        "dependency": 1,
+        "configure": 1,
+        "build": 1,
+        "smoke": 1,
+        "artifact_stage": 1
+      },
+      "failed_commands": [],
+      "exploration": {
+        "phases": {
+          "initial": {
+            "selections": 1,
+            "material_selections": 1,
+            "tasks": 1,
+            "requests": 7,
+            "context_uses": 7,
+            "context_bytes": 38675,
+            "tool_calls": 12,
+            "list_source": 4,
+            "read_source": 8,
+            "exact_repeated_tools_within_task": 2
+          },
+          "recovery": {
+            "exact_repeated_tools_within_task": 0
+          }
+        },
+        "selections": [
+          {
+            "event": "experience.task_selected",
+            "episode": 1,
+            "stage": "initial",
+            "mode": "structured",
+            "source_ids": [
+              "E30-slot-1"
+            ],
+            "bytes": 5525,
+            "bank_sha256": "dc1586c6c292c13c9f15b58f6969a1a1abb071d835738ec8eefd8ce998d90c5c",
+            "context_sha256": "100e637d564e13ed32d5bc36f339a208895b0401dbd5d044af5b462a030f86bd"
+          }
+        ],
+        "context_uses": [
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 1,
+            "context_sha256": "100e637d564e13ed32d5bc36f339a208895b0401dbd5d044af5b462a030f86bd",
+            "bytes": 5525
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 2,
+            "context_sha256": "100e637d564e13ed32d5bc36f339a208895b0401dbd5d044af5b462a030f86bd",
+            "bytes": 5525
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 3,
+            "context_sha256": "100e637d564e13ed32d5bc36f339a208895b0401dbd5d044af5b462a030f86bd",
+            "bytes": 5525
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 4,
+            "context_sha256": "100e637d564e13ed32d5bc36f339a208895b0401dbd5d044af5b462a030f86bd",
+            "bytes": 5525
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 5,
+            "context_sha256": "100e637d564e13ed32d5bc36f339a208895b0401dbd5d044af5b462a030f86bd",
+            "bytes": 5525
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 6,
+            "context_sha256": "100e637d564e13ed32d5bc36f339a208895b0401dbd5d044af5b462a030f86bd",
+            "bytes": 5525
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 7,
+            "context_sha256": "100e637d564e13ed32d5bc36f339a208895b0401dbd5d044af5b462a030f86bd",
+            "bytes": 5525
+          }
+        ],
+        "request_phases": {
+          "1": "initial",
+          "2": "initial",
+          "3": "initial",
+          "4": "initial",
+          "5": "initial",
+          "6": "initial",
+          "7": "initial"
+        }
+      },
+      "recipe_selections": [],
+      "recipe_abstentions": [],
+      "verified_update": false,
+      "scenario": "cross_project"
+    },
+    {
+      "slot": 19,
+      "project": "jsoncpp",
+      "method": "no_experience",
+      "repetition": 2,
+      "complete": true,
+      "status": "verified",
+      "requests": 6,
+      "cost_usd": "0.029862",
+      "wall_seconds": 74.78749574697576,
+      "recorded_command_seconds": 20.243801569133936,
+      "role_seconds": {
+        "dependency": 0.260239,
+        "configure": 1.9911731909960508,
+        "build": 14.79656452202471,
+        "smoke": 3.0286789750680327,
+        "artifact_stage": 0.16714588104514405
+      },
+      "replay_total_seconds": 23.568021,
+      "other_wall_seconds": 30.975673177841827,
+      "initial_requests": 6,
+      "recovery_requests": 0,
+      "initial_cost_usd": "0.0298620",
+      "recovery_cost_usd": "0",
+      "response_cost_matches_ledger": true,
+      "response_tokens": {
+        "input": 89852,
+        "output": 2422
+      },
+      "response_models": {
+        "deepseek-flash": 6
+      },
+      "recovery_episodes": 0,
+      "direct_actions": 0,
+      "retrieval_events": 0,
+      "retrieval_with_material": 0,
+      "retrieval_with_updated_material": 0,
+      "retrieval_bytes": 0,
+      "retrieved_source_ids": [],
+      "available_updated_source_ids": [],
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "original_test_observations": [
+        {
+          "step_id": "check",
+          "attempts": 1,
+          "status": "passed"
+        }
+      ],
+      "smoke_command_observations": 2,
+      "original_tests_status": "passed",
+      "verification_status": "passed",
+      "replay_status": "passed",
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "error_class": null,
+      "error": null,
+      "proposal_rejections": [],
+      "command_counts": {
+        "dependency": 1,
+        "configure": 1,
+        "build": 1,
+        "smoke": 2,
+        "artifact_stage": 1
+      },
+      "failed_commands": [],
+      "exploration": {
+        "phases": {
+          "initial": {
+            "selections": 1,
+            "material_selections": 0,
+            "tasks": 1,
+            "requests": 6,
+            "context_uses": 6,
+            "context_bytes": 0,
+            "tool_calls": 8,
+            "list_source": 1,
+            "read_source": 7,
+            "exact_repeated_tools_within_task": 0
+          },
+          "recovery": {
+            "exact_repeated_tools_within_task": 0
+          }
+        },
+        "selections": [
+          {
+            "event": "experience.task_selected",
+            "episode": 1,
+            "stage": "initial",
+            "mode": "none",
+            "source_ids": [],
+            "bytes": 0,
+            "bank_sha256": "dc1586c6c292c13c9f15b58f6969a1a1abb071d835738ec8eefd8ce998d90c5c",
+            "context_sha256": "ef914a4105196466e7e48ba7b384abcf13fe7671853d60355aeeead699acf15f"
+          }
+        ],
+        "context_uses": [
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 1,
+            "context_sha256": "ef914a4105196466e7e48ba7b384abcf13fe7671853d60355aeeead699acf15f",
+            "bytes": 0
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 2,
+            "context_sha256": "ef914a4105196466e7e48ba7b384abcf13fe7671853d60355aeeead699acf15f",
+            "bytes": 0
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 3,
+            "context_sha256": "ef914a4105196466e7e48ba7b384abcf13fe7671853d60355aeeead699acf15f",
+            "bytes": 0
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 4,
+            "context_sha256": "ef914a4105196466e7e48ba7b384abcf13fe7671853d60355aeeead699acf15f",
+            "bytes": 0
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 5,
+            "context_sha256": "ef914a4105196466e7e48ba7b384abcf13fe7671853d60355aeeead699acf15f",
+            "bytes": 0
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 6,
+            "context_sha256": "ef914a4105196466e7e48ba7b384abcf13fe7671853d60355aeeead699acf15f",
+            "bytes": 0
+          }
+        ],
+        "request_phases": {
+          "1": "initial",
+          "2": "initial",
+          "3": "initial",
+          "4": "initial",
+          "5": "initial",
+          "6": "initial"
+        }
+      },
+      "recipe_selections": [],
+      "recipe_abstentions": [],
+      "verified_update": false,
+      "scenario": "cross_project"
+    },
+    {
+      "slot": 20,
+      "project": "jsoncpp",
+      "method": "state_target_retrieval",
+      "repetition": 2,
+      "complete": true,
+      "status": "verified",
+      "requests": 7,
+      "cost_usd": "0.0433083",
+      "wall_seconds": 80.22820079501253,
+      "recorded_command_seconds": 20.19979211495272,
+      "role_seconds": {
+        "dependency": 0.260573,
+        "configure": 1.9667521039955318,
+        "build": 14.753507432993501,
+        "smoke": 3.0523342009983025,
+        "artifact_stage": 0.16662537696538493
+      },
+      "replay_total_seconds": 23.573997,
+      "other_wall_seconds": 36.454411680059806,
+      "initial_requests": 7,
+      "recovery_requests": 0,
+      "initial_cost_usd": "0.0433083",
+      "recovery_cost_usd": "0",
+      "response_cost_matches_ledger": true,
+      "response_tokens": {
+        "input": 133017,
+        "output": 2836
+      },
+      "response_models": {
+        "deepseek-flash": 7
+      },
+      "recovery_episodes": 0,
+      "direct_actions": 0,
+      "retrieval_events": 0,
+      "retrieval_with_material": 0,
+      "retrieval_with_updated_material": 0,
+      "retrieval_bytes": 0,
+      "retrieved_source_ids": [],
+      "available_updated_source_ids": [],
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "original_test_observations": [
+        {
+          "step_id": "check",
+          "attempts": 1,
+          "status": "passed"
+        }
+      ],
+      "smoke_command_observations": 2,
+      "original_tests_status": "passed",
+      "verification_status": "passed",
+      "replay_status": "passed",
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "error_class": null,
+      "error": null,
+      "proposal_rejections": [],
+      "command_counts": {
+        "dependency": 1,
+        "configure": 1,
+        "build": 1,
+        "smoke": 2,
+        "artifact_stage": 1
+      },
+      "failed_commands": [],
+      "exploration": {
+        "phases": {
+          "initial": {
+            "selections": 1,
+            "material_selections": 1,
+            "tasks": 1,
+            "requests": 7,
+            "context_uses": 7,
+            "context_bytes": 71246,
+            "tool_calls": 14,
+            "read_source": 10,
+            "list_source": 4,
+            "exact_repeated_tools_within_task": 0
+          },
+          "recovery": {
+            "exact_repeated_tools_within_task": 0
+          }
+        },
+        "selections": [
+          {
+            "event": "experience.task_selected",
+            "episode": 1,
+            "stage": "initial",
+            "mode": "structured",
+            "source_ids": [
+              "E30-slot-6",
+              "E30-slot-19"
+            ],
+            "bytes": 10178,
+            "bank_sha256": "dc1586c6c292c13c9f15b58f6969a1a1abb071d835738ec8eefd8ce998d90c5c",
+            "context_sha256": "383d92b44f16279bce4676a495d50abe18532bc401346b32d933061fd59298cd"
+          }
+        ],
+        "context_uses": [
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 1,
+            "context_sha256": "383d92b44f16279bce4676a495d50abe18532bc401346b32d933061fd59298cd",
+            "bytes": 10178
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 2,
+            "context_sha256": "383d92b44f16279bce4676a495d50abe18532bc401346b32d933061fd59298cd",
+            "bytes": 10178
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 3,
+            "context_sha256": "383d92b44f16279bce4676a495d50abe18532bc401346b32d933061fd59298cd",
+            "bytes": 10178
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 4,
+            "context_sha256": "383d92b44f16279bce4676a495d50abe18532bc401346b32d933061fd59298cd",
+            "bytes": 10178
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 5,
+            "context_sha256": "383d92b44f16279bce4676a495d50abe18532bc401346b32d933061fd59298cd",
+            "bytes": 10178
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 6,
+            "context_sha256": "383d92b44f16279bce4676a495d50abe18532bc401346b32d933061fd59298cd",
+            "bytes": 10178
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 7,
+            "context_sha256": "383d92b44f16279bce4676a495d50abe18532bc401346b32d933061fd59298cd",
+            "bytes": 10178
+          }
+        ],
+        "request_phases": {
+          "1": "initial",
+          "2": "initial",
+          "3": "initial",
+          "4": "initial",
+          "5": "initial",
+          "6": "initial",
+          "7": "initial"
+        }
+      },
+      "recipe_selections": [],
+      "recipe_abstentions": [],
+      "verified_update": false,
+      "scenario": "cross_project"
+    },
+    {
+      "slot": 21,
+      "project": "jsoncpp",
+      "method": "source_retrieval",
+      "repetition": 2,
+      "complete": true,
+      "status": "verified",
+      "requests": 6,
+      "cost_usd": "0.0348702",
+      "wall_seconds": 72.09136086603394,
+      "recorded_command_seconds": 20.19087760207023,
+      "role_seconds": {
+        "dependency": 0.257914,
+        "configure": 1.9934684240142815,
+        "build": 14.730736489000265,
+        "smoke": 3.0423268220038153,
+        "artifact_stage": 0.16643186705186963
+      },
+      "replay_total_seconds": 23.487455,
+      "other_wall_seconds": 28.413028263963707,
+      "initial_requests": 6,
+      "recovery_requests": 0,
+      "initial_cost_usd": "0.0348702",
+      "recovery_cost_usd": "0",
+      "response_cost_matches_ledger": true,
+      "response_tokens": {
+        "input": 107890,
+        "output": 2086
+      },
+      "response_models": {
+        "deepseek-flash": 6
+      },
+      "recovery_episodes": 0,
+      "direct_actions": 0,
+      "retrieval_events": 0,
+      "retrieval_with_material": 0,
+      "retrieval_with_updated_material": 0,
+      "retrieval_bytes": 0,
+      "retrieved_source_ids": [],
+      "available_updated_source_ids": [],
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "original_test_observations": [
+        {
+          "step_id": "check",
+          "attempts": 1,
+          "status": "passed"
+        }
+      ],
+      "smoke_command_observations": 2,
+      "original_tests_status": "passed",
+      "verification_status": "passed",
+      "replay_status": "passed",
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "error_class": null,
+      "error": null,
+      "proposal_rejections": [],
+      "command_counts": {
+        "dependency": 1,
+        "configure": 1,
+        "build": 1,
+        "smoke": 2,
+        "artifact_stage": 1
+      },
+      "failed_commands": [],
+      "exploration": {
+        "phases": {
+          "initial": {
+            "selections": 1,
+            "material_selections": 1,
+            "tasks": 1,
+            "requests": 6,
+            "context_uses": 6,
+            "context_bytes": 62532,
+            "tool_calls": 8,
+            "list_source": 2,
+            "read_source": 6,
+            "exact_repeated_tools_within_task": 0
+          },
+          "recovery": {
+            "exact_repeated_tools_within_task": 0
+          }
+        },
+        "selections": [
+          {
+            "event": "experience.task_selected",
+            "episode": 1,
+            "stage": "initial",
+            "mode": "structured",
+            "source_ids": [
+              "E30-slot-6",
+              "E30-slot-10"
+            ],
+            "bytes": 10422,
+            "bank_sha256": "dc1586c6c292c13c9f15b58f6969a1a1abb071d835738ec8eefd8ce998d90c5c",
+            "context_sha256": "15c48ea87e5c94e6cf1f76f2e13aae8aeba3851ffcd914535fd9c293336f27d3"
+          }
+        ],
+        "context_uses": [
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 1,
+            "context_sha256": "15c48ea87e5c94e6cf1f76f2e13aae8aeba3851ffcd914535fd9c293336f27d3",
+            "bytes": 10422
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 2,
+            "context_sha256": "15c48ea87e5c94e6cf1f76f2e13aae8aeba3851ffcd914535fd9c293336f27d3",
+            "bytes": 10422
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 3,
+            "context_sha256": "15c48ea87e5c94e6cf1f76f2e13aae8aeba3851ffcd914535fd9c293336f27d3",
+            "bytes": 10422
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 4,
+            "context_sha256": "15c48ea87e5c94e6cf1f76f2e13aae8aeba3851ffcd914535fd9c293336f27d3",
+            "bytes": 10422
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 5,
+            "context_sha256": "15c48ea87e5c94e6cf1f76f2e13aae8aeba3851ffcd914535fd9c293336f27d3",
+            "bytes": 10422
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 6,
+            "context_sha256": "15c48ea87e5c94e6cf1f76f2e13aae8aeba3851ffcd914535fd9c293336f27d3",
+            "bytes": 10422
+          }
+        ],
+        "request_phases": {
+          "1": "initial",
+          "2": "initial",
+          "3": "initial",
+          "4": "initial",
+          "5": "initial",
+          "6": "initial"
+        }
+      },
+      "recipe_selections": [],
+      "recipe_abstentions": [],
+      "verified_update": false,
+      "scenario": "cross_project"
+    },
+    {
+      "slot": 22,
+      "project": "pegtl",
+      "method": "state_target_retrieval",
+      "repetition": 2,
+      "complete": true,
+      "status": "verified",
+      "requests": 2,
+      "cost_usd": "0.016425",
+      "wall_seconds": 401.1550045799813,
+      "recorded_command_seconds": 185.5301129930426,
+      "role_seconds": {
+        "dependency": 0.280698,
+        "configure": 1.2633478089701384,
+        "build": 183.00908059003996,
+        "smoke": 0.8044017100473866,
+        "artifact_stage": 0.17258488398510963
+      },
+      "replay_total_seconds": 189.245686,
+      "other_wall_seconds": 26.379205586938724,
+      "initial_requests": 2,
+      "recovery_requests": 0,
+      "initial_cost_usd": "0.0164250",
+      "recovery_cost_usd": "0",
+      "response_cost_matches_ledger": true,
+      "response_tokens": {
+        "input": 44314,
+        "output": 2609
+      },
+      "response_models": {
+        "deepseek-flash": 2
+      },
+      "recovery_episodes": 0,
+      "direct_actions": 0,
+      "retrieval_events": 0,
+      "retrieval_with_material": 0,
+      "retrieval_with_updated_material": 0,
+      "retrieval_bytes": 0,
+      "retrieved_source_ids": [],
+      "available_updated_source_ids": [],
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "original_test_observations": [
+        {
+          "step_id": "check",
+          "attempts": 1,
+          "status": "passed"
+        }
+      ],
+      "smoke_command_observations": 2,
+      "original_tests_status": "passed",
+      "verification_status": "passed",
+      "replay_status": "passed",
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "error_class": null,
+      "error": null,
+      "proposal_rejections": [],
+      "command_counts": {
+        "dependency": 1,
+        "configure": 1,
+        "build": 1,
+        "smoke": 2,
+        "artifact_stage": 1
+      },
+      "failed_commands": [],
+      "exploration": {
+        "phases": {
+          "initial": {
+            "selections": 1,
+            "material_selections": 1,
+            "tasks": 1,
+            "requests": 2,
+            "context_uses": 2,
+            "context_bytes": 20356,
+            "tool_calls": 2,
+            "read_source": 2,
+            "exact_repeated_tools_within_task": 0
+          },
+          "recovery": {
+            "exact_repeated_tools_within_task": 0
+          }
+        },
+        "selections": [
+          {
+            "event": "experience.task_selected",
+            "episode": 1,
+            "stage": "initial",
+            "mode": "structured",
+            "source_ids": [
+              "E30-slot-6",
+              "E30-slot-19"
+            ],
+            "bytes": 10178,
+            "bank_sha256": "dc1586c6c292c13c9f15b58f6969a1a1abb071d835738ec8eefd8ce998d90c5c",
+            "context_sha256": "383d92b44f16279bce4676a495d50abe18532bc401346b32d933061fd59298cd"
+          }
+        ],
+        "context_uses": [
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 1,
+            "context_sha256": "383d92b44f16279bce4676a495d50abe18532bc401346b32d933061fd59298cd",
+            "bytes": 10178
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 2,
+            "context_sha256": "383d92b44f16279bce4676a495d50abe18532bc401346b32d933061fd59298cd",
+            "bytes": 10178
+          }
+        ],
+        "request_phases": {
+          "1": "initial",
+          "2": "initial"
+        }
+      },
+      "recipe_selections": [],
+      "recipe_abstentions": [],
+      "verified_update": false,
+      "scenario": "cross_project"
+    },
+    {
+      "slot": 23,
+      "project": "pegtl",
+      "method": "no_experience",
+      "repetition": 2,
+      "complete": true,
+      "status": "verified",
+      "requests": 7,
+      "cost_usd": "0.0557793",
+      "wall_seconds": 474.29252046201145,
+      "recorded_command_seconds": 189.58105068001038,
+      "role_seconds": {
+        "dependency": 0.277987,
+        "configure": 1.247362374968361,
+        "build": 187.09398427902488,
+        "smoke": 0.7941252320306376,
+        "artifact_stage": 0.16759179398650303
+      },
+      "replay_total_seconds": 188.90732,
+      "other_wall_seconds": 95.80414978200108,
+      "initial_requests": 2,
+      "recovery_requests": 5,
+      "initial_cost_usd": "0.0129807",
+      "recovery_cost_usd": "0.0427986",
+      "response_cost_matches_ledger": true,
+      "response_tokens": {
+        "input": 161643,
+        "output": 6072
+      },
+      "response_models": {
+        "deepseek-flash": 7
+      },
+      "recovery_episodes": 1,
+      "direct_actions": 0,
+      "retrieval_events": 0,
+      "retrieval_with_material": 0,
+      "retrieval_with_updated_material": 0,
+      "retrieval_bytes": 0,
+      "retrieved_source_ids": [],
+      "available_updated_source_ids": [],
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "original_test_observations": [
+        {
+          "step_id": "check",
+          "attempts": 1,
+          "status": "passed"
+        }
+      ],
+      "smoke_command_observations": 2,
+      "original_tests_status": "passed",
+      "verification_status": "passed",
+      "replay_status": "passed",
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "error_class": null,
+      "error": null,
+      "proposal_rejections": [],
+      "command_counts": {
+        "dependency": 1,
+        "configure": 1,
+        "build": 2,
+        "smoke": 2,
+        "artifact_stage": 1
+      },
+      "failed_commands": [
+        {
+          "role": "build",
+          "command_id": "command_f797aa2dc83e45b1bde981f1e438c83b",
+          "exit_code": 86,
+          "timed_out": false
+        }
+      ],
+      "exploration": {
+        "phases": {
+          "initial": {
+            "selections": 1,
+            "material_selections": 0,
+            "tasks": 1,
+            "requests": 2,
+            "context_uses": 2,
+            "context_bytes": 0,
+            "tool_calls": 2,
+            "read_source": 1,
+            "list_source": 1,
+            "exact_repeated_tools_within_task": 0
+          },
+          "recovery": {
+            "selections": 1,
+            "material_selections": 0,
+            "tasks": 1,
+            "requests": 5,
+            "context_uses": 5,
+            "context_bytes": 0,
+            "tool_calls": 4,
+            "read_failure_log": 4,
+            "exact_repeated_tools_within_task": 0
+          }
+        },
+        "selections": [
+          {
+            "event": "experience.task_selected",
+            "episode": 1,
+            "stage": "initial",
+            "mode": "none",
+            "source_ids": [],
+            "bytes": 0,
+            "bank_sha256": "dc1586c6c292c13c9f15b58f6969a1a1abb071d835738ec8eefd8ce998d90c5c",
+            "context_sha256": "ef914a4105196466e7e48ba7b384abcf13fe7671853d60355aeeead699acf15f"
+          },
+          {
+            "event": "experience.task_selected",
+            "episode": 2,
+            "stage": "build",
+            "mode": "none",
+            "source_ids": [],
+            "bytes": 0,
+            "bank_sha256": "dc1586c6c292c13c9f15b58f6969a1a1abb071d835738ec8eefd8ce998d90c5c",
+            "context_sha256": "ef914a4105196466e7e48ba7b384abcf13fe7671853d60355aeeead699acf15f"
+          }
+        ],
+        "context_uses": [
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 1,
+            "context_sha256": "ef914a4105196466e7e48ba7b384abcf13fe7671853d60355aeeead699acf15f",
+            "bytes": 0
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 2,
+            "context_sha256": "ef914a4105196466e7e48ba7b384abcf13fe7671853d60355aeeead699acf15f",
+            "bytes": 0
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 2,
+            "request_sequence": 3,
+            "context_sha256": "ef914a4105196466e7e48ba7b384abcf13fe7671853d60355aeeead699acf15f",
+            "bytes": 0
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 2,
+            "request_sequence": 4,
+            "context_sha256": "ef914a4105196466e7e48ba7b384abcf13fe7671853d60355aeeead699acf15f",
+            "bytes": 0
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 2,
+            "request_sequence": 5,
+            "context_sha256": "ef914a4105196466e7e48ba7b384abcf13fe7671853d60355aeeead699acf15f",
+            "bytes": 0
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 2,
+            "request_sequence": 6,
+            "context_sha256": "ef914a4105196466e7e48ba7b384abcf13fe7671853d60355aeeead699acf15f",
+            "bytes": 0
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 2,
+            "request_sequence": 7,
+            "context_sha256": "ef914a4105196466e7e48ba7b384abcf13fe7671853d60355aeeead699acf15f",
+            "bytes": 0
+          }
+        ],
+        "request_phases": {
+          "1": "initial",
+          "2": "initial",
+          "3": "recovery",
+          "4": "recovery",
+          "5": "recovery",
+          "6": "recovery",
+          "7": "recovery"
+        }
+      },
+      "recipe_selections": [],
+      "recipe_abstentions": [],
+      "verified_update": false,
+      "scenario": "cross_project"
+    },
+    {
+      "slot": 24,
+      "project": "pegtl",
+      "method": "source_retrieval",
+      "repetition": 2,
+      "complete": true,
+      "status": "verified",
+      "requests": 1,
+      "cost_usd": "0.0086139",
+      "wall_seconds": 393.45425331400475,
+      "recorded_command_seconds": 185.53756447099462,
+      "role_seconds": {
+        "dependency": 0.289799,
+        "configure": 1.2635801539872773,
+        "build": 183.02136339002755,
+        "smoke": 0.7895803859573789,
+        "artifact_stage": 0.17324154102243483
+      },
+      "replay_total_seconds": 188.963722,
+      "other_wall_seconds": 18.95296684301013,
+      "initial_requests": 1,
+      "recovery_requests": 0,
+      "initial_cost_usd": "0.0086139",
+      "recovery_cost_usd": "0",
+      "response_cost_matches_ledger": true,
+      "response_tokens": {
+        "input": 21529,
+        "output": 1796
+      },
+      "response_models": {
+        "deepseek-flash": 1
+      },
+      "recovery_episodes": 0,
+      "direct_actions": 0,
+      "retrieval_events": 0,
+      "retrieval_with_material": 0,
+      "retrieval_with_updated_material": 0,
+      "retrieval_bytes": 0,
+      "retrieved_source_ids": [],
+      "available_updated_source_ids": [],
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "original_test_observations": [
+        {
+          "step_id": "check",
+          "attempts": 1,
+          "status": "passed"
+        }
+      ],
+      "smoke_command_observations": 2,
+      "original_tests_status": "passed",
+      "verification_status": "passed",
+      "replay_status": "passed",
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "error_class": null,
+      "error": null,
+      "proposal_rejections": [],
+      "command_counts": {
+        "dependency": 1,
+        "configure": 1,
+        "build": 1,
+        "smoke": 2,
+        "artifact_stage": 1
+      },
+      "failed_commands": [],
+      "exploration": {
+        "phases": {
+          "initial": {
+            "selections": 1,
+            "material_selections": 1,
+            "tasks": 1,
+            "requests": 1,
+            "context_uses": 1,
+            "context_bytes": 10393,
+            "exact_repeated_tools_within_task": 0
+          },
+          "recovery": {
+            "exact_repeated_tools_within_task": 0
+          }
+        },
+        "selections": [
+          {
+            "event": "experience.task_selected",
+            "episode": 1,
+            "stage": "initial",
+            "mode": "structured",
+            "source_ids": [
+              "E30-slot-6",
+              "E30-slot-9"
+            ],
+            "bytes": 10393,
+            "bank_sha256": "dc1586c6c292c13c9f15b58f6969a1a1abb071d835738ec8eefd8ce998d90c5c",
+            "context_sha256": "4e13b7148c861f5c62b51f3c6aa1608628dd4cbf6abf138fb62e0a712c729611"
+          }
+        ],
+        "context_uses": [
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 1,
+            "context_sha256": "4e13b7148c861f5c62b51f3c6aa1608628dd4cbf6abf138fb62e0a712c729611",
+            "bytes": 10393
+          }
+        ],
+        "request_phases": {
+          "1": "initial"
+        }
+      },
+      "recipe_selections": [],
+      "recipe_abstentions": [],
+      "verified_update": false,
+      "scenario": "cross_project"
+    },
+    {
+      "slot": 25,
+      "project": "inja",
+      "method": "source_retrieval",
+      "repetition": 2,
+      "complete": true,
+      "status": "verified",
+      "requests": 4,
+      "cost_usd": "0.0262548",
+      "wall_seconds": 97.40275131596718,
+      "recorded_command_seconds": 31.529799574009548,
+      "role_seconds": {
+        "dependency": 0.260364,
+        "configure": 0.6110325919580646,
+        "build": 29.968445691047236,
+        "smoke": 0.5175620389636606,
+        "artifact_stage": 0.17239525204058737
+      },
+      "replay_total_seconds": 35.962399,
+      "other_wall_seconds": 29.910552741957638,
+      "initial_requests": 4,
+      "recovery_requests": 0,
+      "initial_cost_usd": "0.0262548",
+      "recovery_cost_usd": "0",
+      "response_cost_matches_ledger": true,
+      "response_tokens": {
+        "input": 76416,
+        "output": 2775
+      },
+      "response_models": {
+        "deepseek-flash": 4
+      },
+      "recovery_episodes": 0,
+      "direct_actions": 0,
+      "retrieval_events": 0,
+      "retrieval_with_material": 0,
+      "retrieval_with_updated_material": 0,
+      "retrieval_bytes": 0,
+      "retrieved_source_ids": [],
+      "available_updated_source_ids": [],
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "original_test_observations": [
+        {
+          "step_id": "check",
+          "attempts": 1,
+          "status": "passed"
+        }
+      ],
+      "smoke_command_observations": 2,
+      "original_tests_status": "passed",
+      "verification_status": "passed",
+      "replay_status": "passed",
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "error_class": null,
+      "error": null,
+      "proposal_rejections": [],
+      "command_counts": {
+        "dependency": 1,
+        "configure": 1,
+        "build": 1,
+        "smoke": 2,
+        "artifact_stage": 1
+      },
+      "failed_commands": [],
+      "exploration": {
+        "phases": {
+          "initial": {
+            "selections": 1,
+            "material_selections": 1,
+            "tasks": 1,
+            "requests": 4,
+            "context_uses": 4,
+            "context_bytes": 41688,
+            "tool_calls": 5,
+            "read_source": 4,
+            "list_source": 1,
+            "exact_repeated_tools_within_task": 0
+          },
+          "recovery": {
+            "exact_repeated_tools_within_task": 0
+          }
+        },
+        "selections": [
+          {
+            "event": "experience.task_selected",
+            "episode": 1,
+            "stage": "initial",
+            "mode": "structured",
+            "source_ids": [
+              "E30-slot-6",
+              "E30-slot-10"
+            ],
+            "bytes": 10422,
+            "bank_sha256": "dc1586c6c292c13c9f15b58f6969a1a1abb071d835738ec8eefd8ce998d90c5c",
+            "context_sha256": "15c48ea87e5c94e6cf1f76f2e13aae8aeba3851ffcd914535fd9c293336f27d3"
+          }
+        ],
+        "context_uses": [
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 1,
+            "context_sha256": "15c48ea87e5c94e6cf1f76f2e13aae8aeba3851ffcd914535fd9c293336f27d3",
+            "bytes": 10422
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 2,
+            "context_sha256": "15c48ea87e5c94e6cf1f76f2e13aae8aeba3851ffcd914535fd9c293336f27d3",
+            "bytes": 10422
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 3,
+            "context_sha256": "15c48ea87e5c94e6cf1f76f2e13aae8aeba3851ffcd914535fd9c293336f27d3",
+            "bytes": 10422
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 4,
+            "context_sha256": "15c48ea87e5c94e6cf1f76f2e13aae8aeba3851ffcd914535fd9c293336f27d3",
+            "bytes": 10422
+          }
+        ],
+        "request_phases": {
+          "1": "initial",
+          "2": "initial",
+          "3": "initial",
+          "4": "initial"
+        }
+      },
+      "recipe_selections": [],
+      "recipe_abstentions": [],
+      "verified_update": false,
+      "scenario": "cross_project"
+    },
+    {
+      "slot": 26,
+      "project": "inja",
+      "method": "no_experience",
+      "repetition": 2,
+      "complete": true,
+      "status": "verified",
+      "requests": 7,
+      "cost_usd": "0.0414096",
+      "wall_seconds": 138.92460264003603,
+      "recorded_command_seconds": 33.31798979198688,
+      "role_seconds": {
+        "dependency": 0.250549,
+        "configure": 1.2853085580281913,
+        "build": 31.102670697961003,
+        "smoke": 0.5078312350087799,
+        "artifact_stage": 0.17163030098890886
+      },
+      "replay_total_seconds": 36.110447,
+      "other_wall_seconds": 69.49616584804915,
+      "initial_requests": 6,
+      "recovery_requests": 1,
+      "initial_cost_usd": "0.0317499",
+      "recovery_cost_usd": "0.0096597",
+      "response_cost_matches_ledger": true,
+      "response_tokens": {
+        "input": 110496,
+        "output": 6884
+      },
+      "response_models": {
+        "deepseek-flash": 7
+      },
+      "recovery_episodes": 1,
+      "direct_actions": 0,
+      "retrieval_events": 0,
+      "retrieval_with_material": 0,
+      "retrieval_with_updated_material": 0,
+      "retrieval_bytes": 0,
+      "retrieved_source_ids": [],
+      "available_updated_source_ids": [],
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "original_test_observations": [
+        {
+          "step_id": "check",
+          "attempts": 1,
+          "status": "passed"
+        }
+      ],
+      "smoke_command_observations": 2,
+      "original_tests_status": "passed",
+      "verification_status": "passed",
+      "replay_status": "passed",
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "error_class": null,
+      "error": null,
+      "proposal_rejections": [],
+      "command_counts": {
+        "dependency": 1,
+        "configure": 2,
+        "build": 1,
+        "smoke": 2,
+        "artifact_stage": 1
+      },
+      "failed_commands": [
+        {
+          "role": "configure",
+          "command_id": "command_6df6804ce5384bad862ad4429b480653",
+          "exit_code": 86,
+          "timed_out": false
+        }
+      ],
+      "exploration": {
+        "phases": {
+          "initial": {
+            "selections": 1,
+            "material_selections": 0,
+            "tasks": 1,
+            "requests": 6,
+            "context_uses": 6,
+            "context_bytes": 0,
+            "tool_calls": 8,
+            "read_source": 5,
+            "list_source": 3,
+            "exact_repeated_tools_within_task": 0
+          },
+          "recovery": {
+            "selections": 1,
+            "material_selections": 0,
+            "tasks": 1,
+            "requests": 1,
+            "context_uses": 1,
+            "context_bytes": 0,
+            "exact_repeated_tools_within_task": 0
+          }
+        },
+        "selections": [
+          {
+            "event": "experience.task_selected",
+            "episode": 1,
+            "stage": "initial",
+            "mode": "none",
+            "source_ids": [],
+            "bytes": 0,
+            "bank_sha256": "dc1586c6c292c13c9f15b58f6969a1a1abb071d835738ec8eefd8ce998d90c5c",
+            "context_sha256": "ef914a4105196466e7e48ba7b384abcf13fe7671853d60355aeeead699acf15f"
+          },
+          {
+            "event": "experience.task_selected",
+            "episode": 2,
+            "stage": "configure",
+            "mode": "none",
+            "source_ids": [],
+            "bytes": 0,
+            "bank_sha256": "dc1586c6c292c13c9f15b58f6969a1a1abb071d835738ec8eefd8ce998d90c5c",
+            "context_sha256": "ef914a4105196466e7e48ba7b384abcf13fe7671853d60355aeeead699acf15f"
+          }
+        ],
+        "context_uses": [
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 1,
+            "context_sha256": "ef914a4105196466e7e48ba7b384abcf13fe7671853d60355aeeead699acf15f",
+            "bytes": 0
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 2,
+            "context_sha256": "ef914a4105196466e7e48ba7b384abcf13fe7671853d60355aeeead699acf15f",
+            "bytes": 0
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 3,
+            "context_sha256": "ef914a4105196466e7e48ba7b384abcf13fe7671853d60355aeeead699acf15f",
+            "bytes": 0
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 4,
+            "context_sha256": "ef914a4105196466e7e48ba7b384abcf13fe7671853d60355aeeead699acf15f",
+            "bytes": 0
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 5,
+            "context_sha256": "ef914a4105196466e7e48ba7b384abcf13fe7671853d60355aeeead699acf15f",
+            "bytes": 0
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 6,
+            "context_sha256": "ef914a4105196466e7e48ba7b384abcf13fe7671853d60355aeeead699acf15f",
+            "bytes": 0
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 2,
+            "request_sequence": 7,
+            "context_sha256": "ef914a4105196466e7e48ba7b384abcf13fe7671853d60355aeeead699acf15f",
+            "bytes": 0
+          }
+        ],
+        "request_phases": {
+          "1": "initial",
+          "2": "initial",
+          "3": "initial",
+          "4": "initial",
+          "5": "initial",
+          "6": "initial",
+          "7": "recovery"
+        }
+      },
+      "recipe_selections": [],
+      "recipe_abstentions": [],
+      "verified_update": false,
+      "scenario": "cross_project"
+    },
+    {
+      "slot": 27,
+      "project": "inja",
+      "method": "state_target_retrieval",
+      "repetition": 2,
+      "complete": true,
+      "status": "verified",
+      "requests": 2,
+      "cost_usd": "0.0125565",
+      "wall_seconds": 86.81140911398688,
+      "recorded_command_seconds": 32.54514216297741,
+      "role_seconds": {
+        "dependency": 0.255178,
+        "configure": 0.6018105130060576,
+        "build": 31.022687206976116,
+        "smoke": 0.4887999900383875,
+        "artifact_stage": 0.17666645295685157
+      },
+      "replay_total_seconds": 36.157871,
+      "other_wall_seconds": 18.10839595100947,
+      "initial_requests": 2,
+      "recovery_requests": 0,
+      "initial_cost_usd": "0.0125565",
+      "recovery_cost_usd": "0",
+      "response_cost_matches_ledger": true,
+      "response_tokens": {
+        "input": 35955,
+        "output": 1475
+      },
+      "response_models": {
+        "deepseek-flash": 2
+      },
+      "recovery_episodes": 0,
+      "direct_actions": 0,
+      "retrieval_events": 0,
+      "retrieval_with_material": 0,
+      "retrieval_with_updated_material": 0,
+      "retrieval_bytes": 0,
+      "retrieved_source_ids": [],
+      "available_updated_source_ids": [],
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "original_test_observations": [
+        {
+          "step_id": "check",
+          "attempts": 1,
+          "status": "passed"
+        }
+      ],
+      "smoke_command_observations": 2,
+      "original_tests_status": "passed",
+      "verification_status": "passed",
+      "replay_status": "passed",
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "error_class": null,
+      "error": null,
+      "proposal_rejections": [],
+      "command_counts": {
+        "dependency": 1,
+        "configure": 1,
+        "build": 1,
+        "smoke": 2,
+        "artifact_stage": 1
+      },
+      "failed_commands": [],
+      "exploration": {
+        "phases": {
+          "initial": {
+            "selections": 1,
+            "material_selections": 1,
+            "tasks": 1,
+            "requests": 2,
+            "context_uses": 2,
+            "context_bytes": 20356,
+            "tool_calls": 2,
+            "list_source": 2,
+            "exact_repeated_tools_within_task": 0
+          },
+          "recovery": {
+            "exact_repeated_tools_within_task": 0
+          }
+        },
+        "selections": [
+          {
+            "event": "experience.task_selected",
+            "episode": 1,
+            "stage": "initial",
+            "mode": "structured",
+            "source_ids": [
+              "E30-slot-6",
+              "E30-slot-19"
+            ],
+            "bytes": 10178,
+            "bank_sha256": "dc1586c6c292c13c9f15b58f6969a1a1abb071d835738ec8eefd8ce998d90c5c",
+            "context_sha256": "383d92b44f16279bce4676a495d50abe18532bc401346b32d933061fd59298cd"
+          }
+        ],
+        "context_uses": [
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 1,
+            "context_sha256": "383d92b44f16279bce4676a495d50abe18532bc401346b32d933061fd59298cd",
+            "bytes": 10178
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 2,
+            "context_sha256": "383d92b44f16279bce4676a495d50abe18532bc401346b32d933061fd59298cd",
+            "bytes": 10178
+          }
+        ],
+        "request_phases": {
+          "1": "initial",
+          "2": "initial"
+        }
+      },
+      "recipe_selections": [],
+      "recipe_abstentions": [],
+      "verified_update": false,
+      "scenario": "cross_project"
+    },
+    {
+      "slot": 28,
+      "project": "highwayhash",
+      "method": "no_experience",
+      "repetition": 2,
+      "complete": true,
+      "status": "verified",
+      "requests": 1,
+      "cost_usd": "0.0056526",
+      "wall_seconds": 33.2103371929843,
+      "recorded_command_seconds": 6.933184942980882,
+      "role_seconds": {
+        "dependency": 0.242647,
+        "build": 6.070627415960189,
+        "smoke": 0.44606469897553325,
+        "artifact_stage": 0.17384582804515958
+      },
+      "replay_total_seconds": 10.326233,
+      "other_wall_seconds": 15.950919250003418,
+      "initial_requests": 1,
+      "recovery_requests": 0,
+      "initial_cost_usd": "0.0056526",
+      "recovery_cost_usd": "0",
+      "response_cost_matches_ledger": true,
+      "response_tokens": {
+        "input": 13718,
+        "output": 1281
+      },
+      "response_models": {
+        "deepseek-flash": 1
+      },
+      "recovery_episodes": 0,
+      "direct_actions": 0,
+      "retrieval_events": 0,
+      "retrieval_with_material": 0,
+      "retrieval_with_updated_material": 0,
+      "retrieval_bytes": 0,
+      "retrieved_source_ids": [],
+      "available_updated_source_ids": [],
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "original_test_observations": [
+        {
+          "step_id": "check",
+          "attempts": 1,
+          "status": "passed"
+        }
+      ],
+      "smoke_command_observations": 1,
+      "original_tests_status": "passed",
+      "verification_status": "passed",
+      "replay_status": "passed",
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "error_class": null,
+      "error": null,
+      "proposal_rejections": [],
+      "command_counts": {
+        "dependency": 1,
+        "build": 1,
+        "smoke": 1,
+        "artifact_stage": 1
+      },
+      "failed_commands": [],
+      "exploration": {
+        "phases": {
+          "initial": {
+            "selections": 1,
+            "material_selections": 0,
+            "tasks": 1,
+            "requests": 1,
+            "context_uses": 1,
+            "context_bytes": 0,
+            "exact_repeated_tools_within_task": 0
+          },
+          "recovery": {
+            "exact_repeated_tools_within_task": 0
+          }
+        },
+        "selections": [
+          {
+            "event": "experience.task_selected",
+            "episode": 1,
+            "stage": "initial",
+            "mode": "none",
+            "source_ids": [],
+            "bytes": 0,
+            "bank_sha256": "dc1586c6c292c13c9f15b58f6969a1a1abb071d835738ec8eefd8ce998d90c5c",
+            "context_sha256": "ef914a4105196466e7e48ba7b384abcf13fe7671853d60355aeeead699acf15f"
+          }
+        ],
+        "context_uses": [
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 1,
+            "context_sha256": "ef914a4105196466e7e48ba7b384abcf13fe7671853d60355aeeead699acf15f",
+            "bytes": 0
+          }
+        ],
+        "request_phases": {
+          "1": "initial"
+        }
+      },
+      "recipe_selections": [],
+      "recipe_abstentions": [],
+      "verified_update": false,
+      "scenario": "cross_project"
+    },
+    {
+      "slot": 29,
+      "project": "highwayhash",
+      "method": "source_retrieval",
+      "repetition": 2,
+      "complete": true,
+      "status": "verified",
+      "requests": 3,
+      "cost_usd": "0.0174531",
+      "wall_seconds": 41.06605628901161,
+      "recorded_command_seconds": 7.12759775306385,
+      "role_seconds": {
+        "dependency": 0.24092,
+        "build": 6.237142384983599,
+        "smoke": 0.469080864044372,
+        "artifact_stage": 0.18045450403587893
+      },
+      "replay_total_seconds": 10.635592,
+      "other_wall_seconds": 23.302866535947757,
+      "initial_requests": 3,
+      "recovery_requests": 0,
+      "initial_cost_usd": "0.0174531",
+      "recovery_cost_usd": "0",
+      "response_cost_matches_ledger": true,
+      "response_tokens": {
+        "input": 49981,
+        "output": 2049
+      },
+      "response_models": {
+        "deepseek-flash": 3
+      },
+      "recovery_episodes": 0,
+      "direct_actions": 0,
+      "retrieval_events": 0,
+      "retrieval_with_material": 0,
+      "retrieval_with_updated_material": 0,
+      "retrieval_bytes": 0,
+      "retrieved_source_ids": [],
+      "available_updated_source_ids": [],
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "original_test_observations": [
+        {
+          "step_id": "check",
+          "attempts": 1,
+          "status": "passed"
+        }
+      ],
+      "smoke_command_observations": 1,
+      "original_tests_status": "passed",
+      "verification_status": "passed",
+      "replay_status": "passed",
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "error_class": null,
+      "error": null,
+      "proposal_rejections": [],
+      "command_counts": {
+        "dependency": 1,
+        "build": 2,
+        "smoke": 1,
+        "artifact_stage": 1
+      },
+      "failed_commands": [],
+      "exploration": {
+        "phases": {
+          "initial": {
+            "selections": 1,
+            "material_selections": 1,
+            "tasks": 1,
+            "requests": 3,
+            "context_uses": 3,
+            "context_bytes": 26424,
+            "tool_calls": 3,
+            "read_source": 2,
+            "list_source": 1,
+            "exact_repeated_tools_within_task": 0
+          },
+          "recovery": {
+            "exact_repeated_tools_within_task": 0
+          }
+        },
+        "selections": [
+          {
+            "event": "experience.task_selected",
+            "episode": 1,
+            "stage": "initial",
+            "mode": "structured",
+            "source_ids": [
+              "E30-slot-14",
+              "E30-slot-17"
+            ],
+            "bytes": 8808,
+            "bank_sha256": "dc1586c6c292c13c9f15b58f6969a1a1abb071d835738ec8eefd8ce998d90c5c",
+            "context_sha256": "62d08efe81a3675c89dedc7a3fd60f3e3aed74957ecbe3b47ae0dcab5daed9a6"
+          }
+        ],
+        "context_uses": [
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 1,
+            "context_sha256": "62d08efe81a3675c89dedc7a3fd60f3e3aed74957ecbe3b47ae0dcab5daed9a6",
+            "bytes": 8808
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 2,
+            "context_sha256": "62d08efe81a3675c89dedc7a3fd60f3e3aed74957ecbe3b47ae0dcab5daed9a6",
+            "bytes": 8808
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 3,
+            "context_sha256": "62d08efe81a3675c89dedc7a3fd60f3e3aed74957ecbe3b47ae0dcab5daed9a6",
+            "bytes": 8808
+          }
+        ],
+        "request_phases": {
+          "1": "initial",
+          "2": "initial",
+          "3": "initial"
+        }
+      },
+      "recipe_selections": [],
+      "recipe_abstentions": [],
+      "verified_update": false,
+      "scenario": "cross_project"
+    },
+    {
+      "slot": 30,
+      "project": "highwayhash",
+      "method": "state_target_retrieval",
+      "repetition": 2,
+      "complete": true,
+      "status": "verified",
+      "requests": 1,
+      "cost_usd": "0.006216",
+      "wall_seconds": 31.79614248900907,
+      "recorded_command_seconds": 6.835095917069867,
+      "role_seconds": {
+        "dependency": 0.248048,
+        "build": 6.039162636036053,
+        "smoke": 0.3869030760251917,
+        "artifact_stage": 0.16098220500862226
+      },
+      "replay_total_seconds": 10.461127,
+      "other_wall_seconds": 14.499919571939204,
+      "initial_requests": 1,
+      "recovery_requests": 0,
+      "initial_cost_usd": "0.006216",
+      "recovery_cost_usd": "0",
+      "response_cost_matches_ledger": true,
+      "response_tokens": {
+        "input": 16240,
+        "output": 1120
+      },
+      "response_models": {
+        "deepseek-flash": 1
+      },
+      "recovery_episodes": 0,
+      "direct_actions": 0,
+      "retrieval_events": 0,
+      "retrieval_with_material": 0,
+      "retrieval_with_updated_material": 0,
+      "retrieval_bytes": 0,
+      "retrieved_source_ids": [],
+      "available_updated_source_ids": [],
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "original_test_observations": [
+        {
+          "step_id": "check",
+          "attempts": 1,
+          "status": "passed"
+        }
+      ],
+      "smoke_command_observations": 1,
+      "original_tests_status": "passed",
+      "verification_status": "passed",
+      "replay_status": "passed",
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "error_class": null,
+      "error": null,
+      "proposal_rejections": [],
+      "command_counts": {
+        "dependency": 1,
+        "build": 1,
+        "smoke": 1,
+        "artifact_stage": 1
+      },
+      "failed_commands": [],
+      "exploration": {
+        "phases": {
+          "initial": {
+            "selections": 1,
+            "material_selections": 1,
+            "tasks": 1,
+            "requests": 1,
+            "context_uses": 1,
+            "context_bytes": 8506,
+            "exact_repeated_tools_within_task": 0
+          },
+          "recovery": {
+            "exact_repeated_tools_within_task": 0
+          }
+        },
+        "selections": [
+          {
+            "event": "experience.task_selected",
+            "episode": 1,
+            "stage": "initial",
+            "mode": "structured",
+            "source_ids": [
+              "E30-slot-14",
+              "E04-slot-7"
+            ],
+            "bytes": 8506,
+            "bank_sha256": "dc1586c6c292c13c9f15b58f6969a1a1abb071d835738ec8eefd8ce998d90c5c",
+            "context_sha256": "8f9dda83adc9654c7e87357f40a92d7262d68165f291dc40053548e686e6b8ea"
+          }
+        ],
+        "context_uses": [
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 1,
+            "context_sha256": "8f9dda83adc9654c7e87357f40a92d7262d68165f291dc40053548e686e6b8ea",
+            "bytes": 8506
+          }
+        ],
+        "request_phases": {
+          "1": "initial"
+        }
+      },
+      "recipe_selections": [],
+      "recipe_abstentions": [],
+      "verified_update": false,
+      "scenario": "cross_project"
+    },
+    {
+      "slot": 31,
+      "project": "libsigcplusplus",
+      "method": "state_target_retrieval",
+      "repetition": 2,
+      "complete": true,
+      "status": "verified",
+      "requests": 4,
+      "cost_usd": "0.0366618",
+      "wall_seconds": 413.830477540032,
+      "recorded_command_seconds": 160.27005917385438,
+      "role_seconds": {
+        "dependency": 136.08918263395068,
+        "configure": 6.290916809986811,
+        "build": 15.725494845944922,
+        "smoke": 1.999014630971942,
+        "artifact_stage": 0.16545025300001726
+      },
+      "replay_total_seconds": 164.100355,
+      "other_wall_seconds": 89.46006336617762,
+      "initial_requests": 4,
+      "recovery_requests": 0,
+      "initial_cost_usd": "0.0366618",
+      "recovery_cost_usd": "0",
+      "response_cost_matches_ledger": true,
+      "response_tokens": {
+        "input": 67738,
+        "output": 13617
+      },
+      "response_models": {
+        "deepseek-flash": 4
+      },
+      "recovery_episodes": 0,
+      "direct_actions": 0,
+      "retrieval_events": 0,
+      "retrieval_with_material": 0,
+      "retrieval_with_updated_material": 0,
+      "retrieval_bytes": 0,
+      "retrieved_source_ids": [],
+      "available_updated_source_ids": [],
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "original_test_observations": [
+        {
+          "step_id": "check",
+          "attempts": 1,
+          "status": "passed"
+        }
+      ],
+      "smoke_command_observations": 1,
+      "original_tests_status": "passed",
+      "verification_status": "passed",
+      "replay_status": "passed",
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "error_class": null,
+      "error": null,
+      "proposal_rejections": [],
+      "command_counts": {
+        "dependency": 3,
+        "configure": 1,
+        "build": 1,
+        "smoke": 1,
+        "artifact_stage": 1
+      },
+      "failed_commands": [],
+      "exploration": {
+        "phases": {
+          "initial": {
+            "selections": 1,
+            "material_selections": 1,
+            "tasks": 1,
+            "requests": 4,
+            "context_uses": 4,
+            "context_bytes": 22100,
+            "tool_calls": 5,
+            "list_source": 2,
+            "read_source": 3,
+            "exact_repeated_tools_within_task": 0
+          },
+          "recovery": {
+            "exact_repeated_tools_within_task": 0
+          }
+        },
+        "selections": [
+          {
+            "event": "experience.task_selected",
+            "episode": 1,
+            "stage": "initial",
+            "mode": "structured",
+            "source_ids": [
+              "E30-slot-1"
+            ],
+            "bytes": 5525,
+            "bank_sha256": "dc1586c6c292c13c9f15b58f6969a1a1abb071d835738ec8eefd8ce998d90c5c",
+            "context_sha256": "100e637d564e13ed32d5bc36f339a208895b0401dbd5d044af5b462a030f86bd"
+          }
+        ],
+        "context_uses": [
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 1,
+            "context_sha256": "100e637d564e13ed32d5bc36f339a208895b0401dbd5d044af5b462a030f86bd",
+            "bytes": 5525
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 2,
+            "context_sha256": "100e637d564e13ed32d5bc36f339a208895b0401dbd5d044af5b462a030f86bd",
+            "bytes": 5525
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 3,
+            "context_sha256": "100e637d564e13ed32d5bc36f339a208895b0401dbd5d044af5b462a030f86bd",
+            "bytes": 5525
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 4,
+            "context_sha256": "100e637d564e13ed32d5bc36f339a208895b0401dbd5d044af5b462a030f86bd",
+            "bytes": 5525
+          }
+        ],
+        "request_phases": {
+          "1": "initial",
+          "2": "initial",
+          "3": "initial",
+          "4": "initial"
+        }
+      },
+      "recipe_selections": [],
+      "recipe_abstentions": [],
+      "verified_update": false,
+      "scenario": "cross_project"
+    },
+    {
+      "slot": 32,
+      "project": "libsigcplusplus",
+      "method": "source_retrieval",
+      "repetition": 2,
+      "complete": true,
+      "status": "verified",
+      "requests": 3,
+      "cost_usd": "0.0253722",
+      "wall_seconds": 181.34273677901365,
+      "recorded_command_seconds": 57.71663401400352,
+      "role_seconds": {
+        "dependency": 28.945549806020296,
+        "configure": 11.808763915963937,
+        "build": 15.994078565039672,
+        "smoke": 0.7948095399769954,
+        "artifact_stage": 0.17343218700261787
+      },
+      "replay_total_seconds": 61.544924,
+      "other_wall_seconds": 62.08117876501013,
+      "initial_requests": 3,
+      "recovery_requests": 0,
+      "initial_cost_usd": "0.0253722",
+      "recovery_cost_usd": "0",
+      "response_cost_matches_ledger": true,
+      "response_tokens": {
+        "input": 47154,
+        "output": 9355
+      },
+      "response_models": {
+        "deepseek-flash": 3
+      },
+      "recovery_episodes": 0,
+      "direct_actions": 0,
+      "retrieval_events": 0,
+      "retrieval_with_material": 0,
+      "retrieval_with_updated_material": 0,
+      "retrieval_bytes": 0,
+      "retrieved_source_ids": [],
+      "available_updated_source_ids": [],
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "original_test_observations": [
+        {
+          "step_id": "check",
+          "attempts": 1,
+          "status": "passed"
+        }
+      ],
+      "smoke_command_observations": 1,
+      "original_tests_status": "passed",
+      "verification_status": "passed",
+      "replay_status": "passed",
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "error_class": null,
+      "error": null,
+      "proposal_rejections": [],
+      "command_counts": {
+        "dependency": 2,
+        "configure": 2,
+        "build": 2,
+        "smoke": 1,
+        "artifact_stage": 1
+      },
+      "failed_commands": [],
+      "exploration": {
+        "phases": {
+          "initial": {
+            "selections": 1,
+            "material_selections": 1,
+            "tasks": 1,
+            "requests": 3,
+            "context_uses": 3,
+            "context_bytes": 16575,
+            "tool_calls": 4,
+            "list_source": 2,
+            "read_source": 2,
+            "exact_repeated_tools_within_task": 0
+          },
+          "recovery": {
+            "exact_repeated_tools_within_task": 0
+          }
+        },
+        "selections": [
+          {
+            "event": "experience.task_selected",
+            "episode": 1,
+            "stage": "initial",
+            "mode": "structured",
+            "source_ids": [
+              "E30-slot-1"
+            ],
+            "bytes": 5525,
+            "bank_sha256": "dc1586c6c292c13c9f15b58f6969a1a1abb071d835738ec8eefd8ce998d90c5c",
+            "context_sha256": "100e637d564e13ed32d5bc36f339a208895b0401dbd5d044af5b462a030f86bd"
+          }
+        ],
+        "context_uses": [
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 1,
+            "context_sha256": "100e637d564e13ed32d5bc36f339a208895b0401dbd5d044af5b462a030f86bd",
+            "bytes": 5525
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 2,
+            "context_sha256": "100e637d564e13ed32d5bc36f339a208895b0401dbd5d044af5b462a030f86bd",
+            "bytes": 5525
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 3,
+            "context_sha256": "100e637d564e13ed32d5bc36f339a208895b0401dbd5d044af5b462a030f86bd",
+            "bytes": 5525
+          }
+        ],
+        "request_phases": {
+          "1": "initial",
+          "2": "initial",
+          "3": "initial"
+        }
+      },
+      "recipe_selections": [],
+      "recipe_abstentions": [],
+      "verified_update": false,
+      "scenario": "cross_project"
+    },
+    {
+      "slot": 33,
+      "project": "libsigcplusplus",
+      "method": "no_experience",
+      "repetition": 2,
+      "complete": false,
+      "status": "stopped",
+      "requests": 4,
+      "cost_usd": "0.0440964",
+      "wall_seconds": 136.99402847298188,
+      "recorded_command_seconds": 0.250823,
+      "role_seconds": {
+        "dependency": 0.250823
+      },
+      "replay_total_seconds": 0,
+      "other_wall_seconds": 136.74320547298188,
+      "initial_requests": 4,
+      "recovery_requests": 0,
+      "initial_cost_usd": "0.0440964",
+      "recovery_cost_usd": "0",
+      "response_cost_matches_ledger": true,
+      "response_tokens": {
+        "input": 58432,
+        "output": 22139
+      },
+      "response_models": {
+        "deepseek-flash": 4
+      },
+      "recovery_episodes": 0,
+      "direct_actions": 0,
+      "retrieval_events": 0,
+      "retrieval_with_material": 0,
+      "retrieval_with_updated_material": 0,
+      "retrieval_bytes": 0,
+      "retrieved_source_ids": [],
+      "available_updated_source_ids": [],
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "original_test_observations": [
+        {
+          "step_id": "check",
+          "attempts": 0,
+          "status": "unobserved"
+        }
+      ],
+      "smoke_command_observations": 0,
+      "original_tests_status": "unobserved",
+      "verification_status": "unobserved",
+      "replay_status": "unobserved",
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "error_class": "StructuredOutputValidationError",
+      "error": null,
+      "proposal_rejections": [
+        {
+          "event": "observed.proposal_rejected",
+          "detail": "Failed to parse structured output for tool 'ObservedBuildActions': Failed to parse data to ObservedBuildActions: 2 validation errors for ObservedBuildActions\nreason\n  Field required [type=missing, input_value={}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.12/v/missing\nsteps\n  Field required [type=missing, input_value={}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.12/v/missing."
+        },
+        {
+          "event": "observed.proposal_rejected",
+          "detail": "Failed to parse structured output for tool 'ObservedBuildActions': Failed to parse data to ObservedBuildActions: 2 validation errors for ObservedBuildActions\nreason\n  Field required [type=missing, input_value={}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.12/v/missing\nsteps\n  Field required [type=missing, input_value={}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.12/v/missing."
+        }
+      ],
+      "command_counts": {
+        "dependency": 1
+      },
+      "failed_commands": [],
+      "exploration": {
+        "phases": {
+          "initial": {
+            "selections": 1,
+            "material_selections": 0,
+            "tasks": 1,
+            "requests": 4,
+            "context_uses": 4,
+            "context_bytes": 0,
+            "tool_calls": 7,
+            "list_source": 5,
+            "read_source": 2,
+            "exact_repeated_tools_within_task": 0
+          },
+          "recovery": {
+            "exact_repeated_tools_within_task": 0
+          }
+        },
+        "selections": [
+          {
+            "event": "experience.task_selected",
+            "episode": 1,
+            "stage": "initial",
+            "mode": "none",
+            "source_ids": [],
+            "bytes": 0,
+            "bank_sha256": "dc1586c6c292c13c9f15b58f6969a1a1abb071d835738ec8eefd8ce998d90c5c",
+            "context_sha256": "ef914a4105196466e7e48ba7b384abcf13fe7671853d60355aeeead699acf15f"
+          }
+        ],
+        "context_uses": [
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 1,
+            "context_sha256": "ef914a4105196466e7e48ba7b384abcf13fe7671853d60355aeeead699acf15f",
+            "bytes": 0
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 2,
+            "context_sha256": "ef914a4105196466e7e48ba7b384abcf13fe7671853d60355aeeead699acf15f",
+            "bytes": 0
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 3,
+            "context_sha256": "ef914a4105196466e7e48ba7b384abcf13fe7671853d60355aeeead699acf15f",
+            "bytes": 0
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 4,
+            "context_sha256": "ef914a4105196466e7e48ba7b384abcf13fe7671853d60355aeeead699acf15f",
+            "bytes": 0
+          }
+        ],
+        "request_phases": {
+          "1": "initial",
+          "2": "initial",
+          "3": "initial",
+          "4": "initial"
+        }
+      },
+      "recipe_selections": [],
+      "recipe_abstentions": [],
+      "verified_update": false,
+      "scenario": "cross_project"
+    },
+    {
+      "slot": 34,
+      "project": "libsrtp",
+      "method": "source_retrieval",
+      "repetition": 2,
+      "complete": true,
+      "status": "verified",
+      "requests": 9,
+      "cost_usd": "0.0551814",
+      "wall_seconds": 97.94054028997198,
+      "recorded_command_seconds": 23.464261485038048,
+      "role_seconds": {
+        "dependency": 0.486675,
+        "configure": 5.042569902027026,
+        "build": 3.341497343033552,
+        "smoke": 14.418658646987751,
+        "artifact_stage": 0.17486059298971668
+      },
+      "replay_total_seconds": 27.057705,
+      "other_wall_seconds": 47.41857380493393,
+      "initial_requests": 9,
+      "recovery_requests": 0,
+      "initial_cost_usd": "0.0551814",
+      "recovery_cost_usd": "0",
+      "response_cost_matches_ledger": true,
+      "response_tokens": {
+        "input": 174306,
+        "output": 2408
+      },
+      "response_models": {
+        "deepseek-flash": 9
+      },
+      "recovery_episodes": 0,
+      "direct_actions": 0,
+      "retrieval_events": 0,
+      "retrieval_with_material": 0,
+      "retrieval_with_updated_material": 0,
+      "retrieval_bytes": 0,
+      "retrieved_source_ids": [],
+      "available_updated_source_ids": [],
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "original_test_observations": [
+        {
+          "step_id": "check",
+          "attempts": 1,
+          "status": "passed"
+        }
+      ],
+      "smoke_command_observations": 1,
+      "original_tests_status": "passed",
+      "verification_status": "passed",
+      "replay_status": "passed",
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "error_class": null,
+      "error": null,
+      "proposal_rejections": [],
+      "command_counts": {
+        "dependency": 1,
+        "configure": 1,
+        "build": 1,
+        "smoke": 1,
+        "artifact_stage": 1
+      },
+      "failed_commands": [],
+      "exploration": {
+        "phases": {
+          "initial": {
+            "selections": 1,
+            "material_selections": 1,
+            "tasks": 1,
+            "requests": 9,
+            "context_uses": 9,
+            "context_bytes": 49725,
+            "tool_calls": 13,
+            "list_source": 3,
+            "read_source": 10,
+            "exact_repeated_tools_within_task": 4
+          },
+          "recovery": {
+            "exact_repeated_tools_within_task": 0
+          }
+        },
+        "selections": [
+          {
+            "event": "experience.task_selected",
+            "episode": 1,
+            "stage": "initial",
+            "mode": "structured",
+            "source_ids": [
+              "E30-slot-1"
+            ],
+            "bytes": 5525,
+            "bank_sha256": "dc1586c6c292c13c9f15b58f6969a1a1abb071d835738ec8eefd8ce998d90c5c",
+            "context_sha256": "100e637d564e13ed32d5bc36f339a208895b0401dbd5d044af5b462a030f86bd"
+          }
+        ],
+        "context_uses": [
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 1,
+            "context_sha256": "100e637d564e13ed32d5bc36f339a208895b0401dbd5d044af5b462a030f86bd",
+            "bytes": 5525
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 2,
+            "context_sha256": "100e637d564e13ed32d5bc36f339a208895b0401dbd5d044af5b462a030f86bd",
+            "bytes": 5525
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 3,
+            "context_sha256": "100e637d564e13ed32d5bc36f339a208895b0401dbd5d044af5b462a030f86bd",
+            "bytes": 5525
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 4,
+            "context_sha256": "100e637d564e13ed32d5bc36f339a208895b0401dbd5d044af5b462a030f86bd",
+            "bytes": 5525
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 5,
+            "context_sha256": "100e637d564e13ed32d5bc36f339a208895b0401dbd5d044af5b462a030f86bd",
+            "bytes": 5525
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 6,
+            "context_sha256": "100e637d564e13ed32d5bc36f339a208895b0401dbd5d044af5b462a030f86bd",
+            "bytes": 5525
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 7,
+            "context_sha256": "100e637d564e13ed32d5bc36f339a208895b0401dbd5d044af5b462a030f86bd",
+            "bytes": 5525
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 8,
+            "context_sha256": "100e637d564e13ed32d5bc36f339a208895b0401dbd5d044af5b462a030f86bd",
+            "bytes": 5525
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 9,
+            "context_sha256": "100e637d564e13ed32d5bc36f339a208895b0401dbd5d044af5b462a030f86bd",
+            "bytes": 5525
+          }
+        ],
+        "request_phases": {
+          "1": "initial",
+          "2": "initial",
+          "3": "initial",
+          "4": "initial",
+          "5": "initial",
+          "6": "initial",
+          "7": "initial",
+          "8": "initial",
+          "9": "initial"
+        }
+      },
+      "recipe_selections": [],
+      "recipe_abstentions": [],
+      "verified_update": false,
+      "scenario": "cross_project"
+    },
+    {
+      "slot": 35,
+      "project": "libsrtp",
+      "method": "state_target_retrieval",
+      "repetition": 2,
+      "complete": true,
+      "status": "verified",
+      "requests": 7,
+      "cost_usd": "0.0411492",
+      "wall_seconds": 84.52688182302518,
+      "recorded_command_seconds": 23.44571960706216,
+      "role_seconds": {
+        "dependency": 0.480537,
+        "configure": 5.06465711601777,
+        "build": 3.281389266019687,
+        "smoke": 14.442377811006736,
+        "artifact_stage": 0.17675841401796788
+      },
+      "replay_total_seconds": 27.063788,
+      "other_wall_seconds": 34.01737421596302,
+      "initial_requests": 7,
+      "recovery_requests": 0,
+      "initial_cost_usd": "0.0411492",
+      "recovery_cost_usd": "0",
+      "response_cost_matches_ledger": true,
+      "response_tokens": {
+        "input": 131208,
+        "output": 1489
+      },
+      "response_models": {
+        "deepseek-flash": 7
+      },
+      "recovery_episodes": 0,
+      "direct_actions": 0,
+      "retrieval_events": 0,
+      "retrieval_with_material": 0,
+      "retrieval_with_updated_material": 0,
+      "retrieval_bytes": 0,
+      "retrieved_source_ids": [],
+      "available_updated_source_ids": [],
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "original_test_observations": [
+        {
+          "step_id": "check",
+          "attempts": 1,
+          "status": "passed"
+        }
+      ],
+      "smoke_command_observations": 1,
+      "original_tests_status": "passed",
+      "verification_status": "passed",
+      "replay_status": "passed",
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "error_class": null,
+      "error": null,
+      "proposal_rejections": [],
+      "command_counts": {
+        "dependency": 1,
+        "configure": 1,
+        "build": 1,
+        "smoke": 1,
+        "artifact_stage": 1
+      },
+      "failed_commands": [],
+      "exploration": {
+        "phases": {
+          "initial": {
+            "selections": 1,
+            "material_selections": 1,
+            "tasks": 1,
+            "requests": 7,
+            "context_uses": 7,
+            "context_bytes": 38675,
+            "tool_calls": 9,
+            "list_source": 3,
+            "read_source": 6,
+            "exact_repeated_tools_within_task": 2
+          },
+          "recovery": {
+            "exact_repeated_tools_within_task": 0
+          }
+        },
+        "selections": [
+          {
+            "event": "experience.task_selected",
+            "episode": 1,
+            "stage": "initial",
+            "mode": "structured",
+            "source_ids": [
+              "E30-slot-1"
+            ],
+            "bytes": 5525,
+            "bank_sha256": "dc1586c6c292c13c9f15b58f6969a1a1abb071d835738ec8eefd8ce998d90c5c",
+            "context_sha256": "100e637d564e13ed32d5bc36f339a208895b0401dbd5d044af5b462a030f86bd"
+          }
+        ],
+        "context_uses": [
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 1,
+            "context_sha256": "100e637d564e13ed32d5bc36f339a208895b0401dbd5d044af5b462a030f86bd",
+            "bytes": 5525
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 2,
+            "context_sha256": "100e637d564e13ed32d5bc36f339a208895b0401dbd5d044af5b462a030f86bd",
+            "bytes": 5525
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 3,
+            "context_sha256": "100e637d564e13ed32d5bc36f339a208895b0401dbd5d044af5b462a030f86bd",
+            "bytes": 5525
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 4,
+            "context_sha256": "100e637d564e13ed32d5bc36f339a208895b0401dbd5d044af5b462a030f86bd",
+            "bytes": 5525
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 5,
+            "context_sha256": "100e637d564e13ed32d5bc36f339a208895b0401dbd5d044af5b462a030f86bd",
+            "bytes": 5525
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 6,
+            "context_sha256": "100e637d564e13ed32d5bc36f339a208895b0401dbd5d044af5b462a030f86bd",
+            "bytes": 5525
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 7,
+            "context_sha256": "100e637d564e13ed32d5bc36f339a208895b0401dbd5d044af5b462a030f86bd",
+            "bytes": 5525
+          }
+        ],
+        "request_phases": {
+          "1": "initial",
+          "2": "initial",
+          "3": "initial",
+          "4": "initial",
+          "5": "initial",
+          "6": "initial",
+          "7": "initial"
+        }
+      },
+      "recipe_selections": [],
+      "recipe_abstentions": [],
+      "verified_update": false,
+      "scenario": "cross_project"
+    },
+    {
+      "slot": 36,
+      "project": "libsrtp",
+      "method": "no_experience",
+      "repetition": 2,
+      "complete": true,
+      "status": "verified",
+      "requests": 4,
+      "cost_usd": "0.0226635",
+      "wall_seconds": 79.51489251898602,
+      "recorded_command_seconds": 23.451345860014463,
+      "role_seconds": {
+        "dependency": 0.48972,
+        "configure": 5.068524867005181,
+        "build": 3.309756667003967,
+        "smoke": 14.402345678012352,
+        "artifact_stage": 0.18099864799296483
+      },
+      "replay_total_seconds": 27.102882,
+      "other_wall_seconds": 28.960664658971552,
+      "initial_requests": 4,
+      "recovery_requests": 0,
+      "initial_cost_usd": "0.0226635",
+      "recovery_cost_usd": "0",
+      "response_cost_matches_ledger": true,
+      "response_tokens": {
+        "input": 69125,
+        "output": 1605
+      },
+      "response_models": {
+        "deepseek-flash": 4
+      },
+      "recovery_episodes": 0,
+      "direct_actions": 0,
+      "retrieval_events": 0,
+      "retrieval_with_material": 0,
+      "retrieval_with_updated_material": 0,
+      "retrieval_bytes": 0,
+      "retrieved_source_ids": [],
+      "available_updated_source_ids": [],
+      "source_unchanged": true,
+      "source_links_unchanged": true,
+      "original_test_observations": [
+        {
+          "step_id": "check",
+          "attempts": 1,
+          "status": "passed"
+        }
+      ],
+      "smoke_command_observations": 1,
+      "original_tests_status": "passed",
+      "verification_status": "passed",
+      "replay_status": "passed",
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "error_class": null,
+      "error": null,
+      "proposal_rejections": [],
+      "command_counts": {
+        "dependency": 1,
+        "configure": 1,
+        "build": 1,
+        "smoke": 1,
+        "artifact_stage": 1
+      },
+      "failed_commands": [],
+      "exploration": {
+        "phases": {
+          "initial": {
+            "selections": 1,
+            "material_selections": 0,
+            "tasks": 1,
+            "requests": 4,
+            "context_uses": 4,
+            "context_bytes": 0,
+            "tool_calls": 4,
+            "list_source": 1,
+            "read_source": 3,
+            "exact_repeated_tools_within_task": 0
+          },
+          "recovery": {
+            "exact_repeated_tools_within_task": 0
+          }
+        },
+        "selections": [
+          {
+            "event": "experience.task_selected",
+            "episode": 1,
+            "stage": "initial",
+            "mode": "none",
+            "source_ids": [],
+            "bytes": 0,
+            "bank_sha256": "dc1586c6c292c13c9f15b58f6969a1a1abb071d835738ec8eefd8ce998d90c5c",
+            "context_sha256": "ef914a4105196466e7e48ba7b384abcf13fe7671853d60355aeeead699acf15f"
+          }
+        ],
+        "context_uses": [
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 1,
+            "context_sha256": "ef914a4105196466e7e48ba7b384abcf13fe7671853d60355aeeead699acf15f",
+            "bytes": 0
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 2,
+            "context_sha256": "ef914a4105196466e7e48ba7b384abcf13fe7671853d60355aeeead699acf15f",
+            "bytes": 0
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 3,
+            "context_sha256": "ef914a4105196466e7e48ba7b384abcf13fe7671853d60355aeeead699acf15f",
+            "bytes": 0
+          },
+          {
+            "event": "experience.context_used",
+            "episode": 1,
+            "request_sequence": 4,
+            "context_sha256": "ef914a4105196466e7e48ba7b384abcf13fe7671853d60355aeeead699acf15f",
+            "bytes": 0
+          }
+        ],
+        "request_phases": {
+          "1": "initial",
+          "2": "initial",
+          "3": "initial",
+          "4": "initial"
+        }
+      },
+      "recipe_selections": [],
+      "recipe_abstentions": [],
+      "verified_update": false,
+      "scenario": "cross_project"
+    }
+  ],
+  "updates": [],
+  "update_cost_usd": "0",
+  "update_request_wall_seconds": 0,
+  "update_cost_in_original_result_usd": "0",
+  "update_receipts": [],
+  "update_unknown_usage": 0,
+  "update_cost_matches_original": true,
+  "unobserved": [],
+  "stop_reason": null,
+  "cost_recomputed": true,
+  "provenance": {
+    "result.json": "6b6f3e7dc2f949dfec4aa8e3307779bfb04a57426114ef509ca4dc6918952899",
+    "protocol.json": "1b3e89a7ccf4e986e322d72c1629254dd12aba26645f030428590464eb952e44",
+    "execution.json": "55354c4a1d09420a6d137912a5abf02d9771f5f06e612e3f626e101877d97ad7"
+  },
+  "two_level_summary": {
+    "no_experience": {
+      "observed": 12,
+      "complete": 11,
+      "requests": 63,
+      "cost_usd": "0.4067718",
+      "wall_minutes": 32.874901560450475,
+      "initial_requests": 51,
+      "recovery_requests": 12,
+      "initial_cost_usd": "0.3136740",
+      "recovery_cost_usd": "0.0930978",
+      "skipped_planning": 0,
+      "verified_updates": 0,
+      "initial_reads": 43,
+      "selections": 15,
+      "material_selections": 0
+    },
+    "source_retrieval": {
+      "observed": 12,
+      "complete": 10,
+      "requests": 61,
+      "cost_usd": "0.3968769",
+      "wall_minutes": 28.303919933417152,
+      "initial_requests": 60,
+      "recovery_requests": 1,
+      "initial_cost_usd": "0.3871353",
+      "recovery_cost_usd": "0.0097416",
+      "skipped_planning": 0,
+      "verified_updates": 0,
+      "initial_reads": 53,
+      "selections": 13,
+      "material_selections": 13
+    },
+    "state_target_retrieval": {
+      "observed": 12,
+      "complete": 11,
+      "requests": 55,
+      "cost_usd": "0.3812430",
+      "wall_minutes": 34.77403776223364,
+      "initial_requests": 50,
+      "recovery_requests": 5,
+      "initial_cost_usd": "0.3324084",
+      "recovery_cost_usd": "0.0488346",
+      "skipped_planning": 0,
+      "verified_updates": 0,
+      "initial_reads": 49,
+      "selections": 14,
+      "material_selections": 13
+    }
+  },
+  "strata": {
+    "cross_project": {
+      "no_experience": {
+        "observed": 12,
+        "complete": 11,
+        "requests": 63,
+        "cost_usd": "0.4067718",
+        "wall_minutes": 32.874901560450475,
+        "initial_requests": 51,
+        "recovery_requests": 12,
+        "initial_cost_usd": "0.3136740",
+        "recovery_cost_usd": "0.0930978",
+        "skipped_planning": 0,
+        "verified_updates": 0,
+        "initial_reads": 43,
+        "selections": 15,
+        "material_selections": 0
+      },
+      "source_retrieval": {
+        "observed": 12,
+        "complete": 10,
+        "requests": 61,
+        "cost_usd": "0.3968769",
+        "wall_minutes": 28.303919933417152,
+        "initial_requests": 60,
+        "recovery_requests": 1,
+        "initial_cost_usd": "0.3871353",
+        "recovery_cost_usd": "0.0097416",
+        "skipped_planning": 0,
+        "verified_updates": 0,
+        "initial_reads": 53,
+        "selections": 13,
+        "material_selections": 13
+      },
+      "state_target_retrieval": {
+        "observed": 12,
+        "complete": 11,
+        "requests": 55,
+        "cost_usd": "0.3812430",
+        "wall_minutes": 34.77403776223364,
+        "initial_requests": 50,
+        "recovery_requests": 5,
+        "initial_cost_usd": "0.3324084",
+        "recovery_cost_usd": "0.0488346",
+        "skipped_planning": 0,
+        "verified_updates": 0,
+        "initial_reads": 49,
+        "selections": 14,
+        "material_selections": 13
+      }
+    }
+  },
+  "by_project": {
+    "jsoncpp": {
+      "no_experience": {
+        "observed": 2,
+        "complete": 2,
+        "requests": 10,
+        "cost_usd": "0.0494349",
+        "wall_minutes": 2.32111633339955,
+        "initial_requests": 10,
+        "recovery_requests": 0,
+        "initial_cost_usd": "0.0494349",
+        "recovery_cost_usd": "0",
+        "skipped_planning": 0,
+        "verified_updates": 0,
+        "initial_reads": 13,
+        "selections": 2,
+        "material_selections": 0
+      },
+      "source_retrieval": {
+        "observed": 2,
+        "complete": 2,
+        "requests": 11,
+        "cost_usd": "0.0657366",
+        "wall_minutes": 2.4482906388177073,
+        "initial_requests": 11,
+        "recovery_requests": 0,
+        "initial_cost_usd": "0.0657366",
+        "recovery_cost_usd": "0",
+        "skipped_planning": 0,
+        "verified_updates": 0,
+        "initial_reads": 10,
+        "selections": 2,
+        "material_selections": 2
+      },
+      "state_target_retrieval": {
+        "observed": 2,
+        "complete": 2,
+        "requests": 14,
+        "cost_usd": "0.0913743",
+        "wall_minutes": 3.4548625877000934,
+        "initial_requests": 11,
+        "recovery_requests": 3,
+        "initial_cost_usd": "0.0665754",
+        "recovery_cost_usd": "0.0247989",
+        "skipped_planning": 0,
+        "verified_updates": 0,
+        "initial_reads": 16,
+        "selections": 3,
+        "material_selections": 2
+      }
+    },
+    "pegtl": {
+      "no_experience": {
+        "observed": 2,
+        "complete": 2,
+        "requests": 10,
+        "cost_usd": "0.0744693",
+        "wall_minutes": 14.529044533733394,
+        "initial_requests": 5,
+        "recovery_requests": 5,
+        "initial_cost_usd": "0.0316707",
+        "recovery_cost_usd": "0.0427986",
+        "skipped_planning": 0,
+        "verified_updates": 0,
+        "initial_reads": 3,
+        "selections": 3,
+        "material_selections": 0
+      },
+      "source_retrieval": {
+        "observed": 2,
+        "complete": 2,
+        "requests": 3,
+        "cost_usd": "0.0236835",
+        "wall_minutes": 13.126937296649945,
+        "initial_requests": 3,
+        "recovery_requests": 0,
+        "initial_cost_usd": "0.0236835",
+        "recovery_cost_usd": "0",
+        "skipped_planning": 0,
+        "verified_updates": 0,
+        "initial_reads": 2,
+        "selections": 2,
+        "material_selections": 2
+      },
+      "state_target_retrieval": {
+        "observed": 2,
+        "complete": 2,
+        "requests": 3,
+        "cost_usd": "0.0238188",
+        "wall_minutes": 13.16467674059968,
+        "initial_requests": 3,
+        "recovery_requests": 0,
+        "initial_cost_usd": "0.0238188",
+        "recovery_cost_usd": "0",
+        "skipped_planning": 0,
+        "verified_updates": 0,
+        "initial_reads": 2,
+        "selections": 2,
+        "material_selections": 2
+      }
+    },
+    "inja": {
+      "no_experience": {
+        "observed": 2,
+        "complete": 2,
+        "requests": 13,
+        "cost_usd": "0.0752457",
+        "wall_minutes": 4.808778281267345,
+        "initial_requests": 12,
+        "recovery_requests": 1,
+        "initial_cost_usd": "0.0655860",
+        "recovery_cost_usd": "0.0096597",
+        "skipped_planning": 0,
+        "verified_updates": 0,
+        "initial_reads": 10,
+        "selections": 3,
+        "material_selections": 0
+      },
+      "source_retrieval": {
+        "observed": 2,
+        "complete": 1,
+        "requests": 11,
+        "cost_usd": "0.0746445",
+        "wall_minutes": 3.3236609147997416,
+        "initial_requests": 10,
+        "recovery_requests": 1,
+        "initial_cost_usd": "0.0649029",
+        "recovery_cost_usd": "0.0097416",
+        "skipped_planning": 0,
+        "verified_updates": 0,
+        "initial_reads": 6,
+        "selections": 3,
+        "material_selections": 3
+      },
+      "state_target_retrieval": {
+        "observed": 2,
+        "complete": 2,
+        "requests": 8,
+        "cost_usd": "0.0508269",
+        "wall_minutes": 3.9027072115665455,
+        "initial_requests": 8,
+        "recovery_requests": 0,
+        "initial_cost_usd": "0.0508269",
+        "recovery_cost_usd": "0",
+        "skipped_planning": 0,
+        "verified_updates": 0,
+        "initial_reads": 3,
+        "selections": 2,
+        "material_selections": 2
+      }
+    },
+    "highwayhash": {
+      "no_experience": {
+        "observed": 2,
+        "complete": 2,
+        "requests": 10,
+        "cost_usd": "0.0629889",
+        "wall_minutes": 2.5856468897506906,
+        "initial_requests": 4,
+        "recovery_requests": 6,
+        "initial_cost_usd": "0.0223494",
+        "recovery_cost_usd": "0.0406395",
+        "skipped_planning": 0,
+        "verified_updates": 0,
+        "initial_reads": 1,
+        "selections": 3,
+        "material_selections": 0
+      },
+      "source_retrieval": {
+        "observed": 2,
+        "complete": 2,
+        "requests": 5,
+        "cost_usd": "0.0296943",
+        "wall_minutes": 1.3407246172001275,
+        "initial_requests": 5,
+        "recovery_requests": 0,
+        "initial_cost_usd": "0.0296943",
+        "recovery_cost_usd": "0",
+        "skipped_planning": 0,
+        "verified_updates": 0,
+        "initial_reads": 3,
+        "selections": 2,
+        "material_selections": 2
+      },
+      "state_target_retrieval": {
+        "observed": 2,
+        "complete": 2,
+        "requests": 5,
+        "cost_usd": "0.0284793",
+        "wall_minutes": 1.2345436807498724,
+        "initial_requests": 5,
+        "recovery_requests": 0,
+        "initial_cost_usd": "0.0284793",
+        "recovery_cost_usd": "0",
+        "skipped_planning": 0,
+        "verified_updates": 0,
+        "initial_reads": 3,
+        "selections": 2,
+        "material_selections": 2
+      }
+    },
+    "libsigcplusplus": {
+      "no_experience": {
+        "observed": 2,
+        "complete": 1,
+        "requests": 7,
+        "cost_usd": "0.0719811",
+        "wall_minutes": 5.594687135233349,
+        "initial_requests": 7,
+        "recovery_requests": 0,
+        "initial_cost_usd": "0.0719811",
+        "recovery_cost_usd": "0",
+        "skipped_planning": 0,
+        "verified_updates": 0,
+        "initial_reads": 6,
+        "selections": 2,
+        "material_selections": 0
+      },
+      "source_retrieval": {
+        "observed": 2,
+        "complete": 1,
+        "requests": 12,
+        "cost_usd": "0.0864192",
+        "wall_minutes": 4.550677659467328,
+        "initial_requests": 12,
+        "recovery_requests": 0,
+        "initial_cost_usd": "0.0864192",
+        "recovery_cost_usd": "0",
+        "skipped_planning": 0,
+        "verified_updates": 0,
+        "initial_reads": 14,
+        "selections": 2,
+        "material_selections": 2
+      },
+      "state_target_retrieval": {
+        "observed": 2,
+        "complete": 1,
+        "requests": 11,
+        "cost_usd": "0.1014345",
+        "wall_minutes": 10.057732014299836,
+        "initial_requests": 9,
+        "recovery_requests": 2,
+        "initial_cost_usd": "0.0773988",
+        "recovery_cost_usd": "0.0240357",
+        "skipped_planning": 0,
+        "verified_updates": 0,
+        "initial_reads": 11,
+        "selections": 3,
+        "material_selections": 3
+      }
+    },
+    "libsrtp": {
+      "no_experience": {
+        "observed": 2,
+        "complete": 2,
+        "requests": 13,
+        "cost_usd": "0.0726519",
+        "wall_minutes": 3.0356283870661476,
+        "initial_requests": 13,
+        "recovery_requests": 0,
+        "initial_cost_usd": "0.0726519",
+        "recovery_cost_usd": "0",
+        "skipped_planning": 0,
+        "verified_updates": 0,
+        "initial_reads": 10,
+        "selections": 2,
+        "material_selections": 0
+      },
+      "source_retrieval": {
+        "observed": 2,
+        "complete": 2,
+        "requests": 19,
+        "cost_usd": "0.1166988",
+        "wall_minutes": 3.513628806482302,
+        "initial_requests": 19,
+        "recovery_requests": 0,
+        "initial_cost_usd": "0.1166988",
+        "recovery_cost_usd": "0",
+        "skipped_planning": 0,
+        "verified_updates": 0,
+        "initial_reads": 18,
+        "selections": 2,
+        "material_selections": 2
+      },
+      "state_target_retrieval": {
+        "observed": 2,
+        "complete": 2,
+        "requests": 14,
+        "cost_usd": "0.0853092",
+        "wall_minutes": 2.959515527317611,
+        "initial_requests": 14,
+        "recovery_requests": 0,
+        "initial_cost_usd": "0.0853092",
+        "recovery_cost_usd": "0",
+        "skipped_planning": 0,
+        "verified_updates": 0,
+        "initial_reads": 14,
+        "selections": 2,
+        "material_selections": 2
+      }
+    }
+  },
+  "validation_counts": {
+    "original_tests_status": {
+      "passed": 32,
+      "unobserved": 4
+    },
+    "verification_status": {
+      "passed": 32,
+      "unobserved": 4
+    },
+    "replay_status": {
+      "passed": 32,
+      "unobserved": 4
+    },
+    "source_unchanged": {
+      "true": 36
+    },
+    "source_links_unchanged": {
+      "true": 36
+    }
+  },
+  "total_tokens": 3405511,
+  "new_distillation_cost_usd": "0",
+  "historical_library_distillation_cost_usd": "0.095129",
+  "limits": "开发项目描述性比较；目标变化受控；无跨重复经验更新；旧制库/历史构建成本单列，不能由命中或追加推断泛化、自进化因果。"
+}

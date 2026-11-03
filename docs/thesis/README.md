@@ -1,6 +1,6 @@
 # Forge 硕士论文阶段初稿
 
-日期：2026-11-03；版本：v0.5；本轮跟踪：[Issue #664](https://github.com/WWFXL/Forge-AutoCompiler/issues/664)；历史完整比较：[Issue #660](https://github.com/WWFXL/Forge-AutoCompiler/issues/660)、[PR #661](https://github.com/WWFXL/Forge-AutoCompiler/pull/661)。
+日期：2026-11-04；版本：v0.6；本轮跟踪：[Issue #668](https://github.com/WWFXL/Forge-AutoCompiler/issues/668)；历史完整比较：[Issue #660](https://github.com/WWFXL/Forge-AutoCompiler/issues/660)、[PR #661](https://github.com/WWFXL/Forge-AutoCompiler/pull/661)。
 
 暂定题目：**面向C/C++仓库自动化构建的状态感知动作选择与验证方法研究**。
 
@@ -11,12 +11,15 @@
 - [完整目录](CONTENTS.md)与`chapters/`：正文修改真源，目录由导出程序生成。
 - [系统图](figures/system-overview.png)：实线为在线构建控制，紫色虚线为已实现的任务后经验与上下文数据流；虚线不表示效果已经证明，也不表示所有研究入口均已进入Web产品。
 - [正文—证据映射](EVIDENCE_MAP.md)：定位每张实验表的版本、分母与权威报告。
-- [本轮短动作报告](../research/2026-11-03-transfer-action-experience-results.md)：独立36次；初始探索节约、恢复／部署成本取舍及空材料分层。
+- [本轮两层经验报告](../research/2026-11-04-two-level-experience-results.md)：同项目24次及独立跨项目36次完整比较，方案复用、状态目标检索与成本/时间取舍。
+- [前版短动作报告](../research/2026-11-03-transfer-action-experience-results.md)：独立36次；初始探索节约、恢复／部署成本取舍及空材料分层。
 - [前版过程经验报告](../research/2026-11-03-conditioned-experience-results.md)：独立48次、过程提炼/逐条选择、全部成本及采用/越界反例。
 - [前版经验报告](../research/2026-11-03-state-experience-comparison-results.md)：独立36次经验复用及12次更新，分母和旧失败保持。
 - [待补清单](TODO.md)与[文献BibTeX](references.bib)：后续写作与正式著录入口。
 
-v0.5新增E39完整36次、表6-19/20与图6-5，保留E38中止及旧实验。新派生Word/PDF/HTML/Markdown在`/home/yiwei/.codex/outputs/forge-thesis-transfer-action-2026-11-03/`，前缀`Forge-硕士论文阶段初稿-v0.5`；实际核对66页PDF、33表6图及新增31/52–55页；正文约3.65万汉字。导出统计与文件指纹见该目录build-summary.json及export-verification.json。
+v0.6新增E40/E41两个独立比较，补两层方法图5-2、表6-21–24及图6-6–7；同项目复用费低73.4%、时间接近，跨项目状态目标检索有有限在线收益及耗时/制库取舍。阅读副本位于`/home/yiwei/.codex/outputs/forge-thesis-two-level-2026-11-04/`，前缀`Forge-硕士论文阶段初稿-v0.6`；实际核对77页PDF、39表9图及新增方法/结果页，正文约4.30万汉字；导出统计和指纹见build-summary.json及export-verification.json。
+
+历史v0.5新增E39完整36次、表6-19/20与图6-5，保留E38中止及旧实验。新派生Word/PDF/HTML/Markdown在`/home/yiwei/.codex/outputs/forge-thesis-transfer-action-2026-11-03/`，前缀`Forge-硕士论文阶段初稿-v0.5`；实际核对66页PDF、33表6图及新增31/52–55页；正文约3.65万汉字。导出统计与文件指纹见该目录build-summary.json及export-verification.json。
 
 v0.4.1导出保留在forge-thesis-task-action-2026-11-03，62页PDF、31表5图。
 
@@ -24,13 +27,13 @@ v0.4.1导出保留在forge-thesis-task-action-2026-11-03，62页PDF、31表5图�
 
 ## 当前完成范围
 
-| 部分 | v0.5内容 |
+| 部分 | v0.6内容 |
 |---|---|
 | 摘要、绪论、相关研究 | 按实际完成范围组织问题、贡献与文献定位，不称通用机制首创 |
 | 第3章 | 任务、阶段、目标、观测、验证条件与新系统数据流 |
 | 第4章 | 状态选择、直接动作、方案修订、后缀重执行及工具局部恢复 |
-| 第5章 | 实际经验schema、来源绑定、阶段/词项检索、上下文注入、任务后追加、过程证据、逐条必要信号选择、来源实例／迁移候选分离及对应算法 |
-| 第6章 | E30/E33系统结果、E01/E02/E04组件、E34恢复接口、E35/E36/E37/E39独立经验比较、更新、分层验证及实际采用/越界反例 |
+| 第5章 | 实际经验schema、来源绑定、阶段/词项检索、上下文注入、任务后追加、过程证据、逐条必要信号选择、来源实例／迁移候选分离、同项目方案复用、状态目标选择及对应算法 |
+| 第6章 | E30/E33系统结果、E01/E02/E04组件、E34恢复接口、E35/E36/E37/E39/E40/E41独立经验比较、更新、分层验证及实际采用/越界反例 |
 | 第7章 | 根据对应版本的结果总结，区分方法可运行与效果成立 |
 | 附录 | 版本、主要运行参数、六项目源码版本及实验身份 |
 | 学校格式与个人信息 | 尚待正式模板及用户提供，不推断填写 |
@@ -39,8 +42,8 @@ v0.4.1导出保留在forge-thesis-task-action-2026-11-03，62页PDF、31表5图�
 
 ```bash
 python3 docs/thesis/tools/build_draft.py \
-  --version v0.5 --date 2026-11-03 \
-  --output-dir /home/yiwei/.codex/outputs/forge-thesis-transfer-action-2026-11-03 \
+  --version v0.6 --date 2026-11-04 \
+  --output-dir /home/yiwei/.codex/outputs/forge-thesis-two-level-2026-11-04 \
   --deps-dir /home/yiwei/.codex/outputs/forge-thesis-draft-2026-11-02/.doc-libs
 ```
 
@@ -57,3 +60,5 @@ E37四组完整11/12、12/12、12/12、11/12，旧经验在线费用低6.1%、�
 E38已完成13条短动作提炼，但36比较槽均未观察；固定六项目初始选择全部为空。见[本轮报告](../research/2026-11-03-action-experience-stopped-and-repair.md)，不将调度修复或空经验比较写成方法效果。
 
 E39的C/B初始读取少33.3%、初始费低9.8%，恢复几乎抵消节约，总费仅低0.34%、时间更高，含制库更贵。部分有利波动出现在空材料任务；两个A未完整涉及过程与共同阶段分类限制，不写成经验普遍提高编译能力。运行revision0d78f589保持，不以写作HEAD替代。
+
+E40/E41运行release8a1d570f保持；两个分母分开，新增共1.6307448美元、248请求、未知0。方案复用不是编译缓存，目标变化试用不称精确命中；同24条库检索不是纯阶段因果或持续学习。获取成本另列，失败与旧稿保留。
