@@ -1454,9 +1454,18 @@ def _shell_command_segments(command: str) -> list[list[str]]:
 def _command_invocation(segment: list[str]) -> tuple[str, list[str]] | None:
     wrappers = {"command", "env", "sudo", "time"}
     for index, token in enumerate(segment):
+        if token in {"if", "then", "elif", "else", "!", "while", "until", "do"}:
+            continue
         if token == "--" or token.startswith("-") or re.fullmatch(r"[A-Za-z_][A-Za-z0-9_]*=.*", token):
             continue
         executable = PurePosixPath(token).name
+        # command -v/-V 查询工具存在性，不执行后面的工具；其他分段仍须分析。
+        if executable == "command":
+            for argument in segment[index + 1 :]:
+                if not argument.startswith("-") or argument == "--":
+                    break
+                if set(argument[1:]) & {"v", "V"}:
+                    return None
         if executable in wrappers:
             continue
         return executable, segment[index + 1 :]

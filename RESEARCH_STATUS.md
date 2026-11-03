@@ -2,7 +2,15 @@
 
 论文选材固定入口：[硕士论文实验与证据索引](docs/research/THESIS_EVIDENCE_INDEX.md)，按正文候选、补充分析/案例和工程检查说明用途、结果、边界及原始证据；[历史材料目录](docs/research/THESIS_EVIDENCE_CATALOG.md)登记存量材料。最新正文候选E35为36次经验比较，E36为独立12次更新探索；E34恢复接口、E33续段、E30系统比较与E01组件消融仍各自保留，升级不改写旧版本结果。
 
-## 当前阶段（2026-11-03；#658经验比较全部完成，转论文v0.3交付与结果发布）
+## 当前阶段（2026-11-03；#660失败过程提炼与逐条适用性比较）
+
+本轮进入经验组件改进和完整数据采集。用户授权UTC2026-11-03 02:53:57–10:53:57（北京时间18:53:57截止），准备计入8小时；新增费用硬上限10美元，48次比较，无自动重试、正式失败保留。RichLab沿用已披露gpt-6-astra路由/允许gpt-5.6响应，输入输出每百万Token1美元估费；Flash负责构建。旧E35/E36和原失败保持，不合并新旧分母。
+
+[协议](benchmarks/preregistrations/cpp-build-evidence-conditioned-experience-flash-v1.md)固定六项目×两重复×四组：无经验、旧经验/来源检索、新失败过程经验/来源检索、同新库/逐条适用性选择。仍只用E30/E04原12来源，评价六族隔离但已开发暴露。四组共同修复command -v/-V探测误判；逐条选择仅确认归档文件/声明及当前handoff信号，自然语言条件仍需Agent核对，不把检索当采用。
+
+准备、针对性测试和冻结材料属实验前工程修复，不计方法效果。正式身份为cpp-build-evidence-conditioned-distillation-richlab-v1、cpp-build-evidence-conditioned-experience-flash-v1；操作会话forge-experience-improvement-session-2026-11-03，比较raw拟forge-evidence-conditioned-experience-flash-v1。未知用量/模型身份异常/清理失败/预算或截止停止。结束只读分析全分母、费用和正负案例，更新论文下一版、证据索引及知识库；不扩为持续更新或追加槽。
+
+## 上一阶段（2026-11-03；#658经验比较全部完成，转论文v0.3交付与结果发布）
 
 用户授权确认起8小时：UTC2026-11-02 15:42:54–23:42:54（北京时间11月3日07:42:54截止），目标20美元，明确允许完成固定范围所需超支；最多36主比较＋独立12更新比较，无自动重试、原失败保留。RichLab gpt-6-astra提炼经验，deepseek-flash构建；用户提供Astra每百万Token1美元，输入/输出均暂按该估费，非服务商账单。未知用量、模型身份异常或清理失败停止付费。
 
