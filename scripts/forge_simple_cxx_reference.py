@@ -148,8 +148,9 @@ def run_native_cxx(*, task, reference, source_archive, output_root, completion_c
     )
     sdk = next(baseline.glob(".venv/lib/python*/site-packages/docker/__init__.py"))
     sys.path.extend([str(sdk.parents[1]), str(baseline / "src")])
-    import docker
     from openai.resources.chat.completions import Completions
+
+    import docker
 
     source = folder / "input" / task.plan_id
     source.mkdir(parents=True)
@@ -231,6 +232,9 @@ def run_native_cxx(*, task, reference, source_archive, output_root, completion_c
                 managed_images.add(image)
                 evaluations.append(external_simple_check(image=image, task=task, reference=reference, original_source=source, folder=folder / "original", author_test_seconds=author_test_seconds))
                 result.update(layers=copy_dict(evaluations[0]["layers"]), source_unchanged=evaluations[0]["source_unchanged"])
+                if result["layers"]["primary_build_completed"]:
+                    first = evaluations[0]
+                    result["timings"] = dict(time_to_primary_from_arm_start_seconds=time.monotonic() - started - first["external_seconds"] + first["time_to_primary_check_seconds"])
                 if result["layers"]["primary_build_completed"] and result["layers"]["delivery"] == "passed":
                     window.replay(240)
                     chunks = list(build(path=str(Path(native.dockerfile_path).parent), decode=True))
