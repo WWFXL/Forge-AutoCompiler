@@ -1,0 +1,290 @@
+[
+  {
+    "project": "jsoncpp",
+    "repetition": 1,
+    "methods": {
+      "forge": {
+        "primary_build": true,
+        "full_completed": true,
+        "requests": 4,
+        "cost_usd": "0.0133356",
+        "wall_seconds": 56.075807093060575,
+        "time_to_primary_seconds": 26.048461689031683,
+        "source_reads": 4,
+        "initial_plan_delivered": true,
+        "format_rejections": 0,
+        "repeated_source_reads": 0,
+        "experience_bytes": 0,
+        "experience_abstentions": 0,
+        "convergence_forced": 0
+      },
+      "forge_experience": {
+        "primary_build": null,
+        "full_completed": null,
+        "requests": 2,
+        "cost_usd": "0.0066978",
+        "wall_seconds": 9.678394726943225,
+        "time_to_primary_seconds": null,
+        "source_reads": 1,
+        "initial_plan_delivered": false,
+        "format_rejections": 0,
+        "repeated_source_reads": 0,
+        "experience_bytes": 3820,
+        "experience_abstentions": 0,
+        "convergence_forced": 0
+      }
+    }
+  },
+  {
+    "project": "jsoncpp",
+    "repetition": 2,
+    "methods": {
+      "forge": {
+        "primary_build": true,
+        "full_completed": true,
+        "requests": 2,
+        "cost_usd": "0.0058671",
+        "wall_seconds": 52.77685403393116,
+        "time_to_primary_seconds": 22.72533680102788,
+        "source_reads": 1,
+        "initial_plan_delivered": true,
+        "format_rejections": 0,
+        "repeated_source_reads": 0,
+        "experience_bytes": 0,
+        "experience_abstentions": 0,
+        "convergence_forced": 0
+      },
+      "forge_experience": {
+        "primary_build": true,
+        "full_completed": true,
+        "requests": 2,
+        "cost_usd": "0.0068481",
+        "wall_seconds": 52.7036127790343,
+        "time_to_primary_seconds": 22.83099314395804,
+        "source_reads": 2,
+        "initial_plan_delivered": true,
+        "format_rejections": 0,
+        "repeated_source_reads": 0,
+        "experience_bytes": 3820,
+        "experience_abstentions": 0,
+        "convergence_forced": 0
+      }
+    }
+  },
+  {
+    "project": "libsrtp",
+    "repetition": 1,
+    "methods": {
+      "forge": {
+        "primary_build": true,
+        "full_completed": true,
+        "requests": 3,
+        "cost_usd": "0.0118113",
+        "wall_seconds": 60.94483373302501,
+        "time_to_primary_seconds": 16.06368472299073,
+        "source_reads": 2,
+        "initial_plan_delivered": true,
+        "format_rejections": 0,
+        "repeated_source_reads": 0,
+        "experience_bytes": 0,
+        "experience_abstentions": 0,
+        "convergence_forced": 0
+      },
+      "forge_experience": {
+        "primary_build": null,
+        "full_completed": null,
+        "requests": 6,
+        "cost_usd": "0.0246171",
+        "wall_seconds": 12.961267255013809,
+        "time_to_primary_seconds": null,
+        "source_reads": 5,
+        "initial_plan_delivered": false,
+        "format_rejections": 0,
+        "repeated_source_reads": 1,
+        "experience_bytes": 2323,
+        "experience_abstentions": 0,
+        "convergence_forced": 0
+      }
+    }
+  },
+  {
+    "project": "libsrtp",
+    "repetition": 2,
+    "methods": {
+      "forge": {
+        "primary_build": null,
+        "full_completed": null,
+        "requests": 3,
+        "cost_usd": "0.011604",
+        "wall_seconds": 10.234748241025954,
+        "time_to_primary_seconds": null,
+        "source_reads": 2,
+        "initial_plan_delivered": false,
+        "format_rejections": 0,
+        "repeated_source_reads": 0,
+        "experience_bytes": 0,
+        "experience_abstentions": 0,
+        "convergence_forced": 0
+      },
+      "forge_experience": {
+        "primary_build": null,
+        "full_completed": null,
+        "requests": 4,
+        "cost_usd": "0.0156243",
+        "wall_seconds": 9.584515730035491,
+        "time_to_primary_seconds": null,
+        "source_reads": 2,
+        "initial_plan_delivered": false,
+        "format_rejections": 0,
+        "repeated_source_reads": 0,
+        "experience_bytes": 2323,
+        "experience_abstentions": 0,
+        "convergence_forced": 0
+      }
+    }
+  },
+  {
+    "project": "libite",
+    "repetition": 1,
+    "methods": {
+      "forge": {
+        "primary_build": true,
+        "full_completed": true,
+        "requests": 4,
+        "cost_usd": "0.0088806",
+        "wall_seconds": 71.38820286095142,
+        "time_to_primary_seconds": 24.219475397956558,
+        "source_reads": 4,
+        "initial_plan_delivered": true,
+        "format_rejections": 0,
+        "repeated_source_reads": 0,
+        "experience_bytes": 0,
+        "experience_abstentions": 0,
+        "convergence_forced": 0
+      },
+      "forge_experience": {
+        "primary_build": true,
+        "full_completed": true,
+        "requests": 3,
+        "cost_usd": "0.0064299",
+        "wall_seconds": 68.73180124000646,
+        "time_to_primary_seconds": 21.60428894800134,
+        "source_reads": 2,
+        "initial_plan_delivered": true,
+        "format_rejections": 0,
+        "repeated_source_reads": 0,
+        "experience_bytes": 2321,
+        "experience_abstentions": 0,
+        "convergence_forced": 0
+      }
+    }
+  },
+  {
+    "project": "libite",
+    "repetition": 2,
+    "methods": {
+      "forge": {
+        "primary_build": true,
+        "full_completed": true,
+        "requests": 3,
+        "cost_usd": "0.0061587",
+        "wall_seconds": 68.29807169898413,
+        "time_to_primary_seconds": 21.087115066940896,
+        "source_reads": 3,
+        "initial_plan_delivered": true,
+        "format_rejections": 0,
+        "repeated_source_reads": 0,
+        "experience_bytes": 0,
+        "experience_abstentions": 0,
+        "convergence_forced": 0
+      },
+      "forge_experience": {
+        "primary_build": null,
+        "full_completed": null,
+        "requests": 3,
+        "cost_usd": "0.0069084",
+        "wall_seconds": 11.478618892026134,
+        "time_to_primary_seconds": null,
+        "source_reads": 3,
+        "initial_plan_delivered": false,
+        "format_rejections": 0,
+        "repeated_source_reads": 0,
+        "experience_bytes": 2321,
+        "experience_abstentions": 0,
+        "convergence_forced": 0
+      }
+    }
+  },
+  {
+    "project": "highwayhash",
+    "repetition": 1,
+    "methods": {
+      "forge": {
+        "primary_build": null,
+        "full_completed": null,
+        "requests": 1,
+        "cost_usd": "0.003288",
+        "wall_seconds": 5.599122731015086,
+        "time_to_primary_seconds": null,
+        "source_reads": 0,
+        "initial_plan_delivered": false,
+        "format_rejections": 0,
+        "repeated_source_reads": 0,
+        "experience_bytes": 0,
+        "experience_abstentions": 0,
+        "convergence_forced": 0
+      },
+      "forge_experience": {
+        "primary_build": null,
+        "full_completed": null,
+        "requests": 1,
+        "cost_usd": "0.0036366",
+        "wall_seconds": 5.783003228949383,
+        "time_to_primary_seconds": null,
+        "source_reads": 0,
+        "initial_plan_delivered": false,
+        "format_rejections": 0,
+        "repeated_source_reads": 0,
+        "experience_bytes": 2877,
+        "experience_abstentions": 0,
+        "convergence_forced": 0
+      }
+    }
+  },
+  {
+    "project": "highwayhash",
+    "repetition": 2,
+    "methods": {
+      "forge": {
+        "primary_build": true,
+        "full_completed": true,
+        "requests": 1,
+        "cost_usd": "0.003462",
+        "wall_seconds": 25.898205422097817,
+        "time_to_primary_seconds": 10.480669426033273,
+        "source_reads": 0,
+        "initial_plan_delivered": true,
+        "format_rejections": 0,
+        "repeated_source_reads": 0,
+        "experience_bytes": 0,
+        "experience_abstentions": 0,
+        "convergence_forced": 0
+      },
+      "forge_experience": {
+        "primary_build": true,
+        "full_completed": true,
+        "requests": 1,
+        "cost_usd": "0.0036978",
+        "wall_seconds": 25.375472440966405,
+        "time_to_primary_seconds": 9.991821635980159,
+        "source_reads": 0,
+        "initial_plan_delivered": true,
+        "format_rejections": 0,
+        "repeated_source_reads": 0,
+        "experience_bytes": 2877,
+        "experience_abstentions": 0,
+        "convergence_forced": 0
+      }
+    }
+  }
+]

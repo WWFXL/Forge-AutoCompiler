@@ -618,6 +618,13 @@
 
 ## 最近变更 (Recent Changes)
 
+- 2026-11-05 — #683完成改进规划上下文后的固定16次经验增量比较与论文材料保存。
+  - 文件: `docs/research/2026-11-05-planning-context-experience-results.md`、`benchmarks/analyses/cpp-build-planning-context-experience-flash-v1`、科研状态/论文证据索引与目录；新条目E43，不声称论文v0.6全文已更新。
+  - 结果: 基础/经验方案、主构建和完整均6/8、3/8；请求21/22、美元0.0644073/0.0744600、累计5.85/3.27分钟，经验更短含更多早停。共同完整3对费低6.8%/时低2.2%仅条件性观察。43响应429624Token/$0.1388673/未知0，全部初始；原10美元/北京时间00:11:36–04:11:36内完成，PID2757267退出，不续余额或补槽。
+  - 根因: 7次继承meter在ToolStrategy前要求有效tool_calls而停止；6份原正文JSON严格通过原schema，1份工具JSON多括号成invalid_tool_calls。只读解析不回填构建成功；恢复/格式纠正/强制收敛均0，源码/原测试/交付/replay9过7未观察、cleanup16过，50容器名称/ID实查不存在。
+  - 证据: raw `forge-planning-context-experience-flash-v1`，inventory `749f9afc565dc56a115f55775826e0e3c7464cfaeb4cae097b1965e067d0d648`；会话`forge-planning-context-experience-session-v1`。运行d7902250与准备merge cea79298同tree。CI汇总可能滞后；用同head具体check-run详情核验三项SUCCESS，再标准合并，不绕保护。
+  - 下一: 先修共同出口的正文严格接收与无效工具JSON一次反馈、原响应离线回放；不扩Agent/经验库或直接重跑系统比较，尚无新付费身份。旧E01/E30/E33/E35–E42/v0.6及用户原memory199加/4删、HTML/uv.lock保持；最终发布以GitHub/会话收据为准。
+
 - 2026-11-04 — #681实现简洁规划交付、对话保留/收敛、短条件经验和实际作者测试入口，准备16次配对比较。
   - 文件: `backend/packages/harness/deerflow/compile/simple_planning_context.py`, `simple_author_tests.py`, `simple_build_task.py`, `simple_build_agents.py`, `simple_build_experience.py`, `simple_build_runtime.py`, `scripts/forge_planning_comparison.py`；报告 `docs/research/2026-11-04-planning-context-experience-preparation.md`。
   - 验证: 44相关检查/Ruff通过；jsoncpp空参数、libite字段错位各一次显式纠正，highwayhash重复读取收敛，libsrtp改走CMake的四条脚本Agent真实Docker路径全部主构建/原作者测试/交付/replay/源码/cleanup通过；10模拟响应、0Provider/Token/新增费，16项容器名称/ID实际不存在。不当新模型效果或把旧失败补为成功。

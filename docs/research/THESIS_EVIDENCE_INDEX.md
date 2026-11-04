@@ -1,12 +1,14 @@
 # 硕士论文实验与证据索引
 
-最新工程进展（不增效果分母）：[#681规划改进](2026-11-04-planning-context-experience-preparation.md)实现一次结构纠正、对话保留/收敛、短条件经验和实际测试入口；四条脚本Agent真实Docker路径完整通过。用途为第4/5章实现与第6章实验设置，支持可执行性、不证明模型效果。新16次身份`cpp-build-planning-context-experience-flash-v1`全部未观察；原件`forge-planning-improvement-engineering-2026-11-04-v1`、inventory`23dae3a2`。E42错误解释校正为三次空参数及一次字段错位，结果分母不变。
+最新工程进展（不增效果分母）：[#681规划改进](2026-11-04-planning-context-experience-preparation.md)实现一次结构纠正、对话保留/收敛、短条件经验和实际测试入口；四条脚本Agent真实Docker路径完整通过。用途为第4/5章实现与第6章实验设置，支持可执行性、不证明模型效果。其后正式16次比较见[E43](#e43)，工程检查不并入模型效果分母；原件`forge-planning-improvement-engineering-2026-11-04-v1`、inventory`23dae3a2`。E42错误解释校正为三次空参数及一次字段错位，结果分母不变。
+
+最新组件结果：[E43](#e43)已完成16次经验增量比较，基础/经验完整6/8、3/8，七次共同出口失败保留；六份正文结构有效不改写终态。
 
 最新系统结果：[E42](#e42)简洁目标四方法48/48终结，基础Forge/经验Forge/强工具/CXX主构建9/8/12/12、记录完整9/8/12/9（各12）。全分母不支持新版Forge整体占优或当前经验减少探索；CXX两次测试入口不适用须单列，不作功能排名。旧编号与论文v0.6保持。
 
 工程进展（不增效果分母）：[#675核心接入](2026-11-04-simple-build-core-integration.md)将两层经验、Forge/强工具/CXX参考接到简洁任务，九条正常路径及恢复/拒绝、原生CXX实跑支持实现；保留清理修复过程。[核心版本与比较安排](2026-11-04-simple-build-core-boundary.md)约束后续实验。[#673最小实现](2026-11-04-simple-build-implementation.md)继续作为底座证据，旧E40/E41等效果保持。
 
-核对日期：2026-11-04。研究主线：面向 C/C++ 仓库自动化构建的状态感知动作选择与验证方法研究。索引跟踪：[Issue #642](https://github.com/WWFXL/Forge-AutoCompiler/issues/642)；两层经验结果：[Issue #668](https://github.com/WWFXL/Forge-AutoCompiler/issues/668)。
+核对日期：2026-11-05。研究主线：面向 C/C++ 仓库自动化构建的状态感知动作选择与验证方法研究。索引跟踪：[Issue #642](https://github.com/WWFXL/Forge-AutoCompiler/issues/642)；两层经验结果：[Issue #668](https://github.com/WWFXL/Forge-AutoCompiler/issues/668)。
 
 本文回答“哪些结果可以写进论文、放在哪一部分、能够说明什么、到哪里取数”。它是论文选材入口；数值以链接的版本化报告/分析及冻结原始证据为准，当前研究阶段以 [RESEARCH_STATUS.md](../../RESEARCH_STATUS.md) 为准。
 
@@ -52,6 +54,15 @@
 重复次数不等于独立项目数；各批模型、接口和任务版本不同，不把不同批次合成一个成功率或以跨批相减估计组件效果。分层分析会重复消费原运行，不能再算一份独立实验数据。费用使用各批冻结费率的估算，包含失败和恢复，不能当作实际账单；零恢复费用不代表初始规划免费。所有失败/未完成保留，未运行的测试、交付或重放记未观察。
 
 ## 正文候选：完整比较与组件消融
+
+<a id="e43"></a>
+### E43 改进规划上下文后的16次经验增量比较与方案出口失败
+
+- **问题／设计**：`cpp-build-planning-context-experience-flash-v1`，jsoncpp/libsrtp/libite/highwayhash×两重复×改进基础/经验Forge，16/16终态、0未观察槽；共同Flash low、简洁任务/源码/资源/Workflow及新规划Harness，仅短条件经验输入不同，来源族隔离但评价全部已开发暴露。
+- **主要结果**：初始方案/主构建/完整均6/8、3/8；请求21/22、在线美元0.0644073/0.0744600、累计5.85/3.27分钟。经验少完成3次且费高15.6%，较短时间包含更多早停。共同完整3对费低6.8%、时间低2.2%仅条件性局部观察；libite首重复读取4降2、请求4降3的局部结果保留。
+- **失败／机制**：7次均在构建前由继承meter的tool_calls要求提前拒绝；6份原正文JSON严格通过同schema的事后只读校验，1份工具JSON多括号进入invalid_tool_calls，均未到一次ToolStrategy纠正。不是7次空方案或实际编译失败，不回填成功。9接收方案全部完整，恢复/格式纠正/强制收敛均0；原测试/交付/replay/源码终态9过/7未观察、cleanup16过。经验检索8次/22682字节、任务内不刷新，源码读取16/15、重复0/1。
+- **论文用途／边界**：第5章经验输入与共同Harness边界、第6章完整负向比较和输出渠道案例；不将早停节约当效率，不称新版稳定性改善、语义负迁移、状态独立增量或未见泛化。只读失败诊断与原16次完全重叠，旧E42/其他分母及v0.6保持。下一步先修共同出口，不扩组件或用余额续跑。
+- **定位／成本**：[结果报告](2026-11-05-planning-context-experience-results.md)、[分析](../../benchmarks/analyses/cpp-build-planning-context-experience-flash-v1/analysis.json)、[16行CSV](../../benchmarks/analyses/cpp-build-planning-context-experience-flash-v1/slots.csv)、[失败原响应](../../benchmarks/analyses/cpp-build-planning-context-experience-flash-v1/failure-analysis.json)、[费用核对](../../benchmarks/analyses/cpp-build-planning-context-experience-flash-v1/response-verification.json)、[PDF图](../../benchmarks/analyses/cpp-build-planning-context-experience-flash-v1/planning-comparison.pdf)、[协议](../../benchmarks/preregistrations/cpp-build-planning-context-experience-flash-v1.md)。运行d7902250，准备merge cea79298同tree；raw `forge-planning-context-experience-flash-v1`，inventory `749f9afc565dc56a115f55775826e0e3c7464cfaeb4cae097b1965e067d0d648`。43响应/429624 Token/新增0.1388673美元/未知0，旧库0.095129另列，不重付；原10美元/4小时内完成，无自动重试/补槽或扩批，50容器名称/ID实查不存在。会话`forge-planning-context-experience-session-v1`保留授权/发布与资源收据。
 
 <a id="e42"></a>
 ### E42 简洁目标四方法48次完整系统比较与经验消融
