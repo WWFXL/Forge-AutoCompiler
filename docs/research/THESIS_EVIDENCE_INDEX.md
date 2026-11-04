@@ -1,5 +1,7 @@
 # 硕士论文实验与证据索引
 
+工程进展（不增效果分母）：[#673简洁构建最小实现](2026-11-04-simple-build-implementation.md)完成跨CMake/Make/Autotools正常/恢复实跑及独立串行测试诊断；用于系统实现说明，不作为新方法收益，旧E40/E41与全部失败保留。
+
 核对日期：2026-11-04。研究主线：面向 C/C++ 仓库自动化构建的状态感知动作选择与验证方法研究。索引跟踪：[Issue #642](https://github.com/WWFXL/Forge-AutoCompiler/issues/642)；两层经验结果：[Issue #668](https://github.com/WWFXL/Forge-AutoCompiler/issues/668)。
 
 本文回答“哪些结果可以写进论文、放在哪一部分、能够说明什么、到哪里取数”。它是论文选材入口；数值以链接的版本化报告/分析及冻结原始证据为准，当前研究阶段以 [RESEARCH_STATUS.md](../../RESEARCH_STATUS.md) 为准。

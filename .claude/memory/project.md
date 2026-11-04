@@ -618,6 +618,14 @@
 
 ## 最近变更 (Recent Changes)
 
+- 2026-11-04 — #673落实简洁构建任务最小入口并完成跨系统零Provider实跑。
+  - 文件: `simple_build_task.py`、`simple_build_runtime.py`、`scripts/forge_build_simple_task.py`、`docs/research/2026-11-04-simple-build-implementation.md`；原Workflow仅添加可覆写方案模型/步骤校验接点，旧默认验收保持。
+  - 实现: 公开任务/评测参考分开，在实际meter请求边界过滤私有字段；独立构建方案不含固定smoke/stage；实际CMake generator和主产物/ELF/ar/平台/来源观察，错误候选断言不当裁判；方案恢复、保守后缀失效及物理生成物reset，限定clean前置；主构建冻结后独立计时测试/交付/replay。
+  - 实跑: jsoncpp/pigz/libite正常与脚本恢复六条均主构建/交付/构建replay/cleanup通过，原作者测试和完整完成4/6。jsoncpp并行CTest分别1与2套件失败保留；独立串行正常/恢复两条均作者测试及测试replay完整通过，不替换旧失败或合并为效果。0模型/费用。raw forge-simple-build-implementation-2026-11-04与forge-simple-build-serial-tests-2026-11-04有运行快照，派生results.json逐条链接。
+  - 验证和边界: 59相关检查/改动Ruff及真实Agent图过滤通过，不重复产品全测/旧资格。全仓format的既有test_recovery_ablation.py空行问题在HEAD复现，不改无关文件。本轮是工程修复/基础设施，不计新效果编号；前后内容/身份保护不声称完整瞬时写监测或已跟踪生成物任意重写。
+  - 下一项: 接入Forge/强工具共同简洁任务与结果检查，固定无经验、Flash、共同资源/串行作者测试后做完整比较；新样本/预算/时窗未冻结，不能续旧身份或付费。知识库只MCP同步，保留原用户memory/HTML/uv.lock。
+
+
 - 2026-11-04 — 完成#671简洁构建任务、阶段状态和独立结果检查的方法设计。
   - 文件: `docs/research/2026-11-04-simple-build-task-design.md`、`RESEARCH_STATUS.md`；知识库共识笔记与固定入口仅追加设计进展和指针。
   - 动机: 将上午共识落实为可指导最小实现的任务定义、参考主要组件、真实阶段证据、方案恢复与进展失效规则，并明确作者测试/交付/replay分层和公平计时。

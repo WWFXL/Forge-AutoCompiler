@@ -127,6 +127,8 @@ class PlanWorkflow:
     接管方不得直接修改 Session；未知外部命令会使交接失效。
     """
 
+    plan_model = BuildPlan
+
     def __init__(
         self,
         *,
@@ -137,7 +139,7 @@ class PlanWorkflow:
         budget: PlanBudget | None = None,
         clock: Callable[[], float] = time.monotonic,
     ) -> None:
-        self.plan = BuildPlan.model_validate(plan)
+        self.plan = self.plan_model.model_validate(plan)
         self.manager = manager
         self.runtime = runtime
         self.session_id = session.session_id
@@ -263,12 +265,15 @@ print(json.dumps(rows))
             path.write_text(f"诊断日志采集失败：{type(exc).__name__}: {exc}\n")
             self.manager.log_event(self._session, "plan.diagnostics_failed", command_id=command_id, log_path=str(path))
 
-    def _execute(self, step: PlanStep) -> bool:
+    def _validate_step(self, step: PlanStep) -> None:
         from deerflow.tools.bound_compile_tools import _disables_strict_shell
 
         roles = infer_command_roles(step.command)
         if _disables_strict_shell(step.command) or (len(roles) > 1):
             raise PlanContractError("步骤不能关闭严格 Shell 或混合多个逻辑阶段")
+
+    def _execute(self, step: PlanStep) -> bool:
+        self._validate_step(step)
         timeout = min(self.budget.command_timeout_seconds, self._remaining())
         record = BuildCommandRecord(stage="plan", command=step.command, workdir=step.workdir, role=step.role, timeout_seconds=timeout)
         path = self.manager.local_logs_dir(self._session) / f"{record.command_id}.log"
@@ -327,7 +332,7 @@ print(json.dumps(rows))
     def apply_revision(self, *, handoff_id: str, plan: BuildPlan, reason: str) -> None:
         with self.manager.session_lock(self.thread_id, self.session_id):
             self._observe()
-            plan = BuildPlan.model_validate(plan)
+            plan = self.plan_model.model_validate(plan)
             if self.status != "needs_handoff" or not self.handoff or self.handoff["handoff_id"] != handoff_id or not reason.strip():
                 raise PlanContractError("没有匹配的活动交接或修改理由")
             old = self.plan

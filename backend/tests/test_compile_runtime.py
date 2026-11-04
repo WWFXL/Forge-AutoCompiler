@@ -3785,3 +3785,13 @@ def test_finalize_rejects_original_artifact_mutated_after_replay(tmp_path: Path,
     final_check = next(check for check in updated.verification.checks if check.name == "accepted_artifacts_unchanged_after_cleanup")
     assert final_check.passed is False
     assert "sha256:hello" in final_check.actual["mismatches"]
+
+
+def test_simple_workflow_cleanup_extension_preserves_original_role_scanner():
+    from deerflow.compile.operations import infer_command_roles
+    from deerflow.compile.plan_workflow import PlanStep
+    from deerflow.compile.simple_build_runtime import validate_phase_command
+
+    command = "make clean && make -j2"
+    assert infer_command_roles(command) == {"housekeeping", "build"}
+    validate_phase_command(PlanStep(step_id="build", role="build", command=command, source="作者Makefile", expected="正常清理后重建"))

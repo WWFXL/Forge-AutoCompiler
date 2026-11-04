@@ -1,0 +1,319 @@
+{
+  "kind": "engineering_not_treatment_effect",
+  "provider_calls": 0,
+  "model_cost_usd": 0,
+  "runs": {
+    "forge-simple-build-implementation-2026-11-04": [
+      {
+        "status": "primary_completed",
+        "layers": {
+          "command_build_passed": true,
+          "primary_build_completed": true,
+          "delivery": "passed",
+          "author_tests": "failed",
+          "clean_replay": "passed",
+          "full_completed": false
+        },
+        "timings": {
+          "result_location_seconds": 0.0435279740486294,
+          "primary_build_seconds": 16.90456981502939,
+          "delivery_seconds": 0.1643370189704001,
+          "author_tests_seconds": 1.3811213049921207,
+          "clean_replay_seconds": 20.44706115795998,
+          "total_seconds_before_cleanup": 38.93821009004023
+        },
+        "cleanup": {
+          "succeeded": true,
+          "stopped": true,
+          "removed": true
+        },
+        "error": null,
+        "project": "jsoncpp",
+        "case": "normal",
+        "raw": "/home/yiwei/.codex/outputs/forge-simple-build-implementation-2026-11-04/jsoncpp-normal",
+        "session_status": "completed",
+        "failures": [
+          {
+            "command_id": "command_7ae18dcd317b4d57bbdfa932b7c6535b",
+            "role": "smoke",
+            "command": "ctest --test-dir build --output-on-failure --no-tests=error",
+            "exit_code": 8,
+            "log_path": "/home/yiwei/.codex/outputs/forge-simple-build-implementation-2026-11-04/jsoncpp-normal/.compile-sessions/simple-build-engineering/496f68f1ccd2/logs/command_7ae18dcd317b4d57bbdfa932b7c6535b.log"
+          }
+        ],
+        "recovery_used": false,
+        "physical_reset_observed": false
+      },
+      {
+        "status": "primary_completed",
+        "layers": {
+          "command_build_passed": true,
+          "primary_build_completed": true,
+          "delivery": "passed",
+          "author_tests": "failed",
+          "clean_replay": "passed",
+          "full_completed": false
+        },
+        "timings": {
+          "result_location_seconds": 0.03974178998032585,
+          "primary_build_seconds": 18.700223543972243,
+          "delivery_seconds": 0.1667551479768008,
+          "author_tests_seconds": 0.7298099080217071,
+          "clean_replay_seconds": 19.74502933601616,
+          "total_seconds_before_cleanup": 39.38299244601512
+        },
+        "cleanup": {
+          "succeeded": true,
+          "stopped": true,
+          "removed": true
+        },
+        "error": null,
+        "project": "jsoncpp",
+        "case": "recovery",
+        "raw": "/home/yiwei/.codex/outputs/forge-simple-build-implementation-2026-11-04/jsoncpp-recovery",
+        "session_status": "completed",
+        "failures": [
+          {
+            "command_id": "command_73e1c5c3e4544b6d80bdbd469f8af724",
+            "role": "build",
+            "command": "cmake --build build --target forge_missing_target",
+            "exit_code": 2,
+            "log_path": "/home/yiwei/.codex/outputs/forge-simple-build-implementation-2026-11-04/jsoncpp-recovery/.compile-sessions/simple-build-engineering/df071488e58c/logs/command_73e1c5c3e4544b6d80bdbd469f8af724.log"
+          },
+          {
+            "command_id": "command_eac8f842e8dc4bddbf01b730bc897bef",
+            "role": "smoke",
+            "command": "ctest --test-dir build --output-on-failure --no-tests=error",
+            "exit_code": 8,
+            "log_path": "/home/yiwei/.codex/outputs/forge-simple-build-implementation-2026-11-04/jsoncpp-recovery/.compile-sessions/simple-build-engineering/df071488e58c/logs/command_eac8f842e8dc4bddbf01b730bc897bef.log"
+          }
+        ],
+        "recovery_used": true,
+        "physical_reset_observed": true
+      },
+      {
+        "status": "primary_completed",
+        "layers": {
+          "command_build_passed": true,
+          "primary_build_completed": true,
+          "delivery": "passed",
+          "author_tests": "passed",
+          "clean_replay": "passed",
+          "full_completed": true
+        },
+        "timings": {
+          "result_location_seconds": 0.011678333976306021,
+          "primary_build_seconds": 1.8435592289897613,
+          "delivery_seconds": 0.1527082989923656,
+          "author_tests_seconds": 0.2615302450140007,
+          "clean_replay_seconds": 6.172465379000641,
+          "total_seconds_before_cleanup": 8.445344223000575
+        },
+        "cleanup": {
+          "succeeded": true,
+          "stopped": true,
+          "removed": true
+        },
+        "error": null,
+        "project": "pigz",
+        "case": "normal",
+        "raw": "/home/yiwei/.codex/outputs/forge-simple-build-implementation-2026-11-04/pigz-normal",
+        "session_status": "completed",
+        "failures": [],
+        "recovery_used": false,
+        "physical_reset_observed": false
+      },
+      {
+        "status": "primary_completed",
+        "layers": {
+          "command_build_passed": true,
+          "primary_build_completed": true,
+          "delivery": "passed",
+          "author_tests": "passed",
+          "clean_replay": "passed",
+          "full_completed": true
+        },
+        "timings": {
+          "result_location_seconds": 0.011199752043467015,
+          "primary_build_seconds": 1.971502979984507,
+          "delivery_seconds": 0.12515295401681215,
+          "author_tests_seconds": 0.26467665802920237,
+          "clean_replay_seconds": 6.215507398999762,
+          "total_seconds_before_cleanup": 8.591740200005006
+        },
+        "cleanup": {
+          "succeeded": true,
+          "stopped": true,
+          "removed": true
+        },
+        "error": null,
+        "project": "pigz",
+        "case": "recovery",
+        "raw": "/home/yiwei/.codex/outputs/forge-simple-build-implementation-2026-11-04/pigz-recovery",
+        "session_status": "completed",
+        "failures": [
+          {
+            "command_id": "command_204761b334534e1396bfa58f80fdb081",
+            "role": "build",
+            "command": "make forge_missing_target",
+            "exit_code": 2,
+            "log_path": "/home/yiwei/.codex/outputs/forge-simple-build-implementation-2026-11-04/pigz-recovery/.compile-sessions/simple-build-engineering/00c15409a95a/logs/command_204761b334534e1396bfa58f80fdb081.log"
+          }
+        ],
+        "recovery_used": true,
+        "physical_reset_observed": false
+      },
+      {
+        "status": "primary_completed",
+        "layers": {
+          "command_build_passed": true,
+          "primary_build_completed": true,
+          "delivery": "passed",
+          "author_tests": "passed",
+          "clean_replay": "passed",
+          "full_completed": true
+        },
+        "timings": {
+          "result_location_seconds": 0.04683334694709629,
+          "primary_build_seconds": 14.044382687017787,
+          "delivery_seconds": 0.1468968419940211,
+          "author_tests_seconds": 12.959846598969307,
+          "clean_replay_seconds": 30.622419248975348,
+          "total_seconds_before_cleanup": 57.800767293025274
+        },
+        "cleanup": {
+          "succeeded": true,
+          "stopped": true,
+          "removed": true
+        },
+        "error": null,
+        "project": "libite",
+        "case": "normal",
+        "raw": "/home/yiwei/.codex/outputs/forge-simple-build-implementation-2026-11-04/libite-normal",
+        "session_status": "completed",
+        "failures": [],
+        "recovery_used": false,
+        "physical_reset_observed": false
+      },
+      {
+        "status": "primary_completed",
+        "layers": {
+          "command_build_passed": true,
+          "primary_build_completed": true,
+          "delivery": "passed",
+          "author_tests": "passed",
+          "clean_replay": "passed",
+          "full_completed": true
+        },
+        "timings": {
+          "result_location_seconds": 0.04711488197790459,
+          "primary_build_seconds": 14.309029666997958,
+          "delivery_seconds": 0.1553171289851889,
+          "author_tests_seconds": 12.887942739995196,
+          "clean_replay_seconds": 30.691140017996076,
+          "total_seconds_before_cleanup": 58.06968170998152
+        },
+        "cleanup": {
+          "succeeded": true,
+          "stopped": true,
+          "removed": true
+        },
+        "error": null,
+        "project": "libite",
+        "case": "recovery",
+        "raw": "/home/yiwei/.codex/outputs/forge-simple-build-implementation-2026-11-04/libite-recovery",
+        "session_status": "completed",
+        "failures": [
+          {
+            "command_id": "command_f3868bdfcf84446896958ea847590f35",
+            "role": "configure",
+            "command": "./configure",
+            "exit_code": 127,
+            "log_path": "/home/yiwei/.codex/outputs/forge-simple-build-implementation-2026-11-04/libite-recovery/.compile-sessions/simple-build-engineering/0a029478ccf2/logs/command_f3868bdfcf84446896958ea847590f35.log"
+          }
+        ],
+        "recovery_used": true,
+        "physical_reset_observed": true
+      }
+    ],
+    "forge-simple-build-serial-tests-2026-11-04": [
+      {
+        "status": "primary_completed",
+        "layers": {
+          "command_build_passed": true,
+          "primary_build_completed": true,
+          "delivery": "passed",
+          "author_tests": "passed",
+          "clean_replay": "passed",
+          "full_completed": true
+        },
+        "timings": {
+          "configure_seconds": 1.9382770740194246,
+          "build_seconds": 14.822307066991925,
+          "result_location_seconds": 0.032025181979406625,
+          "primary_build_seconds": 16.88291996298358,
+          "delivery_seconds": 0.16809963702689856,
+          "author_tests_seconds": 2.940566579985898,
+          "clean_replay_seconds": 23.515127250982914,
+          "total_seconds_before_cleanup": 43.53834241401637
+        },
+        "cleanup": {
+          "succeeded": true,
+          "stopped": true,
+          "removed": true
+        },
+        "error": null,
+        "project": "jsoncpp",
+        "case": "normal",
+        "raw": "/home/yiwei/.codex/outputs/forge-simple-build-serial-tests-2026-11-04/jsoncpp-normal",
+        "session_status": "completed",
+        "failures": [],
+        "recovery_used": false,
+        "physical_reset_observed": false
+      },
+      {
+        "status": "primary_completed",
+        "layers": {
+          "command_build_passed": true,
+          "primary_build_completed": true,
+          "delivery": "passed",
+          "author_tests": "passed",
+          "clean_replay": "passed",
+          "full_completed": true
+        },
+        "timings": {
+          "configure_seconds": 3.6557011990225874,
+          "build_seconds": 14.608580242958851,
+          "recovery_execution_seconds": 16.17333308898378,
+          "result_location_seconds": 0.030135572014842182,
+          "primary_build_seconds": 18.55398258398054,
+          "delivery_seconds": 0.16624483600025997,
+          "author_tests_seconds": 2.9274725260329433,
+          "clean_replay_seconds": 22.616987252025865,
+          "total_seconds_before_cleanup": 44.295751163968816
+        },
+        "cleanup": {
+          "succeeded": true,
+          "stopped": true,
+          "removed": true
+        },
+        "error": null,
+        "project": "jsoncpp",
+        "case": "recovery",
+        "raw": "/home/yiwei/.codex/outputs/forge-simple-build-serial-tests-2026-11-04/jsoncpp-recovery",
+        "session_status": "completed",
+        "failures": [
+          {
+            "command_id": "command_8b3e445f366c404ab85e31c4222dbda5",
+            "role": "build",
+            "command": "cmake --build build --target forge_missing_target",
+            "exit_code": 2,
+            "log_path": "/home/yiwei/.codex/outputs/forge-simple-build-serial-tests-2026-11-04/jsoncpp-recovery/.compile-sessions/simple-build-engineering/b9ac64db6092/logs/command_8b3e445f366c404ab85e31c4222dbda5.log"
+          }
+        ],
+        "recovery_used": true,
+        "physical_reset_observed": true
+      }
+    ]
+  }
+}
