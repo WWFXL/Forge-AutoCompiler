@@ -1,0 +1,528 @@
+{
+  "kind": "engineering_not_method_effect",
+  "provider_calls": 0,
+  "model_cost_usd": 0,
+  "rows": [
+    {
+      "group": "forge-simple-core-integration-2026-11-04-v1",
+      "case": "jsoncpp-forge",
+      "path": "/home/yiwei/.codex/outputs/forge-simple-core-integration-2026-11-04-v1/jsoncpp-forge/result.json",
+      "sha256": "e7cc5147036421a1fe68368af1beeb8e37e492b46a447da6ccf0d00db5111b8d",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "passed",
+        "clean_replay": "passed",
+        "full_completed": true
+      },
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "source_unchanged": true,
+      "usage": {
+        "model_requests": 1,
+        "recorded_tokens": 0,
+        "agent_steps": 1,
+        "tool_calls": 0,
+        "commands": 2,
+        "elapsed_seconds": 2.5498574810335413,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "estimated_cost_usd": 0.0,
+        "unknown_usage_requests": 0,
+        "cost_and_usage_complete": true,
+        "estimated_cost_usd_completed_responses": 0.0
+      },
+      "error": null,
+      "boundary": "zero_provider_engineering"
+    },
+    {
+      "group": "forge-simple-core-integration-2026-11-04-v1",
+      "case": "jsoncpp-forge_experience",
+      "path": "/home/yiwei/.codex/outputs/forge-simple-core-integration-2026-11-04-v1/jsoncpp-forge_experience/result.json",
+      "sha256": "2893df65494a7a6f771227336aee38301d2a33383027398f2e3ee2595ef16a08",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "passed",
+        "clean_replay": "passed",
+        "full_completed": true
+      },
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "source_unchanged": true,
+      "usage": {
+        "model_requests": 0,
+        "recorded_tokens": 0,
+        "agent_steps": 0,
+        "tool_calls": 0,
+        "commands": 2,
+        "elapsed_seconds": 2.544259389047511,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "estimated_cost_usd": 0.0,
+        "unknown_usage_requests": 0,
+        "cost_and_usage_complete": true,
+        "estimated_cost_usd_completed_responses": 0.0
+      },
+      "error": null,
+      "boundary": "zero_provider_engineering"
+    },
+    {
+      "group": "forge-simple-core-integration-2026-11-04-v1",
+      "case": "jsoncpp-strong_tool_agent",
+      "path": "/home/yiwei/.codex/outputs/forge-simple-core-integration-2026-11-04-v1/jsoncpp-strong_tool_agent/result.json",
+      "sha256": "61b881ff44b25b1c36966fe4d089149c33a05ca5fe3291bf9e7c2fc07e04f3b1",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "passed",
+        "clean_replay": "passed",
+        "full_completed": true
+      },
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "source_unchanged": true,
+      "usage": {
+        "model_requests": 3,
+        "recorded_tokens": 0,
+        "agent_steps": 6,
+        "tool_calls": 3,
+        "commands": 2,
+        "elapsed_seconds": 17.92825132398866,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "estimated_cost_usd": 0.0,
+        "unknown_usage_requests": 0,
+        "cost_and_usage_complete": true,
+        "estimated_cost_usd_completed_responses": 0.0
+      },
+      "error": null,
+      "boundary": "zero_provider_engineering"
+    },
+    {
+      "group": "forge-simple-core-integration-2026-11-04-v1",
+      "case": "libite-forge",
+      "path": "/home/yiwei/.codex/outputs/forge-simple-core-integration-2026-11-04-v1/libite-forge/result.json",
+      "sha256": "323955c026983f307046fc7ea158fb868a24a0e1c901266173908e47db266182",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "passed",
+        "clean_replay": "passed",
+        "full_completed": true
+      },
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "source_unchanged": true,
+      "usage": {
+        "model_requests": 1,
+        "recorded_tokens": 0,
+        "agent_steps": 1,
+        "tool_calls": 0,
+        "commands": 2,
+        "elapsed_seconds": 9.617030570982024,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "estimated_cost_usd": 0.0,
+        "unknown_usage_requests": 0,
+        "cost_and_usage_complete": true,
+        "estimated_cost_usd_completed_responses": 0.0
+      },
+      "error": null,
+      "boundary": "zero_provider_engineering"
+    },
+    {
+      "group": "forge-simple-core-integration-2026-11-04-v1",
+      "case": "libite-forge_experience",
+      "path": "/home/yiwei/.codex/outputs/forge-simple-core-integration-2026-11-04-v1/libite-forge_experience/result.json",
+      "sha256": "09eb7d527559bd6c58e451a3c765d06d7aae3290b01e4899829331490ed984ce",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "passed",
+        "clean_replay": "passed",
+        "full_completed": true
+      },
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "source_unchanged": true,
+      "usage": {
+        "model_requests": 0,
+        "recorded_tokens": 0,
+        "agent_steps": 0,
+        "tool_calls": 0,
+        "commands": 2,
+        "elapsed_seconds": 9.583314768970013,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "estimated_cost_usd": 0.0,
+        "unknown_usage_requests": 0,
+        "cost_and_usage_complete": true,
+        "estimated_cost_usd_completed_responses": 0.0
+      },
+      "error": null,
+      "boundary": "zero_provider_engineering"
+    },
+    {
+      "group": "forge-simple-core-integration-2026-11-04-v1",
+      "case": "libite-strong_tool_agent",
+      "path": "/home/yiwei/.codex/outputs/forge-simple-core-integration-2026-11-04-v1/libite-strong_tool_agent/result.json",
+      "sha256": "ff73ac639121906b2dc66ad8667a55ecc29ddb8458a903d4bc96565a93c14152",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "passed",
+        "clean_replay": "passed",
+        "full_completed": true
+      },
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "source_unchanged": true,
+      "usage": {
+        "model_requests": 3,
+        "recorded_tokens": 0,
+        "agent_steps": 6,
+        "tool_calls": 3,
+        "commands": 2,
+        "elapsed_seconds": 14.543035545037128,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "estimated_cost_usd": 0.0,
+        "unknown_usage_requests": 0,
+        "cost_and_usage_complete": true,
+        "estimated_cost_usd_completed_responses": 0.0
+      },
+      "error": null,
+      "boundary": "zero_provider_engineering"
+    },
+    {
+      "group": "forge-simple-core-integration-2026-11-04-v1",
+      "case": "pigz-forge",
+      "path": "/home/yiwei/.codex/outputs/forge-simple-core-integration-2026-11-04-v1/pigz-forge/result.json",
+      "sha256": "1f1f997a5002a3fa976d870ea8c439ffebb989ec0f56ff0178e3a9f52b428349",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "passed",
+        "clean_replay": "passed",
+        "full_completed": true
+      },
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "source_unchanged": true,
+      "usage": {
+        "model_requests": 1,
+        "recorded_tokens": 0,
+        "agent_steps": 1,
+        "tool_calls": 0,
+        "commands": 1,
+        "elapsed_seconds": 0.4478891349863261,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "estimated_cost_usd": 0.0,
+        "unknown_usage_requests": 0,
+        "cost_and_usage_complete": true,
+        "estimated_cost_usd_completed_responses": 0.0
+      },
+      "error": null,
+      "boundary": "zero_provider_engineering"
+    },
+    {
+      "group": "forge-simple-core-integration-2026-11-04-v1",
+      "case": "pigz-forge_experience",
+      "path": "/home/yiwei/.codex/outputs/forge-simple-core-integration-2026-11-04-v1/pigz-forge_experience/result.json",
+      "sha256": "06ea087a79fec8c32f9bb6a1bf7091305dcd2ccf809ca11f33e7c615730864f6",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "passed",
+        "clean_replay": "passed",
+        "full_completed": true
+      },
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "source_unchanged": true,
+      "usage": {
+        "model_requests": 0,
+        "recorded_tokens": 0,
+        "agent_steps": 0,
+        "tool_calls": 0,
+        "commands": 1,
+        "elapsed_seconds": 0.44371266901725903,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "estimated_cost_usd": 0.0,
+        "unknown_usage_requests": 0,
+        "cost_and_usage_complete": true,
+        "estimated_cost_usd_completed_responses": 0.0
+      },
+      "error": null,
+      "boundary": "zero_provider_engineering"
+    },
+    {
+      "group": "forge-simple-core-integration-2026-11-04-v1",
+      "case": "pigz-strong_tool_agent",
+      "path": "/home/yiwei/.codex/outputs/forge-simple-core-integration-2026-11-04-v1/pigz-strong_tool_agent/result.json",
+      "sha256": "d726b65059ec006bab224aa19ae421643826960ab5e272ab2642c802b72c4c44",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "passed",
+        "clean_replay": "passed",
+        "full_completed": true
+      },
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "source_unchanged": true,
+      "usage": {
+        "model_requests": 2,
+        "recorded_tokens": 0,
+        "agent_steps": 4,
+        "tool_calls": 2,
+        "commands": 1,
+        "elapsed_seconds": 2.299162727955263,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "estimated_cost_usd": 0.0,
+        "unknown_usage_requests": 0,
+        "cost_and_usage_complete": true,
+        "estimated_cost_usd_completed_responses": 0.0
+      },
+      "error": null,
+      "boundary": "zero_provider_engineering"
+    },
+    {
+      "group": "forge-simple-core-extra-2026-11-04-v1",
+      "case": "pigz-cross-recovery",
+      "path": "/home/yiwei/.codex/outputs/forge-simple-core-extra-2026-11-04-v1/pigz-cross-recovery/result.json",
+      "sha256": "2dcb5524d20789c0382b807ec1469f6fd49da05248b122f85f075ddf604b7cc2",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "passed",
+        "clean_replay": "passed",
+        "full_completed": true
+      },
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "source_unchanged": true,
+      "usage": {
+        "model_requests": 3,
+        "recorded_tokens": 0,
+        "agent_steps": 4,
+        "tool_calls": 1,
+        "commands": 2,
+        "elapsed_seconds": 0.6747824599733576,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "estimated_cost_usd": 0.0,
+        "unknown_usage_requests": 0,
+        "cost_and_usage_complete": true,
+        "estimated_cost_usd_completed_responses": 0.0
+      },
+      "error": null,
+      "boundary": "zero_provider_engineering"
+    },
+    {
+      "group": "forge-simple-core-extra-2026-11-04-v1",
+      "case": "pigz-cxxcrafter",
+      "path": "/home/yiwei/.codex/outputs/forge-simple-core-extra-2026-11-04-v1/pigz-cxxcrafter/result.json",
+      "sha256": "53eb0537d29db79370d49a85762afe184f70d0daa728c4c593bfd6cf835901f2",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "passed",
+        "clean_replay": "passed",
+        "full_completed": true
+      },
+      "cleanup": {
+        "succeeded": true
+      },
+      "source_unchanged": true,
+      "usage": {
+        "provider_requests": 5,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "total_tokens": 0,
+        "estimated_cost_usd_completed_responses": "0.00",
+        "unknown_usage_requests": 0
+      },
+      "error": null,
+      "boundary": "zero_provider_engineering"
+    },
+    {
+      "group": "forge-simple-core-final-2026-11-04-v1",
+      "case": "tool-reset-recovery",
+      "path": "/home/yiwei/.codex/outputs/forge-simple-core-final-2026-11-04-v1/tool-reset-recovery/result.json",
+      "sha256": "1204d6b75b10cb4011e0c84f941062794679136f906533811a81af2f8dd55d68",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "passed",
+        "clean_replay": "passed",
+        "full_completed": true
+      },
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "source_unchanged": true,
+      "usage": {
+        "model_requests": 4,
+        "recorded_tokens": 0,
+        "agent_steps": 8,
+        "tool_calls": 4,
+        "commands": 3,
+        "elapsed_seconds": 2.7421243989956565,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "estimated_cost_usd": 0.0,
+        "unknown_usage_requests": 0,
+        "cost_and_usage_complete": true,
+        "estimated_cost_usd_completed_responses": 0.0
+      },
+      "error": null,
+      "boundary": "zero_provider_engineering"
+    },
+    {
+      "group": "forge-simple-core-final-2026-11-04-v1",
+      "case": "tool-source-rejection",
+      "path": "/home/yiwei/.codex/outputs/forge-simple-core-final-2026-11-04-v1/tool-source-rejection/result.json",
+      "sha256": "d20cee0e8e2a8742d23282468013b655a6b69776045e6920a34a98fba0ca5ad7",
+      "layers": {
+        "command_build_passed": null,
+        "primary_build_completed": null,
+        "delivery": "unobserved",
+        "author_tests": "unobserved",
+        "clean_replay": "unobserved",
+        "full_completed": false
+      },
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "source_unchanged": false,
+      "usage": {
+        "model_requests": 1,
+        "recorded_tokens": 0,
+        "agent_steps": 2,
+        "tool_calls": 1,
+        "commands": 1,
+        "elapsed_seconds": 0.48058659001253545,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "estimated_cost_usd": 0.0,
+        "unknown_usage_requests": 0,
+        "cost_and_usage_complete": true,
+        "estimated_cost_usd_completed_responses": 0.0
+      },
+      "error": "原源码/测试被修改：pigz.c",
+      "boundary": "zero_provider_engineering"
+    },
+    {
+      "group": "forge-simple-cxx-final-2026-11-04-v2",
+      "case": "pigz-cxxcrafter",
+      "path": "/home/yiwei/.codex/outputs/forge-simple-cxx-final-2026-11-04-v2/pigz-cxxcrafter/result.json",
+      "sha256": "b10e8655ab7a1c34afb43b29ef36d5aa9a78f2eb2da9149ed2430d80490f6767",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "passed",
+        "clean_replay": "passed",
+        "full_completed": false
+      },
+      "cleanup": {
+        "succeeded": false
+      },
+      "source_unchanged": true,
+      "usage": {
+        "provider_requests": 5,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "total_tokens": 0,
+        "estimated_cost_usd_completed_responses": "0.00",
+        "unknown_usage_requests": 0
+      },
+      "error": null,
+      "boundary": "zero_provider_engineering"
+    },
+    {
+      "group": "forge-simple-cxx-final-2026-11-04-v3",
+      "case": "pigz-cxxcrafter",
+      "path": "/home/yiwei/.codex/outputs/forge-simple-cxx-final-2026-11-04-v3/pigz-cxxcrafter/result.json",
+      "sha256": "74cb9179e5ceeb5b3b0d66f577b464d13227955dcfe9704322e3e7b9202c5a88",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "passed",
+        "clean_replay": "passed",
+        "full_completed": true
+      },
+      "cleanup": {
+        "succeeded": true
+      },
+      "source_unchanged": true,
+      "usage": {
+        "provider_requests": 5,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "total_tokens": 0,
+        "estimated_cost_usd_completed_responses": "0.00",
+        "unknown_usage_requests": 0
+      },
+      "error": null,
+      "boundary": "zero_provider_engineering"
+    }
+  ],
+  "notes": [
+    "CXX v1原结果cleanup=true遗漏已解绑镜像，补充收据保留并清理；不改写原件",
+    "CXX v2实际资源已消失，但小写no such反馈被错误判为清理失败；v3独立通过",
+    "源码改写负例原测试/交付/重放未观察，不填通过"
+  ]
+}

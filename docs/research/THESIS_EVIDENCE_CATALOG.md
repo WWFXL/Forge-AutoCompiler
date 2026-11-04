@@ -1,6 +1,6 @@
 # 历史研究材料目录
 
-工程进展（不增效果分母）：[#673简洁构建最小实现](2026-11-04-simple-build-implementation.md)完成跨CMake/Make/Autotools正常/恢复实跑及独立串行测试诊断；用于系统实现说明，不作为新方法收益，旧E40/E41与全部失败保留。
+工程进展（不增效果分母）：[#675核心接入](2026-11-04-simple-build-core-integration.md)将两层经验、Forge/强工具/CXX参考接到简洁任务，九条正常路径及恢复/拒绝、原生CXX实跑支持实现；保留清理修复过程。[核心版本与比较安排](2026-11-04-simple-build-core-boundary.md)约束后续实验。[#673最小实现](2026-11-04-simple-build-implementation.md)继续作为底座证据，旧E40/E41等效果保持。
 
 登记日期：2026-11-03；存量基线：`b659064ca0ea3c83ae30482f8bb4397008974def`。
 
@@ -14,6 +14,8 @@
 
 |文件|论文登记|
 |---|---|
+|[2026-11-04-simple-build-core-integration.md](2026-11-04-simple-build-core-integration.md)|两层经验和三系统简洁入口的工程实跑与清理修复，不新增效果分母|
+|[2026-11-04-simple-build-core-boundary.md](2026-11-04-simple-build-core-boundary.md)|论文核心版本及统一系统/组件比较安排，非已运行协议|
 |[2026-11-04-two-level-experience-results.md](2026-11-04-two-level-experience-results.md)|[E40](THESIS_EVIDENCE_INDEX.md#e40)24次同项目方案复用、[E41](THESIS_EVIDENCE_INDEX.md#e41)独立36次固定库检索；分别报告收益、失败及成本/时间取舍|
 |[2026-11-03-two-level-experience-preparation.md](2026-11-03-two-level-experience-preparation.md)|两层匹配/目标试用与状态目标评分实现、16相关检查及零Provider真实复用/恢复；不计模型效果|
 |[2026-11-03-transfer-action-experience-results.md](2026-11-03-transfer-action-experience-results.md)|[E39](THESIS_EVIDENCE_INDEX.md#e39)独立36次；初始读取节约与恢复／部署成本取舍；原E38不回填|
