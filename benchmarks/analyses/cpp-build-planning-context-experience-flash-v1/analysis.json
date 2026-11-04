@@ -1,0 +1,554 @@
+{
+  "identity": "cpp-build-planning-context-experience-flash-v1",
+  "summary": {
+    "forge": {
+      "planned": 8,
+      "observed": 8,
+      "unobserved": 0,
+      "initial_plans": 6,
+      "primary_completed": 6,
+      "full_completed": 6,
+      "requests": 21,
+      "estimated_cost_usd": "0.0644073",
+      "total_wall_seconds": 351.21584581409115,
+      "source_reads": 16,
+      "repeated_source_reads": 0,
+      "author_tests": {
+        "passed": 6,
+        "unobserved": 2
+      },
+      "layers": {
+        "primary_build": {
+          "True": 6,
+          "None": 2
+        },
+        "author_tests": {
+          "passed": 6,
+          "unobserved": 2
+        },
+        "delivery": {
+          "passed": 6,
+          "unobserved": 2
+        },
+        "clean_replay": {
+          "passed": 6,
+          "unobserved": 2
+        },
+        "source_unchanged": {
+          "True": 6,
+          "None": 2
+        },
+        "cleanup": {
+          "True": 8
+        },
+        "full_completed": {
+          "True": 6,
+          "None": 2
+        }
+      },
+      "input_tokens": 191719,
+      "output_tokens": 5743,
+      "phase_usage": {
+        "initial": {
+          "requests": 21,
+          "cost_usd": "0.0644073"
+        },
+        "recovery": {
+          "requests": 0,
+          "cost_usd": "0"
+        },
+        "tool_agent": {
+          "requests": 0,
+          "cost_usd": "0"
+        }
+      },
+      "experience_retrievals": 0
+    },
+    "forge_experience": {
+      "planned": 8,
+      "observed": 8,
+      "unobserved": 0,
+      "initial_plans": 3,
+      "primary_completed": 3,
+      "full_completed": 3,
+      "requests": 22,
+      "estimated_cost_usd": "0.0744600",
+      "total_wall_seconds": 196.2966862929752,
+      "source_reads": 15,
+      "repeated_source_reads": 1,
+      "author_tests": {
+        "unobserved": 5,
+        "passed": 3
+      },
+      "layers": {
+        "primary_build": {
+          "None": 5,
+          "True": 3
+        },
+        "author_tests": {
+          "unobserved": 5,
+          "passed": 3
+        },
+        "delivery": {
+          "unobserved": 5,
+          "passed": 3
+        },
+        "clean_replay": {
+          "unobserved": 5,
+          "passed": 3
+        },
+        "source_unchanged": {
+          "None": 5,
+          "True": 3
+        },
+        "cleanup": {
+          "True": 8
+        },
+        "full_completed": {
+          "None": 5,
+          "True": 3
+        }
+      },
+      "input_tokens": 226816,
+      "output_tokens": 5346,
+      "phase_usage": {
+        "initial": {
+          "requests": 22,
+          "cost_usd": "0.0744600"
+        },
+        "recovery": {
+          "requests": 0,
+          "cost_usd": "0"
+        },
+        "tool_agent": {
+          "requests": 0,
+          "cost_usd": "0"
+        }
+      },
+      "experience_retrievals": 8
+    }
+  },
+  "slots": [
+    {
+      "slot": 1,
+      "project": "jsoncpp",
+      "repetition": 1,
+      "method": "forge",
+      "initial_plan_delivered": true,
+      "format_rejections": 0,
+      "source_reads": 4,
+      "repeated_source_reads": 0,
+      "experience_retrievals": [],
+      "convergence_forced": 0,
+      "phase_usage": {
+        "initial": {
+          "requests": 4,
+          "input_tokens": 40192,
+          "output_tokens": 1065,
+          "estimated_cost_usd": "0.0133356"
+        }
+      }
+    },
+    {
+      "slot": 2,
+      "project": "jsoncpp",
+      "repetition": 1,
+      "method": "forge_experience",
+      "initial_plan_delivered": false,
+      "format_rejections": 0,
+      "source_reads": 1,
+      "repeated_source_reads": 0,
+      "experience_retrievals": [
+        {
+          "event": "experience.retrieved",
+          "stage": "initial",
+          "source_ids": [
+            "E30-slot-19",
+            "E30-slot-24"
+          ],
+          "bytes": 3820,
+          "policy": "once_per_agent_task",
+          "selection": "matched_action_advice_v1",
+          "abstained": false
+        }
+      ],
+      "convergence_forced": 0,
+      "phase_usage": {
+        "initial": {
+          "requests": 2,
+          "input_tokens": 19446,
+          "output_tokens": 720,
+          "estimated_cost_usd": "0.0066978"
+        }
+      }
+    },
+    {
+      "slot": 3,
+      "project": "libsrtp",
+      "repetition": 1,
+      "method": "forge_experience",
+      "initial_plan_delivered": false,
+      "format_rejections": 0,
+      "source_reads": 5,
+      "repeated_source_reads": 1,
+      "experience_retrievals": [
+        {
+          "event": "experience.retrieved",
+          "stage": "initial",
+          "source_ids": [
+            "E30-slot-1"
+          ],
+          "bytes": 2323,
+          "policy": "once_per_agent_task",
+          "selection": "matched_action_advice_v1",
+          "abstained": false
+        }
+      ],
+      "convergence_forced": 0,
+      "phase_usage": {
+        "initial": {
+          "requests": 6,
+          "input_tokens": 78733,
+          "output_tokens": 831,
+          "estimated_cost_usd": "0.0246171"
+        }
+      }
+    },
+    {
+      "slot": 4,
+      "project": "libsrtp",
+      "repetition": 1,
+      "method": "forge",
+      "initial_plan_delivered": true,
+      "format_rejections": 0,
+      "source_reads": 2,
+      "repeated_source_reads": 0,
+      "experience_retrievals": [],
+      "convergence_forced": 0,
+      "phase_usage": {
+        "initial": {
+          "requests": 3,
+          "input_tokens": 36687,
+          "output_tokens": 671,
+          "estimated_cost_usd": "0.0118113"
+        }
+      }
+    },
+    {
+      "slot": 5,
+      "project": "libite",
+      "repetition": 1,
+      "method": "forge",
+      "initial_plan_delivered": true,
+      "format_rejections": 0,
+      "source_reads": 4,
+      "repeated_source_reads": 0,
+      "experience_retrievals": [],
+      "convergence_forced": 0,
+      "phase_usage": {
+        "initial": {
+          "requests": 4,
+          "input_tokens": 24678,
+          "output_tokens": 1231,
+          "estimated_cost_usd": "0.0088806"
+        }
+      }
+    },
+    {
+      "slot": 6,
+      "project": "libite",
+      "repetition": 1,
+      "method": "forge_experience",
+      "initial_plan_delivered": true,
+      "format_rejections": 0,
+      "source_reads": 2,
+      "repeated_source_reads": 0,
+      "experience_retrievals": [
+        {
+          "event": "experience.retrieved",
+          "stage": "initial",
+          "source_ids": [
+            "E30-slot-1"
+          ],
+          "bytes": 2321,
+          "policy": "once_per_agent_task",
+          "selection": "matched_action_advice_v1",
+          "abstained": false
+        }
+      ],
+      "convergence_forced": 0,
+      "phase_usage": {
+        "initial": {
+          "requests": 3,
+          "input_tokens": 17897,
+          "output_tokens": 884,
+          "estimated_cost_usd": "0.0064299"
+        }
+      }
+    },
+    {
+      "slot": 7,
+      "project": "highwayhash",
+      "repetition": 1,
+      "method": "forge_experience",
+      "initial_plan_delivered": false,
+      "format_rejections": 0,
+      "source_reads": 0,
+      "repeated_source_reads": 0,
+      "experience_retrievals": [
+        {
+          "event": "experience.retrieved",
+          "stage": "initial",
+          "source_ids": [
+            "E04-slot-7",
+            "E04-slot-8"
+          ],
+          "bytes": 2877,
+          "policy": "once_per_agent_task",
+          "selection": "matched_action_advice_v1",
+          "abstained": false
+        }
+      ],
+      "convergence_forced": 0,
+      "phase_usage": {
+        "initial": {
+          "requests": 1,
+          "input_tokens": 11150,
+          "output_tokens": 243,
+          "estimated_cost_usd": "0.0036366"
+        }
+      }
+    },
+    {
+      "slot": 8,
+      "project": "highwayhash",
+      "repetition": 1,
+      "method": "forge",
+      "initial_plan_delivered": false,
+      "format_rejections": 0,
+      "source_reads": 0,
+      "repeated_source_reads": 0,
+      "experience_retrievals": [],
+      "convergence_forced": 0,
+      "phase_usage": {
+        "initial": {
+          "requests": 1,
+          "input_tokens": 10160,
+          "output_tokens": 200,
+          "estimated_cost_usd": "0.003288"
+        }
+      }
+    },
+    {
+      "slot": 9,
+      "project": "jsoncpp",
+      "repetition": 2,
+      "method": "forge_experience",
+      "initial_plan_delivered": true,
+      "format_rejections": 0,
+      "source_reads": 2,
+      "repeated_source_reads": 0,
+      "experience_retrievals": [
+        {
+          "event": "experience.retrieved",
+          "stage": "initial",
+          "source_ids": [
+            "E30-slot-19",
+            "E30-slot-24"
+          ],
+          "bytes": 3820,
+          "policy": "once_per_agent_task",
+          "selection": "matched_action_advice_v1",
+          "abstained": false
+        }
+      ],
+      "convergence_forced": 0,
+      "phase_usage": {
+        "initial": {
+          "requests": 2,
+          "input_tokens": 19983,
+          "output_tokens": 711,
+          "estimated_cost_usd": "0.0068481"
+        }
+      }
+    },
+    {
+      "slot": 10,
+      "project": "jsoncpp",
+      "repetition": 2,
+      "method": "forge",
+      "initial_plan_delivered": true,
+      "format_rejections": 0,
+      "source_reads": 1,
+      "repeated_source_reads": 0,
+      "experience_retrievals": [],
+      "convergence_forced": 0,
+      "phase_usage": {
+        "initial": {
+          "requests": 2,
+          "input_tokens": 16693,
+          "output_tokens": 716,
+          "estimated_cost_usd": "0.0058671"
+        }
+      }
+    },
+    {
+      "slot": 11,
+      "project": "libsrtp",
+      "repetition": 2,
+      "method": "forge",
+      "initial_plan_delivered": false,
+      "format_rejections": 0,
+      "source_reads": 2,
+      "repeated_source_reads": 0,
+      "experience_retrievals": [],
+      "convergence_forced": 0,
+      "phase_usage": {
+        "initial": {
+          "requests": 3,
+          "input_tokens": 36388,
+          "output_tokens": 573,
+          "estimated_cost_usd": "0.011604"
+        }
+      }
+    },
+    {
+      "slot": 12,
+      "project": "libsrtp",
+      "repetition": 2,
+      "method": "forge_experience",
+      "initial_plan_delivered": false,
+      "format_rejections": 0,
+      "source_reads": 2,
+      "repeated_source_reads": 0,
+      "experience_retrievals": [
+        {
+          "event": "experience.retrieved",
+          "stage": "initial",
+          "source_ids": [
+            "E30-slot-1"
+          ],
+          "bytes": 2323,
+          "policy": "once_per_agent_task",
+          "selection": "matched_action_advice_v1",
+          "abstained": false
+        }
+      ],
+      "convergence_forced": 0,
+      "phase_usage": {
+        "initial": {
+          "requests": 4,
+          "input_tokens": 49605,
+          "output_tokens": 619,
+          "estimated_cost_usd": "0.0156243"
+        }
+      }
+    },
+    {
+      "slot": 13,
+      "project": "libite",
+      "repetition": 2,
+      "method": "forge_experience",
+      "initial_plan_delivered": false,
+      "format_rejections": 0,
+      "source_reads": 3,
+      "repeated_source_reads": 0,
+      "experience_retrievals": [
+        {
+          "event": "experience.retrieved",
+          "stage": "initial",
+          "source_ids": [
+            "E30-slot-1"
+          ],
+          "bytes": 2321,
+          "policy": "once_per_agent_task",
+          "selection": "matched_action_advice_v1",
+          "abstained": false
+        }
+      ],
+      "convergence_forced": 0,
+      "phase_usage": {
+        "initial": {
+          "requests": 3,
+          "input_tokens": 18852,
+          "output_tokens": 1044,
+          "estimated_cost_usd": "0.0069084"
+        }
+      }
+    },
+    {
+      "slot": 14,
+      "project": "libite",
+      "repetition": 2,
+      "method": "forge",
+      "initial_plan_delivered": true,
+      "format_rejections": 0,
+      "source_reads": 3,
+      "repeated_source_reads": 0,
+      "experience_retrievals": [],
+      "convergence_forced": 0,
+      "phase_usage": {
+        "initial": {
+          "requests": 3,
+          "input_tokens": 16761,
+          "output_tokens": 942,
+          "estimated_cost_usd": "0.0061587"
+        }
+      }
+    },
+    {
+      "slot": 15,
+      "project": "highwayhash",
+      "repetition": 2,
+      "method": "forge",
+      "initial_plan_delivered": true,
+      "format_rejections": 0,
+      "source_reads": 0,
+      "repeated_source_reads": 0,
+      "experience_retrievals": [],
+      "convergence_forced": 0,
+      "phase_usage": {
+        "initial": {
+          "requests": 1,
+          "input_tokens": 10160,
+          "output_tokens": 345,
+          "estimated_cost_usd": "0.003462"
+        }
+      }
+    },
+    {
+      "slot": 16,
+      "project": "highwayhash",
+      "repetition": 2,
+      "method": "forge_experience",
+      "initial_plan_delivered": true,
+      "format_rejections": 0,
+      "source_reads": 0,
+      "repeated_source_reads": 0,
+      "experience_retrievals": [
+        {
+          "event": "experience.retrieved",
+          "stage": "initial",
+          "source_ids": [
+            "E04-slot-7",
+            "E04-slot-8"
+          ],
+          "bytes": 2877,
+          "policy": "once_per_agent_task",
+          "selection": "matched_action_advice_v1",
+          "abstained": false
+        }
+      ],
+      "convergence_forced": 0,
+      "phase_usage": {
+        "initial": {
+          "requests": 1,
+          "input_tokens": 11150,
+          "output_tokens": 294,
+          "estimated_cost_usd": "0.0036978"
+        }
+      }
+    }
+  ],
+  "boundary": "全部16槽；未观察不补值；项目两重复不当独立项目；旧结果只作历史问题描述。经验采纳不从检索命中推定。"
+}

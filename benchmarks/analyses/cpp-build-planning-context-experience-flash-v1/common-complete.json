@@ -1,0 +1,32 @@
+{
+  "pairs": 3,
+  "projects_repetitions": [
+    [
+      "jsoncpp",
+      2
+    ],
+    [
+      "libite",
+      1
+    ],
+    [
+      "highwayhash",
+      2
+    ]
+  ],
+  "methods": {
+    "forge": {
+      "cost": "0.0182097",
+      "wall_seconds": 150.0632623169804,
+      "requests": 7
+    },
+    "forge_experience": {
+      "cost": "0.0169758",
+      "wall_seconds": 146.81088646000717,
+      "requests": 6
+    }
+  },
+  "cost_reduction_percent": 6.7760589136559135,
+  "time_reduction_percent": 2.1673364997911393,
+  "boundary": "共同完整子集，仅条件性描述；全16槽主结果为6/8与3/8，不据此称总体收益。"
+}

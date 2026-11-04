@@ -1,0 +1,69 @@
+{
+  "source_identity": "cpp-build-simple-system-comparison-flash-v1",
+  "overlap": "E42固定48次中的已见四项目两Forge16槽子集，非新增实验；问题驱动选择，非独立对照，不作新旧因果。",
+  "summary": {
+    "forge": {
+      "slots": 8,
+      "primary": 6,
+      "full": 6,
+      "requests": 32,
+      "cost": "0.1062138",
+      "failures": [
+        {
+          "slot": 28,
+          "project": "jsoncpp",
+          "repetition": 2,
+          "error_type": "StructuredOutputValidationError",
+          "error": "Failed to parse structured output for tool 'ObservedBuildActions': Failed to parse data to ObservedBuildActions: 2 validation errors for ObservedBuildActions\nreason\n  Field required [type=missing, input_value={}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.12/v/missing\nsteps\n  Field required [type=missing, input_value={}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.12/v/missing."
+        },
+        {
+          "slot": 44,
+          "project": "libite",
+          "repetition": 2,
+          "error_type": "StructuredOutputValidationError",
+          "error": "Failed to parse structured output for tool 'ObservedBuildActions': Failed to parse data to ObservedBuildActions: 2 validation errors for ObservedBuildActions\nreason\n  Input should be a valid string [type=string_type, input_value=[{'step_id': 'bootstrap',...ir': '/workspace/repo'}], input_type=list]\n    For further information visit https://errors.pydantic.dev/2.12/v/string_type\nsteps\n  Field required [type=missing, input_value={'reason': [{'step_id': '...r': '/workspace/repo'}]}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.12/v/missing."
+        }
+      ]
+    },
+    "forge_experience": {
+      "slots": 8,
+      "primary": 4,
+      "full": 4,
+      "requests": 177,
+      "cost": "0.8558682",
+      "failures": [
+        {
+          "slot": 16,
+          "project": "highwayhash",
+          "repetition": 1,
+          "error_type": "StructuredOutputValidationError",
+          "error": "Failed to parse structured output for tool 'ObservedBuildActions': Failed to parse data to ObservedBuildActions: 2 validation errors for ObservedBuildActions\nreason\n  Field required [type=missing, input_value={}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.12/v/missing\nsteps\n  Field required [type=missing, input_value={}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.12/v/missing."
+        },
+        {
+          "slot": 21,
+          "project": "libsrtp",
+          "repetition": 1,
+          "error_type": "GraphRecursionError",
+          "error": "Recursion limit of 100 reached without hitting a stop condition. You can increase the limit by setting the `recursion_limit` config key.\nFor troubleshooting, visit: https://docs.langchain.com/oss/python/langgraph/errors/GRAPH_RECURSION_LIMIT"
+        },
+        {
+          "slot": 27,
+          "project": "jsoncpp",
+          "repetition": 2,
+          "error_type": "GraphRecursionError",
+          "error": "Recursion limit of 100 reached without hitting a stop condition. You can increase the limit by setting the `recursion_limit` config key.\nFor troubleshooting, visit: https://docs.langchain.com/oss/python/langgraph/errors/GRAPH_RECURSION_LIMIT"
+        },
+        {
+          "slot": 48,
+          "project": "libsrtp",
+          "repetition": 2,
+          "error_type": "GraphRecursionError",
+          "error": "Recursion limit of 100 reached without hitting a stop condition. You can increase the limit by setting the `recursion_limit` config key.\nFor troubleshooting, visit: https://docs.langchain.com/oss/python/langgraph/errors/GRAPH_RECURSION_LIMIT"
+        }
+      ]
+    }
+  },
+  "source_raw": "/home/yiwei/.codex/outputs/forge-simple-system-comparison-flash-v1",
+  "source_result_sha256": "a2ec7b9392e77a2efe4d2ddadfc2302b8026014ee58b0ab2bddb2fe50bab0e4c",
+  "source_inventory_sha256": "ab698898a33343ad780e96fb4d963b349304c6494c64e3cebd20d3f914918a34"
+}

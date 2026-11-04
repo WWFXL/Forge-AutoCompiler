@@ -14,6 +14,7 @@
 
 |文件|论文登记|
 |---|---|
+|[2026-11-05-planning-context-experience-results.md](2026-11-05-planning-context-experience-results.md)|[E43](THESIS_EVIDENCE_INDEX.md#e43)固定16次经验增量比较、共同方案出口遗漏与局部观察；原失败不回填|
 |[2026-11-04-planning-context-experience-preparation.md](2026-11-04-planning-context-experience-preparation.md)|#681规划/短经验/测试入口修复、四条零Provider真实构建及16槽准备；不增模型效果分母|
 |[2026-11-04-simple-system-comparison-results.md](2026-11-04-simple-system-comparison-results.md)|[E42](THESIS_EVIDENCE_INDEX.md#e42)简洁目标48次全分母系统比较、经验负结果/局部观察及规划接口和测试入口局限|
 |[2026-11-04-simple-system-comparison-preparation.md](2026-11-04-simple-system-comparison-preparation.md)|四方法48次准备；0Provider，正式效果未观察，不新增效果分母|
