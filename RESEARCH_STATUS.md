@@ -2,15 +2,15 @@
 
 论文选材固定入口：[硕士论文实验与证据索引](docs/research/THESIS_EVIDENCE_INDEX.md)，[历史材料目录](docs/research/THESIS_EVIDENCE_CATALOG.md)保留存量导航。当前完整稿为[论文v0.6](docs/thesis/README.md)；E40/E41新增两层经验结果，E39及此前基础系统、组件与恢复实验按原版本和分母继续使用。
 
-## 当前阶段（2026-11-04；#671简洁构建任务与状态判断设计完成，待最小实现）
+## 当前阶段（2026-11-04；#673简洁构建最小入口已实现并完成工程实跑）
 
-本轮为方法设计，属于后续完整系统比较的准备阶段，新增模型调用、费用及正式实验数据均为0。[设计文档](docs/research/2026-11-04-simple-build-task-design.md)明确简洁任务、主要产物依据、阶段观察、恢复/失效、分层结果和最小改造顺序；[Issue671](https://github.com/WWFXL/Forge-AutoCompiler/issues/671)跟踪。本轮未改运行代码或启动新实验，不将文档与检查计为方法效果。
+本轮为工程修复与基础设施，0 Provider/新增模型费，不是新效果比较。[实现报告](docs/research/2026-11-04-simple-build-implementation.md)承接[#671设计](docs/research/2026-11-04-simple-build-task-design.md)：公开任务/独立参考分开、新构建方案不强制smoke/stage、实际generator/主产物观察、有限清理前置与物理reset、分层结果/计时已形成可执行路径。原Workflow默认、旧实验/失败与论文v0.6保持。
 
-方向保持上午共识：作者推荐/默认主要程序或库，不人为叠加特殊配置、全部示例与完整测试组合。Agent探索仓库，Workflow持有进展，构建系统工具观察实际状态，独立检查核对主要组件。比较前以文档/构建文件及必要参考构建核对声明式主要组件表，初始输入不注入参考配方/精确路径；模糊范围事前共同澄清，不由各方法自行缩小。首版限定现有Linux ELF/ar及CMake/Make/Autotools范围，header-only等单列限制。
+CMake/jsoncpp、Make/pigz、Autotools/libite各正常/脚本恢复，共六条工程路径全部主构建、交付、构建replay和cleanup通过，原作者测试/完整完成4/6；jsoncpp并行CTest分别1/3、2/3套件失败，保持完整否。另两条独立串行jsoncpp均作者测试及测试重放完整通过，与并行冲突解释一致，不替换原失败、不合为效果分母。恢复保留错target/缺configure日志；错误日志/路径候选不再否决实际构建。相关59检查/Ruff及真实Agent图仅证明实现，不计模型收益。
 
-新任务建议分别报告`primary_build_completed`、作者测试、交付、clean replay与完整完成；主要结果确认后冻结该层，再独立计时检查后续层。主要构建仍需实际编译、主要组件覆盖、有效产物与源码保持，不能只看exit0；旧`full_completed`及产品`verified/completed`语义不变。测试/replay数值资源及正式“完整完成”要求须在新协议中固定，未观察不补填。旧E40/E41及论文v0.6保持，任务减少工作量不算方法加速。
+raw为forge-simple-build-implementation-2026-11-04及forge-simple-build-serial-tests-2026-11-04，工作树运行代码快照和逐槽证据见报告及benchmarks/analyses/simple-build-implementation-v1。当前仅研究入口；未迁移产品、旧精确方案或其他基线；现版源码保护为前后内容/文件身份核对，不声称覆盖全部瞬时写入或任意已跟踪生成物重写。
 
-当前`BuildPlan`强制smoke/artifact_stage、`ProjectRecipe`依赖固定路径/验证步骤，新任务不能仅清空旧字段；当前附加日志/路径断言与角色扫描缺陷尚未修复。下一项为最小实现：任务/装配分离、实际generator与产物定位、正常清理重建的作用域处理、分层结果；复用方案式恢复和首变化后缀失效。随后少量跨系统实跑，再固定同经验条件下Forge/强工具Agent系统比较，CXXCrafter作披露适配的参照；暂不叠加新Agent/分类器。新样本、付费预算与时窗未冻结，本轮设计交付后停止。知识库仅MCP保存共识及设计指针，不注入正式Agent。
+下一项直接接入Forge/强工具Agent共同简洁目标与结果检查，固定同Flash模型、环境/资源、无经验及独立串行作者测试后采集完整系统结果；CXXCrafter披露适配作参照，之后补状态/经验消融。新比较的样本、费用及时窗尚未冻结，本轮不付费或续旧身份。主要构建、测试、交付、replay和完整结果分别报告，未知不补填；任务减少工作量不称算法加速。知识库经MCP同步，不注入正式Agent。
 
 ## 最近完成阶段（2026-11-04；#668两层经验60次完成，论文v0.6与结果发布）
 
