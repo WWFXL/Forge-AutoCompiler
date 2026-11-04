@@ -103,6 +103,7 @@ def run_simple_system(*, task, reference, source_archive, output_root, method, m
     result = dict(method=method, status="started", source_unchanged=None)
     ledger = PlanAgentLedger(root / "agent")
     initial_packet = {}
+    planning_seconds, recovery_seconds = 0.0, 0.0
 
     def packet():
         if service:
@@ -137,7 +138,11 @@ def run_simple_system(*, task, reference, source_archive, output_root, method, m
             else:
                 if recipe is not None:
                     ledger.append("recipe.abstained", reason="公开任务身份变化")
-                plan, _ = propose_simple(model=model, task=task, source_root=source, session_root=Path(session.metadata_path).parent, meter=meter, experience_bank=bank, family=family)
+                planning_start = time.monotonic()
+                try:
+                    plan, _ = propose_simple(model=model, task=task, source_root=source, session_root=Path(session.metadata_path).parent, meter=meter, experience_bank=bank, family=family)
+                finally:
+                    planning_seconds += time.monotonic() - planning_start
         # 作者测试统一串行；不改变构建的并行资源，也不把测试指令交给构建Agent。
         serial = reference.model_copy(update={"author_tests": tuple(s.model_copy(update={"command": "export CTEST_PARALLEL_LEVEL=1\n" + s.command}) for s in reference.author_tests)})
         workflow = SimpleBuildWorkflow(plan=plan, session=session, manager=manager, runtime=runtime, reference=serial, budget=PlanBudget(wall_clock_seconds=1200, command_timeout_seconds=180, max_commands=64, max_handoffs=8), meter=meter)
@@ -149,11 +154,17 @@ def run_simple_system(*, task, reference, source_archive, output_root, method, m
                 workflow.run()
                 if workflow.status != "needs_handoff":
                     break
-                revised, reason = propose_simple(
-                    model=model, task=task, source_root=source, session_root=Path(session.metadata_path).parent, meter=meter, current_plan=workflow.plan, handoff=workflow.handoff, experience_bank=bank, family=family
-                )
+                recovery_start = time.monotonic()
+                try:
+                    revised, reason = propose_simple(
+                        model=model, task=task, source_root=source, session_root=Path(session.metadata_path).parent, meter=meter, current_plan=workflow.plan, handoff=workflow.handoff, experience_bank=bank, family=family
+                    )
+                finally:
+                    recovery_seconds += time.monotonic() - recovery_start
                 workflow.apply_revision(handoff_id=workflow.handoff["handoff_id"], plan=revised, reason=reason)
         if workflow.status == "primary_completed":
+            # Workflow自身计时始于初始规划之后；系统比较必须另存包含规划/准备的时间。
+            workflow.timings["time_to_primary_from_arm_start_seconds"] = time.monotonic() - started
             final_plan = workflow.plan
             result.update(workflow.postchecks(author_test_seconds=author_test_seconds))
         source_unchanged(source, workflow.baseline)
@@ -173,6 +184,7 @@ def run_simple_system(*, task, reference, source_archive, output_root, method, m
         except Exception as exc:
             result.update(cleanup=dict(succeeded=False), cleanup_error=f"{type(exc).__name__}: {exc}")
         result.update(agent_usage=meter.summary(), arm_total_wall_seconds=time.monotonic() - started)
+        result.setdefault("timings", {}).update(initial_planning_seconds=planning_seconds, recovery_agent_seconds=recovery_seconds)
         if result.get("layers"):
             result["layers"]["full_completed"] = full_completion(result["layers"], result["cleanup"]["succeeded"])
             if result["status"] == "error" or result["source_unchanged"] is False:

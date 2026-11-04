@@ -14,6 +14,7 @@
 
 |文件|论文登记|
 |---|---|
+|[2026-11-04-simple-system-comparison-preparation.md](2026-11-04-simple-system-comparison-preparation.md)|四方法48次准备；0Provider，正式效果未观察，不新增效果分母|
 |[2026-11-04-simple-build-core-integration.md](2026-11-04-simple-build-core-integration.md)|两层经验和三系统简洁入口的工程实跑与清理修复，不新增效果分母|
 |[2026-11-04-simple-build-core-boundary.md](2026-11-04-simple-build-core-boundary.md)|论文核心版本及统一系统/组件比较安排，非已运行协议|
 |[2026-11-04-two-level-experience-results.md](2026-11-04-two-level-experience-results.md)|[E40](THESIS_EVIDENCE_INDEX.md#e40)24次同项目方案复用、[E41](THESIS_EVIDENCE_INDEX.md#e41)独立36次固定库检索；分别报告收益、失败及成本/时间取舍|

@@ -618,6 +618,14 @@
 
 ## 最近变更 (Recent Changes)
 
+- 2026-11-04 — #677固定简洁目标四方法48次比较，完成批入口与新增三项独立参考。
+  - 文件: `scripts/forge_simple_comparison.py`, `scripts/forge_simple_system.py`, `scripts/forge_simple_cxx_reference.py`, `backend/tests/test_simple_comparison.py`, `benchmarks/fixtures/simple-system-comparison-v1/tasks.json`, 同名manifest/preregistration及准备报告。
+  - 设计: jsoncpp/miniz、pigz/highwayhash、libite/libsrtp各两重复×基础Forge/经验Forge/强工具/CXX；Williams顺序平衡，全已见开发项目，旧24经验与六族分离，零新提炼/精确方案/在线更新。
+  - 验证: 15相关检查/Ruff通过；miniz非build目录、highwayhash、libsrtp各一次脚本真实主构建/原测试/交付/重放/源码/cleanup全部通过；12容器名称/ID实际不存在。0真实Provider/模型费，原件forge-simple-comparison-preparation-2026-11-04-v1；已有三项不重跑，不计方法效果。
+  - 下一: 正式身份cpp-build-simple-system-comparison-flash-v1尚无新授权，建议10美元硬上限/确认起8小时。全部48未观察，待新授权直接采集，不再扩组件。旧效果/论文v0.6和用户memory/HTML/uv.lock保持；CI/合并仅科研集成分支，以关联PR与发布收据为准。
+  - 发布路径: 原生Git多次TLS握手断开，阻塞收据保留；沿现有推送/PR/合并授权明确启用Git Data API备用发布，逐blob/tree核对后按原分支CI，不改凭据或代理；实际远端提交/PR/CI/合并以最终收据为准，正式比较未启动。
+  - CI修复: PR678初始head23e615c8已远端同SHA发布；首轮两冻结检查通过，后端2712过/46跳/1失败。离线分派测试误读服务器历史经验路径，改为tmp_path空库；15相关检查/Ruff再过，正式173运行组件与manifest SHA不变。失败日志保留，新head全绿后仅合科研集成分支；0真实Provider/新增费。
+
 - 2026-11-04 — #675接入简洁任务两层经验与三系统共同入口，转固定样本比较。
   - 文件: `simple_build_experience.py`、`simple_build_agents.py`、`simple_build_task.py`、`scripts/forge_simple_system.py`、`scripts/forge_simple_cxx_reference.py`、`docs/research/2026-11-04-simple-build-core-integration.md`及同日core-boundary设计。
   - 实现: 精确公开任务方案复用；跨项目每次规划/新恢复一次经验快照；强工具自行选命令与显式reset；CXX保留原生Parser/Generator/Modifier/Judge。共享简洁目标、主组件观察、独立串行作者测试/交付/重放；CLI仅离线脚本，未读模型凭据。

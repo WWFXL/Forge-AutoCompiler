@@ -1,0 +1,379 @@
+{
+  "projects": [
+    {
+      "name": "jsoncpp",
+      "family": "jsoncpp",
+      "task": {
+        "task_version": "simple-build-v1",
+        "plan_id": "simple-jsoncpp",
+        "repository_url": "https://github.com/open-source-parsers/jsoncpp",
+        "commit_sha": "5defb4ed1a4293b8e2bf641e16b156fb9de498cc",
+        "image_id": "sha256:d27a6ab733c7c3a9cbb5e4b32fb595aa5a422ff04bd212888d1041b90a2c4c2a",
+        "source_archive_sha256": "bf07b3031052f56a67c2dee8b32107fdc57429734fe8dcb48ed4b8bbe698a83b",
+        "build_system": "cmake",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "a7fffd5a850554ac135249144c61ea4b11e51341db40d66091ff06625c1ed737",
+        "components": [
+          {
+            "name": "jsoncpp",
+            "artifact_names": [
+              "libjsoncpp.a",
+              "libjsoncpp_static.a",
+              "libjsoncpp.so",
+              "libjsoncpp.so.25",
+              "libjsoncpp.so.1.9.5"
+            ],
+            "kinds": [
+              "static_library",
+              "shared_library"
+            ],
+            "evidence": "src/lib_json/CMakeLists.txt:109-175；顶层CMakeLists.txt:84-94与200；作者doc/README.md:79-94"
+          }
+        ],
+        "author_tests": [
+          {
+            "step_id": "author-check",
+            "role": "smoke",
+            "command": "python3 -c 'import pathlib,subprocess\nroot=pathlib.Path('\"'\"'/workspace/repo'\"'\"').resolve()\nroots=[]\nfor p in root.rglob('\"'\"'CMakeCache.txt'\"'\"'):\n if p.is_symlink() or not p.resolve().is_relative_to(root): continue\n cache={line.split('\"'\"'='\"'\"',1)[0].split('\"'\"':'\"'\"',1)[0]:line.split('\"'\"'='\"'\"',1)[1] for line in p.read_text(errors='\"'\"'replace'\"'\"').splitlines() if '\"'\"'='\"'\"' in line and '\"'\"':'\"'\"' in line.split('\"'\"'='\"'\"',1)[0]}\n if pathlib.Path(cache.get('\"'\"'CMAKE_HOME_DIRECTORY'\"'\"','\"'\"'/nonexistent'\"'\"')).resolve()==root and (p.parent/'\"'\"'CTestTestfile.cmake'\"'\"').is_file(): roots.append(p.parent)\nif len(roots)!=1: raise SystemExit('\"'\"'Expected exactly one actual top-level CTest build directory; observed '\"'\"'+str(roots))\nsubprocess.run(['\"'\"'ctest'\"'\"','\"'\"'--test-dir'\"'\"',str(roots[0]),'\"'\"'-j1'\"'\"','\"'\"'--output-on-failure'\"'\"','\"'\"'--no-tests=error'\"'\"'],check=True)\n'",
+            "source": "src/lib_json/CMakeLists.txt:109-175；顶层CMakeLists.txt:84-94与200；作者doc/README.md:79-94",
+            "expected": "独立运行作者原测试，测试失败不撤销主构建",
+            "workdir": "/workspace/repo",
+            "requires": [],
+            "required_output": [
+              "100% tests passed"
+            ],
+            "diagnostic_paths": []
+          }
+        ],
+        "tests_not_applicable_reason": null
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-new-project-preparation-2026-10-29/jsoncpp/source.tar",
+      "evidence": "src/lib_json/CMakeLists.txt:109-175；顶层CMakeLists.txt:84-94与200；作者doc/README.md:79-94",
+      "exposure": {
+        "holdout": false,
+        "source_and_task_reviewed": true,
+        "prior_simple_engineering": true,
+        "role": "development_system_evaluation",
+        "prior_model_method_results": true,
+        "prior_reference_or_zero_provider_qualification": true
+      },
+      "language": "C++"
+    },
+    {
+      "name": "miniz",
+      "family": "miniz",
+      "task": {
+        "task_version": "simple-build-v1",
+        "plan_id": "simple-miniz",
+        "repository_url": "https://github.com/richgel999/miniz",
+        "commit_sha": "2948eebafc5b9f1c69bebed80333e403a09bd62d",
+        "image_id": "sha256:d27a6ab733c7c3a9cbb5e4b32fb595aa5a422ff04bd212888d1041b90a2c4c2a",
+        "source_archive_sha256": "6ac07c67bbcc56db9d673cd4072ac43147b3b748aec5625d0a04a6250f4448c9",
+        "build_system": "cmake",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "965e13d87e2dd004a0b6dd5f556323e933d758fc335bd6692af85523cacbe579",
+        "components": [
+          {
+            "name": "miniz",
+            "artifact_names": [
+              "libminiz.a",
+              "libminiz.so",
+              "libminiz.so.3",
+              "libminiz.so.3.0.2"
+            ],
+            "kinds": [
+              "static_library",
+              "shared_library"
+            ],
+            "evidence": "CMakeLists.txt:41-47,115-156,312-325；readme.md:7（CMake源码模块）"
+          }
+        ],
+        "author_tests": [
+          {
+            "step_id": "author-check",
+            "role": "smoke",
+            "command": "python3 -c 'import pathlib,subprocess\nroot=pathlib.Path('\"'\"'/workspace/repo'\"'\"').resolve()\nroots=[]\nfor p in root.rglob('\"'\"'CMakeCache.txt'\"'\"'):\n if p.is_symlink() or not p.resolve().is_relative_to(root): continue\n cache={line.split('\"'\"'='\"'\"',1)[0].split('\"'\"':'\"'\"',1)[0]:line.split('\"'\"'='\"'\"',1)[1] for line in p.read_text(errors='\"'\"'replace'\"'\"').splitlines() if '\"'\"'='\"'\"' in line and '\"'\"':'\"'\"' in line.split('\"'\"'='\"'\"',1)[0]}\n if pathlib.Path(cache.get('\"'\"'CMAKE_HOME_DIRECTORY'\"'\"','\"'\"'/nonexistent'\"'\"')).resolve()==root and (p.parent/'\"'\"'CTestTestfile.cmake'\"'\"').is_file(): roots.append(p.parent)\nif len(roots)!=1: raise SystemExit('\"'\"'Expected exactly one actual top-level CTest build directory; observed '\"'\"'+str(roots))\nsubprocess.run(['\"'\"'ctest'\"'\"','\"'\"'--test-dir'\"'\"',str(roots[0]),'\"'\"'-j1'\"'\"','\"'\"'--output-on-failure'\"'\"','\"'\"'--no-tests=error'\"'\"'],check=True)\n'",
+            "source": "CMakeLists.txt:41-47,115-156,312-325；readme.md:7（CMake源码模块）",
+            "expected": "独立运行作者原测试，测试失败不撤销主构建",
+            "workdir": "/workspace/repo",
+            "requires": [],
+            "required_output": [
+              "100% tests passed"
+            ],
+            "diagnostic_paths": []
+          }
+        ],
+        "tests_not_applicable_reason": null
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-source-qualification-inputs-v1/miniz.tar",
+      "evidence": "CMakeLists.txt:41-47,115-156,312-325；readme.md:7（CMake源码模块）",
+      "exposure": {
+        "holdout": false,
+        "source_and_task_reviewed": true,
+        "prior_simple_engineering": false,
+        "role": "development_system_evaluation",
+        "prior_model_method_results": false,
+        "prior_reference_or_zero_provider_qualification": true
+      },
+      "language": "C（miniz测试另含C++）"
+    },
+    {
+      "name": "pigz",
+      "family": "pigz",
+      "task": {
+        "task_version": "simple-build-v1",
+        "plan_id": "simple-pigz",
+        "repository_url": "https://github.com/madler/pigz",
+        "commit_sha": "fe4894f57739e3039a2ffc2a2a360d35e19bacbe",
+        "image_id": "sha256:d27a6ab733c7c3a9cbb5e4b32fb595aa5a422ff04bd212888d1041b90a2c4c2a",
+        "source_archive_sha256": "35b2a2e0ae3482245812ae7703f536660ed31dba119a0b2235054608cd0e1063",
+        "build_system": "make",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "205a11d940fc89e3188af2f49ec65a96c0d44c8bd281ac3c281eb9eb0b488c53",
+        "components": [
+          {
+            "name": "pigz",
+            "artifact_names": [
+              "pigz"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "README:15-17；Makefile:80-106（make test）"
+          }
+        ],
+        "author_tests": [
+          {
+            "step_id": "author-check",
+            "role": "smoke",
+            "command": "make test",
+            "source": "README:15-17；Makefile:80-106（make test）",
+            "expected": "独立运行作者原测试，测试失败不撤销主构建",
+            "workdir": "/workspace/repo",
+            "requires": [],
+            "required_output": [
+              "./pigz -kf pigz.c",
+              "./pigz -t pigz.c.gz"
+            ],
+            "diagnostic_paths": []
+          }
+        ],
+        "tests_not_applicable_reason": null
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-source-qualification-inputs-v1/pigz.tar",
+      "evidence": "README:15-17；Makefile:80-106（make test）",
+      "exposure": {
+        "holdout": false,
+        "source_and_task_reviewed": true,
+        "prior_simple_engineering": true,
+        "role": "development_system_evaluation",
+        "prior_model_method_results": false,
+        "prior_reference_or_zero_provider_qualification": true
+      },
+      "language": "C"
+    },
+    {
+      "name": "highwayhash",
+      "family": "highwayhash",
+      "task": {
+        "task_version": "simple-build-v1",
+        "plan_id": "simple-highwayhash",
+        "repository_url": "https://github.com/google/highwayhash",
+        "commit_sha": "f8381f3331d9c56a9792f9b4a35f61c41108c39e",
+        "image_id": "sha256:d27a6ab733c7c3a9cbb5e4b32fb595aa5a422ff04bd212888d1041b90a2c4c2a",
+        "source_archive_sha256": "f49c09f0adb93597f3ab85d49c2b9673a32247608fa43d7416776040f930a339",
+        "build_system": "make",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "e8f5414812139540b9fc93333719e1826e7f0fb25173b74962f6b9504b461a28",
+        "components": [
+          {
+            "name": "highwayhash",
+            "artifact_names": [
+              "libhighwayhash.a",
+              "libhighwayhash.so"
+            ],
+            "kinds": [
+              "static_library",
+              "shared_library"
+            ],
+            "evidence": "README.md:10-14；Makefile:55-64,115-128（默认库及三个测试程序）"
+          }
+        ],
+        "author_tests": [
+          {
+            "step_id": "author-check",
+            "role": "smoke",
+            "command": "bin/highwayhash_test && bin/vector_test && bin/sip_hash_test",
+            "source": "README.md:10-14；Makefile:55-64,115-128（默认库及三个测试程序）",
+            "expected": "独立运行作者原测试，测试失败不撤销主构建",
+            "workdir": "/workspace/repo",
+            "requires": [],
+            "required_output": [
+              "VerifySipHash succeeded."
+            ],
+            "diagnostic_paths": []
+          }
+        ],
+        "tests_not_applicable_reason": null
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-new-project-preparation-2026-10-29/highwayhash/source.tar",
+      "evidence": "README.md:10-14；Makefile:55-64,115-128（默认库及三个测试程序）",
+      "exposure": {
+        "holdout": false,
+        "source_and_task_reviewed": true,
+        "prior_simple_engineering": false,
+        "role": "development_system_evaluation",
+        "prior_model_method_results": true,
+        "prior_reference_or_zero_provider_qualification": true
+      },
+      "language": "C++"
+    },
+    {
+      "name": "libite",
+      "family": "libite",
+      "task": {
+        "task_version": "simple-build-v1",
+        "plan_id": "simple-libite",
+        "repository_url": "https://github.com/troglobit/libite",
+        "commit_sha": "b69d8a6013b50cbdfc7586cffd2f36c145e9e53a",
+        "image_id": "sha256:d27a6ab733c7c3a9cbb5e4b32fb595aa5a422ff04bd212888d1041b90a2c4c2a",
+        "source_archive_sha256": "11d027813d62793bda38798dd4cf85b8ce1a142908ce7937bd10b53e9bdceb5d",
+        "build_system": "autotools",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "9a79d999dae9773ea90fdd52e7dac688dfc0d545ec7ae46b35db922452a0f6ac",
+        "components": [
+          {
+            "name": "libite",
+            "artifact_names": [
+              "libite.a",
+              "libite.so",
+              "libite.so.5",
+              "libite.so.5.4.0"
+            ],
+            "kinds": [
+              "static_library",
+              "shared_library"
+            ],
+            "evidence": "README.md:100-130；src/Makefile.am:1-5；test/Makefile.am原21测试"
+          }
+        ],
+        "author_tests": [
+          {
+            "step_id": "author-check",
+            "role": "smoke",
+            "command": "make check",
+            "source": "README.md:100-130；src/Makefile.am:1-5；test/Makefile.am原21测试",
+            "expected": "独立运行作者原测试，测试失败不撤销主构建",
+            "workdir": "/workspace/repo",
+            "requires": [],
+            "required_output": [
+              "# TOTAL: 21",
+              "# PASS:  21"
+            ],
+            "diagnostic_paths": []
+          }
+        ],
+        "tests_not_applicable_reason": null
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-source-qualification-inputs-v1/libite.tar",
+      "evidence": "README.md:100-130；src/Makefile.am:1-5；test/Makefile.am原21测试",
+      "exposure": {
+        "holdout": false,
+        "source_and_task_reviewed": true,
+        "prior_simple_engineering": true,
+        "role": "development_system_evaluation",
+        "prior_model_method_results": false,
+        "prior_reference_or_zero_provider_qualification": true
+      },
+      "language": "C"
+    },
+    {
+      "name": "libsrtp",
+      "family": "libsrtp",
+      "task": {
+        "task_version": "simple-build-v1",
+        "plan_id": "simple-libsrtp",
+        "repository_url": "https://github.com/cisco/libsrtp",
+        "commit_sha": "a566a9cfcd619e8327784aa7cff4a1276dc1e895",
+        "image_id": "sha256:d27a6ab733c7c3a9cbb5e4b32fb595aa5a422ff04bd212888d1041b90a2c4c2a",
+        "source_archive_sha256": "16897cf222293c2f99e370df96a0cb918b9e7599fe13e97df448d3bfeb2f242b",
+        "build_system": "autotools",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "0a7fc5610cf7afba37d467ade3d7fc8c4e597a0222f56e6db3917608368974c1",
+        "components": [
+          {
+            "name": "libsrtp",
+            "artifact_names": [
+              "libsrtp2.a",
+              "libsrtp2.so",
+              "libsrtp2.so.1"
+            ],
+            "kinds": [
+              "static_library",
+              "shared_library"
+            ],
+            "evidence": "README.md:270-287；Makefile.in的libsrtp2.a和runtest目标"
+          }
+        ],
+        "author_tests": [
+          {
+            "step_id": "author-check",
+            "role": "smoke",
+            "command": "make runtest",
+            "source": "README.md:270-287；Makefile.in的libsrtp2.a和runtest目标",
+            "expected": "独立运行作者原测试，测试失败不撤销主构建",
+            "workdir": "/workspace/repo",
+            "requires": [],
+            "required_output": [
+              "libsrtp2 test applications passed."
+            ],
+            "diagnostic_paths": []
+          }
+        ],
+        "tests_not_applicable_reason": null
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-new-project-preparation-2026-10-29/libsrtp/source.tar",
+      "evidence": "README.md:270-287；Makefile.in的libsrtp2.a和runtest目标",
+      "exposure": {
+        "holdout": false,
+        "source_and_task_reviewed": true,
+        "prior_simple_engineering": false,
+        "role": "development_system_evaluation",
+        "prior_model_method_results": true,
+        "prior_reference_or_zero_provider_qualification": true
+      },
+      "language": "C"
+    }
+  ],
+  "selection": "先按每构建系统两个、自然主要编译产物、已有完整源码、经验来源族隔离确定；不按本批方法成败筛样本。全部已见开发项目。"
+}

@@ -1,5 +1,7 @@
 # 硕士论文实验与证据索引
 
+待采集（不增效果分母）：[#677简洁目标四方法48次协议与入口](2026-11-04-simple-system-comparison-preparation.md)已固定六项目、两重复、基础/经验Forge/强工具/CXX参考；新增三条脚本参考仅证明作者入口可运行，正式模型结果仍未观察。旧编号不变。
+
 工程进展（不增效果分母）：[#675核心接入](2026-11-04-simple-build-core-integration.md)将两层经验、Forge/强工具/CXX参考接到简洁任务，九条正常路径及恢复/拒绝、原生CXX实跑支持实现；保留清理修复过程。[核心版本与比较安排](2026-11-04-simple-build-core-boundary.md)约束后续实验。[#673最小实现](2026-11-04-simple-build-implementation.md)继续作为底座证据，旧E40/E41等效果保持。
 
 核对日期：2026-11-04。研究主线：面向 C/C++ 仓库自动化构建的状态感知动作选择与验证方法研究。索引跟踪：[Issue #642](https://github.com/WWFXL/Forge-AutoCompiler/issues/642)；两层经验结果：[Issue #668](https://github.com/WWFXL/Forge-AutoCompiler/issues/668)。

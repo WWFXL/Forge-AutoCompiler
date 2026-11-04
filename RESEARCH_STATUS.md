@@ -2,7 +2,17 @@
 
 论文选材固定入口：[硕士论文实验与证据索引](docs/research/THESIS_EVIDENCE_INDEX.md)，[历史材料目录](docs/research/THESIS_EVIDENCE_CATALOG.md)保留存量导航。当前完整稿为[论文v0.6](docs/thesis/README.md)；E40/E41新增两层经验结果，E39及此前基础系统、组件与恢复实验按原版本和分母继续使用。
 
-## 当前阶段（2026-11-04；#675简洁任务核心组件与统一比较入口接入完成）
+## 当前阶段（2026-11-04；#677简洁任务四方法48次比较已准备，待新预算/时窗）
+
+本轮为实验设计与执行准备，0真实Provider/新增模型费。[准备报告](docs/research/2026-11-04-simple-system-comparison-preparation.md)、[协议](benchmarks/preregistrations/cpp-build-simple-system-comparison-flash-v1.md)及[manifest](benchmarks/manifests/cpp-build-simple-system-comparison-flash-v1.json)固定`cpp-build-simple-system-comparison-flash-v1`：jsoncpp/miniz、pigz/highwayhash、libite/libsrtp，三系统各两项目×两重复×基础Forge/经验Forge/强工具/CXX社区参考，共48槽。全部已开发暴露、4C/2C++，不称holdout；旧12轨迹/8族/24条经验与六评价族隔离，库不更新，无本项目精确方案或新提炼。
+
+批入口已接入共同Flash low、逐槽共享费用/时窗、失败/未观察保留和异常停止。到主构建计时包含初始规划/准备，CMake独立测试取实际顶层配置目录、串行且零测试报错。主要构建、原测试、交付、重放及完整完成分报；CXX原生工具/内部预算差异披露，不当纯状态因果。15相关检查/Ruff通过；新增miniz/highwayhash/libsrtp三条离线脚本真实构建、原测试、交付/完整replay/源码/cleanup全部通过，12个资源名称/ID实际不存在，仅证明参考可运行，不是模型效果。
+
+建议新授权10美元硬上限/确认起8小时，当前尚未授权，48次均未观察，不读凭据或续旧账本。下一项直接在固定版本采集48次；同项目复用单列，不继续扩组件或重复旧资格。旧E01/E30/E33/E35–E41与论文v0.6保持；私人知识库不注入正式Agent，代码只发布科研集成分支。
+
+发布路径：原生Linux Git多次TLS握手断开后，本轮依据既有推送/PR/合并授权，明确启用Git Data API备用发布同一批已检查内容，未变更凭据或代理。实际PR/CI/合并以Issue677关联PR和本轮publication收据为准；首次推送阻塞记录保留，不把本地准备当已发布或正式模型结果。
+
+## 上一阶段（2026-11-04；#675简洁任务核心组件与统一比较入口接入完成）
 
 本阶段为工程接入/基础设施，0真实Provider、0新增模型费。[核心边界与比较安排](docs/research/2026-11-04-simple-build-core-boundary.md)及[实跑报告](docs/research/2026-11-04-simple-build-core-integration.md)落实用户“先补齐论文核心组件，再固定版本比较”的决定：已有两层经验迁入公开简洁任务，Forge/经验Forge/强工具Agent/CXX社区参考接通共同输入与分层结果；不新增分类器、联网搜索或多Agent体系。
 
