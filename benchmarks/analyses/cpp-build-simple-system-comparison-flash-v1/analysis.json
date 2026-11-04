@@ -1,0 +1,2297 @@
+{
+  "identity": "cpp-build-simple-system-comparison-flash-v1",
+  "summary": {
+    "forge": {
+      "planned": 12,
+      "observed": 12,
+      "unobserved": 0,
+      "primary_completed": 9,
+      "full_completed": 9,
+      "requests": 58,
+      "estimated_cost_usd": "0.1942293",
+      "total_wall_seconds": 508.3655910171801,
+      "author_tests": {
+        "passed": 9,
+        "unobserved": 3
+      },
+      "layers": {
+        "primary_build": {
+          "True": 9,
+          "None": 3
+        },
+        "author_tests": {
+          "passed": 9,
+          "unobserved": 3
+        },
+        "delivery": {
+          "passed": 9,
+          "unobserved": 3
+        },
+        "clean_replay": {
+          "passed": 9,
+          "unobserved": 3
+        },
+        "source_unchanged": {
+          "True": 9,
+          "None": 3
+        },
+        "cleanup": {
+          "True": 12
+        },
+        "full_completed": {
+          "True": 9,
+          "None": 3
+        }
+      },
+      "input_tokens": 563731,
+      "output_tokens": 20925,
+      "phase_usage": {
+        "initial": {
+          "requests": 58,
+          "cost_usd": "0.1942293"
+        },
+        "recovery": {
+          "requests": 0,
+          "cost_usd": "0"
+        },
+        "tool_agent": {
+          "requests": 0,
+          "cost_usd": "0"
+        }
+      },
+      "source_reads": 64,
+      "experience_retrievals": 0
+    },
+    "forge_experience": {
+      "planned": 12,
+      "observed": 12,
+      "unobserved": 0,
+      "primary_completed": 8,
+      "full_completed": 8,
+      "requests": 192,
+      "estimated_cost_usd": "0.9172332",
+      "total_wall_seconds": 846.8523385011358,
+      "author_tests": {
+        "passed": 8,
+        "unobserved": 4
+      },
+      "layers": {
+        "primary_build": {
+          "True": 8,
+          "None": 4
+        },
+        "author_tests": {
+          "passed": 8,
+          "unobserved": 4
+        },
+        "delivery": {
+          "passed": 8,
+          "unobserved": 4
+        },
+        "clean_replay": {
+          "passed": 8,
+          "unobserved": 4
+        },
+        "source_unchanged": {
+          "True": 8,
+          "None": 4
+        },
+        "cleanup": {
+          "True": 12
+        },
+        "full_completed": {
+          "True": 8,
+          "None": 4
+        }
+      },
+      "input_tokens": 2789584,
+      "output_tokens": 66965,
+      "phase_usage": {
+        "initial": {
+          "requests": 192,
+          "cost_usd": "0.9172332"
+        },
+        "recovery": {
+          "requests": 0,
+          "cost_usd": "0"
+        },
+        "tool_agent": {
+          "requests": 0,
+          "cost_usd": "0"
+        }
+      },
+      "source_reads": 363,
+      "experience_retrievals": 12
+    },
+    "strong_tool_agent": {
+      "planned": 12,
+      "observed": 12,
+      "unobserved": 0,
+      "primary_completed": 12,
+      "full_completed": 12,
+      "requests": 64,
+      "estimated_cost_usd": "0.1660431",
+      "total_wall_seconds": 599.1740752279293,
+      "author_tests": {
+        "passed": 12
+      },
+      "layers": {
+        "primary_build": {
+          "True": 12
+        },
+        "author_tests": {
+          "passed": 12
+        },
+        "delivery": {
+          "passed": 12
+        },
+        "clean_replay": {
+          "passed": 12
+        },
+        "source_unchanged": {
+          "True": 12
+        },
+        "cleanup": {
+          "True": 12
+        },
+        "full_completed": {
+          "True": 12
+        }
+      },
+      "input_tokens": 511489,
+      "output_tokens": 10497,
+      "phase_usage": {
+        "initial": {
+          "requests": 0,
+          "cost_usd": "0"
+        },
+        "recovery": {
+          "requests": 0,
+          "cost_usd": "0"
+        },
+        "tool_agent": {
+          "requests": 64,
+          "cost_usd": "0.1660431"
+        }
+      },
+      "source_reads": 7,
+      "experience_retrievals": 0
+    },
+    "cxxcrafter": {
+      "planned": 12,
+      "observed": 12,
+      "unobserved": 0,
+      "primary_completed": 12,
+      "full_completed": 9,
+      "requests": 78,
+      "estimated_cost_usd": "0.1161618",
+      "total_wall_seconds": 1888.091557348147,
+      "author_tests": {
+        "passed": 9,
+        "failed": 3
+      },
+      "layers": {
+        "primary_build": {
+          "True": 12
+        },
+        "author_tests": {
+          "passed": 9,
+          "failed": 3
+        },
+        "delivery": {
+          "passed": 12
+        },
+        "clean_replay": {
+          "passed": 12
+        },
+        "source_unchanged": {
+          "True": 12
+        },
+        "cleanup": {
+          "True": 12
+        },
+        "full_completed": {
+          "True": 9,
+          "False": 3
+        }
+      },
+      "input_tokens": 188214,
+      "output_tokens": 49748,
+      "phase_usage": null,
+      "source_reads": null,
+      "experience_retrievals": null
+    }
+  },
+  "slots": [
+    {
+      "slot": 1,
+      "project": "jsoncpp",
+      "repetition": 1,
+      "method": "forge",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "passed",
+        "clean_replay": "passed",
+        "full_completed": true
+      },
+      "timings": {
+        "configure_seconds": 1.9228504119673744,
+        "build_seconds": 14.782098577939905,
+        "result_location_seconds": 0.031646725023165345,
+        "primary_build_seconds": 24.269107367028482,
+        "time_to_primary_from_arm_start_seconds": 24.270083546056412,
+        "delivery_seconds": 0.16820083698257804,
+        "author_tests_seconds": 2.9844312029890716,
+        "clean_replay_seconds": 23.323390956036747,
+        "total_seconds_before_cleanup": 50.776542626088485,
+        "initial_planning_seconds": 6.912005656049587,
+        "recovery_agent_seconds": 0.0
+      },
+      "arm_total_wall_seconds": 54.15233168494888,
+      "agent_usage": {
+        "model_requests": 2,
+        "recorded_tokens": 17365,
+        "agent_steps": 4,
+        "tool_calls": 2,
+        "commands": 2,
+        "elapsed_seconds": 9.422068241983652,
+        "input_tokens": 16346,
+        "output_tokens": 1019,
+        "estimated_cost_usd": 0.0061266,
+        "unknown_usage_requests": 0,
+        "cost_and_usage_complete": true,
+        "estimated_cost_usd_completed_responses": 0.0061266
+      },
+      "phase_usage": {
+        "initial": {
+          "requests": 2,
+          "input_tokens": 16346,
+          "output_tokens": 1019,
+          "estimated_cost_usd": "0.0061266"
+        }
+      },
+      "source_reads": 1,
+      "experience_retrievals": 0
+    },
+    {
+      "slot": 2,
+      "project": "jsoncpp",
+      "repetition": 1,
+      "method": "forge_experience",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "passed",
+        "clean_replay": "passed",
+        "full_completed": true
+      },
+      "timings": {
+        "configure_seconds": 1.8784686980070546,
+        "build_seconds": 14.652030913042836,
+        "result_location_seconds": 0.031556901056319475,
+        "primary_build_seconds": 63.06419017200824,
+        "time_to_primary_from_arm_start_seconds": 63.06508502003271,
+        "delivery_seconds": 0.16622896899934858,
+        "author_tests_seconds": 2.9124638619832695,
+        "clean_replay_seconds": 23.377753590000793,
+        "total_seconds_before_cleanup": 89.55155269801617,
+        "initial_planning_seconds": 45.87385795102455,
+        "recovery_agent_seconds": 0.0
+      },
+      "arm_total_wall_seconds": 92.94294557103422,
+      "agent_usage": {
+        "model_requests": 17,
+        "recorded_tokens": 255340,
+        "agent_steps": 56,
+        "tool_calls": 39,
+        "commands": 2,
+        "elapsed_seconds": 48.34752485295758,
+        "input_tokens": 249329,
+        "output_tokens": 6011,
+        "estimated_cost_usd": 0.0820119,
+        "unknown_usage_requests": 0,
+        "cost_and_usage_complete": true,
+        "estimated_cost_usd_completed_responses": 0.0820119
+      },
+      "phase_usage": {
+        "initial": {
+          "requests": 17,
+          "input_tokens": 249329,
+          "output_tokens": 6011,
+          "estimated_cost_usd": "0.0820119"
+        }
+      },
+      "source_reads": 35,
+      "experience_retrievals": 1
+    },
+    {
+      "slot": 3,
+      "project": "jsoncpp",
+      "repetition": 1,
+      "method": "cxxcrafter",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "passed",
+        "clean_replay": "passed",
+        "full_completed": true
+      },
+      "timings": {
+        "time_to_primary_from_arm_start_seconds": 76.33076112996787
+      },
+      "arm_total_wall_seconds": 138.21894453500863,
+      "agent_usage": {
+        "provider_requests": 6,
+        "input_tokens": 12451,
+        "output_tokens": 2241,
+        "total_tokens": 14692,
+        "estimated_cost_usd_completed_responses": "0.0064245",
+        "unknown_usage_requests": 0
+      },
+      "phase_usage": null,
+      "source_reads": null,
+      "experience_retrievals": null
+    },
+    {
+      "slot": 4,
+      "project": "jsoncpp",
+      "repetition": 1,
+      "method": "strong_tool_agent",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "passed",
+        "clean_replay": "passed",
+        "full_completed": true
+      },
+      "timings": {
+        "time_to_primary_seconds": 25.031385823036544,
+        "time_to_primary_from_arm_start_seconds": 25.034429170074873,
+        "delivery_seconds": 0.17702778498642147,
+        "author_tests_seconds": 2.9985927439993247,
+        "clean_replay_seconds": 23.639737826073542,
+        "total_seconds_before_cleanup": 51.89351628697477,
+        "initial_planning_seconds": 0.0,
+        "recovery_agent_seconds": 0.0
+      },
+      "arm_total_wall_seconds": 55.27289558702614,
+      "agent_usage": {
+        "model_requests": 5,
+        "recorded_tokens": 44781,
+        "agent_steps": 11,
+        "tool_calls": 6,
+        "commands": 4,
+        "elapsed_seconds": 24.969327575992793,
+        "input_tokens": 44055,
+        "output_tokens": 726,
+        "estimated_cost_usd": 0.0140877,
+        "unknown_usage_requests": 0,
+        "cost_and_usage_complete": true,
+        "estimated_cost_usd_completed_responses": 0.0140877
+      },
+      "phase_usage": {
+        "tool_agent": {
+          "requests": 5,
+          "input_tokens": 44055,
+          "output_tokens": 726,
+          "estimated_cost_usd": "0.0140877"
+        }
+      },
+      "source_reads": 0,
+      "experience_retrievals": 0
+    },
+    {
+      "slot": 5,
+      "project": "miniz",
+      "repetition": 1,
+      "method": "forge_experience",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "passed",
+        "clean_replay": "passed",
+        "full_completed": true
+      },
+      "timings": {
+        "configure_seconds": 1.259102733922191,
+        "build_seconds": 20.30120104306843,
+        "result_location_seconds": 0.013871378032490611,
+        "primary_build_seconds": 42.10864031605888,
+        "time_to_primary_from_arm_start_seconds": 42.10957298090216,
+        "delivery_seconds": 0.1505677029490471,
+        "author_tests_seconds": 0.2343185079516843,
+        "clean_replay_seconds": 25.030282363994047,
+        "total_seconds_before_cleanup": 67.54202763701323,
+        "initial_planning_seconds": 19.681116496911272,
+        "recovery_agent_seconds": 0.0
+      },
+      "arm_total_wall_seconds": 70.90623346494976,
+      "agent_usage": {
+        "model_requests": 6,
+        "recorded_tokens": 85701,
+        "agent_steps": 16,
+        "tool_calls": 10,
+        "commands": 2,
+        "elapsed_seconds": 21.602900700992905,
+        "input_tokens": 82964,
+        "output_tokens": 2737,
+        "estimated_cost_usd": 0.0281736,
+        "unknown_usage_requests": 0,
+        "cost_and_usage_complete": true,
+        "estimated_cost_usd_completed_responses": 0.0281736
+      },
+      "phase_usage": {
+        "initial": {
+          "requests": 6,
+          "input_tokens": 82964,
+          "output_tokens": 2737,
+          "estimated_cost_usd": "0.0281736"
+        }
+      },
+      "source_reads": 7,
+      "experience_retrievals": 1
+    },
+    {
+      "slot": 6,
+      "project": "miniz",
+      "repetition": 1,
+      "method": "strong_tool_agent",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "passed",
+        "clean_replay": "passed",
+        "full_completed": true
+      },
+      "timings": {
+        "time_to_primary_seconds": 30.939498277031817,
+        "time_to_primary_from_arm_start_seconds": 30.94202891003806,
+        "delivery_seconds": 0.15191536699421704,
+        "author_tests_seconds": 0.22473507490940392,
+        "clean_replay_seconds": 25.48789306008257,
+        "total_seconds_before_cleanup": 56.83325844199862,
+        "initial_planning_seconds": 0.0,
+        "recovery_agent_seconds": 0.0
+      },
+      "arm_total_wall_seconds": 60.17243358003907,
+      "agent_usage": {
+        "model_requests": 6,
+        "recorded_tokens": 53417,
+        "agent_steps": 13,
+        "tool_calls": 7,
+        "commands": 4,
+        "elapsed_seconds": 30.906845518038608,
+        "input_tokens": 52337,
+        "output_tokens": 1080,
+        "estimated_cost_usd": 0.0169971,
+        "unknown_usage_requests": 0,
+        "cost_and_usage_complete": true,
+        "estimated_cost_usd_completed_responses": 0.0169971
+      },
+      "phase_usage": {
+        "tool_agent": {
+          "requests": 6,
+          "input_tokens": 52337,
+          "output_tokens": 1080,
+          "estimated_cost_usd": "0.0169971"
+        }
+      },
+      "source_reads": 0,
+      "experience_retrievals": 0
+    },
+    {
+      "slot": 7,
+      "project": "miniz",
+      "repetition": 1,
+      "method": "forge",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "passed",
+        "clean_replay": "passed",
+        "full_completed": true
+      },
+      "timings": {
+        "configure_seconds": 1.2583442400209606,
+        "build_seconds": 20.47269345994573,
+        "result_location_seconds": 0.01375462394207716,
+        "primary_build_seconds": 33.20568158803508,
+        "time_to_primary_from_arm_start_seconds": 33.20649607607629,
+        "delivery_seconds": 0.13559330406133085,
+        "author_tests_seconds": 0.21866967203095555,
+        "clean_replay_seconds": 24.89161289704498,
+        "total_seconds_before_cleanup": 58.470266798045486,
+        "initial_planning_seconds": 10.952246555010788,
+        "recovery_agent_seconds": 0.0
+      },
+      "arm_total_wall_seconds": 61.814866372034885,
+      "agent_usage": {
+        "model_requests": 5,
+        "recorded_tokens": 50283,
+        "agent_steps": 11,
+        "tool_calls": 6,
+        "commands": 2,
+        "elapsed_seconds": 12.695958424010314,
+        "input_tokens": 48904,
+        "output_tokens": 1379,
+        "estimated_cost_usd": 0.016326,
+        "unknown_usage_requests": 0,
+        "cost_and_usage_complete": true,
+        "estimated_cost_usd_completed_responses": 0.016326
+      },
+      "phase_usage": {
+        "initial": {
+          "requests": 5,
+          "input_tokens": 48904,
+          "output_tokens": 1379,
+          "estimated_cost_usd": "0.016326"
+        }
+      },
+      "source_reads": 5,
+      "experience_retrievals": 0
+    },
+    {
+      "slot": 8,
+      "project": "miniz",
+      "repetition": 1,
+      "method": "cxxcrafter",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "passed",
+        "clean_replay": "passed",
+        "full_completed": true
+      },
+      "timings": {
+        "time_to_primary_from_arm_start_seconds": 77.59460060193669
+      },
+      "arm_total_wall_seconds": 137.91951816901565,
+      "agent_usage": {
+        "provider_requests": 6,
+        "input_tokens": 18062,
+        "output_tokens": 3296,
+        "total_tokens": 21358,
+        "estimated_cost_usd_completed_responses": "0.0093738",
+        "unknown_usage_requests": 0
+      },
+      "phase_usage": null,
+      "source_reads": null,
+      "experience_retrievals": null
+    },
+    {
+      "slot": 9,
+      "project": "pigz",
+      "repetition": 1,
+      "method": "strong_tool_agent",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "passed",
+        "clean_replay": "passed",
+        "full_completed": true
+      },
+      "timings": {
+        "time_to_primary_seconds": 7.996799085056409,
+        "time_to_primary_from_arm_start_seconds": 7.9993211990222335,
+        "delivery_seconds": 0.1408501740079373,
+        "author_tests_seconds": 0.2692955780075863,
+        "clean_replay_seconds": 6.178307773079723,
+        "total_seconds_before_cleanup": 14.600122209987603,
+        "initial_planning_seconds": 0.0,
+        "recovery_agent_seconds": 0.0
+      },
+      "arm_total_wall_seconds": 17.949803850031458,
+      "agent_usage": {
+        "model_requests": 4,
+        "recorded_tokens": 21730,
+        "agent_steps": 9,
+        "tool_calls": 5,
+        "commands": 2,
+        "elapsed_seconds": 7.976431590039283,
+        "input_tokens": 21091,
+        "output_tokens": 639,
+        "estimated_cost_usd": 0.0070941,
+        "unknown_usage_requests": 0,
+        "cost_and_usage_complete": true,
+        "estimated_cost_usd_completed_responses": 0.0070941
+      },
+      "phase_usage": {
+        "tool_agent": {
+          "requests": 4,
+          "input_tokens": 21091,
+          "output_tokens": 639,
+          "estimated_cost_usd": "0.0070941"
+        }
+      },
+      "source_reads": 0,
+      "experience_retrievals": 0
+    },
+    {
+      "slot": 10,
+      "project": "pigz",
+      "repetition": 1,
+      "method": "cxxcrafter",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "passed",
+        "clean_replay": "passed",
+        "full_completed": true
+      },
+      "timings": {
+        "time_to_primary_from_arm_start_seconds": 61.46170859609265
+      },
+      "arm_total_wall_seconds": 104.55489339900669,
+      "agent_usage": {
+        "provider_requests": 6,
+        "input_tokens": 10070,
+        "output_tokens": 3034,
+        "total_tokens": 13104,
+        "estimated_cost_usd_completed_responses": "0.0066618",
+        "unknown_usage_requests": 0
+      },
+      "phase_usage": null,
+      "source_reads": null,
+      "experience_retrievals": null
+    },
+    {
+      "slot": 11,
+      "project": "pigz",
+      "repetition": 1,
+      "method": "forge_experience",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "passed",
+        "clean_replay": "passed",
+        "full_completed": true
+      },
+      "timings": {
+        "dependency_seconds": 0.19839989091269672,
+        "build_seconds": 1.7780601049307734,
+        "result_location_seconds": 0.01099520898424089,
+        "primary_build_seconds": 10.495365192065947,
+        "time_to_primary_from_arm_start_seconds": 10.496585899032652,
+        "delivery_seconds": 0.1384857069933787,
+        "author_tests_seconds": 0.2802648770157248,
+        "clean_replay_seconds": 6.288429082953371,
+        "total_seconds_before_cleanup": 17.213049209094606,
+        "initial_planning_seconds": 8.017530858982354,
+        "recovery_agent_seconds": 0.0
+      },
+      "arm_total_wall_seconds": 20.582285439944826,
+      "agent_usage": {
+        "model_requests": 2,
+        "recorded_tokens": 16243,
+        "agent_steps": 4,
+        "tool_calls": 2,
+        "commands": 2,
+        "elapsed_seconds": 8.692589489044622,
+        "input_tokens": 15137,
+        "output_tokens": 1106,
+        "estimated_cost_usd": 0.0058683,
+        "unknown_usage_requests": 0,
+        "cost_and_usage_complete": true,
+        "estimated_cost_usd_completed_responses": 0.0058683
+      },
+      "phase_usage": {
+        "initial": {
+          "requests": 2,
+          "input_tokens": 15137,
+          "output_tokens": 1106,
+          "estimated_cost_usd": "0.0058683"
+        }
+      },
+      "source_reads": 0,
+      "experience_retrievals": 1
+    },
+    {
+      "slot": 12,
+      "project": "pigz",
+      "repetition": 1,
+      "method": "forge",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "passed",
+        "clean_replay": "passed",
+        "full_completed": true
+      },
+      "timings": {
+        "dependency_seconds": 0.14493412198498845,
+        "build_seconds": 1.7487613110570237,
+        "result_location_seconds": 0.013684327946975827,
+        "primary_build_seconds": 11.310906110098585,
+        "time_to_primary_from_arm_start_seconds": 11.312484347028658,
+        "delivery_seconds": 0.13819816103205085,
+        "author_tests_seconds": 0.2675945669179782,
+        "clean_replay_seconds": 6.15284402098041,
+        "total_seconds_before_cleanup": 17.882221985026263,
+        "initial_planning_seconds": 8.743559697992168,
+        "recovery_agent_seconds": 0.0
+      },
+      "arm_total_wall_seconds": 21.24962213099934,
+      "agent_usage": {
+        "model_requests": 3,
+        "recorded_tokens": 16174,
+        "agent_steps": 6,
+        "tool_calls": 3,
+        "commands": 2,
+        "elapsed_seconds": 9.366134301992133,
+        "input_tokens": 14992,
+        "output_tokens": 1182,
+        "estimated_cost_usd": 0.005916,
+        "unknown_usage_requests": 0,
+        "cost_and_usage_complete": true,
+        "estimated_cost_usd_completed_responses": 0.005916
+      },
+      "phase_usage": {
+        "initial": {
+          "requests": 3,
+          "input_tokens": 14992,
+          "output_tokens": 1182,
+          "estimated_cost_usd": "0.005916"
+        }
+      },
+      "source_reads": 0,
+      "experience_retrievals": 0
+    },
+    {
+      "slot": 13,
+      "project": "highwayhash",
+      "repetition": 1,
+      "method": "cxxcrafter",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "passed",
+        "clean_replay": "passed",
+        "full_completed": true
+      },
+      "timings": {
+        "time_to_primary_from_arm_start_seconds": 28.363261508056894
+      },
+      "arm_total_wall_seconds": 46.62964990106411,
+      "agent_usage": {
+        "provider_requests": 6,
+        "input_tokens": 17288,
+        "output_tokens": 1509,
+        "total_tokens": 18797,
+        "estimated_cost_usd_completed_responses": "0.0069972",
+        "unknown_usage_requests": 0
+      },
+      "phase_usage": null,
+      "source_reads": null,
+      "experience_retrievals": null
+    },
+    {
+      "slot": 14,
+      "project": "highwayhash",
+      "repetition": 1,
+      "method": "forge",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "passed",
+        "clean_replay": "passed",
+        "full_completed": true
+      },
+      "timings": {
+        "build_seconds": 7.37891234701965,
+        "result_location_seconds": 0.019221390946768224,
+        "primary_build_seconds": 21.24092172901146,
+        "time_to_primary_from_arm_start_seconds": 21.242005002917722,
+        "delivery_seconds": 0.14989003399387002,
+        "author_tests_seconds": 0.37724949698895216,
+        "clean_replay_seconds": 11.483814035076648,
+        "total_seconds_before_cleanup": 33.26969195099082,
+        "initial_planning_seconds": 13.175778427044861,
+        "recovery_agent_seconds": 0.0
+      },
+      "arm_total_wall_seconds": 36.61748670798261,
+      "agent_usage": {
+        "model_requests": 5,
+        "recorded_tokens": 53857,
+        "agent_steps": 13,
+        "tool_calls": 8,
+        "commands": 1,
+        "elapsed_seconds": 13.658941015950404,
+        "input_tokens": 52105,
+        "output_tokens": 1752,
+        "estimated_cost_usd": 0.0177339,
+        "unknown_usage_requests": 0,
+        "cost_and_usage_complete": true,
+        "estimated_cost_usd_completed_responses": 0.0177339
+      },
+      "phase_usage": {
+        "initial": {
+          "requests": 5,
+          "input_tokens": 52105,
+          "output_tokens": 1752,
+          "estimated_cost_usd": "0.0177339"
+        }
+      },
+      "source_reads": 6,
+      "experience_retrievals": 0
+    },
+    {
+      "slot": 15,
+      "project": "highwayhash",
+      "repetition": 1,
+      "method": "strong_tool_agent",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "passed",
+        "clean_replay": "passed",
+        "full_completed": true
+      },
+      "timings": {
+        "time_to_primary_seconds": 16.826368330977857,
+        "time_to_primary_from_arm_start_seconds": 16.828776419977657,
+        "delivery_seconds": 0.16388102993369102,
+        "author_tests_seconds": 0.3136571730719879,
+        "clean_replay_seconds": 11.504899755935185,
+        "total_seconds_before_cleanup": 28.83478833094705,
+        "initial_planning_seconds": 0.0,
+        "recovery_agent_seconds": 0.0
+      },
+      "arm_total_wall_seconds": 32.19698571995832,
+      "agent_usage": {
+        "model_requests": 5,
+        "recorded_tokens": 40433,
+        "agent_steps": 11,
+        "tool_calls": 6,
+        "commands": 4,
+        "elapsed_seconds": 16.794577630935237,
+        "input_tokens": 39578,
+        "output_tokens": 855,
+        "estimated_cost_usd": 0.0128994,
+        "unknown_usage_requests": 0,
+        "cost_and_usage_complete": true,
+        "estimated_cost_usd_completed_responses": 0.0128994
+      },
+      "phase_usage": {
+        "tool_agent": {
+          "requests": 5,
+          "input_tokens": 39578,
+          "output_tokens": 855,
+          "estimated_cost_usd": "0.0128994"
+        }
+      },
+      "source_reads": 0,
+      "experience_retrievals": 0
+    },
+    {
+      "slot": 16,
+      "project": "highwayhash",
+      "repetition": 1,
+      "method": "forge_experience",
+      "layers": null,
+      "timings": {
+        "initial_planning_seconds": 6.615532782976516,
+        "recovery_agent_seconds": 0.0
+      },
+      "arm_total_wall_seconds": 10.400838234112598,
+      "agent_usage": {
+        "model_requests": 2,
+        "recorded_tokens": 23029,
+        "agent_steps": 3,
+        "tool_calls": 1,
+        "commands": 0,
+        "elapsed_seconds": 3.207558228983544,
+        "input_tokens": 22118,
+        "output_tokens": 911,
+        "estimated_cost_usd": 0.0077286,
+        "unknown_usage_requests": 0,
+        "cost_and_usage_complete": true,
+        "estimated_cost_usd_completed_responses": 0.0077286
+      },
+      "phase_usage": {
+        "initial": {
+          "requests": 2,
+          "input_tokens": 22118,
+          "output_tokens": 911,
+          "estimated_cost_usd": "0.0077286"
+        }
+      },
+      "source_reads": 0,
+      "experience_retrievals": 1
+    },
+    {
+      "slot": 17,
+      "project": "libite",
+      "repetition": 1,
+      "method": "forge",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "passed",
+        "clean_replay": "passed",
+        "full_completed": true
+      },
+      "timings": {
+        "configure_seconds": 9.260619333130307,
+        "build_seconds": 4.844545635976829,
+        "result_location_seconds": 0.040173960966058075,
+        "primary_build_seconds": 27.457710803020746,
+        "time_to_primary_from_arm_start_seconds": 27.459373947931454,
+        "delivery_seconds": 0.1515440009534359,
+        "author_tests_seconds": 12.94710469909478,
+        "clean_replay_seconds": 30.677379978005774,
+        "total_seconds_before_cleanup": 71.25841334299184,
+        "initial_planning_seconds": 12.743167085922323,
+        "recovery_agent_seconds": 0.0
+      },
+      "arm_total_wall_seconds": 74.61785180203151,
+      "agent_usage": {
+        "model_requests": 4,
+        "recorded_tokens": 28287,
+        "agent_steps": 11,
+        "tool_calls": 7,
+        "commands": 3,
+        "elapsed_seconds": 22.553509004064836,
+        "input_tokens": 26664,
+        "output_tokens": 1623,
+        "estimated_cost_usd": 0.0099468,
+        "unknown_usage_requests": 0,
+        "cost_and_usage_complete": true,
+        "estimated_cost_usd_completed_responses": 0.0099468
+      },
+      "phase_usage": {
+        "initial": {
+          "requests": 4,
+          "input_tokens": 26664,
+          "output_tokens": 1623,
+          "estimated_cost_usd": "0.0099468"
+        }
+      },
+      "source_reads": 4,
+      "experience_retrievals": 0
+    },
+    {
+      "slot": 18,
+      "project": "libite",
+      "repetition": 1,
+      "method": "forge_experience",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "passed",
+        "clean_replay": "passed",
+        "full_completed": true
+      },
+      "timings": {
+        "dependency_seconds": 5.150096226949245,
+        "configure_seconds": 3.9453652440570295,
+        "build_seconds": 4.746032412047498,
+        "result_location_seconds": 0.04316254495643079,
+        "primary_build_seconds": 32.75676829495933,
+        "time_to_primary_from_arm_start_seconds": 32.75808102602605,
+        "delivery_seconds": 0.1605402099667117,
+        "author_tests_seconds": 12.872997876023874,
+        "clean_replay_seconds": 30.598380311043,
+        "total_seconds_before_cleanup": 76.41062527592294,
+        "initial_planning_seconds": 17.799956353963353,
+        "recovery_agent_seconds": 0.0
+      },
+      "arm_total_wall_seconds": 79.78085199499037,
+      "agent_usage": {
+        "model_requests": 3,
+        "recorded_tokens": 26446,
+        "agent_steps": 9,
+        "tool_calls": 6,
+        "commands": 3,
+        "elapsed_seconds": 27.77284511597827,
+        "input_tokens": 23924,
+        "output_tokens": 2522,
+        "estimated_cost_usd": 0.0102036,
+        "unknown_usage_requests": 0,
+        "cost_and_usage_complete": true,
+        "estimated_cost_usd_completed_responses": 0.0102036
+      },
+      "phase_usage": {
+        "initial": {
+          "requests": 3,
+          "input_tokens": 23924,
+          "output_tokens": 2522,
+          "estimated_cost_usd": "0.0102036"
+        }
+      },
+      "source_reads": 4,
+      "experience_retrievals": 1
+    },
+    {
+      "slot": 19,
+      "project": "libite",
+      "repetition": 1,
+      "method": "cxxcrafter",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "passed",
+        "clean_replay": "passed",
+        "full_completed": true
+      },
+      "timings": {
+        "time_to_primary_from_arm_start_seconds": 122.48619322001468
+      },
+      "arm_total_wall_seconds": 238.40384225500748,
+      "agent_usage": {
+        "provider_requests": 6,
+        "input_tokens": 9777,
+        "output_tokens": 4333,
+        "total_tokens": 14110,
+        "estimated_cost_usd_completed_responses": "0.0081327",
+        "unknown_usage_requests": 0
+      },
+      "phase_usage": null,
+      "source_reads": null,
+      "experience_retrievals": null
+    },
+    {
+      "slot": 20,
+      "project": "libite",
+      "repetition": 1,
+      "method": "strong_tool_agent",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "passed",
+        "clean_replay": "passed",
+        "full_completed": true
+      },
+      "timings": {
+        "time_to_primary_seconds": 22.187309160945006,
+        "time_to_primary_from_arm_start_seconds": 22.19026724109426,
+        "delivery_seconds": 0.15803834795951843,
+        "author_tests_seconds": 12.91314127203077,
+        "clean_replay_seconds": 30.55900482297875,
+        "total_seconds_before_cleanup": 65.84519655595068,
+        "initial_planning_seconds": 0.0,
+        "recovery_agent_seconds": 0.0
+      },
+      "arm_total_wall_seconds": 69.2289215970086,
+      "agent_usage": {
+        "model_requests": 6,
+        "recorded_tokens": 34608,
+        "agent_steps": 14,
+        "tool_calls": 8,
+        "commands": 4,
+        "elapsed_seconds": 22.127227683900855,
+        "input_tokens": 33819,
+        "output_tokens": 789,
+        "estimated_cost_usd": 0.0110925,
+        "unknown_usage_requests": 0,
+        "cost_and_usage_complete": true,
+        "estimated_cost_usd_completed_responses": 0.0110925
+      },
+      "phase_usage": {
+        "tool_agent": {
+          "requests": 6,
+          "input_tokens": 33819,
+          "output_tokens": 789,
+          "estimated_cost_usd": "0.0110925"
+        }
+      },
+      "source_reads": 1,
+      "experience_retrievals": 0
+    },
+    {
+      "slot": 21,
+      "project": "libsrtp",
+      "repetition": 1,
+      "method": "forge_experience",
+      "layers": null,
+      "timings": {
+        "initial_planning_seconds": 116.31035191204865,
+        "recovery_agent_seconds": 0.0
+      },
+      "arm_total_wall_seconds": 120.61117634794209,
+      "agent_usage": {
+        "model_requests": 50,
+        "recorded_tokens": 767374,
+        "agent_steps": 169,
+        "tool_calls": 119,
+        "commands": 0,
+        "elapsed_seconds": 117.28548161196522,
+        "input_tokens": 752969,
+        "output_tokens": 14405,
+        "estimated_cost_usd": 0.2431767,
+        "unknown_usage_requests": 0,
+        "cost_and_usage_complete": true,
+        "estimated_cost_usd_completed_responses": 0.2431767
+      },
+      "phase_usage": {
+        "initial": {
+          "requests": 50,
+          "input_tokens": 752969,
+          "output_tokens": 14405,
+          "estimated_cost_usd": "0.2431767"
+        }
+      },
+      "source_reads": 95,
+      "experience_retrievals": 1
+    },
+    {
+      "slot": 22,
+      "project": "libsrtp",
+      "repetition": 1,
+      "method": "strong_tool_agent",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "passed",
+        "clean_replay": "passed",
+        "full_completed": true
+      },
+      "timings": {
+        "time_to_primary_seconds": 15.859662586008199,
+        "time_to_primary_from_arm_start_seconds": 15.8620139650302,
+        "delivery_seconds": 0.2936028189724311,
+        "author_tests_seconds": 14.474095403915271,
+        "clean_replay_seconds": 26.499677330954,
+        "total_seconds_before_cleanup": 57.31116460706107,
+        "initial_planning_seconds": 0.0,
+        "recovery_agent_seconds": 0.0
+      },
+      "arm_total_wall_seconds": 60.73917710699607,
+      "agent_usage": {
+        "model_requests": 5,
+        "recorded_tokens": 50660,
+        "agent_steps": 10,
+        "tool_calls": 5,
+        "commands": 2,
+        "elapsed_seconds": 15.639397053979337,
+        "input_tokens": 50133,
+        "output_tokens": 527,
+        "estimated_cost_usd": 0.0156723,
+        "unknown_usage_requests": 0,
+        "cost_and_usage_complete": true,
+        "estimated_cost_usd_completed_responses": 0.0156723
+      },
+      "phase_usage": {
+        "tool_agent": {
+          "requests": 5,
+          "input_tokens": 50133,
+          "output_tokens": 527,
+          "estimated_cost_usd": "0.0156723"
+        }
+      },
+      "source_reads": 1,
+      "experience_retrievals": 0
+    },
+    {
+      "slot": 23,
+      "project": "libsrtp",
+      "repetition": 1,
+      "method": "forge",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "passed",
+        "clean_replay": "passed",
+        "full_completed": true
+      },
+      "timings": {
+        "configure_seconds": 5.0809794899541885,
+        "build_seconds": 3.2360785769997165,
+        "result_location_seconds": 0.12441433302592486,
+        "primary_build_seconds": 21.741106635075994,
+        "time_to_primary_from_arm_start_seconds": 21.741922821034677,
+        "delivery_seconds": 0.30151029699482024,
+        "author_tests_seconds": 14.59564226900693,
+        "clean_replay_seconds": 26.48567569302395,
+        "total_seconds_before_cleanup": 63.29061652603559,
+        "initial_planning_seconds": 11.702736442908645,
+        "recovery_agent_seconds": 0.0
+      },
+      "arm_total_wall_seconds": 66.74423345807008,
+      "agent_usage": {
+        "model_requests": 5,
+        "recorded_tokens": 57398,
+        "agent_steps": 13,
+        "tool_calls": 8,
+        "commands": 2,
+        "elapsed_seconds": 18.282476177089848,
+        "input_tokens": 55791,
+        "output_tokens": 1607,
+        "estimated_cost_usd": 0.0186657,
+        "unknown_usage_requests": 0,
+        "cost_and_usage_complete": true,
+        "estimated_cost_usd_completed_responses": 0.0186657
+      },
+      "phase_usage": {
+        "initial": {
+          "requests": 5,
+          "input_tokens": 55791,
+          "output_tokens": 1607,
+          "estimated_cost_usd": "0.0186657"
+        }
+      },
+      "source_reads": 6,
+      "experience_retrievals": 0
+    },
+    {
+      "slot": 24,
+      "project": "libsrtp",
+      "repetition": 1,
+      "method": "cxxcrafter",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "failed",
+        "clean_replay": "passed",
+        "full_completed": false
+      },
+      "timings": {
+        "time_to_primary_from_arm_start_seconds": 188.79845738504082
+      },
+      "arm_total_wall_seconds": 271.55289495096076,
+      "agent_usage": {
+        "provider_requests": 9,
+        "input_tokens": 27415,
+        "output_tokens": 8878,
+        "total_tokens": 36293,
+        "estimated_cost_usd_completed_responses": "0.0188781",
+        "unknown_usage_requests": 0
+      },
+      "phase_usage": null,
+      "source_reads": null,
+      "experience_retrievals": null
+    },
+    {
+      "slot": 25,
+      "project": "jsoncpp",
+      "repetition": 2,
+      "method": "strong_tool_agent",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "passed",
+        "clean_replay": "passed",
+        "full_completed": true
+      },
+      "timings": {
+        "time_to_primary_seconds": 26.1744483159855,
+        "time_to_primary_from_arm_start_seconds": 26.17686711391434,
+        "delivery_seconds": 0.17126722203101963,
+        "author_tests_seconds": 2.99279083206784,
+        "clean_replay_seconds": 23.287138825980946,
+        "total_seconds_before_cleanup": 52.67092361894902,
+        "initial_planning_seconds": 0.0,
+        "recovery_agent_seconds": 0.0
+      },
+      "arm_total_wall_seconds": 56.0356052609859,
+      "agent_usage": {
+        "model_requests": 6,
+        "recorded_tokens": 52420,
+        "agent_steps": 14,
+        "tool_calls": 8,
+        "commands": 4,
+        "elapsed_seconds": 26.118013872997835,
+        "input_tokens": 51499,
+        "output_tokens": 921,
+        "estimated_cost_usd": 0.0165549,
+        "unknown_usage_requests": 0,
+        "cost_and_usage_complete": true,
+        "estimated_cost_usd_completed_responses": 0.0165549
+      },
+      "phase_usage": {
+        "tool_agent": {
+          "requests": 6,
+          "input_tokens": 51499,
+          "output_tokens": 921,
+          "estimated_cost_usd": "0.0165549"
+        }
+      },
+      "source_reads": 1,
+      "experience_retrievals": 0
+    },
+    {
+      "slot": 26,
+      "project": "jsoncpp",
+      "repetition": 2,
+      "method": "cxxcrafter",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "failed",
+        "clean_replay": "passed",
+        "full_completed": false
+      },
+      "timings": {
+        "time_to_primary_from_arm_start_seconds": 91.1197105369065
+      },
+      "arm_total_wall_seconds": 143.8825022400124,
+      "agent_usage": {
+        "provider_requests": 6,
+        "input_tokens": 9862,
+        "output_tokens": 6295,
+        "total_tokens": 16157,
+        "estimated_cost_usd_completed_responses": "0.0105126",
+        "unknown_usage_requests": 0
+      },
+      "phase_usage": null,
+      "source_reads": null,
+      "experience_retrievals": null
+    },
+    {
+      "slot": 27,
+      "project": "jsoncpp",
+      "repetition": 2,
+      "method": "forge_experience",
+      "layers": null,
+      "timings": {
+        "initial_planning_seconds": 136.36088006291538,
+        "recovery_agent_seconds": 0.0
+      },
+      "arm_total_wall_seconds": 140.21535462501924,
+      "agent_usage": {
+        "model_requests": 50,
+        "recorded_tokens": 777186,
+        "agent_steps": 172,
+        "tool_calls": 122,
+        "commands": 0,
+        "elapsed_seconds": 136.8343539669877,
+        "input_tokens": 758729,
+        "output_tokens": 18457,
+        "estimated_cost_usd": 0.2497671,
+        "unknown_usage_requests": 0,
+        "cost_and_usage_complete": true,
+        "estimated_cost_usd_completed_responses": 0.2497671
+      },
+      "phase_usage": {
+        "initial": {
+          "requests": 50,
+          "input_tokens": 758729,
+          "output_tokens": 18457,
+          "estimated_cost_usd": "0.2497671"
+        }
+      },
+      "source_reads": 114,
+      "experience_retrievals": 1
+    },
+    {
+      "slot": 28,
+      "project": "jsoncpp",
+      "repetition": 2,
+      "method": "forge",
+      "layers": null,
+      "timings": {
+        "initial_planning_seconds": 15.588104726048186,
+        "recovery_agent_seconds": 0.0
+      },
+      "arm_total_wall_seconds": 19.402764440048486,
+      "agent_usage": {
+        "model_requests": 5,
+        "recorded_tokens": 53501,
+        "agent_steps": 13,
+        "tool_calls": 8,
+        "commands": 0,
+        "elapsed_seconds": 10.4290736700641,
+        "input_tokens": 51264,
+        "output_tokens": 2237,
+        "estimated_cost_usd": 0.0180636,
+        "unknown_usage_requests": 0,
+        "cost_and_usage_complete": true,
+        "estimated_cost_usd_completed_responses": 0.0180636
+      },
+      "phase_usage": {
+        "initial": {
+          "requests": 5,
+          "input_tokens": 51264,
+          "output_tokens": 2237,
+          "estimated_cost_usd": "0.0180636"
+        }
+      },
+      "source_reads": 7,
+      "experience_retrievals": 0
+    },
+    {
+      "slot": 29,
+      "project": "miniz",
+      "repetition": 2,
+      "method": "cxxcrafter",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "passed",
+        "clean_replay": "passed",
+        "full_completed": true
+      },
+      "timings": {
+        "time_to_primary_from_arm_start_seconds": 91.36931598989759
+      },
+      "arm_total_wall_seconds": 152.34760802797973,
+      "agent_usage": {
+        "provider_requests": 6,
+        "input_tokens": 17969,
+        "output_tokens": 3471,
+        "total_tokens": 21440,
+        "estimated_cost_usd_completed_responses": "0.0095559",
+        "unknown_usage_requests": 0
+      },
+      "phase_usage": null,
+      "source_reads": null,
+      "experience_retrievals": null
+    },
+    {
+      "slot": 30,
+      "project": "miniz",
+      "repetition": 2,
+      "method": "forge",
+      "layers": null,
+      "timings": {
+        "initial_planning_seconds": 38.654226261074655,
+        "recovery_agent_seconds": 0.0
+      },
+      "arm_total_wall_seconds": 42.42609728197567,
+      "agent_usage": {
+        "model_requests": 16,
+        "recorded_tokens": 188924,
+        "agent_steps": 47,
+        "tool_calls": 31,
+        "commands": 0,
+        "elapsed_seconds": 29.92927443003282,
+        "input_tokens": 183868,
+        "output_tokens": 5056,
+        "estimated_cost_usd": 0.0612276,
+        "unknown_usage_requests": 0,
+        "cost_and_usage_complete": true,
+        "estimated_cost_usd_completed_responses": 0.0612276
+      },
+      "phase_usage": {
+        "initial": {
+          "requests": 16,
+          "input_tokens": 183868,
+          "output_tokens": 5056,
+          "estimated_cost_usd": "0.0612276"
+        }
+      },
+      "source_reads": 24,
+      "experience_retrievals": 0
+    },
+    {
+      "slot": 31,
+      "project": "miniz",
+      "repetition": 2,
+      "method": "strong_tool_agent",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "passed",
+        "clean_replay": "passed",
+        "full_completed": true
+      },
+      "timings": {
+        "time_to_primary_seconds": 28.247183106956072,
+        "time_to_primary_from_arm_start_seconds": 28.249672807054594,
+        "delivery_seconds": 0.16200143203604966,
+        "author_tests_seconds": 0.22148179193027318,
+        "clean_replay_seconds": 25.34829528897535,
+        "total_seconds_before_cleanup": 54.007235915982164,
+        "initial_planning_seconds": 0.0,
+        "recovery_agent_seconds": 0.0
+      },
+      "arm_total_wall_seconds": 57.37278648593929,
+      "agent_usage": {
+        "model_requests": 4,
+        "recorded_tokens": 34417,
+        "agent_steps": 9,
+        "tool_calls": 5,
+        "commands": 3,
+        "elapsed_seconds": 28.21702381398063,
+        "input_tokens": 33727,
+        "output_tokens": 690,
+        "estimated_cost_usd": 0.0109461,
+        "unknown_usage_requests": 0,
+        "cost_and_usage_complete": true,
+        "estimated_cost_usd_completed_responses": 0.0109461
+      },
+      "phase_usage": {
+        "tool_agent": {
+          "requests": 4,
+          "input_tokens": 33727,
+          "output_tokens": 690,
+          "estimated_cost_usd": "0.0109461"
+        }
+      },
+      "source_reads": 0,
+      "experience_retrievals": 0
+    },
+    {
+      "slot": 32,
+      "project": "miniz",
+      "repetition": 2,
+      "method": "forge_experience",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "passed",
+        "clean_replay": "passed",
+        "full_completed": true
+      },
+      "timings": {
+        "configure_seconds": 1.2790898410603404,
+        "build_seconds": 20.306519913021475,
+        "result_location_seconds": 0.013634250033646822,
+        "primary_build_seconds": 35.80694024893455,
+        "time_to_primary_from_arm_start_seconds": 35.80777013103943,
+        "delivery_seconds": 0.14528068795334548,
+        "author_tests_seconds": 0.21560077206231654,
+        "clean_replay_seconds": 24.86883969011251,
+        "total_seconds_before_cleanup": 61.05406973697245,
+        "initial_planning_seconds": 13.686260452028364,
+        "recovery_agent_seconds": 0.0
+      },
+      "arm_total_wall_seconds": 64.42215444997419,
+      "agent_usage": {
+        "model_requests": 5,
+        "recorded_tokens": 67003,
+        "agent_steps": 12,
+        "tool_calls": 7,
+        "commands": 2,
+        "elapsed_seconds": 15.4629880359862,
+        "input_tokens": 65048,
+        "output_tokens": 1955,
+        "estimated_cost_usd": 0.0218604,
+        "unknown_usage_requests": 0,
+        "cost_and_usage_complete": true,
+        "estimated_cost_usd_completed_responses": 0.0218604
+      },
+      "phase_usage": {
+        "initial": {
+          "requests": 5,
+          "input_tokens": 65048,
+          "output_tokens": 1955,
+          "estimated_cost_usd": "0.0218604"
+        }
+      },
+      "source_reads": 5,
+      "experience_retrievals": 1
+    },
+    {
+      "slot": 33,
+      "project": "pigz",
+      "repetition": 2,
+      "method": "forge",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "passed",
+        "clean_replay": "passed",
+        "full_completed": true
+      },
+      "timings": {
+        "build_seconds": 1.7883902109460905,
+        "result_location_seconds": 0.011219627922400832,
+        "primary_build_seconds": 11.632250154041685,
+        "time_to_primary_from_arm_start_seconds": 11.633422737009823,
+        "delivery_seconds": 0.13782705506309867,
+        "author_tests_seconds": 0.26650773000437766,
+        "clean_replay_seconds": 6.191589507041499,
+        "total_seconds_before_cleanup": 18.239520095055923,
+        "initial_planning_seconds": 9.384404090000317,
+        "recovery_agent_seconds": 0.0
+      },
+      "arm_total_wall_seconds": 21.595099363010377,
+      "agent_usage": {
+        "model_requests": 2,
+        "recorded_tokens": 11241,
+        "agent_steps": 4,
+        "tool_calls": 2,
+        "commands": 1,
+        "elapsed_seconds": 9.819453203002922,
+        "input_tokens": 9937,
+        "output_tokens": 1304,
+        "estimated_cost_usd": 0.0045459,
+        "unknown_usage_requests": 0,
+        "cost_and_usage_complete": true,
+        "estimated_cost_usd_completed_responses": 0.0045459
+      },
+      "phase_usage": {
+        "initial": {
+          "requests": 2,
+          "input_tokens": 9937,
+          "output_tokens": 1304,
+          "estimated_cost_usd": "0.0045459"
+        }
+      },
+      "source_reads": 0,
+      "experience_retrievals": 0
+    },
+    {
+      "slot": 34,
+      "project": "pigz",
+      "repetition": 2,
+      "method": "forge_experience",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "passed",
+        "clean_replay": "passed",
+        "full_completed": true
+      },
+      "timings": {
+        "build_seconds": 1.81141986802686,
+        "result_location_seconds": 0.013628921005874872,
+        "primary_build_seconds": 7.945893747033551,
+        "time_to_primary_from_arm_start_seconds": 7.947094745002687,
+        "delivery_seconds": 0.1420987549936399,
+        "author_tests_seconds": 0.2698430009186268,
+        "clean_replay_seconds": 6.220579468994401,
+        "total_seconds_before_cleanup": 14.589672559988685,
+        "initial_planning_seconds": 5.5074594639008865,
+        "recovery_agent_seconds": 0.0
+      },
+      "arm_total_wall_seconds": 17.956168117001653,
+      "agent_usage": {
+        "model_requests": 2,
+        "recorded_tokens": 15905,
+        "agent_steps": 4,
+        "tool_calls": 2,
+        "commands": 1,
+        "elapsed_seconds": 5.933149122982286,
+        "input_tokens": 15137,
+        "output_tokens": 768,
+        "estimated_cost_usd": 0.0054627,
+        "unknown_usage_requests": 0,
+        "cost_and_usage_complete": true,
+        "estimated_cost_usd_completed_responses": 0.0054627
+      },
+      "phase_usage": {
+        "initial": {
+          "requests": 2,
+          "input_tokens": 15137,
+          "output_tokens": 768,
+          "estimated_cost_usd": "0.0054627"
+        }
+      },
+      "source_reads": 0,
+      "experience_retrievals": 1
+    },
+    {
+      "slot": 35,
+      "project": "pigz",
+      "repetition": 2,
+      "method": "cxxcrafter",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "passed",
+        "clean_replay": "passed",
+        "full_completed": true
+      },
+      "timings": {
+        "time_to_primary_from_arm_start_seconds": 61.0008533570217
+      },
+      "arm_total_wall_seconds": 98.7641867910279,
+      "agent_usage": {
+        "provider_requests": 6,
+        "input_tokens": 8824,
+        "output_tokens": 3081,
+        "total_tokens": 11905,
+        "estimated_cost_usd_completed_responses": "0.0063444",
+        "unknown_usage_requests": 0
+      },
+      "phase_usage": null,
+      "source_reads": null,
+      "experience_retrievals": null
+    },
+    {
+      "slot": 36,
+      "project": "pigz",
+      "repetition": 2,
+      "method": "strong_tool_agent",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "passed",
+        "clean_replay": "passed",
+        "full_completed": true
+      },
+      "timings": {
+        "time_to_primary_seconds": 7.450243943021633,
+        "time_to_primary_from_arm_start_seconds": 7.452885031001642,
+        "delivery_seconds": 0.15077248797751963,
+        "author_tests_seconds": 0.27280450402759016,
+        "clean_replay_seconds": 6.209357824060135,
+        "total_seconds_before_cleanup": 14.098152237944305,
+        "initial_planning_seconds": 0.0,
+        "recovery_agent_seconds": 0.0
+      },
+      "arm_total_wall_seconds": 17.46559504698962,
+      "agent_usage": {
+        "model_requests": 4,
+        "recorded_tokens": 20790,
+        "agent_steps": 9,
+        "tool_calls": 5,
+        "commands": 3,
+        "elapsed_seconds": 7.4284917110344395,
+        "input_tokens": 20237,
+        "output_tokens": 553,
+        "estimated_cost_usd": 0.0067347,
+        "unknown_usage_requests": 0,
+        "cost_and_usage_complete": true,
+        "estimated_cost_usd_completed_responses": 0.0067347
+      },
+      "phase_usage": {
+        "tool_agent": {
+          "requests": 4,
+          "input_tokens": 20237,
+          "output_tokens": 553,
+          "estimated_cost_usd": "0.0067347"
+        }
+      },
+      "source_reads": 0,
+      "experience_retrievals": 0
+    },
+    {
+      "slot": 37,
+      "project": "highwayhash",
+      "repetition": 2,
+      "method": "forge_experience",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "passed",
+        "clean_replay": "passed",
+        "full_completed": true
+      },
+      "timings": {
+        "build_seconds": 7.284587920992635,
+        "result_location_seconds": 0.01553648104891181,
+        "primary_build_seconds": 13.104018060024828,
+        "time_to_primary_from_arm_start_seconds": 13.104858041042462,
+        "delivery_seconds": 0.15275589295197278,
+        "author_tests_seconds": 0.35158590297214687,
+        "clean_replay_seconds": 11.493600006913766,
+        "total_seconds_before_cleanup": 25.116892423015088,
+        "initial_planning_seconds": 5.310886912979186,
+        "recovery_agent_seconds": 0.0
+      },
+      "arm_total_wall_seconds": 28.49878373707179,
+      "agent_usage": {
+        "model_requests": 1,
+        "recorded_tokens": 13371,
+        "agent_steps": 1,
+        "tool_calls": 0,
+        "commands": 1,
+        "elapsed_seconds": 5.784080233075656,
+        "input_tokens": 12614,
+        "output_tokens": 757,
+        "estimated_cost_usd": 0.0046926,
+        "unknown_usage_requests": 0,
+        "cost_and_usage_complete": true,
+        "estimated_cost_usd_completed_responses": 0.0046926
+      },
+      "phase_usage": {
+        "initial": {
+          "requests": 1,
+          "input_tokens": 12614,
+          "output_tokens": 757,
+          "estimated_cost_usd": "0.0046926"
+        }
+      },
+      "source_reads": 0,
+      "experience_retrievals": 1
+    },
+    {
+      "slot": 38,
+      "project": "highwayhash",
+      "repetition": 2,
+      "method": "strong_tool_agent",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "passed",
+        "clean_replay": "passed",
+        "full_completed": true
+      },
+      "timings": {
+        "time_to_primary_seconds": 17.93987913406454,
+        "time_to_primary_from_arm_start_seconds": 17.942375122918747,
+        "delivery_seconds": 0.15121567796450108,
+        "author_tests_seconds": 0.3106524150352925,
+        "clean_replay_seconds": 11.48219402495306,
+        "total_seconds_before_cleanup": 29.909933318034746,
+        "initial_planning_seconds": 0.0,
+        "recovery_agent_seconds": 0.0
+      },
+      "arm_total_wall_seconds": 33.247199564939365,
+      "agent_usage": {
+        "model_requests": 5,
+        "recorded_tokens": 41305,
+        "agent_steps": 12,
+        "tool_calls": 7,
+        "commands": 4,
+        "elapsed_seconds": 17.909496354986914,
+        "input_tokens": 40065,
+        "output_tokens": 1240,
+        "estimated_cost_usd": 0.0135075,
+        "unknown_usage_requests": 0,
+        "cost_and_usage_complete": true,
+        "estimated_cost_usd_completed_responses": 0.0135075
+      },
+      "phase_usage": {
+        "tool_agent": {
+          "requests": 5,
+          "input_tokens": 40065,
+          "output_tokens": 1240,
+          "estimated_cost_usd": "0.0135075"
+        }
+      },
+      "source_reads": 0,
+      "experience_retrievals": 0
+    },
+    {
+      "slot": 39,
+      "project": "highwayhash",
+      "repetition": 2,
+      "method": "forge",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "passed",
+        "clean_replay": "passed",
+        "full_completed": true
+      },
+      "timings": {
+        "build_seconds": 7.360196801018901,
+        "result_location_seconds": 0.014777011005207896,
+        "primary_build_seconds": 13.42529358889442,
+        "time_to_primary_from_arm_start_seconds": 13.42621888499707,
+        "delivery_seconds": 0.13225287897512317,
+        "author_tests_seconds": 0.3115236279554665,
+        "clean_replay_seconds": 11.34001453302335,
+        "total_seconds_before_cleanup": 25.2255848828936,
+        "initial_planning_seconds": 5.569094646023586,
+        "recovery_agent_seconds": 0.0
+      },
+      "arm_total_wall_seconds": 28.58199549803976,
+      "agent_usage": {
+        "model_requests": 2,
+        "recorded_tokens": 17695,
+        "agent_steps": 3,
+        "tool_calls": 1,
+        "commands": 1,
+        "elapsed_seconds": 6.030511252931319,
+        "input_tokens": 16918,
+        "output_tokens": 777,
+        "estimated_cost_usd": 0.0060078,
+        "unknown_usage_requests": 0,
+        "cost_and_usage_complete": true,
+        "estimated_cost_usd_completed_responses": 0.0060078
+      },
+      "phase_usage": {
+        "initial": {
+          "requests": 2,
+          "input_tokens": 16918,
+          "output_tokens": 777,
+          "estimated_cost_usd": "0.0060078"
+        }
+      },
+      "source_reads": 0,
+      "experience_retrievals": 0
+    },
+    {
+      "slot": 40,
+      "project": "highwayhash",
+      "repetition": 2,
+      "method": "cxxcrafter",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "passed",
+        "clean_replay": "passed",
+        "full_completed": true
+      },
+      "timings": {
+        "time_to_primary_from_arm_start_seconds": 65.37947836203966
+      },
+      "arm_total_wall_seconds": 114.14788462105207,
+      "agent_usage": {
+        "provider_requests": 6,
+        "input_tokens": 18648,
+        "output_tokens": 2882,
+        "total_tokens": 21530,
+        "estimated_cost_usd_completed_responses": "0.0090528",
+        "unknown_usage_requests": 0
+      },
+      "phase_usage": null,
+      "source_reads": null,
+      "experience_retrievals": null
+    },
+    {
+      "slot": 41,
+      "project": "libite",
+      "repetition": 2,
+      "method": "strong_tool_agent",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "passed",
+        "clean_replay": "passed",
+        "full_completed": true
+      },
+      "timings": {
+        "time_to_primary_seconds": 27.341402195976116,
+        "time_to_primary_from_arm_start_seconds": 27.344382902025245,
+        "delivery_seconds": 0.16326991992536932,
+        "author_tests_seconds": 12.953054778976366,
+        "clean_replay_seconds": 30.57661685103085,
+        "total_seconds_before_cleanup": 71.06346502993256,
+        "initial_planning_seconds": 0.0,
+        "recovery_agent_seconds": 0.0
+      },
+      "arm_total_wall_seconds": 74.47238835599273,
+      "agent_usage": {
+        "model_requests": 9,
+        "recorded_tokens": 70842,
+        "agent_steps": 21,
+        "tool_calls": 12,
+        "commands": 6,
+        "elapsed_seconds": 27.281446039909497,
+        "input_tokens": 69487,
+        "output_tokens": 1355,
+        "estimated_cost_usd": 0.0224721,
+        "unknown_usage_requests": 0,
+        "cost_and_usage_complete": true,
+        "estimated_cost_usd_completed_responses": 0.0224721
+      },
+      "phase_usage": {
+        "tool_agent": {
+          "requests": 9,
+          "input_tokens": 69487,
+          "output_tokens": 1355,
+          "estimated_cost_usd": "0.0224721"
+        }
+      },
+      "source_reads": 3,
+      "experience_retrievals": 0
+    },
+    {
+      "slot": 42,
+      "project": "libite",
+      "repetition": 2,
+      "method": "cxxcrafter",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "passed",
+        "clean_replay": "passed",
+        "full_completed": true
+      },
+      "timings": {
+        "time_to_primary_from_arm_start_seconds": 86.92745026701596
+      },
+      "arm_total_wall_seconds": 177.39417154190596,
+      "agent_usage": {
+        "provider_requests": 6,
+        "input_tokens": 9893,
+        "output_tokens": 3319,
+        "total_tokens": 13212,
+        "estimated_cost_usd_completed_responses": "0.0069507",
+        "unknown_usage_requests": 0
+      },
+      "phase_usage": null,
+      "source_reads": null,
+      "experience_retrievals": null
+    },
+    {
+      "slot": 43,
+      "project": "libite",
+      "repetition": 2,
+      "method": "forge_experience",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "passed",
+        "clean_replay": "passed",
+        "full_completed": true
+      },
+      "timings": {
+        "dependency_seconds": 5.131751862005331,
+        "configure_seconds": 4.000795277999714,
+        "build_seconds": 4.801620805053972,
+        "result_location_seconds": 0.04131245496682823,
+        "primary_build_seconds": 41.72962831298355,
+        "time_to_primary_from_arm_start_seconds": 41.731070991023444,
+        "delivery_seconds": 0.16720060096122324,
+        "author_tests_seconds": 12.900401423103176,
+        "clean_replay_seconds": 30.72348136897199,
+        "total_seconds_before_cleanup": 85.54501345695462,
+        "initial_planning_seconds": 27.179781908052973,
+        "recovery_agent_seconds": 0.0
+      },
+      "arm_total_wall_seconds": 88.90354876604397,
+      "agent_usage": {
+        "model_requests": 4,
+        "recorded_tokens": 38219,
+        "agent_steps": 12,
+        "tool_calls": 8,
+        "commands": 3,
+        "elapsed_seconds": 36.86669610894751,
+        "input_tokens": 34006,
+        "output_tokens": 4213,
+        "estimated_cost_usd": 0.0152574,
+        "unknown_usage_requests": 0,
+        "cost_and_usage_complete": true,
+        "estimated_cost_usd_completed_responses": 0.0152574
+      },
+      "phase_usage": {
+        "initial": {
+          "requests": 4,
+          "input_tokens": 34006,
+          "output_tokens": 4213,
+          "estimated_cost_usd": "0.0152574"
+        }
+      },
+      "source_reads": 5,
+      "experience_retrievals": 1
+    },
+    {
+      "slot": 44,
+      "project": "libite",
+      "repetition": 2,
+      "method": "forge",
+      "layers": null,
+      "timings": {
+        "initial_planning_seconds": 11.667536836932413,
+        "recovery_agent_seconds": 0.0
+      },
+      "arm_total_wall_seconds": 15.437979602022097,
+      "agent_usage": {
+        "model_requests": 4,
+        "recorded_tokens": 29394,
+        "agent_steps": 12,
+        "tool_calls": 8,
+        "commands": 0,
+        "elapsed_seconds": 4.084839600021951,
+        "input_tokens": 27701,
+        "output_tokens": 1693,
+        "estimated_cost_usd": 0.0103419,
+        "unknown_usage_requests": 0,
+        "cost_and_usage_complete": true,
+        "estimated_cost_usd_completed_responses": 0.0103419
+      },
+      "phase_usage": {
+        "initial": {
+          "requests": 4,
+          "input_tokens": 27701,
+          "output_tokens": 1693,
+          "estimated_cost_usd": "0.0103419"
+        }
+      },
+      "source_reads": 6,
+      "experience_retrievals": 0
+    },
+    {
+      "slot": 45,
+      "project": "libsrtp",
+      "repetition": 2,
+      "method": "cxxcrafter",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "failed",
+        "clean_replay": "passed",
+        "full_completed": false
+      },
+      "timings": {
+        "time_to_primary_from_arm_start_seconds": 189.2266607619822
+      },
+      "arm_total_wall_seconds": 264.27546091610566,
+      "agent_usage": {
+        "provider_requests": 9,
+        "input_tokens": 27955,
+        "output_tokens": 7409,
+        "total_tokens": 35364,
+        "estimated_cost_usd_completed_responses": "0.0172773",
+        "unknown_usage_requests": 0
+      },
+      "phase_usage": null,
+      "source_reads": null,
+      "experience_retrievals": null
+    },
+    {
+      "slot": 46,
+      "project": "libsrtp",
+      "repetition": 2,
+      "method": "forge",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "passed",
+        "clean_replay": "passed",
+        "full_completed": true
+      },
+      "timings": {
+        "configure_seconds": 4.950592956971377,
+        "build_seconds": 3.2570995340356603,
+        "result_location_seconds": 0.15071155200712383,
+        "primary_build_seconds": 20.816187424003147,
+        "time_to_primary_from_arm_start_seconds": 20.817372050019912,
+        "delivery_seconds": 0.2904720089863986,
+        "author_tests_seconds": 14.515208627912216,
+        "clean_replay_seconds": 26.482384969945997,
+        "total_seconds_before_cleanup": 62.27603779907804,
+        "initial_planning_seconds": 10.857380128931254,
+        "recovery_agent_seconds": 0.0
+      },
+      "arm_total_wall_seconds": 65.72526267601643,
+      "agent_usage": {
+        "model_requests": 5,
+        "recorded_tokens": 60537,
+        "agent_steps": 12,
+        "tool_calls": 7,
+        "commands": 2,
+        "elapsed_seconds": 17.30555346503388,
+        "input_tokens": 59241,
+        "output_tokens": 1296,
+        "estimated_cost_usd": 0.0193275,
+        "unknown_usage_requests": 0,
+        "cost_and_usage_complete": true,
+        "estimated_cost_usd_completed_responses": 0.0193275
+      },
+      "phase_usage": {
+        "initial": {
+          "requests": 5,
+          "input_tokens": 59241,
+          "output_tokens": 1296,
+          "estimated_cost_usd": "0.0193275"
+        }
+      },
+      "source_reads": 5,
+      "experience_retrievals": 0
+    },
+    {
+      "slot": 47,
+      "project": "libsrtp",
+      "repetition": 2,
+      "method": "strong_tool_agent",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "passed",
+        "clean_replay": "passed",
+        "full_completed": true
+      },
+      "timings": {
+        "time_to_primary_seconds": 19.629959937999956,
+        "time_to_primary_from_arm_start_seconds": 19.63241087202914,
+        "delivery_seconds": 0.3140088360523805,
+        "author_tests_seconds": 14.78771590499673,
+        "clean_replay_seconds": 26.641306607984006,
+        "total_seconds_before_cleanup": 61.56635855906643,
+        "initial_planning_seconds": 0.0,
+        "recovery_agent_seconds": 0.0
+      },
+      "arm_total_wall_seconds": 65.02028307202272,
+      "agent_usage": {
+        "model_requests": 5,
+        "recorded_tokens": 56583,
+        "agent_steps": 11,
+        "tool_calls": 6,
+        "commands": 3,
+        "elapsed_seconds": 19.40316945698578,
+        "input_tokens": 55461,
+        "output_tokens": 1122,
+        "estimated_cost_usd": 0.0179847,
+        "unknown_usage_requests": 0,
+        "cost_and_usage_complete": true,
+        "estimated_cost_usd_completed_responses": 0.0179847
+      },
+      "phase_usage": {
+        "tool_agent": {
+          "requests": 5,
+          "input_tokens": 55461,
+          "output_tokens": 1122,
+          "estimated_cost_usd": "0.0179847"
+        }
+      },
+      "source_reads": 1,
+      "experience_retrievals": 0
+    },
+    {
+      "slot": 48,
+      "project": "libsrtp",
+      "repetition": 2,
+      "method": "forge_experience",
+      "layers": null,
+      "timings": {
+        "initial_planning_seconds": 107.31931551301386,
+        "recovery_agent_seconds": 0.0
+      },
+      "arm_total_wall_seconds": 111.63199775305111,
+      "agent_usage": {
+        "model_requests": 50,
+        "recorded_tokens": 770732,
+        "agent_steps": 167,
+        "tool_calls": 117,
+        "commands": 0,
+        "elapsed_seconds": 108.27606185397599,
+        "input_tokens": 757609,
+        "output_tokens": 13123,
+        "estimated_cost_usd": 0.2430303,
+        "unknown_usage_requests": 0,
+        "cost_and_usage_complete": true,
+        "estimated_cost_usd_completed_responses": 0.2430303
+      },
+      "phase_usage": {
+        "initial": {
+          "requests": 50,
+          "input_tokens": 757609,
+          "output_tokens": 13123,
+          "estimated_cost_usd": "0.2430303"
+        }
+      },
+      "source_reads": 98,
+      "experience_retrievals": 1
+    }
+  ],
+  "boundary": "全部48计划槽分母保留；两重复按项目聚类。总体费用包含失败，成功配对耗时另作辅助，不在成功子集推断总体优势。经验历史制库费另列；CXX原生阶段未拆分则为null。"
+}

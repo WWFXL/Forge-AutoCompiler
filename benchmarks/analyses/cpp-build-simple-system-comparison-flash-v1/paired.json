@@ -1,0 +1,506 @@
+[
+  {
+    "project": "jsoncpp",
+    "repetition": 1,
+    "methods": {
+      "forge": {
+        "primary_build": true,
+        "full_completed": true,
+        "requests": 2,
+        "cost_usd": "0.0061266",
+        "wall_seconds": 54.15233168494888,
+        "time_to_primary_seconds": 24.270083546056412,
+        "source_reads": 1
+      },
+      "forge_experience": {
+        "primary_build": true,
+        "full_completed": true,
+        "requests": 17,
+        "cost_usd": "0.0820119",
+        "wall_seconds": 92.94294557103422,
+        "time_to_primary_seconds": 63.06508502003271,
+        "source_reads": 35
+      },
+      "strong_tool_agent": {
+        "primary_build": true,
+        "full_completed": true,
+        "requests": 5,
+        "cost_usd": "0.0140877",
+        "wall_seconds": 55.27289558702614,
+        "time_to_primary_seconds": 25.034429170074873,
+        "source_reads": 0
+      },
+      "cxxcrafter": {
+        "primary_build": true,
+        "full_completed": true,
+        "requests": 6,
+        "cost_usd": "0.0064245",
+        "wall_seconds": 138.21894453500863,
+        "time_to_primary_seconds": 76.33076112996787,
+        "source_reads": null
+      }
+    }
+  },
+  {
+    "project": "jsoncpp",
+    "repetition": 2,
+    "methods": {
+      "forge": {
+        "primary_build": null,
+        "full_completed": null,
+        "requests": 5,
+        "cost_usd": "0.0180636",
+        "wall_seconds": 19.402764440048486,
+        "time_to_primary_seconds": null,
+        "source_reads": 7
+      },
+      "forge_experience": {
+        "primary_build": null,
+        "full_completed": null,
+        "requests": 50,
+        "cost_usd": "0.2497671",
+        "wall_seconds": 140.21535462501924,
+        "time_to_primary_seconds": null,
+        "source_reads": 114
+      },
+      "strong_tool_agent": {
+        "primary_build": true,
+        "full_completed": true,
+        "requests": 6,
+        "cost_usd": "0.0165549",
+        "wall_seconds": 56.0356052609859,
+        "time_to_primary_seconds": 26.17686711391434,
+        "source_reads": 1
+      },
+      "cxxcrafter": {
+        "primary_build": true,
+        "full_completed": false,
+        "requests": 6,
+        "cost_usd": "0.0105126",
+        "wall_seconds": 143.8825022400124,
+        "time_to_primary_seconds": 91.1197105369065,
+        "source_reads": null
+      }
+    }
+  },
+  {
+    "project": "miniz",
+    "repetition": 1,
+    "methods": {
+      "forge": {
+        "primary_build": true,
+        "full_completed": true,
+        "requests": 5,
+        "cost_usd": "0.016326",
+        "wall_seconds": 61.814866372034885,
+        "time_to_primary_seconds": 33.20649607607629,
+        "source_reads": 5
+      },
+      "forge_experience": {
+        "primary_build": true,
+        "full_completed": true,
+        "requests": 6,
+        "cost_usd": "0.0281736",
+        "wall_seconds": 70.90623346494976,
+        "time_to_primary_seconds": 42.10957298090216,
+        "source_reads": 7
+      },
+      "strong_tool_agent": {
+        "primary_build": true,
+        "full_completed": true,
+        "requests": 6,
+        "cost_usd": "0.0169971",
+        "wall_seconds": 60.17243358003907,
+        "time_to_primary_seconds": 30.94202891003806,
+        "source_reads": 0
+      },
+      "cxxcrafter": {
+        "primary_build": true,
+        "full_completed": true,
+        "requests": 6,
+        "cost_usd": "0.0093738",
+        "wall_seconds": 137.91951816901565,
+        "time_to_primary_seconds": 77.59460060193669,
+        "source_reads": null
+      }
+    }
+  },
+  {
+    "project": "miniz",
+    "repetition": 2,
+    "methods": {
+      "forge": {
+        "primary_build": null,
+        "full_completed": null,
+        "requests": 16,
+        "cost_usd": "0.0612276",
+        "wall_seconds": 42.42609728197567,
+        "time_to_primary_seconds": null,
+        "source_reads": 24
+      },
+      "forge_experience": {
+        "primary_build": true,
+        "full_completed": true,
+        "requests": 5,
+        "cost_usd": "0.0218604",
+        "wall_seconds": 64.42215444997419,
+        "time_to_primary_seconds": 35.80777013103943,
+        "source_reads": 5
+      },
+      "strong_tool_agent": {
+        "primary_build": true,
+        "full_completed": true,
+        "requests": 4,
+        "cost_usd": "0.0109461",
+        "wall_seconds": 57.37278648593929,
+        "time_to_primary_seconds": 28.249672807054594,
+        "source_reads": 0
+      },
+      "cxxcrafter": {
+        "primary_build": true,
+        "full_completed": true,
+        "requests": 6,
+        "cost_usd": "0.0095559",
+        "wall_seconds": 152.34760802797973,
+        "time_to_primary_seconds": 91.36931598989759,
+        "source_reads": null
+      }
+    }
+  },
+  {
+    "project": "pigz",
+    "repetition": 1,
+    "methods": {
+      "forge": {
+        "primary_build": true,
+        "full_completed": true,
+        "requests": 3,
+        "cost_usd": "0.005916",
+        "wall_seconds": 21.24962213099934,
+        "time_to_primary_seconds": 11.312484347028658,
+        "source_reads": 0
+      },
+      "forge_experience": {
+        "primary_build": true,
+        "full_completed": true,
+        "requests": 2,
+        "cost_usd": "0.0058683",
+        "wall_seconds": 20.582285439944826,
+        "time_to_primary_seconds": 10.496585899032652,
+        "source_reads": 0
+      },
+      "strong_tool_agent": {
+        "primary_build": true,
+        "full_completed": true,
+        "requests": 4,
+        "cost_usd": "0.0070941",
+        "wall_seconds": 17.949803850031458,
+        "time_to_primary_seconds": 7.9993211990222335,
+        "source_reads": 0
+      },
+      "cxxcrafter": {
+        "primary_build": true,
+        "full_completed": true,
+        "requests": 6,
+        "cost_usd": "0.0066618",
+        "wall_seconds": 104.55489339900669,
+        "time_to_primary_seconds": 61.46170859609265,
+        "source_reads": null
+      }
+    }
+  },
+  {
+    "project": "pigz",
+    "repetition": 2,
+    "methods": {
+      "forge": {
+        "primary_build": true,
+        "full_completed": true,
+        "requests": 2,
+        "cost_usd": "0.0045459",
+        "wall_seconds": 21.595099363010377,
+        "time_to_primary_seconds": 11.633422737009823,
+        "source_reads": 0
+      },
+      "forge_experience": {
+        "primary_build": true,
+        "full_completed": true,
+        "requests": 2,
+        "cost_usd": "0.0054627",
+        "wall_seconds": 17.956168117001653,
+        "time_to_primary_seconds": 7.947094745002687,
+        "source_reads": 0
+      },
+      "strong_tool_agent": {
+        "primary_build": true,
+        "full_completed": true,
+        "requests": 4,
+        "cost_usd": "0.0067347",
+        "wall_seconds": 17.46559504698962,
+        "time_to_primary_seconds": 7.452885031001642,
+        "source_reads": 0
+      },
+      "cxxcrafter": {
+        "primary_build": true,
+        "full_completed": true,
+        "requests": 6,
+        "cost_usd": "0.0063444",
+        "wall_seconds": 98.7641867910279,
+        "time_to_primary_seconds": 61.0008533570217,
+        "source_reads": null
+      }
+    }
+  },
+  {
+    "project": "highwayhash",
+    "repetition": 1,
+    "methods": {
+      "forge": {
+        "primary_build": true,
+        "full_completed": true,
+        "requests": 5,
+        "cost_usd": "0.0177339",
+        "wall_seconds": 36.61748670798261,
+        "time_to_primary_seconds": 21.242005002917722,
+        "source_reads": 6
+      },
+      "forge_experience": {
+        "primary_build": null,
+        "full_completed": null,
+        "requests": 2,
+        "cost_usd": "0.0077286",
+        "wall_seconds": 10.400838234112598,
+        "time_to_primary_seconds": null,
+        "source_reads": 0
+      },
+      "strong_tool_agent": {
+        "primary_build": true,
+        "full_completed": true,
+        "requests": 5,
+        "cost_usd": "0.0128994",
+        "wall_seconds": 32.19698571995832,
+        "time_to_primary_seconds": 16.828776419977657,
+        "source_reads": 0
+      },
+      "cxxcrafter": {
+        "primary_build": true,
+        "full_completed": true,
+        "requests": 6,
+        "cost_usd": "0.0069972",
+        "wall_seconds": 46.62964990106411,
+        "time_to_primary_seconds": 28.363261508056894,
+        "source_reads": null
+      }
+    }
+  },
+  {
+    "project": "highwayhash",
+    "repetition": 2,
+    "methods": {
+      "forge": {
+        "primary_build": true,
+        "full_completed": true,
+        "requests": 2,
+        "cost_usd": "0.0060078",
+        "wall_seconds": 28.58199549803976,
+        "time_to_primary_seconds": 13.42621888499707,
+        "source_reads": 0
+      },
+      "forge_experience": {
+        "primary_build": true,
+        "full_completed": true,
+        "requests": 1,
+        "cost_usd": "0.0046926",
+        "wall_seconds": 28.49878373707179,
+        "time_to_primary_seconds": 13.104858041042462,
+        "source_reads": 0
+      },
+      "strong_tool_agent": {
+        "primary_build": true,
+        "full_completed": true,
+        "requests": 5,
+        "cost_usd": "0.0135075",
+        "wall_seconds": 33.247199564939365,
+        "time_to_primary_seconds": 17.942375122918747,
+        "source_reads": 0
+      },
+      "cxxcrafter": {
+        "primary_build": true,
+        "full_completed": true,
+        "requests": 6,
+        "cost_usd": "0.0090528",
+        "wall_seconds": 114.14788462105207,
+        "time_to_primary_seconds": 65.37947836203966,
+        "source_reads": null
+      }
+    }
+  },
+  {
+    "project": "libite",
+    "repetition": 1,
+    "methods": {
+      "forge": {
+        "primary_build": true,
+        "full_completed": true,
+        "requests": 4,
+        "cost_usd": "0.0099468",
+        "wall_seconds": 74.61785180203151,
+        "time_to_primary_seconds": 27.459373947931454,
+        "source_reads": 4
+      },
+      "forge_experience": {
+        "primary_build": true,
+        "full_completed": true,
+        "requests": 3,
+        "cost_usd": "0.0102036",
+        "wall_seconds": 79.78085199499037,
+        "time_to_primary_seconds": 32.75808102602605,
+        "source_reads": 4
+      },
+      "strong_tool_agent": {
+        "primary_build": true,
+        "full_completed": true,
+        "requests": 6,
+        "cost_usd": "0.0110925",
+        "wall_seconds": 69.2289215970086,
+        "time_to_primary_seconds": 22.19026724109426,
+        "source_reads": 1
+      },
+      "cxxcrafter": {
+        "primary_build": true,
+        "full_completed": true,
+        "requests": 6,
+        "cost_usd": "0.0081327",
+        "wall_seconds": 238.40384225500748,
+        "time_to_primary_seconds": 122.48619322001468,
+        "source_reads": null
+      }
+    }
+  },
+  {
+    "project": "libite",
+    "repetition": 2,
+    "methods": {
+      "forge": {
+        "primary_build": null,
+        "full_completed": null,
+        "requests": 4,
+        "cost_usd": "0.0103419",
+        "wall_seconds": 15.437979602022097,
+        "time_to_primary_seconds": null,
+        "source_reads": 6
+      },
+      "forge_experience": {
+        "primary_build": true,
+        "full_completed": true,
+        "requests": 4,
+        "cost_usd": "0.0152574",
+        "wall_seconds": 88.90354876604397,
+        "time_to_primary_seconds": 41.731070991023444,
+        "source_reads": 5
+      },
+      "strong_tool_agent": {
+        "primary_build": true,
+        "full_completed": true,
+        "requests": 9,
+        "cost_usd": "0.0224721",
+        "wall_seconds": 74.47238835599273,
+        "time_to_primary_seconds": 27.344382902025245,
+        "source_reads": 3
+      },
+      "cxxcrafter": {
+        "primary_build": true,
+        "full_completed": true,
+        "requests": 6,
+        "cost_usd": "0.0069507",
+        "wall_seconds": 177.39417154190596,
+        "time_to_primary_seconds": 86.92745026701596,
+        "source_reads": null
+      }
+    }
+  },
+  {
+    "project": "libsrtp",
+    "repetition": 1,
+    "methods": {
+      "forge": {
+        "primary_build": true,
+        "full_completed": true,
+        "requests": 5,
+        "cost_usd": "0.0186657",
+        "wall_seconds": 66.74423345807008,
+        "time_to_primary_seconds": 21.741922821034677,
+        "source_reads": 6
+      },
+      "forge_experience": {
+        "primary_build": null,
+        "full_completed": null,
+        "requests": 50,
+        "cost_usd": "0.2431767",
+        "wall_seconds": 120.61117634794209,
+        "time_to_primary_seconds": null,
+        "source_reads": 95
+      },
+      "strong_tool_agent": {
+        "primary_build": true,
+        "full_completed": true,
+        "requests": 5,
+        "cost_usd": "0.0156723",
+        "wall_seconds": 60.73917710699607,
+        "time_to_primary_seconds": 15.8620139650302,
+        "source_reads": 1
+      },
+      "cxxcrafter": {
+        "primary_build": true,
+        "full_completed": false,
+        "requests": 9,
+        "cost_usd": "0.0188781",
+        "wall_seconds": 271.55289495096076,
+        "time_to_primary_seconds": 188.79845738504082,
+        "source_reads": null
+      }
+    }
+  },
+  {
+    "project": "libsrtp",
+    "repetition": 2,
+    "methods": {
+      "forge": {
+        "primary_build": true,
+        "full_completed": true,
+        "requests": 5,
+        "cost_usd": "0.0193275",
+        "wall_seconds": 65.72526267601643,
+        "time_to_primary_seconds": 20.817372050019912,
+        "source_reads": 5
+      },
+      "forge_experience": {
+        "primary_build": null,
+        "full_completed": null,
+        "requests": 50,
+        "cost_usd": "0.2430303",
+        "wall_seconds": 111.63199775305111,
+        "time_to_primary_seconds": null,
+        "source_reads": 98
+      },
+      "strong_tool_agent": {
+        "primary_build": true,
+        "full_completed": true,
+        "requests": 5,
+        "cost_usd": "0.0179847",
+        "wall_seconds": 65.02028307202272,
+        "time_to_primary_seconds": 19.63241087202914,
+        "source_reads": 1
+      },
+      "cxxcrafter": {
+        "primary_build": true,
+        "full_completed": false,
+        "requests": 9,
+        "cost_usd": "0.0172773",
+        "wall_seconds": 264.27546091610566,
+        "time_to_primary_seconds": 189.2266607619822,
+        "source_reads": null
+      }
+    }
+  }
+]

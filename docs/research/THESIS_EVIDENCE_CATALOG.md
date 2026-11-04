@@ -14,6 +14,7 @@
 
 |文件|论文登记|
 |---|---|
+|[2026-11-04-simple-system-comparison-results.md](2026-11-04-simple-system-comparison-results.md)|[E42](THESIS_EVIDENCE_INDEX.md#e42)简洁目标48次全分母系统比较、经验负结果/局部观察及规划接口和测试入口局限|
 |[2026-11-04-simple-system-comparison-preparation.md](2026-11-04-simple-system-comparison-preparation.md)|四方法48次准备；0Provider，正式效果未观察，不新增效果分母|
 |[2026-11-04-simple-build-core-integration.md](2026-11-04-simple-build-core-integration.md)|两层经验和三系统简洁入口的工程实跑与清理修复，不新增效果分母|
 |[2026-11-04-simple-build-core-boundary.md](2026-11-04-simple-build-core-boundary.md)|论文核心版本及统一系统/组件比较安排，非已运行协议|
