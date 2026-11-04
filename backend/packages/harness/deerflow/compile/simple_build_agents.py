@@ -26,14 +26,19 @@ from deerflow.compile.simple_build_runtime import generated_reset_step, primary_
 class SimpleBuildMeter(ContextCanaryMeter):
     """沿用原始请求/响应/Token记录；新入口使用Flash价格与显式时窗。"""
 
-    def __init__(self, *args, maximum_cost_usd="1.00", **kwargs):
+    def __init__(self, *args, maximum_cost_usd="1.00", pricing_by_model=None, **kwargs):
         super().__init__(*args, **kwargs)
         self.maximum_cost_usd = Decimal(maximum_cost_usd)
+        self.pricing_by_model = pricing_by_model or {name: ("0.30", "1.20") for name in self.accepted_models}
+        self.priced_sequences = set()
+        self.completed_cost_usd = Decimal(0)
         self.tracker.limits = replace(self.tracker.limits, max_model_requests=96, max_recorded_tokens=1_000_000, max_agent_steps=192, max_tool_calls=128, max_commands=64, node_timeout_seconds=1200)
 
     def _before_request(self):
         OperationWindow(self.deadline).request()
-        if Decimal(str(self.cost_usd)) + Decimal("0.10") > self.maximum_cost_usd:
+        maximum_rate = max(Decimal(rate) for rates in self.pricing_by_model.values() for rate in rates)
+        reserve = maximum_rate * self.tracker.limits.max_recorded_tokens_per_response / 1_000_000
+        if self.completed_cost_usd + reserve > self.maximum_cost_usd:
             raise PlanContractError("当前槽费用不足下一请求保守预留")
         return AgentWorkflowExecutionMiddleware._before_request(self)
 
@@ -41,7 +46,18 @@ class SimpleBuildMeter(ContextCanaryMeter):
         try:
             return super().capture_response(response, request_sequence)
         finally:
-            self.cost_usd = float((Decimal(self.input_tokens) * Decimal("0.30") + Decimal(self.output_tokens) * Decimal("1.20")) / 1_000_000)
+            if request_sequence in self.known_usage_requests and request_sequence not in self.priced_sequences:
+                self.priced_sequences.add(request_sequence)
+                input_tokens, output_tokens, _ = self._response_usage(response)
+                actual = next(m for m in response.result if m.type == "ai")
+                name = actual.response_metadata.get("model_name")
+                # 身份异常仍保留费用，以本协议最高单价保守记账并由原身份检查停止。
+                maximum = str(max(Decimal(rate) for rates in self.pricing_by_model.values() for rate in rates))
+                input_rate, output_rate = self.pricing_by_model.get(name, (maximum, maximum))
+                cost = (Decimal(input_tokens) * Decimal(input_rate) + Decimal(output_tokens) * Decimal(output_rate)) / 1_000_000
+                self.completed_cost_usd += cost
+                self.ledger.append("model.cost_estimated", request_sequence=request_sequence, response_model=name, input_per_million_usd=input_rate, output_per_million_usd=output_rate, cost_usd=str(cost))
+            self.cost_usd = float(self.completed_cost_usd)
 
     def wrap_model_call(self, request, handler):
         context = getattr(self, "planning_context", None)

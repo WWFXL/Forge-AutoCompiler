@@ -2,7 +2,13 @@
 
 论文选材固定入口：[硕士论文实验与证据索引](docs/research/THESIS_EVIDENCE_INDEX.md)，[历史材料目录](docs/research/THESIS_EVIDENCE_CATALOG.md)保留存量导航。当前完整稿为[论文v0.6](docs/thesis/README.md)；E40/E41新增两层经验结果，E39及此前基础系统、组件与恢复实验按原版本和分母继续使用。
 
-## 当前阶段（2026-11-05；#683改进规划上下文后的16次经验比较完成，转共同方案出口修复）
+## 当前阶段（2026-11-05；#685共同规划出口修复完成，开展规划模型对照）
+
+本轮为工程修复及真实比较准备，[修复报告](docs/research/2026-11-05-plan-output-repair.md)记录合法正文同schema接收、正文/工具/语法错误共享一次反馈、提示词明确工具提交，原始响应/费用及独立验收保持。52相关检查和四条真实Docker构建全部通过；5次回复为零Token脚本，不计模型效果、不补判E43。原件`forge-plan-output-engineering-v1`，inventory `0bea80ebf939aa082dae7efef4de3e6a584058e9346750d0bd6c11c9df17cf67`。
+
+用户要求顺序修复并明确允许RichLab。独立`cpp-build-planner-model-comparison-v1`固定四项目×两重复×Flash/RichLab初始规划，共16槽；相同经验Forge/Harness/任务/资源/验收，恢复统一Flash，费用按实际响应单价计入。自行限定新增2美元、正式启动起2小时，无自动重试；未知用量/身份异常/cleanup失败停批。[协议](benchmarks/preregistrations/cpp-build-planner-model-comparison-v1.md)披露RichLab请求gpt-6-astra及接受gpt-5.6响应，不作官方模型或一般能力排名。当前正式槽均未观察；旧E43及论文v0.6保持。
+
+## 上一阶段（2026-11-05；#683改进规划上下文后的16次经验比较完成）
 
 本阶段为真实数据采集与结果分析，[结果报告](docs/research/2026-11-05-planning-context-experience-results.md)及[E43](docs/research/THESIS_EVIDENCE_INDEX.md#e43)登记`cpp-build-planning-context-experience-flash-v1`：四项目×两重复×基础/经验Forge，16/16终态、0未观察槽。运行HEAD `d7902250249149aa43ee1d3858564b0717f0cd5e`与准备merge `cea792980cb9b72d117bfb79bf80a252a8b52321`完整tree相同；三项直接CI均SUCCESS，汇总接口滞后记录保留。
 

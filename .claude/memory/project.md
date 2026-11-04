@@ -618,6 +618,12 @@
 
 ## 最近变更 (Recent Changes)
 
+- 2026-11-05 — #685修复共同规划接收出口并准备16次规划模型对照
+  - 合法正文通过同schema接收；正文/工具字段/工具JSON错误共享一次反馈，原始响应/用量/身份/截断检查保留；提示词明确工具交付。52相关检查及四条真实Docker脚本构建全部通过，不回填E43、不计模型效果。
+  - 用户本轮要求执行并允许RichLab；cpp-build-planner-model-comparison-v1固定四项目×两重复×Flash/RichLab规划，恢复统一Flash、同经验/任务/验收。新增支出自行限定2美元、正式启动起2小时，无自动重试，未知用量/身份异常/清理失败停止。RichLab路由与实际标签继续披露。
+  - 文件: docs/research/2026-11-05-plan-output-repair.md、scripts/forge_planner_model_comparison.py及同名manifest/preregistration；原件forge-plan-output-engineering-v1 inventory0bea80ebf939aa082dae7efef4de3e6a584058e9346750d0bd6c11c9df17cf67。当前正式槽尚未观察，用户原memory/HTML/uv.lock保持。
+
+
 - 2026-11-05 — #683完成改进规划上下文后的固定16次经验增量比较与论文材料保存。
   - 文件: `docs/research/2026-11-05-planning-context-experience-results.md`、`benchmarks/analyses/cpp-build-planning-context-experience-flash-v1`、科研状态/论文证据索引与目录；新条目E43，不声称论文v0.6全文已更新。
   - 结果: 基础/经验方案、主构建和完整均6/8、3/8；请求21/22、美元0.0644073/0.0744600、累计5.85/3.27分钟，经验更短含更多早停。共同完整3对费低6.8%/时低2.2%仅条件性观察。43响应429624Token/$0.1388673/未知0，全部初始；原10美元/北京时间00:11:36–04:11:36内完成，PID2757267退出，不续余额或补槽。
