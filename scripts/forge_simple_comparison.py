@@ -122,13 +122,13 @@ def validate(protocol):
             raise PlanContractError("模型运行依赖版本变化：" + name)
 
 
-def validate_authorization(auth, expected_sha, *, now=None):
+def validate_authorization(auth, expected_sha, *, now=None, identity=IDENTITY, maximum_hours=8):
     now = now or datetime.now(UTC)
-    if auth.get("identity") != IDENTITY or auth.get("candidate_sha256") != expected_sha or not auth.get("user_reply"):
+    if auth.get("identity") != identity or auth.get("candidate_sha256") != expected_sha or not auth.get("user_reply"):
         raise PlanContractError("授权须绑定确切身份、候选SHA和本次用户答复")
     start, end = (datetime.fromisoformat(auth[k]) for k in ("authorized_at_utc", "deadline_utc"))
-    if start.tzinfo is None or end.tzinfo is None or not start <= now < end or (end - start).total_seconds() > 8 * 3600:
-        raise PlanContractError("新授权时窗无效或超出拟定8小时")
+    if start.tzinfo is None or end.tzinfo is None or not start <= now < end or (end - start).total_seconds() > maximum_hours * 3600:
+        raise PlanContractError("新授权时窗无效或超出拟定时限")
     cap = Decimal(str(auth["maximum_cost_usd"]))
     if not cap.is_finite() or not Decimal(0) < cap <= Decimal("10.00") or auth.get("automatic_retry") is not False:
         raise PlanContractError("需要不超过10美元硬上限、无自动重试")
@@ -198,12 +198,12 @@ def execute(protocol, root, authorization, executor):
         save(
             root / "result.json",
             dict(
-                identity=IDENTITY,
+                identity=protocol["identity"],
                 rows=rows,
                 unobserved=unseen,
                 stop_reason=stop,
                 completed_slots=len(rows),
-                expected_slots=48,
+                expected_slots=len(protocol["schedule"]),
                 closed_slot_cost_usd=str(known),
                 unclosed_slot=inflight,
                 billing_complete=inflight is None and not any(usage(r)["unknown"] for r in rows),

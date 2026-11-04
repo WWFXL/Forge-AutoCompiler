@@ -2,11 +2,19 @@
 
 论文选材固定入口：[硕士论文实验与证据索引](docs/research/THESIS_EVIDENCE_INDEX.md)，[历史材料目录](docs/research/THESIS_EVIDENCE_CATALOG.md)保留存量导航。当前完整稿为[论文v0.6](docs/thesis/README.md)；E40/E41新增两层经验结果，E39及此前基础系统、组件与恢复实验按原版本和分母继续使用。
 
-## 当前阶段（2026-11-04；#679简洁目标四方法48次完成，转规划稳定性与测试适用性分析）
+## 当前阶段（2026-11-04；#681规划交付、对话保留与短经验改进已实现，转16次配对比较准备）
+
+本阶段为工程修复与实验准备，0真实Provider/新增模型费。[实现与实跑报告](docs/research/2026-11-04-planning-context-experience-preparation.md)落实一次显式结构纠正、精简SimpleBuildActions、真实工具对话保留/容量压缩、重复探索收敛、最多两条/4096字节条件经验、实际CMake作者测试入口。44相关检查及Ruff通过；四条脚本Agent真实Docker路径全部主构建/作者测试/交付/replay/源码/cleanup通过，10模拟响应不计模型效果，16项容器标识实际不存在。
+
+新身份`cpp-build-planning-context-experience-flash-v1`：jsoncpp/libsrtp/libite/highwayhash×两重复×改进基础/经验Forge，共16槽，正式结果全部未观察。[协议](benchmarks/preregistrations/cpp-build-planning-context-experience-flash-v1.md)和同名manifest固定共同Flash low、相同Harness与旧库、全费用、失败保留；只估计共同改进下的经验增量，不作逐修复因果或holdout。建议新预算10美元/确认起4小时，当前没有此身份有效付费授权，不读凭据或续旧批余额。
+
+原件`forge-planning-improvement-engineering-2026-11-04-v1`，inventory`23dae3a2cc2ba639588b65d06aceac2743120692ae6c5c3d473f5c903d0f94eb`。本轮还纠正E42解释：16/28/30为空参数，44为步骤错放reason；四次结果/费用/原件不变。旧E01/E30/E33/E35–E42/v0.6保留，不把工程检查当新效果。发布仅科研集成分支，最终PR/CI/合并以GitHub为准。
+
+## 上一阶段（2026-11-04；#679简洁目标四方法48次完成）
 
 本阶段为真实数据采集与结果分析，[结果报告](docs/research/2026-11-04-simple-system-comparison-results.md)与[E42](docs/research/THESIS_EVIDENCE_INDEX.md#e42)记录固定`cpp-build-simple-system-comparison-flash-v1`：六项目×两重复×基础Forge/经验Forge/强工具/CXX，48/48终结、0未观察槽。运行release `0cd5314653437463c2088993dd973f9daf72bdf5`，manifest e079b31a；全部已开发暴露，经验来源族隔离，CXX为原生社区完整系统参考。
 
-主构建9/12、8/12、12/12、12/12；记录完整9/12、8/12、12/12、9/12；请求58/192/64/78，美元0.1942293/0.9172332/0.1660431/0.1161618，累计8.47/14.11/9.99/31.47分钟。基础三次空结构方案、经验一次空方案/三次50请求读取循环均在编译前停止，后层未观察；不称编译或测试失败。CXX两libsrtp改CMake后仍被Autotools原测试入口检查、jsoncpp一次关闭测试；主库及构建重放通过，不以测试入口不适用宣称功能排名。全部源码终态检查41过/7未观察、cleanup48过。
+主构建9/12、8/12、12/12、12/12；记录完整9/12、8/12、12/12、9/12；请求58/192/64/78，美元0.1942293/0.9172332/0.1660431/0.1161618，累计8.47/14.11/9.99/31.47分钟。基础三次结构交付错误、经验一次空方案/三次50请求读取循环均在编译前停止，后层未观察；不称编译或测试失败。CXX两libsrtp改CMake后仍被Autotools原测试入口检查、jsoncpp一次关闭测试；主库及构建重放通过，不以测试入口不适用宣称功能排名。全部源码终态检查41过/7未观察、cleanup48过。
 
 全分母不支持新版Forge整体优于强工具或经验减少探索。共同完整9对Forge/强工具费低9.9%、时间高4.8%，仅条件性辅助。两Forge均0恢复请求，经验每槽一次检索12次、读取363/64，三个循环约占经验费80.2%；不据此推翻旧E37/E41或全部经验方法。同项目复用未启用，不证明状态或局部工具恢复的独立效果。
 

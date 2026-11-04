@@ -14,7 +14,7 @@ from deerflow.compile.manager import CompileSessionManager
 from deerflow.compile.plan_workflow import PlanContractError, PlanStep, _digest
 from deerflow.compile.schemas import CommandResult
 from deerflow.compile.simple_build_runtime import SimpleBuildWorkflow, observe_configuration, primary_artifacts, source_inventory, source_unchanged, validate_phase_command
-from deerflow.compile.simple_build_task import BuildReference, PrimaryComponent, PublicBuildTask, assemble_simple_plan, simple_agent_packet
+from deerflow.compile.simple_build_task import BuildReference, PrimaryComponent, PublicBuildTask, SimpleBuildActions, assemble_simple_plan, simple_agent_packet
 from deerflow.compile.unified_plan_equivalent_observed import ObservedBuildActions
 from deerflow.config.paths import Paths
 
@@ -29,6 +29,10 @@ def reference(t):
 
 def actions(command="make", **kwargs):
     return ObservedBuildActions(reason="工程夹具", steps=[dict(step_id="build", role="build", command=command, source="Makefile:1", expected="构建主库", **kwargs)])
+
+
+def simple_actions(command="make"):
+    return SimpleBuildActions(reason="工程夹具", steps=[dict(step_id="build", role="build", command=command, source="Makefile:1", expected="构建主库")])
 
 
 class LocalRuntime:
@@ -169,16 +173,16 @@ def test_real_graph_filters_private_data_at_meter_replacement_boundary(tmp_path)
     from test_plan_agent import ScriptedPlanModel, response
 
     from deerflow.compile.plan_agent import PlanAgentLedger
-    from deerflow.compile.plan_agent_context import ContextCanaryMeter
+    from deerflow.compile.simple_build_agents import SimpleBuildMeter
     from deerflow.compile.simple_build_task import propose_simple
 
-    meter = ContextCanaryMeter(
+    meter = SimpleBuildMeter(
         PlanAgentLedger(tmp_path / "agent"),
         accepted_models=("test-model",),
         deadline=(datetime.now(UTC) + timedelta(hours=2)).isoformat(),
         packet=lambda: {"task": {"secret_reference": "DO_NOT_SEND"}, "verification_steps": ["PRIVATE_SCRIPT"], "source_packet": []},
     )
-    model = ScriptedPlanModel(responses=[response("ObservedBuildActions", actions().model_dump(mode="json"))])
+    model = ScriptedPlanModel(responses=[response("SimpleBuildActions", simple_actions().model_dump(mode="json"))])
     plan, _ = propose_simple(model=model, task=task(), source_root=tmp_path, session_root=tmp_path, meter=meter)
     assert len(plan.steps) == 1
     raw = (tmp_path / "agent/request-1.json").read_text()

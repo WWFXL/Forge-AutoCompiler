@@ -1,5 +1,7 @@
 # 硕士论文实验与证据索引
 
+最新工程进展（不增效果分母）：[#681规划改进](2026-11-04-planning-context-experience-preparation.md)实现一次结构纠正、对话保留/收敛、短条件经验和实际测试入口；四条脚本Agent真实Docker路径完整通过。用途为第4/5章实现与第6章实验设置，支持可执行性、不证明模型效果。新16次身份`cpp-build-planning-context-experience-flash-v1`全部未观察；原件`forge-planning-improvement-engineering-2026-11-04-v1`、inventory`23dae3a2`。E42错误解释校正为三次空参数及一次字段错位，结果分母不变。
+
 最新系统结果：[E42](#e42)简洁目标四方法48/48终结，基础Forge/经验Forge/强工具/CXX主构建9/8/12/12、记录完整9/8/12/9（各12）。全分母不支持新版Forge整体占优或当前经验减少探索；CXX两次测试入口不适用须单列，不作功能排名。旧编号与论文v0.6保持。
 
 工程进展（不增效果分母）：[#675核心接入](2026-11-04-simple-build-core-integration.md)将两层经验、Forge/强工具/CXX参考接到简洁任务，九条正常路径及恢复/拒绝、原生CXX实跑支持实现；保留清理修复过程。[核心版本与比较安排](2026-11-04-simple-build-core-boundary.md)约束后续实验。[#673最小实现](2026-11-04-simple-build-implementation.md)继续作为底座证据，旧E40/E41等效果保持。
@@ -56,7 +58,7 @@
 
 - **问题／设计**：`cpp-build-simple-system-comparison-flash-v1`，jsoncpp/miniz、pigz/highwayhash、libite/libsrtp×两重复×基础Forge/经验Forge/强工具/CXX社区参考＝48/48终态、0未观察槽。Flash low，共同简洁目标/源码/基础镜像/2CPU、Williams顺序；经验旧12轨迹/8族/24条，每任务一次、无在线更新或本项目精确方案。
 - **主要结果**：主构建9/12、8/12、12/12、12/12；记录完整9/12、8/12、12/12、9/12，请求58/192/64/78，在线美元0.1942293/0.9172332/0.1660431/0.1161618，累计8.47/14.11/9.99/31.47分钟。基础整体费高于强工具且少完成3次；共同完整9对费低9.9%/时间高4.8%仅条件性辅助。经验读取363/64、192/58请求，三个读取循环约占经验费80.2%，无总体收益；保留miniz/libite第二重复的经验独有完整。
-- **失败／边界**：基础三次/经验一次空结构与三次图循环均在编译前，7槽后层未观察；没有有效方案后的Forge恢复请求。CXX两libsrtp改CMake后固定Autotools测试入口不适用、jsoncpp一次关闭测试；三个主构建/交付/构建replay均过，不当三次测试用例实际失败或功能排名。源码终态41过/7未观察，cleanup48过。评价已开发暴露/4C2C++，CXX原生工具/镜像和内部预算不同；不作状态单变量、模型排名或新旧任务跨批因果。
+- **失败／边界**：基础三次/经验一次结构错误（三次空参数、一次字段错位）与三次图循环均在编译前，7槽后层未观察；没有有效方案后的Forge恢复请求。CXX两libsrtp改CMake后固定Autotools测试入口不适用、jsoncpp一次关闭测试；三个主构建/交付/构建replay均过，不当三次测试用例实际失败或功能排名。源码终态41过/7未观察，cleanup48过。评价已开发暴露/4C2C++，CXX原生工具/镜像和内部预算不同；不作状态单变量、模型排名或新旧任务跨批因果。
 - **论文用途**：第6章新版简洁任务系统结果、经验消融、规划/验证局限和正反案例；第4/5章当前接口边界。结果图/全表可直接选材，未冒称已经改写论文v0.6全文。旧E01/E30/E33/E35–E41保留，读取模式是同一48槽的事后描述、不增分母。
 - **定位／费用**：[结果报告](2026-11-04-simple-system-comparison-results.md)、[分析](../../benchmarks/analyses/cpp-build-simple-system-comparison-flash-v1/analysis.json)、[48行CSV](../../benchmarks/analyses/cpp-build-simple-system-comparison-flash-v1/slots.csv)、[费用核对](../../benchmarks/analyses/cpp-build-simple-system-comparison-flash-v1/response-verification.json)、[PDF图](../../benchmarks/analyses/cpp-build-simple-system-comparison-flash-v1/system-comparison.pdf)、[协议](../../benchmarks/preregistrations/cpp-build-simple-system-comparison-flash-v1.md)。release0cd53146，raw `forge-simple-system-comparison-flash-v1`，inventory `ab698898a33343ad780e96fb4d963b349304c6494c64e3cebd20d3f914918a34`；392响应/4201153Token/新增1.3936674美元/未知0。旧库历史费0.095129美元另列、不重复支付；用户10美元/UTC13:40:11–21:40:11内完成，未重试/补槽或扩批。会话`forge-simple-comparison-session-v1`保存授权/launch/资源/发布收据，391容器标识及26镜像ID实查不存在。
 

@@ -7,7 +7,7 @@ from types import SimpleNamespace
 
 import pytest
 from test_plan_agent import ScriptedPlanModel, response
-from test_simple_build import actions, runner, task, workflow  # noqa: F401
+from test_simple_build import actions, runner, simple_actions, task, workflow  # noqa: F401
 
 from deerflow.compile.plan_agent import PlanAgentLedger
 from deerflow.compile.plan_workflow import PlanContractError
@@ -55,7 +55,7 @@ def test_real_agent_graph_retrieves_once_and_keeps_snapshot_across_requests(tmp_
     (tmp_path / "README.md").write_text("actual source")
     bank = Bank()
     meter = SimpleBuildMeter(PlanAgentLedger(tmp_path / "agent"), accepted_models=("test-model",), deadline="2099-01-01T00:00:00+00:00", packet=lambda: dict(source_packet=[], private_reference="NEVER_SEND"))
-    model = ScriptedPlanModel(responses=[response("read_source", dict(path="README.md")), response("ObservedBuildActions", actions().model_dump(mode="json"))])
+    model = ScriptedPlanModel(responses=[response("read_source", dict(path="README.md")), response("SimpleBuildActions", simple_actions().model_dump(mode="json"))])
     propose_simple(model=model, task=task(), source_root=tmp_path, session_root=tmp_path, meter=meter, experience_bank=bank, family="target")
     assert bank.calls == 1
     for i in (1, 2):
