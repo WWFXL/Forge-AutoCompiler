@@ -112,7 +112,9 @@ def test_paid_dispatch_uses_same_flash_and_routes_experience_only_to_its_arm(tmp
     monkeypatch.setattr(comparison, "run_simple_system", lambda **kw: calls.append(kw) or row())
     monkeypatch.setattr(comparison, "run_native_cxx", lambda **kw: calls.append(kw) or row())
     fixture = comparison.load(comparison.FIXTURE)
-    p = protocol() | dict(projects=fixture["projects"], experience=dict(path=str(comparison.BANK)), baseline=dict(path=str(comparison.BASELINE)))
+    bank = tmp_path / "seed-bank.json"
+    bank.write_text(json.dumps(dict(sources=[], entries=[])))
+    p = protocol() | dict(projects=fixture["projects"], experience=dict(path=str(bank)), baseline=dict(path=str(comparison.BASELINE)))
     execute = comparison.paid_executor(p)
     result = comparison.execute(p, tmp_path / "run", authorization(), execute)
     assert result["completed_slots"] == 48 and len(models) == 36
