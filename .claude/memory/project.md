@@ -618,6 +618,14 @@
 
 ## 最近变更 (Recent Changes)
 
+- 2026-11-04 — #675接入简洁任务两层经验与三系统共同入口，转固定样本比较。
+  - 文件: `simple_build_experience.py`、`simple_build_agents.py`、`simple_build_task.py`、`scripts/forge_simple_system.py`、`scripts/forge_simple_cxx_reference.py`、`docs/research/2026-11-04-simple-build-core-integration.md`及同日core-boundary设计。
+  - 实现: 精确公开任务方案复用；跨项目每次规划/新恢复一次经验快照；强工具自行选命令与显式reset；CXX保留原生Parser/Generator/Modifier/Judge。共享简洁目标、主组件观察、独立串行作者测试/交付/重放；CLI仅离线脚本，未读模型凭据。
+  - 实跑: 三项目×基础/复用/强工具九条完整；跨项目恢复与工具reset通过，源码负例拒绝；CXX最终v3完整。v1解绑镜像遗漏已另据精确清理，v2no such大小写误拒原件保留；不是新效果实验。相关28检查/改动Ruff/format通过；0真实Provider/新增模型费。
+  - 证据: `.codex/outputs/forge-simple-core-{integration,extra,final}-2026-11-04-v1`及`forge-simple-cxx-final-2026-11-04-v2/v3`，各有运行快照/driver；派生`benchmarks/analyses/simple-core-integration-v1/results.json`。不以最终提交冒充前期工作树运行revision。
+  - 下一: 核心边界已固定，集中冻结具体样本/共同资源与新预算/时窗后做四方法比较，同项目复用单列；旧E30/E33/E01/E35–E41/论文v0.6保留。CI/实际合并以Issue675关联PR为准，只进科研集成分支。原用户memory/HTML/uv.lock保持，不暂存原差异。
+
+
 - 2026-11-04 — #673落实简洁构建任务最小入口并完成跨系统零Provider实跑。
   - 文件: `simple_build_task.py`、`simple_build_runtime.py`、`scripts/forge_build_simple_task.py`、`docs/research/2026-11-04-simple-build-implementation.md`；原Workflow仅添加可覆写方案模型/步骤校验接点，旧默认验收保持。
   - 实现: 公开任务/评测参考分开，在实际meter请求边界过滤私有字段；独立构建方案不含固定smoke/stage；实际CMake generator和主产物/ELF/ar/平台/来源观察，错误候选断言不当裁判；方案恢复、保守后缀失效及物理生成物reset，限定clean前置；主构建冻结后独立计时测试/交付/replay。

@@ -166,14 +166,25 @@ def simple_agent_packet(task: PublicBuildTask, *, current_plan=None, handoff=Non
     return dict(task=task.model_dump(mode="json"), current_plan=public_plan, handoff=handoff)
 
 
-def propose_simple(*, model, task: PublicBuildTask, source_root, session_root, meter, current_plan=None, handoff=None):
+def propose_simple(*, model, task: PublicBuildTask, source_root, session_root, meter, current_plan=None, handoff=None, experience_bank=None, family=None):
     """真实规划/方案恢复接点；所有读、输出、失败通过既有meter计量，无隐式重试。"""
     task = PublicBuildTask.model_validate(task)
     packet = simple_agent_packet(task, current_plan=current_plan, handoff=handoff)
+    prompt = SIMPLE_PROMPT
+    if experience_bank is not None:
+        from deerflow.compile.build_experience import EXPERIENCE_PROMPT
+        from deerflow.compile.simple_build_experience import select_simple_experience
+
+        if not family:
+            raise PlanContractError("跨项目经验必须声明当前项目族")
+        evidence = meter.packet() if hasattr(meter, "packet") else {}
+        context = select_simple_experience(bank=experience_bank, task=task, packet={**packet, "source_packet": evidence.get("source_packet", [])}, family=family, ledger=meter.ledger)
+        packet["historical_build_experience"] = context
+        prompt += EXPERIENCE_PROMPT
     revision = current_plan.revision + 1 if current_plan else 1
     meter.requires_structured_response = True
     meter.ledger.append("agent.started", revision=revision, recovery=current_plan is not None, contract="simple-build-v1")
-    agent = create_agent(model=model, tools=safe_readonly_tools(source_root, session_root), system_prompt=SIMPLE_PROMPT, middleware=[meter], response_format=ToolStrategy(ObservedBuildActions, handle_errors=False))
+    agent = create_agent(model=model, tools=safe_readonly_tools(source_root, session_root), system_prompt=prompt, middleware=[meter], response_format=ToolStrategy(ObservedBuildActions, handle_errors=False))
     # 既有状态型meter会替换HumanMessage；必须在其实际请求边界也过滤旧任务/评测对象。
     # 只复用已读取源码/日志的工作集，不把旧packet中的验证脚本等字段带入新任务。
     original_packet = getattr(meter, "packet", None)
