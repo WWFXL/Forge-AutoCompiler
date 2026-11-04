@@ -15,6 +15,7 @@ from pathlib import Path, PurePosixPath
 from deerflow.compile import operations
 from deerflow.compile.plan_workflow import PlanContractError, PlanStep, PlanWorkflow, _digest
 from deerflow.compile.schemas import BuildCommandRecord, CommandResult, utc_now_iso
+from deerflow.compile.simple_author_tests import cmake_roots, resolve_author_tests
 from deerflow.compile.simple_build_task import BuildReference, SimpleBuildPlan
 
 
@@ -51,7 +52,7 @@ def source_unchanged(root, baseline):
 
 def observe_configuration(root: Path, system: str) -> dict:
     """从实际Cache读取generator和源码，绝不固定要求Ninja。"""
-    if system != "cmake":
+    if system != "cmake" and not cmake_roots(root):
         return dict(status="not_applicable", reason="Make不强制配置；Autotools仅在实际configure后观察config.status", configurations=[])
     rows = []
     for p in sorted(root.rglob("CMakeCache.txt")):
@@ -75,7 +76,7 @@ def observe_configuration(root: Path, system: str) -> dict:
             source_valid = False
         passed = bool(entry and (p.parent / entry).is_file() and source_valid and directory == expected_directory)
         rows.append(dict(directory=p.parent.relative_to(root).as_posix(), generator=generator, entry=entry, source_directory=source, cache_directory=directory, status="passed" if passed else "unknown" if not entry else "failed"))
-    return dict(status="passed" if rows and all(r["status"] == "passed" for r in rows) else "unknown" if not rows or any(r["status"] == "unknown" for r in rows) else "failed", configurations=rows)
+    return dict(status="passed" if rows and all(r["status"] == "passed" for r in rows) else "unknown" if not rows or any(r["status"] == "unknown" for r in rows) else "failed", configurations=rows, build_system="cmake")
 
 
 def validate_phase_command(step):
@@ -237,9 +238,9 @@ class SimpleBuildWorkflow(PlanWorkflow):
         if not passed:
             return False
         if step.role in {"configure", "build"} and step.step_id != "forge-generated-reset":
-            if self.plan.build_system != "autotools" or self.configuration["status"] != "passed":
+            if self.plan.build_system != "autotools" or self.configuration["status"] != "passed" or cmake_roots(self.root):
                 self.configuration = observe_configuration(self.root, self.plan.build_system)
-            if self.plan.build_system == "autotools" and operations._command_invokes(step.command, "configure"):
+            if self.plan.build_system == "autotools" and operations._command_invokes(step.command, "configure") and not cmake_roots(self.root):
                 relative = PurePosixPath(step.workdir).relative_to("/workspace/repo")
                 self.configuration = dict(status="passed" if (self.root / relative / "config.status").is_file() and (self.root / relative / "Makefile").is_file() else "failed", directory=relative.as_posix())
             self.manager.log_event(self._session, "simple.configuration_observed", step_id=step.step_id, **self.configuration)
@@ -338,11 +339,13 @@ class SimpleBuildWorkflow(PlanWorkflow):
         self.timings["delivery_seconds"] = time.monotonic() - start
         tests = []
         start = time.monotonic()
-        if not self.reference.author_tests:
+        author_steps, selection = resolve_author_tests(self.root, self.reference)
+        (self.directory / "author-test-selection.json").write_text(json.dumps(selection, ensure_ascii=False, indent=2) + "\n")
+        if not author_steps:
             self.layers["author_tests"] = "not_applicable" if self.reference.tests_not_applicable_reason else "unobserved"
         else:
             self.layers["author_tests"] = "passed"
-            for step in self.reference.author_tests:
+            for step in author_steps:
                 remaining = int(author_test_seconds - (time.monotonic() - start))
                 if remaining <= 0:
                     self.layers["author_tests"] = "timeout"
@@ -373,6 +376,7 @@ class SimpleBuildWorkflow(PlanWorkflow):
             timings=self.timings,
             primary=self.primary,
             author_test_records=tests,
+            author_test_selection=selection,
             replayed_author_tests=replayed_tests and replay,
             session_status=self._session.status,
             replay_attempts=[asdict(a) for a in self._session.replay_attempts],

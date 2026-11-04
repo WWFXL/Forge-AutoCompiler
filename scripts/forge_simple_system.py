@@ -52,7 +52,7 @@ class ScriptedSimpleModel(FakeMessagesListChatModel):
             raise RuntimeError("离线回复已用完，不循环或自动重试")
         row = copy.deepcopy(self.calls[self.position])
         self.position += 1
-        packet = json.loads(messages[-1].content)
+        packet = json.loads(next(m.content for m in reversed(messages) if m.type == "human"))
         commands = packet.get("commands", [])
         args = row.get("args", {})
         if args.get("supporting_command_id") == "$last_build":

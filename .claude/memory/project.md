@@ -618,6 +618,13 @@
 
 ## 最近变更 (Recent Changes)
 
+- 2026-11-04 — #681实现简洁规划交付、对话保留/收敛、短条件经验和实际作者测试入口，准备16次配对比较。
+  - 文件: `backend/packages/harness/deerflow/compile/simple_planning_context.py`, `simple_author_tests.py`, `simple_build_task.py`, `simple_build_agents.py`, `simple_build_experience.py`, `simple_build_runtime.py`, `scripts/forge_planning_comparison.py`；报告 `docs/research/2026-11-04-planning-context-experience-preparation.md`。
+  - 验证: 44相关检查/Ruff通过；jsoncpp空参数、libite字段错位各一次显式纠正，highwayhash重复读取收敛，libsrtp改走CMake的四条脚本Agent真实Docker路径全部主构建/原作者测试/交付/replay/源码/cleanup通过；10模拟响应、0Provider/Token/新增费，16项容器名称/ID实际不存在。不当新模型效果或把旧失败补为成功。
+  - 证据: raw `forge-planning-improvement-engineering-2026-11-04-v1`，inventory `23dae3a2cc2ba639588b65d06aceac2743120692ae6c5c3d473f5c903d0f94eb`；运行前runtime-snapshot和后续小修复source-snapshot分别保留。
+  - 下一: `cpp-build-planning-context-experience-flash-v1`为jsoncpp/libsrtp/libite/highwayhash×两重复×改进基础/经验，共16；manifest SHA `7a59cc565c2bcfc0ca751b634424e0d926e5d6580a72a66f7c32574f4781bd2b`。建议新10美元/4小时，当前无此身份有效预算；无SDK重试/不补槽，格式纠正一次全计费。四项目开发暴露，不称holdout或每项修复独立因果。
+  - 边界: E42校正为3空参数+1步骤错放reason，原结果/原件不变；所有旧E01/E30/E33/E35–E42/v0.6保持。用户原memory199加/4删及HTML/uv.lock不提交；代码仅合科研集成分支，最终PR/CI/merge以GitHub为准。
+
 - 2026-11-04 — #679完成固定四方法48次真实比较和论文结果分析。
   - 文件: `docs/research/2026-11-04-simple-system-comparison-results.md`、`benchmarks/analyses/cpp-build-simple-system-comparison-flash-v1/`、`RESEARCH_STATUS.md`、论文证据索引/目录。
   - 结果: 48/48终结/0未观察槽；Forge/经验/强工具/CXX主构建9/8/12/12、记录完整9/8/12/9（各12）。58/192/64/78请求，估费0.1942293/0.9172332/0.1660431/0.1161618美元，8.47/14.11/9.99/31.47分钟。基础三次空结构、经验一次空结构/三次读取循环均在编译前；CXX两libsrtp切CMake后测试入口不适用、jsoncpp一次关测试，不能当测试用例实际失败或功能排名。

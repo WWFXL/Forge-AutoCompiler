@@ -67,7 +67,7 @@ CXX与强工具均12/12主构建，CXX在线费用低约30.0%，累计耗时约�
 
 |槽|观察及实际停止位置|解释边界|
 |---|---|---|
-|16 highwayhash/经验；28 jsoncpp/基础；30 miniz/基础；44 libite/基础|`ObservedBuildActions`工具的保存参数为`{}`，缺`reason/steps`，抛`StructuredOutputValidationError`；均在配置/构建前|保存的SDK/Agent响应与解析错误一致。部分推理文字已给出合理命令，不能说模型完全不会规划；缺少独立原始HTTP流，不能进一步断言问题只发生于Provider或本地SDK|
+|16 highwayhash/经验；28 jsoncpp/基础；30 miniz/基础；44 libite/基础|前三槽的`ObservedBuildActions`参数为`{}`；44实际将完整步骤列表错放在`reason`且缺少`steps`。四次均抛`StructuredOutputValidationError`，在配置/构建前停止|2026-11-04逐槽核对校正了“全部为空”的原概括，原响应、结果和分母不变。已有部分合理命令，不能说模型完全不会规划；三个空参数缺独立HTTP流，不能唯一归因Provider或SDK|
 |21/48 libsrtp经验、27 jsoncpp经验|每槽50次模型请求，反复list/read，达到LangGraph图递归上限100；没有执行编译命令|图轮次与单槽96请求上限是不同约束；并非费用用尽或缺依赖。没有扩大上限、重试或用后续方案回填|
 |24/45 libsrtp CXX|原生先尝试Autotools后改用仓库自带CMake，主库/交付/重建通过；外部仍在源码根执行`make runtest`，日志`No rule to make target 'runtest'`|固定测试入口对构建系统切换不适用，不能称测试用例实际失败，不能回填为通过；本批原始`author_tests=failed`和完整否保留，主构建成功有效|
 |26 jsoncpp CXX|Dockerfile显式`-DJSONCPP_WITH_TESTS=OFF`，外部实际测试目录观测为`[]`，主库/交付/构建重放通过|未构建/注册作者测试，不是用例运行后失败。私有测试要求不提前送模型，公共默认目标与原生生成策略仍可能有差异|

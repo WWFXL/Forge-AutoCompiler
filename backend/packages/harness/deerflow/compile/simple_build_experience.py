@@ -8,8 +8,15 @@ import json
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 from deerflow.compile.plan_workflow import PlanContractError, PlanStep
-from deerflow.compile.project_experience import StateTargetBank
-from deerflow.compile.simple_build_task import PublicBuildTask, SimpleBuildPlan
+from deerflow.compile.project_experience import StateTargetBank, domain_terms
+from deerflow.compile.simple_build_task import SIMPLE_GOAL, PublicBuildTask, SimpleBuildPlan
+
+SIMPLE_EXPERIENCE_PROMPT = """
+historical_build_experience是其他项目的简短条件化动作建议，仅辅助当前规划，不是待逐项完成的检查清单。
+优先使用当前已读文件判断适用性；不适用的建议直接忽略，不为核查旧经验另行遍历源码。
+仅在当前证据支持conditions时采用action，注意not_applicable；outcome仅表示来源局部观察。
+不能照搬其他项目的选项、路径或依赖，不能因此添加目标/测试要求。经验不能覆盖当前任务、真实失败和独立验证。
+"""
 
 
 class SimpleProjectRecipe(BaseModel):
@@ -48,17 +55,43 @@ def verified_simple_recipe(*, source_id, plan, validation):
 
 
 class SimpleStateTargetBank(StateTargetBank):
-    """复用已有库、排序及额度；目标词项改取简洁公开任务与已观察源码。"""
+    """从旧库选择匹配当前证据的少量动作；不附带整份来源轨迹和其他阶段经验。"""
 
-    def retrieve(self, **kwargs):
-        if kwargs["mode"] == "none":
-            return super().retrieve(**kwargs)
-        packet = json.loads(kwargs["text"])
+    def retrieve(self, *, build_system, family, stage, text, mode, limit_bytes=4096, top_k=2):
+        if mode == "none":
+            return dict(mode=mode, sources=[], items=[], bytes=0)
+        if mode != "structured":
+            raise ValueError("简洁任务只支持无经验或条件化动作建议")
+        packet = json.loads(text)
         task = packet.get("task", {})
-        # 仅是旧排序器的内部输入适配，评测参考不参与检索或模型输入。
-        public_target = dict(goal=task.get("goal"), clarification=task.get("common_clarification"), source_packet=packet.get("source_packet", []))
-        packet["task"] = dict(verification_steps=[dict(expected=json.dumps(public_target, ensure_ascii=False))])
-        return super().retrieve(**(kwargs | dict(text=json.dumps(packet, ensure_ascii=False))))
+        # 不使用库名、SHA、参考命令或整套验收脚本匹配；通用目标不能制造相似性。
+        visible = dict(clarification=task.get("common_clarification"), source_packet=packet.get("source_packet", []), handoff=packet.get("handoff"))
+        generic = domain_terms(SIMPLE_GOAL) | {"cmake", "make", "autotools", "readme", "build", "configure", "source_packet", "content", "path", "true", "false", "null"}
+        query = domain_terms(json.dumps(visible, ensure_ascii=False)) - generic
+        ranked = []
+        for index, entry in enumerate(self.entries):
+            source = self.sources[entry["source_id"]]
+            if source["family"] == family or source["build_system"] != build_system:
+                continue
+            if entry["stage"] not in ({"dependency", "configure", "build"} if stage == "initial" else {stage}):
+                continue
+            # 只匹配适用条件与已观察状态，不能因“不适用”或动作里碰巧出现词项而入选。
+            terms = domain_terms(json.dumps(dict(conditions=entry.get("conditions", []), state=entry.get("state", "")), ensure_ascii=False)) - generic
+            matched = sorted(query & terms)
+            if not matched:
+                continue
+            ranked.append((-len(matched), entry["source_id"], index, entry, matched))
+        selected, size = [], 0
+        for _, identifier, index, entry, matched in sorted(ranked):
+            if len(selected) >= top_k:
+                break
+            advice = {k: entry[k] for k in ("stage", "conditions", "state", "action", "outcome", "not_applicable", "verification_scope", "command_ids") if k in entry}
+            item = dict(source_id=identifier, experience_id=entry.get("experience_id", str(index)), source_family=self.sources[identifier]["family"], matched_terms=matched[:8], advice=advice)
+            length = len(json.dumps(item, ensure_ascii=False).encode())
+            if size + length <= limit_bytes:
+                selected.append(item)
+                size += length
+        return dict(mode=mode, sources=list(dict.fromkeys(s["source_id"] for s in selected)), items=selected, bytes=size, maximum_bytes=limit_bytes, top_k=top_k, policy="matched_action_advice_v1", abstained=not bool(selected))
 
 
 def select_simple_experience(*, bank, task, packet, family, ledger):
@@ -69,5 +102,5 @@ def select_simple_experience(*, bank, task, packet, family, ledger):
         step = next((s for s in (packet.get("current_plan") or {}).get("steps", []) if s["step_id"] == handoff.get("step_id")), {})
         stage = step.get("role", "build" if handoff.get("primary_components") else "recovery")
     context = bank.retrieve(build_system=task.build_system, family=family, stage=stage, text=json.dumps(packet, ensure_ascii=False), mode="structured")
-    ledger.append("experience.retrieved", stage=stage, source_ids=context["sources"], bytes=context["bytes"], policy="once_per_agent_task")
+    ledger.append("experience.retrieved", stage=stage, source_ids=context["sources"], bytes=context["bytes"], policy="once_per_agent_task", selection=context.get("policy"), abstained=not bool(context["sources"]))
     return copy.deepcopy(context)

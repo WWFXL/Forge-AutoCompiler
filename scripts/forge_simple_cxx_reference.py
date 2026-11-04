@@ -21,6 +21,7 @@ from forge_build_simple_task import full_completion, save
 
 from deerflow.compile.operation_window import OperationWindow
 from deerflow.compile.plan_workflow import PlanContractError, _digest
+from deerflow.compile.simple_author_tests import resolve_author_tests
 from deerflow.compile.simple_build_runtime import primary_artifacts, source_inventory
 
 BASELINE = Path("/home/yiwei/work/CXXCrafter-Community-Edition")
@@ -82,12 +83,15 @@ def external_simple_check(*, image, task, reference, original_source, folder, au
                 delivered.append(dict(name=p.name, kind=item["kind"], size=item["size"], sha256=item["sha256"], mode=item["mode"]))
             result["artifacts"] = sorted(delivered, key=lambda r: r["name"])
             layers["delivery"] = "passed"
-            if not reference.author_tests:
+            author_steps, selection = resolve_author_tests(root, reference)
+            result["author_test_selection"] = selection
+            save(folder / "author-test-selection.json", selection)
+            if not author_steps:
                 layers["author_tests"] = "not_applicable" if reference.tests_not_applicable_reason else "unobserved"
             else:
                 layers["author_tests"] = "passed"
                 test_start = time.monotonic()
-                for i, step in enumerate(reference.author_tests):
+                for i, step in enumerate(author_steps):
                     seconds = int(author_test_seconds - (time.monotonic() - test_start))
                     if seconds < 1:
                         layers["author_tests"] = "timeout"

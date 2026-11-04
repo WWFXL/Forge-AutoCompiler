@@ -43,6 +43,19 @@ class SimpleBuildMeter(ContextCanaryMeter):
         finally:
             self.cost_usd = float((Decimal(self.input_tokens) * Decimal("0.30") + Decimal(self.output_tokens) * Decimal("1.20")) / 1_000_000)
 
+    def wrap_model_call(self, request, handler):
+        context = getattr(self, "planning_context", None)
+        if context is not None:
+            return context.request(self, request, handler)
+        return super().wrap_model_call(request, handler)
+
+    def wrap_tool_call(self, request, handler):
+        result = super().wrap_tool_call(request, handler)
+        context = getattr(self, "planning_context", None)
+        if context is not None:
+            context.observe(request.tool_call["name"], request.tool_call["args"], result.content)
+        return result
+
 
 SIMPLE_TOOL_PROMPT = (
     """你是C/C++工具型构建Agent。读取公开任务与作者源码，在隔离容器构建主要程序或库。

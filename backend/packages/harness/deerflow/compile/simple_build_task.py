@@ -6,16 +6,45 @@ import json
 from typing import Literal, Self
 
 from langchain.agents import create_agent
-from langchain.agents.structured_output import ToolStrategy
+from langchain.agents.structured_output import StructuredOutputValidationError, ToolStrategy
 from langchain_core.messages import HumanMessage
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 from deerflow.compile.plan_agent import PlanResponseCapture
-from deerflow.compile.plan_agent_context import CONTEXT_PROMPT, safe_readonly_tools
+from deerflow.compile.plan_agent_context import safe_readonly_tools
 from deerflow.compile.plan_workflow import PlanContractError, PlanStep, _digest
+from deerflow.compile.simple_planning_context import PlanningContext
 from deerflow.compile.unified_plan_equivalent_observed import ObservedBuildActions, relative_path
 
 SIMPLE_GOAL = "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。"
+
+
+class SimpleBuildAction(BaseModel):
+    """模型只决定执行动作，不承担独立检查的输出断言。"""
+
+    model_config = ConfigDict(extra="forbid")
+    step_id: str = Field(pattern=r"^[a-zA-Z0-9][a-zA-Z0-9_-]{0,63}$")
+    role: Literal["dependency", "configure", "build"]
+    command: str = Field(min_length=1)
+    workdir: str = "/workspace/repo"
+    requires: tuple[str, ...] = ()
+    source: str = Field(min_length=1, description="已读取的作者说明或构建文件及位置")
+    expected: str = Field(min_length=1, description="此动作的目的，仅为说明")
+    diagnostic_paths: tuple[str, ...] = ()
+
+
+class SimpleBuildActions(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    reason: str = Field(min_length=1, description="简短说明构建入口及选项依据，不是步骤列表")
+    steps: list[SimpleBuildAction] = Field(min_length=1)
+
+    @model_validator(mode="after")
+    def valid_execution(self) -> Self:
+        # 使用成熟的动作/顺序校验，工具schema不再暴露旧候选观察字段。
+        ObservedBuildActions.model_validate(self.model_dump())
+        if any(s.step_id.startswith("forge-") for s in self.steps):
+            raise ValueError("不能占用系统步骤标识")
+        return self
 
 
 class PublicBuildTask(BaseModel):
@@ -141,14 +170,24 @@ SIMPLE_PROMPT = (
 读取原README与构建文件，选择适用的作者Linux普通构建说明；其次作者本地脚本/预设，最后默认主目标。
 自行识别主要程序/库、依赖与构建入口。不要人为增加Debug、静态库、全部示例、benchmark或单独完整测试。
 默认构建自然包含的目标照常构建，不能删源码/测试或关闭主要组件。目标不清楚时明确报告，不能自行缩小。
-只返回ObservedBuildActions中的dependency/configure/build动作，最后step_id=build；不要自行测试或暂存。
-stdout_contains/files_exist/directories_exist只是非权威候选，新任务请留空；不要在Shell内加入猜测路径或日志断言。
+只返回SimpleBuildActions中的dependency/configure/build动作，最后step_id=build；不要自行测试或暂存。
+不要在Shell内加入猜测路径或日志断言，验证由独立系统完成。
 每步一个阶段，使用/workspace/repo内workdir与严格Shell。正常make clean后重建可在同一阶段，但不能任意rm或屏蔽失败。
 配置/依赖变化由系统清理已生成文件并重做配置后缀，不要依赖失效的旧产物。实际错误Shell仍计入失败和恢复成本。
 恢复读取命令/配置/主要组件缺失反馈，返回完整方案和理由；不改变任务与独立结果检查。
 没有参考成功命令或精确路径；不能读取/repro、个人知识库或宿主文件。source给出实际证据。
+规划顺序：先利用现有README和根构建文件识别作者普通入口，再仅补读解决当前具体疑问所必需的文件。
+当主要目标、入口、必要依赖以及配置/编译命令已有依据时，立即交付；依赖已可用时省略dependency，Make项目不必虚构configure。
+不要为排除所有潜在错误而遍历子目录、示例和测试；后续真实执行失败由恢复处理。已有材料足够时不再重复核查历史经验。
+恢复只围绕真实失败修订；保留仍适用的前缀。无法给出有依据的方案时明确说明阻塞，不编造成功。
+结构错误会提供一次明确反馈，保持已读材料，修正字段后提交；reason必须为字符串，steps才是步骤列表。
+下面是格式示例，仅当当前作者文件支持这些命令时才可使用，不能作为项目成功依据：
+{"reason":"README说明以CMake构建默认主目标", "steps":[
+ {"step_id":"configure","role":"configure","command":"cmake -S . -B build","workdir":"/workspace/repo","source":"README.md:构建说明","expected":"生成构建文件"},
+ {"step_id":"build","role":"build","command":"cmake --build build --parallel 2","workdir":"/workspace/repo","requires":["configure"],"source":"README.md:构建说明","expected":"构建主要组件"}]}
 """
-    + CONTEXT_PROMPT
+    + "\n源码读取使用相对路径或/workspace/repo内别名。source_packet是任务开始的材料；后续证据和分析保留在工具对话中。"
+    "planning_progress记录近期读取与重复探索提醒；容量压缩后只补读当前缺少的必要片段。工具error表示未读到，不能当成功证据。"
 )
 
 
@@ -172,36 +211,40 @@ def propose_simple(*, model, task: PublicBuildTask, source_root, session_root, m
     packet = simple_agent_packet(task, current_plan=current_plan, handoff=handoff)
     prompt = SIMPLE_PROMPT
     if experience_bank is not None:
-        from deerflow.compile.build_experience import EXPERIENCE_PROMPT
-        from deerflow.compile.simple_build_experience import select_simple_experience
+        from deerflow.compile.simple_build_experience import SIMPLE_EXPERIENCE_PROMPT, select_simple_experience
 
         if not family:
             raise PlanContractError("跨项目经验必须声明当前项目族")
         evidence = meter.packet() if hasattr(meter, "packet") else {}
         context = select_simple_experience(bank=experience_bank, task=task, packet={**packet, "source_packet": evidence.get("source_packet", [])}, family=family, ledger=meter.ledger)
         packet["historical_build_experience"] = context
-        prompt += EXPERIENCE_PROMPT
+        prompt += SIMPLE_EXPERIENCE_PROMPT
     revision = current_plan.revision + 1 if current_plan else 1
     meter.requires_structured_response = True
     meter.ledger.append("agent.started", revision=revision, recovery=current_plan is not None, contract="simple-build-v1")
-    agent = create_agent(model=model, tools=safe_readonly_tools(source_root, session_root), system_prompt=prompt, middleware=[meter], response_format=ToolStrategy(ObservedBuildActions, handle_errors=False))
-    # 既有状态型meter会替换HumanMessage；必须在其实际请求边界也过滤旧任务/评测对象。
-    # 只复用已读取源码/日志的工作集，不把旧packet中的验证脚本等字段带入新任务。
-    original_packet = getattr(meter, "packet", None)
-    if original_packet is not None:
+    corrections = 0
 
-        def public_packet():
-            evidence = original_packet()
-            return {**packet, **{k: evidence[k] for k in ("source_packet", "read_index") if k in evidence}}
+    def correct_once(error):
+        nonlocal corrections
+        meter.ledger.append("simple.proposal_rejected", revision=revision, correction=corrections, category=type(error).__name__, detail=str(error)[:4000])
+        if corrections or not isinstance(error, StructuredOutputValidationError):
+            raise error
+        corrections += 1
+        return "方案尚未执行。仅允许这一次结构纠正，请使用SimpleBuildActions提交完整reason字符串和steps列表；保留已读证据、任务与原测试。具体错误：" + str(error)[:4000]
 
-        meter.packet = public_packet
+    agent = create_agent(model=model, tools=safe_readonly_tools(source_root, session_root), system_prompt=prompt, middleware=[meter], response_format=ToolStrategy(SimpleBuildActions, handle_errors=correct_once))
+    evidence = meter.packet() if hasattr(meter, "packet") else {}
+    # 公开材料白名单；只在任务开始固定源码包，后续通过完整工具对话携带新证据。
+    context = PlanningContext({**packet, "source_packet": evidence.get("source_packet", [])})
+    original_context = getattr(meter, "planning_context", None)
+    meter.planning_context = context
     try:
         result = agent.invoke({"messages": [HumanMessage(content=json.dumps(packet, ensure_ascii=False))]}, config={"max_concurrency": 1, "recursion_limit": 100, "callbacks": [PlanResponseCapture(meter)]})
     finally:
-        if original_packet is not None:
-            meter.packet = original_packet
+        meter.planning_context = original_context
     proposal = result.get("structured_response")
-    if not isinstance(proposal, ObservedBuildActions):
+    if not isinstance(proposal, SimpleBuildActions):
         raise PlanContractError("未交付构建动作")
     meter.ledger.save(f"simple-actions-{revision}.json", proposal.model_dump(mode="json"))
+    meter.ledger.append("simple.proposal_accepted", revision=revision, corrections=corrections)
     return assemble_simple_plan(task, proposal, revision=revision), proposal.reason
