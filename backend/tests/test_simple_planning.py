@@ -2,9 +2,11 @@
 
 import json
 import subprocess
+from pathlib import Path
 
 import pytest
 from langchain.agents.structured_output import StructuredOutputValidationError
+from langchain_core.messages import AIMessage
 from pydantic import ValidationError
 from test_plan_agent import ScriptedPlanModel, response
 from test_simple_build import reference, simple_actions, task
@@ -43,6 +45,78 @@ def test_two_invalid_candidates_stop_without_an_unbounded_retry(tmp_path):
         run(tmp_path, [response("SimpleBuildActions", {})] * 3)
     assert (tmp_path / "agent/response-2.json").exists()
     assert not (tmp_path / "agent/request-3.json").exists()
+
+
+def body_response(text, **kwargs):
+    return AIMessage(content=text, usage_metadata=dict(input_tokens=3, output_tokens=2, total_tokens=5), response_metadata=dict(model_name="test-model"), **kwargs)
+
+
+def test_valid_body_is_strictly_validated_and_original_response_remains(tmp_path):
+    original = json.dumps(simple_actions().model_dump(mode="json"))
+    plan, meter = run(tmp_path, [body_response(original)])
+    assert plan.steps[-1].command == "make" and meter.summary()["model_requests"] == 1
+    raw = json.loads((tmp_path / "agent/response-1.json").read_text())[0]
+    assert raw["content"] == original and not raw["tool_calls"]
+    assert '"channel": "json_body"' in (tmp_path / "agent/events.jsonl").read_text()
+
+
+def test_invalid_json_tool_gets_one_feedback_without_dangling_tool_call(tmp_path):
+    invalid = body_response("", invalid_tool_calls=[dict(name="SimpleBuildActions", args='{"reason":"x"}}', id="malformed", error="Extra data")])
+    _, meter = run(tmp_path, [invalid, response("SimpleBuildActions", simple_actions().model_dump(mode="json"))])
+    assert meter.summary()["model_requests"] == 2 and meter.summary()["recorded_tokens"] == 10
+    sent = request(tmp_path, 2)
+    assert "工具参数不是合法JSON" in sent["messages"][-1]["content"]
+    assert "仅允许这一次结构纠正" in sent["messages"][-1]["content"]
+    assert all(not m.get("invalid_tool_calls") for m in sent["messages"])
+    raw = json.loads((tmp_path / "agent/response-1.json").read_text())[0]
+    assert raw["invalid_tool_calls"][0]["args"] == '{"reason":"x"}}'
+
+
+@pytest.mark.parametrize("first_tool", [True, False])
+def test_tool_and_body_errors_share_exactly_one_correction(tmp_path, first_tool):
+    invalid = [response("SimpleBuildActions", {}), body_response('{"reason":"x"}')]
+    if not first_tool:
+        invalid.reverse()
+    with pytest.raises((StructuredOutputValidationError, ValueError)):
+        run(tmp_path, [*invalid, response("SimpleBuildActions", simple_actions().model_dump(mode="json"))])
+    assert (tmp_path / "agent/response-2.json").exists()
+    assert not (tmp_path / "agent/request-3.json").exists()
+
+
+@pytest.mark.parametrize("text", ["方案完成", '{"reason":"x"}}', '说明：{"reason":"x","steps":[]}', '{"reason":"x","steps":[],"tests":"skip"}'])
+def test_invalid_body_receives_specific_feedback_then_valid_candidate(tmp_path, text):
+    plan, meter = run(tmp_path, [body_response(text), response("SimpleBuildActions", simple_actions().model_dump(mode="json"))])
+    assert plan.steps[-1].command == "make" and meter.summary()["model_requests"] == 2
+    assert "仅允许这一次结构纠正" in request(tmp_path, 2)["messages"][-1]["content"]
+
+
+@pytest.mark.parametrize("index", range(7))
+def test_e43_original_responses_reach_validation_or_explicit_feedback(tmp_path, index):
+    root = Path(__file__).resolve().parents[2]
+    original = json.loads((root / "benchmarks/analyses/cpp-build-planning-context-experience-flash-v1/failure-analysis.json").read_text())["failures"][index]
+    replay = body_response(original["content"], invalid_tool_calls=original["invalid_tool_calls"])
+    plan, meter = run(tmp_path, [replay, response("SimpleBuildActions", simple_actions().model_dump(mode="json"))])
+    expected_requests = 2 if original["invalid_tool_calls"] else 1
+    assert meter.summary()["model_requests"] == expected_requests
+    assert plan.steps[-1].role == "build"
+    raw = json.loads((tmp_path / "agent/response-1.json").read_text())[0]
+    assert raw["content"] == original["content"] and raw["invalid_tool_calls"] == original["invalid_tool_calls"]
+
+
+def test_mixed_provider_prices_are_counted_once_per_actual_response(tmp_path):
+    (tmp_path / "README.md").write_text("make")
+    meter = SimpleBuildMeter(
+        PlanAgentLedger(tmp_path / "agent"),
+        accepted_models=("flash-test", "richlab-test"),
+        deadline="2099-01-01T00:00:00+00:00",
+        packet=lambda: {},
+        pricing_by_model={"flash-test": ("0.30", "1.20"), "richlab-test": ("1.00", "1.00")},
+    )
+    model = ScriptedPlanModel(responses=[response("read_source", dict(path="README.md"), model="flash-test"), response("SimpleBuildActions", simple_actions().model_dump(mode="json"), model="richlab-test")])
+    propose_simple(model=model, task=task(), source_root=tmp_path, session_root=tmp_path, meter=meter)
+    assert meter.summary()["estimated_cost_usd"] == pytest.approx(0.0000083)
+    events = [json.loads(line) for line in (tmp_path / "agent/events.jsonl").read_text().splitlines()]
+    assert len([e for e in events if e["event"] == "model.cost_estimated"]) == 2
 
 
 def test_provider_error_is_not_a_format_correction(tmp_path):
@@ -90,6 +164,23 @@ def test_context_compacts_whole_interactions_and_keeps_latest_evidence(tmp_path)
     assert "LATEST-7" in json.dumps(sent) and "LATEST-0" not in json.dumps(sent)
     assert len(json.dumps({k: v for k, v in sent.items() if k != "tools"}, ensure_ascii=False).encode()) <= 49000
     assert sent["messages"][1]["type"] == "ai"
+
+
+def test_large_initial_packet_does_not_displace_latest_multi_tool_results(tmp_path):
+    for i in range(3):
+        (tmp_path / f"part-{i}.txt").write_text(f"LATEST-{i}\n" + "data" * 1800)
+    initial = dict(path="README.md", sha256="a" * 64, content="SEED " * 4400)
+    meter = SimpleBuildMeter(PlanAgentLedger(tmp_path / "agent"), accepted_models=("test-model",), deadline="2099-01-01T00:00:00+00:00", packet=lambda: dict(source_packet=[initial]))
+    batch = body_response("", tool_calls=[dict(name="read_source", args=dict(path=f"part-{i}.txt"), id=f"read-{i}") for i in range(3)])
+    model = ScriptedPlanModel(responses=[batch, response("SimpleBuildActions", simple_actions().model_dump(mode="json"))])
+    propose_simple(model=model, task=task(), source_root=tmp_path, session_root=tmp_path, meter=meter)
+    sent = request(tmp_path, 2)
+    assert all(f"LATEST-{i}" in json.dumps(sent) for i in range(3))
+    packet = json.loads(sent["messages"][0]["content"])
+    assert packet["source_packet"][0]["sha256"] == "a" * 64 and packet["source_packet"][0]["content"] == ""
+    assert packet["planning_progress"]["initial_material_compactions"] == 1
+    assert initial["content"] == "SEED " * 4400
+    assert len(json.dumps({k: v for k, v in sent.items() if k != "tools"}, ensure_ascii=False).encode()) <= 49000
 
 
 def test_rejected_read_remains_feedback_instead_of_aborting_planning(tmp_path):

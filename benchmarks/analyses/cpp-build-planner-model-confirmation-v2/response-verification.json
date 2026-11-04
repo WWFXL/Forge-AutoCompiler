@@ -1,0 +1,389 @@
+{
+  "valid": true,
+  "identity": "cpp-build-planner-model-confirmation-v2",
+  "input_tokens": 492507,
+  "output_tokens": 10764,
+  "total_tokens": 503271,
+  "estimated_cost_usd": "0.3336614",
+  "responses": [
+    {
+      "slot": 1,
+      "response": "slot-01-jsoncpp-forge_experience/agent/response-1.json",
+      "sha256": "87466aad1d83dddca4b747d0b6c7f39dd639ca278f1ac950ed2f595a410bc613",
+      "model": "deepseek-flash",
+      "input_tokens": 9356,
+      "output_tokens": 784,
+      "estimated_cost_usd": "0.0037476"
+    },
+    {
+      "slot": 2,
+      "response": "slot-02-jsoncpp-forge_experience/agent/response-1.json",
+      "sha256": "0ccfff0b6d5fd487a91d89f461e6879a6bfbd9376a93203853d5dcbe2a1d441e",
+      "model": "gpt-5.6",
+      "input_tokens": 12896,
+      "output_tokens": 92,
+      "estimated_cost_usd": "0.012988"
+    },
+    {
+      "slot": 2,
+      "response": "slot-02-jsoncpp-forge_experience/agent/response-2.json",
+      "sha256": "7a302f9f347ddb2de130aeb252bff57e2572a957b8c8aaba175ea841adf2ff27",
+      "model": "gpt-5.6",
+      "input_tokens": 13223,
+      "output_tokens": 150,
+      "estimated_cost_usd": "0.013373"
+    },
+    {
+      "slot": 2,
+      "response": "slot-02-jsoncpp-forge_experience/agent/response-3.json",
+      "sha256": "4584b7d0fcf09a7b939539a744203abb060be15686d08a7fe7fff3e15ae9d2de",
+      "model": "gpt-5.6",
+      "input_tokens": 15660,
+      "output_tokens": 495,
+      "estimated_cost_usd": "0.016155"
+    },
+    {
+      "slot": 3,
+      "response": "slot-03-libsrtp-forge_experience/agent/response-1.json",
+      "sha256": "0a60a32023f0890316b038d8db8e8c1addafeb95ee214ab838df7fd861c3f15f",
+      "model": "gpt-5.6",
+      "input_tokens": 14421,
+      "output_tokens": 133,
+      "estimated_cost_usd": "0.014554"
+    },
+    {
+      "slot": 3,
+      "response": "slot-03-libsrtp-forge_experience/agent/response-2.json",
+      "sha256": "6e719b3a1faedacf8b9e71c55142b12c9dcfa337d47299523d21f15e4feb1e7d",
+      "model": "gpt-5.6",
+      "input_tokens": 16595,
+      "output_tokens": 417,
+      "estimated_cost_usd": "0.017012"
+    },
+    {
+      "slot": 4,
+      "response": "slot-04-libsrtp-forge_experience/agent/response-1.json",
+      "sha256": "14d3e22c3278924e1e97e0ab1e09ae75fe9b09b257ca57091160c361bf37c58b",
+      "model": "deepseek-flash",
+      "input_tokens": 10949,
+      "output_tokens": 119,
+      "estimated_cost_usd": "0.0034275"
+    },
+    {
+      "slot": 4,
+      "response": "slot-04-libsrtp-forge_experience/agent/response-2.json",
+      "sha256": "676a4762871f925b9fe87ea26d38ca27a442e54709e11abed877f897f029aa59",
+      "model": "deepseek-flash",
+      "input_tokens": 13304,
+      "output_tokens": 64,
+      "estimated_cost_usd": "0.004068"
+    },
+    {
+      "slot": 4,
+      "response": "slot-04-libsrtp-forge_experience/agent/response-3.json",
+      "sha256": "b77c31d262cefe97aa5730bcb0a7848ffe271154eaa51c367bb8c6b6c03363ea",
+      "model": "deepseek-flash",
+      "input_tokens": 13259,
+      "output_tokens": 66,
+      "estimated_cost_usd": "0.0040569"
+    },
+    {
+      "slot": 4,
+      "response": "slot-04-libsrtp-forge_experience/agent/response-4.json",
+      "sha256": "972c4bd8ae924c0ff9d51166f130a5a76d6b7b27066c7292edf2d79eefb0b08d",
+      "model": "deepseek-flash",
+      "input_tokens": 13727,
+      "output_tokens": 543,
+      "estimated_cost_usd": "0.0047697"
+    },
+    {
+      "slot": 5,
+      "response": "slot-05-libite-forge_experience/agent/response-1.json",
+      "sha256": "c5de1f55bcbadf39d34c92d9446e6a7983a73ec1fcdf3d195c62f861934f82a5",
+      "model": "deepseek-flash",
+      "input_tokens": 5364,
+      "output_tokens": 114,
+      "estimated_cost_usd": "0.001746"
+    },
+    {
+      "slot": 5,
+      "response": "slot-05-libite-forge_experience/agent/response-2.json",
+      "sha256": "ea1e3f3896291e006bb2d52447391c9893918b557646423142d9aac9670a35b6",
+      "model": "deepseek-flash",
+      "input_tokens": 6821,
+      "output_tokens": 200,
+      "estimated_cost_usd": "0.0022863"
+    },
+    {
+      "slot": 5,
+      "response": "slot-05-libite-forge_experience/agent/response-3.json",
+      "sha256": "71426d01255cdb1276f5b1100a028e5e909cab885210029245c31003eb45e3b2",
+      "model": "deepseek-flash",
+      "input_tokens": 9179,
+      "output_tokens": 716,
+      "estimated_cost_usd": "0.0036129"
+    },
+    {
+      "slot": 6,
+      "response": "slot-06-libite-forge_experience/agent/response-1.json",
+      "sha256": "10d0b42d45d5bafbe5cd6fee3a7dafb12391e0584a79ecb428af5c1d45dd4a60",
+      "model": "gpt-5.6",
+      "input_tokens": 9308,
+      "output_tokens": 125,
+      "estimated_cost_usd": "0.009433"
+    },
+    {
+      "slot": 6,
+      "response": "slot-06-libite-forge_experience/agent/response-2.json",
+      "sha256": "e01583d4ba6127800f7f073c74310bdc6e70081c957a09b979749aca4b48ae83",
+      "model": "gpt-5.6",
+      "input_tokens": 9543,
+      "output_tokens": 38,
+      "estimated_cost_usd": "0.009581"
+    },
+    {
+      "slot": 6,
+      "response": "slot-06-libite-forge_experience/agent/response-3.json",
+      "sha256": "4f80515a43a32ba61cf0d732621f2f3c0969f5e8c1bc5e803b1a4e57fc62509f",
+      "model": "gpt-5.6",
+      "input_tokens": 9761,
+      "output_tokens": 461,
+      "estimated_cost_usd": "0.010222"
+    },
+    {
+      "slot": 7,
+      "response": "slot-07-highwayhash-forge_experience/agent/response-1.json",
+      "sha256": "336dcd839bb365bb3f3077e81074e0bec57c6ba1f3187d73a298667e409124dc",
+      "model": "gpt-5.6",
+      "input_tokens": 14617,
+      "output_tokens": 220,
+      "estimated_cost_usd": "0.014837"
+    },
+    {
+      "slot": 8,
+      "response": "slot-08-highwayhash-forge_experience/agent/response-1.json",
+      "sha256": "65deadaf66d3bd519a824d87ee07bafd1fbebbf0ee4db21a9f29b021fe38fb64",
+      "model": "deepseek-flash",
+      "input_tokens": 11204,
+      "output_tokens": 287,
+      "estimated_cost_usd": "0.0037056"
+    },
+    {
+      "slot": 9,
+      "response": "slot-09-jsoncpp-forge_experience/agent/response-1.json",
+      "sha256": "3901fadbcece064a595f3f8b66c128c0f9bab2ba2a7a0bb968245b7ac8a45558",
+      "model": "gpt-5.6",
+      "input_tokens": 12896,
+      "output_tokens": 97,
+      "estimated_cost_usd": "0.012993"
+    },
+    {
+      "slot": 9,
+      "response": "slot-09-jsoncpp-forge_experience/agent/response-2.json",
+      "sha256": "b0368fdac676596076b751064c7f7d8c3f6c7b45d1fb35ef300722adcac0855c",
+      "model": "gpt-5.6",
+      "input_tokens": 13223,
+      "output_tokens": 40,
+      "estimated_cost_usd": "0.013263"
+    },
+    {
+      "slot": 9,
+      "response": "slot-09-jsoncpp-forge_experience/agent/response-3.json",
+      "sha256": "b7ce50f64027ad5dcf31f11d7d7a3b3d8f32a1daad889c2a2df1e02c0c20afa5",
+      "model": "gpt-5.6",
+      "input_tokens": 14936,
+      "output_tokens": 545,
+      "estimated_cost_usd": "0.015481"
+    },
+    {
+      "slot": 10,
+      "response": "slot-10-jsoncpp-forge_experience/agent/response-1.json",
+      "sha256": "4caa9f8ffc3f741a4ad9ba5f393173581773bb1b8da06407cb0b3bb308d805f7",
+      "model": "deepseek-flash",
+      "input_tokens": 9356,
+      "output_tokens": 255,
+      "estimated_cost_usd": "0.0031128"
+    },
+    {
+      "slot": 10,
+      "response": "slot-10-jsoncpp-forge_experience/agent/response-2.json",
+      "sha256": "46da62c3c3e26f7eaaa2e81d415ef6acceebaa9681c8694199b9e2f2ac5394a0",
+      "model": "deepseek-flash",
+      "input_tokens": 10123,
+      "output_tokens": 414,
+      "estimated_cost_usd": "0.0035337"
+    },
+    {
+      "slot": 11,
+      "response": "slot-11-libsrtp-forge_experience/agent/response-1.json",
+      "sha256": "279e8c6dd2064e3be5d3580484d606eb5b7c35dd5b4c4578e6b3ac435e30c262",
+      "model": "deepseek-flash",
+      "input_tokens": 10949,
+      "output_tokens": 134,
+      "estimated_cost_usd": "0.0034455"
+    },
+    {
+      "slot": 11,
+      "response": "slot-11-libsrtp-forge_experience/agent/response-2.json",
+      "sha256": "cb65ea82372de72ce20b2f0808aa1c6e8e6fe2164c72592c23db5438aee84d05",
+      "model": "deepseek-flash",
+      "input_tokens": 13381,
+      "output_tokens": 116,
+      "estimated_cost_usd": "0.0041535"
+    },
+    {
+      "slot": 11,
+      "response": "slot-11-libsrtp-forge_experience/agent/response-3.json",
+      "sha256": "7a37cfbb2c4412819b7fbe447d682fe3220fffd4856f9f13bd4126b04d5dee40",
+      "model": "deepseek-flash",
+      "input_tokens": 14777,
+      "output_tokens": 82,
+      "estimated_cost_usd": "0.0045315"
+    },
+    {
+      "slot": 11,
+      "response": "slot-11-libsrtp-forge_experience/agent/response-4.json",
+      "sha256": "124eaaee440e959d22a7d07270a76bb87b202f99bca219dc5fa98753160b8531",
+      "model": "deepseek-flash",
+      "input_tokens": 13112,
+      "output_tokens": 130,
+      "estimated_cost_usd": "0.0040896"
+    },
+    {
+      "slot": 11,
+      "response": "slot-11-libsrtp-forge_experience/agent/response-5.json",
+      "sha256": "259373a7dcd00574fd0fcf78aec3cc1fb03c91e91b444e43f70129eee8b39625",
+      "model": "deepseek-flash",
+      "input_tokens": 13701,
+      "output_tokens": 82,
+      "estimated_cost_usd": "0.0042087"
+    },
+    {
+      "slot": 11,
+      "response": "slot-11-libsrtp-forge_experience/agent/response-6.json",
+      "sha256": "65e67647f6a4980638f8f3fc9de4c89ecad4681188a37db8ae3381e2f5d629b4",
+      "model": "deepseek-flash",
+      "input_tokens": 13081,
+      "output_tokens": 121,
+      "estimated_cost_usd": "0.0040695"
+    },
+    {
+      "slot": 11,
+      "response": "slot-11-libsrtp-forge_experience/agent/response-7.json",
+      "sha256": "8735d4378c4e6c364cc5279e556eb2bcbce917216072b43dc1a2e8890367fd90",
+      "model": "deepseek-flash",
+      "input_tokens": 11259,
+      "output_tokens": 151,
+      "estimated_cost_usd": "0.0035589"
+    },
+    {
+      "slot": 11,
+      "response": "slot-11-libsrtp-forge_experience/agent/response-8.json",
+      "sha256": "36d6c4c50fa07250c506106c341d59857d4b4ca0dc1ddd4ee51fdbeed46db008",
+      "model": "deepseek-flash",
+      "input_tokens": 11602,
+      "output_tokens": 431,
+      "estimated_cost_usd": "0.0039978"
+    },
+    {
+      "slot": 12,
+      "response": "slot-12-libsrtp-forge_experience/agent/response-1.json",
+      "sha256": "3eb2198c9536a44f1b2fee7ce9d860fcaeefa3d64d119299edf7d64fe5f7336b",
+      "model": "gpt-5.6",
+      "input_tokens": 14421,
+      "output_tokens": 126,
+      "estimated_cost_usd": "0.014547"
+    },
+    {
+      "slot": 12,
+      "response": "slot-12-libsrtp-forge_experience/agent/response-2.json",
+      "sha256": "cdc6be98da9b60c7f6afe0d7351e8819b804c87998ae554937211374d01e934d",
+      "model": "gpt-5.6",
+      "input_tokens": 16699,
+      "output_tokens": 106,
+      "estimated_cost_usd": "0.016805"
+    },
+    {
+      "slot": 12,
+      "response": "slot-12-libsrtp-forge_experience/agent/response-3.json",
+      "sha256": "995ad4564aa614965d9bfb716f0d098de23b8a29821f33b3d4e9e53a56c18ef2",
+      "model": "gpt-5.6",
+      "input_tokens": 15728,
+      "output_tokens": 343,
+      "estimated_cost_usd": "0.016071"
+    },
+    {
+      "slot": 13,
+      "response": "slot-13-libite-forge_experience/agent/response-1.json",
+      "sha256": "1939f7a934d421d21cf2ab69a8a6685a6fe41dce684c27f8ee13756f9d251bcd",
+      "model": "gpt-5.6",
+      "input_tokens": 9308,
+      "output_tokens": 135,
+      "estimated_cost_usd": "0.009443"
+    },
+    {
+      "slot": 13,
+      "response": "slot-13-libite-forge_experience/agent/response-2.json",
+      "sha256": "aa48f03048a602235c675bd5300fcf54bf2be492d86a8976b306470443108213",
+      "model": "gpt-5.6",
+      "input_tokens": 9555,
+      "output_tokens": 78,
+      "estimated_cost_usd": "0.009633"
+    },
+    {
+      "slot": 13,
+      "response": "slot-13-libite-forge_experience/agent/response-3.json",
+      "sha256": "de27b05142cbedc253685750177094242606e1cde676076703f4947513c50742",
+      "model": "gpt-5.6",
+      "input_tokens": 10936,
+      "output_tokens": 410,
+      "estimated_cost_usd": "0.011346"
+    },
+    {
+      "slot": 14,
+      "response": "slot-14-libite-forge_experience/agent/response-1.json",
+      "sha256": "aaa0bad421834f91adcf7968dd212049f41012dd4fb7ed89f852029f1f4ffbb1",
+      "model": "deepseek-flash",
+      "input_tokens": 5364,
+      "output_tokens": 83,
+      "estimated_cost_usd": "0.0017088"
+    },
+    {
+      "slot": 14,
+      "response": "slot-14-libite-forge_experience/agent/response-2.json",
+      "sha256": "7d804319a39735460494be9b294897adc4cb58c520d64024638109da935db6c9",
+      "model": "deepseek-flash",
+      "input_tokens": 5616,
+      "output_tokens": 124,
+      "estimated_cost_usd": "0.0018336"
+    },
+    {
+      "slot": 14,
+      "response": "slot-14-libite-forge_experience/agent/response-3.json",
+      "sha256": "6440fd4d003b1bb9a41b3e4217ab284b31b7a3c5a029ace293ce8ca561ad616a",
+      "model": "deepseek-flash",
+      "input_tokens": 7476,
+      "output_tokens": 1144,
+      "estimated_cost_usd": "0.0036156"
+    },
+    {
+      "slot": 15,
+      "response": "slot-15-highwayhash-forge_experience/agent/response-1.json",
+      "sha256": "bf747e73cc212cb7e6024b553cdd0e5ec83357a7a61519108f63b3c56136cf13",
+      "model": "deepseek-flash",
+      "input_tokens": 11204,
+      "output_tokens": 366,
+      "estimated_cost_usd": "0.0038004"
+    },
+    {
+      "slot": 16,
+      "response": "slot-16-highwayhash-forge_experience/agent/response-1.json",
+      "sha256": "de269c348342f781d21053a50ff061409c338250c45a8359583ba622f48e2ad9",
+      "model": "gpt-5.6",
+      "input_tokens": 14617,
+      "output_tokens": 227,
+      "estimated_cost_usd": "0.014844"
+    }
+  ],
+  "unknown_usage_requests": 0
+}

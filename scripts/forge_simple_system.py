@@ -66,7 +66,9 @@ class ScriptedSimpleModel(FakeMessagesListChatModel):
         return super()._generate(messages, **kwargs)
 
 
-def run_simple_system(*, task, reference, source_archive, output_root, method, model, accepted_models, family, recipe=None, bank=None, deadline=None, maximum_cost_usd="1.00", author_test_seconds=120, replay_seconds=240):
+def run_simple_system(*, task, reference, source_archive, output_root, method, model, accepted_models, family, recipe=None, bank=None, deadline=None, maximum_cost_usd="1.00", author_test_seconds=120, replay_seconds=240,
+    recovery_model=None, recovery_accepted_models=None, pricing_by_model=None,
+):
     """可复用执行接点；本函数不加载配置或凭据，不自行创建Provider。"""
     if method not in METHODS[:3]:
         raise ValueError("此接点仅接受Forge/经验Forge/强工具Agent")
@@ -87,6 +89,7 @@ def run_simple_system(*, task, reference, source_archive, output_root, method, m
             method=method,
             family=family,
             accepted_models=accepted_models,
+            recovery_accepted_models=recovery_accepted_models or accepted_models,
             maximum_cost_usd=maximum_cost_usd,
             deadline=deadline,
             kind="zero_provider_engineering" if accepted_models == ("zero-provider-script",) else "requires_external_authorized_protocol",
@@ -110,7 +113,7 @@ def run_simple_system(*, task, reference, source_archive, output_root, method, m
             return dict(task=task.model_dump(mode="json"), source_packet=initial_packet.get("source_packet", []), **service.observe())
         return dict(task=task.model_dump(mode="json"), source_packet=initial_packet.get("source_packet", []))
 
-    meter = SimpleBuildMeter(ledger, accepted_models=accepted_models, deadline=deadline or (datetime.now(UTC) + timedelta(hours=1)).isoformat(), packet=packet, maximum_cost_usd=maximum_cost_usd)
+    meter = SimpleBuildMeter(ledger, accepted_models=accepted_models, deadline=deadline or (datetime.now(UTC) + timedelta(hours=1)).isoformat(), packet=packet, maximum_cost_usd=maximum_cost_usd, pricing_by_model=pricing_by_model)
     try:
         source = Path(session.leadagent_repo_dir)
         source.mkdir(parents=True, exist_ok=True)
@@ -156,8 +159,10 @@ def run_simple_system(*, task, reference, source_archive, output_root, method, m
                     break
                 recovery_start = time.monotonic()
                 try:
+                    meter.accepted_models = recovery_accepted_models or accepted_models
                     revised, reason = propose_simple(
-                        model=model, task=task, source_root=source, session_root=Path(session.metadata_path).parent, meter=meter, current_plan=workflow.plan, handoff=workflow.handoff, experience_bank=bank, family=family
+                        model=recovery_model if recovery_model is not None else model, task=task, source_root=source, session_root=Path(session.metadata_path).parent,
+                        meter=meter, current_plan=workflow.plan, handoff=workflow.handoff, experience_bank=bank, family=family
                     )
                 finally:
                     recovery_seconds += time.monotonic() - recovery_start

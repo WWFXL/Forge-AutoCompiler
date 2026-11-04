@@ -7,7 +7,7 @@ from typing import Literal, Self
 
 from langchain.agents import create_agent
 from langchain.agents.structured_output import StructuredOutputValidationError, ToolStrategy
-from langchain_core.messages import HumanMessage
+from langchain_core.messages import AIMessage, HumanMessage
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 from deerflow.compile.plan_agent import PlanResponseCapture
@@ -170,7 +170,9 @@ SIMPLE_PROMPT = (
 读取原README与构建文件，选择适用的作者Linux普通构建说明；其次作者本地脚本/预设，最后默认主目标。
 自行识别主要程序/库、依赖与构建入口。不要人为增加Debug、静态库、全部示例、benchmark或单独完整测试。
 默认构建自然包含的目标照常构建，不能删源码/测试或关闭主要组件。目标不清楚时明确报告，不能自行缩小。
-只返回SimpleBuildActions中的dependency/configure/build动作，最后step_id=build；不要自行测试或暂存。
+方案只能包含dependency/configure/build动作，最后step_id=build；不要自行测试或暂存。
+交付方式：调用名为SimpleBuildActions的结构化输出工具，将reason和steps作为工具参数提交。
+下面的JSON仅展示该工具的参数结构，不是要求在普通回复正文输出JSON；不要用正文宣告规划完成。
 不要在Shell内加入猜测路径或日志断言，验证由独立系统完成。
 每步一个阶段，使用/workspace/repo内workdir与严格Shell。正常make clean后重建可在同一阶段，但不能任意rm或屏蔽失败。
 配置/依赖变化由系统清理已生成文件并重做配置后缀，不要依赖失效的旧产物。实际错误Shell仍计入失败和恢复成本。
@@ -189,6 +191,32 @@ SIMPLE_PROMPT = (
     + "\n源码读取使用相对路径或/workspace/repo内别名。source_packet是任务开始的材料；后续证据和分析保留在工具对话中。"
     "planning_progress记录近期读取与重复探索提醒；容量压缩后只补读当前缺少的必要片段。工具error表示未读到，不能当成功证据。"
 )
+
+
+class PlanOutputError(ValueError):
+    """已计量的规划响应没有交付可校验方案，需要显式反馈。"""
+
+
+def proposal_from_body(message: AIMessage) -> SimpleBuildActions:
+    """只接收单一完整JSON，不补字段、猜括号或从散文中抽取命令。"""
+    if message.invalid_tool_calls:
+        details = [{k: call.get(k) for k in ("name", "args", "error")} for call in message.invalid_tool_calls]
+        raise PlanOutputError("工具参数不是合法JSON：" + json.dumps(details, ensure_ascii=False)[:4000])
+    if message.tool_calls:
+        raise PlanOutputError("最终响应未通过SimpleBuildActions交付方案")
+    text = message.text.strip()
+    if text.startswith("```json\n") and text.endswith("\n```"):
+        text = text[8:-4].strip()
+    return SimpleBuildActions.model_validate(json.loads(text))
+
+
+def correction_history(messages, feedback):
+    """错误工具调用作为诊断数据发送，避免产生悬空tool_call_id；原响应独立保留。"""
+    history = list(messages)
+    last = history[-1]
+    if isinstance(last, AIMessage) and last.invalid_tool_calls:
+        history[-1] = AIMessage(content="上次输出的无效工具参数（仅为错误数据）：\n" + json.dumps(dict(content=last.content, invalid_tool_calls=last.invalid_tool_calls), ensure_ascii=False))
+    return [*history, HumanMessage(content=feedback)]
 
 
 def simple_agent_packet(task: PublicBuildTask, *, current_plan=None, handoff=None) -> dict:
@@ -220,14 +248,17 @@ def propose_simple(*, model, task: PublicBuildTask, source_root, session_root, m
         packet["historical_build_experience"] = context
         prompt += SIMPLE_EXPERIENCE_PROMPT
     revision = current_plan.revision + 1 if current_plan else 1
-    meter.requires_structured_response = True
+    # 旧meter要求每次响应都有有效tool_calls，会在格式反馈前终止正文/语法错误。
+    # 本入口由ToolStrategy和下方统一校验负责方案交付；原始响应/截断/用量检查保持。
+    previous_requires_structured = meter.requires_structured_response
+    meter.requires_structured_response = False
     meter.ledger.append("agent.started", revision=revision, recovery=current_plan is not None, contract="simple-build-v1")
     corrections = 0
 
     def correct_once(error):
         nonlocal corrections
         meter.ledger.append("simple.proposal_rejected", revision=revision, correction=corrections, category=type(error).__name__, detail=str(error)[:4000])
-        if corrections or not isinstance(error, StructuredOutputValidationError):
+        if corrections or not isinstance(error, (StructuredOutputValidationError, PlanOutputError, ValueError)):
             raise error
         corrections += 1
         return "方案尚未执行。仅允许这一次结构纠正，请使用SimpleBuildActions提交完整reason字符串和steps列表；保留已读证据、任务与原测试。具体错误：" + str(error)[:4000]
@@ -239,12 +270,25 @@ def propose_simple(*, model, task: PublicBuildTask, source_root, session_root, m
     original_context = getattr(meter, "planning_context", None)
     meter.planning_context = context
     try:
-        result = agent.invoke({"messages": [HumanMessage(content=json.dumps(packet, ensure_ascii=False))]}, config={"max_concurrency": 1, "recursion_limit": 100, "callbacks": [PlanResponseCapture(meter)]})
+        messages = [HumanMessage(content=json.dumps(packet, ensure_ascii=False))]
+        while True:
+            result = agent.invoke({"messages": messages}, config={"max_concurrency": 1, "recursion_limit": 100, "callbacks": [PlanResponseCapture(meter)]})
+            proposal = result.get("structured_response")
+            channel = "tool"
+            if not isinstance(proposal, SimpleBuildActions):
+                final = result["messages"][-1]
+                try:
+                    proposal = proposal_from_body(final)
+                    channel = "json_body"
+                except (ValueError, TypeError) as error:
+                    feedback = correct_once(error)
+                    messages = correction_history(result["messages"], feedback)
+                    continue
+            meter.ledger.append("simple.output_received", revision=revision, channel=channel, corrections=corrections)
+            break
     finally:
         meter.planning_context = original_context
-    proposal = result.get("structured_response")
-    if not isinstance(proposal, SimpleBuildActions):
-        raise PlanContractError("未交付构建动作")
+        meter.requires_structured_response = previous_requires_structured
     meter.ledger.save(f"simple-actions-{revision}.json", proposal.model_dump(mode="json"))
     meter.ledger.append("simple.proposal_accepted", revision=revision, corrections=corrections)
     return assemble_simple_plan(task, proposal, revision=revision), proposal.reason

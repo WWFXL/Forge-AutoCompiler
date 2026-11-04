@@ -618,6 +618,13 @@
 
 ## 最近变更 (Recent Changes)
 
+- 2026-11-05 — #685修复规划交付与材料容量，完成两批独立规划模型路由比较
+  - E45/cpp-build-planner-model-confirmation-v2在3138d020完成16/16：Flash/RichLab方案/主构建/完整均8/8，请求23/19、费0.0810804/0.252581美元、累计422.20/503.45秒；恢复/格式纠正0，测试/交付/replay/源码/cleanup全过。三槽压缩初始材料，全部工具交付。42响应503271Token/0.3336614美元/未知0，inventory2ffaab2d。
+  - E44首批16终态8/8、7/8及一次构建前容量失败保留，42响应487686Token/0.285268美元/未知0、inventory8a83618d；两批不合分母/不回填/不以跨批相减推修复因果。共新增0.6189294美元，原2美元/UTC19:24:06截止内完成，无自动重试/补槽/活动Provider；四原件目录146个容器标识实查不存在。
+  - 共同接收/一次纠正/提示词/初始源码压缩已修，53相关检查通过；四来源原响应构建与容量回放均0Provider，不计模型效果。工程原件forge-plan-output-engineering-v1(0bea80eb)、forge-plan-capacity-engineering-v1(f26e0d91)。RichLab路由gpt-6-astra/实际gpt-5.6披露；请求少但费3.12倍/时间高19.2%，本范围保留Flash默认。
+  - 文件: docs/research/2026-11-05-planner-model-results.md、THESIS_EVIDENCE_INDEX.md(E44/E45)、两个manifest/preregistration及benchmarks/analyses/。下一步固定Flash下系统/经验增量，不以加组件代替论文结果；旧E43/v0.6/用户原memory/HTML/uv.lock保持。PR686待结果head相关CI后仅合科研集成分支，发布以GitHub/会话收据为准。
+
+
 - 2026-11-05 — #683完成改进规划上下文后的固定16次经验增量比较与论文材料保存。
   - 文件: `docs/research/2026-11-05-planning-context-experience-results.md`、`benchmarks/analyses/cpp-build-planning-context-experience-flash-v1`、科研状态/论文证据索引与目录；新条目E43，不声称论文v0.6全文已更新。
   - 结果: 基础/经验方案、主构建和完整均6/8、3/8；请求21/22、美元0.0644073/0.0744600、累计5.85/3.27分钟，经验更短含更多早停。共同完整3对费低6.8%/时低2.2%仅条件性观察。43响应429624Token/$0.1388673/未知0，全部初始；原10美元/北京时间00:11:36–04:11:36内完成，PID2757267退出，不续余额或补槽。

@@ -1,5 +1,7 @@
 # 硕士论文实验与证据索引
 
+最新规划路由结果：[E45](#e45)独立确认16次，Flash/RichLab均完整8/8，请求23/19、估费0.0810804/0.252581美元、累计422.20/503.45秒；保留Flash默认规划。[E44](#e44)首批完整8/8、7/8及一次容量停止原样保留，两批分别报告，不以跨批差值估计修复因果。
+
 最新工程进展（不增效果分母）：[#681规划改进](2026-11-04-planning-context-experience-preparation.md)实现一次结构纠正、对话保留/收敛、短条件经验和实际测试入口；四条脚本Agent真实Docker路径完整通过。用途为第4/5章实现与第6章实验设置，支持可执行性、不证明模型效果。其后正式16次比较见[E43](#e43)，工程检查不并入模型效果分母；原件`forge-planning-improvement-engineering-2026-11-04-v1`、inventory`23dae3a2`。E42错误解释校正为三次空参数及一次字段错位，结果分母不变。
 
 最新组件结果：[E43](#e43)已完成16次经验增量比较，基础/经验完整6/8、3/8，七次共同出口失败保留；六份正文结构有效不改写终态。
@@ -54,6 +56,20 @@
 重复次数不等于独立项目数；各批模型、接口和任务版本不同，不把不同批次合成一个成功率或以跨批相减估计组件效果。分层分析会重复消费原运行，不能再算一份独立实验数据。费用使用各批冻结费率的估算，包含失败和恢复，不能当作实际账单；零恢复费用不代表初始规划免费。所有失败/未完成保留，未运行的测试、交付或重放记未观察。
 
 ## 正文候选：完整比较与组件消融
+
+<a id="e45"></a>
+### E45 初始材料容量修复后的独立16次规划路由确认
+
+- **设计／结果**：`cpp-build-planner-model-confirmation-v2`，同四开发项目×两重复×经验Forge内Flash/RichLab初始规划，恢复Flash、同经验/任务/资源/独立验收；16/16终态、0未观察。方案/主构建/完整各8/8，请求23/19、在线费0.0810804/0.252581美元、累计秒422.20/503.45，初始规划秒48.00/127.64、源码读取19/9，格式纠正与恢复均0。
+- **解释／用途**：16方案均工具提交，作者测试/交付/replay/源码/cleanup全过；三libsrtp槽各压缩2/5/2个初始片段，无容量停止。RichLab少请求/读取但费用3.12倍、时间高19.2%，本范围支持保留Flash默认。第4/5章实现、第6章路由敏感性和成本取舍；不证明经验/状态增量、未见泛化或官方模型排名。RichLab请求gpt-6-astra、实际gpt-5.6披露；不与E44合效果分母、不回填旧失败、不估跨批压缩因果。
+- **定位／费用**：[报告](2026-11-05-planner-model-results.md)、[分析](../../benchmarks/analyses/cpp-build-planner-model-confirmation-v2/analysis.json)、[16行表](../../benchmarks/analyses/cpp-build-planner-model-confirmation-v2/slots.csv)、[逐响应复算](../../benchmarks/analyses/cpp-build-planner-model-confirmation-v2/response-verification.json)、[协议](../../benchmarks/preregistrations/cpp-build-planner-model-confirmation-v2.md)。release3138d020，manifest5793ab12；raw `forge-planner-model-confirmation-v2`、inventory `2ffaab2d1b7a9ed689c4ca089c7233f47c26797c8b28f2236c5ed53627326970`。42响应/503271Token/新增0.3336614美元/未知0；两批总支出0.6189294美元，共享原2美元/UTC19:24:06截止，旧库0.095129单列不重付。无重试/补槽/活动Provider；本轮四原件目录146个容器名称/ID实际不存在。旧E43、E44及v0.6保持。
+
+<a id="e44"></a>
+### E44 规划方案接收修复后的16次规划路由比较
+
+- **设计／结果**：`cpp-build-planner-model-comparison-v1`，四已开发暴露项目×两重复×经验Forge内Flash/RichLab初始规划，恢复统一Flash、同经验/任务/资源/验收；16/16终态。方案/主构建/完整8/8、7/8，请求27/15、在线费0.095442/0.189826美元、累计秒425.60/428.29，初始规划秒51.48/103.61，源码读取20/8；格式纠正/恢复均0。
+- **解释／用途**：15接收方案均工具提交并完整，唯一RichLab/libsrtp在三读取后下一请求前因49KB容量停止，构建未观察；源码终态15过/1未观察、cleanup16过。第4/5章实现、第6章路由敏感性与请求/费用取舍；不作经验/状态独立增量、官方模型排名或未见泛化，不由跨批差值归因修复。RichLab请求gpt-6-astra、实际gpt-5.6已披露。原E43及v0.6保留。
+- **定位／费用**：[报告](2026-11-05-planner-model-results.md)、[分析](../../benchmarks/analyses/cpp-build-planner-model-comparison-v1/analysis.json)、[16行表](../../benchmarks/analyses/cpp-build-planner-model-comparison-v1/slots.csv)、[逐响应复算](../../benchmarks/analyses/cpp-build-planner-model-comparison-v1/response-verification.json)。release61a1128b；raw `forge-planner-model-comparison-v1`，inventory `8a83618da032dd3b91eafe89704f9b4804de707a6f2949ad92f29ea877def596`。42响应/487686Token/0.285268美元/未知0，全部计初始/失败成本，历史库0.095129另列不重付；新增支出共享原2美元及UTC19:24:06截止。原失败保留，容量回放仅工程，不计本16分母；独立确认另立身份。
 
 <a id="e43"></a>
 ### E43 改进规划上下文后的16次经验增量比较与方案出口失败
