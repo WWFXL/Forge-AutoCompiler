@@ -1,0 +1,339 @@
+{
+  "identity": "cpp-build-planner-model-comparison-v1",
+  "summary": {
+    "flash": {
+      "planned": 8,
+      "observed": 8,
+      "initial_plans": 8,
+      "primary_completed": 8,
+      "full_completed": 8,
+      "requests": 27,
+      "estimated_cost_usd": "0.0954420",
+      "total_wall_seconds": 425.6024611387402,
+      "initial_planning_seconds": 51.48381827806588,
+      "format_rejections": 0,
+      "source_reads": 20,
+      "recovery_requests": 0
+    },
+    "richlab": {
+      "planned": 8,
+      "observed": 8,
+      "initial_plans": 7,
+      "primary_completed": 7,
+      "full_completed": 7,
+      "requests": 15,
+      "estimated_cost_usd": "0.189826",
+      "total_wall_seconds": 428.2856808679644,
+      "initial_planning_seconds": 103.6071691669058,
+      "format_rejections": 0,
+      "source_reads": 8,
+      "recovery_requests": 0
+    }
+  },
+  "slots": [
+    {
+      "slot": 1,
+      "project": "jsoncpp",
+      "repetition": 1,
+      "planner": "flash",
+      "initial_delivered": true,
+      "format_rejections": 0,
+      "output_channels": {
+        "tool": 1
+      },
+      "initial_requests": 2,
+      "recovery_requests": 0,
+      "initial_cost_usd": "0.0075330",
+      "recovery_cost_usd": "0",
+      "response_models": {
+        "deepseek-flash": 2
+      },
+      "source_reads": 2
+    },
+    {
+      "slot": 2,
+      "project": "jsoncpp",
+      "repetition": 1,
+      "planner": "richlab",
+      "initial_delivered": true,
+      "format_rejections": 0,
+      "output_channels": {
+        "tool": 1
+      },
+      "initial_requests": 1,
+      "recovery_requests": 0,
+      "initial_cost_usd": "0.01324",
+      "recovery_cost_usd": "0",
+      "response_models": {
+        "gpt-5.6": 1
+      },
+      "source_reads": 0
+    },
+    {
+      "slot": 3,
+      "project": "libsrtp",
+      "repetition": 1,
+      "planner": "richlab",
+      "initial_delivered": false,
+      "format_rejections": 0,
+      "output_channels": {},
+      "initial_requests": 1,
+      "recovery_requests": 0,
+      "initial_cost_usd": "0.014557",
+      "recovery_cost_usd": "0",
+      "response_models": {
+        "gpt-5.6": 1
+      },
+      "source_reads": 2
+    },
+    {
+      "slot": 4,
+      "project": "libsrtp",
+      "repetition": 1,
+      "planner": "flash",
+      "initial_delivered": true,
+      "format_rejections": 0,
+      "output_channels": {
+        "tool": 1
+      },
+      "initial_requests": 4,
+      "recovery_requests": 0,
+      "initial_cost_usd": "0.0158244",
+      "recovery_cost_usd": "0",
+      "response_models": {
+        "deepseek-flash": 4
+      },
+      "source_reads": 2
+    },
+    {
+      "slot": 5,
+      "project": "libite",
+      "repetition": 1,
+      "planner": "flash",
+      "initial_delivered": true,
+      "format_rejections": 0,
+      "output_channels": {
+        "tool": 1
+      },
+      "initial_requests": 6,
+      "recovery_requests": 0,
+      "initial_cost_usd": "0.0161460",
+      "recovery_cost_usd": "0",
+      "response_models": {
+        "deepseek-flash": 6
+      },
+      "source_reads": 5
+    },
+    {
+      "slot": 6,
+      "project": "libite",
+      "repetition": 1,
+      "planner": "richlab",
+      "initial_delivered": true,
+      "format_rejections": 0,
+      "output_channels": {
+        "tool": 1
+      },
+      "initial_requests": 3,
+      "recovery_requests": 0,
+      "initial_cost_usd": "0.030473",
+      "recovery_cost_usd": "0",
+      "response_models": {
+        "gpt-5.6": 3
+      },
+      "source_reads": 2
+    },
+    {
+      "slot": 7,
+      "project": "highwayhash",
+      "repetition": 1,
+      "planner": "richlab",
+      "initial_delivered": true,
+      "format_rejections": 0,
+      "output_channels": {
+        "tool": 1
+      },
+      "initial_requests": 1,
+      "recovery_requests": 0,
+      "initial_cost_usd": "0.014831",
+      "recovery_cost_usd": "0",
+      "response_models": {
+        "gpt-5.6": 1
+      },
+      "source_reads": 0
+    },
+    {
+      "slot": 8,
+      "project": "highwayhash",
+      "repetition": 1,
+      "planner": "flash",
+      "initial_delivered": true,
+      "format_rejections": 0,
+      "output_channels": {
+        "tool": 1
+      },
+      "initial_requests": 1,
+      "recovery_requests": 0,
+      "initial_cost_usd": "0.0037875",
+      "recovery_cost_usd": "0",
+      "response_models": {
+        "deepseek-flash": 1
+      },
+      "source_reads": 0
+    },
+    {
+      "slot": 9,
+      "project": "jsoncpp",
+      "repetition": 2,
+      "planner": "richlab",
+      "initial_delivered": true,
+      "format_rejections": 0,
+      "output_channels": {
+        "tool": 1
+      },
+      "initial_requests": 3,
+      "recovery_requests": 0,
+      "initial_cost_usd": "0.039907",
+      "recovery_cost_usd": "0",
+      "response_models": {
+        "gpt-5.6": 3
+      },
+      "source_reads": 1
+    },
+    {
+      "slot": 10,
+      "project": "jsoncpp",
+      "repetition": 2,
+      "planner": "flash",
+      "initial_delivered": true,
+      "format_rejections": 0,
+      "output_channels": {
+        "tool": 1
+      },
+      "initial_requests": 2,
+      "recovery_requests": 0,
+      "initial_cost_usd": "0.0066528",
+      "recovery_cost_usd": "0",
+      "response_models": {
+        "deepseek-flash": 2
+      },
+      "source_reads": 1
+    },
+    {
+      "slot": 11,
+      "project": "libsrtp",
+      "repetition": 2,
+      "planner": "flash",
+      "initial_delivered": true,
+      "format_rejections": 0,
+      "output_channels": {
+        "tool": 1
+      },
+      "initial_requests": 8,
+      "recovery_requests": 0,
+      "initial_cost_usd": "0.0345972",
+      "recovery_cost_usd": "0",
+      "response_models": {
+        "deepseek-flash": 8
+      },
+      "source_reads": 6
+    },
+    {
+      "slot": 12,
+      "project": "libsrtp",
+      "repetition": 2,
+      "planner": "richlab",
+      "initial_delivered": true,
+      "format_rejections": 0,
+      "output_channels": {
+        "tool": 1
+      },
+      "initial_requests": 2,
+      "recovery_requests": 0,
+      "initial_cost_usd": "0.031525",
+      "recovery_cost_usd": "0",
+      "response_models": {
+        "gpt-5.6": 2
+      },
+      "source_reads": 1
+    },
+    {
+      "slot": 13,
+      "project": "libite",
+      "repetition": 2,
+      "planner": "richlab",
+      "initial_delivered": true,
+      "format_rejections": 0,
+      "output_channels": {
+        "tool": 1
+      },
+      "initial_requests": 3,
+      "recovery_requests": 0,
+      "initial_cost_usd": "0.030442",
+      "recovery_cost_usd": "0",
+      "response_models": {
+        "gpt-5.6": 3
+      },
+      "source_reads": 2
+    },
+    {
+      "slot": 14,
+      "project": "libite",
+      "repetition": 2,
+      "planner": "flash",
+      "initial_delivered": true,
+      "format_rejections": 0,
+      "output_channels": {
+        "tool": 1
+      },
+      "initial_requests": 3,
+      "recovery_requests": 0,
+      "initial_cost_usd": "0.0071616",
+      "recovery_cost_usd": "0",
+      "response_models": {
+        "deepseek-flash": 3
+      },
+      "source_reads": 4
+    },
+    {
+      "slot": 15,
+      "project": "highwayhash",
+      "repetition": 2,
+      "planner": "flash",
+      "initial_delivered": true,
+      "format_rejections": 0,
+      "output_channels": {
+        "tool": 1
+      },
+      "initial_requests": 1,
+      "recovery_requests": 0,
+      "initial_cost_usd": "0.0037395",
+      "recovery_cost_usd": "0",
+      "response_models": {
+        "deepseek-flash": 1
+      },
+      "source_reads": 0
+    },
+    {
+      "slot": 16,
+      "project": "highwayhash",
+      "repetition": 2,
+      "planner": "richlab",
+      "initial_delivered": true,
+      "format_rejections": 0,
+      "output_channels": {
+        "tool": 1
+      },
+      "initial_requests": 1,
+      "recovery_requests": 0,
+      "initial_cost_usd": "0.014851",
+      "recovery_cost_usd": "0",
+      "response_models": {
+        "gpt-5.6": 1
+      },
+      "source_reads": 0
+    }
+  ],
+  "unobserved": [],
+  "boundary": "开发项目路由比较，不作官方模型排名；未观察不回填，所有费用含失败和纠正。"
+}

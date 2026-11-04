@@ -14,6 +14,8 @@
 
 |文件|论文登记|
 |---|---|
+|[2026-11-05-planner-model-results.md](2026-11-05-planner-model-results.md)|[E44](THESIS_EVIDENCE_INDEX.md#e44)首批16次规划模型路由比较、容量停止与独立修复；分别保留原分母|
+|[2026-11-05-plan-output-repair.md](2026-11-05-plan-output-repair.md)|#685共同方案出口与原响应回放、四真实工程构建，不计模型效果|
 |[2026-11-05-planning-context-experience-results.md](2026-11-05-planning-context-experience-results.md)|[E43](THESIS_EVIDENCE_INDEX.md#e43)固定16次经验增量比较、共同方案出口遗漏与局部观察；原失败不回填|
 |[2026-11-04-planning-context-experience-preparation.md](2026-11-04-planning-context-experience-preparation.md)|#681规划/短经验/测试入口修复、四条零Provider真实构建及16槽准备；不增模型效果分母|
 |[2026-11-04-simple-system-comparison-results.md](2026-11-04-simple-system-comparison-results.md)|[E42](THESIS_EVIDENCE_INDEX.md#e42)简洁目标48次全分母系统比较、经验负结果/局部观察及规划接口和测试入口局限|

@@ -18,6 +18,8 @@ from deerflow.compile.plan_workflow import PlanContractError
 class PlanningContext:
     def __init__(self, packet):
         self.packet = packet
+        self.seed_material = [dict(row) for row in packet.get("source_packet", [])]
+        self.seed_compactions = 0
         self.reads = {}
         self.pending_reads = []
         self.stalled_rounds = 0
@@ -54,11 +56,12 @@ class PlanningContext:
         removed_notes = []
         self.pruned_groups = 0
         while True:
-            payload = {**self.packet, "remaining_budget": asdict(meter.tracker.remaining())}
+            payload = {**self.packet, "source_packet": self.seed_material, "remaining_budget": asdict(meter.tracker.remaining())}
             payload["planning_progress"] = dict(
                 recent_reads=list(self.reads.values())[-12:],
                 consecutive_rounds_without_new_evidence=self.stalled_rounds,
                 earlier_assistant_notes=removed_notes,
+                initial_material_compactions=self.seed_compactions,
                 instruction="构建入口、必要依赖和配置/编译命令有依据即可交付；未解决的问题交由真实执行反馈定位。",
             )
             if self.stalled_rounds >= 2:
@@ -67,6 +70,14 @@ class PlanningContext:
             body = dict(messages=[m.model_dump(mode="json") for m in messages], system_message=request.system_message.model_dump(mode="json") if request.system_message else None)
             if len(json.dumps(body, ensure_ascii=False).encode()) <= 49000:
                 break
+            # 初始片段可由原读取工具重新获得；优先保留最新完整交互，避免
+            # 初始包与同一文件的新读取重复占用容量，挤掉唯一一次工具反馈。
+            initial = [row for row in self.seed_material if row.get("content")]
+            if initial:
+                largest = max(initial, key=lambda row: len(row["content"].encode()))
+                largest.update(content="", truncated=True, context_note="初始片段因容量移出；路径与哈希保留，必要时用read_source补读具体片段")
+                self.seed_compactions += 1
+                continue
             if not groups:
                 raise PlanContractError("公开任务与必要规划材料超过上下文容量")
             # 按完整AI调用及其Tool结果淘汰，避免悬空tool_call_id；最新一组保留。
@@ -86,7 +97,7 @@ class PlanningContext:
         if len(json.dumps(schemas, ensure_ascii=False).encode()) > 8000:
             raise PlanContractError("规划工具schema超过容量")
         meter.ledger.save(f"request-{meter._request_sequence + 1}.json", {**body, "tools": schemas})
-        meter.ledger.append("planning.context", history_messages=len(messages) - 1, pruned_groups=self.pruned_groups, stalled_rounds=self.stalled_rounds, finalize_only=finalize_only)
+        meter.ledger.append("planning.context", history_messages=len(messages) - 1, pruned_groups=self.pruned_groups, initial_material_compactions=self.seed_compactions, stalled_rounds=self.stalled_rounds, finalize_only=finalize_only)
         meter.tracker.observe_elapsed(time.monotonic() - meter.started_monotonic)
         sequence = meter._before_request()
         try:

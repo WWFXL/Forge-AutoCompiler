@@ -166,6 +166,23 @@ def test_context_compacts_whole_interactions_and_keeps_latest_evidence(tmp_path)
     assert sent["messages"][1]["type"] == "ai"
 
 
+def test_large_initial_packet_does_not_displace_latest_multi_tool_results(tmp_path):
+    for i in range(3):
+        (tmp_path / f"part-{i}.txt").write_text(f"LATEST-{i}\n" + "data" * 1800)
+    initial = dict(path="README.md", sha256="a" * 64, content="SEED " * 4400)
+    meter = SimpleBuildMeter(PlanAgentLedger(tmp_path / "agent"), accepted_models=("test-model",), deadline="2099-01-01T00:00:00+00:00", packet=lambda: dict(source_packet=[initial]))
+    batch = body_response("", tool_calls=[dict(name="read_source", args=dict(path=f"part-{i}.txt"), id=f"read-{i}") for i in range(3)])
+    model = ScriptedPlanModel(responses=[batch, response("SimpleBuildActions", simple_actions().model_dump(mode="json"))])
+    propose_simple(model=model, task=task(), source_root=tmp_path, session_root=tmp_path, meter=meter)
+    sent = request(tmp_path, 2)
+    assert all(f"LATEST-{i}" in json.dumps(sent) for i in range(3))
+    packet = json.loads(sent["messages"][0]["content"])
+    assert packet["source_packet"][0]["sha256"] == "a" * 64 and packet["source_packet"][0]["content"] == ""
+    assert packet["planning_progress"]["initial_material_compactions"] == 1
+    assert initial["content"] == "SEED " * 4400
+    assert len(json.dumps({k: v for k, v in sent.items() if k != "tools"}, ensure_ascii=False).encode()) <= 49000
+
+
 def test_rejected_read_remains_feedback_instead_of_aborting_planning(tmp_path):
     (tmp_path / "README.md").write_text("make")
     plan, _ = run(tmp_path, [response("read_source", dict(path="../outside")), response("read_source", dict(path="README.md")), response("SimpleBuildActions", simple_actions().model_dump(mode="json"))])

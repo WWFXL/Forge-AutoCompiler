@@ -618,10 +618,11 @@
 
 ## 最近变更 (Recent Changes)
 
-- 2026-11-05 — #685修复共同规划接收出口并准备16次规划模型对照
-  - 合法正文通过同schema接收；正文/工具字段/工具JSON错误共享一次反馈，原始响应/用量/身份/截断检查保留；提示词明确工具交付。52相关检查及四条真实Docker脚本构建全部通过，不回填E43、不计模型效果。
-  - 用户本轮要求执行并允许RichLab；cpp-build-planner-model-comparison-v1固定四项目×两重复×Flash/RichLab规划，恢复统一Flash、同经验/任务/验收。新增支出自行限定2美元、正式启动起2小时，无自动重试，未知用量/身份异常/清理失败停止。RichLab路由与实际标签继续披露。
-  - 文件: docs/research/2026-11-05-plan-output-repair.md、scripts/forge_planner_model_comparison.py及同名manifest/preregistration；原件forge-plan-output-engineering-v1 inventory0bea80ebf939aa082dae7efef4de3e6a584058e9346750d0bd6c11c9df17cf67。当前正式槽尚未观察，用户原memory/HTML/uv.lock保持。
+- 2026-11-05 — #685修复规划交付/初始材料容量并完成首批16次模型路由对照
+  - E44/cpp-build-planner-model-comparison-v1在61a1128b完整16终态；Flash/RichLab完整8/8、7/8，请求27/15、费0.095442/0.189826美元，唯一容量失败在构建前，原件封存8a83618d不回填。42响应487686Token/总0.285268美元/未知0，恢复0、cleanup16过。
+  - 共同接收及工具交付提示词已修；53相关检查通过。四来源原响应真实脚本构建均完整；原三工具容量失败经优先压缩初始片段后再完整，0Provider。工程原件forge-plan-output-engineering-v1(0bea80eb)、forge-plan-capacity-engineering-v1(f26e0d91)，不计模型效果。
+  - cpp-build-planner-model-confirmation-v2新16槽已固定；同经验Forge、恢复Flash、同资源/验收，原2美元总上限扣首批0.285268后运行，原UTC19:24:06截止不重置，无自动重试/未知或身份/cleanup异常停批。RichLab路由/响应标签披露，不称官方Astra强弱。当前新槽未启动，PR686待最新head检查后合科研集成分支。
+  - 文件: docs/research/2026-11-05-planner-model-results.md、THESIS_EVIDENCE_INDEX.md(E44)、scripts/forge_planner_model_confirmation.py及同名manifest/preregistration。用户原memory/HTML/uv.lock保持，论文v0.6保持。
 
 
 - 2026-11-05 — #683完成改进规划上下文后的固定16次经验增量比较与论文材料保存。

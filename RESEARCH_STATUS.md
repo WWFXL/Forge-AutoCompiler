@@ -2,11 +2,13 @@
 
 论文选材固定入口：[硕士论文实验与证据索引](docs/research/THESIS_EVIDENCE_INDEX.md)，[历史材料目录](docs/research/THESIS_EVIDENCE_CATALOG.md)保留存量导航。当前完整稿为[论文v0.6](docs/thesis/README.md)；E40/E41新增两层经验结果，E39及此前基础系统、组件与恢复实验按原版本和分母继续使用。
 
-## 当前阶段（2026-11-05；#685共同规划出口修复完成，开展规划模型对照）
+## 当前阶段（2026-11-05；#685首批规划路由16次完成，容量修复后独立确认）
 
-本轮为工程修复及真实比较准备，[修复报告](docs/research/2026-11-05-plan-output-repair.md)记录合法正文同schema接收、正文/工具/语法错误共享一次反馈、提示词明确工具提交，原始响应/费用及独立验收保持。52相关检查和四条真实Docker构建全部通过；5次回复为零Token脚本，不计模型效果、不补判E43。原件`forge-plan-output-engineering-v1`，inventory `0bea80ebf939aa082dae7efef4de3e6a584058e9346750d0bd6c11c9df17cf67`。
+[结果报告](docs/research/2026-11-05-planner-model-results.md)与[E44](docs/research/THESIS_EVIDENCE_INDEX.md#e44)记录`cpp-build-planner-model-comparison-v1`16/16终态：Flash/RichLab方案/主构建/完整8/8、7/8，请求27/15、费0.095442/0.189826美元。15接收方案均工具提交并完整，唯一RichLab/libsrtp三读取后因上下文容量停止、构建未观察；42响应/487686Token/0.285268美元/未知0、cleanup16过，原结果封存，不回填。运行61a1128b，raw `forge-planner-model-comparison-v1`、inventory `8a83618da032dd3b91eafe89704f9b4804de707a6f2949ad92f29ea877def596`。
 
-用户要求顺序修复并明确允许RichLab。独立`cpp-build-planner-model-comparison-v1`固定四项目×两重复×Flash/RichLab初始规划，共16槽；相同经验Forge/Harness/任务/资源/验收，恢复统一Flash，费用按实际响应单价计入。自行限定新增2美元、正式启动起2小时，无自动重试；未知用量/身份异常/cleanup失败停批。[协议](benchmarks/preregistrations/cpp-build-planner-model-comparison-v1.md)披露RichLab请求gpt-6-astra及接受gpt-5.6响应，不作官方模型或一般能力排名。当前正式槽均未观察；旧E43及论文v0.6保持。
+共同出口修复与四工程构建见[报告](docs/research/2026-11-05-plan-output-repair.md)。首批封存后容量修复优先移出可补读初始源码、保留路径/哈希/最新完整工具组，不扩大49KB；53相关检查与原三工具响应真实构建/测试/交付/replay/源码/cleanup通过，0Provider，不当模型效果。工程原件`forge-plan-capacity-engineering-v1`，inventory `f26e0d91f3fe8216f62339673c579f39e4b29a9301f9a09f628f283dfa10f817`。
+
+下一项独立`cpp-build-planner-model-confirmation-v2`同四项目×两重复×两规划16槽，仍固定经验Forge/同验收/恢复Flash，[协议](benchmarks/preregistrations/cpp-build-planner-model-confirmation-v2.md)。用户本轮要求修复并允许RichLab，新增两批共享原2美元总硬上限、UTC2026-11-04 19:24:06截止（首批启动17:24:06），不重置；0自动重试，未知用量/身份异常/cleanup失败停批。RichLab路由/实际gpt-5.6标签披露；不作官方模型排名、两批合并或跨批压缩因果。当前确认槽未启动；旧E43及v0.6保持。
 
 ## 上一阶段（2026-11-05；#683改进规划上下文后的16次经验比较完成）
 

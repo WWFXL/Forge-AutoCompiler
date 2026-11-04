@@ -1,0 +1,17 @@
+slot,project,repetition,planner,status,initial_plan_delivered,primary_completed,full_completed,author_tests,clean_replay,cleanup,source_unchanged,requests,input_tokens,output_tokens,estimated_cost_usd,wall_seconds,initial_planning_seconds,initial_requests,recovery_requests,initial_cost_usd,recovery_cost_usd,format_rejections,source_reads,error
+1,jsoncpp,1,flash,primary_completed,True,True,True,passed,passed,True,True,2,21390,930,0.0075330,53.42001093795989,6.6707696210360155,2,0,0.0075330,0,0,2,
+2,jsoncpp,1,richlab,primary_completed,True,True,True,passed,passed,True,True,1,12887,353,0.01324,55.6456884680083,8.47088002495002,1,0,0.01324,0,0,0,
+3,libsrtp,1,richlab,error,False,unobserved,unobserved,unobserved,unobserved,True,,1,14412,145,0.014557,9.5481513250852,5.236373393097892,1,0,0.014557,0,0,2,最近完整工具交互超过规划上下文容量
+4,libsrtp,1,flash,primary_completed,True,True,True,passed,passed,True,True,4,50180,642,0.0158244,60.76883537496906,5.501088595949113,4,0,0.0158244,0,0,2,
+5,libite,1,flash,primary_completed,True,True,True,passed,passed,True,True,6,47744,1519,0.0161460,73.11643213301431,11.642193821026012,6,0,0.0161460,0,0,5,
+6,libite,1,richlab,primary_completed,True,True,True,passed,passed,True,True,3,29796,677,0.030473,81.70357136195526,20.324229624005966,3,0,0.030473,0,0,2,
+7,highwayhash,1,richlab,primary_completed,True,True,True,passed,passed,True,True,1,14608,223,0.014831,30.417120314901695,6.995885218959302,1,0,0.014831,0,0,0,
+8,highwayhash,1,flash,primary_completed,True,True,True,passed,passed,True,True,1,11193,358,0.0037875,25.756153218913823,2.4856890400405973,1,0,0.0037875,0,0,0,
+9,jsoncpp,2,richlab,primary_completed,True,True,True,passed,passed,True,True,3,39306,601,0.039907,65.67367567797191,18.014120129984803,3,0,0.039907,0,0,1,
+10,jsoncpp,2,flash,primary_completed,True,True,True,passed,passed,True,True,2,19316,715,0.0066528,51.92203399899881,4.605721900006756,2,0,0.0066528,0,0,1,
+11,libsrtp,2,flash,primary_completed,True,True,True,passed,passed,True,True,8,110640,1171,0.0345972,65.79121718194801,10.8901603090344,8,0,0.0345972,0,0,6,
+12,libsrtp,2,richlab,primary_completed,True,True,True,passed,passed,True,True,2,30954,571,0.031525,74.42321935400832,19.136938801966608,2,0,0.031525,0,0,1,
+13,libite,2,richlab,primary_completed,True,True,True,passed,passed,True,True,3,29750,692,0.030442,81.01581129804254,18.968438577023335,3,0,0.030442,0,0,2,
+14,libite,2,flash,primary_completed,True,True,True,passed,passed,True,True,3,19444,1107,0.0071616,69.29370327992365,7.45308688597288,3,0,0.0071616,0,0,4,
+15,highwayhash,2,flash,primary_completed,True,True,True,passed,passed,True,True,1,11193,318,0.0037395,25.534075013012625,2.2351081050001085,1,0,0.0037395,0,0,0,
+16,highwayhash,2,richlab,primary_completed,True,True,True,passed,passed,True,True,1,14608,243,0.014851,29.858443067991175,6.46030339691788,1,0,0.014851,0,0,0,
