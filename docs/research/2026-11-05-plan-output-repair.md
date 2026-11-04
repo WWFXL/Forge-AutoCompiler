@@ -20,4 +20,4 @@
 
 ## 真实对照
 
-[协议](../../benchmarks/preregistrations/cpp-build-planner-model-comparison-v1.md)固定四项目×两重复×Flash/RichLab规划，共16槽，两组均为相同经验Forge，恢复固定Flash。用户本轮明确允许RichLab，新增费用自行限定2美元、正式启动起2小时，0自动重试，未知用量/身份异常/清理失败停批。RichLab请求gpt-6-astra，沿用已接受的gpt-5.6/gpt-6-astra响应标签并披露，输入输出各1美元/百万Token，不称官方模型排名。正式结果尚未观察。
+[协议](../../benchmarks/preregistrations/cpp-build-planner-model-comparison-v1.md)固定四项目×两重复×Flash/RichLab规划，共16槽，两组均为相同经验Forge，恢复固定Flash。用户本轮明确允许RichLab，新增费用自行限定2美元、正式启动起2小时，0自动重试，未知用量/身份异常/清理失败停批。RichLab请求gpt-6-astra，沿用已接受的gpt-5.6/gpt-6-astra响应标签并披露，输入输出各1美元/百万Token，不称官方模型排名。其后首批16次与容量修复后的独立16次均已完成，详见[结果报告](2026-11-05-planner-model-results.md)；本篇保留工程准备阶段的52项检查，容量修复后为53项，不重复计模型效果。

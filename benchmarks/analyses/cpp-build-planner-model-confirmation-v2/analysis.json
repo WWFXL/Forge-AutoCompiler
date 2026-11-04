@@ -1,0 +1,357 @@
+{
+  "identity": "cpp-build-planner-model-confirmation-v2",
+  "summary": {
+    "flash": {
+      "planned": 8,
+      "observed": 8,
+      "initial_plans": 8,
+      "primary_completed": 8,
+      "full_completed": 8,
+      "requests": 23,
+      "estimated_cost_usd": "0.0810804",
+      "total_wall_seconds": 422.20082595793065,
+      "initial_planning_seconds": 48.000165577977896,
+      "format_rejections": 0,
+      "source_reads": 19,
+      "recovery_requests": 0
+    },
+    "richlab": {
+      "planned": 8,
+      "observed": 8,
+      "initial_plans": 8,
+      "primary_completed": 8,
+      "full_completed": 8,
+      "requests": 19,
+      "estimated_cost_usd": "0.252581",
+      "total_wall_seconds": 503.45423204416875,
+      "initial_planning_seconds": 127.63609663618263,
+      "format_rejections": 0,
+      "source_reads": 9,
+      "recovery_requests": 0
+    }
+  },
+  "slots": [
+    {
+      "slot": 1,
+      "project": "jsoncpp",
+      "repetition": 1,
+      "planner": "flash",
+      "initial_delivered": true,
+      "format_rejections": 0,
+      "output_channels": {
+        "tool": 1
+      },
+      "initial_requests": 1,
+      "recovery_requests": 0,
+      "initial_cost_usd": "0.0037476",
+      "recovery_cost_usd": "0",
+      "response_models": {
+        "deepseek-flash": 1
+      },
+      "source_reads": 0,
+      "initial_material_compactions": 0
+    },
+    {
+      "slot": 2,
+      "project": "jsoncpp",
+      "repetition": 1,
+      "planner": "richlab",
+      "initial_delivered": true,
+      "format_rejections": 0,
+      "output_channels": {
+        "tool": 1
+      },
+      "initial_requests": 3,
+      "recovery_requests": 0,
+      "initial_cost_usd": "0.042516",
+      "recovery_cost_usd": "0",
+      "response_models": {
+        "gpt-5.6": 3
+      },
+      "source_reads": 2,
+      "initial_material_compactions": 0
+    },
+    {
+      "slot": 3,
+      "project": "libsrtp",
+      "repetition": 1,
+      "planner": "richlab",
+      "initial_delivered": true,
+      "format_rejections": 0,
+      "output_channels": {
+        "tool": 1
+      },
+      "initial_requests": 2,
+      "recovery_requests": 0,
+      "initial_cost_usd": "0.031566",
+      "recovery_cost_usd": "0",
+      "response_models": {
+        "gpt-5.6": 2
+      },
+      "source_reads": 1,
+      "initial_material_compactions": 0
+    },
+    {
+      "slot": 4,
+      "project": "libsrtp",
+      "repetition": 1,
+      "planner": "flash",
+      "initial_delivered": true,
+      "format_rejections": 0,
+      "output_channels": {
+        "tool": 1
+      },
+      "initial_requests": 4,
+      "recovery_requests": 0,
+      "initial_cost_usd": "0.0163221",
+      "recovery_cost_usd": "0",
+      "response_models": {
+        "deepseek-flash": 4
+      },
+      "source_reads": 3,
+      "initial_material_compactions": 2
+    },
+    {
+      "slot": 5,
+      "project": "libite",
+      "repetition": 1,
+      "planner": "flash",
+      "initial_delivered": true,
+      "format_rejections": 0,
+      "output_channels": {
+        "tool": 1
+      },
+      "initial_requests": 3,
+      "recovery_requests": 0,
+      "initial_cost_usd": "0.0076452",
+      "recovery_cost_usd": "0",
+      "response_models": {
+        "deepseek-flash": 3
+      },
+      "source_reads": 5,
+      "initial_material_compactions": 0
+    },
+    {
+      "slot": 6,
+      "project": "libite",
+      "repetition": 1,
+      "planner": "richlab",
+      "initial_delivered": true,
+      "format_rejections": 0,
+      "output_channels": {
+        "tool": 1
+      },
+      "initial_requests": 3,
+      "recovery_requests": 0,
+      "initial_cost_usd": "0.029236",
+      "recovery_cost_usd": "0",
+      "response_models": {
+        "gpt-5.6": 3
+      },
+      "source_reads": 1,
+      "initial_material_compactions": 0
+    },
+    {
+      "slot": 7,
+      "project": "highwayhash",
+      "repetition": 1,
+      "planner": "richlab",
+      "initial_delivered": true,
+      "format_rejections": 0,
+      "output_channels": {
+        "tool": 1
+      },
+      "initial_requests": 1,
+      "recovery_requests": 0,
+      "initial_cost_usd": "0.014837",
+      "recovery_cost_usd": "0",
+      "response_models": {
+        "gpt-5.6": 1
+      },
+      "source_reads": 0,
+      "initial_material_compactions": 0
+    },
+    {
+      "slot": 8,
+      "project": "highwayhash",
+      "repetition": 1,
+      "planner": "flash",
+      "initial_delivered": true,
+      "format_rejections": 0,
+      "output_channels": {
+        "tool": 1
+      },
+      "initial_requests": 1,
+      "recovery_requests": 0,
+      "initial_cost_usd": "0.0037056",
+      "recovery_cost_usd": "0",
+      "response_models": {
+        "deepseek-flash": 1
+      },
+      "source_reads": 0,
+      "initial_material_compactions": 0
+    },
+    {
+      "slot": 9,
+      "project": "jsoncpp",
+      "repetition": 2,
+      "planner": "richlab",
+      "initial_delivered": true,
+      "format_rejections": 0,
+      "output_channels": {
+        "tool": 1
+      },
+      "initial_requests": 3,
+      "recovery_requests": 0,
+      "initial_cost_usd": "0.041737",
+      "recovery_cost_usd": "0",
+      "response_models": {
+        "gpt-5.6": 3
+      },
+      "source_reads": 1,
+      "initial_material_compactions": 0
+    },
+    {
+      "slot": 10,
+      "project": "jsoncpp",
+      "repetition": 2,
+      "planner": "flash",
+      "initial_delivered": true,
+      "format_rejections": 0,
+      "output_channels": {
+        "tool": 1
+      },
+      "initial_requests": 2,
+      "recovery_requests": 0,
+      "initial_cost_usd": "0.0066465",
+      "recovery_cost_usd": "0",
+      "response_models": {
+        "deepseek-flash": 2
+      },
+      "source_reads": 1,
+      "initial_material_compactions": 0
+    },
+    {
+      "slot": 11,
+      "project": "libsrtp",
+      "repetition": 2,
+      "planner": "flash",
+      "initial_delivered": true,
+      "format_rejections": 0,
+      "output_channels": {
+        "tool": 1
+      },
+      "initial_requests": 8,
+      "recovery_requests": 0,
+      "initial_cost_usd": "0.0320550",
+      "recovery_cost_usd": "0",
+      "response_models": {
+        "deepseek-flash": 8
+      },
+      "source_reads": 7,
+      "initial_material_compactions": 5
+    },
+    {
+      "slot": 12,
+      "project": "libsrtp",
+      "repetition": 2,
+      "planner": "richlab",
+      "initial_delivered": true,
+      "format_rejections": 0,
+      "output_channels": {
+        "tool": 1
+      },
+      "initial_requests": 3,
+      "recovery_requests": 0,
+      "initial_cost_usd": "0.047423",
+      "recovery_cost_usd": "0",
+      "response_models": {
+        "gpt-5.6": 3
+      },
+      "source_reads": 2,
+      "initial_material_compactions": 2
+    },
+    {
+      "slot": 13,
+      "project": "libite",
+      "repetition": 2,
+      "planner": "richlab",
+      "initial_delivered": true,
+      "format_rejections": 0,
+      "output_channels": {
+        "tool": 1
+      },
+      "initial_requests": 3,
+      "recovery_requests": 0,
+      "initial_cost_usd": "0.030422",
+      "recovery_cost_usd": "0",
+      "response_models": {
+        "gpt-5.6": 3
+      },
+      "source_reads": 2,
+      "initial_material_compactions": 0
+    },
+    {
+      "slot": 14,
+      "project": "libite",
+      "repetition": 2,
+      "planner": "flash",
+      "initial_delivered": true,
+      "format_rejections": 0,
+      "output_channels": {
+        "tool": 1
+      },
+      "initial_requests": 3,
+      "recovery_requests": 0,
+      "initial_cost_usd": "0.0071580",
+      "recovery_cost_usd": "0",
+      "response_models": {
+        "deepseek-flash": 3
+      },
+      "source_reads": 3,
+      "initial_material_compactions": 0
+    },
+    {
+      "slot": 15,
+      "project": "highwayhash",
+      "repetition": 2,
+      "planner": "flash",
+      "initial_delivered": true,
+      "format_rejections": 0,
+      "output_channels": {
+        "tool": 1
+      },
+      "initial_requests": 1,
+      "recovery_requests": 0,
+      "initial_cost_usd": "0.0038004",
+      "recovery_cost_usd": "0",
+      "response_models": {
+        "deepseek-flash": 1
+      },
+      "source_reads": 0,
+      "initial_material_compactions": 0
+    },
+    {
+      "slot": 16,
+      "project": "highwayhash",
+      "repetition": 2,
+      "planner": "richlab",
+      "initial_delivered": true,
+      "format_rejections": 0,
+      "output_channels": {
+        "tool": 1
+      },
+      "initial_requests": 1,
+      "recovery_requests": 0,
+      "initial_cost_usd": "0.014844",
+      "recovery_cost_usd": "0",
+      "response_models": {
+        "gpt-5.6": 1
+      },
+      "source_reads": 0,
+      "initial_material_compactions": 0
+    }
+  ],
+  "unobserved": [],
+  "boundary": "开发项目路由比较，不作官方模型排名；未观察不回填，所有费用含失败和纠正。"
+}

@@ -2,13 +2,15 @@
 
 论文选材固定入口：[硕士论文实验与证据索引](docs/research/THESIS_EVIDENCE_INDEX.md)，[历史材料目录](docs/research/THESIS_EVIDENCE_CATALOG.md)保留存量导航。当前完整稿为[论文v0.6](docs/thesis/README.md)；E40/E41新增两层经验结果，E39及此前基础系统、组件与恢复实验按原版本和分母继续使用。
 
-## 当前阶段（2026-11-05；#685首批规划路由16次完成，容量修复后独立确认）
+## 当前阶段（2026-11-05；#685规划交付与容量修复完成，两批模型路由比较闭合）
 
-[结果报告](docs/research/2026-11-05-planner-model-results.md)与[E44](docs/research/THESIS_EVIDENCE_INDEX.md#e44)记录`cpp-build-planner-model-comparison-v1`16/16终态：Flash/RichLab方案/主构建/完整8/8、7/8，请求27/15、费0.095442/0.189826美元。15接收方案均工具提交并完整，唯一RichLab/libsrtp三读取后因上下文容量停止、构建未观察；42响应/487686Token/0.285268美元/未知0、cleanup16过，原结果封存，不回填。运行61a1128b，raw `forge-planner-model-comparison-v1`、inventory `8a83618da032dd3b91eafe89704f9b4804de707a6f2949ad92f29ea877def596`。
+本轮完成工程修复、真实比较与结果分析。[报告](docs/research/2026-11-05-planner-model-results.md)和[E45](docs/research/THESIS_EVIDENCE_INDEX.md#e45)记录独立`cpp-build-planner-model-confirmation-v2`16/16终态：四项目×两重复×经验Forge内Flash/RichLab初始规划，两组方案/主构建/完整均8/8；请求23/19，估费0.0810804/0.252581美元，累计422.20/503.45秒、初始规划48.00/127.64秒，读取19/9。16份均工具提交，测试/交付/replay/源码/cleanup全过；三槽实际初始片段压缩，无容量停止，恢复/格式纠正均0。本开发范围支持Flash默认，RichLab少请求但费用3.12倍、耗时高19.2%，不作官方模型排名、经验/状态独立增量或未见泛化。
 
-共同出口修复与四工程构建见[报告](docs/research/2026-11-05-plan-output-repair.md)。首批封存后容量修复优先移出可补读初始源码、保留路径/哈希/最新完整工具组，不扩大49KB；53相关检查与原三工具响应真实构建/测试/交付/replay/源码/cleanup通过，0Provider，不当模型效果。工程原件`forge-plan-capacity-engineering-v1`，inventory `f26e0d91f3fe8216f62339673c579f39e4b29a9301f9a09f628f283dfa10f817`。
+首批[E44](docs/research/THESIS_EVIDENCE_INDEX.md#e44)`cpp-build-planner-model-comparison-v1`16/16原样保留：Flash/RichLab完整8/8、7/8、总费0.285268美元，唯一RichLab/libsrtp三读取后的49KB容量停止发生在构建前。首批封存后才优先移出可补读初始源码、保留路径/哈希/最新完整工具组；不扩49KB、验收不变。两批不合效果分母、不回填失败、不由跨批差值推压缩因果。[共同出口修复](docs/research/2026-11-05-plan-output-repair.md)与容量修复共53相关检查通过，原响应/四工程构建与容量回放为0Provider，只支持实现。
 
-下一项独立`cpp-build-planner-model-confirmation-v2`同四项目×两重复×两规划16槽，仍固定经验Forge/同验收/恢复Flash，[协议](benchmarks/preregistrations/cpp-build-planner-model-confirmation-v2.md)。用户本轮要求修复并允许RichLab，新增两批共享原2美元总硬上限、UTC2026-11-04 19:24:06截止（首批启动17:24:06），不重置；0自动重试，未知用量/身份异常/cleanup失败停批。RichLab路由/实际gpt-5.6标签披露；不作官方模型排名、两批合并或跨批压缩因果。当前确认槽未启动；旧E43及v0.6保持。
+确认运行release `3138d020d9b9909483ec0ce0682a59e861b3a168`，manifest `5793ab1267a3919a082f181dc490d6e3828f261e7e215167e66b39196c7dce76`；raw `forge-planner-model-confirmation-v2`、inventory `2ffaab2d1b7a9ed689c4ca089c7233f47c26797c8b28f2236c5ed53627326970`。42响应/503271Token/新增0.3336614美元/未知0；首批运行61a1128b、inventory8a83618d。两批总新增0.6189294美元，共享自行设定原2美元及UTC2026-11-04 19:24:06截止；用户已明确要求修复并允许RichLab。请求gpt-6-astra/实际gpt-5.6标签披露，全部计费复算一致。正式进程已退出、无活动Provider，无重试/补槽或扩批；会话`forge-plan-output-session-v1`保存授权/日志/发布与资源收据，四原件目录146个容器名称/ID实际不存在。
+
+下一步回到固定Flash与已修复共同Harness下的系统/经验增量比较，不优先加组件或继续换模型；本轮余额不扩新付费身份。旧E43等失败与论文v0.6完整稿保持，新结果已登记E44/E45，不冒称更新全文。发布只到科研集成分支，最终PR686/CI/merge与Issue685状态以GitHub和会话收据为准；用户原memory/HTML/uv.lock保持。知识库仅经MCP同步，不进入正式Agent。
 
 ## 上一阶段（2026-11-05；#683改进规划上下文后的16次经验比较完成）
 
