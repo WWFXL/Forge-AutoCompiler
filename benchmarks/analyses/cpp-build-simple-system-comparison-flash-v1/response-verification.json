@@ -1,0 +1,730 @@
+{
+  "valid": true,
+  "slots": [
+    {
+      "slot": 1,
+      "responses": 2,
+      "input_tokens": 16346,
+      "output_tokens": 1019,
+      "estimated_cost_usd": "0.0061266",
+      "models": [
+        "deepseek-flash"
+      ],
+      "count_matches": true,
+      "tokens_match": true,
+      "cost_matches": true,
+      "unknown_usage": 0,
+      "cleanup": true
+    },
+    {
+      "slot": 2,
+      "responses": 17,
+      "input_tokens": 249329,
+      "output_tokens": 6011,
+      "estimated_cost_usd": "0.0820119",
+      "models": [
+        "deepseek-flash"
+      ],
+      "count_matches": true,
+      "tokens_match": true,
+      "cost_matches": true,
+      "unknown_usage": 0,
+      "cleanup": true
+    },
+    {
+      "slot": 3,
+      "responses": 6,
+      "input_tokens": 12451,
+      "output_tokens": 2241,
+      "estimated_cost_usd": "0.0064245",
+      "models": [
+        "deepseek-flash"
+      ],
+      "count_matches": true,
+      "tokens_match": true,
+      "cost_matches": true,
+      "unknown_usage": 0,
+      "cleanup": true
+    },
+    {
+      "slot": 4,
+      "responses": 5,
+      "input_tokens": 44055,
+      "output_tokens": 726,
+      "estimated_cost_usd": "0.0140877",
+      "models": [
+        "deepseek-flash"
+      ],
+      "count_matches": true,
+      "tokens_match": true,
+      "cost_matches": true,
+      "unknown_usage": 0,
+      "cleanup": true
+    },
+    {
+      "slot": 5,
+      "responses": 6,
+      "input_tokens": 82964,
+      "output_tokens": 2737,
+      "estimated_cost_usd": "0.0281736",
+      "models": [
+        "deepseek-flash"
+      ],
+      "count_matches": true,
+      "tokens_match": true,
+      "cost_matches": true,
+      "unknown_usage": 0,
+      "cleanup": true
+    },
+    {
+      "slot": 6,
+      "responses": 6,
+      "input_tokens": 52337,
+      "output_tokens": 1080,
+      "estimated_cost_usd": "0.0169971",
+      "models": [
+        "deepseek-flash"
+      ],
+      "count_matches": true,
+      "tokens_match": true,
+      "cost_matches": true,
+      "unknown_usage": 0,
+      "cleanup": true
+    },
+    {
+      "slot": 7,
+      "responses": 5,
+      "input_tokens": 48904,
+      "output_tokens": 1379,
+      "estimated_cost_usd": "0.016326",
+      "models": [
+        "deepseek-flash"
+      ],
+      "count_matches": true,
+      "tokens_match": true,
+      "cost_matches": true,
+      "unknown_usage": 0,
+      "cleanup": true
+    },
+    {
+      "slot": 8,
+      "responses": 6,
+      "input_tokens": 18062,
+      "output_tokens": 3296,
+      "estimated_cost_usd": "0.0093738",
+      "models": [
+        "deepseek-flash"
+      ],
+      "count_matches": true,
+      "tokens_match": true,
+      "cost_matches": true,
+      "unknown_usage": 0,
+      "cleanup": true
+    },
+    {
+      "slot": 9,
+      "responses": 4,
+      "input_tokens": 21091,
+      "output_tokens": 639,
+      "estimated_cost_usd": "0.0070941",
+      "models": [
+        "deepseek-flash"
+      ],
+      "count_matches": true,
+      "tokens_match": true,
+      "cost_matches": true,
+      "unknown_usage": 0,
+      "cleanup": true
+    },
+    {
+      "slot": 10,
+      "responses": 6,
+      "input_tokens": 10070,
+      "output_tokens": 3034,
+      "estimated_cost_usd": "0.0066618",
+      "models": [
+        "deepseek-flash"
+      ],
+      "count_matches": true,
+      "tokens_match": true,
+      "cost_matches": true,
+      "unknown_usage": 0,
+      "cleanup": true
+    },
+    {
+      "slot": 11,
+      "responses": 2,
+      "input_tokens": 15137,
+      "output_tokens": 1106,
+      "estimated_cost_usd": "0.0058683",
+      "models": [
+        "deepseek-flash"
+      ],
+      "count_matches": true,
+      "tokens_match": true,
+      "cost_matches": true,
+      "unknown_usage": 0,
+      "cleanup": true
+    },
+    {
+      "slot": 12,
+      "responses": 3,
+      "input_tokens": 14992,
+      "output_tokens": 1182,
+      "estimated_cost_usd": "0.005916",
+      "models": [
+        "deepseek-flash"
+      ],
+      "count_matches": true,
+      "tokens_match": true,
+      "cost_matches": true,
+      "unknown_usage": 0,
+      "cleanup": true
+    },
+    {
+      "slot": 13,
+      "responses": 6,
+      "input_tokens": 17288,
+      "output_tokens": 1509,
+      "estimated_cost_usd": "0.0069972",
+      "models": [
+        "deepseek-flash"
+      ],
+      "count_matches": true,
+      "tokens_match": true,
+      "cost_matches": true,
+      "unknown_usage": 0,
+      "cleanup": true
+    },
+    {
+      "slot": 14,
+      "responses": 5,
+      "input_tokens": 52105,
+      "output_tokens": 1752,
+      "estimated_cost_usd": "0.0177339",
+      "models": [
+        "deepseek-flash"
+      ],
+      "count_matches": true,
+      "tokens_match": true,
+      "cost_matches": true,
+      "unknown_usage": 0,
+      "cleanup": true
+    },
+    {
+      "slot": 15,
+      "responses": 5,
+      "input_tokens": 39578,
+      "output_tokens": 855,
+      "estimated_cost_usd": "0.0128994",
+      "models": [
+        "deepseek-flash"
+      ],
+      "count_matches": true,
+      "tokens_match": true,
+      "cost_matches": true,
+      "unknown_usage": 0,
+      "cleanup": true
+    },
+    {
+      "slot": 16,
+      "responses": 2,
+      "input_tokens": 22118,
+      "output_tokens": 911,
+      "estimated_cost_usd": "0.0077286",
+      "models": [
+        "deepseek-flash"
+      ],
+      "count_matches": true,
+      "tokens_match": true,
+      "cost_matches": true,
+      "unknown_usage": 0,
+      "cleanup": true
+    },
+    {
+      "slot": 17,
+      "responses": 4,
+      "input_tokens": 26664,
+      "output_tokens": 1623,
+      "estimated_cost_usd": "0.0099468",
+      "models": [
+        "deepseek-flash"
+      ],
+      "count_matches": true,
+      "tokens_match": true,
+      "cost_matches": true,
+      "unknown_usage": 0,
+      "cleanup": true
+    },
+    {
+      "slot": 18,
+      "responses": 3,
+      "input_tokens": 23924,
+      "output_tokens": 2522,
+      "estimated_cost_usd": "0.0102036",
+      "models": [
+        "deepseek-flash"
+      ],
+      "count_matches": true,
+      "tokens_match": true,
+      "cost_matches": true,
+      "unknown_usage": 0,
+      "cleanup": true
+    },
+    {
+      "slot": 19,
+      "responses": 6,
+      "input_tokens": 9777,
+      "output_tokens": 4333,
+      "estimated_cost_usd": "0.0081327",
+      "models": [
+        "deepseek-flash"
+      ],
+      "count_matches": true,
+      "tokens_match": true,
+      "cost_matches": true,
+      "unknown_usage": 0,
+      "cleanup": true
+    },
+    {
+      "slot": 20,
+      "responses": 6,
+      "input_tokens": 33819,
+      "output_tokens": 789,
+      "estimated_cost_usd": "0.0110925",
+      "models": [
+        "deepseek-flash"
+      ],
+      "count_matches": true,
+      "tokens_match": true,
+      "cost_matches": true,
+      "unknown_usage": 0,
+      "cleanup": true
+    },
+    {
+      "slot": 21,
+      "responses": 50,
+      "input_tokens": 752969,
+      "output_tokens": 14405,
+      "estimated_cost_usd": "0.2431767",
+      "models": [
+        "deepseek-flash"
+      ],
+      "count_matches": true,
+      "tokens_match": true,
+      "cost_matches": true,
+      "unknown_usage": 0,
+      "cleanup": true
+    },
+    {
+      "slot": 22,
+      "responses": 5,
+      "input_tokens": 50133,
+      "output_tokens": 527,
+      "estimated_cost_usd": "0.0156723",
+      "models": [
+        "deepseek-flash"
+      ],
+      "count_matches": true,
+      "tokens_match": true,
+      "cost_matches": true,
+      "unknown_usage": 0,
+      "cleanup": true
+    },
+    {
+      "slot": 23,
+      "responses": 5,
+      "input_tokens": 55791,
+      "output_tokens": 1607,
+      "estimated_cost_usd": "0.0186657",
+      "models": [
+        "deepseek-flash"
+      ],
+      "count_matches": true,
+      "tokens_match": true,
+      "cost_matches": true,
+      "unknown_usage": 0,
+      "cleanup": true
+    },
+    {
+      "slot": 24,
+      "responses": 9,
+      "input_tokens": 27415,
+      "output_tokens": 8878,
+      "estimated_cost_usd": "0.0188781",
+      "models": [
+        "deepseek-flash"
+      ],
+      "count_matches": true,
+      "tokens_match": true,
+      "cost_matches": true,
+      "unknown_usage": 0,
+      "cleanup": true
+    },
+    {
+      "slot": 25,
+      "responses": 6,
+      "input_tokens": 51499,
+      "output_tokens": 921,
+      "estimated_cost_usd": "0.0165549",
+      "models": [
+        "deepseek-flash"
+      ],
+      "count_matches": true,
+      "tokens_match": true,
+      "cost_matches": true,
+      "unknown_usage": 0,
+      "cleanup": true
+    },
+    {
+      "slot": 26,
+      "responses": 6,
+      "input_tokens": 9862,
+      "output_tokens": 6295,
+      "estimated_cost_usd": "0.0105126",
+      "models": [
+        "deepseek-flash"
+      ],
+      "count_matches": true,
+      "tokens_match": true,
+      "cost_matches": true,
+      "unknown_usage": 0,
+      "cleanup": true
+    },
+    {
+      "slot": 27,
+      "responses": 50,
+      "input_tokens": 758729,
+      "output_tokens": 18457,
+      "estimated_cost_usd": "0.2497671",
+      "models": [
+        "deepseek-flash"
+      ],
+      "count_matches": true,
+      "tokens_match": true,
+      "cost_matches": true,
+      "unknown_usage": 0,
+      "cleanup": true
+    },
+    {
+      "slot": 28,
+      "responses": 5,
+      "input_tokens": 51264,
+      "output_tokens": 2237,
+      "estimated_cost_usd": "0.0180636",
+      "models": [
+        "deepseek-flash"
+      ],
+      "count_matches": true,
+      "tokens_match": true,
+      "cost_matches": true,
+      "unknown_usage": 0,
+      "cleanup": true
+    },
+    {
+      "slot": 29,
+      "responses": 6,
+      "input_tokens": 17969,
+      "output_tokens": 3471,
+      "estimated_cost_usd": "0.0095559",
+      "models": [
+        "deepseek-flash"
+      ],
+      "count_matches": true,
+      "tokens_match": true,
+      "cost_matches": true,
+      "unknown_usage": 0,
+      "cleanup": true
+    },
+    {
+      "slot": 30,
+      "responses": 16,
+      "input_tokens": 183868,
+      "output_tokens": 5056,
+      "estimated_cost_usd": "0.0612276",
+      "models": [
+        "deepseek-flash"
+      ],
+      "count_matches": true,
+      "tokens_match": true,
+      "cost_matches": true,
+      "unknown_usage": 0,
+      "cleanup": true
+    },
+    {
+      "slot": 31,
+      "responses": 4,
+      "input_tokens": 33727,
+      "output_tokens": 690,
+      "estimated_cost_usd": "0.0109461",
+      "models": [
+        "deepseek-flash"
+      ],
+      "count_matches": true,
+      "tokens_match": true,
+      "cost_matches": true,
+      "unknown_usage": 0,
+      "cleanup": true
+    },
+    {
+      "slot": 32,
+      "responses": 5,
+      "input_tokens": 65048,
+      "output_tokens": 1955,
+      "estimated_cost_usd": "0.0218604",
+      "models": [
+        "deepseek-flash"
+      ],
+      "count_matches": true,
+      "tokens_match": true,
+      "cost_matches": true,
+      "unknown_usage": 0,
+      "cleanup": true
+    },
+    {
+      "slot": 33,
+      "responses": 2,
+      "input_tokens": 9937,
+      "output_tokens": 1304,
+      "estimated_cost_usd": "0.0045459",
+      "models": [
+        "deepseek-flash"
+      ],
+      "count_matches": true,
+      "tokens_match": true,
+      "cost_matches": true,
+      "unknown_usage": 0,
+      "cleanup": true
+    },
+    {
+      "slot": 34,
+      "responses": 2,
+      "input_tokens": 15137,
+      "output_tokens": 768,
+      "estimated_cost_usd": "0.0054627",
+      "models": [
+        "deepseek-flash"
+      ],
+      "count_matches": true,
+      "tokens_match": true,
+      "cost_matches": true,
+      "unknown_usage": 0,
+      "cleanup": true
+    },
+    {
+      "slot": 35,
+      "responses": 6,
+      "input_tokens": 8824,
+      "output_tokens": 3081,
+      "estimated_cost_usd": "0.0063444",
+      "models": [
+        "deepseek-flash"
+      ],
+      "count_matches": true,
+      "tokens_match": true,
+      "cost_matches": true,
+      "unknown_usage": 0,
+      "cleanup": true
+    },
+    {
+      "slot": 36,
+      "responses": 4,
+      "input_tokens": 20237,
+      "output_tokens": 553,
+      "estimated_cost_usd": "0.0067347",
+      "models": [
+        "deepseek-flash"
+      ],
+      "count_matches": true,
+      "tokens_match": true,
+      "cost_matches": true,
+      "unknown_usage": 0,
+      "cleanup": true
+    },
+    {
+      "slot": 37,
+      "responses": 1,
+      "input_tokens": 12614,
+      "output_tokens": 757,
+      "estimated_cost_usd": "0.0046926",
+      "models": [
+        "deepseek-flash"
+      ],
+      "count_matches": true,
+      "tokens_match": true,
+      "cost_matches": true,
+      "unknown_usage": 0,
+      "cleanup": true
+    },
+    {
+      "slot": 38,
+      "responses": 5,
+      "input_tokens": 40065,
+      "output_tokens": 1240,
+      "estimated_cost_usd": "0.0135075",
+      "models": [
+        "deepseek-flash"
+      ],
+      "count_matches": true,
+      "tokens_match": true,
+      "cost_matches": true,
+      "unknown_usage": 0,
+      "cleanup": true
+    },
+    {
+      "slot": 39,
+      "responses": 2,
+      "input_tokens": 16918,
+      "output_tokens": 777,
+      "estimated_cost_usd": "0.0060078",
+      "models": [
+        "deepseek-flash"
+      ],
+      "count_matches": true,
+      "tokens_match": true,
+      "cost_matches": true,
+      "unknown_usage": 0,
+      "cleanup": true
+    },
+    {
+      "slot": 40,
+      "responses": 6,
+      "input_tokens": 18648,
+      "output_tokens": 2882,
+      "estimated_cost_usd": "0.0090528",
+      "models": [
+        "deepseek-flash"
+      ],
+      "count_matches": true,
+      "tokens_match": true,
+      "cost_matches": true,
+      "unknown_usage": 0,
+      "cleanup": true
+    },
+    {
+      "slot": 41,
+      "responses": 9,
+      "input_tokens": 69487,
+      "output_tokens": 1355,
+      "estimated_cost_usd": "0.0224721",
+      "models": [
+        "deepseek-flash"
+      ],
+      "count_matches": true,
+      "tokens_match": true,
+      "cost_matches": true,
+      "unknown_usage": 0,
+      "cleanup": true
+    },
+    {
+      "slot": 42,
+      "responses": 6,
+      "input_tokens": 9893,
+      "output_tokens": 3319,
+      "estimated_cost_usd": "0.0069507",
+      "models": [
+        "deepseek-flash"
+      ],
+      "count_matches": true,
+      "tokens_match": true,
+      "cost_matches": true,
+      "unknown_usage": 0,
+      "cleanup": true
+    },
+    {
+      "slot": 43,
+      "responses": 4,
+      "input_tokens": 34006,
+      "output_tokens": 4213,
+      "estimated_cost_usd": "0.0152574",
+      "models": [
+        "deepseek-flash"
+      ],
+      "count_matches": true,
+      "tokens_match": true,
+      "cost_matches": true,
+      "unknown_usage": 0,
+      "cleanup": true
+    },
+    {
+      "slot": 44,
+      "responses": 4,
+      "input_tokens": 27701,
+      "output_tokens": 1693,
+      "estimated_cost_usd": "0.0103419",
+      "models": [
+        "deepseek-flash"
+      ],
+      "count_matches": true,
+      "tokens_match": true,
+      "cost_matches": true,
+      "unknown_usage": 0,
+      "cleanup": true
+    },
+    {
+      "slot": 45,
+      "responses": 9,
+      "input_tokens": 27955,
+      "output_tokens": 7409,
+      "estimated_cost_usd": "0.0172773",
+      "models": [
+        "deepseek-flash"
+      ],
+      "count_matches": true,
+      "tokens_match": true,
+      "cost_matches": true,
+      "unknown_usage": 0,
+      "cleanup": true
+    },
+    {
+      "slot": 46,
+      "responses": 5,
+      "input_tokens": 59241,
+      "output_tokens": 1296,
+      "estimated_cost_usd": "0.0193275",
+      "models": [
+        "deepseek-flash"
+      ],
+      "count_matches": true,
+      "tokens_match": true,
+      "cost_matches": true,
+      "unknown_usage": 0,
+      "cleanup": true
+    },
+    {
+      "slot": 47,
+      "responses": 5,
+      "input_tokens": 55461,
+      "output_tokens": 1122,
+      "estimated_cost_usd": "0.0179847",
+      "models": [
+        "deepseek-flash"
+      ],
+      "count_matches": true,
+      "tokens_match": true,
+      "cost_matches": true,
+      "unknown_usage": 0,
+      "cleanup": true
+    },
+    {
+      "slot": 48,
+      "responses": 50,
+      "input_tokens": 757609,
+      "output_tokens": 13123,
+      "estimated_cost_usd": "0.2430303",
+      "models": [
+        "deepseek-flash"
+      ],
+      "count_matches": true,
+      "tokens_match": true,
+      "cost_matches": true,
+      "unknown_usage": 0,
+      "cleanup": true
+    }
+  ],
+  "total_responses": 392,
+  "input_tokens": 4053018,
+  "output_tokens": 148135,
+  "estimated_cost_usd": "1.3936674",
+  "unknown_usage": 0
+}

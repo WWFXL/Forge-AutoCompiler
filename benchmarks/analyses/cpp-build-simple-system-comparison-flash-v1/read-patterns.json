@@ -1,0 +1,791 @@
+{
+  "kind": "post_hoc_trace_description_no_new_denominator",
+  "boundary": "同一Agent任务、相同path/start_line/max_lines的重复工具调用；不证明每次均无用或归因经验文本本身。",
+  "slots": [
+    {
+      "slot": "slot-01-jsoncpp-forge",
+      "tasks": [
+        {
+          "recovery": false,
+          "read_calls": 1,
+          "exact_repeated_reads": 0,
+          "repeated_segments": []
+        }
+      ]
+    },
+    {
+      "slot": "slot-02-jsoncpp-forge_experience",
+      "tasks": [
+        {
+          "recovery": false,
+          "read_calls": 35,
+          "exact_repeated_reads": 25,
+          "repeated_segments": [
+            {
+              "path": "src/CMakeLists.txt",
+              "start_line": 1,
+              "max_lines": null,
+              "times": 5
+            },
+            {
+              "path": "include/PreventInSourceBuilds.cmake",
+              "start_line": 1,
+              "max_lines": null,
+              "times": 3
+            },
+            {
+              "path": "src/lib_json/CMakeLists.txt",
+              "start_line": 1,
+              "max_lines": null,
+              "times": 4
+            },
+            {
+              "path": "CMakeLists.txt",
+              "start_line": 1,
+              "max_lines": null,
+              "times": 5
+            },
+            {
+              "path": "src/lib_json/CMakeLists.txt",
+              "start_line": 115,
+              "max_lines": null,
+              "times": 3
+            },
+            {
+              "path": "README.md",
+              "start_line": 1,
+              "max_lines": null,
+              "times": 5
+            },
+            {
+              "path": "CMakeLists.txt",
+              "start_line": 120,
+              "max_lines": null,
+              "times": 4
+            },
+            {
+              "path": "src/test_lib_json/CMakeLists.txt",
+              "start_line": 1,
+              "max_lines": null,
+              "times": 4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slot": "slot-04-jsoncpp-strong_tool_agent",
+      "tasks": [
+        {
+          "recovery": false,
+          "read_calls": 0,
+          "exact_repeated_reads": 0,
+          "repeated_segments": []
+        }
+      ]
+    },
+    {
+      "slot": "slot-05-miniz-forge_experience",
+      "tasks": [
+        {
+          "recovery": false,
+          "read_calls": 7,
+          "exact_repeated_reads": 0,
+          "repeated_segments": []
+        }
+      ]
+    },
+    {
+      "slot": "slot-06-miniz-strong_tool_agent",
+      "tasks": [
+        {
+          "recovery": false,
+          "read_calls": 0,
+          "exact_repeated_reads": 0,
+          "repeated_segments": []
+        }
+      ]
+    },
+    {
+      "slot": "slot-07-miniz-forge",
+      "tasks": [
+        {
+          "recovery": false,
+          "read_calls": 5,
+          "exact_repeated_reads": 0,
+          "repeated_segments": []
+        }
+      ]
+    },
+    {
+      "slot": "slot-09-pigz-strong_tool_agent",
+      "tasks": [
+        {
+          "recovery": false,
+          "read_calls": 0,
+          "exact_repeated_reads": 0,
+          "repeated_segments": []
+        }
+      ]
+    },
+    {
+      "slot": "slot-11-pigz-forge_experience",
+      "tasks": [
+        {
+          "recovery": false,
+          "read_calls": 0,
+          "exact_repeated_reads": 0,
+          "repeated_segments": []
+        }
+      ]
+    },
+    {
+      "slot": "slot-12-pigz-forge",
+      "tasks": [
+        {
+          "recovery": false,
+          "read_calls": 0,
+          "exact_repeated_reads": 0,
+          "repeated_segments": []
+        }
+      ]
+    },
+    {
+      "slot": "slot-14-highwayhash-forge",
+      "tasks": [
+        {
+          "recovery": false,
+          "read_calls": 6,
+          "exact_repeated_reads": 0,
+          "repeated_segments": []
+        }
+      ]
+    },
+    {
+      "slot": "slot-15-highwayhash-strong_tool_agent",
+      "tasks": [
+        {
+          "recovery": false,
+          "read_calls": 0,
+          "exact_repeated_reads": 0,
+          "repeated_segments": []
+        }
+      ]
+    },
+    {
+      "slot": "slot-16-highwayhash-forge_experience",
+      "tasks": [
+        {
+          "recovery": false,
+          "read_calls": 0,
+          "exact_repeated_reads": 0,
+          "repeated_segments": []
+        }
+      ]
+    },
+    {
+      "slot": "slot-17-libite-forge",
+      "tasks": [
+        {
+          "recovery": false,
+          "read_calls": 4,
+          "exact_repeated_reads": 0,
+          "repeated_segments": []
+        }
+      ]
+    },
+    {
+      "slot": "slot-18-libite-forge_experience",
+      "tasks": [
+        {
+          "recovery": false,
+          "read_calls": 4,
+          "exact_repeated_reads": 0,
+          "repeated_segments": []
+        }
+      ]
+    },
+    {
+      "slot": "slot-20-libite-strong_tool_agent",
+      "tasks": [
+        {
+          "recovery": false,
+          "read_calls": 1,
+          "exact_repeated_reads": 0,
+          "repeated_segments": []
+        }
+      ]
+    },
+    {
+      "slot": "slot-21-libsrtp-forge_experience",
+      "tasks": [
+        {
+          "recovery": false,
+          "read_calls": 95,
+          "exact_repeated_reads": 72,
+          "repeated_segments": [
+            {
+              "path": "README.md",
+              "start_line": 100,
+              "max_lines": null,
+              "times": 2
+            },
+            {
+              "path": "README.md",
+              "start_line": 280,
+              "max_lines": null,
+              "times": 3
+            },
+            {
+              "path": "README.md",
+              "start_line": 1,
+              "max_lines": null,
+              "times": 9
+            },
+            {
+              "path": "configure.ac",
+              "start_line": 1,
+              "max_lines": null,
+              "times": 11
+            },
+            {
+              "path": "Makefile.in",
+              "start_line": 1,
+              "max_lines": null,
+              "times": 12
+            },
+            {
+              "path": "Makefile.in",
+              "start_line": 120,
+              "max_lines": null,
+              "times": 9
+            },
+            {
+              "path": "configure.ac",
+              "start_line": 180,
+              "max_lines": null,
+              "times": 2
+            },
+            {
+              "path": "Makefile.in",
+              "start_line": 240,
+              "max_lines": null,
+              "times": 4
+            },
+            {
+              "path": "doc/Makefile.in",
+              "start_line": 1,
+              "max_lines": null,
+              "times": 6
+            },
+            {
+              "path": "configure.ac",
+              "start_line": 300,
+              "max_lines": null,
+              "times": 2
+            },
+            {
+              "path": "README.md",
+              "start_line": 240,
+              "max_lines": null,
+              "times": 4
+            },
+            {
+              "path": "configure.ac",
+              "start_line": 120,
+              "max_lines": null,
+              "times": 5
+            },
+            {
+              "path": "README.md",
+              "start_line": 300,
+              "max_lines": null,
+              "times": 4
+            },
+            {
+              "path": "configure.ac",
+              "start_line": 240,
+              "max_lines": null,
+              "times": 7
+            },
+            {
+              "path": "README.md",
+              "start_line": 200,
+              "max_lines": null,
+              "times": 2
+            },
+            {
+              "path": "README.md",
+              "start_line": 180,
+              "max_lines": null,
+              "times": 4
+            },
+            {
+              "path": "README.md",
+              "start_line": 330,
+              "max_lines": null,
+              "times": 2
+            },
+            {
+              "path": "configure.ac",
+              "start_line": 359,
+              "max_lines": null,
+              "times": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slot": "slot-22-libsrtp-strong_tool_agent",
+      "tasks": [
+        {
+          "recovery": false,
+          "read_calls": 1,
+          "exact_repeated_reads": 0,
+          "repeated_segments": []
+        }
+      ]
+    },
+    {
+      "slot": "slot-23-libsrtp-forge",
+      "tasks": [
+        {
+          "recovery": false,
+          "read_calls": 6,
+          "exact_repeated_reads": 0,
+          "repeated_segments": []
+        }
+      ]
+    },
+    {
+      "slot": "slot-25-jsoncpp-strong_tool_agent",
+      "tasks": [
+        {
+          "recovery": false,
+          "read_calls": 1,
+          "exact_repeated_reads": 0,
+          "repeated_segments": []
+        }
+      ]
+    },
+    {
+      "slot": "slot-27-jsoncpp-forge_experience",
+      "tasks": [
+        {
+          "recovery": false,
+          "read_calls": 114,
+          "exact_repeated_reads": 98,
+          "repeated_segments": [
+            {
+              "path": "src/CMakeLists.txt",
+              "start_line": 1,
+              "max_lines": null,
+              "times": 15
+            },
+            {
+              "path": "src/lib_json/CMakeLists.txt",
+              "start_line": 1,
+              "max_lines": null,
+              "times": 13
+            },
+            {
+              "path": "src/test_lib_json/CMakeLists.txt",
+              "start_line": 1,
+              "max_lines": null,
+              "times": 10
+            },
+            {
+              "path": "src/jsontestrunner/CMakeLists.txt",
+              "start_line": 1,
+              "max_lines": null,
+              "times": 5
+            },
+            {
+              "path": "CMakeLists.txt",
+              "start_line": 1,
+              "max_lines": null,
+              "times": 16
+            },
+            {
+              "path": "CMakeLists.txt",
+              "start_line": 120,
+              "max_lines": null,
+              "times": 14
+            },
+            {
+              "path": "README.md",
+              "start_line": 1,
+              "max_lines": null,
+              "times": 15
+            },
+            {
+              "path": "src/lib_json/CMakeLists.txt",
+              "start_line": 120,
+              "max_lines": null,
+              "times": 5
+            },
+            {
+              "path": ".travis.yml",
+              "start_line": 1,
+              "max_lines": null,
+              "times": 4
+            },
+            {
+              "path": "include/PreventInSourceBuilds.cmake",
+              "start_line": 1,
+              "max_lines": null,
+              "times": 2
+            },
+            {
+              "path": ".travis_scripts/cmake_builder.sh",
+              "start_line": 1,
+              "max_lines": null,
+              "times": 7
+            },
+            {
+              "path": "dev.makefile",
+              "start_line": 1,
+              "max_lines": null,
+              "times": 4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slot": "slot-28-jsoncpp-forge",
+      "tasks": [
+        {
+          "recovery": false,
+          "read_calls": 7,
+          "exact_repeated_reads": 0,
+          "repeated_segments": []
+        }
+      ]
+    },
+    {
+      "slot": "slot-30-miniz-forge",
+      "tasks": [
+        {
+          "recovery": false,
+          "read_calls": 24,
+          "exact_repeated_reads": 12,
+          "repeated_segments": [
+            {
+              "path": "CMakePresets.json",
+              "start_line": 1,
+              "max_lines": null,
+              "times": 3
+            },
+            {
+              "path": "test.sh",
+              "start_line": 1,
+              "max_lines": null,
+              "times": 3
+            },
+            {
+              "path": ".travis.yml",
+              "start_line": 1,
+              "max_lines": null,
+              "times": 2
+            },
+            {
+              "path": "CMakeLists.txt",
+              "start_line": 1,
+              "max_lines": null,
+              "times": 3
+            },
+            {
+              "path": "CMakeLists.txt",
+              "start_line": 120,
+              "max_lines": null,
+              "times": 3
+            },
+            {
+              "path": "CMakeLists.txt",
+              "start_line": 238,
+              "max_lines": null,
+              "times": 2
+            },
+            {
+              "path": "readme.md",
+              "start_line": 1,
+              "max_lines": null,
+              "times": 2
+            },
+            {
+              "path": ".github/workflows/c-cpp.yml",
+              "start_line": 1,
+              "max_lines": null,
+              "times": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slot": "slot-31-miniz-strong_tool_agent",
+      "tasks": [
+        {
+          "recovery": false,
+          "read_calls": 0,
+          "exact_repeated_reads": 0,
+          "repeated_segments": []
+        }
+      ]
+    },
+    {
+      "slot": "slot-32-miniz-forge_experience",
+      "tasks": [
+        {
+          "recovery": false,
+          "read_calls": 5,
+          "exact_repeated_reads": 0,
+          "repeated_segments": []
+        }
+      ]
+    },
+    {
+      "slot": "slot-33-pigz-forge",
+      "tasks": [
+        {
+          "recovery": false,
+          "read_calls": 0,
+          "exact_repeated_reads": 0,
+          "repeated_segments": []
+        }
+      ]
+    },
+    {
+      "slot": "slot-34-pigz-forge_experience",
+      "tasks": [
+        {
+          "recovery": false,
+          "read_calls": 0,
+          "exact_repeated_reads": 0,
+          "repeated_segments": []
+        }
+      ]
+    },
+    {
+      "slot": "slot-36-pigz-strong_tool_agent",
+      "tasks": [
+        {
+          "recovery": false,
+          "read_calls": 0,
+          "exact_repeated_reads": 0,
+          "repeated_segments": []
+        }
+      ]
+    },
+    {
+      "slot": "slot-37-highwayhash-forge_experience",
+      "tasks": [
+        {
+          "recovery": false,
+          "read_calls": 0,
+          "exact_repeated_reads": 0,
+          "repeated_segments": []
+        }
+      ]
+    },
+    {
+      "slot": "slot-38-highwayhash-strong_tool_agent",
+      "tasks": [
+        {
+          "recovery": false,
+          "read_calls": 0,
+          "exact_repeated_reads": 0,
+          "repeated_segments": []
+        }
+      ]
+    },
+    {
+      "slot": "slot-39-highwayhash-forge",
+      "tasks": [
+        {
+          "recovery": false,
+          "read_calls": 0,
+          "exact_repeated_reads": 0,
+          "repeated_segments": []
+        }
+      ]
+    },
+    {
+      "slot": "slot-41-libite-strong_tool_agent",
+      "tasks": [
+        {
+          "recovery": false,
+          "read_calls": 3,
+          "exact_repeated_reads": 0,
+          "repeated_segments": []
+        }
+      ]
+    },
+    {
+      "slot": "slot-43-libite-forge_experience",
+      "tasks": [
+        {
+          "recovery": false,
+          "read_calls": 5,
+          "exact_repeated_reads": 0,
+          "repeated_segments": []
+        }
+      ]
+    },
+    {
+      "slot": "slot-44-libite-forge",
+      "tasks": [
+        {
+          "recovery": false,
+          "read_calls": 6,
+          "exact_repeated_reads": 0,
+          "repeated_segments": []
+        }
+      ]
+    },
+    {
+      "slot": "slot-46-libsrtp-forge",
+      "tasks": [
+        {
+          "recovery": false,
+          "read_calls": 5,
+          "exact_repeated_reads": 0,
+          "repeated_segments": []
+        }
+      ]
+    },
+    {
+      "slot": "slot-47-libsrtp-strong_tool_agent",
+      "tasks": [
+        {
+          "recovery": false,
+          "read_calls": 1,
+          "exact_repeated_reads": 0,
+          "repeated_segments": []
+        }
+      ]
+    },
+    {
+      "slot": "slot-48-libsrtp-forge_experience",
+      "tasks": [
+        {
+          "recovery": false,
+          "read_calls": 98,
+          "exact_repeated_reads": 74,
+          "repeated_segments": [
+            {
+              "path": "configure.ac",
+              "start_line": 120,
+              "max_lines": null,
+              "times": 2
+            },
+            {
+              "path": "configure.ac",
+              "start_line": 240,
+              "max_lines": null,
+              "times": 9
+            },
+            {
+              "path": "configure.ac",
+              "start_line": 355,
+              "max_lines": null,
+              "times": 6
+            },
+            {
+              "path": "Makefile.in",
+              "start_line": 1,
+              "max_lines": null,
+              "times": 9
+            },
+            {
+              "path": "configure.ac",
+              "start_line": 1,
+              "max_lines": null,
+              "times": 11
+            },
+            {
+              "path": "Makefile.in",
+              "start_line": 120,
+              "max_lines": null,
+              "times": 8
+            },
+            {
+              "path": "Makefile.in",
+              "start_line": 240,
+              "max_lines": null,
+              "times": 4
+            },
+            {
+              "path": "doc/Makefile.in",
+              "start_line": 1,
+              "max_lines": null,
+              "times": 8
+            },
+            {
+              "path": "README.md",
+              "start_line": 150,
+              "max_lines": null,
+              "times": 5
+            },
+            {
+              "path": "README.md",
+              "start_line": 300,
+              "max_lines": null,
+              "times": 6
+            },
+            {
+              "path": "README.md",
+              "start_line": 380,
+              "max_lines": null,
+              "times": 4
+            },
+            {
+              "path": "README.md",
+              "start_line": 200,
+              "max_lines": null,
+              "times": 2
+            },
+            {
+              "path": "README.md",
+              "start_line": 120,
+              "max_lines": null,
+              "times": 2
+            },
+            {
+              "path": "README.md",
+              "start_line": 1,
+              "max_lines": null,
+              "times": 7
+            },
+            {
+              "path": "README.md",
+              "start_line": 250,
+              "max_lines": null,
+              "times": 2
+            },
+            {
+              "path": "README.md",
+              "start_line": 240,
+              "max_lines": null,
+              "times": 3
+            },
+            {
+              "path": "configure.ac",
+              "start_line": 200,
+              "max_lines": null,
+              "times": 2
+            },
+            {
+              "path": "configure.ac",
+              "start_line": 320,
+              "max_lines": null,
+              "times": 2
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

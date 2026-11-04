@@ -618,6 +618,13 @@
 
 ## 最近变更 (Recent Changes)
 
+- 2026-11-04 — #679完成固定四方法48次真实比较和论文结果分析。
+  - 文件: `docs/research/2026-11-04-simple-system-comparison-results.md`、`benchmarks/analyses/cpp-build-simple-system-comparison-flash-v1/`、`RESEARCH_STATUS.md`、论文证据索引/目录。
+  - 结果: 48/48终结/0未观察槽；Forge/经验/强工具/CXX主构建9/8/12/12、记录完整9/8/12/9（各12）。58/192/64/78请求，估费0.1942293/0.9172332/0.1660431/0.1161618美元，8.47/14.11/9.99/31.47分钟。基础三次空结构、经验一次空结构/三次读取循环均在编译前；CXX两libsrtp切CMake后测试入口不适用、jsoncpp一次关测试，不能当测试用例实际失败或功能排名。
+  - 分析: 全分母不支持新版Forge整体优势或经验减少探索；共同完整9对Forge费低9.9%/时间高4.8%仅辅助。Forge两臂0恢复请求，经验每槽一次注入、源码读取363/64，三循环费用占经验80.2%；不改变旧实验/论文v0.6。同项目复用/状态纯因果未测。
+  - 计费/证据: release0cd53146、manifest e079b31a不变；392响应/4201153Token/1.3936674美元/未知0，用户10美元与UTC13:40:11–21:40:11内完成，唯一PID2501595已退出。raw forge-simple-system-comparison-flash-v1，inventory ab698898；逐响应/类型封存校验过，cleanup48/48，391容器标识及26镜像ID实查不存在。授权/日志/最终收据在forge-simple-comparison-session-v1，原用户199加/4删与HTML/uv.lock保持。
+  - 下一: 先修方案输出/重复读取和测试适配，不追求全指标胜出、不扩旧余额；新付费另定身份。结果仅科研集成分支，相关CI后合并/关闭679、知识库MCP同步，最终发布收据为准。本轮没有重跑资格或产品全测、没有将新表冒称全文导出。
+
 - 2026-11-04 — #677固定简洁目标四方法48次比较，完成批入口与新增三项独立参考。
   - 文件: `scripts/forge_simple_comparison.py`, `scripts/forge_simple_system.py`, `scripts/forge_simple_cxx_reference.py`, `backend/tests/test_simple_comparison.py`, `benchmarks/fixtures/simple-system-comparison-v1/tasks.json`, 同名manifest/preregistration及准备报告。
   - 设计: jsoncpp/miniz、pigz/highwayhash、libite/libsrtp各两重复×基础Forge/经验Forge/强工具/CXX；Williams顺序平衡，全已见开发项目，旧24经验与六族分离，零新提炼/精确方案/在线更新。

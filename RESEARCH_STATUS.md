@@ -2,7 +2,19 @@
 
 论文选材固定入口：[硕士论文实验与证据索引](docs/research/THESIS_EVIDENCE_INDEX.md)，[历史材料目录](docs/research/THESIS_EVIDENCE_CATALOG.md)保留存量导航。当前完整稿为[论文v0.6](docs/thesis/README.md)；E40/E41新增两层经验结果，E39及此前基础系统、组件与恢复实验按原版本和分母继续使用。
 
-## 当前阶段（2026-11-04；#677简洁任务四方法48次比较已准备，待新预算/时窗）
+## 当前阶段（2026-11-04；#679简洁目标四方法48次完成，转规划稳定性与测试适用性分析）
+
+本阶段为真实数据采集与结果分析，[结果报告](docs/research/2026-11-04-simple-system-comparison-results.md)与[E42](docs/research/THESIS_EVIDENCE_INDEX.md#e42)记录固定`cpp-build-simple-system-comparison-flash-v1`：六项目×两重复×基础Forge/经验Forge/强工具/CXX，48/48终结、0未观察槽。运行release `0cd5314653437463c2088993dd973f9daf72bdf5`，manifest e079b31a；全部已开发暴露，经验来源族隔离，CXX为原生社区完整系统参考。
+
+主构建9/12、8/12、12/12、12/12；记录完整9/12、8/12、12/12、9/12；请求58/192/64/78，美元0.1942293/0.9172332/0.1660431/0.1161618，累计8.47/14.11/9.99/31.47分钟。基础三次空结构方案、经验一次空方案/三次50请求读取循环均在编译前停止，后层未观察；不称编译或测试失败。CXX两libsrtp改CMake后仍被Autotools原测试入口检查、jsoncpp一次关闭测试；主库及构建重放通过，不以测试入口不适用宣称功能排名。全部源码终态检查41过/7未观察、cleanup48过。
+
+全分母不支持新版Forge整体优于强工具或经验减少探索。共同完整9对Forge/强工具费低9.9%、时间高4.8%，仅条件性辅助。两Forge均0恢复请求，经验每槽一次检索12次、读取363/64，三个循环约占经验费80.2%；不据此推翻旧E37/E41或全部经验方法。同项目复用未启用，不证明状态或局部工具恢复的独立效果。
+
+用户10美元硬上限/确认起8小时，UTC13:40:11–21:40:11内完成，392请求/4201153记录Token/估费1.3936674美元/未知0，历史库费0.095129另列、不重复付费。唯一PID2501595已退出，48槽闭合，未自动重试/补槽或扩批。raw `forge-simple-system-comparison-flash-v1`，inventory `ab698898a33343ad780e96fb4d963b349304c6494c64e3cebd20d3f914918a34`，会话`forge-simple-comparison-session-v1`保存授权/launch/费用/资源/发布；逐响应核对及seal校验通过，391容器标识与26镜像ID实查均不存在。
+
+下一步集中处理方案空参数纠错、重复读取/证据保留和跨构建系统测试适用性，先用既有轨迹做最小修复，再独立小比较，不马上扩组件或重跑48槽。当前无活动Provider，本轮余额不扩新付费身份；旧v0.6及E01/E30/E33/E35–E41保留，新结果已形成论文选材/图表，未冒称更新Word/PDF全文。知识库只经MCP同步，不进入正式Agent。结果发布仅科研集成分支，CI/合并以关联PR与最终发布收据为准。
+
+## 上一阶段（2026-11-04；#677简洁任务四方法48次比较已准备）
 
 本轮为实验设计与执行准备，0真实Provider/新增模型费。[准备报告](docs/research/2026-11-04-simple-system-comparison-preparation.md)、[协议](benchmarks/preregistrations/cpp-build-simple-system-comparison-flash-v1.md)及[manifest](benchmarks/manifests/cpp-build-simple-system-comparison-flash-v1.json)固定`cpp-build-simple-system-comparison-flash-v1`：jsoncpp/miniz、pigz/highwayhash、libite/libsrtp，三系统各两项目×两重复×基础Forge/经验Forge/强工具/CXX社区参考，共48槽。全部已开发暴露、4C/2C++，不称holdout；旧12轨迹/8族/24条经验与六评价族隔离，库不更新，无本项目精确方案或新提炼。
 

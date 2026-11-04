@@ -1,6 +1,6 @@
 # 硕士论文实验与证据索引
 
-待采集（不增效果分母）：[#677简洁目标四方法48次协议与入口](2026-11-04-simple-system-comparison-preparation.md)已固定六项目、两重复、基础/经验Forge/强工具/CXX参考；新增三条脚本参考仅证明作者入口可运行，正式模型结果仍未观察。旧编号不变。
+最新系统结果：[E42](#e42)简洁目标四方法48/48终结，基础Forge/经验Forge/强工具/CXX主构建9/8/12/12、记录完整9/8/12/9（各12）。全分母不支持新版Forge整体占优或当前经验减少探索；CXX两次测试入口不适用须单列，不作功能排名。旧编号与论文v0.6保持。
 
 工程进展（不增效果分母）：[#675核心接入](2026-11-04-simple-build-core-integration.md)将两层经验、Forge/强工具/CXX参考接到简洁任务，九条正常路径及恢复/拒绝、原生CXX实跑支持实现；保留清理修复过程。[核心版本与比较安排](2026-11-04-simple-build-core-boundary.md)约束后续实验。[#673最小实现](2026-11-04-simple-build-implementation.md)继续作为底座证据，旧E40/E41等效果保持。
 
@@ -18,7 +18,7 @@
 
 | 论文用途 | 优先条目 | 能回答的问题 |
 | --- | --- | --- |
-| 完整系统比较 | [E33](#e33)、[E30](#e30)，辅以[E03](#e03)、[E05](#e05) | 工具规划/模型规划＋Workflow＋失败Agent，与强工具Agent有何完成、费用和时间取舍？ |
+| 完整系统比较 | [E42](#e42)、[E33](#e33)、[E30](#e30)，辅以[E03](#e03)、[E05](#e05) | 工具规划/模型规划＋Workflow＋失败Agent，与强工具Agent有何完成、费用和时间取舍？ |
 | 失败恢复消融 | [E04](#e04)、[E34](#e34) | 允许恢复是否增加完成；返回方案与局部执行有何取舍？ |
 | 配置状态与动作选择消融 | [E01](#e01)、[E02](#e02)，辅以[E06](#e06) | 目标保持、提前观察、直接修订各起什么作用？ |
 | 完整任务验证与案例 | [E16](#e16)至[E19](#e19)，以及各批自己的分层表 | 构建退出0为何还不等于满足任务、测试和可复现交付？ |
@@ -50,6 +50,15 @@
 重复次数不等于独立项目数；各批模型、接口和任务版本不同，不把不同批次合成一个成功率或以跨批相减估计组件效果。分层分析会重复消费原运行，不能再算一份独立实验数据。费用使用各批冻结费率的估算，包含失败和恢复，不能当作实际账单；零恢复费用不代表初始规划免费。所有失败/未完成保留，未运行的测试、交付或重放记未观察。
 
 ## 正文候选：完整比较与组件消融
+
+<a id="e42"></a>
+### E42 简洁目标四方法48次完整系统比较与经验消融
+
+- **问题／设计**：`cpp-build-simple-system-comparison-flash-v1`，jsoncpp/miniz、pigz/highwayhash、libite/libsrtp×两重复×基础Forge/经验Forge/强工具/CXX社区参考＝48/48终态、0未观察槽。Flash low，共同简洁目标/源码/基础镜像/2CPU、Williams顺序；经验旧12轨迹/8族/24条，每任务一次、无在线更新或本项目精确方案。
+- **主要结果**：主构建9/12、8/12、12/12、12/12；记录完整9/12、8/12、12/12、9/12，请求58/192/64/78，在线美元0.1942293/0.9172332/0.1660431/0.1161618，累计8.47/14.11/9.99/31.47分钟。基础整体费高于强工具且少完成3次；共同完整9对费低9.9%/时间高4.8%仅条件性辅助。经验读取363/64、192/58请求，三个读取循环约占经验费80.2%，无总体收益；保留miniz/libite第二重复的经验独有完整。
+- **失败／边界**：基础三次/经验一次空结构与三次图循环均在编译前，7槽后层未观察；没有有效方案后的Forge恢复请求。CXX两libsrtp改CMake后固定Autotools测试入口不适用、jsoncpp一次关闭测试；三个主构建/交付/构建replay均过，不当三次测试用例实际失败或功能排名。源码终态41过/7未观察，cleanup48过。评价已开发暴露/4C2C++，CXX原生工具/镜像和内部预算不同；不作状态单变量、模型排名或新旧任务跨批因果。
+- **论文用途**：第6章新版简洁任务系统结果、经验消融、规划/验证局限和正反案例；第4/5章当前接口边界。结果图/全表可直接选材，未冒称已经改写论文v0.6全文。旧E01/E30/E33/E35–E41保留，读取模式是同一48槽的事后描述、不增分母。
+- **定位／费用**：[结果报告](2026-11-04-simple-system-comparison-results.md)、[分析](../../benchmarks/analyses/cpp-build-simple-system-comparison-flash-v1/analysis.json)、[48行CSV](../../benchmarks/analyses/cpp-build-simple-system-comparison-flash-v1/slots.csv)、[费用核对](../../benchmarks/analyses/cpp-build-simple-system-comparison-flash-v1/response-verification.json)、[PDF图](../../benchmarks/analyses/cpp-build-simple-system-comparison-flash-v1/system-comparison.pdf)、[协议](../../benchmarks/preregistrations/cpp-build-simple-system-comparison-flash-v1.md)。release0cd53146，raw `forge-simple-system-comparison-flash-v1`，inventory `ab698898a33343ad780e96fb4d963b349304c6494c64e3cebd20d3f914918a34`；392响应/4201153Token/新增1.3936674美元/未知0。旧库历史费0.095129美元另列、不重复支付；用户10美元/UTC13:40:11–21:40:11内完成，未重试/补槽或扩批。会话`forge-simple-comparison-session-v1`保存授权/launch/资源/发布收据，391容器标识及26镜像ID实查不存在。
 
 <a id="e41"></a>
 ### E41 同24条库的来源检索与状态目标检索36次完整比较
