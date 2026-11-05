@@ -1,0 +1,3228 @@
+{
+  "identity": "cpp-build-main-system-comparison-flash-v1",
+  "summary": {
+    "all": {
+      "forge": {
+        "planned": 18,
+        "observed": 18,
+        "unobserved": 0,
+        "primary_completed": 18,
+        "main_task_completed": 18,
+        "delivery": {
+          "passed": 18
+        },
+        "clean_replay": {
+          "passed": 18
+        },
+        "model_requests": 45,
+        "estimated_cost_usd": "0.1638351",
+        "total_wall_seconds": 1645.1357681290247,
+        "initial_planning_seconds": 88.52911162888631,
+        "recovery_seconds": 147.10132184810936,
+        "author_tests": {
+          "not_required": 18
+        },
+        "phase_usage": {
+          "initial": {
+            "requests": 38,
+            "estimated_cost_usd": "0.1120782"
+          },
+          "recovery": {
+            "requests": 7,
+            "estimated_cost_usd": "0.0517569"
+          },
+          "tool_agent": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          }
+        },
+        "recipe_hits": 0,
+        "retrievals": 0,
+        "source_reads": 21,
+        "recovery_tasks": 4,
+        "verified_recipes_saved": 18,
+        "timings_seconds": {
+          "author_tests_seconds": 0.0026845195097848773,
+          "build_seconds": 128.12337249470875,
+          "clean_replay_seconds": 594.5211607980309,
+          "configure_seconds": 58.72216876398306,
+          "delivery_seconds": 3.3495502687292174,
+          "dependency_seconds": 546.1222959260922,
+          "initial_planning_seconds": 88.52911162888631,
+          "primary_build_seconds": 984.080499690841,
+          "recovery_agent_seconds": 147.10132184810936,
+          "recovery_execution_seconds": 558.8711173349293,
+          "result_location_seconds": 0.8262080849381164,
+          "time_to_primary_from_arm_start_seconds": 984.1045169039862,
+          "total_seconds_before_cleanup": 1582.9493822921067
+        },
+        "router_decisions": 6,
+        "local_actions": 2,
+        "agent_routes": 4,
+        "source_checks": {
+          "passed": 18
+        },
+        "cleanup_checks": {
+          "True": 18
+        }
+      },
+      "forge_experience": {
+        "planned": 18,
+        "observed": 18,
+        "unobserved": 0,
+        "primary_completed": 18,
+        "main_task_completed": 18,
+        "delivery": {
+          "passed": 18
+        },
+        "clean_replay": {
+          "passed": 18
+        },
+        "model_requests": 23,
+        "estimated_cost_usd": "0.0777816",
+        "total_wall_seconds": 787.1206814850448,
+        "initial_planning_seconds": 55.42733616800979,
+        "recovery_seconds": 0.0,
+        "author_tests": {
+          "not_required": 18
+        },
+        "phase_usage": {
+          "initial": {
+            "requests": 23,
+            "estimated_cost_usd": "0.0777816"
+          },
+          "recovery": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          },
+          "tool_agent": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          }
+        },
+        "recipe_hits": 6,
+        "retrievals": 12,
+        "source_reads": 12,
+        "recovery_tasks": 0,
+        "verified_recipes_saved": 18,
+        "timings_seconds": {
+          "author_tests_seconds": 0.0026027761632576585,
+          "build_seconds": 120.04483112506568,
+          "clean_replay_seconds": 345.00279493792914,
+          "configure_seconds": 58.63855919288471,
+          "delivery_seconds": 3.3731760299997404,
+          "dependency_seconds": 127.12883936101571,
+          "initial_planning_seconds": 55.42733616800979,
+          "primary_build_seconds": 375.7094362033531,
+          "recovery_agent_seconds": 0.0,
+          "recovery_execution_seconds": 131.5650587552227,
+          "result_location_seconds": 0.7751660168869421,
+          "time_to_primary_from_arm_start_seconds": 375.7332368240459,
+          "total_seconds_before_cleanup": 725.074621380074
+        },
+        "router_decisions": 2,
+        "local_actions": 2,
+        "agent_routes": 0,
+        "source_checks": {
+          "passed": 18
+        },
+        "cleanup_checks": {
+          "True": 18
+        }
+      },
+      "strong_tool_agent": {
+        "planned": 18,
+        "observed": 18,
+        "unobserved": 0,
+        "primary_completed": 17,
+        "main_task_completed": 17,
+        "delivery": {
+          "passed": 17,
+          "unobserved": 1
+        },
+        "clean_replay": {
+          "passed": 17,
+          "unobserved": 1
+        },
+        "model_requests": 137,
+        "estimated_cost_usd": "0.4149729",
+        "total_wall_seconds": 1157.241330377059,
+        "initial_planning_seconds": 0.0,
+        "recovery_seconds": 0.0,
+        "author_tests": {
+          "not_required": 17,
+          "unobserved": 1
+        },
+        "phase_usage": {
+          "initial": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          },
+          "recovery": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          },
+          "tool_agent": {
+            "requests": 137,
+            "estimated_cost_usd": "0.4149729"
+          }
+        },
+        "recipe_hits": 0,
+        "retrievals": 0,
+        "source_reads": 12,
+        "recovery_tasks": 0,
+        "verified_recipes_saved": 0,
+        "timings_seconds": {
+          "author_tests_seconds": 0.0023990649497136474,
+          "clean_replay_seconds": 356.57963454315905,
+          "delivery_seconds": 3.11424893012736,
+          "initial_planning_seconds": 0.0,
+          "recovery_agent_seconds": 0.0,
+          "time_to_primary_from_arm_start_seconds": 709.7391819251934,
+          "time_to_primary_seconds": 709.6947286091745,
+          "total_seconds_before_cleanup": 1070.3162514060969
+        },
+        "router_decisions": 0,
+        "local_actions": 0,
+        "agent_routes": 0,
+        "source_checks": {
+          "passed": 17,
+          "unobserved": 1
+        },
+        "cleanup_checks": {
+          "True": 18
+        }
+      }
+    },
+    "exact_reuse": {
+      "forge": {
+        "planned": 6,
+        "observed": 6,
+        "unobserved": 0,
+        "primary_completed": 6,
+        "main_task_completed": 6,
+        "delivery": {
+          "passed": 6
+        },
+        "clean_replay": {
+          "passed": 6
+        },
+        "model_requests": 11,
+        "estimated_cost_usd": "0.0278334",
+        "total_wall_seconds": 231.33627601200715,
+        "initial_planning_seconds": 27.684507113066502,
+        "recovery_seconds": 0.0,
+        "author_tests": {
+          "not_required": 6
+        },
+        "phase_usage": {
+          "initial": {
+            "requests": 11,
+            "estimated_cost_usd": "0.0278334"
+          },
+          "recovery": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          },
+          "tool_agent": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          }
+        },
+        "recipe_hits": 0,
+        "retrievals": 0,
+        "source_reads": 6,
+        "recovery_tasks": 0,
+        "verified_recipes_saved": 6,
+        "timings_seconds": {
+          "author_tests_seconds": 0.0011509808246046305,
+          "build_seconds": 54.85437988501508,
+          "clean_replay_seconds": 100.54617064504419,
+          "configure_seconds": 22.742124527925625,
+          "delivery_seconds": 0.9744297908619046,
+          "initial_planning_seconds": 27.684507113066502,
+          "primary_build_seconds": 108.92916191800032,
+          "recovery_agent_seconds": 0.0,
+          "result_location_seconds": 0.20567849883809686,
+          "time_to_primary_from_arm_start_seconds": 108.93773759901524,
+          "total_seconds_before_cleanup": 210.61669789615553
+        },
+        "router_decisions": 0,
+        "local_actions": 0,
+        "agent_routes": 0,
+        "source_checks": {
+          "passed": 6
+        },
+        "cleanup_checks": {
+          "True": 6
+        }
+      },
+      "forge_experience": {
+        "planned": 6,
+        "observed": 6,
+        "unobserved": 0,
+        "primary_completed": 6,
+        "main_task_completed": 6,
+        "delivery": {
+          "passed": 6
+        },
+        "clean_replay": {
+          "passed": 6
+        },
+        "model_requests": 0,
+        "estimated_cost_usd": "0.0",
+        "total_wall_seconds": 203.32857423694804,
+        "initial_planning_seconds": 0.0,
+        "recovery_seconds": 0.0,
+        "author_tests": {
+          "not_required": 6
+        },
+        "phase_usage": {
+          "initial": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          },
+          "recovery": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          },
+          "tool_agent": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          }
+        },
+        "recipe_hits": 6,
+        "retrievals": 0,
+        "source_reads": 0,
+        "recovery_tasks": 0,
+        "verified_recipes_saved": 6,
+        "timings_seconds": {
+          "author_tests_seconds": 0.0010524169774726033,
+          "build_seconds": 54.99656087416224,
+          "clean_replay_seconds": 100.11225526186172,
+          "configure_seconds": 22.858686543884687,
+          "delivery_seconds": 0.94215120410081,
+          "initial_planning_seconds": 0.0,
+          "primary_build_seconds": 81.73039588099346,
+          "recovery_agent_seconds": 0.0,
+          "result_location_seconds": 0.1848259159596637,
+          "time_to_primary_from_arm_start_seconds": 81.73857788892929,
+          "total_seconds_before_cleanup": 182.94856942503247
+        },
+        "router_decisions": 0,
+        "local_actions": 0,
+        "agent_routes": 0,
+        "source_checks": {
+          "passed": 6
+        },
+        "cleanup_checks": {
+          "True": 6
+        }
+      },
+      "strong_tool_agent": {
+        "planned": 6,
+        "observed": 6,
+        "unobserved": 0,
+        "primary_completed": 6,
+        "main_task_completed": 6,
+        "delivery": {
+          "passed": 6
+        },
+        "clean_replay": {
+          "passed": 6
+        },
+        "model_requests": 34,
+        "estimated_cost_usd": "0.0894069",
+        "total_wall_seconds": 260.4338052790845,
+        "initial_planning_seconds": 0.0,
+        "recovery_seconds": 0.0,
+        "author_tests": {
+          "not_required": 6
+        },
+        "phase_usage": {
+          "initial": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          },
+          "recovery": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          },
+          "tool_agent": {
+            "requests": 34,
+            "estimated_cost_usd": "0.0894069"
+          }
+        },
+        "recipe_hits": 0,
+        "retrievals": 0,
+        "source_reads": 6,
+        "recovery_tasks": 0,
+        "verified_recipes_saved": 0,
+        "timings_seconds": {
+          "author_tests_seconds": 0.0008945950539782643,
+          "clean_replay_seconds": 99.99497835605871,
+          "delivery_seconds": 0.9550024950876832,
+          "initial_planning_seconds": 0.0,
+          "recovery_agent_seconds": 0.0,
+          "time_to_primary_from_arm_start_seconds": 139.10913365113083,
+          "time_to_primary_seconds": 139.093451756984,
+          "total_seconds_before_cleanup": 240.24481213802937
+        },
+        "router_decisions": 0,
+        "local_actions": 0,
+        "agent_routes": 0,
+        "source_checks": {
+          "passed": 6
+        },
+        "cleanup_checks": {
+          "True": 6
+        }
+      }
+    },
+    "no_recipe": {
+      "forge": {
+        "planned": 12,
+        "observed": 12,
+        "unobserved": 0,
+        "primary_completed": 12,
+        "main_task_completed": 12,
+        "delivery": {
+          "passed": 12
+        },
+        "clean_replay": {
+          "passed": 12
+        },
+        "model_requests": 34,
+        "estimated_cost_usd": "0.1360017",
+        "total_wall_seconds": 1413.7994921170175,
+        "initial_planning_seconds": 60.84460451581981,
+        "recovery_seconds": 147.10132184810936,
+        "author_tests": {
+          "not_required": 12
+        },
+        "phase_usage": {
+          "initial": {
+            "requests": 27,
+            "estimated_cost_usd": "0.0842448"
+          },
+          "recovery": {
+            "requests": 7,
+            "estimated_cost_usd": "0.0517569"
+          },
+          "tool_agent": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          }
+        },
+        "recipe_hits": 0,
+        "retrievals": 0,
+        "source_reads": 15,
+        "recovery_tasks": 4,
+        "verified_recipes_saved": 12,
+        "timings_seconds": {
+          "author_tests_seconds": 0.0015335386851802468,
+          "build_seconds": 73.26899260969367,
+          "clean_replay_seconds": 493.9749901529867,
+          "configure_seconds": 35.98004423605744,
+          "delivery_seconds": 2.3751204778673127,
+          "dependency_seconds": 546.1222959260922,
+          "initial_planning_seconds": 60.84460451581981,
+          "primary_build_seconds": 875.1513377728406,
+          "recovery_agent_seconds": 147.10132184810936,
+          "recovery_execution_seconds": 558.8711173349293,
+          "result_location_seconds": 0.6205295861000195,
+          "time_to_primary_from_arm_start_seconds": 875.166779304971,
+          "total_seconds_before_cleanup": 1372.3326843959512
+        },
+        "router_decisions": 6,
+        "local_actions": 2,
+        "agent_routes": 4,
+        "source_checks": {
+          "passed": 12
+        },
+        "cleanup_checks": {
+          "True": 12
+        }
+      },
+      "forge_experience": {
+        "planned": 12,
+        "observed": 12,
+        "unobserved": 0,
+        "primary_completed": 12,
+        "main_task_completed": 12,
+        "delivery": {
+          "passed": 12
+        },
+        "clean_replay": {
+          "passed": 12
+        },
+        "model_requests": 23,
+        "estimated_cost_usd": "0.0777816",
+        "total_wall_seconds": 583.7921072480967,
+        "initial_planning_seconds": 55.42733616800979,
+        "recovery_seconds": 0.0,
+        "author_tests": {
+          "not_required": 12
+        },
+        "phase_usage": {
+          "initial": {
+            "requests": 23,
+            "estimated_cost_usd": "0.0777816"
+          },
+          "recovery": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          },
+          "tool_agent": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          }
+        },
+        "recipe_hits": 0,
+        "retrievals": 12,
+        "source_reads": 12,
+        "recovery_tasks": 0,
+        "verified_recipes_saved": 12,
+        "timings_seconds": {
+          "author_tests_seconds": 0.0015503591857850552,
+          "build_seconds": 65.04827025090344,
+          "clean_replay_seconds": 244.89053967606742,
+          "configure_seconds": 35.779872649000026,
+          "delivery_seconds": 2.4310248258989304,
+          "dependency_seconds": 127.12883936101571,
+          "initial_planning_seconds": 55.42733616800979,
+          "primary_build_seconds": 293.97904032235965,
+          "recovery_agent_seconds": 0.0,
+          "recovery_execution_seconds": 131.5650587552227,
+          "result_location_seconds": 0.5903401009272784,
+          "time_to_primary_from_arm_start_seconds": 293.9946589351166,
+          "total_seconds_before_cleanup": 542.1260519550415
+        },
+        "router_decisions": 2,
+        "local_actions": 2,
+        "agent_routes": 0,
+        "source_checks": {
+          "passed": 12
+        },
+        "cleanup_checks": {
+          "True": 12
+        }
+      },
+      "strong_tool_agent": {
+        "planned": 12,
+        "observed": 12,
+        "unobserved": 0,
+        "primary_completed": 11,
+        "main_task_completed": 11,
+        "delivery": {
+          "passed": 11,
+          "unobserved": 1
+        },
+        "clean_replay": {
+          "passed": 11,
+          "unobserved": 1
+        },
+        "model_requests": 103,
+        "estimated_cost_usd": "0.3255660",
+        "total_wall_seconds": 896.8075250979746,
+        "initial_planning_seconds": 0.0,
+        "recovery_seconds": 0.0,
+        "author_tests": {
+          "not_required": 11,
+          "unobserved": 1
+        },
+        "phase_usage": {
+          "initial": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          },
+          "recovery": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          },
+          "tool_agent": {
+            "requests": 103,
+            "estimated_cost_usd": "0.3255660"
+          }
+        },
+        "recipe_hits": 0,
+        "retrievals": 0,
+        "source_reads": 6,
+        "recovery_tasks": 0,
+        "verified_recipes_saved": 0,
+        "timings_seconds": {
+          "author_tests_seconds": 0.001504469895735383,
+          "clean_replay_seconds": 256.58465618710034,
+          "delivery_seconds": 2.1592464350396767,
+          "initial_planning_seconds": 0.0,
+          "recovery_agent_seconds": 0.0,
+          "time_to_primary_from_arm_start_seconds": 570.6300482740626,
+          "time_to_primary_seconds": 570.6012768521905,
+          "total_seconds_before_cleanup": 830.0714392680675
+        },
+        "router_decisions": 0,
+        "local_actions": 0,
+        "agent_routes": 0,
+        "source_checks": {
+          "passed": 11,
+          "unobserved": 1
+        },
+        "cleanup_checks": {
+          "True": 12
+        }
+      }
+    }
+  },
+  "slots": [
+    {
+      "slot": 1,
+      "project": "jsoncpp",
+      "method": "forge",
+      "repetition": 1,
+      "stratum": "exact_reuse",
+      "primary_completed": true,
+      "main_task_completed": true,
+      "router_usage": {
+        "model_requests": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "estimated_cost_usd_completed_responses": "0",
+        "unknown_usage_requests": 0,
+        "identity_mismatch": false,
+        "wall_seconds": 0,
+        "method": "rule",
+        "decision_count": 0,
+        "local_actions": 0,
+        "agent_routes": 0
+      },
+      "wall_seconds": 45.15662411402445,
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true
+      },
+      "source_unchanged": true,
+      "phase_usage": {
+        "initial": {
+          "requests": 1,
+          "estimated_cost_usd": "0.0029067"
+        },
+        "recovery": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "tool_agent": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        }
+      },
+      "recipe_selected": false,
+      "retrievals": 0,
+      "source_reads": 0,
+      "error_type": null,
+      "error": null,
+      "raw_folder": "/home/yiwei/.codex/outputs/forge-main-system-comparison-flash-v1/slot-01-jsoncpp-forge"
+    },
+    {
+      "slot": 2,
+      "project": "jsoncpp",
+      "method": "forge_experience",
+      "repetition": 1,
+      "stratum": "exact_reuse",
+      "primary_completed": true,
+      "main_task_completed": true,
+      "router_usage": {
+        "model_requests": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "estimated_cost_usd_completed_responses": "0",
+        "unknown_usage_requests": 0,
+        "identity_mismatch": false,
+        "wall_seconds": 0,
+        "method": "rule",
+        "decision_count": 0,
+        "local_actions": 0,
+        "agent_routes": 0
+      },
+      "wall_seconds": 41.950452474993654,
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true
+      },
+      "source_unchanged": true,
+      "phase_usage": {
+        "initial": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "recovery": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "tool_agent": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        }
+      },
+      "recipe_selected": true,
+      "retrievals": 0,
+      "source_reads": 0,
+      "error_type": null,
+      "error": null,
+      "raw_folder": "/home/yiwei/.codex/outputs/forge-main-system-comparison-flash-v1/slot-02-jsoncpp-forge_experience"
+    },
+    {
+      "slot": 3,
+      "project": "jsoncpp",
+      "method": "strong_tool_agent",
+      "repetition": 1,
+      "stratum": "exact_reuse",
+      "primary_completed": true,
+      "main_task_completed": true,
+      "router_usage": null,
+      "wall_seconds": 50.69912258198019,
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true
+      },
+      "source_unchanged": true,
+      "phase_usage": {
+        "initial": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "recovery": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "tool_agent": {
+          "requests": 5,
+          "estimated_cost_usd": "0.0135519"
+        }
+      },
+      "recipe_selected": false,
+      "retrievals": 0,
+      "source_reads": 0,
+      "error_type": null,
+      "error": null,
+      "raw_folder": "/home/yiwei/.codex/outputs/forge-main-system-comparison-flash-v1/slot-03-jsoncpp-strong_tool_agent"
+    },
+    {
+      "slot": 4,
+      "project": "double-conversion",
+      "method": "forge_experience",
+      "repetition": 1,
+      "stratum": "no_recipe",
+      "primary_completed": true,
+      "main_task_completed": true,
+      "router_usage": {
+        "model_requests": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "estimated_cost_usd_completed_responses": "0",
+        "unknown_usage_requests": 0,
+        "identity_mismatch": false,
+        "wall_seconds": 0,
+        "method": "rule",
+        "decision_count": 1,
+        "local_actions": 1,
+        "agent_routes": 0
+      },
+      "wall_seconds": 157.73711599700619,
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true
+      },
+      "source_unchanged": true,
+      "phase_usage": {
+        "initial": {
+          "requests": 1,
+          "estimated_cost_usd": "0.00246"
+        },
+        "recovery": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "tool_agent": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        }
+      },
+      "recipe_selected": false,
+      "retrievals": 1,
+      "source_reads": 0,
+      "error_type": null,
+      "error": null,
+      "raw_folder": "/home/yiwei/.codex/outputs/forge-main-system-comparison-flash-v1/slot-04-double-conversion-forge_experience"
+    },
+    {
+      "slot": 5,
+      "project": "double-conversion",
+      "method": "strong_tool_agent",
+      "repetition": 1,
+      "stratum": "no_recipe",
+      "primary_completed": true,
+      "main_task_completed": true,
+      "router_usage": null,
+      "wall_seconds": 263.05599332007114,
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true
+      },
+      "source_unchanged": true,
+      "phase_usage": {
+        "initial": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "recovery": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "tool_agent": {
+          "requests": 31,
+          "estimated_cost_usd": "0.1188636"
+        }
+      },
+      "recipe_selected": false,
+      "retrievals": 0,
+      "source_reads": 0,
+      "error_type": null,
+      "error": null,
+      "raw_folder": "/home/yiwei/.codex/outputs/forge-main-system-comparison-flash-v1/slot-05-double-conversion-strong_tool_agent"
+    },
+    {
+      "slot": 6,
+      "project": "double-conversion",
+      "method": "forge",
+      "repetition": 1,
+      "stratum": "no_recipe",
+      "primary_completed": true,
+      "main_task_completed": true,
+      "router_usage": {
+        "model_requests": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "estimated_cost_usd_completed_responses": "0",
+        "unknown_usage_requests": 0,
+        "identity_mismatch": false,
+        "wall_seconds": 0,
+        "method": "rule",
+        "decision_count": 1,
+        "local_actions": 1,
+        "agent_routes": 0
+      },
+      "wall_seconds": 373.327487300965,
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true
+      },
+      "source_unchanged": true,
+      "phase_usage": {
+        "initial": {
+          "requests": 1,
+          "estimated_cost_usd": "0.0019638"
+        },
+        "recovery": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "tool_agent": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        }
+      },
+      "recipe_selected": false,
+      "retrievals": 0,
+      "source_reads": 0,
+      "error_type": null,
+      "error": null,
+      "raw_folder": "/home/yiwei/.codex/outputs/forge-main-system-comparison-flash-v1/slot-06-double-conversion-forge"
+    },
+    {
+      "slot": 7,
+      "project": "miniz",
+      "method": "strong_tool_agent",
+      "repetition": 1,
+      "stratum": "no_recipe",
+      "primary_completed": true,
+      "main_task_completed": true,
+      "router_usage": null,
+      "wall_seconds": 57.35313797998242,
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true
+      },
+      "source_unchanged": true,
+      "phase_usage": {
+        "initial": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "recovery": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "tool_agent": {
+          "requests": 4,
+          "estimated_cost_usd": "0.0123246"
+        }
+      },
+      "recipe_selected": false,
+      "retrievals": 0,
+      "source_reads": 1,
+      "error_type": null,
+      "error": null,
+      "raw_folder": "/home/yiwei/.codex/outputs/forge-main-system-comparison-flash-v1/slot-07-miniz-strong_tool_agent"
+    },
+    {
+      "slot": 8,
+      "project": "miniz",
+      "method": "forge",
+      "repetition": 1,
+      "stratum": "no_recipe",
+      "primary_completed": true,
+      "main_task_completed": true,
+      "router_usage": {
+        "model_requests": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "estimated_cost_usd_completed_responses": "0",
+        "unknown_usage_requests": 0,
+        "identity_mismatch": false,
+        "wall_seconds": 0,
+        "method": "rule",
+        "decision_count": 0,
+        "local_actions": 0,
+        "agent_routes": 0
+      },
+      "wall_seconds": 57.18875875300728,
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true
+      },
+      "source_unchanged": true,
+      "phase_usage": {
+        "initial": {
+          "requests": 3,
+          "estimated_cost_usd": "0.0087609"
+        },
+        "recovery": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "tool_agent": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        }
+      },
+      "recipe_selected": false,
+      "retrievals": 0,
+      "source_reads": 2,
+      "error_type": null,
+      "error": null,
+      "raw_folder": "/home/yiwei/.codex/outputs/forge-main-system-comparison-flash-v1/slot-08-miniz-forge"
+    },
+    {
+      "slot": 9,
+      "project": "miniz",
+      "method": "forge_experience",
+      "repetition": 1,
+      "stratum": "no_recipe",
+      "primary_completed": true,
+      "main_task_completed": true,
+      "router_usage": {
+        "model_requests": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "estimated_cost_usd_completed_responses": "0",
+        "unknown_usage_requests": 0,
+        "identity_mismatch": false,
+        "wall_seconds": 0,
+        "method": "rule",
+        "decision_count": 0,
+        "local_actions": 0,
+        "agent_routes": 0
+      },
+      "wall_seconds": 60.82061071309727,
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true
+      },
+      "source_unchanged": true,
+      "phase_usage": {
+        "initial": {
+          "requests": 3,
+          "estimated_cost_usd": "0.0111648"
+        },
+        "recovery": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "tool_agent": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        }
+      },
+      "recipe_selected": false,
+      "retrievals": 1,
+      "source_reads": 3,
+      "error_type": null,
+      "error": null,
+      "raw_folder": "/home/yiwei/.codex/outputs/forge-main-system-comparison-flash-v1/slot-09-miniz-forge_experience"
+    },
+    {
+      "slot": 10,
+      "project": "libite",
+      "method": "strong_tool_agent",
+      "repetition": 1,
+      "stratum": "exact_reuse",
+      "primary_completed": true,
+      "main_task_completed": true,
+      "router_usage": null,
+      "wall_seconds": 48.22602438600734,
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true
+      },
+      "source_unchanged": true,
+      "phase_usage": {
+        "initial": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "recovery": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "tool_agent": {
+          "requests": 8,
+          "estimated_cost_usd": "0.0206688"
+        }
+      },
+      "recipe_selected": false,
+      "retrievals": 0,
+      "source_reads": 3,
+      "error_type": null,
+      "error": null,
+      "raw_folder": "/home/yiwei/.codex/outputs/forge-main-system-comparison-flash-v1/slot-10-libite-strong_tool_agent"
+    },
+    {
+      "slot": 11,
+      "project": "libite",
+      "method": "forge_experience",
+      "repetition": 1,
+      "stratum": "exact_reuse",
+      "primary_completed": true,
+      "main_task_completed": true,
+      "router_usage": {
+        "model_requests": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "estimated_cost_usd_completed_responses": "0",
+        "unknown_usage_requests": 0,
+        "identity_mismatch": false,
+        "wall_seconds": 0,
+        "method": "rule",
+        "decision_count": 0,
+        "local_actions": 0,
+        "agent_routes": 0
+      },
+      "wall_seconds": 36.594277761993,
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true
+      },
+      "source_unchanged": true,
+      "phase_usage": {
+        "initial": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "recovery": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "tool_agent": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        }
+      },
+      "recipe_selected": true,
+      "retrievals": 0,
+      "source_reads": 0,
+      "error_type": null,
+      "error": null,
+      "raw_folder": "/home/yiwei/.codex/outputs/forge-main-system-comparison-flash-v1/slot-11-libite-forge_experience"
+    },
+    {
+      "slot": 12,
+      "project": "libite",
+      "method": "forge",
+      "repetition": 1,
+      "stratum": "exact_reuse",
+      "primary_completed": true,
+      "main_task_completed": true,
+      "router_usage": {
+        "model_requests": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "estimated_cost_usd_completed_responses": "0",
+        "unknown_usage_requests": 0,
+        "identity_mismatch": false,
+        "wall_seconds": 0,
+        "method": "rule",
+        "decision_count": 0,
+        "local_actions": 0,
+        "agent_routes": 0
+      },
+      "wall_seconds": 43.623981242999434,
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true
+      },
+      "source_unchanged": true,
+      "phase_usage": {
+        "initial": {
+          "requests": 3,
+          "estimated_cost_usd": "0.0060531"
+        },
+        "recovery": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "tool_agent": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        }
+      },
+      "recipe_selected": false,
+      "retrievals": 0,
+      "source_reads": 3,
+      "error_type": null,
+      "error": null,
+      "raw_folder": "/home/yiwei/.codex/outputs/forge-main-system-comparison-flash-v1/slot-12-libite-forge"
+    },
+    {
+      "slot": 13,
+      "project": "libogg",
+      "method": "forge",
+      "repetition": 1,
+      "stratum": "no_recipe",
+      "primary_completed": true,
+      "main_task_completed": true,
+      "router_usage": {
+        "model_requests": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "estimated_cost_usd_completed_responses": "0",
+        "unknown_usage_requests": 0,
+        "identity_mismatch": false,
+        "wall_seconds": 0,
+        "method": "rule",
+        "decision_count": 0,
+        "local_actions": 0,
+        "agent_routes": 0
+      },
+      "wall_seconds": 37.05504445498809,
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true
+      },
+      "source_unchanged": true,
+      "phase_usage": {
+        "initial": {
+          "requests": 2,
+          "estimated_cost_usd": "0.0066102"
+        },
+        "recovery": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "tool_agent": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        }
+      },
+      "recipe_selected": false,
+      "retrievals": 0,
+      "source_reads": 1,
+      "error_type": null,
+      "error": null,
+      "raw_folder": "/home/yiwei/.codex/outputs/forge-main-system-comparison-flash-v1/slot-13-libogg-forge"
+    },
+    {
+      "slot": 14,
+      "project": "libogg",
+      "method": "strong_tool_agent",
+      "repetition": 1,
+      "stratum": "no_recipe",
+      "primary_completed": true,
+      "main_task_completed": true,
+      "router_usage": null,
+      "wall_seconds": 40.887725032051094,
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true
+      },
+      "source_unchanged": true,
+      "phase_usage": {
+        "initial": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "recovery": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "tool_agent": {
+          "requests": 6,
+          "estimated_cost_usd": "0.0194394"
+        }
+      },
+      "recipe_selected": false,
+      "retrievals": 0,
+      "source_reads": 1,
+      "error_type": null,
+      "error": null,
+      "raw_folder": "/home/yiwei/.codex/outputs/forge-main-system-comparison-flash-v1/slot-14-libogg-strong_tool_agent"
+    },
+    {
+      "slot": 15,
+      "project": "libogg",
+      "method": "forge_experience",
+      "repetition": 1,
+      "stratum": "no_recipe",
+      "primary_completed": true,
+      "main_task_completed": true,
+      "router_usage": {
+        "model_requests": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "estimated_cost_usd_completed_responses": "0",
+        "unknown_usage_requests": 0,
+        "identity_mismatch": false,
+        "wall_seconds": 0,
+        "method": "rule",
+        "decision_count": 0,
+        "local_actions": 0,
+        "agent_routes": 0
+      },
+      "wall_seconds": 40.516333398991264,
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true
+      },
+      "source_unchanged": true,
+      "phase_usage": {
+        "initial": {
+          "requests": 3,
+          "estimated_cost_usd": "0.0110211"
+        },
+        "recovery": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "tool_agent": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        }
+      },
+      "recipe_selected": false,
+      "retrievals": 1,
+      "source_reads": 3,
+      "error_type": null,
+      "error": null,
+      "raw_folder": "/home/yiwei/.codex/outputs/forge-main-system-comparison-flash-v1/slot-15-libogg-forge_experience"
+    },
+    {
+      "slot": 16,
+      "project": "libsrtp",
+      "method": "forge_experience",
+      "repetition": 1,
+      "stratum": "no_recipe",
+      "primary_completed": true,
+      "main_task_completed": true,
+      "router_usage": {
+        "model_requests": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "estimated_cost_usd_completed_responses": "0",
+        "unknown_usage_requests": 0,
+        "identity_mismatch": false,
+        "wall_seconds": 0,
+        "method": "rule",
+        "decision_count": 0,
+        "local_actions": 0,
+        "agent_routes": 0
+      },
+      "wall_seconds": 33.267857735045254,
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true
+      },
+      "source_unchanged": true,
+      "phase_usage": {
+        "initial": {
+          "requests": 3,
+          "estimated_cost_usd": "0.0120093"
+        },
+        "recovery": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "tool_agent": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        }
+      },
+      "recipe_selected": false,
+      "retrievals": 1,
+      "source_reads": 2,
+      "error_type": null,
+      "error": null,
+      "raw_folder": "/home/yiwei/.codex/outputs/forge-main-system-comparison-flash-v1/slot-16-libsrtp-forge_experience"
+    },
+    {
+      "slot": 17,
+      "project": "libsrtp",
+      "method": "forge",
+      "repetition": 1,
+      "stratum": "no_recipe",
+      "primary_completed": true,
+      "main_task_completed": true,
+      "router_usage": {
+        "model_requests": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "estimated_cost_usd_completed_responses": "0",
+        "unknown_usage_requests": 0,
+        "identity_mismatch": false,
+        "wall_seconds": 0,
+        "method": "rule",
+        "decision_count": 0,
+        "local_actions": 0,
+        "agent_routes": 0
+      },
+      "wall_seconds": 33.5948983480921,
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true
+      },
+      "source_unchanged": true,
+      "phase_usage": {
+        "initial": {
+          "requests": 3,
+          "estimated_cost_usd": "0.0120063"
+        },
+        "recovery": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "tool_agent": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        }
+      },
+      "recipe_selected": false,
+      "retrievals": 0,
+      "source_reads": 2,
+      "error_type": null,
+      "error": null,
+      "raw_folder": "/home/yiwei/.codex/outputs/forge-main-system-comparison-flash-v1/slot-17-libsrtp-forge"
+    },
+    {
+      "slot": 18,
+      "project": "libsrtp",
+      "method": "strong_tool_agent",
+      "repetition": 1,
+      "stratum": "no_recipe",
+      "primary_completed": true,
+      "main_task_completed": true,
+      "router_usage": null,
+      "wall_seconds": 39.395633751992136,
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true
+      },
+      "source_unchanged": true,
+      "phase_usage": {
+        "initial": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "recovery": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "tool_agent": {
+          "requests": 7,
+          "estimated_cost_usd": "0.0231183"
+        }
+      },
+      "recipe_selected": false,
+      "retrievals": 0,
+      "source_reads": 0,
+      "error_type": null,
+      "error": null,
+      "raw_folder": "/home/yiwei/.codex/outputs/forge-main-system-comparison-flash-v1/slot-18-libsrtp-strong_tool_agent"
+    },
+    {
+      "slot": 19,
+      "project": "highwayhash",
+      "method": "forge",
+      "repetition": 1,
+      "stratum": "exact_reuse",
+      "primary_completed": true,
+      "main_task_completed": true,
+      "router_usage": {
+        "model_requests": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "estimated_cost_usd_completed_responses": "0",
+        "unknown_usage_requests": 0,
+        "identity_mismatch": false,
+        "wall_seconds": 0,
+        "method": "rule",
+        "decision_count": 0,
+        "local_actions": 0,
+        "agent_routes": 0
+      },
+      "wall_seconds": 25.28246943396516,
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true
+      },
+      "source_unchanged": true,
+      "phase_usage": {
+        "initial": {
+          "requests": 1,
+          "estimated_cost_usd": "0.0035259"
+        },
+        "recovery": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "tool_agent": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        }
+      },
+      "recipe_selected": false,
+      "retrievals": 0,
+      "source_reads": 0,
+      "error_type": null,
+      "error": null,
+      "raw_folder": "/home/yiwei/.codex/outputs/forge-main-system-comparison-flash-v1/slot-19-highwayhash-forge"
+    },
+    {
+      "slot": 20,
+      "project": "highwayhash",
+      "method": "forge_experience",
+      "repetition": 1,
+      "stratum": "exact_reuse",
+      "primary_completed": true,
+      "main_task_completed": true,
+      "router_usage": {
+        "model_requests": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "estimated_cost_usd_completed_responses": "0",
+        "unknown_usage_requests": 0,
+        "identity_mismatch": false,
+        "wall_seconds": 0,
+        "method": "rule",
+        "decision_count": 0,
+        "local_actions": 0,
+        "agent_routes": 0
+      },
+      "wall_seconds": 22.959064263966866,
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true
+      },
+      "source_unchanged": true,
+      "phase_usage": {
+        "initial": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "recovery": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "tool_agent": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        }
+      },
+      "recipe_selected": true,
+      "retrievals": 0,
+      "source_reads": 0,
+      "error_type": null,
+      "error": null,
+      "raw_folder": "/home/yiwei/.codex/outputs/forge-main-system-comparison-flash-v1/slot-20-highwayhash-forge_experience"
+    },
+    {
+      "slot": 21,
+      "project": "highwayhash",
+      "method": "strong_tool_agent",
+      "repetition": 1,
+      "stratum": "exact_reuse",
+      "primary_completed": true,
+      "main_task_completed": true,
+      "router_usage": null,
+      "wall_seconds": 28.342610434046946,
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true
+      },
+      "source_unchanged": true,
+      "phase_usage": {
+        "initial": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "recovery": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "tool_agent": {
+          "requests": 3,
+          "estimated_cost_usd": "0.0081633"
+        }
+      },
+      "recipe_selected": false,
+      "retrievals": 0,
+      "source_reads": 0,
+      "error_type": null,
+      "error": null,
+      "raw_folder": "/home/yiwei/.codex/outputs/forge-main-system-comparison-flash-v1/slot-21-highwayhash-strong_tool_agent"
+    },
+    {
+      "slot": 22,
+      "project": "xxhash",
+      "method": "forge_experience",
+      "repetition": 1,
+      "stratum": "no_recipe",
+      "primary_completed": true,
+      "main_task_completed": true,
+      "router_usage": {
+        "model_requests": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "estimated_cost_usd_completed_responses": "0",
+        "unknown_usage_requests": 0,
+        "identity_mismatch": false,
+        "wall_seconds": 0,
+        "method": "rule",
+        "decision_count": 0,
+        "local_actions": 0,
+        "agent_routes": 0
+      },
+      "wall_seconds": 19.793470000033267,
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true
+      },
+      "source_unchanged": true,
+      "phase_usage": {
+        "initial": {
+          "requests": 1,
+          "estimated_cost_usd": "0.0037137"
+        },
+        "recovery": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "tool_agent": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        }
+      },
+      "recipe_selected": false,
+      "retrievals": 1,
+      "source_reads": 0,
+      "error_type": null,
+      "error": null,
+      "raw_folder": "/home/yiwei/.codex/outputs/forge-main-system-comparison-flash-v1/slot-22-xxhash-forge_experience"
+    },
+    {
+      "slot": 23,
+      "project": "xxhash",
+      "method": "strong_tool_agent",
+      "repetition": 1,
+      "stratum": "no_recipe",
+      "primary_completed": true,
+      "main_task_completed": true,
+      "router_usage": null,
+      "wall_seconds": 31.974554048967548,
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true
+      },
+      "source_unchanged": true,
+      "phase_usage": {
+        "initial": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "recovery": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "tool_agent": {
+          "requests": 5,
+          "estimated_cost_usd": "0.0183558"
+        }
+      },
+      "recipe_selected": false,
+      "retrievals": 0,
+      "source_reads": 0,
+      "error_type": null,
+      "error": null,
+      "raw_folder": "/home/yiwei/.codex/outputs/forge-main-system-comparison-flash-v1/slot-23-xxhash-strong_tool_agent"
+    },
+    {
+      "slot": 24,
+      "project": "xxhash",
+      "method": "forge",
+      "repetition": 1,
+      "stratum": "no_recipe",
+      "primary_completed": true,
+      "main_task_completed": true,
+      "router_usage": {
+        "model_requests": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "estimated_cost_usd_completed_responses": "0",
+        "unknown_usage_requests": 0,
+        "identity_mismatch": false,
+        "wall_seconds": 0,
+        "method": "rule",
+        "decision_count": 0,
+        "local_actions": 0,
+        "agent_routes": 0
+      },
+      "wall_seconds": 19.180848349933513,
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true
+      },
+      "source_unchanged": true,
+      "phase_usage": {
+        "initial": {
+          "requests": 1,
+          "estimated_cost_usd": "0.0034221"
+        },
+        "recovery": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "tool_agent": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        }
+      },
+      "recipe_selected": false,
+      "retrievals": 0,
+      "source_reads": 0,
+      "error_type": null,
+      "error": null,
+      "raw_folder": "/home/yiwei/.codex/outputs/forge-main-system-comparison-flash-v1/slot-24-xxhash-forge"
+    },
+    {
+      "slot": 25,
+      "project": "pigz",
+      "method": "strong_tool_agent",
+      "repetition": 1,
+      "stratum": "no_recipe",
+      "primary_completed": true,
+      "main_task_completed": true,
+      "router_usage": null,
+      "wall_seconds": 15.685924716060981,
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true
+      },
+      "source_unchanged": true,
+      "phase_usage": {
+        "initial": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "recovery": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "tool_agent": {
+          "requests": 3,
+          "estimated_cost_usd": "0.0049266"
+        }
+      },
+      "recipe_selected": false,
+      "retrievals": 0,
+      "source_reads": 0,
+      "error_type": null,
+      "error": null,
+      "raw_folder": "/home/yiwei/.codex/outputs/forge-main-system-comparison-flash-v1/slot-25-pigz-strong_tool_agent"
+    },
+    {
+      "slot": 26,
+      "project": "pigz",
+      "method": "forge",
+      "repetition": 1,
+      "stratum": "no_recipe",
+      "primary_completed": true,
+      "main_task_completed": true,
+      "router_usage": {
+        "model_requests": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "estimated_cost_usd_completed_responses": "0",
+        "unknown_usage_requests": 0,
+        "identity_mismatch": false,
+        "wall_seconds": 0,
+        "method": "rule",
+        "decision_count": 0,
+        "local_actions": 0,
+        "agent_routes": 0
+      },
+      "wall_seconds": 16.162486555986106,
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true
+      },
+      "source_unchanged": true,
+      "phase_usage": {
+        "initial": {
+          "requests": 2,
+          "estimated_cost_usd": "0.0036453"
+        },
+        "recovery": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "tool_agent": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        }
+      },
+      "recipe_selected": false,
+      "retrievals": 0,
+      "source_reads": 0,
+      "error_type": null,
+      "error": null,
+      "raw_folder": "/home/yiwei/.codex/outputs/forge-main-system-comparison-flash-v1/slot-26-pigz-forge"
+    },
+    {
+      "slot": 27,
+      "project": "pigz",
+      "method": "forge_experience",
+      "repetition": 1,
+      "stratum": "no_recipe",
+      "primary_completed": true,
+      "main_task_completed": true,
+      "router_usage": {
+        "model_requests": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "estimated_cost_usd_completed_responses": "0",
+        "unknown_usage_requests": 0,
+        "identity_mismatch": false,
+        "wall_seconds": 0,
+        "method": "rule",
+        "decision_count": 0,
+        "local_actions": 0,
+        "agent_routes": 0
+      },
+      "wall_seconds": 14.754367189016193,
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true
+      },
+      "source_unchanged": true,
+      "phase_usage": {
+        "initial": {
+          "requests": 1,
+          "estimated_cost_usd": "0.0019641"
+        },
+        "recovery": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "tool_agent": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        }
+      },
+      "recipe_selected": false,
+      "retrievals": 1,
+      "source_reads": 0,
+      "error_type": null,
+      "error": null,
+      "raw_folder": "/home/yiwei/.codex/outputs/forge-main-system-comparison-flash-v1/slot-27-pigz-forge_experience"
+    },
+    {
+      "slot": 28,
+      "project": "jsoncpp",
+      "method": "strong_tool_agent",
+      "repetition": 2,
+      "stratum": "exact_reuse",
+      "primary_completed": true,
+      "main_task_completed": true,
+      "router_usage": null,
+      "wall_seconds": 54.410120203043334,
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true
+      },
+      "source_unchanged": true,
+      "phase_usage": {
+        "initial": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "recovery": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "tool_agent": {
+          "requests": 6,
+          "estimated_cost_usd": "0.0176067"
+        }
+      },
+      "recipe_selected": false,
+      "retrievals": 0,
+      "source_reads": 1,
+      "error_type": null,
+      "error": null,
+      "raw_folder": "/home/yiwei/.codex/outputs/forge-main-system-comparison-flash-v1/slot-28-jsoncpp-strong_tool_agent"
+    },
+    {
+      "slot": 29,
+      "project": "jsoncpp",
+      "method": "forge_experience",
+      "repetition": 2,
+      "stratum": "exact_reuse",
+      "primary_completed": true,
+      "main_task_completed": true,
+      "router_usage": {
+        "model_requests": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "estimated_cost_usd_completed_responses": "0",
+        "unknown_usage_requests": 0,
+        "identity_mismatch": false,
+        "wall_seconds": 0,
+        "method": "rule",
+        "decision_count": 0,
+        "local_actions": 0,
+        "agent_routes": 0
+      },
+      "wall_seconds": 42.463997356942855,
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true
+      },
+      "source_unchanged": true,
+      "phase_usage": {
+        "initial": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "recovery": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "tool_agent": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        }
+      },
+      "recipe_selected": true,
+      "retrievals": 0,
+      "source_reads": 0,
+      "error_type": null,
+      "error": null,
+      "raw_folder": "/home/yiwei/.codex/outputs/forge-main-system-comparison-flash-v1/slot-29-jsoncpp-forge_experience"
+    },
+    {
+      "slot": 30,
+      "project": "jsoncpp",
+      "method": "forge",
+      "repetition": 2,
+      "stratum": "exact_reuse",
+      "primary_completed": true,
+      "main_task_completed": true,
+      "router_usage": {
+        "model_requests": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "estimated_cost_usd_completed_responses": "0",
+        "unknown_usage_requests": 0,
+        "identity_mismatch": false,
+        "wall_seconds": 0,
+        "method": "rule",
+        "decision_count": 0,
+        "local_actions": 0,
+        "agent_routes": 0
+      },
+      "wall_seconds": 49.150352166965604,
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true
+      },
+      "source_unchanged": true,
+      "phase_usage": {
+        "initial": {
+          "requests": 2,
+          "estimated_cost_usd": "0.0061494"
+        },
+        "recovery": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "tool_agent": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        }
+      },
+      "recipe_selected": false,
+      "retrievals": 0,
+      "source_reads": 1,
+      "error_type": null,
+      "error": null,
+      "raw_folder": "/home/yiwei/.codex/outputs/forge-main-system-comparison-flash-v1/slot-30-jsoncpp-forge"
+    },
+    {
+      "slot": 31,
+      "project": "double-conversion",
+      "method": "forge",
+      "repetition": 2,
+      "stratum": "no_recipe",
+      "primary_completed": true,
+      "main_task_completed": true,
+      "router_usage": {
+        "model_requests": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "estimated_cost_usd_completed_responses": "0",
+        "unknown_usage_requests": 0,
+        "identity_mismatch": false,
+        "wall_seconds": 0,
+        "method": "rule",
+        "decision_count": 5,
+        "local_actions": 1,
+        "agent_routes": 4
+      },
+      "wall_seconds": 709.1166254320415,
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true
+      },
+      "source_unchanged": true,
+      "phase_usage": {
+        "initial": {
+          "requests": 1,
+          "estimated_cost_usd": "0.0019938"
+        },
+        "recovery": {
+          "requests": 7,
+          "estimated_cost_usd": "0.0517569"
+        },
+        "tool_agent": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        }
+      },
+      "recipe_selected": false,
+      "retrievals": 0,
+      "source_reads": 2,
+      "error_type": null,
+      "error": null,
+      "raw_folder": "/home/yiwei/.codex/outputs/forge-main-system-comparison-flash-v1/slot-31-double-conversion-forge"
+    },
+    {
+      "slot": 32,
+      "project": "double-conversion",
+      "method": "strong_tool_agent",
+      "repetition": 2,
+      "stratum": "no_recipe",
+      "primary_completed": true,
+      "main_task_completed": true,
+      "router_usage": null,
+      "wall_seconds": 269.401797074941,
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true
+      },
+      "source_unchanged": true,
+      "phase_usage": {
+        "initial": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "recovery": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "tool_agent": {
+          "requests": 16,
+          "estimated_cost_usd": "0.0374130"
+        }
+      },
+      "recipe_selected": false,
+      "retrievals": 0,
+      "source_reads": 1,
+      "error_type": null,
+      "error": null,
+      "raw_folder": "/home/yiwei/.codex/outputs/forge-main-system-comparison-flash-v1/slot-32-double-conversion-strong_tool_agent"
+    },
+    {
+      "slot": 33,
+      "project": "double-conversion",
+      "method": "forge_experience",
+      "repetition": 2,
+      "stratum": "no_recipe",
+      "primary_completed": true,
+      "main_task_completed": true,
+      "router_usage": {
+        "model_requests": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "estimated_cost_usd_completed_responses": "0",
+        "unknown_usage_requests": 0,
+        "identity_mismatch": false,
+        "wall_seconds": 0,
+        "method": "rule",
+        "decision_count": 1,
+        "local_actions": 1,
+        "agent_routes": 0
+      },
+      "wall_seconds": 98.7180955420481,
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true
+      },
+      "source_unchanged": true,
+      "phase_usage": {
+        "initial": {
+          "requests": 1,
+          "estimated_cost_usd": "0.002328"
+        },
+        "recovery": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "tool_agent": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        }
+      },
+      "recipe_selected": false,
+      "retrievals": 1,
+      "source_reads": 0,
+      "error_type": null,
+      "error": null,
+      "raw_folder": "/home/yiwei/.codex/outputs/forge-main-system-comparison-flash-v1/slot-33-double-conversion-forge_experience"
+    },
+    {
+      "slot": 34,
+      "project": "miniz",
+      "method": "forge_experience",
+      "repetition": 2,
+      "stratum": "no_recipe",
+      "primary_completed": true,
+      "main_task_completed": true,
+      "router_usage": {
+        "model_requests": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "estimated_cost_usd_completed_responses": "0",
+        "unknown_usage_requests": 0,
+        "identity_mismatch": false,
+        "wall_seconds": 0,
+        "method": "rule",
+        "decision_count": 0,
+        "local_actions": 0,
+        "agent_routes": 0
+      },
+      "wall_seconds": 53.803304989938624,
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true
+      },
+      "source_unchanged": true,
+      "phase_usage": {
+        "initial": {
+          "requests": 1,
+          "estimated_cost_usd": "0.0033348"
+        },
+        "recovery": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "tool_agent": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        }
+      },
+      "recipe_selected": false,
+      "retrievals": 1,
+      "source_reads": 0,
+      "error_type": null,
+      "error": null,
+      "raw_folder": "/home/yiwei/.codex/outputs/forge-main-system-comparison-flash-v1/slot-34-miniz-forge_experience"
+    },
+    {
+      "slot": 35,
+      "project": "miniz",
+      "method": "forge",
+      "repetition": 2,
+      "stratum": "no_recipe",
+      "primary_completed": true,
+      "main_task_completed": true,
+      "router_usage": {
+        "model_requests": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "estimated_cost_usd_completed_responses": "0",
+        "unknown_usage_requests": 0,
+        "identity_mismatch": false,
+        "wall_seconds": 0,
+        "method": "rule",
+        "decision_count": 0,
+        "local_actions": 0,
+        "agent_routes": 0
+      },
+      "wall_seconds": 58.705490792985074,
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true
+      },
+      "source_unchanged": true,
+      "phase_usage": {
+        "initial": {
+          "requests": 3,
+          "estimated_cost_usd": "0.0096750"
+        },
+        "recovery": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "tool_agent": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        }
+      },
+      "recipe_selected": false,
+      "retrievals": 0,
+      "source_reads": 3,
+      "error_type": null,
+      "error": null,
+      "raw_folder": "/home/yiwei/.codex/outputs/forge-main-system-comparison-flash-v1/slot-35-miniz-forge"
+    },
+    {
+      "slot": 36,
+      "project": "miniz",
+      "method": "strong_tool_agent",
+      "repetition": 2,
+      "stratum": "no_recipe",
+      "primary_completed": true,
+      "main_task_completed": true,
+      "router_usage": null,
+      "wall_seconds": 58.946383903035894,
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true
+      },
+      "source_unchanged": true,
+      "phase_usage": {
+        "initial": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "recovery": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "tool_agent": {
+          "requests": 5,
+          "estimated_cost_usd": "0.0159558"
+        }
+      },
+      "recipe_selected": false,
+      "retrievals": 0,
+      "source_reads": 1,
+      "error_type": null,
+      "error": null,
+      "raw_folder": "/home/yiwei/.codex/outputs/forge-main-system-comparison-flash-v1/slot-36-miniz-strong_tool_agent"
+    },
+    {
+      "slot": 37,
+      "project": "libite",
+      "method": "forge",
+      "repetition": 2,
+      "stratum": "exact_reuse",
+      "primary_completed": true,
+      "main_task_completed": true,
+      "router_usage": {
+        "model_requests": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "estimated_cost_usd_completed_responses": "0",
+        "unknown_usage_requests": 0,
+        "identity_mismatch": false,
+        "wall_seconds": 0,
+        "method": "rule",
+        "decision_count": 0,
+        "local_actions": 0,
+        "agent_routes": 0
+      },
+      "wall_seconds": 43.01495264703408,
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true
+      },
+      "source_unchanged": true,
+      "phase_usage": {
+        "initial": {
+          "requests": 3,
+          "estimated_cost_usd": "0.0057804"
+        },
+        "recovery": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "tool_agent": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        }
+      },
+      "recipe_selected": false,
+      "retrievals": 0,
+      "source_reads": 2,
+      "error_type": null,
+      "error": null,
+      "raw_folder": "/home/yiwei/.codex/outputs/forge-main-system-comparison-flash-v1/slot-37-libite-forge"
+    },
+    {
+      "slot": 38,
+      "project": "libite",
+      "method": "forge_experience",
+      "repetition": 2,
+      "stratum": "exact_reuse",
+      "primary_completed": true,
+      "main_task_completed": true,
+      "router_usage": {
+        "model_requests": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "estimated_cost_usd_completed_responses": "0",
+        "unknown_usage_requests": 0,
+        "identity_mismatch": false,
+        "wall_seconds": 0,
+        "method": "rule",
+        "decision_count": 0,
+        "local_actions": 0,
+        "agent_routes": 0
+      },
+      "wall_seconds": 36.666011217050254,
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true
+      },
+      "source_unchanged": true,
+      "phase_usage": {
+        "initial": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "recovery": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "tool_agent": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        }
+      },
+      "recipe_selected": true,
+      "retrievals": 0,
+      "source_reads": 0,
+      "error_type": null,
+      "error": null,
+      "raw_folder": "/home/yiwei/.codex/outputs/forge-main-system-comparison-flash-v1/slot-38-libite-forge_experience"
+    },
+    {
+      "slot": 39,
+      "project": "libite",
+      "method": "strong_tool_agent",
+      "repetition": 2,
+      "stratum": "exact_reuse",
+      "primary_completed": true,
+      "main_task_completed": true,
+      "router_usage": null,
+      "wall_seconds": 48.95987977797631,
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true
+      },
+      "source_unchanged": true,
+      "phase_usage": {
+        "initial": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "recovery": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "tool_agent": {
+          "requests": 8,
+          "estimated_cost_usd": "0.0186156"
+        }
+      },
+      "recipe_selected": false,
+      "retrievals": 0,
+      "source_reads": 2,
+      "error_type": null,
+      "error": null,
+      "raw_folder": "/home/yiwei/.codex/outputs/forge-main-system-comparison-flash-v1/slot-39-libite-strong_tool_agent"
+    },
+    {
+      "slot": 40,
+      "project": "libogg",
+      "method": "forge_experience",
+      "repetition": 2,
+      "stratum": "no_recipe",
+      "primary_completed": true,
+      "main_task_completed": true,
+      "router_usage": {
+        "model_requests": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "estimated_cost_usd_completed_responses": "0",
+        "unknown_usage_requests": 0,
+        "identity_mismatch": false,
+        "wall_seconds": 0,
+        "method": "rule",
+        "decision_count": 0,
+        "local_actions": 0,
+        "agent_routes": 0
+      },
+      "wall_seconds": 38.5985216149129,
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true
+      },
+      "source_unchanged": true,
+      "phase_usage": {
+        "initial": {
+          "requests": 3,
+          "estimated_cost_usd": "0.0105249"
+        },
+        "recovery": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "tool_agent": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        }
+      },
+      "recipe_selected": false,
+      "retrievals": 1,
+      "source_reads": 2,
+      "error_type": null,
+      "error": null,
+      "raw_folder": "/home/yiwei/.codex/outputs/forge-main-system-comparison-flash-v1/slot-40-libogg-forge_experience"
+    },
+    {
+      "slot": 41,
+      "project": "libogg",
+      "method": "strong_tool_agent",
+      "repetition": 2,
+      "stratum": "no_recipe",
+      "primary_completed": true,
+      "main_task_completed": true,
+      "router_usage": null,
+      "wall_seconds": 40.99941611196846,
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true
+      },
+      "source_unchanged": true,
+      "phase_usage": {
+        "initial": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "recovery": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "tool_agent": {
+          "requests": 6,
+          "estimated_cost_usd": "0.0193182"
+        }
+      },
+      "recipe_selected": false,
+      "retrievals": 0,
+      "source_reads": 1,
+      "error_type": null,
+      "error": null,
+      "raw_folder": "/home/yiwei/.codex/outputs/forge-main-system-comparison-flash-v1/slot-41-libogg-strong_tool_agent"
+    },
+    {
+      "slot": 42,
+      "project": "libogg",
+      "method": "forge",
+      "repetition": 2,
+      "stratum": "no_recipe",
+      "primary_completed": true,
+      "main_task_completed": true,
+      "router_usage": {
+        "model_requests": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "estimated_cost_usd_completed_responses": "0",
+        "unknown_usage_requests": 0,
+        "identity_mismatch": false,
+        "wall_seconds": 0,
+        "method": "rule",
+        "decision_count": 0,
+        "local_actions": 0,
+        "agent_routes": 0
+      },
+      "wall_seconds": 38.75638481299393,
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true
+      },
+      "source_unchanged": true,
+      "phase_usage": {
+        "initial": {
+          "requests": 3,
+          "estimated_cost_usd": "0.0099678"
+        },
+        "recovery": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "tool_agent": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        }
+      },
+      "recipe_selected": false,
+      "retrievals": 0,
+      "source_reads": 2,
+      "error_type": null,
+      "error": null,
+      "raw_folder": "/home/yiwei/.codex/outputs/forge-main-system-comparison-flash-v1/slot-42-libogg-forge"
+    },
+    {
+      "slot": 43,
+      "project": "libsrtp",
+      "method": "strong_tool_agent",
+      "repetition": 2,
+      "stratum": "no_recipe",
+      "primary_completed": null,
+      "main_task_completed": false,
+      "router_usage": null,
+      "wall_seconds": 28.99961232789792,
+      "layers": {
+        "command_build_passed": null,
+        "primary_build_completed": null,
+        "delivery": "unobserved",
+        "author_tests": "unobserved",
+        "clean_replay": "unobserved",
+        "full_completed": false,
+        "main_build_task_completed": false
+      },
+      "source_unchanged": null,
+      "phase_usage": {
+        "initial": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "recovery": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "tool_agent": {
+          "requests": 9,
+          "estimated_cost_usd": "0.0293838"
+        }
+      },
+      "recipe_selected": false,
+      "retrievals": 0,
+      "source_reads": 0,
+      "error_type": "OSError",
+      "error": "[Errno 7] Argument list too long: 'docker'",
+      "raw_folder": "/home/yiwei/.codex/outputs/forge-main-system-comparison-flash-v1/slot-43-libsrtp-strong_tool_agent"
+    },
+    {
+      "slot": 44,
+      "project": "libsrtp",
+      "method": "forge",
+      "repetition": 2,
+      "stratum": "no_recipe",
+      "primary_completed": true,
+      "main_task_completed": true,
+      "router_usage": {
+        "model_requests": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "estimated_cost_usd_completed_responses": "0",
+        "unknown_usage_requests": 0,
+        "identity_mismatch": false,
+        "wall_seconds": 0,
+        "method": "rule",
+        "decision_count": 0,
+        "local_actions": 0,
+        "agent_routes": 0
+      },
+      "wall_seconds": 33.2565815950511,
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true
+      },
+      "source_unchanged": true,
+      "phase_usage": {
+        "initial": {
+          "requests": 4,
+          "estimated_cost_usd": "0.0157938"
+        },
+        "recovery": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "tool_agent": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        }
+      },
+      "recipe_selected": false,
+      "retrievals": 0,
+      "source_reads": 3,
+      "error_type": null,
+      "error": null,
+      "raw_folder": "/home/yiwei/.codex/outputs/forge-main-system-comparison-flash-v1/slot-44-libsrtp-forge"
+    },
+    {
+      "slot": 45,
+      "project": "libsrtp",
+      "method": "forge_experience",
+      "repetition": 2,
+      "stratum": "no_recipe",
+      "primary_completed": true,
+      "main_task_completed": true,
+      "router_usage": {
+        "model_requests": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "estimated_cost_usd_completed_responses": "0",
+        "unknown_usage_requests": 0,
+        "identity_mismatch": false,
+        "wall_seconds": 0,
+        "method": "rule",
+        "decision_count": 0,
+        "local_actions": 0,
+        "agent_routes": 0
+      },
+      "wall_seconds": 31.28275042201858,
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true
+      },
+      "source_unchanged": true,
+      "phase_usage": {
+        "initial": {
+          "requests": 3,
+          "estimated_cost_usd": "0.0119286"
+        },
+        "recovery": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "tool_agent": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        }
+      },
+      "recipe_selected": false,
+      "retrievals": 1,
+      "source_reads": 2,
+      "error_type": null,
+      "error": null,
+      "raw_folder": "/home/yiwei/.codex/outputs/forge-main-system-comparison-flash-v1/slot-45-libsrtp-forge_experience"
+    },
+    {
+      "slot": 46,
+      "project": "highwayhash",
+      "method": "strong_tool_agent",
+      "repetition": 2,
+      "stratum": "exact_reuse",
+      "primary_completed": true,
+      "main_task_completed": true,
+      "router_usage": null,
+      "wall_seconds": 29.79604789603036,
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true
+      },
+      "source_unchanged": true,
+      "phase_usage": {
+        "initial": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "recovery": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "tool_agent": {
+          "requests": 4,
+          "estimated_cost_usd": "0.0108006"
+        }
+      },
+      "recipe_selected": false,
+      "retrievals": 0,
+      "source_reads": 0,
+      "error_type": null,
+      "error": null,
+      "raw_folder": "/home/yiwei/.codex/outputs/forge-main-system-comparison-flash-v1/slot-46-highwayhash-strong_tool_agent"
+    },
+    {
+      "slot": 47,
+      "project": "highwayhash",
+      "method": "forge_experience",
+      "repetition": 2,
+      "stratum": "exact_reuse",
+      "primary_completed": true,
+      "main_task_completed": true,
+      "router_usage": {
+        "model_requests": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "estimated_cost_usd_completed_responses": "0",
+        "unknown_usage_requests": 0,
+        "identity_mismatch": false,
+        "wall_seconds": 0,
+        "method": "rule",
+        "decision_count": 0,
+        "local_actions": 0,
+        "agent_routes": 0
+      },
+      "wall_seconds": 22.694771162001416,
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true
+      },
+      "source_unchanged": true,
+      "phase_usage": {
+        "initial": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "recovery": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "tool_agent": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        }
+      },
+      "recipe_selected": true,
+      "retrievals": 0,
+      "source_reads": 0,
+      "error_type": null,
+      "error": null,
+      "raw_folder": "/home/yiwei/.codex/outputs/forge-main-system-comparison-flash-v1/slot-47-highwayhash-forge_experience"
+    },
+    {
+      "slot": 48,
+      "project": "highwayhash",
+      "method": "forge",
+      "repetition": 2,
+      "stratum": "exact_reuse",
+      "primary_completed": true,
+      "main_task_completed": true,
+      "router_usage": {
+        "model_requests": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "estimated_cost_usd_completed_responses": "0",
+        "unknown_usage_requests": 0,
+        "identity_mismatch": false,
+        "wall_seconds": 0,
+        "method": "rule",
+        "decision_count": 0,
+        "local_actions": 0,
+        "agent_routes": 0
+      },
+      "wall_seconds": 25.107896407018416,
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true
+      },
+      "source_unchanged": true,
+      "phase_usage": {
+        "initial": {
+          "requests": 1,
+          "estimated_cost_usd": "0.0034179"
+        },
+        "recovery": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "tool_agent": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        }
+      },
+      "recipe_selected": false,
+      "retrievals": 0,
+      "source_reads": 0,
+      "error_type": null,
+      "error": null,
+      "raw_folder": "/home/yiwei/.codex/outputs/forge-main-system-comparison-flash-v1/slot-48-highwayhash-forge"
+    },
+    {
+      "slot": 49,
+      "project": "xxhash",
+      "method": "forge",
+      "repetition": 2,
+      "stratum": "no_recipe",
+      "primary_completed": true,
+      "main_task_completed": true,
+      "router_usage": {
+        "model_requests": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "estimated_cost_usd_completed_responses": "0",
+        "unknown_usage_requests": 0,
+        "identity_mismatch": false,
+        "wall_seconds": 0,
+        "method": "rule",
+        "decision_count": 0,
+        "local_actions": 0,
+        "agent_routes": 0
+      },
+      "wall_seconds": 20.904765031998977,
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true
+      },
+      "source_unchanged": true,
+      "phase_usage": {
+        "initial": {
+          "requests": 2,
+          "estimated_cost_usd": "0.0066846"
+        },
+        "recovery": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "tool_agent": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        }
+      },
+      "recipe_selected": false,
+      "retrievals": 0,
+      "source_reads": 0,
+      "error_type": null,
+      "error": null,
+      "raw_folder": "/home/yiwei/.codex/outputs/forge-main-system-comparison-flash-v1/slot-49-xxhash-forge"
+    },
+    {
+      "slot": 50,
+      "project": "xxhash",
+      "method": "strong_tool_agent",
+      "repetition": 2,
+      "stratum": "no_recipe",
+      "primary_completed": true,
+      "main_task_completed": true,
+      "router_usage": null,
+      "wall_seconds": 27.900682499981485,
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true
+      },
+      "source_unchanged": true,
+      "phase_usage": {
+        "initial": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "recovery": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "tool_agent": {
+          "requests": 6,
+          "estimated_cost_usd": "0.0168603"
+        }
+      },
+      "recipe_selected": false,
+      "retrievals": 0,
+      "source_reads": 1,
+      "error_type": null,
+      "error": null,
+      "raw_folder": "/home/yiwei/.codex/outputs/forge-main-system-comparison-flash-v1/slot-50-xxhash-strong_tool_agent"
+    },
+    {
+      "slot": 51,
+      "project": "xxhash",
+      "method": "forge_experience",
+      "repetition": 2,
+      "stratum": "no_recipe",
+      "primary_completed": true,
+      "main_task_completed": true,
+      "router_usage": {
+        "model_requests": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "estimated_cost_usd_completed_responses": "0",
+        "unknown_usage_requests": 0,
+        "identity_mismatch": false,
+        "wall_seconds": 0,
+        "method": "rule",
+        "decision_count": 0,
+        "local_actions": 0,
+        "agent_routes": 0
+      },
+      "wall_seconds": 19.15568308904767,
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true
+      },
+      "source_unchanged": true,
+      "phase_usage": {
+        "initial": {
+          "requests": 1,
+          "estimated_cost_usd": "0.0036861"
+        },
+        "recovery": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "tool_agent": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        }
+      },
+      "recipe_selected": false,
+      "retrievals": 1,
+      "source_reads": 0,
+      "error_type": null,
+      "error": null,
+      "raw_folder": "/home/yiwei/.codex/outputs/forge-main-system-comparison-flash-v1/slot-51-xxhash-forge_experience"
+    },
+    {
+      "slot": 52,
+      "project": "pigz",
+      "method": "forge_experience",
+      "repetition": 2,
+      "stratum": "no_recipe",
+      "primary_completed": true,
+      "main_task_completed": true,
+      "router_usage": {
+        "model_requests": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "estimated_cost_usd_completed_responses": "0",
+        "unknown_usage_requests": 0,
+        "identity_mismatch": false,
+        "wall_seconds": 0,
+        "method": "rule",
+        "decision_count": 0,
+        "local_actions": 0,
+        "agent_routes": 0
+      },
+      "wall_seconds": 15.34399655694142,
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true
+      },
+      "source_unchanged": true,
+      "phase_usage": {
+        "initial": {
+          "requests": 2,
+          "estimated_cost_usd": "0.0036462"
+        },
+        "recovery": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "tool_agent": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        }
+      },
+      "recipe_selected": false,
+      "retrievals": 1,
+      "source_reads": 0,
+      "error_type": null,
+      "error": null,
+      "raw_folder": "/home/yiwei/.codex/outputs/forge-main-system-comparison-flash-v1/slot-52-pigz-forge_experience"
+    },
+    {
+      "slot": 53,
+      "project": "pigz",
+      "method": "forge",
+      "repetition": 2,
+      "stratum": "no_recipe",
+      "primary_completed": true,
+      "main_task_completed": true,
+      "router_usage": {
+        "model_requests": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "estimated_cost_usd_completed_responses": "0",
+        "unknown_usage_requests": 0,
+        "identity_mismatch": false,
+        "wall_seconds": 0,
+        "method": "rule",
+        "decision_count": 0,
+        "local_actions": 0,
+        "agent_routes": 0
+      },
+      "wall_seconds": 16.550120688974857,
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true
+      },
+      "source_unchanged": true,
+      "phase_usage": {
+        "initial": {
+          "requests": 2,
+          "estimated_cost_usd": "0.0037212"
+        },
+        "recovery": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "tool_agent": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        }
+      },
+      "recipe_selected": false,
+      "retrievals": 0,
+      "source_reads": 0,
+      "error_type": null,
+      "error": null,
+      "raw_folder": "/home/yiwei/.codex/outputs/forge-main-system-comparison-flash-v1/slot-53-pigz-forge"
+    },
+    {
+      "slot": 54,
+      "project": "pigz",
+      "method": "strong_tool_agent",
+      "repetition": 2,
+      "stratum": "no_recipe",
+      "primary_completed": true,
+      "main_task_completed": true,
+      "router_usage": null,
+      "wall_seconds": 22.206664331024513,
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true
+      },
+      "source_unchanged": true,
+      "phase_usage": {
+        "initial": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "recovery": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "tool_agent": {
+          "requests": 5,
+          "estimated_cost_usd": "0.0096066"
+        }
+      },
+      "recipe_selected": false,
+      "retrievals": 0,
+      "source_reads": 0,
+      "error_type": null,
+      "error": null,
+      "raw_folder": "/home/yiwei/.codex/outputs/forge-main-system-comparison-flash-v1/slot-54-pigz-strong_tool_agent"
+    }
+  ],
+  "unobserved": [],
+  "historical_advice_preparation_cost_usd": "0.095129",
+  "historical_recipe_source_cost_usd": "0.0150984",
+  "boundary": "九个已开发暴露项目，三复用与六无方案任务分层，各两重复；三系统各三项目。同scope/Flash/镜像/资源/独立检查，无作者测试要求。总体仅对应该混合比例，不估纯状态增量、未见泛化或持续学习。旧结果不合分母。"
+}

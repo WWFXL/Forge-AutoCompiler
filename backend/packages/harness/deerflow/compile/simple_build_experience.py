@@ -19,6 +19,13 @@ historical_build_experience是其他项目的简短条件化动作建议，仅�
 """
 
 
+def recipe_validation_succeeded(task: PublicBuildTask, validation: dict) -> bool:
+    """按来源的真实任务范围保存方案；主构建成功不能冒称旧完整任务通过。"""
+    layers = validation.get("layers", {})
+    completed = validation.get("validation_scope") == "main_build" and layers.get("main_build_task_completed") is True and layers.get("delivery") == "passed" if task.task_version == "main-build-v1" else layers.get("full_completed") is True
+    return bool(completed and validation.get("source_unchanged") is True and validation.get("cleanup", {}).get("succeeded") is True and layers.get("clean_replay") == "passed" and layers.get("delivery") in {None, "passed"})
+
+
 class SimpleProjectRecipe(BaseModel):
     model_config = ConfigDict(frozen=True, extra="forbid")
 
@@ -29,9 +36,8 @@ class SimpleProjectRecipe(BaseModel):
 
     @model_validator(mode="after")
     def successful_source(self):
-        value = self.observed_validation
-        if not (value.get("layers", {}).get("full_completed") is True and value.get("source_unchanged") is True and value.get("cleanup", {}).get("succeeded") is True and value.get("layers", {}).get("clean_replay") == "passed"):
-            raise ValueError("加载的成功方案缺少完整成功、源码、重放或清理依据")
+        if not recipe_validation_succeeded(self.task, self.observed_validation):
+            raise ValueError("加载的成功方案缺少对应任务成功、源码、重放或清理依据")
         SimpleBuildPlan(task=self.task, steps=self.steps)
         return self
 
@@ -47,10 +53,8 @@ class SimpleProjectRecipe(BaseModel):
 
 def verified_simple_recipe(*, source_id, plan, validation):
     """保存实际成功动作及层级；不迁入旧固定测试/产物路径，也不请模型改写。"""
-    if not (
-        validation.get("layers", {}).get("full_completed") is True and validation.get("source_unchanged") is True and validation.get("cleanup", {}).get("succeeded") is True and validation.get("layers", {}).get("clean_replay") == "passed"
-    ):
-        raise PlanContractError("仅完整成功、源码保持且重放/清理成功的轨迹可登记可执行方案")
+    if not recipe_validation_succeeded(plan.task, validation):
+        raise PlanContractError("仅对应任务成功、源码保持且交付/重放/清理成功的轨迹可登记可执行方案")
     return SimpleProjectRecipe(source_id=source_id, task=plan.task, steps=plan.steps, observed_validation=copy.deepcopy(validation))
 
 

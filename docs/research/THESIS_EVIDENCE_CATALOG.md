@@ -1,5 +1,7 @@
 # 历史研究材料目录
 
+新增[E50](THESIS_EVIDENCE_INDEX.md#e50)：[54次主构建比较](2026-11-05-main-system-results.md)，独立完整分母，论文v0.7；[八个轨迹案例](2026-11-05-state-action-case-analysis.md)与E47/E48/E50重叠，不额外计实验。
+
 新增部分结果：[主构建与异常路由中断记录](2026-11-05-main-build-state-routing-results.md)，见[E49](THESIS_EVIDENCE_INDEX.md#e49)；3终态/21未启动，Jev权限拒绝与未知用量，不计完成的24槽效果比较。[准备报告](2026-11-05-main-build-state-routing-preparation.md)仅支持实现。
 
 新增结果：[2026-11-05两层经验联合流程36次系统比较](2026-11-05-two-level-system-results.md)，见[E48](THESIS_EVIDENCE_INDEX.md#e48)；[准备材料](2026-11-05-two-level-system-preparation.md)仅作实现与设置，不另增效果分母。
@@ -18,6 +20,9 @@
 
 |文件|论文登记|
 |---|---|
+|[2026-11-05-main-system-results.md](2026-11-05-main-system-results.md)|[E50](THESIS_EVIDENCE_INDEX.md#e50)，九项目54次主任务/费用/耗时、两层分层及负面工具边界|
+|[2026-11-05-state-action-case-analysis.md](2026-11-05-state-action-case-analysis.md)|E47/E48/E50八个重叠真实案例，不增独立分母|
+|[2026-11-05-main-system-preparation.md](2026-11-05-main-system-preparation.md)|#695三来源新scope实建与执行准备，只支持实现|
 |[2026-11-05-main-build-state-routing-results.md](2026-11-05-main-build-state-routing-results.md)|[E49](THESIS_EVIDENCE_INDEX.md#e49)新任务/命令修复、两条工程路径、3终态21未启动与权限阻塞；无Jev效果结论|
 |[2026-11-05-main-build-state-routing-preparation.md](2026-11-05-main-build-state-routing-preparation.md)|#693实现和比较准备；不增效果分母|
 |[2026-11-05-two-level-system-results.md](2026-11-05-two-level-system-results.md)|[E48](THESIS_EVIDENCE_INDEX.md#e48)三方法36次完整比较、两层经验收益/取舍、动作识别与零测试配置缺口；旧结果原样保留|

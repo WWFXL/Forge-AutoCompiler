@@ -1,0 +1,650 @@
+{
+  "identity": "cpp-build-main-system-comparison-flash-v1",
+  "completed": 54,
+  "expected": 54,
+  "unobserved": 0,
+  "stop_reason": null,
+  "estimated_cost_usd": "0.6565896",
+  "requests": 205,
+  "input_tokens": 1857676,
+  "output_tokens": 82739,
+  "inventory": "4c24f89d51d4dcec0d948909450765363433921252b2d1b62de600f3372488b8",
+  "summary": {
+    "all": {
+      "forge": {
+        "planned": 18,
+        "observed": 18,
+        "unobserved": 0,
+        "primary_completed": 18,
+        "main_task_completed": 18,
+        "delivery": {
+          "passed": 18
+        },
+        "clean_replay": {
+          "passed": 18
+        },
+        "model_requests": 45,
+        "estimated_cost_usd": "0.1638351",
+        "total_wall_seconds": 1645.1357681290247,
+        "initial_planning_seconds": 88.52911162888631,
+        "recovery_seconds": 147.10132184810936,
+        "author_tests": {
+          "not_required": 18
+        },
+        "phase_usage": {
+          "initial": {
+            "requests": 38,
+            "estimated_cost_usd": "0.1120782"
+          },
+          "recovery": {
+            "requests": 7,
+            "estimated_cost_usd": "0.0517569"
+          },
+          "tool_agent": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          }
+        },
+        "recipe_hits": 0,
+        "retrievals": 0,
+        "source_reads": 21,
+        "recovery_tasks": 4,
+        "verified_recipes_saved": 18,
+        "timings_seconds": {
+          "author_tests_seconds": 0.0026845195097848773,
+          "build_seconds": 128.12337249470875,
+          "clean_replay_seconds": 594.5211607980309,
+          "configure_seconds": 58.72216876398306,
+          "delivery_seconds": 3.3495502687292174,
+          "dependency_seconds": 546.1222959260922,
+          "initial_planning_seconds": 88.52911162888631,
+          "primary_build_seconds": 984.080499690841,
+          "recovery_agent_seconds": 147.10132184810936,
+          "recovery_execution_seconds": 558.8711173349293,
+          "result_location_seconds": 0.8262080849381164,
+          "time_to_primary_from_arm_start_seconds": 984.1045169039862,
+          "total_seconds_before_cleanup": 1582.9493822921067
+        },
+        "router_decisions": 6,
+        "local_actions": 2,
+        "agent_routes": 4,
+        "source_checks": {
+          "passed": 18
+        },
+        "cleanup_checks": {
+          "True": 18
+        }
+      },
+      "forge_experience": {
+        "planned": 18,
+        "observed": 18,
+        "unobserved": 0,
+        "primary_completed": 18,
+        "main_task_completed": 18,
+        "delivery": {
+          "passed": 18
+        },
+        "clean_replay": {
+          "passed": 18
+        },
+        "model_requests": 23,
+        "estimated_cost_usd": "0.0777816",
+        "total_wall_seconds": 787.1206814850448,
+        "initial_planning_seconds": 55.42733616800979,
+        "recovery_seconds": 0.0,
+        "author_tests": {
+          "not_required": 18
+        },
+        "phase_usage": {
+          "initial": {
+            "requests": 23,
+            "estimated_cost_usd": "0.0777816"
+          },
+          "recovery": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          },
+          "tool_agent": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          }
+        },
+        "recipe_hits": 6,
+        "retrievals": 12,
+        "source_reads": 12,
+        "recovery_tasks": 0,
+        "verified_recipes_saved": 18,
+        "timings_seconds": {
+          "author_tests_seconds": 0.0026027761632576585,
+          "build_seconds": 120.04483112506568,
+          "clean_replay_seconds": 345.00279493792914,
+          "configure_seconds": 58.63855919288471,
+          "delivery_seconds": 3.3731760299997404,
+          "dependency_seconds": 127.12883936101571,
+          "initial_planning_seconds": 55.42733616800979,
+          "primary_build_seconds": 375.7094362033531,
+          "recovery_agent_seconds": 0.0,
+          "recovery_execution_seconds": 131.5650587552227,
+          "result_location_seconds": 0.7751660168869421,
+          "time_to_primary_from_arm_start_seconds": 375.7332368240459,
+          "total_seconds_before_cleanup": 725.074621380074
+        },
+        "router_decisions": 2,
+        "local_actions": 2,
+        "agent_routes": 0,
+        "source_checks": {
+          "passed": 18
+        },
+        "cleanup_checks": {
+          "True": 18
+        }
+      },
+      "strong_tool_agent": {
+        "planned": 18,
+        "observed": 18,
+        "unobserved": 0,
+        "primary_completed": 17,
+        "main_task_completed": 17,
+        "delivery": {
+          "passed": 17,
+          "unobserved": 1
+        },
+        "clean_replay": {
+          "passed": 17,
+          "unobserved": 1
+        },
+        "model_requests": 137,
+        "estimated_cost_usd": "0.4149729",
+        "total_wall_seconds": 1157.241330377059,
+        "initial_planning_seconds": 0.0,
+        "recovery_seconds": 0.0,
+        "author_tests": {
+          "not_required": 17,
+          "unobserved": 1
+        },
+        "phase_usage": {
+          "initial": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          },
+          "recovery": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          },
+          "tool_agent": {
+            "requests": 137,
+            "estimated_cost_usd": "0.4149729"
+          }
+        },
+        "recipe_hits": 0,
+        "retrievals": 0,
+        "source_reads": 12,
+        "recovery_tasks": 0,
+        "verified_recipes_saved": 0,
+        "timings_seconds": {
+          "author_tests_seconds": 0.0023990649497136474,
+          "clean_replay_seconds": 356.57963454315905,
+          "delivery_seconds": 3.11424893012736,
+          "initial_planning_seconds": 0.0,
+          "recovery_agent_seconds": 0.0,
+          "time_to_primary_from_arm_start_seconds": 709.7391819251934,
+          "time_to_primary_seconds": 709.6947286091745,
+          "total_seconds_before_cleanup": 1070.3162514060969
+        },
+        "router_decisions": 0,
+        "local_actions": 0,
+        "agent_routes": 0,
+        "source_checks": {
+          "passed": 17,
+          "unobserved": 1
+        },
+        "cleanup_checks": {
+          "True": 18
+        }
+      }
+    },
+    "exact_reuse": {
+      "forge": {
+        "planned": 6,
+        "observed": 6,
+        "unobserved": 0,
+        "primary_completed": 6,
+        "main_task_completed": 6,
+        "delivery": {
+          "passed": 6
+        },
+        "clean_replay": {
+          "passed": 6
+        },
+        "model_requests": 11,
+        "estimated_cost_usd": "0.0278334",
+        "total_wall_seconds": 231.33627601200715,
+        "initial_planning_seconds": 27.684507113066502,
+        "recovery_seconds": 0.0,
+        "author_tests": {
+          "not_required": 6
+        },
+        "phase_usage": {
+          "initial": {
+            "requests": 11,
+            "estimated_cost_usd": "0.0278334"
+          },
+          "recovery": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          },
+          "tool_agent": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          }
+        },
+        "recipe_hits": 0,
+        "retrievals": 0,
+        "source_reads": 6,
+        "recovery_tasks": 0,
+        "verified_recipes_saved": 6,
+        "timings_seconds": {
+          "author_tests_seconds": 0.0011509808246046305,
+          "build_seconds": 54.85437988501508,
+          "clean_replay_seconds": 100.54617064504419,
+          "configure_seconds": 22.742124527925625,
+          "delivery_seconds": 0.9744297908619046,
+          "initial_planning_seconds": 27.684507113066502,
+          "primary_build_seconds": 108.92916191800032,
+          "recovery_agent_seconds": 0.0,
+          "result_location_seconds": 0.20567849883809686,
+          "time_to_primary_from_arm_start_seconds": 108.93773759901524,
+          "total_seconds_before_cleanup": 210.61669789615553
+        },
+        "router_decisions": 0,
+        "local_actions": 0,
+        "agent_routes": 0,
+        "source_checks": {
+          "passed": 6
+        },
+        "cleanup_checks": {
+          "True": 6
+        }
+      },
+      "forge_experience": {
+        "planned": 6,
+        "observed": 6,
+        "unobserved": 0,
+        "primary_completed": 6,
+        "main_task_completed": 6,
+        "delivery": {
+          "passed": 6
+        },
+        "clean_replay": {
+          "passed": 6
+        },
+        "model_requests": 0,
+        "estimated_cost_usd": "0.0",
+        "total_wall_seconds": 203.32857423694804,
+        "initial_planning_seconds": 0.0,
+        "recovery_seconds": 0.0,
+        "author_tests": {
+          "not_required": 6
+        },
+        "phase_usage": {
+          "initial": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          },
+          "recovery": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          },
+          "tool_agent": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          }
+        },
+        "recipe_hits": 6,
+        "retrievals": 0,
+        "source_reads": 0,
+        "recovery_tasks": 0,
+        "verified_recipes_saved": 6,
+        "timings_seconds": {
+          "author_tests_seconds": 0.0010524169774726033,
+          "build_seconds": 54.99656087416224,
+          "clean_replay_seconds": 100.11225526186172,
+          "configure_seconds": 22.858686543884687,
+          "delivery_seconds": 0.94215120410081,
+          "initial_planning_seconds": 0.0,
+          "primary_build_seconds": 81.73039588099346,
+          "recovery_agent_seconds": 0.0,
+          "result_location_seconds": 0.1848259159596637,
+          "time_to_primary_from_arm_start_seconds": 81.73857788892929,
+          "total_seconds_before_cleanup": 182.94856942503247
+        },
+        "router_decisions": 0,
+        "local_actions": 0,
+        "agent_routes": 0,
+        "source_checks": {
+          "passed": 6
+        },
+        "cleanup_checks": {
+          "True": 6
+        }
+      },
+      "strong_tool_agent": {
+        "planned": 6,
+        "observed": 6,
+        "unobserved": 0,
+        "primary_completed": 6,
+        "main_task_completed": 6,
+        "delivery": {
+          "passed": 6
+        },
+        "clean_replay": {
+          "passed": 6
+        },
+        "model_requests": 34,
+        "estimated_cost_usd": "0.0894069",
+        "total_wall_seconds": 260.4338052790845,
+        "initial_planning_seconds": 0.0,
+        "recovery_seconds": 0.0,
+        "author_tests": {
+          "not_required": 6
+        },
+        "phase_usage": {
+          "initial": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          },
+          "recovery": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          },
+          "tool_agent": {
+            "requests": 34,
+            "estimated_cost_usd": "0.0894069"
+          }
+        },
+        "recipe_hits": 0,
+        "retrievals": 0,
+        "source_reads": 6,
+        "recovery_tasks": 0,
+        "verified_recipes_saved": 0,
+        "timings_seconds": {
+          "author_tests_seconds": 0.0008945950539782643,
+          "clean_replay_seconds": 99.99497835605871,
+          "delivery_seconds": 0.9550024950876832,
+          "initial_planning_seconds": 0.0,
+          "recovery_agent_seconds": 0.0,
+          "time_to_primary_from_arm_start_seconds": 139.10913365113083,
+          "time_to_primary_seconds": 139.093451756984,
+          "total_seconds_before_cleanup": 240.24481213802937
+        },
+        "router_decisions": 0,
+        "local_actions": 0,
+        "agent_routes": 0,
+        "source_checks": {
+          "passed": 6
+        },
+        "cleanup_checks": {
+          "True": 6
+        }
+      }
+    },
+    "no_recipe": {
+      "forge": {
+        "planned": 12,
+        "observed": 12,
+        "unobserved": 0,
+        "primary_completed": 12,
+        "main_task_completed": 12,
+        "delivery": {
+          "passed": 12
+        },
+        "clean_replay": {
+          "passed": 12
+        },
+        "model_requests": 34,
+        "estimated_cost_usd": "0.1360017",
+        "total_wall_seconds": 1413.7994921170175,
+        "initial_planning_seconds": 60.84460451581981,
+        "recovery_seconds": 147.10132184810936,
+        "author_tests": {
+          "not_required": 12
+        },
+        "phase_usage": {
+          "initial": {
+            "requests": 27,
+            "estimated_cost_usd": "0.0842448"
+          },
+          "recovery": {
+            "requests": 7,
+            "estimated_cost_usd": "0.0517569"
+          },
+          "tool_agent": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          }
+        },
+        "recipe_hits": 0,
+        "retrievals": 0,
+        "source_reads": 15,
+        "recovery_tasks": 4,
+        "verified_recipes_saved": 12,
+        "timings_seconds": {
+          "author_tests_seconds": 0.0015335386851802468,
+          "build_seconds": 73.26899260969367,
+          "clean_replay_seconds": 493.9749901529867,
+          "configure_seconds": 35.98004423605744,
+          "delivery_seconds": 2.3751204778673127,
+          "dependency_seconds": 546.1222959260922,
+          "initial_planning_seconds": 60.84460451581981,
+          "primary_build_seconds": 875.1513377728406,
+          "recovery_agent_seconds": 147.10132184810936,
+          "recovery_execution_seconds": 558.8711173349293,
+          "result_location_seconds": 0.6205295861000195,
+          "time_to_primary_from_arm_start_seconds": 875.166779304971,
+          "total_seconds_before_cleanup": 1372.3326843959512
+        },
+        "router_decisions": 6,
+        "local_actions": 2,
+        "agent_routes": 4,
+        "source_checks": {
+          "passed": 12
+        },
+        "cleanup_checks": {
+          "True": 12
+        }
+      },
+      "forge_experience": {
+        "planned": 12,
+        "observed": 12,
+        "unobserved": 0,
+        "primary_completed": 12,
+        "main_task_completed": 12,
+        "delivery": {
+          "passed": 12
+        },
+        "clean_replay": {
+          "passed": 12
+        },
+        "model_requests": 23,
+        "estimated_cost_usd": "0.0777816",
+        "total_wall_seconds": 583.7921072480967,
+        "initial_planning_seconds": 55.42733616800979,
+        "recovery_seconds": 0.0,
+        "author_tests": {
+          "not_required": 12
+        },
+        "phase_usage": {
+          "initial": {
+            "requests": 23,
+            "estimated_cost_usd": "0.0777816"
+          },
+          "recovery": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          },
+          "tool_agent": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          }
+        },
+        "recipe_hits": 0,
+        "retrievals": 12,
+        "source_reads": 12,
+        "recovery_tasks": 0,
+        "verified_recipes_saved": 12,
+        "timings_seconds": {
+          "author_tests_seconds": 0.0015503591857850552,
+          "build_seconds": 65.04827025090344,
+          "clean_replay_seconds": 244.89053967606742,
+          "configure_seconds": 35.779872649000026,
+          "delivery_seconds": 2.4310248258989304,
+          "dependency_seconds": 127.12883936101571,
+          "initial_planning_seconds": 55.42733616800979,
+          "primary_build_seconds": 293.97904032235965,
+          "recovery_agent_seconds": 0.0,
+          "recovery_execution_seconds": 131.5650587552227,
+          "result_location_seconds": 0.5903401009272784,
+          "time_to_primary_from_arm_start_seconds": 293.9946589351166,
+          "total_seconds_before_cleanup": 542.1260519550415
+        },
+        "router_decisions": 2,
+        "local_actions": 2,
+        "agent_routes": 0,
+        "source_checks": {
+          "passed": 12
+        },
+        "cleanup_checks": {
+          "True": 12
+        }
+      },
+      "strong_tool_agent": {
+        "planned": 12,
+        "observed": 12,
+        "unobserved": 0,
+        "primary_completed": 11,
+        "main_task_completed": 11,
+        "delivery": {
+          "passed": 11,
+          "unobserved": 1
+        },
+        "clean_replay": {
+          "passed": 11,
+          "unobserved": 1
+        },
+        "model_requests": 103,
+        "estimated_cost_usd": "0.3255660",
+        "total_wall_seconds": 896.8075250979746,
+        "initial_planning_seconds": 0.0,
+        "recovery_seconds": 0.0,
+        "author_tests": {
+          "not_required": 11,
+          "unobserved": 1
+        },
+        "phase_usage": {
+          "initial": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          },
+          "recovery": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          },
+          "tool_agent": {
+            "requests": 103,
+            "estimated_cost_usd": "0.3255660"
+          }
+        },
+        "recipe_hits": 0,
+        "retrievals": 0,
+        "source_reads": 6,
+        "recovery_tasks": 0,
+        "verified_recipes_saved": 0,
+        "timings_seconds": {
+          "author_tests_seconds": 0.001504469895735383,
+          "clean_replay_seconds": 256.58465618710034,
+          "delivery_seconds": 2.1592464350396767,
+          "initial_planning_seconds": 0.0,
+          "recovery_agent_seconds": 0.0,
+          "time_to_primary_from_arm_start_seconds": 570.6300482740626,
+          "time_to_primary_seconds": 570.6012768521905,
+          "total_seconds_before_cleanup": 830.0714392680675
+        },
+        "router_decisions": 0,
+        "local_actions": 0,
+        "agent_routes": 0,
+        "source_checks": {
+          "passed": 11,
+          "unobserved": 1
+        },
+        "cleanup_checks": {
+          "True": 12
+        }
+      }
+    }
+  },
+  "common_main_three": {
+    "all": {
+      "pairs": 17,
+      "interpretation": "按三方法共同完整结果条件化的辅助描述，不替代全分母",
+      "methods": {
+        "forge": {
+          "requests": 41,
+          "estimated_cost_usd": "0.1480413",
+          "wall_seconds": 1611.8791865339736
+        },
+        "forge_experience": {
+          "requests": 20,
+          "estimated_cost_usd": "0.0658530",
+          "wall_seconds": 755.8379310630262
+        },
+        "strong_tool_agent": {
+          "requests": 128,
+          "estimated_cost_usd": "0.3855891",
+          "wall_seconds": 1128.2417180491611
+        }
+      }
+    },
+    "exact_reuse": {
+      "pairs": 6,
+      "interpretation": "按三方法共同完整结果条件化的辅助描述，不替代全分母",
+      "methods": {
+        "forge": {
+          "requests": 11,
+          "estimated_cost_usd": "0.0278334",
+          "wall_seconds": 231.33627601200715
+        },
+        "forge_experience": {
+          "requests": 0,
+          "estimated_cost_usd": "0",
+          "wall_seconds": 203.32857423694804
+        },
+        "strong_tool_agent": {
+          "requests": 34,
+          "estimated_cost_usd": "0.0894069",
+          "wall_seconds": 260.4338052790845
+        }
+      }
+    },
+    "no_recipe": {
+      "pairs": 11,
+      "interpretation": "按三方法共同完整结果条件化的辅助描述，不替代全分母",
+      "methods": {
+        "forge": {
+          "requests": 30,
+          "estimated_cost_usd": "0.1202079",
+          "wall_seconds": 1380.5429105219664
+        },
+        "forge_experience": {
+          "requests": 20,
+          "estimated_cost_usd": "0.0658530",
+          "wall_seconds": 552.5093568260781
+        },
+        "strong_tool_agent": {
+          "requests": 94,
+          "estimated_cost_usd": "0.2961822",
+          "wall_seconds": 867.8079127700767
+        }
+      }
+    }
+  }
+}

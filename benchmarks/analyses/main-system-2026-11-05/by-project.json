@@ -1,0 +1,236 @@
+{
+  "jsoncpp": {
+    "forge": {
+      "observed": 2,
+      "main_task_completed": 2,
+      "requests": 3,
+      "estimated_cost_usd": "0.0090561",
+      "wall_seconds": 94.30697628099006,
+      "stratum": "exact_reuse"
+    },
+    "forge_experience": {
+      "observed": 2,
+      "main_task_completed": 2,
+      "requests": 0,
+      "estimated_cost_usd": "0",
+      "wall_seconds": 84.41444983193651,
+      "stratum": "exact_reuse"
+    },
+    "strong_tool_agent": {
+      "observed": 2,
+      "main_task_completed": 2,
+      "requests": 11,
+      "estimated_cost_usd": "0.0311586",
+      "wall_seconds": 105.10924278502353,
+      "stratum": "exact_reuse"
+    }
+  },
+  "double-conversion": {
+    "forge": {
+      "observed": 2,
+      "main_task_completed": 2,
+      "requests": 9,
+      "estimated_cost_usd": "0.0557145",
+      "wall_seconds": 1082.4441127330065,
+      "stratum": "no_recipe"
+    },
+    "forge_experience": {
+      "observed": 2,
+      "main_task_completed": 2,
+      "requests": 2,
+      "estimated_cost_usd": "0.004788",
+      "wall_seconds": 256.4552115390543,
+      "stratum": "no_recipe"
+    },
+    "strong_tool_agent": {
+      "observed": 2,
+      "main_task_completed": 2,
+      "requests": 47,
+      "estimated_cost_usd": "0.1562766",
+      "wall_seconds": 532.4577903950121,
+      "stratum": "no_recipe"
+    }
+  },
+  "miniz": {
+    "forge": {
+      "observed": 2,
+      "main_task_completed": 2,
+      "requests": 6,
+      "estimated_cost_usd": "0.0184359",
+      "wall_seconds": 115.89424954599235,
+      "stratum": "no_recipe"
+    },
+    "forge_experience": {
+      "observed": 2,
+      "main_task_completed": 2,
+      "requests": 4,
+      "estimated_cost_usd": "0.0144996",
+      "wall_seconds": 114.62391570303589,
+      "stratum": "no_recipe"
+    },
+    "strong_tool_agent": {
+      "observed": 2,
+      "main_task_completed": 2,
+      "requests": 9,
+      "estimated_cost_usd": "0.0282804",
+      "wall_seconds": 116.29952188301831,
+      "stratum": "no_recipe"
+    }
+  },
+  "libite": {
+    "forge": {
+      "observed": 2,
+      "main_task_completed": 2,
+      "requests": 6,
+      "estimated_cost_usd": "0.0118335",
+      "wall_seconds": 86.63893389003351,
+      "stratum": "exact_reuse"
+    },
+    "forge_experience": {
+      "observed": 2,
+      "main_task_completed": 2,
+      "requests": 0,
+      "estimated_cost_usd": "0",
+      "wall_seconds": 73.26028897904325,
+      "stratum": "exact_reuse"
+    },
+    "strong_tool_agent": {
+      "observed": 2,
+      "main_task_completed": 2,
+      "requests": 16,
+      "estimated_cost_usd": "0.0392844",
+      "wall_seconds": 97.18590416398365,
+      "stratum": "exact_reuse"
+    }
+  },
+  "libogg": {
+    "forge": {
+      "observed": 2,
+      "main_task_completed": 2,
+      "requests": 5,
+      "estimated_cost_usd": "0.0165780",
+      "wall_seconds": 75.81142926798202,
+      "stratum": "no_recipe"
+    },
+    "forge_experience": {
+      "observed": 2,
+      "main_task_completed": 2,
+      "requests": 6,
+      "estimated_cost_usd": "0.0215460",
+      "wall_seconds": 79.11485501390416,
+      "stratum": "no_recipe"
+    },
+    "strong_tool_agent": {
+      "observed": 2,
+      "main_task_completed": 2,
+      "requests": 12,
+      "estimated_cost_usd": "0.0387576",
+      "wall_seconds": 81.88714114401955,
+      "stratum": "no_recipe"
+    }
+  },
+  "libsrtp": {
+    "forge": {
+      "observed": 2,
+      "main_task_completed": 2,
+      "requests": 7,
+      "estimated_cost_usd": "0.0278001",
+      "wall_seconds": 66.8514799431432,
+      "stratum": "no_recipe"
+    },
+    "forge_experience": {
+      "observed": 2,
+      "main_task_completed": 2,
+      "requests": 6,
+      "estimated_cost_usd": "0.0239379",
+      "wall_seconds": 64.55060815706383,
+      "stratum": "no_recipe"
+    },
+    "strong_tool_agent": {
+      "observed": 2,
+      "main_task_completed": 1,
+      "requests": 16,
+      "estimated_cost_usd": "0.0525021",
+      "wall_seconds": 68.39524607989006,
+      "stratum": "no_recipe"
+    }
+  },
+  "highwayhash": {
+    "forge": {
+      "observed": 2,
+      "main_task_completed": 2,
+      "requests": 2,
+      "estimated_cost_usd": "0.0069438",
+      "wall_seconds": 50.39036584098358,
+      "stratum": "exact_reuse"
+    },
+    "forge_experience": {
+      "observed": 2,
+      "main_task_completed": 2,
+      "requests": 0,
+      "estimated_cost_usd": "0",
+      "wall_seconds": 45.65383542596828,
+      "stratum": "exact_reuse"
+    },
+    "strong_tool_agent": {
+      "observed": 2,
+      "main_task_completed": 2,
+      "requests": 7,
+      "estimated_cost_usd": "0.0189639",
+      "wall_seconds": 58.138658330077305,
+      "stratum": "exact_reuse"
+    }
+  },
+  "xxhash": {
+    "forge": {
+      "observed": 2,
+      "main_task_completed": 2,
+      "requests": 3,
+      "estimated_cost_usd": "0.0101067",
+      "wall_seconds": 40.08561338193249,
+      "stratum": "no_recipe"
+    },
+    "forge_experience": {
+      "observed": 2,
+      "main_task_completed": 2,
+      "requests": 2,
+      "estimated_cost_usd": "0.0073998",
+      "wall_seconds": 38.94915308908094,
+      "stratum": "no_recipe"
+    },
+    "strong_tool_agent": {
+      "observed": 2,
+      "main_task_completed": 2,
+      "requests": 11,
+      "estimated_cost_usd": "0.0352161",
+      "wall_seconds": 59.87523654894903,
+      "stratum": "no_recipe"
+    }
+  },
+  "pigz": {
+    "forge": {
+      "observed": 2,
+      "main_task_completed": 2,
+      "requests": 4,
+      "estimated_cost_usd": "0.0073665",
+      "wall_seconds": 32.712607244960964,
+      "stratum": "no_recipe"
+    },
+    "forge_experience": {
+      "observed": 2,
+      "main_task_completed": 2,
+      "requests": 3,
+      "estimated_cost_usd": "0.0056103",
+      "wall_seconds": 30.098363745957613,
+      "stratum": "no_recipe"
+    },
+    "strong_tool_agent": {
+      "observed": 2,
+      "main_task_completed": 2,
+      "requests": 8,
+      "estimated_cost_usd": "0.0145332",
+      "wall_seconds": 37.892589047085494,
+      "stratum": "no_recipe"
+    }
+  }
+}

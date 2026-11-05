@@ -3,6 +3,7 @@
 跨 Claude Code session 的项目状态流水。按 CLAUDE.md §7 维护。
 
 ## 进行中 (In Progress)
+- 2026-11-05 — 当前#695的54次与论文v0.7导出已完成，无活动Provider；下一步全文审阅及学校格式，最终发布状态见GitHub及收据。下列早期进行中条目均为历史，当前阶段以RESEARCH_STATUS.md为准。
 - 2026-10-27 — #629准备当前CXXCrafter阶段性参考六槽，用户已明确继续，沿原10美元/UTC12:44:30截止，新阶段自限4美元。
   - 文件: `docs/research/2026-10-27-flash-thesis-experiment-results.md`, `RESEARCH_STATUS.md`。
   - 下一步: 优先复用已有任务与参考，保护CXXCrafter目录的用户修改，固定当前实际版本与共同任务/模型/资源/外部验收；bit7z仅有参考资格。libtommath共享引用故障仅做必要有限修复，不重跑本轮。论文优先，不先扩展分类器或递归Harness。
@@ -617,6 +618,18 @@
   - 下一步: 等待实验负责人确认当前网络接入介质，并决定是否授权只读 endpoint 诊断和新的 canary amendment；获得确认后必须另建中文 Issue/PR 和协议 identity，保留当前失败 marker。
 
 ## 最近变更 (Recent Changes)
+- 2026-11-05 — 完成#695主构建54次比较与论文v0.7整合，保存长尾及工具未完成。
+  - 文件: `scripts/forge_main_system_comparison.py`, `benchmarks/analyses/main-system-2026-11-05/`, `docs/research/2026-11-05-main-system-results.md`, `docs/thesis/`。
+  - 动机: Jev阻塞期间优先取得完整系统结果并推进论文，避免工程检查代替科研。
+  - 结果: 基础/经验/强工具主任务18/18、18/18、17/18，请求45/23/137，费0.1638351/0.0777816/0.4149729美元；精确六次零模型、时间低12.1%，总体经验时间差96.3%集中double-conversion。libsrtp强工具错误supporting后reset参数153264字节E2BIG，原未完成/后层未观察保留，不称编译器失败。
+  - 证据: run4cabe5ca、manifest912c342f、inventory4c24f89d；205响应/1940415Token/0.6565896美元/未知0，cleanup54通过、214名称/ID不存在；原件只读。新scope不回填旧作者测试失败，无Jev/重试/补槽/新方案回读。
+  - 边界: 自主授权下助手自限10美元/UTC07:44:31–15:44:31，准备计入；旧Jev未知费另列。八案例重叠E47/E48/E50，不增分母。v0.7约5.19万汉字、49表11图，Word/PDF/HTML已实际导出；最终发布/知识库状态以会话收据及GitHub为准，仅科研集成分支，用户原checkout保持。
+
+- 2026-11-05 — #695准备九项目三方法简洁主构建54次并整合论文，Jev服务不阻塞主比较。
+  - 文件: `scripts/forge_main_system_comparison.py`, `scripts/forge_main_system_sources.py`, `benchmarks/manifests/cpp-build-main-system-comparison-flash-v1.json`。
+  - 动机: 用户要求自主完成下一阶段；三历史方案按main-build-v1实建确认，主构建/交付/replay/源码/cleanup通过，0Provider，不计效果。保存新scope方案但不喂回本批；旧终态保持。相关13检查通过。
+  - 边界: 自限10美元/UTC07:44:31–15:44:31，54次/无重试，未知/身份/cleanup异常停；具体用户原话及代码绑定见会话授权收据。尚未完成正式数据采集，不把本准备当效果。原checkout修改保持。
+
 - 2026-11-05 — #693完成主构建修复、受限Jev路由及E49中断结果/论文记录。
   - 文件: `build_state_routing.py`, `scripts/forge_main_build_state_comparison.py`, `docs/research/2026-11-05-main-build-state-routing-results.md`, `benchmarks/analyses/main-build-state-routing-2026-11-05/`, 第3/4/6章及`RESEARCH_STATUS.md`。
   - 结果: 24计划槽3终态/21未启动；jsoncpp规则/Jev各一次主构建/交付/重放/源码/cleanup通过。double-conversion原CMake不足后首次Jev请求TypeSafePermissionDeniedError、用量未知，未产生选择或恢复，后层未观察；不把21槽填失败、不作Jev效果比较。Flash0请求/Jev1请求成功0，已知完成费0而总费未知。

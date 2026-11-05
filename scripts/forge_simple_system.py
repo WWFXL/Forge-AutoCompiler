@@ -30,7 +30,7 @@ from deerflow.compile.plan_agent import PlanAgentLedger  # noqa: E402
 from deerflow.compile.plan_agent_canary import source_packet  # noqa: E402
 from deerflow.compile.plan_workflow import PlanBudget, PlanStep, _digest  # noqa: E402
 from deerflow.compile.simple_build_agents import SimpleBuildMeter, SimpleToolBuildService, run_simple_tool_agent  # noqa: E402
-from deerflow.compile.simple_build_experience import SimpleProjectRecipe, SimpleStateTargetBank, verified_simple_recipe  # noqa: E402
+from deerflow.compile.simple_build_experience import SimpleProjectRecipe, SimpleStateTargetBank, recipe_validation_succeeded, verified_simple_recipe  # noqa: E402
 from deerflow.compile.simple_build_runtime import SimpleBuildWorkflow, source_unchanged  # noqa: E402
 from deerflow.compile.simple_build_task import BuildReference, PublicBuildTask, SimpleBuildPlan, propose_simple  # noqa: E402
 from deerflow.config.paths import Paths  # noqa: E402
@@ -214,7 +214,7 @@ def run_simple_system(*, task, reference, source_archive, output_root, method, m
         result["validation_scope"] = validation_scope
         if state_router is not None:
             result["router_usage"] = state_router.summary()
-        if final_plan is not None and method != "strong_tool_agent" and result.get("layers", {}).get("full_completed") is True:
+        if final_plan is not None and method != "strong_tool_agent" and recipe_validation_succeeded(task, result):
             value = verified_simple_recipe(source_id=root.name, plan=final_plan, validation=result)
             save(root / "verified-simple-recipe.json", value.model_dump(mode="json"))
         save(root / "result.json", result)
