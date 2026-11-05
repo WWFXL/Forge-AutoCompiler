@@ -1,0 +1,90 @@
+{
+  "interpretation": "事后敏感性与原因解释；全部54槽主表不改，不增加效果分母",
+  "runtime_inventory": "4c24f89d51d4dcec0d948909450765363433921252b2d1b62de600f3372488b8",
+  "cost_scenario": {
+    "online_experience_usd": "0.0777816",
+    "historical_recipe_acquisition_usd": "0.0150984",
+    "historical_bank_creation_usd": "0.095129",
+    "total_if_all_historical_costs_assigned_once_usd": "0.1880090",
+    "newly_paid_historical_costs": false,
+    "bank_preparation_wall_time": "not_independently_measured; not_imputed_as_zero"
+  },
+  "time_concentration": {
+    "all_base_minus_experience_seconds": 858.0150866439799,
+    "double_conversion_base_minus_experience_seconds": 825.9889011939522,
+    "fraction_of_total_difference": 0.9626740998514441,
+    "caution": "该集中性不证明差值来自经验；包含下载延迟和观察器对构建入口切换的边界"
+  },
+  "sensitivity_excluding_double_conversion": {
+    "forge": {
+      "observed": 16,
+      "requests": 36,
+      "estimated_cost_usd": "0.1081206",
+      "wall_seconds": 562.6916553960182
+    },
+    "forge_experience": {
+      "observed": 16,
+      "requests": 21,
+      "estimated_cost_usd": "0.0729936",
+      "wall_seconds": 530.6654699459905
+    },
+    "strong_tool_agent": {
+      "observed": 16,
+      "requests": 90,
+      "estimated_cost_usd": "0.2586963",
+      "wall_seconds": 624.7835399820469
+    }
+  },
+  "retrieval": {
+    "tasks": 12,
+    "empty": 2,
+    "context_bytes": 29294,
+    "task_internal_refreshes": 0,
+    "caution": "检索相关性不等于前提成立或实际采用；double-conversion条目主要是测试/依赖包经验，不是CMake版本升级经验"
+  },
+  "tool_failure": {
+    "slot": 43,
+    "project": "libsrtp",
+    "error_type": "OSError",
+    "error": "[Errno 7] Argument list too long: 'docker'",
+    "main_task_completed": false,
+    "independent_primary_validation": "unobserved",
+    "successful_configure_and_build": [
+      {
+        "command_id": "command_a2bd9ec20205432398cb1e28f24fdba4",
+        "role": "configure",
+        "command": "./configure",
+        "exit_code": 0
+      },
+      {
+        "command_id": "command_2b9f99a48bfa40efbfc68a2a29fe8d6a",
+        "role": "build",
+        "command": "make -j2",
+        "exit_code": 0
+      }
+    ],
+    "submit_rejection": "supporting_command_id指定失败diagnostic，且不在所给recipe中；不是实际build命令ID",
+    "reset_source_paths": 2382,
+    "reset_command_utf8_bytes": 153264,
+    "mechanism": "保护源码清单内嵌python3 -c，再通过docker exec参数传入；153264字节超过本机单参数约131072字节限制，进程启动前E2BIG",
+    "evidence": [
+      {
+        "path": "/home/yiwei/.codex/outputs/forge-main-system-comparison-flash-v1/slot-43-libsrtp-strong_tool_agent/result.json",
+        "sha256": "2b422a54fb9e7621616c58a1d1ff9c37f8a868f4f16be513bea5bf273cf0adf4"
+      },
+      {
+        "path": "/home/yiwei/.codex/outputs/forge-main-system-comparison-flash-v1/slot-43-libsrtp-strong_tool_agent/agent/events.jsonl",
+        "sha256": "455381a46fb9fdd299792592d90772dce5a92c8109719180cc60d46935edda54"
+      },
+      {
+        "path": "/home/yiwei/.codex/outputs/forge-main-system-comparison-flash-v1/slot-43-libsrtp-strong_tool_agent/.compile-sessions/simple-system/865759910fd0/session.json",
+        "sha256": "555bec7ce40c91ec86a039216d1b842c1833ff9ef7b283fe7b2c4634b86c0c61"
+      },
+      {
+        "path": "/home/yiwei/.codex/outputs/forge-new-project-preparation-2026-10-29/libsrtp/source.tar",
+        "sha256": "16897cf222293c2f99e370df96a0cb918b9e7599fe13e97df448d3bfeb2f242b"
+      }
+    ],
+    "limits": "make返回0及日志中库路径不代替独立主产物验收；源码终态未观察，cleanup成功；不修后补跑旧槽，不作模型编译能力劣势"
+  }
+}

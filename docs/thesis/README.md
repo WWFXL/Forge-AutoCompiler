@@ -1,66 +1,52 @@
 # Forge 硕士论文阶段初稿
 
-日期：2026-11-04；版本：v0.6；本轮跟踪：[Issue #668](https://github.com/WWFXL/Forge-AutoCompiler/issues/668)；历史完整比较：[Issue #660](https://github.com/WWFXL/Forge-AutoCompiler/issues/660)、[PR #661](https://github.com/WWFXL/Forge-AutoCompiler/pull/661)。
+日期：2026-11-05；版本：v0.7；本轮跟踪：[Issue #695](https://github.com/WWFXL/Forge-AutoCompiler/issues/695)、[PR #696](https://github.com/WWFXL/Forge-AutoCompiler/pull/696)。
 
 暂定题目：**面向C/C++仓库自动化构建的状态感知动作选择与验证方法研究**。
 
-本目录保存按章维护的论文真源。第3/4章基础方法、第5章经验实现及第6章独立比较分别对应证据，不把新增组件写进旧实验条件。当前是可供审阅的阶段正文；学校正式模板、封面、声明和最终文献格式尚待补齐。
+本目录是按章维护的论文真源，沿用七章框架。v0.7补齐E42–E50的系统演进、规划路由、两层经验、简洁主构建54次比较及八个真实阶段—动作案例，更新中英摘要、方法图、结果表、结论和附录。当前为导师审阅用阶段稿；学校正式模板、个人信息和最终文献格式仍待完成。
 
-2026-11-05补充：第3章新增简洁主构建范围与共同命令判定修复，第4章新增受限异常语义路由，第6章6.3.5保存[E49中断记录](../research/2026-11-05-main-build-state-routing-results.md)。24槽只运行3槽，首次Jev权限拒绝后保留21未启动，不支持Jev效果结论。此次更新Markdown正文及证据映射，Word/PDF/HTML阅读副本仍为下述v0.6，旧实验任务与数值保持。
+## 阅读入口
 
-## 从哪里阅读
+- [七章目录](CONTENTS.md)及`chapters/`：内容修改真源。
+- [正文—证据映射](EVIDENCE_MAP.md)：每张结果表的实验身份、分母、报告与边界。
+- [主构建系统54次报告](../research/2026-11-05-main-system-results.md)：本版核心主表、6/12分层、全部费用及长尾解释。
+- [八个轨迹案例](../research/2026-11-05-state-action-case-analysis.md)：成功、有限规则、Agent恢复、接口缺口与测试未注册；与原实验重叠，不另计样本。
+- [论文证据总索引](../research/THESIS_EVIDENCE_INDEX.md)与[待补清单](TODO.md)：完整历史数据及后续收束。
 
-- [完整目录](CONTENTS.md)与`chapters/`：正文修改真源，目录由导出程序生成。
-- [系统图](figures/system-overview.png)：实线为在线构建控制，紫色虚线为已实现的任务后经验与上下文数据流；虚线不表示效果已经证明，也不表示所有研究入口均已进入Web产品。
-- [正文—证据映射](EVIDENCE_MAP.md)：定位每张实验表的版本、分母与权威报告。
-- [本轮两层经验报告](../research/2026-11-04-two-level-experience-results.md)：同项目24次及独立跨项目36次完整比较，方案复用、状态目标检索与成本/时间取舍。
-- [前版短动作报告](../research/2026-11-03-transfer-action-experience-results.md)：独立36次；初始探索节约、恢复／部署成本取舍及空材料分层。
-- [前版过程经验报告](../research/2026-11-03-conditioned-experience-results.md)：独立48次、过程提炼/逐条选择、全部成本及采用/越界反例。
-- [前版经验报告](../research/2026-11-03-state-experience-comparison-results.md)：独立36次经验复用及12次更新，分母和旧失败保持。
-- [待补清单](TODO.md)与[文献BibTeX](references.bib)：后续写作与正式著录入口。
-
-v0.6新增E40/E41两个独立比较，补两层方法图5-2、表6-21–24及图6-6–7；同项目复用费低73.4%、时间接近，跨项目状态目标检索有有限在线收益及耗时/制库取舍。阅读副本位于`/home/yiwei/.codex/outputs/forge-thesis-two-level-2026-11-04/`，前缀`Forge-硕士论文阶段初稿-v0.6`；实际核对77页PDF、39表9图及新增方法/结果页，正文约4.30万汉字；导出统计和指纹见build-summary.json及export-verification.json。
-
-历史v0.5新增E39完整36次、表6-19/20与图6-5，保留E38中止及旧实验。新派生Word/PDF/HTML/Markdown在`/home/yiwei/.codex/outputs/forge-thesis-transfer-action-2026-11-03/`，前缀`Forge-硕士论文阶段初稿-v0.5`；实际核对66页PDF、33表6图及新增31/52–55页；正文约3.65万汉字。导出统计与文件指纹见该目录build-summary.json及export-verification.json。
-
-v0.4.1导出保留在forge-thesis-task-action-2026-11-03，62页PDF、31表5图。
-
-历史v0.4派生Word/PDF/HTML/Markdown位置为`/home/yiwei/.codex/outputs/forge-thesis-conditioned-experience-2026-11-03/`，文件名前缀`Forge-硕士论文阶段初稿-v0.4`。已实检61页PDF、31表5图，正文约3.27万汉字；文件指纹与新增页阅读核验见该目录build-summary.json及export-verification.json。v0.3保留在forge-thesis-experience-2026-11-03，v0.1/v0.2亦保留。各格式是同一正文的阅读副本，修改应回到本目录。
+阅读副本位于`/home/yiwei/.codex/outputs/forge-thesis-main-build-2026-11-05/`，文件前缀`Forge-硕士论文阶段初稿-v0.7`，包括Word、PDF、HTML、Markdown。已实查93页PDF、49表11图、正文约5.19万汉字；新增主流程、系统/分层表和案例页已阅读核验。表题随表格末行、简短表格整体和案例单行避免跨页拆开。统计、来源和文件哈希以同目录`build-summary.json`、`export-verification.json`为准。各格式来自同一正文，不维护多份真源。
 
 ## 当前完成范围
 
-| 部分 | v0.6内容 |
+| 部分 | v0.7内容 |
 |---|---|
-| 摘要、绪论、相关研究 | 按实际完成范围组织问题、贡献与文献定位，不称通用机制首创 |
-| 第3章 | 任务、阶段、目标、观测、验证条件与新系统数据流 |
-| 第4章 | 状态选择、直接动作、方案修订、后缀重执行及工具局部恢复 |
-| 第5章 | 实际经验schema、来源绑定、阶段/词项检索、上下文注入、任务后追加、过程证据、逐条必要信号选择、来源实例／迁移候选分离、同项目方案复用、状态目标选择及对应算法 |
-| 第6章 | E30/E33系统结果、E01/E02/E04组件、E34恢复接口、E35/E36/E37/E39/E40/E41独立经验比较、更新、分层验证及实际采用/越界反例 |
-| 第7章 | 根据对应版本的结果总结，区分方法可运行与效果成立 |
-| 附录 | 版本、主要运行参数、六项目源码版本及实验身份 |
-| 学校格式与个人信息 | 尚待正式模板及用户提供，不推断填写 |
+| 摘要与第1章 | 构建领域问题、阶段状态动作方法、两层经验及实际结论；不称通用机制首创 |
+| 第2章 | 自动化构建、Agent、Harness与经验相关工作；保留正式著录待补项 |
+| 第3章 | 任务/阶段/观察建模，历史完整任务与main-build-v1分开，新增实际主构建流程图3-2 |
+| 第4章 | 状态观察、有限直接动作、Agent修订、变化后缀、独立工具局部恢复；Jev仅接口实现与中断边界 |
+| 第5章 | 经验提炼与来源、一次任务检索、条件建议、精确成功方案、任务后更新及实际参数 |
+| 第6章 | E30/E33历史系统、E01/E02/E04组件、E34恢复、独立经验比较；新增E45–E48及E50主表7/8、图6-1和案例表30 |
+| 第7章 | 依版本总结正向、负向、费用/时间取舍与局限 |
+| 附录 | 实验身份、真实角色/提示/工具、参数及E50九项目源码版本 |
+| 学校格式与个人信息 | 正式模板、封面、声明、作者/导师和致谢待补，不推断填写 |
 
-## 编辑与生成
+E50各18次主任务基础/经验/强工具为18/18、18/18、17/18，在线费0.1638351/0.0777816/0.4149729美元；精确复用六次零模型且实际重建，时间比基础低12.1%。基础比强工具费低60.5%、时间高42.2%；经验总体时间差96.3%集中double-conversion，强工具一次提交/清理工具异常保留，不作编译能力排名。一次全归历史获取及制库时经验0.1880090美元仍高于基础在线，不隐去部署成本。
+
+## 编辑与导出
 
 ```bash
 python3 docs/thesis/tools/build_draft.py \
-  --version v0.6 --date 2026-11-04 \
-  --output-dir /home/yiwei/.codex/outputs/forge-thesis-two-level-2026-11-04 \
+  --version v0.7 --date 2026-11-05 \
+  --output-dir /home/yiwei/.codex/outputs/forge-thesis-main-build-2026-11-05 \
   --deps-dir /home/yiwei/.codex/outputs/forge-thesis-draft-2026-11-02/.doc-libs
 ```
 
-Word/HTML使用外部目录的`python-docx`、`Markdown`依赖；有系统安装可省略`--deps-dir`。PDF由LibreOffice从Word转换。图表由render_system.py、render_experience_selection.py及scripts/plot_experience_results.py、scripts/plot_conditioned_experience.py、scripts/plot_transfer_action_results.py生成PNG/SVG/PDF。文稿导出本身0 Provider，不代表本轮真实实验没有支出；无需为导出运行产品全测或编译容器。
+PDF由LibreOffice从Word转换。新图由`tools/render_main_workflow.py`和`scripts/plot_main_system_results.py`生成PNG/SVG/PDF；其余图保留对应历史脚本。导出不调用Provider，不为写作重新运行编译或产品全测。修改章内容后重新生成目录与阅读副本；第6章表格已按出现顺序统一编号，历史各版旧编号保留在原导出中。
 
-## 证据与能力边界
+## 历史稿与结论边界
 
-基础系统继续使用E30/E33，配置增量用E01/E02解释；E34工具局部恢复和E35/E36/E37经验比较各自独立。经验实验运行release bb08aaaa与公开准备提交6745dc5a的完整Git tree相同，源revision映射与最终发布以报告和PR为准。写作revision不替换实际实验revision。
+v0.6保留在`forge-thesis-two-level-2026-11-04`（77页PDF、39表9图），对应E40/E41；v0.5保留在`forge-thesis-transfer-action-2026-11-03`（66页、33表6图）；v0.4.1/v0.4分别保留在`forge-thesis-task-action-2026-11-03`与`forge-thesis-conditioned-experience-2026-11-03`，更早版本亦不覆盖。
 
-E35无经验/原轨迹/结构化完整12/12、12/12、8/12，结构化不支持总体优势，保留inja局部节约和底座误判等失败原因。提炼请求RichLab gpt-6-astra、响应gpt-5.6已按用户确认披露，不能证明后端为Astra或更强。固定经验与任务后更新分别评价，不能由检索命中推出自进化。全部负向结果和未观察保留；私人知识库通过MCP同步，不复制Vault或注入实验Agent。
+完整作者测试的旧实验与新主构建范围不同，不由跨批差值推修复因果。E49首次Jev权限拒绝且用量未知，没有语义选择响应，不能作为Jev有效或无效的证据。新状态/恢复效果依原消融，不由整体系统表倒推。原结构化经验、短动作经验、逐条选择与库更新有独立正反结果；精确复用不等于跨版本泛化，新方案保存不等于持续学习。
 
-E37四组完整11/12、12/12、12/12、11/12，旧经验在线费用低6.1%、时间接近，但含制库更贵。新过程和逐条选择未整体占优，保留局部节约、当前状态触发经验引用及误删原有文档Makefile的反例。旧实验不回写，导出文稿不改变运行release。
-
-E38已完成13条短动作提炼，但36比较槽均未观察；固定六项目初始选择全部为空。见[本轮报告](../research/2026-11-03-action-experience-stopped-and-repair.md)，不将调度修复或空经验比较写成方法效果。
-
-E39的C/B初始读取少33.3%、初始费低9.8%，恢复几乎抵消节约，总费仅低0.34%、时间更高，含制库更贵。部分有利波动出现在空材料任务；两个A未完整涉及过程与共同阶段分类限制，不写成经验普遍提高编译能力。运行revision0d78f589保持，不以写作HEAD替代。
-
-E40/E41运行release8a1d570f保持；两个分母分开，新增共1.6307448美元、248请求、未知0。方案复用不是编译缓存，目标变化试用不称精确命中；同24条库检索不是纯阶段因果或持续学习。获取成本另列，失败与旧稿保留。
+RichLab历史请求gpt-6-astra、响应gpt-5.6已披露，不能证明实际后端身份或更强模型效果。CXX社区实现只保留原实验参考，本轮没有重跑或声称胜过论文原版。私人知识库只供科研恢复、经MCP维护，不注入构建Agent。

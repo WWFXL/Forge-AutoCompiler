@@ -112,8 +112,10 @@ def make_docx(
             text_run(paragraph, child.tail, bold, italic, code)
 
     title_seen = False
-    for element in root:
+    for element_index, element in enumerate(root):
         tag = element.tag
+        following = root[element_index + 1] if element_index + 1 < len(root) else None
+        following_text = following.text_content() if following is not None else ""
         if tag in {"h1", "h2", "h3"}:
             level = int(tag[1])
             if level == 1 and not title_seen:
@@ -127,6 +129,7 @@ def make_docx(
             inline(paragraph, element)
         elif tag == "table":
             rows = element.xpath(".//tr")
+            compact = len(rows) <= 8 and len(element.text_content()) < 1400
             width = max(len(row) for row in rows)
             table = document.add_table(rows=0, cols=width)
             table.style = "Table Grid"
@@ -145,10 +148,19 @@ def make_docx(
                     inline(paragraph, source, bold=index == 0)
                     for run in paragraph.runs:
                         run.font.size = Pt(8 if width >= 6 else 9)
+                    if (compact or index == len(rows) - 1) and re.match(
+                        r"^表[0-9A-Z]", following_text
+                    ):
+                        paragraph.paragraph_format.keep_with_next = True
+                # 避免真实案例的一行在换页处被切成两半。
+                no_split = OxmlElement("w:cantSplit")
+                table.rows[-1]._tr.get_or_add_trPr().append(no_split)
                 if index == 0:
                     repeat = OxmlElement("w:tblHeader")
                     table.rows[0]._tr.get_or_add_trPr().append(repeat)
-            document.add_paragraph().paragraph_format.space_after = Pt(0)
+            spacer = document.add_paragraph().paragraph_format
+            spacer.space_after = Pt(0)
+            spacer.keep_with_next = bool(re.match(r"^表[0-9A-Z]", following_text))
         elif tag == "pre":
             paragraph = document.add_paragraph()
             paragraph.paragraph_format.line_spacing = 1.1
@@ -168,6 +180,8 @@ def make_docx(
         elif tag != "hr":
             paragraph = document.add_paragraph()
             inline(paragraph, element)
+            if element.xpath(".//img") and re.match(r"^图[0-9A-Z]", following_text):
+                paragraph.paragraph_format.keep_with_next = True
 
     document.save(target)
     return {
