@@ -1,0 +1,396 @@
+{
+  "identity": "cpp-build-two-level-system-fixture-v1",
+  "projects": [
+    {
+      "name": "jsoncpp",
+      "family": "jsoncpp",
+      "task": {
+        "task_version": "simple-build-v1",
+        "plan_id": "simple-jsoncpp",
+        "repository_url": "https://github.com/open-source-parsers/jsoncpp",
+        "commit_sha": "5defb4ed1a4293b8e2bf641e16b156fb9de498cc",
+        "image_id": "sha256:d27a6ab733c7c3a9cbb5e4b32fb595aa5a422ff04bd212888d1041b90a2c4c2a",
+        "source_archive_sha256": "bf07b3031052f56a67c2dee8b32107fdc57429734fe8dcb48ed4b8bbe698a83b",
+        "build_system": "cmake",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "a7fffd5a850554ac135249144c61ea4b11e51341db40d66091ff06625c1ed737",
+        "components": [
+          {
+            "name": "jsoncpp",
+            "artifact_names": [
+              "libjsoncpp.a",
+              "libjsoncpp_static.a",
+              "libjsoncpp.so",
+              "libjsoncpp.so.25",
+              "libjsoncpp.so.1.9.5"
+            ],
+            "kinds": [
+              "static_library",
+              "shared_library"
+            ],
+            "evidence": "src/lib_json/CMakeLists.txt:109-175；顶层CMakeLists.txt:84-94与200；作者doc/README.md:79-94"
+          }
+        ],
+        "author_tests": [
+          {
+            "step_id": "author-check",
+            "role": "smoke",
+            "command": "python3 -c 'import pathlib,subprocess\nroot=pathlib.Path('\"'\"'/workspace/repo'\"'\"').resolve()\nroots=[]\nfor p in root.rglob('\"'\"'CMakeCache.txt'\"'\"'):\n if p.is_symlink() or not p.resolve().is_relative_to(root): continue\n cache={line.split('\"'\"'='\"'\"',1)[0].split('\"'\"':'\"'\"',1)[0]:line.split('\"'\"'='\"'\"',1)[1] for line in p.read_text(errors='\"'\"'replace'\"'\"').splitlines() if '\"'\"'='\"'\"' in line and '\"'\"':'\"'\"' in line.split('\"'\"'='\"'\"',1)[0]}\n if pathlib.Path(cache.get('\"'\"'CMAKE_HOME_DIRECTORY'\"'\"','\"'\"'/nonexistent'\"'\"')).resolve()==root and (p.parent/'\"'\"'CTestTestfile.cmake'\"'\"').is_file(): roots.append(p.parent)\nif len(roots)!=1: raise SystemExit('\"'\"'Expected exactly one actual top-level CTest build directory; observed '\"'\"'+str(roots))\nsubprocess.run(['\"'\"'ctest'\"'\"','\"'\"'--test-dir'\"'\"',str(roots[0]),'\"'\"'-j1'\"'\"','\"'\"'--output-on-failure'\"'\"','\"'\"'--no-tests=error'\"'\"'],check=True)\n'",
+            "source": "src/lib_json/CMakeLists.txt:109-175；顶层CMakeLists.txt:84-94与200；作者doc/README.md:79-94",
+            "expected": "独立运行作者原测试，测试失败不撤销主构建",
+            "workdir": "/workspace/repo",
+            "requires": [],
+            "required_output": [
+              "100% tests passed"
+            ],
+            "diagnostic_paths": []
+          }
+        ],
+        "tests_not_applicable_reason": null
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-new-project-preparation-2026-10-29/jsoncpp/source.tar",
+      "evidence": "src/lib_json/CMakeLists.txt:109-175；顶层CMakeLists.txt:84-94与200；作者doc/README.md:79-94",
+      "exposure": {
+        "holdout": false,
+        "source_and_task_reviewed": true,
+        "prior_simple_engineering": true,
+        "role": "development_system_evaluation",
+        "prior_model_method_results": true,
+        "prior_reference_or_zero_provider_qualification": true
+      },
+      "language": "C++",
+      "stratum": "exact_reuse"
+    },
+    {
+      "name": "double-conversion",
+      "family": "double-conversion",
+      "task": {
+        "task_version": "simple-build-v1",
+        "plan_id": "simple-double-conversion",
+        "repository_url": "https://github.com/google/double-conversion",
+        "commit_sha": "71b329c21e8255643e9c5a23e1013c6eba4f604b",
+        "image_id": "sha256:d27a6ab733c7c3a9cbb5e4b32fb595aa5a422ff04bd212888d1041b90a2c4c2a",
+        "source_archive_sha256": "370f4ff0c80aeb518d72ef575e4de3064960bc59fbdb8b96dfa1aa3140650e90",
+        "build_system": "cmake",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "022df144e37d37f086d6edd902d899601b239f25cb93d1e7faa1292497bbf0a9",
+        "components": [
+          {
+            "name": "double-conversion",
+            "artifact_names": [
+              "libdouble-conversion.a",
+              "libdouble-conversion.so",
+              "libdouble-conversion.so.3",
+              "libdouble-conversion.so.3.4.0"
+            ],
+            "kinds": [
+              "static_library",
+              "shared_library"
+            ],
+            "evidence": "README.md:42-56; CMakeLists.txt:4-8,29-56; test/cctest/CMakeLists.txt:1-63"
+          }
+        ],
+        "author_tests": [
+          {
+            "step_id": "author-check",
+            "role": "smoke",
+            "command": "ctest --test-dir build -j1 --output-on-failure --no-tests=error",
+            "source": "README.md:42-56; CMakeLists.txt:4-8,29-56; test/cctest/CMakeLists.txt:1-63",
+            "expected": "独立执行作者普通测试入口",
+            "workdir": "/workspace/repo",
+            "requires": [],
+            "required_output": [
+              "100% tests passed"
+            ],
+            "diagnostic_paths": []
+          }
+        ],
+        "tests_not_applicable_reason": null
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-two-level-system-session-2026-11-05-v1/sources/double-conversion-source-v2.tar",
+      "evidence": "README.md:42-56; CMakeLists.txt:4-8,29-56; test/cctest/CMakeLists.txt:1-63",
+      "language": "C++",
+      "stratum": "no_recipe",
+      "exposure": {
+        "holdout": false,
+        "prior_model_method_results": false,
+        "source_and_task_reviewed": true,
+        "role": "new_project_after_reference_preparation"
+      }
+    },
+    {
+      "name": "libite",
+      "family": "libite",
+      "task": {
+        "task_version": "simple-build-v1",
+        "plan_id": "simple-libite",
+        "repository_url": "https://github.com/troglobit/libite",
+        "commit_sha": "b69d8a6013b50cbdfc7586cffd2f36c145e9e53a",
+        "image_id": "sha256:d27a6ab733c7c3a9cbb5e4b32fb595aa5a422ff04bd212888d1041b90a2c4c2a",
+        "source_archive_sha256": "11d027813d62793bda38798dd4cf85b8ce1a142908ce7937bd10b53e9bdceb5d",
+        "build_system": "autotools",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "9a79d999dae9773ea90fdd52e7dac688dfc0d545ec7ae46b35db922452a0f6ac",
+        "components": [
+          {
+            "name": "libite",
+            "artifact_names": [
+              "libite.a",
+              "libite.so",
+              "libite.so.5",
+              "libite.so.5.4.0"
+            ],
+            "kinds": [
+              "static_library",
+              "shared_library"
+            ],
+            "evidence": "README.md:100-130；src/Makefile.am:1-5；test/Makefile.am原21测试"
+          }
+        ],
+        "author_tests": [
+          {
+            "step_id": "author-check",
+            "role": "smoke",
+            "command": "make check",
+            "source": "README.md:100-130；src/Makefile.am:1-5；test/Makefile.am原21测试",
+            "expected": "独立运行作者原测试，测试失败不撤销主构建",
+            "workdir": "/workspace/repo",
+            "requires": [],
+            "required_output": [
+              "# TOTAL: 21",
+              "# PASS:  21"
+            ],
+            "diagnostic_paths": []
+          }
+        ],
+        "tests_not_applicable_reason": null
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-source-qualification-inputs-v1/libite.tar",
+      "evidence": "README.md:100-130；src/Makefile.am:1-5；test/Makefile.am原21测试",
+      "exposure": {
+        "holdout": false,
+        "source_and_task_reviewed": true,
+        "prior_simple_engineering": true,
+        "role": "development_system_evaluation",
+        "prior_model_method_results": false,
+        "prior_reference_or_zero_provider_qualification": true
+      },
+      "language": "C",
+      "stratum": "exact_reuse"
+    },
+    {
+      "name": "libogg",
+      "family": "libogg",
+      "task": {
+        "task_version": "simple-build-v1",
+        "plan_id": "simple-libogg",
+        "repository_url": "https://github.com/xiph/ogg",
+        "commit_sha": "be05b13e98b048f0b5a0f5fa8ce514d56db5f822",
+        "image_id": "sha256:d27a6ab733c7c3a9cbb5e4b32fb595aa5a422ff04bd212888d1041b90a2c4c2a",
+        "source_archive_sha256": "d8abdcfac1cf5c60b8c6f1926ba41fb5b501e441dfae05a9a853d329442af4ee",
+        "build_system": "autotools",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "fddc135c5358887969ee7d31ff5036565196c9fe9909ce5a66457fc44e8aa4d5",
+        "components": [
+          {
+            "name": "ogg",
+            "artifact_names": [
+              "libogg.a",
+              "libogg.so",
+              "libogg.so.0",
+              "libogg.so.0.8.6"
+            ],
+            "kinds": [
+              "static_library",
+              "shared_library"
+            ],
+            "evidence": "README.md:48-60,125-140; autogen.sh:1-13; src/Makefile.am:5-26; configure.ac:14-16"
+          }
+        ],
+        "author_tests": [
+          {
+            "step_id": "author-check",
+            "role": "smoke",
+            "command": "make -j1 check",
+            "source": "README.md:48-60,125-140; autogen.sh:1-13; src/Makefile.am:5-26; configure.ac:14-16",
+            "expected": "独立执行作者普通测试入口",
+            "workdir": "/workspace/repo",
+            "requires": [],
+            "required_output": [
+              "PASS: test_bitwise",
+              "PASS: test_framing"
+            ],
+            "diagnostic_paths": []
+          }
+        ],
+        "tests_not_applicable_reason": null
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-two-level-system-session-2026-11-05-v1/sources/libogg-source.tar",
+      "evidence": "README.md:48-60,125-140; autogen.sh:1-13; src/Makefile.am:5-26; configure.ac:14-16",
+      "language": "C",
+      "stratum": "no_recipe",
+      "exposure": {
+        "holdout": false,
+        "prior_model_method_results": false,
+        "source_and_task_reviewed": true,
+        "role": "new_project_after_reference_preparation"
+      }
+    },
+    {
+      "name": "highwayhash",
+      "family": "highwayhash",
+      "task": {
+        "task_version": "simple-build-v1",
+        "plan_id": "simple-highwayhash",
+        "repository_url": "https://github.com/google/highwayhash",
+        "commit_sha": "f8381f3331d9c56a9792f9b4a35f61c41108c39e",
+        "image_id": "sha256:d27a6ab733c7c3a9cbb5e4b32fb595aa5a422ff04bd212888d1041b90a2c4c2a",
+        "source_archive_sha256": "f49c09f0adb93597f3ab85d49c2b9673a32247608fa43d7416776040f930a339",
+        "build_system": "make",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "e8f5414812139540b9fc93333719e1826e7f0fb25173b74962f6b9504b461a28",
+        "components": [
+          {
+            "name": "highwayhash",
+            "artifact_names": [
+              "libhighwayhash.a",
+              "libhighwayhash.so"
+            ],
+            "kinds": [
+              "static_library",
+              "shared_library"
+            ],
+            "evidence": "README.md:10-14；Makefile:55-64,115-128（默认库及三个测试程序）"
+          }
+        ],
+        "author_tests": [
+          {
+            "step_id": "author-check",
+            "role": "smoke",
+            "command": "bin/highwayhash_test && bin/vector_test && bin/sip_hash_test",
+            "source": "README.md:10-14；Makefile:55-64,115-128（默认库及三个测试程序）",
+            "expected": "独立运行作者原测试，测试失败不撤销主构建",
+            "workdir": "/workspace/repo",
+            "requires": [],
+            "required_output": [
+              "VerifySipHash succeeded."
+            ],
+            "diagnostic_paths": []
+          }
+        ],
+        "tests_not_applicable_reason": null
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-new-project-preparation-2026-10-29/highwayhash/source.tar",
+      "evidence": "README.md:10-14；Makefile:55-64,115-128（默认库及三个测试程序）",
+      "exposure": {
+        "holdout": false,
+        "source_and_task_reviewed": true,
+        "prior_simple_engineering": false,
+        "role": "development_system_evaluation",
+        "prior_model_method_results": true,
+        "prior_reference_or_zero_provider_qualification": true
+      },
+      "language": "C++",
+      "stratum": "exact_reuse"
+    },
+    {
+      "name": "xxhash",
+      "family": "xxhash",
+      "task": {
+        "task_version": "simple-build-v1",
+        "plan_id": "simple-xxhash",
+        "repository_url": "https://github.com/Cyan4973/xxHash",
+        "commit_sha": "2ec67caeb18ec15ae60c0853174331089acddfc0",
+        "image_id": "sha256:d27a6ab733c7c3a9cbb5e4b32fb595aa5a422ff04bd212888d1041b90a2c4c2a",
+        "source_archive_sha256": "ba5de801c900cd86710827f8b331a2812d06a9a855d2ae34664fdb067aae17b4",
+        "build_system": "make",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "f2efd63f97ec57efc370a2423bcf075fb498129c4b8bcfa6b24e06a9f646e686",
+        "components": [
+          {
+            "name": "xxhash",
+            "artifact_names": [
+              "libxxhash.a",
+              "libxxhash.so",
+              "libxxhash.so.0",
+              "libxxhash.so.0.8.5"
+            ],
+            "kinds": [
+              "static_library",
+              "shared_library"
+            ],
+            "evidence": "README.md:89-105; Makefile:99-104,255-286; lib/xxh_api.h:142-145"
+          },
+          {
+            "name": "xxhsum",
+            "artifact_names": [
+              "xxhsum"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "README.md:89-105; Makefile:99-104,255-286; lib/xxh_api.h:142-145"
+          }
+        ],
+        "author_tests": [
+          {
+            "step_id": "author-check",
+            "role": "smoke",
+            "command": "make -j1 check",
+            "source": "README.md:89-105; Makefile:99-104,255-286; lib/xxh_api.h:142-145",
+            "expected": "独立执行作者普通测试入口",
+            "workdir": "/workspace/repo",
+            "requires": [],
+            "required_output": [
+              "checks completed successfully"
+            ],
+            "diagnostic_paths": []
+          }
+        ],
+        "tests_not_applicable_reason": null
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-two-level-system-session-2026-11-05-v1/sources/xxhash-source.tar",
+      "evidence": "README.md:89-105; Makefile:99-104,255-286; lib/xxh_api.h:142-145",
+      "language": "C",
+      "stratum": "no_recipe",
+      "exposure": {
+        "holdout": false,
+        "prior_model_method_results": false,
+        "source_and_task_reviewed": true,
+        "role": "new_project_after_reference_preparation"
+      }
+    }
+  ],
+  "reference_evidence": "/home/yiwei/.codex/outputs/forge-two-level-system-session-2026-11-05-v1/references",
+  "boundary": "三既有精确方案任务和三新增来源任务；全部先参考构建，非严格未见holdout"
+}

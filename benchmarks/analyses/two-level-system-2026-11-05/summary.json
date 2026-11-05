@@ -1,0 +1,455 @@
+{
+  "identity": "cpp-build-two-level-system-comparison-flash-v1",
+  "completed": 36,
+  "expected": 36,
+  "unobserved": 0,
+  "stop_reason": null,
+  "estimated_cost_usd": "0.4386348",
+  "requests": 142,
+  "input_tokens": 1195624,
+  "output_tokens": 66623,
+  "inventory": "beb04016020866cb522a869c32ae80374c2036d4f40472528ed166dc7a7801de",
+  "summary": {
+    "all": {
+      "forge": {
+        "planned": 12,
+        "observed": 12,
+        "unobserved": 0,
+        "primary_completed": 12,
+        "full_completed": 10,
+        "model_requests": 40,
+        "estimated_cost_usd": "0.1374321",
+        "total_wall_seconds": 721.9081608317792,
+        "initial_planning_seconds": 61.50219610298518,
+        "recovery_seconds": 136.7099829291692,
+        "author_tests": {
+          "passed": 10,
+          "failed": 2
+        },
+        "phase_usage": {
+          "initial": {
+            "requests": 26,
+            "estimated_cost_usd": "0.0708687"
+          },
+          "recovery": {
+            "requests": 14,
+            "estimated_cost_usd": "0.0665634"
+          },
+          "tool_agent": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          }
+        },
+        "recipe_hits": 0,
+        "retrievals": 0,
+        "source_reads": 26,
+        "recovery_tasks": 3,
+        "verified_recipes_saved": 10,
+        "source_checks": {
+          "passed": 12
+        },
+        "cleanup_checks": {
+          "True": 12
+        }
+      },
+      "forge_experience": {
+        "planned": 12,
+        "observed": 12,
+        "unobserved": 0,
+        "primary_completed": 11,
+        "full_completed": 10,
+        "model_requests": 20,
+        "estimated_cost_usd": "0.0850560",
+        "total_wall_seconds": 796.3070825589821,
+        "initial_planning_seconds": 80.00267734797671,
+        "recovery_seconds": 100.38970390299801,
+        "author_tests": {
+          "passed": 10,
+          "unobserved": 1,
+          "failed": 1
+        },
+        "phase_usage": {
+          "initial": {
+            "requests": 11,
+            "estimated_cost_usd": "0.0372045"
+          },
+          "recovery": {
+            "requests": 9,
+            "estimated_cost_usd": "0.0478515"
+          },
+          "tool_agent": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          }
+        },
+        "recipe_hits": 6,
+        "retrievals": 10,
+        "source_reads": 9,
+        "recovery_tasks": 4,
+        "verified_recipes_saved": 10,
+        "source_checks": {
+          "passed": 11,
+          "unobserved": 1
+        },
+        "cleanup_checks": {
+          "True": 12
+        }
+      },
+      "strong_tool_agent": {
+        "planned": 12,
+        "observed": 12,
+        "unobserved": 0,
+        "primary_completed": 12,
+        "full_completed": 10,
+        "model_requests": 82,
+        "estimated_cost_usd": "0.2161467",
+        "total_wall_seconds": 707.8026869628811,
+        "initial_planning_seconds": 0.0,
+        "recovery_seconds": 0.0,
+        "author_tests": {
+          "passed": 10,
+          "failed": 2
+        },
+        "phase_usage": {
+          "initial": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          },
+          "recovery": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          },
+          "tool_agent": {
+            "requests": 82,
+            "estimated_cost_usd": "0.2161467"
+          }
+        },
+        "recipe_hits": 0,
+        "retrievals": 0,
+        "source_reads": 8,
+        "recovery_tasks": 0,
+        "verified_recipes_saved": 0,
+        "source_checks": {
+          "passed": 12
+        },
+        "cleanup_checks": {
+          "True": 12
+        }
+      }
+    },
+    "exact_reuse": {
+      "forge": {
+        "planned": 6,
+        "observed": 6,
+        "unobserved": 0,
+        "primary_completed": 6,
+        "full_completed": 6,
+        "model_requests": 15,
+        "estimated_cost_usd": "0.0376155",
+        "total_wall_seconds": 300.5659170729341,
+        "initial_planning_seconds": 33.94372005399782,
+        "recovery_seconds": 0.0,
+        "author_tests": {
+          "passed": 6
+        },
+        "phase_usage": {
+          "initial": {
+            "requests": 15,
+            "estimated_cost_usd": "0.0376155"
+          },
+          "recovery": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          },
+          "tool_agent": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          }
+        },
+        "recipe_hits": 0,
+        "retrievals": 0,
+        "source_reads": 8,
+        "recovery_tasks": 0,
+        "verified_recipes_saved": 6,
+        "source_checks": {
+          "passed": 6
+        },
+        "cleanup_checks": {
+          "True": 6
+        }
+      },
+      "forge_experience": {
+        "planned": 6,
+        "observed": 6,
+        "unobserved": 0,
+        "primary_completed": 6,
+        "full_completed": 6,
+        "model_requests": 0,
+        "estimated_cost_usd": "0.0",
+        "total_wall_seconds": 266.8400065021124,
+        "initial_planning_seconds": 0.0,
+        "recovery_seconds": 0.0,
+        "author_tests": {
+          "passed": 6
+        },
+        "phase_usage": {
+          "initial": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          },
+          "recovery": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          },
+          "tool_agent": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          }
+        },
+        "recipe_hits": 6,
+        "retrievals": 0,
+        "source_reads": 0,
+        "recovery_tasks": 0,
+        "verified_recipes_saved": 6,
+        "source_checks": {
+          "passed": 6
+        },
+        "cleanup_checks": {
+          "True": 6
+        }
+      },
+      "strong_tool_agent": {
+        "planned": 6,
+        "observed": 6,
+        "unobserved": 0,
+        "primary_completed": 6,
+        "full_completed": 6,
+        "model_requests": 43,
+        "estimated_cost_usd": "0.1170879",
+        "total_wall_seconds": 360.0327597857686,
+        "initial_planning_seconds": 0.0,
+        "recovery_seconds": 0.0,
+        "author_tests": {
+          "passed": 6
+        },
+        "phase_usage": {
+          "initial": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          },
+          "recovery": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          },
+          "tool_agent": {
+            "requests": 43,
+            "estimated_cost_usd": "0.1170879"
+          }
+        },
+        "recipe_hits": 0,
+        "retrievals": 0,
+        "source_reads": 7,
+        "recovery_tasks": 0,
+        "verified_recipes_saved": 0,
+        "source_checks": {
+          "passed": 6
+        },
+        "cleanup_checks": {
+          "True": 6
+        }
+      }
+    },
+    "no_recipe": {
+      "forge": {
+        "planned": 6,
+        "observed": 6,
+        "unobserved": 0,
+        "primary_completed": 6,
+        "full_completed": 4,
+        "model_requests": 25,
+        "estimated_cost_usd": "0.0998166",
+        "total_wall_seconds": 421.34224375884514,
+        "initial_planning_seconds": 27.55847604898736,
+        "recovery_seconds": 136.7099829291692,
+        "author_tests": {
+          "failed": 2,
+          "passed": 4
+        },
+        "phase_usage": {
+          "initial": {
+            "requests": 11,
+            "estimated_cost_usd": "0.0332532"
+          },
+          "recovery": {
+            "requests": 14,
+            "estimated_cost_usd": "0.0665634"
+          },
+          "tool_agent": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          }
+        },
+        "recipe_hits": 0,
+        "retrievals": 0,
+        "source_reads": 18,
+        "recovery_tasks": 3,
+        "verified_recipes_saved": 4,
+        "source_checks": {
+          "passed": 6
+        },
+        "cleanup_checks": {
+          "True": 6
+        }
+      },
+      "forge_experience": {
+        "planned": 6,
+        "observed": 6,
+        "unobserved": 0,
+        "primary_completed": 5,
+        "full_completed": 4,
+        "model_requests": 20,
+        "estimated_cost_usd": "0.0850560",
+        "total_wall_seconds": 529.4670760568697,
+        "initial_planning_seconds": 80.00267734797671,
+        "recovery_seconds": 100.38970390299801,
+        "author_tests": {
+          "unobserved": 1,
+          "passed": 4,
+          "failed": 1
+        },
+        "phase_usage": {
+          "initial": {
+            "requests": 11,
+            "estimated_cost_usd": "0.0372045"
+          },
+          "recovery": {
+            "requests": 9,
+            "estimated_cost_usd": "0.0478515"
+          },
+          "tool_agent": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          }
+        },
+        "recipe_hits": 0,
+        "retrievals": 10,
+        "source_reads": 9,
+        "recovery_tasks": 4,
+        "verified_recipes_saved": 4,
+        "source_checks": {
+          "unobserved": 1,
+          "passed": 5
+        },
+        "cleanup_checks": {
+          "True": 6
+        }
+      },
+      "strong_tool_agent": {
+        "planned": 6,
+        "observed": 6,
+        "unobserved": 0,
+        "primary_completed": 6,
+        "full_completed": 4,
+        "model_requests": 39,
+        "estimated_cost_usd": "0.0990588",
+        "total_wall_seconds": 347.76992717711255,
+        "initial_planning_seconds": 0.0,
+        "recovery_seconds": 0.0,
+        "author_tests": {
+          "failed": 2,
+          "passed": 4
+        },
+        "phase_usage": {
+          "initial": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          },
+          "recovery": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          },
+          "tool_agent": {
+            "requests": 39,
+            "estimated_cost_usd": "0.0990588"
+          }
+        },
+        "recipe_hits": 0,
+        "retrievals": 0,
+        "source_reads": 1,
+        "recovery_tasks": 0,
+        "verified_recipes_saved": 0,
+        "source_checks": {
+          "passed": 6
+        },
+        "cleanup_checks": {
+          "True": 6
+        }
+      }
+    }
+  },
+  "common_full_three": {
+    "all": {
+      "pairs": 10,
+      "interpretation": "按三方法共同完整结果条件化的辅助描述，不替代全分母",
+      "methods": {
+        "forge": {
+          "requests": 23,
+          "estimated_cost_usd": "0.0649167",
+          "wall_seconds": 427.1312085178215
+        },
+        "forge_experience": {
+          "requests": 9,
+          "estimated_cost_usd": "0.0322521",
+          "wall_seconds": 447.4570474510547
+        },
+        "strong_tool_agent": {
+          "requests": 63,
+          "estimated_cost_usd": "0.1798167",
+          "wall_seconds": 507.6794531868072
+        }
+      }
+    },
+    "exact_reuse": {
+      "pairs": 6,
+      "interpretation": "按三方法共同完整结果条件化的辅助描述，不替代全分母",
+      "methods": {
+        "forge": {
+          "requests": 15,
+          "estimated_cost_usd": "0.0376155",
+          "wall_seconds": 300.5659170729341
+        },
+        "forge_experience": {
+          "requests": 0,
+          "estimated_cost_usd": "0",
+          "wall_seconds": 266.8400065021124
+        },
+        "strong_tool_agent": {
+          "requests": 43,
+          "estimated_cost_usd": "0.1170879",
+          "wall_seconds": 360.0327597857686
+        }
+      }
+    },
+    "no_recipe": {
+      "pairs": 4,
+      "interpretation": "按三方法共同完整结果条件化的辅助描述，不替代全分母",
+      "methods": {
+        "forge": {
+          "requests": 8,
+          "estimated_cost_usd": "0.0273012",
+          "wall_seconds": 126.56529144488741
+        },
+        "forge_experience": {
+          "requests": 9,
+          "estimated_cost_usd": "0.0322521",
+          "wall_seconds": 180.6170409489423
+        },
+        "strong_tool_agent": {
+          "requests": 20,
+          "estimated_cost_usd": "0.0627288",
+          "wall_seconds": 147.64669340103865
+        }
+      }
+    }
+  }
+}

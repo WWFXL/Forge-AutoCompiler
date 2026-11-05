@@ -1,0 +1,1622 @@
+[
+  {
+    "project": "jsoncpp",
+    "repetition": 1,
+    "methods": {
+      "forge": {
+        "slot": 1,
+        "project": "jsoncpp",
+        "repetition": 1,
+        "method": "forge",
+        "stratum": "exact_reuse",
+        "status": "primary_completed",
+        "primary_completed": true,
+        "full_completed": true,
+        "author_tests": "passed",
+        "delivery": "passed",
+        "clean_replay": "passed",
+        "source_unchanged": true,
+        "cleanup": true,
+        "requests": 2,
+        "input_tokens": 16964,
+        "output_tokens": 927,
+        "estimated_cost_usd": "0.0062016",
+        "wall_seconds": 54.50033865403384,
+        "initial_planning_seconds": 6.684149918961339,
+        "recovery_seconds": 0.0,
+        "phase_usage": {
+          "initial": {
+            "requests": 2,
+            "estimated_cost_usd": "0.0062016"
+          },
+          "recovery": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          },
+          "tool_agent": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          }
+        },
+        "recovery_tasks": 0,
+        "recipe_selected": false,
+        "verified_recipe_saved": true,
+        "retrievals": 0,
+        "source_reads": 1,
+        "error_type": null,
+        "error": null
+      },
+      "forge_experience": {
+        "slot": 2,
+        "project": "jsoncpp",
+        "repetition": 1,
+        "method": "forge_experience",
+        "stratum": "exact_reuse",
+        "status": "primary_completed",
+        "primary_completed": true,
+        "full_completed": true,
+        "author_tests": "passed",
+        "delivery": "passed",
+        "clean_replay": "passed",
+        "source_unchanged": true,
+        "cleanup": true,
+        "requests": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "estimated_cost_usd": "0",
+        "wall_seconds": 48.2812874619849,
+        "initial_planning_seconds": 0.0,
+        "recovery_seconds": 0.0,
+        "phase_usage": {
+          "initial": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          },
+          "recovery": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          },
+          "tool_agent": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          }
+        },
+        "recovery_tasks": 0,
+        "recipe_selected": true,
+        "verified_recipe_saved": true,
+        "retrievals": 0,
+        "source_reads": 0,
+        "error_type": null,
+        "error": null
+      },
+      "strong_tool_agent": {
+        "slot": 3,
+        "project": "jsoncpp",
+        "repetition": 1,
+        "method": "strong_tool_agent",
+        "stratum": "exact_reuse",
+        "status": "primary_completed",
+        "primary_completed": true,
+        "full_completed": true,
+        "author_tests": "passed",
+        "delivery": "passed",
+        "clean_replay": "passed",
+        "source_unchanged": true,
+        "cleanup": true,
+        "requests": 4,
+        "input_tokens": 34341,
+        "output_tokens": 563,
+        "estimated_cost_usd": "0.0109779",
+        "wall_seconds": 53.27913999604061,
+        "initial_planning_seconds": 0.0,
+        "recovery_seconds": 0.0,
+        "phase_usage": {
+          "initial": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          },
+          "recovery": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          },
+          "tool_agent": {
+            "requests": 4,
+            "estimated_cost_usd": "0.0109779"
+          }
+        },
+        "recovery_tasks": 0,
+        "recipe_selected": false,
+        "verified_recipe_saved": false,
+        "retrievals": 0,
+        "source_reads": 0,
+        "error_type": null,
+        "error": null
+      }
+    }
+  },
+  {
+    "project": "double-conversion",
+    "repetition": 1,
+    "methods": {
+      "forge": {
+        "slot": 6,
+        "project": "double-conversion",
+        "repetition": 1,
+        "method": "forge",
+        "stratum": "no_recipe",
+        "status": "primary_completed",
+        "primary_completed": true,
+        "full_completed": false,
+        "author_tests": "failed",
+        "delivery": "passed",
+        "clean_replay": "passed",
+        "source_unchanged": true,
+        "cleanup": true,
+        "requests": 6,
+        "input_tokens": 45305,
+        "output_tokens": 5724,
+        "estimated_cost_usd": "0.0204603",
+        "wall_seconds": 105.38530160393566,
+        "initial_planning_seconds": 3.0681451850105077,
+        "recovery_seconds": 33.567859497037716,
+        "phase_usage": {
+          "initial": {
+            "requests": 1,
+            "estimated_cost_usd": "0.0019818"
+          },
+          "recovery": {
+            "requests": 5,
+            "estimated_cost_usd": "0.0184785"
+          },
+          "tool_agent": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          }
+        },
+        "recovery_tasks": 1,
+        "recipe_selected": false,
+        "verified_recipe_saved": false,
+        "retrievals": 0,
+        "source_reads": 3,
+        "error_type": null,
+        "error": null
+      },
+      "forge_experience": {
+        "slot": 4,
+        "project": "double-conversion",
+        "repetition": 1,
+        "method": "forge_experience",
+        "stratum": "no_recipe",
+        "status": "error",
+        "primary_completed": false,
+        "full_completed": false,
+        "author_tests": "unobserved",
+        "delivery": "unobserved",
+        "clean_replay": "unobserved",
+        "source_unchanged": null,
+        "cleanup": true,
+        "requests": 4,
+        "input_tokens": 32984,
+        "output_tokens": 6169,
+        "estimated_cost_usd": "0.0172980",
+        "wall_seconds": 161.434738046024,
+        "initial_planning_seconds": 4.372211658046581,
+        "recovery_seconds": 32.866906695999205,
+        "phase_usage": {
+          "initial": {
+            "requests": 1,
+            "estimated_cost_usd": "0.002628"
+          },
+          "recovery": {
+            "requests": 3,
+            "estimated_cost_usd": "0.0146700"
+          },
+          "tool_agent": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          }
+        },
+        "recovery_tasks": 2,
+        "recipe_selected": false,
+        "verified_recipe_saved": false,
+        "retrievals": 3,
+        "source_reads": 1,
+        "error_type": "PlanContractError",
+        "error": "无变化修订不能触发相同失败的重复执行"
+      },
+      "strong_tool_agent": {
+        "slot": 5,
+        "project": "double-conversion",
+        "repetition": 1,
+        "method": "strong_tool_agent",
+        "stratum": "no_recipe",
+        "status": "primary_completed",
+        "primary_completed": true,
+        "full_completed": false,
+        "author_tests": "failed",
+        "delivery": "passed",
+        "clean_replay": "passed",
+        "source_unchanged": true,
+        "cleanup": true,
+        "requests": 6,
+        "input_tokens": 31199,
+        "output_tokens": 1140,
+        "estimated_cost_usd": "0.0107277",
+        "wall_seconds": 121.68548945407383,
+        "initial_planning_seconds": 0.0,
+        "recovery_seconds": 0.0,
+        "phase_usage": {
+          "initial": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          },
+          "recovery": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          },
+          "tool_agent": {
+            "requests": 6,
+            "estimated_cost_usd": "0.0107277"
+          }
+        },
+        "recovery_tasks": 0,
+        "recipe_selected": false,
+        "verified_recipe_saved": false,
+        "retrievals": 0,
+        "source_reads": 0,
+        "error_type": null,
+        "error": null
+      }
+    }
+  },
+  {
+    "project": "libite",
+    "repetition": 1,
+    "methods": {
+      "forge": {
+        "slot": 8,
+        "project": "libite",
+        "repetition": 1,
+        "method": "forge",
+        "stratum": "exact_reuse",
+        "status": "primary_completed",
+        "primary_completed": true,
+        "full_completed": true,
+        "author_tests": "passed",
+        "delivery": "passed",
+        "clean_replay": "passed",
+        "source_unchanged": true,
+        "cleanup": true,
+        "requests": 6,
+        "input_tokens": 38170,
+        "output_tokens": 1311,
+        "estimated_cost_usd": "0.0130242",
+        "wall_seconds": 73.91913793899585,
+        "initial_planning_seconds": 11.715391602017917,
+        "recovery_seconds": 0.0,
+        "phase_usage": {
+          "initial": {
+            "requests": 6,
+            "estimated_cost_usd": "0.0130242"
+          },
+          "recovery": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          },
+          "tool_agent": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          }
+        },
+        "recovery_tasks": 0,
+        "recipe_selected": false,
+        "verified_recipe_saved": true,
+        "retrievals": 0,
+        "source_reads": 4,
+        "error_type": null,
+        "error": null
+      },
+      "forge_experience": {
+        "slot": 9,
+        "project": "libite",
+        "repetition": 1,
+        "method": "forge_experience",
+        "stratum": "exact_reuse",
+        "status": "primary_completed",
+        "primary_completed": true,
+        "full_completed": true,
+        "author_tests": "passed",
+        "delivery": "passed",
+        "clean_replay": "passed",
+        "source_unchanged": true,
+        "cleanup": true,
+        "requests": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "estimated_cost_usd": "0",
+        "wall_seconds": 62.17798047605902,
+        "initial_planning_seconds": 0.0,
+        "recovery_seconds": 0.0,
+        "phase_usage": {
+          "initial": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          },
+          "recovery": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          },
+          "tool_agent": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          }
+        },
+        "recovery_tasks": 0,
+        "recipe_selected": true,
+        "verified_recipe_saved": true,
+        "retrievals": 0,
+        "source_reads": 0,
+        "error_type": null,
+        "error": null
+      },
+      "strong_tool_agent": {
+        "slot": 7,
+        "project": "libite",
+        "repetition": 1,
+        "method": "strong_tool_agent",
+        "stratum": "exact_reuse",
+        "status": "primary_completed",
+        "primary_completed": true,
+        "full_completed": true,
+        "author_tests": "passed",
+        "delivery": "passed",
+        "clean_replay": "passed",
+        "source_unchanged": true,
+        "cleanup": true,
+        "requests": 7,
+        "input_tokens": 44782,
+        "output_tokens": 1029,
+        "estimated_cost_usd": "0.0146694",
+        "wall_seconds": 72.854890123941,
+        "initial_planning_seconds": 0.0,
+        "recovery_seconds": 0.0,
+        "phase_usage": {
+          "initial": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          },
+          "recovery": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          },
+          "tool_agent": {
+            "requests": 7,
+            "estimated_cost_usd": "0.0146694"
+          }
+        },
+        "recovery_tasks": 0,
+        "recipe_selected": false,
+        "verified_recipe_saved": false,
+        "retrievals": 0,
+        "source_reads": 1,
+        "error_type": null,
+        "error": null
+      }
+    }
+  },
+  {
+    "project": "libogg",
+    "repetition": 1,
+    "methods": {
+      "forge": {
+        "slot": 12,
+        "project": "libogg",
+        "repetition": 1,
+        "method": "forge",
+        "stratum": "no_recipe",
+        "status": "primary_completed",
+        "primary_completed": true,
+        "full_completed": true,
+        "author_tests": "passed",
+        "delivery": "passed",
+        "clean_replay": "passed",
+        "source_unchanged": true,
+        "cleanup": true,
+        "requests": 3,
+        "input_tokens": 30333,
+        "output_tokens": 836,
+        "estimated_cost_usd": "0.0101031",
+        "wall_seconds": 38.771607142989524,
+        "initial_planning_seconds": 6.193461155053228,
+        "recovery_seconds": 0.0,
+        "phase_usage": {
+          "initial": {
+            "requests": 3,
+            "estimated_cost_usd": "0.0101031"
+          },
+          "recovery": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          },
+          "tool_agent": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          }
+        },
+        "recovery_tasks": 0,
+        "recipe_selected": false,
+        "verified_recipe_saved": true,
+        "retrievals": 0,
+        "source_reads": 3,
+        "error_type": null,
+        "error": null
+      },
+      "forge_experience": {
+        "slot": 11,
+        "project": "libogg",
+        "repetition": 1,
+        "method": "forge_experience",
+        "stratum": "no_recipe",
+        "status": "primary_completed",
+        "primary_completed": true,
+        "full_completed": true,
+        "author_tests": "passed",
+        "delivery": "passed",
+        "clean_replay": "passed",
+        "source_unchanged": true,
+        "cleanup": true,
+        "requests": 3,
+        "input_tokens": 31471,
+        "output_tokens": 751,
+        "estimated_cost_usd": "0.0103425",
+        "wall_seconds": 91.73645167401992,
+        "initial_planning_seconds": 59.115264953929,
+        "recovery_seconds": 0.0,
+        "phase_usage": {
+          "initial": {
+            "requests": 3,
+            "estimated_cost_usd": "0.0103425"
+          },
+          "recovery": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          },
+          "tool_agent": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          }
+        },
+        "recovery_tasks": 0,
+        "recipe_selected": false,
+        "verified_recipe_saved": true,
+        "retrievals": 1,
+        "source_reads": 1,
+        "error_type": null,
+        "error": null
+      },
+      "strong_tool_agent": {
+        "slot": 10,
+        "project": "libogg",
+        "repetition": 1,
+        "method": "strong_tool_agent",
+        "stratum": "no_recipe",
+        "status": "primary_completed",
+        "primary_completed": true,
+        "full_completed": true,
+        "author_tests": "passed",
+        "delivery": "passed",
+        "clean_replay": "passed",
+        "source_unchanged": true,
+        "cleanup": true,
+        "requests": 5,
+        "input_tokens": 52623,
+        "output_tokens": 673,
+        "estimated_cost_usd": "0.0165945",
+        "wall_seconds": 49.565864864969626,
+        "initial_planning_seconds": 0.0,
+        "recovery_seconds": 0.0,
+        "phase_usage": {
+          "initial": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          },
+          "recovery": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          },
+          "tool_agent": {
+            "requests": 5,
+            "estimated_cost_usd": "0.0165945"
+          }
+        },
+        "recovery_tasks": 0,
+        "recipe_selected": false,
+        "verified_recipe_saved": false,
+        "retrievals": 0,
+        "source_reads": 0,
+        "error_type": null,
+        "error": null
+      }
+    }
+  },
+  {
+    "project": "highwayhash",
+    "repetition": 1,
+    "methods": {
+      "forge": {
+        "slot": 13,
+        "project": "highwayhash",
+        "repetition": 1,
+        "method": "forge",
+        "stratum": "exact_reuse",
+        "status": "primary_completed",
+        "primary_completed": true,
+        "full_completed": true,
+        "author_tests": "passed",
+        "delivery": "passed",
+        "clean_replay": "passed",
+        "source_unchanged": true,
+        "cleanup": true,
+        "requests": 1,
+        "input_tokens": 10209,
+        "output_tokens": 332,
+        "estimated_cost_usd": "0.0034611",
+        "wall_seconds": 26.336980924010277,
+        "initial_planning_seconds": 2.8994372399756685,
+        "recovery_seconds": 0.0,
+        "phase_usage": {
+          "initial": {
+            "requests": 1,
+            "estimated_cost_usd": "0.0034611"
+          },
+          "recovery": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          },
+          "tool_agent": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          }
+        },
+        "recovery_tasks": 0,
+        "recipe_selected": false,
+        "verified_recipe_saved": true,
+        "retrievals": 0,
+        "source_reads": 0,
+        "error_type": null,
+        "error": null
+      },
+      "forge_experience": {
+        "slot": 15,
+        "project": "highwayhash",
+        "repetition": 1,
+        "method": "forge_experience",
+        "stratum": "exact_reuse",
+        "status": "primary_completed",
+        "primary_completed": true,
+        "full_completed": true,
+        "author_tests": "passed",
+        "delivery": "passed",
+        "clean_replay": "passed",
+        "source_unchanged": true,
+        "cleanup": true,
+        "requests": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "estimated_cost_usd": "0",
+        "wall_seconds": 23.417383737978525,
+        "initial_planning_seconds": 0.0,
+        "recovery_seconds": 0.0,
+        "phase_usage": {
+          "initial": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          },
+          "recovery": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          },
+          "tool_agent": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          }
+        },
+        "recovery_tasks": 0,
+        "recipe_selected": true,
+        "verified_recipe_saved": true,
+        "retrievals": 0,
+        "source_reads": 0,
+        "error_type": null,
+        "error": null
+      },
+      "strong_tool_agent": {
+        "slot": 14,
+        "project": "highwayhash",
+        "repetition": 1,
+        "method": "strong_tool_agent",
+        "stratum": "exact_reuse",
+        "status": "primary_completed",
+        "primary_completed": true,
+        "full_completed": true,
+        "author_tests": "passed",
+        "delivery": "passed",
+        "clean_replay": "passed",
+        "source_unchanged": true,
+        "cleanup": true,
+        "requests": 11,
+        "input_tokens": 98091,
+        "output_tokens": 3249,
+        "estimated_cost_usd": "0.0333261",
+        "wall_seconds": 57.07275911595207,
+        "initial_planning_seconds": 0.0,
+        "recovery_seconds": 0.0,
+        "phase_usage": {
+          "initial": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          },
+          "recovery": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          },
+          "tool_agent": {
+            "requests": 11,
+            "estimated_cost_usd": "0.0333261"
+          }
+        },
+        "recovery_tasks": 0,
+        "recipe_selected": false,
+        "verified_recipe_saved": false,
+        "retrievals": 0,
+        "source_reads": 0,
+        "error_type": null,
+        "error": null
+      }
+    }
+  },
+  {
+    "project": "xxhash",
+    "repetition": 1,
+    "methods": {
+      "forge": {
+        "slot": 17,
+        "project": "xxhash",
+        "repetition": 1,
+        "method": "forge",
+        "stratum": "no_recipe",
+        "status": "primary_completed",
+        "primary_completed": true,
+        "full_completed": true,
+        "author_tests": "passed",
+        "delivery": "passed",
+        "clean_replay": "passed",
+        "source_unchanged": true,
+        "cleanup": true,
+        "requests": 1,
+        "input_tokens": 9843,
+        "output_tokens": 345,
+        "estimated_cost_usd": "0.0033669",
+        "wall_seconds": 24.310307188075967,
+        "initial_planning_seconds": 2.890030878013931,
+        "recovery_seconds": 0.0,
+        "phase_usage": {
+          "initial": {
+            "requests": 1,
+            "estimated_cost_usd": "0.0033669"
+          },
+          "recovery": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          },
+          "tool_agent": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          }
+        },
+        "recovery_tasks": 0,
+        "recipe_selected": false,
+        "verified_recipe_saved": true,
+        "retrievals": 0,
+        "source_reads": 0,
+        "error_type": null,
+        "error": null
+      },
+      "forge_experience": {
+        "slot": 16,
+        "project": "xxhash",
+        "repetition": 1,
+        "method": "forge_experience",
+        "stratum": "no_recipe",
+        "status": "primary_completed",
+        "primary_completed": true,
+        "full_completed": true,
+        "author_tests": "passed",
+        "delivery": "passed",
+        "clean_replay": "passed",
+        "source_unchanged": true,
+        "cleanup": true,
+        "requests": 1,
+        "input_tokens": 10839,
+        "output_tokens": 329,
+        "estimated_cost_usd": "0.0036465",
+        "wall_seconds": 24.16033503692597,
+        "initial_planning_seconds": 2.8478558639762923,
+        "recovery_seconds": 0.0,
+        "phase_usage": {
+          "initial": {
+            "requests": 1,
+            "estimated_cost_usd": "0.0036465"
+          },
+          "recovery": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          },
+          "tool_agent": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          }
+        },
+        "recovery_tasks": 0,
+        "recipe_selected": false,
+        "verified_recipe_saved": true,
+        "retrievals": 1,
+        "source_reads": 0,
+        "error_type": null,
+        "error": null
+      },
+      "strong_tool_agent": {
+        "slot": 18,
+        "project": "xxhash",
+        "repetition": 1,
+        "method": "strong_tool_agent",
+        "stratum": "no_recipe",
+        "status": "primary_completed",
+        "primary_completed": true,
+        "full_completed": true,
+        "author_tests": "passed",
+        "delivery": "passed",
+        "clean_replay": "passed",
+        "source_unchanged": true,
+        "cleanup": true,
+        "requests": 4,
+        "input_tokens": 39760,
+        "output_tokens": 620,
+        "estimated_cost_usd": "0.0126720",
+        "wall_seconds": 28.061025283066556,
+        "initial_planning_seconds": 0.0,
+        "recovery_seconds": 0.0,
+        "phase_usage": {
+          "initial": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          },
+          "recovery": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          },
+          "tool_agent": {
+            "requests": 4,
+            "estimated_cost_usd": "0.0126720"
+          }
+        },
+        "recovery_tasks": 0,
+        "recipe_selected": false,
+        "verified_recipe_saved": false,
+        "retrievals": 0,
+        "source_reads": 0,
+        "error_type": null,
+        "error": null
+      }
+    }
+  },
+  {
+    "project": "jsoncpp",
+    "repetition": 2,
+    "methods": {
+      "forge": {
+        "slot": 21,
+        "project": "jsoncpp",
+        "repetition": 2,
+        "method": "forge",
+        "stratum": "exact_reuse",
+        "status": "primary_completed",
+        "primary_completed": true,
+        "full_completed": true,
+        "author_tests": "passed",
+        "delivery": "passed",
+        "clean_replay": "passed",
+        "source_unchanged": true,
+        "cleanup": true,
+        "requests": 2,
+        "input_tokens": 16866,
+        "output_tokens": 625,
+        "estimated_cost_usd": "0.0058098",
+        "wall_seconds": 52.50354182894807,
+        "initial_planning_seconds": 4.447877919999883,
+        "recovery_seconds": 0.0,
+        "phase_usage": {
+          "initial": {
+            "requests": 2,
+            "estimated_cost_usd": "0.0058098"
+          },
+          "recovery": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          },
+          "tool_agent": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          }
+        },
+        "recovery_tasks": 0,
+        "recipe_selected": false,
+        "verified_recipe_saved": true,
+        "retrievals": 0,
+        "source_reads": 1,
+        "error_type": null,
+        "error": null
+      },
+      "forge_experience": {
+        "slot": 20,
+        "project": "jsoncpp",
+        "repetition": 2,
+        "method": "forge_experience",
+        "stratum": "exact_reuse",
+        "status": "primary_completed",
+        "primary_completed": true,
+        "full_completed": true,
+        "author_tests": "passed",
+        "delivery": "passed",
+        "clean_replay": "passed",
+        "source_unchanged": true,
+        "cleanup": true,
+        "requests": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "estimated_cost_usd": "0",
+        "wall_seconds": 47.91362357500475,
+        "initial_planning_seconds": 0.0,
+        "recovery_seconds": 0.0,
+        "phase_usage": {
+          "initial": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          },
+          "recovery": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          },
+          "tool_agent": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          }
+        },
+        "recovery_tasks": 0,
+        "recipe_selected": true,
+        "verified_recipe_saved": true,
+        "retrievals": 0,
+        "source_reads": 0,
+        "error_type": null,
+        "error": null
+      },
+      "strong_tool_agent": {
+        "slot": 19,
+        "project": "jsoncpp",
+        "repetition": 2,
+        "method": "strong_tool_agent",
+        "stratum": "exact_reuse",
+        "status": "primary_completed",
+        "primary_completed": true,
+        "full_completed": true,
+        "author_tests": "passed",
+        "delivery": "passed",
+        "clean_replay": "passed",
+        "source_unchanged": true,
+        "cleanup": true,
+        "requests": 6,
+        "input_tokens": 55656,
+        "output_tokens": 1111,
+        "estimated_cost_usd": "0.0180300",
+        "wall_seconds": 59.02283216302749,
+        "initial_planning_seconds": 0.0,
+        "recovery_seconds": 0.0,
+        "phase_usage": {
+          "initial": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          },
+          "recovery": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          },
+          "tool_agent": {
+            "requests": 6,
+            "estimated_cost_usd": "0.0180300"
+          }
+        },
+        "recovery_tasks": 0,
+        "recipe_selected": false,
+        "verified_recipe_saved": false,
+        "retrievals": 0,
+        "source_reads": 4,
+        "error_type": null,
+        "error": null
+      }
+    }
+  },
+  {
+    "project": "double-conversion",
+    "repetition": 2,
+    "methods": {
+      "forge": {
+        "slot": 22,
+        "project": "double-conversion",
+        "repetition": 2,
+        "method": "forge",
+        "stratum": "no_recipe",
+        "status": "primary_completed",
+        "primary_completed": true,
+        "full_completed": false,
+        "author_tests": "failed",
+        "delivery": "passed",
+        "clean_replay": "passed",
+        "source_unchanged": true,
+        "cleanup": true,
+        "requests": 11,
+        "input_tokens": 103305,
+        "output_tokens": 17553,
+        "estimated_cost_usd": "0.0520551",
+        "wall_seconds": 189.39165071002208,
+        "initial_planning_seconds": 5.597835379070602,
+        "recovery_seconds": 103.14212343213148,
+        "phase_usage": {
+          "initial": {
+            "requests": 2,
+            "estimated_cost_usd": "0.0039702"
+          },
+          "recovery": {
+            "requests": 9,
+            "estimated_cost_usd": "0.0480849"
+          },
+          "tool_agent": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          }
+        },
+        "recovery_tasks": 2,
+        "recipe_selected": false,
+        "verified_recipe_saved": false,
+        "retrievals": 0,
+        "source_reads": 9,
+        "error_type": null,
+        "error": null
+      },
+      "forge_experience": {
+        "slot": 24,
+        "project": "double-conversion",
+        "repetition": 2,
+        "method": "forge_experience",
+        "stratum": "no_recipe",
+        "status": "primary_completed",
+        "primary_completed": true,
+        "full_completed": false,
+        "author_tests": "failed",
+        "delivery": "passed",
+        "clean_replay": "passed",
+        "source_unchanged": true,
+        "cleanup": true,
+        "requests": 7,
+        "input_tokens": 73197,
+        "output_tokens": 11289,
+        "estimated_cost_usd": "0.0355059",
+        "wall_seconds": 187.4152970619034,
+        "initial_planning_seconds": 2.7447386770509183,
+        "recovery_seconds": 67.5227972069988,
+        "phase_usage": {
+          "initial": {
+            "requests": 1,
+            "estimated_cost_usd": "0.0023244"
+          },
+          "recovery": {
+            "requests": 6,
+            "estimated_cost_usd": "0.0331815"
+          },
+          "tool_agent": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          }
+        },
+        "recovery_tasks": 2,
+        "recipe_selected": false,
+        "verified_recipe_saved": false,
+        "retrievals": 3,
+        "source_reads": 4,
+        "error_type": null,
+        "error": null
+      },
+      "strong_tool_agent": {
+        "slot": 23,
+        "project": "double-conversion",
+        "repetition": 2,
+        "method": "strong_tool_agent",
+        "stratum": "no_recipe",
+        "status": "primary_completed",
+        "primary_completed": true,
+        "full_completed": false,
+        "author_tests": "failed",
+        "delivery": "passed",
+        "clean_replay": "passed",
+        "source_unchanged": true,
+        "cleanup": true,
+        "requests": 13,
+        "input_tokens": 71513,
+        "output_tokens": 3457,
+        "estimated_cost_usd": "0.0256023",
+        "wall_seconds": 78.43774432200007,
+        "initial_planning_seconds": 0.0,
+        "recovery_seconds": 0.0,
+        "phase_usage": {
+          "initial": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          },
+          "recovery": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          },
+          "tool_agent": {
+            "requests": 13,
+            "estimated_cost_usd": "0.0256023"
+          }
+        },
+        "recovery_tasks": 0,
+        "recipe_selected": false,
+        "verified_recipe_saved": false,
+        "retrievals": 0,
+        "source_reads": 0,
+        "error_type": null,
+        "error": null
+      }
+    }
+  },
+  {
+    "project": "libite",
+    "repetition": 2,
+    "methods": {
+      "forge": {
+        "slot": 26,
+        "project": "libite",
+        "repetition": 2,
+        "method": "forge",
+        "stratum": "exact_reuse",
+        "status": "primary_completed",
+        "primary_completed": true,
+        "full_completed": true,
+        "author_tests": "passed",
+        "delivery": "passed",
+        "clean_replay": "passed",
+        "source_unchanged": true,
+        "cleanup": true,
+        "requests": 3,
+        "input_tokens": 15655,
+        "output_tokens": 767,
+        "estimated_cost_usd": "0.0056169",
+        "wall_seconds": 67.42757228494156,
+        "initial_planning_seconds": 5.593451875029132,
+        "recovery_seconds": 0.0,
+        "phase_usage": {
+          "initial": {
+            "requests": 3,
+            "estimated_cost_usd": "0.0056169"
+          },
+          "recovery": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          },
+          "tool_agent": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          }
+        },
+        "recovery_tasks": 0,
+        "recipe_selected": false,
+        "verified_recipe_saved": true,
+        "retrievals": 0,
+        "source_reads": 2,
+        "error_type": null,
+        "error": null
+      },
+      "forge_experience": {
+        "slot": 25,
+        "project": "libite",
+        "repetition": 2,
+        "method": "forge_experience",
+        "stratum": "exact_reuse",
+        "status": "primary_completed",
+        "primary_completed": true,
+        "full_completed": true,
+        "author_tests": "passed",
+        "delivery": "passed",
+        "clean_replay": "passed",
+        "source_unchanged": true,
+        "cleanup": true,
+        "requests": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "estimated_cost_usd": "0",
+        "wall_seconds": 61.75538680201862,
+        "initial_planning_seconds": 0.0,
+        "recovery_seconds": 0.0,
+        "phase_usage": {
+          "initial": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          },
+          "recovery": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          },
+          "tool_agent": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          }
+        },
+        "recovery_tasks": 0,
+        "recipe_selected": true,
+        "verified_recipe_saved": true,
+        "retrievals": 0,
+        "source_reads": 0,
+        "error_type": null,
+        "error": null
+      },
+      "strong_tool_agent": {
+        "slot": 27,
+        "project": "libite",
+        "repetition": 2,
+        "method": "strong_tool_agent",
+        "stratum": "exact_reuse",
+        "status": "primary_completed",
+        "primary_completed": true,
+        "full_completed": true,
+        "author_tests": "passed",
+        "delivery": "passed",
+        "clean_replay": "passed",
+        "source_unchanged": true,
+        "cleanup": true,
+        "requests": 9,
+        "input_tokens": 67829,
+        "output_tokens": 1283,
+        "estimated_cost_usd": "0.0218883",
+        "wall_seconds": 74.38314536889084,
+        "initial_planning_seconds": 0.0,
+        "recovery_seconds": 0.0,
+        "phase_usage": {
+          "initial": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          },
+          "recovery": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          },
+          "tool_agent": {
+            "requests": 9,
+            "estimated_cost_usd": "0.0218883"
+          }
+        },
+        "recovery_tasks": 0,
+        "recipe_selected": false,
+        "verified_recipe_saved": false,
+        "retrievals": 0,
+        "source_reads": 2,
+        "error_type": null,
+        "error": null
+      }
+    }
+  },
+  {
+    "project": "libogg",
+    "repetition": 2,
+    "methods": {
+      "forge": {
+        "slot": 28,
+        "project": "libogg",
+        "repetition": 2,
+        "method": "forge",
+        "stratum": "no_recipe",
+        "status": "primary_completed",
+        "primary_completed": true,
+        "full_completed": true,
+        "author_tests": "passed",
+        "delivery": "passed",
+        "clean_replay": "passed",
+        "source_unchanged": true,
+        "cleanup": true,
+        "requests": 3,
+        "input_tokens": 30949,
+        "output_tokens": 958,
+        "estimated_cost_usd": "0.0104343",
+        "wall_seconds": 39.894330326933414,
+        "initial_planning_seconds": 7.220993205904961,
+        "recovery_seconds": 0.0,
+        "phase_usage": {
+          "initial": {
+            "requests": 3,
+            "estimated_cost_usd": "0.0104343"
+          },
+          "recovery": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          },
+          "tool_agent": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          }
+        },
+        "recovery_tasks": 0,
+        "recipe_selected": false,
+        "verified_recipe_saved": true,
+        "retrievals": 0,
+        "source_reads": 3,
+        "error_type": null,
+        "error": null
+      },
+      "forge_experience": {
+        "slot": 29,
+        "project": "libogg",
+        "repetition": 2,
+        "method": "forge_experience",
+        "stratum": "no_recipe",
+        "status": "primary_completed",
+        "primary_completed": true,
+        "full_completed": true,
+        "author_tests": "passed",
+        "delivery": "passed",
+        "clean_replay": "passed",
+        "source_unchanged": true,
+        "cleanup": true,
+        "requests": 3,
+        "input_tokens": 32564,
+        "output_tokens": 876,
+        "estimated_cost_usd": "0.0108204",
+        "wall_seconds": 38.63446809200104,
+        "initial_planning_seconds": 6.051433344022371,
+        "recovery_seconds": 0.0,
+        "phase_usage": {
+          "initial": {
+            "requests": 3,
+            "estimated_cost_usd": "0.0108204"
+          },
+          "recovery": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          },
+          "tool_agent": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          }
+        },
+        "recovery_tasks": 0,
+        "recipe_selected": false,
+        "verified_recipe_saved": true,
+        "retrievals": 1,
+        "source_reads": 3,
+        "error_type": null,
+        "error": null
+      },
+      "strong_tool_agent": {
+        "slot": 30,
+        "project": "libogg",
+        "repetition": 2,
+        "method": "strong_tool_agent",
+        "stratum": "no_recipe",
+        "status": "primary_completed",
+        "primary_completed": true,
+        "full_completed": true,
+        "author_tests": "passed",
+        "delivery": "passed",
+        "clean_replay": "passed",
+        "source_unchanged": true,
+        "cleanup": true,
+        "requests": 7,
+        "input_tokens": 74083,
+        "output_tokens": 983,
+        "estimated_cost_usd": "0.0234045",
+        "wall_seconds": 41.95362716005184,
+        "initial_planning_seconds": 0.0,
+        "recovery_seconds": 0.0,
+        "phase_usage": {
+          "initial": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          },
+          "recovery": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          },
+          "tool_agent": {
+            "requests": 7,
+            "estimated_cost_usd": "0.0234045"
+          }
+        },
+        "recovery_tasks": 0,
+        "recipe_selected": false,
+        "verified_recipe_saved": false,
+        "retrievals": 0,
+        "source_reads": 1,
+        "error_type": null,
+        "error": null
+      }
+    }
+  },
+  {
+    "project": "highwayhash",
+    "repetition": 2,
+    "methods": {
+      "forge": {
+        "slot": 33,
+        "project": "highwayhash",
+        "repetition": 2,
+        "method": "forge",
+        "stratum": "exact_reuse",
+        "status": "primary_completed",
+        "primary_completed": true,
+        "full_completed": true,
+        "author_tests": "passed",
+        "delivery": "passed",
+        "clean_replay": "passed",
+        "source_unchanged": true,
+        "cleanup": true,
+        "requests": 1,
+        "input_tokens": 10209,
+        "output_tokens": 366,
+        "estimated_cost_usd": "0.0035019",
+        "wall_seconds": 25.878345442004502,
+        "initial_planning_seconds": 2.603411498013884,
+        "recovery_seconds": 0.0,
+        "phase_usage": {
+          "initial": {
+            "requests": 1,
+            "estimated_cost_usd": "0.0035019"
+          },
+          "recovery": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          },
+          "tool_agent": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          }
+        },
+        "recovery_tasks": 0,
+        "recipe_selected": false,
+        "verified_recipe_saved": true,
+        "retrievals": 0,
+        "source_reads": 0,
+        "error_type": null,
+        "error": null
+      },
+      "forge_experience": {
+        "slot": 31,
+        "project": "highwayhash",
+        "repetition": 2,
+        "method": "forge_experience",
+        "stratum": "exact_reuse",
+        "status": "primary_completed",
+        "primary_completed": true,
+        "full_completed": true,
+        "author_tests": "passed",
+        "delivery": "passed",
+        "clean_replay": "passed",
+        "source_unchanged": true,
+        "cleanup": true,
+        "requests": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "estimated_cost_usd": "0",
+        "wall_seconds": 23.294344449066557,
+        "initial_planning_seconds": 0.0,
+        "recovery_seconds": 0.0,
+        "phase_usage": {
+          "initial": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          },
+          "recovery": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          },
+          "tool_agent": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          }
+        },
+        "recovery_tasks": 0,
+        "recipe_selected": true,
+        "verified_recipe_saved": true,
+        "retrievals": 0,
+        "source_reads": 0,
+        "error_type": null,
+        "error": null
+      },
+      "strong_tool_agent": {
+        "slot": 32,
+        "project": "highwayhash",
+        "repetition": 2,
+        "method": "strong_tool_agent",
+        "stratum": "exact_reuse",
+        "status": "primary_completed",
+        "primary_completed": true,
+        "full_completed": true,
+        "author_tests": "passed",
+        "delivery": "passed",
+        "clean_replay": "passed",
+        "source_unchanged": true,
+        "cleanup": true,
+        "requests": 6,
+        "input_tokens": 54358,
+        "output_tokens": 1574,
+        "estimated_cost_usd": "0.0181962",
+        "wall_seconds": 43.41999301791657,
+        "initial_planning_seconds": 0.0,
+        "recovery_seconds": 0.0,
+        "phase_usage": {
+          "initial": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          },
+          "recovery": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          },
+          "tool_agent": {
+            "requests": 6,
+            "estimated_cost_usd": "0.0181962"
+          }
+        },
+        "recovery_tasks": 0,
+        "recipe_selected": false,
+        "verified_recipe_saved": false,
+        "retrievals": 0,
+        "source_reads": 0,
+        "error_type": null,
+        "error": null
+      }
+    }
+  },
+  {
+    "project": "xxhash",
+    "repetition": 2,
+    "methods": {
+      "forge": {
+        "slot": 35,
+        "project": "xxhash",
+        "repetition": 2,
+        "method": "forge",
+        "stratum": "no_recipe",
+        "status": "primary_completed",
+        "primary_completed": true,
+        "full_completed": true,
+        "author_tests": "passed",
+        "delivery": "passed",
+        "clean_replay": "passed",
+        "source_unchanged": true,
+        "cleanup": true,
+        "requests": 1,
+        "input_tokens": 9843,
+        "output_tokens": 370,
+        "estimated_cost_usd": "0.0033969",
+        "wall_seconds": 23.589046786888503,
+        "initial_planning_seconds": 2.5880102459341288,
+        "recovery_seconds": 0.0,
+        "phase_usage": {
+          "initial": {
+            "requests": 1,
+            "estimated_cost_usd": "0.0033969"
+          },
+          "recovery": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          },
+          "tool_agent": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          }
+        },
+        "recovery_tasks": 0,
+        "recipe_selected": false,
+        "verified_recipe_saved": true,
+        "retrievals": 0,
+        "source_reads": 0,
+        "error_type": null,
+        "error": null
+      },
+      "forge_experience": {
+        "slot": 36,
+        "project": "xxhash",
+        "repetition": 2,
+        "method": "forge_experience",
+        "stratum": "no_recipe",
+        "status": "primary_completed",
+        "primary_completed": true,
+        "full_completed": true,
+        "author_tests": "passed",
+        "delivery": "passed",
+        "clean_replay": "passed",
+        "source_unchanged": true,
+        "cleanup": true,
+        "requests": 2,
+        "input_tokens": 22225,
+        "output_tokens": 646,
+        "estimated_cost_usd": "0.0074427",
+        "wall_seconds": 26.08578614599537,
+        "initial_planning_seconds": 4.871172850951552,
+        "recovery_seconds": 0.0,
+        "phase_usage": {
+          "initial": {
+            "requests": 2,
+            "estimated_cost_usd": "0.0074427"
+          },
+          "recovery": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          },
+          "tool_agent": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          }
+        },
+        "recovery_tasks": 0,
+        "recipe_selected": false,
+        "verified_recipe_saved": true,
+        "retrievals": 1,
+        "source_reads": 0,
+        "error_type": null,
+        "error": null
+      },
+      "strong_tool_agent": {
+        "slot": 34,
+        "project": "xxhash",
+        "repetition": 2,
+        "method": "strong_tool_agent",
+        "stratum": "no_recipe",
+        "status": "primary_completed",
+        "primary_completed": true,
+        "full_completed": true,
+        "author_tests": "passed",
+        "delivery": "passed",
+        "clean_replay": "passed",
+        "source_unchanged": true,
+        "cleanup": true,
+        "requests": 4,
+        "input_tokens": 30458,
+        "output_tokens": 767,
+        "estimated_cost_usd": "0.0100578",
+        "wall_seconds": 28.066176092950627,
+        "initial_planning_seconds": 0.0,
+        "recovery_seconds": 0.0,
+        "phase_usage": {
+          "initial": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          },
+          "recovery": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          },
+          "tool_agent": {
+            "requests": 4,
+            "estimated_cost_usd": "0.0100578"
+          }
+        },
+        "recovery_tasks": 0,
+        "recipe_selected": false,
+        "verified_recipe_saved": false,
+        "retrievals": 0,
+        "source_reads": 0,
+        "error_type": null,
+        "error": null
+      }
+    }
+  }
+]

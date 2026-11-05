@@ -1,0 +1,652 @@
+[
+  {
+    "slot": 4,
+    "project": "double-conversion",
+    "revision": 0,
+    "first_request": "slot-04-double-conversion-forge_experience/agent/request-1.json",
+    "context": {
+      "mode": "structured",
+      "sources": [
+        "E04-slot-5",
+        "E30-slot-19"
+      ],
+      "items": [
+        {
+          "source_id": "E04-slot-5",
+          "experience_id": "6957f395b6d52854ba1a2d9b309817c2e41677b92e7d8c0b8609f039bb99ca7d",
+          "source_family": "yaml-cpp",
+          "matched_terms": [
+            "build_testing",
+            "dbuild_testing",
+            "off"
+          ],
+          "advice": {
+            "stage": "configure",
+            "conditions": [
+              "CMake 项目同时存在通用 BUILD_TESTING 与项目自有测试选项",
+              "交付要求作者测试必须被配置、构建并实际运行",
+              "可读取生成后的 CMakeCache.txt"
+            ],
+            "state": "command_3bb560bddd104909b0f11eb279a65f83 仅设置 -DBUILD_TESTING=ON，配置成功；command_2ede3b97470d476eadd43b957ac9ff70 也成功生成静态库和工具。但验证发现 YAML_CPP_BUILD_TESTS=OFF，说明通用开关未满足该项目的测试准备要求。",
+            "action": "不要把“CMake 配置成功”或“产物成功链接”等同于测试已启用。配置后、正式构建前应检查 CMakeCache 中任务要求的项目级测试选项和相关依赖模式；若项目文档定义了独立测试开关，应显式设置后重新配置。这里的 YAML_CPP_BUILD_TESTS 仅是本项目实例，不应当作其他项目的通用开关。",
+            "outcome": "ineffective",
+            "not_applicable": [
+              "项目仅使用 BUILD_TESTING 且缓存已证明测试启用时",
+              "测试由外部构建系统或独立流水线提供时",
+              "任务明确不要求构建或运行作者测试时"
+            ],
+            "verification_scope": "实际确认配置与非测试目标构建成功，并产出 libyaml-cpp.a；验证链在首个缓存断言处因 YAML_CPP_BUILD_TESTS=OFF 退出。ctest、JUnit 三用例检查、验证后的来源索引检查、replay 与交付均未执行或未观察，因此不能声称测试失败或通过。",
+            "command_ids": [
+              "command_3bb560bddd104909b0f11eb279a65f83",
+              "command_2ede3b97470d476eadd43b957ac9ff70",
+              "command_7e666c6eebe14dd58e9f376b1f0b523f"
+            ]
+          }
+        },
+        {
+          "source_id": "E30-slot-19",
+          "experience_id": "6cb93554978d7b477a6a5cac85d179fc0e79a643f541d8ed4ed61f16103bcade",
+          "source_family": "rang",
+          "matched_terms": [
+            "config",
+            "package"
+          ],
+          "advice": {
+            "stage": "dependency",
+            "conditions": [
+              "CMake项目通过find_package等机制查找外部测试依赖",
+              "依赖源码已在本地可用，且允许写入项目内隔离目录",
+              "依赖能够生成并安装CMake package config",
+              "主项目允许通过包专用_DIR指定查找位置"
+            ],
+            "state": "测试依赖doctest需要以CMake可发现的形式提供；直接拥有依赖源码并不等于主项目能定位其配置包。",
+            "action": "先以关闭依赖自身测试等选项配置doctest到独立构建目录（command_4ec28b32b758403b882cb7f0c849060c），再安装到项目内前缀并确认doctestConfig.cmake存在（command_155088bc758240c9b700f1a2521ddcd7）；配置主项目时显式传入doctest_DIR并重建干净build目录（command_b9352125391e4d10ada6ad9d98816520）。这是本轨迹有效的依赖准备路径，但未做省略doctest_DIR的对照实验，不能断言每一步均不可替代。",
+            "outcome": "effective",
+            "not_applicable": [
+              "依赖已由系统包、工具链文件或项目内FetchContent稳定提供",
+              "依赖不导出CMake package config",
+              "项目使用其他构建系统或禁止项目内安装前缀",
+              "交叉编译时依赖必须由目标工具链统一管理"
+            ],
+            "verification_scope": "观察到依赖配置、安装和主项目配置均成功，所需配置文件及CMakeCache.txt存在；后续目标构建和原作者测试也成功。未观察缺少显式路径时是否仍可发现依赖，也未验证其他依赖版本或安装布局。",
+            "command_ids": [
+              "command_4ec28b32b758403b882cb7f0c849060c",
+              "command_155088bc758240c9b700f1a2521ddcd7",
+              "command_b9352125391e4d10ada6ad9d98816520"
+            ]
+          }
+        }
+      ],
+      "bytes": 3627,
+      "maximum_bytes": 4096,
+      "top_k": 2,
+      "policy": "matched_action_advice_v1",
+      "abstained": false
+    }
+  },
+  {
+    "slot": 4,
+    "project": "double-conversion",
+    "revision": 1,
+    "first_request": "slot-04-double-conversion-forge_experience/agent/request-2.json",
+    "context": {
+      "mode": "structured",
+      "sources": [
+        "E04-slot-5",
+        "E04-slot-1"
+      ],
+      "items": [
+        {
+          "source_id": "E04-slot-5",
+          "experience_id": "6957f395b6d52854ba1a2d9b309817c2e41677b92e7d8c0b8609f039bb99ca7d",
+          "source_family": "yaml-cpp",
+          "matched_terms": [
+            "build_testing",
+            "dbuild_testing",
+            "off",
+            "成功"
+          ],
+          "advice": {
+            "stage": "configure",
+            "conditions": [
+              "CMake 项目同时存在通用 BUILD_TESTING 与项目自有测试选项",
+              "交付要求作者测试必须被配置、构建并实际运行",
+              "可读取生成后的 CMakeCache.txt"
+            ],
+            "state": "command_3bb560bddd104909b0f11eb279a65f83 仅设置 -DBUILD_TESTING=ON，配置成功；command_2ede3b97470d476eadd43b957ac9ff70 也成功生成静态库和工具。但验证发现 YAML_CPP_BUILD_TESTS=OFF，说明通用开关未满足该项目的测试准备要求。",
+            "action": "不要把“CMake 配置成功”或“产物成功链接”等同于测试已启用。配置后、正式构建前应检查 CMakeCache 中任务要求的项目级测试选项和相关依赖模式；若项目文档定义了独立测试开关，应显式设置后重新配置。这里的 YAML_CPP_BUILD_TESTS 仅是本项目实例，不应当作其他项目的通用开关。",
+            "outcome": "ineffective",
+            "not_applicable": [
+              "项目仅使用 BUILD_TESTING 且缓存已证明测试启用时",
+              "测试由外部构建系统或独立流水线提供时",
+              "任务明确不要求构建或运行作者测试时"
+            ],
+            "verification_scope": "实际确认配置与非测试目标构建成功，并产出 libyaml-cpp.a；验证链在首个缓存断言处因 YAML_CPP_BUILD_TESTS=OFF 退出。ctest、JUnit 三用例检查、验证后的来源索引检查、replay 与交付均未执行或未观察，因此不能声称测试失败或通过。",
+            "command_ids": [
+              "command_3bb560bddd104909b0f11eb279a65f83",
+              "command_2ede3b97470d476eadd43b957ac9ff70",
+              "command_7e666c6eebe14dd58e9f376b1f0b523f"
+            ]
+          }
+        },
+        {
+          "source_id": "E04-slot-1",
+          "experience_id": "9adfd967b30e96e9b04737e7861295791963de7172384b277e087b2c6dd55056",
+          "source_family": "snappy",
+          "matched_terms": [
+            "build_testing",
+            "成功",
+            "验收"
+          ],
+          "advice": {
+            "stage": "configure",
+            "conditions": [
+              "使用CMake配置项目",
+              "验收要求测试、基准等特定功能开启",
+              "配置输出提示手工变量未被项目使用"
+            ],
+            "state": "command_ceb8f543bc6c47e1a528e899fbc935b8 使用通用开关 BUILD_TESTING=ON，CMake虽成功生成，却明确警告该变量未被项目使用。后续检查在失败前已确认项目自身的 SNAPPY_BUILD_TESTS、SNAPPY_BUILD_BENCHMARKS 为启用，说明它们来自项目自身配置状态，不能归因于 BUILD_TESTING。",
+            "action": "看到“Manually-specified variables were not used”后，应立即检查 CMakeCache.txt、项目选项声明或配置摘要，按验收项核对项目专用开关；不要因配置命令退出码为0，就认为传入开关已生效。command_ca630b0616d8448eab98e1f290a54348 的测试与基准目标成功构建仅证明当时这些目标已启用，不证明通用开关产生了因果作用。",
+            "outcome": "ineffective",
+            "not_applicable": [
+              "项目明确采用BUILD_TESTING并且缓存或目标状态已验证其生效",
+              "验收不要求测试或基准目标",
+              "非CMake构建系统"
+            ],
+            "verification_scope": "观察到CMake警告BUILD_TESTING未使用；最终检查在HAVE_LIBLZO2处失败前，已通过SNAPPY_BUILD_TESTS、SNAPPY_BUILD_BENCHMARKS和HAVE_LIBZ检查。HAVE_LIBLZ4、静态库配置、CTest实际执行及交付均未观察。",
+            "command_ids": [
+              "command_ceb8f543bc6c47e1a528e899fbc935b8",
+              "command_ca630b0616d8448eab98e1f290a54348",
+              "command_223c690c6d7641e683d41745839217a9"
+            ]
+          }
+        }
+      ],
+      "bytes": 3542,
+      "maximum_bytes": 4096,
+      "top_k": 2,
+      "policy": "matched_action_advice_v1",
+      "abstained": false
+    }
+  },
+  {
+    "slot": 4,
+    "project": "double-conversion",
+    "revision": 2,
+    "first_request": "slot-04-double-conversion-forge_experience/agent/request-4.json",
+    "context": {
+      "mode": "structured",
+      "sources": [],
+      "items": [],
+      "bytes": 0,
+      "maximum_bytes": 4096,
+      "top_k": 2,
+      "policy": "matched_action_advice_v1",
+      "abstained": true
+    }
+  },
+  {
+    "slot": 11,
+    "project": "libogg",
+    "revision": 0,
+    "first_request": "slot-11-libogg-forge_experience/agent/request-1.json",
+    "context": {
+      "mode": "structured",
+      "sources": [
+        "E30-slot-1"
+      ],
+      "items": [
+        {
+          "source_id": "E30-slot-1",
+          "experience_id": "67e197f007ec6e313ac49e7afa9696ad630d8cbe68b58224fecdefafe9b2df8f",
+          "source_family": "check",
+          "matched_terms": [
+            "check",
+            "doc",
+            "makefile",
+            "yes"
+          ],
+          "advice": {
+            "stage": "configure",
+            "conditions": [
+              "默认configure摘要显示启用文档构建",
+              "构建日志明确因makeinfo缺失在文档目标check.info处失败",
+              "核心库和测试不要求文档产物，且项目自身提供可关闭文档构建的配置选项",
+              "改变配置前可清理旧config.status、Makefile及既有构建产物"
+            ],
+            "state": "默认./configure成功且显示“build docs yes”，但随后make在doc/check.info处因makeinfo不存在而退出；失败不等于此前库或测试相关编译均无效。清理配置状态后，本项目使用自身的--disable-build-docs重新配置，摘要变为“build docs no”，后续库、测试程序构建以及完整make check均成功。",
+            "action": "遇到缺失文档生成器导致的构建失败时，先从失败目标和configure摘要区分“核心编译依赖”与“可选文档依赖”。若交付范围不含文档且项目明确支持对应选项，可清理旧配置后关闭该组件并重新配置；否则应安装缺失工具。不要把--disable-build-docs视为其他项目通用开关，也不要在未重新配置时假定旧Makefile已更新。",
+            "outcome": "effective",
+            "not_applicable": [
+              "文档属于必需交付物或测试会验证文档时",
+              "项目没有该配置选项，或选项语义不同、同时关闭必要功能时",
+              "失败并非来自文档目标或安装makeinfo才是既定环境要求时",
+              "交叉编译、打包规范或发行流程要求保持默认功能集合时"
+            ],
+            "verification_scope": "默认构建实际失败于makeinfo缺失；关闭本项目文档构建后，观察到libcheck.a及测试程序生成，make check报告TOTAL 9、PASS 9、FAIL/ERROR 0。另有制品暂存成功，但未验证文档交付、安装流程或其他项目同名选项；configure仍警告缺少filterdiff会影响可重复性。",
+            "command_ids": [
+              "command_f47d6f66d0e94b8f96cbab9b6a4808ae",
+              "command_2ac53bc34e67472e8403356b6883a2c9",
+              "command_fe25cc48201746dbbfef301eced0d4a5",
+              "command_80325c6c88744198a99446ca7c4abca3",
+              "command_37ab6cea9b6242f28d9eecfce1c0b889",
+              "command_8efb1c4d000e46d6a18e5d95d5b63a7e"
+            ]
+          }
+        }
+      ],
+      "bytes": 2321,
+      "maximum_bytes": 4096,
+      "top_k": 2,
+      "policy": "matched_action_advice_v1",
+      "abstained": false
+    }
+  },
+  {
+    "slot": 16,
+    "project": "xxhash",
+    "revision": 0,
+    "first_request": "slot-16-xxhash-forge_experience/agent/request-1.json",
+    "context": {
+      "mode": "structured",
+      "sources": [
+        "E04-slot-7",
+        "E04-slot-8"
+      ],
+      "items": [
+        {
+          "source_id": "E04-slot-7",
+          "experience_id": "f878133e346780e40cbcd420eaa296f075939ff43bd371c518e068c1375fd394",
+          "source_family": "libtommath",
+          "matched_terms": [
+            "git",
+            "state"
+          ],
+          "advice": {
+            "stage": "build",
+            "conditions": [
+              "源码为 Make 工程，默认目标预期生成静态库",
+              "环境已具备可用的 make、C 编译器与 ar",
+              "源码文件集合已由 command_4bacd1ad28d14b3183c340bcad60dfb1 完成索引校验，但该 Git 初始化不应视为编译成功的因果条件"
+            ],
+            "state": "在仓库根目录直接执行默认构建；未观察到额外配置步骤或依赖安装。",
+            "action": "先执行默认 make 并依据日志确认其实际产物类型，而不要假定默认目标同时准备测试程序。command_1f6f9fe2cd274fecba47259efe6134d4 的 make -j2 以 0 退出，日志显示大量对象文件被归档并出现“ar: creating libtommath.a”。",
+            "outcome": "effective",
+            "not_applicable": [
+              "项目默认目标不是所需交付物时，应显式选择对应目标",
+              "非 Make 构建系统或需要预配置、生成源码的工程",
+              "要求共享库、特定 ABI 或自定义编译选项但尚未配置的场景"
+            ],
+            "verification_scope": "仅观察到默认构建成功及日志中的静态库创建；未单独检查 libtommath.a 的存在、内容或可链接性。后续测试未运行成功，也没有 replay 或交付验证。",
+            "command_ids": [
+              "command_4bacd1ad28d14b3183c340bcad60dfb1",
+              "command_1f6f9fe2cd274fecba47259efe6134d4"
+            ]
+          }
+        },
+        {
+          "source_id": "E04-slot-8",
+          "experience_id": "fc3f5fb3b43a18c7fe7fde7a9ec6842dd5ac1d40794832724d08940ff543bfa9",
+          "source_family": "libtommath",
+          "matched_terms": [
+            "git",
+            "state"
+          ],
+          "advice": {
+            "stage": "build",
+            "conditions": [
+              "源码来自归档且仓库根目录最初无.git",
+              "工作目录为源码根目录",
+              "项目提供可用的默认Make目标及C编译、归档工具",
+              "目标是生成默认静态库产物"
+            ],
+            "state": "归档源码先建立临时Git索引并核对固定文件集合；该步骤确认输入范围，但没有证据表明它是编译成功的因果条件。随后默认构建尚未包含测试准备。",
+            "action": "在输入文件集合核验通过后执行并行默认构建`make -j2`。不要从退出码单独推断测试程序也已生成；应将库构建与测试目标准备视为不同状态。",
+            "outcome": "effective",
+            "not_applicable": [
+              "项目没有Makefile或默认目标不生成所需产物",
+              "工具链、平台或源码状态与本轨迹不同",
+              "需要共享库、安装包或其他非默认产物",
+              "要求证明运行时正确性或可交付性"
+            ],
+            "verification_scope": "实际仅观察到源码索引集合校验成功、`make -j2`退出码为0，日志显示`ar: creating libtommath.a`。未执行产物内容检查；完整测试失败，交付与replay未观察。",
+            "command_ids": [
+              "command_f1b1a66829a84e38af6dd5fe44c81424",
+              "command_fa3704d6adfa4df4ba14628923996dc2"
+            ]
+          }
+        }
+      ],
+      "bytes": 2891,
+      "maximum_bytes": 4096,
+      "top_k": 2,
+      "policy": "matched_action_advice_v1",
+      "abstained": false
+    }
+  },
+  {
+    "slot": 24,
+    "project": "double-conversion",
+    "revision": 0,
+    "first_request": "slot-24-double-conversion-forge_experience/agent/request-1.json",
+    "context": {
+      "mode": "structured",
+      "sources": [
+        "E04-slot-5",
+        "E30-slot-19"
+      ],
+      "items": [
+        {
+          "source_id": "E04-slot-5",
+          "experience_id": "6957f395b6d52854ba1a2d9b309817c2e41677b92e7d8c0b8609f039bb99ca7d",
+          "source_family": "yaml-cpp",
+          "matched_terms": [
+            "build_testing",
+            "dbuild_testing",
+            "off"
+          ],
+          "advice": {
+            "stage": "configure",
+            "conditions": [
+              "CMake 项目同时存在通用 BUILD_TESTING 与项目自有测试选项",
+              "交付要求作者测试必须被配置、构建并实际运行",
+              "可读取生成后的 CMakeCache.txt"
+            ],
+            "state": "command_3bb560bddd104909b0f11eb279a65f83 仅设置 -DBUILD_TESTING=ON，配置成功；command_2ede3b97470d476eadd43b957ac9ff70 也成功生成静态库和工具。但验证发现 YAML_CPP_BUILD_TESTS=OFF，说明通用开关未满足该项目的测试准备要求。",
+            "action": "不要把“CMake 配置成功”或“产物成功链接”等同于测试已启用。配置后、正式构建前应检查 CMakeCache 中任务要求的项目级测试选项和相关依赖模式；若项目文档定义了独立测试开关，应显式设置后重新配置。这里的 YAML_CPP_BUILD_TESTS 仅是本项目实例，不应当作其他项目的通用开关。",
+            "outcome": "ineffective",
+            "not_applicable": [
+              "项目仅使用 BUILD_TESTING 且缓存已证明测试启用时",
+              "测试由外部构建系统或独立流水线提供时",
+              "任务明确不要求构建或运行作者测试时"
+            ],
+            "verification_scope": "实际确认配置与非测试目标构建成功，并产出 libyaml-cpp.a；验证链在首个缓存断言处因 YAML_CPP_BUILD_TESTS=OFF 退出。ctest、JUnit 三用例检查、验证后的来源索引检查、replay 与交付均未执行或未观察，因此不能声称测试失败或通过。",
+            "command_ids": [
+              "command_3bb560bddd104909b0f11eb279a65f83",
+              "command_2ede3b97470d476eadd43b957ac9ff70",
+              "command_7e666c6eebe14dd58e9f376b1f0b523f"
+            ]
+          }
+        },
+        {
+          "source_id": "E30-slot-19",
+          "experience_id": "6cb93554978d7b477a6a5cac85d179fc0e79a643f541d8ed4ed61f16103bcade",
+          "source_family": "rang",
+          "matched_terms": [
+            "config",
+            "package"
+          ],
+          "advice": {
+            "stage": "dependency",
+            "conditions": [
+              "CMake项目通过find_package等机制查找外部测试依赖",
+              "依赖源码已在本地可用，且允许写入项目内隔离目录",
+              "依赖能够生成并安装CMake package config",
+              "主项目允许通过包专用_DIR指定查找位置"
+            ],
+            "state": "测试依赖doctest需要以CMake可发现的形式提供；直接拥有依赖源码并不等于主项目能定位其配置包。",
+            "action": "先以关闭依赖自身测试等选项配置doctest到独立构建目录（command_4ec28b32b758403b882cb7f0c849060c），再安装到项目内前缀并确认doctestConfig.cmake存在（command_155088bc758240c9b700f1a2521ddcd7）；配置主项目时显式传入doctest_DIR并重建干净build目录（command_b9352125391e4d10ada6ad9d98816520）。这是本轨迹有效的依赖准备路径，但未做省略doctest_DIR的对照实验，不能断言每一步均不可替代。",
+            "outcome": "effective",
+            "not_applicable": [
+              "依赖已由系统包、工具链文件或项目内FetchContent稳定提供",
+              "依赖不导出CMake package config",
+              "项目使用其他构建系统或禁止项目内安装前缀",
+              "交叉编译时依赖必须由目标工具链统一管理"
+            ],
+            "verification_scope": "观察到依赖配置、安装和主项目配置均成功，所需配置文件及CMakeCache.txt存在；后续目标构建和原作者测试也成功。未观察缺少显式路径时是否仍可发现依赖，也未验证其他依赖版本或安装布局。",
+            "command_ids": [
+              "command_4ec28b32b758403b882cb7f0c849060c",
+              "command_155088bc758240c9b700f1a2521ddcd7",
+              "command_b9352125391e4d10ada6ad9d98816520"
+            ]
+          }
+        }
+      ],
+      "bytes": 3627,
+      "maximum_bytes": 4096,
+      "top_k": 2,
+      "policy": "matched_action_advice_v1",
+      "abstained": false
+    }
+  },
+  {
+    "slot": 24,
+    "project": "double-conversion",
+    "revision": 1,
+    "first_request": "slot-24-double-conversion-forge_experience/agent/request-2.json",
+    "context": {
+      "mode": "structured",
+      "sources": [
+        "E04-slot-5",
+        "E04-slot-1"
+      ],
+      "items": [
+        {
+          "source_id": "E04-slot-5",
+          "experience_id": "6957f395b6d52854ba1a2d9b309817c2e41677b92e7d8c0b8609f039bb99ca7d",
+          "source_family": "yaml-cpp",
+          "matched_terms": [
+            "build_testing",
+            "dbuild_testing",
+            "off",
+            "成功"
+          ],
+          "advice": {
+            "stage": "configure",
+            "conditions": [
+              "CMake 项目同时存在通用 BUILD_TESTING 与项目自有测试选项",
+              "交付要求作者测试必须被配置、构建并实际运行",
+              "可读取生成后的 CMakeCache.txt"
+            ],
+            "state": "command_3bb560bddd104909b0f11eb279a65f83 仅设置 -DBUILD_TESTING=ON，配置成功；command_2ede3b97470d476eadd43b957ac9ff70 也成功生成静态库和工具。但验证发现 YAML_CPP_BUILD_TESTS=OFF，说明通用开关未满足该项目的测试准备要求。",
+            "action": "不要把“CMake 配置成功”或“产物成功链接”等同于测试已启用。配置后、正式构建前应检查 CMakeCache 中任务要求的项目级测试选项和相关依赖模式；若项目文档定义了独立测试开关，应显式设置后重新配置。这里的 YAML_CPP_BUILD_TESTS 仅是本项目实例，不应当作其他项目的通用开关。",
+            "outcome": "ineffective",
+            "not_applicable": [
+              "项目仅使用 BUILD_TESTING 且缓存已证明测试启用时",
+              "测试由外部构建系统或独立流水线提供时",
+              "任务明确不要求构建或运行作者测试时"
+            ],
+            "verification_scope": "实际确认配置与非测试目标构建成功，并产出 libyaml-cpp.a；验证链在首个缓存断言处因 YAML_CPP_BUILD_TESTS=OFF 退出。ctest、JUnit 三用例检查、验证后的来源索引检查、replay 与交付均未执行或未观察，因此不能声称测试失败或通过。",
+            "command_ids": [
+              "command_3bb560bddd104909b0f11eb279a65f83",
+              "command_2ede3b97470d476eadd43b957ac9ff70",
+              "command_7e666c6eebe14dd58e9f376b1f0b523f"
+            ]
+          }
+        },
+        {
+          "source_id": "E04-slot-1",
+          "experience_id": "9adfd967b30e96e9b04737e7861295791963de7172384b277e087b2c6dd55056",
+          "source_family": "snappy",
+          "matched_terms": [
+            "build_testing",
+            "成功",
+            "验收"
+          ],
+          "advice": {
+            "stage": "configure",
+            "conditions": [
+              "使用CMake配置项目",
+              "验收要求测试、基准等特定功能开启",
+              "配置输出提示手工变量未被项目使用"
+            ],
+            "state": "command_ceb8f543bc6c47e1a528e899fbc935b8 使用通用开关 BUILD_TESTING=ON，CMake虽成功生成，却明确警告该变量未被项目使用。后续检查在失败前已确认项目自身的 SNAPPY_BUILD_TESTS、SNAPPY_BUILD_BENCHMARKS 为启用，说明它们来自项目自身配置状态，不能归因于 BUILD_TESTING。",
+            "action": "看到“Manually-specified variables were not used”后，应立即检查 CMakeCache.txt、项目选项声明或配置摘要，按验收项核对项目专用开关；不要因配置命令退出码为0，就认为传入开关已生效。command_ca630b0616d8448eab98e1f290a54348 的测试与基准目标成功构建仅证明当时这些目标已启用，不证明通用开关产生了因果作用。",
+            "outcome": "ineffective",
+            "not_applicable": [
+              "项目明确采用BUILD_TESTING并且缓存或目标状态已验证其生效",
+              "验收不要求测试或基准目标",
+              "非CMake构建系统"
+            ],
+            "verification_scope": "观察到CMake警告BUILD_TESTING未使用；最终检查在HAVE_LIBLZO2处失败前，已通过SNAPPY_BUILD_TESTS、SNAPPY_BUILD_BENCHMARKS和HAVE_LIBZ检查。HAVE_LIBLZ4、静态库配置、CTest实际执行及交付均未观察。",
+            "command_ids": [
+              "command_ceb8f543bc6c47e1a528e899fbc935b8",
+              "command_ca630b0616d8448eab98e1f290a54348",
+              "command_223c690c6d7641e683d41745839217a9"
+            ]
+          }
+        }
+      ],
+      "bytes": 3542,
+      "maximum_bytes": 4096,
+      "top_k": 2,
+      "policy": "matched_action_advice_v1",
+      "abstained": false
+    }
+  },
+  {
+    "slot": 24,
+    "project": "double-conversion",
+    "revision": 2,
+    "first_request": "slot-24-double-conversion-forge_experience/agent/request-7.json",
+    "context": {
+      "mode": "structured",
+      "sources": [],
+      "items": [],
+      "bytes": 0,
+      "maximum_bytes": 4096,
+      "top_k": 2,
+      "policy": "matched_action_advice_v1",
+      "abstained": true
+    }
+  },
+  {
+    "slot": 29,
+    "project": "libogg",
+    "revision": 0,
+    "first_request": "slot-29-libogg-forge_experience/agent/request-1.json",
+    "context": {
+      "mode": "structured",
+      "sources": [
+        "E30-slot-1"
+      ],
+      "items": [
+        {
+          "source_id": "E30-slot-1",
+          "experience_id": "67e197f007ec6e313ac49e7afa9696ad630d8cbe68b58224fecdefafe9b2df8f",
+          "source_family": "check",
+          "matched_terms": [
+            "check",
+            "doc",
+            "makefile",
+            "yes"
+          ],
+          "advice": {
+            "stage": "configure",
+            "conditions": [
+              "默认configure摘要显示启用文档构建",
+              "构建日志明确因makeinfo缺失在文档目标check.info处失败",
+              "核心库和测试不要求文档产物，且项目自身提供可关闭文档构建的配置选项",
+              "改变配置前可清理旧config.status、Makefile及既有构建产物"
+            ],
+            "state": "默认./configure成功且显示“build docs yes”，但随后make在doc/check.info处因makeinfo不存在而退出；失败不等于此前库或测试相关编译均无效。清理配置状态后，本项目使用自身的--disable-build-docs重新配置，摘要变为“build docs no”，后续库、测试程序构建以及完整make check均成功。",
+            "action": "遇到缺失文档生成器导致的构建失败时，先从失败目标和configure摘要区分“核心编译依赖”与“可选文档依赖”。若交付范围不含文档且项目明确支持对应选项，可清理旧配置后关闭该组件并重新配置；否则应安装缺失工具。不要把--disable-build-docs视为其他项目通用开关，也不要在未重新配置时假定旧Makefile已更新。",
+            "outcome": "effective",
+            "not_applicable": [
+              "文档属于必需交付物或测试会验证文档时",
+              "项目没有该配置选项，或选项语义不同、同时关闭必要功能时",
+              "失败并非来自文档目标或安装makeinfo才是既定环境要求时",
+              "交叉编译、打包规范或发行流程要求保持默认功能集合时"
+            ],
+            "verification_scope": "默认构建实际失败于makeinfo缺失；关闭本项目文档构建后，观察到libcheck.a及测试程序生成，make check报告TOTAL 9、PASS 9、FAIL/ERROR 0。另有制品暂存成功，但未验证文档交付、安装流程或其他项目同名选项；configure仍警告缺少filterdiff会影响可重复性。",
+            "command_ids": [
+              "command_f47d6f66d0e94b8f96cbab9b6a4808ae",
+              "command_2ac53bc34e67472e8403356b6883a2c9",
+              "command_fe25cc48201746dbbfef301eced0d4a5",
+              "command_80325c6c88744198a99446ca7c4abca3",
+              "command_37ab6cea9b6242f28d9eecfce1c0b889",
+              "command_8efb1c4d000e46d6a18e5d95d5b63a7e"
+            ]
+          }
+        }
+      ],
+      "bytes": 2321,
+      "maximum_bytes": 4096,
+      "top_k": 2,
+      "policy": "matched_action_advice_v1",
+      "abstained": false
+    }
+  },
+  {
+    "slot": 36,
+    "project": "xxhash",
+    "revision": 0,
+    "first_request": "slot-36-xxhash-forge_experience/agent/request-1.json",
+    "context": {
+      "mode": "structured",
+      "sources": [
+        "E04-slot-7",
+        "E04-slot-8"
+      ],
+      "items": [
+        {
+          "source_id": "E04-slot-7",
+          "experience_id": "f878133e346780e40cbcd420eaa296f075939ff43bd371c518e068c1375fd394",
+          "source_family": "libtommath",
+          "matched_terms": [
+            "git",
+            "state"
+          ],
+          "advice": {
+            "stage": "build",
+            "conditions": [
+              "源码为 Make 工程，默认目标预期生成静态库",
+              "环境已具备可用的 make、C 编译器与 ar",
+              "源码文件集合已由 command_4bacd1ad28d14b3183c340bcad60dfb1 完成索引校验，但该 Git 初始化不应视为编译成功的因果条件"
+            ],
+            "state": "在仓库根目录直接执行默认构建；未观察到额外配置步骤或依赖安装。",
+            "action": "先执行默认 make 并依据日志确认其实际产物类型，而不要假定默认目标同时准备测试程序。command_1f6f9fe2cd274fecba47259efe6134d4 的 make -j2 以 0 退出，日志显示大量对象文件被归档并出现“ar: creating libtommath.a”。",
+            "outcome": "effective",
+            "not_applicable": [
+              "项目默认目标不是所需交付物时，应显式选择对应目标",
+              "非 Make 构建系统或需要预配置、生成源码的工程",
+              "要求共享库、特定 ABI 或自定义编译选项但尚未配置的场景"
+            ],
+            "verification_scope": "仅观察到默认构建成功及日志中的静态库创建；未单独检查 libtommath.a 的存在、内容或可链接性。后续测试未运行成功，也没有 replay 或交付验证。",
+            "command_ids": [
+              "command_4bacd1ad28d14b3183c340bcad60dfb1",
+              "command_1f6f9fe2cd274fecba47259efe6134d4"
+            ]
+          }
+        },
+        {
+          "source_id": "E04-slot-8",
+          "experience_id": "fc3f5fb3b43a18c7fe7fde7a9ec6842dd5ac1d40794832724d08940ff543bfa9",
+          "source_family": "libtommath",
+          "matched_terms": [
+            "git",
+            "state"
+          ],
+          "advice": {
+            "stage": "build",
+            "conditions": [
+              "源码来自归档且仓库根目录最初无.git",
+              "工作目录为源码根目录",
+              "项目提供可用的默认Make目标及C编译、归档工具",
+              "目标是生成默认静态库产物"
+            ],
+            "state": "归档源码先建立临时Git索引并核对固定文件集合；该步骤确认输入范围，但没有证据表明它是编译成功的因果条件。随后默认构建尚未包含测试准备。",
+            "action": "在输入文件集合核验通过后执行并行默认构建`make -j2`。不要从退出码单独推断测试程序也已生成；应将库构建与测试目标准备视为不同状态。",
+            "outcome": "effective",
+            "not_applicable": [
+              "项目没有Makefile或默认目标不生成所需产物",
+              "工具链、平台或源码状态与本轨迹不同",
+              "需要共享库、安装包或其他非默认产物",
+              "要求证明运行时正确性或可交付性"
+            ],
+            "verification_scope": "实际仅观察到源码索引集合校验成功、`make -j2`退出码为0，日志显示`ar: creating libtommath.a`。未执行产物内容检查；完整测试失败，交付与replay未观察。",
+            "command_ids": [
+              "command_f1b1a66829a84e38af6dd5fe44c81424",
+              "command_fa3704d6adfa4df4ba14628923996dc2"
+            ]
+          }
+        }
+      ],
+      "bytes": 2891,
+      "maximum_bytes": 4096,
+      "top_k": 2,
+      "policy": "matched_action_advice_v1",
+      "abstained": false
+    }
+  }
+]

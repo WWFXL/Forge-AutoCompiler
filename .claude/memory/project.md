@@ -618,6 +618,19 @@
 
 ## 最近变更 (Recent Changes)
 
+- 2026-11-05 — #691完成两层经验三方法36次比较并保存E48。
+  - 文件: `docs/research/2026-11-05-two-level-system-results.md`, `benchmarks/analyses/two-level-system-2026-11-05/`, `docs/research/THESIS_EVIDENCE_INDEX.md`, `RESEARCH_STATUS.md`。
+  - 结果: 36/36终态、0未观察槽；基础/经验/强工具主构建12/11/12、完整均10/12，请求40/20/82、费0.1374321/0.0850560/0.2161467美元、累计721.91/796.31/707.80秒。精确复用6次零模型完整、时间比基础低11.2%；无方案建议不稳定，四共同完整对经验费用高18.1%，不把混合收益当泛化。
+  - 失败: 六次double-conversion未完整；经验槽4已有效静态库但变量CMake未被infer_command_roles识别，主构建false原样保留；另五次主库/交付/构建replay过、CTest零测试配置缺口，非用例失败。源码35过1未观察、cleanup36过；下阶段候选为最小命令识别/测试准备衔接修复，未实施新效果。
+  - 证据: 运行ea588dbd、manifest e0bc1bba，raw forge-two-level-system-comparison-flash-v1，inventory beb04016020866cb522a869c32ae80374c2036d4f40472528ed166dc7a7801de；142响应/1262247Token/新增0.4386348美元/未知0，逐响应及初始/恢复费复算一致，71容器142名称/ID实查不存在；session forge-two-level-system-session-2026-11-05-v1保存最终运行/资源/发布收据。
+  - 边界: 用户明确执行两项，助手自限新增2美元/UTC02:00–06:00含准备，不宣称用户逐项给定或02:00为回复；进程退出0，无重试/补槽/扩批/活动Provider。库固定、六方案命中/十检索、两Forge各保存10最终方案不供后续读回；来源0.0150984/旧库0.095129美元另列，不当持续自进化。旧E46/E47、状态消融及v0.6保持，用户原checkout不动，知识库仅经MCP。最终PR692三CI/合并/Issue691以GitHub及会话收据为准，仅科研集成分支。
+
+- 2026-11-05 — #691装配两层经验共同流程并准备三方法36次完整比较。
+  - 文件: `simple_build_experience.py`、`scripts/forge_two_level_system_comparison.py`、`test_two_level_system_comparison.py`、新六任务/manifest/preregistration、`docs/research/2026-11-05-two-level-system-preparation.md`。
+  - 行为: 按完整公开任务检索固定成功方案，多份同身份拒绝隐式选择；同一入口同时提供精确方案与建议库，命中直接Workflow、未命中一次建议检索后规划，失败按恢复任务检索一次并修订，完整成功保存最终方案。批次不读回新输出，不改旧检索算法。
+  - 验证: 三新增double-conversion/libogg/xxhash参考完整；highwayhash命中/libogg未命中两联合零Provider Docker路径均完整，0/1离线回复、0/1检索、源码/cleanup通过；75相关回归/Ruff/格式通过。来源网络失败、参考/离线驱动开始前错误及修正后独立文件保留，不回填旧E46/E47或当模型效果。
+  - 边界: `cpp-build-two-level-system-comparison-flash-v1`，三复用+三新增无方案×两重复×基础/两层经验/强工具=36次，按层报告，Flash低思考、全费用/原验收；用户本次明确执行两项，助手自限新增2美元/准备与执行4小时，付费前绑定请求/manifest/截止。原件`forge-two-level-system-session-2026-11-05-v1`；只合科研集成分支，原checkout用户内容保持。正式结果另报，当前准备0Provider。
+
 - 2026-11-05 — #689移出简洁规划动作的诊断路径，修复非核心元数据阻断。
   - 文件: `simple_build_task.py`、`test_simple_planning.py`、`test_simple_build.py`、`benchmarks/fixtures/simple-planner-diagnostics-v1.json`、`docs/research/2026-11-05-planner-diagnostics-repair.md`。
   - 行为: 模型 schema 与恢复上下文不再提供 diagnostic_paths；响应中该字段仅丢弃、不执行，原响应保留；其他字段/路径/Shell 与原验收保持。完整命令日志/退出码/失败哈希与输出尾部照常交接。
