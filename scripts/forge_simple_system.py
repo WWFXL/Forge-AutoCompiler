@@ -68,10 +68,13 @@ class ScriptedSimpleModel(FakeMessagesListChatModel):
 
 def run_simple_system(*, task, reference, source_archive, output_root, method, model, accepted_models, family, recipe=None, bank=None, deadline=None, maximum_cost_usd="1.00", author_test_seconds=120, replay_seconds=240,
     recovery_model=None, recovery_accepted_models=None, pricing_by_model=None,
+    initial_plan=None, state_router=None, validation_scope="author_tests",
 ):
     """可复用执行接点；本函数不加载配置或凭据，不自行创建Provider。"""
     if method not in METHODS[:3]:
         raise ValueError("此接点仅接受Forge/经验Forge/强工具Agent")
+    if (task.task_version == "main-build-v1") != (validation_scope == "main_build"):
+        raise ValueError("公开任务版本必须与主构建/旧作者测试范围一致")
     if reference.task_sha256 != _digest(task.model_dump(mode="json")):
         raise ValueError("独立参考不属于当前公开任务")
     if method != "forge_experience" and (recipe is not None or bank is not None):
@@ -92,6 +95,7 @@ def run_simple_system(*, task, reference, source_archive, output_root, method, m
             recovery_accepted_models=recovery_accepted_models or accepted_models,
             maximum_cost_usd=maximum_cost_usd,
             deadline=deadline,
+            validation_scope=validation_scope,
             kind="zero_provider_engineering" if accepted_models == ("zero-provider-script",) else "requires_external_authorized_protocol",
         ),
     )
@@ -135,7 +139,12 @@ def run_simple_system(*, task, reference, source_archive, output_root, method, m
             # 仅创建共享记录/外部检查对象；占位方案从不执行或送入基线上下文。
             plan = SimpleBuildPlan(task=task, steps=(PlanStep(step_id="build", role="build", command="make", source="外部检查占位，不执行", expected="不执行"),))
         else:
-            if recipe is not None and recipe.match(task):
+            if initial_plan is not None:
+                plan = SimpleBuildPlan.model_validate(initial_plan)
+                if plan.task != task:
+                    raise ValueError("固定初始方案不属于当前任务")
+                ledger.append("initial_plan.fixed", plan_sha256=plan.fingerprint(), model_planning_skipped=True)
+            elif recipe is not None and recipe.match(task):
                 plan = recipe.materialize(task)
                 ledger.append("recipe.selected", source_id=recipe.source_id, recipe_sha256=_digest(recipe.model_dump(mode="json")), model_planning_skipped=True)
             else:
@@ -157,6 +166,8 @@ def run_simple_system(*, task, reference, source_archive, output_root, method, m
                 workflow.run()
                 if workflow.status != "needs_handoff":
                     break
+                if state_router is not None and state_router.handle(workflow, meter):
+                    continue
                 recovery_start = time.monotonic()
                 try:
                     meter.accepted_models = recovery_accepted_models or accepted_models
@@ -171,7 +182,7 @@ def run_simple_system(*, task, reference, source_archive, output_root, method, m
             # Workflow自身计时始于初始规划之后；系统比较必须另存包含规划/准备的时间。
             workflow.timings["time_to_primary_from_arm_start_seconds"] = time.monotonic() - started
             final_plan = workflow.plan
-            result.update(workflow.postchecks(author_test_seconds=author_test_seconds))
+            result.update(workflow.postchecks(author_test_seconds=author_test_seconds, validation_scope=validation_scope))
         source_unchanged(source, workflow.baseline)
         result["source_unchanged"] = True
         result.update(status=workflow.status, layers=workflow.layers, timings=workflow.timings)
@@ -191,9 +202,18 @@ def run_simple_system(*, task, reference, source_archive, output_root, method, m
         result.update(agent_usage=meter.summary(), arm_total_wall_seconds=time.monotonic() - started)
         result.setdefault("timings", {}).update(initial_planning_seconds=planning_seconds, recovery_agent_seconds=recovery_seconds)
         if result.get("layers"):
-            result["layers"]["full_completed"] = full_completion(result["layers"], result["cleanup"]["succeeded"])
+            if validation_scope == "main_build":
+                result["layers"]["main_build_task_completed"] = bool(result["layers"]["primary_build_completed"] and result["source_unchanged"] is True and result["cleanup"]["succeeded"])
+                result["layers"]["full_completed"] = None  # 旧完整任务包含作者测试，不能冒称通过。
+            else:
+                result["layers"]["full_completed"] = full_completion(result["layers"], result["cleanup"]["succeeded"])
             if result["status"] == "error" or result["source_unchanged"] is False:
                 result["layers"]["full_completed"] = False
+                if validation_scope == "main_build":
+                    result["layers"]["main_build_task_completed"] = False
+        result["validation_scope"] = validation_scope
+        if state_router is not None:
+            result["router_usage"] = state_router.summary()
         if final_plan is not None and method != "strong_tool_agent" and result.get("layers", {}).get("full_completed") is True:
             value = verified_simple_recipe(source_id=root.name, plan=final_plan, validation=result)
             save(root / "verified-simple-recipe.json", value.model_dump(mode="json"))

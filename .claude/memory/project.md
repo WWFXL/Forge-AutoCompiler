@@ -617,6 +617,11 @@
   - 下一步: 等待实验负责人确认当前网络接入介质，并决定是否授权只读 endpoint 诊断和新的 canary amendment；获得确认后必须另建中文 Issue/PR 和协议 identity，保留当前失败 marker。
 
 ## 最近变更 (Recent Changes)
+- 2026-11-05 — #693完成主构建修复、受限Jev路由及E49中断结果/论文记录。
+  - 文件: `build_state_routing.py`, `scripts/forge_main_build_state_comparison.py`, `docs/research/2026-11-05-main-build-state-routing-results.md`, `benchmarks/analyses/main-build-state-routing-2026-11-05/`, 第3/4/6章及`RESEARCH_STATUS.md`。
+  - 结果: 24计划槽3终态/21未启动；jsoncpp规则/Jev各一次主构建/交付/重放/源码/cleanup通过。double-conversion原CMake不足后首次Jev请求TypeSafePermissionDeniedError、用量未知，未产生选择或恢复，后层未观察；不把21槽填失败、不作Jev效果比较。Flash0请求/Jev1请求成功0，已知完成费0而总费未知。
+  - 证据: run d2be5ce0、manifest134de492，raw forge-main-build-state-routing-v1、inventory5d8a5178de26e035c29d6b6534835b9f6ae7f50ca39d79dde4c87ff738b790f2；2544普通文件/8链接/73045924bytes，seal只读核验通过、10容器名称/ID不存在。两条零Provider工程路径和45检查只支持实现，六来源历史规划14请求/0.0381387美元另列。
+  - 边界: 用户开始覆盖四步24次，助手自限新增2美元/UTC05:38:28–09:38:28含准备，不冒称用户逐项数字。无活动Provider/重试/补槽/扩批；先解决Jev权限及未知用量，再决定独立新身份。main-build-v1作者测试not_required非通过，旧full任务/E48失败保持；Markdown更新、Word/PDF仍v0.6。原checkout用户memory/HTML/uv.lock保持，PR694结果head三CI/合并/Issue693以GitHub和会话收据为准。
 
 - 2026-11-05 — #691完成两层经验三方法36次比较并保存E48。
   - 文件: `docs/research/2026-11-05-two-level-system-results.md`, `benchmarks/analyses/two-level-system-2026-11-05/`, `docs/research/THESIS_EVIDENCE_INDEX.md`, `RESEARCH_STATUS.md`。

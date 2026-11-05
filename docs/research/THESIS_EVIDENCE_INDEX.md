@@ -1,5 +1,7 @@
 # 硕士论文实验与证据索引
 
+最新部分比较：[E49](#e49)新主构建目标与异常路由24槽在第3槽Jev权限错误后停止：jsoncpp规则/Jev各一次主构建、交付、重放通过；1次服务拒绝、21槽未启动。1次用量未知，总费不能填0；没有Jev效果结论。两条零Provider工程路径只支持实现。方法/限制已补入论文Markdown，第3/4/6章新范围不覆盖旧完整任务结果，全文导出仍v0.6。
+
 最新系统结果：[E48](#e48)两层经验联合流程三方法36/36终态，基础/经验/强工具完整均10/12，请求40/20/82，在线费0.1374321/0.0850560/0.2161467美元、累计721.91/796.31/707.80秒。精确复用6次零模型完整、比基础时间低11.2%；无方案层建议收益不稳定，double-conversion一次命令识别缺口及五次零测试配置单列。旧E46/E47及论文v0.6保留。
 
 此前独立经验结果：[E46](#e46)跨项目建议16次，两组均8/8完整、经验费用高42.2%；[E47](#e47)同项目精确方案复用16次，基础7/8、复用8/8且8次零模型。两项独立分母、来源成本另列；已生成论文表/案例，全文仍v0.6。
@@ -60,6 +62,14 @@
 重复次数不等于独立项目数；各批模型、接口和任务版本不同，不把不同批次合成一个成功率或以跨批相减估计组件效果。分层分析会重复消费原运行，不能再算一份独立实验数据。费用使用各批冻结费率的估算，包含失败和恢复，不能当作实际账单；零恢复费用不代表初始规划免费。所有失败/未完成保留，未运行的测试、交付或重放记未观察。
 
 ## 正文候选：完整比较与组件消融
+
+<a id="e49"></a>
+### E49 简洁主构建与异常语义路由的中断比较
+
+- **用途／设计**：第3章简洁任务定义、第4章事实观测与受限Jev动作选择、第6章服务中断限制。`cpp-build-main-state-routing-comparison-v1`：六个开发项目固定E48首重复基础初始方案×两重复×规则/Jev=24；同任务/Flash恢复/候选/资源/经验关闭，非holdout、非完整规划系统比较。
+- **实际结果／边界**：3槽终态、21未启动。jsoncpp两方法各一次主构建/新任务/交付/replay通过；double-conversion/Jev在CMake版本不足后首次请求报`TypeSafePermissionDeniedError`，没有选择结果，后层未观察。不能从部分分母推Jev效果或将未观察填失败；原analysis触发0只计完成decision，实际请求触发1。全部cleanup通过、源码2过1未观察，10容器名称/ID不存在。
+- **成本／版本**：Flash0请求，Jev1次用量未知，已知完成响应费0不等于本轮总费0。六来源历史14请求/0.0381387美元另列。run d2be5ce0，manifest134de492；raw `forge-main-build-state-routing-v1`，inventory `5d8a5178de26e035c29d6b6534835b9f6ae7f50ca39d79dde4c87ff738b790f2`。无自动重试/补槽；旧完整任务、E48失败与分母不变。
+- **入口**：[报告](2026-11-05-main-build-state-routing-results.md)、[24槽CSV](../../benchmarks/analyses/main-build-state-routing-2026-11-05/slots.csv)、[汇总](../../benchmarks/analyses/main-build-state-routing-2026-11-05/summary.json)、[请求/错误指针](../../benchmarks/analyses/main-build-state-routing-2026-11-05/provider-blocker.json)、[协议](../../benchmarks/preregistrations/cpp-build-main-state-routing-comparison-v1.md)。[两条工程路径和45项检查](2026-11-05-main-build-state-routing-preparation.md)不计模型效果；封存只读核验通过。
 
 <a id="e48"></a>
 ### E48 两层经验联合流程的三方法36次系统比较

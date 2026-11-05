@@ -2,7 +2,17 @@
 
 论文选材固定入口：[硕士论文实验与证据索引](docs/research/THESIS_EVIDENCE_INDEX.md)，[历史材料目录](docs/research/THESIS_EVIDENCE_CATALOG.md)保留存量导航。当前完整稿为[论文v0.6](docs/thesis/README.md)；E40/E41新增两层经验结果，E39及此前基础系统、组件与恢复实验按原版本和分母继续使用。
 
-## 当前阶段（2026-11-05；#691两层经验完整流程与36次系统比较已完成）
+## 当前阶段（2026-11-05；#693主构建修复完成，Jev比较在服务权限错误后停止）
+
+用户确认以主要程序/库构建及有效产物为新任务目标，完整作者测试不默认要求。共同修复变量形式构建命令误拦；新main-build-v1与旧完整任务分开，源码/测试保护保留，交付及干净构建重放独立报告。最小异常路由将真实阶段目的/命令/退出/日志/配置/产物状态交给规则或Jev，在共享有限候选中选择局部修订或Flash恢复；正常路径零Jev，无候选交Agent，不恢复旧阈值或旧Jev身份。
+
+[报告](docs/research/2026-11-05-main-build-state-routing-results.md)和[E49](docs/research/THESIS_EVIDENCE_INDEX.md#e49)登记cpp-build-main-state-routing-comparison-v1：原六开发项目固定E48首重复基础方案×两重复×规则/Jev=24，实际3槽终态、21未启动。jsoncpp两方法各一次主构建/新任务/交付/replay通过；double-conversion配置因CMake3.28.3低于作者3.29失败，首次Jev请求报TypeSafePermissionDeniedError，无响应/决策且用量未知。后层未观察、三槽cleanup通过、源码2过1未观察。不能以部分分母比较效果或把21未启动算失败；总费/总Token未知，已知完成响应费0不等于零支出。Flash0请求，Jev1请求/成功0；原analysis触发0只指完成decision，派生分析明确实际尝试1。
+
+运行d2be5ce0，manifest134de492；raw `forge-main-build-state-routing-v1`，inventory `5d8a5178de26e035c29d6b6534835b9f6ae7f50ca39d79dde4c87ff738b790f2`。原件只读核验通过，10容器名称/ID实查不存在。45相关检查及两条真实零Provider工程路径通过，仅支持实现、不增效果分母。六来源历史规划14请求/0.0381387美元另列，非本轮付费。第3/4/6章Markdown及正文证据映射已补，Word/PDF全文导出仍v0.6；旧E48与历史完整任务的失败/分母保持。
+
+用户“开始执行！”覆盖前述四步24次，助手自限新增2美元/UTC05:38:28–09:38:28含准备，不冒称逐项用户数字。正式进程已退出，按未知用量停止，未重试/补槽/扩批/换Provider。下一步须先解决Jev访问权限及本次用量，再决定独立新身份比较；无活动Provider，不能称Jev有效或无效。免费论文整理可继续。原用户checkout保留，最终PR694/CI/合并/Issue693状态以GitHub和`forge-main-state-session-2026-11-05-v1`发布收据为准；仅科研集成分支，知识库仅MCP同步、不进入实验Agent。
+
+## 上一阶段（2026-11-05；#691两层经验完整流程与36次系统比较已完成）
 
 本轮完成装配、真实数据采集与结果分析。[报告](docs/research/2026-11-05-two-level-system-results.md)和[E48](docs/research/THESIS_EVIDENCE_INDEX.md#e48)保存三复用/三无方案项目×两重复×基础Forge/两层经验Forge/强工具36/36终态、0未启动槽。同Flash low、简洁任务/资源/独立检查，记录主构建12/11/12、完整均10/12；请求40/20/82，在线费0.1374321/0.0850560/0.2161467美元，累计721.91/796.31/707.80秒。经验比基础费低38.1%、时间高10.3%；基础比强工具费低36.4%、时间高2.0%，是本批两层各半的系统取舍，不作一般排名或状态独立因果。
 

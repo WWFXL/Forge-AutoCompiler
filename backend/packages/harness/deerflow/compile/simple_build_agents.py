@@ -13,7 +13,6 @@ from langchain.agents import create_agent
 from langchain_core.messages import HumanMessage
 from langchain_core.tools import tool
 
-from deerflow.compile import operations
 from deerflow.compile.agent_workflow_runtime import AgentWorkflowExecutionMiddleware
 from deerflow.compile.operation_window import OperationWindow
 from deerflow.compile.plan_agent import PlanResponseCapture
@@ -132,7 +131,7 @@ class SimpleToolBuildService:
         if supporting_command_id not in recipe_command_ids or any(r.exit_code != 0 or r.timed_out or r.role not in {"dependency", "configure", "build"} for r in rows):
             return dict(accepted=False, reason="recipe不能包含失败、诊断或未执行动作")
         supporting = records[supporting_command_id]
-        if supporting.role != "build" or "build" not in operations.infer_command_roles(supporting.command):
+        if supporting.role != "build":
             return dict(accepted=False, reason="supporting命令必须为实际成功构建")
         source_unchanged(w.root, w.baseline)
         w.primary = primary_artifacts(task=w.plan.task, reference=w.reference, root=w.root, baseline=w.baseline, deadline=time.monotonic() + min(30, w._remaining()))
