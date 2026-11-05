@@ -618,6 +618,12 @@
 
 ## 最近变更 (Recent Changes)
 
+- 2026-11-05 — #689移出简洁规划动作的诊断路径，修复非核心元数据阻断。
+  - 文件: `simple_build_task.py`、`test_simple_planning.py`、`test_simple_build.py`、`benchmarks/fixtures/simple-planner-diagnostics-v1.json`、`docs/research/2026-11-05-planner-diagnostics-repair.md`。
+  - 行为: 模型 schema 与恢复上下文不再提供 diagnostic_paths；响应中该字段仅丢弃、不执行，原响应保留；其他字段/路径/Shell 与原验收保持。完整命令日志/退出码/失败哈希与输出尾部照常交接。
+  - 验证: 56相关回归与Ruff/格式通过；原highwayhash响应一次零Provider真实构建/三个原测试/交付/clean replay/源码/cleanup全过，23.06秒。运行后驱动误用model_usage键导致最终断言退出，原件保留，正确agent_usage只读核对通过，不重跑。
+  - 证据/边界: `forge-planner-diagnostics-repair-2026-11-05-v1`保存源码快照/实际结果/核验；0真实Provider/Token/新增模型费，不能当模型效果或回填E47。只修用户指定第一项，不改检索、不启动新付费。独立worktree保留原checkout用户memory/HTML/uv.lock，发布只合科研集成分支，最终CI/PR/Issue状态以GitHub为准。
+
 - 2026-11-05 — #687完成基础Forge与两层经验的32次固定Flash比较
   - 文件: `scripts/forge_base_experience_comparison.py`, `backend/tests/test_base_experience_comparison.py`, 两个新manifest/preregistration, `docs/research/2026-11-05-base-experience-results.md`, `benchmarks/analyses/base-experience-2026-11-05/`, `THESIS_EVIDENCE_INDEX.md`E46/E47。
   - 结果: 两项独立各16/16终态。跨项目基础/经验完整8/8、8/8，请求17/22、费0.0512544/0.0728724、累计410.47/418.60秒；补读9/14、重复0，宽词匹配仅线索，当前建议费用高42.2%。同项目基础7/8、精确复用8/8，请求21/0、费0.0645282/0；8命中真实重建/原测试/交付/replay/源码/cleanup过。基础highwayhash诊断路径schema失败发生在编译前，保留两响应一次纠正；共同完整7对时间低10.0%仅辅助。源方案构建0.0314205及旧库0.095129另列，不称零投入/未见泛化/恢复增量/自进化。

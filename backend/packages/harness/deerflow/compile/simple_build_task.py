@@ -30,7 +30,15 @@ class SimpleBuildAction(BaseModel):
     requires: tuple[str, ...] = ()
     source: str = Field(min_length=1, description="已读取的作者说明或构建文件及位置")
     expected: str = Field(min_length=1, description="此动作的目的，仅为说明")
-    diagnostic_paths: tuple[str, ...] = ()
+
+    @model_validator(mode="before")
+    @classmethod
+    def discard_diagnostic_hint(cls, value):
+        # 诊断提示不参与执行；仅丢弃这一字段，其余未知字段与动作安全校验保持严格。
+        # 原模型响应由meter保留，不修改或执行提示里的路径。
+        if isinstance(value, dict) and "diagnostic_paths" in value:
+            return {key: item for key, item in value.items() if key != "diagnostic_paths"}
+        return value
 
 
 class SimpleBuildActions(BaseModel):
@@ -171,6 +179,7 @@ SIMPLE_PROMPT = (
 自行识别主要程序/库、依赖与构建入口。不要人为增加Debug、静态库、全部示例、benchmark或单独完整测试。
 默认构建自然包含的目标照常构建，不能删源码/测试或关闭主要组件。目标不清楚时明确报告，不能自行缩小。
 方案只能包含dependency/configure/build动作，最后step_id=build；不要自行测试或暂存。
+命令日志和失败交接由系统记录；不要提交diagnostic_paths等诊断采集字段。
 交付方式：调用名为SimpleBuildActions的结构化输出工具，将reason和steps作为工具参数提交。
 下面的JSON仅展示该工具的参数结构，不是要求在普通回复正文输出JSON；不要用正文宣告规划完成。
 不要在Shell内加入猜测路径或日志断言，验证由独立系统完成。
@@ -228,7 +237,7 @@ def simple_agent_packet(task: PublicBuildTask, *, current_plan=None, handoff=Non
         raise PlanContractError("交接与当前方案不匹配")
     public_plan = current_plan.model_dump(mode="json") if current_plan else None
     if public_plan:
-        public_plan["steps"] = [s for s in public_plan["steps"] if not s["step_id"].startswith("forge-")]
+        public_plan["steps"] = [{k: v for k, v in s.items() if k != "diagnostic_paths"} for s in public_plan["steps"] if not s["step_id"].startswith("forge-")]
         public_plan["plan_sha256"] = current_plan.fingerprint()
     return dict(task=task.model_dump(mode="json"), current_plan=public_plan, handoff=handoff)
 

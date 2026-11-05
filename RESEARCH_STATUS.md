@@ -2,7 +2,13 @@
 
 论文选材固定入口：[硕士论文实验与证据索引](docs/research/THESIS_EVIDENCE_INDEX.md)，[历史材料目录](docs/research/THESIS_EVIDENCE_CATALOG.md)保留存量导航。当前完整稿为[论文v0.6](docs/thesis/README.md)；E40/E41新增两层经验结果，E39及此前基础系统、组件与恢复实验按原版本和分母继续使用。
 
-## 当前阶段（2026-11-05；#687基础Forge与两层经验32次比较完成）
+## 当前阶段（2026-11-05；#689规划诊断字段修复完成工程验证）
+
+本轮仅按用户要求补修非核心字段阻断，[工程记录](docs/research/2026-11-05-planner-diagnostics-repair.md)：简洁规划/恢复动作 schema 移除 `diagnostic_paths`，响应若携带仅丢弃此提示，原响应保留；系统完整命令日志和失败交接继续工作，其余未知字段、执行路径和独立验收保持。56 项相关回归、Ruff/格式通过；第一份原 highwayhash 响应一次零 Provider Docker 构建、三个作者测试、交付、clean replay、源码及 cleanup 全过，23.06 秒；工程驱动最终计量键笔误保留，正确字段只读核验通过，未重跑构建。
+
+原件 `forge-planner-diagnostics-repair-2026-11-05-v1` 保存源码快照、实际结果和只读核验；真实 Provider/Token/新增模型费均 0。E46/E47 原终态与分母不改，不计新的方法效果；本轮不修改检索或启动下一轮付费实验。代码发布仅科研集成分支，相关 CI/PR 及 Issue #689 状态以 GitHub 为准；用户原工作区保留在原 checkout，修复在独立 worktree。
+
+## 上一阶段（2026-11-05；#687基础Forge与两层经验32次比较完成）
 
 本轮完成数据采集与分析，[报告](docs/research/2026-11-05-base-experience-results.md)、[E46/E47](docs/research/THESIS_EVIDENCE_INDEX.md#e47)保存两项独立各16/16终态、0未启动槽。同四开发项目×两重复×基础/经验、同Flash与修复后共同Harness/任务/资源/Workflow/原验收，不在线更新、不复用二进制。跨项目建议两组均8/8完整，请求17/22、费0.0512544/0.0728724美元、累计410.47/418.60秒，补读9/14、重复0，费用高42.2%、时间高2.0%；8次一次检索/22682字节，宽词匹配不能确认适用条件，不支持当前建议降低正常规划成本。
 

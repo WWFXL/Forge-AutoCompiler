@@ -94,6 +94,9 @@ def test_true_build_failure_repaired_with_clean_preserves_failure(runner):
     assert first["status"] == "needs_handoff"
     failed = first["handoff"]["recent_commands"][-1]
     assert failed["exit_code"] != 0
+    assert "missing-target" in failed["output_tail"] and failed["log_sha256"]
+    packet = simple_agent_packet(w.plan.task, current_plan=w.plan, handoff=first["handoff"])
+    assert all("diagnostic_paths" not in step for step in packet["current_plan"]["steps"])
     w.apply_revision(handoff_id=first["handoff"]["handoff_id"], plan=assemble_simple_plan(w.plan.task, actions("make clean && make"), revision=2), reason="修正真实错误目标并正常重建")
     assert w.run()["status"] == "primary_completed"
     assert failed["command_id"] != w.completed["build"]

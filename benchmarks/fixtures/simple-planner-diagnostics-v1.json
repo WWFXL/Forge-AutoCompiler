@@ -1,0 +1,46 @@
+{
+  "source_experiment": "cpp-build-simple-project-reuse-flash-v1",
+  "kind": "original_tool_arguments_only",
+  "responses": [
+    {
+      "response_file": "reuse/slot-08-highwayhash-forge/agent/response-1.json",
+      "response_sha256": "89cff20f828e70c74a91241e567df037a797d99b85104cc661a03b7b7eb17ed7",
+      "proposal": {
+        "reason": "README.md 第10行明确 Linux 上直接运行 make；Makefile 默认 all 目标构建主要程序与 lib/libhighwayhash.a，并已针对 x86_64 配置 AVX2/SSE4.1 编译标志。无需额外依赖或 configure。",
+        "steps": [
+          {
+            "step_id": "build",
+            "role": "build",
+            "command": "make -j2",
+            "workdir": "/workspace/repo",
+            "source": "README.md:10 (run make); Makefile:55-57 (all target)",
+            "expected": "构建 bin/ 下主要程序及 lib/libhighwayhash.a",
+            "diagnostic_paths": [
+              "/workspace/repo"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "response_file": "reuse/slot-08-highwayhash-forge/agent/response-2.json",
+      "response_sha256": "ba9a18113689336a0eb4560f5d26134068bb225bb7a96bedc90973f126c9566a",
+      "proposal": {
+        "reason": "README.md 第10行明确 Linux 上直接运行 make；Makefile 默认 all 目标构建主要程序与 lib/libhighwayhash.a，并已针对 x86_64 配置 AVX2/SSE4.1 编译标志。无需额外依赖或 configure。",
+        "steps": [
+          {
+            "step_id": "build",
+            "role": "build",
+            "command": "make -j2",
+            "workdir": "/workspace/repo",
+            "source": "README.md:10 (run make); Makefile:55-57 (all target)",
+            "expected": "构建 bin/ 下主要程序及 lib/libhighwayhash.a",
+            "diagnostic_paths": [
+              "."
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}
