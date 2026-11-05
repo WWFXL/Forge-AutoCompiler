@@ -2,11 +2,15 @@
 
 论文选材固定入口：[硕士论文实验与证据索引](docs/research/THESIS_EVIDENCE_INDEX.md)，[历史材料目录](docs/research/THESIS_EVIDENCE_CATALOG.md)保留存量导航。当前完整稿为[论文v0.6](docs/thesis/README.md)；E40/E41新增两层经验结果，E39及此前基础系统、组件与恢复实验按原版本和分母继续使用。
 
-## 当前阶段（2026-11-05；#687固定Flash下基础/经验Forge两项比较已准备）
+## 当前阶段（2026-11-05；#687基础Forge与两层经验32次比较完成）
 
-本轮转数据采集。按用户“开启比较基础Forge与经验Forge”固定四个开发暴露项目jsoncpp/libsrtp/libite/highwayhash，各两重复：跨项目条件建议16次，同项目精确成功方案复用16次。两项独立分母，同一Flash、修复后的共同Harness与Workflow/原验收；不加组件、不在线更新库、不复用编译产物。同项目来源固定E45第一重复Flash槽1/4/5/8，来源费用0.0314205美元及历史库0.095129美元另列；不声称未见泛化。
+本轮完成数据采集与分析，[报告](docs/research/2026-11-05-base-experience-results.md)、[E46/E47](docs/research/THESIS_EVIDENCE_INDEX.md#e47)保存两项独立各16/16终态、0未启动槽。同四开发项目×两重复×基础/经验、同Flash与修复后共同Harness/任务/资源/Workflow/原验收，不在线更新、不复用二进制。跨项目建议两组均8/8完整，请求17/22、费0.0512544/0.0728724美元、累计410.47/418.60秒，补读9/14、重复0，费用高42.2%、时间高2.0%；8次一次检索/22682字节，宽词匹配不能确认适用条件，不支持当前建议降低正常规划成本。
 
-[跨项目协议](benchmarks/preregistrations/cpp-build-repaired-cross-project-experience-flash-v1.md)、[同项目协议](benchmarks/preregistrations/cpp-build-simple-project-reuse-flash-v1.md)与同名manifest绑定新身份；入口`scripts/forge_base_experience_comparison.py`复用已验证执行。五项新增编排检查通过，只证明处理隔离/共享扣费与异常停止。两批共享助手自限新增2美元/UTC00:30:44–02:30:44，准备计入；授权来自当前明确执行指令及会话既有实验/发布授权，不续旧账本。无自动重试/补槽，未知用量/模型身份/cleanup异常停止整批。正式结果尚未观察；下一项在固定提交采集32次，分别分析并登记E46/E47。旧E44/E45、失败与论文v0.6保持，发布仅科研集成分支。
+同项目精确复用基础/经验主构建及完整7/8、8/8，请求21/0、费0.0645282/0美元；8次命中均实际重建、原测试/交付/replay/源码/cleanup通过。基础槽8/highwayhash已给出make命令但诊断路径绝对根后改点路径仍被schema拒绝，一次纠正计费，未到编译，不叫空规划/编译失败；原失败不补跑。累计395.35/372.65秒含一次早停，共同完整7对388.29/349.42秒低10.0%仅辅助。方案来源固定E45第一重复Flash槽1/4/5/8，来源构建0.0314205美元、旧库0.095129另列；全归部署0.1265495美元，不把零在线费当零投入。两项恢复均0，不证未见泛化/状态或恢复独立增量/持续自进化。
+
+运行release c8e394c779f89eeb12dba9cce01ccdf83f1e192c，manifest c2def2b7/3805b2e9；raw `forge-base-experience-comparison-v1/advice`、`reuse`，inventory `978f7e11f58c956d0f6191b56177829f5fad285e9fce277a383987a46f4aecef` / `6940b019dc18abff6acab2a25116250ed5e0441fd1086010b3aee6cf2039be91`。60响应/582230Token/新增0.1886550美元/未知0；逐响应与分项复算一致，32槽cleanup通过、源码31过1未观察，63容器126名称/ID实际不存在。用户明确开启比较，助手自限新增2美元/UTC00:30:44–02:30:44，两批共享、准备计入；正式进程已退出，无重试/补槽/新付费身份。五项新编排检查及运行提交三CI通过，仅支持实现。
+
+下一步将精确复用与跨项目建议分别定位：前者已有重复任务收益；后者需提高适用条件精度，优先研究真实失败/明确缺口触发，尚未实施或新增效果，不直接扩大正常规划注入。本轮不换主线、不加模型比较，旧结果和论文v0.6保持；已保存可写论文的表/案例，未冒称Word/PDF全文更新。结果仅通过PR688发布科研集成分支，最终CI/merge/Issue687关闭以GitHub及`forge-base-experience-launch-v1`收据为准；原生推送TLS失败后明确用Git Data API同SHA备用发布。用户原memory/HTML/uv.lock保持，知识库仅经MCP同步、不注入正式Agent。
 
 ## 上一阶段（2026-11-05；#685规划交付与容量修复完成，两批模型路由比较闭合）
 

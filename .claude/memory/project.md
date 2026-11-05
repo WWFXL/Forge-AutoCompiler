@@ -618,9 +618,11 @@
 
 ## 最近变更 (Recent Changes)
 
-- 2026-11-05 — #687准备固定Flash下基础与两层经验Forge比较
-  - 文件: `scripts/forge_base_experience_comparison.py`, `backend/tests/test_base_experience_comparison.py`, 两个新manifest/preregistration, `RESEARCH_STATUS.md`。
-  - 动机: 共同规划出口/容量已修复，分别估计跨项目建议和同项目方案复用增量，避免继续工程资格代替论文结果。四开发项目×两重复×两方法各16次；E45第一重复Flash四方案来源费用另列，不在线更新，实际干净构建/原验收保持。五项编排检查通过；共享助手自限新增2美元、UTC00:30:44–02:30:44，用户明确开启比较，不续旧身份，无自动重试/补槽、异常停止；正式结果尚未观察。
+- 2026-11-05 — #687完成基础Forge与两层经验的32次固定Flash比较
+  - 文件: `scripts/forge_base_experience_comparison.py`, `backend/tests/test_base_experience_comparison.py`, 两个新manifest/preregistration, `docs/research/2026-11-05-base-experience-results.md`, `benchmarks/analyses/base-experience-2026-11-05/`, `THESIS_EVIDENCE_INDEX.md`E46/E47。
+  - 结果: 两项独立各16/16终态。跨项目基础/经验完整8/8、8/8，请求17/22、费0.0512544/0.0728724、累计410.47/418.60秒；补读9/14、重复0，宽词匹配仅线索，当前建议费用高42.2%。同项目基础7/8、精确复用8/8，请求21/0、费0.0645282/0；8命中真实重建/原测试/交付/replay/源码/cleanup过。基础highwayhash诊断路径schema失败发生在编译前，保留两响应一次纠正；共同完整7对时间低10.0%仅辅助。源方案构建0.0314205及旧库0.095129另列，不称零投入/未见泛化/恢复增量/自进化。
+  - 证据: release c8e394c7，raw forge-base-experience-comparison-v1/advice和reuse，inventory978f7e11/6940b019；60响应582230Token/新增0.1886550美元/未知0，原件封存、逐响应复算与分析复现通过。32cleanup/源码31过1未观察、63容器126标识不存在，五项编排检查及运行提交三CI通过。用户明确开启比较、助手自限2美元/UTC00:30:44–02:30:44两批共享；进程已退出，无重试/补槽/活动Provider。
+  - 交接: 只发布PR688到科研集成分支，最终CI/merge/Issue687状态见GitHub与会话收据；native TLS两败后明确Git Data API同SHA备用路径，不改凭据代理。建议精确复用与跨项目触发分开推进，未新增实现/付费范围。旧失败/原分母/v0.6保持，知识库仅MCP同步，用户原修改逐字保留。
 
 - 2026-11-05 — #685修复规划交付与材料容量，完成两批独立规划模型路由比较
   - E45/cpp-build-planner-model-confirmation-v2在3138d020完成16/16：Flash/RichLab方案/主构建/完整均8/8，请求23/19、费0.0810804/0.252581美元、累计422.20/503.45秒；恢复/格式纠正0，测试/交付/replay/源码/cleanup全过。三槽压缩初始材料，全部工具交付。42响应503271Token/0.3336614美元/未知0，inventory2ffaab2d。

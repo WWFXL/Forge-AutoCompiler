@@ -1,0 +1,363 @@
+{
+  "valid": true,
+  "identity": "cpp-build-repaired-cross-project-experience-flash-v1",
+  "requests": 39,
+  "input_tokens": 372116,
+  "output_tokens": 10410,
+  "total_tokens": 382526,
+  "estimated_cost_usd": "0.1241268",
+  "unknown_usage_requests": 0,
+  "responses": [
+    {
+      "slot": 1,
+      "response": "slot-01-jsoncpp-forge/agent/response-1.json",
+      "sha256": "59743902224735e606bf34ba65e56e8256695b423d382bd00b8aa54f3502692b",
+      "model": "deepseek-flash",
+      "input_tokens": 8106,
+      "output_tokens": 175,
+      "estimated_cost_usd": "0.0026418"
+    },
+    {
+      "slot": 1,
+      "response": "slot-01-jsoncpp-forge/agent/response-2.json",
+      "sha256": "663d74507ac8db7104808e012ce47c60f96598b19479ef3380d68565fc036c51",
+      "model": "deepseek-flash",
+      "input_tokens": 8517,
+      "output_tokens": 430,
+      "estimated_cost_usd": "0.0030711"
+    },
+    {
+      "slot": 2,
+      "response": "slot-02-jsoncpp-forge_experience/agent/response-1.json",
+      "sha256": "59559c49ecd29851ec373d3a78a300480f73651dc0ec978801c245a639c13412",
+      "model": "deepseek-flash",
+      "input_tokens": 9356,
+      "output_tokens": 233,
+      "estimated_cost_usd": "0.0030864"
+    },
+    {
+      "slot": 2,
+      "response": "slot-02-jsoncpp-forge_experience/agent/response-2.json",
+      "sha256": "5f73668f91242f63a539e351d399d5d04d58a8d0e7d8d0ff20be71dfe8d0f9df",
+      "model": "deepseek-flash",
+      "input_tokens": 9950,
+      "output_tokens": 690,
+      "estimated_cost_usd": "0.003813"
+    },
+    {
+      "slot": 3,
+      "response": "slot-03-libsrtp-forge_experience/agent/response-1.json",
+      "sha256": "2b0ca116f57a9cce32c0fb4325c76259ed985e8bc97b3c5f9d83838651acb410",
+      "model": "deepseek-flash",
+      "input_tokens": 10949,
+      "output_tokens": 129,
+      "estimated_cost_usd": "0.0034395"
+    },
+    {
+      "slot": 3,
+      "response": "slot-03-libsrtp-forge_experience/agent/response-2.json",
+      "sha256": "f68e3332160692e4b59aaed859f99d035e2fb69f1909c0c1fc12678018b97e6b",
+      "model": "deepseek-flash",
+      "input_tokens": 13305,
+      "output_tokens": 73,
+      "estimated_cost_usd": "0.0040791"
+    },
+    {
+      "slot": 3,
+      "response": "slot-03-libsrtp-forge_experience/agent/response-3.json",
+      "sha256": "8b916a2d4d250675ce0028f211ae1b2116bb5d691eaef1d9651735cc09e9b5b8",
+      "model": "deepseek-flash",
+      "input_tokens": 13269,
+      "output_tokens": 67,
+      "estimated_cost_usd": "0.0040611"
+    },
+    {
+      "slot": 3,
+      "response": "slot-03-libsrtp-forge_experience/agent/response-4.json",
+      "sha256": "b854c13b47422c370638b7039d5ed6e3ab96ab0a80e68e9d36a0dd3d9cc0e1e0",
+      "model": "deepseek-flash",
+      "input_tokens": 13864,
+      "output_tokens": 562,
+      "estimated_cost_usd": "0.0048336"
+    },
+    {
+      "slot": 4,
+      "response": "slot-04-libsrtp-forge/agent/response-1.json",
+      "sha256": "b65d23289db1d6dcefa2689c9bd502a33ca4ed701b7b7965b60be6b0bcea9314",
+      "model": "deepseek-flash",
+      "input_tokens": 10141,
+      "output_tokens": 97,
+      "estimated_cost_usd": "0.0031587"
+    },
+    {
+      "slot": 4,
+      "response": "slot-04-libsrtp-forge/agent/response-2.json",
+      "sha256": "75a97dffe1bfb424a96cdadaa8c025c483250bf438d2eaf702be62bd9a694946",
+      "model": "deepseek-flash",
+      "input_tokens": 12465,
+      "output_tokens": 65,
+      "estimated_cost_usd": "0.0038175"
+    },
+    {
+      "slot": 4,
+      "response": "slot-04-libsrtp-forge/agent/response-3.json",
+      "sha256": "da83b9bffdc7b854201e4fd46b74ce95c824d7fcdeaf196aaf9964e1d9034468",
+      "model": "deepseek-flash",
+      "input_tokens": 14052,
+      "output_tokens": 426,
+      "estimated_cost_usd": "0.0047268"
+    },
+    {
+      "slot": 5,
+      "response": "slot-05-libite-forge/agent/response-1.json",
+      "sha256": "8acb57b6c32cf2512497b332240e2e9155ed7f74e4ced78943f0523d7a7a6db7",
+      "model": "deepseek-flash",
+      "input_tokens": 4555,
+      "output_tokens": 72,
+      "estimated_cost_usd": "0.0014529"
+    },
+    {
+      "slot": 5,
+      "response": "slot-05-libite-forge/agent/response-2.json",
+      "sha256": "7bff5a44aa90b4ac387b8b64765788b7aa7a70b2fa3439d94f68abb96d94ad66",
+      "model": "deepseek-flash",
+      "input_tokens": 4795,
+      "output_tokens": 90,
+      "estimated_cost_usd": "0.0015465"
+    },
+    {
+      "slot": 5,
+      "response": "slot-05-libite-forge/agent/response-3.json",
+      "sha256": "a686e85f0d326def7c50ea322ba764926e9881f535c5786150b1db210afa66aa",
+      "model": "deepseek-flash",
+      "input_tokens": 6259,
+      "output_tokens": 440,
+      "estimated_cost_usd": "0.0024057"
+    },
+    {
+      "slot": 6,
+      "response": "slot-06-libite-forge_experience/agent/response-1.json",
+      "sha256": "60c571d72b8ed402e96191c7c18628852bdf328d55dc61b324244c58dcf2d093",
+      "model": "deepseek-flash",
+      "input_tokens": 5364,
+      "output_tokens": 57,
+      "estimated_cost_usd": "0.0016776"
+    },
+    {
+      "slot": 6,
+      "response": "slot-06-libite-forge_experience/agent/response-2.json",
+      "sha256": "2ddcdd9384060bcc52b3cf70607f96f70541cc96bb9bbb164dc2297fc4f8b347",
+      "model": "deepseek-flash",
+      "input_tokens": 5590,
+      "output_tokens": 193,
+      "estimated_cost_usd": "0.0019086"
+    },
+    {
+      "slot": 6,
+      "response": "slot-06-libite-forge_experience/agent/response-3.json",
+      "sha256": "b52e5e03f30554fae13d9e76e3380ba19bc8a454090468234c435cebb0a57519",
+      "model": "deepseek-flash",
+      "input_tokens": 7155,
+      "output_tokens": 246,
+      "estimated_cost_usd": "0.0024417"
+    },
+    {
+      "slot": 6,
+      "response": "slot-06-libite-forge_experience/agent/response-4.json",
+      "sha256": "6288d14e709eecca7768284655c388d915d5dfda943023474ce471efc00dabb1",
+      "model": "deepseek-flash",
+      "input_tokens": 7520,
+      "output_tokens": 64,
+      "estimated_cost_usd": "0.0023328"
+    },
+    {
+      "slot": 6,
+      "response": "slot-06-libite-forge_experience/agent/response-5.json",
+      "sha256": "80e984d6b0f487418f24f1047f649447717895810d144839f4f0d0c3fafdc5f9",
+      "model": "deepseek-flash",
+      "input_tokens": 9448,
+      "output_tokens": 590,
+      "estimated_cost_usd": "0.0035424"
+    },
+    {
+      "slot": 7,
+      "response": "slot-07-highwayhash-forge_experience/agent/response-1.json",
+      "sha256": "3047730eb0701756a7fbd9088a9d4af6d7b756ad5d4a4980ef1fc6bd1c52db9e",
+      "model": "deepseek-flash",
+      "input_tokens": 11204,
+      "output_tokens": 396,
+      "estimated_cost_usd": "0.0038364"
+    },
+    {
+      "slot": 8,
+      "response": "slot-08-highwayhash-forge/agent/response-1.json",
+      "sha256": "97378f6ba070f8593c3f674050b2be7c4dcffb946dd3071ca92be8c834b62c12",
+      "model": "deepseek-flash",
+      "input_tokens": 10214,
+      "output_tokens": 299,
+      "estimated_cost_usd": "0.003423"
+    },
+    {
+      "slot": 9,
+      "response": "slot-09-jsoncpp-forge_experience/agent/response-1.json",
+      "sha256": "80d4f4579dbd3e38777b58351ee0f5c270f9ebea730d78d664b75c1b2c724fdf",
+      "model": "deepseek-flash",
+      "input_tokens": 9356,
+      "output_tokens": 175,
+      "estimated_cost_usd": "0.0030168"
+    },
+    {
+      "slot": 9,
+      "response": "slot-09-jsoncpp-forge_experience/agent/response-2.json",
+      "sha256": "87f3fdc33dfd109d8d7f2321724a3425e0de90997df577c301459d5e9f32d0e0",
+      "model": "deepseek-flash",
+      "input_tokens": 10043,
+      "output_tokens": 548,
+      "estimated_cost_usd": "0.0036705"
+    },
+    {
+      "slot": 10,
+      "response": "slot-10-jsoncpp-forge/agent/response-1.json",
+      "sha256": "5f4eaef7520846b099dbafe0a2b786637c697fe27ddc744c504d084461ad5ba6",
+      "model": "deepseek-flash",
+      "input_tokens": 8106,
+      "output_tokens": 205,
+      "estimated_cost_usd": "0.0026778"
+    },
+    {
+      "slot": 10,
+      "response": "slot-10-jsoncpp-forge/agent/response-2.json",
+      "sha256": "bc9e90c980392f8bd397e66c7e281e8024e9985a03ab606fe42e8091b7a13526",
+      "model": "deepseek-flash",
+      "input_tokens": 8823,
+      "output_tokens": 393,
+      "estimated_cost_usd": "0.0031185"
+    },
+    {
+      "slot": 11,
+      "response": "slot-11-libsrtp-forge/agent/response-1.json",
+      "sha256": "e66d5c377fba95307ad13a63ca831a59d2229840af36a7c01c65a768e2ff4a7d",
+      "model": "deepseek-flash",
+      "input_tokens": 10141,
+      "output_tokens": 136,
+      "estimated_cost_usd": "0.0032055"
+    },
+    {
+      "slot": 11,
+      "response": "slot-11-libsrtp-forge/agent/response-2.json",
+      "sha256": "9ba42a135b352bae3600b3962a67d7ecda426e4f5fc01ca41118e685a4ca38fc",
+      "model": "deepseek-flash",
+      "input_tokens": 12504,
+      "output_tokens": 84,
+      "estimated_cost_usd": "0.003852"
+    },
+    {
+      "slot": 11,
+      "response": "slot-11-libsrtp-forge/agent/response-3.json",
+      "sha256": "b1adf1ac95b0d67c7be3488e3e362ba9d8ea9bfbd22507d0229ca83aa87a24ab",
+      "model": "deepseek-flash",
+      "input_tokens": 14203,
+      "output_tokens": 369,
+      "estimated_cost_usd": "0.0047037"
+    },
+    {
+      "slot": 12,
+      "response": "slot-12-libsrtp-forge_experience/agent/response-1.json",
+      "sha256": "e13931682c26670090c64bff5b9ac9beb7f9919462be92761aee76d08f14c91a",
+      "model": "deepseek-flash",
+      "input_tokens": 10949,
+      "output_tokens": 128,
+      "estimated_cost_usd": "0.0034383"
+    },
+    {
+      "slot": 12,
+      "response": "slot-12-libsrtp-forge_experience/agent/response-2.json",
+      "sha256": "cc13049c6d9b59ad85295f8f88be813fd7180145340b8714b77ae618868058f9",
+      "model": "deepseek-flash",
+      "input_tokens": 13268,
+      "output_tokens": 102,
+      "estimated_cost_usd": "0.0041028"
+    },
+    {
+      "slot": 12,
+      "response": "slot-12-libsrtp-forge_experience/agent/response-3.json",
+      "sha256": "fbb8eec2113a0d22dbcaef1f54617804aacaa9cf788dbeeab445eacd256b35c4",
+      "model": "deepseek-flash",
+      "input_tokens": 13481,
+      "output_tokens": 79,
+      "estimated_cost_usd": "0.0041391"
+    },
+    {
+      "slot": 12,
+      "response": "slot-12-libsrtp-forge_experience/agent/response-4.json",
+      "sha256": "501f9cdcfda280e1ba23635a325cbaf1a216f3dbb92f6f8346a56c3d87af34be",
+      "model": "deepseek-flash",
+      "input_tokens": 13897,
+      "output_tokens": 466,
+      "estimated_cost_usd": "0.0047283"
+    },
+    {
+      "slot": 13,
+      "response": "slot-13-libite-forge_experience/agent/response-1.json",
+      "sha256": "d913fab517844e211dc591c012bba293255b0ca813140c5cdbd3fa0565802475",
+      "model": "deepseek-flash",
+      "input_tokens": 5364,
+      "output_tokens": 113,
+      "estimated_cost_usd": "0.0017448"
+    },
+    {
+      "slot": 13,
+      "response": "slot-13-libite-forge_experience/agent/response-2.json",
+      "sha256": "cd0dbe727139b34b0049f194e060be681d761879887db14efafd429eafec26a2",
+      "model": "deepseek-flash",
+      "input_tokens": 6820,
+      "output_tokens": 121,
+      "estimated_cost_usd": "0.0021912"
+    },
+    {
+      "slot": 13,
+      "response": "slot-13-libite-forge_experience/agent/response-3.json",
+      "sha256": "15090e60e4b30f860dfae829b101cc82d12b79ca52139105161ef3b81da698fb",
+      "model": "deepseek-flash",
+      "input_tokens": 8068,
+      "output_tokens": 557,
+      "estimated_cost_usd": "0.0030888"
+    },
+    {
+      "slot": 14,
+      "response": "slot-14-libite-forge/agent/response-1.json",
+      "sha256": "99f64872fa06b103b1fbfc48f7efa043b3f6c3ee2f47e823382198f9d13ad6f5",
+      "model": "deepseek-flash",
+      "input_tokens": 4555,
+      "output_tokens": 124,
+      "estimated_cost_usd": "0.0015153"
+    },
+    {
+      "slot": 14,
+      "response": "slot-14-libite-forge/agent/response-2.json",
+      "sha256": "0718bbc0a5b434dd6cd9c00e7b4e3b12400a80f7763e93aef0a02cac182e79a9",
+      "model": "deepseek-flash",
+      "input_tokens": 5042,
+      "output_tokens": 770,
+      "estimated_cost_usd": "0.0024366"
+    },
+    {
+      "slot": 15,
+      "response": "slot-15-highwayhash-forge/agent/response-1.json",
+      "sha256": "23c03a5e101ca01bb611d935a7ee558ce5da457e5950acafad7fabac92df909d",
+      "model": "deepseek-flash",
+      "input_tokens": 10214,
+      "output_tokens": 364,
+      "estimated_cost_usd": "0.003501"
+    },
+    {
+      "slot": 16,
+      "response": "slot-16-highwayhash-forge_experience/agent/response-1.json",
+      "sha256": "877a3ea636a91969f892986cc21a6b19e0b2f28b29e8ae8070fbebe3ad0b283b",
+      "model": "deepseek-flash",
+      "input_tokens": 11204,
+      "output_tokens": 282,
+      "estimated_cost_usd": "0.0036996"
+    }
+  ]
+}

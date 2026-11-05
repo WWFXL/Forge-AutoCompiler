@@ -1,0 +1,20 @@
+slot,project,repetition,method,status,initial_plan_available,recipe_selected,primary_completed,author_tests,delivery,clean_replay,full_completed,source_unchanged,cleanup,requests,input_tokens,output_tokens,estimated_cost_usd,wall_seconds,initial_planning_seconds,time_to_primary_seconds,initial_requests,recovery_requests,initial_cost_usd,recovery_cost_usd,source_reads,repeated_source_reads,experience_retrievals,experience_bytes,format_rejections,error
+1,jsoncpp,1,forge,primary_completed,True,False,True,passed,passed,passed,True,True,True,2,16954,786,0.0060294,52.47365893796086,5.67999025399331,22.6934404859785,2,0,0.0060294,0,1,0,0,0,0,
+2,jsoncpp,1,forge_experience,primary_completed,True,True,True,passed,passed,passed,True,True,True,0,0,0,0,47.01562779804226,0.0,17.278627246036194,0,0,0,0,0,0,0,0,0,
+3,libsrtp,1,forge_experience,primary_completed,True,True,True,passed,passed,passed,True,True,True,0,0,0,0,54.639272985979915,0.0,10.018825455917977,0,0,0,0,0,0,0,0,0,
+4,libsrtp,1,forge,primary_completed,True,False,True,passed,passed,passed,True,True,True,4,49949,625,0.0157347,60.83242608909495,5.952228070935234,16.001530745066702,4,0,0.0157347,0,3,0,0,0,0,
+5,libite,1,forge,primary_completed,True,False,True,passed,passed,passed,True,True,True,3,15616,590,0.0053928,66.01824326300994,4.742670455947518,19.021616689977236,3,0,0.0053928,0,2,0,0,0,0,
+6,libite,1,forge_experience,primary_completed,True,True,True,passed,passed,passed,True,True,True,0,0,0,0,61.51856284099631,0.0,14.50649570999667,0,0,0,0,0,0,0,0,0,
+7,highwayhash,1,forge_experience,primary_completed,True,True,True,passed,passed,passed,True,True,True,0,0,0,0,23.2337591269752,0.0,7.851149081019685,0,0,0,0,0,0,0,0,0,
+8,highwayhash,1,forge,error,False,False,unobserved,unobserved,unobserved,unobserved,unobserved,,True,2,20818,456,0.0067926,7.063959941035137,3.2818853280041367,,2,0,0.0067926,0,0,0,0,0,2,"Failed to parse structured output for tool 'SimpleBuildActions': Failed to parse data to SimpleBuildActions: 1 validation error for SimpleBuildActions
+steps.0.diagnostic_paths
+  Value error, 必须使用工作目录内的规范POSIX相对路径；目录仅允许省略尾斜杠 [type=value_error, input_value=('.',), input_type=tuple]
+    For further information visit https://errors.pydantic.dev/2.12/v/value_error."
+9,jsoncpp,2,forge_experience,primary_completed,True,True,True,passed,passed,passed,True,True,True,0,0,0,0,46.88387181807775,0.0,17.275418561999686,0,0,0,0,0,0,0,0,0,
+10,jsoncpp,2,forge,primary_completed,True,False,True,passed,passed,passed,True,True,True,3,27727,714,0.0091749,54.10896340990439,7.492417167057283,24.44874326896388,3,0,0.0091749,0,2,0,0,0,0,
+11,libsrtp,2,forge,primary_completed,True,False,True,passed,passed,passed,True,True,True,3,36698,578,0.0117030,59.910494105075486,4.954324375954457,14.98209353198763,3,0,0.0117030,0,2,0,0,0,0,
+12,libsrtp,2,forge_experience,primary_completed,True,True,True,passed,passed,passed,True,True,True,0,0,0,0,54.66998894093558,0.0,9.984096663887613,0,0,0,0,0,0,0,0,0,
+13,libite,2,forge_experience,primary_completed,True,True,True,passed,passed,passed,True,True,True,0,0,0,0,61.69503301405348,0.0,14.674464407959022,0,0,0,0,0,0,0,0,0,
+14,libite,2,forge,primary_completed,True,False,True,passed,passed,passed,True,True,True,3,16598,1067,0.0062598,69.5010437539313,7.901493588928133,22.54060062894132,3,0,0.0062598,0,3,0,0,0,0,
+15,highwayhash,2,forge,primary_completed,True,False,True,passed,passed,passed,True,True,True,1,10214,314,0.003441,25.445758362999186,2.245713497977704,10.150366493035108,1,0,0.003441,0,0,0,0,0,0,
+16,highwayhash,2,forge_experience,primary_completed,True,True,True,passed,passed,passed,True,True,True,0,0,0,0,22.99847865605261,0.0,7.818475414998829,0,0,0,0,0,0,0,0,0,

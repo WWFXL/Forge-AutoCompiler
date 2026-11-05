@@ -14,6 +14,7 @@
 
 |文件|论文登记|
 |---|---|
+|[2026-11-05-base-experience-results.md](2026-11-05-base-experience-results.md)|[E46](THESIS_EVIDENCE_INDEX.md#e46)独立16次跨项目建议负结果；[E47](THESIS_EVIDENCE_INDEX.md#e47)独立16次同项目精确复用、一次规划接口失败与来源成本|
 |[2026-11-05-planner-model-results.md](2026-11-05-planner-model-results.md)|[E44](THESIS_EVIDENCE_INDEX.md#e44)首批16次及[E45](THESIS_EVIDENCE_INDEX.md#e45)容量修复后独立16次规划路由确认；分别保留原分母、费用/时间取舍|
 |[2026-11-05-plan-output-repair.md](2026-11-05-plan-output-repair.md)|#685共同方案出口与原响应回放、四真实工程构建，不计模型效果|
 |[2026-11-05-planning-context-experience-results.md](2026-11-05-planning-context-experience-results.md)|[E43](THESIS_EVIDENCE_INDEX.md#e43)固定16次经验增量比较、共同方案出口遗漏与局部观察；原失败不回填|
