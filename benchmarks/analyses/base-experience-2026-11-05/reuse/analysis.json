@@ -1,0 +1,458 @@
+{
+  "identity": "cpp-build-simple-project-reuse-flash-v1",
+  "summary": {
+    "forge": {
+      "planned": 8,
+      "observed": 8,
+      "unobserved": 0,
+      "initial_plans": 7,
+      "primary_completed": 7,
+      "full_completed": 7,
+      "requests": 21,
+      "estimated_cost_usd": "0.0645282",
+      "total_wall_seconds": 395.35454786301125,
+      "source_reads": 13,
+      "repeated_source_reads": 0,
+      "author_tests": {
+        "passed": 7,
+        "unobserved": 1
+      },
+      "initial_plan_available": 7,
+      "recipes_selected": 0,
+      "initial_planning_seconds": 42.250722738797776,
+      "recovery_requests": 0,
+      "input_tokens": 194574,
+      "output_tokens": 5130,
+      "initial_requests": 21,
+      "initial_cost_usd": "0.0645282",
+      "recovery_cost_usd": "0",
+      "experience_retrievals": 0,
+      "experience_bytes": 0,
+      "primary_time_seconds": 129.83839184395038,
+      "layer_counts": {
+        "primary_build_completed": {
+          "True": 7,
+          "unobserved": 1
+        },
+        "author_tests": {
+          "passed": 7,
+          "unobserved": 1
+        },
+        "delivery": {
+          "passed": 7,
+          "unobserved": 1
+        },
+        "clean_replay": {
+          "passed": 7,
+          "unobserved": 1
+        },
+        "full_completed": {
+          "True": 7,
+          "unobserved": 1
+        }
+      }
+    },
+    "forge_experience": {
+      "planned": 8,
+      "observed": 8,
+      "unobserved": 0,
+      "initial_plans": 0,
+      "primary_completed": 8,
+      "full_completed": 8,
+      "requests": 0,
+      "estimated_cost_usd": "0.0",
+      "total_wall_seconds": 372.6545951811131,
+      "source_reads": 0,
+      "repeated_source_reads": 0,
+      "author_tests": {
+        "passed": 8
+      },
+      "initial_plan_available": 8,
+      "recipes_selected": 8,
+      "initial_planning_seconds": 0.0,
+      "recovery_requests": 0,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "initial_requests": 0,
+      "initial_cost_usd": "0",
+      "recovery_cost_usd": "0",
+      "experience_retrievals": 0,
+      "experience_bytes": 0,
+      "primary_time_seconds": 99.40755254181568,
+      "layer_counts": {
+        "primary_build_completed": {
+          "True": 8
+        },
+        "author_tests": {
+          "passed": 8
+        },
+        "delivery": {
+          "passed": 8
+        },
+        "clean_replay": {
+          "passed": 8
+        },
+        "full_completed": {
+          "True": 8
+        }
+      }
+    }
+  },
+  "slots": [
+    {
+      "slot": 1,
+      "project": "jsoncpp",
+      "repetition": 1,
+      "method": "forge",
+      "initial_plan_delivered": true,
+      "format_rejections": 0,
+      "source_reads": 1,
+      "repeated_source_reads": 0,
+      "experience_retrievals": [],
+      "convergence_forced": 0,
+      "recipe_selected": false,
+      "phase_requests": {
+        "initial": 2,
+        "recovery": 0
+      },
+      "phase_cost_usd": {
+        "initial": "0.0060294",
+        "recovery": "0"
+      },
+      "initial_plan_available": true
+    },
+    {
+      "slot": 2,
+      "project": "jsoncpp",
+      "repetition": 1,
+      "method": "forge_experience",
+      "initial_plan_delivered": false,
+      "format_rejections": 0,
+      "source_reads": 0,
+      "repeated_source_reads": 0,
+      "experience_retrievals": [],
+      "convergence_forced": 0,
+      "recipe_selected": true,
+      "phase_requests": {
+        "initial": 0,
+        "recovery": 0
+      },
+      "phase_cost_usd": {
+        "initial": "0",
+        "recovery": "0"
+      },
+      "initial_plan_available": true
+    },
+    {
+      "slot": 3,
+      "project": "libsrtp",
+      "repetition": 1,
+      "method": "forge_experience",
+      "initial_plan_delivered": false,
+      "format_rejections": 0,
+      "source_reads": 0,
+      "repeated_source_reads": 0,
+      "experience_retrievals": [],
+      "convergence_forced": 0,
+      "recipe_selected": true,
+      "phase_requests": {
+        "initial": 0,
+        "recovery": 0
+      },
+      "phase_cost_usd": {
+        "initial": "0",
+        "recovery": "0"
+      },
+      "initial_plan_available": true
+    },
+    {
+      "slot": 4,
+      "project": "libsrtp",
+      "repetition": 1,
+      "method": "forge",
+      "initial_plan_delivered": true,
+      "format_rejections": 0,
+      "source_reads": 3,
+      "repeated_source_reads": 0,
+      "experience_retrievals": [],
+      "convergence_forced": 0,
+      "recipe_selected": false,
+      "phase_requests": {
+        "initial": 4,
+        "recovery": 0
+      },
+      "phase_cost_usd": {
+        "initial": "0.0157347",
+        "recovery": "0"
+      },
+      "initial_plan_available": true
+    },
+    {
+      "slot": 5,
+      "project": "libite",
+      "repetition": 1,
+      "method": "forge",
+      "initial_plan_delivered": true,
+      "format_rejections": 0,
+      "source_reads": 2,
+      "repeated_source_reads": 0,
+      "experience_retrievals": [],
+      "convergence_forced": 0,
+      "recipe_selected": false,
+      "phase_requests": {
+        "initial": 3,
+        "recovery": 0
+      },
+      "phase_cost_usd": {
+        "initial": "0.0053928",
+        "recovery": "0"
+      },
+      "initial_plan_available": true
+    },
+    {
+      "slot": 6,
+      "project": "libite",
+      "repetition": 1,
+      "method": "forge_experience",
+      "initial_plan_delivered": false,
+      "format_rejections": 0,
+      "source_reads": 0,
+      "repeated_source_reads": 0,
+      "experience_retrievals": [],
+      "convergence_forced": 0,
+      "recipe_selected": true,
+      "phase_requests": {
+        "initial": 0,
+        "recovery": 0
+      },
+      "phase_cost_usd": {
+        "initial": "0",
+        "recovery": "0"
+      },
+      "initial_plan_available": true
+    },
+    {
+      "slot": 7,
+      "project": "highwayhash",
+      "repetition": 1,
+      "method": "forge_experience",
+      "initial_plan_delivered": false,
+      "format_rejections": 0,
+      "source_reads": 0,
+      "repeated_source_reads": 0,
+      "experience_retrievals": [],
+      "convergence_forced": 0,
+      "recipe_selected": true,
+      "phase_requests": {
+        "initial": 0,
+        "recovery": 0
+      },
+      "phase_cost_usd": {
+        "initial": "0",
+        "recovery": "0"
+      },
+      "initial_plan_available": true
+    },
+    {
+      "slot": 8,
+      "project": "highwayhash",
+      "repetition": 1,
+      "method": "forge",
+      "initial_plan_delivered": false,
+      "format_rejections": 2,
+      "source_reads": 0,
+      "repeated_source_reads": 0,
+      "experience_retrievals": [],
+      "convergence_forced": 0,
+      "recipe_selected": false,
+      "phase_requests": {
+        "initial": 2,
+        "recovery": 0
+      },
+      "phase_cost_usd": {
+        "initial": "0.0067926",
+        "recovery": "0"
+      },
+      "initial_plan_available": false
+    },
+    {
+      "slot": 9,
+      "project": "jsoncpp",
+      "repetition": 2,
+      "method": "forge_experience",
+      "initial_plan_delivered": false,
+      "format_rejections": 0,
+      "source_reads": 0,
+      "repeated_source_reads": 0,
+      "experience_retrievals": [],
+      "convergence_forced": 0,
+      "recipe_selected": true,
+      "phase_requests": {
+        "initial": 0,
+        "recovery": 0
+      },
+      "phase_cost_usd": {
+        "initial": "0",
+        "recovery": "0"
+      },
+      "initial_plan_available": true
+    },
+    {
+      "slot": 10,
+      "project": "jsoncpp",
+      "repetition": 2,
+      "method": "forge",
+      "initial_plan_delivered": true,
+      "format_rejections": 0,
+      "source_reads": 2,
+      "repeated_source_reads": 0,
+      "experience_retrievals": [],
+      "convergence_forced": 0,
+      "recipe_selected": false,
+      "phase_requests": {
+        "initial": 3,
+        "recovery": 0
+      },
+      "phase_cost_usd": {
+        "initial": "0.0091749",
+        "recovery": "0"
+      },
+      "initial_plan_available": true
+    },
+    {
+      "slot": 11,
+      "project": "libsrtp",
+      "repetition": 2,
+      "method": "forge",
+      "initial_plan_delivered": true,
+      "format_rejections": 0,
+      "source_reads": 2,
+      "repeated_source_reads": 0,
+      "experience_retrievals": [],
+      "convergence_forced": 0,
+      "recipe_selected": false,
+      "phase_requests": {
+        "initial": 3,
+        "recovery": 0
+      },
+      "phase_cost_usd": {
+        "initial": "0.0117030",
+        "recovery": "0"
+      },
+      "initial_plan_available": true
+    },
+    {
+      "slot": 12,
+      "project": "libsrtp",
+      "repetition": 2,
+      "method": "forge_experience",
+      "initial_plan_delivered": false,
+      "format_rejections": 0,
+      "source_reads": 0,
+      "repeated_source_reads": 0,
+      "experience_retrievals": [],
+      "convergence_forced": 0,
+      "recipe_selected": true,
+      "phase_requests": {
+        "initial": 0,
+        "recovery": 0
+      },
+      "phase_cost_usd": {
+        "initial": "0",
+        "recovery": "0"
+      },
+      "initial_plan_available": true
+    },
+    {
+      "slot": 13,
+      "project": "libite",
+      "repetition": 2,
+      "method": "forge_experience",
+      "initial_plan_delivered": false,
+      "format_rejections": 0,
+      "source_reads": 0,
+      "repeated_source_reads": 0,
+      "experience_retrievals": [],
+      "convergence_forced": 0,
+      "recipe_selected": true,
+      "phase_requests": {
+        "initial": 0,
+        "recovery": 0
+      },
+      "phase_cost_usd": {
+        "initial": "0",
+        "recovery": "0"
+      },
+      "initial_plan_available": true
+    },
+    {
+      "slot": 14,
+      "project": "libite",
+      "repetition": 2,
+      "method": "forge",
+      "initial_plan_delivered": true,
+      "format_rejections": 0,
+      "source_reads": 3,
+      "repeated_source_reads": 0,
+      "experience_retrievals": [],
+      "convergence_forced": 0,
+      "recipe_selected": false,
+      "phase_requests": {
+        "initial": 3,
+        "recovery": 0
+      },
+      "phase_cost_usd": {
+        "initial": "0.0062598",
+        "recovery": "0"
+      },
+      "initial_plan_available": true
+    },
+    {
+      "slot": 15,
+      "project": "highwayhash",
+      "repetition": 2,
+      "method": "forge",
+      "initial_plan_delivered": true,
+      "format_rejections": 0,
+      "source_reads": 0,
+      "repeated_source_reads": 0,
+      "experience_retrievals": [],
+      "convergence_forced": 0,
+      "recipe_selected": false,
+      "phase_requests": {
+        "initial": 1,
+        "recovery": 0
+      },
+      "phase_cost_usd": {
+        "initial": "0.003441",
+        "recovery": "0"
+      },
+      "initial_plan_available": true
+    },
+    {
+      "slot": 16,
+      "project": "highwayhash",
+      "repetition": 2,
+      "method": "forge_experience",
+      "initial_plan_delivered": false,
+      "format_rejections": 0,
+      "source_reads": 0,
+      "repeated_source_reads": 0,
+      "experience_retrievals": [],
+      "convergence_forced": 0,
+      "recipe_selected": true,
+      "phase_requests": {
+        "initial": 0,
+        "recovery": 0
+      },
+      "phase_cost_usd": {
+        "initial": "0",
+        "recovery": "0"
+      },
+      "initial_plan_available": true
+    }
+  ],
+  "boundary": "两项独立16槽、相同Flash与修复后Harness；advice只注入跨项目建议，reuse只精确复用成功方案；均不在线更新，全部项目已开发暴露。基础组始终重新规划，两项不合效果分母。",
+  "mode": "reuse",
+  "unobserved": []
+}

@@ -1,0 +1,214 @@
+{
+  "advice": {
+    "identity": "cpp-build-repaired-cross-project-experience-flash-v1",
+    "completed": 16,
+    "unobserved": 0,
+    "stop_reason": null,
+    "inventory": "978f7e11f58c956d0f6191b56177829f5fad285e9fce277a383987a46f4aecef",
+    "summary": {
+      "forge": {
+        "planned": 8,
+        "observed": 8,
+        "unobserved": 0,
+        "initial_plans": 8,
+        "primary_completed": 8,
+        "full_completed": 8,
+        "requests": 17,
+        "estimated_cost_usd": "0.0512544",
+        "total_wall_seconds": 410.4689852913143,
+        "source_reads": 9,
+        "repeated_source_reads": 0,
+        "author_tests": {
+          "passed": 8
+        },
+        "initial_plan_available": 8,
+        "recipes_selected": 0,
+        "initial_planning_seconds": 37.561056932085194,
+        "recovery_requests": 0,
+        "input_tokens": 152692,
+        "output_tokens": 4539,
+        "initial_requests": 17,
+        "initial_cost_usd": "0.0512544",
+        "recovery_cost_usd": "0",
+        "experience_retrievals": 0,
+        "experience_bytes": 0,
+        "primary_time_seconds": 136.87015614914708,
+        "layer_counts": {
+          "primary_build_completed": {
+            "True": 8
+          },
+          "author_tests": {
+            "passed": 8
+          },
+          "delivery": {
+            "passed": 8
+          },
+          "clean_replay": {
+            "passed": 8
+          },
+          "full_completed": {
+            "True": 8
+          }
+        }
+      },
+      "forge_experience": {
+        "planned": 8,
+        "observed": 8,
+        "unobserved": 0,
+        "initial_plans": 8,
+        "primary_completed": 8,
+        "full_completed": 8,
+        "requests": 22,
+        "estimated_cost_usd": "0.0728724",
+        "total_wall_seconds": 418.5952257961035,
+        "source_reads": 14,
+        "repeated_source_reads": 0,
+        "author_tests": {
+          "passed": 8
+        },
+        "initial_plan_available": 8,
+        "recipes_selected": 0,
+        "initial_planning_seconds": 46.10529467300512,
+        "recovery_requests": 0,
+        "input_tokens": 219424,
+        "output_tokens": 5871,
+        "initial_requests": 22,
+        "initial_cost_usd": "0.0728724",
+        "recovery_cost_usd": "0",
+        "experience_retrievals": 8,
+        "experience_bytes": 22682,
+        "primary_time_seconds": 145.30047690705396,
+        "layer_counts": {
+          "primary_build_completed": {
+            "True": 8
+          },
+          "author_tests": {
+            "passed": 8
+          },
+          "delivery": {
+            "passed": 8
+          },
+          "clean_replay": {
+            "passed": 8
+          },
+          "full_completed": {
+            "True": 8
+          }
+        }
+      }
+    },
+    "cost_usd": "0.1241268",
+    "requests": 39,
+    "input_tokens": 372116,
+    "output_tokens": 10410
+  },
+  "reuse": {
+    "identity": "cpp-build-simple-project-reuse-flash-v1",
+    "completed": 16,
+    "unobserved": 0,
+    "stop_reason": null,
+    "inventory": "6940b019dc18abff6acab2a25116250ed5e0441fd1086010b3aee6cf2039be91",
+    "summary": {
+      "forge": {
+        "planned": 8,
+        "observed": 8,
+        "unobserved": 0,
+        "initial_plans": 7,
+        "primary_completed": 7,
+        "full_completed": 7,
+        "requests": 21,
+        "estimated_cost_usd": "0.0645282",
+        "total_wall_seconds": 395.35454786301125,
+        "source_reads": 13,
+        "repeated_source_reads": 0,
+        "author_tests": {
+          "passed": 7,
+          "unobserved": 1
+        },
+        "initial_plan_available": 7,
+        "recipes_selected": 0,
+        "initial_planning_seconds": 42.250722738797776,
+        "recovery_requests": 0,
+        "input_tokens": 194574,
+        "output_tokens": 5130,
+        "initial_requests": 21,
+        "initial_cost_usd": "0.0645282",
+        "recovery_cost_usd": "0",
+        "experience_retrievals": 0,
+        "experience_bytes": 0,
+        "primary_time_seconds": 129.83839184395038,
+        "layer_counts": {
+          "primary_build_completed": {
+            "True": 7,
+            "unobserved": 1
+          },
+          "author_tests": {
+            "passed": 7,
+            "unobserved": 1
+          },
+          "delivery": {
+            "passed": 7,
+            "unobserved": 1
+          },
+          "clean_replay": {
+            "passed": 7,
+            "unobserved": 1
+          },
+          "full_completed": {
+            "True": 7,
+            "unobserved": 1
+          }
+        }
+      },
+      "forge_experience": {
+        "planned": 8,
+        "observed": 8,
+        "unobserved": 0,
+        "initial_plans": 0,
+        "primary_completed": 8,
+        "full_completed": 8,
+        "requests": 0,
+        "estimated_cost_usd": "0.0",
+        "total_wall_seconds": 372.6545951811131,
+        "source_reads": 0,
+        "repeated_source_reads": 0,
+        "author_tests": {
+          "passed": 8
+        },
+        "initial_plan_available": 8,
+        "recipes_selected": 8,
+        "initial_planning_seconds": 0.0,
+        "recovery_requests": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "initial_requests": 0,
+        "initial_cost_usd": "0",
+        "recovery_cost_usd": "0",
+        "experience_retrievals": 0,
+        "experience_bytes": 0,
+        "primary_time_seconds": 99.40755254181568,
+        "layer_counts": {
+          "primary_build_completed": {
+            "True": 8
+          },
+          "author_tests": {
+            "passed": 8
+          },
+          "delivery": {
+            "passed": 8
+          },
+          "clean_replay": {
+            "passed": 8
+          },
+          "full_completed": {
+            "True": 8
+          }
+        }
+      }
+    },
+    "cost_usd": "0.0645282",
+    "requests": 21,
+    "input_tokens": 194574,
+    "output_tokens": 5130
+  }
+}

@@ -1,0 +1,657 @@
+{
+  "identity": "cpp-build-simple-project-reuse-flash-v1",
+  "issue": 687,
+  "launch_state": "authorized_by_current_user_with_self_imposed_small_cap",
+  "kind": "paired_development_experience_comparison",
+  "holdout": false,
+  "projects": [
+    {
+      "name": "jsoncpp",
+      "family": "jsoncpp",
+      "task": {
+        "task_version": "simple-build-v1",
+        "plan_id": "simple-jsoncpp",
+        "repository_url": "https://github.com/open-source-parsers/jsoncpp",
+        "commit_sha": "5defb4ed1a4293b8e2bf641e16b156fb9de498cc",
+        "image_id": "sha256:d27a6ab733c7c3a9cbb5e4b32fb595aa5a422ff04bd212888d1041b90a2c4c2a",
+        "source_archive_sha256": "bf07b3031052f56a67c2dee8b32107fdc57429734fe8dcb48ed4b8bbe698a83b",
+        "build_system": "cmake",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "a7fffd5a850554ac135249144c61ea4b11e51341db40d66091ff06625c1ed737",
+        "components": [
+          {
+            "name": "jsoncpp",
+            "artifact_names": [
+              "libjsoncpp.a",
+              "libjsoncpp_static.a",
+              "libjsoncpp.so",
+              "libjsoncpp.so.25",
+              "libjsoncpp.so.1.9.5"
+            ],
+            "kinds": [
+              "static_library",
+              "shared_library"
+            ],
+            "evidence": "src/lib_json/CMakeLists.txt:109-175；顶层CMakeLists.txt:84-94与200；作者doc/README.md:79-94"
+          }
+        ],
+        "author_tests": [
+          {
+            "step_id": "author-check",
+            "role": "smoke",
+            "command": "python3 -c 'import pathlib,subprocess\nroot=pathlib.Path('\"'\"'/workspace/repo'\"'\"').resolve()\nroots=[]\nfor p in root.rglob('\"'\"'CMakeCache.txt'\"'\"'):\n if p.is_symlink() or not p.resolve().is_relative_to(root): continue\n cache={line.split('\"'\"'='\"'\"',1)[0].split('\"'\"':'\"'\"',1)[0]:line.split('\"'\"'='\"'\"',1)[1] for line in p.read_text(errors='\"'\"'replace'\"'\"').splitlines() if '\"'\"'='\"'\"' in line and '\"'\"':'\"'\"' in line.split('\"'\"'='\"'\"',1)[0]}\n if pathlib.Path(cache.get('\"'\"'CMAKE_HOME_DIRECTORY'\"'\"','\"'\"'/nonexistent'\"'\"')).resolve()==root and (p.parent/'\"'\"'CTestTestfile.cmake'\"'\"').is_file(): roots.append(p.parent)\nif len(roots)!=1: raise SystemExit('\"'\"'Expected exactly one actual top-level CTest build directory; observed '\"'\"'+str(roots))\nsubprocess.run(['\"'\"'ctest'\"'\"','\"'\"'--test-dir'\"'\"',str(roots[0]),'\"'\"'-j1'\"'\"','\"'\"'--output-on-failure'\"'\"','\"'\"'--no-tests=error'\"'\"'],check=True)\n'",
+            "source": "src/lib_json/CMakeLists.txt:109-175；顶层CMakeLists.txt:84-94与200；作者doc/README.md:79-94",
+            "expected": "独立运行作者原测试，测试失败不撤销主构建",
+            "workdir": "/workspace/repo",
+            "requires": [],
+            "required_output": [
+              "100% tests passed"
+            ],
+            "diagnostic_paths": []
+          }
+        ],
+        "tests_not_applicable_reason": null
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-new-project-preparation-2026-10-29/jsoncpp/source.tar",
+      "evidence": "src/lib_json/CMakeLists.txt:109-175；顶层CMakeLists.txt:84-94与200；作者doc/README.md:79-94",
+      "exposure": {
+        "holdout": false,
+        "source_and_task_reviewed": true,
+        "prior_simple_engineering": true,
+        "role": "development_system_evaluation",
+        "prior_model_method_results": true,
+        "prior_reference_or_zero_provider_qualification": true
+      },
+      "language": "C++"
+    },
+    {
+      "name": "libsrtp",
+      "family": "libsrtp",
+      "task": {
+        "task_version": "simple-build-v1",
+        "plan_id": "simple-libsrtp",
+        "repository_url": "https://github.com/cisco/libsrtp",
+        "commit_sha": "a566a9cfcd619e8327784aa7cff4a1276dc1e895",
+        "image_id": "sha256:d27a6ab733c7c3a9cbb5e4b32fb595aa5a422ff04bd212888d1041b90a2c4c2a",
+        "source_archive_sha256": "16897cf222293c2f99e370df96a0cb918b9e7599fe13e97df448d3bfeb2f242b",
+        "build_system": "autotools",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "0a7fc5610cf7afba37d467ade3d7fc8c4e597a0222f56e6db3917608368974c1",
+        "components": [
+          {
+            "name": "libsrtp",
+            "artifact_names": [
+              "libsrtp2.a",
+              "libsrtp2.so",
+              "libsrtp2.so.1"
+            ],
+            "kinds": [
+              "static_library",
+              "shared_library"
+            ],
+            "evidence": "README.md:270-287；Makefile.in的libsrtp2.a和runtest目标"
+          }
+        ],
+        "author_tests": [
+          {
+            "step_id": "author-check",
+            "role": "smoke",
+            "command": "make runtest",
+            "source": "README.md:270-287；Makefile.in的libsrtp2.a和runtest目标",
+            "expected": "独立运行作者原测试，测试失败不撤销主构建",
+            "workdir": "/workspace/repo",
+            "requires": [],
+            "required_output": [
+              "libsrtp2 test applications passed."
+            ],
+            "diagnostic_paths": []
+          }
+        ],
+        "tests_not_applicable_reason": null
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-new-project-preparation-2026-10-29/libsrtp/source.tar",
+      "evidence": "README.md:270-287；Makefile.in的libsrtp2.a和runtest目标",
+      "exposure": {
+        "holdout": false,
+        "source_and_task_reviewed": true,
+        "prior_simple_engineering": false,
+        "role": "development_system_evaluation",
+        "prior_model_method_results": true,
+        "prior_reference_or_zero_provider_qualification": true
+      },
+      "language": "C"
+    },
+    {
+      "name": "libite",
+      "family": "libite",
+      "task": {
+        "task_version": "simple-build-v1",
+        "plan_id": "simple-libite",
+        "repository_url": "https://github.com/troglobit/libite",
+        "commit_sha": "b69d8a6013b50cbdfc7586cffd2f36c145e9e53a",
+        "image_id": "sha256:d27a6ab733c7c3a9cbb5e4b32fb595aa5a422ff04bd212888d1041b90a2c4c2a",
+        "source_archive_sha256": "11d027813d62793bda38798dd4cf85b8ce1a142908ce7937bd10b53e9bdceb5d",
+        "build_system": "autotools",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "9a79d999dae9773ea90fdd52e7dac688dfc0d545ec7ae46b35db922452a0f6ac",
+        "components": [
+          {
+            "name": "libite",
+            "artifact_names": [
+              "libite.a",
+              "libite.so",
+              "libite.so.5",
+              "libite.so.5.4.0"
+            ],
+            "kinds": [
+              "static_library",
+              "shared_library"
+            ],
+            "evidence": "README.md:100-130；src/Makefile.am:1-5；test/Makefile.am原21测试"
+          }
+        ],
+        "author_tests": [
+          {
+            "step_id": "author-check",
+            "role": "smoke",
+            "command": "make check",
+            "source": "README.md:100-130；src/Makefile.am:1-5；test/Makefile.am原21测试",
+            "expected": "独立运行作者原测试，测试失败不撤销主构建",
+            "workdir": "/workspace/repo",
+            "requires": [],
+            "required_output": [
+              "# TOTAL: 21",
+              "# PASS:  21"
+            ],
+            "diagnostic_paths": []
+          }
+        ],
+        "tests_not_applicable_reason": null
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-source-qualification-inputs-v1/libite.tar",
+      "evidence": "README.md:100-130；src/Makefile.am:1-5；test/Makefile.am原21测试",
+      "exposure": {
+        "holdout": false,
+        "source_and_task_reviewed": true,
+        "prior_simple_engineering": true,
+        "role": "development_system_evaluation",
+        "prior_model_method_results": false,
+        "prior_reference_or_zero_provider_qualification": true
+      },
+      "language": "C"
+    },
+    {
+      "name": "highwayhash",
+      "family": "highwayhash",
+      "task": {
+        "task_version": "simple-build-v1",
+        "plan_id": "simple-highwayhash",
+        "repository_url": "https://github.com/google/highwayhash",
+        "commit_sha": "f8381f3331d9c56a9792f9b4a35f61c41108c39e",
+        "image_id": "sha256:d27a6ab733c7c3a9cbb5e4b32fb595aa5a422ff04bd212888d1041b90a2c4c2a",
+        "source_archive_sha256": "f49c09f0adb93597f3ab85d49c2b9673a32247608fa43d7416776040f930a339",
+        "build_system": "make",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "e8f5414812139540b9fc93333719e1826e7f0fb25173b74962f6b9504b461a28",
+        "components": [
+          {
+            "name": "highwayhash",
+            "artifact_names": [
+              "libhighwayhash.a",
+              "libhighwayhash.so"
+            ],
+            "kinds": [
+              "static_library",
+              "shared_library"
+            ],
+            "evidence": "README.md:10-14；Makefile:55-64,115-128（默认库及三个测试程序）"
+          }
+        ],
+        "author_tests": [
+          {
+            "step_id": "author-check",
+            "role": "smoke",
+            "command": "bin/highwayhash_test && bin/vector_test && bin/sip_hash_test",
+            "source": "README.md:10-14；Makefile:55-64,115-128（默认库及三个测试程序）",
+            "expected": "独立运行作者原测试，测试失败不撤销主构建",
+            "workdir": "/workspace/repo",
+            "requires": [],
+            "required_output": [
+              "VerifySipHash succeeded."
+            ],
+            "diagnostic_paths": []
+          }
+        ],
+        "tests_not_applicable_reason": null
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-new-project-preparation-2026-10-29/highwayhash/source.tar",
+      "evidence": "README.md:10-14；Makefile:55-64,115-128（默认库及三个测试程序）",
+      "exposure": {
+        "holdout": false,
+        "source_and_task_reviewed": true,
+        "prior_simple_engineering": false,
+        "role": "development_system_evaluation",
+        "prior_model_method_results": true,
+        "prior_reference_or_zero_provider_qualification": true
+      },
+      "language": "C++"
+    }
+  ],
+  "schedule": [
+    {
+      "slot": 1,
+      "project": "jsoncpp",
+      "repetition": 1,
+      "method": "forge"
+    },
+    {
+      "slot": 2,
+      "project": "jsoncpp",
+      "repetition": 1,
+      "method": "forge_experience"
+    },
+    {
+      "slot": 3,
+      "project": "libsrtp",
+      "repetition": 1,
+      "method": "forge_experience"
+    },
+    {
+      "slot": 4,
+      "project": "libsrtp",
+      "repetition": 1,
+      "method": "forge"
+    },
+    {
+      "slot": 5,
+      "project": "libite",
+      "repetition": 1,
+      "method": "forge"
+    },
+    {
+      "slot": 6,
+      "project": "libite",
+      "repetition": 1,
+      "method": "forge_experience"
+    },
+    {
+      "slot": 7,
+      "project": "highwayhash",
+      "repetition": 1,
+      "method": "forge_experience"
+    },
+    {
+      "slot": 8,
+      "project": "highwayhash",
+      "repetition": 1,
+      "method": "forge"
+    },
+    {
+      "slot": 9,
+      "project": "jsoncpp",
+      "repetition": 2,
+      "method": "forge_experience"
+    },
+    {
+      "slot": 10,
+      "project": "jsoncpp",
+      "repetition": 2,
+      "method": "forge"
+    },
+    {
+      "slot": 11,
+      "project": "libsrtp",
+      "repetition": 2,
+      "method": "forge"
+    },
+    {
+      "slot": 12,
+      "project": "libsrtp",
+      "repetition": 2,
+      "method": "forge_experience"
+    },
+    {
+      "slot": 13,
+      "project": "libite",
+      "repetition": 2,
+      "method": "forge_experience"
+    },
+    {
+      "slot": 14,
+      "project": "libite",
+      "repetition": 2,
+      "method": "forge"
+    },
+    {
+      "slot": 15,
+      "project": "highwayhash",
+      "repetition": 2,
+      "method": "forge"
+    },
+    {
+      "slot": 16,
+      "project": "highwayhash",
+      "repetition": 2,
+      "method": "forge_experience"
+    }
+  ],
+  "methods": [
+    "forge",
+    "forge_experience"
+  ],
+  "fixture_sha256": "fc5ce5fe544febf1fafb1803fe439f0a2d3fa5bd83eec5f593c9abe463e57409",
+  "provider": {
+    "model": "deepseek-flash",
+    "accepted_response_models": [
+      "DeepSeek-V4.1-Flash-1017",
+      "deepseek-flash"
+    ],
+    "reasoning_effort": "low",
+    "thinking": "enabled",
+    "max_tokens": 32768,
+    "max_retries": 0,
+    "http_timeout_seconds": 240
+  },
+  "pricing": {
+    "input_per_million_usd": "0.30",
+    "output_per_million_usd": "1.20",
+    "basis": "沿用Flash全输入缓存未命中保守估费，不是账单",
+    "source": "https://api-docs.deepseek.com/quick_start/pricing"
+  },
+  "experience": {
+    "path": "/home/yiwei/.codex/outputs/forge-experience-session-2026-11-02/richlab-route-v1/seed-bank.json",
+    "sha256": "18500dad3e10f59fbea1810f33f028d6c531f44a94657d50edb02ae1207ad317",
+    "source_families": [
+      "ELFIO",
+      "check",
+      "libtommath",
+      "rang",
+      "simdutf",
+      "snappy",
+      "tinyxml2",
+      "yaml-cpp"
+    ],
+    "entries": 24,
+    "historical_preparation_cost_usd": "0.095129",
+    "frozen": true,
+    "online_updates": false,
+    "exact_recipe_initially_available": true,
+    "selection": "matched_action_advice_v1",
+    "top_k": 2,
+    "maximum_bytes": 4096,
+    "retrieval": "once_per_agent_task",
+    "abstain_when_unmatched": true,
+    "enabled": false
+  },
+  "timing": {
+    "slot_seconds": 2700,
+    "main_agent_seconds": 1200,
+    "command_seconds": 180,
+    "author_test_seconds": 180,
+    "replay_seconds": 600,
+    "request_admission_seconds": 600,
+    "cleanup_reserve_seconds": 300,
+    "new_slot_admission_seconds": 900
+  },
+  "limits": {
+    "proposed_maximum_cost_usd": "2.00",
+    "proposed_hours": 2,
+    "per_slot_cost_usd": "0.40",
+    "per_slot_requests": 96,
+    "per_slot_recorded_tokens": 1000000,
+    "shared_session": "cpp-build-base-experience-session-flash-v1"
+  },
+  "components": {
+    "backend/packages/harness/deerflow/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "backend/packages/harness/deerflow/agents/__init__.py": "a56943de0fc010577aeb22212de66d9fbceda09aef6e5a4613945f885d733f5f",
+    "backend/packages/harness/deerflow/agents/checkpointer/__init__.py": "4f97331d4d87a4db4d5ea31dd014db39ea4739f584b45392d9c1835a1c456c47",
+    "backend/packages/harness/deerflow/agents/checkpointer/async_provider.py": "2bb3042621668f662393698bc27b513cf6602ae2dbf792430b84b32ab4f9f594",
+    "backend/packages/harness/deerflow/agents/checkpointer/provider.py": "7c67d89ece8aca60838eeb9b6141a8e09e9dd5f6f0f39cf8f2720a758ad771b4",
+    "backend/packages/harness/deerflow/agents/factory.py": "dd3ddffc164ea27296d8e9f444688c57a08cf5e03932a2f38cd79b16b5ad673f",
+    "backend/packages/harness/deerflow/agents/features.py": "4cf752d546a68afe47ce7b5ba9f774fbd26f719022813d2dc58b87248c84f0ec",
+    "backend/packages/harness/deerflow/agents/lead_agent/__init__.py": "a2741789ec207120b993850f00db55bd92f5c0267f623bf9fd0ef4ad8472a674",
+    "backend/packages/harness/deerflow/agents/lead_agent/agent.py": "ce3ee4d371d98982edfb054824ee9fa002e064d641e256b34c3ea281e93fb320",
+    "backend/packages/harness/deerflow/agents/lead_agent/prompt.py": "b81301ba0b355b0776bdec66df0250c8561a2bbbe49dcaee860fa7a5698b4bde",
+    "backend/packages/harness/deerflow/agents/memory/__init__.py": "e25f883bc4a68ed100fbb05f6bac07ea80f7e57475e51bf799a4e497a403dc22",
+    "backend/packages/harness/deerflow/agents/memory/prompt.py": "2a86f965d484ab2d185828403bc4d611f4092ab995dde202e90fb1b000a7b8ff",
+    "backend/packages/harness/deerflow/agents/memory/queue.py": "0b5ebc82d9e582a822e3e37fd089628be3174b8e042ed00c59bcbbe06b931f92",
+    "backend/packages/harness/deerflow/agents/memory/storage.py": "d71384fca6a2d546f5f1f8f839c37b5cb894f111da517064400cea2e7a96cba9",
+    "backend/packages/harness/deerflow/agents/memory/updater.py": "bbab7ffff1f113aba64e80ec6e2a8fa56509eff8749c18bd14310fb94600f249",
+    "backend/packages/harness/deerflow/agents/middlewares/__init__.py": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+    "backend/packages/harness/deerflow/agents/middlewares/clarification_middleware.py": "6555b8921b7cbde9372d3025d5050ab7096fff8ac679d59395d844bc2db0cd77",
+    "backend/packages/harness/deerflow/agents/middlewares/dangling_tool_call_middleware.py": "9627e5c32a2301eff05633a4141825f4a74c3c98b6af90be5007d1cd3177a969",
+    "backend/packages/harness/deerflow/agents/middlewares/loop_detection_middleware.py": "54543bb23f7028013ab6ac4953da81acc9e1ce195f079169285d5c0418ec45b9",
+    "backend/packages/harness/deerflow/agents/middlewares/memory_middleware.py": "6e7896fa9472086457cc69a5ea2a4a593485d4c9d6d324f8029b5ff70a113022",
+    "backend/packages/harness/deerflow/agents/middlewares/subagent_limit_middleware.py": "4a3e133b5bbd4f47045fd370bbc125a17079579f30b837914728095b4d6feead",
+    "backend/packages/harness/deerflow/agents/middlewares/title_middleware.py": "a25f7fc7c9521e9a9f62836145ac6c0d180d8279693d05f4df705b9593def1d9",
+    "backend/packages/harness/deerflow/agents/middlewares/todo_middleware.py": "5f20a6a918661c00567ac7d7620d39fa2674360244bf3b8e7a2765084e0802c5",
+    "backend/packages/harness/deerflow/agents/middlewares/token_usage_middleware.py": "72d8a84fdf76b779b5404c277d79ea2109c5fb8697fd03e02d4c914609c99dc4",
+    "backend/packages/harness/deerflow/agents/middlewares/tool_error_handling_middleware.py": "76b5c8bc2fedf2c5641af3bc7a2ab58f0872d649c95d0963379ee7ea5d83c60f",
+    "backend/packages/harness/deerflow/agents/middlewares/view_image_middleware.py": "7f75e1701594d31ee3ebff294fc0603a60cb514d9562a6dd34ec61fa20916aa2",
+    "backend/packages/harness/deerflow/agents/thread_state.py": "9515ec6b397d431b521fae125b401c8d02eed7ce64bc713c18c6cc68ac6dfa3e",
+    "backend/packages/harness/deerflow/compile/__init__.py": "5c9b2cf4d1fbfb357cf07047b3eee93934d1e6a04b2d63ed26dc98071b9cd78c",
+    "backend/packages/harness/deerflow/compile/action_experience.py": "4cd6615d1da19273bab6b9d4c673aa783f6e7384500443ba8f6668451da92eb7",
+    "backend/packages/harness/deerflow/compile/agent_workflow_node.py": "9fc296c5ac5586fbc25cd0d4c8c0c2bb3c0db03c89fa3cf924d3ff6873a29155",
+    "backend/packages/harness/deerflow/compile/agent_workflow_runtime.py": "92277bf4b5568acb43523edb6344b2a6b6c70ce731cab62200295b3aa97d9931",
+    "backend/packages/harness/deerflow/compile/agent_workflow_runtime_v2.py": "7358c8396a6eee7776f64f6645f0d516b1f4e6ed4743a249c1d8c32b4c1ecef5",
+    "backend/packages/harness/deerflow/compile/agent_workflow_runtime_v3.py": "2d71383d011e943f78e9259b9f7ceec2c8e1f080d7609e86413ce188a841f65e",
+    "backend/packages/harness/deerflow/compile/agent_workflow_runtime_v4.py": "48593cfea3a5cd0512531332bec89bc16afddbdc190605e55d17c027a7769c66",
+    "backend/packages/harness/deerflow/compile/agent_workflow_runtime_v5.py": "44462a2e6cf26e3008743281c942604ce75955ac62125afcf676fa1882c1c92a",
+    "backend/packages/harness/deerflow/compile/agent_workflow_runtime_v6.py": "70311ae3a598e183ba7450494629d8ee5a5e572c9e829f2d82a058122060406b",
+    "backend/packages/harness/deerflow/compile/agent_workflow_schemas.py": "21a19f6d1a0421fce2c7807474db9eefe0e0be25042241ca121fbb9d5ec99706",
+    "backend/packages/harness/deerflow/compile/archive_source_index.py": "8016f903f9291fb00eda0e2bd4ac0c576fc992903659db61d9feff1950b2e855",
+    "backend/packages/harness/deerflow/compile/artifact_display.py": "b6ae85f2b3c5dead9d631933714f318e29cfd562a6127f17003120218cb660e8",
+    "backend/packages/harness/deerflow/compile/boundary_execution.py": "9f62e5912d7f548649c29b991a117fddda5a2633bdbf20b38bae7db3b6895c3c",
+    "backend/packages/harness/deerflow/compile/build_experience.py": "bfbf2cb916d940f9bc342c11a71cc9ca49399352ec87a98fc936d44714fd3588",
+    "backend/packages/harness/deerflow/compile/build_task_checks.py": "4a302b338a9228e9e7928c48b21c046dac4eb8c95fe6de21dd60bb3544ab0b10",
+    "backend/packages/harness/deerflow/compile/candidate_verifier.py": "595cec0fc909e2179fbcebc5428c6b5ae996d7442e90ece5ccbc8d57bef7ab89",
+    "backend/packages/harness/deerflow/compile/conditioned_experience.py": "8f585a84dbde5eed38f6e5dc364c228ce7d0409ec099338825f0e2d552526b43",
+    "backend/packages/harness/deerflow/compile/docker_runtime.py": "e82999ab0a262ddd8e60241b70994cc99b495d5d7bb34f4b5247f3fe69c864da",
+    "backend/packages/harness/deerflow/compile/evidence.py": "a3923167f67a96ea4af4aaa4f3692d15baafea79cc0e5ee1b9dac08ab7eb9284",
+    "backend/packages/harness/deerflow/compile/evidence_ownership.py": "1609822180c1818988ef9ad8a4fa30ce21a901a5d9037f82d43bf00ba1ba0d92",
+    "backend/packages/harness/deerflow/compile/external_evaluator.py": "c4ac897de06ab91d1cd557dfc3b6427974cae99c2ca16c216e8880303c094c61",
+    "backend/packages/harness/deerflow/compile/external_evaluator_v2.py": "19044e161b321fe5afed8458c0138f1bcfbe41582af2d5f4efcdf6846c3d579b",
+    "backend/packages/harness/deerflow/compile/external_evaluator_v3.py": "cfb5e3baeff772e54051925e6b0504eea25b6ba9284d8a5c6ad7135355fde79c",
+    "backend/packages/harness/deerflow/compile/external_evaluator_v4.py": "9009c400b1b54d9ad05411f1a64124423cf50d8ba49bfa2d13071d9bedad4613",
+    "backend/packages/harness/deerflow/compile/generated_file_boundary.py": "81fdee664be7526a1d4ddf864d97571dd0118979340f6eb8cb01700aa05d9ef6",
+    "backend/packages/harness/deerflow/compile/generation_observation_actions.py": "6137bcd634d9df7e79ee6b60b73f103dfbc5807aa72af01d98c6d4bcc616c0bd",
+    "backend/packages/harness/deerflow/compile/goal_state.py": "8749ce77b7d08b01d58c4d6c65680b0ede793b0cb1b56c40c70eaab1ee074880",
+    "backend/packages/harness/deerflow/compile/hybrid_workflow.py": "73e215ebf2d0c3a53db7f8b44993a72c9d6a140091d5c78d5114fec578676d4e",
+    "backend/packages/harness/deerflow/compile/jev_controller.py": "f8c53aa301c60399aae33c052d7d3efd8d39c0827dc751d99cd823194a810e9f",
+    "backend/packages/harness/deerflow/compile/local_recovery.py": "3beb7c87d6bcc6f369b2be63701e15c995d2a0766e6878bdf35a198ab575c3f1",
+    "backend/packages/harness/deerflow/compile/manager.py": "1f9726ff9375cb5fb271bc17b29310e17db6db274474b02112aaf61cead4536e",
+    "backend/packages/harness/deerflow/compile/operation_window.py": "f44b2e1d2e702c6b50b6d2e5713b670862d1430d460f83d32a531c7852b7c507",
+    "backend/packages/harness/deerflow/compile/operations.py": "c2be9b2c6afde19a8ed9137b9aa3a2dcc59ad8b808f1011ec6ebd340c7660b9e",
+    "backend/packages/harness/deerflow/compile/paths.py": "3872bdca3647a78407b422c00a72d9c62b38d5e9f2f0355cc78653fa15d1c332",
+    "backend/packages/harness/deerflow/compile/plan_agent.py": "76cf813285bd0d95ffd53e6d94d7fed09ddc4dcadfdcb13f6c37089170f5dd71",
+    "backend/packages/harness/deerflow/compile/plan_agent_canary.py": "13c238db9fe5f69543a17b6e95871723e1c790687cb028c281b200aab8a17b6c",
+    "backend/packages/harness/deerflow/compile/plan_agent_context.py": "2620ddcc50e7da228d7af19073719508b649a9d360f71a94baf15ecbefd2dc37",
+    "backend/packages/harness/deerflow/compile/plan_agent_provenance.py": "35353d9277ba34953b7ba1fb7a2bad477e4bc721aa1b9a271261ed86d76d7dca",
+    "backend/packages/harness/deerflow/compile/plan_agent_repair.py": "a934a770bfb8f6b45fe7e13b73f12cb7e30b42937a98fbd6dbb6213896a1c9f3",
+    "backend/packages/harness/deerflow/compile/plan_agent_v2.py": "8fb37e15af7739c32ab00002076e284d5599710c34d11ae1623f6f23ca922bad",
+    "backend/packages/harness/deerflow/compile/plan_candidate_reception.py": "8d954034c59c56772d4d39d99cb17e7317dabb2c6786dab11341d12a5046f5ce",
+    "backend/packages/harness/deerflow/compile/plan_cross_system.py": "754710b0e31badef4e317f83d350092232ef42cb55cc58398c21a254713fa174",
+    "backend/packages/harness/deerflow/compile/plan_delivery.py": "dce6cc81cd7e49e733216524976ee47303330d16d6e3410761d96396c68a0596",
+    "backend/packages/harness/deerflow/compile/plan_delivery_equivalent.py": "67d48e2e44033a0551c84e0ff86092f7327adbd47eb9d0142b4ac1fb8321bab1",
+    "backend/packages/harness/deerflow/compile/plan_handoff_context.py": "eb0e44b077a800f003f8740c0cef18cac1b9841a2e4656f36f6e52c7b5d6bc89",
+    "backend/packages/harness/deerflow/compile/plan_workflow.py": "65473d1770304e5fd42aefb36b31f82b9595406f76bae1e3c44313771ca7027f",
+    "backend/packages/harness/deerflow/compile/project_experience.py": "09dd6f9e1723304ec8ba53a6643e0f217a003a3d96e27d8614e7f53e4ca09d7a",
+    "backend/packages/harness/deerflow/compile/recovery_text_factors.py": "d81ac40026703d926149ba1b410eb46fca246c9772b63a20672f792a1987efa8",
+    "backend/packages/harness/deerflow/compile/replay_closure_verifier.py": "01f8335ab0a586065803b34952b930adbf593624c611316b40ca2ccac685cd83",
+    "backend/packages/harness/deerflow/compile/schemas.py": "8217a7514665fb5c271699b9f988bce227d861bfa607cec0ae1301f2827b9bc6",
+    "backend/packages/harness/deerflow/compile/shared_text_packet.py": "43ea2391dffd78c8bf273af430a14926bf4fd255fc0e001ef72e222c570d8b28",
+    "backend/packages/harness/deerflow/compile/simple_author_tests.py": "565b385eba8faf569961df9919c83d9972da934f1789dce5bba408180015e255",
+    "backend/packages/harness/deerflow/compile/simple_build_agents.py": "ddb5748e7c70a15800d974968f8118b6556300aa6b00979569357f20a59f9676",
+    "backend/packages/harness/deerflow/compile/simple_build_experience.py": "74762de2bc323fa791b091336ec123835fa641a667c7d3b4024b216bc79cc56f",
+    "backend/packages/harness/deerflow/compile/simple_build_runtime.py": "fd78daab45922bf8e989e0d285a2440bb25b14cedd5629af337a408025fa7a28",
+    "backend/packages/harness/deerflow/compile/simple_build_task.py": "42a20459bf9c7c07bbb6d1f9539f42ec4eeae39995dc078db61ed0c59f038540",
+    "backend/packages/harness/deerflow/compile/simple_planning_context.py": "5ea3b4bf407d821eb16a21f81b3606d859806b7d2a1156c590ccc90b95cf79e8",
+    "backend/packages/harness/deerflow/compile/source_preparation.py": "cf5204d310719e56ac7ff23d4a66b54722ebf88bad7f206291ac38faf76adc7c",
+    "backend/packages/harness/deerflow/compile/staged_verification.py": "b4fc6b2ab4b1436a178657c62412ae71e8f9c7ae5c90b8301be18b5664e01741",
+    "backend/packages/harness/deerflow/compile/task_selected_make_plan.py": "be2758362d67d8878faddf087224e4bcf07bebda3f2bbd582e038407c3e7211c",
+    "backend/packages/harness/deerflow/compile/task_selected_tool_plan.py": "6d2857174e8767f210dccb0cf000f660833c69f2de0611b775a2e13ee55c7c1a",
+    "backend/packages/harness/deerflow/compile/tool_plan.py": "64f00145f33a6a950901045324d1610808ec8940bde83bec33622346974ff008",
+    "backend/packages/harness/deerflow/compile/transfer_action_experience.py": "823acb94a46e87ce7322e9bf720922840b385bb198b500b1e725f220c3dde5e3",
+    "backend/packages/harness/deerflow/compile/unified_plan.py": "1a7e840694bb5f2e24e5e7556e417b4a0ed1a5ddcf60e2a26e04bd451294cf71",
+    "backend/packages/harness/deerflow/compile/unified_plan_equivalent.py": "6131f7f0584692a51523681f3e3c80a838b86ab92077460f07ce6f2c617fe53a",
+    "backend/packages/harness/deerflow/compile/unified_plan_equivalent_observed.py": "b5be5b232664600c3f14c7cf8f114f44c0424016b16cdffd8a5d39776624c175",
+    "backend/packages/harness/deerflow/compile/unified_plan_v2.py": "80522737e683f2c1ecb9a39ecb086bd3a9a1729ed519039f092d91ff1eb1c46f",
+    "backend/packages/harness/deerflow/config/__init__.py": "5118fd7e91c5f2b40c264be510e39e34aa5fc0d3dc712e62cc0250643852ed57",
+    "backend/packages/harness/deerflow/config/acp_config.py": "545c5a8979ee20502ad8abb6e2a583b2b7ec8adbe4053a5faf1b5741d8c71edd",
+    "backend/packages/harness/deerflow/config/agents_config.py": "c6ea1b0206f1e0314ce4545682e4f960e15fc5c3aeec4f662d62672f41763d85",
+    "backend/packages/harness/deerflow/config/app_config.py": "452559abd42170e375b0639a37449cd3264ff32843fa6c53aac032d4319b0ab7",
+    "backend/packages/harness/deerflow/config/checkpointer_config.py": "04ce22f7421ea8a9873eba97ec5a201f567b7e9448bda8f35f985ddbd058e638",
+    "backend/packages/harness/deerflow/config/extensions_config.py": "41b70fcac18877bdb6d342fdd6d665f6e394f260ba0411596e49a850c184f3fb",
+    "backend/packages/harness/deerflow/config/guardrails_config.py": "a852b84c15aaa98db27133781f9f7dfb6440cc3adb8f5bd8e9b50a1c4e43e65f",
+    "backend/packages/harness/deerflow/config/memory_config.py": "fb40bdb0091469eb2517ce59e08ef452a89e1aa98d05c0432bd5536da9a8fb10",
+    "backend/packages/harness/deerflow/config/model_config.py": "3529125f3d5397730ce4f5c7fd65fb02b53796640e1df85de6a63a2eca2e32e6",
+    "backend/packages/harness/deerflow/config/paths.py": "fb972405e6185f8db8960bb99fa77817ff710ec46079c758878c01a8b6c3f607",
+    "backend/packages/harness/deerflow/config/sandbox_config.py": "84cbcc3441735e0bdaaa17d5a99f218e0fdd2c728c83babd6cea886084efb786",
+    "backend/packages/harness/deerflow/config/skill_evolution_config.py": "72ed337ab44a2094af74131d3d8728bd453ef7b1b33af5940083dc3a8c5fc0e4",
+    "backend/packages/harness/deerflow/config/skills_config.py": "a60571134cfe6eebe5abd1009e08d39a2c037b69bc2d8813fc4f9bc935676a1c",
+    "backend/packages/harness/deerflow/config/stream_bridge_config.py": "1cca873098f97229d874b9a981129da2767e5f7e8d5a65fceebb1bf36a040a7b",
+    "backend/packages/harness/deerflow/config/subagents_config.py": "c2c6a70d36c8e64f8d9b0c215f7da2f0f37af7a5a5f6865cd0e2ce9c0da32413",
+    "backend/packages/harness/deerflow/config/summarization_config.py": "6125bf6b6e961121a782d50b340c0f8ccd5e794fe1231e16d61b552d8e55c372",
+    "backend/packages/harness/deerflow/config/title_config.py": "3957bd4da829f34cf19288332ae5d1bff4677e4ee205de25beac1985f76c9606",
+    "backend/packages/harness/deerflow/config/token_usage_config.py": "493c966d6618030ded3ef3e61adee1eff5cd22f84061dfb8033f18e06309ce66",
+    "backend/packages/harness/deerflow/config/tool_config.py": "990b85b8ed1f8e2d2c16371f94888759620d7b88baca1f65d63456600352f6fe",
+    "backend/packages/harness/deerflow/config/tool_search_config.py": "5d8f9cc63eef0ed527e20175093de41a7f17fe2c06e92294b7055dc8318df5d6",
+    "backend/packages/harness/deerflow/config/tracing_config.py": "a4b3422d1c8797b539c91a22a0bdccc90b80aa550319a023a35fe78d698f8945",
+    "backend/packages/harness/deerflow/models/__init__.py": "751ebf6cb37039345a4595a40021f509c1ffbea324240769bcff338f846ce7fa",
+    "backend/packages/harness/deerflow/models/claude_provider.py": "a41908ff371572b1334f59e45e3825f15bc4c143cac85cf3e67760adb54c92ba",
+    "backend/packages/harness/deerflow/models/credential_loader.py": "f421598e62887ccf1b1165386b9fa7da8d4e781a3bdca53ed2280cfd71eb3bd7",
+    "backend/packages/harness/deerflow/models/factory.py": "804da24b5a3929df57251a0274dd690dcfa469c9c5c59024b100ae928dc0f5fc",
+    "backend/packages/harness/deerflow/models/openai_codex_provider.py": "6f94009a132f9e24dfbd638c830f049cefda680c2fc9dda0b76a343124184789",
+    "backend/packages/harness/deerflow/models/patched_deepseek.py": "e313c1b141799e268d9cc8ff548e45a339bf68b5a3b4f3b8865b2f7fa218477b",
+    "backend/packages/harness/deerflow/models/patched_minimax.py": "b20d2e801c193d8fa24923e07732f98a7260c1bd9520fed55df607152ce44c2c",
+    "backend/packages/harness/deerflow/models/patched_openai.py": "d55a2c970d3d42a8efa0155f8640e31bf5141a278c2eb63f6b940fdd82a06fe4",
+    "backend/packages/harness/deerflow/models/vllm_provider.py": "cdd06c0c89369652b09e17eb54dba7bd8283c02eb0c3dc7bce4608b232461784",
+    "backend/packages/harness/deerflow/reflection/__init__.py": "d8b3d505d456ff4fd71bb79b12e337a915ef2da719f4bb5df0d177e849bf80ed",
+    "backend/packages/harness/deerflow/reflection/resolvers.py": "8f984822fc36937f3164c8340c714026c82a573c1fb444375710b19c4f3e056a",
+    "backend/packages/harness/deerflow/runtime/__init__.py": "eed19d77c2dab6b554f4552517f2ad4f19cdca676cda64f9cff363ebd83f15c0",
+    "backend/packages/harness/deerflow/runtime/runs/__init__.py": "3bd95b0c329f61df718f729ae50de4c903b198a79288bf3b391b52d4e08f6599",
+    "backend/packages/harness/deerflow/runtime/runs/manager.py": "4e9c4b1fc9d1c71ace31f711275d988c2b26cd29d308ea057047ef363bc331de",
+    "backend/packages/harness/deerflow/runtime/runs/schemas.py": "a74e35727962a1b0fa27c7bb33b409b716a3d34e7e1f1de7d4cbfd8d65538880",
+    "backend/packages/harness/deerflow/runtime/runs/worker.py": "552d365e3085163707146156c10d1391d8acb6ec7505a5716235f1189350d1a4",
+    "backend/packages/harness/deerflow/runtime/serialization.py": "e0d2fcdbbbf22cec971b6f291d0bdc334fd8fd27c0f8940f576c573f6a3e99a2",
+    "backend/packages/harness/deerflow/runtime/store/__init__.py": "7ad2103736076f725a6a00c9e086153b50ce2cdbcc0f4f1acee2b22c67bda07c",
+    "backend/packages/harness/deerflow/runtime/store/_sqlite_utils.py": "edfa0fe74da14e0b5cec6387ab7139badf809a8e31b6a2494aac54ea7a20723a",
+    "backend/packages/harness/deerflow/runtime/store/async_provider.py": "06e3efdc16c2920879ef402fd6831576da232cc2283f9cca6f3432fc75920a4c",
+    "backend/packages/harness/deerflow/runtime/store/provider.py": "192dbb89892edf8ed07f2a75f7f83c062a1f1d1fac5c5857ec98e94ae2b02b70",
+    "backend/packages/harness/deerflow/runtime/stream_bridge/__init__.py": "02676f3cd91fd4e37c5af37e31eb62d0a814db2ad18c3d6d3dca78fb9b6bde4b",
+    "backend/packages/harness/deerflow/runtime/stream_bridge/async_provider.py": "0f48fd40a50200360545e371e0ee6ea5e2590603fee8ba6c2b2e98043b5eca37",
+    "backend/packages/harness/deerflow/runtime/stream_bridge/base.py": "a09f01685d28eb62ece4f425a7aaf02a3daddd8303ba2f84864a1de2ffac7da8",
+    "backend/packages/harness/deerflow/runtime/stream_bridge/memory.py": "3a060156b7b8b332cd814972e3720283fe16b65e913463ef206590156813473b",
+    "backend/packages/harness/deerflow/skills/__init__.py": "fd01c12172db0c7072505b80861d941dba160138a6bac14a9c5d46507a123bbb",
+    "backend/packages/harness/deerflow/skills/installer.py": "be3acd373583664b6ee6a32acc1ab4b72da8cb918760271da80bd104f1389897",
+    "backend/packages/harness/deerflow/skills/loader.py": "afe5a7848bc0a7b9484d169165b5b9922c473eda66c16008e86b192814caee4b",
+    "backend/packages/harness/deerflow/skills/parser.py": "96b733b02e25e8034800fa70dbdcd7d61da73c560185b95c5e261f1cc902c58b",
+    "backend/packages/harness/deerflow/skills/types.py": "9547a73f6798f1eaf9e20e494fc2976b87cc219581c91d02c4b8cd70632ddb06",
+    "backend/packages/harness/deerflow/skills/validation.py": "bb0cf0c16bf422efac75434abe3723a8f040b511de7ae3b0cf8f78662f1900d1",
+    "backend/packages/harness/deerflow/subagents/__init__.py": "8268227df05b2c67403a18e21127ebc049570f4b260017f36ee525e8ec4c0354",
+    "backend/packages/harness/deerflow/subagents/builtins/__init__.py": "a3c4b02658bb7613a9b529fdfe9d969ae5abb5f39e0c35ac81b3528960ea3d2d",
+    "backend/packages/harness/deerflow/subagents/builtins/bash_agent.py": "d350614169973b3a73fc0aa0fbb988f876dc0c0764df06fa86a38acc634bb1fa",
+    "backend/packages/harness/deerflow/subagents/builtins/compiler_agent.py": "96befc9fbb24e4bac856466cc12100e24c654f84fd0608055bf39bade17ceeda",
+    "backend/packages/harness/deerflow/subagents/builtins/general_purpose.py": "295fe011907ea28d7939d1deb366fd2d6d763225d00e1ec9ce0878b856b4792a",
+    "backend/packages/harness/deerflow/subagents/config.py": "782e0b52fcec88678a25fc316ea5e89c5dfae53f6b15e036bc95d41141628ec7",
+    "backend/packages/harness/deerflow/subagents/executor.py": "6d1c8cd8395c6e849f51ebd9171ee06b0d5c8a4c9b6941628441792e0df402dd",
+    "backend/packages/harness/deerflow/subagents/registry.py": "4f27f5f60d2b05c850d2c872129d613e0ac5025c04ae28108dad3799d178f501",
+    "backend/packages/harness/deerflow/tools/__init__.py": "65978178eb4b6d73160907d82974b332b52147530302f4d197b480d8659b74fd",
+    "backend/packages/harness/deerflow/tools/bound_compile_tools.py": "735ec5c8daa34d66e4b1116987e281e861149a5273434ec200e403c3fe1ec758",
+    "backend/packages/harness/deerflow/tools/builtins/__init__.py": "5109a4a01e0dd51b19c8b8a0d99e3339ca52e9a4bc8a709141cac7af2d55f12e",
+    "backend/packages/harness/deerflow/tools/builtins/agent_compile_tools.py": "e44f8c5bc82d2c5831473c9bfac494de5e506c53c4a45ba350bc09116dfcd9c0",
+    "backend/packages/harness/deerflow/tools/builtins/clarification_tool.py": "8c9b20c2b8df2ebdbc15b57b44b4c1a420f26c5a84a2525da8e2fb0c38c84c9c",
+    "backend/packages/harness/deerflow/tools/builtins/present_file_tool.py": "f785f9fe92a62f1a9e715bce1996fd879d92086c17542a67e4d0cf5a45d2aad8",
+    "backend/packages/harness/deerflow/tools/builtins/setup_agent_tool.py": "707833b579e5fc6ef6256cd4f61bbd0d924c978f46b5e34ef8f0cdf318dca85e",
+    "backend/packages/harness/deerflow/tools/builtins/task_tool.py": "150a886b132c871f859baa566b9c350f3f0c15500ff852ab70fdc8c363aafd43",
+    "backend/packages/harness/deerflow/tools/builtins/tool_search.py": "7d6d3cc8ead2b27bd58f0ece89bcad953be5da228aac64ac60862d8ebf62499f",
+    "backend/packages/harness/deerflow/tools/builtins/view_image_tool.py": "350cf4f3b450429e4b501b6bdbc5e8bf0425c01e8111779f0b141638f9310c18",
+    "backend/packages/harness/deerflow/tools/host_read.py": "dc2b8e985a566d7078be3e06801f86e7b111cd55b5d850217da7e46c4a06e0d9",
+    "backend/packages/harness/deerflow/tools/host_write.py": "6013fdc3db9d3baca431a576204eb7fee519598e0bba7eb4279b5210e8ed18ac",
+    "backend/packages/harness/deerflow/tools/tools.py": "df8aac648c09b5d21fe18841c9b1072d16f6c60aec563475f2e5a08ea4042fb9",
+    "backend/packages/harness/deerflow/tracing/__init__.py": "f64980e72ed87cfad8e64a48d20270c7d2b0c027b8e518c1d8d7db12cbd31e3a",
+    "backend/packages/harness/deerflow/tracing/factory.py": "f32b4cde351c8add890a53a433e9ea0ac232362204d0f6f604bcd5cef42a0fcc",
+    "benchmarks/preregistrations/cpp-build-simple-system-comparison-flash-v1.md": "800414651f0bca7fb7fe288a4cb19b7afb2eea23752f6eccedd1cccdd65b0f7c",
+    "scripts/forge_base_experience_comparison.py": "c23392c1e177c6ff601ccd406bfa9e428d7ad43e329a6f04fac99d00d912abd2",
+    "scripts/forge_build_simple_task.py": "f9d63aa370fcfff3c33ae354d4450cfa835afa632cdf37d48126c1e48da56d39",
+    "scripts/forge_planning_comparison.py": "3b94fc1955e935bfaaf11293b8fc48234fa4e8cdf406c5d15c37520a85c1ab9c",
+    "scripts/forge_simple_comparison.py": "df61d4e4a80359c6fe0ed6e7dddfae70ee7131c92da400789d4ac653a43b30d8",
+    "scripts/forge_simple_cxx_reference.py": "da813af5cbcf169ea3e957b48677f186b7dfa6d0c2f45290b375c7efccbebdc7",
+    "scripts/forge_simple_system.py": "7986a7e1dd7fe5c9cb82f8f644577813fd78ba5799813227010aaa82ba8167ae",
+    "scripts/forge_typed_evidence.py": "b3e798669389507dc605fcd73b2450921f0695bddccc564344fda88d5cb7a3c8",
+    "benchmarks/preregistrations/cpp-build-planning-context-experience-flash-v1.md": "4974893f66020bfc5b534e6d0873663a5efe8bf16dc611345333b2e2b0a374d4",
+    "benchmarks/preregistrations/cpp-build-simple-project-reuse-flash-v1.md": "b13fa2ce2d888ee1fb569ae6e544320c6a54ecd131a5602a4330e52913a700fe"
+  },
+  "package_versions": {
+    "langchain": "1.2.3",
+    "langchain-core": "1.2.17",
+    "langgraph": "1.0.9",
+    "langchain-deepseek": "1.0.1",
+    "openai": "2.15.0"
+  },
+  "boundary": "两项独立16槽、相同Flash与修复后Harness；advice只注入跨项目建议，reuse只精确复用成功方案；均不在线更新，全部项目已开发暴露。基础组始终重新规划，两项不合效果分母。",
+  "planning": {
+    "output": "SimpleBuildActions",
+    "format_corrections_per_agent_task": 1,
+    "context": "complete_tool_conversations_until_capacity",
+    "message_capacity_bytes": 49000,
+    "convergence_warning_stalled_rounds": 2,
+    "finalize_only_stalled_rounds": 3
+  },
+  "validation": {
+    "author_tests": "actual_top_level_CMake_CTest_or_original_reference",
+    "zero_tests": "error",
+    "boundary": "实际作者测试入口按所选构建系统适配；不声称两系统测试集逐项相同，不和旧E42完整率相减"
+  },
+  "mode": "reuse",
+  "recipes": {
+    "jsoncpp": {
+      "path": "/home/yiwei/.codex/outputs/forge-planner-model-confirmation-v2/slot-01-jsoncpp-forge_experience/verified-simple-recipe.json",
+      "sha256": "934c5b7d1bcf1e340aea4e39d861a17145c5f66366bce711db0462c1e4a02281",
+      "source_slot": 1,
+      "source_inventory_sha256": "2ffaab2d1b7a9ed689c4ca089c7233f47c26797c8b28f2236c5ed53627326970",
+      "historical_source_cost_usd": "0.0037476"
+    },
+    "libsrtp": {
+      "path": "/home/yiwei/.codex/outputs/forge-planner-model-confirmation-v2/slot-04-libsrtp-forge_experience/verified-simple-recipe.json",
+      "sha256": "009668325a3bcaae4179392796b2bbebe54887104417f757f5513b50cc83e764",
+      "source_slot": 4,
+      "source_inventory_sha256": "2ffaab2d1b7a9ed689c4ca089c7233f47c26797c8b28f2236c5ed53627326970",
+      "historical_source_cost_usd": "0.0163221"
+    },
+    "libite": {
+      "path": "/home/yiwei/.codex/outputs/forge-planner-model-confirmation-v2/slot-05-libite-forge_experience/verified-simple-recipe.json",
+      "sha256": "1cf47bdf214e14a6018394ace6d45eabe281be48f8fdcd08202eae52706a981f",
+      "source_slot": 5,
+      "source_inventory_sha256": "2ffaab2d1b7a9ed689c4ca089c7233f47c26797c8b28f2236c5ed53627326970",
+      "historical_source_cost_usd": "0.0076452"
+    },
+    "highwayhash": {
+      "path": "/home/yiwei/.codex/outputs/forge-planner-model-confirmation-v2/slot-08-highwayhash-forge_experience/verified-simple-recipe.json",
+      "sha256": "43586e398769d4ea64d8d2e92a550e23c4a35d03119cdefed694d06f63b89edb",
+      "source_slot": 8,
+      "source_inventory_sha256": "2ffaab2d1b7a9ed689c4ca089c7233f47c26797c8b28f2236c5ed53627326970",
+      "historical_source_cost_usd": "0.0037056"
+    }
+  }
+}

@@ -1,0 +1,1396 @@
+[
+  {
+    "slot": 2,
+    "project": "jsoncpp",
+    "request": "request-1.json",
+    "experience": {
+      "mode": "structured",
+      "sources": [
+        "E30-slot-19",
+        "E30-slot-24"
+      ],
+      "items": [
+        {
+          "source_id": "E30-slot-19",
+          "experience_id": "6cb93554978d7b477a6a5cac85d179fc0e79a643f541d8ed4ed61f16103bcade",
+          "source_family": "rang",
+          "matched_terms": [
+            "config",
+            "package"
+          ],
+          "advice": {
+            "stage": "dependency",
+            "conditions": [
+              "CMake项目通过find_package等机制查找外部测试依赖",
+              "依赖源码已在本地可用，且允许写入项目内隔离目录",
+              "依赖能够生成并安装CMake package config",
+              "主项目允许通过包专用_DIR指定查找位置"
+            ],
+            "state": "测试依赖doctest需要以CMake可发现的形式提供；直接拥有依赖源码并不等于主项目能定位其配置包。",
+            "action": "先以关闭依赖自身测试等选项配置doctest到独立构建目录（command_4ec28b32b758403b882cb7f0c849060c），再安装到项目内前缀并确认doctestConfig.cmake存在（command_155088bc758240c9b700f1a2521ddcd7）；配置主项目时显式传入doctest_DIR并重建干净build目录（command_b9352125391e4d10ada6ad9d98816520）。这是本轨迹有效的依赖准备路径，但未做省略doctest_DIR的对照实验，不能断言每一步均不可替代。",
+            "outcome": "effective",
+            "not_applicable": [
+              "依赖已由系统包、工具链文件或项目内FetchContent稳定提供",
+              "依赖不导出CMake package config",
+              "项目使用其他构建系统或禁止项目内安装前缀",
+              "交叉编译时依赖必须由目标工具链统一管理"
+            ],
+            "verification_scope": "观察到依赖配置、安装和主项目配置均成功，所需配置文件及CMakeCache.txt存在；后续目标构建和原作者测试也成功。未观察缺少显式路径时是否仍可发现依赖，也未验证其他依赖版本或安装布局。",
+            "command_ids": [
+              "command_4ec28b32b758403b882cb7f0c849060c",
+              "command_155088bc758240c9b700f1a2521ddcd7",
+              "command_b9352125391e4d10ada6ad9d98816520"
+            ]
+          }
+        },
+        {
+          "source_id": "E30-slot-24",
+          "experience_id": "0bd0fa040bc9f5a88b54c049c30f9f120cdb642898856a5df9d4c0110c19b60a",
+          "source_family": "ELFIO",
+          "matched_terms": [
+            "git",
+            "release"
+          ],
+          "advice": {
+            "stage": "configure",
+            "conditions": [
+              "CMake项目通过FetchContent准备测试依赖",
+              "执行环境可能无网络，但已有可信的本地依赖源码",
+              "需要同时构建作者测试与示例",
+              "要求明确验证Release配置而非仅依赖命令行意图"
+            ],
+            "state": "源码归档本身无既有Git身份；本地存在googletest依赖副本。需要在离线条件下生成干净构建目录，并确保测试、示例和Release状态实际进入CMake缓存。",
+            "action": "先以command_3e05b22ceb4e441aa84ba31c185ee70a核对工作目录及固定源码文件集合。随后command_aebe1993fed94783bae75cbb5f439621删除旧build，指定本地googletest源并启用FetchContent断网模式，同时开启本项目的测试、示例及Release配置；生成后检查CMakeCache存在。构建后再由command_658b4ccf72c14b0f98aa3bff6332c直接读取缓存确认Release。可迁移原则是“本地依赖替代+干净重配+缓存复核”；ELFIO_BUILD_*属于项目专用选项，不应照搬。",
+            "outcome": "effective",
+            "not_applicable": [
+              "项目不使用CMake/FetchContent时需采用其自身依赖机制",
+              "没有预置且可信的依赖源码时，强制断网不能解决依赖缺失",
+              "需要保留已有构建缓存进行增量诊断时，不宜先删除构建目录",
+              "其他项目未必具有ELFIO_BUILD_TESTS或ELFIO_BUILD_EXAMPLES选项"
+            ],
+            "verification_scope": "实际观察到配置生成成功、build/CMakeCache.txt位于仓库内，缓存包含Release；后续构建和作者测试成功，说明该次离线依赖准备足以覆盖本次任务。未证明这些选项适用于其他项目，也未观察联网回退行为。",
+            "command_ids": [
+              "command_3e05b22ceb4e441aa84ba31c185ee70a",
+              "command_aebe1993fed94783bae75cbb5f439621",
+              "command_658b4ccf72c14b0f98aa3bff6332c433"
+            ]
+          }
+        }
+      ],
+      "bytes": 3820,
+      "maximum_bytes": 4096,
+      "top_k": 2,
+      "policy": "matched_action_advice_v1",
+      "abstained": false
+    }
+  },
+  {
+    "slot": 2,
+    "project": "jsoncpp",
+    "request": "request-2.json",
+    "experience": {
+      "mode": "structured",
+      "sources": [
+        "E30-slot-19",
+        "E30-slot-24"
+      ],
+      "items": [
+        {
+          "source_id": "E30-slot-19",
+          "experience_id": "6cb93554978d7b477a6a5cac85d179fc0e79a643f541d8ed4ed61f16103bcade",
+          "source_family": "rang",
+          "matched_terms": [
+            "config",
+            "package"
+          ],
+          "advice": {
+            "stage": "dependency",
+            "conditions": [
+              "CMake项目通过find_package等机制查找外部测试依赖",
+              "依赖源码已在本地可用，且允许写入项目内隔离目录",
+              "依赖能够生成并安装CMake package config",
+              "主项目允许通过包专用_DIR指定查找位置"
+            ],
+            "state": "测试依赖doctest需要以CMake可发现的形式提供；直接拥有依赖源码并不等于主项目能定位其配置包。",
+            "action": "先以关闭依赖自身测试等选项配置doctest到独立构建目录（command_4ec28b32b758403b882cb7f0c849060c），再安装到项目内前缀并确认doctestConfig.cmake存在（command_155088bc758240c9b700f1a2521ddcd7）；配置主项目时显式传入doctest_DIR并重建干净build目录（command_b9352125391e4d10ada6ad9d98816520）。这是本轨迹有效的依赖准备路径，但未做省略doctest_DIR的对照实验，不能断言每一步均不可替代。",
+            "outcome": "effective",
+            "not_applicable": [
+              "依赖已由系统包、工具链文件或项目内FetchContent稳定提供",
+              "依赖不导出CMake package config",
+              "项目使用其他构建系统或禁止项目内安装前缀",
+              "交叉编译时依赖必须由目标工具链统一管理"
+            ],
+            "verification_scope": "观察到依赖配置、安装和主项目配置均成功，所需配置文件及CMakeCache.txt存在；后续目标构建和原作者测试也成功。未观察缺少显式路径时是否仍可发现依赖，也未验证其他依赖版本或安装布局。",
+            "command_ids": [
+              "command_4ec28b32b758403b882cb7f0c849060c",
+              "command_155088bc758240c9b700f1a2521ddcd7",
+              "command_b9352125391e4d10ada6ad9d98816520"
+            ]
+          }
+        },
+        {
+          "source_id": "E30-slot-24",
+          "experience_id": "0bd0fa040bc9f5a88b54c049c30f9f120cdb642898856a5df9d4c0110c19b60a",
+          "source_family": "ELFIO",
+          "matched_terms": [
+            "git",
+            "release"
+          ],
+          "advice": {
+            "stage": "configure",
+            "conditions": [
+              "CMake项目通过FetchContent准备测试依赖",
+              "执行环境可能无网络，但已有可信的本地依赖源码",
+              "需要同时构建作者测试与示例",
+              "要求明确验证Release配置而非仅依赖命令行意图"
+            ],
+            "state": "源码归档本身无既有Git身份；本地存在googletest依赖副本。需要在离线条件下生成干净构建目录，并确保测试、示例和Release状态实际进入CMake缓存。",
+            "action": "先以command_3e05b22ceb4e441aa84ba31c185ee70a核对工作目录及固定源码文件集合。随后command_aebe1993fed94783bae75cbb5f439621删除旧build，指定本地googletest源并启用FetchContent断网模式，同时开启本项目的测试、示例及Release配置；生成后检查CMakeCache存在。构建后再由command_658b4ccf72c14b0f98aa3bff6332c直接读取缓存确认Release。可迁移原则是“本地依赖替代+干净重配+缓存复核”；ELFIO_BUILD_*属于项目专用选项，不应照搬。",
+            "outcome": "effective",
+            "not_applicable": [
+              "项目不使用CMake/FetchContent时需采用其自身依赖机制",
+              "没有预置且可信的依赖源码时，强制断网不能解决依赖缺失",
+              "需要保留已有构建缓存进行增量诊断时，不宜先删除构建目录",
+              "其他项目未必具有ELFIO_BUILD_TESTS或ELFIO_BUILD_EXAMPLES选项"
+            ],
+            "verification_scope": "实际观察到配置生成成功、build/CMakeCache.txt位于仓库内，缓存包含Release；后续构建和作者测试成功，说明该次离线依赖准备足以覆盖本次任务。未证明这些选项适用于其他项目，也未观察联网回退行为。",
+            "command_ids": [
+              "command_3e05b22ceb4e441aa84ba31c185ee70a",
+              "command_aebe1993fed94783bae75cbb5f439621",
+              "command_658b4ccf72c14b0f98aa3bff6332c433"
+            ]
+          }
+        }
+      ],
+      "bytes": 3820,
+      "maximum_bytes": 4096,
+      "top_k": 2,
+      "policy": "matched_action_advice_v1",
+      "abstained": false
+    }
+  },
+  {
+    "slot": 3,
+    "project": "libsrtp",
+    "request": "request-1.json",
+    "experience": {
+      "mode": "structured",
+      "sources": [
+        "E30-slot-1"
+      ],
+      "items": [
+        {
+          "source_id": "E30-slot-1",
+          "experience_id": "67e197f007ec6e313ac49e7afa9696ad630d8cbe68b58224fecdefafe9b2df8f",
+          "source_family": "check",
+          "matched_terms": [
+            "check",
+            "conditions",
+            "doc",
+            "yes"
+          ],
+          "advice": {
+            "stage": "configure",
+            "conditions": [
+              "默认configure摘要显示启用文档构建",
+              "构建日志明确因makeinfo缺失在文档目标check.info处失败",
+              "核心库和测试不要求文档产物，且项目自身提供可关闭文档构建的配置选项",
+              "改变配置前可清理旧config.status、Makefile及既有构建产物"
+            ],
+            "state": "默认./configure成功且显示“build docs yes”，但随后make在doc/check.info处因makeinfo不存在而退出；失败不等于此前库或测试相关编译均无效。清理配置状态后，本项目使用自身的--disable-build-docs重新配置，摘要变为“build docs no”，后续库、测试程序构建以及完整make check均成功。",
+            "action": "遇到缺失文档生成器导致的构建失败时，先从失败目标和configure摘要区分“核心编译依赖”与“可选文档依赖”。若交付范围不含文档且项目明确支持对应选项，可清理旧配置后关闭该组件并重新配置；否则应安装缺失工具。不要把--disable-build-docs视为其他项目通用开关，也不要在未重新配置时假定旧Makefile已更新。",
+            "outcome": "effective",
+            "not_applicable": [
+              "文档属于必需交付物或测试会验证文档时",
+              "项目没有该配置选项，或选项语义不同、同时关闭必要功能时",
+              "失败并非来自文档目标或安装makeinfo才是既定环境要求时",
+              "交叉编译、打包规范或发行流程要求保持默认功能集合时"
+            ],
+            "verification_scope": "默认构建实际失败于makeinfo缺失；关闭本项目文档构建后，观察到libcheck.a及测试程序生成，make check报告TOTAL 9、PASS 9、FAIL/ERROR 0。另有制品暂存成功，但未验证文档交付、安装流程或其他项目同名选项；configure仍警告缺少filterdiff会影响可重复性。",
+            "command_ids": [
+              "command_f47d6f66d0e94b8f96cbab9b6a4808ae",
+              "command_2ac53bc34e67472e8403356b6883a2c9",
+              "command_fe25cc48201746dbbfef301eced0d4a5",
+              "command_80325c6c88744198a99446ca7c4abca3",
+              "command_37ab6cea9b6242f28d9eecfce1c0b889",
+              "command_8efb1c4d000e46d6a18e5d95d5b63a7e"
+            ]
+          }
+        }
+      ],
+      "bytes": 2323,
+      "maximum_bytes": 4096,
+      "top_k": 2,
+      "policy": "matched_action_advice_v1",
+      "abstained": false
+    }
+  },
+  {
+    "slot": 3,
+    "project": "libsrtp",
+    "request": "request-2.json",
+    "experience": {
+      "mode": "structured",
+      "sources": [
+        "E30-slot-1"
+      ],
+      "items": [
+        {
+          "source_id": "E30-slot-1",
+          "experience_id": "67e197f007ec6e313ac49e7afa9696ad630d8cbe68b58224fecdefafe9b2df8f",
+          "source_family": "check",
+          "matched_terms": [
+            "check",
+            "conditions",
+            "doc",
+            "yes"
+          ],
+          "advice": {
+            "stage": "configure",
+            "conditions": [
+              "默认configure摘要显示启用文档构建",
+              "构建日志明确因makeinfo缺失在文档目标check.info处失败",
+              "核心库和测试不要求文档产物，且项目自身提供可关闭文档构建的配置选项",
+              "改变配置前可清理旧config.status、Makefile及既有构建产物"
+            ],
+            "state": "默认./configure成功且显示“build docs yes”，但随后make在doc/check.info处因makeinfo不存在而退出；失败不等于此前库或测试相关编译均无效。清理配置状态后，本项目使用自身的--disable-build-docs重新配置，摘要变为“build docs no”，后续库、测试程序构建以及完整make check均成功。",
+            "action": "遇到缺失文档生成器导致的构建失败时，先从失败目标和configure摘要区分“核心编译依赖”与“可选文档依赖”。若交付范围不含文档且项目明确支持对应选项，可清理旧配置后关闭该组件并重新配置；否则应安装缺失工具。不要把--disable-build-docs视为其他项目通用开关，也不要在未重新配置时假定旧Makefile已更新。",
+            "outcome": "effective",
+            "not_applicable": [
+              "文档属于必需交付物或测试会验证文档时",
+              "项目没有该配置选项，或选项语义不同、同时关闭必要功能时",
+              "失败并非来自文档目标或安装makeinfo才是既定环境要求时",
+              "交叉编译、打包规范或发行流程要求保持默认功能集合时"
+            ],
+            "verification_scope": "默认构建实际失败于makeinfo缺失；关闭本项目文档构建后，观察到libcheck.a及测试程序生成，make check报告TOTAL 9、PASS 9、FAIL/ERROR 0。另有制品暂存成功，但未验证文档交付、安装流程或其他项目同名选项；configure仍警告缺少filterdiff会影响可重复性。",
+            "command_ids": [
+              "command_f47d6f66d0e94b8f96cbab9b6a4808ae",
+              "command_2ac53bc34e67472e8403356b6883a2c9",
+              "command_fe25cc48201746dbbfef301eced0d4a5",
+              "command_80325c6c88744198a99446ca7c4abca3",
+              "command_37ab6cea9b6242f28d9eecfce1c0b889",
+              "command_8efb1c4d000e46d6a18e5d95d5b63a7e"
+            ]
+          }
+        }
+      ],
+      "bytes": 2323,
+      "maximum_bytes": 4096,
+      "top_k": 2,
+      "policy": "matched_action_advice_v1",
+      "abstained": false
+    }
+  },
+  {
+    "slot": 3,
+    "project": "libsrtp",
+    "request": "request-3.json",
+    "experience": {
+      "mode": "structured",
+      "sources": [
+        "E30-slot-1"
+      ],
+      "items": [
+        {
+          "source_id": "E30-slot-1",
+          "experience_id": "67e197f007ec6e313ac49e7afa9696ad630d8cbe68b58224fecdefafe9b2df8f",
+          "source_family": "check",
+          "matched_terms": [
+            "check",
+            "conditions",
+            "doc",
+            "yes"
+          ],
+          "advice": {
+            "stage": "configure",
+            "conditions": [
+              "默认configure摘要显示启用文档构建",
+              "构建日志明确因makeinfo缺失在文档目标check.info处失败",
+              "核心库和测试不要求文档产物，且项目自身提供可关闭文档构建的配置选项",
+              "改变配置前可清理旧config.status、Makefile及既有构建产物"
+            ],
+            "state": "默认./configure成功且显示“build docs yes”，但随后make在doc/check.info处因makeinfo不存在而退出；失败不等于此前库或测试相关编译均无效。清理配置状态后，本项目使用自身的--disable-build-docs重新配置，摘要变为“build docs no”，后续库、测试程序构建以及完整make check均成功。",
+            "action": "遇到缺失文档生成器导致的构建失败时，先从失败目标和configure摘要区分“核心编译依赖”与“可选文档依赖”。若交付范围不含文档且项目明确支持对应选项，可清理旧配置后关闭该组件并重新配置；否则应安装缺失工具。不要把--disable-build-docs视为其他项目通用开关，也不要在未重新配置时假定旧Makefile已更新。",
+            "outcome": "effective",
+            "not_applicable": [
+              "文档属于必需交付物或测试会验证文档时",
+              "项目没有该配置选项，或选项语义不同、同时关闭必要功能时",
+              "失败并非来自文档目标或安装makeinfo才是既定环境要求时",
+              "交叉编译、打包规范或发行流程要求保持默认功能集合时"
+            ],
+            "verification_scope": "默认构建实际失败于makeinfo缺失；关闭本项目文档构建后，观察到libcheck.a及测试程序生成，make check报告TOTAL 9、PASS 9、FAIL/ERROR 0。另有制品暂存成功，但未验证文档交付、安装流程或其他项目同名选项；configure仍警告缺少filterdiff会影响可重复性。",
+            "command_ids": [
+              "command_f47d6f66d0e94b8f96cbab9b6a4808ae",
+              "command_2ac53bc34e67472e8403356b6883a2c9",
+              "command_fe25cc48201746dbbfef301eced0d4a5",
+              "command_80325c6c88744198a99446ca7c4abca3",
+              "command_37ab6cea9b6242f28d9eecfce1c0b889",
+              "command_8efb1c4d000e46d6a18e5d95d5b63a7e"
+            ]
+          }
+        }
+      ],
+      "bytes": 2323,
+      "maximum_bytes": 4096,
+      "top_k": 2,
+      "policy": "matched_action_advice_v1",
+      "abstained": false
+    }
+  },
+  {
+    "slot": 3,
+    "project": "libsrtp",
+    "request": "request-4.json",
+    "experience": {
+      "mode": "structured",
+      "sources": [
+        "E30-slot-1"
+      ],
+      "items": [
+        {
+          "source_id": "E30-slot-1",
+          "experience_id": "67e197f007ec6e313ac49e7afa9696ad630d8cbe68b58224fecdefafe9b2df8f",
+          "source_family": "check",
+          "matched_terms": [
+            "check",
+            "conditions",
+            "doc",
+            "yes"
+          ],
+          "advice": {
+            "stage": "configure",
+            "conditions": [
+              "默认configure摘要显示启用文档构建",
+              "构建日志明确因makeinfo缺失在文档目标check.info处失败",
+              "核心库和测试不要求文档产物，且项目自身提供可关闭文档构建的配置选项",
+              "改变配置前可清理旧config.status、Makefile及既有构建产物"
+            ],
+            "state": "默认./configure成功且显示“build docs yes”，但随后make在doc/check.info处因makeinfo不存在而退出；失败不等于此前库或测试相关编译均无效。清理配置状态后，本项目使用自身的--disable-build-docs重新配置，摘要变为“build docs no”，后续库、测试程序构建以及完整make check均成功。",
+            "action": "遇到缺失文档生成器导致的构建失败时，先从失败目标和configure摘要区分“核心编译依赖”与“可选文档依赖”。若交付范围不含文档且项目明确支持对应选项，可清理旧配置后关闭该组件并重新配置；否则应安装缺失工具。不要把--disable-build-docs视为其他项目通用开关，也不要在未重新配置时假定旧Makefile已更新。",
+            "outcome": "effective",
+            "not_applicable": [
+              "文档属于必需交付物或测试会验证文档时",
+              "项目没有该配置选项，或选项语义不同、同时关闭必要功能时",
+              "失败并非来自文档目标或安装makeinfo才是既定环境要求时",
+              "交叉编译、打包规范或发行流程要求保持默认功能集合时"
+            ],
+            "verification_scope": "默认构建实际失败于makeinfo缺失；关闭本项目文档构建后，观察到libcheck.a及测试程序生成，make check报告TOTAL 9、PASS 9、FAIL/ERROR 0。另有制品暂存成功，但未验证文档交付、安装流程或其他项目同名选项；configure仍警告缺少filterdiff会影响可重复性。",
+            "command_ids": [
+              "command_f47d6f66d0e94b8f96cbab9b6a4808ae",
+              "command_2ac53bc34e67472e8403356b6883a2c9",
+              "command_fe25cc48201746dbbfef301eced0d4a5",
+              "command_80325c6c88744198a99446ca7c4abca3",
+              "command_37ab6cea9b6242f28d9eecfce1c0b889",
+              "command_8efb1c4d000e46d6a18e5d95d5b63a7e"
+            ]
+          }
+        }
+      ],
+      "bytes": 2323,
+      "maximum_bytes": 4096,
+      "top_k": 2,
+      "policy": "matched_action_advice_v1",
+      "abstained": false
+    }
+  },
+  {
+    "slot": 6,
+    "project": "libite",
+    "request": "request-1.json",
+    "experience": {
+      "mode": "structured",
+      "sources": [
+        "E30-slot-1"
+      ],
+      "items": [
+        {
+          "source_id": "E30-slot-1",
+          "experience_id": "67e197f007ec6e313ac49e7afa9696ad630d8cbe68b58224fecdefafe9b2df8f",
+          "source_family": "check",
+          "matched_terms": [
+            "check",
+            "doc",
+            "makefile",
+            "yes"
+          ],
+          "advice": {
+            "stage": "configure",
+            "conditions": [
+              "默认configure摘要显示启用文档构建",
+              "构建日志明确因makeinfo缺失在文档目标check.info处失败",
+              "核心库和测试不要求文档产物，且项目自身提供可关闭文档构建的配置选项",
+              "改变配置前可清理旧config.status、Makefile及既有构建产物"
+            ],
+            "state": "默认./configure成功且显示“build docs yes”，但随后make在doc/check.info处因makeinfo不存在而退出；失败不等于此前库或测试相关编译均无效。清理配置状态后，本项目使用自身的--disable-build-docs重新配置，摘要变为“build docs no”，后续库、测试程序构建以及完整make check均成功。",
+            "action": "遇到缺失文档生成器导致的构建失败时，先从失败目标和configure摘要区分“核心编译依赖”与“可选文档依赖”。若交付范围不含文档且项目明确支持对应选项，可清理旧配置后关闭该组件并重新配置；否则应安装缺失工具。不要把--disable-build-docs视为其他项目通用开关，也不要在未重新配置时假定旧Makefile已更新。",
+            "outcome": "effective",
+            "not_applicable": [
+              "文档属于必需交付物或测试会验证文档时",
+              "项目没有该配置选项，或选项语义不同、同时关闭必要功能时",
+              "失败并非来自文档目标或安装makeinfo才是既定环境要求时",
+              "交叉编译、打包规范或发行流程要求保持默认功能集合时"
+            ],
+            "verification_scope": "默认构建实际失败于makeinfo缺失；关闭本项目文档构建后，观察到libcheck.a及测试程序生成，make check报告TOTAL 9、PASS 9、FAIL/ERROR 0。另有制品暂存成功，但未验证文档交付、安装流程或其他项目同名选项；configure仍警告缺少filterdiff会影响可重复性。",
+            "command_ids": [
+              "command_f47d6f66d0e94b8f96cbab9b6a4808ae",
+              "command_2ac53bc34e67472e8403356b6883a2c9",
+              "command_fe25cc48201746dbbfef301eced0d4a5",
+              "command_80325c6c88744198a99446ca7c4abca3",
+              "command_37ab6cea9b6242f28d9eecfce1c0b889",
+              "command_8efb1c4d000e46d6a18e5d95d5b63a7e"
+            ]
+          }
+        }
+      ],
+      "bytes": 2321,
+      "maximum_bytes": 4096,
+      "top_k": 2,
+      "policy": "matched_action_advice_v1",
+      "abstained": false
+    }
+  },
+  {
+    "slot": 6,
+    "project": "libite",
+    "request": "request-2.json",
+    "experience": {
+      "mode": "structured",
+      "sources": [
+        "E30-slot-1"
+      ],
+      "items": [
+        {
+          "source_id": "E30-slot-1",
+          "experience_id": "67e197f007ec6e313ac49e7afa9696ad630d8cbe68b58224fecdefafe9b2df8f",
+          "source_family": "check",
+          "matched_terms": [
+            "check",
+            "doc",
+            "makefile",
+            "yes"
+          ],
+          "advice": {
+            "stage": "configure",
+            "conditions": [
+              "默认configure摘要显示启用文档构建",
+              "构建日志明确因makeinfo缺失在文档目标check.info处失败",
+              "核心库和测试不要求文档产物，且项目自身提供可关闭文档构建的配置选项",
+              "改变配置前可清理旧config.status、Makefile及既有构建产物"
+            ],
+            "state": "默认./configure成功且显示“build docs yes”，但随后make在doc/check.info处因makeinfo不存在而退出；失败不等于此前库或测试相关编译均无效。清理配置状态后，本项目使用自身的--disable-build-docs重新配置，摘要变为“build docs no”，后续库、测试程序构建以及完整make check均成功。",
+            "action": "遇到缺失文档生成器导致的构建失败时，先从失败目标和configure摘要区分“核心编译依赖”与“可选文档依赖”。若交付范围不含文档且项目明确支持对应选项，可清理旧配置后关闭该组件并重新配置；否则应安装缺失工具。不要把--disable-build-docs视为其他项目通用开关，也不要在未重新配置时假定旧Makefile已更新。",
+            "outcome": "effective",
+            "not_applicable": [
+              "文档属于必需交付物或测试会验证文档时",
+              "项目没有该配置选项，或选项语义不同、同时关闭必要功能时",
+              "失败并非来自文档目标或安装makeinfo才是既定环境要求时",
+              "交叉编译、打包规范或发行流程要求保持默认功能集合时"
+            ],
+            "verification_scope": "默认构建实际失败于makeinfo缺失；关闭本项目文档构建后，观察到libcheck.a及测试程序生成，make check报告TOTAL 9、PASS 9、FAIL/ERROR 0。另有制品暂存成功，但未验证文档交付、安装流程或其他项目同名选项；configure仍警告缺少filterdiff会影响可重复性。",
+            "command_ids": [
+              "command_f47d6f66d0e94b8f96cbab9b6a4808ae",
+              "command_2ac53bc34e67472e8403356b6883a2c9",
+              "command_fe25cc48201746dbbfef301eced0d4a5",
+              "command_80325c6c88744198a99446ca7c4abca3",
+              "command_37ab6cea9b6242f28d9eecfce1c0b889",
+              "command_8efb1c4d000e46d6a18e5d95d5b63a7e"
+            ]
+          }
+        }
+      ],
+      "bytes": 2321,
+      "maximum_bytes": 4096,
+      "top_k": 2,
+      "policy": "matched_action_advice_v1",
+      "abstained": false
+    }
+  },
+  {
+    "slot": 6,
+    "project": "libite",
+    "request": "request-3.json",
+    "experience": {
+      "mode": "structured",
+      "sources": [
+        "E30-slot-1"
+      ],
+      "items": [
+        {
+          "source_id": "E30-slot-1",
+          "experience_id": "67e197f007ec6e313ac49e7afa9696ad630d8cbe68b58224fecdefafe9b2df8f",
+          "source_family": "check",
+          "matched_terms": [
+            "check",
+            "doc",
+            "makefile",
+            "yes"
+          ],
+          "advice": {
+            "stage": "configure",
+            "conditions": [
+              "默认configure摘要显示启用文档构建",
+              "构建日志明确因makeinfo缺失在文档目标check.info处失败",
+              "核心库和测试不要求文档产物，且项目自身提供可关闭文档构建的配置选项",
+              "改变配置前可清理旧config.status、Makefile及既有构建产物"
+            ],
+            "state": "默认./configure成功且显示“build docs yes”，但随后make在doc/check.info处因makeinfo不存在而退出；失败不等于此前库或测试相关编译均无效。清理配置状态后，本项目使用自身的--disable-build-docs重新配置，摘要变为“build docs no”，后续库、测试程序构建以及完整make check均成功。",
+            "action": "遇到缺失文档生成器导致的构建失败时，先从失败目标和configure摘要区分“核心编译依赖”与“可选文档依赖”。若交付范围不含文档且项目明确支持对应选项，可清理旧配置后关闭该组件并重新配置；否则应安装缺失工具。不要把--disable-build-docs视为其他项目通用开关，也不要在未重新配置时假定旧Makefile已更新。",
+            "outcome": "effective",
+            "not_applicable": [
+              "文档属于必需交付物或测试会验证文档时",
+              "项目没有该配置选项，或选项语义不同、同时关闭必要功能时",
+              "失败并非来自文档目标或安装makeinfo才是既定环境要求时",
+              "交叉编译、打包规范或发行流程要求保持默认功能集合时"
+            ],
+            "verification_scope": "默认构建实际失败于makeinfo缺失；关闭本项目文档构建后，观察到libcheck.a及测试程序生成，make check报告TOTAL 9、PASS 9、FAIL/ERROR 0。另有制品暂存成功，但未验证文档交付、安装流程或其他项目同名选项；configure仍警告缺少filterdiff会影响可重复性。",
+            "command_ids": [
+              "command_f47d6f66d0e94b8f96cbab9b6a4808ae",
+              "command_2ac53bc34e67472e8403356b6883a2c9",
+              "command_fe25cc48201746dbbfef301eced0d4a5",
+              "command_80325c6c88744198a99446ca7c4abca3",
+              "command_37ab6cea9b6242f28d9eecfce1c0b889",
+              "command_8efb1c4d000e46d6a18e5d95d5b63a7e"
+            ]
+          }
+        }
+      ],
+      "bytes": 2321,
+      "maximum_bytes": 4096,
+      "top_k": 2,
+      "policy": "matched_action_advice_v1",
+      "abstained": false
+    }
+  },
+  {
+    "slot": 6,
+    "project": "libite",
+    "request": "request-4.json",
+    "experience": {
+      "mode": "structured",
+      "sources": [
+        "E30-slot-1"
+      ],
+      "items": [
+        {
+          "source_id": "E30-slot-1",
+          "experience_id": "67e197f007ec6e313ac49e7afa9696ad630d8cbe68b58224fecdefafe9b2df8f",
+          "source_family": "check",
+          "matched_terms": [
+            "check",
+            "doc",
+            "makefile",
+            "yes"
+          ],
+          "advice": {
+            "stage": "configure",
+            "conditions": [
+              "默认configure摘要显示启用文档构建",
+              "构建日志明确因makeinfo缺失在文档目标check.info处失败",
+              "核心库和测试不要求文档产物，且项目自身提供可关闭文档构建的配置选项",
+              "改变配置前可清理旧config.status、Makefile及既有构建产物"
+            ],
+            "state": "默认./configure成功且显示“build docs yes”，但随后make在doc/check.info处因makeinfo不存在而退出；失败不等于此前库或测试相关编译均无效。清理配置状态后，本项目使用自身的--disable-build-docs重新配置，摘要变为“build docs no”，后续库、测试程序构建以及完整make check均成功。",
+            "action": "遇到缺失文档生成器导致的构建失败时，先从失败目标和configure摘要区分“核心编译依赖”与“可选文档依赖”。若交付范围不含文档且项目明确支持对应选项，可清理旧配置后关闭该组件并重新配置；否则应安装缺失工具。不要把--disable-build-docs视为其他项目通用开关，也不要在未重新配置时假定旧Makefile已更新。",
+            "outcome": "effective",
+            "not_applicable": [
+              "文档属于必需交付物或测试会验证文档时",
+              "项目没有该配置选项，或选项语义不同、同时关闭必要功能时",
+              "失败并非来自文档目标或安装makeinfo才是既定环境要求时",
+              "交叉编译、打包规范或发行流程要求保持默认功能集合时"
+            ],
+            "verification_scope": "默认构建实际失败于makeinfo缺失；关闭本项目文档构建后，观察到libcheck.a及测试程序生成，make check报告TOTAL 9、PASS 9、FAIL/ERROR 0。另有制品暂存成功，但未验证文档交付、安装流程或其他项目同名选项；configure仍警告缺少filterdiff会影响可重复性。",
+            "command_ids": [
+              "command_f47d6f66d0e94b8f96cbab9b6a4808ae",
+              "command_2ac53bc34e67472e8403356b6883a2c9",
+              "command_fe25cc48201746dbbfef301eced0d4a5",
+              "command_80325c6c88744198a99446ca7c4abca3",
+              "command_37ab6cea9b6242f28d9eecfce1c0b889",
+              "command_8efb1c4d000e46d6a18e5d95d5b63a7e"
+            ]
+          }
+        }
+      ],
+      "bytes": 2321,
+      "maximum_bytes": 4096,
+      "top_k": 2,
+      "policy": "matched_action_advice_v1",
+      "abstained": false
+    }
+  },
+  {
+    "slot": 6,
+    "project": "libite",
+    "request": "request-5.json",
+    "experience": {
+      "mode": "structured",
+      "sources": [
+        "E30-slot-1"
+      ],
+      "items": [
+        {
+          "source_id": "E30-slot-1",
+          "experience_id": "67e197f007ec6e313ac49e7afa9696ad630d8cbe68b58224fecdefafe9b2df8f",
+          "source_family": "check",
+          "matched_terms": [
+            "check",
+            "doc",
+            "makefile",
+            "yes"
+          ],
+          "advice": {
+            "stage": "configure",
+            "conditions": [
+              "默认configure摘要显示启用文档构建",
+              "构建日志明确因makeinfo缺失在文档目标check.info处失败",
+              "核心库和测试不要求文档产物，且项目自身提供可关闭文档构建的配置选项",
+              "改变配置前可清理旧config.status、Makefile及既有构建产物"
+            ],
+            "state": "默认./configure成功且显示“build docs yes”，但随后make在doc/check.info处因makeinfo不存在而退出；失败不等于此前库或测试相关编译均无效。清理配置状态后，本项目使用自身的--disable-build-docs重新配置，摘要变为“build docs no”，后续库、测试程序构建以及完整make check均成功。",
+            "action": "遇到缺失文档生成器导致的构建失败时，先从失败目标和configure摘要区分“核心编译依赖”与“可选文档依赖”。若交付范围不含文档且项目明确支持对应选项，可清理旧配置后关闭该组件并重新配置；否则应安装缺失工具。不要把--disable-build-docs视为其他项目通用开关，也不要在未重新配置时假定旧Makefile已更新。",
+            "outcome": "effective",
+            "not_applicable": [
+              "文档属于必需交付物或测试会验证文档时",
+              "项目没有该配置选项，或选项语义不同、同时关闭必要功能时",
+              "失败并非来自文档目标或安装makeinfo才是既定环境要求时",
+              "交叉编译、打包规范或发行流程要求保持默认功能集合时"
+            ],
+            "verification_scope": "默认构建实际失败于makeinfo缺失；关闭本项目文档构建后，观察到libcheck.a及测试程序生成，make check报告TOTAL 9、PASS 9、FAIL/ERROR 0。另有制品暂存成功，但未验证文档交付、安装流程或其他项目同名选项；configure仍警告缺少filterdiff会影响可重复性。",
+            "command_ids": [
+              "command_f47d6f66d0e94b8f96cbab9b6a4808ae",
+              "command_2ac53bc34e67472e8403356b6883a2c9",
+              "command_fe25cc48201746dbbfef301eced0d4a5",
+              "command_80325c6c88744198a99446ca7c4abca3",
+              "command_37ab6cea9b6242f28d9eecfce1c0b889",
+              "command_8efb1c4d000e46d6a18e5d95d5b63a7e"
+            ]
+          }
+        }
+      ],
+      "bytes": 2321,
+      "maximum_bytes": 4096,
+      "top_k": 2,
+      "policy": "matched_action_advice_v1",
+      "abstained": false
+    }
+  },
+  {
+    "slot": 7,
+    "project": "highwayhash",
+    "request": "request-1.json",
+    "experience": {
+      "mode": "structured",
+      "sources": [
+        "E04-slot-7",
+        "E04-slot-8"
+      ],
+      "items": [
+        {
+          "source_id": "E04-slot-7",
+          "experience_id": "f878133e346780e40cbcd420eaa296f075939ff43bd371c518e068c1375fd394",
+          "source_family": "libtommath",
+          "matched_terms": [
+            "state"
+          ],
+          "advice": {
+            "stage": "build",
+            "conditions": [
+              "源码为 Make 工程，默认目标预期生成静态库",
+              "环境已具备可用的 make、C 编译器与 ar",
+              "源码文件集合已由 command_4bacd1ad28d14b3183c340bcad60dfb1 完成索引校验，但该 Git 初始化不应视为编译成功的因果条件"
+            ],
+            "state": "在仓库根目录直接执行默认构建；未观察到额外配置步骤或依赖安装。",
+            "action": "先执行默认 make 并依据日志确认其实际产物类型，而不要假定默认目标同时准备测试程序。command_1f6f9fe2cd274fecba47259efe6134d4 的 make -j2 以 0 退出，日志显示大量对象文件被归档并出现“ar: creating libtommath.a”。",
+            "outcome": "effective",
+            "not_applicable": [
+              "项目默认目标不是所需交付物时，应显式选择对应目标",
+              "非 Make 构建系统或需要预配置、生成源码的工程",
+              "要求共享库、特定 ABI 或自定义编译选项但尚未配置的场景"
+            ],
+            "verification_scope": "仅观察到默认构建成功及日志中的静态库创建；未单独检查 libtommath.a 的存在、内容或可链接性。后续测试未运行成功，也没有 replay 或交付验证。",
+            "command_ids": [
+              "command_4bacd1ad28d14b3183c340bcad60dfb1",
+              "command_1f6f9fe2cd274fecba47259efe6134d4"
+            ]
+          }
+        },
+        {
+          "source_id": "E04-slot-8",
+          "experience_id": "fc3f5fb3b43a18c7fe7fde7a9ec6842dd5ac1d40794832724d08940ff543bfa9",
+          "source_family": "libtommath",
+          "matched_terms": [
+            "state"
+          ],
+          "advice": {
+            "stage": "build",
+            "conditions": [
+              "源码来自归档且仓库根目录最初无.git",
+              "工作目录为源码根目录",
+              "项目提供可用的默认Make目标及C编译、归档工具",
+              "目标是生成默认静态库产物"
+            ],
+            "state": "归档源码先建立临时Git索引并核对固定文件集合；该步骤确认输入范围，但没有证据表明它是编译成功的因果条件。随后默认构建尚未包含测试准备。",
+            "action": "在输入文件集合核验通过后执行并行默认构建`make -j2`。不要从退出码单独推断测试程序也已生成；应将库构建与测试目标准备视为不同状态。",
+            "outcome": "effective",
+            "not_applicable": [
+              "项目没有Makefile或默认目标不生成所需产物",
+              "工具链、平台或源码状态与本轨迹不同",
+              "需要共享库、安装包或其他非默认产物",
+              "要求证明运行时正确性或可交付性"
+            ],
+            "verification_scope": "实际仅观察到源码索引集合校验成功、`make -j2`退出码为0，日志显示`ar: creating libtommath.a`。未执行产物内容检查；完整测试失败，交付与replay未观察。",
+            "command_ids": [
+              "command_f1b1a66829a84e38af6dd5fe44c81424",
+              "command_fa3704d6adfa4df4ba14628923996dc2"
+            ]
+          }
+        }
+      ],
+      "bytes": 2877,
+      "maximum_bytes": 4096,
+      "top_k": 2,
+      "policy": "matched_action_advice_v1",
+      "abstained": false
+    }
+  },
+  {
+    "slot": 9,
+    "project": "jsoncpp",
+    "request": "request-1.json",
+    "experience": {
+      "mode": "structured",
+      "sources": [
+        "E30-slot-19",
+        "E30-slot-24"
+      ],
+      "items": [
+        {
+          "source_id": "E30-slot-19",
+          "experience_id": "6cb93554978d7b477a6a5cac85d179fc0e79a643f541d8ed4ed61f16103bcade",
+          "source_family": "rang",
+          "matched_terms": [
+            "config",
+            "package"
+          ],
+          "advice": {
+            "stage": "dependency",
+            "conditions": [
+              "CMake项目通过find_package等机制查找外部测试依赖",
+              "依赖源码已在本地可用，且允许写入项目内隔离目录",
+              "依赖能够生成并安装CMake package config",
+              "主项目允许通过包专用_DIR指定查找位置"
+            ],
+            "state": "测试依赖doctest需要以CMake可发现的形式提供；直接拥有依赖源码并不等于主项目能定位其配置包。",
+            "action": "先以关闭依赖自身测试等选项配置doctest到独立构建目录（command_4ec28b32b758403b882cb7f0c849060c），再安装到项目内前缀并确认doctestConfig.cmake存在（command_155088bc758240c9b700f1a2521ddcd7）；配置主项目时显式传入doctest_DIR并重建干净build目录（command_b9352125391e4d10ada6ad9d98816520）。这是本轨迹有效的依赖准备路径，但未做省略doctest_DIR的对照实验，不能断言每一步均不可替代。",
+            "outcome": "effective",
+            "not_applicable": [
+              "依赖已由系统包、工具链文件或项目内FetchContent稳定提供",
+              "依赖不导出CMake package config",
+              "项目使用其他构建系统或禁止项目内安装前缀",
+              "交叉编译时依赖必须由目标工具链统一管理"
+            ],
+            "verification_scope": "观察到依赖配置、安装和主项目配置均成功，所需配置文件及CMakeCache.txt存在；后续目标构建和原作者测试也成功。未观察缺少显式路径时是否仍可发现依赖，也未验证其他依赖版本或安装布局。",
+            "command_ids": [
+              "command_4ec28b32b758403b882cb7f0c849060c",
+              "command_155088bc758240c9b700f1a2521ddcd7",
+              "command_b9352125391e4d10ada6ad9d98816520"
+            ]
+          }
+        },
+        {
+          "source_id": "E30-slot-24",
+          "experience_id": "0bd0fa040bc9f5a88b54c049c30f9f120cdb642898856a5df9d4c0110c19b60a",
+          "source_family": "ELFIO",
+          "matched_terms": [
+            "git",
+            "release"
+          ],
+          "advice": {
+            "stage": "configure",
+            "conditions": [
+              "CMake项目通过FetchContent准备测试依赖",
+              "执行环境可能无网络，但已有可信的本地依赖源码",
+              "需要同时构建作者测试与示例",
+              "要求明确验证Release配置而非仅依赖命令行意图"
+            ],
+            "state": "源码归档本身无既有Git身份；本地存在googletest依赖副本。需要在离线条件下生成干净构建目录，并确保测试、示例和Release状态实际进入CMake缓存。",
+            "action": "先以command_3e05b22ceb4e441aa84ba31c185ee70a核对工作目录及固定源码文件集合。随后command_aebe1993fed94783bae75cbb5f439621删除旧build，指定本地googletest源并启用FetchContent断网模式，同时开启本项目的测试、示例及Release配置；生成后检查CMakeCache存在。构建后再由command_658b4ccf72c14b0f98aa3bff6332c直接读取缓存确认Release。可迁移原则是“本地依赖替代+干净重配+缓存复核”；ELFIO_BUILD_*属于项目专用选项，不应照搬。",
+            "outcome": "effective",
+            "not_applicable": [
+              "项目不使用CMake/FetchContent时需采用其自身依赖机制",
+              "没有预置且可信的依赖源码时，强制断网不能解决依赖缺失",
+              "需要保留已有构建缓存进行增量诊断时，不宜先删除构建目录",
+              "其他项目未必具有ELFIO_BUILD_TESTS或ELFIO_BUILD_EXAMPLES选项"
+            ],
+            "verification_scope": "实际观察到配置生成成功、build/CMakeCache.txt位于仓库内，缓存包含Release；后续构建和作者测试成功，说明该次离线依赖准备足以覆盖本次任务。未证明这些选项适用于其他项目，也未观察联网回退行为。",
+            "command_ids": [
+              "command_3e05b22ceb4e441aa84ba31c185ee70a",
+              "command_aebe1993fed94783bae75cbb5f439621",
+              "command_658b4ccf72c14b0f98aa3bff6332c433"
+            ]
+          }
+        }
+      ],
+      "bytes": 3820,
+      "maximum_bytes": 4096,
+      "top_k": 2,
+      "policy": "matched_action_advice_v1",
+      "abstained": false
+    }
+  },
+  {
+    "slot": 9,
+    "project": "jsoncpp",
+    "request": "request-2.json",
+    "experience": {
+      "mode": "structured",
+      "sources": [
+        "E30-slot-19",
+        "E30-slot-24"
+      ],
+      "items": [
+        {
+          "source_id": "E30-slot-19",
+          "experience_id": "6cb93554978d7b477a6a5cac85d179fc0e79a643f541d8ed4ed61f16103bcade",
+          "source_family": "rang",
+          "matched_terms": [
+            "config",
+            "package"
+          ],
+          "advice": {
+            "stage": "dependency",
+            "conditions": [
+              "CMake项目通过find_package等机制查找外部测试依赖",
+              "依赖源码已在本地可用，且允许写入项目内隔离目录",
+              "依赖能够生成并安装CMake package config",
+              "主项目允许通过包专用_DIR指定查找位置"
+            ],
+            "state": "测试依赖doctest需要以CMake可发现的形式提供；直接拥有依赖源码并不等于主项目能定位其配置包。",
+            "action": "先以关闭依赖自身测试等选项配置doctest到独立构建目录（command_4ec28b32b758403b882cb7f0c849060c），再安装到项目内前缀并确认doctestConfig.cmake存在（command_155088bc758240c9b700f1a2521ddcd7）；配置主项目时显式传入doctest_DIR并重建干净build目录（command_b9352125391e4d10ada6ad9d98816520）。这是本轨迹有效的依赖准备路径，但未做省略doctest_DIR的对照实验，不能断言每一步均不可替代。",
+            "outcome": "effective",
+            "not_applicable": [
+              "依赖已由系统包、工具链文件或项目内FetchContent稳定提供",
+              "依赖不导出CMake package config",
+              "项目使用其他构建系统或禁止项目内安装前缀",
+              "交叉编译时依赖必须由目标工具链统一管理"
+            ],
+            "verification_scope": "观察到依赖配置、安装和主项目配置均成功，所需配置文件及CMakeCache.txt存在；后续目标构建和原作者测试也成功。未观察缺少显式路径时是否仍可发现依赖，也未验证其他依赖版本或安装布局。",
+            "command_ids": [
+              "command_4ec28b32b758403b882cb7f0c849060c",
+              "command_155088bc758240c9b700f1a2521ddcd7",
+              "command_b9352125391e4d10ada6ad9d98816520"
+            ]
+          }
+        },
+        {
+          "source_id": "E30-slot-24",
+          "experience_id": "0bd0fa040bc9f5a88b54c049c30f9f120cdb642898856a5df9d4c0110c19b60a",
+          "source_family": "ELFIO",
+          "matched_terms": [
+            "git",
+            "release"
+          ],
+          "advice": {
+            "stage": "configure",
+            "conditions": [
+              "CMake项目通过FetchContent准备测试依赖",
+              "执行环境可能无网络，但已有可信的本地依赖源码",
+              "需要同时构建作者测试与示例",
+              "要求明确验证Release配置而非仅依赖命令行意图"
+            ],
+            "state": "源码归档本身无既有Git身份；本地存在googletest依赖副本。需要在离线条件下生成干净构建目录，并确保测试、示例和Release状态实际进入CMake缓存。",
+            "action": "先以command_3e05b22ceb4e441aa84ba31c185ee70a核对工作目录及固定源码文件集合。随后command_aebe1993fed94783bae75cbb5f439621删除旧build，指定本地googletest源并启用FetchContent断网模式，同时开启本项目的测试、示例及Release配置；生成后检查CMakeCache存在。构建后再由command_658b4ccf72c14b0f98aa3bff6332c直接读取缓存确认Release。可迁移原则是“本地依赖替代+干净重配+缓存复核”；ELFIO_BUILD_*属于项目专用选项，不应照搬。",
+            "outcome": "effective",
+            "not_applicable": [
+              "项目不使用CMake/FetchContent时需采用其自身依赖机制",
+              "没有预置且可信的依赖源码时，强制断网不能解决依赖缺失",
+              "需要保留已有构建缓存进行增量诊断时，不宜先删除构建目录",
+              "其他项目未必具有ELFIO_BUILD_TESTS或ELFIO_BUILD_EXAMPLES选项"
+            ],
+            "verification_scope": "实际观察到配置生成成功、build/CMakeCache.txt位于仓库内，缓存包含Release；后续构建和作者测试成功，说明该次离线依赖准备足以覆盖本次任务。未证明这些选项适用于其他项目，也未观察联网回退行为。",
+            "command_ids": [
+              "command_3e05b22ceb4e441aa84ba31c185ee70a",
+              "command_aebe1993fed94783bae75cbb5f439621",
+              "command_658b4ccf72c14b0f98aa3bff6332c433"
+            ]
+          }
+        }
+      ],
+      "bytes": 3820,
+      "maximum_bytes": 4096,
+      "top_k": 2,
+      "policy": "matched_action_advice_v1",
+      "abstained": false
+    }
+  },
+  {
+    "slot": 12,
+    "project": "libsrtp",
+    "request": "request-1.json",
+    "experience": {
+      "mode": "structured",
+      "sources": [
+        "E30-slot-1"
+      ],
+      "items": [
+        {
+          "source_id": "E30-slot-1",
+          "experience_id": "67e197f007ec6e313ac49e7afa9696ad630d8cbe68b58224fecdefafe9b2df8f",
+          "source_family": "check",
+          "matched_terms": [
+            "check",
+            "conditions",
+            "doc",
+            "yes"
+          ],
+          "advice": {
+            "stage": "configure",
+            "conditions": [
+              "默认configure摘要显示启用文档构建",
+              "构建日志明确因makeinfo缺失在文档目标check.info处失败",
+              "核心库和测试不要求文档产物，且项目自身提供可关闭文档构建的配置选项",
+              "改变配置前可清理旧config.status、Makefile及既有构建产物"
+            ],
+            "state": "默认./configure成功且显示“build docs yes”，但随后make在doc/check.info处因makeinfo不存在而退出；失败不等于此前库或测试相关编译均无效。清理配置状态后，本项目使用自身的--disable-build-docs重新配置，摘要变为“build docs no”，后续库、测试程序构建以及完整make check均成功。",
+            "action": "遇到缺失文档生成器导致的构建失败时，先从失败目标和configure摘要区分“核心编译依赖”与“可选文档依赖”。若交付范围不含文档且项目明确支持对应选项，可清理旧配置后关闭该组件并重新配置；否则应安装缺失工具。不要把--disable-build-docs视为其他项目通用开关，也不要在未重新配置时假定旧Makefile已更新。",
+            "outcome": "effective",
+            "not_applicable": [
+              "文档属于必需交付物或测试会验证文档时",
+              "项目没有该配置选项，或选项语义不同、同时关闭必要功能时",
+              "失败并非来自文档目标或安装makeinfo才是既定环境要求时",
+              "交叉编译、打包规范或发行流程要求保持默认功能集合时"
+            ],
+            "verification_scope": "默认构建实际失败于makeinfo缺失；关闭本项目文档构建后，观察到libcheck.a及测试程序生成，make check报告TOTAL 9、PASS 9、FAIL/ERROR 0。另有制品暂存成功，但未验证文档交付、安装流程或其他项目同名选项；configure仍警告缺少filterdiff会影响可重复性。",
+            "command_ids": [
+              "command_f47d6f66d0e94b8f96cbab9b6a4808ae",
+              "command_2ac53bc34e67472e8403356b6883a2c9",
+              "command_fe25cc48201746dbbfef301eced0d4a5",
+              "command_80325c6c88744198a99446ca7c4abca3",
+              "command_37ab6cea9b6242f28d9eecfce1c0b889",
+              "command_8efb1c4d000e46d6a18e5d95d5b63a7e"
+            ]
+          }
+        }
+      ],
+      "bytes": 2323,
+      "maximum_bytes": 4096,
+      "top_k": 2,
+      "policy": "matched_action_advice_v1",
+      "abstained": false
+    }
+  },
+  {
+    "slot": 12,
+    "project": "libsrtp",
+    "request": "request-2.json",
+    "experience": {
+      "mode": "structured",
+      "sources": [
+        "E30-slot-1"
+      ],
+      "items": [
+        {
+          "source_id": "E30-slot-1",
+          "experience_id": "67e197f007ec6e313ac49e7afa9696ad630d8cbe68b58224fecdefafe9b2df8f",
+          "source_family": "check",
+          "matched_terms": [
+            "check",
+            "conditions",
+            "doc",
+            "yes"
+          ],
+          "advice": {
+            "stage": "configure",
+            "conditions": [
+              "默认configure摘要显示启用文档构建",
+              "构建日志明确因makeinfo缺失在文档目标check.info处失败",
+              "核心库和测试不要求文档产物，且项目自身提供可关闭文档构建的配置选项",
+              "改变配置前可清理旧config.status、Makefile及既有构建产物"
+            ],
+            "state": "默认./configure成功且显示“build docs yes”，但随后make在doc/check.info处因makeinfo不存在而退出；失败不等于此前库或测试相关编译均无效。清理配置状态后，本项目使用自身的--disable-build-docs重新配置，摘要变为“build docs no”，后续库、测试程序构建以及完整make check均成功。",
+            "action": "遇到缺失文档生成器导致的构建失败时，先从失败目标和configure摘要区分“核心编译依赖”与“可选文档依赖”。若交付范围不含文档且项目明确支持对应选项，可清理旧配置后关闭该组件并重新配置；否则应安装缺失工具。不要把--disable-build-docs视为其他项目通用开关，也不要在未重新配置时假定旧Makefile已更新。",
+            "outcome": "effective",
+            "not_applicable": [
+              "文档属于必需交付物或测试会验证文档时",
+              "项目没有该配置选项，或选项语义不同、同时关闭必要功能时",
+              "失败并非来自文档目标或安装makeinfo才是既定环境要求时",
+              "交叉编译、打包规范或发行流程要求保持默认功能集合时"
+            ],
+            "verification_scope": "默认构建实际失败于makeinfo缺失；关闭本项目文档构建后，观察到libcheck.a及测试程序生成，make check报告TOTAL 9、PASS 9、FAIL/ERROR 0。另有制品暂存成功，但未验证文档交付、安装流程或其他项目同名选项；configure仍警告缺少filterdiff会影响可重复性。",
+            "command_ids": [
+              "command_f47d6f66d0e94b8f96cbab9b6a4808ae",
+              "command_2ac53bc34e67472e8403356b6883a2c9",
+              "command_fe25cc48201746dbbfef301eced0d4a5",
+              "command_80325c6c88744198a99446ca7c4abca3",
+              "command_37ab6cea9b6242f28d9eecfce1c0b889",
+              "command_8efb1c4d000e46d6a18e5d95d5b63a7e"
+            ]
+          }
+        }
+      ],
+      "bytes": 2323,
+      "maximum_bytes": 4096,
+      "top_k": 2,
+      "policy": "matched_action_advice_v1",
+      "abstained": false
+    }
+  },
+  {
+    "slot": 12,
+    "project": "libsrtp",
+    "request": "request-3.json",
+    "experience": {
+      "mode": "structured",
+      "sources": [
+        "E30-slot-1"
+      ],
+      "items": [
+        {
+          "source_id": "E30-slot-1",
+          "experience_id": "67e197f007ec6e313ac49e7afa9696ad630d8cbe68b58224fecdefafe9b2df8f",
+          "source_family": "check",
+          "matched_terms": [
+            "check",
+            "conditions",
+            "doc",
+            "yes"
+          ],
+          "advice": {
+            "stage": "configure",
+            "conditions": [
+              "默认configure摘要显示启用文档构建",
+              "构建日志明确因makeinfo缺失在文档目标check.info处失败",
+              "核心库和测试不要求文档产物，且项目自身提供可关闭文档构建的配置选项",
+              "改变配置前可清理旧config.status、Makefile及既有构建产物"
+            ],
+            "state": "默认./configure成功且显示“build docs yes”，但随后make在doc/check.info处因makeinfo不存在而退出；失败不等于此前库或测试相关编译均无效。清理配置状态后，本项目使用自身的--disable-build-docs重新配置，摘要变为“build docs no”，后续库、测试程序构建以及完整make check均成功。",
+            "action": "遇到缺失文档生成器导致的构建失败时，先从失败目标和configure摘要区分“核心编译依赖”与“可选文档依赖”。若交付范围不含文档且项目明确支持对应选项，可清理旧配置后关闭该组件并重新配置；否则应安装缺失工具。不要把--disable-build-docs视为其他项目通用开关，也不要在未重新配置时假定旧Makefile已更新。",
+            "outcome": "effective",
+            "not_applicable": [
+              "文档属于必需交付物或测试会验证文档时",
+              "项目没有该配置选项，或选项语义不同、同时关闭必要功能时",
+              "失败并非来自文档目标或安装makeinfo才是既定环境要求时",
+              "交叉编译、打包规范或发行流程要求保持默认功能集合时"
+            ],
+            "verification_scope": "默认构建实际失败于makeinfo缺失；关闭本项目文档构建后，观察到libcheck.a及测试程序生成，make check报告TOTAL 9、PASS 9、FAIL/ERROR 0。另有制品暂存成功，但未验证文档交付、安装流程或其他项目同名选项；configure仍警告缺少filterdiff会影响可重复性。",
+            "command_ids": [
+              "command_f47d6f66d0e94b8f96cbab9b6a4808ae",
+              "command_2ac53bc34e67472e8403356b6883a2c9",
+              "command_fe25cc48201746dbbfef301eced0d4a5",
+              "command_80325c6c88744198a99446ca7c4abca3",
+              "command_37ab6cea9b6242f28d9eecfce1c0b889",
+              "command_8efb1c4d000e46d6a18e5d95d5b63a7e"
+            ]
+          }
+        }
+      ],
+      "bytes": 2323,
+      "maximum_bytes": 4096,
+      "top_k": 2,
+      "policy": "matched_action_advice_v1",
+      "abstained": false
+    }
+  },
+  {
+    "slot": 12,
+    "project": "libsrtp",
+    "request": "request-4.json",
+    "experience": {
+      "mode": "structured",
+      "sources": [
+        "E30-slot-1"
+      ],
+      "items": [
+        {
+          "source_id": "E30-slot-1",
+          "experience_id": "67e197f007ec6e313ac49e7afa9696ad630d8cbe68b58224fecdefafe9b2df8f",
+          "source_family": "check",
+          "matched_terms": [
+            "check",
+            "conditions",
+            "doc",
+            "yes"
+          ],
+          "advice": {
+            "stage": "configure",
+            "conditions": [
+              "默认configure摘要显示启用文档构建",
+              "构建日志明确因makeinfo缺失在文档目标check.info处失败",
+              "核心库和测试不要求文档产物，且项目自身提供可关闭文档构建的配置选项",
+              "改变配置前可清理旧config.status、Makefile及既有构建产物"
+            ],
+            "state": "默认./configure成功且显示“build docs yes”，但随后make在doc/check.info处因makeinfo不存在而退出；失败不等于此前库或测试相关编译均无效。清理配置状态后，本项目使用自身的--disable-build-docs重新配置，摘要变为“build docs no”，后续库、测试程序构建以及完整make check均成功。",
+            "action": "遇到缺失文档生成器导致的构建失败时，先从失败目标和configure摘要区分“核心编译依赖”与“可选文档依赖”。若交付范围不含文档且项目明确支持对应选项，可清理旧配置后关闭该组件并重新配置；否则应安装缺失工具。不要把--disable-build-docs视为其他项目通用开关，也不要在未重新配置时假定旧Makefile已更新。",
+            "outcome": "effective",
+            "not_applicable": [
+              "文档属于必需交付物或测试会验证文档时",
+              "项目没有该配置选项，或选项语义不同、同时关闭必要功能时",
+              "失败并非来自文档目标或安装makeinfo才是既定环境要求时",
+              "交叉编译、打包规范或发行流程要求保持默认功能集合时"
+            ],
+            "verification_scope": "默认构建实际失败于makeinfo缺失；关闭本项目文档构建后，观察到libcheck.a及测试程序生成，make check报告TOTAL 9、PASS 9、FAIL/ERROR 0。另有制品暂存成功，但未验证文档交付、安装流程或其他项目同名选项；configure仍警告缺少filterdiff会影响可重复性。",
+            "command_ids": [
+              "command_f47d6f66d0e94b8f96cbab9b6a4808ae",
+              "command_2ac53bc34e67472e8403356b6883a2c9",
+              "command_fe25cc48201746dbbfef301eced0d4a5",
+              "command_80325c6c88744198a99446ca7c4abca3",
+              "command_37ab6cea9b6242f28d9eecfce1c0b889",
+              "command_8efb1c4d000e46d6a18e5d95d5b63a7e"
+            ]
+          }
+        }
+      ],
+      "bytes": 2323,
+      "maximum_bytes": 4096,
+      "top_k": 2,
+      "policy": "matched_action_advice_v1",
+      "abstained": false
+    }
+  },
+  {
+    "slot": 13,
+    "project": "libite",
+    "request": "request-1.json",
+    "experience": {
+      "mode": "structured",
+      "sources": [
+        "E30-slot-1"
+      ],
+      "items": [
+        {
+          "source_id": "E30-slot-1",
+          "experience_id": "67e197f007ec6e313ac49e7afa9696ad630d8cbe68b58224fecdefafe9b2df8f",
+          "source_family": "check",
+          "matched_terms": [
+            "check",
+            "doc",
+            "makefile",
+            "yes"
+          ],
+          "advice": {
+            "stage": "configure",
+            "conditions": [
+              "默认configure摘要显示启用文档构建",
+              "构建日志明确因makeinfo缺失在文档目标check.info处失败",
+              "核心库和测试不要求文档产物，且项目自身提供可关闭文档构建的配置选项",
+              "改变配置前可清理旧config.status、Makefile及既有构建产物"
+            ],
+            "state": "默认./configure成功且显示“build docs yes”，但随后make在doc/check.info处因makeinfo不存在而退出；失败不等于此前库或测试相关编译均无效。清理配置状态后，本项目使用自身的--disable-build-docs重新配置，摘要变为“build docs no”，后续库、测试程序构建以及完整make check均成功。",
+            "action": "遇到缺失文档生成器导致的构建失败时，先从失败目标和configure摘要区分“核心编译依赖”与“可选文档依赖”。若交付范围不含文档且项目明确支持对应选项，可清理旧配置后关闭该组件并重新配置；否则应安装缺失工具。不要把--disable-build-docs视为其他项目通用开关，也不要在未重新配置时假定旧Makefile已更新。",
+            "outcome": "effective",
+            "not_applicable": [
+              "文档属于必需交付物或测试会验证文档时",
+              "项目没有该配置选项，或选项语义不同、同时关闭必要功能时",
+              "失败并非来自文档目标或安装makeinfo才是既定环境要求时",
+              "交叉编译、打包规范或发行流程要求保持默认功能集合时"
+            ],
+            "verification_scope": "默认构建实际失败于makeinfo缺失；关闭本项目文档构建后，观察到libcheck.a及测试程序生成，make check报告TOTAL 9、PASS 9、FAIL/ERROR 0。另有制品暂存成功，但未验证文档交付、安装流程或其他项目同名选项；configure仍警告缺少filterdiff会影响可重复性。",
+            "command_ids": [
+              "command_f47d6f66d0e94b8f96cbab9b6a4808ae",
+              "command_2ac53bc34e67472e8403356b6883a2c9",
+              "command_fe25cc48201746dbbfef301eced0d4a5",
+              "command_80325c6c88744198a99446ca7c4abca3",
+              "command_37ab6cea9b6242f28d9eecfce1c0b889",
+              "command_8efb1c4d000e46d6a18e5d95d5b63a7e"
+            ]
+          }
+        }
+      ],
+      "bytes": 2321,
+      "maximum_bytes": 4096,
+      "top_k": 2,
+      "policy": "matched_action_advice_v1",
+      "abstained": false
+    }
+  },
+  {
+    "slot": 13,
+    "project": "libite",
+    "request": "request-2.json",
+    "experience": {
+      "mode": "structured",
+      "sources": [
+        "E30-slot-1"
+      ],
+      "items": [
+        {
+          "source_id": "E30-slot-1",
+          "experience_id": "67e197f007ec6e313ac49e7afa9696ad630d8cbe68b58224fecdefafe9b2df8f",
+          "source_family": "check",
+          "matched_terms": [
+            "check",
+            "doc",
+            "makefile",
+            "yes"
+          ],
+          "advice": {
+            "stage": "configure",
+            "conditions": [
+              "默认configure摘要显示启用文档构建",
+              "构建日志明确因makeinfo缺失在文档目标check.info处失败",
+              "核心库和测试不要求文档产物，且项目自身提供可关闭文档构建的配置选项",
+              "改变配置前可清理旧config.status、Makefile及既有构建产物"
+            ],
+            "state": "默认./configure成功且显示“build docs yes”，但随后make在doc/check.info处因makeinfo不存在而退出；失败不等于此前库或测试相关编译均无效。清理配置状态后，本项目使用自身的--disable-build-docs重新配置，摘要变为“build docs no”，后续库、测试程序构建以及完整make check均成功。",
+            "action": "遇到缺失文档生成器导致的构建失败时，先从失败目标和configure摘要区分“核心编译依赖”与“可选文档依赖”。若交付范围不含文档且项目明确支持对应选项，可清理旧配置后关闭该组件并重新配置；否则应安装缺失工具。不要把--disable-build-docs视为其他项目通用开关，也不要在未重新配置时假定旧Makefile已更新。",
+            "outcome": "effective",
+            "not_applicable": [
+              "文档属于必需交付物或测试会验证文档时",
+              "项目没有该配置选项，或选项语义不同、同时关闭必要功能时",
+              "失败并非来自文档目标或安装makeinfo才是既定环境要求时",
+              "交叉编译、打包规范或发行流程要求保持默认功能集合时"
+            ],
+            "verification_scope": "默认构建实际失败于makeinfo缺失；关闭本项目文档构建后，观察到libcheck.a及测试程序生成，make check报告TOTAL 9、PASS 9、FAIL/ERROR 0。另有制品暂存成功，但未验证文档交付、安装流程或其他项目同名选项；configure仍警告缺少filterdiff会影响可重复性。",
+            "command_ids": [
+              "command_f47d6f66d0e94b8f96cbab9b6a4808ae",
+              "command_2ac53bc34e67472e8403356b6883a2c9",
+              "command_fe25cc48201746dbbfef301eced0d4a5",
+              "command_80325c6c88744198a99446ca7c4abca3",
+              "command_37ab6cea9b6242f28d9eecfce1c0b889",
+              "command_8efb1c4d000e46d6a18e5d95d5b63a7e"
+            ]
+          }
+        }
+      ],
+      "bytes": 2321,
+      "maximum_bytes": 4096,
+      "top_k": 2,
+      "policy": "matched_action_advice_v1",
+      "abstained": false
+    }
+  },
+  {
+    "slot": 13,
+    "project": "libite",
+    "request": "request-3.json",
+    "experience": {
+      "mode": "structured",
+      "sources": [
+        "E30-slot-1"
+      ],
+      "items": [
+        {
+          "source_id": "E30-slot-1",
+          "experience_id": "67e197f007ec6e313ac49e7afa9696ad630d8cbe68b58224fecdefafe9b2df8f",
+          "source_family": "check",
+          "matched_terms": [
+            "check",
+            "doc",
+            "makefile",
+            "yes"
+          ],
+          "advice": {
+            "stage": "configure",
+            "conditions": [
+              "默认configure摘要显示启用文档构建",
+              "构建日志明确因makeinfo缺失在文档目标check.info处失败",
+              "核心库和测试不要求文档产物，且项目自身提供可关闭文档构建的配置选项",
+              "改变配置前可清理旧config.status、Makefile及既有构建产物"
+            ],
+            "state": "默认./configure成功且显示“build docs yes”，但随后make在doc/check.info处因makeinfo不存在而退出；失败不等于此前库或测试相关编译均无效。清理配置状态后，本项目使用自身的--disable-build-docs重新配置，摘要变为“build docs no”，后续库、测试程序构建以及完整make check均成功。",
+            "action": "遇到缺失文档生成器导致的构建失败时，先从失败目标和configure摘要区分“核心编译依赖”与“可选文档依赖”。若交付范围不含文档且项目明确支持对应选项，可清理旧配置后关闭该组件并重新配置；否则应安装缺失工具。不要把--disable-build-docs视为其他项目通用开关，也不要在未重新配置时假定旧Makefile已更新。",
+            "outcome": "effective",
+            "not_applicable": [
+              "文档属于必需交付物或测试会验证文档时",
+              "项目没有该配置选项，或选项语义不同、同时关闭必要功能时",
+              "失败并非来自文档目标或安装makeinfo才是既定环境要求时",
+              "交叉编译、打包规范或发行流程要求保持默认功能集合时"
+            ],
+            "verification_scope": "默认构建实际失败于makeinfo缺失；关闭本项目文档构建后，观察到libcheck.a及测试程序生成，make check报告TOTAL 9、PASS 9、FAIL/ERROR 0。另有制品暂存成功，但未验证文档交付、安装流程或其他项目同名选项；configure仍警告缺少filterdiff会影响可重复性。",
+            "command_ids": [
+              "command_f47d6f66d0e94b8f96cbab9b6a4808ae",
+              "command_2ac53bc34e67472e8403356b6883a2c9",
+              "command_fe25cc48201746dbbfef301eced0d4a5",
+              "command_80325c6c88744198a99446ca7c4abca3",
+              "command_37ab6cea9b6242f28d9eecfce1c0b889",
+              "command_8efb1c4d000e46d6a18e5d95d5b63a7e"
+            ]
+          }
+        }
+      ],
+      "bytes": 2321,
+      "maximum_bytes": 4096,
+      "top_k": 2,
+      "policy": "matched_action_advice_v1",
+      "abstained": false
+    }
+  },
+  {
+    "slot": 16,
+    "project": "highwayhash",
+    "request": "request-1.json",
+    "experience": {
+      "mode": "structured",
+      "sources": [
+        "E04-slot-7",
+        "E04-slot-8"
+      ],
+      "items": [
+        {
+          "source_id": "E04-slot-7",
+          "experience_id": "f878133e346780e40cbcd420eaa296f075939ff43bd371c518e068c1375fd394",
+          "source_family": "libtommath",
+          "matched_terms": [
+            "state"
+          ],
+          "advice": {
+            "stage": "build",
+            "conditions": [
+              "源码为 Make 工程，默认目标预期生成静态库",
+              "环境已具备可用的 make、C 编译器与 ar",
+              "源码文件集合已由 command_4bacd1ad28d14b3183c340bcad60dfb1 完成索引校验，但该 Git 初始化不应视为编译成功的因果条件"
+            ],
+            "state": "在仓库根目录直接执行默认构建；未观察到额外配置步骤或依赖安装。",
+            "action": "先执行默认 make 并依据日志确认其实际产物类型，而不要假定默认目标同时准备测试程序。command_1f6f9fe2cd274fecba47259efe6134d4 的 make -j2 以 0 退出，日志显示大量对象文件被归档并出现“ar: creating libtommath.a”。",
+            "outcome": "effective",
+            "not_applicable": [
+              "项目默认目标不是所需交付物时，应显式选择对应目标",
+              "非 Make 构建系统或需要预配置、生成源码的工程",
+              "要求共享库、特定 ABI 或自定义编译选项但尚未配置的场景"
+            ],
+            "verification_scope": "仅观察到默认构建成功及日志中的静态库创建；未单独检查 libtommath.a 的存在、内容或可链接性。后续测试未运行成功，也没有 replay 或交付验证。",
+            "command_ids": [
+              "command_4bacd1ad28d14b3183c340bcad60dfb1",
+              "command_1f6f9fe2cd274fecba47259efe6134d4"
+            ]
+          }
+        },
+        {
+          "source_id": "E04-slot-8",
+          "experience_id": "fc3f5fb3b43a18c7fe7fde7a9ec6842dd5ac1d40794832724d08940ff543bfa9",
+          "source_family": "libtommath",
+          "matched_terms": [
+            "state"
+          ],
+          "advice": {
+            "stage": "build",
+            "conditions": [
+              "源码来自归档且仓库根目录最初无.git",
+              "工作目录为源码根目录",
+              "项目提供可用的默认Make目标及C编译、归档工具",
+              "目标是生成默认静态库产物"
+            ],
+            "state": "归档源码先建立临时Git索引并核对固定文件集合；该步骤确认输入范围，但没有证据表明它是编译成功的因果条件。随后默认构建尚未包含测试准备。",
+            "action": "在输入文件集合核验通过后执行并行默认构建`make -j2`。不要从退出码单独推断测试程序也已生成；应将库构建与测试目标准备视为不同状态。",
+            "outcome": "effective",
+            "not_applicable": [
+              "项目没有Makefile或默认目标不生成所需产物",
+              "工具链、平台或源码状态与本轨迹不同",
+              "需要共享库、安装包或其他非默认产物",
+              "要求证明运行时正确性或可交付性"
+            ],
+            "verification_scope": "实际仅观察到源码索引集合校验成功、`make -j2`退出码为0，日志显示`ar: creating libtommath.a`。未执行产物内容检查；完整测试失败，交付与replay未观察。",
+            "command_ids": [
+              "command_f1b1a66829a84e38af6dd5fe44c81424",
+              "command_fa3704d6adfa4df4ba14628923996dc2"
+            ]
+          }
+        }
+      ],
+      "bytes": 2877,
+      "maximum_bytes": 4096,
+      "top_k": 2,
+      "policy": "matched_action_advice_v1",
+      "abstained": false
+    }
+  }
+]
