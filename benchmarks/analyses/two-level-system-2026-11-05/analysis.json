@@ -1,0 +1,1431 @@
+{
+  "identity": "cpp-build-two-level-system-comparison-flash-v1",
+  "summary": {
+    "all": {
+      "forge": {
+        "planned": 12,
+        "observed": 12,
+        "unobserved": 0,
+        "primary_completed": 12,
+        "full_completed": 10,
+        "model_requests": 40,
+        "estimated_cost_usd": "0.1374321",
+        "total_wall_seconds": 721.9081608317792,
+        "initial_planning_seconds": 61.50219610298518,
+        "recovery_seconds": 136.7099829291692,
+        "author_tests": {
+          "passed": 10,
+          "failed": 2
+        },
+        "phase_usage": {
+          "initial": {
+            "requests": 26,
+            "estimated_cost_usd": "0.0708687"
+          },
+          "recovery": {
+            "requests": 14,
+            "estimated_cost_usd": "0.0665634"
+          },
+          "tool_agent": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          }
+        },
+        "recipe_hits": 0,
+        "retrievals": 0,
+        "source_reads": 26,
+        "recovery_tasks": 3,
+        "verified_recipes_saved": 10,
+        "source_checks": {
+          "passed": 12
+        },
+        "cleanup_checks": {
+          "True": 12
+        }
+      },
+      "forge_experience": {
+        "planned": 12,
+        "observed": 12,
+        "unobserved": 0,
+        "primary_completed": 11,
+        "full_completed": 10,
+        "model_requests": 20,
+        "estimated_cost_usd": "0.0850560",
+        "total_wall_seconds": 796.3070825589821,
+        "initial_planning_seconds": 80.00267734797671,
+        "recovery_seconds": 100.38970390299801,
+        "author_tests": {
+          "passed": 10,
+          "unobserved": 1,
+          "failed": 1
+        },
+        "phase_usage": {
+          "initial": {
+            "requests": 11,
+            "estimated_cost_usd": "0.0372045"
+          },
+          "recovery": {
+            "requests": 9,
+            "estimated_cost_usd": "0.0478515"
+          },
+          "tool_agent": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          }
+        },
+        "recipe_hits": 6,
+        "retrievals": 10,
+        "source_reads": 9,
+        "recovery_tasks": 4,
+        "verified_recipes_saved": 10,
+        "source_checks": {
+          "passed": 11,
+          "unobserved": 1
+        },
+        "cleanup_checks": {
+          "True": 12
+        }
+      },
+      "strong_tool_agent": {
+        "planned": 12,
+        "observed": 12,
+        "unobserved": 0,
+        "primary_completed": 12,
+        "full_completed": 10,
+        "model_requests": 82,
+        "estimated_cost_usd": "0.2161467",
+        "total_wall_seconds": 707.8026869628811,
+        "initial_planning_seconds": 0.0,
+        "recovery_seconds": 0.0,
+        "author_tests": {
+          "passed": 10,
+          "failed": 2
+        },
+        "phase_usage": {
+          "initial": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          },
+          "recovery": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          },
+          "tool_agent": {
+            "requests": 82,
+            "estimated_cost_usd": "0.2161467"
+          }
+        },
+        "recipe_hits": 0,
+        "retrievals": 0,
+        "source_reads": 8,
+        "recovery_tasks": 0,
+        "verified_recipes_saved": 0,
+        "source_checks": {
+          "passed": 12
+        },
+        "cleanup_checks": {
+          "True": 12
+        }
+      }
+    },
+    "exact_reuse": {
+      "forge": {
+        "planned": 6,
+        "observed": 6,
+        "unobserved": 0,
+        "primary_completed": 6,
+        "full_completed": 6,
+        "model_requests": 15,
+        "estimated_cost_usd": "0.0376155",
+        "total_wall_seconds": 300.5659170729341,
+        "initial_planning_seconds": 33.94372005399782,
+        "recovery_seconds": 0.0,
+        "author_tests": {
+          "passed": 6
+        },
+        "phase_usage": {
+          "initial": {
+            "requests": 15,
+            "estimated_cost_usd": "0.0376155"
+          },
+          "recovery": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          },
+          "tool_agent": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          }
+        },
+        "recipe_hits": 0,
+        "retrievals": 0,
+        "source_reads": 8,
+        "recovery_tasks": 0,
+        "verified_recipes_saved": 6,
+        "source_checks": {
+          "passed": 6
+        },
+        "cleanup_checks": {
+          "True": 6
+        }
+      },
+      "forge_experience": {
+        "planned": 6,
+        "observed": 6,
+        "unobserved": 0,
+        "primary_completed": 6,
+        "full_completed": 6,
+        "model_requests": 0,
+        "estimated_cost_usd": "0.0",
+        "total_wall_seconds": 266.8400065021124,
+        "initial_planning_seconds": 0.0,
+        "recovery_seconds": 0.0,
+        "author_tests": {
+          "passed": 6
+        },
+        "phase_usage": {
+          "initial": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          },
+          "recovery": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          },
+          "tool_agent": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          }
+        },
+        "recipe_hits": 6,
+        "retrievals": 0,
+        "source_reads": 0,
+        "recovery_tasks": 0,
+        "verified_recipes_saved": 6,
+        "source_checks": {
+          "passed": 6
+        },
+        "cleanup_checks": {
+          "True": 6
+        }
+      },
+      "strong_tool_agent": {
+        "planned": 6,
+        "observed": 6,
+        "unobserved": 0,
+        "primary_completed": 6,
+        "full_completed": 6,
+        "model_requests": 43,
+        "estimated_cost_usd": "0.1170879",
+        "total_wall_seconds": 360.0327597857686,
+        "initial_planning_seconds": 0.0,
+        "recovery_seconds": 0.0,
+        "author_tests": {
+          "passed": 6
+        },
+        "phase_usage": {
+          "initial": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          },
+          "recovery": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          },
+          "tool_agent": {
+            "requests": 43,
+            "estimated_cost_usd": "0.1170879"
+          }
+        },
+        "recipe_hits": 0,
+        "retrievals": 0,
+        "source_reads": 7,
+        "recovery_tasks": 0,
+        "verified_recipes_saved": 0,
+        "source_checks": {
+          "passed": 6
+        },
+        "cleanup_checks": {
+          "True": 6
+        }
+      }
+    },
+    "no_recipe": {
+      "forge": {
+        "planned": 6,
+        "observed": 6,
+        "unobserved": 0,
+        "primary_completed": 6,
+        "full_completed": 4,
+        "model_requests": 25,
+        "estimated_cost_usd": "0.0998166",
+        "total_wall_seconds": 421.34224375884514,
+        "initial_planning_seconds": 27.55847604898736,
+        "recovery_seconds": 136.7099829291692,
+        "author_tests": {
+          "failed": 2,
+          "passed": 4
+        },
+        "phase_usage": {
+          "initial": {
+            "requests": 11,
+            "estimated_cost_usd": "0.0332532"
+          },
+          "recovery": {
+            "requests": 14,
+            "estimated_cost_usd": "0.0665634"
+          },
+          "tool_agent": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          }
+        },
+        "recipe_hits": 0,
+        "retrievals": 0,
+        "source_reads": 18,
+        "recovery_tasks": 3,
+        "verified_recipes_saved": 4,
+        "source_checks": {
+          "passed": 6
+        },
+        "cleanup_checks": {
+          "True": 6
+        }
+      },
+      "forge_experience": {
+        "planned": 6,
+        "observed": 6,
+        "unobserved": 0,
+        "primary_completed": 5,
+        "full_completed": 4,
+        "model_requests": 20,
+        "estimated_cost_usd": "0.0850560",
+        "total_wall_seconds": 529.4670760568697,
+        "initial_planning_seconds": 80.00267734797671,
+        "recovery_seconds": 100.38970390299801,
+        "author_tests": {
+          "unobserved": 1,
+          "passed": 4,
+          "failed": 1
+        },
+        "phase_usage": {
+          "initial": {
+            "requests": 11,
+            "estimated_cost_usd": "0.0372045"
+          },
+          "recovery": {
+            "requests": 9,
+            "estimated_cost_usd": "0.0478515"
+          },
+          "tool_agent": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          }
+        },
+        "recipe_hits": 0,
+        "retrievals": 10,
+        "source_reads": 9,
+        "recovery_tasks": 4,
+        "verified_recipes_saved": 4,
+        "source_checks": {
+          "unobserved": 1,
+          "passed": 5
+        },
+        "cleanup_checks": {
+          "True": 6
+        }
+      },
+      "strong_tool_agent": {
+        "planned": 6,
+        "observed": 6,
+        "unobserved": 0,
+        "primary_completed": 6,
+        "full_completed": 4,
+        "model_requests": 39,
+        "estimated_cost_usd": "0.0990588",
+        "total_wall_seconds": 347.76992717711255,
+        "initial_planning_seconds": 0.0,
+        "recovery_seconds": 0.0,
+        "author_tests": {
+          "failed": 2,
+          "passed": 4
+        },
+        "phase_usage": {
+          "initial": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          },
+          "recovery": {
+            "requests": 0,
+            "estimated_cost_usd": "0"
+          },
+          "tool_agent": {
+            "requests": 39,
+            "estimated_cost_usd": "0.0990588"
+          }
+        },
+        "recipe_hits": 0,
+        "retrievals": 0,
+        "source_reads": 1,
+        "recovery_tasks": 0,
+        "verified_recipes_saved": 0,
+        "source_checks": {
+          "passed": 6
+        },
+        "cleanup_checks": {
+          "True": 6
+        }
+      }
+    }
+  },
+  "slots": [
+    {
+      "slot": 1,
+      "project": "jsoncpp",
+      "method": "forge",
+      "repetition": 1,
+      "stratum": "exact_reuse",
+      "primary_completed": true,
+      "full_completed": true,
+      "phase_usage": {
+        "initial": {
+          "requests": 2,
+          "estimated_cost_usd": "0.0062016"
+        },
+        "recovery": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "tool_agent": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        }
+      },
+      "recipe_selected": false,
+      "retrievals": 0,
+      "source_reads": 1,
+      "error_type": null,
+      "error": null,
+      "raw_folder": "/home/yiwei/.codex/outputs/forge-two-level-system-comparison-flash-v1/slot-01-jsoncpp-forge"
+    },
+    {
+      "slot": 2,
+      "project": "jsoncpp",
+      "method": "forge_experience",
+      "repetition": 1,
+      "stratum": "exact_reuse",
+      "primary_completed": true,
+      "full_completed": true,
+      "phase_usage": {
+        "initial": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "recovery": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "tool_agent": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        }
+      },
+      "recipe_selected": true,
+      "retrievals": 0,
+      "source_reads": 0,
+      "error_type": null,
+      "error": null,
+      "raw_folder": "/home/yiwei/.codex/outputs/forge-two-level-system-comparison-flash-v1/slot-02-jsoncpp-forge_experience"
+    },
+    {
+      "slot": 3,
+      "project": "jsoncpp",
+      "method": "strong_tool_agent",
+      "repetition": 1,
+      "stratum": "exact_reuse",
+      "primary_completed": true,
+      "full_completed": true,
+      "phase_usage": {
+        "initial": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "recovery": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "tool_agent": {
+          "requests": 4,
+          "estimated_cost_usd": "0.0109779"
+        }
+      },
+      "recipe_selected": false,
+      "retrievals": 0,
+      "source_reads": 0,
+      "error_type": null,
+      "error": null,
+      "raw_folder": "/home/yiwei/.codex/outputs/forge-two-level-system-comparison-flash-v1/slot-03-jsoncpp-strong_tool_agent"
+    },
+    {
+      "slot": 4,
+      "project": "double-conversion",
+      "method": "forge_experience",
+      "repetition": 1,
+      "stratum": "no_recipe",
+      "primary_completed": false,
+      "full_completed": false,
+      "phase_usage": {
+        "initial": {
+          "requests": 1,
+          "estimated_cost_usd": "0.002628"
+        },
+        "recovery": {
+          "requests": 3,
+          "estimated_cost_usd": "0.0146700"
+        },
+        "tool_agent": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        }
+      },
+      "recipe_selected": false,
+      "retrievals": 3,
+      "source_reads": 1,
+      "error_type": "PlanContractError",
+      "error": "无变化修订不能触发相同失败的重复执行",
+      "raw_folder": "/home/yiwei/.codex/outputs/forge-two-level-system-comparison-flash-v1/slot-04-double-conversion-forge_experience"
+    },
+    {
+      "slot": 5,
+      "project": "double-conversion",
+      "method": "strong_tool_agent",
+      "repetition": 1,
+      "stratum": "no_recipe",
+      "primary_completed": true,
+      "full_completed": false,
+      "phase_usage": {
+        "initial": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "recovery": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "tool_agent": {
+          "requests": 6,
+          "estimated_cost_usd": "0.0107277"
+        }
+      },
+      "recipe_selected": false,
+      "retrievals": 0,
+      "source_reads": 0,
+      "error_type": null,
+      "error": null,
+      "raw_folder": "/home/yiwei/.codex/outputs/forge-two-level-system-comparison-flash-v1/slot-05-double-conversion-strong_tool_agent"
+    },
+    {
+      "slot": 6,
+      "project": "double-conversion",
+      "method": "forge",
+      "repetition": 1,
+      "stratum": "no_recipe",
+      "primary_completed": true,
+      "full_completed": false,
+      "phase_usage": {
+        "initial": {
+          "requests": 1,
+          "estimated_cost_usd": "0.0019818"
+        },
+        "recovery": {
+          "requests": 5,
+          "estimated_cost_usd": "0.0184785"
+        },
+        "tool_agent": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        }
+      },
+      "recipe_selected": false,
+      "retrievals": 0,
+      "source_reads": 3,
+      "error_type": null,
+      "error": null,
+      "raw_folder": "/home/yiwei/.codex/outputs/forge-two-level-system-comparison-flash-v1/slot-06-double-conversion-forge"
+    },
+    {
+      "slot": 7,
+      "project": "libite",
+      "method": "strong_tool_agent",
+      "repetition": 1,
+      "stratum": "exact_reuse",
+      "primary_completed": true,
+      "full_completed": true,
+      "phase_usage": {
+        "initial": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "recovery": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "tool_agent": {
+          "requests": 7,
+          "estimated_cost_usd": "0.0146694"
+        }
+      },
+      "recipe_selected": false,
+      "retrievals": 0,
+      "source_reads": 1,
+      "error_type": null,
+      "error": null,
+      "raw_folder": "/home/yiwei/.codex/outputs/forge-two-level-system-comparison-flash-v1/slot-07-libite-strong_tool_agent"
+    },
+    {
+      "slot": 8,
+      "project": "libite",
+      "method": "forge",
+      "repetition": 1,
+      "stratum": "exact_reuse",
+      "primary_completed": true,
+      "full_completed": true,
+      "phase_usage": {
+        "initial": {
+          "requests": 6,
+          "estimated_cost_usd": "0.0130242"
+        },
+        "recovery": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "tool_agent": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        }
+      },
+      "recipe_selected": false,
+      "retrievals": 0,
+      "source_reads": 4,
+      "error_type": null,
+      "error": null,
+      "raw_folder": "/home/yiwei/.codex/outputs/forge-two-level-system-comparison-flash-v1/slot-08-libite-forge"
+    },
+    {
+      "slot": 9,
+      "project": "libite",
+      "method": "forge_experience",
+      "repetition": 1,
+      "stratum": "exact_reuse",
+      "primary_completed": true,
+      "full_completed": true,
+      "phase_usage": {
+        "initial": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "recovery": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "tool_agent": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        }
+      },
+      "recipe_selected": true,
+      "retrievals": 0,
+      "source_reads": 0,
+      "error_type": null,
+      "error": null,
+      "raw_folder": "/home/yiwei/.codex/outputs/forge-two-level-system-comparison-flash-v1/slot-09-libite-forge_experience"
+    },
+    {
+      "slot": 10,
+      "project": "libogg",
+      "method": "strong_tool_agent",
+      "repetition": 1,
+      "stratum": "no_recipe",
+      "primary_completed": true,
+      "full_completed": true,
+      "phase_usage": {
+        "initial": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "recovery": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "tool_agent": {
+          "requests": 5,
+          "estimated_cost_usd": "0.0165945"
+        }
+      },
+      "recipe_selected": false,
+      "retrievals": 0,
+      "source_reads": 0,
+      "error_type": null,
+      "error": null,
+      "raw_folder": "/home/yiwei/.codex/outputs/forge-two-level-system-comparison-flash-v1/slot-10-libogg-strong_tool_agent"
+    },
+    {
+      "slot": 11,
+      "project": "libogg",
+      "method": "forge_experience",
+      "repetition": 1,
+      "stratum": "no_recipe",
+      "primary_completed": true,
+      "full_completed": true,
+      "phase_usage": {
+        "initial": {
+          "requests": 3,
+          "estimated_cost_usd": "0.0103425"
+        },
+        "recovery": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "tool_agent": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        }
+      },
+      "recipe_selected": false,
+      "retrievals": 1,
+      "source_reads": 1,
+      "error_type": null,
+      "error": null,
+      "raw_folder": "/home/yiwei/.codex/outputs/forge-two-level-system-comparison-flash-v1/slot-11-libogg-forge_experience"
+    },
+    {
+      "slot": 12,
+      "project": "libogg",
+      "method": "forge",
+      "repetition": 1,
+      "stratum": "no_recipe",
+      "primary_completed": true,
+      "full_completed": true,
+      "phase_usage": {
+        "initial": {
+          "requests": 3,
+          "estimated_cost_usd": "0.0101031"
+        },
+        "recovery": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "tool_agent": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        }
+      },
+      "recipe_selected": false,
+      "retrievals": 0,
+      "source_reads": 3,
+      "error_type": null,
+      "error": null,
+      "raw_folder": "/home/yiwei/.codex/outputs/forge-two-level-system-comparison-flash-v1/slot-12-libogg-forge"
+    },
+    {
+      "slot": 13,
+      "project": "highwayhash",
+      "method": "forge",
+      "repetition": 1,
+      "stratum": "exact_reuse",
+      "primary_completed": true,
+      "full_completed": true,
+      "phase_usage": {
+        "initial": {
+          "requests": 1,
+          "estimated_cost_usd": "0.0034611"
+        },
+        "recovery": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "tool_agent": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        }
+      },
+      "recipe_selected": false,
+      "retrievals": 0,
+      "source_reads": 0,
+      "error_type": null,
+      "error": null,
+      "raw_folder": "/home/yiwei/.codex/outputs/forge-two-level-system-comparison-flash-v1/slot-13-highwayhash-forge"
+    },
+    {
+      "slot": 14,
+      "project": "highwayhash",
+      "method": "strong_tool_agent",
+      "repetition": 1,
+      "stratum": "exact_reuse",
+      "primary_completed": true,
+      "full_completed": true,
+      "phase_usage": {
+        "initial": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "recovery": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "tool_agent": {
+          "requests": 11,
+          "estimated_cost_usd": "0.0333261"
+        }
+      },
+      "recipe_selected": false,
+      "retrievals": 0,
+      "source_reads": 0,
+      "error_type": null,
+      "error": null,
+      "raw_folder": "/home/yiwei/.codex/outputs/forge-two-level-system-comparison-flash-v1/slot-14-highwayhash-strong_tool_agent"
+    },
+    {
+      "slot": 15,
+      "project": "highwayhash",
+      "method": "forge_experience",
+      "repetition": 1,
+      "stratum": "exact_reuse",
+      "primary_completed": true,
+      "full_completed": true,
+      "phase_usage": {
+        "initial": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "recovery": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "tool_agent": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        }
+      },
+      "recipe_selected": true,
+      "retrievals": 0,
+      "source_reads": 0,
+      "error_type": null,
+      "error": null,
+      "raw_folder": "/home/yiwei/.codex/outputs/forge-two-level-system-comparison-flash-v1/slot-15-highwayhash-forge_experience"
+    },
+    {
+      "slot": 16,
+      "project": "xxhash",
+      "method": "forge_experience",
+      "repetition": 1,
+      "stratum": "no_recipe",
+      "primary_completed": true,
+      "full_completed": true,
+      "phase_usage": {
+        "initial": {
+          "requests": 1,
+          "estimated_cost_usd": "0.0036465"
+        },
+        "recovery": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "tool_agent": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        }
+      },
+      "recipe_selected": false,
+      "retrievals": 1,
+      "source_reads": 0,
+      "error_type": null,
+      "error": null,
+      "raw_folder": "/home/yiwei/.codex/outputs/forge-two-level-system-comparison-flash-v1/slot-16-xxhash-forge_experience"
+    },
+    {
+      "slot": 17,
+      "project": "xxhash",
+      "method": "forge",
+      "repetition": 1,
+      "stratum": "no_recipe",
+      "primary_completed": true,
+      "full_completed": true,
+      "phase_usage": {
+        "initial": {
+          "requests": 1,
+          "estimated_cost_usd": "0.0033669"
+        },
+        "recovery": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "tool_agent": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        }
+      },
+      "recipe_selected": false,
+      "retrievals": 0,
+      "source_reads": 0,
+      "error_type": null,
+      "error": null,
+      "raw_folder": "/home/yiwei/.codex/outputs/forge-two-level-system-comparison-flash-v1/slot-17-xxhash-forge"
+    },
+    {
+      "slot": 18,
+      "project": "xxhash",
+      "method": "strong_tool_agent",
+      "repetition": 1,
+      "stratum": "no_recipe",
+      "primary_completed": true,
+      "full_completed": true,
+      "phase_usage": {
+        "initial": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "recovery": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "tool_agent": {
+          "requests": 4,
+          "estimated_cost_usd": "0.0126720"
+        }
+      },
+      "recipe_selected": false,
+      "retrievals": 0,
+      "source_reads": 0,
+      "error_type": null,
+      "error": null,
+      "raw_folder": "/home/yiwei/.codex/outputs/forge-two-level-system-comparison-flash-v1/slot-18-xxhash-strong_tool_agent"
+    },
+    {
+      "slot": 19,
+      "project": "jsoncpp",
+      "method": "strong_tool_agent",
+      "repetition": 2,
+      "stratum": "exact_reuse",
+      "primary_completed": true,
+      "full_completed": true,
+      "phase_usage": {
+        "initial": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "recovery": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "tool_agent": {
+          "requests": 6,
+          "estimated_cost_usd": "0.0180300"
+        }
+      },
+      "recipe_selected": false,
+      "retrievals": 0,
+      "source_reads": 4,
+      "error_type": null,
+      "error": null,
+      "raw_folder": "/home/yiwei/.codex/outputs/forge-two-level-system-comparison-flash-v1/slot-19-jsoncpp-strong_tool_agent"
+    },
+    {
+      "slot": 20,
+      "project": "jsoncpp",
+      "method": "forge_experience",
+      "repetition": 2,
+      "stratum": "exact_reuse",
+      "primary_completed": true,
+      "full_completed": true,
+      "phase_usage": {
+        "initial": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "recovery": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "tool_agent": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        }
+      },
+      "recipe_selected": true,
+      "retrievals": 0,
+      "source_reads": 0,
+      "error_type": null,
+      "error": null,
+      "raw_folder": "/home/yiwei/.codex/outputs/forge-two-level-system-comparison-flash-v1/slot-20-jsoncpp-forge_experience"
+    },
+    {
+      "slot": 21,
+      "project": "jsoncpp",
+      "method": "forge",
+      "repetition": 2,
+      "stratum": "exact_reuse",
+      "primary_completed": true,
+      "full_completed": true,
+      "phase_usage": {
+        "initial": {
+          "requests": 2,
+          "estimated_cost_usd": "0.0058098"
+        },
+        "recovery": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "tool_agent": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        }
+      },
+      "recipe_selected": false,
+      "retrievals": 0,
+      "source_reads": 1,
+      "error_type": null,
+      "error": null,
+      "raw_folder": "/home/yiwei/.codex/outputs/forge-two-level-system-comparison-flash-v1/slot-21-jsoncpp-forge"
+    },
+    {
+      "slot": 22,
+      "project": "double-conversion",
+      "method": "forge",
+      "repetition": 2,
+      "stratum": "no_recipe",
+      "primary_completed": true,
+      "full_completed": false,
+      "phase_usage": {
+        "initial": {
+          "requests": 2,
+          "estimated_cost_usd": "0.0039702"
+        },
+        "recovery": {
+          "requests": 9,
+          "estimated_cost_usd": "0.0480849"
+        },
+        "tool_agent": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        }
+      },
+      "recipe_selected": false,
+      "retrievals": 0,
+      "source_reads": 9,
+      "error_type": null,
+      "error": null,
+      "raw_folder": "/home/yiwei/.codex/outputs/forge-two-level-system-comparison-flash-v1/slot-22-double-conversion-forge"
+    },
+    {
+      "slot": 23,
+      "project": "double-conversion",
+      "method": "strong_tool_agent",
+      "repetition": 2,
+      "stratum": "no_recipe",
+      "primary_completed": true,
+      "full_completed": false,
+      "phase_usage": {
+        "initial": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "recovery": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "tool_agent": {
+          "requests": 13,
+          "estimated_cost_usd": "0.0256023"
+        }
+      },
+      "recipe_selected": false,
+      "retrievals": 0,
+      "source_reads": 0,
+      "error_type": null,
+      "error": null,
+      "raw_folder": "/home/yiwei/.codex/outputs/forge-two-level-system-comparison-flash-v1/slot-23-double-conversion-strong_tool_agent"
+    },
+    {
+      "slot": 24,
+      "project": "double-conversion",
+      "method": "forge_experience",
+      "repetition": 2,
+      "stratum": "no_recipe",
+      "primary_completed": true,
+      "full_completed": false,
+      "phase_usage": {
+        "initial": {
+          "requests": 1,
+          "estimated_cost_usd": "0.0023244"
+        },
+        "recovery": {
+          "requests": 6,
+          "estimated_cost_usd": "0.0331815"
+        },
+        "tool_agent": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        }
+      },
+      "recipe_selected": false,
+      "retrievals": 3,
+      "source_reads": 4,
+      "error_type": null,
+      "error": null,
+      "raw_folder": "/home/yiwei/.codex/outputs/forge-two-level-system-comparison-flash-v1/slot-24-double-conversion-forge_experience"
+    },
+    {
+      "slot": 25,
+      "project": "libite",
+      "method": "forge_experience",
+      "repetition": 2,
+      "stratum": "exact_reuse",
+      "primary_completed": true,
+      "full_completed": true,
+      "phase_usage": {
+        "initial": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "recovery": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "tool_agent": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        }
+      },
+      "recipe_selected": true,
+      "retrievals": 0,
+      "source_reads": 0,
+      "error_type": null,
+      "error": null,
+      "raw_folder": "/home/yiwei/.codex/outputs/forge-two-level-system-comparison-flash-v1/slot-25-libite-forge_experience"
+    },
+    {
+      "slot": 26,
+      "project": "libite",
+      "method": "forge",
+      "repetition": 2,
+      "stratum": "exact_reuse",
+      "primary_completed": true,
+      "full_completed": true,
+      "phase_usage": {
+        "initial": {
+          "requests": 3,
+          "estimated_cost_usd": "0.0056169"
+        },
+        "recovery": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "tool_agent": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        }
+      },
+      "recipe_selected": false,
+      "retrievals": 0,
+      "source_reads": 2,
+      "error_type": null,
+      "error": null,
+      "raw_folder": "/home/yiwei/.codex/outputs/forge-two-level-system-comparison-flash-v1/slot-26-libite-forge"
+    },
+    {
+      "slot": 27,
+      "project": "libite",
+      "method": "strong_tool_agent",
+      "repetition": 2,
+      "stratum": "exact_reuse",
+      "primary_completed": true,
+      "full_completed": true,
+      "phase_usage": {
+        "initial": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "recovery": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "tool_agent": {
+          "requests": 9,
+          "estimated_cost_usd": "0.0218883"
+        }
+      },
+      "recipe_selected": false,
+      "retrievals": 0,
+      "source_reads": 2,
+      "error_type": null,
+      "error": null,
+      "raw_folder": "/home/yiwei/.codex/outputs/forge-two-level-system-comparison-flash-v1/slot-27-libite-strong_tool_agent"
+    },
+    {
+      "slot": 28,
+      "project": "libogg",
+      "method": "forge",
+      "repetition": 2,
+      "stratum": "no_recipe",
+      "primary_completed": true,
+      "full_completed": true,
+      "phase_usage": {
+        "initial": {
+          "requests": 3,
+          "estimated_cost_usd": "0.0104343"
+        },
+        "recovery": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "tool_agent": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        }
+      },
+      "recipe_selected": false,
+      "retrievals": 0,
+      "source_reads": 3,
+      "error_type": null,
+      "error": null,
+      "raw_folder": "/home/yiwei/.codex/outputs/forge-two-level-system-comparison-flash-v1/slot-28-libogg-forge"
+    },
+    {
+      "slot": 29,
+      "project": "libogg",
+      "method": "forge_experience",
+      "repetition": 2,
+      "stratum": "no_recipe",
+      "primary_completed": true,
+      "full_completed": true,
+      "phase_usage": {
+        "initial": {
+          "requests": 3,
+          "estimated_cost_usd": "0.0108204"
+        },
+        "recovery": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "tool_agent": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        }
+      },
+      "recipe_selected": false,
+      "retrievals": 1,
+      "source_reads": 3,
+      "error_type": null,
+      "error": null,
+      "raw_folder": "/home/yiwei/.codex/outputs/forge-two-level-system-comparison-flash-v1/slot-29-libogg-forge_experience"
+    },
+    {
+      "slot": 30,
+      "project": "libogg",
+      "method": "strong_tool_agent",
+      "repetition": 2,
+      "stratum": "no_recipe",
+      "primary_completed": true,
+      "full_completed": true,
+      "phase_usage": {
+        "initial": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "recovery": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "tool_agent": {
+          "requests": 7,
+          "estimated_cost_usd": "0.0234045"
+        }
+      },
+      "recipe_selected": false,
+      "retrievals": 0,
+      "source_reads": 1,
+      "error_type": null,
+      "error": null,
+      "raw_folder": "/home/yiwei/.codex/outputs/forge-two-level-system-comparison-flash-v1/slot-30-libogg-strong_tool_agent"
+    },
+    {
+      "slot": 31,
+      "project": "highwayhash",
+      "method": "forge_experience",
+      "repetition": 2,
+      "stratum": "exact_reuse",
+      "primary_completed": true,
+      "full_completed": true,
+      "phase_usage": {
+        "initial": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "recovery": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "tool_agent": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        }
+      },
+      "recipe_selected": true,
+      "retrievals": 0,
+      "source_reads": 0,
+      "error_type": null,
+      "error": null,
+      "raw_folder": "/home/yiwei/.codex/outputs/forge-two-level-system-comparison-flash-v1/slot-31-highwayhash-forge_experience"
+    },
+    {
+      "slot": 32,
+      "project": "highwayhash",
+      "method": "strong_tool_agent",
+      "repetition": 2,
+      "stratum": "exact_reuse",
+      "primary_completed": true,
+      "full_completed": true,
+      "phase_usage": {
+        "initial": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "recovery": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "tool_agent": {
+          "requests": 6,
+          "estimated_cost_usd": "0.0181962"
+        }
+      },
+      "recipe_selected": false,
+      "retrievals": 0,
+      "source_reads": 0,
+      "error_type": null,
+      "error": null,
+      "raw_folder": "/home/yiwei/.codex/outputs/forge-two-level-system-comparison-flash-v1/slot-32-highwayhash-strong_tool_agent"
+    },
+    {
+      "slot": 33,
+      "project": "highwayhash",
+      "method": "forge",
+      "repetition": 2,
+      "stratum": "exact_reuse",
+      "primary_completed": true,
+      "full_completed": true,
+      "phase_usage": {
+        "initial": {
+          "requests": 1,
+          "estimated_cost_usd": "0.0035019"
+        },
+        "recovery": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "tool_agent": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        }
+      },
+      "recipe_selected": false,
+      "retrievals": 0,
+      "source_reads": 0,
+      "error_type": null,
+      "error": null,
+      "raw_folder": "/home/yiwei/.codex/outputs/forge-two-level-system-comparison-flash-v1/slot-33-highwayhash-forge"
+    },
+    {
+      "slot": 34,
+      "project": "xxhash",
+      "method": "strong_tool_agent",
+      "repetition": 2,
+      "stratum": "no_recipe",
+      "primary_completed": true,
+      "full_completed": true,
+      "phase_usage": {
+        "initial": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "recovery": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "tool_agent": {
+          "requests": 4,
+          "estimated_cost_usd": "0.0100578"
+        }
+      },
+      "recipe_selected": false,
+      "retrievals": 0,
+      "source_reads": 0,
+      "error_type": null,
+      "error": null,
+      "raw_folder": "/home/yiwei/.codex/outputs/forge-two-level-system-comparison-flash-v1/slot-34-xxhash-strong_tool_agent"
+    },
+    {
+      "slot": 35,
+      "project": "xxhash",
+      "method": "forge",
+      "repetition": 2,
+      "stratum": "no_recipe",
+      "primary_completed": true,
+      "full_completed": true,
+      "phase_usage": {
+        "initial": {
+          "requests": 1,
+          "estimated_cost_usd": "0.0033969"
+        },
+        "recovery": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "tool_agent": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        }
+      },
+      "recipe_selected": false,
+      "retrievals": 0,
+      "source_reads": 0,
+      "error_type": null,
+      "error": null,
+      "raw_folder": "/home/yiwei/.codex/outputs/forge-two-level-system-comparison-flash-v1/slot-35-xxhash-forge"
+    },
+    {
+      "slot": 36,
+      "project": "xxhash",
+      "method": "forge_experience",
+      "repetition": 2,
+      "stratum": "no_recipe",
+      "primary_completed": true,
+      "full_completed": true,
+      "phase_usage": {
+        "initial": {
+          "requests": 2,
+          "estimated_cost_usd": "0.0074427"
+        },
+        "recovery": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        },
+        "tool_agent": {
+          "requests": 0,
+          "estimated_cost_usd": "0"
+        }
+      },
+      "recipe_selected": false,
+      "retrievals": 1,
+      "source_reads": 0,
+      "error_type": null,
+      "error": null,
+      "raw_folder": "/home/yiwei/.codex/outputs/forge-two-level-system-comparison-flash-v1/slot-36-xxhash-forge_experience"
+    }
+  ],
+  "unobserved": [],
+  "historical_advice_preparation_cost_usd": "0.095129",
+  "historical_recipe_source_cost_usd": "0.0150984",
+  "boundary": "三复用项目与三新增无方案项目分层，各两重复；新项目已参考构建，非严格holdout。总体仅对应本混合比例，不估纯状态增量或持续学习。旧结果不合分母。"
+}

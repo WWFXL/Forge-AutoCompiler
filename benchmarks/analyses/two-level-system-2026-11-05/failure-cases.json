@@ -1,0 +1,218 @@
+{
+  "identity": "cpp-build-two-level-system-comparison-flash-v1",
+  "post_hoc_description_only": true,
+  "original_terminal_states_unchanged": true,
+  "cases": [
+    {
+      "slot": 4,
+      "project": "double-conversion",
+      "method": "forge_experience",
+      "repetition": 1,
+      "status": "error",
+      "layers": {
+        "command_build_passed": false,
+        "primary_build_completed": false,
+        "delivery": "unobserved",
+        "author_tests": "unobserved",
+        "clean_replay": "unobserved",
+        "full_completed": false
+      },
+      "error_type": "PlanContractError",
+      "error": "无变化修订不能触发相同失败的重复执行",
+      "source_unchanged": null,
+      "classification": "command_role_recognition_gap_after_valid_library",
+      "raw_folder": "/home/yiwei/.codex/outputs/forge-two-level-system-comparison-flash-v1/slot-04-double-conversion-forge_experience",
+      "evidence": [
+        {
+          "path": "slot-04-double-conversion-forge_experience/.compile-sessions/simple-system/1507588ba67d/build-plan/handoff-27705e8c6aa14bbcb84651b790233313.json",
+          "sha256": "998040ebbd64e81d2eb76bf81056d01a27987d38f9cd5d71d30bcdbf077fe36e",
+          "primary_components": {
+            "status": "passed",
+            "components": [
+              {
+                "name": "double-conversion",
+                "status": "passed",
+                "evidence": "README.md:42-56; CMakeLists.txt:4-8,29-56; test/cctest/CMakeLists.txt:1-63",
+                "candidates": [
+                  {
+                    "alias": "libdouble-conversion.a",
+                    "path": "build/libdouble-conversion.a",
+                    "kind": "static_library",
+                    "size": 264888,
+                    "sha256": "0b8e19dd94eabf183d2f17428f5ebfe698ed4677d6794bbc53b133f0d88d12b1",
+                    "mode": 420,
+                    "platform": "x86_64",
+                    "source": "new_file_after_current_source_extraction"
+                  }
+                ]
+              }
+            ],
+            "artifacts": [
+              {
+                "alias": "libdouble-conversion.a",
+                "path": "build/libdouble-conversion.a",
+                "kind": "static_library",
+                "size": 264888,
+                "sha256": "0b8e19dd94eabf183d2f17428f5ebfe698ed4677d6794bbc53b133f0d88d12b1",
+                "mode": 420,
+                "platform": "x86_64",
+                "source": "new_file_after_current_source_extraction"
+              }
+            ]
+          }
+        }
+      ],
+      "limitation": "原记录主构建false；有效库观察不回填原终态；测试/交付/重放/源码终态未观察。"
+    },
+    {
+      "slot": 5,
+      "project": "double-conversion",
+      "method": "strong_tool_agent",
+      "repetition": 1,
+      "status": "primary_completed",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "failed",
+        "clean_replay": "passed",
+        "full_completed": false
+      },
+      "error_type": null,
+      "error": null,
+      "source_unchanged": true,
+      "classification": "no_registered_author_tests",
+      "raw_folder": "/home/yiwei/.codex/outputs/forge-two-level-system-comparison-flash-v1/slot-05-double-conversion-strong_tool_agent",
+      "evidence": [
+        {
+          "command_id": "command_1a56264c2ece4a3a901943351e3302d6",
+          "path": "slot-05-double-conversion-strong_tool_agent/.compile-sessions/simple-system/99425b8eebc3/logs/command_1a56264c2ece4a3a901943351e3302d6.log",
+          "sha256": "7f1d351d90c38a2f6683a4ef46fa94ef9a25b5400f7d475e235abb65238d01b0",
+          "exit_code": 1,
+          "excerpt": "Internal ctest changing into directory: /workspace/repo/build\nTest project /workspace/repo/build\nNo tests were found!!!\nErrors while running CTest\nTraceback (most recent call last):\n  File \"<string>\", line 9, in <module>\n  File \"/usr/lib/python3.12/subprocess.py\", line 571, in run\n    raise CalledProcessError(retcode, process.args,\nsubprocess.CalledProcessError: Command '['ctest', '--test-dir', '/workspace/repo/build', '-j1', '--output-on-failure', '--no-tests=error']' returned non-zero exit status 8.\n"
+        }
+      ],
+      "limitation": "主库/交付/构建重放通过；零测试配置缺口，不是作者测试用例实际失败。"
+    },
+    {
+      "slot": 6,
+      "project": "double-conversion",
+      "method": "forge",
+      "repetition": 1,
+      "status": "primary_completed",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "failed",
+        "clean_replay": "passed",
+        "full_completed": false
+      },
+      "error_type": null,
+      "error": null,
+      "source_unchanged": true,
+      "classification": "no_registered_author_tests",
+      "raw_folder": "/home/yiwei/.codex/outputs/forge-two-level-system-comparison-flash-v1/slot-06-double-conversion-forge",
+      "evidence": [
+        {
+          "command_id": "command_2d96864e510244c884370b480113aa70",
+          "path": "slot-06-double-conversion-forge/.compile-sessions/simple-system/a7a264434e88/logs/command_2d96864e510244c884370b480113aa70.log",
+          "sha256": "d2de9f8aebae3d5fc7ce0c91058b4baf60d283b65ae0b8a00319bbabc1e42609",
+          "exit_code": 1,
+          "excerpt": "Internal ctest changing into directory: /workspace/repo/buildX\nTest project /workspace/repo/buildX\nNo tests were found!!!\nErrors while running CTest\nTraceback (most recent call last):\n  File \"<string>\", line 9, in <module>\n  File \"/usr/lib/python3.12/subprocess.py\", line 571, in run\n    raise CalledProcessError(retcode, process.args,\nsubprocess.CalledProcessError: Command '['ctest', '--test-dir', '/workspace/repo/buildX', '-j1', '--output-on-failure', '--no-tests=error']' returned non-zero exit status 8.\n"
+        }
+      ],
+      "limitation": "主库/交付/构建重放通过；零测试配置缺口，不是作者测试用例实际失败。"
+    },
+    {
+      "slot": 22,
+      "project": "double-conversion",
+      "method": "forge",
+      "repetition": 2,
+      "status": "primary_completed",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "failed",
+        "clean_replay": "passed",
+        "full_completed": false
+      },
+      "error_type": null,
+      "error": null,
+      "source_unchanged": true,
+      "classification": "no_registered_author_tests",
+      "raw_folder": "/home/yiwei/.codex/outputs/forge-two-level-system-comparison-flash-v1/slot-22-double-conversion-forge",
+      "evidence": [
+        {
+          "command_id": "command_06e5787b020840289059e2ce7851df1e",
+          "path": "slot-22-double-conversion-forge/.compile-sessions/simple-system/319bbc2fcbeb/logs/command_06e5787b020840289059e2ce7851df1e.log",
+          "sha256": "7f1d351d90c38a2f6683a4ef46fa94ef9a25b5400f7d475e235abb65238d01b0",
+          "exit_code": 1,
+          "excerpt": "Internal ctest changing into directory: /workspace/repo/build\nTest project /workspace/repo/build\nNo tests were found!!!\nErrors while running CTest\nTraceback (most recent call last):\n  File \"<string>\", line 9, in <module>\n  File \"/usr/lib/python3.12/subprocess.py\", line 571, in run\n    raise CalledProcessError(retcode, process.args,\nsubprocess.CalledProcessError: Command '['ctest', '--test-dir', '/workspace/repo/build', '-j1', '--output-on-failure', '--no-tests=error']' returned non-zero exit status 8.\n"
+        }
+      ],
+      "limitation": "主库/交付/构建重放通过；零测试配置缺口，不是作者测试用例实际失败。"
+    },
+    {
+      "slot": 23,
+      "project": "double-conversion",
+      "method": "strong_tool_agent",
+      "repetition": 2,
+      "status": "primary_completed",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "failed",
+        "clean_replay": "passed",
+        "full_completed": false
+      },
+      "error_type": null,
+      "error": null,
+      "source_unchanged": true,
+      "classification": "no_registered_author_tests",
+      "raw_folder": "/home/yiwei/.codex/outputs/forge-two-level-system-comparison-flash-v1/slot-23-double-conversion-strong_tool_agent",
+      "evidence": [
+        {
+          "command_id": "command_4e521642f2a147af910ad5537e5f0806",
+          "path": "slot-23-double-conversion-strong_tool_agent/.compile-sessions/simple-system/b36d0c724423/logs/command_4e521642f2a147af910ad5537e5f0806.log",
+          "sha256": "7f1d351d90c38a2f6683a4ef46fa94ef9a25b5400f7d475e235abb65238d01b0",
+          "exit_code": 1,
+          "excerpt": "Internal ctest changing into directory: /workspace/repo/build\nTest project /workspace/repo/build\nNo tests were found!!!\nErrors while running CTest\nTraceback (most recent call last):\n  File \"<string>\", line 9, in <module>\n  File \"/usr/lib/python3.12/subprocess.py\", line 571, in run\n    raise CalledProcessError(retcode, process.args,\nsubprocess.CalledProcessError: Command '['ctest', '--test-dir', '/workspace/repo/build', '-j1', '--output-on-failure', '--no-tests=error']' returned non-zero exit status 8.\n"
+        }
+      ],
+      "limitation": "主库/交付/构建重放通过；零测试配置缺口，不是作者测试用例实际失败。"
+    },
+    {
+      "slot": 24,
+      "project": "double-conversion",
+      "method": "forge_experience",
+      "repetition": 2,
+      "status": "primary_completed",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "failed",
+        "clean_replay": "passed",
+        "full_completed": false
+      },
+      "error_type": null,
+      "error": null,
+      "source_unchanged": true,
+      "classification": "no_registered_author_tests",
+      "raw_folder": "/home/yiwei/.codex/outputs/forge-two-level-system-comparison-flash-v1/slot-24-double-conversion-forge_experience",
+      "evidence": [
+        {
+          "command_id": "command_b56439f1987c4d2698a110911aab5eae",
+          "path": "slot-24-double-conversion-forge_experience/.compile-sessions/simple-system/e2391f666d7a/logs/command_b56439f1987c4d2698a110911aab5eae.log",
+          "sha256": "7f1d351d90c38a2f6683a4ef46fa94ef9a25b5400f7d475e235abb65238d01b0",
+          "exit_code": 1,
+          "excerpt": "Internal ctest changing into directory: /workspace/repo/build\nTest project /workspace/repo/build\nNo tests were found!!!\nErrors while running CTest\nTraceback (most recent call last):\n  File \"<string>\", line 9, in <module>\n  File \"/usr/lib/python3.12/subprocess.py\", line 571, in run\n    raise CalledProcessError(retcode, process.args,\nsubprocess.CalledProcessError: Command '['ctest', '--test-dir', '/workspace/repo/build', '-j1', '--output-on-failure', '--no-tests=error']' returned non-zero exit status 8.\n"
+        }
+      ],
+      "limitation": "主库/交付/构建重放通过；零测试配置缺口，不是作者测试用例实际失败。"
+    }
+  ]
+}

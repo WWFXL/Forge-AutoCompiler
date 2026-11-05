@@ -1,6 +1,6 @@
 # 历史研究材料目录
 
-新增准备材料：[2026-11-05两层经验联合入口与三方法比较](2026-11-05-two-level-system-preparation.md)，仅作第4/5章实现与第6章实验设置，不增模型效果分母。
+新增结果：[2026-11-05两层经验联合流程36次系统比较](2026-11-05-two-level-system-results.md)，见[E48](THESIS_EVIDENCE_INDEX.md#e48)；[准备材料](2026-11-05-two-level-system-preparation.md)仅作实现与设置，不另增效果分母。
 
 工程进展（不增效果分母）：[#675核心接入](2026-11-04-simple-build-core-integration.md)将两层经验、Forge/强工具/CXX参考接到简洁任务，九条正常路径及恢复/拒绝、原生CXX实跑支持实现；保留清理修复过程。[核心版本与比较安排](2026-11-04-simple-build-core-boundary.md)约束后续实验。[#673最小实现](2026-11-04-simple-build-implementation.md)继续作为底座证据，旧E40/E41等效果保持。
 
@@ -16,6 +16,7 @@
 
 |文件|论文登记|
 |---|---|
+|[2026-11-05-two-level-system-results.md](2026-11-05-two-level-system-results.md)|[E48](THESIS_EVIDENCE_INDEX.md#e48)三方法36次完整比较、两层经验收益/取舍、动作识别与零测试配置缺口；旧结果原样保留|
 |[2026-11-05-base-experience-results.md](2026-11-05-base-experience-results.md)|[E46](THESIS_EVIDENCE_INDEX.md#e46)独立16次跨项目建议负结果；[E47](THESIS_EVIDENCE_INDEX.md#e47)独立16次同项目精确复用、一次规划接口失败与来源成本|
 |[2026-11-05-planner-model-results.md](2026-11-05-planner-model-results.md)|[E44](THESIS_EVIDENCE_INDEX.md#e44)首批16次及[E45](THESIS_EVIDENCE_INDEX.md#e45)容量修复后独立16次规划路由确认；分别保留原分母、费用/时间取舍|
 |[2026-11-05-plan-output-repair.md](2026-11-05-plan-output-repair.md)|#685共同方案出口与原响应回放、四真实工程构建，不计模型效果|
