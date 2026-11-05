@@ -1,0 +1,206 @@
+{
+  "identity": "cpp-build-main-state-routing-comparison-v1",
+  "summary": {
+    "rule": {
+      "planned": 12,
+      "observed": 1,
+      "unobserved": 11,
+      "primary_completed": 1,
+      "task_completed": 1,
+      "clean_replay_passed": 1,
+      "requests": 0,
+      "jev_requests": 0,
+      "agent_requests": 0,
+      "wall_seconds": 41.919949106057175,
+      "local_actions": 0,
+      "agent_routes": 0,
+      "known_completed_response_cost_usd": "0.0",
+      "unknown_usage_requests": 0,
+      "total_new_estimated_cost_usd": "0.0",
+      "jev_attempted_slots": 0,
+      "completed_decision_slots": 0
+    },
+    "jev": {
+      "planned": 12,
+      "observed": 2,
+      "unobserved": 10,
+      "primary_completed": 1,
+      "task_completed": 1,
+      "clean_replay_passed": 1,
+      "requests": 1,
+      "jev_requests": 1,
+      "agent_requests": 0,
+      "wall_seconds": 46.82831153087318,
+      "local_actions": 0,
+      "agent_routes": 0,
+      "known_completed_response_cost_usd": "0.0",
+      "unknown_usage_requests": 1,
+      "total_new_estimated_cost_usd": null,
+      "jev_attempted_slots": 1,
+      "completed_decision_slots": 0
+    }
+  },
+  "source_initial_planning_cost_usd": "0.0381387",
+  "boundary": "旧六开发项目/旧自然初始方案的路由组件比较；正常样本保留，异常少时如实报告触发分母，不估未见泛化，不与旧完整作者测试分母合并。",
+  "stop_reason": "unknown_usage",
+  "unobserved": [
+    {
+      "slot": 4,
+      "project": "double-conversion",
+      "repetition": 1,
+      "method": "rule"
+    },
+    {
+      "slot": 5,
+      "project": "libite",
+      "repetition": 1,
+      "method": "rule"
+    },
+    {
+      "slot": 6,
+      "project": "libite",
+      "repetition": 1,
+      "method": "jev"
+    },
+    {
+      "slot": 7,
+      "project": "libogg",
+      "repetition": 1,
+      "method": "jev"
+    },
+    {
+      "slot": 8,
+      "project": "libogg",
+      "repetition": 1,
+      "method": "rule"
+    },
+    {
+      "slot": 9,
+      "project": "highwayhash",
+      "repetition": 1,
+      "method": "rule"
+    },
+    {
+      "slot": 10,
+      "project": "highwayhash",
+      "repetition": 1,
+      "method": "jev"
+    },
+    {
+      "slot": 11,
+      "project": "xxhash",
+      "repetition": 1,
+      "method": "jev"
+    },
+    {
+      "slot": 12,
+      "project": "xxhash",
+      "repetition": 1,
+      "method": "rule"
+    },
+    {
+      "slot": 13,
+      "project": "jsoncpp",
+      "repetition": 2,
+      "method": "jev"
+    },
+    {
+      "slot": 14,
+      "project": "jsoncpp",
+      "repetition": 2,
+      "method": "rule"
+    },
+    {
+      "slot": 15,
+      "project": "double-conversion",
+      "repetition": 2,
+      "method": "rule"
+    },
+    {
+      "slot": 16,
+      "project": "double-conversion",
+      "repetition": 2,
+      "method": "jev"
+    },
+    {
+      "slot": 17,
+      "project": "libite",
+      "repetition": 2,
+      "method": "jev"
+    },
+    {
+      "slot": 18,
+      "project": "libite",
+      "repetition": 2,
+      "method": "rule"
+    },
+    {
+      "slot": 19,
+      "project": "libogg",
+      "repetition": 2,
+      "method": "rule"
+    },
+    {
+      "slot": 20,
+      "project": "libogg",
+      "repetition": 2,
+      "method": "jev"
+    },
+    {
+      "slot": 21,
+      "project": "highwayhash",
+      "repetition": 2,
+      "method": "jev"
+    },
+    {
+      "slot": 22,
+      "project": "highwayhash",
+      "repetition": 2,
+      "method": "rule"
+    },
+    {
+      "slot": 23,
+      "project": "xxhash",
+      "repetition": 2,
+      "method": "rule"
+    },
+    {
+      "slot": 24,
+      "project": "xxhash",
+      "repetition": 2,
+      "method": "jev"
+    }
+  ],
+  "evidence_id": "E49",
+  "planned_slots": 24,
+  "terminal_slots": 3,
+  "completed_slots": 2,
+  "provider_blocked_slots": 1,
+  "unobserved_slots": 21,
+  "successful_jev_responses": 0,
+  "attempted_jev_slots": 1,
+  "completed_router_decision_slots": 0,
+  "unknown_usage_requests": 1,
+  "known_completed_response_cost_usd": "0",
+  "total_new_cost_usd": null,
+  "cost_completeness": "unknown_single_rejected_jev_request",
+  "error": {
+    "error_type": "TypeSafePermissionDeniedError",
+    "usage_known": false
+  },
+  "raw_root": "/home/yiwei/.codex/outputs/forge-main-build-state-routing-v1",
+  "runtime_revision": "d2be5ce0224cc20a22a0a3c1d6338aa5889e6160",
+  "manifest_sha256": "134de492c364ca554257de246b12d86c4f15f3109699ddc6760a844449b70a39",
+  "seal": {
+    "format": "forge-typed-evidence-v1",
+    "identity": "cpp-build-main-state-routing-comparison-v1",
+    "entries": 2552,
+    "files": 2544,
+    "symlinks": 8,
+    "bytes": 73045924,
+    "inventory_canonical_sha256": "5d8a5178de26e035c29d6b6534835b9f6ae7f50ca39d79dde4c87ff738b790f2",
+    "unknown_usage_requests": 1
+  },
+  "interpretation": "服务可用性中断，非完成的24槽效果比较；不能从两次相同正常路径作路由收益判断；原analysis触发槽0只指完成的decision，不代表未发起JEV请求。",
+  "source_planning_cost_per_arm_if_all_12_run_usd": "0.0762774"
+}

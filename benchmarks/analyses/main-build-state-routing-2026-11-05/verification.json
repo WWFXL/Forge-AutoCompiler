@@ -1,0 +1,83 @@
+{
+  "seal_valid": true,
+  "seal": {
+    "format": "forge-typed-evidence-v1",
+    "identity": "cpp-build-main-state-routing-comparison-v1",
+    "entries": 2552,
+    "files": 2544,
+    "symlinks": 8,
+    "bytes": 73045924,
+    "inventory_canonical_sha256": "5d8a5178de26e035c29d6b6534835b9f6ae7f50ca39d79dde4c87ff738b790f2",
+    "unknown_usage_requests": 1
+  },
+  "container_references": [
+    {
+      "session": "slot-03-double-conversion-jev/.compile-sessions/simple-system/e6f4b2ae85c9/session.json",
+      "kind": "container_name",
+      "reference": "deerflow-compile-simple-s-e6f4b2ae",
+      "absent": true
+    },
+    {
+      "session": "slot-03-double-conversion-jev/.compile-sessions/simple-system/e6f4b2ae85c9/session.json",
+      "kind": "container_id",
+      "reference": "ab51a4f42352212c629c1dbb90e237b4ff992251ebca50983a835a66a280a1d4",
+      "absent": true
+    },
+    {
+      "session": "slot-01-jsoncpp-rule/.compile-sessions/simple-system/fabb995aaaf3/session.json",
+      "kind": "container_name",
+      "reference": "deerflow-compile-simple-s-fabb995a",
+      "absent": true
+    },
+    {
+      "session": "slot-01-jsoncpp-rule/.compile-sessions/simple-system/fabb995aaaf3/session.json",
+      "kind": "container_id",
+      "reference": "2a234081a18def5f29537cff5776c7b229f1dbf3d428122d83b5577d4b41b658",
+      "absent": true
+    },
+    {
+      "session": "slot-01-jsoncpp-rule/.compile-sessions/simple-system/fabb995aaaf3/session.json",
+      "kind": "container_name",
+      "reference": "deerflow-replay-simple-s-fabb995a-replay_9596d",
+      "absent": true
+    },
+    {
+      "session": "slot-01-jsoncpp-rule/.compile-sessions/simple-system/fabb995aaaf3/session.json",
+      "kind": "container_id",
+      "reference": "3362d3f7b3794f28e62775e8c865caf7669919c9b6f6c337c622a1e1b2ed73ab",
+      "absent": true
+    },
+    {
+      "session": "slot-02-jsoncpp-jev/.compile-sessions/simple-system/6b59f7db3f05/session.json",
+      "kind": "container_name",
+      "reference": "deerflow-compile-simple-s-6b59f7db",
+      "absent": true
+    },
+    {
+      "session": "slot-02-jsoncpp-jev/.compile-sessions/simple-system/6b59f7db3f05/session.json",
+      "kind": "container_id",
+      "reference": "f09d2c166336a6595a4c5f363111f3277f9267ae4832fa9f5a3975d95b4b6e10",
+      "absent": true
+    },
+    {
+      "session": "slot-02-jsoncpp-jev/.compile-sessions/simple-system/6b59f7db3f05/session.json",
+      "kind": "container_name",
+      "reference": "deerflow-replay-simple-s-6b59f7db-replay_7a240",
+      "absent": true
+    },
+    {
+      "session": "slot-02-jsoncpp-jev/.compile-sessions/simple-system/6b59f7db3f05/session.json",
+      "kind": "container_id",
+      "reference": "0691c9f4a3d138d5adcf0a0f988ccd52347e5af934622135d51eaa9d1eec9c4d",
+      "absent": true
+    }
+  ],
+  "all_absent": true,
+  "provider_request_files": 1,
+  "provider_response_files": 0,
+  "provider_error_files": 1,
+  "known_response_tokens": 0,
+  "unknown_usage_requests": 1,
+  "paid_retry": false,
+  "notes": "封存后只读核验；总费用和总Token未知，不将completed-response 0误作总额0。"
+}
