@@ -2,7 +2,13 @@
 
 论文选材固定入口：[硕士论文实验与证据索引](docs/research/THESIS_EVIDENCE_INDEX.md)，[历史材料目录](docs/research/THESIS_EVIDENCE_CATALOG.md)保留存量导航。当前完整稿为[论文v0.6](docs/thesis/README.md)；E40/E41新增两层经验结果，E39及此前基础系统、组件与恢复实验按原版本和分母继续使用。
 
-## 当前阶段（2026-11-05；#689规划诊断字段修复完成工程验证）
+## 当前阶段（2026-11-05；#691两层经验联合入口与三方法36次比较准备完成）
+
+用户要求先完成流程装配和完整比较。[准备记录](docs/research/2026-11-05-two-level-system-preparation.md)复用共同入口，按完整公开任务自动精确匹配成功方案；命中直接Workflow，未命中一次建议检索后规划，真实失败按新恢复任务检索一次并修订，完整成功保存最终方案。本批固定历史库、不读回新输出。三新增项目double-conversion/libogg/xxhash独立参考完整通过；命中highwayhash/未命中libogg两条联合零Provider Docker路径均完整、源码/cleanup通过，分别0/1离线回复及0/1检索；75相关检查与Ruff通过，均不计模型效果。
+
+新身份`cpp-build-two-level-system-comparison-flash-v1`：三精确复用+三新增无方案、每层覆盖三系统，×两重复×基础Forge/两层经验Forge/强工具，共36次，Flash low、相同任务/资源/独立检查，分层报告；CXX旧结果保留参考。manifest SHA `e0bc1bbaedb744a79097d02dd02206889c8821a0c60151449b208bbe00b47d2f`。当前准备0真实Provider/新增费；用户本次明确执行两项，助手自限共享2美元/准备及运行4小时，正式执行前绑定当前请求和有效截止，不续旧余额；失败不重试/补槽，未知用量/身份/cleanup异常停止。发布和运行进度以GitHub及独立会话原件为准，原用户工作区保持；旧E46/E47和论文v0.6不改。
+
+## 上一阶段（2026-11-05；#689规划诊断字段修复完成工程验证）
 
 本轮仅按用户要求补修非核心字段阻断，[工程记录](docs/research/2026-11-05-planner-diagnostics-repair.md)：简洁规划/恢复动作 schema 移除 `diagnostic_paths`，响应若携带仅丢弃此提示，原响应保留；系统完整命令日志和失败交接继续工作，其余未知字段、执行路径和独立验收保持。56 项相关回归、Ruff/格式通过；第一份原 highwayhash 响应一次零 Provider Docker 构建、三个作者测试、交付、clean replay、源码及 cleanup 全过，23.06 秒；工程驱动最终计量键笔误保留，正确字段只读核验通过，未重跑构建。
 

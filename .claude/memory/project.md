@@ -618,6 +618,12 @@
 
 ## 最近变更 (Recent Changes)
 
+- 2026-11-05 — #691装配两层经验共同流程并准备三方法36次完整比较。
+  - 文件: `simple_build_experience.py`、`scripts/forge_two_level_system_comparison.py`、`test_two_level_system_comparison.py`、新六任务/manifest/preregistration、`docs/research/2026-11-05-two-level-system-preparation.md`。
+  - 行为: 按完整公开任务检索固定成功方案，多份同身份拒绝隐式选择；同一入口同时提供精确方案与建议库，命中直接Workflow、未命中一次建议检索后规划，失败按恢复任务检索一次并修订，完整成功保存最终方案。批次不读回新输出，不改旧检索算法。
+  - 验证: 三新增double-conversion/libogg/xxhash参考完整；highwayhash命中/libogg未命中两联合零Provider Docker路径均完整，0/1离线回复、0/1检索、源码/cleanup通过；75相关回归/Ruff/格式通过。来源网络失败、参考/离线驱动开始前错误及修正后独立文件保留，不回填旧E46/E47或当模型效果。
+  - 边界: `cpp-build-two-level-system-comparison-flash-v1`，三复用+三新增无方案×两重复×基础/两层经验/强工具=36次，按层报告，Flash低思考、全费用/原验收；用户本次明确执行两项，助手自限新增2美元/准备与执行4小时，付费前绑定请求/manifest/截止。原件`forge-two-level-system-session-2026-11-05-v1`；只合科研集成分支，原checkout用户内容保持。正式结果另报，当前准备0Provider。
+
 - 2026-11-05 — #689移出简洁规划动作的诊断路径，修复非核心元数据阻断。
   - 文件: `simple_build_task.py`、`test_simple_planning.py`、`test_simple_build.py`、`benchmarks/fixtures/simple-planner-diagnostics-v1.json`、`docs/research/2026-11-05-planner-diagnostics-repair.md`。
   - 行为: 模型 schema 与恢复上下文不再提供 diagnostic_paths；响应中该字段仅丢弃、不执行，原响应保留；其他字段/路径/Shell 与原验收保持。完整命令日志/退出码/失败哈希与输出尾部照常交接。

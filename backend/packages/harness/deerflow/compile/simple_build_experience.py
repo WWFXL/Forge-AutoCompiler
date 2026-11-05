@@ -54,6 +54,14 @@ def verified_simple_recipe(*, source_id, plan, validation):
     return SimpleProjectRecipe(source_id=source_id, task=plan.task, steps=plan.steps, observed_validation=copy.deepcopy(validation))
 
 
+def select_simple_recipe(*, recipes, task: PublicBuildTask) -> SimpleProjectRecipe | None:
+    """按完整公开任务查找成功方案；库名相同不足以复用，重复身份须先消歧。"""
+    matches = [recipe for recipe in recipes if recipe.match(task)]
+    if len(matches) > 1:
+        raise PlanContractError("成功方案库含多个相同任务身份，不能隐式按顺序挑选")
+    return matches[0] if matches else None
+
+
 class SimpleStateTargetBank(StateTargetBank):
     """从旧库选择匹配当前证据的少量动作；不附带整份来源轨迹和其他阶段经验。"""
 
