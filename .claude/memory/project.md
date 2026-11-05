@@ -617,6 +617,11 @@
   - 下一步: 等待实验负责人确认当前网络接入介质，并决定是否授权只读 endpoint 诊断和新的 canary amendment；获得确认后必须另建中文 Issue/PR 和协议 identity，保留当前失败 marker。
 
 ## 最近变更 (Recent Changes)
+- 2026-11-05 — #695准备九项目三方法简洁主构建54次并整合论文，Jev服务不阻塞主比较。
+  - 文件: `scripts/forge_main_system_comparison.py`, `scripts/forge_main_system_sources.py`, `benchmarks/manifests/cpp-build-main-system-comparison-flash-v1.json`。
+  - 动机: 用户要求自主完成下一阶段；三历史方案按main-build-v1实建确认，主构建/交付/replay/源码/cleanup通过，0Provider，不计效果。保存新scope方案但不喂回本批；旧终态保持。相关13检查通过。
+  - 边界: 自限10美元/UTC07:44:31–15:44:31，54次/无重试，未知/身份/cleanup异常停；具体用户原话及代码绑定见会话授权收据。尚未完成正式数据采集，不把本准备当效果。原checkout修改保持。
+
 - 2026-11-05 — #693完成主构建修复、受限Jev路由及E49中断结果/论文记录。
   - 文件: `build_state_routing.py`, `scripts/forge_main_build_state_comparison.py`, `docs/research/2026-11-05-main-build-state-routing-results.md`, `benchmarks/analyses/main-build-state-routing-2026-11-05/`, 第3/4/6章及`RESEARCH_STATUS.md`。
   - 结果: 24计划槽3终态/21未启动；jsoncpp规则/Jev各一次主构建/交付/重放/源码/cleanup通过。double-conversion原CMake不足后首次Jev请求TypeSafePermissionDeniedError、用量未知，未产生选择或恢复，后层未观察；不把21槽填失败、不作Jev效果比较。Flash0请求/Jev1请求成功0，已知完成费0而总费未知。
