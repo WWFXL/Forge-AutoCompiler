@@ -2,7 +2,13 @@
 
 论文选材固定入口：[硕士论文实验与证据索引](docs/research/THESIS_EVIDENCE_INDEX.md)，[历史材料目录](docs/research/THESIS_EVIDENCE_CATALOG.md)保留存量导航。当前完整稿为[论文v0.6](docs/thesis/README.md)；E40/E41新增两层经验结果，E39及此前基础系统、组件与恢复实验按原版本和分母继续使用。
 
-## 当前阶段（2026-11-05；#685规划交付与容量修复完成，两批模型路由比较闭合）
+## 当前阶段（2026-11-05；#687固定Flash下基础/经验Forge两项比较已准备）
+
+本轮转数据采集。按用户“开启比较基础Forge与经验Forge”固定四个开发暴露项目jsoncpp/libsrtp/libite/highwayhash，各两重复：跨项目条件建议16次，同项目精确成功方案复用16次。两项独立分母，同一Flash、修复后的共同Harness与Workflow/原验收；不加组件、不在线更新库、不复用编译产物。同项目来源固定E45第一重复Flash槽1/4/5/8，来源费用0.0314205美元及历史库0.095129美元另列；不声称未见泛化。
+
+[跨项目协议](benchmarks/preregistrations/cpp-build-repaired-cross-project-experience-flash-v1.md)、[同项目协议](benchmarks/preregistrations/cpp-build-simple-project-reuse-flash-v1.md)与同名manifest绑定新身份；入口`scripts/forge_base_experience_comparison.py`复用已验证执行。五项新增编排检查通过，只证明处理隔离/共享扣费与异常停止。两批共享助手自限新增2美元/UTC00:30:44–02:30:44，准备计入；授权来自当前明确执行指令及会话既有实验/发布授权，不续旧账本。无自动重试/补槽，未知用量/模型身份/cleanup异常停止整批。正式结果尚未观察；下一项在固定提交采集32次，分别分析并登记E46/E47。旧E44/E45、失败与论文v0.6保持，发布仅科研集成分支。
+
+## 上一阶段（2026-11-05；#685规划交付与容量修复完成，两批模型路由比较闭合）
 
 本轮完成工程修复、真实比较与结果分析。[报告](docs/research/2026-11-05-planner-model-results.md)和[E45](docs/research/THESIS_EVIDENCE_INDEX.md#e45)记录独立`cpp-build-planner-model-confirmation-v2`16/16终态：四项目×两重复×经验Forge内Flash/RichLab初始规划，两组方案/主构建/完整均8/8；请求23/19，估费0.0810804/0.252581美元，累计422.20/503.45秒、初始规划48.00/127.64秒，读取19/9。16份均工具提交，测试/交付/replay/源码/cleanup全过；三槽实际初始片段压缩，无容量停止，恢复/格式纠正均0。本开发范围支持Flash默认，RichLab少请求但费用3.12倍、耗时高19.2%，不作官方模型排名、经验/状态独立增量或未见泛化。
 
