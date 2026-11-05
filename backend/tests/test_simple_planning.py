@@ -192,10 +192,39 @@ def test_rejected_read_remains_feedback_instead_of_aborting_planning(tmp_path):
 
 def test_schema_omits_obsolete_observations_and_rejects_unknown_fields():
     assert "files_exist" not in str(SimpleBuildActions.model_json_schema())
+    assert "diagnostic_paths" not in str(SimpleBuildActions.model_json_schema())
     invalid = simple_actions().model_dump()
     invalid["steps"][0]["files_exist"] = ["guessed.a"]
     with pytest.raises(ValidationError):
         SimpleBuildActions.model_validate(invalid)
+
+
+@pytest.mark.parametrize("index", [0, 1])
+@pytest.mark.parametrize("channel", ["tool", "json_body"])
+def test_e47_diagnostic_metadata_cannot_block_original_build_actions(tmp_path, index, channel):
+    root = Path(__file__).resolve().parents[2]
+    original = json.loads((root / "benchmarks/fixtures/simple-planner-diagnostics-v1.json").read_text())["responses"][index]["proposal"]
+    reply = response("SimpleBuildActions", original) if channel == "tool" else body_response(json.dumps(original, ensure_ascii=False))
+    plan, meter = run(tmp_path, [reply])
+    assert meter.summary()["model_requests"] == 1
+    assert plan.steps[-1].command == original["steps"][0]["command"] == "make -j2"
+    assert plan.steps[-1].diagnostic_paths == ()
+    accepted = json.loads((tmp_path / "agent/simple-actions-1.json").read_text())
+    assert "diagnostic_paths" not in accepted["steps"][0]
+    sent = request(tmp_path, 1)
+    assert "diagnostic_paths" not in str(sent["tools"])
+    raw = json.loads((tmp_path / "agent/response-1.json").read_text())[0]
+    retained = raw["tool_calls"][0]["args"] if channel == "tool" else json.loads(raw["content"])
+    assert retained == original
+    assert "simple.proposal_rejected" not in (tmp_path / "agent/events.jsonl").read_text()
+
+
+@pytest.mark.parametrize("changes", [{"workdir": "/etc"}, {"workdir": "/workspace/repo/../outside"}, {"unexpected_field": "ignore me"}])
+def test_ignored_diagnostic_hint_does_not_relax_executable_fields(changes):
+    value = simple_actions().model_dump()
+    value["steps"][0].update(diagnostic_paths=["/etc/passwd"], **changes)
+    with pytest.raises(ValidationError):
+        SimpleBuildActions.model_validate(value)
 
 
 def test_compact_experience_matches_conditions_not_action_or_other_stage():
