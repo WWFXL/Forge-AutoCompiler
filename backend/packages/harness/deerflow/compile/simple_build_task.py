@@ -60,7 +60,7 @@ class PublicBuildTask(BaseModel):
 
     model_config = ConfigDict(frozen=True, extra="forbid")
 
-    task_version: Literal["simple-build-v1"] = "simple-build-v1"
+    task_version: Literal["simple-build-v1", "main-build-v1"] = "simple-build-v1"
     plan_id: str = Field(pattern=r"^[a-zA-Z0-9][a-zA-Z0-9_-]{0,63}$")
     repository_url: str = Field(min_length=1)
     commit_sha: str = Field(pattern=r"^(?:[0-9a-f]{40}|[0-9a-f]{64})$")

@@ -617,6 +617,11 @@
   - 下一步: 等待实验负责人确认当前网络接入介质，并决定是否授权只读 endpoint 诊断和新的 canary amendment；获得确认后必须另建中文 Issue/PR 和协议 identity，保留当前失败 marker。
 
 ## 最近变更 (Recent Changes)
+- 2026-11-05 — #693实现新主构建范围与异常语义路由，准备24次组件比较。
+  - 文件: `backend/packages/harness/deerflow/compile/build_state_routing.py`, `scripts/forge_main_build_state_comparison.py`, `benchmarks/preregistrations/cpp-build-main-state-routing-comparison-v1.md`, `RESEARCH_STATUS.md`。
+  - 动机: 用户明确简化作者测试要求，并要求用Jev解释实际异常及选择已有动作；共同修复变量命令误拦，旧冻结结果不改。
+  - 边界: 45相关检查通过；真实工程两样例均主构建/交付/重放/源码/cleanup通过，0Provider；当前用户开始指令覆盖四步24次，助手自限新增2美元/UTC05:38:28–09:38:28（含准备），无自动重试/补槽，未知/身份/清理停止。先完成工程真实路径、提交和绑定manifest，再新身份采集，旧Jev身份不恢复。原checkout用户memory/HTML/uv.lock保持。
+
 
 - 2026-11-05 — #691完成两层经验三方法36次比较并保存E48。
   - 文件: `docs/research/2026-11-05-two-level-system-results.md`, `benchmarks/analyses/two-level-system-2026-11-05/`, `docs/research/THESIS_EVIDENCE_INDEX.md`, `RESEARCH_STATUS.md`。

@@ -233,7 +233,7 @@ class SimpleBuildWorkflow(PlanWorkflow):
         if self.handoffs_used:
             self.timings["recovery_execution_seconds"] = self.timings.get("recovery_execution_seconds", 0) + (record.duration_seconds or 0)
         if step.role == "build":
-            self.layers["command_build_passed"] = bool(record.exit_code == 0 and not record.timed_out and "build" in operations.infer_command_roles(step.command))
+            self.layers["command_build_passed"] = bool(record.exit_code == 0 and not record.timed_out)
         source_unchanged(self.root, self.baseline)
         if not passed:
             return False
@@ -262,7 +262,9 @@ class SimpleBuildWorkflow(PlanWorkflow):
         result = super().run()
         if self.status != "ready_for_verification":
             return result
-        self.layers["command_build_passed"] = any(s.role == "build" and s.step_id in self.completed and "build" in operations.infer_command_roles(s.command) for s in self.plan.steps)
+        # 角色声明表示动作目的；成功记录与下面的独立主产物检查共同确认结果。
+        # Shell变量/包装器无法静态识别，不能据此否定已观察到的实际构建。
+        self.layers["command_build_passed"] = any(s.role == "build" and s.step_id in self.completed for s in self.plan.steps)
         observed = time.monotonic()
         self.primary = primary_artifacts(task=self.plan.task, reference=self.reference, root=self.root, baseline=self.baseline, deadline=observed + min(30, self._remaining()))
         self.timings["result_location_seconds"] = time.monotonic() - observed
@@ -321,10 +323,12 @@ class SimpleBuildWorkflow(PlanWorkflow):
         source_unchanged(self.root, self.baseline)
         return record, result
 
-    def postchecks(self, *, author_test_seconds=60, delivery_seconds=30, replay=True):
+    def postchecks(self, *, author_test_seconds=60, delivery_seconds=30, replay=True, validation_scope="author_tests"):
         """主构建已冻结后独立计时；测试失败仍可观察构建重放，不吞主构建预算。"""
         if self.status != "primary_completed":
             raise PlanContractError("必须先确认主要构建")
+        if validation_scope not in {"main_build", "author_tests"}:
+            raise PlanContractError("未知构建验证范围")
         source_unchanged(self.root, self.baseline)
         artifacts = self.primary["artifacts"]
         destinations = [Path(p["path"]).name for p in artifacts]
@@ -339,10 +343,13 @@ class SimpleBuildWorkflow(PlanWorkflow):
         self.timings["delivery_seconds"] = time.monotonic() - start
         tests = []
         start = time.monotonic()
-        author_steps, selection = resolve_author_tests(self.root, self.reference)
+        if validation_scope == "main_build":
+            author_steps, selection = (), dict(route="not_required", reason="新主构建任务不要求完整作者测试")
+        else:
+            author_steps, selection = resolve_author_tests(self.root, self.reference)
         (self.directory / "author-test-selection.json").write_text(json.dumps(selection, ensure_ascii=False, indent=2) + "\n")
         if not author_steps:
-            self.layers["author_tests"] = "not_applicable" if self.reference.tests_not_applicable_reason else "unobserved"
+            self.layers["author_tests"] = "not_required" if validation_scope == "main_build" else "not_applicable" if self.reference.tests_not_applicable_reason else "unobserved"
         else:
             self.layers["author_tests"] = "passed"
             for step in author_steps:
@@ -380,6 +387,7 @@ class SimpleBuildWorkflow(PlanWorkflow):
             replayed_author_tests=replayed_tests and replay,
             session_status=self._session.status,
             replay_attempts=[asdict(a) for a in self._session.replay_attempts],
+            validation_scope=validation_scope,
         )
         (self.directory / "postcheck-result.json").write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n")
         return result
