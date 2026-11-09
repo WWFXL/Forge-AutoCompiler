@@ -1,5 +1,7 @@
 # 历史研究材料目录
 
+共同机制修复：[执行与观察分离、观察恢复和一次修订反馈](2026-11-09-workflow-state-contract-repair.md)，执行契约见[当前说明](../compile_workflow_execution.md)；工程证据，不增加模型效果分母。
+
 工程修复：[配置阶段执行与实际目录观察](2026-11-09-workflow-configuration-repair.md)，miniz/libogg原方案两条零Provider实建通过；支持执行语义说明，不新增效果分母、不回填E51。
 
 新增[E51](THESIS_EVIDENCE_INDEX.md#e51)：[首轮离线Harness实际提案与24次比较](2026-11-09-offline-harness-round1-results.md)。[准备记录](2026-11-09-offline-harness-preparation.md)仅为共同修复/设置，不增加效果分母。

@@ -16,7 +16,7 @@ from deerflow.compile import operations
 from deerflow.compile.plan_workflow import PlanContractError, PlanStep, PlanWorkflow, _digest
 from deerflow.compile.schemas import BuildCommandRecord, CommandResult, utc_now_iso
 from deerflow.compile.simple_author_tests import resolve_author_tests
-from deerflow.compile.simple_build_task import BuildReference, SimpleBuildPlan
+from deerflow.compile.simple_build_task import BuildReference, SimpleBuildPlan, validate_simple_revision
 
 
 def file_hash(path):
@@ -54,7 +54,9 @@ def observe_configuration(root: Path, system: str, *, directory: str | None = No
     """从实际Cache读取generator和源码，绝不固定要求Ninja。"""
     if system == "autotools":
         folder = root / (directory or ".")
-        return dict(status="passed" if (folder / "config.status").is_file() and (folder / "Makefile").is_file() else "unknown", directory=directory or ".", build_system=system)
+        # GNU Make的标准入口；其他作者自定义入口保留unknown，由真实build反馈确认。
+        entry = next((name for name in ("GNUmakefile", "makefile", "Makefile") if (folder / name).is_file()), None)
+        return dict(status="passed" if (folder / "config.status").is_file() and entry else "unknown", directory=directory or ".", entry=entry, build_system=system)
     if system != "cmake":
         return dict(status="not_applicable", reason="当前入口不使用CMake/Autotools配置观察；主构建仍须独立产物检查", configurations=[], build_system=system)
     rows = []
@@ -85,10 +87,13 @@ def observe_configuration(root: Path, system: str, *, directory: str | None = No
     return dict(status="passed" if rows and all(r["status"] == "passed" for r in rows) else "unknown" if not rows or any(r["status"] == "unknown" for r in rows) else "failed", configurations=rows, build_system="cmake")
 
 
-def configuration_entry(root: Path, step: PlanStep, previous: dict, *, output: str = "") -> tuple[str, str | None]:
-    """绑定实际入口；CMake自身报告的目录覆盖preset/继承/宏展开后的路径。"""
-    system, directory = previous.get("build_system", "make"), previous.get("directory")
+def configuration_entry(root: Path, step: PlanStep, previous: dict, *, output: str = "", build_directory: str | None = None) -> tuple[str, str | None]:
+    """目录来自显式上下文或原生工具反馈；无法绑定时不猜Shell参数含义。"""
+    system = previous.get("build_system", "make")
+    directory = previous.get("directory") if step.role == "build" else None
     working = PurePosixPath(step.workdir).relative_to("/workspace/repo")
+    if build_directory is not None:
+        directory = PurePosixPath(build_directory).relative_to("/workspace/repo").as_posix()
     for segment in operations._shell_command_segments(step.command):
         invocation = operations._command_invocation(segment)
         if not invocation:
@@ -97,39 +102,31 @@ def configuration_entry(root: Path, step: PlanStep, previous: dict, *, output: s
         name = PurePosixPath(executable).name
         if name not in {"cmake", "configure", "make", "gmake", "ninja", "scons", "meson"}:
             continue
-        location = working
-        directory_flags = {"-B", "--build"} if name == "cmake" else {"-C", "--directory"} if name in {"make", "gmake", "ninja"} else set()
-        for index, arg in enumerate(args):
-            if arg in directory_flags and index + 1 < len(args):
-                value = PurePosixPath(args[index + 1])
-                location = value.relative_to("/workspace/repo") if value.is_absolute() else working / value
-            elif name == "cmake" and arg.startswith("-B") and len(arg) > 2:
-                value = PurePosixPath(arg[2:])
-                location = value.relative_to("/workspace/repo") if value.is_absolute() else working / value
-        if name == "cmake":
-            # 让CMake解析preset，不另实现一套includes/inherits/宏展开规则。
-            # 日志只定位目录，随后仍须核验真实Cache、源码身份和generator入口。
-            for line in output.splitlines():
-                prefix = "-- Build files have been written to: "
-                if line.startswith(prefix):
-                    value = PurePosixPath(line.removeprefix(prefix).strip())
-                    if not value.is_absolute() or not value.is_relative_to("/workspace/repo"):
-                        raise PlanContractError("CMake报告的配置目录必须在仓库内")
-                    location = value.relative_to("/workspace/repo")
-        # 无法绑定到仓库内的目录时，不观察其他目录的过期Cache。
-        absolute = (root / location).resolve()
-        if not absolute.is_relative_to(root.resolve()):
-            raise PlanContractError("配置观察目录必须在仓库内")
-        directory = absolute.relative_to(root.resolve()).as_posix()
         if name == "cmake":
             system = "cmake"
         elif name == "configure":
             system = "autotools"
-        elif name in {"make", "gmake", "ninja"}:
-            folder = root / directory
-            system = "cmake" if (folder / "CMakeCache.txt").is_file() else "autotools" if (folder / "config.status").is_file() else "make" if name != "ninja" else "ninja"
-        else:
+        elif name in {"make", "gmake", "ninja"} and directory is None:
+            # 没有已绑定的生成目录时，以实际构建入口替代初始扫描标签。
+            system = "ninja" if name == "ninja" else "make"
+        elif name in {"scons", "meson"}:
             system = name
+    if system == "cmake":
+        # 原生工具负责preset/宏/实际目录；终端日志缺失不等于配置失败。
+        for line in output.splitlines():
+            prefix = "-- Build files have been written to: "
+            if line.startswith(prefix):
+                value = PurePosixPath(line.removeprefix(prefix).strip())
+                if not value.is_absolute() or not value.is_relative_to("/workspace/repo"):
+                    raise PlanContractError("CMake报告的配置目录必须在仓库内")
+                directory = value.relative_to("/workspace/repo").as_posix()
+    elif directory is None:
+        directory = working.as_posix()
+    if directory is not None:
+        absolute = (root / directory).resolve()
+        if not absolute.is_relative_to(root.resolve()):
+            raise PlanContractError("配置观察目录必须在仓库内")
+        directory = absolute.relative_to(root.resolve()).as_posix()
     return system, directory
 
 
@@ -249,7 +246,7 @@ class SimpleBuildWorkflow(PlanWorkflow):
         self.meter = meter
         self.root = Path(kwargs["session"].leadagent_repo_dir).resolve()
         self.baseline = source_inventory(self.root)
-        self.configuration = observe_configuration(self.root, kwargs["plan"].build_system)
+        self.configuration = dict(status="unknown", directory=None, build_system=kwargs["plan"].build_system, reason="尚无当前动作的配置证据")
         self.observation_step = None
         self.observation_record = None
         self.primary = None
@@ -268,9 +265,9 @@ class SimpleBuildWorkflow(PlanWorkflow):
     def _validate_step(self, step):
         validate_phase_command(step)
 
-    def refresh_configuration(self):
+    def _configuration_observation(self, plan):
         if self.observation_step is None:
-            return self.configuration
+            return dict(self.configuration)
         record = self.observation_record
         path = Path(record.log_path) if record and record.log_path else None
         # 配置目录证据只来自当前配置动作，不能拿旧配置日志覆盖当前build目录。
@@ -278,11 +275,16 @@ class SimpleBuildWorkflow(PlanWorkflow):
         if self.observation_step.role == "configure" and path and path.is_file():
             with path.open(errors="replace") as stream:
                 output = "".join(line for line in stream if line.startswith("-- Build files have been written to: "))
-        system, directory = configuration_entry(self.root, self.observation_step, self.configuration, output=output)
-        self.configuration = observe_configuration(self.root, system, directory=directory)
-        self.configuration["directory"] = directory
-        self.configuration["command_id"] = record.command_id if record else None
-        self.configuration["phase_complete"] = self.observation_step.role != "configure" or not any(s.role == "configure" and s.step_id != self.observation_step.step_id and s.step_id not in self.completed for s in self.plan.steps)
+        system, directory = configuration_entry(self.root, self.observation_step, self.configuration, output=output, build_directory=plan.build_directory)
+        observation = observe_configuration(self.root, system, directory=directory) if directory is not None else dict(status="unknown", build_system=system, reason="实际构建目录未绑定；不扫描其他目录的旧配置来代替当前证据")
+        observation["directory"] = directory
+        observation["declared_build_directory"] = plan.build_directory
+        observation["command_id"] = record.command_id if record else None
+        observation["phase_complete"] = self.observation_step.role != "configure" or not any(s.role == "configure" and s.step_id != self.observation_step.step_id and s.step_id not in self.completed for s in plan.steps)
+        return observation
+
+    def refresh_configuration(self):
+        self.configuration = self._configuration_observation(self.plan)
         return self.configuration
 
     def _execute(self, step):
@@ -319,14 +321,18 @@ class SimpleBuildWorkflow(PlanWorkflow):
             self.manager.log_event(self._session, "simple.configuration_observed", step_id=step.step_id, **self.configuration)
             # autogen/autoreconf等前置可以单列动作；只在配置阶段结束时要求配置完成。
             # 所有中间动作仍必须成功退出；实际build与独立主产物检查保持不变。
-            if self.configuration["phase_complete"] and self.configuration["status"] not in {"passed", "not_applicable"}:
+            if self.configuration["phase_complete"] and self.configuration["status"] == "failed":
                 self.completed.pop(step.step_id, None)
                 return False
+            if self.configuration["status"] == "unknown":
+                # 只继续已经规划且受原时限/命令数约束的动作；unknown不改写为passed。
+                # 构建命令失败仍交接；build退出0后还必须通过独立主产物检查。
+                self.manager.log_event(self._session, "simple.observation_inconclusive", step_id=step.step_id, next_action="continue_planned_execution", command_id=record.command_id)
         return True
 
     def _request_handoff(self, reason, step=None):
         if reason == "step_failed_or_expectation_missing" and self.observation_record and self._session.commands[-1].command_id == self.observation_record.command_id:
-            reason = "configuration_state_incomplete"
+            reason = "configuration_inconsistent"
         result = super()._request_handoff(reason, step)
         if self.handoff:
             self.handoff.update(configuration_state=self.configuration, primary_components=self.primary)
@@ -356,10 +362,43 @@ class SimpleBuildWorkflow(PlanWorkflow):
         self._persist()
         return self.snapshot()
 
-    def apply_revision(self, *, handoff_id, plan, reason):
+    def validate_revision(self, plan):
+        """先把可执行性问题反馈给Agent；只改观察上下文时不重跑成功命令。"""
         plan = SimpleBuildPlan.model_validate(plan)
-        if plan.task != self.plan.task:
-            raise PlanContractError("修订不得改变公开任务或资源身份")
+        if plan.task != self.plan.task or plan.revision != self.plan.revision + 1:
+            raise PlanContractError("修订不得改变公开任务或资源身份，必须递增一个版本")
+        record = self.observation_record
+        observation_only = bool(self.handoff and self.handoff["reason"] == "configuration_inconsistent" and record and record.exit_code == 0 and not record.timed_out)
+        kind = validate_simple_revision(self.plan, plan, allow_observation_only=observation_only)
+        observation = None
+        if kind == "observation":
+            source_unchanged(self.root, self.baseline)
+            observation = self._configuration_observation(plan)
+            if observation["status"] != "passed":
+                raise PlanContractError("新观察目录没有通过实际配置核验；不能据此解除配置冲突或重跑原命令")
+        return kind, observation
+
+    def apply_revision(self, *, handoff_id, plan, reason):
+        with self.manager.session_lock(self.thread_id, self.session_id):
+            self._observe()
+            if self.status != "needs_handoff" or not self.handoff or self.handoff["handoff_id"] != handoff_id or not reason.strip():
+                raise PlanContractError("没有匹配的活动交接或修改理由")
+            plan = SimpleBuildPlan.model_validate(plan)
+            kind, observation = self.validate_revision(plan)
+            if kind == "observation":
+                # Agent不可生成/覆盖系统步骤；观察修订仍保留已执行的实际清理配方。
+                replacement = {s.step_id: s for s in plan.steps}
+                plan = plan.model_copy(update={"steps": tuple(s if s.step_id == "forge-generated-reset" else replacement[s.step_id] for s in self.plan.steps)})
+                self.plan, self.configuration = plan, observation
+                self.completed[self.observation_step.step_id] = self.observation_record.command_id
+                self.status, self.handoff = "pending", None
+                self._write_plan()
+                self.manager.log_event(self._session, "simple.observation_revised", revision=plan.revision, reason=reason, command_reexecuted=False, configuration=observation)
+                self._persist()
+                return
+            self._apply_execution_revision(handoff_id=handoff_id, plan=plan, reason=reason)
+
+    def _apply_execution_revision(self, *, handoff_id, plan, reason):
         old = [s for s in self.plan.steps if s.step_id != "forge-generated-reset"]
         new = [s for s in plan.steps if s.step_id != "forge-generated-reset"]
         before = [(s.role, s.command, s.workdir) for s in old if s.role in {"dependency", "configure"}]
@@ -367,12 +406,14 @@ class SimpleBuildWorkflow(PlanWorkflow):
         if before != after:
             position = next((i for i, s in enumerate(new) if s.role != "dependency"), len(new))
             new.insert(position, generated_reset_step(self.baseline))
-            plan = SimpleBuildPlan(task=plan.task, revision=plan.revision, steps=tuple(new))
+            plan = plan.model_copy(update={"steps": tuple(new)})
         elif any(s.step_id == "forge-generated-reset" for s in self.plan.steps):
             position = next((i for i, s in enumerate(new) if s.role != "dependency"), len(new))
             new.insert(position, next(s for s in self.plan.steps if s.step_id == "forge-generated-reset"))
-            plan = SimpleBuildPlan(task=plan.task, revision=plan.revision, steps=tuple(new))
+            plan = plan.model_copy(update={"steps": tuple(new)})
         super().apply_revision(handoff_id=handoff_id, plan=plan, reason=reason)
+        self.observation_step = self.observation_record = None
+        self.configuration = dict(status="unknown", directory=None, build_system=plan.build_system, reason="方案修订后等待新的实际执行证据")
         self.primary = None
         self.layers["command_build_passed"] = self.layers["primary_build_completed"] = None
 
