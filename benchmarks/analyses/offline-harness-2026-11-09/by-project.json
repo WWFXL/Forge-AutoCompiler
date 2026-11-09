@@ -1,0 +1,275 @@
+{
+  "double-conversion": {
+    "H0": {
+      "planned": 2,
+      "observed": 2,
+      "unobserved": 0,
+      "primary_completed": 2,
+      "main_task_completed": 2,
+      "delivery": {
+        "passed": 2
+      },
+      "clean_replay": {
+        "passed": 2
+      },
+      "model_requests": 2,
+      "estimated_cost_usd": "0.0041364",
+      "total_wall_seconds": 59.992507655057125,
+      "initial_planning_seconds": 6.619692694977857,
+      "recovery_seconds": 0.0,
+      "author_tests": {
+        "not_required": 2
+      }
+    },
+    "H1": {
+      "planned": 2,
+      "observed": 2,
+      "unobserved": 0,
+      "primary_completed": 2,
+      "main_task_completed": 2,
+      "delivery": {
+        "passed": 2
+      },
+      "clean_replay": {
+        "passed": 2
+      },
+      "model_requests": 3,
+      "estimated_cost_usd": "0.0066129",
+      "total_wall_seconds": 66.75417286995798,
+      "initial_planning_seconds": 8.641377273015678,
+      "recovery_seconds": 0.0,
+      "author_tests": {
+        "not_required": 2
+      }
+    }
+  },
+  "miniz": {
+    "H0": {
+      "planned": 2,
+      "observed": 2,
+      "unobserved": 0,
+      "primary_completed": 1,
+      "main_task_completed": 1,
+      "delivery": {
+        "passed": 1,
+        "unobserved": 1
+      },
+      "clean_replay": {
+        "passed": 1,
+        "unobserved": 1
+      },
+      "model_requests": 7,
+      "estimated_cost_usd": "0.0245481",
+      "total_wall_seconds": 81.52817563596182,
+      "initial_planning_seconds": 14.04969428491313,
+      "recovery_seconds": 11.557870893971995,
+      "author_tests": {
+        "not_required": 1,
+        "unobserved": 1
+      }
+    },
+    "H1": {
+      "planned": 2,
+      "observed": 2,
+      "unobserved": 0,
+      "primary_completed": 2,
+      "main_task_completed": 2,
+      "delivery": {
+        "passed": 2
+      },
+      "clean_replay": {
+        "passed": 2
+      },
+      "model_requests": 4,
+      "estimated_cost_usd": "0.0130272",
+      "total_wall_seconds": 119.2715153110912,
+      "initial_planning_seconds": 11.950214182026684,
+      "recovery_seconds": 0.0,
+      "author_tests": {
+        "not_required": 2
+      }
+    }
+  },
+  "libogg": {
+    "H0": {
+      "planned": 2,
+      "observed": 2,
+      "unobserved": 0,
+      "primary_completed": 1,
+      "main_task_completed": 1,
+      "delivery": {
+        "passed": 1,
+        "unobserved": 1
+      },
+      "clean_replay": {
+        "passed": 1,
+        "unobserved": 1
+      },
+      "model_requests": 6,
+      "estimated_cost_usd": "0.0207219",
+      "total_wall_seconds": 62.39617216202896,
+      "initial_planning_seconds": 11.710099156014621,
+      "recovery_seconds": 9.212812265031971,
+      "author_tests": {
+        "not_required": 1,
+        "unobserved": 1
+      }
+    },
+    "H1": {
+      "planned": 2,
+      "observed": 2,
+      "unobserved": 0,
+      "primary_completed": 1,
+      "main_task_completed": 1,
+      "delivery": {
+        "unobserved": 1,
+        "passed": 1
+      },
+      "clean_replay": {
+        "unobserved": 1,
+        "passed": 1
+      },
+      "model_requests": 9,
+      "estimated_cost_usd": "0.0330888",
+      "total_wall_seconds": 64.43954895110801,
+      "initial_planning_seconds": 14.582896486972459,
+      "recovery_seconds": 7.790150732034817,
+      "author_tests": {
+        "unobserved": 1,
+        "not_required": 1
+      }
+    }
+  },
+  "libsrtp": {
+    "H0": {
+      "planned": 2,
+      "observed": 2,
+      "unobserved": 0,
+      "primary_completed": 2,
+      "main_task_completed": 2,
+      "delivery": {
+        "passed": 2
+      },
+      "clean_replay": {
+        "passed": 2
+      },
+      "model_requests": 7,
+      "estimated_cost_usd": "0.0276279",
+      "total_wall_seconds": 66.79848147090524,
+      "initial_planning_seconds": 13.261467694072053,
+      "recovery_seconds": 0.0,
+      "author_tests": {
+        "not_required": 2
+      }
+    },
+    "H1": {
+      "planned": 2,
+      "observed": 2,
+      "unobserved": 0,
+      "primary_completed": 2,
+      "main_task_completed": 2,
+      "delivery": {
+        "passed": 2
+      },
+      "clean_replay": {
+        "passed": 2
+      },
+      "model_requests": 11,
+      "estimated_cost_usd": "0.0438579",
+      "total_wall_seconds": 74.25784215400927,
+      "initial_planning_seconds": 20.18039317394141,
+      "recovery_seconds": 0.0,
+      "author_tests": {
+        "not_required": 2
+      }
+    }
+  },
+  "xxhash": {
+    "H0": {
+      "planned": 2,
+      "observed": 2,
+      "unobserved": 0,
+      "primary_completed": 2,
+      "main_task_completed": 2,
+      "delivery": {
+        "passed": 2
+      },
+      "clean_replay": {
+        "passed": 2
+      },
+      "model_requests": 3,
+      "estimated_cost_usd": "0.0107886",
+      "total_wall_seconds": 41.0375642060535,
+      "initial_planning_seconds": 7.954902595025487,
+      "recovery_seconds": 0.0,
+      "author_tests": {
+        "not_required": 2
+      }
+    },
+    "H1": {
+      "planned": 2,
+      "observed": 2,
+      "unobserved": 0,
+      "primary_completed": 2,
+      "main_task_completed": 2,
+      "delivery": {
+        "passed": 2
+      },
+      "clean_replay": {
+        "passed": 2
+      },
+      "model_requests": 4,
+      "estimated_cost_usd": "0.0152916",
+      "total_wall_seconds": 44.811577572952956,
+      "initial_planning_seconds": 11.421788854058832,
+      "recovery_seconds": 0.0,
+      "author_tests": {
+        "not_required": 2
+      }
+    }
+  },
+  "pigz": {
+    "H0": {
+      "planned": 2,
+      "observed": 2,
+      "unobserved": 0,
+      "primary_completed": 2,
+      "main_task_completed": 2,
+      "delivery": {
+        "passed": 2
+      },
+      "clean_replay": {
+        "passed": 2
+      },
+      "model_requests": 3,
+      "estimated_cost_usd": "0.0055665",
+      "total_wall_seconds": 31.456333233974874,
+      "initial_planning_seconds": 7.420073065906763,
+      "recovery_seconds": 0.0,
+      "author_tests": {
+        "not_required": 2
+      }
+    },
+    "H1": {
+      "planned": 2,
+      "observed": 2,
+      "unobserved": 0,
+      "primary_completed": 2,
+      "main_task_completed": 2,
+      "delivery": {
+        "passed": 2
+      },
+      "clean_replay": {
+        "passed": 2
+      },
+      "model_requests": 6,
+      "estimated_cost_usd": "0.0121989",
+      "total_wall_seconds": 36.82771748804953,
+      "initial_planning_seconds": 12.289595787995495,
+      "recovery_seconds": 0.0,
+      "author_tests": {
+        "not_required": 2
+      }
+    }
+  }
+}

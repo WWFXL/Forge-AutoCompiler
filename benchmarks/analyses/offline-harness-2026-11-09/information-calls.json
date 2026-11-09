@@ -1,0 +1,583 @@
+[
+  {
+    "slot": 2,
+    "project": "double-conversion",
+    "method": "H1",
+    "phase": "initial",
+    "tool": "list_source",
+    "arguments": {
+      "directory": "."
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 2,
+    "project": "double-conversion",
+    "method": "H1",
+    "phase": "initial",
+    "tool": "list_source",
+    "arguments": {
+      "directory": "cmake"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 3,
+    "project": "miniz",
+    "method": "H1",
+    "phase": "initial",
+    "tool": "read_source",
+    "arguments": {
+      "path": "CMakeLists.txt",
+      "start_line": 273
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 4,
+    "project": "miniz",
+    "method": "H0",
+    "phase": "initial",
+    "tool": "read_source",
+    "arguments": {
+      "path": "CMakeLists.txt",
+      "start_line": 260
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 5,
+    "project": "libogg",
+    "method": "H0",
+    "phase": "initial",
+    "tool": "list_source",
+    "arguments": {
+      "directory": "."
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 5,
+    "project": "libogg",
+    "method": "H0",
+    "phase": "initial",
+    "tool": "read_source",
+    "arguments": {
+      "path": "autogen.sh"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 6,
+    "project": "libogg",
+    "method": "H1",
+    "phase": "initial",
+    "tool": "list_source",
+    "arguments": {
+      "directory": "."
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 6,
+    "project": "libogg",
+    "method": "H1",
+    "phase": "initial",
+    "tool": "read_source",
+    "arguments": {
+      "path": "autogen.sh"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 6,
+    "project": "libogg",
+    "method": "H1",
+    "phase": "initial",
+    "tool": "read_source",
+    "arguments": {
+      "path": "Makefile.am"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 6,
+    "project": "libogg",
+    "method": "H1",
+    "phase": "recovery",
+    "tool": "list_source",
+    "arguments": {
+      "directory": "."
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 6,
+    "project": "libogg",
+    "method": "H1",
+    "phase": "recovery",
+    "tool": "read_failure_log",
+    "arguments": {
+      "path": "/home/yiwei/.codex/outputs/forge-offline-harness-round1-flash-v1/comparison/slot-06-libogg-H1/.compile-sessions/simple-system/ae178db8aa74/logs/command_9b15963d22ed4baaa932a68b68a09756.log"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 7,
+    "project": "libsrtp",
+    "method": "H1",
+    "phase": "initial",
+    "tool": "list_source",
+    "arguments": {
+      "directory": "."
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 7,
+    "project": "libsrtp",
+    "method": "H1",
+    "phase": "initial",
+    "tool": "read_source",
+    "arguments": {
+      "path": "README.md",
+      "start_line": 130
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 7,
+    "project": "libsrtp",
+    "method": "H1",
+    "phase": "initial",
+    "tool": "read_source",
+    "arguments": {
+      "path": "README.md",
+      "start_line": 330
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 7,
+    "project": "libsrtp",
+    "method": "H1",
+    "phase": "initial",
+    "tool": "read_source",
+    "arguments": {
+      "path": "README.md",
+      "start_line": 270
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 7,
+    "project": "libsrtp",
+    "method": "H1",
+    "phase": "initial",
+    "tool": "read_source",
+    "arguments": {
+      "path": "configure.ac",
+      "start_line": 230
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 7,
+    "project": "libsrtp",
+    "method": "H1",
+    "phase": "initial",
+    "tool": "read_source",
+    "arguments": {
+      "path": "configure.ac",
+      "start_line": 350
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 8,
+    "project": "libsrtp",
+    "method": "H0",
+    "phase": "initial",
+    "tool": "list_source",
+    "arguments": {
+      "directory": "."
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 8,
+    "project": "libsrtp",
+    "method": "H0",
+    "phase": "initial",
+    "tool": "read_source",
+    "arguments": {
+      "path": "README.md",
+      "start_line": 120
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 8,
+    "project": "libsrtp",
+    "method": "H0",
+    "phase": "initial",
+    "tool": "read_source",
+    "arguments": {
+      "path": "README.md",
+      "start_line": 330
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 8,
+    "project": "libsrtp",
+    "method": "H0",
+    "phase": "initial",
+    "tool": "read_source",
+    "arguments": {
+      "path": "README.md",
+      "start_line": 270
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 9,
+    "project": "xxhash",
+    "method": "H0",
+    "phase": "initial",
+    "tool": "list_source",
+    "arguments": {
+      "directory": "."
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 9,
+    "project": "xxhash",
+    "method": "H0",
+    "phase": "initial",
+    "tool": "read_source",
+    "arguments": {
+      "path": "build/make/multiconf.make",
+      "start_line": 1
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 11,
+    "project": "pigz",
+    "method": "H1",
+    "phase": "initial",
+    "tool": "list_source",
+    "arguments": {
+      "directory": "."
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 11,
+    "project": "pigz",
+    "method": "H1",
+    "phase": "initial",
+    "tool": "list_source",
+    "arguments": {
+      "directory": "zopfli"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 12,
+    "project": "pigz",
+    "method": "H0",
+    "phase": "initial",
+    "tool": "list_source",
+    "arguments": {
+      "directory": "."
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 15,
+    "project": "miniz",
+    "method": "H0",
+    "phase": "initial",
+    "tool": "read_source",
+    "arguments": {
+      "path": "CMakeLists.txt",
+      "start_line": 270
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 15,
+    "project": "miniz",
+    "method": "H0",
+    "phase": "initial",
+    "tool": "list_source",
+    "arguments": {
+      "directory": "."
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 15,
+    "project": "miniz",
+    "method": "H0",
+    "phase": "initial",
+    "tool": "read_source",
+    "arguments": {
+      "path": "CMakePresets.json"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 15,
+    "project": "miniz",
+    "method": "H0",
+    "phase": "recovery",
+    "tool": "read_failure_log",
+    "arguments": {
+      "path": "logs/command_42a6143c4bd04cd2bc742d720740f4b8.log"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 15,
+    "project": "miniz",
+    "method": "H0",
+    "phase": "recovery",
+    "tool": "list_source",
+    "arguments": {
+      "directory": "build"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 16,
+    "project": "miniz",
+    "method": "H1",
+    "phase": "initial",
+    "tool": "read_source",
+    "arguments": {
+      "path": "CMakeLists.txt",
+      "start_line": 270
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 17,
+    "project": "libogg",
+    "method": "H1",
+    "phase": "initial",
+    "tool": "list_source",
+    "arguments": {
+      "directory": "."
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 17,
+    "project": "libogg",
+    "method": "H1",
+    "phase": "initial",
+    "tool": "read_source",
+    "arguments": {
+      "path": "autogen.sh"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 17,
+    "project": "libogg",
+    "method": "H1",
+    "phase": "initial",
+    "tool": "read_source",
+    "arguments": {
+      "path": "Makefile.am"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 17,
+    "project": "libogg",
+    "method": "H1",
+    "phase": "initial",
+    "tool": "read_source",
+    "arguments": {
+      "path": "src/Makefile.am"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 18,
+    "project": "libogg",
+    "method": "H0",
+    "phase": "initial",
+    "tool": "list_source",
+    "arguments": {
+      "directory": "."
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 18,
+    "project": "libogg",
+    "method": "H0",
+    "phase": "initial",
+    "tool": "read_source",
+    "arguments": {
+      "path": "autogen.sh"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 19,
+    "project": "libsrtp",
+    "method": "H0",
+    "phase": "initial",
+    "tool": "list_source",
+    "arguments": {
+      "directory": "."
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 19,
+    "project": "libsrtp",
+    "method": "H0",
+    "phase": "initial",
+    "tool": "read_source",
+    "arguments": {
+      "path": "README.md",
+      "start_line": 150
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 19,
+    "project": "libsrtp",
+    "method": "H0",
+    "phase": "initial",
+    "tool": "read_source",
+    "arguments": {
+      "path": "README.md",
+      "start_line": 270
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 20,
+    "project": "libsrtp",
+    "method": "H1",
+    "phase": "initial",
+    "tool": "list_source",
+    "arguments": {
+      "directory": "."
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 20,
+    "project": "libsrtp",
+    "method": "H1",
+    "phase": "initial",
+    "tool": "read_source",
+    "arguments": {
+      "path": "README.md",
+      "start_line": 140
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 20,
+    "project": "libsrtp",
+    "method": "H1",
+    "phase": "initial",
+    "tool": "read_source",
+    "arguments": {
+      "path": "README.md",
+      "start_line": 380
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 20,
+    "project": "libsrtp",
+    "method": "H1",
+    "phase": "initial",
+    "tool": "read_source",
+    "arguments": {
+      "path": "README.md",
+      "start_line": 300
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 20,
+    "project": "libsrtp",
+    "method": "H1",
+    "phase": "initial",
+    "tool": "read_source",
+    "arguments": {
+      "path": "README.md",
+      "start_line": 260
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 21,
+    "project": "xxhash",
+    "method": "H1",
+    "phase": "initial",
+    "tool": "list_source",
+    "arguments": {
+      "directory": "."
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 21,
+    "project": "xxhash",
+    "method": "H1",
+    "phase": "initial",
+    "tool": "list_source",
+    "arguments": {
+      "directory": "build/make"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 21,
+    "project": "xxhash",
+    "method": "H1",
+    "phase": "initial",
+    "tool": "read_source",
+    "arguments": {
+      "path": "Makefile",
+      "start_line": 279
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 24,
+    "project": "pigz",
+    "method": "H1",
+    "phase": "initial",
+    "tool": "list_source",
+    "arguments": {
+      "directory": "."
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 24,
+    "project": "pigz",
+    "method": "H1",
+    "phase": "initial",
+    "tool": "list_source",
+    "arguments": {
+      "directory": "zopfli/src/zopfli"
+    },
+    "exact_repeat": false
+  }
+]

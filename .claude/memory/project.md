@@ -3,7 +3,7 @@
 跨 Claude Code session 的项目状态流水。按 CLAUDE.md §7 维护。
 
 ## 进行中 (In Progress)
-- 2026-11-09 — #697已完成共同修复、九条开发材料、离线提案/24槽比较入口及v0.8设计稿；未取得新付费授权，不能读取凭据或声称H1效果。下一步绑定新预算/时窗后直接采集。
+- 2026-11-09 — #699首轮采集与分析已完成，无活动Provider；论文v0.9四格式已导出（99页PDF、53表11图），结果发布处理中。下一步共享修复已定位的bootstrap/preset观察边界，再决定第二轮，不能续本轮24次身份或用余额扩批。
 - 2026-11-05 — 当前#695的54次与论文v0.7导出已完成，无活动Provider；下一步全文审阅及学校格式，最终发布状态见GitHub及收据。下列早期进行中条目均为历史，当前阶段以RESEARCH_STATUS.md为准。
 - 2026-10-27 — #629准备当前CXXCrafter阶段性参考六槽，用户已明确继续，沿原10美元/UTC12:44:30截止，新阶段自限4美元。
   - 文件: `docs/research/2026-10-27-flash-thesis-experiment-results.md`, `RESEARCH_STATUS.md`。
@@ -619,6 +619,12 @@
   - 下一步: 等待实验负责人确认当前网络接入介质，并决定是否授权只读 endpoint 诊断和新的 canary amendment；获得确认后必须另建中文 Issue/PR 和协议 identity，保留当前失败 marker。
 
 ## 最近变更 (Recent Changes)
+
+- 2026-11-09 — 完成首轮历史轨迹驱动Harness提案与24次比较，保留混合结果并更新论文v0.9。
+  - 文件: `docs/research/2026-11-09-offline-harness-round1-results.md`, `benchmarks/analyses/offline-harness-2026-11-09/`, `docs/thesis/`, `RESEARCH_STATUS.md`。
+  - 证据: cpp-build-offline-harness-round1-flash-v1，运行512def0f/manifest22da06ce，raw forge-offline-harness-round1-flash-v1，inventory99527f92；H0/H1各12次主任务10/11，请求28/37，费0.0933894/0.1240773美元，时间343.21/406.36秒，离线提案0.039897美元，合计66请求/703637Token/0.2573637美元/未知0。21交付/replay过、3未观察，源码21过3未观察、cleanup24过；45容器90名称/ID不存在。
+  - 判断: H1多完成但成本上升，暂不替换默认H0；libogg两次bootstrap被过早检查配置、miniz preset观察错目录及无变化恢复保留。两组重复参数信息调用均0，旧长探索并非本批H0问题。第二轮只围绕近期证据，不扩联网/多Agent/多模型。
+  - 边界: 用户明确授权10美元/UTC03:49:58—07:49:58、24次，无自动重试；进程12688退出0，不重启原身份。PR698已合科研集成分支ac97c987、697关闭，结果699跟踪；最终CI/PR/merge以GitHub和会话发布收据为准。原用户checkout及未提交内容保持，知识库仅MCP同步。
 - 2026-11-09 — 固定状态执行共同底座并实现历史轨迹驱动的首轮离线规划Harness优化。
   - 文件: `backend/packages/harness/deerflow/compile/offline_harness.py`, `simple_build_runtime.py`, `docker_runtime.py`, `scripts/forge_offline_harness.py`, `docs/thesis/chapters/05-经验驱动Harness设计.md`。
   - 动机: 将任务内状态动作与任务间Harness更新连成论文主线；人工修复不计自动优化收益。两条真实Docker工程路径主任务/交付/replay/cleanup过，相关检查仅验证实现。九条材料来自三个开发族，六不同项目×两重复×H0/H1共24槽，尚无付费或H1效果；旧证据和用户checkout保持。
