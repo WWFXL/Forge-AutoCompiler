@@ -85,8 +85,8 @@ def observe_configuration(root: Path, system: str, *, directory: str | None = No
     return dict(status="passed" if rows and all(r["status"] == "passed" for r in rows) else "unknown" if not rows or any(r["status"] == "unknown" for r in rows) else "failed", configurations=rows, build_system="cmake")
 
 
-def configuration_entry(root: Path, step: PlanStep, previous: dict) -> tuple[str, str | None]:
-    """将观察器绑定到实际命令入口；任务的初始构建系统标记保持不变。"""
+def configuration_entry(root: Path, step: PlanStep, previous: dict, *, output: str = "") -> tuple[str, str | None]:
+    """绑定实际入口；CMake自身报告的目录覆盖preset/继承/宏展开后的路径。"""
     system, directory = previous.get("build_system", "make"), previous.get("directory")
     working = PurePosixPath(step.workdir).relative_to("/workspace/repo")
     for segment in operations._shell_command_segments(step.command):
@@ -106,6 +106,16 @@ def configuration_entry(root: Path, step: PlanStep, previous: dict) -> tuple[str
             elif name == "cmake" and arg.startswith("-B") and len(arg) > 2:
                 value = PurePosixPath(arg[2:])
                 location = value.relative_to("/workspace/repo") if value.is_absolute() else working / value
+        if name == "cmake":
+            # 让CMake解析preset，不另实现一套includes/inherits/宏展开规则。
+            # 日志只定位目录，随后仍须核验真实Cache、源码身份和generator入口。
+            for line in output.splitlines():
+                prefix = "-- Build files have been written to: "
+                if line.startswith(prefix):
+                    value = PurePosixPath(line.removeprefix(prefix).strip())
+                    if not value.is_absolute() or not value.is_relative_to("/workspace/repo"):
+                        raise PlanContractError("CMake报告的配置目录必须在仓库内")
+                    location = value.relative_to("/workspace/repo")
         # 无法绑定到仓库内的目录时，不观察其他目录的过期Cache。
         absolute = (root / location).resolve()
         if not absolute.is_relative_to(root.resolve()):
@@ -241,6 +251,7 @@ class SimpleBuildWorkflow(PlanWorkflow):
         self.baseline = source_inventory(self.root)
         self.configuration = observe_configuration(self.root, kwargs["plan"].build_system)
         self.observation_step = None
+        self.observation_record = None
         self.primary = None
         self.layers = dict(command_build_passed=None, primary_build_completed=None, delivery="unobserved", author_tests="unobserved", clean_replay="unobserved", full_completed=None)
         self.timings = {}
@@ -260,9 +271,18 @@ class SimpleBuildWorkflow(PlanWorkflow):
     def refresh_configuration(self):
         if self.observation_step is None:
             return self.configuration
-        system, directory = configuration_entry(self.root, self.observation_step, self.configuration)
+        record = self.observation_record
+        path = Path(record.log_path) if record and record.log_path else None
+        # 配置目录证据只来自当前配置动作，不能拿旧配置日志覆盖当前build目录。
+        output = ""
+        if self.observation_step.role == "configure" and path and path.is_file():
+            with path.open(errors="replace") as stream:
+                output = "".join(line for line in stream if line.startswith("-- Build files have been written to: "))
+        system, directory = configuration_entry(self.root, self.observation_step, self.configuration, output=output)
         self.configuration = observe_configuration(self.root, system, directory=directory)
         self.configuration["directory"] = directory
+        self.configuration["command_id"] = record.command_id if record else None
+        self.configuration["phase_complete"] = self.observation_step.role != "configure" or not any(s.role == "configure" and s.step_id != self.observation_step.step_id and s.step_id not in self.completed for s in self.plan.steps)
         return self.configuration
 
     def _execute(self, step):
@@ -294,14 +314,19 @@ class SimpleBuildWorkflow(PlanWorkflow):
             return False
         if step.role in {"configure", "build"} and step.step_id != "forge-generated-reset":
             self.observation_step = step
+            self.observation_record = record
             self.refresh_configuration()
             self.manager.log_event(self._session, "simple.configuration_observed", step_id=step.step_id, **self.configuration)
-            if self.configuration["status"] not in {"passed", "not_applicable"}:
+            # autogen/autoreconf等前置可以单列动作；只在配置阶段结束时要求配置完成。
+            # 所有中间动作仍必须成功退出；实际build与独立主产物检查保持不变。
+            if self.configuration["phase_complete"] and self.configuration["status"] not in {"passed", "not_applicable"}:
                 self.completed.pop(step.step_id, None)
                 return False
         return True
 
     def _request_handoff(self, reason, step=None):
+        if reason == "step_failed_or_expectation_missing" and self.observation_record and self._session.commands[-1].command_id == self.observation_record.command_id:
+            reason = "configuration_state_incomplete"
         result = super()._request_handoff(reason, step)
         if self.handoff:
             self.handoff.update(configuration_state=self.configuration, primary_components=self.primary)
