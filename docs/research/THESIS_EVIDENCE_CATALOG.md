@@ -1,5 +1,7 @@
 # 历史研究材料目录
 
+工程修复：[配置阶段执行与实际目录观察](2026-11-09-workflow-configuration-repair.md)，miniz/libogg原方案两条零Provider实建通过；支持执行语义说明，不新增效果分母、不回填E51。
+
 新增[E51](THESIS_EVIDENCE_INDEX.md#e51)：[首轮离线Harness实际提案与24次比较](2026-11-09-offline-harness-round1-results.md)。[准备记录](2026-11-09-offline-harness-preparation.md)仅为共同修复/设置，不增加效果分母。
 
 新增[E50](THESIS_EVIDENCE_INDEX.md#e50)：[54次主构建比较](2026-11-05-main-system-results.md)，独立完整分母，论文v0.7；[八个轨迹案例](2026-11-05-state-action-case-analysis.md)与E47/E48/E50重叠，不额外计实验。

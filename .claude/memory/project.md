@@ -3,7 +3,7 @@
 跨 Claude Code session 的项目状态流水。按 CLAUDE.md §7 维护。
 
 ## 进行中 (In Progress)
-- 2026-11-09 — #699首轮采集与分析已完成，无活动Provider；论文v0.9四格式已导出（99页PDF、53表11图），结果发布处理中。下一步共享修复已定位的bootstrap/preset观察边界，再决定第二轮，不能续本轮24次身份或用余额扩批。
+- 2026-11-09 — #701共同配置阶段观察修复及两条实际构建已完成，无活动Provider；后续在修复底座上设计近期轨迹驱动的短Harness候选。E51与论文v0.9保持，旧24次身份不续跑；发布/CI终态见GitHub。
 - 2026-11-05 — 当前#695的54次与论文v0.7导出已完成，无活动Provider；下一步全文审阅及学校格式，最终发布状态见GitHub及收据。下列早期进行中条目均为历史，当前阶段以RESEARCH_STATUS.md为准。
 - 2026-10-27 — #629准备当前CXXCrafter阶段性参考六槽，用户已明确继续，沿原10美元/UTC12:44:30截止，新阶段自限4美元。
   - 文件: `docs/research/2026-10-27-flash-thesis-experiment-results.md`, `RESEARCH_STATUS.md`。
@@ -619,6 +619,11 @@
   - 下一步: 等待实验负责人确认当前网络接入介质，并决定是否授权只读 endpoint 诊断和新的 canary amendment；获得确认后必须另建中文 Issue/PR 和协议 identity，保留当前失败 marker。
 
 ## 最近变更 (Recent Changes)
+- 2026-11-09 — #701修复preset输出目录定位和配置阶段完成边界，保留原失败
+  - 文件: `backend/packages/harness/deerflow/compile/simple_build_runtime.py`, `backend/tests/test_harness_common_base.py`, `docs/research/2026-11-09-workflow-configuration-repair.md`, `RESEARCH_STATUS.md`。
+  - 动机: 先解除E51三次合法前置动作成功后被共同执行器提前中断的问题，避免将方案表达兼容性误计为Harness能力。日志定位CMake输出目录仍核验真实Cache；配置阶段末尾才要求完成，中间错误不放过，最终配置缺失反馈明确。
+  - 验证: 原miniz槽15/libogg槽6的初始命令原样各实建一次，主库/交付/干净重放/源码/清理均过，0Provider/恢复；47相关检查及修改文件Ruff/格式过。全仓格式被未改`test_recovery_ablation.py:21`在Ruff0.17.4下的空行要求阻断，HEAD可复现，不改历史测试。
+  - 证据: `forge-workflow-configuration-repair-2026-11-09-v2`，驱动/运行scope/源码快照/summary/Session原件及verification-v2；准备v1漏空模型responses未启动构建，保留。首次只读cleanup分类大小写误报也保留，8项容器名称/ID实际不存在。E51三失败/原分母不变，不归为H1收益。
 
 - 2026-11-09 — 完成首轮历史轨迹驱动Harness提案与24次比较，保留混合结果并更新论文v0.9。
   - 文件: `docs/research/2026-11-09-offline-harness-round1-results.md`, `benchmarks/analyses/offline-harness-2026-11-09/`, `docs/thesis/`, `RESEARCH_STATUS.md`。
