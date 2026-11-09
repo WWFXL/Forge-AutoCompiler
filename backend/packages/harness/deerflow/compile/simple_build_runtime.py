@@ -15,7 +15,7 @@ from pathlib import Path, PurePosixPath
 from deerflow.compile import operations
 from deerflow.compile.plan_workflow import PlanContractError, PlanStep, PlanWorkflow, _digest
 from deerflow.compile.schemas import BuildCommandRecord, CommandResult, utc_now_iso
-from deerflow.compile.simple_author_tests import cmake_roots, resolve_author_tests
+from deerflow.compile.simple_author_tests import resolve_author_tests
 from deerflow.compile.simple_build_task import BuildReference, SimpleBuildPlan
 
 
@@ -50,12 +50,18 @@ def source_unchanged(root, baseline):
             raise PlanContractError("原源码/测试被修改：" + name)
 
 
-def observe_configuration(root: Path, system: str) -> dict:
+def observe_configuration(root: Path, system: str, *, directory: str | None = None) -> dict:
     """从实际Cache读取generator和源码，绝不固定要求Ninja。"""
-    if system != "cmake" and not cmake_roots(root):
-        return dict(status="not_applicable", reason="Make不强制配置；Autotools仅在实际configure后观察config.status", configurations=[])
+    if system == "autotools":
+        folder = root / (directory or ".")
+        return dict(status="passed" if (folder / "config.status").is_file() and (folder / "Makefile").is_file() else "unknown", directory=directory or ".", build_system=system)
+    if system != "cmake":
+        return dict(status="not_applicable", reason="当前入口不使用CMake/Autotools配置观察；主构建仍须独立产物检查", configurations=[], build_system=system)
     rows = []
-    for p in sorted(root.rglob("CMakeCache.txt")):
+    paths = [root / directory / "CMakeCache.txt"] if directory is not None else sorted(root.rglob("CMakeCache.txt"))
+    for p in paths:
+        if not p.is_file():
+            continue
         if p.is_symlink() or not p.resolve().is_relative_to(root.resolve()):
             continue
         cache = {}
@@ -77,6 +83,44 @@ def observe_configuration(root: Path, system: str) -> dict:
         passed = bool(entry and (p.parent / entry).is_file() and source_valid and directory == expected_directory)
         rows.append(dict(directory=p.parent.relative_to(root).as_posix(), generator=generator, entry=entry, source_directory=source, cache_directory=directory, status="passed" if passed else "unknown" if not entry else "failed"))
     return dict(status="passed" if rows and all(r["status"] == "passed" for r in rows) else "unknown" if not rows or any(r["status"] == "unknown" for r in rows) else "failed", configurations=rows, build_system="cmake")
+
+
+def configuration_entry(root: Path, step: PlanStep, previous: dict) -> tuple[str, str | None]:
+    """将观察器绑定到实际命令入口；任务的初始构建系统标记保持不变。"""
+    system, directory = previous.get("build_system", "make"), previous.get("directory")
+    working = PurePosixPath(step.workdir).relative_to("/workspace/repo")
+    for segment in operations._shell_command_segments(step.command):
+        invocation = operations._command_invocation(segment)
+        if not invocation:
+            continue
+        executable, args = invocation
+        name = PurePosixPath(executable).name
+        if name not in {"cmake", "configure", "make", "gmake", "ninja", "scons", "meson"}:
+            continue
+        location = working
+        directory_flags = {"-B", "--build"} if name == "cmake" else {"-C", "--directory"} if name in {"make", "gmake", "ninja"} else set()
+        for index, arg in enumerate(args):
+            if arg in directory_flags and index + 1 < len(args):
+                value = PurePosixPath(args[index + 1])
+                location = value.relative_to("/workspace/repo") if value.is_absolute() else working / value
+            elif name == "cmake" and arg.startswith("-B") and len(arg) > 2:
+                value = PurePosixPath(arg[2:])
+                location = value.relative_to("/workspace/repo") if value.is_absolute() else working / value
+        # 无法绑定到仓库内的目录时，不观察其他目录的过期Cache。
+        absolute = (root / location).resolve()
+        if not absolute.is_relative_to(root.resolve()):
+            raise PlanContractError("配置观察目录必须在仓库内")
+        directory = absolute.relative_to(root.resolve()).as_posix()
+        if name == "cmake":
+            system = "cmake"
+        elif name == "configure":
+            system = "autotools"
+        elif name in {"make", "gmake", "ninja"}:
+            folder = root / directory
+            system = "cmake" if (folder / "CMakeCache.txt").is_file() else "autotools" if (folder / "config.status").is_file() else "make" if name != "ninja" else "ninja"
+        else:
+            system = name
+    return system, directory
 
 
 def validate_phase_command(step):
@@ -129,7 +173,9 @@ for directory,dirs,files in os.walk(root,topdown=False,followlinks=False):
   elif not any(d.iterdir()): d.rmdir()
 print('FORGE_GENERATED_RESET')
 """.replace("PROTECTED", repr(protected))
-    return PlanStep(step_id="forge-generated-reset", role="configure", command="python3 -c " + shlex.quote(script), source="系统：依赖/配置变化后清理原输入集合以外的生成文件", expected="物理清理与逻辑后缀失效分别记录")
+    return PlanStep(
+        step_id="forge-generated-reset", role="configure", command="python3 - <<'FORGE_RESET_PY'\n" + script + "\nFORGE_RESET_PY", source="系统：依赖/配置变化后清理原输入集合以外的生成文件", expected="物理清理与逻辑后缀失效分别记录"
+    )
 
 
 def primary_artifacts(*, task, reference, root, baseline, deadline):
@@ -194,6 +240,7 @@ class SimpleBuildWorkflow(PlanWorkflow):
         self.root = Path(kwargs["session"].leadagent_repo_dir).resolve()
         self.baseline = source_inventory(self.root)
         self.configuration = observe_configuration(self.root, kwargs["plan"].build_system)
+        self.observation_step = None
         self.primary = None
         self.layers = dict(command_build_passed=None, primary_build_completed=None, delivery="unobserved", author_tests="unobserved", clean_replay="unobserved", full_completed=None)
         self.timings = {}
@@ -209,6 +256,14 @@ class SimpleBuildWorkflow(PlanWorkflow):
 
     def _validate_step(self, step):
         validate_phase_command(step)
+
+    def refresh_configuration(self):
+        if self.observation_step is None:
+            return self.configuration
+        system, directory = configuration_entry(self.root, self.observation_step, self.configuration)
+        self.configuration = observe_configuration(self.root, system, directory=directory)
+        self.configuration["directory"] = directory
+        return self.configuration
 
     def _execute(self, step):
         source_unchanged(self.root, self.baseline)
@@ -238,11 +293,8 @@ class SimpleBuildWorkflow(PlanWorkflow):
         if not passed:
             return False
         if step.role in {"configure", "build"} and step.step_id != "forge-generated-reset":
-            if self.plan.build_system != "autotools" or self.configuration["status"] != "passed" or cmake_roots(self.root):
-                self.configuration = observe_configuration(self.root, self.plan.build_system)
-            if self.plan.build_system == "autotools" and operations._command_invokes(step.command, "configure") and not cmake_roots(self.root):
-                relative = PurePosixPath(step.workdir).relative_to("/workspace/repo")
-                self.configuration = dict(status="passed" if (self.root / relative / "config.status").is_file() and (self.root / relative / "Makefile").is_file() else "failed", directory=relative.as_posix())
+            self.observation_step = step
+            self.refresh_configuration()
             self.manager.log_event(self._session, "simple.configuration_observed", step_id=step.step_id, **self.configuration)
             if self.configuration["status"] not in {"passed", "not_applicable"}:
                 self.completed.pop(step.step_id, None)

@@ -14,7 +14,7 @@ from typesafe_sdk import Choice
 
 from deerflow.compile.operation_window import OperationWindow
 from deerflow.compile.plan_workflow import PlanContractError, PlanStep
-from deerflow.compile.simple_build_runtime import generated_reset_step, observe_configuration, primary_artifacts
+from deerflow.compile.simple_build_runtime import generated_reset_step, primary_artifacts
 from deerflow.compile.simple_build_task import SimpleBuildPlan
 
 JEV_MODEL = "jev-1.13.0"
@@ -212,7 +212,7 @@ class BuildStateRouter:
         if action.plan:
             workflow.apply_revision(handoff_id=workflow.handoff["handoff_id"], plan=action.plan, reason=f"{self.method}状态路由选择已有动作：{chosen}")
             return True
-        workflow.configuration = observe_configuration(workflow.root, workflow.plan.build_system)
+        workflow.refresh_configuration()
         workflow.primary = primary_artifacts(task=workflow.plan.task, reference=workflow.reference, root=workflow.root, baseline=workflow.baseline, deadline=time.monotonic() + min(30, workflow._remaining()))
         if workflow.primary["status"] == "passed" and workflow.layers["command_build_passed"]:
             workflow.status, workflow.handoff = "pending", None
