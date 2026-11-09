@@ -1,5 +1,7 @@
 """只验证实际构建误拦、新任务测试边界及语义路由的执行约束。"""
 
+# ruff: noqa: F811  # pytest显式导入共享fixture，测试形参有意同名。
+
 import json
 from datetime import UTC, datetime, timedelta
 from decimal import Decimal
@@ -7,7 +9,7 @@ from types import SimpleNamespace
 
 import httpx2
 import pytest
-from test_simple_build import LocalRuntime, actions, workflow
+from test_simple_build import LocalRuntime, actions, runner, workflow  # noqa: F401
 from typesafe_sdk import RetryPolicy, TypeSafeClient
 
 from deerflow.compile.build_state_routing import BuildStateRouter, JevStateSelector, StateAction, candidate_actions, observe_state, rule_choice

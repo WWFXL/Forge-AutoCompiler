@@ -763,6 +763,12 @@ class CompileDockerRuntime:
             "-lc",
             effective_command,
         ]
+        # 长脚本经标准输入传递，避免宿主和容器的单参数长度限制。
+        # 保留 login shell、严格选项、日志及两层 timeout 的原有语义。
+        stdin_script = len(effective_command.encode("utf-8")) >= 65536
+        if stdin_script:
+            exec_command.insert(2, "-i")
+            exec_command[-2:] = ["-ls"]
         self._log(
             session,
             f"{event_prefix}.started",
@@ -776,7 +782,10 @@ class CompileDockerRuntime:
         )
         started_at = utc_now_iso()
         try:
-            result = subprocess.run(exec_command, capture_output=True, text=True, timeout=container_timeout + 10)
+            options = dict(capture_output=True, text=True, timeout=container_timeout + 10)
+            if stdin_script:
+                options["input"] = effective_command
+            result = subprocess.run(exec_command, **options)
         except subprocess.TimeoutExpired as exc:
             stdout = exc.stdout.decode(errors="replace") if isinstance(exc.stdout, bytes) else (exc.stdout or "")
             stderr = exc.stderr.decode(errors="replace") if isinstance(exc.stderr, bytes) else (exc.stderr or "")

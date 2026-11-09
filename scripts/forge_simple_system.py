@@ -66,9 +66,29 @@ class ScriptedSimpleModel(FakeMessagesListChatModel):
         return super()._generate(messages, **kwargs)
 
 
-def run_simple_system(*, task, reference, source_archive, output_root, method, model, accepted_models, family, recipe=None, bank=None, deadline=None, maximum_cost_usd="1.00", author_test_seconds=120, replay_seconds=240,
-    recovery_model=None, recovery_accepted_models=None, pricing_by_model=None,
-    initial_plan=None, state_router=None, validation_scope="author_tests",
+def run_simple_system(
+    *,
+    task,
+    reference,
+    source_archive,
+    output_root,
+    method,
+    model,
+    accepted_models,
+    family,
+    recipe=None,
+    bank=None,
+    deadline=None,
+    maximum_cost_usd="1.00",
+    author_test_seconds=120,
+    replay_seconds=240,
+    recovery_model=None,
+    recovery_accepted_models=None,
+    pricing_by_model=None,
+    initial_plan=None,
+    state_router=None,
+    validation_scope="author_tests",
+    harness=None,
 ):
     """可复用执行接点；本函数不加载配置或凭据，不自行创建Provider。"""
     if method not in METHODS[:3]:
@@ -152,7 +172,7 @@ def run_simple_system(*, task, reference, source_archive, output_root, method, m
                     ledger.append("recipe.abstained", reason="公开任务身份变化")
                 planning_start = time.monotonic()
                 try:
-                    plan, _ = propose_simple(model=model, task=task, source_root=source, session_root=Path(session.metadata_path).parent, meter=meter, experience_bank=bank, family=family)
+                    plan, _ = propose_simple(model=model, task=task, source_root=source, session_root=Path(session.metadata_path).parent, meter=meter, experience_bank=bank, family=family, harness=harness)
                 finally:
                     planning_seconds += time.monotonic() - planning_start
         # 作者测试统一串行；不改变构建的并行资源，也不把测试指令交给构建Agent。
@@ -172,8 +192,16 @@ def run_simple_system(*, task, reference, source_archive, output_root, method, m
                 try:
                     meter.accepted_models = recovery_accepted_models or accepted_models
                     revised, reason = propose_simple(
-                        model=recovery_model if recovery_model is not None else model, task=task, source_root=source, session_root=Path(session.metadata_path).parent,
-                        meter=meter, current_plan=workflow.plan, handoff=workflow.handoff, experience_bank=bank, family=family
+                        model=recovery_model if recovery_model is not None else model,
+                        task=task,
+                        source_root=source,
+                        session_root=Path(session.metadata_path).parent,
+                        meter=meter,
+                        current_plan=workflow.plan,
+                        handoff=workflow.handoff,
+                        experience_bank=bank,
+                        family=family,
+                        harness=harness,
                     )
                 finally:
                     recovery_seconds += time.monotonic() - recovery_start

@@ -3,6 +3,7 @@
 跨 Claude Code session 的项目状态流水。按 CLAUDE.md §7 维护。
 
 ## 进行中 (In Progress)
+- 2026-11-09 — #697已完成共同修复、九条开发材料、离线提案/24槽比较入口及v0.8设计稿；未取得新付费授权，不能读取凭据或声称H1效果。下一步绑定新预算/时窗后直接采集。
 - 2026-11-05 — 当前#695的54次与论文v0.7导出已完成，无活动Provider；下一步全文审阅及学校格式，最终发布状态见GitHub及收据。下列早期进行中条目均为历史，当前阶段以RESEARCH_STATUS.md为准。
 - 2026-10-27 — #629准备当前CXXCrafter阶段性参考六槽，用户已明确继续，沿原10美元/UTC12:44:30截止，新阶段自限4美元。
   - 文件: `docs/research/2026-10-27-flash-thesis-experiment-results.md`, `RESEARCH_STATUS.md`。
@@ -618,6 +619,9 @@
   - 下一步: 等待实验负责人确认当前网络接入介质，并决定是否授权只读 endpoint 诊断和新的 canary amendment；获得确认后必须另建中文 Issue/PR 和协议 identity，保留当前失败 marker。
 
 ## 最近变更 (Recent Changes)
+- 2026-11-09 — 固定状态执行共同底座并实现历史轨迹驱动的首轮离线规划Harness优化。
+  - 文件: `backend/packages/harness/deerflow/compile/offline_harness.py`, `simple_build_runtime.py`, `docker_runtime.py`, `scripts/forge_offline_harness.py`, `docs/thesis/chapters/05-经验驱动Harness设计.md`。
+  - 动机: 将任务内状态动作与任务间Harness更新连成论文主线；人工修复不计自动优化收益。两条真实Docker工程路径主任务/交付/replay/cleanup过，相关检查仅验证实现。九条材料来自三个开发族，六不同项目×两重复×H0/H1共24槽，尚无付费或H1效果；旧证据和用户checkout保持。
 - 2026-11-05 — 完成#695主构建54次比较与论文v0.7整合，保存长尾及工具未完成。
   - 文件: `scripts/forge_main_system_comparison.py`, `benchmarks/analyses/main-system-2026-11-05/`, `docs/research/2026-11-05-main-system-results.md`, `docs/thesis/`。
   - 动机: Jev阻塞期间优先取得完整系统结果并推进论文，避免工程检查代替科研。

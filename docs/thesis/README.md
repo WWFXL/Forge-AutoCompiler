@@ -1,10 +1,12 @@
 # Forge 硕士论文阶段初稿
 
-日期：2026-11-05；版本：v0.7；本轮跟踪：[Issue #695](https://github.com/WWFXL/Forge-AutoCompiler/issues/695)、[PR #696](https://github.com/WWFXL/Forge-AutoCompiler/pull/696)。
+日期：2026-11-09；版本：v0.8设计稿；本轮跟踪：[Issue #697](https://github.com/WWFXL/Forge-AutoCompiler/issues/697)。原v0.7与PR696保留。
 
 暂定题目：**面向C/C++仓库自动化构建的状态感知动作选择与验证方法研究**。
 
-本目录是按章维护的论文真源，沿用七章框架。v0.7补齐E42–E50的系统演进、规划路由、两层经验、简洁主构建54次比较及八个真实阶段—动作案例，更新中英摘要、方法图、结果表、结论和附录。当前为导师审阅用阶段稿；学校正式模板、个人信息和最终文献格式仍待完成。
+本目录是按章维护的论文真源，沿用七章框架。v0.8将任务内状态动作与任务间离线Harness更新连接，新增轨迹诊断/实际候选更新/固定比较设计；本轮尚无真实H1提案或新效果。v0.7补齐E42–E50的系统演进、规划路由、两层经验、简洁主构建54次比较及八个真实阶段—动作案例，更新中英摘要、方法图、结果表、结论和附录。当前为导师审阅用阶段稿；学校正式模板、个人信息和最终文献格式仍待完成。
+
+新增设计与入口见[本轮准备记录](../research/2026-11-09-offline-harness-preparation.md)；v0.8阅读副本在`/home/yiwei/.codex/outputs/forge-thesis-offline-harness-2026-11-09/`，已实际导出Word/PDF/HTML/Markdown，PDF 96页，50表11图；统计及文件哈希以build-summary.json和export-verification.json为准。下文v0.7统计属于原阅读稿，不能移作v0.8统计。
 
 ## 阅读入口
 

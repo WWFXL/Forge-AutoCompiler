@@ -242,11 +242,14 @@ def simple_agent_packet(task: PublicBuildTask, *, current_plan=None, handoff=Non
     return dict(task=task.model_dump(mode="json"), current_plan=public_plan, handoff=handoff)
 
 
-def propose_simple(*, model, task: PublicBuildTask, source_root, session_root, meter, current_plan=None, handoff=None, experience_bank=None, family=None):
+def propose_simple(*, model, task: PublicBuildTask, source_root, session_root, meter, current_plan=None, handoff=None, experience_bank=None, family=None, harness=None):
     """真实规划/方案恢复接点；所有读、输出、失败通过既有meter计量，无隐式重试。"""
     task = PublicBuildTask.model_validate(task)
     packet = simple_agent_packet(task, current_plan=current_plan, handoff=handoff)
     prompt = SIMPLE_PROMPT
+    if harness is not None:
+        prompt = harness.prompt(prompt, recovery=current_plan is not None)
+        meter.ledger.append("harness.selected", name=harness.name, sha256=harness.fingerprint(), scope="initial_planning", applied=current_plan is None)
     if experience_bank is not None:
         from deerflow.compile.simple_build_experience import SIMPLE_EXPERIENCE_PROMPT, select_simple_experience
 
