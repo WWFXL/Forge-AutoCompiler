@@ -8,7 +8,7 @@ from typing import Literal, Self
 from langchain.agents import create_agent
 from langchain.agents.structured_output import StructuredOutputValidationError, ToolStrategy
 from langchain_core.messages import AIMessage, HumanMessage
-from pydantic import BaseModel, ConfigDict, Field, model_validator
+from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
 
 from deerflow.compile.plan_agent import PlanResponseCapture
 from deerflow.compile.plan_agent_context import safe_readonly_tools
@@ -45,11 +45,21 @@ class SimpleBuildActions(BaseModel):
     model_config = ConfigDict(extra="forbid")
     reason: str = Field(min_length=1, description="简短说明构建入口及选项依据，不是步骤列表")
     steps: list[SimpleBuildAction] = Field(min_length=1)
+    build_directory: str | None = Field(default=None, description="有作者依据时提供主项目构建目录，使用/workspace/repo内规范绝对路径；仅辅助观察，不改变workdir或作为成功断言")
+
+    @field_validator("build_directory")
+    @classmethod
+    def valid_directory(cls, value):
+        if value is not None:
+            PlanStep.validate_workdir(value)
+            if not value.startswith("/workspace/repo/") and value != "/workspace/repo":
+                raise ValueError("构建目录必须在/workspace/repo内")
+        return value
 
     @model_validator(mode="after")
     def valid_execution(self) -> Self:
         # 使用成熟的动作/顺序校验，工具schema不再暴露旧候选观察字段。
-        ObservedBuildActions.model_validate(self.model_dump())
+        ObservedBuildActions.model_validate(self.model_dump(exclude={"build_directory"}))
         if any(s.step_id.startswith("forge-") for s in self.steps):
             raise ValueError("不能占用系统步骤标识")
         return self
@@ -118,11 +128,13 @@ class SimpleBuildPlan(BaseModel):
     task: PublicBuildTask
     revision: int = Field(default=1, ge=1)
     steps: tuple[PlanStep, ...] = Field(min_length=1)
+    build_directory: str | None = None
     # 供通用进展/修订算法核对：本版本不在方案内绑定交付路径。
     artifact_paths: tuple[str, ...] = Field(default=(), max_length=0)
 
     @model_validator(mode="after")
     def validate_steps(self) -> Self:
+        SimpleBuildActions.valid_directory(self.build_directory)
         rank, seen = -1, set()
         for s in self.steps:
             r = {"dependency": 0, "configure": 1, "build": 2}.get(s.role)
@@ -170,7 +182,24 @@ def assemble_simple_plan(task: PublicBuildTask, proposal: ObservedBuildActions, 
             raise PlanContractError("不能占用系统步骤标识")
         value = s.model_dump(exclude={"stdout_contains", "files_exist", "directories_exist"})
         steps.append(PlanStep(**value))
-    return SimpleBuildPlan(task=task, revision=revision, steps=tuple(steps))
+    return SimpleBuildPlan(task=task, revision=revision, steps=tuple(steps), build_directory=getattr(proposal, "build_directory", None))
+
+
+def validate_simple_revision(current: SimpleBuildPlan, proposed: SimpleBuildPlan, *, allow_observation_only=False) -> str:
+    """说明、步骤别名和观察提示的变化不能触发相同失败命令重跑。"""
+
+    def execution(plan, *, reset=False):
+        return [(s.role, s.command, s.workdir) for s in plan.steps if (s.step_id == "forge-generated-reset") == reset]
+
+    if execution(current) == execution(proposed):
+        new_reset = execution(proposed, reset=True)
+        if not new_reset or new_reset == execution(current, reset=True):
+            current_ids = [s.step_id for s in current.steps if s.step_id != "forge-generated-reset"]
+            proposed_ids = [s.step_id for s in proposed.steps if s.step_id != "forge-generated-reset"]
+            if allow_observation_only and proposed.build_directory is not None and proposed.build_directory != current.build_directory and proposed_ids == current_ids:
+                return "observation"
+            raise PlanContractError("恢复方案没有改变实际执行动作；不能仅改说明、步骤标识或构建目录来重跑相同失败。请读取真实失败日志，修正必要命令或工作目录；无法修复时明确说明阻塞。")
+    return "execution"
 
 
 SIMPLE_PROMPT = (
@@ -184,6 +213,9 @@ SIMPLE_PROMPT = (
 下面的JSON仅展示该工具的参数结构，不是要求在普通回复正文输出JSON；不要用正文宣告规划完成。
 不要在Shell内加入猜测路径或日志断言，验证由独立系统完成。
 每步一个阶段，使用/workspace/repo内workdir与严格Shell。正常make clean后重建可在同一阶段，但不能任意rm或屏蔽失败。
+各命令Shell独立，使用workdir声明工作目录，不依赖上一步cd。作者已明确主项目构建目录时可提供build_directory；不确定时留空，不猜路径。
+阶段观察不足不等于命令失败，系统可继续原方案获取实际反馈；不要为了匹配观察器改写正确命令或添加猜测断言。
+命令已成功且交接仅为配置冲突时，可依据实际文件修正build_directory；系统核验新目录后仅更新观察，不重跑原成功命令。
 配置/依赖变化由系统清理已生成文件并重做配置后缀，不要依赖失效的旧产物。实际错误Shell仍计入失败和恢复成本。
 恢复读取命令/配置/主要组件缺失反馈，返回完整方案和理由；不改变任务与独立结果检查。
 没有参考成功命令或精确路径；不能读取/repro、个人知识库或宿主文件。source给出实际证据。
@@ -242,7 +274,7 @@ def simple_agent_packet(task: PublicBuildTask, *, current_plan=None, handoff=Non
     return dict(task=task.model_dump(mode="json"), current_plan=public_plan, handoff=handoff)
 
 
-def propose_simple(*, model, task: PublicBuildTask, source_root, session_root, meter, current_plan=None, handoff=None, experience_bank=None, family=None, harness=None):
+def propose_simple(*, model, task: PublicBuildTask, source_root, session_root, meter, current_plan=None, handoff=None, experience_bank=None, family=None, harness=None, revision_validator=None):
     """真实规划/方案恢复接点；所有读、输出、失败通过既有meter计量，无隐式重试。"""
     task = PublicBuildTask.model_validate(task)
     packet = simple_agent_packet(task, current_plan=current_plan, handoff=handoff)
@@ -297,10 +329,21 @@ def propose_simple(*, model, task: PublicBuildTask, source_root, session_root, m
                     messages = correction_history(result["messages"], feedback)
                     continue
             meter.ledger.append("simple.output_received", revision=revision, channel=channel, corrections=corrections)
+            try:
+                plan = assemble_simple_plan(task, proposal, revision=revision)
+                if current_plan is not None:
+                    if revision_validator is not None:
+                        revision_validator(plan)
+                    else:
+                        validate_simple_revision(current_plan, plan)
+            except ValueError as error:
+                feedback = correct_once(error)
+                messages = correction_history(result["messages"], feedback)
+                continue
             break
     finally:
         meter.planning_context = original_context
         meter.requires_structured_response = previous_requires_structured
     meter.ledger.save(f"simple-actions-{revision}.json", proposal.model_dump(mode="json"))
     meter.ledger.append("simple.proposal_accepted", revision=revision, corrections=corrections)
-    return assemble_simple_plan(task, proposal, revision=revision), proposal.reason
+    return plan, proposal.reason

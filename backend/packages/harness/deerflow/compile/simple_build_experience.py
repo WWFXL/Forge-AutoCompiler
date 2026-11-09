@@ -32,13 +32,14 @@ class SimpleProjectRecipe(BaseModel):
     source_id: str = Field(min_length=1)
     task: PublicBuildTask
     steps: tuple[PlanStep, ...]
+    build_directory: str | None = None
     observed_validation: dict
 
     @model_validator(mode="after")
     def successful_source(self):
         if not recipe_validation_succeeded(self.task, self.observed_validation):
             raise ValueError("加载的成功方案缺少对应任务成功、源码、重放或清理依据")
-        SimpleBuildPlan(task=self.task, steps=self.steps)
+        SimpleBuildPlan(task=self.task, steps=self.steps, build_directory=self.build_directory)
         return self
 
     def match(self, task: PublicBuildTask) -> bool:
@@ -48,14 +49,14 @@ class SimpleProjectRecipe(BaseModel):
     def materialize(self, task: PublicBuildTask) -> SimpleBuildPlan:
         if not self.match(task):
             raise PlanContractError("成功方案与当前公开任务不精确匹配")
-        return SimpleBuildPlan(task=task, steps=self.steps)
+        return SimpleBuildPlan(task=task, steps=self.steps, build_directory=self.build_directory)
 
 
 def verified_simple_recipe(*, source_id, plan, validation):
     """保存实际成功动作及层级；不迁入旧固定测试/产物路径，也不请模型改写。"""
     if not recipe_validation_succeeded(plan.task, validation):
         raise PlanContractError("仅对应任务成功、源码保持且交付/重放/清理成功的轨迹可登记可执行方案")
-    return SimpleProjectRecipe(source_id=source_id, task=plan.task, steps=plan.steps, observed_validation=copy.deepcopy(validation))
+    return SimpleProjectRecipe(source_id=source_id, task=plan.task, steps=plan.steps, build_directory=plan.build_directory, observed_validation=copy.deepcopy(validation))
 
 
 def select_simple_recipe(*, recipes, task: PublicBuildTask) -> SimpleProjectRecipe | None:

@@ -202,6 +202,7 @@ def run_simple_system(
                         experience_bank=bank,
                         family=family,
                         harness=harness,
+                        revision_validator=workflow.validate_revision,
                     )
                 finally:
                     recovery_seconds += time.monotonic() - recovery_start

@@ -87,7 +87,7 @@ def candidate_actions(workflow, state, tried):
         steps = [s.model_copy(update={"command": 'export PATH="$HOME/.local/bin:$PATH"\n' + s.command}) if s.role in {"configure", "build"} else s for s in steps]
         at = next((i for i, s in enumerate(steps) if s.role != "dependency"), len(steps))
         steps.insert(at, dep)
-        plan = SimpleBuildPlan(task=workflow.plan.task, revision=workflow.plan.revision + 1, steps=tuple(steps))
+        plan = workflow.plan.model_copy(update=dict(revision=workflow.plan.revision + 1, steps=tuple(steps)))
         actions.append(StateAction("upgrade_cmake", f"安装作者声明要求的CMake >= {version}，在当前方案配置/构建阶段使用新工具；不解决其他依赖问题。", "作者cmake_minimum_required；仅适用于当前失败由CMake工具版本不足引起的情况", plan))
     configure = [s for s in workflow.plan.steps if s.role == "configure" and s.step_id != "forge-generated-reset"]
     if state["phase"] == "build" and configure and state["configuration"]["status"] in {"failed", "unknown"} and "restore_configuration" not in tried:
@@ -97,7 +97,7 @@ def candidate_actions(workflow, state, tried):
         steps = tuple(s.model_copy(update={"requires": tuple(mapping.get(r, r) for r in s.requires)}) for s in steps)
         at = next(i for i, s in enumerate(steps) if s.role == "configure")
         steps = steps[:at] + (generated_reset_step(workflow.baseline),) + steps[at:]
-        plan = SimpleBuildPlan(task=workflow.plan.task, revision=workflow.plan.revision + 1, steps=steps)
+        plan = workflow.plan.model_copy(update=dict(revision=workflow.plan.revision + 1, steps=steps))
         actions.append(StateAction("restore_configuration", "清理本次生成物并重新执行现有配置及构建后缀；适用于生成配置丢失或损坏。", "实际配置观察未通过，当前方案已有作者配置动作", plan))
     if state["phase"] == "primary_result" and state["primary_status"] == "unknown" and "observe_outputs" not in tried:
         actions.append(StateAction("observe_outputs", "重新观察实际配置与主产物，仍无充分证据则交Agent；不能直接标为成功。", "上次产物观察未完成或达到观察时限"))

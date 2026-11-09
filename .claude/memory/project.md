@@ -3,6 +3,7 @@
 跨 Claude Code session 的项目状态流水。按 CLAUDE.md §7 维护。
 
 ## 进行中 (In Progress)
+- 2026-11-09 — #703共同执行机制与观察恢复已完成，0真实Provider；待最终PR/CI/合并收据，随后设计新底座的短Harness候选，不续旧24次或默认扩批。当前阶段以RESEARCH_STATUS.md为准。
 - 2026-11-09 — #701共同配置阶段观察修复及两条实际构建已完成，无活动Provider；后续在修复底座上设计近期轨迹驱动的短Harness候选。E51与论文v0.9保持，旧24次身份不续跑；发布/CI终态见GitHub。
 - 2026-11-05 — 当前#695的54次与论文v0.7导出已完成，无活动Provider；下一步全文审阅及学校格式，最终发布状态见GitHub及收据。下列早期进行中条目均为历史，当前阶段以RESEARCH_STATUS.md为准。
 - 2026-10-27 — #629准备当前CXXCrafter阶段性参考六槽，用户已明确继续，沿原10美元/UTC12:44:30截止，新阶段自限4美元。
@@ -619,6 +620,11 @@
   - 下一步: 等待实验负责人确认当前网络接入介质，并决定是否授权只读 endpoint 诊断和新的 canary amendment；获得确认后必须另建中文 Issue/PR 和协议 identity，保留当前失败 marker。
 
 ## 最近变更 (Recent Changes)
+- 2026-11-09 — #703分离执行成功与配置观察未知，完善恢复修订反馈和只改观察目录的恢复。
+  - 文件: `backend/packages/harness/deerflow/compile/simple_build_task.py`, `simple_build_runtime.py`, `simple_build_experience.py`, `build_state_routing.py`, `scripts/forge_simple_system.py`, `backend/tests/test_workflow_execution_contract.py`, `docs/compile_workflow_execution.md`, `docs/research/2026-11-09-workflow-state-contract-repair.md`。
+  - 动机: 避免合法方案因Shell写法未识别而无故终止；unknown有界继续、真实失败/配置冲突仍停止，独立结果检查保持。可选目录贯通规划/方案/路由/复用，一次结构/执行修订反馈；目录纠错核验后保留原成功命令和系统清理配方。
+  - 验证: 92项相关回归/Ruff/格式通过；v1三路径及v2一受控恢复主库/交付/replay/源码/cleanup通过。v2后补充清理步骤保留由最终回归覆盖，四实建原快照保留；实际8容器16名称/ID不存在。0真实Provider/Token/费，一次脚本响应只为工程检查。
+  - 证据: `forge-workflow-state-contract-repair-2026-11-09-v1/v2`，v2含verification/final-source-snapshot；最终runtime SHA84a8d745。E51/v0.9不变，无新付费身份；支持范围仍为仓库内既有阶段契约，发布终态见GitHub。
 - 2026-11-09 — #701修复preset输出目录定位和配置阶段完成边界，保留原失败
   - 文件: `backend/packages/harness/deerflow/compile/simple_build_runtime.py`, `backend/tests/test_harness_common_base.py`, `docs/research/2026-11-09-workflow-configuration-repair.md`, `RESEARCH_STATUS.md`。
   - 动机: 先解除E51三次合法前置动作成功后被共同执行器提前中断的问题，避免将方案表达兼容性误计为Harness能力。日志定位CMake输出目录仍核验真实Cache；配置阶段末尾才要求完成，中间错误不放过，最终配置缺失反馈明确。

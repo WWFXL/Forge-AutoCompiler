@@ -73,6 +73,8 @@ make up             # 生产 docker-compose
 
 ### 4.2 端到端工作流
 
+当前科研的规划式阶段执行入口为 `SimpleBuildWorkflow` / `scripts/forge_simple_system.py`，其状态与有界恢复遵循[简洁构建执行契约](docs/compile_workflow_execution.md)。下述 Lead/compiler 子代理流程仍是独立的产品入口。
+
 ```
 Lead Agent
   ├─ prepare_compile_session(repo_url, branch?)
