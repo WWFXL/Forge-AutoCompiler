@@ -99,6 +99,13 @@ Read and follow `CLAUDE.md` before changing this repository. Files below
   qualification, auditing, and product engineering must not replace collecting
   and explaining complete thesis results.
 
+- Harness离线优化须先向用户展示高级模型的实际方案、依据及完整提示词差异，
+  等待用户下达比较指令后再运行；预算或提案授权不自动包含比较授权。
+  比较结果先汇报并由用户审核，获得同意后才写入论文；原始证据和研究报告照常保留。
+- 开发评价各轮优先使用不同项目集以扩大覆盖；同一轮所有方法使用相同项目、
+  版本与要求，并在新项目上运行共同基线。历史轨迹用于后续优化时，
+  下一评价项目与其按仓库族隔离；最终评价另留项目，不跨版本混算总体收益。
+
 ### Research Visibility
 
 - At task start, tell the user the current research phase, the question for

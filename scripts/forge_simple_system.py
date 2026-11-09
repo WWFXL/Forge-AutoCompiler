@@ -89,6 +89,7 @@ def run_simple_system(
     state_router=None,
     validation_scope="author_tests",
     harness=None,
+    recovery_harness=None,
 ):
     """可复用执行接点；本函数不加载配置或凭据，不自行创建Provider。"""
     if method not in METHODS[:3]:
@@ -202,6 +203,7 @@ def run_simple_system(
                         experience_bank=bank,
                         family=family,
                         harness=harness,
+                        recovery_harness=recovery_harness,
                         revision_validator=workflow.validate_revision,
                     )
                 finally:
