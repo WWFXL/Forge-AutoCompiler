@@ -1,0 +1,3378 @@
+{
+  "responses": [
+    {
+      "slot": 1,
+      "response": "comparison/slot-01-yaml-cpp-H0/agent/response-1.json",
+      "sha256": "c29157b2975d61023d6bed1100fea2adc7c933919a63bc6fed4b8268898e1538",
+      "model": "deepseek-flash",
+      "input_tokens": 7125,
+      "output_tokens": 410,
+      "total_tokens": 7535,
+      "input_token_details": {
+        "cache_read": 128
+      },
+      "output_token_details": {
+        "reasoning": 92
+      },
+      "estimated_cost_usd": "0.0026295"
+    },
+    {
+      "slot": 2,
+      "response": "comparison/slot-02-yaml-cpp-H1/agent/response-1.json",
+      "sha256": "977a7e0997aea5fcc18a42df54f25f3e99f0e8009a5b51652937fa0e35229e90",
+      "model": "deepseek-flash",
+      "input_tokens": 7709,
+      "output_tokens": 666,
+      "total_tokens": 8375,
+      "input_token_details": {
+        "cache_read": 640
+      },
+      "output_token_details": {
+        "reasoning": 190
+      },
+      "estimated_cost_usd": "0.0031119"
+    },
+    {
+      "slot": 3,
+      "response": "comparison/slot-03-yaml-cpp-H2/agent/response-1.json",
+      "sha256": "6e51c20e706409b47133a6a33277432fdc51680eb510573f572cf4d1c5899dba",
+      "model": "deepseek-flash",
+      "input_tokens": 7473,
+      "output_tokens": 549,
+      "total_tokens": 8022,
+      "input_token_details": {
+        "cache_read": 640
+      },
+      "output_token_details": {
+        "reasoning": 207
+      },
+      "estimated_cost_usd": "0.0029007"
+    },
+    {
+      "slot": 4,
+      "response": "comparison/slot-04-snappy-H1/agent/response-1.json",
+      "sha256": "afc6e5fb70312b39e425affbe125c5606b9da000a76dd2df627aaa719705780e",
+      "model": "deepseek-flash",
+      "input_tokens": 9739,
+      "output_tokens": 230,
+      "total_tokens": 9969,
+      "input_token_details": {
+        "cache_read": 2048
+      },
+      "output_token_details": {
+        "reasoning": 145
+      },
+      "estimated_cost_usd": "0.0031977"
+    },
+    {
+      "slot": 4,
+      "response": "comparison/slot-04-snappy-H1/agent/response-2.json",
+      "sha256": "278d14e1ca786f2489520299bc0e989edf816d9c5cd7b6e983242554d5cfa9c6",
+      "model": "deepseek-flash",
+      "input_tokens": 12166,
+      "output_tokens": 120,
+      "total_tokens": 12286,
+      "input_token_details": {
+        "cache_read": 9472
+      },
+      "output_token_details": {
+        "reasoning": 32
+      },
+      "estimated_cost_usd": "0.0037938"
+    },
+    {
+      "slot": 4,
+      "response": "comparison/slot-04-snappy-H1/agent/response-3.json",
+      "sha256": "6442039606d819de6aa360a9dcfb12e70e67ba91f9808cd5e9f256037978d59f",
+      "model": "deepseek-flash",
+      "input_tokens": 13551,
+      "output_tokens": 96,
+      "total_tokens": 13647,
+      "input_token_details": {
+        "cache_read": 9472
+      },
+      "output_token_details": {
+        "reasoning": 19
+      },
+      "estimated_cost_usd": "0.0041805"
+    },
+    {
+      "slot": 4,
+      "response": "comparison/slot-04-snappy-H1/agent/response-4.json",
+      "sha256": "0280e3bd4120d29b4e3c987c3e05e0a923e13288d2a0805d8ab715bed1ebaee1",
+      "model": "deepseek-flash",
+      "input_tokens": 14111,
+      "output_tokens": 476,
+      "total_tokens": 14587,
+      "input_token_details": {
+        "cache_read": 9472
+      },
+      "output_token_details": {
+        "reasoning": 79
+      },
+      "estimated_cost_usd": "0.0048045"
+    },
+    {
+      "slot": 5,
+      "response": "comparison/slot-05-snappy-H2/agent/response-1.json",
+      "sha256": "fa8972852bc220d70754907c27fbb9dd9a9a6f886d6cc1862a40009931df31c5",
+      "model": "deepseek-flash",
+      "input_tokens": 9503,
+      "output_tokens": 213,
+      "total_tokens": 9716,
+      "input_token_details": {
+        "cache_read": 1792
+      },
+      "output_token_details": {
+        "reasoning": 146
+      },
+      "estimated_cost_usd": "0.0031065"
+    },
+    {
+      "slot": 5,
+      "response": "comparison/slot-05-snappy-H2/agent/response-2.json",
+      "sha256": "1285c99d47e579e26bed32e002333dafd87f15261256cecb74a1e7e10253a001",
+      "model": "deepseek-flash",
+      "input_tokens": 10179,
+      "output_tokens": 76,
+      "total_tokens": 10255,
+      "input_token_details": {
+        "cache_read": 9216
+      },
+      "output_token_details": {
+        "reasoning": 32
+      },
+      "estimated_cost_usd": "0.0031449"
+    },
+    {
+      "slot": 5,
+      "response": "comparison/slot-05-snappy-H2/agent/response-3.json",
+      "sha256": "21a08aaeda62a43c319666df9f1358789042ae1efc10a8a56fd5d98ca4c90447",
+      "model": "deepseek-flash",
+      "input_tokens": 10447,
+      "output_tokens": 509,
+      "total_tokens": 10956,
+      "input_token_details": {
+        "cache_read": 9216
+      },
+      "output_token_details": {
+        "reasoning": 142
+      },
+      "estimated_cost_usd": "0.0037449"
+    },
+    {
+      "slot": 6,
+      "response": "comparison/slot-06-snappy-H0/agent/response-1.json",
+      "sha256": "447a9097ef9a54f4b3d586e86eeaae1dc7973cfac6766d4ab97f687a0c4db778",
+      "model": "deepseek-flash",
+      "input_tokens": 9155,
+      "output_tokens": 171,
+      "total_tokens": 9326,
+      "input_token_details": {
+        "cache_read": 1408
+      },
+      "output_token_details": {
+        "reasoning": 86
+      },
+      "estimated_cost_usd": "0.0029517"
+    },
+    {
+      "slot": 6,
+      "response": "comparison/slot-06-snappy-H0/agent/response-2.json",
+      "sha256": "eb1fe57924ba81f222dd2dae49adbacc372ca7299cd27a40f2cfaea14443e78d",
+      "model": "deepseek-flash",
+      "input_tokens": 11539,
+      "output_tokens": 68,
+      "total_tokens": 11607,
+      "input_token_details": {
+        "cache_read": 8832
+      },
+      "output_token_details": {
+        "reasoning": 28
+      },
+      "estimated_cost_usd": "0.0035433"
+    },
+    {
+      "slot": 6,
+      "response": "comparison/slot-06-snappy-H0/agent/response-3.json",
+      "sha256": "fdd8842416e0ce325cc50971dafc9cc8bd45eadd78c1226aeb44bf5b830ea8cd",
+      "model": "deepseek-flash",
+      "input_tokens": 11725,
+      "output_tokens": 44,
+      "total_tokens": 11769,
+      "input_token_details": {
+        "cache_read": 8832
+      },
+      "output_token_details": {
+        "reasoning": 0
+      },
+      "estimated_cost_usd": "0.0035703"
+    },
+    {
+      "slot": 6,
+      "response": "comparison/slot-06-snappy-H0/agent/response-4.json",
+      "sha256": "4d37cdf889524dc45253b380cf300b432b33f82f9a53f7c104890ca66887665d",
+      "model": "deepseek-flash",
+      "input_tokens": 11961,
+      "output_tokens": 587,
+      "total_tokens": 12548,
+      "input_token_details": {
+        "cache_read": 8832
+      },
+      "output_token_details": {
+        "reasoning": 266
+      },
+      "estimated_cost_usd": "0.0042927"
+    },
+    {
+      "slot": 7,
+      "response": "comparison/slot-07-simdutf-H2/agent/response-1.json",
+      "sha256": "6362df67c352cfd1af931789139e11cd015869a623b186d760d15509ef7c3312",
+      "model": "deepseek-flash",
+      "input_tokens": 9515,
+      "output_tokens": 367,
+      "total_tokens": 9882,
+      "input_token_details": {
+        "cache_read": 1792
+      },
+      "output_token_details": {
+        "reasoning": 284
+      },
+      "estimated_cost_usd": "0.0032949"
+    },
+    {
+      "slot": 7,
+      "response": "comparison/slot-07-simdutf-H2/agent/response-2.json",
+      "sha256": "8be5ebbb1e9e93b08dd369fe9d4658764126a5f6d085c3dc9c25222b7a483391",
+      "model": "deepseek-flash",
+      "input_tokens": 11733,
+      "output_tokens": 524,
+      "total_tokens": 12257,
+      "input_token_details": {
+        "cache_read": 9216
+      },
+      "output_token_details": {
+        "reasoning": 183
+      },
+      "estimated_cost_usd": "0.0041487"
+    },
+    {
+      "slot": 8,
+      "response": "comparison/slot-08-simdutf-H0/agent/response-1.json",
+      "sha256": "6642081206426c3e4ceb2afe60dec05869cff527b4c6c4c5250980dae9224cd7",
+      "model": "deepseek-flash",
+      "input_tokens": 9167,
+      "output_tokens": 160,
+      "total_tokens": 9327,
+      "input_token_details": {
+        "cache_read": 1408
+      },
+      "output_token_details": {
+        "reasoning": 77
+      },
+      "estimated_cost_usd": "0.0029421"
+    },
+    {
+      "slot": 8,
+      "response": "comparison/slot-08-simdutf-H0/agent/response-2.json",
+      "sha256": "675ac70934304d6d8385c991f0a2e3b46817a50a356b0f605d58bc2161e355b6",
+      "model": "deepseek-flash",
+      "input_tokens": 11179,
+      "output_tokens": 385,
+      "total_tokens": 11564,
+      "input_token_details": {
+        "cache_read": 8832
+      },
+      "output_token_details": {
+        "reasoning": 66
+      },
+      "estimated_cost_usd": "0.0038157"
+    },
+    {
+      "slot": 9,
+      "response": "comparison/slot-09-simdutf-H1/agent/response-1.json",
+      "sha256": "59fa8df1a82b2634bd0bc95d76c9d59b2994d52572046205592a31cd1e989eb8",
+      "model": "deepseek-flash",
+      "input_tokens": 9751,
+      "output_tokens": 212,
+      "total_tokens": 9963,
+      "input_token_details": {
+        "cache_read": 2048
+      },
+      "output_token_details": {
+        "reasoning": 129
+      },
+      "estimated_cost_usd": "0.0031797"
+    },
+    {
+      "slot": 9,
+      "response": "comparison/slot-09-simdutf-H1/agent/response-2.json",
+      "sha256": "d23a789fdaca5fa4c6b9eab6a85875fca5478a2a7897a3d408bd62357738583a",
+      "model": "deepseek-flash",
+      "input_tokens": 11815,
+      "output_tokens": 575,
+      "total_tokens": 12390,
+      "input_token_details": {
+        "cache_read": 9472
+      },
+      "output_token_details": {
+        "reasoning": 132
+      },
+      "estimated_cost_usd": "0.0042345"
+    },
+    {
+      "slot": 10,
+      "response": "comparison/slot-10-md4c-H2/agent/response-1.json",
+      "sha256": "972396d609208b163d8a9becdf8c8386ee93151273a3a944916adc3fddedb38d",
+      "model": "deepseek-flash",
+      "input_tokens": 7784,
+      "output_tokens": 131,
+      "total_tokens": 7915,
+      "input_token_details": {
+        "cache_read": 1792
+      },
+      "output_token_details": {
+        "reasoning": 48
+      },
+      "estimated_cost_usd": "0.0024924"
+    },
+    {
+      "slot": 10,
+      "response": "comparison/slot-10-md4c-H2/agent/response-2.json",
+      "sha256": "0cbe58553383922e581dbeb09ec73f959f44ed97f659a4424dfcebd7b030bbe6",
+      "model": "deepseek-flash",
+      "input_tokens": 9852,
+      "output_tokens": 246,
+      "total_tokens": 10098,
+      "input_token_details": {
+        "cache_read": 7424
+      },
+      "output_token_details": {
+        "reasoning": 168
+      },
+      "estimated_cost_usd": "0.0032508"
+    },
+    {
+      "slot": 10,
+      "response": "comparison/slot-10-md4c-H2/agent/response-3.json",
+      "sha256": "53459065b82b92de1671e27ed6211baa761b3f76873cb0f7e44b4d9a57b49b7a",
+      "model": "deepseek-flash",
+      "input_tokens": 11788,
+      "output_tokens": 404,
+      "total_tokens": 12192,
+      "input_token_details": {
+        "cache_read": 7424
+      },
+      "output_token_details": {
+        "reasoning": 59
+      },
+      "estimated_cost_usd": "0.0040212"
+    },
+    {
+      "slot": 11,
+      "response": "comparison/slot-11-md4c-H1/agent/response-1.json",
+      "sha256": "394a2d71bacbd52cbb8e62f1c3a5f258ff5b10e99ce131e36b03708ab9132055",
+      "model": "deepseek-flash",
+      "input_tokens": 8020,
+      "output_tokens": 251,
+      "total_tokens": 8271,
+      "input_token_details": {
+        "cache_read": 2048
+      },
+      "output_token_details": {
+        "reasoning": 100
+      },
+      "estimated_cost_usd": "0.0027072"
+    },
+    {
+      "slot": 11,
+      "response": "comparison/slot-11-md4c-H1/agent/response-2.json",
+      "sha256": "ef66a83fa9b65964f4c2d9786c30d17ceca475bf1a95b9db22c409d5e327030f",
+      "model": "deepseek-flash",
+      "input_tokens": 11896,
+      "output_tokens": 114,
+      "total_tokens": 12010,
+      "input_token_details": {
+        "cache_read": 7680
+      },
+      "output_token_details": {
+        "reasoning": 58
+      },
+      "estimated_cost_usd": "0.0037056"
+    },
+    {
+      "slot": 11,
+      "response": "comparison/slot-11-md4c-H1/agent/response-3.json",
+      "sha256": "776d6f320cc515c6dbf595725964bca7a20de3a59f7fbd11a7d512e5fedf8cc8",
+      "model": "deepseek-flash",
+      "input_tokens": 13122,
+      "output_tokens": 501,
+      "total_tokens": 13623,
+      "input_token_details": {
+        "cache_read": 7680
+      },
+      "output_token_details": {
+        "reasoning": 159
+      },
+      "estimated_cost_usd": "0.0045378"
+    },
+    {
+      "slot": 12,
+      "response": "comparison/slot-12-md4c-H0/agent/response-1.json",
+      "sha256": "8e44d62f0c0e3645286cc48cb277dbf3a3c522803e472cc331fde1709fee0128",
+      "model": "deepseek-flash",
+      "input_tokens": 7436,
+      "output_tokens": 145,
+      "total_tokens": 7581,
+      "input_token_details": {
+        "cache_read": 1408
+      },
+      "output_token_details": {
+        "reasoning": 62
+      },
+      "estimated_cost_usd": "0.0024048"
+    },
+    {
+      "slot": 12,
+      "response": "comparison/slot-12-md4c-H0/agent/response-2.json",
+      "sha256": "fe673bf2063080fd35072f37564280bc6adb15c87f307cc427a846f33400abbe",
+      "model": "deepseek-flash",
+      "input_tokens": 9466,
+      "output_tokens": 73,
+      "total_tokens": 9539,
+      "input_token_details": {
+        "cache_read": 7168
+      },
+      "output_token_details": {
+        "reasoning": 17
+      },
+      "estimated_cost_usd": "0.0029274"
+    },
+    {
+      "slot": 12,
+      "response": "comparison/slot-12-md4c-H0/agent/response-3.json",
+      "sha256": "a350bd6ce6ef5b1e844329511feed062a86160a0cdcdcb47af97596a232ed175",
+      "model": "deepseek-flash",
+      "input_tokens": 11296,
+      "output_tokens": 800,
+      "total_tokens": 12096,
+      "input_token_details": {
+        "cache_read": 7168
+      },
+      "output_token_details": {
+        "reasoning": 423
+      },
+      "estimated_cost_usd": "0.0043488"
+    },
+    {
+      "slot": 13,
+      "response": "comparison/slot-13-libtommath-H0/agent/response-1.json",
+      "sha256": "0d6ac2552bee5aef9e4f914039816c1bd07d2fe4bd23de21acf2bdda7c967240",
+      "model": "deepseek-flash",
+      "input_tokens": 7214,
+      "output_tokens": 133,
+      "total_tokens": 7347,
+      "input_token_details": {
+        "cache_read": 1408
+      },
+      "output_token_details": {
+        "reasoning": 50
+      },
+      "estimated_cost_usd": "0.0023238"
+    },
+    {
+      "slot": 13,
+      "response": "comparison/slot-13-libtommath-H0/agent/response-2.json",
+      "sha256": "c4c187062340aff2eeaa67b473f752ac70dfbaaaba4997532800ebeab40b8d2c",
+      "model": "deepseek-flash",
+      "input_tokens": 8254,
+      "output_tokens": 123,
+      "total_tokens": 8377,
+      "input_token_details": {
+        "cache_read": 6912
+      },
+      "output_token_details": {
+        "reasoning": 17
+      },
+      "estimated_cost_usd": "0.0026238"
+    },
+    {
+      "slot": 13,
+      "response": "comparison/slot-13-libtommath-H0/agent/response-3.json",
+      "sha256": "0436bc199fb47501e1a6e775fccfa58addaef140a1c73b05f3c5c4fca37186b6",
+      "model": "deepseek-flash",
+      "input_tokens": 12251,
+      "output_tokens": 353,
+      "total_tokens": 12604,
+      "input_token_details": {
+        "cache_read": 6912
+      },
+      "output_token_details": {
+        "reasoning": 71
+      },
+      "estimated_cost_usd": "0.0040989"
+    },
+    {
+      "slot": 14,
+      "response": "comparison/slot-14-libtommath-H2/agent/response-1.json",
+      "sha256": "0c8613dd5a7f1b655d9426890530be0e9796fb9e0190511321d4bb23b3961f72",
+      "model": "deepseek-flash",
+      "input_tokens": 7562,
+      "output_tokens": 317,
+      "total_tokens": 7879,
+      "input_token_details": {
+        "cache_read": 1792
+      },
+      "output_token_details": {
+        "reasoning": 234
+      },
+      "estimated_cost_usd": "0.002649"
+    },
+    {
+      "slot": 14,
+      "response": "comparison/slot-14-libtommath-H2/agent/response-2.json",
+      "sha256": "519b8418078ba0a03e40ab29605aa6d6d7007b1de5b1ade04d1f269211c2772c",
+      "model": "deepseek-flash",
+      "input_tokens": 8786,
+      "output_tokens": 70,
+      "total_tokens": 8856,
+      "input_token_details": {
+        "cache_read": 7296
+      },
+      "output_token_details": {
+        "reasoning": 14
+      },
+      "estimated_cost_usd": "0.0027198"
+    },
+    {
+      "slot": 14,
+      "response": "comparison/slot-14-libtommath-H2/agent/response-3.json",
+      "sha256": "7de687c6820bee23219d5efa6829313d64f273a50618e639c136cb8fd1960405",
+      "model": "deepseek-flash",
+      "input_tokens": 11235,
+      "output_tokens": 467,
+      "total_tokens": 11702,
+      "input_token_details": {
+        "cache_read": 7296
+      },
+      "output_token_details": {
+        "reasoning": 217
+      },
+      "estimated_cost_usd": "0.0039309"
+    },
+    {
+      "slot": 15,
+      "response": "comparison/slot-15-libtommath-H1/agent/response-1.json",
+      "sha256": "a75cac48517e6c98dd43e0877dbb406d0192de23bdb08094f284031b3d925f8a",
+      "model": "deepseek-flash",
+      "input_tokens": 7798,
+      "output_tokens": 129,
+      "total_tokens": 7927,
+      "input_token_details": {
+        "cache_read": 2048
+      },
+      "output_token_details": {
+        "reasoning": 46
+      },
+      "estimated_cost_usd": "0.0024942"
+    },
+    {
+      "slot": 15,
+      "response": "comparison/slot-15-libtommath-H1/agent/response-2.json",
+      "sha256": "bead16c719b11ee86a71b51a24819a419eaa062b306dd56ae1491f84f45a8f6c",
+      "model": "deepseek-flash",
+      "input_tokens": 11076,
+      "output_tokens": 250,
+      "total_tokens": 11326,
+      "input_token_details": {
+        "cache_read": 7424
+      },
+      "output_token_details": {
+        "reasoning": 144
+      },
+      "estimated_cost_usd": "0.0036228"
+    },
+    {
+      "slot": 15,
+      "response": "comparison/slot-15-libtommath-H1/agent/response-3.json",
+      "sha256": "9829a17fceb1a921cc2e083d353f349d8a0b683c24e0bd236f9b6e990b4aed46",
+      "model": "deepseek-flash",
+      "input_tokens": 14925,
+      "output_tokens": 191,
+      "total_tokens": 15116,
+      "input_token_details": {
+        "cache_read": 7424
+      },
+      "output_token_details": {
+        "reasoning": 131
+      },
+      "estimated_cost_usd": "0.0047067"
+    },
+    {
+      "slot": 15,
+      "response": "comparison/slot-15-libtommath-H1/agent/response-4.json",
+      "sha256": "0e5dfbeed53f5f1f02f363f96fdf6c10e32d1bc3abdfc5f3ade1ceab1274cd9a",
+      "model": "deepseek-flash",
+      "input_tokens": 12400,
+      "output_tokens": 643,
+      "total_tokens": 13043,
+      "input_token_details": {
+        "cache_read": 2304
+      },
+      "output_token_details": {
+        "reasoning": 429
+      },
+      "estimated_cost_usd": "0.0044916"
+    },
+    {
+      "slot": 15,
+      "response": "comparison/slot-15-libtommath-H1/agent/response-5.json",
+      "sha256": "735b008c500517d769ee7355f158ec8e8dcdb8d6107b83cc2717fe91152048cf",
+      "model": "deepseek-flash",
+      "input_tokens": 13331,
+      "output_tokens": 259,
+      "total_tokens": 13590,
+      "input_token_details": {
+        "cache_read": 3584
+      },
+      "output_token_details": {
+        "reasoning": 38
+      },
+      "estimated_cost_usd": "0.0043101"
+    },
+    {
+      "slot": 16,
+      "response": "comparison/slot-16-libhydrogen-H1/agent/response-1.json",
+      "sha256": "62939622da81d7a4da44469a1819684cd174fbceae0ea2c472b8389dbf0a70a8",
+      "model": "deepseek-flash",
+      "input_tokens": 7648,
+      "output_tokens": 1254,
+      "total_tokens": 8902,
+      "input_token_details": {
+        "cache_read": 2048
+      },
+      "output_token_details": {
+        "reasoning": 1007
+      },
+      "estimated_cost_usd": "0.0037992"
+    },
+    {
+      "slot": 17,
+      "response": "comparison/slot-17-libhydrogen-H0/agent/response-1.json",
+      "sha256": "4c05219e8d035bd049143736fe7a1ca49117f825893077d46ea6d5f3ea44fd31",
+      "model": "deepseek-flash",
+      "input_tokens": 7064,
+      "output_tokens": 829,
+      "total_tokens": 7893,
+      "input_token_details": {
+        "cache_read": 1408
+      },
+      "output_token_details": {
+        "reasoning": 608
+      },
+      "estimated_cost_usd": "0.003114"
+    },
+    {
+      "slot": 17,
+      "response": "comparison/slot-17-libhydrogen-H0/agent/response-2.json",
+      "sha256": "6d66be44d9a7cd7b5a74436551c842df529dd255b10512c3eb3ada5f95353257",
+      "model": "deepseek-flash",
+      "input_tokens": 8031,
+      "output_tokens": 539,
+      "total_tokens": 8570,
+      "input_token_details": {
+        "cache_read": 6784
+      },
+      "output_token_details": {
+        "reasoning": 273
+      },
+      "estimated_cost_usd": "0.0030561"
+    },
+    {
+      "slot": 18,
+      "response": "comparison/slot-18-libhydrogen-H2/agent/response-1.json",
+      "sha256": "1d5aced783d8bfe1cbf86341c606b16ed086b2204cf59f33500fcbeeedd0afad",
+      "model": "deepseek-flash",
+      "input_tokens": 7412,
+      "output_tokens": 526,
+      "total_tokens": 7938,
+      "input_token_details": {
+        "cache_read": 1792
+      },
+      "output_token_details": {
+        "reasoning": 314
+      },
+      "estimated_cost_usd": "0.0028548"
+    },
+    {
+      "slot": 19,
+      "response": "comparison/slot-19-tinyxml2-H0/agent/response-1.json",
+      "sha256": "36b21d4c9d04325a6bf32316a34d322e8a781917b74e58ede4b4c2aa05ecc4f7",
+      "model": "deepseek-flash",
+      "input_tokens": 9185,
+      "output_tokens": 1123,
+      "total_tokens": 10308,
+      "input_token_details": {
+        "cache_read": 1408
+      },
+      "output_token_details": {
+        "reasoning": 895
+      },
+      "estimated_cost_usd": "0.0041031"
+    },
+    {
+      "slot": 19,
+      "response": "comparison/slot-19-tinyxml2-H0/agent/response-2.json",
+      "sha256": "b915dbe828dbe265b76ddb33d994131f7cd8fe1ae53c03076ece3ec396fb49a9",
+      "model": "deepseek-flash",
+      "input_tokens": 10174,
+      "output_tokens": 174,
+      "total_tokens": 10348,
+      "input_token_details": {
+        "cache_read": 8832
+      },
+      "output_token_details": {
+        "reasoning": 0
+      },
+      "estimated_cost_usd": "0.003261"
+    },
+    {
+      "slot": 20,
+      "response": "comparison/slot-20-tinyxml2-H1/agent/response-1.json",
+      "sha256": "fb02adb3ebf10fc259bd17b4812772af7b57a64bdbd6bac52bac19de2943d0fd",
+      "model": "deepseek-flash",
+      "input_tokens": 9769,
+      "output_tokens": 572,
+      "total_tokens": 10341,
+      "input_token_details": {
+        "cache_read": 2048
+      },
+      "output_token_details": {
+        "reasoning": 221
+      },
+      "estimated_cost_usd": "0.0036171"
+    },
+    {
+      "slot": 21,
+      "response": "comparison/slot-21-tinyxml2-H2/agent/response-1.json",
+      "sha256": "c021168c289d6918d09180a981f9e97fe53e44a5d4d1ab1f6534360f21b69474",
+      "model": "deepseek-flash",
+      "input_tokens": 9533,
+      "output_tokens": 504,
+      "total_tokens": 10037,
+      "input_token_details": {
+        "cache_read": 1792
+      },
+      "output_token_details": {
+        "reasoning": 264
+      },
+      "estimated_cost_usd": "0.0034647"
+    },
+    {
+      "slot": 21,
+      "response": "comparison/slot-21-tinyxml2-H2/agent/response-2.json",
+      "sha256": "0cbe936842cff548bb76df149eeeff79662aa635d05f283d70c344675bc8426d",
+      "model": "deepseek-flash",
+      "input_tokens": 10571,
+      "output_tokens": 252,
+      "total_tokens": 10823,
+      "input_token_details": {
+        "cache_read": 9216
+      },
+      "output_token_details": {
+        "reasoning": 5
+      },
+      "estimated_cost_usd": "0.0034737"
+    },
+    {
+      "slot": 22,
+      "response": "comparison/slot-22-fse-H1/agent/response-1.json",
+      "sha256": "17a1f36dc6328580438a49f38d6890dcb1c3bf112e63ba8b4e7138304d3c8f05",
+      "model": "deepseek-flash",
+      "input_tokens": 4937,
+      "output_tokens": 474,
+      "total_tokens": 5411,
+      "input_token_details": {
+        "cache_read": 2048
+      },
+      "output_token_details": {
+        "reasoning": 405
+      },
+      "estimated_cost_usd": "0.0020499"
+    },
+    {
+      "slot": 22,
+      "response": "comparison/slot-22-fse-H1/agent/response-2.json",
+      "sha256": "619b89222b1804729a65ac36737ab6934819282d9011bffda85cbf12293c0a92",
+      "model": "deepseek-flash",
+      "input_tokens": 7679,
+      "output_tokens": 1473,
+      "total_tokens": 9152,
+      "input_token_details": {
+        "cache_read": 4608
+      },
+      "output_token_details": {
+        "reasoning": 1174
+      },
+      "estimated_cost_usd": "0.0040713"
+    },
+    {
+      "slot": 23,
+      "response": "comparison/slot-23-fse-H2/agent/response-1.json",
+      "sha256": "f2a92639f0ea91958eebe00ae8ee2b80b299e6018f8657a1d5509763479d1272",
+      "model": "deepseek-flash",
+      "input_tokens": 4701,
+      "output_tokens": 523,
+      "total_tokens": 5224,
+      "input_token_details": {
+        "cache_read": 1792
+      },
+      "output_token_details": {
+        "reasoning": 481
+      },
+      "estimated_cost_usd": "0.0020379"
+    },
+    {
+      "slot": 23,
+      "response": "comparison/slot-23-fse-H2/agent/response-2.json",
+      "sha256": "bfe0393cb1e69571178342c6baa353f0283edf08c29c25c029ab73306f074b95",
+      "model": "deepseek-flash",
+      "input_tokens": 7352,
+      "output_tokens": 628,
+      "total_tokens": 7980,
+      "input_token_details": {
+        "cache_read": 4352
+      },
+      "output_token_details": {
+        "reasoning": 350
+      },
+      "estimated_cost_usd": "0.0029592"
+    },
+    {
+      "slot": 24,
+      "response": "comparison/slot-24-fse-H0/agent/response-1.json",
+      "sha256": "b6c9ad8e6a2d7339a6abc68b2cbe205f350fd6f44fb365c8e0818e5b989d467e",
+      "model": "deepseek-flash",
+      "input_tokens": 4353,
+      "output_tokens": 151,
+      "total_tokens": 4504,
+      "input_token_details": {
+        "cache_read": 1408
+      },
+      "output_token_details": {
+        "reasoning": 80
+      },
+      "estimated_cost_usd": "0.0014871"
+    },
+    {
+      "slot": 24,
+      "response": "comparison/slot-24-fse-H0/agent/response-2.json",
+      "sha256": "b453d3767cc8751b6bd98227ad34c1d083bd22302f68386adc1f7949f3ccc294",
+      "model": "deepseek-flash",
+      "input_tokens": 6844,
+      "output_tokens": 598,
+      "total_tokens": 7442,
+      "input_token_details": {
+        "cache_read": 4096
+      },
+      "output_token_details": {
+        "reasoning": 356
+      },
+      "estimated_cost_usd": "0.0027708"
+    },
+    {
+      "slot": 25,
+      "response": "comparison/slot-25-check-H2/agent/response-1.json",
+      "sha256": "c1917aa1a29b91e79bf66c3f5d5dc35f63525ead878e27fdafde2ece49ed1f8d",
+      "model": "deepseek-flash",
+      "input_tokens": 10302,
+      "output_tokens": 541,
+      "total_tokens": 10843,
+      "input_token_details": {
+        "cache_read": 1792
+      },
+      "output_token_details": {
+        "reasoning": 145
+      },
+      "estimated_cost_usd": "0.0037398"
+    },
+    {
+      "slot": 25,
+      "response": "comparison/slot-25-check-H2/agent/response-2.json",
+      "sha256": "6a982bf27902bdcad3ae407e4f0bae41c55a2dd1e2f91e4b5f1180cf8ac7c875",
+      "model": "deepseek-flash",
+      "input_tokens": 15618,
+      "output_tokens": 426,
+      "total_tokens": 16044,
+      "input_token_details": {
+        "cache_read": 1408
+      },
+      "output_token_details": {
+        "reasoning": 357
+      },
+      "estimated_cost_usd": "0.0051966"
+    },
+    {
+      "slot": 25,
+      "response": "comparison/slot-25-check-H2/agent/response-3.json",
+      "sha256": "4f817064b8e8f2d2b45e40a6ebb780f78dc8cce41aa2bbeea05f4fdc5d5cdd2f",
+      "model": "deepseek-flash",
+      "input_tokens": 14863,
+      "output_tokens": 181,
+      "total_tokens": 15044,
+      "input_token_details": {
+        "cache_read": 11648
+      },
+      "output_token_details": {
+        "reasoning": 95
+      },
+      "estimated_cost_usd": "0.0046761"
+    },
+    {
+      "slot": 25,
+      "response": "comparison/slot-25-check-H2/agent/response-4.json",
+      "sha256": "090f93146fd170a294038418f081d163b36798152cfb2a3ed55f14b5790001fa",
+      "model": "deepseek-flash",
+      "input_tokens": 14824,
+      "output_tokens": 1145,
+      "total_tokens": 15969,
+      "input_token_details": {
+        "cache_read": 7424
+      },
+      "output_token_details": {
+        "reasoning": 1043
+      },
+      "estimated_cost_usd": "0.0058212"
+    },
+    {
+      "slot": 25,
+      "response": "comparison/slot-25-check-H2/agent/response-5.json",
+      "sha256": "cd8fdcd833954361745f5c45e2a2d12cd7e5a5da9ae137a1797e4910e8010fc5",
+      "model": "deepseek-flash",
+      "input_tokens": 13426,
+      "output_tokens": 69,
+      "total_tokens": 13495,
+      "input_token_details": {
+        "cache_read": 7552
+      },
+      "output_token_details": {
+        "reasoning": 13
+      },
+      "estimated_cost_usd": "0.0041106"
+    },
+    {
+      "slot": 25,
+      "response": "comparison/slot-25-check-H2/agent/response-6.json",
+      "sha256": "a0692697b4c6f6c2339eb81d8ddd6506e9b1fc39b1bdbb146e050ae21f139876",
+      "model": "deepseek-flash",
+      "input_tokens": 10415,
+      "output_tokens": 75,
+      "total_tokens": 10490,
+      "input_token_details": {
+        "cache_read": 7680
+      },
+      "output_token_details": {
+        "reasoning": 19
+      },
+      "estimated_cost_usd": "0.0032145"
+    },
+    {
+      "slot": 25,
+      "response": "comparison/slot-25-check-H2/agent/response-7.json",
+      "sha256": "34dff99c0f597a13587d794bb8820365997767e632d8b4ef4ccdb289bdeed868",
+      "model": "deepseek-flash",
+      "input_tokens": 12422,
+      "output_tokens": 115,
+      "total_tokens": 12537,
+      "input_token_details": {
+        "cache_read": 7680
+      },
+      "output_token_details": {
+        "reasoning": 59
+      },
+      "estimated_cost_usd": "0.0038646"
+    },
+    {
+      "slot": 25,
+      "response": "comparison/slot-25-check-H2/agent/response-8.json",
+      "sha256": "865e0f7ee45e2c63f4f52e8c0355cac27401d0c17cc7a5e0d3adec7db44a3a87",
+      "model": "deepseek-flash",
+      "input_tokens": 13731,
+      "output_tokens": 506,
+      "total_tokens": 14237,
+      "input_token_details": {
+        "cache_read": 7680
+      },
+      "output_token_details": {
+        "reasoning": 447
+      },
+      "estimated_cost_usd": "0.0047265"
+    },
+    {
+      "slot": 25,
+      "response": "comparison/slot-25-check-H2/agent/response-9.json",
+      "sha256": "7fd33c39443d28cefcf4ab938c786c4f02b25b6661ebfee328eb2a53f53d0bca",
+      "model": "deepseek-flash",
+      "input_tokens": 14297,
+      "output_tokens": 75,
+      "total_tokens": 14372,
+      "input_token_details": {
+        "cache_read": 7680
+      },
+      "output_token_details": {
+        "reasoning": 18
+      },
+      "estimated_cost_usd": "0.0043791"
+    },
+    {
+      "slot": 25,
+      "response": "comparison/slot-25-check-H2/agent/response-10.json",
+      "sha256": "fb08b13d697b4a3ec7eb8acc3cdfd98ff6d519abf43dd5e8fef0828dc1085856",
+      "model": "deepseek-flash",
+      "input_tokens": 13250,
+      "output_tokens": 77,
+      "total_tokens": 13327,
+      "input_token_details": {
+        "cache_read": 7680
+      },
+      "output_token_details": {
+        "reasoning": 21
+      },
+      "estimated_cost_usd": "0.0040674"
+    },
+    {
+      "slot": 25,
+      "response": "comparison/slot-25-check-H2/agent/response-11.json",
+      "sha256": "51425850bc9229258a035b12845337da4e386508488549f7ee28505a7ed3c703",
+      "model": "deepseek-flash",
+      "input_tokens": 13969,
+      "output_tokens": 296,
+      "total_tokens": 14265,
+      "input_token_details": {
+        "cache_read": 7680
+      },
+      "output_token_details": {
+        "reasoning": 240
+      },
+      "estimated_cost_usd": "0.0045459"
+    },
+    {
+      "slot": 25,
+      "response": "comparison/slot-25-check-H2/agent/response-12.json",
+      "sha256": "bf3781b3041580bf7e741ae595944e2ed12436030a961cff1e665cb2a2b994bd",
+      "model": "deepseek-flash",
+      "input_tokens": 12689,
+      "output_tokens": 1211,
+      "total_tokens": 13900,
+      "input_token_details": {
+        "cache_read": 7680
+      },
+      "output_token_details": {
+        "reasoning": 770
+      },
+      "estimated_cost_usd": "0.0052599"
+    },
+    {
+      "slot": 26,
+      "response": "comparison/slot-26-check-H0/agent/response-1.json",
+      "sha256": "26cd959c66f8dae21023e940713d78826e714f05c63a492eecaf1abf6532c9f5",
+      "model": "deepseek-flash",
+      "input_tokens": 9954,
+      "output_tokens": 129,
+      "total_tokens": 10083,
+      "input_token_details": {
+        "cache_read": 1664
+      },
+      "output_token_details": {
+        "reasoning": 92
+      },
+      "estimated_cost_usd": "0.003141"
+    },
+    {
+      "slot": 26,
+      "response": "comparison/slot-26-check-H0/agent/response-2.json",
+      "sha256": "7d94b06378f4e6b462889b528de9907b886a546c39ed141e1b168d17d9817faa",
+      "model": "deepseek-flash",
+      "input_tokens": 10320,
+      "output_tokens": 461,
+      "total_tokens": 10781,
+      "input_token_details": {
+        "cache_read": 9600
+      },
+      "output_token_details": {
+        "reasoning": 93
+      },
+      "estimated_cost_usd": "0.0036492"
+    },
+    {
+      "slot": 26,
+      "response": "comparison/slot-26-check-H0/agent/response-3.json",
+      "sha256": "59cf0a1bfc09575ddb19f1a5738768840ab7194994145bc4a22f3f9d1e7bef59",
+      "model": "deepseek-flash",
+      "input_tokens": 12613,
+      "output_tokens": 437,
+      "total_tokens": 13050,
+      "input_token_details": {
+        "cache_read": 1920
+      },
+      "output_token_details": {
+        "reasoning": 349
+      },
+      "estimated_cost_usd": "0.0043083"
+    },
+    {
+      "slot": 26,
+      "response": "comparison/slot-26-check-H0/agent/response-4.json",
+      "sha256": "faa1d57a09b0fa90dbf341abef07ad8c008e846383f255b4ed546a415a313d09",
+      "model": "deepseek-flash",
+      "input_tokens": 13545,
+      "output_tokens": 180,
+      "total_tokens": 13725,
+      "input_token_details": {
+        "cache_read": 8448
+      },
+      "output_token_details": {
+        "reasoning": 94
+      },
+      "estimated_cost_usd": "0.0042795"
+    },
+    {
+      "slot": 26,
+      "response": "comparison/slot-26-check-H0/agent/response-5.json",
+      "sha256": "91de40092171971fe6f441383798365bba286e77c0b8e1dc33ddc836e9c45b66",
+      "model": "deepseek-flash",
+      "input_tokens": 15348,
+      "output_tokens": 1259,
+      "total_tokens": 16607,
+      "input_token_details": {
+        "cache_read": 7424
+      },
+      "output_token_details": {
+        "reasoning": 1152
+      },
+      "estimated_cost_usd": "0.0061152"
+    },
+    {
+      "slot": 26,
+      "response": "comparison/slot-26-check-H0/agent/response-6.json",
+      "sha256": "91c962c5d0cd37aa65163aa3efcbfdc85aff54734e156c2a58f80eb6db3f7e5f",
+      "model": "deepseek-flash",
+      "input_tokens": 12787,
+      "output_tokens": 469,
+      "total_tokens": 13256,
+      "input_token_details": {
+        "cache_read": 7680
+      },
+      "output_token_details": {
+        "reasoning": 364
+      },
+      "estimated_cost_usd": "0.0043989"
+    },
+    {
+      "slot": 26,
+      "response": "comparison/slot-26-check-H0/agent/response-7.json",
+      "sha256": "c92aa379dfef0590e9855e43e7b551809ae0ba0abbd4df9de885333e2d7f5215",
+      "model": "deepseek-flash",
+      "input_tokens": 12939,
+      "output_tokens": 577,
+      "total_tokens": 13516,
+      "input_token_details": {
+        "cache_read": 7680
+      },
+      "output_token_details": {
+        "reasoning": 474
+      },
+      "estimated_cost_usd": "0.0045741"
+    },
+    {
+      "slot": 26,
+      "response": "comparison/slot-26-check-H0/agent/response-8.json",
+      "sha256": "8124de2748b07d6d22478057fbc7a1409468230eaabe15ee0dbdf0b7b3c9e7b7",
+      "model": "deepseek-flash",
+      "input_tokens": 11606,
+      "output_tokens": 117,
+      "total_tokens": 11723,
+      "input_token_details": {
+        "cache_read": 7680
+      },
+      "output_token_details": {
+        "reasoning": 15
+      },
+      "estimated_cost_usd": "0.0036222"
+    },
+    {
+      "slot": 26,
+      "response": "comparison/slot-26-check-H0/agent/response-9.json",
+      "sha256": "0e94bcae774d2ae9fe6495f64b436a0a5e9d89e41c11effaaf52dfd94bf8f5fa",
+      "model": "deepseek-flash",
+      "input_tokens": 14467,
+      "output_tokens": 1235,
+      "total_tokens": 15702,
+      "input_token_details": {
+        "cache_read": 7680
+      },
+      "output_token_details": {
+        "reasoning": 1158
+      },
+      "estimated_cost_usd": "0.0058221"
+    },
+    {
+      "slot": 26,
+      "response": "comparison/slot-26-check-H0/agent/response-10.json",
+      "sha256": "4b6c360458f9fb7849c1350e125106f65f5c778778a77e782db8eb54bc0b196c",
+      "model": "deepseek-flash",
+      "input_tokens": 14579,
+      "output_tokens": 496,
+      "total_tokens": 15075,
+      "input_token_details": {
+        "cache_read": 7680
+      },
+      "output_token_details": {
+        "reasoning": 393
+      },
+      "estimated_cost_usd": "0.0049689"
+    },
+    {
+      "slot": 26,
+      "response": "comparison/slot-26-check-H0/agent/response-11.json",
+      "sha256": "0385311ec9a770170bc9cd5c267c60d42447b9607593173c043a1510c3bb6387",
+      "model": "deepseek-flash",
+      "input_tokens": 11862,
+      "output_tokens": 294,
+      "total_tokens": 12156,
+      "input_token_details": {
+        "cache_read": 7680
+      },
+      "output_token_details": {
+        "reasoning": 238
+      },
+      "estimated_cost_usd": "0.0039114"
+    },
+    {
+      "slot": 26,
+      "response": "comparison/slot-26-check-H0/agent/response-12.json",
+      "sha256": "103c4ac1cdd31aeb9dbce0aaf5e158b74e96ddcd4cfd07e8351431f3a628f4f7",
+      "model": "deepseek-flash",
+      "input_tokens": 13273,
+      "output_tokens": 773,
+      "total_tokens": 14046,
+      "input_token_details": {
+        "cache_read": 7680
+      },
+      "output_token_details": {
+        "reasoning": 157
+      },
+      "estimated_cost_usd": "0.0049095"
+    },
+    {
+      "slot": 27,
+      "response": "comparison/slot-27-check-H1/agent/response-1.json",
+      "sha256": "fcaf8961834416510cb4b83ef4bea87362c1444e2d4fa64d737f7c18bc628656",
+      "model": "deepseek-flash",
+      "input_tokens": 10538,
+      "output_tokens": 185,
+      "total_tokens": 10723,
+      "input_token_details": {
+        "cache_read": 2048
+      },
+      "output_token_details": {
+        "reasoning": 143
+      },
+      "estimated_cost_usd": "0.0033834"
+    },
+    {
+      "slot": 27,
+      "response": "comparison/slot-27-check-H1/agent/response-2.json",
+      "sha256": "a07db0d93de73645e2dbf8a1be1a0bc6147516c3fe7e34e588f598666d7b532c",
+      "model": "deepseek-flash",
+      "input_tokens": 10959,
+      "output_tokens": 56,
+      "total_tokens": 11015,
+      "input_token_details": {
+        "cache_read": 10240
+      },
+      "output_token_details": {
+        "reasoning": 16
+      },
+      "estimated_cost_usd": "0.0033549"
+    },
+    {
+      "slot": 27,
+      "response": "comparison/slot-27-check-H1/agent/response-3.json",
+      "sha256": "941c3dfe65ec5473baf85d72cc57e64a11681bc7c5d41e8b8edb08c5632d2f96",
+      "model": "deepseek-flash",
+      "input_tokens": 11900,
+      "output_tokens": 876,
+      "total_tokens": 12776,
+      "input_token_details": {
+        "cache_read": 10240
+      },
+      "output_token_details": {
+        "reasoning": 802
+      },
+      "estimated_cost_usd": "0.0046212"
+    },
+    {
+      "slot": 27,
+      "response": "comparison/slot-27-check-H1/agent/response-4.json",
+      "sha256": "12c9b2cc807813b50a6c8a90d810c4262ff5dffbbbf6c3cf9c1e032882bce80b",
+      "model": "deepseek-flash",
+      "input_tokens": 14267,
+      "output_tokens": 701,
+      "total_tokens": 14968,
+      "input_token_details": {
+        "cache_read": 10240
+      },
+      "output_token_details": {
+        "reasoning": 316
+      },
+      "estimated_cost_usd": "0.0051213"
+    },
+    {
+      "slot": 27,
+      "response": "comparison/slot-27-check-H1/agent/response-5.json",
+      "sha256": "70f97e160c5547afc9a42e8a8fa6017c5e9cae3c38ec3131ebf9387cbea277d1",
+      "model": "deepseek-flash",
+      "input_tokens": 14792,
+      "output_tokens": 2441,
+      "total_tokens": 17233,
+      "input_token_details": {
+        "cache_read": 1920
+      },
+      "output_token_details": {
+        "reasoning": 2353
+      },
+      "estimated_cost_usd": "0.0073668"
+    },
+    {
+      "slot": 27,
+      "response": "comparison/slot-27-check-H1/agent/response-6.json",
+      "sha256": "e2be34321f970e6975318744da7bfabd1a8b1cdec955fa66c44b04a46f5f5ecc",
+      "model": "deepseek-flash",
+      "input_tokens": 14634,
+      "output_tokens": 136,
+      "total_tokens": 14770,
+      "input_token_details": {
+        "cache_read": 7424
+      },
+      "output_token_details": {
+        "reasoning": 34
+      },
+      "estimated_cost_usd": "0.0045534"
+    },
+    {
+      "slot": 27,
+      "response": "comparison/slot-27-check-H1/agent/response-7.json",
+      "sha256": "135129be6f07a02166a55606fe1218764296761b6ef794926c6ded0195934e2a",
+      "model": "deepseek-flash",
+      "input_tokens": 11908,
+      "output_tokens": 171,
+      "total_tokens": 12079,
+      "input_token_details": {
+        "cache_read": 8064
+      },
+      "output_token_details": {
+        "reasoning": 66
+      },
+      "estimated_cost_usd": "0.0037776"
+    },
+    {
+      "slot": 27,
+      "response": "comparison/slot-27-check-H1/agent/response-8.json",
+      "sha256": "068f0cf0dd711e9023fdb6deae8e0851ad8f1b42efd04fd5eb3e2e3d126a70f1",
+      "model": "deepseek-flash",
+      "input_tokens": 12639,
+      "output_tokens": 656,
+      "total_tokens": 13295,
+      "input_token_details": {
+        "cache_read": 8064
+      },
+      "output_token_details": {
+        "reasoning": 551
+      },
+      "estimated_cost_usd": "0.0045789"
+    },
+    {
+      "slot": 27,
+      "response": "comparison/slot-27-check-H1/agent/response-9.json",
+      "sha256": "b356039754d40e2d6a7b37b4097f8f8913b040e38f8f2885af4d23f84459b67f",
+      "model": "deepseek-flash",
+      "input_tokens": 15003,
+      "output_tokens": 94,
+      "total_tokens": 15097,
+      "input_token_details": {
+        "cache_read": 8064
+      },
+      "output_token_details": {
+        "reasoning": 37
+      },
+      "estimated_cost_usd": "0.0046137"
+    },
+    {
+      "slot": 27,
+      "response": "comparison/slot-27-check-H1/agent/response-10.json",
+      "sha256": "0afd957ecc132ed9d96724f2229ad0aaf6c375937c75fc2d77f487939c0acb23",
+      "model": "deepseek-flash",
+      "input_tokens": 12146,
+      "output_tokens": 101,
+      "total_tokens": 12247,
+      "input_token_details": {
+        "cache_read": 8064
+      },
+      "output_token_details": {
+        "reasoning": 45
+      },
+      "estimated_cost_usd": "0.003765"
+    },
+    {
+      "slot": 27,
+      "response": "comparison/slot-27-check-H1/agent/response-11.json",
+      "sha256": "7affb3a81bf51eb1f9f0e33f6d7ebba1fd9f0fa54ea425293c22be943b58a9d8",
+      "model": "deepseek-flash",
+      "input_tokens": 14219,
+      "output_tokens": 66,
+      "total_tokens": 14285,
+      "input_token_details": {
+        "cache_read": 8064
+      },
+      "output_token_details": {
+        "reasoning": 10
+      },
+      "estimated_cost_usd": "0.0043449"
+    },
+    {
+      "slot": 27,
+      "response": "comparison/slot-27-check-H1/agent/response-12.json",
+      "sha256": "837031f257249dae681d7359363212ce9df91afa7f412cca7ee3aff969e6b1e2",
+      "model": "deepseek-flash",
+      "input_tokens": 13966,
+      "output_tokens": 86,
+      "total_tokens": 14052,
+      "input_token_details": {
+        "cache_read": 8064
+      },
+      "output_token_details": {
+        "reasoning": 30
+      },
+      "estimated_cost_usd": "0.004293"
+    },
+    {
+      "slot": 27,
+      "response": "comparison/slot-27-check-H1/agent/response-13.json",
+      "sha256": "1fa42593f3cfcd3b0227a8525ba21f0795c63d5f7ae534aa095b608e38c7ac50",
+      "model": "deepseek-flash",
+      "input_tokens": 15083,
+      "output_tokens": 136,
+      "total_tokens": 15219,
+      "input_token_details": {
+        "cache_read": 8064
+      },
+      "output_token_details": {
+        "reasoning": 80
+      },
+      "estimated_cost_usd": "0.0046881"
+    },
+    {
+      "slot": 27,
+      "response": "comparison/slot-27-check-H1/agent/response-14.json",
+      "sha256": "87cf7001464f4b0649b65b14a610b0bc667a2c69ef1936c310ce089c7d71e0e5",
+      "model": "deepseek-flash",
+      "input_tokens": 14334,
+      "output_tokens": 241,
+      "total_tokens": 14575,
+      "input_token_details": {
+        "cache_read": 8064
+      },
+      "output_token_details": {
+        "reasoning": 182
+      },
+      "estimated_cost_usd": "0.0045894"
+    },
+    {
+      "slot": 27,
+      "response": "comparison/slot-27-check-H1/agent/response-15.json",
+      "sha256": "92468381c1a3d2175da309b484fa2cda5a0cb89c5a502c69b3a6da8f0924b10d",
+      "model": "deepseek-flash",
+      "input_tokens": 14619,
+      "output_tokens": 65,
+      "total_tokens": 14684,
+      "input_token_details": {
+        "cache_read": 8064
+      },
+      "output_token_details": {
+        "reasoning": 6
+      },
+      "estimated_cost_usd": "0.0044637"
+    },
+    {
+      "slot": 27,
+      "response": "comparison/slot-27-check-H1/agent/response-16.json",
+      "sha256": "35b1dedb57b0e05af6ecb9479af3a1e1bbd08530ba2e85bd07c8f5297689b2db",
+      "model": "deepseek-flash",
+      "input_tokens": 13019,
+      "output_tokens": 1646,
+      "total_tokens": 14665,
+      "input_token_details": {
+        "cache_read": 768
+      },
+      "output_token_details": {
+        "reasoning": 1127
+      },
+      "estimated_cost_usd": "0.0058809"
+    },
+    {
+      "slot": 28,
+      "response": "comparison/slot-28-libsodium-H2/agent/response-1.json",
+      "sha256": "78bdcf81b9cf21ee1e22fe76fc7df8b96329e15122d72841d907101ed00af04d",
+      "model": "deepseek-flash",
+      "input_tokens": 8661,
+      "output_tokens": 97,
+      "total_tokens": 8758,
+      "input_token_details": {
+        "cache_read": 1792
+      },
+      "output_token_details": {
+        "reasoning": 60
+      },
+      "estimated_cost_usd": "0.0027147"
+    },
+    {
+      "slot": 28,
+      "response": "comparison/slot-28-libsodium-H2/agent/response-2.json",
+      "sha256": "4a1e4f646fde5591a7ef18f310cc64858150742621ddd6e4624e2ba588ba02e1",
+      "model": "deepseek-flash",
+      "input_tokens": 9018,
+      "output_tokens": 149,
+      "total_tokens": 9167,
+      "input_token_details": {
+        "cache_read": 8320
+      },
+      "output_token_details": {
+        "reasoning": 79
+      },
+      "estimated_cost_usd": "0.0028842"
+    },
+    {
+      "slot": 28,
+      "response": "comparison/slot-28-libsodium-H2/agent/response-3.json",
+      "sha256": "e78913e6eaa6b44180d1affecfe148d5ea18381fa977a2b1243af64e14e86e0a",
+      "model": "deepseek-flash",
+      "input_tokens": 11012,
+      "output_tokens": 1222,
+      "total_tokens": 12234,
+      "input_token_details": {
+        "cache_read": 8320
+      },
+      "output_token_details": {
+        "reasoning": 923
+      },
+      "estimated_cost_usd": "0.00477"
+    },
+    {
+      "slot": 29,
+      "response": "comparison/slot-29-libsodium-H1/agent/response-1.json",
+      "sha256": "ccc080f5b6d875846f0bfc8bece1027c2d572e7b12607f870fa31764cf91e655",
+      "model": "deepseek-flash",
+      "input_tokens": 8897,
+      "output_tokens": 119,
+      "total_tokens": 9016,
+      "input_token_details": {
+        "cache_read": 2048
+      },
+      "output_token_details": {
+        "reasoning": 50
+      },
+      "estimated_cost_usd": "0.0028119"
+    },
+    {
+      "slot": 29,
+      "response": "comparison/slot-29-libsodium-H1/agent/response-2.json",
+      "sha256": "6741d85995a131352da6d9826bddd8714bbbac938119e5c79c5aa8ec9c4f25f8",
+      "model": "deepseek-flash",
+      "input_tokens": 9452,
+      "output_tokens": 98,
+      "total_tokens": 9550,
+      "input_token_details": {
+        "cache_read": 8576
+      },
+      "output_token_details": {
+        "reasoning": 28
+      },
+      "estimated_cost_usd": "0.0029532"
+    },
+    {
+      "slot": 29,
+      "response": "comparison/slot-29-libsodium-H1/agent/response-3.json",
+      "sha256": "b2897a27f452843a15a5c5b62729e82addc9b34a04b92e5c0618369290e0bae9",
+      "model": "deepseek-flash",
+      "input_tokens": 11394,
+      "output_tokens": 423,
+      "total_tokens": 11817,
+      "input_token_details": {
+        "cache_read": 8576
+      },
+      "output_token_details": {
+        "reasoning": 364
+      },
+      "estimated_cost_usd": "0.0039258"
+    },
+    {
+      "slot": 29,
+      "response": "comparison/slot-29-libsodium-H1/agent/response-4.json",
+      "sha256": "67a0062895a59703523d3529d27a3a69ff09a79c17785ebbfe8912b1a8e73b02",
+      "model": "deepseek-flash",
+      "input_tokens": 12014,
+      "output_tokens": 80,
+      "total_tokens": 12094,
+      "input_token_details": {
+        "cache_read": 8576
+      },
+      "output_token_details": {
+        "reasoning": 19
+      },
+      "estimated_cost_usd": "0.0037002"
+    },
+    {
+      "slot": 29,
+      "response": "comparison/slot-29-libsodium-H1/agent/response-5.json",
+      "sha256": "6ec23c0a3d7850c0af567fd0e0ce9f75e1d54cbd2a111d481cedf45ad32aac23",
+      "model": "deepseek-flash",
+      "input_tokens": 14794,
+      "output_tokens": 792,
+      "total_tokens": 15586,
+      "input_token_details": {
+        "cache_read": 8576
+      },
+      "output_token_details": {
+        "reasoning": 309
+      },
+      "estimated_cost_usd": "0.0053886"
+    },
+    {
+      "slot": 30,
+      "response": "comparison/slot-30-libsodium-H0/agent/response-1.json",
+      "sha256": "13a4803d7308314da6a180f77fd8e47227e93e4cf4b2e6cb5e2ae2ab6260bd21",
+      "model": "deepseek-flash",
+      "input_tokens": 8313,
+      "output_tokens": 93,
+      "total_tokens": 8406,
+      "input_token_details": {
+        "cache_read": 1408
+      },
+      "output_token_details": {
+        "reasoning": 51
+      },
+      "estimated_cost_usd": "0.0026055"
+    },
+    {
+      "slot": 30,
+      "response": "comparison/slot-30-libsodium-H0/agent/response-2.json",
+      "sha256": "dd4c5d95f0cbf2c645d729b36971163092887372440ee4bbb5a63b1d12257f85",
+      "model": "deepseek-flash",
+      "input_tokens": 8665,
+      "output_tokens": 125,
+      "total_tokens": 8790,
+      "input_token_details": {
+        "cache_read": 7936
+      },
+      "output_token_details": {
+        "reasoning": 38
+      },
+      "estimated_cost_usd": "0.0027495"
+    },
+    {
+      "slot": 30,
+      "response": "comparison/slot-30-libsodium-H0/agent/response-3.json",
+      "sha256": "c64435cf3a8599eb25f2aaec50e248506d60b3ab81acd11b6b59ab75aed1203a",
+      "model": "deepseek-flash",
+      "input_tokens": 10636,
+      "output_tokens": 899,
+      "total_tokens": 11535,
+      "input_token_details": {
+        "cache_read": 7936
+      },
+      "output_token_details": {
+        "reasoning": 799
+      },
+      "estimated_cost_usd": "0.0042696"
+    },
+    {
+      "slot": 30,
+      "response": "comparison/slot-30-libsodium-H0/agent/response-4.json",
+      "sha256": "a0308102419099936907d7a7b1dc30bfbd3174d29343db70a550cd2754a95baf",
+      "model": "deepseek-flash",
+      "input_tokens": 12050,
+      "output_tokens": 1756,
+      "total_tokens": 13806,
+      "input_token_details": {
+        "cache_read": 7936
+      },
+      "output_token_details": {
+        "reasoning": 1372
+      },
+      "estimated_cost_usd": "0.0057222"
+    },
+    {
+      "slot": 31,
+      "response": "comparison/slot-31-libverto-H0/agent/response-1.json",
+      "sha256": "5afbea6b7dc7776f73a15beae8ae0f87a044bf114112ed66031706670859326f",
+      "model": "deepseek-flash",
+      "input_tokens": 4823,
+      "output_tokens": 52,
+      "total_tokens": 4875,
+      "input_token_details": {
+        "cache_read": 1408
+      },
+      "output_token_details": {
+        "reasoning": 15
+      },
+      "estimated_cost_usd": "0.0015093"
+    },
+    {
+      "slot": 31,
+      "response": "comparison/slot-31-libverto-H0/agent/response-2.json",
+      "sha256": "c592a74d709161c4e6d86dc77b8ff2c0c1b5296b4d76f149d2d1f374064ee767",
+      "model": "deepseek-flash",
+      "input_tokens": 5084,
+      "output_tokens": 69,
+      "total_tokens": 5153,
+      "input_token_details": {
+        "cache_read": 4480
+      },
+      "output_token_details": {
+        "reasoning": 0
+      },
+      "estimated_cost_usd": "0.001608"
+    },
+    {
+      "slot": 31,
+      "response": "comparison/slot-31-libverto-H0/agent/response-3.json",
+      "sha256": "a6ec5915dfe79d25d9f0eb08eee67a4f085e498ee5700434c28e54209d01faa2",
+      "model": "deepseek-flash",
+      "input_tokens": 6065,
+      "output_tokens": 505,
+      "total_tokens": 6570,
+      "input_token_details": {
+        "cache_read": 4480
+      },
+      "output_token_details": {
+        "reasoning": 174
+      },
+      "estimated_cost_usd": "0.0024255"
+    },
+    {
+      "slot": 32,
+      "response": "comparison/slot-32-libverto-H2/agent/response-1.json",
+      "sha256": "d111bda1f2e0f56238682cabbd30f4e6412c5d61fd8dfa385beb834da71f1a2f",
+      "model": "deepseek-flash",
+      "input_tokens": 5171,
+      "output_tokens": 93,
+      "total_tokens": 5264,
+      "input_token_details": {
+        "cache_read": 1792
+      },
+      "output_token_details": {
+        "reasoning": 56
+      },
+      "estimated_cost_usd": "0.0016629"
+    },
+    {
+      "slot": 32,
+      "response": "comparison/slot-32-libverto-H2/agent/response-2.json",
+      "sha256": "f72a98e8363625e7681845822cbc1a67aef4c417ed8b7b49455726a36c1ce822",
+      "model": "deepseek-flash",
+      "input_tokens": 5473,
+      "output_tokens": 105,
+      "total_tokens": 5578,
+      "input_token_details": {
+        "cache_read": 4864
+      },
+      "output_token_details": {
+        "reasoning": 36
+      },
+      "estimated_cost_usd": "0.0017679"
+    },
+    {
+      "slot": 32,
+      "response": "comparison/slot-32-libverto-H2/agent/response-3.json",
+      "sha256": "992098f358491010293cd67f3a934e8c333e94eab412769f7702193925420db7",
+      "model": "deepseek-flash",
+      "input_tokens": 6489,
+      "output_tokens": 309,
+      "total_tokens": 6798,
+      "input_token_details": {
+        "cache_read": 4864
+      },
+      "output_token_details": {
+        "reasoning": 270
+      },
+      "estimated_cost_usd": "0.0023175"
+    },
+    {
+      "slot": 32,
+      "response": "comparison/slot-32-libverto-H2/agent/response-4.json",
+      "sha256": "ee703eb8f883bd3347c9cf84849838644aac9c2ce54537c6a09e1473feb06d06",
+      "model": "deepseek-flash",
+      "input_tokens": 6913,
+      "output_tokens": 455,
+      "total_tokens": 7368,
+      "input_token_details": {
+        "cache_read": 4864
+      },
+      "output_token_details": {
+        "reasoning": 98
+      },
+      "estimated_cost_usd": "0.0026199"
+    },
+    {
+      "slot": 33,
+      "response": "comparison/slot-33-libverto-H1/agent/response-1.json",
+      "sha256": "124bfcf0238ae0e9bef59d6fe93fc0aee09c15c7d3f62e014c91c07143335bda",
+      "model": "deepseek-flash",
+      "input_tokens": 5407,
+      "output_tokens": 50,
+      "total_tokens": 5457,
+      "input_token_details": {
+        "cache_read": 2048
+      },
+      "output_token_details": {
+        "reasoning": 13
+      },
+      "estimated_cost_usd": "0.0016821"
+    },
+    {
+      "slot": 33,
+      "response": "comparison/slot-33-libverto-H1/agent/response-2.json",
+      "sha256": "ff88c0d61e78076ade770b0f3fe41158574ff06cf658585e5c2f0b32867723bd",
+      "model": "deepseek-flash",
+      "input_tokens": 5666,
+      "output_tokens": 182,
+      "total_tokens": 5848,
+      "input_token_details": {
+        "cache_read": 5120
+      },
+      "output_token_details": {
+        "reasoning": 81
+      },
+      "estimated_cost_usd": "0.0019182"
+    },
+    {
+      "slot": 33,
+      "response": "comparison/slot-33-libverto-H1/agent/response-3.json",
+      "sha256": "84d9c55733b93b2ebaca9465ae4e57ea04cccd95917ad5fbb04b220d738f4279",
+      "model": "deepseek-flash",
+      "input_tokens": 7829,
+      "output_tokens": 787,
+      "total_tokens": 8616,
+      "input_token_details": {
+        "cache_read": 5120
+      },
+      "output_token_details": {
+        "reasoning": 420
+      },
+      "estimated_cost_usd": "0.0032931"
+    },
+    {
+      "slot": 34,
+      "response": "comparison/slot-34-libsigcplusplus-H1/agent/response-1.json",
+      "sha256": "b762cf59c96edda44409c2f9d6aff1e522652100de1345053b27e13eeb2ccc0a",
+      "model": "deepseek-flash",
+      "input_tokens": 10084,
+      "output_tokens": 176,
+      "total_tokens": 10260,
+      "input_token_details": {
+        "cache_read": 2048
+      },
+      "output_token_details": {
+        "reasoning": 107
+      },
+      "estimated_cost_usd": "0.0032364"
+    },
+    {
+      "slot": 34,
+      "response": "comparison/slot-34-libsigcplusplus-H1/agent/response-2.json",
+      "sha256": "748f1d2dd76eaf60d60f556f479d335624885dc01504e8ddf20baab743773139",
+      "model": "deepseek-flash",
+      "input_tokens": 10683,
+      "output_tokens": 278,
+      "total_tokens": 10961,
+      "input_token_details": {
+        "cache_read": 9728
+      },
+      "output_token_details": {
+        "reasoning": 110
+      },
+      "estimated_cost_usd": "0.0035385"
+    },
+    {
+      "slot": 34,
+      "response": "comparison/slot-34-libsigcplusplus-H1/agent/response-3.json",
+      "sha256": "76471c8515e70039e77913b0a31d8b166bff5927ab3f85c13ffec6fd845b65ca",
+      "model": "deepseek-flash",
+      "input_tokens": 11772,
+      "output_tokens": 604,
+      "total_tokens": 12376,
+      "input_token_details": {
+        "cache_read": 5632
+      },
+      "output_token_details": {
+        "reasoning": 485
+      },
+      "estimated_cost_usd": "0.0042564"
+    },
+    {
+      "slot": 34,
+      "response": "comparison/slot-34-libsigcplusplus-H1/agent/response-4.json",
+      "sha256": "afae6edb22efc9cd96f3e111661eef83a1e7efabeaf09a9bd284b1ceb7f6baef",
+      "model": "deepseek-flash",
+      "input_tokens": 12978,
+      "output_tokens": 75,
+      "total_tokens": 13053,
+      "input_token_details": {
+        "cache_read": 2304
+      },
+      "output_token_details": {
+        "reasoning": 19
+      },
+      "estimated_cost_usd": "0.0039834"
+    },
+    {
+      "slot": 34,
+      "response": "comparison/slot-34-libsigcplusplus-H1/agent/response-5.json",
+      "sha256": "5a94255c6444ba31bdebd79c15385cf3ed2e719f51d89590c8c508f1c9582447",
+      "model": "deepseek-flash",
+      "input_tokens": 13113,
+      "output_tokens": 56,
+      "total_tokens": 13169,
+      "input_token_details": {
+        "cache_read": 2432
+      },
+      "output_token_details": {
+        "reasoning": 0
+      },
+      "estimated_cost_usd": "0.0040011"
+    },
+    {
+      "slot": 34,
+      "response": "comparison/slot-34-libsigcplusplus-H1/agent/response-6.json",
+      "sha256": "abb0fea13b1ee3cc66f90acc25f284d6402c6305cc2822f3e4b3e40d5045af24",
+      "model": "deepseek-flash",
+      "input_tokens": 13384,
+      "output_tokens": 231,
+      "total_tokens": 13615,
+      "input_token_details": {
+        "cache_read": 2560
+      },
+      "output_token_details": {
+        "reasoning": 194
+      },
+      "estimated_cost_usd": "0.0042924"
+    },
+    {
+      "slot": 34,
+      "response": "comparison/slot-34-libsigcplusplus-H1/agent/response-7.json",
+      "sha256": "58e48413aa1fb5b58074d0329e9cc4f493e92893ee2d2837fb912c31ba938ba8",
+      "model": "deepseek-flash",
+      "input_tokens": 9053,
+      "output_tokens": 84,
+      "total_tokens": 9137,
+      "input_token_details": {
+        "cache_read": 2560
+      },
+      "output_token_details": {
+        "reasoning": 14
+      },
+      "estimated_cost_usd": "0.0028167"
+    },
+    {
+      "slot": 34,
+      "response": "comparison/slot-34-libsigcplusplus-H1/agent/response-8.json",
+      "sha256": "25d18a4ddee6b41a4c68d9a07896a66b795b99f21491d3f073a8203f4a0de4ca",
+      "model": "deepseek-flash",
+      "input_tokens": 9474,
+      "output_tokens": 138,
+      "total_tokens": 9612,
+      "input_token_details": {
+        "cache_read": 2560
+      },
+      "output_token_details": {
+        "reasoning": 52
+      },
+      "estimated_cost_usd": "0.0030078"
+    },
+    {
+      "slot": 34,
+      "response": "comparison/slot-34-libsigcplusplus-H1/agent/response-9.json",
+      "sha256": "92b205aea8f2ab3bfeca09b609b2557f738247496f6070dc8adc4c45d3e3c7d5",
+      "model": "deepseek-flash",
+      "input_tokens": 12091,
+      "output_tokens": 618,
+      "total_tokens": 12709,
+      "input_token_details": {
+        "cache_read": 2560
+      },
+      "output_token_details": {
+        "reasoning": 576
+      },
+      "estimated_cost_usd": "0.0043689"
+    },
+    {
+      "slot": 34,
+      "response": "comparison/slot-34-libsigcplusplus-H1/agent/response-10.json",
+      "sha256": "5d4de5b5d621fda2223a99649427a9181ca4392ad72783947a9e96923b8ea103",
+      "model": "deepseek-flash",
+      "input_tokens": 10566,
+      "output_tokens": 845,
+      "total_tokens": 11411,
+      "input_token_details": {
+        "cache_read": 2560
+      },
+      "output_token_details": {
+        "reasoning": 539
+      },
+      "estimated_cost_usd": "0.0041838"
+    },
+    {
+      "slot": 34,
+      "response": "comparison/slot-34-libsigcplusplus-H1/agent/response-11.json",
+      "sha256": "09fff7997860c73ae9b13e4c3b0585660774360edf1b2b99b96c646f817266e6",
+      "model": "deepseek-flash",
+      "input_tokens": 10784,
+      "output_tokens": 496,
+      "total_tokens": 11280,
+      "input_token_details": {
+        "cache_read": 1408
+      },
+      "output_token_details": {
+        "reasoning": 401
+      },
+      "estimated_cost_usd": "0.0038304"
+    },
+    {
+      "slot": 34,
+      "response": "comparison/slot-34-libsigcplusplus-H1/agent/response-12.json",
+      "sha256": "53c06d4a3d60822adac2b82bf5ee6d6cfec54d9030dd11d6fb4a0d10456d835c",
+      "model": "deepseek-flash",
+      "input_tokens": 11675,
+      "output_tokens": 809,
+      "total_tokens": 12484,
+      "input_token_details": {
+        "cache_read": 10496
+      },
+      "output_token_details": {
+        "reasoning": 689
+      },
+      "estimated_cost_usd": "0.0044733"
+    },
+    {
+      "slot": 34,
+      "response": "comparison/slot-34-libsigcplusplus-H1/agent/response-13.json",
+      "sha256": "81a78c5c5bb80d1b07b537e23b767d70d484ee7adf5228a4473b09c3cd7d2b81",
+      "model": "deepseek-flash",
+      "input_tokens": 13507,
+      "output_tokens": 1646,
+      "total_tokens": 15153,
+      "input_token_details": {
+        "cache_read": 2944
+      },
+      "output_token_details": {
+        "reasoning": 1543
+      },
+      "estimated_cost_usd": "0.0060273"
+    },
+    {
+      "slot": 34,
+      "response": "comparison/slot-34-libsigcplusplus-H1/agent/response-14.json",
+      "sha256": "ebd30ba1a954dde75fc3fc533f03466097dfec71ff4149871a22bf5e5ab673fe",
+      "model": "deepseek-flash",
+      "input_tokens": 9890,
+      "output_tokens": 395,
+      "total_tokens": 10285,
+      "input_token_details": {
+        "cache_read": 3072
+      },
+      "output_token_details": {
+        "reasoning": 216
+      },
+      "estimated_cost_usd": "0.003441"
+    },
+    {
+      "slot": 34,
+      "response": "comparison/slot-34-libsigcplusplus-H1/agent/response-15.json",
+      "sha256": "93b30c7fcc7f26da210ddab0f22dce02c54d193c4071b6c18c838a3be3d2b7c3",
+      "model": "deepseek-flash",
+      "input_tokens": 13994,
+      "output_tokens": 598,
+      "total_tokens": 14592,
+      "input_token_details": {
+        "cache_read": 4096
+      },
+      "output_token_details": {
+        "reasoning": 513
+      },
+      "estimated_cost_usd": "0.0049158"
+    },
+    {
+      "slot": 34,
+      "response": "comparison/slot-34-libsigcplusplus-H1/agent/response-16.json",
+      "sha256": "5c6228c41530c665954097e0c6788c50127cc600bf985d642286b0cedf7f5c7f",
+      "model": "deepseek-flash",
+      "input_tokens": 11660,
+      "output_tokens": 666,
+      "total_tokens": 12326,
+      "input_token_details": {
+        "cache_read": 4096
+      },
+      "output_token_details": {
+        "reasoning": 548
+      },
+      "estimated_cost_usd": "0.0042972"
+    },
+    {
+      "slot": 34,
+      "response": "comparison/slot-34-libsigcplusplus-H1/agent/response-17.json",
+      "sha256": "0826849415afba272ca0fbaeb211e80e4b2bf350b8eeea014a34c0ae6e3f73b4",
+      "model": "deepseek-flash",
+      "input_tokens": 11008,
+      "output_tokens": 842,
+      "total_tokens": 11850,
+      "input_token_details": {
+        "cache_read": 4096
+      },
+      "output_token_details": {
+        "reasoning": 710
+      },
+      "estimated_cost_usd": "0.0043128"
+    },
+    {
+      "slot": 34,
+      "response": "comparison/slot-34-libsigcplusplus-H1/agent/response-18.json",
+      "sha256": "0104ed6b57552bc099810a4eb8f6a81a6fd2b4aa641bca354a7c66c77b1dc2d7",
+      "model": "deepseek-flash",
+      "input_tokens": 11826,
+      "output_tokens": 1212,
+      "total_tokens": 13038,
+      "input_token_details": {
+        "cache_read": 4096
+      },
+      "output_token_details": {
+        "reasoning": 1140
+      },
+      "estimated_cost_usd": "0.0050022"
+    },
+    {
+      "slot": 34,
+      "response": "comparison/slot-34-libsigcplusplus-H1/agent/response-19.json",
+      "sha256": "d953fc74d4ec323f06e498ea64599e24e2923508f98460a9c54fce3f1b8df6dc",
+      "model": "deepseek-flash",
+      "input_tokens": 11502,
+      "output_tokens": 2365,
+      "total_tokens": 13867,
+      "input_token_details": {
+        "cache_read": 4096
+      },
+      "output_token_details": {
+        "reasoning": 1759
+      },
+      "estimated_cost_usd": "0.0062886"
+    },
+    {
+      "slot": 34,
+      "response": "comparison/slot-34-libsigcplusplus-H1/agent/response-20.json",
+      "sha256": "078ce5e76cc1ae6d66bc520fbeb2d91fdb02bc9207ee42f12cea5d38a63b9119",
+      "model": "deepseek-flash",
+      "input_tokens": 10592,
+      "output_tokens": 1296,
+      "total_tokens": 11888,
+      "input_token_details": {
+        "cache_read": 1920
+      },
+      "output_token_details": {
+        "reasoning": 1213
+      },
+      "estimated_cost_usd": "0.0047328"
+    },
+    {
+      "slot": 34,
+      "response": "comparison/slot-34-libsigcplusplus-H1/agent/response-21.json",
+      "sha256": "e626cef286a22b682726b2dc787cc971cfe13173726731028b209dd7d7c86eaa",
+      "model": "deepseek-flash",
+      "input_tokens": 13409,
+      "output_tokens": 811,
+      "total_tokens": 14220,
+      "input_token_details": {
+        "cache_read": 10240
+      },
+      "output_token_details": {
+        "reasoning": 725
+      },
+      "estimated_cost_usd": "0.0049959"
+    },
+    {
+      "slot": 34,
+      "response": "comparison/slot-34-libsigcplusplus-H1/agent/response-22.json",
+      "sha256": "dc39c183f63d5439043b2c70e0c3afdd54d895fa9ba453617ae6fae6864be81f",
+      "model": "deepseek-flash",
+      "input_tokens": 13153,
+      "output_tokens": 623,
+      "total_tokens": 13776,
+      "input_token_details": {
+        "cache_read": 3840
+      },
+      "output_token_details": {
+        "reasoning": 520
+      },
+      "estimated_cost_usd": "0.0046935"
+    },
+    {
+      "slot": 34,
+      "response": "comparison/slot-34-libsigcplusplus-H1/agent/response-23.json",
+      "sha256": "2d83503e808a0f985b88cfdcc4b9c56de965f39633e3f4f6b149304d7aa985c0",
+      "model": "deepseek-flash",
+      "input_tokens": 12167,
+      "output_tokens": 714,
+      "total_tokens": 12881,
+      "input_token_details": {
+        "cache_read": 3968
+      },
+      "output_token_details": {
+        "reasoning": 583
+      },
+      "estimated_cost_usd": "0.0045069"
+    },
+    {
+      "slot": 34,
+      "response": "comparison/slot-34-libsigcplusplus-H1/agent/response-24.json",
+      "sha256": "f0e4fbd5e18c2ae6cf7201fd8298df74a9f6dfd5b8de759aa031343659fa7894",
+      "model": "deepseek-flash",
+      "input_tokens": 11583,
+      "output_tokens": 178,
+      "total_tokens": 11761,
+      "input_token_details": {
+        "cache_read": 4608
+      },
+      "output_token_details": {
+        "reasoning": 43
+      },
+      "estimated_cost_usd": "0.0036885"
+    },
+    {
+      "slot": 34,
+      "response": "comparison/slot-34-libsigcplusplus-H1/agent/response-25.json",
+      "sha256": "c22af1655cc2c8e7c39525a5facfa3b960e59e25a39fbde7040090fc603dd9dc",
+      "model": "deepseek-flash",
+      "input_tokens": 13022,
+      "output_tokens": 400,
+      "total_tokens": 13422,
+      "input_token_details": {
+        "cache_read": 4608
+      },
+      "output_token_details": {
+        "reasoning": 295
+      },
+      "estimated_cost_usd": "0.0043866"
+    },
+    {
+      "slot": 34,
+      "response": "comparison/slot-34-libsigcplusplus-H1/agent/response-26.json",
+      "sha256": "41baa5294dff99f0272430bb72e4af2ed72d524586ac19630099725ce386e26d",
+      "model": "deepseek-flash",
+      "input_tokens": 11872,
+      "output_tokens": 434,
+      "total_tokens": 12306,
+      "input_token_details": {
+        "cache_read": 4608
+      },
+      "output_token_details": {
+        "reasoning": 377
+      },
+      "estimated_cost_usd": "0.0040824"
+    },
+    {
+      "slot": 34,
+      "response": "comparison/slot-34-libsigcplusplus-H1/agent/response-27.json",
+      "sha256": "9a5c574f04d8402e11e564fabefdc824c3d78774a701cb6b737a9e9c1db4e971",
+      "model": "deepseek-flash",
+      "input_tokens": 12024,
+      "output_tokens": 742,
+      "total_tokens": 12766,
+      "input_token_details": {
+        "cache_read": 4608
+      },
+      "output_token_details": {
+        "reasoning": 652
+      },
+      "estimated_cost_usd": "0.0044976"
+    },
+    {
+      "slot": 34,
+      "response": "comparison/slot-34-libsigcplusplus-H1/agent/response-28.json",
+      "sha256": "bb35b1e58641c7c92d75ea9da39149ee235ed3a6740cb09fb9b283124c6271a8",
+      "model": "deepseek-flash",
+      "input_tokens": 13270,
+      "output_tokens": 1541,
+      "total_tokens": 14811,
+      "input_token_details": {
+        "cache_read": 4608
+      },
+      "output_token_details": {
+        "reasoning": 1433
+      },
+      "estimated_cost_usd": "0.0058302"
+    },
+    {
+      "slot": 34,
+      "response": "comparison/slot-34-libsigcplusplus-H1/agent/response-29.json",
+      "sha256": "2d0fe3bc903b6276123068053cb0ab38a093b4b198945826389fa16281fd6928",
+      "model": "deepseek-flash",
+      "input_tokens": 13216,
+      "output_tokens": 234,
+      "total_tokens": 13450,
+      "input_token_details": {
+        "cache_read": 4608
+      },
+      "output_token_details": {
+        "reasoning": 177
+      },
+      "estimated_cost_usd": "0.0042456"
+    },
+    {
+      "slot": 34,
+      "response": "comparison/slot-34-libsigcplusplus-H1/agent/response-30.json",
+      "sha256": "8cde2b36af059dc4983740ec920485bf26889b501a7061b3df7afc1109e5799a",
+      "model": "deepseek-flash",
+      "input_tokens": 12906,
+      "output_tokens": 433,
+      "total_tokens": 13339,
+      "input_token_details": {
+        "cache_read": 4608
+      },
+      "output_token_details": {
+        "reasoning": 372
+      },
+      "estimated_cost_usd": "0.0043914"
+    },
+    {
+      "slot": 34,
+      "response": "comparison/slot-34-libsigcplusplus-H1/agent/response-31.json",
+      "sha256": "aca1becb4c6dc8b28b2e96457c89b0355400976689cfb32f54b62ba33c51eeb2",
+      "model": "deepseek-flash",
+      "input_tokens": 14385,
+      "output_tokens": 547,
+      "total_tokens": 14932,
+      "input_token_details": {
+        "cache_read": 4608
+      },
+      "output_token_details": {
+        "reasoning": 510
+      },
+      "estimated_cost_usd": "0.0049719"
+    },
+    {
+      "slot": 34,
+      "response": "comparison/slot-34-libsigcplusplus-H1/agent/response-32.json",
+      "sha256": "4530db37d174788859e773e451d7ec5cc93aa874cc6689bb49bb19d62de9e2bf",
+      "model": "deepseek-flash",
+      "input_tokens": 10182,
+      "output_tokens": 456,
+      "total_tokens": 10638,
+      "input_token_details": {
+        "cache_read": 4608
+      },
+      "output_token_details": {
+        "reasoning": 370
+      },
+      "estimated_cost_usd": "0.0036018"
+    },
+    {
+      "slot": 34,
+      "response": "comparison/slot-34-libsigcplusplus-H1/agent/response-33.json",
+      "sha256": "d09da9e32659dc4fd75581be29a7ec07620abb1427427472e3adbdf4ea3d8f7f",
+      "model": "deepseek-flash",
+      "input_tokens": 11494,
+      "output_tokens": 439,
+      "total_tokens": 11933,
+      "input_token_details": {
+        "cache_read": 4608
+      },
+      "output_token_details": {
+        "reasoning": 353
+      },
+      "estimated_cost_usd": "0.003975"
+    },
+    {
+      "slot": 34,
+      "response": "comparison/slot-34-libsigcplusplus-H1/agent/response-34.json",
+      "sha256": "abfb3187bd1d9f31201b7355e1ef2414b2da8c0a4a91ba09597d0b4f8acd4f94",
+      "model": "deepseek-flash",
+      "input_tokens": 11677,
+      "output_tokens": 1012,
+      "total_tokens": 12689,
+      "input_token_details": {
+        "cache_read": 4608
+      },
+      "output_token_details": {
+        "reasoning": 943
+      },
+      "estimated_cost_usd": "0.0047175"
+    },
+    {
+      "slot": 34,
+      "response": "comparison/slot-34-libsigcplusplus-H1/agent/response-35.json",
+      "sha256": "ae72b75e72064f612783b465114ff527241cb6b0f31b31cecc87e46fc22d20b3",
+      "model": "deepseek-flash",
+      "input_tokens": 13692,
+      "output_tokens": 2122,
+      "total_tokens": 15814,
+      "input_token_details": {
+        "cache_read": 4608
+      },
+      "output_token_details": {
+        "reasoning": 2037
+      },
+      "estimated_cost_usd": "0.006654"
+    },
+    {
+      "slot": 34,
+      "response": "comparison/slot-34-libsigcplusplus-H1/agent/response-36.json",
+      "sha256": "daff5d182d9a3aad6bdd1c2c3b99ab3d467a304a3d3a9bcb310450e26ea1f400",
+      "model": "deepseek-flash",
+      "input_tokens": 13451,
+      "output_tokens": 1037,
+      "total_tokens": 14488,
+      "input_token_details": {
+        "cache_read": 4608
+      },
+      "output_token_details": {
+        "reasoning": 308
+      },
+      "estimated_cost_usd": "0.0052797"
+    },
+    {
+      "slot": 35,
+      "response": "comparison/slot-35-libsigcplusplus-H0/agent/response-1.json",
+      "sha256": "778a64ef82a99ebf4bc93e668ae38ea0cf49f393a31e8eda4856aad41cac07a7",
+      "model": "deepseek-flash",
+      "input_tokens": 9500,
+      "output_tokens": 135,
+      "total_tokens": 9635,
+      "input_token_details": {
+        "cache_read": 1664
+      },
+      "output_token_details": {
+        "reasoning": 68
+      },
+      "estimated_cost_usd": "0.003012"
+    },
+    {
+      "slot": 35,
+      "response": "comparison/slot-35-libsigcplusplus-H0/agent/response-2.json",
+      "sha256": "e6730234c59faf4e7aa6c4b02a1de4c8f315ab9fd978d2c6361b1738968fce5a",
+      "model": "deepseek-flash",
+      "input_tokens": 10182,
+      "output_tokens": 242,
+      "total_tokens": 10424,
+      "input_token_details": {
+        "cache_read": 9216
+      },
+      "output_token_details": {
+        "reasoning": 174
+      },
+      "estimated_cost_usd": "0.003345"
+    },
+    {
+      "slot": 35,
+      "response": "comparison/slot-35-libsigcplusplus-H0/agent/response-3.json",
+      "sha256": "ce4f2d16e18508e6dc4e95ee92c91a9fdffdd4d235b0d1b01b941e6a05749157",
+      "model": "deepseek-flash",
+      "input_tokens": 11563,
+      "output_tokens": 302,
+      "total_tokens": 11865,
+      "input_token_details": {
+        "cache_read": 9216
+      },
+      "output_token_details": {
+        "reasoning": 229
+      },
+      "estimated_cost_usd": "0.0038313"
+    },
+    {
+      "slot": 35,
+      "response": "comparison/slot-35-libsigcplusplus-H0/agent/response-4.json",
+      "sha256": "02e1cca70a32b359045b37508586815dc36124a34ca9fe8a3f63deef805d07d2",
+      "model": "deepseek-flash",
+      "input_tokens": 12242,
+      "output_tokens": 631,
+      "total_tokens": 12873,
+      "input_token_details": {
+        "cache_read": 9216
+      },
+      "output_token_details": {
+        "reasoning": 295
+      },
+      "estimated_cost_usd": "0.0044298"
+    },
+    {
+      "slot": 35,
+      "response": "comparison/slot-35-libsigcplusplus-H0/agent/response-5.json",
+      "sha256": "b41b751e6bb8d9ed6b88bf1409e94ad7af490ee5c5a1e505b6817a7ccf729739",
+      "model": "deepseek-flash",
+      "input_tokens": 10386,
+      "output_tokens": 510,
+      "total_tokens": 10896,
+      "input_token_details": {
+        "cache_read": 2048
+      },
+      "output_token_details": {
+        "reasoning": 410
+      },
+      "estimated_cost_usd": "0.0037278"
+    },
+    {
+      "slot": 35,
+      "response": "comparison/slot-35-libsigcplusplus-H0/agent/response-6.json",
+      "sha256": "7ca534dd0dc2a1a92720e4959eef0d62462e40587d753a011a724f4cde3a09e3",
+      "model": "deepseek-flash",
+      "input_tokens": 13072,
+      "output_tokens": 1244,
+      "total_tokens": 14316,
+      "input_token_details": {
+        "cache_read": 10112
+      },
+      "output_token_details": {
+        "reasoning": 1107
+      },
+      "estimated_cost_usd": "0.0054144"
+    },
+    {
+      "slot": 35,
+      "response": "comparison/slot-35-libsigcplusplus-H0/agent/response-7.json",
+      "sha256": "cb93328cb11e239e63686dc574cd73eb2b2bb33ff4ddd3b87dba70948ba0d14c",
+      "model": "deepseek-flash",
+      "input_tokens": 14197,
+      "output_tokens": 638,
+      "total_tokens": 14835,
+      "input_token_details": {
+        "cache_read": 4352
+      },
+      "output_token_details": {
+        "reasoning": 500
+      },
+      "estimated_cost_usd": "0.0050247"
+    },
+    {
+      "slot": 35,
+      "response": "comparison/slot-35-libsigcplusplus-H0/agent/response-8.json",
+      "sha256": "10a144f50dcf3ced2b8322ce384b2100fb2b01d63d899f0b9bef8c850bab13ed",
+      "model": "deepseek-flash",
+      "input_tokens": 13243,
+      "output_tokens": 326,
+      "total_tokens": 13569,
+      "input_token_details": {
+        "cache_read": 2816
+      },
+      "output_token_details": {
+        "reasoning": 222
+      },
+      "estimated_cost_usd": "0.0043641"
+    },
+    {
+      "slot": 35,
+      "response": "comparison/slot-35-libsigcplusplus-H0/agent/response-9.json",
+      "sha256": "5a7163ce52a16c49f5a1e6c99583d05acbdc853411d10f35e0c3efbc7db76cf2",
+      "model": "deepseek-flash",
+      "input_tokens": 14042,
+      "output_tokens": 1371,
+      "total_tokens": 15413,
+      "input_token_details": {
+        "cache_read": 3712
+      },
+      "output_token_details": {
+        "reasoning": 1302
+      },
+      "estimated_cost_usd": "0.0058578"
+    },
+    {
+      "slot": 35,
+      "response": "comparison/slot-35-libsigcplusplus-H0/agent/response-10.json",
+      "sha256": "7046c62bb073bacfdeb5adecd2eee08356ff5e1157182ba09a2c710161f5cf3f",
+      "model": "deepseek-flash",
+      "input_tokens": 13037,
+      "output_tokens": 1980,
+      "total_tokens": 15017,
+      "input_token_details": {
+        "cache_read": 3712
+      },
+      "output_token_details": {
+        "reasoning": 1235
+      },
+      "estimated_cost_usd": "0.0062871"
+    },
+    {
+      "slot": 36,
+      "response": "comparison/slot-36-libsigcplusplus-H2/agent/response-1.json",
+      "sha256": "52a26cf81d4c51db14e1dad3be5672cfdc2c1b7f1a1c2a415c2265c63794717a",
+      "model": "deepseek-flash",
+      "input_tokens": 9848,
+      "output_tokens": 160,
+      "total_tokens": 10008,
+      "input_token_details": {
+        "cache_read": 1792
+      },
+      "output_token_details": {
+        "reasoning": 93
+      },
+      "estimated_cost_usd": "0.0031464"
+    },
+    {
+      "slot": 36,
+      "response": "comparison/slot-36-libsigcplusplus-H2/agent/response-2.json",
+      "sha256": "61d3ea6562cd00aa846d0459752b8d863e13925483c15d36f00ccecd29e80232",
+      "model": "deepseek-flash",
+      "input_tokens": 10555,
+      "output_tokens": 751,
+      "total_tokens": 11306,
+      "input_token_details": {
+        "cache_read": 9472
+      },
+      "output_token_details": {
+        "reasoning": 363
+      },
+      "estimated_cost_usd": "0.0040677"
+    },
+    {
+      "slot": 36,
+      "response": "comparison/slot-36-libsigcplusplus-H2/agent/response-3.json",
+      "sha256": "c6e74eeb1ab8295c98542543068efe5d55fd44fc1ca8918acf1c539083f897f1",
+      "model": "deepseek-flash",
+      "input_tokens": 11014,
+      "output_tokens": 557,
+      "total_tokens": 11571,
+      "input_token_details": {
+        "cache_read": 1920
+      },
+      "output_token_details": {
+        "reasoning": 429
+      },
+      "estimated_cost_usd": "0.0039726"
+    },
+    {
+      "slot": 36,
+      "response": "comparison/slot-36-libsigcplusplus-H2/agent/response-4.json",
+      "sha256": "2db179e650242b76b9cf39e3f5b369a3bde3c19967d1308ece544bd588453ab4",
+      "model": "deepseek-flash",
+      "input_tokens": 12514,
+      "output_tokens": 1289,
+      "total_tokens": 13803,
+      "input_token_details": {
+        "cache_read": 10752
+      },
+      "output_token_details": {
+        "reasoning": 1153
+      },
+      "estimated_cost_usd": "0.005301"
+    },
+    {
+      "slot": 36,
+      "response": "comparison/slot-36-libsigcplusplus-H2/agent/response-5.json",
+      "sha256": "0e920cfe3b70bc34d93005a3315e7d52da3c7f55271715439c86f53ca4c64ab4",
+      "model": "deepseek-flash",
+      "input_tokens": 13736,
+      "output_tokens": 168,
+      "total_tokens": 13904,
+      "input_token_details": {
+        "cache_read": 6272
+      },
+      "output_token_details": {
+        "reasoning": 77
+      },
+      "estimated_cost_usd": "0.0043224"
+    },
+    {
+      "slot": 36,
+      "response": "comparison/slot-36-libsigcplusplus-H2/agent/response-6.json",
+      "sha256": "b82ed1d0d6e2e4ca26e454ea17d4cde8173e18cd8288016d794424ee68648bea",
+      "model": "deepseek-flash",
+      "input_tokens": 13776,
+      "output_tokens": 731,
+      "total_tokens": 14507,
+      "input_token_details": {
+        "cache_read": 2816
+      },
+      "output_token_details": {
+        "reasoning": 646
+      },
+      "estimated_cost_usd": "0.00501"
+    },
+    {
+      "slot": 36,
+      "response": "comparison/slot-36-libsigcplusplus-H2/agent/response-7.json",
+      "sha256": "c549ced1e0f91c296a9ebbae80aa0c686ca810f21d5cf3fb19982d5fee2653f6",
+      "model": "deepseek-flash",
+      "input_tokens": 10734,
+      "output_tokens": 867,
+      "total_tokens": 11601,
+      "input_token_details": {
+        "cache_read": 3328
+      },
+      "output_token_details": {
+        "reasoning": 770
+      },
+      "estimated_cost_usd": "0.0042606"
+    },
+    {
+      "slot": 36,
+      "response": "comparison/slot-36-libsigcplusplus-H2/agent/response-8.json",
+      "sha256": "f4d0d0f8e848a6b0d8064bcd960726ad8e6cf486de1024911962f3ac4a4035e1",
+      "model": "deepseek-flash",
+      "input_tokens": 11747,
+      "output_tokens": 790,
+      "total_tokens": 12537,
+      "input_token_details": {
+        "cache_read": 3456
+      },
+      "output_token_details": {
+        "reasoning": 716
+      },
+      "estimated_cost_usd": "0.0044721"
+    },
+    {
+      "slot": 36,
+      "response": "comparison/slot-36-libsigcplusplus-H2/agent/response-9.json",
+      "sha256": "2cbbdab7beaff0c989a7f6570ec2b3c843f738ea6cc0f56ea0f58a347cc59300",
+      "model": "deepseek-flash",
+      "input_tokens": 12872,
+      "output_tokens": 170,
+      "total_tokens": 13042,
+      "input_token_details": {
+        "cache_read": 3456
+      },
+      "output_token_details": {
+        "reasoning": 126
+      },
+      "estimated_cost_usd": "0.0040656"
+    },
+    {
+      "slot": 36,
+      "response": "comparison/slot-36-libsigcplusplus-H2/agent/response-10.json",
+      "sha256": "2321156f8f2561fec9778947d65a843931bdaa1f5d6184cb957ee65643eff931",
+      "model": "deepseek-flash",
+      "input_tokens": 11523,
+      "output_tokens": 586,
+      "total_tokens": 12109,
+      "input_token_details": {
+        "cache_read": 3456
+      },
+      "output_token_details": {
+        "reasoning": 460
+      },
+      "estimated_cost_usd": "0.0041601"
+    },
+    {
+      "slot": 36,
+      "response": "comparison/slot-36-libsigcplusplus-H2/agent/response-11.json",
+      "sha256": "a50bcef8314cc30342354122ec2fdf6632116d73d1b6e8304f920d2d814d8efc",
+      "model": "deepseek-flash",
+      "input_tokens": 10710,
+      "output_tokens": 1191,
+      "total_tokens": 11901,
+      "input_token_details": {
+        "cache_read": 3456
+      },
+      "output_token_details": {
+        "reasoning": 1070
+      },
+      "estimated_cost_usd": "0.0046422"
+    },
+    {
+      "slot": 36,
+      "response": "comparison/slot-36-libsigcplusplus-H2/agent/response-12.json",
+      "sha256": "28f9cc38ed374881e57a6638a517cf594462bf373a0ba8c2c99ec9b452784a10",
+      "model": "deepseek-flash",
+      "input_tokens": 12544,
+      "output_tokens": 576,
+      "total_tokens": 13120,
+      "input_token_details": {
+        "cache_read": 3456
+      },
+      "output_token_details": {
+        "reasoning": 520
+      },
+      "estimated_cost_usd": "0.0044544"
+    },
+    {
+      "slot": 36,
+      "response": "comparison/slot-36-libsigcplusplus-H2/agent/response-13.json",
+      "sha256": "70b7563b1f3c8c23ed31bd608d6cab2dce49cc58d89d250ceb8285b845c2154a",
+      "model": "deepseek-flash",
+      "input_tokens": 13208,
+      "output_tokens": 901,
+      "total_tokens": 14109,
+      "input_token_details": {
+        "cache_read": 3456
+      },
+      "output_token_details": {
+        "reasoning": 833
+      },
+      "estimated_cost_usd": "0.0050436"
+    },
+    {
+      "slot": 36,
+      "response": "comparison/slot-36-libsigcplusplus-H2/agent/response-14.json",
+      "sha256": "b55ea8801fefab5c95bdd5154a0e7c98e07ddb149e919adf62b357767deed3c9",
+      "model": "deepseek-flash",
+      "input_tokens": 12699,
+      "output_tokens": 113,
+      "total_tokens": 12812,
+      "input_token_details": {
+        "cache_read": 3456
+      },
+      "output_token_details": {
+        "reasoning": 73
+      },
+      "estimated_cost_usd": "0.0039453"
+    },
+    {
+      "slot": 36,
+      "response": "comparison/slot-36-libsigcplusplus-H2/agent/response-15.json",
+      "sha256": "8700bc1ff79c6bcb060d5b2afe04be39ebdfa9c687e533afe09f6811eed9defb",
+      "model": "deepseek-flash",
+      "input_tokens": 12413,
+      "output_tokens": 282,
+      "total_tokens": 12695,
+      "input_token_details": {
+        "cache_read": 3456
+      },
+      "output_token_details": {
+        "reasoning": 225
+      },
+      "estimated_cost_usd": "0.0040623"
+    },
+    {
+      "slot": 36,
+      "response": "comparison/slot-36-libsigcplusplus-H2/agent/response-16.json",
+      "sha256": "5d8a5d01e84f37c598a0c003ecfcb934f3fb7c75be0830dd7e3eb896fcf7690d",
+      "model": "deepseek-flash",
+      "input_tokens": 11767,
+      "output_tokens": 345,
+      "total_tokens": 12112,
+      "input_token_details": {
+        "cache_read": 3456
+      },
+      "output_token_details": {
+        "reasoning": 275
+      },
+      "estimated_cost_usd": "0.0039441"
+    },
+    {
+      "slot": 36,
+      "response": "comparison/slot-36-libsigcplusplus-H2/agent/response-17.json",
+      "sha256": "b67a79562deadf23af9d3db983967d0f3be705acccc4283a19aa4d7f3a7bccc7",
+      "model": "deepseek-flash",
+      "input_tokens": 12286,
+      "output_tokens": 393,
+      "total_tokens": 12679,
+      "input_token_details": {
+        "cache_read": 3456
+      },
+      "output_token_details": {
+        "reasoning": 317
+      },
+      "estimated_cost_usd": "0.0041574"
+    },
+    {
+      "slot": 36,
+      "response": "comparison/slot-36-libsigcplusplus-H2/agent/response-18.json",
+      "sha256": "00d882a1fc5274ccd8bbb9944299930751235b43950ef1cc6c81fcc24c77ec8c",
+      "model": "deepseek-flash",
+      "input_tokens": 13004,
+      "output_tokens": 399,
+      "total_tokens": 13403,
+      "input_token_details": {
+        "cache_read": 3456
+      },
+      "output_token_details": {
+        "reasoning": 305
+      },
+      "estimated_cost_usd": "0.00438"
+    },
+    {
+      "slot": 36,
+      "response": "comparison/slot-36-libsigcplusplus-H2/agent/response-19.json",
+      "sha256": "b38213ea3e6ec683e93de9f0dbc6bc091b653f3b508a884330fadf349a20ed86",
+      "model": "deepseek-flash",
+      "input_tokens": 13061,
+      "output_tokens": 411,
+      "total_tokens": 13472,
+      "input_token_details": {
+        "cache_read": 1280
+      },
+      "output_token_details": {
+        "reasoning": 326
+      },
+      "estimated_cost_usd": "0.0044115"
+    },
+    {
+      "slot": 36,
+      "response": "comparison/slot-36-libsigcplusplus-H2/agent/response-20.json",
+      "sha256": "78e9ea74524b6f06d57d354342ce4eb0919c0eaa6230722502ce3a4ba78756b2",
+      "model": "deepseek-flash",
+      "input_tokens": 13559,
+      "output_tokens": 132,
+      "total_tokens": 13691,
+      "input_token_details": {
+        "cache_read": 3456
+      },
+      "output_token_details": {
+        "reasoning": 75
+      },
+      "estimated_cost_usd": "0.0042261"
+    },
+    {
+      "slot": 36,
+      "response": "comparison/slot-36-libsigcplusplus-H2/agent/response-21.json",
+      "sha256": "91d678d439f6b059fc2c7b3e07417820ff2476aa477de0120d22aad70d4503a2",
+      "model": "deepseek-flash",
+      "input_tokens": 13350,
+      "output_tokens": 114,
+      "total_tokens": 13464,
+      "input_token_details": {
+        "cache_read": 3456
+      },
+      "output_token_details": {
+        "reasoning": 57
+      },
+      "estimated_cost_usd": "0.0041418"
+    },
+    {
+      "slot": 36,
+      "response": "comparison/slot-36-libsigcplusplus-H2/agent/response-22.json",
+      "sha256": "147f5c052660d4b41a632d02b2c756ed4d41179100b175b5781087fbc0eed96e",
+      "model": "deepseek-flash",
+      "input_tokens": 12363,
+      "output_tokens": 88,
+      "total_tokens": 12451,
+      "input_token_details": {
+        "cache_read": 3456
+      },
+      "output_token_details": {
+        "reasoning": 27
+      },
+      "estimated_cost_usd": "0.0038145"
+    },
+    {
+      "slot": 36,
+      "response": "comparison/slot-36-libsigcplusplus-H2/agent/response-23.json",
+      "sha256": "b45a78d8ad50c83ce0937b082066bcb5601b78591a7b188b4ca2de8f5e725918",
+      "model": "deepseek-flash",
+      "input_tokens": 13750,
+      "output_tokens": 1967,
+      "total_tokens": 15717,
+      "input_token_details": {
+        "cache_read": 3200
+      },
+      "output_token_details": {
+        "reasoning": 1819
+      },
+      "estimated_cost_usd": "0.0064854"
+    },
+    {
+      "slot": 36,
+      "response": "comparison/slot-36-libsigcplusplus-H2/agent/response-24.json",
+      "sha256": "acee62d720155d1ba539cc2da057972ba8601fafaeb50a8cb249a4ec9ceeea72",
+      "model": "deepseek-flash",
+      "input_tokens": 13187,
+      "output_tokens": 670,
+      "total_tokens": 13857,
+      "input_token_details": {
+        "cache_read": 3200
+      },
+      "output_token_details": {
+        "reasoning": 529
+      },
+      "estimated_cost_usd": "0.0047601"
+    },
+    {
+      "slot": 36,
+      "response": "comparison/slot-36-libsigcplusplus-H2/agent/response-25.json",
+      "sha256": "2fcab647b1aebf4ed0686dfa03b9a2addbc03249d002065ac15793719aa24dc5",
+      "model": "deepseek-flash",
+      "input_tokens": 12416,
+      "output_tokens": 490,
+      "total_tokens": 12906,
+      "input_token_details": {
+        "cache_read": 3456
+      },
+      "output_token_details": {
+        "reasoning": 324
+      },
+      "estimated_cost_usd": "0.0043128"
+    },
+    {
+      "slot": 36,
+      "response": "comparison/slot-36-libsigcplusplus-H2/agent/response-26.json",
+      "sha256": "7761b104f123065af252f906a6e22a89fdb76ec35bfe6fc9154544b3dfb74452",
+      "model": "deepseek-flash",
+      "input_tokens": 13408,
+      "output_tokens": 326,
+      "total_tokens": 13734,
+      "input_token_details": {
+        "cache_read": 3456
+      },
+      "output_token_details": {
+        "reasoning": 176
+      },
+      "estimated_cost_usd": "0.0044136"
+    },
+    {
+      "slot": 36,
+      "response": "comparison/slot-36-libsigcplusplus-H2/agent/response-27.json",
+      "sha256": "9f3bf0d3165e535c8831c53109a09065e0145cd3da787ca8b400a12c828fcaf2",
+      "model": "deepseek-flash",
+      "input_tokens": 14091,
+      "output_tokens": 327,
+      "total_tokens": 14418,
+      "input_token_details": {
+        "cache_read": 3456
+      },
+      "output_token_details": {
+        "reasoning": 156
+      },
+      "estimated_cost_usd": "0.0046197"
+    },
+    {
+      "slot": 36,
+      "response": "comparison/slot-36-libsigcplusplus-H2/agent/response-28.json",
+      "sha256": "f7e29c80b6d810e38fdd97a43836e31dc094e498218ee3c7a166afc69e5f5451",
+      "model": "deepseek-flash",
+      "input_tokens": 12187,
+      "output_tokens": 152,
+      "total_tokens": 12339,
+      "input_token_details": {
+        "cache_read": 3456
+      },
+      "output_token_details": {
+        "reasoning": 13
+      },
+      "estimated_cost_usd": "0.0038385"
+    },
+    {
+      "slot": 36,
+      "response": "comparison/slot-36-libsigcplusplus-H2/agent/response-29.json",
+      "sha256": "c08d42b235580e562279dfdb9006691598dc3f06a10d8df1f8dc8c8cbd79f511",
+      "model": "deepseek-flash",
+      "input_tokens": 11427,
+      "output_tokens": 130,
+      "total_tokens": 11557,
+      "input_token_details": {
+        "cache_read": 3456
+      },
+      "output_token_details": {
+        "reasoning": 17
+      },
+      "estimated_cost_usd": "0.0035841"
+    },
+    {
+      "slot": 36,
+      "response": "comparison/slot-36-libsigcplusplus-H2/agent/response-30.json",
+      "sha256": "ec3fadb3f43b0971432e3fb1be2d8f7d1303a7226cd67f85d9ea225cefbcf533",
+      "model": "deepseek-flash",
+      "input_tokens": 13620,
+      "output_tokens": 186,
+      "total_tokens": 13806,
+      "input_token_details": {
+        "cache_read": 3456
+      },
+      "output_token_details": {
+        "reasoning": 48
+      },
+      "estimated_cost_usd": "0.0043092"
+    },
+    {
+      "slot": 36,
+      "response": "comparison/slot-36-libsigcplusplus-H2/agent/response-31.json",
+      "sha256": "6c7e6bfb5a2e65413b3cf191f36f5a7642592bdb9ed6f5b8d3902b0c528d7325",
+      "model": "deepseek-flash",
+      "input_tokens": 12759,
+      "output_tokens": 253,
+      "total_tokens": 13012,
+      "input_token_details": {
+        "cache_read": 3456
+      },
+      "output_token_details": {
+        "reasoning": 104
+      },
+      "estimated_cost_usd": "0.0041313"
+    },
+    {
+      "slot": 36,
+      "response": "comparison/slot-36-libsigcplusplus-H2/agent/response-32.json",
+      "sha256": "a065cea92fad25464c8905758d87dee7fa5e3b3665cb7780e876f3d79bf75666",
+      "model": "deepseek-flash",
+      "input_tokens": 12467,
+      "output_tokens": 433,
+      "total_tokens": 12900,
+      "input_token_details": {
+        "cache_read": 3456
+      },
+      "output_token_details": {
+        "reasoning": 301
+      },
+      "estimated_cost_usd": "0.0042597"
+    },
+    {
+      "slot": 36,
+      "response": "comparison/slot-36-libsigcplusplus-H2/agent/response-33.json",
+      "sha256": "f4553784c2c1c2d3188cfa8067f93f37dffffc31a6472e99e9ac51a4e4c06681",
+      "model": "deepseek-flash",
+      "input_tokens": 13983,
+      "output_tokens": 207,
+      "total_tokens": 14190,
+      "input_token_details": {
+        "cache_read": 3456
+      },
+      "output_token_details": {
+        "reasoning": 74
+      },
+      "estimated_cost_usd": "0.0044433"
+    },
+    {
+      "slot": 36,
+      "response": "comparison/slot-36-libsigcplusplus-H2/agent/response-34.json",
+      "sha256": "b1cd4436ba53081413b90a2e63eb1a2604ffebee9ce3570d65171f1c3a1d58bd",
+      "model": "deepseek-flash",
+      "input_tokens": 13601,
+      "output_tokens": 1399,
+      "total_tokens": 15000,
+      "input_token_details": {
+        "cache_read": 3200
+      },
+      "output_token_details": {
+        "reasoning": 1257
+      },
+      "estimated_cost_usd": "0.0057591"
+    },
+    {
+      "slot": 36,
+      "response": "comparison/slot-36-libsigcplusplus-H2/agent/response-35.json",
+      "sha256": "fdc88961c26e3e286a5fb50891b1039d82eb64bdb6634ddc91af20dd428e6746",
+      "model": "deepseek-flash",
+      "input_tokens": 13965,
+      "output_tokens": 978,
+      "total_tokens": 14943,
+      "input_token_details": {
+        "cache_read": 3456
+      },
+      "output_token_details": {
+        "reasoning": 526
+      },
+      "estimated_cost_usd": "0.0053631"
+    },
+    {
+      "slot": 36,
+      "response": "comparison/slot-36-libsigcplusplus-H2/agent/response-36.json",
+      "sha256": "5ffea4dbef35ce07b9b7b12fce065182ae9aaf71307f1718a480430122cd8bd0",
+      "model": "deepseek-flash",
+      "input_tokens": 15181,
+      "output_tokens": 488,
+      "total_tokens": 15669,
+      "input_token_details": {
+        "cache_read": 1920
+      },
+      "output_token_details": {
+        "reasoning": 387
+      },
+      "estimated_cost_usd": "0.0051399"
+    },
+    {
+      "slot": 36,
+      "response": "comparison/slot-36-libsigcplusplus-H2/agent/response-37.json",
+      "sha256": "9d027519963cde25c46414778f63aea3c0640911929cd40e842da88e51c8c6c7",
+      "model": "deepseek-flash",
+      "input_tokens": 15684,
+      "output_tokens": 186,
+      "total_tokens": 15870,
+      "input_token_details": {
+        "cache_read": 10368
+      },
+      "output_token_details": {
+        "reasoning": 68
+      },
+      "estimated_cost_usd": "0.0049284"
+    },
+    {
+      "slot": 36,
+      "response": "comparison/slot-36-libsigcplusplus-H2/agent/response-38.json",
+      "sha256": "dc330003edf9a59c1bb13c03860881c0459a03add4849bc18cbc883c159e2d5a",
+      "model": "deepseek-flash",
+      "input_tokens": 13439,
+      "output_tokens": 235,
+      "total_tokens": 13674,
+      "input_token_details": {
+        "cache_read": 11392
+      },
+      "output_token_details": {
+        "reasoning": 83
+      },
+      "estimated_cost_usd": "0.0043137"
+    },
+    {
+      "slot": 36,
+      "response": "comparison/slot-36-libsigcplusplus-H2/agent/response-39.json",
+      "sha256": "133770a75995ec3e0b628ac6420456386b4f691e44817ed8990e92e91c286190",
+      "model": "deepseek-flash",
+      "input_tokens": 15599,
+      "output_tokens": 195,
+      "total_tokens": 15794,
+      "input_token_details": {
+        "cache_read": 11392
+      },
+      "output_token_details": {
+        "reasoning": 90
+      },
+      "estimated_cost_usd": "0.0049137"
+    },
+    {
+      "slot": 36,
+      "response": "comparison/slot-36-libsigcplusplus-H2/agent/response-40.json",
+      "sha256": "40466a77b2af993acaacc331ac541ad1bc11d8322912d2b93d404aa5a8145b98",
+      "model": "deepseek-flash",
+      "input_tokens": 13058,
+      "output_tokens": 84,
+      "total_tokens": 13142,
+      "input_token_details": {
+        "cache_read": 11392
+      },
+      "output_token_details": {
+        "reasoning": 25
+      },
+      "estimated_cost_usd": "0.0040182"
+    },
+    {
+      "slot": 36,
+      "response": "comparison/slot-36-libsigcplusplus-H2/agent/response-41.json",
+      "sha256": "2182f0b2c3aea71f081873905b7d07854cbf4ca360709d885689cc55434d6392",
+      "model": "deepseek-flash",
+      "input_tokens": 13842,
+      "output_tokens": 106,
+      "total_tokens": 13948,
+      "input_token_details": {
+        "cache_read": 11392
+      },
+      "output_token_details": {
+        "reasoning": 50
+      },
+      "estimated_cost_usd": "0.0042798"
+    },
+    {
+      "slot": 36,
+      "response": "comparison/slot-36-libsigcplusplus-H2/agent/response-42.json",
+      "sha256": "b5c56d873fe04dd4198b9490023047af1852d2111be5db152925338eba351d87",
+      "model": "deepseek-flash",
+      "input_tokens": 14719,
+      "output_tokens": 187,
+      "total_tokens": 14906,
+      "input_token_details": {
+        "cache_read": 11392
+      },
+      "output_token_details": {
+        "reasoning": 130
+      },
+      "estimated_cost_usd": "0.0046401"
+    },
+    {
+      "slot": 36,
+      "response": "comparison/slot-36-libsigcplusplus-H2/agent/response-43.json",
+      "sha256": "01e9b7ec976d3967578c4430e8d959c6fdff46105cb944f53c7274b36e87f1c6",
+      "model": "deepseek-flash",
+      "input_tokens": 14800,
+      "output_tokens": 406,
+      "total_tokens": 15206,
+      "input_token_details": {
+        "cache_read": 1664
+      },
+      "output_token_details": {
+        "reasoning": 350
+      },
+      "estimated_cost_usd": "0.0049272"
+    },
+    {
+      "slot": 36,
+      "response": "comparison/slot-36-libsigcplusplus-H2/agent/response-44.json",
+      "sha256": "fa3280480695376a95a959bd09b58a3ffd35bd34159b77546488b480946ec124",
+      "model": "deepseek-flash",
+      "input_tokens": 14256,
+      "output_tokens": 528,
+      "total_tokens": 14784,
+      "input_token_details": {
+        "cache_read": 11392
+      },
+      "output_token_details": {
+        "reasoning": 423
+      },
+      "estimated_cost_usd": "0.0049104"
+    },
+    {
+      "slot": 36,
+      "response": "comparison/slot-36-libsigcplusplus-H2/agent/response-45.json",
+      "sha256": "93901a50ecfd5e4ee18f01be216c4d6e6571e5a050df914e0472a484fa5c58ce",
+      "model": "deepseek-flash",
+      "input_tokens": 15121,
+      "output_tokens": 150,
+      "total_tokens": 15271,
+      "input_token_details": {
+        "cache_read": 11392
+      },
+      "output_token_details": {
+        "reasoning": 94
+      },
+      "estimated_cost_usd": "0.0047163"
+    },
+    {
+      "slot": 36,
+      "response": "comparison/slot-36-libsigcplusplus-H2/agent/response-46.json",
+      "sha256": "bf40b7070079afd55f59720e057a45c5426c3df8af8e77235f1747fd265f62ef",
+      "model": "deepseek-flash",
+      "input_tokens": 13263,
+      "output_tokens": 127,
+      "total_tokens": 13390,
+      "input_token_details": {
+        "cache_read": 11392
+      },
+      "output_token_details": {
+        "reasoning": 22
+      },
+      "estimated_cost_usd": "0.0041313"
+    },
+    {
+      "slot": 36,
+      "response": "comparison/slot-36-libsigcplusplus-H2/agent/response-47.json",
+      "sha256": "343b6ae890efcfa8dec6df208e08220051353fc0f756faeb7637b70ec8537ad1",
+      "model": "deepseek-flash",
+      "input_tokens": 15407,
+      "output_tokens": 1149,
+      "total_tokens": 16556,
+      "input_token_details": {
+        "cache_read": 11136
+      },
+      "output_token_details": {
+        "reasoning": 780
+      },
+      "estimated_cost_usd": "0.0060009"
+    }
+  ],
+  "optimizer_tokens": {
+    "input_tokens": 55172,
+    "output_tokens": 1228,
+    "total_tokens": 56400,
+    "input_token_details": {
+      "cache_read": 0
+    },
+    "output_token_details": {
+      "reasoning": 71
+    }
+  },
+  "optimizer_cost_usd": "0.0564",
+  "total_cost_usd": "0.9034953",
+  "all_recorded_costs_match": true
+}

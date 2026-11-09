@@ -1,0 +1,12 @@
+{
+  "classification": "post_hoc_zero_provider_diagnostic_only",
+  "command": "/artifacts/fse -V",
+  "source_artifact": "/home/yiwei/.codex/outputs/forge-offline-harness-round2-flash-v1/comparison/slot-24-fse-H0/.compile-sessions/simple-system/f2aa284aa36a/artifacts/fse",
+  "sha256": "133a56c28ac1adcf5f49254eda43f9a1768824ada3f468dfd9a63931cb1fdd4c",
+  "exit_code": 0,
+  "stdout": "",
+  "stderr": "FSE : Finite State Entropy, 64-bits demo by Yann Collet (Nov  9 2026)\nFSE : Finite State Entropy, 64-bits demo by Yann Collet (Nov  9 2026)\n",
+  "container_removed": true,
+  "provider_requests": 0,
+  "changes_frozen_outcome": false
+}

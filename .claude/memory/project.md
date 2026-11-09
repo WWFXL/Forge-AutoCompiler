@@ -620,6 +620,14 @@
   - 下一步: 等待实验负责人确认当前网络接入介质，并决定是否授权只读 endpoint 诊断和新的 canary amendment；获得确认后必须另建中文 Issue/PR 和协议 identity，保留当前失败 marker。
 
 ## 最近变更 (Recent Changes)
+- 2026-11-09 — 完成第二轮十二项目各一次×三策略36次实跑及分层/费用解释，更新论文v0.10。
+  - 文件: `docs/research/2026-11-09-offline-harness-round2-results.md`, `benchmarks/analyses/offline-harness-round2-2026-11-09/`, `docs/thesis/chapters/04-状态感知动作与恢复.md`, `docs/thesis/chapters/05-经验驱动Harness设计.md`, `docs/thesis/chapters/06-实验设计与结果分析.md`。
+  - 结果: 主产物/文件交付各12/12，最终验证11/12、11/12、10/12；48/79/83请求，0.1801488/0.3292107/0.3377358美元，H2初始节约而恢复增费，保留H0。总211请求/2568579Token/0.9034953美元、未知0；源码/cleanup36过、138容器身份不存在。
+  - 交付: 论文v0.10四格式实际导出106页PDF、57表12图；第二轮数字和第82/84页布局核验。最终发布/知识库状态见PR706、Issue705及会话publication.json收据，当前无活动Provider。
+  - 边界: fse三次smoke前止、replay未启动，H2/libsigcplusplus另一次方案丢依赖导致127；原标签/失败保留，derived-v2仅解释层。运行9f583375、manifest5dfeb6a3、inventory56696b56；新旧轮/人工修复分开，不称持续提效。优先恢复日志与必要依赖保留，知识库仅MCP。
+- 2026-11-09 — 固定第二轮十二项目三策略执行入口、公开任务与近期轨迹材料。
+  - 文件: `scripts/forge_offline_harness_round2.py`, `backend/tests/test_offline_harness_round2.py`, `benchmarks/preregistrations/cpp-build-offline-harness-round2-flash-v1.md`。
+  - 动机: 用项目覆盖检验近期轨迹驱动的短规划策略，沿已修复共同执行器收集论文结果。
 - 2026-11-09 — #703分离执行成功与配置观察未知，完善恢复修订反馈和只改观察目录的恢复。
   - 文件: `backend/packages/harness/deerflow/compile/simple_build_task.py`, `simple_build_runtime.py`, `simple_build_experience.py`, `build_state_routing.py`, `scripts/forge_simple_system.py`, `backend/tests/test_workflow_execution_contract.py`, `docs/compile_workflow_execution.md`, `docs/research/2026-11-09-workflow-state-contract-repair.md`。
   - 动机: 避免合法方案因Shell写法未识别而无故终止；unknown有界继续、真实失败/配置冲突仍停止，独立结果检查保持。可选目录贯通规划/方案/路由/复用，一次结构/执行修订反馈；目录纠错核验后保留原成功命令和系统清理配方。

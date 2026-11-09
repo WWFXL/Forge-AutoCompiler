@@ -1,0 +1,3590 @@
+[
+  {
+    "slot": 4,
+    "project": "snappy",
+    "method": "H1",
+    "phase": "initial",
+    "tool": "read_source",
+    "arguments": {
+      "path": "CMakeLists.txt",
+      "start_line": 305
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 4,
+    "project": "snappy",
+    "method": "H1",
+    "phase": "initial",
+    "tool": "list_source",
+    "arguments": {
+      "directory": "."
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 4,
+    "project": "snappy",
+    "method": "H1",
+    "phase": "initial",
+    "tool": "read_source",
+    "arguments": {
+      "path": "CMakeLists.txt",
+      "start_line": 425
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 4,
+    "project": "snappy",
+    "method": "H1",
+    "phase": "initial",
+    "tool": "list_source",
+    "arguments": {
+      "directory": "third_party"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 4,
+    "project": "snappy",
+    "method": "H1",
+    "phase": "initial",
+    "tool": "list_source",
+    "arguments": {
+      "directory": "third_party/googletest"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 4,
+    "project": "snappy",
+    "method": "H1",
+    "phase": "initial",
+    "tool": "list_source",
+    "arguments": {
+      "directory": "third_party/benchmark"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 5,
+    "project": "snappy",
+    "method": "H2",
+    "phase": "initial",
+    "tool": "list_source",
+    "arguments": {
+      "directory": "."
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 5,
+    "project": "snappy",
+    "method": "H2",
+    "phase": "initial",
+    "tool": "list_source",
+    "arguments": {
+      "directory": "third_party"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 5,
+    "project": "snappy",
+    "method": "H2",
+    "phase": "initial",
+    "tool": "list_source",
+    "arguments": {
+      "directory": "third_party/googletest"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 6,
+    "project": "snappy",
+    "method": "H0",
+    "phase": "initial",
+    "tool": "list_source",
+    "arguments": {
+      "directory": "."
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 6,
+    "project": "snappy",
+    "method": "H0",
+    "phase": "initial",
+    "tool": "read_source",
+    "arguments": {
+      "path": "CMakeLists.txt",
+      "start_line": 309
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 6,
+    "project": "snappy",
+    "method": "H0",
+    "phase": "initial",
+    "tool": "list_source",
+    "arguments": {
+      "directory": "third_party"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 6,
+    "project": "snappy",
+    "method": "H0",
+    "phase": "initial",
+    "tool": "list_source",
+    "arguments": {
+      "directory": "third_party/googletest"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 7,
+    "project": "simdutf",
+    "method": "H2",
+    "phase": "initial",
+    "tool": "read_source",
+    "arguments": {
+      "path": "README.md",
+      "start_line": 145
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 7,
+    "project": "simdutf",
+    "method": "H2",
+    "phase": "initial",
+    "tool": "list_source",
+    "arguments": {
+      "directory": "."
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 8,
+    "project": "simdutf",
+    "method": "H0",
+    "phase": "initial",
+    "tool": "list_source",
+    "arguments": {
+      "directory": "."
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 8,
+    "project": "simdutf",
+    "method": "H0",
+    "phase": "initial",
+    "tool": "read_source",
+    "arguments": {
+      "path": "README.md",
+      "start_line": 145
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 9,
+    "project": "simdutf",
+    "method": "H1",
+    "phase": "initial",
+    "tool": "read_source",
+    "arguments": {
+      "path": "README.md",
+      "start_line": 145
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 9,
+    "project": "simdutf",
+    "method": "H1",
+    "phase": "initial",
+    "tool": "list_source",
+    "arguments": {
+      "directory": "."
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 10,
+    "project": "md4c",
+    "method": "H2",
+    "phase": "initial",
+    "tool": "list_source",
+    "arguments": {
+      "directory": "."
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 10,
+    "project": "md4c",
+    "method": "H2",
+    "phase": "initial",
+    "tool": "read_source",
+    "arguments": {
+      "path": "README.md",
+      "start_line": 246
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 10,
+    "project": "md4c",
+    "method": "H2",
+    "phase": "initial",
+    "tool": "read_source",
+    "arguments": {
+      "path": "md2html/CMakeLists.txt"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 10,
+    "project": "md4c",
+    "method": "H2",
+    "phase": "initial",
+    "tool": "read_source",
+    "arguments": {
+      "path": "src/CMakeLists.txt"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 11,
+    "project": "md4c",
+    "method": "H1",
+    "phase": "initial",
+    "tool": "read_source",
+    "arguments": {
+      "path": "README.md",
+      "start_line": 240
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 11,
+    "project": "md4c",
+    "method": "H1",
+    "phase": "initial",
+    "tool": "read_source",
+    "arguments": {
+      "path": "src/CMakeLists.txt"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 11,
+    "project": "md4c",
+    "method": "H1",
+    "phase": "initial",
+    "tool": "read_source",
+    "arguments": {
+      "path": "md2html/CMakeLists.txt"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 11,
+    "project": "md4c",
+    "method": "H1",
+    "phase": "initial",
+    "tool": "list_source",
+    "arguments": {
+      "directory": "."
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 11,
+    "project": "md4c",
+    "method": "H1",
+    "phase": "initial",
+    "tool": "read_source",
+    "arguments": {
+      "path": "README.md",
+      "start_line": 350
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 12,
+    "project": "md4c",
+    "method": "H0",
+    "phase": "initial",
+    "tool": "list_source",
+    "arguments": {
+      "directory": "."
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 12,
+    "project": "md4c",
+    "method": "H0",
+    "phase": "initial",
+    "tool": "read_source",
+    "arguments": {
+      "path": "README.md",
+      "start_line": 300
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 12,
+    "project": "md4c",
+    "method": "H0",
+    "phase": "initial",
+    "tool": "read_source",
+    "arguments": {
+      "path": "README.md",
+      "start_line": 240
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 13,
+    "project": "libtommath",
+    "method": "H0",
+    "phase": "initial",
+    "tool": "list_source",
+    "arguments": {
+      "directory": "."
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 13,
+    "project": "libtommath",
+    "method": "H0",
+    "phase": "initial",
+    "tool": "read_source",
+    "arguments": {
+      "path": "Makefile",
+      "start_line": 1
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 13,
+    "project": "libtommath",
+    "method": "H0",
+    "phase": "initial",
+    "tool": "read_source",
+    "arguments": {
+      "path": "makefile",
+      "start_line": 1
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 13,
+    "project": "libtommath",
+    "method": "H0",
+    "phase": "initial",
+    "tool": "read_source",
+    "arguments": {
+      "path": "makefile_include.mk",
+      "start_line": 1
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 14,
+    "project": "libtommath",
+    "method": "H2",
+    "phase": "initial",
+    "tool": "list_source",
+    "arguments": {
+      "directory": "."
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 14,
+    "project": "libtommath",
+    "method": "H2",
+    "phase": "initial",
+    "tool": "read_source",
+    "arguments": {
+      "path": "Makefile",
+      "start_line": 1
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 14,
+    "project": "libtommath",
+    "method": "H2",
+    "phase": "initial",
+    "tool": "read_source",
+    "arguments": {
+      "path": "makefile",
+      "start_line": 1
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 15,
+    "project": "libtommath",
+    "method": "H1",
+    "phase": "initial",
+    "tool": "list_source",
+    "arguments": {
+      "directory": "."
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 15,
+    "project": "libtommath",
+    "method": "H1",
+    "phase": "initial",
+    "tool": "read_source",
+    "arguments": {
+      "path": "makefile",
+      "start_line": 1
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 15,
+    "project": "libtommath",
+    "method": "H1",
+    "phase": "initial",
+    "tool": "read_source",
+    "arguments": {
+      "path": "makefile",
+      "start_line": 120
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 15,
+    "project": "libtommath",
+    "method": "H1",
+    "phase": "initial",
+    "tool": "read_source",
+    "arguments": {
+      "path": "makefile_include.mk",
+      "start_line": 1
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 15,
+    "project": "libtommath",
+    "method": "H1",
+    "phase": "initial",
+    "tool": "read_source",
+    "arguments": {
+      "path": "makefile_include.mk",
+      "start_line": 120
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 22,
+    "project": "fse",
+    "method": "H1",
+    "phase": "initial",
+    "tool": "list_source",
+    "arguments": {
+      "directory": "."
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 22,
+    "project": "fse",
+    "method": "H1",
+    "phase": "initial",
+    "tool": "read_source",
+    "arguments": {
+      "path": "programs/Makefile"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 23,
+    "project": "fse",
+    "method": "H2",
+    "phase": "initial",
+    "tool": "read_source",
+    "arguments": {
+      "path": "programs/Makefile"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 24,
+    "project": "fse",
+    "method": "H0",
+    "phase": "initial",
+    "tool": "list_source",
+    "arguments": {
+      "directory": "programs"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 24,
+    "project": "fse",
+    "method": "H0",
+    "phase": "initial",
+    "tool": "read_source",
+    "arguments": {
+      "path": "programs/Makefile"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 25,
+    "project": "check",
+    "method": "H2",
+    "phase": "recovery",
+    "tool": "list_source",
+    "arguments": {
+      "directory": "."
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 25,
+    "project": "check",
+    "method": "H2",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "doc/Makefile.am"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 25,
+    "project": "check",
+    "method": "H2",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "configure.ac",
+      "start_line": 120
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 25,
+    "project": "check",
+    "method": "H2",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "Makefile.am"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 25,
+    "project": "check",
+    "method": "H2",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "configure.ac",
+      "start_line": 20
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 25,
+    "project": "check",
+    "method": "H2",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "config.log",
+      "start_line": 1
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 25,
+    "project": "check",
+    "method": "H2",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "configure.ac",
+      "start_line": 137
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 25,
+    "project": "check",
+    "method": "H2",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "configure.ac",
+      "start_line": 60
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 25,
+    "project": "check",
+    "method": "H2",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "README.md",
+      "start_line": 1
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 25,
+    "project": "check",
+    "method": "H2",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "doc/Makefile.am",
+      "start_line": 1
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 25,
+    "project": "check",
+    "method": "H2",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "Makefile.am",
+      "start_line": 1
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 25,
+    "project": "check",
+    "method": "H2",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "configure.ac",
+      "start_line": 40
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 25,
+    "project": "check",
+    "method": "H2",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "README.md",
+      "start_line": 20
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 26,
+    "project": "check",
+    "method": "H0",
+    "phase": "initial",
+    "tool": "list_source",
+    "arguments": {
+      "directory": "."
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 26,
+    "project": "check",
+    "method": "H0",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "doc/Makefile.am"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 26,
+    "project": "check",
+    "method": "H0",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "configure.ac",
+      "start_line": 185
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 26,
+    "project": "check",
+    "method": "H0",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "Makefile.am"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 26,
+    "project": "check",
+    "method": "H0",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "configure.ac",
+      "start_line": 1
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 26,
+    "project": "check",
+    "method": "H0",
+    "phase": "recovery",
+    "tool": "read_failure_log",
+    "arguments": {
+      "path": "/logs/command_3c0e972ed8174986bc77245f160ce337.log",
+      "start_line": 1
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 26,
+    "project": "check",
+    "method": "H0",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "README.md"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 26,
+    "project": "check",
+    "method": "H0",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "configure.ac",
+      "start_line": 160
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 26,
+    "project": "check",
+    "method": "H0",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "doc/Makefile.am",
+      "start_line": 1
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 26,
+    "project": "check",
+    "method": "H0",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "Makefile.am",
+      "start_line": 1
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 26,
+    "project": "check",
+    "method": "H0",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "configure.ac",
+      "start_line": 1
+    },
+    "exact_repeat": true
+  },
+  {
+    "slot": 26,
+    "project": "check",
+    "method": "H0",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "configure.ac",
+      "start_line": 185
+    },
+    "exact_repeat": true
+  },
+  {
+    "slot": 26,
+    "project": "check",
+    "method": "H0",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "README.md",
+      "start_line": 30
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 26,
+    "project": "check",
+    "method": "H0",
+    "phase": "recovery",
+    "tool": "read_failure_log",
+    "arguments": {
+      "path": "logs/command_3c0e972ed8174986bc77245f160ce337.log",
+      "start_line": 1
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 26,
+    "project": "check",
+    "method": "H0",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "Makefile.am",
+      "start_line": 1
+    },
+    "exact_repeat": true
+  },
+  {
+    "slot": 26,
+    "project": "check",
+    "method": "H0",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "configure.ac",
+      "start_line": 55
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 26,
+    "project": "check",
+    "method": "H0",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "README.md",
+      "start_line": 1
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 27,
+    "project": "check",
+    "method": "H1",
+    "phase": "initial",
+    "tool": "list_source",
+    "arguments": {
+      "directory": "/workspace/repo"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 27,
+    "project": "check",
+    "method": "H1",
+    "phase": "initial",
+    "tool": "read_source",
+    "arguments": {
+      "path": "Makefile.am"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 27,
+    "project": "check",
+    "method": "H1",
+    "phase": "initial",
+    "tool": "read_source",
+    "arguments": {
+      "path": "src/Makefile.am"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 27,
+    "project": "check",
+    "method": "H1",
+    "phase": "initial",
+    "tool": "read_source",
+    "arguments": {
+      "path": "lib/Makefile.am"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 27,
+    "project": "check",
+    "method": "H1",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "doc/Makefile.am"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 27,
+    "project": "check",
+    "method": "H1",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "configure.ac",
+      "start_line": 300
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 27,
+    "project": "check",
+    "method": "H1",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "configure.ac",
+      "start_line": 170
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 27,
+    "project": "check",
+    "method": "H1",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "README.md",
+      "start_line": 1
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 27,
+    "project": "check",
+    "method": "H1",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "configure.ac",
+      "start_line": 1
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 27,
+    "project": "check",
+    "method": "H1",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "doc/Makefile.am",
+      "start_line": 1
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 27,
+    "project": "check",
+    "method": "H1",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "doc/Makefile.am",
+      "start_line": 120
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 27,
+    "project": "check",
+    "method": "H1",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "README.md",
+      "start_line": 1
+    },
+    "exact_repeat": true
+  },
+  {
+    "slot": 27,
+    "project": "check",
+    "method": "H1",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "Makefile.am",
+      "start_line": 1
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 27,
+    "project": "check",
+    "method": "H1",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "configure.ac",
+      "start_line": 180
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 27,
+    "project": "check",
+    "method": "H1",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "configure.ac",
+      "start_line": 120
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 27,
+    "project": "check",
+    "method": "H1",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "configure.ac",
+      "start_line": 60
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 27,
+    "project": "check",
+    "method": "H1",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "README.md",
+      "start_line": 1
+    },
+    "exact_repeat": true
+  },
+  {
+    "slot": 27,
+    "project": "check",
+    "method": "H1",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "doc/Makefile.am",
+      "start_line": 1
+    },
+    "exact_repeat": true
+  },
+  {
+    "slot": 27,
+    "project": "check",
+    "method": "H1",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "doc/Makefile.am",
+      "start_line": 120
+    },
+    "exact_repeat": true
+  },
+  {
+    "slot": 28,
+    "project": "libsodium",
+    "method": "H2",
+    "phase": "initial",
+    "tool": "list_source",
+    "arguments": {
+      "directory": "."
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 28,
+    "project": "libsodium",
+    "method": "H2",
+    "phase": "initial",
+    "tool": "read_source",
+    "arguments": {
+      "path": "autogen.sh"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 28,
+    "project": "libsodium",
+    "method": "H2",
+    "phase": "initial",
+    "tool": "read_source",
+    "arguments": {
+      "path": "Makefile.am"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 29,
+    "project": "libsodium",
+    "method": "H1",
+    "phase": "initial",
+    "tool": "list_source",
+    "arguments": {
+      "directory": "."
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 29,
+    "project": "libsodium",
+    "method": "H1",
+    "phase": "initial",
+    "tool": "list_source",
+    "arguments": {
+      "directory": "/workspace/repo"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 29,
+    "project": "libsodium",
+    "method": "H1",
+    "phase": "initial",
+    "tool": "read_source",
+    "arguments": {
+      "path": "autogen.sh"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 29,
+    "project": "libsodium",
+    "method": "H1",
+    "phase": "initial",
+    "tool": "read_source",
+    "arguments": {
+      "path": "Makefile.am"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 29,
+    "project": "libsodium",
+    "method": "H1",
+    "phase": "initial",
+    "tool": "read_source",
+    "arguments": {
+      "path": "src/Makefile.am",
+      "start_line": 1
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 29,
+    "project": "libsodium",
+    "method": "H1",
+    "phase": "initial",
+    "tool": "read_source",
+    "arguments": {
+      "path": "src/libsodium/Makefile.am",
+      "start_line": 1
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 30,
+    "project": "libsodium",
+    "method": "H0",
+    "phase": "initial",
+    "tool": "list_source",
+    "arguments": {
+      "directory": "/workspace/repo"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 30,
+    "project": "libsodium",
+    "method": "H0",
+    "phase": "initial",
+    "tool": "read_source",
+    "arguments": {
+      "path": "autogen.sh"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 30,
+    "project": "libsodium",
+    "method": "H0",
+    "phase": "initial",
+    "tool": "read_source",
+    "arguments": {
+      "path": "Makefile.am",
+      "start_line": 1
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 30,
+    "project": "libsodium",
+    "method": "H0",
+    "phase": "initial",
+    "tool": "read_source",
+    "arguments": {
+      "path": "src/Makefile.am"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 30,
+    "project": "libsodium",
+    "method": "H0",
+    "phase": "initial",
+    "tool": "list_source",
+    "arguments": {
+      "directory": "builds"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 30,
+    "project": "libsodium",
+    "method": "H0",
+    "phase": "initial",
+    "tool": "list_source",
+    "arguments": {
+      "directory": "dist-build"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 31,
+    "project": "libverto",
+    "method": "H0",
+    "phase": "initial",
+    "tool": "list_source",
+    "arguments": {
+      "directory": "."
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 31,
+    "project": "libverto",
+    "method": "H0",
+    "phase": "initial",
+    "tool": "read_source",
+    "arguments": {
+      "path": "ci.sh"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 31,
+    "project": "libverto",
+    "method": "H0",
+    "phase": "initial",
+    "tool": "read_source",
+    "arguments": {
+      "path": "Makefile.am"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 32,
+    "project": "libverto",
+    "method": "H2",
+    "phase": "initial",
+    "tool": "list_source",
+    "arguments": {
+      "directory": "."
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 32,
+    "project": "libverto",
+    "method": "H2",
+    "phase": "initial",
+    "tool": "read_source",
+    "arguments": {
+      "path": "ci.sh"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 32,
+    "project": "libverto",
+    "method": "H2",
+    "phase": "initial",
+    "tool": "read_source",
+    "arguments": {
+      "path": "Makefile.am"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 32,
+    "project": "libverto",
+    "method": "H2",
+    "phase": "initial",
+    "tool": "list_source",
+    "arguments": {
+      "directory": "m4"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 33,
+    "project": "libverto",
+    "method": "H1",
+    "phase": "initial",
+    "tool": "list_source",
+    "arguments": {
+      "directory": "."
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 33,
+    "project": "libverto",
+    "method": "H1",
+    "phase": "initial",
+    "tool": "read_source",
+    "arguments": {
+      "path": "Makefile.am"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 33,
+    "project": "libverto",
+    "method": "H1",
+    "phase": "initial",
+    "tool": "read_source",
+    "arguments": {
+      "path": "ci.sh"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 33,
+    "project": "libverto",
+    "method": "H1",
+    "phase": "initial",
+    "tool": "read_source",
+    "arguments": {
+      "path": "src/Makefile.am"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 34,
+    "project": "libsigcplusplus",
+    "method": "H1",
+    "phase": "initial",
+    "tool": "list_source",
+    "arguments": {
+      "directory": "."
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 34,
+    "project": "libsigcplusplus",
+    "method": "H1",
+    "phase": "initial",
+    "tool": "list_source",
+    "arguments": {
+      "directory": "/workspace/repo"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 34,
+    "project": "libsigcplusplus",
+    "method": "H1",
+    "phase": "initial",
+    "tool": "read_source",
+    "arguments": {
+      "path": "autogen.sh"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 34,
+    "project": "libsigcplusplus",
+    "method": "H1",
+    "phase": "initial",
+    "tool": "read_source",
+    "arguments": {
+      "path": "Makefile.am"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 34,
+    "project": "libsigcplusplus",
+    "method": "H1",
+    "phase": "initial",
+    "tool": "read_source",
+    "arguments": {
+      "path": "sigc++/Makefile.am"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 34,
+    "project": "libsigcplusplus",
+    "method": "H1",
+    "phase": "initial",
+    "tool": "read_source",
+    "arguments": {
+      "path": "tests/Makefile.am"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 34,
+    "project": "libsigcplusplus",
+    "method": "H1",
+    "phase": "initial",
+    "tool": "read_source",
+    "arguments": {
+      "path": "examples/Makefile.am"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 34,
+    "project": "libsigcplusplus",
+    "method": "H1",
+    "phase": "initial",
+    "tool": "list_source",
+    "arguments": {
+      "directory": "build"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 34,
+    "project": "libsigcplusplus",
+    "method": "H1",
+    "phase": "initial",
+    "tool": "read_source",
+    "arguments": {
+      "path": "meson.build",
+      "start_line": 1
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 34,
+    "project": "libsigcplusplus",
+    "method": "H1",
+    "phase": "initial",
+    "tool": "read_source",
+    "arguments": {
+      "path": "subprojects/mm-common.wrap"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 34,
+    "project": "libsigcplusplus",
+    "method": "H1",
+    "phase": "initial",
+    "tool": "read_source",
+    "arguments": {
+      "path": "README.md",
+      "start_line": 1
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 34,
+    "project": "libsigcplusplus",
+    "method": "H1",
+    "phase": "initial",
+    "tool": "read_source",
+    "arguments": {
+      "path": "README.md",
+      "start_line": 112
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 34,
+    "project": "libsigcplusplus",
+    "method": "H1",
+    "phase": "initial",
+    "tool": "list_source",
+    "arguments": {
+      "directory": "."
+    },
+    "exact_repeat": true
+  },
+  {
+    "slot": 34,
+    "project": "libsigcplusplus",
+    "method": "H1",
+    "phase": "initial",
+    "tool": "list_source",
+    "arguments": {
+      "directory": "untracked"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 34,
+    "project": "libsigcplusplus",
+    "method": "H1",
+    "phase": "initial",
+    "tool": "read_source",
+    "arguments": {
+      "path": "autogen.sh"
+    },
+    "exact_repeat": true
+  },
+  {
+    "slot": 34,
+    "project": "libsigcplusplus",
+    "method": "H1",
+    "phase": "initial",
+    "tool": "read_source",
+    "arguments": {
+      "path": "Makefile.am"
+    },
+    "exact_repeat": true
+  },
+  {
+    "slot": 34,
+    "project": "libsigcplusplus",
+    "method": "H1",
+    "phase": "initial",
+    "tool": "read_source",
+    "arguments": {
+      "path": "configure.ac",
+      "start_line": 1
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 34,
+    "project": "libsigcplusplus",
+    "method": "H1",
+    "phase": "initial",
+    "tool": "read_source",
+    "arguments": {
+      "path": "untracked/README"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 34,
+    "project": "libsigcplusplus",
+    "method": "H1",
+    "phase": "recovery",
+    "tool": "list_source",
+    "arguments": {
+      "directory": "build"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 34,
+    "project": "libsigcplusplus",
+    "method": "H1",
+    "phase": "recovery",
+    "tool": "list_source",
+    "arguments": {
+      "directory": "subprojects"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 34,
+    "project": "libsigcplusplus",
+    "method": "H1",
+    "phase": "recovery",
+    "tool": "list_source",
+    "arguments": {
+      "directory": "docs"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 34,
+    "project": "libsigcplusplus",
+    "method": "H1",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "meson_options.txt"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 34,
+    "project": "libsigcplusplus",
+    "method": "H1",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "meson.build",
+      "start_line": 120
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 34,
+    "project": "libsigcplusplus",
+    "method": "H1",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "build/cxx.m4"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 34,
+    "project": "libsigcplusplus",
+    "method": "H1",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "meson.build",
+      "start_line": 1
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 34,
+    "project": "libsigcplusplus",
+    "method": "H1",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "README.md",
+      "start_line": 1
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 34,
+    "project": "libsigcplusplus",
+    "method": "H1",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "README.md",
+      "start_line": 120
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 34,
+    "project": "libsigcplusplus",
+    "method": "H1",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "autogen.sh"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 34,
+    "project": "libsigcplusplus",
+    "method": "H1",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "configure.ac"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 34,
+    "project": "libsigcplusplus",
+    "method": "H1",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "Makefile.am"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 34,
+    "project": "libsigcplusplus",
+    "method": "H1",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "subprojects/mm-common.wrap"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 34,
+    "project": "libsigcplusplus",
+    "method": "H1",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "meson.build",
+      "start_line": 120
+    },
+    "exact_repeat": true
+  },
+  {
+    "slot": 34,
+    "project": "libsigcplusplus",
+    "method": "H1",
+    "phase": "recovery",
+    "tool": "list_source",
+    "arguments": {
+      "directory": "build"
+    },
+    "exact_repeat": true
+  },
+  {
+    "slot": 34,
+    "project": "libsigcplusplus",
+    "method": "H1",
+    "phase": "recovery",
+    "tool": "list_source",
+    "arguments": {
+      "directory": "sigc++"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 34,
+    "project": "libsigcplusplus",
+    "method": "H1",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "meson.build",
+      "start_line": 1
+    },
+    "exact_repeat": true
+  },
+  {
+    "slot": 34,
+    "project": "libsigcplusplus",
+    "method": "H1",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "meson_options.txt"
+    },
+    "exact_repeat": true
+  },
+  {
+    "slot": 34,
+    "project": "libsigcplusplus",
+    "method": "H1",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "configure.ac",
+      "start_line": 1
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 34,
+    "project": "libsigcplusplus",
+    "method": "H1",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "README.md",
+      "start_line": 100
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 34,
+    "project": "libsigcplusplus",
+    "method": "H1",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "autogen.sh"
+    },
+    "exact_repeat": true
+  },
+  {
+    "slot": 34,
+    "project": "libsigcplusplus",
+    "method": "H1",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "Makefile.am"
+    },
+    "exact_repeat": true
+  },
+  {
+    "slot": 34,
+    "project": "libsigcplusplus",
+    "method": "H1",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "docs/Makefile.am"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 34,
+    "project": "libsigcplusplus",
+    "method": "H1",
+    "phase": "recovery",
+    "tool": "list_source",
+    "arguments": {
+      "directory": "."
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 34,
+    "project": "libsigcplusplus",
+    "method": "H1",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "README.md",
+      "start_line": 60
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 34,
+    "project": "libsigcplusplus",
+    "method": "H1",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "meson.build",
+      "start_line": 120
+    },
+    "exact_repeat": true
+  },
+  {
+    "slot": 34,
+    "project": "libsigcplusplus",
+    "method": "H1",
+    "phase": "recovery",
+    "tool": "list_source",
+    "arguments": {
+      "directory": "subprojects"
+    },
+    "exact_repeat": true
+  },
+  {
+    "slot": 34,
+    "project": "libsigcplusplus",
+    "method": "H1",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "configure.ac",
+      "start_line": 1
+    },
+    "exact_repeat": true
+  },
+  {
+    "slot": 34,
+    "project": "libsigcplusplus",
+    "method": "H1",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "meson.build",
+      "start_line": 1
+    },
+    "exact_repeat": true
+  },
+  {
+    "slot": 34,
+    "project": "libsigcplusplus",
+    "method": "H1",
+    "phase": "recovery",
+    "tool": "list_source",
+    "arguments": {
+      "directory": "."
+    },
+    "exact_repeat": true
+  },
+  {
+    "slot": 34,
+    "project": "libsigcplusplus",
+    "method": "H1",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "Makefile.am",
+      "start_line": 1
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 34,
+    "project": "libsigcplusplus",
+    "method": "H1",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "autogen.sh",
+      "start_line": 1
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 34,
+    "project": "libsigcplusplus",
+    "method": "H1",
+    "phase": "recovery",
+    "tool": "list_source",
+    "arguments": {
+      "directory": "build"
+    },
+    "exact_repeat": true
+  },
+  {
+    "slot": 34,
+    "project": "libsigcplusplus",
+    "method": "H1",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "subprojects/mm-common.wrap",
+      "start_line": 1
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 34,
+    "project": "libsigcplusplus",
+    "method": "H1",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "README.md",
+      "start_line": 100
+    },
+    "exact_repeat": true
+  },
+  {
+    "slot": 34,
+    "project": "libsigcplusplus",
+    "method": "H1",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "meson.build",
+      "start_line": 120
+    },
+    "exact_repeat": true
+  },
+  {
+    "slot": 34,
+    "project": "libsigcplusplus",
+    "method": "H1",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "meson_options.txt",
+      "start_line": 1
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 34,
+    "project": "libsigcplusplus",
+    "method": "H1",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "meson.build",
+      "start_line": 240
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 34,
+    "project": "libsigcplusplus",
+    "method": "H1",
+    "phase": "recovery",
+    "tool": "list_source",
+    "arguments": {
+      "directory": "docs/reference"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 34,
+    "project": "libsigcplusplus",
+    "method": "H1",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "docs/reference/meson.build",
+      "start_line": 1
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 34,
+    "project": "libsigcplusplus",
+    "method": "H1",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "sigc++/meson.build",
+      "start_line": 1
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 34,
+    "project": "libsigcplusplus",
+    "method": "H1",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "meson.build",
+      "start_line": 1
+    },
+    "exact_repeat": true
+  },
+  {
+    "slot": 34,
+    "project": "libsigcplusplus",
+    "method": "H1",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "meson.build",
+      "start_line": 120
+    },
+    "exact_repeat": true
+  },
+  {
+    "slot": 34,
+    "project": "libsigcplusplus",
+    "method": "H1",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "sigc++/meson.build",
+      "start_line": 120
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 34,
+    "project": "libsigcplusplus",
+    "method": "H1",
+    "phase": "recovery",
+    "tool": "list_source",
+    "arguments": {
+      "directory": "."
+    },
+    "exact_repeat": true
+  },
+  {
+    "slot": 34,
+    "project": "libsigcplusplus",
+    "method": "H1",
+    "phase": "recovery",
+    "tool": "list_source",
+    "arguments": {
+      "directory": "untracked"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 34,
+    "project": "libsigcplusplus",
+    "method": "H1",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "README.md",
+      "start_line": 95
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 34,
+    "project": "libsigcplusplus",
+    "method": "H1",
+    "phase": "recovery",
+    "tool": "list_source",
+    "arguments": {
+      "directory": "subprojects"
+    },
+    "exact_repeat": true
+  },
+  {
+    "slot": 34,
+    "project": "libsigcplusplus",
+    "method": "H1",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "meson.build",
+      "start_line": 1
+    },
+    "exact_repeat": true
+  },
+  {
+    "slot": 34,
+    "project": "libsigcplusplus",
+    "method": "H1",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "configure.ac"
+    },
+    "exact_repeat": true
+  },
+  {
+    "slot": 34,
+    "project": "libsigcplusplus",
+    "method": "H1",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "Makefile.am"
+    },
+    "exact_repeat": true
+  },
+  {
+    "slot": 34,
+    "project": "libsigcplusplus",
+    "method": "H1",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "meson.build",
+      "start_line": 120
+    },
+    "exact_repeat": true
+  },
+  {
+    "slot": 34,
+    "project": "libsigcplusplus",
+    "method": "H1",
+    "phase": "recovery",
+    "tool": "list_source",
+    "arguments": {
+      "directory": "tools"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 35,
+    "project": "libsigcplusplus",
+    "method": "H0",
+    "phase": "initial",
+    "tool": "list_source",
+    "arguments": {
+      "directory": "."
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 35,
+    "project": "libsigcplusplus",
+    "method": "H0",
+    "phase": "initial",
+    "tool": "read_source",
+    "arguments": {
+      "path": "autogen.sh"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 35,
+    "project": "libsigcplusplus",
+    "method": "H0",
+    "phase": "initial",
+    "tool": "list_source",
+    "arguments": {
+      "directory": "build"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 35,
+    "project": "libsigcplusplus",
+    "method": "H0",
+    "phase": "initial",
+    "tool": "read_source",
+    "arguments": {
+      "path": "Makefile.am"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 35,
+    "project": "libsigcplusplus",
+    "method": "H0",
+    "phase": "initial",
+    "tool": "list_source",
+    "arguments": {
+      "directory": "subprojects"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 35,
+    "project": "libsigcplusplus",
+    "method": "H0",
+    "phase": "initial",
+    "tool": "read_source",
+    "arguments": {
+      "path": "subprojects/mm-common.wrap"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 35,
+    "project": "libsigcplusplus",
+    "method": "H0",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "README.md"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 35,
+    "project": "libsigcplusplus",
+    "method": "H0",
+    "phase": "recovery",
+    "tool": "list_source",
+    "arguments": {
+      "directory": "untracked"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 35,
+    "project": "libsigcplusplus",
+    "method": "H0",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "meson_options.txt"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 35,
+    "project": "libsigcplusplus",
+    "method": "H0",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "README.md",
+      "start_line": 112
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 35,
+    "project": "libsigcplusplus",
+    "method": "H0",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "meson.build",
+      "start_line": 270
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 35,
+    "project": "libsigcplusplus",
+    "method": "H0",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "sigc++/meson.build"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 35,
+    "project": "libsigcplusplus",
+    "method": "H0",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "sigc++/meson.build",
+      "start_line": 120
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 35,
+    "project": "libsigcplusplus",
+    "method": "H0",
+    "phase": "recovery",
+    "tool": "list_source",
+    "arguments": {
+      "directory": "sigc++"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 35,
+    "project": "libsigcplusplus",
+    "method": "H0",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "meson.build",
+      "start_line": 1
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 35,
+    "project": "libsigcplusplus",
+    "method": "H0",
+    "phase": "recovery",
+    "tool": "list_source",
+    "arguments": {
+      "directory": "untracked"
+    },
+    "exact_repeat": true
+  },
+  {
+    "slot": 35,
+    "project": "libsigcplusplus",
+    "method": "H0",
+    "phase": "recovery",
+    "tool": "list_source",
+    "arguments": {
+      "directory": "untracked/sigc++"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 35,
+    "project": "libsigcplusplus",
+    "method": "H0",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "autogen.sh"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 35,
+    "project": "libsigcplusplus",
+    "method": "H0",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "configure.ac"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 35,
+    "project": "libsigcplusplus",
+    "method": "H0",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "Makefile.am"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 36,
+    "project": "libsigcplusplus",
+    "method": "H2",
+    "phase": "initial",
+    "tool": "list_source",
+    "arguments": {
+      "directory": "."
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 36,
+    "project": "libsigcplusplus",
+    "method": "H2",
+    "phase": "initial",
+    "tool": "read_source",
+    "arguments": {
+      "path": "autogen.sh"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 36,
+    "project": "libsigcplusplus",
+    "method": "H2",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "meson_options.txt"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 36,
+    "project": "libsigcplusplus",
+    "method": "H2",
+    "phase": "recovery",
+    "tool": "list_source",
+    "arguments": {
+      "directory": "untracked"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 36,
+    "project": "libsigcplusplus",
+    "method": "H2",
+    "phase": "recovery",
+    "tool": "list_source",
+    "arguments": {
+      "directory": "build"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 36,
+    "project": "libsigcplusplus",
+    "method": "H2",
+    "phase": "recovery",
+    "tool": "list_source",
+    "arguments": {
+      "directory": "subprojects"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 36,
+    "project": "libsigcplusplus",
+    "method": "H2",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "sigc++/meson.build"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 36,
+    "project": "libsigcplusplus",
+    "method": "H2",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "examples/meson.build"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 36,
+    "project": "libsigcplusplus",
+    "method": "H2",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "tests/meson.build"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 36,
+    "project": "libsigcplusplus",
+    "method": "H2",
+    "phase": "recovery",
+    "tool": "list_source",
+    "arguments": {
+      "directory": "sigc++"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 36,
+    "project": "libsigcplusplus",
+    "method": "H2",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "sigc++/meson.build",
+      "start_line": 120
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 36,
+    "project": "libsigcplusplus",
+    "method": "H2",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "meson.build"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 36,
+    "project": "libsigcplusplus",
+    "method": "H2",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "configure.ac"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 36,
+    "project": "libsigcplusplus",
+    "method": "H2",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "README.md",
+      "start_line": 100
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 36,
+    "project": "libsigcplusplus",
+    "method": "H2",
+    "phase": "recovery",
+    "tool": "list_source",
+    "arguments": {
+      "directory": "subprojects"
+    },
+    "exact_repeat": true
+  },
+  {
+    "slot": 36,
+    "project": "libsigcplusplus",
+    "method": "H2",
+    "phase": "recovery",
+    "tool": "list_source",
+    "arguments": {
+      "directory": "untracked"
+    },
+    "exact_repeat": true
+  },
+  {
+    "slot": 36,
+    "project": "libsigcplusplus",
+    "method": "H2",
+    "phase": "recovery",
+    "tool": "list_source",
+    "arguments": {
+      "directory": "build"
+    },
+    "exact_repeat": true
+  },
+  {
+    "slot": 36,
+    "project": "libsigcplusplus",
+    "method": "H2",
+    "phase": "recovery",
+    "tool": "list_source",
+    "arguments": {
+      "directory": "sigc++"
+    },
+    "exact_repeat": true
+  },
+  {
+    "slot": 36,
+    "project": "libsigcplusplus",
+    "method": "H2",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "subprojects/mm-common.wrap"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 36,
+    "project": "libsigcplusplus",
+    "method": "H2",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "sigc++/meson.build"
+    },
+    "exact_repeat": true
+  },
+  {
+    "slot": 36,
+    "project": "libsigcplusplus",
+    "method": "H2",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "sigc++/meson.build",
+      "start_line": 120
+    },
+    "exact_repeat": true
+  },
+  {
+    "slot": 36,
+    "project": "libsigcplusplus",
+    "method": "H2",
+    "phase": "recovery",
+    "tool": "list_source",
+    "arguments": {
+      "directory": "sigc++/macros"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 36,
+    "project": "libsigcplusplus",
+    "method": "H2",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "untracked/README"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 36,
+    "project": "libsigcplusplus",
+    "method": "H2",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "sigc++/adaptors/meson.build"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 36,
+    "project": "libsigcplusplus",
+    "method": "H2",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "sigc++/adaptors/lambda/meson.build"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 36,
+    "project": "libsigcplusplus",
+    "method": "H2",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "sigc++/functors/meson.build"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 36,
+    "project": "libsigcplusplus",
+    "method": "H2",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "README.md",
+      "start_line": 60
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 36,
+    "project": "libsigcplusplus",
+    "method": "H2",
+    "phase": "recovery",
+    "tool": "list_source",
+    "arguments": {
+      "directory": "build"
+    },
+    "exact_repeat": true
+  },
+  {
+    "slot": 36,
+    "project": "libsigcplusplus",
+    "method": "H2",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "autogen.sh"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 36,
+    "project": "libsigcplusplus",
+    "method": "H2",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "meson.build"
+    },
+    "exact_repeat": true
+  },
+  {
+    "slot": 36,
+    "project": "libsigcplusplus",
+    "method": "H2",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "meson.build",
+      "start_line": 120
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 36,
+    "project": "libsigcplusplus",
+    "method": "H2",
+    "phase": "recovery",
+    "tool": "list_source",
+    "arguments": {
+      "directory": "untracked"
+    },
+    "exact_repeat": true
+  },
+  {
+    "slot": 36,
+    "project": "libsigcplusplus",
+    "method": "H2",
+    "phase": "recovery",
+    "tool": "list_source",
+    "arguments": {
+      "directory": "sigc++"
+    },
+    "exact_repeat": true
+  },
+  {
+    "slot": 36,
+    "project": "libsigcplusplus",
+    "method": "H2",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "sigc++/meson.build"
+    },
+    "exact_repeat": true
+  },
+  {
+    "slot": 36,
+    "project": "libsigcplusplus",
+    "method": "H2",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "untracked/README"
+    },
+    "exact_repeat": true
+  },
+  {
+    "slot": 36,
+    "project": "libsigcplusplus",
+    "method": "H2",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "sigc++/meson.build",
+      "start_line": 120
+    },
+    "exact_repeat": true
+  },
+  {
+    "slot": 36,
+    "project": "libsigcplusplus",
+    "method": "H2",
+    "phase": "recovery",
+    "tool": "list_source",
+    "arguments": {
+      "directory": "sigc++/macros"
+    },
+    "exact_repeat": true
+  },
+  {
+    "slot": 36,
+    "project": "libsigcplusplus",
+    "method": "H2",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "meson.build",
+      "start_line": 240
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 36,
+    "project": "libsigcplusplus",
+    "method": "H2",
+    "phase": "recovery",
+    "tool": "list_source",
+    "arguments": {
+      "directory": "build"
+    },
+    "exact_repeat": true
+  },
+  {
+    "slot": 36,
+    "project": "libsigcplusplus",
+    "method": "H2",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "meson.build",
+      "start_line": 1
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 36,
+    "project": "libsigcplusplus",
+    "method": "H2",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "meson.build",
+      "start_line": 120
+    },
+    "exact_repeat": true
+  },
+  {
+    "slot": 36,
+    "project": "libsigcplusplus",
+    "method": "H2",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "sigc++/meson.build",
+      "start_line": 1
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 36,
+    "project": "libsigcplusplus",
+    "method": "H2",
+    "phase": "recovery",
+    "tool": "list_source",
+    "arguments": {
+      "directory": "untracked"
+    },
+    "exact_repeat": true
+  },
+  {
+    "slot": 36,
+    "project": "libsigcplusplus",
+    "method": "H2",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "sigc++/adaptors/meson.build",
+      "start_line": 1
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 36,
+    "project": "libsigcplusplus",
+    "method": "H2",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "sigc++/adaptors/lambda/meson.build",
+      "start_line": 1
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 36,
+    "project": "libsigcplusplus",
+    "method": "H2",
+    "phase": "recovery",
+    "tool": "list_source",
+    "arguments": {
+      "directory": "sigc++"
+    },
+    "exact_repeat": true
+  },
+  {
+    "slot": 36,
+    "project": "libsigcplusplus",
+    "method": "H2",
+    "phase": "recovery",
+    "tool": "list_source",
+    "arguments": {
+      "directory": "sigc++/adaptors"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 36,
+    "project": "libsigcplusplus",
+    "method": "H2",
+    "phase": "recovery",
+    "tool": "list_source",
+    "arguments": {
+      "directory": "sigc++/macros"
+    },
+    "exact_repeat": true
+  },
+  {
+    "slot": 36,
+    "project": "libsigcplusplus",
+    "method": "H2",
+    "phase": "recovery",
+    "tool": "list_source",
+    "arguments": {
+      "directory": "sigc++/adaptors/lambda"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 36,
+    "project": "libsigcplusplus",
+    "method": "H2",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "meson.build",
+      "start_line": 1
+    },
+    "exact_repeat": true
+  },
+  {
+    "slot": 36,
+    "project": "libsigcplusplus",
+    "method": "H2",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "meson_options.txt",
+      "start_line": 1
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 36,
+    "project": "libsigcplusplus",
+    "method": "H2",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "sigc++/adaptors/macros/adaptor_trait.h.m4",
+      "start_line": 1
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 36,
+    "project": "libsigcplusplus",
+    "method": "H2",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "README.md",
+      "start_line": 40
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 36,
+    "project": "libsigcplusplus",
+    "method": "H2",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "autogen.sh",
+      "start_line": 1
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 36,
+    "project": "libsigcplusplus",
+    "method": "H2",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "meson.build",
+      "start_line": 120
+    },
+    "exact_repeat": true
+  },
+  {
+    "slot": 36,
+    "project": "libsigcplusplus",
+    "method": "H2",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "sigc++/meson.build",
+      "start_line": 1
+    },
+    "exact_repeat": true
+  },
+  {
+    "slot": 36,
+    "project": "libsigcplusplus",
+    "method": "H2",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "sigc++/adaptors/meson.build",
+      "start_line": 1
+    },
+    "exact_repeat": true
+  },
+  {
+    "slot": 36,
+    "project": "libsigcplusplus",
+    "method": "H2",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "sigc++/macros/template.macros.m4",
+      "start_line": 1
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 36,
+    "project": "libsigcplusplus",
+    "method": "H2",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "meson.build",
+      "start_line": 1
+    },
+    "exact_repeat": true
+  },
+  {
+    "slot": 36,
+    "project": "libsigcplusplus",
+    "method": "H2",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "sigc++/meson.build",
+      "start_line": 120
+    },
+    "exact_repeat": true
+  },
+  {
+    "slot": 36,
+    "project": "libsigcplusplus",
+    "method": "H2",
+    "phase": "recovery",
+    "tool": "list_source",
+    "arguments": {
+      "directory": ".github/workflows"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 36,
+    "project": "libsigcplusplus",
+    "method": "H2",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "meson.build",
+      "start_line": 120
+    },
+    "exact_repeat": true
+  },
+  {
+    "slot": 36,
+    "project": "libsigcplusplus",
+    "method": "H2",
+    "phase": "recovery",
+    "tool": "list_source",
+    "arguments": {
+      "directory": "build"
+    },
+    "exact_repeat": true
+  },
+  {
+    "slot": 36,
+    "project": "libsigcplusplus",
+    "method": "H2",
+    "phase": "recovery",
+    "tool": "list_source",
+    "arguments": {
+      "directory": "tools"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 36,
+    "project": "libsigcplusplus",
+    "method": "H2",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "tools/handle-built-files.py",
+      "start_line": 1
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 36,
+    "project": "libsigcplusplus",
+    "method": "H2",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "Makefile.am",
+      "start_line": 1
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 36,
+    "project": "libsigcplusplus",
+    "method": "H2",
+    "phase": "recovery",
+    "tool": "list_source",
+    "arguments": {
+      "directory": "untracked"
+    },
+    "exact_repeat": true
+  },
+  {
+    "slot": 36,
+    "project": "libsigcplusplus",
+    "method": "H2",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "configure.ac",
+      "start_line": 1
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 36,
+    "project": "libsigcplusplus",
+    "method": "H2",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "autogen.sh",
+      "start_line": 1
+    },
+    "exact_repeat": true
+  },
+  {
+    "slot": 36,
+    "project": "libsigcplusplus",
+    "method": "H2",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "README.md",
+      "start_line": 100
+    },
+    "exact_repeat": true
+  },
+  {
+    "slot": 36,
+    "project": "libsigcplusplus",
+    "method": "H2",
+    "phase": "recovery",
+    "tool": "list_source",
+    "arguments": {
+      "directory": "subprojects"
+    },
+    "exact_repeat": true
+  },
+  {
+    "slot": 36,
+    "project": "libsigcplusplus",
+    "method": "H2",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "README.md",
+      "start_line": 40
+    },
+    "exact_repeat": true
+  },
+  {
+    "slot": 36,
+    "project": "libsigcplusplus",
+    "method": "H2",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "meson.build",
+      "start_line": 1
+    },
+    "exact_repeat": true
+  },
+  {
+    "slot": 36,
+    "project": "libsigcplusplus",
+    "method": "H2",
+    "phase": "recovery",
+    "tool": "list_source",
+    "arguments": {
+      "directory": "build"
+    },
+    "exact_repeat": true
+  },
+  {
+    "slot": 36,
+    "project": "libsigcplusplus",
+    "method": "H2",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "meson.build",
+      "start_line": 120
+    },
+    "exact_repeat": true
+  },
+  {
+    "slot": 36,
+    "project": "libsigcplusplus",
+    "method": "H2",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "meson_options.txt",
+      "start_line": 1
+    },
+    "exact_repeat": true
+  },
+  {
+    "slot": 36,
+    "project": "libsigcplusplus",
+    "method": "H2",
+    "phase": "recovery",
+    "tool": "list_source",
+    "arguments": {
+      "directory": "sigc++"
+    },
+    "exact_repeat": true
+  },
+  {
+    "slot": 36,
+    "project": "libsigcplusplus",
+    "method": "H2",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "sigc++/Makefile.am",
+      "start_line": 1
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 36,
+    "project": "libsigcplusplus",
+    "method": "H2",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "subprojects/mm-common.wrap",
+      "start_line": 1
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 36,
+    "project": "libsigcplusplus",
+    "method": "H2",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "configure.ac"
+    },
+    "exact_repeat": true
+  },
+  {
+    "slot": 36,
+    "project": "libsigcplusplus",
+    "method": "H2",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "docs/Makefile.am"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 36,
+    "project": "libsigcplusplus",
+    "method": "H2",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "Makefile.am"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 36,
+    "project": "libsigcplusplus",
+    "method": "H2",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "README.md",
+      "start_line": 100
+    },
+    "exact_repeat": true
+  },
+  {
+    "slot": 36,
+    "project": "libsigcplusplus",
+    "method": "H2",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "autogen.sh"
+    },
+    "exact_repeat": true
+  },
+  {
+    "slot": 36,
+    "project": "libsigcplusplus",
+    "method": "H2",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "build/doc-manual.am"
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 36,
+    "project": "libsigcplusplus",
+    "method": "H2",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "configure.ac",
+      "start_line": 1
+    },
+    "exact_repeat": true
+  },
+  {
+    "slot": 36,
+    "project": "libsigcplusplus",
+    "method": "H2",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "docs/Makefile.am",
+      "start_line": 1
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 36,
+    "project": "libsigcplusplus",
+    "method": "H2",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "Makefile.am",
+      "start_line": 1
+    },
+    "exact_repeat": true
+  },
+  {
+    "slot": 36,
+    "project": "libsigcplusplus",
+    "method": "H2",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "README.md",
+      "start_line": 120
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 36,
+    "project": "libsigcplusplus",
+    "method": "H2",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "build/doc-manual.am",
+      "start_line": 1
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 36,
+    "project": "libsigcplusplus",
+    "method": "H2",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "docs/Makefile.am",
+      "start_line": 1
+    },
+    "exact_repeat": true
+  },
+  {
+    "slot": 36,
+    "project": "libsigcplusplus",
+    "method": "H2",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "configure.ac",
+      "start_line": 1
+    },
+    "exact_repeat": true
+  },
+  {
+    "slot": 36,
+    "project": "libsigcplusplus",
+    "method": "H2",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "Makefile.am",
+      "start_line": 1
+    },
+    "exact_repeat": true
+  },
+  {
+    "slot": 36,
+    "project": "libsigcplusplus",
+    "method": "H2",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "README.md",
+      "start_line": 130
+    },
+    "exact_repeat": false
+  },
+  {
+    "slot": 36,
+    "project": "libsigcplusplus",
+    "method": "H2",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "docs/Makefile.am",
+      "start_line": 1
+    },
+    "exact_repeat": true
+  },
+  {
+    "slot": 36,
+    "project": "libsigcplusplus",
+    "method": "H2",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "configure.ac",
+      "start_line": 1
+    },
+    "exact_repeat": true
+  },
+  {
+    "slot": 36,
+    "project": "libsigcplusplus",
+    "method": "H2",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "README.md",
+      "start_line": 100
+    },
+    "exact_repeat": true
+  },
+  {
+    "slot": 36,
+    "project": "libsigcplusplus",
+    "method": "H2",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "configure.ac",
+      "start_line": 1
+    },
+    "exact_repeat": true
+  },
+  {
+    "slot": 36,
+    "project": "libsigcplusplus",
+    "method": "H2",
+    "phase": "recovery",
+    "tool": "read_source",
+    "arguments": {
+      "path": "docs/Makefile.am",
+      "start_line": 1
+    },
+    "exact_repeat": true
+  }
+]

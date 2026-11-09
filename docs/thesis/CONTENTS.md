@@ -64,3 +64,4 @@
   - [E 简洁主构建入口的实际角色与任务边界](chapters/09-附录.md)
   - [F E50主构建比较的冻结任务与运行参数](chapters/09-附录.md)
   - [G E51离线Harness更新的角色与版本](chapters/09-附录.md)
+  - [H E52第二轮Harness比较的任务与版本](chapters/09-附录.md)

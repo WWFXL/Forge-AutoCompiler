@@ -1,0 +1,494 @@
+{
+  "identity": "cpp-build-offline-harness-round2-flash-v1",
+  "projects": [
+    {
+      "name": "yaml-cpp",
+      "family": "yaml-cpp",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "round2-yaml-cpp",
+        "repository_url": "https://github.com/jbeder/yaml-cpp",
+        "commit_sha": "c5e65360373d1d99d6b6848c991cd4fcee435009",
+        "image_id": "sha256:d27a6ab733c7c3a9cbb5e4b32fb595aa5a422ff04bd212888d1041b90a2c4c2a",
+        "source_archive_sha256": "c70bdecf87a72c0b0df29ff0d8b229df3eeeca99213f150aaee268edf955cc3b",
+        "build_system": "cmake",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "06928281842764c16746d109e974ee8aa6d0780da9b3e11d8652c939aa3bbdfb",
+        "components": [
+          {
+            "name": "yaml-cpp",
+            "artifact_names": [
+              "libyaml-cpp.a",
+              "libyaml-cpp.so"
+            ],
+            "kinds": [
+              "static_library",
+              "shared_library"
+            ],
+            "evidence": "CMakeLists.txt; src/CMakeLists.txt"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": null
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-cxx-reference-inputs-v1/yaml-cpp/source.tar",
+      "inherited_source_manifest": "/home/yiwei/work/Forge-AutoCompiler-worktrees/705-offline-harness-round2/benchmarks/manifests/cpp-build-test-preparation-comparison-v3.json",
+      "exposure": "历史开发/参考来源；本轮提案项目族隔离，非最终holdout"
+    },
+    {
+      "name": "snappy",
+      "family": "snappy",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "round2-snappy",
+        "repository_url": "https://github.com/google/snappy",
+        "commit_sha": "9c28114a38866f6deeaa826db918293bc28ae410",
+        "image_id": "sha256:d27a6ab733c7c3a9cbb5e4b32fb595aa5a422ff04bd212888d1041b90a2c4c2a",
+        "source_archive_sha256": "93de014cc9070f6924a1a3f71d8a78620dd37c06ce4359247405e7e13b1901f2",
+        "build_system": "cmake",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "08e72e09a7cc2b224b44a4f4e5457ef358635ccad27510cf4690e555c60e4253",
+        "components": [
+          {
+            "name": "snappy",
+            "artifact_names": [
+              "libsnappy.a",
+              "libsnappy.so"
+            ],
+            "kinds": [
+              "static_library",
+              "shared_library"
+            ],
+            "evidence": "CMakeLists.txt: add_library(snappy)"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": null
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-cxx-reference-inputs-v1/snappy/source.tar",
+      "inherited_source_manifest": "/home/yiwei/work/Forge-AutoCompiler-worktrees/705-offline-harness-round2/benchmarks/manifests/cpp-build-test-preparation-comparison-v3.json",
+      "exposure": "历史开发/参考来源；本轮提案项目族隔离，非最终holdout"
+    },
+    {
+      "name": "simdutf",
+      "family": "simdutf",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "round2-simdutf",
+        "repository_url": "https://github.com/simdutf/simdutf",
+        "commit_sha": "8d82299606e675b50de8dc16fd118aae4b65bfde",
+        "image_id": "sha256:d27a6ab733c7c3a9cbb5e4b32fb595aa5a422ff04bd212888d1041b90a2c4c2a",
+        "source_archive_sha256": "69334680e1fca841dffbe8409a439b910086a0799a1ce76fd16d57072ebbe4a4",
+        "build_system": "cmake",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "5d85211e34686a5dc16b89d8cebcc4c1a672bc768841b65aec5394fa18cd2d3c",
+        "components": [
+          {
+            "name": "simdutf",
+            "artifact_names": [
+              "libsimdutf.a",
+              "libsimdutf.so"
+            ],
+            "kinds": [
+              "static_library",
+              "shared_library"
+            ],
+            "evidence": "src/CMakeLists.txt: simdutf"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": null
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-cxx-reference-inputs-v1/simdutf/source.tar",
+      "inherited_source_manifest": "/home/yiwei/work/Forge-AutoCompiler-worktrees/705-offline-harness-round2/benchmarks/manifests/cpp-build-test-preparation-comparison-v3.json",
+      "exposure": "历史开发/参考来源；本轮提案项目族隔离，非最终holdout"
+    },
+    {
+      "name": "md4c",
+      "family": "md4c",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "round2-md4c",
+        "repository_url": "https://github.com/mity/md4c",
+        "commit_sha": "60e8065cfccd5d7ac561115f9a9bfbdf811f5cc9",
+        "image_id": "sha256:d27a6ab733c7c3a9cbb5e4b32fb595aa5a422ff04bd212888d1041b90a2c4c2a",
+        "source_archive_sha256": "89052348fc5e30eeaecc5afeb178411f23303d69c57073b3a61c73b7ba353ea2",
+        "build_system": "cmake",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "a9b13bdfd7c36dcf005b8885e2f6857de149e0f09a35fb32c0e76691665f2d8c",
+        "components": [
+          {
+            "name": "md4c",
+            "artifact_names": [
+              "libmd4c.a",
+              "libmd4c.so"
+            ],
+            "kinds": [
+              "static_library",
+              "shared_library"
+            ],
+            "evidence": "src/CMakeLists.txt"
+          },
+          {
+            "name": "md4c-html",
+            "artifact_names": [
+              "libmd4c-html.a",
+              "libmd4c-html.so"
+            ],
+            "kinds": [
+              "static_library",
+              "shared_library"
+            ],
+            "evidence": "src/CMakeLists.txt"
+          },
+          {
+            "name": "md2html",
+            "artifact_names": [
+              "md2html"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "md2html/CMakeLists.txt; CMakeLists.txt: BUILD_MD2HTML_EXECUTABLE default ON"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": null
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-source-qualification-inputs-v1/md4c.tar",
+      "inherited_source_manifest": "/home/yiwei/.codex/outputs/forge-source-qualification-v2/md4c-plan.json",
+      "exposure": "历史开发/参考来源；本轮提案项目族隔离，非最终holdout"
+    },
+    {
+      "name": "libtommath",
+      "family": "libtommath",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "round2-libtommath",
+        "repository_url": "https://github.com/libtom/libtommath",
+        "commit_sha": "ae40a87a920099a7d9d00979570e0c8d917a1fd7",
+        "image_id": "sha256:d27a6ab733c7c3a9cbb5e4b32fb595aa5a422ff04bd212888d1041b90a2c4c2a",
+        "source_archive_sha256": "d92ab21c88ea95f04e2c5389600396372e0bc91a667a6d3f19576ca0ca020447",
+        "build_system": "make",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "857655f74328df8da4febb032ab3e8129e15c63f0414f93eed72bef5ffdaf91c",
+        "components": [
+          {
+            "name": "tommath",
+            "artifact_names": [
+              "libtommath.a",
+              "libtommath.so"
+            ],
+            "kinds": [
+              "static_library",
+              "shared_library"
+            ],
+            "evidence": "makefile: LIBNAME/OBJECTS/default library"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": null
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-reference-expansion-inputs-v1/libtommath.tar",
+      "inherited_source_manifest": "/home/yiwei/.codex/outputs/forge-reference-expansion-v1/protocol.json",
+      "exposure": "历史开发/参考来源；本轮提案项目族隔离，非最终holdout"
+    },
+    {
+      "name": "libhydrogen",
+      "family": "libhydrogen",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "round2-libhydrogen",
+        "repository_url": "https://github.com/jedisct1/libhydrogen",
+        "commit_sha": "264bf429021972c83b2a1a0cda13a765ddc3e11f",
+        "image_id": "sha256:d27a6ab733c7c3a9cbb5e4b32fb595aa5a422ff04bd212888d1041b90a2c4c2a",
+        "source_archive_sha256": "fc70c0845163326728a4e236c90844fc2b6d06c508937b3007950dfa0bfa6054",
+        "build_system": "make",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "2cbf297ec5e9c3bdc9a5090498101b54475088cedb7293c61f1ec21010a3303b",
+        "components": [
+          {
+            "name": "hydrogen",
+            "artifact_names": [
+              "libhydrogen.a",
+              "libhydrogen.so"
+            ],
+            "kinds": [
+              "static_library",
+              "shared_library"
+            ],
+            "evidence": "Makefile: lib"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": null
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-make-reference-inputs-v1/libhydrogen.tar",
+      "inherited_source_manifest": "/home/yiwei/.codex/outputs/forge-make-reference-v1/protocol.json",
+      "exposure": "历史开发/参考来源；本轮提案项目族隔离，非最终holdout"
+    },
+    {
+      "name": "tinyxml2",
+      "family": "tinyxml2",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "round2-tinyxml2",
+        "repository_url": "https://github.com/leethomason/tinyxml2",
+        "commit_sha": "321ea883b7190d4e85cae5512a12e5eaa8f8731f",
+        "image_id": "sha256:d27a6ab733c7c3a9cbb5e4b32fb595aa5a422ff04bd212888d1041b90a2c4c2a",
+        "source_archive_sha256": "dd7ae034bc5b62a48642d0619e6f7fc4fc8431be6fc0b1d4b992e0a7b757d223",
+        "build_system": "make",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "044571397cbd4953b72eca90f47545e15d4647096a37af1b933065fe011231be",
+        "components": [
+          {
+            "name": "tinyxml2",
+            "artifact_names": [
+              "libtinyxml2.a",
+              "libtinyxml2.so"
+            ],
+            "kinds": [
+              "static_library",
+              "shared_library"
+            ],
+            "evidence": "Makefile: all/libtinyxml2"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": null
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-cxx-cross-system-source-v1/tinyxml2/source.tar",
+      "inherited_source_manifest": "/home/yiwei/.codex/outputs/forge-cxx-cross-system-reference-v1/protocol.json",
+      "exposure": "历史开发/参考来源；本轮提案项目族隔离，非最终holdout"
+    },
+    {
+      "name": "fse",
+      "family": "fse",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "round2-fse",
+        "repository_url": "https://github.com/Cyan4973/FiniteStateEntropy",
+        "commit_sha": "9f30e0918f87bd835fa040d922a208d7b219e50b",
+        "image_id": "sha256:d27a6ab733c7c3a9cbb5e4b32fb595aa5a422ff04bd212888d1041b90a2c4c2a",
+        "source_archive_sha256": "47a5377f4474654efbd8e3926af247a012dfa02209a5e3764f060706d2edc35c",
+        "build_system": "make",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "2f0b5caabf78d003f2ad7a2301c56b75046ce03f478c308782e9e49fb3b7581e",
+        "components": [
+          {
+            "name": "fse",
+            "artifact_names": [
+              "fse"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "Makefile:29 default: fse check"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": null
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-new-project-preparation-2026-10-29/fse/source.tar",
+      "inherited_source_manifest": "/home/yiwei/work/Forge-AutoCompiler-worktrees/705-offline-harness-round2/benchmarks/manifests/cpp-build-new-project-system-comparison-flash-v1.json",
+      "exposure": "历史开发/参考来源；本轮提案项目族隔离，非最终holdout"
+    },
+    {
+      "name": "check",
+      "family": "check",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "round2-check",
+        "repository_url": "https://github.com/libcheck/check",
+        "commit_sha": "35d9cc011faa0545bf56d5062ae90bbc2688eba7",
+        "image_id": "sha256:d27a6ab733c7c3a9cbb5e4b32fb595aa5a422ff04bd212888d1041b90a2c4c2a",
+        "source_archive_sha256": "d531ff09adefc81e7ce6a3303a7de160a7a7a0caf9496696594df1ad393cb2c9",
+        "build_system": "autotools",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "8f9926a796d0fd3bb2aab87e1d71ad5169be96f96b481b486a81054b1527d08f",
+        "components": [
+          {
+            "name": "check",
+            "artifact_names": [
+              "libcheck.a",
+              "libcheck.so"
+            ],
+            "kinds": [
+              "static_library",
+              "shared_library"
+            ],
+            "evidence": "src/Makefile.am: libcheck"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": null
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-reference-expansion-inputs-v1/check.tar",
+      "inherited_source_manifest": "/home/yiwei/.codex/outputs/forge-reference-expansion-v1/protocol.json",
+      "exposure": "历史开发/参考来源；本轮提案项目族隔离，非最终holdout"
+    },
+    {
+      "name": "libsodium",
+      "family": "libsodium",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "round2-libsodium",
+        "repository_url": "https://github.com/jedisct1/libsodium",
+        "commit_sha": "60b751cd14418fae2d17e6f1003e43622b3e5a25",
+        "image_id": "sha256:d27a6ab733c7c3a9cbb5e4b32fb595aa5a422ff04bd212888d1041b90a2c4c2a",
+        "source_archive_sha256": "3c109ee17b9c154edec232d9a0b2504ddfdf65384b8dbd6dccfffe5d6b6fa4fa",
+        "build_system": "autotools",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "25a42c243089802a2837ed21617883749d99188722a5af61f69f86e99747b562",
+        "components": [
+          {
+            "name": "sodium",
+            "artifact_names": [
+              "libsodium.a",
+              "libsodium.so"
+            ],
+            "kinds": [
+              "static_library",
+              "shared_library"
+            ],
+            "evidence": "src/libsodium/Makefile.am: libsodium"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": null
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-reference-expansion-inputs-v1/libsodium.tar",
+      "inherited_source_manifest": "/home/yiwei/.codex/outputs/forge-reference-expansion-v1/protocol.json",
+      "exposure": "历史开发/参考来源；本轮提案项目族隔离，非最终holdout"
+    },
+    {
+      "name": "libverto",
+      "family": "libverto",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "round2-libverto",
+        "repository_url": "https://github.com/latchset/libverto",
+        "commit_sha": "8e944f22dcce2aa1f37c517e7881dd49d4d631ee",
+        "image_id": "sha256:d27a6ab733c7c3a9cbb5e4b32fb595aa5a422ff04bd212888d1041b90a2c4c2a",
+        "source_archive_sha256": "5c5e6010463e5dbb72c4bdee89fded022dc83905770fc1a68e72e971c5179be0",
+        "build_system": "autotools",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "fa216cfe318e041a6dfdf77b32794504054629ffca1fdc6bc5770c6f35cca9dd",
+        "components": [
+          {
+            "name": "verto",
+            "artifact_names": [
+              "libverto.a",
+              "libverto.so"
+            ],
+            "kinds": [
+              "static_library",
+              "shared_library"
+            ],
+            "evidence": "src/Makefile.am: libverto"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": null
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-reference-expansion-inputs-v1/libverto.tar",
+      "inherited_source_manifest": "/home/yiwei/.codex/outputs/forge-reference-expansion-v1/protocol.json",
+      "exposure": "历史开发/参考来源；本轮提案项目族隔离，非最终holdout"
+    },
+    {
+      "name": "libsigcplusplus",
+      "family": "libsigcplusplus",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "round2-libsigcplusplus",
+        "repository_url": "https://github.com/libsigcplusplus/libsigcplusplus",
+        "commit_sha": "6bef4e0005f00f0844d917866aec7e3b2d829fdf",
+        "image_id": "sha256:d27a6ab733c7c3a9cbb5e4b32fb595aa5a422ff04bd212888d1041b90a2c4c2a",
+        "source_archive_sha256": "aa42b6bc901649d2c02c6898389de46d10b88ff1c59def39558578b3764268a9",
+        "build_system": "autotools",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "c6eaaa2f9e58c443d25bf679f4ae6bdbd0950aa8fd8157aa77f99d8804ef45ea",
+        "components": [
+          {
+            "name": "sigc",
+            "artifact_names": [
+              "libsigc-2.0.a",
+              "libsigc-2.0.so"
+            ],
+            "kinds": [
+              "static_library",
+              "shared_library"
+            ],
+            "evidence": "sigc++/Makefile.am: sigc library"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": null
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-new-project-preparation-2026-10-29/libsigcplusplus/source.tar",
+      "inherited_source_manifest": "/home/yiwei/work/Forge-AutoCompiler-worktrees/705-offline-harness-round2/benchmarks/manifests/cpp-build-new-project-system-comparison-flash-v1.json",
+      "exposure": "历史开发/参考来源；本轮提案项目族隔离，非最终holdout"
+    }
+  ],
+  "legacy_goal_not_inherited": true
+}

@@ -1,8 +1,18 @@
 # Forge Research Status
 
-论文选材固定入口：[硕士论文实验与证据索引](docs/research/THESIS_EVIDENCE_INDEX.md)，[历史材料目录](docs/research/THESIS_EVIDENCE_CATALOG.md)保留存量导航。当前完整稿为[论文v0.9首轮结果稿](docs/thesis/README.md)；E50新增主构建系统结果，既有完整任务、状态/恢复消融和两层经验继续按各自版本与分母使用。
+论文选材固定入口：[硕士论文实验与证据索引](docs/research/THESIS_EVIDENCE_INDEX.md)，[历史材料目录](docs/research/THESIS_EVIDENCE_CATALOG.md)保留存量导航。当前完整稿为[论文v0.10第二轮结果稿](docs/thesis/README.md)；E50–E52保存主构建系统及两轮Harness结果，既有完整任务、状态/恢复消融和两层经验继续按各自版本与分母使用。
 
-## 当前阶段（2026-11-09；#703共同执行机制与观察恢复修复完成）
+## 当前阶段（2026-11-09；#705第二轮十二项目Harness比较完成、论文v0.10整合）
+
+本轮[报告](docs/research/2026-11-09-offline-harness-round2-results.md)与[E52](docs/research/THESIS_EVIDENCE_INDEX.md#e52)保存一次近期24轨迹提案及36/36次比较：12项目各一次×H0/H1/H2、三构建系统各4项目、初始策略唯一变化。主产物/文件交付均12/12，最终验证11/12、11/12、10/12；请求48/79/83，在线费0.1801488/0.3292107/0.3377358美元，累计851.47/1408.72/1057.44秒。H2初始费比H0低18.2%，总费反高87.5%、时间高24.2%；比H1时间低24.9%、总费高2.6%。保留H0默认及混合结果，不称持续提效。
+
+四次最终未通过：fse三法通用smoke不覆盖作者-V/-H，submit前止、replay未启动；H2/libsigcplusplus最终方案移除已执行依赖安装，原容器主库成功，新容器缺mm-common-prepare而127失败。原main_task_completed只代表主产物/源码/文件交付，raw clean_replay failed也含前置smoke失败；derived-v2按实际attempt区分，原件/derived-v1不改。一次另存零Provider原生-V诊断退出0，仅解释共同smoke问题，不改三次失败。恢复费用与重复读取主导长尾，下一更新应聚焦失败日志与必要前置保留，初始提示不继续加长；共同smoke适配不计候选收益。
+
+提案0.0564美元/30.55秒，全部211请求/2568579 Token/新增0.9034953美元、未知0，逐响应复算一致；源码/cleanup均36通过，69容器138项名称/ID不存在。H2含提案0.3941358美元；近期来源0.2174667及H1更早投入另列。运行9f583375、manifest5dfeb6a3、raw `forge-offline-harness-round2-flash-v1`，inventory56696b56959c2016305b74026060e7c3bf5f081ef6795f4996cb408ec9652468。正式进程退出、无自动重试/补槽；旧E51及共同工程修复分开，不回填。
+
+论文v0.10第4/5/6章、摘要、结论与附录已整合，四格式导出106页PDF、57表12图并核验；最终PR706/CI/merge/Issue705状态见[论文入口](docs/thesis/README.md)、GitHub及会话收据。用户“好的开始执行下一阶段”承接12项目调整及前述5美元/4小时，本轮自限UTC06:34:51—10:34:51含准备，不冒称逐项复述；不因余额扩批。下一步按真实恢复轨迹设计有针对性的候选，再以新项目固定比较；学校模板、主文取舍可继续。当前无活动Provider，知识库仅MCP同步，原用户checkout保留。
+
+## 上一阶段（2026-11-09；#703共同执行机制与观察恢复修复完成）
 
 按用户要求，从机制上处理方案与执行器的兼容性。[修复记录](docs/research/2026-11-09-workflow-state-contract-repair.md)和[当前执行契约](docs/compile_workflow_execution.md)：显式可选构建目录、原生反馈定位，不再靠逐种Shell参数猜目录；成功命令遇观察unknown继续有界既定动作，真实失败/配置冲突仍停止，独立主产物保持。无变化恢复先给一次具体反馈；仅观察目录错误且实际核验通过时恢复原成功记录，不重跑命令，系统清理配方保留。
 

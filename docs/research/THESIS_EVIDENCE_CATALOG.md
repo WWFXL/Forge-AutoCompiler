@@ -1,5 +1,7 @@
 # 历史研究材料目录
 
+新增[E52](THESIS_EVIDENCE_INDEX.md#e52)：[第二轮十二项目三策略36次比较](2026-11-09-offline-harness-round2-results.md)，主产物均12/12，最终验证11/12、11/12、10/12；H2初始节约被恢复增费抵消，保留H0默认，四次后续未通过保留。
+
 共同机制修复：[执行与观察分离、观察恢复和一次修订反馈](2026-11-09-workflow-state-contract-repair.md)，执行契约见[当前说明](../compile_workflow_execution.md)；工程证据，不增加模型效果分母。
 
 工程修复：[配置阶段执行与实际目录观察](2026-11-09-workflow-configuration-repair.md)，miniz/libogg原方案两条零Provider实建通过；支持执行语义说明，不新增效果分母、不回填E51。
