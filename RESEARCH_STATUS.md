@@ -2,7 +2,13 @@
 
 论文选材固定入口：[硕士论文实验与证据索引](docs/research/THESIS_EVIDENCE_INDEX.md)，[历史材料目录](docs/research/THESIS_EVIDENCE_CATALOG.md)保留存量导航。当前完整稿为[论文v0.9首轮结果稿](docs/thesis/README.md)；E50新增主构建系统结果，既有完整任务、状态/恢复消融和两层经验继续按各自版本与分母使用。
 
-## 当前阶段（2026-11-09；#703共同执行机制与观察恢复修复完成）
+## 当前阶段（2026-11-09；#705第二轮十二项目Harness比较执行中）
+
+用户确认将重复预算用于更多项目。本轮[协议](benchmarks/preregistrations/cpp-build-offline-harness-round2-flash-v1.md)为cpp-build-offline-harness-round2-flash-v1：近期24轨迹一次离线提案，12项目×一次×H0/H1/H2共36次。三构建系统各4项目，与本轮六来源和H1原三来源族分离；均为历史开发/参考暴露，不称最终holdout。共同使用PR704后底座和新提示，H1旧策略重新装配，H2独立追加，只初始规划不同；经验检索/精确复用关闭，main-build-v1及独立分层结果保持。
+
+预算自限新增5美元、UTC2026-11-09 06:34:51—10:34:51含准备；一次RichLab路由提案与36次Flash共享费用，无自动重试/补槽，未知用量/身份/清理异常停止。授权承接用户“好的开始执行下一阶段”及前述计划，不冒称逐项复述。当前准备检查已通过，尚未调用Provider；新原件forge-offline-harness-round2-flash-v1，用户原checkout不动。完成标准为完整比较、逐阶段成本/行为解释、论文5/6章及证据索引更新；E51与人工共同修复分开。
+
+## 上一阶段（2026-11-09；#703共同执行机制与观察恢复修复完成）
 
 按用户要求，从机制上处理方案与执行器的兼容性。[修复记录](docs/research/2026-11-09-workflow-state-contract-repair.md)和[当前执行契约](docs/compile_workflow_execution.md)：显式可选构建目录、原生反馈定位，不再靠逐种Shell参数猜目录；成功命令遇观察unknown继续有界既定动作，真实失败/配置冲突仍停止，独立主产物保持。无变化恢复先给一次具体反馈；仅观察目录错误且实际核验通过时恢复原成功记录，不重跑命令，系统清理配方保留。
 

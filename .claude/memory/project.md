@@ -3,6 +3,7 @@
 跨 Claude Code session 的项目状态流水。按 CLAUDE.md §7 维护。
 
 ## 进行中 (In Progress)
+- 2026-11-09 — #705第二轮离线Harness：12项目各一次×H0/H1/H2，5美元/原UTC10:34:51截止，24近期轨迹一次提案；准备完成待真实数据采集，不续E51，不将共同修复计作H2收益。详见RESEARCH_STATUS.md及round2协议。
 - 2026-11-09 — #703共同执行机制与观察恢复已完成，0真实Provider；待最终PR/CI/合并收据，随后设计新底座的短Harness候选，不续旧24次或默认扩批。当前阶段以RESEARCH_STATUS.md为准。
 - 2026-11-09 — #701共同配置阶段观察修复及两条实际构建已完成，无活动Provider；后续在修复底座上设计近期轨迹驱动的短Harness候选。E51与论文v0.9保持，旧24次身份不续跑；发布/CI终态见GitHub。
 - 2026-11-05 — 当前#695的54次与论文v0.7导出已完成，无活动Provider；下一步全文审阅及学校格式，最终发布状态见GitHub及收据。下列早期进行中条目均为历史，当前阶段以RESEARCH_STATUS.md为准。
@@ -620,6 +621,9 @@
   - 下一步: 等待实验负责人确认当前网络接入介质，并决定是否授权只读 endpoint 诊断和新的 canary amendment；获得确认后必须另建中文 Issue/PR 和协议 identity，保留当前失败 marker。
 
 ## 最近变更 (Recent Changes)
+- 2026-11-09 — 固定第二轮十二项目三策略执行入口、公开任务与近期轨迹材料。
+  - 文件: `scripts/forge_offline_harness_round2.py`, `backend/tests/test_offline_harness_round2.py`, `benchmarks/preregistrations/cpp-build-offline-harness-round2-flash-v1.md`。
+  - 动机: 用项目覆盖检验近期轨迹驱动的短规划策略，沿已修复共同执行器收集论文结果。
 - 2026-11-09 — #703分离执行成功与配置观察未知，完善恢复修订反馈和只改观察目录的恢复。
   - 文件: `backend/packages/harness/deerflow/compile/simple_build_task.py`, `simple_build_runtime.py`, `simple_build_experience.py`, `build_state_routing.py`, `scripts/forge_simple_system.py`, `backend/tests/test_workflow_execution_contract.py`, `docs/compile_workflow_execution.md`, `docs/research/2026-11-09-workflow-state-contract-repair.md`。
   - 动机: 避免合法方案因Shell写法未识别而无故终止；unknown有界继续、真实失败/配置冲突仍停止，独立结果检查保持。可选目录贯通规划/方案/路由/复用，一次结构/执行修订反馈；目录纠错核验后保留原成功命令和系统清理配方。
