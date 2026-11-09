@@ -1,0 +1,1063 @@
+{
+  "cglm": {
+    "components": [
+      {
+        "name": "libcglm",
+        "artifact_names": [
+          "libcglm.a",
+          "libcglm.so"
+        ],
+        "kinds": [
+          "static_library",
+          "shared_library"
+        ],
+        "evidence": "作者普通库目标，下面source_evidence保存原声明"
+      }
+    ],
+    "source_evidence": [
+      {
+        "path": "CMakeLists.txt",
+        "quote": "add_library(${PROJECT_NAME}",
+        "line": 73
+      }
+    ],
+    "reference_actions": {
+      "reason": "独立参考采用作者CMake普通默认入口",
+      "steps": [
+        {
+          "step_id": "configure",
+          "role": "configure",
+          "command": "cmake -S . -B build",
+          "source": "CMakeLists.txt",
+          "expected": "作者普通构建动作；是否完成由实际执行与独立检查确认",
+          "workdir": "/workspace/repo"
+        },
+        {
+          "step_id": "build",
+          "role": "build",
+          "command": "cmake --build build",
+          "source": "CMakeLists.txt",
+          "expected": "作者普通构建动作；是否完成由实际执行与独立检查确认",
+          "workdir": "/workspace/repo"
+        }
+      ],
+      "build_directory": "/workspace/repo/build"
+    },
+    "executable_smokes": []
+  },
+  "tini": {
+    "components": [
+      {
+        "name": "tini",
+        "artifact_names": [
+          "tini"
+        ],
+        "kinds": [
+          "executable"
+        ],
+        "evidence": "作者主要程序声明，下面source_evidence保存原文"
+      },
+      {
+        "name": "tini-static",
+        "artifact_names": [
+          "tini-static"
+        ],
+        "kinds": [
+          "executable"
+        ],
+        "evidence": "作者主要程序声明，下面source_evidence保存原文"
+      }
+    ],
+    "source_evidence": [
+      {
+        "path": "CMakeLists.txt",
+        "quote": "add_executable (tini src/tini.c)",
+        "line": 82
+      },
+      {
+        "path": "CMakeLists.txt",
+        "quote": "add_executable (tini-static src/tini.c)",
+        "line": 84
+      }
+    ],
+    "reference_actions": {
+      "reason": "独立参考采用作者CMake普通默认入口",
+      "steps": [
+        {
+          "step_id": "configure",
+          "role": "configure",
+          "command": "cmake -S . -B build",
+          "source": "CMakeLists.txt",
+          "expected": "作者普通构建动作；是否完成由实际执行与独立检查确认",
+          "workdir": "/workspace/repo"
+        },
+        {
+          "step_id": "build",
+          "role": "build",
+          "command": "cmake --build build",
+          "source": "CMakeLists.txt",
+          "expected": "作者普通构建动作；是否完成由实际执行与独立检查确认",
+          "workdir": "/workspace/repo"
+        }
+      ],
+      "build_directory": "/workspace/repo/build"
+    },
+    "executable_smokes": []
+  },
+  "wasm3": {
+    "components": [
+      {
+        "name": "wasm3",
+        "artifact_names": [
+          "wasm3"
+        ],
+        "kinds": [
+          "executable"
+        ],
+        "evidence": "作者主要程序声明，下面source_evidence保存原文"
+      },
+      {
+        "name": "m3",
+        "artifact_names": [
+          "libm3.a"
+        ],
+        "kinds": [
+          "static_library"
+        ],
+        "evidence": "source/CMakeLists.txt:23 add_library(m3 STATIC)"
+      }
+    ],
+    "source_evidence": [
+      {
+        "path": "CMakeLists.txt",
+        "quote": "set(OUT_FILE \"wasm3\")",
+        "line": 45
+      },
+      {
+        "path": "source/CMakeLists.txt",
+        "quote": "add_library(m3 STATIC ${sources})",
+        "line": 23
+      }
+    ],
+    "reference_actions": {
+      "reason": "独立参考采用作者CMake普通默认入口",
+      "steps": [
+        {
+          "step_id": "configure",
+          "role": "configure",
+          "command": "cmake -S . -B build",
+          "source": "CMakeLists.txt",
+          "expected": "作者普通构建动作；是否完成由实际执行与独立检查确认",
+          "workdir": "/workspace/repo"
+        },
+        {
+          "step_id": "build",
+          "role": "build",
+          "command": "cmake --build build",
+          "source": "CMakeLists.txt",
+          "expected": "作者普通构建动作；是否完成由实际执行与独立检查确认",
+          "workdir": "/workspace/repo"
+        }
+      ],
+      "build_directory": "/workspace/repo/build"
+    },
+    "executable_smokes": []
+  },
+  "libhv": {
+    "components": [
+      {
+        "name": "libhv",
+        "artifact_names": [
+          "libhv.a",
+          "libhv.so"
+        ],
+        "kinds": [
+          "static_library",
+          "shared_library"
+        ],
+        "evidence": "作者普通库目标，下面source_evidence保存原声明"
+      }
+    ],
+    "source_evidence": [
+      {
+        "path": "CMakeLists.txt",
+        "quote": "add_library(hv SHARED ${LIBHV_SRCS})",
+        "line": 400
+      },
+      {
+        "path": "CMakeLists.txt",
+        "quote": "set_target_properties(hv_static PROPERTIES OUTPUT_NAME hv)",
+        "line": 426
+      }
+    ],
+    "reference_actions": {
+      "reason": "独立参考采用作者CMake普通默认入口",
+      "steps": [
+        {
+          "step_id": "configure",
+          "role": "configure",
+          "command": "cmake -S . -B build",
+          "source": "CMakeLists.txt",
+          "expected": "作者普通构建动作；是否完成由实际执行与独立检查确认",
+          "workdir": "/workspace/repo"
+        },
+        {
+          "step_id": "build",
+          "role": "build",
+          "command": "cmake --build build",
+          "source": "CMakeLists.txt",
+          "expected": "作者普通构建动作；是否完成由实际执行与独立检查确认",
+          "workdir": "/workspace/repo"
+        }
+      ],
+      "build_directory": "/workspace/repo/build"
+    },
+    "executable_smokes": []
+  },
+  "ggmorse": {
+    "components": [
+      {
+        "name": "libggmorse",
+        "artifact_names": [
+          "libggmorse.a",
+          "libggmorse.so"
+        ],
+        "kinds": [
+          "static_library",
+          "shared_library"
+        ],
+        "evidence": "作者普通库目标，下面source_evidence保存原声明"
+      }
+    ],
+    "source_evidence": [
+      {
+        "path": "src/CMakeLists.txt",
+        "quote": "set(TARGET ggmorse)",
+        "line": 3
+      },
+      {
+        "path": "src/CMakeLists.txt",
+        "quote": "add_library(${TARGET}",
+        "line": 5
+      }
+    ],
+    "reference_actions": {
+      "reason": "独立参考采用作者CMake普通默认入口",
+      "steps": [
+        {
+          "step_id": "configure",
+          "role": "configure",
+          "command": "cmake -S . -B build",
+          "source": "CMakeLists.txt",
+          "expected": "作者普通构建动作；是否完成由实际执行与独立检查确认",
+          "workdir": "/workspace/repo"
+        },
+        {
+          "step_id": "build",
+          "role": "build",
+          "command": "cmake --build build",
+          "source": "CMakeLists.txt",
+          "expected": "作者普通构建动作；是否完成由实际执行与独立检查确认",
+          "workdir": "/workspace/repo"
+        }
+      ],
+      "build_directory": "/workspace/repo/build"
+    },
+    "executable_smokes": []
+  },
+  "DuckX": {
+    "components": [
+      {
+        "name": "libduckx",
+        "artifact_names": [
+          "libduckx.a",
+          "libduckx.so"
+        ],
+        "kinds": [
+          "static_library",
+          "shared_library"
+        ],
+        "evidence": "作者普通库目标，下面source_evidence保存原声明"
+      }
+    ],
+    "source_evidence": [
+      {
+        "path": "CMakeLists.txt",
+        "quote": "add_library(duckx STATIC ${SOURCES} ${THIRD_PARTY_SRC})",
+        "line": 35
+      }
+    ],
+    "reference_actions": {
+      "reason": "独立参考采用作者CMake普通默认入口",
+      "steps": [
+        {
+          "step_id": "configure",
+          "role": "configure",
+          "command": "cmake -S . -B build",
+          "source": "CMakeLists.txt",
+          "expected": "作者普通构建动作；是否完成由实际执行与独立检查确认",
+          "workdir": "/workspace/repo"
+        },
+        {
+          "step_id": "build",
+          "role": "build",
+          "command": "cmake --build build",
+          "source": "CMakeLists.txt",
+          "expected": "作者普通构建动作；是否完成由实际执行与独立检查确认",
+          "workdir": "/workspace/repo"
+        }
+      ],
+      "build_directory": "/workspace/repo/build"
+    },
+    "executable_smokes": []
+  },
+  "massdns": {
+    "components": [
+      {
+        "name": "massdns",
+        "artifact_names": [
+          "massdns"
+        ],
+        "kinds": [
+          "executable"
+        ],
+        "evidence": "作者主要程序声明，下面source_evidence保存原文"
+      }
+    ],
+    "source_evidence": [
+      {
+        "path": "Makefile",
+        "quote": "all:",
+        "line": 7
+      }
+    ],
+    "reference_actions": {
+      "reason": "独立参考按作者普通入口构建；不送模型",
+      "steps": [
+        {
+          "step_id": "build",
+          "role": "build",
+          "command": "make",
+          "source": "Makefile或作者README",
+          "expected": "作者普通构建动作；是否完成由实际执行与独立检查确认",
+          "workdir": "/workspace/repo"
+        }
+      ]
+    },
+    "executable_smokes": []
+  },
+  "redsocks": {
+    "components": [
+      {
+        "name": "redsocks",
+        "artifact_names": [
+          "redsocks"
+        ],
+        "kinds": [
+          "executable"
+        ],
+        "evidence": "作者主要程序声明，下面source_evidence保存原文"
+      }
+    ],
+    "source_evidence": [
+      {
+        "path": "Makefile",
+        "quote": "OUT := redsocks",
+        "line": 9
+      },
+      {
+        "path": "main.c",
+        "quote": "case 'v':",
+        "line": 81
+      }
+    ],
+    "reference_actions": {
+      "reason": "作者Make默认程序及必要libevent",
+      "steps": [
+        {
+          "step_id": "dependencies",
+          "role": "dependency",
+          "command": "apt-get update\napt-get install -y libevent-dev",
+          "source": "Makefile LIBS := -levent_core",
+          "expected": "作者普通构建动作；是否完成由实际执行与独立检查确认",
+          "workdir": "/workspace/repo"
+        },
+        {
+          "step_id": "build",
+          "role": "build",
+          "command": "make",
+          "source": "Makefile all",
+          "expected": "作者普通构建动作；是否完成由实际执行与独立检查确认",
+          "workdir": "/workspace/repo"
+        }
+      ]
+    },
+    "executable_smokes": [
+      {
+        "artifact_name": "redsocks",
+        "step": {
+          "step_id": "verify-redsocks",
+          "role": "smoke",
+          "command": "./redsocks -v",
+          "source": "作者用法：main.c case v 返回EXIT_SUCCESS",
+          "expected": "作者普通构建动作；是否完成由实际执行与独立检查确认",
+          "workdir": "/artifacts",
+          "required_output": [
+            "Built with libevent-"
+          ]
+        }
+      }
+    ]
+  },
+  "beanstalkd": {
+    "components": [
+      {
+        "name": "beanstalkd",
+        "artifact_names": [
+          "beanstalkd"
+        ],
+        "kinds": [
+          "executable"
+        ],
+        "evidence": "作者主要程序声明，下面source_evidence保存原文"
+      }
+    ],
+    "source_evidence": [
+      {
+        "path": "Makefile",
+        "quote": "all: $(TARG)",
+        "line": 71
+      }
+    ],
+    "reference_actions": {
+      "reason": "独立参考按作者普通入口构建；不送模型",
+      "steps": [
+        {
+          "step_id": "build",
+          "role": "build",
+          "command": "make",
+          "source": "Makefile或作者README",
+          "expected": "作者普通构建动作；是否完成由实际执行与独立检查确认",
+          "workdir": "/workspace/repo"
+        }
+      ]
+    },
+    "executable_smokes": []
+  },
+  "no-more-secrets": {
+    "components": [
+      {
+        "name": "nms",
+        "artifact_names": [
+          "nms"
+        ],
+        "kinds": [
+          "executable"
+        ],
+        "evidence": "作者主要程序声明，下面source_evidence保存原文"
+      }
+    ],
+    "source_evidence": [
+      {
+        "path": "README.md",
+        "quote": "$ make nms",
+        "line": 58
+      },
+      {
+        "path": "README.md",
+        "quote": "$ make sneakers             ## Optional",
+        "line": 59
+      },
+      {
+        "path": "README.md",
+        "quote": "nms -v",
+        "line": 45
+      }
+    ],
+    "reference_actions": {
+      "reason": "独立参考按作者普通入口构建；不送模型",
+      "steps": [
+        {
+          "step_id": "build",
+          "role": "build",
+          "command": "make nms",
+          "source": "Makefile或作者README",
+          "expected": "作者普通构建动作；是否完成由实际执行与独立检查确认",
+          "workdir": "/workspace/repo"
+        }
+      ]
+    },
+    "executable_smokes": [
+      {
+        "artifact_name": "nms",
+        "step": {
+          "step_id": "verify-nms",
+          "role": "smoke",
+          "command": "./nms -v",
+          "source": "作者用法：README.md版本用法及src/nms.c",
+          "expected": "作者普通构建动作；是否完成由实际执行与独立检查确认",
+          "workdir": "/artifacts",
+          "required_output": [
+            "nms version"
+          ]
+        }
+      }
+    ]
+  },
+  "berkeley-softfloat-3": {
+    "components": [
+      {
+        "name": "softfloat",
+        "artifact_names": [
+          "softfloat.a"
+        ],
+        "kinds": [
+          "static_library"
+        ],
+        "evidence": "build/Linux-x86_64-GCC/Makefile all: softfloat$(LIB)"
+      }
+    ],
+    "source_evidence": [
+      {
+        "path": "build/Linux-x86_64-GCC/Makefile",
+        "quote": "all: softfloat$(LIB)",
+        "line": 57
+      }
+    ],
+    "reference_actions": {
+      "reason": "独立参考按作者普通入口构建；不送模型",
+      "steps": [
+        {
+          "step_id": "build",
+          "role": "build",
+          "command": "make",
+          "source": "Makefile或作者README",
+          "expected": "作者普通构建动作；是否完成由实际执行与独立检查确认",
+          "workdir": "/workspace/repo/build/Linux-x86_64-GCC"
+        }
+      ]
+    },
+    "executable_smokes": []
+  },
+  "Turbo-Base64": {
+    "components": [
+      {
+        "name": "libtb64",
+        "artifact_names": [
+          "libtb64.a",
+          "libtb64.so"
+        ],
+        "kinds": [
+          "static_library",
+          "shared_library"
+        ],
+        "evidence": "作者普通库目标，下面source_evidence保存原声明"
+      },
+      {
+        "name": "tb64app",
+        "artifact_names": [
+          "tb64app"
+        ],
+        "kinds": [
+          "executable"
+        ],
+        "evidence": "作者主要程序声明，下面source_evidence保存原文"
+      }
+    ],
+    "source_evidence": [
+      {
+        "path": "makefile",
+        "quote": "all: tb64app libtb64.so libtb64.a",
+        "line": 96
+      }
+    ],
+    "reference_actions": {
+      "reason": "独立参考按作者普通入口构建；不送模型",
+      "steps": [
+        {
+          "step_id": "build",
+          "role": "build",
+          "command": "make",
+          "source": "Makefile或作者README",
+          "expected": "作者普通构建动作；是否完成由实际执行与独立检查确认",
+          "workdir": "/workspace/repo"
+        }
+      ]
+    },
+    "executable_smokes": []
+  },
+  "libmodbus": {
+    "components": [
+      {
+        "name": "libmodbus",
+        "artifact_names": [
+          "libmodbus.a",
+          "libmodbus.so"
+        ],
+        "kinds": [
+          "static_library",
+          "shared_library"
+        ],
+        "evidence": "作者普通库目标，下面source_evidence保存原声明"
+      }
+    ],
+    "source_evidence": [
+      {
+        "path": "src/Makefile.am",
+        "quote": "lib_LTLIBRARIES = libmodbus.la",
+        "line": 2
+      }
+    ],
+    "reference_actions": {
+      "reason": "独立参考按作者Autotools默认主构建",
+      "steps": [
+        {
+          "step_id": "configure",
+          "role": "configure",
+          "command": "autoreconf -fi\n./configure",
+          "source": "configure.ac及作者源码构建说明",
+          "expected": "作者普通构建动作；是否完成由实际执行与独立检查确认",
+          "workdir": "/workspace/repo"
+        },
+        {
+          "step_id": "build",
+          "role": "build",
+          "command": "make",
+          "source": "Makefile.am",
+          "expected": "作者普通构建动作；是否完成由实际执行与独立检查确认",
+          "workdir": "/workspace/repo"
+        }
+      ]
+    },
+    "executable_smokes": []
+  },
+  "freesasa": {
+    "components": [
+      {
+        "name": "libfreesasa",
+        "artifact_names": [
+          "libfreesasa.a"
+        ],
+        "kinds": [
+          "static_library"
+        ],
+        "evidence": "src/Makefile.am lib_LIBRARIES = libfreesasa.a"
+      },
+      {
+        "name": "freesasa",
+        "artifact_names": [
+          "freesasa"
+        ],
+        "kinds": [
+          "executable"
+        ],
+        "evidence": "作者主要程序声明，下面source_evidence保存原文"
+      }
+    ],
+    "source_evidence": [
+      {
+        "path": "src/Makefile.am",
+        "quote": "bin_PROGRAMS = freesasa",
+        "line": 19
+      },
+      {
+        "path": "src/Makefile.am",
+        "quote": "lib_LIBRARIES = libfreesasa.a",
+        "line": 20
+      }
+    ],
+    "reference_actions": {
+      "reason": "独立参考按作者Autotools默认主构建",
+      "steps": [
+        {
+          "step_id": "dependencies",
+          "role": "dependency",
+          "command": "apt-get update\napt-get install -y libxml2-dev libjson-c-dev",
+          "source": "作者依赖检查及安装说明",
+          "expected": "作者普通构建动作；是否完成由实际执行与独立检查确认",
+          "workdir": "/workspace/repo"
+        },
+        {
+          "step_id": "configure",
+          "role": "configure",
+          "command": "autoreconf -fi\n./configure",
+          "source": "configure.ac及作者源码构建说明",
+          "expected": "作者普通构建动作；是否完成由实际执行与独立检查确认",
+          "workdir": "/workspace/repo"
+        },
+        {
+          "step_id": "build",
+          "role": "build",
+          "command": "make",
+          "source": "Makefile.am",
+          "expected": "作者普通构建动作；是否完成由实际执行与独立检查确认",
+          "workdir": "/workspace/repo"
+        }
+      ]
+    },
+    "executable_smokes": []
+  },
+  "fsarchiver": {
+    "components": [
+      {
+        "name": "fsarchiver",
+        "artifact_names": [
+          "fsarchiver"
+        ],
+        "kinds": [
+          "executable"
+        ],
+        "evidence": "作者主要程序声明，下面source_evidence保存原文"
+      }
+    ],
+    "source_evidence": [
+      {
+        "path": "src/Makefile.am",
+        "quote": "sbin_PROGRAMS\t\t= fsarchiver",
+        "line": 1
+      },
+      {
+        "path": "src/fsarchiver.c",
+        "quote": "case 'V': // version",
+        "line": 226
+      }
+    ],
+    "reference_actions": {
+      "reason": "独立参考按作者Autotools默认主构建",
+      "steps": [
+        {
+          "step_id": "dependencies",
+          "role": "dependency",
+          "command": "apt-get update\napt-get install -y zlib1g-dev libbz2-dev liblzma-dev liblzo2-dev liblz4-dev libzstd-dev libgcrypt20-dev e2fslibs-dev uuid-dev libblkid-dev",
+          "source": "作者依赖检查及安装说明",
+          "expected": "作者普通构建动作；是否完成由实际执行与独立检查确认",
+          "workdir": "/workspace/repo"
+        },
+        {
+          "step_id": "configure",
+          "role": "configure",
+          "command": "autoreconf -fi\n./configure",
+          "source": "configure.ac及作者源码构建说明",
+          "expected": "作者普通构建动作；是否完成由实际执行与独立检查确认",
+          "workdir": "/workspace/repo"
+        },
+        {
+          "step_id": "build",
+          "role": "build",
+          "command": "make",
+          "source": "Makefile.am",
+          "expected": "作者普通构建动作；是否完成由实际执行与独立检查确认",
+          "workdir": "/workspace/repo"
+        }
+      ]
+    },
+    "executable_smokes": [
+      {
+        "artifact_name": "fsarchiver",
+        "step": {
+          "step_id": "verify-fsarchiver",
+          "role": "smoke",
+          "command": "./fsarchiver -V",
+          "source": "作者用法：src/fsarchiver.c version分支返回0",
+          "expected": "作者普通构建动作；是否完成由实际执行与独立检查确认",
+          "workdir": "/artifacts",
+          "required_output": [
+            "fsarchiver version"
+          ]
+        }
+      }
+    ]
+  },
+  "fastq-tools": {
+    "components": [
+      {
+        "name": "fastq-grep",
+        "artifact_names": [
+          "fastq-grep"
+        ],
+        "kinds": [
+          "executable"
+        ],
+        "evidence": "作者主要程序声明，下面source_evidence保存原文"
+      },
+      {
+        "name": "fastq-kmers",
+        "artifact_names": [
+          "fastq-kmers"
+        ],
+        "kinds": [
+          "executable"
+        ],
+        "evidence": "作者主要程序声明，下面source_evidence保存原文"
+      },
+      {
+        "name": "fastq-match",
+        "artifact_names": [
+          "fastq-match"
+        ],
+        "kinds": [
+          "executable"
+        ],
+        "evidence": "作者主要程序声明，下面source_evidence保存原文"
+      },
+      {
+        "name": "fastq-uniq",
+        "artifact_names": [
+          "fastq-uniq"
+        ],
+        "kinds": [
+          "executable"
+        ],
+        "evidence": "作者主要程序声明，下面source_evidence保存原文"
+      },
+      {
+        "name": "fastq-qual",
+        "artifact_names": [
+          "fastq-qual"
+        ],
+        "kinds": [
+          "executable"
+        ],
+        "evidence": "作者主要程序声明，下面source_evidence保存原文"
+      },
+      {
+        "name": "fastq-sample",
+        "artifact_names": [
+          "fastq-sample"
+        ],
+        "kinds": [
+          "executable"
+        ],
+        "evidence": "作者主要程序声明，下面source_evidence保存原文"
+      },
+      {
+        "name": "fastq-qualadj",
+        "artifact_names": [
+          "fastq-qualadj"
+        ],
+        "kinds": [
+          "executable"
+        ],
+        "evidence": "作者主要程序声明，下面source_evidence保存原文"
+      },
+      {
+        "name": "fastq-sort",
+        "artifact_names": [
+          "fastq-sort"
+        ],
+        "kinds": [
+          "executable"
+        ],
+        "evidence": "作者主要程序声明，下面source_evidence保存原文"
+      },
+      {
+        "name": "fastq-qscale",
+        "artifact_names": [
+          "fastq-qscale"
+        ],
+        "kinds": [
+          "executable"
+        ],
+        "evidence": "作者主要程序声明，下面source_evidence保存原文"
+      }
+    ],
+    "source_evidence": [
+      {
+        "path": "src/Makefile.am",
+        "quote": "bin_PROGRAMS = fastq-grep fastq-kmers fastq-match fastq-uniq",
+        "line": 2
+      }
+    ],
+    "reference_actions": {
+      "reason": "独立参考按作者Autotools默认主构建",
+      "steps": [
+        {
+          "step_id": "dependencies",
+          "role": "dependency",
+          "command": "apt-get update\napt-get install -y libpcre3-dev",
+          "source": "作者依赖检查及安装说明",
+          "expected": "作者普通构建动作；是否完成由实际执行与独立检查确认",
+          "workdir": "/workspace/repo"
+        },
+        {
+          "step_id": "configure",
+          "role": "configure",
+          "command": "autoreconf -fi\n./configure",
+          "source": "configure.ac及作者源码构建说明",
+          "expected": "作者普通构建动作；是否完成由实际执行与独立检查确认",
+          "workdir": "/workspace/repo"
+        },
+        {
+          "step_id": "build",
+          "role": "build",
+          "command": "make",
+          "source": "Makefile.am",
+          "expected": "作者普通构建动作；是否完成由实际执行与独立检查确认",
+          "workdir": "/workspace/repo"
+        }
+      ]
+    },
+    "executable_smokes": []
+  },
+  "munge": {
+    "components": [
+      {
+        "name": "libmunge",
+        "artifact_names": [
+          "libmunge.a",
+          "libmunge.so"
+        ],
+        "kinds": [
+          "static_library",
+          "shared_library"
+        ],
+        "evidence": "作者普通库目标，下面source_evidence保存原声明"
+      },
+      {
+        "name": "munge",
+        "artifact_names": [
+          "munge"
+        ],
+        "kinds": [
+          "executable"
+        ],
+        "evidence": "作者主要程序声明，下面source_evidence保存原文"
+      },
+      {
+        "name": "remunge",
+        "artifact_names": [
+          "remunge"
+        ],
+        "kinds": [
+          "executable"
+        ],
+        "evidence": "作者主要程序声明，下面source_evidence保存原文"
+      },
+      {
+        "name": "unmunge",
+        "artifact_names": [
+          "unmunge"
+        ],
+        "kinds": [
+          "executable"
+        ],
+        "evidence": "作者主要程序声明，下面source_evidence保存原文"
+      },
+      {
+        "name": "munged",
+        "artifact_names": [
+          "munged"
+        ],
+        "kinds": [
+          "executable"
+        ],
+        "evidence": "作者主要程序声明，下面source_evidence保存原文"
+      },
+      {
+        "name": "mungekey",
+        "artifact_names": [
+          "mungekey"
+        ],
+        "kinds": [
+          "executable"
+        ],
+        "evidence": "作者主要程序声明，下面source_evidence保存原文"
+      }
+    ],
+    "source_evidence": [
+      {
+        "path": "src/libmunge/Makefile.am",
+        "quote": "libmunge.la",
+        "line": 40
+      },
+      {
+        "path": "src/munge/Makefile.am",
+        "quote": "bin_PROGRAMS =",
+        "line": 35
+      },
+      {
+        "path": "src/munged/Makefile.am",
+        "quote": "sbin_PROGRAMS =",
+        "line": 29
+      },
+      {
+        "path": "src/mungekey/Makefile.am",
+        "quote": "sbin_PROGRAMS =",
+        "line": 29
+      }
+    ],
+    "reference_actions": {
+      "reason": "独立参考按作者Autotools默认主构建",
+      "steps": [
+        {
+          "step_id": "dependencies",
+          "role": "dependency",
+          "command": "apt-get update\napt-get install -y libssl-dev libbz2-dev zlib1g-dev",
+          "source": "作者依赖检查及安装说明",
+          "expected": "作者普通构建动作；是否完成由实际执行与独立检查确认",
+          "workdir": "/workspace/repo"
+        },
+        {
+          "step_id": "configure",
+          "role": "configure",
+          "command": "autoreconf -fi\n./configure",
+          "source": "configure.ac及作者源码构建说明",
+          "expected": "作者普通构建动作；是否完成由实际执行与独立检查确认",
+          "workdir": "/workspace/repo"
+        },
+        {
+          "step_id": "build",
+          "role": "build",
+          "command": "make",
+          "source": "Makefile.am",
+          "expected": "作者普通构建动作；是否完成由实际执行与独立检查确认",
+          "workdir": "/workspace/repo"
+        }
+      ]
+    },
+    "executable_smokes": []
+  },
+  "twemproxy": {
+    "components": [
+      {
+        "name": "nutcracker",
+        "artifact_names": [
+          "nutcracker"
+        ],
+        "kinds": [
+          "executable"
+        ],
+        "evidence": "作者主要程序声明，下面source_evidence保存原文"
+      }
+    ],
+    "source_evidence": [
+      {
+        "path": "src/Makefile.am",
+        "quote": "sbin_PROGRAMS = nutcracker",
+        "line": 35
+      }
+    ],
+    "reference_actions": {
+      "reason": "独立参考按作者Autotools默认主构建",
+      "steps": [
+        {
+          "step_id": "configure",
+          "role": "configure",
+          "command": "autoreconf -fi\n./configure",
+          "source": "configure.ac及作者源码构建说明",
+          "expected": "作者普通构建动作；是否完成由实际执行与独立检查确认",
+          "workdir": "/workspace/repo"
+        },
+        {
+          "step_id": "build",
+          "role": "build",
+          "command": "make",
+          "source": "Makefile.am",
+          "expected": "作者普通构建动作；是否完成由实际执行与独立检查确认",
+          "workdir": "/workspace/repo"
+        }
+      ]
+    },
+    "executable_smokes": []
+  }
+}

@@ -3,7 +3,7 @@
 跨 Claude Code session 的项目状态流水。按 CLAUDE.md §7 维护。
 
 ## 进行中 (In Progress)
-- 2026-11-09 — #709恢复Harness提案已取得，等待用户先审核方案再下达比较指令；结果须另审核后才写论文，18新增项目候选仅准备，当前无活动Provider或比较。当前状态以RESEARCH_STATUS.md为准。
+- 2026-11-09 — #711用户已审核R1，18新项目/36槽同初始方案恢复比较入口已实现并完成必要实建；正式比较未启动，待新身份预算/时窗。结果先审核后才写论文，当前状态以RESEARCH_STATUS.md为准。
 - 2026-11-09 — #707共同验证与依赖配方修复已完成，按用户要求结束修复阶段；无活动Provider或下一比较，发布终态见关联PR/CI收据，当前阶段以RESEARCH_STATUS.md为准。
 - 2026-11-09 — #701共同配置阶段观察修复及两条实际构建已完成，无活动Provider；后续在修复底座上设计近期轨迹驱动的短Harness候选。E51与论文v0.9保持，旧24次身份不续跑；发布/CI终态见GitHub。
 - 2026-11-05 — 当前#695的54次与论文v0.7导出已完成，无活动Provider；下一步全文审阅及学校格式，最终发布状态见GitHub及收据。下列早期进行中条目均为历史，当前阶段以RESEARCH_STATUS.md为准。
@@ -621,6 +621,11 @@
   - 下一步: 等待实验负责人确认当前网络接入介质，并决定是否授权只读 endpoint 诊断和新的 canary amendment；获得确认后必须另建中文 Issue/PR 和协议 identity，保留当前失败 marker。
 
 ## 最近变更 (Recent Changes)
+- 2026-11-09 — 实现18新项目同初始方案的恢复Harness H0/R1比较，完成零费用真实执行验证（#711）。
+  - 文件: `scripts/forge_recovery_harness_comparison.py`, `scripts/forge_recovery_harness_sources.py`, `backend/tests/test_recovery_harness_comparison.py`, `benchmarks/fixtures/recovery-harness-comparison-v1/`, 同名manifest/preregistration及准备报告。
+  - 动机: 用户已审核R1；固定共同H0初始方案，避免规划随机性混淆恢复增量，并扩展不同项目覆盖。
+  - 结果: 全18commit源码采集、作者35主组件/参考装配；三系统普通路径和massdns受控H0/R1共5条主构建/交付/验证/replay/源码/cleanup通过，101.14秒、2脚本响应/0Token/Provider/费用，20容器标识不存在。17相关检查与修改文件Ruff/格式通过；正式比较0/36，论文未改。
+  - 边界: 共同规划实际一次付款、两法部署均计全额；初始失败后槽未启动，未知用量/模型异常/cleanup停止，无重试/补槽。5美元/4小时为新运行建议，未续旧提案预算。v1首条完成后的驱动汇总异常保留，v2独立五条通过。发布及知识库收据见会话forge-recovery-harness-comparison-session-2026-11-09-v1；原用户checkout保留。
 - 2026-11-09 — 整理自然恢复轨迹并取得一次恢复Harness提案，固定用户双审核与新增项目原则。
   - 文件: `backend/packages/harness/deerflow/compile/recovery_harness.py`, `scripts/forge_recovery_harness_proposal.py`, `scripts/forge_research_project_pool.py`, `docs/research/2026-11-09-recovery-harness-proposal.md`, `AGENTS.md`。
   - 动机: 初始规划固定H0，研究失败后证据使用与恢复长尾，先展示高级模型实际指导而不直接比较/写论文。
