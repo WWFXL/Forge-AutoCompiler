@@ -253,8 +253,13 @@ def executor(harnesses, model):
 
 
 def analyze(root):
+    usage_path = root / "optimizer/usage.json"
+    usage = shared.load(usage_path) if usage_path.exists() else None
+    if not (root / "comparison/result.json").exists():
+        return dict(
+            identity=IDENTITY, status="no_change" if (root / "no-change.json").exists() else "optimizer_not_completed", optimizer=usage, planned_comparisons=24, observed_comparisons=0, unobserved_comparisons=24, treatment_effect=None
+        )
     result = shared.load(root / "comparison/result.json")
-    usage = shared.load(root / "optimizer/usage.json")
     arms = {method: summarize([r for r in result["rows"] if r["method"] == method], 12) for method in ("H0", "H1")}
     optimizer_cost = Decimal(usage["estimated_cost_usd_completed_responses"])
     source_cost = Decimal(shared.load(CORPUS)["historical_source_cost_usd"])
@@ -353,6 +358,7 @@ def main():
     shared.validate_authorization(auth, digest(MANIFEST), identity=IDENTITY, maximum_hours=4)
     if Decimal(auth["maximum_cost_usd"]) < Decimal("0.20"):
         raise PlanContractError("不足一次离线提案的保守预留")
+    shared.OperationWindow(auth["deadline_utc"]).admit("offline_optimizer", 300)
     # 在try外原子占用新目录；拒绝重用时不能触碰已有结果或封存。
     args.output.mkdir(parents=True, exist_ok=False)
     try:
@@ -363,6 +369,8 @@ def main():
             unknown = sum(shared.usage(r)["unknown"] for r in comparison["rows"]) + int(comparison.get("unclosed_slot") is not None) if comparison else 0
             if (args.output / "optimizer/request.json").exists() and not (args.output / "optimizer/usage.json").exists():
                 unknown += 1
+            if not (args.output / "analysis.json").exists():
+                save(args.output / "analysis.json", analyze(args.output))
             save(args.output / "pipeline-status.json", dict(identity=IDENTITY, comparison_started=comparison is not None, unknown_usage_requests=unknown, no_automatic_retry=True))
             seal(args.output, value, ROOT, unknown_usage_requests=unknown)
 

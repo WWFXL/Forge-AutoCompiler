@@ -21,7 +21,7 @@
 | double-conversion：初始CMake信息下按作者SCons构建 | 通过 | 通过 | 通过 | 通过 |
 | libsrtp：134207字节保护名单重置脚本后重建 | 通过 | 通过 | 通过 | 通过 |
 
-原件为服务器`/home/yiwei/.codex/outputs/forge-offline-harness-engineering-2026-11-09-v1/`，含逐路径result.json、请求/命令记录和summary.json。SCons依赖准备与重放也真实执行。106项相关行为检查与Ruff用于确认实现，不计模型效果。最初本地测试因共享venv指向旧checkout而未收集，已用明确PYTHONPATH指向新worktree；夹具注册缺口改为显式导入。准备草稿曾从请求重建包读工具反馈而漏计，改从原tool事件提取，旧未发布草稿留在工程目录preparation-draft0；没有付费运行或旧结果被替换。
+原件为服务器`/home/yiwei/.codex/outputs/forge-offline-harness-engineering-2026-11-09-v1/`，含逐路径result.json、请求/命令记录和summary.json。SCons依赖准备与重放也真实执行。106项相关行为检查及新增无更新汇总检查与Ruff用于确认实现，不计模型效果。最初本地测试因共享venv指向旧checkout而未收集，已用明确PYTHONPATH指向新worktree；夹具注册缺口改为显式导入。准备草稿曾从请求重建包读工具反馈而漏计，改从原tool事件提取，旧未发布草稿留在工程目录preparation-draft0；没有付费运行或旧结果被替换。
 
 ## 首轮材料、实现与比较
 
@@ -45,4 +45,4 @@
 
 旧时窗均已结束，新授权前不读取凭据。用户决定重大主线、超预算或主张放宽；本轮不新增联网搜索、多Agent或全面多模型比较。
 
-准备manifest SHA-256：73c7dc003fd51372d3fffdf7c6262cdee3c3f1b92aa9d8242471762da2179f1c。知识库共识已通过MCP保存为《2026-11-09-Forge状态执行与离线Harness优化共识》，不复制Vault或注入构建Agent。
+准备manifest SHA-256：22da06ce9de138b09d88614b3ba31f37d722c58f1630977b3b218d33e7433724。知识库共识已通过MCP保存为《2026-11-09-Forge状态执行与离线Harness优化共识》，不复制Vault或注入构建Agent。

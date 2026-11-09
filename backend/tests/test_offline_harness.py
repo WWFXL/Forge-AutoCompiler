@@ -98,3 +98,10 @@ def test_prepared_corpus_retains_the_repeated_reading_observations():
     assert sum(episode["tool_feedback_counts"].values()) > 1
     assert max(row["count"] for row in episode["read_frequencies"]) > 1
     assert episode["omitted_tool_feedback"] > 0
+
+
+def test_no_change_report_keeps_comparisons_unobserved(tmp_path):
+    (tmp_path / "no-change.json").write_text("{}")
+    report = offline.analyze(tmp_path)
+    assert report["status"] == "no_change" and report["optimizer"] is None
+    assert report["unobserved_comparisons"] == 24 and report["treatment_effect"] is None
