@@ -144,7 +144,10 @@ def test_observation_does_not_substitute_a_stale_cache(runner):
     (root / "old/CMakeCache.txt").write_text("CMAKE_GENERATOR:INTERNAL=Unix Makefiles\n")
     w = build_workflow(runner, "cmake", [step("configure", "configure", "true"), step("build", "build", "make")])
     assert w.run()["status"] == "primary_completed"
-    assert w.configuration["status"] == "unknown" and w.configuration["directory"] is None
+    assert w.configuration["build_system"] == "make" and w.configuration["directory"] != "old"
+    events = [json.loads(line) for line in w.manager.local_logs_dir(w._session).joinpath("workflow.log").read_text().splitlines()]
+    configuration = [e for e in events if e.get("event") == "simple.configuration_observed"]
+    assert configuration[0]["status"] == "unknown" and configuration[0]["directory"] is None
 
 
 @pytest.mark.parametrize("still_invalid", [False, True])

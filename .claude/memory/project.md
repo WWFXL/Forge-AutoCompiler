@@ -623,8 +623,8 @@
 - 2026-11-09 — #703分离执行成功与配置观察未知，完善恢复修订反馈和只改观察目录的恢复。
   - 文件: `backend/packages/harness/deerflow/compile/simple_build_task.py`, `simple_build_runtime.py`, `simple_build_experience.py`, `build_state_routing.py`, `scripts/forge_simple_system.py`, `backend/tests/test_workflow_execution_contract.py`, `docs/compile_workflow_execution.md`, `docs/research/2026-11-09-workflow-state-contract-repair.md`。
   - 动机: 避免合法方案因Shell写法未识别而无故终止；unknown有界继续、真实失败/配置冲突仍停止，独立结果检查保持。可选目录贯通规划/方案/路由/复用，一次结构/执行修订反馈；目录纠错核验后保留原成功命令和系统清理配方。
-  - 验证: 92项相关回归/Ruff/格式通过；v1三路径及v2一受控恢复主库/交付/replay/源码/cleanup通过。v2后补充清理步骤保留由最终回归覆盖，四实建原快照保留；实际8容器16名称/ID不存在。0真实Provider/Token/费，一次脚本响应只为工程检查。
-  - 证据: `forge-workflow-state-contract-repair-2026-11-09-v1/v2`，v2含verification/final-source-snapshot；最终runtime SHA84a8d745。E51/v0.9不变，无新付费身份；支持范围仍为仓库内既有阶段契约，发布终态见GitHub。
+  - 验证: 101项相关回归/Ruff/格式通过；v1三路径及v2一受控恢复主库/交付/replay/源码/cleanup通过。v2后补充清理步骤保留由最终回归覆盖，四实建原快照保留；实际8容器16名称/ID不存在。0真实Provider/Token/费，一次脚本响应只为工程检查。
+  - 证据: `forge-workflow-state-contract-repair-2026-11-09-v1/v2`，v2含verification/final-source-snapshot；最终runtime SHA4851b785；首轮CI三失败日志保留，Make入口标签及两条旧语义断言已校正，publication-source-snapshot记录最终代码。E51/v0.9不变，无新付费身份；支持范围仍为仓库内既有阶段契约，发布终态见GitHub。
 - 2026-11-09 — #701修复preset输出目录定位和配置阶段完成边界，保留原失败
   - 文件: `backend/packages/harness/deerflow/compile/simple_build_runtime.py`, `backend/tests/test_harness_common_base.py`, `docs/research/2026-11-09-workflow-configuration-repair.md`, `RESEARCH_STATUS.md`。
   - 动机: 先解除E51三次合法前置动作成功后被共同执行器提前中断的问题，避免将方案表达兼容性误计为Harness能力。日志定位CMake输出目录仍核验真实Cache；配置阶段末尾才要求完成，中间错误不放过，最终配置缺失反馈明确。

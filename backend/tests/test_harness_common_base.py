@@ -32,11 +32,12 @@ def test_scons_entry_ignores_stale_cmake_cache(tmp_path):
     assert observe_configuration(tmp_path, system, directory=directory)["status"] == "not_applicable"
 
 
-def test_active_cmake_directory_does_not_observe_an_unrelated_cache(tmp_path):
+def test_explicit_cmake_directory_does_not_observe_an_unrelated_cache(tmp_path):
     (tmp_path / "old").mkdir()
     (tmp_path / "old/CMakeCache.txt").write_text("stale cache")
     step = PlanStep(step_id="build", role="build", command="cmake --build current", source="作者", expected="主库")
-    system, directory = configuration_entry(tmp_path, step, {"build_system": "cmake"})
+    assert configuration_entry(tmp_path, step, {"build_system": "cmake"}) == ("cmake", None)
+    system, directory = configuration_entry(tmp_path, step, {"build_system": "cmake"}, build_directory="/workspace/repo/current")
     assert (system, directory) == ("cmake", "current")
     actual = observe_configuration(tmp_path, system, directory=directory)
     assert actual["status"] == "unknown" and actual["configurations"] == []
@@ -88,7 +89,7 @@ def test_split_configuration_checks_completion_only_at_phase_end(runner):  # noq
 
 
 @pytest.mark.parametrize("generation,configure", [("false", "touch config.status"), ("true", "true")])
-def test_split_configuration_still_stops_on_real_failure_or_missing_final_state(runner, generation, configure):  # noqa: F811
+def test_split_configuration_distinguishes_real_failure_from_unknown(runner, generation, configure):  # noqa: F811
     task, session, manager, root = runner
     task = task.model_copy(update={"build_system": "autotools"})
     session.build_system = session.selected_build_system = "autotools"
@@ -104,10 +105,13 @@ def test_split_configuration_still_stops_on_real_failure_or_missing_final_state(
     )
     w = SimpleBuildWorkflow(plan=assemble_simple_plan(task, proposal), session=session, manager=manager, runtime=LocalRuntime(), reference=reference(task))
     result = w.run()
-    assert result["status"] == "needs_handoff" and not (root / "libsample.a").exists()
-    assert result["handoff"]["reason"] == ("configuration_state_incomplete" if configure == "true" else "step_failed_or_expectation_missing")
-    if configure == "true":
-        assert w.refresh_configuration()["phase_complete"] is True
+    if generation == "false":
+        assert result["status"] == "needs_handoff" and not (root / "libsample.a").exists()
+        assert result["handoff"]["reason"] == "step_failed_or_expectation_missing"
+    else:
+        # 真实Makefile存在；配置未知允许执行build，但仍须实际产出主库。
+        assert result["status"] == "primary_completed" and w.primary["status"] == "passed"
+        assert (root / "libsample.a").is_file() and w.handoffs_used == 0
 
 
 def test_large_protected_list_is_not_a_shell_argument(tmp_path, monkeypatch):

@@ -29,14 +29,16 @@
 
 前两条沿用 E51 miniz 原方案的作者 preset 入口，改变日志/等价构建写法以验证兼容语义；第三条复用 #701 的 libogg 路径，因此不是四个独立自然项目或四个模型效果样本。最后一条有 1 次脚本 Agent 响应、0 Token/0 真实 Provider；不能写成高级模型成功修复。
 
-四条各自保留运行代码快照。v2 实建后补充了“观察修订保留既有系统清理步骤”的边界，由最终回归覆盖，未替换或冒称重跑旧实建快照。最终相关回归 **92 项通过**，包括真实 CMake/Autoconf、自定义 Makefile、未知但缺产物、实际中间失败、配置冲突、一次修订纠正、无变化停止和系统清理步骤保留；修改文件 Ruff/格式检查通过。只读资源检查确认 8 个容器的 16 项名称/ID 均不存在。
+四条各自保留运行代码快照。v2 实建后补充了“观察修订保留既有系统清理步骤”的边界，由最终回归覆盖，未替换或冒称重跑旧实建快照。最终相关回归 **101 项通过**，包括真实 CMake/Autoconf、自定义 Makefile、未知但缺产物、实际中间失败、配置冲突、一次修订纠正、无变化停止和系统清理步骤保留；修改文件 Ruff/格式检查通过。只读资源检查确认 8 个容器的 16 项名称/ID 均不存在。
+
+首次CI检出一处实际Make入口仍沿用初始CMake标签的回归，以及两条未同步新执行契约的断言。已校正实际入口标签，并将目录检查绑定显式上下文、将未知继续与真实失败分别验证；首轮CI日志保留，未改变独立最终检查。此前局部回归漏掉该组已有测试，最终101项已包含它；后续CI终态以PR为准。
 
 ## 证据与结论边界
 
 - 三条一般路径：`/home/yiwei/.codex/outputs/forge-workflow-state-contract-repair-2026-11-09-v1/`。
 - 一条受控观察恢复及最终回归：`/home/yiwei/.codex/outputs/forge-workflow-state-contract-repair-2026-11-09-v2/`。
-- 两目录各有 `run_checks.py`、`scope.json`、`source-snapshot/`、`summary.json` 和 Session/日志/交付/重放。v2 的 `verification.json` 记录四条状态与资源核对；`final-source-snapshot/` 对应最终回归。
-- 最终 runtime SHA-256：`84a8d745fb9ec5483d3ded959bfc7486010f0c83486c9cc16a76599dc471dea3`。
+- 两目录各有 `run_checks.py`、`scope.json`、`source-snapshot/`、`summary.json` 和 Session/日志/交付/重放。v2 的 `verification.json` 记录四条状态与资源核对；`final-source-snapshot/` 保存首次92项回归代码，`publication-source-snapshot/`、`publication-verification.json` 和 `ci-followup-tests.log` 对应最终101项回归。
+- 最终 runtime SHA-256：`4851b7859b550285cbb3b89ddc879ab3e2f11656bc26eb2b5383a683916cf2ee`。
 
 这些证据支持当前共同执行策略不再将观察未知自动升级成方案失败，目录观察修复可以不重跑成功命令，且真实失败与最终结果保护仍有效。它们不估计一般兼容率、模型成功率或 Harness 更新收益，也不承诺任意 Shell/仓库均可执行。
 

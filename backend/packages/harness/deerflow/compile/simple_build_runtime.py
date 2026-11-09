@@ -106,6 +106,9 @@ def configuration_entry(root: Path, step: PlanStep, previous: dict, *, output: s
             system = "cmake"
         elif name == "configure":
             system = "autotools"
+        elif name in {"make", "gmake", "ninja"} and directory is None:
+            # 没有已绑定的生成目录时，以实际构建入口替代初始扫描标签。
+            system = "ninja" if name == "ninja" else "make"
         elif name in {"scons", "meson"}:
             system = name
     if system == "cmake":
