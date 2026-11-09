@@ -1,0 +1,28 @@
+{
+  "identity": "cpp-build-offline-recovery-harness-proposal-v1",
+  "raw": "/home/yiwei/.codex/outputs/forge-recovery-harness-proposal-2026-11-09-v2",
+  "inventory_sha256": "3e6b241a0e90f0224a3bad6f520d4545b57181ae3f9bfb33be5f517c8b64e6d8",
+  "candidate_sha256": "35280b6a11f01ef5da56d438659f0492c12ea8a82c18ac3d8a3b2e0e89d14ecf",
+  "provider_requests": 1,
+  "comparisons": 0,
+  "thesis_update": false,
+  "preparation_v1_preserved": "/home/yiwei/.codex/outputs/forge-recovery-harness-proposal-2026-11-09-v1",
+  "paper_sources": [
+    {
+      "source": "compileagent",
+      "url": "https://arxiv.org/html/2505.04254v1",
+      "bytes": 707634
+    },
+    {
+      "source": "buildbench",
+      "url": "https://arxiv.org/html/2509.25248v2",
+      "bytes": 475685
+    },
+    {
+      "source": "cxxcrafter",
+      "url": "https://arxiv.org/html/2505.21069v1",
+      "bytes": 263875
+    }
+  ],
+  "guidance_bytes": 1677
+}

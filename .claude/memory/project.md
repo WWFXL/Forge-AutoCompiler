@@ -3,6 +3,7 @@
 跨 Claude Code session 的项目状态流水。按 CLAUDE.md §7 维护。
 
 ## 进行中 (In Progress)
+- 2026-11-09 — #709恢复Harness提案已取得，等待用户先审核方案再下达比较指令；结果须另审核后才写论文，18新增项目候选仅准备，当前无活动Provider或比较。当前状态以RESEARCH_STATUS.md为准。
 - 2026-11-09 — #707共同验证与依赖配方修复已完成，按用户要求结束修复阶段；无活动Provider或下一比较，发布终态见关联PR/CI收据，当前阶段以RESEARCH_STATUS.md为准。
 - 2026-11-09 — #701共同配置阶段观察修复及两条实际构建已完成，无活动Provider；后续在修复底座上设计近期轨迹驱动的短Harness候选。E51与论文v0.9保持，旧24次身份不续跑；发布/CI终态见GitHub。
 - 2026-11-05 — 当前#695的54次与论文v0.7导出已完成，无活动Provider；下一步全文审阅及学校格式，最终发布状态见GitHub及收据。下列早期进行中条目均为历史，当前阶段以RESEARCH_STATUS.md为准。
@@ -620,6 +621,11 @@
   - 下一步: 等待实验负责人确认当前网络接入介质，并决定是否授权只读 endpoint 诊断和新的 canary amendment；获得确认后必须另建中文 Issue/PR 和协议 identity，保留当前失败 marker。
 
 ## 最近变更 (Recent Changes)
+- 2026-11-09 — 整理自然恢复轨迹并取得一次恢复Harness提案，固定用户双审核与新增项目原则。
+  - 文件: `backend/packages/harness/deerflow/compile/recovery_harness.py`, `scripts/forge_recovery_harness_proposal.py`, `scripts/forge_research_project_pool.py`, `docs/research/2026-11-09-recovery-harness-proposal.md`, `AGENTS.md`。
+  - 动机: 初始规划固定H0，研究失败后证据使用与恢复长尾，先展示高级模型实际指导而不直接比较/写论文。
+  - 结果: 12自然恢复/3正常边界，一次RichLab路由Astra/响应gpt-5.6，105856Token/0.105856美元/51.89秒，1677字节指导、候选SHA35280b6a；原件v2/inventory3e6b241a，v1准备快照保留。28相关检查及实际本机失败恢复构建通过；无付费构建或比较。
+  - 项目: 三论文349条来源/343名称组；18候选URL/commit/入口确认，各系统6项、17根/1嵌套入口。当前manifest/fixture无暴露命中，不称训练未见或完全盲集；BUILD-BENCH正文148/附录149差异披露。原用户checkout和论文v0.10不动。
 - 2026-11-09 — #707修复显式产物smoke、成功依赖配方保留及实际重放标签，结束修复阶段。
   - 文件: `simple_build_task.py`, `simple_build_runtime.py`, `scripts/forge_simple_system.py`, `scripts/forge_common_verification_repair.py`, `backend/tests/test_common_verification_recipe.py`, `docs/compile_workflow_execution.md`及修复报告。
   - 动机: 解除E52共同验证适配与恢复丢依赖缺口；独立参考不送模型，显式成功smoke同时绑定policy与verify脚本。遗漏dependency默认保留，显式废弃才删除；原容器复用成功命令，recipe仅选有效记录且按实际先后。

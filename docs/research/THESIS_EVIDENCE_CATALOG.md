@@ -1,5 +1,7 @@
 # 历史研究材料目录
 
+待审方案：[恢复Harness离线提案与18新增项目候选](2026-11-09-recovery-harness-proposal.md)，一次真实高级模型提案，比较未启动、论文未修改；非效果实验。
+
 共同底座修复：[#707显式验证、依赖配方保留及标签](2026-11-09-common-verification-recipe-repair.md)，四条零Provider正反例，修复阶段结束；不增加模型效果分母、不回填E52。
 
 新增[E52](THESIS_EVIDENCE_INDEX.md#e52)：[第二轮十二项目三策略36次比较](2026-11-09-offline-harness-round2-results.md)，主产物均12/12，最终验证11/12、11/12、10/12；H2初始节约被恢复增费抵消，保留H0默认，四次后续未通过保留。
