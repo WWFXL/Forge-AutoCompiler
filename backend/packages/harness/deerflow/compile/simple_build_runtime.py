@@ -250,7 +250,9 @@ class SimpleBuildWorkflow(PlanWorkflow):
         self.observation_step = None
         self.observation_record = None
         self.primary = None
-        self.layers = dict(command_build_passed=None, primary_build_completed=None, delivery="unobserved", author_tests="unobserved", clean_replay="unobserved", full_completed=None)
+        self.layers = dict(
+            command_build_passed=None, primary_build_completed=None, delivery="unobserved", author_tests="unobserved", executable_smoke="unobserved", final_verification_passed=None, clean_replay="unobserved", full_completed=None
+        )
         self.timings = {}
         super().__init__(**kwargs)
         if meter is not None:
@@ -335,7 +337,11 @@ class SimpleBuildWorkflow(PlanWorkflow):
             reason = "configuration_inconsistent"
         result = super()._request_handoff(reason, step)
         if self.handoff:
-            self.handoff.update(configuration_state=self.configuration, primary_components=self.primary)
+            self.handoff.update(
+                configuration_state=self.configuration,
+                primary_components=self.primary,
+                successful_dependencies=[dict(step_id=s.step_id, command_id=self.completed[s.step_id], command=s.command, workdir=s.workdir) for s in self.plan.steps if s.role == "dependency" and s.step_id in self.completed],
+            )
             self._persist()
             (self.directory / f"handoff-{self.handoff['handoff_id']}.json").write_text(json.dumps(self.handoff, ensure_ascii=False, indent=2) + "\n")
             result = self.snapshot()
@@ -362,11 +368,36 @@ class SimpleBuildWorkflow(PlanWorkflow):
         self._persist()
         return self.snapshot()
 
+    def _retain_dependencies(self, plan):
+        """遗漏不是删除；有效配方保留成功准备，不收集所有历史命令。"""
+        successful = [s for s in self.plan.steps if s.role == "dependency" and s.step_id in self.completed]
+        known = {s.step_id for s in successful}
+        if not set(plan.discard_dependencies) <= known:
+            raise PlanContractError("discard_dependencies只能引用当前已成功的依赖步骤")
+        incoming = {s.step_id: s for s in plan.steps}
+        retained = []
+        keys = ("role", "command", "workdir", "requires", "required_output")
+        for old in successful:
+            if old.step_id in plan.discard_dependencies:
+                continue
+            new = incoming.get(old.step_id)
+            if new is not None and any(getattr(old, k) != getattr(new, k) for k in keys):
+                raise PlanContractError(f"替换成功依赖{old.step_id}须在discard_dependencies中说明理由；不能隐式覆盖")
+            if any(s.step_id != old.step_id and (s.role, s.command, s.workdir) == (old.role, old.command, old.workdir) for s in plan.steps):
+                raise PlanContractError(f"依赖改名没有改变实际执行动作；请沿用成功依赖的step_id={old.step_id}，不要改名重复执行")
+            retained.append(new or old)
+        retained_ids = {s.step_id for s in retained}
+        # 成功环境准备保持实际先后，新增依赖在其后执行；配置后缀仍会失效。
+        value = plan.model_dump()
+        value["steps"] = [*retained, *(s for s in plan.steps if s.step_id not in retained_ids)]
+        return SimpleBuildPlan.model_validate(value)
+
     def validate_revision(self, plan):
         """先把可执行性问题反馈给Agent；只改观察上下文时不重跑成功命令。"""
         plan = SimpleBuildPlan.model_validate(plan)
         if plan.task != self.plan.task or plan.revision != self.plan.revision + 1:
             raise PlanContractError("修订不得改变公开任务或资源身份，必须递增一个版本")
+        plan = self._retain_dependencies(plan)
         record = self.observation_record
         observation_only = bool(self.handoff and self.handoff["reason"] == "configuration_inconsistent" and record and record.exit_code == 0 and not record.timed_out)
         kind = validate_simple_revision(self.plan, plan, allow_observation_only=observation_only)
@@ -385,6 +416,7 @@ class SimpleBuildWorkflow(PlanWorkflow):
                 raise PlanContractError("没有匹配的活动交接或修改理由")
             plan = SimpleBuildPlan.model_validate(plan)
             kind, observation = self.validate_revision(plan)
+            plan = self._retain_dependencies(plan)
             if kind == "observation":
                 # Agent不可生成/覆盖系统步骤；观察修订仍保留已执行的实际清理配方。
                 replacement = {s.step_id: s for s in plan.steps}
@@ -399,6 +431,7 @@ class SimpleBuildWorkflow(PlanWorkflow):
             self._apply_execution_revision(handoff_id=handoff_id, plan=plan, reason=reason)
 
     def _apply_execution_revision(self, *, handoff_id, plan, reason):
+        retained_dependencies = {s.step_id: self.completed[s.step_id] for s in self.plan.steps if s.role == "dependency" and s.step_id in self.completed and s.step_id not in plan.discard_dependencies}
         old = [s for s in self.plan.steps if s.step_id != "forge-generated-reset"]
         new = [s for s in plan.steps if s.step_id != "forge-generated-reset"]
         before = [(s.role, s.command, s.workdir) for s in old if s.role in {"dependency", "configure"}]
@@ -412,6 +445,13 @@ class SimpleBuildWorkflow(PlanWorkflow):
             new.insert(position, next(s for s in self.plan.steps if s.step_id == "forge-generated-reset"))
             plan = plan.model_copy(update={"steps": tuple(new)})
         super().apply_revision(handoff_id=handoff_id, plan=plan, reason=reason)
+        # 删除前面的某个依赖可能使通用前缀算法清空后续完成记录；仍有效的
+        # 独立准备动作可复用，避免仅为了保留重放配方而在原容器重装。
+        for step in self.plan.steps:
+            if step.step_id in retained_dependencies and set(step.requires) <= self.completed.keys():
+                self.completed[step.step_id] = retained_dependencies[step.step_id]
+        self.manager.log_event(self._session, "simple.dependencies_retained", command_ids=retained_dependencies, discarded=plan.discard_dependencies)
+        self._persist()
         self.observation_step = self.observation_record = None
         self.configuration = dict(status="unknown", directory=None, build_system=plan.build_system, reason="方案修订后等待新的实际执行证据")
         self.primary = None
@@ -440,6 +480,32 @@ class SimpleBuildWorkflow(PlanWorkflow):
         self._expected_frontier = self._frontier()
         source_unchanged(self.root, self.baseline)
         return record, result
+
+    def _executable_verification(self, timeout):
+        """执行受信参考中的轻量命令；复用submit原有的成功命令绑定接口。"""
+        if not self.reference.executable_smokes:
+            return None, True  # 沿用原默认三参数，不增加隐式探测。
+        executables = {Path(p["path"]).name for p in self.primary["artifacts"] if p["kind"] == "executable"}
+        selected = [s for s in self.reference.executable_smokes if s.artifact_name in executables]
+        if {s.artifact_name for s in selected} != executables:
+            self.layers["executable_smoke"] = "unobserved"
+            return None, False
+        bindings = {}
+        start = time.monotonic()
+        self.layers["executable_smoke"] = "not_applicable" if not executables else "passed"
+        for smoke in selected:
+            remaining = int(timeout - (time.monotonic() - start))
+            if remaining <= 0:
+                self.layers["executable_smoke"] = "timeout"
+                return None, False
+            record, output = self._post_command(smoke.step, remaining)
+            if record.exit_code != 0 or record.timed_out or not all(v in output.combined_output for v in smoke.step.required_output):
+                self.layers["executable_smoke"] = "timeout" if record.timed_out else "failed"
+                return None, False
+            bindings[smoke.artifact_name] = operations.SuccessfulCommandVerification(
+                command_id=record.command_id, command=record.command, workdir=record.workdir, exit_code=record.exit_code, output=output.combined_output, output_sha256=hashlib.sha256(output.combined_output.encode()).hexdigest()
+            )
+        return operations.ExecutableVerificationPolicy.successful_commands(bindings) if bindings else None, True
 
     def postchecks(self, *, author_test_seconds=60, delivery_seconds=30, replay=True, validation_scope="author_tests"):
         """主构建已冻结后独立计时；测试失败仍可观察构建重放，不吞主构建预算。"""
@@ -485,15 +551,31 @@ class SimpleBuildWorkflow(PlanWorkflow):
         replayed_tests = self.layers["author_tests"] == "passed"
         if replay and self.layers["delivery"] == "passed":
             self._observe()
-            ids = [self.completed[s.step_id] for s in self.plan.steps] + [staged.command_id]
+            selected = {self.completed[s.step_id] for s in self.plan.steps} | {staged.command_id}
+            ids = [r.command_id for r in self._session.commands if r.command_id in selected]
             builds = [self.completed[s.step_id] for s in self.plan.steps if s.role == "build"]
             start = time.monotonic()
-            operations.submit_build_result_impl(session=self._session, supporting_command_id=builds[-1], recipe_command_ids=ids, verification_command_ids=[t["command_id"] for t in tests] if replayed_tests else [])
-            self._session = self._load()
-            self._expected_frontier = self._frontier()
-            attempts = self._session.replay_attempts
-            self.layers["clean_replay"] = "passed" if attempts and attempts[-1].status == "passed" and self._session.status == "verified" else "failed"
-            self.timings["clean_replay_seconds"] = time.monotonic() - start
+            attempt_count = len(self._session.replay_attempts)
+            self.layers.update(clean_replay="not_started", final_verification_passed=False)
+            try:
+                policy, smoke_passed = self._executable_verification(author_test_seconds)
+                if smoke_passed:
+                    kwargs = dict(executable_verification_policy=policy) if policy is not None else {}
+                    verification_ids = {t["command_id"] for t in tests} if replayed_tests else set()
+                    if policy is not None:
+                        verification_ids.update(e.command_id for e in policy.commands_by_artifact.values())
+                    ordered_checks = [r.command_id for r in self._session.commands if r.command_id in verification_ids]
+                    operations.submit_build_result_impl(session=self._session, supporting_command_id=builds[-1], recipe_command_ids=ids, verification_command_ids=ordered_checks, **kwargs)
+            finally:
+                self._session = self._load()
+                self._expected_frontier = self._frontier()
+                attempts = self._session.replay_attempts[attempt_count:]
+                self.layers["clean_replay"] = attempts[-1].status if attempts else "not_started"
+                self.layers["final_verification_passed"] = bool(attempts and attempts[-1].status == "passed" and self._session.status == "verified")
+                if not self.reference.executable_smokes and self._session.verification:
+                    checks = [c for c in self._session.verification.checks if c.name.endswith("_smoke_test")]
+                    self.layers["executable_smoke"] = "passed" if checks and all(c.passed for c in checks) else "failed" if checks else "not_applicable"
+                self.timings["clean_replay_seconds"] = time.monotonic() - start
         source_unchanged(self.root, self.baseline)
         self.timings["total_seconds_before_cleanup"] = self.clock() - self.started
         result = dict(
