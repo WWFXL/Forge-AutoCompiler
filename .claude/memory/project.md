@@ -3,7 +3,7 @@
 跨 Claude Code session 的项目状态流水。按 CLAUDE.md §7 维护。
 
 ## 进行中 (In Progress)
-- 2026-11-09 — #703共同执行机制与观察恢复已完成，0真实Provider；待最终PR/CI/合并收据，随后设计新底座的短Harness候选，不续旧24次或默认扩批。当前阶段以RESEARCH_STATUS.md为准。
+- 2026-11-09 — #707共同验证与依赖配方修复已完成，按用户要求结束修复阶段；无活动Provider或下一比较，发布终态见关联PR/CI收据，当前阶段以RESEARCH_STATUS.md为准。
 - 2026-11-09 — #701共同配置阶段观察修复及两条实际构建已完成，无活动Provider；后续在修复底座上设计近期轨迹驱动的短Harness候选。E51与论文v0.9保持，旧24次身份不续跑；发布/CI终态见GitHub。
 - 2026-11-05 — 当前#695的54次与论文v0.7导出已完成，无活动Provider；下一步全文审阅及学校格式，最终发布状态见GitHub及收据。下列早期进行中条目均为历史，当前阶段以RESEARCH_STATUS.md为准。
 - 2026-10-27 — #629准备当前CXXCrafter阶段性参考六槽，用户已明确继续，沿原10美元/UTC12:44:30截止，新阶段自限4美元。
@@ -620,6 +620,11 @@
   - 下一步: 等待实验负责人确认当前网络接入介质，并决定是否授权只读 endpoint 诊断和新的 canary amendment；获得确认后必须另建中文 Issue/PR 和协议 identity，保留当前失败 marker。
 
 ## 最近变更 (Recent Changes)
+- 2026-11-09 — #707修复显式产物smoke、成功依赖配方保留及实际重放标签，结束修复阶段。
+  - 文件: `simple_build_task.py`, `simple_build_runtime.py`, `scripts/forge_simple_system.py`, `scripts/forge_common_verification_repair.py`, `backend/tests/test_common_verification_recipe.py`, `docs/compile_workflow_execution.md`及修复报告。
+  - 动机: 解除E52共同验证适配与恢复丢依赖缺口；独立参考不送模型，显式成功smoke同时绑定policy与verify脚本。遗漏dependency默认保留，显式废弃才删除；原容器复用成功命令，recipe仅选有效记录且按实际先后。
+  - 结果: 四工程路径fse原生-V通过/错误参数拒绝且replay未启动，libsig保留安装通过/显式删安装新容器127失败；源码/cleanup均过、Provider/Token/费0，两次脚本恢复不算模型效果。95相关/2828产品通过、46跳过，修改文件Ruff/格式通过。
+  - 证据: `forge-common-verification-recipe-repair-2026-11-09-v2`保存scope/代码快照/cases/summary/Session/repro/实际attempt；v1漏传verify ID失败原样保留。E52原36次、旧分母、论文v0.10均不改，不计人工修复为Harness收益；结束修复、不启动新实验。发布/知识库收据见关联PR和MCP。
 - 2026-11-09 — 完成第二轮十二项目各一次×三策略36次实跑及分层/费用解释，更新论文v0.10。
   - 文件: `docs/research/2026-11-09-offline-harness-round2-results.md`, `benchmarks/analyses/offline-harness-round2-2026-11-09/`, `docs/thesis/chapters/04-状态感知动作与恢复.md`, `docs/thesis/chapters/05-经验驱动Harness设计.md`, `docs/thesis/chapters/06-实验设计与结果分析.md`。
   - 结果: 主产物/文件交付各12/12，最终验证11/12、11/12、10/12；48/79/83请求，0.1801488/0.3292107/0.3377358美元，H2初始节约而恢复增费，保留H0。总211请求/2568579Token/0.9034953美元、未知0；源码/cleanup36过、138容器身份不存在。

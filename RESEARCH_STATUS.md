@@ -2,7 +2,15 @@
 
 论文选材固定入口：[硕士论文实验与证据索引](docs/research/THESIS_EVIDENCE_INDEX.md)，[历史材料目录](docs/research/THESIS_EVIDENCE_CATALOG.md)保留存量导航。当前完整稿为[论文v0.10第二轮结果稿](docs/thesis/README.md)；E50–E52保存主构建系统及两轮Harness结果，既有完整任务、状态/恢复消融和两层经验继续按各自版本与分母使用。
 
-## 当前阶段（2026-11-09；#705第二轮十二项目Harness比较完成、论文v0.10整合）
+## 当前阶段（2026-11-09；#707共同验证/依赖配方及标签修复完成，修复阶段结束）
+
+本轮为工程修复，见[报告](docs/research/2026-11-09-common-verification-recipe-repair.md)与[执行契约](docs/compile_workflow_execution.md)。独立参考提供有作者依据的可执行轻量验证，复用原policy并加入干净重放验证脚本；恢复遗漏成功dependency默认保留，原容器不重复安装，废弃/替换须显式ID及理由。最终验证、实际重放与可复现交付分列；无attempt不再填重放失败。
+
+独立`cpp-build-common-verification-recipe-repair-v2`四条零Provider真实构建按预期终结：fse原生-V通过与错误参数拒绝/重放未启动；libsigcplusplus保留mm-common后干净重放通过，显式删除必要安装则原容器主库成功、新容器127失败。源码/cleanup均过，约250.19秒；2次零Token脚本恢复只支持实现。v1首次漏传verification recipe被正确拒绝，原失败保留。95相关检查、2828产品测试通过/46跳过，修改文件Ruff/格式通过。原件`forge-common-verification-recipe-repair-2026-11-09-v1/v2`；发布终态以Issue707、关联PR及GitHub收据为准。
+
+本阶段按用户要求结束，不追加实建、Provider或Harness比较。E52原36次、旧分母和论文v0.10保持，不将人工底座修复计为H1/H2收益。后续可在新共同版本固定初始H0，针对恢复轨迹设计离线Harness更新；尚未启动。原用户checkout未提交内容保留；知识库仅MCP同步、不注入实验Agent。
+
+## 上一阶段（2026-11-09；#705第二轮十二项目Harness比较完成、论文v0.10整合）
 
 本轮[报告](docs/research/2026-11-09-offline-harness-round2-results.md)与[E52](docs/research/THESIS_EVIDENCE_INDEX.md#e52)保存一次近期24轨迹提案及36/36次比较：12项目各一次×H0/H1/H2、三构建系统各4项目、初始策略唯一变化。主产物/文件交付均12/12，最终验证11/12、11/12、10/12；请求48/79/83，在线费0.1801488/0.3292107/0.3377358美元，累计851.47/1408.72/1057.44秒。H2初始费比H0低18.2%，总费反高87.5%、时间高24.2%；比H1时间低24.9%、总费高2.6%。保留H0默认及混合结果，不称持续提效。
 

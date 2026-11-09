@@ -46,6 +46,14 @@ class SimpleBuildActions(BaseModel):
     reason: str = Field(min_length=1, description="简短说明构建入口及选项依据，不是步骤列表")
     steps: list[SimpleBuildAction] = Field(min_length=1)
     build_directory: str | None = Field(default=None, description="有作者依据时提供主项目构建目录，使用/workspace/repo内规范绝对路径；仅辅助观察，不改变workdir或作为成功断言")
+    discard_dependencies: dict[str, str] = Field(default_factory=dict, description="仅恢复时使用：显式废弃或替换已成功依赖步骤的step_id及非空理由；未声明的成功依赖由系统保留，不能因当前容器已有而省掉重放安装")
+
+    @field_validator("discard_dependencies")
+    @classmethod
+    def valid_discards(cls, value):
+        if any(not key.strip() or not reason.strip() for key, reason in value.items()):
+            raise ValueError("废弃依赖必须提供步骤标识和非空理由")
+        return value
 
     @field_validator("build_directory")
     @classmethod
@@ -59,7 +67,7 @@ class SimpleBuildActions(BaseModel):
     @model_validator(mode="after")
     def valid_execution(self) -> Self:
         # 使用成熟的动作/顺序校验，工具schema不再暴露旧候选观察字段。
-        ObservedBuildActions.model_validate(self.model_dump(exclude={"build_directory"}))
+        ObservedBuildActions.model_validate(self.model_dump(exclude={"build_directory", "discard_dependencies"}))
         if any(s.step_id.startswith("forge-") for s in self.steps):
             raise ValueError("不能占用系统步骤标识")
         return self
@@ -99,6 +107,20 @@ class PrimaryComponent(BaseModel):
         return self
 
 
+class ExecutableSmoke(BaseModel):
+    """独立验证侧提供的作者用法；不作为模型规划输出。"""
+
+    model_config = ConfigDict(frozen=True, extra="forbid")
+    artifact_name: str
+    step: PlanStep
+
+    @model_validator(mode="after")
+    def valid_smoke(self) -> Self:
+        if relative_path(self.artifact_name) != self.artifact_name or "/" in self.artifact_name or self.step.role != "smoke" or self.step.requires:
+            raise ValueError("轻量验证须绑定精确交付文件名，使用独立smoke动作")
+        return self
+
+
 class BuildReference(BaseModel):
     """评测侧独立核对的数据，不能序列化为规划Agent的任务。"""
 
@@ -108,6 +130,7 @@ class BuildReference(BaseModel):
     components: tuple[PrimaryComponent, ...] = Field(min_length=1)
     author_tests: tuple[PlanStep, ...] = ()
     tests_not_applicable_reason: str | None = None
+    executable_smokes: tuple[ExecutableSmoke, ...] = ()
 
     @model_validator(mode="after")
     def tests(self) -> Self:
@@ -117,6 +140,10 @@ class BuildReference(BaseModel):
             raise ValueError("作者测试只能是独立smoke步骤")
         if self.author_tests and self.tests_not_applicable_reason:
             raise ValueError("已定义测试时不能同时声明不适用")
+        names = [s.artifact_name for s in self.executable_smokes]
+        executable_names = {name for c in self.components if "executable" in c.kinds for name in c.artifact_names}
+        if len(set(names)) != len(names) or not set(names) <= executable_names:
+            raise ValueError("轻量验证须唯一绑定参考中的可执行组件")
         return self
 
 
@@ -129,12 +156,16 @@ class SimpleBuildPlan(BaseModel):
     revision: int = Field(default=1, ge=1)
     steps: tuple[PlanStep, ...] = Field(min_length=1)
     build_directory: str | None = None
+    discard_dependencies: dict[str, str] = Field(default_factory=dict)
     # 供通用进展/修订算法核对：本版本不在方案内绑定交付路径。
     artifact_paths: tuple[str, ...] = Field(default=(), max_length=0)
 
     @model_validator(mode="after")
     def validate_steps(self) -> Self:
         SimpleBuildActions.valid_directory(self.build_directory)
+        SimpleBuildActions.valid_discards(self.discard_dependencies)
+        if self.revision == 1 and self.discard_dependencies:
+            raise ValueError("初始方案不能废弃尚未执行的依赖")
         rank, seen = -1, set()
         for s in self.steps:
             r = {"dependency": 0, "configure": 1, "build": 2}.get(s.role)
@@ -182,7 +213,7 @@ def assemble_simple_plan(task: PublicBuildTask, proposal: ObservedBuildActions, 
             raise PlanContractError("不能占用系统步骤标识")
         value = s.model_dump(exclude={"stdout_contains", "files_exist", "directories_exist"})
         steps.append(PlanStep(**value))
-    return SimpleBuildPlan(task=task, revision=revision, steps=tuple(steps), build_directory=getattr(proposal, "build_directory", None))
+    return SimpleBuildPlan(task=task, revision=revision, steps=tuple(steps), build_directory=getattr(proposal, "build_directory", None), discard_dependencies=getattr(proposal, "discard_dependencies", {}))
 
 
 def validate_simple_revision(current: SimpleBuildPlan, proposed: SimpleBuildPlan, *, allow_observation_only=False) -> str:
@@ -220,7 +251,9 @@ SIMPLE_PROMPT = (
 恢复读取命令/配置/主要组件缺失反馈，返回完整方案和理由；不改变任务与独立结果检查。
 没有参考成功命令或精确路径；不能读取/repro、个人知识库或宿主文件。source给出实际证据。
 规划顺序：先利用现有README和根构建文件识别作者普通入口，再仅补读解决当前具体疑问所必需的文件。
-当主要目标、入口、必要依赖以及配置/编译命令已有依据时，立即交付；依赖已可用时省略dependency，Make项目不必虚构configure。
+当主要目标、入口、必要依赖以及配置/编译命令已有依据时，立即交付；基础镜像原有依赖可省略安装，Make项目不必虚构configure。
+本轮临时安装成功的依赖必须留在从零重建配方中；未提及的成功dependency由系统保留，不会因当前容器已经可用而删除。
+恢复时沿用成功依赖的step_id；确需废弃或替换时在discard_dependencies中写明原step_id及理由，新命令仍放steps。干净重放继续独立验证。
 不要为排除所有潜在错误而遍历子目录、示例和测试；后续真实执行失败由恢复处理。已有材料足够时不再重复核查历史经验。
 恢复只围绕真实失败修订；保留仍适用的前缀。无法给出有依据的方案时明确说明阻塞，不编造成功。
 结构错误会提供一次明确反馈，保持已读材料，修正字段后提交；reason必须为字符串，steps才是步骤列表。

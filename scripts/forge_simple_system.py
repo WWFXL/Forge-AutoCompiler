@@ -236,8 +236,17 @@ def run_simple_system(
                 result["layers"]["full_completed"] = None  # 旧完整任务包含作者测试，不能冒称通过。
             else:
                 result["layers"]["full_completed"] = full_completion(result["layers"], result["cleanup"]["succeeded"])
+            result["layers"]["reproducible_delivery_completed"] = bool(
+                result["layers"].get("primary_build_completed")
+                and result["layers"].get("delivery") == "passed"
+                and result["layers"].get("final_verification_passed") is True
+                and result["layers"].get("clean_replay") == "passed"
+                and result["source_unchanged"] is True
+                and result["cleanup"]["succeeded"]
+            )
             if result["status"] == "error" or result["source_unchanged"] is False:
                 result["layers"]["full_completed"] = False
+                result["layers"]["reproducible_delivery_completed"] = False
                 if validation_scope == "main_build":
                     result["layers"]["main_build_task_completed"] = False
         result["validation_scope"] = validation_scope
