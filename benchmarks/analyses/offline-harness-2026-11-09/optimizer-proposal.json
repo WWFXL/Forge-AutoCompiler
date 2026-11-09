@@ -1,0 +1,53 @@
+{
+  "diagnoses": [
+    {
+      "evidence_ids": [
+        "forge-simple-system-comparison-flash-v1:2:event:6",
+        "forge-simple-system-comparison-flash-v1:2:event:108",
+        "forge-simple-system-comparison-flash-v1:2:event:106",
+        "forge-simple-system-comparison-flash-v1:2:outcome",
+        "forge-simple-system-comparison-flash-v1:27:event:6",
+        "forge-simple-system-comparison-flash-v1:27:event:346",
+        "forge-simple-system-comparison-flash-v1:27:response-50",
+        "forge-simple-system-comparison-flash-v1:27:outcome"
+      ],
+      "problem": "存在可重复的无新增证据探索：同一路径、同一起始行甚至同一完整短文件被反复读取；已有文件哈希和覆盖范围未被用作去重依据。一个轨迹读取39次后才交付，另一个读取122次且未交付，重复读取没有改变入口、目标或命令判断。",
+      "proposed_change": "在规划提示中加入证据账本：按路径记录已覆盖行段、内容哈希、已支持的结论和仍缺问题。再次读取前必须指出要获得的新增事实；相同哈希且目标行已覆盖时禁止重读。只有先前反馈截断且所需行未覆盖、读取报错、恢复反馈表明文件可能变化，或需要定位一个尚无依据的具体声明时才补读。",
+      "expected_behavior": "Agent会复用已读证据，在入口、主要目标、依赖和命令均有依据后直接交付；截断造成关键行缺失时仍会定点补读，不会把减少请求置于证据完整性之上。"
+    },
+    {
+      "evidence_ids": [
+        "forge-simple-system-comparison-flash-v1:1:response-1",
+        "forge-simple-system-comparison-flash-v1:1:event:5",
+        "forge-simple-system-comparison-flash-v1:14:response-1",
+        "forge-simple-system-comparison-flash-v1:14:event:7",
+        "forge-simple-system-comparison-flash-v1:14:event:23",
+        "forge-simple-system-comparison-flash-v1:14:outcome",
+        "forge-main-system-comparison-flash-v1:19:response-1",
+        "forge-main-system-comparison-flash-v1:19:outcome"
+      ],
+      "problem": "首轮读取有时从子目录构建文件、源码目录或README中段开始，尚未先确认source_packet是否已包含根README和根构建入口。这样会先展开组件细节或无关章节，再回头寻找作者普通入口；对已有充分材料的任务，历史轨迹证明可以无需补读直接形成成功计划。",
+      "proposed_change": "明确首轮决策顺序：先盘点source_packet中已有证据，再查看README的构建/安装/quick-start段和根构建文件的默认入口；仅当根级材料不能回答一个具体问题时，沿根构建图指向的脚本或子目录文件补读。不要以列举源码文件、测试目录或CI矩阵作为默认的入口发现手段；README较长时应定位构建标题或命令附近，而非任意中段。",
+      "expected_behavior": "Agent优先找到作者推荐的普通Linux入口，并在Make默认目标或其他根级入口已明确时尽快收敛；若根构建图不能确认主要组件或必要依赖，仍会沿引用关系补读对应文件，避免遗漏。"
+    },
+    {
+      "evidence_ids": [
+        "forge-simple-system-comparison-flash-v1:17:event:5",
+        "forge-simple-system-comparison-flash-v1:17:event:9",
+        "forge-simple-system-comparison-flash-v1:17:event:11",
+        "forge-simple-system-comparison-flash-v1:17:event:19",
+        "forge-simple-system-comparison-flash-v1:17:response-4",
+        "forge-main-system-comparison-flash-v1:12:event:7",
+        "forge-main-system-comparison-flash-v1:12:event:13",
+        "forge-main-system-comparison-flash-v1:12:event:15",
+        "forge-main-system-comparison-flash-v1:12:event:17",
+        "forge-main-system-comparison-flash-v1:12:outcome"
+      ],
+      "problem": "证据收集缺少按规划疑问组织的停止条件，容易把“确认主要组件”扩展成枚举src和test内容。Autotools案例中，根目录状态、生成脚本、顶层SUBDIRS及主库声明已足以支持生成、配置、构建链；逐项列出源码和测试文件并未为命令增加必要依据。",
+      "proposed_change": "要求维护四项决策表：作者入口、默认主要组件、必要依赖/生成前置、阶段命令。每次补读只能填补其中一个明确空项或解决冲突。主要组件优先由顶层递归关系和目标声明证明，不要求枚举每个源文件；依赖仅记录会改变dependency或configure动作的外部要求。四项均有一致证据后立即组织计划。",
+      "expected_behavior": "Agent会用根构建图覆盖自然包含的主要组件，并对缺失生成物等真正影响阶段链的问题进行必要补读；不会为证明每个源文件、测试名或可选目标而继续遍历。"
+    }
+  ],
+  "planning_guidance": "追加以下规划策略：\n\n建立“问题—证据账本”后再请求源码。账本只跟踪四类决策：①作者推荐的普通Linux构建入口；②默认构建图中的主要程序/库及自然包含组件；③会改变dependency或configure动作的必要外部依赖、生成步骤和架构条件；④最终各阶段命令及其先后关系。先盘点source_packet已经覆盖的文件、行段和结论，不因材料来自初始包就机械重读。\n\n读取顺序采用根级优先：先定位README中的构建、安装或quick-start段，并核对根构建文件的默认入口、默认目标和递归子目录。若两者已经一致回答四类决策，立即交付。只有存在明确未决问题时，才沿根构建文件实际引用的本地脚本、选项定义或子目录构建文件定点补读。不要默认从源码目录、测试目录、README任意中段、CI矩阵或可选构建系统开始；CI仅在作者普通入口仍有歧义时作为次级佐证。\n\n每次补读前先写明它要回答的单一问题，例如“默认目标是否包含主库”“源码检出是否必须先生成configure”“某外部包是否为无条件依赖”。读取后把结论、路径、覆盖行段和内容哈希记入账本。相同哈希且所需内容已覆盖时，不再读取同一路径；无新增问题时也不换起始行重复探索。必要补读包括：先前结果被截断且关键定义不在已覆盖行段、工具读取失败、不同作者材料发生冲突、恢复反馈指出配置或主要组件证据缺失，或根构建图明确指向尚未读取的关键文件。\n\n主要组件以构建图证据组织：优先引用默认目标、目标声明、SUBDIRS/add_subdirectory等递归关系和控制它们的默认条件。无需枚举全部源文件、测试文件或产物来证明覆盖完整；但若条件开关决定某个主要组件默认是否参与，则定点读取该开关的定义。必要依赖只收集会实际增加dependency步骤或改变配置命令的无条件要求；可选功能、平台分支和潜在失败不做预防性遍历。\n\n形成计划前做一次证据闭合检查：每个动作都应能对应作者说明或构建文件；命令不得依赖未证实的选项；默认构建图中的主要组件未被缩小；不存在尚未解决且会改变动作序列的冲突。闭合后停止读取并提交。若仍缺证据，只补最小相关片段；若无法获得决定性证据，明确阻塞，不以更多无目标目录遍历替代结论。\n\n恢复阶段复用账本和仍适用的动作前缀。仅把真实失败映射到一个具体疑问，再读取直接相关的日志所指文件、选项或依赖声明；未受失败影响的入口、组件和证据不重新核查。",
+  "no_change": false
+}

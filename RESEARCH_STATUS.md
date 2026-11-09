@@ -1,14 +1,16 @@
 # Forge Research Status
 
-论文选材固定入口：[硕士论文实验与证据索引](docs/research/THESIS_EVIDENCE_INDEX.md)，[历史材料目录](docs/research/THESIS_EVIDENCE_CATALOG.md)保留存量导航。当前完整稿为[论文v0.7](docs/thesis/README.md)；E50新增主构建系统结果，既有完整任务、状态/恢复消融和两层经验继续按各自版本与分母使用。
+论文选材固定入口：[硕士论文实验与证据索引](docs/research/THESIS_EVIDENCE_INDEX.md)，[历史材料目录](docs/research/THESIS_EVIDENCE_CATALOG.md)保留存量导航。当前完整稿为[论文v0.9首轮结果稿](docs/thesis/README.md)；E50新增主构建系统结果，既有完整任务、状态/恢复消融和两层经验继续按各自版本与分母使用。
 
-## 当前阶段（2026-11-09；#697共同底座修复与首轮离线Harness更新准备）
+## 当前阶段（2026-11-09；#699首轮离线Harness比较完成、论文v0.9整合）
 
-用户确认以“状态感知执行＋历史轨迹驱动的离线Harness更新”推进硕士论文，保持七章。第4章研究任务内动作，第5章研究固定模型下任务间Harness更新；经验/方案复用纳入其组件。[本轮记录](docs/research/2026-11-09-offline-harness-preparation.md)与[协议](benchmarks/preregistrations/cpp-build-offline-harness-round1-flash-v1.md)为入口。共同修复实际构建入口/目录观察和长保护名单标准输入传输，double-conversion SCons及libsrtp长重置两条真实工程路径的主任务/交付/replay/源码/cleanup均通过，0 Provider；不计自动优化效果。
+用户确认以“任务内状态感知执行＋历史构建轨迹驱动的任务间Harness更新”推进七章硕士论文。[首轮报告](docs/research/2026-11-09-offline-harness-round1-results.md)与[E51](docs/research/THESIS_EVIDENCE_INDEX.md#e51)保存一次真实RichLab提案及24/24次H0/H1比较：各12次主任务10/12、11/12，请求28/37，在线估费0.0933894/0.1240773美元、累计343.21/406.36秒。H1多完成一次，但费用高32.9%、时间高18.4%，暂不替换默认H0。全部已有研发暴露，不称最终holdout或持续提效。
 
-首轮准备九条三族开发轨迹，一次RichLab提案，六不同项目×两重复×H0/H1共24槽，固定Flash、恢复/规则/Workflow/裁判，唯一变化是初始规划策略，关闭经验与精确方案跳过规划。全部项目有历史暴露，不称最终holdout；评价不反馈当前轮，后续反馈即转开发。H0共享人工修复，不能把修复归入H1收益。允许小收益、混合、无更新和退化，先完成一轮再决定第二轮/消融。
+三次未完成保留：libogg H1槽6与H0槽18将脚本生成单独列为configure，命令退出0后被提前要求配置完成；miniz H0槽15的作者preset生成到build，观察器却检查根目录。恢复均只改说明、未改命令而停止，后续主产物/交付/replay未观察，不称作者测试失败。源码21过3未观察、cleanup24过。成功21次交付/replay通过，作者测试not_required。共同底座人工修复不计H1收益，也不重填旧失败。
 
-七章源稿已调整为v0.8设计稿，旧v0.7与E42–E50原结果继续按各自版本/分母使用。当前无新Provider或H1效果，拟议10美元硬上限/确认起4小时尚未授权；不续旧账本。Jev旧权限/未知费用不重试，不阻塞本轮。原用户checkout及其未提交内容保留，知识库仅MCP同步、不注入实验Agent。
+H1实际指导2772字节，只用于初始规划；当前两组精确重复信息调用均0，旧长探索未在本批H0出现，H1初始补读/列举更多。提案0.039897美元，H1在线加提案0.1639743美元高于H0在线；历史来源约0.3827646美元另列。本轮66请求/703637Token/新增0.2573637美元、未知0，逐响应复算一致。原件`forge-offline-harness-round1-flash-v1`，inventory99527f92832f5e838ab8da6a9dc394cf0d4c1efa607c2393a71ecf4a53efcc57；45容器90项名称/ID实查不存在。运行512def0f、manifest22da06ce；无自动重试/补槽，正式进程已退出。
+
+第5/6章及摘要、结论、映射/附录已补入首轮真实结果，v0.9导出与最终发布状态见[论文入口](docs/thesis/README.md)及GitHub。准备PR698三CI通过、merge ac97c987、Issue697关闭；结果Issue699。用户授权10美元/UTC03:49:58—07:49:58仅对应本轮24次；不因余额自动扩批。下一步先共享修复已定位的阶段/目录观察，再以近期轨迹研究更短、按缺口触发的候选，第二轮范围/预算需另固定，最终评价另留项目。Jev旧权限/未知费用仍不重试、不阻塞论文。原用户checkout保留，知识库仅MCP同步、不进入实验Agent。
 
 ## 上一阶段（2026-11-05；#695主构建54次完成，转论文v0.7整合与审阅）
 
