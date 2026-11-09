@@ -3,7 +3,6 @@
 跨 Claude Code session 的项目状态流水。按 CLAUDE.md §7 维护。
 
 ## 进行中 (In Progress)
-- 2026-11-09 — #705第二轮离线Harness：12项目各一次×H0/H1/H2，5美元/原UTC10:34:51截止，24近期轨迹一次提案；准备完成待真实数据采集，不续E51，不将共同修复计作H2收益。详见RESEARCH_STATUS.md及round2协议。
 - 2026-11-09 — #703共同执行机制与观察恢复已完成，0真实Provider；待最终PR/CI/合并收据，随后设计新底座的短Harness候选，不续旧24次或默认扩批。当前阶段以RESEARCH_STATUS.md为准。
 - 2026-11-09 — #701共同配置阶段观察修复及两条实际构建已完成，无活动Provider；后续在修复底座上设计近期轨迹驱动的短Harness候选。E51与论文v0.9保持，旧24次身份不续跑；发布/CI终态见GitHub。
 - 2026-11-05 — 当前#695的54次与论文v0.7导出已完成，无活动Provider；下一步全文审阅及学校格式，最终发布状态见GitHub及收据。下列早期进行中条目均为历史，当前阶段以RESEARCH_STATUS.md为准。
@@ -621,6 +620,11 @@
   - 下一步: 等待实验负责人确认当前网络接入介质，并决定是否授权只读 endpoint 诊断和新的 canary amendment；获得确认后必须另建中文 Issue/PR 和协议 identity，保留当前失败 marker。
 
 ## 最近变更 (Recent Changes)
+- 2026-11-09 — 完成第二轮十二项目各一次×三策略36次实跑及分层/费用解释，更新论文v0.10。
+  - 文件: `docs/research/2026-11-09-offline-harness-round2-results.md`, `benchmarks/analyses/offline-harness-round2-2026-11-09/`, `docs/thesis/chapters/04-状态感知动作与恢复.md`, `docs/thesis/chapters/05-经验驱动Harness设计.md`, `docs/thesis/chapters/06-实验设计与结果分析.md`。
+  - 结果: 主产物/文件交付各12/12，最终验证11/12、11/12、10/12；48/79/83请求，0.1801488/0.3292107/0.3377358美元，H2初始节约而恢复增费，保留H0。总211请求/2568579Token/0.9034953美元、未知0；源码/cleanup36过、138容器身份不存在。
+  - 交付: 论文v0.10四格式实际导出106页PDF、57表12图；第二轮数字和第82/84页布局核验。最终发布/知识库状态见PR706、Issue705及会话publication.json收据，当前无活动Provider。
+  - 边界: fse三次smoke前止、replay未启动，H2/libsigcplusplus另一次方案丢依赖导致127；原标签/失败保留，derived-v2仅解释层。运行9f583375、manifest5dfeb6a3、inventory56696b56；新旧轮/人工修复分开，不称持续提效。优先恢复日志与必要依赖保留，知识库仅MCP。
 - 2026-11-09 — 固定第二轮十二项目三策略执行入口、公开任务与近期轨迹材料。
   - 文件: `scripts/forge_offline_harness_round2.py`, `backend/tests/test_offline_harness_round2.py`, `benchmarks/preregistrations/cpp-build-offline-harness-round2-flash-v1.md`。
   - 动机: 用项目覆盖检验近期轨迹驱动的短规划策略，沿已修复共同执行器收集论文结果。

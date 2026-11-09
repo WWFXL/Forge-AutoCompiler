@@ -1,12 +1,16 @@
 # Forge Research Status
 
-论文选材固定入口：[硕士论文实验与证据索引](docs/research/THESIS_EVIDENCE_INDEX.md)，[历史材料目录](docs/research/THESIS_EVIDENCE_CATALOG.md)保留存量导航。当前完整稿为[论文v0.9首轮结果稿](docs/thesis/README.md)；E50新增主构建系统结果，既有完整任务、状态/恢复消融和两层经验继续按各自版本与分母使用。
+论文选材固定入口：[硕士论文实验与证据索引](docs/research/THESIS_EVIDENCE_INDEX.md)，[历史材料目录](docs/research/THESIS_EVIDENCE_CATALOG.md)保留存量导航。当前完整稿为[论文v0.10第二轮结果稿](docs/thesis/README.md)；E50–E52保存主构建系统及两轮Harness结果，既有完整任务、状态/恢复消融和两层经验继续按各自版本与分母使用。
 
-## 当前阶段（2026-11-09；#705第二轮十二项目Harness比较执行中）
+## 当前阶段（2026-11-09；#705第二轮十二项目Harness比较完成、论文v0.10整合）
 
-用户确认将重复预算用于更多项目。本轮[协议](benchmarks/preregistrations/cpp-build-offline-harness-round2-flash-v1.md)为cpp-build-offline-harness-round2-flash-v1：近期24轨迹一次离线提案，12项目×一次×H0/H1/H2共36次。三构建系统各4项目，与本轮六来源和H1原三来源族分离；均为历史开发/参考暴露，不称最终holdout。共同使用PR704后底座和新提示，H1旧策略重新装配，H2独立追加，只初始规划不同；经验检索/精确复用关闭，main-build-v1及独立分层结果保持。
+本轮[报告](docs/research/2026-11-09-offline-harness-round2-results.md)与[E52](docs/research/THESIS_EVIDENCE_INDEX.md#e52)保存一次近期24轨迹提案及36/36次比较：12项目各一次×H0/H1/H2、三构建系统各4项目、初始策略唯一变化。主产物/文件交付均12/12，最终验证11/12、11/12、10/12；请求48/79/83，在线费0.1801488/0.3292107/0.3377358美元，累计851.47/1408.72/1057.44秒。H2初始费比H0低18.2%，总费反高87.5%、时间高24.2%；比H1时间低24.9%、总费高2.6%。保留H0默认及混合结果，不称持续提效。
 
-预算自限新增5美元、UTC2026-11-09 06:34:51—10:34:51含准备；一次RichLab路由提案与36次Flash共享费用，无自动重试/补槽，未知用量/身份/清理异常停止。授权承接用户“好的开始执行下一阶段”及前述计划，不冒称逐项复述。当前准备检查已通过，尚未调用Provider；新原件forge-offline-harness-round2-flash-v1，用户原checkout不动。完成标准为完整比较、逐阶段成本/行为解释、论文5/6章及证据索引更新；E51与人工共同修复分开。
+四次最终未通过：fse三法通用smoke不覆盖作者-V/-H，submit前止、replay未启动；H2/libsigcplusplus最终方案移除已执行依赖安装，原容器主库成功，新容器缺mm-common-prepare而127失败。原main_task_completed只代表主产物/源码/文件交付，raw clean_replay failed也含前置smoke失败；derived-v2按实际attempt区分，原件/derived-v1不改。一次另存零Provider原生-V诊断退出0，仅解释共同smoke问题，不改三次失败。恢复费用与重复读取主导长尾，下一更新应聚焦失败日志与必要前置保留，初始提示不继续加长；共同smoke适配不计候选收益。
+
+提案0.0564美元/30.55秒，全部211请求/2568579 Token/新增0.9034953美元、未知0，逐响应复算一致；源码/cleanup均36通过，69容器138项名称/ID不存在。H2含提案0.3941358美元；近期来源0.2174667及H1更早投入另列。运行9f583375、manifest5dfeb6a3、raw `forge-offline-harness-round2-flash-v1`，inventory56696b56959c2016305b74026060e7c3bf5f081ef6795f4996cb408ec9652468。正式进程退出、无自动重试/补槽；旧E51及共同工程修复分开，不回填。
+
+论文v0.10第4/5/6章、摘要、结论与附录已整合，四格式导出106页PDF、57表12图并核验；最终PR706/CI/merge/Issue705状态见[论文入口](docs/thesis/README.md)、GitHub及会话收据。用户“好的开始执行下一阶段”承接12项目调整及前述5美元/4小时，本轮自限UTC06:34:51—10:34:51含准备，不冒称逐项复述；不因余额扩批。下一步按真实恢复轨迹设计有针对性的候选，再以新项目固定比较；学校模板、主文取舍可继续。当前无活动Provider，知识库仅MCP同步，原用户checkout保留。
 
 ## 上一阶段（2026-11-09；#703共同执行机制与观察恢复修复完成）
 

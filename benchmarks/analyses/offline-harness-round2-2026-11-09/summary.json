@@ -1,0 +1,2117 @@
+{
+  "identity": "cpp-build-offline-harness-round2-flash-v1",
+  "arms": {
+    "H0": {
+      "planned": 12,
+      "observed": 12,
+      "unobserved": 0,
+      "primary_completed": 12,
+      "main_task_completed": 12,
+      "delivery": {
+        "passed": 12
+      },
+      "clean_replay": {
+        "passed": 11,
+        "failed": 1
+      },
+      "model_requests": 48,
+      "estimated_cost_usd": "0.1801488",
+      "total_wall_seconds": 851.4696137979627,
+      "initial_planning_seconds": 102.79527019709349,
+      "recovery_seconds": 97.33083008602262,
+      "author_tests": {
+        "not_required": 12
+      },
+      "source_reads": 40,
+      "directory_lists": 19,
+      "exact_repeat_information_calls": 4,
+      "recovery_tasks": 2,
+      "corrections": 2,
+      "input_tokens": 503812,
+      "output_tokens": 24171,
+      "phase_usage": {
+        "initial": {
+          "requests": 32,
+          "cost": "0.1025628"
+        },
+        "recovery": {
+          "requests": 16,
+          "cost": "0.0775860"
+        }
+      },
+      "median_wall_seconds": 31.97631308500422,
+      "median_requests": 3.0,
+      "median_cost_usd": "0.0082053",
+      "source_unchanged": {
+        "True": 12
+      },
+      "cleanup": {
+        "True": 12
+      },
+      "final_verification_passed": 11,
+      "observed_clean_replay": {
+        "passed": 11,
+        "not_started": 1
+      }
+    },
+    "H1": {
+      "planned": 12,
+      "observed": 12,
+      "unobserved": 0,
+      "primary_completed": 12,
+      "main_task_completed": 12,
+      "delivery": {
+        "passed": 12
+      },
+      "clean_replay": {
+        "passed": 11,
+        "failed": 1
+      },
+      "model_requests": 79,
+      "estimated_cost_usd": "0.3292107",
+      "total_wall_seconds": 1408.7179579728981,
+      "initial_planning_seconds": 133.1546913711354,
+      "recovery_seconds": 226.1966570391087,
+      "author_tests": {
+        "not_required": 12
+      },
+      "source_reads": 89,
+      "directory_lists": 31,
+      "exact_repeat_information_calls": 29,
+      "recovery_tasks": 3,
+      "corrections": 1,
+      "input_tokens": 922061,
+      "output_tokens": 43827,
+      "phase_usage": {
+        "initial": {
+          "requests": 41,
+          "cost": "0.1504554"
+        },
+        "recovery": {
+          "requests": 38,
+          "cost": "0.1787553"
+        }
+      },
+      "median_wall_seconds": 34.09702018345706,
+      "median_requests": 3.0,
+      "median_cost_usd": "0.0091824",
+      "source_unchanged": {
+        "True": 12
+      },
+      "cleanup": {
+        "True": 12
+      },
+      "final_verification_passed": 11,
+      "observed_clean_replay": {
+        "passed": 11,
+        "not_started": 1
+      }
+    },
+    "H2": {
+      "planned": 12,
+      "observed": 12,
+      "unobserved": 0,
+      "primary_completed": 12,
+      "main_task_completed": 12,
+      "delivery": {
+        "passed": 12
+      },
+      "clean_replay": {
+        "passed": 10,
+        "failed": 2
+      },
+      "model_requests": 83,
+      "estimated_cost_usd": "0.3377358",
+      "total_wall_seconds": 1057.4436000011628,
+      "initial_planning_seconds": 86.6386553432094,
+      "recovery_seconds": 230.2886354669463,
+      "author_tests": {
+        "not_required": 12
+      },
+      "source_reads": 95,
+      "directory_lists": 37,
+      "exact_repeat_information_calls": 50,
+      "recovery_tasks": 3,
+      "corrections": 1,
+      "input_tokens": 982482,
+      "output_tokens": 35826,
+      "phase_usage": {
+        "initial": {
+          "requests": 27,
+          "cost": "0.0838860"
+        },
+        "recovery": {
+          "requests": 56,
+          "cost": "0.2538498"
+        }
+      },
+      "median_wall_seconds": 34.27722872252343,
+      "median_requests": 3.0,
+      "median_cost_usd": "0.00883395",
+      "source_unchanged": {
+        "True": 12
+      },
+      "cleanup": {
+        "True": 12
+      },
+      "final_verification_passed": 10,
+      "observed_clean_replay": {
+        "passed": 10,
+        "not_started": 1,
+        "failed": 1
+      }
+    }
+  },
+  "slots": [
+    {
+      "slot": 1,
+      "project": "yaml-cpp",
+      "method": "H0",
+      "status": "primary_completed",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true
+      },
+      "phases": {
+        "initial": {
+          "requests": 1,
+          "source_reads": 0,
+          "directory_lists": 0,
+          "exact_repeat_reads": 0,
+          "accepted_proposals": 1,
+          "corrections": 0
+        }
+      },
+      "timings": {
+        "configure_seconds": 0.568060782039538,
+        "build_seconds": 8.709639984066598,
+        "result_location_seconds": 0.06146747898310423,
+        "primary_build_seconds": 12.706743553979322,
+        "time_to_primary_from_arm_start_seconds": 12.70768528804183,
+        "delivery_seconds": 0.20648812397848815,
+        "author_tests_seconds": 8.037197403609753e-05,
+        "clean_replay_seconds": 13.090482051018625,
+        "total_seconds_before_cleanup": 26.06667882297188,
+        "initial_planning_seconds": 2.635196373099461,
+        "recovery_agent_seconds": 0.0
+      },
+      "error": null
+    },
+    {
+      "slot": 2,
+      "project": "yaml-cpp",
+      "method": "H1",
+      "status": "primary_completed",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true
+      },
+      "phases": {
+        "initial": {
+          "requests": 1,
+          "source_reads": 0,
+          "directory_lists": 0,
+          "exact_repeat_reads": 0,
+          "accepted_proposals": 1,
+          "corrections": 0
+        }
+      },
+      "timings": {
+        "configure_seconds": 0.5333239350002259,
+        "build_seconds": 8.737170069944113,
+        "result_location_seconds": 0.0569229640532285,
+        "primary_build_seconds": 15.03443659003824,
+        "time_to_primary_from_arm_start_seconds": 15.035149873001501,
+        "delivery_seconds": 0.1942029130877927,
+        "author_tests_seconds": 8.754199370741844e-05,
+        "clean_replay_seconds": 12.9617353270296,
+        "total_seconds_before_cleanup": 28.252845586976036,
+        "initial_planning_seconds": 4.921892659040168,
+        "recovery_agent_seconds": 0.0
+      },
+      "error": null
+    },
+    {
+      "slot": 3,
+      "project": "yaml-cpp",
+      "method": "H2",
+      "status": "primary_completed",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true
+      },
+      "phases": {
+        "initial": {
+          "requests": 1,
+          "source_reads": 0,
+          "directory_lists": 0,
+          "exact_repeat_reads": 0,
+          "accepted_proposals": 1,
+          "corrections": 0
+        }
+      },
+      "timings": {
+        "configure_seconds": 0.5251693789614365,
+        "build_seconds": 8.7437694510445,
+        "result_location_seconds": 0.05674060992896557,
+        "primary_build_seconds": 14.438621770008467,
+        "time_to_primary_from_arm_start_seconds": 14.4393864760641,
+        "delivery_seconds": 0.20294981193728745,
+        "author_tests_seconds": 8.158199489116669e-05,
+        "clean_replay_seconds": 13.232401432003826,
+        "total_seconds_before_cleanup": 27.93723786994815,
+        "initial_planning_seconds": 4.390771797974594,
+        "recovery_agent_seconds": 0.0
+      },
+      "error": null
+    },
+    {
+      "slot": 4,
+      "project": "snappy",
+      "method": "H1",
+      "status": "primary_completed",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true
+      },
+      "phases": {
+        "initial": {
+          "requests": 4,
+          "source_reads": 2,
+          "directory_lists": 4,
+          "exact_repeat_reads": 0,
+          "accepted_proposals": 1,
+          "corrections": 0
+        }
+      },
+      "timings": {
+        "configure_seconds": 11.600320389028639,
+        "build_seconds": 14.426861939020455,
+        "result_location_seconds": 0.05018493498209864,
+        "primary_build_seconds": 34.969696098938584,
+        "time_to_primary_from_arm_start_seconds": 34.97040223295335,
+        "delivery_seconds": 0.20685391500592232,
+        "author_tests_seconds": 0.0001052339794114232,
+        "clean_replay_seconds": 29.584429698996246,
+        "total_seconds_before_cleanup": 64.8409041420091,
+        "initial_planning_seconds": 8.099770352942869,
+        "recovery_agent_seconds": 0.0
+      },
+      "error": null
+    },
+    {
+      "slot": 5,
+      "project": "snappy",
+      "method": "H2",
+      "status": "primary_completed",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true
+      },
+      "phases": {
+        "initial": {
+          "requests": 3,
+          "source_reads": 0,
+          "directory_lists": 3,
+          "exact_repeat_reads": 0,
+          "accepted_proposals": 1,
+          "corrections": 0
+        }
+      },
+      "timings": {
+        "configure_seconds": 11.525089186034165,
+        "build_seconds": 13.760938553023152,
+        "result_location_seconds": 0.0503215849166736,
+        "primary_build_seconds": 33.35669890395366,
+        "time_to_primary_from_arm_start_seconds": 33.357452741940506,
+        "delivery_seconds": 0.21386078896466643,
+        "author_tests_seconds": 8.410902228206396e-05,
+        "clean_replay_seconds": 29.615100634051487,
+        "total_seconds_before_cleanup": 63.26773457496893,
+        "initial_planning_seconds": 7.2097174969967455,
+        "recovery_agent_seconds": 0.0
+      },
+      "error": null
+    },
+    {
+      "slot": 6,
+      "project": "snappy",
+      "method": "H0",
+      "status": "primary_completed",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true
+      },
+      "phases": {
+        "initial": {
+          "requests": 4,
+          "source_reads": 1,
+          "directory_lists": 3,
+          "exact_repeat_reads": 0,
+          "accepted_proposals": 1,
+          "corrections": 0
+        }
+      },
+      "timings": {
+        "configure_seconds": 11.457533665001392,
+        "build_seconds": 14.276676775072701,
+        "result_location_seconds": 0.0530406798934564,
+        "primary_build_seconds": 34.823105968069285,
+        "time_to_primary_from_arm_start_seconds": 34.823883795994334,
+        "delivery_seconds": 0.22606270003598183,
+        "author_tests_seconds": 8.991803042590618e-05,
+        "clean_replay_seconds": 29.049921105033718,
+        "total_seconds_before_cleanup": 64.18342160608154,
+        "initial_planning_seconds": 8.1891303419834,
+        "recovery_agent_seconds": 0.0
+      },
+      "error": null
+    },
+    {
+      "slot": 7,
+      "project": "simdutf",
+      "method": "H2",
+      "status": "primary_completed",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true
+      },
+      "phases": {
+        "initial": {
+          "requests": 2,
+          "source_reads": 1,
+          "directory_lists": 1,
+          "exact_repeat_reads": 0,
+          "accepted_proposals": 1,
+          "corrections": 0
+        }
+      },
+      "timings": {
+        "configure_seconds": 1.991088829934597,
+        "build_seconds": 84.33562259201426,
+        "result_location_seconds": 0.09022342204116285,
+        "primary_build_seconds": 94.52296423097141,
+        "time_to_primary_from_arm_start_seconds": 94.52454061608296,
+        "delivery_seconds": 0.23897611699067056,
+        "author_tests_seconds": 8.020899258553982e-05,
+        "clean_replay_seconds": 89.14738789596595,
+        "total_seconds_before_cleanup": 184.02128222503234,
+        "initial_planning_seconds": 7.121847968082875,
+        "recovery_agent_seconds": 0.0
+      },
+      "error": null
+    },
+    {
+      "slot": 8,
+      "project": "simdutf",
+      "method": "H0",
+      "status": "primary_completed",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true
+      },
+      "phases": {
+        "initial": {
+          "requests": 2,
+          "source_reads": 1,
+          "directory_lists": 1,
+          "exact_repeat_reads": 0,
+          "accepted_proposals": 1,
+          "corrections": 0
+        }
+      },
+      "timings": {
+        "configure_seconds": 1.9444821069482714,
+        "build_seconds": 83.2921549329767,
+        "result_location_seconds": 0.0728259589523077,
+        "primary_build_seconds": 91.0277982999105,
+        "time_to_primary_from_arm_start_seconds": 91.02866333397105,
+        "delivery_seconds": 0.24408537696581334,
+        "author_tests_seconds": 8.202099706977606e-05,
+        "clean_replay_seconds": 89.66964055399876,
+        "total_seconds_before_cleanup": 181.0430517490022,
+        "initial_planning_seconds": 4.7688723530154675,
+        "recovery_agent_seconds": 0.0
+      },
+      "error": null
+    },
+    {
+      "slot": 9,
+      "project": "simdutf",
+      "method": "H1",
+      "status": "primary_completed",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true
+      },
+      "phases": {
+        "initial": {
+          "requests": 2,
+          "source_reads": 1,
+          "directory_lists": 1,
+          "exact_repeat_reads": 0,
+          "accepted_proposals": 1,
+          "corrections": 0
+        }
+      },
+      "timings": {
+        "configure_seconds": 1.9642253109486774,
+        "build_seconds": 83.43303284689318,
+        "result_location_seconds": 0.07416391896549612,
+        "primary_build_seconds": 92.25948698597495,
+        "time_to_primary_from_arm_start_seconds": 92.26031487993896,
+        "delivery_seconds": 0.23328156198840588,
+        "author_tests_seconds": 8.133600931614637e-05,
+        "clean_replay_seconds": 89.77607270202134,
+        "total_seconds_before_cleanup": 182.37562333606184,
+        "initial_planning_seconds": 5.8258278330322355,
+        "recovery_agent_seconds": 0.0
+      },
+      "error": null
+    },
+    {
+      "slot": 10,
+      "project": "md4c",
+      "method": "H2",
+      "status": "primary_completed",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true
+      },
+      "phases": {
+        "initial": {
+          "requests": 3,
+          "source_reads": 3,
+          "directory_lists": 1,
+          "exact_repeat_reads": 0,
+          "accepted_proposals": 1,
+          "corrections": 0
+        }
+      },
+      "timings": {
+        "configure_seconds": 0.531690378091298,
+        "build_seconds": 3.6061770380474627,
+        "result_location_seconds": 0.020183674059808254,
+        "primary_build_seconds": 11.513038408011198,
+        "time_to_primary_from_arm_start_seconds": 11.513987015001476,
+        "delivery_seconds": 0.15693787299096584,
+        "author_tests_seconds": 0.00013945496175438166,
+        "clean_replay_seconds": 8.133945359033532,
+        "total_seconds_before_cleanup": 19.822591420961544,
+        "initial_planning_seconds": 6.837900198996067,
+        "recovery_agent_seconds": 0.0
+      },
+      "error": null
+    },
+    {
+      "slot": 11,
+      "project": "md4c",
+      "method": "H1",
+      "status": "primary_completed",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true
+      },
+      "phases": {
+        "initial": {
+          "requests": 3,
+          "source_reads": 4,
+          "directory_lists": 1,
+          "exact_repeat_reads": 0,
+          "accepted_proposals": 1,
+          "corrections": 0
+        }
+      },
+      "timings": {
+        "configure_seconds": 0.515106456936337,
+        "build_seconds": 3.519601917010732,
+        "result_location_seconds": 0.01995256799273193,
+        "primary_build_seconds": 12.83673464495223,
+        "time_to_primary_from_arm_start_seconds": 12.837609173031524,
+        "delivery_seconds": 0.15673403395339847,
+        "author_tests_seconds": 0.00013363605830818415,
+        "clean_replay_seconds": 8.038629438960925,
+        "total_seconds_before_cleanup": 21.050810656044632,
+        "initial_planning_seconds": 8.260354728088714,
+        "recovery_agent_seconds": 0.0
+      },
+      "error": null
+    },
+    {
+      "slot": 12,
+      "project": "md4c",
+      "method": "H0",
+      "status": "primary_completed",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true
+      },
+      "phases": {
+        "initial": {
+          "requests": 3,
+          "source_reads": 2,
+          "directory_lists": 1,
+          "exact_repeat_reads": 0,
+          "accepted_proposals": 1,
+          "corrections": 0
+        }
+      },
+      "timings": {
+        "configure_seconds": 0.5247523440048099,
+        "build_seconds": 3.5379606910282746,
+        "result_location_seconds": 0.020017736009322107,
+        "primary_build_seconds": 14.068788953940384,
+        "time_to_primary_from_arm_start_seconds": 14.069774840027094,
+        "delivery_seconds": 0.16775619401596487,
+        "author_tests_seconds": 0.00013823795598000288,
+        "clean_replay_seconds": 8.032173305051401,
+        "total_seconds_before_cleanup": 22.287919785943814,
+        "initial_planning_seconds": 9.461802687030286,
+        "recovery_agent_seconds": 0.0
+      },
+      "error": null
+    },
+    {
+      "slot": 13,
+      "project": "libtommath",
+      "method": "H0",
+      "status": "primary_completed",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true
+      },
+      "phases": {
+        "initial": {
+          "requests": 3,
+          "source_reads": 3,
+          "directory_lists": 1,
+          "exact_repeat_reads": 0,
+          "accepted_proposals": 1,
+          "corrections": 0
+        }
+      },
+      "timings": {
+        "build_seconds": 4.5620955269550905,
+        "result_location_seconds": 0.02563601394649595,
+        "primary_build_seconds": 11.393942026072182,
+        "time_to_primary_from_arm_start_seconds": 11.394718203926459,
+        "delivery_seconds": 0.170291235903278,
+        "author_tests_seconds": 0.00013017503079026937,
+        "clean_replay_seconds": 8.35932868195232,
+        "total_seconds_before_cleanup": 19.95647546206601,
+        "initial_planning_seconds": 6.267058014986105,
+        "recovery_agent_seconds": 0.0
+      },
+      "error": null
+    },
+    {
+      "slot": 14,
+      "project": "libtommath",
+      "method": "H2",
+      "status": "primary_completed",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true
+      },
+      "phases": {
+        "initial": {
+          "requests": 3,
+          "source_reads": 2,
+          "directory_lists": 1,
+          "exact_repeat_reads": 0,
+          "accepted_proposals": 1,
+          "corrections": 0
+        }
+      },
+      "timings": {
+        "build_seconds": 4.618625220027752,
+        "result_location_seconds": 0.02419995702803135,
+        "primary_build_seconds": 12.983538854052313,
+        "time_to_primary_from_arm_start_seconds": 12.984354650019668,
+        "delivery_seconds": 0.16456306399777532,
+        "author_tests_seconds": 0.00010696600656956434,
+        "clean_replay_seconds": 8.500724679906853,
+        "total_seconds_before_cleanup": 21.679928174009547,
+        "initial_planning_seconds": 7.799358561984263,
+        "recovery_agent_seconds": 0.0
+      },
+      "error": null
+    },
+    {
+      "slot": 15,
+      "project": "libtommath",
+      "method": "H1",
+      "status": "primary_completed",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true
+      },
+      "phases": {
+        "initial": {
+          "requests": 5,
+          "source_reads": 4,
+          "directory_lists": 1,
+          "exact_repeat_reads": 0,
+          "accepted_proposals": 1,
+          "corrections": 1
+        }
+      },
+      "timings": {
+        "build_seconds": 4.509958526934497,
+        "result_location_seconds": 0.024933785083703697,
+        "primary_build_seconds": 18.102551228017546,
+        "time_to_primary_from_arm_start_seconds": 18.103308874065988,
+        "delivery_seconds": 0.17251200205646455,
+        "author_tests_seconds": 0.00012768700253218412,
+        "clean_replay_seconds": 8.543634377070703,
+        "total_seconds_before_cleanup": 26.848882588092238,
+        "initial_planning_seconds": 13.011178617016412,
+        "recovery_agent_seconds": 0.0
+      },
+      "error": null
+    },
+    {
+      "slot": 16,
+      "project": "libhydrogen",
+      "method": "H1",
+      "status": "primary_completed",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true
+      },
+      "phases": {
+        "initial": {
+          "requests": 1,
+          "source_reads": 0,
+          "directory_lists": 0,
+          "exact_repeat_reads": 0,
+          "accepted_proposals": 1,
+          "corrections": 0
+        }
+      },
+      "timings": {
+        "build_seconds": 1.8758353339508176,
+        "result_location_seconds": 0.011285226908512414,
+        "primary_build_seconds": 12.638611386995763,
+        "time_to_primary_from_arm_start_seconds": 12.63956912199501,
+        "delivery_seconds": 0.142467844998464,
+        "author_tests_seconds": 0.00020858098287135363,
+        "clean_replay_seconds": 5.708862054045312,
+        "total_seconds_before_cleanup": 18.502806724980474,
+        "initial_planning_seconds": 10.277775645023212,
+        "recovery_agent_seconds": 0.0
+      },
+      "error": null
+    },
+    {
+      "slot": 17,
+      "project": "libhydrogen",
+      "method": "H0",
+      "status": "primary_completed",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true
+      },
+      "phases": {
+        "initial": {
+          "requests": 2,
+          "source_reads": 0,
+          "directory_lists": 0,
+          "exact_repeat_reads": 0,
+          "accepted_proposals": 1,
+          "corrections": 1
+        }
+      },
+      "timings": {
+        "build_seconds": 1.8662516869371757,
+        "result_location_seconds": 0.011612208094447851,
+        "primary_build_seconds": 13.27725984400604,
+        "time_to_primary_from_arm_start_seconds": 13.278250082978047,
+        "delivery_seconds": 0.13762345199938864,
+        "author_tests_seconds": 0.00017400598153471947,
+        "clean_replay_seconds": 5.624519040924497,
+        "total_seconds_before_cleanup": 19.051434058928862,
+        "initial_planning_seconds": 10.927409737021662,
+        "recovery_agent_seconds": 0.0
+      },
+      "error": null
+    },
+    {
+      "slot": 18,
+      "project": "libhydrogen",
+      "method": "H2",
+      "status": "primary_completed",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true
+      },
+      "phases": {
+        "initial": {
+          "requests": 1,
+          "source_reads": 0,
+          "directory_lists": 0,
+          "exact_repeat_reads": 0,
+          "accepted_proposals": 1,
+          "corrections": 0
+        }
+      },
+      "timings": {
+        "build_seconds": 1.8683612269815058,
+        "result_location_seconds": 0.011503069079481065,
+        "primary_build_seconds": 6.646425244049169,
+        "time_to_primary_from_arm_start_seconds": 6.647420497029088,
+        "delivery_seconds": 0.1379768040496856,
+        "author_tests_seconds": 0.00019293406512588263,
+        "clean_replay_seconds": 5.663175679976121,
+        "total_seconds_before_cleanup": 12.460582032101229,
+        "initial_planning_seconds": 4.281790989101864,
+        "recovery_agent_seconds": 0.0
+      },
+      "error": null
+    },
+    {
+      "slot": 19,
+      "project": "tinyxml2",
+      "method": "H0",
+      "status": "primary_completed",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true
+      },
+      "phases": {
+        "initial": {
+          "requests": 2,
+          "source_reads": 0,
+          "directory_lists": 0,
+          "exact_repeat_reads": 0,
+          "accepted_proposals": 1,
+          "corrections": 1
+        }
+      },
+      "timings": {
+        "build_seconds": 0.7750843709800392,
+        "result_location_seconds": 0.024455324048176408,
+        "primary_build_seconds": 11.481743779964745,
+        "time_to_primary_from_arm_start_seconds": 11.482481279061176,
+        "delivery_seconds": 0.18382591695990413,
+        "author_tests_seconds": 8.116406388580799e-05,
+        "clean_replay_seconds": 4.616646191920154,
+        "total_seconds_before_cleanup": 16.32456885895226,
+        "initial_planning_seconds": 10.113749364041723,
+        "recovery_agent_seconds": 0.0
+      },
+      "error": null
+    },
+    {
+      "slot": 20,
+      "project": "tinyxml2",
+      "method": "H1",
+      "status": "primary_completed",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true
+      },
+      "phases": {
+        "initial": {
+          "requests": 1,
+          "source_reads": 0,
+          "directory_lists": 0,
+          "exact_repeat_reads": 0,
+          "accepted_proposals": 1,
+          "corrections": 0
+        }
+      },
+      "timings": {
+        "configure_seconds": 0.8086694589583203,
+        "build_seconds": 1.0546080890344456,
+        "result_location_seconds": 0.024726293981075287,
+        "primary_build_seconds": 7.142706168000586,
+        "time_to_primary_from_arm_start_seconds": 7.143492036033422,
+        "delivery_seconds": 0.17703570902813226,
+        "author_tests_seconds": 9.69510292634368e-05,
+        "clean_replay_seconds": 5.632656414061785,
+        "total_seconds_before_cleanup": 12.992708107922226,
+        "initial_planning_seconds": 4.59211052802857,
+        "recovery_agent_seconds": 0.0
+      },
+      "error": null
+    },
+    {
+      "slot": 21,
+      "project": "tinyxml2",
+      "method": "H2",
+      "status": "primary_completed",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true
+      },
+      "phases": {
+        "initial": {
+          "requests": 2,
+          "source_reads": 0,
+          "directory_lists": 0,
+          "exact_repeat_reads": 0,
+          "accepted_proposals": 1,
+          "corrections": 1
+        }
+      },
+      "timings": {
+        "build_seconds": 0.7856590339215472,
+        "result_location_seconds": 0.024805602966807783,
+        "primary_build_seconds": 7.871306363027543,
+        "time_to_primary_from_arm_start_seconds": 7.87200134806335,
+        "delivery_seconds": 0.177885876968503,
+        "author_tests_seconds": 9.305495768785477e-05,
+        "clean_replay_seconds": 4.601790980086662,
+        "total_seconds_before_cleanup": 12.694238055031747,
+        "initial_planning_seconds": 6.473921817960218,
+        "recovery_agent_seconds": 0.0
+      },
+      "error": null
+    },
+    {
+      "slot": 22,
+      "project": "fse",
+      "method": "H1",
+      "status": "primary_completed",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "clean_replay": "failed",
+        "full_completed": null,
+        "main_build_task_completed": true
+      },
+      "phases": {
+        "initial": {
+          "requests": 2,
+          "source_reads": 1,
+          "directory_lists": 1,
+          "exact_repeat_reads": 0,
+          "accepted_proposals": 1,
+          "corrections": 0
+        }
+      },
+      "timings": {
+        "build_seconds": 3.2812863029539585,
+        "result_location_seconds": 0.01668190094642341,
+        "primary_build_seconds": 18.279609974939376,
+        "time_to_primary_from_arm_start_seconds": 18.280505695031025,
+        "delivery_seconds": 0.1519648031098768,
+        "author_tests_seconds": 0.00014662800822407007,
+        "clean_replay_seconds": 0.38423948490526527,
+        "total_seconds_before_cleanup": 18.831409842008725,
+        "initial_planning_seconds": 14.516234542010352,
+        "recovery_agent_seconds": 0.0
+      },
+      "error": null
+    },
+    {
+      "slot": 23,
+      "project": "fse",
+      "method": "H2",
+      "status": "primary_completed",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "clean_replay": "failed",
+        "full_completed": null,
+        "main_build_task_completed": true
+      },
+      "phases": {
+        "initial": {
+          "requests": 2,
+          "source_reads": 1,
+          "directory_lists": 0,
+          "exact_repeat_reads": 0,
+          "accepted_proposals": 1,
+          "corrections": 0
+        }
+      },
+      "timings": {
+        "build_seconds": 3.3144976610783488,
+        "result_location_seconds": 0.016114725964143872,
+        "primary_build_seconds": 13.065775113995187,
+        "time_to_primary_from_arm_start_seconds": 13.06680920603685,
+        "delivery_seconds": 0.15134156204294413,
+        "author_tests_seconds": 0.00019278691615909338,
+        "clean_replay_seconds": 0.37379315006546676,
+        "total_seconds_before_cleanup": 13.606937670963816,
+        "initial_planning_seconds": 9.248293393990025,
+        "recovery_agent_seconds": 0.0
+      },
+      "error": null
+    },
+    {
+      "slot": 24,
+      "project": "fse",
+      "method": "H0",
+      "status": "primary_completed",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "clean_replay": "failed",
+        "full_completed": null,
+        "main_build_task_completed": true
+      },
+      "phases": {
+        "initial": {
+          "requests": 2,
+          "source_reads": 1,
+          "directory_lists": 1,
+          "exact_repeat_reads": 0,
+          "accepted_proposals": 1,
+          "corrections": 0
+        }
+      },
+      "timings": {
+        "build_seconds": 3.236801348044537,
+        "result_location_seconds": 0.0164507869631052,
+        "primary_build_seconds": 10.433458436047658,
+        "time_to_primary_from_arm_start_seconds": 10.434373588999733,
+        "delivery_seconds": 0.14771302102599293,
+        "author_tests_seconds": 0.00018912809900939465,
+        "clean_replay_seconds": 0.36308793304488063,
+        "total_seconds_before_cleanup": 10.959974994999357,
+        "initial_planning_seconds": 6.701381816994399,
+        "recovery_agent_seconds": 0.0
+      },
+      "error": null
+    },
+    {
+      "slot": 25,
+      "project": "check",
+      "method": "H2",
+      "status": "primary_completed",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true
+      },
+      "phases": {
+        "initial": {
+          "requests": 1,
+          "source_reads": 0,
+          "directory_lists": 0,
+          "exact_repeat_reads": 0,
+          "accepted_proposals": 1,
+          "corrections": 0
+        },
+        "recovery": {
+          "requests": 11,
+          "source_reads": 12,
+          "directory_lists": 1,
+          "exact_repeat_reads": 0,
+          "accepted_proposals": 1,
+          "corrections": 0
+        }
+      },
+      "timings": {
+        "configure_seconds": 32.71491043805145,
+        "build_seconds": 10.978057665051892,
+        "recovery_execution_seconds": 24.228468172019348,
+        "result_location_seconds": 0.030553036951459944,
+        "primary_build_seconds": 89.54031181999017,
+        "time_to_primary_from_arm_start_seconds": 89.54143314401153,
+        "delivery_seconds": 0.1800821899669245,
+        "author_tests_seconds": 9.390898048877716e-05,
+        "clean_replay_seconds": 27.705049098003656,
+        "total_seconds_before_cleanup": 117.46072282094974,
+        "initial_planning_seconds": 4.357585906982422,
+        "recovery_agent_seconds": 40.541862791986205
+      },
+      "error": null
+    },
+    {
+      "slot": 26,
+      "project": "check",
+      "method": "H0",
+      "status": "primary_completed",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true
+      },
+      "phases": {
+        "initial": {
+          "requests": 2,
+          "source_reads": 0,
+          "directory_lists": 1,
+          "exact_repeat_reads": 0,
+          "accepted_proposals": 1,
+          "corrections": 0
+        },
+        "recovery": {
+          "requests": 10,
+          "source_reads": 14,
+          "directory_lists": 0,
+          "exact_repeat_reads": 3,
+          "accepted_proposals": 1,
+          "corrections": 0
+        }
+      },
+      "timings": {
+        "configure_seconds": 32.89434583927505,
+        "build_seconds": 10.994543449953198,
+        "recovery_execution_seconds": 24.349177706288174,
+        "result_location_seconds": 0.02947571803815663,
+        "primary_build_seconds": 98.51497629098594,
+        "time_to_primary_from_arm_start_seconds": 98.51599003805313,
+        "delivery_seconds": 0.17442843201570213,
+        "author_tests_seconds": 9.066401980817318e-05,
+        "clean_replay_seconds": 27.821792333968915,
+        "total_seconds_before_cleanup": 126.54447430290747,
+        "initial_planning_seconds": 5.183754442958161,
+        "recovery_agent_seconds": 48.48821474495344
+      },
+      "error": null
+    },
+    {
+      "slot": 27,
+      "project": "check",
+      "method": "H1",
+      "status": "primary_completed",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true
+      },
+      "phases": {
+        "initial": {
+          "requests": 4,
+          "source_reads": 3,
+          "directory_lists": 1,
+          "exact_repeat_reads": 0,
+          "accepted_proposals": 1,
+          "corrections": 0
+        },
+        "recovery": {
+          "requests": 12,
+          "source_reads": 15,
+          "directory_lists": 0,
+          "exact_repeat_reads": 4,
+          "accepted_proposals": 1,
+          "corrections": 0
+        }
+      },
+      "timings": {
+        "configure_seconds": 32.739104487001896,
+        "build_seconds": 11.48484621802345,
+        "dependency_seconds": 41.44482411001809,
+        "recovery_execution_seconds": 66.17880609002896,
+        "result_location_seconds": 0.031324779032729566,
+        "primary_build_seconds": 154.68824576190673,
+        "time_to_primary_from_arm_start_seconds": 154.6893320219824,
+        "delivery_seconds": 0.17422902793623507,
+        "author_tests_seconds": 9.475392289459705e-05,
+        "clean_replay_seconds": 70.9653595740674,
+        "total_seconds_before_cleanup": 225.86178810195997,
+        "initial_planning_seconds": 15.75503081199713,
+        "recovery_agent_seconds": 52.268519517965615
+      },
+      "error": null
+    },
+    {
+      "slot": 28,
+      "project": "libsodium",
+      "method": "H2",
+      "status": "primary_completed",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true
+      },
+      "phases": {
+        "initial": {
+          "requests": 3,
+          "source_reads": 2,
+          "directory_lists": 1,
+          "exact_repeat_reads": 0,
+          "accepted_proposals": 1,
+          "corrections": 0
+        }
+      },
+      "timings": {
+        "configure_seconds": 20.193339682999067,
+        "build_seconds": 35.74639968306292,
+        "result_location_seconds": 0.07964357791934162,
+        "primary_build_seconds": 69.08364382793661,
+        "time_to_primary_from_arm_start_seconds": 69.08433263900224,
+        "delivery_seconds": 0.2319092320976779,
+        "author_tests_seconds": 7.908802945166826e-05,
+        "clean_replay_seconds": 59.61340636899695,
+        "total_seconds_before_cleanup": 129.02102985000238,
+        "initial_planning_seconds": 12.156573624000885,
+        "recovery_agent_seconds": 0.0
+      },
+      "error": null
+    },
+    {
+      "slot": 29,
+      "project": "libsodium",
+      "method": "H1",
+      "status": "primary_completed",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true
+      },
+      "phases": {
+        "initial": {
+          "requests": 5,
+          "source_reads": 4,
+          "directory_lists": 2,
+          "exact_repeat_reads": 0,
+          "accepted_proposals": 1,
+          "corrections": 0
+        }
+      },
+      "timings": {
+        "configure_seconds": 20.33832526288461,
+        "build_seconds": 35.84915382298641,
+        "result_location_seconds": 0.07854978099931031,
+        "primary_build_seconds": 71.30762695800513,
+        "time_to_primary_from_arm_start_seconds": 71.30841058597434,
+        "delivery_seconds": 0.2389006270095706,
+        "author_tests_seconds": 7.650605402886868e-05,
+        "clean_replay_seconds": 59.820710495929234,
+        "total_seconds_before_cleanup": 131.45982416602783,
+        "initial_planning_seconds": 13.992174235987477,
+        "recovery_agent_seconds": 0.0
+      },
+      "error": null
+    },
+    {
+      "slot": 30,
+      "project": "libsodium",
+      "method": "H0",
+      "status": "primary_completed",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true
+      },
+      "phases": {
+        "initial": {
+          "requests": 4,
+          "source_reads": 3,
+          "directory_lists": 3,
+          "exact_repeat_reads": 0,
+          "accepted_proposals": 1,
+          "corrections": 0
+        }
+      },
+      "timings": {
+        "configure_seconds": 20.211034199921414,
+        "build_seconds": 35.93365224497393,
+        "result_location_seconds": 0.07848158397246152,
+        "primary_build_seconds": 78.29103321395814,
+        "time_to_primary_from_arm_start_seconds": 78.2917745799059,
+        "delivery_seconds": 0.2325558599550277,
+        "author_tests_seconds": 7.674004882574081e-05,
+        "clean_replay_seconds": 59.72517193807289,
+        "total_seconds_before_cleanup": 138.34211727802176,
+        "initial_planning_seconds": 21.029609430930577,
+        "recovery_agent_seconds": 0.0
+      },
+      "error": null
+    },
+    {
+      "slot": 31,
+      "project": "libverto",
+      "method": "H0",
+      "status": "primary_completed",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true
+      },
+      "phases": {
+        "initial": {
+          "requests": 3,
+          "source_reads": 2,
+          "directory_lists": 1,
+          "exact_repeat_reads": 0,
+          "accepted_proposals": 1,
+          "corrections": 0
+        }
+      },
+      "timings": {
+        "configure_seconds": 9.148006535950117,
+        "build_seconds": 1.0942081490065902,
+        "result_location_seconds": 0.015645513078197837,
+        "primary_build_seconds": 17.01437035703566,
+        "time_to_primary_from_arm_start_seconds": 17.015448404941708,
+        "delivery_seconds": 0.13905333308503032,
+        "author_tests_seconds": 0.0001893150620162487,
+        "clean_replay_seconds": 13.973932706052437,
+        "total_seconds_before_cleanup": 31.136461065034382,
+        "initial_planning_seconds": 6.293329349020496,
+        "recovery_agent_seconds": 0.0
+      },
+      "error": null
+    },
+    {
+      "slot": 32,
+      "project": "libverto",
+      "method": "H2",
+      "status": "primary_completed",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true
+      },
+      "phases": {
+        "initial": {
+          "requests": 4,
+          "source_reads": 2,
+          "directory_lists": 2,
+          "exact_repeat_reads": 0,
+          "accepted_proposals": 1,
+          "corrections": 0
+        }
+      },
+      "timings": {
+        "configure_seconds": 9.073300191084854,
+        "build_seconds": 1.122471846989356,
+        "result_location_seconds": 0.015420575975440443,
+        "primary_build_seconds": 19.554569820058532,
+        "time_to_primary_from_arm_start_seconds": 19.555666622007266,
+        "delivery_seconds": 0.1402470450848341,
+        "author_tests_seconds": 0.00019358994904905558,
+        "clean_replay_seconds": 14.10309424996376,
+        "total_seconds_before_cleanup": 33.80720322905108,
+        "initial_planning_seconds": 8.85213128104806,
+        "recovery_agent_seconds": 0.0
+      },
+      "error": null
+    },
+    {
+      "slot": 33,
+      "project": "libverto",
+      "method": "H1",
+      "status": "primary_completed",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true
+      },
+      "phases": {
+        "initial": {
+          "requests": 3,
+          "source_reads": 3,
+          "directory_lists": 1,
+          "exact_repeat_reads": 0,
+          "accepted_proposals": 1,
+          "corrections": 0
+        }
+      },
+      "timings": {
+        "configure_seconds": 9.1373306280002,
+        "build_seconds": 1.0971360459225252,
+        "result_location_seconds": 0.016129162977449596,
+        "primary_build_seconds": 19.061211924999952,
+        "time_to_primary_from_arm_start_seconds": 19.062391172046773,
+        "delivery_seconds": 0.14177060208749026,
+        "author_tests_seconds": 0.0001967690186575055,
+        "clean_replay_seconds": 13.969763784087263,
+        "total_seconds_before_cleanup": 33.182971433969215,
+        "initial_planning_seconds": 8.327052308013663,
+        "recovery_agent_seconds": 0.0
+      },
+      "error": null
+    },
+    {
+      "slot": 34,
+      "project": "libsigcplusplus",
+      "method": "H1",
+      "status": "primary_completed",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true
+      },
+      "phases": {
+        "initial": {
+          "requests": 10,
+          "source_reads": 13,
+          "directory_lists": 5,
+          "exact_repeat_reads": 3,
+          "accepted_proposals": 1,
+          "corrections": 0
+        },
+        "recovery": {
+          "requests": 26,
+          "source_reads": 39,
+          "directory_lists": 14,
+          "exact_repeat_reads": 22,
+          "accepted_proposals": 2,
+          "corrections": 0
+        }
+      },
+      "timings": {
+        "configure_seconds": 11.792352479882538,
+        "dependency_seconds": 175.4597746040672,
+        "recovery_execution_seconds": 198.28077599592507,
+        "build_seconds": 11.152601283974946,
+        "result_location_seconds": 0.02782925800420344,
+        "primary_build_seconds": 398.69430005794857,
+        "time_to_primary_from_arm_start_seconds": 398.6967815749813,
+        "delivery_seconds": 0.16662304394412786,
+        "author_tests_seconds": 0.0001336609711870551,
+        "clean_replay_seconds": 204.82561226503458,
+        "total_seconds_before_cleanup": 603.7242981499294,
+        "initial_planning_seconds": 25.57528910995461,
+        "recovery_agent_seconds": 173.92813752114307
+      },
+      "error": null
+    },
+    {
+      "slot": 35,
+      "project": "libsigcplusplus",
+      "method": "H0",
+      "status": "primary_completed",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true
+      },
+      "phases": {
+        "initial": {
+          "requests": 4,
+          "source_reads": 3,
+          "directory_lists": 3,
+          "exact_repeat_reads": 0,
+          "accepted_proposals": 1,
+          "corrections": 0
+        },
+        "recovery": {
+          "requests": 6,
+          "source_reads": 10,
+          "directory_lists": 4,
+          "exact_repeat_reads": 1,
+          "accepted_proposals": 1,
+          "corrections": 0
+        }
+      },
+      "timings": {
+        "configure_seconds": 11.934546100790612,
+        "dependency_seconds": 32.21728723496199,
+        "recovery_execution_seconds": 46.30372748186346,
+        "build_seconds": 2.2662271560402587,
+        "result_location_seconds": 0.02173109899740666,
+        "primary_build_seconds": 107.22165041405242,
+        "time_to_primary_from_arm_start_seconds": 107.22273989603855,
+        "delivery_seconds": 0.1581882300088182,
+        "author_tests_seconds": 0.00012874905951321125,
+        "clean_replay_seconds": 47.53160209208727,
+        "total_seconds_before_cleanup": 154.93906275404152,
+        "initial_planning_seconds": 11.223976286011748,
+        "recovery_agent_seconds": 48.84261534106918
+      },
+      "error": null
+    },
+    {
+      "slot": 36,
+      "project": "libsigcplusplus",
+      "method": "H2",
+      "status": "primary_completed",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "clean_replay": "failed",
+        "full_completed": null,
+        "main_build_task_completed": true
+      },
+      "phases": {
+        "initial": {
+          "requests": 2,
+          "source_reads": 1,
+          "directory_lists": 1,
+          "exact_repeat_reads": 0,
+          "accepted_proposals": 1,
+          "corrections": 0
+        },
+        "recovery": {
+          "requests": 45,
+          "source_reads": 71,
+          "directory_lists": 26,
+          "exact_repeat_reads": 50,
+          "accepted_proposals": 2,
+          "corrections": 0
+        }
+      },
+      "timings": {
+        "configure_seconds": 23.93783237808384,
+        "dependency_seconds": 140.7609966340242,
+        "recovery_execution_seconds": 178.04495007614605,
+        "build_seconds": 13.473193211015314,
+        "result_location_seconds": 0.02110449504107237,
+        "primary_build_seconds": 376.72757671494037,
+        "time_to_primary_from_arm_start_seconds": 376.7284982170677,
+        "delivery_seconds": 0.15976529708132148,
+        "author_tests_seconds": 0.00013523106463253498,
+        "clean_replay_seconds": 4.012012533959933,
+        "total_seconds_before_cleanup": 380.92370084498543,
+        "initial_planning_seconds": 7.908762306091376,
+        "recovery_agent_seconds": 189.74677267496008
+      },
+      "error": null
+    }
+  ],
+  "optimizer": {
+    "model_requests": 1,
+    "actual_response_model": "gpt-5.6",
+    "input_tokens": 55172,
+    "output_tokens": 1228,
+    "estimated_cost_usd_completed_responses": "0.0564",
+    "unknown_usage_requests": 0
+  },
+  "historical_source_cost_usd": "0.2174667",
+  "h1_historical_proposal_cost_usd": "0.039897",
+  "h2_deployment_cost_usd": "0.3941358",
+  "total_known_cost_usd": "0.9034953",
+  "optimizer_wall_seconds": 30.549012972973287,
+  "unobserved": [],
+  "boundary": "12项目一次三策略，描述配对完成与开销；不估计同项目随机方差、不作跨轮差值因果、不证明持续改进。",
+  "by_build_system": {
+    "cmake": {
+      "H0": {
+        "planned": 4,
+        "observed": 4,
+        "unobserved": 0,
+        "primary_completed": 4,
+        "main_task_completed": 4,
+        "delivery": {
+          "passed": 4
+        },
+        "clean_replay": {
+          "passed": 4
+        },
+        "model_requests": 10,
+        "estimated_cost_usd": "0.0334263",
+        "total_wall_seconds": 307.18894877505954,
+        "initial_planning_seconds": 25.055001755128615,
+        "recovery_seconds": 0.0,
+        "author_tests": {
+          "not_required": 4
+        }
+      },
+      "H1": {
+        "planned": 4,
+        "observed": 4,
+        "unobserved": 0,
+        "primary_completed": 4,
+        "main_task_completed": 4,
+        "delivery": {
+          "passed": 4
+        },
+        "clean_replay": {
+          "passed": 4
+        },
+        "model_requests": 10,
+        "estimated_cost_usd": "0.0374532",
+        "total_wall_seconds": 310.1303617199883,
+        "initial_planning_seconds": 27.107845573103987,
+        "recovery_seconds": 0.0,
+        "author_tests": {
+          "not_required": 4
+        }
+      },
+      "H2": {
+        "planned": 4,
+        "observed": 4,
+        "unobserved": 0,
+        "primary_completed": 4,
+        "main_task_completed": 4,
+        "delivery": {
+          "passed": 4
+        },
+        "clean_replay": {
+          "passed": 4
+        },
+        "model_requests": 9,
+        "estimated_cost_usd": "0.0301050",
+        "total_wall_seconds": 308.6972095379606,
+        "initial_planning_seconds": 25.56023746205028,
+        "recovery_seconds": 0.0,
+        "author_tests": {
+          "not_required": 4
+        }
+      }
+    },
+    "make": {
+      "H0": {
+        "planned": 4,
+        "observed": 4,
+        "unobserved": 0,
+        "primary_completed": 4,
+        "main_task_completed": 4,
+        "delivery": {
+          "passed": 4
+        },
+        "clean_replay": {
+          "passed": 3,
+          "failed": 1
+        },
+        "model_requests": 9,
+        "estimated_cost_usd": "0.0268386",
+        "total_wall_seconds": 79.81728933204431,
+        "initial_planning_seconds": 34.00959893304389,
+        "recovery_seconds": 0.0,
+        "author_tests": {
+          "not_required": 4
+        }
+      },
+      "H1": {
+        "planned": 4,
+        "observed": 4,
+        "unobserved": 0,
+        "primary_completed": 4,
+        "main_task_completed": 4,
+        "delivery": {
+          "passed": 4
+        },
+        "clean_replay": {
+          "passed": 3,
+          "failed": 1
+        },
+        "model_requests": 9,
+        "estimated_cost_usd": "0.0331629",
+        "total_wall_seconds": 90.65319283399731,
+        "initial_planning_seconds": 42.397299332078546,
+        "recovery_seconds": 0.0,
+        "author_tests": {
+          "not_required": 4
+        }
+      },
+      "H2": {
+        "planned": 4,
+        "observed": 4,
+        "unobserved": 0,
+        "primary_completed": 4,
+        "main_task_completed": 4,
+        "delivery": {
+          "passed": 4
+        },
+        "clean_replay": {
+          "passed": 3,
+          "failed": 1
+        },
+        "model_requests": 8,
+        "estimated_cost_usd": "0.0240900",
+        "total_wall_seconds": 73.97295612609014,
+        "initial_planning_seconds": 27.80336476303637,
+        "recovery_seconds": 0.0,
+        "author_tests": {
+          "not_required": 4
+        }
+      }
+    },
+    "autotools": {
+      "H0": {
+        "planned": 4,
+        "observed": 4,
+        "unobserved": 0,
+        "primary_completed": 4,
+        "main_task_completed": 4,
+        "delivery": {
+          "passed": 4
+        },
+        "clean_replay": {
+          "passed": 4
+        },
+        "model_requests": 29,
+        "estimated_cost_usd": "0.1198839",
+        "total_wall_seconds": 464.4633756908588,
+        "initial_planning_seconds": 43.73066950892098,
+        "recovery_seconds": 97.33083008602262,
+        "author_tests": {
+          "not_required": 4
+        }
+      },
+      "H1": {
+        "planned": 4,
+        "observed": 4,
+        "unobserved": 0,
+        "primary_completed": 4,
+        "main_task_completed": 4,
+        "delivery": {
+          "passed": 4
+        },
+        "clean_replay": {
+          "passed": 4
+        },
+        "model_requests": 60,
+        "estimated_cost_usd": "0.2585946",
+        "total_wall_seconds": 1007.9344034189126,
+        "initial_planning_seconds": 63.64954646595288,
+        "recovery_seconds": 226.1966570391087,
+        "author_tests": {
+          "not_required": 4
+        }
+      },
+      "H2": {
+        "planned": 4,
+        "observed": 4,
+        "unobserved": 0,
+        "primary_completed": 4,
+        "main_task_completed": 4,
+        "delivery": {
+          "passed": 4
+        },
+        "clean_replay": {
+          "passed": 3,
+          "failed": 1
+        },
+        "model_requests": 66,
+        "estimated_cost_usd": "0.2835408",
+        "total_wall_seconds": 674.7734343371121,
+        "initial_planning_seconds": 33.27505311812274,
+        "recovery_seconds": 230.2886354669463,
+        "author_tests": {
+          "not_required": 4
+        }
+      }
+    }
+  },
+  "paired_cost_time": {
+    "H1_vs_H0": {
+      "paired_projects": 12,
+      "cheaper_projects": 2,
+      "faster_projects": 4,
+      "differences": [
+        {
+          "project": "yaml-cpp",
+          "cost_delta_usd": "0.0004824",
+          "wall_delta_seconds": 2.219856437877752,
+          "request_delta": 0,
+          "both_completed": true
+        },
+        {
+          "project": "snappy",
+          "cost_delta_usd": "0.0016185",
+          "wall_delta_seconds": 0.6422130489954725,
+          "request_delta": 0,
+          "both_completed": true
+        },
+        {
+          "project": "simdutf",
+          "cost_delta_usd": "0.0006564",
+          "wall_delta_seconds": 1.3218658169498667,
+          "request_delta": 0,
+          "both_completed": true
+        },
+        {
+          "project": "md4c",
+          "cost_delta_usd": "0.0012696",
+          "wall_delta_seconds": -1.2425223588943481,
+          "request_delta": 0,
+          "both_completed": true
+        },
+        {
+          "project": "libtommath",
+          "cost_delta_usd": "0.0105789",
+          "wall_delta_seconds": 6.882100119953975,
+          "request_delta": 2,
+          "both_completed": true
+        },
+        {
+          "project": "libhydrogen",
+          "cost_delta_usd": "-0.0023709",
+          "wall_delta_seconds": -0.5801127640297636,
+          "request_delta": -1,
+          "both_completed": true
+        },
+        {
+          "project": "tinyxml2",
+          "cost_delta_usd": "-0.0037470",
+          "wall_delta_seconds": -3.2918626439059153,
+          "request_delta": -1,
+          "both_completed": true
+        },
+        {
+          "project": "fse",
+          "cost_delta_usd": "0.0018633",
+          "wall_delta_seconds": 7.825778789934702,
+          "request_delta": 0,
+          "both_completed": true
+        },
+        {
+          "project": "check",
+          "cost_delta_usd": "0.0196959",
+          "wall_delta_seconds": 99.36800277791917,
+          "request_delta": 4,
+          "both_completed": true
+        },
+        {
+          "project": "libsodium",
+          "cost_delta_usd": "0.0034329",
+          "wall_delta_seconds": -6.874042857903987,
+          "request_delta": 1,
+          "both_completed": true
+        },
+        {
+          "project": "libverto",
+          "cost_delta_usd": "0.0013506",
+          "wall_delta_seconds": 2.021557759027928,
+          "request_delta": 0,
+          "both_completed": true
+        },
+        {
+          "project": "libsigcplusplus",
+          "cost_delta_usd": "0.1142313",
+          "wall_delta_seconds": 448.9555100490106,
+          "request_delta": 26,
+          "both_completed": true
+        }
+      ],
+      "descriptive_only": true
+    },
+    "H2_vs_H0": {
+      "paired_projects": 12,
+      "cheaper_projects": 5,
+      "faster_projects": 6,
+      "differences": [
+        {
+          "project": "yaml-cpp",
+          "cost_delta_usd": "0.0002712",
+          "wall_delta_seconds": 1.9125718879513443,
+          "request_delta": 0,
+          "both_completed": true
+        },
+        {
+          "project": "snappy",
+          "cost_delta_usd": "-0.0043617",
+          "wall_delta_seconds": -0.9031888000899926,
+          "request_delta": -1,
+          "both_completed": true
+        },
+        {
+          "project": "simdutf",
+          "cost_delta_usd": "0.0006858",
+          "wall_delta_seconds": 2.965039180009626,
+          "request_delta": 0,
+          "both_completed": true
+        },
+        {
+          "project": "md4c",
+          "cost_delta_usd": "0.0000834",
+          "wall_delta_seconds": -2.466161504969932,
+          "request_delta": 0,
+          "both_completed": true
+        },
+        {
+          "project": "libtommath",
+          "cost_delta_usd": "0.0002532",
+          "wall_delta_seconds": 1.7290636929683387,
+          "request_delta": 0,
+          "both_completed": true
+        },
+        {
+          "project": "libhydrogen",
+          "cost_delta_usd": "-0.0033153",
+          "wall_delta_seconds": -6.606283056898974,
+          "request_delta": -1,
+          "both_completed": true
+        },
+        {
+          "project": "tinyxml2",
+          "cost_delta_usd": "-0.0004257",
+          "wall_delta_seconds": -3.583521193009801,
+          "request_delta": 0,
+          "both_completed": true
+        },
+        {
+          "project": "fse",
+          "cost_delta_usd": "0.0007392",
+          "wall_delta_seconds": 2.6164073509862646,
+          "request_delta": 0,
+          "both_completed": true
+        },
+        {
+          "project": "check",
+          "cost_delta_usd": "-0.0000981",
+          "wall_delta_seconds": -9.097058366052806,
+          "request_delta": 0,
+          "both_completed": true
+        },
+        {
+          "project": "libsodium",
+          "cost_delta_usd": "-0.0049779",
+          "wall_delta_seconds": -9.336395289865322,
+          "request_delta": -1,
+          "both_completed": true
+        },
+        {
+          "project": "libverto",
+          "cost_delta_usd": "0.0028254",
+          "wall_delta_seconds": 2.689259387087077,
+          "request_delta": 1,
+          "both_completed": true
+        },
+        {
+          "project": "libsigcplusplus",
+          "cost_delta_usd": "0.1659075",
+          "wall_delta_seconds": 226.05425291508436,
+          "request_delta": 37,
+          "both_completed": true
+        }
+      ],
+      "descriptive_only": true
+    },
+    "H2_vs_H1": {
+      "paired_projects": 12,
+      "cheaper_projects": 8,
+      "faster_projects": 10,
+      "differences": [
+        {
+          "project": "yaml-cpp",
+          "cost_delta_usd": "-0.0002112",
+          "wall_delta_seconds": -0.30728454992640764,
+          "request_delta": 0,
+          "both_completed": true
+        },
+        {
+          "project": "snappy",
+          "cost_delta_usd": "-0.0059802",
+          "wall_delta_seconds": -1.545401849085465,
+          "request_delta": -1,
+          "both_completed": true
+        },
+        {
+          "project": "simdutf",
+          "cost_delta_usd": "0.0000294",
+          "wall_delta_seconds": 1.6431733630597591,
+          "request_delta": 0,
+          "both_completed": true
+        },
+        {
+          "project": "md4c",
+          "cost_delta_usd": "-0.0011862",
+          "wall_delta_seconds": -1.223639146075584,
+          "request_delta": 0,
+          "both_completed": true
+        },
+        {
+          "project": "libtommath",
+          "cost_delta_usd": "-0.0103257",
+          "wall_delta_seconds": -5.153036426985636,
+          "request_delta": -2,
+          "both_completed": true
+        },
+        {
+          "project": "libhydrogen",
+          "cost_delta_usd": "-0.0009444",
+          "wall_delta_seconds": -6.02617029286921,
+          "request_delta": 0,
+          "both_completed": true
+        },
+        {
+          "project": "tinyxml2",
+          "cost_delta_usd": "0.0033213",
+          "wall_delta_seconds": -0.2916585491038859,
+          "request_delta": 1,
+          "both_completed": true
+        },
+        {
+          "project": "fse",
+          "cost_delta_usd": "-0.0011241",
+          "wall_delta_seconds": -5.209371438948438,
+          "request_delta": 0,
+          "both_completed": true
+        },
+        {
+          "project": "check",
+          "cost_delta_usd": "-0.0197940",
+          "wall_delta_seconds": -108.46506114397198,
+          "request_delta": -4,
+          "both_completed": true
+        },
+        {
+          "project": "libsodium",
+          "cost_delta_usd": "-0.0084108",
+          "wall_delta_seconds": -2.4623524319613352,
+          "request_delta": -2,
+          "both_completed": true
+        },
+        {
+          "project": "libverto",
+          "cost_delta_usd": "0.0014748",
+          "wall_delta_seconds": 0.6677016280591488,
+          "request_delta": 1,
+          "both_completed": true
+        },
+        {
+          "project": "libsigcplusplus",
+          "cost_delta_usd": "0.0516762",
+          "wall_delta_seconds": -222.90125713392626,
+          "request_delta": 11,
+          "both_completed": true
+        }
+      ],
+      "descriptive_only": true
+    }
+  },
+  "evidence_inventory": "56696b56959c2016305b74026060e7c3bf5f081ef6795f4996cb408ec9652468",
+  "stop_reason": null,
+  "billing_complete": true,
+  "layer_interpretation": "原main_build_task_completed是主产物/源码/文件交付层；不包含完整submit验证和replay。原clean_replay=failed可能发生在smoke提交门禁，未有replay_attempt时另记not_started，保留原标签，不将未观察填失败。",
+  "batch_wall_seconds": 3326.941742148949
+}

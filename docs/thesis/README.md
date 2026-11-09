@@ -1,14 +1,16 @@
 # Forge 硕士论文阶段初稿
 
-日期：2026-11-09；版本：v0.9首轮结果稿；本轮跟踪：[Issue #699](https://github.com/WWFXL/Forge-AutoCompiler/issues/699)。原v0.7与PR696保留。
+日期：2026-11-09；版本：v0.10第二轮结果稿；本轮跟踪：[Issue #705](https://github.com/WWFXL/Forge-AutoCompiler/issues/705)。原v0.7与PR696保留。
 
 暂定题目：**面向C/C++仓库自动化构建的状态感知动作选择与验证方法研究**。
 
-本目录是按章维护的论文真源，沿用七章框架。v0.9补入一次真实离线提案与24次H0/H1比较，主任务10/12与11/12，H1在线费用高32.9%、时间高18.4%，暂不默认采用；三次共同观察失败保留。v0.8设计稿继续保留。v0.7补齐E42–E50的系统演进、规划路由、两层经验、简洁主构建54次比较及八个真实阶段—动作案例，更新中英摘要、方法图、结果表、结论和附录。当前为导师审阅用阶段稿；学校正式模板、个人信息和最终文献格式仍待完成。
+本目录是按章维护的论文真源，沿用七章框架。v0.10补入[E52第二轮36次比较](../research/2026-11-09-offline-harness-round2-results.md)：十二项目各一次×H0/H1/H2，主产物/文件交付均12/12，最终验证11/12、11/12、10/12；H2初始费低18.2%但总费高87.5%（相对H0），保留H0默认。四次后续未通过及分层解释完整保存。第4章另补共同执行/观察机制，不计候选收益。下文v0.9/v0.7为历史导出统计。v0.9补入一次真实离线提案与24次H0/H1比较，主任务10/12与11/12，H1在线费用高32.9%、时间高18.4%，暂不默认采用；三次共同观察失败保留。v0.8设计稿继续保留。v0.7补齐E42–E50的系统演进、规划路由、两层经验、简洁主构建54次比较及八个真实阶段—动作案例，更新中英摘要、方法图、结果表、结论和附录。当前为导师审阅用阶段稿；学校正式模板、个人信息和最终文献格式仍待完成。
 
 新增设计与入口见[本轮准备记录](../research/2026-11-09-offline-harness-preparation.md)；v0.8阅读副本在`/home/yiwei/.codex/outputs/forge-thesis-offline-harness-2026-11-09/`，已实际导出Word/PDF/HTML/Markdown，PDF 96页，50表11图；统计及文件哈希以build-summary.json和export-verification.json为准。下文v0.7统计属于原阅读稿，不能移作v0.8统计。
 
-本轮[E51结果报告](../research/2026-11-09-offline-harness-round1-results.md)及[24行分析](../../benchmarks/analyses/offline-harness-2026-11-09/slots.csv)为新增取数入口。v0.9阅读副本输出至`/home/yiwei/.codex/outputs/forge-thesis-offline-harness-results-2026-11-09/`，Word/PDF/HTML/Markdown均已实际导出：99页PDF、53表11图、正文约5.58万汉字；新增结果页与数字核验通过，统计/来源/文件哈希见同目录build-summary.json和export-verification.json。
+首轮[E51结果报告](../research/2026-11-09-offline-harness-round1-results.md)及[24行分析](../../benchmarks/analyses/offline-harness-2026-11-09/slots.csv)为新增取数入口。v0.9阅读副本输出至`/home/yiwei/.codex/outputs/forge-thesis-offline-harness-results-2026-11-09/`，Word/PDF/HTML/Markdown均已实际导出：99页PDF、53表11图、正文约5.58万汉字；新增结果页与数字核验通过，统计/来源/文件哈希见同目录build-summary.json和export-verification.json。
+
+v0.10阅读副本输出至`/home/yiwei/.codex/outputs/forge-thesis-offline-harness-round2-2026-11-09/`，Word/PDF/HTML/Markdown均已实际导出：106页PDF、57表12图、正文约5.90万汉字；第二轮结果数字及第82/84页图表布局已核验。统计、来源和文件哈希见该目录build-summary.json与export-verification.json。各格式由同一分章真源生成，不覆盖旧v0.9。
 
 ## 阅读入口
 
@@ -22,16 +24,16 @@
 
 ## 当前完成范围
 
-| 部分 | v0.7内容 |
+| 部分 | v0.10内容（保留v0.7基础） |
 |---|---|
 | 摘要与第1章 | 构建领域问题、阶段状态动作方法、两层经验及实际结论；不称通用机制首创 |
 | 第2章 | 自动化构建、Agent、Harness与经验相关工作；保留正式著录待补项 |
 | 第3章 | 任务/阶段/观察建模，历史完整任务与main-build-v1分开，新增实际主构建流程图3-2 |
-| 第4章 | 状态观察、有限直接动作、Agent修订、变化后缀、独立工具局部恢复；Jev仅接口实现与中断边界 |
-| 第5章 | 经验提炼与来源、一次任务检索、条件建议、精确成功方案、任务后更新及实际参数 |
-| 第6章 | E30/E33历史系统、E01/E02/E04组件、E34恢复、独立经验比较；新增E45–E48及E50主表7/8、图6-1；E51表30/31/32、案例表33 |
+| 第4章 | 状态观察、有限直接动作、Agent修订、变化后缀、独立工具局部恢复；补充共同执行与观察语义；Jev仅接口实现与中断边界 |
+| 第5章 | 经验提炼与来源、一次任务检索、条件建议、精确成功方案、任务后更新；两轮离线Harness提案、来源隔离和实际采用决定 |
+| 第6章 | E30/E33历史系统、E01/E02/E04组件、E34恢复、独立经验比较；E45–E48及E50主表7/8、图6-1；E51表30/31/32；E52表33/34/35、图6-8；案例表36 |
 | 第7章 | 依版本总结正向、负向、费用/时间取舍与局限 |
-| 附录 | 实验身份、真实角色/提示/工具、参数及E50九项目源码版本 |
+| 附录 | 实验身份、真实角色/提示/工具、参数、E50九项目版本及E52十二项目和后续验证分层 |
 | 学校格式与个人信息 | 正式模板、封面、声明、作者/导师和致谢待补，不推断填写 |
 
 E50各18次主任务基础/经验/强工具为18/18、18/18、17/18，在线费0.1638351/0.0777816/0.4149729美元；精确复用六次零模型且实际重建，时间比基础低12.1%。基础比强工具费低60.5%、时间高42.2%；经验总体时间差96.3%集中double-conversion，强工具一次提交/清理工具异常保留，不作编译能力排名。一次全归历史获取及制库时经验0.1880090美元仍高于基础在线，不隐去部署成本。
@@ -40,8 +42,8 @@ E50各18次主任务基础/经验/强工具为18/18、18/18、17/18，在线费0
 
 ```bash
 python3 docs/thesis/tools/build_draft.py \
-  --version v0.9 --date 2026-11-09 \
-  --output-dir /home/yiwei/.codex/outputs/forge-thesis-offline-harness-results-2026-11-09 \
+  --version v0.10 --date 2026-11-09 \
+  --output-dir /home/yiwei/.codex/outputs/forge-thesis-offline-harness-round2-2026-11-09 \
   --deps-dir /home/yiwei/.codex/outputs/forge-thesis-draft-2026-11-02/.doc-libs
 ```
 

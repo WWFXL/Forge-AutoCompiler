@@ -1,0 +1,5 @@
+# 第二轮36次离线Harness比较分析
+
+论文采用summary.json及slots.csv的分层字段；main_task_completed只代表主产物/源码/文件交付，最终通过还需final_verification_passed。observed_clean_replay按实际attempt区分passed/failed/not_started，原clean_replay标签同时保留。
+
+原件与source-snapshot不改。analyze.py只读复算到不存在的新目录，需原始证据及项目Python依赖。derived-v1保留原标签汇总，derived-v2修正论文层解释，不是新增运行。源码/参数见manifest，结论/费用/失败和模型披露见结果报告。
