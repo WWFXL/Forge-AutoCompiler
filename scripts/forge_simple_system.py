@@ -31,7 +31,7 @@ from deerflow.compile.plan_agent_canary import source_packet  # noqa: E402
 from deerflow.compile.plan_workflow import PlanBudget, PlanStep, _digest  # noqa: E402
 from deerflow.compile.simple_build_agents import SimpleBuildMeter, SimpleToolBuildService, run_simple_tool_agent  # noqa: E402
 from deerflow.compile.simple_build_experience import SimpleProjectRecipe, SimpleStateTargetBank, recipe_validation_succeeded, verified_simple_recipe  # noqa: E402
-from deerflow.compile.simple_build_runtime import SimpleBuildWorkflow, source_unchanged  # noqa: E402
+from deerflow.compile.simple_build_runtime import SimpleBuildWorkflow  # noqa: E402
 from deerflow.compile.simple_build_task import BuildReference, PublicBuildTask, SimpleBuildPlan, propose_simple  # noqa: E402
 from deerflow.config.paths import Paths  # noqa: E402
 
@@ -185,6 +185,10 @@ def run_simple_system(
         else:
             while True:
                 workflow.run()
+                if workflow.status == "primary_completed":
+                    workflow.timings["time_to_primary_from_arm_start_seconds"] = time.monotonic() - started
+                    final_plan = workflow.plan
+                    result.update(workflow.postchecks(author_test_seconds=author_test_seconds, validation_scope=validation_scope, recover_delivery=True))
                 if workflow.status != "needs_handoff":
                     break
                 if state_router is not None and state_router.handle(workflow, meter):
@@ -209,12 +213,13 @@ def run_simple_system(
                 finally:
                     recovery_seconds += time.monotonic() - recovery_start
                 workflow.apply_revision(handoff_id=workflow.handoff["handoff_id"], plan=revised, reason=reason)
-        if workflow.status == "primary_completed":
+        if method == "strong_tool_agent" and workflow.status == "primary_completed":
             # Workflow自身计时始于初始规划之后；系统比较必须另存包含规划/准备的时间。
             workflow.timings["time_to_primary_from_arm_start_seconds"] = time.monotonic() - started
             final_plan = workflow.plan
             result.update(workflow.postchecks(author_test_seconds=author_test_seconds, validation_scope=validation_scope))
-        source_unchanged(source, workflow.baseline)
+        workflow.check_source()
+        result["source_protection"] = workflow.source_protection()
         result["source_unchanged"] = True
         result.update(status=workflow.status, layers=workflow.layers, timings=workflow.timings)
     except Exception as exc:

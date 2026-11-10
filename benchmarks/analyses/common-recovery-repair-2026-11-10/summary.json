@@ -1,0 +1,266 @@
+{
+  "kind": "zero_provider_engineering_repair",
+  "issue": 715,
+  "identities": [
+    "cpp-build-common-recovery-repair-2026-11-10-v1",
+    "cpp-build-common-recovery-repair-2026-11-10-v2"
+  ],
+  "real_build_attempts": 5,
+  "unique_projects": 4,
+  "final_project_paths_passed": 4,
+  "provider_calls": 0,
+  "new_model_cost_usd": 0,
+  "scientific_effect_observations": 0,
+  "rows": [
+    {
+      "attempt": "v1",
+      "project": "tini",
+      "main_build": true,
+      "smoke": "passed",
+      "replay": "passed",
+      "reproducible_delivery": true,
+      "cleanup": true,
+      "model_requests": 0,
+      "cost_usd": 0.0,
+      "wall_seconds": 49.877789482008666,
+      "source_result": "/home/yiwei/.codex/outputs/forge-common-recovery-repair-2026-11-10-v1/tini/result.json"
+    },
+    {
+      "attempt": "v1",
+      "project": "Turbo-Base64",
+      "main_build": true,
+      "smoke": "passed",
+      "replay": "passed",
+      "reproducible_delivery": true,
+      "cleanup": true,
+      "model_requests": 0,
+      "cost_usd": 0.0,
+      "wall_seconds": 13.707894120947458,
+      "source_result": "/home/yiwei/.codex/outputs/forge-common-recovery-repair-2026-11-10-v1/Turbo-Base64/result.json"
+    },
+    {
+      "attempt": "v1",
+      "project": "munge",
+      "main_build": true,
+      "smoke": "failed",
+      "replay": "not_started",
+      "reproducible_delivery": false,
+      "cleanup": true,
+      "model_requests": 0,
+      "cost_usd": 0.0,
+      "wall_seconds": 35.066796605009586,
+      "source_result": "/home/yiwei/.codex/outputs/forge-common-recovery-repair-2026-11-10-v1/munge/result.json"
+    },
+    {
+      "attempt": "v2",
+      "project": "munge",
+      "main_build": true,
+      "smoke": "passed",
+      "replay": "passed",
+      "reproducible_delivery": true,
+      "cleanup": true,
+      "model_requests": 0,
+      "cost_usd": 0.0,
+      "wall_seconds": 69.91360861598514,
+      "source_result": "/home/yiwei/.codex/outputs/forge-common-recovery-repair-2026-11-10-v2/munge/result.json"
+    },
+    {
+      "attempt": "v2",
+      "project": "fsarchiver",
+      "main_build": true,
+      "smoke": "passed",
+      "replay": "passed",
+      "reproducible_delivery": true,
+      "cleanup": true,
+      "model_requests": 0,
+      "cost_usd": 0.0,
+      "wall_seconds": 149.1769853850128,
+      "source_result": "/home/yiwei/.codex/outputs/forge-common-recovery-repair-2026-11-10-v2/fsarchiver/result.json"
+    }
+  ],
+  "final_success_path_seconds": 282.6762776039541,
+  "all_attempt_seconds": 317.74307420896366,
+  "generated_document_change": {
+    "path": "README.md",
+    "template": "tpl/README.md.in",
+    "source": "CMakeLists.txt:67-71，configure_file @ONLY；E53作者配置实际生成内容，仅授权该哈希",
+    "before_sha256": "f9cb6bc81e321b77cd6123ab0211e5465bb6b35704a941efee7db03461fc5f4f",
+    "actual_sha256": "f9cb6bc81e321b77cd6123ab0211e5465bb6b35704a941efee7db03461fc5f4f",
+    "expected_sha256": "f9cb6bc81e321b77cd6123ab0211e5465bb6b35704a941efee7db03461fc5f4f",
+    "content_changed": false,
+    "file_identity_changed": true
+  },
+  "context_only_replay": {
+    "identity": "cpp-build-common-recovery-context-replay-v1",
+    "kind": "zero_provider_context_only",
+    "root": "/home/yiwei/work/Forge-AutoCompiler-worktrees/715-common-recovery-repair",
+    "rows": [
+      {
+        "slot": "slot-25-ggmorse-H0",
+        "original_response": "/home/yiwei/.codex/outputs/forge-recovery-harness-comparison-flash-v2/slot-25-ggmorse-H0/agent/response-5.json",
+        "original_response_sha256": "b8cedb9a9945500dee3f3127ddf0626736fcb364a748ef6702b7a8ce0a9eb02b",
+        "replay_body_bytes": 38275,
+        "scripted_responses": 2,
+        "provider_calls": 0,
+        "model_cost_usd": 0,
+        "plan_execution": false
+      },
+      {
+        "slot": "slot-26-ggmorse-R1",
+        "original_response": "/home/yiwei/.codex/outputs/forge-recovery-harness-comparison-flash-v2/slot-26-ggmorse-R1/agent/response-9.json",
+        "original_response_sha256": "f3266d936f72c232f4619c15e3b8194e7084a56892677abe3aaf14bd1b4526ad",
+        "replay_body_bytes": 22610,
+        "scripted_responses": 2,
+        "provider_calls": 0,
+        "model_cost_usd": 0,
+        "plan_execution": false
+      }
+    ],
+    "boundary": "仅验证真实旧材料的序列化与容量；不验证Agent新决策、模型服务兼容性或ggmorse构建成功"
+  },
+  "resource_checks": [
+    {
+      "identifier": "deerflow-compile-simple-s-a5ce2a0c",
+      "absent": true
+    },
+    {
+      "identifier": "938f97cb5cad2e5a2025c3a2e766eb21211bc8e50537f081e4ba850f276b3204",
+      "absent": true
+    },
+    {
+      "identifier": "deerflow-replay-simple-s-a5ce2a0c-replay_ce529",
+      "absent": true
+    },
+    {
+      "identifier": "44b609c27a4b606e61554a0dd2c55b9e4aac94bec8a6c0df63da3a3ca583a317",
+      "absent": true
+    },
+    {
+      "identifier": "deerflow-compile-simple-s-ad599656",
+      "absent": true
+    },
+    {
+      "identifier": "6f781dae320dc7df11903a54aa3ea6054d73f0459f2553f5d7a4879cd483cd65",
+      "absent": true
+    },
+    {
+      "identifier": "deerflow-replay-simple-s-ad599656-replay_f66d0",
+      "absent": true
+    },
+    {
+      "identifier": "c431ef28b7020db5b207a857d738e57bcffdc38d538a3143bb75d6c099b4dca0",
+      "absent": true
+    },
+    {
+      "identifier": "deerflow-compile-simple-s-cd3fc6ef",
+      "absent": true
+    },
+    {
+      "identifier": "cb66e92e7ee7d6176fc0d99771e4fb96b853357310a91ef9a47375cd9d0aeaf4",
+      "absent": true
+    },
+    {
+      "identifier": "deerflow-compile-simple-s-eef93403",
+      "absent": true
+    },
+    {
+      "identifier": "a5a12f93a846794ad1af81d2b413252fe5a956a90d153185e25f194e9953a5a1",
+      "absent": true
+    },
+    {
+      "identifier": "deerflow-replay-simple-s-eef93403-replay_cea2a",
+      "absent": true
+    },
+    {
+      "identifier": "b421de13fea2a3dbf175e341725acda15edc2dc0f3ab56643e93bd952c64900a",
+      "absent": true
+    },
+    {
+      "identifier": "deerflow-compile-simple-s-40bd9e67",
+      "absent": true
+    },
+    {
+      "identifier": "51f971664188c208314aa24bec7f953e34c088496c2f4ae5dacea636c3f66a39",
+      "absent": true
+    },
+    {
+      "identifier": "deerflow-replay-simple-s-40bd9e67-replay_0b53a",
+      "absent": true
+    },
+    {
+      "identifier": "7c58c821c6c419e0471d4d420413eedeadcfb41ba089d1462234353d2e1445bc",
+      "absent": true
+    }
+  ],
+  "source_bindings": [
+    {
+      "path": "/home/yiwei/.codex/outputs/forge-common-recovery-repair-2026-11-10-v1/summary.json",
+      "sha256": "77083d04481ad78a6971df095f683dd75b8298e7733b6541d90873ff9e3e61cf"
+    },
+    {
+      "path": "/home/yiwei/.codex/outputs/forge-common-recovery-repair-2026-11-10-v1/scope.json",
+      "sha256": "7381355488be710ef52a0873f9e029001bb049d0a59bcc6750011ccb9651fc37"
+    },
+    {
+      "path": "/home/yiwei/.codex/outputs/forge-common-recovery-repair-2026-11-10-v1/cases.json",
+      "sha256": "38e0113994d14fa5d35a6f4c1aac6eeee25cd6bf5d0f22a2a387e6a344649883"
+    },
+    {
+      "path": "/home/yiwei/.codex/outputs/forge-common-recovery-repair-2026-11-10-v1/tini/result.json",
+      "sha256": "cfebbd67c72a6f0a87fd349c8635679396017505c914cfafb78fedc51139b144"
+    },
+    {
+      "path": "/home/yiwei/.codex/outputs/forge-common-recovery-repair-2026-11-10-v1/tini/.compile-sessions/simple-system/a5ce2a0ccf8e/session.json",
+      "sha256": "ec74836821a1f3c807e91511ada07ed01c96dd775816fe65dfa1395315c94360"
+    },
+    {
+      "path": "/home/yiwei/.codex/outputs/forge-common-recovery-repair-2026-11-10-v1/Turbo-Base64/result.json",
+      "sha256": "183d7999137b71c61adcf99bfab1981cf19d8ed56a2ca7f040942724da59dd6b"
+    },
+    {
+      "path": "/home/yiwei/.codex/outputs/forge-common-recovery-repair-2026-11-10-v1/Turbo-Base64/.compile-sessions/simple-system/ad599656eeba/session.json",
+      "sha256": "1b0fe28738df8b9248b31e28e0505a37aa6d058142f2e21e2fb2fdc31686f979"
+    },
+    {
+      "path": "/home/yiwei/.codex/outputs/forge-common-recovery-repair-2026-11-10-v1/munge/result.json",
+      "sha256": "8845be5b53553bee05ae5e38ba89caa128c605bea24f6ba43d022396536348e8"
+    },
+    {
+      "path": "/home/yiwei/.codex/outputs/forge-common-recovery-repair-2026-11-10-v1/munge/.compile-sessions/simple-system/cd3fc6ef02ff/session.json",
+      "sha256": "393d5c451f3a32cd4cf320ed4fe55aca3d8a8641b3d24471f119f739a69f692d"
+    },
+    {
+      "path": "/home/yiwei/.codex/outputs/forge-common-recovery-repair-2026-11-10-v2/summary.json",
+      "sha256": "d33436326047a1ece9490fb107c333b0005b39caf3a03bf6e8f9b32c21efec63"
+    },
+    {
+      "path": "/home/yiwei/.codex/outputs/forge-common-recovery-repair-2026-11-10-v2/scope.json",
+      "sha256": "10030c4b62846bebf268e1bed304817d4a13f1f5f083f1756df17ab8785752b9"
+    },
+    {
+      "path": "/home/yiwei/.codex/outputs/forge-common-recovery-repair-2026-11-10-v2/cases.json",
+      "sha256": "72eca0f21d468e3c0b75d8ed781eea4a364459a5c28e330b2e43e167f2151409"
+    },
+    {
+      "path": "/home/yiwei/.codex/outputs/forge-common-recovery-repair-2026-11-10-v2/munge/result.json",
+      "sha256": "6f13d61b2a3994eb4614a9987f928bc1648937026d5adc089cdc196a6110dc9c"
+    },
+    {
+      "path": "/home/yiwei/.codex/outputs/forge-common-recovery-repair-2026-11-10-v2/munge/.compile-sessions/simple-system/eef93403eaef/session.json",
+      "sha256": "ac36568c2c11d19eeaab0ea0132f0f53c9cfee24453a420e8163a967ac73955e"
+    },
+    {
+      "path": "/home/yiwei/.codex/outputs/forge-common-recovery-repair-2026-11-10-v2/fsarchiver/result.json",
+      "sha256": "801e24ca652c73368f92f32ad42324404a259c4af082d1cd0ac587c2b5d29024"
+    },
+    {
+      "path": "/home/yiwei/.codex/outputs/forge-common-recovery-repair-2026-11-10-v2/fsarchiver/.compile-sessions/simple-system/40bd9e676d4d/session.json",
+      "sha256": "d4b66f43f7777e9ef6a7ccf2a46fba71bfd9a288f7a205387e77ab6e144cd7c4"
+    },
+    {
+      "path": "/home/yiwei/.codex/outputs/forge-common-recovery-context-replay-2026-11-10-v2/summary.json",
+      "sha256": "4414e541d8de5fe9c8773273061cacc57aaabb26177e4bf67d37cc61ce850f5f"
+    }
+  ],
+  "boundary": "受控工程复现，非新Agent效果；v1 munge错误断言与上下文适配器首次失败保留；旧E53不改写；不证明Provider续接或ggmorse构建成功"
+}

@@ -121,6 +121,30 @@ class ExecutableSmoke(BaseModel):
         return self
 
 
+class GeneratedDocument(BaseModel):
+    """独立参考确认的作者生成文档；不能由规划输出授予写权限。"""
+
+    model_config = ConfigDict(frozen=True, extra="forbid")
+    path: str
+    template: str
+    sha256: str = Field(pattern=r"^[0-9a-f]{64}$")
+    source: str = Field(min_length=1)
+
+    @model_validator(mode="after")
+    def document(self) -> Self:
+        from pathlib import PurePosixPath
+
+        for value in (self.path, self.template):
+            if relative_path(value) != value:
+                raise ValueError("生成文档与模板须使用仓库内规范相对路径")
+        path = PurePosixPath(self.path)
+        if path.suffix.lower() not in {".md", ".rst", ".txt"} or any(p.lower() in {"test", "tests", "testing"} for p in path.parts):
+            raise ValueError("生成例外仅接受文档，不授予源码、测试或脚本写权限")
+        if self.path == self.template:
+            raise ValueError("生成文档不能覆盖自身模板")
+        return self
+
+
 class BuildReference(BaseModel):
     """评测侧独立核对的数据，不能序列化为规划Agent的任务。"""
 
@@ -131,6 +155,7 @@ class BuildReference(BaseModel):
     author_tests: tuple[PlanStep, ...] = ()
     tests_not_applicable_reason: str | None = None
     executable_smokes: tuple[ExecutableSmoke, ...] = ()
+    generated_documents: tuple[GeneratedDocument, ...] = ()
 
     @model_validator(mode="after")
     def tests(self) -> Self:
@@ -144,6 +169,9 @@ class BuildReference(BaseModel):
         executable_names = {name for c in self.components if "executable" in c.kinds for name in c.artifact_names}
         if len(set(names)) != len(names) or not set(names) <= executable_names:
             raise ValueError("轻量验证须唯一绑定参考中的可执行组件")
+        paths = [d.path for d in self.generated_documents]
+        if len(set(paths)) != len(paths):
+            raise ValueError("生成文档路径不得重复")
         return self
 
 
@@ -334,14 +362,17 @@ def propose_simple(*, model, task: PublicBuildTask, source_root, session_root, m
     meter.requires_structured_response = False
     meter.ledger.append("agent.started", revision=revision, recovery=current_plan is not None, contract="simple-build-v1")
     corrections = 0
+    corrected_categories = set()
 
-    def correct_once(error):
+    def correct_once(error, category="structure"):
         nonlocal corrections
-        meter.ledger.append("simple.proposal_rejected", revision=revision, correction=corrections, category=type(error).__name__, detail=str(error)[:4000])
-        if corrections or not isinstance(error, (StructuredOutputValidationError, PlanOutputError, ValueError)):
+        meter.ledger.append("simple.proposal_rejected", revision=revision, correction=corrections, correction_category=category, category=type(error).__name__, detail=str(error)[:4000])
+        if category in corrected_categories or not isinstance(error, (StructuredOutputValidationError, PlanOutputError, ValueError)):
             raise error
+        corrected_categories.add(category)
         corrections += 1
-        return "方案尚未执行。仅允许这一次结构纠正，请使用SimpleBuildActions提交完整reason字符串和steps列表；保留已读证据、任务与原测试。具体错误：" + str(error)[:4000]
+        label = "结构纠正" if category == "structure" else "恢复方案执行约束纠正"
+        return "方案尚未执行。仅允许这一次" + label + "，请使用SimpleBuildActions提交完整reason字符串和steps列表；保留已读证据、任务与原测试。具体错误：" + str(error)[:4000]
 
     agent = create_agent(model=model, tools=safe_readonly_tools(source_root, session_root), system_prompt=prompt, middleware=[meter], response_format=ToolStrategy(SimpleBuildActions, handle_errors=correct_once))
     evidence = meter.packet() if hasattr(meter, "packet") else {}
@@ -367,13 +398,18 @@ def propose_simple(*, model, task: PublicBuildTask, source_root, session_root, m
             meter.ledger.append("simple.output_received", revision=revision, channel=channel, corrections=corrections)
             try:
                 plan = assemble_simple_plan(task, proposal, revision=revision)
+            except ValueError as error:
+                feedback = correct_once(error)
+                messages = correction_history(result["messages"], feedback)
+                continue
+            try:
                 if current_plan is not None:
                     if revision_validator is not None:
                         revision_validator(plan)
                     else:
                         validate_simple_revision(current_plan, plan)
             except ValueError as error:
-                feedback = correct_once(error)
+                feedback = correct_once(error, "revision")
                 messages = correction_history(result["messages"], feedback)
                 continue
             break

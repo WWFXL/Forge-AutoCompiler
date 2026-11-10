@@ -1,0 +1,426 @@
+{
+  "identity": "cpp-build-common-recovery-repair-2026-11-10-v2",
+  "kind": "zero_provider_engineering",
+  "cases": [
+    {
+      "name": "munge",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "recovery-munge",
+        "repository_url": "https://github.com/dun/munge",
+        "commit_sha": "f4724adb855038307deab790551c86c0a7d19ea6",
+        "image_id": "sha256:d27a6ab733c7c3a9cbb5e4b32fb595aa5a422ff04bd212888d1041b90a2c4c2a",
+        "source_archive_sha256": "a90150e2e4f26515af0c9440125c55bd7f33eb471edae40b19010dfd159e6b3e",
+        "build_system": "autotools",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "81ac6b8bbbecb7ef74bbf9f72ab665705dcbf1a6cb3c2e6011e5d0d13f4945c2",
+        "components": [
+          {
+            "name": "libmunge",
+            "artifact_names": [
+              "libmunge.a",
+              "libmunge.so"
+            ],
+            "kinds": [
+              "static_library",
+              "shared_library"
+            ],
+            "evidence": "作者普通库目标，下面source_evidence保存原声明"
+          },
+          {
+            "name": "munge",
+            "artifact_names": [
+              "munge"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "作者主要程序声明，下面source_evidence保存原文"
+          },
+          {
+            "name": "remunge",
+            "artifact_names": [
+              "remunge"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "作者主要程序声明，下面source_evidence保存原文"
+          },
+          {
+            "name": "unmunge",
+            "artifact_names": [
+              "unmunge"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "作者主要程序声明，下面source_evidence保存原文"
+          },
+          {
+            "name": "munged",
+            "artifact_names": [
+              "munged"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "作者主要程序声明，下面source_evidence保存原文"
+          },
+          {
+            "name": "mungekey",
+            "artifact_names": [
+              "mungekey"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "作者主要程序声明，下面source_evidence保存原文"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": "main-build-v1不要求完整作者测试；轻量验证及干净重放另列",
+        "executable_smokes": [
+          {
+            "artifact_name": "munge",
+            "step": {
+              "step_id": "native-munge",
+              "role": "smoke",
+              "command": "/artifacts/munge --version",
+              "workdir": "/workspace/repo",
+              "source": "作者共享display_version函数输出包版本（非程序名称）；v1实际munge/remunge均输出相同包标识，固定源码不变",
+              "expected": "作者轻量运行入口退出0并输出原生标识",
+              "required_output": [
+                "munge-0.5.18.20260730.f4724adb"
+              ]
+            }
+          },
+          {
+            "artifact_name": "remunge",
+            "step": {
+              "step_id": "native-remunge",
+              "role": "smoke",
+              "command": "/artifacts/remunge --version",
+              "workdir": "/workspace/repo",
+              "source": "作者共享display_version函数输出包版本（非程序名称）；v1实际munge/remunge均输出相同包标识，固定源码不变",
+              "expected": "作者轻量运行入口退出0并输出原生标识",
+              "required_output": [
+                "munge-0.5.18.20260730.f4724adb"
+              ]
+            }
+          },
+          {
+            "artifact_name": "unmunge",
+            "step": {
+              "step_id": "native-unmunge",
+              "role": "smoke",
+              "command": "/artifacts/unmunge --version",
+              "workdir": "/workspace/repo",
+              "source": "作者共享display_version函数输出包版本（非程序名称）；v1实际munge/remunge均输出相同包标识，固定源码不变",
+              "expected": "作者轻量运行入口退出0并输出原生标识",
+              "required_output": [
+                "munge-0.5.18.20260730.f4724adb"
+              ]
+            }
+          },
+          {
+            "artifact_name": "munged",
+            "step": {
+              "step_id": "native-munged",
+              "role": "smoke",
+              "command": "/artifacts/munged --version",
+              "workdir": "/workspace/repo",
+              "source": "作者共享display_version函数输出包版本（非程序名称）；v1实际munge/remunge均输出相同包标识，固定源码不变",
+              "expected": "作者轻量运行入口退出0并输出原生标识",
+              "required_output": [
+                "munge-0.5.18.20260730.f4724adb"
+              ]
+            }
+          },
+          {
+            "artifact_name": "mungekey",
+            "step": {
+              "step_id": "native-mungekey",
+              "role": "smoke",
+              "command": "/artifacts/mungekey --version",
+              "workdir": "/workspace/repo",
+              "source": "作者共享display_version函数输出包版本（非程序名称）；v1实际munge/remunge均输出相同包标识，固定源码不变",
+              "expected": "作者轻量运行入口退出0并输出原生标识",
+              "required_output": [
+                "munge-0.5.18.20260730.f4724adb"
+              ]
+            }
+          }
+        ],
+        "generated_documents": []
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-recovery-harness-sources-2026-11-09-v1/munge/source.tar",
+      "initial_plan": {
+        "task": {
+          "task_version": "main-build-v1",
+          "plan_id": "recovery-munge",
+          "repository_url": "https://github.com/dun/munge",
+          "commit_sha": "f4724adb855038307deab790551c86c0a7d19ea6",
+          "image_id": "sha256:d27a6ab733c7c3a9cbb5e4b32fb595aa5a422ff04bd212888d1041b90a2c4c2a",
+          "source_archive_sha256": "a90150e2e4f26515af0c9440125c55bd7f33eb471edae40b19010dfd159e6b3e",
+          "build_system": "autotools",
+          "architecture": "x86_64",
+          "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+          "common_clarification": "",
+          "parallel_jobs": 2
+        },
+        "revision": 1,
+        "steps": [
+          {
+            "step_id": "deps-autotools-crypto",
+            "role": "dependency",
+            "command": "apt-get install -y autoconf automake libtool pkg-config libssl-dev",
+            "source": "QUICKSTART:74-77,133-136 (bootstrap 需 autoconf/automake/libtool) 与 configure.ac:57 X_AC_SELECT_CRYPTO_LIB",
+            "expected": "安装 autotools 与 OpenSSL 开发库，供 bootstrap 和 configure 使用",
+            "workdir": "/workspace/repo",
+            "requires": [],
+            "required_output": [],
+            "diagnostic_paths": []
+          },
+          {
+            "step_id": "bootstrap",
+            "role": "configure",
+            "command": "./bootstrap",
+            "source": "QUICKSTART:119-136 与 bootstrap:3 autoreconf --force --install",
+            "expected": "由 autoreconf 生成 configure 及 Makefile.in",
+            "workdir": "/workspace/repo",
+            "requires": [
+              "deps-autotools-crypto"
+            ],
+            "required_output": [],
+            "diagnostic_paths": []
+          },
+          {
+            "step_id": "configure",
+            "role": "configure",
+            "command": "./configure",
+            "source": "QUICKSTART:124-129（git 检出后 ./configure）",
+            "expected": "检测依赖并生成顶层及各子目录 Makefile",
+            "workdir": "/workspace/repo",
+            "requires": [
+              "bootstrap"
+            ],
+            "required_output": [],
+            "diagnostic_paths": []
+          },
+          {
+            "step_id": "build",
+            "role": "build",
+            "command": "make -j2",
+            "source": "QUICKSTART:129 与 configure.ac:118-130 子目录 Makefile",
+            "expected": "构建主要程序与库（munged、munge、unmunge、libmunge 等）",
+            "workdir": "/workspace/repo",
+            "requires": [
+              "configure"
+            ],
+            "required_output": [],
+            "diagnostic_paths": []
+          }
+        ],
+        "build_directory": "/workspace/repo",
+        "discard_dependencies": {},
+        "artifact_paths": []
+      },
+      "source_plan": "/home/yiwei/.codex/outputs/forge-recovery-harness-comparison-flash-v2/initial/munge/initial-plan.json",
+      "source_plan_sha256": "0ee222872e20f42f240440be397332aa2df09cb2028f4a5030491e5257b82a3d"
+    },
+    {
+      "name": "fsarchiver",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "recovery-fsarchiver",
+        "repository_url": "https://github.com/fdupoux/fsarchiver",
+        "commit_sha": "0cb18032a8016fc73027e299f43591b2701aef1f",
+        "image_id": "sha256:d27a6ab733c7c3a9cbb5e4b32fb595aa5a422ff04bd212888d1041b90a2c4c2a",
+        "source_archive_sha256": "1f771253dbfcbcb51abfe9556a700f0dcf7b8b53e6852825d0058ec4a9fd2fad",
+        "build_system": "autotools",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "d8f0679a2f8106e14c43c9133636ed2db860bbea6e964005360d0609626581e7",
+        "components": [
+          {
+            "name": "fsarchiver",
+            "artifact_names": [
+              "fsarchiver"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "作者主要程序声明，下面source_evidence保存原文"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": "main-build-v1不要求完整作者测试；轻量验证及干净重放另列",
+        "executable_smokes": [
+          {
+            "artifact_name": "fsarchiver",
+            "step": {
+              "step_id": "native-fsarchiver",
+              "role": "smoke",
+              "command": "/artifacts/fsarchiver -V",
+              "workdir": "/workspace/repo",
+              "source": "src/fsarchiver.c:version分支；E53实际-V输出，纠正旧误写的fsarchiver version",
+              "expected": "作者轻量运行入口退出0并输出原生标识",
+              "required_output": [
+                "fsarchiver 0.8.10-git"
+              ]
+            }
+          }
+        ],
+        "generated_documents": []
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-recovery-harness-sources-2026-11-09-v1/fsarchiver/source.tar",
+      "initial_plan": {
+        "task": {
+          "task_version": "main-build-v1",
+          "plan_id": "recovery-fsarchiver",
+          "repository_url": "https://github.com/fdupoux/fsarchiver",
+          "commit_sha": "0cb18032a8016fc73027e299f43591b2701aef1f",
+          "image_id": "sha256:d27a6ab733c7c3a9cbb5e4b32fb595aa5a422ff04bd212888d1041b90a2c4c2a",
+          "source_archive_sha256": "1f771253dbfcbcb51abfe9556a700f0dcf7b8b53e6852825d0058ec4a9fd2fad",
+          "build_system": "autotools",
+          "architecture": "x86_64",
+          "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+          "common_clarification": "",
+          "parallel_jobs": 2
+        },
+        "revision": 1,
+        "steps": [
+          {
+            "step_id": "deps",
+            "role": "dependency",
+            "command": "apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y gcc g++ make autoconf automake autotools-dev pkg-config zlib1g-dev libbz2-dev liblzma-dev liblzo2-dev liblz4-dev libzstd-dev libgcrypt20-dev e2fsprogs libext2fs-dev comerr-dev uuid-dev libblkid-dev libattr1-dev",
+            "source": ".travis.yml:8 依赖列表；configure.ac:50-125 所需 zlib/bz2/lzma/lzo/lz4/zstd/gcrypt/ext2fs/com_err/e2p/blkid/uuid 库",
+            "expected": "安装 autotools 工具链与 configure.ac 检查的全部开发库",
+            "workdir": "/workspace/repo",
+            "requires": [],
+            "required_output": [],
+            "diagnostic_paths": []
+          },
+          {
+            "step_id": "autoconf_tools",
+            "role": "dependency",
+            "command": "apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y wget ca-certificates xz-utils",
+            "source": "configure.ac:4 AC_PREREQ([2.72])；autogen.sh:2 调用 autoreconf；失败命令 command_b5a0c3e5562742559146a7f7020276ae 显示系统 autoconf 低于 2.72",
+            "expected": "安装下载与解压 autoconf 2.72 官方源码包所需的 wget/ca-certificates/xz-utils",
+            "workdir": "/workspace/repo",
+            "requires": [],
+            "required_output": [],
+            "diagnostic_paths": []
+          },
+          {
+            "step_id": "autoconf_fetch",
+            "role": "dependency",
+            "command": "wget -q https://ftp.gnu.org/gnu/autoconf/autoconf-2.72.tar.xz -O /tmp/autoconf-2.72.tar.xz",
+            "source": "configure.ac:4 AC_PREREQ([2.72])；GNU autoconf 2.72 官方发布包",
+            "expected": "下载 autoconf 2.72 源码包到 /tmp",
+            "workdir": "/workspace/repo",
+            "requires": [
+              "autoconf_tools"
+            ],
+            "required_output": [],
+            "diagnostic_paths": []
+          },
+          {
+            "step_id": "autoconf_extract",
+            "role": "dependency",
+            "command": "tar -xf /tmp/autoconf-2.72.tar.xz -C /tmp",
+            "source": "GNU autoconf 2.72 官方源码包结构",
+            "expected": "解压 autoconf 2.72 源码到 /tmp/autoconf-2.72",
+            "workdir": "/workspace/repo",
+            "requires": [
+              "autoconf_fetch"
+            ],
+            "required_output": [],
+            "diagnostic_paths": []
+          },
+          {
+            "step_id": "autoconf_configure",
+            "role": "dependency",
+            "command": "cd /tmp/autoconf-2.72 && ./configure --prefix=/usr/local",
+            "source": "autoconf 2.72 官方源码标准构建；configure.ac:4 要求 autoconf>=2.72",
+            "expected": "配置 autoconf 2.72 安装到 /usr/local，避免覆盖系统 apt 包",
+            "workdir": "/workspace/repo",
+            "requires": [
+              "autoconf_extract"
+            ],
+            "required_output": [],
+            "diagnostic_paths": []
+          },
+          {
+            "step_id": "autoconf_build",
+            "role": "dependency",
+            "command": "make -C /tmp/autoconf-2.72 -j2",
+            "source": "autoconf 2.72 官方源码标准构建",
+            "expected": "编译 autoconf 2.72",
+            "workdir": "/workspace/repo",
+            "requires": [
+              "autoconf_configure"
+            ],
+            "required_output": [],
+            "diagnostic_paths": []
+          },
+          {
+            "step_id": "autoconf_install",
+            "role": "dependency",
+            "command": "make -C /tmp/autoconf-2.72 install",
+            "source": "autoconf 2.72 官方源码标准构建；autogen.sh:2 需要 autoreconf",
+            "expected": "安装 autoconf 2.72 及其 autoreconf 到 /usr/local",
+            "workdir": "/workspace/repo",
+            "requires": [
+              "autoconf_build"
+            ],
+            "required_output": [],
+            "diagnostic_paths": []
+          },
+          {
+            "step_id": "configure",
+            "role": "configure",
+            "command": "PATH=/usr/local/bin:$PATH sh ./autogen.sh && PATH=/usr/local/bin:$PATH ./configure",
+            "source": "autogen.sh:2 autoreconf -vfi；docker/build-fsarchiver.sh:24 ./autogen.sh；.travis.yml:14-16 ./autogen.sh 后 ./configure",
+            "expected": "使用 autoconf 2.72 生成配置脚本并按作者默认选项完成 in-tree 配置",
+            "workdir": "/workspace/repo",
+            "requires": [
+              "autoconf_install"
+            ],
+            "required_output": [],
+            "diagnostic_paths": []
+          },
+          {
+            "step_id": "build",
+            "role": "build",
+            "command": "make -j2",
+            "source": "Makefile.am:1 SUBDIRS = src doc；src/Makefile.am:1 sbin_PROGRAMS = fsarchiver；.travis.yml:17 make",
+            "expected": "编译默认主目标 src/fsarchiver",
+            "workdir": "/workspace/repo",
+            "requires": [
+              "configure"
+            ],
+            "required_output": [],
+            "diagnostic_paths": []
+          }
+        ],
+        "build_directory": "/workspace/repo",
+        "discard_dependencies": {},
+        "artifact_paths": []
+      },
+      "source_plan": "/home/yiwei/.codex/outputs/forge-recovery-harness-comparison-flash-v2/slot-17-fsarchiver-H0/.compile-sessions/simple-system/33f59fc9f074/build-plan/plan-3.json",
+      "source_plan_sha256": "6f5d148184c406bcc007ff3b71cd1aa3822f4571415fc27d412d5bbee3ddfd1c"
+    }
+  ],
+  "prior_attempt": "forge-common-recovery-repair-2026-11-10-v1：tini和Turbo通过，munge加载问题已解决但错误断言要求每个程序输出自身名称；原结果保留；本次纠正独立验证定义，不更改构建动作或重跑已通过路径"
+}

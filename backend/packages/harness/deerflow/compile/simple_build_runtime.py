@@ -5,6 +5,7 @@ from __future__ import annotations
 import hashlib
 import json
 import os
+import re
 import shlex
 import stat
 import subprocess
@@ -38,7 +39,10 @@ def source_inventory(root: Path) -> dict:
     return rows
 
 
-def source_unchanged(root, baseline):
+def source_unchanged(root, baseline, generated_documents=()):
+    documents = {d.path: d for d in generated_documents}
+    if any(d.path not in baseline or d.template not in baseline or baseline[d.path]["link"] is not None or baseline[d.template]["link"] is not None for d in generated_documents):
+        raise PlanContractError("作者生成文档及模板必须是原始普通文件")
     for name, row in baseline.items():
         p = root / name
         try:
@@ -47,6 +51,9 @@ def source_unchanged(root, baseline):
         except OSError as exc:
             raise PlanContractError("原源码/测试缺失：" + name) from exc
         if actual != row:
+            document = documents.get(name)
+            if document is not None and actual["link"] is None and actual["mode"] == row["mode"] and stat.S_ISREG(s.st_mode) and actual["sha256"] == document.sha256:
+                continue
             raise PlanContractError("原源码/测试被修改：" + name)
 
 
@@ -189,7 +196,7 @@ def primary_artifacts(*, task, reference, root, baseline, deadline):
     """独立组件覆盖＋结构/平台/来源检查；路径定位不改变构建动作。"""
     if reference.task_sha256 != _digest(task.model_dump(mode="json")):
         raise PlanContractError("独立参考与公开任务身份不一致")
-    source_unchanged(root, baseline)
+    source_unchanged(root, baseline, reference.generated_documents)
     precompiled = set()
     for name, row in baseline.items():
         p = root / name
@@ -261,6 +268,24 @@ class SimpleBuildWorkflow(PlanWorkflow):
             raise PlanContractError("独立参考不属于当前公开任务")
         (self.directory / "source-baseline.json").write_text(json.dumps(self.baseline, ensure_ascii=False, indent=2) + "\n")
 
+    def check_source(self):
+        source_unchanged(self.root, self.baseline, self.reference.generated_documents)
+
+    def source_protection(self):
+        """保护输入与明确授权的文档生成分列，不把文档变化说成所有原文件字节未变。"""
+        self.check_source()
+        changes = []
+        for document in self.reference.generated_documents:
+            path = self.root / document.path
+            actual = file_hash(path)
+            original = self.baseline[document.path]
+            identity = path.lstat()
+            content_changed = actual != original["sha256"]
+            identity_changed = identity.st_ino != original["inode"] or identity.st_ctime_ns != original["ctime_ns"]
+            if content_changed or identity_changed:
+                changes.append(dict(path=document.path, template=document.template, source=document.source, before_sha256=original["sha256"], after_sha256=actual, content_changed=content_changed, file_identity_changed=identity_changed))
+        return dict(protected_inputs_unchanged=True, generated_document_changes=changes)
+
     def snapshot(self):
         return {**super().snapshot(), "configuration_state": self.configuration, "layers": dict(self.layers)}
 
@@ -290,7 +315,7 @@ class SimpleBuildWorkflow(PlanWorkflow):
         return self.configuration
 
     def _execute(self, step):
-        source_unchanged(self.root, self.baseline)
+        self.check_source()
         if self.meter is not None:
             self.meter.tracker.observe_elapsed(time.monotonic() - self.started)
             self.meter.tracker.consume(commands=1)
@@ -313,7 +338,7 @@ class SimpleBuildWorkflow(PlanWorkflow):
             self.timings["recovery_execution_seconds"] = self.timings.get("recovery_execution_seconds", 0) + (record.duration_seconds or 0)
         if step.role == "build":
             self.layers["command_build_passed"] = bool(record.exit_code == 0 and not record.timed_out)
-        source_unchanged(self.root, self.baseline)
+        self.check_source()
         if not passed:
             return False
         if step.role in {"configure", "build"} and step.step_id != "forge-generated-reset":
@@ -363,8 +388,10 @@ class SimpleBuildWorkflow(PlanWorkflow):
         self.status = "primary_completed"
         self.timings["primary_build_seconds"] = self.clock() - self.started
         payload = dict(layers=self.layers, primary=self.primary, configuration=self.configuration, timings=self.timings, workflow=self.snapshot())
-        with (self.directory / "primary-result.json").open("x") as stream:
+        with (self.directory / f"primary-result-r{self.plan.revision}.json").open("x") as stream:
             stream.write(json.dumps(payload, ensure_ascii=False, indent=2) + "\n")
+        if not (self.directory / "primary-result.json").exists():
+            (self.directory / "primary-result.json").write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n")
         self._persist()
         return self.snapshot()
 
@@ -403,7 +430,7 @@ class SimpleBuildWorkflow(PlanWorkflow):
         kind = validate_simple_revision(self.plan, plan, allow_observation_only=observation_only)
         observation = None
         if kind == "observation":
-            source_unchanged(self.root, self.baseline)
+            self.check_source()
             observation = self._configuration_observation(plan)
             if observation["status"] != "passed":
                 raise PlanContractError("新观察目录没有通过实际配置核验；不能据此解除配置冲突或重跑原命令")
@@ -456,13 +483,16 @@ class SimpleBuildWorkflow(PlanWorkflow):
         self.configuration = dict(status="unknown", directory=None, build_system=plan.build_system, reason="方案修订后等待新的实际执行证据")
         self.primary = None
         self.layers["command_build_passed"] = self.layers["primary_build_completed"] = None
+        for name in ("delivery", "author_tests", "executable_smoke", "clean_replay"):
+            self.layers[name] = "unobserved"
+        self.layers["final_verification_passed"] = None
 
     def _post_command(self, step, timeout):
         from deerflow.tools.bound_compile_tools import _disables_strict_shell
 
         if _disables_strict_shell(step.command):
             raise PlanContractError("后续检查也必须保持严格Shell")
-        source_unchanged(self.root, self.baseline)
+        self.check_source()
         record = BuildCommandRecord(stage="simple_postcheck", command=step.command, workdir=step.workdir, role=step.role, timeout_seconds=timeout)
         record.log_path = str(self.manager.local_logs_dir(self._session) / (record.command_id + ".log"))
         started = time.monotonic()
@@ -478,17 +508,19 @@ class SimpleBuildWorkflow(PlanWorkflow):
         self.manager.record_command(self._session, record)
         self._session = self._load()
         self._expected_frontier = self._frontier()
-        source_unchanged(self.root, self.baseline)
+        self.check_source()
         return record, result
 
-    def _executable_verification(self, timeout):
+    def _executable_verification(self, timeout, *, native_only=False):
         """执行受信参考中的轻量命令；复用submit原有的成功命令绑定接口。"""
-        if not self.reference.executable_smokes:
+        self.verification_issue = None
+        if not self.reference.executable_smokes and not native_only:
             return None, True  # 沿用原默认三参数，不增加隐式探测。
         executables = {Path(p["path"]).name for p in self.primary["artifacts"] if p["kind"] == "executable"}
         selected = [s for s in self.reference.executable_smokes if s.artifact_name in executables]
         if {s.artifact_name for s in selected} != executables:
             self.layers["executable_smoke"] = "unobserved"
+            self.verification_issue = dict(kind="missing_native_verification", reason="独立参考缺少可执行文件的作者轻量验证入口；不猜测参数", recoverable=False)
             return None, False
         bindings = {}
         start = time.monotonic()
@@ -498,27 +530,48 @@ class SimpleBuildWorkflow(PlanWorkflow):
             if remaining <= 0:
                 self.layers["executable_smoke"] = "timeout"
                 return None, False
-            record, output = self._post_command(smoke.step, remaining)
+            # 原容器与重放共用同一短时限；交付共享库在交付目录内解析。
+            step = smoke.step.model_copy(update={"command": "export LD_LIBRARY_PATH=/artifacts${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}\n" + smoke.step.command})
+            record, output = self._post_command(step, min(30, remaining))
             if record.exit_code != 0 or record.timed_out or not all(v in output.combined_output for v in smoke.step.required_output):
                 self.layers["executable_smoke"] = "timeout" if record.timed_out else "failed"
+                self.verification_issue = dict(
+                    kind="execution_failed" if record.exit_code != 0 else "output_assertion_failed",
+                    command_id=record.command_id,
+                    recoverable=record.exit_code != 0 and not record.timed_out,
+                    reason="执行未成功" if record.exit_code != 0 else "退出0但输出断言不符，需核对独立验证定义，不能交Agent改写裁判",
+                )
                 return None, False
             bindings[smoke.artifact_name] = operations.SuccessfulCommandVerification(
                 command_id=record.command_id, command=record.command, workdir=record.workdir, exit_code=record.exit_code, output=output.combined_output, output_sha256=hashlib.sha256(output.combined_output.encode()).hexdigest()
             )
         return operations.ExecutableVerificationPolicy.successful_commands(bindings) if bindings else None, True
 
-    def postchecks(self, *, author_test_seconds=60, delivery_seconds=30, replay=True, validation_scope="author_tests"):
+    def postchecks(self, *, author_test_seconds=60, delivery_seconds=30, replay=True, validation_scope="author_tests", recover_delivery=False):
         """主构建已冻结后独立计时；测试失败仍可观察构建重放，不吞主构建预算。"""
         if self.status != "primary_completed":
             raise PlanContractError("必须先确认主要构建")
         if validation_scope not in {"main_build", "author_tests"}:
             raise PlanContractError("未知构建验证范围")
-        source_unchanged(self.root, self.baseline)
+        self.check_source()
         artifacts = self.primary["artifacts"]
         destinations = [Path(p["path"]).name for p in artifacts]
         if len(set(destinations)) != len(destinations):
             raise PlanContractError("主产物交付名称歧义")
-        command = "\n".join("cp -- " + shlex.quote(p["path"]) + " /artifacts/" + shlex.quote(Path(p["path"]).name) for p in artifacts)
+        copies = {Path(p["path"]).name: p["path"] for p in artifacts}
+        # ELF自身声明的SONAME是运行时依赖名称；只为已确认的主共享库建立精确副本。
+        for artifact in artifacts:
+            if artifact["kind"] != "shared_library":
+                continue
+            dynamic = subprocess.run(["readelf", "-d", str(self.root / artifact["path"])], capture_output=True, text=True, check=True, timeout=min(10, delivery_seconds))
+            for name in re.findall(r"\(SONAME\).*?\[([^\]]+)\]", dynamic.stdout):
+                if not name or PurePosixPath(name).name != name or name in {".", ".."}:
+                    raise PlanContractError("共享库SONAME不能逃出交付目录")
+                if name in copies and copies[name] != artifact["path"]:
+                    raise PlanContractError("交付共享库SONAME歧义")
+                copies[name] = artifact["path"]
+        destinations = list(copies)
+        command = "\n".join("cp -- " + shlex.quote(path) + " /artifacts/" + shlex.quote(name) for name, path in copies.items())
         stage = PlanStep(step_id="stage", role="artifact_stage", command=command, source="实际主组件观察", expected="精确暂存主产物")
         start = time.monotonic()
         staged, result = self._post_command(stage, delivery_seconds)
@@ -558,7 +611,7 @@ class SimpleBuildWorkflow(PlanWorkflow):
             attempt_count = len(self._session.replay_attempts)
             self.layers.update(clean_replay="not_started", final_verification_passed=False)
             try:
-                policy, smoke_passed = self._executable_verification(author_test_seconds)
+                policy, smoke_passed = self._executable_verification(author_test_seconds, native_only=validation_scope == "main_build")
                 if smoke_passed:
                     kwargs = dict(executable_verification_policy=policy) if policy is not None else {}
                     verification_ids = {t["command_id"] for t in tests} if replayed_tests else set()
@@ -576,7 +629,7 @@ class SimpleBuildWorkflow(PlanWorkflow):
                     checks = [c for c in self._session.verification.checks if c.name.endswith("_smoke_test")]
                     self.layers["executable_smoke"] = "passed" if checks and all(c.passed for c in checks) else "failed" if checks else "not_applicable"
                 self.timings["clean_replay_seconds"] = time.monotonic() - start
-        source_unchanged(self.root, self.baseline)
+        self.check_source()
         self.timings["total_seconds_before_cleanup"] = self.clock() - self.started
         result = dict(
             layers=self.layers,
@@ -588,6 +641,15 @@ class SimpleBuildWorkflow(PlanWorkflow):
             session_status=self._session.status,
             replay_attempts=[asdict(a) for a in self._session.replay_attempts],
             validation_scope=validation_scope,
+            verification_issue=getattr(self, "verification_issue", None),
         )
+        (self.directory / f"postcheck-result-r{self.plan.revision}.json").write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n")
         (self.directory / "postcheck-result.json").write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n")
+        issue = result["verification_issue"]
+        if recover_delivery and issue and issue["recoverable"]:
+            self._request_handoff("delivery_execution_failed")
+            if self.handoff:
+                self.handoff["delivery_failure"] = issue
+                self._persist()
+                (self.directory / f"handoff-{self.handoff['handoff_id']}.json").write_text(json.dumps(self.handoff, ensure_ascii=False, indent=2) + "\n")
         return result

@@ -1,5 +1,7 @@
 # 历史研究材料目录
 
+共同工程修复：[#715恢复、原生验证、交付与上下文修复](2026-11-10-common-recovery-repair.md)，四项目最终通过、首轮munge断言失败保留，ggmorse仅上下文回放。0 Provider、不增加模型效果分母、不回填E53，修复阶段结束。
+
 新增[E53](THESIS_EVIDENCE_INDEX.md#e53)：[新项目同初始方案恢复Harness36次结果](2026-11-10-recovery-harness-comparison-results.md)，H0/R1主构建16/18、15/18，可复现交付均11/18；完整费用及失败分层保留，结果待用户审核，论文未改。下列准备/待审描述仅为相应历史阶段。
 
 恢复比较准备：[#711同初始方案的新项目H0/R1恢复实现](2026-11-09-recovery-harness-comparison-preparation.md)，18项目/36执行槽已准备，五条工程路径通过；真实比较未启动，不增加效果分母。PR710提案已由用户审核，后续结果仍须先审再写论文。
@@ -36,6 +38,7 @@
 
 |文件|论文登记|
 |---|---|
+|[2026-11-10-common-recovery-repair.md](2026-11-10-common-recovery-repair.md)|#715共同工程修复，不增加模型效果分母；旧E53及论文不改|
 |[2026-11-10-recovery-harness-comparison-results.md](2026-11-10-recovery-harness-comparison-results.md)|[E53](THESIS_EVIDENCE_INDEX.md#e53)，18新项目/36次同初始方案恢复比较，完整成本、失败分层及未采用决定；结果待审、论文未改|
 |[2026-11-05-main-system-results.md](2026-11-05-main-system-results.md)|[E50](THESIS_EVIDENCE_INDEX.md#e50)，九项目54次主任务/费用/耗时、两层分层及负面工具边界|
 |[2026-11-05-state-action-case-analysis.md](2026-11-05-state-action-case-analysis.md)|E47/E48/E50八个重叠真实案例，不增独立分母|

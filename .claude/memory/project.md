@@ -3,7 +3,7 @@
 跨 Claude Code session 的项目状态流水。按 CLAUDE.md §7 维护。
 
 ## 进行中 (In Progress)
-- 2026-11-10 — #713恢复Harness36/36比较及结果分析已完成，等待用户审核；无活动Provider，本轮不写论文或追加比较，当前状态以RESEARCH_STATUS.md为准。
+- 2026-11-10 — #715共同修复及针对性实建已完成，本阶段结束；无活动Provider，不追加比较或写论文。E53已向用户报告，用户要求先共同修复，下一研究由用户决定；当前状态以RESEARCH_STATUS.md为准，下列旧进行中不视为活动授权。
 - 2026-11-09 — #711用户已审核R1，18新项目/36槽同初始方案恢复比较入口已实现并完成必要实建；正式比较未启动，待新身份预算/时窗。结果先审核后才写论文，当前状态以RESEARCH_STATUS.md为准。
 - 2026-11-09 — #707共同验证与依赖配方修复已完成，按用户要求结束修复阶段；无活动Provider或下一比较，发布终态见关联PR/CI收据，当前阶段以RESEARCH_STATUS.md为准。
 - 2026-11-09 — #701共同配置阶段观察修复及两条实际构建已完成，无活动Provider；后续在修复底座上设计近期轨迹驱动的短Harness候选。E51与论文v0.9保持，旧24次身份不续跑；发布/CI终态见GitHub。
@@ -622,6 +622,13 @@
   - 下一步: 等待实验负责人确认当前网络接入介质，并决定是否授权只读 endpoint 诊断和新的 canary amendment；获得确认后必须另建中文 Issue/PR 和协议 identity，保留当前失败 marker。
 
 ## 最近变更 (Recent Changes)
+
+- 2026-11-10 — 完成#715共同恢复、交付、验证和上下文修复，保留原实验结果并结束修复阶段。
+  - 文件: `simple_build_runtime.py`、`simple_build_task.py`、`simple_planning_context.py`、`simple_build_agents.py`、`scripts/forge_simple_system.py`及两工程入口；报告`docs/research/2026-11-10-common-recovery-repair.md`，派生`benchmarks/analyses/common-recovery-repair-2026-11-10/`。
+  - 动机: 先解决E53共同缺陷，使后续Harness比较不再主要受已知执行/验证故障干扰，不以共同修复声称R1有效。
+  - 改动: 作者生成文档由独立参考限定路径/模板/内容SHA与权限；同内容重写也单列。main-build缺原生入口不猜参数，轻量执行与重放同30秒；真实SONAME补齐交付及库路径；非零运行失败可交还恢复，输出断言不交Agent改裁判。每revision保存主构建/后检查，结构与执行约束各一次有界反馈；49KB过大工具组整组另存为可追溯片段，不用摘要模型。
+  - 验证: v1 tini/Turbo通过、munge错误参考断言失败保留；独立v2仅munge/fsarchiver通过，四最终路径282.68秒、含失败317.74秒，全部0Provider/费用、源码保护/cleanup通过，18本轮容器标识不存在。tini原/新README内容相同、文件身份重写。ggmorse两真实旧材料本地容量回放38275/22610字节，不执行新方案、不证明Provider接续或构建成功；首适配器失败保留。110相邻检查及最终新文件11项检查通过、Ruff通过，发布CI/合并以关联PR为准。
+  - 边界: E53原16/18与15/18主构建、均11/18交付不回填，论文不改、保留H0。wasm3/libhv字节差异仍在；不追加实建/模型比较。原用户checkout未动，知识库仅MCP。
 
 - 2026-11-10 — #713完成恢复Harness H0/R1 18新项目36次比较，保留混合/负面结果并登记E53，待用户审核后才写论文。
   - 文件: `docs/research/2026-11-10-recovery-harness-comparison-results.md`, `benchmarks/analyses/recovery-harness-2026-11-10/`, `RESEARCH_STATUS.md`。
@@ -2557,7 +2564,7 @@
   - 动机: 统一服务可见路径与宿主 Docker 可见路径，补齐编译镜像、网络、配置模板和可复现的 WSL 启动流程
 
 ## 待办 (TODOs)
-- 2026-11-10 — #713结果待用户审核；以 `docs/research/2026-11-10-recovery-harness-comparison-results.md` 决定必要共同修复及下一短候选，再按“提案先审→比较→结果先审→同意后写论文”推进，不自行追加新Provider批次。
+- 2026-11-10 — #715修复阶段结束；`docs/research/2026-11-10-common-recovery-repair.md`的剩余项为wasm3/libhv字节差异和ggmorse真实模型接续，未自动重跑。用户决定下一研究后，仍按“提案先审→比较→结果先审→同意后写论文”推进，不自行追加Provider批次。
 
 
 - 2026-10-20 — #502终结后按证据评估自动配方ID强基线消融：两个tool臂出现supporting ID误用smoke，均自行恢复；这是候选因子，不能把整套Workflow潜在差异全归于初始规划。先审计完整24槽与原因，再冻结独立身份；不在运行中修改。指针: backend/packages/harness/deerflow/compile/plan_agent_canary.py:218；原始forge-plan-agent-paired-real-v1/{uncrustify-r1-tool,libsndfile-r1-tool}/agent/events.jsonl。
@@ -2571,6 +2578,7 @@
 - 当前 `backend/packages/harness/deerflow/compile/manager.py` 的 lifecycle lock 是进程内锁；部署多个后端进程前，需要改为文件锁/数据库事务或带版本号的 CAS，并增加跨进程竞态测试。
 
 ## 已知问题 (Known Issues / Pitfalls)
+- 2026-11-10 — #715已处理下条E53中的已定位文档/验证/SONAME/本地容量/修订反馈问题；它们是旧比较的原始失败记录，不能回填。`simple_build_runtime.py`的生成文档报告含同内容重写，不能只比SHA漏报文件身份变化；`scripts/forge_recovery_context_replay.py`只回放容量，不验证Provider reasoning续接。wasm3/libhv重放字节差异仍保留，完整说明见本轮修复报告。
 - 2026-11-10 — #713主构建与交付失败必须分层：`simple_planning_context.py:85`本地49000字节可在最近AI/Tool组过大时停止；tini作者配置生成README会触发原文件保护；`tasks.json`中fsarchiver的required_output与真实-V输出不符，munge暂存缺libmunge.so.2，wasm3/libhv含编译时刻影响字节重放，Turbo的-version误入benchmark且原容器/重放子时限不同。本轮不修复/回填这些正式结果，具体原件及后续决定见#713结果报告。
 
 
