@@ -3,6 +3,7 @@
 跨 Claude Code session 的项目状态流水。按 CLAUDE.md §7 维护。
 
 ## 进行中 (In Progress)
+- 2026-11-10 — #713按用户新授权执行18新项目/36槽恢复H0/R1比较，5美元硬上限、UTC01:21:05—05:21:05，准备计入。原件forge-recovery-harness-comparison-flash-v1；结果先审核、本轮不写论文。当前阶段以RESEARCH_STATUS.md为准。
 - 2026-11-09 — #711用户已审核R1，18新项目/36槽同初始方案恢复比较入口已实现并完成必要实建；正式比较未启动，待新身份预算/时窗。结果先审核后才写论文，当前状态以RESEARCH_STATUS.md为准。
 - 2026-11-09 — #707共同验证与依赖配方修复已完成，按用户要求结束修复阶段；无活动Provider或下一比较，发布终态见关联PR/CI收据，当前阶段以RESEARCH_STATUS.md为准。
 - 2026-11-09 — #701共同配置阶段观察修复及两条实际构建已完成，无活动Provider；后续在修复底座上设计近期轨迹驱动的短Harness候选。E51与论文v0.9保持，旧24次身份不续跑；发布/CI终态见GitHub。
@@ -621,6 +622,9 @@
   - 下一步: 等待实验负责人确认当前网络接入介质，并决定是否授权只读 endpoint 诊断和新的 canary amendment；获得确认后必须另建中文 Issue/PR 和协议 identity，保留当前失败 marker。
 
 ## 最近变更 (Recent Changes)
+- 2026-11-10 — 登记#713真实恢复Harness比较授权与运行状态。
+  - 文件: `RESEARCH_STATUS.md`；原件和授权收据见当前状态入口。
+  - 动机: 按已审核R1与固定同初始方案协议收集完整结果，不续用旧提案时窗或改写旧实验。
 - 2026-11-09 — 实现18新项目同初始方案的恢复Harness H0/R1比较，完成零费用真实执行验证（#711）。
   - 文件: `scripts/forge_recovery_harness_comparison.py`, `scripts/forge_recovery_harness_sources.py`, `backend/tests/test_recovery_harness_comparison.py`, `benchmarks/fixtures/recovery-harness-comparison-v1/`, 同名manifest/preregistration及准备报告。
   - 动机: 用户已审核R1；固定共同H0初始方案，避免规划随机性混淆恢复增量，并扩展不同项目覆盖。

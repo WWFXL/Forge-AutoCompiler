@@ -3,7 +3,13 @@
 论文选材固定入口：[硕士论文实验与证据索引](docs/research/THESIS_EVIDENCE_INDEX.md)，[历史材料目录](docs/research/THESIS_EVIDENCE_CATALOG.md)保留存量导航。当前完整稿为[论文v0.10第二轮结果稿](docs/thesis/README.md)；E50–E52保存主构建系统及两轮Harness结果，既有完整任务、状态/恢复消融和两层经验继续按各自版本与分母使用。
 
 
-## 当前阶段（2026-11-09；#711恢复Harness比较实现完成，待正式运行预算/时窗）
+## 当前阶段（2026-11-10；#713新项目恢复Harness H0/R1比较已授权，启动真实采集）
+
+用户“确认授权”承接已固定cpp-build-recovery-harness-comparison-flash-v1：18新项目×H0/R1各一次、共36执行槽及18共同规划任务，Flash low、相同初始方案、只改恢复指导；manifest SHA4ac3a9ee46d053fe7af769a54eb6e8b3b0a6c4dc4034ff72eb2e91d60184d26f，直接沿PR712已合入口。新增费用硬上限5美元，UTC2026-11-10 01:21:05—05:21:05（北京时间09:21—13:21），准备计入，不重置。
+
+无自动重试/补槽，未知用量/模型标识异常/清理失败停止整批；失败/未启动如实保留。共同规划实际计费一次，两方法独立部署均计全额规划费用与耗时。原件forge-recovery-harness-comparison-flash-v1；会话forge-recovery-harness-results-session-2026-11-10-v1保存授权和运行收据，根位于服务器/home/yiwei/.codex/outputs。完成采集后分析自然恢复、完成情况与费用/时间取舍，结果先报告审核，本轮不修改论文。来源/独立参考与开发暴露边界沿[准备报告](docs/research/2026-11-09-recovery-harness-comparison-preparation.md)，工程检查不作R1效果；E51/E52和论文v0.10保持。
+
+## 上一阶段（2026-11-09；#711恢复Harness比较实现完成，后获正式运行授权）
 
 用户已审核R1并要求开始比较实现。[准备报告](docs/research/2026-11-09-recovery-harness-comparison-preparation.md)及身份cpp-build-recovery-harness-comparison-flash-v1固定18个新项目、三系统各6个、H0/R1各一次共36槽；每项目先H0只读规划一次，两干净会话使用相同方案及哈希，仅真实失败后指导不同。三系统交错、先后各9次；共同规划失败时两执行槽未启动，不造两恢复失败。实际费用共同规划一次，两方法部署均全额计入；初始/失败/纠正/恢复、提案与历史投入分列。结果审核前不写论文。
 
