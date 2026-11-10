@@ -3,6 +3,7 @@
 跨 Claude Code session 的项目状态流水。按 CLAUDE.md §7 维护。
 
 ## 进行中 (In Progress)
+- 2026-11-10 — #719前两项共同修复/三项目验证已完成，修复阶段结束；无活动Provider，不启动R2或更新论文。当前状态以RESEARCH_STATUS.md为准。
 - 2026-11-10 — #715共同修复及针对性实建已完成，本阶段结束；无活动Provider，不追加比较或写论文。E53已向用户报告，用户要求先共同修复，下一研究由用户决定；当前状态以RESEARCH_STATUS.md为准，下列旧进行中不视为活动授权。
 - 2026-11-09 — #711用户已审核R1，18新项目/36槽同初始方案恢复比较入口已实现并完成必要实建；正式比较未启动，待新身份预算/时窗。结果先审核后才写论文，当前状态以RESEARCH_STATUS.md为准。
 - 2026-11-09 — #707共同验证与依赖配方修复已完成，按用户要求结束修复阶段；无活动Provider或下一比较，发布终态见关联PR/CI收据，当前阶段以RESEARCH_STATUS.md为准。
@@ -622,6 +623,11 @@
   - 下一步: 等待实验负责人确认当前网络接入介质，并决定是否授权只读 endpoint 诊断和新的 canary amendment；获得确认后必须另建中文 Issue/PR 和协议 identity，保留当前失败 marker。
 
 ## 最近变更 (Recent Changes)
+- 2026-11-10 — #719采用成功重建标准并完成wasm3/libhv/ggmorse针对性实建，结束共同修复。
+  - 文件: `backend/packages/harness/deerflow/compile/operations.py`, `schemas.py`, `scripts/forge_common_recovery_repair.py`, `benchmarks/fixtures/clean-rebuild-validation-v1/cases.json`, `benchmarks/fixtures/clean-rebuild-validation-v2/cases.json`, `docs/research/2026-11-10-clean-rebuild-validation.md`, `docs/compile_workflow_execution.md`。
+  - 动机: 用户同意未来干净重放不要求字节一致，并只完成下一阶段前两项；新attempt显式successful-rebuild-v1，路径/非空类型/相同轻量成功与cleanup仍必须，跨重建大小/哈希/输出差异诊断，原交付/源码完整性保持。旧结果不回填。
+  - 证据: 独立v1两通过一ggmorse作者同内容README身份阻断；v2仅登记作者原模板/精确内容后ggmorse通过，不重跑前两项。三最终路径489.20秒、含失败四次662.97秒，7容器14项名称/ID不存在。原件forge-clean-rebuild-validation-20261110-v1/v2、派生benchmarks/analyses/clean-rebuild-validation-2026-11-10/summary.json；执行源码与scope快照匹配。193相关检查与修改文件Ruff/格式通过，GitHub最终CI/发布另见Issue719关联PR。
+  - 边界: 0Provider/0Token/0费用，库轻量运行不适用、完整作者测试未要求；ggmorse源码测试保护通过，README内容相同但身份重写另列。E53/论文v0.10保持，H0默认；阶段结束，不进入R2或Harness比较。原用户checkout三项修改保持。
 - 2026-11-10 — #717统一编译镜像APT国内HTTPS源并实际部署。
   - 文件: `docker/compile/ubuntu.sources`、`Dockerfile`、`Dockerfile.apt-mirror`、`Makefile`、`.env.example`、`backend/tests/test_compile_apt_mirror_docker.py`、`docs/research/2026-11-10-compile-apt-mirror.md`、`RESEARCH_STATUS.md`。
   - 动机: 官方HTTP源超时，用户明确要求各方法统一国内HTTPS。现有d27a6ab7镜像仅更换源得到8123220a，250包版本一致；服务器默认autocompiler:gcc13已切换，旧ID及gcc13-official-20261110保留，未重启服务/改代理/宿主APT。

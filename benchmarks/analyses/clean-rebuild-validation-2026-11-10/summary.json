@@ -1,0 +1,277 @@
+{
+  "kind": "zero_provider_engineering",
+  "issue": 719,
+  "comparison_policy": "successful-rebuild-v1",
+  "requested_projects": 3,
+  "actual_engineering_runs": 4,
+  "initial_successes": 2,
+  "final_project_paths_passed": 3,
+  "provider_calls": 0,
+  "model_cost_usd": 0,
+  "scientific_effect_observations": 0,
+  "final_path_seconds": 489.20226537797134,
+  "including_preserved_failure_seconds": 662.968912577955,
+  "runtime_snapshots": [
+    {
+      "identity": "cpp-build-clean-rebuild-validation-2026-11-10-v1",
+      "scope_path": "/home/yiwei/.codex/outputs/forge-clean-rebuild-validation-20261110-v1/scope.json",
+      "scope_sha256": "6d809cc1e4da0f4ffc1cd92df61397642013dac61df15d15e33fdcdd6c7870ac",
+      "runtime_files_match_snapshot": true
+    },
+    {
+      "identity": "cpp-build-clean-rebuild-validation-2026-11-10-v2",
+      "scope_path": "/home/yiwei/.codex/outputs/forge-clean-rebuild-validation-20261110-v2/scope.json",
+      "scope_sha256": "f5a99389b2e727e457d88841f2420d9218a9006194d66d6b3a22b7aa5b1abf1c",
+      "runtime_files_match_snapshot": true
+    }
+  ],
+  "container_identifiers_checked": 14,
+  "all_containers_absent": true,
+  "rows": [
+    {
+      "identity": "cpp-build-clean-rebuild-validation-2026-11-10-v1",
+      "raw_directory": "/home/yiwei/.codex/outputs/forge-clean-rebuild-validation-20261110-v1",
+      "session_path": "/home/yiwei/.codex/outputs/forge-clean-rebuild-validation-20261110-v1/wasm3/.compile-sessions/simple-system/3d27743fc1f8/session.json",
+      "session_sha256": "96826fcf7d7945872c31a1f926341f0b8dd6aac3962ee4c9189210aa9be8ba13",
+      "name": "wasm3",
+      "status": "primary_completed",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "executable_smoke": "passed",
+        "final_verification_passed": true,
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true,
+        "reproducible_delivery_completed": true
+      },
+      "source_unchanged": true,
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "error": null,
+      "usage": {
+        "model_requests": 0,
+        "recorded_tokens": 0,
+        "agent_steps": 0,
+        "tool_calls": 0,
+        "commands": 2,
+        "elapsed_seconds": 15.880839301971719,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "estimated_cost_usd": 0.0,
+        "unknown_usage_requests": 0,
+        "cost_and_usage_complete": true,
+        "estimated_cost_usd_completed_responses": 0.0
+      },
+      "wall_seconds": 58.97147045400925,
+      "replay_attempts": [
+        {
+          "attempt_id": "replay_f537479f2c3b4b069eb0ef642ca6ef3d",
+          "status": "passed",
+          "comparison_policy": "successful-rebuild-v1",
+          "failure_classification": null,
+          "duration_seconds": 28.624048,
+          "artifact_diagnostics": [
+            {
+              "path": "libm3.a",
+              "passed": true,
+              "differences": []
+            },
+            {
+              "path": "wasm3",
+              "passed": true,
+              "differences": [
+                "sha256",
+                "smoke_output"
+              ]
+            }
+          ]
+        }
+      ],
+      "native_smokes": [
+        {
+          "command": "export LD_LIBRARY_PATH=/artifacts${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}\n/artifacts/wasm3 --version",
+          "exit_code": 0,
+          "timeout_seconds": 30,
+          "duration_seconds": 0.1204094699351117
+        }
+      ]
+    },
+    {
+      "identity": "cpp-build-clean-rebuild-validation-2026-11-10-v1",
+      "raw_directory": "/home/yiwei/.codex/outputs/forge-clean-rebuild-validation-20261110-v1",
+      "session_path": "/home/yiwei/.codex/outputs/forge-clean-rebuild-validation-20261110-v1/libhv/.compile-sessions/simple-system/dcd11d270737/session.json",
+      "session_sha256": "2cbfb9d6c9ec27dce6610ed750c28f1f140f309814fcbd16ff030e9e7b95fa5c",
+      "name": "libhv",
+      "status": "primary_completed",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "executable_smoke": "not_applicable",
+        "final_verification_passed": true,
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true,
+        "reproducible_delivery_completed": true
+      },
+      "source_unchanged": true,
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "error": null,
+      "usage": {
+        "model_requests": 0,
+        "recorded_tokens": 0,
+        "agent_steps": 0,
+        "tool_calls": 0,
+        "commands": 2,
+        "elapsed_seconds": 4.933693613042124,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "estimated_cost_usd": 0.0,
+        "unknown_usage_requests": 0,
+        "cost_and_usage_complete": true,
+        "estimated_cost_usd_completed_responses": 0.0
+      },
+      "wall_seconds": 104.00244624796323,
+      "replay_attempts": [
+        {
+          "attempt_id": "replay_bba6ed4c794f453d91d36042693aecfc",
+          "status": "passed",
+          "comparison_policy": "successful-rebuild-v1",
+          "failure_classification": null,
+          "duration_seconds": 51.584903,
+          "artifact_diagnostics": [
+            {
+              "path": "libhv.a",
+              "passed": true,
+              "differences": [
+                "sha256"
+              ]
+            },
+            {
+              "path": "libhv.so",
+              "passed": true,
+              "differences": [
+                "sha256"
+              ]
+            }
+          ]
+        }
+      ],
+      "native_smokes": []
+    },
+    {
+      "identity": "cpp-build-clean-rebuild-validation-2026-11-10-v1",
+      "raw_directory": "/home/yiwei/.codex/outputs/forge-clean-rebuild-validation-20261110-v1",
+      "session_path": "/home/yiwei/.codex/outputs/forge-clean-rebuild-validation-20261110-v1/ggmorse/.compile-sessions/simple-system/66a7779f65ea/session.json",
+      "session_sha256": "69702e246bdd6ab89b37e516e956dc0c7007c8d3402e55e5f8084473fa27fb6e",
+      "name": "ggmorse",
+      "status": "error",
+      "layers": {
+        "command_build_passed": null,
+        "primary_build_completed": null,
+        "delivery": "unobserved",
+        "author_tests": "unobserved",
+        "executable_smoke": "unobserved",
+        "final_verification_passed": null,
+        "clean_replay": "unobserved",
+        "full_completed": false,
+        "main_build_task_completed": false,
+        "reproducible_delivery_completed": false
+      },
+      "source_unchanged": false,
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "error": "原源码/测试被修改：README.md",
+      "usage": {
+        "model_requests": 0,
+        "recorded_tokens": 0,
+        "agent_steps": 0,
+        "tool_calls": 0,
+        "commands": 3,
+        "elapsed_seconds": 169.21684648504015,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "estimated_cost_usd": 0.0,
+        "unknown_usage_requests": 0,
+        "cost_and_usage_complete": true,
+        "estimated_cost_usd_completed_responses": 0.0
+      },
+      "wall_seconds": 173.7666471999837,
+      "replay_attempts": [],
+      "native_smokes": []
+    },
+    {
+      "identity": "cpp-build-clean-rebuild-validation-2026-11-10-v2",
+      "raw_directory": "/home/yiwei/.codex/outputs/forge-clean-rebuild-validation-20261110-v2",
+      "session_path": "/home/yiwei/.codex/outputs/forge-clean-rebuild-validation-20261110-v2/ggmorse/.compile-sessions/simple-system/2cf1e705aa37/session.json",
+      "session_sha256": "62a8e52dc08fb5c1741931ea2891aae9609d986c65f4de2d93f613d79bb46d1e",
+      "name": "ggmorse",
+      "status": "primary_completed",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "executable_smoke": "not_applicable",
+        "final_verification_passed": true,
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true,
+        "reproducible_delivery_completed": true
+      },
+      "source_unchanged": true,
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "error": null,
+      "usage": {
+        "model_requests": 0,
+        "recorded_tokens": 0,
+        "agent_steps": 0,
+        "tool_calls": 0,
+        "commands": 4,
+        "elapsed_seconds": 172.2918766499497,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "estimated_cost_usd": 0.0,
+        "unknown_usage_requests": 0,
+        "cost_and_usage_complete": true,
+        "estimated_cost_usd_completed_responses": 0.0
+      },
+      "wall_seconds": 326.22834867599886,
+      "replay_attempts": [
+        {
+          "attempt_id": "replay_063f4bf9376d47a79af8ac6cb1362848",
+          "status": "passed",
+          "comparison_policy": "successful-rebuild-v1",
+          "failure_classification": null,
+          "duration_seconds": 133.452088,
+          "artifact_diagnostics": [
+            {
+              "path": "libggmorse.so",
+              "passed": true,
+              "differences": []
+            }
+          ]
+        }
+      ],
+      "native_smokes": []
+    }
+  ]
+}

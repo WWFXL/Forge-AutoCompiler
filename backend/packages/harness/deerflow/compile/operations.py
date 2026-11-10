@@ -90,8 +90,7 @@ EXECUTABLE_VERIFICATION_POLICY_SCHEMA_VERSION = "forge-executable-verification-p
 _DETERMINISTIC_REPLAY_FAILURES = {
     "artifact_set_mismatch",
     "recipe_execution_failed",
-    "sha256_mismatch",
-    "size_mismatch",
+    "empty_artifact",
     "smoke_mismatch",
     "type_mismatch",
     "verification_execution_failed",
@@ -1343,6 +1342,9 @@ def _replay_artifact_evidence_snapshot(
             "actual_smoke_exit_code": artifact.actual_smoke_exit_code,
             "expected_smoke_output_sha256": artifact.expected_smoke_output_sha256,
             "actual_smoke_output_sha256": artifact.actual_smoke_output_sha256,
+            "non_empty": artifact.non_empty,
+            "smoke_output_matches": artifact.smoke_output_matches,
+            "diagnostic_differences": list(artifact.diagnostic_differences),
             "passed": artifact.passed,
             "mismatches": list(artifact.mismatches),
         }
@@ -2096,7 +2098,7 @@ def submit_build_result_impl(
             )
         replay_passed = replay_attempt.status == "passed" and replay_attempt.cleanup_succeeded is True
         replay_summary = (
-            "Candidate recipe rebuilt matching artifacts in a clean container and cleanup succeeded."
+            "Candidate recipe rebuilt valid artifacts in a clean container, runtime checks and cleanup succeeded."
             if replay_passed
             else f"Error: Verification failed. Clean replay did not pass ({replay_attempt.failure_classification or replay_attempt.status})."
         )
@@ -2857,6 +2859,7 @@ def _compare_replay_artifacts(
             actual_smoke_workdir = expected.smoke_workdir if expected and expected.smoke_workdir else CONTAINER_WORKSPACE_DIR
 
         type_matches = expected is not None and actual_path is not None and expected.artifact_type == actual_type
+        non_empty = actual_size is not None and actual_size > 0
         size_matches = expected is not None and actual_path is not None and expected.size_bytes == actual_size
         sha256_matches = expected is not None and actual_path is not None and expected.sha256 == actual_sha256
         expected_requires_smoke = expected is not None and expected.artifact_type == "executable"
@@ -2865,12 +2868,11 @@ def _compare_replay_artifacts(
             actual_smoke_output_sha256 = _sha256_text(actual_smoke_result.combined_output) if actual_smoke_result else None
             smoke_output_matches = expected.smoke_output_sha256 == actual_smoke_output_sha256 if expected.smoke_output_sha256 is not None else expected.smoke_output == actual_smoke_output
             expected_smoke_workdir = expected.smoke_workdir or CONTAINER_WORKSPACE_DIR
-            smoke_matches = (
-                actual_smoke_result is not None and expected.smoke_command == actual_smoke_command and expected_smoke_workdir == actual_smoke_workdir and expected.smoke_exit_code == actual_smoke_result.exit_code and smoke_output_matches
-            )
+            smoke_matches = actual_smoke_result is not None and expected.smoke_command == actual_smoke_command and expected_smoke_workdir == actual_smoke_workdir and expected.smoke_exit_code == actual_smoke_result.exit_code == 0
         else:
             actual_smoke_output = _persisted_output(actual_smoke_result.combined_output) if actual_smoke_result else None
             actual_smoke_output_sha256 = _sha256_text(actual_smoke_result.combined_output) if actual_smoke_result else None
+            smoke_output_matches = actual_smoke_result is None
             smoke_matches = actual_smoke_result is None
 
         mismatches: list[str] = []
@@ -2880,12 +2882,12 @@ def _compare_replay_artifacts(
             mismatches.append("missing_artifact")
         if not type_matches:
             mismatches.append("type")
-        if not size_matches:
-            mismatches.append("size")
-        if not sha256_matches:
-            mismatches.append("sha256")
+        if not non_empty:
+            mismatches.append("empty_artifact")
         if not smoke_matches:
             mismatches.append("smoke")
+        # 重建成功与字节可复现分开；时间戳等差异只留作诊断。
+        diagnostic_differences = [name for name, matches in (("size", size_matches), ("sha256", sha256_matches), ("smoke_output", smoke_output_matches)) if not matches]
         comparison_passed = not mismatches
         comparison = ReplayArtifactComparison(
             path=relative_path,
@@ -2909,14 +2911,16 @@ def _compare_replay_artifacts(
             size_matches=size_matches,
             sha256_matches=sha256_matches,
             smoke_matches=smoke_matches,
+            non_empty=non_empty,
+            smoke_output_matches=smoke_output_matches,
+            diagnostic_differences=diagnostic_differences,
             passed=comparison_passed,
             mismatches=mismatches,
         )
         attempt.artifacts.append(comparison)
         for check_name, expected_value, actual_value, passed in (
             ("type", comparison.expected_type, comparison.actual_type, type_matches),
-            ("size", comparison.expected_size_bytes, comparison.actual_size_bytes, size_matches),
-            ("sha256", comparison.expected_sha256, comparison.actual_sha256, sha256_matches),
+            ("non_empty", "> 0 bytes", comparison.actual_size_bytes, non_empty),
             (
                 "smoke",
                 {
@@ -2941,7 +2945,7 @@ def _compare_replay_artifacts(
                 name=f"artifact_{artifact_index}_{check_name}",
                 target=relative_path,
                 passed=passed,
-                summary=f"Replay artifact {check_name} {'matches' if passed else 'does not match'} the accepted build.",
+                summary=f"Replay artifact {check_name} check {'passed' if passed else 'failed'}.",
                 expected=expected_value,
                 actual=actual_value,
                 exit_code=comparison.actual_smoke_exit_code if check_name == "smoke" else None,
@@ -2949,10 +2953,8 @@ def _compare_replay_artifacts(
 
         if first_failure is None and not type_matches:
             first_failure = "type_mismatch"
-        if first_failure is None and not size_matches:
-            first_failure = "size_mismatch"
-        if first_failure is None and not sha256_matches:
-            first_failure = "sha256_mismatch"
+        if first_failure is None and not non_empty:
+            first_failure = "empty_artifact"
         if first_failure is None and not smoke_matches:
             first_failure = "smoke_mismatch"
     return first_failure
@@ -3043,7 +3045,7 @@ def verify_clean_replay_impl(
         if session.replay_recipe is None:
             raise ReplayRecipeError("recipe_missing", "A validated replay recipe is required before clean replay.")
         for previous in reversed(session.replay_attempts):
-            same_recipe = previous.recipe_fingerprint == session.replay_recipe.fingerprint
+            same_recipe = previous.recipe_fingerprint == session.replay_recipe.fingerprint and previous.comparison_policy == "successful-rebuild-v1"
             deterministic_failure = previous.status == "failed" and previous.cleanup_succeeded is True and previous.primary_failure_classification in _DETERMINISTIC_REPLAY_FAILURES
             if same_recipe and (previous.status == "passed" or deterministic_failure):
                 services.manager.log_event(
@@ -3061,6 +3063,7 @@ def verify_clean_replay_impl(
             image_id=session.image_id or "",
             commit_sha=session.commit_sha or "",
             recipe_sha256="",
+            comparison_policy="successful-rebuild-v1",
             recipe_fingerprint=session.replay_recipe.fingerprint,
             submit_attempt_id=submit_attempt_id,
             timeout_seconds=effective_timeout,
@@ -3079,6 +3082,7 @@ def verify_clean_replay_impl(
         session,
         "replay.started",
         attempt_id=attempt_id,
+        comparison_policy=attempt.comparison_policy,
         image=session.image,
         image_id=session.image_id,
         commit_sha=session.commit_sha,
@@ -3089,6 +3093,7 @@ def verify_clean_replay_impl(
         session.thread_id,
         "replay.started",
         replay_attempt_id=attempt_id,
+        comparison_policy=attempt.comparison_policy,
         submit_attempt_id=submit_attempt_id,
         session_id=session.session_id,
         image_id=session.image_id,
@@ -3372,6 +3377,7 @@ def verify_clean_replay_impl(
             session,
             "replay.completed",
             attempt_id=attempt.attempt_id,
+            comparison_policy=attempt.comparison_policy,
             status=attempt.status,
             failure_classification=attempt.failure_classification,
             exit_code=attempt.exit_code,
@@ -3391,6 +3397,7 @@ def verify_clean_replay_impl(
             session.thread_id,
             "replay.completed",
             replay_attempt_id=attempt.attempt_id,
+            comparison_policy=attempt.comparison_policy,
             submit_attempt_id=submit_attempt_id,
             session_id=session.session_id,
             status=attempt.status,

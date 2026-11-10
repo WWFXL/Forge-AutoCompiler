@@ -1,0 +1,128 @@
+{
+  "identity": "cpp-build-clean-rebuild-validation-2026-11-10-v2",
+  "kind": "zero_provider_engineering",
+  "comparison_policy": "successful-rebuild-v1",
+  "authorization": "用户批准前两项：调整未来重放标准；wasm3/libhv/ggmorse各一次少量端到端工程实建；随后结束修复，不进入Harness比较或论文",
+  "historical_manifest_sha256": "71dd0e29f62cc9dd24e24c0bf83bd09460a9eaed157d053bde6a1324dc937113",
+  "changes": "保留v1三次结果；仅ggmorse使用已有作者生成文档机制登记README.md，独立按原模板展开期望SHA；原构建命令/主产物/源码测试/镜像不变。不重跑wasm3/libhv。",
+  "cases": [
+    {
+      "name": "ggmorse",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "recovery-ggmorse",
+        "repository_url": "https://github.com/ggerganov/ggmorse",
+        "commit_sha": "7b4822a8cfdbb1addfe497f3ae8186f142a4ee79",
+        "image_id": "sha256:8123220a201ac4d00cda0dc985b9db7227cd909bb93ca6c25fd82cafce5cd887",
+        "source_archive_sha256": "3ebf3539a472e170bb23d1606a737cd6074a0a0cc83da108c1c5db1345ae859c",
+        "build_system": "cmake",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "888413149454ba5274cfaba602e3917fa9943fb9242091630b690b542e68a80d",
+        "components": [
+          {
+            "name": "libggmorse",
+            "artifact_names": [
+              "libggmorse.a",
+              "libggmorse.so"
+            ],
+            "kinds": [
+              "static_library",
+              "shared_library"
+            ],
+            "evidence": "作者普通库目标，下面source_evidence保存原声明"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": "main-build-v1不要求完整作者测试；轻量验证及干净重放另列",
+        "executable_smokes": [],
+        "generated_documents": [
+          {
+            "path": "README.md",
+            "template": "README-tmpl.md",
+            "sha256": "7e14382529803a3fc2968d53aab2e99b06da923f5179195b6846bfd9d9e1f48b",
+            "source": "CMakeLists.txt:2,13-14：configure_file @ONLY；README-tmpl.md唯一变量 PROJECT_VERSION=0.1.0，独立展开与原README内容相同，仅允许此内容及原权限"
+          }
+        ]
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-recovery-harness-sources-2026-11-09-v1/ggmorse/source.tar",
+      "initial_plan": {
+        "task": {
+          "task_version": "main-build-v1",
+          "plan_id": "recovery-ggmorse",
+          "repository_url": "https://github.com/ggerganov/ggmorse",
+          "commit_sha": "7b4822a8cfdbb1addfe497f3ae8186f142a4ee79",
+          "image_id": "sha256:8123220a201ac4d00cda0dc985b9db7227cd909bb93ca6c25fd82cafce5cd887",
+          "source_archive_sha256": "3ebf3539a472e170bb23d1606a737cd6074a0a0cc83da108c1c5db1345ae859c",
+          "build_system": "cmake",
+          "architecture": "x86_64",
+          "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+          "common_clarification": "",
+          "parallel_jobs": 2
+        },
+        "revision": 1,
+        "steps": [
+          {
+            "step_id": "install-deps",
+            "role": "dependency",
+            "command": "apt-get update && apt-get install -y --no-install-recommends build-essential cmake git libsdl2-dev xorg-dev libglu1-mesa-dev",
+            "source": "README.md:63-66；.github/workflows/build.yml:18-23",
+            "expected": "安装 README/CI 声明的 SDL2、OpenGL/GLU、编译与 CMake 依赖",
+            "workdir": "/workspace/repo",
+            "requires": [],
+            "required_output": [],
+            "diagnostic_paths": []
+          },
+          {
+            "step_id": "populate-imgui-submodule",
+            "role": "dependency",
+            "command": "git clone --recurse-submodules https://github.com/ggerganov/ggmorse /tmp/ggmorse-src && git -C /tmp/ggmorse-src checkout 7b4822a8cfdbb1addfe497f3ae8186f142a4ee79 && git -C /tmp/ggmorse-src submodule update --init --recursive && tar -C /tmp/ggmorse-src/examples/third-party/imgui/imgui --exclude=.git -cf - . | tar -C /workspace/repo/examples/third-party/imgui/imgui -xf -",
+            "source": "README.md:74-85 要求 --recursive；examples/third-party/imgui/CMakeLists.txt:15-20,89-105 需要 imgui/imgui.cpp 与 imgui/examples/libs/gl3w/GL/gl3w.c，而当前 examples/third-party/imgui/imgui 为空目录",
+            "expected": "从指定 commit 的递归克隆中恢复 imgui 子模块源码（含 gl3w），供默认 examples 构建使用",
+            "workdir": "/workspace/repo",
+            "requires": [],
+            "required_output": [],
+            "diagnostic_paths": []
+          },
+          {
+            "step_id": "configure",
+            "role": "configure",
+            "command": "cmake -S . -B build -DCMAKE_BUILD_TYPE=Release",
+            "source": "README.md:76-81；.github/workflows/build.yml:25-26（默认构建示例与测试）",
+            "expected": "使用 README 推荐的 build 目录生成 Release 构建文件",
+            "workdir": "/workspace/repo",
+            "requires": [
+              "install-deps",
+              "populate-imgui-submodule"
+            ],
+            "required_output": [],
+            "diagnostic_paths": []
+          },
+          {
+            "step_id": "build",
+            "role": "build",
+            "command": "cmake --build build --parallel 2",
+            "source": "README.md:81 的 make；CMakeLists.txt:85-94 默认加入 src/tests/examples",
+            "expected": "构建库、测试及默认示例（含 ggmorse-gui）",
+            "workdir": "/workspace/repo",
+            "requires": [
+              "configure"
+            ],
+            "required_output": [],
+            "diagnostic_paths": []
+          }
+        ],
+        "build_directory": "/workspace/repo/build",
+        "discard_dependencies": {},
+        "artifact_paths": []
+      },
+      "source_plan": "/home/yiwei/.codex/outputs/forge-recovery-harness-comparison-flash-v2/initial/ggmorse/initial-plan.json",
+      "source_plan_sha256": "d20300b96f8f511fba4132a5c12ce99f6ce5b1aab567ced606d9d023aea5112e"
+    }
+  ],
+  "parent_identity": "cpp-build-clean-rebuild-validation-2026-11-10-v1"
+}

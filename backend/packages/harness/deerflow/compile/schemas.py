@@ -107,6 +107,9 @@ class ReplayArtifactComparison:
     size_matches: bool = False
     sha256_matches: bool = False
     smoke_matches: bool = False
+    non_empty: bool = False
+    smoke_output_matches: bool = False
+    diagnostic_differences: list[str] = field(default_factory=list)
     passed: bool = False
     mismatches: list[str] = field(default_factory=list)
 
@@ -136,6 +139,7 @@ class ReplayVerificationResult:
     image_id: str
     commit_sha: str
     recipe_sha256: str
+    comparison_policy: str | None = None
     recipe_fingerprint: str | None = None
     submit_attempt_id: str | None = None
     primary_failure_classification: str | None = None

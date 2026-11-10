@@ -95,7 +95,7 @@ provider canary 的任务提示要求编译子代理只使用 `/workspace/repo`�
 
 `run_container_bash` 的 `command_role` 是必填枚举，一次调用只能表示一个逻辑阶段。执行器注入 `set -euo pipefail`，工具层拒绝显式关闭严格选项和可确定的混合阶段；完整规则及 run/session/container ownership 见 [`docs/compile_runtime_v2.md`](../docs/compile_runtime_v2.md)。
 
-每个 replay attempt 独立持久化 build/verification 日志与退出码、实际 timeout、duration、image identity、failure classification，以及原始/replay 完整 manifest 的相对路径集合、类型、大小、SHA-256、executable smoke 命令、退出码、有限预览和完整输出 SHA-256。普通安全文件以 `support_file` 进入 manifest，但提交至少需要一个真实编译产物。只有执行、全部比较和容器清理均成功才能把 session 标为 `verified`；删除原 compile container 后还要重新核对最终 manifest，才能标为 `completed`。执行/验证 deadline 来自 `COMPILE_REPLAY_TIMEOUT_SECONDS`（默认 `1200` 秒）；compile/replay 共享 session 冻结的 `COMPILE_MAX_PARALLEL_JOBS`（默认 `4`）。cleanup 使用独立短时限与显式 Docker stop grace。
+每个 replay attempt 独立持久化 build/verification 日志与退出码、实际 timeout、duration、image identity、failure classification，以及原始/replay 完整 manifest 的相对路径集合、类型、大小、SHA-256、executable smoke 命令、退出码、有限预览和完整输出 SHA-256。普通安全文件以 `support_file` 进入 manifest，但提交至少需要一个真实编译产物。新运行以`successful-rebuild-v1`检查相对路径集合、非空有效类型和相同smoke的成功执行；大小、SHA-256及输出差异保留诊断，不再仅因字节不同拒绝。只有执行、必需比较和容器清理均成功才能把 session 标为 `verified`；删除原 compile container 后还要重新核对最终 manifest，才能标为 `completed`。执行/验证 deadline 来自 `COMPILE_REPLAY_TIMEOUT_SECONDS`（默认 `1200` 秒）；compile/replay 共享 session 冻结的 `COMPILE_MAX_PARALLEL_JOBS`（默认 `4`）。cleanup 使用独立短时限与显式 Docker stop grace。
 
 ### 2.3 路径双重映射
 
