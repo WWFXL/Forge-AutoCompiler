@@ -1,0 +1,1757 @@
+{
+  "analysis": {
+    "identity": "cpp-build-recovery-harness-r2-comparison-flash-v1",
+    "arms": {
+      "H0": {
+        "planned": 18,
+        "observed": 18,
+        "unobserved": 0,
+        "main_build_completed": 15,
+        "reproducible_delivery_completed": 15,
+        "recovery_requests": 113,
+        "recovery_online_cost_usd": "0.6327132",
+        "common_planning_cost_usd": "0.2235270",
+        "common_planning_requests": 62,
+        "common_planning_wall_seconds": 164.37657602061518,
+        "deployment_cost_usd": "0.8562402",
+        "deployment_with_current_proposal_usd": "0.8562402",
+        "execution_wall_seconds": 2190.3999003965873,
+        "deployment_wall_seconds": 2354.7764764172025
+      },
+      "R2_system_context": {
+        "planned": 18,
+        "observed": 18,
+        "unobserved": 0,
+        "main_build_completed": 14,
+        "reproducible_delivery_completed": 14,
+        "recovery_requests": 91,
+        "recovery_online_cost_usd": "0.4604805",
+        "common_planning_cost_usd": "0.2235270",
+        "common_planning_requests": 62,
+        "common_planning_wall_seconds": 164.37657602061518,
+        "deployment_cost_usd": "0.6840075",
+        "deployment_with_current_proposal_usd": "0.8236215",
+        "execution_wall_seconds": 1936.375810833415,
+        "deployment_wall_seconds": 2100.75238685403
+      }
+    },
+    "details": [
+      {
+        "slot": 1,
+        "project": "mozjpeg",
+        "method": "H0",
+        "status": "primary_completed",
+        "layers": {
+          "command_build_passed": true,
+          "primary_build_completed": true,
+          "delivery": "passed",
+          "author_tests": "not_required",
+          "executable_smoke": "passed",
+          "final_verification_passed": true,
+          "clean_replay": "passed",
+          "full_completed": null,
+          "main_build_task_completed": true,
+          "reproducible_delivery_completed": true
+        },
+        "timings": {
+          "configure_seconds": 5.579287910833955,
+          "dependency_seconds": 9.333829313982278,
+          "recovery_execution_seconds": 42.155649855034426,
+          "build_seconds": 29.6595824691467,
+          "result_location_seconds": 0.07179413503035903,
+          "primary_build_seconds": 182.06129991495982,
+          "time_to_primary_from_arm_start_seconds": 182.06313133519143,
+          "delivery_seconds": 0.24512693588621914,
+          "author_tests_seconds": 8.4353843703866e-05,
+          "clean_replay_seconds": 43.406684793997556,
+          "total_seconds_before_cleanup": 225.80370142380707,
+          "initial_planning_seconds": 0.0,
+          "recovery_agent_seconds": 135.9764419340063
+        },
+        "recovery_behavior": {
+          "recovery_invocations": 2,
+          "read_source": 57,
+          "exact_repeat_reads": 34,
+          "list_source": 1,
+          "corrections": 0
+        },
+        "initial_plan_sha256": "20c0ba9f6f0b3335fc23083c85c82919e43158990477027917ac128353c01a16",
+        "error": null
+      },
+      {
+        "slot": 2,
+        "project": "mozjpeg",
+        "method": "R2_system_context",
+        "status": "error",
+        "layers": {
+          "command_build_passed": false,
+          "primary_build_completed": null,
+          "delivery": "unobserved",
+          "author_tests": "unobserved",
+          "executable_smoke": "unobserved",
+          "final_verification_passed": null,
+          "clean_replay": "unobserved",
+          "full_completed": false,
+          "main_build_task_completed": false,
+          "reproducible_delivery_completed": false
+        },
+        "timings": {
+          "configure_seconds": 5.243305286858231,
+          "dependency_seconds": 8.120169440982863,
+          "recovery_execution_seconds": 34.25895379297435,
+          "build_seconds": 23.240662950091064,
+          "initial_planning_seconds": 0.0,
+          "recovery_agent_seconds": 56.41327332309447
+        },
+        "recovery_behavior": {
+          "recovery_invocations": 2,
+          "read_source": 30,
+          "exact_repeat_reads": 15,
+          "corrections": 0
+        },
+        "initial_plan_sha256": "20c0ba9f6f0b3335fc23083c85c82919e43158990477027917ac128353c01a16",
+        "error": "公开任务与压缩后的必要证据超过规划上下文容量"
+      },
+      {
+        "slot": 3,
+        "project": "libtree",
+        "method": "R2_system_context",
+        "status": "primary_completed",
+        "layers": {
+          "command_build_passed": true,
+          "primary_build_completed": true,
+          "delivery": "passed",
+          "author_tests": "not_required",
+          "executable_smoke": "passed",
+          "final_verification_passed": true,
+          "clean_replay": "passed",
+          "full_completed": null,
+          "main_build_task_completed": true,
+          "reproducible_delivery_completed": true
+        },
+        "timings": {
+          "build_seconds": 0.5356011039111763,
+          "result_location_seconds": 0.009648885112255812,
+          "primary_build_seconds": 1.005184224108234,
+          "time_to_primary_from_arm_start_seconds": 1.0069179739803076,
+          "delivery_seconds": 0.13482730905525386,
+          "author_tests_seconds": 0.0001955220941454172,
+          "clean_replay_seconds": 4.6962453639134765,
+          "total_seconds_before_cleanup": 5.8440380659885705,
+          "initial_planning_seconds": 0.0,
+          "recovery_agent_seconds": 0.0
+        },
+        "recovery_behavior": {},
+        "initial_plan_sha256": "7aff0d9a13ef1bdd0f58735bcd302c3f29fc2b3653ea7bcd2671223cf2e8ef2f",
+        "error": null
+      },
+      {
+        "slot": 4,
+        "project": "libtree",
+        "method": "H0",
+        "status": "primary_completed",
+        "layers": {
+          "command_build_passed": true,
+          "primary_build_completed": true,
+          "delivery": "passed",
+          "author_tests": "not_required",
+          "executable_smoke": "passed",
+          "final_verification_passed": true,
+          "clean_replay": "passed",
+          "full_completed": null,
+          "main_build_task_completed": true,
+          "reproducible_delivery_completed": true
+        },
+        "timings": {
+          "build_seconds": 0.5386176879983395,
+          "result_location_seconds": 0.006288756849244237,
+          "primary_build_seconds": 0.9784428449347615,
+          "time_to_primary_from_arm_start_seconds": 0.9796017271000892,
+          "delivery_seconds": 0.13978039100766182,
+          "author_tests_seconds": 0.00019303616136312485,
+          "clean_replay_seconds": 4.652765528997406,
+          "total_seconds_before_cleanup": 5.776468797819689,
+          "initial_planning_seconds": 0.0,
+          "recovery_agent_seconds": 0.0
+        },
+        "recovery_behavior": {},
+        "initial_plan_sha256": "7aff0d9a13ef1bdd0f58735bcd302c3f29fc2b3653ea7bcd2671223cf2e8ef2f",
+        "error": null
+      },
+      {
+        "slot": 5,
+        "project": "libpcap",
+        "method": "H0",
+        "status": "primary_completed",
+        "layers": {
+          "command_build_passed": true,
+          "primary_build_completed": true,
+          "delivery": "passed",
+          "author_tests": "not_required",
+          "executable_smoke": "not_applicable",
+          "final_verification_passed": true,
+          "clean_replay": "passed",
+          "full_completed": null,
+          "main_build_task_completed": true,
+          "reproducible_delivery_completed": true
+        },
+        "timings": {
+          "dependency_seconds": 0.10987780406139791,
+          "configure_seconds": 7.483144520083442,
+          "build_seconds": 4.347493470879272,
+          "result_location_seconds": 0.03737648203969002,
+          "primary_build_seconds": 12.761373101035133,
+          "time_to_primary_from_arm_start_seconds": 12.762386521091685,
+          "delivery_seconds": 0.19917227514088154,
+          "author_tests_seconds": 7.660104893147945e-05,
+          "clean_replay_seconds": 15.643310954095796,
+          "total_seconds_before_cleanup": 28.654920445987955,
+          "initial_planning_seconds": 0.0,
+          "recovery_agent_seconds": 0.0
+        },
+        "recovery_behavior": {},
+        "initial_plan_sha256": "1b7e31614902426ed643e2640042f27579a54bce784506e1ebd5bef835626147",
+        "error": null
+      },
+      {
+        "slot": 6,
+        "project": "libpcap",
+        "method": "R2_system_context",
+        "status": "primary_completed",
+        "layers": {
+          "command_build_passed": true,
+          "primary_build_completed": true,
+          "delivery": "passed",
+          "author_tests": "not_required",
+          "executable_smoke": "not_applicable",
+          "final_verification_passed": true,
+          "clean_replay": "passed",
+          "full_completed": null,
+          "main_build_task_completed": true,
+          "reproducible_delivery_completed": true
+        },
+        "timings": {
+          "dependency_seconds": 0.12112803291529417,
+          "configure_seconds": 7.370261721080169,
+          "build_seconds": 4.421704595908523,
+          "result_location_seconds": 0.037771747913211584,
+          "primary_build_seconds": 12.70143385604024,
+          "time_to_primary_from_arm_start_seconds": 12.702382121002302,
+          "delivery_seconds": 0.19214916788041592,
+          "author_tests_seconds": 8.071982301771641e-05,
+          "clean_replay_seconds": 15.668026315048337,
+          "total_seconds_before_cleanup": 28.607906544115394,
+          "initial_planning_seconds": 0.0,
+          "recovery_agent_seconds": 0.0
+        },
+        "recovery_behavior": {},
+        "initial_plan_sha256": "1b7e31614902426ed643e2640042f27579a54bce784506e1ebd5bef835626147",
+        "error": null
+      },
+      {
+        "slot": 7,
+        "project": "rtl_433",
+        "method": "R2_system_context",
+        "status": "primary_completed",
+        "layers": {
+          "command_build_passed": true,
+          "primary_build_completed": true,
+          "delivery": "passed",
+          "author_tests": "not_required",
+          "executable_smoke": "passed",
+          "final_verification_passed": true,
+          "clean_replay": "passed",
+          "full_completed": null,
+          "main_build_task_completed": true,
+          "reproducible_delivery_completed": true
+        },
+        "timings": {
+          "dependency_seconds": 10.326199898030609,
+          "configure_seconds": 1.0968560809269547,
+          "build_seconds": 56.80948216188699,
+          "result_location_seconds": 0.05711205000989139,
+          "primary_build_seconds": 69.18133254605345,
+          "time_to_primary_from_arm_start_seconds": 69.18231154303066,
+          "delivery_seconds": 0.2152130799368024,
+          "author_tests_seconds": 8.940999396145344e-05,
+          "clean_replay_seconds": 70.51472724694759,
+          "total_seconds_before_cleanup": 139.9876554349903,
+          "initial_planning_seconds": 0.0,
+          "recovery_agent_seconds": 0.0
+        },
+        "recovery_behavior": {},
+        "initial_plan_sha256": "08c44630a314b3f892a4fffce258bfc4fd134927bf3e0122d452cc4755c7b75f",
+        "error": null
+      },
+      {
+        "slot": 8,
+        "project": "rtl_433",
+        "method": "H0",
+        "status": "primary_completed",
+        "layers": {
+          "command_build_passed": true,
+          "primary_build_completed": true,
+          "delivery": "passed",
+          "author_tests": "not_required",
+          "executable_smoke": "passed",
+          "final_verification_passed": true,
+          "clean_replay": "passed",
+          "full_completed": null,
+          "main_build_task_completed": true,
+          "reproducible_delivery_completed": true
+        },
+        "timings": {
+          "dependency_seconds": 7.981949808076024,
+          "configure_seconds": 1.0747987648937851,
+          "build_seconds": 56.99976931209676,
+          "result_location_seconds": 0.05559947295114398,
+          "primary_build_seconds": 66.99370037904009,
+          "time_to_primary_from_arm_start_seconds": 66.99475725204684,
+          "delivery_seconds": 0.2128522510174662,
+          "author_tests_seconds": 7.65861477702856e-05,
+          "clean_replay_seconds": 70.23728056298569,
+          "total_seconds_before_cleanup": 137.52033253014088,
+          "initial_planning_seconds": 0.0,
+          "recovery_agent_seconds": 0.0
+        },
+        "recovery_behavior": {},
+        "initial_plan_sha256": "08c44630a314b3f892a4fffce258bfc4fd134927bf3e0122d452cc4755c7b75f",
+        "error": null
+      },
+      {
+        "slot": 9,
+        "project": "masscan",
+        "method": "H0",
+        "status": "error",
+        "layers": {
+          "command_build_passed": true,
+          "primary_build_completed": true,
+          "delivery": "passed",
+          "author_tests": "not_required",
+          "executable_smoke": "failed",
+          "final_verification_passed": false,
+          "clean_replay": "not_started",
+          "full_completed": false,
+          "main_build_task_completed": false,
+          "reproducible_delivery_completed": false
+        },
+        "timings": {
+          "build_seconds": 7.301524949027225,
+          "result_location_seconds": 0.053910547867417336,
+          "primary_build_seconds": 7.9275644270237535,
+          "time_to_primary_from_arm_start_seconds": 7.928732024040073,
+          "delivery_seconds": 0.16632217704318464,
+          "author_tests_seconds": 9.249988943338394e-05,
+          "clean_replay_seconds": 0.17368210200220346,
+          "total_seconds_before_cleanup": 8.299493267200887,
+          "initial_planning_seconds": 0.0,
+          "recovery_agent_seconds": 106.73009897605516
+        },
+        "recovery_behavior": {
+          "recovery_invocations": 1,
+          "read_source": 49,
+          "exact_repeat_reads": 13,
+          "list_source": 2
+        },
+        "initial_plan_sha256": "521200d533777a7102c4eb8f3c2342791a8624037055c8274362aa15f8573cf6",
+        "error": "Recursion limit of 100 reached without hitting a stop condition. You can increase the limit by setting the `recursion_limit` config key.\nFor troubleshooting, visit: https://docs.langchain.com/oss/python/langgraph/errors/GRAPH_RECURSION_LIMIT"
+      },
+      {
+        "slot": 10,
+        "project": "masscan",
+        "method": "R2_system_context",
+        "status": "error",
+        "layers": {
+          "command_build_passed": true,
+          "primary_build_completed": true,
+          "delivery": "passed",
+          "author_tests": "not_required",
+          "executable_smoke": "failed",
+          "final_verification_passed": false,
+          "clean_replay": "not_started",
+          "full_completed": false,
+          "main_build_task_completed": false,
+          "reproducible_delivery_completed": false
+        },
+        "timings": {
+          "build_seconds": 7.425651605939493,
+          "result_location_seconds": 0.051461481023579836,
+          "primary_build_seconds": 8.04253067006357,
+          "time_to_primary_from_arm_start_seconds": 8.043821514118463,
+          "delivery_seconds": 0.17710762098431587,
+          "author_tests_seconds": 0.0002160628791898489,
+          "clean_replay_seconds": 0.1716667788568884,
+          "total_seconds_before_cleanup": 8.42752018594183,
+          "initial_planning_seconds": 0.0,
+          "recovery_agent_seconds": 75.65836106310599
+        },
+        "recovery_behavior": {
+          "recovery_invocations": 1,
+          "list_source": 4,
+          "exact_repeat_reads": 12,
+          "read_source": 31
+        },
+        "initial_plan_sha256": "521200d533777a7102c4eb8f3c2342791a8624037055c8274362aa15f8573cf6",
+        "error": "恢复方案没有改变实际执行动作；不能仅改说明、步骤标识或构建目录来重跑相同失败。请读取真实失败日志，修正必要命令或工作目录；无法修复时明确说明阻塞。"
+      },
+      {
+        "slot": 11,
+        "project": "tmux",
+        "method": "R2_system_context",
+        "status": "primary_completed",
+        "layers": {
+          "command_build_passed": true,
+          "primary_build_completed": true,
+          "delivery": "passed",
+          "author_tests": "not_required",
+          "executable_smoke": "passed",
+          "final_verification_passed": true,
+          "clean_replay": "passed",
+          "full_completed": null,
+          "main_build_task_completed": true,
+          "reproducible_delivery_completed": true
+        },
+        "timings": {
+          "dependency_seconds": 9.40839615999721,
+          "configure_seconds": 13.004637674894184,
+          "build_seconds": 24.93471409403719,
+          "result_location_seconds": 0.13691184297204018,
+          "primary_build_seconds": 48.47368447901681,
+          "time_to_primary_from_arm_start_seconds": 48.47605248191394,
+          "delivery_seconds": 0.23427968402393162,
+          "author_tests_seconds": 8.35559330880642e-05,
+          "clean_replay_seconds": 51.47040728898719,
+          "total_seconds_before_cleanup": 100.2762316078879,
+          "initial_planning_seconds": 0.0,
+          "recovery_agent_seconds": 0.0
+        },
+        "recovery_behavior": {},
+        "initial_plan_sha256": "3b55791b2b236ae49004a59154bdf161eb880a04449211f4f4c1f84e0dc808d0",
+        "error": null
+      },
+      {
+        "slot": 12,
+        "project": "tmux",
+        "method": "H0",
+        "status": "primary_completed",
+        "layers": {
+          "command_build_passed": true,
+          "primary_build_completed": true,
+          "delivery": "passed",
+          "author_tests": "not_required",
+          "executable_smoke": "passed",
+          "final_verification_passed": true,
+          "clean_replay": "passed",
+          "full_completed": null,
+          "main_build_task_completed": true,
+          "reproducible_delivery_completed": true
+        },
+        "timings": {
+          "dependency_seconds": 8.766668857075274,
+          "configure_seconds": 13.240245245862752,
+          "build_seconds": 25.24949914496392,
+          "result_location_seconds": 0.13269637105986476,
+          "primary_build_seconds": 48.37227539694868,
+          "time_to_primary_from_arm_start_seconds": 48.3743506600149,
+          "delivery_seconds": 0.23010263312608004,
+          "author_tests_seconds": 8.0533092841506e-05,
+          "clean_replay_seconds": 51.20804314408451,
+          "total_seconds_before_cleanup": 99.9066130630672,
+          "initial_planning_seconds": 0.0,
+          "recovery_agent_seconds": 0.0
+        },
+        "recovery_behavior": {},
+        "initial_plan_sha256": "3b55791b2b236ae49004a59154bdf161eb880a04449211f4f4c1f84e0dc808d0",
+        "error": null
+      },
+      {
+        "slot": 13,
+        "project": "stderred",
+        "method": "H0",
+        "status": "primary_completed",
+        "layers": {
+          "command_build_passed": true,
+          "primary_build_completed": true,
+          "delivery": "passed",
+          "author_tests": "not_required",
+          "executable_smoke": "not_applicable",
+          "final_verification_passed": true,
+          "clean_replay": "passed",
+          "full_completed": null,
+          "main_build_task_completed": true,
+          "reproducible_delivery_completed": true
+        },
+        "timings": {
+          "configure_seconds": 4.079688325989991,
+          "dependency_seconds": 14.187550330068916,
+          "recovery_execution_seconds": 18.89107870007865,
+          "build_seconds": 0.7556222160346806,
+          "result_location_seconds": 0.009699833113700151,
+          "primary_build_seconds": 64.01129652303644,
+          "time_to_primary_from_arm_start_seconds": 64.01346377888694,
+          "delivery_seconds": 0.13348438101820648,
+          "author_tests_seconds": 0.000196350971236825,
+          "clean_replay_seconds": 22.32449342100881,
+          "total_seconds_before_cleanup": 86.47859697206877,
+          "initial_planning_seconds": 0.0,
+          "recovery_agent_seconds": 44.378073471132666
+        },
+        "recovery_behavior": {
+          "recovery_invocations": 2,
+          "read_source": 1,
+          "exact_repeat_reads": 0,
+          "list_source": 1,
+          "corrections": 0
+        },
+        "initial_plan_sha256": "f87d1488f873b8327898e1d940f04dbfaaa8cbd0d8c1c627afc87f8c63582483",
+        "error": null
+      },
+      {
+        "slot": 14,
+        "project": "stderred",
+        "method": "R2_system_context",
+        "status": "primary_completed",
+        "layers": {
+          "command_build_passed": true,
+          "primary_build_completed": true,
+          "delivery": "passed",
+          "author_tests": "not_required",
+          "executable_smoke": "not_applicable",
+          "final_verification_passed": true,
+          "clean_replay": "passed",
+          "full_completed": null,
+          "main_build_task_completed": true,
+          "reproducible_delivery_completed": true
+        },
+        "timings": {
+          "configure_seconds": 4.011025584768504,
+          "dependency_seconds": 6.747642396017909,
+          "recovery_execution_seconds": 11.3576680701226,
+          "build_seconds": 0.7377303561661392,
+          "result_location_seconds": 0.009989315876737237,
+          "primary_build_seconds": 26.179251059889793,
+          "time_to_primary_from_arm_start_seconds": 26.18102182680741,
+          "delivery_seconds": 0.13970588194206357,
+          "author_tests_seconds": 0.0001915509346872568,
+          "clean_replay_seconds": 15.83353253104724,
+          "total_seconds_before_cleanup": 42.161090159090236,
+          "initial_planning_seconds": 0.0,
+          "recovery_agent_seconds": 14.172672519925982
+        },
+        "recovery_behavior": {
+          "recovery_invocations": 1,
+          "read_source": 1,
+          "exact_repeat_reads": 0,
+          "list_source": 2,
+          "corrections": 0
+        },
+        "initial_plan_sha256": "f87d1488f873b8327898e1d940f04dbfaaa8cbd0d8c1c627afc87f8c63582483",
+        "error": null
+      },
+      {
+        "slot": 15,
+        "project": "wrk",
+        "method": "R2_system_context",
+        "status": "primary_completed",
+        "layers": {
+          "command_build_passed": true,
+          "primary_build_completed": true,
+          "delivery": "passed",
+          "author_tests": "not_required",
+          "executable_smoke": "passed",
+          "final_verification_passed": true,
+          "clean_replay": "passed",
+          "full_completed": null,
+          "main_build_task_completed": true,
+          "reproducible_delivery_completed": true
+        },
+        "timings": {
+          "build_seconds": 89.02559615997598,
+          "result_location_seconds": 0.061229096027091146,
+          "primary_build_seconds": 89.66139044309966,
+          "time_to_primary_from_arm_start_seconds": 89.66236674389802,
+          "delivery_seconds": 0.20086752297356725,
+          "author_tests_seconds": 8.117198012769222e-05,
+          "clean_replay_seconds": 93.83734460501,
+          "total_seconds_before_cleanup": 183.76430213800631,
+          "initial_planning_seconds": 0.0,
+          "recovery_agent_seconds": 0.0
+        },
+        "recovery_behavior": {},
+        "initial_plan_sha256": "f1fc3c430715a63152ff2aa69e680534569bd1eb8dbf16d5f86ebda0ea6fdf7e",
+        "error": null
+      },
+      {
+        "slot": 16,
+        "project": "wrk",
+        "method": "H0",
+        "status": "primary_completed",
+        "layers": {
+          "command_build_passed": true,
+          "primary_build_completed": true,
+          "delivery": "passed",
+          "author_tests": "not_required",
+          "executable_smoke": "passed",
+          "final_verification_passed": true,
+          "clean_replay": "passed",
+          "full_completed": null,
+          "main_build_task_completed": true,
+          "reproducible_delivery_completed": true
+        },
+        "timings": {
+          "build_seconds": 89.06951614213176,
+          "result_location_seconds": 0.06104539684019983,
+          "primary_build_seconds": 89.70870580594055,
+          "time_to_primary_from_arm_start_seconds": 89.70970905805007,
+          "delivery_seconds": 0.20363799203187227,
+          "author_tests_seconds": 8.203089237213135e-05,
+          "clean_replay_seconds": 94.0020537211094,
+          "total_seconds_before_cleanup": 183.97642975207418,
+          "initial_planning_seconds": 0.0,
+          "recovery_agent_seconds": 0.0
+        },
+        "recovery_behavior": {},
+        "initial_plan_sha256": "f1fc3c430715a63152ff2aa69e680534569bd1eb8dbf16d5f86ebda0ea6fdf7e",
+        "error": null
+      },
+      {
+        "slot": 17,
+        "project": "flex",
+        "method": "H0",
+        "status": "error",
+        "layers": {
+          "command_build_passed": null,
+          "primary_build_completed": null,
+          "delivery": "unobserved",
+          "author_tests": "unobserved",
+          "executable_smoke": "unobserved",
+          "final_verification_passed": null,
+          "clean_replay": "unobserved",
+          "full_completed": false,
+          "main_build_task_completed": false,
+          "reproducible_delivery_completed": false
+        },
+        "timings": {
+          "dependency_seconds": 21.90562040405348,
+          "configure_seconds": 1.3693323251791298,
+          "recovery_execution_seconds": 4.900844061048701,
+          "initial_planning_seconds": 0.0,
+          "recovery_agent_seconds": 506.9458223897964
+        },
+        "recovery_behavior": {
+          "recovery_invocations": 3,
+          "list_source": 6,
+          "exact_repeat_reads": 9,
+          "read_source": 14,
+          "corrections": 1
+        },
+        "initial_plan_sha256": "bd1fd514e1fe2c2377d863ba00554292ab4a27e2e9e4e67973af10b63946546d",
+        "error": "Failed to parse structured output for tool 'SimpleBuildActions': Failed to parse data to SimpleBuildActions: 1 validation error for SimpleBuildActions\n  Value error, 依赖→配置→编译必须按顺序返回；标识唯一且requires只能引用更早步骤，系统不会自动重排 [type=value_error, input_value={'reason': '唯一真实...认库/文档目标'}]}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.12/v/value_error."
+      },
+      {
+        "slot": 18,
+        "project": "flex",
+        "method": "R2_system_context",
+        "status": "error",
+        "layers": {
+          "command_build_passed": null,
+          "primary_build_completed": null,
+          "delivery": "unobserved",
+          "author_tests": "unobserved",
+          "executable_smoke": "unobserved",
+          "final_verification_passed": null,
+          "clean_replay": "unobserved",
+          "full_completed": false,
+          "main_build_task_completed": false,
+          "reproducible_delivery_completed": false
+        },
+        "timings": {
+          "dependency_seconds": 17.154071792028844,
+          "configure_seconds": 1.3590120342560112,
+          "recovery_execution_seconds": 4.3980932692065835,
+          "initial_planning_seconds": 0.0,
+          "recovery_agent_seconds": 334.6764542730525
+        },
+        "recovery_behavior": {
+          "recovery_invocations": 3,
+          "list_source": 10,
+          "exact_repeat_reads": 15,
+          "read_source": 19,
+          "corrections": 2
+        },
+        "initial_plan_sha256": "bd1fd514e1fe2c2377d863ba00554292ab4a27e2e9e4e67973af10b63946546d",
+        "error": "Failed to parse structured output for tool 'SimpleBuildActions': Failed to parse data to SimpleBuildActions: 1 validation error for SimpleBuildActions\n  Value error, 依赖→配置→编译必须按顺序返回；标识唯一且requires只能引用更早步骤，系统不会自动重排 [type=value_error, input_value={'reason': '上轮失败...认库/文档目标'}]}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.12/v/value_error."
+      },
+      {
+        "slot": 19,
+        "project": "Libfacedetection",
+        "method": "R2_system_context",
+        "status": "primary_completed",
+        "layers": {
+          "command_build_passed": true,
+          "primary_build_completed": true,
+          "delivery": "passed",
+          "author_tests": "not_required",
+          "executable_smoke": "not_applicable",
+          "final_verification_passed": true,
+          "clean_replay": "passed",
+          "full_completed": null,
+          "main_build_task_completed": true,
+          "reproducible_delivery_completed": true
+        },
+        "timings": {
+          "configure_seconds": 2.0529610698577017,
+          "build_seconds": 2.770643563941121,
+          "result_location_seconds": 0.1095245461910963,
+          "primary_build_seconds": 5.983472669962794,
+          "time_to_primary_from_arm_start_seconds": 5.98444666294381,
+          "delivery_seconds": 0.3246182829607278,
+          "author_tests_seconds": 0.0001029579434543848,
+          "clean_replay_seconds": 8.921437488868833,
+          "total_seconds_before_cleanup": 15.413213734980673,
+          "initial_planning_seconds": 0.0,
+          "recovery_agent_seconds": 0.0
+        },
+        "recovery_behavior": {},
+        "initial_plan_sha256": "205d2967af6c5965f0e1c3989c659ec2aa9d89936882e64bd1300cc70e50f3fd",
+        "error": null
+      },
+      {
+        "slot": 20,
+        "project": "Libfacedetection",
+        "method": "H0",
+        "status": "primary_completed",
+        "layers": {
+          "command_build_passed": true,
+          "primary_build_completed": true,
+          "delivery": "passed",
+          "author_tests": "not_required",
+          "executable_smoke": "not_applicable",
+          "final_verification_passed": true,
+          "clean_replay": "passed",
+          "full_completed": null,
+          "main_build_task_completed": true,
+          "reproducible_delivery_completed": true
+        },
+        "timings": {
+          "configure_seconds": 2.058793951990083,
+          "build_seconds": 2.751086179865524,
+          "result_location_seconds": 0.09269362594932318,
+          "primary_build_seconds": 5.968064729124308,
+          "time_to_primary_from_arm_start_seconds": 5.969091418199241,
+          "delivery_seconds": 0.31150281289592385,
+          "author_tests_seconds": 9.416579268872738e-05,
+          "clean_replay_seconds": 8.876927132951096,
+          "total_seconds_before_cleanup": 15.341983633115888,
+          "initial_planning_seconds": 0.0,
+          "recovery_agent_seconds": 0.0
+        },
+        "recovery_behavior": {},
+        "initial_plan_sha256": "205d2967af6c5965f0e1c3989c659ec2aa9d89936882e64bd1300cc70e50f3fd",
+        "error": null
+      },
+      {
+        "slot": 21,
+        "project": "libbcrypt",
+        "method": "H0",
+        "status": "primary_completed",
+        "layers": {
+          "command_build_passed": true,
+          "primary_build_completed": true,
+          "delivery": "passed",
+          "author_tests": "not_required",
+          "executable_smoke": "not_applicable",
+          "final_verification_passed": true,
+          "clean_replay": "passed",
+          "full_completed": null,
+          "main_build_task_completed": true,
+          "reproducible_delivery_completed": true
+        },
+        "timings": {
+          "build_seconds": 1.841406888095662,
+          "dependency_seconds": 188.80887698405422,
+          "recovery_execution_seconds": 189.92742706625722,
+          "configure_seconds": 0.15603476110845804,
+          "result_location_seconds": 0.011648225132375956,
+          "primary_build_seconds": 216.93085656990297,
+          "time_to_primary_from_arm_start_seconds": 216.93247120385058,
+          "delivery_seconds": 0.14621884794905782,
+          "author_tests_seconds": 0.0001969051081687212,
+          "clean_replay_seconds": 17.209193479036912,
+          "total_seconds_before_cleanup": 234.29774067900144,
+          "initial_planning_seconds": 0.0,
+          "recovery_agent_seconds": 25.555728973820806
+        },
+        "recovery_behavior": {
+          "recovery_invocations": 2,
+          "list_source": 1,
+          "exact_repeat_reads": 0,
+          "read_source": 2,
+          "corrections": 0
+        },
+        "initial_plan_sha256": "08deb2a8e56e39c8fa4fc6cb9e676e8e48fdd2775f5a0bee0c4333561c5c1364",
+        "error": null
+      },
+      {
+        "slot": 22,
+        "project": "libbcrypt",
+        "method": "R2_system_context",
+        "status": "primary_completed",
+        "layers": {
+          "command_build_passed": true,
+          "primary_build_completed": true,
+          "delivery": "passed",
+          "author_tests": "not_required",
+          "executable_smoke": "not_applicable",
+          "final_verification_passed": true,
+          "clean_replay": "passed",
+          "full_completed": null,
+          "main_build_task_completed": true,
+          "reproducible_delivery_completed": true
+        },
+        "timings": {
+          "build_seconds": 1.7968221788760275,
+          "dependency_seconds": 298.5894967610948,
+          "recovery_execution_seconds": 299.6706352059264,
+          "configure_seconds": 0.15925925388000906,
+          "result_location_seconds": 0.011951964115723968,
+          "primary_build_seconds": 353.98256288981065,
+          "time_to_primary_from_arm_start_seconds": 353.9843363331165,
+          "delivery_seconds": 0.14381474093534052,
+          "author_tests_seconds": 0.00019953399896621704,
+          "clean_replay_seconds": 17.635974653065205,
+          "total_seconds_before_cleanup": 371.77371969795786,
+          "initial_planning_seconds": 0.0,
+          "recovery_agent_seconds": 52.81949240900576
+        },
+        "recovery_behavior": {
+          "recovery_invocations": 3,
+          "list_source": 1,
+          "exact_repeat_reads": 0,
+          "corrections": 0
+        },
+        "initial_plan_sha256": "08deb2a8e56e39c8fa4fc6cb9e676e8e48fdd2775f5a0bee0c4333561c5c1364",
+        "error": null
+      },
+      {
+        "slot": 23,
+        "project": "goaccess",
+        "method": "R2_system_context",
+        "status": "primary_completed",
+        "layers": {
+          "command_build_passed": true,
+          "primary_build_completed": true,
+          "delivery": "passed",
+          "author_tests": "not_required",
+          "executable_smoke": "passed",
+          "final_verification_passed": true,
+          "clean_replay": "passed",
+          "full_completed": null,
+          "main_build_task_completed": true,
+          "reproducible_delivery_completed": true
+        },
+        "timings": {
+          "dependency_seconds": 8.608973326161504,
+          "configure_seconds": 13.147575445007533,
+          "build_seconds": 8.525763839948922,
+          "result_location_seconds": 0.05465612793341279,
+          "primary_build_seconds": 30.991401036037132,
+          "time_to_primary_from_arm_start_seconds": 30.99531513103284,
+          "delivery_seconds": 0.1769895690958947,
+          "author_tests_seconds": 0.000100764911621809,
+          "clean_replay_seconds": 33.84886680589989,
+          "total_seconds_before_cleanup": 65.07130328612402,
+          "initial_planning_seconds": 0.0,
+          "recovery_agent_seconds": 0.0
+        },
+        "recovery_behavior": {},
+        "initial_plan_sha256": "ac0a485fcbf1210c06866921ea2b42679a8b5661fc164a45194d9df4e9c2512f",
+        "error": null
+      },
+      {
+        "slot": 24,
+        "project": "goaccess",
+        "method": "H0",
+        "status": "primary_completed",
+        "layers": {
+          "command_build_passed": true,
+          "primary_build_completed": true,
+          "delivery": "passed",
+          "author_tests": "not_required",
+          "executable_smoke": "passed",
+          "final_verification_passed": true,
+          "clean_replay": "passed",
+          "full_completed": null,
+          "main_build_task_completed": true,
+          "reproducible_delivery_completed": true
+        },
+        "timings": {
+          "dependency_seconds": 8.104741744929925,
+          "configure_seconds": 13.154255802975968,
+          "build_seconds": 8.535141394939274,
+          "result_location_seconds": 0.050653751008212566,
+          "primary_build_seconds": 30.50870987889357,
+          "time_to_primary_from_arm_start_seconds": 30.510280120885,
+          "delivery_seconds": 0.17778112599626184,
+          "author_tests_seconds": 9.790412150323391e-05,
+          "clean_replay_seconds": 33.93766547203995,
+          "total_seconds_before_cleanup": 64.67060805601068,
+          "initial_planning_seconds": 0.0,
+          "recovery_agent_seconds": 0.0
+        },
+        "recovery_behavior": {},
+        "initial_plan_sha256": "ac0a485fcbf1210c06866921ea2b42679a8b5661fc164a45194d9df4e9c2512f",
+        "error": null
+      },
+      {
+        "slot": 25,
+        "project": "zlog",
+        "method": "H0",
+        "status": "primary_completed",
+        "layers": {
+          "command_build_passed": true,
+          "primary_build_completed": true,
+          "delivery": "passed",
+          "author_tests": "not_required",
+          "executable_smoke": "not_applicable",
+          "final_verification_passed": true,
+          "clean_replay": "passed",
+          "full_completed": null,
+          "main_build_task_completed": true,
+          "reproducible_delivery_completed": true
+        },
+        "timings": {
+          "configure_seconds": 0.9643577919341624,
+          "build_seconds": 5.282097465125844,
+          "result_location_seconds": 0.021472328109666705,
+          "primary_build_seconds": 6.840244199149311,
+          "time_to_primary_from_arm_start_seconds": 6.841288170078769,
+          "delivery_seconds": 0.16690186294727027,
+          "author_tests_seconds": 0.00013191718608140945,
+          "clean_replay_seconds": 9.891247543971986,
+          "total_seconds_before_cleanup": 16.926002235151827,
+          "initial_planning_seconds": 0.0,
+          "recovery_agent_seconds": 0.0
+        },
+        "recovery_behavior": {},
+        "initial_plan_sha256": "9d954cecb7576b09cacaeea6c47e087d41a69eb41f10c60a78e011d45cb7e5ec",
+        "error": null
+      },
+      {
+        "slot": 26,
+        "project": "zlog",
+        "method": "R2_system_context",
+        "status": "primary_completed",
+        "layers": {
+          "command_build_passed": true,
+          "primary_build_completed": true,
+          "delivery": "passed",
+          "author_tests": "not_required",
+          "executable_smoke": "not_applicable",
+          "final_verification_passed": true,
+          "clean_replay": "passed",
+          "full_completed": null,
+          "main_build_task_completed": true,
+          "reproducible_delivery_completed": true
+        },
+        "timings": {
+          "configure_seconds": 0.9629358199890703,
+          "build_seconds": 5.28902573697269,
+          "result_location_seconds": 0.024496719939634204,
+          "primary_build_seconds": 6.835519251180813,
+          "time_to_primary_from_arm_start_seconds": 6.837293736869469,
+          "delivery_seconds": 0.16784133319742978,
+          "author_tests_seconds": 0.0001129519660025835,
+          "clean_replay_seconds": 9.880857731215656,
+          "total_seconds_before_cleanup": 16.91871024412103,
+          "initial_planning_seconds": 0.0,
+          "recovery_agent_seconds": 0.0
+        },
+        "recovery_behavior": {},
+        "initial_plan_sha256": "9d954cecb7576b09cacaeea6c47e087d41a69eb41f10c60a78e011d45cb7e5ec",
+        "error": null
+      },
+      {
+        "slot": 27,
+        "project": "sxhkd",
+        "method": "R2_system_context",
+        "status": "primary_completed",
+        "layers": {
+          "command_build_passed": true,
+          "primary_build_completed": true,
+          "delivery": "passed",
+          "author_tests": "not_required",
+          "executable_smoke": "passed",
+          "final_verification_passed": true,
+          "clean_replay": "passed",
+          "full_completed": null,
+          "main_build_task_completed": true,
+          "reproducible_delivery_completed": true
+        },
+        "timings": {
+          "dependency_seconds": 17.67052269796841,
+          "build_seconds": 0.5272394737694412,
+          "recovery_execution_seconds": 4.099047438008711,
+          "configure_seconds": 0.15985388308763504,
+          "result_location_seconds": 0.009404008975252509,
+          "primary_build_seconds": 28.21619163802825,
+          "time_to_primary_from_arm_start_seconds": 28.21807370497845,
+          "delivery_seconds": 0.13475815299898386,
+          "author_tests_seconds": 0.00019562500528991222,
+          "clean_replay_seconds": 16.554354110034183,
+          "total_seconds_before_cleanup": 44.912444967078045,
+          "initial_planning_seconds": 0.0,
+          "recovery_agent_seconds": 9.330319424159825
+        },
+        "recovery_behavior": {
+          "recovery_invocations": 1,
+          "read_source": 4,
+          "exact_repeat_reads": 0,
+          "list_source": 1,
+          "corrections": 0
+        },
+        "initial_plan_sha256": "d4f91ad2c87072cd4f676a91d73205e9dbef85c325347ad428916bc32c4101df",
+        "error": null
+      },
+      {
+        "slot": 28,
+        "project": "sxhkd",
+        "method": "H0",
+        "status": "primary_completed",
+        "layers": {
+          "command_build_passed": true,
+          "primary_build_completed": true,
+          "delivery": "passed",
+          "author_tests": "not_required",
+          "executable_smoke": "passed",
+          "final_verification_passed": true,
+          "clean_replay": "passed",
+          "full_completed": null,
+          "main_build_task_completed": true,
+          "reproducible_delivery_completed": true
+        },
+        "timings": {
+          "dependency_seconds": 11.720672107301652,
+          "build_seconds": 0.5406946160364896,
+          "recovery_execution_seconds": 3.663947808323428,
+          "configure_seconds": 0.16508338996209204,
+          "result_location_seconds": 0.008584348019212484,
+          "primary_build_seconds": 32.27575752697885,
+          "time_to_primary_from_arm_start_seconds": 32.2776847940404,
+          "delivery_seconds": 0.12626984692178667,
+          "author_tests_seconds": 0.00019019911997020245,
+          "clean_replay_seconds": 16.155874280957505,
+          "total_seconds_before_cleanup": 48.56663852697238,
+          "initial_planning_seconds": 0.0,
+          "recovery_agent_seconds": 19.31970744021237
+        },
+        "recovery_behavior": {
+          "recovery_invocations": 1,
+          "read_source": 8,
+          "exact_repeat_reads": 0,
+          "corrections": 0
+        },
+        "initial_plan_sha256": "d4f91ad2c87072cd4f676a91d73205e9dbef85c325347ad428916bc32c4101df",
+        "error": null
+      },
+      {
+        "slot": 29,
+        "project": "file",
+        "method": "H0",
+        "status": "primary_completed",
+        "layers": {
+          "command_build_passed": true,
+          "primary_build_completed": true,
+          "delivery": "passed",
+          "author_tests": "not_required",
+          "executable_smoke": "passed",
+          "final_verification_passed": true,
+          "clean_replay": "passed",
+          "full_completed": null,
+          "main_build_task_completed": true,
+          "reproducible_delivery_completed": true
+        },
+        "timings": {
+          "dependency_seconds": 8.694408667040989,
+          "configure_seconds": 17.756466067861766,
+          "build_seconds": 5.244351846864447,
+          "result_location_seconds": 0.06590243196114898,
+          "primary_build_seconds": 32.69531655800529,
+          "time_to_primary_from_arm_start_seconds": 32.69650737615302,
+          "delivery_seconds": 0.22342811315320432,
+          "author_tests_seconds": 7.553119212388992e-05,
+          "clean_replay_seconds": 35.35395968006924,
+          "total_seconds_before_cleanup": 68.36009601294063,
+          "initial_planning_seconds": 0.0,
+          "recovery_agent_seconds": 0.0
+        },
+        "recovery_behavior": {},
+        "initial_plan_sha256": "3fd14475d0f4f1fca25561086f6c9f25870955a887e7f78693e50bbfe7d77d15",
+        "error": null
+      },
+      {
+        "slot": 30,
+        "project": "file",
+        "method": "R2_system_context",
+        "status": "primary_completed",
+        "layers": {
+          "command_build_passed": true,
+          "primary_build_completed": true,
+          "delivery": "passed",
+          "author_tests": "not_required",
+          "executable_smoke": "passed",
+          "final_verification_passed": true,
+          "clean_replay": "passed",
+          "full_completed": null,
+          "main_build_task_completed": true,
+          "reproducible_delivery_completed": true
+        },
+        "timings": {
+          "dependency_seconds": 8.113230864983052,
+          "configure_seconds": 17.72787847206928,
+          "build_seconds": 5.2276767417788506,
+          "result_location_seconds": 0.0646747590508312,
+          "primary_build_seconds": 32.073958050925285,
+          "time_to_primary_from_arm_start_seconds": 32.0752528430894,
+          "delivery_seconds": 0.20996903581544757,
+          "author_tests_seconds": 9.609502740204334e-05,
+          "clean_replay_seconds": 35.46146801090799,
+          "total_seconds_before_cleanup": 67.83669824199751,
+          "initial_planning_seconds": 0.0,
+          "recovery_agent_seconds": 0.0
+        },
+        "recovery_behavior": {},
+        "initial_plan_sha256": "3fd14475d0f4f1fca25561086f6c9f25870955a887e7f78693e50bbfe7d77d15",
+        "error": null
+      },
+      {
+        "slot": 31,
+        "project": "Lwan",
+        "method": "R2_system_context",
+        "status": "primary_completed",
+        "layers": {
+          "command_build_passed": true,
+          "primary_build_completed": true,
+          "delivery": "passed",
+          "author_tests": "not_required",
+          "executable_smoke": "passed",
+          "final_verification_passed": true,
+          "clean_replay": "passed",
+          "full_completed": null,
+          "main_build_task_completed": true,
+          "reproducible_delivery_completed": true
+        },
+        "timings": {
+          "dependency_seconds": 9.215999917127192,
+          "configure_seconds": 13.017957097152248,
+          "build_seconds": 43.26928017777391,
+          "result_location_seconds": 0.03898420603945851,
+          "primary_build_seconds": 66.35665600490756,
+          "time_to_primary_from_arm_start_seconds": 66.3577485231217,
+          "delivery_seconds": 0.18937095999717712,
+          "author_tests_seconds": 9.574019350111485e-05,
+          "clean_replay_seconds": 70.39980796095915,
+          "total_seconds_before_cleanup": 137.00142355798744,
+          "initial_planning_seconds": 0.0,
+          "recovery_agent_seconds": 0.0
+        },
+        "recovery_behavior": {},
+        "initial_plan_sha256": "e473fb38b0fd29bb3c6f4e4499a9dfbc05fe0dee0ffd9a065f1356f31b4a793f",
+        "error": null
+      },
+      {
+        "slot": 32,
+        "project": "Lwan",
+        "method": "H0",
+        "status": "primary_completed",
+        "layers": {
+          "command_build_passed": true,
+          "primary_build_completed": true,
+          "delivery": "passed",
+          "author_tests": "not_required",
+          "executable_smoke": "passed",
+          "final_verification_passed": true,
+          "clean_replay": "passed",
+          "full_completed": null,
+          "main_build_task_completed": true,
+          "reproducible_delivery_completed": true
+        },
+        "timings": {
+          "dependency_seconds": 9.226661617867649,
+          "configure_seconds": 13.015979598043486,
+          "build_seconds": 43.15349177410826,
+          "result_location_seconds": 0.03849921585060656,
+          "primary_build_seconds": 66.23705537500791,
+          "time_to_primary_from_arm_start_seconds": 66.2381233680062,
+          "delivery_seconds": 0.1882704901508987,
+          "author_tests_seconds": 9.824312292039394e-05,
+          "clean_replay_seconds": 69.70433102315292,
+          "total_seconds_before_cleanup": 136.1856659548357,
+          "initial_planning_seconds": 0.0,
+          "recovery_agent_seconds": 0.0
+        },
+        "recovery_behavior": {},
+        "initial_plan_sha256": "e473fb38b0fd29bb3c6f4e4499a9dfbc05fe0dee0ffd9a065f1356f31b4a793f",
+        "error": null
+      },
+      {
+        "slot": 33,
+        "project": "uhubctl",
+        "method": "H0",
+        "status": "primary_completed",
+        "layers": {
+          "command_build_passed": true,
+          "primary_build_completed": true,
+          "delivery": "passed",
+          "author_tests": "not_required",
+          "executable_smoke": "passed",
+          "final_verification_passed": true,
+          "clean_replay": "passed",
+          "full_completed": null,
+          "main_build_task_completed": true,
+          "reproducible_delivery_completed": true
+        },
+        "timings": {
+          "dependency_seconds": 9.078617303166538,
+          "build_seconds": 0.26301856781356037,
+          "result_location_seconds": 0.005134080071002245,
+          "primary_build_seconds": 9.764969147043303,
+          "time_to_primary_from_arm_start_seconds": 9.766210893169045,
+          "delivery_seconds": 0.13381061283871531,
+          "author_tests_seconds": 0.00018940703012049198,
+          "clean_replay_seconds": 12.22932248795405,
+          "total_seconds_before_cleanup": 22.132461005123332,
+          "initial_planning_seconds": 0.0,
+          "recovery_agent_seconds": 0.0
+        },
+        "recovery_behavior": {},
+        "initial_plan_sha256": "b684cecb8a3b4321cb15372614ece556d296388bc685544915998ae05335c3bc",
+        "error": null
+      },
+      {
+        "slot": 34,
+        "project": "uhubctl",
+        "method": "R2_system_context",
+        "status": "primary_completed",
+        "layers": {
+          "command_build_passed": true,
+          "primary_build_completed": true,
+          "delivery": "passed",
+          "author_tests": "not_required",
+          "executable_smoke": "passed",
+          "final_verification_passed": true,
+          "clean_replay": "passed",
+          "full_completed": null,
+          "main_build_task_completed": true,
+          "reproducible_delivery_completed": true
+        },
+        "timings": {
+          "dependency_seconds": 7.880602634977549,
+          "build_seconds": 0.2726792439352721,
+          "result_location_seconds": 0.0060043940320611,
+          "primary_build_seconds": 8.594659324968234,
+          "time_to_primary_from_arm_start_seconds": 8.596489941934124,
+          "delivery_seconds": 0.13128262711688876,
+          "author_tests_seconds": 0.00019434490241110325,
+          "clean_replay_seconds": 12.258417699951679,
+          "total_seconds_before_cleanup": 20.989488733001053,
+          "initial_planning_seconds": 0.0,
+          "recovery_agent_seconds": 0.0
+        },
+        "recovery_behavior": {},
+        "initial_plan_sha256": "b684cecb8a3b4321cb15372614ece556d296388bc685544915998ae05335c3bc",
+        "error": null
+      },
+      {
+        "slot": 35,
+        "project": "xz",
+        "method": "R2_system_context",
+        "status": "error",
+        "layers": {
+          "command_build_passed": true,
+          "primary_build_completed": null,
+          "delivery": "unobserved",
+          "author_tests": "unobserved",
+          "executable_smoke": "unobserved",
+          "final_verification_passed": null,
+          "clean_replay": "unobserved",
+          "full_completed": false,
+          "main_build_task_completed": false,
+          "reproducible_delivery_completed": false
+        },
+        "timings": {
+          "dependency_seconds": 11.352296290220693,
+          "configure_seconds": 19.26166739081964,
+          "recovery_execution_seconds": 85.03073869016953,
+          "build_seconds": 61.814325652085245,
+          "initial_planning_seconds": 0.0,
+          "recovery_agent_seconds": 6.78223432181403
+        },
+        "recovery_behavior": {
+          "recovery_invocations": 1,
+          "read_source": 2,
+          "exact_repeat_reads": 0,
+          "corrections": 0
+        },
+        "initial_plan_sha256": "3f715b4e02c3dfd8021377095f80ef4457ad9d8bae6585bdbb38ae269dce0a09",
+        "error": "原源码/测试被修改：po/lv.po"
+      },
+      {
+        "slot": 36,
+        "project": "xz",
+        "method": "H0",
+        "status": "error",
+        "layers": {
+          "command_build_passed": true,
+          "primary_build_completed": null,
+          "delivery": "unobserved",
+          "author_tests": "unobserved",
+          "executable_smoke": "unobserved",
+          "final_verification_passed": null,
+          "clean_replay": "unobserved",
+          "full_completed": false,
+          "main_build_task_completed": false,
+          "reproducible_delivery_completed": false
+        },
+        "timings": {
+          "dependency_seconds": 10.570300279883668,
+          "configure_seconds": 19.25739261182025,
+          "recovery_execution_seconds": 84.84232087247074,
+          "build_seconds": 62.40900090080686,
+          "initial_planning_seconds": 0.0,
+          "recovery_agent_seconds": 14.463029311969876
+        },
+        "recovery_behavior": {
+          "recovery_invocations": 1,
+          "read_source": 1,
+          "exact_repeat_reads": 0,
+          "list_source": 1,
+          "corrections": 1
+        },
+        "initial_plan_sha256": "3f715b4e02c3dfd8021377095f80ef4457ad9d8bae6585bdbb38ae269dce0a09",
+        "error": "原源码/测试被修改：po/lv.po"
+      }
+    ],
+    "pairs": [
+      {
+        "project": "mozjpeg",
+        "complete_pair": true,
+        "same_initial_plan": true,
+        "main_build": {
+          "H0": true,
+          "R2_system_context": false
+        },
+        "recovered_methods": [
+          "H0",
+          "R2_system_context"
+        ]
+      },
+      {
+        "project": "libtree",
+        "complete_pair": true,
+        "same_initial_plan": true,
+        "main_build": {
+          "R2_system_context": true,
+          "H0": true
+        },
+        "recovered_methods": []
+      },
+      {
+        "project": "libpcap",
+        "complete_pair": true,
+        "same_initial_plan": true,
+        "main_build": {
+          "H0": true,
+          "R2_system_context": true
+        },
+        "recovered_methods": []
+      },
+      {
+        "project": "rtl_433",
+        "complete_pair": true,
+        "same_initial_plan": true,
+        "main_build": {
+          "R2_system_context": true,
+          "H0": true
+        },
+        "recovered_methods": []
+      },
+      {
+        "project": "masscan",
+        "complete_pair": true,
+        "same_initial_plan": true,
+        "main_build": {
+          "H0": false,
+          "R2_system_context": false
+        },
+        "recovered_methods": [
+          "H0",
+          "R2_system_context"
+        ]
+      },
+      {
+        "project": "tmux",
+        "complete_pair": true,
+        "same_initial_plan": true,
+        "main_build": {
+          "R2_system_context": true,
+          "H0": true
+        },
+        "recovered_methods": []
+      },
+      {
+        "project": "stderred",
+        "complete_pair": true,
+        "same_initial_plan": true,
+        "main_build": {
+          "H0": true,
+          "R2_system_context": true
+        },
+        "recovered_methods": [
+          "H0",
+          "R2_system_context"
+        ]
+      },
+      {
+        "project": "wrk",
+        "complete_pair": true,
+        "same_initial_plan": true,
+        "main_build": {
+          "R2_system_context": true,
+          "H0": true
+        },
+        "recovered_methods": []
+      },
+      {
+        "project": "flex",
+        "complete_pair": true,
+        "same_initial_plan": true,
+        "main_build": {
+          "H0": false,
+          "R2_system_context": false
+        },
+        "recovered_methods": [
+          "H0",
+          "R2_system_context"
+        ]
+      },
+      {
+        "project": "Libfacedetection",
+        "complete_pair": true,
+        "same_initial_plan": true,
+        "main_build": {
+          "R2_system_context": true,
+          "H0": true
+        },
+        "recovered_methods": []
+      },
+      {
+        "project": "libbcrypt",
+        "complete_pair": true,
+        "same_initial_plan": true,
+        "main_build": {
+          "H0": true,
+          "R2_system_context": true
+        },
+        "recovered_methods": [
+          "H0",
+          "R2_system_context"
+        ]
+      },
+      {
+        "project": "goaccess",
+        "complete_pair": true,
+        "same_initial_plan": true,
+        "main_build": {
+          "R2_system_context": true,
+          "H0": true
+        },
+        "recovered_methods": []
+      },
+      {
+        "project": "zlog",
+        "complete_pair": true,
+        "same_initial_plan": true,
+        "main_build": {
+          "H0": true,
+          "R2_system_context": true
+        },
+        "recovered_methods": []
+      },
+      {
+        "project": "sxhkd",
+        "complete_pair": true,
+        "same_initial_plan": true,
+        "main_build": {
+          "R2_system_context": true,
+          "H0": true
+        },
+        "recovered_methods": [
+          "R2_system_context",
+          "H0"
+        ]
+      },
+      {
+        "project": "file",
+        "complete_pair": true,
+        "same_initial_plan": true,
+        "main_build": {
+          "H0": true,
+          "R2_system_context": true
+        },
+        "recovered_methods": []
+      },
+      {
+        "project": "Lwan",
+        "complete_pair": true,
+        "same_initial_plan": true,
+        "main_build": {
+          "R2_system_context": true,
+          "H0": true
+        },
+        "recovered_methods": []
+      },
+      {
+        "project": "uhubctl",
+        "complete_pair": true,
+        "same_initial_plan": true,
+        "main_build": {
+          "H0": true,
+          "R2_system_context": true
+        },
+        "recovered_methods": []
+      },
+      {
+        "project": "xz",
+        "complete_pair": true,
+        "same_initial_plan": true,
+        "main_build": {
+          "R2_system_context": false,
+          "H0": false
+        },
+        "recovered_methods": [
+          "R2_system_context",
+          "H0"
+        ]
+      }
+    ],
+    "by_build_system": {
+      "cmake": {
+        "H0": {
+          "planned": 6,
+          "observed": 6,
+          "main_build_completed": 6
+        },
+        "R2_system_context": {
+          "planned": 6,
+          "observed": 6,
+          "main_build_completed": 5
+        }
+      },
+      "make": {
+        "H0": {
+          "planned": 6,
+          "observed": 6,
+          "main_build_completed": 5
+        },
+        "R2_system_context": {
+          "planned": 6,
+          "observed": 6,
+          "main_build_completed": 5
+        }
+      },
+      "autotools": {
+        "H0": {
+          "planned": 6,
+          "observed": 6,
+          "main_build_completed": 4
+        },
+        "R2_system_context": {
+          "planned": 6,
+          "observed": 6,
+          "main_build_completed": 4
+        }
+      }
+    },
+    "common_initial_failures": [],
+    "unobserved": [],
+    "billing_complete": true,
+    "known_actual_batch_cost_usd": "1.3167207",
+    "actual_batch_cost_usd": "1.3167207",
+    "historical_current_proposal_cost_usd": "0.139614",
+    "historical_previous_r2_proposal_cost_usd": "0.106807",
+    "boundary": "18新项目，每法每项目一次；自然失败才恢复；无恢复不证明指导效果；不补槽、不替换失败、不自动写论文；不与E53跨版本相减归因。共同规划实际付一次，各独立部署计全额；提案费另列，未核清全部历史生命周期费用；未观察不填失败。"
+  },
+  "metrics": {
+    "H0": {
+      "planned": 18,
+      "observed": 18,
+      "unobserved": 0,
+      "main_build_completed": 15,
+      "reproducible_delivery_completed": 15,
+      "recovery_requests": 113,
+      "recovery_online_cost_usd": "0.6327132",
+      "common_planning_cost_usd": "0.2235270",
+      "common_planning_requests": 62,
+      "common_planning_wall_seconds": 164.37657602061518,
+      "deployment_cost_usd": "0.8562402",
+      "deployment_with_current_proposal_usd": "0.8562402",
+      "execution_wall_seconds": 2190.3999003965873,
+      "deployment_wall_seconds": 2354.7764764172025,
+      "primary_build_completed": 16,
+      "delivery_passed": 16,
+      "actual_replay_attempts": 15,
+      "replay_statuses": {
+        "passed": 15
+      },
+      "recovery_invocations": 12,
+      "read_source": 132,
+      "list_source": 12,
+      "exact_repeat_reads": 56,
+      "recovery_agent_seconds": 853.3689024969935,
+      "deployment_requests": 175,
+      "stage_seconds": {
+        "dependency_seconds": 308.489775221562,
+        "configure_seconds": 99.35486106853932,
+        "build_seconds": 343.9419150259346,
+        "delivery_seconds": 3.004662749124691,
+        "clean_replay_seconds": 505.00683532841504,
+        "recovery_execution_seconds": 344.38126836321317
+      }
+    },
+    "R2_system_context": {
+      "planned": 18,
+      "observed": 18,
+      "unobserved": 0,
+      "main_build_completed": 14,
+      "reproducible_delivery_completed": 14,
+      "recovery_requests": 91,
+      "recovery_online_cost_usd": "0.4604805",
+      "common_planning_cost_usd": "0.2235270",
+      "common_planning_requests": 62,
+      "common_planning_wall_seconds": 164.37657602061518,
+      "deployment_cost_usd": "0.6840075",
+      "deployment_with_current_proposal_usd": "0.8236215",
+      "execution_wall_seconds": 1936.375810833415,
+      "deployment_wall_seconds": 2100.75238685403,
+      "primary_build_completed": 15,
+      "delivery_passed": 15,
+      "actual_replay_attempts": 14,
+      "replay_statuses": {
+        "passed": 14
+      },
+      "recovery_invocations": 12,
+      "read_source": 87,
+      "list_source": 18,
+      "exact_repeat_reads": 42,
+      "recovery_agent_seconds": 549.8528073341586,
+      "deployment_requests": 153,
+      "stage_seconds": {
+        "dependency_seconds": 413.3087302125059,
+        "configure_seconds": 98.57518681464717,
+        "build_seconds": 336.624599636998,
+        "delivery_seconds": 2.7727949689142406,
+        "clean_replay_seconds": 457.1531345907133,
+        "recovery_execution_seconds": 438.81513646640815
+      }
+    }
+  },
+  "validation": {
+    "seal_valid": true,
+    "billing_complete": true,
+    "request_count": 266,
+    "input_tokens": 3377717,
+    "output_tokens": 252838,
+    "unique_response_ids": 266,
+    "all_response_ids_unique": true,
+    "models": {
+      "deepseek-flash": 266
+    },
+    "raw_response_cost_usd": "1.3167207",
+    "runner_cost_usd": "1.3167207",
+    "raw_cost_matches": true,
+    "all_observed_cleanup": true,
+    "all_pairs_same_initial": true,
+    "seal": {
+      "format": "forge-typed-evidence-v1",
+      "identity": "cpp-build-recovery-harness-r2-comparison-flash-v1",
+      "entries": 64420,
+      "files": 64350,
+      "symlinks": 70,
+      "bytes": 3552985287,
+      "inventory_canonical_sha256": "ba75d6d16b0e88c3abcf4cc9a1a3650318ff826fb3fa9c2efa44b302f412f6c0",
+      "unknown_usage_requests": 0
+    },
+    "containers_inspected": 65,
+    "container_identifiers_inspected": 130,
+    "all_container_identifiers_absent": true
+  },
+  "raw_evidence": "/home/yiwei/.codex/outputs/forge-recovery-harness-r2-comparison-flash-v1",
+  "run_revision": "7638b10bb08625b5a316ab2fb5f6efdd900d69ab",
+  "manifest_sha256": "7392fcb8b92cd8b2f8a5e5044bbbc6464545cba804708844793d787f975e81d3",
+  "results_review": "pending_user_review_not_approved_for_thesis",
+  "primary_build_label_boundary": "primary_build_completed is retained separately: current error finalizer forces main_build_task_completed false even after actual primary build; raw labels are not overwritten",
+  "old_e53_comparison": "different projects, common runtime and replay policy: do not pool or subtract for treatment effect",
+  "recovery_subsets": {
+    "all_recovered": {
+      "projects": [
+        "flex",
+        "libbcrypt",
+        "masscan",
+        "mozjpeg",
+        "stderred",
+        "sxhkd",
+        "xz"
+      ],
+      "methods": {
+        "H0": {
+          "requests": 113,
+          "cost_usd": "0.6327132",
+          "execution_seconds": 1373.186915554339
+        },
+        "R2_system_context": {
+          "requests": 91,
+          "cost_usd": "0.4604805",
+          "execution_seconds": 1116.9463782708626
+        }
+      }
+    },
+    "both_recovered_and_success": {
+      "projects": [
+        "libbcrypt",
+        "stderred",
+        "sxhkd"
+      ],
+      "methods": {
+        "H0": {
+          "requests": 13,
+          "cost_usd": "0.0635193",
+          "execution_seconds": 379.6537393811159
+        },
+        "R2_system_context": {
+          "requests": 13,
+          "cost_usd": "0.0557973",
+          "execution_seconds": 470.55750526790507
+        }
+      }
+    }
+  },
+  "xz_source_difference": [
+    {
+      "slot": "slot-36-xz-H0",
+      "changed_original_files": [
+        "po/lv.po"
+      ]
+    },
+    {
+      "slot": "slot-35-xz-R2_system_context",
+      "changed_original_files": [
+        "po/lv.po"
+      ]
+    }
+  ],
+  "raw_command_build_passed": {
+    "H0": 17,
+    "R2_system_context": 16
+  }
+}

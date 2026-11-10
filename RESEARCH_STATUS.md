@@ -3,7 +3,15 @@
 论文选材固定入口：[硕士论文实验与证据索引](docs/research/THESIS_EVIDENCE_INDEX.md)，[历史材料目录](docs/research/THESIS_EVIDENCE_CATALOG.md)保留存量导航。当前完整稿为[论文v0.10第二轮结果稿](docs/thesis/README.md)；E50–E52保存主构建系统及两轮Harness结果，既有完整任务、状态/恢复消融和两层经验继续按各自版本与分母使用。
 
 
-## 当前阶段（2026-11-10；#725新R2已由用户审核，36槽新项目比较准备完成）
+## 当前阶段（2026-11-11；#727已审核R2新项目36槽比较完成，待用户审核结果）
+
+[结果报告](docs/research/2026-11-11-recovery-harness-r2-comparison-results.md)、[分析/36行CSV](benchmarks/analyses/recovery-r2-comparison-2026-11-11/README.md)与[E54](docs/research/THESIS_EVIDENCE_INDEX.md#e54)：18新项目、18共同H0规划、36/36执行槽、0未启动、18配对初始SHA一致。H0/R2原始主产物层16/18、15/18；现行主任务标签与可复现交付15/18、14/18。实际15/14次重建均通过，其他槽在重建前停止，不填重建失败。
+
+独立部署请求175/153、在线费0.8562402/0.6840075美元、累计2354.78/2100.75秒；R2费低20.1%、时低10.8%但少完成mozjpeg，未支持替代H0。七项目两组均触发恢复：共同成功的stderred/libbcrypt/sxhkd各13请求，R2恢复费低12.2%但执行时高23.9%；约95.5%总体费用差来自其余未共同完成路径，不能称同等完成降本。masscan原生版本退出1参考要求0；flex新gettext依赖与修订契约止；xz两组make退出0，仅po/lv.po作者刷新元数据，保护止；R2/mozjpeg本地上下文止。原始标签和失败均保留，不与E53混分母/标准。
+
+用户新增5美元/UTC2026-11-10 15:54:52—19:54:52、无自动重试已按固定协议执行完；实际266请求/3630555 Token/1.3167207美元、用量齐全/未知0，71.70分钟。原件`forge-recovery-harness-r2-comparison-flash-v1`，inventoryba75d6d1，运行7638b10b、manifest7392fcb8；65容器130名称/ID不存在。当前无活动Provider，不追加付费或提案。H0仍默认、论文v0.10不动，结果先向用户审核，再决定下一研究及入文；知识库不进入实验Agent上下文。发布以Issue727关联PR/CI为准。
+
+## 上一阶段（2026-11-10；#725新R2已由用户审核，36槽新项目比较准备完成）
 
 用户“审核通过”接受候选R2_system_context（SHA270becfd）。[准备报告](docs/research/2026-11-10-recovery-harness-r2-comparison-preparation.md)及[固定协议](benchmarks/preregistrations/cpp-build-recovery-harness-r2-comparison-flash-v1.md)：18新项目、三系统各6、每法每项目一次共36槽；每项目一次H0初始规划，两干净会话共享完整方案，只改变自然失败恢复提示。在线Flash不变，共用当前执行修复、国内HTTPS镜像及successful-rebuild-v1；旧E53不混分母/不跨批相减。
 

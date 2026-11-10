@@ -1,5 +1,8 @@
 # 硕士论文实验与证据索引
 
+最新[E54](#e54)：[已审核R2的18新项目/36槽比较](2026-11-11-recovery-harness-r2-comparison-results.md)，36/36终态、18共同规划/配对SHA一致；H0/R2原始主产物16/18、15/18，可复现交付15/18、14/18，实际重建15/14全部通过。R2在线费低20.1%、时低10.8%但少完成一项，费用差大部分来自未共同完成路径；保留H0，结果待用户审核，论文v0.10保持。下列准备/待审描述为各自历史阶段。
+
+
 已审核新候选的比较准备（不增效果分母）：[#725的18新项目H0/R2恢复比较](2026-11-10-recovery-harness-r2-comparison-preparation.md)。用户接受候选270becfd；同H0初始方案、Flash、每法每项目一次共36槽，三系统各6。19相关检查及零Provider实际回调v2两恢复/主构建/重建通过；v1两条错误参考断言保留。正式比较0/36、0新增模型费，待新批预算/时窗；结果另审后才入文，H0默认及论文保持。
 
 最新待审复分析（不增构建效果分母）：[#723补充真实系统实现后的恢复指导](2026-11-10-recovery-harness-system-context-proposal.md)。同一E53的13次恢复＋3边界，新增8文件38定义/实际接口Schema作实现参考；一次gpt-6.1-sol、0.139614美元，共享累计0.246421美元。新指导1817字节，纠正原R2的外部依赖模板、备用路径限制和底座重复；新候选270becfd、原件inventoryf38232f8。用途是方法迭代记录与待审建议，比较0、尚无性能效果、不直接写论文；原R2及E53分母保留。
@@ -539,3 +542,13 @@
 - **解释/边界**：共同恢复只有fsarchiver/ggmorse/DuckX三项目，H0/R1主构建恢复完成2/3、1/3，19/25请求；twemproxy仅R1先遇网络超时，7额外请求不能纯归因指导。tini生成README保护、ggmorse本地上下文、wasm3/libhv时间/哈希、munge交付动态库、Turbo验证误入benchmark及H0/fsarchiver错误输出断言均分开解释；不把主构建、可复现交付或未启动replay混为一项，不凭小样本认定Harness优化总体无效。
 - **论文用途**：第5章恢复候选的诊断/固定比较/采用决定，第6章全成本、相同修订的额外探索与分层失败；用户审核后才决定入文。与E50/E52重叠的是历史提案来源，不把来源或工程路径再加为新比较。E51/E52原数值/失败/论文v0.10不回填。
 - **证据/工程说明**：[结果报告](2026-11-10-recovery-harness-comparison-results.md)、[分析与36行CSV](../../benchmarks/analyses/recovery-harness-2026-11-10/README.md)、[v2协议](../../benchmarks/preregistrations/cpp-build-recovery-harness-comparison-flash-v2.md)。运行7e439b51、manifest71dd0e29、raw `/home/yiwei/.codex/outputs/forge-recovery-harness-comparison-flash-v2`，inventory `235feccd7e533f3077c9a33cc1f405e28875e0b426b743e015cfa30096fc40dd`。原v1调用参数错误在首槽前中止，原件保留；v2采集完整后封存权限错误，用只读辅助容器完成哈希/新seal，无重跑或数据/权限改写。原analysis身份头沿base常量为v1，派生明确实际v2；36槽cleanup通过，130相关容器标识不存在。工程检查不作R1效果，发布以Issue713关联PR/CI为准。
+
+
+<a id="e54"></a>
+### E54 已审核R2、同初始方案的18新项目恢复比较（混合结果，待审未入论文）
+
+- **问题/设计**：18个与提案来源分离的新开发项目、CMake/Make/Autotools各6；每法每项目一次，36/36终态、18共同H0规划成功、0未启动，18对初始SHA一致。仅自然失败恢复指导改为用户已审核R2_system_context，线上Flash、只读工具、Workflow、国内HTTPS镜像和successful-rebuild-v1相同。每组先行9次；非最终holdout，不作总体显著性。
+- **结果/成本**：H0/R2构建命令退出成功17/18、16/18，独立主产物16/18、15/18；现行主任务标签/可复现交付15/18、14/18。15/14实际重建全部过，其他槽在重建前止。独立部署请求175/153、费0.8562402/0.6840075美元、累计2354.78/2100.75秒，R2费低20.1%、时低10.8%但少完成mozjpeg。实际批次共同规划只计一次：266响应、3630555 Token、1.3167207美元、未知0；历史本候选提案0.139614和旧R2的0.106807另列，不冒充完整生命周期成本。
+- **机制/限制**：七项目两组均恢复，各12交接；共同恢复且成功三项目各13请求，R2恢复费低12.2%但执行时高23.9%，是事后条件子集。总费差约95.5%来自其余未共同完成路径，不能冒称同等完成降本。masscan版本原生退出1/参考要求0、flex工具链/修订契约、xz作者po元数据保护及R2/mozjpeg本地容量分别保留；masscan异常finalizer强制任务标签false，报告另列已成功的产物层，不重写原件。不与E53不同项目/环境/重放判定合分母或相减归因。
+- **论文用途/状态**：第5章离线候选采纳与反例、第6章完整成本/失败分层的候选材料；**结果尚待用户审核，未写论文v0.10，H0仍默认**。工程准备/封存/核验不增加效果分母，历史提案来源重叠不再计为独立新样本。
+- **证据入口**：[报告](2026-11-11-recovery-harness-r2-comparison-results.md)、[分析与36行CSV](../../benchmarks/analyses/recovery-r2-comparison-2026-11-11/README.md)、[协议](../../benchmarks/preregistrations/cpp-build-recovery-harness-r2-comparison-flash-v1.md)。运行7638b10b、manifest7392fcb8、候选270becfd，raw`forge-recovery-harness-r2-comparison-flash-v1`，inventory`ba75d6d16b0e88c3abcf4cc9a1a3650318ff826fb3fa9c2efa44b302f412f6c0`；派生验证/逐响应/清理实查在`forge-recovery-r2-results-session-20261110-v1`。65容器130名称/ID不存在；发布以Issue727关联PR/CI为准。
