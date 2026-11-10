@@ -32,9 +32,16 @@ def test_latest_oversized_reasoning_group_is_preserved_offline_and_compacted(tmp
     assert all(m["type"] != "tool" for m in sent["messages"])
     compact = json.loads(sent["messages"][-1]["content"])
     assert compact["context_compaction"] and "Use make" in compact["evidence"][0]["result"]["content"]
-    original = json.loads((tmp_path / "agent/context-group-1.json").read_text())
+    original_path = tmp_path / "agent" / compact["original_record"]
+    original_bytes = original_path.read_bytes()
+    original = json.loads(original_bytes)
     assert original[0]["additional_kwargs"]["reasoning_content"] == first.additional_kwargs["reasoning_content"]
     assert len([m for m in original if m["type"] == "tool"]) == 1
+    model = ScriptedPlanModel(responses=[first, response("SimpleBuildActions", simple_actions("make all").model_dump(mode="json"))])
+    revised, _ = propose_simple(model=model, task=plan.task, source_root=tmp_path, session_root=tmp_path, meter=meter, current_plan=plan, handoff=dict(handoff_id="controlled", plan_sha256=plan.fingerprint()))
+    assert revised.steps[-1].command == "make all" and meter.summary()["model_requests"] == 4
+    assert original_path.read_bytes() == original_bytes
+    assert len(list((tmp_path / "agent").glob("context-request-*-group-*.json"))) == 2
 
 
 def test_structure_and_revision_feedback_have_separate_bounded_chances(runner, tmp_path):  # noqa: F811

@@ -41,7 +41,8 @@ class PlanningContext:
         """完整移出AI及配对Tool后另起证据消息，不发送悬空调用或截断推理字段。"""
         raw = [m.model_dump(mode="json") for m in group]
         self.group_compactions += 1
-        path = f"context-group-{self.group_compactions}.json"
+        # 初始规划与各次恢复共用账本；请求序号避免新任务重置组号后撞名。
+        path = f"context-request-{meter._request_sequence + 1}-group-{self.group_compactions}.json"
         meter.ledger.save(path, raw)
         evidence = []
         calls = []
