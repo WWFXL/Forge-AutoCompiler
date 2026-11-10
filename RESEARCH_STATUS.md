@@ -3,11 +3,13 @@
 论文选材固定入口：[硕士论文实验与证据索引](docs/research/THESIS_EVIDENCE_INDEX.md)，[历史材料目录](docs/research/THESIS_EVIDENCE_CATALOG.md)保留存量导航。当前完整稿为[论文v0.10第二轮结果稿](docs/thesis/README.md)；E50–E52保存主构建系统及两轮Harness结果，既有完整任务、状态/恢复消融和两层经验继续按各自版本与分母使用。
 
 
-## 当前阶段（2026-11-10；#723补充真实系统实现，独立重新分析恢复Harness）
+## 当前阶段（2026-11-10；#723已取得结合系统实现的恢复Harness复分析，待用户审核）
 
 用户明确要求补强优化器对当前实现的理解后重新分析。依据[固定边界](benchmarks/preregistrations/cpp-build-offline-recovery-harness-system-context-proposal-v1.md)，同一13次E53恢复＋3正常边界不变，新增[实现说明](docs/research/2026-11-10-recovery-optimizer-system-context.md)、8文件38个定义的真实源码、任务/输出/三只读工具Schema和执行契约；明确科研恢复只读并返回方案，不具产品或强工具Agent的Bash权限。原R2作为复核对象，不覆盖原调用，不增加构建效果分母。
 
-新身份cpp-build-offline-recovery-harness-system-context-proposal-v1最多一次gpt-6.1-sol，用户新指令授权独立复分析，自限共享原1美元及UTC18:24:13截止；原0.106807美元计入累计，不重置窗口。材料431278字节、保守本次预留0.443566美元，含旧费低于总额。无自动重试，未知用量/标识异常/超界停止；完成后先展示实际新提案和H0/R1/原R2差异，比较0、论文v0.10不动、H0仍默认。
+新身份cpp-build-offline-recovery-harness-system-context-proposal-v1实际一次RichLab gpt-6.1-sol请求/同名响应，137574输入/2040输出Token、0.139614美元、61.8010秒，无重试/未知用量。共享原1美元与UTC18:24:13截止，旧0.106807计累计0.246421美元，不重置。运行d8109763、请求3b5157ab、候选270becfd、原件forge-recovery-harness-system-context-gpt61sol-20261110-v1，inventoryf38232f8。
+
+[实际报告及原文](docs/research/2026-11-10-recovery-harness-system-context-proposal.md)：撤去“外部依赖均标dependency即可”的通用模板，允许有依据备用入口与压缩缺失补读，删减已有底座的重复说明，明确只能返回方案、没有专用阻塞结束接口。指导1817字节，比原R2少28.8%，不是Token/费用或成功率收益。17相关检查与Ruff/格式通过，只支持材料和调用接口；未追加实建或本地产品全测。无活动Provider、比较0、论文v0.10不动、H0仍默认；新提案先审核再下令比较，结果另审后才入文。
 
 ## 上一阶段（2026-11-10；#721已取得R2恢复Harness实际提案，待用户审核）
 

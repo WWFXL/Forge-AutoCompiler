@@ -3,7 +3,7 @@
 跨 Claude Code session 的项目状态流水。按 CLAUDE.md §7 维护。
 
 ## 进行中 (In Progress)
-- 2026-11-10 — #723按用户新指令补充系统实现并独立重新分析：同一13次恢复＋3正常边界、8文件38定义、真实任务/输出/三只读工具Schema，原R2保留。新身份cpp-build-offline-recovery-harness-system-context-proposal-v1最多一次RichLab gpt-6.1-sol，输入/输出各1美元/百万Token；共享原1美元与UTC18:24:13截止，旧0.106807计累计，不重置。实现材料431278字节；无重试，未知用量/标识异常停止，比较0、不改论文。当前状态以RESEARCH_STATUS.md为准，不将下列旧“不追加调用”描述解释为否定用户新的独立指令。
+- 2026-11-10 — #723结合系统实现的独立复分析已完成，待用户审核新候选270becfd；新指导1817字节，比较0、不改论文、H0仍默认，无活动Provider。用户新指令授权独立一次，共享原1美元/UTC18:24:13截止；旧0.106807＋新0.139614＝0.246421美元，不扩批。当前状态以RESEARCH_STATUS.md为准，下列早期状态不解释为活动授权。
 - 2026-11-10 — #721已取得R2实际提案，待用户审核；RichLab gpt-6.1-sol请求/响应一致、106807Token/0.106807美元/64.7185秒。用户一次/1美元/4小时授权已执行完一次，无活动Provider；不追加调用或比较，不改论文。报告`docs/research/2026-11-10-recovery-harness-r2-proposal.md`与完整提示差异已保存；下一步用户审核原候选，再单独下达比较指令。
 - 2026-11-10 — #719前两项共同修复/三项目验证已完成，修复阶段结束；无活动Provider，不启动R2或更新论文。当前状态以RESEARCH_STATUS.md为准。
 - 2026-11-10 — #715共同修复及针对性实建已完成，本阶段结束；无活动Provider，不追加比较或写论文。E53已向用户报告，用户要求先共同修复，下一研究由用户决定；当前状态以RESEARCH_STATUS.md为准，下列旧进行中不视为活动授权。
@@ -625,6 +625,11 @@
   - 下一步: 等待实验负责人确认当前网络接入介质，并决定是否授权只读 endpoint 诊断和新的 canary amendment；获得确认后必须另建中文 Issue/PR 和协议 identity，保留当前失败 marker。
 
 ## 最近变更 (Recent Changes)
+- 2026-11-10 — 补充真实系统实现并取得一次恢复Harness复分析提案，停在用户审核。
+  - 文件: `scripts/forge_recovery_harness_system_context.py`, `backend/tests/test_recovery_harness_system_context.py`, `docs/research/2026-11-10-recovery-harness-system-context-proposal.md`, `docs/research/2026-11-10-recovery-optimizer-system-context.md`, `benchmarks/fixtures/recovery-harness-system-context-v1/`, `benchmarks/fixtures/recovery-harness-system-context-gpt61sol-v1/`及预注册/状态/证据索引。
+  - 动机: 原R2缺实际工具Schema和关键实现；本次同源13次E53恢复＋3正常边界不变，另给PR722版本8文件38定义/源码行号哈希、真实接口、执行契约和原R2。科研恢复只读返回方案，不混产品或强工具Bash能力；实现参考不是新轨迹。
+  - 结果: 一次RichLab gpt-6.1-sol请求/响应一致、137574输入/2040输出Token、0.139614美元/61.8010秒，无重试/未知；旧0.106807计累计0.246421，共享原1美元/UTC18:24:13截止。模型撤去dependency标签通用模板、允许有依据备用路径及压缩缺失补读、删重复底座，指导1817字节比原R2少28.8%，不能声称性能改善。
+  - 验证/证据: 17项新旧提案脚本检查、修改文件Ruff/格式通过；pytest旧临时目录清理权限警告保留，不追加实建/本地产品全测。运行d8109763、请求3b5157ab、原件forge-recovery-harness-system-context-gpt61sol-20261110-v1、typed inventoryf38232f8；会话同名前缀session目录存授权/发布收据。原R2/E53不改，比较0、论文v0.10不动。下一步仅用户审核新提案后再下令比较，结果另审后才入文。
 - 2026-11-10 — #721完成一次gpt-6.1-sol离线提案并保存待审R2。
   - 结果: 104711输入/2096输出Token、0.106807美元、64.7185秒，响应标识一致但不单独证明服务后端；无重试/未知用量。原授权UTC14:24:13—18:24:13、最多1请求/1美元，一次已完成。
   - 候选: SHA59bc0b24，恢复指导2551字节（R1为1677），只整体替换恢复指导，初始H0及线上Flash不变。阶段/直接阻塞、拒绝反馈后的约束修正、局部补读与依赖保留是核心建议；长提示/备用入口限制均待审核，无效能结论。
