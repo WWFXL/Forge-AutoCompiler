@@ -779,6 +779,7 @@ class FakeReplayRuntime:
         build_exception: BaseException | None = None,
         mutate_replay_artifact=None,
         smoke_output: str = "Hello Matt!\n",
+        smoke_exit_code: int = 0,
     ):
         self.manager = manager
         self.config = SimpleNamespace(replay_timeout_seconds=30)
@@ -788,6 +789,7 @@ class FakeReplayRuntime:
         self.build_exception = build_exception
         self.mutate_replay_artifact = mutate_replay_artifact
         self.smoke_output = smoke_output
+        self.smoke_exit_code = smoke_exit_code
         self.attempt_id: str | None = None
         self.events: list[tuple] = []
         self.exec_workdirs: list[tuple[str, str]] = []
@@ -848,7 +850,7 @@ class FakeReplayRuntime:
                 log_path=log_path,
             )
         return CommandResult(
-            exit_code=0,
+            exit_code=self.smoke_exit_code,
             stdout=self.smoke_output,
             stderr="",
             combined_output=self.smoke_output,
@@ -2867,8 +2869,7 @@ def test_clean_replay_matching_executable_persists_structured_checks_and_cleans_
         "recipe_execution",
         "artifact_set",
         "artifact_1_type",
-        "artifact_1_size",
-        "artifact_1_sha256",
+        "artifact_1_non_empty",
         "artifact_1_smoke",
         "container_cleanup",
     }
@@ -2876,8 +2877,9 @@ def test_clean_replay_matching_executable_persists_structured_checks_and_cleans_
     assert all(checks[name].passed for name in expected_checks)
     assert checks["artifact_set"].expected == ["hello"]
     assert checks["artifact_set"].actual == ["hello"]
-    assert checks["artifact_1_sha256"].expected == original_sha256
-    assert checks["artifact_1_sha256"].actual == original_sha256
+    assert attempt.comparison_policy == "successful-rebuild-v1"
+    assert attempt.artifacts[0].expected_sha256 == original_sha256
+    assert attempt.artifacts[0].actual_sha256 == original_sha256
     assert checks["artifact_1_smoke"].actual == {
         "command": "/artifacts/hello -version",
         "workdir": "/workspace",
@@ -3045,7 +3047,7 @@ def test_clean_replay_rejects_recipe_that_depends_on_failed_command_side_effect(
     assert [record.__dict__.copy() for record in reloaded.commands] == original_history
 
 
-def test_clean_replay_same_type_and_size_sha_mismatch_is_not_verified(tmp_path: Path, monkeypatch):
+def test_clean_replay_records_sha_difference_without_rejecting_valid_rebuild(tmp_path: Path, monkeypatch):
     manager, session = make_replay_ready_session(tmp_path)
 
     def mutate_entry_point(path: Path) -> None:
@@ -3059,16 +3061,17 @@ def test_clean_replay_same_type_and_size_sha_mismatch_is_not_verified(tmp_path: 
 
     attempt = verify_clean_replay_impl(session=session)
 
-    assert attempt.status == "failed"
-    assert attempt.failure_classification == "sha256_mismatch"
+    assert attempt.status == "passed"
+    assert attempt.failure_classification is None
     comparison = attempt.artifacts[0]
     assert comparison.type_matches is True
     assert comparison.size_matches is True
     assert comparison.sha256_matches is False
     assert comparison.smoke_matches is True
-    assert comparison.mismatches == ["sha256"]
+    assert comparison.mismatches == []
+    assert comparison.diagnostic_differences == ["sha256"]
     assert comparison.expected_sha256 != comparison.actual_sha256
-    assert next(check for check in attempt.checks if check.name == "artifact_1_sha256").passed is False
+    assert all(check.passed for check in attempt.checks)
     assert attempt.cleanup_succeeded is True
 
 
@@ -3092,6 +3095,33 @@ def test_clean_replay_artifact_set_mismatch_is_not_verified(tmp_path: Path, monk
     assert artifact_set.passed is False
 
 
+def test_clean_replay_rejects_runtime_failure_even_when_artifact_bytes_match(tmp_path: Path, monkeypatch):
+    manager, session = make_replay_ready_session(tmp_path)
+    runtime = FakeReplayRuntime(manager, smoke_exit_code=1)
+    monkeypatch.setattr(operations, "_services", CompileOperationsServices(manager=manager, runtime=runtime))
+
+    attempt = verify_clean_replay_impl(session=session)
+
+    assert attempt.status == "failed"
+    assert attempt.failure_classification == "smoke_mismatch"
+    assert attempt.artifacts[0].sha256_matches is True
+    assert attempt.artifacts[0].smoke_matches is False
+    assert attempt.cleanup_succeeded is True
+
+
+def test_clean_replay_rejects_empty_delivery(tmp_path: Path, monkeypatch):
+    manager, session = make_replay_ready_session(tmp_path)
+    runtime = FakeReplayRuntime(manager, mutate_replay_artifact=lambda path: path.write_bytes(b""))
+    monkeypatch.setattr(operations, "_services", CompileOperationsServices(manager=manager, runtime=runtime))
+
+    attempt = verify_clean_replay_impl(session=session)
+
+    assert attempt.status == "failed"
+    assert attempt.artifacts[0].non_empty is False
+    assert "empty_artifact" in attempt.artifacts[0].mismatches
+    assert attempt.cleanup_succeeded is True
+
+
 def test_clean_replay_artifact_type_mismatch_is_not_verified(tmp_path: Path, monkeypatch):
     manager, session = make_replay_ready_session(tmp_path)
     runtime = FakeReplayRuntime(manager, mutate_replay_artifact=lambda path: write_elf(path, 3))
@@ -3107,7 +3137,7 @@ def test_clean_replay_artifact_type_mismatch_is_not_verified(tmp_path: Path, mon
     assert comparison.type_matches is False
 
 
-def test_clean_replay_artifact_size_mismatch_is_not_verified(tmp_path: Path, monkeypatch):
+def test_clean_replay_records_size_difference_without_rejecting_valid_rebuild(tmp_path: Path, monkeypatch):
     manager, session = make_replay_ready_session(tmp_path)
 
     def append_valid_trailing_bytes(path: Path) -> None:
@@ -3119,8 +3149,9 @@ def test_clean_replay_artifact_size_mismatch_is_not_verified(tmp_path: Path, mon
 
     attempt = verify_clean_replay_impl(session=session)
 
-    assert attempt.status == "failed"
-    assert attempt.failure_classification == "size_mismatch"
+    assert attempt.status == "passed"
+    assert attempt.failure_classification is None
+    assert attempt.artifacts[0].diagnostic_differences == ["size", "sha256"]
     comparison = attempt.artifacts[0]
     assert comparison.type_matches is True
     assert comparison.size_matches is False
@@ -3528,12 +3559,14 @@ def test_clean_replay_compares_full_smoke_output_hash_beyond_preview(tmp_path: P
 
     attempt = verify_clean_replay_impl(session=session)
 
-    assert attempt.status == "failed"
-    assert attempt.failure_classification == "smoke_mismatch"
+    assert attempt.status == "passed"
+    assert attempt.failure_classification is None
     comparison = attempt.artifacts[0]
     assert comparison.expected_smoke_output == comparison.actual_smoke_output == shared_preview
     assert comparison.expected_smoke_output_sha256 != comparison.actual_smoke_output_sha256
-    assert comparison.smoke_matches is False
+    assert comparison.smoke_matches is True
+    assert comparison.smoke_output_matches is False
+    assert comparison.diagnostic_differences == ["smoke_output"]
 
 
 def test_replay_network_inspect_timeout_is_bounded(tmp_path: Path, monkeypatch):

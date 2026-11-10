@@ -730,7 +730,8 @@ def test_deterministic_replay_failure_is_reused_without_creating_a_container(tmp
         commit_sha=session.commit_sha,
         recipe_sha256="d" * 64,
         recipe_fingerprint=session.replay_recipe.fingerprint,
-        primary_failure_classification="sha256_mismatch",
+        primary_failure_classification="recipe_execution_failed",
+        comparison_policy="successful-rebuild-v1",
         cleanup_succeeded=True,
     )
     session.replay_attempts = [previous]
@@ -763,7 +764,8 @@ def test_changed_replay_recipe_creates_a_new_attempt(tmp_path: Path, monkeypatch
             commit_sha=session.commit_sha,
             recipe_sha256="d" * 64,
             recipe_fingerprint="old-fingerprint",
-            primary_failure_classification="sha256_mismatch",
+            primary_failure_classification="recipe_execution_failed",
+            comparison_policy="successful-rebuild-v1",
             cleanup_succeeded=True,
         )
     ]

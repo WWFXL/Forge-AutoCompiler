@@ -45,7 +45,7 @@
 
 ## 轻量验证与结果层
 
-评测侧的 `BuildReference.executable_smokes` 可按精确交付文件名提供作者有依据的轻量验证命令，包含来源和非空输出依据。它与完整作者测试分开，不送给规划或恢复 Agent。Workflow 实际执行后，将成功记录绑定到既有 `ExecutableVerificationPolicy`，并加入干净重放的验证脚本；重放还核对交付物及相同 smoke 的命令、退出码和输出哈希。
+评测侧的 `BuildReference.executable_smokes` 可按精确交付文件名提供作者有依据的轻量验证命令，包含来源和非空输出依据。它与完整作者测试分开，不送给规划或恢复 Agent。Workflow 实际执行后，将成功记录绑定到既有 `ExecutableVerificationPolicy`，并加入干净重放的验证脚本；重放还核对交付物及相同 smoke 的命令、工作目录和成功退出码；完整输出哈希继续记录，输出文本差异仅用于诊断。
 
 例如，作者只支持 `fse -V` 时，通过参考数据指定 `/artifacts/fse -V`，无需在 Workflow 编写项目名称分支。显式命令失败、输出依据不符或实际交付的可执行物缺少绑定时，不继续 submit，不记验证通过。`main-build-v1` 缺少显式入口时记录 `missing_native_verification`，不猜版本参数；历史作者测试范围仍使用原默认入口。`main-build-v1` 不要求完整作者测试，记录为 `not_required`。
 
@@ -59,7 +59,7 @@
 | `final_verification_passed` | submit 的产物验证与本次实际干净重放是否全部通过；未执行时为 null |
 | `clean_replay` | 本次实际 attempt 的状态；前置验证阻断、没有新 attempt 时为 `not_started`，未进入后检查时仍为 `unobserved` |
 | `main_build_task_completed` | 原主构建范围的完成，不代表可复现交付完成 |
-| `reproducible_delivery_completed` | 主产物、精确交付、最终验证、实际重放、源码保持及清理均通过 |
+| `reproducible_delivery_completed` | 主产物、精确交付、最终验证、按 attempt 声明标准的实际重建、源码保持及清理均通过；新标准不代表字节一致 |
 
 `full_completed` 保留旧完整作者测试范围；主构建任务填 null，不能用来冒称完整作者测试通过。旧实验原始标签与证据不改写；E52 继续使用其已发表的分层解释。
 
@@ -86,4 +86,15 @@
 
 当前目标是 Linux 中 CMake、Make、Autotools 的仓库内主项目构建，动作遵守现有阶段和路径契约。系统不承诺解释任意 Shell 的完整语义，也不承诺任意仓库永不失败。未识别的命令写法可以通过有界执行获取事实；不符合方案接口的输出应在执行前得到反馈。多项目依赖构建交错、仓库外输出和进程重启恢复不由本次修复扩展。
 
-最新实现和针对性实跑见 [共同恢复与验证修复记录](research/2026-11-10-common-recovery-repair.md)。工程验证不作为模型成功率或 Harness 更新收益，字节级复现要求保持。
+最新实现和针对性实跑见 [共同恢复与验证修复记录](research/2026-11-10-common-recovery-repair.md)与[成功重建验证](research/2026-11-10-clean-rebuild-validation.md)。工程验证不作为模型成功率或 Harness 更新收益。旧运行的严格字节复现标准仍按原协议解释；新运行采用下述成功重建标准。
+
+## 干净重建标准（2026-11-10 起的新运行）
+
+用户已明确同意以同一配方在干净环境中成功重建为要求，不把编译日期造成的字节差异当作构建失败。实际 attempt 记录 `comparison_policy=successful-rebuild-v1`：
+
+- 仍固定同一源码 commit/归档、不可变镜像 ID、资源和成功步骤配方，在空工作区运行构建与验证；执行失败、超时或清理失败仍不通过。
+- 交付相对路径集合和产物类型必须一致，每个文件非空、结构有效；可执行物使用相同命令和工作目录复验，必须退出 0。库文件没有适用的版本命令时，轻量运行记为不适用，不冒称运行通过。
+- 大小、SHA-256、完整 smoke 输出哈希及相等性继续保存在 `ReplayArtifactComparison`。差异列入 `diagnostic_differences`；`mismatches` 只含阻止成功重建的问题。输出相同、字节相同与重建成功分别表述。
+- 原容器的交付清单在 finalize 时仍严格校验大小及 SHA-256，防止接受后交付物变化；源码、脚本快照和镜像身份的完整性检查保持。
+
+这证明的是已声明环境和轻量检查下的成功重建，不证明逐字节可复现或任意输入下功能等价。旧原始结果不重标、不补跑；不同标准的完成率不直接合并。

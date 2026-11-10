@@ -1,5 +1,7 @@
 # 历史研究材料目录
 
+共同工程修复：[#719成功重建标准与三项目验证](2026-11-10-clean-rebuild-validation.md)，三最终路径通过、实际四次并保留ggmorse首轮README身份阻断，新标准及独立v1/v2见报告；0Provider，不增效果分母，旧E53不回填。
+
 共同工程修复：[#715恢复、原生验证、交付与上下文修复](2026-11-10-common-recovery-repair.md)，四项目最终通过、首轮munge断言失败保留，ggmorse仅上下文回放。0 Provider、不增加模型效果分母、不回填E53，修复阶段结束。
 
 新增[E53](THESIS_EVIDENCE_INDEX.md#e53)：[新项目同初始方案恢复Harness36次结果](2026-11-10-recovery-harness-comparison-results.md)，H0/R1主构建16/18、15/18，可复现交付均11/18；完整费用及失败分层保留，结果待用户审核，论文未改。下列准备/待审描述仅为相应历史阶段。

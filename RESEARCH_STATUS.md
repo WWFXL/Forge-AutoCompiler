@@ -3,7 +3,15 @@
 论文选材固定入口：[硕士论文实验与证据索引](docs/research/THESIS_EVIDENCE_INDEX.md)，[历史材料目录](docs/research/THESIS_EVIDENCE_CATALOG.md)保留存量导航。当前完整稿为[论文v0.10第二轮结果稿](docs/thesis/README.md)；E50–E52保存主构建系统及两轮Harness结果，既有完整任务、状态/恢复消融和两层经验继续按各自版本与分母使用。
 
 
-## 当前阶段（2026-11-10；#717共同APT镜像修复完成）
+## 当前阶段（2026-11-10；#719成功重建标准与三项目验证完成，修复阶段结束）
+
+用户批准的前两项已完成。[修复报告](docs/research/2026-11-10-clean-rebuild-validation.md)、[实际汇总](benchmarks/analyses/clean-rebuild-validation-2026-11-10/summary.json)与[执行契约](docs/compile_workflow_execution.md)：新attempt记录`comparison_policy=successful-rebuild-v1`，相同固定源码/镜像的干净环境构建、非空有效产物、相同轻量命令成功及清理构成成功重建；跨重放大小、SHA与输出差异仅诊断。原源码/测试、配方快照和原交付物接受后的完整性仍检查，旧严格字节实验不重标、不混合分母。
+
+wasm3、libhv及ggmorse三条最终路径主构建/交付/实际重建/保护输入/cleanup通过，58.97/104.00/326.23秒；wasm3哈希及含时间版本输出不同、libhv两库哈希不同均实际保留。库轻量运行不适用，不冒称测试通过。实际共4次：v1 ggmorse依赖与子模块成功后，配置同内容重写README触发原身份保护，构建/重放未观察；v2仅以已有机制登记作者模板精确生成文档后独立完成，原失败保留、不重跑两已通过项目。最终路径489.20秒，含失败662.97秒；7容器14项标识不存在，0Provider/0新增模型费用。
+
+本轮只支持共同工程修复，不计R1增益或成功率提升。E53原16/18与15/18主构建、均11/18交付和论文v0.10保持，H0仍默认；后续新比较须共同绑定本修复版本及国内HTTPS镜像。修复阶段到此结束，无活动Provider，不启动R2或更新论文。下一研究仍由用户审核实际提案→下令比较→审核结果→同意后入文。发布/CI/合并状态以Issue719及关联PR/GitHub为准，知识库仅经MCP同步。
+
+## 上一阶段（2026-11-10；#717共同APT镜像修复完成）
 
 用户要求各方法统一国内HTTPS软件源。[环境报告](docs/research/2026-11-10-compile-apt-mirror.md)记录服务器默认编译镜像已切到中科大HTTPS源：新ID `sha256:8123220a201ac4d00cda0dc985b9db7227cd909bb93ca6c25fd82cafce5cd887`，250已安装软件包与旧镜像一致，旧ID及标签保留。新比较的Forge/强工具Agent/CXXCrafter均须绑定同一新ID，重放沿编译会话ID；不改旧manifest或回填结果。
 

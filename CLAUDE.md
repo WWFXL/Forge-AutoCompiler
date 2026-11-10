@@ -13,7 +13,7 @@
 5. 把最终产物 `cp` 到 `/artifacts`
 6. 系统对 `/artifacts` 做强制验证（ELF/`ar` 结构识别与 executable smoke test）
 7. 提交验证生成固定源码 commit 的 `repro/build.sh`，并把成功的项目测试单独写入可选 `repro/verify.sh`
-8. 系统用原容器的不可变 `image_id` 在全新容器和空挂载中依次执行 build/verify，再结构化比较完整交付文件集合、类型、大小、SHA-256 与 executable smoke 结果；全部通过后 session 才标记 `verified`
+8. 系统用原容器的不可变 `image_id` 在全新容器和空挂载中依次执行 build/verify，再核对完整交付文件集合、非空有效类型与相同 executable smoke 的成功执行；大小、SHA-256及输出差异记录诊断，全部必需检查通过后 session 才标记 `verified`
 9. 容器清理与 finalize 成功后，session 才标记 `completed`
 
 项目 fork 自 DeerFlow 2.0（一个通用 LangGraph Agent Harness）。许多 DeerFlow 时代的能力（IM channels、20+ skills、memory、MCP）**仍在代码中**，但**与编译核心无关**，是历史遗留。文档中明确标注 “非编译核心”，今后可能裁剪。
@@ -109,9 +109,9 @@ Lead Agent
 3. 结构：识别有效 ELF executable/shared library/object 或有效 `ar` static archive；其他安全普通文件作为 `support_file` 进入 manifest，但不能单独通过
 4. 若是可执行：默认 smoke test 依次尝试 `-version` / `--version` / `--help`；受信 evaluator 可通过版本化 policy 把单目标 executable 绑定到本 Session 已成功的显式 functional oracle
 5. `repro_bundle`：必须能从远端 `repo_url` 检出完整 `commit_sha`，并只安全渲染 Compiler 显式选择的 recipe 步骤
-6. `clean_replay`：使用原容器记录的完整 `image_id`，在唯一 attempt 的空 workspace/artifacts 中执行候选脚本，并比较产物集合、类型、大小、SHA-256 和 smoke 结果
+6. `clean_replay`：使用原容器记录的完整 `image_id`，在唯一 attempt 的空 workspace/artifacts 中执行候选脚本，并核对产物集合、非空有效类型和相同 smoke 成功执行；大小、SHA-256与输出差异仅诊断
 
-两层检查全部通过 → session 状态 `verified`。`repro/build.sh` 只回放显式 recipe 中通过校验的 `dependency/configure/build/artifact_stage` 命令；可选 `repro/verify.sh` 只回放显式选择的成功 `smoke` 命令。完整命令审计与 replay 配方彼此分离。cleanup/finalize 成功后才进入 `completed`。当前工程契约见 [`docs/compile_runtime_v7.md`](docs/compile_runtime_v7.md)；更早 Runtime identity 与 evidence 保持只读。
+两层检查全部通过 → session 状态 `verified`。`repro/build.sh` 只回放显式 recipe 中通过校验的 `dependency/configure/build/artifact_stage` 命令；可选 `repro/verify.sh` 只回放显式选择的成功 `smoke` 命令。完整命令审计与 replay 配方彼此分离。cleanup/finalize 成功后才进入 `completed`。当前执行与成功重建契约见 [`docs/compile_workflow_execution.md`](docs/compile_workflow_execution.md)；[`Runtime v7`](docs/compile_runtime_v7.md)及更早冻结 identity/evidence 继续按原标准解释。
 
 ### 4.3 会话目录布局（宿主机）
 
@@ -150,7 +150,7 @@ $HOST_PROJECT_ROOT/.compile-sessions/{thread_id}/{session_id}/
 - **replay workdir 只允许容器路径**：必须位于 `/workspace` 或 `/artifacts`；拒绝 Windows、WSL 宿主路径和 `.compile-sessions` 路径
 - **replay 固定原始镜像 ID**：原容器创建后记录完整 `image_id`；自动 replay 只能在同一 Docker daemon 中使用该 ID，不得重新解析 tag，也不承诺跨主机/跨架构复现
 - **replay 只能清空 attempt 专用目录**：每次创建唯一的 `replay/{attempt_id}/{recipe,workspace,artifacts,logs}`；脚本从空 `/workspace` 与 `/artifacts` 开始，严禁挂载原 session 目录
-- **候选生成不等于 clean replay 通过**：`repro_bundle` 只证明脚本安全且非空；自动 replay 还必须执行成功，并让产物集合、类型、大小、SHA-256 与 smoke 命令/退出码/有限预览/完整输出哈希全部匹配，session 才能进入 `verified`。删除原 compile container 后还要重新核对交付产物，才能进入 `completed`
+- **候选生成不等于 clean replay 通过**：`repro_bundle` 只证明脚本安全且非空；自动 replay 还必须执行成功，并让产物集合、非空有效类型与相同 smoke 命令/工作目录/成功退出码匹配（大小、SHA-256、输出相等性只作诊断），session 才能进入 `verified`。删除原 compile container 后还要重新核对交付产物，才能进入 `completed`
 - **replay 有执行/验证 deadline**：`COMPILE_REPLAY_TIMEOUT_SECONDS` 默认 `1200` 秒，覆盖 Docker control、脚本、产物遍历/分类/哈希和 smoke；cleanup 使用独立短时限。实际时限、日志、duration、image identity 与 failure classification 必须随 attempt 持久化
 - **并行策略按 session 冻结**：`COMPILE_MAX_PARALLEL_JOBS` 默认 `4`，同时施加 Docker `--cpus` 与 CMake/CTest/Make 环境，clean replay 必须复用同一值
 - **replay 清理有两条路径**：正常/异常返回由 `finally` 删除容器；父任务取消在 worker 停止前后都重新加载 authoritative session，并按 container name/ID 幂等删除。创建握手必须持有 session lock 且有短时限；worker 保存不得覆盖父级写入的 `cancelled`。任何路径都不能覆盖原 workspace/artifacts，也不能把模型凭据传进 replay 容器
