@@ -1,5 +1,7 @@
 # R2 恢复 Harness 提案准备
 
+本文是调用前准备记录；后获用户一次/1美元/4小时授权并完成实际提案，当前请读[待审R2报告](2026-11-10-recovery-harness-r2-proposal.md)。下文“未调用/待授权”保留为准备时状态。
+
 Issue #721；身份 `cpp-build-offline-recovery-harness-proposal-r2-v1`。**材料与一次提案入口已准备，尚未调用高级模型，没有实际 R2 候选；比较 0、论文未改、新增费用 0。** 用户指定 RichLab `gpt-6.1-sol`，并确认输入/输出各 1 美元/百万 Token。新预算与有效运行窗口待绑定。
 
 ## 为什么现在做
