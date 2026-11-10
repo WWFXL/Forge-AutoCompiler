@@ -622,6 +622,10 @@
   - 下一步: 等待实验负责人确认当前网络接入介质，并决定是否授权只读 endpoint 诊断和新的 canary amendment；获得确认后必须另建中文 Issue/PR 和协议 identity，保留当前失败 marker。
 
 ## 最近变更 (Recent Changes)
+- 2026-11-10 — #717统一编译镜像APT国内HTTPS源并实际部署。
+  - 文件: `docker/compile/ubuntu.sources`、`Dockerfile`、`Dockerfile.apt-mirror`、`Makefile`、`.env.example`、`backend/tests/test_compile_apt_mirror_docker.py`、`docs/research/2026-11-10-compile-apt-mirror.md`、`RESEARCH_STATUS.md`。
+  - 动机: 官方HTTP源超时，用户明确要求各方法统一国内HTTPS。现有d27a6ab7镜像仅更换源得到8123220a，250包版本一致；服务器默认autocompiler:gcc13已切换，旧ID及gcc13-official-20261110保留，未重启服务/改代理/宿主APT。
+  - 实际编译与独立重放的ggmorse同依赖安装均通过（67.94/27.47秒），索引6.41/6.23秒，180秒/无APT重试，可用性及清理通过。Docker实跑1项、代理/路径10项、CXX装配1项及Ruff通过；完整镜像冷构建未跑，使用既有工具链派生。0Provider/0费用，仅环境修复，不补旧失败或称新方法结果；新比较均须绑定新镜像ID。原件forge-compile-apt-mirror-20261110-v1。
 
 - 2026-11-10 — 完成#715共同恢复、交付、验证和上下文修复，保留原实验结果并结束修复阶段。
   - 文件: `simple_build_runtime.py`、`simple_build_task.py`、`simple_planning_context.py`、`simple_build_agents.py`、`scripts/forge_simple_system.py`及两工程入口；报告`docs/research/2026-11-10-common-recovery-repair.md`，派生`benchmarks/analyses/common-recovery-repair-2026-11-10/`。

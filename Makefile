@@ -1,6 +1,6 @@
 # DeerFlow - Unified Development Environment
 
-.PHONY: help config config-upgrade check wsl-check compile-image model-preflight install dev dev-pro dev-daemon dev-daemon-pro start start-pro start-daemon start-daemon-pro stop up up-pro down clean docker-init docker-start docker-start-pro docker-stop docker-logs docker-logs-frontend docker-logs-gateway
+.PHONY: help config config-upgrade check wsl-check compile-image compile-image-mirror model-preflight install dev dev-pro dev-daemon dev-daemon-pro start start-pro start-daemon start-daemon-pro stop up up-pro down clean docker-init docker-start docker-start-pro docker-stop docker-logs docker-logs-frontend docker-logs-gateway
 
 BASH ?= bash
 
@@ -19,6 +19,7 @@ help:
 	@echo "  make check           - Check if all required tools are installed"
 	@echo "  make wsl-check       - Check WSL2 and Docker prerequisites"
 	@echo "  make compile-image   - Build the C/C++ compile runtime image"
+	@echo "  make compile-image-mirror - Update only APT sources in the existing compile image"
 	@echo "  make model-preflight PROVIDER=deepseek - Check model list, chat, and tool calls"
 	@echo "  make install         - Install all dependencies (frontend + backend)"
 	@echo "  make setup-sandbox   - Pre-pull sandbox container image (recommended)"
@@ -61,12 +62,21 @@ wsl-check:
 	@$(BASH) ./scripts/wsl-check.sh
 
 compile-image:
+	@./scripts/require-docker-runtime.sh
 	@set -a; [ ! -f .env ] || . ./.env; set +a; \
 		docker build \
-			--build-arg APT_MIRROR="$${APT_MIRROR:-}" \
+			--build-arg APT_MIRROR="$${APT_MIRROR:-mirrors.ustc.edu.cn}" \
 			--build-arg HTTP_PROXY="$${COMPILE_HTTP_PROXY:-}" \
 			--build-arg HTTPS_PROXY="$${COMPILE_HTTPS_PROXY:-}" \
 			-t "$${COMPILE_IMAGE:-autocompiler:gcc13}" docker/compile
+
+compile-image-mirror:
+	@./scripts/require-docker-runtime.sh
+	@docker build --pull=false \
+		--build-arg BASE_IMAGE="$(or $(BASE_IMAGE),autocompiler:gcc13)" \
+		--build-arg APT_MIRROR="$(or $(APT_MIRROR),mirrors.ustc.edu.cn)" \
+		-f docker/compile/Dockerfile.apt-mirror \
+		-t "$(or $(COMPILE_IMAGE),autocompiler:gcc13-https-v1)" docker/compile
 
 model-preflight:
 	@./scripts/docker-runtime.sh model-preflight "$(or $(PROVIDER),richlab)"

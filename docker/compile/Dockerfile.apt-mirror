@@ -1,0 +1,14 @@
+# 为既有工具链仅更新软件源，避免重装或升级已安装依赖。
+ARG BASE_IMAGE=autocompiler:gcc13
+FROM ${BASE_IMAGE}
+
+ARG APT_MIRROR=mirrors.ustc.edu.cn
+
+COPY ubuntu.sources /etc/apt/sources.list.d/ubuntu.sources
+
+RUN set -eux; \
+    test -s /etc/ssl/certs/ca-certificates.crt; \
+    sed -i "s|mirrors.ustc.edu.cn|${APT_MIRROR}|g" /etc/apt/sources.list.d/ubuntu.sources; \
+    rm -rf /var/lib/apt/lists/*
+
+LABEL org.forge-autocompiler.apt-mirror="https://${APT_MIRROR}/ubuntu/"
