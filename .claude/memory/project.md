@@ -3,7 +3,7 @@
 跨 Claude Code session 的项目状态流水。按 CLAUDE.md §7 维护。
 
 ## 进行中 (In Progress)
-- 2026-11-10 — #713按用户新授权执行18新项目/36槽恢复H0/R1比较，5美元硬上限、UTC01:21:05—05:21:05，准备计入。原件forge-recovery-harness-comparison-flash-v1；结果先审核、本轮不写论文。当前阶段以RESEARCH_STATUS.md为准。
+- 2026-11-10 — #713恢复Harness36/36比较及结果分析已完成，等待用户审核；无活动Provider，本轮不写论文或追加比较，当前状态以RESEARCH_STATUS.md为准。
 - 2026-11-09 — #711用户已审核R1，18新项目/36槽同初始方案恢复比较入口已实现并完成必要实建；正式比较未启动，待新身份预算/时窗。结果先审核后才写论文，当前状态以RESEARCH_STATUS.md为准。
 - 2026-11-09 — #707共同验证与依赖配方修复已完成，按用户要求结束修复阶段；无活动Provider或下一比较，发布终态见关联PR/CI收据，当前阶段以RESEARCH_STATUS.md为准。
 - 2026-11-09 — #701共同配置阶段观察修复及两条实际构建已完成，无活动Provider；后续在修复底座上设计近期轨迹驱动的短Harness候选。E51与论文v0.9保持，旧24次身份不续跑；发布/CI终态见GitHub。
@@ -622,6 +622,12 @@
   - 下一步: 等待实验负责人确认当前网络接入介质，并决定是否授权只读 endpoint 诊断和新的 canary amendment；获得确认后必须另建中文 Issue/PR 和协议 identity，保留当前失败 marker。
 
 ## 最近变更 (Recent Changes)
+
+- 2026-11-10 — #713完成恢复Harness H0/R1 18新项目36次比较，保留混合/负面结果并登记E53，待用户审核后才写论文。
+  - 文件: `docs/research/2026-11-10-recovery-harness-comparison-results.md`, `benchmarks/analyses/recovery-harness-2026-11-10/`, `RESEARCH_STATUS.md`。
+  - 动机: 固定H0初始方案，单独评价离线恢复指导；主构建16/18与15/18、可复现交付均11/18，R1在线费高18.9%、时高9.4%，不默认采用。123请求/1369539 Token/0.5045859美元，逐响应复算一致、未知0，旧cglm规划导入只计一次；原5美元/UTC01:21:05—05:21:05不续用。
+  - 工程/边界: 原v1首槽前路由参数错误保留；v2运行7e439b51、manifest71dd0e29，完整36槽后封存因root生成文件权限退出1，以无网络只读helper完成inventory235feccd，不改数据或权限、不重跑。18配对相同、13次指导指纹匹配；36槽cleanup及130标识不存在，19针对性检查/零Provider实际回调不算效果。原analysis身份头仍v1，由派生披露v2；论文v0.10、E51/E52保持，发布终态见关联PR/CI及会话收据。
+
 - 2026-11-10 — 修复正式比较回调遗漏的规则路由参数，按新v2身份执行原未启动槽。
   - 文件: `scripts/forge_recovery_harness_comparison.py`, `scripts/forge_recovery_harness_continuation.py`、v2预注册/manifest及相关测试。
   - 动机: 原v1首槽调用前停止；保留原件并复用唯一已完成规划，无重试或追加样本，沿原5美元/原截止。19相关检查及实际回调零Provider构建/重放通过，不计R1效果。
@@ -2551,6 +2557,8 @@
   - 动机: 统一服务可见路径与宿主 Docker 可见路径，补齐编译镜像、网络、配置模板和可复现的 WSL 启动流程
 
 ## 待办 (TODOs)
+- 2026-11-10 — #713结果待用户审核；以 `docs/research/2026-11-10-recovery-harness-comparison-results.md` 决定必要共同修复及下一短候选，再按“提案先审→比较→结果先审→同意后写论文”推进，不自行追加新Provider批次。
+
 
 - 2026-10-20 — #502终结后按证据评估自动配方ID强基线消融：两个tool臂出现supporting ID误用smoke，均自行恢复；这是候选因子，不能把整套Workflow潜在差异全归于初始规划。先审计完整24槽与原因，再冻结独立身份；不在运行中修改。指针: backend/packages/harness/deerflow/compile/plan_agent_canary.py:218；原始forge-plan-agent-paired-real-v1/{uncrustify-r1-tool,libsndfile-r1-tool}/agent/events.jsonl。
 
@@ -2563,6 +2571,8 @@
 - 当前 `backend/packages/harness/deerflow/compile/manager.py` 的 lifecycle lock 是进程内锁；部署多个后端进程前，需要改为文件锁/数据库事务或带版本号的 CAS，并增加跨进程竞态测试。
 
 ## 已知问题 (Known Issues / Pitfalls)
+- 2026-11-10 — #713主构建与交付失败必须分层：`simple_planning_context.py:85`本地49000字节可在最近AI/Tool组过大时停止；tini作者配置生成README会触发原文件保护；`tasks.json`中fsarchiver的required_output与真实-V输出不符，munge暂存缺libmunge.so.2，wasm3/libhv含编译时刻影响字节重放，Turbo的-version误入benchmark且原容器/重放子时限不同。本轮不修复/回填这些正式结果，具体原件及后续决定见#713结果报告。
+
 
 - 2026-10-22 — 需要导入当前研究运行器的冻结/资格工具使用backend/.venv/bin/python（3.12）；系统python3为3.10，导入已有datetime.UTC会在formal/Provider前失败。独立stdlib审计可继续系统Python，未重跑旧身份。
 

@@ -1,5 +1,7 @@
 # 硕士论文实验与证据索引
 
+最新[E53](#e53)：[18新项目、同初始方案H0/R1恢复比较](2026-11-10-recovery-harness-comparison-results.md)，36/36完成；主构建16/18、15/18，可复现交付均11/18。R1在线费高18.9%、时高9.4%，保留H0默认；**结果待用户审核，本轮不写论文**。旧E51/E52和论文v0.10保持。
+
 恢复比较准备（不增加效果分母）：[#711同H0初始方案的H0/R1恢复36槽入口](2026-11-09-recovery-harness-comparison-preparation.md)。用户已审核提案；18新项目已装配，三系统参考及一对受控恢复共五条零Provider路径通过。正式比较0/36，待本身份预算/时窗，结果审核前不写论文。
 
 最新共同工程修复（不增加效果分母）：[#707显式轻量验证、成功依赖配方保留与结果分层](2026-11-09-common-verification-recipe-repair.md)。四条零Provider实建正反例按预期完成；用于第4章执行语义与第6章失败分析，E52原36次保持，不能作为Harness增益。
@@ -517,3 +519,13 @@
 - **费用/边界**：一次提案1609字节、0.0564美元/30.55秒；全部211请求/2568579 Token/新增0.9034953美元/未知0。H2含提案0.3941358美元，近期24来源历史在线0.2174667另列；源码/cleanup36过，69容器138项名称/ID不存在。长尾与恢复差异明显，一项目一次不估同项目方差，不证明持续提效或长度纯因果，不跨轮推共享修复效果。
 - **论文用途**：第5章第二轮提案/固定比较/采用，第6章6.5.14表6-33/34/35及图6-8、恢复与分层失败；第4章4.7.2共享机制、附录H。与E51及旧经验保持独立分母。
 - **证据入口**：[结果报告](2026-11-09-offline-harness-round2-results.md)、[协议](../../benchmarks/preregistrations/cpp-build-offline-harness-round2-flash-v1.md)、[manifest](../../benchmarks/manifests/cpp-build-offline-harness-round2-flash-v1.json)、[分析与36行CSV](../../benchmarks/analyses/offline-harness-round2-2026-11-09/README.md)。raw为`forge-offline-harness-round2-flash-v1`，运行9f583375、manifest5dfeb6a3、inventory56696b56959c2016305b74026060e7c3bf5f081ef6795f4996cb408ec9652468；Issue705/PR706，最终发布以GitHub及会话收据为准。
+
+
+<a id="e53"></a>
+### E53 新项目、同初始方案的恢复Harness候选比较（结果待用户审核）
+
+- **问题/设计**：18新开发项目、三系统各6，H0/R1各一次共36/36终态、18共同规划成功、0未启动；18配对初始方案哈希一致，仅真实失败后的恢复指导不同。候选来自历史15材料高级模型提案，1677字节；用户已审方案，结果尚待审，本轮不修改论文。非最终holdout、不称模型训练未见。
+- **结果/费用**：主构建16/18、15/18，可复现交付均11/18；每法真实replay14个，11过/2失败/1超时，另4未启动。独立部署请求91/104、在线费0.3348342/0.3982221美元、累计2386.94/2610.99秒，R1费高18.9%、时高9.4%，保留H0默认。共同规划实际只付一次，总123请求/1369539 Token/0.5045859美元，逐响应复算一致、未知0；历史提案0.105856单列，v1导入规划不重复计费。
+- **解释/边界**：共同恢复只有fsarchiver/ggmorse/DuckX三项目，H0/R1主构建恢复完成2/3、1/3，19/25请求；twemproxy仅R1先遇网络超时，7额外请求不能纯归因指导。tini生成README保护、ggmorse本地上下文、wasm3/libhv时间/哈希、munge交付动态库、Turbo验证误入benchmark及H0/fsarchiver错误输出断言均分开解释；不把主构建、可复现交付或未启动replay混为一项，不凭小样本认定Harness优化总体无效。
+- **论文用途**：第5章恢复候选的诊断/固定比较/采用决定，第6章全成本、相同修订的额外探索与分层失败；用户审核后才决定入文。与E50/E52重叠的是历史提案来源，不把来源或工程路径再加为新比较。E51/E52原数值/失败/论文v0.10不回填。
+- **证据/工程说明**：[结果报告](2026-11-10-recovery-harness-comparison-results.md)、[分析与36行CSV](../../benchmarks/analyses/recovery-harness-2026-11-10/README.md)、[v2协议](../../benchmarks/preregistrations/cpp-build-recovery-harness-comparison-flash-v2.md)。运行7e439b51、manifest71dd0e29、raw `/home/yiwei/.codex/outputs/forge-recovery-harness-comparison-flash-v2`，inventory `235feccd7e533f3077c9a33cc1f405e28875e0b426b743e015cfa30096fc40dd`。原v1调用参数错误在首槽前中止，原件保留；v2采集完整后封存权限错误，用只读辅助容器完成哈希/新seal，无重跑或数据/权限改写。原analysis身份头沿base常量为v1，派生明确实际v2；36槽cleanup通过，130相关容器标识不存在。工程检查不作R1效果，发布以Issue713关联PR/CI为准。
