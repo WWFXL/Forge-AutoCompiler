@@ -1,0 +1,565 @@
+{
+  "kind": "implementation_reference_not_trajectory",
+  "source_revision": "64978dd68b86398aa2daa1a44a8755f6b26338a9",
+  "coverage": "科研SimpleBuild入口的关键源码片段及真实Schema；非完整仓库、非新Agent轨迹",
+  "explanation": {
+    "path": "docs/research/2026-11-10-recovery-optimizer-system-context.md",
+    "file_sha256": "d1b671e77d46415040d64d60b4665af0d99a704c18b33805c98155e9eea32534",
+    "content": "# 恢复 Harness 优化器的当前系统实现上下文\n\n本说明对应 PR #722 合并版本 `64978dd68b86398aa2daa1a44a8755f6b26338a9` 的科研入口，供一次独立离线复分析使用。它是人工整理的实现说明，不是构建轨迹或效果样本。随请求同时提供自动提取的源码片段、行号、完整文件哈希和实际接口 Schema；如说明与源码不一致，应指出冲突，以源码为准。片段不等于整个仓库，缺少的实现不能自行假定存在。\n\n## 当前运行路径与权限\n\n研究入口是 `scripts/forge_simple_system.py:run_simple_system`，采用 `SimpleBuildWorkflow`。初始规划使用 H0；恢复使用同一个 `propose_simple` 函数，仅在真实交接时追加恢复 Harness 指导。在线模型固定 Flash，高级模型仅离线分析材料，没有执行、联网或读取额外源码的工具。\n\n规划和恢复 Agent 均由 LangChain `create_agent` 建立。它们只具有 `list_source`、`read_source`、`read_failure_log` 三个只读工具和 `SimpleBuildActions` 结构化输出接口。没有 Bash、执行候选方案、网络搜索或修改源码工具。输出方案经校验后由 Workflow 执行，得到新失败后才会再次创建恢复任务；不能在同一次恢复对话里先试命令再声称成功。\n\n产品 Lead/compiler、强工具 Agent，以及另行研究过的局部工具恢复，都是其他入口，不是本次恢复 Agent 的权限。经验库是可选配置；本次恢复指导比较不额外引入经验检索。规则路由在外层先于 Agent；离线指导只能影响确实交给 Agent 的任务。\n\n## 输入、输出与反馈\n\n恢复输入包括不可变公开任务、当前完整方案、匹配方案哈希与 handoff_id 的实际交接、初始源码材料、剩余资源及读取进展。交接包含当前失败步骤/原因、最近命令及日志尾部、配置观察、主要产物观察和已成功依赖。源码/日志只是数据，不得覆盖系统权限。独立参考的成功命令、精确评价答案、个人知识库和隐藏推理不提供给在线 Agent。\n\n返回 `SimpleBuildActions`：reason、steps，以及可选 build_directory、discard_dependencies。每步有 step_id、role、command、workdir、requires、source、expected。阶段只允许有序的 dependency/configure/build，ID唯一，前提引用更早步骤，最后 step_id=build。expected 仅说明目的，不是日志成功断言；不能把测试、暂存、交付要求塞进该输出。显式 build_directory 只辅助观察，不能改变实际执行目录。\n\n每次 `propose_simple` 中，结构错误、修订执行约束错误各最多提供一次明确纠正，保留已有工具对话，所有请求计费。格式接受不表示命令已执行。没有“阻塞终态”的专用输出工具；模型可以解释阻塞，但无合法方案时入口按错误/预算结束，不能假定它能通过新工具结束整个系统。服务异常不自动重试。\n\n## Workflow 如何执行和判定\n\n每条命令进入独立严格 Shell；上一条 cd 不延续，应使用 workdir。执行前保护原源码/测试，并做阶段约束检查：禁止关闭严格 Shell、访问 /repro、任意 rm/unlink/rmdir 或混合多逻辑阶段。允许规则明确覆盖的作者 make clean/distclean 前置。目录限仓库或交付目录内；这里不授予仓库外临时目录权限。依赖安装可拆成多个 dependency 步骤；复杂外部依赖构建仍必须符合实际阶段识别和目录接口，不能假定写上 dependency 就会放行。\n\n实际非零、超时或策略拒绝停止后续步骤并交接；策略拒绝会保存126/policy_rejected记录，没有运行对应Shell。命令成功后观察构建系统文件：未知 unknown 可继续已有、有界的方案，不冒充 passed；配置阶段末或构建后出现已知矛盾才交接 configuration_inconsistent。构建命令成功后仍由独立主要组件/真实产物检查确认 primary_completed，不是只看退出0。\n\n## 修订如何影响进度和重建配方\n\n修订须保持任务身份、递增版本、匹配活动交接。普通执行修订必须改变实际命令或 workdir；改说明、改步骤别名不能重新执行同一失败。仅当原命令成功且交接来自配置观察冲突时，允许只改 build_directory，实际核验通过后继续原成功进度，不重跑命令。\n\n系统自动保留未显式废弃的已成功 dependency；遗漏不等于删除。重新列出时须沿用原 ID 和动作；隐式覆盖或改名重复会被拒。确需替换/废弃须在 discard_dependencies 中填旧 ID 与理由。恢复模型不必为了“完整方案”机械复制或改写成功安装步骤。基础镜像已有的依赖与本轮临时安装的依赖不同，后者仍要保留在干净重建配方中。\n\n依赖或配置动作变化时，系统插入生成物清理步骤并失效相关配置/构建后缀；未变的成功前缀及仍有效成功依赖复用原记录。只改构建时按共同前缀保留算法恢复进度。最终配方选择最终有效方案的成功记录，失败、诊断、过时命令不进入。不能承诺系统能推断所有安装命令的语义等价或需要关系。\n\n## 验证、上下文与共同修复\n\nmain-build-v1 使用简洁的作者普通主构建目标，不要求单独完整作者测试；默认构建本身包含的目标仍应保留。交付、作者依据的轻量运行、SONAME文件、实际干净重建由独立层执行；Agent不能改参考或降低验收。实际交付运行非零可再次交接，退出0但独立输出断言不符不能靠改裁判解决。新 successful-rebuild-v1 不要求跨重建字节相同，仍要求固定源码/镜像、有效产物、相同轻量命令成功及清理。\n\n线上请求有49000字节消息上限；先移出可补读的初始正文，再缩短交接预览、淘汰旧完整组，必要时把过大的最新AI/Tool组保存原件并生成有界实际片段。不是额外模型摘要。无新证据连续两轮提醒，三轮只保留结构化交付接口；变化后的日志或必要缺失区间仍可补读，不能一概禁止重复读取。\n\n原生轻量验证、作者生成文档例外、SONAME交付、成功依赖保留、修订反馈、上下文压缩、国内HTTPS APT镜像和成功重建标准都已经是共同底座。E53轨迹来自修复前，尚无修复后新的Agent恢复轨迹。不能把旧问题一律当成仍未修复，也不能从代码存在推断其消除了全部问题。不能把这些共同人工机制包装成新 Harness 的收益。\n\n## 本轮希望复核的问题\n\n结合上述实际实现和同一组13次历史恢复、3条正常边界，重新检查原R2：哪些建议仍由证据支持，哪些只是重复已有底座，哪些超出工具/阶段/目录/终止接口，哪些过度限制有证据的备用入口？允许精简或 no_change。仅给出可迁移的恢复指导及有证据的诊断；不改执行器、不改变初始规划、不自动比较或写论文。\n"
+  },
+  "execution_contract": {
+    "path": "docs/compile_workflow_execution.md",
+    "file_sha256": "b5c3e4b8d2894c7b16bdf1ce9701e231953c364e920241990814044bbc703e3c",
+    "content": "# 简洁构建 Workflow 执行契约\n\n本文对应 `SimpleBuildWorkflow` 与 `scripts/forge_simple_system.py` 的当前科研入口。任务内采用阶段执行与有界恢复，最终结果由独立组件确认；不修改历史实验的运行版本或结果。\n\n## 方案与执行\n\n- 规划 Agent 返回 `SimpleBuildActions`：有序的 `dependency/configure/build` 动作，每步包含命令、`workdir`、前提和依据。末步仍为 `build`。\n- 每个命令运行在独立严格 Shell 中。目录由每步 `workdir` 指定，上一命令的 `cd` 不会延续。\n- 可选 `build_directory` 是主项目构建目录的规范绝对容器路径，必须位于 `/workspace/repo` 内。它辅助定位观察文件，不改变实际命令或工作目录，不是成功断言。\n- CMake 原生输出可以定位实际目录，随后核对 Cache 的源码、目录身份和生成器入口。缺少这行输出时保留目录未知；不手工解析 preset 继承、宏或所有等价 Shell 写法。\n- 未绑定目录时不从其他目录找一个旧 Cache 来代替当前证据。成功方案复用和状态路由保留明确的目录上下文。\n\n## 状态与推进\n\n| 实际情况 | Workflow 动作 |\n| --- | --- |\n| 命令非零、超时或动作违反约束 | 停止当前执行，交接真实记录和日志；不执行后续动作 |\n| 原源码或测试变化、目录逃出支持范围 | 保持错误与保护，不允许通过状态标签放行 |\n| 命令成功、配置观察充分 | 保留完成记录，执行下一动作 |\n| 命令成功、配置观察未知 | 如实记录 `unknown`，继续已规划且仍在资源限制内的动作；后续实际失败再恢复 |\n| 配置阶段末或构建后，已绑定配置与实际文件矛盾 | 交接 `configuration_inconsistent`，不能由 Agent 直接宣告成功 |\n| 构建命令成功 | 独立定位主要组件并检查实际编译产物；产物缺失、无效或观察未完成均不能直接标为完成 |\n\n配置阶段可含脚本生成等多个动作，中间动作必须成功，阶段末才要求已知配置没有冲突。Autotools 观察 GNU Make 的标准入口 `GNUmakefile/makefile/Makefile`；自定义入口没有被观察器覆盖时仍可通过真实构建与独立产物证明完成。\n\n`unknown` 不会被改写为 `passed`。这种处理改变的是执行决策，不降低主要组件、源码、精确交付和干净重放的检查要求；`main-build-v1` 不要求完整作者测试，继续单独记录 `not_required`。\n\n## 恢复与观察修订\n\n恢复 Agent 继续读取原源码和权威执行日志，返回完整方案。一次 Agent 任务中，结构错误和恢复方案执行约束错误各至多纠正一次，两类均受原请求、费用和时间预算约束；原始响应、纠正提示和全部请求用量保持计量。服务异常不参与纠正，也不自动重试。\n\n- 真实执行失败需要有依据地修改实际命令或工作目录。仅改说明、步骤别名或观察提示不能触发相同失败命令重跑。\n- 只有命令已经成功、交接来自配置观察冲突时，才允许只修正 `build_directory`。新目录必须通过实际配置核验；通过后恢复原成功记录，继续后续动作，不再次运行原命令。\n- 无效修订在交付执行器前获得具体反馈。纠正后仍无效则有界停止，保留失败；不以反复更换步骤名称绕开停止规则。\n- 动作确实变化时沿用前缀保留与后缀失效机制。依赖或配置动作变化仍触发实际生成物清理。\n\n### 成功依赖与重建配方\n\n原容器的执行进度和新容器的重建配方需要区分：基础镜像已有的工具可以不安装，本轮临时安装的依赖即使当前已可用，也必须留在有效配方中。\n\n- 交接包含 `successful_dependencies` 的步骤、命令ID和实际命令。修订遗漏已成功的 dependency 时，系统默认保留；不将遗漏视为删除。\n- 恢复沿用成功依赖的 `step_id`。要废弃或替换，必须在 `discard_dependencies` 中填写原步骤ID及非空理由；未知ID、隐式覆盖和改名重复执行得到明确反馈。\n- 保留的成功依赖复用实际命令记录，不因配置后缀变化而在原容器重新安装。显式废弃不证明环境已不需要该依赖，仍以干净重放为准。\n- 配方只选择最终有效方案中的成功记录，按实际执行顺序输出；失败命令、过时配置和诊断记录不进入配方。系统不自动合并所有历史成功命令，也不承诺推断任意包管理命令间的语义关系。\n\n## 轻量验证与结果层\n\n评测侧的 `BuildReference.executable_smokes` 可按精确交付文件名提供作者有依据的轻量验证命令，包含来源和非空输出依据。它与完整作者测试分开，不送给规划或恢复 Agent。Workflow 实际执行后，将成功记录绑定到既有 `ExecutableVerificationPolicy`，并加入干净重放的验证脚本；重放还核对交付物及相同 smoke 的命令、工作目录和成功退出码；完整输出哈希继续记录，输出文本差异仅用于诊断。\n\n例如，作者只支持 `fse -V` 时，通过参考数据指定 `/artifacts/fse -V`，无需在 Workflow 编写项目名称分支。显式命令失败、输出依据不符或实际交付的可执行物缺少绑定时，不继续 submit，不记验证通过。`main-build-v1` 缺少显式入口时记录 `missing_native_verification`，不猜版本参数；历史作者测试范围仍使用原默认入口。`main-build-v1` 不要求完整作者测试，记录为 `not_required`。\n\n原容器轻量执行与重放使用相同的30秒子时限。共享库交付依据真实ELF的SONAME补齐精确名称，轻量命令在交付目录的库路径下运行；相同环境进入重放，不依赖原构建目录。退出非零的交付运行可以请求 `delivery_execution_failed` 恢复，Agent修订构建/环境后返回Workflow，仍执行原验证。退出0但输出断言不符属于独立验证定义问题，不允许Agent修改裁判。每个修订分别保存主构建与后检查记录，保留之前失败。\n\n| 结果字段 | 含义 |\n| --- | --- |\n| `primary_build_completed` | 构建动作与独立主要产物检查是否通过 |\n| `delivery` | 是否精确复制交付文件 |\n| `executable_smoke` | 实际轻量验证；与完整作者测试分列 |\n| `final_verification_passed` | submit 的产物验证与本次实际干净重放是否全部通过；未执行时为 null |\n| `clean_replay` | 本次实际 attempt 的状态；前置验证阻断、没有新 attempt 时为 `not_started`，未进入后检查时仍为 `unobserved` |\n| `main_build_task_completed` | 原主构建范围的完成，不代表可复现交付完成 |\n| `reproducible_delivery_completed` | 主产物、精确交付、最终验证、按 attempt 声明标准的实际重建、源码保持及清理均通过；新标准不代表字节一致 |\n\n`full_completed` 保留旧完整作者测试范围；主构建任务填 null，不能用来冒称完整作者测试通过。旧实验原始标签与证据不改写；E52 继续使用其已发表的分层解释。\n\n## 作者生成文档与恢复上下文\n\n`BuildReference.generated_documents`仅由独立参考声明精确文档路径、原模板、作者依据和预期内容SHA-256；模型动作不能声明生成例外。原文件与模板必须存在且为普通文件。只接受Markdown、RST或TXT文档，拒绝测试目录、源码与脚本；原模板和其余输入继续保护，文档内容或权限偏离声明仍拒绝。`source_protection`将保护输入不变与允许的文档生成分别报告，不将README变化称为所有原文件字节未变。\n\n规划/恢复请求继续使用49,000字节消息上限。先移出可补读的初始内容，再缩短交接日志预览，完整日志及哈希仍保留。若最新AI/Tool组本身过大，整组移入独立原件，使用实际工具结果的首尾片段、请求参数、来源和哈希另起一条证据消息；不拆开工具配对或截断推理字段后冒充原AI消息。没有调用摘要模型。必要任务与压缩证据仍超限时明确停止，不静默丢弃任务身份或放大窗口。\n\n## 离线恢复指导\n\n`RecoveryHarness`只向`propose_simple`的真实恢复请求追加固定指导；初始规划仍使用原提示和既有`PlanningHarness`。\n`run_simple_system(recovery_harness=...)`把指导传到恢复调用，默认不提供时行为不变。\n指导绑定共同提示哈希，选择记录包含`scope=recovery`；训练轨迹不注入在线Agent，工具、Workflow和结果要求不由指导修改。\n本入口只为后续固定模型的恢复策略比较提供独立变量，不代表新策略已获采用或有效。\n高级模型提案须先由用户审核，收到比较指令后才实跑；结果审核之后才写论文。\n\n恢复比较入口`scripts/forge_recovery_harness_comparison.py`对每项目生成一次共同H0初始方案，\n随后在两套干净会话分别使用H0/R1恢复。共同规划实际支出一次，各方法部署费用均计入全额规划；\n第一处理的修订或结局不进入第二处理。共同规划失败时后两处理未启动，不能填两次恢复失败。\n当前18项目任务和实现边界见[准备报告](research/2026-11-09-recovery-harness-comparison-preparation.md)。\n\n## 支持边界\n\n当前目标是 Linux 中 CMake、Make、Autotools 的仓库内主项目构建，动作遵守现有阶段和路径契约。系统不承诺解释任意 Shell 的完整语义，也不承诺任意仓库永不失败。未识别的命令写法可以通过有界执行获取事实；不符合方案接口的输出应在执行前得到反馈。多项目依赖构建交错、仓库外输出和进程重启恢复不由本次修复扩展。\n\n最新实现和针对性实跑见 [共同恢复与验证修复记录](research/2026-11-10-common-recovery-repair.md)与[成功重建验证](research/2026-11-10-clean-rebuild-validation.md)。工程验证不作为模型成功率或 Harness 更新收益。旧运行的严格字节复现标准仍按原协议解释；新运行采用下述成功重建标准。\n\n## 干净重建标准（2026-11-10 起的新运行）\n\n用户已明确同意以同一配方在干净环境中成功重建为要求，不把编译日期造成的字节差异当作构建失败。实际 attempt 记录 `comparison_policy=successful-rebuild-v1`：\n\n- 仍固定同一源码 commit/归档、不可变镜像 ID、资源和成功步骤配方，在空工作区运行构建与验证；执行失败、超时或清理失败仍不通过。\n- 交付相对路径集合和产物类型必须一致，每个文件非空、结构有效；可执行物使用相同命令和工作目录复验，必须退出 0。库文件没有适用的版本命令时，轻量运行记为不适用，不冒称运行通过。\n- 大小、SHA-256、完整 smoke 输出哈希及相等性继续保存在 `ReplayArtifactComparison`。差异列入 `diagnostic_differences`；`mismatches` 只含阻止成功重建的问题。输出相同、字节相同与重建成功分别表述。\n- 原容器的交付清单在 finalize 时仍严格校验大小及 SHA-256，防止接受后交付物变化；源码、脚本快照和镜像身份的完整性检查保持。\n\n这证明的是已声明环境和轻量检查下的成功重建，不证明逐字节可复现或任意输入下功能等价。旧原始结果不重标、不补跑；不同标准的完成率不直接合并。\n"
+  },
+  "public_task_schema": {
+    "additionalProperties": false,
+    "description": "唯一可送入初始模型的任务对象；不含评测脚本、参考命令或产物路径。",
+    "properties": {
+      "task_version": {
+        "default": "simple-build-v1",
+        "enum": [
+          "simple-build-v1",
+          "main-build-v1"
+        ],
+        "title": "Task Version",
+        "type": "string"
+      },
+      "plan_id": {
+        "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_-]{0,63}$",
+        "title": "Plan Id",
+        "type": "string"
+      },
+      "repository_url": {
+        "minLength": 1,
+        "title": "Repository Url",
+        "type": "string"
+      },
+      "commit_sha": {
+        "pattern": "^(?:[0-9a-f]{40}|[0-9a-f]{64})$",
+        "title": "Commit Sha",
+        "type": "string"
+      },
+      "image_id": {
+        "pattern": "^sha256:[0-9a-f]{64}$",
+        "title": "Image Id",
+        "type": "string"
+      },
+      "source_archive_sha256": {
+        "pattern": "^[0-9a-f]{64}$",
+        "title": "Source Archive Sha256",
+        "type": "string"
+      },
+      "build_system": {
+        "enum": [
+          "cmake",
+          "make",
+          "autotools"
+        ],
+        "title": "Build System",
+        "type": "string"
+      },
+      "architecture": {
+        "default": "x86_64",
+        "enum": [
+          "x86_64",
+          "aarch64"
+        ],
+        "title": "Architecture",
+        "type": "string"
+      },
+      "goal": {
+        "const": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "default": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "title": "Goal",
+        "type": "string"
+      },
+      "common_clarification": {
+        "default": "",
+        "title": "Common Clarification",
+        "type": "string"
+      },
+      "parallel_jobs": {
+        "default": 2,
+        "maximum": 4,
+        "minimum": 1,
+        "title": "Parallel Jobs",
+        "type": "integer"
+      }
+    },
+    "required": [
+      "plan_id",
+      "repository_url",
+      "commit_sha",
+      "image_id",
+      "source_archive_sha256",
+      "build_system"
+    ],
+    "title": "PublicBuildTask",
+    "type": "object"
+  },
+  "output_schema": {
+    "type": "function",
+    "function": {
+      "name": "SimpleBuildActions",
+      "description": "",
+      "parameters": {
+        "additionalProperties": false,
+        "properties": {
+          "reason": {
+            "description": "简短说明构建入口及选项依据，不是步骤列表",
+            "minLength": 1,
+            "type": "string"
+          },
+          "steps": {
+            "items": {
+              "additionalProperties": false,
+              "description": "模型只决定执行动作，不承担独立检查的输出断言。",
+              "properties": {
+                "step_id": {
+                  "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_-]{0,63}$",
+                  "type": "string"
+                },
+                "role": {
+                  "enum": [
+                    "dependency",
+                    "configure",
+                    "build"
+                  ],
+                  "type": "string"
+                },
+                "command": {
+                  "minLength": 1,
+                  "type": "string"
+                },
+                "workdir": {
+                  "default": "/workspace/repo",
+                  "type": "string"
+                },
+                "requires": {
+                  "default": [],
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                "source": {
+                  "description": "已读取的作者说明或构建文件及位置",
+                  "minLength": 1,
+                  "type": "string"
+                },
+                "expected": {
+                  "description": "此动作的目的，仅为说明",
+                  "minLength": 1,
+                  "type": "string"
+                }
+              },
+              "required": [
+                "step_id",
+                "role",
+                "command",
+                "source",
+                "expected"
+              ],
+              "type": "object"
+            },
+            "minItems": 1,
+            "type": "array"
+          },
+          "build_directory": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "有作者依据时提供主项目构建目录，使用/workspace/repo内规范绝对路径；仅辅助观察，不改变workdir或作为成功断言"
+          },
+          "discard_dependencies": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "description": "仅恢复时使用：显式废弃或替换已成功依赖步骤的step_id及非空理由；未声明的成功依赖由系统保留，不能因当前容器已有而省掉重放安装",
+            "type": "object"
+          }
+        },
+        "required": [
+          "reason",
+          "steps"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  "readonly_tool_schemas": [
+    {
+      "type": "function",
+      "function": {
+        "name": "list_source",
+        "description": "列出源码目录的直接成员；支持相对路径或/workspace/repo内绝对路径；最多100项，错误返回反馈。",
+        "parameters": {
+          "properties": {
+            "directory": {
+              "default": ".",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "read_source",
+        "description": "读取源码文本，支持相对路径或/workspace/repo内绝对路径；最多120行/8000字符，保留哈希与起始行。",
+        "parameters": {
+          "properties": {
+            "path": {
+              "type": "string"
+            },
+            "start_line": {
+              "default": 1,
+              "type": "integer"
+            }
+          },
+          "required": [
+            "path"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "read_failure_log",
+        "description": "读取Session内logs/或replay/日志；也接受/logs和/replay别名，不读取其他目录。",
+        "parameters": {
+          "properties": {
+            "path": {
+              "type": "string"
+            },
+            "start_line": {
+              "default": 1,
+              "type": "integer"
+            }
+          },
+          "required": [
+            "path"
+          ],
+          "type": "object"
+        }
+      }
+    }
+  ],
+  "source_excerpts": [
+    {
+      "path": "backend/packages/harness/deerflow/compile/simple_build_task.py",
+      "symbol": "SimpleBuildAction",
+      "file_sha256": "4611c1ce33dec44920ff4f99e2c14c6964a6c39e2b0f56ae6a4b2b40fe278c01",
+      "start_line": 22,
+      "end_line": 41,
+      "content": "class SimpleBuildAction(BaseModel):\n    \"\"\"模型只决定执行动作，不承担独立检查的输出断言。\"\"\"\n\n    model_config = ConfigDict(extra=\"forbid\")\n    step_id: str = Field(pattern=r\"^[a-zA-Z0-9][a-zA-Z0-9_-]{0,63}$\")\n    role: Literal[\"dependency\", \"configure\", \"build\"]\n    command: str = Field(min_length=1)\n    workdir: str = \"/workspace/repo\"\n    requires: tuple[str, ...] = ()\n    source: str = Field(min_length=1, description=\"已读取的作者说明或构建文件及位置\")\n    expected: str = Field(min_length=1, description=\"此动作的目的，仅为说明\")\n\n    @model_validator(mode=\"before\")\n    @classmethod\n    def discard_diagnostic_hint(cls, value):\n        # 诊断提示不参与执行；仅丢弃这一字段，其余未知字段与动作安全校验保持严格。\n        # 原模型响应由meter保留，不修改或执行提示里的路径。\n        if isinstance(value, dict) and \"diagnostic_paths\" in value:\n            return {key: item for key, item in value.items() if key != \"diagnostic_paths\"}\n        return value\n"
+    },
+    {
+      "path": "backend/packages/harness/deerflow/compile/simple_build_task.py",
+      "symbol": "SimpleBuildActions",
+      "file_sha256": "4611c1ce33dec44920ff4f99e2c14c6964a6c39e2b0f56ae6a4b2b40fe278c01",
+      "start_line": 44,
+      "end_line": 73,
+      "content": "class SimpleBuildActions(BaseModel):\n    model_config = ConfigDict(extra=\"forbid\")\n    reason: str = Field(min_length=1, description=\"简短说明构建入口及选项依据，不是步骤列表\")\n    steps: list[SimpleBuildAction] = Field(min_length=1)\n    build_directory: str | None = Field(default=None, description=\"有作者依据时提供主项目构建目录，使用/workspace/repo内规范绝对路径；仅辅助观察，不改变workdir或作为成功断言\")\n    discard_dependencies: dict[str, str] = Field(default_factory=dict, description=\"仅恢复时使用：显式废弃或替换已成功依赖步骤的step_id及非空理由；未声明的成功依赖由系统保留，不能因当前容器已有而省掉重放安装\")\n\n    @field_validator(\"discard_dependencies\")\n    @classmethod\n    def valid_discards(cls, value):\n        if any(not key.strip() or not reason.strip() for key, reason in value.items()):\n            raise ValueError(\"废弃依赖必须提供步骤标识和非空理由\")\n        return value\n\n    @field_validator(\"build_directory\")\n    @classmethod\n    def valid_directory(cls, value):\n        if value is not None:\n            PlanStep.validate_workdir(value)\n            if not value.startswith(\"/workspace/repo/\") and value != \"/workspace/repo\":\n                raise ValueError(\"构建目录必须在/workspace/repo内\")\n        return value\n\n    @model_validator(mode=\"after\")\n    def valid_execution(self) -> Self:\n        # 使用成熟的动作/顺序校验，工具schema不再暴露旧候选观察字段。\n        ObservedBuildActions.model_validate(self.model_dump(exclude={\"build_directory\", \"discard_dependencies\"}))\n        if any(s.step_id.startswith(\"forge-\") for s in self.steps):\n            raise ValueError(\"不能占用系统步骤标识\")\n        return self\n"
+    },
+    {
+      "path": "backend/packages/harness/deerflow/compile/simple_build_task.py",
+      "symbol": "PublicBuildTask",
+      "file_sha256": "4611c1ce33dec44920ff4f99e2c14c6964a6c39e2b0f56ae6a4b2b40fe278c01",
+      "start_line": 76,
+      "end_line": 91,
+      "content": "class PublicBuildTask(BaseModel):\n    \"\"\"唯一可送入初始模型的任务对象；不含评测脚本、参考命令或产物路径。\"\"\"\n\n    model_config = ConfigDict(frozen=True, extra=\"forbid\")\n\n    task_version: Literal[\"simple-build-v1\", \"main-build-v1\"] = \"simple-build-v1\"\n    plan_id: str = Field(pattern=r\"^[a-zA-Z0-9][a-zA-Z0-9_-]{0,63}$\")\n    repository_url: str = Field(min_length=1)\n    commit_sha: str = Field(pattern=r\"^(?:[0-9a-f]{40}|[0-9a-f]{64})$\")\n    image_id: str = Field(pattern=r\"^sha256:[0-9a-f]{64}$\")\n    source_archive_sha256: str = Field(pattern=r\"^[0-9a-f]{64}$\")\n    build_system: Literal[\"cmake\", \"make\", \"autotools\"]\n    architecture: Literal[\"x86_64\", \"aarch64\"] = \"x86_64\"\n    goal: Literal[SIMPLE_GOAL] = SIMPLE_GOAL\n    common_clarification: str = \"\"\n    parallel_jobs: int = Field(default=2, ge=1, le=4)\n"
+    },
+    {
+      "path": "backend/packages/harness/deerflow/compile/simple_build_task.py",
+      "symbol": "assemble_simple_plan",
+      "file_sha256": "4611c1ce33dec44920ff4f99e2c14c6964a6c39e2b0f56ae6a4b2b40fe278c01",
+      "start_line": 236,
+      "end_line": 244,
+      "content": "def assemble_simple_plan(task: PublicBuildTask, proposal: ObservedBuildActions, *, revision=1) -> SimpleBuildPlan:\n    \"\"\"旧观察字段仍留作候选证据，不编译成Shell断言，不能改变共同裁判。\"\"\"\n    steps = []\n    for s in proposal.steps:\n        if s.step_id.startswith(\"forge-\"):\n            raise PlanContractError(\"不能占用系统步骤标识\")\n        value = s.model_dump(exclude={\"stdout_contains\", \"files_exist\", \"directories_exist\"})\n        steps.append(PlanStep(**value))\n    return SimpleBuildPlan(task=task, revision=revision, steps=tuple(steps), build_directory=getattr(proposal, \"build_directory\", None), discard_dependencies=getattr(proposal, \"discard_dependencies\", {}))\n"
+    },
+    {
+      "path": "backend/packages/harness/deerflow/compile/simple_build_task.py",
+      "symbol": "validate_simple_revision",
+      "file_sha256": "4611c1ce33dec44920ff4f99e2c14c6964a6c39e2b0f56ae6a4b2b40fe278c01",
+      "start_line": 247,
+      "end_line": 261,
+      "content": "def validate_simple_revision(current: SimpleBuildPlan, proposed: SimpleBuildPlan, *, allow_observation_only=False) -> str:\n    \"\"\"说明、步骤别名和观察提示的变化不能触发相同失败命令重跑。\"\"\"\n\n    def execution(plan, *, reset=False):\n        return [(s.role, s.command, s.workdir) for s in plan.steps if (s.step_id == \"forge-generated-reset\") == reset]\n\n    if execution(current) == execution(proposed):\n        new_reset = execution(proposed, reset=True)\n        if not new_reset or new_reset == execution(current, reset=True):\n            current_ids = [s.step_id for s in current.steps if s.step_id != \"forge-generated-reset\"]\n            proposed_ids = [s.step_id for s in proposed.steps if s.step_id != \"forge-generated-reset\"]\n            if allow_observation_only and proposed.build_directory is not None and proposed.build_directory != current.build_directory and proposed_ids == current_ids:\n                return \"observation\"\n            raise PlanContractError(\"恢复方案没有改变实际执行动作；不能仅改说明、步骤标识或构建目录来重跑相同失败。请读取真实失败日志，修正必要命令或工作目录；无法修复时明确说明阻塞。\")\n    return \"execution\"\n"
+    },
+    {
+      "path": "backend/packages/harness/deerflow/compile/simple_build_task.py",
+      "symbol": "simple_agent_packet",
+      "file_sha256": "4611c1ce33dec44920ff4f99e2c14c6964a6c39e2b0f56ae6a4b2b40fe278c01",
+      "start_line": 324,
+      "end_line": 335,
+      "content": "def simple_agent_packet(task: PublicBuildTask, *, current_plan=None, handoff=None) -> dict:\n    if current_plan is not None and current_plan.task != task:\n        raise PlanContractError(\"恢复不能改变公开任务\")\n    if (current_plan is None) != (handoff is None):\n        raise PlanContractError(\"当前方案与交接必须一起提供\")\n    if current_plan and (handoff.get(\"plan_sha256\") != current_plan.fingerprint() or not handoff.get(\"handoff_id\")):\n        raise PlanContractError(\"交接与当前方案不匹配\")\n    public_plan = current_plan.model_dump(mode=\"json\") if current_plan else None\n    if public_plan:\n        public_plan[\"steps\"] = [{k: v for k, v in s.items() if k != \"diagnostic_paths\"} for s in public_plan[\"steps\"] if not s[\"step_id\"].startswith(\"forge-\")]\n        public_plan[\"plan_sha256\"] = current_plan.fingerprint()\n    return dict(task=task.model_dump(mode=\"json\"), current_plan=public_plan, handoff=handoff)\n"
+    },
+    {
+      "path": "backend/packages/harness/deerflow/compile/simple_build_task.py",
+      "symbol": "propose_simple",
+      "file_sha256": "4611c1ce33dec44920ff4f99e2c14c6964a6c39e2b0f56ae6a4b2b40fe278c01",
+      "start_line": 338,
+      "end_line": 421,
+      "content": "def propose_simple(*, model, task: PublicBuildTask, source_root, session_root, meter, current_plan=None, handoff=None, experience_bank=None, family=None, harness=None, recovery_harness=None, revision_validator=None):\n    \"\"\"真实规划/方案恢复接点；所有读、输出、失败通过既有meter计量，无隐式重试。\"\"\"\n    task = PublicBuildTask.model_validate(task)\n    packet = simple_agent_packet(task, current_plan=current_plan, handoff=handoff)\n    prompt = SIMPLE_PROMPT\n    if harness is not None:\n        prompt = harness.prompt(prompt, recovery=current_plan is not None)\n        meter.ledger.append(\"harness.selected\", name=harness.name, sha256=harness.fingerprint(), scope=\"initial_planning\", applied=current_plan is None)\n    if recovery_harness is not None and current_plan is not None:\n        prompt = recovery_harness.prompt(prompt)\n        meter.ledger.append(\"harness.selected\", name=recovery_harness.name, sha256=recovery_harness.fingerprint(), scope=\"recovery\", applied=True)\n    if experience_bank is not None:\n        from deerflow.compile.simple_build_experience import SIMPLE_EXPERIENCE_PROMPT, select_simple_experience\n\n        if not family:\n            raise PlanContractError(\"跨项目经验必须声明当前项目族\")\n        evidence = meter.packet() if hasattr(meter, \"packet\") else {}\n        context = select_simple_experience(bank=experience_bank, task=task, packet={**packet, \"source_packet\": evidence.get(\"source_packet\", [])}, family=family, ledger=meter.ledger)\n        packet[\"historical_build_experience\"] = context\n        prompt += SIMPLE_EXPERIENCE_PROMPT\n    revision = current_plan.revision + 1 if current_plan else 1\n    # 旧meter要求每次响应都有有效tool_calls，会在格式反馈前终止正文/语法错误。\n    # 本入口由ToolStrategy和下方统一校验负责方案交付；原始响应/截断/用量检查保持。\n    previous_requires_structured = meter.requires_structured_response\n    meter.requires_structured_response = False\n    meter.ledger.append(\"agent.started\", revision=revision, recovery=current_plan is not None, contract=\"simple-build-v1\")\n    corrections = 0\n    corrected_categories = set()\n\n    def correct_once(error, category=\"structure\"):\n        nonlocal corrections\n        meter.ledger.append(\"simple.proposal_rejected\", revision=revision, correction=corrections, correction_category=category, category=type(error).__name__, detail=str(error)[:4000])\n        if category in corrected_categories or not isinstance(error, (StructuredOutputValidationError, PlanOutputError, ValueError)):\n            raise error\n        corrected_categories.add(category)\n        corrections += 1\n        label = \"结构纠正\" if category == \"structure\" else \"恢复方案执行约束纠正\"\n        return \"方案尚未执行。仅允许这一次\" + label + \"，请使用SimpleBuildActions提交完整reason字符串和steps列表；保留已读证据、任务与原测试。具体错误：\" + str(error)[:4000]\n\n    agent = create_agent(model=model, tools=safe_readonly_tools(source_root, session_root), system_prompt=prompt, middleware=[meter], response_format=ToolStrategy(SimpleBuildActions, handle_errors=correct_once))\n    evidence = meter.packet() if hasattr(meter, \"packet\") else {}\n    # 公开材料白名单；只在任务开始固定源码包，后续通过完整工具对话携带新证据。\n    context = PlanningContext({**packet, \"source_packet\": evidence.get(\"source_packet\", [])})\n    original_context = getattr(meter, \"planning_context\", None)\n    meter.planning_context = context\n    try:\n        messages = [HumanMessage(content=json.dumps(packet, ensure_ascii=False))]\n        while True:\n            result = agent.invoke({\"messages\": messages}, config={\"max_concurrency\": 1, \"recursion_limit\": 100, \"callbacks\": [PlanResponseCapture(meter)]})\n            proposal = result.get(\"structured_response\")\n            channel = \"tool\"\n            if not isinstance(proposal, SimpleBuildActions):\n                final = result[\"messages\"][-1]\n                try:\n                    proposal = proposal_from_body(final)\n                    channel = \"json_body\"\n                except (ValueError, TypeError) as error:\n                    feedback = correct_once(error)\n                    messages = correction_history(result[\"messages\"], feedback)\n                    continue\n            meter.ledger.append(\"simple.output_received\", revision=revision, channel=channel, corrections=corrections)\n            try:\n                plan = assemble_simple_plan(task, proposal, revision=revision)\n            except ValueError as error:\n                feedback = correct_once(error)\n                messages = correction_history(result[\"messages\"], feedback)\n                continue\n            try:\n                if current_plan is not None:\n                    if revision_validator is not None:\n                        revision_validator(plan)\n                    else:\n                        validate_simple_revision(current_plan, plan)\n            except ValueError as error:\n                feedback = correct_once(error, \"revision\")\n                messages = correction_history(result[\"messages\"], feedback)\n                continue\n            break\n    finally:\n        meter.planning_context = original_context\n        meter.requires_structured_response = previous_requires_structured\n    meter.ledger.save(f\"simple-actions-{revision}.json\", proposal.model_dump(mode=\"json\"))\n    meter.ledger.append(\"simple.proposal_accepted\", revision=revision, corrections=corrections)\n    return plan, proposal.reason\n"
+    },
+    {
+      "path": "backend/packages/harness/deerflow/compile/plan_agent_context.py",
+      "symbol": "normalized_read_path",
+      "file_sha256": "2620ddcc50e7da228d7af19073719508b649a9d360f71a94baf15ecbefd2dc37",
+      "start_line": 21,
+      "end_line": 36,
+      "content": "def normalized_read_path(value: str, *, logs=False) -> str:\n    \"\"\"只为已授权的容器根提供别名；不扩展读取根或接受父目录穿越。\"\"\"\n    path = PurePosixPath(value)\n    if \"..\" in path.parts:\n        raise PlanContractError(\"读取路径不能包含父目录跳转\")\n    if path.is_absolute():\n        if logs:\n            if path.parts[1:2] not in ((\"logs\",), (\"replay\",)):\n                raise PlanContractError(\"日志绝对路径仅允许/logs或/replay\")\n            value = path.as_posix().lstrip(\"/\")\n        else:\n            try:\n                value = path.relative_to(\"/workspace/repo\").as_posix()\n            except ValueError as exc:\n                raise PlanContractError(\"源码绝对路径仅允许/workspace/repo内\") from exc\n    return value\n"
+    },
+    {
+      "path": "backend/packages/harness/deerflow/compile/plan_agent_context.py",
+      "symbol": "safe_readonly_tools",
+      "file_sha256": "2620ddcc50e7da228d7af19073719508b649a9d360f71a94baf15ecbefd2dc37",
+      "start_line": 39,
+      "end_line": 68,
+      "content": "def safe_readonly_tools(source_root, session_root):\n    originals = {item.name: item for item in readonly_plan_tools(source_root, session_root)}\n\n    def invoke(name, arguments):\n        try:\n            field = \"directory\" if name == \"list_source\" else \"path\"\n            arguments[field] = normalized_read_path(arguments[field], logs=name == \"read_failure_log\")\n            result = json.loads(originals[name].invoke(arguments))\n            result[\"read_request\"] = arguments\n            return json.dumps(result, ensure_ascii=False)\n        except (PlanContractError, OSError) as exc:\n            # 拒绝无效操作但让Agent在下一次显式、计量的请求中纠正，不隐式重试工具。\n            return json.dumps({\"error\": type(exc).__name__, \"accepted\": False, \"reason\": \"路径越界、文件缺失或读取参数无效；先list_source核对规范路径\", \"read_request\": arguments}, ensure_ascii=False)\n\n    @tool\n    def list_source(directory: str = \".\") -> str:\n        \"\"\"列出源码目录的直接成员；支持相对路径或/workspace/repo内绝对路径；最多100项，错误返回反馈。\"\"\"\n        return invoke(\"list_source\", {\"directory\": directory})\n\n    @tool\n    def read_source(path: str, start_line: int = 1) -> str:\n        \"\"\"读取源码文本，支持相对路径或/workspace/repo内绝对路径；最多120行/8000字符，保留哈希与起始行。\"\"\"\n        return invoke(\"read_source\", {\"path\": path, \"start_line\": start_line})\n\n    @tool\n    def read_failure_log(path: str, start_line: int = 1) -> str:\n        \"\"\"读取Session内logs/或replay/日志；也接受/logs和/replay别名，不读取其他目录。\"\"\"\n        return invoke(\"read_failure_log\", {\"path\": path, \"start_line\": start_line})\n\n    return [list_source, read_source, read_failure_log]\n"
+    },
+    {
+      "path": "backend/packages/harness/deerflow/compile/plan_agent.py",
+      "symbol": "readonly_plan_tools",
+      "file_sha256": "76cf813285bd0d95ffd53e6d94d7fed09ddc4dcadfdcb13f6c37089170f5dd71",
+      "start_line": 179,
+      "end_line": 206,
+      "content": "def readonly_plan_tools(source_root: Path, evidence_root: Path | None = None):\n    @tool\n    def list_source(directory: str = \".\") -> str:\n        \"\"\"列出源码子目录的直接成员，最多100项；不读取宿主机或个人笔记。\"\"\"\n        path = _inside(source_root, directory)\n        names = sorted(child.name + (\"/\" if child.is_dir() else \"\") for child in path.iterdir() if child.name != \".git\")\n        return json.dumps({\"entries\": names[:100], \"truncated\": len(names) > 100})\n\n    @tool\n    def read_source(path: str, start_line: int = 1) -> str:\n        \"\"\"读取仓库文本文件，从指定行起最多120行/8000字符，附完整文件哈希。\"\"\"\n        return _read_text(source_root, path, start_line)\n\n    tools = [list_source, read_source]\n    if evidence_root is not None:\n\n        @tool\n        def read_failure_log(path: str, start_line: int = 1) -> str:\n            \"\"\"读取交接所指向的 logs/ 或 replay/ 内文本日志；路径相对 Session 根。\"\"\"\n            if PurePosixPath(path).parts[:1] not in ((\"logs\",), (\"replay\",)):\n                raise PlanContractError(\"仅开放执行及重建日志\")\n            resolved = _inside(evidence_root, path)\n            if not any(resolved.is_relative_to((evidence_root / name).resolve()) for name in (\"logs\", \"replay\")):\n                raise PlanContractError(\"日志链接逃出授权日志目录\")\n            return _read_text(evidence_root, path, start_line)\n\n        tools.append(read_failure_log)\n    return tools\n"
+    },
+    {
+      "path": "backend/packages/harness/deerflow/compile/plan_agent.py",
+      "symbol": "_read_text",
+      "file_sha256": "76cf813285bd0d95ffd53e6d94d7fed09ddc4dcadfdcb13f6c37089170f5dd71",
+      "start_line": 209,
+      "end_line": 217,
+      "content": "def _read_text(root: Path, path: str, start_line: int) -> str:\n    target = _inside(root, path)\n    if start_line < 1 or not target.is_file() or target.stat().st_size > 16 * 1024 * 1024:\n        raise PlanContractError(\"文件不可读、过大或起始行无效\")\n    content = target.read_bytes()\n    lines = content.decode(errors=\"replace\").splitlines()\n    selected = lines[start_line - 1 : start_line + 119]\n    text = \"\\n\".join(f\"{i}: {line}\" for i, line in enumerate(selected, start_line))\n    return json.dumps({\"path\": path, \"sha256\": hashlib.sha256(content).hexdigest(), \"total_lines\": len(lines), \"content\": text[:8000], \"truncated\": len(text) > 8000 or start_line + 119 < len(lines)}, ensure_ascii=False)\n"
+    },
+    {
+      "path": "backend/packages/harness/deerflow/compile/simple_build_runtime.py",
+      "symbol": "observe_configuration",
+      "file_sha256": "723921cea16c0076076ee61c8800f2155cc39b76b1360f0e7ad25c45bc2cd25b",
+      "start_line": 60,
+      "end_line": 94,
+      "content": "def observe_configuration(root: Path, system: str, *, directory: str | None = None) -> dict:\n    \"\"\"从实际Cache读取generator和源码，绝不固定要求Ninja。\"\"\"\n    if system == \"autotools\":\n        folder = root / (directory or \".\")\n        # GNU Make的标准入口；其他作者自定义入口保留unknown，由真实build反馈确认。\n        entry = next((name for name in (\"GNUmakefile\", \"makefile\", \"Makefile\") if (folder / name).is_file()), None)\n        return dict(status=\"passed\" if (folder / \"config.status\").is_file() and entry else \"unknown\", directory=directory or \".\", entry=entry, build_system=system)\n    if system != \"cmake\":\n        return dict(status=\"not_applicable\", reason=\"当前入口不使用CMake/Autotools配置观察；主构建仍须独立产物检查\", configurations=[], build_system=system)\n    rows = []\n    paths = [root / directory / \"CMakeCache.txt\"] if directory is not None else sorted(root.rglob(\"CMakeCache.txt\"))\n    for p in paths:\n        if not p.is_file():\n            continue\n        if p.is_symlink() or not p.resolve().is_relative_to(root.resolve()):\n            continue\n        cache = {}\n        for line in p.read_text(errors=\"replace\").splitlines():\n            if \"=\" in line and \":\" in line.split(\"=\", 1)[0]:\n                key, value = line.split(\"=\", 1)\n                cache[key.split(\":\", 1)[0]] = value\n        generator = cache.get(\"CMAKE_GENERATOR\")\n        entry = {\"Unix Makefiles\": \"Makefile\", \"Ninja\": \"build.ninja\", \"Ninja Multi-Config\": \"build.ninja\"}.get(generator)\n        source = cache.get(\"CMAKE_HOME_DIRECTORY\", \"\")\n        directory = cache.get(\"CMAKE_CACHEFILE_DIR\", \"\")\n        expected_directory = \"/workspace/repo/\" + p.parent.relative_to(root).as_posix()\n        expected_directory = expected_directory.removesuffix(\"/.\")\n        try:\n            src = PurePosixPath(source).relative_to(\"/workspace/repo\")\n            source_valid = \"..\" not in src.parts and (root / src / \"CMakeLists.txt\").is_file()\n        except ValueError:\n            source_valid = False\n        passed = bool(entry and (p.parent / entry).is_file() and source_valid and directory == expected_directory)\n        rows.append(dict(directory=p.parent.relative_to(root).as_posix(), generator=generator, entry=entry, source_directory=source, cache_directory=directory, status=\"passed\" if passed else \"unknown\" if not entry else \"failed\"))\n    return dict(status=\"passed\" if rows and all(r[\"status\"] == \"passed\" for r in rows) else \"unknown\" if not rows or any(r[\"status\"] == \"unknown\" for r in rows) else \"failed\", configurations=rows, build_system=\"cmake\")\n"
+    },
+    {
+      "path": "backend/packages/harness/deerflow/compile/simple_build_runtime.py",
+      "symbol": "configuration_entry",
+      "file_sha256": "723921cea16c0076076ee61c8800f2155cc39b76b1360f0e7ad25c45bc2cd25b",
+      "start_line": 97,
+      "end_line": 137,
+      "content": "def configuration_entry(root: Path, step: PlanStep, previous: dict, *, output: str = \"\", build_directory: str | None = None) -> tuple[str, str | None]:\n    \"\"\"目录来自显式上下文或原生工具反馈；无法绑定时不猜Shell参数含义。\"\"\"\n    system = previous.get(\"build_system\", \"make\")\n    directory = previous.get(\"directory\") if step.role == \"build\" else None\n    working = PurePosixPath(step.workdir).relative_to(\"/workspace/repo\")\n    if build_directory is not None:\n        directory = PurePosixPath(build_directory).relative_to(\"/workspace/repo\").as_posix()\n    for segment in operations._shell_command_segments(step.command):\n        invocation = operations._command_invocation(segment)\n        if not invocation:\n            continue\n        executable, args = invocation\n        name = PurePosixPath(executable).name\n        if name not in {\"cmake\", \"configure\", \"make\", \"gmake\", \"ninja\", \"scons\", \"meson\"}:\n            continue\n        if name == \"cmake\":\n            system = \"cmake\"\n        elif name == \"configure\":\n            system = \"autotools\"\n        elif name in {\"make\", \"gmake\", \"ninja\"} and directory is None:\n            # 没有已绑定的生成目录时，以实际构建入口替代初始扫描标签。\n            system = \"ninja\" if name == \"ninja\" else \"make\"\n        elif name in {\"scons\", \"meson\"}:\n            system = name\n    if system == \"cmake\":\n        # 原生工具负责preset/宏/实际目录；终端日志缺失不等于配置失败。\n        for line in output.splitlines():\n            prefix = \"-- Build files have been written to: \"\n            if line.startswith(prefix):\n                value = PurePosixPath(line.removeprefix(prefix).strip())\n                if not value.is_absolute() or not value.is_relative_to(\"/workspace/repo\"):\n                    raise PlanContractError(\"CMake报告的配置目录必须在仓库内\")\n                directory = value.relative_to(\"/workspace/repo\").as_posix()\n    elif directory is None:\n        directory = working.as_posix()\n    if directory is not None:\n        absolute = (root / directory).resolve()\n        if not absolute.is_relative_to(root.resolve()):\n            raise PlanContractError(\"配置观察目录必须在仓库内\")\n        directory = absolute.relative_to(root.resolve()).as_posix()\n    return system, directory\n"
+    },
+    {
+      "path": "backend/packages/harness/deerflow/compile/simple_build_runtime.py",
+      "symbol": "validate_phase_command",
+      "file_sha256": "723921cea16c0076076ee61c8800f2155cc39b76b1360f0e7ad25c45bc2cd25b",
+      "start_line": 140,
+      "end_line": 168,
+      "content": "def validate_phase_command(step):\n    \"\"\"只把有明确作用域的make clean/distclean当阶段前置，保留其他阶段限制。\"\"\"\n    from deerflow.tools.bound_compile_tools import _disables_strict_shell\n\n    if _disables_strict_shell(step.command) or \"/repro\" in step.command:\n        raise PlanContractError(\"不能关闭严格Shell或访问/repro\")\n    for segment in operations._shell_command_segments(step.command):\n        invocation = operations._command_invocation(segment)\n        if invocation and invocation[0] in {\"rm\", \"unlink\", \"rmdir\"}:\n            raise PlanContractError(\"生成物清理由系统或作者clean目标执行，不能提交任意删除\")\n    roles = operations.infer_command_roles(step.command)\n    if len(roles) <= 1:\n        return\n    expected = {\"build\"} if step.role == \"build\" else {\"configure\"} if step.role == \"configure\" else set()\n    if roles != expected | {\"housekeeping\"}:\n        raise PlanContractError(\"命令混合多个逻辑阶段\")\n    substantive = False\n    for segment in operations._shell_command_segments(step.command):\n        invocation = operations._command_invocation(segment)\n        if not invocation:\n            raise PlanContractError(\"清理前置必须能确定实际命令\")\n        executable, args = invocation\n        if executable in {\"make\", \"gmake\"} and args in ([\"clean\"], [\"distclean\"]):\n            if substantive:\n                raise PlanContractError(\"清理只能发生在当前阶段实际动作之前\")\n            continue\n        if executable in {\"rm\", \"unlink\", \"rmdir\", \"bash\", \"sh\", \"sudo\", \"env\"}:\n            raise PlanContractError(\"不能通过放宽清理前置执行任意删除或嵌套Shell\")\n        substantive = True\n"
+    },
+    {
+      "path": "backend/packages/harness/deerflow/compile/simple_build_runtime.py",
+      "symbol": "generated_reset_step",
+      "file_sha256": "723921cea16c0076076ee61c8800f2155cc39b76b1360f0e7ad25c45bc2cd25b",
+      "start_line": 171,
+      "end_line": 192,
+      "content": "def generated_reset_step(baseline):\n    \"\"\"只清理本次源码树新增文件，不删除/重写原文件；同一显式动作进入重放。\"\"\"\n    protected = sorted(baseline)\n    script = \"\"\"import os,pathlib\nroot=pathlib.Path('/workspace/repo')\nprotected=set(PROTECTED)\nfor directory,dirs,files in os.walk(root,topdown=False,followlinks=False):\n p=pathlib.Path(directory)\n if '.git' in p.relative_to(root).parts: continue\n for name in files:\n  f=p/name; rel=f.relative_to(root).as_posix()\n  if rel not in protected: f.unlink()\n for name in dirs:\n  d=p/name; rel=d.relative_to(root).as_posix()\n  if name=='.git' or rel in protected: continue\n  if d.is_symlink(): d.unlink()\n  elif not any(d.iterdir()): d.rmdir()\nprint('FORGE_GENERATED_RESET')\n\"\"\".replace(\"PROTECTED\", repr(protected))\n    return PlanStep(\n        step_id=\"forge-generated-reset\", role=\"configure\", command=\"python3 - <<'FORGE_RESET_PY'\\n\" + script + \"\\nFORGE_RESET_PY\", source=\"系统：依赖/配置变化后清理原输入集合以外的生成文件\", expected=\"物理清理与逻辑后缀失效分别记录\"\n    )\n"
+    },
+    {
+      "path": "backend/packages/harness/deerflow/compile/simple_build_runtime.py",
+      "symbol": "primary_artifacts",
+      "file_sha256": "723921cea16c0076076ee61c8800f2155cc39b76b1360f0e7ad25c45bc2cd25b",
+      "start_line": 195,
+      "end_line": 245,
+      "content": "def primary_artifacts(*, task, reference, root, baseline, deadline):\n    \"\"\"独立组件覆盖＋结构/平台/来源检查；路径定位不改变构建动作。\"\"\"\n    if reference.task_sha256 != _digest(task.model_dump(mode=\"json\")):\n        raise PlanContractError(\"独立参考与公开任务身份不一致\")\n    source_unchanged(root, baseline, reference.generated_documents)\n    precompiled = set()\n    for name, row in baseline.items():\n        p = root / name\n        if not p.is_symlink():\n            with p.open(\"rb\") as stream:\n                magic = stream.read(8)\n            if magic.startswith(b\"\\x7fELF\") or magic == b\"!<arch>\\n\":\n                precompiled.add(row[\"sha256\"])\n    names = {n for c in reference.components for n in c.artifact_names}\n    candidates = []\n    machine = {\"x86_64\": \"Advanced Micro Devices X86-64\", \"aarch64\": \"AArch64\"}[task.architecture]\n    for p in root.rglob(\"*\"):\n        if time.monotonic() >= deadline:\n            return dict(status=\"unknown\", reason=\"产物观察达到时限\", components=[], artifacts=[])\n        if p.name not in names or \".git\" in p.relative_to(root).parts:\n            continue\n        try:\n            resolved = p.resolve(strict=True)\n        except (OSError, RuntimeError):\n            continue\n        if not resolved.is_relative_to(root.resolve()) or not resolved.is_file():\n            continue\n        relative = resolved.relative_to(root.resolve()).as_posix()\n        if relative in baseline:\n            continue\n        kind = operations._classify_compiled_artifact(resolved, deadline=deadline)\n        if kind not in {\"executable\", \"static_library\", \"shared_library\"}:\n            continue\n        digest = file_hash(resolved)\n        if digest in precompiled:\n            continue\n        header = subprocess.run([\"readelf\", \"-h\", str(resolved)], capture_output=True, text=True, timeout=max(0.1, min(10, deadline - time.monotonic())), env={**os.environ, \"LC_ALL\": \"C\"})\n        machines = {line.split(\":\", 1)[1].strip() for line in header.stdout.splitlines() if line.strip().startswith(\"Machine:\")}\n        if header.returncode != 0 or machines != {machine}:\n            continue\n        candidates.append(dict(alias=p.name, path=relative, kind=kind, size=resolved.stat().st_size, sha256=digest, mode=resolved.stat().st_mode & 0o777, platform=task.architecture, source=\"new_file_after_current_source_extraction\"))\n    rows, selected = [], []\n    for component in reference.components:\n        matches = [p for p in candidates if p[\"alias\"] in component.artifact_names and p[\"kind\"] in component.kinds]\n        # 同一逻辑组件的静态/共享实现均可；逐内容身份去重副本/链接。\n        identities = {(p[\"kind\"], p[\"sha256\"], p[\"mode\"]): p for p in reversed(sorted(matches, key=lambda p: p[\"path\"]))}\n        covered = bool(identities)\n        rows.append(dict(name=component.name, status=\"passed\" if covered else \"failed\", evidence=component.evidence, candidates=list(identities.values())))\n        selected.extend(identities.values())\n    unique = {p[\"path\"]: p for p in selected}\n    return dict(status=\"passed\" if all(r[\"status\"] == \"passed\" for r in rows) else \"failed\", components=rows, artifacts=list(unique.values()))\n"
+    },
+    {
+      "path": "backend/packages/harness/deerflow/compile/simple_build_runtime.py",
+      "symbol": "SimpleBuildWorkflow._configuration_observation",
+      "file_sha256": "723921cea16c0076076ee61c8800f2155cc39b76b1360f0e7ad25c45bc2cd25b",
+      "start_line": 295,
+      "end_line": 311,
+      "content": "    def _configuration_observation(self, plan):\n        if self.observation_step is None:\n            return dict(self.configuration)\n        record = self.observation_record\n        path = Path(record.log_path) if record and record.log_path else None\n        # 配置目录证据只来自当前配置动作，不能拿旧配置日志覆盖当前build目录。\n        output = \"\"\n        if self.observation_step.role == \"configure\" and path and path.is_file():\n            with path.open(errors=\"replace\") as stream:\n                output = \"\".join(line for line in stream if line.startswith(\"-- Build files have been written to: \"))\n        system, directory = configuration_entry(self.root, self.observation_step, self.configuration, output=output, build_directory=plan.build_directory)\n        observation = observe_configuration(self.root, system, directory=directory) if directory is not None else dict(status=\"unknown\", build_system=system, reason=\"实际构建目录未绑定；不扫描其他目录的旧配置来代替当前证据\")\n        observation[\"directory\"] = directory\n        observation[\"declared_build_directory\"] = plan.build_directory\n        observation[\"command_id\"] = record.command_id if record else None\n        observation[\"phase_complete\"] = self.observation_step.role != \"configure\" or not any(s.role == \"configure\" and s.step_id != self.observation_step.step_id and s.step_id not in self.completed for s in plan.steps)\n        return observation\n"
+    },
+    {
+      "path": "backend/packages/harness/deerflow/compile/simple_build_runtime.py",
+      "symbol": "SimpleBuildWorkflow._execute",
+      "file_sha256": "723921cea16c0076076ee61c8800f2155cc39b76b1360f0e7ad25c45bc2cd25b",
+      "start_line": 317,
+      "end_line": 358,
+      "content": "    def _execute(self, step):\n        self.check_source()\n        if self.meter is not None:\n            self.meter.tracker.observe_elapsed(time.monotonic() - self.started)\n            self.meter.tracker.consume(commands=1)\n        try:\n            self._validate_step(step)\n        except PlanContractError as exc:\n            record = BuildCommandRecord(stage=\"plan\", command=step.command, workdir=step.workdir, role=step.role, exit_code=126, termination=\"policy_rejected\", completed_at=utc_now_iso())\n            record.log_path = str(self.manager.local_logs_dir(self._session) / (record.command_id + \".log\"))\n            Path(record.log_path).write_text(str(exc))\n            self.commands_used += 1\n            self.manager.record_command(self._session, record)\n            self._session = self._load()\n            self._expected_frontier = self._frontier()\n            return False\n        passed = super()._execute(step)\n        record = self._session.commands[-1]\n        key = step.role + \"_seconds\"\n        self.timings[key] = self.timings.get(key, 0) + (record.duration_seconds or 0)\n        if self.handoffs_used:\n            self.timings[\"recovery_execution_seconds\"] = self.timings.get(\"recovery_execution_seconds\", 0) + (record.duration_seconds or 0)\n        if step.role == \"build\":\n            self.layers[\"command_build_passed\"] = bool(record.exit_code == 0 and not record.timed_out)\n        self.check_source()\n        if not passed:\n            return False\n        if step.role in {\"configure\", \"build\"} and step.step_id != \"forge-generated-reset\":\n            self.observation_step = step\n            self.observation_record = record\n            self.refresh_configuration()\n            self.manager.log_event(self._session, \"simple.configuration_observed\", step_id=step.step_id, **self.configuration)\n            # autogen/autoreconf等前置可以单列动作；只在配置阶段结束时要求配置完成。\n            # 所有中间动作仍必须成功退出；实际build与独立主产物检查保持不变。\n            if self.configuration[\"phase_complete\"] and self.configuration[\"status\"] == \"failed\":\n                self.completed.pop(step.step_id, None)\n                return False\n            if self.configuration[\"status\"] == \"unknown\":\n                # 只继续已经规划且受原时限/命令数约束的动作；unknown不改写为passed。\n                # 构建命令失败仍交接；build退出0后还必须通过独立主产物检查。\n                self.manager.log_event(self._session, \"simple.observation_inconclusive\", step_id=step.step_id, next_action=\"continue_planned_execution\", command_id=record.command_id)\n        return True\n"
+    },
+    {
+      "path": "backend/packages/harness/deerflow/compile/simple_build_runtime.py",
+      "symbol": "SimpleBuildWorkflow._request_handoff",
+      "file_sha256": "723921cea16c0076076ee61c8800f2155cc39b76b1360f0e7ad25c45bc2cd25b",
+      "start_line": 360,
+      "end_line": 373,
+      "content": "    def _request_handoff(self, reason, step=None):\n        if reason == \"step_failed_or_expectation_missing\" and self.observation_record and self._session.commands[-1].command_id == self.observation_record.command_id:\n            reason = \"configuration_inconsistent\"\n        result = super()._request_handoff(reason, step)\n        if self.handoff:\n            self.handoff.update(\n                configuration_state=self.configuration,\n                primary_components=self.primary,\n                successful_dependencies=[dict(step_id=s.step_id, command_id=self.completed[s.step_id], command=s.command, workdir=s.workdir) for s in self.plan.steps if s.role == \"dependency\" and s.step_id in self.completed],\n            )\n            self._persist()\n            (self.directory / f\"handoff-{self.handoff['handoff_id']}.json\").write_text(json.dumps(self.handoff, ensure_ascii=False, indent=2) + \"\\n\")\n            result = self.snapshot()\n        return result\n"
+    },
+    {
+      "path": "backend/packages/harness/deerflow/compile/simple_build_runtime.py",
+      "symbol": "SimpleBuildWorkflow.run",
+      "file_sha256": "723921cea16c0076076ee61c8800f2155cc39b76b1360f0e7ad25c45bc2cd25b",
+      "start_line": 375,
+      "end_line": 396,
+      "content": "    def run(self):\n        result = super().run()\n        if self.status != \"ready_for_verification\":\n            return result\n        # 角色声明表示动作目的；成功记录与下面的独立主产物检查共同确认结果。\n        # Shell变量/包装器无法静态识别，不能据此否定已观察到的实际构建。\n        self.layers[\"command_build_passed\"] = any(s.role == \"build\" and s.step_id in self.completed for s in self.plan.steps)\n        observed = time.monotonic()\n        self.primary = primary_artifacts(task=self.plan.task, reference=self.reference, root=self.root, baseline=self.baseline, deadline=observed + min(30, self._remaining()))\n        self.timings[\"result_location_seconds\"] = time.monotonic() - observed\n        self.layers[\"primary_build_completed\"] = True if self.layers[\"command_build_passed\"] and self.primary[\"status\"] == \"passed\" else None if self.primary[\"status\"] == \"unknown\" else False\n        if not self.layers[\"primary_build_completed\"]:\n            return self._request_handoff(\"primary_components_missing_or_unobserved\")\n        self.status = \"primary_completed\"\n        self.timings[\"primary_build_seconds\"] = self.clock() - self.started\n        payload = dict(layers=self.layers, primary=self.primary, configuration=self.configuration, timings=self.timings, workflow=self.snapshot())\n        with (self.directory / f\"primary-result-r{self.plan.revision}.json\").open(\"x\") as stream:\n            stream.write(json.dumps(payload, ensure_ascii=False, indent=2) + \"\\n\")\n        if not (self.directory / \"primary-result.json\").exists():\n            (self.directory / \"primary-result.json\").write_text(json.dumps(payload, ensure_ascii=False, indent=2) + \"\\n\")\n        self._persist()\n        return self.snapshot()\n"
+    },
+    {
+      "path": "backend/packages/harness/deerflow/compile/simple_build_runtime.py",
+      "symbol": "SimpleBuildWorkflow._retain_dependencies",
+      "file_sha256": "723921cea16c0076076ee61c8800f2155cc39b76b1360f0e7ad25c45bc2cd25b",
+      "start_line": 398,
+      "end_line": 420,
+      "content": "    def _retain_dependencies(self, plan):\n        \"\"\"遗漏不是删除；有效配方保留成功准备，不收集所有历史命令。\"\"\"\n        successful = [s for s in self.plan.steps if s.role == \"dependency\" and s.step_id in self.completed]\n        known = {s.step_id for s in successful}\n        if not set(plan.discard_dependencies) <= known:\n            raise PlanContractError(\"discard_dependencies只能引用当前已成功的依赖步骤\")\n        incoming = {s.step_id: s for s in plan.steps}\n        retained = []\n        keys = (\"role\", \"command\", \"workdir\", \"requires\", \"required_output\")\n        for old in successful:\n            if old.step_id in plan.discard_dependencies:\n                continue\n            new = incoming.get(old.step_id)\n            if new is not None and any(getattr(old, k) != getattr(new, k) for k in keys):\n                raise PlanContractError(f\"替换成功依赖{old.step_id}须在discard_dependencies中说明理由；不能隐式覆盖\")\n            if any(s.step_id != old.step_id and (s.role, s.command, s.workdir) == (old.role, old.command, old.workdir) for s in plan.steps):\n                raise PlanContractError(f\"依赖改名没有改变实际执行动作；请沿用成功依赖的step_id={old.step_id}，不要改名重复执行\")\n            retained.append(new or old)\n        retained_ids = {s.step_id for s in retained}\n        # 成功环境准备保持实际先后，新增依赖在其后执行；配置后缀仍会失效。\n        value = plan.model_dump()\n        value[\"steps\"] = [*retained, *(s for s in plan.steps if s.step_id not in retained_ids)]\n        return SimpleBuildPlan.model_validate(value)\n"
+    },
+    {
+      "path": "backend/packages/harness/deerflow/compile/simple_build_runtime.py",
+      "symbol": "SimpleBuildWorkflow.validate_revision",
+      "file_sha256": "723921cea16c0076076ee61c8800f2155cc39b76b1360f0e7ad25c45bc2cd25b",
+      "start_line": 422,
+      "end_line": 437,
+      "content": "    def validate_revision(self, plan):\n        \"\"\"先把可执行性问题反馈给Agent；只改观察上下文时不重跑成功命令。\"\"\"\n        plan = SimpleBuildPlan.model_validate(plan)\n        if plan.task != self.plan.task or plan.revision != self.plan.revision + 1:\n            raise PlanContractError(\"修订不得改变公开任务或资源身份，必须递增一个版本\")\n        plan = self._retain_dependencies(plan)\n        record = self.observation_record\n        observation_only = bool(self.handoff and self.handoff[\"reason\"] == \"configuration_inconsistent\" and record and record.exit_code == 0 and not record.timed_out)\n        kind = validate_simple_revision(self.plan, plan, allow_observation_only=observation_only)\n        observation = None\n        if kind == \"observation\":\n            self.check_source()\n            observation = self._configuration_observation(plan)\n            if observation[\"status\"] != \"passed\":\n                raise PlanContractError(\"新观察目录没有通过实际配置核验；不能据此解除配置冲突或重跑原命令\")\n        return kind, observation\n"
+    },
+    {
+      "path": "backend/packages/harness/deerflow/compile/simple_build_runtime.py",
+      "symbol": "SimpleBuildWorkflow.apply_revision",
+      "file_sha256": "723921cea16c0076076ee61c8800f2155cc39b76b1360f0e7ad25c45bc2cd25b",
+      "start_line": 439,
+      "end_line": 458,
+      "content": "    def apply_revision(self, *, handoff_id, plan, reason):\n        with self.manager.session_lock(self.thread_id, self.session_id):\n            self._observe()\n            if self.status != \"needs_handoff\" or not self.handoff or self.handoff[\"handoff_id\"] != handoff_id or not reason.strip():\n                raise PlanContractError(\"没有匹配的活动交接或修改理由\")\n            plan = SimpleBuildPlan.model_validate(plan)\n            kind, observation = self.validate_revision(plan)\n            plan = self._retain_dependencies(plan)\n            if kind == \"observation\":\n                # Agent不可生成/覆盖系统步骤；观察修订仍保留已执行的实际清理配方。\n                replacement = {s.step_id: s for s in plan.steps}\n                plan = plan.model_copy(update={\"steps\": tuple(s if s.step_id == \"forge-generated-reset\" else replacement[s.step_id] for s in self.plan.steps)})\n                self.plan, self.configuration = plan, observation\n                self.completed[self.observation_step.step_id] = self.observation_record.command_id\n                self.status, self.handoff = \"pending\", None\n                self._write_plan()\n                self.manager.log_event(self._session, \"simple.observation_revised\", revision=plan.revision, reason=reason, command_reexecuted=False, configuration=observation)\n                self._persist()\n                return\n            self._apply_execution_revision(handoff_id=handoff_id, plan=plan, reason=reason)\n"
+    },
+    {
+      "path": "backend/packages/harness/deerflow/compile/simple_build_runtime.py",
+      "symbol": "SimpleBuildWorkflow._apply_execution_revision",
+      "file_sha256": "723921cea16c0076076ee61c8800f2155cc39b76b1360f0e7ad25c45bc2cd25b",
+      "start_line": 460,
+      "end_line": 488,
+      "content": "    def _apply_execution_revision(self, *, handoff_id, plan, reason):\n        retained_dependencies = {s.step_id: self.completed[s.step_id] for s in self.plan.steps if s.role == \"dependency\" and s.step_id in self.completed and s.step_id not in plan.discard_dependencies}\n        old = [s for s in self.plan.steps if s.step_id != \"forge-generated-reset\"]\n        new = [s for s in plan.steps if s.step_id != \"forge-generated-reset\"]\n        before = [(s.role, s.command, s.workdir) for s in old if s.role in {\"dependency\", \"configure\"}]\n        after = [(s.role, s.command, s.workdir) for s in new if s.role in {\"dependency\", \"configure\"}]\n        if before != after:\n            position = next((i for i, s in enumerate(new) if s.role != \"dependency\"), len(new))\n            new.insert(position, generated_reset_step(self.baseline))\n            plan = plan.model_copy(update={\"steps\": tuple(new)})\n        elif any(s.step_id == \"forge-generated-reset\" for s in self.plan.steps):\n            position = next((i for i, s in enumerate(new) if s.role != \"dependency\"), len(new))\n            new.insert(position, next(s for s in self.plan.steps if s.step_id == \"forge-generated-reset\"))\n            plan = plan.model_copy(update={\"steps\": tuple(new)})\n        super().apply_revision(handoff_id=handoff_id, plan=plan, reason=reason)\n        # 删除前面的某个依赖可能使通用前缀算法清空后续完成记录；仍有效的\n        # 独立准备动作可复用，避免仅为了保留重放配方而在原容器重装。\n        for step in self.plan.steps:\n            if step.step_id in retained_dependencies and set(step.requires) <= self.completed.keys():\n                self.completed[step.step_id] = retained_dependencies[step.step_id]\n        self.manager.log_event(self._session, \"simple.dependencies_retained\", command_ids=retained_dependencies, discarded=plan.discard_dependencies)\n        self._persist()\n        self.observation_step = self.observation_record = None\n        self.configuration = dict(status=\"unknown\", directory=None, build_system=plan.build_system, reason=\"方案修订后等待新的实际执行证据\")\n        self.primary = None\n        self.layers[\"command_build_passed\"] = self.layers[\"primary_build_completed\"] = None\n        for name in (\"delivery\", \"author_tests\", \"executable_smoke\", \"clean_replay\"):\n            self.layers[name] = \"unobserved\"\n        self.layers[\"final_verification_passed\"] = None\n"
+    },
+    {
+      "path": "backend/packages/harness/deerflow/compile/simple_build_runtime.py",
+      "symbol": "SimpleBuildWorkflow._executable_verification",
+      "file_sha256": "723921cea16c0076076ee61c8800f2155cc39b76b1360f0e7ad25c45bc2cd25b",
+      "start_line": 514,
+      "end_line": 548,
+      "content": "    def _executable_verification(self, timeout, *, native_only=False):\n        \"\"\"执行受信参考中的轻量命令；复用submit原有的成功命令绑定接口。\"\"\"\n        self.verification_issue = None\n        if not self.reference.executable_smokes and not native_only:\n            return None, True  # 沿用原默认三参数，不增加隐式探测。\n        executables = {Path(p[\"path\"]).name for p in self.primary[\"artifacts\"] if p[\"kind\"] == \"executable\"}\n        selected = [s for s in self.reference.executable_smokes if s.artifact_name in executables]\n        if {s.artifact_name for s in selected} != executables:\n            self.layers[\"executable_smoke\"] = \"unobserved\"\n            self.verification_issue = dict(kind=\"missing_native_verification\", reason=\"独立参考缺少可执行文件的作者轻量验证入口；不猜测参数\", recoverable=False)\n            return None, False\n        bindings = {}\n        start = time.monotonic()\n        self.layers[\"executable_smoke\"] = \"not_applicable\" if not executables else \"passed\"\n        for smoke in selected:\n            remaining = int(timeout - (time.monotonic() - start))\n            if remaining <= 0:\n                self.layers[\"executable_smoke\"] = \"timeout\"\n                return None, False\n            # 原容器与重放共用同一短时限；交付共享库在交付目录内解析。\n            step = smoke.step.model_copy(update={\"command\": \"export LD_LIBRARY_PATH=/artifacts${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}\\n\" + smoke.step.command})\n            record, output = self._post_command(step, min(30, remaining))\n            if record.exit_code != 0 or record.timed_out or not all(v in output.combined_output for v in smoke.step.required_output):\n                self.layers[\"executable_smoke\"] = \"timeout\" if record.timed_out else \"failed\"\n                self.verification_issue = dict(\n                    kind=\"execution_failed\" if record.exit_code != 0 else \"output_assertion_failed\",\n                    command_id=record.command_id,\n                    recoverable=record.exit_code != 0 and not record.timed_out,\n                    reason=\"执行未成功\" if record.exit_code != 0 else \"退出0但输出断言不符，需核对独立验证定义，不能交Agent改写裁判\",\n                )\n                return None, False\n            bindings[smoke.artifact_name] = operations.SuccessfulCommandVerification(\n                command_id=record.command_id, command=record.command, workdir=record.workdir, exit_code=record.exit_code, output=output.combined_output, output_sha256=hashlib.sha256(output.combined_output.encode()).hexdigest()\n            )\n        return operations.ExecutableVerificationPolicy.successful_commands(bindings) if bindings else None, True\n"
+    },
+    {
+      "path": "backend/packages/harness/deerflow/compile/simple_build_runtime.py",
+      "symbol": "SimpleBuildWorkflow.postchecks",
+      "file_sha256": "723921cea16c0076076ee61c8800f2155cc39b76b1360f0e7ad25c45bc2cd25b",
+      "start_line": 550,
+      "end_line": 655,
+      "content": "    def postchecks(self, *, author_test_seconds=60, delivery_seconds=30, replay=True, validation_scope=\"author_tests\", recover_delivery=False):\n        \"\"\"主构建已冻结后独立计时；测试失败仍可观察构建重放，不吞主构建预算。\"\"\"\n        if self.status != \"primary_completed\":\n            raise PlanContractError(\"必须先确认主要构建\")\n        if validation_scope not in {\"main_build\", \"author_tests\"}:\n            raise PlanContractError(\"未知构建验证范围\")\n        self.check_source()\n        artifacts = self.primary[\"artifacts\"]\n        destinations = [Path(p[\"path\"]).name for p in artifacts]\n        if len(set(destinations)) != len(destinations):\n            raise PlanContractError(\"主产物交付名称歧义\")\n        copies = {Path(p[\"path\"]).name: p[\"path\"] for p in artifacts}\n        # ELF自身声明的SONAME是运行时依赖名称；只为已确认的主共享库建立精确副本。\n        for artifact in artifacts:\n            if artifact[\"kind\"] != \"shared_library\":\n                continue\n            dynamic = subprocess.run([\"readelf\", \"-d\", str(self.root / artifact[\"path\"])], capture_output=True, text=True, check=True, timeout=min(10, delivery_seconds))\n            for name in re.findall(r\"\\(SONAME\\).*?\\[([^\\]]+)\\]\", dynamic.stdout):\n                if not name or PurePosixPath(name).name != name or name in {\".\", \"..\"}:\n                    raise PlanContractError(\"共享库SONAME不能逃出交付目录\")\n                if name in copies and copies[name] != artifact[\"path\"]:\n                    raise PlanContractError(\"交付共享库SONAME歧义\")\n                copies[name] = artifact[\"path\"]\n        destinations = list(copies)\n        command = \"\\n\".join(\"cp -- \" + shlex.quote(path) + \" /artifacts/\" + shlex.quote(name) for name, path in copies.items())\n        stage = PlanStep(step_id=\"stage\", role=\"artifact_stage\", command=command, source=\"实际主组件观察\", expected=\"精确暂存主产物\")\n        start = time.monotonic()\n        staged, result = self._post_command(stage, delivery_seconds)\n        actual = {p.name for p in Path(self._session.leadagent_artifacts_dir).iterdir() if p.is_file() and not p.is_symlink()}\n        self.layers[\"delivery\"] = \"passed\" if result.exit_code == 0 and actual == set(destinations) else \"failed\"\n        self.timings[\"delivery_seconds\"] = time.monotonic() - start\n        tests = []\n        start = time.monotonic()\n        if validation_scope == \"main_build\":\n            author_steps, selection = (), dict(route=\"not_required\", reason=\"新主构建任务不要求完整作者测试\")\n        else:\n            author_steps, selection = resolve_author_tests(self.root, self.reference)\n        (self.directory / \"author-test-selection.json\").write_text(json.dumps(selection, ensure_ascii=False, indent=2) + \"\\n\")\n        if not author_steps:\n            self.layers[\"author_tests\"] = \"not_required\" if validation_scope == \"main_build\" else \"not_applicable\" if self.reference.tests_not_applicable_reason else \"unobserved\"\n        else:\n            self.layers[\"author_tests\"] = \"passed\"\n            for step in author_steps:\n                remaining = int(author_test_seconds - (time.monotonic() - start))\n                if remaining <= 0:\n                    self.layers[\"author_tests\"] = \"timeout\"\n                    break\n                record, output = self._post_command(step, remaining)\n                passed = record.exit_code == 0 and all(v in output.combined_output for v in step.required_output)\n                tests.append(dict(command_id=record.command_id, passed=passed, timed_out=record.timed_out))\n                if not passed:\n                    self.layers[\"author_tests\"] = \"timeout\" if record.timed_out else \"failed\"\n                    break\n        self.timings[\"author_tests_seconds\"] = time.monotonic() - start\n        replayed_tests = self.layers[\"author_tests\"] == \"passed\"\n        if replay and self.layers[\"delivery\"] == \"passed\":\n            self._observe()\n            selected = {self.completed[s.step_id] for s in self.plan.steps} | {staged.command_id}\n            ids = [r.command_id for r in self._session.commands if r.command_id in selected]\n            builds = [self.completed[s.step_id] for s in self.plan.steps if s.role == \"build\"]\n            start = time.monotonic()\n            attempt_count = len(self._session.replay_attempts)\n            self.layers.update(clean_replay=\"not_started\", final_verification_passed=False)\n            try:\n                policy, smoke_passed = self._executable_verification(author_test_seconds, native_only=validation_scope == \"main_build\")\n                if smoke_passed:\n                    kwargs = dict(executable_verification_policy=policy) if policy is not None else {}\n                    verification_ids = {t[\"command_id\"] for t in tests} if replayed_tests else set()\n                    if policy is not None:\n                        verification_ids.update(e.command_id for e in policy.commands_by_artifact.values())\n                    ordered_checks = [r.command_id for r in self._session.commands if r.command_id in verification_ids]\n                    operations.submit_build_result_impl(session=self._session, supporting_command_id=builds[-1], recipe_command_ids=ids, verification_command_ids=ordered_checks, **kwargs)\n            finally:\n                self._session = self._load()\n                self._expected_frontier = self._frontier()\n                attempts = self._session.replay_attempts[attempt_count:]\n                self.layers[\"clean_replay\"] = attempts[-1].status if attempts else \"not_started\"\n                self.layers[\"final_verification_passed\"] = bool(attempts and attempts[-1].status == \"passed\" and self._session.status == \"verified\")\n                if not self.reference.executable_smokes and self._session.verification:\n                    checks = [c for c in self._session.verification.checks if c.name.endswith(\"_smoke_test\")]\n                    self.layers[\"executable_smoke\"] = \"passed\" if checks and all(c.passed for c in checks) else \"failed\" if checks else \"not_applicable\"\n                self.timings[\"clean_replay_seconds\"] = time.monotonic() - start\n        self.check_source()\n        self.timings[\"total_seconds_before_cleanup\"] = self.clock() - self.started\n        result = dict(\n            layers=self.layers,\n            timings=self.timings,\n            primary=self.primary,\n            author_test_records=tests,\n            author_test_selection=selection,\n            replayed_author_tests=replayed_tests and replay,\n            session_status=self._session.status,\n            replay_attempts=[asdict(a) for a in self._session.replay_attempts],\n            validation_scope=validation_scope,\n            verification_issue=getattr(self, \"verification_issue\", None),\n        )\n        (self.directory / f\"postcheck-result-r{self.plan.revision}.json\").write_text(json.dumps(result, ensure_ascii=False, indent=2) + \"\\n\")\n        (self.directory / \"postcheck-result.json\").write_text(json.dumps(result, ensure_ascii=False, indent=2) + \"\\n\")\n        issue = result[\"verification_issue\"]\n        if recover_delivery and issue and issue[\"recoverable\"]:\n            self._request_handoff(\"delivery_execution_failed\")\n            if self.handoff:\n                self.handoff[\"delivery_failure\"] = issue\n                self._persist()\n                (self.directory / f\"handoff-{self.handoff['handoff_id']}.json\").write_text(json.dumps(self.handoff, ensure_ascii=False, indent=2) + \"\\n\")\n        return result\n"
+    },
+    {
+      "path": "backend/packages/harness/deerflow/compile/plan_workflow.py",
+      "symbol": "PlanStep",
+      "file_sha256": "65473d1770304e5fd42aefb36b31f82b9595406f76bae1e3c44313771ca7027f",
+      "start_line": 30,
+      "end_line": 62,
+      "content": "class PlanStep(BaseModel):\n    model_config = ConfigDict(frozen=True, extra=\"forbid\", revalidate_instances=\"always\")\n\n    step_id: str = Field(pattern=r\"^[a-zA-Z0-9][a-zA-Z0-9_-]{0,63}$\")\n    role: Literal[\"dependency\", \"configure\", \"build\", \"smoke\", \"artifact_stage\"]\n    command: str = Field(min_length=1)\n    source: str = Field(min_length=1)\n    expected: str = Field(min_length=1)\n    workdir: str = \"/workspace/repo\"\n    requires: tuple[str, ...] = ()\n    required_output: tuple[str, ...] = ()\n    diagnostic_paths: tuple[str, ...] = ()\n\n    @field_validator(\"workdir\")\n    @classmethod\n    def validate_workdir(cls, value: str) -> str:\n        path = PurePosixPath(value)\n        if value != path.as_posix() or \"..\" in path.parts or not any(path.is_relative_to(root) for root in (\"/workspace/repo\", \"/artifacts\")):\n            raise ValueError(\"执行目录必须是仓库或交付目录内的规范绝对路径\")\n        return value\n\n    @field_validator(\"diagnostic_paths\")\n    @classmethod\n    def validate_diagnostics(cls, values: tuple[str, ...]) -> tuple[str, ...]:\n        for value in values:\n            _relative_path(value)\n        return values\n\n    @model_validator(mode=\"after\")\n    def validate_expectation(self) -> Self:\n        if any(not marker for marker in self.required_output) or (self.role == \"smoke\" and not self.required_output):\n            raise ValueError(\"任务验证必须提供非空输出依据，不能仅凭退出码判定实际运行过测试\")\n        return self\n"
+    },
+    {
+      "path": "backend/packages/harness/deerflow/compile/plan_workflow.py",
+      "symbol": "PlanWorkflow._request_handoff",
+      "file_sha256": "65473d1770304e5fd42aefb36b31f82b9595406f76bae1e3c44313771ca7027f",
+      "start_line": 215,
+      "end_line": 232,
+      "content": "    def _request_handoff(self, reason: str, step: PlanStep | None = None) -> dict:\n        if self.handoffs_used >= self.budget.max_handoffs or self.commands_used >= self.budget.max_commands or self._remaining() <= 0:\n            self.status = \"budget_exhausted\"\n        else:\n            self.handoffs_used += 1\n            self.status = \"needs_handoff\"\n            self.handoff = {\n                \"handoff_id\": uuid.uuid4().hex,\n                \"reason\": reason,\n                \"step_id\": step.step_id if step else None,\n                \"plan_sha256\": self.plan.fingerprint(),\n                \"command_frontier\": self._expected_frontier,\n                \"recent_commands\": [self._command_evidence(row) for row in self._session.commands[-6:]],\n                \"return_contract\": \"返回完整修订方案及修改理由；禁止自行降低验收或宣告成功\",\n            }\n            (self.directory / f\"handoff-{self.handoff['handoff_id']}.json\").write_text(json.dumps(self.handoff, ensure_ascii=False, indent=2) + \"\\n\")\n        self._persist()\n        return self.snapshot()\n"
+    },
+    {
+      "path": "backend/packages/harness/deerflow/compile/plan_workflow.py",
+      "symbol": "PlanWorkflow._execute",
+      "file_sha256": "65473d1770304e5fd42aefb36b31f82b9595406f76bae1e3c44313771ca7027f",
+      "start_line": 275,
+      "end_line": 308,
+      "content": "    def _execute(self, step: PlanStep) -> bool:\n        self._validate_step(step)\n        timeout = min(self.budget.command_timeout_seconds, self._remaining())\n        record = BuildCommandRecord(stage=\"plan\", command=step.command, workdir=step.workdir, role=step.role, timeout_seconds=timeout)\n        path = self.manager.local_logs_dir(self._session) / f\"{record.command_id}.log\"\n        record.log_path = str(path)\n        started = self.clock()\n        self.commands_used += 1\n        try:\n            result = self.runtime.exec(self._session, step.command, workdir=step.workdir, timeout_seconds=timeout, log_path=str(path), strict_shell=True)\n        except Exception as exc:\n            timed_out = isinstance(exc, subprocess.TimeoutExpired)\n            output = f\"执行器异常：{type(exc).__name__}: {exc}\\n\"\n            for partial in (getattr(exc, \"stdout\", None), getattr(exc, \"stderr\", None)):\n                if partial:\n                    output += partial.decode(errors=\"replace\") if isinstance(partial, bytes) else str(partial)\n            with path.open(\"a\") as handle:\n                handle.write(output)\n            result = CommandResult(124 if timed_out else 125, \"\", output, output, str(path))\n        record.completed_at = utc_now_iso()\n        record.duration_seconds = self.clock() - started\n        record.exit_code = result.exit_code\n        record.timed_out = result.exit_code == 124\n        record.termination = \"timeout\" if record.timed_out else \"completed\" if result.exit_code == 0 else \"failed\"\n        self._observe()\n        self.manager.record_command(self._session, record)\n        self._session = self._load()\n        self._expected_frontier = self._frontier()\n        self._capture_diagnostics(step, record.command_id)\n        passed = result.exit_code == 0 and all(marker in result.combined_output for marker in step.required_output)\n        self.manager.log_event(self._session, \"plan.step\", step_id=step.step_id, revision=self.plan.revision, command_id=record.command_id, expected_satisfied=passed)\n        if passed:\n            self.completed[step.step_id] = record.command_id\n        return passed\n"
+    },
+    {
+      "path": "backend/packages/harness/deerflow/compile/plan_workflow.py",
+      "symbol": "PlanWorkflow.run",
+      "file_sha256": "65473d1770304e5fd42aefb36b31f82b9595406f76bae1e3c44313771ca7027f",
+      "start_line": 310,
+      "end_line": 330,
+      "content": "    def run(self) -> dict:\n        with self.manager.session_lock(self.thread_id, self.session_id):\n            self._observe()\n            if self.status != \"pending\":\n                return self.snapshot()\n            for step in self.plan.steps:\n                if step.step_id in self.completed:\n                    continue\n                if self.commands_used >= self.budget.max_commands or self._remaining() <= 0:\n                    self.status = \"budget_exhausted\"\n                    break\n                if not set(step.requires).issubset(self.completed):\n                    return self._request_handoff(\"precondition_missing\", step)\n                self._observe()\n                if not self._execute(step):\n                    return self._request_handoff(\"step_failed_or_expectation_missing\", step)\n                self._persist()\n            else:\n                self.status = \"ready_for_verification\"\n            self._persist()\n            return self.snapshot()\n"
+    },
+    {
+      "path": "backend/packages/harness/deerflow/compile/plan_workflow.py",
+      "symbol": "PlanWorkflow.apply_revision",
+      "file_sha256": "65473d1770304e5fd42aefb36b31f82b9595406f76bae1e3c44313771ca7027f",
+      "start_line": 332,
+      "end_line": 359,
+      "content": "    def apply_revision(self, *, handoff_id: str, plan: BuildPlan, reason: str) -> None:\n        with self.manager.session_lock(self.thread_id, self.session_id):\n            self._observe()\n            plan = self.plan_model.model_validate(plan)\n            if self.status != \"needs_handoff\" or not self.handoff or self.handoff[\"handoff_id\"] != handoff_id or not reason.strip():\n                raise PlanContractError(\"没有匹配的活动交接或修改理由\")\n            old = self.plan\n            identity = (\"plan_id\", \"repository_url\", \"commit_sha\", \"image_id\", \"source_archive_sha256\", \"build_system\", \"artifact_paths\")\n            if any(getattr(plan, key) != getattr(old, key) for key in identity) or plan.revision != old.revision + 1:\n                raise PlanContractError(\"修订不得改变任务身份、交付要求或跳过版本\")\n            if tuple(s for s in plan.steps if s.role == \"smoke\") != tuple(s for s in old.steps if s.role == \"smoke\"):\n                raise PlanContractError(\"修订不得降低或替换任务验证要求\")\n            prefix = 0\n            for before, after in zip(old.steps, plan.steps):\n                keys = (\"step_id\", \"command\", \"role\", \"workdir\", \"requires\", \"required_output\")\n                if any(getattr(before, key) != getattr(after, key) for key in keys):\n                    break\n                prefix += 1\n            if prefix == len(old.steps) == len(plan.steps):\n                raise PlanContractError(\"无变化修订不能触发相同失败的重复执行\")\n            keep = {step.step_id for step in old.steps[:prefix]}\n            self.completed = {key: value for key, value in self.completed.items() if key in keep}\n            self.plan = plan\n            self.status = \"pending\"\n            self.handoff = None\n            self._write_plan()\n            self.manager.log_event(self._session, \"plan.revised\", revision=plan.revision, reason=reason, retained_steps=sorted(keep))\n            self._persist()\n"
+    },
+    {
+      "path": "backend/packages/harness/deerflow/compile/operations.py",
+      "symbol": "_shell_command_segments",
+      "file_sha256": "bec732bf9787f9280ced1dd5acfa2a75339ffdc4c0caafaaec1a1f291f24df04",
+      "start_line": 1433,
+      "end_line": 1453,
+      "content": "def _shell_command_segments(command: str) -> list[list[str]]:\n    try:\n        lexer = shlex(command.replace(\"\\n\", \";\"), posix=True, punctuation_chars=\"();&|\")\n        lexer.whitespace_split = True\n        lexer.commenters = \"\"\n        tokens = list(lexer)\n    except ValueError:\n        return []\n\n    segments: list[list[str]] = []\n    current: list[str] = []\n    for token in tokens:\n        if token in _SHELL_COMMAND_SEPARATORS:\n            if current:\n                segments.append(current)\n                current = []\n            continue\n        current.append(token)\n    if current:\n        segments.append(current)\n    return segments\n"
+    },
+    {
+      "path": "backend/packages/harness/deerflow/compile/operations.py",
+      "symbol": "_command_invocation",
+      "file_sha256": "bec732bf9787f9280ced1dd5acfa2a75339ffdc4c0caafaaec1a1f291f24df04",
+      "start_line": 1456,
+      "end_line": 1474,
+      "content": "def _command_invocation(segment: list[str]) -> tuple[str, list[str]] | None:\n    wrappers = {\"command\", \"env\", \"sudo\", \"time\"}\n    for index, token in enumerate(segment):\n        if token in {\"if\", \"then\", \"elif\", \"else\", \"!\", \"while\", \"until\", \"do\"}:\n            continue\n        if token == \"--\" or token.startswith(\"-\") or re.fullmatch(r\"[A-Za-z_][A-Za-z0-9_]*=.*\", token):\n            continue\n        executable = PurePosixPath(token).name\n        # command -v/-V 查询工具存在性，不执行后面的工具；其他分段仍须分析。\n        if executable == \"command\":\n            for argument in segment[index + 1 :]:\n                if not argument.startswith(\"-\") or argument == \"--\":\n                    break\n                if set(argument[1:]) & {\"v\", \"V\"}:\n                    return None\n        if executable in wrappers:\n            continue\n        return executable, segment[index + 1 :]\n    return None\n"
+    },
+    {
+      "path": "backend/packages/harness/deerflow/compile/operations.py",
+      "symbol": "_infer_command_roles",
+      "file_sha256": "bec732bf9787f9280ced1dd5acfa2a75339ffdc4c0caafaaec1a1f291f24df04",
+      "start_line": 1511,
+      "end_line": 1564,
+      "content": "def _infer_command_roles(command: str, *, depth: int) -> set[str]:\n    roles: set[str] = set()\n    stages_artifacts = _command_mentions_container_path(command, \"/artifacts\")\n    for segment in _shell_command_segments(command):\n        invocation = _command_invocation(segment)\n        if invocation is None:\n            continue\n        executable, arguments = invocation\n        segment_text = \" \".join(segment)\n\n        if executable in _DEPENDENCY_SETUP_EXECUTABLES:\n            roles.add(\"dependency_setup\")\n        if executable == \"sleep\":\n            roles.add(\"replay_delay\")\n\n        if executable == \"cmake\":\n            if \"--build\" in arguments:\n                roles.add(\"build\" if _cmake_invokes_real_build(arguments) else \"housekeeping\")\n            elif \"--install\" not in arguments and \"-E\" not in arguments and \"--open\" not in arguments:\n                roles.add(\"configure\")\n            if stages_artifacts and (\"--install\" in arguments or (\"-E\" in arguments and any(argument in {\"copy\", \"copy_if_different\"} for argument in arguments))):\n                roles.add(\"artifact_stage\")\n            continue\n\n        if executable in {\"make\", \"gmake\", \"ninja\"}:\n            installs_artifacts = stages_artifacts and \"install\" in arguments\n            if installs_artifacts:\n                roles.add(\"artifact_stage\")\n            else:\n                roles.add(\"build\" if _build_tool_invokes_real_target(arguments) else \"housekeeping\")\n            continue\n\n        if executable in {\"configure\", \"autogen.sh\", \"autoreconf\"}:\n            roles.add(\"configure\")\n            continue\n\n        if stages_artifacts and executable in {\"cp\", \"install\"}:\n            roles.add(\"artifact_stage\")\n            continue\n\n        if executable in {\"bash\", \"sh\"}:\n            if any(PurePosixPath(argument).name in {\"configure\", \"autogen.sh\"} for argument in arguments):\n                roles.add(\"configure\")\n            inline_command = next(\n                (arguments[index + 1] for index, argument in enumerate(arguments[:-1]) if argument.startswith(\"-\") and \"c\" in argument[1:]),\n                None,\n            )\n            if inline_command is not None and depth < 2:\n                roles.update(_infer_command_roles(inline_command, depth=depth + 1))\n\n        if stages_artifacts and re.search(r\"(?:^|\\s)(?:cp|install)\\s\", segment_text) is not None:\n            roles.add(\"artifact_stage\")\n\n    return roles\n"
+    },
+    {
+      "path": "backend/packages/harness/deerflow/compile/operations.py",
+      "symbol": "infer_command_roles",
+      "file_sha256": "bec732bf9787f9280ced1dd5acfa2a75339ffdc4c0caafaaec1a1f291f24df04",
+      "start_line": 1567,
+      "end_line": 1570,
+      "content": "def infer_command_roles(command: str) -> set[str]:\n    \"\"\"Infer every control-plane role present in a possibly compound shell command.\"\"\"\n\n    return _infer_command_roles(command, depth=0)\n"
+    },
+    {
+      "path": "backend/packages/harness/deerflow/compile/simple_planning_context.py",
+      "symbol": "PlanningContext.compact_group",
+      "file_sha256": "586e2d0f591aca35058eb0f3e7506e812e85d46af11a075fd02ddf0c37006d2a",
+      "start_line": 40,
+      "end_line": 76,
+      "content": "    def compact_group(self, group, meter):\n        \"\"\"完整移出AI及配对Tool后另起证据消息，不发送悬空调用或截断推理字段。\"\"\"\n        raw = [m.model_dump(mode=\"json\") for m in group]\n        self.group_compactions += 1\n        # 初始规划与各次恢复共用账本；请求序号避免新任务重置组号后撞名。\n        path = f\"context-request-{meter._request_sequence + 1}-group-{self.group_compactions}.json\"\n        meter.ledger.save(path, raw)\n        evidence = []\n        calls = []\n        notes = []\n        for message in group:\n            if message.type == \"ai\":\n                calls.extend(message.tool_calls)\n                if message.content:\n                    notes.append(bounded_text(str(message.content), 600))\n            elif message.type == \"tool\":\n                content = str(message.content)\n                try:\n                    row = json.loads(content)\n                except ValueError:\n                    row = {\"preview\": content}\n                if isinstance(row, dict):\n                    row = {k: bounded_text(v, 1600) if isinstance(v, str) else v for k, v in row.items()}\n                if len(json.dumps(row, ensure_ascii=False).encode()) > 4000:\n                    row = dict(preview=bounded_text(content, 2000), read_request=row.get(\"read_request\") if isinstance(row, dict) else None)\n                evidence.append(dict(tool=message.name, result=row, original_bytes=len(content.encode()), original_sha256=hashlib.sha256(content.encode()).hexdigest()))\n        payload = dict(\n            context_compaction=True,\n            note=\"上一组AI及其工具结果已完整移出；以下为实际返回的有界片段，不是新工具执行或新的成功结论。必要时按read_request补读源码/日志。原推理与结果保存在独立原件中。\",\n            original_record=path,\n            original_sha256=hashlib.sha256(json.dumps(raw, ensure_ascii=False).encode()).hexdigest(),\n            calls=calls,\n            assistant_notes=notes,\n            evidence=evidence,\n        )\n        meter.ledger.append(\"planning.group_compacted\", record=path, original_messages=len(group), original_sha256=payload[\"original_sha256\"])\n        return [HumanMessage(content=json.dumps(payload, ensure_ascii=False))]\n"
+    },
+    {
+      "path": "backend/packages/harness/deerflow/compile/simple_planning_context.py",
+      "symbol": "PlanningContext.request",
+      "file_sha256": "586e2d0f591aca35058eb0f3e7506e812e85d46af11a075fd02ddf0c37006d2a",
+      "start_line": 95,
+      "end_line": 182,
+      "content": "    def request(self, meter, request, handler):\n        if self.pending_reads:\n            self.stalled_rounds = 0 if any(self.pending_reads) else self.stalled_rounds + 1\n            self.pending_reads.clear()\n        # 首条消息是公开任务；之后保留真实AI/Tool对话，包含结构纠错反馈。\n        history = list(request.messages[1:])\n        groups = []\n        for message in history:\n            if message.type != \"tool\" or not groups:\n                groups.append([])\n            groups[-1].append(message)\n        removed_notes = []\n        self.pruned_groups = 0\n        while True:\n            payload = {**self.packet, \"source_packet\": self.seed_material, \"remaining_budget\": asdict(meter.tracker.remaining())}\n            payload[\"planning_progress\"] = dict(\n                recent_reads=list(self.reads.values())[-12:],\n                consecutive_rounds_without_new_evidence=self.stalled_rounds,\n                earlier_assistant_notes=removed_notes,\n                initial_material_compactions=self.seed_compactions,\n                completed_group_compactions=self.group_compactions,\n                handoff_log_compactions=self.handoff_compactions,\n                instruction=\"构建入口、必要依赖和配置/编译命令有依据即可交付；未解决的问题交由真实执行反馈定位。\",\n            )\n            if self.stalled_rounds >= 2:\n                payload[\"planning_progress\"][\"instruction\"] = \"连续重复读取没有新增证据。请利用现有材料交付方案；确实无法规划时明确说明阻塞，不能编造依据。\"\n            messages = [HumanMessage(content=json.dumps(payload, ensure_ascii=False)), *[m for g in groups for m in g]]\n            body = dict(messages=[m.model_dump(mode=\"json\") for m in messages], system_message=request.system_message.model_dump(mode=\"json\") if request.system_message else None)\n            if len(json.dumps(body, ensure_ascii=False).encode()) <= 49000:\n                break\n            # 初始片段可由原读取工具重新获得；优先保留最新完整交互，避免\n            # 初始包与同一文件的新读取重复占用容量，挤掉唯一一次工具反馈。\n            initial = [row for row in self.seed_material if row.get(\"content\")]\n            if initial:\n                largest = max(initial, key=lambda row: len(row[\"content\"].encode()))\n                largest.update(content=\"\", truncated=True, context_note=\"初始片段因容量移出；路径与哈希保留，必要时用read_source补读具体片段\")\n                self.seed_compactions += 1\n                continue\n            if not self.handoff_compactions and self.packet.get(\"handoff\"):\n                for row in self.packet[\"handoff\"].get(\"recent_commands\", []):\n                    if row.get(\"output_tail\"):\n                        row[\"output_tail_original_bytes\"] = len(row[\"output_tail\"].encode())\n                        row[\"output_tail\"] = bounded_text(row[\"output_tail\"], 1000)\n                self.handoff_compactions += 1\n                continue\n            if not groups:\n                raise PlanContractError(\"公开任务与必要规划材料超过上下文容量\")\n            # 按完整AI调用及其Tool结果淘汰，避免悬空tool_call_id；最新一组保留。\n            if len(groups) == 1:\n                if len(groups[0]) == 1 and groups[0][0].type == \"human\":\n                    raise PlanContractError(\"公开任务与压缩后的必要证据超过规划上下文容量\")\n                groups[0] = self.compact_group(groups[0], meter)\n                continue\n            removed = groups.pop(0)\n            removed_notes.extend(str(m.content)[:500] for m in removed if m.type == \"ai\" and m.content)\n            removed_notes = removed_notes[-3:]\n            self.pruned_groups += 1\n        finalize_only = self.stalled_rounds >= 3\n        settings = dict(request.model_settings or {})\n        settings.pop(\"parallel_tool_calls\", None)\n        bounded = request.override(messages=messages, tools=[] if finalize_only else request.tools, model_settings=settings)\n        schemas = [convert_to_openai_tool(t) for t in bounded.tools or []]\n        if isinstance(bounded.response_format, ToolStrategy):\n            schemas.extend(convert_to_openai_tool(OutputToolBinding.from_schema_spec(s).tool) for s in bounded.response_format.schema_specs)\n        if len(json.dumps(schemas, ensure_ascii=False).encode()) > 8000:\n            raise PlanContractError(\"规划工具schema超过容量\")\n        meter.ledger.save(f\"request-{meter._request_sequence + 1}.json\", {**body, \"tools\": schemas})\n        meter.ledger.append(\n            \"planning.context\",\n            history_messages=len(messages) - 1,\n            pruned_groups=self.pruned_groups,\n            initial_material_compactions=self.seed_compactions,\n            completed_group_compactions=self.group_compactions,\n            handoff_log_compactions=self.handoff_compactions,\n            stalled_rounds=self.stalled_rounds,\n            finalize_only=finalize_only,\n        )\n        meter.tracker.observe_elapsed(time.monotonic() - meter.started_monotonic)\n        sequence = meter._before_request()\n        try:\n            response = handler(bounded)\n            meter._after_request(response, sequence)\n            return response\n        except Exception as exc:\n            if sequence not in meter.known_usage_requests:\n                meter.unknown_usage_requests.add(sequence)\n            meter.ledger.append(\"model.request_failed\", request_sequence=sequence, error_class=type(exc).__name__, status_code=getattr(exc, \"status_code\", None))\n            raise\n"
+    },
+    {
+      "path": "scripts/forge_simple_system.py",
+      "symbol": "run_simple_system",
+      "file_sha256": "506801a7aebfbd347be14068b100b5eb26e1af43fb1c0c778820259a53cb4530",
+      "start_line": 69,
+      "end_line": 267,
+      "content": "def run_simple_system(\n    *,\n    task,\n    reference,\n    source_archive,\n    output_root,\n    method,\n    model,\n    accepted_models,\n    family,\n    recipe=None,\n    bank=None,\n    deadline=None,\n    maximum_cost_usd=\"1.00\",\n    author_test_seconds=120,\n    replay_seconds=240,\n    recovery_model=None,\n    recovery_accepted_models=None,\n    pricing_by_model=None,\n    initial_plan=None,\n    state_router=None,\n    validation_scope=\"author_tests\",\n    harness=None,\n    recovery_harness=None,\n):\n    \"\"\"可复用执行接点；本函数不加载配置或凭据，不自行创建Provider。\"\"\"\n    if method not in METHODS[:3]:\n        raise ValueError(\"此接点仅接受Forge/经验Forge/强工具Agent\")\n    if (task.task_version == \"main-build-v1\") != (validation_scope == \"main_build\"):\n        raise ValueError(\"公开任务版本必须与主构建/旧作者测试范围一致\")\n    if reference.task_sha256 != _digest(task.model_dump(mode=\"json\")):\n        raise ValueError(\"独立参考不属于当前公开任务\")\n    if method != \"forge_experience\" and (recipe is not None or bank is not None):\n        raise ValueError(\"无经验处理不能读取经验库或配方\")\n    subprocess.run([\"bash\", str(ROOT / \"scripts/require-docker-runtime.sh\")], check=True, timeout=30)\n    if hashlib.sha256(source_archive.read_bytes()).hexdigest() != task.source_archive_sha256:\n        raise ValueError(\"源码归档与公开任务不一致\")\n    root = output_root.resolve()\n    root.mkdir(parents=True, exist_ok=False)\n    save(root / \"common-public-task.json\", task.model_dump(mode=\"json\"))\n    save(root / \"private-reference.json\", reference.model_dump(mode=\"json\"))\n    save(\n        root / \"scope.json\",\n        dict(\n            method=method,\n            family=family,\n            accepted_models=accepted_models,\n            recovery_accepted_models=recovery_accepted_models or accepted_models,\n            maximum_cost_usd=maximum_cost_usd,\n            deadline=deadline,\n            validation_scope=validation_scope,\n            kind=\"zero_provider_engineering\" if accepted_models == (\"zero-provider-script\",) else \"requires_external_authorized_protocol\",\n        ),\n    )\n    paths = Paths(base_dir=root / \"data\", workspace_root=root, host_workspace_root=str(root))\n    manager = CompileSessionManager(paths=paths, default_image=task.image_id, parallel_jobs=task.parallel_jobs)\n    runtime = CompileDockerRuntime(manager=manager, config=RuntimeConfig(image=task.image_id, parallel_jobs=task.parallel_jobs, replay_timeout_seconds=replay_seconds))\n    session = manager.create_session(\"simple-system\", task.repository_url, image=task.image_id)\n    original = operations._services\n    operations._services = operations.CompileOperationsServices(manager=manager, runtime=runtime)\n    workflow, service, final_plan = None, None, None\n    started = time.monotonic()\n    result = dict(method=method, status=\"started\", source_unchanged=None)\n    ledger = PlanAgentLedger(root / \"agent\")\n    initial_packet = {}\n    planning_seconds, recovery_seconds = 0.0, 0.0\n\n    def packet():\n        if service:\n            return dict(task=task.model_dump(mode=\"json\"), source_packet=initial_packet.get(\"source_packet\", []), **service.observe())\n        return dict(task=task.model_dump(mode=\"json\"), source_packet=initial_packet.get(\"source_packet\", []))\n\n    meter = SimpleBuildMeter(ledger, accepted_models=accepted_models, deadline=deadline or (datetime.now(UTC) + timedelta(hours=1)).isoformat(), packet=packet, maximum_cost_usd=maximum_cost_usd, pricing_by_model=pricing_by_model)\n    try:\n        source = Path(session.leadagent_repo_dir)\n        source.mkdir(parents=True, exist_ok=True)\n        with tarfile.open(source_archive) as archive:\n            archive.extractall(source, filter=\"data\")\n        shutil.copyfile(source_archive, Path(session.leadagent_repro_dir) / \"source.tar\")\n        session.commit_sha, session.image_id = task.commit_sha, task.image_id\n        session.replay_source_archive_sha256 = task.source_archive_sha256\n        session.build_system = session.selected_build_system = task.build_system\n        try:\n            runtime.create_container(session)\n        finally:\n            manager.save_session(session)\n        session.status = \"inspected\"\n        manager.save_session(session)\n        names = [p.name for p in sorted(source.iterdir()) if p.is_file() and (p.name.lower().startswith((\"readme\", \"install\")) or p.name in {\"CMakeLists.txt\", \"Makefile\", \"configure.ac\", \"meson.build\"})][:8]\n        initial_packet[\"source_packet\"] = source_packet(source, names)\n        if method == \"strong_tool_agent\":\n            # 仅创建共享记录/外部检查对象；占位方案从不执行或送入基线上下文。\n            plan = SimpleBuildPlan(task=task, steps=(PlanStep(step_id=\"build\", role=\"build\", command=\"make\", source=\"外部检查占位，不执行\", expected=\"不执行\"),))\n        else:\n            if initial_plan is not None:\n                plan = SimpleBuildPlan.model_validate(initial_plan)\n                if plan.task != task:\n                    raise ValueError(\"固定初始方案不属于当前任务\")\n                ledger.append(\"initial_plan.fixed\", plan_sha256=plan.fingerprint(), model_planning_skipped=True)\n            elif recipe is not None and recipe.match(task):\n                plan = recipe.materialize(task)\n                ledger.append(\"recipe.selected\", source_id=recipe.source_id, recipe_sha256=_digest(recipe.model_dump(mode=\"json\")), model_planning_skipped=True)\n            else:\n                if recipe is not None:\n                    ledger.append(\"recipe.abstained\", reason=\"公开任务身份变化\")\n                planning_start = time.monotonic()\n                try:\n                    plan, _ = propose_simple(model=model, task=task, source_root=source, session_root=Path(session.metadata_path).parent, meter=meter, experience_bank=bank, family=family, harness=harness)\n                finally:\n                    planning_seconds += time.monotonic() - planning_start\n        # 作者测试统一串行；不改变构建的并行资源，也不把测试指令交给构建Agent。\n        serial = reference.model_copy(update={\"author_tests\": tuple(s.model_copy(update={\"command\": \"export CTEST_PARALLEL_LEVEL=1\\n\" + s.command}) for s in reference.author_tests)})\n        workflow = SimpleBuildWorkflow(plan=plan, session=session, manager=manager, runtime=runtime, reference=serial, budget=PlanBudget(wall_clock_seconds=1200, command_timeout_seconds=180, max_commands=64, max_handoffs=8), meter=meter)\n        if method == \"strong_tool_agent\":\n            service = SimpleToolBuildService(workflow, meter)\n            run_simple_tool_agent(model=model, service=service, source_root=source, session_root=Path(session.metadata_path).parent, meter=meter)\n        else:\n            while True:\n                workflow.run()\n                if workflow.status == \"primary_completed\":\n                    workflow.timings[\"time_to_primary_from_arm_start_seconds\"] = time.monotonic() - started\n                    final_plan = workflow.plan\n                    result.update(workflow.postchecks(author_test_seconds=author_test_seconds, validation_scope=validation_scope, recover_delivery=True))\n                if workflow.status != \"needs_handoff\":\n                    break\n                if state_router is not None and state_router.handle(workflow, meter):\n                    continue\n                recovery_start = time.monotonic()\n                try:\n                    meter.accepted_models = recovery_accepted_models or accepted_models\n                    revised, reason = propose_simple(\n                        model=recovery_model if recovery_model is not None else model,\n                        task=task,\n                        source_root=source,\n                        session_root=Path(session.metadata_path).parent,\n                        meter=meter,\n                        current_plan=workflow.plan,\n                        handoff=workflow.handoff,\n                        experience_bank=bank,\n                        family=family,\n                        harness=harness,\n                        recovery_harness=recovery_harness,\n                        revision_validator=workflow.validate_revision,\n                    )\n                finally:\n                    recovery_seconds += time.monotonic() - recovery_start\n                workflow.apply_revision(handoff_id=workflow.handoff[\"handoff_id\"], plan=revised, reason=reason)\n        if method == \"strong_tool_agent\" and workflow.status == \"primary_completed\":\n            # Workflow自身计时始于初始规划之后；系统比较必须另存包含规划/准备的时间。\n            workflow.timings[\"time_to_primary_from_arm_start_seconds\"] = time.monotonic() - started\n            final_plan = workflow.plan\n            result.update(workflow.postchecks(author_test_seconds=author_test_seconds, validation_scope=validation_scope))\n        workflow.check_source()\n        result[\"source_protection\"] = workflow.source_protection()\n        result[\"source_unchanged\"] = True\n        result.update(status=workflow.status, layers=workflow.layers, timings=workflow.timings)\n    except Exception as exc:\n        result.update(status=\"error\", error_type=type(exc).__name__, error=str(exc))\n        if \"原源码/测试\" in str(exc):\n            result[\"source_unchanged\"] = False\n        if workflow:\n            result.update(layers=workflow.layers, timings=workflow.timings)\n    finally:\n        try:\n            current = manager.load_session(session.session_id, session.thread_id)\n            current, cleanup = operations.cleanup_and_finalize_compile_session_impl(session=current)\n            result.update(cleanup=asdict(cleanup), session_status=current.status)\n        except Exception as exc:\n            result.update(cleanup=dict(succeeded=False), cleanup_error=f\"{type(exc).__name__}: {exc}\")\n        result.update(agent_usage=meter.summary(), arm_total_wall_seconds=time.monotonic() - started)\n        result.setdefault(\"timings\", {}).update(initial_planning_seconds=planning_seconds, recovery_agent_seconds=recovery_seconds)\n        if result.get(\"layers\"):\n            if validation_scope == \"main_build\":\n                result[\"layers\"][\"main_build_task_completed\"] = bool(result[\"layers\"][\"primary_build_completed\"] and result[\"source_unchanged\"] is True and result[\"cleanup\"][\"succeeded\"])\n                result[\"layers\"][\"full_completed\"] = None  # 旧完整任务包含作者测试，不能冒称通过。\n            else:\n                result[\"layers\"][\"full_completed\"] = full_completion(result[\"layers\"], result[\"cleanup\"][\"succeeded\"])\n            result[\"layers\"][\"reproducible_delivery_completed\"] = bool(\n                result[\"layers\"].get(\"primary_build_completed\")\n                and result[\"layers\"].get(\"delivery\") == \"passed\"\n                and result[\"layers\"].get(\"final_verification_passed\") is True\n                and result[\"layers\"].get(\"clean_replay\") == \"passed\"\n                and result[\"source_unchanged\"] is True\n                and result[\"cleanup\"][\"succeeded\"]\n            )\n            if result[\"status\"] == \"error\" or result[\"source_unchanged\"] is False:\n                result[\"layers\"][\"full_completed\"] = False\n                result[\"layers\"][\"reproducible_delivery_completed\"] = False\n                if validation_scope == \"main_build\":\n                    result[\"layers\"][\"main_build_task_completed\"] = False\n        result[\"validation_scope\"] = validation_scope\n        if state_router is not None:\n            result[\"router_usage\"] = state_router.summary()\n        if final_plan is not None and method != \"strong_tool_agent\" and recipe_validation_succeeded(task, result):\n            value = verified_simple_recipe(source_id=root.name, plan=final_plan, validation=result)\n            save(root / \"verified-simple-recipe.json\", value.model_dump(mode=\"json\"))\n        save(root / \"result.json\", result)\n        operations._services = original\n    return result\n"
+    }
+  ]
+}
