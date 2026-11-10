@@ -102,8 +102,8 @@ def candidate():
     )
 
 
-def validate(value):
-    if value["identity"] != IDENTITY or value["schedule"] != schedule() or value["methods"] != list(METHODS):
+def validate(value, *, identity=IDENTITY):
+    if value["identity"] != identity or value["schedule"] != schedule() or value["methods"] != list(METHODS):
         raise PlanContractError("恢复比较身份或36槽排期变化")
     expected = {p["name"]: p for p in shared.load(FIXTURE)["projects"]}
     if value["projects"] != [expected[n] for n in projects()] or digest(FIXTURE) != value["fixture_sha256"]:
@@ -214,7 +214,7 @@ def execute(value, output, auth, planner, executor):
         observed = {r["slot"] for r in rows}
         unseen = [s | dict(status="unobserved", reason=blocked.get(s["project"], stop)) for s in value["schedule"] if s["slot"] not in observed]
         result = dict(
-            identity=IDENTITY,
+            identity=value["identity"],
             rows=rows,
             common_initial_plans=plans,
             unobserved=unseen,
@@ -262,7 +262,7 @@ def paid_callbacks(value, auth):
             maximum_cost_usd=str(available),
             initial_plan=initial_plan,
             recovery_harness=hs[slot["method"]],
-            state_router=BuildStateRouter(),
+            state_router=BuildStateRouter(method="rule", directory=folder / "state-routing"),
             validation_scope="main_build",
             replay_seconds=value["replay_seconds"],
         )

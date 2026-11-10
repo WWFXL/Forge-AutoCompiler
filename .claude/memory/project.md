@@ -622,6 +622,9 @@
   - 下一步: 等待实验负责人确认当前网络接入介质，并决定是否授权只读 endpoint 诊断和新的 canary amendment；获得确认后必须另建中文 Issue/PR 和协议 identity，保留当前失败 marker。
 
 ## 最近变更 (Recent Changes)
+- 2026-11-10 — 修复正式比较回调遗漏的规则路由参数，按新v2身份执行原未启动槽。
+  - 文件: `scripts/forge_recovery_harness_comparison.py`, `scripts/forge_recovery_harness_continuation.py`、v2预注册/manifest及相关测试。
+  - 动机: 原v1首槽调用前停止；保留原件并复用唯一已完成规划，无重试或追加样本，沿原5美元/原截止。19相关检查及实际回调零Provider构建/重放通过，不计R1效果。
 - 2026-11-10 — 登记#713真实恢复Harness比较授权与运行状态。
   - 文件: `RESEARCH_STATUS.md`；原件和授权收据见当前状态入口。
   - 动机: 按已审核R1与固定同初始方案协议收集完整结果，不续用旧提案时窗或改写旧实验。
