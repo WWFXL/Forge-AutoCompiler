@@ -1,0 +1,42 @@
+slot,project,method,status,primary_build_completed,main_build_task_completed,delivery,reproducible_delivery_completed,recovery_requests,recovery_invocations,exact_repeat_reads,cost_usd,wall_seconds,recovery_agent_seconds,error
+1,mozjpeg,H0,primary_completed,True,True,passed,True,29,2,34,0.1659948,229.28775867912918,135.9764419340063,
+2,mozjpeg,R2_system_context,error,,False,unobserved,False,17,2,15,0.0886551,97.55875900993124,56.41327332309447,公开任务与压缩后的必要证据超过规划上下文容量
+3,libtree,R2_system_context,primary_completed,True,True,passed,True,0,0,0,0.0,9.198865136131644,0.0,
+4,libtree,H0,primary_completed,True,True,passed,True,0,0,0,0.0,9.130918801994994,0.0,
+5,libpcap,H0,primary_completed,True,True,passed,True,0,0,0,0.0,32.07245128112845,0.0,
+6,libpcap,R2_system_context,primary_completed,True,True,passed,True,0,0,0,0.0,32.03471643687226,0.0,
+7,rtl_433,R2_system_context,primary_completed,True,True,passed,True,0,0,0,0.0,143.44485907093622,0.0,
+8,rtl_433,H0,primary_completed,True,True,passed,True,0,0,0,0.0,140.97695925389417,0.0,
+9,masscan,H0,error,True,False,passed,False,50,1,13,0.2143569,118.37331941211596,106.73009897605516,"Recursion limit of 100 reached without hitting a stop condition. You can increase the limit by setting the `recursion_limit` config key.
+For troubleshooting, visit: https://docs.langchain.com/oss/python/langgraph/errors/GRAPH_RECURSION_LIMIT"
+10,masscan,R2_system_context,error,True,False,passed,False,33,1,12,0.1375296,87.45939105609432,75.65836106310599,恢复方案没有改变实际执行动作；不能仅改说明、步骤标识或构建目录来重跑相同失败。请读取真实失败日志，修正必要命令或工作目录；无法修复时明确说明阻塞。
+11,tmux,R2_system_context,primary_completed,True,True,passed,True,0,0,0,0.0,103.7556140490342,0.0,
+12,tmux,H0,primary_completed,True,True,passed,True,0,0,0,0.0,103.41876426106319,0.0,
+13,stderred,H0,primary_completed,True,True,passed,True,3,2,0,0.0175716,89.97097293101251,44.378073471132666,
+14,stderred,R2_system_context,primary_completed,True,True,passed,True,3,1,0,0.0107853,45.61492890282534,14.172672519925982,
+15,wrk,R2_system_context,primary_completed,True,True,passed,True,0,0,0,0.0,187.183799570892,0.0,
+16,wrk,H0,primary_completed,True,True,passed,True,0,0,0,0.0,187.40411130618304,0.0,
+17,flex,H0,error,,False,unobserved,False,18,3,9,0.1732677,534.573881438002,506.9458223897964,"Failed to parse structured output for tool 'SimpleBuildActions': Failed to parse data to SimpleBuildActions: 1 validation error for SimpleBuildActions
+  Value error, 依赖→配置→编译必须按顺序返回；标识唯一且requires只能引用更早步骤，系统不会自动重排 [type=value_error, input_value={'reason': '唯一真实...认库/文档目标'}]}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.12/v/value_error."
+18,flex,R2_system_context,error,,False,unobserved,False,26,3,15,0.1688805,357.52720097405836,334.6764542730525,"Failed to parse structured output for tool 'SimpleBuildActions': Failed to parse data to SimpleBuildActions: 1 validation error for SimpleBuildActions
+  Value error, 依赖→配置→编译必须按顺序返回；标识唯一且requires只能引用更早步骤，系统不会自动重排 [type=value_error, input_value={'reason': '上轮失败...认库/文档目标'}]}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.12/v/value_error."
+19,Libfacedetection,R2_system_context,primary_completed,True,True,passed,True,0,0,0,0.0,18.95324679883197,0.0,
+20,Libfacedetection,H0,primary_completed,True,True,passed,True,0,0,0,0.0,18.8622514300514,0.0,
+21,libbcrypt,H0,primary_completed,True,True,passed,True,4,2,0,0.0188763,237.72715352894738,25.555728973820806,
+22,libbcrypt,R2_system_context,primary_completed,True,True,passed,True,6,3,0,0.0301008,376.6469746651128,52.81949240900576,
+23,goaccess,R2_system_context,primary_completed,True,True,passed,True,0,0,0,0.0,68.49188303109258,0.0,
+24,goaccess,H0,primary_completed,True,True,passed,True,0,0,0,0.0,68.0889401989989,0.0,
+25,zlog,H0,primary_completed,True,True,passed,True,0,0,0,0.0,20.308671914972365,0.0,
+26,zlog,R2_system_context,primary_completed,True,True,passed,True,0,0,0,0.0,20.28954076184891,0.0,
+27,sxhkd,R2_system_context,primary_completed,True,True,passed,True,4,1,0,0.0149112,48.29560169996694,9.330319424159825,
+28,sxhkd,H0,primary_completed,True,True,passed,True,6,1,0,0.0270714,51.95561292115599,19.31970744021237,
+29,file,H0,primary_completed,True,True,passed,True,0,0,0,0.0,71.81692367396317,0.0,
+30,file,R2_system_context,primary_completed,True,True,passed,True,0,0,0,0.0,71.2768627749756,0.0,
+31,Lwan,R2_system_context,primary_completed,True,True,passed,True,0,0,0,0.0,140.4392128479667,0.0,
+32,Lwan,H0,primary_completed,True,True,passed,True,0,0,0,0.0,139.6368398750201,0.0,
+33,uhubctl,H0,primary_completed,True,True,passed,True,0,0,0,0.0,25.496152844978496,0.0,
+34,uhubctl,R2_system_context,primary_completed,True,True,passed,True,0,0,0,0.0,24.36083208397031,0.0,
+35,xz,R2_system_context,error,,False,unobserved,False,2,1,0,0.009618,103.84352196287364,6.78223432181403,原源码/测试被修改：po/lv.po
+36,xz,H0,error,,False,unobserved,False,3,1,0,0.0155745,111.29821664397605,14.463029311969876,原源码/测试被修改：po/lv.po

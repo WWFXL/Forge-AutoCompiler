@@ -1,5 +1,8 @@
 # 历史研究材料目录
 
+新增[E54](THESIS_EVIDENCE_INDEX.md#e54)：[R2的18新项目36槽比较](2026-11-11-recovery-harness-r2-comparison-results.md)，完整36/36；H0/R2可复现交付15/18、14/18，R2低费用/时间但少完成一项，全部失败与分层保留，结果待用户审核，不自动写论文。
+
+
 已审核新候选的比较准备（不增效果分母）：[#725的18新项目H0/R2恢复比较](2026-11-10-recovery-harness-r2-comparison-preparation.md)。用户接受候选270becfd；同H0初始方案、Flash、每法每项目一次共36槽，三系统各6。19相关检查及零Provider实际回调v2两恢复/主构建/重建通过；v1两条错误参考断言保留。正式比较0/36、0新增模型费，待新批预算/时窗；结果另审后才入文，H0默认及论文保持。
 
 最新待审复分析（不增构建效果分母）：[#723补充真实系统实现后的恢复指导](2026-11-10-recovery-harness-system-context-proposal.md)。同一E53的13次恢复＋3边界，新增8文件38定义/实际接口Schema作实现参考；一次gpt-6.1-sol、0.139614美元，共享累计0.246421美元。新指导1817字节，纠正原R2的外部依赖模板、备用路径限制和底座重复；新候选270becfd、原件inventoryf38232f8。用途是方法迭代记录与待审建议，比较0、尚无性能效果、不直接写论文；原R2及E53分母保留。
@@ -46,6 +49,7 @@
 
 |文件|论文登记|
 |---|---|
+|[2026-11-11-recovery-harness-r2-comparison-results.md](2026-11-11-recovery-harness-r2-comparison-results.md)|[E54](THESIS_EVIDENCE_INDEX.md#e54)，已审核候选的新项目完整比较；结果待审、不自动入文|
 |[2026-11-10-common-recovery-repair.md](2026-11-10-common-recovery-repair.md)|#715共同工程修复，不增加模型效果分母；旧E53及论文不改|
 |[2026-11-10-recovery-harness-comparison-results.md](2026-11-10-recovery-harness-comparison-results.md)|[E53](THESIS_EVIDENCE_INDEX.md#e53)，18新项目/36次同初始方案恢复比较，完整成本、失败分层及未采用决定；结果待审、论文未改|
 |[2026-11-05-main-system-results.md](2026-11-05-main-system-results.md)|[E50](THESIS_EVIDENCE_INDEX.md#e50)，九项目54次主任务/费用/耗时、两层分层及负面工具边界|

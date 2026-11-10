@@ -3,6 +3,7 @@
 跨 Claude Code session 的项目状态流水。按 CLAUDE.md §7 维护。
 
 ## 进行中 (In Progress)
+- 2026-11-11 — #727的36/36新项目比较完成，待用户审核结果；无活动Provider，不追加比较/提案，不改论文v0.10，H0仍默认。当前阶段及发布状态见RESEARCH_STATUS.md及关联PR/CI。
 - 2026-11-10 — #725用户已审核R2_system_context，18新项目/36槽同H0初始方案比较准备完成；manifest7392fcb8，新批5美元/4小时尚未授权，0新增模型费，无活动Provider。H0仍默认、论文v0.10不改，获授权即采集，不重复资格；当前阶段以RESEARCH_STATUS.md为准。
 - 2026-11-10 — #723结合系统实现的独立复分析已完成，待用户审核新候选270becfd；新指导1817字节，比较0、不改论文、H0仍默认，无活动Provider。用户新指令授权独立一次，共享原1美元/UTC18:24:13截止；旧0.106807＋新0.139614＝0.246421美元，不扩批。当前状态以RESEARCH_STATUS.md为准，下列早期状态不解释为活动授权。
 - 2026-11-10 — #721已取得R2实际提案，待用户审核；RichLab gpt-6.1-sol请求/响应一致、106807Token/0.106807美元/64.7185秒。用户一次/1美元/4小时授权已执行完一次，无活动Provider；不追加调用或比较，不改论文。报告`docs/research/2026-11-10-recovery-harness-r2-proposal.md`与完整提示差异已保存；下一步用户审核原候选，再单独下达比较指令。
@@ -626,6 +627,10 @@
   - 下一步: 等待实验负责人确认当前网络接入介质，并决定是否授权只读 endpoint 诊断和新的 canary amendment；获得确认后必须另建中文 Issue/PR 和协议 identity，保留当前失败 marker。
 
 ## 最近变更 (Recent Changes)
+- 2026-11-11 — 完成已审核R2与H0的18新项目/36槽比较及E54结果登记。
+  - 文件: `docs/research/2026-11-11-recovery-harness-r2-comparison-results.md`, `benchmarks/analyses/recovery-r2-comparison-2026-11-11/`, `RESEARCH_STATUS.md`, `docs/research/THESIS_EVIDENCE_INDEX.md`。
+  - 动机: 直接采集完整比较，不重复准备资格；18初始SHA一致、0未启动，H0/R2主产物16/15、可复现交付15/14（各18），R2在线费低20.1%/累计时低10.8%但少完成mozjpeg，保留H0。masscan参考、flex契约、xz作者元数据和本地容量分别解释，原标签/失败不改，E53不混分母。
+  - 证据: 运行7638b10b、manifest7392fcb8；原件forge-recovery-harness-r2-comparison-flash-v1、inventoryba75d6d1，266请求/3630555Token/1.3167207美元、未知0，65容器130项不存在；5美元/原4小时内、无自动重试，不追加付费。结果先审核，论文v0.10不改；原用户checkout三项修改保持。
 - 2026-11-10 — #725准备已审核R2的新项目公平比较，保持旧E53证据与用户checkout
   - 文件: `scripts/forge_recovery_harness_r2_comparison.py`、`benchmarks/fixtures/recovery-harness-r2-comparison-v1/`、对应manifest/预注册、`docs/research/2026-11-10-recovery-harness-r2-comparison-preparation.md`。
   - 动机: 比较结合真实实现提炼的恢复指导；每项目一次共同H0规划、两干净会话，Flash不变，只改恢复指导。18新项目覆盖三系统，参考/产物不入Agent输入，不声称holdout。
