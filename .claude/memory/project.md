@@ -3,6 +3,7 @@
 跨 Claude Code session 的项目状态流水。按 CLAUDE.md §7 维护。
 
 ## 进行中 (In Progress)
+- 2026-11-10 — #725用户已审核R2_system_context，18新项目/36槽同H0初始方案比较准备完成；manifest7392fcb8，新批5美元/4小时尚未授权，0新增模型费，无活动Provider。H0仍默认、论文v0.10不改，获授权即采集，不重复资格；当前阶段以RESEARCH_STATUS.md为准。
 - 2026-11-10 — #723结合系统实现的独立复分析已完成，待用户审核新候选270becfd；新指导1817字节，比较0、不改论文、H0仍默认，无活动Provider。用户新指令授权独立一次，共享原1美元/UTC18:24:13截止；旧0.106807＋新0.139614＝0.246421美元，不扩批。当前状态以RESEARCH_STATUS.md为准，下列早期状态不解释为活动授权。
 - 2026-11-10 — #721已取得R2实际提案，待用户审核；RichLab gpt-6.1-sol请求/响应一致、106807Token/0.106807美元/64.7185秒。用户一次/1美元/4小时授权已执行完一次，无活动Provider；不追加调用或比较，不改论文。报告`docs/research/2026-11-10-recovery-harness-r2-proposal.md`与完整提示差异已保存；下一步用户审核原候选，再单独下达比较指令。
 - 2026-11-10 — #719前两项共同修复/三项目验证已完成，修复阶段结束；无活动Provider，不启动R2或更新论文。当前状态以RESEARCH_STATUS.md为准。
@@ -625,6 +626,11 @@
   - 下一步: 等待实验负责人确认当前网络接入介质，并决定是否授权只读 endpoint 诊断和新的 canary amendment；获得确认后必须另建中文 Issue/PR 和协议 identity，保留当前失败 marker。
 
 ## 最近变更 (Recent Changes)
+- 2026-11-10 — #725准备已审核R2的新项目公平比较，保持旧E53证据与用户checkout
+  - 文件: `scripts/forge_recovery_harness_r2_comparison.py`、`benchmarks/fixtures/recovery-harness-r2-comparison-v1/`、对应manifest/预注册、`docs/research/2026-11-10-recovery-harness-r2-comparison-preparation.md`。
+  - 动机: 比较结合真实实现提炼的恢复指导；每项目一次共同H0规划、两干净会话，Flash不变，只改恢复指导。18新项目覆盖三系统，参考/产物不入Agent输入，不声称holdout。
+  - 验证: 19相关检查/Ruff/格式通过；实际回调v2两组受控恢复、主构建/轻量/重建/清理通过，0Provider。v1两条主构建已过但libtree版本输出断言错误，重建未启动，原件与初版定义保留，新v2只改独立help依据。4编译+2重建的12标识不存在；不是模型效果。
+  - 下一: 发布并同步知识库，绑定新比较5美元/4小时授权后运行；先报告/审核结果，再决定采用与入文。旧提案1美元授权不用于比较。
 - 2026-11-10 — 补充真实系统实现并取得一次恢复Harness复分析提案，停在用户审核。
   - 文件: `scripts/forge_recovery_harness_system_context.py`, `backend/tests/test_recovery_harness_system_context.py`, `docs/research/2026-11-10-recovery-harness-system-context-proposal.md`, `docs/research/2026-11-10-recovery-optimizer-system-context.md`, `benchmarks/fixtures/recovery-harness-system-context-v1/`, `benchmarks/fixtures/recovery-harness-system-context-gpt61sol-v1/`及预注册/状态/证据索引。
   - 动机: 原R2缺实际工具Schema和关键实现；本次同源13次E53恢复＋3正常边界不变，另给PR722版本8文件38定义/源码行号哈希、真实接口、执行契约和原R2。科研恢复只读返回方案，不混产品或强工具Bash能力；实现参考不是新轨迹。

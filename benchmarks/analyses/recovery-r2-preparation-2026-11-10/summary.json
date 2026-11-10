@@ -1,0 +1,182 @@
+{
+  "kind": "infrastructure_not_harness_effect",
+  "issue": 725,
+  "prepared_identity": "cpp-build-recovery-harness-r2-comparison-flash-v1",
+  "manifest_sha256": "7392fcb8b92cd8b2f8a5e5044bbbc6464545cba804708844793d787f975e81d3",
+  "provider_calls": 0,
+  "credential_files_read": 0,
+  "estimated_cost_usd": "0",
+  "formal_comparison_slots_observed": 0,
+  "related_checks_passed": 19,
+  "ruff": "passed",
+  "runtime_runs": [
+    {
+      "identity": "cpp-build-recovery-harness-r2-runtime-check-v1",
+      "root": "/home/yiwei/.codex/outputs/forge-recovery-r2-runtime-check-20261110-v1",
+      "result_sha256": "2c9a281539aa08a4082638c03ea132c6d209090ba5dad179132d3e2b8ec077dc",
+      "completed_slots": 2,
+      "billing_complete": true,
+      "provider_calls": 0,
+      "cost_usd": "0.0",
+      "rows": [
+        {
+          "method": "H0",
+          "project": "libtree",
+          "layers": {
+            "command_build_passed": true,
+            "primary_build_completed": true,
+            "delivery": "passed",
+            "author_tests": "not_required",
+            "executable_smoke": "failed",
+            "final_verification_passed": false,
+            "clean_replay": "not_started",
+            "full_completed": null,
+            "main_build_task_completed": true,
+            "reproducible_delivery_completed": false
+          },
+          "cleanup": {
+            "succeeded": true,
+            "stopped": true,
+            "removed": true
+          },
+          "arm_total_wall_seconds": 4.809935858938843
+        },
+        {
+          "method": "R2_system_context",
+          "project": "libtree",
+          "layers": {
+            "command_build_passed": true,
+            "primary_build_completed": true,
+            "delivery": "passed",
+            "author_tests": "not_required",
+            "executable_smoke": "failed",
+            "final_verification_passed": false,
+            "clean_replay": "not_started",
+            "full_completed": null,
+            "main_build_task_completed": true,
+            "reproducible_delivery_completed": false
+          },
+          "cleanup": {
+            "succeeded": true,
+            "stopped": true,
+            "removed": true
+          },
+          "arm_total_wall_seconds": 4.819925970165059
+        }
+      ]
+    },
+    {
+      "identity": "cpp-build-recovery-harness-r2-runtime-check-v2",
+      "root": "/home/yiwei/.codex/outputs/forge-recovery-r2-runtime-check-20261110-v2",
+      "result_sha256": "c40c0cd41d989e3237a821e81214493e59dca78b9ec674edb647abbd43dac408",
+      "completed_slots": 2,
+      "billing_complete": true,
+      "provider_calls": 0,
+      "cost_usd": "0.0",
+      "rows": [
+        {
+          "method": "H0",
+          "project": "libtree",
+          "layers": {
+            "command_build_passed": true,
+            "primary_build_completed": true,
+            "delivery": "passed",
+            "author_tests": "not_required",
+            "executable_smoke": "passed",
+            "final_verification_passed": true,
+            "clean_replay": "passed",
+            "full_completed": null,
+            "main_build_task_completed": true,
+            "reproducible_delivery_completed": true
+          },
+          "cleanup": {
+            "succeeded": true,
+            "stopped": true,
+            "removed": true
+          },
+          "arm_total_wall_seconds": 9.488482546061277
+        },
+        {
+          "method": "R2_system_context",
+          "project": "libtree",
+          "layers": {
+            "command_build_passed": true,
+            "primary_build_completed": true,
+            "delivery": "passed",
+            "author_tests": "not_required",
+            "executable_smoke": "passed",
+            "final_verification_passed": true,
+            "clean_replay": "passed",
+            "full_completed": null,
+            "main_build_task_completed": true,
+            "reproducible_delivery_completed": true
+          },
+          "cleanup": {
+            "succeeded": true,
+            "stopped": true,
+            "removed": true
+          },
+          "arm_total_wall_seconds": 9.388553036144003
+        }
+      ]
+    }
+  ],
+  "container_identity_checks": [
+    {
+      "identity": "0ddd5f0bba16c25f43deef1e45181ba57500c6ca84a43208f446373f6da6f9fc",
+      "absent": true
+    },
+    {
+      "identity": "1ada57422fa2643f02bbf1818480b4fd09c1e838ef77606d0eecdf4b986cf2c4",
+      "absent": true
+    },
+    {
+      "identity": "3ebb2016af21f049ed56019a3f9cf63c265e051fa33f2d64e7991fe07b769657",
+      "absent": true
+    },
+    {
+      "identity": "4df6679f38277879a8694e2c0b5f98dd32da4832bfe6483938d6f682e767ffcd",
+      "absent": true
+    },
+    {
+      "identity": "6f28efcdb5d4f9826ed76ed78801d8da6419c2440453866387bce71111170cd2",
+      "absent": true
+    },
+    {
+      "identity": "c6eb41e9d9043d6bc40b191f6da7f653ee6ab435d771d80e6469d1e721fb8f2e",
+      "absent": true
+    },
+    {
+      "identity": "deerflow-compile-simple-s-03ad5111",
+      "absent": true
+    },
+    {
+      "identity": "deerflow-compile-simple-s-89cd2448",
+      "absent": true
+    },
+    {
+      "identity": "deerflow-compile-simple-s-e8b0dede",
+      "absent": true
+    },
+    {
+      "identity": "deerflow-compile-simple-s-f58abb33",
+      "absent": true
+    },
+    {
+      "identity": "deerflow-replay-simple-s-89cd2448-replay_1c422",
+      "absent": true
+    },
+    {
+      "identity": "deerflow-replay-simple-s-e8b0dede-replay_3350b",
+      "absent": true
+    }
+  ],
+  "all_containers_absent": true,
+  "initial_problem": "libtree --version实际只输出3.2.0-dev，原独立required_output错误要求libtree；两主构建通过、重放未启动",
+  "correction": "独立definitions-v2/tasks-v2改为源码明确支持且退出0的libtree --help与Usage: libtree；原definitions/tasks和v1实跑保留",
+  "limitations": [
+    "两恢复模型回复为脚本，无真实Provider，不估指导效果或一般兼容率",
+    "原生Lwan/wrk退出1用法规则来自固定作者源码，未在本阶段追加整批参考实建",
+    "用户仅审核候选；新比较费用时窗未授权，论文v0.10未改，H0仍默认"
+  ]
+}

@@ -1,0 +1,1997 @@
+{
+  "identity": "cpp-build-recovery-harness-r2-fixture-v1",
+  "selection_sha256": "77b680c758df3754a8a40a5b89634791256fc8d26eeffba99ff6429b6f06e98c",
+  "definition_sha256": "64e1831b4d9dd3db3b39216acc3f43e0fc351ab7824564e5068622c89acb3a70",
+  "source_collection": "/home/yiwei/.codex/outputs/forge-recovery-r2-sources-20261110-v1",
+  "projects": [
+    {
+      "name": "mozjpeg",
+      "family": "https://github.com/mozilla/mozjpeg",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "r2-mozjpeg",
+        "repository_url": "https://github.com/mozilla/mozjpeg",
+        "commit_sha": "08265790774cd0714832c9e675522acbe5581437",
+        "image_id": "sha256:8123220a201ac4d00cda0dc985b9db7227cd909bb93ca6c25fd82cafce5cd887",
+        "source_archive_sha256": "e6279705e10e7a076f0e9b9f5cb9b08ca2db30ae32308f630215ea6c9cb00677",
+        "build_system": "cmake",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "e4b4ef40bf99c8669c445579867f7037980fee07b03d6914dfc6a3f9cff098d5",
+        "components": [
+          {
+            "name": "libjpeg",
+            "artifact_names": [
+              "libjpeg.a",
+              "libjpeg.so"
+            ],
+            "kinds": [
+              "static_library",
+              "shared_library"
+            ],
+            "evidence": "固定作者主目标声明，source_evidence保存文件、行号及原文；辅助demo/benchmark不属于主要组件"
+          },
+          {
+            "name": "libturbojpeg",
+            "artifact_names": [
+              "libturbojpeg.a",
+              "libturbojpeg.so"
+            ],
+            "kinds": [
+              "static_library",
+              "shared_library"
+            ],
+            "evidence": "固定作者主目标声明，source_evidence保存文件、行号及原文；辅助demo/benchmark不属于主要组件"
+          },
+          {
+            "name": "cjpeg",
+            "artifact_names": [
+              "cjpeg"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "固定作者主目标声明，source_evidence保存文件、行号及原文；辅助demo/benchmark不属于主要组件"
+          },
+          {
+            "name": "djpeg",
+            "artifact_names": [
+              "djpeg"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "固定作者主目标声明，source_evidence保存文件、行号及原文；辅助demo/benchmark不属于主要组件"
+          },
+          {
+            "name": "jpegtran",
+            "artifact_names": [
+              "jpegtran"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "固定作者主目标声明，source_evidence保存文件、行号及原文；辅助demo/benchmark不属于主要组件"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": "主任务不要求完整作者测试；原生轻量验证与成功重建分层报告",
+        "executable_smokes": [
+          {
+            "artifact_name": "cjpeg",
+            "step": {
+              "step_id": "smoke-cjpeg",
+              "role": "smoke",
+              "command": "/artifacts/cjpeg -version",
+              "source": "cjpeg.c:41; 作者版本/用法分支，非业务测试",
+              "expected": "交付文件执行作者轻量入口并符合原生退出及输出；Lwan/wrk原生用法分支退出1由独立断言明确记录，不接受其他退出或空输出",
+              "workdir": "/artifacts",
+              "requires": [],
+              "required_output": [
+                " version "
+              ],
+              "diagnostic_paths": []
+            }
+          },
+          {
+            "artifact_name": "djpeg",
+            "step": {
+              "step_id": "smoke-djpeg",
+              "role": "smoke",
+              "command": "/artifacts/djpeg -version",
+              "source": "djpeg.c:36; 作者版本/用法分支，非业务测试",
+              "expected": "交付文件执行作者轻量入口并符合原生退出及输出；Lwan/wrk原生用法分支退出1由独立断言明确记录，不接受其他退出或空输出",
+              "workdir": "/artifacts",
+              "requires": [],
+              "required_output": [
+                " version "
+              ],
+              "diagnostic_paths": []
+            }
+          },
+          {
+            "artifact_name": "jpegtran",
+            "step": {
+              "step_id": "smoke-jpegtran",
+              "role": "smoke",
+              "command": "/artifacts/jpegtran -version",
+              "source": "jpegtran.c:24; 作者版本/用法分支，非业务测试",
+              "expected": "交付文件执行作者轻量入口并符合原生退出及输出；Lwan/wrk原生用法分支退出1由独立断言明确记录，不接受其他退出或空输出",
+              "workdir": "/artifacts",
+              "requires": [],
+              "required_output": [
+                " version "
+              ],
+              "diagnostic_paths": []
+            }
+          }
+        ],
+        "generated_documents": []
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-recovery-r2-sources-20261110-v1/mozjpeg/source.tar",
+      "source_evidence": [
+        {
+          "path": "CMakeLists.txt",
+          "quote": "add_library(turbojpeg SHARED",
+          "line": 707,
+          "sha256": "733c39cd8f04d13c4e5caa3ad1621ae086c50a5433e62cbe4d5cdcc2d0ae4e21"
+        },
+        {
+          "path": "sharedlib/CMakeLists.txt",
+          "quote": "add_library(jpeg SHARED",
+          "line": 51,
+          "sha256": "3d92c0357c5cf819f300d8db69b7c90a637fcde1009efa3fc5af643d36bbe2ca"
+        },
+        {
+          "path": "sharedlib/CMakeLists.txt",
+          "quote": "add_executable(cjpeg",
+          "line": 100,
+          "sha256": "3d92c0357c5cf819f300d8db69b7c90a637fcde1009efa3fc5af643d36bbe2ca"
+        },
+        {
+          "path": "sharedlib/CMakeLists.txt",
+          "quote": "add_executable(djpeg",
+          "line": 137,
+          "sha256": "3d92c0357c5cf819f300d8db69b7c90a637fcde1009efa3fc5af643d36bbe2ca"
+        },
+        {
+          "path": "sharedlib/CMakeLists.txt",
+          "quote": "add_executable(jpegtran",
+          "line": 143,
+          "sha256": "3d92c0357c5cf819f300d8db69b7c90a637fcde1009efa3fc5af643d36bbe2ca"
+        },
+        {
+          "path": "cjpeg.c",
+          "line": 41,
+          "quote": "#include \"jversion.h\"           /* for version message */",
+          "sha256": "4befff080dcccc30526911edc0da958c3d772bbcb0b606ff76455454a986ded7"
+        },
+        {
+          "path": "djpeg.c",
+          "line": 36,
+          "quote": "#include \"jversion.h\"           /* for version message */",
+          "sha256": "6da99b91baba411063cdbb61155a7758ed041ddcef623c97d7d3db4b29ed58e3"
+        },
+        {
+          "path": "jpegtran.c",
+          "line": 24,
+          "quote": "#include \"jversion.h\"           /* for version message */",
+          "sha256": "df46d92a951a8e4799e031eb8c0f5456ef45fa7ce7dcf5f4bb31bac8c7d909af"
+        }
+      ],
+      "reference_actions": {
+        "reason": "作者普通默认入口；仅独立参考，不送在线规划器",
+        "steps": [
+          {
+            "step_id": "configure",
+            "role": "configure",
+            "command": "cmake -S . -B build",
+            "source": "CMakeLists.txt",
+            "expected": "作者普通构建入口；由实际执行和独立产物核对判断完成",
+            "workdir": "/workspace/repo"
+          },
+          {
+            "step_id": "build",
+            "role": "build",
+            "command": "cmake --build build",
+            "source": "CMakeLists.txt",
+            "expected": "作者普通构建入口；由实际执行和独立产物核对判断完成",
+            "workdir": "/workspace/repo"
+          }
+        ],
+        "build_directory": "/workspace/repo/build"
+      },
+      "paper_sources": [
+        {
+          "name": "mozjpeg",
+          "topic": "Image",
+          "guide": "in_repo",
+          "source": "compileagent",
+          "source_url": "https://arxiv.org/html/2505.04254v1#A3.T4",
+          "row": 4,
+          "source_html_sha256": "f61b0a20cd65fa2191ffd722ac922d59b6673b485c6f460c209e1e4bcffa56a0"
+        },
+        {
+          "name": "Mozjpeg",
+          "topic": "Image Processing",
+          "guide": null,
+          "source": "cxxcrafter",
+          "source_url": "https://arxiv.org/html/2505.21069v1#S2.T1",
+          "row": 4,
+          "source_html_sha256": "f95fcfdf56445caadcf7970e98b9ddd4ac9e13795294ceeb06096199ec1cc516"
+        }
+      ],
+      "exposure": "只读准备后的新开发评价集；未用于提案；非最终holdout"
+    },
+    {
+      "name": "rtl_433",
+      "family": "https://github.com/merbanan/rtl_433",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "r2-rtl_433",
+        "repository_url": "https://github.com/merbanan/rtl_433",
+        "commit_sha": "0c85f7ad3566ff6aefd8aedad569d05023c0c70c",
+        "image_id": "sha256:8123220a201ac4d00cda0dc985b9db7227cd909bb93ca6c25fd82cafce5cd887",
+        "source_archive_sha256": "ee198ae10a39be020cf89c5f5e8684b6068cd042f085292358b41b41d9950578",
+        "build_system": "cmake",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "2e194fb066c668d9b0a1333061301455872d31656317ab18a97cc017d7df17c0",
+        "components": [
+          {
+            "name": "rtl_433",
+            "artifact_names": [
+              "rtl_433"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "固定作者主目标声明，source_evidence保存文件、行号及原文；辅助demo/benchmark不属于主要组件"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": "主任务不要求完整作者测试；原生轻量验证与成功重建分层报告",
+        "executable_smokes": [
+          {
+            "artifact_name": "rtl_433",
+            "step": {
+              "step_id": "smoke-rtl_433",
+              "role": "smoke",
+              "command": "/artifacts/rtl_433 -V",
+              "source": "src/rtl_433.c:11; 作者版本/用法分支，非业务测试",
+              "expected": "交付文件执行作者轻量入口并符合原生退出及输出；Lwan/wrk原生用法分支退出1由独立断言明确记录，不接受其他退出或空输出",
+              "workdir": "/artifacts",
+              "requires": [],
+              "required_output": [
+                "rtl_433"
+              ],
+              "diagnostic_paths": []
+            }
+          }
+        ],
+        "generated_documents": []
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-recovery-r2-sources-20261110-v1/rtl_433/source.tar",
+      "source_evidence": [
+        {
+          "path": "src/CMakeLists.txt",
+          "quote": "add_executable(rtl_433 rtl_433.c)",
+          "line": 502,
+          "sha256": "5f46624e41f55154602660f525a6407e5c3135cfc6a81fe2657315b5c90e8b3d"
+        },
+        {
+          "path": "src/rtl_433.c",
+          "line": 11,
+          "quote": "the Free Software Foundation; either version 2 of the License, or",
+          "sha256": "1a56fdfb76132fa6acafb56bcd248928f47a18951adc7941645b1102def56ff6"
+        }
+      ],
+      "reference_actions": {
+        "reason": "作者普通默认入口；仅独立参考，不送在线规划器",
+        "steps": [
+          {
+            "step_id": "configure",
+            "role": "configure",
+            "command": "cmake -S . -B build",
+            "source": "src/CMakeLists.txt",
+            "expected": "作者普通构建入口；由实际执行和独立产物核对判断完成",
+            "workdir": "/workspace/repo"
+          },
+          {
+            "step_id": "build",
+            "role": "build",
+            "command": "cmake --build build",
+            "source": "src/CMakeLists.txt",
+            "expected": "作者普通构建入口；由实际执行和独立产物核对判断完成",
+            "workdir": "/workspace/repo"
+          }
+        ],
+        "build_directory": "/workspace/repo/build"
+      },
+      "paper_sources": [
+        {
+          "name": "rtl_433",
+          "topic": "Embedded",
+          "guide": "in_repo",
+          "source": "compileagent",
+          "source_url": "https://arxiv.org/html/2505.04254v1#A3.T4",
+          "row": 40,
+          "source_html_sha256": "f61b0a20cd65fa2191ffd722ac922d59b6673b485c6f460c209e1e4bcffa56a0"
+        }
+      ],
+      "exposure": "只读准备后的新开发评价集；未用于提案；非最终holdout"
+    },
+    {
+      "name": "stderred",
+      "family": "https://github.com/ku1ik/stderred",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "r2-stderred",
+        "repository_url": "https://github.com/ku1ik/stderred",
+        "commit_sha": "cf0d118440a930024b4a58a9d787debc492256b7",
+        "image_id": "sha256:8123220a201ac4d00cda0dc985b9db7227cd909bb93ca6c25fd82cafce5cd887",
+        "source_archive_sha256": "d362595e91f1b2d6110751f84449fc532ef7bacce4e9d90c50ecd65b9a24d380",
+        "build_system": "cmake",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "08c6479173b24fe0124c065fef5b3c60d89a2c9f501b51c554105b9c22f3efd3",
+        "components": [
+          {
+            "name": "libstderred",
+            "artifact_names": [
+              "libstderred.so"
+            ],
+            "kinds": [
+              "shared_library"
+            ],
+            "evidence": "固定作者主目标声明，source_evidence保存文件、行号及原文；辅助demo/benchmark不属于主要组件"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": "主任务不要求完整作者测试；原生轻量验证与成功重建分层报告",
+        "executable_smokes": [],
+        "generated_documents": []
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-recovery-r2-sources-20261110-v1/stderred/source.tar",
+      "source_evidence": [
+        {
+          "path": "src/CMakeLists.txt",
+          "quote": "add_library(stderred SHARED",
+          "line": 67,
+          "sha256": "01074821bdda7fecc761f13e462cf9009259a0c7783a6cf8f51142458e28902f"
+        },
+        {
+          "path": "Makefile",
+          "quote": "mkdir build && cd build && cmake ../src && make",
+          "line": 6,
+          "sha256": "454b197eb3e87b40c3672e805b400e2df0b3a6f76bf723c8e0f7b8bc3445f850"
+        }
+      ],
+      "reference_actions": {
+        "reason": "作者普通默认入口；仅独立参考，不送在线规划器",
+        "steps": [
+          {
+            "step_id": "configure",
+            "role": "configure",
+            "command": "cmake -S src -B build",
+            "source": "src/CMakeLists.txt",
+            "expected": "作者普通构建入口；由实际执行和独立产物核对判断完成",
+            "workdir": "/workspace/repo"
+          },
+          {
+            "step_id": "build",
+            "role": "build",
+            "command": "cmake --build build",
+            "source": "src/CMakeLists.txt",
+            "expected": "作者普通构建入口；由实际执行和独立产物核对判断完成",
+            "workdir": "/workspace/repo"
+          }
+        ],
+        "build_directory": "/workspace/repo/build"
+      },
+      "paper_sources": [
+        {
+          "name": "stderred",
+          "topic": "cli",
+          "guide": "in_repo",
+          "source": "buildbench",
+          "source_url": "https://arxiv.org/html/2509.25248v2#A9.T7",
+          "row": 10,
+          "source_html_sha256": "97a4b94b443ed07c668c9672d0a1943d3f2f11a9280834ea56f1f12215d0a1cb"
+        }
+      ],
+      "exposure": "只读准备后的新开发评价集；未用于提案；非最终holdout"
+    },
+    {
+      "name": "Libfacedetection",
+      "family": "https://github.com/shiqiyu/libfacedetection",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "r2-libfacedetection",
+        "repository_url": "https://github.com/ShiqiYu/libfacedetection",
+        "commit_sha": "acf7b254121927e7dced30e233a2e03119f28ea2",
+        "image_id": "sha256:8123220a201ac4d00cda0dc985b9db7227cd909bb93ca6c25fd82cafce5cd887",
+        "source_archive_sha256": "e3c076094307a94a2e77b92d8a10d0197a1717966bca7097581682751cfd0239",
+        "build_system": "cmake",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "5e09b2882f24e64f75245fe3260f12baf8de2b6fe1531b83d5d9689ef29ed352",
+        "components": [
+          {
+            "name": "facedetection",
+            "artifact_names": [
+              "libfacedetection.a",
+              "libfacedetection.so"
+            ],
+            "kinds": [
+              "static_library",
+              "shared_library"
+            ],
+            "evidence": "固定作者主目标声明，source_evidence保存文件、行号及原文；辅助demo/benchmark不属于主要组件"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": "主任务不要求完整作者测试；原生轻量验证与成功重建分层报告",
+        "executable_smokes": [],
+        "generated_documents": []
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-recovery-r2-sources-20261110-v1/Libfacedetection/source.tar",
+      "source_evidence": [
+        {
+          "path": "CMakeLists.txt",
+          "quote": "SET(fdt_lib_name   facedetection)",
+          "line": 63,
+          "sha256": "d1de26d46c93a8783778a465316d4f779cefb71e3d29c864ca4d656bbbb6cb2b"
+        },
+        {
+          "path": "CMakeLists.txt",
+          "quote": "ADD_LIBRARY(${fdt_lib_name}",
+          "line": 131,
+          "sha256": "d1de26d46c93a8783778a465316d4f779cefb71e3d29c864ca4d656bbbb6cb2b"
+        }
+      ],
+      "reference_actions": {
+        "reason": "作者普通默认入口；仅独立参考，不送在线规划器",
+        "steps": [
+          {
+            "step_id": "configure",
+            "role": "configure",
+            "command": "cmake -S . -B build",
+            "source": "CMakeLists.txt",
+            "expected": "作者普通构建入口；由实际执行和独立产物核对判断完成",
+            "workdir": "/workspace/repo"
+          },
+          {
+            "step_id": "build",
+            "role": "build",
+            "command": "cmake --build build",
+            "source": "CMakeLists.txt",
+            "expected": "作者普通构建入口；由实际执行和独立产物核对判断完成",
+            "workdir": "/workspace/repo"
+          }
+        ],
+        "build_directory": "/workspace/repo/build"
+      },
+      "paper_sources": [
+        {
+          "name": "Libfacedetection",
+          "topic": "Image Processing",
+          "guide": null,
+          "source": "cxxcrafter",
+          "source_url": "https://arxiv.org/html/2505.21069v1#S2.T1",
+          "row": 4,
+          "source_html_sha256": "f95fcfdf56445caadcf7970e98b9ddd4ac9e13795294ceeb06096199ec1cc516"
+        }
+      ],
+      "exposure": "只读准备后的新开发评价集；未用于提案；非最终holdout"
+    },
+    {
+      "name": "zlog",
+      "family": "https://github.com/hardysimpson/zlog",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "r2-zlog",
+        "repository_url": "https://github.com/HardySimpson/zlog",
+        "commit_sha": "44fa2dd009bdbbbfabb96dececd21a6f0a959e39",
+        "image_id": "sha256:8123220a201ac4d00cda0dc985b9db7227cd909bb93ca6c25fd82cafce5cd887",
+        "source_archive_sha256": "5355d6c293293d50ddd7a0e2e3d8057e7aa771809f5347a45d24317aee36b2e8",
+        "build_system": "cmake",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "e3ac59dfc9ae4f59394dd086780319952d54ef15e318f626430d6bc83e1d24d8",
+        "components": [
+          {
+            "name": "zlog",
+            "artifact_names": [
+              "libzlog.a",
+              "libzlog.so"
+            ],
+            "kinds": [
+              "static_library",
+              "shared_library"
+            ],
+            "evidence": "固定作者主目标声明，source_evidence保存文件、行号及原文；辅助demo/benchmark不属于主要组件"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": "主任务不要求完整作者测试；原生轻量验证与成功重建分层报告",
+        "executable_smokes": [],
+        "generated_documents": []
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-recovery-r2-sources-20261110-v1/zlog/source.tar",
+      "source_evidence": [
+        {
+          "path": "src/CMakeLists.txt",
+          "quote": "add_library(zlog\n",
+          "line": 9,
+          "sha256": "1bcc9fa243abb4460f242ee1e7cca5244ae8f909e5cdcb6d72b244d6a2d1bf4a"
+        },
+        {
+          "path": "src/CMakeLists.txt",
+          "quote": "OUTPUT_NAME zlog",
+          "line": 47,
+          "sha256": "1bcc9fa243abb4460f242ee1e7cca5244ae8f909e5cdcb6d72b244d6a2d1bf4a"
+        }
+      ],
+      "reference_actions": {
+        "reason": "作者普通默认入口；仅独立参考，不送在线规划器",
+        "steps": [
+          {
+            "step_id": "configure",
+            "role": "configure",
+            "command": "cmake -S . -B build",
+            "source": "src/CMakeLists.txt",
+            "expected": "作者普通构建入口；由实际执行和独立产物核对判断完成",
+            "workdir": "/workspace/repo"
+          },
+          {
+            "step_id": "build",
+            "role": "build",
+            "command": "cmake --build build",
+            "source": "src/CMakeLists.txt",
+            "expected": "作者普通构建入口；由实际执行和独立产物核对判断完成",
+            "workdir": "/workspace/repo"
+          }
+        ],
+        "build_directory": "/workspace/repo/build"
+      },
+      "paper_sources": [
+        {
+          "name": "zlog",
+          "topic": "HPC",
+          "guide": "in_repo",
+          "source": "compileagent",
+          "source_url": "https://arxiv.org/html/2505.04254v1#A3.T4",
+          "row": 49,
+          "source_html_sha256": "f61b0a20cd65fa2191ffd722ac922d59b6673b485c6f460c209e1e4bcffa56a0"
+        }
+      ],
+      "exposure": "只读准备后的新开发评价集；未用于提案；非最终holdout"
+    },
+    {
+      "name": "Lwan",
+      "family": "https://github.com/lpereira/lwan",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "r2-lwan",
+        "repository_url": "https://github.com/lpereira/lwan",
+        "commit_sha": "b70ebde92cb38eac5b1961d8c7259d964648fdbe",
+        "image_id": "sha256:8123220a201ac4d00cda0dc985b9db7227cd909bb93ca6c25fd82cafce5cd887",
+        "source_archive_sha256": "6ce21961bc6c228c7a78e28676f4bb66de2a9fc209d43ffd1aec5696bc610b2f",
+        "build_system": "cmake",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "1e7e3849d3c3c9573c008ce5c297bee73957c9802453eaa5a4f7bbe7331fb147",
+        "components": [
+          {
+            "name": "lwan",
+            "artifact_names": [
+              "lwan"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "固定作者主目标声明，source_evidence保存文件、行号及原文；辅助demo/benchmark不属于主要组件"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": "主任务不要求完整作者测试；原生轻量验证与成功重建分层报告",
+        "executable_smokes": [
+          {
+            "artifact_name": "lwan",
+            "step": {
+              "step_id": "smoke-lwan",
+              "role": "smoke",
+              "command": "python3 -c 'import subprocess; p=subprocess.run([\"/artifacts/lwan\", \"--version\"], text=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT); print(p.stdout,end=\"\"); assert p.returncode == 1 and '\"'\"'Lwan version'\"'\"' in p.stdout, (p.returncode,p.stdout)'",
+              "source": "src/bin/lwan/main.c:7; 作者版本/用法分支，非业务测试",
+              "expected": "交付文件执行作者轻量入口并符合原生退出及输出；Lwan/wrk原生用法分支退出1由独立断言明确记录，不接受其他退出或空输出",
+              "workdir": "/artifacts",
+              "requires": [],
+              "required_output": [
+                "Lwan version"
+              ],
+              "diagnostic_paths": []
+            }
+          }
+        ],
+        "generated_documents": []
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-recovery-r2-sources-20261110-v1/Lwan/source.tar",
+      "source_evidence": [
+        {
+          "path": "src/bin/lwan/CMakeLists.txt",
+          "quote": "add_executable(lwan main.c)",
+          "line": 3,
+          "sha256": "7187fed19fce84eb83789567bf1dd3df8b7167468481189912b6cf6b6ea1ae35"
+        },
+        {
+          "path": "src/bin/lwan/main.c",
+          "quote": "printf(\"Lwan version %s\\n\", LWAN_VERSION);",
+          "line": 253,
+          "sha256": "ac02cefed7f6586e78416dfae56625c8131ff19a3536aca771bb7641c9ef0c77"
+        },
+        {
+          "path": "src/bin/lwan/main.c",
+          "quote": "ret = EXIT_FAILURE;",
+          "line": 394,
+          "sha256": "ac02cefed7f6586e78416dfae56625c8131ff19a3536aca771bb7641c9ef0c77"
+        },
+        {
+          "path": "src/bin/lwan/main.c",
+          "line": 7,
+          "quote": "* as published by the Free Software Foundation; either version 2",
+          "sha256": "ac02cefed7f6586e78416dfae56625c8131ff19a3536aca771bb7641c9ef0c77"
+        }
+      ],
+      "reference_actions": {
+        "reason": "作者普通默认入口；仅独立参考，不送在线规划器",
+        "steps": [
+          {
+            "step_id": "configure",
+            "role": "configure",
+            "command": "cmake -S . -B build",
+            "source": "src/bin/lwan/CMakeLists.txt",
+            "expected": "作者普通构建入口；由实际执行和独立产物核对判断完成",
+            "workdir": "/workspace/repo"
+          },
+          {
+            "step_id": "build",
+            "role": "build",
+            "command": "cmake --build build",
+            "source": "src/bin/lwan/CMakeLists.txt",
+            "expected": "作者普通构建入口；由实际执行和独立产物核对判断完成",
+            "workdir": "/workspace/repo"
+          }
+        ],
+        "build_directory": "/workspace/repo/build"
+      },
+      "paper_sources": [
+        {
+          "name": "Lwan",
+          "topic": "Web Frameworks",
+          "guide": null,
+          "source": "cxxcrafter",
+          "source_url": "https://arxiv.org/html/2505.21069v1#S2.T1",
+          "row": 9,
+          "source_html_sha256": "f95fcfdf56445caadcf7970e98b9ddd4ac9e13795294ceeb06096199ec1cc516"
+        }
+      ],
+      "exposure": "只读准备后的新开发评价集；未用于提案；非最终holdout"
+    },
+    {
+      "name": "libtree",
+      "family": "https://github.com/haampie/libtree",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "r2-libtree",
+        "repository_url": "https://github.com/haampie/libtree",
+        "commit_sha": "95d8992968a18ae957fef723f103b416d0843398",
+        "image_id": "sha256:8123220a201ac4d00cda0dc985b9db7227cd909bb93ca6c25fd82cafce5cd887",
+        "source_archive_sha256": "3ccef917ca80375b089c46fb9216c1a133c8f0bdcbfb9c2c37b76b91c7c930fa",
+        "build_system": "make",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "263628371ec9657346f5fda3d16fae7e561fbc4f2d664b29c5a6ae1061658adc",
+        "components": [
+          {
+            "name": "libtree",
+            "artifact_names": [
+              "libtree"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "固定作者主目标声明，source_evidence保存文件、行号及原文；辅助demo/benchmark不属于主要组件"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": "主任务不要求完整作者测试；原生轻量验证与成功重建分层报告",
+        "executable_smokes": [
+          {
+            "artifact_name": "libtree",
+            "step": {
+              "step_id": "smoke-libtree",
+              "role": "smoke",
+              "command": "/artifacts/libtree --help",
+              "source": "libtree.c:1771-1828; 显式--help输出用法并退出0",
+              "expected": "交付文件执行作者轻量入口并符合原生退出及输出；Lwan/wrk原生用法分支退出1由独立断言明确记录，不接受其他退出或空输出",
+              "workdir": "/artifacts",
+              "requires": [],
+              "required_output": [
+                "Usage: libtree"
+              ],
+              "diagnostic_paths": []
+            }
+          }
+        ],
+        "generated_documents": []
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-recovery-r2-sources-20261110-v1/libtree/source.tar",
+      "source_evidence": [
+        {
+          "path": "Makefile",
+          "quote": "all: libtree",
+          "line": 16,
+          "sha256": "188886c609b94b2b5f059ef330097ee9ea57c474a82eb47fb765c8f8eedc5398"
+        },
+        {
+          "path": "libtree.c",
+          "line": 13,
+          "quote": "#define VERSION \"3.2.0-dev\"",
+          "sha256": "3c03984e92bb88488d7edde57d71e858e9d7a98fee6d84654413a1bc69ffe128"
+        },
+        {
+          "path": "libtree.c",
+          "line": 1775,
+          "quote": "Usage: libtree [OPTION]... [--] FILE [FILES]...",
+          "sha256": "3c03984e92bb88488d7edde57d71e858e9d7a98fee6d84654413a1bc69ffe128"
+        }
+      ],
+      "reference_actions": {
+        "reason": "作者普通默认入口；仅独立参考，不送在线规划器",
+        "steps": [
+          {
+            "step_id": "build",
+            "role": "build",
+            "command": "make",
+            "source": "Makefile",
+            "expected": "作者普通构建入口；由实际执行和独立产物核对判断完成",
+            "workdir": "/workspace/repo"
+          }
+        ],
+        "build_directory": "/workspace/repo"
+      },
+      "paper_sources": [
+        {
+          "name": "libtree",
+          "topic": "Linux",
+          "guide": "in_repo",
+          "source": "compileagent",
+          "source_url": "https://arxiv.org/html/2505.04254v1#A3.T4",
+          "row": 13,
+          "source_html_sha256": "f61b0a20cd65fa2191ffd722ac922d59b6673b485c6f460c209e1e4bcffa56a0"
+        }
+      ],
+      "exposure": "只读准备后的新开发评价集；未用于提案；非最终holdout"
+    },
+    {
+      "name": "masscan",
+      "family": "https://github.com/robertdavidgraham/masscan",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "r2-masscan",
+        "repository_url": "https://github.com/robertdavidgraham/masscan",
+        "commit_sha": "8e6b3b0c07a81e8ea61d557c06134a21a6881614",
+        "image_id": "sha256:8123220a201ac4d00cda0dc985b9db7227cd909bb93ca6c25fd82cafce5cd887",
+        "source_archive_sha256": "ef0b9db178312ca434145f3cbc0973dfaf9f36ccb0d5f79707ec3c159dbda461",
+        "build_system": "make",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "a90562284afafc244b5dc8796684bb390ae0105ce3c0c11cb62b16b65053de4b",
+        "components": [
+          {
+            "name": "masscan",
+            "artifact_names": [
+              "masscan"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "固定作者主目标声明，source_evidence保存文件、行号及原文；辅助demo/benchmark不属于主要组件"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": "主任务不要求完整作者测试；原生轻量验证与成功重建分层报告",
+        "executable_smokes": [
+          {
+            "artifact_name": "masscan",
+            "step": {
+              "step_id": "smoke-masscan",
+              "role": "smoke",
+              "command": "/artifacts/masscan --version",
+              "source": "src/main.c:19; 作者版本/用法分支，非业务测试",
+              "expected": "交付文件执行作者轻量入口并符合原生退出及输出；Lwan/wrk原生用法分支退出1由独立断言明确记录，不接受其他退出或空输出",
+              "workdir": "/artifacts",
+              "requires": [],
+              "required_output": [
+                "Masscan"
+              ],
+              "diagnostic_paths": []
+            }
+          }
+        ],
+        "generated_documents": []
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-recovery-r2-sources-20261110-v1/masscan/source.tar",
+      "source_evidence": [
+        {
+          "path": "Makefile",
+          "quote": "all: bin/masscan",
+          "line": 104,
+          "sha256": "ad560743b3c068c45cc881521244a478f87ded60bb9ae05d03003b04353d7abc"
+        },
+        {
+          "path": "src/main.c",
+          "line": 19,
+          "quote": "#include \"masscan-version.h\"",
+          "sha256": "9f65b99bf07819739094cb98f0111ab709793d73f14d55044e71f64d88afb5b3"
+        }
+      ],
+      "reference_actions": {
+        "reason": "作者普通默认入口；仅独立参考，不送在线规划器",
+        "steps": [
+          {
+            "step_id": "build",
+            "role": "build",
+            "command": "make",
+            "source": "Makefile",
+            "expected": "作者普通构建入口；由实际执行和独立产物核对判断完成",
+            "workdir": "/workspace/repo"
+          }
+        ],
+        "build_directory": "/workspace/repo"
+      },
+      "paper_sources": [
+        {
+          "name": "masscan",
+          "topic": "Networking",
+          "guide": "in_repo",
+          "source": "compileagent",
+          "source_url": "https://arxiv.org/html/2505.04254v1#A3.T4",
+          "row": 18,
+          "source_html_sha256": "f61b0a20cd65fa2191ffd722ac922d59b6673b485c6f460c209e1e4bcffa56a0"
+        }
+      ],
+      "exposure": "只读准备后的新开发评价集；未用于提案；非最终holdout"
+    },
+    {
+      "name": "wrk",
+      "family": "https://github.com/wg/wrk",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "r2-wrk",
+        "repository_url": "https://github.com/wg/wrk",
+        "commit_sha": "a211dd5a7050b1f9e8a9870b95513060e72ac4a0",
+        "image_id": "sha256:8123220a201ac4d00cda0dc985b9db7227cd909bb93ca6c25fd82cafce5cd887",
+        "source_archive_sha256": "6fcc9b1cf0d6e74809e01790b46c2ea605af6bebef714ceef7c06f00c06da06c",
+        "build_system": "make",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "50a1654afdee718bea868a01584684eb3511d58542f6d13743352ecf650323b4",
+        "components": [
+          {
+            "name": "wrk",
+            "artifact_names": [
+              "wrk"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "固定作者主目标声明，source_evidence保存文件、行号及原文；辅助demo/benchmark不属于主要组件"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": "主任务不要求完整作者测试；原生轻量验证与成功重建分层报告",
+        "executable_smokes": [
+          {
+            "artifact_name": "wrk",
+            "step": {
+              "step_id": "smoke-wrk",
+              "role": "smoke",
+              "command": "python3 -c 'import subprocess; p=subprocess.run([\"/artifacts/wrk\", \"--version\"], text=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT); print(p.stdout,end=\"\"); assert p.returncode == 1 and '\"'\"'wrk '\"'\"' in p.stdout, (p.returncode,p.stdout)'",
+              "source": "src/wrk.c:55; 作者版本/用法分支，非业务测试",
+              "expected": "交付文件执行作者轻量入口并符合原生退出及输出；Lwan/wrk原生用法分支退出1由独立断言明确记录，不接受其他退出或空输出",
+              "workdir": "/artifacts",
+              "requires": [],
+              "required_output": [
+                "wrk "
+              ],
+              "diagnostic_paths": []
+            }
+          }
+        ],
+        "generated_documents": []
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-recovery-r2-sources-20261110-v1/wrk/source.tar",
+      "source_evidence": [
+        {
+          "path": "Makefile",
+          "quote": "BIN  := wrk",
+          "line": 22,
+          "sha256": "a5d3df674189b5cddf72e0b05563bd3bfb17bbfcad5cabafbbb2344b4538b04b"
+        },
+        {
+          "path": "src/wrk.c",
+          "quote": "if (optind == argc || !cfg->threads || !cfg->duration) return -1;",
+          "line": 528,
+          "sha256": "35598eb21cd21d0b4247ae1d7acbf4492f8cbca92f414ddab0fdfada996867a9"
+        },
+        {
+          "path": "src/wrk.c",
+          "quote": "printf(\"wrk %s [%s] \", VERSION, aeGetApiName());",
+          "line": 517,
+          "sha256": "35598eb21cd21d0b4247ae1d7acbf4492f8cbca92f414ddab0fdfada996867a9"
+        },
+        {
+          "path": "src/wrk.c",
+          "line": 55,
+          "quote": "\"    -v, --version          Print version details      \\n\"",
+          "sha256": "35598eb21cd21d0b4247ae1d7acbf4492f8cbca92f414ddab0fdfada996867a9"
+        }
+      ],
+      "reference_actions": {
+        "reason": "作者普通默认入口；仅独立参考，不送在线规划器",
+        "steps": [
+          {
+            "step_id": "build",
+            "role": "build",
+            "command": "make",
+            "source": "Makefile",
+            "expected": "作者普通构建入口；由实际执行和独立产物核对判断完成",
+            "workdir": "/workspace/repo"
+          }
+        ],
+        "build_directory": "/workspace/repo"
+      },
+      "paper_sources": [
+        {
+          "name": "wrk",
+          "topic": "Networking",
+          "guide": "no_guide",
+          "source": "compileagent",
+          "source_url": "https://arxiv.org/html/2505.04254v1#A3.T4",
+          "row": 21,
+          "source_html_sha256": "f61b0a20cd65fa2191ffd722ac922d59b6673b485c6f460c209e1e4bcffa56a0"
+        }
+      ],
+      "exposure": "只读准备后的新开发评价集；未用于提案；非最终holdout"
+    },
+    {
+      "name": "libbcrypt",
+      "family": "https://github.com/rg3/libbcrypt",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "r2-libbcrypt",
+        "repository_url": "https://github.com/rg3/libbcrypt",
+        "commit_sha": "9f712b35d24d26972c0ecf2890cddefea27dc945",
+        "image_id": "sha256:8123220a201ac4d00cda0dc985b9db7227cd909bb93ca6c25fd82cafce5cd887",
+        "source_archive_sha256": "0eb8d9b6790640f150c3c3a2932d2a94ea0421023ef92335954e85ca0b6a8f01",
+        "build_system": "make",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "76ad6547cd8ea30201551f8e1683fe2867b840ec0026300ef73dc9690ee1ef40",
+        "components": [
+          {
+            "name": "bcrypt",
+            "artifact_names": [
+              "libbcrypt.a",
+              "libbcrypt.so",
+              "libbcrypt.so.1.1.0"
+            ],
+            "kinds": [
+              "static_library",
+              "shared_library"
+            ],
+            "evidence": "固定作者主目标声明，source_evidence保存文件、行号及原文；辅助demo/benchmark不属于主要组件"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": "主任务不要求完整作者测试；原生轻量验证与成功重建分层报告",
+        "executable_smokes": [],
+        "generated_documents": []
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-recovery-r2-sources-20261110-v1/libbcrypt/source.tar",
+      "source_evidence": [
+        {
+          "path": "Makefile",
+          "quote": "BCRYPT_BASENAME = bcrypt",
+          "line": 37,
+          "sha256": "d895f91d2660c105ac4f38f8bf7a90de2a52a711590c712ce49b0c702a3fda61"
+        },
+        {
+          "path": "Makefile",
+          "quote": "all: $(BCRYPT_SOFILE) $(BCRYPT_LAFILE)",
+          "line": 103,
+          "sha256": "d895f91d2660c105ac4f38f8bf7a90de2a52a711590c712ce49b0c702a3fda61"
+        }
+      ],
+      "reference_actions": {
+        "reason": "作者普通默认入口；仅独立参考，不送在线规划器",
+        "steps": [
+          {
+            "step_id": "build",
+            "role": "build",
+            "command": "make",
+            "source": "Makefile",
+            "expected": "作者普通构建入口；由实际执行和独立产物核对判断完成",
+            "workdir": "/workspace/repo"
+          }
+        ],
+        "build_directory": "/workspace/repo"
+      },
+      "paper_sources": [
+        {
+          "name": "libbcrypt",
+          "topic": "Crypto",
+          "guide": "in_repo",
+          "source": "compileagent",
+          "source_url": "https://arxiv.org/html/2505.04254v1#A3.T4",
+          "row": 17,
+          "source_html_sha256": "f61b0a20cd65fa2191ffd722ac922d59b6673b485c6f460c209e1e4bcffa56a0"
+        }
+      ],
+      "exposure": "只读准备后的新开发评价集；未用于提案；非最终holdout"
+    },
+    {
+      "name": "sxhkd",
+      "family": "https://github.com/baskerville/sxhkd",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "r2-sxhkd",
+        "repository_url": "https://github.com/baskerville/sxhkd",
+        "commit_sha": "2cc7aca40f38cd47fbeea1f37fe310ef34386435",
+        "image_id": "sha256:8123220a201ac4d00cda0dc985b9db7227cd909bb93ca6c25fd82cafce5cd887",
+        "source_archive_sha256": "8567afd4b53e049a18864a77336e7ad9a04aa7c5c787431d99f84fc4b9876f95",
+        "build_system": "make",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "0742624a11e2f67798dc523acf5165b2c5ea52d0e6ac9abc4927e9956693785d",
+        "components": [
+          {
+            "name": "sxhkd",
+            "artifact_names": [
+              "sxhkd"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "固定作者主目标声明，source_evidence保存文件、行号及原文；辅助demo/benchmark不属于主要组件"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": "主任务不要求完整作者测试；原生轻量验证与成功重建分层报告",
+        "executable_smokes": [
+          {
+            "artifact_name": "sxhkd",
+            "step": {
+              "step_id": "smoke-sxhkd",
+              "role": "smoke",
+              "command": "/artifacts/sxhkd -h",
+              "source": "src/sxhkd.c:81; 作者版本/用法分支，非业务测试",
+              "expected": "交付文件执行作者轻量入口并符合原生退出及输出；Lwan/wrk原生用法分支退出1由独立断言明确记录，不接受其他退出或空输出",
+              "workdir": "/artifacts",
+              "requires": [],
+              "required_output": [
+                "sxhkd ["
+              ],
+              "diagnostic_paths": []
+            }
+          }
+        ],
+        "generated_documents": []
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-recovery-r2-sources-20261110-v1/sxhkd/source.tar",
+      "source_evidence": [
+        {
+          "path": "Makefile",
+          "quote": "OUT      = sxhkd",
+          "line": 1,
+          "sha256": "a8ae93095f230b3574c0f80e3de111342a6115f93dde562a889a537ecbe63699"
+        },
+        {
+          "path": "src/sxhkd.c",
+          "quote": "case 'v':",
+          "line": 80,
+          "sha256": "7f5446b8dfefba4513ec78b9e37124e898d19675fa09f1adc249ccbe287487c9"
+        },
+        {
+          "path": "src/sxhkd.c",
+          "line": 81,
+          "quote": "printf(\"%s\\n\", VERSION);",
+          "sha256": "7f5446b8dfefba4513ec78b9e37124e898d19675fa09f1adc249ccbe287487c9"
+        }
+      ],
+      "reference_actions": {
+        "reason": "作者普通默认入口；仅独立参考，不送在线规划器",
+        "steps": [
+          {
+            "step_id": "build",
+            "role": "build",
+            "command": "make",
+            "source": "Makefile",
+            "expected": "作者普通构建入口；由实际执行和独立产物核对判断完成",
+            "workdir": "/workspace/repo"
+          }
+        ],
+        "build_directory": "/workspace/repo"
+      },
+      "paper_sources": [
+        {
+          "name": "sxhkd",
+          "topic": "c",
+          "guide": "no_guide",
+          "source": "buildbench",
+          "source_url": "https://arxiv.org/html/2509.25248v2#A9.T9",
+          "row": 30,
+          "source_html_sha256": "97a4b94b443ed07c668c9672d0a1943d3f2f11a9280834ea56f1f12215d0a1cb"
+        }
+      ],
+      "exposure": "只读准备后的新开发评价集；未用于提案；非最终holdout"
+    },
+    {
+      "name": "uhubctl",
+      "family": "https://github.com/mvp/uhubctl",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "r2-uhubctl",
+        "repository_url": "https://github.com/mvp/uhubctl",
+        "commit_sha": "5387b2f12adca1c0594e55097e3c8ec4f1cf4628",
+        "image_id": "sha256:8123220a201ac4d00cda0dc985b9db7227cd909bb93ca6c25fd82cafce5cd887",
+        "source_archive_sha256": "45b2e54245129de78bcb34087b97b6fcffcb1db0c40da0fe14c2a528a63ffa83",
+        "build_system": "make",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "afe79b4302825e90d72904063133629d22f40614e93dcb12369fb604e1b32611",
+        "components": [
+          {
+            "name": "uhubctl",
+            "artifact_names": [
+              "uhubctl"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "固定作者主目标声明，source_evidence保存文件、行号及原文；辅助demo/benchmark不属于主要组件"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": "主任务不要求完整作者测试；原生轻量验证与成功重建分层报告",
+        "executable_smokes": [
+          {
+            "artifact_name": "uhubctl",
+            "step": {
+              "step_id": "smoke-uhubctl",
+              "role": "smoke",
+              "command": "/artifacts/uhubctl --version",
+              "source": "uhubctl.c:8; 作者版本/用法分支，非业务测试",
+              "expected": "交付文件执行作者轻量入口并符合原生退出及输出；Lwan/wrk原生用法分支退出1由独立断言明确记录，不接受其他退出或空输出",
+              "workdir": "/artifacts",
+              "requires": [],
+              "required_output": [
+                "2.6.0"
+              ],
+              "diagnostic_paths": []
+            }
+          }
+        ],
+        "generated_documents": []
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-recovery-r2-sources-20261110-v1/uhubctl/source.tar",
+      "source_evidence": [
+        {
+          "path": "Makefile",
+          "quote": "PROGRAM = uhubctl",
+          "line": 40,
+          "sha256": "3b274fdea29934300dc0b158e5321eed90d9d53968c25bfece0b3add5f970838"
+        },
+        {
+          "path": "uhubctl.c",
+          "quote": "--version,  -v - print program version.",
+          "line": 308,
+          "sha256": "9df8fd356fc05d6ae5be49cfa13361c0c30886c620d2be98c0d1b80cecd2a721"
+        },
+        {
+          "path": "uhubctl.c",
+          "line": 8,
+          "quote": "* GNU General Public License version 2.",
+          "sha256": "9df8fd356fc05d6ae5be49cfa13361c0c30886c620d2be98c0d1b80cecd2a721"
+        }
+      ],
+      "reference_actions": {
+        "reason": "作者普通默认入口；仅独立参考，不送在线规划器",
+        "steps": [
+          {
+            "step_id": "build",
+            "role": "build",
+            "command": "make",
+            "source": "Makefile",
+            "expected": "作者普通构建入口；由实际执行和独立产物核对判断完成",
+            "workdir": "/workspace/repo"
+          }
+        ],
+        "build_directory": "/workspace/repo"
+      },
+      "paper_sources": [
+        {
+          "name": "uhubctl",
+          "topic": "Embedded",
+          "guide": "in_repo",
+          "source": "compileagent",
+          "source_url": "https://arxiv.org/html/2505.04254v1#A3.T4",
+          "row": 44,
+          "source_html_sha256": "f61b0a20cd65fa2191ffd722ac922d59b6673b485c6f460c209e1e4bcffa56a0"
+        }
+      ],
+      "exposure": "只读准备后的新开发评价集；未用于提案；非最终holdout"
+    },
+    {
+      "name": "libpcap",
+      "family": "https://github.com/the-tcpdump-group/libpcap",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "r2-libpcap",
+        "repository_url": "https://github.com/the-tcpdump-group/libpcap",
+        "commit_sha": "48386652ead3ab1e8f8f98915943993e316d2035",
+        "image_id": "sha256:8123220a201ac4d00cda0dc985b9db7227cd909bb93ca6c25fd82cafce5cd887",
+        "source_archive_sha256": "362c50455c6409229c8754035414fb8ed698e79ae64879ba20241e3b106fb545",
+        "build_system": "autotools",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "17de94207609e98d05ffd19fd2042e122d76189dcda011c98baa1cf486d5a4a0",
+        "components": [
+          {
+            "name": "pcap",
+            "artifact_names": [
+              "libpcap.a",
+              "libpcap.so"
+            ],
+            "kinds": [
+              "static_library",
+              "shared_library"
+            ],
+            "evidence": "固定作者主目标声明，source_evidence保存文件、行号及原文；辅助demo/benchmark不属于主要组件"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": "主任务不要求完整作者测试；原生轻量验证与成功重建分层报告",
+        "executable_smokes": [],
+        "generated_documents": []
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-recovery-r2-sources-20261110-v1/libpcap/source.tar",
+      "source_evidence": [
+        {
+          "path": "Makefile.in",
+          "quote": "all: libpcap.a shared",
+          "line": 386,
+          "sha256": "360b70fbde4fab3a794a51541377504d694e3f97e1659c034813569e34d862d0"
+        },
+        {
+          "path": "INSTALL.md",
+          "quote": "Libpcap can be built either with the configure script and `make`",
+          "line": 18,
+          "sha256": "a57f6de2b1150ae34f2315c29882498b26b335764c6bccf6d4653dae73e8a83c"
+        }
+      ],
+      "reference_actions": {
+        "reason": "作者普通默认入口；仅独立参考，不送在线规划器",
+        "steps": [
+          {
+            "step_id": "bootstrap",
+            "role": "configure",
+            "command": "./autogen.sh",
+            "source": "Makefile.in",
+            "expected": "作者普通构建入口；由实际执行和独立产物核对判断完成",
+            "workdir": "/workspace/repo"
+          },
+          {
+            "step_id": "configure",
+            "role": "configure",
+            "command": "./configure",
+            "source": "Makefile.in",
+            "expected": "作者普通构建入口；由实际执行和独立产物核对判断完成",
+            "workdir": "/workspace/repo"
+          },
+          {
+            "step_id": "build",
+            "role": "build",
+            "command": "make",
+            "source": "Makefile.in",
+            "expected": "作者普通构建入口；由实际执行和独立产物核对判断完成",
+            "workdir": "/workspace/repo"
+          }
+        ],
+        "build_directory": "/workspace/repo"
+      },
+      "paper_sources": [
+        {
+          "name": "libpcap",
+          "topic": "Linux",
+          "guide": "no_guide",
+          "source": "compileagent",
+          "source_url": "https://arxiv.org/html/2505.04254v1#A3.T4",
+          "row": 16,
+          "source_html_sha256": "f61b0a20cd65fa2191ffd722ac922d59b6673b485c6f460c209e1e4bcffa56a0"
+        }
+      ],
+      "exposure": "只读准备后的新开发评价集；未用于提案；非最终holdout"
+    },
+    {
+      "name": "tmux",
+      "family": "https://github.com/tmux/tmux",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "r2-tmux",
+        "repository_url": "https://github.com/tmux/tmux",
+        "commit_sha": "f8426e7d9db19a76aa2b1835dad294e3fcb6547b",
+        "image_id": "sha256:8123220a201ac4d00cda0dc985b9db7227cd909bb93ca6c25fd82cafce5cd887",
+        "source_archive_sha256": "0e467280925963126d2aecd6224aae75b51248d70a51863b4f9cf15d9c4c8144",
+        "build_system": "autotools",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "b1716cfd11b7496e7f68cecf2a5cb111730cef0b65250501723392e2f90beecc",
+        "components": [
+          {
+            "name": "tmux",
+            "artifact_names": [
+              "tmux"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "固定作者主目标声明，source_evidence保存文件、行号及原文；辅助demo/benchmark不属于主要组件"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": "主任务不要求完整作者测试；原生轻量验证与成功重建分层报告",
+        "executable_smokes": [
+          {
+            "artifact_name": "tmux",
+            "step": {
+              "step_id": "smoke-tmux",
+              "role": "smoke",
+              "command": "/artifacts/tmux -V",
+              "source": "tmux.c:429; 作者版本/用法分支，非业务测试",
+              "expected": "交付文件执行作者轻量入口并符合原生退出及输出；Lwan/wrk原生用法分支退出1由独立断言明确记录，不接受其他退出或空输出",
+              "workdir": "/artifacts",
+              "requires": [],
+              "required_output": [
+                "tmux"
+              ],
+              "diagnostic_paths": []
+            }
+          }
+        ],
+        "generated_documents": []
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-recovery-r2-sources-20261110-v1/tmux/source.tar",
+      "source_evidence": [
+        {
+          "path": "Makefile.am",
+          "quote": "bin_PROGRAMS = tmux",
+          "line": 2,
+          "sha256": "8854e386674adc4a97f8a9a015545fd46add02c9ace54f00f1fb47e341659b20"
+        },
+        {
+          "path": "tmux.c",
+          "line": 429,
+          "quote": "getversion(void)",
+          "sha256": "ad20abf295f63c5cb5b92b14edcd7e3d1c2171e179607a7d198f9308017c82d2"
+        }
+      ],
+      "reference_actions": {
+        "reason": "作者普通默认入口；仅独立参考，不送在线规划器",
+        "steps": [
+          {
+            "step_id": "bootstrap",
+            "role": "configure",
+            "command": "sh autogen.sh",
+            "source": "Makefile.am",
+            "expected": "作者普通构建入口；由实际执行和独立产物核对判断完成",
+            "workdir": "/workspace/repo"
+          },
+          {
+            "step_id": "configure",
+            "role": "configure",
+            "command": "./configure",
+            "source": "Makefile.am",
+            "expected": "作者普通构建入口；由实际执行和独立产物核对判断完成",
+            "workdir": "/workspace/repo"
+          },
+          {
+            "step_id": "build",
+            "role": "build",
+            "command": "make",
+            "source": "Makefile.am",
+            "expected": "作者普通构建入口；由实际执行和独立产物核对判断完成",
+            "workdir": "/workspace/repo"
+          }
+        ],
+        "build_directory": "/workspace/repo"
+      },
+      "paper_sources": [
+        {
+          "name": "tmux",
+          "topic": "Terminal",
+          "guide": "in_repo",
+          "source": "compileagent",
+          "source_url": "https://arxiv.org/html/2505.04254v1#A3.T4",
+          "row": 44,
+          "source_html_sha256": "f61b0a20cd65fa2191ffd722ac922d59b6673b485c6f460c209e1e4bcffa56a0"
+        }
+      ],
+      "exposure": "只读准备后的新开发评价集；未用于提案；非最终holdout"
+    },
+    {
+      "name": "flex",
+      "family": "https://github.com/westes/flex",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "r2-flex",
+        "repository_url": "https://github.com/westes/flex",
+        "commit_sha": "b32f2ff93b05e48a8bfe6c79b64c2251538027b9",
+        "image_id": "sha256:8123220a201ac4d00cda0dc985b9db7227cd909bb93ca6c25fd82cafce5cd887",
+        "source_archive_sha256": "a415a9c8ed751e6b3e54482e8799aa0582735cd57127b64b00553bdd80374cb8",
+        "build_system": "autotools",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "c9570bb1649fbeac9ec4052afbfa7534be031ad201bd4372a409f43692dc1d6d",
+        "components": [
+          {
+            "name": "flex",
+            "artifact_names": [
+              "flex"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "固定作者主目标声明，source_evidence保存文件、行号及原文；辅助demo/benchmark不属于主要组件"
+          },
+          {
+            "name": "libfl",
+            "artifact_names": [
+              "libfl.a",
+              "libfl.so"
+            ],
+            "kinds": [
+              "static_library",
+              "shared_library"
+            ],
+            "evidence": "固定作者主目标声明，source_evidence保存文件、行号及原文；辅助demo/benchmark不属于主要组件"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": "主任务不要求完整作者测试；原生轻量验证与成功重建分层报告",
+        "executable_smokes": [
+          {
+            "artifact_name": "flex",
+            "step": {
+              "step_id": "smoke-flex",
+              "role": "smoke",
+              "command": "/artifacts/flex --version",
+              "source": "src/options.c:127; 作者版本/用法分支，非业务测试",
+              "expected": "交付文件执行作者轻量入口并符合原生退出及输出；Lwan/wrk原生用法分支退出1由独立断言明确记录，不接受其他退出或空输出",
+              "workdir": "/artifacts",
+              "requires": [],
+              "required_output": [
+                "flex"
+              ],
+              "diagnostic_paths": []
+            }
+          }
+        ],
+        "generated_documents": []
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-recovery-r2-sources-20261110-v1/flex/source.tar",
+      "source_evidence": [
+        {
+          "path": "src/Makefile.am",
+          "quote": "bin_PROGRAMS = flex",
+          "line": 9,
+          "sha256": "382877916a9c411a27c421d2f16edb71a2f52dfa48acfe6749e2124fbfea82de"
+        },
+        {
+          "path": "src/Makefile.am",
+          "quote": "lib_LTLIBRARIES = libfl.la",
+          "line": 18,
+          "sha256": "382877916a9c411a27c421d2f16edb71a2f52dfa48acfe6749e2124fbfea82de"
+        },
+        {
+          "path": "src/options.c",
+          "line": 127,
+          "quote": "{\"--help\", OPT_HELP, 0}",
+          "sha256": "8f08d47a29daa0440732c07ef0c1a53553e32914a3f5a4259aeb2ed59f8e3fdc"
+        }
+      ],
+      "reference_actions": {
+        "reason": "作者普通默认入口；仅独立参考，不送在线规划器",
+        "steps": [
+          {
+            "step_id": "bootstrap",
+            "role": "configure",
+            "command": "./autogen.sh",
+            "source": "src/Makefile.am",
+            "expected": "作者普通构建入口；由实际执行和独立产物核对判断完成",
+            "workdir": "/workspace/repo"
+          },
+          {
+            "step_id": "configure",
+            "role": "configure",
+            "command": "./configure",
+            "source": "src/Makefile.am",
+            "expected": "作者普通构建入口；由实际执行和独立产物核对判断完成",
+            "workdir": "/workspace/repo"
+          },
+          {
+            "step_id": "build",
+            "role": "build",
+            "command": "make",
+            "source": "src/Makefile.am",
+            "expected": "作者普通构建入口；由实际执行和独立产物核对判断完成",
+            "workdir": "/workspace/repo"
+          }
+        ],
+        "build_directory": "/workspace/repo"
+      },
+      "paper_sources": [
+        {
+          "name": "flex",
+          "topic": "Programming",
+          "guide": "in_repo",
+          "source": "compileagent",
+          "source_url": "https://arxiv.org/html/2505.04254v1#A3.T4",
+          "row": 36,
+          "source_html_sha256": "f61b0a20cd65fa2191ffd722ac922d59b6673b485c6f460c209e1e4bcffa56a0"
+        }
+      ],
+      "exposure": "只读准备后的新开发评价集；未用于提案；非最终holdout"
+    },
+    {
+      "name": "goaccess",
+      "family": "https://github.com/allinurl/goaccess",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "r2-goaccess",
+        "repository_url": "https://github.com/allinurl/goaccess",
+        "commit_sha": "bd7b5db9e0786662632e962704c839135581bc2b",
+        "image_id": "sha256:8123220a201ac4d00cda0dc985b9db7227cd909bb93ca6c25fd82cafce5cd887",
+        "source_archive_sha256": "fe30b78f23cfa50c3e78f61a9babfba6a8d7f0f79ac065b875cb3a8158b95f67",
+        "build_system": "autotools",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "ec11dc571ac817417281b3ad99caabb522b1680a4aac1b85503a64080f5ad6d8",
+        "components": [
+          {
+            "name": "goaccess",
+            "artifact_names": [
+              "goaccess"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "固定作者主目标声明，source_evidence保存文件、行号及原文；辅助demo/benchmark不属于主要组件"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": "主任务不要求完整作者测试；原生轻量验证与成功重建分层报告",
+        "executable_smokes": [
+          {
+            "artifact_name": "goaccess",
+            "step": {
+              "step_id": "smoke-goaccess",
+              "role": "smoke",
+              "command": "/artifacts/goaccess --version",
+              "source": "src/options.c:95; 作者版本/用法分支，非业务测试",
+              "expected": "交付文件执行作者轻量入口并符合原生退出及输出；Lwan/wrk原生用法分支退出1由独立断言明确记录，不接受其他退出或空输出",
+              "workdir": "/artifacts",
+              "requires": [],
+              "required_output": [
+                "GoAccess"
+              ],
+              "diagnostic_paths": []
+            }
+          }
+        ],
+        "generated_documents": []
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-recovery-r2-sources-20261110-v1/goaccess/source.tar",
+      "source_evidence": [
+        {
+          "path": "Makefile.am",
+          "quote": "bin_PROGRAMS = goaccess",
+          "line": 2,
+          "sha256": "fad86bb027d7b71979288cbc3a0cc2706da3cca6531aef3edbbc833cfcbd162d"
+        },
+        {
+          "path": "README.md",
+          "quote": "$ autoreconf -fiv",
+          "line": 158,
+          "sha256": "ec0371eaca9f183e7941645177dea431dfee4400ce5cb5d8025becae0e52b556"
+        },
+        {
+          "path": "src/options.c",
+          "line": 95,
+          "quote": "{\"version\"              , no_argument       , 0 , 'V' } ,",
+          "sha256": "a8b0f538d06c10fa7f7bb8ea6cedc7703e37f04eea4c2a9d70ed15f1292f06e8"
+        }
+      ],
+      "reference_actions": {
+        "reason": "作者普通默认入口；仅独立参考，不送在线规划器",
+        "steps": [
+          {
+            "step_id": "bootstrap",
+            "role": "configure",
+            "command": "autoreconf -fiv",
+            "source": "Makefile.am",
+            "expected": "作者普通构建入口；由实际执行和独立产物核对判断完成",
+            "workdir": "/workspace/repo"
+          },
+          {
+            "step_id": "configure",
+            "role": "configure",
+            "command": "./configure",
+            "source": "Makefile.am",
+            "expected": "作者普通构建入口；由实际执行和独立产物核对判断完成",
+            "workdir": "/workspace/repo"
+          },
+          {
+            "step_id": "build",
+            "role": "build",
+            "command": "make",
+            "source": "Makefile.am",
+            "expected": "作者普通构建入口；由实际执行和独立产物核对判断完成",
+            "workdir": "/workspace/repo"
+          }
+        ],
+        "build_directory": "/workspace/repo"
+      },
+      "paper_sources": [
+        {
+          "name": "goaccess",
+          "topic": "Terminal",
+          "guide": "in_repo",
+          "source": "compileagent",
+          "source_url": "https://arxiv.org/html/2505.04254v1#A3.T4",
+          "row": 52,
+          "source_html_sha256": "f61b0a20cd65fa2191ffd722ac922d59b6673b485c6f460c209e1e4bcffa56a0"
+        }
+      ],
+      "exposure": "只读准备后的新开发评价集；未用于提案；非最终holdout"
+    },
+    {
+      "name": "file",
+      "family": "https://github.com/file/file",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "r2-file",
+        "repository_url": "https://github.com/file/file",
+        "commit_sha": "b778217dbd35291d3539abb446e50b43a972a5fc",
+        "image_id": "sha256:8123220a201ac4d00cda0dc985b9db7227cd909bb93ca6c25fd82cafce5cd887",
+        "source_archive_sha256": "ce77aa5e4df1424453fcee09cc0eedd380bbd8bc5b1cae781b458a2b157c94b8",
+        "build_system": "autotools",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "e83f9ebc6a79defa8e63d83b8497d48dc8ad965a8ce1b2f5f9aa90b1727ccdcd",
+        "components": [
+          {
+            "name": "file",
+            "artifact_names": [
+              "file"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "固定作者主目标声明，source_evidence保存文件、行号及原文；辅助demo/benchmark不属于主要组件"
+          },
+          {
+            "name": "magic",
+            "artifact_names": [
+              "libmagic.a",
+              "libmagic.so"
+            ],
+            "kinds": [
+              "static_library",
+              "shared_library"
+            ],
+            "evidence": "固定作者主目标声明，source_evidence保存文件、行号及原文；辅助demo/benchmark不属于主要组件"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": "主任务不要求完整作者测试；原生轻量验证与成功重建分层报告",
+        "executable_smokes": [
+          {
+            "artifact_name": "file",
+            "step": {
+              "step_id": "smoke-file",
+              "role": "smoke",
+              "command": "/artifacts/file --version",
+              "source": "src/file.c:98; 作者版本/用法分支，非业务测试",
+              "expected": "交付文件执行作者轻量入口并符合原生退出及输出；Lwan/wrk原生用法分支退出1由独立断言明确记录，不接受其他退出或空输出",
+              "workdir": "/artifacts",
+              "requires": [],
+              "required_output": [
+                "file-"
+              ],
+              "diagnostic_paths": []
+            }
+          }
+        ],
+        "generated_documents": []
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-recovery-r2-sources-20261110-v1/file/source.tar",
+      "source_evidence": [
+        {
+          "path": "src/Makefile.am",
+          "quote": "bin_PROGRAMS = file",
+          "line": 12,
+          "sha256": "2d5070101d9581a1ed31f09ab84d4d66fe7fe664090cd819e9992fe58d836ed1"
+        },
+        {
+          "path": "src/Makefile.am",
+          "quote": "lib_LTLIBRARIES = libmagic.la",
+          "line": 9,
+          "sha256": "2d5070101d9581a1ed31f09ab84d4d66fe7fe664090cd819e9992fe58d836ed1"
+        },
+        {
+          "path": "README.DEVELOPER",
+          "quote": "autoreconf -f -i",
+          "line": 9,
+          "sha256": "bc24f19c55fc10c3b2824860d597150f488a24ee6e56f1f54ec4dad5c1032427"
+        },
+        {
+          "path": "src/file.c",
+          "line": 98,
+          "quote": "\"       %s [--help]\\n\"",
+          "sha256": "12a4019e8aea2544e574eee552d0732c28a75b1ac325f89da1bf5580308aab1f"
+        }
+      ],
+      "reference_actions": {
+        "reason": "作者普通默认入口；仅独立参考，不送在线规划器",
+        "steps": [
+          {
+            "step_id": "bootstrap",
+            "role": "configure",
+            "command": "autoreconf -fi",
+            "source": "src/Makefile.am",
+            "expected": "作者普通构建入口；由实际执行和独立产物核对判断完成",
+            "workdir": "/workspace/repo"
+          },
+          {
+            "step_id": "configure",
+            "role": "configure",
+            "command": "./configure",
+            "source": "src/Makefile.am",
+            "expected": "作者普通构建入口；由实际执行和独立产物核对判断完成",
+            "workdir": "/workspace/repo"
+          },
+          {
+            "step_id": "build",
+            "role": "build",
+            "command": "make",
+            "source": "src/Makefile.am",
+            "expected": "作者普通构建入口；由实际执行和独立产物核对判断完成",
+            "workdir": "/workspace/repo"
+          }
+        ],
+        "build_directory": "/workspace/repo"
+      },
+      "paper_sources": [
+        {
+          "name": "file",
+          "topic": "c",
+          "guide": "in_repo",
+          "source": "buildbench",
+          "source_url": "https://arxiv.org/html/2509.25248v2#A9.T8",
+          "row": 16,
+          "source_html_sha256": "97a4b94b443ed07c668c9672d0a1943d3f2f11a9280834ea56f1f12215d0a1cb"
+        }
+      ],
+      "exposure": "只读准备后的新开发评价集；未用于提案；非最终holdout"
+    },
+    {
+      "name": "xz",
+      "family": "https://github.com/tukaani-project/xz",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "r2-xz",
+        "repository_url": "https://github.com/tukaani-project/xz",
+        "commit_sha": "941bde613e214522fcba68b1a2baf4068e5d25d7",
+        "image_id": "sha256:8123220a201ac4d00cda0dc985b9db7227cd909bb93ca6c25fd82cafce5cd887",
+        "source_archive_sha256": "d75fbb45bc9c9c357b06e40077b752f92c9a5686f0caa51ab74a2223285ef8ca",
+        "build_system": "autotools",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "7f8691a8ed42bce2c148d2f003395cce6658688288da4ebe49919f331e2b2fef",
+        "components": [
+          {
+            "name": "xz",
+            "artifact_names": [
+              "xz"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "固定作者主目标声明，source_evidence保存文件、行号及原文；辅助demo/benchmark不属于主要组件"
+          },
+          {
+            "name": "lzma",
+            "artifact_names": [
+              "liblzma.a",
+              "liblzma.so"
+            ],
+            "kinds": [
+              "static_library",
+              "shared_library"
+            ],
+            "evidence": "固定作者主目标声明，source_evidence保存文件、行号及原文；辅助demo/benchmark不属于主要组件"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": "主任务不要求完整作者测试；原生轻量验证与成功重建分层报告",
+        "executable_smokes": [
+          {
+            "artifact_name": "xz",
+            "step": {
+              "step_id": "smoke-xz",
+              "role": "smoke",
+              "command": "/artifacts/xz --version",
+              "source": "src/xz/args.c:314; 作者版本/用法分支，非业务测试",
+              "expected": "交付文件执行作者轻量入口并符合原生退出及输出；Lwan/wrk原生用法分支退出1由独立断言明确记录，不接受其他退出或空输出",
+              "workdir": "/artifacts",
+              "requires": [],
+              "required_output": [
+                "XZ Utils"
+              ],
+              "diagnostic_paths": []
+            }
+          }
+        ],
+        "generated_documents": []
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-recovery-r2-sources-20261110-v1/xz/source.tar",
+      "source_evidence": [
+        {
+          "path": "src/xz/Makefile.am",
+          "quote": "bin_PROGRAMS = xz",
+          "line": 4,
+          "sha256": "237c4119020baeb1fbaa1b55b46b517b1687075e0c9e96459a3583390f3ec1c1"
+        },
+        {
+          "path": "src/liblzma/Makefile.am",
+          "quote": "lib_LTLIBRARIES = liblzma.la",
+          "line": 10,
+          "sha256": "a5daa066eb5c8794b559d05ae7a2b13608b8e2f9650c88e3652c1b532fbee4f1"
+        },
+        {
+          "path": "src/xz/args.c",
+          "line": 314,
+          "quote": "{ \"version\",      no_argument,       NULL,  'V' },",
+          "sha256": "434fc020a256ed33e3abcb4a501a44e35bc261e7ce7d03a1a8c0f77b9272223d"
+        }
+      ],
+      "reference_actions": {
+        "reason": "作者普通默认入口；仅独立参考，不送在线规划器",
+        "steps": [
+          {
+            "step_id": "bootstrap",
+            "role": "configure",
+            "command": "./autogen.sh",
+            "source": "src/xz/Makefile.am",
+            "expected": "作者普通构建入口；由实际执行和独立产物核对判断完成",
+            "workdir": "/workspace/repo"
+          },
+          {
+            "step_id": "configure",
+            "role": "configure",
+            "command": "./configure",
+            "source": "src/xz/Makefile.am",
+            "expected": "作者普通构建入口；由实际执行和独立产物核对判断完成",
+            "workdir": "/workspace/repo"
+          },
+          {
+            "step_id": "build",
+            "role": "build",
+            "command": "make",
+            "source": "src/xz/Makefile.am",
+            "expected": "作者普通构建入口；由实际执行和独立产物核对判断完成",
+            "workdir": "/workspace/repo"
+          }
+        ],
+        "build_directory": "/workspace/repo"
+      },
+      "paper_sources": [
+        {
+          "name": "xz",
+          "topic": "c",
+          "guide": "in_repo",
+          "source": "buildbench",
+          "source_url": "https://arxiv.org/html/2509.25248v2#A9.T7",
+          "row": 42,
+          "source_html_sha256": "97a4b94b443ed07c668c9672d0a1943d3f2f11a9280834ea56f1f12215d0a1cb"
+        }
+      ],
+      "exposure": "只读准备后的新开发评价集；未用于提案；非最终holdout"
+    }
+  ]
+}

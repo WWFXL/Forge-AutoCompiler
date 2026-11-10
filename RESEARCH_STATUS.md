@@ -3,7 +3,15 @@
 论文选材固定入口：[硕士论文实验与证据索引](docs/research/THESIS_EVIDENCE_INDEX.md)，[历史材料目录](docs/research/THESIS_EVIDENCE_CATALOG.md)保留存量导航。当前完整稿为[论文v0.10第二轮结果稿](docs/thesis/README.md)；E50–E52保存主构建系统及两轮Harness结果，既有完整任务、状态/恢复消融和两层经验继续按各自版本与分母使用。
 
 
-## 当前阶段（2026-11-10；#723已取得结合系统实现的恢复Harness复分析，待用户审核）
+## 当前阶段（2026-11-10；#725新R2已由用户审核，36槽新项目比较准备完成）
+
+用户“审核通过”接受候选R2_system_context（SHA270becfd）。[准备报告](docs/research/2026-11-10-recovery-harness-r2-comparison-preparation.md)及[固定协议](benchmarks/preregistrations/cpp-build-recovery-harness-r2-comparison-flash-v1.md)：18新项目、三系统各6、每法每项目一次共36槽；每项目一次H0初始规划，两干净会话共享完整方案，只改变自然失败恢复提示。在线Flash不变，共用当前执行修复、国内HTTPS镜像及successful-rebuild-v1；旧E53不混分母/不跨批相减。
+
+manifest7392fcb8，正式身份cpp-build-recovery-harness-r2-comparison-flash-v1。源码18/18采集、作者主目标独立装配，来源/任务清单未见既有运行URL且与提案项目分离，非最终holdout。沿用旧execute/paid_callbacks，新增本轮分母/标签/提案费用分析；19相关检查/Ruff通过。零Provider实际回调v2两组均受控恢复、主构建/轻量/实际重建/cleanup通过；v1两主构建已过但libtree版本输出断言错误，重建未启动，两条保留，独立v2参考修正，不回填。6容器12项名称/ID实查不存在，详情见准备汇总。
+
+本阶段基础设施，不计Harness效果；0新增模型费/0真实凭据读取、正式比较0/36、无活动Provider、H0仍默认、论文v0.10未改。候选审核不等于入文批准。新批建议5美元/确认起4小时、无自动重试，预算时窗尚未授权，旧1美元仅提案不能续用。发布检查后待本批授权，获准即采集，不再重复工程资格；结果先审核再入文。
+
+## 上一阶段（2026-11-10；#723已取得结合系统实现的恢复Harness复分析，待用户审核）
 
 用户明确要求补强优化器对当前实现的理解后重新分析。依据[固定边界](benchmarks/preregistrations/cpp-build-offline-recovery-harness-system-context-proposal-v1.md)，同一13次E53恢复＋3正常边界不变，新增[实现说明](docs/research/2026-11-10-recovery-optimizer-system-context.md)、8文件38个定义的真实源码、任务/输出/三只读工具Schema和执行契约；明确科研恢复只读并返回方案，不具产品或强工具Agent的Bash权限。原R2作为复核对象，不覆盖原调用，不增加构建效果分母。
 
