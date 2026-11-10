@@ -1,0 +1,1286 @@
+{
+  "mozjpeg": {
+    "components": [
+      {
+        "name": "libjpeg",
+        "artifact_names": [
+          "libjpeg.a",
+          "libjpeg.so"
+        ],
+        "kinds": [
+          "static_library",
+          "shared_library"
+        ],
+        "evidence": "固定作者主目标声明，source_evidence保存文件、行号及原文；辅助demo/benchmark不属于主要组件"
+      },
+      {
+        "name": "libturbojpeg",
+        "artifact_names": [
+          "libturbojpeg.a",
+          "libturbojpeg.so"
+        ],
+        "kinds": [
+          "static_library",
+          "shared_library"
+        ],
+        "evidence": "固定作者主目标声明，source_evidence保存文件、行号及原文；辅助demo/benchmark不属于主要组件"
+      },
+      {
+        "name": "cjpeg",
+        "artifact_names": [
+          "cjpeg"
+        ],
+        "kinds": [
+          "executable"
+        ],
+        "evidence": "固定作者主目标声明，source_evidence保存文件、行号及原文；辅助demo/benchmark不属于主要组件"
+      },
+      {
+        "name": "djpeg",
+        "artifact_names": [
+          "djpeg"
+        ],
+        "kinds": [
+          "executable"
+        ],
+        "evidence": "固定作者主目标声明，source_evidence保存文件、行号及原文；辅助demo/benchmark不属于主要组件"
+      },
+      {
+        "name": "jpegtran",
+        "artifact_names": [
+          "jpegtran"
+        ],
+        "kinds": [
+          "executable"
+        ],
+        "evidence": "固定作者主目标声明，source_evidence保存文件、行号及原文；辅助demo/benchmark不属于主要组件"
+      }
+    ],
+    "source_evidence": [
+      {
+        "path": "CMakeLists.txt",
+        "quote": "add_library(turbojpeg SHARED",
+        "line": 707
+      },
+      {
+        "path": "sharedlib/CMakeLists.txt",
+        "quote": "add_library(jpeg SHARED",
+        "line": 51
+      },
+      {
+        "path": "sharedlib/CMakeLists.txt",
+        "quote": "add_executable(cjpeg",
+        "line": 100
+      },
+      {
+        "path": "sharedlib/CMakeLists.txt",
+        "quote": "add_executable(djpeg",
+        "line": 137
+      },
+      {
+        "path": "sharedlib/CMakeLists.txt",
+        "quote": "add_executable(jpegtran",
+        "line": 143
+      },
+      {
+        "path": "cjpeg.c",
+        "line": 41,
+        "quote": "#include \"jversion.h\"           /* for version message */"
+      },
+      {
+        "path": "djpeg.c",
+        "line": 36,
+        "quote": "#include \"jversion.h\"           /* for version message */"
+      },
+      {
+        "path": "jpegtran.c",
+        "line": 24,
+        "quote": "#include \"jversion.h\"           /* for version message */"
+      }
+    ],
+    "executable_smokes": [
+      {
+        "artifact_name": "cjpeg",
+        "step": {
+          "step_id": "smoke-cjpeg",
+          "role": "smoke",
+          "command": "/artifacts/cjpeg -version",
+          "workdir": "/artifacts",
+          "required_output": [
+            " version "
+          ],
+          "source": "cjpeg.c:41; 作者版本/用法分支，非业务测试",
+          "expected": "交付文件执行作者轻量入口并符合原生退出及输出；Lwan/wrk原生用法分支退出1由独立断言明确记录，不接受其他退出或空输出"
+        }
+      },
+      {
+        "artifact_name": "djpeg",
+        "step": {
+          "step_id": "smoke-djpeg",
+          "role": "smoke",
+          "command": "/artifacts/djpeg -version",
+          "workdir": "/artifacts",
+          "required_output": [
+            " version "
+          ],
+          "source": "djpeg.c:36; 作者版本/用法分支，非业务测试",
+          "expected": "交付文件执行作者轻量入口并符合原生退出及输出；Lwan/wrk原生用法分支退出1由独立断言明确记录，不接受其他退出或空输出"
+        }
+      },
+      {
+        "artifact_name": "jpegtran",
+        "step": {
+          "step_id": "smoke-jpegtran",
+          "role": "smoke",
+          "command": "/artifacts/jpegtran -version",
+          "workdir": "/artifacts",
+          "required_output": [
+            " version "
+          ],
+          "source": "jpegtran.c:24; 作者版本/用法分支，非业务测试",
+          "expected": "交付文件执行作者轻量入口并符合原生退出及输出；Lwan/wrk原生用法分支退出1由独立断言明确记录，不接受其他退出或空输出"
+        }
+      }
+    ],
+    "reference_actions": {
+      "reason": "作者普通默认入口；仅独立参考，不送在线规划器",
+      "steps": [
+        {
+          "step_id": "configure",
+          "role": "configure",
+          "command": "cmake -S . -B build",
+          "source": "CMakeLists.txt",
+          "expected": "作者普通构建入口；由实际执行和独立产物核对判断完成",
+          "workdir": "/workspace/repo"
+        },
+        {
+          "step_id": "build",
+          "role": "build",
+          "command": "cmake --build build",
+          "source": "CMakeLists.txt",
+          "expected": "作者普通构建入口；由实际执行和独立产物核对判断完成",
+          "workdir": "/workspace/repo"
+        }
+      ],
+      "build_directory": "/workspace/repo/build"
+    }
+  },
+  "rtl_433": {
+    "components": [
+      {
+        "name": "rtl_433",
+        "artifact_names": [
+          "rtl_433"
+        ],
+        "kinds": [
+          "executable"
+        ],
+        "evidence": "固定作者主目标声明，source_evidence保存文件、行号及原文；辅助demo/benchmark不属于主要组件"
+      }
+    ],
+    "source_evidence": [
+      {
+        "path": "src/CMakeLists.txt",
+        "quote": "add_executable(rtl_433 rtl_433.c)",
+        "line": 502
+      },
+      {
+        "path": "src/rtl_433.c",
+        "line": 11,
+        "quote": "the Free Software Foundation; either version 2 of the License, or"
+      }
+    ],
+    "executable_smokes": [
+      {
+        "artifact_name": "rtl_433",
+        "step": {
+          "step_id": "smoke-rtl_433",
+          "role": "smoke",
+          "command": "/artifacts/rtl_433 -V",
+          "workdir": "/artifacts",
+          "required_output": [
+            "rtl_433"
+          ],
+          "source": "src/rtl_433.c:11; 作者版本/用法分支，非业务测试",
+          "expected": "交付文件执行作者轻量入口并符合原生退出及输出；Lwan/wrk原生用法分支退出1由独立断言明确记录，不接受其他退出或空输出"
+        }
+      }
+    ],
+    "reference_actions": {
+      "reason": "作者普通默认入口；仅独立参考，不送在线规划器",
+      "steps": [
+        {
+          "step_id": "configure",
+          "role": "configure",
+          "command": "cmake -S . -B build",
+          "source": "src/CMakeLists.txt",
+          "expected": "作者普通构建入口；由实际执行和独立产物核对判断完成",
+          "workdir": "/workspace/repo"
+        },
+        {
+          "step_id": "build",
+          "role": "build",
+          "command": "cmake --build build",
+          "source": "src/CMakeLists.txt",
+          "expected": "作者普通构建入口；由实际执行和独立产物核对判断完成",
+          "workdir": "/workspace/repo"
+        }
+      ],
+      "build_directory": "/workspace/repo/build"
+    }
+  },
+  "stderred": {
+    "components": [
+      {
+        "name": "libstderred",
+        "artifact_names": [
+          "libstderred.so"
+        ],
+        "kinds": [
+          "shared_library"
+        ],
+        "evidence": "固定作者主目标声明，source_evidence保存文件、行号及原文；辅助demo/benchmark不属于主要组件"
+      }
+    ],
+    "source_evidence": [
+      {
+        "path": "src/CMakeLists.txt",
+        "quote": "add_library(stderred SHARED",
+        "line": 67
+      },
+      {
+        "path": "Makefile",
+        "quote": "mkdir build && cd build && cmake ../src && make",
+        "line": 6
+      }
+    ],
+    "executable_smokes": [],
+    "reference_actions": {
+      "reason": "作者普通默认入口；仅独立参考，不送在线规划器",
+      "steps": [
+        {
+          "step_id": "configure",
+          "role": "configure",
+          "command": "cmake -S src -B build",
+          "source": "src/CMakeLists.txt",
+          "expected": "作者普通构建入口；由实际执行和独立产物核对判断完成",
+          "workdir": "/workspace/repo"
+        },
+        {
+          "step_id": "build",
+          "role": "build",
+          "command": "cmake --build build",
+          "source": "src/CMakeLists.txt",
+          "expected": "作者普通构建入口；由实际执行和独立产物核对判断完成",
+          "workdir": "/workspace/repo"
+        }
+      ],
+      "build_directory": "/workspace/repo/build"
+    }
+  },
+  "Libfacedetection": {
+    "components": [
+      {
+        "name": "facedetection",
+        "artifact_names": [
+          "libfacedetection.a",
+          "libfacedetection.so"
+        ],
+        "kinds": [
+          "static_library",
+          "shared_library"
+        ],
+        "evidence": "固定作者主目标声明，source_evidence保存文件、行号及原文；辅助demo/benchmark不属于主要组件"
+      }
+    ],
+    "source_evidence": [
+      {
+        "path": "CMakeLists.txt",
+        "quote": "SET(fdt_lib_name   facedetection)",
+        "line": 63
+      },
+      {
+        "path": "CMakeLists.txt",
+        "quote": "ADD_LIBRARY(${fdt_lib_name}",
+        "line": 131
+      }
+    ],
+    "executable_smokes": [],
+    "reference_actions": {
+      "reason": "作者普通默认入口；仅独立参考，不送在线规划器",
+      "steps": [
+        {
+          "step_id": "configure",
+          "role": "configure",
+          "command": "cmake -S . -B build",
+          "source": "CMakeLists.txt",
+          "expected": "作者普通构建入口；由实际执行和独立产物核对判断完成",
+          "workdir": "/workspace/repo"
+        },
+        {
+          "step_id": "build",
+          "role": "build",
+          "command": "cmake --build build",
+          "source": "CMakeLists.txt",
+          "expected": "作者普通构建入口；由实际执行和独立产物核对判断完成",
+          "workdir": "/workspace/repo"
+        }
+      ],
+      "build_directory": "/workspace/repo/build"
+    }
+  },
+  "zlog": {
+    "components": [
+      {
+        "name": "zlog",
+        "artifact_names": [
+          "libzlog.a",
+          "libzlog.so"
+        ],
+        "kinds": [
+          "static_library",
+          "shared_library"
+        ],
+        "evidence": "固定作者主目标声明，source_evidence保存文件、行号及原文；辅助demo/benchmark不属于主要组件"
+      }
+    ],
+    "source_evidence": [
+      {
+        "path": "src/CMakeLists.txt",
+        "quote": "add_library(zlog\n",
+        "line": 9
+      },
+      {
+        "path": "src/CMakeLists.txt",
+        "quote": "OUTPUT_NAME zlog",
+        "line": 47
+      }
+    ],
+    "executable_smokes": [],
+    "reference_actions": {
+      "reason": "作者普通默认入口；仅独立参考，不送在线规划器",
+      "steps": [
+        {
+          "step_id": "configure",
+          "role": "configure",
+          "command": "cmake -S . -B build",
+          "source": "src/CMakeLists.txt",
+          "expected": "作者普通构建入口；由实际执行和独立产物核对判断完成",
+          "workdir": "/workspace/repo"
+        },
+        {
+          "step_id": "build",
+          "role": "build",
+          "command": "cmake --build build",
+          "source": "src/CMakeLists.txt",
+          "expected": "作者普通构建入口；由实际执行和独立产物核对判断完成",
+          "workdir": "/workspace/repo"
+        }
+      ],
+      "build_directory": "/workspace/repo/build"
+    }
+  },
+  "Lwan": {
+    "components": [
+      {
+        "name": "lwan",
+        "artifact_names": [
+          "lwan"
+        ],
+        "kinds": [
+          "executable"
+        ],
+        "evidence": "固定作者主目标声明，source_evidence保存文件、行号及原文；辅助demo/benchmark不属于主要组件"
+      }
+    ],
+    "source_evidence": [
+      {
+        "path": "src/bin/lwan/CMakeLists.txt",
+        "quote": "add_executable(lwan main.c)",
+        "line": 3
+      },
+      {
+        "path": "src/bin/lwan/main.c",
+        "quote": "printf(\"Lwan version %s\\n\", LWAN_VERSION);",
+        "line": 253
+      },
+      {
+        "path": "src/bin/lwan/main.c",
+        "quote": "ret = EXIT_FAILURE;",
+        "line": 394
+      },
+      {
+        "path": "src/bin/lwan/main.c",
+        "line": 7,
+        "quote": "* as published by the Free Software Foundation; either version 2"
+      }
+    ],
+    "executable_smokes": [
+      {
+        "artifact_name": "lwan",
+        "step": {
+          "step_id": "smoke-lwan",
+          "role": "smoke",
+          "command": "python3 -c 'import subprocess; p=subprocess.run([\"/artifacts/lwan\", \"--version\"], text=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT); print(p.stdout,end=\"\"); assert p.returncode == 1 and '\"'\"'Lwan version'\"'\"' in p.stdout, (p.returncode,p.stdout)'",
+          "workdir": "/artifacts",
+          "required_output": [
+            "Lwan version"
+          ],
+          "source": "src/bin/lwan/main.c:7; 作者版本/用法分支，非业务测试",
+          "expected": "交付文件执行作者轻量入口并符合原生退出及输出；Lwan/wrk原生用法分支退出1由独立断言明确记录，不接受其他退出或空输出"
+        }
+      }
+    ],
+    "reference_actions": {
+      "reason": "作者普通默认入口；仅独立参考，不送在线规划器",
+      "steps": [
+        {
+          "step_id": "configure",
+          "role": "configure",
+          "command": "cmake -S . -B build",
+          "source": "src/bin/lwan/CMakeLists.txt",
+          "expected": "作者普通构建入口；由实际执行和独立产物核对判断完成",
+          "workdir": "/workspace/repo"
+        },
+        {
+          "step_id": "build",
+          "role": "build",
+          "command": "cmake --build build",
+          "source": "src/bin/lwan/CMakeLists.txt",
+          "expected": "作者普通构建入口；由实际执行和独立产物核对判断完成",
+          "workdir": "/workspace/repo"
+        }
+      ],
+      "build_directory": "/workspace/repo/build"
+    }
+  },
+  "libtree": {
+    "components": [
+      {
+        "name": "libtree",
+        "artifact_names": [
+          "libtree"
+        ],
+        "kinds": [
+          "executable"
+        ],
+        "evidence": "固定作者主目标声明，source_evidence保存文件、行号及原文；辅助demo/benchmark不属于主要组件"
+      }
+    ],
+    "source_evidence": [
+      {
+        "path": "Makefile",
+        "quote": "all: libtree",
+        "line": 16
+      },
+      {
+        "path": "libtree.c",
+        "line": 13,
+        "quote": "#define VERSION \"3.2.0-dev\""
+      },
+      {
+        "path": "libtree.c",
+        "line": 1775,
+        "quote": "Usage: libtree [OPTION]... [--] FILE [FILES]..."
+      }
+    ],
+    "executable_smokes": [
+      {
+        "artifact_name": "libtree",
+        "step": {
+          "step_id": "smoke-libtree",
+          "role": "smoke",
+          "command": "/artifacts/libtree --help",
+          "workdir": "/artifacts",
+          "required_output": [
+            "Usage: libtree"
+          ],
+          "source": "libtree.c:1771-1828; 显式--help输出用法并退出0",
+          "expected": "交付文件执行作者轻量入口并符合原生退出及输出；Lwan/wrk原生用法分支退出1由独立断言明确记录，不接受其他退出或空输出"
+        }
+      }
+    ],
+    "reference_actions": {
+      "reason": "作者普通默认入口；仅独立参考，不送在线规划器",
+      "steps": [
+        {
+          "step_id": "build",
+          "role": "build",
+          "command": "make",
+          "source": "Makefile",
+          "expected": "作者普通构建入口；由实际执行和独立产物核对判断完成",
+          "workdir": "/workspace/repo"
+        }
+      ],
+      "build_directory": "/workspace/repo"
+    }
+  },
+  "masscan": {
+    "components": [
+      {
+        "name": "masscan",
+        "artifact_names": [
+          "masscan"
+        ],
+        "kinds": [
+          "executable"
+        ],
+        "evidence": "固定作者主目标声明，source_evidence保存文件、行号及原文；辅助demo/benchmark不属于主要组件"
+      }
+    ],
+    "source_evidence": [
+      {
+        "path": "Makefile",
+        "quote": "all: bin/masscan",
+        "line": 104
+      },
+      {
+        "path": "src/main.c",
+        "line": 19,
+        "quote": "#include \"masscan-version.h\""
+      }
+    ],
+    "executable_smokes": [
+      {
+        "artifact_name": "masscan",
+        "step": {
+          "step_id": "smoke-masscan",
+          "role": "smoke",
+          "command": "/artifacts/masscan --version",
+          "workdir": "/artifacts",
+          "required_output": [
+            "Masscan"
+          ],
+          "source": "src/main.c:19; 作者版本/用法分支，非业务测试",
+          "expected": "交付文件执行作者轻量入口并符合原生退出及输出；Lwan/wrk原生用法分支退出1由独立断言明确记录，不接受其他退出或空输出"
+        }
+      }
+    ],
+    "reference_actions": {
+      "reason": "作者普通默认入口；仅独立参考，不送在线规划器",
+      "steps": [
+        {
+          "step_id": "build",
+          "role": "build",
+          "command": "make",
+          "source": "Makefile",
+          "expected": "作者普通构建入口；由实际执行和独立产物核对判断完成",
+          "workdir": "/workspace/repo"
+        }
+      ],
+      "build_directory": "/workspace/repo"
+    }
+  },
+  "wrk": {
+    "components": [
+      {
+        "name": "wrk",
+        "artifact_names": [
+          "wrk"
+        ],
+        "kinds": [
+          "executable"
+        ],
+        "evidence": "固定作者主目标声明，source_evidence保存文件、行号及原文；辅助demo/benchmark不属于主要组件"
+      }
+    ],
+    "source_evidence": [
+      {
+        "path": "Makefile",
+        "quote": "BIN  := wrk",
+        "line": 22
+      },
+      {
+        "path": "src/wrk.c",
+        "quote": "if (optind == argc || !cfg->threads || !cfg->duration) return -1;",
+        "line": 528
+      },
+      {
+        "path": "src/wrk.c",
+        "quote": "printf(\"wrk %s [%s] \", VERSION, aeGetApiName());",
+        "line": 517
+      },
+      {
+        "path": "src/wrk.c",
+        "line": 55,
+        "quote": "\"    -v, --version          Print version details      \\n\""
+      }
+    ],
+    "executable_smokes": [
+      {
+        "artifact_name": "wrk",
+        "step": {
+          "step_id": "smoke-wrk",
+          "role": "smoke",
+          "command": "python3 -c 'import subprocess; p=subprocess.run([\"/artifacts/wrk\", \"--version\"], text=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT); print(p.stdout,end=\"\"); assert p.returncode == 1 and '\"'\"'wrk '\"'\"' in p.stdout, (p.returncode,p.stdout)'",
+          "workdir": "/artifacts",
+          "required_output": [
+            "wrk "
+          ],
+          "source": "src/wrk.c:55; 作者版本/用法分支，非业务测试",
+          "expected": "交付文件执行作者轻量入口并符合原生退出及输出；Lwan/wrk原生用法分支退出1由独立断言明确记录，不接受其他退出或空输出"
+        }
+      }
+    ],
+    "reference_actions": {
+      "reason": "作者普通默认入口；仅独立参考，不送在线规划器",
+      "steps": [
+        {
+          "step_id": "build",
+          "role": "build",
+          "command": "make",
+          "source": "Makefile",
+          "expected": "作者普通构建入口；由实际执行和独立产物核对判断完成",
+          "workdir": "/workspace/repo"
+        }
+      ],
+      "build_directory": "/workspace/repo"
+    }
+  },
+  "libbcrypt": {
+    "components": [
+      {
+        "name": "bcrypt",
+        "artifact_names": [
+          "libbcrypt.a",
+          "libbcrypt.so",
+          "libbcrypt.so.1.1.0"
+        ],
+        "kinds": [
+          "static_library",
+          "shared_library"
+        ],
+        "evidence": "固定作者主目标声明，source_evidence保存文件、行号及原文；辅助demo/benchmark不属于主要组件"
+      }
+    ],
+    "source_evidence": [
+      {
+        "path": "Makefile",
+        "quote": "BCRYPT_BASENAME = bcrypt",
+        "line": 37
+      },
+      {
+        "path": "Makefile",
+        "quote": "all: $(BCRYPT_SOFILE) $(BCRYPT_LAFILE)",
+        "line": 103
+      }
+    ],
+    "executable_smokes": [],
+    "reference_actions": {
+      "reason": "作者普通默认入口；仅独立参考，不送在线规划器",
+      "steps": [
+        {
+          "step_id": "build",
+          "role": "build",
+          "command": "make",
+          "source": "Makefile",
+          "expected": "作者普通构建入口；由实际执行和独立产物核对判断完成",
+          "workdir": "/workspace/repo"
+        }
+      ],
+      "build_directory": "/workspace/repo"
+    }
+  },
+  "sxhkd": {
+    "components": [
+      {
+        "name": "sxhkd",
+        "artifact_names": [
+          "sxhkd"
+        ],
+        "kinds": [
+          "executable"
+        ],
+        "evidence": "固定作者主目标声明，source_evidence保存文件、行号及原文；辅助demo/benchmark不属于主要组件"
+      }
+    ],
+    "source_evidence": [
+      {
+        "path": "Makefile",
+        "quote": "OUT      = sxhkd",
+        "line": 1
+      },
+      {
+        "path": "src/sxhkd.c",
+        "quote": "case 'v':",
+        "line": 80
+      },
+      {
+        "path": "src/sxhkd.c",
+        "line": 81,
+        "quote": "printf(\"%s\\n\", VERSION);"
+      }
+    ],
+    "executable_smokes": [
+      {
+        "artifact_name": "sxhkd",
+        "step": {
+          "step_id": "smoke-sxhkd",
+          "role": "smoke",
+          "command": "/artifacts/sxhkd -h",
+          "workdir": "/artifacts",
+          "required_output": [
+            "sxhkd ["
+          ],
+          "source": "src/sxhkd.c:81; 作者版本/用法分支，非业务测试",
+          "expected": "交付文件执行作者轻量入口并符合原生退出及输出；Lwan/wrk原生用法分支退出1由独立断言明确记录，不接受其他退出或空输出"
+        }
+      }
+    ],
+    "reference_actions": {
+      "reason": "作者普通默认入口；仅独立参考，不送在线规划器",
+      "steps": [
+        {
+          "step_id": "build",
+          "role": "build",
+          "command": "make",
+          "source": "Makefile",
+          "expected": "作者普通构建入口；由实际执行和独立产物核对判断完成",
+          "workdir": "/workspace/repo"
+        }
+      ],
+      "build_directory": "/workspace/repo"
+    }
+  },
+  "uhubctl": {
+    "components": [
+      {
+        "name": "uhubctl",
+        "artifact_names": [
+          "uhubctl"
+        ],
+        "kinds": [
+          "executable"
+        ],
+        "evidence": "固定作者主目标声明，source_evidence保存文件、行号及原文；辅助demo/benchmark不属于主要组件"
+      }
+    ],
+    "source_evidence": [
+      {
+        "path": "Makefile",
+        "quote": "PROGRAM = uhubctl",
+        "line": 40
+      },
+      {
+        "path": "uhubctl.c",
+        "quote": "--version,  -v - print program version.",
+        "line": 308
+      },
+      {
+        "path": "uhubctl.c",
+        "line": 8,
+        "quote": "* GNU General Public License version 2."
+      }
+    ],
+    "executable_smokes": [
+      {
+        "artifact_name": "uhubctl",
+        "step": {
+          "step_id": "smoke-uhubctl",
+          "role": "smoke",
+          "command": "/artifacts/uhubctl --version",
+          "workdir": "/artifacts",
+          "required_output": [
+            "2.6.0"
+          ],
+          "source": "uhubctl.c:8; 作者版本/用法分支，非业务测试",
+          "expected": "交付文件执行作者轻量入口并符合原生退出及输出；Lwan/wrk原生用法分支退出1由独立断言明确记录，不接受其他退出或空输出"
+        }
+      }
+    ],
+    "reference_actions": {
+      "reason": "作者普通默认入口；仅独立参考，不送在线规划器",
+      "steps": [
+        {
+          "step_id": "build",
+          "role": "build",
+          "command": "make",
+          "source": "Makefile",
+          "expected": "作者普通构建入口；由实际执行和独立产物核对判断完成",
+          "workdir": "/workspace/repo"
+        }
+      ],
+      "build_directory": "/workspace/repo"
+    }
+  },
+  "libpcap": {
+    "components": [
+      {
+        "name": "pcap",
+        "artifact_names": [
+          "libpcap.a",
+          "libpcap.so"
+        ],
+        "kinds": [
+          "static_library",
+          "shared_library"
+        ],
+        "evidence": "固定作者主目标声明，source_evidence保存文件、行号及原文；辅助demo/benchmark不属于主要组件"
+      }
+    ],
+    "source_evidence": [
+      {
+        "path": "Makefile.in",
+        "quote": "all: libpcap.a shared",
+        "line": 386
+      },
+      {
+        "path": "INSTALL.md",
+        "quote": "Libpcap can be built either with the configure script and `make`",
+        "line": 18
+      }
+    ],
+    "executable_smokes": [],
+    "reference_actions": {
+      "reason": "作者普通默认入口；仅独立参考，不送在线规划器",
+      "steps": [
+        {
+          "step_id": "bootstrap",
+          "role": "configure",
+          "command": "./autogen.sh",
+          "source": "Makefile.in",
+          "expected": "作者普通构建入口；由实际执行和独立产物核对判断完成",
+          "workdir": "/workspace/repo"
+        },
+        {
+          "step_id": "configure",
+          "role": "configure",
+          "command": "./configure",
+          "source": "Makefile.in",
+          "expected": "作者普通构建入口；由实际执行和独立产物核对判断完成",
+          "workdir": "/workspace/repo"
+        },
+        {
+          "step_id": "build",
+          "role": "build",
+          "command": "make",
+          "source": "Makefile.in",
+          "expected": "作者普通构建入口；由实际执行和独立产物核对判断完成",
+          "workdir": "/workspace/repo"
+        }
+      ],
+      "build_directory": "/workspace/repo"
+    }
+  },
+  "tmux": {
+    "components": [
+      {
+        "name": "tmux",
+        "artifact_names": [
+          "tmux"
+        ],
+        "kinds": [
+          "executable"
+        ],
+        "evidence": "固定作者主目标声明，source_evidence保存文件、行号及原文；辅助demo/benchmark不属于主要组件"
+      }
+    ],
+    "source_evidence": [
+      {
+        "path": "Makefile.am",
+        "quote": "bin_PROGRAMS = tmux",
+        "line": 2
+      },
+      {
+        "path": "tmux.c",
+        "line": 429,
+        "quote": "getversion(void)"
+      }
+    ],
+    "executable_smokes": [
+      {
+        "artifact_name": "tmux",
+        "step": {
+          "step_id": "smoke-tmux",
+          "role": "smoke",
+          "command": "/artifacts/tmux -V",
+          "workdir": "/artifacts",
+          "required_output": [
+            "tmux"
+          ],
+          "source": "tmux.c:429; 作者版本/用法分支，非业务测试",
+          "expected": "交付文件执行作者轻量入口并符合原生退出及输出；Lwan/wrk原生用法分支退出1由独立断言明确记录，不接受其他退出或空输出"
+        }
+      }
+    ],
+    "reference_actions": {
+      "reason": "作者普通默认入口；仅独立参考，不送在线规划器",
+      "steps": [
+        {
+          "step_id": "bootstrap",
+          "role": "configure",
+          "command": "sh autogen.sh",
+          "source": "Makefile.am",
+          "expected": "作者普通构建入口；由实际执行和独立产物核对判断完成",
+          "workdir": "/workspace/repo"
+        },
+        {
+          "step_id": "configure",
+          "role": "configure",
+          "command": "./configure",
+          "source": "Makefile.am",
+          "expected": "作者普通构建入口；由实际执行和独立产物核对判断完成",
+          "workdir": "/workspace/repo"
+        },
+        {
+          "step_id": "build",
+          "role": "build",
+          "command": "make",
+          "source": "Makefile.am",
+          "expected": "作者普通构建入口；由实际执行和独立产物核对判断完成",
+          "workdir": "/workspace/repo"
+        }
+      ],
+      "build_directory": "/workspace/repo"
+    }
+  },
+  "flex": {
+    "components": [
+      {
+        "name": "flex",
+        "artifact_names": [
+          "flex"
+        ],
+        "kinds": [
+          "executable"
+        ],
+        "evidence": "固定作者主目标声明，source_evidence保存文件、行号及原文；辅助demo/benchmark不属于主要组件"
+      },
+      {
+        "name": "libfl",
+        "artifact_names": [
+          "libfl.a",
+          "libfl.so"
+        ],
+        "kinds": [
+          "static_library",
+          "shared_library"
+        ],
+        "evidence": "固定作者主目标声明，source_evidence保存文件、行号及原文；辅助demo/benchmark不属于主要组件"
+      }
+    ],
+    "source_evidence": [
+      {
+        "path": "src/Makefile.am",
+        "quote": "bin_PROGRAMS = flex",
+        "line": 9
+      },
+      {
+        "path": "src/Makefile.am",
+        "quote": "lib_LTLIBRARIES = libfl.la",
+        "line": 18
+      },
+      {
+        "path": "src/options.c",
+        "line": 127,
+        "quote": "{\"--help\", OPT_HELP, 0}"
+      }
+    ],
+    "executable_smokes": [
+      {
+        "artifact_name": "flex",
+        "step": {
+          "step_id": "smoke-flex",
+          "role": "smoke",
+          "command": "/artifacts/flex --version",
+          "workdir": "/artifacts",
+          "required_output": [
+            "flex"
+          ],
+          "source": "src/options.c:127; 作者版本/用法分支，非业务测试",
+          "expected": "交付文件执行作者轻量入口并符合原生退出及输出；Lwan/wrk原生用法分支退出1由独立断言明确记录，不接受其他退出或空输出"
+        }
+      }
+    ],
+    "reference_actions": {
+      "reason": "作者普通默认入口；仅独立参考，不送在线规划器",
+      "steps": [
+        {
+          "step_id": "bootstrap",
+          "role": "configure",
+          "command": "./autogen.sh",
+          "source": "src/Makefile.am",
+          "expected": "作者普通构建入口；由实际执行和独立产物核对判断完成",
+          "workdir": "/workspace/repo"
+        },
+        {
+          "step_id": "configure",
+          "role": "configure",
+          "command": "./configure",
+          "source": "src/Makefile.am",
+          "expected": "作者普通构建入口；由实际执行和独立产物核对判断完成",
+          "workdir": "/workspace/repo"
+        },
+        {
+          "step_id": "build",
+          "role": "build",
+          "command": "make",
+          "source": "src/Makefile.am",
+          "expected": "作者普通构建入口；由实际执行和独立产物核对判断完成",
+          "workdir": "/workspace/repo"
+        }
+      ],
+      "build_directory": "/workspace/repo"
+    }
+  },
+  "goaccess": {
+    "components": [
+      {
+        "name": "goaccess",
+        "artifact_names": [
+          "goaccess"
+        ],
+        "kinds": [
+          "executable"
+        ],
+        "evidence": "固定作者主目标声明，source_evidence保存文件、行号及原文；辅助demo/benchmark不属于主要组件"
+      }
+    ],
+    "source_evidence": [
+      {
+        "path": "Makefile.am",
+        "quote": "bin_PROGRAMS = goaccess",
+        "line": 2
+      },
+      {
+        "path": "README.md",
+        "quote": "$ autoreconf -fiv",
+        "line": 158
+      },
+      {
+        "path": "src/options.c",
+        "line": 95,
+        "quote": "{\"version\"              , no_argument       , 0 , 'V' } ,"
+      }
+    ],
+    "executable_smokes": [
+      {
+        "artifact_name": "goaccess",
+        "step": {
+          "step_id": "smoke-goaccess",
+          "role": "smoke",
+          "command": "/artifacts/goaccess --version",
+          "workdir": "/artifacts",
+          "required_output": [
+            "GoAccess"
+          ],
+          "source": "src/options.c:95; 作者版本/用法分支，非业务测试",
+          "expected": "交付文件执行作者轻量入口并符合原生退出及输出；Lwan/wrk原生用法分支退出1由独立断言明确记录，不接受其他退出或空输出"
+        }
+      }
+    ],
+    "reference_actions": {
+      "reason": "作者普通默认入口；仅独立参考，不送在线规划器",
+      "steps": [
+        {
+          "step_id": "bootstrap",
+          "role": "configure",
+          "command": "autoreconf -fiv",
+          "source": "Makefile.am",
+          "expected": "作者普通构建入口；由实际执行和独立产物核对判断完成",
+          "workdir": "/workspace/repo"
+        },
+        {
+          "step_id": "configure",
+          "role": "configure",
+          "command": "./configure",
+          "source": "Makefile.am",
+          "expected": "作者普通构建入口；由实际执行和独立产物核对判断完成",
+          "workdir": "/workspace/repo"
+        },
+        {
+          "step_id": "build",
+          "role": "build",
+          "command": "make",
+          "source": "Makefile.am",
+          "expected": "作者普通构建入口；由实际执行和独立产物核对判断完成",
+          "workdir": "/workspace/repo"
+        }
+      ],
+      "build_directory": "/workspace/repo"
+    }
+  },
+  "file": {
+    "components": [
+      {
+        "name": "file",
+        "artifact_names": [
+          "file"
+        ],
+        "kinds": [
+          "executable"
+        ],
+        "evidence": "固定作者主目标声明，source_evidence保存文件、行号及原文；辅助demo/benchmark不属于主要组件"
+      },
+      {
+        "name": "magic",
+        "artifact_names": [
+          "libmagic.a",
+          "libmagic.so"
+        ],
+        "kinds": [
+          "static_library",
+          "shared_library"
+        ],
+        "evidence": "固定作者主目标声明，source_evidence保存文件、行号及原文；辅助demo/benchmark不属于主要组件"
+      }
+    ],
+    "source_evidence": [
+      {
+        "path": "src/Makefile.am",
+        "quote": "bin_PROGRAMS = file",
+        "line": 12
+      },
+      {
+        "path": "src/Makefile.am",
+        "quote": "lib_LTLIBRARIES = libmagic.la",
+        "line": 9
+      },
+      {
+        "path": "README.DEVELOPER",
+        "quote": "autoreconf -f -i",
+        "line": 9
+      },
+      {
+        "path": "src/file.c",
+        "line": 98,
+        "quote": "\"       %s [--help]\\n\""
+      }
+    ],
+    "executable_smokes": [
+      {
+        "artifact_name": "file",
+        "step": {
+          "step_id": "smoke-file",
+          "role": "smoke",
+          "command": "/artifacts/file --version",
+          "workdir": "/artifacts",
+          "required_output": [
+            "file-"
+          ],
+          "source": "src/file.c:98; 作者版本/用法分支，非业务测试",
+          "expected": "交付文件执行作者轻量入口并符合原生退出及输出；Lwan/wrk原生用法分支退出1由独立断言明确记录，不接受其他退出或空输出"
+        }
+      }
+    ],
+    "reference_actions": {
+      "reason": "作者普通默认入口；仅独立参考，不送在线规划器",
+      "steps": [
+        {
+          "step_id": "bootstrap",
+          "role": "configure",
+          "command": "autoreconf -fi",
+          "source": "src/Makefile.am",
+          "expected": "作者普通构建入口；由实际执行和独立产物核对判断完成",
+          "workdir": "/workspace/repo"
+        },
+        {
+          "step_id": "configure",
+          "role": "configure",
+          "command": "./configure",
+          "source": "src/Makefile.am",
+          "expected": "作者普通构建入口；由实际执行和独立产物核对判断完成",
+          "workdir": "/workspace/repo"
+        },
+        {
+          "step_id": "build",
+          "role": "build",
+          "command": "make",
+          "source": "src/Makefile.am",
+          "expected": "作者普通构建入口；由实际执行和独立产物核对判断完成",
+          "workdir": "/workspace/repo"
+        }
+      ],
+      "build_directory": "/workspace/repo"
+    }
+  },
+  "xz": {
+    "components": [
+      {
+        "name": "xz",
+        "artifact_names": [
+          "xz"
+        ],
+        "kinds": [
+          "executable"
+        ],
+        "evidence": "固定作者主目标声明，source_evidence保存文件、行号及原文；辅助demo/benchmark不属于主要组件"
+      },
+      {
+        "name": "lzma",
+        "artifact_names": [
+          "liblzma.a",
+          "liblzma.so"
+        ],
+        "kinds": [
+          "static_library",
+          "shared_library"
+        ],
+        "evidence": "固定作者主目标声明，source_evidence保存文件、行号及原文；辅助demo/benchmark不属于主要组件"
+      }
+    ],
+    "source_evidence": [
+      {
+        "path": "src/xz/Makefile.am",
+        "quote": "bin_PROGRAMS = xz",
+        "line": 4
+      },
+      {
+        "path": "src/liblzma/Makefile.am",
+        "quote": "lib_LTLIBRARIES = liblzma.la",
+        "line": 10
+      },
+      {
+        "path": "src/xz/args.c",
+        "line": 314,
+        "quote": "{ \"version\",      no_argument,       NULL,  'V' },"
+      }
+    ],
+    "executable_smokes": [
+      {
+        "artifact_name": "xz",
+        "step": {
+          "step_id": "smoke-xz",
+          "role": "smoke",
+          "command": "/artifacts/xz --version",
+          "workdir": "/artifacts",
+          "required_output": [
+            "XZ Utils"
+          ],
+          "source": "src/xz/args.c:314; 作者版本/用法分支，非业务测试",
+          "expected": "交付文件执行作者轻量入口并符合原生退出及输出；Lwan/wrk原生用法分支退出1由独立断言明确记录，不接受其他退出或空输出"
+        }
+      }
+    ],
+    "reference_actions": {
+      "reason": "作者普通默认入口；仅独立参考，不送在线规划器",
+      "steps": [
+        {
+          "step_id": "bootstrap",
+          "role": "configure",
+          "command": "./autogen.sh",
+          "source": "src/xz/Makefile.am",
+          "expected": "作者普通构建入口；由实际执行和独立产物核对判断完成",
+          "workdir": "/workspace/repo"
+        },
+        {
+          "step_id": "configure",
+          "role": "configure",
+          "command": "./configure",
+          "source": "src/xz/Makefile.am",
+          "expected": "作者普通构建入口；由实际执行和独立产物核对判断完成",
+          "workdir": "/workspace/repo"
+        },
+        {
+          "step_id": "build",
+          "role": "build",
+          "command": "make",
+          "source": "src/xz/Makefile.am",
+          "expected": "作者普通构建入口；由实际执行和独立产物核对判断完成",
+          "workdir": "/workspace/repo"
+        }
+      ],
+      "build_directory": "/workspace/repo"
+    }
+  }
+}
