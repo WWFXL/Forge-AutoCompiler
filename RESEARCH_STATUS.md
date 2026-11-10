@@ -3,7 +3,13 @@
 论文选材固定入口：[硕士论文实验与证据索引](docs/research/THESIS_EVIDENCE_INDEX.md)，[历史材料目录](docs/research/THESIS_EVIDENCE_CATALOG.md)保留存量导航。当前完整稿为[论文v0.10第二轮结果稿](docs/thesis/README.md)；E50–E52保存主构建系统及两轮Harness结果，既有完整任务、状态/恢复消融和两层经验继续按各自版本与分母使用。
 
 
-## 当前阶段（2026-11-10；#715共同修复完成，修复阶段结束）
+## 当前阶段（2026-11-10；#717共同APT镜像修复完成）
+
+用户要求各方法统一国内HTTPS软件源。[环境报告](docs/research/2026-11-10-compile-apt-mirror.md)记录服务器默认编译镜像已切到中科大HTTPS源：新ID `sha256:8123220a201ac4d00cda0dc985b9db7227cd909bb93ca6c25fd82cafce5cd887`，250已安装软件包与旧镜像一致，旧ID及标签保留。新比较的Forge/强工具Agent/CXXCrafter均须绑定同一新ID，重放沿编译会话ID；不改旧manifest或回填结果。
+
+真实编译/独立重放容器的ggmorse原依赖均安装成功，索引6.41/6.23秒、安装67.94/27.47秒，180秒时限、无APT重试，SDL2/OpenGL与工具链检查通过、容器清理通过。仅基础设施验证，0Provider/0费用，不是ggmorse主构建或Harness效果；论文v0.10保持，无新正式比较。用户另已同意未来重放不强制字节一致，此次未修改重放判定或旧结果。下一研究仍先审核提案/结果，再决定是否写论文。
+
+## 上一阶段（2026-11-10；#715共同修复完成，修复阶段结束）
 
 用户已阅读E53并要求优先解决共同问题，不据此宣称R1明显提升。[修复报告](docs/research/2026-11-10-common-recovery-repair.md)、[派生汇总](benchmarks/analyses/common-recovery-repair-2026-11-10/summary.json)及[执行契约](docs/compile_workflow_execution.md)记录：独立声明的作者生成文档、原生轻量验证、共享库SONAME交付、交付运行失败返回恢复、分类型有界纠正及过大AI/Tool组的证据压缩。两方法共同使用，未改原Harness指导。
 

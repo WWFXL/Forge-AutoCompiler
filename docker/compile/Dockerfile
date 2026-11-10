@@ -1,7 +1,7 @@
 FROM ubuntu:24.04
 
 ARG DEBIAN_FRONTEND=noninteractive
-ARG APT_MIRROR=
+ARG APT_MIRROR=mirrors.ustc.edu.cn
 ARG HTTP_PROXY=
 ARG HTTPS_PROXY=
 
@@ -11,13 +11,10 @@ ENV TZ=Asia/Shanghai \
     CC=gcc-13 \
     CXX=g++-13
 
+COPY ubuntu.sources /etc/apt/sources.list.d/ubuntu.sources
+
 RUN set -eux; \
-    if [ -n "$APT_MIRROR" ]; then \
-      sed -i \
-        -e "s|http://archive.ubuntu.com/ubuntu|http://$APT_MIRROR/ubuntu|g" \
-        -e "s|http://security.ubuntu.com/ubuntu|http://$APT_MIRROR/ubuntu|g" \
-        /etc/apt/sources.list.d/ubuntu.sources; \
-    fi; \
+    sed -i "s|mirrors.ustc.edu.cn|${APT_MIRROR}|g" /etc/apt/sources.list.d/ubuntu.sources; \
     if [ -n "$HTTP_PROXY" ]; then \
       printf 'Acquire::http::Proxy "%s";\n' "$HTTP_PROXY" > /etc/apt/apt.conf.d/90proxy; \
     fi; \
@@ -25,7 +22,14 @@ RUN set -eux; \
       printf 'Acquire::https::Proxy "%s";\n' "$HTTPS_PROXY" >> /etc/apt/apt.conf.d/90proxy; \
     fi; \
     printf 'Acquire::Retries "5";\nAcquire::http::Timeout "120";\nAcquire::https::Timeout "120";\n' > /etc/apt/apt.conf.d/80-retries; \
-    apt-get update; \
+    # Ubuntu 最小镜像缺少 CA：仅引导签名校验的证书包，随后恢复 HTTPS。
+    if [ ! -s /etc/ssl/certs/ca-certificates.crt ]; then \
+      sed -i 's|https://|http://|g' /etc/apt/sources.list.d/ubuntu.sources; \
+      apt-get update --error-on=any; \
+      apt-get install -y --no-install-recommends ca-certificates; \
+      sed -i 's|http://|https://|g' /etc/apt/sources.list.d/ubuntu.sources; \
+    fi; \
+    apt-get update --error-on=any; \
     apt-get install -y --no-install-recommends \
       autoconf \
       automake \
