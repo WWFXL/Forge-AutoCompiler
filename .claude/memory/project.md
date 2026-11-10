@@ -3,6 +3,7 @@
 跨 Claude Code session 的项目状态流水。按 CLAUDE.md §7 维护。
 
 ## 进行中 (In Progress)
+- 2026-11-10 — #721 R2恢复Harness提案输入及入口已准备，用户指定RichLab gpt-6.1-sol且确认输入/输出各1美元/百万Token；尚待一次调用预算/时窗，0Provider，无实际R2或比较。报告`docs/research/2026-11-10-recovery-harness-r2-preparation.md`、预注册`benchmarks/preregistrations/cpp-build-offline-recovery-harness-proposal-r2-v1.md`；下一步绑定一次最多1美元/确认起4小时的授权后调用，先展示原文和H0/R1差异供审核，不改论文。
 - 2026-11-10 — #719前两项共同修复/三项目验证已完成，修复阶段结束；无活动Provider，不启动R2或更新论文。当前状态以RESEARCH_STATUS.md为准。
 - 2026-11-10 — #715共同修复及针对性实建已完成，本阶段结束；无活动Provider，不追加比较或写论文。E53已向用户报告，用户要求先共同修复，下一研究由用户决定；当前状态以RESEARCH_STATUS.md为准，下列旧进行中不视为活动授权。
 - 2026-11-09 — #711用户已审核R1，18新项目/36槽同初始方案恢复比较入口已实现并完成必要实建；正式比较未启动，待新身份预算/时窗。结果先审核后才写论文，当前状态以RESEARCH_STATUS.md为准。
@@ -623,6 +624,10 @@
   - 下一步: 等待实验负责人确认当前网络接入介质，并决定是否授权只读 endpoint 诊断和新的 canary amendment；获得确认后必须另建中文 Issue/PR 和协议 identity，保留当前失败 marker。
 
 ## 最近变更 (Recent Changes)
+- 2026-11-10 — #721整理最新13次自然恢复交接并实现R2一次离线提案入口。
+  - 文件: `scripts/forge_recovery_harness_r2.py`、`backend/tests/test_recovery_harness_r2.py`、`benchmarks/fixtures/recovery-harness-proposal-r2-v1/`及准备报告/预注册。
+  - 材料: E53七槽四项目、H0/R1交接5/8及请求19/32，另三正常边界；114证据ID，保留配置、成功依赖及修订拒绝反馈、来源哈希/截断计数。共同人工修复明确披露，不作候选收益；旧终态不改。
+  - 边界: 只提案、无比较/论文改动/新增费用，当前无活动Provider。模型/计价已确认，新的预算/时窗待确认；旧Astra/gpt-5.6响应授权不继承。R1指导于当前底座仅作差异参考，H0保持默认。原用户checkout修改保留。
 - 2026-11-10 — #719采用成功重建标准并完成wasm3/libhv/ggmorse针对性实建，结束共同修复。
   - 文件: `backend/packages/harness/deerflow/compile/operations.py`, `schemas.py`, `scripts/forge_common_recovery_repair.py`, `benchmarks/fixtures/clean-rebuild-validation-v1/cases.json`, `benchmarks/fixtures/clean-rebuild-validation-v2/cases.json`, `docs/research/2026-11-10-clean-rebuild-validation.md`, `docs/compile_workflow_execution.md`。
   - 动机: 用户同意未来干净重放不要求字节一致，并只完成下一阶段前两项；新attempt显式successful-rebuild-v1，路径/非空类型/相同轻量成功与cleanup仍必须，跨重建大小/哈希/输出差异诊断，原交付/源码完整性保持。旧结果不回填。

@@ -3,7 +3,13 @@
 论文选材固定入口：[硕士论文实验与证据索引](docs/research/THESIS_EVIDENCE_INDEX.md)，[历史材料目录](docs/research/THESIS_EVIDENCE_CATALOG.md)保留存量导航。当前完整稿为[论文v0.10第二轮结果稿](docs/thesis/README.md)；E50–E52保存主构建系统及两轮Harness结果，既有完整任务、状态/恢复消融和两层经验继续按各自版本与分母使用。
 
 
-## 当前阶段（2026-11-10；#719成功重建标准与三项目验证完成，修复阶段结束）
+## 当前阶段（2026-11-10；#721 R2恢复Harness提案材料已准备，待一次调用授权）
+
+用户指定下一步基于最新轨迹提出R2，离线模型为RichLab `gpt-6.1-sol`，输入/输出各1美元/百万Token。[准备报告](docs/research/2026-11-10-recovery-harness-r2-preparation.md)与[提案预注册](benchmarks/preregistrations/cpp-build-offline-recovery-harness-proposal-r2-v1.md)：E53全部13次自然恢复交接（7槽、4项目、51历史请求）加三正常边界，当前共同提示/R1指导及已完成共同修复说明均保留；不注入私有参考、个人知识库或隐藏推理。
+
+本轮为历史分析与提案准备，尚无实际R2、0Provider/0新增费用、比较0、论文v0.10保持。候选仅整体替换恢复指导，初始H0/线上Flash/执行器不改，允许no_change；建议一次提案最多1美元、确认起4小时，预算/时窗尚未绑定，不读凭据、不续旧授权。响应须为gpt-6.1-sol，旧gpt-5.6别名不自动接受，无自动重试。取得实际提案后先展示原文及H0/R1提示差异，用户审核下令后才能比较，结果另审后才入文。H0仍默认，E53原分母/终态不改；未来比较共用#719修复及国内HTTPS镜像。
+
+## 上一阶段（2026-11-10；#719成功重建标准与三项目验证完成，修复阶段结束）
 
 用户批准的前两项已完成。[修复报告](docs/research/2026-11-10-clean-rebuild-validation.md)、[实际汇总](benchmarks/analyses/clean-rebuild-validation-2026-11-10/summary.json)与[执行契约](docs/compile_workflow_execution.md)：新attempt记录`comparison_policy=successful-rebuild-v1`，相同固定源码/镜像的干净环境构建、非空有效产物、相同轻量命令成功及清理构成成功重建；跨重放大小、SHA与输出差异仅诊断。原源码/测试、配方快照和原交付物接受后的完整性仍检查，旧严格字节实验不重标、不混合分母。
 
