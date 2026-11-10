@@ -23,7 +23,8 @@
       "model_requests": 0,
       "cost_usd": 0.0,
       "wall_seconds": 49.877789482008666,
-      "source_result": "/home/yiwei/.codex/outputs/forge-common-recovery-repair-2026-11-10-v1/tini/result.json"
+      "source_result": "/home/yiwei/.codex/outputs/forge-common-recovery-repair-2026-11-10-v1/tini/result.json",
+      "final_protection_readonly_check_passed": true
     },
     {
       "attempt": "v1",
@@ -36,7 +37,8 @@
       "model_requests": 0,
       "cost_usd": 0.0,
       "wall_seconds": 13.707894120947458,
-      "source_result": "/home/yiwei/.codex/outputs/forge-common-recovery-repair-2026-11-10-v1/Turbo-Base64/result.json"
+      "source_result": "/home/yiwei/.codex/outputs/forge-common-recovery-repair-2026-11-10-v1/Turbo-Base64/result.json",
+      "final_protection_readonly_check_passed": true
     },
     {
       "attempt": "v1",
@@ -49,7 +51,8 @@
       "model_requests": 0,
       "cost_usd": 0.0,
       "wall_seconds": 35.066796605009586,
-      "source_result": "/home/yiwei/.codex/outputs/forge-common-recovery-repair-2026-11-10-v1/munge/result.json"
+      "source_result": "/home/yiwei/.codex/outputs/forge-common-recovery-repair-2026-11-10-v1/munge/result.json",
+      "final_protection_readonly_check_passed": true
     },
     {
       "attempt": "v2",
@@ -62,7 +65,8 @@
       "model_requests": 0,
       "cost_usd": 0.0,
       "wall_seconds": 69.91360861598514,
-      "source_result": "/home/yiwei/.codex/outputs/forge-common-recovery-repair-2026-11-10-v2/munge/result.json"
+      "source_result": "/home/yiwei/.codex/outputs/forge-common-recovery-repair-2026-11-10-v2/munge/result.json",
+      "final_protection_readonly_check_passed": true
     },
     {
       "attempt": "v2",
@@ -75,7 +79,8 @@
       "model_requests": 0,
       "cost_usd": 0.0,
       "wall_seconds": 149.1769853850128,
-      "source_result": "/home/yiwei/.codex/outputs/forge-common-recovery-repair-2026-11-10-v2/fsarchiver/result.json"
+      "source_result": "/home/yiwei/.codex/outputs/forge-common-recovery-repair-2026-11-10-v2/fsarchiver/result.json",
+      "final_protection_readonly_check_passed": true
     }
   ],
   "final_success_path_seconds": 282.6762776039541,
@@ -262,5 +267,6 @@
       "sha256": "4414e541d8de5fe9c8773273061cacc57aaabb26177e4bf67d37cc61ce850f5f"
     }
   ],
-  "boundary": "受控工程复现，非新Agent效果；v1 munge错误断言与上下文适配器首次失败保留；旧E53不改写；不证明Provider续接或ggmorse构建成功"
+  "boundary": "受控工程复现，非新Agent效果；v1 munge错误断言与上下文适配器首次失败保留；旧E53不改写；不证明Provider续接或ggmorse构建成功",
+  "final_source_protection_check": "对已有5次源码树只读执行最终保护逻辑，包括后加的文档权限约束；非重新构建或回填原result"
 }
