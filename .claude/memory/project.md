@@ -3,6 +3,7 @@
 跨 Claude Code session 的项目状态流水。按 CLAUDE.md §7 维护。
 
 ## 进行中 (In Progress)
+- 2026-11-10 — #721已取得R2实际提案，待用户审核；RichLab gpt-6.1-sol请求/响应一致、106807Token/0.106807美元/64.7185秒。用户一次/1美元/4小时授权已执行完一次，无活动Provider；不追加调用或比较，不改论文。报告`docs/research/2026-11-10-recovery-harness-r2-proposal.md`与完整提示差异已保存；下一步用户审核原候选，再单独下达比较指令。
 - 2026-11-10 — #719前两项共同修复/三项目验证已完成，修复阶段结束；无活动Provider，不启动R2或更新论文。当前状态以RESEARCH_STATUS.md为准。
 - 2026-11-10 — #715共同修复及针对性实建已完成，本阶段结束；无活动Provider，不追加比较或写论文。E53已向用户报告，用户要求先共同修复，下一研究由用户决定；当前状态以RESEARCH_STATUS.md为准，下列旧进行中不视为活动授权。
 - 2026-11-09 — #711用户已审核R1，18新项目/36槽同初始方案恢复比较入口已实现并完成必要实建；正式比较未启动，待新身份预算/时窗。结果先审核后才写论文，当前状态以RESEARCH_STATUS.md为准。
@@ -623,6 +624,15 @@
   - 下一步: 等待实验负责人确认当前网络接入介质，并决定是否授权只读 endpoint 诊断和新的 canary amendment；获得确认后必须另建中文 Issue/PR 和协议 identity，保留当前失败 marker。
 
 ## 最近变更 (Recent Changes)
+- 2026-11-10 — #721完成一次gpt-6.1-sol离线提案并保存待审R2。
+  - 结果: 104711输入/2096输出Token、0.106807美元、64.7185秒，响应标识一致但不单独证明服务后端；无重试/未知用量。原授权UTC14:24:13—18:24:13、最多1请求/1美元，一次已完成。
+  - 候选: SHA59bc0b24，恢复指导2551字节（R1为1677），只整体替换恢复指导，初始H0及线上Flash不变。阶段/直接阻塞、拒绝反馈后的约束修正、局部补读与依赖保留是核心建议；长提示/备用入口限制均待审核，无效能结论。
+  - 文件: `docs/research/2026-11-10-recovery-harness-r2-proposal.md`、`benchmarks/fixtures/recovery-harness-r2-gpt61sol-v1/`。原件forge-recovery-harness-r2-gpt61sol-20261110-v1，inventory0805db01；会话forge-recovery-harness-r2-session-20261110-v1。14相关检查及Ruff通过，仅证明接口；不追加实建。
+  - 边界: 比较0、论文未改、H0默认、E53不回填。提案先审→用户下令比较→结果先审→同意后入文。原用户checkout三项未提交工作保持。
+- 2026-11-10 — #721整理最新13次自然恢复交接并实现R2一次离线提案入口。
+  - 文件: `scripts/forge_recovery_harness_r2.py`、`backend/tests/test_recovery_harness_r2.py`、`benchmarks/fixtures/recovery-harness-proposal-r2-v1/`及准备报告/预注册。
+  - 材料: E53七槽四项目、H0/R1交接5/8及请求19/32，另三正常边界；114证据ID，保留配置、成功依赖及修订拒绝反馈、来源哈希/截断计数。共同人工修复明确披露，不作候选收益；旧终态不改。
+  - 边界: 只提案、无比较/论文改动/新增费用，当前无活动Provider。模型/计价已确认，新的预算/时窗待确认；旧Astra/gpt-5.6响应授权不继承。R1指导于当前底座仅作差异参考，H0保持默认。原用户checkout修改保留。
 - 2026-11-10 — #719采用成功重建标准并完成wasm3/libhv/ggmorse针对性实建，结束共同修复。
   - 文件: `backend/packages/harness/deerflow/compile/operations.py`, `schemas.py`, `scripts/forge_common_recovery_repair.py`, `benchmarks/fixtures/clean-rebuild-validation-v1/cases.json`, `benchmarks/fixtures/clean-rebuild-validation-v2/cases.json`, `docs/research/2026-11-10-clean-rebuild-validation.md`, `docs/compile_workflow_execution.md`。
   - 动机: 用户同意未来干净重放不要求字节一致，并只完成下一阶段前两项；新attempt显式successful-rebuild-v1，路径/非空类型/相同轻量成功与cleanup仍必须，跨重建大小/哈希/输出差异诊断，原交付/源码完整性保持。旧结果不回填。
