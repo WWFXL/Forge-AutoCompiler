@@ -14,6 +14,7 @@ from test_simple_build import simple_actions
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "scripts"))
 import forge_recovery_harness_comparison as comparison  # noqa: E402
+import forge_recovery_harness_continuation as continuation  # noqa: E402
 
 from deerflow.compile.plan_workflow import PlanContractError, PlanStep  # noqa: E402
 
@@ -147,3 +148,39 @@ def test_real_planning_graph_is_h0_and_does_not_see_reference(pair, tmp_path):
 def test_expired_or_different_experiment_authorization_is_rejected():
     with pytest.raises(PlanContractError, match="确切身份"):
         comparison.shared.validate_authorization(dict(identity="old", candidate_sha256="old", user_reply="授权"), "new", identity=comparison.IDENTITY, maximum_hours=4)
+
+
+def test_paid_callback_constructs_shared_rule_router_without_provider(pair, tmp_path, monkeypatch):
+    item, value, auth, initial = pair
+    value.update(recovery_harnesses={k: h.model_dump(mode="json") for k, h in comparison.harnesses().items()}, arm_seconds=1800, replay_seconds=600)
+    auth["credentials_env_file"] = str(tmp_path / "unused.env")
+    monkeypatch.setattr("dotenv.load_dotenv", lambda *a, **kw: None)
+    monkeypatch.setenv("DEEPSEEK_API_KEY", "scripted-test-no-provider")
+    monkeypatch.setattr(comparison, "PlanThinkingDeepSeek", lambda **kw: None)
+    captured = []
+    monkeypatch.setattr(comparison.shared, "run_simple_system", lambda **kw: captured.append(kw) or {"status": "scripted"})
+    _, executor = comparison.paid_callbacks(value, auth)
+    for method in comparison.METHODS:
+        folder = tmp_path / method
+        executor(slot=dict(method=method), item=item, folder=folder, available="0.40", deadline=auth["deadline_utc"], initial_plan=initial["plan"])
+        row = captured[-1]
+        assert row["state_router"].method == "rule" and row["state_router"].directory == folder / "state-routing"
+        assert row["recovery_harness"].fingerprint() == comparison.harnesses()[method].fingerprint()
+        assert row["initial_plan"] == initial["plan"] and row["validation_scope"] == "main_build"
+
+
+def test_continuation_reuses_paid_plan_without_calling_planner(pair, tmp_path):
+    item, _, auth, initial = pair
+    parent = tmp_path / "parent"
+    source = parent / "initial/cglm"
+    source.mkdir(parents=True)
+    comparison.save(source / "result.json", initial)
+    scope = dict(root=str(parent), imported_project="cglm", identity=comparison.IDENTITY, initial_result_sha256=comparison.digest(source / "result.json"))
+
+    def never(**kwargs):
+        pytest.fail("已经完成的共同规划不得重新付费")
+
+    result = continuation.reused_planner(never, scope)(item=item, folder=tmp_path / "new/initial/cglm", available="0.40", deadline=auth["deadline_utc"])
+    assert result["plan"] == initial["plan"] and result["agent_usage"] == initial["agent_usage"]
+    assert result["origin_identity"] == comparison.IDENTITY and result["new_model_payment"] is False
+    assert comparison.shared.load(tmp_path / "new/initial/cglm/import-origin.json") == scope

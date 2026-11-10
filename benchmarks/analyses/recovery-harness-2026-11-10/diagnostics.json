@@ -1,0 +1,2089 @@
+{
+  "identity": "cpp-build-recovery-harness-comparison-flash-v2",
+  "shared_recovery_projects": [
+    "DuckX",
+    "fsarchiver",
+    "ggmorse"
+  ],
+  "asymmetric_recovery_projects": [
+    "twemproxy"
+  ],
+  "source_analysis_identity_header": "cpp-build-recovery-harness-comparison-flash-v1",
+  "source_analysis_identity_header_note": "继承base.analyze常量导致原analysis头仍为v1；protocol/result/manifest及本派生标为实际v2，不修改已封存原件。",
+  "completed_slots": 36,
+  "unobserved": 0,
+  "completed_planning_tasks": 18,
+  "same_initial_plan_pairs": [
+    {
+      "project": "cglm",
+      "methods": [
+        "H0",
+        "R1"
+      ],
+      "complete_pair": true,
+      "same_initial_plan": true
+    },
+    {
+      "project": "massdns",
+      "methods": [
+        "R1",
+        "H0"
+      ],
+      "complete_pair": true,
+      "same_initial_plan": true
+    },
+    {
+      "project": "libmodbus",
+      "methods": [
+        "H0",
+        "R1"
+      ],
+      "complete_pair": true,
+      "same_initial_plan": true
+    },
+    {
+      "project": "tini",
+      "methods": [
+        "R1",
+        "H0"
+      ],
+      "complete_pair": true,
+      "same_initial_plan": true
+    },
+    {
+      "project": "redsocks",
+      "methods": [
+        "H0",
+        "R1"
+      ],
+      "complete_pair": true,
+      "same_initial_plan": true
+    },
+    {
+      "project": "freesasa",
+      "methods": [
+        "R1",
+        "H0"
+      ],
+      "complete_pair": true,
+      "same_initial_plan": true
+    },
+    {
+      "project": "wasm3",
+      "methods": [
+        "H0",
+        "R1"
+      ],
+      "complete_pair": true,
+      "same_initial_plan": true
+    },
+    {
+      "project": "beanstalkd",
+      "methods": [
+        "R1",
+        "H0"
+      ],
+      "complete_pair": true,
+      "same_initial_plan": true
+    },
+    {
+      "project": "fsarchiver",
+      "methods": [
+        "H0",
+        "R1"
+      ],
+      "complete_pair": true,
+      "same_initial_plan": true
+    },
+    {
+      "project": "libhv",
+      "methods": [
+        "R1",
+        "H0"
+      ],
+      "complete_pair": true,
+      "same_initial_plan": true
+    },
+    {
+      "project": "no-more-secrets",
+      "methods": [
+        "H0",
+        "R1"
+      ],
+      "complete_pair": true,
+      "same_initial_plan": true
+    },
+    {
+      "project": "fastq-tools",
+      "methods": [
+        "R1",
+        "H0"
+      ],
+      "complete_pair": true,
+      "same_initial_plan": true
+    },
+    {
+      "project": "ggmorse",
+      "methods": [
+        "H0",
+        "R1"
+      ],
+      "complete_pair": true,
+      "same_initial_plan": true
+    },
+    {
+      "project": "berkeley-softfloat-3",
+      "methods": [
+        "R1",
+        "H0"
+      ],
+      "complete_pair": true,
+      "same_initial_plan": true
+    },
+    {
+      "project": "munge",
+      "methods": [
+        "H0",
+        "R1"
+      ],
+      "complete_pair": true,
+      "same_initial_plan": true
+    },
+    {
+      "project": "DuckX",
+      "methods": [
+        "R1",
+        "H0"
+      ],
+      "complete_pair": true,
+      "same_initial_plan": true
+    },
+    {
+      "project": "Turbo-Base64",
+      "methods": [
+        "H0",
+        "R1"
+      ],
+      "complete_pair": true,
+      "same_initial_plan": true
+    },
+    {
+      "project": "twemproxy",
+      "methods": [
+        "R1",
+        "H0"
+      ],
+      "complete_pair": true,
+      "same_initial_plan": true
+    }
+  ],
+  "by_build_system": {
+    "cmake": {
+      "H0": {
+        "planned": 6,
+        "observed": 6,
+        "main_build_completed": 4,
+        "reproducible_delivery_completed": 2,
+        "recovery_requests": 11,
+        "recovery_cost_usd": "0.0561261"
+      },
+      "R1": {
+        "planned": 6,
+        "observed": 6,
+        "main_build_completed": 4,
+        "reproducible_delivery_completed": 2,
+        "recovery_requests": 18,
+        "recovery_cost_usd": "0.0939591"
+      }
+    },
+    "make": {
+      "H0": {
+        "planned": 6,
+        "observed": 6,
+        "main_build_completed": 6,
+        "reproducible_delivery_completed": 5,
+        "recovery_requests": 0,
+        "recovery_cost_usd": "0.0"
+      },
+      "R1": {
+        "planned": 6,
+        "observed": 6,
+        "main_build_completed": 6,
+        "reproducible_delivery_completed": 5,
+        "recovery_requests": 0,
+        "recovery_cost_usd": "0.0"
+      }
+    },
+    "autotools": {
+      "H0": {
+        "planned": 6,
+        "observed": 6,
+        "main_build_completed": 6,
+        "reproducible_delivery_completed": 4,
+        "recovery_requests": 8,
+        "recovery_cost_usd": "0.0502377"
+      },
+      "R1": {
+        "planned": 6,
+        "observed": 6,
+        "main_build_completed": 5,
+        "reproducible_delivery_completed": 4,
+        "recovery_requests": 14,
+        "recovery_cost_usd": "0.0757926"
+      }
+    }
+  },
+  "details": [
+    {
+      "slot": 1,
+      "project": "cglm",
+      "method": "H0",
+      "source_unchanged": true,
+      "cleanup_succeeded": true,
+      "actual_replay_attempts": 1,
+      "actual_replay_duration_seconds": 8.597672,
+      "original_default_smoke_seconds": 0.0,
+      "actual_replay_statuses": [
+        "passed"
+      ],
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "executable_smoke": "not_applicable",
+        "final_verification_passed": true,
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true,
+        "reproducible_delivery_completed": true
+      },
+      "tools": {},
+      "harness_selections": [],
+      "harness_selection_matches": true,
+      "accepted_revisions": []
+    },
+    {
+      "slot": 2,
+      "project": "cglm",
+      "method": "R1",
+      "source_unchanged": true,
+      "cleanup_succeeded": true,
+      "actual_replay_attempts": 1,
+      "actual_replay_duration_seconds": 8.503706,
+      "original_default_smoke_seconds": 0.0,
+      "actual_replay_statuses": [
+        "passed"
+      ],
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "executable_smoke": "not_applicable",
+        "final_verification_passed": true,
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true,
+        "reproducible_delivery_completed": true
+      },
+      "tools": {},
+      "harness_selections": [],
+      "harness_selection_matches": true,
+      "accepted_revisions": []
+    },
+    {
+      "slot": 3,
+      "project": "massdns",
+      "method": "R1",
+      "source_unchanged": true,
+      "cleanup_succeeded": true,
+      "actual_replay_attempts": 1,
+      "actual_replay_duration_seconds": 5.810519,
+      "original_default_smoke_seconds": 0.244738,
+      "actual_replay_statuses": [
+        "passed"
+      ],
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "executable_smoke": "passed",
+        "final_verification_passed": true,
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true,
+        "reproducible_delivery_completed": true
+      },
+      "tools": {},
+      "harness_selections": [],
+      "harness_selection_matches": true,
+      "accepted_revisions": []
+    },
+    {
+      "slot": 4,
+      "project": "massdns",
+      "method": "H0",
+      "source_unchanged": true,
+      "cleanup_succeeded": true,
+      "actual_replay_attempts": 1,
+      "actual_replay_duration_seconds": 5.770673,
+      "original_default_smoke_seconds": 0.242093,
+      "actual_replay_statuses": [
+        "passed"
+      ],
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "executable_smoke": "passed",
+        "final_verification_passed": true,
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true,
+        "reproducible_delivery_completed": true
+      },
+      "tools": {},
+      "harness_selections": [],
+      "harness_selection_matches": true,
+      "accepted_revisions": []
+    },
+    {
+      "slot": 5,
+      "project": "libmodbus",
+      "method": "H0",
+      "source_unchanged": true,
+      "cleanup_succeeded": true,
+      "actual_replay_attempts": 1,
+      "actual_replay_duration_seconds": 20.456776,
+      "original_default_smoke_seconds": 0.0,
+      "actual_replay_statuses": [
+        "passed"
+      ],
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "executable_smoke": "not_applicable",
+        "final_verification_passed": true,
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true,
+        "reproducible_delivery_completed": true
+      },
+      "tools": {},
+      "harness_selections": [],
+      "harness_selection_matches": true,
+      "accepted_revisions": []
+    },
+    {
+      "slot": 6,
+      "project": "libmodbus",
+      "method": "R1",
+      "source_unchanged": true,
+      "cleanup_succeeded": true,
+      "actual_replay_attempts": 1,
+      "actual_replay_duration_seconds": 20.386986,
+      "original_default_smoke_seconds": 0.0,
+      "actual_replay_statuses": [
+        "passed"
+      ],
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "executable_smoke": "not_applicable",
+        "final_verification_passed": true,
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true,
+        "reproducible_delivery_completed": true
+      },
+      "tools": {},
+      "harness_selections": [],
+      "harness_selection_matches": true,
+      "accepted_revisions": []
+    },
+    {
+      "slot": 7,
+      "project": "tini",
+      "method": "R1",
+      "source_unchanged": false,
+      "cleanup_succeeded": true,
+      "actual_replay_attempts": 0,
+      "actual_replay_duration_seconds": 0,
+      "original_default_smoke_seconds": 0.0,
+      "actual_replay_statuses": [],
+      "layers": {
+        "command_build_passed": null,
+        "primary_build_completed": null,
+        "delivery": "unobserved",
+        "author_tests": "unobserved",
+        "executable_smoke": "unobserved",
+        "final_verification_passed": null,
+        "clean_replay": "unobserved",
+        "full_completed": false,
+        "main_build_task_completed": false,
+        "reproducible_delivery_completed": false
+      },
+      "tools": {},
+      "harness_selections": [],
+      "harness_selection_matches": true,
+      "accepted_revisions": []
+    },
+    {
+      "slot": 8,
+      "project": "tini",
+      "method": "H0",
+      "source_unchanged": false,
+      "cleanup_succeeded": true,
+      "actual_replay_attempts": 0,
+      "actual_replay_duration_seconds": 0,
+      "original_default_smoke_seconds": 0.0,
+      "actual_replay_statuses": [],
+      "layers": {
+        "command_build_passed": null,
+        "primary_build_completed": null,
+        "delivery": "unobserved",
+        "author_tests": "unobserved",
+        "executable_smoke": "unobserved",
+        "final_verification_passed": null,
+        "clean_replay": "unobserved",
+        "full_completed": false,
+        "main_build_task_completed": false,
+        "reproducible_delivery_completed": false
+      },
+      "tools": {},
+      "harness_selections": [],
+      "harness_selection_matches": true,
+      "accepted_revisions": []
+    },
+    {
+      "slot": 9,
+      "project": "redsocks",
+      "method": "H0",
+      "source_unchanged": true,
+      "cleanup_succeeded": true,
+      "actual_replay_attempts": 1,
+      "actual_replay_duration_seconds": 40.055978,
+      "original_default_smoke_seconds": 0.0,
+      "actual_replay_statuses": [
+        "passed"
+      ],
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "executable_smoke": "passed",
+        "final_verification_passed": true,
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true,
+        "reproducible_delivery_completed": true
+      },
+      "tools": {},
+      "harness_selections": [],
+      "harness_selection_matches": true,
+      "accepted_revisions": []
+    },
+    {
+      "slot": 10,
+      "project": "redsocks",
+      "method": "R1",
+      "source_unchanged": true,
+      "cleanup_succeeded": true,
+      "actual_replay_attempts": 1,
+      "actual_replay_duration_seconds": 40.128834,
+      "original_default_smoke_seconds": 0.0,
+      "actual_replay_statuses": [
+        "passed"
+      ],
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "executable_smoke": "passed",
+        "final_verification_passed": true,
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true,
+        "reproducible_delivery_completed": true
+      },
+      "tools": {},
+      "harness_selections": [],
+      "harness_selection_matches": true,
+      "accepted_revisions": []
+    },
+    {
+      "slot": 11,
+      "project": "freesasa",
+      "method": "R1",
+      "source_unchanged": true,
+      "cleanup_succeeded": true,
+      "actual_replay_attempts": 1,
+      "actual_replay_duration_seconds": 59.585347,
+      "original_default_smoke_seconds": 0.123683,
+      "actual_replay_statuses": [
+        "passed"
+      ],
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "executable_smoke": "passed",
+        "final_verification_passed": true,
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true,
+        "reproducible_delivery_completed": true
+      },
+      "tools": {},
+      "harness_selections": [],
+      "harness_selection_matches": true,
+      "accepted_revisions": []
+    },
+    {
+      "slot": 12,
+      "project": "freesasa",
+      "method": "H0",
+      "source_unchanged": true,
+      "cleanup_succeeded": true,
+      "actual_replay_attempts": 1,
+      "actual_replay_duration_seconds": 58.841235,
+      "original_default_smoke_seconds": 0.130555,
+      "actual_replay_statuses": [
+        "passed"
+      ],
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "executable_smoke": "passed",
+        "final_verification_passed": true,
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true,
+        "reproducible_delivery_completed": true
+      },
+      "tools": {},
+      "harness_selections": [],
+      "harness_selection_matches": true,
+      "accepted_revisions": []
+    },
+    {
+      "slot": 13,
+      "project": "wasm3",
+      "method": "H0",
+      "source_unchanged": true,
+      "cleanup_succeeded": true,
+      "actual_replay_attempts": 1,
+      "actual_replay_duration_seconds": 33.35854,
+      "original_default_smoke_seconds": 0.252971,
+      "actual_replay_statuses": [
+        "failed"
+      ],
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "executable_smoke": "passed",
+        "final_verification_passed": false,
+        "clean_replay": "failed",
+        "full_completed": null,
+        "main_build_task_completed": true,
+        "reproducible_delivery_completed": false
+      },
+      "tools": {},
+      "harness_selections": [],
+      "harness_selection_matches": true,
+      "accepted_revisions": []
+    },
+    {
+      "slot": 14,
+      "project": "wasm3",
+      "method": "R1",
+      "source_unchanged": true,
+      "cleanup_succeeded": true,
+      "actual_replay_attempts": 1,
+      "actual_replay_duration_seconds": 32.5915,
+      "original_default_smoke_seconds": 0.23328300000000002,
+      "actual_replay_statuses": [
+        "failed"
+      ],
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "executable_smoke": "passed",
+        "final_verification_passed": false,
+        "clean_replay": "failed",
+        "full_completed": null,
+        "main_build_task_completed": true,
+        "reproducible_delivery_completed": false
+      },
+      "tools": {},
+      "harness_selections": [],
+      "harness_selection_matches": true,
+      "accepted_revisions": []
+    },
+    {
+      "slot": 15,
+      "project": "beanstalkd",
+      "method": "R1",
+      "source_unchanged": true,
+      "cleanup_succeeded": true,
+      "actual_replay_attempts": 1,
+      "actual_replay_duration_seconds": 4.620916,
+      "original_default_smoke_seconds": 0.116219,
+      "actual_replay_statuses": [
+        "passed"
+      ],
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "executable_smoke": "passed",
+        "final_verification_passed": true,
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true,
+        "reproducible_delivery_completed": true
+      },
+      "tools": {},
+      "harness_selections": [],
+      "harness_selection_matches": true,
+      "accepted_revisions": []
+    },
+    {
+      "slot": 16,
+      "project": "beanstalkd",
+      "method": "H0",
+      "source_unchanged": true,
+      "cleanup_succeeded": true,
+      "actual_replay_attempts": 1,
+      "actual_replay_duration_seconds": 4.596408,
+      "original_default_smoke_seconds": 0.118459,
+      "actual_replay_statuses": [
+        "passed"
+      ],
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "executable_smoke": "passed",
+        "final_verification_passed": true,
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true,
+        "reproducible_delivery_completed": true
+      },
+      "tools": {},
+      "harness_selections": [],
+      "harness_selection_matches": true,
+      "accepted_revisions": []
+    },
+    {
+      "slot": 17,
+      "project": "fsarchiver",
+      "method": "H0",
+      "source_unchanged": true,
+      "cleanup_succeeded": true,
+      "actual_replay_attempts": 0,
+      "actual_replay_duration_seconds": 0,
+      "original_default_smoke_seconds": 0.0,
+      "actual_replay_statuses": [],
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "executable_smoke": "failed",
+        "final_verification_passed": false,
+        "clean_replay": "not_started",
+        "full_completed": null,
+        "main_build_task_completed": true,
+        "reproducible_delivery_completed": false
+      },
+      "tools": {
+        "list_source": 3,
+        "read_source": 7
+      },
+      "harness_selections": [
+        {
+          "event": "harness.selected",
+          "name": "H0_recovery",
+          "sha256": "490efaacbd27c9f0f6ec116f1cbfc841f8683020311527f5be02c17684996eaf",
+          "scope": "recovery",
+          "applied": true
+        },
+        {
+          "event": "harness.selected",
+          "name": "H0_recovery",
+          "sha256": "490efaacbd27c9f0f6ec116f1cbfc841f8683020311527f5be02c17684996eaf",
+          "scope": "recovery",
+          "applied": true
+        }
+      ],
+      "harness_selection_matches": true,
+      "accepted_revisions": [
+        {
+          "file": "slot-17-fsarchiver-H0/agent/simple-actions-2.json",
+          "reason": "真实失败原因：configure.ac:4 要求 Autoconf >= 2.72，而镜像/发行版自带 autoconf 为 2.71，导致 autogen.sh 的 aclocal 失败且未生成 configure。作者入口仍是 autogen.sh + ./configure + make（.travis.yml:13-17，docker/build-fsarchiver.sh）。修订方案：保留已成功的系统依赖安装步骤，新增一个从 GNU 官方源码构建并安装 autoconf 2.72 到 /usr/local 的依赖步骤（/usr/local/bin 在 PATH 中优先），随后重新执行作者的 autogen.sh/configure 与默认主目标 make（src/Makefile.am:1 sbin_PROGRAMS=fsarchiver），不修改源码、不缩小目标。",
+          "steps": [
+            {
+              "step_id": "deps",
+              "role": "dependency",
+              "command": "apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y gcc g++ make autoconf automake autotools-dev pkg-config zlib1g-dev libbz2-dev liblzma-dev liblzo2-dev liblz4-dev libzstd-dev libgcrypt20-dev e2fsprogs libext2fs-dev comerr-dev uuid-dev libblkid-dev libattr1-dev",
+              "workdir": "/workspace/repo",
+              "requires": []
+            },
+            {
+              "step_id": "autoconf272",
+              "role": "dependency",
+              "command": "apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y wget ca-certificates && cd /tmp && wget -q https://ftp.gnu.org/gnu/autoconf/autoconf-2.72.tar.xz -O autoconf-2.72.tar.xz && tar xf autoconf-2.72.tar.xz && cd autoconf-2.72 && ./configure --prefix=/usr/local && make -j2 && make install",
+              "workdir": "/workspace/repo",
+              "requires": [
+                "deps"
+              ]
+            },
+            {
+              "step_id": "configure",
+              "role": "configure",
+              "command": "sh ./autogen.sh && ./configure",
+              "workdir": "/workspace/repo",
+              "requires": [
+                "deps",
+                "autoconf272"
+              ]
+            },
+            {
+              "step_id": "build",
+              "role": "build",
+              "command": "make -j2",
+              "workdir": "/workspace/repo",
+              "requires": [
+                "configure"
+              ]
+            }
+          ]
+        },
+        {
+          "file": "slot-17-fsarchiver-H0/agent/simple-actions-3.json",
+          "reason": "原 autoconf272 命令因把 apt、下载、配置、编译、安装混在同一步被策略拒绝；改为按阶段拆分获取与构建 autoconf 2.72，再沿用作者 autogen.sh + 默认 ./configure 和 make。已成功的 deps 由系统保留，故配置步骤只引用本方案内更早的 autoconf_install。",
+          "steps": [
+            {
+              "step_id": "autoconf_tools",
+              "role": "dependency",
+              "command": "apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y wget ca-certificates xz-utils",
+              "workdir": "/workspace/repo",
+              "requires": []
+            },
+            {
+              "step_id": "autoconf_fetch",
+              "role": "dependency",
+              "command": "wget -q https://ftp.gnu.org/gnu/autoconf/autoconf-2.72.tar.xz -O /tmp/autoconf-2.72.tar.xz",
+              "workdir": "/workspace/repo",
+              "requires": [
+                "autoconf_tools"
+              ]
+            },
+            {
+              "step_id": "autoconf_extract",
+              "role": "dependency",
+              "command": "tar -xf /tmp/autoconf-2.72.tar.xz -C /tmp",
+              "workdir": "/workspace/repo",
+              "requires": [
+                "autoconf_fetch"
+              ]
+            },
+            {
+              "step_id": "autoconf_configure",
+              "role": "dependency",
+              "command": "cd /tmp/autoconf-2.72 && ./configure --prefix=/usr/local",
+              "workdir": "/workspace/repo",
+              "requires": [
+                "autoconf_extract"
+              ]
+            },
+            {
+              "step_id": "autoconf_build",
+              "role": "dependency",
+              "command": "make -C /tmp/autoconf-2.72 -j2",
+              "workdir": "/workspace/repo",
+              "requires": [
+                "autoconf_configure"
+              ]
+            },
+            {
+              "step_id": "autoconf_install",
+              "role": "dependency",
+              "command": "make -C /tmp/autoconf-2.72 install",
+              "workdir": "/workspace/repo",
+              "requires": [
+                "autoconf_build"
+              ]
+            },
+            {
+              "step_id": "configure",
+              "role": "configure",
+              "command": "PATH=/usr/local/bin:$PATH sh ./autogen.sh && PATH=/usr/local/bin:$PATH ./configure",
+              "workdir": "/workspace/repo",
+              "requires": [
+                "autoconf_install"
+              ]
+            },
+            {
+              "step_id": "build",
+              "role": "build",
+              "command": "make -j2",
+              "workdir": "/workspace/repo",
+              "requires": [
+                "configure"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slot": 18,
+      "project": "fsarchiver",
+      "method": "R1",
+      "source_unchanged": null,
+      "cleanup_succeeded": true,
+      "actual_replay_attempts": 0,
+      "actual_replay_duration_seconds": 0,
+      "original_default_smoke_seconds": 0.0,
+      "actual_replay_statuses": [],
+      "layers": {
+        "command_build_passed": null,
+        "primary_build_completed": null,
+        "delivery": "unobserved",
+        "author_tests": "unobserved",
+        "executable_smoke": "unobserved",
+        "final_verification_passed": null,
+        "clean_replay": "unobserved",
+        "full_completed": false,
+        "main_build_task_completed": false,
+        "reproducible_delivery_completed": false
+      },
+      "tools": {
+        "list_source": 2,
+        "read_source": 2
+      },
+      "harness_selections": [
+        {
+          "event": "harness.selected",
+          "name": "H_R_candidate",
+          "sha256": "35280b6a11f01ef5da56d438659f0492c12ea8a82c18ac3d8a3b2e0e89d14ecf",
+          "scope": "recovery",
+          "applied": true
+        },
+        {
+          "event": "harness.selected",
+          "name": "H_R_candidate",
+          "sha256": "35280b6a11f01ef5da56d438659f0492c12ea8a82c18ac3d8a3b2e0e89d14ecf",
+          "scope": "recovery",
+          "applied": true
+        },
+        {
+          "event": "harness.selected",
+          "name": "H_R_candidate",
+          "sha256": "35280b6a11f01ef5da56d438659f0492c12ea8a82c18ac3d8a3b2e0e89d14ecf",
+          "scope": "recovery",
+          "applied": true
+        }
+      ],
+      "harness_selection_matches": true,
+      "accepted_revisions": [
+        {
+          "file": "slot-18-fsarchiver-R1/agent/simple-actions-2.json",
+          "reason": "configure 步骤真实失败于 autoreconf：configure.ac:4 要求 Autoconf >= 2.72，而镜像自带 autoconf 低于该版本（Ubuntu 24.04 为 2.71），随后 ./configure 不存在（exit 127）。依赖列表、autogen.sh 与 src/Makefile.am 的默认主目标入口均无误，因此保留已成功的 deps 步骤与动作，仅在配置前新增一个依赖步骤：从 GNU 源码构建并安装 autoconf 2.72 到 /usr/local，再以 /usr/local/bin 优先的 PATH 执行作者原有 autogen.sh + ./configure 与 make -j2。不改源码、不缩减目标。",
+          "steps": [
+            {
+              "step_id": "deps",
+              "role": "dependency",
+              "command": "apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y gcc g++ make autoconf automake autotools-dev pkg-config zlib1g-dev libbz2-dev liblzma-dev liblzo2-dev liblz4-dev libzstd-dev libgcrypt20-dev e2fsprogs libext2fs-dev comerr-dev uuid-dev libblkid-dev libattr1-dev",
+              "workdir": "/workspace/repo",
+              "requires": []
+            },
+            {
+              "step_id": "deps-autoconf272",
+              "role": "dependency",
+              "command": "DEBIAN_FRONTEND=noninteractive apt-get install -y wget ca-certificates && rm -rf /tmp/autoconf-2.72 /tmp/autoconf-2.72.tar.xz && (wget -q -O /tmp/autoconf-2.72.tar.xz https://ftp.gnu.org/gnu/autoconf/autoconf-2.72.tar.xz || wget -q -O /tmp/autoconf-2.72.tar.xz https://mirrors.kernel.org/gnu/autoconf/autoconf-2.72.tar.xz) && tar -xJf /tmp/autoconf-2.72.tar.xz -C /tmp && cd /tmp/autoconf-2.72 && ./configure --prefix=/usr/local && make -j2 && make install && /usr/local/bin/autoconf --version",
+              "workdir": "/workspace/repo",
+              "requires": [
+                "deps"
+              ]
+            },
+            {
+              "step_id": "configure",
+              "role": "configure",
+              "command": "PATH=/usr/local/bin:$PATH sh ./autogen.sh && ./configure",
+              "workdir": "/workspace/repo",
+              "requires": [
+                "deps-autoconf272"
+              ]
+            },
+            {
+              "step_id": "build",
+              "role": "build",
+              "command": "make -j2",
+              "workdir": "/workspace/repo",
+              "requires": [
+                "configure"
+              ]
+            }
+          ]
+        },
+        {
+          "file": "slot-18-fsarchiver-R1/agent/simple-actions-3.json",
+          "reason": "失败原因为方案中的 autoconf 2.72 依赖命令包含对 /tmp 的任意删除（rm -rf），被执行策略拒绝（policy_rejected），因此 /usr/local/bin/autoconf 未安装；随后 configure 步骤仍用系统 autoconf 2.71 运行 autoreconf，触发 configure.ac:4 的 AC_PREREQ([2.72]) 错误并导致 ./configure 不存在。修正为不使用任何删除命令：用 mktemp 建立临时目录，从源码构建 autoconf 2.72 并安装到 /opt/autoconf-2.72，随后在 configure 步骤中把该前缀加入 PATH。保留已成功的 deps 依赖步骤及作者入口 autogen.sh/configure、默认主目标 make（src/Makefile.am 的 sbin_PROGRAMS=fsarchiver）。",
+          "steps": [
+            {
+              "step_id": "deps",
+              "role": "dependency",
+              "command": "apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y gcc g++ make autoconf automake autotools-dev pkg-config zlib1g-dev libbz2-dev liblzma-dev liblzo2-dev liblz4-dev libzstd-dev libgcrypt20-dev e2fsprogs libext2fs-dev comerr-dev uuid-dev libblkid-dev libattr1-dev",
+              "workdir": "/workspace/repo",
+              "requires": []
+            },
+            {
+              "step_id": "deps-autoconf272",
+              "role": "dependency",
+              "command": "DEBIAN_FRONTEND=noninteractive apt-get install -y wget ca-certificates && d=$(mktemp -d) && (wget -q -O \"$d/autoconf-2.72.tar.xz\" https://ftp.gnu.org/gnu/autoconf/autoconf-2.72.tar.xz || wget -q -O \"$d/autoconf-2.72.tar.xz\" https://mirrors.kernel.org/gnu/autoconf/autoconf-2.72.tar.xz) && tar -xJf \"$d/autoconf-2.72.tar.xz\" -C \"$d\" && cd \"$d/autoconf-2.72\" && ./configure --prefix=/opt/autoconf-2.72 && make -j2 && make install && /opt/autoconf-2.72/bin/autoconf --version",
+              "workdir": "/workspace/repo",
+              "requires": [
+                "deps"
+              ]
+            },
+            {
+              "step_id": "configure",
+              "role": "configure",
+              "command": "PATH=/opt/autoconf-2.72/bin:$PATH sh ./autogen.sh && PATH=/opt/autoconf-2.72/bin:$PATH ./configure",
+              "workdir": "/workspace/repo",
+              "requires": [
+                "deps-autoconf272"
+              ]
+            },
+            {
+              "step_id": "build",
+              "role": "build",
+              "command": "make -j2",
+              "workdir": "/workspace/repo",
+              "requires": [
+                "configure"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slot": 19,
+      "project": "libhv",
+      "method": "R1",
+      "source_unchanged": true,
+      "cleanup_succeeded": true,
+      "actual_replay_attempts": 1,
+      "actual_replay_duration_seconds": 50.403876,
+      "original_default_smoke_seconds": 0.0,
+      "actual_replay_statuses": [
+        "failed"
+      ],
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "executable_smoke": "not_applicable",
+        "final_verification_passed": false,
+        "clean_replay": "failed",
+        "full_completed": null,
+        "main_build_task_completed": true,
+        "reproducible_delivery_completed": false
+      },
+      "tools": {},
+      "harness_selections": [],
+      "harness_selection_matches": true,
+      "accepted_revisions": []
+    },
+    {
+      "slot": 20,
+      "project": "libhv",
+      "method": "H0",
+      "source_unchanged": true,
+      "cleanup_succeeded": true,
+      "actual_replay_attempts": 1,
+      "actual_replay_duration_seconds": 50.315045,
+      "original_default_smoke_seconds": 0.0,
+      "actual_replay_statuses": [
+        "failed"
+      ],
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "executable_smoke": "not_applicable",
+        "final_verification_passed": false,
+        "clean_replay": "failed",
+        "full_completed": null,
+        "main_build_task_completed": true,
+        "reproducible_delivery_completed": false
+      },
+      "tools": {},
+      "harness_selections": [],
+      "harness_selection_matches": true,
+      "accepted_revisions": []
+    },
+    {
+      "slot": 21,
+      "project": "no-more-secrets",
+      "method": "H0",
+      "source_unchanged": true,
+      "cleanup_succeeded": true,
+      "actual_replay_attempts": 1,
+      "actual_replay_duration_seconds": 4.4873,
+      "original_default_smoke_seconds": 0.0,
+      "actual_replay_statuses": [
+        "passed"
+      ],
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "executable_smoke": "passed",
+        "final_verification_passed": true,
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true,
+        "reproducible_delivery_completed": true
+      },
+      "tools": {},
+      "harness_selections": [],
+      "harness_selection_matches": true,
+      "accepted_revisions": []
+    },
+    {
+      "slot": 22,
+      "project": "no-more-secrets",
+      "method": "R1",
+      "source_unchanged": true,
+      "cleanup_succeeded": true,
+      "actual_replay_attempts": 1,
+      "actual_replay_duration_seconds": 4.495572,
+      "original_default_smoke_seconds": 0.0,
+      "actual_replay_statuses": [
+        "passed"
+      ],
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "executable_smoke": "passed",
+        "final_verification_passed": true,
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true,
+        "reproducible_delivery_completed": true
+      },
+      "tools": {},
+      "harness_selections": [],
+      "harness_selection_matches": true,
+      "accepted_revisions": []
+    },
+    {
+      "slot": 23,
+      "project": "fastq-tools",
+      "method": "R1",
+      "source_unchanged": true,
+      "cleanup_succeeded": true,
+      "actual_replay_attempts": 1,
+      "actual_replay_duration_seconds": 59.183012,
+      "original_default_smoke_seconds": 2.178546,
+      "actual_replay_statuses": [
+        "passed"
+      ],
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "executable_smoke": "passed",
+        "final_verification_passed": true,
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true,
+        "reproducible_delivery_completed": true
+      },
+      "tools": {},
+      "harness_selections": [],
+      "harness_selection_matches": true,
+      "accepted_revisions": []
+    },
+    {
+      "slot": 24,
+      "project": "fastq-tools",
+      "method": "H0",
+      "source_unchanged": true,
+      "cleanup_succeeded": true,
+      "actual_replay_attempts": 1,
+      "actual_replay_duration_seconds": 61.879793,
+      "original_default_smoke_seconds": 2.164917,
+      "actual_replay_statuses": [
+        "passed"
+      ],
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "executable_smoke": "passed",
+        "final_verification_passed": true,
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true,
+        "reproducible_delivery_completed": true
+      },
+      "tools": {},
+      "harness_selections": [],
+      "harness_selection_matches": true,
+      "accepted_revisions": []
+    },
+    {
+      "slot": 25,
+      "project": "ggmorse",
+      "method": "H0",
+      "source_unchanged": null,
+      "cleanup_succeeded": true,
+      "actual_replay_attempts": 0,
+      "actual_replay_duration_seconds": 0,
+      "original_default_smoke_seconds": 0.0,
+      "actual_replay_statuses": [],
+      "layers": {
+        "command_build_passed": null,
+        "primary_build_completed": null,
+        "delivery": "unobserved",
+        "author_tests": "unobserved",
+        "executable_smoke": "unobserved",
+        "final_verification_passed": null,
+        "clean_replay": "unobserved",
+        "full_completed": false,
+        "main_build_task_completed": false,
+        "reproducible_delivery_completed": false
+      },
+      "tools": {
+        "list_source": 4,
+        "read_source": 6
+      },
+      "harness_selections": [
+        {
+          "event": "harness.selected",
+          "name": "H0_recovery",
+          "sha256": "490efaacbd27c9f0f6ec116f1cbfc841f8683020311527f5be02c17684996eaf",
+          "scope": "recovery",
+          "applied": true
+        },
+        {
+          "event": "harness.selected",
+          "name": "H0_recovery",
+          "sha256": "490efaacbd27c9f0f6ec116f1cbfc841f8683020311527f5be02c17684996eaf",
+          "scope": "recovery",
+          "applied": true
+        }
+      ],
+      "harness_selection_matches": true,
+      "accepted_revisions": [
+        {
+          "file": "slot-25-ggmorse-H0/agent/simple-actions-2.json",
+          "reason": "上次 install-deps 在 180s 超时（apt 仅在下载阶段，日志停在 Get:43），说明是单命令串行 update+大依赖树安装过慢，而非依赖缺失。作者 README.md:63-66 只需 libsdl2-dev（其 Depends 会带上 X11/OpenGL/音频等开发库），README.md:76-81 用 cmake+make 构建默认示例与测试；CMakeLists.txt:47-48,85-94 默认构建 src/tests/examples，examples/CMakeLists.txt:5-40 需要 SDL2，examples/third-party/imgui/CMakeLists.txt:15-20,89-105 需要 imgui/imgui/*.cpp 与 examples/libs/gl3w/GL/gl3w.c，而仓库中 examples/third-party/imgui/imgui 为空（.gitmodules:4-6 为子模块），故需按指定 commit 恢复该子模块。本次将 apt 更新、工具链、SDL2 依赖分组安装拆开，让每步在超时内完成并可复用已下载的 deb 缓存；imgui 改为按 commit 浅取仓库后再单独 update 子模块并拷贝，避免单步 clone+checkout+update+copy 过长。",
+          "steps": [
+            {
+              "step_id": "dep-apt-update",
+              "role": "dependency",
+              "command": "apt-get update",
+              "workdir": "/workspace/repo",
+              "requires": []
+            },
+            {
+              "step_id": "dep-toolchain",
+              "role": "dependency",
+              "command": "apt-get install -y --no-install-recommends build-essential cmake git ca-certificates pkg-config",
+              "workdir": "/workspace/repo",
+              "requires": [
+                "dep-apt-update"
+              ]
+            },
+            {
+              "step_id": "dep-x11",
+              "role": "dependency",
+              "command": "apt-get install -y --no-install-recommends libx11-dev libxext-dev libxrandr-dev libxcursor-dev libxfixes-dev libxi-dev libxss-dev",
+              "workdir": "/workspace/repo",
+              "requires": [
+                "dep-apt-update"
+              ]
+            },
+            {
+              "step_id": "dep-xkb-gl",
+              "role": "dependency",
+              "command": "apt-get install -y --no-install-recommends libxkbcommon-dev libgl-dev libglx-dev libegl-dev libgles-dev",
+              "workdir": "/workspace/repo",
+              "requires": [
+                "dep-apt-update"
+              ]
+            },
+            {
+              "step_id": "dep-drm-wayland",
+              "role": "dependency",
+              "command": "apt-get install -y --no-install-recommends libdrm-dev libgbm-dev libwayland-dev libdecor-0-dev libunwind-dev",
+              "workdir": "/workspace/repo",
+              "requires": [
+                "dep-apt-update"
+              ]
+            },
+            {
+              "step_id": "dep-audio",
+              "role": "dependency",
+              "command": "apt-get install -y --no-install-recommends libasound2-dev libpulse-dev libdbus-1-dev libudev-dev libibus-1.0-dev",
+              "workdir": "/workspace/repo",
+              "requires": [
+                "dep-apt-update"
+              ]
+            },
+            {
+              "step_id": "dep-sdl2",
+              "role": "dependency",
+              "command": "apt-get install -y --no-install-recommends libsdl2-dev",
+              "workdir": "/workspace/repo",
+              "requires": [
+                "dep-toolchain",
+                "dep-x11",
+                "dep-xkb-gl",
+                "dep-drm-wayland",
+                "dep-audio"
+              ]
+            },
+            {
+              "step_id": "populate-fetch",
+              "role": "dependency",
+              "command": "git init /tmp/ggmorse-src && git -C /tmp/ggmorse-src remote add origin https://github.com/ggerganov/ggmorse && git -C /tmp/ggmorse-src fetch --depth 1 origin 7b4822a8cfdbb1addfe497f3ae8186f142a4ee79 && git -C /tmp/ggmorse-src checkout --detach FETCH_HEAD",
+              "workdir": "/workspace/repo",
+              "requires": [
+                "dep-toolchain"
+              ]
+            },
+            {
+              "step_id": "populate-imgui",
+              "role": "dependency",
+              "command": "git -C /tmp/ggmorse-src submodule update --init --depth 1 --recursive && tar -C /tmp/ggmorse-src/examples/third-party/imgui/imgui --exclude=.git -cf - . | tar -C /workspace/repo/examples/third-party/imgui/imgui -xf -",
+              "workdir": "/workspace/repo",
+              "requires": [
+                "populate-fetch"
+              ]
+            },
+            {
+              "step_id": "configure",
+              "role": "configure",
+              "command": "cmake -S . -B build -DCMAKE_BUILD_TYPE=Release",
+              "workdir": "/workspace/repo",
+              "requires": [
+                "dep-sdl2",
+                "populate-imgui"
+              ]
+            },
+            {
+              "step_id": "build",
+              "role": "build",
+              "command": "cmake --build build --parallel 2",
+              "workdir": "/workspace/repo",
+              "requires": [
+                "configure"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slot": 26,
+      "project": "ggmorse",
+      "method": "R1",
+      "source_unchanged": null,
+      "cleanup_succeeded": true,
+      "actual_replay_attempts": 0,
+      "actual_replay_duration_seconds": 0,
+      "original_default_smoke_seconds": 0.0,
+      "actual_replay_statuses": [],
+      "layers": {
+        "command_build_passed": null,
+        "primary_build_completed": null,
+        "delivery": "unobserved",
+        "author_tests": "unobserved",
+        "executable_smoke": "unobserved",
+        "final_verification_passed": null,
+        "clean_replay": "unobserved",
+        "full_completed": false,
+        "main_build_task_completed": false,
+        "reproducible_delivery_completed": false
+      },
+      "tools": {
+        "list_source": 5,
+        "read_source": 8,
+        "read_failure_log": 2
+      },
+      "harness_selections": [
+        {
+          "event": "harness.selected",
+          "name": "H_R_candidate",
+          "sha256": "35280b6a11f01ef5da56d438659f0492c12ea8a82c18ac3d8a3b2e0e89d14ecf",
+          "scope": "recovery",
+          "applied": true
+        },
+        {
+          "event": "harness.selected",
+          "name": "H_R_candidate",
+          "sha256": "35280b6a11f01ef5da56d438659f0492c12ea8a82c18ac3d8a3b2e0e89d14ecf",
+          "scope": "recovery",
+          "applied": true
+        }
+      ],
+      "harness_selection_matches": true,
+      "accepted_revisions": [
+        {
+          "file": "slot-26-ggmorse-R1/agent/simple-actions-2.json",
+          "reason": "唯一真实失败是 install-deps 在 180s 超时（apt-get update 正在下载 noble/universe 元数据，安装尚未开始），并非包或源码问题。据此按 180s/命令的限制把单个超长依赖步骤拆为独立的 update 与分批 install 步骤，均保留 CI(build.yml:18-23)与 README(building:63-66,76-81)声明的必要依赖；同时把原先“克隆+checkout+submodule+拷贝”的单个长步骤拆为各自的短步骤，以相同方式恢复 .gitmodules/README:78 所要求的 imgui 子模块（examples/third-party/imgui/imgui 为空，examples/third-party/imgui/CMakeLists.txt 需要 imgui.cpp 与 gl3w.c）。配置与构建入口不变：README 推荐 build 目录 + cmake，CI(build.yml:26)使用 Release，根 CMakeLists.txt:85-94 默认加入 src/tests/examples，故构建默认主目标，不缩减组件。",
+          "steps": [
+            {
+              "step_id": "apt-update",
+              "role": "dependency",
+              "command": "apt-get update",
+              "workdir": "/workspace/repo",
+              "requires": []
+            },
+            {
+              "step_id": "install-toolchain",
+              "role": "dependency",
+              "command": "apt-get install -y --no-install-recommends build-essential cmake git",
+              "workdir": "/workspace/repo",
+              "requires": [
+                "apt-update"
+              ]
+            },
+            {
+              "step_id": "install-gl",
+              "role": "dependency",
+              "command": "apt-get install -y --no-install-recommends xorg-dev libglu1-mesa-dev",
+              "workdir": "/workspace/repo",
+              "requires": [
+                "install-toolchain"
+              ]
+            },
+            {
+              "step_id": "install-sdl2",
+              "role": "dependency",
+              "command": "apt-get install -y --no-install-recommends libsdl2-dev",
+              "workdir": "/workspace/repo",
+              "requires": [
+                "install-gl"
+              ]
+            },
+            {
+              "step_id": "clone-source",
+              "role": "dependency",
+              "command": "git clone https://github.com/ggerganov/ggmorse /tmp/ggmorse-src && git -C /tmp/ggmorse-src checkout 7b4822a8cfdbb1addfe497f3ae8186f142a4ee79",
+              "workdir": "/workspace/repo",
+              "requires": [
+                "install-toolchain"
+              ]
+            },
+            {
+              "step_id": "init-submodules",
+              "role": "dependency",
+              "command": "git -C /tmp/ggmorse-src submodule update --init --recursive",
+              "workdir": "/workspace/repo",
+              "requires": [
+                "clone-source"
+              ]
+            },
+            {
+              "step_id": "restore-imgui",
+              "role": "dependency",
+              "command": "tar -C /tmp/ggmorse-src/examples/third-party/imgui/imgui --exclude=.git -cf - . | tar -C /workspace/repo/examples/third-party/imgui/imgui -xf -",
+              "workdir": "/workspace/repo",
+              "requires": [
+                "init-submodules"
+              ]
+            },
+            {
+              "step_id": "configure",
+              "role": "configure",
+              "command": "cmake -S . -B build -DCMAKE_BUILD_TYPE=Release",
+              "workdir": "/workspace/repo",
+              "requires": [
+                "apt-update",
+                "install-toolchain",
+                "install-gl",
+                "install-sdl2",
+                "restore-imgui"
+              ]
+            },
+            {
+              "step_id": "build",
+              "role": "build",
+              "command": "cmake --build build --parallel 2",
+              "workdir": "/workspace/repo",
+              "requires": [
+                "configure"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slot": 27,
+      "project": "berkeley-softfloat-3",
+      "method": "R1",
+      "source_unchanged": true,
+      "cleanup_succeeded": true,
+      "actual_replay_attempts": 1,
+      "actual_replay_duration_seconds": 10.3606,
+      "original_default_smoke_seconds": 0.0,
+      "actual_replay_statuses": [
+        "passed"
+      ],
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "executable_smoke": "not_applicable",
+        "final_verification_passed": true,
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true,
+        "reproducible_delivery_completed": true
+      },
+      "tools": {},
+      "harness_selections": [],
+      "harness_selection_matches": true,
+      "accepted_revisions": []
+    },
+    {
+      "slot": 28,
+      "project": "berkeley-softfloat-3",
+      "method": "H0",
+      "source_unchanged": true,
+      "cleanup_succeeded": true,
+      "actual_replay_attempts": 1,
+      "actual_replay_duration_seconds": 10.422232,
+      "original_default_smoke_seconds": 0.0,
+      "actual_replay_statuses": [
+        "passed"
+      ],
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "executable_smoke": "not_applicable",
+        "final_verification_passed": true,
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true,
+        "reproducible_delivery_completed": true
+      },
+      "tools": {},
+      "harness_selections": [],
+      "harness_selection_matches": true,
+      "accepted_revisions": []
+    },
+    {
+      "slot": 29,
+      "project": "munge",
+      "method": "H0",
+      "source_unchanged": true,
+      "cleanup_succeeded": true,
+      "actual_replay_attempts": 0,
+      "actual_replay_duration_seconds": 0,
+      "original_default_smoke_seconds": 1.7958800000000001,
+      "actual_replay_statuses": [],
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "executable_smoke": "failed",
+        "final_verification_passed": false,
+        "clean_replay": "not_started",
+        "full_completed": null,
+        "main_build_task_completed": true,
+        "reproducible_delivery_completed": false
+      },
+      "tools": {},
+      "harness_selections": [],
+      "harness_selection_matches": true,
+      "accepted_revisions": []
+    },
+    {
+      "slot": 30,
+      "project": "munge",
+      "method": "R1",
+      "source_unchanged": true,
+      "cleanup_succeeded": true,
+      "actual_replay_attempts": 0,
+      "actual_replay_duration_seconds": 0,
+      "original_default_smoke_seconds": 1.832417,
+      "actual_replay_statuses": [],
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "executable_smoke": "failed",
+        "final_verification_passed": false,
+        "clean_replay": "not_started",
+        "full_completed": null,
+        "main_build_task_completed": true,
+        "reproducible_delivery_completed": false
+      },
+      "tools": {},
+      "harness_selections": [],
+      "harness_selection_matches": true,
+      "accepted_revisions": []
+    },
+    {
+      "slot": 31,
+      "project": "DuckX",
+      "method": "R1",
+      "source_unchanged": true,
+      "cleanup_succeeded": true,
+      "actual_replay_attempts": 1,
+      "actual_replay_duration_seconds": 7.304491,
+      "original_default_smoke_seconds": 0.0,
+      "actual_replay_statuses": [
+        "passed"
+      ],
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "executable_smoke": "not_applicable",
+        "final_verification_passed": true,
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true,
+        "reproducible_delivery_completed": true
+      },
+      "tools": {
+        "list_source": 1,
+        "read_source": 11
+      },
+      "harness_selections": [
+        {
+          "event": "harness.selected",
+          "name": "H_R_candidate",
+          "sha256": "35280b6a11f01ef5da56d438659f0492c12ea8a82c18ac3d8a3b2e0e89d14ecf",
+          "scope": "recovery",
+          "applied": true
+        }
+      ],
+      "harness_selection_matches": true,
+      "accepted_revisions": [
+        {
+          "file": "slot-31-DuckX-R1/agent/simple-actions-2.json",
+          "reason": "真实失败定位：duckx 库已成功构建，失败发生在默认参与构建的 test/unit_tests 与 test/iterator_tests；两处均因 test/doctest.h:4009 使用 `static char altStackMem[4 * SIGSTKSZ]` 而在 glibc 2.34+（GCC 13）下 SIGSTKSZ 为运行时值导致数组长度非整型常量。doctest.h:246-252 与 3917-3921 表明这是内置 POSIX 信号处理代码，且提供了 DOCTEST_CONFIG_NO_POSIX_SIGNALS 开关：定义后该代码块被替换为空实现的 FatalConditionHandler，测试源码和断言仍全部保留。因此仅修改 configure 命令，通过 CMAKE_CXX_FLAGS 全局定义该 doctest 官方开关；不改源码、不关闭 BUILD_TESTING、不缩小默认目标，库与两个测试可执行文件仍按默认构建图编译。无新增依赖，保留原构建目录 build。",
+          "steps": [
+            {
+              "step_id": "configure",
+              "role": "configure",
+              "command": "cmake -S . -B build -DCMAKE_CXX_FLAGS=-DDOCTEST_CONFIG_NO_POSIX_SIGNALS",
+              "workdir": "/workspace/repo",
+              "requires": []
+            },
+            {
+              "step_id": "build",
+              "role": "build",
+              "command": "cmake --build build --parallel 2",
+              "workdir": "/workspace/repo",
+              "requires": [
+                "configure"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slot": 32,
+      "project": "DuckX",
+      "method": "H0",
+      "source_unchanged": true,
+      "cleanup_succeeded": true,
+      "actual_replay_attempts": 1,
+      "actual_replay_duration_seconds": 7.320933,
+      "original_default_smoke_seconds": 0.0,
+      "actual_replay_statuses": [
+        "passed"
+      ],
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "executable_smoke": "not_applicable",
+        "final_verification_passed": true,
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true,
+        "reproducible_delivery_completed": true
+      },
+      "tools": {
+        "list_source": 1,
+        "read_source": 7
+      },
+      "harness_selections": [
+        {
+          "event": "harness.selected",
+          "name": "H0_recovery",
+          "sha256": "490efaacbd27c9f0f6ec116f1cbfc841f8683020311527f5be02c17684996eaf",
+          "scope": "recovery",
+          "applied": true
+        }
+      ],
+      "harness_selection_matches": true,
+      "accepted_revisions": [
+        {
+          "file": "slot-32-DuckX-H0/agent/simple-actions-2.json",
+          "reason": "README 56-66 与顶层 CMakeLists.txt 73-76 表明默认 CMake 构建即编译 duckx 库并（BUILD_TESTING 默认 ON）加入 test/ 子目录的 unit_tests、iterator_tests。失败原因在 test/doctest.h:246-252 自动定义 DOCTEST_CONFIG_POSIX_SIGNALS，使 4009 行 static char altStackMem[4 * SIGSTKSZ] 在 glibc 2.34+（SIGSTKSZ 变为运行时函数）下不是常量表达式，GCC 13 报错。保留测试源码不变，通过在配置阶段为 C++ 编译加入 doctest 官方开关 DOCTEST_CONFIG_NO_POSIX_SIGNALS 关闭该不兼容的 POSIX 信号栈特性即可，库与测试目标仍全部构建；原步骤仅在重建配置前缀。",
+          "steps": [
+            {
+              "step_id": "configure",
+              "role": "configure",
+              "command": "cmake -S . -B build -DCMAKE_CXX_FLAGS=-DDOCTEST_CONFIG_NO_POSIX_SIGNALS",
+              "workdir": "/workspace/repo",
+              "requires": []
+            },
+            {
+              "step_id": "build",
+              "role": "build",
+              "command": "cmake --build build --parallel 2",
+              "workdir": "/workspace/repo",
+              "requires": [
+                "configure"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slot": 33,
+      "project": "Turbo-Base64",
+      "method": "H0",
+      "source_unchanged": true,
+      "cleanup_succeeded": true,
+      "actual_replay_attempts": 1,
+      "actual_replay_duration_seconds": 36.036525,
+      "original_default_smoke_seconds": 475.395423,
+      "actual_replay_statuses": [
+        "timed_out"
+      ],
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "executable_smoke": "passed",
+        "final_verification_passed": false,
+        "clean_replay": "timed_out",
+        "full_completed": null,
+        "main_build_task_completed": true,
+        "reproducible_delivery_completed": false
+      },
+      "tools": {},
+      "harness_selections": [],
+      "harness_selection_matches": true,
+      "accepted_revisions": []
+    },
+    {
+      "slot": 34,
+      "project": "Turbo-Base64",
+      "method": "R1",
+      "source_unchanged": true,
+      "cleanup_succeeded": true,
+      "actual_replay_attempts": 1,
+      "actual_replay_duration_seconds": 35.966499,
+      "original_default_smoke_seconds": 475.330979,
+      "actual_replay_statuses": [
+        "timed_out"
+      ],
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "executable_smoke": "passed",
+        "final_verification_passed": false,
+        "clean_replay": "timed_out",
+        "full_completed": null,
+        "main_build_task_completed": true,
+        "reproducible_delivery_completed": false
+      },
+      "tools": {},
+      "harness_selections": [],
+      "harness_selection_matches": true,
+      "accepted_revisions": []
+    },
+    {
+      "slot": 35,
+      "project": "twemproxy",
+      "method": "R1",
+      "source_unchanged": true,
+      "cleanup_succeeded": true,
+      "actual_replay_attempts": 1,
+      "actual_replay_duration_seconds": 33.485934,
+      "original_default_smoke_seconds": 0.249858,
+      "actual_replay_statuses": [
+        "passed"
+      ],
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "executable_smoke": "passed",
+        "final_verification_passed": true,
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true,
+        "reproducible_delivery_completed": true
+      },
+      "tools": {
+        "read_source": 5,
+        "read_failure_log": 2,
+        "list_source": 2
+      },
+      "harness_selections": [
+        {
+          "event": "harness.selected",
+          "name": "H_R_candidate",
+          "sha256": "35280b6a11f01ef5da56d438659f0492c12ea8a82c18ac3d8a3b2e0e89d14ecf",
+          "scope": "recovery",
+          "applied": true
+        },
+        {
+          "event": "harness.selected",
+          "name": "H_R_candidate",
+          "sha256": "35280b6a11f01ef5da56d438659f0492c12ea8a82c18ac3d8a3b2e0e89d14ecf",
+          "scope": "recovery",
+          "applied": true
+        }
+      ],
+      "harness_selection_matches": true,
+      "accepted_revisions": [
+        {
+          "file": "slot-35-twemproxy-R1/agent/simple-actions-2.json",
+          "reason": "失败交接显示依赖步骤在 apt-get update 阶段因 archive.ubuntu.com 返回 502 网关错误而整体超时（exit 124），属瞬时网络故障，不是依赖清单错误。修订最小：原依赖步骤增加“工具链已具备则跳过”的守卫以及 apt 获取重试（Acquire::Retries），仅在确实缺失时才联网安装 build-essential/autoconf/automake/libtool/pkg-config；README.md:19-26、33 与 ci/Dockerfile:16-19、ci/build-nutcracker.sh:18-20 支撑该依赖集合与 autoreconf/configure/make 入口。configure 与 build 步骤未受影响，保持原命令；主目标仍为默认 make 目标（src/nutcracker）。",
+          "steps": [
+            {
+              "step_id": "deps-autotools",
+              "role": "dependency",
+              "command": "if ! { command -v gcc && command -v make && command -v autoconf && command -v automake && command -v libtool && command -v autoreconf; } >/dev/null 2>&1; then apt-get update -o Acquire::Retries=3 && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends build-essential autoconf automake libtool pkg-config; fi",
+              "workdir": "/workspace/repo",
+              "requires": []
+            },
+            {
+              "step_id": "configure",
+              "role": "configure",
+              "command": "autoreconf -fvi && ./configure",
+              "workdir": "/workspace/repo",
+              "requires": [
+                "deps-autotools"
+              ]
+            },
+            {
+              "step_id": "build",
+              "role": "build",
+              "command": "make -j2",
+              "workdir": "/workspace/repo",
+              "requires": [
+                "configure"
+              ]
+            }
+          ]
+        },
+        {
+          "file": "slot-35-twemproxy-R1/agent/simple-actions-3.json",
+          "reason": "失败交接显示失败仅发生在依赖步骤 deps-autotools：命令因 180s 超时被杀（exit 124），apt-get update 对 archive.ubuntu.com 反复返回 502，而 autotools 工具链检查已确认缺少 autoconf/automake/libtool 之一，因此必须安装依赖，不能删除该步骤。configure/build 从未执行、仓库仍干净，故保留原 configure/build 前缀不变。\\n\\n最小修订：依赖步骤改为「先走快路径、再刷新索引」的单次原子命令——若工具齐全直接退出；否则先用现有索引 `apt-get install`（加 Acquire::Retries/Timeout 限制，索引不可用会快速非零返回，不靠 || true 屏蔽失败），失败后才执行带重试与更紧超时的 `apt-get update` 并重试安装；同时只安装真正需要的 autoconf/automake/libtool，仅当 gcc/make 缺失时才加 build-essential，去掉本项目不需要的 pkg-config（configure.ac 未使用 pkg-config，yaml-0.2.5 由 configure 自行解包并递归配置），从而压缩 apt 工作量与超时风险。\\n\\n依据：README.md 源码构建步骤、ci/build-nutcracker.sh:18-20 使用 autoreconf -fvi / ./configure / make；configure.ac:200-204 表明 contrib/yaml-0.2.5.tar.gz 由 configure 自行解包（contrib/ 中已含该 tarball），无需外部 yaml 包；主目标为默认 make 产出 src/nutcracker。尚无已成功的依赖步骤需要保留或废弃（successful_dependencies 为空），build_directory 依据 configure.ac 顶层 AC_CONFIG_FILES 仍为 /workspace/repo。尚存不确定项：镜像内是否已有部分 autotools、以及 apt 镜像/代理的可用性，只能由实际执行反馈确认。",
+          "steps": [
+            {
+              "step_id": "deps-autotools",
+              "role": "dependency",
+              "command": "set -e\nmissing=0\nfor t in gcc make autoconf automake libtoolize; do command -v \"$t\" >/dev/null 2>&1 || missing=1; done\nif [ \"$missing\" -eq 0 ]; then\n  echo 'autotools toolchain already present'\n  exit 0\nfi\nPKGS='autoconf automake libtool'\nif ! command -v gcc >/dev/null 2>&1 || ! command -v make >/dev/null 2>&1; then\n  PKGS=\"$PKGS build-essential\"\nfi\nOPTS='-o Acquire::Retries=4 -o Acquire::http::Timeout=12 -o Acquire::https::Timeout=12 -o Acquire::Languages=none'\nif ! DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends $OPTS $PKGS; then\n  apt-get update $OPTS\n  DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends $OPTS $PKGS\nfi",
+              "workdir": "/workspace/repo",
+              "requires": []
+            },
+            {
+              "step_id": "configure",
+              "role": "configure",
+              "command": "autoreconf -fvi && ./configure",
+              "workdir": "/workspace/repo",
+              "requires": [
+                "deps-autotools"
+              ]
+            },
+            {
+              "step_id": "build",
+              "role": "build",
+              "command": "make -j2",
+              "workdir": "/workspace/repo",
+              "requires": [
+                "configure"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slot": 36,
+      "project": "twemproxy",
+      "method": "H0",
+      "source_unchanged": true,
+      "cleanup_succeeded": true,
+      "actual_replay_attempts": 1,
+      "actual_replay_duration_seconds": 77.955635,
+      "original_default_smoke_seconds": 0.25176200000000004,
+      "actual_replay_statuses": [
+        "passed"
+      ],
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "executable_smoke": "passed",
+        "final_verification_passed": true,
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true,
+        "reproducible_delivery_completed": true
+      },
+      "tools": {},
+      "harness_selections": [],
+      "harness_selection_matches": true,
+      "accepted_revisions": []
+    }
+  ],
+  "containers_to_check": [
+    "008f70638ec9677c39ff2369a82eddbf640f502845b98da94a5095a5e0c20776",
+    "02c99f0bcf2e7de6b439713441a7ee73e05d1998901f4734f1ac5cfc690b029a",
+    "093e3da3e8b33c80f5b7a1159082f20cc72004754372bf3c1399d87a37f86894",
+    "0b5ceac5ac759b498e4fa91f8b88ccd2d3042b1898244198aa46370339c5e67f",
+    "0d6b5a6fa351fb53c6bac7b0d4838efce6583f7fc1156da8a69a4f61975a7968",
+    "0dc44fe69af4d0e50dba3d2eb562f77e3c5697af181f3ee7ae9673d2d6d46acf",
+    "108b39782b996ae8bfbe015743065909524e6ed790fdf319f7b677aa4b5f1970",
+    "11a9a93a8412e5999ba178c14255bdb4bf537df62be5869899fb4e7abacf7dd0",
+    "17b95db42c1e67a723613a93e29f3b3f5cd82cc7d423b1822d3bb288e2c21224",
+    "181311c325d6a0e86a728d9aaac3df285d1754d23be42f6df6a3955bc8456522",
+    "1aa5ddf1959e27ea320038454ed3a0082af95b4315701949c7a4d73dc235ce4a",
+    "1d66fb5a71f6e2c7aced699c615c6bb1f4de155820aea4e82bb6790ed7074a89",
+    "2191db3a5a10b4eb8edd9773a14ade7de919a17b71bcc9674b08591ad0fc1fc1",
+    "21bd4ccc60c7a6c2a04d179dc2990fd2e9e532751728f722dd8f484bc1c9ef07",
+    "272b962aa252a64c56a2be1379945dbb0447cb3c224dd2bdb0b745ea925300ae",
+    "28a539de11f24cb04d5732afd3ccb7dd01ef587095271343201dab900a721dc8",
+    "2d4d6ee4d4e3d11e871eff8b3737292cb4b9961baf3f71d21445a6f318c9412f",
+    "2f55671738f404c1fefc7e94fb5a37aa36ccdbb15d97e216ad548544c1e37807",
+    "381bb3c44d851b7485cea05c0eaa9cda47287269ec37a3a9290062f59c7b2053",
+    "3a0ef836d8b17a7067ab0661a2eb1950b26f1397d8ddcbf024f0db04f90da9f3",
+    "3b099c301939483f0afa02e8ed22753b78dd46ca6a7f7fb7de554247a3ee884c",
+    "3e56aba1705c03d79e85239c37f3fbb7aa5c10d2863abd1d4f58ae19b098cfc2",
+    "3fbc187ecc4ecea81a07958e47a77a32306cc545cfc2670ed799c9692fb49001",
+    "3fdb7fc22a9bf8d651af5e2ecd6f605d893c8bd1502db5950b29422c57114aee",
+    "47e37cdb314e2ec10b404a6cd0e03140ca056e318732c5dc53daf11a86a3f943",
+    "49939068bb4eba62ae522601d378d7c92c815bbf3f4db434e4274685290cd295",
+    "539b7e89fc74d8725ff6e67709c6332ed1c39e4944c6583b4bd1a993171f4647",
+    "5c848849055d25fd28f907ac136a01eac68ec4fa4e77ef26f4b7a21243d4d341",
+    "5ca74d02bb3c720cb06310da4b97832dbe888a589c64f2e72c94bc5690746ea4",
+    "64f1ed592eb3717102b215f21d6a921adb1f20ec3473469c3688ff928cd1759b",
+    "6836f3c04cad4d1a3461126c796809fcd2d66b240f0f559a6221c9a4a847de43",
+    "6beabf192e0102f6ff66feaf9c6868bbd9243ad16119b731f8337b3c05ed0693",
+    "7872fe42d2089424ac9f6d5ab95a304ed288cf1b90ff0db3cc9aad8beaacef84",
+    "7cf34d07f96b90a4b2e52f085e68c77fc4d6427e8c00605bf6f15f5fbaab96d7",
+    "8218272ffa2cad82f62c3e30481b91b705c01f52249f448f1188bd05ba769b6a",
+    "8960f8ae049a760339893ba898e1a4efa3c8b8e8d71bdd3838b6a1683552e64d",
+    "8e4d8829e1e3df90f910e63ce99a15ac6482e1ff3eed7d434cba448b0ec7c58c",
+    "94d21e2eae4601c855bd0671c91bdcc1c344db14acdcb9ce4efbae621623b04b",
+    "9f3563c14fc0d51365859cda04af6d8d48211ebef4f015f8e7e074935d928ce5",
+    "a8d0b5cc6690dcd8d162281ef7c833e27acf1e4273218e07e2a2bc878c234a47",
+    "abc757b2aae9fdb4512a8e51ec1b29ec448682a8c5b1856312197127dc018b4b",
+    "aeb17c746b7deba6fa59a61eecf5a680944dbb1ef424376fa51d822ce641f129",
+    "b006392b203db2a8d87cda475fbc9ac2e118e15cd32565f42358e3c17c23494e",
+    "b37169821df1a190782b3c24506263a2c65c1632dc34669fe4573ba5195fa748",
+    "be6a9160d2b9bac41826329e3fc3a233cd2297b9e21c881d4397973333af15ac",
+    "c851ad8093e3cba6291264050a8453e32deff741897cc4743d4f1853135b9e5e",
+    "ccd627958ae65b9b010915e99e2e5bde6caac22f6b893bd08b447d873842c050",
+    "d2c969de73e4f66a5c8a91f53ca71f61db5b5f88cba7b0934c5cc4653fd9b5d6",
+    "d90a0ebd7311a19e38368ffd54c765ea7b7633db46b8c987988ec4e932bba3e4",
+    "d95f838df1b7d9f8b263ea8882bb9e22c9fd10d7177d38700a3577e9ab06e4cc",
+    "db7468c37772e976f5fce82e33020aca639f226505bf28b1fba2e70717cb5961",
+    "ddd3b7a5c93a194152a2b34ce5e4027222676ef766945cc98512e228ed79a51f",
+    "de4641849f9d4cbfaffea29f0c695913ad5d2522539f3bdb704fea7040deec40",
+    "deerflow-compile-simple-s-00737dab",
+    "deerflow-compile-simple-s-013afe55",
+    "deerflow-compile-simple-s-0c8a9f39",
+    "deerflow-compile-simple-s-13d95097",
+    "deerflow-compile-simple-s-1ab353b0",
+    "deerflow-compile-simple-s-219fedec",
+    "deerflow-compile-simple-s-2f0daab4",
+    "deerflow-compile-simple-s-319eaad8",
+    "deerflow-compile-simple-s-32f6ea26",
+    "deerflow-compile-simple-s-33f59fc9",
+    "deerflow-compile-simple-s-5d9eea6b",
+    "deerflow-compile-simple-s-60089ba7",
+    "deerflow-compile-simple-s-6c2b5b2c",
+    "deerflow-compile-simple-s-7f1c29fb",
+    "deerflow-compile-simple-s-8301b363",
+    "deerflow-compile-simple-s-83692300",
+    "deerflow-compile-simple-s-844e970a",
+    "deerflow-compile-simple-s-8926beac",
+    "deerflow-compile-simple-s-8a915fe5",
+    "deerflow-compile-simple-s-8aa7f741",
+    "deerflow-compile-simple-s-8dd6025c",
+    "deerflow-compile-simple-s-94557abb",
+    "deerflow-compile-simple-s-99d09848",
+    "deerflow-compile-simple-s-9c93d960",
+    "deerflow-compile-simple-s-b49a729c",
+    "deerflow-compile-simple-s-b93e6d47",
+    "deerflow-compile-simple-s-c06c0bc3",
+    "deerflow-compile-simple-s-cc2daf0b",
+    "deerflow-compile-simple-s-cddb80aa",
+    "deerflow-compile-simple-s-cfab530e",
+    "deerflow-compile-simple-s-d3ff990a",
+    "deerflow-compile-simple-s-d55f8f5d",
+    "deerflow-compile-simple-s-d56df322",
+    "deerflow-compile-simple-s-dbc6c8c2",
+    "deerflow-compile-simple-s-e3dfb165",
+    "deerflow-compile-simple-s-f70b5c01",
+    "deerflow-replay-simple-s-00737dab-replay_7748e",
+    "deerflow-replay-simple-s-013afe55-replay_aca3a",
+    "deerflow-replay-simple-s-0c8a9f39-replay_c6b31",
+    "deerflow-replay-simple-s-13d95097-replay_14dd6",
+    "deerflow-replay-simple-s-1ab353b0-replay_95b31",
+    "deerflow-replay-simple-s-219fedec-replay_30507",
+    "deerflow-replay-simple-s-2f0daab4-replay_4d66f",
+    "deerflow-replay-simple-s-319eaad8-replay_257a2",
+    "deerflow-replay-simple-s-32f6ea26-replay_cb0c3",
+    "deerflow-replay-simple-s-5d9eea6b-replay_42d14",
+    "deerflow-replay-simple-s-60089ba7-replay_2f917",
+    "deerflow-replay-simple-s-6c2b5b2c-replay_53f16",
+    "deerflow-replay-simple-s-7f1c29fb-replay_75de2",
+    "deerflow-replay-simple-s-8301b363-replay_16a8f",
+    "deerflow-replay-simple-s-83692300-replay_04f4f",
+    "deerflow-replay-simple-s-8a915fe5-replay_175b0",
+    "deerflow-replay-simple-s-8aa7f741-replay_0fdd4",
+    "deerflow-replay-simple-s-8dd6025c-replay_88843",
+    "deerflow-replay-simple-s-94557abb-replay_d740a",
+    "deerflow-replay-simple-s-99d09848-replay_071a4",
+    "deerflow-replay-simple-s-b49a729c-replay_6c486",
+    "deerflow-replay-simple-s-b93e6d47-replay_a2f3b",
+    "deerflow-replay-simple-s-cddb80aa-replay_1a4bb",
+    "deerflow-replay-simple-s-cfab530e-replay_5b25b",
+    "deerflow-replay-simple-s-d55f8f5d-replay_d0d76",
+    "deerflow-replay-simple-s-dbc6c8c2-replay_60697",
+    "deerflow-replay-simple-s-e3dfb165-replay_987dd",
+    "deerflow-replay-simple-s-f70b5c01-replay_ce736",
+    "dfa69ec907a685574ca90e6c3e295c928df3850a582fbf11dbf05d7ac63d0c80",
+    "e132b0b9eabbdba0b3c4fd9b057e6a665f428abc644079208cc4804ad36e19ed",
+    "e793bed6760b44188a09962f569f7592ab9001d8cc14952813911c24247db6ac",
+    "e86336d1a494e1877a5f8426249d02b9defc83fd2355afec1e7385f9bb3cbe7c",
+    "e97a184d72c2767eedb725c75750a2d9a62b36b15fb9426052bdf02a04af9ba2",
+    "ee6bb53f253fc97c822ba823da20a8baf2f4447d24da9b85bbbe6423902991d0",
+    "ef92887314430a26167a1dd7a42ff3de07daf4530c0911cb40d308a3054bcb42",
+    "f7840d9be06a13300586032580b420d366aa85d807e6f23a2d7cc047d241b319",
+    "fa3d59e17908ac5ef6aec4a1c00ec21d6567966b345cca342879901cc55ff729",
+    "fc6e01f801f16bb5d2debdf4935e07b1573d28075e681ced9024a55d8faf0b43",
+    "ff0eafed71e47489a4048c3536fe56354384cbbbd59aaa81c787cbc5bdd7b54e"
+  ],
+  "source_seal": {
+    "format": "forge-typed-evidence-v1",
+    "identity": "cpp-build-recovery-harness-comparison-flash-v2",
+    "entries": 31602,
+    "files": 31465,
+    "symlinks": 137,
+    "bytes": 1181793684,
+    "inventory_canonical_sha256": "235feccd7e533f3077c9a33cc1f405e28875e0b426b743e015cfa30096fc40dd",
+    "unknown_usage_requests": 0
+  },
+  "expected_recovery_harness_sha256": {
+    "H0": "490efaacbd27c9f0f6ec116f1cbfc841f8683020311527f5be02c17684996eaf",
+    "R1": "35280b6a11f01ef5da56d438659f0492c12ea8a82c18ac3d8a3b2e0e89d14ecf"
+  },
+  "harness_selections_all_match": true,
+  "source_result_sha256": "150e07667d20459903f64680f839a7d05a97ab8b73718ce98f4978232d580de2",
+  "methods": {
+    "H0": {
+      "actual_replay_attempts": 14,
+      "actual_replay_duration_seconds": 420.094745,
+      "original_default_smoke_seconds": 480.35206,
+      "replay_statuses": {
+        "passed": 11,
+        "failed": 2,
+        "timed_out": 1
+      },
+      "replay_unobserved_slots": 4,
+      "source_labels": {
+        "True": 16,
+        "False": 1,
+        "None": 1
+      },
+      "cleanup_labels": {
+        "True": 18
+      },
+      "recovery_tool_calls": {
+        "list_source": 8,
+        "read_source": 20
+      }
+    },
+    "R1": {
+      "actual_replay_attempts": 14,
+      "actual_replay_duration_seconds": 372.82779199999993,
+      "original_default_smoke_seconds": 480.309723,
+      "replay_statuses": {
+        "passed": 11,
+        "failed": 2,
+        "timed_out": 1
+      },
+      "replay_unobserved_slots": 4,
+      "source_labels": {
+        "True": 15,
+        "False": 1,
+        "None": 2
+      },
+      "cleanup_labels": {
+        "True": 18
+      },
+      "recovery_tool_calls": {
+        "list_source": 10,
+        "read_source": 26,
+        "read_failure_log": 4
+      }
+    }
+  }
+}

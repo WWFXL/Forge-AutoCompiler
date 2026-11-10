@@ -1,0 +1,2185 @@
+{
+  "identity": "cpp-build-recovery-harness-comparison-flash-v2",
+  "issue": 713,
+  "state": "authorized_same_scope_unstarted_continuation",
+  "methods": [
+    "H0",
+    "R1"
+  ],
+  "projects": [
+    {
+      "name": "cglm",
+      "family": "https://github.com/recp/cglm",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "recovery-cglm",
+        "repository_url": "https://github.com/recp/cglm",
+        "commit_sha": "b9b570b78d58ceecc704f7a4e19b84dc45937ef4",
+        "image_id": "sha256:d27a6ab733c7c3a9cbb5e4b32fb595aa5a422ff04bd212888d1041b90a2c4c2a",
+        "source_archive_sha256": "6111421ca67d72fbf61a0e9f68e11f4421a56f7a93193e0ba139cf08bbc53616",
+        "build_system": "cmake",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "97a9998b45faf4eed110505c05be20a27da97041b5b1f8e8f88d651cd694f426",
+        "components": [
+          {
+            "name": "libcglm",
+            "artifact_names": [
+              "libcglm.a",
+              "libcglm.so"
+            ],
+            "kinds": [
+              "static_library",
+              "shared_library"
+            ],
+            "evidence": "作者普通库目标，下面source_evidence保存原声明"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": "main-build-v1不要求完整作者测试；轻量验证及干净重放另列",
+        "executable_smokes": []
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-recovery-harness-sources-2026-11-09-v1/cglm/source.tar",
+      "source_evidence": [
+        {
+          "path": "CMakeLists.txt",
+          "quote": "add_library(${PROJECT_NAME}",
+          "line": 73,
+          "sha256": "b2cc50e3c39194fb6d6d379928c070601dcdc45f78ca228a0900a06090aab55c"
+        }
+      ],
+      "reference_actions": {
+        "reason": "独立参考采用作者CMake普通默认入口",
+        "steps": [
+          {
+            "step_id": "configure",
+            "role": "configure",
+            "command": "cmake -S . -B build",
+            "source": "CMakeLists.txt",
+            "expected": "作者普通构建动作；是否完成由实际执行与独立检查确认",
+            "workdir": "/workspace/repo"
+          },
+          {
+            "step_id": "build",
+            "role": "build",
+            "command": "cmake --build build",
+            "source": "CMakeLists.txt",
+            "expected": "作者普通构建动作；是否完成由实际执行与独立检查确认",
+            "workdir": "/workspace/repo"
+          }
+        ],
+        "build_directory": "/workspace/repo/build"
+      },
+      "paper_sources": [
+        {
+          "name": "cglm",
+          "topic": "HPC 1",
+          "guide": "in_repo",
+          "source": "compileagent",
+          "source_url": "https://arxiv.org/html/2505.04254v1#A3.T4",
+          "row": 47,
+          "source_html_sha256": "f61b0a20cd65fa2191ffd722ac922d59b6673b485c6f460c209e1e4bcffa56a0"
+        }
+      ],
+      "exposure": "新论文来源开发项目；只读准备暴露，非最终holdout；未送优化器"
+    },
+    {
+      "name": "massdns",
+      "family": "https://github.com/blechschmidt/massdns",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "recovery-massdns",
+        "repository_url": "https://github.com/blechschmidt/massdns",
+        "commit_sha": "30c380908b4f9afd0931d3d83f85884844831846",
+        "image_id": "sha256:d27a6ab733c7c3a9cbb5e4b32fb595aa5a422ff04bd212888d1041b90a2c4c2a",
+        "source_archive_sha256": "d3bbdc61becd3e752346977d9e4e25334bc373c6e50bf3d53267e1df8ca82374",
+        "build_system": "make",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "392a53a4e957d3c77ab3dd2c9f5f1f386aa3244d900d1c4eaca11ff9120cb610",
+        "components": [
+          {
+            "name": "massdns",
+            "artifact_names": [
+              "massdns"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "作者主要程序声明，下面source_evidence保存原文"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": "main-build-v1不要求完整作者测试；轻量验证及干净重放另列",
+        "executable_smokes": []
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-recovery-harness-sources-2026-11-09-v1/massdns/source.tar",
+      "source_evidence": [
+        {
+          "path": "Makefile",
+          "quote": "all:",
+          "line": 7,
+          "sha256": "8c4210b75dc33f30a0854a9543042a05ca1392e8ea59b44cc356a659cba82fad"
+        }
+      ],
+      "reference_actions": {
+        "reason": "独立参考按作者普通入口构建；不送模型",
+        "steps": [
+          {
+            "step_id": "build",
+            "role": "build",
+            "command": "make",
+            "source": "Makefile或作者README",
+            "expected": "作者普通构建动作；是否完成由实际执行与独立检查确认",
+            "workdir": "/workspace/repo"
+          }
+        ]
+      },
+      "paper_sources": [
+        {
+          "name": "massdns",
+          "topic": "Networking",
+          "guide": "in_repo",
+          "source": "compileagent",
+          "source_url": "https://arxiv.org/html/2505.04254v1#A3.T4",
+          "row": 27,
+          "source_html_sha256": "f61b0a20cd65fa2191ffd722ac922d59b6673b485c6f460c209e1e4bcffa56a0"
+        }
+      ],
+      "exposure": "新论文来源开发项目；只读准备暴露，非最终holdout；未送优化器"
+    },
+    {
+      "name": "libmodbus",
+      "family": "https://github.com/stephane/libmodbus",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "recovery-libmodbus",
+        "repository_url": "https://github.com/stephane/libmodbus",
+        "commit_sha": "a9b025d12289855490b10d77461c99e001abfc0f",
+        "image_id": "sha256:d27a6ab733c7c3a9cbb5e4b32fb595aa5a422ff04bd212888d1041b90a2c4c2a",
+        "source_archive_sha256": "ea7cec6ad54ee81bf572457bb96998bf81cb9865264f2c746cfa1c918f3f05ca",
+        "build_system": "autotools",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "a17edf12a6e531597786090e04c8900d4b4e476dec7a0669beb79602a3465885",
+        "components": [
+          {
+            "name": "libmodbus",
+            "artifact_names": [
+              "libmodbus.a",
+              "libmodbus.so"
+            ],
+            "kinds": [
+              "static_library",
+              "shared_library"
+            ],
+            "evidence": "作者普通库目标，下面source_evidence保存原声明"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": "main-build-v1不要求完整作者测试；轻量验证及干净重放另列",
+        "executable_smokes": []
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-recovery-harness-sources-2026-11-09-v1/libmodbus/source.tar",
+      "source_evidence": [
+        {
+          "path": "src/Makefile.am",
+          "quote": "lib_LTLIBRARIES = libmodbus.la",
+          "line": 2,
+          "sha256": "789a9268c0b0dd8a668030f3f0a31a6cf02aff63a0580e6ca79e2f79dae48de6"
+        }
+      ],
+      "reference_actions": {
+        "reason": "独立参考按作者Autotools默认主构建",
+        "steps": [
+          {
+            "step_id": "configure",
+            "role": "configure",
+            "command": "autoreconf -fi\n./configure",
+            "source": "configure.ac及作者源码构建说明",
+            "expected": "作者普通构建动作；是否完成由实际执行与独立检查确认",
+            "workdir": "/workspace/repo"
+          },
+          {
+            "step_id": "build",
+            "role": "build",
+            "command": "make",
+            "source": "Makefile.am",
+            "expected": "作者普通构建动作；是否完成由实际执行与独立检查确认",
+            "workdir": "/workspace/repo"
+          }
+        ]
+      },
+      "paper_sources": [
+        {
+          "name": "libmodbus",
+          "topic": "Security",
+          "guide": "in_repo",
+          "source": "compileagent",
+          "source_url": "https://arxiv.org/html/2505.04254v1#A3.T4",
+          "row": 37,
+          "source_html_sha256": "f61b0a20cd65fa2191ffd722ac922d59b6673b485c6f460c209e1e4bcffa56a0"
+        }
+      ],
+      "exposure": "新论文来源开发项目；只读准备暴露，非最终holdout；未送优化器"
+    },
+    {
+      "name": "tini",
+      "family": "https://github.com/krallin/tini",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "recovery-tini",
+        "repository_url": "https://github.com/krallin/tini",
+        "commit_sha": "369448a167e8b3da4ca5bca0b3307500c3371828",
+        "image_id": "sha256:d27a6ab733c7c3a9cbb5e4b32fb595aa5a422ff04bd212888d1041b90a2c4c2a",
+        "source_archive_sha256": "91daca07488081d4d7813e2938076618ba23237daf0d5b04a6cfe15c25fdf74d",
+        "build_system": "cmake",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "b4a8cd3f9b025b6a6439924161c333b0ac524b25482fdb869bc889494f676931",
+        "components": [
+          {
+            "name": "tini",
+            "artifact_names": [
+              "tini"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "作者主要程序声明，下面source_evidence保存原文"
+          },
+          {
+            "name": "tini-static",
+            "artifact_names": [
+              "tini-static"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "作者主要程序声明，下面source_evidence保存原文"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": "main-build-v1不要求完整作者测试；轻量验证及干净重放另列",
+        "executable_smokes": []
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-recovery-harness-sources-2026-11-09-v1/tini/source.tar",
+      "source_evidence": [
+        {
+          "path": "CMakeLists.txt",
+          "quote": "add_executable (tini src/tini.c)",
+          "line": 82,
+          "sha256": "24d958358df2c081488f03a7739f7a63ef70b667648b0b12ddf694b07c4c7b8a"
+        },
+        {
+          "path": "CMakeLists.txt",
+          "quote": "add_executable (tini-static src/tini.c)",
+          "line": 84,
+          "sha256": "24d958358df2c081488f03a7739f7a63ef70b667648b0b12ddf694b07c4c7b8a"
+        }
+      ],
+      "reference_actions": {
+        "reason": "独立参考采用作者CMake普通默认入口",
+        "steps": [
+          {
+            "step_id": "configure",
+            "role": "configure",
+            "command": "cmake -S . -B build",
+            "source": "CMakeLists.txt",
+            "expected": "作者普通构建动作；是否完成由实际执行与独立检查确认",
+            "workdir": "/workspace/repo"
+          },
+          {
+            "step_id": "build",
+            "role": "build",
+            "command": "cmake --build build",
+            "source": "CMakeLists.txt",
+            "expected": "作者普通构建动作；是否完成由实际执行与独立检查确认",
+            "workdir": "/workspace/repo"
+          }
+        ],
+        "build_directory": "/workspace/repo/build"
+      },
+      "paper_sources": [
+        {
+          "name": "tini",
+          "topic": "Security",
+          "guide": "in_repo",
+          "source": "compileagent",
+          "source_url": "https://arxiv.org/html/2505.04254v1#A3.T4",
+          "row": 43,
+          "source_html_sha256": "f61b0a20cd65fa2191ffd722ac922d59b6673b485c6f460c209e1e4bcffa56a0"
+        }
+      ],
+      "exposure": "新论文来源开发项目；只读准备暴露，非最终holdout；未送优化器"
+    },
+    {
+      "name": "redsocks",
+      "family": "https://github.com/darkk/redsocks",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "recovery-redsocks",
+        "repository_url": "https://github.com/darkk/redsocks",
+        "commit_sha": "19b822e345f6a291f6cff6b168f1cfdfeeb2cd7d",
+        "image_id": "sha256:d27a6ab733c7c3a9cbb5e4b32fb595aa5a422ff04bd212888d1041b90a2c4c2a",
+        "source_archive_sha256": "70dafd7a8db3dd7a48df13380c0f4fd80690825aceeb0fea3ede7e81dafbe52c",
+        "build_system": "make",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "97b3fb92f30cdaec60cd641fb569428d41c2e192c6f99ef025c4292e68a0783a",
+        "components": [
+          {
+            "name": "redsocks",
+            "artifact_names": [
+              "redsocks"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "作者主要程序声明，下面source_evidence保存原文"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": "main-build-v1不要求完整作者测试；轻量验证及干净重放另列",
+        "executable_smokes": [
+          {
+            "artifact_name": "redsocks",
+            "step": {
+              "step_id": "verify-redsocks",
+              "role": "smoke",
+              "command": "./redsocks -v",
+              "source": "作者用法：main.c case v 返回EXIT_SUCCESS",
+              "expected": "作者普通构建动作；是否完成由实际执行与独立检查确认",
+              "workdir": "/artifacts",
+              "requires": [],
+              "required_output": [
+                "Built with libevent-"
+              ],
+              "diagnostic_paths": []
+            }
+          }
+        ]
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-recovery-harness-sources-2026-11-09-v1/redsocks/source.tar",
+      "source_evidence": [
+        {
+          "path": "Makefile",
+          "quote": "OUT := redsocks",
+          "line": 9,
+          "sha256": "517527bc291d90d3c288b6163436b3bf692c7dd6ea6cc78439e168f8b20353d6"
+        },
+        {
+          "path": "main.c",
+          "quote": "case 'v':",
+          "line": 81,
+          "sha256": "1b1edaa53d6f3553578106f1fa8813ab024732af9b50438dff8f3cd84adea7d7"
+        }
+      ],
+      "reference_actions": {
+        "reason": "作者Make默认程序及必要libevent",
+        "steps": [
+          {
+            "step_id": "dependencies",
+            "role": "dependency",
+            "command": "apt-get update\napt-get install -y libevent-dev",
+            "source": "Makefile LIBS := -levent_core",
+            "expected": "作者普通构建动作；是否完成由实际执行与独立检查确认",
+            "workdir": "/workspace/repo"
+          },
+          {
+            "step_id": "build",
+            "role": "build",
+            "command": "make",
+            "source": "Makefile all",
+            "expected": "作者普通构建动作；是否完成由实际执行与独立检查确认",
+            "workdir": "/workspace/repo"
+          }
+        ]
+      },
+      "paper_sources": [
+        {
+          "name": "redsocks",
+          "topic": "Security",
+          "guide": "outside_repo",
+          "source": "compileagent",
+          "source_url": "https://arxiv.org/html/2505.04254v1#A3.T4",
+          "row": 40,
+          "source_html_sha256": "f61b0a20cd65fa2191ffd722ac922d59b6673b485c6f460c209e1e4bcffa56a0"
+        }
+      ],
+      "exposure": "新论文来源开发项目；只读准备暴露，非最终holdout；未送优化器"
+    },
+    {
+      "name": "freesasa",
+      "family": "https://github.com/mittinatten/freesasa",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "recovery-freesasa",
+        "repository_url": "https://github.com/mittinatten/freesasa",
+        "commit_sha": "aa480ca9becd5bbf6a80d8842c053aec7a345d30",
+        "image_id": "sha256:d27a6ab733c7c3a9cbb5e4b32fb595aa5a422ff04bd212888d1041b90a2c4c2a",
+        "source_archive_sha256": "6ac3b50ed041f93d1c8ddc5682f6bf35ea7cb584a87e6b5a4254d5a4d7a6f3cd",
+        "build_system": "autotools",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "630a3d1470d2bca5059067683f70b82c6068b37b13c32a2d598c53094045f675",
+        "components": [
+          {
+            "name": "libfreesasa",
+            "artifact_names": [
+              "libfreesasa.a"
+            ],
+            "kinds": [
+              "static_library"
+            ],
+            "evidence": "src/Makefile.am lib_LIBRARIES = libfreesasa.a"
+          },
+          {
+            "name": "freesasa",
+            "artifact_names": [
+              "freesasa"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "作者主要程序声明，下面source_evidence保存原文"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": "main-build-v1不要求完整作者测试；轻量验证及干净重放另列",
+        "executable_smokes": []
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-recovery-harness-sources-2026-11-09-v1/freesasa/source.tar",
+      "source_evidence": [
+        {
+          "path": "src/Makefile.am",
+          "quote": "bin_PROGRAMS = freesasa",
+          "line": 19,
+          "sha256": "8780f3d28e449e7e54037d0dbcc755d07bf7a2d9450e2444f3a9677b781c75bd"
+        },
+        {
+          "path": "src/Makefile.am",
+          "quote": "lib_LIBRARIES = libfreesasa.a",
+          "line": 20,
+          "sha256": "8780f3d28e449e7e54037d0dbcc755d07bf7a2d9450e2444f3a9677b781c75bd"
+        }
+      ],
+      "reference_actions": {
+        "reason": "独立参考按作者Autotools默认主构建",
+        "steps": [
+          {
+            "step_id": "dependencies",
+            "role": "dependency",
+            "command": "apt-get update\napt-get install -y libxml2-dev libjson-c-dev",
+            "source": "作者依赖检查及安装说明",
+            "expected": "作者普通构建动作；是否完成由实际执行与独立检查确认",
+            "workdir": "/workspace/repo"
+          },
+          {
+            "step_id": "configure",
+            "role": "configure",
+            "command": "autoreconf -fi\n./configure",
+            "source": "configure.ac及作者源码构建说明",
+            "expected": "作者普通构建动作；是否完成由实际执行与独立检查确认",
+            "workdir": "/workspace/repo"
+          },
+          {
+            "step_id": "build",
+            "role": "build",
+            "command": "make",
+            "source": "Makefile.am",
+            "expected": "作者普通构建动作；是否完成由实际执行与独立检查确认",
+            "workdir": "/workspace/repo"
+          }
+        ]
+      },
+      "paper_sources": [
+        {
+          "name": "freesasa",
+          "topic": "bioinformatics",
+          "guide": "in_repo",
+          "source": "buildbench",
+          "source_url": "https://arxiv.org/html/2509.25248v2#A9.T7",
+          "row": 8,
+          "source_html_sha256": "97a4b94b443ed07c668c9672d0a1943d3f2f11a9280834ea56f1f12215d0a1cb"
+        }
+      ],
+      "exposure": "新论文来源开发项目；只读准备暴露，非最终holdout；未送优化器"
+    },
+    {
+      "name": "wasm3",
+      "family": "https://github.com/wasm3/wasm3",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "recovery-wasm3",
+        "repository_url": "https://github.com/wasm3/wasm3",
+        "commit_sha": "28ecb9af6d2040e474a70f7cb7f43666740141fb",
+        "image_id": "sha256:d27a6ab733c7c3a9cbb5e4b32fb595aa5a422ff04bd212888d1041b90a2c4c2a",
+        "source_archive_sha256": "1f781a64219acc7e44ed5ae2145b3804a503852e737b2926d87affc02fe1f4ce",
+        "build_system": "cmake",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "116b49180501b5527c0179dc0048d6ef465c015c94466efb20ab4acdb6daf3e2",
+        "components": [
+          {
+            "name": "wasm3",
+            "artifact_names": [
+              "wasm3"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "作者主要程序声明，下面source_evidence保存原文"
+          },
+          {
+            "name": "m3",
+            "artifact_names": [
+              "libm3.a"
+            ],
+            "kinds": [
+              "static_library"
+            ],
+            "evidence": "source/CMakeLists.txt:23 add_library(m3 STATIC)"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": "main-build-v1不要求完整作者测试；轻量验证及干净重放另列",
+        "executable_smokes": []
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-recovery-harness-sources-2026-11-09-v1/wasm3/source.tar",
+      "source_evidence": [
+        {
+          "path": "CMakeLists.txt",
+          "quote": "set(OUT_FILE \"wasm3\")",
+          "line": 45,
+          "sha256": "351c4a7fa96cb1415044ac352bcb191b5aa4199b28e5133351ff45b16d80c23c"
+        },
+        {
+          "path": "source/CMakeLists.txt",
+          "quote": "add_library(m3 STATIC ${sources})",
+          "line": 23,
+          "sha256": "e670c4d9f013f2ef4b220a5ff8eee080bd58e95ce62d95e6bbab48aff7f8d60c"
+        }
+      ],
+      "reference_actions": {
+        "reason": "独立参考采用作者CMake普通默认入口",
+        "steps": [
+          {
+            "step_id": "configure",
+            "role": "configure",
+            "command": "cmake -S . -B build",
+            "source": "CMakeLists.txt",
+            "expected": "作者普通构建动作；是否完成由实际执行与独立检查确认",
+            "workdir": "/workspace/repo"
+          },
+          {
+            "step_id": "build",
+            "role": "build",
+            "command": "cmake --build build",
+            "source": "CMakeLists.txt",
+            "expected": "作者普通构建动作；是否完成由实际执行与独立检查确认",
+            "workdir": "/workspace/repo"
+          }
+        ],
+        "build_directory": "/workspace/repo/build"
+      },
+      "paper_sources": [
+        {
+          "name": "wasm3",
+          "topic": "Embedded",
+          "guide": "in_repo",
+          "source": "compileagent",
+          "source_url": "https://arxiv.org/html/2505.04254v1#A3.T4",
+          "row": 39,
+          "source_html_sha256": "f61b0a20cd65fa2191ffd722ac922d59b6673b485c6f460c209e1e4bcffa56a0"
+        }
+      ],
+      "exposure": "新论文来源开发项目；只读准备暴露，非最终holdout；未送优化器"
+    },
+    {
+      "name": "beanstalkd",
+      "family": "https://github.com/beanstalkd/beanstalkd",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "recovery-beanstalkd",
+        "repository_url": "https://github.com/beanstalkd/beanstalkd",
+        "commit_sha": "25085c5f090031fd7110613a77fd6f816681d801",
+        "image_id": "sha256:d27a6ab733c7c3a9cbb5e4b32fb595aa5a422ff04bd212888d1041b90a2c4c2a",
+        "source_archive_sha256": "6dfd68891bc695b8e7e208c5df8acb35986fec668257241fb26d0c115e35fb7f",
+        "build_system": "make",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "b06c075f55de98c5ce46e310c64e91ee18b1855ac00046e139aabca0e1aaf168",
+        "components": [
+          {
+            "name": "beanstalkd",
+            "artifact_names": [
+              "beanstalkd"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "作者主要程序声明，下面source_evidence保存原文"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": "main-build-v1不要求完整作者测试；轻量验证及干净重放另列",
+        "executable_smokes": []
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-recovery-harness-sources-2026-11-09-v1/beanstalkd/source.tar",
+      "source_evidence": [
+        {
+          "path": "Makefile",
+          "quote": "all: $(TARG)",
+          "line": 71,
+          "sha256": "528a0891f179b92dea3be2a3436eaf6c761f3efd9109c8a97e38eb6d590d3131"
+        }
+      ],
+      "reference_actions": {
+        "reason": "独立参考按作者普通入口构建；不送模型",
+        "steps": [
+          {
+            "step_id": "build",
+            "role": "build",
+            "command": "make",
+            "source": "Makefile或作者README",
+            "expected": "作者普通构建动作；是否完成由实际执行与独立检查确认",
+            "workdir": "/workspace/repo"
+          }
+        ]
+      },
+      "paper_sources": [
+        {
+          "name": "beanstalkd",
+          "topic": "Database",
+          "guide": "in_repo",
+          "source": "compileagent",
+          "source_url": "https://arxiv.org/html/2505.04254v1#A3.T4",
+          "row": 29,
+          "source_html_sha256": "f61b0a20cd65fa2191ffd722ac922d59b6673b485c6f460c209e1e4bcffa56a0"
+        }
+      ],
+      "exposure": "新论文来源开发项目；只读准备暴露，非最终holdout；未送优化器"
+    },
+    {
+      "name": "fsarchiver",
+      "family": "https://github.com/fdupoux/fsarchiver",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "recovery-fsarchiver",
+        "repository_url": "https://github.com/fdupoux/fsarchiver",
+        "commit_sha": "0cb18032a8016fc73027e299f43591b2701aef1f",
+        "image_id": "sha256:d27a6ab733c7c3a9cbb5e4b32fb595aa5a422ff04bd212888d1041b90a2c4c2a",
+        "source_archive_sha256": "1f771253dbfcbcb51abfe9556a700f0dcf7b8b53e6852825d0058ec4a9fd2fad",
+        "build_system": "autotools",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "d8f0679a2f8106e14c43c9133636ed2db860bbea6e964005360d0609626581e7",
+        "components": [
+          {
+            "name": "fsarchiver",
+            "artifact_names": [
+              "fsarchiver"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "作者主要程序声明，下面source_evidence保存原文"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": "main-build-v1不要求完整作者测试；轻量验证及干净重放另列",
+        "executable_smokes": [
+          {
+            "artifact_name": "fsarchiver",
+            "step": {
+              "step_id": "verify-fsarchiver",
+              "role": "smoke",
+              "command": "./fsarchiver -V",
+              "source": "作者用法：src/fsarchiver.c version分支返回0",
+              "expected": "作者普通构建动作；是否完成由实际执行与独立检查确认",
+              "workdir": "/artifacts",
+              "requires": [],
+              "required_output": [
+                "fsarchiver version"
+              ],
+              "diagnostic_paths": []
+            }
+          }
+        ]
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-recovery-harness-sources-2026-11-09-v1/fsarchiver/source.tar",
+      "source_evidence": [
+        {
+          "path": "src/Makefile.am",
+          "quote": "sbin_PROGRAMS\t\t= fsarchiver",
+          "line": 1,
+          "sha256": "5126ed97f5edf7ae8432470d2296eb43938538f9143ce636c7d9cdbad02eb5b1"
+        },
+        {
+          "path": "src/fsarchiver.c",
+          "quote": "case 'V': // version",
+          "line": 226,
+          "sha256": "07d5305faa7c5320afb202dae2f2b9723e6f68416db8309c4483d59a17e0fcc1"
+        }
+      ],
+      "reference_actions": {
+        "reason": "独立参考按作者Autotools默认主构建",
+        "steps": [
+          {
+            "step_id": "dependencies",
+            "role": "dependency",
+            "command": "apt-get update\napt-get install -y zlib1g-dev libbz2-dev liblzma-dev liblzo2-dev liblz4-dev libzstd-dev libgcrypt20-dev e2fslibs-dev uuid-dev libblkid-dev",
+            "source": "作者依赖检查及安装说明",
+            "expected": "作者普通构建动作；是否完成由实际执行与独立检查确认",
+            "workdir": "/workspace/repo"
+          },
+          {
+            "step_id": "configure",
+            "role": "configure",
+            "command": "autoreconf -fi\n./configure",
+            "source": "configure.ac及作者源码构建说明",
+            "expected": "作者普通构建动作；是否完成由实际执行与独立检查确认",
+            "workdir": "/workspace/repo"
+          },
+          {
+            "step_id": "build",
+            "role": "build",
+            "command": "make",
+            "source": "Makefile.am",
+            "expected": "作者普通构建动作；是否完成由实际执行与独立检查确认",
+            "workdir": "/workspace/repo"
+          }
+        ]
+      },
+      "paper_sources": [
+        {
+          "name": "fsarchiver",
+          "topic": "linux",
+          "guide": "outside_repo",
+          "source": "buildbench",
+          "source_url": "https://arxiv.org/html/2509.25248v2#A9.T7",
+          "row": 17,
+          "source_html_sha256": "97a4b94b443ed07c668c9672d0a1943d3f2f11a9280834ea56f1f12215d0a1cb"
+        }
+      ],
+      "exposure": "新论文来源开发项目；只读准备暴露，非最终holdout；未送优化器"
+    },
+    {
+      "name": "libhv",
+      "family": "https://github.com/ithewei/libhv",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "recovery-libhv",
+        "repository_url": "https://github.com/ithewei/libhv",
+        "commit_sha": "060a4b6c0cf8ae252741d0a58976376eac02e8c5",
+        "image_id": "sha256:d27a6ab733c7c3a9cbb5e4b32fb595aa5a422ff04bd212888d1041b90a2c4c2a",
+        "source_archive_sha256": "bddd2081eb2b40f889c0268f81caef338d96813981eaec44fe18f06ab570ba9a",
+        "build_system": "cmake",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "c6a80bb9d299ee1bcb56444c041441e2d379f7fd25019ce37fa9e1c72205a6b0",
+        "components": [
+          {
+            "name": "libhv",
+            "artifact_names": [
+              "libhv.a",
+              "libhv.so"
+            ],
+            "kinds": [
+              "static_library",
+              "shared_library"
+            ],
+            "evidence": "作者普通库目标，下面source_evidence保存原声明"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": "main-build-v1不要求完整作者测试；轻量验证及干净重放另列",
+        "executable_smokes": []
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-recovery-harness-sources-2026-11-09-v1/libhv/source.tar",
+      "source_evidence": [
+        {
+          "path": "CMakeLists.txt",
+          "quote": "add_library(hv SHARED ${LIBHV_SRCS})",
+          "line": 400,
+          "sha256": "6d7fc0ab6b439621a05feb9476a34292067c02ff47012b7be5f9251007b01884"
+        },
+        {
+          "path": "CMakeLists.txt",
+          "quote": "set_target_properties(hv_static PROPERTIES OUTPUT_NAME hv)",
+          "line": 426,
+          "sha256": "6d7fc0ab6b439621a05feb9476a34292067c02ff47012b7be5f9251007b01884"
+        }
+      ],
+      "reference_actions": {
+        "reason": "独立参考采用作者CMake普通默认入口",
+        "steps": [
+          {
+            "step_id": "configure",
+            "role": "configure",
+            "command": "cmake -S . -B build",
+            "source": "CMakeLists.txt",
+            "expected": "作者普通构建动作；是否完成由实际执行与独立检查确认",
+            "workdir": "/workspace/repo"
+          },
+          {
+            "step_id": "build",
+            "role": "build",
+            "command": "cmake --build build",
+            "source": "CMakeLists.txt",
+            "expected": "作者普通构建动作；是否完成由实际执行与独立检查确认",
+            "workdir": "/workspace/repo"
+          }
+        ],
+        "build_directory": "/workspace/repo/build"
+      },
+      "paper_sources": [
+        {
+          "name": "libhv",
+          "topic": "Networking",
+          "guide": "in_repo",
+          "source": "compileagent",
+          "source_url": "https://arxiv.org/html/2505.04254v1#A3.T4",
+          "row": 20,
+          "source_html_sha256": "f61b0a20cd65fa2191ffd722ac922d59b6673b485c6f460c209e1e4bcffa56a0"
+        }
+      ],
+      "exposure": "新论文来源开发项目；只读准备暴露，非最终holdout；未送优化器"
+    },
+    {
+      "name": "no-more-secrets",
+      "family": "https://github.com/bartobri/no-more-secrets",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "recovery-no-more-secrets",
+        "repository_url": "https://github.com/bartobri/no-more-secrets",
+        "commit_sha": "8941020b7779a221272585dc3c544f4e864f7b7c",
+        "image_id": "sha256:d27a6ab733c7c3a9cbb5e4b32fb595aa5a422ff04bd212888d1041b90a2c4c2a",
+        "source_archive_sha256": "efdc08df38b02ce144258038473a0d0a43b6831f452335af091c52c04c2b4d71",
+        "build_system": "make",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "a038a0a1dad1ff0073e7e98c0e5c2d39bf38097212289edc84097ebe085ae452",
+        "components": [
+          {
+            "name": "nms",
+            "artifact_names": [
+              "nms"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "作者主要程序声明，下面source_evidence保存原文"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": "main-build-v1不要求完整作者测试；轻量验证及干净重放另列",
+        "executable_smokes": [
+          {
+            "artifact_name": "nms",
+            "step": {
+              "step_id": "verify-nms",
+              "role": "smoke",
+              "command": "./nms -v",
+              "source": "作者用法：README.md版本用法及src/nms.c",
+              "expected": "作者普通构建动作；是否完成由实际执行与独立检查确认",
+              "workdir": "/artifacts",
+              "requires": [],
+              "required_output": [
+                "nms version"
+              ],
+              "diagnostic_paths": []
+            }
+          }
+        ]
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-recovery-harness-sources-2026-11-09-v1/no-more-secrets/source.tar",
+      "source_evidence": [
+        {
+          "path": "README.md",
+          "quote": "$ make nms",
+          "line": 58,
+          "sha256": "9983a3ac0057972d9a13c4b1c7e04987ba4a97d94fbbcfae6051cd43903904da"
+        },
+        {
+          "path": "README.md",
+          "quote": "$ make sneakers             ## Optional",
+          "line": 59,
+          "sha256": "9983a3ac0057972d9a13c4b1c7e04987ba4a97d94fbbcfae6051cd43903904da"
+        },
+        {
+          "path": "README.md",
+          "quote": "nms -v",
+          "line": 45,
+          "sha256": "9983a3ac0057972d9a13c4b1c7e04987ba4a97d94fbbcfae6051cd43903904da"
+        }
+      ],
+      "reference_actions": {
+        "reason": "独立参考按作者普通入口构建；不送模型",
+        "steps": [
+          {
+            "step_id": "build",
+            "role": "build",
+            "command": "make nms",
+            "source": "Makefile或作者README",
+            "expected": "作者普通构建动作；是否完成由实际执行与独立检查确认",
+            "workdir": "/workspace/repo"
+          }
+        ]
+      },
+      "paper_sources": [
+        {
+          "name": "no-more-secrets",
+          "topic": "Terminal",
+          "guide": "in_repo",
+          "source": "compileagent",
+          "source_url": "https://arxiv.org/html/2505.04254v1#A3.T4",
+          "row": 48,
+          "source_html_sha256": "f61b0a20cd65fa2191ffd722ac922d59b6673b485c6f460c209e1e4bcffa56a0"
+        }
+      ],
+      "exposure": "新论文来源开发项目；只读准备暴露，非最终holdout；未送优化器"
+    },
+    {
+      "name": "fastq-tools",
+      "family": "https://github.com/dcjones/fastq-tools",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "recovery-fastq-tools",
+        "repository_url": "https://github.com/dcjones/fastq-tools",
+        "commit_sha": "acf479f9a2b0f7369b8b794cb484121c0101cbfb",
+        "image_id": "sha256:d27a6ab733c7c3a9cbb5e4b32fb595aa5a422ff04bd212888d1041b90a2c4c2a",
+        "source_archive_sha256": "505297c6988329927beb41e383bbe6ee36aa9fcf64602114644e42e17819ba17",
+        "build_system": "autotools",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "91518c655ce3505ca6aa4ca5bc2e9d71e297886e4d68cde52e4b9cab7048f7d0",
+        "components": [
+          {
+            "name": "fastq-grep",
+            "artifact_names": [
+              "fastq-grep"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "作者主要程序声明，下面source_evidence保存原文"
+          },
+          {
+            "name": "fastq-kmers",
+            "artifact_names": [
+              "fastq-kmers"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "作者主要程序声明，下面source_evidence保存原文"
+          },
+          {
+            "name": "fastq-match",
+            "artifact_names": [
+              "fastq-match"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "作者主要程序声明，下面source_evidence保存原文"
+          },
+          {
+            "name": "fastq-uniq",
+            "artifact_names": [
+              "fastq-uniq"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "作者主要程序声明，下面source_evidence保存原文"
+          },
+          {
+            "name": "fastq-qual",
+            "artifact_names": [
+              "fastq-qual"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "作者主要程序声明，下面source_evidence保存原文"
+          },
+          {
+            "name": "fastq-sample",
+            "artifact_names": [
+              "fastq-sample"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "作者主要程序声明，下面source_evidence保存原文"
+          },
+          {
+            "name": "fastq-qualadj",
+            "artifact_names": [
+              "fastq-qualadj"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "作者主要程序声明，下面source_evidence保存原文"
+          },
+          {
+            "name": "fastq-sort",
+            "artifact_names": [
+              "fastq-sort"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "作者主要程序声明，下面source_evidence保存原文"
+          },
+          {
+            "name": "fastq-qscale",
+            "artifact_names": [
+              "fastq-qscale"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "作者主要程序声明，下面source_evidence保存原文"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": "main-build-v1不要求完整作者测试；轻量验证及干净重放另列",
+        "executable_smokes": []
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-recovery-harness-sources-2026-11-09-v1/fastq-tools/source.tar",
+      "source_evidence": [
+        {
+          "path": "src/Makefile.am",
+          "quote": "bin_PROGRAMS = fastq-grep fastq-kmers fastq-match fastq-uniq",
+          "line": 2,
+          "sha256": "4a95e6b05cdbd035ea0f39c982340b2d69eb15ac601f6ec464b1bb45c0f1dd30"
+        }
+      ],
+      "reference_actions": {
+        "reason": "独立参考按作者Autotools默认主构建",
+        "steps": [
+          {
+            "step_id": "dependencies",
+            "role": "dependency",
+            "command": "apt-get update\napt-get install -y libpcre3-dev",
+            "source": "作者依赖检查及安装说明",
+            "expected": "作者普通构建动作；是否完成由实际执行与独立检查确认",
+            "workdir": "/workspace/repo"
+          },
+          {
+            "step_id": "configure",
+            "role": "configure",
+            "command": "autoreconf -fi\n./configure",
+            "source": "configure.ac及作者源码构建说明",
+            "expected": "作者普通构建动作；是否完成由实际执行与独立检查确认",
+            "workdir": "/workspace/repo"
+          },
+          {
+            "step_id": "build",
+            "role": "build",
+            "command": "make",
+            "source": "Makefile.am",
+            "expected": "作者普通构建动作；是否完成由实际执行与独立检查确认",
+            "workdir": "/workspace/repo"
+          }
+        ]
+      },
+      "paper_sources": [
+        {
+          "name": "fastq-tools",
+          "topic": "c",
+          "guide": "in_repo",
+          "source": "buildbench",
+          "source_url": "https://arxiv.org/html/2509.25248v2#A9.T9",
+          "row": 27,
+          "source_html_sha256": "97a4b94b443ed07c668c9672d0a1943d3f2f11a9280834ea56f1f12215d0a1cb"
+        }
+      ],
+      "exposure": "新论文来源开发项目；只读准备暴露，非最终holdout；未送优化器"
+    },
+    {
+      "name": "ggmorse",
+      "family": "https://github.com/ggerganov/ggmorse",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "recovery-ggmorse",
+        "repository_url": "https://github.com/ggerganov/ggmorse",
+        "commit_sha": "7b4822a8cfdbb1addfe497f3ae8186f142a4ee79",
+        "image_id": "sha256:d27a6ab733c7c3a9cbb5e4b32fb595aa5a422ff04bd212888d1041b90a2c4c2a",
+        "source_archive_sha256": "3ebf3539a472e170bb23d1606a737cd6074a0a0cc83da108c1c5db1345ae859c",
+        "build_system": "cmake",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "98e27b342eb638e049fc93a82d30eb74beafa950abac3d19ffdf870eb8efc03a",
+        "components": [
+          {
+            "name": "libggmorse",
+            "artifact_names": [
+              "libggmorse.a",
+              "libggmorse.so"
+            ],
+            "kinds": [
+              "static_library",
+              "shared_library"
+            ],
+            "evidence": "作者普通库目标，下面source_evidence保存原声明"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": "main-build-v1不要求完整作者测试；轻量验证及干净重放另列",
+        "executable_smokes": []
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-recovery-harness-sources-2026-11-09-v1/ggmorse/source.tar",
+      "source_evidence": [
+        {
+          "path": "src/CMakeLists.txt",
+          "quote": "set(TARGET ggmorse)",
+          "line": 3,
+          "sha256": "629f0cafd6a981ca9f3ac248dcbe34a30535f4ef3f199a4f1cfc28272a53461d"
+        },
+        {
+          "path": "src/CMakeLists.txt",
+          "quote": "add_library(${TARGET}",
+          "line": 5,
+          "sha256": "629f0cafd6a981ca9f3ac248dcbe34a30535f4ef3f199a4f1cfc28272a53461d"
+        }
+      ],
+      "reference_actions": {
+        "reason": "独立参考采用作者CMake普通默认入口",
+        "steps": [
+          {
+            "step_id": "configure",
+            "role": "configure",
+            "command": "cmake -S . -B build",
+            "source": "CMakeLists.txt",
+            "expected": "作者普通构建动作；是否完成由实际执行与独立检查确认",
+            "workdir": "/workspace/repo"
+          },
+          {
+            "step_id": "build",
+            "role": "build",
+            "command": "cmake --build build",
+            "source": "CMakeLists.txt",
+            "expected": "作者普通构建动作；是否完成由实际执行与独立检查确认",
+            "workdir": "/workspace/repo"
+          }
+        ],
+        "build_directory": "/workspace/repo/build"
+      },
+      "paper_sources": [
+        {
+          "name": "ggmorse",
+          "topic": "remote-sensing",
+          "guide": "in_repo",
+          "source": "buildbench",
+          "source_url": "https://arxiv.org/html/2509.25248v2#A9.T7",
+          "row": 38,
+          "source_html_sha256": "97a4b94b443ed07c668c9672d0a1943d3f2f11a9280834ea56f1f12215d0a1cb"
+        }
+      ],
+      "exposure": "新论文来源开发项目；只读准备暴露，非最终holdout；未送优化器"
+    },
+    {
+      "name": "berkeley-softfloat-3",
+      "family": "https://github.com/ucb-bar/berkeley-softfloat-3",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "recovery-berkeley-softfloat-3",
+        "repository_url": "https://github.com/ucb-bar/berkeley-softfloat-3",
+        "commit_sha": "07ebd29db0cfb55723a79fbbffe99103ef38e305",
+        "image_id": "sha256:d27a6ab733c7c3a9cbb5e4b32fb595aa5a422ff04bd212888d1041b90a2c4c2a",
+        "source_archive_sha256": "df0e824925528484ca1866e1d72484daf3e90a68c9cae817eef1ef6a6ba00577",
+        "build_system": "make",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "e933f3ccc1395a51e6b51c50b36c8c92e35d5b5ecdc4ae882df830947f94cd03",
+        "components": [
+          {
+            "name": "softfloat",
+            "artifact_names": [
+              "softfloat.a"
+            ],
+            "kinds": [
+              "static_library"
+            ],
+            "evidence": "build/Linux-x86_64-GCC/Makefile all: softfloat$(LIB)"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": "main-build-v1不要求完整作者测试；轻量验证及干净重放另列",
+        "executable_smokes": []
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-recovery-harness-sources-2026-11-09-v1/berkeley-softfloat-3/source.tar",
+      "source_evidence": [
+        {
+          "path": "build/Linux-x86_64-GCC/Makefile",
+          "quote": "all: softfloat$(LIB)",
+          "line": 57,
+          "sha256": "1179813539d64656fe9c116c6a23f2f2119e6f17f43e09f62d1ea742e42a2143"
+        }
+      ],
+      "reference_actions": {
+        "reason": "独立参考按作者普通入口构建；不送模型",
+        "steps": [
+          {
+            "step_id": "build",
+            "role": "build",
+            "command": "make",
+            "source": "Makefile或作者README",
+            "expected": "作者普通构建动作；是否完成由实际执行与独立检查确认",
+            "workdir": "/workspace/repo/build/Linux-x86_64-GCC"
+          }
+        ]
+      },
+      "paper_sources": [
+        {
+          "name": "berkeley-softfloat-3",
+          "topic": "c",
+          "guide": "outside_repo",
+          "source": "buildbench",
+          "source_url": "https://arxiv.org/html/2509.25248v2#A9.T7",
+          "row": 29,
+          "source_html_sha256": "97a4b94b443ed07c668c9672d0a1943d3f2f11a9280834ea56f1f12215d0a1cb"
+        }
+      ],
+      "exposure": "新论文来源开发项目；只读准备暴露，非最终holdout；未送优化器"
+    },
+    {
+      "name": "munge",
+      "family": "https://github.com/dun/munge",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "recovery-munge",
+        "repository_url": "https://github.com/dun/munge",
+        "commit_sha": "f4724adb855038307deab790551c86c0a7d19ea6",
+        "image_id": "sha256:d27a6ab733c7c3a9cbb5e4b32fb595aa5a422ff04bd212888d1041b90a2c4c2a",
+        "source_archive_sha256": "a90150e2e4f26515af0c9440125c55bd7f33eb471edae40b19010dfd159e6b3e",
+        "build_system": "autotools",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "81ac6b8bbbecb7ef74bbf9f72ab665705dcbf1a6cb3c2e6011e5d0d13f4945c2",
+        "components": [
+          {
+            "name": "libmunge",
+            "artifact_names": [
+              "libmunge.a",
+              "libmunge.so"
+            ],
+            "kinds": [
+              "static_library",
+              "shared_library"
+            ],
+            "evidence": "作者普通库目标，下面source_evidence保存原声明"
+          },
+          {
+            "name": "munge",
+            "artifact_names": [
+              "munge"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "作者主要程序声明，下面source_evidence保存原文"
+          },
+          {
+            "name": "remunge",
+            "artifact_names": [
+              "remunge"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "作者主要程序声明，下面source_evidence保存原文"
+          },
+          {
+            "name": "unmunge",
+            "artifact_names": [
+              "unmunge"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "作者主要程序声明，下面source_evidence保存原文"
+          },
+          {
+            "name": "munged",
+            "artifact_names": [
+              "munged"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "作者主要程序声明，下面source_evidence保存原文"
+          },
+          {
+            "name": "mungekey",
+            "artifact_names": [
+              "mungekey"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "作者主要程序声明，下面source_evidence保存原文"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": "main-build-v1不要求完整作者测试；轻量验证及干净重放另列",
+        "executable_smokes": []
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-recovery-harness-sources-2026-11-09-v1/munge/source.tar",
+      "source_evidence": [
+        {
+          "path": "src/libmunge/Makefile.am",
+          "quote": "libmunge.la",
+          "line": 40,
+          "sha256": "e127b5d2569a704e6094113317e1e1723c59f458227add1d9ac344bba4e75754"
+        },
+        {
+          "path": "src/munge/Makefile.am",
+          "quote": "bin_PROGRAMS =",
+          "line": 35,
+          "sha256": "4be08c8ba2bcad79224a5c85744b8ea3cf3540e3d7d42e77e066bdc8ae7d3944"
+        },
+        {
+          "path": "src/munged/Makefile.am",
+          "quote": "sbin_PROGRAMS =",
+          "line": 29,
+          "sha256": "da563b7514b0b799a8f32e73f516037822d802d369610b3f47d672c399ad403b"
+        },
+        {
+          "path": "src/mungekey/Makefile.am",
+          "quote": "sbin_PROGRAMS =",
+          "line": 29,
+          "sha256": "489b552733ffa70d3577fa0fa365f895734ed6b72e70d2cbdd465c436794eb0a"
+        }
+      ],
+      "reference_actions": {
+        "reason": "独立参考按作者Autotools默认主构建",
+        "steps": [
+          {
+            "step_id": "dependencies",
+            "role": "dependency",
+            "command": "apt-get update\napt-get install -y libssl-dev libbz2-dev zlib1g-dev",
+            "source": "作者依赖检查及安装说明",
+            "expected": "作者普通构建动作；是否完成由实际执行与独立检查确认",
+            "workdir": "/workspace/repo"
+          },
+          {
+            "step_id": "configure",
+            "role": "configure",
+            "command": "autoreconf -fi\n./configure",
+            "source": "configure.ac及作者源码构建说明",
+            "expected": "作者普通构建动作；是否完成由实际执行与独立检查确认",
+            "workdir": "/workspace/repo"
+          },
+          {
+            "step_id": "build",
+            "role": "build",
+            "command": "make",
+            "source": "Makefile.am",
+            "expected": "作者普通构建动作；是否完成由实际执行与独立检查确认",
+            "workdir": "/workspace/repo"
+          }
+        ]
+      },
+      "paper_sources": [
+        {
+          "name": "munge",
+          "topic": "hpc",
+          "guide": "outside_repo",
+          "source": "buildbench",
+          "source_url": "https://arxiv.org/html/2509.25248v2#A9.T9",
+          "row": 28,
+          "source_html_sha256": "97a4b94b443ed07c668c9672d0a1943d3f2f11a9280834ea56f1f12215d0a1cb"
+        }
+      ],
+      "exposure": "新论文来源开发项目；只读准备暴露，非最终holdout；未送优化器"
+    },
+    {
+      "name": "DuckX",
+      "family": "https://github.com/amiremohamadi/duckx",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "recovery-duckx",
+        "repository_url": "https://github.com/amiremohamadi/DuckX",
+        "commit_sha": "53f880f72ee745221cf2925ce0f2813fdf1553a2",
+        "image_id": "sha256:d27a6ab733c7c3a9cbb5e4b32fb595aa5a422ff04bd212888d1041b90a2c4c2a",
+        "source_archive_sha256": "d6f417355e7806b74c12effab1e151795f227df8db22e91c4af1fae97af3e58e",
+        "build_system": "cmake",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "afc7a94534079951a1a1ddc297cab97ce5ba8228565410d5450d58e207a580a3",
+        "components": [
+          {
+            "name": "libduckx",
+            "artifact_names": [
+              "libduckx.a",
+              "libduckx.so"
+            ],
+            "kinds": [
+              "static_library",
+              "shared_library"
+            ],
+            "evidence": "作者普通库目标，下面source_evidence保存原声明"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": "main-build-v1不要求完整作者测试；轻量验证及干净重放另列",
+        "executable_smokes": []
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-recovery-harness-sources-2026-11-09-v1/DuckX/source.tar",
+      "source_evidence": [
+        {
+          "path": "CMakeLists.txt",
+          "quote": "add_library(duckx STATIC ${SOURCES} ${THIRD_PARTY_SRC})",
+          "line": 35,
+          "sha256": "a0a9d3fad11601e52c3caf8aca37853a24d937d374a96162a36912ac46a90249"
+        }
+      ],
+      "reference_actions": {
+        "reason": "独立参考采用作者CMake普通默认入口",
+        "steps": [
+          {
+            "step_id": "configure",
+            "role": "configure",
+            "command": "cmake -S . -B build",
+            "source": "CMakeLists.txt",
+            "expected": "作者普通构建动作；是否完成由实际执行与独立检查确认",
+            "workdir": "/workspace/repo"
+          },
+          {
+            "step_id": "build",
+            "role": "build",
+            "command": "cmake --build build",
+            "source": "CMakeLists.txt",
+            "expected": "作者普通构建动作；是否完成由实际执行与独立检查确认",
+            "workdir": "/workspace/repo"
+          }
+        ],
+        "build_directory": "/workspace/repo/build"
+      },
+      "paper_sources": [
+        {
+          "name": "DuckX",
+          "topic": "c-plus-plus",
+          "guide": "in_repo",
+          "source": "buildbench",
+          "source_url": "https://arxiv.org/html/2509.25248v2#A9.T9",
+          "row": 34,
+          "source_html_sha256": "97a4b94b443ed07c668c9672d0a1943d3f2f11a9280834ea56f1f12215d0a1cb"
+        }
+      ],
+      "exposure": "新论文来源开发项目；只读准备暴露，非最终holdout；未送优化器"
+    },
+    {
+      "name": "Turbo-Base64",
+      "family": "https://github.com/powturbo/turbo-base64",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "recovery-turbo-base64",
+        "repository_url": "https://github.com/powturbo/Turbo-Base64",
+        "commit_sha": "d9e584363280055ba6355938a48dc3711183f50f",
+        "image_id": "sha256:d27a6ab733c7c3a9cbb5e4b32fb595aa5a422ff04bd212888d1041b90a2c4c2a",
+        "source_archive_sha256": "5fe91e73a3be9698d62eaef60ea9dbb167538b9dbff1e28f25fc7e621d8b769f",
+        "build_system": "make",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "62f6fd6986bf47f484f4d2938ad4db00de8fbf875f8804914972c30d8200fabb",
+        "components": [
+          {
+            "name": "libtb64",
+            "artifact_names": [
+              "libtb64.a",
+              "libtb64.so"
+            ],
+            "kinds": [
+              "static_library",
+              "shared_library"
+            ],
+            "evidence": "作者普通库目标，下面source_evidence保存原声明"
+          },
+          {
+            "name": "tb64app",
+            "artifact_names": [
+              "tb64app"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "作者主要程序声明，下面source_evidence保存原文"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": "main-build-v1不要求完整作者测试；轻量验证及干净重放另列",
+        "executable_smokes": []
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-recovery-harness-sources-2026-11-09-v1/Turbo-Base64/source.tar",
+      "source_evidence": [
+        {
+          "path": "makefile",
+          "quote": "all: tb64app libtb64.so libtb64.a",
+          "line": 96,
+          "sha256": "e31255aab3d19c70fedc1d602782f0668f64f05d4d6471543e6b65828eb2f332"
+        }
+      ],
+      "reference_actions": {
+        "reason": "独立参考按作者普通入口构建；不送模型",
+        "steps": [
+          {
+            "step_id": "build",
+            "role": "build",
+            "command": "make",
+            "source": "Makefile或作者README",
+            "expected": "作者普通构建动作；是否完成由实际执行与独立检查确认",
+            "workdir": "/workspace/repo"
+          }
+        ]
+      },
+      "paper_sources": [
+        {
+          "name": "Turbo-Base64",
+          "topic": "crypto",
+          "guide": "in_repo",
+          "source": "buildbench",
+          "source_url": "https://arxiv.org/html/2509.25248v2#A9.T9",
+          "row": 23,
+          "source_html_sha256": "97a4b94b443ed07c668c9672d0a1943d3f2f11a9280834ea56f1f12215d0a1cb"
+        }
+      ],
+      "exposure": "新论文来源开发项目；只读准备暴露，非最终holdout；未送优化器"
+    },
+    {
+      "name": "twemproxy",
+      "family": "https://github.com/twitter/twemproxy",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "recovery-twemproxy",
+        "repository_url": "https://github.com/twitter/twemproxy",
+        "commit_sha": "60aaf855ba2e15e20d0efbe440c8ff071b719580",
+        "image_id": "sha256:d27a6ab733c7c3a9cbb5e4b32fb595aa5a422ff04bd212888d1041b90a2c4c2a",
+        "source_archive_sha256": "acd738a3281eb15b2ec622e12176ffe5796500261c16166eea5f36c86dcfd0a1",
+        "build_system": "autotools",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "c013fe67b50f676fa37ba78ca7c2d3aa9c944f9bea209a3e6293c8f681fd879f",
+        "components": [
+          {
+            "name": "nutcracker",
+            "artifact_names": [
+              "nutcracker"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "作者主要程序声明，下面source_evidence保存原文"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": "main-build-v1不要求完整作者测试；轻量验证及干净重放另列",
+        "executable_smokes": []
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-recovery-harness-sources-2026-11-09-v1/twemproxy/source.tar",
+      "source_evidence": [
+        {
+          "path": "src/Makefile.am",
+          "quote": "sbin_PROGRAMS = nutcracker",
+          "line": 35,
+          "sha256": "61064599a6235819d52e8918f4d3db4bc9f22722e6c1f9a04a3546553e0eb360"
+        }
+      ],
+      "reference_actions": {
+        "reason": "独立参考按作者Autotools默认主构建",
+        "steps": [
+          {
+            "step_id": "configure",
+            "role": "configure",
+            "command": "autoreconf -fi\n./configure",
+            "source": "configure.ac及作者源码构建说明",
+            "expected": "作者普通构建动作；是否完成由实际执行与独立检查确认",
+            "workdir": "/workspace/repo"
+          },
+          {
+            "step_id": "build",
+            "role": "build",
+            "command": "make",
+            "source": "Makefile.am",
+            "expected": "作者普通构建动作；是否完成由实际执行与独立检查确认",
+            "workdir": "/workspace/repo"
+          }
+        ]
+      },
+      "paper_sources": [
+        {
+          "name": "twemproxy",
+          "topic": "networking",
+          "guide": "in_repo",
+          "source": "buildbench",
+          "source_url": "https://arxiv.org/html/2509.25248v2#A9.T9",
+          "row": 40,
+          "source_html_sha256": "97a4b94b443ed07c668c9672d0a1943d3f2f11a9280834ea56f1f12215d0a1cb"
+        }
+      ],
+      "exposure": "新论文来源开发项目；只读准备暴露，非最终holdout；未送优化器"
+    }
+  ],
+  "schedule": [
+    {
+      "slot": 1,
+      "project": "cglm",
+      "repetition": 1,
+      "method": "H0"
+    },
+    {
+      "slot": 2,
+      "project": "cglm",
+      "repetition": 1,
+      "method": "R1"
+    },
+    {
+      "slot": 3,
+      "project": "massdns",
+      "repetition": 1,
+      "method": "R1"
+    },
+    {
+      "slot": 4,
+      "project": "massdns",
+      "repetition": 1,
+      "method": "H0"
+    },
+    {
+      "slot": 5,
+      "project": "libmodbus",
+      "repetition": 1,
+      "method": "H0"
+    },
+    {
+      "slot": 6,
+      "project": "libmodbus",
+      "repetition": 1,
+      "method": "R1"
+    },
+    {
+      "slot": 7,
+      "project": "tini",
+      "repetition": 1,
+      "method": "R1"
+    },
+    {
+      "slot": 8,
+      "project": "tini",
+      "repetition": 1,
+      "method": "H0"
+    },
+    {
+      "slot": 9,
+      "project": "redsocks",
+      "repetition": 1,
+      "method": "H0"
+    },
+    {
+      "slot": 10,
+      "project": "redsocks",
+      "repetition": 1,
+      "method": "R1"
+    },
+    {
+      "slot": 11,
+      "project": "freesasa",
+      "repetition": 1,
+      "method": "R1"
+    },
+    {
+      "slot": 12,
+      "project": "freesasa",
+      "repetition": 1,
+      "method": "H0"
+    },
+    {
+      "slot": 13,
+      "project": "wasm3",
+      "repetition": 1,
+      "method": "H0"
+    },
+    {
+      "slot": 14,
+      "project": "wasm3",
+      "repetition": 1,
+      "method": "R1"
+    },
+    {
+      "slot": 15,
+      "project": "beanstalkd",
+      "repetition": 1,
+      "method": "R1"
+    },
+    {
+      "slot": 16,
+      "project": "beanstalkd",
+      "repetition": 1,
+      "method": "H0"
+    },
+    {
+      "slot": 17,
+      "project": "fsarchiver",
+      "repetition": 1,
+      "method": "H0"
+    },
+    {
+      "slot": 18,
+      "project": "fsarchiver",
+      "repetition": 1,
+      "method": "R1"
+    },
+    {
+      "slot": 19,
+      "project": "libhv",
+      "repetition": 1,
+      "method": "R1"
+    },
+    {
+      "slot": 20,
+      "project": "libhv",
+      "repetition": 1,
+      "method": "H0"
+    },
+    {
+      "slot": 21,
+      "project": "no-more-secrets",
+      "repetition": 1,
+      "method": "H0"
+    },
+    {
+      "slot": 22,
+      "project": "no-more-secrets",
+      "repetition": 1,
+      "method": "R1"
+    },
+    {
+      "slot": 23,
+      "project": "fastq-tools",
+      "repetition": 1,
+      "method": "R1"
+    },
+    {
+      "slot": 24,
+      "project": "fastq-tools",
+      "repetition": 1,
+      "method": "H0"
+    },
+    {
+      "slot": 25,
+      "project": "ggmorse",
+      "repetition": 1,
+      "method": "H0"
+    },
+    {
+      "slot": 26,
+      "project": "ggmorse",
+      "repetition": 1,
+      "method": "R1"
+    },
+    {
+      "slot": 27,
+      "project": "berkeley-softfloat-3",
+      "repetition": 1,
+      "method": "R1"
+    },
+    {
+      "slot": 28,
+      "project": "berkeley-softfloat-3",
+      "repetition": 1,
+      "method": "H0"
+    },
+    {
+      "slot": 29,
+      "project": "munge",
+      "repetition": 1,
+      "method": "H0"
+    },
+    {
+      "slot": 30,
+      "project": "munge",
+      "repetition": 1,
+      "method": "R1"
+    },
+    {
+      "slot": 31,
+      "project": "DuckX",
+      "repetition": 1,
+      "method": "R1"
+    },
+    {
+      "slot": 32,
+      "project": "DuckX",
+      "repetition": 1,
+      "method": "H0"
+    },
+    {
+      "slot": 33,
+      "project": "Turbo-Base64",
+      "repetition": 1,
+      "method": "H0"
+    },
+    {
+      "slot": 34,
+      "project": "Turbo-Base64",
+      "repetition": 1,
+      "method": "R1"
+    },
+    {
+      "slot": 35,
+      "project": "twemproxy",
+      "repetition": 1,
+      "method": "R1"
+    },
+    {
+      "slot": 36,
+      "project": "twemproxy",
+      "repetition": 1,
+      "method": "H0"
+    }
+  ],
+  "fixture_sha256": "d474778dc097ce59d55bb15e785198a2f51abbb3b1d6edd7358dc1d403f9b693",
+  "recovery_harnesses": {
+    "H0": {
+      "name": "H0_recovery",
+      "base_prompt_sha256": "e35f082d179d0ac9014c5b2f59d823e30cb81e0f65439e8982af47cf446c63f3",
+      "recovery_guidance": "",
+      "training_corpus_sha256": null
+    },
+    "R1": {
+      "name": "H_R_candidate",
+      "base_prompt_sha256": "e35f082d179d0ac9014c5b2f59d823e30cb81e0f65439e8982af47cf446c63f3",
+      "recovery_guidance": "恢复先以最近失败交接为索引：记录失败阶段、退出码、首个确定错误、已成功步骤和当前目标范围。交接摘要足以定位时直接处理；仅补读回答当前决策所需的局部证据，通常是失败规则、对应配置选项、顶层目标关系或缺失命令所在脚本。不要预先遍历全部文档、备用构建系统、示例和测试，也不要重复读取内容未变化且已覆盖问题的片段；日志摘要被截断、错误归属不明或后续日志出现新故障时允许再次读取。\n\n动作按证据强度选择：明确缺失的必要工具或库优先补依赖；配置冲突修正作者支持的选项或构建目录；只有当前入口持续受真实环境约束且作者明确支持备用入口时才切换。切换入口前确认其默认目标范围，不显式缩成单一产物。可选组件故障可使用作者开关，但必须证明其可选性以及主库、主要程序和其他必要组件仍在构建图中；否则补齐依赖。\n\n提交完整方案时保留仍适用的成功前缀和成功dependency step_id。当前容器已具备工具不是删除依赖的理由；废弃或替换依赖必须显式给出原ID及证据理由。配置变化后让执行器按既有清理与重配语义处理，不自行加入删除产物或屏蔽失败的命令。\n\n当主要目标、入口、必要依赖和修订后的配置/构建动作均已有证据，立即提交。reason只解释真实失败、最小必要修订、保留范围及尚存阻塞；不把未开始的重放称为失败，不把容器内成功称为干净重放成功，也不因历史单例成功宣称某策略普遍有效。",
+      "training_corpus_sha256": "2801b59a558477ea98bd7fd141b69201dfc8bd10048693d4ebab1253c52d2b0e"
+    }
+  },
+  "reviewed_candidate_sha256": "35280b6a11f01ef5da56d438659f0492c12ea8a82c18ac3d8a3b2e0e89d14ecf",
+  "user_review": "用户已确认原18项目/36槽、5美元/4小时；仅修复调用参数并执行尚未启动槽，复用已完成规划；沿原预算/截止，无自动重试、不改方法或验收。",
+  "provider": {
+    "model": "deepseek-flash",
+    "accepted_models": [
+      "DeepSeek-V4.1-Flash-1017",
+      "deepseek-flash"
+    ],
+    "reasoning_effort": "low",
+    "max_tokens": 32768,
+    "max_retries": 0,
+    "timeout_seconds": 240
+  },
+  "pricing": {
+    "input_per_million_usd": "0.30",
+    "output_per_million_usd": "1.20",
+    "basis": "沿用Flash全输入缓存未命中保守估费，不是账单",
+    "source": "https://api-docs.deepseek.com/quick_start/pricing"
+  },
+  "maximum_cost_usd": "5.00",
+  "maximum_hours": 4,
+  "per_unit_cost_usd": "0.40",
+  "planning_seconds": 1200,
+  "arm_seconds": 1800,
+  "replay_seconds": 600,
+  "validation_scope": "main_build",
+  "state_routing": "shared_rule_no_jev",
+  "experience": false,
+  "initial_plan": "one_H0_model_plan_per_project_shared_byte_identically_by_both_clean_arms",
+  "cost_attribution": "actual_batch_counts_common_planner_once; each_method_deployment_includes_full_common_planning; proposal_and_historical_sources_separate; imported_cglm_planning_is_prior_payment_counted_once_in_authorized_total_not_new_payment",
+  "proposal_cost_already_paid_usd": "0.105856",
+  "holdout": false,
+  "automatic_retry": false,
+  "components": {
+    "backend/packages/harness/deerflow/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "backend/packages/harness/deerflow/agents/__init__.py": "a56943de0fc010577aeb22212de66d9fbceda09aef6e5a4613945f885d733f5f",
+    "backend/packages/harness/deerflow/agents/checkpointer/__init__.py": "4f97331d4d87a4db4d5ea31dd014db39ea4739f584b45392d9c1835a1c456c47",
+    "backend/packages/harness/deerflow/agents/checkpointer/async_provider.py": "2bb3042621668f662393698bc27b513cf6602ae2dbf792430b84b32ab4f9f594",
+    "backend/packages/harness/deerflow/agents/checkpointer/provider.py": "7c67d89ece8aca60838eeb9b6141a8e09e9dd5f6f0f39cf8f2720a758ad771b4",
+    "backend/packages/harness/deerflow/agents/factory.py": "dd3ddffc164ea27296d8e9f444688c57a08cf5e03932a2f38cd79b16b5ad673f",
+    "backend/packages/harness/deerflow/agents/features.py": "4cf752d546a68afe47ce7b5ba9f774fbd26f719022813d2dc58b87248c84f0ec",
+    "backend/packages/harness/deerflow/agents/lead_agent/__init__.py": "a2741789ec207120b993850f00db55bd92f5c0267f623bf9fd0ef4ad8472a674",
+    "backend/packages/harness/deerflow/agents/lead_agent/agent.py": "ce3ee4d371d98982edfb054824ee9fa002e064d641e256b34c3ea281e93fb320",
+    "backend/packages/harness/deerflow/agents/lead_agent/prompt.py": "b81301ba0b355b0776bdec66df0250c8561a2bbbe49dcaee860fa7a5698b4bde",
+    "backend/packages/harness/deerflow/agents/memory/__init__.py": "e25f883bc4a68ed100fbb05f6bac07ea80f7e57475e51bf799a4e497a403dc22",
+    "backend/packages/harness/deerflow/agents/memory/prompt.py": "2a86f965d484ab2d185828403bc4d611f4092ab995dde202e90fb1b000a7b8ff",
+    "backend/packages/harness/deerflow/agents/memory/queue.py": "0b5ebc82d9e582a822e3e37fd089628be3174b8e042ed00c59bcbbe06b931f92",
+    "backend/packages/harness/deerflow/agents/memory/storage.py": "d71384fca6a2d546f5f1f8f839c37b5cb894f111da517064400cea2e7a96cba9",
+    "backend/packages/harness/deerflow/agents/memory/updater.py": "bbab7ffff1f113aba64e80ec6e2a8fa56509eff8749c18bd14310fb94600f249",
+    "backend/packages/harness/deerflow/agents/middlewares/__init__.py": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+    "backend/packages/harness/deerflow/agents/middlewares/clarification_middleware.py": "6555b8921b7cbde9372d3025d5050ab7096fff8ac679d59395d844bc2db0cd77",
+    "backend/packages/harness/deerflow/agents/middlewares/dangling_tool_call_middleware.py": "9627e5c32a2301eff05633a4141825f4a74c3c98b6af90be5007d1cd3177a969",
+    "backend/packages/harness/deerflow/agents/middlewares/loop_detection_middleware.py": "54543bb23f7028013ab6ac4953da81acc9e1ce195f079169285d5c0418ec45b9",
+    "backend/packages/harness/deerflow/agents/middlewares/memory_middleware.py": "6e7896fa9472086457cc69a5ea2a4a593485d4c9d6d324f8029b5ff70a113022",
+    "backend/packages/harness/deerflow/agents/middlewares/subagent_limit_middleware.py": "4a3e133b5bbd4f47045fd370bbc125a17079579f30b837914728095b4d6feead",
+    "backend/packages/harness/deerflow/agents/middlewares/title_middleware.py": "a25f7fc7c9521e9a9f62836145ac6c0d180d8279693d05f4df705b9593def1d9",
+    "backend/packages/harness/deerflow/agents/middlewares/todo_middleware.py": "5f20a6a918661c00567ac7d7620d39fa2674360244bf3b8e7a2765084e0802c5",
+    "backend/packages/harness/deerflow/agents/middlewares/token_usage_middleware.py": "72d8a84fdf76b779b5404c277d79ea2109c5fb8697fd03e02d4c914609c99dc4",
+    "backend/packages/harness/deerflow/agents/middlewares/tool_error_handling_middleware.py": "76b5c8bc2fedf2c5641af3bc7a2ab58f0872d649c95d0963379ee7ea5d83c60f",
+    "backend/packages/harness/deerflow/agents/middlewares/view_image_middleware.py": "7f75e1701594d31ee3ebff294fc0603a60cb514d9562a6dd34ec61fa20916aa2",
+    "backend/packages/harness/deerflow/agents/thread_state.py": "9515ec6b397d431b521fae125b401c8d02eed7ce64bc713c18c6cc68ac6dfa3e",
+    "backend/packages/harness/deerflow/compile/__init__.py": "5c9b2cf4d1fbfb357cf07047b3eee93934d1e6a04b2d63ed26dc98071b9cd78c",
+    "backend/packages/harness/deerflow/compile/action_experience.py": "4cd6615d1da19273bab6b9d4c673aa783f6e7384500443ba8f6668451da92eb7",
+    "backend/packages/harness/deerflow/compile/agent_workflow_node.py": "9fc296c5ac5586fbc25cd0d4c8c0c2bb3c0db03c89fa3cf924d3ff6873a29155",
+    "backend/packages/harness/deerflow/compile/agent_workflow_runtime.py": "92277bf4b5568acb43523edb6344b2a6b6c70ce731cab62200295b3aa97d9931",
+    "backend/packages/harness/deerflow/compile/agent_workflow_runtime_v2.py": "7358c8396a6eee7776f64f6645f0d516b1f4e6ed4743a249c1d8c32b4c1ecef5",
+    "backend/packages/harness/deerflow/compile/agent_workflow_runtime_v3.py": "2d71383d011e943f78e9259b9f7ceec2c8e1f080d7609e86413ce188a841f65e",
+    "backend/packages/harness/deerflow/compile/agent_workflow_runtime_v4.py": "48593cfea3a5cd0512531332bec89bc16afddbdc190605e55d17c027a7769c66",
+    "backend/packages/harness/deerflow/compile/agent_workflow_runtime_v5.py": "44462a2e6cf26e3008743281c942604ce75955ac62125afcf676fa1882c1c92a",
+    "backend/packages/harness/deerflow/compile/agent_workflow_runtime_v6.py": "70311ae3a598e183ba7450494629d8ee5a5e572c9e829f2d82a058122060406b",
+    "backend/packages/harness/deerflow/compile/agent_workflow_schemas.py": "21a19f6d1a0421fce2c7807474db9eefe0e0be25042241ca121fbb9d5ec99706",
+    "backend/packages/harness/deerflow/compile/archive_source_index.py": "8016f903f9291fb00eda0e2bd4ac0c576fc992903659db61d9feff1950b2e855",
+    "backend/packages/harness/deerflow/compile/artifact_display.py": "b6ae85f2b3c5dead9d631933714f318e29cfd562a6127f17003120218cb660e8",
+    "backend/packages/harness/deerflow/compile/boundary_execution.py": "9f62e5912d7f548649c29b991a117fddda5a2633bdbf20b38bae7db3b6895c3c",
+    "backend/packages/harness/deerflow/compile/build_experience.py": "bfbf2cb916d940f9bc342c11a71cc9ca49399352ec87a98fc936d44714fd3588",
+    "backend/packages/harness/deerflow/compile/build_state_routing.py": "488eb078ff5292d902573790fb8eab490d62532de8d01bd40b4ca30dfa9c968f",
+    "backend/packages/harness/deerflow/compile/build_task_checks.py": "4a302b338a9228e9e7928c48b21c046dac4eb8c95fe6de21dd60bb3544ab0b10",
+    "backend/packages/harness/deerflow/compile/candidate_verifier.py": "595cec0fc909e2179fbcebc5428c6b5ae996d7442e90ece5ccbc8d57bef7ab89",
+    "backend/packages/harness/deerflow/compile/conditioned_experience.py": "8f585a84dbde5eed38f6e5dc364c228ce7d0409ec099338825f0e2d552526b43",
+    "backend/packages/harness/deerflow/compile/docker_runtime.py": "82b3090e53a6b55c6c56aafe2a833b611b04d3de052f7dd591c8886fdb572163",
+    "backend/packages/harness/deerflow/compile/evidence.py": "a3923167f67a96ea4af4aaa4f3692d15baafea79cc0e5ee1b9dac08ab7eb9284",
+    "backend/packages/harness/deerflow/compile/evidence_ownership.py": "1609822180c1818988ef9ad8a4fa30ce21a901a5d9037f82d43bf00ba1ba0d92",
+    "backend/packages/harness/deerflow/compile/external_evaluator.py": "c4ac897de06ab91d1cd557dfc3b6427974cae99c2ca16c216e8880303c094c61",
+    "backend/packages/harness/deerflow/compile/external_evaluator_v2.py": "19044e161b321fe5afed8458c0138f1bcfbe41582af2d5f4efcdf6846c3d579b",
+    "backend/packages/harness/deerflow/compile/external_evaluator_v3.py": "cfb5e3baeff772e54051925e6b0504eea25b6ba9284d8a5c6ad7135355fde79c",
+    "backend/packages/harness/deerflow/compile/external_evaluator_v4.py": "9009c400b1b54d9ad05411f1a64124423cf50d8ba49bfa2d13071d9bedad4613",
+    "backend/packages/harness/deerflow/compile/generated_file_boundary.py": "81fdee664be7526a1d4ddf864d97571dd0118979340f6eb8cb01700aa05d9ef6",
+    "backend/packages/harness/deerflow/compile/generation_observation_actions.py": "6137bcd634d9df7e79ee6b60b73f103dfbc5807aa72af01d98c6d4bcc616c0bd",
+    "backend/packages/harness/deerflow/compile/goal_state.py": "8749ce77b7d08b01d58c4d6c65680b0ede793b0cb1b56c40c70eaab1ee074880",
+    "backend/packages/harness/deerflow/compile/hybrid_workflow.py": "73e215ebf2d0c3a53db7f8b44993a72c9d6a140091d5c78d5114fec578676d4e",
+    "backend/packages/harness/deerflow/compile/jev_controller.py": "f8c53aa301c60399aae33c052d7d3efd8d39c0827dc751d99cd823194a810e9f",
+    "backend/packages/harness/deerflow/compile/local_recovery.py": "3beb7c87d6bcc6f369b2be63701e15c995d2a0766e6878bdf35a198ab575c3f1",
+    "backend/packages/harness/deerflow/compile/manager.py": "1f9726ff9375cb5fb271bc17b29310e17db6db274474b02112aaf61cead4536e",
+    "backend/packages/harness/deerflow/compile/offline_harness.py": "b31b158507f1ebcb2d1e340d2bde9337c657d0e8c5ebb5dd2e4c741d622970f3",
+    "backend/packages/harness/deerflow/compile/operation_window.py": "f44b2e1d2e702c6b50b6d2e5713b670862d1430d460f83d32a531c7852b7c507",
+    "backend/packages/harness/deerflow/compile/operations.py": "c2be9b2c6afde19a8ed9137b9aa3a2dcc59ad8b808f1011ec6ebd340c7660b9e",
+    "backend/packages/harness/deerflow/compile/paths.py": "3872bdca3647a78407b422c00a72d9c62b38d5e9f2f0355cc78653fa15d1c332",
+    "backend/packages/harness/deerflow/compile/plan_agent.py": "76cf813285bd0d95ffd53e6d94d7fed09ddc4dcadfdcb13f6c37089170f5dd71",
+    "backend/packages/harness/deerflow/compile/plan_agent_canary.py": "13c238db9fe5f69543a17b6e95871723e1c790687cb028c281b200aab8a17b6c",
+    "backend/packages/harness/deerflow/compile/plan_agent_context.py": "2620ddcc50e7da228d7af19073719508b649a9d360f71a94baf15ecbefd2dc37",
+    "backend/packages/harness/deerflow/compile/plan_agent_provenance.py": "35353d9277ba34953b7ba1fb7a2bad477e4bc721aa1b9a271261ed86d76d7dca",
+    "backend/packages/harness/deerflow/compile/plan_agent_repair.py": "a934a770bfb8f6b45fe7e13b73f12cb7e30b42937a98fbd6dbb6213896a1c9f3",
+    "backend/packages/harness/deerflow/compile/plan_agent_v2.py": "8fb37e15af7739c32ab00002076e284d5599710c34d11ae1623f6f23ca922bad",
+    "backend/packages/harness/deerflow/compile/plan_candidate_reception.py": "8d954034c59c56772d4d39d99cb17e7317dabb2c6786dab11341d12a5046f5ce",
+    "backend/packages/harness/deerflow/compile/plan_cross_system.py": "754710b0e31badef4e317f83d350092232ef42cb55cc58398c21a254713fa174",
+    "backend/packages/harness/deerflow/compile/plan_delivery.py": "dce6cc81cd7e49e733216524976ee47303330d16d6e3410761d96396c68a0596",
+    "backend/packages/harness/deerflow/compile/plan_delivery_equivalent.py": "67d48e2e44033a0551c84e0ff86092f7327adbd47eb9d0142b4ac1fb8321bab1",
+    "backend/packages/harness/deerflow/compile/plan_handoff_context.py": "eb0e44b077a800f003f8740c0cef18cac1b9841a2e4656f36f6e52c7b5d6bc89",
+    "backend/packages/harness/deerflow/compile/plan_workflow.py": "65473d1770304e5fd42aefb36b31f82b9595406f76bae1e3c44313771ca7027f",
+    "backend/packages/harness/deerflow/compile/project_experience.py": "09dd6f9e1723304ec8ba53a6643e0f217a003a3d96e27d8614e7f53e4ca09d7a",
+    "backend/packages/harness/deerflow/compile/recovery_harness.py": "2a6ced228d2968a639e598a1805c74fac4c30731f4a0249744b3579a314b7071",
+    "backend/packages/harness/deerflow/compile/recovery_text_factors.py": "d81ac40026703d926149ba1b410eb46fca246c9772b63a20672f792a1987efa8",
+    "backend/packages/harness/deerflow/compile/replay_closure_verifier.py": "01f8335ab0a586065803b34952b930adbf593624c611316b40ca2ccac685cd83",
+    "backend/packages/harness/deerflow/compile/schemas.py": "8217a7514665fb5c271699b9f988bce227d861bfa607cec0ae1301f2827b9bc6",
+    "backend/packages/harness/deerflow/compile/shared_text_packet.py": "43ea2391dffd78c8bf273af430a14926bf4fd255fc0e001ef72e222c570d8b28",
+    "backend/packages/harness/deerflow/compile/simple_author_tests.py": "565b385eba8faf569961df9919c83d9972da934f1789dce5bba408180015e255",
+    "backend/packages/harness/deerflow/compile/simple_build_agents.py": "fdd04aa055ac2b30d750ac8927781eee04efbe48012eb8022565fdfaccc4ddf0",
+    "backend/packages/harness/deerflow/compile/simple_build_experience.py": "4f20e6f24b8799f54a4c3d5e56d4c219af34fd17a20642b224ca19f56c10fa84",
+    "backend/packages/harness/deerflow/compile/simple_build_runtime.py": "444b9ec72564163c24050eb350283eca8b4e7a3dcf25ccb769c0bb657679fa67",
+    "backend/packages/harness/deerflow/compile/simple_build_task.py": "3d83cd37a38601171820b57d96f92e60df08579f9d4c5ddf0bc55552fd2ef17a",
+    "backend/packages/harness/deerflow/compile/simple_planning_context.py": "5ea3b4bf407d821eb16a21f81b3606d859806b7d2a1156c590ccc90b95cf79e8",
+    "backend/packages/harness/deerflow/compile/source_preparation.py": "cf5204d310719e56ac7ff23d4a66b54722ebf88bad7f206291ac38faf76adc7c",
+    "backend/packages/harness/deerflow/compile/staged_verification.py": "b4fc6b2ab4b1436a178657c62412ae71e8f9c7ae5c90b8301be18b5664e01741",
+    "backend/packages/harness/deerflow/compile/task_selected_make_plan.py": "be2758362d67d8878faddf087224e4bcf07bebda3f2bbd582e038407c3e7211c",
+    "backend/packages/harness/deerflow/compile/task_selected_tool_plan.py": "6d2857174e8767f210dccb0cf000f660833c69f2de0611b775a2e13ee55c7c1a",
+    "backend/packages/harness/deerflow/compile/tool_plan.py": "64f00145f33a6a950901045324d1610808ec8940bde83bec33622346974ff008",
+    "backend/packages/harness/deerflow/compile/transfer_action_experience.py": "823acb94a46e87ce7322e9bf720922840b385bb198b500b1e725f220c3dde5e3",
+    "backend/packages/harness/deerflow/compile/unified_plan.py": "1a7e840694bb5f2e24e5e7556e417b4a0ed1a5ddcf60e2a26e04bd451294cf71",
+    "backend/packages/harness/deerflow/compile/unified_plan_equivalent.py": "6131f7f0584692a51523681f3e3c80a838b86ab92077460f07ce6f2c617fe53a",
+    "backend/packages/harness/deerflow/compile/unified_plan_equivalent_observed.py": "b5be5b232664600c3f14c7cf8f114f44c0424016b16cdffd8a5d39776624c175",
+    "backend/packages/harness/deerflow/compile/unified_plan_v2.py": "80522737e683f2c1ecb9a39ecb086bd3a9a1729ed519039f092d91ff1eb1c46f",
+    "backend/packages/harness/deerflow/config/__init__.py": "5118fd7e91c5f2b40c264be510e39e34aa5fc0d3dc712e62cc0250643852ed57",
+    "backend/packages/harness/deerflow/config/acp_config.py": "545c5a8979ee20502ad8abb6e2a583b2b7ec8adbe4053a5faf1b5741d8c71edd",
+    "backend/packages/harness/deerflow/config/agents_config.py": "c6ea1b0206f1e0314ce4545682e4f960e15fc5c3aeec4f662d62672f41763d85",
+    "backend/packages/harness/deerflow/config/app_config.py": "452559abd42170e375b0639a37449cd3264ff32843fa6c53aac032d4319b0ab7",
+    "backend/packages/harness/deerflow/config/checkpointer_config.py": "04ce22f7421ea8a9873eba97ec5a201f567b7e9448bda8f35f985ddbd058e638",
+    "backend/packages/harness/deerflow/config/extensions_config.py": "41b70fcac18877bdb6d342fdd6d665f6e394f260ba0411596e49a850c184f3fb",
+    "backend/packages/harness/deerflow/config/guardrails_config.py": "a852b84c15aaa98db27133781f9f7dfb6440cc3adb8f5bd8e9b50a1c4e43e65f",
+    "backend/packages/harness/deerflow/config/memory_config.py": "fb40bdb0091469eb2517ce59e08ef452a89e1aa98d05c0432bd5536da9a8fb10",
+    "backend/packages/harness/deerflow/config/model_config.py": "3529125f3d5397730ce4f5c7fd65fb02b53796640e1df85de6a63a2eca2e32e6",
+    "backend/packages/harness/deerflow/config/paths.py": "fb972405e6185f8db8960bb99fa77817ff710ec46079c758878c01a8b6c3f607",
+    "backend/packages/harness/deerflow/config/sandbox_config.py": "84cbcc3441735e0bdaaa17d5a99f218e0fdd2c728c83babd6cea886084efb786",
+    "backend/packages/harness/deerflow/config/skill_evolution_config.py": "72ed337ab44a2094af74131d3d8728bd453ef7b1b33af5940083dc3a8c5fc0e4",
+    "backend/packages/harness/deerflow/config/skills_config.py": "a60571134cfe6eebe5abd1009e08d39a2c037b69bc2d8813fc4f9bc935676a1c",
+    "backend/packages/harness/deerflow/config/stream_bridge_config.py": "1cca873098f97229d874b9a981129da2767e5f7e8d5a65fceebb1bf36a040a7b",
+    "backend/packages/harness/deerflow/config/subagents_config.py": "c2c6a70d36c8e64f8d9b0c215f7da2f0f37af7a5a5f6865cd0e2ce9c0da32413",
+    "backend/packages/harness/deerflow/config/summarization_config.py": "6125bf6b6e961121a782d50b340c0f8ccd5e794fe1231e16d61b552d8e55c372",
+    "backend/packages/harness/deerflow/config/title_config.py": "3957bd4da829f34cf19288332ae5d1bff4677e4ee205de25beac1985f76c9606",
+    "backend/packages/harness/deerflow/config/token_usage_config.py": "493c966d6618030ded3ef3e61adee1eff5cd22f84061dfb8033f18e06309ce66",
+    "backend/packages/harness/deerflow/config/tool_config.py": "990b85b8ed1f8e2d2c16371f94888759620d7b88baca1f65d63456600352f6fe",
+    "backend/packages/harness/deerflow/config/tool_search_config.py": "5d8f9cc63eef0ed527e20175093de41a7f17fe2c06e92294b7055dc8318df5d6",
+    "backend/packages/harness/deerflow/config/tracing_config.py": "a4b3422d1c8797b539c91a22a0bdccc90b80aa550319a023a35fe78d698f8945",
+    "backend/packages/harness/deerflow/models/__init__.py": "751ebf6cb37039345a4595a40021f509c1ffbea324240769bcff338f846ce7fa",
+    "backend/packages/harness/deerflow/models/claude_provider.py": "a41908ff371572b1334f59e45e3825f15bc4c143cac85cf3e67760adb54c92ba",
+    "backend/packages/harness/deerflow/models/credential_loader.py": "f421598e62887ccf1b1165386b9fa7da8d4e781a3bdca53ed2280cfd71eb3bd7",
+    "backend/packages/harness/deerflow/models/factory.py": "804da24b5a3929df57251a0274dd690dcfa469c9c5c59024b100ae928dc0f5fc",
+    "backend/packages/harness/deerflow/models/openai_codex_provider.py": "6f94009a132f9e24dfbd638c830f049cefda680c2fc9dda0b76a343124184789",
+    "backend/packages/harness/deerflow/models/patched_deepseek.py": "e313c1b141799e268d9cc8ff548e45a339bf68b5a3b4f3b8865b2f7fa218477b",
+    "backend/packages/harness/deerflow/models/patched_minimax.py": "b20d2e801c193d8fa24923e07732f98a7260c1bd9520fed55df607152ce44c2c",
+    "backend/packages/harness/deerflow/models/patched_openai.py": "d55a2c970d3d42a8efa0155f8640e31bf5141a278c2eb63f6b940fdd82a06fe4",
+    "backend/packages/harness/deerflow/models/vllm_provider.py": "cdd06c0c89369652b09e17eb54dba7bd8283c02eb0c3dc7bce4608b232461784",
+    "backend/packages/harness/deerflow/reflection/__init__.py": "d8b3d505d456ff4fd71bb79b12e337a915ef2da719f4bb5df0d177e849bf80ed",
+    "backend/packages/harness/deerflow/reflection/resolvers.py": "8f984822fc36937f3164c8340c714026c82a573c1fb444375710b19c4f3e056a",
+    "backend/packages/harness/deerflow/runtime/__init__.py": "eed19d77c2dab6b554f4552517f2ad4f19cdca676cda64f9cff363ebd83f15c0",
+    "backend/packages/harness/deerflow/runtime/runs/__init__.py": "3bd95b0c329f61df718f729ae50de4c903b198a79288bf3b391b52d4e08f6599",
+    "backend/packages/harness/deerflow/runtime/runs/manager.py": "4e9c4b1fc9d1c71ace31f711275d988c2b26cd29d308ea057047ef363bc331de",
+    "backend/packages/harness/deerflow/runtime/runs/schemas.py": "a74e35727962a1b0fa27c7bb33b409b716a3d34e7e1f1de7d4cbfd8d65538880",
+    "backend/packages/harness/deerflow/runtime/runs/worker.py": "552d365e3085163707146156c10d1391d8acb6ec7505a5716235f1189350d1a4",
+    "backend/packages/harness/deerflow/runtime/serialization.py": "e0d2fcdbbbf22cec971b6f291d0bdc334fd8fd27c0f8940f576c573f6a3e99a2",
+    "backend/packages/harness/deerflow/runtime/store/__init__.py": "7ad2103736076f725a6a00c9e086153b50ce2cdbcc0f4f1acee2b22c67bda07c",
+    "backend/packages/harness/deerflow/runtime/store/_sqlite_utils.py": "edfa0fe74da14e0b5cec6387ab7139badf809a8e31b6a2494aac54ea7a20723a",
+    "backend/packages/harness/deerflow/runtime/store/async_provider.py": "06e3efdc16c2920879ef402fd6831576da232cc2283f9cca6f3432fc75920a4c",
+    "backend/packages/harness/deerflow/runtime/store/provider.py": "192dbb89892edf8ed07f2a75f7f83c062a1f1d1fac5c5857ec98e94ae2b02b70",
+    "backend/packages/harness/deerflow/runtime/stream_bridge/__init__.py": "02676f3cd91fd4e37c5af37e31eb62d0a814db2ad18c3d6d3dca78fb9b6bde4b",
+    "backend/packages/harness/deerflow/runtime/stream_bridge/async_provider.py": "0f48fd40a50200360545e371e0ee6ea5e2590603fee8ba6c2b2e98043b5eca37",
+    "backend/packages/harness/deerflow/runtime/stream_bridge/base.py": "a09f01685d28eb62ece4f425a7aaf02a3daddd8303ba2f84864a1de2ffac7da8",
+    "backend/packages/harness/deerflow/runtime/stream_bridge/memory.py": "3a060156b7b8b332cd814972e3720283fe16b65e913463ef206590156813473b",
+    "backend/packages/harness/deerflow/skills/__init__.py": "fd01c12172db0c7072505b80861d941dba160138a6bac14a9c5d46507a123bbb",
+    "backend/packages/harness/deerflow/skills/installer.py": "be3acd373583664b6ee6a32acc1ab4b72da8cb918760271da80bd104f1389897",
+    "backend/packages/harness/deerflow/skills/loader.py": "afe5a7848bc0a7b9484d169165b5b9922c473eda66c16008e86b192814caee4b",
+    "backend/packages/harness/deerflow/skills/parser.py": "96b733b02e25e8034800fa70dbdcd7d61da73c560185b95c5e261f1cc902c58b",
+    "backend/packages/harness/deerflow/skills/types.py": "9547a73f6798f1eaf9e20e494fc2976b87cc219581c91d02c4b8cd70632ddb06",
+    "backend/packages/harness/deerflow/skills/validation.py": "bb0cf0c16bf422efac75434abe3723a8f040b511de7ae3b0cf8f78662f1900d1",
+    "backend/packages/harness/deerflow/subagents/__init__.py": "8268227df05b2c67403a18e21127ebc049570f4b260017f36ee525e8ec4c0354",
+    "backend/packages/harness/deerflow/subagents/builtins/__init__.py": "a3c4b02658bb7613a9b529fdfe9d969ae5abb5f39e0c35ac81b3528960ea3d2d",
+    "backend/packages/harness/deerflow/subagents/builtins/bash_agent.py": "d350614169973b3a73fc0aa0fbb988f876dc0c0764df06fa86a38acc634bb1fa",
+    "backend/packages/harness/deerflow/subagents/builtins/compiler_agent.py": "96befc9fbb24e4bac856466cc12100e24c654f84fd0608055bf39bade17ceeda",
+    "backend/packages/harness/deerflow/subagents/builtins/general_purpose.py": "295fe011907ea28d7939d1deb366fd2d6d763225d00e1ec9ce0878b856b4792a",
+    "backend/packages/harness/deerflow/subagents/config.py": "782e0b52fcec88678a25fc316ea5e89c5dfae53f6b15e036bc95d41141628ec7",
+    "backend/packages/harness/deerflow/subagents/executor.py": "6d1c8cd8395c6e849f51ebd9171ee06b0d5c8a4c9b6941628441792e0df402dd",
+    "backend/packages/harness/deerflow/subagents/registry.py": "4f27f5f60d2b05c850d2c872129d613e0ac5025c04ae28108dad3799d178f501",
+    "backend/packages/harness/deerflow/tools/__init__.py": "65978178eb4b6d73160907d82974b332b52147530302f4d197b480d8659b74fd",
+    "backend/packages/harness/deerflow/tools/bound_compile_tools.py": "735ec5c8daa34d66e4b1116987e281e861149a5273434ec200e403c3fe1ec758",
+    "backend/packages/harness/deerflow/tools/builtins/__init__.py": "5109a4a01e0dd51b19c8b8a0d99e3339ca52e9a4bc8a709141cac7af2d55f12e",
+    "backend/packages/harness/deerflow/tools/builtins/agent_compile_tools.py": "e44f8c5bc82d2c5831473c9bfac494de5e506c53c4a45ba350bc09116dfcd9c0",
+    "backend/packages/harness/deerflow/tools/builtins/clarification_tool.py": "8c9b20c2b8df2ebdbc15b57b44b4c1a420f26c5a84a2525da8e2fb0c38c84c9c",
+    "backend/packages/harness/deerflow/tools/builtins/present_file_tool.py": "f785f9fe92a62f1a9e715bce1996fd879d92086c17542a67e4d0cf5a45d2aad8",
+    "backend/packages/harness/deerflow/tools/builtins/setup_agent_tool.py": "707833b579e5fc6ef6256cd4f61bbd0d924c978f46b5e34ef8f0cdf318dca85e",
+    "backend/packages/harness/deerflow/tools/builtins/task_tool.py": "150a886b132c871f859baa566b9c350f3f0c15500ff852ab70fdc8c363aafd43",
+    "backend/packages/harness/deerflow/tools/builtins/tool_search.py": "7d6d3cc8ead2b27bd58f0ece89bcad953be5da228aac64ac60862d8ebf62499f",
+    "backend/packages/harness/deerflow/tools/builtins/view_image_tool.py": "350cf4f3b450429e4b501b6bdbc5e8bf0425c01e8111779f0b141638f9310c18",
+    "backend/packages/harness/deerflow/tools/host_read.py": "dc2b8e985a566d7078be3e06801f86e7b111cd55b5d850217da7e46c4a06e0d9",
+    "backend/packages/harness/deerflow/tools/host_write.py": "6013fdc3db9d3baca431a576204eb7fee519598e0bba7eb4279b5210e8ed18ac",
+    "backend/packages/harness/deerflow/tools/tools.py": "df8aac648c09b5d21fe18841c9b1072d16f6c60aec563475f2e5a08ea4042fb9",
+    "backend/packages/harness/deerflow/tracing/__init__.py": "f64980e72ed87cfad8e64a48d20270c7d2b0c027b8e518c1d8d7db12cbd31e3a",
+    "backend/packages/harness/deerflow/tracing/factory.py": "f32b4cde351c8add890a53a433e9ea0ac232362204d0f6f604bcd5cef42a0fcc",
+    "benchmarks/preregistrations/cpp-build-simple-system-comparison-flash-v1.md": "800414651f0bca7fb7fe288a4cb19b7afb2eea23752f6eccedd1cccdd65b0f7c",
+    "scripts/forge_build_plan_agent_canary.py": "d302c280d933483e27ff8cbd4971e3c70597f6c5adf9222ba6d7b1b8e0e2a49b",
+    "scripts/forge_build_plan_agent_repair.py": "4ae8ec3e0d8d8ebed1ef63eeb1272e064314786971b3f62f3a3f3471aa393952",
+    "scripts/forge_build_reference_expansion.py": "77df5e88f38efe0669af68e41b50477123ddbd8f5ee276266c0767d7cd9f9182",
+    "scripts/forge_build_simple_task.py": "f9d63aa370fcfff3c33ae354d4450cfa835afa632cdf37d48126c1e48da56d39",
+    "scripts/forge_build_source_expansion.py": "37472f1676a68653a08334de90f2ee43698f05d33e76900734e1c5fd70bb2387",
+    "scripts/forge_recovery_harness_comparison.py": "c7deb9e6742e2d3efefc80bfdd6a8e9543de0617aa8b9bfce1ab3a540e747575",
+    "scripts/forge_recovery_harness_continuation.py": "a5e24cd74d8cf4a8863a141ed8fd4bf5b696e28ebd6ae1dfdb2e76a6f1102038",
+    "scripts/forge_recovery_harness_sources.py": "546be8e69d161c945d216caae3a018abfe2a91ab7c437da246a7508307097cdb",
+    "scripts/forge_simple_comparison.py": "df61d4e4a80359c6fe0ed6e7dddfae70ee7131c92da400789d4ac653a43b30d8",
+    "scripts/forge_simple_cxx_reference.py": "da813af5cbcf169ea3e957b48677f186b7dfa6d0c2f45290b375c7efccbebdc7",
+    "scripts/forge_simple_system.py": "4cc6ceb39804d24d129e5e9b512ec90c812fd3a141bc032fc9413f6d511304a1",
+    "scripts/forge_typed_evidence.py": "b3e798669389507dc605fcd73b2450921f0695bddccc564344fda88d5cb7a3c8",
+    "benchmarks/preregistrations/cpp-build-recovery-harness-comparison-flash-v1.md": "42795a0673ec8ba29e07e660325837bc8a11118bdc4026c5cdeb41fb8d604235",
+    "benchmarks/fixtures/recovery-harness-comparison-v1/tasks.json": "d474778dc097ce59d55bb15e785198a2f51abbb3b1d6edd7358dc1d403f9b693",
+    "benchmarks/fixtures/recovery-harness-proposal-v1/project-pool.json": "607ea8044ea6ba3697ca1f590fdbe902008059934d99050d61071e2d89b4b5e6",
+    "benchmarks/fixtures/recovery-harness-proposal-v1/baseline.json": "215b66cbf14e7520fbb887fd2467f08294f30e5b18cfcb55b2bd00a4cfc09285",
+    "benchmarks/fixtures/recovery-harness-proposal-v1/candidate.json": "95428704ae6673a152162a7495bf6a76b2d2577ae90955c17c0782d713c9b1dd",
+    "benchmarks/fixtures/recovery-harness-proposal-v1/corpus.json": "2273dbb286925da576477f60611d47bc60b1014445ffa816b2c1cda505f9da59",
+    "benchmarks/fixtures/recovery-harness-proposal-v1/usage.json": "6dbfe24dc06f573d21cb521d0d06c4e406d5baa2b29179ed341ce2eb6802d84e",
+    "benchmarks/preregistrations/cpp-build-recovery-harness-comparison-flash-v2.md": "4b5c3f522fa8ef22c101321370538596678d17eccc867836c250e27cf40dd049",
+    "benchmarks/manifests/cpp-build-recovery-harness-comparison-flash-v1.json": "4ac3a9ee46d053fe7af769a54eb6e8b3b0a6c4dc4034ff72eb2e91d60184d26f"
+  },
+  "package_versions": {
+    "langchain": "1.2.3",
+    "langchain-core": "1.2.17",
+    "langgraph": "1.0.9",
+    "langchain-deepseek": "1.0.1",
+    "openai": "2.15.0"
+  },
+  "boundary": "18个新开发项目、每法每项目一次；真实自然失败才恢复；无失败路径不证明恢复效果；无补槽/失败替换/论文自动更新。",
+  "parent_scope": {
+    "identity": "cpp-build-recovery-harness-comparison-flash-v1",
+    "root": "/home/yiwei/.codex/outputs/forge-recovery-harness-comparison-flash-v1",
+    "inventory_sha256": "c9bb8a8af44f8cb9bf6164b1f714c29e058a99baaffda4f53536a11b4853035a",
+    "result_sha256": "4874067d6eb672f2be0e8540fcb534bbe10b8966933db4344a8c4096a4b5e144",
+    "initial_result_sha256": "de9c484703d7a0c4355f3f6411d3dda41130abf335fd6a4abed681fbaf64a3de",
+    "imported_project": "cglm",
+    "imported_plan_sha256": "1927ad1f054d31739559a79b9338109917f8bdae066b52883861317c4aa36121",
+    "previously_paid_planning_cost_usd": "0.0076386",
+    "original_billing_complete": false,
+    "original_seal_unknown_usage_requests": 1,
+    "boundary": "原汇总因未闭合执行单元保守标未知；traceback在路由构造/执行器调用前，槽目录未创建，无槽模型请求或容器。原标签不改；复用两次已知响应及规划，不重试任何模型请求或已启动构建。"
+  }
+}

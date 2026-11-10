@@ -3,7 +3,25 @@
 论文选材固定入口：[硕士论文实验与证据索引](docs/research/THESIS_EVIDENCE_INDEX.md)，[历史材料目录](docs/research/THESIS_EVIDENCE_CATALOG.md)保留存量导航。当前完整稿为[论文v0.10第二轮结果稿](docs/thesis/README.md)；E50–E52保存主构建系统及两轮Harness结果，既有完整任务、状态/恢复消融和两层经验继续按各自版本与分母使用。
 
 
-## 当前阶段（2026-11-09；#711恢复Harness比较实现完成，待正式运行预算/时窗）
+## 当前阶段（2026-11-10；#713恢复Harness比较36/36完成，结果待用户审核）
+
+[结果报告](docs/research/2026-11-10-recovery-harness-comparison-results.md)、[E53](docs/research/THESIS_EVIDENCE_INDEX.md#e53)及[逐槽分析](benchmarks/analyses/recovery-harness-2026-11-10/README.md)：18新项目、18共同规划、36/36执行槽终态，0未启动，18配对初始哈希相同。H0/R1主构建16/18、15/18，可复现交付均11/18；独立部署请求91/104、在线费0.3348342/0.3982221美元、累计2386.94/2610.99秒，R1费高18.9%、时高9.4%，不默认采用。共同自然恢复三项目，另twemproxy只R1先遇网络超时，不能把非对称环境费用全部归因指导。
+
+授权范围实际123请求/1369539 Token/0.5045859美元（cglm旧规划仅一次），逐响应复算一致、未知0；v2新增付款0.4969473美元，历史提案0.105856另列。保持原5美元硬上限与UTC01:21:05—05:21:05，无Provider自动重试/补槽；本批已结束，无活动Provider。不续预算扩批，结果先审核、本轮不修改论文v0.10或旧E51/E52。
+
+分层未通过：tini作者配置重写README，两组build未启动；ggmorse两组依赖超时后本地49000字节上下文终止；R1/fsarchiver修订依赖被拒。主构建后：wasm3/libhv两组实际replay哈希差异（有编译时间来源）；munge两组交付缺运行时libmunge.so.2；Turbo两组默认-version误入benchmark、实际replay smoke30秒超时；H0/fsarchiver的-V退出0但错误required_output被拒，replay未启动。每法14实际attempt为11过/2失败/1超时，另4未启动，不把它们全说成编译失败。
+
+运行7e439b51、manifest71dd0e29，正式raw为forge-recovery-harness-comparison-flash-v2，inventory235feccd7e533f3077c9a33cc1f405e28875e0b426b743e015cfa30096fc40dd。36槽/analysis保存后封存因root生成文件读权限退出1；用无网络、只读挂载辅助容器完成哈希及两份新封存文件，原数据/权限不改，未重启运行。原analysis身份头沿base误写v1，派生明确标实际v2；旧v1驱动失败/标签保留。36槽cleanup通过，64构建/重放容器128项标识及两个辅助容器共130项实查不存在。下一决定：用户审核完整混合/负面结果，再选必要共同修复与下一离线候选；新提案和结果仍各自先审，不直接写论文。
+
+## 上一阶段（2026-11-10；#713修复驱动参数后执行原未启动36槽）
+
+用户“确认授权”承接已固定cpp-build-recovery-harness-comparison-flash-v1：18新项目×H0/R1各一次、共36执行槽及18共同规划任务，Flash low、相同初始方案、只改恢复指导；manifest SHA4ac3a9ee46d053fe7af769a54eb6e8b3b0a6c4dc4034ff72eb2e91d60184d26f，直接沿PR712已合入口。新增费用硬上限5美元，UTC2026-11-10 01:21:05—05:21:05（北京时间09:21—13:21），准备计入，不重置。
+
+原v1共同规划cglm完成（2请求/0.0076386美元）后，首槽执行器调用前因规则路由缺method/directory参数TypeError停止，执行槽0、无槽目录或容器；原件/标签保留。修复实际装配并以19相关检查和一次零Provider实际回调主构建/重放通过，独立cpp-build-recovery-harness-comparison-flash-v2只执行原未启动36槽，复用cglm已付费规划，不重新请求。新manifest SHA71dd0e29f62cc9dd24e24c0bf83bd09460a9eaed157d053bde6a1324dc937113，沿原5美元总额/原截止；费用含v1规划一次，新支出另列。v1 billing_complete=false/封存unknown=1是未闭合驱动单元，实际规划用量完整、未进入槽；不把原标签改成0。
+
+无自动重试/补槽，未知用量/模型标识异常/清理失败停止整批；失败/未启动如实保留。共同规划实际计费一次，两方法独立部署均计全额规划费用与耗时。原件forge-recovery-harness-comparison-flash-v1及同名v2；会话forge-recovery-harness-results-session-2026-11-10-v1保存授权和运行收据，根位于服务器/home/yiwei/.codex/outputs。完成采集后分析自然恢复、完成情况与费用/时间取舍，结果先报告审核，本轮不修改论文。来源/独立参考与开发暴露边界沿[准备报告](docs/research/2026-11-09-recovery-harness-comparison-preparation.md)，工程检查不作R1效果；E51/E52和论文v0.10保持。
+
+## 上一阶段（2026-11-09；#711恢复Harness比较实现完成，后获正式运行授权）
 
 用户已审核R1并要求开始比较实现。[准备报告](docs/research/2026-11-09-recovery-harness-comparison-preparation.md)及身份cpp-build-recovery-harness-comparison-flash-v1固定18个新项目、三系统各6个、H0/R1各一次共36槽；每项目先H0只读规划一次，两干净会话使用相同方案及哈希，仅真实失败后指导不同。三系统交错、先后各9次；共同规划失败时两执行槽未启动，不造两恢复失败。实际费用共同规划一次，两方法部署均全额计入；初始/失败/纠正/恢复、提案与历史投入分列。结果审核前不写论文。
 
