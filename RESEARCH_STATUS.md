@@ -3,7 +3,15 @@
 论文选材固定入口：[硕士论文实验与证据索引](docs/research/THESIS_EVIDENCE_INDEX.md)，[历史材料目录](docs/research/THESIS_EVIDENCE_CATALOG.md)保留存量导航。当前完整稿为[论文v0.10第二轮结果稿](docs/thesis/README.md)；E50–E52保存主构建系统及两轮Harness结果，既有完整任务、状态/恢复消融和两层经验继续按各自版本与分母使用。
 
 
-## 当前阶段（2026-11-10；#713恢复Harness比较36/36完成，结果待用户审核）
+## 当前阶段（2026-11-10；#715共同修复完成，修复阶段结束）
+
+用户已阅读E53并要求优先解决共同问题，不据此宣称R1明显提升。[修复报告](docs/research/2026-11-10-common-recovery-repair.md)、[派生汇总](benchmarks/analyses/common-recovery-repair-2026-11-10/summary.json)及[执行契约](docs/compile_workflow_execution.md)记录：独立声明的作者生成文档、原生轻量验证、共享库SONAME交付、交付运行失败返回恢复、分类型有界纠正及过大AI/Tool组的证据压缩。两方法共同使用，未改原Harness指导。
+
+tini、Turbo-Base64、munge、fsarchiver最终分别通过主构建、轻量验证和干净重放；实际5次，不是首次4/4，v1 munge错误输出断言失败保留，v2纠正参考后仅继续munge及原未启动fsarchiver。tini为同内容文档重写，不称所有原文件身份未变。ggmorse两条旧交互仅本地上下文回放通过（38275/22610字节），未运行新模型或证明构建成功。全部0Provider/0新增费用；四项目最终路径282.68秒，含保留失败317.74秒，18本轮容器标识不存在。
+
+原E53的16/18与15/18主构建、均11/18交付及全部失败不回填；wasm3/libhv重放字节差异仍未解决，复现要求未放宽。保留H0默认、论文v0.10不动，无活动Provider。本阶段结束，不追加实建或比较；下一研究由用户决定，仍按“新提案先审→下令比较→结果先审→同意后写论文”推进。发布/CI状态以Issue715关联PR和GitHub为准，知识库只通过MCP同步。
+
+## 上一阶段（2026-11-10；#713恢复Harness比较36/36完成，后转共同修复）
 
 [结果报告](docs/research/2026-11-10-recovery-harness-comparison-results.md)、[E53](docs/research/THESIS_EVIDENCE_INDEX.md#e53)及[逐槽分析](benchmarks/analyses/recovery-harness-2026-11-10/README.md)：18新项目、18共同规划、36/36执行槽终态，0未启动，18配对初始哈希相同。H0/R1主构建16/18、15/18，可复现交付均11/18；独立部署请求91/104、在线费0.3348342/0.3982221美元、累计2386.94/2610.99秒，R1费高18.9%、时高9.4%，不默认采用。共同自然恢复三项目，另twemproxy只R1先遇网络超时，不能把非对称环境费用全部归因指导。
 

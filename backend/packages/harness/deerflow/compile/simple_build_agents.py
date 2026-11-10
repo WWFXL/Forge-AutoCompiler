@@ -19,7 +19,7 @@ from deerflow.compile.plan_agent import PlanResponseCapture
 from deerflow.compile.plan_agent_canary import StopWhenVerified
 from deerflow.compile.plan_agent_context import CONTEXT_PROMPT, ContextCanaryMeter, safe_readonly_tools
 from deerflow.compile.plan_workflow import PlanContractError, PlanStep
-from deerflow.compile.simple_build_runtime import generated_reset_step, primary_artifacts, source_unchanged, validate_phase_command
+from deerflow.compile.simple_build_runtime import generated_reset_step, primary_artifacts, validate_phase_command
 
 
 class SimpleBuildMeter(ContextCanaryMeter):
@@ -133,7 +133,7 @@ class SimpleToolBuildService:
         supporting = records[supporting_command_id]
         if supporting.role != "build":
             return dict(accepted=False, reason="supporting命令必须为实际成功构建")
-        source_unchanged(w.root, w.baseline)
+        w.check_source()
         w.primary = primary_artifacts(task=w.plan.task, reference=w.reference, root=w.root, baseline=w.baseline, deadline=time.monotonic() + min(30, w._remaining()))
         if w.primary["status"] != "passed":
             return dict(accepted=False, reason="主要组件未覆盖", primary_components=w.primary)
