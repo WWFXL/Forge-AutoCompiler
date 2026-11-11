@@ -229,6 +229,13 @@ def run_simple_system(
         if workflow:
             result.update(layers=workflow.layers, timings=workflow.timings)
     finally:
+        if workflow is not None:
+            try:
+                result["source_protection"] = workflow.source_protection()
+                result["source_unchanged"] = True
+            except Exception as exc:
+                result["source_unchanged"] = False
+                result["source_protection_error"] = str(exc)
         try:
             current = manager.load_session(session.session_id, session.thread_id)
             current, cleanup = operations.cleanup_and_finalize_compile_session_impl(session=current)
@@ -254,8 +261,8 @@ def run_simple_system(
             if result["status"] == "error" or result["source_unchanged"] is False:
                 result["layers"]["full_completed"] = False
                 result["layers"]["reproducible_delivery_completed"] = False
-                if validation_scope == "main_build":
-                    result["layers"]["main_build_task_completed"] = False
+                # 后续异常不回写已观察到的主构建层；整体交付仍为失败。
+                result["termination_reason"] = result.get("error") or "protected_inputs_changed"
         result["validation_scope"] = validation_scope
         if state_router is not None:
             result["router_usage"] = state_router.summary()

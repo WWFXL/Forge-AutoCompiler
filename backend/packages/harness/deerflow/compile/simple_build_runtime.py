@@ -39,7 +39,24 @@ def source_inventory(root: Path) -> dict:
     return rows
 
 
-def source_unchanged(root, baseline, generated_documents=()):
+def po_metadata_signature(content: bytes) -> str | None:
+    """仅忽略PO头内生成时间与X-Bugs位置；正文、注释及其余头仍逐字保护。"""
+    text = content.decode("utf-8", errors="strict")
+    match = re.search(r'^msgid ""\nmsgstr ""\n((?:"[^\n]*"\n)+)', text, re.MULTILINE)
+    if match is None:
+        return None
+    lines = match.group(1).splitlines(keepends=True)
+    dates = [line for line in lines if line.startswith('"POT-Creation-Date: ')]
+    bugs = [line for line in lines if line.startswith('"X-Bugs: ')]
+    if len(dates) != 1 or len(bugs) > 1:
+        return None
+    stable = "".join(line for line in lines if line not in dates and line not in bugs)
+    normalized = text[: match.start(1)] + stable + "".join(bugs) + text[match.end(1) :]
+    return hashlib.sha256(normalized.encode()).hexdigest()
+
+
+def source_unchanged(root, baseline, generated_documents=(), po_headers=None):
+    po_headers = po_headers or {}
     documents = {d.path: d for d in generated_documents}
     if any(d.path not in baseline or d.template not in baseline or baseline[d.path]["link"] is not None or baseline[d.template]["link"] is not None for d in generated_documents):
         raise PlanContractError("作者生成文档及模板必须是原始普通文件")
@@ -52,6 +69,10 @@ def source_unchanged(root, baseline, generated_documents=()):
             raise PlanContractError("原源码/测试缺失：" + name) from exc
         if actual != row:
             document = documents.get(name)
+            if actual["sha256"] == row["sha256"] and actual["link"] == row["link"] and actual["mode"] == row["mode"]:
+                continue  # 同内容重写不等于源码内容改变。
+            if name in po_headers and actual["link"] is None and actual["mode"] == row["mode"] and po_metadata_signature(p.read_bytes()) == po_headers[name]:
+                continue
             if document is not None and actual["link"] is None and actual["mode"] == row["mode"] and stat.S_ISREG(s.st_mode) and actual["sha256"] == document.sha256:
                 continue
             raise PlanContractError("原源码/测试被修改：" + name)
@@ -192,11 +213,11 @@ print('FORGE_GENERATED_RESET')
     )
 
 
-def primary_artifacts(*, task, reference, root, baseline, deadline):
+def primary_artifacts(*, task, reference, root, baseline, deadline, po_headers=None):
     """独立组件覆盖＋结构/平台/来源检查；路径定位不改变构建动作。"""
     if reference.task_sha256 != _digest(task.model_dump(mode="json")):
         raise PlanContractError("独立参考与公开任务身份不一致")
-    source_unchanged(root, baseline, reference.generated_documents)
+    source_unchanged(root, baseline, reference.generated_documents, po_headers)
     precompiled = set()
     for name, row in baseline.items():
         p = root / name
@@ -253,6 +274,15 @@ class SimpleBuildWorkflow(PlanWorkflow):
         self.meter = meter
         self.root = Path(kwargs["session"].leadagent_repo_dir).resolve()
         self.baseline = source_inventory(self.root)
+        self.po_headers = {}
+        for name in self.baseline:
+            if PurePosixPath(name).suffix == ".po" and PurePosixPath(name).parent.as_posix() == "po" and self.baseline[name]["link"] is None:
+                try:
+                    signature = po_metadata_signature((self.root / name).read_bytes())
+                except UnicodeError:
+                    signature = None
+                if signature is not None:
+                    self.po_headers[name] = signature
         self.configuration = dict(status="unknown", directory=None, build_system=kwargs["plan"].build_system, reason="尚无当前动作的配置证据")
         self.observation_step = None
         self.observation_record = None
@@ -269,7 +299,7 @@ class SimpleBuildWorkflow(PlanWorkflow):
         (self.directory / "source-baseline.json").write_text(json.dumps(self.baseline, ensure_ascii=False, indent=2) + "\n")
 
     def check_source(self):
-        source_unchanged(self.root, self.baseline, self.reference.generated_documents)
+        source_unchanged(self.root, self.baseline, self.reference.generated_documents, self.po_headers)
 
     def source_protection(self):
         """保护输入与明确授权的文档生成分列，不把文档变化说成所有原文件字节未变。"""
@@ -284,7 +314,10 @@ class SimpleBuildWorkflow(PlanWorkflow):
             identity_changed = identity.st_ino != original["inode"] or identity.st_ctime_ns != original["ctime_ns"]
             if content_changed or identity_changed:
                 changes.append(dict(path=document.path, template=document.template, source=document.source, before_sha256=original["sha256"], after_sha256=actual, content_changed=content_changed, file_identity_changed=identity_changed))
-        return dict(protected_inputs_unchanged=True, generated_document_changes=changes)
+        metadata_changes = [
+            dict(path=name, before_sha256=self.baseline[name]["sha256"], after_sha256=file_hash(self.root / name), policy="po-header-metadata-v1") for name in self.po_headers if file_hash(self.root / name) != self.baseline[name]["sha256"]
+        ]
+        return dict(protected_inputs_unchanged=True, generated_document_changes=changes, generated_metadata_changes=metadata_changes)
 
     def snapshot(self):
         return {**super().snapshot(), "configuration_state": self.configuration, "layers": dict(self.layers)}
@@ -380,7 +413,7 @@ class SimpleBuildWorkflow(PlanWorkflow):
         # Shell变量/包装器无法静态识别，不能据此否定已观察到的实际构建。
         self.layers["command_build_passed"] = any(s.role == "build" and s.step_id in self.completed for s in self.plan.steps)
         observed = time.monotonic()
-        self.primary = primary_artifacts(task=self.plan.task, reference=self.reference, root=self.root, baseline=self.baseline, deadline=observed + min(30, self._remaining()))
+        self.primary = primary_artifacts(task=self.plan.task, reference=self.reference, root=self.root, baseline=self.baseline, po_headers=self.po_headers, deadline=observed + min(30, self._remaining()))
         self.timings["result_location_seconds"] = time.monotonic() - observed
         self.layers["primary_build_completed"] = True if self.layers["command_build_passed"] and self.primary["status"] == "passed" else None if self.primary["status"] == "unknown" else False
         if not self.layers["primary_build_completed"]:
@@ -532,14 +565,34 @@ class SimpleBuildWorkflow(PlanWorkflow):
                 return None, False
             # 原容器与重放共用同一短时限；交付共享库在交付目录内解析。
             step = smoke.step.model_copy(update={"command": "export LD_LIBRARY_PATH=/artifacts${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}\n" + smoke.step.command})
+            if smoke.accepted_exit_codes != (0,):
+                config = dict(command="set -euo pipefail\n" + step.command, codes=smoke.accepted_exit_codes, markers=smoke.step.required_output)
+                script = (
+                    "import json,subprocess,sys\nconfig="
+                    + repr(config)
+                    + "\n"
+                    + """r=subprocess.run(['bash','-c',config['command']],stdout=subprocess.PIPE,stderr=subprocess.STDOUT)
+text=r.stdout.decode(errors='replace')
+sys.stdout.write(text)
+print('FORGE_NATIVE_SMOKE='+json.dumps({'exit_code':r.returncode,'accepted_exit_codes':config['codes']},sort_keys=True))
+sys.exit(0 if r.returncode in config['codes'] and all(v in text for v in config['markers']) else 86)
+"""
+                )
+                step = step.model_copy(update={"command": "python3 -c " + shlex.quote(script)})
             record, output = self._post_command(step, min(30, remaining))
-            if record.exit_code != 0 or record.timed_out or not all(v in output.combined_output for v in smoke.step.required_output):
+            output_matches = all(v in output.combined_output for v in smoke.step.required_output)
+            contract_mismatch = not record.timed_out and record.exit_code not in (0, 124, 125, 126, 127) and output_matches
+            if record.exit_code != 0 or record.timed_out or not output_matches:
                 self.layers["executable_smoke"] = "timeout" if record.timed_out else "failed"
                 self.verification_issue = dict(
-                    kind="execution_failed" if record.exit_code != 0 else "output_assertion_failed",
+                    kind="verification_contract_mismatch" if contract_mismatch else "execution_failed" if record.exit_code != 0 else "output_assertion_failed",
                     command_id=record.command_id,
-                    recoverable=record.exit_code != 0 and not record.timed_out,
-                    reason="执行未成功" if record.exit_code != 0 else "退出0但输出断言不符，需核对独立验证定义，不能交Agent改写裁判",
+                    recoverable=record.exit_code != 0 and record.exit_code != 86 and not record.timed_out and not contract_mismatch,
+                    reason="输出符合但退出码不符，需核对原生行为与独立验证定义；保留未通过，不让Agent反复修改已成功的构建"
+                    if contract_mismatch
+                    else "执行未成功"
+                    if record.exit_code != 0
+                    else "退出0但输出断言不符，需核对独立验证定义，不能交Agent改写裁判",
                 )
                 return None, False
             bindings[smoke.artifact_name] = operations.SuccessfulCommandVerification(

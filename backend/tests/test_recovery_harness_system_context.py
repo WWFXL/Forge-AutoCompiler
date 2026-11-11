@@ -121,3 +121,10 @@ def test_valid_new_proposal_keeps_original_r2_and_exports_three_diffs(tmp_path):
     receipt = context.load(output / "completed.json")
     assert receipt["shared_cumulative_cost_usd"] == "0.106909"
     assert receipt["comparisons_started"] == 0 and receipt["thesis_updated"] is False
+
+
+@pytest.fixture(autouse=True)
+def frozen_historical_implementation(monkeypatch, tmp_path):
+    from frozen_recovery_context import install_frozen_recovery_context
+
+    install_frozen_recovery_context(monkeypatch, tmp_path, context, sys.modules[__name__], scoped=True)

@@ -159,13 +159,15 @@ def test_cmake_uses_actual_make_generator_not_guessed_ninja(tmp_path):
     assert observe_configuration(tmp_path, "cmake")["status"] == "failed"
 
 
-def test_source_replaced_with_same_content_still_rejected(tmp_path):
+def test_source_replaced_with_same_content_preserves_input(tmp_path):
     p = tmp_path / "original.c"
     p.write_text("original")
     baseline = source_inventory(tmp_path)
     replacement = tmp_path / "replacement"
     replacement.write_text("original")
     replacement.replace(p)
+    source_unchanged(tmp_path, baseline)
+    p.write_text("changed")
     with pytest.raises(PlanContractError):
         source_unchanged(tmp_path, baseline)
 

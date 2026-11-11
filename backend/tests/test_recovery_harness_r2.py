@@ -105,3 +105,10 @@ def test_valid_proposal_exports_actual_h0_r1_diffs_without_comparison(tmp_path):
     receipt = r2.load(output / "completed.json")
     assert receipt["comparisons_started"] == 0 and receipt["thesis_updated"] is False
     assert RecoveryHarness.model_validate(r2.load(output / "candidate.json")) == result
+
+
+@pytest.fixture(autouse=True)
+def frozen_historical_implementation(monkeypatch, tmp_path):
+    from frozen_recovery_context import install_frozen_recovery_context
+
+    install_frozen_recovery_context(monkeypatch, tmp_path, r2, sys.modules[__name__], scoped=True)

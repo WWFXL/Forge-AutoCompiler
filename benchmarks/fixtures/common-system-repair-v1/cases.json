@@ -1,0 +1,200 @@
+{
+  "identity": "cpp-build-common-system-repair-729-v1",
+  "cases": [
+    {
+      "name": "masscan",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "r2-masscan",
+        "repository_url": "https://github.com/robertdavidgraham/masscan",
+        "commit_sha": "8e6b3b0c07a81e8ea61d557c06134a21a6881614",
+        "image_id": "sha256:8123220a201ac4d00cda0dc985b9db7227cd909bb93ca6c25fd82cafce5cd887",
+        "source_archive_sha256": "ef0b9db178312ca434145f3cbc0973dfaf9f36ccb0d5f79707ec3c159dbda461",
+        "build_system": "make",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "a90562284afafc244b5dc8796684bb390ae0105ce3c0c11cb62b16b65053de4b",
+        "components": [
+          {
+            "name": "masscan",
+            "artifact_names": [
+              "masscan"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "固定作者主目标声明，source_evidence保存文件、行号及原文；辅助demo/benchmark不属于主要组件"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": "主任务不要求完整作者测试；原生轻量验证与成功重建分层报告",
+        "executable_smokes": [
+          {
+            "artifact_name": "masscan",
+            "step": {
+              "step_id": "smoke-masscan",
+              "role": "smoke",
+              "command": "/artifacts/masscan --version",
+              "source": "src/main-conf.c:3010–3012 print_version(); exit(1);",
+              "expected": "交付文件执行作者轻量入口并符合原生退出及输出；Lwan/wrk原生用法分支退出1由独立断言明确记录，不接受其他退出或空输出",
+              "workdir": "/artifacts",
+              "requires": [],
+              "required_output": [
+                "Masscan"
+              ],
+              "diagnostic_paths": []
+            },
+            "accepted_exit_codes": [
+              1
+            ]
+          }
+        ],
+        "generated_documents": []
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-recovery-r2-sources-20261110-v1/masscan/source.tar",
+      "actions": {
+        "reason": "作者普通默认入口；仅独立参考，不送在线规划器",
+        "steps": [
+          {
+            "step_id": "build",
+            "role": "build",
+            "command": "make",
+            "source": "Makefile",
+            "expected": "作者普通构建入口；由实际执行和独立产物核对判断完成",
+            "workdir": "/workspace/repo"
+          }
+        ],
+        "build_directory": "/workspace/repo"
+      }
+    },
+    {
+      "name": "xz",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "r2-xz",
+        "repository_url": "https://github.com/tukaani-project/xz",
+        "commit_sha": "941bde613e214522fcba68b1a2baf4068e5d25d7",
+        "image_id": "sha256:8123220a201ac4d00cda0dc985b9db7227cd909bb93ca6c25fd82cafce5cd887",
+        "source_archive_sha256": "d75fbb45bc9c9c357b06e40077b752f92c9a5686f0caa51ab74a2223285ef8ca",
+        "build_system": "autotools",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "7f8691a8ed42bce2c148d2f003395cce6658688288da4ebe49919f331e2b2fef",
+        "components": [
+          {
+            "name": "xz",
+            "artifact_names": [
+              "xz"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "固定作者主目标声明，source_evidence保存文件、行号及原文；辅助demo/benchmark不属于主要组件"
+          },
+          {
+            "name": "lzma",
+            "artifact_names": [
+              "liblzma.a",
+              "liblzma.so"
+            ],
+            "kinds": [
+              "static_library",
+              "shared_library"
+            ],
+            "evidence": "固定作者主目标声明，source_evidence保存文件、行号及原文；辅助demo/benchmark不属于主要组件"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": "主任务不要求完整作者测试；原生轻量验证与成功重建分层报告",
+        "executable_smokes": [
+          {
+            "artifact_name": "xz",
+            "step": {
+              "step_id": "smoke-xz",
+              "role": "smoke",
+              "command": "/artifacts/xz --version",
+              "source": "src/xz/args.c:314; 作者版本/用法分支，非业务测试",
+              "expected": "交付文件执行作者轻量入口并符合原生退出及输出；Lwan/wrk原生用法分支退出1由独立断言明确记录，不接受其他退出或空输出",
+              "workdir": "/artifacts",
+              "requires": [],
+              "required_output": [
+                "XZ Utils"
+              ],
+              "diagnostic_paths": []
+            }
+          }
+        ],
+        "generated_documents": []
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-recovery-r2-sources-20261110-v1/xz/source.tar",
+      "actions": {
+        "reason": "已观察到 autogen 以 exit 127 失败于 `autopoint: not found`，而前一依赖步骤安装的 gettext 包在 Ubuntu 中不提供 autopoint 命令（autopoint 是独立软件包）。因此保留既有的 deps-autotools 依赖步骤，新增一个安装 autopoint 包的 dependency 步骤，并让 autogen 同时依赖它；后续 configure 与 build 命令依据 INSTALL.generic 的 ./configure && make 保持原样。",
+        "steps": [
+          {
+            "step_id": "deps-autotools",
+            "role": "dependency",
+            "command": "missing=0; for t in gcc make autoconf automake libtoolize autopoint aclocal autoheader; do command -v \"$t\" >/dev/null 2>&1 || missing=1; done; if [ \"$missing\" = 1 ]; then apt-get update && apt-get install -y --no-install-recommends gcc make autoconf automake libtool gettext pkg-config; fi",
+            "workdir": "/workspace/repo",
+            "requires": [],
+            "source": "autogen.sh:13-18 (autopoint, libtoolize, aclocal, autoconf, autoheader, automake); INSTALL:59-64 requires a C99 compiler",
+            "expected": "Autotools toolchain, gettext and pkg-config are available"
+          },
+          {
+            "step_id": "deps-autopoint",
+            "role": "dependency",
+            "command": "command -v autopoint >/dev/null 2>&1 || { apt-get update && apt-get install -y --no-install-recommends autopoint; }",
+            "workdir": "/workspace/repo",
+            "requires": [
+              "deps-autotools"
+            ],
+            "source": "autogen.sh:13 invokes autopoint -f; failed log shows 'autopoint: not found' although gettext was installed, since Ubuntu ships autopoint as a separate package",
+            "expected": "The autopoint command used by autogen.sh is available"
+          },
+          {
+            "step_id": "autogen",
+            "role": "configure",
+            "command": "./autogen.sh --no-po4a",
+            "workdir": "/workspace/repo",
+            "requires": [
+              "deps-autopoint"
+            ],
+            "source": "autogen.sh:12-34 (generates configure via autopoint/libtoolize/aclocal/autoconf/autoheader/automake; --no-po4a skips only optional po4a man-page generation)",
+            "expected": "Generate the configure script and build system files from configure.ac"
+          },
+          {
+            "step_id": "configure",
+            "role": "configure",
+            "command": "./configure",
+            "workdir": "/workspace/repo",
+            "requires": [
+              "autogen"
+            ],
+            "source": "INSTALL.generic:15 and 50-58 (basic installation: ./configure && make); INSTALL:37-42 refers to INSTALL.generic",
+            "expected": "Configure the default build for liblzma and the xz command-line tools"
+          },
+          {
+            "step_id": "build",
+            "role": "build",
+            "command": "make -j2",
+            "workdir": "/workspace/repo",
+            "requires": [
+              "configure"
+            ],
+            "source": "INSTALL.generic:58 (type make to compile the package)",
+            "expected": "Build the default main targets: liblzma and the xz tools"
+          }
+        ],
+        "build_directory": null,
+        "discard_dependencies": {}
+      }
+    }
+  ]
+}

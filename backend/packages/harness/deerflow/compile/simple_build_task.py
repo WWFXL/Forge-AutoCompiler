@@ -112,10 +112,13 @@ class ExecutableSmoke(BaseModel):
 
     model_config = ConfigDict(frozen=True, extra="forbid")
     artifact_name: str
+    accepted_exit_codes: tuple[int, ...] = (0,)
     step: PlanStep
 
     @model_validator(mode="after")
     def valid_smoke(self) -> Self:
+        if not self.accepted_exit_codes or any(type(c) is not int or c < 0 or c >= 124 for c in self.accepted_exit_codes):
+            raise ValueError("验证须声明正常进程退出码，不允许信号、超时或执行器错误码")
         if relative_path(self.artifact_name) != self.artifact_name or "/" in self.artifact_name or self.step.role != "smoke" or self.step.requires:
             raise ValueError("轻量验证须绑定精确交付文件名，使用独立smoke动作")
         return self
@@ -271,7 +274,11 @@ SIMPLE_PROMPT = (
 交付方式：调用名为SimpleBuildActions的结构化输出工具，将reason和steps作为工具参数提交。
 下面的JSON仅展示该工具的参数结构，不是要求在普通回复正文输出JSON；不要用正文宣告规划完成。
 不要在Shell内加入猜测路径或日志断言，验证由独立系统完成。
-每步一个阶段，使用/workspace/repo内workdir与严格Shell。正常make clean后重建可在同一阶段，但不能任意rm或屏蔽失败。
+每步一个阶段，主项目使用/workspace/repo内workdir与严格Shell。
+源码依赖自身的下载、配置、编译、安装均标role=dependency，但各自拆成步骤并用requires保持顺序，不能混在一条命令中。
+外部依赖源码与安装前缀使用/workspace/dependencies/<名称>，先从仓库目录用mkdir -p创建；依赖步骤可在该受管目录执行。
+主项目configure/build仍在仓库内，最后才是step_id=build；不要把依赖自身的配置/编译标为主项目configure/build。
+Shell之间环境不继承，使用绝对安装前缀，并在需要的主项目命令显式设置PATH等环境。正常make clean后重建可在同一阶段，但不能任意rm或屏蔽失败。
 各命令Shell独立，使用workdir声明工作目录，不依赖上一步cd。作者已明确主项目构建目录时可提供build_directory；不确定时留空，不猜路径。
 阶段观察不足不等于命令失败，系统可继续原方案获取实际反馈；不要为了匹配观察器改写正确命令或添加猜测断言。
 命令已成功且交接仅为配置冲突时，可依据实际文件修正build_directory；系统核验新目录后仅更新观察，不重跑原成功命令。

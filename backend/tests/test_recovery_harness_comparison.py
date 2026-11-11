@@ -184,3 +184,10 @@ def test_continuation_reuses_paid_plan_without_calling_planner(pair, tmp_path):
     assert result["plan"] == initial["plan"] and result["agent_usage"] == initial["agent_usage"]
     assert result["origin_identity"] == comparison.IDENTITY and result["new_model_payment"] is False
     assert comparison.shared.load(tmp_path / "new/initial/cglm/import-origin.json") == scope
+
+
+@pytest.fixture(autouse=True)
+def frozen_historical_implementation(monkeypatch, tmp_path):
+    from frozen_recovery_context import install_frozen_recovery_context
+
+    install_frozen_recovery_context(monkeypatch, tmp_path, comparison, sys.modules[__name__], scoped=False)
