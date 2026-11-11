@@ -90,6 +90,7 @@ def run_simple_system(
     validation_scope="author_tests",
     harness=None,
     recovery_harness=None,
+    enforce_planning_tools=False,
 ):
     """可复用执行接点；本函数不加载配置或凭据，不自行创建Provider。"""
     if method not in METHODS[:3]:
@@ -119,6 +120,7 @@ def run_simple_system(
             maximum_cost_usd=maximum_cost_usd,
             deadline=deadline,
             validation_scope=validation_scope,
+            enforce_planning_tools=enforce_planning_tools,
             kind="zero_provider_engineering" if accepted_models == ("zero-provider-script",) else "requires_external_authorized_protocol",
         ),
     )
@@ -175,7 +177,9 @@ def run_simple_system(
                     ledger.append("recipe.abstained", reason="公开任务身份变化")
                 planning_start = time.monotonic()
                 try:
-                    plan, _ = propose_simple(model=model, task=task, source_root=source, session_root=Path(session.metadata_path).parent, meter=meter, experience_bank=bank, family=family, harness=harness)
+                    plan, _ = propose_simple(
+                        model=model, task=task, source_root=source, session_root=Path(session.metadata_path).parent, meter=meter, experience_bank=bank, family=family, harness=harness, enforce_planning_tools=enforce_planning_tools
+                    )
                 finally:
                     planning_seconds += time.monotonic() - planning_start
         # 作者测试统一串行；不改变构建的并行资源，也不把测试指令交给构建Agent。

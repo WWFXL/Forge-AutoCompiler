@@ -1,0 +1,1815 @@
+{
+  "projects": [
+    {
+      "name": "open62541",
+      "family": "https://github.com/open62541/open62541",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "tool-p4-open62541",
+        "repository_url": "https://github.com/open62541/open62541",
+        "commit_sha": "2405c6588f8d8093e3e0e49e920db64daf479799",
+        "image_id": "sha256:8123220a201ac4d00cda0dc985b9db7227cd909bb93ca6c25fd82cafce5cd887",
+        "source_archive_sha256": "4181113fff24c167fdeadf1962a927287a2e8b14157ee20f3dd86206e1f876d3",
+        "build_system": "cmake",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "3d7e4ad51651315600dcba1a291eb727fbf9193306e13786285a6ab493dc1d60",
+        "components": [
+          {
+            "name": "open62541",
+            "artifact_names": [
+              "libopen62541.a",
+              "libopen62541.so"
+            ],
+            "kinds": [
+              "static_library",
+              "shared_library"
+            ],
+            "evidence": "固定作者普通主构建目标，见source_evidence；辅助示例及完整测试不列为主要交付"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": "普通主构建及作者轻量运行；不要求完整作者测试",
+        "executable_smokes": [],
+        "generated_documents": []
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-planning-tool-p4-sources-v1/open62541/source.tar",
+      "source_evidence": [
+        {
+          "path": "CMakeLists.txt",
+          "quote": "add_library(open62541 $<TARGET_OBJECTS:open62541-object>)",
+          "line": 1397,
+          "sha256": "31b01e8c69bdef964c2930259ed6c4f0f1aea1e2a3976cf687565fce253b2b01"
+        },
+        {
+          "path": "CMakeLists.txt",
+          "quote": "option(UA_BUILD_EXAMPLES \"Build example servers and clients\" OFF)",
+          "line": 543,
+          "sha256": "31b01e8c69bdef964c2930259ed6c4f0f1aea1e2a3976cf687565fce253b2b01"
+        }
+      ],
+      "reference_actions": [
+        {
+          "role": "configure",
+          "command": "cmake -S . -B build",
+          "workdir": "/workspace/repo"
+        },
+        {
+          "role": "build",
+          "command": "cmake --build build --parallel 4",
+          "workdir": "/workspace/repo"
+        }
+      ],
+      "paper_sources": [
+        {
+          "name": "open62541",
+          "topic": "Embedded",
+          "guide": "outside_repo",
+          "source": "compileagent",
+          "source_url": "https://arxiv.org/html/2505.04254v1#A3.T4",
+          "row": 45,
+          "source_html_sha256": "f61b0a20cd65fa2191ffd722ac922d59b6673b485c6f460c209e1e4bcffa56a0"
+        }
+      ],
+      "historical_exposure_pointers": [
+        "benchmarks/manifests/cpp-formal-timeout-calibration.json",
+        "benchmarks/manifests/cpp-formal-timeout-canary-amendment.json",
+        "benchmarks/manifests/cpp-formal-v1-collection.json",
+        "benchmarks/manifests/cpp-formal-v1.json",
+        "benchmarks/manifests/cpp-formal-v2-authorized-collection.json",
+        "benchmarks/manifests/cpp-formal-v2-collection.json",
+        "benchmarks/manifests/cpp-formal-v3-authorized-collection.json",
+        "benchmarks/manifests/cpp-formal-v3-collection.json",
+        "benchmarks/manifests/cpp-formal-v4-authorized-initial-block.json",
+        "benchmarks/manifests/cpp-formal-v4-canary-amendment.json",
+        "benchmarks/manifests/cpp-formal-v4-collection.json",
+        "benchmarks/manifests/cpp-formal-v4-runtime-candidate.json",
+        "benchmarks/manifests/cpp-formal-v4-ubuntu-candidate.json"
+      ],
+      "exposure": "近期Harness评价之外的新项目；旧目录接触如实登记；非最终holdout"
+    },
+    {
+      "name": "libde265",
+      "family": "https://github.com/strukturag/libde265",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "tool-p4-libde265",
+        "repository_url": "https://github.com/strukturag/libde265",
+        "commit_sha": "17bb8d9fcea62db8cdeb0fc7ef8d15dbd19a22e4",
+        "image_id": "sha256:8123220a201ac4d00cda0dc985b9db7227cd909bb93ca6c25fd82cafce5cd887",
+        "source_archive_sha256": "afb9d14df88c896d5067aec9ffdaa46080c32a54ccfc30593020c423116606e4",
+        "build_system": "cmake",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "5619bf5aa71e344467fb590795c13be0dd158aba552f5d557a72cebd9a53c031",
+        "components": [
+          {
+            "name": "de265",
+            "artifact_names": [
+              "libde265.a",
+              "libde265.so"
+            ],
+            "kinds": [
+              "static_library",
+              "shared_library"
+            ],
+            "evidence": "固定作者普通主构建目标，见source_evidence；辅助示例及完整测试不列为主要交付"
+          },
+          {
+            "name": "dec265",
+            "artifact_names": [
+              "dec265"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "固定作者普通主构建目标，见source_evidence；辅助示例及完整测试不列为主要交付"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": "普通主构建及作者轻量运行；不要求完整作者测试",
+        "executable_smokes": [
+          {
+            "artifact_name": "dec265",
+            "accepted_exit_codes": [
+              0
+            ],
+            "step": {
+              "step_id": "smoke-dec265",
+              "role": "smoke",
+              "command": "/artifacts/dec265 --help",
+              "source": "固定作者主程序版本/用法入口，见source_evidence",
+              "expected": "作者定义的轻量正常退出",
+              "workdir": "/artifacts",
+              "requires": [],
+              "required_output": [
+                "usage: dec265"
+              ],
+              "diagnostic_paths": []
+            }
+          }
+        ],
+        "generated_documents": []
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-planning-tool-p4-sources-v1/libde265/source.tar",
+      "source_evidence": [
+        {
+          "path": "CMakeLists.txt",
+          "quote": "option(ENABLE_DECODER \"Enable Decoder\" ON)",
+          "line": 67,
+          "sha256": "8af3b4f1ad42e3def00e40a90ad4a4271c663c3f87f989381734822b9ca43873"
+        },
+        {
+          "path": "libde265/CMakeLists.txt",
+          "quote": "add_library(de265",
+          "line": 124,
+          "sha256": "8e89a27da70bdf6d50e57b8f0737661e0a81791ec5ddcf85c0c4dcfa8295f221"
+        },
+        {
+          "path": "dec265/dec265.cc",
+          "quote": "exit(show_help ? 0 : 5);",
+          "line": 631,
+          "sha256": "80b1eeaaf26efee1c58d35915639a8911705e046c3100068e0a25763ff569d0f"
+        }
+      ],
+      "reference_actions": [
+        {
+          "role": "configure",
+          "command": "cmake -S . -B build",
+          "workdir": "/workspace/repo"
+        },
+        {
+          "role": "build",
+          "command": "cmake --build build --parallel 4",
+          "workdir": "/workspace/repo"
+        }
+      ],
+      "paper_sources": [
+        {
+          "name": "Libde265",
+          "topic": "Video Processing",
+          "guide": null,
+          "source": "cxxcrafter",
+          "source_url": "https://arxiv.org/html/2505.21069v1#S2.T1",
+          "row": 7,
+          "source_html_sha256": "f95fcfdf56445caadcf7970e98b9ddd4ac9e13795294ceeb06096199ec1cc516"
+        }
+      ],
+      "historical_exposure_pointers": [
+        "benchmarks/fixtures/cpp-jev-natural-failure-source-pool-v1.json"
+      ],
+      "exposure": "近期Harness评价之外的新项目；旧目录接触如实登记；非最终holdout"
+    },
+    {
+      "name": "libsndfile",
+      "family": "https://github.com/libsndfile/libsndfile",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "tool-p4-libsndfile",
+        "repository_url": "https://github.com/libsndfile/libsndfile",
+        "commit_sha": "72f6af15e8f85157bd622ed45b979025828b7001",
+        "image_id": "sha256:8123220a201ac4d00cda0dc985b9db7227cd909bb93ca6c25fd82cafce5cd887",
+        "source_archive_sha256": "5425ff059ba81640a0d081ee352fc2b4907729d963bad4bb8bb1114096cfc271",
+        "build_system": "cmake",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "44fe288787365542f8494e18f5ec0640c60b6e59a78eace4a6d6ac98859d1202",
+        "components": [
+          {
+            "name": "sndfile",
+            "artifact_names": [
+              "libsndfile.a",
+              "libsndfile.so"
+            ],
+            "kinds": [
+              "static_library",
+              "shared_library"
+            ],
+            "evidence": "固定作者普通主构建目标，见source_evidence；辅助示例及完整测试不列为主要交付"
+          },
+          {
+            "name": "sndfile-info",
+            "artifact_names": [
+              "sndfile-info"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "固定作者普通主构建目标，见source_evidence；辅助示例及完整测试不列为主要交付"
+          },
+          {
+            "name": "sndfile-play",
+            "artifact_names": [
+              "sndfile-play"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "固定作者普通主构建目标，见source_evidence；辅助示例及完整测试不列为主要交付"
+          },
+          {
+            "name": "sndfile-convert",
+            "artifact_names": [
+              "sndfile-convert"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "固定作者普通主构建目标，见source_evidence；辅助示例及完整测试不列为主要交付"
+          },
+          {
+            "name": "sndfile-cmp",
+            "artifact_names": [
+              "sndfile-cmp"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "固定作者普通主构建目标，见source_evidence；辅助示例及完整测试不列为主要交付"
+          },
+          {
+            "name": "sndfile-metadata-set",
+            "artifact_names": [
+              "sndfile-metadata-set"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "固定作者普通主构建目标，见source_evidence；辅助示例及完整测试不列为主要交付"
+          },
+          {
+            "name": "sndfile-metadata-get",
+            "artifact_names": [
+              "sndfile-metadata-get"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "固定作者普通主构建目标，见source_evidence；辅助示例及完整测试不列为主要交付"
+          },
+          {
+            "name": "sndfile-interleave",
+            "artifact_names": [
+              "sndfile-interleave"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "固定作者普通主构建目标，见source_evidence；辅助示例及完整测试不列为主要交付"
+          },
+          {
+            "name": "sndfile-deinterleave",
+            "artifact_names": [
+              "sndfile-deinterleave"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "固定作者普通主构建目标，见source_evidence；辅助示例及完整测试不列为主要交付"
+          },
+          {
+            "name": "sndfile-concat",
+            "artifact_names": [
+              "sndfile-concat"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "固定作者普通主构建目标，见source_evidence；辅助示例及完整测试不列为主要交付"
+          },
+          {
+            "name": "sndfile-salvage",
+            "artifact_names": [
+              "sndfile-salvage"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "固定作者普通主构建目标，见source_evidence；辅助示例及完整测试不列为主要交付"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": "普通主构建及作者轻量运行；不要求完整作者测试",
+        "executable_smokes": [
+          {
+            "artifact_name": "sndfile-info",
+            "accepted_exit_codes": [
+              1
+            ],
+            "step": {
+              "step_id": "smoke-sndfile-info",
+              "role": "smoke",
+              "command": "/artifacts/sndfile-info",
+              "source": "固定作者主程序版本/用法入口，见source_evidence",
+              "expected": "作者定义的轻量正常退出",
+              "workdir": "/artifacts",
+              "requires": [],
+              "required_output": [
+                "Usage"
+              ],
+              "diagnostic_paths": []
+            }
+          },
+          {
+            "artifact_name": "sndfile-play",
+            "accepted_exit_codes": [
+              1
+            ],
+            "step": {
+              "step_id": "smoke-sndfile-play",
+              "role": "smoke",
+              "command": "/artifacts/sndfile-play",
+              "source": "固定作者主程序版本/用法入口，见source_evidence",
+              "expected": "作者定义的轻量正常退出",
+              "workdir": "/artifacts",
+              "requires": [],
+              "required_output": [
+                "Usage"
+              ],
+              "diagnostic_paths": []
+            }
+          },
+          {
+            "artifact_name": "sndfile-convert",
+            "accepted_exit_codes": [
+              1
+            ],
+            "step": {
+              "step_id": "smoke-sndfile-convert",
+              "role": "smoke",
+              "command": "/artifacts/sndfile-convert",
+              "source": "固定作者主程序版本/用法入口，见source_evidence",
+              "expected": "作者定义的轻量正常退出",
+              "workdir": "/artifacts",
+              "requires": [],
+              "required_output": [
+                "Usage"
+              ],
+              "diagnostic_paths": []
+            }
+          },
+          {
+            "artifact_name": "sndfile-cmp",
+            "accepted_exit_codes": [
+              1
+            ],
+            "step": {
+              "step_id": "smoke-sndfile-cmp",
+              "role": "smoke",
+              "command": "/artifacts/sndfile-cmp",
+              "source": "固定作者主程序版本/用法入口，见source_evidence",
+              "expected": "作者定义的轻量正常退出",
+              "workdir": "/artifacts",
+              "requires": [],
+              "required_output": [
+                "Usage"
+              ],
+              "diagnostic_paths": []
+            }
+          },
+          {
+            "artifact_name": "sndfile-metadata-set",
+            "accepted_exit_codes": [
+              0
+            ],
+            "step": {
+              "step_id": "smoke-sndfile-metadata-set",
+              "role": "smoke",
+              "command": "/artifacts/sndfile-metadata-set",
+              "source": "固定作者主程序版本/用法入口，见source_evidence",
+              "expected": "作者定义的轻量正常退出",
+              "workdir": "/artifacts",
+              "requires": [],
+              "required_output": [
+                "Usage"
+              ],
+              "diagnostic_paths": []
+            }
+          },
+          {
+            "artifact_name": "sndfile-metadata-get",
+            "accepted_exit_codes": [
+              0
+            ],
+            "step": {
+              "step_id": "smoke-sndfile-metadata-get",
+              "role": "smoke",
+              "command": "/artifacts/sndfile-metadata-get",
+              "source": "固定作者主程序版本/用法入口，见source_evidence",
+              "expected": "作者定义的轻量正常退出",
+              "workdir": "/artifacts",
+              "requires": [],
+              "required_output": [
+                "Usage"
+              ],
+              "diagnostic_paths": []
+            }
+          },
+          {
+            "artifact_name": "sndfile-interleave",
+            "accepted_exit_codes": [
+              1
+            ],
+            "step": {
+              "step_id": "smoke-sndfile-interleave",
+              "role": "smoke",
+              "command": "/artifacts/sndfile-interleave",
+              "source": "固定作者主程序版本/用法入口，见source_evidence",
+              "expected": "作者定义的轻量正常退出",
+              "workdir": "/artifacts",
+              "requires": [],
+              "required_output": [
+                "Usage"
+              ],
+              "diagnostic_paths": []
+            }
+          },
+          {
+            "artifact_name": "sndfile-deinterleave",
+            "accepted_exit_codes": [
+              1
+            ],
+            "step": {
+              "step_id": "smoke-sndfile-deinterleave",
+              "role": "smoke",
+              "command": "/artifacts/sndfile-deinterleave",
+              "source": "固定作者主程序版本/用法入口，见source_evidence",
+              "expected": "作者定义的轻量正常退出",
+              "workdir": "/artifacts",
+              "requires": [],
+              "required_output": [
+                "Usage"
+              ],
+              "diagnostic_paths": []
+            }
+          },
+          {
+            "artifact_name": "sndfile-concat",
+            "accepted_exit_codes": [
+              1
+            ],
+            "step": {
+              "step_id": "smoke-sndfile-concat",
+              "role": "smoke",
+              "command": "/artifacts/sndfile-concat",
+              "source": "固定作者主程序版本/用法入口，见source_evidence",
+              "expected": "作者定义的轻量正常退出",
+              "workdir": "/artifacts",
+              "requires": [],
+              "required_output": [
+                "Usage"
+              ],
+              "diagnostic_paths": []
+            }
+          },
+          {
+            "artifact_name": "sndfile-salvage",
+            "accepted_exit_codes": [
+              1
+            ],
+            "step": {
+              "step_id": "smoke-sndfile-salvage",
+              "role": "smoke",
+              "command": "/artifacts/sndfile-salvage",
+              "source": "固定作者主程序版本/用法入口，见source_evidence",
+              "expected": "作者定义的轻量正常退出",
+              "workdir": "/artifacts",
+              "requires": [],
+              "required_output": [
+                "Usage"
+              ],
+              "diagnostic_paths": []
+            }
+          }
+        ],
+        "generated_documents": []
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-planning-tool-p4-sources-v1/libsndfile/source.tar",
+      "source_evidence": [
+        {
+          "path": "CMakeLists.txt",
+          "quote": "option (BUILD_PROGRAMS \"Build programs\" ON)",
+          "line": 74,
+          "sha256": "b437038693c553caa852f63b0335184c2d1bcd68facd8bda816d23877a82e5b5"
+        },
+        {
+          "path": "CMakeLists.txt",
+          "quote": "add_library (sndfile",
+          "line": 259,
+          "sha256": "b437038693c553caa852f63b0335184c2d1bcd68facd8bda816d23877a82e5b5"
+        },
+        {
+          "path": "programs/sndfile-info.c",
+          "quote": "Usage",
+          "line": 115,
+          "sha256": "9646dfb1afbb4b648070fef577753897ba3cc0d839b26993ee39cb9cf7b8630e"
+        },
+        {
+          "path": "programs/sndfile-play.c",
+          "quote": "Usage",
+          "line": 821,
+          "sha256": "72648653d04ab7ae683e26e06e76569cdd6ffab92343f15f408e7a5d0173df77"
+        },
+        {
+          "path": "programs/sndfile-convert.c",
+          "quote": "Usage",
+          "line": 53,
+          "sha256": "c95c7b6ceda52758fca52c0e02e5e82e5ac990d7dd29366c1c4b4bb5336d5dca"
+        },
+        {
+          "path": "programs/sndfile-cmp.c",
+          "quote": "Usage",
+          "line": 132,
+          "sha256": "449b432f5d46c9024ee69d79a5f61ae751bf75b9dfeef72f7b45e9b029b69cf7"
+        },
+        {
+          "path": "programs/sndfile-metadata-set.c",
+          "quote": "Usage",
+          "line": 195,
+          "sha256": "53277e4783a3105890610840a80be345a713830811a44ab3949a1af695bf6261"
+        },
+        {
+          "path": "programs/sndfile-metadata-get.c",
+          "quote": "Usage",
+          "line": 102,
+          "sha256": "b01633d593ef7de91314fdbe3059248fb7d4aac054be64eb044ff309b1642b7a"
+        },
+        {
+          "path": "programs/sndfile-interleave.c",
+          "quote": "Usage",
+          "line": 162,
+          "sha256": "6897092eb537a3409f95988c0fd35589a1d1d976d635e749d85ed2b46c2ecb3c"
+        },
+        {
+          "path": "programs/sndfile-deinterleave.c",
+          "quote": "Usage",
+          "line": 178,
+          "sha256": "7175ed14b122f40a0ecd4b8a470b14076d91b40baca17ba25f6631be74d15faf"
+        },
+        {
+          "path": "programs/sndfile-concat.c",
+          "quote": "Usage",
+          "line": 51,
+          "sha256": "f65def7e76ebcf77c6635850a19e8b59e6bdbfba5f1ebe7cb7afa7362c3f6e4f"
+        },
+        {
+          "path": "programs/sndfile-salvage.c",
+          "quote": "Usage",
+          "line": 91,
+          "sha256": "94b5d02d3673a151d777ec734f2c2435c0dac10c96b63f2b3085d0e810d736f6"
+        }
+      ],
+      "reference_actions": [
+        {
+          "role": "configure",
+          "command": "cmake -S . -B build",
+          "workdir": "/workspace/repo"
+        },
+        {
+          "role": "build",
+          "command": "cmake --build build --parallel 4",
+          "workdir": "/workspace/repo"
+        }
+      ],
+      "paper_sources": [
+        {
+          "name": "Libsndfile",
+          "topic": "Audio Systems",
+          "guide": null,
+          "source": "cxxcrafter",
+          "source_url": "https://arxiv.org/html/2505.21069v1#S2.T1",
+          "row": 8,
+          "source_html_sha256": "f95fcfdf56445caadcf7970e98b9ddd4ac9e13795294ceeb06096199ec1cc516"
+        }
+      ],
+      "historical_exposure_pointers": [
+        "benchmarks/fixtures/cpp-typed-action-benchmark-source-pool-v1.json",
+        "benchmarks/fixtures/stage-c-source-pool.json",
+        "benchmarks/manifests/cpp-build-auto-provenance-probe-v1.json",
+        "benchmarks/manifests/cpp-build-plan-agent-paired-comparison-v1.json",
+        "benchmarks/manifests/cpp-build-reference-expansion-v1.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v1-authorized.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v1-availability-candidate.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v1-availability-execution.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v1-candidate.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v1-formal-execution.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v2-authorized.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v2-availability-execution.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v2-candidate.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v2-formal-execution.json",
+        "benchmarks/manifests/cpp-stage-c-paired-calibration-authorized.json",
+        "benchmarks/manifests/cpp-stage-c-paired-calibration-v2-remediation-authorized.json",
+        "benchmarks/manifests/cpp-stage-c-paired-calibration-v3-pair-source-authorized.json",
+        "benchmarks/manifests/cpp-stage-c-paired-calibration-v4-build-entrypoint-authorized.json",
+        "benchmarks/manifests/cpp-stage-c-paired-calibration-v5-session-identity-authorized.json",
+        "benchmarks/manifests/cpp-stage-c-paired-calibration-v6-measurement-remediation-candidate.json",
+        "benchmarks/manifests/cpp-stage-c-v6-offline-reevaluation-authorized.json"
+      ],
+      "exposure": "近期Harness评价之外的新项目；旧目录接触如实登记；非最终holdout"
+    },
+    {
+      "name": "mbedtls",
+      "family": "https://github.com/mbed-tls/mbedtls",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "tool-p4-mbedtls",
+        "repository_url": "https://github.com/Mbed-TLS/mbedtls",
+        "commit_sha": "5e146adef63b326b04282252639bebc2730939c6",
+        "image_id": "sha256:8123220a201ac4d00cda0dc985b9db7227cd909bb93ca6c25fd82cafce5cd887",
+        "source_archive_sha256": "276a19d1c367abab8eaec117a042b472ab9c2378a9fd191acb7105941c66ab42",
+        "build_system": "cmake",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "0c919bee1f84f6d266aa1167055513e51278cdf0f2991f1271d1be59402a0cba",
+        "components": [
+          {
+            "name": "mbedcrypto",
+            "artifact_names": [
+              "libmbedcrypto.a",
+              "libmbedcrypto.so"
+            ],
+            "kinds": [
+              "static_library",
+              "shared_library"
+            ],
+            "evidence": "固定作者普通主构建目标，见source_evidence；辅助示例及完整测试不列为主要交付"
+          },
+          {
+            "name": "mbedx509",
+            "artifact_names": [
+              "libmbedx509.a",
+              "libmbedx509.so"
+            ],
+            "kinds": [
+              "static_library",
+              "shared_library"
+            ],
+            "evidence": "固定作者普通主构建目标，见source_evidence；辅助示例及完整测试不列为主要交付"
+          },
+          {
+            "name": "mbedtls",
+            "artifact_names": [
+              "libmbedtls.a",
+              "libmbedtls.so"
+            ],
+            "kinds": [
+              "static_library",
+              "shared_library"
+            ],
+            "evidence": "固定作者普通主构建目标，见source_evidence；辅助示例及完整测试不列为主要交付"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": "普通主构建及作者轻量运行；不要求完整作者测试",
+        "executable_smokes": [],
+        "generated_documents": []
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-planning-tool-p4-sources-v1/mbedtls/source.tar",
+      "source_evidence": [
+        {
+          "path": "library/CMakeLists.txt",
+          "quote": "add_library(${mbedcrypto_static_target} STATIC ${src_crypto})",
+          "line": 193,
+          "sha256": "9b3ca2aa97741aa5a12a3b04648b26ffe96966f17388b8346a9bc324e99936d8"
+        },
+        {
+          "path": "library/CMakeLists.txt",
+          "quote": "add_library(${mbedx509_static_target} STATIC ${src_x509})",
+          "line": 197,
+          "sha256": "9b3ca2aa97741aa5a12a3b04648b26ffe96966f17388b8346a9bc324e99936d8"
+        },
+        {
+          "path": "library/CMakeLists.txt",
+          "quote": "add_library(${mbedtls_static_target} STATIC ${src_tls})",
+          "line": 201,
+          "sha256": "9b3ca2aa97741aa5a12a3b04648b26ffe96966f17388b8346a9bc324e99936d8"
+        }
+      ],
+      "reference_actions": [
+        {
+          "role": "configure",
+          "command": "cmake -S . -B build",
+          "workdir": "/workspace/repo"
+        },
+        {
+          "role": "build",
+          "command": "cmake --build build --parallel 4",
+          "workdir": "/workspace/repo"
+        }
+      ],
+      "paper_sources": [
+        {
+          "name": "mbedtls",
+          "topic": "Crypto",
+          "guide": "in_repo",
+          "source": "compileagent",
+          "source_url": "https://arxiv.org/html/2505.04254v1#A3.T4",
+          "row": 12,
+          "source_html_sha256": "f61b0a20cd65fa2191ffd722ac922d59b6673b485c6f460c209e1e4bcffa56a0"
+        }
+      ],
+      "historical_exposure_pointers": [],
+      "exposure": "近期Harness评价之外的新项目；旧目录接触如实登记；非最终holdout"
+    },
+    {
+      "name": "lz4",
+      "family": "https://github.com/lz4/lz4",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "tool-p4-lz4",
+        "repository_url": "https://github.com/lz4/lz4",
+        "commit_sha": "ebb370ca83af193212df4dcbadcc5d87bc0de2f0",
+        "image_id": "sha256:8123220a201ac4d00cda0dc985b9db7227cd909bb93ca6c25fd82cafce5cd887",
+        "source_archive_sha256": "7030a28a3f2e034156654a9b23b2c8887dbd38caf5cedf358b6f1dbe50ffb0c4",
+        "build_system": "make",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "58931026692a0082ac321e408c3845c220a9a31501475beeb70484ee0b9edf59",
+        "components": [
+          {
+            "name": "lz4",
+            "artifact_names": [
+              "liblz4.a",
+              "liblz4.so"
+            ],
+            "kinds": [
+              "static_library",
+              "shared_library"
+            ],
+            "evidence": "固定作者普通主构建目标，见source_evidence；辅助示例及完整测试不列为主要交付"
+          },
+          {
+            "name": "lz4-cli",
+            "artifact_names": [
+              "lz4"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "固定作者普通主构建目标，见source_evidence；辅助示例及完整测试不列为主要交付"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": "普通主构建及作者轻量运行；不要求完整作者测试",
+        "executable_smokes": [
+          {
+            "artifact_name": "lz4",
+            "accepted_exit_codes": [
+              0
+            ],
+            "step": {
+              "step_id": "smoke-lz4",
+              "role": "smoke",
+              "command": "/artifacts/lz4 --version",
+              "source": "固定作者主程序版本/用法入口，见source_evidence",
+              "expected": "作者定义的轻量正常退出",
+              "workdir": "/artifacts",
+              "requires": [],
+              "required_output": [
+                "by"
+              ],
+              "diagnostic_paths": []
+            }
+          }
+        ],
+        "generated_documents": []
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-planning-tool-p4-sources-v1/lz4/source.tar",
+      "source_evidence": [
+        {
+          "path": "Makefile",
+          "quote": "default: lib-release lz4-release",
+          "line": 43,
+          "sha256": "db7644c69a321c101dc629f4cef78fe8bf7bc3ea3a0cd25509be9de77b6ab8bb"
+        },
+        {
+          "path": "programs/lz4cli.c",
+          "quote": "if (!strcmp(argument,  \"--version\"))",
+          "line": 483,
+          "sha256": "ac054905a90a0b12e7166d1299a5ab36df133345ed3a979c418914c9afb71f56"
+        }
+      ],
+      "reference_actions": [
+        {
+          "role": "build",
+          "command": "make -j4",
+          "workdir": "/workspace/repo"
+        }
+      ],
+      "paper_sources": [
+        {
+          "name": "lz4",
+          "topic": "Compression",
+          "guide": "in_repo",
+          "source": "compileagent",
+          "source_url": "https://arxiv.org/html/2505.04254v1#A3.T4",
+          "row": 10,
+          "source_html_sha256": "f61b0a20cd65fa2191ffd722ac922d59b6673b485c6f460c209e1e4bcffa56a0"
+        }
+      ],
+      "historical_exposure_pointers": [
+        "benchmarks/fixtures/cpp-typed-action-benchmark-source-pool-v1.json",
+        "benchmarks/fixtures/stage-c-source-pool.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v1-authorized.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v1-availability-candidate.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v1-availability-execution.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v1-candidate.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v1-formal-execution.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v2-authorized.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v2-availability-execution.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v2-candidate.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v2-formal-execution.json",
+        "benchmarks/manifests/cpp-stage-c-paired-calibration-authorized.json",
+        "benchmarks/manifests/cpp-stage-c-paired-calibration-v2-remediation-authorized.json",
+        "benchmarks/manifests/cpp-stage-c-paired-calibration-v3-pair-source-authorized.json",
+        "benchmarks/manifests/cpp-stage-c-paired-calibration-v4-build-entrypoint-authorized.json",
+        "benchmarks/manifests/cpp-stage-c-paired-calibration-v5-session-identity-authorized.json",
+        "benchmarks/manifests/cpp-stage-c-paired-calibration-v6-measurement-remediation-candidate.json",
+        "benchmarks/manifests/cpp-stage-c-v6-offline-reevaluation-authorized.json"
+      ],
+      "exposure": "近期Harness评价之外的新项目；旧目录接触如实登记；非最终holdout"
+    },
+    {
+      "name": "clib",
+      "family": "https://github.com/clibs/clib",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "tool-p4-clib",
+        "repository_url": "https://github.com/clibs/clib",
+        "commit_sha": "5f85b725d78297ad2beae4ae353ac21cd89cd6d8",
+        "image_id": "sha256:8123220a201ac4d00cda0dc985b9db7227cd909bb93ca6c25fd82cafce5cd887",
+        "source_archive_sha256": "ca447edb6be2a6c2cda6477bbb8dc9196450621120ad0bb3ffc53ed359efc783",
+        "build_system": "make",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "dd6d68c2e273a111262a4076208af632456b3ae378a33802b6aa053d5fee7faf",
+        "components": [
+          {
+            "name": "clib",
+            "artifact_names": [
+              "clib"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "固定作者普通主构建目标，见source_evidence；辅助示例及完整测试不列为主要交付"
+          },
+          {
+            "name": "clib-install",
+            "artifact_names": [
+              "clib-install"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "固定作者普通主构建目标，见source_evidence；辅助示例及完整测试不列为主要交付"
+          },
+          {
+            "name": "clib-search",
+            "artifact_names": [
+              "clib-search"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "固定作者普通主构建目标，见source_evidence；辅助示例及完整测试不列为主要交付"
+          },
+          {
+            "name": "clib-init",
+            "artifact_names": [
+              "clib-init"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "固定作者普通主构建目标，见source_evidence；辅助示例及完整测试不列为主要交付"
+          },
+          {
+            "name": "clib-configure",
+            "artifact_names": [
+              "clib-configure"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "固定作者普通主构建目标，见source_evidence；辅助示例及完整测试不列为主要交付"
+          },
+          {
+            "name": "clib-build",
+            "artifact_names": [
+              "clib-build"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "固定作者普通主构建目标，见source_evidence；辅助示例及完整测试不列为主要交付"
+          },
+          {
+            "name": "clib-update",
+            "artifact_names": [
+              "clib-update"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "固定作者普通主构建目标，见source_evidence；辅助示例及完整测试不列为主要交付"
+          },
+          {
+            "name": "clib-upgrade",
+            "artifact_names": [
+              "clib-upgrade"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "固定作者普通主构建目标，见source_evidence；辅助示例及完整测试不列为主要交付"
+          },
+          {
+            "name": "clib-uninstall",
+            "artifact_names": [
+              "clib-uninstall"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "固定作者普通主构建目标，见source_evidence；辅助示例及完整测试不列为主要交付"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": "普通主构建及作者轻量运行；不要求完整作者测试",
+        "executable_smokes": [
+          {
+            "artifact_name": "clib",
+            "accepted_exit_codes": [
+              0
+            ],
+            "step": {
+              "step_id": "smoke-clib",
+              "role": "smoke",
+              "command": "/artifacts/clib --version",
+              "source": "固定作者主程序版本/用法入口，见source_evidence",
+              "expected": "作者定义的轻量正常退出",
+              "workdir": "/artifacts",
+              "requires": [],
+              "required_output": [
+                "2.8.7"
+              ],
+              "diagnostic_paths": []
+            }
+          },
+          {
+            "artifact_name": "clib-install",
+            "accepted_exit_codes": [
+              0
+            ],
+            "step": {
+              "step_id": "smoke-clib-install",
+              "role": "smoke",
+              "command": "/artifacts/clib-install --version",
+              "source": "固定作者主程序版本/用法入口，见source_evidence",
+              "expected": "作者定义的轻量正常退出",
+              "workdir": "/artifacts",
+              "requires": [],
+              "required_output": [
+                "2.8.7"
+              ],
+              "diagnostic_paths": []
+            }
+          },
+          {
+            "artifact_name": "clib-search",
+            "accepted_exit_codes": [
+              0
+            ],
+            "step": {
+              "step_id": "smoke-clib-search",
+              "role": "smoke",
+              "command": "/artifacts/clib-search --version",
+              "source": "固定作者主程序版本/用法入口，见source_evidence",
+              "expected": "作者定义的轻量正常退出",
+              "workdir": "/artifacts",
+              "requires": [],
+              "required_output": [
+                "2.8.7"
+              ],
+              "diagnostic_paths": []
+            }
+          },
+          {
+            "artifact_name": "clib-init",
+            "accepted_exit_codes": [
+              0
+            ],
+            "step": {
+              "step_id": "smoke-clib-init",
+              "role": "smoke",
+              "command": "/artifacts/clib-init --version",
+              "source": "固定作者主程序版本/用法入口，见source_evidence",
+              "expected": "作者定义的轻量正常退出",
+              "workdir": "/artifacts",
+              "requires": [],
+              "required_output": [
+                "2.8.7"
+              ],
+              "diagnostic_paths": []
+            }
+          },
+          {
+            "artifact_name": "clib-configure",
+            "accepted_exit_codes": [
+              0
+            ],
+            "step": {
+              "step_id": "smoke-clib-configure",
+              "role": "smoke",
+              "command": "/artifacts/clib-configure --version",
+              "source": "固定作者主程序版本/用法入口，见source_evidence",
+              "expected": "作者定义的轻量正常退出",
+              "workdir": "/artifacts",
+              "requires": [],
+              "required_output": [
+                "2.8.7"
+              ],
+              "diagnostic_paths": []
+            }
+          },
+          {
+            "artifact_name": "clib-build",
+            "accepted_exit_codes": [
+              0
+            ],
+            "step": {
+              "step_id": "smoke-clib-build",
+              "role": "smoke",
+              "command": "/artifacts/clib-build --version",
+              "source": "固定作者主程序版本/用法入口，见source_evidence",
+              "expected": "作者定义的轻量正常退出",
+              "workdir": "/artifacts",
+              "requires": [],
+              "required_output": [
+                "2.8.7"
+              ],
+              "diagnostic_paths": []
+            }
+          },
+          {
+            "artifact_name": "clib-update",
+            "accepted_exit_codes": [
+              0
+            ],
+            "step": {
+              "step_id": "smoke-clib-update",
+              "role": "smoke",
+              "command": "/artifacts/clib-update --version",
+              "source": "固定作者主程序版本/用法入口，见source_evidence",
+              "expected": "作者定义的轻量正常退出",
+              "workdir": "/artifacts",
+              "requires": [],
+              "required_output": [
+                "2.8.7"
+              ],
+              "diagnostic_paths": []
+            }
+          },
+          {
+            "artifact_name": "clib-upgrade",
+            "accepted_exit_codes": [
+              0
+            ],
+            "step": {
+              "step_id": "smoke-clib-upgrade",
+              "role": "smoke",
+              "command": "/artifacts/clib-upgrade --version",
+              "source": "固定作者主程序版本/用法入口，见source_evidence",
+              "expected": "作者定义的轻量正常退出",
+              "workdir": "/artifacts",
+              "requires": [],
+              "required_output": [
+                "2.8.7"
+              ],
+              "diagnostic_paths": []
+            }
+          },
+          {
+            "artifact_name": "clib-uninstall",
+            "accepted_exit_codes": [
+              0
+            ],
+            "step": {
+              "step_id": "smoke-clib-uninstall",
+              "role": "smoke",
+              "command": "/artifacts/clib-uninstall --version",
+              "source": "固定作者主程序版本/用法入口，见source_evidence",
+              "expected": "作者定义的轻量正常退出",
+              "workdir": "/artifacts",
+              "requires": [],
+              "required_output": [
+                "2.8.7"
+              ],
+              "diagnostic_paths": []
+            }
+          }
+        ],
+        "generated_documents": []
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-planning-tool-p4-sources-v1/clib/source.tar",
+      "source_evidence": [
+        {
+          "path": "Makefile",
+          "quote": "BINS = clib clib-install clib-search clib-init clib-configure clib-build clib-update clib-upgrade clib-uninstall",
+          "line": 4,
+          "sha256": "0732ca43f0113e6cf4cde9eb5be40eab9da978dfc0c9aec853a06d6d24b8e78c"
+        },
+        {
+          "path": "src/clib.c",
+          "quote": "printf(\"%s\\n\", CLIB_VERSION);",
+          "line": 190,
+          "sha256": "5de3a84e70f1fedb7ad0295f3381ead9a5db04afe96d98704fce4dc4453d58a8"
+        },
+        {
+          "path": "deps/commander/commander.c",
+          "quote": "command_version",
+          "line": 29,
+          "sha256": "f9f7e19fcfe3d067e68f45e86760c86beff5edfaf6921763c53d44a8e074f2aa"
+        },
+        {
+          "path": "src/clib.c",
+          "quote": "notify_new_release();",
+          "line": 179,
+          "sha256": "5de3a84e70f1fedb7ad0295f3381ead9a5db04afe96d98704fce4dc4453d58a8"
+        }
+      ],
+      "reference_actions": [
+        {
+          "role": "dependency",
+          "command": "apt-get update && apt-get install -y libcurl4-openssl-dev",
+          "workdir": "/workspace/repo"
+        },
+        {
+          "role": "build",
+          "command": "make -j4",
+          "workdir": "/workspace/repo"
+        }
+      ],
+      "paper_sources": [
+        {
+          "name": "clib",
+          "topic": "Linux",
+          "guide": "in_repo",
+          "source": "compileagent",
+          "source_url": "https://arxiv.org/html/2505.04254v1#A3.T4",
+          "row": 5,
+          "source_html_sha256": "f61b0a20cd65fa2191ffd722ac922d59b6673b485c6f460c209e1e4bcffa56a0"
+        }
+      ],
+      "historical_exposure_pointers": [],
+      "exposure": "近期Harness评价之外的新项目；旧目录接触如实登记；非最终holdout"
+    },
+    {
+      "name": "streem",
+      "family": "https://github.com/matz/streem",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "tool-p4-streem",
+        "repository_url": "https://github.com/matz/streem",
+        "commit_sha": "d022e833335e490bd1dccf0e3bfff71eb50a40bd",
+        "image_id": "sha256:8123220a201ac4d00cda0dc985b9db7227cd909bb93ca6c25fd82cafce5cd887",
+        "source_archive_sha256": "bd5e29495985237c5eafeba99577ca1d00d6a42080c0d96a5df575c7d40120ff",
+        "build_system": "make",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "0a1bcc213d132f05a23f747b4f36a50217e050a2ed3405375d17739533334255",
+        "components": [
+          {
+            "name": "streem",
+            "artifact_names": [
+              "streem"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "固定作者普通主构建目标，见source_evidence；辅助示例及完整测试不列为主要交付"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": "普通主构建及作者轻量运行；不要求完整作者测试",
+        "executable_smokes": [
+          {
+            "artifact_name": "streem",
+            "accepted_exit_codes": [
+              0
+            ],
+            "step": {
+              "step_id": "smoke-streem",
+              "role": "smoke",
+              "command": "/artifacts/streem -c -e '1'",
+              "source": "固定作者主程序版本/用法入口，见source_evidence",
+              "expected": "作者定义的轻量正常退出",
+              "workdir": "/artifacts",
+              "requires": [],
+              "required_output": [
+                "Syntax OK"
+              ],
+              "diagnostic_paths": []
+            }
+          }
+        ],
+        "generated_documents": []
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-planning-tool-p4-sources-v1/streem/source.tar",
+      "source_evidence": [
+        {
+          "path": "Makefile",
+          "quote": "TARGET = bin/streem",
+          "line": 1,
+          "sha256": "27520a5df9179a84da677ee0cb53a8567321c57596a3a294af394ec03acba4dd"
+        },
+        {
+          "path": "src/main.c",
+          "quote": "puts(\"Syntax OK\");",
+          "line": 319,
+          "sha256": "3a84d69a8aa9ccad34d174c6affc314c33a4febfa9010cee2c38a9e36857e4d1"
+        }
+      ],
+      "reference_actions": [
+        {
+          "role": "dependency",
+          "command": "apt-get update && apt-get install -y bison flex",
+          "workdir": "/workspace/repo"
+        },
+        {
+          "role": "build",
+          "command": "make -j4",
+          "workdir": "/workspace/repo"
+        }
+      ],
+      "paper_sources": [
+        {
+          "name": "streem",
+          "topic": "Networking",
+          "guide": "in_repo",
+          "source": "compileagent",
+          "source_url": "https://arxiv.org/html/2505.04254v1#A3.T4",
+          "row": 23,
+          "source_html_sha256": "f61b0a20cd65fa2191ffd722ac922d59b6673b485c6f460c209e1e4bcffa56a0"
+        }
+      ],
+      "historical_exposure_pointers": [],
+      "exposure": "近期Harness评价之外的新项目；旧目录接触如实登记；非最终holdout"
+    },
+    {
+      "name": "libtomcrypt",
+      "family": "https://github.com/libtom/libtomcrypt",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "tool-p4-libtomcrypt",
+        "repository_url": "https://github.com/libtom/libtomcrypt",
+        "commit_sha": "7e7eb695d581782f04b24dc444cbfde86af59853",
+        "image_id": "sha256:8123220a201ac4d00cda0dc985b9db7227cd909bb93ca6c25fd82cafce5cd887",
+        "source_archive_sha256": "fac634907bc9c0e5feb5c993399338cc5934366b24ac1ba0b65787755426f110",
+        "build_system": "make",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "45c31002cefb8e13cbdbb496188e31b3b310b75250dc27bd4854dd36d422205b",
+        "components": [
+          {
+            "name": "tomcrypt",
+            "artifact_names": [
+              "libtomcrypt.a",
+              "libtomcrypt.so"
+            ],
+            "kinds": [
+              "static_library",
+              "shared_library"
+            ],
+            "evidence": "固定作者普通主构建目标，见source_evidence；辅助示例及完整测试不列为主要交付"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": "普通主构建及作者轻量运行；不要求完整作者测试",
+        "executable_smokes": [],
+        "generated_documents": []
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-planning-tool-p4-sources-v1/libtomcrypt/source.tar",
+      "source_evidence": [
+        {
+          "path": "makefile",
+          "quote": "LIBNAME=libtomcrypt.a",
+          "line": 27,
+          "sha256": "d43afbf82dc9d89d06af148f37af3450994c908d45af67648fbcc426f71fa348"
+        },
+        {
+          "path": "makefile_include.mk",
+          "quote": "library:",
+          "line": 202,
+          "sha256": "42d7de2d5b1fc29aedd22066d36368233eefff10c5fa20f4f8ef22934f566bc5"
+        }
+      ],
+      "reference_actions": [
+        {
+          "role": "build",
+          "command": "make -j4",
+          "workdir": "/workspace/repo"
+        }
+      ],
+      "paper_sources": [
+        {
+          "name": "libtomcrypt",
+          "topic": "Crypto",
+          "guide": "in_repo",
+          "source": "compileagent",
+          "source_url": "https://arxiv.org/html/2505.04254v1#A3.T4",
+          "row": 16,
+          "source_html_sha256": "f61b0a20cd65fa2191ffd722ac922d59b6673b485c6f460c209e1e4bcffa56a0"
+        }
+      ],
+      "historical_exposure_pointers": [
+        "benchmarks/fixtures/cpp-typed-action-benchmark-source-pool-v1.json",
+        "benchmarks/manifests/cpp-build-full-strategy-cleanup-continuation-v1.json",
+        "benchmarks/manifests/cpp-build-full-strategy-comparison-v1.json",
+        "benchmarks/manifests/cpp-build-full-strategy-runtime-v1.json",
+        "benchmarks/manifests/cpp-build-full-strategy-runtime-v2.json",
+        "benchmarks/manifests/cpp-build-reference-expansion-v1.json",
+        "benchmarks/manifests/cpp-build-unified-plan-comparison-v1.json"
+      ],
+      "exposure": "近期Harness评价之外的新项目；旧目录接触如实登记；非最终holdout"
+    },
+    {
+      "name": "libusb",
+      "family": "https://github.com/libusb/libusb",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "tool-p4-libusb",
+        "repository_url": "https://github.com/libusb/libusb",
+        "commit_sha": "d52e355daa09f17ce64819122cb067b8a2ee0d4b",
+        "image_id": "sha256:8123220a201ac4d00cda0dc985b9db7227cd909bb93ca6c25fd82cafce5cd887",
+        "source_archive_sha256": "0e16a69c06a27188da88cabc95fc2313fc2479718be1648d97518352f9b92650",
+        "build_system": "autotools",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "e76510977b138ba5978f5eaa9be9b57ec87a062bbffb3a588924762ed0f2f7f1",
+        "components": [
+          {
+            "name": "usb-1.0",
+            "artifact_names": [
+              "libusb-1.0.a",
+              "libusb-1.0.so"
+            ],
+            "kinds": [
+              "static_library",
+              "shared_library"
+            ],
+            "evidence": "固定作者普通主构建目标，见source_evidence；辅助示例及完整测试不列为主要交付"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": "普通主构建及作者轻量运行；不要求完整作者测试",
+        "executable_smokes": [],
+        "generated_documents": []
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-planning-tool-p4-sources-v1/libusb/source.tar",
+      "source_evidence": [
+        {
+          "path": "libusb/Makefile.am",
+          "quote": "lib_LTLIBRARIES = libusb-1.0.la",
+          "line": 6,
+          "sha256": "6d9535dec759cf1102d26b36e596fed3cc5363a587d2d18749005f7bc305b0cd"
+        },
+        {
+          "path": "README.git",
+          "quote": "./bootstrap.sh",
+          "line": 6,
+          "sha256": "e26ceb83703b2776e2f8bdd5ffb37f27a42cc1ac64c1e885e28574815c7ecae9"
+        }
+      ],
+      "reference_actions": [
+        {
+          "role": "dependency",
+          "command": "apt-get update && apt-get install -y autoconf automake libtool libudev-dev",
+          "workdir": "/workspace/repo"
+        },
+        {
+          "role": "dependency",
+          "command": "./bootstrap.sh",
+          "workdir": "/workspace/repo"
+        },
+        {
+          "role": "configure",
+          "command": "./configure",
+          "workdir": "/workspace/repo"
+        },
+        {
+          "role": "build",
+          "command": "make -j4",
+          "workdir": "/workspace/repo"
+        }
+      ],
+      "paper_sources": [
+        {
+          "name": "libusb",
+          "topic": "Embedded",
+          "guide": "outside_repo",
+          "source": "compileagent",
+          "source_url": "https://arxiv.org/html/2505.04254v1#A3.T4",
+          "row": 38,
+          "source_html_sha256": "f61b0a20cd65fa2191ffd722ac922d59b6673b485c6f460c209e1e4bcffa56a0"
+        }
+      ],
+      "historical_exposure_pointers": [
+        "benchmarks/manifests/cpp-build-plan-cross-system-v1.json",
+        "benchmarks/manifests/cpp-build-plan-cross-system-v2.json",
+        "benchmarks/manifests/cpp-formal-timeout-calibration.json",
+        "benchmarks/manifests/cpp-formal-timeout-canary-amendment.json",
+        "benchmarks/manifests/cpp-formal-v1-collection.json",
+        "benchmarks/manifests/cpp-formal-v1.json",
+        "benchmarks/manifests/cpp-formal-v2-authorized-collection.json",
+        "benchmarks/manifests/cpp-formal-v2-collection.json",
+        "benchmarks/manifests/cpp-formal-v3-authorized-collection.json",
+        "benchmarks/manifests/cpp-formal-v3-collection.json",
+        "benchmarks/manifests/cpp-formal-v4-authorized-initial-block.json",
+        "benchmarks/manifests/cpp-formal-v4-canary-amendment.json",
+        "benchmarks/manifests/cpp-formal-v4-collection.json",
+        "benchmarks/manifests/cpp-formal-v4-runtime-candidate.json",
+        "benchmarks/manifests/cpp-formal-v4-ubuntu-candidate.json"
+      ],
+      "exposure": "近期Harness评价之外的新项目；旧目录接触如实登记；非最终holdout"
+    },
+    {
+      "name": "libffi",
+      "family": "https://github.com/libffi/libffi",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "tool-p4-libffi",
+        "repository_url": "https://github.com/libffi/libffi",
+        "commit_sha": "3d0ce1e6fcf19f853894862abcbac0ae78a7be60",
+        "image_id": "sha256:8123220a201ac4d00cda0dc985b9db7227cd909bb93ca6c25fd82cafce5cd887",
+        "source_archive_sha256": "d5dd45924e8cf71d72aac04e377d7f8bc5b4d6f76d53c75522742e707e6098cd",
+        "build_system": "autotools",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "d8cfd138a46c6f96a410d4f989fea1f670a3bd12999df69f6abca4476a3984ac",
+        "components": [
+          {
+            "name": "ffi",
+            "artifact_names": [
+              "libffi.a",
+              "libffi.so"
+            ],
+            "kinds": [
+              "static_library",
+              "shared_library"
+            ],
+            "evidence": "固定作者普通主构建目标，见source_evidence；辅助示例及完整测试不列为主要交付"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": "普通主构建及作者轻量运行；不要求完整作者测试",
+        "executable_smokes": [],
+        "generated_documents": []
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-planning-tool-p4-sources-v1/libffi/source.tar",
+      "source_evidence": [
+        {
+          "path": "Makefile.am",
+          "quote": "toolexeclib_LTLIBRARIES = libffi.la",
+          "line": 38,
+          "sha256": "7ff2842499a927c7e1c3a86a1195909fda1cb4fc8564e38e2254e5fe0c89d46c"
+        },
+        {
+          "path": "README.md",
+          "quote": "autogen.sh",
+          "line": 138,
+          "sha256": "fc6d34e3cb17ffe1d097f78897168c42648942013a8c14c48453d327f85c5983"
+        }
+      ],
+      "reference_actions": [
+        {
+          "role": "dependency",
+          "command": "apt-get update && apt-get install -y autoconf automake libtool texinfo",
+          "workdir": "/workspace/repo"
+        },
+        {
+          "role": "dependency",
+          "command": "./autogen.sh",
+          "workdir": "/workspace/repo"
+        },
+        {
+          "role": "configure",
+          "command": "./configure",
+          "workdir": "/workspace/repo"
+        },
+        {
+          "role": "build",
+          "command": "make -j4",
+          "workdir": "/workspace/repo"
+        }
+      ],
+      "paper_sources": [
+        {
+          "name": "libffi",
+          "topic": "Embedded",
+          "guide": "in_repo",
+          "source": "compileagent",
+          "source_url": "https://arxiv.org/html/2505.04254v1#A3.T4",
+          "row": 43,
+          "source_html_sha256": "f61b0a20cd65fa2191ffd722ac922d59b6673b485c6f460c209e1e4bcffa56a0"
+        }
+      ],
+      "historical_exposure_pointers": [
+        "benchmarks/fixtures/cpp-typed-action-benchmark-source-pool-v1.json",
+        "benchmarks/manifests/cpp-build-reference-expansion-v1.json"
+      ],
+      "exposure": "近期Harness评价之外的新项目；旧目录接触如实登记；非最终holdout"
+    },
+    {
+      "name": "wolfssl",
+      "family": "https://github.com/wolfssl/wolfssl",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "tool-p4-wolfssl",
+        "repository_url": "https://github.com/wolfSSL/wolfssl",
+        "commit_sha": "00e42151ca061463ba6a95adb2290f678cbca472",
+        "image_id": "sha256:8123220a201ac4d00cda0dc985b9db7227cd909bb93ca6c25fd82cafce5cd887",
+        "source_archive_sha256": "b17da43df170452e6d7ba84cd2d16c86e7c328e79eabe84b0f6404c4488ed995",
+        "build_system": "autotools",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "77f9158bcc56f1401744584ccd420548fe337ed94daa426634537f198278e170",
+        "components": [
+          {
+            "name": "wolfssl",
+            "artifact_names": [
+              "libwolfssl.a",
+              "libwolfssl.so"
+            ],
+            "kinds": [
+              "static_library",
+              "shared_library"
+            ],
+            "evidence": "固定作者普通主构建目标，见source_evidence；辅助示例及完整测试不列为主要交付"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": "普通主构建及作者轻量运行；不要求完整作者测试",
+        "executable_smokes": [],
+        "generated_documents": []
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-planning-tool-p4-sources-v1/wolfssl/source.tar",
+      "source_evidence": [
+        {
+          "path": "src/include.am",
+          "quote": "lib_LTLIBRARIES+= src/libwolfssl@LIBSUFFIX@.la",
+          "line": 35,
+          "sha256": "b6abef84b2339530e7508b7689089d0f2b1c64167602cc6517406526124ea609"
+        },
+        {
+          "path": "autogen.sh",
+          "quote": "autoreconf",
+          "line": 53,
+          "sha256": "9ad466916ac72b7cdc1141d085dbf5bcea9379714b343b12291838e270775d75"
+        }
+      ],
+      "reference_actions": [
+        {
+          "role": "dependency",
+          "command": "apt-get update && apt-get install -y autoconf automake libtool",
+          "workdir": "/workspace/repo"
+        },
+        {
+          "role": "dependency",
+          "command": "./autogen.sh",
+          "workdir": "/workspace/repo"
+        },
+        {
+          "role": "configure",
+          "command": "./configure",
+          "workdir": "/workspace/repo"
+        },
+        {
+          "role": "build",
+          "command": "make -j4",
+          "workdir": "/workspace/repo"
+        }
+      ],
+      "paper_sources": [
+        {
+          "name": "wolfssl",
+          "topic": "Crypto",
+          "guide": "outside_repo",
+          "source": "compileagent",
+          "source_url": "https://arxiv.org/html/2505.04254v1#A3.T4",
+          "row": 14,
+          "source_html_sha256": "f61b0a20cd65fa2191ffd722ac922d59b6673b485c6f460c209e1e4bcffa56a0"
+        }
+      ],
+      "historical_exposure_pointers": [
+        "benchmarks/manifests/cpp-jev-formal-comparison-v1.json",
+        "benchmarks/manifests/cpp-jev-formal-comparison-v2.json",
+        "benchmarks/manifests/cpp-jev-formal-comparison-v3.json",
+        "benchmarks/manifests/cpp-jev-formal-comparison-v4.json",
+        "benchmarks/manifests/cpp-jev-formal-comparison-v5.json",
+        "benchmarks/manifests/cpp-jev-formal-comparison-v6.json"
+      ],
+      "exposure": "近期Harness评价之外的新项目；旧目录接触如实登记；非最终holdout"
+    },
+    {
+      "name": "cava",
+      "family": "https://github.com/karlstav/cava",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "tool-p4-cava",
+        "repository_url": "https://github.com/karlstav/cava",
+        "commit_sha": "48131cc1fd20f51a211c691624cfdee7971036a0",
+        "image_id": "sha256:8123220a201ac4d00cda0dc985b9db7227cd909bb93ca6c25fd82cafce5cd887",
+        "source_archive_sha256": "c856649be288c5b73066b2b8278b261ba6c58ebbe075b61a4bf4902664eb075d",
+        "build_system": "autotools",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "951fe11cf1e7836be7199f58df52eceb2af3d93da502683d2de0baebaea0bf39",
+        "components": [
+          {
+            "name": "cava",
+            "artifact_names": [
+              "cava"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "固定作者普通主构建目标，见source_evidence；辅助示例及完整测试不列为主要交付"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": "普通主构建及作者轻量运行；不要求完整作者测试",
+        "executable_smokes": [
+          {
+            "artifact_name": "cava",
+            "accepted_exit_codes": [
+              0
+            ],
+            "step": {
+              "step_id": "smoke-cava",
+              "role": "smoke",
+              "command": "/artifacts/cava -v",
+              "source": "固定作者主程序版本/用法入口，见source_evidence",
+              "expected": "作者定义的轻量正常退出",
+              "workdir": "/artifacts",
+              "requires": [],
+              "required_output": [
+                "cava"
+              ],
+              "diagnostic_paths": []
+            }
+          }
+        ],
+        "generated_documents": []
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-planning-tool-p4-sources-v1/cava/source.tar",
+      "source_evidence": [
+        {
+          "path": "Makefile.am",
+          "quote": "bin_PROGRAMS = cava",
+          "line": 5,
+          "sha256": "570151801607ca27dde2ae2729a135b200b08bfdc53ac9a155a2a07e6c09f61b"
+        },
+        {
+          "path": "README.md",
+          "quote": "./autogen.sh",
+          "line": 162,
+          "sha256": "02712dd03ae256f4034929b13b8f5cbbad690e2bbca92bde3854d830e441a1af"
+        },
+        {
+          "path": "cava.c",
+          "quote": "printf(PACKAGE \" \" VERSION \"\\n\");",
+          "line": 280,
+          "sha256": "513c6c22639196b169b98fe7bbe16da8073e59f847642cc3aaaa74993a6d5d04"
+        }
+      ],
+      "reference_actions": [
+        {
+          "role": "dependency",
+          "command": "apt-get update && apt-get install -y libfftw3-dev libasound2-dev libpulse-dev libtool automake autoconf-archive libiniparser-dev libsdl2-dev libpipewire-0.3-dev libjack-jackd2-dev pkgconf",
+          "workdir": "/workspace/repo"
+        },
+        {
+          "role": "dependency",
+          "command": "./autogen.sh",
+          "workdir": "/workspace/repo"
+        },
+        {
+          "role": "configure",
+          "command": "./configure",
+          "workdir": "/workspace/repo"
+        },
+        {
+          "role": "build",
+          "command": "make -j4",
+          "workdir": "/workspace/repo"
+        }
+      ],
+      "paper_sources": [
+        {
+          "name": "cava",
+          "topic": "Audio",
+          "guide": "in_repo",
+          "source": "compileagent",
+          "source_url": "https://arxiv.org/html/2505.04254v1#A3.T4",
+          "row": 5,
+          "source_html_sha256": "f61b0a20cd65fa2191ffd722ac922d59b6673b485c6f460c209e1e4bcffa56a0"
+        }
+      ],
+      "historical_exposure_pointers": [],
+      "exposure": "近期Harness评价之外的新项目；旧目录接触如实登记；非最终holdout"
+    }
+  ],
+  "sources": "/home/yiwei/.codex/outputs/forge-planning-tool-p4-sources-v1",
+  "selection_sha256": "f2fe2f97f1ca9e043a298fa996be74194b91b374719ada1e479df637dbc0e802",
+  "definitions_sha256": "6adeaa9b72aa39b792a7e7b10be79012dcc705d32399ecfc269cc4f53a0b3d4d"
+}
