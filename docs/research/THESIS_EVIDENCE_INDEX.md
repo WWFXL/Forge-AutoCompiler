@@ -569,3 +569,12 @@ E54共同工程后续：[验证、依赖工具链及文件保护修复](2026-11-
 - 结果：H0/R2主构建及可复现交付17/18、18/18；部署模型费0.6017160/0.6456144美元，累计2437.32/3013.33秒。R2多完成flex但费高7.3%/时高23.6%；stderred/sxhkd局部恢复降本保留。
 - 边界：flex/H0配置超时后模型多结构化输出异常，主构建/重放未观察；R2完成所需额外投入不当同等完成降本。无显著性/未见泛化/跨批修复因果；原E54失败保留，结果先审。
 - 证据：[报告](2026-11-11-recovery-harness-repaired-comparison-results.md)、[分析及逐槽表](../../benchmarks/analyses/recovery-r2-repaired-comparison-2026-11-11/README.md)；原件`forge-recovery-harness-r2-repaired-comparison-flash-v1`，inventory `f2d5d8dafaf7912859f89885e7803627ac10b58c138783ac61eeacebe419d50d`。213响应/0.9941271美元、未知0、71容器实查不存在。封存权限问题单独收据，不改原件。
+
+<a id="e56"></a>
+### E56 P0/P3独立规划、相同R2的18项目比较（P3未采纳，待审）
+
+- 论文用途：第5章离线规划Harness候选选择、第6章规划/恢复全流程取舍的候选材料；**待用户审核，不自动写论文，P0保持**。
+- 身份/分母：`cpp-build-planning-p3-fixed-r2-comparison-flash-v1`，18项目×两方法各一次，共36/36终态；各自独立初始规划，恢复均同R2。三系统各6，历史接触已登记，非最终holdout；不与E55共享初始方案的恢复比较合并。
+- 结果：P0/P3主构建17/18、15/18，交付11/18、10/18；在线费0.3982293/0.9390357美元，累计1980.60/1572.14秒。P3高费135.8%，增量93.4%来自初始规划；5项目局部低费保留。较短总时主要受未完成路径影响，不当同等完成加速。
+- 边界：libgcrypt/P3规划未收敛，Rnnoise/P3恢复修订拒绝；Civetweb两组改源码；共同轻量参考缺失、交付名称与权限问题独立保留。未观察不当编译失败，不因事后修复回填。不能据一个候选否定Harness优化路线。
+- 证据：[报告](2026-11-11-planning-p3-fixed-r2-comparison-results.md)、[分析/36行表](../../benchmarks/analyses/planning-p3-fixed-r2-comparison-2026-11-11/README.md)、[协议](../../benchmarks/preregistrations/cpp-build-planning-p3-fixed-r2-comparison-flash-v1.md)。raw`forge-planning-p3-fixed-r2-comparison-flash-v1`，inventory`479ce9ab398dd45371d03f2d0bff0adeb37228dafd6668a54aa7afe590a93ca9`；335响应/1.337265美元，未知0。36cleanup、57容器114引用不存在；封存权限补全收据单列，不改原件。

@@ -1,5 +1,7 @@
 # 历史研究材料目录
 
+新增[E56](THESIS_EVIDENCE_INDEX.md#e56)：[P0/P3独立规划、固定R2的36槽结果](2026-11-11-planning-p3-fixed-r2-comparison-results.md)，主构建17/18、15/18，交付11/18、10/18；P3高费135.8%，5项目局部低费，未采纳替换P0。失败、共同交付限制、全阶段费用保留；335响应/1.337265美元，结果待审、不自动入文。
+
 - 2026-11-11：[规划P3实现上下文提案](2026-11-11-planning-harness-system-context-proposal.md)；仅方法迭代，候选已获用户审核，效果未评，1请求/0.317073美元，源E55重叠、不增效果分母；原件forge-planning-harness-system-context-gpt61sol-20261111-v1，inventory22aab0fb。
 
 新增[E55](THESIS_EVIDENCE_INDEX.md#e55)：[修复后同18项目H0/R2比较](2026-11-11-recovery-harness-repaired-comparison-results.md)，36/36终态，完整17/18、18/18；R2多完成flex但费/时更高，与E54项目重叠，不混独立样本，结果待审不自动入文。

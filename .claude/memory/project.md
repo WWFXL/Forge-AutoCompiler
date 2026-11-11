@@ -3,7 +3,7 @@
 跨 Claude Code session 的项目状态流水。按 CLAUDE.md §7 维护。
 
 ## 进行中 (In Progress)
-- 2026-11-11 — #742正式采集P0/P3固定R2比较，18项目36槽；授权5美元/UTC12:16:21—16:16:21，无自动重试或补槽，manifest64512a12，原件forge-planning-p3-fixed-r2-comparison-flash-v1。运行中，不改系统、不入论文；当前进度以原件为准。
+- 2026-11-11 — #742 P0/P3同R2的36/36正式比较完成，结果待用户审核；主构建17/18、15/18，交付11/18、10/18，费0.3982293/0.9390357美元，P3不采纳。335响应/1.337265美元/未知0；inventory479ce9ab，36cleanup/57容器114引用不存在，正式进程已退出。报告/E56已保存，不入论文、不追加调用；当前事实见RESEARCH_STATUS.md。
 - 2026-11-11 — #739已审核P3与P0的固定R2比较准备；18项目36槽、各自独立规划，正式0/36、新增模型费0。预算/时窗尚未绑定，旧提案一次额度不续用；PR740三CI通过并合c151dbac、Issue739关闭，知识库入口已同步；7项检查及两条受控接线通过，详见RESEARCH_STATUS.md。
 - 2026-11-11 — #733修复后基座H0/R2的36/36比较与分析完成，待用户审核结果；无活动Provider，不自动写论文或追加修复，当前事实见RESEARCH_STATUS.md。
 - 2026-11-11 — #731修复后基座H0/R2同18项目/36槽比较准备完成，正式0/36；用户已授权5美元/UTC2026-11-11 03:21:11—07:21:11，待发布检查后采集，无活动Provider，旧R2指导保持、只重绑定共同提示，不写论文。
@@ -632,6 +632,9 @@
   - 下一步: 等待实验负责人确认当前网络接入介质，并决定是否授权只读 endpoint 诊断和新的 canary amendment；获得确认后必须另建中文 Issue/PR 和协议 identity，保留当前失败 marker。
 
 ## 最近变更 (Recent Changes)
+- 2026-11-11 — 保存#742完整P0/P3比较和原因分析。
+  - 文件: `docs/research/2026-11-11-planning-p3-fixed-r2-comparison-results.md`、`benchmarks/analyses/planning-p3-fixed-r2-comparison-2026-11-11/`、`docs/research/THESIS_EVIDENCE_INDEX.md`。
+  - 动机: 明确独立初始规划的全流程效果，保留失败、共同限制和待审状态；不以P3较短未完成路径冒称加速。
 - 2026-11-11 — 固定P3/P0各自规划、共同R2的18项目36槽入口与分阶段计费。
   - 文件: `scripts/forge_planning_p3_comparison.py`, `backend/tests/test_planning_p3_comparison.py`, `benchmarks/fixtures/planning-p3-fixed-r2-comparison-v1/`, `benchmarks/preregistrations/cpp-build-planning-p3-fixed-r2-comparison-flash-v1.md`。
   - 动机: 用户已审核P3并要求开始执行；隔离规划指导增量，不沿用恢复比较的共享规划。来源采集原失败及预先排除保留，只做必要接线，不修改共同底座与论文；结果另审后入文。
