@@ -16,6 +16,16 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "scripts"))
 import forge_planning_p3_comparison as comparison  # noqa: E402
 
 
+@pytest.fixture(autouse=True)
+def frozen_implementation(monkeypatch, tmp_path, request):
+    from frozen_recovery_context import install_frozen_components
+
+    if request.node.name != "test_manifest_guards_source_and_candidate":
+        return
+    manifest = comparison.shared.load(comparison.MANIFEST)
+    install_frozen_components(monkeypatch, tmp_path, comparison, manifest["components"], "1aa4a3c99ba231ca75418a5028e4f32febbfa73c")
+
+
 def test_schedule_balances_system_and_first_method():
     rows = comparison.schedule()
     assert len(rows) == 36
