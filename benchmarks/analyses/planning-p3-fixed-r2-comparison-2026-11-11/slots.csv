@@ -1,0 +1,38 @@
+slot,project,method,status,main,delivery,cost,requests,wall_seconds,initial_requests,initial_cost,recovery_invocations,recovery_requests,recovery_cost,initial_reads,initial_repeat_reads,initial_seconds,recovery_seconds,issue
+1,libarchive,P0_R2,primary_completed,True,False,0.0281808,7,151.15881929011084,7,0.0281808,0,0,0,7,0,19.67645123996772,0.0,missing_native_verification
+2,libarchive,P3_R2,primary_completed,True,False,0.0813585,20,143.99951145099476,20,0.0813585,0,0,0,19,8,40.81424887198955,0.0,missing_native_verification
+3,toybox,P3_R2,error,True,False,0.0094881,3,56.422012897906825,3,0.0094881,0,0,0,4,0,6.26134151709266,0.0,主产物交付名称歧义
+4,toybox,P0_R2,error,True,False,0.0023379,1,51.46160862199031,1,0.0023379,0,0,0,0,0,2.7002108260057867,0.0,主产物交付名称歧义
+5,nettle,P0_R2,primary_completed,True,True,0.0167958,4,111.61842556484044,4,0.0167958,0,0,0,2,0,16.961915489984676,0.0,
+6,nettle,P3_R2,primary_completed,True,True,0.0505986,12,133.17130547389388,10,0.0416841,1,2,0.0089145,7,0,31.757974930107594,6.9069806430488825,
+7,json-c,P3_R2,primary_completed,True,True,0.0160515,4,47.33645742689259,4,0.0160515,0,0,0,4,0,8.391082589048892,0.0,
+8,json-c,P0_R2,primary_completed,True,True,0.0076206,2,44.06869720714167,2,0.0076206,0,0,0,0,0,5.202763427980244,0.0,
+9,vlmcsd,P0_R2,primary_completed,True,True,0.0376398,11,31.005816020071507,11,0.0376398,0,0,0,9,1,19.324687748914585,0.0,
+10,vlmcsd,P3_R2,primary_completed,True,True,0.0358581,10,30.7904656000901,10,0.0358581,0,0,0,8,1,18.386009023990482,0.0,
+11,libgcrypt,P3_R2,error,,,0.1955391,50,89.60451675392687,50,0.1955391,0,0,0,61,36,85.71235186210833,0.0,"Recursion limit of 100 reached without hitting a stop condition. You can increase the limit by setting the `recursion_limit` config key.
+For troubleshooting, visit: https://docs.langchain.com/oss/python/langgraph/errors/GRAPH_RECURSION_LIMIT"
+12,libgcrypt,P0_R2,primary_completed,True,False,0.0666033,14,316.57681493391283,7,0.0298668,3,7,0.0367365,9,0,26.871142230927944,43.84407903300598,missing_native_verification
+13,libexpat,P0_R2,primary_completed,True,False,0.0133557,5,24.62082400289364,5,0.0133557,0,0,0,2,0,8.825350623112172,0.0,missing_native_verification
+14,libexpat,P3_R2,primary_completed,True,False,0.0326676,9,34.84043849911541,9,0.0326676,0,0,0,10,3,19.029465893050656,0.0,missing_native_verification
+15,tiny-AES-c,P3_R2,primary_completed,True,True,0.0041244,2,13.078824538039044,2,0.0041244,0,0,0,0,0,4.28488970012404,0.0,
+16,tiny-AES-c,P0_R2,primary_completed,True,True,0.0019176,1,11.581976066110656,1,0.0019176,0,0,0,0,0,2.7658619040157646,0.0,
+17,jansson,P0_R2,primary_completed,True,True,0.0076344,2,48.2148952500429,2,0.0076344,0,0,0,1,0,7.389737017918378,0.0,
+18,jansson,P3_R2,primary_completed,True,True,0.0171102,4,55.06190736615099,4,0.0171102,0,0,0,4,0,14.083134331041947,0.0,
+19,Libsoundio,P3_R2,primary_completed,True,True,0.0097728,2,27.421338676009327,2,0.0097728,0,0,0,1,0,13.470134828006849,0.0,
+20,Libsoundio,P0_R2,primary_completed,True,True,0.0036192,1,16.811529838014394,1,0.0036192,0,0,0,0,0,2.897881662938744,0.0,
+21,pwnat,P0_R2,primary_completed,True,True,0.0054384,2,13.938151982147247,2,0.0054384,0,0,0,0,0,4.538797470042482,0.0,
+22,pwnat,P3_R2,primary_completed,True,True,0.0029832,1,13.246050629066303,1,0.0029832,0,0,0,0,0,3.892184433992952,0.0,
+23,shc,P3_R2,primary_completed,True,True,0.0055563,2,19.139919064939022,2,0.0055563,0,0,0,1,0,3.8949127020314336,0.0,
+24,shc,P0_R2,primary_completed,True,True,0.0075363,3,21.074248697143048,3,0.0075363,0,0,0,2,0,5.712050724076107,0.0,
+25,Civetweb,P0_R2,error,False,False,0.1035339,24,114.06797889899462,13,0.0554355,2,11,0.0480984,13,1,29.47696703695692,53.781064704060555,原源码/测试被修改：src/civetweb.c
+26,Civetweb,P3_R2,error,False,False,0.1046922,23,107.67401588801295,13,0.0506838,1,10,0.0540084,18,2,23.861876780167222,75.75587486103177,原源码/测试被修改：src/civetweb.c
+27,linenoise,P3_R2,error,True,False,0.002469,1,8.509762335103005,1,0.002469,0,0,0,0,0,3.370137053076178,0.0,[Errno 13] Permission denied: '/home/yiwei/.codex/outputs/forge-planning-p3-fixed-r2-comparison-flash-v1/slot-27-linenoise-P3_R2/.compile-sessions/simple-system/a407e459daf1/artifacts/history.txt'
+28,linenoise,P0_R2,error,True,False,0.0044253,2,9.046724745072424,2,0.0044253,0,0,0,0,0,3.8440181689802557,0.0,[Errno 13] Permission denied: '/home/yiwei/.codex/outputs/forge-planning-p3-fixed-r2-comparison-flash-v1/slot-28-linenoise-P0_R2/.compile-sessions/simple-system/8c2406a0f7b1/artifacts/history.txt'
+29,snapraid,P0_R2,primary_completed,True,False,0.0402366,10,56.32571998098865,10,0.0402366,0,0,0,13,3,26.198162481887266,0.0,missing_native_verification
+30,snapraid,P3_R2,primary_completed,True,False,0.1539003,38,110.36725258803926,38,0.1539003,0,0,0,39,14,80.13348998292349,0.0,missing_native_verification
+31,Leveldb,P3_R2,primary_completed,True,True,0.1512777,36,301.16774276294746,32,0.1275252,2,4,0.0237525,23,9,106.75955623295158,40.07749641616829,
+32,Leveldb,P0_R2,primary_completed,True,True,0.0159249,4,47.21241590986028,4,0.0159249,0,0,0,1,0,9.927034022985026,0.0,
+33,libbpf,P0_R2,primary_completed,True,True,0.013845,5,67.6713092669379,4,0.0096213,1,1,0.0042237,1,0,7.733333118027076,7.363703924929723,
+34,libbpf,P3_R2,primary_completed,True,True,0.0078681,3,59.00584796303883,3,0.0078681,0,0,0,1,0,7.596221497049555,0.0,
+35,Rnnoise,P3_R2,error,False,False,0.05772,11,321.3058759099804,4,0.0134109,2,7,0.0443091,4,0,14.137810771120712,87.20094930496998,替换成功依赖autogen须在discard_dependencies中说明理由；不能隐式覆盖
+36,Rnnoise,P0_R2,primary_completed,True,True,0.0215838,6,844.1426502650138,5,0.0151584,1,1,0.0064254,6,0,12.526339258998632,12.47163259703666,

@@ -1,0 +1,3089 @@
+{
+  "analysis": {
+    "identity": "cpp-build-planning-p3-fixed-r2-comparison-flash-v1",
+    "arms": {
+      "P0_R2": {
+        "planned": 18,
+        "observed": 18,
+        "unobserved": 0,
+        "main_build_completed": 17,
+        "reproducible_delivery_completed": 11,
+        "completed_without_recovery": 9,
+        "requests": 104,
+        "estimated_cost_usd": "0.3982293",
+        "wall_seconds": 1980.5986065412872,
+        "phases": {
+          "initial": {
+            "requests": 84,
+            "input_tokens": 898167,
+            "output_tokens": 27746,
+            "reads": 66,
+            "exact_repeat_reads": 5,
+            "invocations": 18,
+            "estimated_cost_usd": "0.3027453"
+          },
+          "recovery": {
+            "requests": 20,
+            "input_tokens": 238944,
+            "output_tokens": 19834,
+            "reads": 10,
+            "exact_repeat_reads": 0,
+            "invocations": 7,
+            "estimated_cost_usd": "0.0954840"
+          }
+        }
+      },
+      "P3_R2": {
+        "planned": 18,
+        "observed": 18,
+        "unobserved": 0,
+        "main_build_completed": 15,
+        "reproducible_delivery_completed": 10,
+        "completed_without_recovery": 8,
+        "requests": 231,
+        "estimated_cost_usd": "0.9390357",
+        "wall_seconds": 1572.143245824147,
+        "phases": {
+          "initial": {
+            "requests": 208,
+            "input_tokens": 2463388,
+            "output_tokens": 57529,
+            "reads": 204,
+            "exact_repeat_reads": 73,
+            "invocations": 18,
+            "estimated_cost_usd": "0.8080512"
+          },
+          "recovery": {
+            "requests": 23,
+            "input_tokens": 296875,
+            "output_tokens": 34935,
+            "reads": 14,
+            "exact_repeat_reads": 1,
+            "invocations": 6,
+            "estimated_cost_usd": "0.1309845"
+          }
+        }
+      }
+    },
+    "slots": [
+      {
+        "slot": 1,
+        "project": "libarchive",
+        "method": "P0_R2",
+        "status": "primary_completed",
+        "layers": {
+          "command_build_passed": true,
+          "primary_build_completed": true,
+          "delivery": "passed",
+          "author_tests": "not_required",
+          "executable_smoke": "unobserved",
+          "final_verification_passed": false,
+          "clean_replay": "not_started",
+          "full_completed": null,
+          "main_build_task_completed": true,
+          "reproducible_delivery_completed": false
+        },
+        "phases": {
+          "initial": {
+            "requests": 7,
+            "input_tokens": 84008,
+            "output_tokens": 2482,
+            "reads": 7,
+            "exact_repeat_reads": 0,
+            "invocations": 1,
+            "estimated_cost_usd": "0.0281808"
+          },
+          "recovery": {
+            "requests": 0,
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "reads": 0,
+            "exact_repeat_reads": 0,
+            "invocations": 0,
+            "estimated_cost_usd": "0"
+          }
+        },
+        "usage": {
+          "requests": 7,
+          "input_tokens": 84008,
+          "output_tokens": 2482,
+          "cost": "0.0281808",
+          "unknown": 0
+        },
+        "wall_seconds": 151.15881929011084,
+        "timings": {
+          "configure_seconds": 55.208451540907845,
+          "build_seconds": 70.39155488996767,
+          "result_location_seconds": 0.17979800887405872,
+          "primary_build_seconds": 146.908036155859,
+          "time_to_primary_from_arm_start_seconds": 146.90924130100757,
+          "delivery_seconds": 0.3653583650011569,
+          "author_tests_seconds": 0.0001053190790116787,
+          "clean_replay_seconds": 0.00021754391491413116,
+          "total_seconds_before_cleanup": 147.47587830596603,
+          "initial_planning_seconds": 19.67645123996772,
+          "recovery_agent_seconds": 0.0
+        }
+      },
+      {
+        "slot": 2,
+        "project": "libarchive",
+        "method": "P3_R2",
+        "status": "primary_completed",
+        "layers": {
+          "command_build_passed": true,
+          "primary_build_completed": true,
+          "delivery": "passed",
+          "author_tests": "not_required",
+          "executable_smoke": "unobserved",
+          "final_verification_passed": false,
+          "clean_replay": "not_started",
+          "full_completed": null,
+          "main_build_task_completed": true,
+          "reproducible_delivery_completed": false
+        },
+        "phases": {
+          "initial": {
+            "requests": 20,
+            "input_tokens": 254007,
+            "output_tokens": 4297,
+            "reads": 19,
+            "exact_repeat_reads": 8,
+            "invocations": 1,
+            "estimated_cost_usd": "0.0813585"
+          },
+          "recovery": {
+            "requests": 0,
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "reads": 0,
+            "exact_repeat_reads": 0,
+            "invocations": 0,
+            "estimated_cost_usd": "0"
+          }
+        },
+        "usage": {
+          "requests": 20,
+          "input_tokens": 254007,
+          "output_tokens": 4297,
+          "cost": "0.0813585",
+          "unknown": 0
+        },
+        "wall_seconds": 143.99951145099476,
+        "timings": {
+          "configure_seconds": 55.42289812210947,
+          "build_seconds": 41.39313260698691,
+          "result_location_seconds": 0.3023259260226041,
+          "primary_build_seconds": 139.50652934401296,
+          "time_to_primary_from_arm_start_seconds": 139.50808123801835,
+          "delivery_seconds": 0.3882477208971977,
+          "author_tests_seconds": 0.0001084089744836092,
+          "clean_replay_seconds": 0.00043175695464015007,
+          "total_seconds_before_cleanup": 140.13833974092267,
+          "initial_planning_seconds": 40.81424887198955,
+          "recovery_agent_seconds": 0.0
+        }
+      },
+      {
+        "slot": 3,
+        "project": "toybox",
+        "method": "P3_R2",
+        "status": "error",
+        "layers": {
+          "command_build_passed": true,
+          "primary_build_completed": true,
+          "delivery": "unobserved",
+          "author_tests": "unobserved",
+          "executable_smoke": "unobserved",
+          "final_verification_passed": null,
+          "clean_replay": "unobserved",
+          "full_completed": false,
+          "main_build_task_completed": true,
+          "reproducible_delivery_completed": false
+        },
+        "phases": {
+          "initial": {
+            "requests": 3,
+            "input_tokens": 28371,
+            "output_tokens": 814,
+            "reads": 4,
+            "exact_repeat_reads": 0,
+            "invocations": 1,
+            "estimated_cost_usd": "0.0094881"
+          },
+          "recovery": {
+            "requests": 0,
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "reads": 0,
+            "exact_repeat_reads": 0,
+            "invocations": 0,
+            "estimated_cost_usd": "0"
+          }
+        },
+        "usage": {
+          "requests": 3,
+          "input_tokens": 28371,
+          "output_tokens": 814,
+          "cost": "0.0094881",
+          "unknown": 0
+        },
+        "wall_seconds": 56.422012897906825,
+        "timings": {
+          "configure_seconds": 1.0660186351742595,
+          "build_seconds": 44.728811220033094,
+          "result_location_seconds": 0.057103435043245554,
+          "primary_build_seconds": 53.00802812492475,
+          "time_to_primary_from_arm_start_seconds": 53.00912603503093,
+          "initial_planning_seconds": 6.26134151709266,
+          "recovery_agent_seconds": 0.0
+        }
+      },
+      {
+        "slot": 4,
+        "project": "toybox",
+        "method": "P0_R2",
+        "status": "error",
+        "layers": {
+          "command_build_passed": true,
+          "primary_build_completed": true,
+          "delivery": "unobserved",
+          "author_tests": "unobserved",
+          "executable_smoke": "unobserved",
+          "final_verification_passed": null,
+          "clean_replay": "unobserved",
+          "full_completed": false,
+          "main_build_task_completed": true,
+          "reproducible_delivery_completed": false
+        },
+        "phases": {
+          "initial": {
+            "requests": 1,
+            "input_tokens": 5909,
+            "output_tokens": 471,
+            "reads": 0,
+            "exact_repeat_reads": 0,
+            "invocations": 1,
+            "estimated_cost_usd": "0.0023379"
+          },
+          "recovery": {
+            "requests": 0,
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "reads": 0,
+            "exact_repeat_reads": 0,
+            "invocations": 0,
+            "estimated_cost_usd": "0"
+          }
+        },
+        "usage": {
+          "requests": 1,
+          "input_tokens": 5909,
+          "output_tokens": 471,
+          "cost": "0.0023379",
+          "unknown": 0
+        },
+        "wall_seconds": 51.46160862199031,
+        "timings": {
+          "configure_seconds": 1.0436519151553512,
+          "build_seconds": 43.38224865682423,
+          "result_location_seconds": 0.0667783881071955,
+          "primary_build_seconds": 48.012494299095124,
+          "time_to_primary_from_arm_start_seconds": 48.01464831107296,
+          "initial_planning_seconds": 2.7002108260057867,
+          "recovery_agent_seconds": 0.0
+        }
+      },
+      {
+        "slot": 5,
+        "project": "nettle",
+        "method": "P0_R2",
+        "status": "primary_completed",
+        "layers": {
+          "command_build_passed": true,
+          "primary_build_completed": true,
+          "delivery": "passed",
+          "author_tests": "not_required",
+          "executable_smoke": "not_applicable",
+          "final_verification_passed": true,
+          "clean_replay": "passed",
+          "full_completed": null,
+          "main_build_task_completed": true,
+          "reproducible_delivery_completed": true
+        },
+        "phases": {
+          "initial": {
+            "requests": 4,
+            "input_tokens": 46022,
+            "output_tokens": 2491,
+            "reads": 2,
+            "exact_repeat_reads": 0,
+            "invocations": 1,
+            "estimated_cost_usd": "0.0167958"
+          },
+          "recovery": {
+            "requests": 0,
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "reads": 0,
+            "exact_repeat_reads": 0,
+            "invocations": 0,
+            "estimated_cost_usd": "0"
+          }
+        },
+        "usage": {
+          "requests": 4,
+          "input_tokens": 46022,
+          "output_tokens": 2491,
+          "cost": "0.0167958",
+          "unknown": 0
+        },
+        "wall_seconds": 111.61842556484044,
+        "timings": {
+          "dependency_seconds": 8.899675744120032,
+          "configure_seconds": 6.0384418102912605,
+          "build_seconds": 28.028824459994212,
+          "result_location_seconds": 0.342253120848909,
+          "primary_build_seconds": 61.55552141205408,
+          "time_to_primary_from_arm_start_seconds": 61.55828564800322,
+          "delivery_seconds": 0.3176090361084789,
+          "author_tests_seconds": 0.00011718086898326874,
+          "clean_replay_seconds": 45.86785890487954,
+          "total_seconds_before_cleanup": 107.89249683800153,
+          "initial_planning_seconds": 16.961915489984676,
+          "recovery_agent_seconds": 0.0
+        }
+      },
+      {
+        "slot": 6,
+        "project": "nettle",
+        "method": "P3_R2",
+        "status": "primary_completed",
+        "layers": {
+          "command_build_passed": true,
+          "primary_build_completed": true,
+          "delivery": "passed",
+          "author_tests": "not_required",
+          "executable_smoke": "not_applicable",
+          "final_verification_passed": true,
+          "clean_replay": "passed",
+          "full_completed": null,
+          "main_build_task_completed": true,
+          "reproducible_delivery_completed": true
+        },
+        "phases": {
+          "initial": {
+            "requests": 10,
+            "input_tokens": 122155,
+            "output_tokens": 4198,
+            "reads": 7,
+            "exact_repeat_reads": 0,
+            "invocations": 1,
+            "estimated_cost_usd": "0.0416841"
+          },
+          "recovery": {
+            "requests": 2,
+            "input_tokens": 25319,
+            "output_tokens": 1099,
+            "reads": 2,
+            "exact_repeat_reads": 0,
+            "invocations": 1,
+            "estimated_cost_usd": "0.0089145"
+          }
+        },
+        "usage": {
+          "requests": 12,
+          "input_tokens": 147474,
+          "output_tokens": 5297,
+          "cost": "0.0505986",
+          "unknown": 0
+        },
+        "wall_seconds": 133.17130547389388,
+        "timings": {
+          "dependency_seconds": 8.674082913668826,
+          "recovery_execution_seconds": 42.417780119227245,
+          "configure_seconds": 6.276955574285239,
+          "build_seconds": 27.634006502106786,
+          "result_location_seconds": 0.33350432314909995,
+          "primary_build_seconds": 83.28898608195595,
+          "time_to_primary_from_arm_start_seconds": 83.29401759780012,
+          "delivery_seconds": 0.32365956506691873,
+          "author_tests_seconds": 8.173612877726555e-05,
+          "clean_replay_seconds": 45.68111815210432,
+          "total_seconds_before_cleanup": 129.44521486386657,
+          "initial_planning_seconds": 31.757974930107594,
+          "recovery_agent_seconds": 6.9069806430488825
+        }
+      },
+      {
+        "slot": 7,
+        "project": "json-c",
+        "method": "P3_R2",
+        "status": "primary_completed",
+        "layers": {
+          "command_build_passed": true,
+          "primary_build_completed": true,
+          "delivery": "passed",
+          "author_tests": "not_required",
+          "executable_smoke": "passed",
+          "final_verification_passed": true,
+          "clean_replay": "passed",
+          "full_completed": null,
+          "main_build_task_completed": true,
+          "reproducible_delivery_completed": true
+        },
+        "phases": {
+          "initial": {
+            "requests": 4,
+            "input_tokens": 49325,
+            "output_tokens": 1045,
+            "reads": 4,
+            "exact_repeat_reads": 0,
+            "invocations": 1,
+            "estimated_cost_usd": "0.0160515"
+          },
+          "recovery": {
+            "requests": 0,
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "reads": 0,
+            "exact_repeat_reads": 0,
+            "invocations": 0,
+            "estimated_cost_usd": "0"
+          }
+        },
+        "usage": {
+          "requests": 4,
+          "input_tokens": 49325,
+          "output_tokens": 1045,
+          "cost": "0.0160515",
+          "unknown": 0
+        },
+        "wall_seconds": 47.33645742689259,
+        "timings": {
+          "configure_seconds": 10.842831627000123,
+          "build_seconds": 4.530750395031646,
+          "result_location_seconds": 0.031314790016040206,
+          "primary_build_seconds": 24.37395328003913,
+          "time_to_primary_from_arm_start_seconds": 24.375283419853076,
+          "delivery_seconds": 0.17278354591690004,
+          "author_tests_seconds": 0.00013494002632796764,
+          "clean_replay_seconds": 19.35498697613366,
+          "total_seconds_before_cleanup": 43.933994588209316,
+          "initial_planning_seconds": 8.391082589048892,
+          "recovery_agent_seconds": 0.0
+        }
+      },
+      {
+        "slot": 8,
+        "project": "json-c",
+        "method": "P0_R2",
+        "status": "primary_completed",
+        "layers": {
+          "command_build_passed": true,
+          "primary_build_completed": true,
+          "delivery": "passed",
+          "author_tests": "not_required",
+          "executable_smoke": "passed",
+          "final_verification_passed": true,
+          "clean_replay": "passed",
+          "full_completed": null,
+          "main_build_task_completed": true,
+          "reproducible_delivery_completed": true
+        },
+        "phases": {
+          "initial": {
+            "requests": 2,
+            "input_tokens": 22434,
+            "output_tokens": 742,
+            "reads": 0,
+            "exact_repeat_reads": 0,
+            "invocations": 1,
+            "estimated_cost_usd": "0.0076206"
+          },
+          "recovery": {
+            "requests": 0,
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "reads": 0,
+            "exact_repeat_reads": 0,
+            "invocations": 0,
+            "estimated_cost_usd": "0"
+          }
+        },
+        "usage": {
+          "requests": 2,
+          "input_tokens": 22434,
+          "output_tokens": 742,
+          "cost": "0.0076206",
+          "unknown": 0
+        },
+        "wall_seconds": 44.06869720714167,
+        "timings": {
+          "configure_seconds": 10.696386511903256,
+          "build_seconds": 4.634410829050466,
+          "result_location_seconds": 0.03159450413659215,
+          "primary_build_seconds": 21.139702380867675,
+          "time_to_primary_from_arm_start_seconds": 21.14104120898992,
+          "delivery_seconds": 0.161365867825225,
+          "author_tests_seconds": 0.00012832693755626678,
+          "clean_replay_seconds": 19.345733782975003,
+          "total_seconds_before_cleanup": 40.68025756091811,
+          "initial_planning_seconds": 5.202763427980244,
+          "recovery_agent_seconds": 0.0
+        }
+      },
+      {
+        "slot": 9,
+        "project": "vlmcsd",
+        "method": "P0_R2",
+        "status": "primary_completed",
+        "layers": {
+          "command_build_passed": true,
+          "primary_build_completed": true,
+          "delivery": "passed",
+          "author_tests": "not_required",
+          "executable_smoke": "passed",
+          "final_verification_passed": true,
+          "clean_replay": "passed",
+          "full_completed": null,
+          "main_build_task_completed": true,
+          "reproducible_delivery_completed": true
+        },
+        "phases": {
+          "initial": {
+            "requests": 11,
+            "input_tokens": 116862,
+            "output_tokens": 2151,
+            "reads": 9,
+            "exact_repeat_reads": 1,
+            "invocations": 1,
+            "estimated_cost_usd": "0.0376398"
+          },
+          "recovery": {
+            "requests": 0,
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "reads": 0,
+            "exact_repeat_reads": 0,
+            "invocations": 0,
+            "estimated_cost_usd": "0"
+          }
+        },
+        "usage": {
+          "requests": 11,
+          "input_tokens": 116862,
+          "output_tokens": 2151,
+          "cost": "0.0376398",
+          "unknown": 0
+        },
+        "wall_seconds": 31.005816020071507,
+        "timings": {
+          "build_seconds": 1.5842606220394373,
+          "result_location_seconds": 0.016997164115309715,
+          "primary_build_seconds": 21.411587668815628,
+          "time_to_primary_from_arm_start_seconds": 21.412581552984193,
+          "delivery_seconds": 0.16053259884938598,
+          "author_tests_seconds": 0.0001940771471709013,
+          "clean_replay_seconds": 6.0429159079212695,
+          "total_seconds_before_cleanup": 27.633213948924094,
+          "initial_planning_seconds": 19.324687748914585,
+          "recovery_agent_seconds": 0.0
+        }
+      },
+      {
+        "slot": 10,
+        "project": "vlmcsd",
+        "method": "P3_R2",
+        "status": "primary_completed",
+        "layers": {
+          "command_build_passed": true,
+          "primary_build_completed": true,
+          "delivery": "passed",
+          "author_tests": "not_required",
+          "executable_smoke": "passed",
+          "final_verification_passed": true,
+          "clean_replay": "passed",
+          "full_completed": null,
+          "main_build_task_completed": true,
+          "reproducible_delivery_completed": true
+        },
+        "phases": {
+          "initial": {
+            "requests": 10,
+            "input_tokens": 111763,
+            "output_tokens": 1941,
+            "reads": 8,
+            "exact_repeat_reads": 1,
+            "invocations": 1,
+            "estimated_cost_usd": "0.0358581"
+          },
+          "recovery": {
+            "requests": 0,
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "reads": 0,
+            "exact_repeat_reads": 0,
+            "invocations": 0,
+            "estimated_cost_usd": "0"
+          }
+        },
+        "usage": {
+          "requests": 10,
+          "input_tokens": 111763,
+          "output_tokens": 1941,
+          "cost": "0.0358581",
+          "unknown": 0
+        },
+        "wall_seconds": 30.7904656000901,
+        "timings": {
+          "build_seconds": 1.9516368808690459,
+          "result_location_seconds": 0.016135938931256533,
+          "primary_build_seconds": 20.836241387063637,
+          "time_to_primary_from_arm_start_seconds": 20.837302546016872,
+          "delivery_seconds": 0.15365931787528098,
+          "author_tests_seconds": 0.0001942629460245371,
+          "clean_replay_seconds": 6.455478813033551,
+          "total_seconds_before_cleanup": 27.463874754030257,
+          "initial_planning_seconds": 18.386009023990482,
+          "recovery_agent_seconds": 0.0
+        }
+      },
+      {
+        "slot": 11,
+        "project": "libgcrypt",
+        "method": "P3_R2",
+        "status": "error",
+        "layers": {},
+        "phases": {
+          "initial": {
+            "requests": 50,
+            "input_tokens": 617309,
+            "output_tokens": 8622,
+            "reads": 61,
+            "exact_repeat_reads": 36,
+            "invocations": 1,
+            "estimated_cost_usd": "0.1955391"
+          },
+          "recovery": {
+            "requests": 0,
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "reads": 0,
+            "exact_repeat_reads": 0,
+            "invocations": 0,
+            "estimated_cost_usd": "0"
+          }
+        },
+        "usage": {
+          "requests": 50,
+          "input_tokens": 617309,
+          "output_tokens": 8622,
+          "cost": "0.1955391",
+          "unknown": 0
+        },
+        "wall_seconds": 89.60451675392687,
+        "timings": {
+          "initial_planning_seconds": 85.71235186210833,
+          "recovery_agent_seconds": 0.0
+        }
+      },
+      {
+        "slot": 12,
+        "project": "libgcrypt",
+        "method": "P0_R2",
+        "status": "primary_completed",
+        "layers": {
+          "command_build_passed": true,
+          "primary_build_completed": true,
+          "delivery": "passed",
+          "author_tests": "not_required",
+          "executable_smoke": "unobserved",
+          "final_verification_passed": false,
+          "clean_replay": "not_started",
+          "full_completed": null,
+          "main_build_task_completed": true,
+          "reproducible_delivery_completed": false
+        },
+        "phases": {
+          "initial": {
+            "requests": 7,
+            "input_tokens": 84084,
+            "output_tokens": 3868,
+            "reads": 9,
+            "exact_repeat_reads": 0,
+            "invocations": 1,
+            "estimated_cost_usd": "0.0298668"
+          },
+          "recovery": {
+            "requests": 7,
+            "input_tokens": 89583,
+            "output_tokens": 8218,
+            "reads": 3,
+            "exact_repeat_reads": 0,
+            "invocations": 3,
+            "estimated_cost_usd": "0.0367365"
+          }
+        },
+        "usage": {
+          "requests": 14,
+          "input_tokens": 173667,
+          "output_tokens": 12086,
+          "cost": "0.0666033",
+          "unknown": 0
+        },
+        "wall_seconds": 316.57681493391283,
+        "timings": {
+          "configure_seconds": 72.8163295860868,
+          "dependency_seconds": 63.67170946090482,
+          "recovery_execution_seconds": 230.14455165620893,
+          "build_seconds": 101.41401749500073,
+          "result_location_seconds": 0.1401260020211339,
+          "primary_build_seconds": 312.45890913018957,
+          "time_to_primary_from_arm_start_seconds": 312.46317571401596,
+          "delivery_seconds": 0.29304891312494874,
+          "author_tests_seconds": 8.852710016071796e-05,
+          "clean_replay_seconds": 0.000922835199162364,
+          "total_seconds_before_cleanup": 312.91947667719796,
+          "initial_planning_seconds": 26.871142230927944,
+          "recovery_agent_seconds": 43.84407903300598
+        }
+      },
+      {
+        "slot": 13,
+        "project": "libexpat",
+        "method": "P0_R2",
+        "status": "primary_completed",
+        "layers": {
+          "command_build_passed": true,
+          "primary_build_completed": true,
+          "delivery": "passed",
+          "author_tests": "not_required",
+          "executable_smoke": "unobserved",
+          "final_verification_passed": false,
+          "clean_replay": "not_started",
+          "full_completed": null,
+          "main_build_task_completed": true,
+          "reproducible_delivery_completed": false
+        },
+        "phases": {
+          "initial": {
+            "requests": 5,
+            "input_tokens": 40079,
+            "output_tokens": 1110,
+            "reads": 2,
+            "exact_repeat_reads": 0,
+            "invocations": 1,
+            "estimated_cost_usd": "0.0133557"
+          },
+          "recovery": {
+            "requests": 0,
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "reads": 0,
+            "exact_repeat_reads": 0,
+            "invocations": 0,
+            "estimated_cost_usd": "0"
+          }
+        },
+        "usage": {
+          "requests": 5,
+          "input_tokens": 40079,
+          "output_tokens": 1110,
+          "cost": "0.0133557",
+          "unknown": 0
+        },
+        "wall_seconds": 24.62082400289364,
+        "timings": {
+          "configure_seconds": 4.378053156891838,
+          "build_seconds": 3.018314071930945,
+          "result_location_seconds": 0.350493798032403,
+          "primary_build_seconds": 18.98806003201753,
+          "time_to_primary_from_arm_start_seconds": 18.990391307976097,
+          "delivery_seconds": 0.758240639930591,
+          "author_tests_seconds": 9.752996265888214e-05,
+          "clean_replay_seconds": 0.00018307403661310673,
+          "total_seconds_before_cleanup": 20.384188879048452,
+          "initial_planning_seconds": 8.825350623112172,
+          "recovery_agent_seconds": 0.0
+        }
+      },
+      {
+        "slot": 14,
+        "project": "libexpat",
+        "method": "P3_R2",
+        "status": "primary_completed",
+        "layers": {
+          "command_build_passed": true,
+          "primary_build_completed": true,
+          "delivery": "passed",
+          "author_tests": "not_required",
+          "executable_smoke": "unobserved",
+          "final_verification_passed": false,
+          "clean_replay": "not_started",
+          "full_completed": null,
+          "main_build_task_completed": true,
+          "reproducible_delivery_completed": false
+        },
+        "phases": {
+          "initial": {
+            "requests": 9,
+            "input_tokens": 100832,
+            "output_tokens": 2015,
+            "reads": 10,
+            "exact_repeat_reads": 3,
+            "invocations": 1,
+            "estimated_cost_usd": "0.0326676"
+          },
+          "recovery": {
+            "requests": 0,
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "reads": 0,
+            "exact_repeat_reads": 0,
+            "invocations": 0,
+            "estimated_cost_usd": "0"
+          }
+        },
+        "usage": {
+          "requests": 9,
+          "input_tokens": 100832,
+          "output_tokens": 2015,
+          "cost": "0.0326676",
+          "unknown": 0
+        },
+        "wall_seconds": 34.84043849911541,
+        "timings": {
+          "configure_seconds": 4.360653199022636,
+          "build_seconds": 3.0218391730450094,
+          "result_location_seconds": 0.3292672981042415,
+          "primary_build_seconds": 29.163819366134703,
+          "time_to_primary_from_arm_start_seconds": 29.164816779084504,
+          "delivery_seconds": 0.7826204199809581,
+          "author_tests_seconds": 9.59448516368866e-05,
+          "clean_replay_seconds": 0.0001853650901466608,
+          "total_seconds_before_cleanup": 30.57304875506088,
+          "initial_planning_seconds": 19.029465893050656,
+          "recovery_agent_seconds": 0.0
+        }
+      },
+      {
+        "slot": 15,
+        "project": "tiny-AES-c",
+        "method": "P3_R2",
+        "status": "primary_completed",
+        "layers": {
+          "command_build_passed": true,
+          "primary_build_completed": true,
+          "delivery": "passed",
+          "author_tests": "not_required",
+          "executable_smoke": "passed",
+          "final_verification_passed": true,
+          "clean_replay": "passed",
+          "full_completed": null,
+          "main_build_task_completed": true,
+          "reproducible_delivery_completed": true
+        },
+        "phases": {
+          "initial": {
+            "requests": 2,
+            "input_tokens": 11760,
+            "output_tokens": 497,
+            "reads": 0,
+            "exact_repeat_reads": 0,
+            "invocations": 1,
+            "estimated_cost_usd": "0.0041244"
+          },
+          "recovery": {
+            "requests": 0,
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "reads": 0,
+            "exact_repeat_reads": 0,
+            "invocations": 0,
+            "estimated_cost_usd": "0"
+          }
+        },
+        "usage": {
+          "requests": 2,
+          "input_tokens": 11760,
+          "output_tokens": 497,
+          "cost": "0.0041244",
+          "unknown": 0
+        },
+        "wall_seconds": 13.078824538039044,
+        "timings": {
+          "build_seconds": 0.3244340068195015,
+          "result_location_seconds": 0.007201232016086578,
+          "primary_build_seconds": 5.048971540061757,
+          "time_to_primary_from_arm_start_seconds": 5.0508158430457115,
+          "delivery_seconds": 0.14008452696725726,
+          "author_tests_seconds": 0.00019113603048026562,
+          "clean_replay_seconds": 4.525900206062943,
+          "total_seconds_before_cleanup": 9.720919158076867,
+          "initial_planning_seconds": 4.28488970012404,
+          "recovery_agent_seconds": 0.0
+        }
+      },
+      {
+        "slot": 16,
+        "project": "tiny-AES-c",
+        "method": "P0_R2",
+        "status": "primary_completed",
+        "layers": {
+          "command_build_passed": true,
+          "primary_build_completed": true,
+          "delivery": "passed",
+          "author_tests": "not_required",
+          "executable_smoke": "passed",
+          "final_verification_passed": true,
+          "clean_replay": "passed",
+          "full_completed": null,
+          "main_build_task_completed": true,
+          "reproducible_delivery_completed": true
+        },
+        "phases": {
+          "initial": {
+            "requests": 1,
+            "input_tokens": 4920,
+            "output_tokens": 368,
+            "reads": 0,
+            "exact_repeat_reads": 0,
+            "invocations": 1,
+            "estimated_cost_usd": "0.0019176"
+          },
+          "recovery": {
+            "requests": 0,
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "reads": 0,
+            "exact_repeat_reads": 0,
+            "invocations": 0,
+            "estimated_cost_usd": "0"
+          }
+        },
+        "usage": {
+          "requests": 1,
+          "input_tokens": 4920,
+          "output_tokens": 368,
+          "cost": "0.0019176",
+          "unknown": 0
+        },
+        "wall_seconds": 11.581976066110656,
+        "timings": {
+          "build_seconds": 0.33918549912050366,
+          "result_location_seconds": 0.008678806945681572,
+          "primary_build_seconds": 3.5412026641424745,
+          "time_to_primary_from_arm_start_seconds": 3.542897311039269,
+          "delivery_seconds": 0.14165774686262012,
+          "author_tests_seconds": 0.00020994897931814194,
+          "clean_replay_seconds": 4.5358601259067655,
+          "total_seconds_before_cleanup": 8.22543145203963,
+          "initial_planning_seconds": 2.7658619040157646,
+          "recovery_agent_seconds": 0.0
+        }
+      },
+      {
+        "slot": 17,
+        "project": "jansson",
+        "method": "P0_R2",
+        "status": "primary_completed",
+        "layers": {
+          "command_build_passed": true,
+          "primary_build_completed": true,
+          "delivery": "passed",
+          "author_tests": "not_required",
+          "executable_smoke": "not_applicable",
+          "final_verification_passed": true,
+          "clean_replay": "passed",
+          "full_completed": null,
+          "main_build_task_completed": true,
+          "reproducible_delivery_completed": true
+        },
+        "phases": {
+          "initial": {
+            "requests": 2,
+            "input_tokens": 21856,
+            "output_tokens": 898,
+            "reads": 1,
+            "exact_repeat_reads": 0,
+            "invocations": 1,
+            "estimated_cost_usd": "0.0076344"
+          },
+          "recovery": {
+            "requests": 0,
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "reads": 0,
+            "exact_repeat_reads": 0,
+            "invocations": 0,
+            "estimated_cost_usd": "0"
+          }
+        },
+        "usage": {
+          "requests": 2,
+          "input_tokens": 21856,
+          "output_tokens": 898,
+          "cost": "0.0076344",
+          "unknown": 0
+        },
+        "wall_seconds": 48.2148952500429,
+        "timings": {
+          "configure_seconds": 11.322225916897878,
+          "build_seconds": 5.007449966156855,
+          "result_location_seconds": 0.03776768106035888,
+          "primary_build_seconds": 24.504508597077802,
+          "time_to_primary_from_arm_start_seconds": 24.50556028401479,
+          "delivery_seconds": 0.18149184784851968,
+          "author_tests_seconds": 0.00010300287976861,
+          "clean_replay_seconds": 20.08277633995749,
+          "total_seconds_before_cleanup": 44.81592648802325,
+          "initial_planning_seconds": 7.389737017918378,
+          "recovery_agent_seconds": 0.0
+        }
+      },
+      {
+        "slot": 18,
+        "project": "jansson",
+        "method": "P3_R2",
+        "status": "primary_completed",
+        "layers": {
+          "command_build_passed": true,
+          "primary_build_completed": true,
+          "delivery": "passed",
+          "author_tests": "not_required",
+          "executable_smoke": "not_applicable",
+          "final_verification_passed": true,
+          "clean_replay": "passed",
+          "full_completed": null,
+          "main_build_task_completed": true,
+          "reproducible_delivery_completed": true
+        },
+        "phases": {
+          "initial": {
+            "requests": 4,
+            "input_tokens": 48794,
+            "output_tokens": 2060,
+            "reads": 4,
+            "exact_repeat_reads": 0,
+            "invocations": 1,
+            "estimated_cost_usd": "0.0171102"
+          },
+          "recovery": {
+            "requests": 0,
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "reads": 0,
+            "exact_repeat_reads": 0,
+            "invocations": 0,
+            "estimated_cost_usd": "0"
+          }
+        },
+        "usage": {
+          "requests": 4,
+          "input_tokens": 48794,
+          "output_tokens": 2060,
+          "cost": "0.0171102",
+          "unknown": 0
+        },
+        "wall_seconds": 55.06190736615099,
+        "timings": {
+          "dependency_seconds": 0.1271953929681331,
+          "configure_seconds": 11.316030245739967,
+          "build_seconds": 4.940786034800112,
+          "result_location_seconds": 0.042291353922337294,
+          "primary_build_seconds": 31.317013737978414,
+          "time_to_primary_from_arm_start_seconds": 31.31969219399616,
+          "delivery_seconds": 0.18129834393039346,
+          "author_tests_seconds": 9.682006202638149e-05,
+          "clean_replay_seconds": 20.101775785908103,
+          "total_seconds_before_cleanup": 51.66148263006471,
+          "initial_planning_seconds": 14.083134331041947,
+          "recovery_agent_seconds": 0.0
+        }
+      },
+      {
+        "slot": 19,
+        "project": "Libsoundio",
+        "method": "P3_R2",
+        "status": "primary_completed",
+        "layers": {
+          "command_build_passed": true,
+          "primary_build_completed": true,
+          "delivery": "passed",
+          "author_tests": "not_required",
+          "executable_smoke": "not_applicable",
+          "final_verification_passed": true,
+          "clean_replay": "passed",
+          "full_completed": null,
+          "main_build_task_completed": true,
+          "reproducible_delivery_completed": true
+        },
+        "phases": {
+          "initial": {
+            "requests": 2,
+            "input_tokens": 24004,
+            "output_tokens": 2143,
+            "reads": 1,
+            "exact_repeat_reads": 0,
+            "invocations": 1,
+            "estimated_cost_usd": "0.0097728"
+          },
+          "recovery": {
+            "requests": 0,
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "reads": 0,
+            "exact_repeat_reads": 0,
+            "invocations": 0,
+            "estimated_cost_usd": "0"
+          }
+        },
+        "usage": {
+          "requests": 2,
+          "input_tokens": 24004,
+          "output_tokens": 2143,
+          "cost": "0.0097728",
+          "unknown": 0
+        },
+        "wall_seconds": 27.421338676009327,
+        "timings": {
+          "dependency_seconds": 0.11518457205966115,
+          "configure_seconds": 0.8032355229370296,
+          "build_seconds": 2.2475600419566035,
+          "result_location_seconds": 0.018616562942042947,
+          "primary_build_seconds": 17.17139150807634,
+          "time_to_primary_from_arm_start_seconds": 17.17288104700856,
+          "delivery_seconds": 0.14970135199837387,
+          "author_tests_seconds": 0.00020652217790484428,
+          "clean_replay_seconds": 6.716772753978148,
+          "total_seconds_before_cleanup": 24.056191923096776,
+          "initial_planning_seconds": 13.470134828006849,
+          "recovery_agent_seconds": 0.0
+        }
+      },
+      {
+        "slot": 20,
+        "project": "Libsoundio",
+        "method": "P0_R2",
+        "status": "primary_completed",
+        "layers": {
+          "command_build_passed": true,
+          "primary_build_completed": true,
+          "delivery": "passed",
+          "author_tests": "not_required",
+          "executable_smoke": "not_applicable",
+          "final_verification_passed": true,
+          "clean_replay": "passed",
+          "full_completed": null,
+          "main_build_task_completed": true,
+          "reproducible_delivery_completed": true
+        },
+        "phases": {
+          "initial": {
+            "requests": 1,
+            "input_tokens": 10276,
+            "output_tokens": 447,
+            "reads": 0,
+            "exact_repeat_reads": 0,
+            "invocations": 1,
+            "estimated_cost_usd": "0.0036192"
+          },
+          "recovery": {
+            "requests": 0,
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "reads": 0,
+            "exact_repeat_reads": 0,
+            "invocations": 0,
+            "estimated_cost_usd": "0"
+          }
+        },
+        "usage": {
+          "requests": 1,
+          "input_tokens": 10276,
+          "output_tokens": 447,
+          "cost": "0.0036192",
+          "unknown": 0
+        },
+        "wall_seconds": 16.811529838014394,
+        "timings": {
+          "configure_seconds": 0.814653601963073,
+          "build_seconds": 2.2448997341562063,
+          "result_location_seconds": 0.022511884104460478,
+          "primary_build_seconds": 6.477051937952638,
+          "time_to_primary_from_arm_start_seconds": 6.479655202943832,
+          "delivery_seconds": 0.14850789308547974,
+          "author_tests_seconds": 0.00015980913303792477,
+          "clean_replay_seconds": 6.7970782241318375,
+          "total_seconds_before_cleanup": 13.445695414906368,
+          "initial_planning_seconds": 2.897881662938744,
+          "recovery_agent_seconds": 0.0
+        }
+      },
+      {
+        "slot": 21,
+        "project": "pwnat",
+        "method": "P0_R2",
+        "status": "primary_completed",
+        "layers": {
+          "command_build_passed": true,
+          "primary_build_completed": true,
+          "delivery": "passed",
+          "author_tests": "not_required",
+          "executable_smoke": "passed",
+          "final_verification_passed": true,
+          "clean_replay": "passed",
+          "full_completed": null,
+          "main_build_task_completed": true,
+          "reproducible_delivery_completed": true
+        },
+        "phases": {
+          "initial": {
+            "requests": 2,
+            "input_tokens": 15440,
+            "output_tokens": 672,
+            "reads": 0,
+            "exact_repeat_reads": 0,
+            "invocations": 1,
+            "estimated_cost_usd": "0.0054384"
+          },
+          "recovery": {
+            "requests": 0,
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "reads": 0,
+            "exact_repeat_reads": 0,
+            "invocations": 0,
+            "estimated_cost_usd": "0"
+          }
+        },
+        "usage": {
+          "requests": 2,
+          "input_tokens": 15440,
+          "output_tokens": 672,
+          "cost": "0.0054384",
+          "unknown": 0
+        },
+        "wall_seconds": 13.938151982147247,
+        "timings": {
+          "build_seconds": 0.5538684818893671,
+          "result_location_seconds": 0.01033009309321642,
+          "primary_build_seconds": 5.54735621297732,
+          "time_to_primary_from_arm_start_seconds": 5.548844633158296,
+          "delivery_seconds": 0.1462737638503313,
+          "author_tests_seconds": 0.00019079889170825481,
+          "clean_replay_seconds": 4.867966962978244,
+          "total_seconds_before_cleanup": 10.569988526869565,
+          "initial_planning_seconds": 4.538797470042482,
+          "recovery_agent_seconds": 0.0
+        }
+      },
+      {
+        "slot": 22,
+        "project": "pwnat",
+        "method": "P3_R2",
+        "status": "primary_completed",
+        "layers": {
+          "command_build_passed": true,
+          "primary_build_completed": true,
+          "delivery": "passed",
+          "author_tests": "not_required",
+          "executable_smoke": "passed",
+          "final_verification_passed": true,
+          "clean_replay": "passed",
+          "full_completed": null,
+          "main_build_task_completed": true,
+          "reproducible_delivery_completed": true
+        },
+        "phases": {
+          "initial": {
+            "requests": 1,
+            "input_tokens": 8000,
+            "output_tokens": 486,
+            "reads": 0,
+            "exact_repeat_reads": 0,
+            "invocations": 1,
+            "estimated_cost_usd": "0.0029832"
+          },
+          "recovery": {
+            "requests": 0,
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "reads": 0,
+            "exact_repeat_reads": 0,
+            "invocations": 0,
+            "estimated_cost_usd": "0"
+          }
+        },
+        "usage": {
+          "requests": 1,
+          "input_tokens": 8000,
+          "output_tokens": 486,
+          "cost": "0.0029832",
+          "unknown": 0
+        },
+        "wall_seconds": 13.246050629066303,
+        "timings": {
+          "build_seconds": 0.529552151914686,
+          "result_location_seconds": 0.010442564962431788,
+          "primary_build_seconds": 4.880849944893271,
+          "time_to_primary_from_arm_start_seconds": 4.88229635800235,
+          "delivery_seconds": 0.1315272320061922,
+          "author_tests_seconds": 0.00018878094851970673,
+          "clean_replay_seconds": 4.883194309892133,
+          "total_seconds_before_cleanup": 9.904138999991119,
+          "initial_planning_seconds": 3.892184433992952,
+          "recovery_agent_seconds": 0.0
+        }
+      },
+      {
+        "slot": 23,
+        "project": "shc",
+        "method": "P3_R2",
+        "status": "primary_completed",
+        "layers": {
+          "command_build_passed": true,
+          "primary_build_completed": true,
+          "delivery": "passed",
+          "author_tests": "not_required",
+          "executable_smoke": "passed",
+          "final_verification_passed": true,
+          "clean_replay": "passed",
+          "full_completed": null,
+          "main_build_task_completed": true,
+          "reproducible_delivery_completed": true
+        },
+        "phases": {
+          "initial": {
+            "requests": 2,
+            "input_tokens": 16437,
+            "output_tokens": 521,
+            "reads": 1,
+            "exact_repeat_reads": 0,
+            "invocations": 1,
+            "estimated_cost_usd": "0.0055563"
+          },
+          "recovery": {
+            "requests": 0,
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "reads": 0,
+            "exact_repeat_reads": 0,
+            "invocations": 0,
+            "estimated_cost_usd": "0"
+          }
+        },
+        "usage": {
+          "requests": 2,
+          "input_tokens": 16437,
+          "output_tokens": 521,
+          "cost": "0.0055563",
+          "unknown": 0
+        },
+        "wall_seconds": 19.139919064939022,
+        "timings": {
+          "configure_seconds": 3.121001346036792,
+          "build_seconds": 0.473453130107373,
+          "result_location_seconds": 0.011368664912879467,
+          "primary_build_seconds": 7.96485734404996,
+          "time_to_primary_from_arm_start_seconds": 7.9661474789027125,
+          "delivery_seconds": 0.14194705407135189,
+          "author_tests_seconds": 0.00019120494835078716,
+          "clean_replay_seconds": 7.673963637091219,
+          "total_seconds_before_cleanup": 15.791098532965407,
+          "initial_planning_seconds": 3.8949127020314336,
+          "recovery_agent_seconds": 0.0
+        }
+      },
+      {
+        "slot": 24,
+        "project": "shc",
+        "method": "P0_R2",
+        "status": "primary_completed",
+        "layers": {
+          "command_build_passed": true,
+          "primary_build_completed": true,
+          "delivery": "passed",
+          "author_tests": "not_required",
+          "executable_smoke": "passed",
+          "final_verification_passed": true,
+          "clean_replay": "passed",
+          "full_completed": null,
+          "main_build_task_completed": true,
+          "reproducible_delivery_completed": true
+        },
+        "phases": {
+          "initial": {
+            "requests": 3,
+            "input_tokens": 22573,
+            "output_tokens": 637,
+            "reads": 2,
+            "exact_repeat_reads": 0,
+            "invocations": 1,
+            "estimated_cost_usd": "0.0075363"
+          },
+          "recovery": {
+            "requests": 0,
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "reads": 0,
+            "exact_repeat_reads": 0,
+            "invocations": 0,
+            "estimated_cost_usd": "0"
+          }
+        },
+        "usage": {
+          "requests": 3,
+          "input_tokens": 22573,
+          "output_tokens": 637,
+          "cost": "0.0075363",
+          "unknown": 0
+        },
+        "wall_seconds": 21.074248697143048,
+        "timings": {
+          "configure_seconds": 3.1517226970754564,
+          "build_seconds": 0.47222262201830745,
+          "result_location_seconds": 0.011395511915907264,
+          "primary_build_seconds": 9.830504547804594,
+          "time_to_primary_from_arm_start_seconds": 9.8318208809942,
+          "delivery_seconds": 0.15067883604206145,
+          "author_tests_seconds": 0.00019546994008123875,
+          "clean_replay_seconds": 7.725785793038085,
+          "total_seconds_before_cleanup": 17.717253513867036,
+          "initial_planning_seconds": 5.712050724076107,
+          "recovery_agent_seconds": 0.0
+        }
+      },
+      {
+        "slot": 25,
+        "project": "Civetweb",
+        "method": "P0_R2",
+        "status": "error",
+        "layers": {
+          "command_build_passed": true,
+          "primary_build_completed": null,
+          "delivery": "unobserved",
+          "author_tests": "unobserved",
+          "executable_smoke": "unobserved",
+          "final_verification_passed": null,
+          "clean_replay": "unobserved",
+          "full_completed": false,
+          "main_build_task_completed": false,
+          "reproducible_delivery_completed": false
+        },
+        "phases": {
+          "initial": {
+            "requests": 13,
+            "input_tokens": 170749,
+            "output_tokens": 3509,
+            "reads": 13,
+            "exact_repeat_reads": 1,
+            "invocations": 1,
+            "estimated_cost_usd": "0.0554355"
+          },
+          "recovery": {
+            "requests": 11,
+            "input_tokens": 127248,
+            "output_tokens": 8270,
+            "reads": 7,
+            "exact_repeat_reads": 0,
+            "invocations": 2,
+            "estimated_cost_usd": "0.0480984"
+          }
+        },
+        "usage": {
+          "requests": 24,
+          "input_tokens": 297997,
+          "output_tokens": 11779,
+          "cost": "0.1035339",
+          "unknown": 0
+        },
+        "wall_seconds": 114.06797889899462,
+        "timings": {
+          "configure_seconds": 4.71269645402208,
+          "recovery_execution_seconds": 24.459567632060498,
+          "build_seconds": 19.88651248300448,
+          "initial_planning_seconds": 29.47696703695692,
+          "recovery_agent_seconds": 53.781064704060555
+        }
+      },
+      {
+        "slot": 26,
+        "project": "Civetweb",
+        "method": "P3_R2",
+        "status": "error",
+        "layers": {
+          "command_build_passed": true,
+          "primary_build_completed": null,
+          "delivery": "unobserved",
+          "author_tests": "unobserved",
+          "executable_smoke": "unobserved",
+          "final_verification_passed": null,
+          "clean_replay": "unobserved",
+          "full_completed": false,
+          "main_build_task_completed": false,
+          "reproducible_delivery_completed": false
+        },
+        "phases": {
+          "initial": {
+            "requests": 13,
+            "input_tokens": 159438,
+            "output_tokens": 2377,
+            "reads": 18,
+            "exact_repeat_reads": 2,
+            "invocations": 1,
+            "estimated_cost_usd": "0.0506838"
+          },
+          "recovery": {
+            "requests": 10,
+            "input_tokens": 128076,
+            "output_tokens": 12988,
+            "reads": 5,
+            "exact_repeat_reads": 0,
+            "invocations": 1,
+            "estimated_cost_usd": "0.0540084"
+          }
+        },
+        "usage": {
+          "requests": 23,
+          "input_tokens": 287514,
+          "output_tokens": 15365,
+          "cost": "0.1046922",
+          "unknown": 0
+        },
+        "wall_seconds": 107.67401588801295,
+        "timings": {
+          "build_seconds": 2.992495961021632,
+          "recovery_execution_seconds": 2.6299876091070473,
+          "initial_planning_seconds": 23.861876780167222,
+          "recovery_agent_seconds": 75.75587486103177
+        }
+      },
+      {
+        "slot": 27,
+        "project": "linenoise",
+        "method": "P3_R2",
+        "status": "error",
+        "layers": {
+          "command_build_passed": true,
+          "primary_build_completed": true,
+          "delivery": "passed",
+          "author_tests": "not_required",
+          "executable_smoke": "passed",
+          "final_verification_passed": false,
+          "clean_replay": "not_started",
+          "full_completed": false,
+          "main_build_task_completed": true,
+          "reproducible_delivery_completed": false
+        },
+        "phases": {
+          "initial": {
+            "requests": 1,
+            "input_tokens": 6694,
+            "output_tokens": 384,
+            "reads": 0,
+            "exact_repeat_reads": 0,
+            "invocations": 1,
+            "estimated_cost_usd": "0.002469"
+          },
+          "recovery": {
+            "requests": 0,
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "reads": 0,
+            "exact_repeat_reads": 0,
+            "invocations": 0,
+            "estimated_cost_usd": "0"
+          }
+        },
+        "usage": {
+          "requests": 1,
+          "input_tokens": 6694,
+          "output_tokens": 384,
+          "cost": "0.002469",
+          "unknown": 0
+        },
+        "wall_seconds": 8.509762335103005,
+        "timings": {
+          "build_seconds": 1.079918596893549,
+          "result_location_seconds": 0.008145660860463977,
+          "primary_build_seconds": 4.873301950050518,
+          "time_to_primary_from_arm_start_seconds": 4.875763358082622,
+          "delivery_seconds": 0.13744338997639716,
+          "author_tests_seconds": 0.00018758000805974007,
+          "clean_replay_seconds": 0.14850977784954011,
+          "initial_planning_seconds": 3.370137053076178,
+          "recovery_agent_seconds": 0.0
+        }
+      },
+      {
+        "slot": 28,
+        "project": "linenoise",
+        "method": "P0_R2",
+        "status": "error",
+        "layers": {
+          "command_build_passed": true,
+          "primary_build_completed": true,
+          "delivery": "passed",
+          "author_tests": "not_required",
+          "executable_smoke": "passed",
+          "final_verification_passed": false,
+          "clean_replay": "not_started",
+          "full_completed": false,
+          "main_build_task_completed": true,
+          "reproducible_delivery_completed": false
+        },
+        "phases": {
+          "initial": {
+            "requests": 2,
+            "input_tokens": 12575,
+            "output_tokens": 544,
+            "reads": 0,
+            "exact_repeat_reads": 0,
+            "invocations": 1,
+            "estimated_cost_usd": "0.0044253"
+          },
+          "recovery": {
+            "requests": 0,
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "reads": 0,
+            "exact_repeat_reads": 0,
+            "invocations": 0,
+            "estimated_cost_usd": "0"
+          }
+        },
+        "usage": {
+          "requests": 2,
+          "input_tokens": 12575,
+          "output_tokens": 544,
+          "cost": "0.0044253",
+          "unknown": 0
+        },
+        "wall_seconds": 9.046724745072424,
+        "timings": {
+          "build_seconds": 1.112283376045525,
+          "result_location_seconds": 0.008097177837044,
+          "primary_build_seconds": 5.408874411135912,
+          "time_to_primary_from_arm_start_seconds": 5.410621672170237,
+          "delivery_seconds": 0.1421580279711634,
+          "author_tests_seconds": 0.00018693087622523308,
+          "clean_replay_seconds": 0.1492790039628744,
+          "initial_planning_seconds": 3.8440181689802557,
+          "recovery_agent_seconds": 0.0
+        }
+      },
+      {
+        "slot": 29,
+        "project": "snapraid",
+        "method": "P0_R2",
+        "status": "primary_completed",
+        "layers": {
+          "command_build_passed": true,
+          "primary_build_completed": true,
+          "delivery": "passed",
+          "author_tests": "not_required",
+          "executable_smoke": "unobserved",
+          "final_verification_passed": false,
+          "clean_replay": "not_started",
+          "full_completed": null,
+          "main_build_task_completed": true,
+          "reproducible_delivery_completed": false
+        },
+        "phases": {
+          "initial": {
+            "requests": 10,
+            "input_tokens": 120062,
+            "output_tokens": 3515,
+            "reads": 13,
+            "exact_repeat_reads": 3,
+            "invocations": 1,
+            "estimated_cost_usd": "0.0402366"
+          },
+          "recovery": {
+            "requests": 0,
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "reads": 0,
+            "exact_repeat_reads": 0,
+            "invocations": 0,
+            "estimated_cost_usd": "0"
+          }
+        },
+        "usage": {
+          "requests": 10,
+          "input_tokens": 120062,
+          "output_tokens": 3515,
+          "cost": "0.0402366",
+          "unknown": 0
+        },
+        "wall_seconds": 56.32571998098865,
+        "timings": {
+          "configure_seconds": 13.077168277930468,
+          "build_seconds": 12.383511377032846,
+          "result_location_seconds": 0.07533720787614584,
+          "primary_build_seconds": 52.58120022690855,
+          "time_to_primary_from_arm_start_seconds": 52.58233062992804,
+          "delivery_seconds": 0.21622983389534056,
+          "author_tests_seconds": 8.467887528240681e-05,
+          "clean_replay_seconds": 0.00021325796842575073,
+          "total_seconds_before_cleanup": 52.86890527489595,
+          "initial_planning_seconds": 26.198162481887266,
+          "recovery_agent_seconds": 0.0
+        }
+      },
+      {
+        "slot": 30,
+        "project": "snapraid",
+        "method": "P3_R2",
+        "status": "primary_completed",
+        "layers": {
+          "command_build_passed": true,
+          "primary_build_completed": true,
+          "delivery": "passed",
+          "author_tests": "not_required",
+          "executable_smoke": "unobserved",
+          "final_verification_passed": false,
+          "clean_replay": "not_started",
+          "full_completed": null,
+          "main_build_task_completed": true,
+          "reproducible_delivery_completed": false
+        },
+        "phases": {
+          "initial": {
+            "requests": 38,
+            "input_tokens": 479021,
+            "output_tokens": 8495,
+            "reads": 39,
+            "exact_repeat_reads": 14,
+            "invocations": 1,
+            "estimated_cost_usd": "0.1539003"
+          },
+          "recovery": {
+            "requests": 0,
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "reads": 0,
+            "exact_repeat_reads": 0,
+            "invocations": 0,
+            "estimated_cost_usd": "0"
+          }
+        },
+        "usage": {
+          "requests": 38,
+          "input_tokens": 479021,
+          "output_tokens": 8495,
+          "cost": "0.1539003",
+          "unknown": 0
+        },
+        "wall_seconds": 110.36725258803926,
+        "timings": {
+          "dependency_seconds": 0.13657632586546242,
+          "configure_seconds": 12.936021459056064,
+          "build_seconds": 12.487110017798841,
+          "result_location_seconds": 0.07713968493044376,
+          "primary_build_seconds": 106.62338227685541,
+          "time_to_primary_from_arm_start_seconds": 106.62546825013123,
+          "delivery_seconds": 0.21243867906741798,
+          "author_tests_seconds": 8.426816202700138e-05,
+          "clean_replay_seconds": 0.0002166968770325184,
+          "total_seconds_before_cleanup": 106.91153533104807,
+          "initial_planning_seconds": 80.13348998292349,
+          "recovery_agent_seconds": 0.0
+        }
+      },
+      {
+        "slot": 31,
+        "project": "Leveldb",
+        "method": "P3_R2",
+        "status": "primary_completed",
+        "layers": {
+          "command_build_passed": true,
+          "primary_build_completed": true,
+          "delivery": "passed",
+          "author_tests": "not_required",
+          "executable_smoke": "passed",
+          "final_verification_passed": true,
+          "clean_replay": "passed",
+          "full_completed": null,
+          "main_build_task_completed": true,
+          "reproducible_delivery_completed": true
+        },
+        "phases": {
+          "initial": {
+            "requests": 32,
+            "input_tokens": 367172,
+            "output_tokens": 14478,
+            "reads": 23,
+            "exact_repeat_reads": 9,
+            "invocations": 1,
+            "estimated_cost_usd": "0.1275252"
+          },
+          "recovery": {
+            "requests": 4,
+            "input_tokens": 51047,
+            "output_tokens": 7032,
+            "reads": 1,
+            "exact_repeat_reads": 0,
+            "invocations": 2,
+            "estimated_cost_usd": "0.0237525"
+          }
+        },
+        "usage": {
+          "requests": 36,
+          "input_tokens": 418219,
+          "output_tokens": 21510,
+          "cost": "0.1512777",
+          "unknown": 0
+        },
+        "wall_seconds": 301.16774276294746,
+        "timings": {
+          "dependency_seconds": 7.656871546059847,
+          "recovery_execution_seconds": 76.69835399300791,
+          "configure_seconds": 12.402618078049272,
+          "build_seconds": 56.638864368898794,
+          "result_location_seconds": 0.028823417145758867,
+          "primary_build_seconds": 224.40403766394593,
+          "time_to_primary_from_arm_start_seconds": 224.40534902713262,
+          "delivery_seconds": 0.1761356198694557,
+          "author_tests_seconds": 0.00014082598499953747,
+          "clean_replay_seconds": 73.14524541911669,
+          "total_seconds_before_cleanup": 297.7494728388265,
+          "initial_planning_seconds": 106.75955623295158,
+          "recovery_agent_seconds": 40.07749641616829
+        }
+      },
+      {
+        "slot": 32,
+        "project": "Leveldb",
+        "method": "P0_R2",
+        "status": "primary_completed",
+        "layers": {
+          "command_build_passed": true,
+          "primary_build_completed": true,
+          "delivery": "passed",
+          "author_tests": "not_required",
+          "executable_smoke": "passed",
+          "final_verification_passed": true,
+          "clean_replay": "passed",
+          "full_completed": null,
+          "main_build_task_completed": true,
+          "reproducible_delivery_completed": true
+        },
+        "phases": {
+          "initial": {
+            "requests": 4,
+            "input_tokens": 47111,
+            "output_tokens": 1493,
+            "reads": 1,
+            "exact_repeat_reads": 0,
+            "invocations": 1,
+            "estimated_cost_usd": "0.0159249"
+          },
+          "recovery": {
+            "requests": 0,
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "reads": 0,
+            "exact_repeat_reads": 0,
+            "invocations": 0,
+            "estimated_cost_usd": "0"
+          }
+        },
+        "usage": {
+          "requests": 4,
+          "input_tokens": 47111,
+          "output_tokens": 1493,
+          "cost": "0.0159249",
+          "unknown": 0
+        },
+        "wall_seconds": 47.21241590986028,
+        "timings": {
+          "configure_seconds": 2.7385851410217583,
+          "build_seconds": 11.228872951120138,
+          "result_location_seconds": 0.029882207047194242,
+          "primary_build_seconds": 24.500501894159243,
+          "time_to_primary_from_arm_start_seconds": 24.50337234279141,
+          "delivery_seconds": 0.1650051111355424,
+          "author_tests_seconds": 0.00013374211266636848,
+          "clean_replay_seconds": 19.09340462111868,
+          "total_seconds_before_cleanup": 43.79421931901015,
+          "initial_planning_seconds": 9.927034022985026,
+          "recovery_agent_seconds": 0.0
+        }
+      },
+      {
+        "slot": 33,
+        "project": "libbpf",
+        "method": "P0_R2",
+        "status": "primary_completed",
+        "layers": {
+          "command_build_passed": true,
+          "primary_build_completed": true,
+          "delivery": "passed",
+          "author_tests": "not_required",
+          "executable_smoke": "not_applicable",
+          "final_verification_passed": true,
+          "clean_replay": "passed",
+          "full_completed": null,
+          "main_build_task_completed": true,
+          "reproducible_delivery_completed": true
+        },
+        "phases": {
+          "initial": {
+            "requests": 4,
+            "input_tokens": 28579,
+            "output_tokens": 873,
+            "reads": 1,
+            "exact_repeat_reads": 0,
+            "invocations": 1,
+            "estimated_cost_usd": "0.0096213"
+          },
+          "recovery": {
+            "requests": 1,
+            "input_tokens": 9355,
+            "output_tokens": 1181,
+            "reads": 0,
+            "exact_repeat_reads": 0,
+            "invocations": 1,
+            "estimated_cost_usd": "0.0042237"
+          }
+        },
+        "usage": {
+          "requests": 5,
+          "input_tokens": 37934,
+          "output_tokens": 2054,
+          "cost": "0.013845",
+          "unknown": 0
+        },
+        "wall_seconds": 67.6713092669379,
+        "timings": {
+          "build_seconds": 12.671373446006328,
+          "dependency_seconds": 9.414105912903324,
+          "recovery_execution_seconds": 22.05500509100966,
+          "configure_seconds": 0.1715537670534104,
+          "result_location_seconds": 0.07003761199302971,
+          "primary_build_seconds": 38.2037042689044,
+          "time_to_primary_from_arm_start_seconds": 38.2066002630163,
+          "delivery_seconds": 0.19853544514626265,
+          "author_tests_seconds": 0.00010265014134347439,
+          "clean_replay_seconds": 25.533296540845186,
+          "total_seconds_before_cleanup": 64.00846093590371,
+          "initial_planning_seconds": 7.733333118027076,
+          "recovery_agent_seconds": 7.363703924929723
+        }
+      },
+      {
+        "slot": 34,
+        "project": "libbpf",
+        "method": "P3_R2",
+        "status": "primary_completed",
+        "layers": {
+          "command_build_passed": true,
+          "primary_build_completed": true,
+          "delivery": "passed",
+          "author_tests": "not_required",
+          "executable_smoke": "not_applicable",
+          "final_verification_passed": true,
+          "clean_replay": "passed",
+          "full_completed": null,
+          "main_build_task_completed": true,
+          "reproducible_delivery_completed": true
+        },
+        "phases": {
+          "initial": {
+            "requests": 3,
+            "input_tokens": 21827,
+            "output_tokens": 1100,
+            "reads": 1,
+            "exact_repeat_reads": 0,
+            "invocations": 1,
+            "estimated_cost_usd": "0.0078681"
+          },
+          "recovery": {
+            "requests": 0,
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "reads": 0,
+            "exact_repeat_reads": 0,
+            "invocations": 0,
+            "estimated_cost_usd": "0"
+          }
+        },
+        "usage": {
+          "requests": 3,
+          "input_tokens": 21827,
+          "output_tokens": 1100,
+          "cost": "0.0078681",
+          "unknown": 0
+        },
+        "wall_seconds": 59.00584796303883,
+        "timings": {
+          "dependency_seconds": 8.228101291926578,
+          "build_seconds": 12.475691486848518,
+          "result_location_seconds": 0.05623188684694469,
+          "primary_build_seconds": 28.945721002994105,
+          "time_to_primary_from_arm_start_seconds": 28.94702674006112,
+          "delivery_seconds": 0.19648866704665124,
+          "author_tests_seconds": 9.368220344185829e-05,
+          "clean_replay_seconds": 26.23020091908984,
+          "total_seconds_before_cleanup": 55.439154150895774,
+          "initial_planning_seconds": 7.596221497049555,
+          "recovery_agent_seconds": 0.0
+        }
+      },
+      {
+        "slot": 35,
+        "project": "Rnnoise",
+        "method": "P3_R2",
+        "status": "error",
+        "layers": {
+          "command_build_passed": null,
+          "primary_build_completed": null,
+          "delivery": "unobserved",
+          "author_tests": "unobserved",
+          "executable_smoke": "unobserved",
+          "final_verification_passed": null,
+          "clean_replay": "unobserved",
+          "full_completed": false,
+          "main_build_task_completed": false,
+          "reproducible_delivery_completed": false
+        },
+        "phases": {
+          "initial": {
+            "requests": 4,
+            "input_tokens": 36479,
+            "output_tokens": 2056,
+            "reads": 4,
+            "exact_repeat_reads": 0,
+            "invocations": 1,
+            "estimated_cost_usd": "0.0134109"
+          },
+          "recovery": {
+            "requests": 7,
+            "input_tokens": 92433,
+            "output_tokens": 13816,
+            "reads": 6,
+            "exact_repeat_reads": 1,
+            "invocations": 2,
+            "estimated_cost_usd": "0.0443091"
+          }
+        },
+        "usage": {
+          "requests": 11,
+          "input_tokens": 128912,
+          "output_tokens": 15872,
+          "cost": "0.05772",
+          "unknown": 0
+        },
+        "wall_seconds": 321.3058759099804,
+        "timings": {
+          "dependency_seconds": 214.78858789731748,
+          "recovery_execution_seconds": 22.636227909242734,
+          "configure_seconds": 0.32153062405996025,
+          "initial_planning_seconds": 14.137810771120712,
+          "recovery_agent_seconds": 87.20094930496998
+        }
+      },
+      {
+        "slot": 36,
+        "project": "Rnnoise",
+        "method": "P0_R2",
+        "status": "primary_completed",
+        "layers": {
+          "command_build_passed": true,
+          "primary_build_completed": true,
+          "delivery": "passed",
+          "author_tests": "not_required",
+          "executable_smoke": "not_applicable",
+          "final_verification_passed": true,
+          "clean_replay": "passed",
+          "full_completed": null,
+          "main_build_task_completed": true,
+          "reproducible_delivery_completed": true
+        },
+        "phases": {
+          "initial": {
+            "requests": 5,
+            "input_tokens": 44628,
+            "output_tokens": 1475,
+            "reads": 6,
+            "exact_repeat_reads": 0,
+            "invocations": 1,
+            "estimated_cost_usd": "0.0151584"
+          },
+          "recovery": {
+            "requests": 1,
+            "input_tokens": 12758,
+            "output_tokens": 2165,
+            "reads": 0,
+            "exact_repeat_reads": 0,
+            "invocations": 1,
+            "estimated_cost_usd": "0.0064254"
+          }
+        },
+        "usage": {
+          "requests": 6,
+          "input_tokens": 57386,
+          "output_tokens": 3640,
+          "cost": "0.0215838",
+          "unknown": 0
+        },
+        "wall_seconds": 844.1426502650138,
+        "timings": {
+          "configure_seconds": 309.46414084592834,
+          "dependency_seconds": 4.235363292973489,
+          "recovery_execution_seconds": 147.36596617195755,
+          "build_seconds": 13.781103212153539,
+          "result_location_seconds": 0.0381514981854707,
+          "primary_build_seconds": 353.16367182298563,
+          "time_to_primary_from_arm_start_seconds": 353.16481417790055,
+          "delivery_seconds": 0.17186108301393688,
+          "author_tests_seconds": 0.0001317730639129877,
+          "clean_replay_seconds": 487.24846126511693,
+          "total_seconds_before_cleanup": 840.6021817440633,
+          "initial_planning_seconds": 12.526339258998632,
+          "recovery_agent_seconds": 12.47163259703666
+        }
+      }
+    ],
+    "unobserved": [],
+    "unclosed_slot": null,
+    "billing_complete": true,
+    "online_cost_usd": "1.3372650",
+    "planning_proposal_cost_separate_usd": "0.317073",
+    "boundary": "18配对开发项目的描述比较；两组各自规划，R2相同；未观察不记失败，全部初始/失败/恢复费用计入；结果先审后入文"
+  },
+  "usage": {
+    "valid": true,
+    "requests": 335,
+    "input_tokens": 3897374,
+    "output_tokens": 140044,
+    "total_tokens": 4037418,
+    "cost_usd": "1.337265",
+    "models": {
+      "deepseek-flash": 335
+    },
+    "unknown_usage_requests": 0
+  },
+  "by_system": {
+    "cmake": {
+      "P0": {
+        "observed": 6,
+        "main": 5,
+        "delivery": 3
+      },
+      "P3": {
+        "observed": 6,
+        "main": 5,
+        "delivery": 3
+      }
+    },
+    "make": {
+      "P0": {
+        "observed": 6,
+        "main": 6,
+        "delivery": 4
+      },
+      "P3": {
+        "observed": 6,
+        "main": 6,
+        "delivery": 4
+      }
+    },
+    "autotools": {
+      "P0": {
+        "observed": 6,
+        "main": 6,
+        "delivery": 4
+      },
+      "P3": {
+        "observed": 6,
+        "main": 4,
+        "delivery": 3
+      }
+    }
+  },
+  "pairs": [
+    {
+      "project": "libarchive",
+      "system": "cmake",
+      "P0": {
+        "slot": 1,
+        "project": "libarchive",
+        "method": "P0_R2",
+        "status": "primary_completed",
+        "main": true,
+        "delivery": false,
+        "cost": "0.0281808",
+        "requests": 7,
+        "wall_seconds": 151.15881929011084,
+        "initial_requests": 7,
+        "initial_cost": "0.0281808",
+        "recovery_invocations": 0,
+        "recovery_requests": 0,
+        "recovery_cost": "0",
+        "initial_reads": 7,
+        "initial_repeat_reads": 0,
+        "initial_seconds": 19.67645123996772,
+        "recovery_seconds": 0.0,
+        "issue": "missing_native_verification"
+      },
+      "P3": {
+        "slot": 2,
+        "project": "libarchive",
+        "method": "P3_R2",
+        "status": "primary_completed",
+        "main": true,
+        "delivery": false,
+        "cost": "0.0813585",
+        "requests": 20,
+        "wall_seconds": 143.99951145099476,
+        "initial_requests": 20,
+        "initial_cost": "0.0813585",
+        "recovery_invocations": 0,
+        "recovery_requests": 0,
+        "recovery_cost": "0",
+        "initial_reads": 19,
+        "initial_repeat_reads": 8,
+        "initial_seconds": 40.81424887198955,
+        "recovery_seconds": 0.0,
+        "issue": "missing_native_verification"
+      },
+      "cost_delta": "0.0531777",
+      "wall_delta": -7.159307839116082
+    },
+    {
+      "project": "toybox",
+      "system": "make",
+      "P0": {
+        "slot": 4,
+        "project": "toybox",
+        "method": "P0_R2",
+        "status": "error",
+        "main": true,
+        "delivery": false,
+        "cost": "0.0023379",
+        "requests": 1,
+        "wall_seconds": 51.46160862199031,
+        "initial_requests": 1,
+        "initial_cost": "0.0023379",
+        "recovery_invocations": 0,
+        "recovery_requests": 0,
+        "recovery_cost": "0",
+        "initial_reads": 0,
+        "initial_repeat_reads": 0,
+        "initial_seconds": 2.7002108260057867,
+        "recovery_seconds": 0.0,
+        "issue": "主产物交付名称歧义"
+      },
+      "P3": {
+        "slot": 3,
+        "project": "toybox",
+        "method": "P3_R2",
+        "status": "error",
+        "main": true,
+        "delivery": false,
+        "cost": "0.0094881",
+        "requests": 3,
+        "wall_seconds": 56.422012897906825,
+        "initial_requests": 3,
+        "initial_cost": "0.0094881",
+        "recovery_invocations": 0,
+        "recovery_requests": 0,
+        "recovery_cost": "0",
+        "initial_reads": 4,
+        "initial_repeat_reads": 0,
+        "initial_seconds": 6.26134151709266,
+        "recovery_seconds": 0.0,
+        "issue": "主产物交付名称歧义"
+      },
+      "cost_delta": "0.0071502",
+      "wall_delta": 4.960404275916517
+    },
+    {
+      "project": "nettle",
+      "system": "autotools",
+      "P0": {
+        "slot": 5,
+        "project": "nettle",
+        "method": "P0_R2",
+        "status": "primary_completed",
+        "main": true,
+        "delivery": true,
+        "cost": "0.0167958",
+        "requests": 4,
+        "wall_seconds": 111.61842556484044,
+        "initial_requests": 4,
+        "initial_cost": "0.0167958",
+        "recovery_invocations": 0,
+        "recovery_requests": 0,
+        "recovery_cost": "0",
+        "initial_reads": 2,
+        "initial_repeat_reads": 0,
+        "initial_seconds": 16.961915489984676,
+        "recovery_seconds": 0.0,
+        "issue": ""
+      },
+      "P3": {
+        "slot": 6,
+        "project": "nettle",
+        "method": "P3_R2",
+        "status": "primary_completed",
+        "main": true,
+        "delivery": true,
+        "cost": "0.0505986",
+        "requests": 12,
+        "wall_seconds": 133.17130547389388,
+        "initial_requests": 10,
+        "initial_cost": "0.0416841",
+        "recovery_invocations": 1,
+        "recovery_requests": 2,
+        "recovery_cost": "0.0089145",
+        "initial_reads": 7,
+        "initial_repeat_reads": 0,
+        "initial_seconds": 31.757974930107594,
+        "recovery_seconds": 6.9069806430488825,
+        "issue": ""
+      },
+      "cost_delta": "0.0338028",
+      "wall_delta": 21.552879909053445
+    },
+    {
+      "project": "json-c",
+      "system": "cmake",
+      "P0": {
+        "slot": 8,
+        "project": "json-c",
+        "method": "P0_R2",
+        "status": "primary_completed",
+        "main": true,
+        "delivery": true,
+        "cost": "0.0076206",
+        "requests": 2,
+        "wall_seconds": 44.06869720714167,
+        "initial_requests": 2,
+        "initial_cost": "0.0076206",
+        "recovery_invocations": 0,
+        "recovery_requests": 0,
+        "recovery_cost": "0",
+        "initial_reads": 0,
+        "initial_repeat_reads": 0,
+        "initial_seconds": 5.202763427980244,
+        "recovery_seconds": 0.0,
+        "issue": ""
+      },
+      "P3": {
+        "slot": 7,
+        "project": "json-c",
+        "method": "P3_R2",
+        "status": "primary_completed",
+        "main": true,
+        "delivery": true,
+        "cost": "0.0160515",
+        "requests": 4,
+        "wall_seconds": 47.33645742689259,
+        "initial_requests": 4,
+        "initial_cost": "0.0160515",
+        "recovery_invocations": 0,
+        "recovery_requests": 0,
+        "recovery_cost": "0",
+        "initial_reads": 4,
+        "initial_repeat_reads": 0,
+        "initial_seconds": 8.391082589048892,
+        "recovery_seconds": 0.0,
+        "issue": ""
+      },
+      "cost_delta": "0.0084309",
+      "wall_delta": 3.267760219750926
+    },
+    {
+      "project": "vlmcsd",
+      "system": "make",
+      "P0": {
+        "slot": 9,
+        "project": "vlmcsd",
+        "method": "P0_R2",
+        "status": "primary_completed",
+        "main": true,
+        "delivery": true,
+        "cost": "0.0376398",
+        "requests": 11,
+        "wall_seconds": 31.005816020071507,
+        "initial_requests": 11,
+        "initial_cost": "0.0376398",
+        "recovery_invocations": 0,
+        "recovery_requests": 0,
+        "recovery_cost": "0",
+        "initial_reads": 9,
+        "initial_repeat_reads": 1,
+        "initial_seconds": 19.324687748914585,
+        "recovery_seconds": 0.0,
+        "issue": ""
+      },
+      "P3": {
+        "slot": 10,
+        "project": "vlmcsd",
+        "method": "P3_R2",
+        "status": "primary_completed",
+        "main": true,
+        "delivery": true,
+        "cost": "0.0358581",
+        "requests": 10,
+        "wall_seconds": 30.7904656000901,
+        "initial_requests": 10,
+        "initial_cost": "0.0358581",
+        "recovery_invocations": 0,
+        "recovery_requests": 0,
+        "recovery_cost": "0",
+        "initial_reads": 8,
+        "initial_repeat_reads": 1,
+        "initial_seconds": 18.386009023990482,
+        "recovery_seconds": 0.0,
+        "issue": ""
+      },
+      "cost_delta": "-0.0017817",
+      "wall_delta": -0.21535041998140514
+    },
+    {
+      "project": "libgcrypt",
+      "system": "autotools",
+      "P0": {
+        "slot": 12,
+        "project": "libgcrypt",
+        "method": "P0_R2",
+        "status": "primary_completed",
+        "main": true,
+        "delivery": false,
+        "cost": "0.0666033",
+        "requests": 14,
+        "wall_seconds": 316.57681493391283,
+        "initial_requests": 7,
+        "initial_cost": "0.0298668",
+        "recovery_invocations": 3,
+        "recovery_requests": 7,
+        "recovery_cost": "0.0367365",
+        "initial_reads": 9,
+        "initial_repeat_reads": 0,
+        "initial_seconds": 26.871142230927944,
+        "recovery_seconds": 43.84407903300598,
+        "issue": "missing_native_verification"
+      },
+      "P3": {
+        "slot": 11,
+        "project": "libgcrypt",
+        "method": "P3_R2",
+        "status": "error",
+        "main": null,
+        "delivery": null,
+        "cost": "0.1955391",
+        "requests": 50,
+        "wall_seconds": 89.60451675392687,
+        "initial_requests": 50,
+        "initial_cost": "0.1955391",
+        "recovery_invocations": 0,
+        "recovery_requests": 0,
+        "recovery_cost": "0",
+        "initial_reads": 61,
+        "initial_repeat_reads": 36,
+        "initial_seconds": 85.71235186210833,
+        "recovery_seconds": 0.0,
+        "issue": "Recursion limit of 100 reached without hitting a stop condition. You can increase the limit by setting the `recursion_limit` config key.\nFor troubleshooting, visit: https://docs.langchain.com/oss/python/langgraph/errors/GRAPH_RECURSION_LIMIT"
+      },
+      "cost_delta": "0.1289358",
+      "wall_delta": -226.97229817998596
+    },
+    {
+      "project": "libexpat",
+      "system": "cmake",
+      "P0": {
+        "slot": 13,
+        "project": "libexpat",
+        "method": "P0_R2",
+        "status": "primary_completed",
+        "main": true,
+        "delivery": false,
+        "cost": "0.0133557",
+        "requests": 5,
+        "wall_seconds": 24.62082400289364,
+        "initial_requests": 5,
+        "initial_cost": "0.0133557",
+        "recovery_invocations": 0,
+        "recovery_requests": 0,
+        "recovery_cost": "0",
+        "initial_reads": 2,
+        "initial_repeat_reads": 0,
+        "initial_seconds": 8.825350623112172,
+        "recovery_seconds": 0.0,
+        "issue": "missing_native_verification"
+      },
+      "P3": {
+        "slot": 14,
+        "project": "libexpat",
+        "method": "P3_R2",
+        "status": "primary_completed",
+        "main": true,
+        "delivery": false,
+        "cost": "0.0326676",
+        "requests": 9,
+        "wall_seconds": 34.84043849911541,
+        "initial_requests": 9,
+        "initial_cost": "0.0326676",
+        "recovery_invocations": 0,
+        "recovery_requests": 0,
+        "recovery_cost": "0",
+        "initial_reads": 10,
+        "initial_repeat_reads": 3,
+        "initial_seconds": 19.029465893050656,
+        "recovery_seconds": 0.0,
+        "issue": "missing_native_verification"
+      },
+      "cost_delta": "0.0193119",
+      "wall_delta": 10.219614496221766
+    },
+    {
+      "project": "tiny-AES-c",
+      "system": "make",
+      "P0": {
+        "slot": 16,
+        "project": "tiny-AES-c",
+        "method": "P0_R2",
+        "status": "primary_completed",
+        "main": true,
+        "delivery": true,
+        "cost": "0.0019176",
+        "requests": 1,
+        "wall_seconds": 11.581976066110656,
+        "initial_requests": 1,
+        "initial_cost": "0.0019176",
+        "recovery_invocations": 0,
+        "recovery_requests": 0,
+        "recovery_cost": "0",
+        "initial_reads": 0,
+        "initial_repeat_reads": 0,
+        "initial_seconds": 2.7658619040157646,
+        "recovery_seconds": 0.0,
+        "issue": ""
+      },
+      "P3": {
+        "slot": 15,
+        "project": "tiny-AES-c",
+        "method": "P3_R2",
+        "status": "primary_completed",
+        "main": true,
+        "delivery": true,
+        "cost": "0.0041244",
+        "requests": 2,
+        "wall_seconds": 13.078824538039044,
+        "initial_requests": 2,
+        "initial_cost": "0.0041244",
+        "recovery_invocations": 0,
+        "recovery_requests": 0,
+        "recovery_cost": "0",
+        "initial_reads": 0,
+        "initial_repeat_reads": 0,
+        "initial_seconds": 4.28488970012404,
+        "recovery_seconds": 0.0,
+        "issue": ""
+      },
+      "cost_delta": "0.0022068",
+      "wall_delta": 1.4968484719283879
+    },
+    {
+      "project": "jansson",
+      "system": "autotools",
+      "P0": {
+        "slot": 17,
+        "project": "jansson",
+        "method": "P0_R2",
+        "status": "primary_completed",
+        "main": true,
+        "delivery": true,
+        "cost": "0.0076344",
+        "requests": 2,
+        "wall_seconds": 48.2148952500429,
+        "initial_requests": 2,
+        "initial_cost": "0.0076344",
+        "recovery_invocations": 0,
+        "recovery_requests": 0,
+        "recovery_cost": "0",
+        "initial_reads": 1,
+        "initial_repeat_reads": 0,
+        "initial_seconds": 7.389737017918378,
+        "recovery_seconds": 0.0,
+        "issue": ""
+      },
+      "P3": {
+        "slot": 18,
+        "project": "jansson",
+        "method": "P3_R2",
+        "status": "primary_completed",
+        "main": true,
+        "delivery": true,
+        "cost": "0.0171102",
+        "requests": 4,
+        "wall_seconds": 55.06190736615099,
+        "initial_requests": 4,
+        "initial_cost": "0.0171102",
+        "recovery_invocations": 0,
+        "recovery_requests": 0,
+        "recovery_cost": "0",
+        "initial_reads": 4,
+        "initial_repeat_reads": 0,
+        "initial_seconds": 14.083134331041947,
+        "recovery_seconds": 0.0,
+        "issue": ""
+      },
+      "cost_delta": "0.0094758",
+      "wall_delta": 6.84701211610809
+    },
+    {
+      "project": "Libsoundio",
+      "system": "cmake",
+      "P0": {
+        "slot": 20,
+        "project": "Libsoundio",
+        "method": "P0_R2",
+        "status": "primary_completed",
+        "main": true,
+        "delivery": true,
+        "cost": "0.0036192",
+        "requests": 1,
+        "wall_seconds": 16.811529838014394,
+        "initial_requests": 1,
+        "initial_cost": "0.0036192",
+        "recovery_invocations": 0,
+        "recovery_requests": 0,
+        "recovery_cost": "0",
+        "initial_reads": 0,
+        "initial_repeat_reads": 0,
+        "initial_seconds": 2.897881662938744,
+        "recovery_seconds": 0.0,
+        "issue": ""
+      },
+      "P3": {
+        "slot": 19,
+        "project": "Libsoundio",
+        "method": "P3_R2",
+        "status": "primary_completed",
+        "main": true,
+        "delivery": true,
+        "cost": "0.0097728",
+        "requests": 2,
+        "wall_seconds": 27.421338676009327,
+        "initial_requests": 2,
+        "initial_cost": "0.0097728",
+        "recovery_invocations": 0,
+        "recovery_requests": 0,
+        "recovery_cost": "0",
+        "initial_reads": 1,
+        "initial_repeat_reads": 0,
+        "initial_seconds": 13.470134828006849,
+        "recovery_seconds": 0.0,
+        "issue": ""
+      },
+      "cost_delta": "0.0061536",
+      "wall_delta": 10.609808837994933
+    },
+    {
+      "project": "pwnat",
+      "system": "make",
+      "P0": {
+        "slot": 21,
+        "project": "pwnat",
+        "method": "P0_R2",
+        "status": "primary_completed",
+        "main": true,
+        "delivery": true,
+        "cost": "0.0054384",
+        "requests": 2,
+        "wall_seconds": 13.938151982147247,
+        "initial_requests": 2,
+        "initial_cost": "0.0054384",
+        "recovery_invocations": 0,
+        "recovery_requests": 0,
+        "recovery_cost": "0",
+        "initial_reads": 0,
+        "initial_repeat_reads": 0,
+        "initial_seconds": 4.538797470042482,
+        "recovery_seconds": 0.0,
+        "issue": ""
+      },
+      "P3": {
+        "slot": 22,
+        "project": "pwnat",
+        "method": "P3_R2",
+        "status": "primary_completed",
+        "main": true,
+        "delivery": true,
+        "cost": "0.0029832",
+        "requests": 1,
+        "wall_seconds": 13.246050629066303,
+        "initial_requests": 1,
+        "initial_cost": "0.0029832",
+        "recovery_invocations": 0,
+        "recovery_requests": 0,
+        "recovery_cost": "0",
+        "initial_reads": 0,
+        "initial_repeat_reads": 0,
+        "initial_seconds": 3.892184433992952,
+        "recovery_seconds": 0.0,
+        "issue": ""
+      },
+      "cost_delta": "-0.0024552",
+      "wall_delta": -0.6921013530809432
+    },
+    {
+      "project": "shc",
+      "system": "autotools",
+      "P0": {
+        "slot": 24,
+        "project": "shc",
+        "method": "P0_R2",
+        "status": "primary_completed",
+        "main": true,
+        "delivery": true,
+        "cost": "0.0075363",
+        "requests": 3,
+        "wall_seconds": 21.074248697143048,
+        "initial_requests": 3,
+        "initial_cost": "0.0075363",
+        "recovery_invocations": 0,
+        "recovery_requests": 0,
+        "recovery_cost": "0",
+        "initial_reads": 2,
+        "initial_repeat_reads": 0,
+        "initial_seconds": 5.712050724076107,
+        "recovery_seconds": 0.0,
+        "issue": ""
+      },
+      "P3": {
+        "slot": 23,
+        "project": "shc",
+        "method": "P3_R2",
+        "status": "primary_completed",
+        "main": true,
+        "delivery": true,
+        "cost": "0.0055563",
+        "requests": 2,
+        "wall_seconds": 19.139919064939022,
+        "initial_requests": 2,
+        "initial_cost": "0.0055563",
+        "recovery_invocations": 0,
+        "recovery_requests": 0,
+        "recovery_cost": "0",
+        "initial_reads": 1,
+        "initial_repeat_reads": 0,
+        "initial_seconds": 3.8949127020314336,
+        "recovery_seconds": 0.0,
+        "issue": ""
+      },
+      "cost_delta": "-0.0019800",
+      "wall_delta": -1.934329632204026
+    },
+    {
+      "project": "Civetweb",
+      "system": "cmake",
+      "P0": {
+        "slot": 25,
+        "project": "Civetweb",
+        "method": "P0_R2",
+        "status": "error",
+        "main": false,
+        "delivery": false,
+        "cost": "0.1035339",
+        "requests": 24,
+        "wall_seconds": 114.06797889899462,
+        "initial_requests": 13,
+        "initial_cost": "0.0554355",
+        "recovery_invocations": 2,
+        "recovery_requests": 11,
+        "recovery_cost": "0.0480984",
+        "initial_reads": 13,
+        "initial_repeat_reads": 1,
+        "initial_seconds": 29.47696703695692,
+        "recovery_seconds": 53.781064704060555,
+        "issue": "原源码/测试被修改：src/civetweb.c"
+      },
+      "P3": {
+        "slot": 26,
+        "project": "Civetweb",
+        "method": "P3_R2",
+        "status": "error",
+        "main": false,
+        "delivery": false,
+        "cost": "0.1046922",
+        "requests": 23,
+        "wall_seconds": 107.67401588801295,
+        "initial_requests": 13,
+        "initial_cost": "0.0506838",
+        "recovery_invocations": 1,
+        "recovery_requests": 10,
+        "recovery_cost": "0.0540084",
+        "initial_reads": 18,
+        "initial_repeat_reads": 2,
+        "initial_seconds": 23.861876780167222,
+        "recovery_seconds": 75.75587486103177,
+        "issue": "原源码/测试被修改：src/civetweb.c"
+      },
+      "cost_delta": "0.0011583",
+      "wall_delta": -6.393963010981679
+    },
+    {
+      "project": "linenoise",
+      "system": "make",
+      "P0": {
+        "slot": 28,
+        "project": "linenoise",
+        "method": "P0_R2",
+        "status": "error",
+        "main": true,
+        "delivery": false,
+        "cost": "0.0044253",
+        "requests": 2,
+        "wall_seconds": 9.046724745072424,
+        "initial_requests": 2,
+        "initial_cost": "0.0044253",
+        "recovery_invocations": 0,
+        "recovery_requests": 0,
+        "recovery_cost": "0",
+        "initial_reads": 0,
+        "initial_repeat_reads": 0,
+        "initial_seconds": 3.8440181689802557,
+        "recovery_seconds": 0.0,
+        "issue": "[Errno 13] Permission denied: '/home/yiwei/.codex/outputs/forge-planning-p3-fixed-r2-comparison-flash-v1/slot-28-linenoise-P0_R2/.compile-sessions/simple-system/8c2406a0f7b1/artifacts/history.txt'"
+      },
+      "P3": {
+        "slot": 27,
+        "project": "linenoise",
+        "method": "P3_R2",
+        "status": "error",
+        "main": true,
+        "delivery": false,
+        "cost": "0.002469",
+        "requests": 1,
+        "wall_seconds": 8.509762335103005,
+        "initial_requests": 1,
+        "initial_cost": "0.002469",
+        "recovery_invocations": 0,
+        "recovery_requests": 0,
+        "recovery_cost": "0",
+        "initial_reads": 0,
+        "initial_repeat_reads": 0,
+        "initial_seconds": 3.370137053076178,
+        "recovery_seconds": 0.0,
+        "issue": "[Errno 13] Permission denied: '/home/yiwei/.codex/outputs/forge-planning-p3-fixed-r2-comparison-flash-v1/slot-27-linenoise-P3_R2/.compile-sessions/simple-system/a407e459daf1/artifacts/history.txt'"
+      },
+      "cost_delta": "-0.0019563",
+      "wall_delta": -0.5369624099694192
+    },
+    {
+      "project": "snapraid",
+      "system": "autotools",
+      "P0": {
+        "slot": 29,
+        "project": "snapraid",
+        "method": "P0_R2",
+        "status": "primary_completed",
+        "main": true,
+        "delivery": false,
+        "cost": "0.0402366",
+        "requests": 10,
+        "wall_seconds": 56.32571998098865,
+        "initial_requests": 10,
+        "initial_cost": "0.0402366",
+        "recovery_invocations": 0,
+        "recovery_requests": 0,
+        "recovery_cost": "0",
+        "initial_reads": 13,
+        "initial_repeat_reads": 3,
+        "initial_seconds": 26.198162481887266,
+        "recovery_seconds": 0.0,
+        "issue": "missing_native_verification"
+      },
+      "P3": {
+        "slot": 30,
+        "project": "snapraid",
+        "method": "P3_R2",
+        "status": "primary_completed",
+        "main": true,
+        "delivery": false,
+        "cost": "0.1539003",
+        "requests": 38,
+        "wall_seconds": 110.36725258803926,
+        "initial_requests": 38,
+        "initial_cost": "0.1539003",
+        "recovery_invocations": 0,
+        "recovery_requests": 0,
+        "recovery_cost": "0",
+        "initial_reads": 39,
+        "initial_repeat_reads": 14,
+        "initial_seconds": 80.13348998292349,
+        "recovery_seconds": 0.0,
+        "issue": "missing_native_verification"
+      },
+      "cost_delta": "0.1136637",
+      "wall_delta": 54.04153260705061
+    },
+    {
+      "project": "Leveldb",
+      "system": "cmake",
+      "P0": {
+        "slot": 32,
+        "project": "Leveldb",
+        "method": "P0_R2",
+        "status": "primary_completed",
+        "main": true,
+        "delivery": true,
+        "cost": "0.0159249",
+        "requests": 4,
+        "wall_seconds": 47.21241590986028,
+        "initial_requests": 4,
+        "initial_cost": "0.0159249",
+        "recovery_invocations": 0,
+        "recovery_requests": 0,
+        "recovery_cost": "0",
+        "initial_reads": 1,
+        "initial_repeat_reads": 0,
+        "initial_seconds": 9.927034022985026,
+        "recovery_seconds": 0.0,
+        "issue": ""
+      },
+      "P3": {
+        "slot": 31,
+        "project": "Leveldb",
+        "method": "P3_R2",
+        "status": "primary_completed",
+        "main": true,
+        "delivery": true,
+        "cost": "0.1512777",
+        "requests": 36,
+        "wall_seconds": 301.16774276294746,
+        "initial_requests": 32,
+        "initial_cost": "0.1275252",
+        "recovery_invocations": 2,
+        "recovery_requests": 4,
+        "recovery_cost": "0.0237525",
+        "initial_reads": 23,
+        "initial_repeat_reads": 9,
+        "initial_seconds": 106.75955623295158,
+        "recovery_seconds": 40.07749641616829,
+        "issue": ""
+      },
+      "cost_delta": "0.1353528",
+      "wall_delta": 253.95532685308717
+    },
+    {
+      "project": "libbpf",
+      "system": "make",
+      "P0": {
+        "slot": 33,
+        "project": "libbpf",
+        "method": "P0_R2",
+        "status": "primary_completed",
+        "main": true,
+        "delivery": true,
+        "cost": "0.013845",
+        "requests": 5,
+        "wall_seconds": 67.6713092669379,
+        "initial_requests": 4,
+        "initial_cost": "0.0096213",
+        "recovery_invocations": 1,
+        "recovery_requests": 1,
+        "recovery_cost": "0.0042237",
+        "initial_reads": 1,
+        "initial_repeat_reads": 0,
+        "initial_seconds": 7.733333118027076,
+        "recovery_seconds": 7.363703924929723,
+        "issue": ""
+      },
+      "P3": {
+        "slot": 34,
+        "project": "libbpf",
+        "method": "P3_R2",
+        "status": "primary_completed",
+        "main": true,
+        "delivery": true,
+        "cost": "0.0078681",
+        "requests": 3,
+        "wall_seconds": 59.00584796303883,
+        "initial_requests": 3,
+        "initial_cost": "0.0078681",
+        "recovery_invocations": 0,
+        "recovery_requests": 0,
+        "recovery_cost": "0",
+        "initial_reads": 1,
+        "initial_repeat_reads": 0,
+        "initial_seconds": 7.596221497049555,
+        "recovery_seconds": 0.0,
+        "issue": ""
+      },
+      "cost_delta": "-0.0059769",
+      "wall_delta": -8.665461303899065
+    },
+    {
+      "project": "Rnnoise",
+      "system": "autotools",
+      "P0": {
+        "slot": 36,
+        "project": "Rnnoise",
+        "method": "P0_R2",
+        "status": "primary_completed",
+        "main": true,
+        "delivery": true,
+        "cost": "0.0215838",
+        "requests": 6,
+        "wall_seconds": 844.1426502650138,
+        "initial_requests": 5,
+        "initial_cost": "0.0151584",
+        "recovery_invocations": 1,
+        "recovery_requests": 1,
+        "recovery_cost": "0.0064254",
+        "initial_reads": 6,
+        "initial_repeat_reads": 0,
+        "initial_seconds": 12.526339258998632,
+        "recovery_seconds": 12.47163259703666,
+        "issue": ""
+      },
+      "P3": {
+        "slot": 35,
+        "project": "Rnnoise",
+        "method": "P3_R2",
+        "status": "error",
+        "main": false,
+        "delivery": false,
+        "cost": "0.05772",
+        "requests": 11,
+        "wall_seconds": 321.3058759099804,
+        "initial_requests": 4,
+        "initial_cost": "0.0134109",
+        "recovery_invocations": 2,
+        "recovery_requests": 7,
+        "recovery_cost": "0.0443091",
+        "initial_reads": 4,
+        "initial_repeat_reads": 0,
+        "initial_seconds": 14.137810771120712,
+        "recovery_seconds": 87.20094930496998,
+        "issue": "替换成功依赖autogen须在discard_dependencies中说明理由；不能隐式覆盖"
+      },
+      "cost_delta": "0.0361362",
+      "wall_delta": -522.8367743550334
+    }
+  ],
+  "paired_main": {
+    "P0_only": 2,
+    "P3_only": 0,
+    "both": 15
+  },
+  "raw_summary": {
+    "identity": "cpp-build-planning-p3-fixed-r2-comparison-flash-v1",
+    "stop_reason": null,
+    "completed_slots": 36,
+    "expected_slots": 36,
+    "closed_slot_cost_usd": "1.3372650",
+    "unclosed_slot": null,
+    "billing_complete": true,
+    "batch_wall_seconds": 3563.105047883
+  }
+}

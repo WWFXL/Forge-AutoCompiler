@@ -1,0 +1,19 @@
+{
+  "initial_runner_exit": 1,
+  "phase": "post_collection_inventory",
+  "cause": "permission_denied_on_linenoise_native_generated_history_file",
+  "recovery": "same_inventory_implementation_readonly_container_root_then_create_once_markers",
+  "provider_retries": 0,
+  "content_or_mode_changes": false,
+  "source_snapshots_verified": true,
+  "seal": {
+    "format": "forge-typed-evidence-v1",
+    "identity": "cpp-build-planning-p3-fixed-r2-comparison-flash-v1",
+    "entries": 39571,
+    "files": 39181,
+    "symlinks": 390,
+    "bytes": 2734666687,
+    "inventory_canonical_sha256": "479ce9ab398dd45371d03f2d0bff0adeb37228dafd6668a54aa7afe590a93ca9",
+    "unknown_usage_requests": 0
+  }
+}

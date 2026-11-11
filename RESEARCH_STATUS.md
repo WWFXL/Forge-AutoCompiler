@@ -3,7 +3,17 @@
 论文选材固定入口：[硕士论文实验与证据索引](docs/research/THESIS_EVIDENCE_INDEX.md)，[历史材料目录](docs/research/THESIS_EVIDENCE_CATALOG.md)保留存量导航。当前完整稿为[论文v0.10第二轮结果稿](docs/thesis/README.md)；E50–E52保存主构建系统及两轮Harness结果，既有完整任务、状态/恢复消融和两层经验继续按各自版本与分母使用。
 
 
-## 当前阶段（2026-11-11；#739已审核P3与P0固定R2的36槽比较准备）
+## 当前阶段（2026-11-11；#742 P0/P3固定R2比较36槽完成，待用户审核）
+
+[结果报告](docs/research/2026-11-11-planning-p3-fixed-r2-comparison-results.md)、[逐槽分析](benchmarks/analyses/planning-p3-fixed-r2-comparison-2026-11-11/README.md)、[E56](docs/research/THESIS_EVIDENCE_INDEX.md#e56)：18项目×独立P0/P3规划、同R2恢复，36/36终态、0未启动/未闭合。主构建17/18、15/18，交付11/18、10/18；在线费0.3982293/0.9390357美元，高135.8%；初始规划增量占93.4%。P3在5项目局部低费，但本轮无整体收益，P0保持；累计1980.60/1572.14秒受到未完成路径影响，不当同等完成加速。
+
+libgcrypt/P3规划50请求后递归上限、未执行主构建；Rnnoise/P3恢复替换已成功依赖未完整声明而拒绝，P0完成主构建/真重建。Civetweb两组恢复改源码；轻量参考缺失、toybox交付名称歧义、linenoise生成history权限等共同限制保留，不当编译失败，不回填。当前只支持本候选的描述取舍，不否定离线优化路线，不与E55/旧H1H2混分母。
+
+335响应/4037418Token/1.337265美元、未知0、59.39分钟，原5美元/UTC12:16:21—16:16:21内完整结束，无自动重试、不补槽。raw`forge-planning-p3-fixed-r2-comparison-flash-v1`，inventory479ce9ab；自动清单权限失败后以相同实现只读补全首次seal，audit通过，内容/权限不改。36cleanup、57容器114引用实查不存在，正式进程已退出，无活动Provider。manifest64512a12、P3指导126d5ac4/R2原指导270becfd保持；运行中只追加状态文档，无代码/任务改动。
+
+结果待用户审核，不自动入论文、不替换P0、不追加调用或工程修复。建议审核后决定是否以“读取收敛与成功依赖修订”形成下一小范围优化；知识库和GitHub发布状态另同步。
+
+## 上一阶段（2026-11-11；#739已审核P3与P0固定R2的36槽比较准备）
 
 用户审核P3后明确要求开始执行。本轮只做比较准备：[协议](benchmarks/preregistrations/cpp-build-planning-p3-fixed-r2-comparison-flash-v1.md)、[入口](scripts/forge_planning_p3_comparison.py)、[准备报告](docs/research/2026-11-11-planning-p3-comparison-preparation.md)。18项目、三系统各6、每方法一次共36槽；两组各自独立模型规划，不复用恢复比较中的共享H0方案。P3原始指导126d5ac4保持；共同R2指导270becfd保持，仅重绑定当前提示。经验/配方关闭，Flash、工具、执行器、资源及独立验证相同。
 
