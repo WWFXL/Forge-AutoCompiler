@@ -3,6 +3,7 @@
 跨 Claude Code session 的项目状态流水。按 CLAUDE.md §7 维护。
 
 ## 进行中 (In Progress)
+- 2026-11-12 — #750论文v0.11已完成E57入文、全文论证修订及Word实际导出，发布/知识库同步收尾；无活动Provider，不新增实验或更换默认。当前状态以RESEARCH_STATUS.md为准。
 - 2026-11-11 — #744共同准备/交付修复及四项目最终真实重建完成；0Provider/新增费，P4候选7686c24b待用户审核，尚未接入或比较，下一步共同工具分派方案及短指导审核。当前事实见RESEARCH_STATUS.md，旧E56与论文不改。
 - 2026-11-11 — #742 P0/P3同R2的36/36正式比较完成，结果待用户审核；主构建17/18、15/18，交付11/18、10/18，费0.3982293/0.9390357美元，P3不采纳。335响应/1.337265美元/未知0；inventory479ce9ab，36cleanup/57容器114引用不存在，正式进程已退出。报告/E56已保存，不入论文、不追加调用；当前事实见RESEARCH_STATUS.md。
 - 2026-11-11 — #739已审核P3与P0的固定R2比较准备；18项目36槽、各自独立规划，正式0/36、新增模型费0。预算/时窗尚未绑定，旧提案一次额度不续用；PR740三CI通过并合c151dbac、Issue739关闭，知识库入口已同步；7项检查及两条受控接线通过，详见RESEARCH_STATUS.md。
@@ -633,6 +634,9 @@
   - 下一步: 等待实验负责人确认当前网络接入介质，并决定是否授权只读 endpoint 诊断和新的 canary amendment；获得确认后必须另建中文 Issue/PR 和协议 identity，保留当前失败 marker。
 
 ## 最近变更 (Recent Changes)
+- 2026-11-12 — #750完成E57工具约束/P4三组比较入文与全文审读，仅交付Word v0.11。
+  - 文件: `docs/thesis/chapters/`, `docs/thesis/tools/build_draft.py`, `docs/research/2026-11-12-thesis-e57-revision.md`, `RESEARCH_STATUS.md`。
+  - 动机: 按用户审核意见连接状态执行、历史轨迹诊断和Harness更新；删改重复辩解及写作交接，保留影响结果解释的条件与混合成本。实际Word七章/60表/12嵌图，第6章38表号连续，关键数字/阶段合计/图片关系通过；输出forge-thesis-e57-word-2026-11-12，无新版PDF/HTML，0新增实验/Provider。学校模板/个人信息/正式著录仍待补，发布以Issue750关联PR/CI为准。
 - 2026-11-12 — 完成#748规划工具/P4三组36槽比较及E57结果归档，先交用户审核。
   - 文件: `docs/research/2026-11-12-planning-tool-p4-comparison-results.md`, `benchmarks/analyses/planning-tool-p4-comparison-2026-11-12/`, `RESEARCH_STATUS.md`, `docs/research/THESIS_EVIDENCE_INDEX.md`, `docs/research/THESIS_EVIDENCE_CATALOG.md`
   - 动机: 区分工具Harness与P4提示增量；A/B/C完整10/12、11/12、10/12，总费0.5840436/0.4971639/0.6943038美元，保存全分母、初始/恢复和共同完成子集，避免只报总费或抹去P4局部收益。总1.7755113美元/397响应/69.95分钟；封存与独立audit、清理通过，原件cc85f9d8。无活动Provider、不改论文/默认、不追加修复。准备PR747已合并，结果发布见Issue748关联PR。
