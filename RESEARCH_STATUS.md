@@ -3,7 +3,13 @@
 论文选材固定入口：[硕士论文实验与证据索引](docs/research/THESIS_EVIDENCE_INDEX.md)，[历史材料目录](docs/research/THESIS_EVIDENCE_CATALOG.md)保留存量导航。当前完整稿为[论文v0.10第二轮结果稿](docs/thesis/README.md)；E50–E52保存主构建系统及两轮Harness结果，既有完整任务、状态/恢复消融和两层经验继续按各自版本与分母使用。
 
 
-## 当前阶段（2026-11-11；#739已审核P3与P0固定R2的36槽比较准备）
+## 当前阶段（2026-11-11；#742 P0/P3独立规划、固定R2的36槽正式采集）
+
+用户已授权 `cpp-build-planning-p3-fixed-r2-comparison-flash-v1`：新增模型费用硬上限5美元，UTC 2026-11-11 12:16:21—16:16:21（北京时间20:16:21—次日00:16:21），无自动重试、不补槽；未知用量、模型标识异常或清理失败停止整批。正式入口沿PR740冻结版本，manifest64512a12；P0/P3各自独立规划、同R2恢复，18项目36槽，不同时修改共同系统。
+
+原件 `/home/yiwei/.codex/outputs/forge-planning-p3-fixed-r2-comparison-flash-v1`，活动进度以其中current-slot.json/progress.json为准；运行授权及终端日志在独立comparison-session-20261111目录。当前为数据采集，尚无批次结论。完成或协议停止后分析固定分母、费用/时间及初始与恢复分项，结果先交用户审核，不改默认P0、不自动写论文。
+
+## 上一阶段（2026-11-11；#739已审核P3与P0固定R2的36槽比较准备）
 
 用户审核P3后明确要求开始执行。本轮只做比较准备：[协议](benchmarks/preregistrations/cpp-build-planning-p3-fixed-r2-comparison-flash-v1.md)、[入口](scripts/forge_planning_p3_comparison.py)、[准备报告](docs/research/2026-11-11-planning-p3-comparison-preparation.md)。18项目、三系统各6、每方法一次共36槽；两组各自独立模型规划，不复用恢复比较中的共享H0方案。P3原始指导126d5ac4保持；共同R2指导270becfd保持，仅重绑定当前提示。经验/配方关闭，Flash、工具、执行器、资源及独立验证相同。
 
