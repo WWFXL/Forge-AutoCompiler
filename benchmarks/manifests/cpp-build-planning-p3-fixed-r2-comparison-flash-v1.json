@@ -1,0 +1,2278 @@
+{
+  "identity": "cpp-build-planning-p3-fixed-r2-comparison-flash-v1",
+  "issue": 739,
+  "state": "prepared_requires_new_budget_and_window",
+  "methods": [
+    "P0_R2",
+    "P3_R2"
+  ],
+  "projects": [
+    {
+      "name": "libarchive",
+      "family": "https://github.com/libarchive/libarchive",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "p3-libarchive",
+        "repository_url": "https://github.com/libarchive/libarchive",
+        "commit_sha": "d0bf2da07ebaa3964090ee936edea538d1602449",
+        "image_id": "sha256:8123220a201ac4d00cda0dc985b9db7227cd909bb93ca6c25fd82cafce5cd887",
+        "source_archive_sha256": "c7778da56b54a2506ea134a20afbbcf8babd29ae39a0d5b6dff8b58ceb700b0e",
+        "build_system": "cmake",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "fa362431e6d5ad4835a9a57534e59eef730d62667544dd46a2309915e931d165",
+        "components": [
+          {
+            "name": "archive",
+            "artifact_names": [
+              "libarchive.a",
+              "libarchive.so"
+            ],
+            "kinds": [
+              "static_library",
+              "shared_library"
+            ],
+            "evidence": "作者普通主要目标，见本项目source_evidence；辅助示例与完整测试不作为主任务"
+          },
+          {
+            "name": "bsdtar",
+            "artifact_names": [
+              "bsdtar"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "作者普通主要目标，见本项目source_evidence；辅助示例与完整测试不作为主任务"
+          },
+          {
+            "name": "bsdcpio",
+            "artifact_names": [
+              "bsdcpio"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "作者普通主要目标，见本项目source_evidence；辅助示例与完整测试不作为主任务"
+          },
+          {
+            "name": "bsdcat",
+            "artifact_names": [
+              "bsdcat"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "作者普通主要目标，见本项目source_evidence；辅助示例与完整测试不作为主任务"
+          },
+          {
+            "name": "bsdunzip",
+            "artifact_names": [
+              "bsdunzip"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "作者普通主要目标，见本项目source_evidence；辅助示例与完整测试不作为主任务"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": "普通主构建；不要求完整作者测试，轻量验证与成功重建分层报告",
+        "executable_smokes": [],
+        "generated_documents": []
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-planning-p3-source-preparation-v1/libarchive/source.tar",
+      "source_evidence": [
+        {
+          "path": "tar/CMakeLists.txt",
+          "quote": "ADD_EXECUTABLE(bsdtar",
+          "line": 52,
+          "sha256": "e9495c340e28f2ec6aa8dc63de4e9ba940a96a2a1395dd965a7914491f524241"
+        },
+        {
+          "path": "cpio/CMakeLists.txt",
+          "quote": "ADD_EXECUTABLE(bsdcpio",
+          "line": 39,
+          "sha256": "cc33390829011bdbdf72a23afce25ee224630c70177f643964957e5b02d2743f"
+        },
+        {
+          "path": "cat/CMakeLists.txt",
+          "quote": "ADD_EXECUTABLE(bsdcat",
+          "line": 26,
+          "sha256": "aada13df20ab3340db3e0ec880ff17a09d14d95d74801f26210175b9cc486c8d"
+        },
+        {
+          "path": "unzip/CMakeLists.txt",
+          "quote": "ADD_EXECUTABLE(bsdunzip",
+          "line": 48,
+          "sha256": "d10445f598a762e33177be2cac6727976d5a437336540f540c36777809b05ec2"
+        },
+        {
+          "path": "libarchive/CMakeLists.txt",
+          "quote": "ADD_LIBRARY(archive SHARED",
+          "line": 253,
+          "sha256": "971d1ae22a5b96beb672a80b1ac5e8ad8e9a4f4e62f53d7b01e4d9a90560a9bd"
+        }
+      ],
+      "reference_actions": [
+        {
+          "role": "configure",
+          "command": "cmake -S . -B build",
+          "workdir": "/workspace/repo"
+        },
+        {
+          "role": "build",
+          "command": "cmake --build build --parallel 4",
+          "workdir": "/workspace/repo"
+        }
+      ],
+      "paper_sources": [
+        {
+          "name": "libarchive",
+          "topic": "Compression",
+          "guide": "in_repo",
+          "source": "compileagent",
+          "source_url": "https://arxiv.org/html/2505.04254v1#A3.T4",
+          "row": 11,
+          "source_html_sha256": "f61b0a20cd65fa2191ffd722ac922d59b6673b485c6f460c209e1e4bcffa56a0"
+        }
+      ],
+      "historical_exposure_pointers": [
+        "benchmarks/manifests/cpp-jev-formal-comparison-v1.json",
+        "benchmarks/manifests/cpp-jev-formal-comparison-v2.json",
+        "benchmarks/manifests/cpp-jev-formal-comparison-v3.json",
+        "benchmarks/manifests/cpp-jev-formal-comparison-v4.json",
+        "benchmarks/manifests/cpp-jev-formal-comparison-v5.json",
+        "benchmarks/manifests/cpp-jev-formal-comparison-v6.json"
+      ],
+      "exposure": "P3提案与旧H1/H2开发评价之外；已登记目录接触；非最终holdout"
+    },
+    {
+      "name": "toybox",
+      "family": "https://github.com/landley/toybox",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "p3-toybox",
+        "repository_url": "https://github.com/landley/toybox",
+        "commit_sha": "6a0c0ef5eeb2c43e4feef9781398c1718b8bddcb",
+        "image_id": "sha256:8123220a201ac4d00cda0dc985b9db7227cd909bb93ca6c25fd82cafce5cd887",
+        "source_archive_sha256": "1353777100bfddaf72e2982fe12e5b4d3467365734c8a01cd5e8b5660f860a88",
+        "build_system": "make",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "83022e8e66711492d2a17624ff54b4a3d95e8e44ed1f7858cacee3f011532120",
+        "components": [
+          {
+            "name": "toybox",
+            "artifact_names": [
+              "toybox"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "作者普通主要目标，见本项目source_evidence；辅助示例与完整测试不作为主任务"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": "普通主构建；不要求完整作者测试，轻量验证与成功重建分层报告",
+        "executable_smokes": [
+          {
+            "artifact_name": "toybox",
+            "accepted_exit_codes": [
+              0
+            ],
+            "step": {
+              "step_id": "smoke-toybox",
+              "role": "smoke",
+              "command": "/artifacts/toybox --version",
+              "source": "作者用法/主程序定义；固定源码source_evidence",
+              "expected": "原生轻量运行成功",
+              "workdir": "/artifacts",
+              "requires": [],
+              "required_output": [
+                "toybox"
+              ],
+              "diagnostic_paths": []
+            }
+          }
+        ],
+        "generated_documents": []
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-planning-p3-toybox-source-preparation-v1/toybox/source.tar",
+      "source_evidence": [
+        {
+          "path": "Makefile",
+          "quote": "all:",
+          "line": 13,
+          "sha256": "3da9d5e718a0be530db571f3b77336d1f9617cc53bf32144c0bc4a9774b6e7d0"
+        }
+      ],
+      "reference_actions": [
+        {
+          "role": "configure",
+          "command": "make defconfig",
+          "workdir": "/workspace/repo"
+        },
+        {
+          "role": "build",
+          "command": "make -j4",
+          "workdir": "/workspace/repo"
+        }
+      ],
+      "paper_sources": [
+        {
+          "name": "toybox",
+          "topic": "Linux",
+          "guide": "in_repo",
+          "source": "compileagent",
+          "source_url": "https://arxiv.org/html/2505.04254v1#A3.T4",
+          "row": 14,
+          "source_html_sha256": "f61b0a20cd65fa2191ffd722ac922d59b6673b485c6f460c209e1e4bcffa56a0"
+        }
+      ],
+      "historical_exposure_pointers": [],
+      "exposure": "P3提案与旧H1/H2开发评价之外；已登记目录接触；非最终holdout"
+    },
+    {
+      "name": "nettle",
+      "family": "https://github.com/gnutls/nettle",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "p3-nettle",
+        "repository_url": "https://github.com/gnutls/nettle",
+        "commit_sha": "099374b3fd32a37285f2562c86ff97e1a7454397",
+        "image_id": "sha256:8123220a201ac4d00cda0dc985b9db7227cd909bb93ca6c25fd82cafce5cd887",
+        "source_archive_sha256": "b91dc5ff208d70c5f1809b2abbbfd045a184deefaa683eb4f92dc33d6098da6d",
+        "build_system": "autotools",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "ca315359fe2d62bff5571d83d779aa5e28e99119e283a51ef8c42263bcd79067",
+        "components": [
+          {
+            "name": "nettle",
+            "artifact_names": [
+              "libnettle.a",
+              "libnettle.so"
+            ],
+            "kinds": [
+              "static_library",
+              "shared_library"
+            ],
+            "evidence": "作者普通主要目标，见本项目source_evidence；辅助示例与完整测试不作为主任务"
+          },
+          {
+            "name": "hogweed",
+            "artifact_names": [
+              "libhogweed.a",
+              "libhogweed.so"
+            ],
+            "kinds": [
+              "static_library",
+              "shared_library"
+            ],
+            "evidence": "作者普通主要目标，见本项目source_evidence；辅助示例与完整测试不作为主任务"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": "普通主构建；不要求完整作者测试，轻量验证与成功重建分层报告",
+        "executable_smokes": [],
+        "generated_documents": []
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-planning-p3-source-preparation-v1/nettle/source.tar",
+      "source_evidence": [
+        {
+          "path": "Makefile.in",
+          "quote": "LIBTARGETS = @IF_STATIC@ libnettle.a @IF_HOGWEED@ libhogweed.a",
+          "line": 30,
+          "sha256": "f458cdf8fc75061193b55e4b1631803a6ac73278e093fdc26c18548c7af55158"
+        }
+      ],
+      "reference_actions": [
+        {
+          "role": "dependency",
+          "command": "apt-get update\napt-get install -y --no-install-recommends autoconf automake libtool m4 libgmp-dev",
+          "workdir": "/workspace/repo"
+        },
+        {
+          "role": "configure",
+          "command": "./.bootstrap\n./configure",
+          "workdir": "/workspace/repo"
+        },
+        {
+          "role": "build",
+          "command": "make -j4",
+          "workdir": "/workspace/repo"
+        }
+      ],
+      "paper_sources": [
+        {
+          "name": "nettle",
+          "topic": "Crypto",
+          "guide": "outside_repo",
+          "source": "compileagent",
+          "source_url": "https://arxiv.org/html/2505.04254v1#A3.T4",
+          "row": 15,
+          "source_html_sha256": "f61b0a20cd65fa2191ffd722ac922d59b6673b485c6f460c209e1e4bcffa56a0"
+        }
+      ],
+      "historical_exposure_pointers": [],
+      "exposure": "P3提案与旧H1/H2开发评价之外；已登记目录接触；非最终holdout"
+    },
+    {
+      "name": "json-c",
+      "family": "https://github.com/json-c/json-c",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "p3-json-c",
+        "repository_url": "https://github.com/json-c/json-c",
+        "commit_sha": "40045d08317d2ac0552d8aa0a96bc00529b2037c",
+        "image_id": "sha256:8123220a201ac4d00cda0dc985b9db7227cd909bb93ca6c25fd82cafce5cd887",
+        "source_archive_sha256": "aaf805a8419599240e9072949b17660439f50418014c1917aeee877e4be97680",
+        "build_system": "cmake",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "0e77c7179790e28166541f30566f91f4610b76c4f680860c851bbbca4b4b69aa",
+        "components": [
+          {
+            "name": "json-c",
+            "artifact_names": [
+              "libjson-c.a",
+              "libjson-c.so"
+            ],
+            "kinds": [
+              "static_library",
+              "shared_library"
+            ],
+            "evidence": "作者普通主要目标，见本项目source_evidence；辅助示例与完整测试不作为主任务"
+          },
+          {
+            "name": "json_parse",
+            "artifact_names": [
+              "json_parse"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "作者普通主要目标，见本项目source_evidence；辅助示例与完整测试不作为主任务"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": "普通主构建；不要求完整作者测试，轻量验证与成功重建分层报告",
+        "executable_smokes": [
+          {
+            "artifact_name": "json_parse",
+            "accepted_exit_codes": [
+              0
+            ],
+            "step": {
+              "step_id": "smoke-json_parse",
+              "role": "smoke",
+              "command": "printf '{}\\n' | /artifacts/json_parse",
+              "source": "作者用法/主程序定义；固定源码source_evidence",
+              "expected": "原生轻量运行成功",
+              "workdir": "/artifacts",
+              "requires": [],
+              "required_output": [
+                "Successfully parsed"
+              ],
+              "diagnostic_paths": []
+            }
+          }
+        ],
+        "generated_documents": []
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-planning-p3-source-preparation-v1/json-c/source.tar",
+      "source_evidence": [
+        {
+          "path": "CMakeLists.txt",
+          "quote": "add_library(${PROJECT_NAME}",
+          "line": 609,
+          "sha256": "55e94367f103b8b075adb4a8124384e42bf3acf4f88e905ce1ab9b3c548c39a8"
+        },
+        {
+          "path": "apps/CMakeLists.txt",
+          "quote": "add_executable(json_parse",
+          "line": 119,
+          "sha256": "93226f40a47aad8d4ac8e3995fe8f4b800d6ed12c2a4a51994df0a6596f54a5c"
+        }
+      ],
+      "reference_actions": [
+        {
+          "role": "configure",
+          "command": "cmake -S . -B build",
+          "workdir": "/workspace/repo"
+        },
+        {
+          "role": "build",
+          "command": "cmake --build build --parallel 4",
+          "workdir": "/workspace/repo"
+        }
+      ],
+      "paper_sources": [
+        {
+          "name": "json-c",
+          "topic": "DataProcessing",
+          "guide": "in_repo",
+          "source": "compileagent",
+          "source_url": "https://arxiv.org/html/2505.04254v1#A3.T4",
+          "row": 35,
+          "source_html_sha256": "f61b0a20cd65fa2191ffd722ac922d59b6673b485c6f460c209e1e4bcffa56a0"
+        }
+      ],
+      "historical_exposure_pointers": [
+        "benchmarks/fixtures/cpp-typed-action-benchmark-source-pool-v1.json",
+        "benchmarks/fixtures/stage-c-source-pool.json",
+        "benchmarks/manifests/cpp-stage-c-paired-calibration-authorized.json",
+        "benchmarks/manifests/cpp-stage-c-paired-calibration-v2-remediation-authorized.json",
+        "benchmarks/manifests/cpp-stage-c-paired-calibration-v3-pair-source-authorized.json",
+        "benchmarks/manifests/cpp-stage-c-paired-calibration-v4-build-entrypoint-authorized.json",
+        "benchmarks/manifests/cpp-stage-c-paired-calibration-v5-session-identity-authorized.json",
+        "benchmarks/manifests/cpp-stage-c-paired-calibration-v6-measurement-remediation-candidate.json",
+        "benchmarks/manifests/cpp-stage-c-v6-offline-reevaluation-authorized.json",
+        "benchmarks/manifests/cpp-stage-c-v7-prefreeze-verifier-canary-authorized.json",
+        "benchmarks/manifests/cpp-stage-c-v7-prefreeze-verifier-canary-candidate.json",
+        "benchmarks/manifests/cpp-stage-c-v8-workspace-remediation-canary-authorized.json",
+        "benchmarks/manifests/cpp-stage-c-v8-workspace-remediation-canary-candidate.json"
+      ],
+      "exposure": "P3提案与旧H1/H2开发评价之外；已登记目录接触；非最终holdout"
+    },
+    {
+      "name": "vlmcsd",
+      "family": "https://github.com/wind4/vlmcsd",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "p3-vlmcsd",
+        "repository_url": "https://github.com/Wind4/vlmcsd",
+        "commit_sha": "70e03572b254688b8c3557f898e7ebd765d29ae1",
+        "image_id": "sha256:8123220a201ac4d00cda0dc985b9db7227cd909bb93ca6c25fd82cafce5cd887",
+        "source_archive_sha256": "1a3b02ffbbc82373c2009cbc0cfc968b9cae853da613555fb50a2331060fb521",
+        "build_system": "make",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "4836ec54d029a744efc5b29792765f9555deab80ccf19d7b128ee8d800ebbb8b",
+        "components": [
+          {
+            "name": "vlmcsd",
+            "artifact_names": [
+              "vlmcsd"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "作者普通主要目标，见本项目source_evidence；辅助示例与完整测试不作为主任务"
+          },
+          {
+            "name": "vlmcs",
+            "artifact_names": [
+              "vlmcs"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "作者普通主要目标，见本项目source_evidence；辅助示例与完整测试不作为主任务"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": "普通主构建；不要求完整作者测试，轻量验证与成功重建分层报告",
+        "executable_smokes": [
+          {
+            "artifact_name": "vlmcsd",
+            "accepted_exit_codes": [
+              0
+            ],
+            "step": {
+              "step_id": "smoke-vlmcsd",
+              "role": "smoke",
+              "command": "/artifacts/vlmcsd -V",
+              "source": "作者用法/主程序定义；固定源码source_evidence",
+              "expected": "原生轻量运行成功",
+              "workdir": "/artifacts",
+              "requires": [],
+              "required_output": [
+                "vlmcsd"
+              ],
+              "diagnostic_paths": []
+            }
+          },
+          {
+            "artifact_name": "vlmcs",
+            "accepted_exit_codes": [
+              0
+            ],
+            "step": {
+              "step_id": "smoke-vlmcs",
+              "role": "smoke",
+              "command": "/artifacts/vlmcs -V",
+              "source": "作者用法/主程序定义；固定源码source_evidence",
+              "expected": "原生轻量运行成功",
+              "workdir": "/artifacts",
+              "requires": [],
+              "required_output": [
+                "vlmcs"
+              ],
+              "diagnostic_paths": []
+            }
+          }
+        ],
+        "generated_documents": []
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-planning-p3-source-preparation-v1/vlmcsd/source.tar",
+      "source_evidence": [
+        {
+          "path": "src/GNUmakefile",
+          "quote": "all: $(REAL_CLIENT_NAME) $(REAL_PROGRAM_NAME)",
+          "line": 352,
+          "sha256": "79d3172827fca0bfacf0b90f66d6b7d03598e6bb14df413519ae6a422359168a"
+        }
+      ],
+      "reference_actions": [
+        {
+          "role": "build",
+          "command": "make -j4",
+          "workdir": "/workspace/repo"
+        }
+      ],
+      "paper_sources": [
+        {
+          "name": "vlmcsd",
+          "topic": "Networking",
+          "guide": "no_guide",
+          "source": "compileagent",
+          "source_url": "https://arxiv.org/html/2505.04254v1#A3.T4",
+          "row": 24,
+          "source_html_sha256": "f61b0a20cd65fa2191ffd722ac922d59b6673b485c6f460c209e1e4bcffa56a0"
+        }
+      ],
+      "historical_exposure_pointers": [],
+      "exposure": "P3提案与旧H1/H2开发评价之外；已登记目录接触；非最终holdout"
+    },
+    {
+      "name": "libgcrypt",
+      "family": "https://github.com/gpg/libgcrypt",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "p3-libgcrypt",
+        "repository_url": "https://github.com/gpg/libgcrypt",
+        "commit_sha": "88563e87675c55d32e56a9d265134cb2e6349115",
+        "image_id": "sha256:8123220a201ac4d00cda0dc985b9db7227cd909bb93ca6c25fd82cafce5cd887",
+        "source_archive_sha256": "a0f34516ca3620919555f76b01547f17717681fbd56f13cecc53d876df0bed48",
+        "build_system": "autotools",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "ac4500c048e96496bed988695f244b98a6ef8fb29590727f7c4c10ad9e9f2052",
+        "components": [
+          {
+            "name": "gcrypt",
+            "artifact_names": [
+              "libgcrypt.a",
+              "libgcrypt.so"
+            ],
+            "kinds": [
+              "static_library",
+              "shared_library"
+            ],
+            "evidence": "作者普通主要目标，见本项目source_evidence；辅助示例与完整测试不作为主任务"
+          },
+          {
+            "name": "dumpsexp",
+            "artifact_names": [
+              "dumpsexp"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "作者普通主要目标，见本项目source_evidence；辅助示例与完整测试不作为主任务"
+          },
+          {
+            "name": "hmac256",
+            "artifact_names": [
+              "hmac256"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "作者普通主要目标，见本项目source_evidence；辅助示例与完整测试不作为主任务"
+          },
+          {
+            "name": "mpicalc",
+            "artifact_names": [
+              "mpicalc"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "作者普通主要目标，见本项目source_evidence；辅助示例与完整测试不作为主任务"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": "普通主构建；不要求完整作者测试，轻量验证与成功重建分层报告",
+        "executable_smokes": [],
+        "generated_documents": []
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-planning-p3-source-preparation-v1/libgcrypt/source.tar",
+      "source_evidence": [
+        {
+          "path": "src/Makefile.am",
+          "quote": "lib_LTLIBRARIES = libgcrypt.la",
+          "line": 38,
+          "sha256": "7eb62061bcb699add8c6d62c70dd0cabfe560eeef6dea7241beb836c92753c4c"
+        },
+        {
+          "path": "src/Makefile.am",
+          "quote": "bin_PROGRAMS = dumpsexp hmac256 mpicalc",
+          "line": 39,
+          "sha256": "7eb62061bcb699add8c6d62c70dd0cabfe560eeef6dea7241beb836c92753c4c"
+        }
+      ],
+      "reference_actions": [
+        {
+          "role": "dependency",
+          "command": "apt-get update\napt-get install -y --no-install-recommends autoconf automake libtool gettext libgpg-error-dev",
+          "workdir": "/workspace/repo"
+        },
+        {
+          "role": "configure",
+          "command": "./autogen.sh\n./configure",
+          "workdir": "/workspace/repo"
+        },
+        {
+          "role": "build",
+          "command": "make -j4",
+          "workdir": "/workspace/repo"
+        }
+      ],
+      "paper_sources": [
+        {
+          "name": "libgcrypt",
+          "topic": "Crypto",
+          "guide": "in_repo",
+          "source": "compileagent",
+          "source_url": "https://arxiv.org/html/2505.04254v1#A3.T4",
+          "row": 26,
+          "source_html_sha256": "f61b0a20cd65fa2191ffd722ac922d59b6673b485c6f460c209e1e4bcffa56a0"
+        }
+      ],
+      "historical_exposure_pointers": [],
+      "exposure": "P3提案与旧H1/H2开发评价之外；已登记目录接触；非最终holdout"
+    },
+    {
+      "name": "libexpat",
+      "family": "https://github.com/libexpat/libexpat",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "p3-libexpat",
+        "repository_url": "https://github.com/libexpat/libexpat",
+        "commit_sha": "477c766b6f708c1dfe3d12377092e53c232ded3b",
+        "image_id": "sha256:8123220a201ac4d00cda0dc985b9db7227cd909bb93ca6c25fd82cafce5cd887",
+        "source_archive_sha256": "bb9028ed0a3aaa160f0b61e3c78f92c0ecf4dc5c5836bebd54530d8e8fb1c682",
+        "build_system": "cmake",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "b156b58fc54e4f431b1c821b49f347349c2d70275a3c34a2c6a5ed18dc626c64",
+        "components": [
+          {
+            "name": "expat",
+            "artifact_names": [
+              "libexpat.a",
+              "libexpat.so"
+            ],
+            "kinds": [
+              "static_library",
+              "shared_library"
+            ],
+            "evidence": "作者普通主要目标，见本项目source_evidence；辅助示例与完整测试不作为主任务"
+          },
+          {
+            "name": "xmlwf",
+            "artifact_names": [
+              "xmlwf"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "作者普通主要目标，见本项目source_evidence；辅助示例与完整测试不作为主任务"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": "普通主构建；不要求完整作者测试，轻量验证与成功重建分层报告",
+        "executable_smokes": [],
+        "generated_documents": []
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-planning-p3-source-preparation-v1/libexpat/source.tar",
+      "source_evidence": [
+        {
+          "path": "expat/CMakeLists.txt",
+          "quote": "add_library(expat ",
+          "line": 511,
+          "sha256": "9e4d1f620a33e00e36cb919d7b2973766e6fdd021a706a94e33090fc821001ee"
+        },
+        {
+          "path": "expat/CMakeLists.txt",
+          "quote": "add_executable(xmlwf ",
+          "line": 661,
+          "sha256": "9e4d1f620a33e00e36cb919d7b2973766e6fdd021a706a94e33090fc821001ee"
+        }
+      ],
+      "reference_actions": [
+        {
+          "role": "configure",
+          "command": "cmake -S expat -B build",
+          "workdir": "/workspace/repo"
+        },
+        {
+          "role": "build",
+          "command": "cmake --build build --parallel 4",
+          "workdir": "/workspace/repo"
+        }
+      ],
+      "paper_sources": [
+        {
+          "name": "libexpat",
+          "topic": "DataProcessing",
+          "guide": "in_repo",
+          "source": "compileagent",
+          "source_url": "https://arxiv.org/html/2505.04254v1#A3.T4",
+          "row": 36,
+          "source_html_sha256": "f61b0a20cd65fa2191ffd722ac922d59b6673b485c6f460c209e1e4bcffa56a0"
+        }
+      ],
+      "historical_exposure_pointers": [
+        "benchmarks/manifests/cpp-progress-aware-h0-h1-h2-runtime-v6-formal-comparison-v1.json",
+        "benchmarks/manifests/cpp-progress-aware-h0-h1-h2-runtime-v6-formal-comparison-v2.json",
+        "benchmarks/manifests/cpp-progress-aware-h0-h1-h2-runtime-v6-qualification-v1.json"
+      ],
+      "exposure": "P3提案与旧H1/H2开发评价之外；已登记目录接触；非最终holdout"
+    },
+    {
+      "name": "tiny-AES-c",
+      "family": "https://github.com/kokke/tiny-aes-c",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "p3-tiny-aes-c",
+        "repository_url": "https://github.com/kokke/tiny-AES-c",
+        "commit_sha": "23856752fbd139da0b8ca6e471a13d5bcc99a08d",
+        "image_id": "sha256:8123220a201ac4d00cda0dc985b9db7227cd909bb93ca6c25fd82cafce5cd887",
+        "source_archive_sha256": "03fefdf230eae335c33d32ea99f29c6676086fcca467b68484b4f046c760e377",
+        "build_system": "make",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "707a34984ea99bbf2892d6fca4e164d3a20bf2de608949c21e7db1c4ae6d0c0e",
+        "components": [
+          {
+            "name": "AES default demonstration",
+            "artifact_names": [
+              "test.elf"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "作者普通主要目标，见本项目source_evidence；辅助示例与完整测试不作为主任务"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": "普通主构建；不要求完整作者测试，轻量验证与成功重建分层报告",
+        "executable_smokes": [
+          {
+            "artifact_name": "test.elf",
+            "accepted_exit_codes": [
+              0
+            ],
+            "step": {
+              "step_id": "smoke-test-elf",
+              "role": "smoke",
+              "command": "/artifacts/test.elf",
+              "source": "作者用法/主程序定义；固定源码source_evidence",
+              "expected": "原生轻量运行成功",
+              "workdir": "/artifacts",
+              "requires": [],
+              "required_output": [
+                "SUCCESS!"
+              ],
+              "diagnostic_paths": []
+            }
+          }
+        ],
+        "generated_documents": []
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-planning-p3-source-preparation-v1/tiny-AES-c/source.tar",
+      "source_evidence": [
+        {
+          "path": "Makefile",
+          "quote": "default: test.elf",
+          "line": 25,
+          "sha256": "d405b233f086e8dfaf34357c0759701996cd460308cfe845f90b4eb09319bb84"
+        },
+        {
+          "path": "Makefile",
+          "quote": "test.elf : aes.o test.o",
+          "line": 42,
+          "sha256": "d405b233f086e8dfaf34357c0759701996cd460308cfe845f90b4eb09319bb84"
+        }
+      ],
+      "reference_actions": [
+        {
+          "role": "build",
+          "command": "make -j4",
+          "workdir": "/workspace/repo"
+        }
+      ],
+      "paper_sources": [
+        {
+          "name": "tiny-AES-c",
+          "topic": "Crypto",
+          "guide": "no_guide",
+          "source": "compileagent",
+          "source_url": "https://arxiv.org/html/2505.04254v1#A3.T4",
+          "row": 18,
+          "source_html_sha256": "f61b0a20cd65fa2191ffd722ac922d59b6673b485c6f460c209e1e4bcffa56a0"
+        }
+      ],
+      "historical_exposure_pointers": [
+        "benchmarks/manifests/cpp-agent-continuation-qualification-v1.json",
+        "benchmarks/manifests/cpp-agent-continuation-qualification-v2.json",
+        "benchmarks/manifests/cpp-dynamic-budget-trajectory-benchmark-qualification-v1.json",
+        "benchmarks/manifests/cpp-dynamic-budget-trajectory-benchmark-qualification-v2.json",
+        "benchmarks/manifests/cpp-dynamic-budget-trajectory-benchmark-qualification-v3.json",
+        "benchmarks/manifests/cpp-dynamic-budget-trajectory-benchmark-qualification-v4.json",
+        "benchmarks/manifests/cpp-dynamic-budget-trajectory-benchmark-qualification-v5.json",
+        "benchmarks/manifests/cpp-progress-aware-harness-comparison-v1.json",
+        "benchmarks/manifests/cpp-progress-aware-harness-comparison-v2.json",
+        "benchmarks/manifests/cpp-progress-aware-harness-comparison-v3-authorized.json",
+        "benchmarks/manifests/cpp-progress-aware-harness-comparison-v3-candidate.json"
+      ],
+      "exposure": "P3提案与旧H1/H2开发评价之外；已登记目录接触；非最终holdout"
+    },
+    {
+      "name": "jansson",
+      "family": "https://github.com/akheron/jansson",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "p3-jansson",
+        "repository_url": "https://github.com/akheron/jansson",
+        "commit_sha": "851a2145e3256f2e67e5dfe24b0e456bf198b741",
+        "image_id": "sha256:8123220a201ac4d00cda0dc985b9db7227cd909bb93ca6c25fd82cafce5cd887",
+        "source_archive_sha256": "baaa7821f59fe3ad5fd62b596bbbcd23bf60fc67ecf2aa7dfdf98b1f9a48743b",
+        "build_system": "autotools",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "9cdf2ba44a2628ec0b1b868917db8c6440853f068374d3e65b4884fed08db5ac",
+        "components": [
+          {
+            "name": "jansson",
+            "artifact_names": [
+              "libjansson.a",
+              "libjansson.so"
+            ],
+            "kinds": [
+              "static_library",
+              "shared_library"
+            ],
+            "evidence": "作者普通主要目标，见本项目source_evidence；辅助示例与完整测试不作为主任务"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": "普通主构建；不要求完整作者测试，轻量验证与成功重建分层报告",
+        "executable_smokes": [],
+        "generated_documents": []
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-planning-p3-source-preparation-v1/jansson/source.tar",
+      "source_evidence": [
+        {
+          "path": "src/Makefile.am",
+          "quote": "lib_LTLIBRARIES = libjansson.la",
+          "line": 6,
+          "sha256": "35ac32a609b6a720f61b10b4959e38111757a9256fb371fd29a858eac33c9986"
+        }
+      ],
+      "reference_actions": [
+        {
+          "role": "configure",
+          "command": "autoreconf -fi\n./configure",
+          "workdir": "/workspace/repo"
+        },
+        {
+          "role": "build",
+          "command": "make -j4",
+          "workdir": "/workspace/repo"
+        }
+      ],
+      "paper_sources": [
+        {
+          "name": "jansson",
+          "topic": "DataProcessing",
+          "guide": "in_repo",
+          "source": "compileagent",
+          "source_url": "https://arxiv.org/html/2505.04254v1#A3.T4",
+          "row": 34,
+          "source_html_sha256": "f61b0a20cd65fa2191ffd722ac922d59b6673b485c6f460c209e1e4bcffa56a0"
+        }
+      ],
+      "historical_exposure_pointers": [
+        "benchmarks/fixtures/cpp-jev-offline-qualification-source-pool-v1.json",
+        "benchmarks/fixtures/cpp-jev-offline-qualification-source-pool-v2.json",
+        "benchmarks/fixtures/cpp-typed-action-benchmark-source-pool-v1.json"
+      ],
+      "exposure": "P3提案与旧H1/H2开发评价之外；已登记目录接触；非最终holdout"
+    },
+    {
+      "name": "Libsoundio",
+      "family": "https://github.com/andrewrk/libsoundio",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "p3-libsoundio",
+        "repository_url": "https://github.com/andrewrk/libsoundio",
+        "commit_sha": "49a1f78b50eb0f5a49d096786a95a93874a2592a",
+        "image_id": "sha256:8123220a201ac4d00cda0dc985b9db7227cd909bb93ca6c25fd82cafce5cd887",
+        "source_archive_sha256": "31011567661e7a953d41d17d6ccb75b1a4fb9543d162520e6378bb340fc32391",
+        "build_system": "cmake",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "aca047b87a1f1c23fd93a0f4894216d7f84d31ecfb720344cd25d911faa4af1f",
+        "components": [
+          {
+            "name": "soundio",
+            "artifact_names": [
+              "libsoundio.a",
+              "libsoundio.so"
+            ],
+            "kinds": [
+              "static_library",
+              "shared_library"
+            ],
+            "evidence": "作者普通主要目标，见本项目source_evidence；辅助示例与完整测试不作为主任务"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": "普通主构建；不要求完整作者测试，轻量验证与成功重建分层报告",
+        "executable_smokes": [],
+        "generated_documents": []
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-planning-p3-source-preparation-v1/Libsoundio/source.tar",
+      "source_evidence": [
+        {
+          "path": "CMakeLists.txt",
+          "quote": "add_library(libsoundio_shared SHARED",
+          "line": 227,
+          "sha256": "3e433e7fc9cd28d5c837fe5d8de0c54a4379f96e071932142e19209b3a32da1c"
+        },
+        {
+          "path": "CMakeLists.txt",
+          "quote": "add_library(libsoundio_static STATIC",
+          "line": 240,
+          "sha256": "3e433e7fc9cd28d5c837fe5d8de0c54a4379f96e071932142e19209b3a32da1c"
+        }
+      ],
+      "reference_actions": [
+        {
+          "role": "configure",
+          "command": "cmake -S . -B build",
+          "workdir": "/workspace/repo"
+        },
+        {
+          "role": "build",
+          "command": "cmake --build build --parallel 4",
+          "workdir": "/workspace/repo"
+        }
+      ],
+      "paper_sources": [
+        {
+          "name": "Libsoundio",
+          "topic": "Audio Systems",
+          "guide": null,
+          "source": "cxxcrafter",
+          "source_url": "https://arxiv.org/html/2505.21069v1#S2.T1",
+          "row": 8,
+          "source_html_sha256": "f95fcfdf56445caadcf7970e98b9ddd4ac9e13795294ceeb06096199ec1cc516"
+        }
+      ],
+      "historical_exposure_pointers": [
+        "benchmarks/fixtures/cpp-jev-offline-qualification-source-pool-v1.json",
+        "benchmarks/fixtures/cpp-jev-offline-qualification-source-pool-v2.json",
+        "benchmarks/fixtures/cpp-typed-action-benchmark-source-pool-v1.json",
+        "benchmarks/fixtures/stage-c-source-pool.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v1-authorized.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v1-availability-candidate.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v1-availability-execution.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v1-candidate.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v1-formal-execution.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v2-authorized.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v2-availability-execution.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v2-candidate.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v2-formal-execution.json",
+        "benchmarks/manifests/cpp-stage-c-paired-calibration-authorized.json",
+        "benchmarks/manifests/cpp-stage-c-paired-calibration-v2-remediation-authorized.json",
+        "benchmarks/manifests/cpp-stage-c-paired-calibration-v3-pair-source-authorized.json",
+        "benchmarks/manifests/cpp-stage-c-paired-calibration-v4-build-entrypoint-authorized.json",
+        "benchmarks/manifests/cpp-stage-c-paired-calibration-v5-session-identity-authorized.json",
+        "benchmarks/manifests/cpp-stage-c-paired-calibration-v6-measurement-remediation-candidate.json",
+        "benchmarks/manifests/cpp-stage-c-v6-offline-reevaluation-authorized.json"
+      ],
+      "exposure": "P3提案与旧H1/H2开发评价之外；已登记目录接触；非最终holdout"
+    },
+    {
+      "name": "pwnat",
+      "family": "https://github.com/samyk/pwnat",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "p3-pwnat",
+        "repository_url": "https://github.com/samyk/pwnat",
+        "commit_sha": "3a032f9b369d59d98c75842fb7b17033bbb46325",
+        "image_id": "sha256:8123220a201ac4d00cda0dc985b9db7227cd909bb93ca6c25fd82cafce5cd887",
+        "source_archive_sha256": "ca51038e26c1f76fa067f7c51a4c1375b76e24a3c017aa6ae22a4a1a2b50d7fe",
+        "build_system": "make",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "4a1d4f8d001d47d9f10bab3f78840bcf339bd2632e2c79f8431ee64991a98231",
+        "components": [
+          {
+            "name": "pwnat",
+            "artifact_names": [
+              "pwnat"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "作者普通主要目标，见本项目source_evidence；辅助示例与完整测试不作为主任务"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": "普通主构建；不要求完整作者测试，轻量验证与成功重建分层报告",
+        "executable_smokes": [
+          {
+            "artifact_name": "pwnat",
+            "accepted_exit_codes": [
+              1
+            ],
+            "step": {
+              "step_id": "smoke-pwnat",
+              "role": "smoke",
+              "command": "/artifacts/pwnat -h",
+              "source": "作者用法/主程序定义；固定源码source_evidence",
+              "expected": "原生轻量运行成功",
+              "workdir": "/artifacts",
+              "requires": [],
+              "required_output": [
+                "usage:"
+              ],
+              "diagnostic_paths": []
+            }
+          }
+        ],
+        "generated_documents": []
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-planning-p3-source-preparation-v1/pwnat/source.tar",
+      "source_evidence": [
+        {
+          "path": "Makefile",
+          "quote": "all: pwnat",
+          "line": 35,
+          "sha256": "ba915d9166f68da71f797fc081126e4ca5babe87829a3088cfa3611e967616fa"
+        },
+        {
+          "path": "src/pwnat.c",
+          "quote": "exit(1);",
+          "line": 119,
+          "sha256": "c64b255172cbd65f87a2b2c4ce0a78b535c27dd78ec556ac049a07a10a2409b7"
+        },
+        {
+          "path": "src/pwnat.c",
+          "quote": "show this help and exit",
+          "line": 133,
+          "sha256": "c64b255172cbd65f87a2b2c4ce0a78b535c27dd78ec556ac049a07a10a2409b7"
+        }
+      ],
+      "reference_actions": [
+        {
+          "role": "build",
+          "command": "make -j4",
+          "workdir": "/workspace/repo"
+        }
+      ],
+      "paper_sources": [
+        {
+          "name": "pwnat",
+          "topic": "Security",
+          "guide": "no_guide",
+          "source": "compileagent",
+          "source_url": "https://arxiv.org/html/2505.04254v1#A3.T4",
+          "row": 41,
+          "source_html_sha256": "f61b0a20cd65fa2191ffd722ac922d59b6673b485c6f460c209e1e4bcffa56a0"
+        }
+      ],
+      "historical_exposure_pointers": [],
+      "exposure": "P3提案与旧H1/H2开发评价之外；已登记目录接触；非最终holdout"
+    },
+    {
+      "name": "shc",
+      "family": "https://github.com/neurobin/shc",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "p3-shc",
+        "repository_url": "https://github.com/neurobin/shc",
+        "commit_sha": "efb61def57185e8d82116613f21a85e0ba724dbf",
+        "image_id": "sha256:8123220a201ac4d00cda0dc985b9db7227cd909bb93ca6c25fd82cafce5cd887",
+        "source_archive_sha256": "f6c38cb6c845fe8bb843c4d939e30873ee043f049ac5490e535ad149d80d5729",
+        "build_system": "autotools",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "3de3bd3b05f21ba3b5e5c1ae047f09669537d49b7f46828e6e889c7ec376909d",
+        "components": [
+          {
+            "name": "shc",
+            "artifact_names": [
+              "shc"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "作者普通主要目标，见本项目source_evidence；辅助示例与完整测试不作为主任务"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": "普通主构建；不要求完整作者测试，轻量验证与成功重建分层报告",
+        "executable_smokes": [
+          {
+            "artifact_name": "shc",
+            "accepted_exit_codes": [
+              0
+            ],
+            "step": {
+              "step_id": "smoke-shc",
+              "role": "smoke",
+              "command": "/artifacts/shc -h",
+              "source": "作者用法/主程序定义；固定源码source_evidence",
+              "expected": "原生轻量运行成功",
+              "workdir": "/artifacts",
+              "requires": [],
+              "required_output": [
+                "shc"
+              ],
+              "diagnostic_paths": []
+            }
+          }
+        ],
+        "generated_documents": []
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-planning-p3-source-preparation-v1/shc/source.tar",
+      "source_evidence": [
+        {
+          "path": "src/Makefile.am",
+          "quote": "bin_PROGRAMS = shc",
+          "line": 1,
+          "sha256": "7aed2fc358b49406118a8a0d374a975d4e1224520a4cc388edd765840d99156b"
+        },
+        {
+          "path": "src/shc.c",
+          "quote": "case 'h':",
+          "line": 846,
+          "sha256": "4fc548bf6c987578ec60860872ae26d330c9520536a7ac3ea6ba103c2f8f0ebd"
+        }
+      ],
+      "reference_actions": [
+        {
+          "role": "configure",
+          "command": "./configure",
+          "workdir": "/workspace/repo"
+        },
+        {
+          "role": "build",
+          "command": "make -j4",
+          "workdir": "/workspace/repo"
+        }
+      ],
+      "paper_sources": [
+        {
+          "name": "shc",
+          "topic": "Terminal",
+          "guide": "in_repo",
+          "source": "compileagent",
+          "source_url": "https://arxiv.org/html/2505.04254v1#A3.T4",
+          "row": 50,
+          "source_html_sha256": "f61b0a20cd65fa2191ffd722ac922d59b6673b485c6f460c209e1e4bcffa56a0"
+        }
+      ],
+      "historical_exposure_pointers": [],
+      "exposure": "P3提案与旧H1/H2开发评价之外；已登记目录接触；非最终holdout"
+    },
+    {
+      "name": "Civetweb",
+      "family": "https://github.com/civetweb/civetweb",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "p3-civetweb",
+        "repository_url": "https://github.com/civetweb/civetweb",
+        "commit_sha": "588860e30721bf5453b0440c390865a8e85dcae5",
+        "image_id": "sha256:8123220a201ac4d00cda0dc985b9db7227cd909bb93ca6c25fd82cafce5cd887",
+        "source_archive_sha256": "d69e1d2fe66a29d748a71fd1b973bd4855d17bc648cd0a1c924f002cb4be84da",
+        "build_system": "cmake",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "e58434ebad111ab6c4a990cd8a6bc0372d26da139fc07b4642f96e8f9e70cf23",
+        "components": [
+          {
+            "name": "civetweb library",
+            "artifact_names": [
+              "libcivetweb.a",
+              "libcivetweb.so"
+            ],
+            "kinds": [
+              "static_library",
+              "shared_library"
+            ],
+            "evidence": "作者普通主要目标，见本项目source_evidence；辅助示例与完整测试不作为主任务"
+          },
+          {
+            "name": "civetweb server",
+            "artifact_names": [
+              "civetweb"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "作者普通主要目标，见本项目source_evidence；辅助示例与完整测试不作为主任务"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": "普通主构建；不要求完整作者测试，轻量验证与成功重建分层报告",
+        "executable_smokes": [],
+        "generated_documents": []
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-planning-p3-source-preparation-network-recovery-v1/Civetweb/source.tar",
+      "source_evidence": [
+        {
+          "path": "src/CMakeLists.txt",
+          "quote": "add_library(civetweb-c-library ",
+          "line": 9,
+          "sha256": "a434d1bbb7ab373b514ca2bb6171952baf444d683eca68ea7ea9704460d7b141"
+        },
+        {
+          "path": "src/CMakeLists.txt",
+          "quote": "add_executable(civetweb-c-executable ",
+          "line": 272,
+          "sha256": "a434d1bbb7ab373b514ca2bb6171952baf444d683eca68ea7ea9704460d7b141"
+        }
+      ],
+      "reference_actions": [
+        {
+          "role": "configure",
+          "command": "cmake -S . -B build",
+          "workdir": "/workspace/repo"
+        },
+        {
+          "role": "build",
+          "command": "cmake --build build --parallel 4",
+          "workdir": "/workspace/repo"
+        }
+      ],
+      "paper_sources": [
+        {
+          "name": "Civetweb",
+          "topic": "Web Frameworks",
+          "guide": null,
+          "source": "cxxcrafter",
+          "source_url": "https://arxiv.org/html/2505.21069v1#S2.T1",
+          "row": 9,
+          "source_html_sha256": "f95fcfdf56445caadcf7970e98b9ddd4ac9e13795294ceeb06096199ec1cc516"
+        }
+      ],
+      "historical_exposure_pointers": [
+        "benchmarks/fixtures/cpp-typed-action-benchmark-source-pool-v1.json",
+        "benchmarks/fixtures/stage-c-source-pool.json",
+        "benchmarks/manifests/cpp-stage-c-paired-calibration-authorized.json",
+        "benchmarks/manifests/cpp-stage-c-paired-calibration-v2-remediation-authorized.json",
+        "benchmarks/manifests/cpp-stage-c-paired-calibration-v3-pair-source-authorized.json",
+        "benchmarks/manifests/cpp-stage-c-paired-calibration-v4-build-entrypoint-authorized.json",
+        "benchmarks/manifests/cpp-stage-c-paired-calibration-v5-session-identity-authorized.json",
+        "benchmarks/manifests/cpp-stage-c-paired-calibration-v6-measurement-remediation-candidate.json",
+        "benchmarks/manifests/cpp-stage-c-v6-offline-reevaluation-authorized.json"
+      ],
+      "exposure": "P3提案与旧H1/H2开发评价之外；已登记目录接触；非最终holdout"
+    },
+    {
+      "name": "linenoise",
+      "family": "https://github.com/antirez/linenoise",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "p3-linenoise",
+        "repository_url": "https://github.com/antirez/linenoise",
+        "commit_sha": "a473823d74b93eab2ba83480df16ed37617493f2",
+        "image_id": "sha256:8123220a201ac4d00cda0dc985b9db7227cd909bb93ca6c25fd82cafce5cd887",
+        "source_archive_sha256": "feb1059be9c14ecd4af7a9fb303b0727e9a3fc1b25a76780822c84b89e0ec8d9",
+        "build_system": "make",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "3f3c141fc826e0cb8dde5ad83d45c8538b89c7cb320df8cc1887d57ef7c6f3cc",
+        "components": [
+          {
+            "name": "linenoise example",
+            "artifact_names": [
+              "linenoise-example"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "作者普通主要目标，见本项目source_evidence；辅助示例与完整测试不作为主任务"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": "普通主构建；不要求完整作者测试，轻量验证与成功重建分层报告",
+        "executable_smokes": [
+          {
+            "artifact_name": "linenoise-example",
+            "accepted_exit_codes": [
+              0
+            ],
+            "step": {
+              "step_id": "smoke-linenoise-example",
+              "role": "smoke",
+              "command": "printf 'forge\\n' | /artifacts/linenoise-example",
+              "source": "作者用法/主程序定义；固定源码source_evidence",
+              "expected": "原生轻量运行成功",
+              "workdir": "/artifacts",
+              "requires": [],
+              "required_output": [
+                "echo: 'forge'"
+              ],
+              "diagnostic_paths": []
+            }
+          }
+        ],
+        "generated_documents": []
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-planning-p3-source-preparation-v1/linenoise/source.tar",
+      "source_evidence": [
+        {
+          "path": "Makefile",
+          "quote": "all: linenoise-example linenoise-test",
+          "line": 1,
+          "sha256": "45fa033255d4c2ca4ab185e347c8df5128dde5ae6d023e21435a8c1424ef6c46"
+        },
+        {
+          "path": "example.c",
+          "quote": "return 0;",
+          "line": 129,
+          "sha256": "eff36870ef3f8b5519bf2a9864a5c1b1adaf6b2b2cb8844299e83031cc5c0a9a"
+        }
+      ],
+      "reference_actions": [
+        {
+          "role": "build",
+          "command": "make -j4",
+          "workdir": "/workspace/repo"
+        }
+      ],
+      "paper_sources": [
+        {
+          "name": "linenoise",
+          "topic": "Terminal",
+          "guide": "no_guide",
+          "source": "compileagent",
+          "source_url": "https://arxiv.org/html/2505.04254v1#A3.T4",
+          "row": 49,
+          "source_html_sha256": "f61b0a20cd65fa2191ffd722ac922d59b6673b485c6f460c209e1e4bcffa56a0"
+        }
+      ],
+      "historical_exposure_pointers": [],
+      "exposure": "P3提案与旧H1/H2开发评价之外；已登记目录接触；非最终holdout"
+    },
+    {
+      "name": "snapraid",
+      "family": "https://github.com/amadvance/snapraid",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "p3-snapraid",
+        "repository_url": "https://github.com/amadvance/snapraid",
+        "commit_sha": "487305a760978e79e92c55426eb4999ae44f9ac0",
+        "image_id": "sha256:8123220a201ac4d00cda0dc985b9db7227cd909bb93ca6c25fd82cafce5cd887",
+        "source_archive_sha256": "c7d4e6469c961778ea023dc5afad91b70c6d3b2130b12060295215cd17c74863",
+        "build_system": "autotools",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "05e84dc7c64ced16e5b72c7bec80e0edbc698a4fb673f1cb77b5d5971ac30eab",
+        "components": [
+          {
+            "name": "snapraid",
+            "artifact_names": [
+              "snapraid"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "作者普通主要目标，见本项目source_evidence；辅助示例与完整测试不作为主任务"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": "普通主构建；不要求完整作者测试，轻量验证与成功重建分层报告",
+        "executable_smokes": [],
+        "generated_documents": []
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-planning-p3-source-preparation-v1/snapraid/source.tar",
+      "source_evidence": [
+        {
+          "path": "Makefile.am",
+          "quote": "bin_PROGRAMS = snapraid",
+          "line": 1,
+          "sha256": "b7d1903a0a73a02b28b57142be1d264f29135cea0d054acdc14665318cbc8564"
+        }
+      ],
+      "reference_actions": [
+        {
+          "role": "configure",
+          "command": "autoreconf -fi\n./configure",
+          "workdir": "/workspace/repo"
+        },
+        {
+          "role": "build",
+          "command": "make -j4",
+          "workdir": "/workspace/repo"
+        }
+      ],
+      "paper_sources": [
+        {
+          "name": "snapraid",
+          "topic": "Embedded",
+          "guide": "in_repo",
+          "source": "compileagent",
+          "source_url": "https://arxiv.org/html/2505.04254v1#A3.T4",
+          "row": 46,
+          "source_html_sha256": "f61b0a20cd65fa2191ffd722ac922d59b6673b485c6f460c209e1e4bcffa56a0"
+        }
+      ],
+      "historical_exposure_pointers": [],
+      "exposure": "P3提案与旧H1/H2开发评价之外；已登记目录接触；非最终holdout"
+    },
+    {
+      "name": "Leveldb",
+      "family": "https://github.com/google/leveldb",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "p3-leveldb",
+        "repository_url": "https://github.com/google/leveldb",
+        "commit_sha": "bb74ef739973a70ca9f0d90788a1da89b788c0ad",
+        "image_id": "sha256:8123220a201ac4d00cda0dc985b9db7227cd909bb93ca6c25fd82cafce5cd887",
+        "source_archive_sha256": "b4a006fbad942734d7511137bce69318f0ade0c677a996f6e98766dabcfabfa3",
+        "build_system": "cmake",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "dac5e44e35cb5b25f0508a16c647a99573e9f32e45630798187c388a12c80817",
+        "components": [
+          {
+            "name": "leveldb",
+            "artifact_names": [
+              "libleveldb.a",
+              "libleveldb.so"
+            ],
+            "kinds": [
+              "static_library",
+              "shared_library"
+            ],
+            "evidence": "作者普通主要目标，见本项目source_evidence；辅助示例与完整测试不作为主任务"
+          },
+          {
+            "name": "leveldbutil",
+            "artifact_names": [
+              "leveldbutil"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "作者普通主要目标，见本项目source_evidence；辅助示例与完整测试不作为主任务"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": "普通主构建；不要求完整作者测试，轻量验证与成功重建分层报告",
+        "executable_smokes": [
+          {
+            "artifact_name": "leveldbutil",
+            "accepted_exit_codes": [
+              1
+            ],
+            "step": {
+              "step_id": "smoke-leveldbutil",
+              "role": "smoke",
+              "command": "/artifacts/leveldbutil",
+              "source": "作者用法/主程序定义；固定源码source_evidence",
+              "expected": "原生轻量运行成功",
+              "workdir": "/artifacts",
+              "requires": [],
+              "required_output": [
+                "Usage: leveldbutil"
+              ],
+              "diagnostic_paths": []
+            }
+          }
+        ],
+        "generated_documents": []
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-planning-p3-source-preparation-v1/Leveldb/source.tar",
+      "source_evidence": [
+        {
+          "path": "CMakeLists.txt",
+          "quote": "add_library(leveldb ",
+          "line": 120,
+          "sha256": "2302a5891d53af592a9e1e514c0113e4ec735c3da2c19ed5c18a0df76a133789"
+        },
+        {
+          "path": "CMakeLists.txt",
+          "quote": "add_executable(leveldbutil",
+          "line": 288,
+          "sha256": "2302a5891d53af592a9e1e514c0113e4ec735c3da2c19ed5c18a0df76a133789"
+        }
+      ],
+      "reference_actions": [
+        {
+          "role": "configure",
+          "command": "cmake -S . -B build",
+          "workdir": "/workspace/repo"
+        },
+        {
+          "role": "build",
+          "command": "cmake --build build --parallel 4",
+          "workdir": "/workspace/repo"
+        }
+      ],
+      "paper_sources": [
+        {
+          "name": "Leveldb",
+          "topic": "Database Development",
+          "guide": null,
+          "source": "cxxcrafter",
+          "source_url": "https://arxiv.org/html/2505.21069v1#S2.T1",
+          "row": 6,
+          "source_html_sha256": "f95fcfdf56445caadcf7970e98b9ddd4ac9e13795294ceeb06096199ec1cc516"
+        }
+      ],
+      "historical_exposure_pointers": [
+        "benchmarks/fixtures/cpp-jev-offline-qualification-source-pool-v1.json",
+        "benchmarks/fixtures/cpp-jev-offline-qualification-source-pool-v2.json",
+        "benchmarks/fixtures/cpp-typed-action-benchmark-source-pool-v1.json",
+        "benchmarks/fixtures/stage-c-source-pool.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v1-authorized.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v1-availability-candidate.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v1-availability-execution.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v1-candidate.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v1-formal-execution.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v2-authorized.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v2-availability-execution.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v2-candidate.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v2-formal-execution.json",
+        "benchmarks/manifests/cpp-stage-c-paired-calibration-authorized.json",
+        "benchmarks/manifests/cpp-stage-c-paired-calibration-v2-remediation-authorized.json",
+        "benchmarks/manifests/cpp-stage-c-paired-calibration-v3-pair-source-authorized.json",
+        "benchmarks/manifests/cpp-stage-c-paired-calibration-v4-build-entrypoint-authorized.json",
+        "benchmarks/manifests/cpp-stage-c-paired-calibration-v5-session-identity-authorized.json",
+        "benchmarks/manifests/cpp-stage-c-paired-calibration-v6-measurement-remediation-candidate.json",
+        "benchmarks/manifests/cpp-stage-c-v6-offline-reevaluation-authorized.json"
+      ],
+      "exposure": "P3提案与旧H1/H2开发评价之外；已登记目录接触；非最终holdout"
+    },
+    {
+      "name": "libbpf",
+      "family": "https://github.com/libbpf/libbpf",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "p3-libbpf",
+        "repository_url": "https://github.com/libbpf/libbpf",
+        "commit_sha": "872299d94e27d2fa9f119667c7e52268698dc760",
+        "image_id": "sha256:8123220a201ac4d00cda0dc985b9db7227cd909bb93ca6c25fd82cafce5cd887",
+        "source_archive_sha256": "57e4e98bc1ebfb5fd995d5f604611be16198ebea336b6f7675d79aaa1cfb5691",
+        "build_system": "make",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "08bc074a5014d80d1bb09eebcc306f568274c7e7a4a2bf3cc074c26a75d9e163",
+        "components": [
+          {
+            "name": "bpf",
+            "artifact_names": [
+              "libbpf.a",
+              "libbpf.so"
+            ],
+            "kinds": [
+              "static_library",
+              "shared_library"
+            ],
+            "evidence": "作者普通主要目标，见本项目source_evidence；辅助示例与完整测试不作为主任务"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": "普通主构建；不要求完整作者测试，轻量验证与成功重建分层报告",
+        "executable_smokes": [],
+        "generated_documents": []
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-planning-p3-source-preparation-v1/libbpf/source.tar",
+      "source_evidence": [
+        {
+          "path": "src/Makefile",
+          "quote": "all: $(STATIC_LIBS) $(SHARED_LIBS) $(PC_FILE)",
+          "line": 107,
+          "sha256": "c9efe1162dd914c7e441c16ac8ad3c1d21a889449bab72cb88505c9f653c7fb2"
+        }
+      ],
+      "reference_actions": [
+        {
+          "role": "dependency",
+          "command": "apt-get update\napt-get install -y --no-install-recommends libelf-dev zlib1g-dev pkg-config",
+          "workdir": "/workspace/repo"
+        },
+        {
+          "role": "build",
+          "command": "make -C src -j4",
+          "workdir": "/workspace/repo"
+        }
+      ],
+      "paper_sources": [
+        {
+          "name": "libbpf",
+          "topic": "Linux",
+          "guide": "in_repo",
+          "source": "compileagent",
+          "source_url": "https://arxiv.org/html/2505.04254v1#A3.T4",
+          "row": 7,
+          "source_html_sha256": "f61b0a20cd65fa2191ffd722ac922d59b6673b485c6f460c209e1e4bcffa56a0"
+        }
+      ],
+      "historical_exposure_pointers": [],
+      "exposure": "P3提案与旧H1/H2开发评价之外；已登记目录接触；非最终holdout"
+    },
+    {
+      "name": "Rnnoise",
+      "family": "https://github.com/xiph/rnnoise",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "p3-rnnoise",
+        "repository_url": "https://github.com/xiph/rnnoise",
+        "commit_sha": "70f1d256acd4b34a572f999a05c87bf00b67730d",
+        "image_id": "sha256:8123220a201ac4d00cda0dc985b9db7227cd909bb93ca6c25fd82cafce5cd887",
+        "source_archive_sha256": "253a51fa5e0d19b6dddde9d23c4ee64aedfcb1f8dd596fc0007853b4e992357a",
+        "build_system": "autotools",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "01698fd7d4572aa69842838fb961c1d5df9db5752235274dca3b5fb7db14eb0e",
+        "components": [
+          {
+            "name": "rnnoise",
+            "artifact_names": [
+              "librnnoise.a",
+              "librnnoise.so"
+            ],
+            "kinds": [
+              "static_library",
+              "shared_library"
+            ],
+            "evidence": "作者普通主要目标，见本项目source_evidence；辅助示例与完整测试不作为主任务"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": "普通主构建；不要求完整作者测试，轻量验证与成功重建分层报告",
+        "executable_smokes": [],
+        "generated_documents": []
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-planning-p3-source-preparation-v1/Rnnoise/source.tar",
+      "source_evidence": [
+        {
+          "path": "Makefile.am",
+          "quote": "lib_LTLIBRARIES = librnnoise.la",
+          "line": 9,
+          "sha256": "6b092f644a52624fa5022ce3a01264641b329dfd38c13f287ef3c9402abf9e60"
+        },
+        {
+          "path": "README",
+          "quote": "% ./autogen.sh",
+          "line": 12,
+          "sha256": "87fc8de7620259a3200be2012e7c77fc9383997d3224318451eaded27691754f"
+        }
+      ],
+      "reference_actions": [
+        {
+          "role": "configure",
+          "command": "./autogen.sh\n./configure",
+          "workdir": "/workspace/repo"
+        },
+        {
+          "role": "build",
+          "command": "make -j4",
+          "workdir": "/workspace/repo"
+        }
+      ],
+      "paper_sources": [
+        {
+          "name": "Rnnoise",
+          "topic": "Audio Systems",
+          "guide": null,
+          "source": "cxxcrafter",
+          "source_url": "https://arxiv.org/html/2505.21069v1#S2.T1",
+          "row": 8,
+          "source_html_sha256": "f95fcfdf56445caadcf7970e98b9ddd4ac9e13795294ceeb06096199ec1cc516"
+        }
+      ],
+      "historical_exposure_pointers": [
+        "benchmarks/fixtures/cpp-jev-offline-qualification-source-pool-v1.json",
+        "benchmarks/fixtures/cpp-jev-offline-qualification-source-pool-v2.json",
+        "benchmarks/fixtures/cpp-typed-action-benchmark-source-pool-v1.json",
+        "benchmarks/fixtures/stage-c-source-pool.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v1-authorized.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v1-availability-candidate.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v1-availability-execution.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v1-candidate.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v1-formal-execution.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v2-authorized.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v2-availability-execution.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v2-candidate.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v2-formal-execution.json",
+        "benchmarks/manifests/cpp-stage-c-paired-calibration-authorized.json",
+        "benchmarks/manifests/cpp-stage-c-paired-calibration-v2-remediation-authorized.json",
+        "benchmarks/manifests/cpp-stage-c-paired-calibration-v3-pair-source-authorized.json",
+        "benchmarks/manifests/cpp-stage-c-paired-calibration-v4-build-entrypoint-authorized.json",
+        "benchmarks/manifests/cpp-stage-c-paired-calibration-v5-session-identity-authorized.json",
+        "benchmarks/manifests/cpp-stage-c-paired-calibration-v6-measurement-remediation-candidate.json",
+        "benchmarks/manifests/cpp-stage-c-v6-offline-reevaluation-authorized.json"
+      ],
+      "exposure": "P3提案与旧H1/H2开发评价之外；已登记目录接触；非最终holdout"
+    }
+  ],
+  "schedule": [
+    {
+      "slot": 1,
+      "project": "libarchive",
+      "repetition": 1,
+      "method": "P0_R2"
+    },
+    {
+      "slot": 2,
+      "project": "libarchive",
+      "repetition": 1,
+      "method": "P3_R2"
+    },
+    {
+      "slot": 3,
+      "project": "toybox",
+      "repetition": 1,
+      "method": "P3_R2"
+    },
+    {
+      "slot": 4,
+      "project": "toybox",
+      "repetition": 1,
+      "method": "P0_R2"
+    },
+    {
+      "slot": 5,
+      "project": "nettle",
+      "repetition": 1,
+      "method": "P0_R2"
+    },
+    {
+      "slot": 6,
+      "project": "nettle",
+      "repetition": 1,
+      "method": "P3_R2"
+    },
+    {
+      "slot": 7,
+      "project": "json-c",
+      "repetition": 1,
+      "method": "P3_R2"
+    },
+    {
+      "slot": 8,
+      "project": "json-c",
+      "repetition": 1,
+      "method": "P0_R2"
+    },
+    {
+      "slot": 9,
+      "project": "vlmcsd",
+      "repetition": 1,
+      "method": "P0_R2"
+    },
+    {
+      "slot": 10,
+      "project": "vlmcsd",
+      "repetition": 1,
+      "method": "P3_R2"
+    },
+    {
+      "slot": 11,
+      "project": "libgcrypt",
+      "repetition": 1,
+      "method": "P3_R2"
+    },
+    {
+      "slot": 12,
+      "project": "libgcrypt",
+      "repetition": 1,
+      "method": "P0_R2"
+    },
+    {
+      "slot": 13,
+      "project": "libexpat",
+      "repetition": 1,
+      "method": "P0_R2"
+    },
+    {
+      "slot": 14,
+      "project": "libexpat",
+      "repetition": 1,
+      "method": "P3_R2"
+    },
+    {
+      "slot": 15,
+      "project": "tiny-AES-c",
+      "repetition": 1,
+      "method": "P3_R2"
+    },
+    {
+      "slot": 16,
+      "project": "tiny-AES-c",
+      "repetition": 1,
+      "method": "P0_R2"
+    },
+    {
+      "slot": 17,
+      "project": "jansson",
+      "repetition": 1,
+      "method": "P0_R2"
+    },
+    {
+      "slot": 18,
+      "project": "jansson",
+      "repetition": 1,
+      "method": "P3_R2"
+    },
+    {
+      "slot": 19,
+      "project": "Libsoundio",
+      "repetition": 1,
+      "method": "P3_R2"
+    },
+    {
+      "slot": 20,
+      "project": "Libsoundio",
+      "repetition": 1,
+      "method": "P0_R2"
+    },
+    {
+      "slot": 21,
+      "project": "pwnat",
+      "repetition": 1,
+      "method": "P0_R2"
+    },
+    {
+      "slot": 22,
+      "project": "pwnat",
+      "repetition": 1,
+      "method": "P3_R2"
+    },
+    {
+      "slot": 23,
+      "project": "shc",
+      "repetition": 1,
+      "method": "P3_R2"
+    },
+    {
+      "slot": 24,
+      "project": "shc",
+      "repetition": 1,
+      "method": "P0_R2"
+    },
+    {
+      "slot": 25,
+      "project": "Civetweb",
+      "repetition": 1,
+      "method": "P0_R2"
+    },
+    {
+      "slot": 26,
+      "project": "Civetweb",
+      "repetition": 1,
+      "method": "P3_R2"
+    },
+    {
+      "slot": 27,
+      "project": "linenoise",
+      "repetition": 1,
+      "method": "P3_R2"
+    },
+    {
+      "slot": 28,
+      "project": "linenoise",
+      "repetition": 1,
+      "method": "P0_R2"
+    },
+    {
+      "slot": 29,
+      "project": "snapraid",
+      "repetition": 1,
+      "method": "P0_R2"
+    },
+    {
+      "slot": 30,
+      "project": "snapraid",
+      "repetition": 1,
+      "method": "P3_R2"
+    },
+    {
+      "slot": 31,
+      "project": "Leveldb",
+      "repetition": 1,
+      "method": "P3_R2"
+    },
+    {
+      "slot": 32,
+      "project": "Leveldb",
+      "repetition": 1,
+      "method": "P0_R2"
+    },
+    {
+      "slot": 33,
+      "project": "libbpf",
+      "repetition": 1,
+      "method": "P0_R2"
+    },
+    {
+      "slot": 34,
+      "project": "libbpf",
+      "repetition": 1,
+      "method": "P3_R2"
+    },
+    {
+      "slot": 35,
+      "project": "Rnnoise",
+      "repetition": 1,
+      "method": "P3_R2"
+    },
+    {
+      "slot": 36,
+      "project": "Rnnoise",
+      "repetition": 1,
+      "method": "P0_R2"
+    }
+  ],
+  "fixture_sha256": "634b675d4311c5898baa750b338f8677dcecbd2a41a1195c7513fbf835abc367",
+  "planning_harnesses": {
+    "P0_R2": {
+      "name": "P0",
+      "base_prompt_sha256": "85f2e95d5f893563759850407f00f245f6b2832ae99dbc2e4f46ae13ef77430f",
+      "planning_guidance": "",
+      "parent_sha256": null,
+      "training_corpus_sha256": null
+    },
+    "P3_R2": {
+      "name": "P3_system_context",
+      "base_prompt_sha256": "85f2e95d5f893563759850407f00f245f6b2832ae99dbc2e4f46ae13ef77430f",
+      "planning_guidance": "初始规划追加指导：\n\n以“所选普通入口的必要前置完整”为提交标准。先利用已有作者说明确定适用于当前源码形态、Linux 和架构的入口，再用构建文件解释该入口；任务中的构建系统标签不能替代作者入口证据。已有材料足够时直接提交，不要求固定数量的读取或可见证据账本。\n\n读取只解决会改变动作的具体缺口。优先取得普通构建说明及其依赖段；仅沿已选入口补读所引用的脚本、默认条件或依赖查找处。截断标记本身不要求补读，但缺失的默认值、条件分支、最低版本或生成步骤会影响方案时，应从该位置补齐。复用仍可见的相同行段；重复相同请求不会补齐截断内容。目录列表有界，未列出不能直接证明不存在；调用 list_source 使用 directory 参数。入口明确后，不为再次佐证而继续追索 CI、容器文件、源文件清单或测试目录。\n\n对所选配置中已经出现的依赖，区分三件事：作者要求什么、当前配置是否需要、环境是否已提供。核对默认值和缺失处理，不能把“可选功能”直接等同于“当前默认配置无需依赖”，也不能把一个 AUTO 分支推广到其他开关。作者普通入口明确启用的功能及默认目标所需的开发文件、生成器和文档后端属于必要前置。允许自动探测的可选能力保持作者行为，不为排除所有潜在失败安装全部后端。\n\n选择源码检出的 autogen/bootstrap 等生成入口时，利用脚本的实际调用和直接相关的构建声明识别工具及最低版本。只需关注生成与默认构建实际需要的能力，不复制开发、发布或完整测试工具全集。工具存在、同族工具已安装、某个包名存在，都不自动证明版本和能力满足。不要以“基础镜像通常提供”为已安装证据；对明确必需但环境状态未知的依赖，给出有依据的安装动作，或在适合时用能力/版本守卫避免重复安装，由 Workflow 实际执行。不能宣称已亲自探测环境。\n\n依赖信息优先来自作者说明与构建声明。没有依赖清单的小型直接编译 Make 项目，若主要靠链接参数推断外部依赖且仍有完整性疑问，可定点查看主编译单元的外部 include；不扫描全部源码。作者构建图已自动处理的内置依赖沿普通入口执行；只有自行安排外部依赖源码流程时，才按共同契约拆分其下载、配置、编译和安装。\n\n安装集合对应当前构建用途。系统包优先避免无关推荐项，同时显式保留所需后端、数据和开发文件；只检查前端命令的守卫不足以证明整套能力可用。明确版本要求不能靠猜测系统包版本满足，也不要无依据升级到最新版本或展开庞大源码依赖构建。确需受管工具时，方案须同时考虑安装位置、启动方式及每个独立 Shell 所需环境。无法取得合法获取方式的依据时，如实说明限制。\n\n提交前快速检查一次：普通入口和主要组件有依据；已知必要前置没有被“以后失败再装”的假定替代；步骤按前提顺序排列，requires 指向更早步骤；workdir 已存在或由更早动作创建；主项目与外部依赖角色正确。不要在干净输入上习惯性添加 clean、目录准备或额外选项；每个新增动作都应有当前证据和用途。保持默认目标，不通过关闭主要组件、修改源码或测试降低成本。\n\n这些事实齐备后，立即用一份 SimpleBuildActions 提交简短 reason 和完整 steps。source 只引用实际取得的证据，expected 说明目的，不充当验证断言。剩余网络、环境兼容性及未知运行行为由真实执行反馈定位，不提前堆叠备用路径或历史修复选项。",
+      "parent_sha256": "cb957463be8c3d0382df84971fd458fd5608e75d75fcb63f463f55e15f7f8d2d",
+      "training_corpus_sha256": "68ac6da705f0759c52c322f4a668bb854f1619221b2b3d86fb4cd3fcf62d0bc0"
+    }
+  },
+  "recovery_harness": {
+    "name": "R2_system_context",
+    "base_prompt_sha256": "85f2e95d5f893563759850407f00f245f6b2832ae99dbc2e4f46ae13ef77430f",
+    "recovery_guidance": "以最近交接中实际到达的步骤和直接错误选择修订，区分已执行失败、执行前拒绝、旧日志与未执行后缀。补读前明确尚缺哪条会影响动作选择的证据；已有材料足够时提交，不必先写账本。\n\n沿失败文件、符号或规则补读。截断或上下文压缩使必要内容缺失时，从缺失位置读取；新日志、错误归属不明或新的故障允许再次读取。已经完整取得且仍可见的相同片段无需重复确认。必要的依赖和目标关系读取不受固定次数限制。\n\n获取失败先区分索引更新、包下载和安装。后续安装的拆分不能自动解释为解决前面的下载阻塞。通常保留已有依据的依赖集合及未执行后缀；如需改变获取路径或构建入口，补齐它如何处理当前阻塞、为何保持主要组件和默认范围的依据，再提出修订。工具存在不自动表示能力或版本满足；相关守卫只能作为有依据、交由Workflow执行的动作，不能宣称已亲自探测。\n\n编译兼容故障可追踪作者或内置依赖已有的配置机制，确认定义、控制失败代码的条件及受影响目标。证据足以说明兼容修改且默认目标和测试保持时即提交，不因主库局部成功缩减剩余目标。\n\n收到结构或策略拒绝时，保留已读证据，检查受影响动作的关联阶段、目录、ID及引用约束后修正。外部依赖的配置和编译不能仅靠标为dependency获得放行；不要用包装Shell或更换临时路径绕过约束。所有修订通过现有结构化接口提交，由Workflow执行并反馈。reason简短区分已观察事实、拟执行动作和仍缺的依据；无法支持合法修订时如实说明限制，不编造可执行动作或专用终止接口。",
+    "training_corpus_sha256": "238b9c6aa7bbd72c1d7f8d95bb1bc6b4252adc59d6db43c32f2bc99b4603fcdf"
+  },
+  "original_reviewed_p3_sha256": "126d5ac439f5fe374a4ad8348fca6a8933cd302d3e3a86f2a26afcefabde0f58",
+  "original_reviewed_r2_sha256": "270becfd8fe2c0c89d0d7ab8c820893cdc6ae7cdd9d2c50e95ecb11f84263743",
+  "common_prompt_sha256": "85f2e95d5f893563759850407f00f245f6b2832ae99dbc2e4f46ae13ef77430f",
+  "provider": {
+    "model": "deepseek-flash",
+    "accepted_models": [
+      "DeepSeek-V4.1-Flash-1017",
+      "deepseek-flash"
+    ],
+    "reasoning_effort": "low",
+    "max_tokens": 32768,
+    "max_retries": 0,
+    "timeout_seconds": 240
+  },
+  "pricing": {
+    "input_per_million_usd": "0.30",
+    "output_per_million_usd": "1.20",
+    "basis": "沿用Flash全输入缓存未命中保守估费，不是账单",
+    "source": "https://api-docs.deepseek.com/quick_start/pricing"
+  },
+  "maximum_cost_usd": "5.00",
+  "maximum_hours": 4,
+  "per_unit_cost_usd": "0.40",
+  "arm_seconds": 1800,
+  "replay_seconds": 600,
+  "validation_scope": "main_build",
+  "comparison_policy": "successful-rebuild-v1",
+  "state_routing": "shared_rule_no_jev",
+  "experience": false,
+  "initial_plan": "independent_model_planning_in_each_arm_no_shared_plan",
+  "proposal_cost_already_paid_usd": "0.317073",
+  "recovery_proposal_cost_already_paid_usd": "0.139614",
+  "automatic_retry": false,
+  "holdout": false,
+  "components": {
+    "backend/packages/harness/deerflow/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "backend/packages/harness/deerflow/agents/__init__.py": "a56943de0fc010577aeb22212de66d9fbceda09aef6e5a4613945f885d733f5f",
+    "backend/packages/harness/deerflow/agents/checkpointer/__init__.py": "4f97331d4d87a4db4d5ea31dd014db39ea4739f584b45392d9c1835a1c456c47",
+    "backend/packages/harness/deerflow/agents/checkpointer/async_provider.py": "2bb3042621668f662393698bc27b513cf6602ae2dbf792430b84b32ab4f9f594",
+    "backend/packages/harness/deerflow/agents/checkpointer/provider.py": "7c67d89ece8aca60838eeb9b6141a8e09e9dd5f6f0f39cf8f2720a758ad771b4",
+    "backend/packages/harness/deerflow/agents/factory.py": "dd3ddffc164ea27296d8e9f444688c57a08cf5e03932a2f38cd79b16b5ad673f",
+    "backend/packages/harness/deerflow/agents/features.py": "4cf752d546a68afe47ce7b5ba9f774fbd26f719022813d2dc58b87248c84f0ec",
+    "backend/packages/harness/deerflow/agents/lead_agent/__init__.py": "a2741789ec207120b993850f00db55bd92f5c0267f623bf9fd0ef4ad8472a674",
+    "backend/packages/harness/deerflow/agents/lead_agent/agent.py": "ce3ee4d371d98982edfb054824ee9fa002e064d641e256b34c3ea281e93fb320",
+    "backend/packages/harness/deerflow/agents/lead_agent/prompt.py": "b81301ba0b355b0776bdec66df0250c8561a2bbbe49dcaee860fa7a5698b4bde",
+    "backend/packages/harness/deerflow/agents/memory/__init__.py": "e25f883bc4a68ed100fbb05f6bac07ea80f7e57475e51bf799a4e497a403dc22",
+    "backend/packages/harness/deerflow/agents/memory/prompt.py": "2a86f965d484ab2d185828403bc4d611f4092ab995dde202e90fb1b000a7b8ff",
+    "backend/packages/harness/deerflow/agents/memory/queue.py": "0b5ebc82d9e582a822e3e37fd089628be3174b8e042ed00c59bcbbe06b931f92",
+    "backend/packages/harness/deerflow/agents/memory/storage.py": "d71384fca6a2d546f5f1f8f839c37b5cb894f111da517064400cea2e7a96cba9",
+    "backend/packages/harness/deerflow/agents/memory/updater.py": "bbab7ffff1f113aba64e80ec6e2a8fa56509eff8749c18bd14310fb94600f249",
+    "backend/packages/harness/deerflow/agents/middlewares/__init__.py": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+    "backend/packages/harness/deerflow/agents/middlewares/clarification_middleware.py": "6555b8921b7cbde9372d3025d5050ab7096fff8ac679d59395d844bc2db0cd77",
+    "backend/packages/harness/deerflow/agents/middlewares/dangling_tool_call_middleware.py": "9627e5c32a2301eff05633a4141825f4a74c3c98b6af90be5007d1cd3177a969",
+    "backend/packages/harness/deerflow/agents/middlewares/loop_detection_middleware.py": "54543bb23f7028013ab6ac4953da81acc9e1ce195f079169285d5c0418ec45b9",
+    "backend/packages/harness/deerflow/agents/middlewares/memory_middleware.py": "6e7896fa9472086457cc69a5ea2a4a593485d4c9d6d324f8029b5ff70a113022",
+    "backend/packages/harness/deerflow/agents/middlewares/subagent_limit_middleware.py": "4a3e133b5bbd4f47045fd370bbc125a17079579f30b837914728095b4d6feead",
+    "backend/packages/harness/deerflow/agents/middlewares/title_middleware.py": "a25f7fc7c9521e9a9f62836145ac6c0d180d8279693d05f4df705b9593def1d9",
+    "backend/packages/harness/deerflow/agents/middlewares/todo_middleware.py": "5f20a6a918661c00567ac7d7620d39fa2674360244bf3b8e7a2765084e0802c5",
+    "backend/packages/harness/deerflow/agents/middlewares/token_usage_middleware.py": "72d8a84fdf76b779b5404c277d79ea2109c5fb8697fd03e02d4c914609c99dc4",
+    "backend/packages/harness/deerflow/agents/middlewares/tool_error_handling_middleware.py": "76b5c8bc2fedf2c5641af3bc7a2ab58f0872d649c95d0963379ee7ea5d83c60f",
+    "backend/packages/harness/deerflow/agents/middlewares/view_image_middleware.py": "7f75e1701594d31ee3ebff294fc0603a60cb514d9562a6dd34ec61fa20916aa2",
+    "backend/packages/harness/deerflow/agents/thread_state.py": "9515ec6b397d431b521fae125b401c8d02eed7ce64bc713c18c6cc68ac6dfa3e",
+    "backend/packages/harness/deerflow/compile/__init__.py": "5c9b2cf4d1fbfb357cf07047b3eee93934d1e6a04b2d63ed26dc98071b9cd78c",
+    "backend/packages/harness/deerflow/compile/action_experience.py": "4cd6615d1da19273bab6b9d4c673aa783f6e7384500443ba8f6668451da92eb7",
+    "backend/packages/harness/deerflow/compile/agent_workflow_node.py": "9fc296c5ac5586fbc25cd0d4c8c0c2bb3c0db03c89fa3cf924d3ff6873a29155",
+    "backend/packages/harness/deerflow/compile/agent_workflow_runtime.py": "92277bf4b5568acb43523edb6344b2a6b6c70ce731cab62200295b3aa97d9931",
+    "backend/packages/harness/deerflow/compile/agent_workflow_runtime_v2.py": "7358c8396a6eee7776f64f6645f0d516b1f4e6ed4743a249c1d8c32b4c1ecef5",
+    "backend/packages/harness/deerflow/compile/agent_workflow_runtime_v3.py": "2d71383d011e943f78e9259b9f7ceec2c8e1f080d7609e86413ce188a841f65e",
+    "backend/packages/harness/deerflow/compile/agent_workflow_runtime_v4.py": "48593cfea3a5cd0512531332bec89bc16afddbdc190605e55d17c027a7769c66",
+    "backend/packages/harness/deerflow/compile/agent_workflow_runtime_v5.py": "44462a2e6cf26e3008743281c942604ce75955ac62125afcf676fa1882c1c92a",
+    "backend/packages/harness/deerflow/compile/agent_workflow_runtime_v6.py": "70311ae3a598e183ba7450494629d8ee5a5e572c9e829f2d82a058122060406b",
+    "backend/packages/harness/deerflow/compile/agent_workflow_schemas.py": "21a19f6d1a0421fce2c7807474db9eefe0e0be25042241ca121fbb9d5ec99706",
+    "backend/packages/harness/deerflow/compile/archive_source_index.py": "8016f903f9291fb00eda0e2bd4ac0c576fc992903659db61d9feff1950b2e855",
+    "backend/packages/harness/deerflow/compile/artifact_display.py": "b6ae85f2b3c5dead9d631933714f318e29cfd562a6127f17003120218cb660e8",
+    "backend/packages/harness/deerflow/compile/boundary_execution.py": "9f62e5912d7f548649c29b991a117fddda5a2633bdbf20b38bae7db3b6895c3c",
+    "backend/packages/harness/deerflow/compile/build_experience.py": "bfbf2cb916d940f9bc342c11a71cc9ca49399352ec87a98fc936d44714fd3588",
+    "backend/packages/harness/deerflow/compile/build_state_routing.py": "488eb078ff5292d902573790fb8eab490d62532de8d01bd40b4ca30dfa9c968f",
+    "backend/packages/harness/deerflow/compile/build_task_checks.py": "4a302b338a9228e9e7928c48b21c046dac4eb8c95fe6de21dd60bb3544ab0b10",
+    "backend/packages/harness/deerflow/compile/candidate_verifier.py": "595cec0fc909e2179fbcebc5428c6b5ae996d7442e90ece5ccbc8d57bef7ab89",
+    "backend/packages/harness/deerflow/compile/conditioned_experience.py": "8f585a84dbde5eed38f6e5dc364c228ce7d0409ec099338825f0e2d552526b43",
+    "backend/packages/harness/deerflow/compile/docker_runtime.py": "82b3090e53a6b55c6c56aafe2a833b611b04d3de052f7dd591c8886fdb572163",
+    "backend/packages/harness/deerflow/compile/evidence.py": "a3923167f67a96ea4af4aaa4f3692d15baafea79cc0e5ee1b9dac08ab7eb9284",
+    "backend/packages/harness/deerflow/compile/evidence_ownership.py": "1609822180c1818988ef9ad8a4fa30ce21a901a5d9037f82d43bf00ba1ba0d92",
+    "backend/packages/harness/deerflow/compile/external_evaluator.py": "c4ac897de06ab91d1cd557dfc3b6427974cae99c2ca16c216e8880303c094c61",
+    "backend/packages/harness/deerflow/compile/external_evaluator_v2.py": "19044e161b321fe5afed8458c0138f1bcfbe41582af2d5f4efcdf6846c3d579b",
+    "backend/packages/harness/deerflow/compile/external_evaluator_v3.py": "cfb5e3baeff772e54051925e6b0504eea25b6ba9284d8a5c6ad7135355fde79c",
+    "backend/packages/harness/deerflow/compile/external_evaluator_v4.py": "9009c400b1b54d9ad05411f1a64124423cf50d8ba49bfa2d13071d9bedad4613",
+    "backend/packages/harness/deerflow/compile/generated_file_boundary.py": "81fdee664be7526a1d4ddf864d97571dd0118979340f6eb8cb01700aa05d9ef6",
+    "backend/packages/harness/deerflow/compile/generation_observation_actions.py": "6137bcd634d9df7e79ee6b60b73f103dfbc5807aa72af01d98c6d4bcc616c0bd",
+    "backend/packages/harness/deerflow/compile/goal_state.py": "8749ce77b7d08b01d58c4d6c65680b0ede793b0cb1b56c40c70eaab1ee074880",
+    "backend/packages/harness/deerflow/compile/hybrid_workflow.py": "73e215ebf2d0c3a53db7f8b44993a72c9d6a140091d5c78d5114fec578676d4e",
+    "backend/packages/harness/deerflow/compile/jev_controller.py": "f8c53aa301c60399aae33c052d7d3efd8d39c0827dc751d99cd823194a810e9f",
+    "backend/packages/harness/deerflow/compile/local_recovery.py": "3beb7c87d6bcc6f369b2be63701e15c995d2a0766e6878bdf35a198ab575c3f1",
+    "backend/packages/harness/deerflow/compile/manager.py": "1f9726ff9375cb5fb271bc17b29310e17db6db274474b02112aaf61cead4536e",
+    "backend/packages/harness/deerflow/compile/offline_harness.py": "b31b158507f1ebcb2d1e340d2bde9337c657d0e8c5ebb5dd2e4c741d622970f3",
+    "backend/packages/harness/deerflow/compile/operation_window.py": "f44b2e1d2e702c6b50b6d2e5713b670862d1430d460f83d32a531c7852b7c507",
+    "backend/packages/harness/deerflow/compile/operations.py": "bec732bf9787f9280ced1dd5acfa2a75339ffdc4c0caafaaec1a1f291f24df04",
+    "backend/packages/harness/deerflow/compile/paths.py": "3872bdca3647a78407b422c00a72d9c62b38d5e9f2f0355cc78653fa15d1c332",
+    "backend/packages/harness/deerflow/compile/plan_agent.py": "76cf813285bd0d95ffd53e6d94d7fed09ddc4dcadfdcb13f6c37089170f5dd71",
+    "backend/packages/harness/deerflow/compile/plan_agent_canary.py": "13c238db9fe5f69543a17b6e95871723e1c790687cb028c281b200aab8a17b6c",
+    "backend/packages/harness/deerflow/compile/plan_agent_context.py": "2620ddcc50e7da228d7af19073719508b649a9d360f71a94baf15ecbefd2dc37",
+    "backend/packages/harness/deerflow/compile/plan_agent_provenance.py": "35353d9277ba34953b7ba1fb7a2bad477e4bc721aa1b9a271261ed86d76d7dca",
+    "backend/packages/harness/deerflow/compile/plan_agent_repair.py": "a934a770bfb8f6b45fe7e13b73f12cb7e30b42937a98fbd6dbb6213896a1c9f3",
+    "backend/packages/harness/deerflow/compile/plan_agent_v2.py": "8fb37e15af7739c32ab00002076e284d5599710c34d11ae1623f6f23ca922bad",
+    "backend/packages/harness/deerflow/compile/plan_candidate_reception.py": "8d954034c59c56772d4d39d99cb17e7317dabb2c6786dab11341d12a5046f5ce",
+    "backend/packages/harness/deerflow/compile/plan_cross_system.py": "754710b0e31badef4e317f83d350092232ef42cb55cc58398c21a254713fa174",
+    "backend/packages/harness/deerflow/compile/plan_delivery.py": "dce6cc81cd7e49e733216524976ee47303330d16d6e3410761d96396c68a0596",
+    "backend/packages/harness/deerflow/compile/plan_delivery_equivalent.py": "67d48e2e44033a0551c84e0ff86092f7327adbd47eb9d0142b4ac1fb8321bab1",
+    "backend/packages/harness/deerflow/compile/plan_handoff_context.py": "eb0e44b077a800f003f8740c0cef18cac1b9841a2e4656f36f6e52c7b5d6bc89",
+    "backend/packages/harness/deerflow/compile/plan_workflow.py": "70504492a07ec7e56b91f56b6c2098d700bd3c857a021e9cd08b517f4b610544",
+    "backend/packages/harness/deerflow/compile/project_experience.py": "09dd6f9e1723304ec8ba53a6643e0f217a003a3d96e27d8614e7f53e4ca09d7a",
+    "backend/packages/harness/deerflow/compile/recovery_harness.py": "2a6ced228d2968a639e598a1805c74fac4c30731f4a0249744b3579a314b7071",
+    "backend/packages/harness/deerflow/compile/recovery_text_factors.py": "d81ac40026703d926149ba1b410eb46fca246c9772b63a20672f792a1987efa8",
+    "backend/packages/harness/deerflow/compile/replay_closure_verifier.py": "01f8335ab0a586065803b34952b930adbf593624c611316b40ca2ccac685cd83",
+    "backend/packages/harness/deerflow/compile/schemas.py": "3ac4f3637771d96b4a8a583d990da178b3976ca3e18e8cffbb37227f62806471",
+    "backend/packages/harness/deerflow/compile/shared_text_packet.py": "43ea2391dffd78c8bf273af430a14926bf4fd255fc0e001ef72e222c570d8b28",
+    "backend/packages/harness/deerflow/compile/simple_author_tests.py": "565b385eba8faf569961df9919c83d9972da934f1789dce5bba408180015e255",
+    "backend/packages/harness/deerflow/compile/simple_build_agents.py": "07188e769ff01bec76058d9bbc69fb55a3f36ad3f7277ea6f5ef60a04f4a4b87",
+    "backend/packages/harness/deerflow/compile/simple_build_experience.py": "4f20e6f24b8799f54a4c3d5e56d4c219af34fd17a20642b224ca19f56c10fa84",
+    "backend/packages/harness/deerflow/compile/simple_build_runtime.py": "71043ba54db2ae66b23c271e47ecdba49b4bd974590280d927b07fc06e23967c",
+    "backend/packages/harness/deerflow/compile/simple_build_task.py": "d065d650426e555c73cf9921db0c5a0f41ef206fb8c8bc4f01fd2ec9a3f743f2",
+    "backend/packages/harness/deerflow/compile/simple_planning_context.py": "7dec503d8b8a3604d0e7e8e3b59dc8d973f50e017aac07fdef42941d86687a9b",
+    "backend/packages/harness/deerflow/compile/source_preparation.py": "cf5204d310719e56ac7ff23d4a66b54722ebf88bad7f206291ac38faf76adc7c",
+    "backend/packages/harness/deerflow/compile/staged_verification.py": "b4fc6b2ab4b1436a178657c62412ae71e8f9c7ae5c90b8301be18b5664e01741",
+    "backend/packages/harness/deerflow/compile/task_selected_make_plan.py": "be2758362d67d8878faddf087224e4bcf07bebda3f2bbd582e038407c3e7211c",
+    "backend/packages/harness/deerflow/compile/task_selected_tool_plan.py": "6d2857174e8767f210dccb0cf000f660833c69f2de0611b775a2e13ee55c7c1a",
+    "backend/packages/harness/deerflow/compile/tool_plan.py": "64f00145f33a6a950901045324d1610808ec8940bde83bec33622346974ff008",
+    "backend/packages/harness/deerflow/compile/transfer_action_experience.py": "823acb94a46e87ce7322e9bf720922840b385bb198b500b1e725f220c3dde5e3",
+    "backend/packages/harness/deerflow/compile/unified_plan.py": "1a7e840694bb5f2e24e5e7556e417b4a0ed1a5ddcf60e2a26e04bd451294cf71",
+    "backend/packages/harness/deerflow/compile/unified_plan_equivalent.py": "6131f7f0584692a51523681f3e3c80a838b86ab92077460f07ce6f2c617fe53a",
+    "backend/packages/harness/deerflow/compile/unified_plan_equivalent_observed.py": "b5be5b232664600c3f14c7cf8f114f44c0424016b16cdffd8a5d39776624c175",
+    "backend/packages/harness/deerflow/compile/unified_plan_v2.py": "80522737e683f2c1ecb9a39ecb086bd3a9a1729ed519039f092d91ff1eb1c46f",
+    "backend/packages/harness/deerflow/config/__init__.py": "5118fd7e91c5f2b40c264be510e39e34aa5fc0d3dc712e62cc0250643852ed57",
+    "backend/packages/harness/deerflow/config/acp_config.py": "545c5a8979ee20502ad8abb6e2a583b2b7ec8adbe4053a5faf1b5741d8c71edd",
+    "backend/packages/harness/deerflow/config/agents_config.py": "c6ea1b0206f1e0314ce4545682e4f960e15fc5c3aeec4f662d62672f41763d85",
+    "backend/packages/harness/deerflow/config/app_config.py": "452559abd42170e375b0639a37449cd3264ff32843fa6c53aac032d4319b0ab7",
+    "backend/packages/harness/deerflow/config/checkpointer_config.py": "04ce22f7421ea8a9873eba97ec5a201f567b7e9448bda8f35f985ddbd058e638",
+    "backend/packages/harness/deerflow/config/extensions_config.py": "41b70fcac18877bdb6d342fdd6d665f6e394f260ba0411596e49a850c184f3fb",
+    "backend/packages/harness/deerflow/config/guardrails_config.py": "a852b84c15aaa98db27133781f9f7dfb6440cc3adb8f5bd8e9b50a1c4e43e65f",
+    "backend/packages/harness/deerflow/config/memory_config.py": "fb40bdb0091469eb2517ce59e08ef452a89e1aa98d05c0432bd5536da9a8fb10",
+    "backend/packages/harness/deerflow/config/model_config.py": "3529125f3d5397730ce4f5c7fd65fb02b53796640e1df85de6a63a2eca2e32e6",
+    "backend/packages/harness/deerflow/config/paths.py": "fb972405e6185f8db8960bb99fa77817ff710ec46079c758878c01a8b6c3f607",
+    "backend/packages/harness/deerflow/config/sandbox_config.py": "84cbcc3441735e0bdaaa17d5a99f218e0fdd2c728c83babd6cea886084efb786",
+    "backend/packages/harness/deerflow/config/skill_evolution_config.py": "72ed337ab44a2094af74131d3d8728bd453ef7b1b33af5940083dc3a8c5fc0e4",
+    "backend/packages/harness/deerflow/config/skills_config.py": "a60571134cfe6eebe5abd1009e08d39a2c037b69bc2d8813fc4f9bc935676a1c",
+    "backend/packages/harness/deerflow/config/stream_bridge_config.py": "1cca873098f97229d874b9a981129da2767e5f7e8d5a65fceebb1bf36a040a7b",
+    "backend/packages/harness/deerflow/config/subagents_config.py": "c2c6a70d36c8e64f8d9b0c215f7da2f0f37af7a5a5f6865cd0e2ce9c0da32413",
+    "backend/packages/harness/deerflow/config/summarization_config.py": "6125bf6b6e961121a782d50b340c0f8ccd5e794fe1231e16d61b552d8e55c372",
+    "backend/packages/harness/deerflow/config/title_config.py": "3957bd4da829f34cf19288332ae5d1bff4677e4ee205de25beac1985f76c9606",
+    "backend/packages/harness/deerflow/config/token_usage_config.py": "493c966d6618030ded3ef3e61adee1eff5cd22f84061dfb8033f18e06309ce66",
+    "backend/packages/harness/deerflow/config/tool_config.py": "990b85b8ed1f8e2d2c16371f94888759620d7b88baca1f65d63456600352f6fe",
+    "backend/packages/harness/deerflow/config/tool_search_config.py": "5d8f9cc63eef0ed527e20175093de41a7f17fe2c06e92294b7055dc8318df5d6",
+    "backend/packages/harness/deerflow/config/tracing_config.py": "a4b3422d1c8797b539c91a22a0bdccc90b80aa550319a023a35fe78d698f8945",
+    "backend/packages/harness/deerflow/models/__init__.py": "751ebf6cb37039345a4595a40021f509c1ffbea324240769bcff338f846ce7fa",
+    "backend/packages/harness/deerflow/models/claude_provider.py": "a41908ff371572b1334f59e45e3825f15bc4c143cac85cf3e67760adb54c92ba",
+    "backend/packages/harness/deerflow/models/credential_loader.py": "f421598e62887ccf1b1165386b9fa7da8d4e781a3bdca53ed2280cfd71eb3bd7",
+    "backend/packages/harness/deerflow/models/factory.py": "804da24b5a3929df57251a0274dd690dcfa469c9c5c59024b100ae928dc0f5fc",
+    "backend/packages/harness/deerflow/models/openai_codex_provider.py": "6f94009a132f9e24dfbd638c830f049cefda680c2fc9dda0b76a343124184789",
+    "backend/packages/harness/deerflow/models/patched_deepseek.py": "e313c1b141799e268d9cc8ff548e45a339bf68b5a3b4f3b8865b2f7fa218477b",
+    "backend/packages/harness/deerflow/models/patched_minimax.py": "b20d2e801c193d8fa24923e07732f98a7260c1bd9520fed55df607152ce44c2c",
+    "backend/packages/harness/deerflow/models/patched_openai.py": "d55a2c970d3d42a8efa0155f8640e31bf5141a278c2eb63f6b940fdd82a06fe4",
+    "backend/packages/harness/deerflow/models/vllm_provider.py": "cdd06c0c89369652b09e17eb54dba7bd8283c02eb0c3dc7bce4608b232461784",
+    "backend/packages/harness/deerflow/reflection/__init__.py": "d8b3d505d456ff4fd71bb79b12e337a915ef2da719f4bb5df0d177e849bf80ed",
+    "backend/packages/harness/deerflow/reflection/resolvers.py": "8f984822fc36937f3164c8340c714026c82a573c1fb444375710b19c4f3e056a",
+    "backend/packages/harness/deerflow/runtime/__init__.py": "eed19d77c2dab6b554f4552517f2ad4f19cdca676cda64f9cff363ebd83f15c0",
+    "backend/packages/harness/deerflow/runtime/runs/__init__.py": "3bd95b0c329f61df718f729ae50de4c903b198a79288bf3b391b52d4e08f6599",
+    "backend/packages/harness/deerflow/runtime/runs/manager.py": "4e9c4b1fc9d1c71ace31f711275d988c2b26cd29d308ea057047ef363bc331de",
+    "backend/packages/harness/deerflow/runtime/runs/schemas.py": "a74e35727962a1b0fa27c7bb33b409b716a3d34e7e1f1de7d4cbfd8d65538880",
+    "backend/packages/harness/deerflow/runtime/runs/worker.py": "552d365e3085163707146156c10d1391d8acb6ec7505a5716235f1189350d1a4",
+    "backend/packages/harness/deerflow/runtime/serialization.py": "e0d2fcdbbbf22cec971b6f291d0bdc334fd8fd27c0f8940f576c573f6a3e99a2",
+    "backend/packages/harness/deerflow/runtime/store/__init__.py": "7ad2103736076f725a6a00c9e086153b50ce2cdbcc0f4f1acee2b22c67bda07c",
+    "backend/packages/harness/deerflow/runtime/store/_sqlite_utils.py": "edfa0fe74da14e0b5cec6387ab7139badf809a8e31b6a2494aac54ea7a20723a",
+    "backend/packages/harness/deerflow/runtime/store/async_provider.py": "06e3efdc16c2920879ef402fd6831576da232cc2283f9cca6f3432fc75920a4c",
+    "backend/packages/harness/deerflow/runtime/store/provider.py": "192dbb89892edf8ed07f2a75f7f83c062a1f1d1fac5c5857ec98e94ae2b02b70",
+    "backend/packages/harness/deerflow/runtime/stream_bridge/__init__.py": "02676f3cd91fd4e37c5af37e31eb62d0a814db2ad18c3d6d3dca78fb9b6bde4b",
+    "backend/packages/harness/deerflow/runtime/stream_bridge/async_provider.py": "0f48fd40a50200360545e371e0ee6ea5e2590603fee8ba6c2b2e98043b5eca37",
+    "backend/packages/harness/deerflow/runtime/stream_bridge/base.py": "a09f01685d28eb62ece4f425a7aaf02a3daddd8303ba2f84864a1de2ffac7da8",
+    "backend/packages/harness/deerflow/runtime/stream_bridge/memory.py": "3a060156b7b8b332cd814972e3720283fe16b65e913463ef206590156813473b",
+    "backend/packages/harness/deerflow/skills/__init__.py": "fd01c12172db0c7072505b80861d941dba160138a6bac14a9c5d46507a123bbb",
+    "backend/packages/harness/deerflow/skills/installer.py": "be3acd373583664b6ee6a32acc1ab4b72da8cb918760271da80bd104f1389897",
+    "backend/packages/harness/deerflow/skills/loader.py": "afe5a7848bc0a7b9484d169165b5b9922c473eda66c16008e86b192814caee4b",
+    "backend/packages/harness/deerflow/skills/parser.py": "96b733b02e25e8034800fa70dbdcd7d61da73c560185b95c5e261f1cc902c58b",
+    "backend/packages/harness/deerflow/skills/types.py": "9547a73f6798f1eaf9e20e494fc2976b87cc219581c91d02c4b8cd70632ddb06",
+    "backend/packages/harness/deerflow/skills/validation.py": "bb0cf0c16bf422efac75434abe3723a8f040b511de7ae3b0cf8f78662f1900d1",
+    "backend/packages/harness/deerflow/subagents/__init__.py": "8268227df05b2c67403a18e21127ebc049570f4b260017f36ee525e8ec4c0354",
+    "backend/packages/harness/deerflow/subagents/builtins/__init__.py": "a3c4b02658bb7613a9b529fdfe9d969ae5abb5f39e0c35ac81b3528960ea3d2d",
+    "backend/packages/harness/deerflow/subagents/builtins/bash_agent.py": "d350614169973b3a73fc0aa0fbb988f876dc0c0764df06fa86a38acc634bb1fa",
+    "backend/packages/harness/deerflow/subagents/builtins/compiler_agent.py": "96befc9fbb24e4bac856466cc12100e24c654f84fd0608055bf39bade17ceeda",
+    "backend/packages/harness/deerflow/subagents/builtins/general_purpose.py": "295fe011907ea28d7939d1deb366fd2d6d763225d00e1ec9ce0878b856b4792a",
+    "backend/packages/harness/deerflow/subagents/config.py": "782e0b52fcec88678a25fc316ea5e89c5dfae53f6b15e036bc95d41141628ec7",
+    "backend/packages/harness/deerflow/subagents/executor.py": "6d1c8cd8395c6e849f51ebd9171ee06b0d5c8a4c9b6941628441792e0df402dd",
+    "backend/packages/harness/deerflow/subagents/registry.py": "4f27f5f60d2b05c850d2c872129d613e0ac5025c04ae28108dad3799d178f501",
+    "backend/packages/harness/deerflow/tools/__init__.py": "65978178eb4b6d73160907d82974b332b52147530302f4d197b480d8659b74fd",
+    "backend/packages/harness/deerflow/tools/bound_compile_tools.py": "735ec5c8daa34d66e4b1116987e281e861149a5273434ec200e403c3fe1ec758",
+    "backend/packages/harness/deerflow/tools/builtins/__init__.py": "5109a4a01e0dd51b19c8b8a0d99e3339ca52e9a4bc8a709141cac7af2d55f12e",
+    "backend/packages/harness/deerflow/tools/builtins/agent_compile_tools.py": "e44f8c5bc82d2c5831473c9bfac494de5e506c53c4a45ba350bc09116dfcd9c0",
+    "backend/packages/harness/deerflow/tools/builtins/clarification_tool.py": "8c9b20c2b8df2ebdbc15b57b44b4c1a420f26c5a84a2525da8e2fb0c38c84c9c",
+    "backend/packages/harness/deerflow/tools/builtins/present_file_tool.py": "f785f9fe92a62f1a9e715bce1996fd879d92086c17542a67e4d0cf5a45d2aad8",
+    "backend/packages/harness/deerflow/tools/builtins/setup_agent_tool.py": "707833b579e5fc6ef6256cd4f61bbd0d924c978f46b5e34ef8f0cdf318dca85e",
+    "backend/packages/harness/deerflow/tools/builtins/task_tool.py": "150a886b132c871f859baa566b9c350f3f0c15500ff852ab70fdc8c363aafd43",
+    "backend/packages/harness/deerflow/tools/builtins/tool_search.py": "7d6d3cc8ead2b27bd58f0ece89bcad953be5da228aac64ac60862d8ebf62499f",
+    "backend/packages/harness/deerflow/tools/builtins/view_image_tool.py": "350cf4f3b450429e4b501b6bdbc5e8bf0425c01e8111779f0b141638f9310c18",
+    "backend/packages/harness/deerflow/tools/host_read.py": "dc2b8e985a566d7078be3e06801f86e7b111cd55b5d850217da7e46c4a06e0d9",
+    "backend/packages/harness/deerflow/tools/host_write.py": "6013fdc3db9d3baca431a576204eb7fee519598e0bba7eb4279b5210e8ed18ac",
+    "backend/packages/harness/deerflow/tools/tools.py": "df8aac648c09b5d21fe18841c9b1072d16f6c60aec563475f2e5a08ea4042fb9",
+    "backend/packages/harness/deerflow/tracing/__init__.py": "f64980e72ed87cfad8e64a48d20270c7d2b0c027b8e518c1d8d7db12cbd31e3a",
+    "backend/packages/harness/deerflow/tracing/factory.py": "f32b4cde351c8add890a53a433e9ea0ac232362204d0f6f604bcd5cef42a0fcc",
+    "benchmarks/preregistrations/cpp-build-simple-system-comparison-flash-v1.md": "800414651f0bca7fb7fe288a4cb19b7afb2eea23752f6eccedd1cccdd65b0f7c",
+    "scripts/forge_build_plan_agent_canary.py": "d302c280d933483e27ff8cbd4971e3c70597f6c5adf9222ba6d7b1b8e0e2a49b",
+    "scripts/forge_build_plan_agent_repair.py": "4ae8ec3e0d8d8ebed1ef63eeb1272e064314786971b3f62f3a3f3471aa393952",
+    "scripts/forge_build_reference_expansion.py": "77df5e88f38efe0669af68e41b50477123ddbd8f5ee276266c0767d7cd9f9182",
+    "scripts/forge_build_simple_task.py": "f9d63aa370fcfff3c33ae354d4450cfa835afa632cdf37d48126c1e48da56d39",
+    "scripts/forge_build_source_expansion.py": "37472f1676a68653a08334de90f2ee43698f05d33e76900734e1c5fd70bb2387",
+    "scripts/forge_planning_p3_comparison.py": "210eade1bf2cee61625353adf4086d907d6c9f05c2e7d9161cfa3474f9b0a43c",
+    "scripts/forge_recovery_harness_sources.py": "546be8e69d161c945d216caae3a018abfe2a91ab7c437da246a7508307097cdb",
+    "scripts/forge_simple_comparison.py": "df61d4e4a80359c6fe0ed6e7dddfae70ee7131c92da400789d4ac653a43b30d8",
+    "scripts/forge_simple_cxx_reference.py": "da813af5cbcf169ea3e957b48677f186b7dfa6d0c2f45290b375c7efccbebdc7",
+    "scripts/forge_simple_system.py": "a61818cf8668a46db4fe752d725cafb066e89a478f400abf8c6ab0789aee3d7a",
+    "scripts/forge_typed_evidence.py": "b3e798669389507dc605fcd73b2450921f0695bddccc564344fda88d5cb7a3c8",
+    "benchmarks/fixtures/planning-p3-fixed-r2-comparison-v1/selection.json": "b164a42ccef6ee566816411ac706693a833eb41d2b1726a4885bbd54314178a9",
+    "benchmarks/fixtures/planning-p3-fixed-r2-comparison-v1/definitions.json": "d0eead495c14aae8360923662d90bd15bda9c455ed715a514df7341fbbea7d3c",
+    "benchmarks/fixtures/planning-p3-fixed-r2-comparison-v1/tasks.json": "634b675d4311c5898baa750b338f8677dcecbd2a41a1195c7513fbf835abc367",
+    "benchmarks/analyses/planning-harness-system-context-2026-11-11/candidate.json": "3e216c8d443b805eb24e01a1407596e7e5161cbc8425024043568c2964a89ee3",
+    "benchmarks/fixtures/recovery-harness-system-context-gpt61sol-v1/candidate.json": "7ad5de139d8278e898e243b02dc8bb9098cf90e50a0af08f78f2e96d26c45754",
+    "benchmarks/preregistrations/cpp-build-planning-p3-fixed-r2-comparison-flash-v1.md": "323262d3f2d9b60b5d7f9defdeafeeb42ed1917f9d435e2a4d8e0269663eed57"
+  },
+  "package_versions": {
+    "langchain": "1.2.3",
+    "langchain-core": "1.2.17",
+    "langgraph": "1.0.9",
+    "langchain-deepseek": "1.0.1",
+    "openai": "2.15.0"
+  }
+}

@@ -1,0 +1,468 @@
+{
+  "identity": "cpp-build-planning-p3-fixed-r2-comparison-flash-v1",
+  "issue": 739,
+  "projects": [
+    {
+      "name": "libarchive",
+      "repository_url": "https://github.com/libarchive/libarchive",
+      "commit_sha": "d0bf2da07ebaa3964090ee936edea538d1602449",
+      "proposed_build_system": "cmake",
+      "sources": [
+        {
+          "name": "libarchive",
+          "topic": "Compression",
+          "guide": "in_repo",
+          "source": "compileagent",
+          "source_url": "https://arxiv.org/html/2505.04254v1#A3.T4",
+          "row": 11,
+          "source_html_sha256": "f61b0a20cd65fa2191ffd722ac922d59b6673b485c6f460c209e1e4bcffa56a0"
+        }
+      ],
+      "historical_exposure_pointers": [
+        "benchmarks/manifests/cpp-jev-formal-comparison-v1.json",
+        "benchmarks/manifests/cpp-jev-formal-comparison-v2.json",
+        "benchmarks/manifests/cpp-jev-formal-comparison-v3.json",
+        "benchmarks/manifests/cpp-jev-formal-comparison-v4.json",
+        "benchmarks/manifests/cpp-jev-formal-comparison-v5.json",
+        "benchmarks/manifests/cpp-jev-formal-comparison-v6.json"
+      ]
+    },
+    {
+      "name": "json-c",
+      "repository_url": "https://github.com/json-c/json-c",
+      "commit_sha": "40045d08317d2ac0552d8aa0a96bc00529b2037c",
+      "proposed_build_system": "cmake",
+      "sources": [
+        {
+          "name": "json-c",
+          "topic": "DataProcessing",
+          "guide": "in_repo",
+          "source": "compileagent",
+          "source_url": "https://arxiv.org/html/2505.04254v1#A3.T4",
+          "row": 35,
+          "source_html_sha256": "f61b0a20cd65fa2191ffd722ac922d59b6673b485c6f460c209e1e4bcffa56a0"
+        }
+      ],
+      "historical_exposure_pointers": [
+        "benchmarks/fixtures/cpp-typed-action-benchmark-source-pool-v1.json",
+        "benchmarks/fixtures/stage-c-source-pool.json",
+        "benchmarks/manifests/cpp-stage-c-paired-calibration-authorized.json",
+        "benchmarks/manifests/cpp-stage-c-paired-calibration-v2-remediation-authorized.json",
+        "benchmarks/manifests/cpp-stage-c-paired-calibration-v3-pair-source-authorized.json",
+        "benchmarks/manifests/cpp-stage-c-paired-calibration-v4-build-entrypoint-authorized.json",
+        "benchmarks/manifests/cpp-stage-c-paired-calibration-v5-session-identity-authorized.json",
+        "benchmarks/manifests/cpp-stage-c-paired-calibration-v6-measurement-remediation-candidate.json",
+        "benchmarks/manifests/cpp-stage-c-v6-offline-reevaluation-authorized.json",
+        "benchmarks/manifests/cpp-stage-c-v7-prefreeze-verifier-canary-authorized.json",
+        "benchmarks/manifests/cpp-stage-c-v7-prefreeze-verifier-canary-candidate.json",
+        "benchmarks/manifests/cpp-stage-c-v8-workspace-remediation-canary-authorized.json",
+        "benchmarks/manifests/cpp-stage-c-v8-workspace-remediation-canary-candidate.json"
+      ]
+    },
+    {
+      "name": "libexpat",
+      "repository_url": "https://github.com/libexpat/libexpat",
+      "commit_sha": "477c766b6f708c1dfe3d12377092e53c232ded3b",
+      "proposed_build_system": "cmake",
+      "sources": [
+        {
+          "name": "libexpat",
+          "topic": "DataProcessing",
+          "guide": "in_repo",
+          "source": "compileagent",
+          "source_url": "https://arxiv.org/html/2505.04254v1#A3.T4",
+          "row": 36,
+          "source_html_sha256": "f61b0a20cd65fa2191ffd722ac922d59b6673b485c6f460c209e1e4bcffa56a0"
+        }
+      ],
+      "historical_exposure_pointers": [
+        "benchmarks/manifests/cpp-progress-aware-h0-h1-h2-runtime-v6-formal-comparison-v1.json",
+        "benchmarks/manifests/cpp-progress-aware-h0-h1-h2-runtime-v6-formal-comparison-v2.json",
+        "benchmarks/manifests/cpp-progress-aware-h0-h1-h2-runtime-v6-qualification-v1.json"
+      ]
+    },
+    {
+      "name": "Libsoundio",
+      "repository_url": "https://github.com/andrewrk/libsoundio",
+      "commit_sha": "49a1f78b50eb0f5a49d096786a95a93874a2592a",
+      "proposed_build_system": "cmake",
+      "sources": [
+        {
+          "name": "Libsoundio",
+          "topic": "Audio Systems",
+          "guide": null,
+          "source": "cxxcrafter",
+          "source_url": "https://arxiv.org/html/2505.21069v1#S2.T1",
+          "row": 8,
+          "source_html_sha256": "f95fcfdf56445caadcf7970e98b9ddd4ac9e13795294ceeb06096199ec1cc516"
+        }
+      ],
+      "historical_exposure_pointers": [
+        "benchmarks/fixtures/cpp-jev-offline-qualification-source-pool-v1.json",
+        "benchmarks/fixtures/cpp-jev-offline-qualification-source-pool-v2.json",
+        "benchmarks/fixtures/cpp-typed-action-benchmark-source-pool-v1.json",
+        "benchmarks/fixtures/stage-c-source-pool.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v1-authorized.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v1-availability-candidate.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v1-availability-execution.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v1-candidate.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v1-formal-execution.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v2-authorized.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v2-availability-execution.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v2-candidate.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v2-formal-execution.json",
+        "benchmarks/manifests/cpp-stage-c-paired-calibration-authorized.json",
+        "benchmarks/manifests/cpp-stage-c-paired-calibration-v2-remediation-authorized.json",
+        "benchmarks/manifests/cpp-stage-c-paired-calibration-v3-pair-source-authorized.json",
+        "benchmarks/manifests/cpp-stage-c-paired-calibration-v4-build-entrypoint-authorized.json",
+        "benchmarks/manifests/cpp-stage-c-paired-calibration-v5-session-identity-authorized.json",
+        "benchmarks/manifests/cpp-stage-c-paired-calibration-v6-measurement-remediation-candidate.json",
+        "benchmarks/manifests/cpp-stage-c-v6-offline-reevaluation-authorized.json"
+      ]
+    },
+    {
+      "name": "Civetweb",
+      "repository_url": "https://github.com/civetweb/civetweb",
+      "commit_sha": "588860e30721bf5453b0440c390865a8e85dcae5",
+      "proposed_build_system": "cmake",
+      "sources": [
+        {
+          "name": "Civetweb",
+          "topic": "Web Frameworks",
+          "guide": null,
+          "source": "cxxcrafter",
+          "source_url": "https://arxiv.org/html/2505.21069v1#S2.T1",
+          "row": 9,
+          "source_html_sha256": "f95fcfdf56445caadcf7970e98b9ddd4ac9e13795294ceeb06096199ec1cc516"
+        }
+      ],
+      "historical_exposure_pointers": [
+        "benchmarks/fixtures/cpp-typed-action-benchmark-source-pool-v1.json",
+        "benchmarks/fixtures/stage-c-source-pool.json",
+        "benchmarks/manifests/cpp-stage-c-paired-calibration-authorized.json",
+        "benchmarks/manifests/cpp-stage-c-paired-calibration-v2-remediation-authorized.json",
+        "benchmarks/manifests/cpp-stage-c-paired-calibration-v3-pair-source-authorized.json",
+        "benchmarks/manifests/cpp-stage-c-paired-calibration-v4-build-entrypoint-authorized.json",
+        "benchmarks/manifests/cpp-stage-c-paired-calibration-v5-session-identity-authorized.json",
+        "benchmarks/manifests/cpp-stage-c-paired-calibration-v6-measurement-remediation-candidate.json",
+        "benchmarks/manifests/cpp-stage-c-v6-offline-reevaluation-authorized.json"
+      ]
+    },
+    {
+      "name": "Leveldb",
+      "repository_url": "https://github.com/google/leveldb",
+      "commit_sha": "bb74ef739973a70ca9f0d90788a1da89b788c0ad",
+      "proposed_build_system": "cmake",
+      "sources": [
+        {
+          "name": "Leveldb",
+          "topic": "Database Development",
+          "guide": null,
+          "source": "cxxcrafter",
+          "source_url": "https://arxiv.org/html/2505.21069v1#S2.T1",
+          "row": 6,
+          "source_html_sha256": "f95fcfdf56445caadcf7970e98b9ddd4ac9e13795294ceeb06096199ec1cc516"
+        }
+      ],
+      "historical_exposure_pointers": [
+        "benchmarks/fixtures/cpp-jev-offline-qualification-source-pool-v1.json",
+        "benchmarks/fixtures/cpp-jev-offline-qualification-source-pool-v2.json",
+        "benchmarks/fixtures/cpp-typed-action-benchmark-source-pool-v1.json",
+        "benchmarks/fixtures/stage-c-source-pool.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v1-authorized.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v1-availability-candidate.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v1-availability-execution.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v1-candidate.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v1-formal-execution.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v2-authorized.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v2-availability-execution.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v2-candidate.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v2-formal-execution.json",
+        "benchmarks/manifests/cpp-stage-c-paired-calibration-authorized.json",
+        "benchmarks/manifests/cpp-stage-c-paired-calibration-v2-remediation-authorized.json",
+        "benchmarks/manifests/cpp-stage-c-paired-calibration-v3-pair-source-authorized.json",
+        "benchmarks/manifests/cpp-stage-c-paired-calibration-v4-build-entrypoint-authorized.json",
+        "benchmarks/manifests/cpp-stage-c-paired-calibration-v5-session-identity-authorized.json",
+        "benchmarks/manifests/cpp-stage-c-paired-calibration-v6-measurement-remediation-candidate.json",
+        "benchmarks/manifests/cpp-stage-c-v6-offline-reevaluation-authorized.json"
+      ]
+    },
+    {
+      "name": "toybox",
+      "repository_url": "https://github.com/landley/toybox",
+      "commit_sha": "6a0c0ef5eeb2c43e4feef9781398c1718b8bddcb",
+      "proposed_build_system": "make",
+      "sources": [
+        {
+          "name": "toybox",
+          "topic": "Linux",
+          "guide": "in_repo",
+          "source": "compileagent",
+          "source_url": "https://arxiv.org/html/2505.04254v1#A3.T4",
+          "row": 14,
+          "source_html_sha256": "f61b0a20cd65fa2191ffd722ac922d59b6673b485c6f460c209e1e4bcffa56a0"
+        }
+      ],
+      "historical_exposure_pointers": []
+    },
+    {
+      "name": "vlmcsd",
+      "repository_url": "https://github.com/Wind4/vlmcsd",
+      "commit_sha": "70e03572b254688b8c3557f898e7ebd765d29ae1",
+      "proposed_build_system": "make",
+      "sources": [
+        {
+          "name": "vlmcsd",
+          "topic": "Networking",
+          "guide": "no_guide",
+          "source": "compileagent",
+          "source_url": "https://arxiv.org/html/2505.04254v1#A3.T4",
+          "row": 24,
+          "source_html_sha256": "f61b0a20cd65fa2191ffd722ac922d59b6673b485c6f460c209e1e4bcffa56a0"
+        }
+      ],
+      "historical_exposure_pointers": []
+    },
+    {
+      "name": "tiny-AES-c",
+      "repository_url": "https://github.com/kokke/tiny-AES-c",
+      "commit_sha": "23856752fbd139da0b8ca6e471a13d5bcc99a08d",
+      "proposed_build_system": "make",
+      "sources": [
+        {
+          "name": "tiny-AES-c",
+          "topic": "Crypto",
+          "guide": "no_guide",
+          "source": "compileagent",
+          "source_url": "https://arxiv.org/html/2505.04254v1#A3.T4",
+          "row": 18,
+          "source_html_sha256": "f61b0a20cd65fa2191ffd722ac922d59b6673b485c6f460c209e1e4bcffa56a0"
+        }
+      ],
+      "historical_exposure_pointers": [
+        "benchmarks/manifests/cpp-agent-continuation-qualification-v1.json",
+        "benchmarks/manifests/cpp-agent-continuation-qualification-v2.json",
+        "benchmarks/manifests/cpp-dynamic-budget-trajectory-benchmark-qualification-v1.json",
+        "benchmarks/manifests/cpp-dynamic-budget-trajectory-benchmark-qualification-v2.json",
+        "benchmarks/manifests/cpp-dynamic-budget-trajectory-benchmark-qualification-v3.json",
+        "benchmarks/manifests/cpp-dynamic-budget-trajectory-benchmark-qualification-v4.json",
+        "benchmarks/manifests/cpp-dynamic-budget-trajectory-benchmark-qualification-v5.json",
+        "benchmarks/manifests/cpp-progress-aware-harness-comparison-v1.json",
+        "benchmarks/manifests/cpp-progress-aware-harness-comparison-v2.json",
+        "benchmarks/manifests/cpp-progress-aware-harness-comparison-v3-authorized.json",
+        "benchmarks/manifests/cpp-progress-aware-harness-comparison-v3-candidate.json"
+      ]
+    },
+    {
+      "name": "pwnat",
+      "repository_url": "https://github.com/samyk/pwnat",
+      "commit_sha": "3a032f9b369d59d98c75842fb7b17033bbb46325",
+      "proposed_build_system": "make",
+      "sources": [
+        {
+          "name": "pwnat",
+          "topic": "Security",
+          "guide": "no_guide",
+          "source": "compileagent",
+          "source_url": "https://arxiv.org/html/2505.04254v1#A3.T4",
+          "row": 41,
+          "source_html_sha256": "f61b0a20cd65fa2191ffd722ac922d59b6673b485c6f460c209e1e4bcffa56a0"
+        }
+      ],
+      "historical_exposure_pointers": []
+    },
+    {
+      "name": "linenoise",
+      "repository_url": "https://github.com/antirez/linenoise",
+      "commit_sha": "a473823d74b93eab2ba83480df16ed37617493f2",
+      "proposed_build_system": "make",
+      "sources": [
+        {
+          "name": "linenoise",
+          "topic": "Terminal",
+          "guide": "no_guide",
+          "source": "compileagent",
+          "source_url": "https://arxiv.org/html/2505.04254v1#A3.T4",
+          "row": 49,
+          "source_html_sha256": "f61b0a20cd65fa2191ffd722ac922d59b6673b485c6f460c209e1e4bcffa56a0"
+        }
+      ],
+      "historical_exposure_pointers": []
+    },
+    {
+      "name": "libbpf",
+      "repository_url": "https://github.com/libbpf/libbpf",
+      "commit_sha": "872299d94e27d2fa9f119667c7e52268698dc760",
+      "proposed_build_system": "make",
+      "sources": [
+        {
+          "name": "libbpf",
+          "topic": "Linux",
+          "guide": "in_repo",
+          "source": "compileagent",
+          "source_url": "https://arxiv.org/html/2505.04254v1#A3.T4",
+          "row": 7,
+          "source_html_sha256": "f61b0a20cd65fa2191ffd722ac922d59b6673b485c6f460c209e1e4bcffa56a0"
+        }
+      ],
+      "historical_exposure_pointers": []
+    },
+    {
+      "name": "nettle",
+      "repository_url": "https://github.com/gnutls/nettle",
+      "commit_sha": "099374b3fd32a37285f2562c86ff97e1a7454397",
+      "proposed_build_system": "autotools",
+      "sources": [
+        {
+          "name": "nettle",
+          "topic": "Crypto",
+          "guide": "outside_repo",
+          "source": "compileagent",
+          "source_url": "https://arxiv.org/html/2505.04254v1#A3.T4",
+          "row": 15,
+          "source_html_sha256": "f61b0a20cd65fa2191ffd722ac922d59b6673b485c6f460c209e1e4bcffa56a0"
+        }
+      ],
+      "historical_exposure_pointers": []
+    },
+    {
+      "name": "libgcrypt",
+      "repository_url": "https://github.com/gpg/libgcrypt",
+      "commit_sha": "88563e87675c55d32e56a9d265134cb2e6349115",
+      "proposed_build_system": "autotools",
+      "sources": [
+        {
+          "name": "libgcrypt",
+          "topic": "Crypto",
+          "guide": "in_repo",
+          "source": "compileagent",
+          "source_url": "https://arxiv.org/html/2505.04254v1#A3.T4",
+          "row": 26,
+          "source_html_sha256": "f61b0a20cd65fa2191ffd722ac922d59b6673b485c6f460c209e1e4bcffa56a0"
+        }
+      ],
+      "historical_exposure_pointers": []
+    },
+    {
+      "name": "jansson",
+      "repository_url": "https://github.com/akheron/jansson",
+      "commit_sha": "851a2145e3256f2e67e5dfe24b0e456bf198b741",
+      "proposed_build_system": "autotools",
+      "sources": [
+        {
+          "name": "jansson",
+          "topic": "DataProcessing",
+          "guide": "in_repo",
+          "source": "compileagent",
+          "source_url": "https://arxiv.org/html/2505.04254v1#A3.T4",
+          "row": 34,
+          "source_html_sha256": "f61b0a20cd65fa2191ffd722ac922d59b6673b485c6f460c209e1e4bcffa56a0"
+        }
+      ],
+      "historical_exposure_pointers": [
+        "benchmarks/fixtures/cpp-jev-offline-qualification-source-pool-v1.json",
+        "benchmarks/fixtures/cpp-jev-offline-qualification-source-pool-v2.json",
+        "benchmarks/fixtures/cpp-typed-action-benchmark-source-pool-v1.json"
+      ]
+    },
+    {
+      "name": "shc",
+      "repository_url": "https://github.com/neurobin/shc",
+      "commit_sha": "efb61def57185e8d82116613f21a85e0ba724dbf",
+      "proposed_build_system": "autotools",
+      "sources": [
+        {
+          "name": "shc",
+          "topic": "Terminal",
+          "guide": "in_repo",
+          "source": "compileagent",
+          "source_url": "https://arxiv.org/html/2505.04254v1#A3.T4",
+          "row": 50,
+          "source_html_sha256": "f61b0a20cd65fa2191ffd722ac922d59b6673b485c6f460c209e1e4bcffa56a0"
+        }
+      ],
+      "historical_exposure_pointers": []
+    },
+    {
+      "name": "snapraid",
+      "repository_url": "https://github.com/amadvance/snapraid",
+      "commit_sha": "487305a760978e79e92c55426eb4999ae44f9ac0",
+      "proposed_build_system": "autotools",
+      "sources": [
+        {
+          "name": "snapraid",
+          "topic": "Embedded",
+          "guide": "in_repo",
+          "source": "compileagent",
+          "source_url": "https://arxiv.org/html/2505.04254v1#A3.T4",
+          "row": 46,
+          "source_html_sha256": "f61b0a20cd65fa2191ffd722ac922d59b6673b485c6f460c209e1e4bcffa56a0"
+        }
+      ],
+      "historical_exposure_pointers": []
+    },
+    {
+      "name": "Rnnoise",
+      "repository_url": "https://github.com/xiph/rnnoise",
+      "commit_sha": "70f1d256acd4b34a572f999a05c87bf00b67730d",
+      "proposed_build_system": "autotools",
+      "sources": [
+        {
+          "name": "Rnnoise",
+          "topic": "Audio Systems",
+          "guide": null,
+          "source": "cxxcrafter",
+          "source_url": "https://arxiv.org/html/2505.21069v1#S2.T1",
+          "row": 8,
+          "source_html_sha256": "f95fcfdf56445caadcf7970e98b9ddd4ac9e13795294ceeb06096199ec1cc516"
+        }
+      ],
+      "historical_exposure_pointers": [
+        "benchmarks/fixtures/cpp-jev-offline-qualification-source-pool-v1.json",
+        "benchmarks/fixtures/cpp-jev-offline-qualification-source-pool-v2.json",
+        "benchmarks/fixtures/cpp-typed-action-benchmark-source-pool-v1.json",
+        "benchmarks/fixtures/stage-c-source-pool.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v1-authorized.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v1-availability-candidate.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v1-availability-execution.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v1-candidate.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v1-formal-execution.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v2-authorized.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v2-availability-execution.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v2-candidate.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v2-formal-execution.json",
+        "benchmarks/manifests/cpp-stage-c-paired-calibration-authorized.json",
+        "benchmarks/manifests/cpp-stage-c-paired-calibration-v2-remediation-authorized.json",
+        "benchmarks/manifests/cpp-stage-c-paired-calibration-v3-pair-source-authorized.json",
+        "benchmarks/manifests/cpp-stage-c-paired-calibration-v4-build-entrypoint-authorized.json",
+        "benchmarks/manifests/cpp-stage-c-paired-calibration-v5-session-identity-authorized.json",
+        "benchmarks/manifests/cpp-stage-c-paired-calibration-v6-measurement-remediation-candidate.json",
+        "benchmarks/manifests/cpp-stage-c-v6-offline-reevaluation-authorized.json"
+      ]
+    }
+  ],
+  "selection_rule": "先按论文来源和三系统覆盖锁定；排除P3/E55及旧H1/H2开发评价项目，不按方法结果换样。历史目录接触不等于未见。",
+  "excluded_before_task_freeze": [
+    {
+      "project": {
+        "name": "dsvpn",
+        "repository_url": "https://github.com/jedisct1/dsvpn",
+        "commit_sha": "4a498b2dcb842e892c4060233710478cd30ecbf8",
+        "proposed_build_system": "make",
+        "sources": [
+          {
+            "name": "dsvpn",
+            "topic": "Networking",
+            "guide": "in_repo",
+            "source": "compileagent",
+            "source_url": "https://arxiv.org/html/2505.04254v1#A3.T4",
+            "row": 22,
+            "source_html_sha256": "f61b0a20cd65fa2191ffd722ac922d59b6673b485c6f460c209e1e4bcffa56a0"
+          }
+        ],
+        "historical_exposure_pointers": []
+      },
+      "reason": "作者帮助固定退出254；现行受信原生退出码仅接受0至123。无普通无特权成功运行入口；不为本轮修改共同验证器。依据src/vpn.c:531-547，未运行任何比较。"
+    }
+  ]
+}

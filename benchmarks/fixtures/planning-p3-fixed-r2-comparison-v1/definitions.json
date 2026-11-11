@@ -1,0 +1,999 @@
+{
+  "libarchive": {
+    "components": [
+      {
+        "name": "archive",
+        "artifact_names": [
+          "libarchive.a",
+          "libarchive.so"
+        ],
+        "kinds": [
+          "static_library",
+          "shared_library"
+        ],
+        "evidence": "作者普通主要目标，见本项目source_evidence；辅助示例与完整测试不作为主任务"
+      },
+      {
+        "name": "bsdtar",
+        "artifact_names": [
+          "bsdtar"
+        ],
+        "kinds": [
+          "executable"
+        ],
+        "evidence": "作者普通主要目标，见本项目source_evidence；辅助示例与完整测试不作为主任务"
+      },
+      {
+        "name": "bsdcpio",
+        "artifact_names": [
+          "bsdcpio"
+        ],
+        "kinds": [
+          "executable"
+        ],
+        "evidence": "作者普通主要目标，见本项目source_evidence；辅助示例与完整测试不作为主任务"
+      },
+      {
+        "name": "bsdcat",
+        "artifact_names": [
+          "bsdcat"
+        ],
+        "kinds": [
+          "executable"
+        ],
+        "evidence": "作者普通主要目标，见本项目source_evidence；辅助示例与完整测试不作为主任务"
+      },
+      {
+        "name": "bsdunzip",
+        "artifact_names": [
+          "bsdunzip"
+        ],
+        "kinds": [
+          "executable"
+        ],
+        "evidence": "作者普通主要目标，见本项目source_evidence；辅助示例与完整测试不作为主任务"
+      }
+    ],
+    "source_evidence": [
+      {
+        "path": "tar/CMakeLists.txt",
+        "quote": "ADD_EXECUTABLE(bsdtar",
+        "line": 52
+      },
+      {
+        "path": "cpio/CMakeLists.txt",
+        "quote": "ADD_EXECUTABLE(bsdcpio",
+        "line": 39
+      },
+      {
+        "path": "cat/CMakeLists.txt",
+        "quote": "ADD_EXECUTABLE(bsdcat",
+        "line": 26
+      },
+      {
+        "path": "unzip/CMakeLists.txt",
+        "quote": "ADD_EXECUTABLE(bsdunzip",
+        "line": 48
+      },
+      {
+        "path": "libarchive/CMakeLists.txt",
+        "quote": "ADD_LIBRARY(archive SHARED",
+        "line": 253
+      }
+    ],
+    "reference_actions": [
+      {
+        "role": "configure",
+        "command": "cmake -S . -B build",
+        "workdir": "/workspace/repo"
+      },
+      {
+        "role": "build",
+        "command": "cmake --build build --parallel 4",
+        "workdir": "/workspace/repo"
+      }
+    ],
+    "executable_smokes": []
+  },
+  "json-c": {
+    "components": [
+      {
+        "name": "json-c",
+        "artifact_names": [
+          "libjson-c.a",
+          "libjson-c.so"
+        ],
+        "kinds": [
+          "static_library",
+          "shared_library"
+        ],
+        "evidence": "作者普通主要目标，见本项目source_evidence；辅助示例与完整测试不作为主任务"
+      },
+      {
+        "name": "json_parse",
+        "artifact_names": [
+          "json_parse"
+        ],
+        "kinds": [
+          "executable"
+        ],
+        "evidence": "作者普通主要目标，见本项目source_evidence；辅助示例与完整测试不作为主任务"
+      }
+    ],
+    "source_evidence": [
+      {
+        "path": "CMakeLists.txt",
+        "quote": "add_library(${PROJECT_NAME}",
+        "line": 609
+      },
+      {
+        "path": "apps/CMakeLists.txt",
+        "quote": "add_executable(json_parse",
+        "line": 119
+      }
+    ],
+    "reference_actions": [
+      {
+        "role": "configure",
+        "command": "cmake -S . -B build",
+        "workdir": "/workspace/repo"
+      },
+      {
+        "role": "build",
+        "command": "cmake --build build --parallel 4",
+        "workdir": "/workspace/repo"
+      }
+    ],
+    "executable_smokes": [
+      {
+        "artifact_name": "json_parse",
+        "accepted_exit_codes": [
+          0
+        ],
+        "step": {
+          "step_id": "smoke-json_parse",
+          "role": "smoke",
+          "command": "printf '{}\\n' | /artifacts/json_parse",
+          "workdir": "/artifacts",
+          "source": "作者用法/主程序定义；固定源码source_evidence",
+          "expected": "原生轻量运行成功",
+          "required_output": [
+            "Successfully parsed"
+          ]
+        }
+      }
+    ]
+  },
+  "libexpat": {
+    "components": [
+      {
+        "name": "expat",
+        "artifact_names": [
+          "libexpat.a",
+          "libexpat.so"
+        ],
+        "kinds": [
+          "static_library",
+          "shared_library"
+        ],
+        "evidence": "作者普通主要目标，见本项目source_evidence；辅助示例与完整测试不作为主任务"
+      },
+      {
+        "name": "xmlwf",
+        "artifact_names": [
+          "xmlwf"
+        ],
+        "kinds": [
+          "executable"
+        ],
+        "evidence": "作者普通主要目标，见本项目source_evidence；辅助示例与完整测试不作为主任务"
+      }
+    ],
+    "source_evidence": [
+      {
+        "path": "expat/CMakeLists.txt",
+        "quote": "add_library(expat ",
+        "line": 511
+      },
+      {
+        "path": "expat/CMakeLists.txt",
+        "quote": "add_executable(xmlwf ",
+        "line": 661
+      }
+    ],
+    "reference_actions": [
+      {
+        "role": "configure",
+        "command": "cmake -S expat -B build",
+        "workdir": "/workspace/repo"
+      },
+      {
+        "role": "build",
+        "command": "cmake --build build --parallel 4",
+        "workdir": "/workspace/repo"
+      }
+    ],
+    "executable_smokes": []
+  },
+  "Libsoundio": {
+    "components": [
+      {
+        "name": "soundio",
+        "artifact_names": [
+          "libsoundio.a",
+          "libsoundio.so"
+        ],
+        "kinds": [
+          "static_library",
+          "shared_library"
+        ],
+        "evidence": "作者普通主要目标，见本项目source_evidence；辅助示例与完整测试不作为主任务"
+      }
+    ],
+    "source_evidence": [
+      {
+        "path": "CMakeLists.txt",
+        "quote": "add_library(libsoundio_shared SHARED",
+        "line": 227
+      },
+      {
+        "path": "CMakeLists.txt",
+        "quote": "add_library(libsoundio_static STATIC",
+        "line": 240
+      }
+    ],
+    "reference_actions": [
+      {
+        "role": "configure",
+        "command": "cmake -S . -B build",
+        "workdir": "/workspace/repo"
+      },
+      {
+        "role": "build",
+        "command": "cmake --build build --parallel 4",
+        "workdir": "/workspace/repo"
+      }
+    ],
+    "executable_smokes": []
+  },
+  "Leveldb": {
+    "components": [
+      {
+        "name": "leveldb",
+        "artifact_names": [
+          "libleveldb.a",
+          "libleveldb.so"
+        ],
+        "kinds": [
+          "static_library",
+          "shared_library"
+        ],
+        "evidence": "作者普通主要目标，见本项目source_evidence；辅助示例与完整测试不作为主任务"
+      },
+      {
+        "name": "leveldbutil",
+        "artifact_names": [
+          "leveldbutil"
+        ],
+        "kinds": [
+          "executable"
+        ],
+        "evidence": "作者普通主要目标，见本项目source_evidence；辅助示例与完整测试不作为主任务"
+      }
+    ],
+    "source_evidence": [
+      {
+        "path": "CMakeLists.txt",
+        "quote": "add_library(leveldb ",
+        "line": 120
+      },
+      {
+        "path": "CMakeLists.txt",
+        "quote": "add_executable(leveldbutil",
+        "line": 288
+      }
+    ],
+    "reference_actions": [
+      {
+        "role": "configure",
+        "command": "cmake -S . -B build",
+        "workdir": "/workspace/repo"
+      },
+      {
+        "role": "build",
+        "command": "cmake --build build --parallel 4",
+        "workdir": "/workspace/repo"
+      }
+    ],
+    "executable_smokes": [
+      {
+        "artifact_name": "leveldbutil",
+        "accepted_exit_codes": [
+          1
+        ],
+        "step": {
+          "step_id": "smoke-leveldbutil",
+          "role": "smoke",
+          "command": "/artifacts/leveldbutil",
+          "workdir": "/artifacts",
+          "source": "作者用法/主程序定义；固定源码source_evidence",
+          "expected": "原生轻量运行成功",
+          "required_output": [
+            "Usage: leveldbutil"
+          ]
+        }
+      }
+    ]
+  },
+  "vlmcsd": {
+    "components": [
+      {
+        "name": "vlmcsd",
+        "artifact_names": [
+          "vlmcsd"
+        ],
+        "kinds": [
+          "executable"
+        ],
+        "evidence": "作者普通主要目标，见本项目source_evidence；辅助示例与完整测试不作为主任务"
+      },
+      {
+        "name": "vlmcs",
+        "artifact_names": [
+          "vlmcs"
+        ],
+        "kinds": [
+          "executable"
+        ],
+        "evidence": "作者普通主要目标，见本项目source_evidence；辅助示例与完整测试不作为主任务"
+      }
+    ],
+    "source_evidence": [
+      {
+        "path": "src/GNUmakefile",
+        "quote": "all: $(REAL_CLIENT_NAME) $(REAL_PROGRAM_NAME)",
+        "line": 352
+      }
+    ],
+    "reference_actions": [
+      {
+        "role": "build",
+        "command": "make -j4",
+        "workdir": "/workspace/repo"
+      }
+    ],
+    "executable_smokes": [
+      {
+        "artifact_name": "vlmcsd",
+        "accepted_exit_codes": [
+          0
+        ],
+        "step": {
+          "step_id": "smoke-vlmcsd",
+          "role": "smoke",
+          "command": "/artifacts/vlmcsd -V",
+          "workdir": "/artifacts",
+          "source": "作者用法/主程序定义；固定源码source_evidence",
+          "expected": "原生轻量运行成功",
+          "required_output": [
+            "vlmcsd"
+          ]
+        }
+      },
+      {
+        "artifact_name": "vlmcs",
+        "accepted_exit_codes": [
+          0
+        ],
+        "step": {
+          "step_id": "smoke-vlmcs",
+          "role": "smoke",
+          "command": "/artifacts/vlmcs -V",
+          "workdir": "/artifacts",
+          "source": "作者用法/主程序定义；固定源码source_evidence",
+          "expected": "原生轻量运行成功",
+          "required_output": [
+            "vlmcs"
+          ]
+        }
+      }
+    ]
+  },
+  "tiny-AES-c": {
+    "components": [
+      {
+        "name": "AES default demonstration",
+        "artifact_names": [
+          "test.elf"
+        ],
+        "kinds": [
+          "executable"
+        ],
+        "evidence": "作者普通主要目标，见本项目source_evidence；辅助示例与完整测试不作为主任务"
+      }
+    ],
+    "source_evidence": [
+      {
+        "path": "Makefile",
+        "quote": "default: test.elf",
+        "line": 25
+      },
+      {
+        "path": "Makefile",
+        "quote": "test.elf : aes.o test.o",
+        "line": 42
+      }
+    ],
+    "reference_actions": [
+      {
+        "role": "build",
+        "command": "make -j4",
+        "workdir": "/workspace/repo"
+      }
+    ],
+    "executable_smokes": [
+      {
+        "artifact_name": "test.elf",
+        "accepted_exit_codes": [
+          0
+        ],
+        "step": {
+          "step_id": "smoke-test-elf",
+          "role": "smoke",
+          "command": "/artifacts/test.elf",
+          "workdir": "/artifacts",
+          "source": "作者用法/主程序定义；固定源码source_evidence",
+          "expected": "原生轻量运行成功",
+          "required_output": [
+            "SUCCESS!"
+          ]
+        }
+      }
+    ]
+  },
+  "pwnat": {
+    "components": [
+      {
+        "name": "pwnat",
+        "artifact_names": [
+          "pwnat"
+        ],
+        "kinds": [
+          "executable"
+        ],
+        "evidence": "作者普通主要目标，见本项目source_evidence；辅助示例与完整测试不作为主任务"
+      }
+    ],
+    "source_evidence": [
+      {
+        "path": "Makefile",
+        "quote": "all: pwnat",
+        "line": 35
+      },
+      {
+        "path": "src/pwnat.c",
+        "quote": "exit(1);",
+        "line": 119
+      },
+      {
+        "path": "src/pwnat.c",
+        "quote": "show this help and exit",
+        "line": 133
+      }
+    ],
+    "reference_actions": [
+      {
+        "role": "build",
+        "command": "make -j4",
+        "workdir": "/workspace/repo"
+      }
+    ],
+    "executable_smokes": [
+      {
+        "artifact_name": "pwnat",
+        "accepted_exit_codes": [
+          1
+        ],
+        "step": {
+          "step_id": "smoke-pwnat",
+          "role": "smoke",
+          "command": "/artifacts/pwnat -h",
+          "workdir": "/artifacts",
+          "source": "作者用法/主程序定义；固定源码source_evidence",
+          "expected": "原生轻量运行成功",
+          "required_output": [
+            "usage:"
+          ]
+        }
+      }
+    ]
+  },
+  "linenoise": {
+    "components": [
+      {
+        "name": "linenoise example",
+        "artifact_names": [
+          "linenoise-example"
+        ],
+        "kinds": [
+          "executable"
+        ],
+        "evidence": "作者普通主要目标，见本项目source_evidence；辅助示例与完整测试不作为主任务"
+      }
+    ],
+    "source_evidence": [
+      {
+        "path": "Makefile",
+        "quote": "all: linenoise-example linenoise-test",
+        "line": 1
+      },
+      {
+        "path": "example.c",
+        "quote": "return 0;",
+        "line": 129
+      }
+    ],
+    "reference_actions": [
+      {
+        "role": "build",
+        "command": "make -j4",
+        "workdir": "/workspace/repo"
+      }
+    ],
+    "executable_smokes": [
+      {
+        "artifact_name": "linenoise-example",
+        "accepted_exit_codes": [
+          0
+        ],
+        "step": {
+          "step_id": "smoke-linenoise-example",
+          "role": "smoke",
+          "command": "printf 'forge\\n' | /artifacts/linenoise-example",
+          "workdir": "/artifacts",
+          "source": "作者用法/主程序定义；固定源码source_evidence",
+          "expected": "原生轻量运行成功",
+          "required_output": [
+            "echo: 'forge'"
+          ]
+        }
+      }
+    ]
+  },
+  "libbpf": {
+    "components": [
+      {
+        "name": "bpf",
+        "artifact_names": [
+          "libbpf.a",
+          "libbpf.so"
+        ],
+        "kinds": [
+          "static_library",
+          "shared_library"
+        ],
+        "evidence": "作者普通主要目标，见本项目source_evidence；辅助示例与完整测试不作为主任务"
+      }
+    ],
+    "source_evidence": [
+      {
+        "path": "src/Makefile",
+        "quote": "all: $(STATIC_LIBS) $(SHARED_LIBS) $(PC_FILE)",
+        "line": 107
+      }
+    ],
+    "reference_actions": [
+      {
+        "role": "dependency",
+        "command": "apt-get update\napt-get install -y --no-install-recommends libelf-dev zlib1g-dev pkg-config",
+        "workdir": "/workspace/repo"
+      },
+      {
+        "role": "build",
+        "command": "make -C src -j4",
+        "workdir": "/workspace/repo"
+      }
+    ],
+    "executable_smokes": []
+  },
+  "nettle": {
+    "components": [
+      {
+        "name": "nettle",
+        "artifact_names": [
+          "libnettle.a",
+          "libnettle.so"
+        ],
+        "kinds": [
+          "static_library",
+          "shared_library"
+        ],
+        "evidence": "作者普通主要目标，见本项目source_evidence；辅助示例与完整测试不作为主任务"
+      },
+      {
+        "name": "hogweed",
+        "artifact_names": [
+          "libhogweed.a",
+          "libhogweed.so"
+        ],
+        "kinds": [
+          "static_library",
+          "shared_library"
+        ],
+        "evidence": "作者普通主要目标，见本项目source_evidence；辅助示例与完整测试不作为主任务"
+      }
+    ],
+    "source_evidence": [
+      {
+        "path": "Makefile.in",
+        "quote": "LIBTARGETS = @IF_STATIC@ libnettle.a @IF_HOGWEED@ libhogweed.a",
+        "line": 30
+      }
+    ],
+    "reference_actions": [
+      {
+        "role": "dependency",
+        "command": "apt-get update\napt-get install -y --no-install-recommends autoconf automake libtool m4 libgmp-dev",
+        "workdir": "/workspace/repo"
+      },
+      {
+        "role": "configure",
+        "command": "./.bootstrap\n./configure",
+        "workdir": "/workspace/repo"
+      },
+      {
+        "role": "build",
+        "command": "make -j4",
+        "workdir": "/workspace/repo"
+      }
+    ],
+    "executable_smokes": []
+  },
+  "libgcrypt": {
+    "components": [
+      {
+        "name": "gcrypt",
+        "artifact_names": [
+          "libgcrypt.a",
+          "libgcrypt.so"
+        ],
+        "kinds": [
+          "static_library",
+          "shared_library"
+        ],
+        "evidence": "作者普通主要目标，见本项目source_evidence；辅助示例与完整测试不作为主任务"
+      },
+      {
+        "name": "dumpsexp",
+        "artifact_names": [
+          "dumpsexp"
+        ],
+        "kinds": [
+          "executable"
+        ],
+        "evidence": "作者普通主要目标，见本项目source_evidence；辅助示例与完整测试不作为主任务"
+      },
+      {
+        "name": "hmac256",
+        "artifact_names": [
+          "hmac256"
+        ],
+        "kinds": [
+          "executable"
+        ],
+        "evidence": "作者普通主要目标，见本项目source_evidence；辅助示例与完整测试不作为主任务"
+      },
+      {
+        "name": "mpicalc",
+        "artifact_names": [
+          "mpicalc"
+        ],
+        "kinds": [
+          "executable"
+        ],
+        "evidence": "作者普通主要目标，见本项目source_evidence；辅助示例与完整测试不作为主任务"
+      }
+    ],
+    "source_evidence": [
+      {
+        "path": "src/Makefile.am",
+        "quote": "lib_LTLIBRARIES = libgcrypt.la",
+        "line": 38
+      },
+      {
+        "path": "src/Makefile.am",
+        "quote": "bin_PROGRAMS = dumpsexp hmac256 mpicalc",
+        "line": 39
+      }
+    ],
+    "reference_actions": [
+      {
+        "role": "dependency",
+        "command": "apt-get update\napt-get install -y --no-install-recommends autoconf automake libtool gettext libgpg-error-dev",
+        "workdir": "/workspace/repo"
+      },
+      {
+        "role": "configure",
+        "command": "./autogen.sh\n./configure",
+        "workdir": "/workspace/repo"
+      },
+      {
+        "role": "build",
+        "command": "make -j4",
+        "workdir": "/workspace/repo"
+      }
+    ],
+    "executable_smokes": []
+  },
+  "jansson": {
+    "components": [
+      {
+        "name": "jansson",
+        "artifact_names": [
+          "libjansson.a",
+          "libjansson.so"
+        ],
+        "kinds": [
+          "static_library",
+          "shared_library"
+        ],
+        "evidence": "作者普通主要目标，见本项目source_evidence；辅助示例与完整测试不作为主任务"
+      }
+    ],
+    "source_evidence": [
+      {
+        "path": "src/Makefile.am",
+        "quote": "lib_LTLIBRARIES = libjansson.la",
+        "line": 6
+      }
+    ],
+    "reference_actions": [
+      {
+        "role": "configure",
+        "command": "autoreconf -fi\n./configure",
+        "workdir": "/workspace/repo"
+      },
+      {
+        "role": "build",
+        "command": "make -j4",
+        "workdir": "/workspace/repo"
+      }
+    ],
+    "executable_smokes": []
+  },
+  "shc": {
+    "components": [
+      {
+        "name": "shc",
+        "artifact_names": [
+          "shc"
+        ],
+        "kinds": [
+          "executable"
+        ],
+        "evidence": "作者普通主要目标，见本项目source_evidence；辅助示例与完整测试不作为主任务"
+      }
+    ],
+    "source_evidence": [
+      {
+        "path": "src/Makefile.am",
+        "quote": "bin_PROGRAMS = shc",
+        "line": 1
+      },
+      {
+        "path": "src/shc.c",
+        "quote": "case 'h':",
+        "line": 846
+      }
+    ],
+    "reference_actions": [
+      {
+        "role": "configure",
+        "command": "./configure",
+        "workdir": "/workspace/repo"
+      },
+      {
+        "role": "build",
+        "command": "make -j4",
+        "workdir": "/workspace/repo"
+      }
+    ],
+    "executable_smokes": [
+      {
+        "artifact_name": "shc",
+        "accepted_exit_codes": [
+          0
+        ],
+        "step": {
+          "step_id": "smoke-shc",
+          "role": "smoke",
+          "command": "/artifacts/shc -h",
+          "workdir": "/artifacts",
+          "source": "作者用法/主程序定义；固定源码source_evidence",
+          "expected": "原生轻量运行成功",
+          "required_output": [
+            "shc"
+          ]
+        }
+      }
+    ]
+  },
+  "snapraid": {
+    "components": [
+      {
+        "name": "snapraid",
+        "artifact_names": [
+          "snapraid"
+        ],
+        "kinds": [
+          "executable"
+        ],
+        "evidence": "作者普通主要目标，见本项目source_evidence；辅助示例与完整测试不作为主任务"
+      }
+    ],
+    "source_evidence": [
+      {
+        "path": "Makefile.am",
+        "quote": "bin_PROGRAMS = snapraid",
+        "line": 1
+      }
+    ],
+    "reference_actions": [
+      {
+        "role": "configure",
+        "command": "autoreconf -fi\n./configure",
+        "workdir": "/workspace/repo"
+      },
+      {
+        "role": "build",
+        "command": "make -j4",
+        "workdir": "/workspace/repo"
+      }
+    ],
+    "executable_smokes": []
+  },
+  "Rnnoise": {
+    "components": [
+      {
+        "name": "rnnoise",
+        "artifact_names": [
+          "librnnoise.a",
+          "librnnoise.so"
+        ],
+        "kinds": [
+          "static_library",
+          "shared_library"
+        ],
+        "evidence": "作者普通主要目标，见本项目source_evidence；辅助示例与完整测试不作为主任务"
+      }
+    ],
+    "source_evidence": [
+      {
+        "path": "Makefile.am",
+        "quote": "lib_LTLIBRARIES = librnnoise.la",
+        "line": 9
+      },
+      {
+        "path": "README",
+        "quote": "% ./autogen.sh",
+        "line": 12
+      }
+    ],
+    "reference_actions": [
+      {
+        "role": "configure",
+        "command": "./autogen.sh\n./configure",
+        "workdir": "/workspace/repo"
+      },
+      {
+        "role": "build",
+        "command": "make -j4",
+        "workdir": "/workspace/repo"
+      }
+    ],
+    "executable_smokes": []
+  },
+  "Civetweb": {
+    "components": [
+      {
+        "name": "civetweb library",
+        "artifact_names": [
+          "libcivetweb.a",
+          "libcivetweb.so"
+        ],
+        "kinds": [
+          "static_library",
+          "shared_library"
+        ],
+        "evidence": "作者普通主要目标，见本项目source_evidence；辅助示例与完整测试不作为主任务"
+      },
+      {
+        "name": "civetweb server",
+        "artifact_names": [
+          "civetweb"
+        ],
+        "kinds": [
+          "executable"
+        ],
+        "evidence": "作者普通主要目标，见本项目source_evidence；辅助示例与完整测试不作为主任务"
+      }
+    ],
+    "source_evidence": [
+      {
+        "path": "src/CMakeLists.txt",
+        "quote": "add_library(civetweb-c-library ",
+        "line": 9
+      },
+      {
+        "path": "src/CMakeLists.txt",
+        "quote": "add_executable(civetweb-c-executable ",
+        "line": 272
+      }
+    ],
+    "reference_actions": [
+      {
+        "role": "configure",
+        "command": "cmake -S . -B build",
+        "workdir": "/workspace/repo"
+      },
+      {
+        "role": "build",
+        "command": "cmake --build build --parallel 4",
+        "workdir": "/workspace/repo"
+      }
+    ],
+    "executable_smokes": []
+  },
+  "toybox": {
+    "components": [
+      {
+        "name": "toybox",
+        "artifact_names": [
+          "toybox"
+        ],
+        "kinds": [
+          "executable"
+        ],
+        "evidence": "作者普通主要目标，见本项目source_evidence；辅助示例与完整测试不作为主任务"
+      }
+    ],
+    "source_evidence": [
+      {
+        "path": "Makefile",
+        "quote": "all:",
+        "line": 13
+      }
+    ],
+    "reference_actions": [
+      {
+        "role": "configure",
+        "command": "make defconfig",
+        "workdir": "/workspace/repo"
+      },
+      {
+        "role": "build",
+        "command": "make -j4",
+        "workdir": "/workspace/repo"
+      }
+    ],
+    "executable_smokes": [
+      {
+        "artifact_name": "toybox",
+        "accepted_exit_codes": [
+          0
+        ],
+        "step": {
+          "step_id": "smoke-toybox",
+          "role": "smoke",
+          "command": "/artifacts/toybox --version",
+          "workdir": "/artifacts",
+          "source": "作者用法/主程序定义；固定源码source_evidence",
+          "expected": "原生轻量运行成功",
+          "required_output": [
+            "toybox"
+          ]
+        }
+      }
+    ]
+  }
+}

@@ -3,7 +3,15 @@
 论文选材固定入口：[硕士论文实验与证据索引](docs/research/THESIS_EVIDENCE_INDEX.md)，[历史材料目录](docs/research/THESIS_EVIDENCE_CATALOG.md)保留存量导航。当前完整稿为[论文v0.10第二轮结果稿](docs/thesis/README.md)；E50–E52保存主构建系统及两轮Harness结果，既有完整任务、状态/恢复消融和两层经验继续按各自版本与分母使用。
 
 
-## 当前阶段（2026-11-11；#737规划P3已审核，下一步准备固定R2比较）
+## 当前阶段（2026-11-11；#739已审核P3与P0固定R2的36槽比较准备）
+
+用户审核P3后明确要求开始执行。本轮只做比较准备：[协议](benchmarks/preregistrations/cpp-build-planning-p3-fixed-r2-comparison-flash-v1.md)、[入口](scripts/forge_planning_p3_comparison.py)、[准备报告](docs/research/2026-11-11-planning-p3-comparison-preparation.md)。18项目、三系统各6、每方法一次共36槽；两组各自独立模型规划，不复用恢复比较中的共享H0方案。P3原始指导126d5ac4保持；共同R2指导270becfd保持，仅重绑定当前提示。经验/配方关闭，Flash、工具、执行器、资源及独立验证相同。
+
+源码/作者定义18项完成；来源接触如实登记，排除P3/E55与旧H1/H2开发评价项目，非最终holdout。Civetweb首下载正文中断保留，同commit独立补采；dsvpn在任务冻结前因原生帮助退出254与现有原生检查范围不匹配而排除，改选toybox；无任何方法结果后换样。参考定义来自作者材料，不声称18项目全部独立实建通过。接线验证、检查与发布状态见准备报告。
+
+正式比较0/36，新增模型费0，不读取Provider凭据，不改P0默认或论文。建议新批5美元/确认起4小时，无自动重试；尚未绑定新预算/时窗，旧P3一次提案额度不续用。准备发布后请求本批授权，获准即采集；结果另审才入文。知识库入口当前仍停E55，仓库本状态优先。
+
+## 上一阶段（2026-11-11；#737规划P3已审核，下一步准备固定R2比较）
 
 [实际提案与完整指导](docs/research/2026-11-11-planning-harness-system-context-proposal.md)、[原文/候选/提示差异](benchmarks/analyses/planning-harness-system-context-2026-11-11/README.md)：基于E55全部18初始规划/36分支与当前真实实现，独立一次RichLab gpt-6.1-sol请求/同名响应，317073Token/0.317073美元/93.9049秒，无重试/未知。授权一次1美元、UTC10:49:36—14:49:36；唯一一次已完成，不因余额追加。原件forge-planning-harness-system-context-gpt61sol-20261111-v1，inventory22aab0fb；封存audit通过，无活动Provider。
 

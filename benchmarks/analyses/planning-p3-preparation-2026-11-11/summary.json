@@ -1,0 +1,140 @@
+{
+  "kind": "zero_provider_engineering",
+  "identity": "cpp-build-planning-p3-wiring-probe-v1",
+  "manifest_sha256": "64512a124a63213241de38f6bcaa676b8f4e0066096d090cceba39485f27227a",
+  "provider_calls": 0,
+  "estimated_cost_usd": "0",
+  "observed_prompt_checks": [
+    {
+      "method": "P0_R2",
+      "initial_matches_reviewed": true,
+      "recovery_has_same_R2": true,
+      "P3_not_in_recovery": true
+    },
+    {
+      "method": "P3_R2",
+      "initial_matches_reviewed": true,
+      "recovery_has_same_R2": true,
+      "P3_not_in_recovery": true
+    }
+  ],
+  "container_absence": [
+    {
+      "target": "3c0ab382a1e79e3cd5f9e3fc91c607f96809d60e1c5fc19f3cb4573535d41b67",
+      "absent": true
+    },
+    {
+      "target": "86da6424298f4afedc86a1c7e79c6a0992d64ad348b40a99b64f4d8722c36ce9",
+      "absent": true
+    },
+    {
+      "target": "a5c117cb7ff8a115d08fa9623600215be2214f4d5c79187146a034780710c880",
+      "absent": true
+    },
+    {
+      "target": "ba975f4f130e5de315a23d4ff1735c11a1f65a824cc4a3cbf3bf0951d8db7b3a",
+      "absent": true
+    },
+    {
+      "target": "deerflow-compile-simple-s-7e8c73ea",
+      "absent": true
+    },
+    {
+      "target": "deerflow-compile-simple-s-c562f7c5",
+      "absent": true
+    },
+    {
+      "target": "deerflow-replay-simple-s-7e8c73ea-replay_88bb0",
+      "absent": true
+    },
+    {
+      "target": "deerflow-replay-simple-s-c562f7c5-replay_68907",
+      "absent": true
+    }
+  ],
+  "rows": [
+    {
+      "method": "P0_R2",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "executable_smoke": "passed",
+        "final_verification_passed": true,
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true,
+        "reproducible_delivery_completed": true
+      },
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "phases": {
+        "initial": {
+          "requests": 1,
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "reads": 0,
+          "exact_repeat_reads": 0,
+          "invocations": 1,
+          "estimated_cost_usd": "0.00"
+        },
+        "recovery": {
+          "requests": 1,
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "reads": 0,
+          "exact_repeat_reads": 0,
+          "invocations": 1,
+          "estimated_cost_usd": "0.00"
+        }
+      }
+    },
+    {
+      "method": "P3_R2",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "executable_smoke": "passed",
+        "final_verification_passed": true,
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true,
+        "reproducible_delivery_completed": true
+      },
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "phases": {
+        "initial": {
+          "requests": 1,
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "reads": 0,
+          "exact_repeat_reads": 0,
+          "invocations": 1,
+          "estimated_cost_usd": "0.00"
+        },
+        "recovery": {
+          "requests": 1,
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "reads": 0,
+          "exact_repeat_reads": 0,
+          "invocations": 1,
+          "estimated_cost_usd": "0.00"
+        }
+      }
+    }
+  ],
+  "raw_root": "/home/yiwei/.codex/outputs/forge-planning-p3-wiring-probe-v1",
+  "raw_result_sha256": "034190e91399b8ac8caa18ca17381ed9353158a0edb8180bab169daed88464d4",
+  "boundary": "json-c同一受控错误路径的两次真实容器构建与重建，仅验证独立规划及共同R2接线，不作P3效果"
+}
