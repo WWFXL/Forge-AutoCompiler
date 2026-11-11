@@ -33,4 +33,4 @@
 
 `prepare --prepared <新目录>`可重新生成，`generate --prepared <固定材料> --output <全新目录> --authorization <授权JSON>`只请求一次。授权文件绑定identity/requested_model/maximum_requests/maximum_cost_usd/request_sha256、带时区的started_at/deadline、automatic_retry=false及实际用户授权。模型工厂在通过检查之后才读取现有RichLab凭据。
 
-9项针对性零Provider测试通过，覆盖材料真实Schema/源码一致性、18/36覆盖及隐藏/私有材料隔离、错误授权不读取凭据、不建立尝试、一次脚本提案/差异与恢复提示不变、第二调用拒绝、模型标识/未知用量失败留证。Ruff与格式检查通过。初次材料测试错误地禁止源码中的private-reference文件名，已修正为核查实际证据来源；不改材料以迎合测试。未启动Docker/完整产品全测；本轮不改变线上执行行为，不以测试数代替科研效果。
+9项针对性零Provider测试通过，覆盖材料真实Schema/源码一致性、18/36覆盖及隐藏/私有材料隔离、错误授权不读取凭据、不建立尝试、一次脚本提案/差异与恢复提示不变、第二调用拒绝、模型标识/未知用量失败留证。Ruff与格式检查通过。初次材料测试错误地禁止源码中的private-reference文件名，已修正为核查实际证据来源；不改材料以迎合测试。CI首轮暴露新测试误依赖服务器原件目录，已改为对照固定材料内原始计量，允许干净CI运行；不改变实验材料。未启动Docker/本地完整产品全测；本轮不改变线上执行行为，不以测试数代替科研效果。

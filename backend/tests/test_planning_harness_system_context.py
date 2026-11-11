@@ -55,9 +55,8 @@ def test_material_has_real_interfaces_all_projects_and_no_private_or_hidden_data
     assert "reasoning_content" not in text
     assert all("private-reference.json" not in e.get("source_path", "") for ep in corpus["episodes"] for e in ep["evidence"])
     for ep in trajectories:
-        project = ep["project"]
-        original = context.SOURCE / "initial" / project / "agent"
-        expected = len(list(original.glob("response-*.json")))
+        initial = next(e for e in ep["evidence"] if e["kind"] == "initial_plan_and_usage")
+        expected = initial["content"]["agent_usage"]["model_requests"]
         actual = sum(e["kind"] == "visible_response" and ":initial:" in e["evidence_id"] for e in ep["evidence"])
         assert expected == actual
         assert sum(e["kind"] == "downstream_outcome_not_planning_causality" for e in ep["evidence"]) == 2

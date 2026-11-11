@@ -634,7 +634,7 @@
 - 2026-11-11 — #737准备结合真实系统实现的规划Harness新提案，停在一次调用授权前。
   - 文件: `scripts/forge_planning_harness_system_context.py`、`backend/tests/test_planning_harness_system_context.py`、`benchmarks/fixtures/planning-harness-system-context-v1/`、同名预注册及准备报告。
   - 动机: 旧H1/H2不能证明总体改善；本轮让优化器看到当前真实源码/Schema与E55完整行动链，区分规划、恢复和共同执行问题；只改初始指导，R2恢复固定。
-  - 状态: 18共同规划/36分支准备完成；9项针对性测试/Ruff通过；0真实Provider/新增费/构建。预算和时窗未授权，未读凭据；建议一次1美元/4小时，无自动重试。候选先审核，不开展比较或写论文。工作树从74a00069独立建立，PR736论文待审与原用户改动不动。
+  - 状态: 18共同规划/36分支准备完成；9项针对性测试/Ruff通过；修正CI新测试依赖服务器原件目录，改用固定材料内原始请求计量核对；0真实Provider/新增费/构建。预算和时窗未授权，未读凭据；建议一次1美元/4小时，无自动重试。候选先审核，不开展比较或写论文。工作树从74a00069独立建立，PR736论文待审与原用户改动不动。
 
 - 2026-11-11 — 发布#733同18项目新基座比较：H0/R2完整17/18、18/18，R2费高7.3%/时高23.6%，多完成flex；213响应/0.9941271美元，零未知用量。
   - 文件: `docs/research/2026-11-11-recovery-harness-repaired-comparison-results.md`、`benchmarks/analyses/recovery-r2-repaired-comparison-2026-11-11/`。
