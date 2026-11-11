@@ -3,7 +3,13 @@
 论文选材固定入口：[硕士论文实验与证据索引](docs/research/THESIS_EVIDENCE_INDEX.md)，[历史材料目录](docs/research/THESIS_EVIDENCE_CATALOG.md)保留存量导航。当前完整稿为[论文v0.10第二轮结果稿](docs/thesis/README.md)；E50–E52保存主构建系统及两轮Harness结果，既有完整任务、状态/恢复消融和两层经验继续按各自版本与分母使用。
 
 
-## 当前阶段（2026-11-11；#733修复后基座H0/R2比较36槽完成，待用户审核）
+## 当前阶段（2026-11-11；#737重新准备规划Harness提案）
+
+用户要求高级模型结合当前实现、任务指令和编译轨迹重新优化规划Agent，不开展六组合。[准备报告](docs/research/2026-11-11-planning-optimizer-system-context-preparation.md)及同名预注册固定E55全部18共同规划/36分支、当前真实Schema/关键源码、旧H1/H2及已审核R2。只提出初始规划候选P3，后续恢复固定R2；提案先审核→用户下令比较→结果另审后入文。旧结果/失败/默认H0保持，论文PR736独立待审。
+
+一次RichLab gpt-6.1-sol入口及9项针对性零Provider检查完成，Ruff/格式通过；材料反馈显式限长、全行动链保留且不注入私有参考/隐藏推理/个人知识库。本阶段是研究基础设施，0真实Provider/费用/新增构建，尚无实际P3或效果。建议一次/1美元/确认起4小时；本轮新增预算时窗尚未授权，未读凭据，不续旧授权。取得授权后只调用一次并展示诊断和P0差异，不追加比较或入文。
+
+## 上一阶段（2026-11-11；#733修复后基座H0/R2比较36槽完成，待用户审核）
 
 [结果报告](docs/research/2026-11-11-recovery-harness-repaired-comparison-results.md)、[分析与逐槽表](benchmarks/analyses/recovery-r2-repaired-comparison-2026-11-11/README.md)及[E55](docs/research/THESIS_EVIDENCE_INDEX.md#e55)：同E54全部18已暴露项目、18新共同H0规划、36/36终态、0未启动，18配对SHA一致。H0/R2主构建与可复现交付17/18、18/18；R2多完成flex，但独立部署费0.6017160/0.6456144美元（高7.3%）、累计2437.32/3013.33秒（高23.6%），不能称整体降本加速或直接替代H0。
 
