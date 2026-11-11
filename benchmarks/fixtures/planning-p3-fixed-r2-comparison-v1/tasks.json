@@ -1,0 +1,1800 @@
+{
+  "projects": [
+    {
+      "name": "libarchive",
+      "family": "https://github.com/libarchive/libarchive",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "p3-libarchive",
+        "repository_url": "https://github.com/libarchive/libarchive",
+        "commit_sha": "d0bf2da07ebaa3964090ee936edea538d1602449",
+        "image_id": "sha256:8123220a201ac4d00cda0dc985b9db7227cd909bb93ca6c25fd82cafce5cd887",
+        "source_archive_sha256": "c7778da56b54a2506ea134a20afbbcf8babd29ae39a0d5b6dff8b58ceb700b0e",
+        "build_system": "cmake",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "fa362431e6d5ad4835a9a57534e59eef730d62667544dd46a2309915e931d165",
+        "components": [
+          {
+            "name": "archive",
+            "artifact_names": [
+              "libarchive.a",
+              "libarchive.so"
+            ],
+            "kinds": [
+              "static_library",
+              "shared_library"
+            ],
+            "evidence": "作者普通主要目标，见本项目source_evidence；辅助示例与完整测试不作为主任务"
+          },
+          {
+            "name": "bsdtar",
+            "artifact_names": [
+              "bsdtar"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "作者普通主要目标，见本项目source_evidence；辅助示例与完整测试不作为主任务"
+          },
+          {
+            "name": "bsdcpio",
+            "artifact_names": [
+              "bsdcpio"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "作者普通主要目标，见本项目source_evidence；辅助示例与完整测试不作为主任务"
+          },
+          {
+            "name": "bsdcat",
+            "artifact_names": [
+              "bsdcat"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "作者普通主要目标，见本项目source_evidence；辅助示例与完整测试不作为主任务"
+          },
+          {
+            "name": "bsdunzip",
+            "artifact_names": [
+              "bsdunzip"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "作者普通主要目标，见本项目source_evidence；辅助示例与完整测试不作为主任务"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": "普通主构建；不要求完整作者测试，轻量验证与成功重建分层报告",
+        "executable_smokes": [],
+        "generated_documents": []
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-planning-p3-source-preparation-v1/libarchive/source.tar",
+      "source_evidence": [
+        {
+          "path": "tar/CMakeLists.txt",
+          "quote": "ADD_EXECUTABLE(bsdtar",
+          "line": 52,
+          "sha256": "e9495c340e28f2ec6aa8dc63de4e9ba940a96a2a1395dd965a7914491f524241"
+        },
+        {
+          "path": "cpio/CMakeLists.txt",
+          "quote": "ADD_EXECUTABLE(bsdcpio",
+          "line": 39,
+          "sha256": "cc33390829011bdbdf72a23afce25ee224630c70177f643964957e5b02d2743f"
+        },
+        {
+          "path": "cat/CMakeLists.txt",
+          "quote": "ADD_EXECUTABLE(bsdcat",
+          "line": 26,
+          "sha256": "aada13df20ab3340db3e0ec880ff17a09d14d95d74801f26210175b9cc486c8d"
+        },
+        {
+          "path": "unzip/CMakeLists.txt",
+          "quote": "ADD_EXECUTABLE(bsdunzip",
+          "line": 48,
+          "sha256": "d10445f598a762e33177be2cac6727976d5a437336540f540c36777809b05ec2"
+        },
+        {
+          "path": "libarchive/CMakeLists.txt",
+          "quote": "ADD_LIBRARY(archive SHARED",
+          "line": 253,
+          "sha256": "971d1ae22a5b96beb672a80b1ac5e8ad8e9a4f4e62f53d7b01e4d9a90560a9bd"
+        }
+      ],
+      "reference_actions": [
+        {
+          "role": "configure",
+          "command": "cmake -S . -B build",
+          "workdir": "/workspace/repo"
+        },
+        {
+          "role": "build",
+          "command": "cmake --build build --parallel 4",
+          "workdir": "/workspace/repo"
+        }
+      ],
+      "paper_sources": [
+        {
+          "name": "libarchive",
+          "topic": "Compression",
+          "guide": "in_repo",
+          "source": "compileagent",
+          "source_url": "https://arxiv.org/html/2505.04254v1#A3.T4",
+          "row": 11,
+          "source_html_sha256": "f61b0a20cd65fa2191ffd722ac922d59b6673b485c6f460c209e1e4bcffa56a0"
+        }
+      ],
+      "historical_exposure_pointers": [
+        "benchmarks/manifests/cpp-jev-formal-comparison-v1.json",
+        "benchmarks/manifests/cpp-jev-formal-comparison-v2.json",
+        "benchmarks/manifests/cpp-jev-formal-comparison-v3.json",
+        "benchmarks/manifests/cpp-jev-formal-comparison-v4.json",
+        "benchmarks/manifests/cpp-jev-formal-comparison-v5.json",
+        "benchmarks/manifests/cpp-jev-formal-comparison-v6.json"
+      ],
+      "exposure": "P3提案与旧H1/H2开发评价之外；已登记目录接触；非最终holdout"
+    },
+    {
+      "name": "json-c",
+      "family": "https://github.com/json-c/json-c",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "p3-json-c",
+        "repository_url": "https://github.com/json-c/json-c",
+        "commit_sha": "40045d08317d2ac0552d8aa0a96bc00529b2037c",
+        "image_id": "sha256:8123220a201ac4d00cda0dc985b9db7227cd909bb93ca6c25fd82cafce5cd887",
+        "source_archive_sha256": "aaf805a8419599240e9072949b17660439f50418014c1917aeee877e4be97680",
+        "build_system": "cmake",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "0e77c7179790e28166541f30566f91f4610b76c4f680860c851bbbca4b4b69aa",
+        "components": [
+          {
+            "name": "json-c",
+            "artifact_names": [
+              "libjson-c.a",
+              "libjson-c.so"
+            ],
+            "kinds": [
+              "static_library",
+              "shared_library"
+            ],
+            "evidence": "作者普通主要目标，见本项目source_evidence；辅助示例与完整测试不作为主任务"
+          },
+          {
+            "name": "json_parse",
+            "artifact_names": [
+              "json_parse"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "作者普通主要目标，见本项目source_evidence；辅助示例与完整测试不作为主任务"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": "普通主构建；不要求完整作者测试，轻量验证与成功重建分层报告",
+        "executable_smokes": [
+          {
+            "artifact_name": "json_parse",
+            "accepted_exit_codes": [
+              0
+            ],
+            "step": {
+              "step_id": "smoke-json_parse",
+              "role": "smoke",
+              "command": "printf '{}\\n' | /artifacts/json_parse",
+              "source": "作者用法/主程序定义；固定源码source_evidence",
+              "expected": "原生轻量运行成功",
+              "workdir": "/artifacts",
+              "requires": [],
+              "required_output": [
+                "Successfully parsed"
+              ],
+              "diagnostic_paths": []
+            }
+          }
+        ],
+        "generated_documents": []
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-planning-p3-source-preparation-v1/json-c/source.tar",
+      "source_evidence": [
+        {
+          "path": "CMakeLists.txt",
+          "quote": "add_library(${PROJECT_NAME}",
+          "line": 609,
+          "sha256": "55e94367f103b8b075adb4a8124384e42bf3acf4f88e905ce1ab9b3c548c39a8"
+        },
+        {
+          "path": "apps/CMakeLists.txt",
+          "quote": "add_executable(json_parse",
+          "line": 119,
+          "sha256": "93226f40a47aad8d4ac8e3995fe8f4b800d6ed12c2a4a51994df0a6596f54a5c"
+        }
+      ],
+      "reference_actions": [
+        {
+          "role": "configure",
+          "command": "cmake -S . -B build",
+          "workdir": "/workspace/repo"
+        },
+        {
+          "role": "build",
+          "command": "cmake --build build --parallel 4",
+          "workdir": "/workspace/repo"
+        }
+      ],
+      "paper_sources": [
+        {
+          "name": "json-c",
+          "topic": "DataProcessing",
+          "guide": "in_repo",
+          "source": "compileagent",
+          "source_url": "https://arxiv.org/html/2505.04254v1#A3.T4",
+          "row": 35,
+          "source_html_sha256": "f61b0a20cd65fa2191ffd722ac922d59b6673b485c6f460c209e1e4bcffa56a0"
+        }
+      ],
+      "historical_exposure_pointers": [
+        "benchmarks/fixtures/cpp-typed-action-benchmark-source-pool-v1.json",
+        "benchmarks/fixtures/stage-c-source-pool.json",
+        "benchmarks/manifests/cpp-stage-c-paired-calibration-authorized.json",
+        "benchmarks/manifests/cpp-stage-c-paired-calibration-v2-remediation-authorized.json",
+        "benchmarks/manifests/cpp-stage-c-paired-calibration-v3-pair-source-authorized.json",
+        "benchmarks/manifests/cpp-stage-c-paired-calibration-v4-build-entrypoint-authorized.json",
+        "benchmarks/manifests/cpp-stage-c-paired-calibration-v5-session-identity-authorized.json",
+        "benchmarks/manifests/cpp-stage-c-paired-calibration-v6-measurement-remediation-candidate.json",
+        "benchmarks/manifests/cpp-stage-c-v6-offline-reevaluation-authorized.json",
+        "benchmarks/manifests/cpp-stage-c-v7-prefreeze-verifier-canary-authorized.json",
+        "benchmarks/manifests/cpp-stage-c-v7-prefreeze-verifier-canary-candidate.json",
+        "benchmarks/manifests/cpp-stage-c-v8-workspace-remediation-canary-authorized.json",
+        "benchmarks/manifests/cpp-stage-c-v8-workspace-remediation-canary-candidate.json"
+      ],
+      "exposure": "P3提案与旧H1/H2开发评价之外；已登记目录接触；非最终holdout"
+    },
+    {
+      "name": "libexpat",
+      "family": "https://github.com/libexpat/libexpat",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "p3-libexpat",
+        "repository_url": "https://github.com/libexpat/libexpat",
+        "commit_sha": "477c766b6f708c1dfe3d12377092e53c232ded3b",
+        "image_id": "sha256:8123220a201ac4d00cda0dc985b9db7227cd909bb93ca6c25fd82cafce5cd887",
+        "source_archive_sha256": "bb9028ed0a3aaa160f0b61e3c78f92c0ecf4dc5c5836bebd54530d8e8fb1c682",
+        "build_system": "cmake",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "b156b58fc54e4f431b1c821b49f347349c2d70275a3c34a2c6a5ed18dc626c64",
+        "components": [
+          {
+            "name": "expat",
+            "artifact_names": [
+              "libexpat.a",
+              "libexpat.so"
+            ],
+            "kinds": [
+              "static_library",
+              "shared_library"
+            ],
+            "evidence": "作者普通主要目标，见本项目source_evidence；辅助示例与完整测试不作为主任务"
+          },
+          {
+            "name": "xmlwf",
+            "artifact_names": [
+              "xmlwf"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "作者普通主要目标，见本项目source_evidence；辅助示例与完整测试不作为主任务"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": "普通主构建；不要求完整作者测试，轻量验证与成功重建分层报告",
+        "executable_smokes": [],
+        "generated_documents": []
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-planning-p3-source-preparation-v1/libexpat/source.tar",
+      "source_evidence": [
+        {
+          "path": "expat/CMakeLists.txt",
+          "quote": "add_library(expat ",
+          "line": 511,
+          "sha256": "9e4d1f620a33e00e36cb919d7b2973766e6fdd021a706a94e33090fc821001ee"
+        },
+        {
+          "path": "expat/CMakeLists.txt",
+          "quote": "add_executable(xmlwf ",
+          "line": 661,
+          "sha256": "9e4d1f620a33e00e36cb919d7b2973766e6fdd021a706a94e33090fc821001ee"
+        }
+      ],
+      "reference_actions": [
+        {
+          "role": "configure",
+          "command": "cmake -S expat -B build",
+          "workdir": "/workspace/repo"
+        },
+        {
+          "role": "build",
+          "command": "cmake --build build --parallel 4",
+          "workdir": "/workspace/repo"
+        }
+      ],
+      "paper_sources": [
+        {
+          "name": "libexpat",
+          "topic": "DataProcessing",
+          "guide": "in_repo",
+          "source": "compileagent",
+          "source_url": "https://arxiv.org/html/2505.04254v1#A3.T4",
+          "row": 36,
+          "source_html_sha256": "f61b0a20cd65fa2191ffd722ac922d59b6673b485c6f460c209e1e4bcffa56a0"
+        }
+      ],
+      "historical_exposure_pointers": [
+        "benchmarks/manifests/cpp-progress-aware-h0-h1-h2-runtime-v6-formal-comparison-v1.json",
+        "benchmarks/manifests/cpp-progress-aware-h0-h1-h2-runtime-v6-formal-comparison-v2.json",
+        "benchmarks/manifests/cpp-progress-aware-h0-h1-h2-runtime-v6-qualification-v1.json"
+      ],
+      "exposure": "P3提案与旧H1/H2开发评价之外；已登记目录接触；非最终holdout"
+    },
+    {
+      "name": "Libsoundio",
+      "family": "https://github.com/andrewrk/libsoundio",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "p3-libsoundio",
+        "repository_url": "https://github.com/andrewrk/libsoundio",
+        "commit_sha": "49a1f78b50eb0f5a49d096786a95a93874a2592a",
+        "image_id": "sha256:8123220a201ac4d00cda0dc985b9db7227cd909bb93ca6c25fd82cafce5cd887",
+        "source_archive_sha256": "31011567661e7a953d41d17d6ccb75b1a4fb9543d162520e6378bb340fc32391",
+        "build_system": "cmake",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "aca047b87a1f1c23fd93a0f4894216d7f84d31ecfb720344cd25d911faa4af1f",
+        "components": [
+          {
+            "name": "soundio",
+            "artifact_names": [
+              "libsoundio.a",
+              "libsoundio.so"
+            ],
+            "kinds": [
+              "static_library",
+              "shared_library"
+            ],
+            "evidence": "作者普通主要目标，见本项目source_evidence；辅助示例与完整测试不作为主任务"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": "普通主构建；不要求完整作者测试，轻量验证与成功重建分层报告",
+        "executable_smokes": [],
+        "generated_documents": []
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-planning-p3-source-preparation-v1/Libsoundio/source.tar",
+      "source_evidence": [
+        {
+          "path": "CMakeLists.txt",
+          "quote": "add_library(libsoundio_shared SHARED",
+          "line": 227,
+          "sha256": "3e433e7fc9cd28d5c837fe5d8de0c54a4379f96e071932142e19209b3a32da1c"
+        },
+        {
+          "path": "CMakeLists.txt",
+          "quote": "add_library(libsoundio_static STATIC",
+          "line": 240,
+          "sha256": "3e433e7fc9cd28d5c837fe5d8de0c54a4379f96e071932142e19209b3a32da1c"
+        }
+      ],
+      "reference_actions": [
+        {
+          "role": "configure",
+          "command": "cmake -S . -B build",
+          "workdir": "/workspace/repo"
+        },
+        {
+          "role": "build",
+          "command": "cmake --build build --parallel 4",
+          "workdir": "/workspace/repo"
+        }
+      ],
+      "paper_sources": [
+        {
+          "name": "Libsoundio",
+          "topic": "Audio Systems",
+          "guide": null,
+          "source": "cxxcrafter",
+          "source_url": "https://arxiv.org/html/2505.21069v1#S2.T1",
+          "row": 8,
+          "source_html_sha256": "f95fcfdf56445caadcf7970e98b9ddd4ac9e13795294ceeb06096199ec1cc516"
+        }
+      ],
+      "historical_exposure_pointers": [
+        "benchmarks/fixtures/cpp-jev-offline-qualification-source-pool-v1.json",
+        "benchmarks/fixtures/cpp-jev-offline-qualification-source-pool-v2.json",
+        "benchmarks/fixtures/cpp-typed-action-benchmark-source-pool-v1.json",
+        "benchmarks/fixtures/stage-c-source-pool.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v1-authorized.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v1-availability-candidate.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v1-availability-execution.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v1-candidate.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v1-formal-execution.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v2-authorized.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v2-availability-execution.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v2-candidate.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v2-formal-execution.json",
+        "benchmarks/manifests/cpp-stage-c-paired-calibration-authorized.json",
+        "benchmarks/manifests/cpp-stage-c-paired-calibration-v2-remediation-authorized.json",
+        "benchmarks/manifests/cpp-stage-c-paired-calibration-v3-pair-source-authorized.json",
+        "benchmarks/manifests/cpp-stage-c-paired-calibration-v4-build-entrypoint-authorized.json",
+        "benchmarks/manifests/cpp-stage-c-paired-calibration-v5-session-identity-authorized.json",
+        "benchmarks/manifests/cpp-stage-c-paired-calibration-v6-measurement-remediation-candidate.json",
+        "benchmarks/manifests/cpp-stage-c-v6-offline-reevaluation-authorized.json"
+      ],
+      "exposure": "P3提案与旧H1/H2开发评价之外；已登记目录接触；非最终holdout"
+    },
+    {
+      "name": "Civetweb",
+      "family": "https://github.com/civetweb/civetweb",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "p3-civetweb",
+        "repository_url": "https://github.com/civetweb/civetweb",
+        "commit_sha": "588860e30721bf5453b0440c390865a8e85dcae5",
+        "image_id": "sha256:8123220a201ac4d00cda0dc985b9db7227cd909bb93ca6c25fd82cafce5cd887",
+        "source_archive_sha256": "d69e1d2fe66a29d748a71fd1b973bd4855d17bc648cd0a1c924f002cb4be84da",
+        "build_system": "cmake",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "e58434ebad111ab6c4a990cd8a6bc0372d26da139fc07b4642f96e8f9e70cf23",
+        "components": [
+          {
+            "name": "civetweb library",
+            "artifact_names": [
+              "libcivetweb.a",
+              "libcivetweb.so"
+            ],
+            "kinds": [
+              "static_library",
+              "shared_library"
+            ],
+            "evidence": "作者普通主要目标，见本项目source_evidence；辅助示例与完整测试不作为主任务"
+          },
+          {
+            "name": "civetweb server",
+            "artifact_names": [
+              "civetweb"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "作者普通主要目标，见本项目source_evidence；辅助示例与完整测试不作为主任务"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": "普通主构建；不要求完整作者测试，轻量验证与成功重建分层报告",
+        "executable_smokes": [],
+        "generated_documents": []
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-planning-p3-source-preparation-network-recovery-v1/Civetweb/source.tar",
+      "source_evidence": [
+        {
+          "path": "src/CMakeLists.txt",
+          "quote": "add_library(civetweb-c-library ",
+          "line": 9,
+          "sha256": "a434d1bbb7ab373b514ca2bb6171952baf444d683eca68ea7ea9704460d7b141"
+        },
+        {
+          "path": "src/CMakeLists.txt",
+          "quote": "add_executable(civetweb-c-executable ",
+          "line": 272,
+          "sha256": "a434d1bbb7ab373b514ca2bb6171952baf444d683eca68ea7ea9704460d7b141"
+        }
+      ],
+      "reference_actions": [
+        {
+          "role": "configure",
+          "command": "cmake -S . -B build",
+          "workdir": "/workspace/repo"
+        },
+        {
+          "role": "build",
+          "command": "cmake --build build --parallel 4",
+          "workdir": "/workspace/repo"
+        }
+      ],
+      "paper_sources": [
+        {
+          "name": "Civetweb",
+          "topic": "Web Frameworks",
+          "guide": null,
+          "source": "cxxcrafter",
+          "source_url": "https://arxiv.org/html/2505.21069v1#S2.T1",
+          "row": 9,
+          "source_html_sha256": "f95fcfdf56445caadcf7970e98b9ddd4ac9e13795294ceeb06096199ec1cc516"
+        }
+      ],
+      "historical_exposure_pointers": [
+        "benchmarks/fixtures/cpp-typed-action-benchmark-source-pool-v1.json",
+        "benchmarks/fixtures/stage-c-source-pool.json",
+        "benchmarks/manifests/cpp-stage-c-paired-calibration-authorized.json",
+        "benchmarks/manifests/cpp-stage-c-paired-calibration-v2-remediation-authorized.json",
+        "benchmarks/manifests/cpp-stage-c-paired-calibration-v3-pair-source-authorized.json",
+        "benchmarks/manifests/cpp-stage-c-paired-calibration-v4-build-entrypoint-authorized.json",
+        "benchmarks/manifests/cpp-stage-c-paired-calibration-v5-session-identity-authorized.json",
+        "benchmarks/manifests/cpp-stage-c-paired-calibration-v6-measurement-remediation-candidate.json",
+        "benchmarks/manifests/cpp-stage-c-v6-offline-reevaluation-authorized.json"
+      ],
+      "exposure": "P3提案与旧H1/H2开发评价之外；已登记目录接触；非最终holdout"
+    },
+    {
+      "name": "Leveldb",
+      "family": "https://github.com/google/leveldb",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "p3-leveldb",
+        "repository_url": "https://github.com/google/leveldb",
+        "commit_sha": "bb74ef739973a70ca9f0d90788a1da89b788c0ad",
+        "image_id": "sha256:8123220a201ac4d00cda0dc985b9db7227cd909bb93ca6c25fd82cafce5cd887",
+        "source_archive_sha256": "b4a006fbad942734d7511137bce69318f0ade0c677a996f6e98766dabcfabfa3",
+        "build_system": "cmake",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "dac5e44e35cb5b25f0508a16c647a99573e9f32e45630798187c388a12c80817",
+        "components": [
+          {
+            "name": "leveldb",
+            "artifact_names": [
+              "libleveldb.a",
+              "libleveldb.so"
+            ],
+            "kinds": [
+              "static_library",
+              "shared_library"
+            ],
+            "evidence": "作者普通主要目标，见本项目source_evidence；辅助示例与完整测试不作为主任务"
+          },
+          {
+            "name": "leveldbutil",
+            "artifact_names": [
+              "leveldbutil"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "作者普通主要目标，见本项目source_evidence；辅助示例与完整测试不作为主任务"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": "普通主构建；不要求完整作者测试，轻量验证与成功重建分层报告",
+        "executable_smokes": [
+          {
+            "artifact_name": "leveldbutil",
+            "accepted_exit_codes": [
+              1
+            ],
+            "step": {
+              "step_id": "smoke-leveldbutil",
+              "role": "smoke",
+              "command": "/artifacts/leveldbutil",
+              "source": "作者用法/主程序定义；固定源码source_evidence",
+              "expected": "原生轻量运行成功",
+              "workdir": "/artifacts",
+              "requires": [],
+              "required_output": [
+                "Usage: leveldbutil"
+              ],
+              "diagnostic_paths": []
+            }
+          }
+        ],
+        "generated_documents": []
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-planning-p3-source-preparation-v1/Leveldb/source.tar",
+      "source_evidence": [
+        {
+          "path": "CMakeLists.txt",
+          "quote": "add_library(leveldb ",
+          "line": 120,
+          "sha256": "2302a5891d53af592a9e1e514c0113e4ec735c3da2c19ed5c18a0df76a133789"
+        },
+        {
+          "path": "CMakeLists.txt",
+          "quote": "add_executable(leveldbutil",
+          "line": 288,
+          "sha256": "2302a5891d53af592a9e1e514c0113e4ec735c3da2c19ed5c18a0df76a133789"
+        }
+      ],
+      "reference_actions": [
+        {
+          "role": "configure",
+          "command": "cmake -S . -B build",
+          "workdir": "/workspace/repo"
+        },
+        {
+          "role": "build",
+          "command": "cmake --build build --parallel 4",
+          "workdir": "/workspace/repo"
+        }
+      ],
+      "paper_sources": [
+        {
+          "name": "Leveldb",
+          "topic": "Database Development",
+          "guide": null,
+          "source": "cxxcrafter",
+          "source_url": "https://arxiv.org/html/2505.21069v1#S2.T1",
+          "row": 6,
+          "source_html_sha256": "f95fcfdf56445caadcf7970e98b9ddd4ac9e13795294ceeb06096199ec1cc516"
+        }
+      ],
+      "historical_exposure_pointers": [
+        "benchmarks/fixtures/cpp-jev-offline-qualification-source-pool-v1.json",
+        "benchmarks/fixtures/cpp-jev-offline-qualification-source-pool-v2.json",
+        "benchmarks/fixtures/cpp-typed-action-benchmark-source-pool-v1.json",
+        "benchmarks/fixtures/stage-c-source-pool.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v1-authorized.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v1-availability-candidate.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v1-availability-execution.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v1-candidate.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v1-formal-execution.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v2-authorized.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v2-availability-execution.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v2-candidate.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v2-formal-execution.json",
+        "benchmarks/manifests/cpp-stage-c-paired-calibration-authorized.json",
+        "benchmarks/manifests/cpp-stage-c-paired-calibration-v2-remediation-authorized.json",
+        "benchmarks/manifests/cpp-stage-c-paired-calibration-v3-pair-source-authorized.json",
+        "benchmarks/manifests/cpp-stage-c-paired-calibration-v4-build-entrypoint-authorized.json",
+        "benchmarks/manifests/cpp-stage-c-paired-calibration-v5-session-identity-authorized.json",
+        "benchmarks/manifests/cpp-stage-c-paired-calibration-v6-measurement-remediation-candidate.json",
+        "benchmarks/manifests/cpp-stage-c-v6-offline-reevaluation-authorized.json"
+      ],
+      "exposure": "P3提案与旧H1/H2开发评价之外；已登记目录接触；非最终holdout"
+    },
+    {
+      "name": "toybox",
+      "family": "https://github.com/landley/toybox",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "p3-toybox",
+        "repository_url": "https://github.com/landley/toybox",
+        "commit_sha": "6a0c0ef5eeb2c43e4feef9781398c1718b8bddcb",
+        "image_id": "sha256:8123220a201ac4d00cda0dc985b9db7227cd909bb93ca6c25fd82cafce5cd887",
+        "source_archive_sha256": "1353777100bfddaf72e2982fe12e5b4d3467365734c8a01cd5e8b5660f860a88",
+        "build_system": "make",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "83022e8e66711492d2a17624ff54b4a3d95e8e44ed1f7858cacee3f011532120",
+        "components": [
+          {
+            "name": "toybox",
+            "artifact_names": [
+              "toybox"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "作者普通主要目标，见本项目source_evidence；辅助示例与完整测试不作为主任务"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": "普通主构建；不要求完整作者测试，轻量验证与成功重建分层报告",
+        "executable_smokes": [
+          {
+            "artifact_name": "toybox",
+            "accepted_exit_codes": [
+              0
+            ],
+            "step": {
+              "step_id": "smoke-toybox",
+              "role": "smoke",
+              "command": "/artifacts/toybox --version",
+              "source": "作者用法/主程序定义；固定源码source_evidence",
+              "expected": "原生轻量运行成功",
+              "workdir": "/artifacts",
+              "requires": [],
+              "required_output": [
+                "toybox"
+              ],
+              "diagnostic_paths": []
+            }
+          }
+        ],
+        "generated_documents": []
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-planning-p3-toybox-source-preparation-v1/toybox/source.tar",
+      "source_evidence": [
+        {
+          "path": "Makefile",
+          "quote": "all:",
+          "line": 13,
+          "sha256": "3da9d5e718a0be530db571f3b77336d1f9617cc53bf32144c0bc4a9774b6e7d0"
+        }
+      ],
+      "reference_actions": [
+        {
+          "role": "configure",
+          "command": "make defconfig",
+          "workdir": "/workspace/repo"
+        },
+        {
+          "role": "build",
+          "command": "make -j4",
+          "workdir": "/workspace/repo"
+        }
+      ],
+      "paper_sources": [
+        {
+          "name": "toybox",
+          "topic": "Linux",
+          "guide": "in_repo",
+          "source": "compileagent",
+          "source_url": "https://arxiv.org/html/2505.04254v1#A3.T4",
+          "row": 14,
+          "source_html_sha256": "f61b0a20cd65fa2191ffd722ac922d59b6673b485c6f460c209e1e4bcffa56a0"
+        }
+      ],
+      "historical_exposure_pointers": [],
+      "exposure": "P3提案与旧H1/H2开发评价之外；已登记目录接触；非最终holdout"
+    },
+    {
+      "name": "vlmcsd",
+      "family": "https://github.com/wind4/vlmcsd",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "p3-vlmcsd",
+        "repository_url": "https://github.com/Wind4/vlmcsd",
+        "commit_sha": "70e03572b254688b8c3557f898e7ebd765d29ae1",
+        "image_id": "sha256:8123220a201ac4d00cda0dc985b9db7227cd909bb93ca6c25fd82cafce5cd887",
+        "source_archive_sha256": "1a3b02ffbbc82373c2009cbc0cfc968b9cae853da613555fb50a2331060fb521",
+        "build_system": "make",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "4836ec54d029a744efc5b29792765f9555deab80ccf19d7b128ee8d800ebbb8b",
+        "components": [
+          {
+            "name": "vlmcsd",
+            "artifact_names": [
+              "vlmcsd"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "作者普通主要目标，见本项目source_evidence；辅助示例与完整测试不作为主任务"
+          },
+          {
+            "name": "vlmcs",
+            "artifact_names": [
+              "vlmcs"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "作者普通主要目标，见本项目source_evidence；辅助示例与完整测试不作为主任务"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": "普通主构建；不要求完整作者测试，轻量验证与成功重建分层报告",
+        "executable_smokes": [
+          {
+            "artifact_name": "vlmcsd",
+            "accepted_exit_codes": [
+              0
+            ],
+            "step": {
+              "step_id": "smoke-vlmcsd",
+              "role": "smoke",
+              "command": "/artifacts/vlmcsd -V",
+              "source": "作者用法/主程序定义；固定源码source_evidence",
+              "expected": "原生轻量运行成功",
+              "workdir": "/artifacts",
+              "requires": [],
+              "required_output": [
+                "vlmcsd"
+              ],
+              "diagnostic_paths": []
+            }
+          },
+          {
+            "artifact_name": "vlmcs",
+            "accepted_exit_codes": [
+              0
+            ],
+            "step": {
+              "step_id": "smoke-vlmcs",
+              "role": "smoke",
+              "command": "/artifacts/vlmcs -V",
+              "source": "作者用法/主程序定义；固定源码source_evidence",
+              "expected": "原生轻量运行成功",
+              "workdir": "/artifacts",
+              "requires": [],
+              "required_output": [
+                "vlmcs"
+              ],
+              "diagnostic_paths": []
+            }
+          }
+        ],
+        "generated_documents": []
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-planning-p3-source-preparation-v1/vlmcsd/source.tar",
+      "source_evidence": [
+        {
+          "path": "src/GNUmakefile",
+          "quote": "all: $(REAL_CLIENT_NAME) $(REAL_PROGRAM_NAME)",
+          "line": 352,
+          "sha256": "79d3172827fca0bfacf0b90f66d6b7d03598e6bb14df413519ae6a422359168a"
+        }
+      ],
+      "reference_actions": [
+        {
+          "role": "build",
+          "command": "make -j4",
+          "workdir": "/workspace/repo"
+        }
+      ],
+      "paper_sources": [
+        {
+          "name": "vlmcsd",
+          "topic": "Networking",
+          "guide": "no_guide",
+          "source": "compileagent",
+          "source_url": "https://arxiv.org/html/2505.04254v1#A3.T4",
+          "row": 24,
+          "source_html_sha256": "f61b0a20cd65fa2191ffd722ac922d59b6673b485c6f460c209e1e4bcffa56a0"
+        }
+      ],
+      "historical_exposure_pointers": [],
+      "exposure": "P3提案与旧H1/H2开发评价之外；已登记目录接触；非最终holdout"
+    },
+    {
+      "name": "tiny-AES-c",
+      "family": "https://github.com/kokke/tiny-aes-c",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "p3-tiny-aes-c",
+        "repository_url": "https://github.com/kokke/tiny-AES-c",
+        "commit_sha": "23856752fbd139da0b8ca6e471a13d5bcc99a08d",
+        "image_id": "sha256:8123220a201ac4d00cda0dc985b9db7227cd909bb93ca6c25fd82cafce5cd887",
+        "source_archive_sha256": "03fefdf230eae335c33d32ea99f29c6676086fcca467b68484b4f046c760e377",
+        "build_system": "make",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "707a34984ea99bbf2892d6fca4e164d3a20bf2de608949c21e7db1c4ae6d0c0e",
+        "components": [
+          {
+            "name": "AES default demonstration",
+            "artifact_names": [
+              "test.elf"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "作者普通主要目标，见本项目source_evidence；辅助示例与完整测试不作为主任务"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": "普通主构建；不要求完整作者测试，轻量验证与成功重建分层报告",
+        "executable_smokes": [
+          {
+            "artifact_name": "test.elf",
+            "accepted_exit_codes": [
+              0
+            ],
+            "step": {
+              "step_id": "smoke-test-elf",
+              "role": "smoke",
+              "command": "/artifacts/test.elf",
+              "source": "作者用法/主程序定义；固定源码source_evidence",
+              "expected": "原生轻量运行成功",
+              "workdir": "/artifacts",
+              "requires": [],
+              "required_output": [
+                "SUCCESS!"
+              ],
+              "diagnostic_paths": []
+            }
+          }
+        ],
+        "generated_documents": []
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-planning-p3-source-preparation-v1/tiny-AES-c/source.tar",
+      "source_evidence": [
+        {
+          "path": "Makefile",
+          "quote": "default: test.elf",
+          "line": 25,
+          "sha256": "d405b233f086e8dfaf34357c0759701996cd460308cfe845f90b4eb09319bb84"
+        },
+        {
+          "path": "Makefile",
+          "quote": "test.elf : aes.o test.o",
+          "line": 42,
+          "sha256": "d405b233f086e8dfaf34357c0759701996cd460308cfe845f90b4eb09319bb84"
+        }
+      ],
+      "reference_actions": [
+        {
+          "role": "build",
+          "command": "make -j4",
+          "workdir": "/workspace/repo"
+        }
+      ],
+      "paper_sources": [
+        {
+          "name": "tiny-AES-c",
+          "topic": "Crypto",
+          "guide": "no_guide",
+          "source": "compileagent",
+          "source_url": "https://arxiv.org/html/2505.04254v1#A3.T4",
+          "row": 18,
+          "source_html_sha256": "f61b0a20cd65fa2191ffd722ac922d59b6673b485c6f460c209e1e4bcffa56a0"
+        }
+      ],
+      "historical_exposure_pointers": [
+        "benchmarks/manifests/cpp-agent-continuation-qualification-v1.json",
+        "benchmarks/manifests/cpp-agent-continuation-qualification-v2.json",
+        "benchmarks/manifests/cpp-dynamic-budget-trajectory-benchmark-qualification-v1.json",
+        "benchmarks/manifests/cpp-dynamic-budget-trajectory-benchmark-qualification-v2.json",
+        "benchmarks/manifests/cpp-dynamic-budget-trajectory-benchmark-qualification-v3.json",
+        "benchmarks/manifests/cpp-dynamic-budget-trajectory-benchmark-qualification-v4.json",
+        "benchmarks/manifests/cpp-dynamic-budget-trajectory-benchmark-qualification-v5.json",
+        "benchmarks/manifests/cpp-progress-aware-harness-comparison-v1.json",
+        "benchmarks/manifests/cpp-progress-aware-harness-comparison-v2.json",
+        "benchmarks/manifests/cpp-progress-aware-harness-comparison-v3-authorized.json",
+        "benchmarks/manifests/cpp-progress-aware-harness-comparison-v3-candidate.json"
+      ],
+      "exposure": "P3提案与旧H1/H2开发评价之外；已登记目录接触；非最终holdout"
+    },
+    {
+      "name": "pwnat",
+      "family": "https://github.com/samyk/pwnat",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "p3-pwnat",
+        "repository_url": "https://github.com/samyk/pwnat",
+        "commit_sha": "3a032f9b369d59d98c75842fb7b17033bbb46325",
+        "image_id": "sha256:8123220a201ac4d00cda0dc985b9db7227cd909bb93ca6c25fd82cafce5cd887",
+        "source_archive_sha256": "ca51038e26c1f76fa067f7c51a4c1375b76e24a3c017aa6ae22a4a1a2b50d7fe",
+        "build_system": "make",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "4a1d4f8d001d47d9f10bab3f78840bcf339bd2632e2c79f8431ee64991a98231",
+        "components": [
+          {
+            "name": "pwnat",
+            "artifact_names": [
+              "pwnat"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "作者普通主要目标，见本项目source_evidence；辅助示例与完整测试不作为主任务"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": "普通主构建；不要求完整作者测试，轻量验证与成功重建分层报告",
+        "executable_smokes": [
+          {
+            "artifact_name": "pwnat",
+            "accepted_exit_codes": [
+              1
+            ],
+            "step": {
+              "step_id": "smoke-pwnat",
+              "role": "smoke",
+              "command": "/artifacts/pwnat -h",
+              "source": "作者用法/主程序定义；固定源码source_evidence",
+              "expected": "原生轻量运行成功",
+              "workdir": "/artifacts",
+              "requires": [],
+              "required_output": [
+                "usage:"
+              ],
+              "diagnostic_paths": []
+            }
+          }
+        ],
+        "generated_documents": []
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-planning-p3-source-preparation-v1/pwnat/source.tar",
+      "source_evidence": [
+        {
+          "path": "Makefile",
+          "quote": "all: pwnat",
+          "line": 35,
+          "sha256": "ba915d9166f68da71f797fc081126e4ca5babe87829a3088cfa3611e967616fa"
+        },
+        {
+          "path": "src/pwnat.c",
+          "quote": "exit(1);",
+          "line": 119,
+          "sha256": "c64b255172cbd65f87a2b2c4ce0a78b535c27dd78ec556ac049a07a10a2409b7"
+        },
+        {
+          "path": "src/pwnat.c",
+          "quote": "show this help and exit",
+          "line": 133,
+          "sha256": "c64b255172cbd65f87a2b2c4ce0a78b535c27dd78ec556ac049a07a10a2409b7"
+        }
+      ],
+      "reference_actions": [
+        {
+          "role": "build",
+          "command": "make -j4",
+          "workdir": "/workspace/repo"
+        }
+      ],
+      "paper_sources": [
+        {
+          "name": "pwnat",
+          "topic": "Security",
+          "guide": "no_guide",
+          "source": "compileagent",
+          "source_url": "https://arxiv.org/html/2505.04254v1#A3.T4",
+          "row": 41,
+          "source_html_sha256": "f61b0a20cd65fa2191ffd722ac922d59b6673b485c6f460c209e1e4bcffa56a0"
+        }
+      ],
+      "historical_exposure_pointers": [],
+      "exposure": "P3提案与旧H1/H2开发评价之外；已登记目录接触；非最终holdout"
+    },
+    {
+      "name": "linenoise",
+      "family": "https://github.com/antirez/linenoise",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "p3-linenoise",
+        "repository_url": "https://github.com/antirez/linenoise",
+        "commit_sha": "a473823d74b93eab2ba83480df16ed37617493f2",
+        "image_id": "sha256:8123220a201ac4d00cda0dc985b9db7227cd909bb93ca6c25fd82cafce5cd887",
+        "source_archive_sha256": "feb1059be9c14ecd4af7a9fb303b0727e9a3fc1b25a76780822c84b89e0ec8d9",
+        "build_system": "make",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "3f3c141fc826e0cb8dde5ad83d45c8538b89c7cb320df8cc1887d57ef7c6f3cc",
+        "components": [
+          {
+            "name": "linenoise example",
+            "artifact_names": [
+              "linenoise-example"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "作者普通主要目标，见本项目source_evidence；辅助示例与完整测试不作为主任务"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": "普通主构建；不要求完整作者测试，轻量验证与成功重建分层报告",
+        "executable_smokes": [
+          {
+            "artifact_name": "linenoise-example",
+            "accepted_exit_codes": [
+              0
+            ],
+            "step": {
+              "step_id": "smoke-linenoise-example",
+              "role": "smoke",
+              "command": "printf 'forge\\n' | /artifacts/linenoise-example",
+              "source": "作者用法/主程序定义；固定源码source_evidence",
+              "expected": "原生轻量运行成功",
+              "workdir": "/artifacts",
+              "requires": [],
+              "required_output": [
+                "echo: 'forge'"
+              ],
+              "diagnostic_paths": []
+            }
+          }
+        ],
+        "generated_documents": []
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-planning-p3-source-preparation-v1/linenoise/source.tar",
+      "source_evidence": [
+        {
+          "path": "Makefile",
+          "quote": "all: linenoise-example linenoise-test",
+          "line": 1,
+          "sha256": "45fa033255d4c2ca4ab185e347c8df5128dde5ae6d023e21435a8c1424ef6c46"
+        },
+        {
+          "path": "example.c",
+          "quote": "return 0;",
+          "line": 129,
+          "sha256": "eff36870ef3f8b5519bf2a9864a5c1b1adaf6b2b2cb8844299e83031cc5c0a9a"
+        }
+      ],
+      "reference_actions": [
+        {
+          "role": "build",
+          "command": "make -j4",
+          "workdir": "/workspace/repo"
+        }
+      ],
+      "paper_sources": [
+        {
+          "name": "linenoise",
+          "topic": "Terminal",
+          "guide": "no_guide",
+          "source": "compileagent",
+          "source_url": "https://arxiv.org/html/2505.04254v1#A3.T4",
+          "row": 49,
+          "source_html_sha256": "f61b0a20cd65fa2191ffd722ac922d59b6673b485c6f460c209e1e4bcffa56a0"
+        }
+      ],
+      "historical_exposure_pointers": [],
+      "exposure": "P3提案与旧H1/H2开发评价之外；已登记目录接触；非最终holdout"
+    },
+    {
+      "name": "libbpf",
+      "family": "https://github.com/libbpf/libbpf",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "p3-libbpf",
+        "repository_url": "https://github.com/libbpf/libbpf",
+        "commit_sha": "872299d94e27d2fa9f119667c7e52268698dc760",
+        "image_id": "sha256:8123220a201ac4d00cda0dc985b9db7227cd909bb93ca6c25fd82cafce5cd887",
+        "source_archive_sha256": "57e4e98bc1ebfb5fd995d5f604611be16198ebea336b6f7675d79aaa1cfb5691",
+        "build_system": "make",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "08bc074a5014d80d1bb09eebcc306f568274c7e7a4a2bf3cc074c26a75d9e163",
+        "components": [
+          {
+            "name": "bpf",
+            "artifact_names": [
+              "libbpf.a",
+              "libbpf.so"
+            ],
+            "kinds": [
+              "static_library",
+              "shared_library"
+            ],
+            "evidence": "作者普通主要目标，见本项目source_evidence；辅助示例与完整测试不作为主任务"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": "普通主构建；不要求完整作者测试，轻量验证与成功重建分层报告",
+        "executable_smokes": [],
+        "generated_documents": []
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-planning-p3-source-preparation-v1/libbpf/source.tar",
+      "source_evidence": [
+        {
+          "path": "src/Makefile",
+          "quote": "all: $(STATIC_LIBS) $(SHARED_LIBS) $(PC_FILE)",
+          "line": 107,
+          "sha256": "c9efe1162dd914c7e441c16ac8ad3c1d21a889449bab72cb88505c9f653c7fb2"
+        }
+      ],
+      "reference_actions": [
+        {
+          "role": "dependency",
+          "command": "apt-get update\napt-get install -y --no-install-recommends libelf-dev zlib1g-dev pkg-config",
+          "workdir": "/workspace/repo"
+        },
+        {
+          "role": "build",
+          "command": "make -C src -j4",
+          "workdir": "/workspace/repo"
+        }
+      ],
+      "paper_sources": [
+        {
+          "name": "libbpf",
+          "topic": "Linux",
+          "guide": "in_repo",
+          "source": "compileagent",
+          "source_url": "https://arxiv.org/html/2505.04254v1#A3.T4",
+          "row": 7,
+          "source_html_sha256": "f61b0a20cd65fa2191ffd722ac922d59b6673b485c6f460c209e1e4bcffa56a0"
+        }
+      ],
+      "historical_exposure_pointers": [],
+      "exposure": "P3提案与旧H1/H2开发评价之外；已登记目录接触；非最终holdout"
+    },
+    {
+      "name": "nettle",
+      "family": "https://github.com/gnutls/nettle",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "p3-nettle",
+        "repository_url": "https://github.com/gnutls/nettle",
+        "commit_sha": "099374b3fd32a37285f2562c86ff97e1a7454397",
+        "image_id": "sha256:8123220a201ac4d00cda0dc985b9db7227cd909bb93ca6c25fd82cafce5cd887",
+        "source_archive_sha256": "b91dc5ff208d70c5f1809b2abbbfd045a184deefaa683eb4f92dc33d6098da6d",
+        "build_system": "autotools",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "ca315359fe2d62bff5571d83d779aa5e28e99119e283a51ef8c42263bcd79067",
+        "components": [
+          {
+            "name": "nettle",
+            "artifact_names": [
+              "libnettle.a",
+              "libnettle.so"
+            ],
+            "kinds": [
+              "static_library",
+              "shared_library"
+            ],
+            "evidence": "作者普通主要目标，见本项目source_evidence；辅助示例与完整测试不作为主任务"
+          },
+          {
+            "name": "hogweed",
+            "artifact_names": [
+              "libhogweed.a",
+              "libhogweed.so"
+            ],
+            "kinds": [
+              "static_library",
+              "shared_library"
+            ],
+            "evidence": "作者普通主要目标，见本项目source_evidence；辅助示例与完整测试不作为主任务"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": "普通主构建；不要求完整作者测试，轻量验证与成功重建分层报告",
+        "executable_smokes": [],
+        "generated_documents": []
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-planning-p3-source-preparation-v1/nettle/source.tar",
+      "source_evidence": [
+        {
+          "path": "Makefile.in",
+          "quote": "LIBTARGETS = @IF_STATIC@ libnettle.a @IF_HOGWEED@ libhogweed.a",
+          "line": 30,
+          "sha256": "f458cdf8fc75061193b55e4b1631803a6ac73278e093fdc26c18548c7af55158"
+        }
+      ],
+      "reference_actions": [
+        {
+          "role": "dependency",
+          "command": "apt-get update\napt-get install -y --no-install-recommends autoconf automake libtool m4 libgmp-dev",
+          "workdir": "/workspace/repo"
+        },
+        {
+          "role": "configure",
+          "command": "./.bootstrap\n./configure",
+          "workdir": "/workspace/repo"
+        },
+        {
+          "role": "build",
+          "command": "make -j4",
+          "workdir": "/workspace/repo"
+        }
+      ],
+      "paper_sources": [
+        {
+          "name": "nettle",
+          "topic": "Crypto",
+          "guide": "outside_repo",
+          "source": "compileagent",
+          "source_url": "https://arxiv.org/html/2505.04254v1#A3.T4",
+          "row": 15,
+          "source_html_sha256": "f61b0a20cd65fa2191ffd722ac922d59b6673b485c6f460c209e1e4bcffa56a0"
+        }
+      ],
+      "historical_exposure_pointers": [],
+      "exposure": "P3提案与旧H1/H2开发评价之外；已登记目录接触；非最终holdout"
+    },
+    {
+      "name": "libgcrypt",
+      "family": "https://github.com/gpg/libgcrypt",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "p3-libgcrypt",
+        "repository_url": "https://github.com/gpg/libgcrypt",
+        "commit_sha": "88563e87675c55d32e56a9d265134cb2e6349115",
+        "image_id": "sha256:8123220a201ac4d00cda0dc985b9db7227cd909bb93ca6c25fd82cafce5cd887",
+        "source_archive_sha256": "a0f34516ca3620919555f76b01547f17717681fbd56f13cecc53d876df0bed48",
+        "build_system": "autotools",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "ac4500c048e96496bed988695f244b98a6ef8fb29590727f7c4c10ad9e9f2052",
+        "components": [
+          {
+            "name": "gcrypt",
+            "artifact_names": [
+              "libgcrypt.a",
+              "libgcrypt.so"
+            ],
+            "kinds": [
+              "static_library",
+              "shared_library"
+            ],
+            "evidence": "作者普通主要目标，见本项目source_evidence；辅助示例与完整测试不作为主任务"
+          },
+          {
+            "name": "dumpsexp",
+            "artifact_names": [
+              "dumpsexp"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "作者普通主要目标，见本项目source_evidence；辅助示例与完整测试不作为主任务"
+          },
+          {
+            "name": "hmac256",
+            "artifact_names": [
+              "hmac256"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "作者普通主要目标，见本项目source_evidence；辅助示例与完整测试不作为主任务"
+          },
+          {
+            "name": "mpicalc",
+            "artifact_names": [
+              "mpicalc"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "作者普通主要目标，见本项目source_evidence；辅助示例与完整测试不作为主任务"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": "普通主构建；不要求完整作者测试，轻量验证与成功重建分层报告",
+        "executable_smokes": [],
+        "generated_documents": []
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-planning-p3-source-preparation-v1/libgcrypt/source.tar",
+      "source_evidence": [
+        {
+          "path": "src/Makefile.am",
+          "quote": "lib_LTLIBRARIES = libgcrypt.la",
+          "line": 38,
+          "sha256": "7eb62061bcb699add8c6d62c70dd0cabfe560eeef6dea7241beb836c92753c4c"
+        },
+        {
+          "path": "src/Makefile.am",
+          "quote": "bin_PROGRAMS = dumpsexp hmac256 mpicalc",
+          "line": 39,
+          "sha256": "7eb62061bcb699add8c6d62c70dd0cabfe560eeef6dea7241beb836c92753c4c"
+        }
+      ],
+      "reference_actions": [
+        {
+          "role": "dependency",
+          "command": "apt-get update\napt-get install -y --no-install-recommends autoconf automake libtool gettext libgpg-error-dev",
+          "workdir": "/workspace/repo"
+        },
+        {
+          "role": "configure",
+          "command": "./autogen.sh\n./configure",
+          "workdir": "/workspace/repo"
+        },
+        {
+          "role": "build",
+          "command": "make -j4",
+          "workdir": "/workspace/repo"
+        }
+      ],
+      "paper_sources": [
+        {
+          "name": "libgcrypt",
+          "topic": "Crypto",
+          "guide": "in_repo",
+          "source": "compileagent",
+          "source_url": "https://arxiv.org/html/2505.04254v1#A3.T4",
+          "row": 26,
+          "source_html_sha256": "f61b0a20cd65fa2191ffd722ac922d59b6673b485c6f460c209e1e4bcffa56a0"
+        }
+      ],
+      "historical_exposure_pointers": [],
+      "exposure": "P3提案与旧H1/H2开发评价之外；已登记目录接触；非最终holdout"
+    },
+    {
+      "name": "jansson",
+      "family": "https://github.com/akheron/jansson",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "p3-jansson",
+        "repository_url": "https://github.com/akheron/jansson",
+        "commit_sha": "851a2145e3256f2e67e5dfe24b0e456bf198b741",
+        "image_id": "sha256:8123220a201ac4d00cda0dc985b9db7227cd909bb93ca6c25fd82cafce5cd887",
+        "source_archive_sha256": "baaa7821f59fe3ad5fd62b596bbbcd23bf60fc67ecf2aa7dfdf98b1f9a48743b",
+        "build_system": "autotools",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "9cdf2ba44a2628ec0b1b868917db8c6440853f068374d3e65b4884fed08db5ac",
+        "components": [
+          {
+            "name": "jansson",
+            "artifact_names": [
+              "libjansson.a",
+              "libjansson.so"
+            ],
+            "kinds": [
+              "static_library",
+              "shared_library"
+            ],
+            "evidence": "作者普通主要目标，见本项目source_evidence；辅助示例与完整测试不作为主任务"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": "普通主构建；不要求完整作者测试，轻量验证与成功重建分层报告",
+        "executable_smokes": [],
+        "generated_documents": []
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-planning-p3-source-preparation-v1/jansson/source.tar",
+      "source_evidence": [
+        {
+          "path": "src/Makefile.am",
+          "quote": "lib_LTLIBRARIES = libjansson.la",
+          "line": 6,
+          "sha256": "35ac32a609b6a720f61b10b4959e38111757a9256fb371fd29a858eac33c9986"
+        }
+      ],
+      "reference_actions": [
+        {
+          "role": "configure",
+          "command": "autoreconf -fi\n./configure",
+          "workdir": "/workspace/repo"
+        },
+        {
+          "role": "build",
+          "command": "make -j4",
+          "workdir": "/workspace/repo"
+        }
+      ],
+      "paper_sources": [
+        {
+          "name": "jansson",
+          "topic": "DataProcessing",
+          "guide": "in_repo",
+          "source": "compileagent",
+          "source_url": "https://arxiv.org/html/2505.04254v1#A3.T4",
+          "row": 34,
+          "source_html_sha256": "f61b0a20cd65fa2191ffd722ac922d59b6673b485c6f460c209e1e4bcffa56a0"
+        }
+      ],
+      "historical_exposure_pointers": [
+        "benchmarks/fixtures/cpp-jev-offline-qualification-source-pool-v1.json",
+        "benchmarks/fixtures/cpp-jev-offline-qualification-source-pool-v2.json",
+        "benchmarks/fixtures/cpp-typed-action-benchmark-source-pool-v1.json"
+      ],
+      "exposure": "P3提案与旧H1/H2开发评价之外；已登记目录接触；非最终holdout"
+    },
+    {
+      "name": "shc",
+      "family": "https://github.com/neurobin/shc",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "p3-shc",
+        "repository_url": "https://github.com/neurobin/shc",
+        "commit_sha": "efb61def57185e8d82116613f21a85e0ba724dbf",
+        "image_id": "sha256:8123220a201ac4d00cda0dc985b9db7227cd909bb93ca6c25fd82cafce5cd887",
+        "source_archive_sha256": "f6c38cb6c845fe8bb843c4d939e30873ee043f049ac5490e535ad149d80d5729",
+        "build_system": "autotools",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "3de3bd3b05f21ba3b5e5c1ae047f09669537d49b7f46828e6e889c7ec376909d",
+        "components": [
+          {
+            "name": "shc",
+            "artifact_names": [
+              "shc"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "作者普通主要目标，见本项目source_evidence；辅助示例与完整测试不作为主任务"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": "普通主构建；不要求完整作者测试，轻量验证与成功重建分层报告",
+        "executable_smokes": [
+          {
+            "artifact_name": "shc",
+            "accepted_exit_codes": [
+              0
+            ],
+            "step": {
+              "step_id": "smoke-shc",
+              "role": "smoke",
+              "command": "/artifacts/shc -h",
+              "source": "作者用法/主程序定义；固定源码source_evidence",
+              "expected": "原生轻量运行成功",
+              "workdir": "/artifacts",
+              "requires": [],
+              "required_output": [
+                "shc"
+              ],
+              "diagnostic_paths": []
+            }
+          }
+        ],
+        "generated_documents": []
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-planning-p3-source-preparation-v1/shc/source.tar",
+      "source_evidence": [
+        {
+          "path": "src/Makefile.am",
+          "quote": "bin_PROGRAMS = shc",
+          "line": 1,
+          "sha256": "7aed2fc358b49406118a8a0d374a975d4e1224520a4cc388edd765840d99156b"
+        },
+        {
+          "path": "src/shc.c",
+          "quote": "case 'h':",
+          "line": 846,
+          "sha256": "4fc548bf6c987578ec60860872ae26d330c9520536a7ac3ea6ba103c2f8f0ebd"
+        }
+      ],
+      "reference_actions": [
+        {
+          "role": "configure",
+          "command": "./configure",
+          "workdir": "/workspace/repo"
+        },
+        {
+          "role": "build",
+          "command": "make -j4",
+          "workdir": "/workspace/repo"
+        }
+      ],
+      "paper_sources": [
+        {
+          "name": "shc",
+          "topic": "Terminal",
+          "guide": "in_repo",
+          "source": "compileagent",
+          "source_url": "https://arxiv.org/html/2505.04254v1#A3.T4",
+          "row": 50,
+          "source_html_sha256": "f61b0a20cd65fa2191ffd722ac922d59b6673b485c6f460c209e1e4bcffa56a0"
+        }
+      ],
+      "historical_exposure_pointers": [],
+      "exposure": "P3提案与旧H1/H2开发评价之外；已登记目录接触；非最终holdout"
+    },
+    {
+      "name": "snapraid",
+      "family": "https://github.com/amadvance/snapraid",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "p3-snapraid",
+        "repository_url": "https://github.com/amadvance/snapraid",
+        "commit_sha": "487305a760978e79e92c55426eb4999ae44f9ac0",
+        "image_id": "sha256:8123220a201ac4d00cda0dc985b9db7227cd909bb93ca6c25fd82cafce5cd887",
+        "source_archive_sha256": "c7d4e6469c961778ea023dc5afad91b70c6d3b2130b12060295215cd17c74863",
+        "build_system": "autotools",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "05e84dc7c64ced16e5b72c7bec80e0edbc698a4fb673f1cb77b5d5971ac30eab",
+        "components": [
+          {
+            "name": "snapraid",
+            "artifact_names": [
+              "snapraid"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "作者普通主要目标，见本项目source_evidence；辅助示例与完整测试不作为主任务"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": "普通主构建；不要求完整作者测试，轻量验证与成功重建分层报告",
+        "executable_smokes": [],
+        "generated_documents": []
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-planning-p3-source-preparation-v1/snapraid/source.tar",
+      "source_evidence": [
+        {
+          "path": "Makefile.am",
+          "quote": "bin_PROGRAMS = snapraid",
+          "line": 1,
+          "sha256": "b7d1903a0a73a02b28b57142be1d264f29135cea0d054acdc14665318cbc8564"
+        }
+      ],
+      "reference_actions": [
+        {
+          "role": "configure",
+          "command": "autoreconf -fi\n./configure",
+          "workdir": "/workspace/repo"
+        },
+        {
+          "role": "build",
+          "command": "make -j4",
+          "workdir": "/workspace/repo"
+        }
+      ],
+      "paper_sources": [
+        {
+          "name": "snapraid",
+          "topic": "Embedded",
+          "guide": "in_repo",
+          "source": "compileagent",
+          "source_url": "https://arxiv.org/html/2505.04254v1#A3.T4",
+          "row": 46,
+          "source_html_sha256": "f61b0a20cd65fa2191ffd722ac922d59b6673b485c6f460c209e1e4bcffa56a0"
+        }
+      ],
+      "historical_exposure_pointers": [],
+      "exposure": "P3提案与旧H1/H2开发评价之外；已登记目录接触；非最终holdout"
+    },
+    {
+      "name": "Rnnoise",
+      "family": "https://github.com/xiph/rnnoise",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "p3-rnnoise",
+        "repository_url": "https://github.com/xiph/rnnoise",
+        "commit_sha": "70f1d256acd4b34a572f999a05c87bf00b67730d",
+        "image_id": "sha256:8123220a201ac4d00cda0dc985b9db7227cd909bb93ca6c25fd82cafce5cd887",
+        "source_archive_sha256": "253a51fa5e0d19b6dddde9d23c4ee64aedfcb1f8dd596fc0007853b4e992357a",
+        "build_system": "autotools",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "01698fd7d4572aa69842838fb961c1d5df9db5752235274dca3b5fb7db14eb0e",
+        "components": [
+          {
+            "name": "rnnoise",
+            "artifact_names": [
+              "librnnoise.a",
+              "librnnoise.so"
+            ],
+            "kinds": [
+              "static_library",
+              "shared_library"
+            ],
+            "evidence": "作者普通主要目标，见本项目source_evidence；辅助示例与完整测试不作为主任务"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": "普通主构建；不要求完整作者测试，轻量验证与成功重建分层报告",
+        "executable_smokes": [],
+        "generated_documents": []
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-planning-p3-source-preparation-v1/Rnnoise/source.tar",
+      "source_evidence": [
+        {
+          "path": "Makefile.am",
+          "quote": "lib_LTLIBRARIES = librnnoise.la",
+          "line": 9,
+          "sha256": "6b092f644a52624fa5022ce3a01264641b329dfd38c13f287ef3c9402abf9e60"
+        },
+        {
+          "path": "README",
+          "quote": "% ./autogen.sh",
+          "line": 12,
+          "sha256": "87fc8de7620259a3200be2012e7c77fc9383997d3224318451eaded27691754f"
+        }
+      ],
+      "reference_actions": [
+        {
+          "role": "configure",
+          "command": "./autogen.sh\n./configure",
+          "workdir": "/workspace/repo"
+        },
+        {
+          "role": "build",
+          "command": "make -j4",
+          "workdir": "/workspace/repo"
+        }
+      ],
+      "paper_sources": [
+        {
+          "name": "Rnnoise",
+          "topic": "Audio Systems",
+          "guide": null,
+          "source": "cxxcrafter",
+          "source_url": "https://arxiv.org/html/2505.21069v1#S2.T1",
+          "row": 8,
+          "source_html_sha256": "f95fcfdf56445caadcf7970e98b9ddd4ac9e13795294ceeb06096199ec1cc516"
+        }
+      ],
+      "historical_exposure_pointers": [
+        "benchmarks/fixtures/cpp-jev-offline-qualification-source-pool-v1.json",
+        "benchmarks/fixtures/cpp-jev-offline-qualification-source-pool-v2.json",
+        "benchmarks/fixtures/cpp-typed-action-benchmark-source-pool-v1.json",
+        "benchmarks/fixtures/stage-c-source-pool.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v1-authorized.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v1-availability-candidate.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v1-availability-execution.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v1-candidate.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v1-formal-execution.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v2-authorized.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v2-availability-execution.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v2-candidate.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v2-formal-execution.json",
+        "benchmarks/manifests/cpp-stage-c-paired-calibration-authorized.json",
+        "benchmarks/manifests/cpp-stage-c-paired-calibration-v2-remediation-authorized.json",
+        "benchmarks/manifests/cpp-stage-c-paired-calibration-v3-pair-source-authorized.json",
+        "benchmarks/manifests/cpp-stage-c-paired-calibration-v4-build-entrypoint-authorized.json",
+        "benchmarks/manifests/cpp-stage-c-paired-calibration-v5-session-identity-authorized.json",
+        "benchmarks/manifests/cpp-stage-c-paired-calibration-v6-measurement-remediation-candidate.json",
+        "benchmarks/manifests/cpp-stage-c-v6-offline-reevaluation-authorized.json"
+      ],
+      "exposure": "P3提案与旧H1/H2开发评价之外；已登记目录接触；非最终holdout"
+    }
+  ],
+  "selection_sha256": "b164a42ccef6ee566816411ac706693a833eb41d2b1726a4885bbd54314178a9",
+  "definitions_sha256": "d0eead495c14aae8360923662d90bd15bda9c455ed715a514df7341fbbea7d3c",
+  "sources": "/home/yiwei/.codex/outputs/forge-planning-p3-assembled-sources-v1"
+}
