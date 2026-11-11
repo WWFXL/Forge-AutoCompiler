@@ -59,7 +59,7 @@ def test_replacing_successful_dependency_needs_explicit_reason(runner):  # noqa:
     revise(w, replacement, discard_dependencies={"install": "扩展必要工具检查"})
     assert w.completed == {"other": w._session.commands[1].command_id}
     assert w.run()["status"] == "primary_completed"
-    assert len([r for r in w._session.commands if r.role == "dependency"]) == 3
+    assert len([r for r in w._session.commands if r.role == "dependency" and r.command.startswith("command -v")]) == 3
 
 
 def test_explicit_removal_preserves_other_successful_dependencies(runner):  # noqa: F811
@@ -116,7 +116,8 @@ def test_native_smoke_uses_actual_success_record_and_stays_private(runner, monke
         policy = kwargs["executable_verification_policy"]
         policy.validate()
         evidence = operations._successful_command_for_artifact(session=w._session, supporting_command_id=kwargs["supporting_command_id"], artifact_path="sample", policy=policy)
-        assert evidence is not None and evidence.output_sha256 == hashlib.sha256(b"sample-v1\n").hexdigest()
+        assert evidence is not None and evidence.output.startswith("sample-v1\n")
+        assert evidence.output_sha256 == hashlib.sha256(evidence.output.encode()).hexdigest()
         assert evidence.command_id not in kwargs["recipe_command_ids"]
         assert evidence.command_id in kwargs["verification_command_ids"]
         assert [r.command_id for r in w._session.commands if r.command_id in kwargs["recipe_command_ids"]] == kwargs["recipe_command_ids"]

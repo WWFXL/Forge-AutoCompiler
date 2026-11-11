@@ -3,7 +3,13 @@
 论文选材固定入口：[硕士论文实验与证据索引](docs/research/THESIS_EVIDENCE_INDEX.md)，[历史材料目录](docs/research/THESIS_EVIDENCE_CATALOG.md)保留存量导航。当前完整稿为[论文v0.10第二轮结果稿](docs/thesis/README.md)；E50–E52保存主构建系统及两轮Harness结果，既有完整任务、状态/恢复消融和两层经验继续按各自版本与分母使用。
 
 
-## 当前阶段（2026-11-11；#742 P0/P3固定R2比较36槽完成，待用户审核）
+## 当前阶段（2026-11-11；#744共同准备/交付修复完成，Codex规划P4待审）
+
+[共同修复与真实构建](docs/research/2026-11-11-common-preparation-delivery-repair.md)：清理先于dependency准备且失效受影响完成记录、一次报告全部成功依赖覆盖冲突、同组件同名发布/中间变体确定性交付、作者运行隔离cwd/宿主权限、主构建执行前检查独立参考的作者轻量入口。jansson/toybox/linenoise/snapraid四项目最终主构建及实际干净重建通过；实际6工程路径含未采纳的v1通用旗标路线及最终jansson生成物感知复验，原件均保留，容器实查见汇总。Rnnoise未重跑，不冒称其已成功；0真实Provider/新增费用，不计Harness效果，旧E56与论文保持。
+
+[Codex直接诊断与P4候选](docs/research/2026-11-11-codex-planning-harness-proposal.md)，候选7686c24b、指导1067字节，待用户审核、未接入比较。发现“仅展示提交工具但原读取工具仍执行”：三条选定P3负面轨迹各26/15/4个Schema外工具调用，后继请求可证实25/15/4个成功读取。下一步先审核共同工具分派修正及P4短决策指导；工具分派须两组共享，不能算P4效果。未改此处分派，无活动Provider，不自动比较或写论文。发布终态以Issue744关联PR/CI为准。
+
+## 上一阶段（2026-11-11；#742 P0/P3固定R2比较36槽完成，待用户审核）
 
 [结果报告](docs/research/2026-11-11-planning-p3-fixed-r2-comparison-results.md)、[逐槽分析](benchmarks/analyses/planning-p3-fixed-r2-comparison-2026-11-11/README.md)、[E56](docs/research/THESIS_EVIDENCE_INDEX.md#e56)：18项目×独立P0/P3规划、同R2恢复，36/36终态、0未启动/未闭合。主构建17/18、15/18，交付11/18、10/18；在线费0.3982293/0.9390357美元，高135.8%；初始规划增量占93.4%。P3在5项目局部低费，但本轮无整体收益，P0保持；累计1980.60/1572.14秒受到未完成路径影响，不当同等完成加速。
 

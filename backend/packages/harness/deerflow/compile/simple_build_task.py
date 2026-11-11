@@ -160,6 +160,13 @@ class BuildReference(BaseModel):
     executable_smokes: tuple[ExecutableSmoke, ...] = ()
     generated_documents: tuple[GeneratedDocument, ...] = ()
 
+    def require_main_build_verification(self):
+        """付费构建前检查独立参考完整性，不让Agent弥补评测侧定义缺口。"""
+        expected = {name for c in self.components if "executable" in c.kinds for name in c.artifact_names}
+        missing = expected - {s.artifact_name for s in self.executable_smokes}
+        if missing:
+            raise PlanContractError("主构建独立参考缺少作者轻量验证入口，须在运行前补全：" + ",".join(sorted(missing)))
+
     @model_validator(mode="after")
     def tests(self) -> Self:
         if len({c.name for c in self.components}) != len(self.components):

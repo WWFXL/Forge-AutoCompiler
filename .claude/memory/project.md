@@ -3,6 +3,7 @@
 跨 Claude Code session 的项目状态流水。按 CLAUDE.md §7 维护。
 
 ## 进行中 (In Progress)
+- 2026-11-11 — #744共同准备/交付修复及四项目最终真实重建完成；0Provider/新增费，P4候选7686c24b待用户审核，尚未接入或比较，下一步共同工具分派方案及短指导审核。当前事实见RESEARCH_STATUS.md，旧E56与论文不改。
 - 2026-11-11 — #742 P0/P3同R2的36/36正式比较完成，结果待用户审核；主构建17/18、15/18，交付11/18、10/18，费0.3982293/0.9390357美元，P3不采纳。335响应/1.337265美元/未知0；inventory479ce9ab，36cleanup/57容器114引用不存在，正式进程已退出。报告/E56已保存，不入论文、不追加调用；当前事实见RESEARCH_STATUS.md。
 - 2026-11-11 — #739已审核P3与P0的固定R2比较准备；18项目36槽、各自独立规划，正式0/36、新增模型费0。预算/时窗尚未绑定，旧提案一次额度不续用；PR740三CI通过并合c151dbac、Issue739关闭，知识库入口已同步；7项检查及两条受控接线通过，详见RESEARCH_STATUS.md。
 - 2026-11-11 — #733修复后基座H0/R2的36/36比较与分析完成，待用户审核结果；无活动Provider，不自动写论文或追加修复，当前事实见RESEARCH_STATUS.md。
@@ -632,6 +633,9 @@
   - 下一步: 等待实验负责人确认当前网络接入介质，并决定是否授权只读 endpoint 诊断和新的 canary amendment；获得确认后必须另建中文 Issue/PR 和协议 identity，保留当前失败 marker。
 
 ## 最近变更 (Recent Changes)
+- 2026-11-11 — 修复准备生成物清理顺序、同名交付、作者轻量运行权限及独立参考前置检查；由Codex直接生成待审P4。
+  - 文件: `backend/packages/harness/deerflow/compile/simple_build_runtime.py`, `simple_build_task.py`, `scripts/forge_simple_system.py`, `docs/research/2026-11-11-common-preparation-delivery-repair.md`, `docs/research/2026-11-11-codex-planning-harness-proposal.md`。
+  - 动机: Rnnoise的autogen输出实际被系统清理，toybox/linenoise及参考缺口阻塞交付；工程证据与模型效果分离。四项目最终完成，实际6条工程路径（v1/v2/v3）全部保留，容器实查见汇总，不重跑或回填E56。
 - 2026-11-11 — 保存#742完整P0/P3比较和原因分析。
   - 文件: `docs/research/2026-11-11-planning-p3-fixed-r2-comparison-results.md`、`benchmarks/analyses/planning-p3-fixed-r2-comparison-2026-11-11/`、`docs/research/THESIS_EVIDENCE_INDEX.md`。
   - 动机: 明确独立初始规划的全流程效果，保留失败、共同限制和待审状态；不以P3较短未完成路径冒称加速。

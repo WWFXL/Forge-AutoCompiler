@@ -1,0 +1,18 @@
+{
+  "kind": "engineering_checks_not_model_effect",
+  "related_tests_passed": 124,
+  "groups": [
+    {
+      "passed": 106,
+      "log": "/tmp/forge744-final-regression.log"
+    },
+    {
+      "passed": 18,
+      "log": "/tmp/forge744-final-workflow.log"
+    }
+  ],
+  "ruff_check": true,
+  "ruff_format": true,
+  "provider_calls": 0,
+  "product_suite_run_locally": false
+}

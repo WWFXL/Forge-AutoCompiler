@@ -1,0 +1,388 @@
+{
+  "kind": "zero_provider_engineering",
+  "provider_calls": 0,
+  "provider_cost_usd": 0,
+  "scientific_effect_observations": 0,
+  "unique_projects": 4,
+  "executions": 6,
+  "rows": [
+    {
+      "evidence": "/home/yiwei/.codex/outputs/forge-common-preparation-delivery-repair-v1",
+      "status": "primary_completed",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "executable_smoke": "not_applicable",
+        "final_verification_passed": true,
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true,
+        "reproducible_delivery_completed": true
+      },
+      "source_unchanged": true,
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "error": null,
+      "agent_usage": {
+        "model_requests": 1,
+        "recorded_tokens": 0,
+        "agent_steps": 1,
+        "tool_calls": 0,
+        "commands": 7,
+        "elapsed_seconds": 23.890022884123027,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "estimated_cost_usd": 0.0,
+        "unknown_usage_requests": 0,
+        "cost_and_usage_complete": true,
+        "estimated_cost_usd_completed_responses": 0.0
+      },
+      "arm_total_wall_seconds": 53.440275038126856,
+      "project": "jansson",
+      "scripted_responses": 1,
+      "containers": [
+        "e0bb2e6872b217162317fe511dee11b57c6d705d25e1de3a3605ab56f0e7eca8",
+        "deerflow-compile-simple-s-5e24354a",
+        "9e6abbf83b2a6b615d3e6a18dea4fdfcc63e75af245a00cdb959645eb72f9fef",
+        "deerflow-replay-simple-s-5e24354a-replay_b538b"
+      ]
+    },
+    {
+      "evidence": "/home/yiwei/.codex/outputs/forge-common-preparation-delivery-repair-v1",
+      "status": "primary_completed",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "executable_smoke": "passed",
+        "final_verification_passed": true,
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true,
+        "reproducible_delivery_completed": true
+      },
+      "source_unchanged": true,
+      "cleanup": {
+        "succeeded": true,
+        "stopped": false,
+        "removed": true
+      },
+      "error": null,
+      "agent_usage": {
+        "model_requests": 0,
+        "recorded_tokens": 0,
+        "agent_steps": 0,
+        "tool_calls": 0,
+        "commands": 2,
+        "elapsed_seconds": 1.799273090902716,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "estimated_cost_usd": 0.0,
+        "unknown_usage_requests": 0,
+        "cost_and_usage_complete": true,
+        "estimated_cost_usd_completed_responses": 0.0
+      },
+      "arm_total_wall_seconds": 99.35099646192975,
+      "project": "toybox",
+      "scripted_responses": 0,
+      "containers": [
+        "894ec05a6cae78729091c1b1068235c4bb2c7d7ecdf53284507e5ab41181082b",
+        "deerflow-compile-simple-s-74ef00a4",
+        "ecd98aa3b17f58418801959599fecf49a78844860526182770cf7d467a58431d",
+        "deerflow-replay-simple-s-74ef00a4-replay_c9adc"
+      ]
+    },
+    {
+      "evidence": "/home/yiwei/.codex/outputs/forge-common-preparation-delivery-repair-v1",
+      "status": "primary_completed",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "executable_smoke": "passed",
+        "final_verification_passed": true,
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true,
+        "reproducible_delivery_completed": true
+      },
+      "source_unchanged": true,
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "error": null,
+      "agent_usage": {
+        "model_requests": 0,
+        "recorded_tokens": 0,
+        "agent_steps": 0,
+        "tool_calls": 0,
+        "commands": 1,
+        "elapsed_seconds": 0.4877741700038314,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "estimated_cost_usd": 0.0,
+        "unknown_usage_requests": 0,
+        "cost_and_usage_complete": true,
+        "estimated_cost_usd_completed_responses": 0.0
+      },
+      "arm_total_wall_seconds": 11.09420269005932,
+      "project": "linenoise",
+      "scripted_responses": 0,
+      "containers": [
+        "8e381372821bd07cc6119a0ee280989fbceb023e5b69251e61f7a8a8cf35146c",
+        "deerflow-compile-simple-s-8ed0e32b",
+        "c513e6e79ee53af14c7894e5c44017c7d099f55b7c00a7a6efae425ba82601a6",
+        "deerflow-replay-simple-s-8ed0e32b-replay_45965"
+      ]
+    },
+    {
+      "evidence": "/home/yiwei/.codex/outputs/forge-common-preparation-delivery-repair-v1",
+      "status": "primary_completed",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "executable_smoke": "passed",
+        "final_verification_passed": true,
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true,
+        "reproducible_delivery_completed": true
+      },
+      "source_unchanged": true,
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "error": null,
+      "agent_usage": {
+        "model_requests": 0,
+        "recorded_tokens": 0,
+        "agent_steps": 0,
+        "tool_calls": 0,
+        "commands": 3,
+        "elapsed_seconds": 13.995472749928012,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "estimated_cost_usd": 0.0,
+        "unknown_usage_requests": 0,
+        "cost_and_usage_complete": true,
+        "estimated_cost_usd_completed_responses": 0.0
+      },
+      "arm_total_wall_seconds": 61.234092698898166,
+      "project": "snapraid",
+      "scripted_responses": 0,
+      "containers": [
+        "74f3dc3f376d720bc083039562bc5ea7d91b87188e044a065a51eea3a2a25994",
+        "deerflow-compile-simple-s-2eed8715",
+        "0d8649f53e606ea1d367efc7260d3bacd891933ee22fc39258a176f83aafd983",
+        "deerflow-replay-simple-s-2eed8715-replay_fc757"
+      ]
+    },
+    {
+      "evidence": "/home/yiwei/.codex/outputs/forge-common-preparation-delivery-repair-v2",
+      "status": "primary_completed",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "executable_smoke": "passed",
+        "final_verification_passed": true,
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true,
+        "reproducible_delivery_completed": true
+      },
+      "source_unchanged": true,
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "error": null,
+      "agent_usage": {
+        "model_requests": 0,
+        "recorded_tokens": 0,
+        "agent_steps": 0,
+        "tool_calls": 0,
+        "commands": 3,
+        "elapsed_seconds": 14.491553316125646,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "estimated_cost_usd": 0.0,
+        "unknown_usage_requests": 0,
+        "cost_and_usage_complete": true,
+        "estimated_cost_usd_completed_responses": 0.0
+      },
+      "arm_total_wall_seconds": 62.310121554881334,
+      "project": "snapraid",
+      "scripted_responses": 0,
+      "containers": [
+        "d48a4fa39eff5a01ea3edeb5360775cdb208c14303768b4a8d75add8e35f572a",
+        "deerflow-compile-simple-s-a4162baa",
+        "1b434c38bd7d661d663537437f94e27edde8488f313202d3b55322e6e60665a1",
+        "deerflow-replay-simple-s-a4162baa-replay_3339e"
+      ]
+    },
+    {
+      "evidence": "/home/yiwei/.codex/outputs/forge-common-preparation-delivery-repair-v3",
+      "status": "primary_completed",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "executable_smoke": "not_applicable",
+        "final_verification_passed": true,
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true,
+        "reproducible_delivery_completed": true
+      },
+      "source_unchanged": true,
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "error": null,
+      "agent_usage": {
+        "model_requests": 1,
+        "recorded_tokens": 0,
+        "agent_steps": 1,
+        "tool_calls": 0,
+        "commands": 7,
+        "elapsed_seconds": 23.841619320912287,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "estimated_cost_usd": 0.0,
+        "unknown_usage_requests": 0,
+        "cost_and_usage_complete": true,
+        "estimated_cost_usd_completed_responses": 0.0
+      },
+      "arm_total_wall_seconds": 53.18440502998419,
+      "project": "jansson",
+      "scripted_responses": 1,
+      "containers": [
+        "8440aef8c7938a80895ce220a302ec0b664411a1ea0dc213e6fa2b09f549c6ee",
+        "deerflow-compile-simple-s-461c849f",
+        "60001a83a36c1848f4404f555a694646af2a9918230a8f59e4af88aa92cd3398",
+        "deerflow-replay-simple-s-461c849f-replay_0e2f0"
+      ]
+    }
+  ],
+  "cleanup": [
+    {
+      "container": "e0bb2e6872b217162317fe511dee11b57c6d705d25e1de3a3605ab56f0e7eca8",
+      "absent": true
+    },
+    {
+      "container": "deerflow-compile-simple-s-5e24354a",
+      "absent": true
+    },
+    {
+      "container": "9e6abbf83b2a6b615d3e6a18dea4fdfcc63e75af245a00cdb959645eb72f9fef",
+      "absent": true
+    },
+    {
+      "container": "deerflow-replay-simple-s-5e24354a-replay_b538b",
+      "absent": true
+    },
+    {
+      "container": "894ec05a6cae78729091c1b1068235c4bb2c7d7ecdf53284507e5ab41181082b",
+      "absent": true
+    },
+    {
+      "container": "deerflow-compile-simple-s-74ef00a4",
+      "absent": true
+    },
+    {
+      "container": "ecd98aa3b17f58418801959599fecf49a78844860526182770cf7d467a58431d",
+      "absent": true
+    },
+    {
+      "container": "deerflow-replay-simple-s-74ef00a4-replay_c9adc",
+      "absent": true
+    },
+    {
+      "container": "8e381372821bd07cc6119a0ee280989fbceb023e5b69251e61f7a8a8cf35146c",
+      "absent": true
+    },
+    {
+      "container": "deerflow-compile-simple-s-8ed0e32b",
+      "absent": true
+    },
+    {
+      "container": "c513e6e79ee53af14c7894e5c44017c7d099f55b7c00a7a6efae425ba82601a6",
+      "absent": true
+    },
+    {
+      "container": "deerflow-replay-simple-s-8ed0e32b-replay_45965",
+      "absent": true
+    },
+    {
+      "container": "74f3dc3f376d720bc083039562bc5ea7d91b87188e044a065a51eea3a2a25994",
+      "absent": true
+    },
+    {
+      "container": "deerflow-compile-simple-s-2eed8715",
+      "absent": true
+    },
+    {
+      "container": "0d8649f53e606ea1d367efc7260d3bacd891933ee22fc39258a176f83aafd983",
+      "absent": true
+    },
+    {
+      "container": "deerflow-replay-simple-s-2eed8715-replay_fc757",
+      "absent": true
+    },
+    {
+      "container": "d48a4fa39eff5a01ea3edeb5360775cdb208c14303768b4a8d75add8e35f572a",
+      "absent": true
+    },
+    {
+      "container": "deerflow-compile-simple-s-a4162baa",
+      "absent": true
+    },
+    {
+      "container": "1b434c38bd7d661d663537437f94e27edde8488f313202d3b55322e6e60665a1",
+      "absent": true
+    },
+    {
+      "container": "deerflow-replay-simple-s-a4162baa-replay_3339e",
+      "absent": true
+    },
+    {
+      "container": "8440aef8c7938a80895ce220a302ec0b664411a1ea0dc213e6fa2b09f549c6ee",
+      "absent": true
+    },
+    {
+      "container": "deerflow-compile-simple-s-461c849f",
+      "absent": true
+    },
+    {
+      "container": "60001a83a36c1848f4404f555a694646af2a9918230a8f59e4af88aa92cd3398",
+      "absent": true
+    },
+    {
+      "container": "deerflow-replay-simple-s-461c849f-replay_0e2f0",
+      "absent": true
+    }
+  ],
+  "limits": "v1 snapraid used generic default flags; this route was not adopted. v2 alone validates the final author-native reference. v1 other three paths retain their explicit/library verification behavior. Jansson recovery uses one scripted zero-token response, not a Provider request. v3 only validates final generated-output invalidation on jansson; package/tool-only dependency retention is additionally exercised with actual Shell regression tests.",
+  "final_reference_policy": "author-native executable command required before run; libraries require no executable smoke",
+  "historical_evidence_unchanged": true,
+  "total_engineering_wall_seconds": 340.6140934738796
+}

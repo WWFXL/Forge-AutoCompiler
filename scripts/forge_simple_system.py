@@ -98,6 +98,8 @@ def run_simple_system(
         raise ValueError("公开任务版本必须与主构建/旧作者测试范围一致")
     if reference.task_sha256 != _digest(task.model_dump(mode="json")):
         raise ValueError("独立参考不属于当前公开任务")
+    if validation_scope == "main_build":
+        reference.require_main_build_verification()
     if method != "forge_experience" and (recipe is not None or bank is not None):
         raise ValueError("无经验处理不能读取经验库或配方")
     subprocess.run(["bash", str(ROOT / "scripts/require-docker-runtime.sh")], check=True, timeout=30)
