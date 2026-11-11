@@ -44,8 +44,8 @@ class PlanStep(BaseModel):
     @classmethod
     def validate_workdir(cls, value: str) -> str:
         path = PurePosixPath(value)
-        if value != path.as_posix() or ".." in path.parts or not any(path.is_relative_to(root) for root in ("/workspace/repo", "/artifacts")):
-            raise ValueError("执行目录必须是仓库或交付目录内的规范绝对路径")
+        if value != path.as_posix() or ".." in path.parts or not any(path.is_relative_to(root) for root in ("/workspace/repo", "/workspace/dependencies", "/artifacts")):
+            raise ValueError("执行目录必须是仓库、受管依赖或交付目录内的规范绝对路径")
         return value
 
     @field_validator("diagnostic_paths")
@@ -57,6 +57,8 @@ class PlanStep(BaseModel):
 
     @model_validator(mode="after")
     def validate_expectation(self) -> Self:
+        if PurePosixPath(self.workdir).is_relative_to("/workspace/dependencies") and self.role != "dependency":
+            raise ValueError("受管依赖目录仅允许dependency步骤；依赖自身配置/编译/安装拆成独立步骤")
         if any(not marker for marker in self.required_output) or (self.role == "smoke" and not self.required_output):
             raise ValueError("任务验证必须提供非空输出依据，不能仅凭退出码判定实际运行过测试")
         return self

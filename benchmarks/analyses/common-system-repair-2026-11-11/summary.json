@@ -1,0 +1,218 @@
+{
+  "kind": "zero_provider_engineering",
+  "provider_calls": 0,
+  "model_cost_usd": 0,
+  "scientific_effect_observations": 0,
+  "old_evidence_modified": false,
+  "rows": [
+    {
+      "identity": "cpp-build-common-system-repair-729-v1",
+      "name": "masscan",
+      "status": "primary_completed",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "executable_smoke": "passed",
+        "final_verification_passed": true,
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true,
+        "reproducible_delivery_completed": true
+      },
+      "source_unchanged": true,
+      "source_protection": {
+        "protected_inputs_unchanged": true,
+        "generated_document_changes": [],
+        "generated_metadata_changes": []
+      },
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "error": null,
+      "usage": {
+        "model_requests": 0,
+        "recorded_tokens": 0,
+        "agent_steps": 0,
+        "tool_calls": 0,
+        "commands": 1,
+        "elapsed_seconds": 0.5379510677885264,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "estimated_cost_usd": 0.0,
+        "unknown_usage_requests": 0,
+        "cost_and_usage_complete": true,
+        "estimated_cost_usd_completed_responses": 0.0
+      },
+      "wall_seconds": 23.341346472036093
+    },
+    {
+      "identity": "cpp-build-common-system-repair-729-v1",
+      "name": "xz",
+      "status": "error",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": null,
+        "delivery": "unobserved",
+        "author_tests": "unobserved",
+        "executable_smoke": "unobserved",
+        "final_verification_passed": null,
+        "clean_replay": "unobserved",
+        "full_completed": false,
+        "main_build_task_completed": false,
+        "reproducible_delivery_completed": false
+      },
+      "source_unchanged": true,
+      "source_protection": {
+        "protected_inputs_unchanged": true,
+        "generated_document_changes": [],
+        "generated_metadata_changes": [
+          {
+            "path": "po/lv.po",
+            "before_sha256": "558aaf2bc6f3f3db15d0e698bf7cf04cec7fa148db2ee4b55b250692c50f11f0",
+            "after_sha256": "e2a599d9ec1d15a46a2420759e562a3ce06ef34c78a805b6e9f0060acddd3233",
+            "policy": "po-header-metadata-v1"
+          }
+        ]
+      },
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "error": "原源码/测试被修改：po/lv.po",
+      "usage": {
+        "model_requests": 0,
+        "recorded_tokens": 0,
+        "agent_steps": 0,
+        "tool_calls": 0,
+        "commands": 5,
+        "elapsed_seconds": 34.04553186101839,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "estimated_cost_usd": 0.0,
+        "unknown_usage_requests": 0,
+        "cost_and_usage_complete": true,
+        "estimated_cost_usd_completed_responses": 0.0
+      },
+      "wall_seconds": 99.63157201302238
+    },
+    {
+      "identity": "cpp-build-common-system-repair-729-xz-v2",
+      "name": "xz",
+      "status": "primary_completed",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "executable_smoke": "passed",
+        "final_verification_passed": true,
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true,
+        "reproducible_delivery_completed": true
+      },
+      "source_unchanged": true,
+      "source_protection": {
+        "protected_inputs_unchanged": true,
+        "generated_document_changes": [],
+        "generated_metadata_changes": [
+          {
+            "path": "po/lv.po",
+            "before_sha256": "558aaf2bc6f3f3db15d0e698bf7cf04cec7fa148db2ee4b55b250692c50f11f0",
+            "after_sha256": "21650402e7cd915895831bf6a22a0a268fc6800320bc9dac9917de547f6b337b",
+            "policy": "po-header-metadata-v1"
+          }
+        ]
+      },
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "error": null,
+      "usage": {
+        "model_requests": 0,
+        "recorded_tokens": 0,
+        "agent_steps": 0,
+        "tool_calls": 0,
+        "commands": 5,
+        "elapsed_seconds": 31.71286985091865,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "estimated_cost_usd": 0.0,
+        "unknown_usage_requests": 0,
+        "cost_and_usage_complete": true,
+        "estimated_cost_usd_completed_responses": 0.0
+      },
+      "wall_seconds": 194.35854808916338
+    },
+    {
+      "identity": "cpp-build-common-system-repair-729-flex-v1",
+      "name": "flex",
+      "status": "primary_completed",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "executable_smoke": "passed",
+        "final_verification_passed": true,
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true,
+        "reproducible_delivery_completed": true
+      },
+      "source_unchanged": true,
+      "source_protection": {
+        "protected_inputs_unchanged": true,
+        "generated_document_changes": [],
+        "generated_metadata_changes": []
+      },
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "error": null,
+      "usage": {
+        "model_requests": 0,
+        "recorded_tokens": 0,
+        "agent_steps": 0,
+        "tool_calls": 0,
+        "commands": 10,
+        "elapsed_seconds": 313.3086411799304,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "estimated_cost_usd": 0.0,
+        "unknown_usage_requests": 0,
+        "cost_and_usage_complete": true,
+        "estimated_cost_usd_completed_responses": 0.0
+      },
+      "wall_seconds": 636.5361244790256
+    }
+  ],
+  "container_count": 7,
+  "all_containers_absent": true,
+  "flex_dependency_steps_retained": 7,
+  "context_probe": {
+    "kind": "historical_material_assembly_only",
+    "provider_calls": 0,
+    "request_source": "/home/yiwei/.codex/outputs/forge-recovery-harness-r2-comparison-flash-v1/slot-02-mozjpeg-R2_system_context/agent/request-17.json",
+    "group_source": "/home/yiwei/.codex/outputs/forge-recovery-harness-r2-comparison-flash-v1/slot-02-mozjpeg-R2_system_context/agent/context-request-18-group-10.json",
+    "raw_packet_bytes": 32374,
+    "request_body_bytes": 44391,
+    "limit": 49000,
+    "source_packet_compactions": 0,
+    "handoff_compactions": 1,
+    "packet_compactions": 1,
+    "group_compactions": 0,
+    "task_preserved": true,
+    "result": "passed",
+    "not_observed": "模型是否能据此完成PIC恢复未观察"
+  }
+}

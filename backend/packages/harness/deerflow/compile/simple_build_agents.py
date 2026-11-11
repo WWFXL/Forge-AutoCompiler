@@ -76,6 +76,7 @@ SIMPLE_TOOL_PROMPT = (
     """你是C/C++工具型构建Agent。读取公开任务与作者源码，在隔离容器构建主要程序或库。
 采用作者推荐或默认的普通Linux构建，不人为增加Debug、静态、示例或benchmark要求，不缩小主要组件。
 可以读取源码、日志、安装依赖、配置、编译和诊断。run_build_command执行一个逻辑阶段，Shell严格且各次独立。
+外部源码依赖的获取/配置/编译/安装各拆为dependency动作，可使用/workspace/dependencies内workdir；先创建目录，主项目仍在/workspace/repo，跨命令环境须显式设置。
 原源码/测试不准改；允许新增正常生成文件，清理使用作者clean目标，不执行任意rm，不访问/repro或宿主。
 需要重置配置/生成物时可显式调用reset_generated_outputs，保留原输入并删除本次新增文件；其命令也要进入成功recipe。
 由你决定下一动作；系统不提供Workflow阶段动作建议。完成后用submit_primary_build提交成功build ID和最小有序成功构建recipe。

@@ -3,7 +3,13 @@
 论文选材固定入口：[硕士论文实验与证据索引](docs/research/THESIS_EVIDENCE_INDEX.md)，[历史材料目录](docs/research/THESIS_EVIDENCE_CATALOG.md)保留存量导航。当前完整稿为[论文v0.10第二轮结果稿](docs/thesis/README.md)；E50–E52保存主构建系统及两轮Harness结果，既有完整任务、状态/恢复消融和两层经验继续按各自版本与分母使用。
 
 
-## 当前阶段（2026-11-11；#727已审核R2新项目36槽比较完成，待用户审核结果）
+## 当前阶段（2026-11-11；#729共同修复与三项目真实构建完成，修复阶段结束）
+
+用户要求先解决E54共同问题。[修复报告](docs/research/2026-11-11-common-system-repair.md)与[四次工程路径汇总](benchmarks/analyses/common-system-repair-2026-11-11/summary.json)：masscan、xz最终路径、flex均主产物/轻量/交付/真实干净重建/清理通过；xz首轮遗漏产物观察保护规则的失败保留，不补旧槽。flex的7个依赖子步骤均进入重建配方，主项目默认目标不缩减。7容器实查不存在，真实Provider/新增模型费均0，只支持共同机制，不计Harness效果。
+
+修复受信预期退出码、源码依赖受管目录/分步执行、PO头元数据与原文件内容保护、恢复交接分层压缩、异常后的分层结果保留。mozjpeg实际历史材料含system message组装44391/49000字节；仅材料回放，不声称模型完成PIC修复。129项相关回归及最后分流后33项重叠回归通过，Ruff/格式通过。原E54与论文v0.10保持，H0仍默认，无活动Provider，不追加比较；下一研究由用户决定。发布以Issue729关联PR/CI为准。
+
+## 上一阶段（2026-11-11；#727已审核R2新项目36槽比较完成，待用户审核结果）
 
 [结果报告](docs/research/2026-11-11-recovery-harness-r2-comparison-results.md)、[分析/36行CSV](benchmarks/analyses/recovery-r2-comparison-2026-11-11/README.md)与[E54](docs/research/THESIS_EVIDENCE_INDEX.md#e54)：18新项目、18共同H0规划、36/36执行槽、0未启动、18配对初始SHA一致。H0/R2原始主产物层16/18、15/18；现行主任务标签与可复现交付15/18、14/18。实际15/14次重建均通过，其他槽在重建前停止，不填重建失败。
 

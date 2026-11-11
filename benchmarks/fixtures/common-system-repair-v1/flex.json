@@ -1,0 +1,184 @@
+{
+  "identity": "cpp-build-common-system-repair-729-flex-v1",
+  "dependency_archive_sha256": "c1f97a72a7385b7e71dd07b5fea6cdaf12c9b88b564976b23bd8c11857af2970",
+  "cases": [
+    {
+      "name": "flex",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "r2-flex",
+        "repository_url": "https://github.com/westes/flex",
+        "commit_sha": "b32f2ff93b05e48a8bfe6c79b64c2251538027b9",
+        "image_id": "sha256:8123220a201ac4d00cda0dc985b9db7227cd909bb93ca6c25fd82cafce5cd887",
+        "source_archive_sha256": "a415a9c8ed751e6b3e54482e8799aa0582735cd57127b64b00553bdd80374cb8",
+        "build_system": "autotools",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "c9570bb1649fbeac9ec4052afbfa7534be031ad201bd4372a409f43692dc1d6d",
+        "components": [
+          {
+            "name": "flex",
+            "artifact_names": [
+              "flex"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "固定作者主目标声明，source_evidence保存文件、行号及原文；辅助demo/benchmark不属于主要组件"
+          },
+          {
+            "name": "libfl",
+            "artifact_names": [
+              "libfl.a",
+              "libfl.so"
+            ],
+            "kinds": [
+              "static_library",
+              "shared_library"
+            ],
+            "evidence": "固定作者主目标声明，source_evidence保存文件、行号及原文；辅助demo/benchmark不属于主要组件"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": "主任务不要求完整作者测试；原生轻量验证与成功重建分层报告",
+        "executable_smokes": [
+          {
+            "artifact_name": "flex",
+            "step": {
+              "step_id": "smoke-flex",
+              "role": "smoke",
+              "command": "/artifacts/flex --version",
+              "source": "src/options.c:127; 作者版本/用法分支，非业务测试",
+              "expected": "交付文件执行作者轻量入口并符合原生退出及输出；Lwan/wrk原生用法分支退出1由独立断言明确记录，不接受其他退出或空输出",
+              "workdir": "/artifacts",
+              "requires": [],
+              "required_output": [
+                "flex"
+              ],
+              "diagnostic_paths": []
+            }
+          }
+        ],
+        "generated_documents": []
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-recovery-r2-sources-20261110-v1/flex/source.tar",
+      "actions": {
+        "reason": "独立工程构建：只升级当前缺失的autopoint工具及其版本存档，主项目仍执行默认配置和make，不关闭NLS/自举/测试",
+        "steps": [
+          {
+            "step_id": "packages",
+            "role": "dependency",
+            "command": "apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends autoconf automake libtool gettext autopoint bison flex help2man m4 gawk texinfo autoconf-archive curl ca-certificates xz-utils",
+            "workdir": "/workspace/repo",
+            "requires": [],
+            "source": "INSTALL.md/autogen.sh/configure.ac要求gettext≥0.23；GNU gettext-tools/misc/Makefile.am安装autopoint和版本存档",
+            "expected": "实际执行该步骤，保留退出码和日志"
+          },
+          {
+            "step_id": "dep-root",
+            "role": "dependency",
+            "command": "mkdir -p /workspace/dependencies/gettext-source /workspace/dependencies/gettext-prefix",
+            "workdir": "/workspace/repo",
+            "requires": [
+              "packages"
+            ],
+            "source": "INSTALL.md/autogen.sh/configure.ac要求gettext≥0.23；GNU gettext-tools/misc/Makefile.am安装autopoint和版本存档",
+            "expected": "实际执行该步骤，保留退出码和日志"
+          },
+          {
+            "step_id": "gettext-download",
+            "role": "dependency",
+            "command": "curl --fail --location --max-time 150 --retry 0 https://ftp.gnu.org/gnu/gettext/gettext-0.23.1.tar.xz -o gettext.tar.xz\nprintf '%s  gettext.tar.xz\\n' 'c1f97a72a7385b7e71dd07b5fea6cdaf12c9b88b564976b23bd8c11857af2970' | sha256sum --check",
+            "workdir": "/workspace/dependencies/gettext-source",
+            "requires": [
+              "dep-root"
+            ],
+            "source": "INSTALL.md/autogen.sh/configure.ac要求gettext≥0.23；GNU gettext-tools/misc/Makefile.am安装autopoint和版本存档",
+            "expected": "实际执行该步骤，保留退出码和日志"
+          },
+          {
+            "step_id": "gettext-extract",
+            "role": "dependency",
+            "command": "tar -xf gettext.tar.xz",
+            "workdir": "/workspace/dependencies/gettext-source",
+            "requires": [
+              "gettext-download"
+            ],
+            "source": "INSTALL.md/autogen.sh/configure.ac要求gettext≥0.23；GNU gettext-tools/misc/Makefile.am安装autopoint和版本存档",
+            "expected": "实际执行该步骤，保留退出码和日志"
+          },
+          {
+            "step_id": "gettext-configure",
+            "role": "dependency",
+            "command": "./configure --prefix=/workspace/dependencies/gettext-prefix --disable-java --disable-csharp --disable-libasprintf --without-emacs",
+            "workdir": "/workspace/dependencies/gettext-source/gettext-0.23.1",
+            "requires": [
+              "gettext-extract"
+            ],
+            "source": "INSTALL.md/autogen.sh/configure.ac要求gettext≥0.23；GNU gettext-tools/misc/Makefile.am安装autopoint和版本存档",
+            "expected": "实际执行该步骤，保留退出码和日志"
+          },
+          {
+            "step_id": "gettext-autopoint-build",
+            "role": "dependency",
+            "command": "make -C gettext-tools/misc -j2",
+            "workdir": "/workspace/dependencies/gettext-source/gettext-0.23.1",
+            "requires": [
+              "gettext-configure"
+            ],
+            "source": "INSTALL.md/autogen.sh/configure.ac要求gettext≥0.23；GNU gettext-tools/misc/Makefile.am安装autopoint和版本存档",
+            "expected": "实际执行该步骤，保留退出码和日志"
+          },
+          {
+            "step_id": "gettext-autopoint-install",
+            "role": "dependency",
+            "command": "make -C gettext-tools/misc install",
+            "workdir": "/workspace/dependencies/gettext-source/gettext-0.23.1",
+            "requires": [
+              "gettext-autopoint-build"
+            ],
+            "source": "INSTALL.md/autogen.sh/configure.ac要求gettext≥0.23；GNU gettext-tools/misc/Makefile.am安装autopoint和版本存档",
+            "expected": "实际执行该步骤，保留退出码和日志"
+          },
+          {
+            "step_id": "bootstrap",
+            "role": "configure",
+            "command": "export PATH=/workspace/dependencies/gettext-prefix/bin:$PATH\n./autogen.sh",
+            "workdir": "/workspace/repo",
+            "requires": [
+              "gettext-autopoint-install"
+            ],
+            "source": "INSTALL.md/autogen.sh/configure.ac要求gettext≥0.23；GNU gettext-tools/misc/Makefile.am安装autopoint和版本存档",
+            "expected": "实际执行该步骤，保留退出码和日志"
+          },
+          {
+            "step_id": "configure",
+            "role": "configure",
+            "command": "export PATH=/workspace/dependencies/gettext-prefix/bin:$PATH\n./configure",
+            "workdir": "/workspace/repo",
+            "requires": [
+              "bootstrap"
+            ],
+            "source": "INSTALL.md/autogen.sh/configure.ac要求gettext≥0.23；GNU gettext-tools/misc/Makefile.am安装autopoint和版本存档",
+            "expected": "实际执行该步骤，保留退出码和日志"
+          },
+          {
+            "step_id": "build",
+            "role": "build",
+            "command": "export PATH=/workspace/dependencies/gettext-prefix/bin:$PATH\nmake -j2",
+            "workdir": "/workspace/repo",
+            "requires": [
+              "configure"
+            ],
+            "source": "INSTALL.md/autogen.sh/configure.ac要求gettext≥0.23；GNU gettext-tools/misc/Makefile.am安装autopoint和版本存档",
+            "expected": "实际执行该步骤，保留退出码和日志"
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -36,6 +36,7 @@ class PlanningContext:
         self.pruned_groups = 0
         self.group_compactions = 0
         self.handoff_compactions = 0
+        self.packet_compactions = 0
 
     def compact_group(self, group, meter):
         """完整移出AI及配对Tool后另起证据消息，不发送悬空调用或截断推理字段。"""
@@ -74,6 +75,25 @@ class PlanningContext:
         )
         meter.ledger.append("planning.group_compacted", record=path, original_messages=len(group), original_sha256=payload["original_sha256"])
         return [HumanMessage(content=json.dumps(payload, ensure_ascii=False))]
+
+    def compact_packet(self, meter):
+        """保存完整交接，仅缩短旧记录；当前失败命令、方案和任务保持完整。"""
+        original = deepcopy(self.packet)
+        path = f"context-request-{meter._request_sequence + 1}-packet.json"
+        meter.ledger.save(path, original)
+        handoff = self.packet.get("handoff") or {}
+        records = handoff.get("recent_commands", [])
+        for index, row in enumerate(records):
+            last = index == len(records) - 1
+            keys = {"command_id", "command", "workdir", "role", "exit_code", "timed_out", "termination", "log_path", "log_sha256", "output_tail"}
+            trimmed = {k: v for k, v in row.items() if k in keys}
+            for key in ("command", "output_tail"):
+                if key in trimmed and not (last and key == "command"):
+                    trimmed[key] = bounded_text(trimmed[key], 1800 if last else 500)
+            records[index] = trimmed
+        handoff["full_handoff_record"] = path
+        handoff["context_note"] = "旧记录已压缩；当前方案和最后失败命令未截断。缺少诊断时使用read_failure_log按行补读原日志。"
+        self.packet_compactions += 1
 
     def observe(self, name, arguments, content):
         if name not in {"read_source", "list_source", "read_failure_log"}:
@@ -114,6 +134,7 @@ class PlanningContext:
                 initial_material_compactions=self.seed_compactions,
                 completed_group_compactions=self.group_compactions,
                 handoff_log_compactions=self.handoff_compactions,
+                handoff_packet_compactions=self.packet_compactions,
                 instruction="构建入口、必要依赖和配置/编译命令有依据即可交付；未解决的问题交由真实执行反馈定位。",
             )
             if self.stalled_rounds >= 2:
@@ -137,12 +158,28 @@ class PlanningContext:
                         row["output_tail"] = bounded_text(row["output_tail"], 1000)
                 self.handoff_compactions += 1
                 continue
+            if not self.packet_compactions and self.packet.get("handoff"):
+                self.compact_packet(meter)
+                continue
             if not groups:
                 raise PlanContractError("公开任务与必要规划材料超过上下文容量")
             # 按完整AI调用及其Tool结果淘汰，避免悬空tool_call_id；最新一组保留。
             if len(groups) == 1:
                 if len(groups[0]) == 1 and groups[0][0].type == "human":
-                    raise PlanContractError("公开任务与压缩后的必要证据超过规划上下文容量")
+                    content = str(groups[0][0].content)
+                    if len(content.encode()) <= 6500:
+                        raise PlanContractError("公开任务与压缩后的必要证据超过规划上下文容量")
+                    path = f"context-request-{meter._request_sequence + 1}-evidence.json"
+                    meter.ledger.save(path, groups[0][0].model_dump(mode="json"))
+                    groups[0] = [
+                        HumanMessage(
+                            content=json.dumps(
+                                dict(context_compaction=True, original_record=path, note="先前证据片段已再次有界压缩；不是新的工具结果，缺失部分须按路径补读，不能据此推断成功。", preview=bounded_text(content, 5000)), ensure_ascii=False
+                            )
+                        )
+                    ]
+                    self.group_compactions += 1
+                    continue
                 groups[0] = self.compact_group(groups[0], meter)
                 continue
             removed = groups.pop(0)

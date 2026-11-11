@@ -1,5 +1,8 @@
 # 历史研究材料目录
 
+E54共同工程后续：[验证、依赖工具链及文件保护修复](2026-11-11-common-system-repair.md)。masscan/xz/flex最终工程路径与实际重建通过，0Provider；xz首轮工程失败保留。只用于实现说明，不增加E54效果分母、不替换旧失败、不自动入论文。
+
+
 新增[E54](THESIS_EVIDENCE_INDEX.md#e54)：[R2的18新项目36槽比较](2026-11-11-recovery-harness-r2-comparison-results.md)，完整36/36；H0/R2可复现交付15/18、14/18，R2低费用/时间但少完成一项，全部失败与分层保留，结果待用户审核，不自动写论文。
 
 
