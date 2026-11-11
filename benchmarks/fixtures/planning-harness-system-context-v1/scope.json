@@ -1,0 +1,41 @@
+{
+  "identity": "cpp-build-offline-planning-harness-system-context-proposal-v1",
+  "issue": 737,
+  "requested_model": "gpt-6.1-sol",
+  "maximum_requests": 1,
+  "maximum_cost_usd": "1.00",
+  "maximum_window_hours": 4,
+  "maximum_output_tokens": 8192,
+  "request_bytes": 950207,
+  "conservative_request_reserve_usd": "0.962495",
+  "system_revision": "74a00069fc0bdef8ac4f0e4d9e8414a324104671",
+  "initial_plans": 18,
+  "downstream_branches": 36,
+  "request_sha256": "ddb7ac3ab4048203e3bdeba20b7d0da31e807f11eddb6c3999c228ae2fc98065",
+  "fixture_sha256": {
+    "corpus.json": "147a1184454a5f1babe512fc7b5882c6aec9e526cf0f3be085a85b52cb4753de",
+    "baseline.json": "88943316cabb5d5281f89237cc0c6547b13a1ca8cddbf219d3e88e01c60d80e0",
+    "request.json": "ddb7ac3ab4048203e3bdeba20b7d0da31e807f11eddb6c3999c228ae2fc98065"
+  },
+  "components": {
+    "backend/packages/harness/deerflow/compile/simple_build_task.py": "d065d650426e555c73cf9921db0c5a0f41ef206fb8c8bc4f01fd2ec9a3f743f2",
+    "backend/packages/harness/deerflow/compile/plan_agent_context.py": "2620ddcc50e7da228d7af19073719508b649a9d360f71a94baf15ecbefd2dc37",
+    "backend/packages/harness/deerflow/compile/plan_agent.py": "76cf813285bd0d95ffd53e6d94d7fed09ddc4dcadfdcb13f6c37089170f5dd71",
+    "backend/packages/harness/deerflow/compile/simple_build_runtime.py": "71043ba54db2ae66b23c271e47ecdba49b4bd974590280d927b07fc06e23967c",
+    "backend/packages/harness/deerflow/compile/plan_workflow.py": "70504492a07ec7e56b91f56b6c2098d700bd3c857a021e9cd08b517f4b610544",
+    "backend/packages/harness/deerflow/compile/operations.py": "bec732bf9787f9280ced1dd5acfa2a75339ffdc4c0caafaaec1a1f291f24df04",
+    "backend/packages/harness/deerflow/compile/simple_planning_context.py": "7dec503d8b8a3604d0e7e8e3b59dc8d973f50e017aac07fdef42941d86687a9b",
+    "scripts/forge_simple_system.py": "a61818cf8668a46db4fe752d725cafb066e89a478f400abf8c6ab0789aee3d7a",
+    "backend/packages/harness/deerflow/compile/plan_agent_canary.py": "13c238db9fe5f69543a17b6e95871723e1c790687cb028c281b200aab8a17b6c",
+    "docs/compile_workflow_execution.md": "e6c2531d4f3bbdd6ecb952eff984ee21e9c8245b22aef220a6f4bb28a67e03bc",
+    "docs/research/2026-11-09-offline-harness-round1-results.md": "57de601ff408a075c191ea2dda1d1bbda8d58478058be9016dd02aa126aff358",
+    "docs/research/2026-11-09-offline-harness-round2-results.md": "39cac4e74be0710e0afdb90daff993d67ceb073b11bd4d04dd9a8a085ebf6e34",
+    "docs/research/2026-11-11-recovery-harness-repaired-comparison-results.md": "e8c99f720ea236121e5416621fa4eed437658b599f1f76b435be53908f4efdf1",
+    "benchmarks/analyses/offline-harness-round2-2026-11-09/frozen-harnesses.json": "27d945573f9de3c53046d2694261f96958defee0e55eecf562e105d56d8cc6fb",
+    "scripts/forge_planning_harness_system_context.py": "a9d258f0d92285473e7b3e2b212d992d844d5851454fd367c535eb0a87602c18",
+    "benchmarks/fixtures/recovery-harness-system-context-gpt61sol-v1/candidate.json": "7ad5de139d8278e898e243b02dc8bb9098cf90e50a0af08f78f2e96d26c45754"
+  },
+  "automatic_retry": false,
+  "comparisons_authorized": false,
+  "thesis_update_authorized": false
+}

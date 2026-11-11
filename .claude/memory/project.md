@@ -630,6 +630,24 @@
   - 下一步: 等待实验负责人确认当前网络接入介质，并决定是否授权只读 endpoint 诊断和新的 canary amendment；获得确认后必须另建中文 Issue/PR 和协议 identity，保留当前失败 marker。
 
 ## 最近变更 (Recent Changes)
+
+- 2026-11-11 — #737登记用户审核通过原始P3，并保存固定R2的两组规划比较草案。
+  - 文件: `benchmarks/analyses/planning-harness-system-context-2026-11-11/user-review.json`、提案报告、`docs/research/2026-11-11-reviewed-planning-p3-comparison-design.md`、状态及证据索引。
+  - 动机: 以明确审核状态衔接后续实验；P0/P3必须各自独立规划，不能照搬恢复比较的共享初始方案。
+  - 边界: 候选126d5ac4原文不变；建议18新项目36槽，但项目/协议未冻结，尚非可运行批次。仅登记与设计，0新增Provider/费用/构建，不自动开展比较或入文。正式执行/预算另绑定，旧一次1美元额度已完成。
+
+
+- 2026-11-11 — #737完成唯一一次gpt-6.1-sol规划P3提案，停在用户审核。
+  - 文件: `docs/research/2026-11-11-planning-harness-system-context-proposal.md`、`benchmarks/analyses/planning-harness-system-context-2026-11-11/`、RESEARCH_STATUS及证据索引。
+  - 动机: 用当前实现与18初始规划/36下游校正旧规划优化的输入不足，候选只改初始指导，恢复固定R2。
+  - 结果: 一次请求/响应gpt-6.1-sol、313965输入/3108输出Token、0.317073美元/93.9049秒，0未知/重试；6诊断、指导3902字节、候选126d5ac4，原件inventory22aab0fb/audit通过。用户一次1美元UTC10:49:36—14:49:36的次数已用完；无活动Provider，不追加请求/比较或改论文，H0默认。准备PR738三CI通过；本次结果发布看最新HEAD，旧论文PR736待审不动。
+
+
+- 2026-11-11 — #737准备结合真实系统实现的规划Harness新提案，停在一次调用授权前。
+  - 文件: `scripts/forge_planning_harness_system_context.py`、`backend/tests/test_planning_harness_system_context.py`、`benchmarks/fixtures/planning-harness-system-context-v1/`、同名预注册及准备报告。
+  - 动机: 旧H1/H2不能证明总体改善；本轮让优化器看到当前真实源码/Schema与E55完整行动链，区分规划、恢复和共同执行问题；只改初始指导，R2恢复固定。
+  - 状态: 18共同规划/36分支准备完成；9项针对性测试/Ruff通过；修正CI新测试依赖服务器原件目录，改用固定材料内原始请求计量核对；0真实Provider/新增费/构建。预算和时窗未授权，未读凭据；建议一次1美元/4小时，无自动重试。候选先审核，不开展比较或写论文。工作树从74a00069独立建立，PR736论文待审与原用户改动不动。
+
 - 2026-11-11 — 发布#733同18项目新基座比较：H0/R2完整17/18、18/18，R2费高7.3%/时高23.6%，多完成flex；213响应/0.9941271美元，零未知用量。
   - 文件: `docs/research/2026-11-11-recovery-harness-repaired-comparison-results.md`、`benchmarks/analyses/recovery-r2-repaired-comparison-2026-11-11/`。
   - 边界: 已暴露同项目，不混E54分母，旧失败不改；封存读权限通过只读容器完成，原内容/权限未改，库存f2d5d8da；71容器不存在。下一步先审核结果。
