@@ -1,0 +1,733 @@
+{
+  "valid": true,
+  "identity": "cpp-build-planning-tool-p4-comparison-flash-v1",
+  "inventory_sha256": "cc85f9d841f16e18e6c0c3f756777c37e4ffd0e4147be9c500ba6407647457b9",
+  "closed_slots": 36,
+  "cleanup_passed": 36,
+  "container_references": 134,
+  "container_checks": [
+    {
+      "reference": "c53cce2f9fe5f9be7f53d1b807f7935b3dcb54162bb9e19177b1b813187637a1",
+      "not_found": true
+    },
+    {
+      "reference": "deerflow-compile-simple-s-989e9944",
+      "not_found": true
+    },
+    {
+      "reference": "586506e17e69f337b7f0cc8ee087c786d249998025902d5835d174d0ea1aaf86",
+      "not_found": true
+    },
+    {
+      "reference": "deerflow-replay-simple-s-989e9944-replay_52b63",
+      "not_found": true
+    },
+    {
+      "reference": "3b2ecdf6a3d61c7396c705e26d2feb8fd6cdfddfe56ffadd37a12674301fd7e0",
+      "not_found": true
+    },
+    {
+      "reference": "deerflow-compile-simple-s-e8b75ed9",
+      "not_found": true
+    },
+    {
+      "reference": "d20641142c785518bfa59260fbe2486d480775ad51e419442d887cec3f6d615e",
+      "not_found": true
+    },
+    {
+      "reference": "deerflow-replay-simple-s-e8b75ed9-replay_9b008",
+      "not_found": true
+    },
+    {
+      "reference": "d5700e61862998066ecfadfa281803c6ff2cfaddf6398dcf43158aa1bec4ac15",
+      "not_found": true
+    },
+    {
+      "reference": "deerflow-compile-simple-s-1335930b",
+      "not_found": true
+    },
+    {
+      "reference": "810b006fdfcb59a829483247be3179e103f87d5e783fcd367786f491c2e352d6",
+      "not_found": true
+    },
+    {
+      "reference": "deerflow-compile-simple-s-3fb4fb0c",
+      "not_found": true
+    },
+    {
+      "reference": "85f6c810e6d4033dd98019b038f9f6938bcaefc0e709815a04a4f22b0e917baf",
+      "not_found": true
+    },
+    {
+      "reference": "deerflow-replay-simple-s-3fb4fb0c-replay_967ef",
+      "not_found": true
+    },
+    {
+      "reference": "a6fe8211bae37e9bc93af72e66bc68cecda41d0c6914ba4c82af14b353f42c23",
+      "not_found": true
+    },
+    {
+      "reference": "deerflow-compile-simple-s-efb5f41d",
+      "not_found": true
+    },
+    {
+      "reference": "2faaa4107cc3b8f6e7c3e6cd6952e8cb4598e621edb501a177b7a6ddf053a7b2",
+      "not_found": true
+    },
+    {
+      "reference": "deerflow-compile-simple-s-fedefa75",
+      "not_found": true
+    },
+    {
+      "reference": "6adc7cd2e609a5dfc72272391d70c3a3a0f7ff147fcf7e2e37294220b89a1d1a",
+      "not_found": true
+    },
+    {
+      "reference": "deerflow-replay-simple-s-fedefa75-replay_1341c",
+      "not_found": true
+    },
+    {
+      "reference": "ff0fd8cc70f550530bf29febd0a698a34264cb578e4ae6d85d9d57b4d9f6b0d2",
+      "not_found": true
+    },
+    {
+      "reference": "deerflow-compile-simple-s-5ef6a151",
+      "not_found": true
+    },
+    {
+      "reference": "cd304d5d5b0f62c43bade88c5e156af9683dbdb4ad5b3a287ac86856646084f9",
+      "not_found": true
+    },
+    {
+      "reference": "deerflow-compile-simple-s-b3fb13f6",
+      "not_found": true
+    },
+    {
+      "reference": "88be09911218314bd2be179becd3d487213c8b348275ddf3fe4fd817832961c3",
+      "not_found": true
+    },
+    {
+      "reference": "deerflow-replay-simple-s-b3fb13f6-replay_1b28e",
+      "not_found": true
+    },
+    {
+      "reference": "7149739904a147c60d2255ed322ba80bf350b125b573540438b71dcab3909ef3",
+      "not_found": true
+    },
+    {
+      "reference": "deerflow-compile-simple-s-c9aa8648",
+      "not_found": true
+    },
+    {
+      "reference": "aeb76b023d5e88405c9b0db5bff9d2c58e05be691a5bf0086110b59d52660047",
+      "not_found": true
+    },
+    {
+      "reference": "deerflow-replay-simple-s-c9aa8648-replay_7c9e0",
+      "not_found": true
+    },
+    {
+      "reference": "3e959fc2d2a69720a11db368e4d75f49ddf7e4da88a36fc0531d976ee98d5c40",
+      "not_found": true
+    },
+    {
+      "reference": "deerflow-compile-simple-s-2b0e17eb",
+      "not_found": true
+    },
+    {
+      "reference": "9b49ccfcdb597a2279ba44980914c5a53522fcc00342665738c294f524db95d4",
+      "not_found": true
+    },
+    {
+      "reference": "deerflow-replay-simple-s-2b0e17eb-replay_f97a8",
+      "not_found": true
+    },
+    {
+      "reference": "2ff2d20501cea84929458ea718b33532896c176b2d5bd10ec1b5c9d182b88838",
+      "not_found": true
+    },
+    {
+      "reference": "deerflow-compile-simple-s-08e0d5a3",
+      "not_found": true
+    },
+    {
+      "reference": "542486090efc5918095e21d83784eef31e469e29c580f6cebf790b72e519ef7c",
+      "not_found": true
+    },
+    {
+      "reference": "deerflow-replay-simple-s-08e0d5a3-replay_a00cc",
+      "not_found": true
+    },
+    {
+      "reference": "9c6249f27dee46f49934ea7d6cdceae781e2c9658aa80bf5d1f72723468a153d",
+      "not_found": true
+    },
+    {
+      "reference": "deerflow-compile-simple-s-7834cc7e",
+      "not_found": true
+    },
+    {
+      "reference": "9367222d2894ee458dea28211fc8223a815d058e3885c7b8d5fcd9547b0f0b7f",
+      "not_found": true
+    },
+    {
+      "reference": "deerflow-replay-simple-s-7834cc7e-replay_fcebe",
+      "not_found": true
+    },
+    {
+      "reference": "671bd9fa38a5a8c166f79db344d9eae1799712a414377722908cdfdccc27b82f",
+      "not_found": true
+    },
+    {
+      "reference": "deerflow-compile-simple-s-4d649d60",
+      "not_found": true
+    },
+    {
+      "reference": "aed5f4000582790f2605a2ac0ea172ed2bc01afa6de0ca2e5eea8f0c0cad95b4",
+      "not_found": true
+    },
+    {
+      "reference": "deerflow-replay-simple-s-4d649d60-replay_b8cfb",
+      "not_found": true
+    },
+    {
+      "reference": "0df9283d4ed4ff3743ca54bfa44e51e7dcf3a69cd1ca6aaf190fab77c753aab8",
+      "not_found": true
+    },
+    {
+      "reference": "deerflow-compile-simple-s-b637d360",
+      "not_found": true
+    },
+    {
+      "reference": "74342bc806cd192beedf8b1929d79725f2f644f271e5ba79087a7ce4efadd834",
+      "not_found": true
+    },
+    {
+      "reference": "deerflow-replay-simple-s-b637d360-replay_8dcd7",
+      "not_found": true
+    },
+    {
+      "reference": "817dd30b4d458a5bf8858d49066840d20e665fb50bd28f49fead1d4931f61066",
+      "not_found": true
+    },
+    {
+      "reference": "deerflow-compile-simple-s-1467a14c",
+      "not_found": true
+    },
+    {
+      "reference": "9ebbbc16dfa1817b27f8ed01ce35acfa2fd1a7dcc976958b8644df109dcb4ef7",
+      "not_found": true
+    },
+    {
+      "reference": "deerflow-replay-simple-s-1467a14c-replay_94b0c",
+      "not_found": true
+    },
+    {
+      "reference": "042816dafde60d66d1d0b9eab459221b6e6740729eb3d795b97bd57a0b35d6a5",
+      "not_found": true
+    },
+    {
+      "reference": "deerflow-compile-simple-s-2400570e",
+      "not_found": true
+    },
+    {
+      "reference": "dfb6e14ccea193c2267c9957b6af4dce1ffecdb70206c0c7d9200503a0ebc082",
+      "not_found": true
+    },
+    {
+      "reference": "deerflow-replay-simple-s-2400570e-replay_a1f4c",
+      "not_found": true
+    },
+    {
+      "reference": "f38d0dbe3fe7b5ce6a13215374fe31d0f95f44e1c8e07ed0d2316162611e74ef",
+      "not_found": true
+    },
+    {
+      "reference": "deerflow-compile-simple-s-221f0a4e",
+      "not_found": true
+    },
+    {
+      "reference": "029e1e225f00424937e32a1624d177796d7fa6f00e5c8223468d9672cdd453de",
+      "not_found": true
+    },
+    {
+      "reference": "deerflow-replay-simple-s-221f0a4e-replay_90008",
+      "not_found": true
+    },
+    {
+      "reference": "65c953603ab82e40f5600c4ebb0de32a86f36d5133474a1d3b4fb8f35871b05e",
+      "not_found": true
+    },
+    {
+      "reference": "deerflow-compile-simple-s-cb84cbaf",
+      "not_found": true
+    },
+    {
+      "reference": "5cf8e326fb8cdd9b579823b30cc083e154537fe70fbfb48f01126f6c15c322e4",
+      "not_found": true
+    },
+    {
+      "reference": "deerflow-replay-simple-s-cb84cbaf-replay_d16f8",
+      "not_found": true
+    },
+    {
+      "reference": "5a52b62e4cb92205b5588e67275aa47e60357f6bb3574428401b24eebed22edb",
+      "not_found": true
+    },
+    {
+      "reference": "deerflow-compile-simple-s-01ebf5ef",
+      "not_found": true
+    },
+    {
+      "reference": "e324b9055ae3ffd006398d02364310731203437b7f83dd27485272bc90ac3a9c",
+      "not_found": true
+    },
+    {
+      "reference": "deerflow-replay-simple-s-01ebf5ef-replay_76c04",
+      "not_found": true
+    },
+    {
+      "reference": "9126da3fbe3257e4fb4f8b2b8641a7fb560d8d732a0876a8258d6f4cdb5dfcc5",
+      "not_found": true
+    },
+    {
+      "reference": "deerflow-compile-simple-s-c8fc1b2d",
+      "not_found": true
+    },
+    {
+      "reference": "a9b9e385befa343ec57a9e8f3c2c4de74dfd69a1cf9abf324aeadf880f14b148",
+      "not_found": true
+    },
+    {
+      "reference": "deerflow-compile-simple-s-fb8ecff7",
+      "not_found": true
+    },
+    {
+      "reference": "b264664ae802c4653894ac7b6220780ed44a044f8d5fc8c7ca5de2cd3336b30b",
+      "not_found": true
+    },
+    {
+      "reference": "deerflow-replay-simple-s-fb8ecff7-replay_5ea33",
+      "not_found": true
+    },
+    {
+      "reference": "f44765c7de42266dbae19386afff6fe03747485adcea90dce87daa30cb3866ad",
+      "not_found": true
+    },
+    {
+      "reference": "deerflow-compile-simple-s-3070f7d3",
+      "not_found": true
+    },
+    {
+      "reference": "527d935cfb8d6d96d9e7a082d7763caf78117437ed371292fae6b76638a763d7",
+      "not_found": true
+    },
+    {
+      "reference": "deerflow-replay-simple-s-3070f7d3-replay_37436",
+      "not_found": true
+    },
+    {
+      "reference": "58e180f150641206f30113b59a3131504bd99154732779f0d77f6dd695ace158",
+      "not_found": true
+    },
+    {
+      "reference": "deerflow-compile-simple-s-bd8999d1",
+      "not_found": true
+    },
+    {
+      "reference": "48c24ba9dbfd086ba3e0af83a89348a1b015e7f1bfbd175288fb03b767242937",
+      "not_found": true
+    },
+    {
+      "reference": "deerflow-replay-simple-s-bd8999d1-replay_84205",
+      "not_found": true
+    },
+    {
+      "reference": "5c4a1d8fe94c358574e724801e85259374a6739d9f2a3cdddddc5ac349b0c2a4",
+      "not_found": true
+    },
+    {
+      "reference": "deerflow-compile-simple-s-113d1d5a",
+      "not_found": true
+    },
+    {
+      "reference": "6c8850edfdb59dc8a93030738aacf524d7233d6e7f3d573f5fab2328ee329114",
+      "not_found": true
+    },
+    {
+      "reference": "deerflow-replay-simple-s-113d1d5a-replay_9fd78",
+      "not_found": true
+    },
+    {
+      "reference": "249ec038b24a171a28be935d6e0906a1458871fe197695cebc01e304ce55f7dc",
+      "not_found": true
+    },
+    {
+      "reference": "deerflow-compile-simple-s-97eeb67d",
+      "not_found": true
+    },
+    {
+      "reference": "2833918335cb86e23e2ea3cab6557f26e7a99287333f403eb4303677a2fad4ef",
+      "not_found": true
+    },
+    {
+      "reference": "deerflow-replay-simple-s-97eeb67d-replay_031a6",
+      "not_found": true
+    },
+    {
+      "reference": "ebc9796dd70466bd9aca58cf22dbff35ad20aab014e4bf88b418db724e46c1fa",
+      "not_found": true
+    },
+    {
+      "reference": "deerflow-compile-simple-s-3c1ad25b",
+      "not_found": true
+    },
+    {
+      "reference": "f7ab7620aa0902f2f7650e294afe7d3fc7ae240f2a0be1316d72d2f48a647f31",
+      "not_found": true
+    },
+    {
+      "reference": "deerflow-replay-simple-s-3c1ad25b-replay_d6f73",
+      "not_found": true
+    },
+    {
+      "reference": "16204ff4fd338631202d74c482a826570a92d28f53ec2b1cadb5f039b52fdf8c",
+      "not_found": true
+    },
+    {
+      "reference": "deerflow-compile-simple-s-67daa06b",
+      "not_found": true
+    },
+    {
+      "reference": "1f75068b15a2cada65c36ea30c3839cebbcea18495409e90a87fc7b1304be354",
+      "not_found": true
+    },
+    {
+      "reference": "deerflow-replay-simple-s-67daa06b-replay_31c44",
+      "not_found": true
+    },
+    {
+      "reference": "8299850d802e6f6d11dbf377e159a77333ef0fbc4951df1357f93b587d137d08",
+      "not_found": true
+    },
+    {
+      "reference": "deerflow-compile-simple-s-35372b52",
+      "not_found": true
+    },
+    {
+      "reference": "ad2faac8199877f5e07683085bf8fd5e6fb2b30734278eaa3c0a458d8fd07291",
+      "not_found": true
+    },
+    {
+      "reference": "deerflow-replay-simple-s-35372b52-replay_0fd45",
+      "not_found": true
+    },
+    {
+      "reference": "33cf47ec08fa0f9bae519568175cc0afcc8a30266e43bc0dcc478eb001038e2b",
+      "not_found": true
+    },
+    {
+      "reference": "deerflow-compile-simple-s-b16b381d",
+      "not_found": true
+    },
+    {
+      "reference": "2c62c4b23fbc807259d3ab6450a975db31cf6bf03b55e8b274076bb357bcc615",
+      "not_found": true
+    },
+    {
+      "reference": "deerflow-replay-simple-s-b16b381d-replay_f8877",
+      "not_found": true
+    },
+    {
+      "reference": "3b1f09295a912ac1ea7df8223f8b0c0d95a39cd2bcba50212f6d1193c15b3a99",
+      "not_found": true
+    },
+    {
+      "reference": "deerflow-compile-simple-s-15c09a45",
+      "not_found": true
+    },
+    {
+      "reference": "cdc8eab9f66b1853ba41611ba89c312460c05cafeaa2c366d65a334e43220c70",
+      "not_found": true
+    },
+    {
+      "reference": "deerflow-compile-simple-s-63911a04",
+      "not_found": true
+    },
+    {
+      "reference": "b9364e5d2a229427cccb1c40daf8eb2ead4421e41a3dc318ec9d2e001060c95b",
+      "not_found": true
+    },
+    {
+      "reference": "deerflow-replay-simple-s-63911a04-replay_97cb6",
+      "not_found": true
+    },
+    {
+      "reference": "b2017eaa60a5b14a703943818c3f1cd3daa540ac3ef7d0bd624c1ca5d6dfb0a3",
+      "not_found": true
+    },
+    {
+      "reference": "deerflow-compile-simple-s-9233be2f",
+      "not_found": true
+    },
+    {
+      "reference": "b403155fb28d975c2c03f0e5d2bb55924b6022c88432b2e983c9db48fa540edc",
+      "not_found": true
+    },
+    {
+      "reference": "deerflow-replay-simple-s-9233be2f-replay_23bbb",
+      "not_found": true
+    },
+    {
+      "reference": "04ccde97f1998f05a717c7d1a50d6cb7c62748fdd74dccd8d599065c41c42bdd",
+      "not_found": true
+    },
+    {
+      "reference": "deerflow-compile-simple-s-dd080c74",
+      "not_found": true
+    },
+    {
+      "reference": "0889ec0bf6bfc6d946ff98ee0ed41d860f689a6d0de4450b9e40a02858774bf2",
+      "not_found": true
+    },
+    {
+      "reference": "deerflow-replay-simple-s-dd080c74-replay_9fbc5",
+      "not_found": true
+    },
+    {
+      "reference": "7d1a59e78eb4e11bd2abc44120d7eff837e0205f55ff466369ae25ec80ea4c4b",
+      "not_found": true
+    },
+    {
+      "reference": "deerflow-compile-simple-s-5a1134fa",
+      "not_found": true
+    },
+    {
+      "reference": "760a606460564a37b389ed3d23957855e7988da2751fc184a8bf7bf29b1dd4d4",
+      "not_found": true
+    },
+    {
+      "reference": "deerflow-replay-simple-s-5a1134fa-replay_32334",
+      "not_found": true
+    },
+    {
+      "reference": "b8b80d0183df3865ec2f7102add4699149b4146428da1443a55c626221449d7e",
+      "not_found": true
+    },
+    {
+      "reference": "deerflow-compile-simple-s-07ed9e29",
+      "not_found": true
+    },
+    {
+      "reference": "1dace393d61c56d5332f98c6a557d7757b836274bcb8ccf04ca5d276aee89e6f",
+      "not_found": true
+    },
+    {
+      "reference": "deerflow-replay-simple-s-07ed9e29-replay_2fbfb",
+      "not_found": true
+    },
+    {
+      "reference": "800cf5fc9cfa1512d1955761ec2cbc802b879dd27db14525cb44954caa223139",
+      "not_found": true
+    },
+    {
+      "reference": "deerflow-compile-simple-s-eafe870b",
+      "not_found": true
+    },
+    {
+      "reference": "c03281e14328031ab22620654faef0a8791d96a99965314b1f39808607eacd06",
+      "not_found": true
+    },
+    {
+      "reference": "deerflow-replay-simple-s-eafe870b-replay_bd587",
+      "not_found": true
+    }
+  ],
+  "model_requests": 397,
+  "input_tokens": 4650543,
+  "output_tokens": 316957,
+  "total_estimated_cost_usd": "1.7755113",
+  "unknown_usage": 0,
+  "slot_usage": [
+    {
+      "slot": 1,
+      "requests": 50,
+      "cost_usd": "0.1893384"
+    },
+    {
+      "slot": 2,
+      "requests": 36,
+      "cost_usd": "0.1436712"
+    },
+    {
+      "slot": 3,
+      "requests": 71,
+      "cost_usd": "0.2824317"
+    },
+    {
+      "slot": 4,
+      "requests": 2,
+      "cost_usd": "0.0064608"
+    },
+    {
+      "slot": 5,
+      "requests": 2,
+      "cost_usd": "0.0064368"
+    },
+    {
+      "slot": 6,
+      "requests": 2,
+      "cost_usd": "0.0063066"
+    },
+    {
+      "slot": 7,
+      "requests": 11,
+      "cost_usd": "0.0493644"
+    },
+    {
+      "slot": 8,
+      "requests": 3,
+      "cost_usd": "0.0120930"
+    },
+    {
+      "slot": 9,
+      "requests": 4,
+      "cost_usd": "0.0172347"
+    },
+    {
+      "slot": 10,
+      "requests": 2,
+      "cost_usd": "0.0071889"
+    },
+    {
+      "slot": 11,
+      "requests": 1,
+      "cost_usd": "0.0037317"
+    },
+    {
+      "slot": 12,
+      "requests": 3,
+      "cost_usd": "0.0117582"
+    },
+    {
+      "slot": 13,
+      "requests": 6,
+      "cost_usd": "0.0164127"
+    },
+    {
+      "slot": 14,
+      "requests": 5,
+      "cost_usd": "0.0133737"
+    },
+    {
+      "slot": 15,
+      "requests": 6,
+      "cost_usd": "0.0177651"
+    },
+    {
+      "slot": 16,
+      "requests": 23,
+      "cost_usd": "0.1459791"
+    },
+    {
+      "slot": 17,
+      "requests": 49,
+      "cost_usd": "0.2827953"
+    },
+    {
+      "slot": 18,
+      "requests": 45,
+      "cost_usd": "0.2832684"
+    },
+    {
+      "slot": 19,
+      "requests": 3,
+      "cost_usd": "0.0131295"
+    },
+    {
+      "slot": 20,
+      "requests": 10,
+      "cost_usd": "0.0417759"
+    },
+    {
+      "slot": 21,
+      "requests": 7,
+      "cost_usd": "0.0304158"
+    },
+    {
+      "slot": 22,
+      "requests": 2,
+      "cost_usd": "0.0033822"
+    },
+    {
+      "slot": 23,
+      "requests": 4,
+      "cost_usd": "0.0075081"
+    },
+    {
+      "slot": 24,
+      "requests": 3,
+      "cost_usd": "0.0041931"
+    },
+    {
+      "slot": 25,
+      "requests": 3,
+      "cost_usd": "0.0119268"
+    },
+    {
+      "slot": 26,
+      "requests": 3,
+      "cost_usd": "0.0111759"
+    },
+    {
+      "slot": 27,
+      "requests": 3,
+      "cost_usd": "0.0113448"
+    },
+    {
+      "slot": 28,
+      "requests": 1,
+      "cost_usd": "0.0036681"
+    },
+    {
+      "slot": 29,
+      "requests": 1,
+      "cost_usd": "0.003717"
+    },
+    {
+      "slot": 30,
+      "requests": 2,
+      "cost_usd": "0.0085608"
+    },
+    {
+      "slot": 31,
+      "requests": 4,
+      "cost_usd": "0.0113355"
+    },
+    {
+      "slot": 32,
+      "requests": 6,
+      "cost_usd": "0.0163041"
+    },
+    {
+      "slot": 33,
+      "requests": 4,
+      "cost_usd": "0.0098886"
+    },
+    {
+      "slot": 34,
+      "requests": 9,
+      "cost_usd": "0.0425289"
+    },
+    {
+      "slot": 35,
+      "requests": 4,
+      "cost_usd": "0.0191664"
+    },
+    {
+      "slot": 36,
+      "requests": 7,
+      "cost_usd": "0.0298791"
+    }
+  ]
+}

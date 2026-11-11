@@ -1,5 +1,7 @@
 # 历史研究材料目录
 
+新增[E57](THESIS_EVIDENCE_INDEX.md#e57)：[初始工具约束/P4三组36槽结果](2026-11-12-planning-tool-p4-comparison-results.md)，主构建及可复现交付10/12、11/12、10/12；工具约束多完成一项，总费下降集中难例，P4在8项目低费但整体更高。全分母/失败/初始恢复费用保存，待审核、不自动入论文。
+
 E56工程后续：[成功准备及交付修复](2026-11-11-common-preparation-delivery-repair.md)，四项目最终真实重建完成、零Provider，不增效果分母、不重标旧失败；[Codex直接诊断与待审P4](2026-11-11-codex-planning-harness-proposal.md)保留实际提示差异，未比较、未入文。
 
 新增[E56](THESIS_EVIDENCE_INDEX.md#e56)：[P0/P3独立规划、固定R2的36槽结果](2026-11-11-planning-p3-fixed-r2-comparison-results.md)，主构建17/18、15/18，交付11/18、10/18；P3高费135.8%，5项目局部低费，未采纳替换P0。失败、共同交付限制、全阶段费用保留；335响应/1.337265美元，结果待审、不自动入文。

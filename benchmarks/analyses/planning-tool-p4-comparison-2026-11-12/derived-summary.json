@@ -1,0 +1,64 @@
+{
+  "full_denominator": 12,
+  "common_completed_projects": [
+    "cava",
+    "clib",
+    "libde265",
+    "libsndfile",
+    "libtomcrypt",
+    "libusb",
+    "lz4",
+    "mbedtls",
+    "streem",
+    "wolfssl"
+  ],
+  "phase_sums": {
+    "A_P0_schema": {
+      "initial": {
+        "requests": 91,
+        "cost_usd": "0.3330363"
+      },
+      "recovery": {
+        "requests": 41,
+        "cost_usd": "0.2510073"
+      }
+    },
+    "B_P0_enforced": {
+      "initial": {
+        "requests": 66,
+        "cost_usd": "0.2506404"
+      },
+      "recovery": {
+        "requests": 47,
+        "cost_usd": "0.2465235"
+      }
+    },
+    "C_P4_enforced": {
+      "initial": {
+        "requests": 78,
+        "cost_usd": "0.2941266"
+      },
+      "recovery": {
+        "requests": 74,
+        "cost_usd": "0.4001772"
+      }
+    }
+  },
+  "posthoc_common_completed": {
+    "A_P0_schema": {
+      "projects": 10,
+      "cost_usd": "0.1119099",
+      "wall_seconds": 849.415001930669
+    },
+    "B_P0_enforced": {
+      "projects": 10,
+      "cost_usd": "0.2075136",
+      "wall_seconds": 812.3741945831571
+    },
+    "C_P4_enforced": {
+      "projects": 10,
+      "cost_usd": "0.1286037",
+      "wall_seconds": 706.1409254535101
+    }
+  }
+}
