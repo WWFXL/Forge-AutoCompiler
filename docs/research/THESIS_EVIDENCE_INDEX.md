@@ -1,5 +1,8 @@
 # 硕士论文实验与证据索引
 
+最新[E55](#e55)：[共同修复后同18项目H0/R2比较](2026-11-11-recovery-harness-repaired-comparison-results.md)，36/36终态；完整17/18、18/18，R2多完成flex，独立部署费高7.3%、时高23.6%。同E54项目再评价、不新增独立项目分母，结果待用户审核、不自动入论文。
+
+
 E54共同工程后续：[验证、依赖工具链及文件保护修复](2026-11-11-common-system-repair.md)。masscan/xz/flex最终工程路径与实际重建通过，0Provider；xz首轮工程失败保留。只用于实现说明，不增加E54效果分母、不替换旧失败、不自动入论文。
 
 
@@ -555,3 +558,12 @@ E54共同工程后续：[验证、依赖工具链及文件保护修复](2026-11-
 - **机制/限制**：七项目两组均恢复，各12交接；共同恢复且成功三项目各13请求，R2恢复费低12.2%但执行时高23.9%，是事后条件子集。总费差约95.5%来自其余未共同完成路径，不能冒称同等完成降本。masscan版本原生退出1/参考要求0、flex工具链/修订契约、xz作者po元数据保护及R2/mozjpeg本地容量分别保留；masscan异常finalizer强制任务标签false，报告另列已成功的产物层，不重写原件。不与E53不同项目/环境/重放判定合分母或相减归因。
 - **论文用途/状态**：第5章离线候选采纳与反例、第6章完整成本/失败分层的候选材料；**结果尚待用户审核，未写论文v0.10，H0仍默认**。工程准备/封存/核验不增加效果分母，历史提案来源重叠不再计为独立新样本。
 - **证据入口**：[报告](2026-11-11-recovery-harness-r2-comparison-results.md)、[分析与36行CSV](../../benchmarks/analyses/recovery-r2-comparison-2026-11-11/README.md)、[协议](../../benchmarks/preregistrations/cpp-build-recovery-harness-r2-comparison-flash-v1.md)。运行7638b10b、manifest7392fcb8、候选270becfd，raw`forge-recovery-harness-r2-comparison-flash-v1`，inventory`ba75d6d16b0e88c3abcf4cc9a1a3650318ff826fb3fa9c2efa44b302f412f6c0`；派生验证/逐响应/清理实查在`forge-recovery-r2-results-session-20261110-v1`。65容器130名称/ID不存在；发布以Issue727关联PR/CI为准。
+
+<a id="e55"></a>
+### E55 共同修复后H0/R2同项目比较（完成/资源取舍，待审）
+
+- 论文用途：第5章离线Harness更新验证、第6章恢复对比与失败分析的候选材料；用户未批准入文，论文v0.10保持。
+- 身份/分母：`cpp-build-recovery-harness-r2-repaired-comparison-flash-v1`，E54同18已暴露项目×两方法各一次，共36/36；18共同初始方案配对一致，不与E54累加独立项目数。
+- 结果：H0/R2主构建及可复现交付17/18、18/18；部署模型费0.6017160/0.6456144美元，累计2437.32/3013.33秒。R2多完成flex但费高7.3%/时高23.6%；stderred/sxhkd局部恢复降本保留。
+- 边界：flex/H0配置超时后模型多结构化输出异常，主构建/重放未观察；R2完成所需额外投入不当同等完成降本。无显著性/未见泛化/跨批修复因果；原E54失败保留，结果先审。
+- 证据：[报告](2026-11-11-recovery-harness-repaired-comparison-results.md)、[分析及逐槽表](../../benchmarks/analyses/recovery-r2-repaired-comparison-2026-11-11/README.md)；原件`forge-recovery-harness-r2-repaired-comparison-flash-v1`，inventory `f2d5d8dafaf7912859f89885e7803627ac10b58c138783ac61eeacebe419d50d`。213响应/0.9941271美元、未知0、71容器实查不存在。封存权限问题单独收据，不改原件。

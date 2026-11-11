@@ -3,11 +3,17 @@
 论文选材固定入口：[硕士论文实验与证据索引](docs/research/THESIS_EVIDENCE_INDEX.md)，[历史材料目录](docs/research/THESIS_EVIDENCE_CATALOG.md)保留存量导航。当前完整稿为[论文v0.10第二轮结果稿](docs/thesis/README.md)；E50–E52保存主构建系统及两轮Harness结果，既有完整任务、状态/恢复消融和两层经验继续按各自版本与分母使用。
 
 
-## 当前阶段（2026-11-11；#731新基座H0/R2比较已授权，待发布检查后采集）
+## 当前阶段（2026-11-11；#733修复后基座H0/R2比较36槽完成，待用户审核）
 
-用户要求重新比较上一轮。新身份`cpp-build-recovery-harness-r2-repaired-comparison-flash-v1`，[准备报告](docs/research/2026-11-11-repaired-r2-comparison-preparation.md)及[协议](benchmarks/preregistrations/cpp-build-recovery-harness-r2-repaired-comparison-flash-v1.md)：同18项目/36槽、三系统各6、共同修复基座，重新一次共同H0规划，干净配对只改恢复指导。R2原文不改，仅重新绑定共同提示哈希；masscan原生exit(1)参考两组相同，旧E54不回填、不混分母，不称新样本或holdout。
+[结果报告](docs/research/2026-11-11-recovery-harness-repaired-comparison-results.md)、[分析与逐槽表](benchmarks/analyses/recovery-r2-repaired-comparison-2026-11-11/README.md)及[E55](docs/research/THESIS_EVIDENCE_INDEX.md#e55)：同E54全部18已暴露项目、18新共同H0规划、36/36终态、0未启动，18配对SHA一致。H0/R2主构建与可复现交付17/18、18/18；R2多完成flex，但独立部署费0.6017160/0.6456144美元（高7.3%）、累计2437.32/3013.33秒（高23.6%），不能称整体降本加速或直接替代H0。
 
-正式0/36、0 Provider/新增模型费；11项相关检查及源码/组件门禁通过，复用#729真实构建，不重复实建。用户已授权5美元硬上限、UTC2026-11-11 03:21:11—07:21:11，无自动重试，未知用量/模型身份/cleanup异常停止；待发布检查后直接采集，不重复索要授权。结果先审核，不自动改论文v0.10或替换H0；跨批差值不作修复因果。发布状态以Issue731关联PR/CI为准。
+双方九项目自然恢复，68/77恢复请求；stderred、sxhkd恢复费低48.2%/73.1%，masscan、xz费更高，重复读取25/30。flex/H0依赖配置超时后一次响应返回两份结构化方案而终止，主构建/重放未观察；R2经三次恢复改为安装必要宏/autopoint，主构建及干净重建通过，额外投入0.0608157美元/584.23秒。仍存在多结构化输出异常的共同接口限制，本轮不边采集边修复。共同完整17对恢复费低9.5%仅事后辅助。masscan/xz/mozjpeg两组完整，旧E54不补槽/不重标，不作跨批修复因果。
+
+用户5美元/UTC2026-11-11 03:21:11—07:21:11授权内采集，213响应/2684414Token/0.9941271美元/87.66分钟，未知0、0未闭合单元，正式进程已退出、无活动Provider。原件forge-recovery-harness-r2-repaired-comparison-flash-v1，inventoryf2d5d8da，运行d9951663/manifestff33471d。封存首次普通用户权限拒绝后，只读容器读原件完成清单，内容/权限不改，独立audit通过；36cleanup通过，71容器142名称/ID实查不存在。结果由Issue733关联PR发布；H0默认、论文v0.10不变，结果先审核，不追加修复/提案/付费运行。知识库不进入正式Agent。
+
+## 上一阶段（2026-11-11；#731新基座比较准备与授权完成）
+
+同18项目36槽入口已由PR732三CI通过并合并c8cfbfc9，Issue731关闭。保持原R2指导，仅重绑定共同提示；masscan原生exit(1)参考两组相同。11项相关测试通过，0Provider准备不增加正式分母。用户已批准5美元/4小时，实际运行及终态见当前阶段，不再解释为待授权。
 
 ## 上一阶段（2026-11-11；#729共同修复与三项目真实构建完成，修复阶段结束）
 
