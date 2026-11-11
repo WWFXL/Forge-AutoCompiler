@@ -3,6 +3,7 @@
 跨 Claude Code session 的项目状态流水。按 CLAUDE.md §7 维护。
 
 ## 进行中 (In Progress)
+- 2026-11-11 — #733修复后基座H0/R2的36/36比较与分析完成，待用户审核结果；无活动Provider，不自动写论文或追加修复，当前事实见RESEARCH_STATUS.md。
 - 2026-11-11 — #731修复后基座H0/R2同18项目/36槽比较准备完成，正式0/36；用户已授权5美元/UTC2026-11-11 03:21:11—07:21:11，待发布检查后采集，无活动Provider，旧R2指导保持、只重绑定共同提示，不写论文。
 - 2026-11-11 — #729共同底座修复与三项目工程验证完成；无活动Provider，不追加Harness比较、不改论文，当前状态以RESEARCH_STATUS.md为准。
 - 2026-11-11 — #727的36/36新项目比较完成，待用户审核结果；无活动Provider，不追加比较/提案，不改论文v0.10，H0仍默认。当前阶段及发布状态见RESEARCH_STATUS.md及关联PR/CI。
@@ -629,6 +630,9 @@
   - 下一步: 等待实验负责人确认当前网络接入介质，并决定是否授权只读 endpoint 诊断和新的 canary amendment；获得确认后必须另建中文 Issue/PR 和协议 identity，保留当前失败 marker。
 
 ## 最近变更 (Recent Changes)
+- 2026-11-11 — 发布#733同18项目新基座比较：H0/R2完整17/18、18/18，R2费高7.3%/时高23.6%，多完成flex；213响应/0.9941271美元，零未知用量。
+  - 文件: `docs/research/2026-11-11-recovery-harness-repaired-comparison-results.md`、`benchmarks/analyses/recovery-r2-repaired-comparison-2026-11-11/`。
+  - 边界: 已暴露同项目，不混E54分母，旧失败不改；封存读权限通过只读容器完成，原内容/权限未改，库存f2d5d8da；71容器不存在。下一步先审核结果。
 - 2026-11-11 — 装配#731修复后共同基座比较，复用现有规划/执行/费用分析；5相关测试及prepare/check-prepared通过，0新增模型费。
   - 文件: `scripts/forge_recovery_harness_repaired_comparison.py`、同名manifest/preregistration、`docs/research/2026-11-11-repaired-r2-comparison-preparation.md`。
   - 边界: 原18已暴露项目，不混E54分母、不覆盖旧失败、结果先审核再决定入文。
