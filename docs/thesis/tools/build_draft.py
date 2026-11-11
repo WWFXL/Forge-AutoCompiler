@@ -6,7 +6,6 @@ from __future__ import annotations
 import argparse
 import json
 import re
-import shutil
 import sys
 from datetime import date
 from pathlib import Path
@@ -229,14 +228,11 @@ def main() -> None:
     combined = texts[0][1] + "\n\n" + "\n".join(reading_toc)
     combined += "\n\n" + "\n\n".join(text for _, text in texts[1:])
     combined = combined.replace("../figures/", "figures/")
-    markdown_path = output / f"{filename}.md"
-    markdown_path.write_text(combined, encoding="utf-8")
-    shutil.copytree(source_root / "figures", output / "figures", dirs_exist_ok=True)
     summary = {
         "version": args.version,
         "date": args.date,
         "source": str(source_root),
-        "operation": "仅生成阅读副本；以下新增调用数不表示正文的历史实验数量",
+        "operation": "仅导出Word阅读副本，不生成PDF、HTML或Markdown阅读副本",
         "chapters": [path.name for path, _ in texts],
         "main_chapters": 7,
         "source_characters": sum(len(text) for _, text in texts),
@@ -251,30 +247,14 @@ def main() -> None:
         import markdown
         import docx  # noqa: F401
     except ImportError as error:
-        summary["export_warning"] = f"已生成Markdown与目录；Word/HTML依赖缺失：{error}"
+        raise RuntimeError(f"Word导出依赖缺失：{error}") from error
     else:
         rendered = markdown.markdown(
             combined, extensions=["tables", "fenced_code", "sane_lists"]
         )
-        css = """
-body{font-family:'Noto Serif CJK SC',serif;max-width:1050px;margin:40px auto;padding:0 28px;color:#20262e;line-height:1.8}
-h1,h2,h3{font-family:'Noto Sans CJK SC',sans-serif;line-height:1.4;color:#17365a}
-h1{margin-top:2.4em;border-bottom:1px solid #b8c8d9;padding-bottom:.4em}
-table{border-collapse:collapse;width:100%;font-size:.9em;margin:1em 0}
-th,td{border:1px solid #becbd8;padding:7px 9px;text-align:left;vertical-align:top}
-th{background:#edf3f9} img{max-width:100%;height:auto}pre{white-space:pre-wrap;background:#f2f4f6;padding:15px}
-code{overflow-wrap:anywhere}blockquote{border-left:4px solid #a7b9d0;margin-left:0;padding-left:1em;color:#46576a}
-@media print{body{margin:0;max-width:none;font-size:10.5pt}h1{break-before:page}h1:first-child{break-before:auto}tr,img{break-inside:avoid}}
-"""
         title = "面向C/C++仓库自动化构建的状态感知动作选择与验证方法研究"
-        html_path = output / f"{filename}.html"
-        html_path.write_text(
-            f'<!doctype html>\n<html lang="zh-CN"><meta charset="utf-8"><title>{title}</title>'
-            f"<style>{css}</style><body>{rendered}</body></html>\n",
-            encoding="utf-8",
-        )
-        # Word图片使用绝对路径，HTML/Markdown图片仍相对输出目录。
-        word_html = rendered.replace('src="figures/', f'src="{output}/figures/')
+        # 图片直接从分章真源读取并嵌入Word，不生成HTML或额外图片副本。
+        word_html = rendered.replace('src="figures/', f'src="{source_root}/figures/')
         summary["word"] = make_docx(
             word_html, output / f"{filename}.docx", title, args.version, args.date
         )

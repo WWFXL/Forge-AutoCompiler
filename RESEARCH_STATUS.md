@@ -1,15 +1,21 @@
 # Forge Research Status
 
-论文选材固定入口：[硕士论文实验与证据索引](docs/research/THESIS_EVIDENCE_INDEX.md)，[历史材料目录](docs/research/THESIS_EVIDENCE_CATALOG.md)保留存量导航。当前完整稿为[论文v0.10第二轮结果稿](docs/thesis/README.md)；E50–E52保存主构建系统及两轮Harness结果，既有完整任务、状态/恢复消融和两层经验继续按各自版本与分母使用。
+论文选材固定入口：[硕士论文实验与证据索引](docs/research/THESIS_EVIDENCE_INDEX.md)，[历史材料目录](docs/research/THESIS_EVIDENCE_CATALOG.md)保留存量导航。当前完整稿为[论文v0.11工具Harness结果修订稿](docs/thesis/README.md)；E50–E52保存主构建系统及两轮Harness结果，既有完整任务、状态/恢复消融和两层经验继续按各自版本与分母使用。
 
 
-## 当前阶段（2026-11-12；#748工具约束与P4三组36槽完成，待用户审核）
+## 当前阶段（2026-11-12；#750 E57入文及全文论证修订）
+
+用户已批准E57入文，并要求最新版仅Word。v0.11在第5章解释轨迹诊断、工具约束与P4分开更新，第6章6.5.15新增表6-36/37，联动摘要、结论及附录I；案例表顺延6-38。全文删除重复辩解和写作交接，重写相关衔接，保留费用集中、困难失败、实验范围及混合结果。正文真源与[证据映射](docs/thesis/EVIDENCE_MAP.md)、[修订记录](docs/research/2026-11-12-thesis-e57-revision.md)同步。
+
+本轮为论文结果分析与修订，0新实验/Provider，不改冻结材料或默认策略。工具约束候选多完成一项、全批费低14.9%，但共同完成子集增费；P4局部低费、全批高39.7%。下一步用户审核Word及论证取舍，再补学校模板、个人信息与正式著录。导出及发布验证以修订记录和Issue750关联PR为准。
+
+## 上一阶段（2026-11-12；#748工具约束与P4三组36槽完成，待用户审核）
 
 [结果报告](docs/research/2026-11-12-planning-tool-p4-comparison-results.md)、[36槽分析](benchmarks/analyses/planning-tool-p4-comparison-2026-11-12/README.md)、[E57](docs/research/THESIS_EVIDENCE_INDEX.md#e57)：12项目×P0旧行为/P0约束/P4约束，恢复统一原R2。主构建及可复现交付10/12、11/12、10/12；请求132/113/152，费用0.5840436/0.4971639/0.6943038美元。B多完成open62541，总费低14.9%，但共同完成10项费用高85.4%，节约集中难例。C总费比B高39.7%，但共同完成10项中的8项低费、合计低38.0%；保留混合证据，不直接采纳P4。
 
 五未完成槽集中open62541规划不收敛/依赖动作保护冲突，以及libffi共同Autotools宏错和恢复输出/费用准入终止，均非完整测试套件误判。工具实际拒绝仅open62541触发；各组项目一次，不将其他随机规划差异全部归因于工具约束。
 
-36/36终态、0未启动/未闭合/未知，397响应/4967500Token/1.7755113美元，69.95分钟，5美元/UTC11月11日15:12—23:12授权内结束，无自动重试/补槽。原件`forge-planning-tool-p4-comparison-flash-v1`，inventory `cc85f9d8`，封存及独立audit通过；36cleanup/67容器134引用不存在，无活动Provider。运行基线128dd944/manifest c0d2e3d5保持。结果待用户审核，不自动入论文或替换默认，不新增修复/实验；建议P0约束作为下一基线候选。发布状态以Issue748关联PR/CI为准。
+36/36终态、0未启动/未闭合/未知，397响应/4967500Token/1.7755113美元，69.95分钟，5美元/UTC11月11日15:12—23:12授权内结束，无自动重试/补槽。原件`forge-planning-tool-p4-comparison-flash-v1`，inventory `cc85f9d8`，封存及独立audit通过；36cleanup/67容器134引用不存在，无活动Provider。运行基线128dd944/manifest c0d2e3d5保持。该批结果现已获用户批准入文，见当前阶段；未自动替换默认或新增修复/实验，P0约束仍为下一基线候选。发布状态以Issue748关联PR/CI为准。
 
 ## 上一阶段（2026-11-11；#746工具约束与P4三组比较准备完成，待新预算）
 
