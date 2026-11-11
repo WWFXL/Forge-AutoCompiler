@@ -19,7 +19,7 @@ import forge_planning_harness_system_context as context  # noqa: E402
 @pytest.fixture
 def prepared(tmp_path):
     folder = tmp_path / "prepared"
-    shutil.copytree(context.FIXTURE, folder)
+    shutil.copytree(context.FIXTURE, folder, ignore=shutil.ignore_patterns("attempt-started.json"))
     return folder
 
 

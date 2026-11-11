@@ -1,5 +1,7 @@
 # 历史研究材料目录
 
+- 2026-11-11：[规划P3实现上下文提案](2026-11-11-planning-harness-system-context-proposal.md)；仅方法迭代待审，1请求/0.317073美元，源E55重叠、不增效果分母；原件forge-planning-harness-system-context-gpt61sol-20261111-v1，inventory22aab0fb。
+
 新增[E55](THESIS_EVIDENCE_INDEX.md#e55)：[修复后同18项目H0/R2比较](2026-11-11-recovery-harness-repaired-comparison-results.md)，36/36终态，完整17/18、18/18；R2多完成flex但费/时更高，与E54项目重叠，不混独立样本，结果待审不自动入文。
 
 E54共同工程后续：[验证、依赖工具链及文件保护修复](2026-11-11-common-system-repair.md)。masscan/xz/flex最终工程路径与实际重建通过，0Provider；xz首轮工程失败保留。只用于实现说明，不增加E54效果分母、不替换旧失败、不自动入论文。

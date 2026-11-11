@@ -3,11 +3,11 @@
 论文选材固定入口：[硕士论文实验与证据索引](docs/research/THESIS_EVIDENCE_INDEX.md)，[历史材料目录](docs/research/THESIS_EVIDENCE_CATALOG.md)保留存量导航。当前完整稿为[论文v0.10第二轮结果稿](docs/thesis/README.md)；E50–E52保存主构建系统及两轮Harness结果，既有完整任务、状态/恢复消融和两层经验继续按各自版本与分母使用。
 
 
-## 当前阶段（2026-11-11；#737重新准备规划Harness提案）
+## 当前阶段（2026-11-11；#737已取得规划P3提案，待用户审核）
 
-用户要求高级模型结合当前实现、任务指令和编译轨迹重新优化规划Agent，不开展六组合。[准备报告](docs/research/2026-11-11-planning-optimizer-system-context-preparation.md)及同名预注册固定E55全部18共同规划/36分支、当前真实Schema/关键源码、旧H1/H2及已审核R2。只提出初始规划候选P3，后续恢复固定R2；提案先审核→用户下令比较→结果另审后入文。旧结果/失败/默认H0保持，论文PR736独立待审。
+[实际提案与完整指导](docs/research/2026-11-11-planning-harness-system-context-proposal.md)、[原文/候选/提示差异](benchmarks/analyses/planning-harness-system-context-2026-11-11/README.md)：基于E55全部18初始规划/36分支与当前真实实现，独立一次RichLab gpt-6.1-sol请求/同名响应，317073Token/0.317073美元/93.9049秒，无重试/未知。授权一次1美元、UTC10:49:36—14:49:36；唯一一次已完成，不因余额追加。原件forge-planning-harness-system-context-gpt61sol-20261111-v1，inventory22aab0fb；封存audit通过，无活动Provider。
 
-一次RichLab gpt-6.1-sol入口及9项针对性零Provider检查完成，Ruff/格式通过；材料反馈显式限长、全行动链保留且不注入私有参考/隐藏推理/个人知识库。本阶段是研究基础设施，0真实Provider/费用/新增构建，尚无实际P3或效果。建议一次/1美元/确认起4小时；本轮新增预算时窗尚未授权，未读凭据，不续旧授权。取得授权后只调用一次并展示诊断和P0差异，不追加比较或入文。
+P3_system_context为3902字节初始附加指导，6项诊断围绕条件依赖、bootstrap工具版本、必要开发依赖、安装范围、有限补读和动作自查；不是只减请求，也不把后续恢复/环境/接口问题全归初始方案。候选126d5ac4，未人工改写；P0默认、R2恢复和论文PR736保持。仅一次提案，新增构建/比较0，不能主张成功率或成本改善。准备9项相关检查及三CI通过；结果发布CI以PR738最新head为准。现在停在用户审核候选，获比较指令后再准备新项目P0+R2与P3+R2，结果另审才入文。
 
 ## 上一阶段（2026-11-11；#733修复后基座H0/R2比较36槽完成，待用户审核）
 

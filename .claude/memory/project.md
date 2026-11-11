@@ -631,6 +631,12 @@
 
 ## 最近变更 (Recent Changes)
 
+- 2026-11-11 — #737完成唯一一次gpt-6.1-sol规划P3提案，停在用户审核。
+  - 文件: `docs/research/2026-11-11-planning-harness-system-context-proposal.md`、`benchmarks/analyses/planning-harness-system-context-2026-11-11/`、RESEARCH_STATUS及证据索引。
+  - 动机: 用当前实现与18初始规划/36下游校正旧规划优化的输入不足，候选只改初始指导，恢复固定R2。
+  - 结果: 一次请求/响应gpt-6.1-sol、313965输入/3108输出Token、0.317073美元/93.9049秒，0未知/重试；6诊断、指导3902字节、候选126d5ac4，原件inventory22aab0fb/audit通过。用户一次1美元UTC10:49:36—14:49:36的次数已用完；无活动Provider，不追加请求/比较或改论文，H0默认。准备PR738三CI通过；本次结果发布看最新HEAD，旧论文PR736待审不动。
+
+
 - 2026-11-11 — #737准备结合真实系统实现的规划Harness新提案，停在一次调用授权前。
   - 文件: `scripts/forge_planning_harness_system_context.py`、`backend/tests/test_planning_harness_system_context.py`、`benchmarks/fixtures/planning-harness-system-context-v1/`、同名预注册及准备报告。
   - 动机: 旧H1/H2不能证明总体改善；本轮让优化器看到当前真实源码/Schema与E55完整行动链，区分规划、恢复和共同执行问题；只改初始指导，R2恢复固定。
