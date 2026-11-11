@@ -3,7 +3,13 @@
 论文选材固定入口：[硕士论文实验与证据索引](docs/research/THESIS_EVIDENCE_INDEX.md)，[历史材料目录](docs/research/THESIS_EVIDENCE_CATALOG.md)保留存量导航。当前完整稿为[论文v0.10第二轮结果稿](docs/thesis/README.md)；E50–E52保存主构建系统及两轮Harness结果，既有完整任务、状态/恢复消融和两层经验继续按各自版本与分母使用。
 
 
-## 当前阶段（2026-11-11；#729共同修复与三项目真实构建完成，修复阶段结束）
+## 当前阶段（2026-11-11；#731新基座H0/R2比较已授权，待发布检查后采集）
+
+用户要求重新比较上一轮。新身份`cpp-build-recovery-harness-r2-repaired-comparison-flash-v1`，[准备报告](docs/research/2026-11-11-repaired-r2-comparison-preparation.md)及[协议](benchmarks/preregistrations/cpp-build-recovery-harness-r2-repaired-comparison-flash-v1.md)：同18项目/36槽、三系统各6、共同修复基座，重新一次共同H0规划，干净配对只改恢复指导。R2原文不改，仅重新绑定共同提示哈希；masscan原生exit(1)参考两组相同，旧E54不回填、不混分母，不称新样本或holdout。
+
+正式0/36、0 Provider/新增模型费；11项相关检查及源码/组件门禁通过，复用#729真实构建，不重复实建。用户已授权5美元硬上限、UTC2026-11-11 03:21:11—07:21:11，无自动重试，未知用量/模型身份/cleanup异常停止；待发布检查后直接采集，不重复索要授权。结果先审核，不自动改论文v0.10或替换H0；跨批差值不作修复因果。发布状态以Issue731关联PR/CI为准。
+
+## 上一阶段（2026-11-11；#729共同修复与三项目真实构建完成，修复阶段结束）
 
 用户要求先解决E54共同问题。[修复报告](docs/research/2026-11-11-common-system-repair.md)与[四次工程路径汇总](benchmarks/analyses/common-system-repair-2026-11-11/summary.json)：masscan、xz最终路径、flex均主产物/轻量/交付/真实干净重建/清理通过；xz首轮遗漏产物观察保护规则的失败保留，不补旧槽。flex的7个依赖子步骤均进入重建配方，主项目默认目标不缩减。7容器实查不存在，真实Provider/新增模型费均0，只支持共同机制，不计Harness效果。
 
