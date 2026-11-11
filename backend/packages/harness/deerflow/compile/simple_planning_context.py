@@ -26,8 +26,10 @@ def bounded_text(value, limit):
 
 
 class PlanningContext:
-    def __init__(self, packet):
+    def __init__(self, packet, *, enforce_tool_availability=False):
         self.packet = deepcopy(packet)
+        self.enforce_tool_availability = enforce_tool_availability
+        self.available_tools = None
         self.seed_material = [dict(row) for row in packet.get("source_packet", [])]
         self.seed_compactions = 0
         self.reads = {}
@@ -195,6 +197,8 @@ class PlanningContext:
             schemas.extend(convert_to_openai_tool(OutputToolBinding.from_schema_spec(s).tool) for s in bounded.response_format.schema_specs)
         if len(json.dumps(schemas, ensure_ascii=False).encode()) > 8000:
             raise PlanContractError("规划工具schema超过容量")
+        # 与本次真实请求绑定；结构化输出也保留在集合内。恢复默认不启用此干预。
+        self.available_tools = frozenset(s["function"]["name"] for s in schemas)
         meter.ledger.save(f"request-{meter._request_sequence + 1}.json", {**body, "tools": schemas})
         meter.ledger.append(
             "planning.context",

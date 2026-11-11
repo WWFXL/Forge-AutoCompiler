@@ -10,7 +10,7 @@ from pathlib import Path
 from typing import Literal
 
 from langchain.agents import create_agent
-from langchain_core.messages import HumanMessage
+from langchain_core.messages import HumanMessage, ToolMessage
 from langchain_core.tools import tool
 
 from deerflow.compile.agent_workflow_runtime import AgentWorkflowExecutionMiddleware
@@ -65,8 +65,23 @@ class SimpleBuildMeter(ContextCanaryMeter):
         return super().wrap_model_call(request, handler)
 
     def wrap_tool_call(self, request, handler):
-        result = super().wrap_tool_call(request, handler)
         context = getattr(self, "planning_context", None)
+        name = request.tool_call["name"]
+        if context is not None and context.enforce_tool_availability and context.available_tools is not None and name not in context.available_tools:
+            # 保留调用预算与原始反馈，绕过实际读取及读取进展更新。
+            self.tracker.observe_elapsed(time.monotonic() - self.started_monotonic)
+            self.tracker.consume(tool_calls=1, agent_steps=1)
+            self.ledger.append("tool.started", name=name, args=request.tool_call["args"])
+            result = ToolMessage(
+                content=json.dumps(dict(error="tool_not_available", detail="本次请求仅允许当前工具；请利用已有证据提交完整方案。此调用未执行，不是新的源码证据。", available_tools=sorted(context.available_tools)), ensure_ascii=False),
+                tool_call_id=request.tool_call["id"],
+                name=name,
+                status="error",
+            )
+            self.ledger.append("planning.tool_rejected", name=name, request_sequence=self._request_sequence, available_tools=sorted(context.available_tools))
+            self.ledger.append("tool.completed", name=name, result=result.model_dump(mode="json"), executed=False)
+            return result
+        result = super().wrap_tool_call(request, handler)
         if context is not None:
             context.observe(request.tool_call["name"], request.tool_call["args"], result.content)
         return result

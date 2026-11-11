@@ -3,7 +3,15 @@
 论文选材固定入口：[硕士论文实验与证据索引](docs/research/THESIS_EVIDENCE_INDEX.md)，[历史材料目录](docs/research/THESIS_EVIDENCE_CATALOG.md)保留存量导航。当前完整稿为[论文v0.10第二轮结果稿](docs/thesis/README.md)；E50–E52保存主构建系统及两轮Harness结果，既有完整任务、状态/恢复消融和两层经验继续按各自版本与分母使用。
 
 
-## 当前阶段（2026-11-11；#744共同准备/交付修复完成，Codex规划P4待审）
+## 当前阶段（2026-11-11；#746工具约束与P4三组比较准备完成，待新预算）
+
+[准备报告](docs/research/2026-11-11-planning-tool-p4-comparison-preparation.md)、[36槽协议](benchmarks/preregistrations/cpp-build-planning-tool-p4-comparison-flash-v1.md)：用户同意将工具修正视为Harness优化并开展消融。A=P0旧工具行为，B=P0执行约束，C=P4同B约束；三组独立初始规划，恢复统一原R2及原工具行为，干预仅初始规划。P4指导7686c24b与R2指导270becfd保持；不把工具收益算P4提示收益。
+
+12新项目、三系统各4、每组一次共36槽；论文来源/历史接触/预冻结排除已登记，非最终holdout。作者主目标/轻量入口已定义，不称12项全部预先实建。五项真实Agent图、五项比较入口及七项旧P3相邻检查共17项通过，另57项相邻检查通过；两条旧linenoise零Provider真实路径均主构建/轻量/交付/干净重建/源码保护/清理通过，4容器8引用实查不存在。受控A执行5次读取、约束组执行4次并拒绝1次，只证明接线，不计模型效果。
+
+正式0/36、新增模型费0，不读凭据；产品默认/论文/旧结果保持。建议新批硬上限5美元、确认起8小时，统一Flash、无自动重试/不补槽，未知用量/模型身份异常/清理失败停止整批。尚无新批授权，准备发布后请求；结果先审后入文。代码/发布以Issue746关联PR/CI为准。
+
+## 上一阶段（2026-11-11；#744共同准备/交付修复完成，Codex规划P4待审）
 
 [共同修复与真实构建](docs/research/2026-11-11-common-preparation-delivery-repair.md)：清理先于dependency准备且失效受影响完成记录、一次报告全部成功依赖覆盖冲突、同组件同名发布/中间变体确定性交付、作者运行隔离cwd/宿主权限、主构建执行前检查独立参考的作者轻量入口。jansson/toybox/linenoise/snapraid四项目最终主构建及实际干净重建通过；实际6工程路径含未采纳的v1通用旗标路线及最终jansson生成物感知复验，原件均保留，容器实查见汇总。Rnnoise未重跑，不冒称其已成功；0真实Provider/新增费用，不计Harness效果，旧E56与论文保持。
 

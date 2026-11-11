@@ -1,0 +1,368 @@
+{
+  "identity": "cpp-build-planning-tool-p4-comparison-flash-v1",
+  "issue": 746,
+  "projects": [
+    {
+      "name": "open62541",
+      "repository_url": "https://github.com/open62541/open62541",
+      "commit_sha": "2405c6588f8d8093e3e0e49e920db64daf479799",
+      "proposed_build_system": "cmake",
+      "sources": [
+        {
+          "name": "open62541",
+          "topic": "Embedded",
+          "guide": "outside_repo",
+          "source": "compileagent",
+          "source_url": "https://arxiv.org/html/2505.04254v1#A3.T4",
+          "row": 45,
+          "source_html_sha256": "f61b0a20cd65fa2191ffd722ac922d59b6673b485c6f460c209e1e4bcffa56a0"
+        }
+      ],
+      "historical_exposure_pointers": [
+        "benchmarks/manifests/cpp-formal-timeout-calibration.json",
+        "benchmarks/manifests/cpp-formal-timeout-canary-amendment.json",
+        "benchmarks/manifests/cpp-formal-v1-collection.json",
+        "benchmarks/manifests/cpp-formal-v1.json",
+        "benchmarks/manifests/cpp-formal-v2-authorized-collection.json",
+        "benchmarks/manifests/cpp-formal-v2-collection.json",
+        "benchmarks/manifests/cpp-formal-v3-authorized-collection.json",
+        "benchmarks/manifests/cpp-formal-v3-collection.json",
+        "benchmarks/manifests/cpp-formal-v4-authorized-initial-block.json",
+        "benchmarks/manifests/cpp-formal-v4-canary-amendment.json",
+        "benchmarks/manifests/cpp-formal-v4-collection.json",
+        "benchmarks/manifests/cpp-formal-v4-runtime-candidate.json",
+        "benchmarks/manifests/cpp-formal-v4-ubuntu-candidate.json"
+      ],
+      "selection_ref": "v1.3.10"
+    },
+    {
+      "name": "libde265",
+      "repository_url": "https://github.com/strukturag/libde265",
+      "commit_sha": "17bb8d9fcea62db8cdeb0fc7ef8d15dbd19a22e4",
+      "proposed_build_system": "cmake",
+      "sources": [
+        {
+          "name": "Libde265",
+          "topic": "Video Processing",
+          "guide": null,
+          "source": "cxxcrafter",
+          "source_url": "https://arxiv.org/html/2505.21069v1#S2.T1",
+          "row": 7,
+          "source_html_sha256": "f95fcfdf56445caadcf7970e98b9ddd4ac9e13795294ceeb06096199ec1cc516"
+        }
+      ],
+      "historical_exposure_pointers": [
+        "benchmarks/fixtures/cpp-jev-natural-failure-source-pool-v1.json"
+      ],
+      "selection_ref": "v1.0.15"
+    },
+    {
+      "name": "libsndfile",
+      "repository_url": "https://github.com/libsndfile/libsndfile",
+      "commit_sha": "72f6af15e8f85157bd622ed45b979025828b7001",
+      "proposed_build_system": "cmake",
+      "sources": [
+        {
+          "name": "Libsndfile",
+          "topic": "Audio Systems",
+          "guide": null,
+          "source": "cxxcrafter",
+          "source_url": "https://arxiv.org/html/2505.21069v1#S2.T1",
+          "row": 8,
+          "source_html_sha256": "f95fcfdf56445caadcf7970e98b9ddd4ac9e13795294ceeb06096199ec1cc516"
+        }
+      ],
+      "historical_exposure_pointers": [
+        "benchmarks/fixtures/cpp-typed-action-benchmark-source-pool-v1.json",
+        "benchmarks/fixtures/stage-c-source-pool.json",
+        "benchmarks/manifests/cpp-build-auto-provenance-probe-v1.json",
+        "benchmarks/manifests/cpp-build-plan-agent-paired-comparison-v1.json",
+        "benchmarks/manifests/cpp-build-reference-expansion-v1.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v1-authorized.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v1-availability-candidate.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v1-availability-execution.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v1-candidate.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v1-formal-execution.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v2-authorized.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v2-availability-execution.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v2-candidate.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v2-formal-execution.json",
+        "benchmarks/manifests/cpp-stage-c-paired-calibration-authorized.json",
+        "benchmarks/manifests/cpp-stage-c-paired-calibration-v2-remediation-authorized.json",
+        "benchmarks/manifests/cpp-stage-c-paired-calibration-v3-pair-source-authorized.json",
+        "benchmarks/manifests/cpp-stage-c-paired-calibration-v4-build-entrypoint-authorized.json",
+        "benchmarks/manifests/cpp-stage-c-paired-calibration-v5-session-identity-authorized.json",
+        "benchmarks/manifests/cpp-stage-c-paired-calibration-v6-measurement-remediation-candidate.json",
+        "benchmarks/manifests/cpp-stage-c-v6-offline-reevaluation-authorized.json"
+      ],
+      "selection_ref": "1.2.2"
+    },
+    {
+      "name": "mbedtls",
+      "repository_url": "https://github.com/Mbed-TLS/mbedtls",
+      "commit_sha": "5e146adef63b326b04282252639bebc2730939c6",
+      "proposed_build_system": "cmake",
+      "sources": [
+        {
+          "name": "mbedtls",
+          "topic": "Crypto",
+          "guide": "in_repo",
+          "source": "compileagent",
+          "source_url": "https://arxiv.org/html/2505.04254v1#A3.T4",
+          "row": 12,
+          "source_html_sha256": "f61b0a20cd65fa2191ffd722ac922d59b6673b485c6f460c209e1e4bcffa56a0"
+        }
+      ],
+      "historical_exposure_pointers": [],
+      "selection_ref": "v2.28.9"
+    },
+    {
+      "name": "lz4",
+      "repository_url": "https://github.com/lz4/lz4",
+      "commit_sha": "ebb370ca83af193212df4dcbadcc5d87bc0de2f0",
+      "proposed_build_system": "make",
+      "sources": [
+        {
+          "name": "lz4",
+          "topic": "Compression",
+          "guide": "in_repo",
+          "source": "compileagent",
+          "source_url": "https://arxiv.org/html/2505.04254v1#A3.T4",
+          "row": 10,
+          "source_html_sha256": "f61b0a20cd65fa2191ffd722ac922d59b6673b485c6f460c209e1e4bcffa56a0"
+        }
+      ],
+      "historical_exposure_pointers": [
+        "benchmarks/fixtures/cpp-typed-action-benchmark-source-pool-v1.json",
+        "benchmarks/fixtures/stage-c-source-pool.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v1-authorized.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v1-availability-candidate.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v1-availability-execution.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v1-candidate.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v1-formal-execution.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v2-authorized.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v2-availability-execution.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v2-candidate.json",
+        "benchmarks/manifests/cpp-contract-driven-repair-mechanism-v2-formal-execution.json",
+        "benchmarks/manifests/cpp-stage-c-paired-calibration-authorized.json",
+        "benchmarks/manifests/cpp-stage-c-paired-calibration-v2-remediation-authorized.json",
+        "benchmarks/manifests/cpp-stage-c-paired-calibration-v3-pair-source-authorized.json",
+        "benchmarks/manifests/cpp-stage-c-paired-calibration-v4-build-entrypoint-authorized.json",
+        "benchmarks/manifests/cpp-stage-c-paired-calibration-v5-session-identity-authorized.json",
+        "benchmarks/manifests/cpp-stage-c-paired-calibration-v6-measurement-remediation-candidate.json",
+        "benchmarks/manifests/cpp-stage-c-v6-offline-reevaluation-authorized.json"
+      ],
+      "selection_ref": "v1.10.0"
+    },
+    {
+      "name": "clib",
+      "repository_url": "https://github.com/clibs/clib",
+      "commit_sha": "5f85b725d78297ad2beae4ae353ac21cd89cd6d8",
+      "proposed_build_system": "make",
+      "sources": [
+        {
+          "name": "clib",
+          "topic": "Linux",
+          "guide": "in_repo",
+          "source": "compileagent",
+          "source_url": "https://arxiv.org/html/2505.04254v1#A3.T4",
+          "row": 5,
+          "source_html_sha256": "f61b0a20cd65fa2191ffd722ac922d59b6673b485c6f460c209e1e4bcffa56a0"
+        }
+      ],
+      "historical_exposure_pointers": [],
+      "selection_ref": "2.8.7"
+    },
+    {
+      "name": "streem",
+      "repository_url": "https://github.com/matz/streem",
+      "commit_sha": "d022e833335e490bd1dccf0e3bfff71eb50a40bd",
+      "proposed_build_system": "make",
+      "sources": [
+        {
+          "name": "streem",
+          "topic": "Networking",
+          "guide": "in_repo",
+          "source": "compileagent",
+          "source_url": "https://arxiv.org/html/2505.04254v1#A3.T4",
+          "row": 23,
+          "source_html_sha256": "f61b0a20cd65fa2191ffd722ac922d59b6673b485c6f460c209e1e4bcffa56a0"
+        }
+      ],
+      "historical_exposure_pointers": [],
+      "selection_ref": "HEAD"
+    },
+    {
+      "name": "libtomcrypt",
+      "repository_url": "https://github.com/libtom/libtomcrypt",
+      "commit_sha": "7e7eb695d581782f04b24dc444cbfde86af59853",
+      "proposed_build_system": "make",
+      "sources": [
+        {
+          "name": "libtomcrypt",
+          "topic": "Crypto",
+          "guide": "in_repo",
+          "source": "compileagent",
+          "source_url": "https://arxiv.org/html/2505.04254v1#A3.T4",
+          "row": 16,
+          "source_html_sha256": "f61b0a20cd65fa2191ffd722ac922d59b6673b485c6f460c209e1e4bcffa56a0"
+        }
+      ],
+      "historical_exposure_pointers": [
+        "benchmarks/fixtures/cpp-typed-action-benchmark-source-pool-v1.json",
+        "benchmarks/manifests/cpp-build-full-strategy-cleanup-continuation-v1.json",
+        "benchmarks/manifests/cpp-build-full-strategy-comparison-v1.json",
+        "benchmarks/manifests/cpp-build-full-strategy-runtime-v1.json",
+        "benchmarks/manifests/cpp-build-full-strategy-runtime-v2.json",
+        "benchmarks/manifests/cpp-build-reference-expansion-v1.json",
+        "benchmarks/manifests/cpp-build-unified-plan-comparison-v1.json"
+      ],
+      "selection_ref": "v1.18.2"
+    },
+    {
+      "name": "libusb",
+      "repository_url": "https://github.com/libusb/libusb",
+      "commit_sha": "d52e355daa09f17ce64819122cb067b8a2ee0d4b",
+      "proposed_build_system": "autotools",
+      "sources": [
+        {
+          "name": "libusb",
+          "topic": "Embedded",
+          "guide": "outside_repo",
+          "source": "compileagent",
+          "source_url": "https://arxiv.org/html/2505.04254v1#A3.T4",
+          "row": 38,
+          "source_html_sha256": "f61b0a20cd65fa2191ffd722ac922d59b6673b485c6f460c209e1e4bcffa56a0"
+        }
+      ],
+      "historical_exposure_pointers": [
+        "benchmarks/manifests/cpp-build-plan-cross-system-v1.json",
+        "benchmarks/manifests/cpp-build-plan-cross-system-v2.json",
+        "benchmarks/manifests/cpp-formal-timeout-calibration.json",
+        "benchmarks/manifests/cpp-formal-timeout-canary-amendment.json",
+        "benchmarks/manifests/cpp-formal-v1-collection.json",
+        "benchmarks/manifests/cpp-formal-v1.json",
+        "benchmarks/manifests/cpp-formal-v2-authorized-collection.json",
+        "benchmarks/manifests/cpp-formal-v2-collection.json",
+        "benchmarks/manifests/cpp-formal-v3-authorized-collection.json",
+        "benchmarks/manifests/cpp-formal-v3-collection.json",
+        "benchmarks/manifests/cpp-formal-v4-authorized-initial-block.json",
+        "benchmarks/manifests/cpp-formal-v4-canary-amendment.json",
+        "benchmarks/manifests/cpp-formal-v4-collection.json",
+        "benchmarks/manifests/cpp-formal-v4-runtime-candidate.json",
+        "benchmarks/manifests/cpp-formal-v4-ubuntu-candidate.json"
+      ],
+      "selection_ref": "v1.0.27"
+    },
+    {
+      "name": "libffi",
+      "repository_url": "https://github.com/libffi/libffi",
+      "commit_sha": "3d0ce1e6fcf19f853894862abcbac0ae78a7be60",
+      "proposed_build_system": "autotools",
+      "sources": [
+        {
+          "name": "libffi",
+          "topic": "Embedded",
+          "guide": "in_repo",
+          "source": "compileagent",
+          "source_url": "https://arxiv.org/html/2505.04254v1#A3.T4",
+          "row": 43,
+          "source_html_sha256": "f61b0a20cd65fa2191ffd722ac922d59b6673b485c6f460c209e1e4bcffa56a0"
+        }
+      ],
+      "historical_exposure_pointers": [
+        "benchmarks/fixtures/cpp-typed-action-benchmark-source-pool-v1.json",
+        "benchmarks/manifests/cpp-build-reference-expansion-v1.json"
+      ],
+      "selection_ref": "v3.4.6"
+    },
+    {
+      "name": "wolfssl",
+      "repository_url": "https://github.com/wolfSSL/wolfssl",
+      "commit_sha": "00e42151ca061463ba6a95adb2290f678cbca472",
+      "proposed_build_system": "autotools",
+      "sources": [
+        {
+          "name": "wolfssl",
+          "topic": "Crypto",
+          "guide": "outside_repo",
+          "source": "compileagent",
+          "source_url": "https://arxiv.org/html/2505.04254v1#A3.T4",
+          "row": 14,
+          "source_html_sha256": "f61b0a20cd65fa2191ffd722ac922d59b6673b485c6f460c209e1e4bcffa56a0"
+        }
+      ],
+      "historical_exposure_pointers": [
+        "benchmarks/manifests/cpp-jev-formal-comparison-v1.json",
+        "benchmarks/manifests/cpp-jev-formal-comparison-v2.json",
+        "benchmarks/manifests/cpp-jev-formal-comparison-v3.json",
+        "benchmarks/manifests/cpp-jev-formal-comparison-v4.json",
+        "benchmarks/manifests/cpp-jev-formal-comparison-v5.json",
+        "benchmarks/manifests/cpp-jev-formal-comparison-v6.json"
+      ],
+      "selection_ref": "v5.7.2-stable"
+    },
+    {
+      "name": "cava",
+      "repository_url": "https://github.com/karlstav/cava",
+      "commit_sha": "48131cc1fd20f51a211c691624cfdee7971036a0",
+      "proposed_build_system": "autotools",
+      "sources": [
+        {
+          "name": "cava",
+          "topic": "Audio",
+          "guide": "in_repo",
+          "source": "compileagent",
+          "source_url": "https://arxiv.org/html/2505.04254v1#A3.T4",
+          "row": 5,
+          "source_html_sha256": "f61b0a20cd65fa2191ffd722ac922d59b6673b485c6f460c209e1e4bcffa56a0"
+        }
+      ],
+      "historical_exposure_pointers": [],
+      "selection_ref": "0.10.3"
+    }
+  ],
+  "boundary": "三类系统各四项目；排除已有tasks.json的近期开发评价项目；可能有旧目录接触，非最终holdout；在任何方法结果之前选定",
+  "excluded_before_freeze": [
+    {
+      "name": "smenu",
+      "repository_url": "https://github.com/p-gen/smenu",
+      "commit_sha": "04b85ad5549258f06304739d54b2501d00670c3d",
+      "proposed_build_system": "make",
+      "sources": [
+        {
+          "name": "smenu",
+          "topic": "Terminal",
+          "guide": "in_repo",
+          "source": "compileagent",
+          "source_url": "https://arxiv.org/html/2505.04254v1#A3.T4",
+          "row": 47,
+          "source_html_sha256": "f61b0a20cd65fa2191ffd722ac922d59b6673b485c6f460c209e1e4bcffa56a0"
+        }
+      ],
+      "historical_exposure_pointers": [],
+      "selection_ref": "HEAD",
+      "reason": "固定源码无根Makefile，仅configure/Makefile.in；原拟归Make不准确。在任何方法结果前改选原生Make项目clib；已采集原件保留"
+    },
+    {
+      "name": "zlib",
+      "repository_url": "https://github.com/madler/zlib",
+      "commit_sha": "51b7f2abdade71cd9bb0e7a373ef2610ec6f9daf",
+      "proposed_build_system": "cmake",
+      "sources": [
+        {
+          "name": "zlib",
+          "topic": "Compression",
+          "guide": "outside_repo",
+          "source": "compileagent",
+          "source_url": "https://arxiv.org/html/2505.04254v1#A3.T4",
+          "row": 9,
+          "source_html_sha256": "f61b0a20cd65fa2191ffd722ac922d59b6673b485c6f460c209e1e4bcffa56a0"
+        }
+      ],
+      "historical_exposure_pointers": [],
+      "selection_ref": "v1.3.1",
+      "reason": "CMake入口会重命名原始zconf.h，已知与保持原输入的共同要求冲突；任何方法运行前改选open62541；采集原件保留"
+    }
+  ]
+}

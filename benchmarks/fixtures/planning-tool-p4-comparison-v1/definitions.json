@@ -1,0 +1,1214 @@
+{
+  "open62541": {
+    "components": [
+      {
+        "name": "open62541",
+        "artifact_names": [
+          "libopen62541.a",
+          "libopen62541.so"
+        ],
+        "kinds": [
+          "static_library",
+          "shared_library"
+        ],
+        "evidence": "固定作者普通主构建目标，见source_evidence；辅助示例及完整测试不列为主要交付"
+      }
+    ],
+    "source_evidence": [
+      {
+        "path": "CMakeLists.txt",
+        "quote": "add_library(open62541 $<TARGET_OBJECTS:open62541-object>)",
+        "line": 1397
+      },
+      {
+        "path": "CMakeLists.txt",
+        "quote": "option(UA_BUILD_EXAMPLES \"Build example servers and clients\" OFF)",
+        "line": 543
+      }
+    ],
+    "reference_actions": [
+      {
+        "role": "configure",
+        "command": "cmake -S . -B build",
+        "workdir": "/workspace/repo"
+      },
+      {
+        "role": "build",
+        "command": "cmake --build build --parallel 4",
+        "workdir": "/workspace/repo"
+      }
+    ],
+    "executable_smokes": []
+  },
+  "libde265": {
+    "components": [
+      {
+        "name": "de265",
+        "artifact_names": [
+          "libde265.a",
+          "libde265.so"
+        ],
+        "kinds": [
+          "static_library",
+          "shared_library"
+        ],
+        "evidence": "固定作者普通主构建目标，见source_evidence；辅助示例及完整测试不列为主要交付"
+      },
+      {
+        "name": "dec265",
+        "artifact_names": [
+          "dec265"
+        ],
+        "kinds": [
+          "executable"
+        ],
+        "evidence": "固定作者普通主构建目标，见source_evidence；辅助示例及完整测试不列为主要交付"
+      }
+    ],
+    "source_evidence": [
+      {
+        "path": "CMakeLists.txt",
+        "quote": "option(ENABLE_DECODER \"Enable Decoder\" ON)",
+        "line": 67
+      },
+      {
+        "path": "libde265/CMakeLists.txt",
+        "quote": "add_library(de265",
+        "line": 124
+      },
+      {
+        "path": "dec265/dec265.cc",
+        "quote": "exit(show_help ? 0 : 5);",
+        "line": 631
+      }
+    ],
+    "reference_actions": [
+      {
+        "role": "configure",
+        "command": "cmake -S . -B build",
+        "workdir": "/workspace/repo"
+      },
+      {
+        "role": "build",
+        "command": "cmake --build build --parallel 4",
+        "workdir": "/workspace/repo"
+      }
+    ],
+    "executable_smokes": [
+      {
+        "artifact_name": "dec265",
+        "accepted_exit_codes": [
+          0
+        ],
+        "step": {
+          "step_id": "smoke-dec265",
+          "role": "smoke",
+          "command": "/artifacts/dec265 --help",
+          "workdir": "/artifacts",
+          "source": "固定作者主程序版本/用法入口，见source_evidence",
+          "expected": "作者定义的轻量正常退出",
+          "required_output": [
+            "usage: dec265"
+          ]
+        }
+      }
+    ]
+  },
+  "libsndfile": {
+    "components": [
+      {
+        "name": "sndfile",
+        "artifact_names": [
+          "libsndfile.a",
+          "libsndfile.so"
+        ],
+        "kinds": [
+          "static_library",
+          "shared_library"
+        ],
+        "evidence": "固定作者普通主构建目标，见source_evidence；辅助示例及完整测试不列为主要交付"
+      },
+      {
+        "name": "sndfile-info",
+        "artifact_names": [
+          "sndfile-info"
+        ],
+        "kinds": [
+          "executable"
+        ],
+        "evidence": "固定作者普通主构建目标，见source_evidence；辅助示例及完整测试不列为主要交付"
+      },
+      {
+        "name": "sndfile-play",
+        "artifact_names": [
+          "sndfile-play"
+        ],
+        "kinds": [
+          "executable"
+        ],
+        "evidence": "固定作者普通主构建目标，见source_evidence；辅助示例及完整测试不列为主要交付"
+      },
+      {
+        "name": "sndfile-convert",
+        "artifact_names": [
+          "sndfile-convert"
+        ],
+        "kinds": [
+          "executable"
+        ],
+        "evidence": "固定作者普通主构建目标，见source_evidence；辅助示例及完整测试不列为主要交付"
+      },
+      {
+        "name": "sndfile-cmp",
+        "artifact_names": [
+          "sndfile-cmp"
+        ],
+        "kinds": [
+          "executable"
+        ],
+        "evidence": "固定作者普通主构建目标，见source_evidence；辅助示例及完整测试不列为主要交付"
+      },
+      {
+        "name": "sndfile-metadata-set",
+        "artifact_names": [
+          "sndfile-metadata-set"
+        ],
+        "kinds": [
+          "executable"
+        ],
+        "evidence": "固定作者普通主构建目标，见source_evidence；辅助示例及完整测试不列为主要交付"
+      },
+      {
+        "name": "sndfile-metadata-get",
+        "artifact_names": [
+          "sndfile-metadata-get"
+        ],
+        "kinds": [
+          "executable"
+        ],
+        "evidence": "固定作者普通主构建目标，见source_evidence；辅助示例及完整测试不列为主要交付"
+      },
+      {
+        "name": "sndfile-interleave",
+        "artifact_names": [
+          "sndfile-interleave"
+        ],
+        "kinds": [
+          "executable"
+        ],
+        "evidence": "固定作者普通主构建目标，见source_evidence；辅助示例及完整测试不列为主要交付"
+      },
+      {
+        "name": "sndfile-deinterleave",
+        "artifact_names": [
+          "sndfile-deinterleave"
+        ],
+        "kinds": [
+          "executable"
+        ],
+        "evidence": "固定作者普通主构建目标，见source_evidence；辅助示例及完整测试不列为主要交付"
+      },
+      {
+        "name": "sndfile-concat",
+        "artifact_names": [
+          "sndfile-concat"
+        ],
+        "kinds": [
+          "executable"
+        ],
+        "evidence": "固定作者普通主构建目标，见source_evidence；辅助示例及完整测试不列为主要交付"
+      },
+      {
+        "name": "sndfile-salvage",
+        "artifact_names": [
+          "sndfile-salvage"
+        ],
+        "kinds": [
+          "executable"
+        ],
+        "evidence": "固定作者普通主构建目标，见source_evidence；辅助示例及完整测试不列为主要交付"
+      }
+    ],
+    "source_evidence": [
+      {
+        "path": "CMakeLists.txt",
+        "quote": "option (BUILD_PROGRAMS \"Build programs\" ON)",
+        "line": 74
+      },
+      {
+        "path": "CMakeLists.txt",
+        "quote": "add_library (sndfile",
+        "line": 259
+      },
+      {
+        "path": "programs/sndfile-info.c",
+        "quote": "Usage",
+        "line": 115
+      },
+      {
+        "path": "programs/sndfile-play.c",
+        "quote": "Usage",
+        "line": 821
+      },
+      {
+        "path": "programs/sndfile-convert.c",
+        "quote": "Usage",
+        "line": 53
+      },
+      {
+        "path": "programs/sndfile-cmp.c",
+        "quote": "Usage",
+        "line": 132
+      },
+      {
+        "path": "programs/sndfile-metadata-set.c",
+        "quote": "Usage",
+        "line": 195
+      },
+      {
+        "path": "programs/sndfile-metadata-get.c",
+        "quote": "Usage",
+        "line": 102
+      },
+      {
+        "path": "programs/sndfile-interleave.c",
+        "quote": "Usage",
+        "line": 162
+      },
+      {
+        "path": "programs/sndfile-deinterleave.c",
+        "quote": "Usage",
+        "line": 178
+      },
+      {
+        "path": "programs/sndfile-concat.c",
+        "quote": "Usage",
+        "line": 51
+      },
+      {
+        "path": "programs/sndfile-salvage.c",
+        "quote": "Usage",
+        "line": 91
+      }
+    ],
+    "reference_actions": [
+      {
+        "role": "configure",
+        "command": "cmake -S . -B build",
+        "workdir": "/workspace/repo"
+      },
+      {
+        "role": "build",
+        "command": "cmake --build build --parallel 4",
+        "workdir": "/workspace/repo"
+      }
+    ],
+    "executable_smokes": [
+      {
+        "artifact_name": "sndfile-info",
+        "accepted_exit_codes": [
+          1
+        ],
+        "step": {
+          "step_id": "smoke-sndfile-info",
+          "role": "smoke",
+          "command": "/artifacts/sndfile-info",
+          "workdir": "/artifacts",
+          "source": "固定作者主程序版本/用法入口，见source_evidence",
+          "expected": "作者定义的轻量正常退出",
+          "required_output": [
+            "Usage"
+          ]
+        }
+      },
+      {
+        "artifact_name": "sndfile-play",
+        "accepted_exit_codes": [
+          1
+        ],
+        "step": {
+          "step_id": "smoke-sndfile-play",
+          "role": "smoke",
+          "command": "/artifacts/sndfile-play",
+          "workdir": "/artifacts",
+          "source": "固定作者主程序版本/用法入口，见source_evidence",
+          "expected": "作者定义的轻量正常退出",
+          "required_output": [
+            "Usage"
+          ]
+        }
+      },
+      {
+        "artifact_name": "sndfile-convert",
+        "accepted_exit_codes": [
+          1
+        ],
+        "step": {
+          "step_id": "smoke-sndfile-convert",
+          "role": "smoke",
+          "command": "/artifacts/sndfile-convert",
+          "workdir": "/artifacts",
+          "source": "固定作者主程序版本/用法入口，见source_evidence",
+          "expected": "作者定义的轻量正常退出",
+          "required_output": [
+            "Usage"
+          ]
+        }
+      },
+      {
+        "artifact_name": "sndfile-cmp",
+        "accepted_exit_codes": [
+          1
+        ],
+        "step": {
+          "step_id": "smoke-sndfile-cmp",
+          "role": "smoke",
+          "command": "/artifacts/sndfile-cmp",
+          "workdir": "/artifacts",
+          "source": "固定作者主程序版本/用法入口，见source_evidence",
+          "expected": "作者定义的轻量正常退出",
+          "required_output": [
+            "Usage"
+          ]
+        }
+      },
+      {
+        "artifact_name": "sndfile-metadata-set",
+        "accepted_exit_codes": [
+          0
+        ],
+        "step": {
+          "step_id": "smoke-sndfile-metadata-set",
+          "role": "smoke",
+          "command": "/artifacts/sndfile-metadata-set",
+          "workdir": "/artifacts",
+          "source": "固定作者主程序版本/用法入口，见source_evidence",
+          "expected": "作者定义的轻量正常退出",
+          "required_output": [
+            "Usage"
+          ]
+        }
+      },
+      {
+        "artifact_name": "sndfile-metadata-get",
+        "accepted_exit_codes": [
+          0
+        ],
+        "step": {
+          "step_id": "smoke-sndfile-metadata-get",
+          "role": "smoke",
+          "command": "/artifacts/sndfile-metadata-get",
+          "workdir": "/artifacts",
+          "source": "固定作者主程序版本/用法入口，见source_evidence",
+          "expected": "作者定义的轻量正常退出",
+          "required_output": [
+            "Usage"
+          ]
+        }
+      },
+      {
+        "artifact_name": "sndfile-interleave",
+        "accepted_exit_codes": [
+          1
+        ],
+        "step": {
+          "step_id": "smoke-sndfile-interleave",
+          "role": "smoke",
+          "command": "/artifacts/sndfile-interleave",
+          "workdir": "/artifacts",
+          "source": "固定作者主程序版本/用法入口，见source_evidence",
+          "expected": "作者定义的轻量正常退出",
+          "required_output": [
+            "Usage"
+          ]
+        }
+      },
+      {
+        "artifact_name": "sndfile-deinterleave",
+        "accepted_exit_codes": [
+          1
+        ],
+        "step": {
+          "step_id": "smoke-sndfile-deinterleave",
+          "role": "smoke",
+          "command": "/artifacts/sndfile-deinterleave",
+          "workdir": "/artifacts",
+          "source": "固定作者主程序版本/用法入口，见source_evidence",
+          "expected": "作者定义的轻量正常退出",
+          "required_output": [
+            "Usage"
+          ]
+        }
+      },
+      {
+        "artifact_name": "sndfile-concat",
+        "accepted_exit_codes": [
+          1
+        ],
+        "step": {
+          "step_id": "smoke-sndfile-concat",
+          "role": "smoke",
+          "command": "/artifacts/sndfile-concat",
+          "workdir": "/artifacts",
+          "source": "固定作者主程序版本/用法入口，见source_evidence",
+          "expected": "作者定义的轻量正常退出",
+          "required_output": [
+            "Usage"
+          ]
+        }
+      },
+      {
+        "artifact_name": "sndfile-salvage",
+        "accepted_exit_codes": [
+          1
+        ],
+        "step": {
+          "step_id": "smoke-sndfile-salvage",
+          "role": "smoke",
+          "command": "/artifacts/sndfile-salvage",
+          "workdir": "/artifacts",
+          "source": "固定作者主程序版本/用法入口，见source_evidence",
+          "expected": "作者定义的轻量正常退出",
+          "required_output": [
+            "Usage"
+          ]
+        }
+      }
+    ]
+  },
+  "mbedtls": {
+    "components": [
+      {
+        "name": "mbedcrypto",
+        "artifact_names": [
+          "libmbedcrypto.a",
+          "libmbedcrypto.so"
+        ],
+        "kinds": [
+          "static_library",
+          "shared_library"
+        ],
+        "evidence": "固定作者普通主构建目标，见source_evidence；辅助示例及完整测试不列为主要交付"
+      },
+      {
+        "name": "mbedx509",
+        "artifact_names": [
+          "libmbedx509.a",
+          "libmbedx509.so"
+        ],
+        "kinds": [
+          "static_library",
+          "shared_library"
+        ],
+        "evidence": "固定作者普通主构建目标，见source_evidence；辅助示例及完整测试不列为主要交付"
+      },
+      {
+        "name": "mbedtls",
+        "artifact_names": [
+          "libmbedtls.a",
+          "libmbedtls.so"
+        ],
+        "kinds": [
+          "static_library",
+          "shared_library"
+        ],
+        "evidence": "固定作者普通主构建目标，见source_evidence；辅助示例及完整测试不列为主要交付"
+      }
+    ],
+    "source_evidence": [
+      {
+        "path": "library/CMakeLists.txt",
+        "quote": "add_library(${mbedcrypto_static_target} STATIC ${src_crypto})",
+        "line": 193
+      },
+      {
+        "path": "library/CMakeLists.txt",
+        "quote": "add_library(${mbedx509_static_target} STATIC ${src_x509})",
+        "line": 197
+      },
+      {
+        "path": "library/CMakeLists.txt",
+        "quote": "add_library(${mbedtls_static_target} STATIC ${src_tls})",
+        "line": 201
+      }
+    ],
+    "reference_actions": [
+      {
+        "role": "configure",
+        "command": "cmake -S . -B build",
+        "workdir": "/workspace/repo"
+      },
+      {
+        "role": "build",
+        "command": "cmake --build build --parallel 4",
+        "workdir": "/workspace/repo"
+      }
+    ],
+    "executable_smokes": []
+  },
+  "lz4": {
+    "components": [
+      {
+        "name": "lz4",
+        "artifact_names": [
+          "liblz4.a",
+          "liblz4.so"
+        ],
+        "kinds": [
+          "static_library",
+          "shared_library"
+        ],
+        "evidence": "固定作者普通主构建目标，见source_evidence；辅助示例及完整测试不列为主要交付"
+      },
+      {
+        "name": "lz4-cli",
+        "artifact_names": [
+          "lz4"
+        ],
+        "kinds": [
+          "executable"
+        ],
+        "evidence": "固定作者普通主构建目标，见source_evidence；辅助示例及完整测试不列为主要交付"
+      }
+    ],
+    "source_evidence": [
+      {
+        "path": "Makefile",
+        "quote": "default: lib-release lz4-release",
+        "line": 43
+      },
+      {
+        "path": "programs/lz4cli.c",
+        "quote": "if (!strcmp(argument,  \"--version\"))",
+        "line": 483
+      }
+    ],
+    "reference_actions": [
+      {
+        "role": "build",
+        "command": "make -j4",
+        "workdir": "/workspace/repo"
+      }
+    ],
+    "executable_smokes": [
+      {
+        "artifact_name": "lz4",
+        "accepted_exit_codes": [
+          0
+        ],
+        "step": {
+          "step_id": "smoke-lz4",
+          "role": "smoke",
+          "command": "/artifacts/lz4 --version",
+          "workdir": "/artifacts",
+          "source": "固定作者主程序版本/用法入口，见source_evidence",
+          "expected": "作者定义的轻量正常退出",
+          "required_output": [
+            "by"
+          ]
+        }
+      }
+    ]
+  },
+  "clib": {
+    "components": [
+      {
+        "name": "clib",
+        "artifact_names": [
+          "clib"
+        ],
+        "kinds": [
+          "executable"
+        ],
+        "evidence": "固定作者普通主构建目标，见source_evidence；辅助示例及完整测试不列为主要交付"
+      },
+      {
+        "name": "clib-install",
+        "artifact_names": [
+          "clib-install"
+        ],
+        "kinds": [
+          "executable"
+        ],
+        "evidence": "固定作者普通主构建目标，见source_evidence；辅助示例及完整测试不列为主要交付"
+      },
+      {
+        "name": "clib-search",
+        "artifact_names": [
+          "clib-search"
+        ],
+        "kinds": [
+          "executable"
+        ],
+        "evidence": "固定作者普通主构建目标，见source_evidence；辅助示例及完整测试不列为主要交付"
+      },
+      {
+        "name": "clib-init",
+        "artifact_names": [
+          "clib-init"
+        ],
+        "kinds": [
+          "executable"
+        ],
+        "evidence": "固定作者普通主构建目标，见source_evidence；辅助示例及完整测试不列为主要交付"
+      },
+      {
+        "name": "clib-configure",
+        "artifact_names": [
+          "clib-configure"
+        ],
+        "kinds": [
+          "executable"
+        ],
+        "evidence": "固定作者普通主构建目标，见source_evidence；辅助示例及完整测试不列为主要交付"
+      },
+      {
+        "name": "clib-build",
+        "artifact_names": [
+          "clib-build"
+        ],
+        "kinds": [
+          "executable"
+        ],
+        "evidence": "固定作者普通主构建目标，见source_evidence；辅助示例及完整测试不列为主要交付"
+      },
+      {
+        "name": "clib-update",
+        "artifact_names": [
+          "clib-update"
+        ],
+        "kinds": [
+          "executable"
+        ],
+        "evidence": "固定作者普通主构建目标，见source_evidence；辅助示例及完整测试不列为主要交付"
+      },
+      {
+        "name": "clib-upgrade",
+        "artifact_names": [
+          "clib-upgrade"
+        ],
+        "kinds": [
+          "executable"
+        ],
+        "evidence": "固定作者普通主构建目标，见source_evidence；辅助示例及完整测试不列为主要交付"
+      },
+      {
+        "name": "clib-uninstall",
+        "artifact_names": [
+          "clib-uninstall"
+        ],
+        "kinds": [
+          "executable"
+        ],
+        "evidence": "固定作者普通主构建目标，见source_evidence；辅助示例及完整测试不列为主要交付"
+      }
+    ],
+    "source_evidence": [
+      {
+        "path": "Makefile",
+        "quote": "BINS = clib clib-install clib-search clib-init clib-configure clib-build clib-update clib-upgrade clib-uninstall",
+        "line": 4
+      },
+      {
+        "path": "src/clib.c",
+        "quote": "printf(\"%s\\n\", CLIB_VERSION);",
+        "line": 190
+      },
+      {
+        "path": "deps/commander/commander.c",
+        "quote": "command_version",
+        "line": 29
+      },
+      {
+        "path": "src/clib.c",
+        "quote": "notify_new_release();",
+        "line": 179
+      }
+    ],
+    "reference_actions": [
+      {
+        "role": "dependency",
+        "command": "apt-get update && apt-get install -y libcurl4-openssl-dev",
+        "workdir": "/workspace/repo"
+      },
+      {
+        "role": "build",
+        "command": "make -j4",
+        "workdir": "/workspace/repo"
+      }
+    ],
+    "executable_smokes": [
+      {
+        "artifact_name": "clib",
+        "accepted_exit_codes": [
+          0
+        ],
+        "step": {
+          "step_id": "smoke-clib",
+          "role": "smoke",
+          "command": "/artifacts/clib --version",
+          "workdir": "/artifacts",
+          "source": "固定作者主程序版本/用法入口，见source_evidence",
+          "expected": "作者定义的轻量正常退出",
+          "required_output": [
+            "2.8.7"
+          ]
+        }
+      },
+      {
+        "artifact_name": "clib-install",
+        "accepted_exit_codes": [
+          0
+        ],
+        "step": {
+          "step_id": "smoke-clib-install",
+          "role": "smoke",
+          "command": "/artifacts/clib-install --version",
+          "workdir": "/artifacts",
+          "source": "固定作者主程序版本/用法入口，见source_evidence",
+          "expected": "作者定义的轻量正常退出",
+          "required_output": [
+            "2.8.7"
+          ]
+        }
+      },
+      {
+        "artifact_name": "clib-search",
+        "accepted_exit_codes": [
+          0
+        ],
+        "step": {
+          "step_id": "smoke-clib-search",
+          "role": "smoke",
+          "command": "/artifacts/clib-search --version",
+          "workdir": "/artifacts",
+          "source": "固定作者主程序版本/用法入口，见source_evidence",
+          "expected": "作者定义的轻量正常退出",
+          "required_output": [
+            "2.8.7"
+          ]
+        }
+      },
+      {
+        "artifact_name": "clib-init",
+        "accepted_exit_codes": [
+          0
+        ],
+        "step": {
+          "step_id": "smoke-clib-init",
+          "role": "smoke",
+          "command": "/artifacts/clib-init --version",
+          "workdir": "/artifacts",
+          "source": "固定作者主程序版本/用法入口，见source_evidence",
+          "expected": "作者定义的轻量正常退出",
+          "required_output": [
+            "2.8.7"
+          ]
+        }
+      },
+      {
+        "artifact_name": "clib-configure",
+        "accepted_exit_codes": [
+          0
+        ],
+        "step": {
+          "step_id": "smoke-clib-configure",
+          "role": "smoke",
+          "command": "/artifacts/clib-configure --version",
+          "workdir": "/artifacts",
+          "source": "固定作者主程序版本/用法入口，见source_evidence",
+          "expected": "作者定义的轻量正常退出",
+          "required_output": [
+            "2.8.7"
+          ]
+        }
+      },
+      {
+        "artifact_name": "clib-build",
+        "accepted_exit_codes": [
+          0
+        ],
+        "step": {
+          "step_id": "smoke-clib-build",
+          "role": "smoke",
+          "command": "/artifacts/clib-build --version",
+          "workdir": "/artifacts",
+          "source": "固定作者主程序版本/用法入口，见source_evidence",
+          "expected": "作者定义的轻量正常退出",
+          "required_output": [
+            "2.8.7"
+          ]
+        }
+      },
+      {
+        "artifact_name": "clib-update",
+        "accepted_exit_codes": [
+          0
+        ],
+        "step": {
+          "step_id": "smoke-clib-update",
+          "role": "smoke",
+          "command": "/artifacts/clib-update --version",
+          "workdir": "/artifacts",
+          "source": "固定作者主程序版本/用法入口，见source_evidence",
+          "expected": "作者定义的轻量正常退出",
+          "required_output": [
+            "2.8.7"
+          ]
+        }
+      },
+      {
+        "artifact_name": "clib-upgrade",
+        "accepted_exit_codes": [
+          0
+        ],
+        "step": {
+          "step_id": "smoke-clib-upgrade",
+          "role": "smoke",
+          "command": "/artifacts/clib-upgrade --version",
+          "workdir": "/artifacts",
+          "source": "固定作者主程序版本/用法入口，见source_evidence",
+          "expected": "作者定义的轻量正常退出",
+          "required_output": [
+            "2.8.7"
+          ]
+        }
+      },
+      {
+        "artifact_name": "clib-uninstall",
+        "accepted_exit_codes": [
+          0
+        ],
+        "step": {
+          "step_id": "smoke-clib-uninstall",
+          "role": "smoke",
+          "command": "/artifacts/clib-uninstall --version",
+          "workdir": "/artifacts",
+          "source": "固定作者主程序版本/用法入口，见source_evidence",
+          "expected": "作者定义的轻量正常退出",
+          "required_output": [
+            "2.8.7"
+          ]
+        }
+      }
+    ]
+  },
+  "streem": {
+    "components": [
+      {
+        "name": "streem",
+        "artifact_names": [
+          "streem"
+        ],
+        "kinds": [
+          "executable"
+        ],
+        "evidence": "固定作者普通主构建目标，见source_evidence；辅助示例及完整测试不列为主要交付"
+      }
+    ],
+    "source_evidence": [
+      {
+        "path": "Makefile",
+        "quote": "TARGET = bin/streem",
+        "line": 1
+      },
+      {
+        "path": "src/main.c",
+        "quote": "puts(\"Syntax OK\");",
+        "line": 319
+      }
+    ],
+    "reference_actions": [
+      {
+        "role": "dependency",
+        "command": "apt-get update && apt-get install -y bison flex",
+        "workdir": "/workspace/repo"
+      },
+      {
+        "role": "build",
+        "command": "make -j4",
+        "workdir": "/workspace/repo"
+      }
+    ],
+    "executable_smokes": [
+      {
+        "artifact_name": "streem",
+        "accepted_exit_codes": [
+          0
+        ],
+        "step": {
+          "step_id": "smoke-streem",
+          "role": "smoke",
+          "command": "/artifacts/streem -c -e '1'",
+          "workdir": "/artifacts",
+          "source": "固定作者主程序版本/用法入口，见source_evidence",
+          "expected": "作者定义的轻量正常退出",
+          "required_output": [
+            "Syntax OK"
+          ]
+        }
+      }
+    ]
+  },
+  "libtomcrypt": {
+    "components": [
+      {
+        "name": "tomcrypt",
+        "artifact_names": [
+          "libtomcrypt.a",
+          "libtomcrypt.so"
+        ],
+        "kinds": [
+          "static_library",
+          "shared_library"
+        ],
+        "evidence": "固定作者普通主构建目标，见source_evidence；辅助示例及完整测试不列为主要交付"
+      }
+    ],
+    "source_evidence": [
+      {
+        "path": "makefile",
+        "quote": "LIBNAME=libtomcrypt.a",
+        "line": 27
+      },
+      {
+        "path": "makefile_include.mk",
+        "quote": "library:",
+        "line": 202
+      }
+    ],
+    "reference_actions": [
+      {
+        "role": "build",
+        "command": "make -j4",
+        "workdir": "/workspace/repo"
+      }
+    ],
+    "executable_smokes": []
+  },
+  "libusb": {
+    "components": [
+      {
+        "name": "usb-1.0",
+        "artifact_names": [
+          "libusb-1.0.a",
+          "libusb-1.0.so"
+        ],
+        "kinds": [
+          "static_library",
+          "shared_library"
+        ],
+        "evidence": "固定作者普通主构建目标，见source_evidence；辅助示例及完整测试不列为主要交付"
+      }
+    ],
+    "source_evidence": [
+      {
+        "path": "libusb/Makefile.am",
+        "quote": "lib_LTLIBRARIES = libusb-1.0.la",
+        "line": 6
+      },
+      {
+        "path": "README.git",
+        "quote": "./bootstrap.sh",
+        "line": 6
+      }
+    ],
+    "reference_actions": [
+      {
+        "role": "dependency",
+        "command": "apt-get update && apt-get install -y autoconf automake libtool libudev-dev",
+        "workdir": "/workspace/repo"
+      },
+      {
+        "role": "dependency",
+        "command": "./bootstrap.sh",
+        "workdir": "/workspace/repo"
+      },
+      {
+        "role": "configure",
+        "command": "./configure",
+        "workdir": "/workspace/repo"
+      },
+      {
+        "role": "build",
+        "command": "make -j4",
+        "workdir": "/workspace/repo"
+      }
+    ],
+    "executable_smokes": []
+  },
+  "libffi": {
+    "components": [
+      {
+        "name": "ffi",
+        "artifact_names": [
+          "libffi.a",
+          "libffi.so"
+        ],
+        "kinds": [
+          "static_library",
+          "shared_library"
+        ],
+        "evidence": "固定作者普通主构建目标，见source_evidence；辅助示例及完整测试不列为主要交付"
+      }
+    ],
+    "source_evidence": [
+      {
+        "path": "Makefile.am",
+        "quote": "toolexeclib_LTLIBRARIES = libffi.la",
+        "line": 38
+      },
+      {
+        "path": "README.md",
+        "quote": "autogen.sh",
+        "line": 138
+      }
+    ],
+    "reference_actions": [
+      {
+        "role": "dependency",
+        "command": "apt-get update && apt-get install -y autoconf automake libtool texinfo",
+        "workdir": "/workspace/repo"
+      },
+      {
+        "role": "dependency",
+        "command": "./autogen.sh",
+        "workdir": "/workspace/repo"
+      },
+      {
+        "role": "configure",
+        "command": "./configure",
+        "workdir": "/workspace/repo"
+      },
+      {
+        "role": "build",
+        "command": "make -j4",
+        "workdir": "/workspace/repo"
+      }
+    ],
+    "executable_smokes": []
+  },
+  "wolfssl": {
+    "components": [
+      {
+        "name": "wolfssl",
+        "artifact_names": [
+          "libwolfssl.a",
+          "libwolfssl.so"
+        ],
+        "kinds": [
+          "static_library",
+          "shared_library"
+        ],
+        "evidence": "固定作者普通主构建目标，见source_evidence；辅助示例及完整测试不列为主要交付"
+      }
+    ],
+    "source_evidence": [
+      {
+        "path": "src/include.am",
+        "quote": "lib_LTLIBRARIES+= src/libwolfssl@LIBSUFFIX@.la",
+        "line": 35
+      },
+      {
+        "path": "autogen.sh",
+        "quote": "autoreconf",
+        "line": 53
+      }
+    ],
+    "reference_actions": [
+      {
+        "role": "dependency",
+        "command": "apt-get update && apt-get install -y autoconf automake libtool",
+        "workdir": "/workspace/repo"
+      },
+      {
+        "role": "dependency",
+        "command": "./autogen.sh",
+        "workdir": "/workspace/repo"
+      },
+      {
+        "role": "configure",
+        "command": "./configure",
+        "workdir": "/workspace/repo"
+      },
+      {
+        "role": "build",
+        "command": "make -j4",
+        "workdir": "/workspace/repo"
+      }
+    ],
+    "executable_smokes": []
+  },
+  "cava": {
+    "components": [
+      {
+        "name": "cava",
+        "artifact_names": [
+          "cava"
+        ],
+        "kinds": [
+          "executable"
+        ],
+        "evidence": "固定作者普通主构建目标，见source_evidence；辅助示例及完整测试不列为主要交付"
+      }
+    ],
+    "source_evidence": [
+      {
+        "path": "Makefile.am",
+        "quote": "bin_PROGRAMS = cava",
+        "line": 5
+      },
+      {
+        "path": "README.md",
+        "quote": "./autogen.sh",
+        "line": 162
+      },
+      {
+        "path": "cava.c",
+        "quote": "printf(PACKAGE \" \" VERSION \"\\n\");",
+        "line": 280
+      }
+    ],
+    "reference_actions": [
+      {
+        "role": "dependency",
+        "command": "apt-get update && apt-get install -y libfftw3-dev libasound2-dev libpulse-dev libtool automake autoconf-archive libiniparser-dev libsdl2-dev libpipewire-0.3-dev libjack-jackd2-dev pkgconf",
+        "workdir": "/workspace/repo"
+      },
+      {
+        "role": "dependency",
+        "command": "./autogen.sh",
+        "workdir": "/workspace/repo"
+      },
+      {
+        "role": "configure",
+        "command": "./configure",
+        "workdir": "/workspace/repo"
+      },
+      {
+        "role": "build",
+        "command": "make -j4",
+        "workdir": "/workspace/repo"
+      }
+    ],
+    "executable_smokes": [
+      {
+        "artifact_name": "cava",
+        "accepted_exit_codes": [
+          0
+        ],
+        "step": {
+          "step_id": "smoke-cava",
+          "role": "smoke",
+          "command": "/artifacts/cava -v",
+          "workdir": "/artifacts",
+          "source": "固定作者主程序版本/用法入口，见source_evidence",
+          "expected": "作者定义的轻量正常退出",
+          "required_output": [
+            "cava"
+          ]
+        }
+      }
+    ]
+  }
+}

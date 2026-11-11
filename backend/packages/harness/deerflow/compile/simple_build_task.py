@@ -349,7 +349,9 @@ def simple_agent_packet(task: PublicBuildTask, *, current_plan=None, handoff=Non
     return dict(task=task.model_dump(mode="json"), current_plan=public_plan, handoff=handoff)
 
 
-def propose_simple(*, model, task: PublicBuildTask, source_root, session_root, meter, current_plan=None, handoff=None, experience_bank=None, family=None, harness=None, recovery_harness=None, revision_validator=None):
+def propose_simple(
+    *, model, task: PublicBuildTask, source_root, session_root, meter, current_plan=None, handoff=None, experience_bank=None, family=None, harness=None, recovery_harness=None, revision_validator=None, enforce_planning_tools=False
+):
     """真实规划/方案恢复接点；所有读、输出、失败通过既有meter计量，无隐式重试。"""
     task = PublicBuildTask.model_validate(task)
     packet = simple_agent_packet(task, current_plan=current_plan, handoff=handoff)
@@ -391,7 +393,8 @@ def propose_simple(*, model, task: PublicBuildTask, source_root, session_root, m
     agent = create_agent(model=model, tools=safe_readonly_tools(source_root, session_root), system_prompt=prompt, middleware=[meter], response_format=ToolStrategy(SimpleBuildActions, handle_errors=correct_once))
     evidence = meter.packet() if hasattr(meter, "packet") else {}
     # 公开材料白名单；只在任务开始固定源码包，后续通过完整工具对话携带新证据。
-    context = PlanningContext({**packet, "source_packet": evidence.get("source_packet", [])})
+    context = PlanningContext({**packet, "source_packet": evidence.get("source_packet", [])}, enforce_tool_availability=enforce_planning_tools and current_plan is None)
+    meter.ledger.append("planning.tool_policy", recovery=current_plan is not None, enforce_tool_availability=context.enforce_tool_availability)
     original_context = getattr(meter, "planning_context", None)
     meter.planning_context = context
     try:
