@@ -1,9 +1,13 @@
 # Forge Research Status
 
-论文选材固定入口：[硕士论文实验与证据索引](docs/research/THESIS_EVIDENCE_INDEX.md)，[历史材料目录](docs/research/THESIS_EVIDENCE_CATALOG.md)保留存量导航。当前完整稿为[论文v0.10第二轮结果稿](docs/thesis/README.md)；E50–E52保存主构建系统及两轮Harness结果，既有完整任务、状态/恢复消融和两层经验继续按各自版本与分母使用。
+论文选材固定入口：[硕士论文实验与证据索引](docs/research/THESIS_EVIDENCE_INDEX.md)，[历史材料目录](docs/research/THESIS_EVIDENCE_CATALOG.md)保留存量导航。当前完整稿为[论文v0.11恢复Harness结果待审稿](docs/thesis/README.md)；E50–E52保存主构建系统及两轮Harness结果，既有完整任务、状态/恢复消融和两层经验继续按各自版本与分母使用。
 
 
-## 当前阶段（2026-11-11；#733修复后基座H0/R2比较36槽完成，待用户审核）
+## 当前阶段（2026-11-11；#735 R2结果入文与论文v0.11修订）
+
+用户已批准将E55写入论文，并要求突出R2作用、贯通既有论证、删除仅作防御的文字。v0.11新增5.3.3恢复优化方法、6.5.15–16的18项目36次结果及flex/stderred/sxhkd案例，同步摘要/绪论/结论/附录I；完成17/18→18/18，费用高7.3%、时间高23.6%，评价条件与直接失败原因保留。当前为写作与结果分析，0新增Provider/实验，H0运行默认不变；Word/PDF/HTML/Markdown已实际导出，108页PDF/62表/12图；36行数据、18项目源码、表号/链接及86–88页布局核验通过。现停在用户审核，不自动合并定稿或追加研究。旧版及冻结证据保持，取数与入文位置见论文EVIDENCE_MAP.md。
+
+## 上一阶段（2026-11-11；#733修复后基座H0/R2比较36槽完成）
 
 [结果报告](docs/research/2026-11-11-recovery-harness-repaired-comparison-results.md)、[分析与逐槽表](benchmarks/analyses/recovery-r2-repaired-comparison-2026-11-11/README.md)及[E55](docs/research/THESIS_EVIDENCE_INDEX.md#e55)：同E54全部18已暴露项目、18新共同H0规划、36/36终态、0未启动，18配对SHA一致。H0/R2主构建与可复现交付17/18、18/18；R2多完成flex，但独立部署费0.6017160/0.6456144美元（高7.3%）、累计2437.32/3013.33秒（高23.6%），不能称整体降本加速或直接替代H0。
 
