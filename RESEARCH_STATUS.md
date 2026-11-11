@@ -3,11 +3,11 @@
 论文选材固定入口：[硕士论文实验与证据索引](docs/research/THESIS_EVIDENCE_INDEX.md)，[历史材料目录](docs/research/THESIS_EVIDENCE_CATALOG.md)保留存量导航。当前完整稿为[论文v0.10第二轮结果稿](docs/thesis/README.md)；E50–E52保存主构建系统及两轮Harness结果，既有完整任务、状态/恢复消融和两层经验继续按各自版本与分母使用。
 
 
-## 当前阶段（2026-11-11；#737已取得规划P3提案，待用户审核）
+## 当前阶段（2026-11-11；#737规划P3已审核，下一步准备固定R2比较）
 
 [实际提案与完整指导](docs/research/2026-11-11-planning-harness-system-context-proposal.md)、[原文/候选/提示差异](benchmarks/analyses/planning-harness-system-context-2026-11-11/README.md)：基于E55全部18初始规划/36分支与当前真实实现，独立一次RichLab gpt-6.1-sol请求/同名响应，317073Token/0.317073美元/93.9049秒，无重试/未知。授权一次1美元、UTC10:49:36—14:49:36；唯一一次已完成，不因余额追加。原件forge-planning-harness-system-context-gpt61sol-20261111-v1，inventory22aab0fb；封存audit通过，无活动Provider。
 
-P3_system_context为3902字节初始附加指导，6项诊断围绕条件依赖、bootstrap工具版本、必要开发依赖、安装范围、有限补读和动作自查；不是只减请求，也不把后续恢复/环境/接口问题全归初始方案。候选126d5ac4，未人工改写；P0默认、R2恢复和论文PR736保持。仅一次提案，新增构建/比较0，不能主张成功率或成本改善。准备9项相关检查及三CI通过；结果发布CI以PR738最新head为准。现在停在用户审核候选，获比较指令后再准备新项目P0+R2与P3+R2，结果另审才入文。
+P3_system_context为3902字节初始附加指导，6项诊断围绕条件依赖、bootstrap工具版本、必要开发依赖、安装范围、有限补读和动作自查；不是只减请求，也不把后续恢复/环境/接口问题全归初始方案。候选126d5ac4，未人工改写；P0默认、R2恢复和论文PR736保持。仅一次提案，新增构建/比较0，不能主张成功率或成本改善。准备9项相关检查及三CI通过；结果发布CI以PR738最新head为准。用户已明确“确认，审核通过”，接受原始候选126d5ac4；[下一轮设计草案](docs/research/2026-11-11-reviewed-planning-p3-comparison-design.md)明确P0+R2与P3+R2两组各自独立规划，建议18新项目36槽，项目/协议尚未冻结，不称执行准备完成。无追加调用/构建，旧提案一次额度已用完；正式比较指令及预算尚未绑定，结果另审才入文。
 
 ## 上一阶段（2026-11-11；#733修复后基座H0/R2比较36槽完成，待用户审核）
 

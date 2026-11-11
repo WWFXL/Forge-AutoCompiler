@@ -631,6 +631,12 @@
 
 ## 最近变更 (Recent Changes)
 
+- 2026-11-11 — #737登记用户审核通过原始P3，并保存固定R2的两组规划比较草案。
+  - 文件: `benchmarks/analyses/planning-harness-system-context-2026-11-11/user-review.json`、提案报告、`docs/research/2026-11-11-reviewed-planning-p3-comparison-design.md`、状态及证据索引。
+  - 动机: 以明确审核状态衔接后续实验；P0/P3必须各自独立规划，不能照搬恢复比较的共享初始方案。
+  - 边界: 候选126d5ac4原文不变；建议18新项目36槽，但项目/协议未冻结，尚非可运行批次。仅登记与设计，0新增Provider/费用/构建，不自动开展比较或入文。正式执行/预算另绑定，旧一次1美元额度已完成。
+
+
 - 2026-11-11 — #737完成唯一一次gpt-6.1-sol规划P3提案，停在用户审核。
   - 文件: `docs/research/2026-11-11-planning-harness-system-context-proposal.md`、`benchmarks/analyses/planning-harness-system-context-2026-11-11/`、RESEARCH_STATUS及证据索引。
   - 动机: 用当前实现与18初始规划/36下游校正旧规划优化的输入不足，候选只改初始指导，恢复固定R2。
