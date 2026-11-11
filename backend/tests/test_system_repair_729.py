@@ -141,3 +141,15 @@ def test_matching_version_output_with_wrong_code_does_not_loop_to_agent(runner):
     assert w.verification_issue["kind"] == "verification_contract_mismatch"
     assert w.verification_issue["recoverable"] is False
     assert w.layers["primary_build_completed"] is True
+
+
+def test_old_harness_candidate_still_rejects_current_shared_prompt():
+    from pathlib import Path
+
+    from deerflow.compile.recovery_harness import RecoveryHarness
+    from deerflow.compile.simple_build_task import SIMPLE_PROMPT
+
+    path = Path(__file__).resolve().parents[2] / "benchmarks/fixtures/recovery-harness-system-context-gpt61sol-v1/candidate.json"
+    old = RecoveryHarness.model_validate_json(path.read_text())
+    with pytest.raises(PlanContractError, match="共同提示底座已变化"):
+        old.prompt(SIMPLE_PROMPT)

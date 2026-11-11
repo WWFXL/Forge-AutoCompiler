@@ -122,3 +122,10 @@ def test_previous_proposal_authorization_does_not_authorize_new_comparison():
     auth = dict(identity="cpp-build-offline-recovery-harness-system-context-proposal-v1", user_reply="审核通过", candidate_sha256=comparison.CANDIDATE_SHA)
     with pytest.raises(PlanContractError, match="确切身份"):
         comparison.base.shared.validate_authorization(auth, "new-manifest", identity=comparison.IDENTITY, maximum_hours=4)
+
+
+@pytest.fixture(autouse=True)
+def frozen_historical_implementation(monkeypatch, tmp_path):
+    from frozen_recovery_context import install_frozen_recovery_context
+
+    install_frozen_recovery_context(monkeypatch, tmp_path, comparison, sys.modules[__name__], scoped=False)

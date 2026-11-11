@@ -630,7 +630,7 @@
 ## 最近变更 (Recent Changes)
 - 2026-11-11 — 修复E54验证退出码、依赖工具链、PO元数据保护、恢复上下文及分层终态。
   - 文件: `backend/packages/harness/deerflow/compile/simple_build_runtime.py`, `simple_build_task.py`, `simple_planning_context.py`, `plan_workflow.py`, `simple_build_agents.py`；`scripts/forge_simple_system.py`, `scripts/forge_common_system_repair.py`；`docs/research/2026-11-11-common-system-repair.md`。
-  - 动机: 排除共同系统阻塞后再研究Harness。masscan/xz/flex最终主构建、轻量、交付和真实重建通过，23.34/194.36/636.54秒；xz首轮编译通过后产物扫描漏接新保护规则，99.63秒失败独立保留。flex七依赖步骤入配方；七容器实查不存在。0Provider/新增模型费，旧E54标签/分母不改、论文v0.10不改、H0默认。mozjpeg实际历史材料含system message压缩后44391/49000字节，仅组装回放；未观察模型PIC恢复。129相关回归与最终33重叠回归、Ruff通过，不计科学效果。原件`forge-common-system-repair-729-*`，汇总`benchmarks/analyses/common-system-repair-2026-11-11/summary.json`。
+  - 动机: 排除共同系统阻塞后再研究Harness。masscan/xz/flex最终主构建、轻量、交付和真实重建通过，23.34/194.36/636.54秒；xz首轮编译通过后产物扫描漏接新保护规则，99.63秒失败独立保留。flex七依赖步骤入配方；七容器实查不存在。0Provider/新增模型费，旧E54标签/分母不改、论文v0.10不改、H0默认。mozjpeg实际历史材料含system message压缩后44391/49000字节，仅组装回放；未观察模型PIC恢复。129相关回归与最终33重叠回归、Ruff通过；CI历史绑定测试改用SHA核对的修复前源码/提示词，47相关测试通过，生产守卫不变，不计科学效果。原件`forge-common-system-repair-729-*`，汇总`benchmarks/analyses/common-system-repair-2026-11-11/summary.json`。
 
 - 2026-11-11 — 完成已审核R2与H0的18新项目/36槽比较及E54结果登记。
   - 文件: `docs/research/2026-11-11-recovery-harness-r2-comparison-results.md`, `benchmarks/analyses/recovery-r2-comparison-2026-11-11/`, `RESEARCH_STATUS.md`, `docs/research/THESIS_EVIDENCE_INDEX.md`。
