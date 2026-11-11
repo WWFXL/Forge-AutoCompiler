@@ -1,0 +1,141 @@
+
+SLOT 1 open62541 A_P0_schema GraphRecursionError Recursion limit of 100 reached without hitting a stop condition. You can increase the limit by setting the `recursion_limit` config key.
+For troubleshooting, visit: https://docs.langchain.com/oss/python/langgraph/errors/GRAPH_RECURSION_LIMIT
+LAYERS None
+SESSION_ERRORS None Compile session finalized before artifact verification passed. None
+
+SLOT 3 open62541 C_P4_enforced PlanContractError 当前槽费用不足下一请求保守预留
+LAYERS {'command_build_passed': None, 'primary_build_completed': None, 'delivery': 'unobserved', 'author_tests': 'unobserved', 'executable_smoke': 'unobserved', 'final_verification_passed': None, 'clean_replay': 'unobserved', 'full_completed': False, 'main_build_task_completed': False, 'reproducible_delivery_completed': False}
+FAILED dependency rmdir /workspace/repo/deps/ua-nodeset && ln -s /workspace/dependencies/ua-nodeset /workspace/repo/deps/ua-nodeset 126 False
+生成物清理由系统或作者clean目标执行，不能提交任意删除
+SESSION_ERRORS None Compile session finalized before artifact verification passed. None
+ACTIONS simple-actions-1.json [('dependency', 'mkdir -p /workspace/dependencies && git clone --depth 1 --branch v1.04 https://github.com/OPCFoundation/UA-Nodeset.git /workspace/dependencies/ua-nodeset'), ('dependency', 'rmdir /workspace/repo/deps/ua-nodeset && ln -s /workspace/dependencies/ua-nodeset /workspace/repo/deps/ua-nodeset'), ('configure', 'cmake -S . -B build'), ('build', 'cmake --build build --parallel 2')]
+
+SLOT 16 libffi B_P0_enforced StructuredOutputValidationError Failed to parse structured output for tool 'SimpleBuildActions': Failed to parse data to SimpleBuildActions: 1 validation error for SimpleBuildActions
+  Value error, 依赖→配置→编译必须按顺序返回；标识唯一且requires只能引用更早步骤，系统不会自动重排 [type=value_error, input_value={'reason': '失败日志...及默认文档）'}]}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.12/v/value_error.
+LAYERS {'command_build_passed': None, 'primary_build_completed': None, 'delivery': 'unobserved', 'author_tests': 'unobserved', 'executable_smoke': 'unobserved', 'final_verification_passed': None, 'clean_replay': 'unobserved', 'full_completed': False, 'main_build_task_completed': False, 'reproducible_delivery_completed': False}
+FAILED configure sh autogen.sh && mkdir -p build && cd build && ../configure 1 False
+libtoolize: putting auxiliary files in '.'.
+libtoolize: copying file './ltmain.sh'
+libtoolize: putting macros in AC_CONFIG_MACRO_DIRS, 'm4'.
+libtoolize: copying file 'm4/libtool.m4'
+libtoolize: copying file 'm4/ltoptions.m4'
+libtoolize: copying file 'm4/ltsugar.m4'
+libtoolize: copying file 'm4/ltversion.m4'
+libtoolize: copying file 'm4/lt~obsolete.m4'
+autoreconf: export WARNINGS=
+autoreconf: Entering directory '.'
+autoreconf: configure.ac: not using Gettext
+autoreconf: running: aclocal -I m4
+autoreconf: configure.ac: tracing
+autoreconf: running: libtoolize --copy
+autoreconf: configure.ac: not using Intltool
+autoreconf: configure.ac: not using Gtkdoc
+autoreconf: running: aclocal -I m4
+autoreconf: running: /usr/bin/autoconf
+configure.ac:88: warning: The preprocessor macro `STDC_HEADERS' is obsolete.
+configure.ac:88:   Except in unusual embedded environments, you can safely include all
+configure.ac:88:   ISO C90 headers unconditionally.
+configure.ac:123: warning: The macro `AC_TRY_COMPILE' is obsolete.
+configure.ac:123: You should run autoupdate.
+./lib/autoconf/general.m4:2847: AC_TRY_COMPILE is expanded from...
+lib/m4sugar/m4sh.m4:692: _AS_IF_ELSE is expanded from...
+lib/m4sugar/m4sh.m4:699: AS_IF is expanded from...
+./lib/autoconf/general.m4:2249: AC_CACHE_VAL is expanded from...
+./lib/autoconf/general.m4:2270: AC_CACHE_CHECK is expanded from...
+m4/asmcfi.m4:1: GCC_AS_CFI_PSEUDO_OP is expanded from...
+configure.ac:123: the top level
+configure.ac:219: error: possibly undefined macro: LT_SYS_SYMBOL_USCORE
+      If this token and others are legitimate, please use m4_pattern_allow.
+      See the Autoconf documentation.
+autoreconf: error: /usr/bin/autoconf failed with exit status: 1
+
+SESSION_ERRORS None Compile session finalized before artifact verification passed. None
+ACTIONS simple-actions-1.json [('dependency', 'mkdir -p /workspace/dependencies/toolchain && apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends autoconf automake libtool texinfo'), ('configure', 'sh autogen.sh && mkdir -p build && cd build && ../configure'), ('build', 'make -j2')]
+
+SLOT 17 libffi A_P0_schema PlanContractError 当前槽费用不足下一请求保守预留
+LAYERS {'command_build_passed': None, 'primary_build_completed': None, 'delivery': 'unobserved', 'author_tests': 'unobserved', 'executable_smoke': 'unobserved', 'final_verification_passed': None, 'clean_replay': 'unobserved', 'full_completed': False, 'main_build_task_completed': False, 'reproducible_delivery_completed': False}
+FAILED configure ./autogen.sh 1 False
+libtoolize: putting auxiliary files in '.'.
+libtoolize: copying file './ltmain.sh'
+libtoolize: putting macros in AC_CONFIG_MACRO_DIRS, 'm4'.
+libtoolize: copying file 'm4/libtool.m4'
+libtoolize: copying file 'm4/ltoptions.m4'
+libtoolize: copying file 'm4/ltsugar.m4'
+libtoolize: copying file 'm4/ltversion.m4'
+libtoolize: copying file 'm4/lt~obsolete.m4'
+autoreconf: export WARNINGS=
+autoreconf: Entering directory '.'
+autoreconf: configure.ac: not using Gettext
+autoreconf: running: aclocal -I m4
+autoreconf: configure.ac: tracing
+autoreconf: running: libtoolize --copy
+autoreconf: configure.ac: not using Intltool
+autoreconf: configure.ac: not using Gtkdoc
+autoreconf: running: aclocal -I m4
+autoreconf: running: /usr/bin/autoconf
+configure.ac:88: warning: The preprocessor macro `STDC_HEADERS' is obsolete.
+configure.ac:88:   Except in unusual embedded environments, you can safely include all
+configure.ac:88:   ISO C90 headers unconditionally.
+configure.ac:123: warning: The macro `AC_TRY_COMPILE' is obsolete.
+configure.ac:123: You should run autoupdate.
+./lib/autoconf/general.m4:2847: AC_TRY_COMPILE is expanded from...
+lib/m4sugar/m4sh.m4:692: _AS_IF_ELSE is expanded from...
+lib/m4sugar/m4sh.m4:699: AS_IF is expanded from...
+./lib/autoconf/general.m4:2249: AC_CACHE_VAL is expanded from...
+./lib/autoconf/general.m4:2270: AC_CACHE_CHECK is expanded from...
+m4/asmcfi.m4:1: GCC_AS_CFI_PSEUDO_OP is expanded from...
+configure.ac:123: the top level
+configure.ac:219: error: possibly undefined macro: LT_SYS_SYMBOL_USCORE
+      If this token and others are legitimate, please use m4_pattern_allow.
+      See the Autoconf documentation.
+autoreconf: error: /usr/bin/autoconf failed with exit status: 1
+
+FAILED configure ./configure 127 False
+bash: line 2: ./configure: No such file or directory
+
+SESSION_ERRORS None Compile session finalized before artifact verification passed. None
+ACTIONS simple-actions-1.json [('dependency', 'apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y build-essential autoconf automake libtool'), ('configure', './autogen.sh'), ('configure', './configure'), ('build', 'make -j2')]
+ACTIONS simple-actions-2.json [('configure', './configure'), ('build', 'make -j2')]
+
+SLOT 18 libffi C_P4_enforced PlanContractError 当前槽费用不足下一请求保守预留
+LAYERS {'command_build_passed': None, 'primary_build_completed': None, 'delivery': 'unobserved', 'author_tests': 'unobserved', 'executable_smoke': 'unobserved', 'final_verification_passed': None, 'clean_replay': 'unobserved', 'full_completed': False, 'main_build_task_completed': False, 'reproducible_delivery_completed': False}
+FAILED configure ./autogen.sh 1 False
+libtoolize: putting auxiliary files in '.'.
+libtoolize: copying file './ltmain.sh'
+libtoolize: putting macros in AC_CONFIG_MACRO_DIRS, 'm4'.
+libtoolize: copying file 'm4/libtool.m4'
+libtoolize: copying file 'm4/ltoptions.m4'
+libtoolize: copying file 'm4/ltsugar.m4'
+libtoolize: copying file 'm4/ltversion.m4'
+libtoolize: copying file 'm4/lt~obsolete.m4'
+autoreconf: export WARNINGS=
+autoreconf: Entering directory '.'
+autoreconf: configure.ac: not using Gettext
+autoreconf: running: aclocal -I m4
+autoreconf: configure.ac: tracing
+autoreconf: running: libtoolize --copy
+autoreconf: configure.ac: not using Intltool
+autoreconf: configure.ac: not using Gtkdoc
+autoreconf: running: aclocal -I m4
+autoreconf: running: /usr/bin/autoconf
+configure.ac:88: warning: The preprocessor macro `STDC_HEADERS' is obsolete.
+configure.ac:88:   Except in unusual embedded environments, you can safely include all
+configure.ac:88:   ISO C90 headers unconditionally.
+configure.ac:123: warning: The macro `AC_TRY_COMPILE' is obsolete.
+configure.ac:123: You should run autoupdate.
+./lib/autoconf/general.m4:2847: AC_TRY_COMPILE is expanded from...
+lib/m4sugar/m4sh.m4:692: _AS_IF_ELSE is expanded from...
+lib/m4sugar/m4sh.m4:699: AS_IF is expanded from...
+./lib/autoconf/general.m4:2249: AC_CACHE_VAL is expanded from...
+./lib/autoconf/general.m4:2270: AC_CACHE_CHECK is expanded from...
+m4/asmcfi.m4:1: GCC_AS_CFI_PSEUDO_OP is expanded from...
+configure.ac:123: the top level
+configure.ac:219: error: possibly undefined macro: LT_SYS_SYMBOL_USCORE
+      If this token and others are legitimate, please use m4_pattern_allow.
+      See the Autoconf documentation.
+autoreconf: error: /usr/bin/autoconf failed with exit status: 1
+
+SESSION_ERRORS None Compile session finalized before artifact verification passed. None
+ACTIONS simple-actions-1.json [('dependency', 'apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y autoconf automake libtool pkg-config texinfo'), ('configure', './autogen.sh'), ('configure', './configure'), ('build', 'make -j2')]
