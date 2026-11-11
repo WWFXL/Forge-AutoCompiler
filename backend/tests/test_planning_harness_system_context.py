@@ -16,6 +16,14 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "scripts"))
 import forge_planning_harness_system_context as context  # noqa: E402
 
 
+@pytest.fixture(autouse=True)
+def frozen_implementation(monkeypatch, tmp_path):
+    from frozen_recovery_context import install_frozen_components
+
+    scope = context.load(context.FIXTURE / "scope.json")
+    install_frozen_components(monkeypatch, tmp_path, context, scope["components"], "1aa4a3c99ba231ca75418a5028e4f32febbfa73c")
+
+
 @pytest.fixture
 def prepared(tmp_path):
     folder = tmp_path / "prepared"

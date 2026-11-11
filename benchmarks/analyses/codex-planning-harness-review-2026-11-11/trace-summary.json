@@ -1,0 +1,1356 @@
+{
+  "kind": "posthoc_diagnostic_cases",
+  "raw": "/home/yiwei/.codex/outputs/forge-planning-p3-fixed-r2-comparison-flash-v1",
+  "scope": "three selected observed negative-cost cases; not an independent evaluation",
+  "rows": [
+    {
+      "slot": "slot-11-libgcrypt-P3_R2",
+      "only_submission_advertised_requests": 18,
+      "other_tool_calls": 26,
+      "observed_successful_other_tool_results": 25,
+      "evidence": [
+        {
+          "request": 20,
+          "advertised": [
+            "SimpleBuildActions"
+          ],
+          "returned": [
+            {
+              "name": "read_source",
+              "args": {
+                "path": "configure.ac",
+                "start_line": 500
+              },
+              "id": "call_00_jgQot0QVcSvg44YwkhZU5054"
+            }
+          ],
+          "executed_results": [
+            {
+              "tool": "read_source",
+              "call_id": "call_00_jgQot0QVcSvg44YwkhZU5054",
+              "accepted": true,
+              "source_sha256": "6b073d82e27a5a183b1ac9c8a239d27b96ee3ab747a68543b8add60667d2d892",
+              "read_request": {
+                "path": "configure.ac",
+                "start_line": 500
+              }
+            }
+          ],
+          "request_sha256": "a240c1ee91bb169e3f5435249d01871b7358d873932e873e7b300c6f2ba9f076",
+          "response_sha256": "3c7866038c852d366d3968576eb15ce326d63d8d5f9fa8394cef2020a284b8bb"
+        },
+        {
+          "request": 21,
+          "advertised": [
+            "SimpleBuildActions"
+          ],
+          "returned": [
+            {
+              "name": "read_source",
+              "args": {
+                "path": "configure.ac",
+                "start_line": 800
+              },
+              "id": "call_00_GbGaUmx445HQCKOG8lOR0744"
+            }
+          ],
+          "executed_results": [
+            {
+              "tool": "read_source",
+              "call_id": "call_00_GbGaUmx445HQCKOG8lOR0744",
+              "accepted": true,
+              "source_sha256": "6b073d82e27a5a183b1ac9c8a239d27b96ee3ab747a68543b8add60667d2d892",
+              "read_request": {
+                "path": "configure.ac",
+                "start_line": 800
+              }
+            }
+          ],
+          "request_sha256": "3876fbd7b26eaee04d7ec1c68758bc1519fa047009b493cb493344d3481f64ac",
+          "response_sha256": "75c9abb627e23e78c8da5444d41b844b6653b92dd677e99b2d05035bbe60a9b1"
+        },
+        {
+          "request": 22,
+          "advertised": [
+            "SimpleBuildActions"
+          ],
+          "returned": [
+            {
+              "name": "read_source",
+              "args": {
+                "path": "autogen.sh",
+                "start_line": 1
+              },
+              "id": "call_00_TYtr9b0t0Qxej3Wo6WhN2732"
+            }
+          ],
+          "executed_results": [
+            {
+              "tool": "read_source",
+              "call_id": "call_00_TYtr9b0t0Qxej3Wo6WhN2732",
+              "accepted": true,
+              "source_sha256": "1615b9f2d8d43f6b78c3a28f7c5a73cc17c44e20ede4399a02eadf00c44f73f1",
+              "read_request": {
+                "path": "autogen.sh",
+                "start_line": 1
+              }
+            }
+          ],
+          "request_sha256": "f027e14424693895afc36ba61cf70f6acefc89e29d28d888f915423083e4e952",
+          "response_sha256": "5723cac8f2d120c210c1c48c5a7e8144698d5cd798d262b002a3005df65d5eae"
+        },
+        {
+          "request": 23,
+          "advertised": [
+            "SimpleBuildActions"
+          ],
+          "returned": [
+            {
+              "name": "read_source",
+              "args": {
+                "path": "autogen.sh",
+                "start_line": 260
+              },
+              "id": "call_00_ezpww7Aq5SoxybbA9nFe7758"
+            }
+          ],
+          "executed_results": [
+            {
+              "tool": "read_source",
+              "call_id": "call_00_ezpww7Aq5SoxybbA9nFe7758",
+              "accepted": true,
+              "source_sha256": "1615b9f2d8d43f6b78c3a28f7c5a73cc17c44e20ede4399a02eadf00c44f73f1",
+              "read_request": {
+                "path": "autogen.sh",
+                "start_line": 260
+              }
+            }
+          ],
+          "request_sha256": "224d19c21cf85fb1859caf3fd48eccdee7f2253455d1178a1243c0a63c540d40",
+          "response_sha256": "844b5d7acb2dd99e47850653c82957fff22ca8c17a592cc8e2f37a55f2b2cb1b"
+        },
+        {
+          "request": 24,
+          "advertised": [
+            "SimpleBuildActions"
+          ],
+          "returned": [
+            {
+              "name": "read_source",
+              "args": {
+                "path": "autogen.sh",
+                "start_line": 380
+              },
+              "id": "call_00_ET_MQwb91nqsC0OryUMUSMO2672"
+            }
+          ],
+          "executed_results": [
+            {
+              "tool": "read_source",
+              "call_id": "call_00_ET_MQwb91nqsC0OryUMUSMO2672",
+              "accepted": true,
+              "source_sha256": "1615b9f2d8d43f6b78c3a28f7c5a73cc17c44e20ede4399a02eadf00c44f73f1",
+              "read_request": {
+                "path": "autogen.sh",
+                "start_line": 380
+              }
+            }
+          ],
+          "request_sha256": "2fe5469c21d09f4b96f1f81c3bc423a1cdb40dad5ea7684603b57c9aaabd4880",
+          "response_sha256": "d016b569397429175dca6be811c797ef0e6242c6d1388efdd7d5c74ec0625c64"
+        },
+        {
+          "request": 25,
+          "advertised": [
+            "SimpleBuildActions"
+          ],
+          "returned": [
+            {
+              "name": "read_source",
+              "args": {
+                "path": "autogen.sh",
+                "start_line": 500
+              },
+              "id": "call_00_ET_5hi9lBIWSljuTrvj9TD55662"
+            }
+          ],
+          "executed_results": [
+            {
+              "tool": "read_source",
+              "call_id": "call_00_ET_5hi9lBIWSljuTrvj9TD55662",
+              "accepted": true,
+              "source_sha256": "1615b9f2d8d43f6b78c3a28f7c5a73cc17c44e20ede4399a02eadf00c44f73f1",
+              "read_request": {
+                "path": "autogen.sh",
+                "start_line": 500
+              }
+            }
+          ],
+          "request_sha256": "a7ec7c3abd79a709f9f442b94a07c5db881d27c31b0af4b4a1d371953a58fb99",
+          "response_sha256": "833f1756835d38003bd2af3040e32c890a3b32c732ade1178f053cd08c414126"
+        },
+        {
+          "request": 29,
+          "advertised": [
+            "SimpleBuildActions"
+          ],
+          "returned": [
+            {
+              "name": "read_source",
+              "args": {
+                "path": "configure.ac",
+                "start_line": 400
+              },
+              "id": "call_00_XLgziSdLWL3ZIPlgU6Zs4487"
+            }
+          ],
+          "executed_results": [
+            {
+              "tool": "read_source",
+              "call_id": "call_00_XLgziSdLWL3ZIPlgU6Zs4487",
+              "accepted": true,
+              "source_sha256": "6b073d82e27a5a183b1ac9c8a239d27b96ee3ab747a68543b8add60667d2d892",
+              "read_request": {
+                "path": "configure.ac",
+                "start_line": 400
+              }
+            }
+          ],
+          "request_sha256": "d7741e59355c2e09947fd9cb18aa4e2f23186034729d75b5e59c75b9c734ac15",
+          "response_sha256": "e1e7a034263710a0b04ff818d49f41a219e9dcdf2542c9a6c619ad6ae0648e2c"
+        },
+        {
+          "request": 36,
+          "advertised": [
+            "SimpleBuildActions"
+          ],
+          "returned": [
+            {
+              "name": "read_source",
+              "args": {
+                "path": "autogen.sh",
+                "start_line": 1
+              },
+              "id": "call_00_spjRD17lZXf2SMyN1mxA4876"
+            },
+            {
+              "name": "read_source",
+              "args": {
+                "path": "autogen.sh",
+                "start_line": 180
+              },
+              "id": "call_01_0d0hjL1XMl64HsnAEeLL0274"
+            }
+          ],
+          "executed_results": [
+            {
+              "tool": "read_source",
+              "call_id": "call_00_spjRD17lZXf2SMyN1mxA4876",
+              "accepted": true,
+              "source_sha256": "1615b9f2d8d43f6b78c3a28f7c5a73cc17c44e20ede4399a02eadf00c44f73f1",
+              "read_request": {
+                "path": "autogen.sh",
+                "start_line": 1
+              }
+            },
+            {
+              "tool": "read_source",
+              "call_id": "call_01_0d0hjL1XMl64HsnAEeLL0274",
+              "accepted": true,
+              "source_sha256": "1615b9f2d8d43f6b78c3a28f7c5a73cc17c44e20ede4399a02eadf00c44f73f1",
+              "read_request": {
+                "path": "autogen.sh",
+                "start_line": 180
+              }
+            }
+          ],
+          "request_sha256": "fa64b3fc822f2b2e1134cc6556e8e1beb743ee9fae0c29ee5673a245e1d75a5d",
+          "response_sha256": "5a3695b2dfca8536d37d9a531e92ac56e29b35fa45060556b327f741f1eec275"
+        },
+        {
+          "request": 41,
+          "advertised": [
+            "SimpleBuildActions"
+          ],
+          "returned": [
+            {
+              "name": "read_source",
+              "args": {
+                "path": "autogen.sh",
+                "start_line": 1
+              },
+              "id": "call_00_AiDUOc0PqmCx0sBLiz278489"
+            },
+            {
+              "name": "read_source",
+              "args": {
+                "path": "autogen.sh",
+                "start_line": 140
+              },
+              "id": "call_01_Vg1KZNYCptEWJg5HNK7F0545"
+            },
+            {
+              "name": "read_source",
+              "args": {
+                "path": "autogen.sh",
+                "start_line": 180
+              },
+              "id": "call_02_uyUSYQ82cJ8yyknMIbqO6028"
+            }
+          ],
+          "executed_results": [
+            {
+              "tool": "read_source",
+              "call_id": "call_00_AiDUOc0PqmCx0sBLiz278489",
+              "accepted": true,
+              "source_sha256": "1615b9f2d8d43f6b78c3a28f7c5a73cc17c44e20ede4399a02eadf00c44f73f1",
+              "read_request": {
+                "path": "autogen.sh",
+                "start_line": 1
+              }
+            },
+            {
+              "tool": "read_source",
+              "call_id": "call_01_Vg1KZNYCptEWJg5HNK7F0545",
+              "accepted": true,
+              "source_sha256": "1615b9f2d8d43f6b78c3a28f7c5a73cc17c44e20ede4399a02eadf00c44f73f1",
+              "read_request": {
+                "path": "autogen.sh",
+                "start_line": 140
+              }
+            },
+            {
+              "tool": "read_source",
+              "call_id": "call_02_uyUSYQ82cJ8yyknMIbqO6028",
+              "accepted": true,
+              "source_sha256": "1615b9f2d8d43f6b78c3a28f7c5a73cc17c44e20ede4399a02eadf00c44f73f1",
+              "read_request": {
+                "path": "autogen.sh",
+                "start_line": 180
+              }
+            }
+          ],
+          "request_sha256": "3d68b28e8c3cb365cae8b256caad7a56f532ef370cc39d276e62437b819a678a",
+          "response_sha256": "95bb65a4f2117b01e496d06449b6d068f2ffed0d4b43308637ede93a92f48337"
+        },
+        {
+          "request": 42,
+          "advertised": [
+            "SimpleBuildActions"
+          ],
+          "returned": [
+            {
+              "name": "read_source",
+              "args": {
+                "path": "autogen.sh",
+                "start_line": 300
+              },
+              "id": "call_00_jEbYrnwizZBur1JyMvnD2206"
+            },
+            {
+              "name": "read_source",
+              "args": {
+                "path": "autogen.rc"
+              },
+              "id": "call_01_YDBXMsl8FO9RyD9YghLb4020"
+            },
+            {
+              "name": "read_source",
+              "args": {
+                "path": "configure.ac",
+                "start_line": 1
+              },
+              "id": "call_02_bDmdKUx4y5zVxl8ze2pU8735"
+            }
+          ],
+          "executed_results": [
+            {
+              "tool": "read_source",
+              "call_id": "call_00_jEbYrnwizZBur1JyMvnD2206",
+              "accepted": true,
+              "source_sha256": "1615b9f2d8d43f6b78c3a28f7c5a73cc17c44e20ede4399a02eadf00c44f73f1",
+              "read_request": {
+                "path": "autogen.sh",
+                "start_line": 300
+              }
+            },
+            {
+              "tool": "read_source",
+              "call_id": "call_01_YDBXMsl8FO9RyD9YghLb4020",
+              "accepted": true,
+              "source_sha256": "13b75696ac66b0656aa41b80e4679026794da60a5bdb387bced15a2ff977a54f",
+              "read_request": {
+                "path": "autogen.rc",
+                "start_line": 1
+              }
+            },
+            {
+              "tool": "read_source",
+              "call_id": "call_02_bDmdKUx4y5zVxl8ze2pU8735",
+              "accepted": true,
+              "source_sha256": "6b073d82e27a5a183b1ac9c8a239d27b96ee3ab747a68543b8add60667d2d892",
+              "read_request": {
+                "path": "configure.ac",
+                "start_line": 1
+              }
+            }
+          ],
+          "request_sha256": "f4f891f9344bdaa5ed10e3e777940304cd06200b05de0dad5410f37fdf7d85b7",
+          "response_sha256": "838213fae3ef137541e3b9be4e4e70829c0f95663698f5cafd6c8ebf4bcc6422"
+        },
+        {
+          "request": 43,
+          "advertised": [
+            "SimpleBuildActions"
+          ],
+          "returned": [
+            {
+              "name": "read_source",
+              "args": {
+                "path": "autogen.sh",
+                "start_line": 430
+              },
+              "id": "call_00_GXdW9F0ob5JKtmnDKkXs7659"
+            },
+            {
+              "name": "read_source",
+              "args": {
+                "path": "autogen.sh",
+                "start_line": 500
+              },
+              "id": "call_01_17NQH3JqmZ7jz6Pwc45M6361"
+            }
+          ],
+          "executed_results": [
+            {
+              "tool": "read_source",
+              "call_id": "call_00_GXdW9F0ob5JKtmnDKkXs7659",
+              "accepted": true,
+              "source_sha256": "1615b9f2d8d43f6b78c3a28f7c5a73cc17c44e20ede4399a02eadf00c44f73f1",
+              "read_request": {
+                "path": "autogen.sh",
+                "start_line": 430
+              }
+            },
+            {
+              "tool": "read_source",
+              "call_id": "call_01_17NQH3JqmZ7jz6Pwc45M6361",
+              "accepted": true,
+              "source_sha256": "1615b9f2d8d43f6b78c3a28f7c5a73cc17c44e20ede4399a02eadf00c44f73f1",
+              "read_request": {
+                "path": "autogen.sh",
+                "start_line": 500
+              }
+            }
+          ],
+          "request_sha256": "f5e1626be847633c6520b044fbceece443bcf4ed92e8d36d2d09c92aad7a6c71",
+          "response_sha256": "d8d42e0ea128fbb1789bc0e80453aa808a194940f1e6dacbe1d15888edf0dba0"
+        },
+        {
+          "request": 44,
+          "advertised": [
+            "SimpleBuildActions"
+          ],
+          "returned": [
+            {
+              "name": "read_source",
+              "args": {
+                "path": "README.GIT"
+              },
+              "id": "call_00_HWrZcIdv06pHPe38x0P68970"
+            },
+            {
+              "name": "read_source",
+              "args": {
+                "path": "INSTALL",
+                "start_line": 1
+              },
+              "id": "call_01_srDq5TJoMXhxEdBUzT9d1101"
+            }
+          ],
+          "executed_results": [
+            {
+              "tool": "read_source",
+              "call_id": "call_00_HWrZcIdv06pHPe38x0P68970",
+              "accepted": true,
+              "source_sha256": "5c280424109bcadc5985b2bcd81d5fffa62481eef5595946edd24985b0dbeafb",
+              "read_request": {
+                "path": "README.GIT",
+                "start_line": 1
+              }
+            },
+            {
+              "tool": "read_source",
+              "call_id": "call_01_srDq5TJoMXhxEdBUzT9d1101",
+              "accepted": true,
+              "source_sha256": "5e265c4567e60148617ebb0d89cf93e038dfcc7b7d427a697953013e7616181a",
+              "read_request": {
+                "path": "INSTALL",
+                "start_line": 1
+              }
+            }
+          ],
+          "request_sha256": "c61cbf71acfdace22ceb3cb9f33e07a04e0d98484e24c8d12050cfc1668bc72b",
+          "response_sha256": "52449449edba9ad347f4c31e3549febdb362070578b9be83463523bd194daaa9"
+        },
+        {
+          "request": 45,
+          "advertised": [
+            "SimpleBuildActions"
+          ],
+          "returned": [
+            {
+              "name": "list_source",
+              "args": {
+                "path": "."
+              },
+              "id": "call_00_XKyFXwBW4C0pd9a69Asf2676"
+            }
+          ],
+          "executed_results": [
+            {
+              "tool": "list_source",
+              "call_id": "call_00_XKyFXwBW4C0pd9a69Asf2676",
+              "accepted": true,
+              "source_sha256": null,
+              "read_request": {
+                "directory": "."
+              }
+            }
+          ],
+          "request_sha256": "87c6dc49ed7da5e65dab98055e868dee3ba2a292440bac956c07c7c50893f95c",
+          "response_sha256": "923ea1a28d86e0fe9ba1aeb7d055fa1f736388dd447ad125ad3adbddb632e91f"
+        },
+        {
+          "request": 46,
+          "advertised": [
+            "SimpleBuildActions"
+          ],
+          "returned": [
+            {
+              "name": "read_source",
+              "args": {
+                "path": "m4/gpg-error.m4",
+                "start_line": 1
+              },
+              "id": "call_00_iXhsVqIH8I2AeaC5i4Z67276"
+            },
+            {
+              "name": "read_source",
+              "args": {
+                "path": "README"
+              },
+              "id": "call_01_X9DMmgA04R9gdkWaQ7Sv3575"
+            }
+          ],
+          "executed_results": [
+            {
+              "tool": "read_source",
+              "call_id": "call_00_iXhsVqIH8I2AeaC5i4Z67276",
+              "accepted": true,
+              "source_sha256": "e0e75216903f6756228f8271c9109b7f2dab6424a694ed5d8c49cfc6f247566d",
+              "read_request": {
+                "path": "m4/gpg-error.m4",
+                "start_line": 1
+              }
+            },
+            {
+              "tool": "read_source",
+              "call_id": "call_01_X9DMmgA04R9gdkWaQ7Sv3575",
+              "accepted": true,
+              "source_sha256": "49946dd84485695e64198cce8d582212f6b8f8da008584f5c4b2dd08e2460240",
+              "read_request": {
+                "path": "README",
+                "start_line": 1
+              }
+            }
+          ],
+          "request_sha256": "418c471ca022e3db13fe830f7acf2591088ac3882645acecae280ebcb1dc1440",
+          "response_sha256": "dfeb22555d5a885d3455706cf38f876da37f034af6865e88a2f6fb13e964285d"
+        },
+        {
+          "request": 47,
+          "advertised": [
+            "SimpleBuildActions"
+          ],
+          "returned": [
+            {
+              "name": "read_source",
+              "args": {
+                "path": "m4/gpg-error.m4",
+                "start_line": 120
+              },
+              "id": "call_00_zEOutWdoaDZRjWywVzzX1977"
+            }
+          ],
+          "executed_results": [
+            {
+              "tool": "read_source",
+              "call_id": "call_00_zEOutWdoaDZRjWywVzzX1977",
+              "accepted": true,
+              "source_sha256": "e0e75216903f6756228f8271c9109b7f2dab6424a694ed5d8c49cfc6f247566d",
+              "read_request": {
+                "path": "m4/gpg-error.m4",
+                "start_line": 120
+              }
+            }
+          ],
+          "request_sha256": "fdeeaa49cd21b008799f0a1ccfeb7938efa9fff490b489bff8752b4486487a16",
+          "response_sha256": "1501fda9911126f4a2e25cc5eb580f40b7872bdd88a7c04f21302d65d7fa20c7"
+        },
+        {
+          "request": 48,
+          "advertised": [
+            "SimpleBuildActions"
+          ],
+          "returned": [
+            {
+              "name": "read_source",
+              "args": {
+                "path": "configure.ac",
+                "start_line": 1
+              },
+              "id": "call_00_f6iwMDCQtHsMX2igfefU9456"
+            }
+          ],
+          "executed_results": [
+            {
+              "tool": "read_source",
+              "call_id": "call_00_f6iwMDCQtHsMX2igfefU9456",
+              "accepted": true,
+              "source_sha256": "6b073d82e27a5a183b1ac9c8a239d27b96ee3ab747a68543b8add60667d2d892",
+              "read_request": {
+                "path": "configure.ac",
+                "start_line": 1
+              }
+            }
+          ],
+          "request_sha256": "22a1f2c76152ae2e66e31c0fcb1ed564caf9879b2d988d6df04a2a05a3cb9c86",
+          "response_sha256": "9233c8a4ed03d0b935861104fd4c9665bac46af621e9929ce1854748549ea3ea"
+        },
+        {
+          "request": 49,
+          "advertised": [
+            "SimpleBuildActions"
+          ],
+          "returned": [
+            {
+              "name": "read_source",
+              "args": {
+                "path": "README.GIT",
+                "start_line": 1
+              },
+              "id": "call_00_agJU3JrrQhdC5QVFr9lb6247"
+            }
+          ],
+          "executed_results": [
+            {
+              "tool": "read_source",
+              "call_id": "call_00_agJU3JrrQhdC5QVFr9lb6247",
+              "accepted": true,
+              "source_sha256": "5c280424109bcadc5985b2bcd81d5fffa62481eef5595946edd24985b0dbeafb",
+              "read_request": {
+                "path": "README.GIT",
+                "start_line": 1
+              }
+            }
+          ],
+          "request_sha256": "fc7b22eacd39ff0e40f9e7b809fa55ed257b3afbfaaf51d63fec15848e309481",
+          "response_sha256": "d0b24c195d65201bd13566dc5d617fedb8e392c202e45184bbfaccb43af73ace"
+        },
+        {
+          "request": 50,
+          "advertised": [
+            "SimpleBuildActions"
+          ],
+          "returned": [
+            {
+              "name": "read_source",
+              "args": {
+                "path": "autogen.sh",
+                "start_line": 1
+              },
+              "id": "call_00_njOeEMsYhEjVDgHZlOAj3090"
+            }
+          ],
+          "executed_results": [],
+          "request_sha256": "fd363788111ee3d0e66c5a52ef7bee8d4bbcd175ae5f114d89acfc1985913a20",
+          "response_sha256": "fa6768cf5281b102fb42a614a78554532916fe646d5a3ea96f742671755e32ff"
+        }
+      ]
+    },
+    {
+      "slot": "slot-30-snapraid-P3_R2",
+      "only_submission_advertised_requests": 15,
+      "other_tool_calls": 15,
+      "observed_successful_other_tool_results": 15,
+      "evidence": [
+        {
+          "request": 12,
+          "advertised": [
+            "SimpleBuildActions"
+          ],
+          "returned": [
+            {
+              "name": "read_source",
+              "args": {
+                "path": "Makefile.am",
+                "start_line": 1
+              },
+              "id": "call_00_TocUFSc7lN25fnKteQh82208"
+            }
+          ],
+          "executed_results": [
+            {
+              "tool": "read_source",
+              "call_id": "call_00_TocUFSc7lN25fnKteQh82208",
+              "accepted": true,
+              "source_sha256": "b7d1903a0a73a02b28b57142be1d264f29135cea0d054acdc14665318cbc8564",
+              "read_request": {
+                "path": "Makefile.am",
+                "start_line": 1
+              }
+            }
+          ],
+          "request_sha256": "357746867d6e7acff9d29b69e8960d4654aac6fd7843d6294dd2555bee733235",
+          "response_sha256": "758d4bf6667606266be97846dbaa9531c0bbd1d651d9b1466d8965ff49e7402f"
+        },
+        {
+          "request": 13,
+          "advertised": [
+            "SimpleBuildActions"
+          ],
+          "returned": [
+            {
+              "name": "read_source",
+              "args": {
+                "path": "Makefile.am",
+                "start_line": 120,
+                "end_line": 260
+              },
+              "id": "call_00_WvcPOBRS0uw4c5RMecgv9807"
+            }
+          ],
+          "executed_results": [
+            {
+              "tool": "read_source",
+              "call_id": "call_00_WvcPOBRS0uw4c5RMecgv9807",
+              "accepted": true,
+              "source_sha256": "b7d1903a0a73a02b28b57142be1d264f29135cea0d054acdc14665318cbc8564",
+              "read_request": {
+                "path": "Makefile.am",
+                "start_line": 120
+              }
+            }
+          ],
+          "request_sha256": "db709d0e48dbea75562e098f38289fddbfa511bdae81e5c45449ee8677c68c3f",
+          "response_sha256": "ac4acb9fdd436785d313d5f2e2d62da6ecd66803ac08601d92f5c1f94ed1b17a"
+        },
+        {
+          "request": 14,
+          "advertised": [
+            "SimpleBuildActions"
+          ],
+          "returned": [
+            {
+              "name": "read_source",
+              "args": {
+                "path": "GNUmakefile",
+                "start_line": 1
+              },
+              "id": "call_00_jn9qvj4pWqqr3KTxVm4S3396"
+            }
+          ],
+          "executed_results": [
+            {
+              "tool": "read_source",
+              "call_id": "call_00_jn9qvj4pWqqr3KTxVm4S3396",
+              "accepted": true,
+              "source_sha256": "152bed45772fb29e901eedd445360154b9939f1e45ec2cc998005fc036c77b2e",
+              "read_request": {
+                "path": "GNUmakefile",
+                "start_line": 1
+              }
+            }
+          ],
+          "request_sha256": "12a286bc441ac11e71097595b0922ebc03a06bcce84bf1b160162c8f4c9fbb86",
+          "response_sha256": "7a0f44fb65303dfafdc10de3f3c95baedbba74777e158c3d9796620e0acf6b13"
+        },
+        {
+          "request": 15,
+          "advertised": [
+            "SimpleBuildActions"
+          ],
+          "returned": [
+            {
+              "name": "read_source",
+              "args": {
+                "path": "AGENTS.md",
+                "start_line": 1
+              },
+              "id": "call_00_ifTT5NFrt4noyjaon14z5245"
+            }
+          ],
+          "executed_results": [
+            {
+              "tool": "read_source",
+              "call_id": "call_00_ifTT5NFrt4noyjaon14z5245",
+              "accepted": true,
+              "source_sha256": "b854937839f48a13fe30ab0d4b86b5894ea94e74b990f2c0615f78eaf6e6ae11",
+              "read_request": {
+                "path": "AGENTS.md",
+                "start_line": 1
+              }
+            }
+          ],
+          "request_sha256": "7e21263fa062a3b2299f4d88fe71cb35e4b80266ce67385321937ebd195d3349",
+          "response_sha256": "a37d9ca836863db358f597f3f7a5dc23538fbb563009d679322994c4c2274a97"
+        },
+        {
+          "request": 16,
+          "advertised": [
+            "SimpleBuildActions"
+          ],
+          "returned": [
+            {
+              "name": "read_source",
+              "args": {
+                "path": "INSTALL",
+                "start_line": 1
+              },
+              "id": "call_00_9tfuee88iQxgovCrXR8D9386"
+            }
+          ],
+          "executed_results": [
+            {
+              "tool": "read_source",
+              "call_id": "call_00_9tfuee88iQxgovCrXR8D9386",
+              "accepted": true,
+              "source_sha256": "f1b728dc179782ace08d9b41fd7f2118984570ae4e61b01c50835d79d97dd1d6",
+              "read_request": {
+                "path": "INSTALL",
+                "start_line": 1
+              }
+            }
+          ],
+          "request_sha256": "54d330a366c9a539c218ead8dbacbee61e8caefae62e1705c9ba90a39bf7de4f",
+          "response_sha256": "f3265aac8cf5ef634fdb5462c96a8af55d271b565a4c740d8544be09654fd460"
+        },
+        {
+          "request": 17,
+          "advertised": [
+            "SimpleBuildActions"
+          ],
+          "returned": [
+            {
+              "name": "read_source",
+              "args": {
+                "path": "autogen.sh",
+                "start_line": 1
+              },
+              "id": "call_00_ijQg8fsO2s92njKW4qkC3543"
+            }
+          ],
+          "executed_results": [
+            {
+              "tool": "read_source",
+              "call_id": "call_00_ijQg8fsO2s92njKW4qkC3543",
+              "accepted": true,
+              "source_sha256": "19530e21bd5440807e46ca942322a28b51fc095d558a5ac5a89fec6786af752b",
+              "read_request": {
+                "path": "autogen.sh",
+                "start_line": 1
+              }
+            }
+          ],
+          "request_sha256": "c8b0bdf0274bbab214eb04c5f42930329525c3af9780ad83363d4b6e3631c67d",
+          "response_sha256": "0b9e7c66f6177d322ad5e36f2e0e960643f4b302e9d30ab421203816e20e6eca"
+        },
+        {
+          "request": 18,
+          "advertised": [
+            "SimpleBuildActions"
+          ],
+          "returned": [
+            {
+              "name": "read_source",
+              "args": {
+                "path": "configure.ac",
+                "start_line": 1,
+                "end_line": 120
+              },
+              "id": "call_00_F0coYnkFgBhAHU8ild6t9181"
+            }
+          ],
+          "executed_results": [
+            {
+              "tool": "read_source",
+              "call_id": "call_00_F0coYnkFgBhAHU8ild6t9181",
+              "accepted": true,
+              "source_sha256": "84551552b3597bc3f6b8c0fadb66e43243cee7e06d7c0c2617aa0891eb6fac44",
+              "read_request": {
+                "path": "configure.ac",
+                "start_line": 1
+              }
+            }
+          ],
+          "request_sha256": "bdae08b49c3fb145e7d418723b23678520d690a8d8dd808b33e8d334d5da5ff6",
+          "response_sha256": "ff47b6d459491bcae5af29a214a7e6d5ab6050ade2d899d6fb0fcdfd2b8c8970"
+        },
+        {
+          "request": 19,
+          "advertised": [
+            "SimpleBuildActions"
+          ],
+          "returned": [
+            {
+              "name": "read_source",
+              "args": {
+                "path": "configure.ac",
+                "start_line": 120,
+                "end_line": 230
+              },
+              "id": "call_00_KwfmKGtcwVfPpgHxHo6D8967"
+            }
+          ],
+          "executed_results": [
+            {
+              "tool": "read_source",
+              "call_id": "call_00_KwfmKGtcwVfPpgHxHo6D8967",
+              "accepted": true,
+              "source_sha256": "84551552b3597bc3f6b8c0fadb66e43243cee7e06d7c0c2617aa0891eb6fac44",
+              "read_request": {
+                "path": "configure.ac",
+                "start_line": 120
+              }
+            }
+          ],
+          "request_sha256": "5d0cfda30dbb56f6269d3f4dac3ecf161fc88d04de1e603867a7c5f885983909",
+          "response_sha256": "5e4e860ee399b1faa37454950233f1b7ce7b481b754c5d6c7af09cc0e51f36f3"
+        },
+        {
+          "request": 20,
+          "advertised": [
+            "SimpleBuildActions"
+          ],
+          "returned": [
+            {
+              "name": "read_source",
+              "args": {
+                "path": "configure.ac",
+                "start_line": 230,
+                "end_line": 340
+              },
+              "id": "call_00_061xEgcgrNM3SdGSFgP42113"
+            }
+          ],
+          "executed_results": [
+            {
+              "tool": "read_source",
+              "call_id": "call_00_061xEgcgrNM3SdGSFgP42113",
+              "accepted": true,
+              "source_sha256": "84551552b3597bc3f6b8c0fadb66e43243cee7e06d7c0c2617aa0891eb6fac44",
+              "read_request": {
+                "path": "configure.ac",
+                "start_line": 230
+              }
+            }
+          ],
+          "request_sha256": "ba82333eacaafd85cff736328a6641a350d7a766c39fbeed647bb77404d96256",
+          "response_sha256": "99263bb8abcce905cf43f004cbc2549c5005698ccd0dff9d1c38d1f25f4b5f18"
+        },
+        {
+          "request": 30,
+          "advertised": [
+            "SimpleBuildActions"
+          ],
+          "returned": [
+            {
+              "name": "read_source",
+              "args": {
+                "path": "configure.ac",
+                "start_line": 1,
+                "end_line": 120
+              },
+              "id": "call_00_1nwbGQJYXwoUUGIT7VjI5431"
+            }
+          ],
+          "executed_results": [
+            {
+              "tool": "read_source",
+              "call_id": "call_00_1nwbGQJYXwoUUGIT7VjI5431",
+              "accepted": true,
+              "source_sha256": "84551552b3597bc3f6b8c0fadb66e43243cee7e06d7c0c2617aa0891eb6fac44",
+              "read_request": {
+                "path": "configure.ac",
+                "start_line": 1
+              }
+            }
+          ],
+          "request_sha256": "e6e71af2708e61060021c3cf5ad2eeea9e4f50c2522feaa7d1fa2e8424cca6bc",
+          "response_sha256": "05573a14fb193d951593b00d67851fd5eda5d8f0eeee9c7b0c307e514b862326"
+        },
+        {
+          "request": 31,
+          "advertised": [
+            "SimpleBuildActions"
+          ],
+          "returned": [
+            {
+              "name": "read_source",
+              "args": {
+                "path": "configure.ac",
+                "start_line": 120,
+                "end_line": 230
+              },
+              "id": "call_00_1GafqLW8HtQOhtp2mBjd2998"
+            }
+          ],
+          "executed_results": [
+            {
+              "tool": "read_source",
+              "call_id": "call_00_1GafqLW8HtQOhtp2mBjd2998",
+              "accepted": true,
+              "source_sha256": "84551552b3597bc3f6b8c0fadb66e43243cee7e06d7c0c2617aa0891eb6fac44",
+              "read_request": {
+                "path": "configure.ac",
+                "start_line": 120
+              }
+            }
+          ],
+          "request_sha256": "33d98004fcd1c9ee6b024ffe0248e7ea4bf3bbd08c55e1ae428494bfe913531a",
+          "response_sha256": "af633e3899c4fd7a2e3d00cb175f23bf0c73d4da451998c07367ad2daa06aafb"
+        },
+        {
+          "request": 32,
+          "advertised": [
+            "SimpleBuildActions"
+          ],
+          "returned": [
+            {
+              "name": "read_source",
+              "args": {
+                "path": "autover.sh",
+                "start_line": 1
+              },
+              "id": "call_00_igl1YWldEaluKSxljos85425"
+            },
+            {
+              "name": "read_source",
+              "args": {
+                "path": "configure.ac",
+                "start_line": 230,
+                "end_line": 428
+              },
+              "id": "call_01_ZEUFQ1SdDxPnCcez4Nm71407"
+            }
+          ],
+          "executed_results": [
+            {
+              "tool": "read_source",
+              "call_id": "call_00_igl1YWldEaluKSxljos85425",
+              "accepted": true,
+              "source_sha256": "9f46898a7cb51c353b28b8fb9099b71f3c459f08dbed6811d675ee73b2c83203",
+              "read_request": {
+                "path": "autover.sh",
+                "start_line": 1
+              }
+            },
+            {
+              "tool": "read_source",
+              "call_id": "call_01_ZEUFQ1SdDxPnCcez4Nm71407",
+              "accepted": true,
+              "source_sha256": "84551552b3597bc3f6b8c0fadb66e43243cee7e06d7c0c2617aa0891eb6fac44",
+              "read_request": {
+                "path": "configure.ac",
+                "start_line": 230
+              }
+            }
+          ],
+          "request_sha256": "767247dcc8f4909524c617d7a8684f9134e4fdf905f007e6e7aacd8ed2dc1e55",
+          "response_sha256": "46df6872b34b17d6325199eb6f7329957ebb6ccf8b34df3f19007da1a2484ea5"
+        },
+        {
+          "request": 36,
+          "advertised": [
+            "SimpleBuildActions"
+          ],
+          "returned": [
+            {
+              "name": "read_source",
+              "args": {
+                "path": "configure.ac",
+                "start_line": 1,
+                "end_line": 40
+              },
+              "id": "call_00_m2f2onuzzxaHGApiWsCU2647"
+            }
+          ],
+          "executed_results": [
+            {
+              "tool": "read_source",
+              "call_id": "call_00_m2f2onuzzxaHGApiWsCU2647",
+              "accepted": true,
+              "source_sha256": "84551552b3597bc3f6b8c0fadb66e43243cee7e06d7c0c2617aa0891eb6fac44",
+              "read_request": {
+                "path": "configure.ac",
+                "start_line": 1
+              }
+            }
+          ],
+          "request_sha256": "4a5268919a23db6b2edef98f5b9c836762aac83dec1afccd182c6707c8e9547e",
+          "response_sha256": "e9d0fd904c2fc3356a2eac4b29cb83d3cb8ca62ddb825b8689ccfd4cb1f1ef0c"
+        },
+        {
+          "request": 37,
+          "advertised": [
+            "SimpleBuildActions"
+          ],
+          "returned": [
+            {
+              "name": "read_source",
+              "args": {
+                "path": "autogen.sh",
+                "start_line": 1
+              },
+              "id": "call_00_3fJfROPK4yfn0o8WVmNS5605"
+            }
+          ],
+          "executed_results": [
+            {
+              "tool": "read_source",
+              "call_id": "call_00_3fJfROPK4yfn0o8WVmNS5605",
+              "accepted": true,
+              "source_sha256": "19530e21bd5440807e46ca942322a28b51fc095d558a5ac5a89fec6786af752b",
+              "read_request": {
+                "path": "autogen.sh",
+                "start_line": 1
+              }
+            }
+          ],
+          "request_sha256": "ef09bc2844798645d19efbf44ea3cdfe51deeb9d015d726849bbc91498203ec0",
+          "response_sha256": "77e56c74176926f203e29ecec66b6f097d19b37f64f03042504842b595b68559"
+        },
+        {
+          "request": 38,
+          "advertised": [
+            "SimpleBuildActions"
+          ],
+          "returned": [
+            {
+              "name": "SimpleBuildActions",
+              "args": {
+                "reason": "源码为需先生成 configure 的 Autotools 项目：configure.ac 要求 Autoconf >= 2.70，autogen.sh 仅调用 autoreconf -f -i 后提示运行 ./configure；默认 Makefile.am 的 bin_PROGRAMS 为 snapraid。按默认方式安装生成/编译工具，在仓库内生成并配置，然后构建默认目标。",
+                "steps": [
+                  {
+                    "step_id": "install-build-tools",
+                    "role": "dependency",
+                    "command": "if ! command -v gcc >/dev/null 2>&1 || ! command -v make >/dev/null 2>&1 || ! command -v autoconf >/dev/null 2>&1 || ! command -v autoreconf >/dev/null 2>&1 || ! command -v automake >/dev/null 2>&1 || ! autoconf --version | head -n1 | awk '{split($NF,v,\".\"); exit !(v[1]>2 || (v[1]==2 && v[2]>=70))}'; then apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends build-essential autoconf automake; fi",
+                    "workdir": "/workspace/repo",
+                    "source": "configure.ac:2 AC_PREREQ([2.70]); configure.ac:20 AC_PROG_CC; autogen.sh:6 autoreconf -f -i",
+                    "expected": "确保可用的 C 编译器、make 以及满足最低版本的 Autoconf/Automake 生成工具"
+                  },
+                  {
+                    "step_id": "configure",
+                    "role": "configure",
+                    "command": "sh autogen.sh && ./configure",
+                    "workdir": "/workspace/repo",
+                    "requires": [
+                      "install-build-tools"
+                    ],
+                    "source": "autogen.sh:3-9 说明运行 autoreconf 后运行 ./configure；configure.ac:9 AM_INIT_AUTOMAKE; GNUmakefile:6-10 配置后在当前目录使用生成的 Makefile",
+                    "expected": "生成 configure 并完成 Linux 默认配置"
+                  },
+                  {
+                    "step_id": "build",
+                    "role": "build",
+                    "command": "make -j2",
+                    "workdir": "/workspace/repo",
+                    "requires": [
+                      "configure"
+                    ],
+                    "source": "Makefile.am:1 bin_PROGRAMS = snapraid; GNUmakefile:6-10 配置后委托生成的 Makefile 执行默认 all 目标",
+                    "expected": "构建默认的 snapraid 主程序"
+                  }
+                ],
+                "build_directory": "/workspace/repo"
+              },
+              "id": "call_00_IrXAsVS2YZcXag1OaXgQ3892"
+            }
+          ],
+          "executed_results": [],
+          "request_sha256": "233417bce79773b6f5d3085577708f91bea2047636a2adf5d6546b909c9d44d9",
+          "response_sha256": "039e4e380db08b6ee5f53ad789ec2b66781a1eef6c5d9cb0fa622be08179b13e"
+        }
+      ]
+    },
+    {
+      "slot": "slot-02-libarchive-P3_R2",
+      "only_submission_advertised_requests": 5,
+      "other_tool_calls": 4,
+      "observed_successful_other_tool_results": 4,
+      "evidence": [
+        {
+          "request": 12,
+          "advertised": [
+            "SimpleBuildActions"
+          ],
+          "returned": [
+            {
+              "name": "read_source",
+              "args": {
+                "path": "CMakeLists.txt",
+                "start_line": 2130
+              },
+              "id": "call_00_NstiejgknyacYct1WM3o3803"
+            }
+          ],
+          "executed_results": [
+            {
+              "tool": "read_source",
+              "call_id": "call_00_NstiejgknyacYct1WM3o3803",
+              "accepted": true,
+              "source_sha256": "18e37860cc101be028c75ac4c2e44cab96aaefba794d5bad3e6ab90c0a60d02b",
+              "read_request": {
+                "path": "CMakeLists.txt",
+                "start_line": 2130
+              }
+            }
+          ],
+          "request_sha256": "296e50640bf4864c973dc44f39d110ef4e50d7040d8a393809870f023eb82362",
+          "response_sha256": "64a99a2b74ddcc7d4cf594ee69485dd5812ebeb96b33d334fe1ba87899d96720"
+        },
+        {
+          "request": 17,
+          "advertised": [
+            "SimpleBuildActions"
+          ],
+          "returned": [
+            {
+              "name": "read_source",
+              "args": {
+                "path": "CMakeLists.txt",
+                "start_line": 140
+              },
+              "id": "call_00_gL07SEsgxtpSMvwxFus18882"
+            }
+          ],
+          "executed_results": [
+            {
+              "tool": "read_source",
+              "call_id": "call_00_gL07SEsgxtpSMvwxFus18882",
+              "accepted": true,
+              "source_sha256": "18e37860cc101be028c75ac4c2e44cab96aaefba794d5bad3e6ab90c0a60d02b",
+              "read_request": {
+                "path": "CMakeLists.txt",
+                "start_line": 140
+              }
+            }
+          ],
+          "request_sha256": "c392ffb65d06d318bcb6678d414a7ceb54009bc34a76aeff48d8062197a1cc40",
+          "response_sha256": "99e6c9ac8a0fb4ca3879eaf70e05f5be5457aa4aa292c8ce2b668dc897770b13"
+        },
+        {
+          "request": 18,
+          "advertised": [
+            "SimpleBuildActions"
+          ],
+          "returned": [
+            {
+              "name": "read_source",
+              "args": {
+                "path": "INSTALL",
+                "start_line": 1
+              },
+              "id": "call_00_TiV4CLid7ow3kRUCB2kj9997"
+            }
+          ],
+          "executed_results": [
+            {
+              "tool": "read_source",
+              "call_id": "call_00_TiV4CLid7ow3kRUCB2kj9997",
+              "accepted": true,
+              "source_sha256": "202711336c60a3577a7636faf3d0b8b69f31a231606adc2699b7b39b257982c1",
+              "read_request": {
+                "path": "INSTALL",
+                "start_line": 1
+              }
+            }
+          ],
+          "request_sha256": "dba9b698c5393bbf77801529db6d8960e2a091714e5370eb20aaacc5f50c7cf1",
+          "response_sha256": "4a75c533a645e35d5900bc244b94dc8e1993d5d0f4c48f446a18f411d483439e"
+        },
+        {
+          "request": 19,
+          "advertised": [
+            "SimpleBuildActions"
+          ],
+          "returned": [
+            {
+              "name": "read_source",
+              "args": {
+                "path": "README.md",
+                "start_line": 1
+              },
+              "id": "call_00_wSkOzU0KhXf9bMjTiE1u7137"
+            }
+          ],
+          "executed_results": [
+            {
+              "tool": "read_source",
+              "call_id": "call_00_wSkOzU0KhXf9bMjTiE1u7137",
+              "accepted": true,
+              "source_sha256": "158527b45cc55cce474530d54e8c7e1a6fd3f57c6cf0967777421c07ea34398d",
+              "read_request": {
+                "path": "README.md",
+                "start_line": 1
+              }
+            }
+          ],
+          "request_sha256": "bb24e350a2b5333300e9d982c77bbd13d3e04381d26306c10412485dbb5dede2",
+          "response_sha256": "174a7f7a3b775c8d6ad61a54e919b72c9348edca7c45d03cf91781f2668f0f93"
+        },
+        {
+          "request": 20,
+          "advertised": [
+            "SimpleBuildActions"
+          ],
+          "returned": [
+            {
+              "name": "SimpleBuildActions",
+              "args": {
+                "reason": "INSTALL 说明 Unix 下可直接用 cmake 生成 Makefile 后 make；CMakeLists.txt 为主要入口，默认启用共享 libarchive、bsdtar、bsdcpio、bsdcat、bsdunzip，第三方压缩/加密库均为 auto-detect 的可选依赖。采用常规 out-of-source 目录构建默认目标。",
+                "build_directory": "/workspace/repo/build",
+                "steps": [
+                  {
+                    "step_id": "configure",
+                    "role": "configure",
+                    "command": "cmake -S . -B build",
+                    "workdir": "/workspace/repo",
+                    "source": "INSTALL:22-33 与 CMakeLists.txt:2,221-259",
+                    "expected": "使用作者默认选项生成构建文件，构建默认的库及命令行工具"
+                  },
+                  {
+                    "step_id": "build",
+                    "role": "build",
+                    "command": "cmake --build build --parallel 2",
+                    "workdir": "/workspace/repo",
+                    "requires": [
+                      "configure"
+                    ],
+                    "source": "INSTALL:31-33 与 CMakeLists.txt:221-259",
+                    "expected": "编译默认目标，包括 libarchive、bsdtar、bsdcpio、bsdcat、bsdunzip 及默认启用的测试目标"
+                  }
+                ]
+              },
+              "id": "call_00_uD95ZjRk7dDLd926YeFm6498"
+            }
+          ],
+          "executed_results": [],
+          "request_sha256": "7e109f514377ed19bb6042cde8910ca98364572a108eaf894f308392a596e7d5",
+          "response_sha256": "19f6752fa7f5d0158a4b45a23868253aad4fe51a907009c16963516c62a8c956"
+        }
+      ]
+    }
+  ]
+}

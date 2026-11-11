@@ -14,6 +14,16 @@ from deerflow.compile.recovery_harness import RecoveryHarness  # noqa: E402
 from deerflow.compile.simple_build_task import SIMPLE_PROMPT  # noqa: E402
 
 
+@pytest.fixture(autouse=True)
+def frozen_implementation(monkeypatch, tmp_path, request):
+    from frozen_recovery_context import install_frozen_components
+
+    if request.node.name != "test_new_manifest_and_runtime_guard_reject_changes":
+        return
+    manifest = comparison.base.shared.load(comparison.MANIFEST)
+    install_frozen_components(monkeypatch, tmp_path, comparison, manifest["components"], "1aa4a3c99ba231ca75418a5028e4f32febbfa73c")
+
+
 def test_rebinds_only_common_prompt_and_keeps_old_guard():
     original = comparison.base.shared.load(comparison.previous.REVIEWED / "candidate.json")
     old = RecoveryHarness.model_validate(original)

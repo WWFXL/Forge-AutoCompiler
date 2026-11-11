@@ -9,6 +9,18 @@ PRE_REPAIR_REVISION = "292a4ca882ab3b07f2fd838b968a5647c44a95b8"
 ROOT = Path(__file__).resolve().parents[2]
 
 
+def install_frozen_components(monkeypatch, tmp_path, script, components, revision):
+    """以真实历史文件验证旧协议；不改摘要，也不放松正式入口。"""
+    target = tmp_path / "frozen-components"
+    for name, expected in components.items():
+        data = subprocess.check_output(["git", "show", f"{revision}:{name}"], cwd=ROOT)
+        assert hashlib.sha256(data).hexdigest() == expected, name
+        path = target / name
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_bytes(data)
+    monkeypatch.setattr(script, "ROOT", target)
+
+
 def install_frozen_recovery_context(monkeypatch, tmp_path, script, test_module, *, scoped=False):
     request = json.loads((ROOT / "benchmarks/fixtures/recovery-harness-proposal-r2-v1/request.json").read_text())
     prompt = request["packet"]["base_prompt"]

@@ -261,7 +261,15 @@ def primary_artifacts(*, task, reference, root, baseline, deadline, po_headers=N
         identities = {(p["kind"], p["sha256"], p["mode"]): p for p in reversed(sorted(matches, key=lambda p: p["path"]))}
         covered = bool(identities)
         rows.append(dict(name=component.name, status="passed" if covered else "failed", evidence=component.evidence, candidates=list(identities.values())))
-        selected.extend(identities.values())
+        # 相同组件可能同时生成发布版本和未strip版本（如toybox）。
+        # 保留全部候选证据；每个交付名称/类型选择距仓库根最近的一个，
+        # 避免把构建中间副本当成另一个必需组件或覆盖同名交付文件。
+        choices = {}
+        for candidate in sorted(identities.values(), key=lambda p: (len(PurePosixPath(p["path"]).parts), p["path"])):
+            choices.setdefault((Path(candidate["path"]).name, candidate["kind"]), candidate)
+        rows[-1]["selection_policy"] = "nearest-root-per-name-and-kind-v1"
+        rows[-1]["selected_paths"] = [p["path"] for p in choices.values()]
+        selected.extend(choices.values())
     unique = {p["path"]: p for p in selected}
     return dict(status="passed" if all(r["status"] == "passed" for r in rows) else "failed", components=rows, artifacts=list(unique.values()))
 
@@ -274,6 +282,7 @@ class SimpleBuildWorkflow(PlanWorkflow):
         self.meter = meter
         self.root = Path(kwargs["session"].leadagent_repo_dir).resolve()
         self.baseline = source_inventory(self.root)
+        self.dependency_outputs = {}
         self.po_headers = {}
         for name in self.baseline:
             if PurePosixPath(name).suffix == ".po" and PurePosixPath(name).parent.as_posix() == "po" and self.baseline[name]["link"] is None:
@@ -320,7 +329,20 @@ class SimpleBuildWorkflow(PlanWorkflow):
         return dict(protected_inputs_unchanged=True, generated_document_changes=changes, generated_metadata_changes=metadata_changes)
 
     def snapshot(self):
-        return {**super().snapshot(), "configuration_state": self.configuration, "layers": dict(self.layers)}
+        return {**super().snapshot(), "configuration_state": self.configuration, "layers": dict(self.layers), "dependency_generated_paths": dict(self.dependency_outputs)}
+
+    def _generated_state(self):
+        """仅比较生成物文件身份，不读大模型数据/二进制内容，不解释Shell语义。"""
+        rows = {}
+        for directory, dirs, files in os.walk(self.root, followlinks=False):
+            dirs[:] = [d for d in dirs if d != ".git"]
+            for name in dirs + files:
+                path = Path(directory) / name
+                relative = path.relative_to(self.root).as_posix()
+                if relative not in self.baseline:
+                    identity = path.lstat()
+                    rows[relative] = (identity.st_mode, identity.st_size, identity.st_mtime_ns, identity.st_ctime_ns, identity.st_ino)
+        return rows
 
     def _validate_step(self, step):
         validate_phase_command(step)
@@ -349,6 +371,8 @@ class SimpleBuildWorkflow(PlanWorkflow):
 
     def _execute(self, step):
         self.check_source()
+        preparation = step.role == "dependency" and not step.step_id.startswith("forge-")
+        before_outputs = self._generated_state() if preparation else None
         if self.meter is not None:
             self.meter.tracker.observe_elapsed(time.monotonic() - self.started)
             self.meter.tracker.consume(commands=1)
@@ -374,6 +398,9 @@ class SimpleBuildWorkflow(PlanWorkflow):
         self.check_source()
         if not passed:
             return False
+        if preparation:
+            self.dependency_outputs[step.step_id] = sorted(name for name, identity in self._generated_state().items() if before_outputs.get(name) != identity)
+            self.manager.log_event(self._session, "simple.dependency_outputs_observed", step_id=step.step_id, paths=self.dependency_outputs[step.step_id])
         if step.role in {"configure", "build"} and step.step_id != "forge-generated-reset":
             self.observation_step = step
             self.observation_record = record
@@ -398,7 +425,11 @@ class SimpleBuildWorkflow(PlanWorkflow):
             self.handoff.update(
                 configuration_state=self.configuration,
                 primary_components=self.primary,
-                successful_dependencies=[dict(step_id=s.step_id, command_id=self.completed[s.step_id], command=s.command, workdir=s.workdir) for s in self.plan.steps if s.role == "dependency" and s.step_id in self.completed],
+                successful_dependencies=[
+                    dict(step_id=s.step_id, command_id=self.completed[s.step_id], command=s.command, workdir=s.workdir)
+                    for s in self.plan.steps
+                    if s.role == "dependency" and s.step_id in self.completed and not s.step_id.startswith("forge-")
+                ],
             )
             self._persist()
             (self.directory / f"handoff-{self.handoff['handoff_id']}.json").write_text(json.dumps(self.handoff, ensure_ascii=False, indent=2) + "\n")
@@ -430,22 +461,25 @@ class SimpleBuildWorkflow(PlanWorkflow):
 
     def _retain_dependencies(self, plan):
         """遗漏不是删除；有效配方保留成功准备，不收集所有历史命令。"""
-        successful = [s for s in self.plan.steps if s.role == "dependency" and s.step_id in self.completed]
+        successful = [s for s in self.plan.steps if s.role == "dependency" and s.step_id in self.completed and s.step_id != "forge-generated-reset"]
         known = {s.step_id for s in successful}
         if not set(plan.discard_dependencies) <= known:
             raise PlanContractError("discard_dependencies只能引用当前已成功的依赖步骤")
         incoming = {s.step_id: s for s in plan.steps}
         retained = []
         keys = ("role", "command", "workdir", "requires", "required_output")
+        conflicts = []
         for old in successful:
             if old.step_id in plan.discard_dependencies:
                 continue
             new = incoming.get(old.step_id)
             if new is not None and any(getattr(old, k) != getattr(new, k) for k in keys):
-                raise PlanContractError(f"替换成功依赖{old.step_id}须在discard_dependencies中说明理由；不能隐式覆盖")
+                conflicts.append(old.step_id)
             if any(s.step_id != old.step_id and (s.role, s.command, s.workdir) == (old.role, old.command, old.workdir) for s in plan.steps):
                 raise PlanContractError(f"依赖改名没有改变实际执行动作；请沿用成功依赖的step_id={old.step_id}，不要改名重复执行")
             retained.append(new or old)
+        if conflicts:
+            raise PlanContractError(f"替换成功依赖{','.join(conflicts)}须在discard_dependencies中逐项说明理由；不能隐式覆盖。无需改变的成功步骤可省略，由系统保留。")
         retained_ids = {s.step_id for s in retained}
         # 成功环境准备保持实际先后，新增依赖在其后执行；配置后缀仍会失效。
         value = plan.model_dump()
@@ -491,26 +525,40 @@ class SimpleBuildWorkflow(PlanWorkflow):
             self._apply_execution_revision(handoff_id=handoff_id, plan=plan, reason=reason)
 
     def _apply_execution_revision(self, *, handoff_id, plan, reason):
-        retained_dependencies = {s.step_id: self.completed[s.step_id] for s in self.plan.steps if s.role == "dependency" and s.step_id in self.completed and s.step_id not in plan.discard_dependencies}
+        retained_dependencies = {
+            s.step_id: self.completed[s.step_id] for s in self.plan.steps if s.role == "dependency" and s.step_id in self.completed and s.step_id not in plan.discard_dependencies and s.step_id != "forge-generated-reset"
+        }
         old = [s for s in self.plan.steps if s.step_id != "forge-generated-reset"]
         new = [s for s in plan.steps if s.step_id != "forge-generated-reset"]
         before = [(s.role, s.command, s.workdir) for s in old if s.role in {"dependency", "configure"}]
         after = [(s.role, s.command, s.workdir) for s in new if s.role in {"dependency", "configure"}]
-        if before != after:
-            position = next((i for i, s in enumerate(new) if s.role != "dependency"), len(new))
-            new.insert(position, generated_reset_step(self.baseline))
+        reset_required = before != after
+        invalidated = set()
+        if reset_required:
+            # 清理必须发生在准备之前：dependency也可能生成configure或模型数据。
+            # 无法证明某准备动作不受清理影响时，重新执行，而不消费已被删掉的输出。
+            new.insert(0, generated_reset_step(self.baseline).model_copy(update={"role": "dependency"}))
             plan = plan.model_copy(update={"steps": tuple(new)})
+            for step in new:
+                if step.step_id in retained_dependencies and (self.dependency_outputs.get(step.step_id, ["unknown"]) or set(step.requires) & invalidated):
+                    invalidated.add(step.step_id)
         elif any(s.step_id == "forge-generated-reset" for s in self.plan.steps):
-            position = next((i for i, s in enumerate(new) if s.role != "dependency"), len(new))
-            new.insert(position, next(s for s in self.plan.steps if s.step_id == "forge-generated-reset"))
+            new.insert(0, next(s for s in self.plan.steps if s.step_id == "forge-generated-reset"))
             plan = plan.model_copy(update={"steps": tuple(new)})
         super().apply_revision(handoff_id=handoff_id, plan=plan, reason=reason)
         # 删除前面的某个依赖可能使通用前缀算法清空后续完成记录；仍有效的
         # 独立准备动作可复用，避免仅为了保留重放配方而在原容器重装。
         for step in self.plan.steps:
-            if step.step_id in retained_dependencies and set(step.requires) <= self.completed.keys():
+            if step.step_id in retained_dependencies and step.step_id not in invalidated and set(step.requires) <= self.completed.keys():
                 self.completed[step.step_id] = retained_dependencies[step.step_id]
-        self.manager.log_event(self._session, "simple.dependencies_retained", command_ids=retained_dependencies, discarded=plan.discard_dependencies)
+        self.manager.log_event(
+            self._session,
+            "simple.dependencies_retained",
+            command_ids={k: v for k, v in retained_dependencies.items() if k not in invalidated},
+            discarded=plan.discard_dependencies,
+            reset_before_preparation=reset_required,
+            invalidated_generated_dependencies=sorted(invalidated),
+        )
         self._persist()
         self.observation_step = self.observation_record = None
         self.configuration = dict(status="unknown", directory=None, build_system=plan.build_system, reason="方案修订后等待新的实际执行证据")
@@ -565,20 +613,30 @@ class SimpleBuildWorkflow(PlanWorkflow):
                 return None, False
             # 原容器与重放共用同一短时限；交付共享库在交付目录内解析。
             step = smoke.step.model_copy(update={"command": "export LD_LIBRARY_PATH=/artifacts${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}\n" + smoke.step.command})
-            if smoke.accepted_exit_codes != (0,):
-                config = dict(command="set -euo pipefail\n" + step.command, codes=smoke.accepted_exit_codes, markers=smoke.step.required_output)
-                script = (
-                    "import json,subprocess,sys\nconfig="
-                    + repr(config)
-                    + "\n"
-                    + """r=subprocess.run(['bash','-c',config['command']],stdout=subprocess.PIPE,stderr=subprocess.STDOUT)
-text=r.stdout.decode(errors='replace')
-sys.stdout.write(text)
-print('FORGE_NATIVE_SMOKE='+json.dumps({'exit_code':r.returncode,'accepted_exit_codes':config['codes']},sort_keys=True))
-sys.exit(0 if r.returncode in config['codes'] and all(v in text for v in config['markers']) else 86)
-"""
-                )
-                step = step.model_copy(update={"command": "python3 -c " + shlex.quote(script)})
+            # 交付目录仅放交付物。交互式程序可能在cwd写历史/缓存；
+            # 使用隔离的运行目录，并以宿主用户执行，防止root-only生成文件。
+            isolated = step.workdir == "/artifacts"
+            config = dict(
+                command="set -euo pipefail\n" + step.command,
+                codes=smoke.accepted_exit_codes,
+                markers=smoke.step.required_output,
+                cwd="/workspace/repo/.forge-verification/" + smoke.step.step_id if isolated else step.workdir,
+                isolated=isolated,
+                uid=os.getuid(),
+                gid=os.getgid(),
+            )
+            script = (
+                "import json,os,pathlib,subprocess,sys\nconfig=" + repr(config) + "\n"
+                "if config['isolated']:\n"
+                " pathlib.Path(config['cwd']).mkdir(parents=True,exist_ok=True)\n"
+                " if os.geteuid()==0: os.chown(config['cwd'],config['uid'],config['gid'])\n"
+                "options={'user':config['uid'],'group':config['gid'],'extra_groups':[]} if os.geteuid()==0 else {}\n"
+                "r=subprocess.run(['bash','-c',config['command']],cwd=config['cwd'],stdout=subprocess.PIPE,stderr=subprocess.STDOUT,**options)\n"
+                "text=r.stdout.decode(errors='replace')\nsys.stdout.write(text)\n"
+                "print('FORGE_NATIVE_SMOKE='+json.dumps({'exit_code':r.returncode,'accepted_exit_codes':config['codes']},sort_keys=True))\n"
+                "sys.exit(r.returncode if config['codes']==(0,) else 0 if r.returncode in config['codes'] and all(v in text for v in config['markers']) else 86)\n"
+            )
+            step = step.model_copy(update={"command": "python3 -c " + shlex.quote(script), "workdir": "/workspace/repo" if isolated else step.workdir})
             record, output = self._post_command(step, min(30, remaining))
             output_matches = all(v in output.combined_output for v in smoke.step.required_output)
             contract_mismatch = not record.timed_out and record.exit_code not in (0, 124, 125, 126, 127) and output_matches

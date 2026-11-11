@@ -578,3 +578,9 @@ E54共同工程后续：[验证、依赖工具链及文件保护修复](2026-11-
 - 结果：P0/P3主构建17/18、15/18，交付11/18、10/18；在线费0.3982293/0.9390357美元，累计1980.60/1572.14秒。P3高费135.8%，增量93.4%来自初始规划；5项目局部低费保留。较短总时主要受未完成路径影响，不当同等完成加速。
 - 边界：libgcrypt/P3规划未收敛，Rnnoise/P3恢复修订拒绝；Civetweb两组改源码；共同轻量参考缺失、交付名称与权限问题独立保留。未观察不当编译失败，不因事后修复回填。不能据一个候选否定Harness优化路线。
 - 证据：[报告](2026-11-11-planning-p3-fixed-r2-comparison-results.md)、[分析/36行表](../../benchmarks/analyses/planning-p3-fixed-r2-comparison-2026-11-11/README.md)、[协议](../../benchmarks/preregistrations/cpp-build-planning-p3-fixed-r2-comparison-flash-v1.md)。raw`forge-planning-p3-fixed-r2-comparison-flash-v1`，inventory`479ce9ab398dd45371d03f2d0bff0adeb37228dafd6668a54aa7afe590a93ca9`；335响应/1.337265美元，未知0。36cleanup、57容器114引用不存在；封存权限补全收据单列，不改原件。
+
+### E56共同工程后续与待审P4（不新增效果分母）
+
+[共同准备/交付修复](2026-11-11-common-preparation-delivery-repair.md)及[汇总](../../benchmarks/analyses/common-preparation-delivery-repair-2026-11-11/summary.json)：4个独立项目，6条工程路径（含未采纳v1默认旗标、v3最终准备失效复验），最终4项主构建/实际干净重建通过、0Provider；只用于实现说明，不替换E56失败、不过度推断模型效果。Rnnoise机制由jansson真实bootstrap验证，Rnnoise本身未重跑。
+
+[Codex直接规划Harness诊断/P4](2026-11-11-codex-planning-harness-proposal.md)：E56三条已暴露负面轨迹的工具可用性缺口及短指导候选，7686c24b，尚待审核、未比较、未入论文。源材料与E56重叠，不增加独立样本；共同工具分派修正须所有方法共享，不作为P4增量。原件和提示差异见报告。

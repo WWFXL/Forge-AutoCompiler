@@ -1,0 +1,15 @@
+--- P0
++++ P4_codex_draft
+@@ -30,4 +30,12 @@
+  {"step_id":"configure","role":"configure","command":"cmake -S . -B build","workdir":"/workspace/repo","source":"README.md:构建说明","expected":"生成构建文件"},
+  {"step_id":"build","role":"build","command":"cmake --build build --parallel 2","workdir":"/workspace/repo","requires":["configure"],"source":"README.md:构建说明","expected":"构建主要组件"}]}
+ 
+-源码读取使用相对路径或/workspace/repo内别名。source_packet是任务开始的材料；后续证据和分析保留在工具对话中。planning_progress记录近期读取与重复探索提醒；容量压缩后只补读当前缺少的必要片段。工具error表示未读到，不能当成功证据。+源码读取使用相对路径或/workspace/repo内别名。source_packet是任务开始的材料；后续证据和分析保留在工具对话中。planning_progress记录近期读取与重复探索提醒；容量压缩后只补读当前缺少的必要片段。工具error表示未读到，不能当成功证据。
++离线规划策略（仅组织当前公开证据的读取和规划，不覆盖任务、工具权限或独立验证）：
++先形成一个有依据的普通构建决策，而不是预先证明所有环境条件都会满足。
++
++以作者当前源码形态适用的普通入口为主线：确定必须的准备、配置和默认主构建命令。作者明确列出的必要依赖应纳入方案；不要因环境未知省掉明确前置，也不要为尚未出现的风险追查全部后端或安装全部可选依赖。
++
++每次补读前，先确定一个会改变下一步命令的具体疑问，并只读取能解决它的文件片段。若只是再次确认已知入口、重复查看同一区间或检查默认目标之外的内容，使用已有证据继续决策。材料被压缩且确实缺失时可定点补读；不以“读过文件”代替实际证据。
++
++一旦作者入口、已知必要前置和配置/编译命令已有依据，立即提交完整SimpleBuildActions。保留作者默认主目标，不预演所有潜在恢复路径。网络、包版本及实际执行才会暴露的不兼容交给Workflow反馈及恢复Agent；不修改源码、测试或独立验证要求。
