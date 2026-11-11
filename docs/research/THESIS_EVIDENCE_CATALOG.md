@@ -311,3 +311,5 @@ E54共同工程后续：[验证、依赖工具链及文件保护修复](2026-11-
 | [cpp-typed-action-benchmark-rule-gate-audit-v1.md](../../benchmarks/reports/cpp-typed-action-benchmark-rule-gate-audit-v1.md) | Jev benchmark v1 RuleGate 可辨识性审计 | 待逐项复核 |
 | [cpp-typed-semantic-routing-pilot-v2.md](../../benchmarks/reports/cpp-typed-semantic-routing-pilot-v2.md) | 同阶段异根因类型化语义路由 benchmark v2 结果 | 待逐项复核 |
 | [cpp-verifier-checkpoint-behavioral-pilot-v2.md](../../benchmarks/reports/cpp-verifier-checkpoint-behavioral-pilot-v2.md) | Checkpoint 行为终态 v2 六配对实验结果 | 待逐项复核 |
+
+- 2026-11-11 — E55按用户批准纳入论文v0.11待审稿：第5章恢复策略、第6章36次结果/案例与附录I；报告与原件保持。入文位置见`docs/thesis/EVIDENCE_MAP.md`。
