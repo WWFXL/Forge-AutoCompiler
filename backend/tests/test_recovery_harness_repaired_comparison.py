@@ -42,8 +42,12 @@ def test_same_18_tasks_only_masscan_native_reference_changes():
             assert old["reference"]["executable_smokes"][0]["step"]["command"] == new["reference"]["executable_smokes"][0]["step"]["command"]
 
 
-def test_new_manifest_and_runtime_guard_reject_changes():
+def test_new_manifest_and_runtime_guard_reject_changes(monkeypatch):
     value = comparison.base.shared.load(comparison.MANIFEST)
+    # CI没有本机原始归档；仅用固定摘要模拟该外部输入，仓库组件仍实际核验。
+    source_hashes = {Path(p["source_archive"]): p["task"]["source_archive_sha256"] for p in value["projects"]}
+    real_digest = comparison.digest
+    monkeypatch.setattr(comparison, "digest", lambda path: source_hashes[path] if path in source_hashes else real_digest(path))
     comparison.validate(value)
     bad = copy.deepcopy(value)
     bad["recovery_harnesses"]["R2_system_context"]["recovery_guidance"] += "变更"
