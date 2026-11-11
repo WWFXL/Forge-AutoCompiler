@@ -3,6 +3,7 @@
 跨 Claude Code session 的项目状态流水。按 CLAUDE.md §7 维护。
 
 ## 进行中 (In Progress)
+- 2026-11-11 — #731修复后基座H0/R2同18项目/36槽比较准备完成，正式0/36；新增5美元/4小时尚未授权，无活动Provider，旧R2指导保持、只重绑定共同提示，不写论文。
 - 2026-11-11 — #729共同底座修复与三项目工程验证完成；无活动Provider，不追加Harness比较、不改论文，当前状态以RESEARCH_STATUS.md为准。
 - 2026-11-11 — #727的36/36新项目比较完成，待用户审核结果；无活动Provider，不追加比较/提案，不改论文v0.10，H0仍默认。当前阶段及发布状态见RESEARCH_STATUS.md及关联PR/CI。
 - 2026-11-10 — #725用户已审核R2_system_context，18新项目/36槽同H0初始方案比较准备完成；manifest7392fcb8，新批5美元/4小时尚未授权，0新增模型费，无活动Provider。H0仍默认、论文v0.10不改，获授权即采集，不重复资格；当前阶段以RESEARCH_STATUS.md为准。
@@ -628,6 +629,9 @@
   - 下一步: 等待实验负责人确认当前网络接入介质，并决定是否授权只读 endpoint 诊断和新的 canary amendment；获得确认后必须另建中文 Issue/PR 和协议 identity，保留当前失败 marker。
 
 ## 最近变更 (Recent Changes)
+- 2026-11-11 — 装配#731修复后共同基座比较，复用现有规划/执行/费用分析；5相关测试及prepare/check-prepared通过，0新增模型费。
+  - 文件: `scripts/forge_recovery_harness_repaired_comparison.py`、同名manifest/preregistration、`docs/research/2026-11-11-repaired-r2-comparison-preparation.md`。
+  - 边界: 原18已暴露项目，不混E54分母、不覆盖旧失败、结果先审核再决定入文。
 - 2026-11-11 — 修复E54验证退出码、依赖工具链、PO元数据保护、恢复上下文及分层终态。
   - 文件: `backend/packages/harness/deerflow/compile/simple_build_runtime.py`, `simple_build_task.py`, `simple_planning_context.py`, `plan_workflow.py`, `simple_build_agents.py`；`scripts/forge_simple_system.py`, `scripts/forge_common_system_repair.py`；`docs/research/2026-11-11-common-system-repair.md`。
   - 动机: 排除共同系统阻塞后再研究Harness。masscan/xz/flex最终主构建、轻量、交付和真实重建通过，23.34/194.36/636.54秒；xz首轮编译通过后产物扫描漏接新保护规则，99.63秒失败独立保留。flex七依赖步骤入配方；七容器实查不存在。0Provider/新增模型费，旧E54标签/分母不改、论文v0.10不改、H0默认。mozjpeg实际历史材料含system message压缩后44391/49000字节，仅组装回放；未观察模型PIC恢复。129相关回归与最终33重叠回归、Ruff通过；CI历史绑定测试改用SHA核对的修复前源码/提示词，47相关测试通过，生产守卫不变，不计科学效果。原件`forge-common-system-repair-729-*`，汇总`benchmarks/analyses/common-system-repair-2026-11-11/summary.json`。
