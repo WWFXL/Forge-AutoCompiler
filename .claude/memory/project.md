@@ -3,7 +3,6 @@
 跨 Claude Code session 的项目状态流水。按 CLAUDE.md §7 维护。
 
 ## 进行中 (In Progress)
-- 2026-11-12 — #750论文v0.11已完成E57入文、全文论证修订及Word实际导出，发布/知识库同步收尾；无活动Provider，不新增实验或更换默认。当前状态以RESEARCH_STATUS.md为准。
 - 2026-11-11 — #744共同准备/交付修复及四项目最终真实重建完成；0Provider/新增费，P4候选7686c24b待用户审核，尚未接入或比较，下一步共同工具分派方案及短指导审核。当前事实见RESEARCH_STATUS.md，旧E56与论文不改。
 - 2026-11-11 — #742 P0/P3同R2的36/36正式比较完成，结果待用户审核；主构建17/18、15/18，交付11/18、10/18，费0.3982293/0.9390357美元，P3不采纳。335响应/1.337265美元/未知0；inventory479ce9ab，36cleanup/57容器114引用不存在，正式进程已退出。报告/E56已保存，不入论文、不追加调用；当前事实见RESEARCH_STATUS.md。
 - 2026-11-11 — #739已审核P3与P0的固定R2比较准备；18项目36槽、各自独立规划，正式0/36、新增模型费0。预算/时窗尚未绑定，旧提案一次额度不续用；PR740三CI通过并合c151dbac、Issue739关闭，知识库入口已同步；7项检查及两条受控接线通过，详见RESEARCH_STATUS.md。
@@ -634,6 +633,14 @@
   - 下一步: 等待实验负责人确认当前网络接入介质，并决定是否授权只读 endpoint 诊断和新的 canary amendment；获得确认后必须另建中文 Issue/PR 和协议 identity，保留当前失败 marker。
 
 ## 最近变更 (Recent Changes)
+
+- 2026-11-12 — 完成#752核心论证及最终系统组件方案，实际导出单份Word；保留v0.11正文、冻结证据和产品默认。
+  - 文件: `docs/thesis/ARGUMENT_BLUEPRINT.md`, `docs/thesis/FINAL_SYSTEM_DESIGN.md`, `RESEARCH_STATUS.md`
+  - 动机: 将历史结果组织为两项研究工作的证据链，明确P0工具约束＋R2已在E57 B组实测，避免拼接版本成绩；精确复用扩展与新项目综合评价另列。
+  - 验证: 报告/接入点核对、Word实际导出与结构检查；0Provider/新增费用，不运行产品全测。用户批准范围仅前两项，到此停止新实验推进。
+
+- 2026-11-12 — 确认#750论文v0.11由PR751三CI通过后合并0e33122d，Issue关闭；Word已交付。
+
 - 2026-11-12 — #750完成E57工具约束/P4三组比较入文与全文审读，仅交付Word v0.11。
   - 文件: `docs/thesis/chapters/`, `docs/thesis/tools/build_draft.py`, `docs/research/2026-11-12-thesis-e57-revision.md`, `RESEARCH_STATUS.md`。
   - 动机: 按用户审核意见连接状态执行、历史轨迹诊断和Harness更新；删改重复辩解及写作交接，保留影响结果解释的条件与混合成本。实际Word七章/60表/12嵌图，第6章38表号连续，关键数字/阶段合计/图片关系通过；输出forge-thesis-e57-word-2026-11-12，无新版PDF/HTML，0新增实验/Provider。学校模板/个人信息/正式著录仍待补，发布以Issue750关联PR/CI为准。
