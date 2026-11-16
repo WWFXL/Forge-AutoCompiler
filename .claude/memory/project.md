@@ -633,6 +633,12 @@
   - 下一步: 等待实验负责人确认当前网络接入介质，并决定是否授权只读 endpoint 诊断和新的 canary amendment；获得确认后必须另建中文 Issue/PR 和协议 identity，保留当前失败 marker。
 
 ## 最近变更 (Recent Changes)
+
+- 2026-11-17 — #807整理本轮离线Harness更新与LH-v0/LH-v1历史版本。
+  - 文件: `docs/research/2026-11-17-harness-update-inventory.md`、`benchmarks/analyses/harness-update-inventory-2026-11-17/versions.json`、`RESEARCH_STATUS.md`。
+  - 动机: 复用已完成的Super Agent分析，明确提示/工具/记忆/规划查询/上下文及环境政策差异，后续比较不与旧H0/H1/H2混淆。
+  - 边界: 0Provider/新增构建，不改论文/冻结证据/E57分母；LH-v0=e785c5dc、LH-v1=a459eafd，尚无新比较入口或运行授权。
+
 - 2026-11-17 — #805完成修复容量后libffi自主构建并保留结果，待用户审核。
   - 文件: `docs/research/2026-11-17-libffi-context-budget-results.md`、分析目录及RESEARCH_STATUS.md。
   - 结果: 初始8/恢复5共13请求，350032Token/0.110703美元/120.43秒；初始只补texinfo，恢复核实libltdl-dev后安装，原构建/主库交付/原归档重建/cleanup通过。88快照/计费/经验送达/四容器引用核验通过，inventory4638cce7。

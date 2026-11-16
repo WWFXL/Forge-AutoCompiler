@@ -3,7 +3,13 @@
 论文选材固定入口：[硕士论文实验与证据索引](docs/research/THESIS_EVIDENCE_INDEX.md)，[历史材料目录](docs/research/THESIS_EVIDENCE_CATALOG.md)保留存量导航。当前完整稿为[论文v0.11工具Harness结果修订稿](docs/thesis/README.md)；E50–E52保存主构建系统及两轮Harness结果，既有完整任务、状态/恢复消融和两层经验继续按各自版本与分母使用。
 
 
-## 当前阶段（2026-11-17；#805容量修复后自主构建完成，结果待审）
+## 当前阶段（2026-11-17；#807本轮Harness更新清单与版本整理完成）
+
+[更新清单](docs/research/2026-11-17-harness-update-inventory.md)及[版本指纹](benchmarks/analyses/harness-update-inventory-2026-11-17/versions.json)确定LH-v0（最初自主运行e785c5dc）与LH-v1（容量修复后a459eafd）。涵盖依赖工具/索引、诊断记忆/组合查询、恢复宏经验、规划依赖检查及Token上下文管理，分别登记镜像和文件政策变化；与旧H0/H1/H2分开。
+
+本轮为历史分析整理，0Provider/0新增构建，不改论文/冻结证据/E57分母。已有libffi结果支持路径改善与可运行，不作整轮因果降本；规划仍未提前发现宏缺依赖。用户审核版本后再设计新项目比较，尚未新增执行入口或付费授权。
+
+## 上一阶段（2026-11-17；#805容量修复后自主构建完成，结果待审）
 
 [结果](docs/research/2026-11-17-libffi-context-budget-results.md)：13Flash请求（初始8/恢复5）、350032Token、0.110703美元、120.43秒，未知0。规划10查询只补texinfo，首次autogen仍缺LT_SYS_SYMBOL_USCORE；恢复9查询核实libltdl-dev未装及ltdl.m4归属后提交补包，原autogen/configure/make、主库/静态共享交付/原归档干净重建/cleanup通过。原输入保持，187新增项待后审；完整作者测试未要求。
 
