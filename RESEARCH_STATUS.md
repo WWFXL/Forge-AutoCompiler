@@ -3,7 +3,13 @@
 论文选材固定入口：[硕士论文实验与证据索引](docs/research/THESIS_EVIDENCE_INDEX.md)，[历史材料目录](docs/research/THESIS_EVIDENCE_CATALOG.md)保留存量导航。当前完整稿为[论文v0.11工具Harness结果修订稿](docs/thesis/README.md)；E50–E52保存主构建系统及两轮Harness结果，既有完整任务、状态/恢复消融和两层经验继续按各自版本与分母使用。
 
 
-## 当前阶段（2026-11-16；#760恢复容器搜索与依赖查询修复完成）
+## 当前阶段（2026-11-16；#762容器查询工具自主单例准备完成，待授权）
+
+[准备报告](docs/research/2026-11-16-libffi-environment-autonomous-preparation.md)：新身份`cpp-build-libffi-environment-tools-flash-v1`，原P0＋工具约束＋规则路由＋R2通用依赖原则，恢复增加已合并容器查询及配套指导。从零独立规划libffi一次，不给包名/宏答案/旧方案/经验；分析主动诊断、恢复绕行及请求/费用。若恢复未触发如实保留。
+
+默认零费用材料检查、9项新入口门禁检查及Ruff通过；未重复上轮真实工程构建，不改核心或论文。0真实Provider/Token/新增费，正式尚未启动。拟1美元/确认起1小时、单路径无自动重试，未知用量/身份异常/清理失败停止；旧单次授权不续用，等待用户绑定新授权。已暴露开发案例只作单例观察，不增E57分母或作泛化收益。发布以关联PR最新HEAD三CI和科研集成分支合并记录为准。
+
+## 上一阶段（2026-11-16；#760恢复容器搜索与依赖查询修复完成）
 
 [修复报告](docs/research/2026-11-16-recovery-environment-tools.md)：Forge恢复Agent新增有界文本搜索、工具版本/路径、包状态/候选/文件/所属包及搜索路径查询。提示先核实提供者/安装/路径，再选择最小修复；不植入项目答案。查询走原runtime、计预算、记录为diagnostic，不改变阶段或进入成功配方，修复仍由Workflow执行。
 
