@@ -95,10 +95,13 @@ def run_simple_system(
     retain_recovery_diagnostics=False,
     diagnose_dependencies=False,
     inspect_planning_dependencies=False,
+    recovery_environment_tools=True,
 ):
     """可复用执行接点；本函数不加载配置或凭据，不自行创建Provider。"""
     if method not in METHODS[:3]:
         raise ValueError("此接点仅接受Forge/经验Forge/强工具Agent")
+    if (retain_recovery_diagnostics or diagnose_dependencies) and not recovery_environment_tools:
+        raise ValueError("恢复诊断和记忆需要启用恢复环境工具")
     if inspect_planning_dependencies and method == "strong_tool_agent":
         raise ValueError("规划依赖查询只用于方案式Forge，不能隐式改变强工具Agent")
     if (task.task_version == "main-build-v1") != (validation_scope == "main_build"):
@@ -128,7 +131,7 @@ def run_simple_system(
             validation_scope=validation_scope,
             enforce_planning_tools=enforce_planning_tools,
             inspect_planning_dependencies=inspect_planning_dependencies,
-            recovery_environment_tools=DIAGNOSTIC_VERSION if method != "strong_tool_agent" else None,
+            recovery_environment_tools=DIAGNOSTIC_VERSION if recovery_environment_tools and method != "strong_tool_agent" else None,
             kind="zero_provider_engineering" if accepted_models == ("zero-provider-script",) else "requires_external_authorized_protocol",
         ),
     )
@@ -248,7 +251,7 @@ def run_simple_system(
                         harness=harness,
                         recovery_harness=recovery_harness,
                         revision_validator=workflow.validate_revision,
-                        diagnostics=RecoveryEnvironment(workflow, meter, diagnostic_memory=diagnostic_memory, diagnose_dependencies=diagnose_dependencies),
+                        diagnostics=RecoveryEnvironment(workflow, meter, diagnostic_memory=diagnostic_memory, diagnose_dependencies=diagnose_dependencies) if recovery_environment_tools else None,
                     )
                 finally:
                     recovery_seconds += time.monotonic() - recovery_start

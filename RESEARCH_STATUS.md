@@ -3,7 +3,13 @@
 论文选材固定入口：[硕士论文实验与证据索引](docs/research/THESIS_EVIDENCE_INDEX.md)，[历史材料目录](docs/research/THESIS_EVIDENCE_CATALOG.md)保留存量导航。当前完整稿为[论文v0.11工具Harness结果修订稿](docs/thesis/README.md)；E50–E52保存主构建系统及两轮Harness结果，既有完整任务、状态/恢复消融和两层经验继续按各自版本与分母使用。
 
 
-## 当前阶段（2026-11-17；#807本轮Harness更新清单与版本整理完成）
+## 当前阶段（2026-11-17；#809本轮Harness更新18项目比较准备完成）
+
+[准备与验证](docs/research/2026-11-17-harness-update-comparison-preparation.md)、[协议](benchmarks/preregistrations/cpp-build-harness-update-comparison-flash-v1.md)：18项目含libffi×LH_v0_common/LH_v1各一次，共36槽；只汇总全18，不做17子组。两组从零规划，无成功命令复用/经验库检索；更新组启用规划依赖查询、恢复诊断/证据记忆及已审核错误经验，基线保留原P0/R2只读能力。共同修复后执行器/64K容量/查询镜像/文件后审，不估计容量修复独立效果。
+
+18源码取得，作者主要产物/轻量CLI参考已固定；8项相关检查、两组libyaml真实受控失败→恢复→交付/原归档重建/cleanup及dsvpn原生用法独立检查通过。均为零Provider工程准备，非模型效果；正式0/36、未读取凭据、费用0。manifest e5156a46；本批拟10美元/8小时尚未绑定，旧单次不续用。结果先审核，不自动写论文；下一步取得本批预算及时窗后直接采集。发布以Issue809关联PR/CI为准。
+
+## 上一阶段（2026-11-17；#807本轮Harness更新清单与版本整理完成）
 
 [更新清单](docs/research/2026-11-17-harness-update-inventory.md)及[版本指纹](benchmarks/analyses/harness-update-inventory-2026-11-17/versions.json)确定LH-v0（最初自主运行e785c5dc）与LH-v1（容量修复后a459eafd）。涵盖依赖工具/索引、诊断记忆/组合查询、恢复宏经验、规划依赖检查及Token上下文管理，分别登记镜像和文件政策变化；与旧H0/H1/H2分开。
 
