@@ -7,7 +7,7 @@
 
 [修复报告](docs/research/2026-11-16-source-posthoc-review-repair.md)：按用户决定，当前Forge/经验Forge/共享强工具执行器不再因文件新增、原文件内容/权限/链接变化或删除中止。构建与重建按真实反馈判断；source-review.json及阶段事件记录变化，pending_review单列，不自动判功能等价。有原输入变化的方案未经审查不进入已验证经验。旧严格参考工具/CXX适配器及冻结实验保留，后续新比较先统一口径。
 
-60项相关检查及libffi零Provider工程路径通过：autoreconf更新config.guess权限、config.sub内容后继续完成默认主库/交付/实际干净重建/清理，67.17秒，0模型费用；原输入两变化＋187新增均留存，source_unchanged=false与reproducible_delivery_completed=true分列、审查待定。原件forge-source-posthoc-review-repair-2026-11-16-v2；首版目标校验失败原件保留。没有新增自主模型观察，不改上一轮失败、论文或E57；下一步可在独立新授权下观察Agent是否实际越过原拦截点。发布以关联PR最新HEAD检查及合并记录为准。
+86项相关检查及libffi零Provider工程路径通过：autoreconf更新config.guess权限、config.sub内容后继续完成默认主库/交付/实际干净重建/清理，67.17秒，0模型费用；原输入两变化＋187新增均留存，source_unchanged=false与reproducible_delivery_completed=true分列、审查待定。原件forge-source-posthoc-review-repair-2026-11-16-v2；首版目标校验失败原件保留。没有新增自主模型观察，不改上一轮失败、论文或E57；下一步可在独立新授权下观察Agent是否实际越过原拦截点。发布以关联PR最新HEAD检查及合并记录为准。
 
 ## 上一阶段（2026-11-16；#764容器查询工具自主单例结束，未完成，待用户审核）
 

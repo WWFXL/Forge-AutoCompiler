@@ -17,6 +17,8 @@ from deerflow.compile.plan_workflow import PlanContractError, PlanStep, _digest
 from deerflow.compile.simple_planning_context import PlanningContext
 from deerflow.compile.unified_plan_equivalent_observed import ObservedBuildActions, relative_path
 
+SOURCE_REVIEW_GUIDANCE = "\n当前执行策略posthoc-review-v1：允许创建或更新必要的构建辅助文件，说明改动目的；不得通过删改核心实现或测试来伪造成功。文件变化记录供结束后审查，不会仅因发生改动中止。\n"
+
 FROZEN_SIMPLE_GOAL = "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。"
 SIMPLE_GOAL = "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；允许必要的构建适配，保持核心功能与测试含义，文件改动留待任务结束后审查。"
 
@@ -327,7 +329,6 @@ SIMPLE_PROMPT = (
 自行识别主要程序/库、依赖与构建入口。不要人为增加Debug、静态库、全部示例、benchmark或单独完整测试。
 默认构建自然包含的目标照常构建，不能删源码/测试或关闭主要组件。目标不清楚时明确报告，不能自行缩小。
 方案只能包含dependency/configure/build动作，最后step_id=build；不要自行测试或暂存。
-允许创建或更新必要的构建辅助文件，说明改动目的；不得通过删改核心实现或测试来伪造成功。文件变化记录供结束后审查，不会仅因发生改动中止。
 命令日志和失败交接由系统记录；不要提交diagnostic_paths等诊断采集字段。
 交付方式：调用名为SimpleBuildActions的结构化输出工具，将reason和steps作为工具参数提交。
 下面的JSON仅展示该工具的参数结构，不是要求在普通回复正文输出JSON；不要用正文宣告规划完成。
@@ -435,6 +436,8 @@ def propose_simple(
     if recovery_harness is not None and current_plan is not None:
         prompt = recovery_harness.prompt(prompt)
         meter.ledger.append("harness.selected", name=recovery_harness.name, sha256=recovery_harness.fingerprint(), scope="recovery", applied=True)
+    # 当前执行策略独立追加，历史Harness共同提示与候选绑定保持原文。
+    prompt += SOURCE_REVIEW_GUIDANCE
     if diagnostics is not None:
         prompt += RECOVERY_ENVIRONMENT_PROMPT
     if experience_bank is not None:
