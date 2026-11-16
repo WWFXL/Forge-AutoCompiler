@@ -3,7 +3,15 @@
 论文选材固定入口：[硕士论文实验与证据索引](docs/research/THESIS_EVIDENCE_INDEX.md)，[历史材料目录](docs/research/THESIS_EVIDENCE_CATALOG.md)保留存量导航。当前完整稿为[论文v0.11工具Harness结果修订稿](docs/thesis/README.md)；E50–E52保存主构建系统及两轮Harness结果，既有完整任务、状态/恢复消融和两层经验继续按各自版本与分母使用。
 
 
-## 当前阶段（2026-11-16；#793已审核宏经验单次观察入口准备完成，待新费用及时窗）
+## 当前阶段（2026-11-16；#795已审核宏经验单次观察成功，结果待用户审核）
+
+[结果报告](docs/research/2026-11-16-libffi-macro-experience-results.md)：11Flash请求（初始9/恢复2）、136293Token、0.0432美元、85.55秒，未知0。恢复核实包未安装及ltdl.m4提供者，安装libltdl-dev后原流程/主库/静态共享交付/原归档干净重建/cleanup通过；无替代宏或别版Libtool。原输入未变、新增186文件后审，完整作者测试未要求。
+
+经验只在恢复第10/11请求送达；实际5查询（自动3/主动2）。相比上一初始3/恢复8，总请求仍11，恢复路径改善但初始规划读取增加；单例描述性费用/时间差不作迁移或稳定降本结论。原件forge-libffi-macro-experience-flash-2026-11-16-v1，inventory4c21279a，85源快照/逐响应计费/四容器引用不存在核验通过。
+
+用户已授权一次/1美元/1小时，唯一运行在有效窗内完成，无自动重试/追加，无活动Provider。结果先审核，不改论文/E57/独立分母。下一决定为审核经验利用结果及是否扩展到其他依赖缺口；发布以Issue795关联PR/CI为准。
+
+## 上一阶段（2026-11-16；#793已审核宏经验单次观察入口准备完成，待新费用及时窗）
 
 用户已审核候选9de184d7。[新协议](benchmarks/preregistrations/cpp-build-libffi-macro-experience-flash-v1.md)及`scripts/forge_libffi_macro_experience.py`固定候选/纯追加关系，仅恢复阶段采用已验证宏→文件→包经验；明确包含libltdl-dev关联，非无答案诊断。P0、模型、工具、Workflow、任务额度及验收沿用。
 

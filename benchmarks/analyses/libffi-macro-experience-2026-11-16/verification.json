@@ -1,0 +1,73 @@
+{
+  "prompt_receipts": [
+    {
+      "request": 1,
+      "experience_present": false
+    },
+    {
+      "request": 2,
+      "experience_present": false
+    },
+    {
+      "request": 3,
+      "experience_present": false
+    },
+    {
+      "request": 4,
+      "experience_present": false
+    },
+    {
+      "request": 5,
+      "experience_present": false
+    },
+    {
+      "request": 6,
+      "experience_present": false
+    },
+    {
+      "request": 7,
+      "experience_present": false
+    },
+    {
+      "request": 8,
+      "experience_present": false
+    },
+    {
+      "request": 9,
+      "experience_present": false
+    },
+    {
+      "request": 10,
+      "experience_present": true
+    },
+    {
+      "request": 11,
+      "experience_present": true
+    }
+  ],
+  "source_snapshot_files": 85,
+  "source_snapshot_hashes_valid": true,
+  "original_inputs_unchanged": true,
+  "added_files": 186,
+  "custom_macro_files": [],
+  "container_absence_checks": [
+    {
+      "reference": "deerflow-compile-simple-s-6502a01a",
+      "exists": false
+    },
+    {
+      "reference": "d2152f4f886eef2623dc0274372c07d6543507ad9674d3fe1cb7911745013fba",
+      "exists": false
+    },
+    {
+      "reference": "deerflow-replay-simple-s-6502a01a-replay_945a5",
+      "exists": false
+    },
+    {
+      "reference": "441c53adc953d41a1b4cc7872567502a2b020c3b3ec2af801ae2d4bfb31659df",
+      "exists": false
+    }
+  ],
+  "cost_recalculation_valid": true,
+  "inventory_sha256": "4c21279adadf9be149585ae98334f8c1f847a6f062bbabb6d6593414672e2fbf"
+}
