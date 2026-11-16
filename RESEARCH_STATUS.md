@@ -3,7 +3,13 @@
 论文选材固定入口：[硕士论文实验与证据索引](docs/research/THESIS_EVIDENCE_INDEX.md)，[历史材料目录](docs/research/THESIS_EVIDENCE_CATALOG.md)保留存量导航。当前完整稿为[论文v0.11工具Harness结果修订稿](docs/thesis/README.md)；E50–E52保存主构建系统及两轮Harness结果，既有完整任务、状态/恢复消融和两层经验继续按各自版本与分母使用。
 
 
-## 当前阶段（2026-11-16；#768后验审查下libffi自主观察结束，结果待用户审核）
+## 当前阶段（2026-11-16；#770 libffi两种宏来源的当前平台验证通过）
+
+[结果报告](docs/research/2026-11-16-libffi-functional-comparison.md)：同源码/镜像、相同文档开关的真实libltdl-dev宏与上一Agent宏各新建一次。40有效配置宏、公开头文件、42共享导出及静态全局符号一致；真实检测结果no，恰与固定值相同。整数/浮点/结构体/变参/closure五场景在两新路径及上一实际交付的静态/动态库共6程序全部通过。当前固定Linux x86_64主要库构建可以认定成功，不因未找到指定包名而判失败。
+
+0Provider/Token/费用，53.57秒，无意外失败或重试，两容器清理确认；原件forge-libffi-functional-comparison-2026-11-16-v1，inventoryd70334fb。旧产物副本SHA匹配，旧原件/source_review保持，由本次新增后验评估说明成功范围。不是全ABI/跨平台等价，不增加E57独立分母、不自动入论文；诊断错误与非最优修复仍保留。下一步用户审核通用依赖提供者诊断的补强；本轮不改Agent或启动付费比较。
+
+## 上一阶段（2026-11-16；#768后验审查下libffi自主观察结束，结果待用户审核）
 
 [结果报告](docs/research/2026-11-16-libffi-posthoc-review-autonomous.md)：主库/交付/原归档实际干净重建/清理均通过，31请求、408399Token、0.1493766美元、246.06秒，未知0。P0工具约束＋R2通用诊断＋恢复查询，未给答案或旧经验，3次恢复。454原输入内容/权限/链接未变，189新增；但Agent自建宏最终固定下划线检测值no，未找对真实开发包。source_unchanged=true不代表语义等价，source_review=pending_review，不批准为已验证经验；本轮无经验库。
 

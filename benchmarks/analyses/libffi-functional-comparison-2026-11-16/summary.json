@@ -1,0 +1,31 @@
+{
+  "identity": "cpp-build-libffi-functional-comparison-v1",
+  "provider_calls": 0,
+  "cost_usd": 0,
+  "status": "completed",
+  "seconds": 53.569047923898324,
+  "configuration_defines_equal": true,
+  "only_real_defines": [],
+  "only_agent_defines": [],
+  "public_headers_equal": true,
+  "shared_export_symbols_equal": true,
+  "static_global_symbols_equal": true,
+  "shared_export_count": 42,
+  "functional_scenarios_per_binary": 5,
+  "tested_binaries": 6,
+  "functional_outputs_equal": true,
+  "observed_artifacts_tested": true,
+  "cleanup": [
+    {
+      "container_id": "e69b1f6ea8e4db51a69dc714cebff6be6a9b4d4adc4e5a8fefce7c304d825273",
+      "container_name": "forge-libffi-functional-real-dependency-1794814045",
+      "absent": true
+    },
+    {
+      "container_id": "caeb443718d06ad3697a3303df2af54ce3b495635ab84d882abda8e884d22e27",
+      "container_name": "forge-libffi-functional-agent-macro-1794814075",
+      "absent": true
+    }
+  ],
+  "boundary": "当前固定Linux x86_64案例验证，非全功能/跨平台等价证明；不回写旧观察或增加项目分母"
+}
