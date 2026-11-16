@@ -1,5 +1,8 @@
 # 历史研究材料目录
 
+libffi后验审查自主观察（#768，待审、未入论文）：[报告](2026-11-16-libffi-posthoc-review-autonomous.md)，身份`cpp-build-libffi-posthoc-review-flash-v1`，同已暴露项目一次，非新增独立分母。主库/交付/实际重建/清理通过，31请求/0.1493766美元/246.06秒；原输入未变但新增兼容宏固定检测值，语义审查待定，不批准经验。只作流程与诊断案例，不替换旧失败或宣称泛化降本；原件及inventory95fd3887见报告。
+
+
 E57独立诊断案例后续（同项目、未入论文）：[容器查询工具下libffi自主观察](2026-11-16-libffi-environment-tools-autonomous.md)。身份`cpp-build-libffi-environment-tools-flash-v1`，1次，54请求/0.2957706美元/497.67秒；36真实查询仍未定位开发包，源码安装旧Libtool后原辅助脚本变化触发保护，主构建/交付/重建未观察、总任务未完成。费用低不能当同等完成降本。原件、分析及inventory77569aef见报告；不回填E57或增加独立项目分母。
 
 
