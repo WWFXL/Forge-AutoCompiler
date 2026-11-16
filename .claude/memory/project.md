@@ -633,6 +633,10 @@
   - 下一步: 等待实验负责人确认当前网络接入介质，并决定是否授权只读 endpoint 诊断和新的 canary amendment；获得确认后必须另建中文 Issue/PR 和协议 identity，保留当前失败 marker。
 
 ## 最近变更 (Recent Changes)
+- 2026-11-16 — #799准备规划依赖真实模型单次观察入口，待新授权。
+  - 文件: `scripts/forge_libffi_planning_dependency.py`, `backend/tests/test_libffi_planning_dependency_entry.py`, `benchmarks/preregistrations/cpp-build-libffi-planning-dependency-flash-v1.md`
+  - 动机: 观察真实Flash能否在规划中识别并生成必要依赖安装步骤，而非等到恢复。仅开启规划检查，恢复沿用审核经验；6检查/默认材料CLI/Ruff/格式通过，0Provider/凭据/费用，不重复工程构建。拟1美元/1小时一次尚待授权，无自动重试；不改论文/旧证据。当前阶段以RESEARCH_STATUS.md为准。
+
 - 2026-11-16 — #797将实际容器依赖查询接入初始规划，安装仍由Workflow执行。
   - 文件: `backend/packages/harness/deerflow/compile/planning_environment.py`, `simple_build_task.py`, `recovery_environment.py`, `scripts/forge_simple_system.py`, `scripts/forge_planning_dependency_check.py`, `docs/research/2026-11-16-planning-dependency-check.md`。
   - 验证: 26相关检查/Ruff，零Provider真实libffi三查询→补包→原构建/交付/干净重建/清理通过，56.03秒无恢复；76源码快照及四容器核验通过，inventory0ed19e2f。
