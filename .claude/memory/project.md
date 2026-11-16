@@ -633,6 +633,12 @@
   - 下一步: 等待实验负责人确认当前网络接入介质，并决定是否授权只读 endpoint 诊断和新的 canary amendment；获得确认后必须另建中文 Issue/PR 和协议 identity，保留当前失败 marker。
 
 ## 最近变更 (Recent Changes)
+
+- 2026-11-17 — #815完成E58四项目失败归因、共同清理修复及真实构建/原归档干净重建；工程阶段结束，0Provider/费用。
+  - 文件: `backend/packages/harness/deerflow/compile/generated_inputs.py`, `simple_build_runtime.py`, `operations.py`, `scripts/forge_e58_failure_repair.py`, `docs/research/2026-11-17-e58-failure-repair.md`。
+  - 动机: 三项原构建成功但独立参考不匹配；libtasn1补包方案被175KB清理脚本误命中/repro阻断。改为执行侧带摘要原输入清单，清理命令859字节，重建同样初始化；普通reproducers路径允许、真实/repro限制保留。
+  - 验证: 57项针对检查及Ruff/格式通过；smenu/quickjs/zstd取新工程v1成功路径，libtasn1在v3复现缺gtkdocize及corpus2array配置头错误后，两次预写恢复最终默认make/交付/实际重建通过。四项原输入未变，20容器引用不存在；v1负面及v2误启动中断保留，不回填E58/论文或称Agent新成功率。
+  - 下一步: 统一修复基座和正确参考后集中比较；新Harness先审核，付费运行另绑定身份和有效授权。本轮未启动Provider。
 - 2026-11-17 — 将用户批准的E58全18项目结果与上下文、libffi机制写入论文v0.12。
   - 文件: `docs/thesis/chapters/`, `docs/thesis/EVIDENCE_MAP.md`, `docs/research/2026-11-17-thesis-harness-update-revision.md`, `RESEARCH_STATUS.md`
   - 动机: 沿状态执行→轨迹诊断→Harness更新→完整成本论证；容量为E58共同底座，libffi开发案例不增分母，保留全部失败。实际Word导出785段/64表/12图，数据/表号/文件链接核对；仅Word无PDF/HTML，0Provider/新实验，不自动切换默认。发布见Issue813关联PR/CI。

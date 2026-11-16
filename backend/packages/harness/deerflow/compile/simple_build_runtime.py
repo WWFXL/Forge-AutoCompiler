@@ -14,6 +14,7 @@ from dataclasses import asdict
 from pathlib import Path, PurePosixPath
 
 from deerflow.compile import operations
+from deerflow.compile.generated_inputs import reset_script, write_manifest
 from deerflow.compile.plan_workflow import PlanContractError, PlanStep, PlanWorkflow, _digest
 from deerflow.compile.schemas import BuildCommandRecord, CommandResult, utc_now_iso
 from deerflow.compile.simple_author_tests import resolve_author_tests
@@ -195,7 +196,7 @@ def validate_phase_command(step):
     """只把有明确作用域的make clean/distclean当阶段前置，保留其他阶段限制。"""
     from deerflow.tools.bound_compile_tools import _disables_strict_shell
 
-    if _disables_strict_shell(step.command) or "/repro" in step.command:
+    if _disables_strict_shell(step.command) or re.search(r"/repro(?=$|[/\s\"'`;|&()<>])", step.command):
         raise PlanContractError("不能关闭严格Shell或访问/repro")
     for segment in operations._shell_command_segments(step.command):
         invocation = operations._command_invocation(segment)
@@ -224,23 +225,7 @@ def validate_phase_command(step):
 
 def generated_reset_step(baseline):
     """只清理本次源码树新增文件，不删除/重写原文件；同一显式动作进入重放。"""
-    protected = sorted(baseline)
-    script = """import os,pathlib
-root=pathlib.Path('/workspace/repo')
-protected=set(PROTECTED)
-for directory,dirs,files in os.walk(root,topdown=False,followlinks=False):
- p=pathlib.Path(directory)
- if '.git' in p.relative_to(root).parts: continue
- for name in files:
-  f=p/name; rel=f.relative_to(root).as_posix()
-  if rel not in protected: f.unlink()
- for name in dirs:
-  d=p/name; rel=d.relative_to(root).as_posix()
-  if name=='.git' or rel in protected: continue
-  if d.is_symlink(): d.unlink()
-  elif not any(d.iterdir()): d.rmdir()
-print('FORGE_GENERATED_RESET')
-""".replace("PROTECTED", repr(protected))
+    script = reset_script(baseline)
     return PlanStep(
         step_id="forge-generated-reset", role="configure", command="python3 - <<'FORGE_RESET_PY'\n" + script + "\nFORGE_RESET_PY", source="系统：依赖/配置变化后清理原输入集合以外的生成文件", expected="物理清理与逻辑后缀失效分别记录"
     )
@@ -307,6 +292,7 @@ class SimpleBuildWorkflow(PlanWorkflow):
         self.meter = meter
         self.root = Path(kwargs["session"].leadagent_repo_dir).resolve()
         self.baseline = source_inventory(self.root)
+        write_manifest(self.root, self.baseline)
         self.dependency_outputs = {}
         self.po_headers = {}
         for name in self.baseline:
