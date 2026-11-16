@@ -634,6 +634,12 @@
 
 ## 最近变更 (Recent Changes)
 
+- 2026-11-16 — 完成#760恢复Agent容器搜索与依赖环境查询修复。
+  - 文件: `compile/recovery_environment.py`, `compile/simple_build_task.py`, `compile/simple_planning_context.py`, `scripts/forge_simple_system.py`, `scripts/forge_recovery_environment_repair.py`, `docs/research/2026-11-16-recovery-environment-tools.md`。
+  - 动机: 旧恢复只有源码/日志读取，新增实际包状态/路径与有界搜索，修复仍走方案→Workflow。
+  - 验证: 207相关检查及Ruff通过；两条0Provider真实libffi路径原失败→7查询→预写补包→主构建/交付/实际重建/源码保护/清理通过。最终P0＋原R2路径75.12秒、摘要e8d546c6；首版76.08秒保留，各4容器引用不存在。apt-file不可用明确返回。
+  - 边界: 不提供自主效率新证据、不改旧实验或论文；付费观察需新授权。隔离根目录用户改动，目标科研分支yiwei/534-rq3-natural-failures，发布以关联PR/三CI/merge为准。
+
 - 2026-11-16 — 完成#758通用诊断提示下libffi单次真实观察，停止追加实验。
   - 文件: `docs/research/2026-11-16-libffi-dependency-guidance.md`, `benchmarks/analyses/libffi-dependency-guidance-2026-11-16/`, `RESEARCH_STATUS.md`。
   - 结果: 主构建/交付/实际重建/源码保护/清理通过；67请求、953752Token、0.3904869美元、864.48秒。源码安装真实Libtool与texinfo，无伪造宏；未找对libltdl-dev，恢复重复读取与生成文件重置问题保留。单次1美元/1小时已闭合，旧E57/论文不改；无活动Provider。原件inventory d61a3290，发布以PR759为准。

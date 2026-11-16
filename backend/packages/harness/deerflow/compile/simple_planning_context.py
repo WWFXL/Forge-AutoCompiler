@@ -98,6 +98,15 @@ class PlanningContext:
         self.packet_compactions += 1
 
     def observe(self, name, arguments, content):
+        if name in {"search_build_files", "inspect_build_environment"}:
+            row = json.loads(content)
+            # 新命令ID/日志路径不是新知识，避免重复查询被误计为诊断进展。
+            evidence = {k: v for k, v in row.items() if k not in {"command_id", "log_path"}}
+            key = (name, json.dumps(arguments, sort_keys=True, ensure_ascii=False))
+            digest = hashlib.sha256(json.dumps(evidence, sort_keys=True, ensure_ascii=False).encode()).hexdigest()
+            self.pending_reads.append(self.reads.get(key, {}).get("result_sha256") != digest)
+            self.reads[key] = dict(tool=name, query=arguments, result_sha256=digest)
+            return
         if name not in {"read_source", "list_source", "read_failure_log"}:
             return
         row = json.loads(content)
